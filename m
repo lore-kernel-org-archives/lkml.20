@@ -1,75 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792421679;
-	b=MaiCJHk31qelLoWOB2Aw2/ASeuWCr3CZ1UjzYny+5fSrLlyb0JS7ACFCOJsayQPABHq0
-	 zh3Zj3gC4UNQGEixkHRI4BWUYk8G3h8fKRhcX855GIZgYFtD+r/QKLohf7wAApV+MyB1T
-	 mNm+6KOCR0k5W+dAmiTVNEXzgftX1INkI0xPrjyrtjcsamlSj0YpX6rbY9OrP8rSAGIVy
-	 +2tnQVBVOwyexC0Ed7OB8HqDjIyN8lG4mkk8v3q2PWOzQQiDAZAGqsPOzzA1DfiYMVxGU
-	 tkk7GtcUD+awCsjtcPoOSN+ppVNU3+79kB4A2j2mfn8DuIZ489PKAxmbjuWzfyIzong==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421679;
-	h=Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
-	 DKIM-Signature;
-	bh=xOumFf8QovRxhD1eGGAGpu54ZcAWxs2MC729deNVVtU=;
-	b=thwH2cU7nru2ffU3oRM7PXzzqWG/+ayt30SvqaBjO/reOJGQsoB7ZvYvuhPqD07AE0yY
-	 WEZ85qjQ0P8HisRPcj7IVJpWV/DM8VfKd/BqVYF05q/Q/74yyyW7cyT8KGNeawXrjES2S
-	 Hixh3xwgDg4g4NojoS3o0/vkGjIofcbcTKcO1/hV+69iGUJowEgVia13WzWbUQqzHVnwW
-	 40uqetPfwNf1SzaAhxN4w5KO8NfN7Na7d0rYHXCdfDnFDxFQAdihxyzNrT6nqcsLGUDTy
-	 lyxKaMVm+Aeb1j0ojmEToCeiMvvh8ZO52l7scX+OqTbSnUUUF9DQA+QZcJRpLrkNHWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=G34Zwobk;
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2C40606DA77
-	for <linux-kernel.vger.kernel.org@localhost.mlmmj>; Mon, 19 Oct 2026 14:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=G34Zwobk
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792423800;
+	b=JlgFqLef7UP2AqRaAlSWQcRtb4WMO4/eghyYSN3I8arly4iwdEisAlHDw51R5OsDCWAs
+	 rpn0ELy+LfIf2s3b1TDHpHPcu8+gSwDeYJczuYGQ2Uu5o06iVebY0MWl8lzu9nqX/Ik6n
+	 K6/0nvrZyVhVEoY2JqVIj+TCJpXfznq0EM2LXulGfVCPqFnFwNBY6ZGniR3WAmKLVgON+
+	 7l6HLDTvDaDrmsqkteCVPy5gHJNBwA8PuHtPQ69dGZaa20ldRrVVdAxIc18TcdEfOTwGH
+	 pmC9ZSfUsuNHuWLaQjO6pSrHcEzz0j7eisvAxHGaTuIm07Svfdx6Dl6hY96rQr2TZFw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792423800;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=0Ox1Ujdl0kmFVWRH+4ko0JaFVUrXfqFPovWffpVTDCo=;
+	b=NdFLwFHT4BcknExBX7g3nsoZi8N9hAMo+vUWRUy4iHUgXKn2LWhLS3pearQci/owrqG2
+	 pM/2VmaUUtEjbI9NKQ81LaIfqL78L/4RNrjgOVOlY0x5aDFxwqxhdn8F0uzRnsYZG5Vf3
+	 XxBUUTcgxzoZEHrwwzZr0yaF/xwNY5q4ch22DRYDcLcLYhj4DQ6QZP4W6yJv6oCwBTn0s
+	 vCbWc78qxLvrg0fDfqc5/zUt+3qmSRpPE1+ilri6oiy6Aj9sm6S6vErIa2i8f5k/whBQQ
+	 haZKrdV7AIJlFb94f789vQMo3Bng0m22hGueNIgmne0lJ+oBHicn4jxiv8R0J+UPRQw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OODeuySA;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16554C4613
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:54:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.172.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421678; cv=none; b=lgikfT6EbBVKOUslH+dlp+gnpuNcZWUQlvMdqYCsDRV+0o/FW+wFpRZ7EfurpuTzR7Zg5DXtYSknGSP+HQY8l1zjsI7aUGCDmjkJCpJkjIPGLj7SW9nQnn89HIVhXjB45+QsPOT4gTEEBGY0By+DptNmE75YAipoQXj1bazH9FA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421678; c=relaxed/simple;
-	bh=Hipy/KE3TsEelU94kP3nCg+Z58+mCcvF4l6Qeuvkmms=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EO09gdI20sJDNtCctVxH1mNhisFEfbMIiM+2Z2vOGNSsL957hM7Vhd+jaZ6JOegCt8dTEs/SYnikEzDaBHf5E6MnUPLAuqjwJqjVT/wTtUeNVfy0oAwiqRPORALAxQUTkC9YQ61dWO7p5VhJrxCyXvqV9hsdOfG4rcpe3diY4vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl; spf=pass smtp.mailfrom=lausen.nl; dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b=G34Zwobk; arc=none smtp.client-ip=95.143.172.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 3EC4D6114E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:54:35 +0200 (CEST)
-Received: (qmail 28350 invoked by uid 990); 19 Oct 2026 14:54:35 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 19 Oct 2026 16:54:34 +0200
-From: Leonard Lausen <leonard@lausen.nl>
-To: linux-acpi@vger.kernel.org,
-	"Rafael J. Wysocki" <rafael@kernel.org>
-Cc: leonard@lausen.nl,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	acpica-devel@lists.linux.dev,
-	Len Brown <lenb@kernel.org>,
-	Armin Wolf <W_Armin@gmx.de>,
-	Ivan Hu <ivan.hu@canonical.com>,
-	Joshua Grisham <josh@joshuagrisham.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] ACPICA: Initialize ParserState.AmlEnd in AcpiInstallMethod
-Date: Mon, 19 Oct 2026 16:54:17 +0200
-Message-ID: <20261019145421.47181-2-leonard@lausen.nl>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019145421.47181-1-leonard@lausen.nl>
-References: <20261019145421.47181-1-leonard@lausen.nl>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2918560AA0E5;
+	Mon, 19 Oct 2026 15:29:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2918560AA0E5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OODeuySA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792423799; x=1823959799;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=4HUTwF3X/nk9CqMhpUFjBBN8tlgbBBBRcj4Saukig+c=;
+  b=OODeuySAyMCDN6xG60T6ucP5udB2u4DtCjWybqCn5bhMuAH7jWsZjary
+   /j8ntOlMzI7+7M1qAl9xFrXWFR19YYhdXC/DCydAh6tzHUJShjAh9kx7W
+   ccTAAvZi913kyMSyYuaXlVbXaGbzfXHYaKUMKDAePZuwdQVWwVWKR4UgW
+   yS11ygp4vlgaM94zlMcgQT+wUZk6ExwSZU4l60VcgkPBooZSqpFdJOgc1
+   GNNyQwaKrCWd9tmdTlSEhRNJfDOp5Y8Qkug0UvBwWNI3CMhYqzMYD23Ns
+   0DHVipGBTcQaXmgC+hEDIhUinEf+I9ZAh/DL9RoyeK3px3ktlBYE7Ii5q
+   A==;
+X-CSE-ConnectionGUID: fvbJsdvuTZOnYO0wgLUkyQ==
+X-CSE-MsgGUID: NJKXbFNWSeqyxIWoNiAnOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1135097"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1135097"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:29:58 -0700
+X-CSE-ConnectionGUID: hStl7rhfQ/uTrFFTcemNAg==
+X-CSE-MsgGUID: WyuNNWzgTFuNBVqI/0Qigw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2985550"
+Received: from gabaabhi-mobl2.amr.corp.intel.com (HELO [10.125.111.28]) ([10.125.111.28])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:29:58 -0700
+Message-ID: <10926256-ce32-4403-9f45-84f42fefe29c@intel.com>
+Date: Mon, 19 Oct 2026 08:29:57 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,72 +72,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: -----
-X-Rspamd-Report: REPLY(-4) BAYES_HAM(-2.97699) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -5.57699
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=Hipy/KE3TsEelU94kP3nCg+Z58+mCcvF4l6Qeuvkmms=;
-	b=G34Zwobk7+jTQBscFXiVl0wGO6Tg694XtvV7EdCgNByMswpXAAHkC/NWoS2OHCCmmc4Wx9aC08
-	f9GuU5l6gfqtWFwQ/elECYEZhu1HPdedLFG/2IeOv0gmoTaz/n76FjaNvQbblViulMw+UOVgzcRz
-	20ndPfGyGVhYSuYRc/QmLtVRwr3ZZZnSYHsjedOTyC6LnyUu5eEtkWtSEND+7ZOe+omi6z7KIooQ
-	wroZrKtbzgISr/hCm7jRhUhIV1R9KfsO16VzW69N48yJlIkCWuM/61tte2qrzzEdkVtoxDwurYok
-	w1alnWRJN1rAqFA3JJGyzK5G5CgpoTMugQnarBVGA+uIdYlKL1K6Uz2LqiFxAZtgw0IcruSiW669
-	4An0xXHOJb8/W9hTbNYzlNCNLuLfdaKUstzBI03uSKQJ3Y+XSMw1Hd/2/vPnjLmbOQQNZpGfTrrh
-	s+qkcFWI9mIqZmk9Smxjc578MaAHK2c5ikFCUhmEuQa1YXVZsX52pNCHvz8SMwGX47oWWhXmJl6F
-	uf3WoBUzgjhXqt1pdehm0q0TyAZVuZaexC/4VZq/idZ7tcvgH1TLaIH/HsfyYoR0495PxzyyvTrE
-	9oep4yW+QlozYICzBmA84E4GO20dkv9dJQSw2kE+56GZ3Ra8XLmUnHkcch3gSOxSi/Guu6+KbAAm
-	8=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] lib/firmware_table: validate subtable bounds
+To: Andrew Morton <akpm@linux-foundation.org>, Jiale Yao <yaojiale02@163.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org
+References: <20261016144154.2818962-1-yaojiale02@163.com>
+ <20261016161547.bc418897d11f3f19924065b4@linux-foundation.org>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261016161547.bc418897d11f3f19924065b4@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Ivan Hu <ivan.hu@canonical.com>
 
-In AcpiInstallMethod(), the local ParserState is stack-allocated and
-only ParserState.Aml was initialized. Parser helpers called by this path
-read ParserState.AmlEnd for bounds checking: AcpiPsPeekOpcode() reads it
-before validating the first AML opcode, and AcpiPsGetNextPackageEnd()
-reads it indirectly via AcpiPsGetNextPackageLength(). The subsequent
-package-limit check also compares against ParserState.AmlEnd. Because
-AmlEnd was never set, these checks operated on an uninitialized value,
-which Coverity flagged as an uninitialized read (CID 1684785) and which
-could lead to incorrect parser bounds decisions.
 
-Coverity report:
+On 10/16/26 4:15 PM, Andrew Morton wrote:
+> On Fri, 16 Oct 2026 22:41:54 +0800 Jiale Yao <yaojiale02@163.com> wrote:
+> 
+>> The generic firmware table walker dispatches matching entries after only
+>> checking that a generic subtable header is present. A record whose
+>> declared length is shorter than its header or extends past the table can
+>> therefore reach a handler before its bounds have been established.
+>>
+>> Validate the complete generic header and the declared record range
+>> before looking up or invoking a handler. This also rejects zero-length
+>> records and prevents malformed lengths from advancing the cursor outside
+>> the table.
+> 
+> Thanks.
+> 
+> get_maintainer is quite unreliable with lib/ files.  Please always use
+> git-blame when determining who should be cc'ed.
+> 
+> Dave, can you please take a look?
+> 
+>> --- a/lib/fw_table.c
+>> +++ b/lib/fw_table.c
+>> @@ -172,7 +172,20 @@ acpi_parse_entries_array(char *id, unsigned long table_size,
+>>  	    ((unsigned long)table_header + table_size);
+>>  	subtable_len = acpi_get_subtable_header_length(&entry);
+>>  
+>> -	while (((unsigned long)entry.hdr) + subtable_len < table_end) {
+>> +	while ((unsigned long)entry.hdr < table_end) {
+>> +		if (table_end - (unsigned long)entry.hdr < subtable_len) {
+>> +			pr_err("[%4.4s] Invalid subtable header\n", id);
+>> +			return -EINVAL;
+>> +		}
+>> +
+>> +		entry_len = acpi_get_entry_length(&entry);
+>> +		if (entry_len < subtable_len ||
+>> +		    entry_len > table_end - (unsigned long)entry.hdr) {
+>> +			pr_err("[%4.4s:0x%02lx] Invalid length %lu\n", id,
+>> +			       acpi_get_entry_type(&entry), entry_len);
+>> +			return -EINVAL;
+>> +		}
+>> +
+>>  		for (i = 0; i < proc_num; i++) {
+>>  			if (acpi_get_entry_type(&entry) != proc[i].id)
+>>  				continue;
+>> @@ -186,16 +199,6 @@ acpi_parse_entries_array(char *id, unsigned long table_size,
+>>  			break;
+>>  		}
+>>  
+>> -		/*
+>> -		 * If entry->length is 0, break from this loop to avoid
+>> -		 * infinite loop.
+>> -		 */
+>> -		entry_len = acpi_get_entry_length(&entry);
+>> -		if (entry_len == 0) {
+>> -			pr_err("[%4.4s:0x%02x] Invalid zero length\n", id, proc->id);
+>> -			return -EINVAL;
+>> -		}
+>> -
+>>  		entry.hdr = (union acpi_subtable_headers *)
+>>  		    ((unsigned long)entry.hdr + entry_len);
+>>  	}
+>> -- 
+>> 2.34.1
 
-*** CID 1684785:         Memory - illegal accesses  (UNINIT)
-/src/acpica/source/components/namespace/nsxfname.c: 712             in AcpiInstallMethod()
-        ParserState.Aml += AcpiPsGetOpcodeSize (Opcode);
->>>     CID 1684785:         Memory - illegal accesses  (UNINIT)
->>>     Using uninitialized value "ParserState.AmlEnd" when calling
-        "AcpiPsGetNextPackageEnd".
-        ParserState.PkgEnd = AcpiPsGetNextPackageEnd (&ParserState);
+Can this turn a previously accepted table into a fatal parse error? My
+main concern is breaking previously tolerated behavior and we end up
+breaking deployed systems. Given this code has been around a long time.
+Maybe Rafael or Len can comment.
 
-Initialize ParserState.AmlEnd to the end of the table
-(Buffer + Table->Length) so the parser bounds checks operate on a valid
-limit.
+The old loop stopped quietly when subtable_len or fewer bytes remained
+after the last entry. Here subtable_len is sizeof() the subtable header
+structure, 2 bytes for MADT or 4 for CDAT, not the entry's length field.
 
-Link: https://github.com/open-acpica/acpica/commit/19429ef91ebfb2144c918038dce13e297b4ef051
-Fixes: bdc357540129 ("ACPICA: add boundary checks in two places")
-Signed-off-by: Ivan Hu <ivan.hu@canonical.com>
-Signed-off-by: Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>
-Signed-off-by: Leonard Lausen <leonard@lausen.nl>
----
- drivers/acpi/acpica/nsxfname.c | 1 +
- 1 file changed, 1 insertion(+)
+Now fewer than subtable_len leftover bytes return -EINVAL. Exactly
+subtable_len leftover bytes are read as a header, and fail the entry_len
+check below unless they happen to hold a valid one. A table with a few
+bytes of padding after the last entry now fails the whole parse.
 
-diff --git a/drivers/acpi/acpica/nsxfname.c b/drivers/acpi/acpica/nsxfname.c
-index b6534187cd43..fcd94947fedb 100644
---- a/drivers/acpi/acpica/nsxfname.c
-+++ b/drivers/acpi/acpica/nsxfname.c
-@@ -503,6 +503,7 @@ acpi_status acpi_install_method(u8 *buffer)
- 	/* First AML opcode in the table must be a control method */
- 
- 	parser_state.aml = buffer + sizeof(struct acpi_table_header);
-+	parser_state.aml_end = buffer + table->length;
- 	opcode = acpi_ps_peek_opcode(&parser_state);
- 	if (opcode != AML_METHOD_OP) {
- 		return (AE_BAD_PARAMETER);
--- 
-2.55.0
+On x86 that error is not contained to one entry type:
 
+early_acpi_process_madt()
+  early_acpi_parse_madt_lapic_addr_ovr()
+    acpi_table_parse_madt(ACPI_MADT_TYPE_LOCAL_APIC_OVERRIDE, ...)
+      -> -EINVAL
+
+	if (error == -EINVAL) {
+		...
+		pr_err("Invalid BIOS MADT, disabling ACPI\n");
+		disable_acpi();
+	}
+
+Would it be safer to keep tolerating leftover bytes too small to hold a
+subtable header, and reject only entries whose declared length is
+invalid? The loop condition can end the walk in that case without a
+separate check:
+
+	while ((unsigned long)entry.hdr + subtable_len <= table_end) {
+		entry_len = acpi_get_entry_length(&entry);
+		if (entry_len < subtable_len ||
+		    entry_len > table_end - (unsigned long)entry.hdr) {
+			...
+			return -EINVAL;
+		}
