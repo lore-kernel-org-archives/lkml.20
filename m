@@ -1,59 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792428281;
-	b=iWLmcz5ornypCRTLuzORfNg1Q0/+HKTA9iMdOc8xKWUVKSIjHxWdgPCNd4fSrc0qLPIC
-	 3+YMBEANougTMJvAMqOoSQTZZTBrH0pe7oHx1nm22BZ+/R0fi2Z2+H1PvmTwYxZBQAfbv
-	 7LnC/uPXbDPWadfM0Pjw99nu44KARH19IvSS89ImtRMaQxQYJjzGZb++5iJ8FC8ihukzK
-	 GaYVP5Gslz0k6mPm33ml4xFOtUT7pvCj7RUTL+8xTC/wTlpdID7htA2IsAeeytwtLxPOr
-	 9av6IAKaJl69rIZ+Afz1Y/Lx9gxOpZadNzV0N1W8G+vZH7Xod9vBqh7UjbN3AtDB/Gw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428281;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=KAotcb89D4hecifdLk1/qMYE4+oOkQbgn1TxucAlack=;
-	b=ylVmHiVjUv5PkQUrtUKgoL/wPDVRPxirOB3aromupajv/7V2Dq0lD0PxMtVJKoQzpT50
-	 KQTl4q2ASjMAXNVYMODsAIuCGW/ORwpM+baXELToqgw0qJ+SgYamwc3GdvLUOS2FEtqw3
-	 CzWIYGftZ2zXN/48fH0UNQqZqUR5cxFWyCT+hJ1HKlS0GXnZLW1YpuLMdYbukRKcagOLz
-	 UW9hJ7psFKK6zqINJqqAEVYgzlVNfwevMjPM3mmcZbahe0A4zuBECz2hTOSZxjy+b+WO5
-	 gGa9rYRvN0vuz4pHcf+7z79H1eTbxEZ4c4JWKJoeaILG+/W/ktmHNd7rSDTST6Tmgog==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TyZTK/Nj";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.31
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792428286;
+	b=gmSHOF7jL3hjr3P7Xu/PL1aBYtVCdqlruI2pgshx2/eue+mxngjnXeigWnQc3Bsa7KGw
+	 6JPpMCYkaIngC6SCJV3GH6XxnBYKLAslnxA62Co+I5mRNfmcMeoTplulwqeKNMJZyBgkL
+	 EMUGI3awUZSa53AQoJ1m67IM+QXPbQk4d0jfUDvuzvSBtPjLAeVUZhRGDRWNeEJTIrynk
+	 lkHcxvr3pO6Ezd7YIEA1Cjq95ufsSBhYA+TanmaStpRqs7Wc5xjku1ghF3zv3UWA1CdHG
+	 ijKOR6HpLq3RuJV9XyJemPG/7uNKnn4FD2AqVAWJ28dMUFwf1nnyBVwuEXDUEhBMYdQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428286;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=PAv2C5jbUFRj2qr2qF5L3NjdXGU3iGt2kdM76KAKBpA=;
+	b=c33hWcikXFsvVNQ5jB8eBP+A4Pw79sJDgaiLTpenfN0NNSXHfqlPyXJS5MphltGDPXm9
+	 cpP9IXlt4N0akWbN+H5lbYQF6ambZmTEoG5IfsjWpMGJMk8NVaQCOkB5X2KzgTQxrAFGn
+	 fCsVdinJMjfdvfOuTGRlojwj8KVg7tYbmcueG4CK07RWzTGfSKf4cf/lOY8zjIbNzp2dV
+	 QEIk6MBXVMnPZBari0uHEAy88+ByNracFkyKuCGp4JoB0tbufB4BsDf21+sSMtEAya6QP
+	 FnL/bszSj/ssErGC3jEl/eR9yy7DdY4B5MH6tlczB6LNZJ7ZXzqC7hCXnidntptRGig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=i30Qf4F0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.31
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010031.outbound.protection.outlook.com [52.101.61.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97F2606A320;
-	Mon, 19 Oct 2026 16:44:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6F9606A325;
+	Mon, 19 Oct 2026 16:44:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F6F9606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TyZTK/Nj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EDB61F000C4;
-	Mon, 19 Oct 2026 16:44:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792428280;
-	bh=KAotcb89D4hecifdLk1/qMYE4+oOkQbgn1TxucAlack=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=TyZTK/Nj7KAGHnYmed9f1KZ9jupGg8uUu/Gpaem5iBmpngGRyl9E8i6WsX3dRN4EP
-	 az2321s1aEjcmdiDunDjk6AIXq4PWvzVlNOCol5pg/kyP+LjUmcmqyElv6WW+zGIyq
-	 Od4ZjhdPu3GjMdcIxcY92CAG+oGTAIN1nt1NEQNYX6dupFv9t368CCOq/6LqI5iqB2
-	 E6lRa2SSfTzssQsS6apsAXAWGl+5GCtjvedUM/2eDN0CocQtk+8Siq1ZDxwmnGyePh
-	 u24TRF6Ahy0SYfxxBXs0p8VVV1JfTriBoDuw8mrBqgoEtE7Ttlqr8Tbx7H9xOfQDm4
-	 WDrIhXQoWB6WA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 4222FCE09FC; Mon, 19 Oct 2026 09:44:40 -0700 (PDT)
-Date: Mon, 19 Oct 2026 09:44:40 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Zqiang <qiang.zhang@linux.dev>
-Cc: frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
-	urezki@gmail.com, boqun@kernel.org, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] doc: Update recent RCU/SRCU API additions to
- whatisRCU.rst
-Message-ID: <25bb1aa8-7563-4fca-a17b-5a7d168b5c23@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261019122209.15604-1-qiang.zhang@linux.dev>
- <20261019122209.15604-2-qiang.zhang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=i30Qf4F0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oQfAZ4OwuzruXFbCs9OMmK2IrCF0sE1+j3ZCEkfo/QPVHkfXHVsQKUSL34ri4jbFxeH6InYCz/nKIJkiVUpaiqE7hVwTmPIVYNZgG6JDLc03jT+jJoKCzhz3VPMNNMxvV9mUsanWJryGtq8AZCcloZnNU7njr7mrwUKwGPUGvEbIbymVYIu9kUlevz/pBuKIyBnmT3TUdvqdyU/nG3mWXUe8SCqcxjbwvDkOXVRZV7dNyL62jX45a3Wxtf+fSN7QgkDU9eDeq0t3DLN/lS/9A43QitwiDMNLNeJ3BU3/FXmbyl4/xuNbd3d20voAo0OYPwSbUqiVLb+SmSj3Ncu6iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PAv2C5jbUFRj2qr2qF5L3NjdXGU3iGt2kdM76KAKBpA=;
+ b=BjBqDStz9xwMI/jEN2/jYX6ZyG5hiR4pvJ44H35l61d4EXt/arrz4hYwAsxaSpjs/szREtdUfomYCDaZnekiP9dOHhDDthngwwBQ9A1dxxrGExn9NIajXWXhuP9gVbjdxo+2Y4329Wy2Fke6mD8k4ZwOTbGkBDhSoCmAJ8gDoupH45rxXSPulGj2BH+sEruerORudCqAvmgXrR0ARlkZq4oREXYjrvMLxTOLAK+Eh3SP4c/gGWgGyk1iWSBf8b/mFnoQydN7C+3wquRqzYudx2rzkixAF/ivQe3DlDqvqpAxOgAKjhlFKPehDu9sUA0JKVvzvC8qvPmibw0/ypt5dQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PAv2C5jbUFRj2qr2qF5L3NjdXGU3iGt2kdM76KAKBpA=;
+ b=i30Qf4F0uC//lv5cnwzWkrrusBJzGVxLKbYSxAmFMy83/UaINm6gO+I2vjjSXlTjXvblkVRJU6dHvUhf+o/DaVh0Rwery5wnsBOx36z5v4u6ENAYvYdmkN5hUeVSkhBqMccWkmcbnrHxAyASvED5cziBBboMFZau7e7Sx3tYM6fUH0p1SIbXSM0Thpy0d16WRSC1RTBHyToS8BQEl/KFYIxPn8LxUI450A8AfhdefZ7YgqfZluO4+Do9iqCvldg/ubY++LvYcK+TZFs6tf6rzZ6UeOcNRT8jhpS8W/PYTJt6DijOohSf1uSZGfjLlpPRVBe8v72Utdnlkn80kiNOxw==
+Received: from PH8P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::11)
+ by IA1PR12MB7710.namprd12.prod.outlook.com (2603:10b6:208:422::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Mon, 19 Oct
+ 2026 16:43:34 +0000
+Received: from PH2PEPF00048913.namprd05.prod.outlook.com
+ (2603:10b6:510:345:cafe::30) by PH8P220CA0010.outlook.office365.com
+ (2603:10b6:510:345::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.21 via Frontend Transport; Mon,
+ 19 Oct 2026 16:43:34 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ PH2PEPF00048913.mail.protection.outlook.com (10.167.243.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 16:43:33 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 19 Oct
+ 2026 09:43:13 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 19 Oct
+ 2026 09:43:12 -0700
+Received: from build-bwicaksono-noble-20260804.internal (10.127.8.11) by
+ mail.nvidia.com (10.129.68.7) with Microsoft SMTP Server id 15.2.2562.49 via
+ Frontend Transport; Mon, 19 Oct 2026 09:43:12 -0700
+From: Besar Wicaksono <bwicaksono@nvidia.com>
+To: <acme@kernel.org>, <namhyung@kernel.org>, <irogers@google.com>
+CC: <linux-tegra@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<vsethi@nvidia.com>, <rwiley@nvidia.com>, <skelley@nvidia.com>,
+	<mochs@nvidia.com>, <rajjoshi@nvidia.com>, <treding@nvidia.com>,
+	<jonathanh@nvidia.com>, <john.garry@linux.dev>, <will@kernel.org>,
+	<james.clark@linaro.org>, <mike.leach@arm.com>, <leo.yan@linux.dev>,
+	<mark.rutland@arm.com>, <alexander.shishkin@linux.intel.com>,
+	<jolsa@kernel.org>, <adrian.hunter@intel.com>, <ctshao@google.com>, "Besar
+ Wicaksono" <bwicaksono@nvidia.com>
+Subject: [PATCH 0/6] perf jevents: Add NVIDIA Tegra410 uncore PMU events and metrics
+Date: Mon, 19 Oct 2026 16:42:35 +0000
+Message-ID: <20261019164241.403644-1-bwicaksono@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,90 +119,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019122209.15604-2-qiang.zhang@linux.dev>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH2PEPF00048913:EE_|IA1PR12MB7710:EE_
+X-MS-Office365-Filtering-Correlation-Id: cdd2b916-21e0-42ba-c4e4-08df2e001d5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	S0G0+uUcay/Yjgf7e6VoADwFqdxaqbM2gSXg0OFA57hFNFbH8mHDoUHIENJN+t1Q9t0wroW5oNLE7ul2oFt1RvF4IrP6wAgG0YuvSFo4jq3PLa5C9MjlImv+K1kIoYCiNVmBuMFVWw6mqVEjm8zGrQZSNPMKVRk2FtSRJ+OzKALN4B/eJMR+vgHd4g35VtRJUXS494yujuDwp7zu8f8hbDB61MGpBEU8ucX/1riPfdoEcMPsqXR57073zB/MBWboenSubUSoJVZuYxUA6PjzSzeKwUpbltMT2aMIG8RkCVTWqJWT77FwhHPlIemOFiaZNJglJgqA080KueEav2kBXVVXKRQwW8yP7o0B2AqablBdydRcCyjfwr/R6V8tm5FFlKb6qpTu2ps8/sd2s+1AxStv/79MClz3ELDCTx0r17disbUqOeZEMx1BaNrXhXUo5qUyjGysi2fA81mByD0kbepm2tF8Ed11YwtjAuI+9k9jGyKapsVv00J13GniZ41bP9Q5y7It6viE/V1bpDtqjL5cfni+Svt5GWXeleHs2oW1IOTJGnPt4vRuN+CRpplR3AJ7a3HZsUQMhAVD00Sjbn0q7DUvgbOr+j1BmW8gwdd74ZvyoT2bJRZIB65ZnP7wX9YHORs2K0o+pPXa+NOCJJFhf0MBWAFBfbL6LhhL/8CbalCeo+OAfMGsl8h5ApOjCs9KhtzYw11LpK6joGKBNw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	mOo7bpOlTquEXmdcLKT8gStLe63Zdb3mj1+QYoyOfy54oGxt4gmNvlXJWl064oBja69T8r9T4PuqIUPA/x4rOSAqlXI1Yfw9NT2FJS3cKss2qyI13OzYVytM5YzfI/QLwmEJu+46bqHlgHDBO8mcnXbQxi5ED7jeKgtq9H6B0/dxAJIn7z8piri+7YkdwpKVWcgTtVhh7HGD1u8UC/y+8nwo0OvavYSZ/rlin6jm+bsClvzmW7df675vafXPhgcmIAlXNEwzADJNPm4v6+eYuGblQraIZgPnRmQQt+xEw/V0h4U+7iJhQk0B2sYsGShfdA0iRjAgtDIPykJCpEu0yEN7k4BpZzxlf5ij7FRpup8CbxrcmhHie4s3VCFZTnchINZZ/h931Pr5Hur6FjeBitYe/zfmld+od/OEXETHTHmGqZtOYdH5/ZVKtsIurh8P
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:43:33.6673
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdd2b916-21e0-42ba-c4e4-08df2e001d5f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH2PEPF00048913.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7710
 
-On Mon, Oct 19, 2026 at 08:22:09PM +0800, Zqiang wrote:
-> The following commit introduces some new RCU/SRCU APIs:
-> 
-> Commit 'd3f52f53a562 ("srcu: Create an SRCU-fast-updown API")'
-> Commit 'dab06d6f9379 ("srcutree: Add an atomic Tree SRCU")'
-> Commit 'cacadb630375 ("srcu: Add guards for notrace variants of SRCU-fast readers")'
-> Commit 'fa8a2d55139f ("srcu: Add lock guard for srcu_fast_updown flavor")'
-> Commit '954c0d741299 ("srcu: Add guards for SRCU-fast readers")'
-> 
-> This commit therefore update thems and some missing RCU related APIs
-> to whatisRCU.rst.
-> 
-> Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+Add event aliases and derived metrics for the NVIDIA Tegra410 uncore
+PMUs.
 
-Thank you, for both patches:
+The series covers the UCF, PCIe, PCIe target, CPU memory latency, and
+chip-to-chip interconnect PMUs. It provides symbolic names for the raw
+event encodings and metrics for bandwidth, frequency, and average read
+latency.
 
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Patch 1 fixes a jevents ordering problem found with this layout: the
+uncore events live in arch/arm64/nvidia/t410/sys/, next to the T410 core
+events, and without the fix jevents puts the core tlb.json (which sorts
+after "sys") into the sys table, so its events are lost from perf list
+and perf stat.
 
-> ---
->  Documentation/RCU/whatisRCU.rst | 24 +++++++++++++++++++++---
->  1 file changed, 21 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/RCU/whatisRCU.rst b/Documentation/RCU/whatisRCU.rst
-> index e6767baff2d3..fe9dc3948690 100644
-> --- a/Documentation/RCU/whatisRCU.rst
-> +++ b/Documentation/RCU/whatisRCU.rst
-> @@ -1084,8 +1084,9 @@ RCU::
->  	rcu_dereference			call_rcu
->  	rcu_dereference_check		call_rcu_hurry
->  	rcu_dereference_protected	kfree_rcu
-> -	rcu_read_lock_held		kvfree_rcu
-> -	rcu_read_lock_any_held		kfree_rcu_mightsleep
-> +	rcu_dereference_all		kvfree_rcu
-> +	rcu_read_lock_held		kfree_rcu_mightsleep
-> +	rcu_read_lock_any_held		kvfree_rcu_mightsleep
->  	rcu_pointer_handoff		cond_synchronize_rcu
->  	unrcu_pointer			cond_synchronize_rcu_full
->  					cond_synchronize_rcu_expedited
-> @@ -1209,13 +1210,23 @@ SRCU::
->  	srcu_read_lock_nmisafe		start_poll_synchronize_srcu
->  	srcu_read_unlock_nmisafe	start_poll_synchronize_srcu_expedited
->  	srcu_read_lock_notrace		poll_state_synchronize_srcu
-> -	srcu_read_unlock_notrace
-> +	srcu_read_unlock_notrace	synchronize_srcu_atomic
->  	srcu_down_read
->  	srcu_up_read
->  	srcu_down_read_fast
->  	srcu_up_read_fast
-> +	srcu_read_lock_fast_updown
-> +	srcu_read_unlock_fast_updown
-> +	srcu_read_lock_atomic
-> +	srcu_read_unlock_atomic
->  	guard(srcu)()
-> +	guard(srcu_fast)()
-> +	guard(srcu_fast_notrace)()
-> +	guard(srcu_fast_updown)()
->  	scoped_guard(srcu)
-> +	scoped_guard(srcu_fast)
-> +	scoped_guard(srcu_fast_notrace)
-> +	scoped_guard(srcu_fast_updown)
->  	srcu_read_lock_held
->  	srcu_dereference
->  	srcu_dereference_check
-> @@ -1229,9 +1240,16 @@ SRCU: Initialization/cleanup/ordering::
->  	DEFINE_STATIC_SRCU
->  	DEFINE_SRCU_FAST        // for srcu_read_lock_fast() and friends
->  	DEFINE_STATIC_SRCU_FAST // for srcu_read_lock_fast() and friends
-> +	DEFINE_SRCU_FAST_UPDOWN		// for srcu_read_lock_fast_updown() and friends
-> +	DEFINE_STATIC_SRCU_FAST_UPDOWN	// for srcu_read_lock_fast_updown() and friends
-> +	DEFINE_SRCU_ATOMIC		// for srcu_read_lock_atomic() and friends
-> +	DEFINE_STATIC_SRCU_ATOMIC	// for srcu_read_lock_atomic() and friends
->  	init_srcu_struct
->  	init_srcu_struct_fast
-> +	init_srcu_struct_fast_updown
-> +	init_srcu_struct_atomic
->  	cleanup_srcu_struct
-> +	smp_mb__after_srcu_read_lock
->  	smp_mb__after_srcu_read_unlock
->  
->  All: lockdep-checked RCU utility APIs::
-> -- 
-> 2.17.1
-> 
+Besar Wicaksono (6):
+  perf jevents: Process model files before sys subdirectories
+  perf jevents: Add support for NVIDIA Tegra410 UCF PMU aliasing
+  perf jevents: Add support for NVIDIA Tegra410 PCIE PMU aliasing
+  perf jevents: Add support for NVIDIA Tegra410 PCIE-TGT PMU aliasing
+  perf jevents: Add support for NVIDIA Tegra410 CPU Memory Latency PMU
+    aliasing
+  perf jevents: Add support for NVIDIA Tegra410 C2C PMU aliasing
+
+ .../arm64/nvidia/t410/sys/uncore-cpu_mem.json |  48 ++
+ .../arm64/nvidia/t410/sys/uncore-nvclink.json |  75 ++
+ .../arm64/nvidia/t410/sys/uncore-nvdlink.json |  48 ++
+ .../nvidia/t410/sys/uncore-nvlink_c2c.json    | 129 ++++
+ .../arm64/nvidia/t410/sys/uncore-pcie.json    | 247 +++++++
+ .../nvidia/t410/sys/uncore-pcie_tgt.json      |  93 +++
+ .../arm64/nvidia/t410/sys/uncore-ucf.json     | 693 ++++++++++++++++++
+ tools/perf/pmu-events/jevents.py              |   4 +-
+ 8 files changed, 1336 insertions(+), 1 deletion(-)
+ create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-cpu_mem.json
+ create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-nvclink.json
+ create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-nvdlink.json
+ create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-nvlink_c2c.json
+ create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-pcie.json
+ create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-pcie_tgt.json
+ create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-ucf.json
+
+-- 
+2.43.0
+
