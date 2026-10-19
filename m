@@ -1,47 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18691547044;
-	Mon, 19 Oct 2026 13:58:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64165938A1;
+	Mon, 19 Oct 2026 13:58:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418335; cv=none; b=nECTVgaTs1ZMFr+m6JYAbEsQyXo7gxOGQVdv9Jm23Axv6cjXPnNTUmEaZMMSXSg6BFaJs4+kzW3HxHkmu3SoJr3uNcGUE7EE8DLOjJOc6pKYg0ueJEaRS8Tq5NQZx019AQsU0dSbkhh/GqqGQGtve8qPK6A275Ad5MHDazXo2EY=
+	t=1792418337; cv=none; b=VLGLUbW1zuCoMyrTZivBKAwHEyTNBa7iHwaCAujVPLSa+GEGoxrv18khazfKe+shYQhCqZCxS+4/4qBrPl6Xs3OnM1//0htfavRXwo9umr3qnUd4vqnDeRPG9XCSniHLqjZCJXQC87rg5Jdj7SONP57Xm3m/R8pnybzjkMusPeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418335; c=relaxed/simple;
-	bh=z5+yV6p2UdHxc0LaFhndBT9wDeMvzRixGrSkw4u3g2Y=;
+	s=arc-20240116; t=1792418337; c=relaxed/simple;
+	bh=bT3u0ml0R3Y0Kb4s1tT9sFu/HeQUpRwvtWKkgy2VdjU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KeSfGEF4sGHkYnlnmeLSqlj4DzxxTBc9eqy+9rwncRlG0die7/dVb491QSWInis6fWexWVGk/iPq8DnU1dPf6MnP+PBI8KgWAGSX9ILgjcXGE8nXL6Ok08VwJGH0sbmi4DE/ptHs8L1xQOTwZM0k9jN4sPzsqYMalC/nTEg43ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVghDEdE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=gDMOi93gJcOZXFqzgglS4zeIMABIYT+aq1B9IOf6wxQCQ44cpgmFFEabm92OL9HCV13xDo/gPWlWbUzZIeqDIdgbv1unsGMCbMYlU/lgW825Xzjp0SmVbTWvHN8o92m0h1iGWYNl2zxjVmrvnwqO6k78LVzi85/jEO+qbgmVaxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X+44V+UY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVghDEdE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B44261F000C9;
-	Mon, 19 Oct 2026 13:58:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X+44V+UY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CDCF1F000C7;
+	Mon, 19 Oct 2026 13:58:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418332;
-	bh=cgxF869cyePwmld8Yhh0fz0txkbff9KE2BCTMD9tIWM=;
+	s=k20260515; t=1792418334;
+	bh=NfE3wKi/vWXI5Wn/P+ZAA3BY3B/je2LljBAGpFdwS1E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HVghDEdEOxFODcvF4BdWOjVQTJxJ0S5DDDByvECpNobjj6nBtvmy+P1Sc/M1F+TkM
-	 mC60hp+FsEMbcM9QR8CPa6FWXbJJJaw77Xgev6DzBgOP4n5InxYNBobpi0xfWrUCnC
-	 IoGEDbr4x8BPesr7HMSwlaqFAaBBsyItf9+0yNlIM/yeAmhcRYWFYIyhtnU+ioUUxs
-	 /85En3onz0ePxIBYsda26NVtfwVPtPmk8h/NeAI/qbFKusroIUujA+JWaNM6UKYLF2
-	 LomFUJEHpZZG3K727w+Hm2vZ3Y1e1NUjAwlEy0jsVhviXlRSL2E+x9PZDgOGf2ZGpU
-	 5iFNDvHp2CG6A==
+	b=X+44V+UYyAfSmjtEoAaLb0XEskmUK3iEnvyVyvtTJgGZaW4H8EA+DjdxFxItnqSxC
+	 Y5Em2UoftWRUy06/FRS6D+B9f92KaGK4yMHbSlx28C3tVDYY9rC0jprNcXB+MtwByA
+	 rzTSzHPuT7TdfyqL3AFicehZDuY9fSJEhvgAWCx/LftD5kuFStJDmAGntBzFhBCen+
+	 XMJjs3eCc/U+s+RmkZUgJnXiU1tvnWTB6hsz2RhKT7PpOObAKb4Jb3yp85/keIW36C
+	 /jPTfHJKRrFjsA1VXfG0BnqM/aS0GuIXDubgMi29lC3QMZGw+75pa5mi3K/mZKbInw
+	 2CR51JqufDQRQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Allison Henderson <achender@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Chen Changcheng <chenchangcheng@kylinos.cn>,
+	Narsimhulu Musini <nmusini@cisco.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
+	kartilak@cisco.com,
+	sebaddel@cisco.com,
+	James.Bottomley@HansenPartnership.com,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] net/rds: unpin MR pages with unpin_user_pages_dirty_lock()
-Date: Mon, 19 Oct 2026 09:47:43 -0400
-Message-ID: <20261019135441.1420968-172-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] scsi: snic: Fix SCSI host leak on workqueue allocation failure
+Date: Mon, 19 Oct 2026 09:47:45 -0400
+Message-ID: <20261019135441.1420968-174-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -57,509 +56,467 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Allison Henderson <achender@kernel.org>
+From: Chen Changcheng <chenchangcheng@kylinos.cn>
 
-[ Upstream commit a507023e6ff1d0b4e7aac49b2f547fed0c21ea4e ]
+[ Upstream commit 12e67eb89eb2b9516685c744d3f7de0a2d1bd701 ]
 
-The pages backing an RDS memory region are pinned in __rds_rdma_map()
-with rds_pin_pages(), which uses pin_user_pages_fast(): each page's
-refcount is biased by GUP_PIN_COUNTING_BIAS to account the pin.  The
-scatterlist is then handed to the IB transport, and the transport
-releases the pages in __rds_ib_teardown_mr() with
+In snic_add_host(), if scsi_add_host() succeeds but
+alloc_ordered_workqueue() fails, the function returns -ENOMEM with
+shost->work_q left as NULL. The caller's error path then calls
+snic_del_host(), which returns early when !shost->work_q without calling
+scsi_remove_host(). The Scsi_Host remains registered in sysfs as a zombie
+device even after the probe has failed. This causes:
 
-	set_page_dirty(page);
-	put_page(page);
+ - The leaked host remains visible in /sys/class/scsi_host/ after probe
+   failure, with state "running".
 
-put_page() drops a single reference instead of removing the pin bias,
-so every MR teardown permanently strands the remaining references and
-the pages are never freed - a userspace-triggerable memory leak of up
-to RDS_MAX_MSG_SIZE per RDS_GET_MR/RDS_GET_MR_FOR_DEST call.
+ - Subsequent SCSI host numbering is permanently shifted (the leaked host
+   ID from ida_alloc() is never reclaimed).
 
-The conversion to the pin API updated the unpin sites in rdma.c but
-missed this one on the transport side.  Release the pages with
-unpin_user_pages_dirty_lock(), which removes the pin bias and also
-dirties the page under the folio lock, closing the truncation race
-that a bare set_page_dirty() leaves open.
+ - Memory leak: the Scsi_Host allocation can never be freed because
+   device_add() took a reference that can only be released by device_del()
+   inside scsi_remove_host().
 
-Dirtying under the folio lock can sleep, which is safe in every path
-that reaches __rds_ib_teardown_mr(): the registration-reuse path
-(rds_ib_map_frmr()) runs in syscall context, and the pool flush
-(rds_ib_unreg_frmr()) runs under pool->flush_lock, a mutex, and
-already sleeps in rds_ib_post_inv().  The WARN_ON that guarded the
-old irq-context set_page_dirty() case is dropped along with it.
+Fix by adding scsi_remove_host() in the workqueue allocation failure path
+inside snic_add_host(), undoing the successful scsi_add_host() before
+returning the error. This is cleaner than modifying snic_del_host() because
+snic_del_host() is called from a shared error label that also serves paths
+where snic_add_host() was never invoked.
 
-Signed-off-by: Allison Henderson <achender@kernel.org>
-Link: https://patch.msgid.link/20260730041629.3512480-5-achender@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reproducer (requires no real SNIC hardware):
+
+ - Build CONFIG_SCSI_SNIC=y (built-in)
+
+ - Add snic.test_mode=1 snic.inject_wq_fail=1 to kernel cmdline
+
+ - Boot with a PCI device matching the snic driver (e.g. QEMU edu device,
+   PCI ID 0x1234:0x11e8, temporarily added to the driver's PCI ID table)
+
+Before the fix:
+
+  # /sys/class/scsi_host/ contains a zombie host0:
+  $ cat /sys/class/scsi_host/host0/proc_name
+  snic_scsi
+  $ cat /sys/class/scsi_host/host0/state
+  running
+  # ata_piix gets host1, host2 (host0 stuck):
+  scsi host1: ata_piix
+  scsi host2: ata_piix
+
+After the fix:
+
+  # host0 is properly freed and reused by ata_piix:
+  scsi host0: ata_piix
+  scsi host1: ata_piix
+  # No zombie host in /sys/class/scsi_host/
+
+Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
+Acked-by: Narsimhulu Musini <nmusini@cisco.com>
+Link: https://patch.msgid.link/20260727073438.209673-1-chenchangcheng@kylinos.cn
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **5.10.270** (`pending-5.10`). The buggy RDS IB
-teardown path is present here, the pin API mismatch is real, and the fix
-applies cleanly.
+The local tree is **6.12.111** (`pending-6.12`). The buggy
+`snic_add_host()` / `snic_del_host()` error path is present here and the
+one-line fix applies cleanly.
 
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-
-Record: **[net/rds] [unpin] [release MR pages with the pin-API unpin
-helper instead of put_page()]**
-
-Subsystem prefix `net/rds`. Action verb is `unpin` (correctness of page
-release, not a feature). Claimed intent: MR pages pinned with
-`pin_user_pages_fast()` must be released with
-`unpin_user_pages_dirty_lock()`, not `put_page()`.
+Record: `[scsi: snic:] [Fix] [SCSI host leak when workqueue allocation
+fails after scsi_add_host() succeeds]`
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-
-From the candidate message:
-- `Signed-off-by: Allison Henderson <achender@kernel.org>` (author;
-  Oracle RDS)
-- `Link:
-  https://patch.msgid.link/20260730041629.3512480-5-achender@kernel.org`
-- `Signed-off-by: Jakub Kicinski <kuba@kernel.org>` (netdev merge)
-- No `Reported-by`, `Tested-by`, `Reviewed-by`, `Acked-by`, `Cc: stable`
-  in the candidate text
-
-From the original lore submission (msgid
-`20260730041629.3512480-5-achender@kernel.org`), these additional tags
-were present and stripped by candidate prep:
-- `Fixes: 0d4597c8c5ab ("net/rds: Track user mapped pages through
-  special API")`
-- `Assisted-by: Claude-Code:claude-fable-5`
-
-Record: Author is the RDS contributor who submitted a 4-patch bug-fix
-series. Netdev maintainer merged it. Original submission carried a
-`Fixes:` tag pointing at the 2020 pin-API conversion. Absence of `Cc:
-stable` on the candidate is expected.
+Record:
+- `Fixes:` **absent** (expected for this review pipeline)
+- `Cc: stable@vger.kernel.org` **absent** (expected)
+- `Acked-by: Narsimhulu Musini <nmusini@cisco.com>` — original SNIC
+  driver author / Cisco maintainer
+- `Link: https://patch.msgid.link/20260727073438.209673-1-
+  chenchangcheng@kylinos.cn`
+- `Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>` (author)
+- `Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>` (SCSI
+  maintainer)
+- `Reported-by:` none
+- `Tested-by:` none (author included a concrete reproducer in the body)
+- Ignore pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
+  if present
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
 Record:
-- **Bug:** `__rds_rdma_map()` pins pages with `rds_pin_pages()` →
-  `pin_user_pages_fast()`. Teardown in `__rds_ib_teardown_mr()` does
-  `set_page_dirty()` + `put_page()`. `put_page()` drops one ref; a
-  FOLL_PIN pin adds `GUP_PIN_COUNTING_BIAS` (1024). Remaining refs are
-  stranded.
-- **Symptom:** Userspace-triggerable unreclaimable page leak, up to
-  `RDS_MAX_MSG_SIZE` (1 MiB) per `RDS_GET_MR` / `RDS_GET_MR_FOR_DEST`.
-  Same leak on every MR reuse/flush, not only the ioctl.
-- **Root cause:** Pin-API conversion updated `net/rds/rdma.c` unpin
-  sites and missed the IB transport teardown path.
-- **Secondary fix:** `unpin_user_pages_dirty_lock()` dirties under the
-  page/folio lock, closing the truncation race of bare
-  `set_page_dirty()`.
-- **Sleeping:** Author claims every caller of `__rds_ib_teardown_mr()`
-  is process context (syscall reuse path, or pool flush under
-  `flush_lock` mutex which already `wait_event`s in
-  `rds_ib_post_inv()`).
-- **Version info:** Bug introduced by the 2020 pin conversion
-  (`0d4597c8c5ab`).
+- **Bug:** `scsi_add_host()` succeeds, then `alloc_ordered_workqueue()`
+  fails. `snic_add_host()` returns `-ENOMEM` with `shost->work_q ==
+  NULL`. Probe goes to a shared error label that calls
+  `snic_del_host()`, which returns immediately when `!shost->work_q` and
+  **never** calls `scsi_remove_host()`.
+- **Symptoms:** zombie `/sys/class/scsi_host/hostN` with state
+  `running`; SCSI host ID from `ida_alloc()` never reclaimed (later
+  hosts are numbered higher); `Scsi_Host` never freed because
+  `device_add()`’s reference is only dropped by `device_del()` inside
+  `scsi_remove_host()`.
+- **Version info:** none in the message. Code dates to the original
+  driver (v4.2).
+- **Root cause:** error-path rollback does not undo a successful
+  `scsi_add_host()` when workqueue alloc fails. Author correctly avoids
+  changing `snic_del_host()` because that helper is also used on paths
+  that never called `snic_add_host()`.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not disguised. Explicit leak/rollback fix with a documented
+failure mode and a reproducer.
 
-Record: Not hidden. Explicit memory-leak fix with a clear pin vs put
-mismatch. Not cleanup/refactor.
-
----
-
-## PHASE 2: DIFF ANALYSIS
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
 **Step 2.1: INVENTORY THE CHANGES**
-
 Record:
-- File: `net/rds/ib_rdma.c` only (−3 / +1)
-- Function: `__rds_ib_teardown_mr()`
-- Scope: single-file surgical fix
+- File: `drivers/scsi/snic/snic_main.c` — **+1 line**
+- Function: `snic_add_host()`
+- Scope: single-file surgical error-path fix
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Record:
+- **Before:** on `!shost->work_q`, log, set `ret = -ENOMEM`, return.
+  Host stays registered.
+- **After:** same path also calls `scsi_remove_host(shost)` before
+  returning `-ENOMEM`.
+- Path: probe error path only (`snic_probe()` → `snic_add_host()` after
+  `scsi_add_host()` succeeded).
 
-Record: In the scatterlist-release loop, before: `WARN_ON(!page->mapping
-&& irqs_disabled()); set_page_dirty(page); put_page(page);`. After:
-`unpin_user_pages_dirty_lock(&page, 1, true);`. DMA unmap,
-`kfree(ibmr->sg)`, and pool accounting in `rds_ib_teardown_mr()` are
-unchanged. Normal teardown path, not an error-only path.
+Verified call chain in this tree:
+
+```642:649:drivers/scsi/snic/snic_main.c
+        ret = snic_add_host(shost, pdev);
+        if (ret) {
+                ...
+                goto err_get_conf;
+        }
+```
+
+`err_get_conf` later calls `snic_del_host()` (line 690). That helper
+still early-returns on `!shost->work_q`, so after this fix it will not
+call `scsi_remove_host()` a second time.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-
-Record:
-- **Category:** reference-counting / resource leak (FOLL_PIN bias not
-  removed), plus initialization/dirtying correctness
-  (`set_page_dirty_lock` vs `set_page_dirty`)
-- **Mechanism:** `pin_user_pages_fast()` sets `FOLL_PIN` and bumps
-  refcount by `GUP_PIN_COUNTING_BIAS`. `put_page()` subtracts 1, leaving
-  1023 refs. Pages never return to the allocator. `unpin_user_page()` /
-  `unpin_user_pages_dirty_lock()` call `put_compound_head(...,
-  FOLL_PIN)`, which multiplies refs by the bias (or uses
-  `hpage_pincount_sub`) and actually releases the pin.
+Record: **Error-path / resource leak.** Missing undo of
+`scsi_add_host()` when workqueue allocation fails. Adding
+`scsi_remove_host()` is the matching rollback. Also reclaims the host ID
+(`ida_free()` in `scsi_host_dev_release()` after `device_del()`).
 
 **Step 2.4: ASSESS THE FIX QUALITY**
+Record:
+- Obviously correct: one matching rollback for the successful
+  `scsi_add_host()`.
+- Not changing `snic_del_host()` avoids calling `scsi_remove_host()` on
+  hosts that were never added (`err_get_conf` is also used when
+  `snic_get_conf()` fails **before** `snic_add_host()`).
+- Regression risk: very low. `scsi_remove_host()` is the documented
+  pairing of `scsi_add_host()`. No double-remove: `snic_del_host()`
+  still skips when `work_q` is NULL. No lock, API, or data-structure
+  change.
 
-Record: Obviously correct against the pin-API contract (`mm/gup.c`
-documents that FOLL_PIN pages must be released via `unpin_user_page()`).
-Same helper is already used in this tree in `net/rds/rdma.c` and
-`net/rds/info.c`. Minimal. Regression risk is sleep-in-atomic if
-teardown ever runs with IRQs off; verified callers already sleep
-(`wait_event` / `mutex_lock`). The dropped `WARN_ON` was a leftover from
-a 2015 `BUG_ON(irqs_disabled())` downgrade; current callers take a mutex
-or run in syscall context.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
 **Step 3.1: BLAME THE CHANGED LINES**
-
 Record:
-- `set_page_dirty` + `put_page` in this function: `08b48a1ed84b19` (Andy
-  Grover, 2009) — originally paired with `get_user_pages`.
-- `WARN_ON(!page->mapping && irqs_disabled())`: `5c240fa2ab394a` (2015),
-  downgraded from `BUG_ON(irqs_disabled())` because that assertion fired
-  on “normal execution paths” (FMR-era). FMR support is already removed
-  in this tree (`07549ee21ce52`).
-- Pin conversion that made `put_page` wrong: `0d4597c8c5abd`
-  (2020-02-16), present in this tree.
+- Buggy control flow introduced in `c8806b6c9e824f` (“snic: driver for
+  Cisco SCSI HBA”, Narsimhulu Musini, 2015-05-29).
+- First appeared: **v4.2-rc1**. Present in this tree (`git merge-base
+  --is-ancestor c8806b6c9e824f HEAD` succeeded).
+- Nearby `alloc_ordered_workqueue()` rewrite: `6411307b63286e`
+  (v6.12-rc1) — formatting only; the leak predates that.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-
-Record: `0d4597c8c5abdeeaf50774066c16683f30184dc8` (“net/rds: Track user
-mapped pages through special API”) converted `rds_pin_pages()` to
-`pin_user_pages_fast()` and updated unpin sites in `rdma.c` only
-(`rds_rdma_free_op`, `rds_atomic_free_op`, error paths). It did **not**
-touch `ib_rdma.c`. `git merge-base --is-ancestor 0d4597c8c5abd HEAD`
-succeeded — the buggy conversion is in this 5.10 tree. Intermediate
-related fix already here: `91a44b406bc1f` (“net: rds: fix MR cleanup on
-copy error”) — different bug (double-unpin on `put_user` failure), not a
-substitute for this leak.
+Record: No `Fixes:` tag. Introducer is the original driver commit above,
+which **is** in this tree.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-
-Record: Recent `net/rds/ib_rdma.c` history is unrelated (laddr check,
-FRMR reject, null deref). This is standalone vs local history. Upstream
-it is v4 4/4 of Allison Henderson’s series; patches 1–3 fix different
-RDS bugs (sleeping unpin from tasklet in `rdma.c`, socket UAF via MR,
-send-path message leak) and are **not** prerequisites for this hunk.
+Record: Recent `snic_main.c` history is workqueue-name cleanup
+(`6411307b63286`, `b97c0741c7dcc`), slab-name uniqueness, const
+template, SPDX. **No prior leak fix.** Standalone one-line patch, not
+“X/Y” of a series (msgid `...-1` is a single patch).
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record: Allison Henderson has many RDS commits in this tree (locking,
-shutdown, zerocopy). Oracle RDS maintainer-side contributor.
-`MAINTAINERS` lists Santosh Shilimkar; Allison is a long-time RDS
-author. Related contemporaneous work is the rest of the v4 series, not a
-dependency of this patch.
+Record: `git log --author="Chen Changcheng" -- drivers/scsi/` in this
+tree is empty (author is not a historical SNIC contributor here). Weight
+instead: **Acked-by original driver author** Musini, and SCSI maintainer
+Martin K. Petersen applied it.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: None. Uses existing `scsi_remove_host()`. Reproducer mentions
+`snic.test_mode` / `snic.inject_wq_fail`; those parameters **do not
+exist in this tree** (local test harness only). The fix itself does not
+depend on them.
 
-Record: Needs `unpin_user_pages_dirty_lock()` and
-`pin_user_pages_fast()` — both exist in 5.10 (`mm/gup.c`,
-`EXPORT_SYMBOL`). No new helper, no struct change. Can apply standalone.
-`git apply --check` succeeded (hunk offset +4 only).
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
 Record:
-- Lore/thread via `b4 am` / `b4 mbox`: cover `https://patch.msgid.link/2
-  0260730041629.3512480-1-achender@kernel.org`
-- Patch: msgid `20260730041629.3512480-5-achender@kernel.org` (`[PATCH
-  net v4 4/4]`)
-- Openwall mirror: https://lists.openwall.net/netdev/2026/07/30/66
-- Revisions: v1–v3 were a 3-patch series; **this leak fix is new in
-  v4**. Applied version is v4.
-- Merged to `netdev/net-next.git` as `a507023e6ff1` (patchwork-bot,
-  2026-08-05)
-- Jakub Kicinski: not a NAK — he said he lacked confidence reviewing RDS
-  and queued the series for **-next** rather than `net`. Allison agreed
-  (Fixes tags, but “not simple bugs” / “really old bugs”).
-- No reviewer NAK, no request to drop patch 4, no flag that teardown can
-  sleep in IRQ on current code.
+- `b4 dig -c <sha>` cannot be used: the candidate is **not** in this
+  checkout (and the first SHA tried was an unrelated merge).
+- Submission: msgid `20260727073438.209673-1-chenchangcheng@kylinos.cn`,
+  2026-07-27.
+- Thread: https://lists.openwall.net/linux-kernel/2026/07/27/428 and
+  https://lkml.iu.edu/hypermail/linux/kernel/2607.3/06578.html
+- Single revision (no v2/v3). Diff matches the candidate (1 line).
+- No NAK. Cisco maintainer Acked-by in-thread. No reviewer asked for
+  `Cc: stable`.
+- lore.kernel.org fetches returned HTTP 403 from this environment.
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-
-Record: `b4` recipients: netdev, linux-rdma, Pabeni, Edumazet, Kicinski,
-Horms; Cc John Hubbard and Leon Romanovsky (original pin-API authors).
-No `Reviewed-by` landed. Kicinski merged without a deep RDS review.
-Technical correctness of this hunk does not depend on that: it matches
-the pin API the Cc list designed.
+Record: To/Cc included Cisco SNIC maintainers (`nmusini`, `kartilak`,
+`sebaddel`), James Bottomley, Martin K. Petersen, linux-scsi. Ack from
+Musini; applied by Petersen.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-
-Record: No syzbot/bugzilla. Bug is from code inspection / UEK porting.
-Trigger is real (`setsockopt(RDS_GET_MR)` / MR reuse), not theoretical.
-No user-count from public reports.
+Record: No syzbot/bugzilla. Author-found with an injected workqueue-fail
+reproducer. Before/after sysfs and host-numbering evidence is in the
+message.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: Standalone vs 1/4–3/4. Patch 1 is about `rds_rdma_free_op()`
-sleeping from the **send tasklet** — a different function already using
-`unpin_user_pages_dirty_lock()` in `rdma.c`. Backporting 4/4 does not
-require 1/4; it does not widen that tasklet bug.
+Record: Standalone `[PATCH]`, not part of a multi-patch series.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: **UNVERIFIED** — `https://lore.kernel.org/stable/?q=...`
+returned 403. No evidence of a prior stable NAK.
 
-Record: lore.kernel.org/stable search for this subject returned no
-discussion that this fix was rejected or already taken. UNVERIFIED that
-no private stable thread exists.
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: KEY FUNCTIONS**
-
-Record: `__rds_ib_teardown_mr()` (changed); `rds_ib_teardown_mr()`
-(wrapper); `rds_ib_map_frmr()`, `rds_ib_unreg_frmr()` (callers).
+**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
+Record: `snic_add_host()` (modified). Related: `snic_del_host()`,
+`snic_probe()`, `scsi_add_host()`, `scsi_remove_host()`.
 
 **Step 5.2: TRACE CALLERS**
-
 Record:
-- `rds_ib_map_frmr()` → `rds_ib_teardown_mr()` — reuse/remap. Called
-  from `rds_ib_reg_frmr()` → `rds_ib_get_mr()` → `__rds_rdma_map()` /
-  cmsg RDMA map. Syscall (`setsockopt` / `sendmsg`). Already
-  `wait_event`s in `rds_ib_post_reg_frmr()`.
-- `rds_ib_unreg_frmr()` → `__rds_ib_teardown_mr()` — only from
-  `rds_ib_flush_mr_pool()`, which takes `pool->flush_lock` (mutex).
-  Callers of flush: delayed work `rds_ib_mr_pool_flush_worker`,
-  `rds_ib_try_reuse_ibmr` (GFP_KERNEL alloc path), `rds_ib_free_mr` only
-  if `!in_interrupt()`, `rds_ib_flush_mrs()` (socket close /
-  `RDS_FREE_MR`), `rds_ib_destroy_mr_pool()`,
-  `rds_ib_conn_path_shutdown()` (already `wait_event_timeout`).
-  Interrupt `free_mr` queues `flush_worker` instead of flushing inline.
+- `snic_add_host()` — only from `snic_probe()` (PCI probe).
+- `snic_del_host()` — `snic_probe()` error path (`err_get_conf`) and
+  `snic_remove()`.
+- Reachable on Cisco SNIC PCI probe, including under memory pressure
+  when `alloc_ordered_workqueue()` fails.
 
 **Step 5.3: TRACE CALLEES**
-
-Record: After the change, the loop calls `unpin_user_pages_dirty_lock()`
-→ `set_page_dirty_lock()` (can sleep) + `unpin_user_page()`. Previously
-`set_page_dirty()` + `put_page()`. DMA unmap stays first.
+Record: `scsi_add_host()`, `alloc_ordered_workqueue()`,
+`scsi_remove_host()` (new). `scsi_remove_host()` sets host state,
+unregisters transport, `device_unregister(&shost->shost_dev)`,
+`device_del(&shost->shost_gendev)`. Final free and
+`ida_free(&host_index_ida, shost->host_no)` happen in
+`scsi_host_dev_release()` once refs drop.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record: Reachable from userspace: `rds_setsockopt` → `RDS_GET_MR` /
-`RDS_GET_MR_FOR_DEST` → `rds_get_mr()` → `__rds_rdma_map()` →
-`rds_pin_pages()` → transport `get_mr`. Also RDMA cmsg on send. Requires
-`CONFIG_RDS=y/m`, `CONFIG_RDS_RDMA`, InfiniBand, and `can_do_mlock()`.
-Not universal, but a real syscall path. Unprivileged users typically
-need `RLIMIT_MEMLOCK`/CAP_IPC_LOCK to pin; RDS/IB cluster users have
-that.
+Record: PCI probe (`snic_probe` → `snic_add_host`). Not a syscall hot
+path. Userspace-visible effect when it fires: leftover
+`/sys/class/scsi_host/` entry and shifted host numbers for **other**
+SCSI drivers (author showed `ata_piix` taking host1/host2 because host0
+was stuck).
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: This `if (!shost->work_q) return;` before `scsi_remove_host()`
+is unique to snic. Sibling Cisco `fnic` adds the host later and has a
+dedicated `err_out_scsi_add_host` label. No duplicate snic copy of this
+bug.
 
-Record: Same missed-unpin class was why `rdma.c` was converted in 2020.
-Remaining `put_page` in `net/rds/message.c` is for message payload pages
-(`__free_page` / zerocopy), not FOLL_PIN MR pages. IB umem/qib/hfi1
-already use `unpin_user_pages_dirty_lock()`. This is the leftover RDS IB
-MR site.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: **Yes.** Local tree: `p-6.12-3-gc504cf0baa3d8`, **6.12.111**,
+branch `pending-6.12`.
 
-Record: Yes. `net/rds/ib_rdma.c` lines 253–260 still have `WARN_ON` +
-`set_page_dirty` + `put_page`. `rds_pin_pages()` already uses
-`pin_user_pages_fast()` (`net/rds/rdma.c:163`). `GUP_PIN_COUNTING_BIAS`
-is `(1U << 10)` in `include/linux/mm.h`. Bug present since this series
-branched (v5.10 includes `0d4597c8c5ab` from Feb 2020; v5.10 release is
-Dec 2020).
+```305:323:drivers/scsi/snic/snic_main.c
+        if (!shost->work_q) {
+                SNIC_HOST_ERR(shost, "Failed to Create ScsiHost wq.\n");
+
+                ret = -ENOMEM;
+        }
+
+        return ret;
+} /* end of snic_add_host */
+
+static void
+snic_del_host(struct Scsi_Host *shost)
+{
+        if (!shost->work_q)
+                return;
+
+        destroy_workqueue(shost->work_q);
+        shost->work_q = NULL;
+        scsi_remove_host(shost);
+}
+```
+
+Bug present since v4.2.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-
-Record: **Clean apply** (`git apply --check`: hunk succeeded at offset
-4). Surrounding function matches the mainline hunk. 5.10’s
-`unpin_user_pages_dirty_lock()` uses `set_page_dirty_lock()`, not
-folios; the public API and sleep/lock properties match what the patch
-needs. Commit-message “folio lock” is mainline wording; behavior here is
-the page lock, which is correct for 5.10.
+Record: **Clean apply.** Surrounding hunk matches the candidate exactly
+(`old found: True`, `new already applied: False`).
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: `git log --grep` for this leak / `snic_add_host` / “workqueue
+allocation failure” under `drivers/scsi/` found **no** prior fix.
 
-Record: No equivalent unpin in `__rds_ib_teardown_mr()`. `91a44b406bc1f`
-is a different MR cleanup. `git log --grep='unpin MR pages' -- net/rds`
-is empty in this tree.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
 **Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-
-Record: **net/rds** (Reliable Datagram Sockets), IB RDMA MR pool.
-Criticality: **IMPORTANT** for RDS/IB users (Oracle RAC-style clusters);
-**PERIPHERAL** for everyone else (`CONFIG_RDS_RDMA` + InfiniBand). Not
-core mm/VFS, but pinned-page leaks are mm-visible (unreclaimable pages).
+Record: SCSI driver `drivers/scsi/snic/` (Cisco PCI-Express SCSI HBA,
+`CONFIG_SCSI_SNIC`). **PERIPHERAL** hardware, but host-number leak is
+**system-wide** for SCSI host IDs.
 
 **Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Mature/quiet. Driver added 2015; recent churn is mechanical
+SCSI-wide workqueue cleanup. Long-standing bug, not a new-code issue.
 
-Record: Mature. The teardown loop dates to 2009; the pin mismatch has
-been wrong for the entire 5.10 lifetime. Low churn on `ib_rdma.c`
-relative to netdev core.
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
 
----
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: Driver-specific trigger (Cisco SNIC), **plus** any other SCSI
+host on the same machine (permanent host ID shift). Config:
+`CONFIG_SCSI_SNIC`.
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Probe-time `alloc_ordered_workqueue()` failure (ENOMEM /
+workqueue creation failure). Uncommon, not a hot path, not unprivileged-
+syscall. Once it happens, the zombie host and ID leak persist until
+reboot.
 
-**Step 8.1: WHO IS AFFECTED**
-
-Record: Driver/config-specific: `CONFIG_RDS` + `CONFIG_RDS_RDMA` + IB
-hardware. TCP RDS (`CONFIG_RDS_TCP`) has no RDMA MRs and is unaffected.
-
-**Step 8.2: TRIGGER CONDITIONS**
-
-Record: Common for RDS RDMA: every MR map/reuse/teardown (`RDS_GET_MR`,
-RDMA cmsg, pool flush). Not a rare error path. Needs mlock capability.
-Not a timing race.
-
-**Step 8.3: FAILURE MODE SEVERITY**
-
-Record: Unreclaimable page leak (pin bias left behind). Repeated
-GET_MR/reuse can pin large amounts of RAM until OOM. **Severity: HIGH**
-(not a panic, but a userspace-triggerable leak of pinned pages; same
-class as other GUP pin leaks taken into stable). Secondary: dirty-
-without-lock truncation race on file-backed MRs (**MEDIUM** on that
-subset).
-
-**Step 8.4: RISK-BENEFIT RATIO**
-
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
 Record:
-- **Benefit:** High for RDS/IB; stops a leak that has existed for the
-  whole 5.10 life. Zero functional change for other configs.
-- **Risk:** Very low — one call-site, existing exported helper, callers
-  already sleepable. Does not add APIs or change userspace.
-- **Ratio:** Strongly favors backport.
+- Failure: unreclaimable `Scsi_Host`, zombie sysfs device in
+  `SHOST_RUNNING`, leaked host ID.
+- Severity: **HIGH** for leak class (not a panic). Worse than a one-shot
+  `kfree` leak because the object stays in sysfs and shifts numbering
+  for later hosts.
 
----
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Record:
+- **Benefit:** medium for SNIC users under memory pressure; also
+  prevents global SCSI host-id skew.
+- **Risk:** very low (1 line, error path only, standard SCSI rollback).
+- **Ratio:** favorable.
 
-## PHASE 9: FINAL SYNTHESIS
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
-**FOR:**
-- Real FOLL_PIN vs `put_page()` leak; verified in 5.10 `mm/gup.c` and
-  `net/rds/rdma.c`/`ib_rdma.c`
-- Userspace-reachable (`RDS_GET_MR` / RDMA map)
-- Fixes commit `0d4597c8c5ab` is in this tree
-- 1-file, 4-line change; `unpin_user_pages_dirty_lock()` already used
-  elsewhere in RDS here
-- Applies cleanly
-- Author is RDS; merged by netdev
-- Sleeping unpin is safe on verified 5.10 call chains
+FOR:
+- Real error-path leak with concrete sysfs + host-ID consequences,
+  reproduced by the author
+- Buggy code is in this 6.12 tree (since v4.2)
+- One-line, obviously correct pairing of `scsi_remove_host()` with
+  successful `scsi_add_host()`
+- No double-remove on the shared `err_get_conf` path
+- Applies cleanly; no prerequisites
+- Acked by original driver author; applied by SCSI maintainer
+- Probe-path resource leaks are a common, accepted stable class
 
-**AGAINST:**
-- RDS/IB is not a universal path
-- Kicinski did not deeply review and put the series in net-next
-- No public crash/syzbot report
-- Series mates 1–3 are separate bugs (not blockers)
+AGAINST:
+- Trigger is rare (workqueue alloc fail during probe)
+- SNIC is a specialized Cisco HBA (small population)
+- Not a crash, UAF, or security bug
+- Reproducer uses out-of-tree inject knobs (does not affect the patch)
 
-**UNRESOLVED:** No stable@ thread found; WebFetch to lore HTML returned
-403 (thread recovered via `b4` + openwall + curl).
+UNRESOLVED:
+- Stable-list discussion (lore 403)
+- Upstream SHA not in this checkout (`b4 dig` on a local commit was not
+  possible)
 
-**Step 9.2: STABLE RULES CHECKLIST**
-
-1. Obviously correct and tested? **PASS** — pin-API contract; same
-   helper already in-tree RDS; merged to net-next
-2. Fixes a real bug that affects users? **PASS** — pinned pages never
-   freed on MR teardown
-3. Important (crash/security/corruption/deadlock)? **PASS** —
-   unreclaimable leak on a hot RDS RDMA path, up to 1 MiB per map plus
-   reuse; eventual OOM
-4. Small and contained? **PASS** — one function, −3/+1
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — 1-line rollback; author
+   showed before/after; maintainer Ack
+2. Fixes a real bug that affects users? **PASS** — zombie sysfs host +
+   leaked ID + unreclaimable `Scsi_Host`
+3. Important issue? **PASS** — unrecoverable resource leak that also
+   skews SCSI host numbering for other drivers
+4. Small and contained? **PASS** — +1 line, one function
 5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — `git apply --check` clean;
-   helpers present
+6. Can apply to the local tree? **PASS** — code matches; clean apply
 
-**Step 9.3: EXCEPTION CATEGORIES**
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary error-
+path leak fix.
 
-Record: None. Ordinary bug fix (not ID/quirk/DT/build/docs).
+**Step 9.4: MAKE YOUR DECISION**
+This is a real, long-standing probe rollback bug in this 6.12 tree. The
+fix is minimal, already reviewed, and undoes `scsi_add_host()` exactly
+when that call succeeded and the workqueue did not. Risk of regression
+is negligible; leaving it out leaves a zombie SCSI host and a leaked
+host ID if SNIC probe hits ENOMEM.
 
-**Step 9.4: DECISION**
+===============================================================
+Verification
+===============================================================
+- [Phase 1] Parsed tags: Acked-by Musini; Link msgid
+  `20260727073438.209673-1`; no Fixes/stable Cc (expected)
+- [Phase 2] Diff: +1 line in `snic_add_host()` error path;
+  `scsi_remove_host(shost)` before `-ENOMEM`
+- [Phase 2] Confirmed `snic_probe` uses shared `err_get_conf` which
+  calls `snic_del_host()` even when `snic_add_host()` was never invoked
+  (lines 630–690)
+- [Phase 2] Confirmed `snic_del_host()` early-return on `!work_q` skips
+  `scsi_remove_host()` — the leak mechanism
+- [Phase 3] `git blame`: buggy code from `c8806b6c9e824f` (v4.2-rc1);
+  ancestor of HEAD
+- [Phase 3] `git log --oneline -20 -- drivers/scsi/snic/snic_main.c`: no
+  prior leak fix
+- [Phase 3] `git log --grep` for this leak under `drivers/scsi/`: empty
+- [Phase 3] `git log --author="Chen Changcheng" -- drivers/scsi/`: no
+  prior commits in this tree
+- [Phase 4] `b4 dig -c` on a tree SHA: not applicable (candidate not in
+  checkout); used msgid/openwall/lkml instead
+- [Phase 4] Openwall/lkml: single-version patch, Acked-by Musini, no NAK
+- [Phase 4] lore.kernel.org and lore stable search: HTTP 403 —
+  UNVERIFIED
+- [Phase 5] Callers: `snic_add_host` only from `snic_probe`;
+  `snic_del_host` from probe error + remove
+- [Phase 5] `scsi_remove_host()` → `device_del()`;
+  `scsi_host_dev_release()` does `ida_free(host_no)`
+- [Phase 5] `test_mode`/`inject_wq_fail` not in this tree (reproducer-
+  only)
+- [Phase 6] `git describe HEAD`: `p-6.12-3-gc504cf0baa3d8`; `make
+  kernelversion`: 6.12.111
+- [Phase 6] Surrounding code identical to candidate hunk; patch not
+  already applied
+- [Phase 8] Failure mode: zombie sysfs SCSI host + permanent host-ID
+  leak; severity HIGH for leak class, rare trigger
+- UNVERIFIED: whether this was already discussed on stable@ (lore 403)
 
-This is a small, obviously correct leak fix for a bug that has been in
-this 5.10 tree since day one. It does not need the rest of the v4
-series. Benefit for RDS/IB users outweighs the low regression risk.
-
----
-
-### What the commit solves for this tree
-
-`rds_pin_pages()` already pins with `pin_user_pages_fast()` (`FOLL_PIN`,
-+1024 refs). IB teardown still `put_page()`s once, so every MR teardown
-permanently leaks those pages. Replacing that with
-`unpin_user_pages_dirty_lock()` restores the pin/unpin pairing and
-dirties under the page lock. That matters to 5.10 RDS-over-InfiniBand
-users (clusters using `RDS_GET_MR` / RDMA ops): memory is not optional
-reclaim, it is stuck until reboot.
-
-### Risk vs benefit
-
-Benefit is a real, repeating leak on a syscall-visible path. Risk is a
-one-line helper swap on paths that already take a mutex and
-`wait_event`. The patch applies without rework.
-
----
-
-### Verification
-
-- [Phase 1] Parsed candidate tags: Allison Henderson SOB, msgid.link,
-  Kicinski SOB; lore copy also has `Fixes: 0d4597c8c5ab`
-- [Phase 2] Diff: `__rds_ib_teardown_mr()` in `net/rds/ib_rdma.c`,
-  replace WARN/`set_page_dirty`/`put_page` with
-  `unpin_user_pages_dirty_lock(&page, 1, true)`
-- [Phase 3] `git describe`/Makefile: local tree **5.10.270**, branch
-  `pending-5.10`
-- [Phase 3] `git blame`: put_page since 2009; WARN_ON from
-  `5c240fa2ab394a` (2015)
-- [Phase 3] `git show 0d4597c8c5abd`: pin conversion of `rdma.c` only;
-  `git merge-base --is-ancestor` → in HEAD
-- [Phase 3] `git show dbfe7d74376e1`: only `info.c`, not this leak
-- [Phase 3] Read `mm/gup.c`: `pin_user_pages_fast()` sets `FOLL_PIN`;
-  `unpin_user_pages_dirty_lock()` / `put_compound_head(..., FOLL_PIN)`
-  apply `GUP_PIN_COUNTING_BIAS` (1024)
-- [Phase 3] Read local `net/rds/rdma.c` `rds_pin_pages()` and
-  `ib_rdma.c` teardown: mismatch confirmed
-- [Phase 4] `b4 am`/`b4 mbox`: v4 4/4 series; merged as `a507023e6ff1`;
-  Kicinski queued for net-next; no NAK
-- [Phase 4] Openwall https://lists.openwall.net/netdev/2026/07/30/66
-  matches the diff
-- [Phase 4] lore HTML WebFetch: 403; thread recovered via b4
-- [Phase 5] Callers: `rds_ib_map_frmr` (syscall), `rds_ib_unreg_frmr`
-  via `rds_ib_flush_mr_pool` (mutex + workqueue); `rds_ib_free_mr`
-  defers flush when `in_interrupt()`
-- [Phase 5] `RDS_MAX_MSG_SIZE` = 1 MiB in `net/rds/rds.h`
-- [Phase 6] Buggy code present at `ib_rdma.c:258-260`; `git apply
-  --check` succeeded
-- [Phase 6] `unpin_user_pages_dirty_lock` already used in
-  `net/rds/rdma.c` and `net/rds/info.c`
-- [Phase 7] `MAINTAINERS`: RDS supported (Santosh Shilimkar / Oracle)
-- [Phase 8] Failure mode: unreclaimable FOLL_PIN leak, HIGH for RDS_RDMA
-- UNVERIFIED: no public syzbot/user report; no stable@ thread found
+This meets stable-kernel rules for this tree: real leak, small contained
+fix, clean apply, no new API.
 
 **YES**
 
- net/rds/ib_rdma.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/scsi/snic/snic_main.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/rds/ib_rdma.c b/net/rds/ib_rdma.c
-index 751755cd069e0..36fd8dedbce56 100644
---- a/net/rds/ib_rdma.c
-+++ b/net/rds/ib_rdma.c
-@@ -251,9 +251,7 @@ void __rds_ib_teardown_mr(struct rds_ib_mr *ibmr)
+diff --git a/drivers/scsi/snic/snic_main.c b/drivers/scsi/snic/snic_main.c
+index 1c24517e4e650..912f9f15dddc3 100644
+--- a/drivers/scsi/snic/snic_main.c
++++ b/drivers/scsi/snic/snic_main.c
+@@ -305,6 +305,7 @@ snic_add_host(struct Scsi_Host *shost, struct pci_dev *pdev)
+ 	if (!shost->work_q) {
+ 		SNIC_HOST_ERR(shost, "Failed to Create ScsiHost wq.\n");
  
- 			/* FIXME we need a way to tell a r/w MR
- 			 * from a r/o MR */
--			WARN_ON(!page->mapping && irqs_disabled());
--			set_page_dirty(page);
--			put_page(page);
-+			unpin_user_pages_dirty_lock(&page, 1, true);
- 		}
- 		kfree(ibmr->sg);
++		scsi_remove_host(shost);
+ 		ret = -ENOMEM;
+ 	}
  
 -- 
 2.53.0
