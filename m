@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4A256CE20;
-	Mon, 19 Oct 2026 13:57:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BF156DCCC;
+	Mon, 19 Oct 2026 13:58:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418283; cv=none; b=YZRixITc2ZhloTxuRmLrMKdud+iknhAUfh2v6gBuFY4xaNuYP/mIZzmhPIy3QgjFivDWqNooxb9apgnrpBMNC4Gw+o2x2r2qt+6Yu3JazeDbetmyqge/uJL+WeRFiNKas+66jwBsubtLlzSrC1OvLo1CJAdODZCxeJJ6bridK2o=
+	t=1792418286; cv=none; b=bVVCi79WI0CNj3x2pMcm+Ivf3vT7xpPPML54DEmtiIMtZ30vUJ9QDudB1Bk0rS+IFjXsv/r2WSQevYzh8zPWZqWXRCXk2qt1TKUgbYeVtNNF7OoqZO3ygYWc7KaZHr2rlGGZ7QQmQC7nyxuJvg3RQ+2mJWpLAiSxpoMQcaQ0Jr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418283; c=relaxed/simple;
-	bh=de3eDLS7qmBPaPKiZdyRQShbPn6YRvSjGFk1pxma31Q=;
+	s=arc-20240116; t=1792418286; c=relaxed/simple;
+	bh=3QGg+1T51XI+6ErIgq7haAN3iJcqq4509MpqRcj74Es=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i2Wm0Tg8FcSLcLotWiCjB/91qV7rb6h9aNJmlouvPVqZVGIxdUjFQ5TxxO5cbijNBrZUmyvcKqseDAPQZgUOkpd4YWFpTnKe3Wwm/GbbUcxh4uJlu0V8FaqZMlNFj1X+tp0bRC0seLWbkqKFn6+pv0CI4bZYGR45Y8gvyrA3LZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TpMczUZ1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qIKSOvXSdJLL/6G3nWE5fVb03TCr2MFy7iiw0MtGbx1I4fbo2uqRGGijx/KrXUizy1os8JahicfCT0FlhkNjpj8Nknk80Bwe1w7jSAOCdseWAgoANLs3zwHqepqgw8i/evko4JO4gFAiK318TxWK9W1VFmNs9hyEUxu1DykiYbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2lWsD3/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TpMczUZ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1AE81F000C7;
-	Mon, 19 Oct 2026 13:57:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2lWsD3/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C433F1F000C6;
+	Mon, 19 Oct 2026 13:58:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418279;
-	bh=+8NqKn6uNWtbTSb6EmjgDYhq5VdfpwBYEPmX5T+PrgM=;
+	s=k20260515; t=1792418283;
+	bh=Dv3twa7zYOB3knqGrwOntSkkwfPWGCbTt5dOVIhc7Fc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TpMczUZ1YzjUUwxab9jQQC2xGp2/YSbuBUCUoaDSJ+psnObrQsAI1Wz2qz0kYtBgc
-	 5FKSRMeZlg4RcA0K+n17Lqp3VFuPi3k5Jz9N+Ah9lsd42Alkl9pRLz/8cfQASICBUS
-	 Tgt41GHdhFfuCURR2AG0AxBjK3aMEWyCU07rdPF3LgYF7c/WGWp8lDtClMnYwc62Dy
-	 5mMLTWYEGc/O5nLYJvBRzEv6pX6TybeXQ+y8uXrTGpc818UevqkXVL/HAESderhIF1
-	 zq2TH+YUDenr9uALJBGspwHHrp/Io6IXOMRvEevnxsFaRiLvX8eEkPRwFxNhOkUR1c
-	 0BYCRp05060PQ==
+	b=l2lWsD3/9dHeUKkLyg+Z6WFUrxPIulOKlijIB69wU2fTw7mbnD0ceHmMy6CTOWqXv
+	 NxpOM9SDBm/HUsSBGDXGfmn4WvoM6lDD7How7yVRn12lcb+uDb7p7tZd4z2NRvtvZu
+	 IdQTJPqRcnHgPZZ7hzYOfphQGBgpkcwBwc6n9nyARAlswKmBmpC64+srtMQwJcXfsQ
+	 Ahd7IyUCF9+sJnuHyrM7o8Wfnxgm2//KAjhAsPYPLJcKdRBpCkTRwFW60CV6rU6zMc
+	 AUf1NEOc9VJ4SGbnBo695HH+pGwVBCHYH/vHxYr/f+7NTKXaMFpQbontv/0JZ0jN09
+	 TgbTaxKq7SKyw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Csaba Budai <ilyr73@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Jenson Johnathon Reggentin <mail@jregg.de>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Jonathan Corbet <corbet@lwn.net>,
 	Sasha Levin <sashal@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	axboe@kernel.dk,
+	linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] ALSA: hda/realtek: Fix ALC700 audio on Intel Hades Canyon
-Date: Mon, 19 Oct 2026 09:47:06 -0400
-Message-ID: <20261019135441.1420968-135-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] docs: block: fix dead http link in blk-mq.rst
+Date: Mon, 19 Oct 2026 09:47:09 -0400
+Message-ID: <20261019135441.1420968-138-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,471 +55,378 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Csaba Budai <ilyr73@gmail.com>
+From: Jenson Johnathon Reggentin <mail@jregg.de>
 
-[ Upstream commit 1fcccdc20a76b4639b00124cf2a379b837bd2bf7 ]
+[ Upstream commit b40a680ea4efe4ef2addada63e304a94d19500d1 ]
 
-On Intel Hades Canyon systems with an ALC700 codec, analog audio can
-become unusable after rebooting from Windows into Linux.
+The current link http://kernel.dk/blk-mq.pdf leads to a 404 error page.
+https://www.kernel.dk/blk-mq.pdf leads to the correct document.
 
-The affected system uses codec subsystem ID 8086:2073. In the broken
-state, Realtek coefficient 0x1b has value 0x4a4b. Setting bit 0x0400
-changes it to 0x4e4b and immediately restores normal analog playback.
+v2 to add the missing www. prefix in the actual file change.
 
-The BIOS also sets this bit after disabling and re-enabling onboard
-audio, while Windows may leave it cleared. Linux currently does not
-restore it during codec initialization.
-
-Add a machine-specific fixup for Intel Hades Canyon which sets only
-bit 0x0400 of coefficient 0x1b during HDA_FIXUP_ACT_INIT.
-
-The fix has been verified across Windows -> Linux reboots on an Intel
-NUC8i7HNB with an ALC700 codec.
-
-Signed-off-by: Csaba Budai <ilyr73@gmail.com>
-Link: https://patch.msgid.link/20260821102514.11194-1-ilyr73@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Jenson Johnathon Reggentin <mail@jregg.de>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Signed-off-by: Jonathan Corbet <corbet@lwn.net>
+Message-ID: <20260819192422.42189-1-mail@jregg.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 1)...
-Retry attempt 1...
-This is a machine-specific ALSA Realtek quirk for Intel Hades Canyon.
-The local tree is **6.12.111**; the same Realtek tables exist here, just
-in `sound/pci/hda/patch_realtek.c` instead of later `alc269.c`.
+I have the tree identity, the dead URL in-tree, review history, and a
+clean apply. Next I’ll finish call-site and stable-rule checks, then
+give the backport verdict.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 Step 1.1: PARSE THE SUBJECT LINE
-Record: **[ALSA: hda/realtek]** **[Fix]** **ALC700 analog audio unusable
-on Intel Hades Canyon after Windows reboot**
+Record: `[docs: block:]` `[fix]` `[dead HTTP link in blk-mq.rst]` —
+documentation URL correction in the block multi-queue overview.
 
 Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- **Signed-off-by:** Csaba Budai \<ilyr73@gmail.com\> (author)
-- **Link:**
-  https://patch.msgid.link/20260821102514.11194-1-ilyr73@gmail.com
-- **Signed-off-by:** Takashi Iwai \<tiwai@suse.de\> (ALSA maintainer,
-  applied the patch)
-- **No Fixes:** tag (expected)
-- **No Cc: stable** (expected)
-- **No Reported-by / Tested-by / Reviewed-by / Acked-by**
-  - Author states the fix was verified on an Intel NUC8i7HNB (in the
-    body, not a Tested-by tag)
-- Ignore any pipeline-added Sasha Levin SOB / Upstream-commit markers if
-  present
+- Signed-off-by: Jenson Johnathon Reggentin `<mail@jregg.de>` (author)
+- Acked-by: Randy Dunlap `<rdunlap@infradead.org>` (docs reviewer)
+- Signed-off-by: Jonathan Corbet `<corbet@lwn.net>` (docs maintainer,
+  applied it)
+- Message-ID: `<20260819192422.42189-1-mail@jregg.de>` (v2 submission)
+- No Fixes: tag (expected)
+- No Reported-by / Tested-by / Reviewed-by on the committed form (v1 had
+  Reviewed-by: Md Haris Iqbal; that tag was not carried to v2)
+- No Cc: stable (expected; not a negative)
+- Ignore any pipeline “Upstream commit” / “Signed-off-by: Sasha Levin”
+  markers if present
 
 Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- **Bug:** On Intel Hades Canyon (codec SSID **8086:2073**, ALC700),
-  analog audio can become unusable after rebooting from Windows into
-  Linux.
-- **Symptom:** Analog playback does not work until a BIOS-level audio
-  disable/enable or until coef 0x1b bit 0x0400 is set.
-- **Root cause:** Windows may leave Realtek coefficient 0x1b as
-  **0x4a4b** (bit 0x0400 clear). BIOS sets that bit (value becomes
-  **0x4e4b**). Linux never restores it at codec init.
-- **Fix:** Machine-specific HDA fixup that sets only bit 0x0400 of coef
-  0x1b at `HDA_FIXUP_ACT_INIT`.
-- **Version info:** None in the message. Hardware is the 2018 Intel
-  NUC8i7HNB; ALC700 support has been in-tree since 2016.
+- Bug: `http://kernel.dk/blk-mq.pdf` in the “Further reading” section
+  returns 404.
+- Symptom: readers of blk-mq documentation cannot open the canonical
+  blk-mq paper.
+- Fix: switch to `https://www.kernel.dk/blk-mq.pdf`.
+- v2 note: v1 used `https://kernel.dk/blk-mq.pdf` (missing `www.`),
+  which still 404’d / had a bad cert; v2 adds `www.`.
+- No kernel version range given; no crash/trace.
 
 Step 1.4: DETECT HIDDEN BUG FIXES
-Record: **Not a hidden fix.** The subject and body are an explicit
-hardware-quirk bug fix. It is not cleanup, refactoring, or a new
-feature.
+Record: Not a hidden runtime fix. It is exactly what it says: a
+documentation hyperlink correction. Not a leak/race/UAF disguised as
+cleanup.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+---
+
+## PHASE 2: DIFF ANALYSIS
 
 Step 2.1: INVENTORY THE CHANGES
 Record:
-- **File (upstream):** `sound/hda/codecs/realtek/alc269.c` (**+20 /
-  -0**)
-- **Functions/tables:**
-  1. Enum: add `ALC700_FIXUP_INTEL_HADES_CANYON`
-  2. New `alc700_fixup_intel_hades_canyon()`
-  3. `alc269_fixups[]` entry (`HDA_FIXUP_FUNC`)
-  4. `alc269_fixup_tbl[]` PCI quirk `SND_PCI_QUIRK(0x8086, 0x2073, ...)`
-- **Scope:** Single-file surgical hardware quirk. No API, no data-
-  structure, no locking changes.
+- File: `Documentation/block/blk-mq.rst` — 1 line changed (`-1/+1`)
+- Functions: none
+- Scope: single-file, surgical documentation edit
 
 Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 Record:
-- **Before:** SSID 8086:2073 has no match in `alc269_fixup_tbl`.
-  `patch_alc269()` still probes ALC700 (`0x10ec0700`) but never restores
-  coef 0x1b bit 0x0400. After a Windows boot that left the bit clear,
-  analog playback stays broken across Linux boot.
-- **After:** `snd_hda_pick_fixup()` matches 8086:2073. During
-  `alc_init()` → `snd_hda_apply_fixup(..., HDA_FIXUP_ACT_INIT)`, the new
-  function does `alc_update_coef_idx(codec, 0x1b, 0x0400, 0x0400)`,
-  which is `(val & ~0x0400) | 0x0400` — set one bit, leave the rest.
-- **Path:** Codec init (probe and resume), not an error path. Gated to
-  this SSID only.
+- Before: RST link target `http://kernel.dk/blk-mq.pdf`
+- After: RST link target `https://www.kernel.dk/blk-mq.pdf`
+- Path affected: documentation “Further reading” only; no execution path
 
 Step 2.3: IDENTIFY THE BUG MECHANISM
-Record:
-- **Category:** Hardware quirk / logic correctness (missing codec-init
-  restore of a vendor coefficient).
-- **Mechanism:** Windows leaves a vendor bit cleared; Linux did not put
-  it back. The fix is the standard Realtek INIT coef update used by many
-  existing fixups (e.g. `alc269vb_fixup_aspire_e1_coef`).
+Record: Not a memory-safety/locking/refcount bug. Category:
+documentation correctness (dead external URL). Mechanism: site now
+requires HTTPS + `www.` hostname.
 
 Step 2.4: ASSESS THE FIX QUALITY
 Record:
-- **Quality:** Obviously correct and matches existing INIT-coef fixups.
-  Mask/set of a single bit is the intended `alc_update_coef_idx` usage
-  (verified in `__alc_update_coefex_idx`: `(val & ~mask) | bits_set`).
-- **Regression risk:** Very low. Only SSID 8086:2073 is changed. Other
-  machines are untouched. Worst case on this SKU is a wrong vendor bit;
-  author and BIOS both indicate that bit should be set.
-- **No public API / no locking / no refcount changes.**
+- Obviously correct once v2 uses the working URL.
+- Minimal; no unrelated edits.
+- Regression risk: none at runtime. Residual risk is only that the
+  remote host could move again (same class of risk as any external
+  link).
+- v1 was wrong (Randy Dunlap reported continued 404 / bad SSL);
+  committed v2 addresses that.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+Verified live:
+- `http://kernel.dk/blk-mq.pdf` → 404
+- `https://www.kernel.dk/blk-mq.pdf` → PDF retrieved (51.5 KB)
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 Step 3.1: BLAME THE CHANGED LINES
 Record:
-- Surrounding enum: `ALC700_FIXUP_INTEL_REFERENCE` from
-  **b84e843644f211** (PeiSen Hou, 2017-09-01).
-- Neighboring NUC 8 quirk 8086:2074 from **d1ee66c5d3c5a0** (2021, "fix
-  mic boost on Intel NUC 8") — already in this tree.
-- ALC700 codec ID `HDA_CODEC_ENTRY(0x10ec0700, "ALC700", patch_alc269)`
-  from **6fbae35a3170c** (2016-05-30).
-- The “buggy” state is missing a quirk that was never present; the codec
-  path has existed since **v4.8-era / 2016**.
+- Introduced in `46e906144c3f4b` (“docs: block: Create blk-mq
+  documentation”, André Almeida, 2020-06-19)
+- First appeared: `v5.9-rc1` (`git describe --contains` →
+  `v5.9-rc1~150^2~141`)
+- Present in this tree for the entire 6.12 lifetime
 
 Step 3.2: FOLLOW THE FIXES: TAG
-Record: **No Fixes: tag.** Not applicable. This is a missing machine
-quirk, not a regression from a specific earlier commit.
+Record: No Fixes: tag. The introducing commit is the original
+documentation add, not a later regression in C code.
 
 Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- This tree already carries many Realtek `Add quirk` backports in
-  `patch_realtek.c`.
-- Related ALC700 history in-tree: 6fbae35a3170c (add ALC700),
-  2d7fe6185722b (ALC700 no-sound), b84e843644f21 (ALC700 jack detect).
-- Upstream file split **aeeb85f26c3bb** (“ALSA: hda: Split Realtek HD-
-  audio codec driver”, 2025-07-11) is **not** an ancestor of this 6.12
-  tree — that is why the path differs.
-- **Standalone** patch (not X/Y). No later follow-up on origin/master
-  targeting Hades Canyon / 8086:2073.
+Record (this tree, `-- Documentation/block/blk-mq.rst`):
+- `41bd33df4e180` docs: correct places → place
+- `c19430eec84f7` Fix small typo
+- `2bc602cb0e0d9` correct drive → driver
+- `8ac867340bd8c` / `9303c9d5e9883` Sphinx `:c:type` cleanup
+- `46e906144c3f4b` create the file
+No later URL rewrite in this checkout. Standalone; not patch X/Y of a
+functional series.
 
 Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Csaba Budai has this one ALSA commit on origin/master. Not the
-subsystem maintainer. **Takashi Iwai** (ALSA maintainer) applied it with
-“Applied now. Thanks.”
+Record: `git log --author="Jenson Johnathon Reggentin"` /
+`mail@jregg.de` on this tree: no hits. One-off docs contributor, not the
+block maintainer. Applied by Jonathan Corbet; Acked-by Randy Dunlap.
 
 Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record:
-- Required pieces **are already here:** `alc_update_coef_idx`,
-  `HDA_FIXUP_ACT_INIT`, `alc269_fixups[]`, `alc269_fixup_tbl[]`,
-  `ALC700_FIXUP_INTEL_REFERENCE`, `patch_alc269` for 0x10ec0700,
-  `alc_init()` calling `snd_hda_apply_fixup(..., HDA_FIXUP_ACT_INIT)`.
-- **No functional prerequisites.** Only a path rewrite (`alc269.c` →
-  `patch_realtek.c`). Insertion anchors exist: enum after
-  `ALC700_FIXUP_INTEL_REFERENCE`, quirk table immediately before
-  `0x8086, 0x2074`. `alc287_fixup_lenovo_yoga_book_9i()` (the function
-  above the new helper upstream) **does** exist in this tree.
+Record: No new helpers, structs, or APIs. The hunk matches the current
+file byte-for-byte. Can apply standalone.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 Record:
-- **b4 dig -c 1fcccdc20a76b:**
-  https://patch.msgid.link/20260821102514.11194-1-ilyr73@gmail.com
-- **b4 dig -a:** single **v1**, no later revisions.
-- Maintainer reply (Takashi Iwai, 2026-08-23): **“Applied now.
-  Thanks.”** No NAK, no requested changes, no stable discussion.
-- Direct lore.kernel.org WebFetch returned **403**; thread recovered via
-  `b4 dig -m`.
+- `b4 mbox 20260819192422.42189-1-mail@jregg.de` saved 12-message thread
+  (lore HTTP 403 from WebFetch; b4 succeeded).
+- v1: `https://kernel.dk/blk-mq.pdf` (no www)
+- v2 (applied): `https://www.kernel.dk/blk-mq.pdf`
+- Randy Dunlap: v1 still 404 + invalid SSL; confirmed `www.` works;
+  Acked-by on v2; asked changelog-after-`---` nit
+- Haris Iqbal: Reviewed-by on v1; spotted missing `www.`
+- Jonathan Corbet: asked for a version that actually works; applied v2
+  (“Applied, thanks.”)
+- No NAK. No reviewer asked for Cc: stable.
+- Included in Corbet’s `[GIT PULL] Documentation stragglers for 7.3`
+  (`docs-7.3-2`), described as late-arriving docs fixes, not a stable-
+  critical runtime fix.
+- Syzbot CI skipped both versions: “AI determined the patch has no
+  functional impact”
 
 Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (**b4 dig -w**): Csaba Budai, Jaroslav Kysela, Takashi Iwai,
-linux-sound@, linux-kernel@. Right maintainers were on To/Cc. Applied by
-Takashi.
+Record (syzbot CI Cc + thread):
+- To/Cc: Jens Axboe, Jonathan Corbet, linux-block, linux-doc
+- Reviewers who spoke: Randy Dunlap (ack), Md Haris Iqbal (v1 r-b),
+  Jonathan Corbet (applied)
+- Block maintainer was copied; no Axboe reply in the 12-message thread
 
 Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No bugzilla/syzbot link. Evidence is the author’s dual-boot
-report plus BIOS/Windows coefficient comparison (0x4a4b vs 0x4e4b).
-Severity from the reporter: analog audio unusable until the bit is set.
+Record: No bugzilla/syzbot crash. Author observed a 404. Confirmed
+independently in this analysis.
 
 Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Standalone v1. No series companions. No later origin/master
-commits touching this SSID.
+Record: Standalone. v1→v2 only to correct the hostname. No sibling
+functional patches required.
 
 Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable WebFetch returned **403**. No stable-list
-discussion recovered via b4. **UNVERIFIED:** whether anyone already
-requested this on stable@ (does not change the technical merit).
+Record: lore.kernel.org/stable WebFetch returned 403. UNVERIFIED that
+stable@ discussed this specific URL. No evidence in the docs thread of a
+stable nomination or of a reason to exclude it.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+---
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: New `alc700_fixup_intel_hades_canyon()`. Tables: enum,
-`alc269_fixups[]`, `alc269_fixup_tbl[]`. Semcode MCP not available;
-identified from hunks and grep.
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+Step 5.1: KEY FUNCTIONS
+Record: None. Only an RST hyperlink.
 
 Step 5.2: TRACE CALLERS
-Record:
-- `snd_hda_pick_fixup()` in `patch_alc269()`
-  (`sound/pci/hda/patch_realtek.c` ~12583) selects the quirk from
-  PCI/codec SSID.
-- `alc_init()` (`spec->init` / `.init = alc_init`) calls
-  `snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_INIT)` (~954). That runs on
-  codec init (probe and resume).
-- Impact surface: **only** devices matching **8086:2073**.
+Record: N/A — not callable kernel code. Consumers are humans (and Sphinx
+HTML on kernel.org / distro doc packages).
 
 Step 5.3: TRACE CALLEES
-Record: `alc_update_coef_idx` → `alc_update_coefex_idx` (NID 0x20,
-mutex) → `__alc_update_coefex_idx`: read-modify-write vendor coef.
-Standard, already used throughout this file.
+Record: N/A.
 
 Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace does not need a special syscall. Booting Linux on this
-NUC (especially after Windows) enumerates HDA → `patch_alc269` → INIT
-fixup. **Reachable from normal device use.** Dual-boot is a realistic
-trigger.
+Record: Not reachable from syscalls. User impact is documentation-only.
+kernel.org `v6.12` HTML is built from this tree, so the 404 is user-
+visible for people reading 6.12 docs.
 
 Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Many INIT-time `alc_update_coef_idx` fixups already exist
-(`alc269_fixup_hweq`, `alc269vb_fixup_aspire_e1_coef`,
-`alc269_fixup_stereo_dmic`). Same pattern. No other 8086:2073 / Hades
-Canyon quirk in this tree.
+Record: `kernel.dk/blk-mq` appears only in `Documentation/block/blk-
+mq.rst` in this tree. Other `kernel.dk` hits are emails/copyrights, not
+this PDF.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
 Record:
-- **Yes.** Local tree: **pending-6.12**, `git describe`
-  **p-6.12-3-gc504cf0baa3d8**, `make kernelversion` **6.12.111**.
-- ALC700 + `patch_alc269` present since 6fbae35a3170c (in this tree).
-- **No** `ALC700_FIXUP_INTEL_HADES_CANYON` and **no**
-  `SND_PCI_QUIRK(0x8086, 0x2073, ...)`.
-- `git merge-base --is-ancestor 1fcccdc20a76b HEAD` → **not present**.
-- Bug is a long-standing missing restore, not something introduced after
-  6.12 branched.
+- `git describe HEAD` → `p-6.12-3-gc504cf0baa3d8`
+- `make kernelversion` / Makefile → **6.12.111**, branch `pending-6.12`
+- Line 142 of `Documentation/block/blk-mq.rst` still has
+  `http://kernel.dk/blk-mq.pdf`
+- `git merge-base --is-ancestor 46e906144c3f4b HEAD` → yes
+- Bug introduced v5.9-rc1 (2020); present here
 
 Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Minor path rewrite, otherwise clean.** Upstream file
-`sound/hda/codecs/realtek/alc269.c` is the post-2025 split; 6.12 still
-has `sound/pci/hda/patch_realtek.c`. All four hunks have matching
-context (enum order, `ALC700_FIXUP_INTEL_REFERENCE` verbs, 8086:2074
-quirk). This is the same class of adjustment already used for other
-Realtek quirk backports in this tree.
+Record: Surrounding hunk is identical to the patch context. Expected
+apply: **clean**. `git log v6.12..HEAD -- Documentation/block/blk-
+mq.rst` is empty (no conflicting stable edits).
 
 Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: **No.** Grep found no Hades Canyon / 0x2073 /
-`ALC700_FIXUP_INTEL_HADES_CANYON`. Neighboring NUC 8 quirk (2074) is
-unrelated (mic boost on a different SKU).
+Record: Replacement URL not present. No alternate rewrite of this link.
+Comparable docs-link backports **do** exist after v6.12 in this tree,
+e.g.:
+- `b23111ec50d86` `docs: hwmon: fix link to g762 devicetree binding`
+- `a7f28636da6f9` `docs: media: update location of the media patches`
+  (explicit Cc: stable)
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+---
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: **ALSA HD-audio / Realtek codec** (`sound/pci/hda/`).
-**IMPORTANT** for users of this hardware (common laptop/NUC audio
-stack), **PERIPHERAL** in the sense that only one SSID is affected. Not
-core mm/VFS.
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Very active: this 6.12 tree already has a long stream of Realtek
-quirk backports. The pattern is mature and well-understood.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: **Driver/platform-specific:** Intel Hades Canyon NUC (NUC8i7HNB
-/ SSID 8086:2073) with ALC700. Dual-boot Windows→Linux users are the
-ones who hit the broken coefficient. Other machines unchanged.
-
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Reboot from Windows into Linux (Windows left coef 0x1b bit
-0x0400 clear). Not every boot if BIOS left the bit set. Not a race.
-Unprivileged users do not need a special exploit; they just have no
-analog sound.
-
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: Analog audio **unusable** (no playback) until BIOS toggle or
-this coef write. **MEDIUM** for the kernel as a whole, **HIGH** for
-those users (device functionally broken). Not a panic/UAF, but a real
-hardware functional failure — the exact class stable regularly takes as
-HDA quirks.
-
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Step 7.1: SUBSYSTEM AND CRITICALITY
 Record:
-- **Benefit:** Restores analog audio on a shipping Intel NUC after dual-
-  boot. Matches BIOS. Tested on the machine.
-- **Risk:** Very low (20 lines, SSID-gated, one bit set, standard
-  helper).
-- **Ratio:** Strongly favors backport.
+- Subsystem: Documentation for the block layer (`Documentation/block/`,
+  MAINTAINERS: BLOCK LAYER, Jens Axboe; docs tree via Corbet)
+- Criticality of **blk-mq itself**: IMPORTANT (common block I/O)
+- Criticality of **this change**: documentation-only, not the I/O path
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+Step 7.2: SUBSYSTEM ACTIVITY
+Record: `Documentation/block/` is mature; this file’s last change in-
+tree is a 2023 typo fix. The URL has been wrong/stale for years; the
+site layout change is what made `http://kernel.dk/...` a hard 404.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+Step 8.1: WHO IS AFFECTED
+Record: Anyone reading in-tree or generated blk-mq docs (developers,
+distro doc packages, kernel.org HTML for 6.12). Not a
+runtime/driver/config population.
+
+Step 8.2: TRIGGER CONDITIONS
+Record: Opening the “Further reading” PDF link. Common for people
+studying blk-mq; never triggered by unprivileged syscalls. Not a race.
+
+Step 8.3: FAILURE MODE SEVERITY
+Record:
+- Failure: HTTP 404 / cannot open the referenced paper
+- Severity: **LOW** (incorrect documentation, no crash/corruption/hang)
+- No kernel oops, leak, or security effect
+
+Step 8.4: RISK-BENEFIT RATIO
+Record:
+- Benefit: working further-reading link in 6.12 docs; small but real for
+  doc users
+- Risk: **very low** (one RST URL; no code, locks, APIs)
+- Ratio: favorable *if* documentation corrections are in scope; not a
+  stability win
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
 
 Step 9.1: COMPILE THE EVIDENCE
 
-**FOR backporting:**
-- Real user-visible bug: analog playback dead after Windows→Linux
-  reboot.
-- Explicit hardware quirk (SSID + INIT coef), the documented stable
-  exception.
-- Small (+20), obviously correct, SSID-scoped.
-- ALC700 and all helpers exist in 6.12; bug is not post-branch.
-- Maintainer Takashi Iwai applied v1 with no objections.
-- Same style as many quirks already in this tree.
+FOR backporting:
+- Dead link is real (404 verified); replacement URL works
+- One-line, obviously correct v2 after review
+- Docs maintainer applied it; Randy Dunlap Acked-by
+- Buggy line exists in this 6.12.111 tree since v5.9; applies cleanly
+- User-facing exception: documentation/comment fixes with zero runtime
+  regression
+- This same 6.12 tree already took other documentation link-location
+  fixes
 
-**AGAINST backporting:**
-- Affects one NUC SKU, mainly dual-boot.
-- Upstream path differs; cherry-pick needs a file-path adjustment.
-- No syzbot/CVE/crash.
+AGAINST backporting:
+- Not a crash, deadlock, corruption, UAF, or security bug
+- Official rule 3 (“important issue”) is not met in the runtime sense
+- No functional kernel impact (syzbot CI skipped it for that reason)
+- No Cc: stable; landed as docs-7.3 stragglers, not a hotfix
+- Stable rules also discourage purely trivial edits; this is adjacent to
+  that class
+- Benefit is only to documentation readers, not production uptime
 
-**UNRESOLVED:**
-- Could not read lore.kernel.org/stable (403). No evidence it was
-  rejected for stable.
+UNRESOLVED:
+- Could not fetch lore.kernel.org or lore stable search via WebFetch
+  (403); thread recovered via b4
+- Commit SHA is not in this checkout’s `master` (that tip is ~7.2; patch
+  went in docs-7.3-2)
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — bit set matches measured
-   0x4a4b→0x4e4b; verified on NUC8i7HNB; maintainer applied.
-2. Fixes a real bug that affects users? **PASS** — analog audio unusable
-   after dual-boot.
-3. Important issue? **PASS** — hardware-quirk class; functional audio
-   failure on a real product (not a crash, but in-scope for stable
-   quirks).
-4. Small and contained? **PASS** — 20 lines, one file, one SSID.
-5. No new features or APIs? **PASS** — quirk only.
-6. Can apply to the local tree? **PASS** — needs path rewrite to
-   `patch_realtek.c`; context matches.
+Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — v2 URL verified; Acked-by +
+   maintainer apply
+2. Fixes a real bug that affects users? **PASS** — 404 in
+   shipped/generated docs, not a runtime bug
+3. Important issue (crash, security, corruption, deadlock)? **FAIL** as
+   runtime severity; **LOW** doc defect only
+4. Small and contained? **PASS** — 1 line, one file
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — context identical, URL still
+   old
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: **Hardware quirk / workaround** (HDA/Realtek codec quirk table).
-This is an automatic YES category in the stable rules given above.
+Step 9.3: EXCEPTION CATEGORIES
+Record: **Documentation fix** (incorrect/obsolete external link). That
+exception is why a LOW-severity, zero-runtime patch can still be
+appropriate for this tree.
 
-Step 9.4: MAKE YOUR DECISION
-This should be backported to this 6.12 tree. The ALC700 path is old;
-only the Hades Canyon restore is missing. The upstream split into
-`alc269.c` is after 6.12, so the backport is the same hunks in
-`sound/pci/hda/patch_realtek.c`.
+Step 9.4: DECISION
+The change does not stabilize running 6.12 systems, but it is a
+contained, verified correction of documentation this tree still ships,
+with no regression surface and with precedent for similar doc-link
+backports here. That matches the documentation exception, not a “new
+feature” or refactor.
 
-------------------------------------------------
-What problem it solves and why it matters
-------------------------------------------------
-On Intel Hades Canyon (SSID 8086:2073), Windows can leave Realtek coef
-0x1b with bit 0x0400 clear. Linux never sets it, so analog playback
-stays dead across boot. Dual-boot NUC users on 6.12 hit this today. The
-fix restores that one BIOS bit at codec INIT.
+What it solves for stable users: kernel.org / distro HTML for 6.12
+currently points “Further reading” at a 404; after backport it points at
+Jens Axboe’s actual blk-mq PDF.
 
-Risk vs benefit
-------------------------------------------------
-Benefit is restoring audio on that SKU. Risk is a one-bit vendor coef
-write gated by PCI quirk, using an existing helper. Path rewrite is
-mechanical.
+Risk vs benefit: negligible risk, modest doc benefit. No dependencies or
+backport rework.
 
-------------------------------------------------
-Verification
-------------------------------------------------
-- [Phase 1] Parsed tags: SOB Csaba Budai, Link msgid, SOB Takashi Iwai;
-  no Fixes/Cc-stable/Reported-by.
-- [Phase 2] Diff: +20 in one file; enum + INIT func + fixup table +
-  SND_PCI_QUIRK(0x8086, 0x2073).
-- [Phase 2] `__alc_update_coefex_idx`: `(val & ~mask) | bits_set` with
-  mask=bits_set=0x0400 sets one bit.
-- [Phase 3] `git describe HEAD` / `make kernelversion`: p-6.12-3,
-  **6.12.111**.
-- [Phase 3] `git merge-base --is-ancestor 1fcccdc20a76b HEAD`: **not in
-  this tree**.
-- [Phase 3] `git merge-base --is-ancestor 6fbae35a3170c HEAD`: ALC700
-  support **is** in this tree (2016).
-- [Phase 3] `git merge-base --is-ancestor aeeb85f26c3bb HEAD`: codec
-  split **not** in this tree (old path).
-- [Phase 3] Blame: `ALC700_FIXUP_INTEL_REFERENCE` from b84e843644f211;
-  8086:2074 from d1ee66c5d3c5a0.
-- [Phase 4] `b4 dig -c 1fcccdc20a76b`: lore/msgid match; v1 only;
-  Takashi “Applied now. Thanks.”
-- [Phase 4] `b4 dig -w`: linux-sound + Takashi Iwai + Jaroslav Kysela.
-- [Phase 4] WebFetch lore: **403**; thread via `b4 dig -m /tmp/hades-
-  canyon.mbox`.
-- [Phase 5] Callers: `patch_alc269` → `snd_hda_pick_fixup` → `alc_init`
-  → `HDA_FIXUP_ACT_INIT`.
-- [Phase 6] Grep: no 0x2073 / Hades Canyon / HADES_CANYON in
-  `patch_realtek.c`; insertion points present.
-- [Phase 8] Failure: analog playback unusable; SSID-scoped; not a crash.
-- UNVERIFIED: stable@ mailing list discussion (HTTP 403).
+---
+
+## Verification
+- [Phase 1] Tags: author SOB, Randy Dunlap Acked-by, Jonathan Corbet
+  SOB, Message-ID v2; no Fixes/Reported-by/Cc-stable
+- [Phase 2] Diff: single RST URL `http://kernel.dk/blk-mq.pdf` →
+  `https://www.kernel.dk/blk-mq.pdf`
+- [Phase 2] WebFetch: old URL 404; new URL returns the PDF
+- [Phase 3] `git blame` line 142: `46e906144c3f4b` (2020); `git describe
+  --contains` → v5.9-rc1
+- [Phase 3] `git merge-base --is-ancestor 46e906144c3f4b HEAD` succeeded
+- [Phase 3] Author has no other commits in this tree; file history is
+  typo/Sphinx-only
+- [Phase 4] `b4 mbox`: 12-message v1/v2 thread; Randy caught v1 404/SSL;
+  Corbet applied v2
+- [Phase 4] LKML pull: included in Documentation stragglers for 7.3
+- [Phase 4] Syzbot CI: skipped, no functional impact
+- [Phase 4] UNVERIFIED: lore.kernel.org/stable search (HTTP 403)
+- [Phase 5] No functions/callers; only docs consumers
+- [Phase 6] `git describe HEAD` = p-6.12-3-gc504cf0baa3d8; kernelversion
+  6.12.111; dead URL still at blk-mq.rst:142
+- [Phase 6] Apply would be clean; no post-v6.12 edits to this file
+- [Phase 6] Precedent: `docs: hwmon: fix link to g762...` and `docs:
+  media: update location...` already in this 6.12 tree
+- [Phase 8] Failure mode: documentation 404, severity LOW; runtime risk
+  none
 
 **YES**
 
- sound/hda/codecs/realtek/alc269.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ Documentation/block/blk-mq.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index bc33930e83b9f..8196235c31d2b 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -3820,6 +3820,7 @@ enum {
- 	ALC225_FIXUP_DELL_WYSE_MIC_NO_PRESENCE,
- 	ALC225_FIXUP_S3_POP_NOISE,
- 	ALC700_FIXUP_INTEL_REFERENCE,
-+	ALC700_FIXUP_INTEL_HADES_CANYON,
- 	ALC274_FIXUP_DELL_BIND_DACS,
- 	ALC274_FIXUP_DELL_AIO_LINEOUT_VERB,
- 	ALC298_FIXUP_TPT470_DOCK_FIX,
-@@ -4040,6 +4041,19 @@ static void alc287_fixup_lenovo_yoga_book_9i(struct hda_codec *codec,
- 	__snd_hda_apply_fixup(codec, id, action, 0);
- }
+diff --git a/Documentation/block/blk-mq.rst b/Documentation/block/blk-mq.rst
+index fc06761b6ea90..2798761efe0d6 100644
+--- a/Documentation/block/blk-mq.rst
++++ b/Documentation/block/blk-mq.rst
+@@ -139,7 +139,7 @@ completed.
+ Further reading
+ ---------------
  
-+static void alc700_fixup_intel_hades_canyon(struct hda_codec *codec,
-+					    const struct hda_fixup *fix,
-+					    int action)
-+{
-+	/*
-+	 * Windows may leave coef 0x1b bit 0x0400 cleared, causing broken
-+	 * analog playback after rebooting into Linux.  Restore the bit
-+	 * during codec initialization.
-+	 */
-+	if (action == HDA_FIXUP_ACT_INIT)
-+		alc_update_coef_idx(codec, 0x1b, 0x0400, 0x0400);
-+}
-+
- static const struct hda_fixup alc269_fixups[] = {
- 	[ALC233_FIXUP_WUJIE_SPEAKERS] = {
- 		.type = HDA_FIXUP_PINS,
-@@ -5092,6 +5106,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 			{}
- 		}
- 	},
-+	[ALC700_FIXUP_INTEL_HADES_CANYON] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc700_fixup_intel_hades_canyon,
-+	},
- 	[ALC274_FIXUP_DELL_BIND_DACS] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc274_fixup_bind_dacs,
-@@ -7653,6 +7671,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x2782, 0xa128, "Positivo N15RPE-S", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x2782, 0xa212, "Lunnen Ground 14", ALC269VC_FIXUP_LUNNEN_GROUND_14),
- 	SND_PCI_QUIRK(0x7017, 0x2014, "Star Labs StarFighter", ALC233_FIXUP_STARLABS_STARFIGHTER),
-+	SND_PCI_QUIRK(0x8086, 0x2073, "Intel NUC 8 Hades Canyon",
-+		      ALC700_FIXUP_INTEL_HADES_CANYON),
- 	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
- 	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", ALC256_FIXUP_INTEL_NUC8_RUGGED),
- 	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
+-- `Linux Block IO: Introducing Multi-queue SSD Access on Multi-core Systems <http://kernel.dk/blk-mq.pdf>`_
++- `Linux Block IO: Introducing Multi-queue SSD Access on Multi-core Systems <https://www.kernel.dk/blk-mq.pdf>`_
+ 
+ - `NOOP scheduler <https://en.wikipedia.org/wiki/Noop_scheduler>`_
+ 
 -- 
 2.53.0
 
