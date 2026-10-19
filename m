@@ -1,157 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFCF36493C;
-	Mon, 19 Oct 2026 03:01:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05E139B94F
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792378902; cv=none; b=pgg5rufQmgWgaF/IKPICOuKeeQ7DHhup6daL/dPufqwjWcnljR83PyXxKNdJcnUYP5qq+TT1LTDnm8XOEAnqW3+z5pK71MigHAg1MhvJm/drpOKTqCZJxAkeLMvKEOdp130NR3vAe7fsuBnDXxeYOvvZiBs63/jom4LKkSq84dM=
+	t=1792378904; cv=none; b=QfGNsLYY0/RDuiMYSvcFd3h82/EH7/IkTqN7DsRg1iYpMbmNXOO+V33cfcvyAfMmuAYWi23VYnhMh6p6OLJTlwdFPnOMZDjSBmRJK6gWt5VbEqHsawkqRzSzmL10R2VIfAHY1XaOKuhXslu4pv+ohsSUWs++JOo2+MbcBvkNdy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792378902; c=relaxed/simple;
-	bh=VWn0uQoOEoGiJIbN/zvdT6e5+n9Eufqzc2wlyytqKwM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ij4Cpd7cTtnp7Aaq+Tj0koIwRBnKXNkvdCSMskJrhKlqLS+4JDcFlYF7vDoZwz88hrzKsTyM5FxGvYSBV/9NG0bLXJyB5eyX+lCGTzSK2bSMY2Y6Y8nxtse9uuZRfHpCbU3vKdsnHGeGehWMNwqxH5aXBdhxN8G/8mblbtry80Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifXDmOXQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792378904; c=relaxed/simple;
+	bh=KUzDfA55VWCYv71Z2RlGmJ55hfO3CvJRsnX0M0VB284=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=F2PMYSWwjU4ei0RexkKqQYjJXozbUJl6EpYRIkPCUeVxzimds9l942mL4D1VIgYP7L2R6Ca1NQLpgczWoFvWXI2awTcZP0RYIuM6gbruH+yA8//oFqWsn50xoVACjlZq0pED6cB956Y+Wdm+hxvQ/mbkO8PGiPSIqXoaXbVgTlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=vYXQOgsU; arc=none smtp.client-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifXDmOXQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E3A1F000C6;
-	Mon, 19 Oct 2026 03:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792378901;
-	bh=Nm/7u4OXmRI/tZsZaERR4EMWmMNSAf7Kf2Ba0pBac4o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ifXDmOXQq5BHAIYtO3rs41GppZEFu3ne3YbVFCyY7Ownj09lqlFV5wP8QxLvJEaou
-	 BbfBd6nSfvUhGQ+p1ceUJCS9bJ0VmVfClCz2ZS52Jh6y0yP6eL1bL2kfVGEO3Utj7v
-	 QlTvXPFLAIhQaknItdrPoLlwB4wozeL1q7Jcs05CAVeDZFTBPNu0sYFwlv8UL38tmR
-	 4CDy1O/Ffs5IfhqJLxF3cuNbzbaq7KMOa7gOicY2EJW2KhpoOlhkX309TdOfo8uS36
-	 NIwYQhn9pTqCGSaCIA8OYEGub01i6J0d3BQy09R1cQer2WrvZnoh5V1jmaLyoZ+RiN
-	 ZWcGhazbnq3gw==
-Date: Mon, 19 Oct 2026 04:01:35 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Salah Triki <salah.triki@gmail.com>
-Cc: Crt Mori <cmo@melexis.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: temperature: mlx90614: Fix dual channel probe
- condition check
-Message-ID: <20261019040135.1da889ec@jic23-hlaptop>
-In-Reply-To: <aqvoH9ohxkJ6iPei@pc>
-References: <20260917110121.631587-1-salah.triki@gmail.com>
-	<CAKv63utdoBrCFiw8vkGsMhY9PrWX0DWdxqP5szvTGpdmfSQh5A@mail.gmail.com>
-	<aqvoH9ohxkJ6iPei@pc>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="vYXQOgsU"
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93f2b8cf037so124946685a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:01:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792378901; x=1792983701; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kvw4syNS+titZXjd+BAVQh8BZuoN5qywIcBOPbcEmbk=;
+        b=vYXQOgsUFDsETREu1vRdeFWfTTg8rLfPS7m7M8AaJw9Z4WSz9R4I2LLVJhjE2INXsT
+         XAHiImTM2zYgTFsZb98gzfK8synF40Fcs+NZ1aOlXlyLQEQu2usUIUJd7wX2VqnMQ1dx
+         njo8vmUgzGWu5CL4LcI9jYSkNIGSDEP7tKU0SkPFAmejG5IOE5KATi24OaUv9KnTZWLZ
+         bRNt5X+HVU82qkGDUdWsR1rZN37+BIb8B7wkjt8nUozkoULGdyWS7TO4UKgqsZB7i+fU
+         LZFY0xLd5uIjL/QkZlCs+qmGpyKIZ35yOFOVTPzaWXrd9p+gb/wTe+FedUxCNHkVPjvg
+         ARGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792378901; x=1792983701;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kvw4syNS+titZXjd+BAVQh8BZuoN5qywIcBOPbcEmbk=;
+        b=rCEtdAkF4fvnUZYRh/KE4ezjhnpUHPfFxA05lB3LdBbBR8LFD6IUZ5uRqP4ogiXM/0
+         9VEA2B0rO8H7CjY0vMge85si2BU8jLjKmi+RbmoxuMNBOQwqSRHb9Ibqd5e8Qj1SaS7x
+         vIs6drtCdv1BUizyLOql5o7/1Md3XrYw/Os/tTSX4HhTRjcnB+YtRLiQmgQINNOo6WS6
+         cL/xhqasHAx2fq1iwKckiHBKfBUDDQOH77X31kWruLjUFnCupkNlNjgYqJl+w59332oG
+         BOsmEwmRl6D8B4pIFBs9n0vEGli5zoPKlnZbG4PkzROwwZPF+Xnhst2e5bWn4K7WM2Lo
+         oh9w==
+X-Forwarded-Encrypted: i=1; AKwUvBxglZDeAj5R1dz1BIduIUkgZLtHHfCrUuzRjhNLkPnFFBQnpmCY7HGn+Jgnsojr0mCgrtENIpqf4sg36Kk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNGwKbwvjagB85ALf2hGbtOSkhb6qDKA5lcG4mT2ATxOwwQqLK
+	rYC1BQo0OZPWwrBGZMX4d0U3VO997EcMSnhQsLNuoZVfm5c9eJJ+i87KmVoDFuJlcMg=
+X-Gm-Gg: AYBFou1Rf0iUmuav5fdm3R0i8Qe0naJQV4JQe4DsnOm2pwBcN5AxCJC01nnc/CrIhfu
+	qJ7e6mngwfWxAjf/80unPxGTL8eVH0ol6StPNTr6kK9ueTaov72GJ5MHq8SvL6xULXoy25jVp5T
+	qQBhLDCtDrVkDSJbvx43scRT60/feFTsJACFsYguWXUW9rW1c5wCRY9aZG9D+9O2nqDmjapxXN4
+	+Nc29rUqsaVU/Rp9gfPApLgb8GTTRF59+O4iGJRpDrQogHdA34XWGFglekeCczy8eAVN6T7fuy7
+	S6i934RcCNEeSkJvpMeiGP35VnVROv2rI9aV1Wb8v+BrbBOJAaK1C1DK4F1t82Km7BS8BbHknSE
+	ASZLJVGsQDZqc3yKMSHs5wUx+qYCHpA7xueJ55aO6xcS2aomgvPTM+oEuX/XfCmNu7PFyncNx1v
+	EpKGuPOD8Nq//GKwqEOxX/5GqYNvYUkJoi6aJMkNEijJrLE/IOzmQ386EATA8KkvaKmx2S8+HYi
+	Xbm
+X-Received: by 2002:a05:620a:394c:b0:93e:c12c:4416 with SMTP id af79cd13be357-93f29df8910mr1058004285a.82.1792378900653;
+        Sun, 18 Oct 2026 20:01:40 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f3c61c440sm216840185a.10.2026.10.18.20.01.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 20:01:40 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: maxime.chevallier@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: Daniel Thompson <daniel@riscstar.com>,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	richardcochran@gmail.com,
+	p.zabel@pengutronix.de,
+	peppe.cavallaro@st.com,
+	joabreu@synopsys.com,
+	mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next 4/5] net: stmmac: dwxgmac2: export symbols for XGMAC 3.01a DMA
+Date: Sun, 18 Oct 2026 22:01:27 -0500
+Message-ID: <20261019030129.1470307-5-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019030129.1470307-1-elder@riscstar.com>
+References: <20261019030129.1470307-1-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 17 Sep 2026 14:16:15 +0100
-Salah Triki <salah.triki@gmail.com> wrote:
+From: Daniel Thompson <daniel@riscstar.com>
 
-> Hi Crt,
-> 
-> Thanks for your feedback.
-> 
-> Actually, the patch primarily fixes the behavior for the MLX90614.
-> 
-> In the current codebase, MLX90614 has `chip_info->dual_channel = true`.
-> Because `mlx90614_probe_num_ir_sensors()` checks
-> `if (chip_info->dual_channel)`, it returns 0 immediately for MLX90614
-> without reading the EEPROM CONFIG1 register. As a result, dual-channel
-> MLX90614 sensors are incorrectly registered as single-channel devices.
-> 
-> For MLX90615 (`dual_channel = false`), the condition was bypassed, causing
-> an unnecessary SMBus read to EEPROM CONFIG1, even though MLX90615 only
-> supports a single object channel.
-> 
-> By changing the check to `if (!chip_info->dual_channel)`, we fix both
-> issues:
-> 1. MLX90614 correctly reads EEPROM CONFIG1 to detect whether it operates
-> in single or dual channel mode.
-> 2. MLX90615 skips the EEPROM read entirely.
-> 
-> I don't have physical hardware to test this on; this bug was spotted via
-> code inspection.
+Toshiba TC9564 is an Ethernet-AVB/TSN bridge and is essentially a
+small and highly-specialised SoC. Ethernet on this chip is provided
+by a DesignWare XGMAC.
 
-Explanation makes sense to me and as Crt hasn't come back with
-a reply, I'll assuming Crt has no objections (shout if not!)
+One consequence of the SoC-like design is that the internal AXI bus
+(used by the XGMAC for DMA) maps the PCI DMA space with a non-zero base
+address. This requires a translation step (happily just simple addition)
+to convert the PCI DMA address to the hardware DMA address.
 
-Applied and marked stable
+This is pretty funky so rather than push that translation logic into
+the core driver we intend to keep that logic inside the TC9564
+platform code. In order to do that we need to export a few symbols
+to allow us to override some of the DMA and descriptor op tables.
 
-Thanks,
+FWIW this approach to overriding the ops tables is similar to the
+mechanism currently found in dwmac-loongson.c (with the exception
+that we have also exported a couple of functions so we don't
+have to replicate their content in the TC9564 platform code).
 
-Jonathan
+Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+Co-developed-by: Alex Elder <elder@riscstar.com>
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h |  7 +++++++
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c    |  1 +
+ .../ethernet/stmicro/stmmac/dwxgmac2_descs.c   |  1 +
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 18 ++++++++++--------
+ 4 files changed, 19 insertions(+), 8 deletions(-)
 
-> 
-> Best regards,
-> Salah
-> 
-> On Thu, Sep 17, 2026 at 01:27:48PM +0200, Crt Mori wrote:
-> > So this fix is for the MLX90615, which is registered as single channel
-> > operation? Did you test on 90614 as well?
-> > 
-> > Best regards,
-> > Crt
-> > 
-> > Crt Mori
-> > 
-> > Melexis Technologies NV
-> > Transportstraat 1
-> > 3980 Tessenderlo
-> > 
-> > Mobile: +32 492 46 22 15
-> > E-mail: cmo@melexis.com
-> > Website: www.melexis.com
-> > 
-> > ----------------------------------------------------------
-> > The contents of this e-mail are CONFIDENTIAL AND PROPRIETARY. Please
-> > read our disclaimer at http://www.melexis.com/mailpolicy
-> > 
-> > 
-> > On Thu, 17 Sept 2026 at 13:01, Salah Triki <salah.triki@gmail.com> wrote:  
-> > >
-> > > In mlx90614_probe_num_ir_sensors(), the check on chip_info->dual_channel
-> > > is inverted.
-> > >
-> > > Currently, if dual_channel is true (MLX90614), the function returns 0
-> > > immediately without checking op_eeprom_config1. This forces all MLX90614
-> > > devices to be registered as single sensor (num_channels = 2), making the
-> > > second object temperature channel inaccessible.
-> > >
-> > > Conversely, if dual_channel is false (MLX90615), the function skips the
-> > > early return and performs an unnecessary SMBus read on EEPROM CONFIG1 even
-> > > though MLX90615 does not support dual channel operation.
-> > >
-> > > Fix this by negating the condition so that single-channel chips return
-> > > early with 0, while dual-channel capable chips (MLX90614) proceed to read
-> > > the EEPROM configuration register to detect whether 1 or 2 object channels
-> > > are present.
-> > >
-> > > Fixes: 3d5ead238bc8 ("iio: mlx90614: Factor our register IO and constants into model specific descriptor")
-> > > Assisted-by: LLM
-> > > Signed-off-by: Salah Triki <salah.triki@gmail.com>
-> > > ---
-> > >  drivers/iio/temperature/mlx90614.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/iio/temperature/mlx90614.c b/drivers/iio/temperature/mlx90614.c
-> > > index 27d6ab5f5d7a..4f79da1f905e 100644
-> > > --- a/drivers/iio/temperature/mlx90614.c
-> > > +++ b/drivers/iio/temperature/mlx90614.c
-> > > @@ -565,7 +565,7 @@ static int mlx90614_probe_num_ir_sensors(struct i2c_client *client)
-> > >         const struct mlx_chip_info *chip_info = data->chip_info;
-> > >         s32 ret;
-> > >
-> > > -       if (chip_info->dual_channel)
-> > > +       if (!chip_info->dual_channel)
-> > >                 return 0;
-> > >
-> > >         ret = i2c_smbus_read_word_data(client, chip_info->op_eeprom_config1);
-> > > --
-> > > 2.43.0
-> > >  
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+index 0fe86e9942334..1b32d14c37440 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+@@ -470,4 +470,11 @@ extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
+ extern const struct stmmac_dma_ops dwxgmac301_dma_ops;
+ extern const struct stmmac_desc_ops dwxgmac210_desc_ops;
+ 
++void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv, void __iomem *ioaddr,
++			       struct stmmac_dma_cfg *dma_cfg, dma_addr_t phy,
++			       u32 chan);
++void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv, void __iomem *ioaddr,
++			       struct stmmac_dma_cfg *dma_cfg, dma_addr_t phy,
++			       u32 chan);
++
+ #endif /* __STMMAC_DWXGMAC2_H__ */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 1a88cbaed70ca..0effdd6969d65 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -1542,6 +1542,7 @@ int dwxgmac2_setup(struct stmmac_priv *priv)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(dwxgmac2_setup);
+ 
+ int dwxlgmac2_setup(struct stmmac_priv *priv)
+ {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+index 6719ac6e395bc..f0e7b8ee48ac7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+@@ -374,3 +374,4 @@ const struct stmmac_desc_ops dwxgmac210_desc_ops = {
+ 	.set_vlan = dwxgmac2_set_vlan,
+ 	.set_tbs = dwxgmac2_set_tbs,
+ };
++EXPORT_SYMBOL_GPL(dwxgmac210_desc_ops);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index f9a77d641eb65..2f9334d7cb922 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -63,10 +63,10 @@ static void dwxgmac2_dma_init_chan(struct stmmac_priv *priv,
+ 	writel(XGMAC_DMA_INT_DEFAULT_EN, ioaddr + XGMAC_DMA_CH_INT_EN(chan));
+ }
+ 
+-static void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv,
+-				      void __iomem *ioaddr,
+-				      struct stmmac_dma_cfg *dma_cfg,
+-				      dma_addr_t phy, u32 chan)
++void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv,
++			       void __iomem *ioaddr,
++			       struct stmmac_dma_cfg *dma_cfg,
++			       dma_addr_t phy, u32 chan)
+ {
+ 	u32 rxpbl = dma_cfg->rxpbl ?: dma_cfg->pbl;
+ 	u32 value;
+@@ -78,11 +78,11 @@ static void dwxgmac2_dma_init_rx_chan(struct stmmac_priv *priv,
+ 	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_HADDR(chan));
+ 	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_LADDR(chan));
+ }
++EXPORT_SYMBOL_GPL(dwxgmac2_dma_init_rx_chan);
+ 
+-static void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv,
+-				      void __iomem *ioaddr,
+-				      struct stmmac_dma_cfg *dma_cfg,
+-				      dma_addr_t phy, u32 chan)
++void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv, void __iomem *ioaddr,
++			       struct stmmac_dma_cfg *dma_cfg, dma_addr_t phy,
++			       u32 chan)
+ {
+ 	u32 txpbl = dma_cfg->txpbl ?: dma_cfg->pbl;
+ 	u32 value;
+@@ -94,6 +94,7 @@ static void dwxgmac2_dma_init_tx_chan(struct stmmac_priv *priv,
+ 	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_HADDR(chan));
+ 	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_LADDR(chan));
+ }
++EXPORT_SYMBOL_GPL(dwxgmac2_dma_init_tx_chan);
+ 
+ static void dwxgmac2_dma_axi(void __iomem *ioaddr, struct stmmac_axi *axi)
+ {
+@@ -673,3 +674,4 @@ const struct stmmac_dma_ops dwxgmac301_dma_ops = {
+ 	.enable_sph = dwxgmac2_enable_sph,
+ 	.enable_tbs = dwxgmac2_enable_tbs,
+ };
++EXPORT_SYMBOL_GPL(dwxgmac301_dma_ops);
+-- 
+2.53.0
 
