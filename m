@@ -1,111 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792433171;
-	b=KDfnuvSCivLnfo7Fi9SIN1PsncVBRVDXpQa+Lm8wf5ujEYjKsJJz8mI0Ws8SvlOUXwtW
-	 wvfHy4Hu0xvo+cMCvb5UYYKBkYpBv+mUuKES+h/izZ8zIOUPZ2M7WaIU0bWBwIAEcWRVV
-	 Y+gmasMJWzi4oNqUDefaEg12tjdJrhdcaOM0Vs9rfIbiNX/zjuHexD15RWGbWBQHRPkZL
-	 ZglcBPHkDNkPM1a9wb7K2WLoX0QHkOyczjI4vYt2NRMGtHJ6KyBL1OrGQoZmozZpv7D6n
-	 GmCX3hlwGjZN6j1Z+2IEXAGvAmbX3ErVbEvcFt6+kr+G7WTbPE21pytQAfJBjDfzjyA==
+	b=erYJktiTJGUTPokBNQMCEgH4d7/ZXL6/khkySKMCd3zOPE9WsNHrqJUG5Y/yAgs3wnhu
+	 CvXKEJEpP7tgNXFjiiZrbTrioKExR39eokrfeQHB05V3cL2iX0XiIyKy71zB+LPqeA9jF
+	 9mxUAcGYC6ydefAj6L2XSUvQNNzaLloW61yQQPwanE/HgKBWntwVQiqDHyrIaeyaUW5sa
+	 N+zd5U5uZFnCzpIzBlMJzublmIlU5zNlhbdzoLN8vvjFGX03lpEBCCuh3wkzFNOAEWOVc
+	 aK9iQrnneH5yzkPSio+t6KCSOuqqjx/2w7lxqV0pEAEWc+74SFJPSt39/I+rEp/P5RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792433171;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Action:X-Spam-Score:X-Spam-Flag:X-Spamd-Result:X-Spam-Level:
-	 X-Rspamd-Queue-Id:X-Rspamd-Server;
-	bh=gXIn7mOx8lQFJOZv6+aZd7tjcADd8riKeZnfoyKCLwo=;
-	b=MJ/4g2Fz0B4Uvklqa8E3dS6b83RqbmEjcJ+DizFa++umstKVKzULlgtZVJjbjpzbXwfU
-	 L2cxMVplWFU2mMAPDPb0hTMkfnHxvhSxR8sT1QFmXoh9NilFq7VnA7feaUoM1DXKefBtZ
-	 PuTlZrTPyFD/DiVrle/3ri9H7gaDuMPNcJPTr0lXNM3GQgfeP211C9Gf+O4STGjAAbgwf
-	 loY07bEqCUywx/FYS0fqEWweq5BdVKpjKTbT0WwtIw+V+gzhe9KsclxUa2b3qPECJ1Ko7
-	 ILS1Mes7VHGRywb6B54+pn7ONYxkfnFa3lrupUkzRGz3IDmX+/c5ZLmM124B4x0zlBw==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=NtixGAWabeXrduX02b/RotwSNJOMM5dvEH5fBuXsl/8=;
+	b=m+YnC/GNU+pPPiHdq6fzGEmE/lPM6TzHlsNQTG8EdGSlWZ8ajMX+p94G+GV4lILWRqNU
+	 ukN3fpdHDwHSujtXdVQCNHq1OGdwGcCJ47RDVzPOsHPzrklijN/T5j9dVEZtrDDfUBXFR
+	 LQYTLVwEiuyspJoTJeOWDwaYWUF/O9GqEdbidoiXBuzH78NfbQ45Tr7bjOWQawgeTfCi3
+	 g+cdyExsilDzsFTfzYhwJzjC5iRucnCQU5JqyqbaBP0Cm/c7QZmNIjkvdD08oyzeojloy
+	 3dbL2A3dnsE5Sud6pWMsmMObIx8exjoY/pXzWxKV41sv+nifNpDizQErGHPWCXnx4Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HD1Xwkmr;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MsGzkU8k;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HD1Xwkmr;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MsGzkU8k;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=Z6r7q0nr;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1089606A31B;
-	Mon, 19 Oct 2026 18:06:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1089606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0555606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:06:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0555606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HD1Xwkmr;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MsGzkU8k;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HD1Xwkmr;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=MsGzkU8k
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C5DD41F44E;
-	Mon, 19 Oct 2026 18:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792433168; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gXIn7mOx8lQFJOZv6+aZd7tjcADd8riKeZnfoyKCLwo=;
-	b=HD1XwkmrquAw2Yja2WBdhZEnb0r4/aI1RzgJLDD9UOzkmVqNNc/IqmDySwlol1G7SNSHa0
-	DTuQGspLyyCv3FkH1Is0mtDS+XDo+oK/WGVOD1sWERmb1rf6wDYx0QDLWdOJQqaKfmTzHI
-	D7s9+IeZjpS1l56pnBO9FKcYhzA95yQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792433168;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gXIn7mOx8lQFJOZv6+aZd7tjcADd8riKeZnfoyKCLwo=;
-	b=MsGzkU8k/VYU8FQ8Z6QR5rTah/g9aogfHY9/7GyD6KVYNhIzzj+rs4b0HgP4w+8xvg6/c6
-	YbFbSmsHU7HvHXAg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HD1Xwkmr;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MsGzkU8k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792433168; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gXIn7mOx8lQFJOZv6+aZd7tjcADd8riKeZnfoyKCLwo=;
-	b=HD1XwkmrquAw2Yja2WBdhZEnb0r4/aI1RzgJLDD9UOzkmVqNNc/IqmDySwlol1G7SNSHa0
-	DTuQGspLyyCv3FkH1Is0mtDS+XDo+oK/WGVOD1sWERmb1rf6wDYx0QDLWdOJQqaKfmTzHI
-	D7s9+IeZjpS1l56pnBO9FKcYhzA95yQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792433168;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gXIn7mOx8lQFJOZv6+aZd7tjcADd8riKeZnfoyKCLwo=;
-	b=MsGzkU8k/VYU8FQ8Z6QR5rTah/g9aogfHY9/7GyD6KVYNhIzzj+rs4b0HgP4w+8xvg6/c6
-	YbFbSmsHU7HvHXAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 77878136CC;
-	Mon, 19 Oct 2026 18:06:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ibkgFBBc1mrqTQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 18:06:08 +0000
-Date: Mon, 19 Oct 2026 20:06:08 +0200
-Message-ID: <87tsmhimzz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: Re: [PATCH] ALSA: aloop: Keep the timer source alive until card release
-In-Reply-To: <pm-pmb-71a33a26d68356e3ade7-v1-108d86919c5c92fe1ea8@gmail.com>
-References: <pm-pmb-71a33a26d68356e3ade7-v1-108d86919c5c92fe1ea8@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=Z6r7q0nr
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-89f639ba307so778661b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:06:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1792433169; x=1793037969; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NtixGAWabeXrduX02b/RotwSNJOMM5dvEH5fBuXsl/8=;
+        b=Z6r7q0nrFdPwifMRfwsDmnDJwU7pOs3vBXCX0MpPuDGAMdNTPF6LflBo+8KtkGwjwd
+         Ay85MADOAn0cKzxpg8feVpoE6J+3JE9KSzgdihGs2hJ9FZqptuLvKofY/oa/kTGTaSic
+         3Y0tFPdYGho7pYYpqKSRI62wvZRfHkwci6Pm4jfjfeZq40sb+2GT4DEK+YlAmGT9cVY9
+         5m4zRuhS+3ylWmjgvFSN3yZmDtNqLGcrFFd5UxKN2Ig4j/GlhLfdrWmDtDNASISv1t7n
+         5NDivHFx5cw/0hmC5+YsB0oj451+DVQO0HXFuaadY0OisS/v6+BC7ZVGnFTHIF1nWmww
+         Pjdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792433169; x=1793037969;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NtixGAWabeXrduX02b/RotwSNJOMM5dvEH5fBuXsl/8=;
+        b=lTfPu1WJ2kz3r8MSketbHsIQRrGKcZ5cSrBfTzEmmI8mTf4Doy4ZcKHG82AN7FFBH3
+         LbY6FK223NJDaxF5DXCk4CH0gKclXwFStxgh3keAhfrNVRFIGZrg2H73eeEGeO9WiqOi
+         BT/KZix6F6g6My1dbCTyBxP4w5B+Pkm0UBs5eygtBYoyGojUxMSf+RmOsgAOU/k8ZTGL
+         Jk/52J3hDMX/p8YZWrF6GSZyctb64wq2rj28y5U7lBrN12JJ+75cOl55W9f655oGqiQT
+         YSpHLJbLx0r+gh5r6M10SDQ3euXu7yGUiso4T0zsF0FteQ5vRivbxUeZc8iiRGyQmDWh
+         whuA==
+X-Forwarded-Encrypted: i=1; AKwUvByBfauUBEWX3tyMS2rg8ex4zQRtc6vcYREMpO2UM5+4xGsWLccAV6m82IxFjXbG7ISnEFWsmyjKHUSEMRw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZo56FsUKGcjijRPFtLLneprytBDG7INuvKvvqTERXdBpSpI1b
+	FUDQn/wpWdtIGGFMBhLZed5wxeExJAEePEgDHdu3+ukeA7Gsm1B+UcXllpsfWXkBP9Q=
+X-Gm-Gg: AYBFou2iLDAAf8Yt24PDSIqCzovtaqnm3MLCl58qhw89ogL79sgl1NUVmA3jxG5kqFy
+	psxVSKwzHSRVhpY9XN9dQSWP0EjUZAW/h2gnaCBy9/owQemr+pX6rrnU6IjCSKpFpAXNMt8+T2o
+	YCc6UsCeY/gp+WG+PzD3TlcljaRiVvZ70VgSAizDACEqQcGnblHOGKYl8QpPtVnBvP2dhNFEBsJ
+	vto9R4rnvZdXxTczNUV+kChZH0SNvd44OP5ZWwbG7OYY3JLtFTPSY+Fq/3A9yc9tW2gdECUl09/
+	KeavDNK3/cU8Eqo44vjisC15NbeEDOSUWq21UHpbVSOZ51NJtYTc/zltAeAMXAS7ZCO4ok0RuHb
+	5yWbfTA9gNfCoKeNZAI2hV/Ft58U8uL/bAEh3wfVVsi0VLFohoasCaI1QpMriQgDNsOi3Nlmx8a
+	RbWBmoLr6xDMnySFlojwV1+UIUJKupKiMVOekcCrNzTCN8Tf9w1tspSaZfLt6gG+RvKKSqxiuNK
+	gQ8/Sh3iazk/OogxLAiafc0izvdwkaSp0g7SC1NLU5EXVUL0/U0b+//ieF0EbzIiwhUq7dGFZAP
+	390UrzEcCcDoUJBmAqbm4g==
+X-Received: by 2002:a05:6a00:21ce:b0:874:706d:962a with SMTP id d2e1a72fcca58-8a04be43d00mr7042493b3a.28.1792433168948;
+        Mon, 19 Oct 2026 11:06:08 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-89f57653ea9sm4184034b3a.32.2026.10.19.11.06.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 11:06:08 -0700 (PDT)
+Date: Mon, 19 Oct 2026 11:06:04 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Hannes Reinecke <hare@suse.de>
+Subject: Re: [PATCH v6 01/18] nvmet: Rapid Path Failure Recovery set
+ controller identify fields
+Message-ID: <20261019180604.GJ2931-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-2-mkhalfella@purestorage.com>
+ <179206908475.1897932.6636243827945983905.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,85 +106,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Spam-Score: -3.51
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,vger.kernel.org,gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: C5DD41F44E
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179206908475.1897932.6636243827945983905.b4-review@b4>
 
-On Mon, 19 Oct 2026 11:06:13 +0200,
-Cen Zhang wrote:
+On Thu 2026-10-15 14:58:04 +0200, Daniel Wagner wrote:
+> >   maximum number of in-progress controller reset operations. CCRL is
+> >   hardcoded to 4 as recommended by TP8028.
 > 
-> The timer_source string must remain valid while PCM opens can select
-> and parse it. loopback_set_timer_source() allocates the string with
-> parent-device devres, which can release it while the card is still
-> registered.
-> 
-> A successful nonempty proc replacement after snd_card_register() adds
-> the string allocation after trigger_card_free. Unbinding the platform
-> device while snd_aloop remains loaded releases devres in reverse order.
-> An open for an unused cable can run after the string is freed and before
-> the card-free action disconnects the card:
-> 
->   Device unbind                      PCM open
->   devres_release_all()
->     free replacement string
->                                      snd_pcm_open()
->                                        snd_card_file_add()
->                                        loopback_open()
->                                          loopback_snd_timer_open()
->                                            loopback_parse_timer_id()
->     trigger_card_free()
->       snd_card_free()
->         snd_card_disconnect()
-> 
-> The parser can then read freed memory. KASAN has reported a one-byte
-> use-after-free read in strchr() from loopback_snd_timer_open(). The
-> cable_lock mutex serializes explicit replacements with opens, but
-> implicit devres release does not take it. The card and module references
-> held by PCM open do not retain this separate devres allocation.
-> 
-> Use kstrdup() and release the current string from card->private_free.
-> PCM admission already retains the card until each file is removed, and
-> card disconnect drains proc callbacks before final card release. This
-> keeps the string alive across admitted PCM opens and preserves the
-> cable_lock serialization of replacements. Install the callback before
-> the initial allocation so probe failures also release the string.
-> 
-> Fixes: b072e65aadd6 ("ALSA: aloop: Allocate resources with device-managed APIs")
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> Assisted-by: LLM
+> The spec says at least 4. 
 
-Applied now.  Thanks.
+- CCRL (Cross-Controller Reset Limit): is an 8bit value that defines the
+  maximum number of in-progress controller reset operations. CCRL is
+  hardcoded to 4 because TP8028 recommended a value no less than 4.
 
+Right, I updated the commit message to mention that recommendation.
 
-Takashi
+> 
+> > @@ -1695,6 +1699,11 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
+> >  	}
+> >  	ctrl->cntlid = ret;
+> >  
+> > +	if (!nvmet_is_disc_subsys(ctrl->subsys)) {
+> > +		ctrl->ciu = get_random_u8() ? : 1;
+> > +		ctrl->cirn = get_random_u64();
+> 
+> While get_random_u64 is very unlikely to return 0, it still possible, thus
+> 
+>    get_random_u64() ? : 1;
+
+Good point. Updated.
+
+> 
+> would be the safe choice. Besides this nitpicking:
+> 
+> Reviewed-by: Daniel Wagner <dwagner@suse.de>
+> 
+> -- 
+> Daniel Wagner <wagi@kernel.org>
