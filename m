@@ -1,187 +1,189 @@
-Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E47496D3E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:44:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B28F493D26
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:44:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399463; cv=none; b=eafn+2iE8+ULjDe55VtBLWPWTw9QQ/VE+cBRiD7llH1HrUtKVj6vx6BoYA3se0oD8NR/O3kilELnRhTgMtfe+H31h54lcmTEfFocaZK0z7U4U0IAJUkQqZ70Ax9WnFFpKDfuLoJ4u9hnFX8UW/FK+YBBva+22AUk0YXS8G2zOnk=
+	t=1792399468; cv=none; b=pSDspXvXzhoBn6IXb1a25SXUxYKvpr9YVV9r/t6NVXYWzy3Ncakn4WuJf0Tp/Ht0teDVJ3osj5JD72KmgozqZ34NXiHJlR89Mwx0kUJDa1EeYyNUn9SjkFzrYDr8IzNQiO/oxjltH+NZXjZUds6NOziLfInhWWV/KDYprNpx1kM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399463; c=relaxed/simple;
-	bh=VuUI5I5Plith8bOrcJuwZxksr2hAMP7W06KU56M8g1s=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=YGmKGYo0hj8frCNhZMKEJ2V+xz36mwzvB44gpacPCwfUz34JiBv+a8RYwiRBjmKmYK5NbIXZKKaO+dSL6zIE5Zq0OQCmgGo2RA7m9OsIearDKOyJhlWOjq6PrTQm82GHtCKfA94hNkUrhqAnQKSV2jiF0ZlWnuCHgXPh2SHBBt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wQRzvpe9; arc=none smtp.client-ip=91.218.175.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792399468; c=relaxed/simple;
+	bh=Lf2ltc92yGw13+ZIQaEnX84MOqtAvkx0Yz6xmwkEBM0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MRiObpwNfw7vY9Ww5EM1Nn/pdEy7BFn4vTWRrq/ymfd1qvbk07IWWY/Ll/OffYZBxp03v9C69MNvRi10m42YlxXRvjTsLqbCF7uNhtp1d04RzE+mffp6njYneBCS3PDK4dSu2gxWffJcIUqtT9VaX8QvABhK1gY5h0VOo0gt7fA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=noTZ1tM/; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LQ/PsV/Q; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wQRzvpe9"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VuUI5I5Plith8bOrcJuwZxksr2hAMP7W06KU56M8g1s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792399457; v=1; x=1793004257;
- b=wQRzvpe9wUABp18JXIWXaXVbvfvnUOfTdmsOuSBjpYKXd5wlhb9iT4fwgO9lpA7M5zDgX5Bl
- M0U4ex92ZDSWd/8tP/RCIsUsO1JkZ7GvlJqddUi9SwvMNNEDr81IgP3W8CIT1hcMj/41GN1CPr7
- PP+I4loiiH1IegBshHkYaSzE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id ef060ed4dbf3e91d;
-	Mon, 19 Oct 2026 08:44:17 +0000
-X-Mizu-Trace-ID: ef060ed4dbf3e91d
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="noTZ1tM/";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LQ/PsV/Q"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id A9F6C7A00FF
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:44:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 19 Oct 2026 04:44:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1792399465; x=1792485865; bh=YsVloFkfqa
+	hKMtvRLfn5FRI51AxlMq8II2uKnESwYRE=; b=noTZ1tM/7HS+qU1bxdyPoTZNYw
+	OKcz4gOUnjn9zSYgCTvuo8oDoeuqnMJp+A1xB0yQdCZXYVhNrWzB/N9MJVJKu4EP
+	RV+RoY7Vr3i8wjdbRAoFFIZ8clgL27K/G5TsUEcXkXw+S5jygpg0XZjC55iB34en
+	NhDl1ibGxrb2lGja0OJb2aMhyYPThIMXZcKNYvsmndkPsF6OViQydU7i/IOJxpaU
+	Fzg2vbRIP3eZlVS49L9B80UHdLqa2CgQjobg8BUlAdTxtAnM2e56pRdA7yrenUU2
+	jKBGVc9sFQbm1Vye7mqZqeJ3o5OaapYtN87VLBHbjvxQu+L/M6SnNcoUbLvA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792399465; x=1792485865; bh=YsVloFkfqahKMtvRLfn5FRI51AxlMq8II2u
+	KnESwYRE=; b=LQ/PsV/QTAfh3KP+93KNf5QP/EOQ1nWDt3yFzjOm/yMlto70Cp/
+	WncQeGPYP1+jVbTnTm4SfugdmWCWfj7s8GXLnhg07gbxnbYVSJ6/jGmX/ZQSrF+m
+	unNviohg8rQUvuUdPnhKa3f6Q3RO9tdcA3ev87v0j2tzyeDb9D1H4MZcL6GVtgX+
+	XLrPIXIsEJqjC43Ef5aM65Foq4EqZBp741uN5AKd0fXRCYMv4QmI0fLzSXtvONgA
+	yxGJZAGvyPkraMZyKXbxzFrgaRGybkXS5kNG7/Pq0l/Zv21qT5X5C7HC5xHHjoEB
+	Uo4VKm9O/CjNh34ULbR1hAoI2vPBuV94EoA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792399465; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:bR05FbsgYRDEuWOW6sLXN/DpUt36FN9NKWSh50OoLzq0tMZ
+	/9W1IqK39LFXVfzOCiy3jc1hgLTfZ7K9F7IBl7gR+yxPnBtXoT+at6RR5kuiE9fM
+	mxmOoKTcXRUEf1HXgJswSo+hapWdVPXGIzF19YHLKzis9eeoLzVLWw9VOf6hPHsh
+	FJ7RVdqL45JNWs1XxwD6kzA2aW21yglyD6MrXZOyHvT+sG8DOIdW3TrpMHAOshMZ
+	J1Jv2/FSO79IxRaD6K0qIwy8kMuE8T0lIrbSjVsa56MHlufyclvsfVz3epeC9AJJ
+	zr4LZzYzfpywe825y6g3d+Is3wAcBdJ7GvtXXZg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:KM/onkGzTVQhZk+S7ywKdZWa6dBSaTub2Eq20P4k5bU=:Lf2ltc92yGw13+ZIQaEnX84MOqtAvkx0Yz6xmwkEBM0=;
+X-ME-Sender: <xms:aNjVajBodmQidyYcVjqk-3nuiSn9S05B2ArSZWRWByrvnsrTuf6JRw>
+    <xme:aNjVagkToZQ8iytXAoS31ooMBXBAZ4SDkgB71-U9nrZU03_El0zL3nOw9XoAhts91
+    obe5ypkkt6gXsXe041bWNUY6EXPyXj3zWjq8XXaLxgNoiuM3fo>
+X-ME-Received: <xmr:aNjVamRSxWO7d6fxHZvdczTYWoQqZQuA81EBtnsVAFT1e_NUTQTGmWsQItXg2dcha7jT-1coSBbX-uL3JnA>
+X-ME-Proxy-Cause: dmFkZTEkBrlER9gv1SSiXl3a5G+9YMsw4jDITFGP2VBd+KvdxqHmoUbVDlMyOPmA+6YbLb
+    0TQ53Qc1KawKKjfxM19/nJmt8C5YdRXKEDMOsa7stBFWSOZiGfci6SuTJdTNTLxFG7TwI+
+    d09Tel9027sqnDVtSf3YnmIaai4NVI62lI8EJCQ6MseyJe9eGeWOrZ989o6D0LJAQJqmya
+    prcWIneOaj40wF+INA1IxSiRDFraAIsQVKuN5aL95KVjFuUKIzv1Zs383ed8GamX0+30rB
+    N8bTQ/OQJb/qf/+BG/+X6BumpkN8GmCNWnq4vjEN53bH4SQdejHYVZyehbfHlSzP4NV8OI
+    69yC6Ny0YcCzPAMPxzd/tPLZo6TC57hDdwL23Kj/cPiTKvIiqdXYza+sGaq+7KZHuoz7OD
+    43+LUfFta7CuW20pCFO1UM5+slvWOqTxIROp/bu926sNzJz9mbHRQEZD1LC+Iu7gIoV9+t
+    HT8lyq12i16qeUCqODq2mYhqngbkSFSFkSFlwH645zBWUzSSJ82KvztJAsSE98oU8ArhdL
+    ecZaTbV8TF/1MIcwWMUhk2bSOHBWEQfxXDgFwApos7s4U4huugfXd0epOh3NqY2Jepv05a
+    MxNP6whmRP7XNpdGp5MPgaIy36EeFZ7R8hmHkQzmo+SWSAQ7gDL2IrM9IIWw
+X-ME-Proxy: <xmx:aNjVasKgSDl0xtHcf-vZVYJ0tAwvZb1cZVxFDsiyzgDouQlduNF5RA>
+    <xmx:aNjVak_M7JGnEHf-OKpeH-mkVgkfHEbYNPw3tFhkMR18TXFvTOG5AA>
+    <xmx:aNjVauCoB1q_sxiHEsiPQCoi_ETCkonCrikBB9x9L1oQB7HtpzukbA>
+    <xmx:aNjVauorq8Bc89AOgqRtGniLdTiV5LNSBR8d4XnHjKfiYbL5XXQkQA>
+    <xmx:adjVapC80_U4tq3E3U1QIX_FJ1QjdboWTlX_VJDBdnTGRr9tZuitd2FU>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 04:44:24 -0400 (EDT)
+Date: Mon, 19 Oct 2026 10:44:22 +0200
+From: Greg KH <greg@kroah.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Shihuang Liu <shlomojune6@gmail.com>, linux-input@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Ville Syrjala <syrjala@sci.fi>,
+	Henk Vergonet <Henk.Vergonet@gmail.com>,
+	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] Input: joystick - replace strlcat() with strscpy()
+Message-ID: <2026101951-undusted-laziness-d40f@gregkh>
+References: <20261016170411.51025-1-shlomojune6@gmail.com>
+ <20261016170411.51025-2-shlomojune6@gmail.com>
+ <30bc6e07072076b0591fd416f50f4fc3@gmail.com>
+ <2026101727-ebay-five-72f8@gregkh>
+ <atXLrTZYBazVZVHr@debian>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 0/5] mm: hugetlb: add CMA support for PMD-sized page
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <988249c7-abf0-4f4f-9386-27e835a4d2de@gmail.com>
-Date: Mon, 19 Oct 2026 16:43:58 +0800
-Cc: Qi Zheng <zhengqi.arch@bytedance.com>,
- Qi Zheng <qi.zheng@linux.dev>,
- osalvador@suse.de,
- david@kernel.org,
- akpm@linux-foundation.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <EE02C2AF-E4BD-4854-B235-928842456253@linux.dev>
-References: <cover.1792136742.git.zhengqi.arch@bytedance.com>
- <FA455F0C-0A46-4B5B-AB50-E9968001D2C9@linux.dev>
- <4a7ad39d-fee6-4390-beff-d40ecf49cbdc@bytedance.com>
- <BEADD50D-94AA-4B05-B9AD-136E37247FDD@linux.dev>
- <988249c7-abf0-4f4f-9386-27e835a4d2de@gmail.com>
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atXLrTZYBazVZVHr@debian>
 
+On Mon, Oct 19, 2026 at 09:51:37AM +0200, Alejandro Colomar wrote:
+> Hi Greg,
+> 
+> > Date: 2026-10-17 10:19:59+0200
+> > From: Greg KH <greg@kroah.com>
+> >
+> > On Fri, Oct 16, 2026 at 12:17:05PM -0700, Dmitry Torokhov wrote:
+> > > Hi Shihuang,
+> > > 
+> > > On Sat, Oct 17, 2026 at 01:04:07AM +0800, Shihuang Liu wrote:
+> > > > The pxrc and xpad drivers build the physical path by appending a
+> > > > constant "/input0" suffix with strlcat() after usb_make_path().
+> > > >
+> > > > In preparation for removing the deprecated strlcat() API[1],
+> > > > replace it with strnlen() followed by strscpy() into the remainder
+> > > > of the buffer, as commit 34b228b739f5 ("HID: usbhid: replace
+> > > > strlcat with better alternatives") did for the usbhid drivers.
+> > > ...
+> > > >  	usb_make_path(udev, pxrc->phys, sizeof(pxrc->phys));
+> > > > -	strlcat(pxrc->phys, "/input0", sizeof(pxrc->phys));
+> > > > +	len = strnlen(pxrc->phys, sizeof(pxrc->phys));
+> > > > +	strscpy(pxrc->phys + len, "/input0", sizeof(pxrc->phys) - len);
+> > > 
+> > > I really dislike this conversion pattern, and I do not want to see it
+> > > open-coded across 18 drivers in this series.
+> > > 
+> > > usb_make_path() is just a trivial wrapper around snprintf() that already
+> > > returns the length of the formatted string. Calling usb_make_path(),
+> > > ignoring its return value, rescanning the buffer with strnlen(), and
+> > > then open-coding pointer and size arithmetic for strscpy() (along with
+> > > an extra local variable in every probe function) makes the code much
+> > > uglier and harder to read than what we had before.
+> > > 
+> > > All of these USB input drivers already include <linux/usb/input.h>, and
+> > > drivers across other subsystems (drivers/hid/usbhid/, drivers/media/rc/,
+> > > drivers/media/usb/, sound/usb/caiaq/, drivers/usb/storage/onetouch.c)
+> > > all use the exact same usb_make_path() + suffix pattern ("/input0",
+> > > "/input%d", "/ir0", "/button", etc.).
+> > > 
+> > > If we want to get rid of strlcat() here, please introduce a generic
+> > > helper in include/linux/usb.h (or a USB input helper in
+> > > include/linux/usb/input.h) that formats the USB path together with the
+> > > subpath in a single pass, for example:
+> > > 
+> > > __printf(4, 5)
+> > > int usb_make_subpath(struct usb_device *dev, char *buf, size_t size,
+> > > 		     const char *fmt, ...);
+> > > 
+> > > (or a simple const char *suffix variant if formatting is not needed).
+> > > Then each driver can do:
+> > > 
+> > > 	usb_make_subpath(udev, pxrc->phys, sizeof(pxrc->phys), "input0");
+> > > 
+> > > and even drivers/hid/usbhid/hid-core.c can simply do:
+> > > 
+> > > 	usb_make_subpath(dev, hid->phys, sizeof(hid->phys),
+> > > 			 "input%d", intf->altsetting[0].desc.bInterfaceNumber);
+> > > 
+> > > instead of repeating this strnlen() + strscpy() boilerplate everywhere.
+> > 
+> > I'm all for that too, and putting it in the USB core for everyone to use
+> > would be great.
+> 
+> You might be interested in <https://lore.kernel.org/linux-hardening/cover.1751747518.git.alx@kernel.org/>.
+> I was working on something like that, but actually much simpler.
+> It is meant to replace strscpy()/snprintf() by versions more similar to
+> Plan9's strecpy(2)/seprint(2), but without some important flaw that the
+> Plan9 APIs have (about handling NULL).
 
+Look at the patches from Kees on the hardening list for the seqbuf
+stuff, that ideally will replace these types of string functions
+entirely over time.
 
-> On Oct 19, 2026, at 16:20, Jose A. Perez de Azpillaga =
-<azpijr@gmail.com> wrote:
->=20
-> On 10/19/26 9:50 AM, Muchun Song wrote:
->>=20
->>=20
->>> On Oct 19, 2026, at 15:37, Qi Zheng <zhengqi.arch@bytedance.com> =
-wrote:
->>>=20
->>> Hi Muchun,
->>>=20
->>> On 10/19/26 2:50 PM, Muchun Song wrote:
->>>>=20
->>>>=20
->>>>> On Oct 16, 2026, at 18:07, Qi Zheng <qi.zheng@linux.dev> wrote:
->>>>>=20
->>>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>>>=20
->>>>> Hi all,
->>>>>=20
->>>>> Allocating PMD-sized HugeTLB pages at runtime can become slow or =
-fail
->>>>> as physical memory becomes fragmented. Reserving HugeTLB pages at =
-boot
->>>>> avoids this problem, but keeps unused pages unavailable to =
-ordinary
->>>>> allocations.
->>>>>=20
->>>>> Live upgrades are one example: they need additional HugeTLB pages =
-only
->>>>> during the upgrade. HugeTLB already supports CMA for gigantic =
-pages,
->>>>> but reserving a CMA pool for 1 GiB pages can fail when physical =
-KASLR
->>>>> and other early reservations leave too few suitable 1 GiB-aligned
->>>>> ranges. At runtime, 1 GiB allocations can also fail when pages =
-cannot
->>>>> be migrated out of a suitable contiguous range.
->>>>=20
->>>> Yes, that's our use case at ByteDance. Allocating a 1GB HugeTLB =
-page from
->>>> the CMA pool is more prone to failure than allocating a 2MB one. To =
-improve
->>>> the probability of successful allocation, we typically configure =
-the CMA
->>>> size to be larger than our actual requirement, keeping a certain =
-margin to
->>>> handle cases where temporary kernel operations (such as DMA) =
-prevent successful
->>>> migration. For 1G HugeTLB pages, since the margin must be an =
-integer multiple
->>>> of 1G, the extra memory configured as headroom is also relatively =
-large,
->>>> making it less flexible than 2M pages.
->>>>=20
->>>>>=20
->>>>> Extend CMA support to PMD-sized pages so their backing memory can =
-be
->>>>> reserved at boot while remaining usable for movable allocations =
-until
->>>>> needed. This relaxes the reservation alignment requirement and =
-reduces
->>>>> the contiguous range required per allocation.
->>>>>=20
->>>>> The series adds an optional @<page-size> suffix to hugetlb_cma and =
-a
->>>>> separate PMD-sized pool. For example, on x86-64:
->>>>>=20
->>>>> hugetlb_cma=3D4G hugetlb_cma=3D1G@2M
->>>>=20
->>>> Different sizes of gigantic pages already share a single HugeTLB =
-CMA pool.
->>>> Given that, why not let 2M pages also reuse this same pool? Would =
-that make
->>>> the overall code implementation simpler? And if it does make things =
-simpler,
->>>> should we go ahead and do it first?
->>>=20
->>> Sharing the pool would simplify the implementation. My concern is =
-that
->>> small PMD allocations could fragment the default pool and prevent =
-later
->>> gigantic allocations.
->>=20
->> Yes. However, the premise is that there has to be a mixed-use =
-scenario.
->> I'm not sure if this kind of mixed usage is a common scenario.
->>=20
->> Of course, we don't have much experience to draw on, because on most
->> architectures there is generally only one kind of gigantic page, and
->> prior to this, mixed-use scenarios could not arise.
->>=20
->> Therefore, I think that before the need arises, a simpler design is
->> easier to maintain.
->=20
-> wouldn't a shared pool still be sized and aligned for 1G? then the 2M
-> headroom stays a multiple of 1G and the 1G-aligned reservation can =
-still
-> fail, which is what the series is trying to avoid.
+thanks,
 
-If we decide to use a shared pool, I think the current alignment =
-strategy
-should be adapted as well, it should be changed to align with the =
-minimal
-acquirement, like 2M.
-
-For example, if a user reserves 1G+2M through hugetlb_cma, then the =
-memory
-reserved by the pool is also 1G+2M, except that the starting address =
-needs
-to be aligned to the largest gigantic page (1G). Therefore, this pool is
-suitable for both 1GB and 2MB allocation. The only problem I see with a
-shared pool is that it may not support mixed-use scenarios very well.
-
-What do you think?
-
-Thanks,
-Muchun
-
->=20
-> --=20
-> cheers,
-> jose a. p-a
-
-
+greg k-h
