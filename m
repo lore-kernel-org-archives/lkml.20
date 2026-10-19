@@ -1,59 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435138;
-	b=TugL7OxI57Ei2GgguX9hxPuTNuN63+Twz26VXDtyIf+fvuNj01C6oAj/onc1470eTXUm
-	 mz9WtGBYrQdufEGbPLJtAIvyl+dZ//8F1cuMyHpGwXA+jCN6XtDpwYBIEiqpezTZU98mn
-	 0JCkdR8kouAQs+qJG0pvSi3zQQ4WXTf2Dkw59uSufTnsf7h2GQoBSwHIokO14b8ass+Le
-	 Um3nbHgGoiUmpMBua3BsPScob0+/jnWer2fn3AmYa+wHh9qrkD+xZxV5CnA8MliX3yoz6
-	 +dyZ6rHoVip2Hvw/1SMazJ0AugQSmJKghsvF3GKeeqBQVoznkZbQBDcRu4drtQZJsOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435138;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=WD0sxxOEa2MH/26Of97hfhUgNRTbd2CMOIAfQQomIVQ=;
-	b=LkSMO0IP4YXqvVJKAgUnJq07n+OSaQ19vXbroYj08H9b9wVmWnDHsRYmR1RIaOWJgbHQ
-	 eWPFCfMdhDAHWN2od1G2+K4TlVClq+TZkYJBb5g3Li3TnSSBXSSonMNu8BfvTNMv3TkI+
-	 2m8TFed/WvcE0EzDvyAXMhO4cJ1NNzybxyojUFGfZjCCHgxrK5finnZuFwNy3rEjZt/jQ
-	 uZI/bQo7CU3dXKpdMYJiK+OlLcfTcIFt5zxu/eSQzVU+WbVmNxMgolRf0uIIhg3dbHNGk
-	 YonBm6K+6IK8Z+XKUiB29QWw5d34V7UEGjPHM83znEIJyQiGuy76RZdrD8upo7r6/NQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=QFrIhmZz;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44749606A31C;
-	Mon, 19 Oct 2026 18:38:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44749606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792435147;
+	b=VwEV/o4xzX6b1L8AOt6nX+tKOepzgLKXy5iQpLsxXRELmDxW3E1kIp0QZJBHoryYYVQ4
+	 aKmJBGtiwQ1mM65b7fgOsSZuDsS+bsGkv5LGGjjFZo6EZhoNvB2WITPgXRB3UZoof5La7
+	 EzIzVF2CN+YqqIhwCuSBynkwkqpqTm3FDGaSkxWKwxFKjLq0HR2pe7BEpYbEIyeOMYLwD
+	 +BG11DLr1GPoM7EWq5IQCQQrYAow/9U+SSeFPggrGyMYk0MbisE8Gb/TsCVd11Epaxbgg
+	 E+XCxBMord6bpHe6P7l50jHSaiNKz2BYGIYdoh18/SkGSMIwOwHyKMBak+d+ZXEthSQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435147;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Content-Type;
+	bh=NXAsHlihhWDzUv4op4PoVrOh/D4EzSV3+8FTcBaPXwU=;
+	b=x5Bo4XmXUll+ZrWgMGD6qtYKlaBUVmVhMIbt8oQlTjGQgONemsjCfGMxSBczNechaBSq
+	 kiULjyJAs4uLY27mkcy/xZyzHy48CjPtjm7Pgz7pGPpU7x1uXT5Espg5kNr1Fd7k8UR63
+	 bMDWjBgGGnkhB9BpFsN06TcnG/KOZIX6Nh0L5/sLPibg3R5abIPor40+u20hqqMEi3//k
+	 DOYVkKoLu05zCG1x8ODEXRdRyi0H2EDMZS4PXnai7AdJQgL/k+WXdeMygcRjMNxT+TBYb
+	 UfUAxMow4cZvIZMkss6EbO1cVc2VrAruNz6cy9umLVixm5lmWmXNn/pqmZQ8LN7/4pQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IPdGDorI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61EA606A33D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:39:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B61EA606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=QFrIhmZz
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id D835B20B7168; Mon, 19 Oct 2026 11:38:45 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D835B20B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792435125;
-	bh=WD0sxxOEa2MH/26Of97hfhUgNRTbd2CMOIAfQQomIVQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QFrIhmZzIMPBGY64mWtf+3NR6uH3EB3JlBXo0QXV3jvxAbbI/E8UzVwejCDOw51Ds
-	 Ptxp6sbnElE7JeLGl2miDRdYvO86EHm6Sex4sdjtioZBWUPfamKuxts5v/WOf17DtV
-	 kUm/cFm1sltOW4+7i4jss/HN3HB4VwG2cqkj7fdg=
-Date: Mon, 19 Oct 2026 14:38:45 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Lanfeng Wei <xlfylawarthur@gmail.com>, airlied@gmail.com,
-	decui@microsoft.com, dri-devel@lists.freedesktop.org,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
-	longli@microsoft.com, maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org, regressions@lists.linux.dev, simona@ffwll.ch,
-	ssengar@linux.microsoft.com, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-Message-ID: <atZjtSlZAocUWYBS@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
- <20261019154121.6257-1-xlfylawarthur@gmail.com>
- <8e91baa4-1ca5-43b8-bb04-9b5e3630bc2b@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IPdGDorI
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6faddda49e7so2259737eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:39:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792435146; cv=none;
+        d=google.com; s=arc-20260327;
+        b=llG3v/x3mHVdSxdQNcYum6Vppk2AnAI2+AGqeUdrMjUivERxL1IL51P7pdyDOqpGDf
+         i3LLpOVB4AoToD8DEtfH1+jbkxaJlBElfqQLVr+6LjbUNeAnThPPZ5zrk4TxsLCJPeKm
+         dmbyMZjOKX7OI4N7/HbEIwJa1GgUHFU+aEYGcI9FoZwxux5UZLhkeVbfbQu7h0P6qgNV
+         jwKCzJ2+URMngrKKx1aT9OKVAXvcvKUMdp8qJctQHQSJa51a5sK8unrj1SzWIKQ6Zgky
+         iof9MhuQ9sYohZimJtSZItSyA6rfWAV4GFgaex9sdNJchSh4PWe++CMLzbKk8Y72hy/V
+         EuMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=NXAsHlihhWDzUv4op4PoVrOh/D4EzSV3+8FTcBaPXwU=;
+        fh=V9AeBafJgTW96HdC48wsxGAfd7Fe9P2uAL8tLCjpUN4=;
+        b=YnKJLi06yVS6ostNbRa7F0DWhqgJjk3qNcYtG5i/Po2eP2SngHQZLS7z+h4YlULXl/
+         NxHRFTD1skhOre9jU9LWiOCdUKBRVqyDF9YJYMFZkKZ8kF8RTZl1d5Lk854k4bG9VDBU
+         sH3Ldo4Ya2VHAkK0xIs7BhSR1GL2nssDjxFURpxi4Wvj0Pra3P+4SZtjRnoX0sOZbvT4
+         l3KkwlE413WYR1o9Hk2GedUgiyPhX2/nVjiTq+FLVqYEcevA1UzE8LOVfpfn1P0uLSjL
+         fGcDPFfGUQgIt39lOde6DWOcW4WDD/CKs769x3GXXK/o3IyzJo+ZvjkYxtIrUlq9JETg
+         FBSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792435146; x=1793039946; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NXAsHlihhWDzUv4op4PoVrOh/D4EzSV3+8FTcBaPXwU=;
+        b=IPdGDorI0nUPXuxRRnUX4R2INMI8qMfk0cRb2KaKHlGzHMV7GV5iYmhKsUXAivjQuh
+         Tz4iXXqWO6ULS7vOIpJ4MBwln0F0uCojt8+qCFngiX4cgkyy6nxn/WlyLmCzV5LGXrtr
+         70Elj6WPS2wirbpwtBlhVG3YsVS4bc0UhRaXoZFM6M5THO0IilRqI70ds01OOd8f21F5
+         rTEwDFVhrdMXLC1Q+RUZY7JmzI2DWBF7yNwO6j9OiFaw5bvkcx9tLlkPezxP1Iwu9d/o
+         S0ge1YZO5WA+J5eF3FlDcvu0FucZ4pvQ5EAdK5rHKx5G/ez+Li2N/pBn87ySThoLNUn0
+         da6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792435146; x=1793039946;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NXAsHlihhWDzUv4op4PoVrOh/D4EzSV3+8FTcBaPXwU=;
+        b=DepWa4SmUhYnA+liXXQo4SH5CJKcNUyP/yFmRiYFnzIWjcHYEgh1u78I774FWEpGlD
+         Gx9qtYV7LC/QDHJiii2SXnDf3sDQqxo9yMIPMhYHwiyErfkD6y3+7r1bPgS7ax8HCPjp
+         gugdzeXu6iyd252cq5mnEaxhsoJOqbMuqKe+X9OrteiwtNUTEa0Eezhl/4whgJVZMuxu
+         Si19s+gifhlJegdFhjxwn8e3b2oJ1SwbjDJlDNVQBfw2swq5JtpYqhJ74L72nfpHDzOF
+         0ykxeCDvKbRF6OgPYgS+YhBAWzuiJRFU+2oCuqXMKDEOsl2CfPR7ff2pHQv55rBT2YZ6
+         034g==
+X-Gm-Message-State: AFq9FYItbUbWh4gBd/+w2j5vHXwPmzaEFlksbtG9F63jfAyYe6PPPgZM
+	ZBste/Eo2LTfO9dcUii325j64QtfOMqV5Tu4Bf5vu1rXN2A4IIHz4c7LkETwvfBjgUuCrmOgX3A
+	N3+Lq8G5lF/j08AXMdaSP5TufFu/nHhrZrhpgbbndHQ==
+X-Gm-Gg: AYBFou1wmtp4/AKcq6WuGuPRCn+ians0ubrqgw2yQfsHqKxJppxMn3at6LtICKi3wzy
+	DRflPaG0fem3yx5fXhCcSKJoqHab7E/+x0r1f8yrFlcDlByXMCa8i54ItPZf9G/U1QW3FMMStWM
+	L5nMUvy1ZQnGu2JUrp1Nx0SysFkwouakqdWXWHg4TjwPZlW9GHBKBkeKWP3TmwmZNEKvmIrtgaP
+	JLts9mFSrCDgwDD5QExYu1NroDZDpRyILyD3u+az4mtE0Icex7W7p6lFs/N/L3YL9P9STRwM50x
+	PGFB0jUZfXn2ypfUCNjLNqM+n4j81i5du21nmtyW2zPXwwUDVBQH99ZP06uVwGthMcsfvjYhnLI
+	m8tiFcI+CqSG0Og==
+X-Received: by 2002:a05:6820:c0ce:20b0:6d9:4131:5037 with SMTP id
+ 006d021491bc7-7035659d421mr4088208eaf.45.1792435145585; Mon, 19 Oct 2026
+ 11:39:05 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,98 +102,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8e91baa4-1ca5-43b8-bb04-9b5e3630bc2b@suse.de>
+References: <20261019101117.54038-1-thnkslprpt@gmail.com> <20261019140519.GJ989762@ZenIV>
+In-Reply-To: <20261019140519.GJ989762@ZenIV>
+From: Avi Weiss <thnkslprpt@gmail.com>
+Date: Mon, 19 Oct 2026 21:38:54 +0300
+X-Gm-Features: AclHuK8-Bh6IMTU8zCXZkBTsPl3Glp3sHHs7p7nyhCdjGJNYOA3bFtGMnnPKELI
+Message-ID: <CAKOB7-ZjYfnOrv4A8YJ0iHKso7fogOEpF4L=-Pvmoh8YxhdBJA@mail.gmail.com>
+Subject: Re: [PATCH] sunrpc: instantiate rpc_pipefs dentry before publishing it
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 19, 2026 at 06:03:55PM +0200, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 19.10.26 um 17:40 schrieb Lanfeng Wei:
-> > Hi Thomas,
-> > 
-> > > Yeah, what's the cause of it? Switching off features does not fix any
-> > > bugs or improve the status quo.
-> > You are right that the module parameter is only a workaround for users
-> > affected; it does not fix the underlying scheduling problem.
-> > 
-> > The cause is that the synthetic vblank timer is used to pace completion
-> > of atomic updates triggered by dirtyfb, in addition to providing
-> > synthetic vblank events. In Xorg's software-cursor path, pointer motion
-> > damages the primary framebuffer and the damage is instantly submitted
-> > via DRM_IOCTL_MODE_DIRTYFB. The Hyper-V dirtyfb path performs a
-> > synchronous atomic commit, and with the vblank timer enabled that commit
-> > can wait for the next simulated vblank. Under continuous pointer motion,
-> > these commits dominate the update path and delay normal client updates,
-> > resulting in sever frame-rate drops.
-> > 
-> > This particular regression results from the combination of the blocking
-> > dirtyfb path, synthetic vblank pacing, and the absence of a Linux DRM
-> > cursor plane in Hyper-V. While the Hyper-V video protocol does have a
-> > hardware-cursor command path, the upstream hyperv_drm driver currently
-> > exposes only a primary plane. Cursor plane support was deferred during
-> > the initial upstreaming [1]. Without a cursor plane, Xorg has to fall
-> > back to software cursor-rendering path and it competes with periodic
-> > graphical updates on the primary plane.
-> > 
-> > So the proper long-term fix could be adding cursor plane support in the
-> > Hyper-V DRM driver, which may take some time. Providing that the stated
-> > purpose of the offending commit is to rate-limit display updates, while
-> > its current implementation regresses the existing software-cursor path,
-> > I think adding a switch or reverting the commit until the requested
-> > features in the driver is ready, is a reasonable short-term fix.
-> 
-> The problem is that module parameters are impossible to remove in practice.
-> Once in place, someone always depends on it. They also increase the number
-> of states to test.  Avoiding them is usually a good idea. Especially as
-> workarounds for bug or regressions.
-> 
-> 
-> I'm not familiar with the Hyper-V protocol, so I have a question. Why is it
-> hard to implement cursors? From the link at [1], I assume that cursor
-> support was left out because the simple-kms pipeline did not support cursor
-> planes. This has long been resolved: the simple-kms pipeline is gone and
-> hyperv_drm runs on the regular DRM framework.  Unless there's anything
-> special with the Hyper-V protocol, cursor-plane support should be do-able in
-> a single patch. [^1]
-> 
+I was thinking of, for example, an existing NFSv4 client when
+rpc_pipefs is mounted later. The mount creates the dentry for
+it's idmap pipe, while an owner/group lookup could queue a
+legacy idmap upcall on the same pipe.
 
-I actually have been working on cursor plane support for hyperv-drm.
-I'll post a patch soon.
+The upcall doesn't take pipefs_sb_lock, and rpc_queue_upcall()
+uses d_inode() once pipe->dentry is non-NULL, even with no readers.
+That seems like it could leave a window before d_make_persistent()
+completes.
 
-Hamza
+I think there are other ways possible as well.
 
-> Best regards
-> Thomas
-> 
-> [^1] See https://elixir.bootlin.com/linux/v7.2.11/source/drivers/gpu/drm/ast/ast_cursor.c
-> for an example of how this looks. Most of it is hardware-related, but hyperv
-> would likely be similar in concept.
-> 
-> > 
-> > > We had another fix for a problem with vblank timers:
-> > > 
-> > > https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
-> > > 
-> > > Did you validate that this fix is unrelated?
-> > Yes I tested that fix and confirmed that it is irrelevant. It solves
-> > issues with excessively long frame durations, however this problem is
-> > found in normal frame updates (in my case 60Hz / 16.7 ms per frame, way
-> > below INT_MAX).
-> > 
-> > Best regards,
-> > 
-> > Lanfeng Wei
-> > 
-> > [1] https://lore.kernel.org/dri-devel/20200622110623.113546-1-drawat.floss@gmail.com/
-> 
-> -- 
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-> 
-> 
+On Mon, 19 Oct 2026 at 17:05, Al Viro <viro@zeniv.linux.org.uk> wrote:
+>
+> On Mon, Oct 19, 2026 at 01:11:17PM +0300, Avi Weiss wrote:
+> > rpc_mkpipe_dentry() publishes pipe->dentry before
+> > d_make_persistent() attaches its inode. A concurrent
+> > rpc_queue_upcall() or rpc_timeout_upcall_queue() can
+> > conceivably dereference the dentry while d_inode() is NULL.
+>
+> Details, please...  I have no objections against the reordering
+> per se, but I would like to understand the scenario leading to
+> such a concurrent call.
