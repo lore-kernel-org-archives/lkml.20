@@ -1,66 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792442879;
-	b=DefQz/kNjJsFgGS/ckwg/WnzMZeqNty6f75oaFBgfZ7qX3Pw7bcv6S/Qxp953aIfMCRO
-	 N7swTrJhTHnQsqO5Hs6EE6t17m7moOK18vht+B0jcKt5qBvTkTLqnvmsXNsSwZeYo6cUb
-	 nmYkP2vIWSZv60CybrFgu271yPrmsa5Xk37qPzAkKFUkNH8EMP3ZtknfMS/1r6IghP/M6
-	 SqGQhVNk7//u9cwPQr0Cc4seaQjjds27JwpTkjNe2ownssckpx6RJSonn+W9tfxwlRVsM
-	 cnDo+4tAMAr03Uku2USa5vYdsoScR1+EBlPzLjYydFsOL5aICK8S2hNIGpkktmOwbkA==
+	t=1792442924;
+	b=S7hM2ex4mbEVfnwqqbUJj5gZ8tuo3M3OCvAg3dpyzlHrJKRZUNcJGuO3za6tNloEOl8m
+	 dvMmCZr4I6J50hSY20Qryga5NLSI5raRsMiNfYsOmLQg/7/3pSxJ/10quCgo9LPpAE89n
+	 JIE/KySC3Wt5fpgGVmWZjn5rCc5OBjn5UbL7Sts9BTi1M5XHxgj1Nb25BEK6iJTMXoHe4
+	 U3eXNy03jXuqRsb9OQAaPmMetoS4z8DQpTqrSr93Hy52OHk+Mq8RoVu1MNcF+Hv0Ts8qz
+	 gC5xnezyUM/oFMhUYw0vmaADW6BGRNMvnKqpwE18s6y33XeRh6v+F3tQ6aqwMmmPR2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792442879;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=mxMUYzin+1iTcBhuRWJPjGD5mo13ZLuKNESWTPDIUTA=;
-	b=QsdtxggyClOsh1ZQmW5hNK3aOgNSTHY8hYcoqh6k5u9WHLdtN0hcuvDzSFDePShvL531
-	 SlQhqntUYut2HrjV5iHJNzJOx8uh5e97WNF6MFRBac2Vxsh9SlL1zU/sML8zS8STl29aF
-	 3XYUVPJT8SkZ8he4rurfwFQsat2JoIIfFIPwK57hQNVLcFAxsoccovGQq1yVFThRfomMD
-	 oSnUw+FjsDudaFHnP+mqcsei1CdmjJu1pYWLC+cEC6rXncYllFTFQvBA7bcQlqFNv4vmB
-	 YZwluuTFyF5nXJRc0wEc1sPhdDyqxwZTtOaeASVPZLczCnkWLdzRkiB20OvP83k+9ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792442924;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=znHKFW5DZ1DFTZiPSdRamz8km2jluecigHe2x27tyX4=;
+	b=PIZScdS4TOZ2Cbq/F/xMSV09p6e2h7o0wZ+i3+j+uo9LsKr1wGzitSLsJXcgDyi65EtE
+	 l0PJKJy7pdzNh3qf8p9/uhsbT9m1C1ErbKFgYq/xnND3g667bOrGTNPg3RJZ1tBDmo2wO
+	 Wh3nwSLBtM2Wf92Iocw6v8Xsn88a8MXhVDD0wF7pk3lx24BvtM4q20lu6LNspwIEfZQp5
+	 UY01M+TYzCMGR7R2kOMpnMlLGUeH8pkgyv1F1xlgUDMkzpTrpXG9JayyUuMqSS6J0ELRu
+	 mRLD7bYEwb6HIacHKdWQf2UORxbnQ45dmlt448DPy3wGpVzTcYDX4aEG/4J9zxIE/kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUTATZz9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oniOVljK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CCE0606A31F;
-	Mon, 19 Oct 2026 20:47:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0A9606A31D;
+	Mon, 19 Oct 2026 20:48:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUTATZz9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4AC51F000C4;
-	Mon, 19 Oct 2026 20:47:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oniOVljK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5B01F000C4;
+	Mon, 19 Oct 2026 20:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792442878;
-	bh=mxMUYzin+1iTcBhuRWJPjGD5mo13ZLuKNESWTPDIUTA=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=WUTATZz9ABjBYitGjDhoqbn/Ufegq/lOBOge+JT27WvVN3f6v5mx4NpEy2zlcMjdX
-	 qLHsou5Bbh45trNM/oH+D6aSteY8gjVdX4YZ5mn5HUsiNh4mVfmVB8pbVtpLZR7dq0
-	 ZIZHBlHzZaZXetLnFr+T9JHegmnweV00cvpe7CxR0ltI+7XbJf11k1xTV54iJAQF4E
-	 n9QENJdR0+bOE23dk4iwrugbrsAP1QYE0QyLKp6vrOWbwSbkTy9MKt0ppOI72FANCo
-	 bJOGkzbkC4hg1Afh8t2md7hz0e2Aj/t0vkrjjIrCEnwKSlHxhbMjstoUuGDtehBnmX
-	 Kdw3PqiYzL+Cg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 92890CE09FC; Mon, 19 Oct 2026 13:47:58 -0700 (PDT)
-Date: Mon, 19 Oct 2026 13:47:58 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	kernel-team@meta.com
-Subject: [PATCH] rcu: Print CPU that preempted stalled reader wants to run on
-Message-ID: <7a827d0a-1a69-4be6-8b69-9a9769b182b7@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
+	s=k20260515; t=1792442923;
+	bh=znHKFW5DZ1DFTZiPSdRamz8km2jluecigHe2x27tyX4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=oniOVljKooIW2lqCf7/qMu1/csgI97HBwSQv84eCIHogk/qwVx/o3c98KMHIiNe6r
+	 17/2HvDy5qYtW186SRUGm0cYKk5NXuzvKOe5hTZw+cIB0F3sm+KBQho9Tty5QfhD0u
+	 EoLg3rLmjLkLlJhgqyw+dJcAJqksh/9SbyASLVeolARzy6+48KqScqpTX6YGvn8spj
+	 rew9irxFes56ef49+eJFlcvtQsD0JIWRSz+RROFwQXSkwLzS2JlZtmIyS4uqRn7RIR
+	 yRoGjMeUdyQg/8hRD76RlhNdZU5QqEzUNGhe5ofDemGMffRKId2n89t/m+v0k4J18C
+	 mFKtMyBvwgBtw==
+Subject: Re: [PATCH net v3] net: ipv4: add zero check for snd_cwnd_clamp
+From: netdev-bot+sashiko@kernel.org
+To: kj2864@nyu.edu
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
+Date: Mon, 19 Oct 2026 20:48:42 +0000
+Message-ID: <179244292273.3135.7259079039663290152@kernel.org>
+In-Reply-To: <20261015201549.4023-2-kj2864@nyu.edu>
+References: <20261015201549.4023-2-kj2864@nyu.edu>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,184 +63,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
 
-This commit defines a cpu_curr_snapshot_rcu() function that invokes
-rcu_dereference_all(cpu_curr()) to determine which task is currently
-running on the specified CPU.  The RCU CPU stall warning then uses this
-new function in order to print the task that has preempted the stalled
-task (the stalled task being the one that is in an RCU read-side critical
-section, thus preventing the current RCU grace period from completing).
-This modified stall-warning message also includes the CPU, along with
-an exclamation mark ("!") after the CPU number if that CPU is currently
-offline.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-This is a potential step towards allowing people (or LLMs, for that
-matter) locate any tasks that might be preventing the preempted RCU
-reader task from running.
+Critical: 0 · High: 1 · Medium: 1 · Low: 2
 
-Adding a get_task_struct() for the currently running task would be a
-bug because we are not in a position to prevent that task from exiting.
-Yes, yes, because interrupts are disabled throughout, the corresponding
-task_struct structure cannot be freed, but following sequence of events
-is all too possible:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-o	The check_slow_task() function places a pointer to the task_struct
-	structure in its local variable "th".
+- [High] The fix is incomplete: the divide-by-zero it targets can still
+  be triggered.
+- [Medium] The new check rejects every RTM_NEWROUTE with RTAX_CWND == 0
+  with -EINVAL, whether or not RTAX_CWND is locked in RTAX_LOCK.
+- [Low] The new error path in ip_metrics_convert() uses plain
+  NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero") and does…
+- [Low] In the commit message, 'Reported-by: co+71b6509cb791e531@bugs.sh'
+  is followed directly by 'Assisted-by: LLM' instead of a Closes: or…
 
-o	The corresponding task exits, reducing its task_struct structure's
-	->usage to zero.  The task_struct structure is therefore passed
-	to call_rcu().
+--
 
-o	The check_slow_task() function invokes get_task_struct(th),
-	setting th->usage to one.
+net: ipv4: add zero check for snd_cwnd_clamp
 
-o	The rcu_print_task_stall() function invokes put_task_struct(),
-	again reducing ->usage to zero, and again passing the task
-	struct to call_rcu().  This results in either double-call_rcu()
-	or use-after-free, depending on when the RCU grace period for
-	the first call_rcu() completes.  Both outcomes are bad.
+This commit adds a check in ip_metrics_convert() that rejects an RTAX_CWND
+route metric with a value of zero. The goal is to stop snd_cwnd_clamp from
+being set to zero, which causes a divide error in tcp_cong_avoid_ai().
 
-This commit therefore relies solely on disabled interrupts acting as
-an implicit RCU read-side critical section that prevents all of the
-task_struct structures from being freed, thus avoiding the need for
-get_task_struct().
+> Reported-by: co+71b6509cb791e531@bugs.sh
+> Assisted-by: LLM
 
-The original get_task_struct() calls in rcu_print_task_stall() on the
-tasks on the ->blkd_tasks list are safe because those tasks cannot exit
-without first acquiring the rcu_node ->lock that this code already holds
-(because these tasks must remove themselves from the ->blkd_tasks list).
-But it is better to be consistent and rely on RCU in both cases.
-These pre-existing get_task_struct() and put_task_struct() calls are
-therefore removed.
+[Severity: Low]
+This isn't a bug, but checkpatch.pl warns that Reported-by: should be
+immediately followed by a Closes: or Link: tag with a URL to the report.
+Could the link to the original report be added?
 
-[ paulmck: Apply feedback from K Prateek Nayak and Peter Zijlstra. ]
-[ paulmck: Apply feedback from Steven Rostedt. ]
+> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+> index ad40762a8b383..e83a129a25b68 100644
+> --- a/net/ipv4/metrics.c
+> +++ b/net/ipv4/metrics.c
+> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+>  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+>  			return -EINVAL;
+>  		}
+> +		if (type == RTAX_CWND && val == 0) {
 
-Link: https://lore.kernel.org/all/a7a21bf3-a7d5-45bb-be4f-0119fe53fa20@paulmck-laptop/
-Link: https://lore.kernel.org/all/e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop/
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+[Severity: High]
+Does this fully close the divide-by-zero? The check only runs when
+RTA_METRICS actually contains an RTAX_CWND attribute.
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 8b3d47a325cca..3606e5a2cec32 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2532,3 +2532,5 @@ extern void migrate_enable(void);
- DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
- 
- #endif
-+
-+struct task_struct *cpu_curr_snapshot_rcu(int cpu);
-diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-index 803a56af3259f..08699652f51c2 100644
---- a/kernel/rcu/tree_stall.h
-+++ b/kernel/rcu/tree_stall.h
-@@ -309,6 +309,9 @@ struct rcu_stall_chk_rdr {
- 	bool on_blkd_list;
- 	bool rcu_rdr_running;
- 	int rcu_rdr_boosted;
-+	int rcu_rdr_cpu;
-+	int rcu_rdr_cpu_offline;
-+	struct task_struct *rcu_rdr_cpu_task;
- };
- 
- /*
-@@ -317,8 +320,10 @@ struct rcu_stall_chk_rdr {
-  */
- static int check_slow_task(struct task_struct *t, void *arg)
- {
-+	int cpu;
- 	struct rcu_node *rnp;
- 	struct rcu_stall_chk_rdr *rscrp = arg;
-+	struct task_struct *th;
- 
- 	if (task_curr(t))
- 		return -EBUSY; // It is running, so decline to inspect it.
-@@ -327,6 +332,13 @@ static int check_slow_task(struct task_struct *t, void *arg)
- 	rscrp->on_blkd_list = !list_empty(&t->rcu_node_entry);
- 	rscrp->rcu_rdr_running = task_curr(t);
- 	rscrp->rcu_rdr_boosted = 0;
-+	rscrp->rcu_rdr_cpu = cpu = task_cpu(t);
-+	rscrp->rcu_rdr_cpu_offline = cpu_is_offline(cpu);
-+	lockdep_assert_irqs_disabled();
-+	rscrp->rcu_rdr_cpu_task = th = cpu_curr_snapshot_rcu(cpu);
-+	// There is no need for get_task_struct(t) because we are in
-+	// an implicit RCU read-side critical section due to interrupts
-+	// being disabled.
- 	if (rscrp->on_blkd_list) {
- 		rnp = READ_ONCE(t->rcu_blocked_node);
- 		raw_spin_lock_rcu_node(rnp); /* irqs already disabled. */
-@@ -352,6 +364,7 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
- 	int ndetected = 0;
- 	struct rcu_stall_chk_rdr rscr;
- 	struct task_struct *t;
-+	struct task_struct *tc;
- 	struct task_struct *ts[8];
- 
- 	lockdep_assert_irqs_disabled();
-@@ -364,7 +377,9 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
- 	t = list_entry(rnp->gp_tasks->prev,
- 		       struct task_struct, rcu_node_entry);
- 	list_for_each_entry_continue(t, &rnp->blkd_tasks, rcu_node_entry) {
--		get_task_struct(t);
-+		// There is no need for get_task_struct(t) because we
-+		// are in an implicit RCU read-side critical section due
-+		// to interrupts being disabled.
- 		ts[i++] = t;
- 		if (i >= ARRAY_SIZE(ts))
- 			break;
-@@ -372,19 +387,25 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
- 	raw_spin_unlock_irqrestore_rcu_node(rnp, flags);
- 	while (i) {
- 		t = ts[--i];
--		if (task_call_func(t, check_slow_task, &rscr))
-+		if (task_call_func(t, check_slow_task, &rscr)) {
- 			pr_cont(" P%d", t->pid);
--		else
--			pr_cont(" P%d/%d:%c%c%c%c%c%c",
-+		} else {
-+			tc = rscr.rcu_rdr_cpu_task;
-+			pr_cont(" P%d/%d:%c%c%c%c%c%c CPU %d%s %s (%d)%s",
- 				t->pid, rscr.nesting,
- 				".b"[rscr.rs.b.blocked],
- 				".q"[rscr.rs.b.need_qs],
- 				".e"[rscr.rs.b.exp_hint],
- 				".l"[rscr.on_blkd_list],
- 				".R"[rscr.rcu_rdr_running],
--				".B?"[rscr.rcu_rdr_boosted]);
-+				".B?"[rscr.rcu_rdr_boosted],
-+				rscr.rcu_rdr_cpu,
-+				rscr.rcu_rdr_cpu_offline ? "!" : "",
-+				tc ? tc->comm : "???",
-+				tc ? tc->pid : -1,
-+				tc ? (is_idle_task(tc) ? " (idle!)" : "") : " (no task)");
-+		}
- 		lockdep_assert_irqs_disabled();
--		put_task_struct(t);
- 		ndetected++;
- 	}
- 	pr_cont("\n");
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 559735f71b5dd..3d88ad36ec9b4 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -11320,3 +11320,16 @@ void sched_change_end(struct sched_change_ctx *ctx)
- 		p->sched_class->prio_changed(rq, p, ctx->prio);
- 	}
- }
-+
-+/**
-+ * cpu_curr_snapshot_rcu - Return the task currently running on CPU
-+ * @cpu: CPU to query
-+ *
-+ * The caller must be within an RCU read-side critical section.
-+ *
-+ * Return: Pointer to task_struct of task running on @cpu.
-+ */
-+struct task_struct *cpu_curr_snapshot_rcu(int cpu)
-+{
-+	return rcu_dereference_all(cpu_curr(cpu));
-+}
+Suppose RTA_METRICS contains only RTAX_LOCK = (1 << RTAX_CWND) and has no
+RTAX_CWND attribute. Then this loop never sees type == RTAX_CWND.
+
+ip_fib_metrics_init() allocates the array with kzalloc_obj(), so
+metrics[RTAX_CWND - 1] stays 0, and the lock bit is stored unchanged. That
+leaves the same state as the locked "cwnd 0" configuration this patch is
+meant to reject.
+
+>From there, the path in the oops looks the same as before:
+
+tcpm_suck_dst()
+    if (dst_metric_locked(dst, RTAX_CWND))
+        val |= 1 << TCP_METRIC_CWND;
+    ...
+    tcp_metric_set(tm, TCP_METRIC_CWND,
+                   dst_metric_raw(dst, RTAX_CWND));
+
+tcp_init_metrics()
+    if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+        tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
+
+tcp_slow_start()
+    tcp_snd_cwnd_set(tp, min(cwnd, tp->snd_cwnd_clamp));
+
+tcp_reno_cong_avoid()->tcp_cong_avoid_ai(tp, 0, acked)
+    u32 delta = tp->snd_cwnd_cnt / w;
+
+Both fib_create_info() and ip6_route_info_create() go through
+ip_fib_metrics_init(), so IPv4 and IPv6 routes would both still be exposed.
+
+Could this per-attribute check be replaced? One option is to check after
+the loop that a locked RTAX_CWND has a non-zero value:
+
+    if ((metrics[RTAX_LOCK - 1] & (1 << RTAX_CWND)) &&
+        !metrics[RTAX_CWND - 1])
+
+Another is a guard in tcp_init_metrics() that only applies the clamp when
+the cached value is non-zero.
+
+[Severity: Medium]
+This check rejects every route with RTAX_CWND == 0, whether or not
+RTAX_CWND is locked in RTAX_LOCK. Is that intended?
+
+As far as I can tell, the value only reaches socket state through
+tcp_init_metrics(), and only when it is locked:
+
+    if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+        tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
+
+The other uses in tcp_metrics.c only update the cache for unlocked entries.
+
+So a route such as "ip route add ... cwnd 0" without lock used to be
+accepted and was harmless. It now fails with -EINVAL. This applies to IPv6
+routes too, because ip6_route_info_create() uses the same
+ip_fib_metrics_init() path. With Cc: stable, the same change would reach
+stable kernels.
+
+The commit message also says:
+
+    User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
+
+However, the value only reaches snd_cwnd_clamp when it is locked. The
+"net: ipv4:" subject also doesn't mention that IPv6 route installation is
+affected.
+
+Would a lock-aware check after the attribute loop, or a guard in
+tcp_init_metrics(), avoid rejecting the harmless unlocked case?
+
+> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
+
+[Severity: Low]
+This isn't a bug, but could this use NL_SET_ERR_MSG_ATTR(extack, nla, ...)
+so the offending attribute is reported? The nla_len check earlier in
+ip_metrics_convert() already does this, and nla is in scope here.
+
+> +			return -EINVAL;
+> +		}
+>  		metrics[type - 1] = val;
+>  	}
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015201549.4023-2-kj2864%40nyu.edu
