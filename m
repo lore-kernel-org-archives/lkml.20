@@ -1,69 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434941;
-	b=mOFnWqaCv3cU96APX2vi9c5REkEzHdAYkAs6y3i1KnLr3TKtz1VH2JjwbjIzRcLR1qsS
-	 7RS4/g1+X7nYuLvBf6TdsmpK6SNlNn7kJE4RsmhJggizrANQoq5b1Nz7pDGiTrKfw6UJm
-	 KXR07TJ5Bv+jgFQBgC/+eGplBvKCOZJdacxwUtze62R49gbH5Wcf4LYTTKD4ffOsSwqeF
-	 1dvfjcNidzeJvMG5n9iYrB1rW0CYpVBQXAWB6V5iOpD+y68tAgd3r2OKOSBeQiccoGHJz
-	 nfub0YbwA8/cK4w3fCMAwYdofTY7kkJBnXrjq15XZCL86356owE6yMt78xf/5+AeKwA==
+	t=1792435008;
+	b=bKG1J9TAtYq0hEOQx3aTN54Hs59alw0sp+GEfetSRt+6OvEZerl8aAEP4t9zHul4zjdH
+	 fG6E6HlLGIp4LyAbb1JRsqGFZ1r0RbkdwuXPVrV1nLlfgPHfAciE7Ajb5nb8LMRVNNp+9
+	 eQAWRVVSorLu72ec9R8JLDFZ/UVwYanH/WPW8AR/k+4yi4oodRZ+m85yDL4gWhWguGVJY
+	 ZhKUbrSH7BuhDuil5pbck8L3IymmxIBwrgsi1yx3GAMT+oX/yCrPhif/jukuiKBuQnqbs
+	 Io3+djx9xggFa4i6DsXGlztA6RcU29rRwrUWKGwk88XNSxYZfYc6ZUE+zRZ352ehWtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434941;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435008;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=n32poB4tkKKa1H8C9bhY2dZAW0+q+igXltm4JEhLcqw=;
-	b=Vo3SOAilZvIqg84UJcgD5JLmUmoDjZms/msU1VkXAS/mlFSq4eOQ/GofhpWNtIcKlcKT
-	 4oKwYz28gcHdKlkGlhhB9OvvpsMKzkTFpKZXc9XKM9Gt6sp+IEH0Wi13m399BrAIGjz29
-	 6ae2drMHzsE0rxR1qV9eU3O7rUTrZezSsPlB3G2xqNw+roccWr/t5/t/8OSnG3Zef+XTr
-	 2ZqQmDN+GqE856iWT0yuQOCvXdSnzZ0W/0ci9xtFtz+wbp5HxaJPe6SF1PGagHPM82g3q
-	 XArcP6LvVVeD6bFFyuvWuw+d+3EHqZt4XUQ6I6srKQi3Z9D/Uv7MW3idjEsSAv4xwQA==
+	bh=eGvH8AFTMYKkAES3Ocv5+KwnXAtK17RQGdW3R8thXIE=;
+	b=Qtwc8IZqO1lYsvM/uUvAKovo6NBD3eW8/QyrwSHYO3yTT4GOTK5ibwSv1qo9UQD4GLJo
+	 rmc0QX/V8F8p9Z5nV2WFs6U8h+k7VjymraI9HGEcnrb27m49rH90OVwZ/zHffV3EPzLXF
+	 si5A5vDNR4u0daKO60/ZGsOH2byl8osvzFizIrAEPbeLg3YUqSgTvMM1uX4BAseuCSs6O
+	 ulRT+czw7Gnh+BCatb5xFlA/8d8C3xuezraCRwDe5Cjju45v2d1brlzui2wMshtk2A45k
+	 17PQIgVWZUHplyi09GXUKsPzSEtBtajlcMJ20OP9PLbXsxgDUtt/yXSa9FKgecKehpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WF/haCzz";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrjG1Q9b;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89AB606A31B;
-	Mon, 19 Oct 2026 18:35:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3F6F6606A31B;
+	Mon, 19 Oct 2026 18:36:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WF/haCzz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 111A91F000C4;
-	Mon, 19 Oct 2026 18:35:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrjG1Q9b
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3EA5D1F000C4;
+	Mon, 19 Oct 2026 18:36:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792434940;
-	bh=n32poB4tkKKa1H8C9bhY2dZAW0+q+igXltm4JEhLcqw=;
+	s=k20260515; t=1792435007;
+	bh=eGvH8AFTMYKkAES3Ocv5+KwnXAtK17RQGdW3R8thXIE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WF/haCzzvQJPPUWBj50CMBjC9jE8aMytYuSftFLlIRaLScaIBZDKoWDLcaFTUeGEV
-	 byMWI9zl0IMmBs2kznsH6KszESmy5Ku3CiNrSTFKMxRE5ZYt8DWF6wx7l+W1MTbgh/
-	 rgCknL4xvUV3nKHSke3FicCrirp+WspbboJtB1+Lna8TM/2KW/p42LTcaiSac1x9Z6
-	 ihKcDophwBMK2dSGA2wfIJ9rFX6a2DpIqH9R9lMqcWsPa9aKhZakK4XMMVbOE9qwJs
-	 1hTpeRS2qHQ4ucPyhETyPMF7fIBtrFACCSFbc78XmFJYmRs4c1MQ3xMvfCffqrUioZ
-	 JuyVU8tQ0aM/Q==
-Date: Mon, 19 Oct 2026 21:35:37 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v11 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Message-ID: <20261019183537.GI64621@unreal>
-References: <20261014132353.GA1625948@bhelgaas>
- <eb8e0edd-4c4d-402e-9875-bdbc6d191edf@app.fastmail.com>
+	b=SrjG1Q9b/mUXohpv8qhAo8UqSYRye9nF/8AU4GFNYo+WH4JRhK0vFJyPXGnlaQxAU
+	 EQ86kyal5BtlZPNHagEwQSoodUtFfkDASoMGHeapxQ5v/fg36Hj0QVy3bfqvhevhn+
+	 pDrpQHOxO7JcONsMKgnlHXea6UYaHBr+JCA4NE8ndwvKY7U0VrHEtjsDbtc9Ekbyhq
+	 hUKMtHIcy2HBA7W6RuiV0ZkCU/rt86idUn6VHUPoU/hI+FFJCWYmnVtJz/MbhJYw6W
+	 Q9Vpec5IlxOikjiQuzMdQ1C79xOMh0os0hAiLiwUdcUJM7e1/Vejg8UM0FvZ7Z4Zfo
+	 /JAKJeT0Ne/0w==
+Date: Mon, 19 Oct 2026 21:36:44 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Surendran Kanagaraj <surenkj@amazon.com>
+Cc: peterhuewe@gmx.de, jgg@ziepe.ca, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org, leitao@debian.org,
+	nh-open-source@amazon.com, graf@amazon.de, gunnarku@amazon.com,
+	joshlev@amazon.com
+Subject: Re: [PATCH v2 2/2] tpm_crb: Raise durations for Amazon NitroTPM
+Message-ID: <atZjPERR854RL0Yk@kernel.org>
+References: <atLD-d1v1B8ARv7x@kernel.org>
+ <20261019182713.57308-1-surenkj@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,60 +61,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <eb8e0edd-4c4d-402e-9875-bdbc6d191edf@app.fastmail.com>
+In-Reply-To: <20261019182713.57308-1-surenkj@amazon.com>
 
-On Wed, Oct 14, 2026 at 05:49:53PM +0300, Leon Romanovsky wrote:
-> 
-> 
-> On Wed, Oct 14, 2026, at 16:23, Bjorn Helgaas wrote:
-> > On Wed, Oct 14, 2026 at 09:53:47AM +0300, Leon Romanovsky wrote:
-> >> On Tue, Oct 13, 2026 at 05:25:08PM +0300, Leon Romanovsky wrote:
-> >> > PCI P2PDMA applies Request and Completion Redirect throughout both paths.
-> >> > This misclassifies asymmetric and nested switches, and reports one answer
-> >> > for every kind of TLP.
-> >> > 
-> >> > Three ACS controls act on TLP attributes the Requester chooses rather
-> >> > than on the topology: Translation Blocking and Direct Translated P2P act on
-> >> > a Request's Address Type, and Completion Redirect skips Completions carrying
-> >> > Relaxed Ordering.
-> >> > 
-> >> > Evaluate each direction at the path divergence, decide every class from the
-> >> > one walk, and treat a client with ATS enabled as translating unless its
-> >> > driver declares per-mapping ATS.
-> >> > 
-> >> > This completes the P2PDMA side; dma-buf and mlx5 follow separately.
-> >> > 
-> >> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> >> > ---
-> >> > Changes in v11:
-> >> 
-> >> 
-> >> Bjorn,
-> >> 
-> >> Could you please save me from the AI-bot attack? Every rebase seems to
-> >> uncover another bizarre pre-existing issue. It never ends.
+On Mon, Oct 19, 2026 at 06:27:13PM +0000, Surendran Kanagaraj wrote:
+> On Sat, Oct 17, 2026 at 03:40:25AM +0300, Jarkko Sakkinen wrote:
+> > On Sat, Oct 17, 2026 at 03:31:32AM +0300, Jarkko Sakkinen wrote:
+> > > Yeah so this needs a bit more redesign and while it is a possible
+> > > way to address all these issues I don't believe it is best possible
+> > > way imaginable to do something that lasts long-term.
+> > >
+> > > I don't want to go into concrete proposals because then I would have
+> > > to really engineer the whole change while at it because I would
+> > > likely try a number of approaches out. I.e. just a bit more effort
+> > > and innovation please.
 > >
-> > Can you elaborate?  I'm not sure what you'd like me to do here.  I
-> > don't control the Sashiko reviews, and I thought Sashiko was recently
-> > changed to put pre-existing issues in a database but not in the email
-> > responses.
-> 
-> AI reviews are not deterministic and every resubmission gives us slightly different result, which is in this phase of submission is  full of hallucinated flows not applicable to the upstream.
-> 
-> In addition to upstream Sashiko, i run everything through local one with slightly better models which hallucinating even more.
-> 
-> I would ask you to merge the series so it gets real exposure in addition to my kunit and specific hw setup.
-
-Bjorn,
-
-We're in the merge window now, so I don't expect such a large series to be
-merged. What about the next cycle? Should I send v12 after -rc1, or wait?
-
-Thanks
-
-> 
-> Thanks 
-> 
+> > I can give this:
 > >
-> > Bjorn
+> > 1. Map the whole flow how we fluctuate values of durations.
+> > 2. Think that if you were starting from zero how would you design a
+> >    unified and coherent flow. This includes all the callbacks and both TPM
+> >    1.x and TPM 2.0.
+> > 3. Redo the flow based on that premise.
+> >
+> > I.e., break more things with consideration and if it goes over the
+> > top then we attenuate the changes where needed.
 > 
+> Thanks for the pointers Jarkko. Will work out a design and send a
+> proposal.
+
+Yeah, this is also a theme, as generally the tone of kernel development
+has changed to be slightly more intrusive than before in the sense that
+addressing architectural issue is often better strategy than doing
+minimal effort as per code changes.
+
+This is because it is the way we actually decrease the LLM bug fix
+activity. Implementation mistakes caused by the more bullish approach
+has factors lower price tag, if it can affect the rate and density
+of LLM storms.
+
+This is why e.g., I've put out a patch set that departs assoc_array
+from kernel, and replaces it with rhashtable. This way we destroy
+nests instead of mosquitos.
+
+> 
+> Surendran
+
+Br, Jarkko
