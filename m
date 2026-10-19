@@ -1,35 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0904A0C;
-	Mon, 19 Oct 2026 13:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD543B2D39
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792416009; cv=none; b=SWNhe9BlsTTfE1QO1QNtKOxcVFwlG9Dl2Wo0RyxRlnPoI9XTNqR1iXU09qIgzFjLcxPhBzJHcloObWbcMEK0uqrdXZs2Ie+dd8aD34XrjQSVbmAsPqSNveDdKiDdKhLxyZYHCWeP8TjgCPtmjrfu6xdMeadGvlNDjzpWHVmHmpo=
+	t=1792416072; cv=none; b=D1ZHeFP3scBPM3appa/XGuUfZvQDwvikffDiU7wDIBYPa6GFKh0QoSpoiokkcnN5WwWD+ZTt2PTcjV9cSRjVSiM14ZIxMQBrwuuNJMyNbYvXyApi7NVtfLF9Q6K52bfPGDW9txNYJfCjEgUi2EPrSexFFvJuidTEXjXNiCArGFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792416009; c=relaxed/simple;
-	bh=DXHiM1bMOCWpWX0JIcypM7COkCu8XMumDVKn4IWb/48=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=qv08YUs5mmHL/CrHpPHvXmeg5apldAnin3bH0BR2zPgMO7J6gjFjk1MfPK0E9L2lu58X/RkPlkbwLXD+fog5UkvmRWD0VNKQQ4PjfZG9WWQ2EENbjF9gOk2PdMlWZTJ96+/1S+BelOcNBzki0ILzV1wB7uwqSXCSPcB8krlGXTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IoWzeM8z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792416072; c=relaxed/simple;
+	bh=oEZCYVkZJ7MChk8kB7z/mT2HN0rQx4gixCr14FuhrgU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nR6MuF76rJPnZT/s6ZZLXYGvaS/NhyMWg/kUY9CDunKpCaibV3HbT38ouZtajNJOHkpxyJjRipUsh/wJVL2oWHueeyyM7jYZJQLenFFRgoDyyWNVyVzZkswUtedzan704mK0xdDBg4/FZhp+wn0oqLFycQoTptRxQopcxL9jCyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZXK876BH; arc=none smtp.client-ip=95.215.58.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IoWzeM8z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B40C1F000C4;
-	Mon, 19 Oct 2026 13:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792416008;
-	bh=+XXDrQJUpY2PpAGKrMkLS61VUDcwfbBBNUpmADVAu2w=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=IoWzeM8z1c8rJHkQPVPY9n+m4E0no7E+sMcHA7HxN0KzGfsDnK3OLsbEDvps5mzXN
-	 JCcT5NI8Uf8LACks/epLOJCFUzozkpHZgXVU11sPmCauMr0ISOueR6LuId71RRmn/K
-	 pMlNvX0sp/3oznA5j5O9kvFL2+48RJQ1hjl40pu0dvkfz7LlqY0I8ZN5r7ILCRpVKZ
-	 XNISWIpkExEOOFr1UvgOSFXeKYYaxmEWFKVyESysVaRcwgBvDdyMWDx7LBupQWDmZZ
-	 PDXwA/FB29jZckY6foHTZmXtfvz8aiXW1AIhPwXS9XWO5un8hU1Uobrg3q0FYcVHqO
-	 9gGozJ7LKvQ9Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15073811A5C;
-	Mon, 19 Oct 2026 13:20:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZXK876BH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oEZCYVkZJ7MChk8kB7z/mT2HN0rQx4gixCr14FuhrgU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792416068; v=1; x=1793020868;
+ b=ZXK876BHPFVFjmyvGvZZKOolO+1JJMeRpgnbU6eMKaRB3zyKBpf2bVK1Ic9Vf9w1vd0lrm20
+ EKXdbSvkxXzDSp+by9U9gGQW6VVzc+1UuVKxd2w0MHWGIKcbagfAKC2VhSYXJj0wh6SlWXvgv/i
+ qYziRzD1kw/db8f+DsXInm1U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8616446d7d753be6;
+	Mon, 19 Oct 2026 13:21:07 +0000
+X-Mizu-Trace-ID: 8616446d7d753be6
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Yang Shi <yang@os.amperecomputing.com>,
+	David Hildenbrand <david@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] KVM: arm64: Fix stale MTE tags reaching a guest
+Date: Mon, 19 Oct 2026 14:21:00 +0100
+Message-ID: <20261019132103.3836646-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,45 +56,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v4] bnxt_en: don't leave an XDP program installed when
- the
- open fails
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179241600658.2633077.17979665169071396850.git-patchwork-notify@kernel.org>
-Date: Mon, 19 Oct 2026 13:20:06 +0000
-References: <20261012072802.2153706-1-vnagare@redhat.com>
-In-Reply-To: <20261012072802.2153706-1-vnagare@redhat.com>
-To: Vaibhav Nagare <vnagare@redhat.com>
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- edumazet@google.com, michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, andrew+netdev@lunn.ch,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- nagarevaibhav@gmail.com, stable@vger.kernel.org
 
-Hello:
+Hi folks,
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Three fixes for hugetlb and THP pages that reach an MTE guest without
+their tags cleared, so the guest can read whatever tags the pages'
+previous owners left.
 
-On Mon, 12 Oct 2026 12:58:02 +0530 you wrote:
-> bnxt_xdp_set() stores the new program and drops the reference on the old
-> one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-> returns an error with the new program still in bp->xdp_prog.  The caller
-> treats the error as "nothing was installed" and drops its own reference,
-> so bp->xdp_prog is left pointing at a freed program and the next XDP
-> update dereferences it:
-> 
-> [...]
+The first clears the whole of a hugetlb folio before marking it tagged,
+rather than only the pages being mapped. The second does the same when
+KVM_ARM_MTE_COPY_TAGS copies tags into a page. The third sanitises when
+a permission fault installs a THP block, and runs the VM_MTE_ALLOWED
+check on permission faults too. A VMM that maps guest memory with
+PROT_MTE isn't affected, as faulting that memory into its mapping clears
+the tags first. QEMU and kvmtool map it without.
 
-Here is the summary with links:
-  - [net,v4] bnxt_en: don't leave an XDP program installed when the open fails
-    https://git.kernel.org/netdev/net/c/78731b46967e
+I have a reproducer that reads the previous owner's tag from 511 of 512
+pages in each case. With any one patch applied, it reads none in that
+patch's case.
 
-You are awesome, thank you!
+Based on Linux 7.3-rc3 (fd73f4a665989; also applies to kvmarm/next
+dd0bc00e3e920 with a three-way merge).
+
+Cheers,
+/fuad
+
+Fuad Tabba (3):
+  KVM: arm64: Clear the whole hugetlb folio when sanitising MTE tags
+  KVM: arm64: Clear the whole hugetlb folio when storing MTE tags
+  KVM: arm64: Sanitise MTE tags when a permission fault installs a
+    mapping
+
+ arch/arm64/kvm/guest.c | 11 +++++++----
+ arch/arm64/kvm/mmu.c   |  7 ++++---
+ 2 files changed, 11 insertions(+), 7 deletions(-)
+
+
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.47.3
 
