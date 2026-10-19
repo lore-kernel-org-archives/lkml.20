@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.5
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.3
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792428497;
-	b=uBWIe+k+wB2YSZORU08Rng/agKqXCWhQ0sL7parduz21HuGUKLk3l7QNCEkyGoak0PO3
-	 GlD9NCX2DDD5PE5mZFZXIABEblD3VlgWc2LPJD+kGfsLaaaFa53c6DTdYaKHF88J89IkC
-	 eQpoPsG30VHpf7xC34A+OzXEF+s6IWwL7zRqT7TD0crNHUDBLeI3axO9DHDvzOi9IytnQ
-	 +Nj8ow8bysdROQvwzFRyLIhrrJziBTgKSPfZNVX3J63e/xXaincPpQHRNj0Y5bkpgIEan
-	 Kh8rkzMKsXHS2l0AVt2qcKB+KNoP0a7disIsAiD/2jmUFI27/w20IYieY3EtzujfTjw==
+	t=1792428482;
+	b=lEghvDTfKR/sPoquNQ5d1wLp+9WOTTabGeKRscACH69FaWnc1L9CjdWIplpe774fTks2
+	 dgL9NBeiwkalaEHeaiRkqaCJm6JY4dbEagzhdZv6hlVxmG8BQMACz4Cp3Af5Y74bKgbO1
+	 n3HPmxdY5LUSL4dwmZ2gTaGefBBLXrBQxKA2NKmw52XG2xlP2fUzLfZ2t6lArPfO26c4H
+	 wEr9pwUEq1mY95vcs20c4bY+rUsTB1Aiv2QVALsaFL6bnFxeJF0sksqJxTW5pkbtuEHJ6
+	 NrPhFjfaGdOvGjasJMrWz8rm166oJJrp0a4CaZlRftm1EeG96QYZI1YJQgNxRoN+meQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428497;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428482;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ke9la3yxYRMt5c/qW00x/3z30hK0V6G++wjq6ckoaes=;
-	b=W7K86OZsLySdGTVKORpzwTUt2QCuyiQcXLB5ZrY13JnTGtCgltNr0CMNTZWTPvHBtP+E
-	 xSh7X9eeokqGJGHHIRCyfh8KcjGPjpiii+UzFh+upsUrKHBoRSTJsRAj4ADmm+8jyTsGa
-	 XcgMDp9vY1BdJMGI5mHXaEO8OVEbNvztwSJdQgm17HxXn0/EaDMiTHaL51HEcOyR0phTE
-	 ykLOv8jSb/A9I8wmd7eEqvPg/aK7QtXBalV+zmW8O3g5vofDVfjRN3T3v12edXDvGTbQS
-	 8J3/7DnselqzTbQX1AvLIsl4rwxxvhMHpcU48XYfIfVP694kv4GJSJWkjF1uQDQuAkA==
+	bh=+mMBmIIMiH0DH5X4Qrk/RyR/mMXf//wy8yU7AEIZDSY=;
+	b=maY2v45peFZ6fOD8Y586aM7HuY7eb+7JNoUw0Wb8aXa8lzonmNAleU3iqFIFnFAO1pM6
+	 gBPsidKQX+Sf6YvI7/MHMkNT98yHdYdvPxlfoJdbq0cA4J6W9LQ3vdclonWAhlhFz0K5L
+	 P9uuM2dvcH2H4EyCRrvfseSy1HyRRd8eQhux2GkEhzaKYV9Q4zw+zXa6IRaRv8pBZlakt
+	 foGZM+Svx7ZnANyvMxDbOaPPXFsALtZmaLrZTmaDCWkvir8TNFRAJSiSXT1pazj5j9OsH
+	 yssJRE2r8D1PcBSqTmK4ln0UAVraZvt7nALSRqRQghJX1DS9tW/3Gj+v9N9G7rix3Vw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xYVE7DRC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.5
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012005.outbound.protection.outlook.com [40.107.200.5])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3kol3F0b;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.3
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010003.outbound.protection.outlook.com [52.101.85.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F9260A5BC7
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:48:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86F9260A5BC7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AFA60A2605
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1AFA60A2605
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xYVE7DRC
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3kol3F0b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OcyrT3RNE0XiFgvlq5z19v2peG/c2bcwiDe6sS3PulUWmMimR48GCjDTd/gvtdZtKt7bKpkn8JvQPrkkqDtT7xv0DO0BIYtKpeZrJBoa8p2TE0PfE++AoFWTaqHHeS/xrgMBKtZRPBRTYLCmOO0mTieElqeXcsAg3PxmUrhV3c4lKIZBV3IZZMrfCp6hw8ahoYwDP8OAg8ZR+GECeWeqtooAQLo7OmHEx1xgbfPfkCB0sCAeVVbwcP/gw1kyL/7tN7aSKgWNVsImktHzePPrBXldgYij+/omOkHpLjuDdr81VVhVphWjsiaXkn/rhKHZ2MhXqlbUmwsip28Sr+IqJA==
+ b=EYQKmyuVgI6j+WTfH3SLx9ovmLI2UxH7OwjVx/J1c3MktQZSxVmxDOXMhsj41QBHxcZNE8W9OeUo8VBg+Hkib0I1P2ej4gAhQG+E8PI7kKck8osiuVvs0DQLUjTED1gSIWFgChbHAQ4QKdHcKDzDRCIU2U/m3j6sky18/rbPrInvy3x8vjLPlGPbQ8ujlgeW8GV8Khv7M+LQtwVwbrkurXcEM+oPJLATAwTcqs3HKCJzwUCMzSsLAGymJZvvmsRnoBYEZbjQtiLMF11EnQfe6k90I8NZuL/8TKbUkhf1b3dpKzo8WVTpfuJQrQgYDcoyGANz8gVFHZ47pKsZH2FeOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ke9la3yxYRMt5c/qW00x/3z30hK0V6G++wjq6ckoaes=;
- b=AopM4lzZgcO04xKuCah86V44rIwJNheIA/X5eda9+dFdOiBBOjDEvX0ywSF1yR7eK+xbSNg3qlb9kRi3zDeAU7wJGEJrQMDhblSaKK0udsWgCYW3Aeu8+QttoHX89Ho4iwEQEsKurzO/3K05hiNg6lfcvSxrd7XTql2xzfNPMfVcP9de2Oj6TIFDDKcXRUkcy+CS7Sy5WlOJIzmfbvhG41nmsKWaGQ4DQdNTutbeXFhlpxedxL+VycZmx62pTkCgNqWgdvHGg1usDSJCTFJ7iTCv8CzEYDP6iMSDJjq2zNtblWozR50rSbno59sIFI24dHJXJRVtD+vw9Szb/vVeCA==
+ bh=+mMBmIIMiH0DH5X4Qrk/RyR/mMXf//wy8yU7AEIZDSY=;
+ b=iOcGqU/Q1vwUAZkwEqr4XprV4My6EEkS4Bkwmy8Ht5iMYXFuVKWoNR6BDia+/N8zME1fdU+5gogeP14mn3RcRnN9yNeSYgXX5dyM9B8viRIqiD5Lmo7TfKYQQI21J96xAJqO0zRbPaaWEI5criO0ZQPad0e0PvTBKjnL/t8JfPb7ckRCKEpR56VjZRDzDIpl3H0PtOMw6N7yC+EfFBrepna4n5MktRcH5pa7W64uyT9S17agmMMWVIJ9dZ4J8D+OZuTcDmVCPcPECi777gZwBwaX6rHhh4rZvZKCuKoGn2TLdeZszR6K/OTTu5KNwsOVGpxBPHR441g9MXnlbH66BA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ke9la3yxYRMt5c/qW00x/3z30hK0V6G++wjq6ckoaes=;
- b=xYVE7DRCFCamSOKYEOZSL4ZAv8CmO9xmB6nzLova1SvTjgw3AhJEVBAtiBiBt1bvlEY/j8hBwbaUWhSRRIxc+aUJwNUof9SOoQ4LZu/gk36hhuTST7IQfyBhvhVWvTb0gov0ImJz52vgNgc0UsfoBVNOr2G1edx29DsjOfbE0UA=
-Received: from PH7P220CA0125.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:327::18)
- by CH3PR12MB8510.namprd12.prod.outlook.com (2603:10b6:610:15b::10) with
+ bh=+mMBmIIMiH0DH5X4Qrk/RyR/mMXf//wy8yU7AEIZDSY=;
+ b=3kol3F0bS101JvamRQYpirIDUI/p+tjydzT2h7DdrN7/QVndC5CXVmzFzSA0bC+uzjf1SGFy+oZSIaBKqjA3a2xzf+kSOrFspS5giYdGfTVuTUQLYf2Oa32QA/+enw0qfVTm87C+7jkwx/T2hBdwrXnHT0E/2whFqIUJDcn75LE=
+Received: from PH8P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::19)
+ by CH1PPF2EB7CF87B.namprd12.prod.outlook.com (2603:10b6:61f:fc00::60b) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 16:48:12 +0000
-Received: from PH1PEPF00062F27.namprd02.prod.outlook.com
- (2603:10b6:510:327:cafe::13) by PH7P220CA0125.outlook.office365.com
- (2603:10b6:510:327::18) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 16:47:56 +0000
+Received: from PH1PEPF00062F2A.namprd02.prod.outlook.com
+ (2603:10b6:510:345:cafe::9a) by PH8P220CA0012.outlook.office365.com
+ (2603:10b6:510:345::19) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
- 19 Oct 2026 16:48:12 +0000
+ 19 Oct 2026 16:47:56 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,29 +80,29 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- PH1PEPF00062F27.mail.protection.outlook.com (10.167.243.56) with Microsoft
+ PH1PEPF00062F2A.mail.protection.outlook.com (10.167.243.59) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 16:48:12 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 16:47:56 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
- 2026 11:47:50 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 11:47:46 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
- 2026 11:47:50 -0500
+ 2026 11:47:46 -0500
 Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 19 Oct 2026 11:47:50 -0500
+ Transport; Mon, 19 Oct 2026 11:47:45 -0500
 From: David Zhang <yidong.zhang@amd.com>
 To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
 	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
 	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
 	<mario.limonciello@amd.com>
-Subject: [PATCH V5 10/19] accel/amdxdna: Refactor AIE4 hardware initialization sequence
-Date: Mon, 19 Oct 2026 09:47:37 -0700
-Message-ID: <20261019164746.827277-11-yidong.zhang@amd.com>
+Subject: [PATCH V5 05/19] accel/amdxdna: Add NPU3 classic device support
+Date: Mon, 19 Oct 2026 09:47:32 -0700
+Message-ID: <20261019164746.827277-6-yidong.zhang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261019164746.827277-1-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
@@ -120,214 +120,274 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH1PEPF00062F27:EE_|CH3PR12MB8510:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e2008e4-225f-47b8-ac87-08df2e00c398
+X-MS-TrafficTypeDiagnostic: PH1PEPF00062F2A:EE_|CH1PPF2EB7CF87B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34e1a07c-dffd-452e-7af0-08df2e00b9f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|261009223027099003|10067099003|56012099006|3023799007|6133799003|22082099003|18002099003|11063799006|4143699003;
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|18002099003|22082099003|3023799007|11063799006|4143699003|10067099003|261009223027099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	+j9iv/B5p+iNPssLw3z+tad3gCADoADlUIEYiVMSPpzPv6kqgNcvyOpHPjUNjDk6ajQO+GqZw/XJWHZouRzWyqZS91GAwARM3uEstclm8VVWNuGXsufNaQG0+9upqvGT4c1sC7sCBBqXsKHO2eTZinz3LXN26AlpAWZM2GuU8GlHKcImdIzp/PEq07CKqeRMpTpkx2FyHW44a1VRwtQskw8BZSFvzAIBPWoA+Za2yCp83qkyqbx2fxAiYdT8mg4YeWWrBJn9wEjC2bJO5GjU874kt6ATjra2n5Sg0ei0oJAH9SYsxUQdfB+iGdsJ4JJqrehclZJ8EAkX0LLUqm/RDzMtQP4wUEIG/1kleEpxQi4HNS+Hvg+wno+L440AN0Vd2cQZT7Ri/aWP53EM8pUVVRoLRDgZfdJTacTD+y8WW+3RSDYYq5MfBuWg2CcL/4iaWDH+z8RVLcSRdWyBGjvVTehE3eJbtmwhaiUHUZzIBFoy+Wq/jNm2fVCqNOCG47/F3qlCgJt69V6b/toKXZDBgm2MAOp2Ap2QLpPEg8QLEECsLeAjU6AJcknwhCE2JF+5UCnejZyUHYITGUS6xrBH6tnAHNQQlh6ZvDRtMtb9+bt3qgjs0ZyLWygrA1EOTMAOL4qDXWDcCIF582+bfsWV+9pVPXeYkZQYkSWzGnQn0QGxmPT/Q7KQBk+218NmT7y2sHL6CID4g15PufTjLEOC9Q==
+	MFHAn0iT0hv2csotSl8XQkC/rj/Jbib5+uJCukRHWCL9U7H3koIE5YOAsXiyLcsQnxrZQL+1YkhNg+IzBmwTO5xAVlhMcpfqQ4hpkK0gI5vxxn1nKNuO52an8lFBlyHSDqsI6jKvf6+YtqKzJpxdtBxR86rsB3yr9DRQHnY59vWBG6QUfWeuBpxq2RXXHek1o80/frmPp0HDJXyTJE5DkMY0SOIC3AQ0xT1/Bodn6GvUazoTsadc2PjzW3GX6R/wx7i4HCVZVtMIT5t0q8KZcyWkhyaV/yhnkBM02bnl6mp84VbPVaYHnYRiR15X5dNtt7VJQ9cLhb+Vvd/1VFNjeH1aeFr8/XKsHpgr2C/b7K+EZLJIpE9Nw6Z3Edl8Nm+/TofZ7rVkc4XDGr2EBeQAewlFn1jfvqOqgmjyB81B6+kcH4ib/GJAC0/dBqV0xe/QgvqlmmdapVdBuZk+mehcocZH7eehpUkhUb+mXHheu3bsp0Xjfj8mhjGxxzU6T7MGwNZpaVgHf2Kk6epVDTFKdy89pEwrmGFV6Mc4bjnffeFGOtBf4z6JcEIBkNU+OZCyVhvLPeCsKBFFKR8rCmfRglQuwXOcrJ7GeLx9Nu/ahjVbEdFeLfhli6Iv6pX5dzApfT5hWM8DPLpMtpqyR5LZlKeYRJ0ogPXNH5IS9cWy8R0lJejQlNb9ZY5CO9Mc++hm
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(261009223027099003)(10067099003)(56012099006)(3023799007)(6133799003)(22082099003)(18002099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(18002099003)(22082099003)(3023799007)(11063799006)(4143699003)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Z6unDV5B9ThAn4JQz+kpPaeDdIGxIh+6FqKijvVhX87FzseVO88szZYRZcrZLGAF0s//TOC1k0X74Dxy4YwSUoUV2oKghSyRG8b1QVfuscNFAHdS8dACMPQQ8r/UtBxgyCbWykSrh8G+j5FKt+6+LOruzKe/npV5kR7NkkCeZcrm9+6Ar3pwt7pEpuIuRhg1Ig3KzA4mDqCWP1TQZ9N5aYA4SVAMyl54cpm26XLTYMZ5/SFXy/fZr67cvWiPKbJfJyzslcOkQbhvLVtgvUQOSbia54YNTEnHvItF5Kx6oR3HLEJAXMWyz3GI5Xe0YTHPdEEBfCHcuWsiJI7peoxwfzrDBbJ1hhDkWvAkq4aTl2M6opPxSXAVdvSI7X1EstQ366ruleewTgGYkKvJ1xNPqBGkhFdxAv0KvfDV+n7MUcXaNRkxz0nJD5uznTLL4Jj9
+	1AxQvHXdwChIFIc6W6rk4ecDOw2oN5CE8YSbT7yq8Wr2vtIp0kCqFCrmnylcHUIUxpCh1DwBSv/98LF2FFj7kFLfdyqODErqEoPCZoB1ndDId176brpf2K72qBeK6Oj+R3iryUmPshAGgDbGf4VSB6G0py6yjDZwa19SUNpmFNaQJ81mLAY+CK/wwngzGhemGMdbK7tSwbN4YdeyXbPrpco2FQdS1tVNsoaYsMZZYVKpL5TmWeL1gw6m+69DHS9DVFgfN6qJstEEi8IpB4z85HnIZG/GEvI7G2iH/czr2X0RsO3tLJ2wlzkVK3bbAWq6rEEBDuDWCMWMxu6Pk8X92Z9Z+5og5JYAIhe8pO0oUbnv4Uu0u5xPBQLfQnET6QWhpMt7Bafn1Hc7Hem4t5N1AcTL25vRT6QrLg03O/i6/sWfjnfoIgsn2mNKjZL1a1vw
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:48:12.5212
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:47:56.3193
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e2008e4-225f-47b8-ac87-08df2e00c398
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34e1a07c-dffd-452e-7af0-08df2e00b9f0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	PH1PEPF00062F27.namprd02.prod.outlook.com
+	PH1PEPF00062F2A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8510
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF2EB7CF87B
 
-Reorganize AIE4 hardware initialization into distinct phases, next to
-the existing aie4_config_fw():
-- aie4_query_fw(): Query NPU and CERT firmware versions.
-- aie4_setup_aie(): Query AIE version, metadata, initialize DPM frequency
-  table, and initialize partitions.
+Add NPU3 classic device operations (aie4_classic_ops) and register
+definitions, as well as the PCI device ID and firmware declarations for
+NPU3 classic devices. Remove device IDs 0x1B0B and 0x1B0C because those
+devices will not be released.
 
-Update aie4_pf_hw_start(), aie4_vf_hw_start(), and aie4_classic_hw_start()
-to use these phases and unify error unwinding labels. As part of this,
-aie4_pf_hw_start() now also calls aie4_query_fw(), which it previously
-did not do.
+Suspend and resume support is added in a later patch, once the
+kernel-mode queue (KMQ) can drain in-flight commands.
 
 Signed-off-by: David Zhang <yidong.zhang@amd.com>
 Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
 ---
- drivers/accel/amdxdna/aie4_pci.c | 79 +++++++++++++++++++-------------
- 1 file changed, 46 insertions(+), 33 deletions(-)
+ drivers/accel/amdxdna/aie4_pci.c        | 83 +++++++++++++++++++++++++
+ drivers/accel/amdxdna/aie4_pci.h        |  1 +
+ drivers/accel/amdxdna/amdxdna_pci_drv.c | 23 ++++---
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 +
+ drivers/accel/amdxdna/npu3_regs.c       | 14 +++++
+ 5 files changed, 115 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index f59394d62d9c..544a7d6a02eb 100644
+index e9cd2af224d3..1eeb1cb73b27 100644
 --- a/drivers/accel/amdxdna/aie4_pci.c
 +++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -49,7 +49,7 @@ static int aie4_fw_is_alive(struct amdxdna_dev *xdna)
- {
- 	const struct amdxdna_dev_priv *npriv = xdna->dev_info->dev_priv;
- 	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
--	u32 __iomem *src;
-+	void __iomem *src;
- 	u32 fw_is_valid;
- 	int ret;
- 
-@@ -279,7 +279,8 @@ static void aie4_partition_fini(struct amdxdna_dev_hdl *ndev)
- 		XDNA_ERR(xdna, "partition fini failed: %d", ret);
+@@ -366,6 +366,51 @@ static void aie4_vf_hw_stop(struct amdxdna_dev_hdl *ndev)
+ 	aie4_mailbox_fini(ndev);
  }
  
--static int aie4_query(struct amdxdna_dev_hdl *ndev)
-+/* Verify CERT protocol compatibility before starting hardware. */
-+static int aie4_query_fw(struct amdxdna_dev_hdl *ndev)
- {
- 	struct amdxdna_dev *xdna = ndev->aie.xdna;
- 	int ret;
-@@ -292,25 +293,6 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		return ret;
- 
--	ret = aie4_query_aie_version(ndev, &ndev->aie.version);
--	if (ret)
--		return ret;
--
--	ret = aie4_query_aie_metadata(ndev, &ndev->aie.metadata);
--	if (ret)
--		return ret;
--
--	ndev->total_col = min_t(u32, AIE4_TOTAL_COLUMN, ndev->aie.metadata.cols);
--
--	ret = aie4_init_dpm_freq_table(ndev);
--	if (ret) {
--		if (ret == -ETIME)
--			return ret;
--		/* if query dpm from fw failed, using default value */
--		if (ndev->priv->hw_ops && ndev->priv->hw_ops->set_dpm)
--			(void)ndev->priv->hw_ops->set_dpm(&ndev->aie, 0);
--	}
--
- 	return 0;
- }
- 
-@@ -339,6 +321,32 @@ static int aie4_config_fw(struct amdxdna_dev_hdl *ndev)
- 	return 0;
- }
- 
-+static int aie4_setup_aie(struct amdxdna_dev_hdl *ndev)
++static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
 +{
 +	int ret;
 +
-+	ret = aie4_query_aie_version(ndev, &ndev->aie.version);
++	ret = aie4_fw_start(ndev);
 +	if (ret)
 +		return ret;
 +
-+	ret = aie4_query_aie_metadata(ndev, &ndev->aie.metadata);
++	ret = aie4_mailbox_init(ndev);
 +	if (ret)
-+		return ret;
++		goto stop_fw;
 +
-+	ndev->total_col = min_t(u32, AIE4_TOTAL_COLUMN, ndev->aie.metadata.cols);
++	ret = aie4_query(ndev);
++	if (ret)
++		goto mailbox_fini;
 +
-+	ret = aie4_init_dpm_freq_table(ndev);
-+	if (ret) {
-+		if (ret == -ETIME)
-+			return ret;
-+		/* if query dpm from fw failed, using default value */
-+		if (ndev->priv->hw_ops && ndev->priv->hw_ops->set_dpm)
-+			(void)ndev->priv->hw_ops->set_dpm(&ndev->aie, 0);
-+	}
++	ret = aie4_attach_work_buffer(ndev);
++	if (ret)
++		goto mailbox_fini;
 +
-+	return aie4_partition_init(ndev);
++	ret = aie4_partition_init(ndev);
++	if (ret)
++		goto mailbox_fini;
++
++	return 0;
++
++mailbox_fini:
++	aie4_mailbox_fini(ndev);
++stop_fw:
++	aie4_fw_stop(ndev);
++	return ret;
 +}
 +
- static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
- {
- 	int ret;
-@@ -351,6 +359,10 @@ static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		goto stop_fw;
++static void aie4_classic_hw_stop(struct amdxdna_dev_hdl *ndev)
++{
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
++
++	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
++
++	aie4_partition_fini(ndev);
++	aie4_suspend_fw(ndev);
++	aie4_mailbox_fini(ndev);
++	aie4_fw_stop(ndev);
++}
++
+ static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+ 				 const struct firmware **npufw,
+ 				 const struct firmware **certfw)
+@@ -628,6 +673,29 @@ static int aie4_vf_init(struct amdxdna_dev *xdna)
+ 	return aie4_vf_hw_start(xdna->dev_handle);
+ }
  
-+	ret = aie4_query_fw(ndev);
++static int aie4_classic_init(struct amdxdna_dev *xdna)
++{
++	int ret;
++
++	ret = aie4m_pcidev_init(xdna);
 +	if (ret)
-+		goto mbox_fini;
++		return ret;
 +
- 	ret = aie4_config_fw(ndev);
- 	if (ret)
- 		goto mbox_fini;
-@@ -388,13 +400,13 @@ static int aie4_vf_hw_start(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		return ret;
- 
--	ret = aie4_query(ndev);
-+	ret = aie4_query_fw(ndev);
- 	if (ret)
--		goto mailbox_fini;
-+		goto mbox_fini;
- 
--	ret = aie4_partition_init(ndev);
-+	ret = aie4_setup_aie(ndev);
- 	if (ret)
--		goto mailbox_fini;
-+		goto mbox_fini;
- 
- 	ret = aie4_restore_power_mode(ndev);
- 	if (ret)
-@@ -404,7 +416,7 @@ static int aie4_vf_hw_start(struct amdxdna_dev_hdl *ndev)
- 
- partition_fini:
- 	aie4_partition_fini(ndev);
--mailbox_fini:
-+mbox_fini:
- 	aie4_mailbox_fini(ndev);
- 	return ret;
- }
-@@ -431,17 +443,17 @@ static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		goto stop_fw;
- 
--	ret = aie4_query(ndev);
-+	ret = aie4_query_fw(ndev);
- 	if (ret)
--		goto mailbox_fini;
-+		goto mbox_fini;
- 
- 	ret = aie4_config_fw(ndev);
- 	if (ret)
--		goto mailbox_fini;
-+		goto mbox_fini;
- 
--	ret = aie4_partition_init(ndev);
-+	ret = aie4_setup_aie(ndev);
- 	if (ret)
--		goto mailbox_fini;
-+		goto mbox_fini;
- 
- 	ret = aie4_restore_power_mode(ndev);
- 	if (ret)
-@@ -451,10 +463,11 @@ static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
- 
- partition_fini:
- 	aie4_partition_fini(ndev);
--mailbox_fini:
-+mbox_fini:
- 	aie4_mailbox_fini(ndev);
- stop_fw:
- 	aie4_fw_stop(ndev);
++	ret = aie4_alloc_work_buffer(xdna->dev_handle);
++	if (ret)
++		return ret;
 +
- 	return ret;
- }
- 
-@@ -528,8 +541,8 @@ static int aie4_prepare_firmware(struct amdxdna_dev_hdl *ndev,
- 				 void __iomem *tbl[PCI_NUM_RESOURCES])
++	ret = aie4_classic_hw_start(xdna->dev_handle);
++	if (ret)
++		goto free_work_buf;
++
++	return 0;
++
++free_work_buf:
++	aie4_free_work_buffer(xdna->dev_handle);
++	return ret;
++}
++
+ static void aie4_pf_fini(struct amdxdna_dev *xdna)
  {
- 	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	struct smu_config smu_conf = {};
- 	struct psp_config psp_conf;
--	struct smu_config smu_conf;
- 	int i;
+ 	aie4_sriov_stop(xdna->dev_handle);
+@@ -640,6 +708,12 @@ static void aie4_vf_fini(struct amdxdna_dev *xdna)
+ 	aie4_vf_hw_stop(xdna->dev_handle);
+ }
  
- 	psp_conf.fw_size = npufw->size;
++static void aie4_classic_fini(struct amdxdna_dev *xdna)
++{
++	aie4_classic_hw_stop(xdna->dev_handle);
++	aie4_free_work_buffer(xdna->dev_handle);
++}
++
+ const struct amdxdna_dev_ops aie4_pf_ops = {
+ 	.init			= aie4_pf_init,
+ 	.fini			= aie4_pf_fini,
+@@ -654,3 +728,12 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
+ 	.cmd_wait		= aie4_cmd_wait,
+ 	.get_aie_info		= aie4_get_info,
+ };
++
++const struct amdxdna_dev_ops aie4_classic_ops = {
++	.init			= aie4_classic_init,
++	.fini			= aie4_classic_fini,
++	.hwctx_init		= aie4_hwctx_init,
++	.hwctx_fini		= aie4_hwctx_fini,
++	.cmd_wait		= aie4_cmd_wait,
++	.get_aie_info		= aie4_get_info,
++};
+diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+index bdbb2d7cf0e7..940e67347d74 100644
+--- a/drivers/accel/amdxdna/aie4_pci.h
++++ b/drivers/accel/amdxdna/aie4_pci.h
+@@ -96,5 +96,6 @@ static inline int aie4_sriov_stop(struct amdxdna_dev_hdl *ndev)
+ 
+ extern const struct amdxdna_dev_ops aie4_pf_ops;
+ extern const struct amdxdna_dev_ops aie4_vf_ops;
++extern const struct amdxdna_dev_ops aie4_classic_ops;
+ 
+ #endif /* _AIE4_PCI_H_ */
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index 0842fd31c9f2..a8c29546d49c 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -29,8 +29,14 @@ MODULE_FIRMWARE("amdnpu/17f0_20/npu.sbin");
+ MODULE_FIRMWARE("amdnpu/1502_00/npu_7.sbin");
+ MODULE_FIRMWARE("amdnpu/17f0_10/npu_7.sbin");
+ MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_10/npu.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_10/cert.sbin");
+ MODULE_FIRMWARE("amdnpu/17f2_10/npu.sbin");
+ MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
+ 
+ /*
+  * 0.0: Initial version
+@@ -56,10 +62,9 @@ MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
+ static const struct pci_device_id pci_ids[] = {
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1502) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f0) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f1) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f2) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f3) },
+-	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1B0B) },
+-	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1B0C) },
+ 	{0}
+ };
+ 
+@@ -70,10 +75,12 @@ static const struct amdxdna_device_id amdxdna_ids[] = {
+ 	{ 0x17f0, 0x10, &dev_npu4_info },
+ 	{ 0x17f0, 0x11, &dev_npu5_info },
+ 	{ 0x17f0, 0x20, &dev_npu6_info },
++	{ 0x17f1, 0x10, &dev_npu3_classic_info },
+ 	{ 0x17f2, 0x10, &dev_npu3_pf_info },
+ 	{ 0x17f3, 0x10, &dev_npu3_vf_info },
+-	{ 0x1B0B, 0x10, &dev_npu3_pf_info },
+-	{ 0x1B0C, 0x10, &dev_npu3_vf_info },
++	{ 0x17f1, 0x13, &dev_npu3_classic_info },
++	{ 0x17f2, 0x13, &dev_npu3_pf_info },
++	{ 0x17f3, 0x13, &dev_npu3_vf_info },
+ 	{0}
+ };
+ 
+@@ -141,8 +148,9 @@ static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
+ 	mmgrab(client->mm);
+ 	xa_init_flags(&client->hwctx_xa, XA_FLAGS_ALLOC);
+ 	xa_init_flags(&client->dev_heap_xa, XA_FLAGS_ALLOC);
+-	drm_mm_init(&client->dev_heap_mm, xdna->dev_info->dev_mem_base,
+-		    xdna->dev_info->dev_heap_max_size);
++	if (xdna->dev_info->dev_heap_max_size)
++		drm_mm_init(&client->dev_heap_mm, xdna->dev_info->dev_mem_base,
++			    xdna->dev_info->dev_heap_max_size);
+ 	mutex_init(&client->mm_lock);
+ 
+ 	mutex_lock(&xdna->client_lock);
+@@ -179,7 +187,8 @@ static void amdxdna_client_cleanup(struct amdxdna_client *client)
+ 	xa_for_each(&client->dev_heap_xa, heap_id, heap)
+ 		drm_gem_object_put(to_gobj(heap));
+ 	xa_destroy(&client->dev_heap_xa);
+-	drm_mm_takedown(&client->dev_heap_mm);
++	if (client->xdna->dev_info->dev_heap_max_size)
++		drm_mm_takedown(&client->dev_heap_mm);
+ 
+ 	mutex_destroy(&client->mm_lock);
+ 	mmdrop(client->mm);
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+index 1b044646cc8a..11f4cc53d45f 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+@@ -178,6 +178,7 @@ struct amdxdna_client {
+ 
+ /* Add device info below */
+ extern const struct amdxdna_dev_info dev_npu1_info;
++extern const struct amdxdna_dev_info dev_npu3_classic_info;
+ extern const struct amdxdna_dev_info dev_npu3_pf_info;
+ extern const struct amdxdna_dev_info dev_npu3_vf_info;
+ extern const struct amdxdna_dev_info dev_npu4_info;
+diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
+index 93f749acb5d5..c82433d62901 100644
+--- a/drivers/accel/amdxdna/npu3_regs.c
++++ b/drivers/accel/amdxdna/npu3_regs.c
+@@ -105,3 +105,17 @@ const struct amdxdna_dev_info dev_npu3_vf_info = {
+ 	.cert_feature_tbl	= npu3_cert_feature_table,
+ 	.ops			= &aie4_vf_ops,
+ };
++
++const struct amdxdna_dev_info dev_npu3_classic_info = {
++	.mbox_bar		= NPU3_MBOX_BAR,
++	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
++	.psp_bar                = NPU3_PSP_BAR_INDEX,
++	.smu_bar		= NPU3_SMU_BAR_INDEX,
++	.doorbell_bar		= NPU3_DOORBELL_BAR,
++	.default_vbnv		= "RyzenAI-npu3",
++	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
++	.dev_priv		= &npu3_dev_priv,
++	.fw_feature_tbl		= npu3_fw_feature_table,
++	.cert_feature_tbl	= npu3_cert_feature_table,
++	.ops			= &aie4_classic_ops,
++};
 -- 
 2.34.1
 
