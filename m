@@ -1,98 +1,126 @@
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
+Received: from mta0.migadu.com (out-37.mta0.migadu.com [91.218.175.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48A051188F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9885A511898
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:12:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419111; cv=none; b=epg9gS2hJZGcMBmwiT2v1j79XktJaP56LK7CxNFqzaKYCLXW19LxVIlgnmQ1K0D8VnNPTrfpVnUcexbM6x4bIllA0AYXDyPauBvYLNqZN2JWKUbKfHBRS0HRBfDJzrWZPslxxujKXKnpdfHcy9idSTCRaFMZ4q+iaF5ulgwDu8U=
+	t=1792419131; cv=none; b=a4WWz5NdLso82gFu2akn5Q7NogdUYknuczxUcMiVy78eajA4OXdAFHifH/qi/RJwsuF1ySC1Rl9OBzyLjxYirLUybKvt86WlhNQFkafszoSnyIEcvHerN+ZsApDc3aE6zyjdm4nYJx6gvTkBLf0Fv8LGq548p1vtSUVJLFx1t4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419111; c=relaxed/simple;
-	bh=OkpEifD2KWm3GsbxAZ0xxE8P5d3Del3yRNhkAe0sUgA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BIgYfYeKKuqpu6zW8tKWYJXWfhlTXItsMgHBSFXXt2Kyn4CvSNlMG0ump4xIUtjHNKJDnLTlf5qxidodS1RRqnnziTUAewdjkVqaa0k57AmEA6+XJv0HNoix/HP2eSNfGSZP1eNK9jeZCk5RMNrgnEtnuIQ/SCynfbwWgktyhwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7c6e6822b11so556022137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:11:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792419109; x=1793023909;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nUNNwLjM6Li4QaQna+9UtyB3Cj/CRAMDg2QIIEt5PZg=;
-        b=njbsFFhNkzi2uQI1bs/y1T/WCjiUOoOIKJ9tUusQ/fUkMTZBNe1JDch7Om054E2qxG
-         Of0etOjXzmruZU0JsXkKBsCBvbKxNe8WTKH4MUydp7EvQlgP38l7Q7/WKRNPVWlkmU6T
-         PCLf8IbFaJmpWT7s9q43ehyCQp3jSOFH6eI6mW74Y80n/G2xKO4G3uqB4rwpfbkiOTsw
-         sNv/9YE0xB8yxhbrYt0yaSS/brUcRqGqUyi2Evd6TTJMEVC0fi/8+0bhOE1SxE2vZcWG
-         37GlQbyLdfm0VUC+S9T59GQjrSmKytWOM9xbBFVjYOUTfdmz1q+nh4cWpfRhoXPtKz3G
-         Q9Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBxLfjCPg6AnqI9JAdV5l1ROVWosRTXZFtqNG+xGFXo4ewkkzL7iaMtbLNoyJlXPnAwYQzqM/TtmyybD/4Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKJfbeAe04zQIb+CvgwnNDjH9dZuWezI59yb9dsCNZ/1axg8iL
-	57aPXkyUcY0OHsvnR4JTm8XvsoNgz/43+IfDcCaAzV+BFoel33vay9siGzBF3epj8fY=
-X-Gm-Gg: AYBFou3BUyRlgiXai7C1hNwzvlO45JYq+E4Jed7vdsHsKQkKd2q2NJU82paC8z5iNZu
-	vYMJC/b8EqIyKrIM/UmeMvaSP0/3/H5N76WiOR/RFSzw97jAcGXjzzASDJsEyFVuXNokcOtgoN/
-	3NRqUwjXMrgiqG3ZOrxNy+o2owDx8XnFNwS9BMQz6IUNf8nEZaJdpNRhmAxWEvpu1hleCbC4OJk
-	LAXNla4+sRjBJ2tg50fU5DUDYHIP7YvRESy6rVf0mvyo7QdIKVr/xXbAupuLoWJ7epc6oPLxuIX
-	e0icgRZYBGrtoxGoMOXbBdkLZ7bzEhJgSHeuZp/MEYSIxBTF4ReT9t8yGpo3rihq2uA0PH4QWXU
-	5ba2whgNRJHob2xwnPjyNPJHmDxuQ0xocn6qAHTywGjIVGm9YvPicWjPlng9yji62ZQaRijs/wA
-	19tBECkiME4JaxGF5Y9EwOo+Xz7vluie2IHczlijfqjVAyDUXFkYWZ2IZtDge01QI+XTnFwfuOe
-	XQOOhctxZDVXC1KY7eh1kaTBGrvrpZgNVVnrNFiaHRaJAY=
-X-Received: by 2002:a05:6102:2b8b:b0:7c8:268:ecd7 with SMTP id ada2fe7eead31-7cc36a54c5emr1548920137.23.1792419108590;
-        Mon, 19 Oct 2026 07:11:48 -0700 (PDT)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb3adfd0sm241123241.12.2026.10.19.07.11.46
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 07:11:46 -0700 (PDT)
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7c6e6822b11so556005137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:11:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByEYnHBPQ046VO1M+s+EBU1FyWWcxrFIBctthflgJYUaNyKOyy4owZrvQbrrzP4jpYW0X/wl1oXELHKPi4=@vger.kernel.org
-X-Received: by 2002:a05:6102:3749:b0:7c9:624:86e1 with SMTP id
- ada2fe7eead31-7cc36b021c9mr1767854137.35.1792419105797; Mon, 19 Oct 2026
- 07:11:45 -0700 (PDT)
+	s=arc-20240116; t=1792419131; c=relaxed/simple;
+	bh=IMvFsrCwn7qeypROvjh1nqoqPfJPzH9zWkbUuwtQKmk=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=VyX4cuc6uCSaVBiH/LHdOlixpmZBq1RccXY3d+7dA5DEojuUOfVuxl+M9hkMw8SwGgh1cGa9RnX4RmwBg8JCipebCF/xu6lfcpmncFJ1q276e74Ryq9UridKvTAynBBYTaLZe8xkGr3ik+/D6eORqQNsef+3i4KXrFDZ7vXlwHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bF4kFf8s; arc=none smtp.client-ip=91.218.175.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bF4kFf8s"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IMvFsrCwn7qeypROvjh1nqoqPfJPzH9zWkbUuwtQKmk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792419126; v=1; x=1793023926;
+ b=bF4kFf8sJyEzCtIJyWZhfAQWXOxR6xOHw5J35ALYc1PHAwr0dzJW+/HFOGRugIuKPDn4pZ5Q
+ 6ezs8vBgx/nE6XNVrSrSUxr3IduYXNrGjUkWgiZuyiquRDfc0lBN+2exocs6q+EahRBCAzbkDSj
+ M6cCh1pWNzu9MjTK2PI+FyFo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2e8b7054e2c39b6d;
+	Mon, 19 Oct 2026 14:12:05 +0000
+X-Mizu-Trace-ID: 2e8b7054e2c39b6d
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003083200.459705-1-yaojiale02@163.com> <20261003083200.459705-3-yaojiale02@163.com>
-In-Reply-To: <20261003083200.459705-3-yaojiale02@163.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 19 Oct 2026 16:11:34 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXpVv2=GHJK49ykUiOcgKuOrW9_0UbQ_nfx2R-MGuhV7w@mail.gmail.com>
-X-Gm-Features: AclHuK-whmRf2m21YwZdvIAowJDZUbKGaSptoysY-titwCbr4PasDFMX4zXs_ms
-Message-ID: <CAMuHMdXpVv2=GHJK49ykUiOcgKuOrW9_0UbQ_nfx2R-MGuhV7w@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] pinctrl: renesas: rzn1: free maps on DT map failure
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Linus Walleij <linusw@kernel.org>, linux-renesas-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 19 Oct 2026 14:12:05 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <83989eafc54772384acb9faad1c40ec6e530f4af@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] doc: Update recent SRCU API additions to whatisRCU.rst
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+Cc: paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org,
+ urezki@gmail.com, boqun@kernel.org, kunwu.chan@gmail.com,
+ rcu@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261011001523.GA2491714@joelbox>
+References: <20261010102813.25460-1-qiang.zhang@linux.dev>
+ <20261011001523.GA2491714@joelbox>
 
-On Sat, 3 Oct 2026 at 10:32, Jiale Yao <yaojiale02@163.com> wrote:
-> rzn1_dt_node_to_map_one() appends mappings for each DT node.  If a
-> node fails after map storage has been reserved, the top-level callback
-> returns without releasing mappings built for the current and previous
-> nodes.
+>=20
+>=20On Sat, Oct 10, 2026 at 06:28:13PM +0800, Zqiang wrote:
+>=20
+>=20>=20
+>=20> The commit 'dab06d6f9379 ("srcutree: Add an atomic Tree SRCU")'
+> >  introduces some new APIs:
+> >=20=20
+>=20>  srcu_read_lock_atomic
+> >  srcu_read_unlock_atomic
+> >  synchronize_srcu_atomic
+> >  DEFINE_SRCU_ATOMIC
+> >  DEFINE_STATIC_SRCU_ATOMIC
+> >  init_srcu_struct_atomic
+> >=20=20
+>=20>  This commit therefore update thems to whatisRCU.rst.
+> >=20=20
+>=20>  Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+> >=20
+>=20Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+
+Hi, Joel
+
+I have been update v2 resend.
+
+Thanks
+
+>=20
+>=20Applying for 7.5.
+>=20
+>=20thanks,
+>=20
+>=20Joel Fernandes
+>=20
+>=20>=20
+>=20> ---
+> >  Documentation/RCU/whatisRCU.rst | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> >=20=20
+>=20>  diff --git a/Documentation/RCU/whatisRCU.rst b/Documentation/RCU/w=
+hatisRCU.rst
+> >  index e6767baff2d3..75c50f2f6d79 100644
+> >  --- a/Documentation/RCU/whatisRCU.rst
+> >  +++ b/Documentation/RCU/whatisRCU.rst
+> >  @@ -1209,11 +1209,13 @@ SRCU::
+> >  srcu_read_lock_nmisafe start_poll_synchronize_srcu
+> >  srcu_read_unlock_nmisafe start_poll_synchronize_srcu_expedited
+> >  srcu_read_lock_notrace poll_state_synchronize_srcu
+> >  - srcu_read_unlock_notrace
+> >  + srcu_read_unlock_notrace synchronize_srcu_atomic
+> >  srcu_down_read
+> >  srcu_up_read
+> >  srcu_down_read_fast
+> >  srcu_up_read_fast
+> >  + srcu_read_lock_atomic
+> >  + srcu_read_unlock_atomic
+> >  guard(srcu)()
+> >  scoped_guard(srcu)
+> >  srcu_read_lock_held
+> >  @@ -1229,8 +1231,11 @@ SRCU: Initialization/cleanup/ordering::
+> >  DEFINE_STATIC_SRCU
+> >  DEFINE_SRCU_FAST // for srcu_read_lock_fast() and friends
+> >  DEFINE_STATIC_SRCU_FAST // for srcu_read_lock_fast() and friends
+> >  + DEFINE_SRCU_ATOMIC
+> >  + DEFINE_STATIC_SRCU_ATOMIC
+> >  init_srcu_struct
+> >  init_srcu_struct_fast
+> >  + init_srcu_struct_atomic
+> >  cleanup_srcu_struct
+> >  smp_mb__after_srcu_read_unlock
+> >=20=20
+>=20>  --=20
+>=20>  2.17.1
+> >
 >
-> Free the accumulated map on every error path.  The caller ignores the
-> output parameters when the mapping callback returns an error, so they do
-> not need to be reset after freeing the map.
->
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-pinctrl for v7.5.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
