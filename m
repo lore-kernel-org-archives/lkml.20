@@ -1,105 +1,109 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A97A4D5998;
-	Mon, 19 Oct 2026 10:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0694B2CD3;
+	Mon, 19 Oct 2026 10:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404964; cv=none; b=n/Z3s3QTBGABqNYr/Ig6+MbSLIQLrC/eM96gqqtSyrVR/xtI7qoJ+S0g/4DwR0P51kQwgFFurUCSEweb/y50IrP5LldTKAy5QCZ2ZY6mojOoZ7NJ6NUy4UsRT/AjG9XdY9OcA8IWQ0QK9VPG3SbMPzosPjsPQbXNj2+b8Uwm/jY=
+	t=1792405025; cv=none; b=l+n2sGs/ewE91kfqFZbz4glJ7AWwhDOesaZwLtgJr6/xpeIOfOH5PxCO2cjGAIoK3YKArTjnIPPSKEjs+aWwkWtaTZvxkFWR78RiEGdFVvcY0MOTLPwki53QBxUhKvao0fTBlbZ9FEkv4huF8PwyhZy+6GnaXZUHC+K7NZHXWSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404964; c=relaxed/simple;
-	bh=dpzmwJV62+t0xTY5yjTcO6Xr5Xidgy9JXeC34dlb7rc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QkXndql8MWeUUAEWiBCj6pFW+El0DYiHDOMBgE8qej9xZSG68UjjFmBzgUSK5ntBPqXr4yaxLhHO5KAoyQdirjwiZBSBXv0nb9dlGC/KSaxeZqdOt4DMYytiXxDk3d0gcTOgw0G7scE8t1jBiXNlHWM2BMmRImzrTYcC89ZRaLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=llrw0tNC; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792405025; c=relaxed/simple;
+	bh=qAH4QXQQILxKf4rUswGbhV1iZlZbmHrI9Rk7HcnKayk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LgjxaIq+1jE07/ZQTW7Fn+nbdfLimNlcLccM95gefvHa/NPpXR1B0UxpdOLlkAJ35vMgeykgwJsUfoRrjAt79OAXNb01/wP6CrOuKYhO6JnWEhMhmysoq5j3BFi1Eqgpno3feCk8upIpa+N9HION+Kd5TFqm+BUu+ZQpgsq5/U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kax2Omqo; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="llrw0tNC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8Z
-	uSQdKZoDodfXxINakcZgz8RnopRM3PGkhuKFq6Br8=; b=llrw0tNCTChbZehVDx
-	RV91p4ULKg983lsJVa3RKZaRjNQdhv9GGtAcLYehB9+67LiNeAuVRSClyo4vHiYV
-	uXmZHnVFJJIlta1yHjVLzs5X5x8Mvm2U+FU2XDqfd1yjMdbbL2KuOMCUFGzlA5s5
-	aDOquwbsQvqxjfftKWf4HZH3E=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3Hxax7dVq4twABQ--.41578S5;
-	Mon, 19 Oct 2026 18:15:22 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	YF Luo <yf.luo@mediatek.com>,
-	Yiwei Chung <yiwei.chung@mediatek.com>,
-	Chih-Min Chen <chih-min.chen@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 03/10] wifi: mt76: mt7915: validate MCU response lengths
-Date: Mon, 19 Oct 2026 18:14:58 +0800
-Message-Id: <20261019101506.1926943-4-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019101506.1926943-1-yaojiale02@163.com>
-References: <20261019101506.1926943-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kax2Omqo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792405024; x=1823941024;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qAH4QXQQILxKf4rUswGbhV1iZlZbmHrI9Rk7HcnKayk=;
+  b=kax2OmqoXbQHzb4vkfZMC5fbGm61myPxQFY46mKzENpB2luhdGMwUS9D
+   XOEPcIdafp/O+e4kOAzMcLp9P1Fy2Gnx/7IrLTWf7Q5/ubaxy2hkEHUh+
+   pdPN7Ss7Mr5qRb0A6Pv2FzIToidYQqxuq5E+7bP6yMxf/xJnsJbV9SpIP
+   5x91yTgnYYhC2ylOvHAjneJItCH7TLGiNoBkKN1eRc5ZRstEHV4XFjL1f
+   9wVlKqZhNLHYIv9II7xy918Ww4N06fvUPd3RM0rL8qnxTYKuvmhmC4ZfM
+   lCdOCioIJkvBH8/TpVIYSRjK0+Dsd5UXtwYXJ/4rrXveX5jUW9nK6ZIxG
+   g==;
+X-CSE-ConnectionGUID: sjeVFf1+Rb6TRCO2h77ikQ==
+X-CSE-MsgGUID: Xj9cOoZPQGWY3Nz8kRIM8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="989073"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="989073"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:17:03 -0700
+X-CSE-ConnectionGUID: O511YhUeTiOpAGkOsUUS/w==
+X-CSE-MsgGUID: 4ylu/0J9Qw6juLBXjVKtqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2903740"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:17:00 -0700
+Date: Mon, 19 Oct 2026 13:16:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Stephan Costa Barros <stephanbrrs8@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mike Looijmans <mike.looijmans@topic.nl>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] iio: adc: add TI ADS1299
+Message-ID: <atXuGv3esexdRJ4e@ashevche-desk.local>
+References: <20261019001247.483005-1-stephanbrrs8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3Hxax7dVq4twABQ--.41578S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ur43Jw4kAr1Duw4kZw1fZwb_yoW8Xw47pF
-	W7Kay5ArW5Jr4jqw409w4kZayYv3Z5GFy2gFykZwn5JrZ5AF1rGFW09Fyqvr1rAFZ8C3Wf
-	Xr4qqrsxWrZ8Xw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pMnmirUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xq582rV7bo2gwAA3i
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019001247.483005-1-stephanbrrs8@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The MCU response parser accesses receive descriptor fields and some
-command payloads without checking their lengths. A truncated firmware
-response can therefore cause an out-of-bounds read.
+On Sun, Oct 18, 2026 at 09:12:45PM -0300, Stephan Costa Barros wrote:
+> This series adds a driver for the TI ADS1299 family (ADS1299, ADS1299-6
+> and ADS1299-4): 24-bit, simultaneous-sampling biopotential front-ends
+> for EEG, on SPI.
 
-Validate the descriptor and the patch semaphore and thermal payloads
-before accessing them.
+Why a brand new driver?
 
-Fixes: e57b7901469f ("mt76: add mac80211 driver for MT7915 PCIe-based chipsets")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/net/wireless/mediatek/mt76/mt7915/mcu.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+> This first version keeps to the generic IIO ABI: raw reads, the gain of
+> each channel's PGA through its scale, the sampling frequency, and a
+> kfifo buffer fed from the DRDY interrupt with a software timestamp.
+> 
+> The part has more, which I would like to add in follow-up series, each
+> with its own ABI discussion: SRB1 and SRB2 reference routing, the bias
+> drive amplifier, lead-off detection (through IIO_EV_TYPE_FAULT and
+> IIO_EV_DIR_FAULT_OPENWIRE), the internal test signal, the temperature
+> sensor and supply monitors, GPIO1 to GPIO4 as a gpiochip, the CLK pin
+> as a clock output, and daisy chains. The binding already describes the
+> hardware for those.
+> 
+> A question on structure. The driver started from ti-ads1298.c, and in
+> this subset the two are close. What differs here is the PGA gain table
+> (1 to 24 against 1 to 12 with 3), the data rates (no high-resolution
+> mode), the fixed 4.5 V internal reference, the ID register layout and
+> the 4 and 6 channel variants; above 0x14 the register maps also part
+> (MISC1 and MISC2 here, PACE, RESP and WCT on the ADS1298). Most of what
+> would follow, SRB1 and SRB2, the bias drive and lead-off on every
+> channel, is specific to the ADS1299, so I kept a separate driver. If you
+> would rather have the ADS1299 as a variant in ti-ads1298, I can rework
+> it that way.
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
-index 5bfe0366562f..3643906cbdf2 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7915/mcu.c
-@@ -174,6 +174,11 @@ mt7915_mcu_parse_response(struct mt76_dev *mdev, int cmd,
- 
- 		return -ETIMEDOUT;
- 	}
-+	if (cmd == MCU_CMD(PATCH_SEM_CONTROL) &&
-+	    skb->len < sizeof(*rxd) - 4 + sizeof(u8))
-+		return -EINVAL;
-+	if (cmd != MCU_CMD(PATCH_SEM_CONTROL) && skb->len < sizeof(*rxd))
-+		return -EINVAL;
- 
- 	rxd = (struct mt76_connac2_mcu_rxd *)skb->data;
- 	if (seq != rxd->seq &&
-@@ -185,6 +190,9 @@ mt7915_mcu_parse_response(struct mt76_dev *mdev, int cmd,
- 		skb_pull(skb, sizeof(*rxd) - 4);
- 		ret = *skb->data;
- 	} else if (cmd == MCU_EXT_CMD(THERMAL_CTRL)) {
-+		if (skb->len < sizeof(*rxd) + 4 + sizeof(__le32))
-+			return -EINVAL;
-+
- 		skb_pull(skb, sizeof(*rxd) + 4);
- 		ret = le32_to_cpu(*(__le32 *)skb->data);
- 	} else {
+Okay, I think you can try to rework this as a series on top of the existing
+code. I can't easily see if the above difference warrants a brand new driver.
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
