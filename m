@@ -1,230 +1,154 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8322A4B8284
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2889A4B8284
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:01:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404105; cv=none; b=AruLpvj1VG2UjjjiM5ZxoFCBtlju/xliL8AiJRPVZtS4D81VnArcd7xou15IDvnEaPkFzxVU/ERnWoi/lQ1S+8irqlBZtXfsREFZKY3wxaSCM59rWGmb5mJ/yLQ0jRWHzPvRfQ8uAN2z+Bcb8CDQlZIbfuYt2KuOiJAjJsutYr4=
+	t=1792404114; cv=none; b=bIK2R9aU2RPQxfsZEFQa9AiKf4HSYkTmk6UhCQ+PftJuaddeLmNGRujlGm9ayouLNZU7tfgwRzj0P/M+GUegBPdwE5hF2MVljUWneEOM1ccwHKf09ZNSXCdpIrOISdt8ppftKM4uPU9j13o8qeU/FcmVOsDKVMIt4LF0Xq68Ytw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404105; c=relaxed/simple;
-	bh=OKUR09aYo4+hANOYcFiQPjrHiwdQlPDgUbuHfofpoeU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iZtRLNCCsGnyy2oKM6M0XlumuaJRfCgDC20FcIcxHnKs9/YPa120S6K3NTGJG0xy9gwSx1dX0XUkSL5Xb4weW5/l28Rdvlxo/S3/QOQcPIvS8zAO4JrikZKVQkyWqV9DSL9H/4mx2zhJL9uXGgoDLQP1a9Nia81WeAuQ7FMDq74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=codnxZ/d; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1792404114; c=relaxed/simple;
+	bh=PQN8fq7DDGv5/6wf3znNyQeVm8vhBsKez4YYRTcWMcA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=X7+PjHh8z/ukqJLRFbk0LntL2JCk8tt2j9txJMPrH6M7D+6NE3pt7aZaeQVnrQE/p+r6ModJlIrxESuKJ+M1HLL3mU7Ghcn1ddPbtXgst5oyjONMGLQ2xfyb0j6/Ny0UmfMM20woIWGhm3B1147yghYeqh3XGBIKsp0xOmVjHjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQDpNDIb; arc=none smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="codnxZ/d"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1dfd49525so10663295e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:01:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQDpNDIb"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso539747a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:01:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792404101; x=1793008901; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JvNBlD/JZ8hRBqmq1fD5HU1ZQqr0SeMst3WentULn88=;
-        b=codnxZ/dJ9oxSrrmO8eurKxYBrSUPaRaLB2MPnbYl98uezbkuNanvzVV0wWem42h4t
-         CGCaHZ06Beh9O2twCabx1BXQs/CI2RcwUhmWICxXagn/Y9WR9YIfD+soTm7mtV2uyEG1
-         O9nR8Z3YKUu5eoIa+Jg5cIgXxBbNEXHNNCudpLicSAYFoL75mLtsBwUtTCIt0UNqThre
-         OgeaAIwqAzReIJdt2Vjbpw/hfj6atrz0zcWmD5TubNQNXsnInb+rTgIGH25pMvGfic9F
-         evtIbj5FVIjKeLFCvdBCWJoQS4fcV54YIkFKle1TLwenQ6HEeu6TiVr+l+ocVYqD/OHH
-         pQ+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792404101; x=1793008901;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792404112; x=1793008912; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JvNBlD/JZ8hRBqmq1fD5HU1ZQqr0SeMst3WentULn88=;
-        b=GKikIeLiuiGQnM8yVb7B08RADLRMalqOkNBPNcP0BTyRmstn4WoAhv3RJo4G6OpLCh
-         1TKhf2RJYQSsSi7mviV4pmvDVwxJsxBMWfzwMdXAx39BBaalsLrCQ+41HvBM/ffnynui
-         DZphdmwPfbjcmDzAdg83AbfSbe9g8cMKfZTU60UzXAPYa/jAhbpbQrilOSaAUGTQPNZq
-         SndvE4hk2tgESszKcaff/TOkXK7p/EtNpKIUWIsv9UL4hvbXAdCD+gVF9qShK8O7BokJ
-         8VLogcMcB/N2aX202pHgV3FH/oPV17qAxTFTGOhNeZO3y39IiZRBWGWHwUO6V790YjpI
-         1epw==
-X-Forwarded-Encrypted: i=1; AKwUvBy+NKJc5Dv8rY86CYtbqNlRWxzZ983n4AwBlTkvZK8J+rIdIgxYl08qepzASDdAMTG/6rB6otgeMy3T5F0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiUagAm9uNPTejxrhxenzcxVChRvO2melO2io2uHFDDQdejCCY
-	OeroG/ipmRE2Gxv1cA+RxTgMtuetcyiJBnqxbsgJa0WKML9lIKydzB7ymipYrQzgQg==
-X-Gm-Gg: AYBFou32f+7yck8XqlstYbjE177Y9rCG0AOJvvmaLuYG4mHK35cs6Ev8wAiir4J4Lxt
-	78byHkYp9J8F0NhRoXyiVrG+YCCqz6tTF5Vze3XJc3t3axViu2Z9cKKaqGoMG/WvALc95J0Xf6N
-	2bvYARpqk92YPPZw84/s8t/Sjlr2oMUW2O+0jF67E5qdpVDuEJtRjQreHUKMVsUnJQ1xP39LW7o
-	e6sQdLPBjGaqpF4eKVLVv32OBIsc5etZZB7KV+el4oI7ABNXEubxa0lhuKaeDx4GqYKk3fwN1OF
-	bSa6Wt9hT8oqFknep7za5GCy9uq612F7PEn5AZ0C7jQsKvj/ZphJrBt+KeoA0R1hYs+clqnjpFW
-	vD5YZdHyNJnZnCQqYt5u1jugLwkkfO8VXi/wQ6kPnZ/BNXPxJ3/NlPKZCHwajV0T9O/kyZgStPh
-	1NBSuz5Na7yuK7wK7zIVQOh0qMHN/dvMpVTI8tIlL436fv8ugA3UoA5G0+QXfyW5GXtixlMrgkb
-	VhQfBDq7a+5nZt6fR/QM9BYnKnVSZW1rol+BRiCwzU=
-X-Received: by 2002:a05:600c:674f:b0:4a1:7e76:d02f with SMTP id 5b1f17b1804b1-4a1d75fce45mr143600135e9.14.1792404021999;
-        Mon, 19 Oct 2026 03:00:21 -0700 (PDT)
-Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d85f92d9sm190610495e9.4.2026.10.19.03.00.18
+        bh=O/d0F+kS8lSmSGUKzwGZH1bspW/vpIAyRZ3tyTuBu4U=;
+        b=eQDpNDIblHFOFJMVFsSSvnMSZTB2PxgXqj/qF+ia7zgiDDJ2HgPqd7Heq8bgUmkCAk
+         +w1x1MNk4Ltvmaw+A7m29mKReOxyUwtNuNoZDsTSV5eU7U3FjN0jkVOjE7TPkv5lHRpJ
+         BH+rO/U6/KY4fmItCxR5MmIDsqlHK5bXLUbulF9SHNYakac/n/PWohFhguyy/SxtudCV
+         7iSodzLaYmYQ56g3TjB3AY5CbNaRo92SQyvppG23DrVC8t4aLI93E3DeQ846OjhYhBUc
+         q9q/KoCmp/zllbDzfLu3S8dT0qrURUulaK1P/nJwKf/ES6VimE1tx8wcpLOIEl3q14s1
+         YRgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792404112; x=1793008912;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O/d0F+kS8lSmSGUKzwGZH1bspW/vpIAyRZ3tyTuBu4U=;
+        b=ijao53p98gX4WSTecvIvBkPKqT4cnkiCAMhpM49PC5CsdBTDX7p+zLYzAmrVhJgRIh
+         POcoAcTT5bPI0t9K4Nm8pWjIfVd8cQBFJx388QIzVYNIJdF+Xle7iMPc9pt7IBb3mkZd
+         4d9SkS9/UjaRvuavIcJpx7x/FjfuB0CJ4/5/LVAg92GZ67z28+LkB4l7G/07qbtxkIQH
+         ki9s2AS1YsFlh5UTBXVadCRj6jExNDZHUU/3bmwTEiJKRJALoNkJLH7hlBQEqJ6Nhy/h
+         iFSEOsrN0G9sfDgCySJbBgzEV6kBi/P4JHZFoId6Gxl3pWxq9+YuzI9HaqS3N6mPcFuH
+         K3kg==
+X-Forwarded-Encrypted: i=1; AKwUvBxNMz9vSG5caWsv65l/xeDlmFzvmsesJIocJrr0GQd3pz6csjfwUEdmLH1KRjhm57jaRAOGEzKFvxoVCjE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItfQhqPa2sXXFlmEyQIRJ47pnVGnHfydDQ06TP1HtQ7nUpkDfR
+	X3DNTrZlxj/O5ulKUWOHYVCI/skhpBzOCwP6hHpuORTNnLWaAIPzBCe7
+X-Gm-Gg: AYBFou1GBjwHNZw4OcPgt4/eplkbWQqdJkIg1dfMmVtDEPswVOGupQTk6ysIaNdhucK
+	QUWX4L23RsQnDTyHEOeChffhGiNBe9grcHYAb4VQstyI7mmKfr/v+JV6+1gKKUZEuz+z6nQE1MG
+	dtgSOk+9XJvAniWH2GbeI20HP64uLMhXYuDZMWc/EQrnJCFQXHakntZFw3/JhO663rFdMKpGIMt
+	j3WIiUrMTr4BGMC4q0HaJqFuB52wg49b8JfGlPQ59OyzKOY/6d+NtumTv4GZSpcKdVbQ3N8IWfy
+	NO/LsfpJUakK7P9ohcX1sBVrV4O+wkYhpb9Si2+NpEnmWFCzZGKLzrv1Koe5KQn/JSt3MR74OUt
+	NwKbL86CPGUvyDKa0bwjpB+aB7fwUryFYqi7Ddt84uN6Ur0SG8MaxWeBkDKbrb4yVDsvgX8l3dO
+	m4aJMtJAvEAaMw6mTKkSlYe98aMCiojE++ULDup7PdoV6la6dVWqN0M1V+mF4RUvkaNA==
+X-Received: by 2002:a17:90b:4d0d:b0:3aa:fdad:7d6c with SMTP id 98e67ed59e1d1-3acef5b08bamr5967293a91.58.1792404112061;
+        Mon, 19 Oct 2026 03:01:52 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e87836bsm37464495ad.47.2026.10.19.03.01.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:00:19 -0700 (PDT)
-Date: Mon, 19 Oct 2026 11:00:15 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] KVM: arm64: Ensure TLBs and I-cache are private to
- each vCPU in pKVM
-Message-ID: <atXqLxU5bBtJ8U9W@google.com>
-References: <20261014125510.2928306-1-fuad.tabba@linux.dev>
- <20261014125510.2928306-3-fuad.tabba@linux.dev>
+        Mon, 19 Oct 2026 03:01:51 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: pcm: Remove channel-map controls before freeing substreams
+Date: Mon, 19 Oct 2026 18:01:46 +0800
+Message-Id: <pm-pmb-4a207d9ef3a3597a74a4-v4-80b0113669b1a62fbbe9@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014125510.2928306-3-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 01:55:10PM +0100, Fuad Tabba wrote:
-> All vCPUs of a VM share its VMID, so KVM flushes a physical CPU's TLBs
-> and I-cache for the VM whenever a different vCPU of that VM is loaded
-> there (vcpu_prepare_mmu()). Commit fce886a602073 ("KVM: arm64: Plumb the
-> pKVM MMU in KVM") moved pKVM guests, protected or not, onto the
-> hypervisor's stage-2 and VMID, and the host stopped flushing for them.
-> Nothing at EL2 flushes instead, so a vCPU can hit TLB and I-cache
-> entries that another vCPU of the same VM left on that CPU.
-> 
-> Track the last vCPU loaded on each physical CPU in the hyp VM, and flush
-> at EL2 in __pkvm_vcpu_load() when it changes.
-> 
-> Fixes: fce886a602073 ("KVM: arm64: Plumb the pKVM MMU in KVM")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  3 +++
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c     |  8 ++++++++
->  arch/arm64/kvm/hyp/nvhe/pkvm.c         | 21 ++++++++++++++++++---
->  3 files changed, 29 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-> index 9abfe6b7e942b..02c8fc7a10904 100644
-> --- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-> +++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-> @@ -54,6 +54,9 @@ struct pkvm_hyp_vm {
->  	unsigned short refcount;
->  	hyp_spinlock_t lock;
->  
-> +	/* Per physical CPU, the vcpu_idx of the last vCPU of this VM loaded there. */
-> +	int *last_vcpu_ran;
+A late HDA codec bind on an already registered card builds new PCMs
+before registering them. add_std_chmaps() publishes generic channel-map
+controls during this BUILD stage. If an earlier chmap succeeds and a
+later allocation fails, probe cleanup frees the BUILD PCM while the
+card's control device remains accessible.
 
-Unlikely to be a problem in pratice, but vcpu_idx is "unsigned int". I wonder if
-this shouldn't be unsigned int here too and initialised to UINT_MAX?
+These generic controls are added directly by snd_pcm_add_chmap_ctls();
+snd_hda_ctls_clear() only removes codec-tracked mixer controls. BUILD
+devices also skip dev_disconnect. snd_pcm_free_stream() then frees the
+substreams before free_chmap() withdraws their generic control:
 
-> +
->  	/*
->  	 * The vCPU initialised RUNNABLE: claimed under vm_table_lock,
->  	 * released only if its own init fails.
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index d715aa942577e..f0b77236c871e 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -827,11 +827,19 @@ DEFINE_KVM_HOST_HCALL(void, __pkvm_vcpu_load,
->  	pkvm_handle_t, handle, unsigned int, vcpu_idx, u64, hcr_el2)
->  {
->  	struct pkvm_hyp_vcpu *hyp_vcpu;
-> +	int *last_ran;
->  
->  	hyp_vcpu = pkvm_load_hyp_vcpu(handle, vcpu_idx);
->  	if (!hyp_vcpu)
->  		return;
->  
-> +	/* TLBs and I-cache are private to each vCPU, see vcpu_prepare_mmu(). */
-> +	last_ran = &pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu)->last_vcpu_ran[hyp_smp_processor_id()];
-> +	if (*last_ran != vcpu_idx) {
-> +		__kvm_flush_cpu_context(hyp_vcpu->vcpu.arch.hw_mmu);
-> +		*last_ran = vcpu_idx;
-> +	}
-> +
->  	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
->  		u64 dfr0 = read_sysreg(id_aa64dfr0_el1);
->  
-> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> index ac020d0501d2e..f18fa762746c9 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> @@ -489,10 +489,11 @@ static void unpin_host_vcpus(struct pkvm_hyp_vcpu *hyp_vcpus[],
->  }
->  
->  static void init_pkvm_hyp_vm(struct kvm *host_kvm, struct pkvm_hyp_vm *hyp_vm,
-> -			     unsigned int nr_vcpus, pkvm_handle_t handle)
-> +			     int *last_vcpu_ran, unsigned int nr_vcpus, pkvm_handle_t handle)
->  {
->  	struct kvm_s2_mmu *mmu = &hyp_vm->kvm.arch.mmu;
->  	int idx = vm_handle_to_idx(handle);
-> +	unsigned long cpu;
->  
->  	hyp_vm->kvm.arch.pkvm.handle = handle;
->  
-> @@ -512,6 +513,10 @@ static void init_pkvm_hyp_vm(struct kvm *host_kvm, struct pkvm_hyp_vm *hyp_vm,
->  	mmu->vtcr = host_mmu.arch.mmu.vtcr;
->  	mmu->arch = &hyp_vm->kvm.arch;
->  	mmu->pgt = &hyp_vm->pgt;
-> +
-> +	for (cpu = 0; cpu < hyp_nr_cpus; cpu++)
-> +		last_vcpu_ran[cpu] = -1;
-> +	hyp_vm->last_vcpu_ran = last_vcpu_ran;
->  }
->  
->  static int pkvm_vcpu_init_sve(struct pkvm_hyp_vcpu *hyp_vcpu, struct kvm_vcpu *host_vcpu)
-> @@ -887,6 +892,7 @@ int __pkvm_init_vm(struct kvm *host_kvm, void __kern *pgd_hva)
->  	size_t vm_size, pgd_size;
->  	unsigned int nr_vcpus;
->  	pkvm_handle_t handle;
-> +	int *last_vcpu_ran;
->  	void *pgd = NULL;
->  	int ret;
->  
-> @@ -915,13 +921,19 @@ int __pkvm_init_vm(struct kvm *host_kvm, void __kern *pgd_hva)
->  		goto err_unpin_kvm;
->  	}
->  
-> +	last_vcpu_ran = hyp_alloc(array_size(hyp_nr_cpus, sizeof(*last_vcpu_ran)));
-> +	if (!last_vcpu_ran) {
-> +		ret = hyp_alloc_errno();
-> +		goto err_free_hyp_vm;
-> +	}
-> +
->  	ret = -ENOMEM;
->  
->  	pgd = map_donated_memory_noclear(pgd_hva, pgd_size);
->  	if (!pgd)
-> -		goto err_free_hyp_vm;
-> +		goto err_free_last_ran;
->  
-> -	init_pkvm_hyp_vm(host_kvm, hyp_vm, nr_vcpus, handle);
-> +	init_pkvm_hyp_vm(host_kvm, hyp_vm, last_vcpu_ran, nr_vcpus, handle);
->  
->  	ret = kvm_guest_prepare_stage2(hyp_vm, pgd);
->  	if (ret)
-> @@ -938,6 +950,8 @@ int __pkvm_init_vm(struct kvm *host_kvm, void __kern *pgd_hva)
->  	kvm_guest_destroy_stage2(hyp_vm);
->  err_remove_mappings:
->  	unmap_donated_memory(pgd, pgd_size);
-> +err_free_last_ran:
-> +	hyp_free(last_vcpu_ran);
->  err_free_hyp_vm:
->  	hyp_free(hyp_vm);
->  err_unpin_kvm:
-> @@ -1112,6 +1126,7 @@ int __pkvm_finalize_teardown_vm(pkvm_handle_t handle)
->  		hyp_free(hyp_vcpu);
->  	}
->  
-> +	hyp_free(hyp_vm->last_vcpu_ran);
->  	hyp_free(hyp_vm);
->  	hyp_unpin_shared_mem(host_kvm, host_kvm + 1);
->  	return 0;
-> -- 
-> 2.39.5
-> 
+  Late HDA codec bind / rollback        Control GET on the live card
+  ------------------------------       ----------------------------
+  hda_codec_driver_probe()
+    snd_hda_codec_build_pcms()
+      PCM is BUILD
+    snd_hda_codec_build_controls()
+      add_std_chmaps()
+        publish an earlier chmap
+        later allocation: -ENOMEM
+    snd_hda_codec_cleanup_for_unbind()
+      snd_hda_ctls_clear()
+        generic chmap remains
+      codec_release_pcms()
+        snd_device_free()
+          BUILD: skip dev_disconnect
+          snd_pcm_free_stream()
+            kfree(substream)
+                                       snd_ctl_elem_read()
+                                         down_read(controls_rwsem)
+                                         pcm_chmap_ctl_get()
+                                           walk freed substream
+            free_chmap()
+              snd_ctl_remove()
+                wait for GET
+                                         up_read(controls_rwsem)
+
+The control read lock cannot protect a substream already freed before
+control removal starts. The failure above occurs before
+snd_card_register(), so the PCM has not transitioned out of BUILD.
+
+Move free_chmap() before the substream free loop. Its snd_ctl_remove()
+withdraws the control and drains readers under controls_rwsem before any
+substream is released. Normal registered-device disconnect already
+removes the control, so the later call remains harmless on that path.
+
+Fixes: 2d3391ec0ecc ("ALSA: PCM: channel mapping API implementation")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
+---
+
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 41c2cab7a52c412b7c68374059cd305a6b3fe3d7..36c3b7cc742abeff889a96b452a88d267763caa4 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -819,6 +819,9 @@ static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
+ 	/* free all proc files under the stream */
+ 	snd_pcm_stream_proc_done(pstr);
+ 
++	/* Drain channel-map callbacks before freeing the substreams. */
++	free_chmap(pstr);
++
+ 	substream = pstr->substream;
+ 	while (substream) {
+ 		substream_next = substream->next;
+@@ -833,7 +836,6 @@ static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
+ 		kfree(setup);
+ 	}
+ #endif
+-	free_chmap(pstr);
+ 	if (pstr->substream_count)
+ 		put_device(pstr->dev);
+ }
