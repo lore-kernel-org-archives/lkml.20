@@ -1,94 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422182;
-	b=QidnZ6st5YXL6tcI5fih2UFAa8O0xEKY84fUQ7yMezhwL7g/RkqbBkKP3mHsIvDgvWgs
-	 JikohdmFYSklj6Qrhb82whwdXfZU66UfhVMquSmBTazCxjFPEICTh6lipjVfbxbS3QGc3
-	 NnFShXhJbnJbvWQThlzzkCkexEEkARTR6i0aRROG7zoLhF7YoOXxOtCTa4wA/X8WZmn7G
-	 vIuNjf6T3SJ7u2QEHnq1w0SdCPVI6aCmyjxdO5dDcuWorfg5bOsYX0aq+sw7jQYOOalVv
-	 PV4N2LqazEg3DnNw56h2kC9wqxX+kuKfOq6cGwHdLq9uTkxhbXIKm3s/JCIOAymCcpw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422182;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Rq4MAL1fQzRXP47VmHrMlaeZyrntTtbpzmgafG5g2JU=;
-	b=MBYxIAVQDidSJq9lrdOFk2NF9dUlxu4T+vBIgrQKSA6oYMphWB4oJ7He5zqDTiCBa1yp
-	 Qps/0beMv4XL5fgAVno57t3k0u3SZouzEtjcWsIE7q4CeNeNGUTaSxcrgqkpbchNZ9OsU
-	 L9I8SbOqbes1gKswwZQGn2vr3ZDUSh/+SFA9sfMRbd1d94O93/q/odb70Otk1SSqGUEqz
-	 hIqZ7vyF6sJEgn67/ExfuvB/5xIvYhwxqvo8y1bQQUsfElCBvOtG9Dyhh2Q5q7giOVk/J
-	 PiFNXYhmXZI9IUPCYGJ3+A/HCd8UWGIKlI4RB417SLQDYFYa/D3HFwqrD07sYJnLJ2Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=KMvz5Aug;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11526607BF3C;
-	Mon, 19 Oct 2026 15:03:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11526607BF3C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792421972;
+	b=0iq8pMPOXhjAz7ybUawRBCG7VP+EKFj5DzqwEzn69h3Gy+EAo3qXMYf3HqHf0PIXoEYH
+	 4LCWVzDVhh+K0zhFlGIwFxwHrVa6tDWYJWIayhRXQ22u48rkelVBiuxUIeQU4JZ+RZFE3
+	 n1mlby30m3Mf8d6Zl4UJW1BKVxOsjFRXyzkPE5j+aJq2yXTv5W2opKrLw5oIzhSB2WnK0
+	 XAVbkeusyObqDDvXBZMsYm4xUZ3Z9rjiT+jkp/fCrW/rNKJ5dhN5nd+W+L72g4FZD1CXO
+	 Oqv3p+Ke1K3qJr6Lb59AAmxgPbELmHJTLVFrj2InTLHJ6a7qqpl7k6p7lk4GhvwZmeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421972;
+	h=Received:Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yve0cUum9UQSEKmMOgKb9cO5F5O72C97ZH6SJDHLlwk=;
+	b=GpQlw5Pm7QHkoSNZcdKhbPTiiqVC8TGk77fQdG/PqiAB+BHxY3EczVXdiVpXeHJoSPhK
+	 9wKwDS2B9PjJ3z3qeLI19xw9rKfSz/rm3QFYfe1RYyLZPbmfpSOh/KDyRyJDkHcVv21xp
+	 YaSNFpOxuZ4EtAP7+4/s3l72fSM7beeGq5jS/SRS15db1ANNWHKzRR3xRwIkBzaaogrtq
+	 eF+93OcixAAazcU7QIZq1E7R9q8lt2FVqO+KLHCkRDY5+Igsf5El2am/XTzpSJk697MMz
+	 ziaNAfRswenTtlYyz7Kx/zdAKlJBvIyRKMqT5skufbeafHPa765Qxp+Cp+/6WMzbXCA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9CQocWC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11F346078847;
+	Mon, 19 Oct 2026 14:59:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=KMvz5Aug
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JEEmAh4015228;
-	Mon, 19 Oct 2026 15:02:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Rq4MAL
-	1fQzRXP47VmHrMlaeZyrntTtbpzmgafG5g2JU=; b=KMvz5Aug2n2vRkVcGW3/ru
-	Sfgfc3WNb+26owQYZ1VW4hhvcwDZjrzlKI4gwk9SuQR80pmQmiZLiMvt82RsRMIX
-	/2lNuNdZLeqwdBFGn+ZUreRWICZjiE9LTk/niDZjUQLbBN5jrfikQL87YGr8me2M
-	5L2E4Dmdn/1WvbpI861pAXULQh3LgtVFvrjf/woVw9vTjE4WZwlcdu8Tfy1HTwa0
-	FeMMHwJ61B4LowszuDzc9wjdzqbi4AN+xePEfDueu9yQPBu/yaeE1J2YGrQ60C67
-	uS+y4QJvMkioIoKATyQQE8BXH0kWM6iZ5uvWMzcnRfquFHNQZ6AzcWXB/KeQPDeg
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0r7kv7b-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 15:02:04 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69JE4sQE3023650;
-	Mon, 19 Oct 2026 15:02:03 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hcnjgx0gf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 15:02:03 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69JF22gM27722114
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 19 Oct 2026 15:02:03 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BC31E58069;
-	Mon, 19 Oct 2026 15:02:02 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 516BA5805D;
-	Mon, 19 Oct 2026 15:02:02 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.112.91])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 19 Oct 2026 15:02:02 +0000 (GMT)
-Message-ID: <8fc08e24ab4941f6b5e130ce46b7f31b89bed0c4.camel@linux.ibm.com>
-Subject: Re: [PATCH v2] ima: discard modsig on detached-data binding failure
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: =?ISO-8859-1?Q?J=E9r=E9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>,
-        Roberto Sassu <roberto.sassu@huawei.com>,
-        Dmitry Kasatkin
- <dmitry.kasatkin@gmail.com>
-Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-In-Reply-To: <20260924085516.3111521-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20260924085516.3111521-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 11:03:21 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9CQocWC
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C2A6513C1;
+	Mon, 19 Oct 2026 14:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421972; cv=none; b=V3mFbQTMJqP1o+0cmp8VRhRbamWZzZFIEdD35xdky6kDAg29cXgi+JCrK2LcZzDgt7dJT0g6oFzUU3uFNOrUXV99lFWgpwBfCuXne+lhXSADJAy+F3xEq+rYfdki7u8O/dcYG6OfapefDHHFqO1GN+agok7fIDQuPsvatjLP00c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421972; c=relaxed/simple;
+	bh=yve0cUum9UQSEKmMOgKb9cO5F5O72C97ZH6SJDHLlwk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f+IJFNnT+hyzuM0Amwnt/FsqJ3rQivmOwwkULXUOzq035h6oQFbQ9SelrigFisK7mGUjq+CSbL5lVRhlFmH3SlvI2rYLsGrUm4MhT0bMdHJs4Jdw8LBPhwjuxIV6i/mMgNEEogMoyFNSwbJjggaCCYZFsoK3ks9qKeuler/9qu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d9CQocWC; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBEAD1F000C4;
+	Mon, 19 Oct 2026 14:59:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792421970;
+	bh=yve0cUum9UQSEKmMOgKb9cO5F5O72C97ZH6SJDHLlwk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d9CQocWCrg1MwkPcNEJMJTPoYIufvaWwh7pFHAQXpkzVF3uzdXwg0HLcq8QO/UDoJ
+	 nYY2j6wFjSjqMNiiN3eIkKE7NnxlOhm9APJcn7RdKsXPOOT5TG1w5B0wrT6xNjF/wJ
+	 WCWmur5wo5pI3OXmNZB2/p/GW+5uOp6ttTsAiT1G4Vzonsno5y/unM28H5i7aX50hf
+	 lKJYk/asfEKtupqvgScK8RG7GL99tx3n+2zhO8A4lKTO8Fyci2FsQPnGxuYX91GeH6
+	 4BIRhxBT2CiXQwwovFJ6ZeVFgN+8oZFsXegfZU2Jqp5FHsYjUU2vDIAfZtcnSYSc3r
+	 5Fnq961JIFrBg==
+Date: Mon, 19 Oct 2026 15:59:26 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: Re: [PATCH] mm/mremap: populate calculated fields in vrm state
+ correctly
+Message-ID: <atYv-s4dz_UD4YXJ@gremlin>
+References: <20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,74 +70,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1OCBTYWx0ZWRfXyQLMxI+d7h6u
- ZrxYQActJQnL1GF1ZmkPY6cegryhEFx7I7ZUnNUz0f0NK2vUn+hszbf+W3cFi6mQCdPpoZKIVHm
- i0xmK876sxQCOHcE7meKtFZiLPEAMY4=
-X-Authority-Analysis: v=2.4 cv=PrUG/AM3 c=1 sm=1 tr=0 ts=6ad630ec cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=OPNBBWazzn5nCynDWsEA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1OCBTYWx0ZWRfX9JzuUlcI1Xfe
- ro+Ajz9ppyB0jzIw4hWY9AjVs4idZ9wjkaRldGnKS8xmlbewDfi431EWYZ+ria/WkZSSjCmkSMl
- DHLzZ3saN/Q5r6r3GWSaAG+/BXjRCBXblx7wv87aEuaPa3lo5a2qWSobTiwh64qEUNozI1RbJSx
- APoRTG8Mfp2tl20pMgDvk1GDZBAALxAyMzkF/s52zY+H18KQEDJJk5E5J+R+O/ujMkmI/tgtyHi
- t8eoR1apF2/cQkSiX8JoxnfmODEgXpQprLL6iTts7L3ZhsoagUATAcnZailqZ7NykZct0l757Ht
- KMO2xsPkwDjdDzibtvo4wPFKEXnxuL4fgOqV0dOd4nPQDWBXFUgFXNbFLJpPhgWReGrIR0bJ70h
- v1HGxwNqVEwG5BPqg2K/f7Z8xrUh9CDT+6dQNGXi9CZLxQ4idKn784k5oVnEDqrU/uG9960fl3q
- k2sMDmbgOdjCs+PIt3w==
-X-Proofpoint-GUID: OO2VOubz8564iKspuNSSO0ODDnqxq84C
-X-Proofpoint-ORIG-GUID: ryqVHJYewvubwaD0dafVEAzl5VVkg6KE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_04,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
- clxscore=1015 priorityscore=1501 malwarescore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190058
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org>
 
-Hi J=C3=A9r=C3=A9my,
+On Mon, Oct 19, 2026 at 03:28:27PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Commit d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
+> introduced the vma_remap_struct helper to pass state sanely through
+> mremap() logic.
+>
+> Part of this state is vrm->delta - equal to the absolute difference between
+> vrm->old_len and vrm->new_len (the old and new lengths of the VMA,
+> respectively).
+>
+> This value is used to correctly charge accounted VMAs.
+>
+> When shrinking a VMA, mremap_to() sets vrm->old_len equal to vrm->new_len
+> having performed the shrink of the VMA first, prior to any potential
+> move (e.g. MREMAP_FIXED | MREMAP_MAYMOVE specified).
+>
+> However it does not recalculate vrm->delta, which results in incorrectly
+> overcharging the VMA.
 
-I'm so sorry for the delay in reviewing v2.  Somehow I missed it.
+Andrew - could you update this to:
 
-On Thu, 2026-09-24 at 08:55 +0000, J=C3=A9r=C3=A9my Jean wrote:
-> ima_collect_modsig() supplies the file contents to the parsed PKCS#7
-> message as detached data. If the message already contains embedded data,
-> pkcs7_supply_detached_data() returns -EINVAL, but IMA discards the error.
-> ima_modsig_verify() subsequently verifies that embedded data instead of
-> the file being appraised.
+>>
+However it does not recalculate vrm->delta, which results in incorrectly
+overcharging the VMA when both moving and shrinking a VMA.
+<<
 
-Returning the ima_collect_modsig() error code isn't necessary to fix the bu=
-g,
-but is needed to emit an audit message.  In terms of backporting, maybe onl=
-y the
-bug fix should be backported.
+To make it clear that only when you do this (rather unusual) action do you
+encounter the issue.
 
->=20
-> Return binding errors and discard the modsig on failure, preserving
-> ordinary hashing and security.ima appraisal. Keep digest export optional:
-> ML-DSA and multiple-signer messages can still verify without it. Leave
-> d-modsig empty when unavailable instead of dropping the measurement.
-> Audit binding errors separately so O_DIRECT does not hide their cause.
-
-Is "binding errors" something that AI suggested?  I'm not familiar with thi=
-s
-terminology.  Please reword the sentence.
-
->=20
-> Fixes: 15588227e086 ("ima: Collect modsig")
-> Assisted-by: LLM
-
-At the recent "maintainers summit" it was decided to remove "Assisted-by".
-
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-
-Other than splitting the patch, it looks good.
-
-thanks,
-
-Mimi
+--
+Cheers, Lorenzo
