@@ -1,54 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792447927;
-	b=YkLLpup2dOAH1avWjIPzN9FAB42+wA3mSyhn2+ds/1gkpd9KgfFHjElgx4MOx78aRzph
-	 r+uDbClUphY9T1aEhyhDvIpSmuq4cqIHSA5WCPC3AszIlYXlc1TeyEK8R983cSQUzlVSt
-	 Xgw9sP4iWWL9VpPN2zzIl2282saNAwuUCaOLq2Gs2sDmo1Y9bh6bxruPtfWHIz5YQxWDm
-	 jK8cST6PMUUDCsId+XCmtHHvejuzaYMnb1/QslMPW2Eev9VFeCJXRBOnJcJYace2V9Wj4
-	 SeVwCiuUz8g8kUyxqq/fB6g3hLleC+XuC0nIMMdupR64iB6LmIiUmZQl5QnYhjlYmFA==
+	t=1792447990;
+	b=dF0rOiMuLvzLFPTX0WIoCYPgq74U9NfV77mnI8gCGQzcGLeZIOCorxvEoz0PfLjeAMUM
+	 VHQ3B/zKuT3yp5O2HvHo/UOgpYStzpox8p+TMXJ+3aqSfzRCEM3dQ8mxmhm1mFw1THmL0
+	 tFopLWu35Sk90uZ1RtP7/1A/MpuBnNvtvpAjc17zegDG6ucPu3Dqvdt0OJ0K2EnUH+7vl
+	 49hSMj8pB/aNy5KVsVowGIQDXgFNLEL/dX6d0YCcqdzqPvUo8fcfnh2m+a9CeaxjjxM1S
+	 PcokTohrX3QYJlzpHacZnSdtpwgMC97BmHgOogE+43jMqkh1oaa4YWUin1AgQnlfIJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792447927;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qOgEM347UA2oUXrlePKVhdOzVwXTFnw/rujmP6OQ7Og=;
-	b=1UV4Innbzk32O2q9OC7hFV/gXAUgvEtOFBW3PFDT05Cl4UMzb0KTVTLpf/B0jZIJKFjC
-	 /m25+U06S3KJUgWdsjK92xKffShtZM3S1G8rwsYlZh6nEfkAVUnuirrBPckhJafqmm4el
-	 N33/kL9lFZcYFre9bdYgp/eIF0rk5xWWiBpENorCXyGLw9dtPaFXgOFVdXVR3X3Dvs5rk
-	 VZoZrs2zDHlh3I19ZUqb4wk9i9TgGnzRIdm2RxxUdUfYmDlYx92QJom3Cud8WlA/7IfHe
-	 iXBANHZthMPPnikg8ywjasX3l6R5YO5agtW/zhP+y2ZBLTgOos/9JjFstGONsCDTHBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792447990;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=tEkPMBUY3is8qUNhwEjXM/7z4i29Jmc9M5lXhnaOsa4=;
+	b=ZO7rdULt3TlpvQQO+FbdABAsujhc2xhKu9D8av6wk5rsA0OFSELYPPOoJrXffFjMeqTO
+	 RCMccR/wv0EDw8V5PpxULPkaFx3TDhwhC5aU0gyDSWAQuZL7rXPdihE/Yy0XrGDVsvmcD
+	 50WZAs7H8HTCEpqYKtZault+IWsMfmzjldVsgZnsEnAisi8J/i576I/d5LpO2sJMhp15J
+	 smmYqUp9/bJu9+hQmqOLrO3k38X4hY44GvVIk+GpCN5Pp+d//c4XBX4tPnAhK3miTQkIS
+	 t2ApLXjI/OZc6ZjpbiiFJemLPVvIBHTUP2nsdQiTBF3OyTnUP5gbtwSH41XmyDNn2LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FhAzmzFg;
-	arc=none smtp.remote-ip=91.218.175.50
-Received: from mta0.migadu.com (out-50.mta0.migadu.com [91.218.175.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mk6XQCdT;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vq2PLd9b;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA67606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:12:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BA67606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB298606A319;
+	Mon, 19 Oct 2026 22:13:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB298606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FhAzmzFg
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DikdP9xMiFcD79eHzl2Rx85QAWRmN2Gb3vUT8s7Ubxs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792447924; v=1; x=1793052724;
- b=FhAzmzFgLT58AZzAGSVbJ21vLRvLIp41QnyctBylJnPV/rp43SqizB+agP1IhsoNxpAvxzhC
- VYtC8/wPdXg6BaHu5EexnR5xGd5k98M8glcnW69JdR+BxVQMQi0azR/dQyVPVLt749iRxr59eDa
- XY9uITxiN8GfAsHDeEmg+BS4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1c70924cc703aeac;
-	Mon, 19 Oct 2026 22:12:04 +0000
-X-Mizu-Trace-ID: 1c70924cc703aeac
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d27c2b12-8968-4eec-b925-d5345ba1821e@linux.dev>
-Date: Tue, 20 Oct 2026 00:12:03 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mk6XQCdT;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vq2PLd9b
+Date: Tue, 20 Oct 2026 00:13:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792447987;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tEkPMBUY3is8qUNhwEjXM/7z4i29Jmc9M5lXhnaOsa4=;
+	b=mk6XQCdTNAxu6g/VChpbVZiDbwQxr79w6PQbjG/TSiGsIjS8+RmIlhpTRPOaNhFPof0c2U
+	0CUqCfRgiKlQwYblxS+w/nOio0BuX5L3WhMsYR3RJjyQspFToSxw2BeysUFRbAVyfMlyOs
+	sqBkpUegZ2CM2qnp26TeyTXG5fLctLzBUCR0zXtF76BCkHP62r0QKlvcYZ7y71sg8s+U8D
+	w2CmoCYxUfJ91IAZB6V2d4tKjEvYoTb7Cbhf8ahx9I13zG1h1dU0yv14+RNm+JyYL2eIKj
+	Mg3tvI9hn05eHabMYiueK8HxXov1eysIHU1wORoiYsn30Fo2hsE+NSFa70NaRg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792447987;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tEkPMBUY3is8qUNhwEjXM/7z4i29Jmc9M5lXhnaOsa4=;
+	b=vq2PLd9bEIj+nT29+S4J+T1fZznn4lc+TS86Lef4i197NXqVZxYH/i35vn1xXikqrFpMOo
+	pNVQuASl8pfeJrAA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Fan Gong <gongfan1@huawei.com>, netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Xin Guo <guoxin09@huawei.com>, Gur Stavi <gur.stavi@huawei.com>,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] hinic3: bound the Rx fragment count to MAX_SKB_FRAGS
+Message-ID: <20261019221306.d6dfPY_y@linutronix.de>
+References: <20261010030901.1712792-1-yhlee@isslab.korea.ac.kr>
+ <20261018170531.bILLh5Zw@linutronix.de>
+ <20261019001037.3496843-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,123 +78,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: asus-nb-wmi: Ignore spurious 0xe5 events on
- GU605MY
-To: Evgeny Volferts <eugene.wolferz@gmail.com>,
- Corentin Chary <corentin.chary@gmail.com>, "Luke D . Jones" <luke@ljones.dev>
-Cc: Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015163029.107250-1-eugene.wolferz@gmail.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <20261015163029.107250-1-eugene.wolferz@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019001037.3496843-1-yhlee@isslab.korea.ac.kr>
 
+On 2026-10-19 09:10:37 [+0900], Yehyeong Lee wrote:
+> Thanks for the review.
+> 
+> A well-behaved device can't reach it. rx_buf_len is fixed at 2048
+> regardless of MTU, so the frag count is ceil(pkt_len / 2048): a max-MTU
+> frame (9600) is 5 frags, and LRO -- off by default, capped at 32K when
+> enabled -- is at most 16, both below the 17 the array holds. Only the
+> 16-bit length field in the completion descriptor (RQ_CQE_SGE_LEN_MASK)
+> lets a device claim up to 65535 bytes, i.e. 32 frags. So it takes a
+> device reporting a bogus length, i.e. broken or malicious firmware,
+> which is why I treated it as a robustness fix -- I should have said so
+> in the changelog.
 
-On 10/15/26 18:30, Evgeny Volferts wrote:
-> The ASUS ROG Zephyrus G16 GU605MY periodically emits an
-> unrecognized WMI event (0xe5), approximately every 12 seconds.
->
-> The event is reported as KEY_UNKNOWN through the Asus WMI hotkeys
-> input device. When the session is locked, it causes both the
-> internal display and an external monitor connected through a
-> Thunderbolt dock to wake up repeatedly.
->
-> Add a DMI-specific quirk to suppress this event on the GU605MY
-> without affecting other ASUS notebook models.
->
-> Ignoring the event was first verified on a 7.2.7-based OGC kernel.
-> The DMI-specific quirk was subsequently built against 7.2.8-ogc5
-> and tested on 7.2.9-ogc2 and 7.2.9-ogc4. On both 7.2.9 variants,
-> the DMI match was confirmed and the unknown 0xe5 event messages
-> disappeared.
+If this is something that in general opinion never can be reached then
+it might be something to target net-next and not net looking like a fix.
 
-Hi Evgeny,
+> I found it by code inspection, not in the field, and I don't have a
+> hinic3 card, so it's untested on real hardware; I reproduced it by
+> injecting an out-of-range length to get the KASAN splat in the
+> changelog. The netdev bot asked for these same two things, so this
+> answers it as well.
 
-Thank you for your work!
+I see. That KASAN splat makes it look like something that was really
+reproduced. I assumed jumbo frames and aggregation at HW level.
+Just because a field is 16 bit wide, it does not mean the hardware will
+utilise all its fields. 
 
-I am thinking that a quirk with e5 in the name is a bit overly specific...
+> You're right that the bare drop is unhelpful. It only surfaces as
+> rx_dropped via ndo_get_stats64, not in ethtool -S -- hinic3 has no
+> get_ethtool_stats, and the stats series in net-next doesn't export
+> dropped either. I'm happy to add a net_warn_ratelimited() on the
+> discard path in v2; it only fires for a misbehaving device, so it won't
+> spam a healthy system. Let me know if you'd like that.
 
-That code has never been handled and is just the EC repeating some settings.
+I would suggest to target net-next if this can not be reached and is
+just there to address a possible overflow. Maybe a warning if it was
+reached after all. Fan has probably an opinion here.
 
-I am thinking that perhaps the best thing to do is just create a case 0xE5 that
-simply does the ignore with no quirks check and a nice comment outlining
-why it is done.
+> For reference, eea does the same thing -- it drops once nr_frags
+> reaches MAX_SKB_FRAGS.
+> 
+> Thanks,
+> Yehyeong
 
-I don't see asus repurposing that for something else honestly so it should
-be future-proof enough and will potentially avoid this to other models as
-well.
-
-On the other end it would be cool to know what that really is telling us...
-
-If you don't come up with an answer I would defer to Ilpo whether preferring
-reducing quirks or keeping the symmetry within that key_filter function.
-
-I am fine either way.
-
-Best regards,
-Denis Benato
-
-> Signed-off-by: Evgeny Volferts <eugene.wolferz@gmail.com>
-> ---
->  drivers/platform/x86/asus-nb-wmi.c | 17 +++++++++++++++++
->  drivers/platform/x86/asus-wmi.h    |  1 +
->  2 files changed, 18 insertions(+)
->
-> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-> index aeb461b1644d..8d69231d25a0 100644
-> --- a/drivers/platform/x86/asus-nb-wmi.c
-> +++ b/drivers/platform/x86/asus-nb-wmi.c
-> @@ -150,6 +150,10 @@ static struct quirk_entry quirk_asus_zenbook_duo_kbd = {
->  	.key_wlan_event = ASUS_WMI_KEY_IGNORE,
->  };
->  
-> +static struct quirk_entry quirk_asus_gu605my = {
-> +	.ignore_e5_wmi_event = true,
-> +};
-> +
->  static struct quirk_entry quirk_asus_z13 = {
->  	.key_wlan_event = ASUS_WMI_KEY_ARMOURY,
->  	.tablet_switch_mode = asus_wmi_kbd_dock_devid,
-> @@ -562,6 +566,15 @@ static const struct dmi_system_id asus_quirks[] = {
->  		},
->  		.driver_data = &quirk_asus_z13,
->  	},
-> +	{
-> +		.callback = dmi_matched,
-> +		.ident = "ASUS ROG Zephyrus G16 GU605MY",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "ROG Zephyrus G16 GU605MY_GU605MY"),
-> +		},
-> +		.driver_data = &quirk_asus_gu605my,
-> +	},
->  	{},
->  };
->  
-> @@ -690,6 +703,10 @@ static void asus_nb_wmi_key_filter(struct asus_wmi_driver *asus_wmi, int *code,
->  		if (quirks->key_wlan_event)
->  			*code = quirks->key_wlan_event;
->  		break;
-> +	case 0xE5:
-> +		if (quirks->ignore_e5_wmi_event)
-> +			*code = ASUS_WMI_KEY_IGNORE;
-> +		break;
->  	}
->  }
->  
-> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-> index 5cd4392b964e..e7772397cd10 100644
-> --- a/drivers/platform/x86/asus-wmi.h
-> +++ b/drivers/platform/x86/asus-wmi.h
-> @@ -41,6 +41,7 @@ struct quirk_entry {
->  	bool wmi_force_als_set;
->  	bool wmi_ignore_fan;
->  	bool filter_i8042_e1_extended_codes;
-> +	bool ignore_e5_wmi_event;
->  	int key_wlan_event;
->  	enum asus_wmi_tablet_switch_mode tablet_switch_mode;
->  	int wapf;
+Sebastian
