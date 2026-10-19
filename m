@@ -1,53 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435641;
-	b=YqhoK5i+4sIgIuoOoCKKT2Dk7fDQDQA+cWCRki5Z1rdYAjJv2Ak6ktcUbLHjiahcaGVP
-	 RjfsFbboxinMpeXsYpqFMbHrsTFn0ttYYqVBE37JtDflnpv1FzhiNLIylcm0dXKLpFEUd
-	 8+ntisomHQF9buFwS4q+KB5xCRnAO5/N4t4Os9DlY5QjhZMOQr64NQMYI5h+ZCNA54YvD
-	 tMKxidjbTPgtZAtzjMCXXffVmHOtf5Txj7zQ0lkNw4YVa5+96uNF9O9Wqlrcmwg8hkQwv
-	 v51gy8pkPzRclqL7h/iInl/XkOPNBBYirt2Bdt+cy9VGjTf9DExnSqJI85d/Cyarh/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435641;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:Autocrypt:In-Reply-To:Content-Type;
-	bh=8lRJe6qcL32g26xvlmRfstXqu2NrULSP/zOENc5q8uM=;
-	b=gM6QbpTwg+Hwigie/C1VLbIG69Pt4AwittI6J2hZk9CO+VdsdTA1FQDvGH1P2dKwSgEy
-	 iWhMpuc6YsLyCT5XVwfA4Fid3MspP1FZ/vVKIMkW6NBqXyuKnmg86WyWk3DXOeapTHB5q
-	 OLuw0yrBZzF8cHSgqfZLA2GhERgvg9M0dPxjak/CahzMZHJgvUgjbI9ragBRbKRO3VIsT
-	 gOxs04tKBksGrNcosPl+goUzUl2xjTXD2ud9Qe1AbXeMk+e2N8thHQLZd3++vZg5lkk7O
-	 HfzQxaCcVH2mOE3bVsd2+KxIOAN7V8kbdurKoCNMcRLO4JSOwCZOUy5hx4tYgncmU2A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=XSgqmx6G;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=JV+d0HXt;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792435640;
+	b=RwOq3m4mdbqgO4J8uyVKLre2u9iNdoPztY+J/N3koClKLfIlEAnPd8xhHprtTF9S2FcA
+	 WMh9aW1nWoRBFwIpCr4y4mXfiF5BrBXuVoxOxi4zSnZWRrg9mXNRWFUJoGujx0C2yLRv9
+	 kNW0iARLVXKWJ1vh+Yembpl/vrvnX8AK1Myy2AOQbvw/ZNkkfSfKrhWA7EgS7CsimVWYd
+	 WM11UmzjwBQm4O/3CIn45MWc3rFdsDIJg8MwijWeG8Kw+w22Z/uv7ETPF00J/P6WL5xQO
+	 auETsP8US5qOQ8yFyWtzUOYLlTZBAlnsskphYJHYxuPUjxZ99KAHpNZXaiplMmt3uHw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435640;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=V41ZP6u0L0y50jwnS09ezlAGGz+bWXVLsjSU2rSv7VE=;
+	b=DgnEL8MN7ZsjjRHjGFm7Xywkph9gWuFLvOv+0u3tq6tQ4FY/wC7njgVTrE4N4sfuL6M3
+	 Sf8cCjGcrlhxcDaMb4zWdrLU3nQdFwjGUyjDIdKN+iaKF618Y1Vw69qS3kSAK/yIhvlBH
+	 iQcZxVdYQLeSlGavCLNy2kKzEkwbrgRciX+UFKvZgxlcQVmRmbnAMOviKGqZHiIASpAFu
+	 WdsjfA0TkaZtTj88yS8DsErAMsqu5gH4aHxVg1xNsB5yg+VGnkn9ErQ6CANcoclmU5E4f
+	 2uISL5bnzT3MX/unoXb7kxw2GrW0qd/+/hZV/lGxLTnFRD5PPAdCYFeSN2OAYZeO/Zw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nuro.ai;
+	spf=pass smtp.mailfrom=nuro.ai;
+	dkim=pass header.d=nuro.ai header.i=@nuro.ai header.a=rsa-sha256 header.s=google header.b=HdbbqcsN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10BC606A32A;
-	Mon, 19 Oct 2026 18:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A10BC606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356EC606A328
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:47:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 356EC606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuro.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=XSgqmx6G;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=JV+d0HXt
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1792435619; bh=8lRJe6qcL32g26xvlmRfstX
-	qu2NrULSP/zOENc5q8uM=; b=XSgqmx6GJFEc55A58Z69kzM+ZxM+9OMpCkmlyMX8PMhn0Trq5Y
-	o8SKSZQ44tSyEo/EJu0Aes9S9Rp9xU1d9zDg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1792435619; bh=8lRJe6qcL32g26xvlmRfstX
-	qu2NrULSP/zOENc5q8uM=; b=JV+d0HXtsgjVFmk7ygN7jYk+YTiX17byMVPzU1/L1+GnxvHSMT
-	Ua6wxvFAg1d+xBFx2TcaxeX932UyYGPXM05oUpdgSKJM6Y6X5ZRqH1/aUhhT7Ls0h1A2fBqllL9
-	sLOw91ZnZ1w60mjxk7NEYaL2V2ryqQTxe4H/5Pef+BdCExdP3jtBddJ3cpL/khngdkkQk8oH9Wo
-	5qY4eOizsTHQZ00YsesGn6r1naQAyuAbv3OsSJ14r6/4JHlCRo0Ihg/1BLMPrjE+IRS4ezfwaS0
-	ZtqZjKciYakJgIbmswyAf08FIwpFvzIusV3Iw32a7iihCr6u4Aq6nc0x+zW6DxXTiXw==;
-Message-ID: <4fda6ac5-b6e9-4c95-a671-5a9aa86a4c38@erebion.eu>
-Date: Mon, 19 Oct 2026 20:46:58 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=nuro.ai header.i=@nuro.ai header.a=rsa-sha256 header.s=google header.b=HdbbqcsN
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so5230010eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:47:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792435638; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ohUHaNu5LYq8MOv9/YXmtzmDCP93q6WSjMohYwAkeTF1nv6uaMvrZ6svAdHQbSkB2g
+         AjpdHLLkwofIDsYprIuTFuOch3Mxbn/CJXOlSyMja137hgxsKwc62LT9CpfmHfRpkYWj
+         uU4hiO7OielMzxxjf2jX3nI5p4zGM9VjPNXEA5HW+h/9X0Iu2/DF72zhEYId2MJKgvga
+         iN51FbZjURDYtsGcyWuHnscXMDDWVdO0zKVDgaxSuuSJmi3feKkwqEpx7R+DBQqfBY9+
+         Id0VllR3ih7eBq65uFYMXx+kqGDPfa3AVfRYr2TAAGyUg05pePL8yWbgQ8i2Pbnbcd8e
+         FFzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=V41ZP6u0L0y50jwnS09ezlAGGz+bWXVLsjSU2rSv7VE=;
+        fh=ZWhum5diU3e2EhmdhknvKnDxQfSuXGEHVBg5Nrc/r7o=;
+        b=JoyNnVNAUPVQzZaoDz60arpYn7C4ArQ0TMH29nxrIYQVPreUdSbr2AwJX8nRrMbGQF
+         RXwokAI9WxU/0E+svFhYb9jyqEuIbCGwC7z3kFlmg+Q5Tt0LGLBgk2JRKOy+wzgTCP7A
+         +yZauWnKL7EEA7ebDiqPfVFm/uUlNu5ADKU+iy41uqrgWGfP7yJLmc8VkovUBiHBTQZ/
+         hlIMKIjAU8dHF7Iju3twnrkdls0WhNqwwSCIH1JtE+3DoEss9VuGXglSynco+4bOKuI5
+         H6YtMCzLSBDbomRyh96FJ0HxL2fDjacju9Q52rtDVmrjvN87Y6PnErVYYBeX7hhQXnY1
+         orcA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nuro.ai; s=google; t=1792435638; x=1793040438; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V41ZP6u0L0y50jwnS09ezlAGGz+bWXVLsjSU2rSv7VE=;
+        b=HdbbqcsNlbSUxrGK0SmNnBo/A8+7Z+3bpX9YyDHWAVZxEML6XAINgzSNRLVOOXEUQs
+         Jt2tpwaSToRL6P1ArM6DBqs5sUhi51b83zmoHDlV5dJYi8u/bxfFd+/X8pWrH2e7e5w7
+         ff+XriQfkNLGt/CxhAm/5mtuxZFMI5a9dquBpqYz4sqUy8nzhTxEZqYKJl1FPBoiAXME
+         3tmvJCY8a7O/j2VLR/hdUrJMpOhbNikLiFTQRH+ysGzJNaVi6Kx4Sd2jci6bNu75rBGZ
+         P7f9HWxX7+q9YalVM3aMYcs9Z/N8wc7HGRjmIUdJNbdkpodeuQUWDgh2xdUUNv5y0cpX
+         gdug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792435638; x=1793040438;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V41ZP6u0L0y50jwnS09ezlAGGz+bWXVLsjSU2rSv7VE=;
+        b=f0t1kDJ76uO6E2C85JD1jutIRkqpNz5pdC9caTRvLS9VOmBKhlc7F0Y41ZQozuySTL
+         bNbjOcMGH+Owxb4fwiUmRYpt/0/mZ2OrV4q9eOZ/LH58MHeN6FPqLtTdLoYUwDTKII/9
+         WsbGQaNwOQEOrZAxoSHApJCUdG/in+dQf90CM6gN7Kc/fJRKyPgiKzG1i6hIwKWd9uge
+         z/4omEAeV9bLhvHb6z6aZ/V38nSH7dWh38zF3iajL8zC7QjulyEhixkBmD2HPGC99anD
+         cYqNd8qrGS26eyZTB5T1G6HwkxyljEkVwfNFOG5iI0OvupgvDCH7GE7KBvpafYQMpCpM
+         0J1g==
+X-Forwarded-Encrypted: i=1; AKwUvBz1MRF1VGZ5p5tp1+Wn4oKMxJPeJ99mCAL7T2Xfgh4KoypQpK6Im7uTto82vHb8JeBXg3bS2VL6UxGxBEc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCb/8Vol+fhgzP6npnFDQIOLY+MqCcq4rqVICfkfRLqPFd6puR
+	rL0DVQNAy8jrZx2uXar8f0fE/AspCiDqNR91XE4HYjm9Ehby5A/+5hJxtmKqvXkQth6Gk1+tH3w
+	Tt1foeO4KT98Cl0HahxyJLOXN8fUzACTNXbODZ14DTA==
+X-Gm-Gg: AYBFou1xV4HPBDwgixbHO/vznGtBBrgfdIchYWdy7tiZGkqoZ77UiGEM3zpJN2FuWbt
+	AyDvVMeAR/4PDT1aVFBBVplK8ALP9wm+U1F9XXYii+oSTsQh8trczzTQev9JqvS4xIgGWmN7ySB
+	MGOLwxfQawrB9jQbH4iCVycYXK8Zk1oJde5HHMli/vJ82ZN8V0j/ERjhJ0T//lpHDEFg+I2xrbn
+	0rkhx8chcw/PsgC9ZuPFKUQrsf2Ib4qNhmgcsFmydTBi/bnjAVgjWSvScpV9jYDcWTJGLwSDJ4P
+	R19oc0ta5WwL2/TF7ZS6IIutiTDZ38aEH8+RyIJam9VrJAPS9xN/hiS2FLtctyYmdg==
+X-Received: by 2002:a05:693c:808c:b0:353:7e28:9c58 with SMTP id
+ 5a478bee46e88-361a3323b50mr13739930eec.41.1792435638102; Mon, 19 Oct 2026
+ 11:47:18 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,101 +103,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] arm64: dts: qcom: sm6350-lena: Enable PM7250B
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
- <20260926-pdx213-upstream-3-v2-7-b4612e3eb536@erebion.eu>
- <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------H90K3fw2jYTnIrWn1g01WfTJ"
+References: <20261019174258.1375583-1-jkain@nuro.ai> <CAL4WiipkRkOnc_QJ51g6_9uB=pTeCSp6U8L-YVD2ytuZn4g5Qg@mail.gmail.com>
+In-Reply-To: <CAL4WiipkRkOnc_QJ51g6_9uB=pTeCSp6U8L-YVD2ytuZn4g5Qg@mail.gmail.com>
+From: Joseph Kain <jkain@nuro.ai>
+Date: Mon, 19 Oct 2026 11:47:06 -0700
+X-Gm-Features: AclHuK8UH1QOH2EFc3ZT-WkryAT5MFnjmPJLltAW_ky2Q_LYaLtOPSHKqrEXEko
+Message-ID: <CA+Y90PjRyR2czC_Y8G3wdttj2YoDMb+OfPDR1_KGhbu0rDquxQ@mail.gmail.com>
+Subject: Re: [PATCH net v6] net: schedule a purge when the defer queue rejects
+ a free
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, 
+	kerneljasonxing@gmail.com, bigeasy@linutronix.de, clrkwllms@kernel.org, 
+	rostedt@goodmis.org, linux-rt-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------H90K3fw2jYTnIrWn1g01WfTJ
-Content-Type: multipart/mixed; boundary="------------FDJmtutktn8xqKdrIpzVE0Qk";
- protected-headers="v1"; hp="clear"
-Message-ID: <4fda6ac5-b6e9-4c95-a671-5a9aa86a4c38@erebion.eu>
-Date: Mon, 19 Oct 2026 20:46:58 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] arm64: dts: qcom: sm6350-lena: Enable PM7250B
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
- <20260926-pdx213-upstream-3-v2-7-b4612e3eb536@erebion.eu>
- <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
+On Mon, Oct 19, 2026 at 10:58=E2=80=AFAM Eric Dumazet <edumazet@kernel.org>=
+ wrote:
+>
 
---------------FDJmtutktn8xqKdrIpzVE0Qk
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> Say not to very verbose changelog, that nobody will read.
+>
+> Since commit 844c9db7f7f5 ("net: use llist for sd->defer_list"),
+> skb_attempt_defer_free() increments sdn->defer_count before testing
+> it against skb_defer_max, and keeps the increment when it rejects.
+> __skb_defer_free_flush() returns early on an empty list without
+> clearing the counter.
+[...]
 
-T24gMTAvMTUvMjYgMTI6NTUsIEtvbnJhZCBEeWJjaW8gd3JvdGU6DQoNCj4gYXJjaC9hcm02
-NC9ib290L2R0cy9zb21jL2NoYXJnZXItbGVuYS1jb21tb24uZHRzaQ0KPiAxODogICAgIHFj
-b20sb3RnLWNsLXVhID0gPDEwMDAwMDA+Ow0KPiANCj4gc2hvdWxkIHRyYW5zbGF0ZSBpbnRv
-IHRoZSBtYXggYmVpbmcgMSBBIGhlcmUNCj4gDQo+IEtvbnJhZA0KDQpDaGVja2VkIHRoYXQg
-YWdhaW4gYW5kIHlvdSdyZSByaWdodCwgd2lsbCBmaXggdGhhdC4gVGhhbmsgeW91Lg0KDQot
-LSANCmVyZWJpb24NCg0KWE1QUDogZXJlYmlvbkBlcmViaW9uLmV1DQoNCk15IGxhbmd1YWdl
-czogR2VybWFuLCBFbmdsaXNoLCBTd2VkaXNoLCBOb3J3ZWdpYW4sIERhbmlzaA0KWWVzLCBJ
-J20gYSBsYW5ndWFnZSBuZXJkLiBGZWVsIGZyZWUgdG8gd3JpdGUgdG8gbWUgaW4gYW55IG9m
-IHRoZSANCmFmb3JlbWVudGlvbmVkIGxhbmd1YWdlcy4NCg0K
-
---------------FDJmtutktn8xqKdrIpzVE0Qk--
-
---------------H90K3fw2jYTnIrWn1g01WfTJ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCatZlogUDAAAAAAAKCRCOr0AybgKufcOQ
-AP9yABAksAOzQkkp/37NV1Jto2w2xrpXku2ghU37JtTZ1QEA2VVc1EF7TAvaTPnMs/SO5CmQB9+b
-XiqaUT9UBcAI2Ag=
-=M7OE
------END PGP SIGNATURE-----
-
---------------H90K3fw2jYTnIrWn1g01WfTJ--
+Thanks, I'll use this changelog in v7.
