@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429732;
-	b=2kLWo+DwtqbZo3cmjqeHFL3a328gZHoe760nepM1zmgXS/mHRu83b6MqU/iQKRDuVj4Q
-	 kxhLBLb2iwPMmgHC+NXjJYEIDOqxjVho39dMuzabz+QphxKPRzR9+1aPJ3ivK4nxyukIG
-	 TgLJz3CtcPUL0F9lhxl69I2y/dWgb69SVwBOjuMdbvyJl4wideaq/WeJYqSq33RN7kjCb
-	 Pcl8sr2cn+mwVEz9JDWoowKXvsObDfUjy4qqU3QqzTYQvn0EixM6TNx8q3Ez+A2NuVo/0
-	 rsczXiM20s3yn6mKLK6c9m2fEhHrA/hjwQ33bj08omE6nuqcc7+3ZNA8YewK/30idOQ==
+	t=1792429900;
+	b=o+1tGLTi5nvKAGgmlhmuZfRvkRuIHKTuvgcQ3u7X4Y8moLMyb/EwZwSbXS7+JfDrisUW
+	 +RbdNtl2DnWLwl4qlMaZgSrdDUArRMdIuGoSYNScsPj6e9IfTkqaKbSHgXKLz2yuFwBIe
+	 2OzJgd/3gtzyBSLIp2yEAau2hQy1tueDU5Vo1FGpeRex7AesHM2Ul/K8w7KX3XLrs0XmX
+	 NojUFVtqoW/CB/5PsgLeeOVKmKr5fAG+ZARi/2xKus/89uuVageGLbkhEf83mWulaDqG/
+	 3nBufmgyBk0vCRZJxdVv0AQU07yPyTStP1t8XmT/R2b+raDVZhPAo3J9q7C6wrP5/tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429732;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=H7k9Iqs7nqmgbTx9iPYp3EUuEUIbHa6CKRQHNpNJJgo=;
-	b=zGmQWiCYsgz/n/puc+WOwM219TgJYsicV45l1niDxhN+TnwH3AwPgN4D1Dr+m50MwR0D
-	 kDrbkhnN2/Y6hzWr8vVtMeKhs3PdvrUFU/Aw1zn4mP/Wz6VamRv5jo2eIhntkNEptEr+B
-	 h0DygunX0AVEp1+Z1FCmkbbfIVHi/FHEnAjTAz6zlSIF9ewORGYvfvWE9JwSZbwkG53P2
-	 s5LJTOGgpY/lMwYDoQ+6GX7XDmdIv08nvVu9OVe7GwLlOXxcELUzPzL7OmyI5gnC4cfzj
-	 FqxT1fvHOUg3jBbjRXNuFx3H3Jh4PCFjgKN2VBIfB0jk8EpoXNXYtzGRM75q/9GlmLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429900;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References;
+	bh=YetlC2DWrTczo/ff9ftzwmRiksXgWppu1i+EPuNzzb4=;
+	b=1Nkr7IRGLi/Ap8dHK5bUIBHqSK1uSFPJzeguF+Ho/s7AWJ2mHAH694qU8VZV+3I2VC3O
+	 LkxvtrsHfRboRy/YAfpgtB5tnFVvutYW+EUqglaDWJs0Q7wixvZ8oHwZYU5V58CBwI049
+	 J4roncGhd73V4R6DsbY5b0qshfU8DoahqLq3PnvUOdMIQOx6rCs2VlMMeE9szFUda8sVQ
+	 LCikCD53Oxm6fM37MurArJXBkTJ3vBqRGd23K5kplvLriIM8cX/exl5D/r47ni6623fQj
+	 27XmcZdGiPLW9pj3lFeEkk8BPEuxXvIOukxviWYaADM65fmCsXeSk5OmS5iWc7geBFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FCRCj27h;
-	arc=none smtp.remote-ip=209.85.214.196
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com [209.85.214.196])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlXZido4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2256B606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:08:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2256B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91AD606A322;
+	Mon, 19 Oct 2026 17:11:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FCRCj27h
-Received: by mail-pl1-f196.google.com with SMTP id d9443c01a7336-2e9cf928dc9so8430955ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:08:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792429730; x=1793034530; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H7k9Iqs7nqmgbTx9iPYp3EUuEUIbHa6CKRQHNpNJJgo=;
-        b=FCRCj27hrs1m6UPIW1/wCgZ0OcyBJwR4HZ9Xvyfho9JVoG0WdKlR/15jAWIDnxxayo
-         QFYziwXks1uqraHg1uni51bOPAXcRcRa0HhEbn+GtP8hIWGOidjYCizQq7q9MttN5lWL
-         iUKj94legljuVi2SkW02e8l2GZrEy/HL0dnZbWandK+PDaC9ooamYTme5ZHUxBfe3g20
-         +0oc83OS2H7/1xvIE9LUnVQcB6khRU08MHMgBgE010hOJBN8uXKIHweHeYcq27gYEZc3
-         3IoYYDWTplK6PpG1X+W8gJdyuIiU0B35WSIIuMGyr50e4Ho0HEYlgPTYTtKZEbx8lcPl
-         /vSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792429730; x=1793034530;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=H7k9Iqs7nqmgbTx9iPYp3EUuEUIbHa6CKRQHNpNJJgo=;
-        b=co4mo9P9cBJ52ppg+PDbSq3vhXmY+NUisVVzu0cOTJZLwPAIJELApAvKq7po//1ryW
-         iaLSLn9RTWat5fDt0qM1WPx6wKRMZryC91i5AcVmL2hfvKliq07qJ/iYF2AdaeHE5bJ1
-         qRZ6FS7uBfrhS0yOP9IaD/MyXPx1sxtGxvVJTTXpDRLVG3mJ67AaDnuhic8oHSRrXQg4
-         inbPWMluqfY8fjmkE+BPcGqCW5Zn+OFP06uDBeUrVshfEtFIcBFzC/obuRnJwMjIZ/oQ
-         RxLGIVLRzLI7SxPX/PLzfkpmCIGadw+6GRkoMKCQCsaAeiy1Db0RCgrmB5MiDt0BYJRO
-         RDgA==
-X-Forwarded-Encrypted: i=1; AKwUvByyALOyYFyy7KeBgq3ZmQX5zp03m2i+yTE6fLMum9bxtp8Tn82Y+S/D5tgmqTVtFVYsFS3lcpo1WFGGPlU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJW5ut+5aGCGmOePwPq/rz6A1n08LEO2AKxcOmfe59h+mbyg5JQ
-	/BwQxYUm1Wh2iBcIOOeyEuC1ie0Nw3h35w8tWFUw5+4Kq9uyMra0GZDZ
-X-Gm-Gg: AYBFou1zWbpDCOiVjCtslF5o3Mxxu6ZKJh3vHrLjxVmnq02xgucguv23qSGiwRlJKIG
-	bwzxUjhdNOup7n1GGJGx+kXyNxQyMotV3wdYpCHcC6wiY20deN4VpFvGRWxm1oL4sIWLB8XSBV7
-	zuOpVezpus1pqqNvCHncmJG9k55JuCsG/jLpdjdDEpJ/t3+7Fb/wpw6ehzW97tzh8lQIyE++hv3
-	ZfezAzeyOaa3dzkCXeTjsP/UE5c1F9OE5a8ixYB55+XkCR4vYxcx5s5LHzZFh0wDOmQQrSaiGaA
-	VzSQrDXxjPUayp7Nq2a1xPEuWZj4wmsX4pnvIUiHM61LaDSyo7nJBmkvuhgFM0t/husunjVbMFV
-	lcPX0BF2imXCRhJsp7CgzTEoVRhPsMzQiX507R2tjfwLFkc4nCJf9ANYf4hgvI7Q3t1HqSVFd3y
-	MLZf4SgYpdp0rN3bYaEfysZdQXy6xhekvfXqXj/gDo4bacu4uwEAWJZvGbnzAcOUz52vMDgGPbq
-	4RcdLmyvi1GZ20FXohtxwbvexg=
-X-Received: by 2002:a17:903:4405:b0:2e5:ff87:57f3 with SMTP id d9443c01a7336-2e97756f245mr73000545ad.32.1792429730192;
-        Mon, 19 Oct 2026 10:08:50 -0700 (PDT)
-Received: from J4f-Laptop.localdomain ([183.36.237.241])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea1501e229sm3706735ad.47.2026.10.19.10.08.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:08:49 -0700 (PDT)
-Date: Tue, 20 Oct 2026 01:08:44 +0800
-From: Shihuang Liu <shlomojune6@gmail.com>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
-	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] Input: misc - replace strlcat() with strscpy()
-Message-ID: <avxqxhctzivudv7ixjqbl6l3g6x5xxg3nb5v3o5px7brdheitj@qrhj3ki7kdso>
-Mail-Followup-To: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
-	linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
-	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
-References: <20261016170411.51025-1-shlomojune6@gmail.com>
- <20261016170411.51025-3-shlomojune6@gmail.com>
- <atXHuHxCqqkIuV2w@debian>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlXZido4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C2651F000C4;
+	Mon, 19 Oct 2026 17:11:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792429899;
+	bh=YetlC2DWrTczo/ff9ftzwmRiksXgWppu1i+EPuNzzb4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YlXZido4oeGqEoNTsCfSLUQPrcias3BpVYyLDJrCoED7b7Hjc28hjYp5dz/xPQ1O6
+	 nq79pLrIBdYcavs5MDOFjOd00/YUUnGlnhn1WMGKVqpRYHvj72tTMS/NhiQpjNuk6J
+	 WqepAXFxM5GQXtCWrRYWBT0DFnj/dn4zqQJo/I8mW6q+DKf1fiebF7/3n3007On0K/
+	 UHMWi+k1umvNhLt2ML1tQ/aFIA1IN26GXjz56PlV7Hqu79X+cquI8HucQVh+N4Wr57
+	 7zmKpo6VTfskyv1w2+mbWy/VlWXPLD0t+Inm8DqC8I7iV1nRB18sVTitldQYvrBP2Q
+	 FWFlElIGe0fuw==
+Date: Mon, 19 Oct 2026 07:11:38 -1000
+Message-ID: <803525ea614f78908df69335e909f748@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Andrea Righi <arighi@nvidia.com>, Kuba Piecuch <jpiecuch@google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: manual merge of the sched-ext tree with the origin tree
+In-Reply-To: <atZM-tXvYuR1bE3z@sirena.co.uk>
+References: <atZM-tXvYuR1bE3z@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,158 +57,17 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atXHuHxCqqkIuV2w@debian>
 
-On Mon, Oct 19, 2026 at 09:48:26AM +0200, Alejandro Colomar wrote:
-> Hi Shihuang,
-> 
-> > Date: 2026-10-17 01:04:08+0800
-> > From: Shihuang Liu <shlomojune6@gmail.com>
-> >
-> > The ati_remote2, cm109, ims-pcu, keyspan_remote, powermate and
-> > yealink drivers build the physical path by appending a constant
-> > "/input0" suffix with strlcat() after usb_make_path().
-> > 
-> > In preparation for removing the deprecated strlcat() API[1],
-> > replace it with strnlen() followed by strscpy() into the remainder
-> > of the buffer, as commit 34b228b739f5 ("HID: usbhid: replace
-> > strlcat with better alternatives") did for the usbhid drivers.
-> > 
-> > Link: https://github.com/KSPP/linux/issues/370 [1]
-> > Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
-> > ---
-> >
-> >  drivers/input/misc/ati_remote2.c    | 4 +++-
-> >  drivers/input/misc/cm109.c          | 4 +++-
-> >  drivers/input/misc/ims-pcu.c        | 8 ++++++--
-> >  drivers/input/misc/keyspan_remote.c | 4 +++-
-> >  drivers/input/misc/powermate.c      | 4 +++-
-> >  drivers/input/misc/yealink.c        | 4 +++-
-> >  6 files changed, 21 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/drivers/input/misc/ati_remote2.c b/drivers/input/misc/ati_remote2.c
-> > index 8db2dca84975c..929163f52177e 100644
-> > --- a/drivers/input/misc/ati_remote2.c
-> > +++ b/drivers/input/misc/ati_remote2.c
-> > @@ -767,6 +767,7 @@ static int ati_remote2_probe(struct usb_interface *interface, const struct usb_d
-> >  	struct usb_device *udev = interface_to_usbdev(interface);
-> >  	struct usb_host_interface *alt = interface->cur_altsetting;
-> >  	struct ati_remote2 *ar2;
-> > +	size_t len;
-> >  	int r;
-> >  
-> >  	if (alt->desc.bInterfaceNumber)
-> > @@ -823,7 +824,8 @@ static int ati_remote2_probe(struct usb_interface *interface, const struct usb_d
-> >  		goto fail3;
-> >  
-> >  	usb_make_path(udev, ar2->phys, sizeof(ar2->phys));
-> > -	strlcat(ar2->phys, "/input0", sizeof(ar2->phys));
-> > +	len = strnlen(ar2->phys, sizeof(ar2->phys));
-> 
-> Why strnlen(3)?  ar2->phys should be a string, right?  If it is not,
-> then we'd already have a buffer overread in strlcat(3), and then the
-> commit should be reporting a bug fix.  This should use strlen(3)
-> instead.
-> 
-> > +	strscpy(ar2->phys + len, "/input0", sizeof(ar2->phys) - len);
-> 
-> NAKing this.  This is precisely what strlcat(3)'s documentation in
-> OpenBSD says you shouldn't do:
-> 
-> 	Since it is known how many characters were copied the first
-> 	time, things can be sped up a bit by using a copy instead of an
-> 	append:
-> 
-> 		char *dir, *file, pname[PATH_MAX];
-> 		size_t n;
-> 
-> 		...
-> 
-> 		n = strlcpy(pname, dir, sizeof(pname));
-> 		if (n >= sizeof(pname))
-> 			goto toolong;
-> 		if (strlcpy(pname + n, file, sizeof(pname) - n) >= sizeof(pname) - n)
-> 			goto toolong;
-> 
-> 	However, one may question the validity of such optimizations, as
-> 	they defeat the whole purpose of strlcpy() and strlcat().  As a
-> 	matter of fact, the first version of this manual page got it
-> 	wrong.
-> 
-> <https://man.openbsd.org/strlcpy>
-> 
-> The right approach is to have a function that does the right thing.
-> There are two viable alternatives:
-> 
-> -  Write strscat().  It would take the strlen() internally, and so it
->    would be unnecessarily inefficient.  Prefer the next one.
-> 
-> -  Write stpecpy().  It returns a pointer, which allows chaining easily.
-> 
-> Here's a viable implementation of stpecpy():
-> 
-> 	char *
-> 	stpecpy(char *dst, const char end[0], const char *restrict src)
-> 	{
-> 		ssize_t  dlen;
-> 
-> 		if (dst == NULL)
-> 			return NULL;
-> 
-> 		dlen = strscpy(dst, src, end - dst);
-> 		if (dlen < 0)
-> 			return NULL;
-> 
-> 		return dst + dlen;
-> 	}
-> 
-> This would need to be accompanied by a seprintf() too, which would be
-> used by usb_make_path() to produce a pointer suitable for chaining.
-> I've been working on adding those.
-> 
+Hello, Mark.
 
-After sending this patch, I noticed the following comment from an
-earlier patch:
+This one is also already resolved in sched_ext/for-next by a5ba5c61951d
+("sched_ext: Merge branch 'for-7.3-fixes' into for-7.4"), which applies
+the rename where scx_reenq_reject() now lives in ext.c. The sched-ext
+side of your diff matches for-next as of Oct 9 (a8acb152ff95), from
+before that merge. The current for-next (24c453aa8598) merges cleanly
+into mainline.
 
-> We don't want to do this as merely an open-coded strlen/sprintf; it doesn't gain us anything.
+Thanks.
 
-See:
-<https://lore.kernel.org/all/202609151055.AFC6267@keescook/>
-
-Replacing strlcat with an open-coded strlen + snprintf, or with alternatives 
-such as strnlen, strlen, or strscat, would not provide any meaningful benefit.
-
-According to Dmitry's reply to this series, my draft proposal is to replace 
-the usb_make_path() + suffix pattern with a helper defined in the core header, as follows:
-
-    static inline __printf(4, 5)
-    int usb_make_subpath(struct usb_device *dev, char *buf, size_t size,
-                 const char *fmt, ...)
-    {
-        struct va_format vaf;
-        va_list args;
-        int actual;
-
-        va_start(args, fmt);
-        vaf.fmt = fmt;
-        vaf.va = &args;
-        actual = snprintf(buf, size, "usb-%s-%s/%pV", dev->bus->bus_name,
-                  dev->devpath, &vaf);
-        va_end(args);
-
-        return actual >= size ? -1 : actual;
-    }
-
-
-> If you want to keep it easy, I'd do strscat().  We can modify it later
-> to be more efficient.  After all, we already have the inefficiency of
-> calling strlcat(3) now.
-
-Great. Improving its efficiency is exactly what I would like to do as well
-
-Thanks for reviewing this and for your suggestions.
-
-Shihuang
+-- 
+tejun
