@@ -1,82 +1,93 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D64835200F;
-	Mon, 19 Oct 2026 09:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C53349BD6D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401177; cv=none; b=NxcUMUBZak623D7L9i3nJl6JJPnwcYUXp2fs3BOAfNQJ3OEUHC8aRoZQV2kq9cTScVkToGnom4pqrPABhK5/H+Z5sGi+8MZO53rlLoed9uwCntj23YM+VtBnhcHauG1LvfzWEhZMgAb+Zb8k1MpKOdqND1sWR65qLNerENm7YTA=
+	t=1792401179; cv=none; b=Gv3oFBTk5JqCdE/4mQdIJesn9Yzf+T9VR3dgX4v3onDqzHB3RbtR++jQjIUi9/9cDxuq/guvUXPrwHNalW0EbCf6yVsNkiutd62j0H6VBt2MWrvAN7/jqOCnfpy+Tmi9F6fgl9CmOQOAthTXfwTeFMlOO/Z9E52iB1LZ9qu0Ydw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401177; c=relaxed/simple;
-	bh=uL2/yGEIJSp+Pcj0y8exu25lAl4mGrxzhwzvqxe8CmQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=di3w/S/JZ9ik6Mb28vGIS9DFyoOOpBxoYVFWi4XMEqOFo+WiJZE64kioq03Cb6HwFuL6WRRAWa9pYMFU4+VDrsC4M20naHbc1V+5xLFRIZQhY3+wbYbVeN60/pzWWOGadMAspoXiAsBY2db26SeMa699w09KYlz08c6dGf6KSko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DwG/EqPv; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792401179; c=relaxed/simple;
+	bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G9d50Pz3s0OmT9KwXkHC8KGoBpufwSijKCrUPwUE7Vzkrrrp/klKzdmL3f7T0fcYKaIILTuhjteQqdCQEReMVq8YsA0gYdEH9gxGZo1LyBefMsonLsMANQ0eSvgD6M5UnPVWRlmchG40P6JAE6iQqdakznC0dng9uyIqHhnZRQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/P2EyqG; arc=none smtp.client-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DwG/EqPv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hz
-	oy/JuyOeqUSt5dp280ZfevZdMIILMp2cAQA5QZXSk=; b=DwG/EqPvBd54lekfUK
-	getHV02quQfJ7HKaRYlTpIiBSRx0zjTkvgLDzKOJSVh8XAdONrqo78649CieBI6E
-	1CMGkV3qr2uZvhL3Dzvd54vR4QQiAw+9XMunMW4pb24WBSAwR5Ak/q11nA+nkEBX
-	DbfM7CjjcmCeZpKLGIN73vGDc=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3NysM39VqKsG2BA--.42110S2;
-	Mon, 19 Oct 2026 17:12:45 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] Bluetooth: MGMT: Free cancelled adv monitor command
-Date: Mon, 19 Oct 2026 17:12:43 +0800
-Message-Id: <20261019091243.1847048-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/P2EyqG"
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-3535a54c09bso1832203eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:12:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792401177; x=1793005977; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
+        b=h/P2EyqG+vz/k5AG6bPvlzBTpbXciM8oS4PXFPyqt0gyHmhbnqh/x1ZCDItJLnJSvv
+         FHphneFX6sD1g1iyvN1I4vIly2ZNj02BmotmVvzZgIGzPOIrmeJQx1Ha+XfDQI40LrBz
+         qkP+UfQLzZc6oN36YZ1/vp1Bpc58q01to4oFpb2Et3bqBM6ZegHZPQigoFfxslIxEr2n
+         8UiWvDJL9gweZSzWbSeU18GjVYnOKalGoU75jeFOW8oNeTmkmo9gZGagpgd7ATOtQ6ct
+         pBTa3lAf4SgawdmIZCRfne9FW8otDRf5tQDJIuACHZD05aHwe0sqpBMOCJvCSOMYEQMC
+         BVBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792401177; x=1793005977;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
+        b=UoSR5qO5Tv1QICFk5c+HPA/I02ZI4JdS9/k9ArY3hNSdWff8O4aTVCbVpRvVePPIZc
+         ux+AU5b6xLrK3YDB4mBferYZcaWoOTmUmogMinPzLTzh/MrSU8+nj5DcU2tP9tiOfj5o
+         cOSCqwGe7E+XHhMAiYKa1am48s8KWw9YjrtXX15DmwrbDcuVzOEU1LvLkKx/EywKrcUZ
+         UOkH2NqaABOJW6X/0tb5kVVnb8Nngp5S1NeA+pJ1sE+uYH0HuCvD+0hapIAJtlab+pp3
+         RlKYVO7dhnOwTm5zJv71F6CXODUUl01ogEAUC6CN7AHNafhxWHVhG7jdc00kutPvWdwQ
+         PMEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzSfao1xy4Wi836G1MLCrFhKNa2bw6NNsSeR1j3l2bIFGnzHYdj3qTu9Lh0wqosfxAhR9J/W5T6eSqimd4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6QlpJM5ooFrlE4ei7Qk5VO3hcO1BYbetbXiUicjYC0buBybTp
+	stvJbB+3TakyqNoXMbb0kkatdF+jhthvLfBKwHK41Vb/oP1SYkUJKkiY
+X-Gm-Gg: AYBFou2Snua/sN1nsJiU3uGb7iYNh8ogz5KofLj+Bt92+BU/DxYCAO4Ock9tpNtoBhR
+	PNOyu5qmwqB/eXt8Rvl908RZPepojyQUzKPA/376rAtDIcpqIST68IgkUZMACpr1pCTbhSl/vA0
+	U9U1hsU3JAdPlMOvA81o9o8cdiSj/PZxuJMtZRphu2LRQ78T47YcT17RE0JdjMEvFPUhduLanmW
+	B55fYjAf91i4ggVATYZGWsyjH+RgL6qZx5ekw67tchm+kWQJLohgO8gPgCtP2qjmLSu10KCXPDK
+	FTy4mZuz6p3/Dyky6qA0DVamdK6A8oBHLWHtRSeKBUgY7bAhdPYUlwKj7dmAcIJFtximIpYtaG0
+	PCdciAKpZNNbJ2H/P6AAlIGmKHPx7+5f9L44gFdltT5vlWOd1fRkMSRnrAPOrE42tpWLcC9/r41
+	X/5s+Wm5RwhikwNBlzaqDLUsTGXAwq4pfrR5K3DRdPz4YH/TCY64g4g6/RSUOPIRHq0OL5fqHcf
+	mQgxchXgcQ=
+X-Received: by 2002:a05:7300:d588:b0:35f:4780:518e with SMTP id 5a478bee46e88-361a16609bdmr11651555eec.16.1792401177429;
+        Mon, 19 Oct 2026 02:12:57 -0700 (PDT)
+Received: from blue (104.194.64.109.16clouds.com. [104.194.64.109])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819be413sm30693119eec.13.2026.10.19.02.12.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 02:12:56 -0700 (PDT)
+Date: Mon, 19 Oct 2026 17:12:52 +0800
+From: yyaqia@gmail.com
+To: Helge Deller <deller@gmx.de>, tzimmermann@suse.de, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] fbcon: Include font geometry in the rotated font
+ cache
+Message-ID: <atXeFarSzZcJmThe@blue>
+References: <20261016073023.490430-1-yyaqia@gmail.com>
+ <20261016073023.490430-2-yyaqia@gmail.com>
+ <b93a87be-f55d-45e9-8705-74a5c63600ab@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3NysM39VqKsG2BA--.42110S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GrW7Kr43Kw4xGw4UXFW7CFg_yoWDKFgEgw
-	s8u34fAr4UGr4jyF1UuFWrWrnxKwn8GF1I9a9avFW7X3y5Gws0yrWkur13Aa4fu3WDCFn3
-	Ars8CayS9w4xtjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRtiSdUUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzg0LRWrV3w3rXQAA3W
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b93a87be-f55d-45e9-8705-74a5c63600ab@gmx.de>
 
-MGMT_OP_REMOVE_ADV_MONITOR uses mgmt_pending_new(), so its command is
-not on hdev->mgmt_pending. When the command sync callback is cancelled,
-mgmt_remove_adv_monitor_complete() returns without freeing the command.
-This leaks the command, its parameter buffer, and its socket reference.
+On 2026-10-18 16:05, Helge Deller wrote:
+> I've replaced the v1 version of this series with this v3 version
+> in fbdev/for-next git tree for further testing.
 
-Free the command before returning from the cancelled completion path.
+Sorry, the patch was not good enough, Zimmermann reviewed the code and I
+did some modification after that. So we might need to switch to v4
+version, sadly. Anyway, appreciate your continuous work for testing.
 
-Fixes: e6ed54e86aae ("Bluetooth: MGMT: Fix UAF on mgmt_remove_adv_monitor_complete")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- net/bluetooth/mgmt.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 251a896babd5..e54a838aeada 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -5682,8 +5682,10 @@ static void mgmt_remove_adv_monitor_complete(struct hci_dev *hdev,
- 	struct mgmt_pending_cmd *cmd = data;
- 	struct mgmt_cp_remove_adv_monitor *cp;
- 
--	if (status == -ECANCELED)
-+	if (status == -ECANCELED) {
-+		mgmt_pending_free(cmd);
- 		return;
-+	}
- 
- 	hci_dev_lock(hdev);
- 
--- 
-2.34.1
-
+Thanks,
+Yao Yiqi
