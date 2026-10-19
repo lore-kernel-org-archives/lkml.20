@@ -1,189 +1,101 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61AB0494828
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C8431BCAE;
+	Mon, 19 Oct 2026 08:13:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397588; cv=none; b=dODOo0C34EGZ7yrPaA+DNGWMGEdsZj41g7YXvmwroMsDh76yZFOkVLZnq0Dd/E7JssiUCmNRyNuO4yesP/HjkX1gl00etduzUCCrgGbBHRrmSsyKOm/KrpXifY0IOAyHns2z9ac2xJ/ZUwz7aasy0brzqMvGO6TJqlyEk6M+p5k=
+	t=1792397606; cv=none; b=pRp4wORctSuFruNVMRaLCsIJeKk3qR9yxIZ7TjYi27hanHpiwJpUOwLSMN5aQxpcd+4jgsqabfmdG4ZFXrmGHvUyW24xG/eUpw9vi8jOHh8APvX0MB5IK2IkrgMI4lz9FxcYPMQ+YhpPL5U3lJDFnvOMMU1sUz1touULfCuhhq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397588; c=relaxed/simple;
-	bh=J+CS5fDSpkD3yZQR05hOJn3PmeuKCGE/5OUyR0Qg/dA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l50+wwaVysATDZ1VQnnNzQn2Pj1qjAabGKo+v2nFsCqpJ+9QdKSaHzsQOmznSw3cb0cqqAw7c675Vbe/7Dr09JMKw0Tj9TEpMiaElSboygfna5fuNNrtbp/uhOS5SGVakb1+HP1Ujn+K/9ipOwYAEbGnGCQ7GOH/YJ9sdmUAFng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ScN3WlME; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792397606; c=relaxed/simple;
+	bh=XouZpUQ5YBG7lppUugLKluXBp9QpXs/PNN1AJMW6by4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Rp6MvSK6XuJFgG1yULQMILbc+pHgmvVYUFadZTweH/tfvWtCuSO+wML9IRdeNX/6ChLg+tz7s3Jd70qy77MqR9RcY1tAsdkfkDO/+0z6QgKz1Gy2mvJOXxeNxTwikMXd/eV33oix/vyQM8Wnd++fYm174B43BtcK3oaYnHOjLv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FvItgfkB; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ScN3WlME"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 449F11477;
-	Mon, 19 Oct 2026 01:13:01 -0700 (PDT)
-Received: from [10.164.19.55] (unknown [10.164.19.55])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 01C893F673;
-	Mon, 19 Oct 2026 01:12:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792397584; bh=J+CS5fDSpkD3yZQR05hOJn3PmeuKCGE/5OUyR0Qg/dA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ScN3WlMECk4NXBAmST1T9qGWJsM371k2ZAqhsGXlCB43d1V6BGnTWNP16+ieLeOAn
-	 ChnTbqWSqJDuX3DOttFoSSb1A3JjE8UGnbdr+tUe25JzOtw63gszgPPYJnEnza7GbU
-	 eW9b2ajdBqijvSRJqrPcEQ399ZJssTkWnFjh12e8=
-Message-ID: <8e54025a-03da-4cba-bae8-1604463c7622@arm.com>
-Date: Mon, 19 Oct 2026 13:42:55 +0530
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FvItgfkB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 9E572C5CD45;
+	Mon, 19 Oct 2026 08:14:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9304F60582;
+	Mon, 19 Oct 2026 08:13:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C06F010328429;
+	Mon, 19 Oct 2026 10:13:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792397601; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=trNQO0U9XQLBOWcQGLIc+ci4GywnkatJEUe8E9u6r4I=;
+	b=FvItgfkBI0uIwemxLOQyXNqDxWTC/p0cGmtkocphPeGleMMne9ZPgFH0wpCiMNJtFVpPKV
+	+g1u7KYl2AJaktUp0fVPQLS+bEuvTbJB9e7RfonI4dpFbM29cq7QBf6xt9KPPehchHuHXd
+	yL9QIyg4JYh8gCnBNPJ6z9OjGOcL6rHMvJ4pldB6QC7y0LtoBGTPEfyj1ez4iVYMO+ng/q
+	JMi6xmyW+h7DjjhbvAai1Swrfgsi80X7i9etz4cbWXjgsNa1VDPhuykMnp5o6ABI+955Z9
+	ZvqH8FrEy2lodwuX4g7n4uCq6sSiR9PjTSTaoKfSY+jmZdAOcgF6y18MWSRAig==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Andrew Jeffery
+ <andrew@codeconstruct.com.au>,  Avi Fishman <avifishman70@gmail.com>,
+  Tomer Maimon <tmaimon77@gmail.com>,  Tali Perry <tali.perry1@gmail.com>,
+  Patrick Venture <venture@google.com>,  Nancy Yuen <yuenn@google.com>,
+  Benjamin Fair <benjaminfair@google.com>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  openbmc@lists.ozlabs.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH v10 03/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from
+ DT when possible
+In-Reply-To: <179224882241.859276.15035084302735586039.b4-review@b4> (Jerome
+	Brunet's message of "Sat, 17 Oct 2026 16:53:42 +0200")
+References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+	<20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
+	<179224882241.859276.15035084302735586039.b4-review@b4>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 19 Oct 2026 10:13:08 +0200
+Message-ID: <87zewayup7.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 2/4] mm: compaction: target mTHP order for
- proactive compaction
-To: Bo Zhang <zhangbo0325@gmail.com>, akpm@linux-foundation.org,
- vbabka@kernel.org, david@kernel.org
-Cc: surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
- hannes@cmpxchg.org, ziy@nvidia.com, ljs@kernel.org, liam@infradead.org,
- rppt@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev,
- kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
- yuanchu@google.com, weixugc@google.com, zhaonanzhe@xiaomi.com,
- lipengfei28@xiaomi.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Bo Zhang <zhangbo56@xiaomi.com>
-References: <20261001001412.3837085-1-zhangbo56@xiaomi.com>
- <20261001001412.3837085-3-zhangbo56@xiaomi.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261001001412.3837085-3-zhangbo56@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
 
+>> +	/*
+>> +	 * Old DTs do not describe the low-speed crystal. They may also expect
+>> +	 * an HXT output from this driver. In practice, nobody should use these
+>> +	 * clocks directly, but they must be kept for backward compatility
+>> +	 * purposes.
+>> +	 */
+>> +	if (num_clks =3D=3D 1) {
+>> +		hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
+>> +		hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
+>> +	}
+>
+> The above is fine but the problem is those IDs still exist and something =
+like
+> <&clk HXT> is still valid in DT but now does not provide a clock
+> anymore.
 
-On 01/10/26 5:44 am, Bo Zhang wrote:
-> Proactive compaction triggers against COMPACTION_HPAGE_ORDER (order-9),
-> which is too heavyweight and misdirected for mTHP systems where the
-> pressure is on smaller orders like order-2.
-> 
-> Add compact_hpage_order() to return the highest always-enabled anonymous
-> mTHP order, and use it as the proactive compaction target in
-> should_proactive_compact_node(), __compact_finished() and kcompactd().
-> 
-> Fragmentation scores are not comparable across orders, a small order
-> scores much lower for the same state, so scale the proactive watermarks
-> down in proportion to the target order, otherwise order-2 would rarely
-> reach the order-9 threshold.
-> 
-> Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
-> ---
->  mm/compaction.c | 40 ++++++++++++++++++++++++++++++++--------
->  1 file changed, 32 insertions(+), 8 deletions(-)
-> 
-> diff --git a/mm/compaction.c b/mm/compaction.c
-> index ecd3e6cf54fc..3928a5483efc 100644
-> --- a/mm/compaction.c
-> +++ b/mm/compaction.c
-> @@ -24,6 +24,7 @@
->  #include <linux/page_owner.h>
->  #include <linux/psi.h>
->  #include <linux/cpuset.h>
-> +#include <linux/huge_mm.h>
->  #include "page_alloc.h"
->  #include "internal.h"
->  
-> @@ -81,6 +82,17 @@ static inline bool is_via_compact_memory(int order) { return false; }
->  #define COMPACTION_HPAGE_ORDER	(PMD_SHIFT - PAGE_SHIFT)
->  #endif
->  
-> +static inline int compact_hpage_order(void)
-> +{
-> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> +	unsigned long orders = READ_ONCE(huge_anon_orders_always);
-> +
-> +	if (orders)
-> +		return __fls(orders);
-> +#endif
-> +	return COMPACTION_HPAGE_ORDER;
-> +}
-> +
->  static struct page *mark_allocated_noprof(struct page *page, unsigned int order, gfp_t gfp_flags)
->  {
->  	post_alloc_hook(page, order, __GFP_MOVABLE, ALLOC_DEFAULT);
-> @@ -2257,24 +2269,36 @@ static unsigned int fragmentation_score_node(pg_data_t *pgdat, unsigned int orde
->  	return score;
->  }
->  
-> -static unsigned int fragmentation_score_wmark(bool low)
-> +/*
-> + * Fragmentation scores are not comparable across orders: a lower order
-> + * scores much lower than a higher order for the same fragmentation state.
-> + * Scale the watermark proportionally to the target order so a small order
-> + * can still trigger proactive compaction; COMPACTION_HPAGE_ORDER keeps the
-> + * original threshold.
-> + */
-> +static unsigned int fragmentation_score_wmark(bool low, unsigned int order)
->  {
-> -	unsigned int wmark_low, leeway;
-> +	unsigned int wmark_low, leeway, wmark;
->  
->  	wmark_low = 100U - sysctl_compaction_proactiveness;
->  	leeway = min(10U, wmark_low / 2);
-> -	return low ? wmark_low : min(wmark_low + leeway, 100U);
-> +	wmark = low ? wmark_low : min(wmark_low + leeway, 100U);
-> +
-> +	if (order < COMPACTION_HPAGE_ORDER)
-> +		wmark = wmark * order / COMPACTION_HPAGE_ORDER;
-> +
-> +	return wmark;
->  }
+Yeah, it's hard to prevent, but people would immediately face errors
+when developing anyway.
 
-I wonder if this function should be left alone?
+> This is why I asked if you about removing the ID. At the very least a com=
+ment is
+> needed next to the IDs saying those are obsolete and should not be used.
 
-compaction_proactiveness, as I understand is given as a sysfs knob to
-ensure that the user can control how much power they want to invest into
-compacting. So suppose the value is 20, and the highest mTHP order is
-only 2.
+Ok, 'next to the IDs' may be relevant indeed, I'll add that.
 
-This gives wmark = 90 * 2 / 9 = 20. So, even if 80% of the memory can
-serve order-2 allocations, we will still perform compaction for order-2.
-This seems "extremely proactive" :)
-
->  
->  static bool should_proactive_compact_node(pg_data_t *pgdat)
->  {
->  	int wmark_high;
-> -	unsigned int order = COMPACTION_HPAGE_ORDER;
-> +	unsigned int order = compact_hpage_order();
->  
->  	if (!sysctl_compaction_proactiveness || kswapd_is_running(pgdat))
->  		return false;
->  
-> -	wmark_high = fragmentation_score_wmark(false);
-> +	wmark_high = fragmentation_score_wmark(false, order);
->  	return fragmentation_score_node(pgdat, order) > wmark_high;
->  }
->  
-> @@ -2306,7 +2330,7 @@ static enum compact_result __compact_finished(struct compact_control *cc)
->  
->  	if (cc->proactive_compaction) {
->  		int score, wmark_low;
-> -		unsigned int order = COMPACTION_HPAGE_ORDER;
-> +		unsigned int order = compact_hpage_order();
->  		pg_data_t *pgdat;
->  
->  		pgdat = cc->zone->zone_pgdat;
-> @@ -2314,7 +2338,7 @@ static enum compact_result __compact_finished(struct compact_control *cc)
->  			return COMPACT_PARTIAL_SKIPPED;
->  
->  		score = fragmentation_score_zone(cc->zone, order);
-> -		wmark_low = fragmentation_score_wmark(true);
-> +		wmark_low = fragmentation_score_wmark(true, order);
->  
->  		if (score > wmark_low)
->  			ret = COMPACT_CONTINUE;
-> @@ -3239,7 +3263,7 @@ static int kcompactd(void *p)
->  		timeout = default_timeout;
->  		if (should_proactive_compact_node(pgdat)) {
->  			unsigned int prev_score, score;
-> -			unsigned int order = COMPACTION_HPAGE_ORDER;
-> +			unsigned int order = compact_hpage_order();
->  
->  			prev_score = fragmentation_score_node(pgdat, order);
->  			compact_node(pgdat, true);
-
+Thanks,
+Miqu=C3=A8l
