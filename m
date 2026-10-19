@@ -1,277 +1,138 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46214E3220
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792409688; cv=none; b=dYktcSzkuyXVBROBa1HSuzJNCm7Wao4lVVzMGKCzlUq9OQx7x2hbkgLifhF2qU4A6S7Rq2cHc9upWxWpWm71/VRC8825kA8TJfNhse9X6nVPFapyR71+1X+DxcN8HhVoQovrVDOgu6D1f6wLo0zNCWFLCwVLVw1cZOJ+VcZUvp4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792409688; c=relaxed/simple;
-	bh=z4YKQyp0Km3k9/vkv/fi/Sj+c4OnunN2b1cJYfANKys=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CmlSQ12akxQVFvR+iV730S6Z5qoT7HmJjXREPlczQ7ltDMq2KsE2OK1Bz+XrlTsUUeaRQZg68R6FISqOt+CMbgiHmbh2iPgmVoAHj7YSJJb408dxN7BJkCkuj8BpbkojSmBLyNN6y9KHi+/1xgIW2g9oeINLeGSASFjGw7Jn6P0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Btioxvxy; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CSXyFG4N; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Btioxvxy; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CSXyFG4N; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412663D331D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:35:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792409741; cv=pass; b=oH8VuGfvtrLaJBEdWOqE1IMffjgq1t8xhlhGJj2pGj1/Hcs64VeyobFHHiEowlOed/fFhqmJZG5blJjyjkj3biu/2QOyqe1qQSWflLU9NtfRHj/m8v6XqbQML3bxuHKYermheLfYuyZ52U8sq5+6w2WdQ1aYc4dr2lkiz91ERpk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792409741; c=relaxed/simple;
+	bh=y392TKxI9NxK+HxZju6721gEDX3uifjte7V1FDxyHUE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ObBygXtNK6x9RKoaohZxWjML6l8FHFjnjK260P2B93KXFmcEQeitG/VnrHHPdJ5+df4Eudk8b3dygFuTAPTHkQvnn7mbJezjAANK+rC2SnfF3oew2KyuPyZTcmu+Bxjz0auznalsKhPkngvM84QYs5HT6ZSTO5y5J1+YI1ch7qA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bjnXzv+T; arc=pass smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Btioxvxy";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CSXyFG4N";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Btioxvxy";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CSXyFG4N"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B1F521F441;
-	Mon, 19 Oct 2026 11:34:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792409683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jD3t1wkN6Rchd26X8X6BEMEdqv5151afoVogq/j3xEE=;
-	b=Btioxvxy2o/5nNjvrR/K024Fg9yRxU/DMlJ4FkQmX30tIdzdPtTzjjyLAOgv/bA6lh6nQC
-	EhQICIipr8jVetUX/9sbV8pdOzUwXssZDtg7CLe8V89kWRPWE4yApuL1Ko/JGJmD7A41+u
-	hipbb7daq4UFDKgMx1HWQds7Am1G+Fg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792409683;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jD3t1wkN6Rchd26X8X6BEMEdqv5151afoVogq/j3xEE=;
-	b=CSXyFG4N0Co80mhRy5z5Z4Tf6vZKCYn4pVt1fSZvcp/kmS1ALupPvQJ8F3fw6DMCtG1808
-	ECpplwObsREGaDCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792409683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jD3t1wkN6Rchd26X8X6BEMEdqv5151afoVogq/j3xEE=;
-	b=Btioxvxy2o/5nNjvrR/K024Fg9yRxU/DMlJ4FkQmX30tIdzdPtTzjjyLAOgv/bA6lh6nQC
-	EhQICIipr8jVetUX/9sbV8pdOzUwXssZDtg7CLe8V89kWRPWE4yApuL1Ko/JGJmD7A41+u
-	hipbb7daq4UFDKgMx1HWQds7Am1G+Fg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792409683;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jD3t1wkN6Rchd26X8X6BEMEdqv5151afoVogq/j3xEE=;
-	b=CSXyFG4N0Co80mhRy5z5Z4Tf6vZKCYn4pVt1fSZvcp/kmS1ALupPvQJ8F3fw6DMCtG1808
-	ECpplwObsREGaDCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 87164134B3;
-	Mon, 19 Oct 2026 11:34:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id xFQWGFMA1momMAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 11:34:43 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 13E2BA1413; Mon, 19 Oct 2026 13:34:39 +0200 (CEST)
-Date: Mon, 19 Oct 2026 13:34:39 +0200
-From: Jan Kara <jack@suse.cz>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Manjong Lee <mj0123.lee@samsung.com>, Jan Kara <jack@suse.cz>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] mm: bdi: reset min_ratio after the sysfs attributes
- are gone
-Message-ID: <jf527frib32yfvdlgrmjozxav2kujmijsmakmr3a6wlshdzwx5@ju6qpy6pztng>
-References: <20261017030620.793108-1-nickolai@csail.mit.edu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bjnXzv+T"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so1592249e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:35:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792409738; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HQcssBoujIZshk6G8mjWOKqGEB4oMqtwZao2CI6XobMsr04U3I1JRZBHEt9wYtPU4h
+         djATkQrRKaOG1TdJOqXjUT1LARICaBSf3FErRz4skEDZqsAXisZYfOsVLmh48szSFLKo
+         aKz8dYmTv+0iDWUba5V0/GqLBC8A2aw7wY0ocPSx66AL91w020Dq3TD+jkBec8KqKdhd
+         vQCvpYTb5E3LU8+iy3YX1UuiIJh4KRjmyG+h7GGk0mIoDcJosqcwx6JATZVfqY/S30KB
+         rLLpD10hR29SNRJiJ+DVKoE5GIZudXjEPcO+aY2pa3R2prOI1AYjVSJDKurOBmxcE02F
+         AxEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=koS0XoT+3CWL8eMG9x4Bhcq/7nCXU3LWxtlSg2MxqiU=;
+        fh=PI2N2wAUQutc0mRopaseJ+k3R09UWiYEtgWXK5uF/Dw=;
+        b=UsIfIl4OSkSKHRgCsd74R2eeeEEp1dBKr7czzqVNS74JN3skBiVUIxGlybqugJxRS1
+         h+Q9YePjC+r82pZKINJNYJZT6lDVS3WP5N6p0rUccyKw2abPVJpQLzXoonzZvNJcYQ6V
+         dq7lp4Zi230TJBcO4AuBHHASXd1HhjzZZVEzOL9yln4yc8pYXR6ERHyCiJpYFrXGNTdd
+         ZfVllz0XETc2dVBveLB9+Sq/E1Sz3S17CabV5RnEV+6wEbPt1NUjBY2XUJTtCGoQ9vqc
+         IEb28Q3JMHJMB87CggD1PfSR+D0XeBEoI5iZUaos3pPLUaxvLydKV4Hu+wM4I4dVpNyA
+         lM6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792409738; x=1793014538; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=koS0XoT+3CWL8eMG9x4Bhcq/7nCXU3LWxtlSg2MxqiU=;
+        b=bjnXzv+TBUQuypXXr0s8Nh4syaUK6AQxcOxTbgcpzk7eY4BtTmAcds4PU7QzhjgPqT
+         Oq5R+pnwdzNJZVd7xKhnflqX0RQkJXppWnZtyvfxYY91IEz3iYhH9BM8/Dxn+RhKEJnT
+         E1f4AO4RVLsdQJotpERt8Md6niem22wiuEtBwnmVmvRFMmkDtTzELzSjB4TjOJ4KMeB+
+         88yViLIXuTh+6wvB+ba97qNcppNg8zaojFswZ2cXu+gSZdpXBDYe51JjzdzOrQgSfpkQ
+         gTt6mrC23J5SYBP8QEol9BHPA6JBaQWK4fxODLsfR5b8r6omutWNtP6Vdq+tPLWCZ3RC
+         7Hmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792409738; x=1793014538;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=koS0XoT+3CWL8eMG9x4Bhcq/7nCXU3LWxtlSg2MxqiU=;
+        b=cFfZo5EfQ2T5ZekV5ln9QTDYZEhoaebli23QJBqaCuEq8fy2eI+OmOtjfUjHG3evVH
+         viTrVmmESbjQEsPen3VA/Vnrip9bcZSCVY4yPqNjqmxOGCySoCy0I7/SekDXZnZumAsR
+         vLlO42w/qQQSlwX0LuzZOM9IpX6fVWFh1QBwDi8AbbHTLuZWiEuMaKZhyeJPxsmkvktl
+         YSBJSjC/2FTXJFJBZDrwdso0grLgj7VSxS2ZY10FeOWqtB9mtdvlRKEfxCVM4d6geyMm
+         6zTJsMVAXeJff3SHORESEPmb5d5Rcm9TBg+xV1wHggrwH+wQjzASRjHQ/CCyeUobCVOV
+         KXKw==
+X-Forwarded-Encrypted: i=1; AKwUvByuZdM4fFdZRu+eEe4R62Jdcj6DAOr+ipn8or/YZ6mmDDkqknpm1RRcemtpiZcq3bIl4BidIbpuifeKQfM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXSl8PJg6ncwU/d/UWrn6aFsBHyQmB/kRi5j75xE9/0bKAGgnU
+	E+ps7gAdTRZxhFH/YDu8hPhr9mvxDpoQdHopSRNHYFgP5kQ2atvwASYbXXhFELDVNCZAQinuO4+
+	nOAO0fwY9hlV6BKJ96CW2FtjlyHmcaCe9Ta1udjk=
+X-Gm-Gg: AYBFou2cInFK8A/CNrzYZfIkGHDZP8h6tOmNb/PhdHaFySID4QpXEDpLm/JrrPDfNUn
+	DXoezdcYUrvHBG15UcQLfBWY9VEgoBn+PAj9StBYNoPeDHRQXyfuRj1NvCxnDmazd1TFkmS6tzW
+	fh/joSxRL28vwhhzMpmgD8P7kHAKXCwl0ykmj6mzPHBTVyC3nO4+jA7UOjRCsuMZ7avF3UhlQ4k
+	f2u0Lg4r40hQugCsKGL0USGbj2iaXKFgXVkXKoOnYJu5UvD2WioqSdgDPAae/xs6wyjeGLqqqqQ
+	pnPT94kHSXMRXrA7LRJ8JnRigLC6L1QzhEH6t1hz4M6OQVu66K2CS0nuAuDkrKhkNq6H3Uc/9Qb
+	oM/5Mo/nCAGA=
+X-Received: by 2002:a05:6512:10c9:b0:5b8:f3b2:429b with SMTP id
+ 2adb3069b0e04-5be50a96f8amr2627956e87.52.1792409738088; Mon, 19 Oct 2026
+ 04:35:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017030620.793108-1-nickolai@csail.mit.edu>
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+References: <20261012011707.3378-4-sigefriedhyy@gmail.com> <179185709988.434549.15422498299449004512@kernel.org>
+ <CA+7S2v+LHUWXQMD-cYPEzT5-f3Qhw_vz+LEssQH_A_oqDKtnnA@mail.gmail.com> <8dcd9564-e9a3-4b00-93b8-3cb023d68047@redhat.com>
+In-Reply-To: <8dcd9564-e9a3-4b00-93b8-3cb023d68047@redhat.com>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Mon, 19 Oct 2026 20:35:27 +0900
+X-Gm-Features: AclHuK9hdAIJx_qrpjOoKdOt12iq2yhV7pVdW2_mKKi8adHB_hqpyRSgWNesDcc
+Message-ID: <CA+7S2v+rWYvz9xKPEeM6=3HPz3o7TbX2uRfRKk95f9Y60HnEiA@mail.gmail.com>
+Subject: Re: [PATCH net-next v11 3/6] net: add a generation counter for
+ dev->mc changes
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev-bot+sashiko@kernel.org, ajay.kathat@microchip.com, 
+	aleksandr.loktionov@intel.com, andrew+netdev@lunn.ch, 
+	claudiu.beznea@tuxon.dev, davem@davemloft.net, dsahern@kernel.org, 
+	donald.hunter@gmail.com, edumazet@google.com, idosch@nvidia.com, 
+	jacob.e.keller@intel.com, kuba@kernel.org, johannes@sipsolutions.net, 
+	kees@kernel.org, kory.maincent@bootlin.com, kuniyu@google.com, 
+	nicolas.dichtel@6wind.com, nickgarlis@gmail.com, sd@queasysnail.net, 
+	shuah@kernel.org, horms@kernel.org, sdf.kernel@gmail.com, 
+	vadim.fedorenko@linux.dev, willemb@google.com, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri 16-10-26 23:06:20, Nickolai Zeldovich wrote:
-> A write to /sys/class/bdi/<dev>/min_ratio (or min_ratio_fine or
-> min_bytes) that races with the removal of the device leaves the global
-> sum of minimum dirty shares charged for a bdi that no longer exists.
-> Until the next reboot, that share of the dirty threshold is withheld
-> from every other bdi (__wb_calc_thresh() scales by 100 % minus the
-> sum), and a later min_ratio store on any bdi that would push the sum
-> to 100 % fails with EINVAL although every bdi reads 0. Root privilege
-> is needed for the store; the removal is any del_gendisk() (a disk or
-> loop device going away) or the unmount of a filesystem with its own
-> bdi. On an x86_64 defconfig kernel (v7.3-rc7), 2000 rounds of
-> LOOP_CTL_ADD/LOOP_CTL_REMOVE on one loop device with a second thread
-> writing 50 to its min_ratio leak the share on the first round the
-> store lands in the window; afterwards `echo 99 > min_ratio` on another
-> loop device fails with EINVAL. With the fix the same run keeps the sum
-> at 0 and the store succeeds. Affected since v5.16, when the reset in
-> bdi_unregister() was added.
-> 
-> bdi_unregister() gives the bdi's share back with bdi_set_min_ratio(bdi,
-> 0) and only then calls device_unregister(), which removes the sysfs
-> attributes. A min_ratio_store() that gets its kernfs active reference
-> before the removal runs to completion after the reset:
-> __bdi_set_min_ratio() takes bdi_lock, sees bdi->min_ratio == 0, adds
-> the new value to bdi_min_ratio and stores it in the bdi, which
-> bdi_put() then frees. Nothing gives that share back.
-> 
-> Move the reset after device_unregister(): once the attributes are gone
-> no store can run, and bdi_set_min_ratio() needs nothing from the
-> device.
-> 
-> Found while formally verifying bdi_unregister() against the kernel
-> binary.
-> 
-> Fixes: 3c376dfafbf7 ("mm: bdi: initialize bdi_min_ratio when bdi is unregistered")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+On Mon, Oct 19, 2026 at 8:19=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wro=
+te:
+>
+> I agree this is not a blocker, but I think it would be nice if you could
+> follow-up on this one.
+>
+> The solution proposed by the LLM LGTM.
+>
+> Same here.
+>
+> Also, still speaking of possible follow-up,  I think it would be nice if
+> you could change the addr list lifecycle to RCU (no idea of how much
+> complex would be that).
+>
 
-Looks good. Feel free to add:
+Thanks for the review. Since we're already at v12 I'd rather not respin
+just for these, but I agree both are worth fixing, so I'll handle them as
+follow ups.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+The first one is a simple fix, so if v13 ends up being needed
+for other reasons I'll fold it in there, otherwise I'll send it as a
+separate patch.
 
-								Honza
+The RCU conversion needs more thought and will probably
+cause quite a bit of churn, so I'll try it if there's a v13, and if it
+gets too messy. I'll post it separately later.
 
-> ---
-> 
-> Notes:
->     The window is between the reset and kernfs draining the attribute's active
->     references in device_del(): bdi_debug_unregister() and the device
->     removal (uevent, bus and class teardown) sit in it, tens of microseconds,
->     so a tight store loop lands in it within a few hundred add/remove rounds
->     under QEMU TCG. A store that lands there also fails every later min_ratio
->     store of 50 with EINVAL, which is why the unpatched run shows few landed
->     stores: the leaked 50 % plus a new 50 % reach the limit. The same window
->     exists for min_ratio_fine and min_bytes (same helper), and for the
->     per-superblock bdis unregistered from generic_shutdown_super().
->     
->     Reproducer (x86_64 defconfig, root, loop devices 20 and 21 free, QEMU
->     -smp 2):
->     
->       gcc -O2 -pthread -static -o bdi_min_ratio_leak_short bdi_min_ratio_leak_short.c
->       ./bdi_min_ratio_leak_short
->       before: min_ratio 99 on loop21: Invalid argument   (exit 1)
->       after:  min_ratio 99 on loop21: ok                 (exit 0)
->     
->       /* loop device add/remove racing a min_ratio store; root, CONFIG_BLK_DEV_LOOP */
->       #include <errno.h>
->       #include <fcntl.h>
->       #include <linux/loop.h>
->       #include <pthread.h>
->       #include <stdio.h>
->       #include <string.h>
->       #include <sys/ioctl.h>
->       #include <unistd.h>
->     
->       static volatile int stop;
->     
->       static int store(const char *path, const char *val)
->       {
->       	int fd = open(path, O_WRONLY), r;
->     
->       	if (fd < 0)
->       		return -1;
->       	r = write(fd, val, strlen(val));
->       	close(fd);
->       	return r < 0 ? -errno : 0;
->       }
->     
->       static void *storer(void *arg)
->       {
->       	while (!stop)
->       		store("/sys/class/bdi/7:20/min_ratio", "50");
->       	return NULL;
->       }
->     
->       int main(void)
->       {
->       	int ctl = open("/dev/loop-control", O_RDWR), i, r;
->       	pthread_t th;
->     
->       	ioctl(ctl, LOOP_CTL_ADD, 21);			/* the control bdi */
->       	pthread_create(&th, NULL, storer, NULL);
->       	for (i = 0; i < 2000; i++) {
->       		if (ioctl(ctl, LOOP_CTL_ADD, 20) < 0)
->       			continue;
->       		while (ioctl(ctl, LOOP_CTL_REMOVE, 20) < 0)
->       			;
->       	}
->       	stop = 1;
->       	pthread_join(th, NULL);
->       	r = store("/sys/class/bdi/7:21/min_ratio", "99");	/* sum must stay < 100 */
->       	printf("min_ratio 99 on loop21: %s\n", r ? strerror(-r) : "ok");
->       	store("/sys/class/bdi/7:21/min_ratio", "0");
->       	return r != 0;
->       }
-> 
->  mm/backing-dev.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
-> 
-> diff --git a/mm/backing-dev.c b/mm/backing-dev.c
-> index 18e999053bae..fad1495d3b20 100644
-> --- a/mm/backing-dev.c
-> +++ b/mm/backing-dev.c
-> @@ -1162,19 +1162,20 @@ void bdi_unregister(struct backing_dev_info *bdi)
->  	wb_shutdown(&bdi->wb);
->  	cgwb_bdi_unregister(bdi);
->  
-> -	/*
-> -	 * If this BDI's min ratio has been set, use bdi_set_min_ratio() to
-> -	 * update the global bdi_min_ratio.
-> -	 */
-> -	if (bdi->min_ratio)
-> -		bdi_set_min_ratio(bdi, 0);
-> -
->  	if (bdi->dev) {
->  		bdi_debug_unregister(bdi);
->  		device_unregister(bdi->dev);
->  		bdi->dev = NULL;
->  	}
->  
-> +	/*
-> +	 * If this BDI's min ratio has been set, use bdi_set_min_ratio() to
-> +	 * update the global bdi_min_ratio. After device_unregister(): the
-> +	 * sysfs min_ratio stores can no longer run and set it again.
-> +	 */
-> +	if (bdi->min_ratio)
-> +		bdi_set_min_ratio(bdi, 0);
-> +
->  	if (bdi->owner) {
->  		put_device(bdi->owner);
->  		bdi->owner = NULL;
-> 
-> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Thanks,
+Yuyang
