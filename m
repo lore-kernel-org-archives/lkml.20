@@ -1,176 +1,120 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D94390224
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:53:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3737487CDF
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:53:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392801; cv=none; b=g1vO3uY5cYZtvpIkp99JYZRUx6Rnjsy8QT+HQ5qDnpM6EWMZvHqIkkSRlRGwt0y1qW8QDTNm707pjuBRJuUbBxGmNr6Y3b2zyWXI7stbgWxaiO4vgkQ6hUs7UIvEEgnXMBtk8ZURucYjKmiI7a661A93pPQkazCn3eEoY54wd6I=
+	t=1792392805; cv=none; b=P1+yxKezRY5M46CFAJyuOi3pc3MTWkVzuY4YSLFtSNt3DY4oscEOjRKc3VGRUNVvPlwQp4UuITt1O/zMQd7+2NBKfXRcRhk6BJmYPiZ0TUh1iw9vxq3632pwk5DJxAXEzFbfqdcLScsyCO8yCdZh8cq5CqRGFeVfF9o9Jc8EMNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392801; c=relaxed/simple;
-	bh=p+X+Xl8+cPLsbpBhfIlv3qel9raJ5+zSbCI5QqSPwB4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tg4bwYIWOonMzlNXrGnwTdQTMU0FSGcyTEmlOxyz44N8Zu0BHJHboPk0egNez4r/WA9+zdAw40OHVprphoNqJQfNMt0O3Aas3isrkuhiGjQmJCXSghR3qaBmxTbMKbFoggVTdoCuRPd3f9ubJHFmkIdWfwGE6UoxOR7NlQ15Xf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QPCYRmIm; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792392805; c=relaxed/simple;
+	bh=XM0c64kJ5bkM6se9bFb6y1Q22QsXGV+KHZXfSxRlDPY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W5SFQ68x3ifCSF5TfoTQBmQh3m7tZhslL60gbM6XrgTBPSUslLNcn7R/hr8AqcjZcmhp7SAgvK94Hhk5AowgUEWwCk4D6BLH3+ULfgLgfGhawpdAWBWkY22AC8e4DnZx1+r2P3y8C6qZ0Ldbdjemm1ME0U7whdBspZYD6BKC5Kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=pPNJIzvk; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QPCYRmIm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792392798;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Ia+ZEym176fLK/VRzqajkyY5xZ/llz9gMIBRTMQe8QA=;
-	b=QPCYRmImIEUwMfgm4Zu+Pcb9t/7+lJgsXuoecGgOqxGE11iRoeFl1NLcL0rlrTBCAJsF2C
-	TnF1JRWHW5VT78EdhLqtEmt3jxvAhCERNggyu2UkvCetzEVKgVnc07HF2kQDJ+FbHAXZE8
-	JmnNE1TFQvf4nrOu+48JChmAVa07wgA=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-532-RhZmXjyNMK-bjT8GInK8pA-1; Mon,
- 19 Oct 2026 06:53:16 +0000
-X-MC-Unique: RhZmXjyNMK-bjT8GInK8pA-1
-X-Mimecast-MFC-AGG-ID: RhZmXjyNMK-bjT8GInK8pA_1792392793
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C677F1955F74;
-	Mon, 19 Oct 2026 06:53:12 +0000 (UTC)
-Received: from poros-thinkpadp16vgen1.tpbc.com (unknown [10.44.48.130])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 279441955F03;
-	Mon, 19 Oct 2026 06:53:03 +0000 (UTC)
-From: Petr Oros <poros@redhat.com>
-To: netdev@vger.kernel.org
-Cc: Petr Oros <poros@redhat.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Dave Ertman <david.m.ertman@intel.com>,
-	Shiraz Saleem <shiraz.saleem@intel.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Kamil Maziarz <kamil.maziarz@intel.com>,
-	Rafal Rogalski <rafalx.rogalski@intel.com>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Michal Schmidt <mschmidt@redhat.com>,
-	linux-rdma@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org,
-	linux-kernel@vger.kernel.org,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mateusz Palczewski <mateusz.palczewski@intel.com>,
-	linux-rt-devel@lists.linux.dev
-Subject: [PATCH iwl-net 0/3] ice: fix RTNL vs auxiliary device lock inversion
-Date: Mon, 19 Oct 2026 08:52:58 +0200
-Message-ID: <20261019065301.3983537-1-poros@redhat.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="pPNJIzvk"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48c4d870d54so986104f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:53:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792392802; x=1792997602; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XM0c64kJ5bkM6se9bFb6y1Q22QsXGV+KHZXfSxRlDPY=;
+        b=pPNJIzvkh1mQRVSumMfJ8/l6IZifaWdKY0HJnv6PlrvQY82XR6BfCYfV2NQh3xuOI9
+         G98ISJqjg6uC8JQ//pWcgrQjCJiT4sC1JHZnqRzXOufvJ0k8mn/02POkebCqWQ+SqMRA
+         qE+Sy6omxmeUZTGz0Zz3YTOO9qsTwhtnjYTxfQ/58TP//ASaKEReMyAc1lVmMyj62uTw
+         eRZQpaSR+YCnBzKVZLeIC/8zmepMCAXm5K1WCHLEqEH5JIRu55fq5t7vTVBe74idtwh+
+         xQOcXxhabYMEV5LadQtQLiYs5ziO3cdl6cM/up9co9kyyGslBlbXyJ1Jyhg63NF7B2e1
+         TLbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792392802; x=1792997602;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XM0c64kJ5bkM6se9bFb6y1Q22QsXGV+KHZXfSxRlDPY=;
+        b=IQlGmo0X02S9YmXFCjuWQhy4WF37ilqdZGQmJY3p06XrL5BYRowG0c2jjjdkE8WuvD
+         Ms7UfSzoNhKvrKmVTawVFJameVYET2Oqs2Nwhw2GbUSFk2R0Fz0Zo58SPR5zikUxZgOa
+         Sf00Dzzxm1tIzzAzdiqL80UFO+eQjGETLDmhHXmwNSak05SXS8vbK/qhxrKjpQclZ6FU
+         Or4yg2KDg3vIGuzt7tN5y0wcXK/2jwhnBvVISqiJSixlCW85MPPgLT3935vMD884mumj
+         bRwIhiqj9j+ieIw2/bHqxBsFkCiodP/C3AujX24ueJbUpHZ4G1QnD+c/K+cLqP1XXvWV
+         4BqQ==
+X-Gm-Message-State: AFq9FYKIBuSOR7+/65SGeWNZQUukT4c9K5wxG0tniYz8AObyycM81ulL
+	98l6A/hthD6JT8XasEWpjsGMlOrfz8nIkJGhAdI0QTjTFMyuZxCgB7WBuHmu7Mk8WEU=
+X-Gm-Gg: AYBFou0iq72i5L3gx6jtm55YpU37cGRcWCiPQoyRs9aCl7QWxze2/ui31ZulHXMeNr/
+	XxCxNzOwzsvb8Ez9ywr9S5S5PkkLo4ijWDo6MoSaJbbDEZFDejzFnBeYnbecsKazwhTKPY/m49g
+	A2xXgfwA8MeaFw8GnRrjHXux4RwOWiKfa+8LiLOkRCCP+VaxPkzQHNcSEQudV+jq8pHz5BAptpC
+	fM9mpK1hMYUbg4D1okAoDr2wHfcmdwE46ap88TwHtGtKFWmOtM7ro95c8q8Y6tGTtIrz68jY/P5
+	anYxWDPlmWPGrw3gXFS4ma4U89+f2HM+uAIKqxP6BWn7rgdPBrsFhm3jk78grDNm2VqHCQHiBgH
+	BOrcc1NemzxA9fhWgbafZ+PzvuSPh+85l+O68lgc+N61K94EIjxYN/khKpJ/7WeFYn+tVfVFMar
+	PGSZ+nb/f0AnXN1mSmQohw51TNqMicj0XylwJNtU6LmoI44M1Eup0swUFjpMk5HkYIN23gV6dh7
+	x6eCkJkg4tTBJkENKyxGe2eAvAGXf/dn3JvW+ANXTNC1sliy4PROQdstPzKyW+aU4O1oUA4
+X-Received: by 2002:a05:600c:c0c7:b0:4a1:d743:77f1 with SMTP id 5b1f17b1804b1-4a1d7bc2e33mr89073635e9.24.1792392800952;
+        Sun, 18 Oct 2026 23:53:20 -0700 (PDT)
+Received: from localhost (p200300f65f19a9041674bacf58593a35.dip0.t-ipconnect.de. [2003:f6:5f19:a904:1674:bacf:5859:3a35])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a1c8de7230sm246009675e9.14.2026.10.18.23.53.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 23:53:19 -0700 (PDT)
+Date: Mon, 19 Oct 2026 08:53:18 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org, 
+	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, broonie@kernel.org, mfd@lists.linux.dev, lee@kernel.org, 
+	Frank.Li@nxp.com, lgirdwood@gmail.com, linux-gpio@vger.kernel.org, 
+	linusw@kernel.org, brgl@kernel.org, vikash.bansal@nxp.com, priyanka.jain@nxp.com, 
+	aman.kumarpandey@nxp.com
+Subject: Re: [RFC PATCH 7/7] gpio: p3h2x4x: add GPIO expander for the NXP
+ P3H2x4x I3C hub
+Message-ID: <atW-DIGEbPMW4vY_@monoceros>
+References: <20261016164625.3166779-1-lakshay.piplani@nxp.com>
+ <20261016164625.3166779-8-lakshay.piplani@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rb2hybyhnj2upzg7"
+Content-Disposition: inline
+In-Reply-To: <20261016164625.3166779-8-lakshay.piplani@nxp.com>
 
-ice takes the auxiliary device lock of its RDMA auxiliary device from
-three places that run with the RTNL lock held. The RDMA auxiliary probe
-takes the same two locks in the opposite order, because __driver_attach()
-holds the auxiliary device lock across ib_register_device(), which needs
-the RTNL lock. ib_query_port() reaches ib_get_eth_speed() first from the
-port immutable setup and again from ib_cache_setup_one(). The result is
-a hard deadlock that leaves the whole RTNL-serialised part of the stack
-stuck, so the boot never completes:
 
-  systemd-udevd   state:D
-    really_probe                  <- holds device_lock(&adev->dev)
-    icrdma_probe
-    irdma_ib_register_device
-    ib_register_device
-    setup_device
-    irdma_roce_port_immutable
-    ib_query_port
-    irdma_query_port
-    ib_get_eth_speed              <- blocks on rtnl_lock()
+--rb2hybyhnj2upzg7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [RFC PATCH 7/7] gpio: p3h2x4x: add GPIO expander for the NXP
+ P3H2x4x I3C hub
+MIME-Version: 1.0
 
-  lldpad          state:D
-    rtnetlink_rcv_msg             <- holds rtnl_lock()
-    dcb_doit
-    dcbnl_ieee_set
-    ice_dcbnl_setets
-    ice_pf_dcb_cfg
-    ice_send_event_to_aux         <- blocks on device_lock(&adev->dev)
+On Fri, Oct 16, 2026 at 10:16:25PM +0530, Lakshay Piplani wrote:
+> +#include <linux/mod_devicetable.h>
 
-linkwatch, addrconf, NetworkManager and every ethtool ioctl then pile up
-behind lldpad. On a PREEMPT_RT kernel with CONFIG_DEBUG_RT_MUTEXES the
-rtmutex chain walker reports "rtmutex deadlock detected" from whichever
-task closes the cycle instead of hanging silently. Plain lockdep cannot
-flag it, because device_initialize() marks dev->mutex with
-lockdep_set_novalidate_class().
+Please drop this header, <linux/platform_device.h> is enough to provide
+platform_device_id without pulling in a plethora of unneeded
+dependencies.
 
-The probe side cannot be changed, so the three ice callers stop blocking
-and use device_trylock() instead. Contention is only possible while the
-driver core is binding, unbinding or suspending the auxiliary device,
-since all three sites already serialise against each other under
-pf->adev_mutex, and ice_unplug_aux_dev() clears cdev->adev under that
-mutex before calling auxiliary_device_delete(). ice_unplug_aux_dev()
-itself is never reached with the RTNL lock held, so there is no fourth
-site to convert.
+Best regards
+Uwe
 
-Patch 1 then handles a contended lock per event, because the right
-answer differs. BEFORE_TC_CHANGE has to arrive before the traffic
-classes change, so the DCB reconfiguration is refused with -EBUSY. The
-MTU change and critical error events are sent from the service task,
-which consumes their pending bits before sending, so they are re-armed
-for the next run. AFTER_TC_CHANGE keeps its existing fire and forget
-behaviour, and the commit message explains why deferring that one is
-not safe. Patches 2 and 3 only turn the lock into a trylock, where a
-contended lock means the operation is refused with -EBUSY and can be
-retried, which is what the existing check already does when the RDMA
-driver is bound.
+--rb2hybyhnj2upzg7
+Content-Type: application/pgp-signature; name="signature.asc"
 
-This keeps the fix small enough to backport. It does not address the
-underlying layering problem, which is that ice reaches for the driver
-core lock of a foreign device at all. i40e and mlx5 both solve the same
-need with provider-owned registration instead, and converting IIDC to
-that model would make the inversion impossible by construction. That is
-a net-next change across ice, irdma and iidc_rdma.h, and I am happy to
-follow up with it if there is interest.
+-----BEGIN PGP SIGNATURE-----
 
-Tested on an E810-XXV with two PFs, irdma bound to both auxiliary
-devices, on net tip commit 191aa41548b2d2 ("MAINTAINERS: add Bobby
-Eshleman as vsock reviewer") with and without this series, same config
-otherwise. A reproducer binds the irdma auxiliary driver while driving
-one of the three RTNL-held callers into the probe window:
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrVvlsACgkQj4D7WH0S
+/k7KdAf/Ymzfd5nUPGqul10/xb4Cdg8JZlVZwryGIATK15e0B7YEMqJyc+hQaVMu
+eVcZr42PEqPgIQlp1aDk2O+1SmuueV/EGkusU0B9jbFL4MYGYDMMX3UXgF93KsHG
+L5AztXgy413yo0IWCUZnXqXMjtPSAAOAoJu+9N7VxfWfo4fHLGbZ3AlVffRgev+8
+xFFzFPpPNgKNtO2wVYNE3H6K4gKwRMAU3asXySiV/XcnJWZxXoUndsDMpTVn79Wi
+kj+JHMF5D/GsSqgsCzVzMNmX4GaziZzgo8BjgIwrbg9TqDEp3zH6reKg55CGXpeD
+b49quyvlvKA2UBjz28ZWXDZ7/kEYSA==
+=X5cp
+-----END PGP SIGNATURE-----
 
-                        without the series   with the series
-  ethtool set_channels  deadlock 10/10       0/10, window entered 300x
-  ndo_setup_tc mqprio   deadlock             0/10, window entered 50x
-  dcbnl ets set         deadlock             0/10, window entered 30x
-
-A window entry is a contended device_trylock(), that is, the exact
-moment really_probe() holds the auxiliary device lock and waits for the
-RTNL lock, so each one is an occasion that used to close the cycle.
-Without the series the console shows both halves and the box only
-returns through hung_task_panic. 25 reboots on the patched kernel were
-clean.
-
-Petr Oros (3):
-  ice: avoid RTNL deadlock when notifying the RDMA auxiliary driver
-  ice: do not block on the aux device lock in ethtool set_channels
-  ice: do not block on the aux device lock in ndo_setup_tc
-
- drivers/net/ethernet/intel/ice/ice_dcb_lib.c |  9 +++++++-
- drivers/net/ethernet/intel/ice/ice_ethtool.c |  6 +++++-
- drivers/net/ethernet/intel/ice/ice_idc.c     | 20 ++++++++++++++----
- drivers/net/ethernet/intel/ice/ice_idc_int.h |  2 +-
- drivers/net/ethernet/intel/ice/ice_main.c    | 22 +++++++++++++++-----
- 5 files changed, 47 insertions(+), 12 deletions(-)
-
--- 
-2.56.0
-
+--rb2hybyhnj2upzg7--
