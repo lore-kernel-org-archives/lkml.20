@@ -1,186 +1,75 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF323AA4E1
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28DCC3F86E1;
+	Mon, 19 Oct 2026 05:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792386693; cv=none; b=tn9ocYTCimYZpz72W4+4P8tu6JbgaLKwMEy11H0cQolf/c2fHc3HKji8PSD7PRph9nJhgLw6zGcstBW8/HIno2tOXpr/Or0fwj09G/0/jfl4SdHJq8dKzwI61vhkWN6r9hXxsVu6Br65rFmMRys+OQ7M1I72nziiNqchijMeUQ4=
+	t=1792386806; cv=none; b=mkHKxaH0x77fnzYuFinsqcXV3B6v1exDWLtetu+VVeip53TPMFvoZy5MCi0Qol831q6g0Qcgat851+rWADpgN5bWjBGBTZ92eq2WqtDw9FPjv+VkCn0EnvBx69XjUd0gWnNs4GxSjBBTZe4DrhnsSVq7HsaXlDzAjl5/lSYrAMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792386693; c=relaxed/simple;
-	bh=nVj/bgdC1Ohyocal4Il0FqAeW/5QWOV4GQ6Q+DQv2f0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=a0FUyLtjfb2LLyKrsqVdQ50VBK0fOb2jeUXX070t2k00vHm6jtgacG+e72dE4TDCKKQAlyOaTLQoH9ZBFDm7eMXSzaJZcJBXNSAalTobq4Dy5CGCr1NRbnPMc/JccDc/gNJrF0VihMa0pMionAkl14w6K9tGiNvxjeFlBSEPSqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab4f652f9bso1444267b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:11:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792386687; x=1792991487;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0+8zT4mGy6dcRx9KTjqk/ppPsWRxCzDh9ncX9YEziZE=;
-        b=Rg2fWSGGIav4dfCvwX4ORe+rVpG7GMsI+BvgmcaxH/tYNJLNeqPhTQJnkY6qJ8K8ax
-         Ztw4mi5m4pnySi4Ie3bxhWI0huDDdntHAzLhWLl+rZ2xVItYkPnSZHJZAnBf5mklj7DU
-         hXfaStLZrtEiqqqKBJOeX89YKX82CJMvwndijXNRACFKDIMnK8zGfa2yism8AoMjKOkv
-         9QmQ66RUjGYzJs4C59e9Cc8eexYYpDi3fbYHguS32kDMyf2/KvG2Eb4s1+4ko3C9Sgeg
-         g9i/laLeJLmOetTBe8C8SUhepg4toWIwjcfF40vPhXD32nL1gG8Dlt55JvSvjyCf192g
-         FQDg==
-X-Gm-Message-State: AFq9FYL4kAgkxgb+zJeiWI5eqJc50Xf/OkyF++GZqDKSSUJ82AT3i5by
-	Jy9zHD1AKfHS9OVTztahFLB5LP5/4d7RJpPykYli3IyK18UhUm3QaZ7aUrwFrIcEkRXD0dV6fv9
-	7C0oCyjateTEydrLw0q4Jqj/cECTCLn1INq+0DFNNF7W1dV0aJHGiK0oGqKc=
+	s=arc-20240116; t=1792386806; c=relaxed/simple;
+	bh=/cZAu8TZP4F38PHdEa60qvWPo9zmofCHFWZ65uJo+CM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y531St6+e91cV/wnO9veQSqqukHA23B0KKG3YsTo/JbhVgh6qeiPWk7wtVR9EzlXLAf7A44QIGmT5hQDc2OQtUT2d+NGsJG7Z13/kYz3nDQBk6K8A74/izLQdLy7TF9ZU8P9VuKyhnJr0kzs//VmQbCE8J81NnJu6KzXzNCwiZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sgeAvZuB; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sgeAvZuB"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 02B3E1476;
+	Sun, 18 Oct 2026 22:13:18 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 469C33F7B4;
+	Sun, 18 Oct 2026 22:13:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792386801; bh=/cZAu8TZP4F38PHdEa60qvWPo9zmofCHFWZ65uJo+CM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=sgeAvZuB1W6o1SdRy9zYA7GJMhndI73Mrx1OMrKc6iaKtu+wVbV9Et6vqsUoL4Ei2
+	 AlUw7uMs0dDHZIdIf/qR4ykATw7Uhw9c56n8TDd7wKgyWoGwhTy0njvoz+x1s9NB8X
+	 vCST7KDRrGfaVAbHWEVbXIK7ptDuUgFZlv3Csl/g=
+Message-ID: <d67a7c38-5f35-47db-8ddd-e84e01f63388@arm.com>
+Date: Mon, 19 Oct 2026 10:43:14 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4e82:b0:53f:4cb6:cdc1 with SMTP id
- 5614622812f47-53f4cb6d286mr3228740b6e.34.1792386687530; Sun, 18 Oct 2026
- 22:11:27 -0700 (PDT)
-Date: Sun, 18 Oct 2026 22:11:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad5a67f.6814cce4.34c49f.0162.GAE@google.com>
-Subject: [syzbot] [raid?] general protection fault in raid5_quiesce
-From: syzbot <syzbot+0b672810a475890d3636@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, song@kernel.org, 
-	syzkaller-bugs@googlegroups.com, yukuai@fnnas.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    f909e534f5e3 Merge tag 'scsi-fixes' of git://git.kernel.or..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1307b13e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b38d39c45202f4fa
-dashboard link: https://syzkaller.appspot.com/bug?extid=0b672810a475890d3636
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1707b13e580000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+0b672810a475890d3636@syzkaller.appspotmail.com
-
-md/raid:md0: not enough operational devices (1/3 failed)
-md/raid:md0: failed to run raid set.
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
-CPU: 0 UID: 0 PID: 5902 Comm: syz-executor169 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-RIP: 0010:kasan_byte_accessible+0x12/0x30 mm/kasan/generic.c:210
-Code: 79 ff ff ff 0f 1f 40 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 c1 ef 03 48 b8 00 00 00 00 00 fc ff df <0f> b6 04 07 3c 08 0f 92 c0 e9 90 e7 2a 09 cc 66 66 66 66 66 66 2e
-RSP: 0018:ffffc9000544f708 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: ffffffff8b5cf203 RCX: 8000000000000001
-RDX: 0000000000000000 RSI: ffffffff8b5cf203 RDI: 000000000000000c
-RBP: ffffc9000544f870 R08: 0000000000000001 R09: 0000000000000000
-R10: dffffc0000000000 R11: ffffffff87ff0a50 R12: 0000000000000060
-R13: 0000000000000000 R14: 0000000000000060 R15: 0000000000000001
-FS:  000055556c882400(0000) GS:ffff8881249b9000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055d585e02cd0 CR3: 0000000044162000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __kasan_check_byte+0x12/0x40 mm/kasan/common.c:584
- kasan_check_byte include/linux/kasan.h:402 [inline]
- lock_acquire+0x7d/0x350 kernel/locking/lockdep.c:5916
- rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
- spin_lock_irq include/linux/spinlock_rt.h:96 [inline]
- lock_all_device_hash_locks_irq drivers/md/raid5.c:107 [inline]
- raid5_quiesce+0xc2/0x8a0 drivers/md/raid5.c:-1
- __md_stop_writes+0xeb/0x4b0 drivers/md/md.c:7038
- md_set_readonly+0x330/0x560 drivers/md/md.c:7138
- array_state_store+0x584/0xe90 drivers/md/md.c:4720
- md_attr_store+0x3b7/0x640 drivers/md/md.c:6158
- kernfs_fop_write_iter+0x3a5/0x540 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x61e/0xbb0 fs/read_write.c:687
- ksys_write+0x156/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb4d4570f77
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffcae126a10 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 000055556c882400 RCX: 00007fb4d4570f77
-RDX: 0000000000000008 RSI: 00007fb4d45aa11f RDI: 0000000000000005
-RBP: 000055556c8823d8 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000006
-R13: ffffffffffffffff R14: 0000000000000005 R15: 00000000ffffffff
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:kasan_byte_accessible+0x12/0x30 mm/kasan/generic.c:210
-Code: 79 ff ff ff 0f 1f 40 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 c1 ef 03 48 b8 00 00 00 00 00 fc ff df <0f> b6 04 07 3c 08 0f 92 c0 e9 90 e7 2a 09 cc 66 66 66 66 66 66 2e
-RSP: 0018:ffffc9000544f708 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: ffffffff8b5cf203 RCX: 8000000000000001
-RDX: 0000000000000000 RSI: ffffffff8b5cf203 RDI: 000000000000000c
-RBP: ffffc9000544f870 R08: 0000000000000001 R09: 0000000000000000
-R10: dffffc0000000000 R11: ffffffff87ff0a50 R12: 0000000000000060
-R13: 0000000000000000 R14: 0000000000000060 R15: 0000000000000001
-FS:  000055556c882400(0000) GS:ffff8881249b9000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055d585e02cd0 CR3: 0000000044162000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess), 4 bytes skipped:
-   0:	0f 1f 40 00          	nopl   0x0(%rax)
-   4:	90                   	nop
-   5:	90                   	nop
-   6:	90                   	nop
-   7:	90                   	nop
-   8:	90                   	nop
-   9:	90                   	nop
-   a:	90                   	nop
-   b:	90                   	nop
-   c:	90                   	nop
-   d:	90                   	nop
-   e:	90                   	nop
-   f:	90                   	nop
-  10:	90                   	nop
-  11:	90                   	nop
-  12:	90                   	nop
-  13:	90                   	nop
-  14:	0f 1f 40 d6          	nopl   -0x2a(%rax)
-  18:	48 c1 ef 03          	shr    $0x3,%rdi
-  1c:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  23:	fc ff df
-* 26:	0f b6 04 07          	movzbl (%rdi,%rax,1),%eax <-- trapping instruction
-  2a:	3c 08                	cmp    $0x8,%al
-  2c:	0f 92 c0             	setb   %al
-  2f:	e9 90 e7 2a 09       	jmp    0x92ae7c4
-  34:	cc                   	int3
-  35:	66                   	data16
-  36:	66                   	data16
-  37:	66                   	data16
-  38:	66                   	data16
-  39:	66                   	data16
-  3a:	66                   	data16
-  3b:	2e                   	cs
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/8] selftests/mm: check that MADV_COLD and MADV_PAGEOUT
+ preserve shared memory
+To: "Gregory Price (Meta)" <gourry@gourry.net>,
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, shuah@kernel.org
+References: <20261014175756.2035176-1-gourry@gourry.net>
+ <20261014175756.2035176-6-gourry@gourry.net>
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+Content-Language: en-US
+In-Reply-To: <20261014175756.2035176-6-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+On 10/14/26 11:27 PM, Gregory Price (Meta) wrote:
+> Both hints are non-destructive, but the tests so far only check that for
+> private anonymous memory. Shared memory reaches reclaim through different
+> paths: a dirty shared file page must be written back or left resident,
+> shared anonymous memory is paged out through shmem, and a SHM_LOCK'd
+> segment is unevictable without its VMA being VM_LOCKED.
+> 
+> Check that MADV_COLD and MADV_PAGEOUT preserve a dirty shared file page,
+> that MADV_PAGEOUT preserves a shared anonymous page, and that it leaves a
+> SHM_LOCK'd page resident. The SHM_LOCK test needs root to confirm through
+> /proc/kpageflags that the page is unevictable, and skips if it is not.
+> 
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  tools/testing/selftests/mm/madvise.c | 138 +++++++++++++++++++++++++++
+>  tools/testing/selftests/mm/vm_util.h |   1 +
+>  2 files changed, 139 insertions(+)
+LGTM
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
