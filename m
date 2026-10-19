@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82470634F39;
-	Mon, 19 Oct 2026 14:05:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE02A50B390;
+	Mon, 19 Oct 2026 14:05:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418743; cv=none; b=BKlxX41qwajZJXE3OWIUx4KOrifFtJH/1Krn+RYsVndQWPNvlFWyHREPxAbRe4wz3PT0KlytzZ9WTy3k3j+uAZn2q0vGPa3WUla/MXQHKHV75FlO+UHGg0lLPhwN6a0N4vdPAO3GDmjF5EtKI9EKsarEWkqhZ+hHDfTz2Sy/zS0=
+	t=1792418746; cv=none; b=X0DoOlJDuUezr+s9JAO4iIdTtZC2jCE3UgYUQHm3gCjpY369TaXCuWx8bQ4xJgWoLew9KUnHqO+1RFHg3t36f/f4Z+NTKwcgBeilYxs9NKwvvSzLJhEMCNDscv9SYG/6S3IkXNw9MyRtAx3itk/7JQV/+NXvlbpk7hK+Ka1sRzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418743; c=relaxed/simple;
-	bh=HVjNpkKLxT7qbdAdX4Zdcfqctuwo66CEVxbqw0grWh4=;
+	s=arc-20240116; t=1792418746; c=relaxed/simple;
+	bh=OKR8MfhjCT4d494Ibm69L1jmkmuwbzzvmUPQL48nEQU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tCYQqT7xMf+eoFLZbkwbVQRPfh+XnauvM5w0mTisepp1+nLXU8oVNWw4wS4988kiV15ILgzonFRHigTGfCphqJORwYTZuV5PgW4cXSeTMeAspu8XLehVQBT+soxMruGGtsreyuZOwoRLNo0aPVe7HmWPVZrxWr0Fj4Y6LvLh7Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCiU/Fab; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Lv/ZbwVToFeY4uHLawN9N9WwT4WEsKiNa2sgjsGMzMMom7KL6VSHSIIBwODKcF06Gu4qUQj2phS4ElHYrhpXCUTBNOHrOXINOa9IxhCCOZ0ilIXGl96w/8+8y8fUdPYO3LHUl+fSGmi7ZdkVpkVsxpWvgNBJbU2MFnQPcw8yQPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zz2k3LNS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCiU/Fab"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A431F000C6;
-	Mon, 19 Oct 2026 14:05:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zz2k3LNS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B631F000C7;
+	Mon, 19 Oct 2026 14:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418740;
-	bh=7cDxpU4h7PLon0nH984O6cOV2WKPkPMLrPLXQMxU55g=;
+	s=k20260515; t=1792418743;
+	bh=eqR8+KOPZ8pnk+K+E0eR+FyydimkvuSbCbmBAmeToow=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iCiU/FabYqYihhFEr91ABX8s79SlkjGeTjLiekhJEQP5NGPGBQa8+l5D5AWorrbDL
-	 vOtF4ZidpquaQQ9gd7odJvT7472vQZMrYlr/lLnP8WtjDi+IZz/GuHxd5RpDTwYc9o
-	 Np7p5OGJP9U6Iu+eOD8YkYLHE4pZjhbxkvOEwncDCRIKM6haFp21GxX5EazA8+jnH2
-	 Na451Yg0wwxZQlC4gwnH16vQWxReJXz6e3kUIxAHRKgsjnV4aRZLaEPgas6iHM9XZb
-	 6pIUmu3AzV33mDU4ziFCOZrpOPFO+KsaJZ+A3eJMofkcZDufLD95aYYk4555T/FzlX
-	 8YebOD8PQN//Q==
+	b=Zz2k3LNSG+Lv80/ElMbkkFOzBEwLn+W64zWbxH7AIsXE+yPQKH6Eu9CPt3dIgS5gg
+	 1wAwl/qnH44iTvDfJVV2ub1suR8v6cTSpxwOcvidEB74AZdtQnRyQU21sMphXUluyl
+	 jaOuBzzvAWRRZhhEp3z2ml0VTzHD+HccxchaovNIMf/T4JblJ1UTb5r/9gFCJ9lf49
+	 DuNMcrXwWeSexOj06APVGEghOb8YfgtKreNpsle5dnRwz+3rHRJ8aaQQZ2LLeYiXjb
+	 Z02RePIpxhYZuvvqPvd/8cWzaCdGjhQoog7YaQEYnIoeEyiF4cZOCIvp9GJ3jrEAiS
+	 /XXhham7UurVg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Tomer Maimon <tmaimon77@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>,
-	andrew@codeconstruct.com.au,
-	avifishman70@gmail.com,
-	tali.perry1@gmail.com,
-	openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] pinctrl: npcm8xx: clear pending GPIO events during init
-Date: Mon, 19 Oct 2026 09:52:33 -0400
-Message-ID: <20261019135441.1420968-462-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/gfx12: set KMD_QUEUE for kernel gfx queues
+Date: Mon, 19 Oct 2026 09:52:35 -0400
+Message-ID: <20261019135441.1420968-464-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -56,397 +56,334 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tomer Maimon <tmaimon77@gmail.com>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit cd39cce4cfd499f555eb8b8252636609c3468f57 ]
+[ Upstream commit 9fe5745f9d8eca38d31d9b672a1998edf856f651 ]
 
-A bank may retain pending event status across resets of the GPIO block.
-If probe leaves the old state in place, the chained IRQ handler can see
-spurious events as soon as the irqchip is registered.
+Set KMD_QUEUE in the GFX MQD and kernel ring control registers so CP
+preserves kernel IB VMIDs instead of replacing them with the queue VMID.
+Use prop->kernel_queue to distinguish kernel and user MQDs.
 
-Disable event generation and clear EVST before wiring each GPIO bank
-into gpiolib so the driver starts from a known state.
-
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 14741c01680a803050e949744089b57fa53e02f7)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
-NPCM8XX pinctrl/GPIO driver is present, the leftover EVEN/EVST init gap
-is real on this path, and the change is a 3-line hardware init fix that
-belongs here.
+I have enough tree, diff, and caller evidence to judge this for 6.18.57.
+Lore lookups failed with 403, so mailing-list review is limited to the
+amd-gfx archive title and the commit tags.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## Phase 1: Commit message forensics
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[pinctrl/npcm8xx] [clear] [clear leftover GPIO event
-enable/status before irqchip registration]**
+**Step 1.1 — Subject**
+- Record: `[drm/amdgpu/gfx12] [set] [program KMD_QUEUE on kernel GFX
+  queues so CP keeps kernel IB VMIDs]`
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-Record:
-- Signed-off-by: Tomer Maimon \<tmaimon77@gmail.com\> (author; original
-  NPCM8XX driver author)
-- Signed-off-by: Linus Walleij \<linusw@kernel.org\> (pinctrl
-  maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
-  or Cc: stable (absence is expected)
+**Step 1.2 — Tags**
+- Record:
+  - `Reviewed-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+    maintainer)
+  - `Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>` (author)
+  - `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>`
+    (maintainer)
+  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable`
+    (absence expected for this review)
+  - Pipeline-only markers ignored: `[Upstream commit ...]`, `(cherry
+    picked from ...)`, `Signed-off-by: Sasha Levin`
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- **Bug:** GPIO bank EVEN/EVST can survive GPIO-block reset
-  (bootloader/firmware leftover).
-- **Symptom:** chained IRQ handler sees spurious events as soon as the
-  irqchip is registered at probe.
-- **Root cause:** probe never disables event generation or W1C-clears
-  EVST before `gpiochip_add_data()`.
-- **Fix:** write EVEN=0, then EVST=0xffffffff, per bank, before gpiolib
-  wiring.
-- **Versions:** none stated. Bug is an omission since the driver was
-  added.
+**Step 1.3 — Body**
+- Record:
+  - Bug: CP replaces kernel IB VMIDs with the queue VMID unless
+    `KMD_QUEUE` is set
+  - Symptom: kernel IBs run in the wrong VM (queue VMID, typically 0)
+  - Root cause: GFX MQD and `CP_RB0_CNTL` never programmed `KMD_QUEUE`
+  - Fix: set the bit from `prop->kernel_queue` (MQD) and hard-set 1 on
+    the kernel ring
+  - No stack trace, repro, or version range in the message
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not disguised. Subject/body describe a real init-time IRQ bug.
-Cover letter of the v1 8-patch series called the series a vendor-tree
-cleanup, but this patch is a concrete spurious-IRQ fix, not style-only.
+**Step 1.4 — Hidden bug fix?**
+- Record: Not disguised. It is an explicit hardware-programming
+  correctness fix.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## Phase 2: Diff analysis
 
-**Step 2.1: INVENTORY THE CHANGES**
-Record:
-- File: `drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c` (+3 / −0)
-- Function: `npcm8xx_gpio_fw()`
-- Scope: single-file surgical init fix
+**Step 2.1 — Inventory**
+- Record: `drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c` only; `+2 / -0`
+- Functions: `gfx_v12_0_cp_gfx_resume()`, `gfx_v12_0_gfx_mqd_init()`
+- Scope: single-file surgical fix
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- **Before:** after `fwnode_irq_get()`, the bank’s EVEN/EVST were left
-  as hardware left them; later `npcm8xx_gpio_register()` set
-  `girq->parent_handler = npcmgpio_irq_handler` and called
-  `devm_gpiochip_add_data()`.
-- **After:** EVEN is forced to 0 (no event generation), then EVST is
-  W1C-cleared with `0xffffffff`, still before irqchip registration.
-- Path: probe/init only (`npcm8xx_pinctrl_probe` → `npcm8xx_gpio_fw`).
+**Step 2.2 — Control-flow change**
+- Hunk 1 (`gfx_v12_0_cp_gfx_resume`): `CP_RB0_CNTL` was built with
+  `RB_BUFSZ`/`RB_BLKSZ` only (base 0). After: `KMD_QUEUE=1` on kernel
+  gfx ring 0. Init/resume path, used when `amdgpu_async_gfx_ring` is 0.
+- Hunk 2 (`gfx_v12_0_gfx_mqd_init`): `CP_GFX_HQD_CNTL` was built from
+  `regCP_GFX_HQD_CNTL_DEFAULT` (0x00f00000). After:
+  `KMD_QUEUE=prop->kernel_queue`. This is the default MQD path
+  (`amdgpu_async_gfx_ring` defaults to 1).
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record:
-- **Category:** hardware leftover interrupt state / spurious IRQ (init
-  hygiene, same class as a quirk).
-- **Mechanism:** `npcmgpio_irq_handler()` does `sts = EVST; en = EVEN;
-  sts &= en;` then `generic_handle_domain_irq()` for set bits. If
-  firmware left EVEN and EVST non-zero, the first chained invocation
-  dispatches IRQs for lines that were never requested. Parent bank IRQs
-  in DT are **GIC_SPI, IRQ_TYPE_LEVEL_HIGH**; leftover asserted status
-  can keep the parent line high (storm / “nobody cared”).
-  `npcmgpio_irq_ack()` writes `BIT(gpio)` to EVST, confirming EVST is
-  write-1-to-clear; writing `0xffffffff` is the correct all-clear.
-  Disabling EVEN first avoids a new event sneaking in between the two
-  writes.
+**Step 2.3 — Bug mechanism**
+- Record: `[logic / hardware programming] [CP overwrites IB VMID unless
+  KMD_QUEUE; fix sets that bit on kernel queues only]`
+- `KMD_QUEUE` is bit 29 (`0x20000000`). Default `0x00f00000` does not
+  include it. `CP_RB0_CNTL` starts from 0, so it was also clear.
+- Same file already sets `KMD_QUEUE` for compute kernel queues in
+  `gfx_v12_0_compute_mqd_init()`. GFX was the missing counterpart.
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- Obviously correct: disable, then W1C-clear, before the handler is
-  installed.
-- Minimal: two MMIO writes, no API/struct/locking changes.
-- Regression risk: very low. Linux GPIO IRQs must be requested through
-  gpiolib; inheriting bootloader unmasks is not a supported ABI.
-  Starting masked+cleared is the normal irqchip model.
+**Step 2.4 — Fix quality**
+- Record: Minimal and obviously correct. User MQDs keep `KMD_QUEUE=0`
+  because `mes_userq_mqd_create()` `kzalloc`s `amdgpu_mqd_prop`. Kernel
+  rings set `prop->kernel_queue = true` in `amdgpu_ring_to_mqd_prop()`.
+  Regression risk is low: it matches the existing compute-queue
+  programming.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+## Phase 3: Git history
 
-**Step 3.1: BLAME THE CHANGED LINES**
-Record: The surrounding `npcm8xx_gpio_fw()` bank setup comes from
-**acf4884a57170** (“pinctrl: nuvoton: add NPCM8XX pinctrl and GPIO
-driver”, 2023-08-28), first in **v6.7-rc1**. The bug is missing init,
-present for the lifetime of the driver.
+**Step 3.1 — Blame**
+- Record: Surrounding GFX resume/MQD setup comes from `52cb80c12e8a64`
+  (`drm/amdgpu: Add gfx v12_0 ip block support (v6)`, 2023-07-04). The
+  missing bit has been absent since GFX12 was added.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. N/A. Introduced-by is the original driver commit
-above. `git merge-base --is-ancestor acf4884a57170 HEAD` is implicit:
-the file exists on this 7.3 tree.
+**Step 3.2 — Fixes: tag**
+- Record: No `Fixes:` tag. Bug is the original GFX12 bring-up omitting
+  `KMD_QUEUE`. That bring-up commit is an ancestor of this tree.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Same-day series (2026-07-15) in this file:
-1. drop RTS/CTS from bmcuart1
-2. enable RMII outputs
-3. RG2 drive strength
-4. **this commit**
-5. rename GPIO7 IOX2
-6. move IRQ setup into `request_resources`
-7. JM1/SMB7 pin flags
-8. debounce register selection
+**Step 3.3 — File history**
+- Record: Prerequisite already here: `7b9110f289795` (`drm/amdgpu/gfx12:
+  set MQD as appriopriate for queue types`) added `prop->kernel_queue` /
+  `RB_NON_PRIV` and compute `KMD_QUEUE`. Present in v6.18.57. This
+  commit is standalone, not patch 2/3 of that older series.
 
-This patch does not use symbols or structure from 1–3 or 5–8.
-Standalone.
+**Step 3.4 — Author**
+- Record: Jesse Zhang is a regular amdgpu contributor. Same-day sibling:
+  `drm/amdgpu/gfx11: set KMD_QUEUE for kernel gfx queues`. Maintainer
+  reviewed both.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Tomer Maimon is the Nuvoton driver author
-(`MODULE_AUTHOR("tomer.maimon@nuvoton.com")`) and added both NPCM7XX and
-NPCM8XX pinctrl drivers. Weight: high.
+**Step 3.5 — Dependencies**
+- Record: Needs `bool kernel_queue` in `amdgpu_mqd_prop`
+  (`284d4dfe850e6`, in v6.18.57) and `CP_*_KMD_QUEUE` masks in
+  `gc_12_0_0_sh_mask.h` (present). Can apply standalone. No new helpers.
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: None. Uses existing `NPCM8XX_GP_N_EVEN` / `NPCM8XX_GP_N_EVST`
-and `iowrite32()`. Applies standalone.
+## Phase 4: Mailing list / external
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 4.1 — Original discussion**
+- Record: `b4 dig -c 14741c01680a` / `9fe5745f9d8e` / `53db34aed371`
+  failed (lore returned an error). Fallback: amd-gfx September 2026
+  archive lists `[PATCH 09/21] drm/amdgpu/gfx12: set KMD_QUEUE for
+  kernel gfx queues` next to hung-queue / pipe-reset patches. No NAK
+  found. No later conflicting revision found.
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- `b4 dig -c cd39cce4cfd499f555eb8b8252636609c3468f57` →
-  https://patch.msgid.link/20260715122923.1938327-5-tmaimon77@gmail.com
-- v1 only (`b4 dig -a`): **[PATCH v1 4/8]** in “pinctrl: npcm8xx: fix
-  pinmuxing and configuration handling”
-- Cover letter: issues found by comparing upstream with the Nuvoton
-  tree; this patch is called out as clearing stale GPIO events at probe.
-- Linus Walleij (2026-07-24): “No comments so patches applied.” No NAK,
-  no requested respin.
-- Applied version is v1 (only revision).
+**Step 4.2 — Reviewers**
+- Record: `b4 dig -w` failed (same lore error). Commit has `Reviewed-by`
+  / `Signed-off-by` from Alex Deucher.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc included linusw@kernel.org (pinctrl
-maintainer), brgl@kernel.org (GPIO), andrew@codeconstruct.com.au,
-openbmc@lists.ozlabs.org, linux-gpio, Nuvoton/Google OpenBMC people.
-Maintainer applied the series. No Reviewed-by tags on the commit.
+**Step 4.3 — Bug report**
+- Record: No `Reported-by` / syzbot / bugzilla link. Mechanism is stated
+  by the AMD author.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No Reported-by, bugzilla, or syzbot. Trigger is SoC/firmware
-leftover state, not a fuzzer path. Author is the vendor driver owner;
-that is how this class of BMC GPIO bugs usually surfaces.
+**Step 4.4 — Series**
+- Record: Submitted as 09/21 in a hung-queue/reset series. This hunk
+  does not call any of those new helpers; it is self-contained register
+  programming.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: 8-patch v1 series. Other patches are pinmux/drive-
-strength/rename/lockdep-IRQ-startup/debounce — not prerequisites. This
-3-line hunk is self-contained.
+**Step 4.5 — Stable list**
+- Record: No useful stable-list hit for this subject. UNVERIFIED whether
+  anyone already requested or rejected it for stable.
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search returned HTTP 403. **UNVERIFIED:**
-no confirmation of prior stable-list discussion. gpio list mbox had no
-“Cc: stable” and no objection.
+## Phase 5: Semantic / call-chain
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 5.1 — Functions**
+- Record: `gfx_v12_0_cp_gfx_resume`, `gfx_v12_0_gfx_mqd_init`
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `npcm8xx_gpio_fw()` (modified). Related, not edited:
-`npcmgpio_irq_handler()`, `npcm8xx_gpio_register()`,
-`npcm8xx_pinctrl_probe()`.
+**Step 5.2 — Callers**
+- Record:
+  - `gfx_v12_0_cp_gfx_resume` ← GFX hw init when
+    `!amdgpu_async_gfx_ring` (module param default is 1, so this is the
+    fallback)
+  - `gfx_v12_0_gfx_mqd_init` ← `adev->mqds[AMDGPU_HW_IP_GFX].init_mqd` ←
+    `amdgpu_ring_init_mqd()` ← `gfx_v12_0_kgq_init_queue()` (default
+    async KGQ path) and `mes_userq_mqd_create()` (user queues,
+    `kernel_queue==false`)
 
-**Step 5.2: TRACE CALLERS**
-Record:
-- `npcm8xx_gpio_fw()` ← `npcm8xx_pinctrl_probe()` only (platform probe,
-  `arch_initcall`).
-- `npcmgpio_irq_handler()` ← chained parent handler for each of 8 GPIO
-  banks.
-- Context: boot/probe, then hardirq for bank SPI 116–123.
+**Step 5.3 — Callees**
+- Record: `REG_SET_FIELD`, `WREG32_SOC15`. No alloc/lock/API change.
 
-**Step 5.3: TRACE CALLEES**
-Record: `iowrite32()` to EVEN and EVST. No alloc, no locks. Later
-`npcm8xx_gpio_register()` → `devm_gpiochip_add_data()`.
+**Step 5.4 — Reachability**
+- Record: Yes. Default GFX12 init uses KGQ MQD init.
+  `gfx_v12_0_ring_emit_ib_gfx()` writes `control |= ib->length_dw |
+  (vmid << 24)` with `AMDGPU_JOB_GET_VMID(job)`. Userspace CS on a
+  kernel gfx ring therefore depends on CP honoring that IB VMID.
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: DT `compatible = "nuvoton,npcm845-pinctrl"` with 8
-`gpio@f001x000` nodes, each `interrupts = <GIC_SPI 11x
-IRQ_TYPE_LEVEL_HIGH>`. Reachable on every NPCM845/NPCM8XX boot
-(OpenBMC). Not a syscall fuzzer path; userspace GPIO IRQ consumers can
-be hit by the spurious events if leftover enables match those lines.
+**Step 5.5 — Similar patterns**
+- Record: Compute MQD in the same file already sets `KMD_QUEUE` for
+  kernel queues. GFX11 sibling does the same two-line change. KFD MQD
+  managers also set `KMD_QUEUE` for kernel queues.
 
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: NPCM7XX has the same EVEN/EVST handler and **does not** clear
-them at init (same latent class, out of scope). `pinctrl-owl.c` also
-clears pending GPIO IRQs in its handler path. Pattern is established.
+## Phase 6: This tree (6.18.57)
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 6.1 — Does the bug exist here?**
+- Record: Local tree is **v6.18.57** (`git describe HEAD` =
+  `v6.18.57-155-gcdf239ca885b2`, Makefile 6.18.57).
+- `git merge-base --is-ancestor 14741c01680a HEAD` → not an ancestor.
+- `v6.18.57:drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c` does **not** set
+  `KMD_QUEUE` in `gfx_v12_0_cp_gfx_resume` / `gfx_v12_0_gfx_mqd_init`.
+  The compute path already does. GFX12 IP has been in this line since
+  `52cb80c12e8a64`.
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. `drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c` is in this
-7.3-rc4 tree. Driver since v6.7. Without the two writes,
-`npcm8xx_gpio_fw()` still maps banks and `npcm8xx_gpio_register()` still
-installs `npcmgpio_irq_handler`. Bug introduced with the driver, long
-before 7.3.
+**Step 6.2 — Backport difficulty**
+- Record: Clean apply. v6.18.57 context matches the hunks exactly.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply. Hunk sits immediately after `fwnode_irq_get()` in
-`npcm8xx_gpio_fw()`, which exists here. No structural mismatch.
+**Step 6.3 — Related fixes already here?**
+- Record: `7b9110f289795` is in v6.18.57 and handles compute `KMD_QUEUE`
+  / GFX `RB_NON_PRIV`. It does not set GFX `KMD_QUEUE`. No equivalent
+  GFX12 fix is in v6.18.57.
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No earlier equivalent EVEN/EVST init. This is the first such
-clear on this file (`git log --grep='pending GPIO'` / `'spurious'` on
-that path only hits this commit).
+## Phase 7: Subsystem context
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 7.1**
+- Record: `[drm/amdgpu GFX12] [IMPORTANT — common AMD GPU driver, RDNA4
+  / RX 9000 class]`
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **pinctrl/GPIO, Nuvoton NPCM8XX (BMC SoC).** Criticality:
-**PERIPHERAL** for the kernel as a whole, **IMPORTANT** for NPCM845
-OpenBMC/server BMC users. `CONFIG_PINCTRL_NPCM8XX` depends on `ARCH_NPCM
-|| COMPILE_TEST`.
+**Step 7.2**
+- Record: Active but mature GFX12 support in 6.18. This is a leftover
+  bring-up omission, not a brand-new subsystem.
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature driver (v6.7), with a burst of vendor fixes in the 7.3
-window. Not staging.
+## Phase 8: Impact and risk
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 8.1 — Who is affected**
+- Record: GFX12 amdgpu users (config/driver-specific). Not universal.
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific / platform-specific: Nuvoton NPCM8XX (e.g.
-NPCM845) systems using this pinctrl driver. Typical population: OpenBMC
-on that SoC.
+**Step 8.2 — Trigger**
+- Record: Device init (MQD/`CP_RB0_CNTL` programming), then any kernel
+  gfx IB whose VMID ≠ queue VMID. Unprivileged users trigger this via
+  normal command submission. Default path is async KGQ
+  (`amdgpu_async_gfx_ring=1`).
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Boot/probe, when firmware or a partial GPIO-block reset left
-EVEN/EVST non-zero. Common on BMCs (bootloader uses GPIOs). Not
-unprivileged-syscall; it is default hardware bring-up.
+**Step 8.3 — Failure mode**
+- Record: Wrong GPU VMID → GFXHUB page fault, ring timeout, GPU reset,
+  or access in the wrong address space. Severity: **HIGH** (GPU hang /
+  fault; possible wrong-VM access).
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record:
-- Spurious chained IRQs at probe.
-- Parent IRQs are **level-high**; leftover enable+status can hold the
-  line → IRQ storm, “nobody cared”, hung boot.
-- `generic_handle_domain_irq()` on never-requested lines (this driver
-  defaults `girq->handler = handle_level_irq`, not `handle_bad_irq`).
-- **Severity: HIGH** (boot IRQ storm / spurious IRQs on BMC GPIO). Not a
-  universal panic, but a real stability failure on affected boards.
+**Step 8.4 — Risk vs benefit**
+- Record: Benefit high for GFX12 boxes. Risk very low (2 lines, kernel
+  queues only, same pattern as compute). Ratio favors backport.
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** high for NPCM8XX (known-state IRQ init; prevents probe-
-  time storms).
-- **Risk:** very low (2 MMIO writes, probe only).
-- **Ratio:** strongly in favor of applying.
+## Phase 9: Synthesis
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+**Evidence for**
+- Real CP programming bug: kernel IB VMIDs can be replaced with queue
+  VMID 0
+- `gfx_v12_0_ring_emit_ib_gfx()` puts the job VMID in the IB; that path
+  is live
+- Compute KGQ already sets `KMD_QUEUE`; GFX did not
+- 2-line, obviously correct, maintainer-reviewed
+- Bug and prerequisites exist in v6.18.57; applies cleanly
+- No new API/feature
 
-**Step 9.1: COMPILE THE EVIDENCE**
+**Evidence against**
+- No public repro, syzbot, or `Fixes:` tag
+- Everyday GFX12 has worked since bring-up, so firmware or privilege
+  bits may mask this in some cases
+- Submitted as 09/21 in a larger reset series (but this hunk is
+  independent)
+- Lore/b4 review thread could not be fetched (server 403)
 
-FOR:
-- Real leftover-hardware IRQ bug, not a refactor.
-- Level-triggered parent IRQs make leftover EVST/EVEN a boot storm risk.
-- 3 lines, obviously correct (mask then W1C-clear before handler
-  install).
-- Author is the vendor driver owner; pinctrl maintainer applied it.
-- Driver and insertion point exist in this 7.3 tree; no prerequisites.
-- Same class as accepted GPIO “clear pending at init” fixes.
+**Unresolved**
+- Full reviewer discussion beyond `Reviewed-by: Alex Deucher`
+- Whether a specific firmware version started enforcing VMID replacement
+- Stable-list history for this exact subject
 
-AGAINST:
-- No user/syzbot report; found via vendor-tree comparison.
-- Affects one BMC SoC family, not core kernel.
-- No Cc: stable (not a negative by itself).
-- Series mixed in feature/rename patches (this hunk does not depend on
-  them).
+**Stable rules**
+1. Obviously correct and tested? **PASS** — two `REG_SET_FIELD`s;
+   maintainer reviewed
+2. Real user-facing bug? **PASS** — wrong IB VMID on kernel GFX queues
+3. Important (fault/hang/wrong VM)? **PASS** — HIGH, not cosmetic
+4. Small and contained? **PASS** — +2 lines, one file
+5. No new features/APIs? **PASS**
+6. Applies to this tree? **PASS** — v6.18.57 has the buggy code and
+   prerequisites
 
-UNRESOLVED:
-- Could not search lore.kernel.org/stable (HTTP 403).
-- No independent Tested-by.
+**Exception category:** hardware programming / quirk-like register bit
+on an existing driver. Not a new driver or API.
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — two register writes,
-   maintainer applied; no test robot/NAK. Formal Tested-by absent, but
-   the change is reviewable from the handler and DT IRQ type.
-2. Fixes a real bug that affects users? **PASS** — leftover EVEN/EVST →
-   spurious chained IRQs on NPCM8XX probe.
-3. Important issue? **PASS** — boot-time spurious/level IRQ storm on BMC
-   GPIO, not cosmetic.
-4. Small and contained? **PASS** — +3 lines, one function.
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — file, registers, and
-   `npcm8xx_gpio_fw()` insertion point are here.
+This belongs on 6.18.57. The tree has GFX12, still omits GFX
+`KMD_QUEUE`, and the fix is a two-line register correction with the same
+`kernel_queue` distinction already used for compute MQDs.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Hardware init/workaround (clear stale IRQ state). Not a new ID,
-but the same “make existing hardware boot cleanly” exception.
+### What the commit solves for this tree
+On GFX12, kernel gfx rings submit `PACKET3_INDIRECT_BUFFER` with a job
+VMID. Without `KMD_QUEUE`, CP is specified to replace that VMID with the
+queue VMID (0). That is a GPU address-space bug: faults, hangs, or
+wrong-VM access. v6.18.57 already has the `kernel_queue` flag and
+compute `KMD_QUEUE`; this only fills the GFX gap.
 
-**Step 9.4: MAKE YOUR DECISION**
-This is a small, correct, self-contained fix for leftover GPIO event
-state that can fire the chained handler as soon as the irqchip is
-registered. The buggy path exists in this 7.3 tree. It should be applied
-here.
-
-What the commit solves: NPCM8XX GPIO banks can keep EVEN/EVST across
-GPIO-block reset. Probe used to register the chained handler on that
-dirty state, so leftover enables × pending status become spurious (and,
-with level-high parents, potentially stuck) interrupts at boot.
-
-Stable rules: obviously correct, real bug, important for that platform,
-tiny, no new API, applies cleanly.
-
-Risk vs benefit: two MMIO writes at probe vs boot IRQ storms on OpenBMC
-NPCM845. Benefit dominates.
-
-Concerns: no public reproducer; NPCM7XX still has the same gap (does not
-block this fix). No extra backports required.
+### Risk vs benefit
+Benefit is correct VMID handling on RDNA4 kernel gfx queues. Risk is a
+two-line bit set on kernel queues only; user queues stay unset.
 
 Verification:
-- [Phase 1] Parsed tags: only Tomer Maimon + Linus Walleij SOBs; no
-  Fixes/Reported-by/stable
-- [Phase 2] Diff: +3 lines in `npcm8xx_gpio_fw()`; EVEN=0 then
-  EVST=0xffffffff
-- [Phase 2] Handler at lines 210–227 ANDs EVST with EVEN then
-  `generic_handle_domain_irq()`
-- [Phase 2] `npcmgpio_irq_ack()` writes `BIT(gpio)` to EVST → W1C
-  confirmed
-- [Phase 3] Driver added in acf4884a57170 (v6.7-rc1); blame of
-  surrounding init is that commit
-- [Phase 3] `git merge-base --is-ancestor` of the fix vs HEAD: commit is
-  in this 7.3 history; code path exists either way
-- [Phase 3] Standalone vs 8-patch series: no shared symbols with
-  neighboring patches
-- [Phase 4] `b4 dig -c cd39cce4cfd49`: lore msgid
-  20260715122923.1938327-5; v1 4/8
-- [Phase 4] `b4 dig -a`: v1 only
-- [Phase 4] `b4 dig -w`: linusw, brgl, openbmc, linux-gpio
-- [Phase 4] mbox: Linus Walleij “No comments so patches applied.”; no
-  NAK; no Cc: stable
-- [Phase 4] Cover letter (LKML archive): vendor-tree comparison; this
-  patch listed as stale-event clear
-- [Phase 4] lore.kernel.org/stable: 403, UNVERIFIED
-- [Phase 5] Callers: `npcm8xx_pinctrl_probe` only; 8 DT GPIO banks,
-  GIC_SPI 116–123 level-high
-- [Phase 6] `git describe HEAD`: v7.3-rc4-27-gf0100363d8c37; `make
-  kernelversion`: 7.3.0-rc4
-- [Phase 6] File and `fwnode_irq_get` insertion point present; apply
-  would be clean
-- [Phase 8] Failure mode: spurious chained GPIO IRQs / possible level-
-  triggered storm at probe; HIGH on NPCM8XX, not core-wide
-- UNVERIFIED: stable@ list discussion; independent user reports
+- [Phase 1] Parsed tags: Reviewed-by/SOB Alex Deucher; no
+  Fixes/Reported-by/Link
+- [Phase 2] Diff: +2 lines in `gfx_v12_0_cp_gfx_resume` and
+  `gfx_v12_0_gfx_mqd_init`
+- [Phase 2] `regCP_GFX_HQD_CNTL_DEFAULT` is `0x00f00000`; `KMD_QUEUE`
+  mask is `0x20000000` — default does not set the bit
+- [Phase 2] Userq path: `mes_userqueue.c` kzallocs props, so
+  `kernel_queue` stays false
+- [Phase 2] Kernel rings: `amdgpu_ring.c` sets `prop->kernel_queue =
+  true`
+- [Phase 3] Blame: GFX12 setup from `52cb80c12e8a64` (2023); `KMD_QUEUE`
+  never set on GFX
+- [Phase 3] Prerequisite `7b9110f289795` / `284d4dfe850e6` are ancestors
+  of v6.18.57
+- [Phase 3] `git merge-base --is-ancestor 14741c01680a HEAD` → not
+  present as that SHA
+- [Phase 4] `b4 dig` failed (lore server error) — UNVERIFIED full thread
+  text
+- [Phase 4] amd-gfx Sept 2026 archive: `[PATCH 09/21] drm/amdgpu/gfx12:
+  set KMD_QUEUE for kernel gfx queues`
+- [Phase 4] lore.kernel.org WebFetch 403; no stable-list discussion
+  found
+- [Phase 5] Default init: `amdgpu_async_gfx_ring=1` →
+  `gfx_v12_0_kgq_init_queue` → `gfx_v12_0_gfx_mqd_init`
+- [Phase 5] `gfx_v12_0_ring_emit_ib_gfx` encodes VMID at bit 24
+- [Phase 6] `git describe HEAD`: v6.18.57-155-gcdf239ca885b2; Makefile
+  6.18.57
+- [Phase 6] `git show v6.18.57:drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c`:
+  GFX `KMD_QUEUE` missing; compute path present
+- [Phase 8] Failure mode: GPU VM fault / hang / wrong address space —
+  HIGH
+- UNVERIFIED: exact firmware interaction that kept some GFX12 systems
+  working without this bit
 
 **YES**
 
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index c94441b2acdae..22cc87d43ea69 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2412,6 +2412,9 @@ static int npcm8xx_gpio_fw(struct npcm8xx_pinctrl *pctrl)
- 		if (ret < 0)
- 			return dev_err_probe(dev, ret, "Failed to retrieve IRQ for bank %u\n", id);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 433381f806b2b..06fde713b9229 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -2733,6 +2733,7 @@ static int gfx_v12_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	rb_bufsz = order_base_2(ring->ring_size / 8);
+ 	tmp = REG_SET_FIELD(0, CP_RB0_CNTL, RB_BUFSZ, rb_bufsz);
+ 	tmp = REG_SET_FIELD(tmp, CP_RB0_CNTL, RB_BLKSZ, rb_bufsz - 2);
++	tmp = REG_SET_FIELD(tmp, CP_RB0_CNTL, KMD_QUEUE, 1);
+ 	WREG32_SOC15(GC, 0, regCP_RB0_CNTL, tmp);
  
-+		iowrite32(0, pctrl->gpio_bank[id].base + NPCM8XX_GP_N_EVEN);
-+		iowrite32(0xffffffff, pctrl->gpio_bank[id].base + NPCM8XX_GP_N_EVST);
-+
- 		pctrl->gpio_bank[id].irq = ret;
- 		pctrl->gpio_bank[id].irq_chip = npcmgpio_irqchip;
- 		pctrl->gpio_bank[id].irqbase = id * NPCM8XX_GPIO_PER_BANK;
+ 	/* Initialize the ring buffer's write pointers */
+@@ -3025,6 +3026,7 @@ static int gfx_v12_0_gfx_mqd_init(struct amdgpu_device *adev, void *m,
+ 	tmp = regCP_GFX_HQD_CNTL_DEFAULT;
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BUFSZ, rb_bufsz);
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BLKSZ, rb_bufsz - 2);
++	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, KMD_QUEUE, prop->kernel_queue);
+ #ifdef __BIG_ENDIAN
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, BUF_SWAP, 1);
+ #endif
 -- 
 2.53.0
 
