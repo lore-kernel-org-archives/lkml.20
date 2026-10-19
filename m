@@ -1,89 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B477F547057;
-	Mon, 19 Oct 2026 14:26:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6600356CE28;
+	Mon, 19 Oct 2026 14:26:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419962; cv=none; b=BFZpTdTcqkKfyOdMB9iEvSK2rEZNvQWXwhWa5U9qrLkF5wCxUkpj0BVuIK78DGvDVQXqggLuHsvUhLxv1h21LpMevWYufK0NZMotTtJfTp1zJE2ENoo+UFRsEOW05VpuGuFSVY4fvLpi7/Os1Hq4el7PY33f9RlRoPlJihb2Xe4=
+	t=1792419964; cv=none; b=gXg/rjfP3/PgnYu2l2ZwXevogVl2dnfFHGJyZ2u5R+y7OYGy+OkD1CdQdKWzBZ/xsqokEzqXIjuY7ud7kpjWsdqMfrBHOAPOum7hzkka9Hl/ARFX196R8GiP4ZOrsA18s78+dPpTxtpZn5D1+NZUq55fmGWWENVtlkSA6pIYJHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419962; c=relaxed/simple;
-	bh=VdE7kNdCWzMUy9Bt5Yz+m1YMOQWiQOyBBZJA1zVPvZ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VlMW7oVNJA1rdyfpXeUonhYn3IRhDE7mSFDWGNAxIasOoNhvHibgxHKw5VzrFtDZYjRGmcsHM+1+ybuJmoz/jy5Jm+quXt5BPtqRRxSn4DfuOCV5Xtis3tLckut2I/nv612hyFDUAr3brb1EG3DsWXbGkNHhIF7Tn3FGdaGBRtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yn/kPW94; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792419964; c=relaxed/simple;
+	bh=ti1yO82NWAXq70CnTV98mY57q0nPfClzAudNIlBtrSo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=az/uOzlt0EiJ37HqPOb+BixysQAm8xsa35265X5Rb0TydRIyelc8M8ySTDjVP87LP+ZXxZ6VoYcgcGj8SstuLgDtAZ3vzArM0+UXxsXYKF2pNWw0F760hkc5XoRNK4C/k7iR/E4XB2waZR/EqueIMoPuOBDGRgTnyr+7oUShwUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gK829uGJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yn/kPW94"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D87EB1F000C5;
-	Mon, 19 Oct 2026 14:26:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gK829uGJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2FC91F000C4;
+	Mon, 19 Oct 2026 14:25:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792419961;
-	bh=+AWRgm7uNfmxNtSmNdc0nNffI7T6ptp8+S/m/3OZGDM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yn/kPW94Gvy7VssWQJfY95APzHRvXkftxIxl+BYwwxYJ81UroAkx1z5EaCf6XbLEA
-	 9Wb4t2ELnVV7Aoxc0k4t4ok+aCexeC2oAtB/VjZi/mp2g86U5MTpvnr1aCzytNx+N/
-	 nnueIkNrzgNlTHqBYQBVmJJCdEFnunNOayz1pVndCiGC5huYPr0kdB8rVRSStSoJsl
-	 t8DqYV6xe/MJW6C3383qijsufUkXjk55JQPcCGm5Gysmrug4MXCeAXkG1DzVFBURx9
-	 vgjsaI2Jbgi1n7Ejl8m9ynNJxDeqJiH0WRR8YgTaBO48iIAfJAUkPg0NMujUwzYfkS
-	 mBLYHVJ5UGhAg==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	stable@vger.kernel.org,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [RFC PATCH 7/8] KEYS: Reject @datalen values over INT_MAX
-Date: Mon, 19 Oct 2026 17:25:07 +0300
-Message-ID: <20261019142516.300040-8-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261019142516.300040-1-jarkko@kernel.org>
-References: <20261019142516.300040-1-jarkko@kernel.org>
+	s=k20260515; t=1792419962;
+	bh=5c7yVaLtr9x4fkx2BIkC1OF7uxkwFHyouac+2BuosV8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gK829uGJwuHy0+KUuUByxqIxBVMzXAoNbSej8eAWfvgRaS+5YW1j5+tGZBOxMj5AK
+	 gjd5XvAqtMkOyARij0M6L/Ah0i2oee/l2wDD3B49iLnn8SmyztKaHkYKo8aBhnPD9k
+	 wkOh48gpxMWMlmBM3OwydpOuj4uUlBzxW1HFZv+VdxeZx9bR5P4W+tkaf2QiED27BG
+	 Bc6O/HBPILIPgOnuCN4ZLwYJxMUqdBUs/paPiIukoYGJRptYqDoMIaT+65zVg3zQ3V
+	 6Z/6WVtoJ/VY9LnLw6z3I/Dr4i1doDDnl5g7ZuqbGp8GalMl5Ao9MQ6ZVXwOjnv+XO
+	 ynQq2sStMJcSw==
+Date: Mon, 19 Oct 2026 15:25:55 +0100
+From: Lee Jones <lee@kernel.org>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, broonie@kernel.org,
+	mfd@lists.linux.dev, Frank.Li@nxp.com, lgirdwood@gmail.com,
+	linux-gpio@vger.kernel.org, linusw@kernel.org, brgl@kernel.org,
+	vikash.bansal@nxp.com, priyanka.jain@nxp.com,
+	aman.kumarpandey@nxp.com
+Subject: Re: [RFC PATCH 7/7] gpio: p3h2x4x: add GPIO expander for the NXP
+ P3H2x4x I3C hub
+Message-ID: <20261019142555.GB2663669@google.com>
+References: <20261016164625.3166779-1-lakshay.piplani@nxp.com>
+ <20261016164625.3166779-8-lakshay.piplani@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016164625.3166779-8-lakshay.piplani@nxp.com>
 
-Protect quota from overflowing by rejecting @datalen values that
-surpass over INT_MAX.
+On Fri, 16 Oct 2026, Lakshay Piplani wrote:
 
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- security/keys/key.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+> Expose the pins of the target ports placed in GPIO mode as a gpio_chip, so
+> the hub can be used as an IO expander.
+> 
+> Each port contributes two lines, the SCL pin first, so target port N owns
+> the lines 2 * N and 2 * N + 1, and the line number is also the port bit
+> position in the direction and level registers. Ports that carry bus traffic
+> are masked out through init_valid_mask. The port function is taken from the
+> device tree rather than from the GPIO mode register, because the hub child
+> that programs that register and this child are independent MFD devices with
+> no probe ordering guarantee.
+> 
+> Direction is the output enable: clearing it leaves the pin in Hi-Z. An
+> output drives the level before the buffer is enabled to avoid a glitch, and
+> the input level register is used for reads in both directions. These
+> registers are not protected, so the callbacks do not take the shared
+> register lock. Implement get_multiple and set_multiple so an access to all
+> lines of the hub costs two register accesses instead of one per line.
+> 
+> Interrupts on input level changes are not supported yet: they arrive as an
+> I3C in-band interrupt and the edge detection configuration is shared by
+> groups of four ports.
+> 
+> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+> ---
+>  MAINTAINERS                 |   1 +
+>  drivers/gpio/Kconfig        |  11 ++
+>  drivers/gpio/Makefile       |   1 +
+>  drivers/gpio/gpio-p3h2x4x.c | 294 ++++++++++++++++++++++++++++++++++++
+>  drivers/mfd/p3h2840.c       |   5 +
 
-diff --git a/security/keys/key.c b/security/keys/key.c
-index 5afc16425daf..5718ae7b80e5 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -379,11 +379,16 @@ EXPORT_SYMBOL(key_alloc);
-  */
- int key_payload_reserve(struct key *key, size_t datalen)
- {
--	int delta = (int)datalen - key->datalen;
-+	int delta;
- 	int ret = 0;
- 
- 	key_check(key);
- 
-+	if (datalen > INT_MAX)
-+		return -EINVAL;
-+
-+	delta = (int)datalen - key->datalen;
-+
- 	/* contemplate the quota adjustment */
- 	if (delta != 0 && test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
- 		unsigned maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
+This needs to be a separate patch.
+
+>  5 files changed, 312 insertions(+)
+>  create mode 100644 drivers/gpio/gpio-p3h2x4x.c
+
 -- 
-2.47.3
-
+Lee Jones
