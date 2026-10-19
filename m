@@ -1,63 +1,67 @@
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4342331EAE
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A334DD3B9
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413720; cv=none; b=kum5z+jHALTLfzEsR7pIhiewoWZgjfrYTvidLbfqvff/49EG2rV2rJwWe4ACeniYw+MJ7IJvjxvfJ9O/vXvCfjwYUBLlBG0AtGCF4Vdzhhp/rHCPIU0uj21CkpeZE4digP0gmmtj75XQ/kpCrlvyd1/sJEDNzVgguziP1glvJ4g=
+	t=1792413723; cv=none; b=YtbEhwYf5Fb72v9l5jk0XbzAiNHTx/jgPDMzoNK+tee14xRXoiIFD3u9qamaupAkOeRsFZij9w/mj4Y/jqPmDwTuSZhvqP9DoSOg8n0lMBjL0+moySZQFzWZIgRZW+vk9RZTKxpGSyhzDcwlWBMz5NDj2bsH3Cb11yGWA1xG8Fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413720; c=relaxed/simple;
-	bh=gHiozBA4b+Mydjj0WDx+4yc4fZiEG1xZdsLUi/YhAe4=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=nvo4/v5yCJ32zBe5D0BK9Ne8COQOY2Q+btZ/2YR4MQBSAUDWggn32m7f2YqeONTOvkGle6BI/jgaXEg6PAb/Zcy0p5g1S7TdJCLMEAuc3eWYggtYFR4GsMGaoMcIb9rrhlZw8VitAqeiSDGwxH5WJUKNKv+z8yN9rw1KqLpFkeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ubLcBqq9; arc=none smtp.client-ip=209.85.218.71
+	s=arc-20240116; t=1792413723; c=relaxed/simple;
+	bh=FlBQwdip4g4HHV/g4pwDPD+JRcfp+uQYehDQvnDw7uY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=W7w5TDujyUE1+neS3oLkA9bzn3tHeTOak+Ip0SIN+R12NwSYTd906pBLFDVNVYLtqk8Vz9EgObAeayiN4sxx78C6DkF1N/Itw4JlUCQGgV7Ve3Iv3yhhBlscnWSrZCF/D4Jp/tUclLZd7R58qqxLN7hYNcvOhoWtOmt7j9qmSbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OTgnloRi; arc=none smtp.client-ip=209.85.218.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ubLcBqq9"
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c41dae9db9dso163070566b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:41:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OTgnloRi"
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c29c391bd2fso161936566b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:41:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792413709; x=1793018509; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xG7Y20y+nUaq6lJVPnnQYX7VFSFS/lNQS0CTHINS8qU=;
-        b=ubLcBqq9r9QYqQnEApsKR8BOdHC0ijuPA5UQpV1wG5xoiIhjfyyzBhfSXv14cXNQGn
-         46S/FO8Hu3IJhucT7TRVXITAGZzI+SeaW+jeAyZA3xws1qsonQvcti/aQ7J3Kh2waXaF
-         j6OVlla0oxtyLEonI2SgnyIVfUV8NneuF86H7YIP8dczPGdtMPSTBuHsEpyPPYjCdvoc
-         YrUcXn3Ru+gwuPVg3/o52uakrv7brduJ2vPbKjxQjPdyGxmk7lwbwCJiguWSGn3KAZki
-         HyqrgxnqC00nGHYcpXch17+UnzPQ3vM9QhDnkvz6ykYjJ/w3BN2ts69ja0R9nSSPpGzH
-         yMkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792413709; x=1793018509;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792413714; x=1793018514; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xG7Y20y+nUaq6lJVPnnQYX7VFSFS/lNQS0CTHINS8qU=;
-        b=vSUoMYChmbFeRkT8ifrDKmsNkX7bD8C+vskbTm4kS2a2HOXKjsY9hGRAj4zg+FK3md
-         LvQh7/NF61atiDgNB9IqpGeOxRNmmqUtDttKE8u79xMx5Q0ycq/kuHN31i0lZ7v7Ppgu
-         QLD9rmQDySgEkxfGbYmg2sjW/ewOQLh4fMuhaxIfDX4Eku2hFcM2CEjwCCJ1hUigVN/u
-         Ym7Zm1nY1D9tNjApULO9zMORuzYgfIUZt6Kmd0EAW52UzY07wEpbVH9s+1jGQYo7r8lp
-         749Ss896j5WXEXqmRlxbPDnWJxkFArX2BpVBSn36vLzMZnU7yqrpyprYWgRNrbP/jARm
-         6Tew==
-X-Forwarded-Encrypted: i=1; AKwUvByuf4SM8lGWB7oYTbhfK0XohNS3KK+kvan2eVfdDXW7gs2zh2NAGrMaC9UEPAWAHY51+MoBdfhr4R7G0M4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+o2Fgrv8ANCu6I66D03n38zJSfBoJLLZSIFufQWmUAVUpaoBx
-	eSvUgRe2sKzU1G3KxeczahzI16i5NgcVJ3Wf04ys9pq2MGdrw48sutrMgQV4ZvwpOuQB165IYOo
-	xExS/6pQbBHYGhfzFjA==
-X-Received: from ejcaf4.prod.google.com ([2002:a17:906:9984:b0:c3f:a907:231e])
+        bh=6LoRGSkasm8ghLjUGPktte7l/3lMtd3+HJlK+733NI4=;
+        b=OTgnloRinqYgv0F8i05sXj+7GJXN/UEUxXRg4L58ojRA6uXsoNWmEV4sLKLed3j4Po
+         ObFjw40/FbBRdPhDZR+zLraU6AGble/58uVs7V7TWr9kxwJAsr7uJ3fY4F2wsqSYHrOU
+         PkKTCwtT+Y9YpZJxH3pSIl4DbXOxNs8hOe0PGlDMGEWnUie8U6xw1L/9bZMFt4bKpGZb
+         kwitH9+W+MpazdoCW5I7o0GIbC0M4wm1oxC56C+jY3QQ3yf4ZPjEHGIr5RZfx54cq4cw
+         0a7gTnMSJXTpcq0eNJTy5DEcmqgL/LFlqQuRvRvmeZLfA1RcAQ8nRsuE78pUjH3tmXp7
+         HFnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792413714; x=1793018514;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6LoRGSkasm8ghLjUGPktte7l/3lMtd3+HJlK+733NI4=;
+        b=ZRq7rCocJPT8EhTMaYOaO/fAQb4WcQWgm8JhwMdyg9t7eqMfljGE8I7szRmi3S6Nqu
+         Ptu7wXbLk2OsalILSyBGXn3wCo7wnTU3rle7AugZBhhemvxjmD0lV7s7e92Y+0TaYj1K
+         7vIIW9a9hDJ2OmBRnA7JpJo3gcQWvuUOyjh6XDFf0AUClyqtUU9gAl5CTfUV3L7/+b3p
+         tVgqT8KvY8RMd712hEVm/G4BH6thQvHN1UMdO/sChhxUdZ9DTNEonjlMco2Xdi2IaB85
+         vDeGRxM4h+/0lbiKVHZFE5NtYv5BKYvXBNKfGPS2HPdq7+A8F5u84FDDjHcAxNtYQunG
+         3nZA==
+X-Forwarded-Encrypted: i=1; AKwUvBwz8nD4T1VanUGKANa8xgyd7JrSdydBdCdxKtpkS6SUrQSExVOn7TBSjzIQ+fVBwUFh9Zi+q1jBEzwF8Uc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtG5vw8XblxEpcDCw5/fn9l5FzDbHM1UlXIwqCFDW08b7Wzbim
+	AGwtvZXTxuGiBOBaU7Im7bLcw7mYGIGnUvEmFrOw61HAq+iaDuJPq83FaQODnWV7bC2JZKQUk9p
+	cS3XesQZPCb1R8Udmqg==
+X-Received: from ejgi17.prod.google.com ([2002:a17:906:3c51:b0:c3f:bf12:31eb])
  (user=michalblk job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:c310:b0:c2e:640f:f9f0 with SMTP id a640c23a62f3a-c419a844d6cmr533170366b.5.1792413709199;
- Mon, 19 Oct 2026 05:41:49 -0700 (PDT)
-Date: Mon, 19 Oct 2026 12:41:44 +0000
+ 2002:a17:907:d08d:b0:c41:8736:8c38 with SMTP id a640c23a62f3a-c419f703a50mr462018766b.30.1792413713899;
+ Mon, 19 Oct 2026 05:41:53 -0700 (PDT)
+Date: Mon, 19 Oct 2026 12:41:45 +0000
+In-Reply-To: <20261019124146.3582127-1-michalblk@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20261019124146.3582127-1-michalblk@google.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261019124146.3582127-1-michalblk@google.com>
-Subject: [PATCH 0/2] sched_ext: Reset runnable_at when a task leaves its scheduler
+Message-ID: <20261019124146.3582127-2-michalblk@google.com>
+Subject: [PATCH 1/2] sched_ext: Reset runnable_at when a task leaves its scheduler
 From: Michal Blaszczyk <michalblk@google.com>
 To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
 	Changwoo Min <changwoo@igalia.com>
@@ -66,37 +70,72 @@ Cc: sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org,
 	Michal Blaszczyk <michalblk@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-A task that is switched out of SCHED_EXT while it's waiting keeps its
-p->scx.runnable_at. When it comes back, the watchdog counts the time it
-spent in another class as waiting, and can abort the scheduler for a stall
-that didn't happen. Patch 1 restarts the wait when a task leaves its
-scheduler. Patch 2 adds a selftest that reproduces the spurious stall.
+The watchdog measures how long a task has been waiting from
+p->scx.runnable_at, which set_task_runnable() resets when the task becomes
+runnable after it last ran. ops_dequeue() never asks for a reset, as the
+dequeue of a waiting task is temporary, e.g. for a migration or an
+attribute change.
 
-The bug goes back to the watchdog's introduction in v6.12. The series is
-based on sched_ext/for-7.4, and patch 1 also applies to for-7.3-fixes.
+Leaving the scheduler isn't temporary. A task which is switched out of
+SCHED_EXT while it's waiting keeps its runnable_at. When it's switched back
+and becomes runnable, its wait appears to have started before it left, and
+the time it spent in another class counts towards the timeout. If the
+watchdog checks before the task runs, it aborts the scheduler:
 
-Tested in a virtme-ng VM (16 CPUs, PROVE_LOCKING): class_switch_stall
-fails every time without patch 1 and passes with it. The other sched_ext
-selftests give the same results with and without the series (enq_blocked
-fails in this VM either way).
+  sched_ext: class_switch_stall: runner[418] failed to run for 3.010s
 
-I used an AI coding assistant to find the bug and to write and test both
-patches.
+Here, the task waited for a few milliseconds before it was switched to
+SCHED_OTHER, slept outside of SCHED_EXT for three seconds, and was charged
+for all of it as soon as it woke up on SCHED_EXT again.
 
-Michal Blaszczyk (2):
-  sched_ext: Reset runnable_at when a task leaves its scheduler
-  selftests/sched_ext: Add class_switch_stall test
+The same happens when scx_sub_enable_workfn() hands a waiting task over to
+a new sub-scheduler, which can then be blamed for time the task waited
+under the parent. scx_rehome_task() isn't affected, as it moves the task
+through SCX_TASK_INIT, which resets runnable_at. The stale runnable_at also
+skews the default core-sched ordering in scx_prio_less().
 
- kernel/sched/ext/ext.c                        |  14 +-
- tools/testing/selftests/sched_ext/Makefile    |   1 +
- .../sched_ext/class_switch_stall.bpf.c        | 121 +++++++++
- .../selftests/sched_ext/class_switch_stall.c  | 240 ++++++++++++++++++
- 4 files changed, 375 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/class_switch_stall.c
+Reset runnable_at in scx_disable_task(), when the task leaves the control
+of its scheduler.
 
+Fixes: 8a010b81b3a5 ("sched_ext: Implement runnable task stall watchdog")
+Assisted-by: LLM
+Signed-off-by: Michal Blaszczyk <michalblk@google.com>
+---
+ kernel/sched/ext/ext.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-base-commit: 1f5dde349ac2fca1f119ae8de3f0d2f1c2a8d338
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 07857039aee69..120df09b9e0af 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -2424,7 +2424,11 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
+ 	struct scx_sched *sch = scx_task_sched(p);
+ 	unsigned long opss;
+ 
+-	/* dequeue is always temporary, don't reset runnable_at */
++	/*
++	 * Don't reset runnable_at. If @p is waiting, the wait continues across
++	 * temporary dequeues, e.g. for a migration or an attribute change.
++	 * scx_disable_task() ends it if @p leaves its scheduler.
++	 */
+ 	clr_task_runnable(p, false);
+ 
+ retry:
+@@ -4517,6 +4521,14 @@ static void scx_disable_task(struct scx_sched *sch, struct task_struct *p)
+ 	scx_set_task_slice(p, 0);
+ 	p->scx.reenq_cnt = 0;
+ 
++	/*
++	 * If @p is runnable but not running, its wait started at runnable_at,
++	 * which ops_dequeue() didn't reset. Leaving @sch ends the wait. Reset
++	 * runnable_at the next time @p is enqueued on SCX, so that the watchdog
++	 * doesn't count the time @p spends elsewhere.
++	 */
++	p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
++
+ 	/*
+ 	 * Verify the task is not in BPF scheduler's custody. If flag
+ 	 * transitions are consistent, the flag should always be clear
 -- 
 2.56.0.176.g3575e65682-goog
 
