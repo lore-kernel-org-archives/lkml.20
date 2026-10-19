@@ -1,298 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010000.outbound.protection.outlook.com [52.101.56.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271A4356767;
-	Mon, 19 Oct 2026 14:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421472; cv=none; b=l/wA39/f69rTVsqjI5QGuHj041zQIHwp+3/lk6992r5zdUUWTilXK/Ms28Ai95EWioKQqHd2phGK64WaXwIOtRXmuqUaeweGXt3AikI740ihotbN8YCh642VJEEL7OQKskL+iWJ+f0c5YyCfLnfa19Ieh8nL5Ztr+tJdCs0c5Q0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421472; c=relaxed/simple;
-	bh=A8fuQ0NHwsnFaJFz0bEbjc8KhxQOYjBSxS3WtPY3fX4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m24P6AYdkrCtcY1RsIPfm8QQ1uIkzJojHhpjDsoXEPrA1zLoJSJYDg76cKbTeDjfZ+i1bEpz9RGTGzfxlVZHzrTxU01mFIvDr1G9Po7gTxPvHb4SAajf6GZAucKNFBLr5bgXvZLKBbq+dZ8eEp/OhP8uTDrQtDUP7mTaRLAXd74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CnCUiMhY; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA2552606D;
+	Mon, 19 Oct 2026 14:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421486; cv=fail; b=ZNixvUK6L1V97m1/wYZCShmG4sTpqEQfSYfpjRZmiCWhWBDvHNVaZvidKdZ4++1/8XIbCz7i/nTKROKi9fh4u+wlSFVJlCBQ8v3jHvhkPmbV9LwitlbjMPBTtU+dNA+/jjFhSXW+W8wYtB0CKNGwC5Dlt3zo/qrer9XGA54B2dM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421486; c=relaxed/simple;
+	bh=Qih2SFlq8R6xQ0R58gGaoAic/kw4Lia8ucS12Htn6zU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=uwwy/e65x7ecyTFpg6SVfSMbo6oHgwtFaR8FYAdDqKOu+AyvDNGuSQ8yQbruEXCJnijuGK9D9Fpd212VWlWO8h8uWUUWqZIZ8yNj3qSveuz2CelP40PjHRR4jlHQ2TzS36dtxVZrgpm1TewmC0iwtWKKOYVHVt04xnsVgCPkq48=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oPgVCzJu; arc=fail smtp.client-ip=52.101.56.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CnCUiMhY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8932E1F000C4;
-	Mon, 19 Oct 2026 14:51:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792421470;
-	bh=AhGtNkW/Au0X6+Smv+ruARwYKKJ/M3mDdnyD8Ld0g6c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CnCUiMhYz45/u4bryd0iO/1Knz0HPTMCaGUe4/rgvN662svhuO6KRSq0RyPngvSak
-	 MyBSvaPBir/z+9abnuryZ4S9FuaFRvmzx/TJvKe7tsBRyJLFFbpx9ystMgWX/tCTGq
-	 w5bqrGaoQm6YHU1RpfK6yPpvm72nJyvxJZUAlhiY3eT1HpRsEyB72bqxoCkL0BajQv
-	 jdwlPXgCo10seXAVI5kibGtr/34a5xxSCZMSgGo0nnfLu/oZAmeHs4eHFAJfCU9zv0
-	 YbOHpRcpPuOCwIQ/J1cCyR6l0+BAzEoZMunn7ooARNaVpC20udcGHexJjoHg0Oa/A5
-	 TN9VetQP1YKRg==
-Date: Mon, 19 Oct 2026 15:51:04 +0100
-From: Lee Jones <lee@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 3/4] mfd: aat2870: Convert to use OF bindings
-Message-ID: <179198329794.839288.10569542357230656958@kernel.org>
-References: <20261013180933.487013-1-clamor95@gmail.com>
- <20261013180933.487013-4-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oPgVCzJu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KN3EuGXuNgG9HPGHD6T3gmIo49oGlzCvhJuEgotWbPJPEwksfge7qqZPxjq6cdFUZpdKculV6SVhfztWxr3Z7E/tD6Gi831kmJypoBw/fP9wFTcH6eNVQXYPnq7hpCVu7qUvbatLrZqazK9zgnrZ5MZMxFVbSwEPf5CtyAlEH79zgVaNtPLhHrICA5YSNzFXSGsE+ft0j4OR8jb/v10ehO4ZupD2RFfyrluC3R4+0oOuXlij3YvHkg3EO9weyT2GMhIOZ4ZKVJmBrM3OU1i2T+N6YQXxzavLcsi3woTHMqX8rvWFh/KzO7bBnIByskxuSYZKwhXLFlYMWv0iJdC7Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tWc95+Inm2vmeEbwL26KkbzoXFZIokOmb5ZLxk33u9k=;
+ b=avX2yoavXN4KihG0sNvarzOmywTHR4x8uKYScAdtH8Ye+xIBjvhkaA84vFMp2thDJKscpS/3ar4rb3JuBvCFVFG0umYfbhoOMevOQb/m8r5CgN9aYiEOxH2F270O0N7VJRUc1U2BplRpYMExWRHYANJnEgms+3Li1HgurQR7fxlQ2TWytuPIDH77APzicGAbZlhspQTU1lIDrdwkIuF6RpbCedYBXhRhVd20dqZiUSommjJQQoY0WyUlk82EZ1YOxJHbcY6n//7xbfWlxdoJTXU4NL+iAcvQvaEXbHCW6AR7YzdgBVGD5lPOBM6LaiFfzj2bpbAYD6Fei4+qwjvbUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tWc95+Inm2vmeEbwL26KkbzoXFZIokOmb5ZLxk33u9k=;
+ b=oPgVCzJuebfvonEAZNzjZHvzl48A+5Kh0MLNvQu6PwVPiOheSr5njNoLroOakRJ6aOjYxqHHrp9mKJyq92dmALI7Gso/nzeYNEQ0T/wDQ0t/rWdf+sfvx4BdmbBB1UAM8sGUsF4ZmBobs08ueegOd0v2dDSrQYnRcCB02v8w4GNR8HCyWk91MddGkNCSClj4QpBJ4MXmB8a8NyTdFGlaJTyoMyeAMP1kxgdmJ5++1kL8gHGinkuSQQje1KgrYtSJPbZHOSbzVLqK8S9ZCQCPEU49lH6Gb0/YqJu0OIbJr9m6M3dTEV9en4J44Hbgl/V1xUpgEHbVRtCRlNOfHBxlWg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by DS0PR12MB7703.namprd12.prod.outlook.com (2603:10b6:8:130::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 14:51:19 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0496.015; Mon, 19 Oct 2026
+ 14:51:17 +0000
+Date: Mon, 19 Oct 2026 10:51:15 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Link Mauve <linkmauve@linkmauve.fr>
+Cc: Alexandre Courbot <acourbot@nvidia.com>,
+	Yury Norov <yury.norov@gmail.com>, rust-for-linux@vger.kernel.org,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rust: num: Add inline annotation to Bounded methods
+Message-ID: <atYuY1ExPAqZywrr@yury>
+References: <20261019105744.2943249-1-linkmauve@linkmauve.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261019105744.2943249-1-linkmauve@linkmauve.fr>
+X-ClientProxiedBy: BL1PR13CA0298.namprd13.prod.outlook.com
+ (2603:10b6:208:2bc::33) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013180933.487013-4-clamor95@gmail.com>
-X-AI-Review-Draft: <20261013180933.487013-4-clamor95@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|DS0PR12MB7703:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96ef208f-98a9-4bce-40a7-08df2df06e0f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|10070799003|56012099006|260925022911599003|260925021311599003|260925021911599003|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	NpqKEDZsksAwq01y+4mMfedjp0XKW7XS2NZhV7b7Yq6eHK2BUOPLUPs4YwpxjOIUtKSFaYDJLmYEmAZp81OrzTVmwUgY6gZo/8eJpeoGgCMbEP/UwzRuRYe/mfDyWb9DO9C9ufiVEI2cBsXR47KSFFgvj14xuobiSWzvWnMCYQJwnUZjN34S+DmcvH0P9uVQEkNxAB618IFC9zXGVjie5DM/kPyhMdAPxsIigkbW+20qZ+2YAsZK1swqJtbVYd5v6AgNeZU+mkVem6WmNIGKfxeFCxV0Dorl2NHGvlQOVjIHwouz7l0OlX/X8klN4M3192u2xWB35JPfzwk6boahX/0Xf17qpNHgGC3YzkbXebH2I7DFDp3d9Y4mi3WqEf/S/J534k+i/iw9i4ulRII8bIZdF1nZUfXBxkdpLQMq5Pl85FqNKPG1LOlib7rUJ/ITBLcpAEhGnrz8aeZVKO8YuBXiRniTlQrVVRvOOrFfNmonu6AhnfIFdxIaRpsIUGsL1HeK5kHSHSlcwuU9l2B78+Wsl1QfsAOvrS33SSnv2SQ/ndhhUYLqkE0B3xDwl+0H7TLGmZp2Pjvp2SSuPBFTZhqeKF4LH1htGcucdBHtYVX6dynGtWjHvQCR31ygwJn+K7vfA7ZKld/ITeha48Az02UFX0JPSkmHQKBCvCyT/DM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(10070799003)(56012099006)(260925022911599003)(260925021311599003)(260925021911599003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MDdob3dzMmdYVXJiSzU5WXNWbC9TeG5tWTAzTDAyYW9ucUQ5eHAybmlKNzVS?=
+ =?utf-8?B?VjEzb1k0b1UwOXRCWlNHeXVLM1dZM2NrUnZlVngxTWNla2dLS3JZQzZGY1Np?=
+ =?utf-8?B?SUxNczRORFhqbmIzZ2tsaEE0UzdKckVoSjhUWU1mcE5ROGI2YjJyN0lLa3Zz?=
+ =?utf-8?B?YTJCd3RnRzRZZE80ZWxaZGZlZnNrZkFvVHMrdHcwK3Vhc1B5RHJhYjVhbXdV?=
+ =?utf-8?B?UmNlSWJ3NFNUeXo3WEtxbmhJT2VhZk9OYmVoeTRVYk9BT21rNG5vUTVPR1JJ?=
+ =?utf-8?B?RVNRVmVMV2RKWXpmWHdObDlNNGJQbGozTUQ1ZmkxOXphRkI4UldJc3JjL1c4?=
+ =?utf-8?B?YmRVaC9CbC9UeGZwWW11ZFZORFp1STVZelk4NFNPZyswbVN3bFR1RkVXWjRZ?=
+ =?utf-8?B?UGFHRFpXaDY0dDk1Q2FsZUdqT0xPSytKUVJ0ZHAvL05XZTJjL2daNXVBQnRm?=
+ =?utf-8?B?ODkvamIya0VDUXVjemlxakZxV0hZNWxPUTROa1oxY0ZiWEQrbWVURTdZTWpq?=
+ =?utf-8?B?YnJZVGd1WTRuOStZeGg1RktnMVJkYnNJaisxMzhrNEZzSlNoSGh4Z2FKckRY?=
+ =?utf-8?B?cnhBSFhobkdXRS8vWUpWR0M1STJBMXlTVEZRamxERC83NFZvMUNkUVRSN2sr?=
+ =?utf-8?B?b0tiaEFJbVM2Zi92SjdpYTZKQTR1L2NlWDdraVVReVkxTVNCaTBsOEdKS0s0?=
+ =?utf-8?B?ZHNleXNkQnBqM0dpODNtWlVxRnNkekJOZCs3NnJFbCtEL3M2Y0I1VlQ1Tml0?=
+ =?utf-8?B?bGFjdE14eTN6eFZXc1loV3NmMTlIK08wc3NEZ2oxbVVvM2hxajZBM0R6UWc2?=
+ =?utf-8?B?MzhnbDdiNXNnajNVNzRUM1pidzdUb1R2TldPcXdlTW00UmFiQVNSanVXbUZU?=
+ =?utf-8?B?R2k5NkdCZ1ducVJ5SWp5bTZFeHNTVTZkNWxaVGdSRlVyQnk3WnBiQ0VhOElV?=
+ =?utf-8?B?bE11ZlZyWUMydW9YUHVERHF5WEFCcXkwVHRCNHNNMjFxNTBKK0NSZnZMY0VN?=
+ =?utf-8?B?QmFtNldVbFhsbm0xYk9zWGc1TGJSNU9MZlVETnQ2SU9NMVpBaVNqTVYxZ2hJ?=
+ =?utf-8?B?TmZFVjAweGdHcDNCZ1dTeU5MZTVGb0pYeUYzT05aY2ZFY281WWlVa0VaaWd4?=
+ =?utf-8?B?STVLeE4vUW92d0JBVnpvWnFhSUtaZUQ0Y2VLRkc0bFpOQVJ5dTh3ZzJYY0hZ?=
+ =?utf-8?B?OFNNUnM1azZMQWp2UjNCa0ZpWmtCUlYwdTE2a2VkMmVpRlRFNEUwR1FnbXRV?=
+ =?utf-8?B?RERTMTRhazcrdC9hVk5YMXNieVN6L0JENmxScHU4dDNLdDNGRUZUZXdCM1gr?=
+ =?utf-8?B?M0daSnBSajNla01uNmhXZVZGY1VEWUZaNUpNZm93TSs4M3lESkdTdFIwTFBJ?=
+ =?utf-8?B?cEJoNThHUFNPZXMyem9NUFNIbUFZOFJtdHBmQnZSZjUxOURrclFyTFUzSE1P?=
+ =?utf-8?B?cDZ4K0w2SzlWQjdobmE5WUh4cDd1WXdmQ0QydjNYbDNaK2h1c0tTUEFoN3dP?=
+ =?utf-8?B?RnBHSDlFVUpWQmV0eEdTOU5ZZURYQi96K0dlRTltRkpwQmRCbzBXNSszN3FW?=
+ =?utf-8?B?RDExZmNsL0t6SUhCSFczQ0xOaUROS1J0aVJuVnkvTnFqb0xoRkh1MWFyL2JC?=
+ =?utf-8?B?cmtCb3MwY2hQTGFwK3crRUhwQ3FpWXk3bERQRW9vaTJmZnVoKzdSb1VtRlBt?=
+ =?utf-8?B?TWwvSWdJamFuWjlqR2FyWHppMitYMWtBWlVsYVFJTHYrTmVlYzYxWE1Oemx4?=
+ =?utf-8?B?dGJPYkJEUC9YdWtxRDRtYko4NXQrVFdzS2U0bWpYNi9vUWsxR1lFR2kwSEw0?=
+ =?utf-8?B?aVNXV1NhNkJQZVdBYVZhNEhycFVtejRjUnBXSlk0UTgzakd2ZStvQm1lVno2?=
+ =?utf-8?B?bjA2OHFDbjJRK1o4S0FRaHlhbU1YU00rb0Vta0M2VStid0I5TFVPWG8zbHA0?=
+ =?utf-8?B?UkQyQ0dKV0NrTmlRQlVvU2ZsMlpXaEpJOFV1WGZxajdIa0NqajFhT2NFc3Uw?=
+ =?utf-8?B?YWVNUFcxYWxoc3ZWakRueUdhbU9Cb2E2K0laMWNaV051OFU4Q2Vpbjc1eWZU?=
+ =?utf-8?B?a0JSMjRXeHNmWGwxVVhsTENSK3JtUkdRUUEyc2JPTE9sN2NNU1o5OHNQdS8r?=
+ =?utf-8?B?ZW13M2lneXE4bFN5Rm5iaENSbXVvejZOdWJlUDhhbExHU3A4bE9KRHd4bkVh?=
+ =?utf-8?B?UzBFUTA5OGlZYUJBTzM3NElJazZnUDQwSUNYSkpSV2xra0tuaFJkWjA3bHk0?=
+ =?utf-8?B?VVIrYk51dGI5Mm9FTXI0UVVyaXJTR0Z5NVhCT1JCTlJkV3JmZDVFYkVUZXRz?=
+ =?utf-8?B?R0EvYms2U2lRZG9XNlR0K0tNUWFSV3dWcEEwODFKODFVNVc1UTZPeXVQRWtU?=
+ =?utf-8?Q?7v8sToIeVganvms5LpIYORFlYufivWLcOWoZQ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96ef208f-98a9-4bce-40a7-08df2df06e0f
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 14:51:17.3773
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mXtfVwwIKg4PaYOUdNef4WJL6c3dni2MG14rqj5TWO8EPkC4WchyeeEkHxqnpjWUlEJ7U5EcwNF/wyIBWoXU8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7703
 
-On Tue, 13 Oct 2026, Svyatoslav Ryhel wrote:
+On Mon, Oct 19, 2026 at 12:57:38PM +0200, Link Mauve wrote:
+> It was previously generating a ton of very short functions, such as
+> <<kernel::num::bounded::Bounded<u32, 32>>::shr::<17, 15>> or
+> <<kernel::num::bounded::Bounded<u16, 16>>::new::<16384>> on use.
+> 
+> These are obviously better inlined, although I wasn’t completely sure
+> between #[inline] and #[inline(always)], but the former worked fine in
+> my setup so I went for it, we can always adjust it later.
+> 
+> Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
 
-> Conversion of the AAT2870 driver to use OF bindings requires a few complex
-> changes that should be done simultaneously.
->
-> The AAT2870 essentially provides two functions via child devices:
-> backlight and regulators. Both functions are fairly self-sufficient and
-> may not be populated on the final board. Consequently, the MFD
-> registration API was replaced with of_platform_populate(), and each
-> sub-device was given its own compatible string.
->
-> Additionally, aat2870-core utilizes an enable GPIO. Obtaining this GPIO
-> was converted to use modern gpiod/OF helpers, allowing the redundant
-> aat2870_enable() and aat2870_disable() helpers to be removed.
->
-> The aat2870-regulator driver was updated to register each of the four LDOs
-> from a dedicated OF node using modern regulator framework.
->
-> The aat2870-backlight driver was changed to populate all required
-> properties from a dedicated Device Tree node. Its channel map was updated
-> to use u8 instead of int. Furthermore, because the maximum current is now
-> parsed as an absolute value rather than an enum entry, the calculation and
-> application of the maximum current were updated accordingly.
->
-> All of the changes above allow platform data to be removed entirely.
->
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Yury Norov <ynorov@nvidia.com>
+
+Do you want me to take the patch with the bitops branch, or you've
+a better route in mind?
+
+Thanks,
+Yury
+
 > ---
->  drivers/mfd/aat2870-core.c            | 115 +++++--------------
->  drivers/regulator/aat2870-regulator.c | 159 +++++++++++---------------
->  drivers/video/backlight/aat2870_bl.c  |  51 +++++----
->  include/linux/mfd/aat2870.h           |  95 +--------------
->  4 files changed, 121 insertions(+), 299 deletions(-)
->
-> diff --git a/drivers/mfd/aat2870-core.c b/drivers/mfd/aat2870-core.c
-> index 0d56cd6fbc6a5..909c14ee60323 100644
-> --- a/drivers/mfd/aat2870-core.c
-> +++ b/drivers/mfd/aat2870-core.c
-> @@ -16,8 +16,15 @@
->  #include <linux/gpio/legacy.h>
->  #include <linux/mfd/core.h>
->  #include <linux/mfd/aat2870.h>
-> +#include <linux/of_platform.h>
->  #include <linux/regulator/machine.h>
-
-Since we are moving away from legacy GPIO and MFD APIs here, does it
-make sense to replace '<linux/gpio/legacy.h>' and '<linux/mfd/core.h>'
-with '<linux/gpio/consumer.h>'?
-
-> +struct aat2870_register {
-> +	bool readable;
-> +	bool writeable;
-> +	u8 value;
-> +};
-> +
->  static struct aat2870_register aat2870_regs[AAT2870_REG_NUM] = {
->  	/* readable, writeable, value */
->  	{ 0, 1, 0x00 },	/* 0x00 AAT2870_BL_CH_EN */
-> @@ -61,34 +68,6 @@ static struct aat2870_register aat2870_regs[AAT2870_REG_NUM] = {
->  	{ 0, 1, 0x00 },	/* 0x26 AAT2870_LDO_EN */
->  };
->
-> -static struct mfd_cell aat2870_devs[] = {
-> -	{
-> -		.name = "aat2870-backlight",
-> -		.id = AAT2870_ID_BL,
-> -		.pdata_size = sizeof(struct aat2870_bl_platform_data),
-> -	},
-> -	{
-> -		.name = "aat2870-regulator",
-> -		.id = AAT2870_ID_LDOA,
-> -		.pdata_size = sizeof(struct regulator_init_data),
-> -	},
-> -	{
-> -		.name = "aat2870-regulator",
-> -		.id = AAT2870_ID_LDOB,
-> -		.pdata_size = sizeof(struct regulator_init_data),
-> -	},
-> -	{
-> -		.name = "aat2870-regulator",
-> -		.id = AAT2870_ID_LDOC,
-> -		.pdata_size = sizeof(struct regulator_init_data),
-> -	},
-> -	{
-> -		.name = "aat2870-regulator",
-> -		.id = AAT2870_ID_LDOD,
-> -		.pdata_size = sizeof(struct regulator_init_data),
-> -	},
-> -};
-> -
->  static int __aat2870_read(struct aat2870_data *aat2870, u8 addr, u8 *val)
->  {
->  	int ret;
-> @@ -196,22 +175,6 @@ static int aat2870_update(struct aat2870_data *aat2870, u8 addr, u8 mask,
->  	return ret;
->  }
->
-> -static inline void aat2870_enable(struct aat2870_data *aat2870)
-> -{
-> -	if (aat2870->en_pin >= 0)
-> -		gpio_set_value(aat2870->en_pin, 1);
-> -
-> -	aat2870->is_enable = 1;
-> -}
-> -
-> -static inline void aat2870_disable(struct aat2870_data *aat2870)
-> -{
-> -	if (aat2870->en_pin >= 0)
-> -		gpio_set_value(aat2870->en_pin, 0);
-> -
-> -	aat2870->is_enable = 0;
-> -}
-> -
->  #ifdef CONFIG_DEBUG_FS
->  static ssize_t aat2870_dump_reg(struct aat2870_data *aat2870, char *buf)
->  {
-> @@ -332,9 +295,7 @@ static inline void aat2870_init_debugfs(struct aat2870_data *aat2870)
->
->  static int aat2870_i2c_probe(struct i2c_client *client)
->  {
-> -	struct aat2870_platform_data *pdata = dev_get_platdata(&client->dev);
->  	struct aat2870_data *aat2870;
-> -	int i, j;
->  	int ret = 0;
->
->  	aat2870 = devm_kzalloc(&client->dev, sizeof(struct aat2870_data),
-> @@ -348,60 +309,29 @@ static int aat2870_i2c_probe(struct i2c_client *client)
->
->  	aat2870->reg_cache = aat2870_regs;
->
-> -	if (pdata->en_pin < 0)
-> -		aat2870->en_pin = -1;
-> -	else
-> -		aat2870->en_pin = pdata->en_pin;
-> +	aat2870->en_pin = devm_gpiod_get_optional(&client->dev, "enable",
-> +						  GPIOD_OUT_HIGH);
-> +	if (IS_ERR(aat2870->en_pin))
-> +		return dev_err_probe(&client->dev, PTR_ERR(aat2870->en_pin),
-> +				     "Failed to get EN GPIO\n");
->
-> -	aat2870->init = pdata->init;
-> -	aat2870->uninit = pdata->uninit;
->  	aat2870->read = aat2870_read;
->  	aat2870->write = aat2870_write;
->  	aat2870->update = aat2870_update;
->
->  	mutex_init(&aat2870->io_lock);
->
-> -	if (aat2870->init)
-> -		aat2870->init(aat2870);
-> -
-> -	if (aat2870->en_pin >= 0) {
-> -		ret = devm_gpio_request_one(&client->dev, aat2870->en_pin,
-> -					GPIOF_OUT_INIT_HIGH, "aat2870-en");
-> -		if (ret < 0) {
-> -			dev_err(&client->dev,
-> -				"Failed to request GPIO %d\n", aat2870->en_pin);
-> -			return ret;
-> -		}
-> -	}
-> -
-> -	aat2870_enable(aat2870);
-> -
-> -	for (i = 0; i < pdata->num_subdevs; i++) {
-> -		for (j = 0; j < ARRAY_SIZE(aat2870_devs); j++) {
-> -			if ((pdata->subdevs[i].id == aat2870_devs[j].id) &&
-> -					!strcmp(pdata->subdevs[i].name,
-> -						aat2870_devs[j].name)) {
-> -				aat2870_devs[j].platform_data =
-> -					pdata->subdevs[i].platform_data;
-> -				break;
-> -			}
-> -		}
-> -	}
-> +	gpiod_set_value(aat2870->en_pin, 1);
-
-Is this needed when 'devm_gpiod_get_optional()' already requested the pin with
-'GPIOD_OUT_HIGH'?
-
->
-> -	ret = mfd_add_devices(aat2870->dev, 0, aat2870_devs,
-> -			      ARRAY_SIZE(aat2870_devs), NULL, 0, NULL);
-> -	if (ret != 0) {
-> -		dev_err(aat2870->dev, "Failed to add subdev: %d\n", ret);
-> -		goto out_disable;
-> +	ret = devm_of_platform_populate(&client->dev);
-> +	if (ret) {
-> +		gpiod_set_value(aat2870->en_pin, 0);
-> +		return dev_err_probe(&client->dev, ret, "Failed to populate cells\n");
->  	}
->
->  	aat2870_init_debugfs(aat2870);
->
->  	return 0;
-> -
-> -out_disable:
-> -	aat2870_disable(aat2870);
-> -	return ret;
->  }
->
->  static int aat2870_i2c_suspend(struct device *dev)
-> @@ -409,7 +339,7 @@ static int aat2870_i2c_suspend(struct device *dev)
->  	struct i2c_client *client = to_i2c_client(dev);
->  	struct aat2870_data *aat2870 = i2c_get_clientdata(client);
->
-> -	aat2870_disable(aat2870);
-> +	gpiod_set_value(aat2870->en_pin, 0);
->
->  	return 0;
->  }
-> @@ -421,7 +351,7 @@ static int aat2870_i2c_resume(struct device *dev)
->  	struct aat2870_register *reg = NULL;
->  	int i;
->
-> -	aat2870_enable(aat2870);
-> +	gpiod_set_value(aat2870->en_pin, 1);
->
->  	/* restore registers */
->  	for (i = 0; i < AAT2870_REG_NUM; i++) {
-> @@ -436,6 +366,12 @@ static int aat2870_i2c_resume(struct device *dev)
->  static DEFINE_SIMPLE_DEV_PM_OPS(aat2870_pm_ops, aat2870_i2c_suspend,
->  				aat2870_i2c_resume);
->
-> +static const struct of_device_id aat2870_match_table[] = {
-> +	{ .compatible = "skyworks,aat2870" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, aat2870_match_table);
-> +
->  static const struct i2c_device_id aat2870_i2c_id_table[] = {
->  	{ "aat2870" },
->  	{ }
-> @@ -444,6 +380,7 @@ static const struct i2c_device_id aat2870_i2c_id_table[] = {
->  static struct i2c_driver aat2870_i2c_driver = {
->  	.driver = {
->  		.name			= "aat2870",
-> +		.of_match_table		= aat2870_match_table,
->  		.pm			= pm_sleep_ptr(&aat2870_pm_ops),
->  		.suppress_bind_attrs	= true,
->  	},
-
--- 
-Lee Jones
+>  rust/kernel/num/bounded.rs | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
+> index 0b32f4343922..d3486675046a 100644
+> --- a/rust/kernel/num/bounded.rs
+> +++ b/rust/kernel/num/bounded.rs
+> @@ -264,6 +264,7 @@ impl<const N: u32> Bounded<$type, N> {
+>                  ", 4>::new::<7>();")]
+>              /// assert_eq!(v.get(), 7);
+>              /// ```
+> +            #[inline]
+>              pub const fn new<const VALUE: $type>() -> Self {
+>                  // Statically assert that `VALUE` fits within the set number of bits.
+>                  const_assert!(fits_within!(VALUE, $type, N));
+> @@ -309,6 +310,7 @@ impl<T, const N: u32> Bounded<T, N>
+>      /// # Safety
+>      ///
+>      /// The caller must ensure that `value` can be represented within `N` bits.
+> +    #[inline]
+>      const unsafe fn __new(value: T) -> Self {
+>          // Enforce the type invariants.
+>          // `N` cannot be zero.
+> @@ -350,6 +352,7 @@ impl<T, const N: u32> Bounded<T, N>
+>      /// let v = Bounded::<i8, 4>::try_new(8);
+>      /// assert_eq!(v, None);
+>      /// ```
+> +    #[inline]
+>      pub fn try_new(value: T) -> Option<Self> {
+>          fits_within(value, N).then(|| {
+>              // SAFETY: `fits_within` confirmed that `value` can be represented within `N` bits.
+> @@ -412,6 +415,7 @@ pub fn from_expr(expr: T) -> Self {
+>      /// let v = Bounded::<u32, 4>::new::<7>();
+>      /// assert_eq!(v.get(), 7u32);
+>      /// ```
+> +    #[inline]
+>      pub const fn get(self) -> T {
+>          self.0
+>      }
+> @@ -430,6 +434,7 @@ pub const fn get(self) -> T {
+>      /// // The contained values are equal even though `larger_v` has a bigger capacity.
+>      /// assert_eq!(larger_v, v);
+>      /// ```
+> +    #[inline]
+>      pub const fn extend<const M: u32>(self) -> Bounded<T, M> {
+>          const_assert!(
+>              M >= N,
+> @@ -459,6 +464,7 @@ pub const fn extend<const M: u32>(self) -> Bounded<T, M> {
+>      /// // ... but doesn't fit within `2` bits.
+>      /// assert_eq!(v.try_shrink::<2>(), None);
+>      /// ```
+> +    #[inline]
+>      pub fn try_shrink<const M: u32>(self) -> Option<Bounded<T, M>> {
+>          Bounded::<T, M>::try_new(self.get())
+>      }
+> @@ -482,6 +488,7 @@ pub fn try_shrink<const M: u32>(self) -> Option<Bounded<T, M>> {
+>      /// // This won't build: a `u8` is smaller than the required 12 bits.
+>      /// // let _: Bounded<u8, 12> = v.cast();
+>      /// ```
+> +    #[inline]
+>      pub fn cast<U>(self) -> Bounded<U, N>
+>      where
+>          U: TryFrom<T> + Integer,
+> @@ -510,6 +517,7 @@ pub fn cast<U>(self) -> Bounded<U, N>
+>      ///
+>      /// assert_eq!(v_shifted.get(), 0xff);
+>      /// ```
+> +    #[inline]
+>      pub fn shr<const SHIFT: u32, const RES: u32>(self) -> Bounded<T, RES> {
+>          const_assert!(SHIFT < T::BITS);
+>          const_assert!(RES + SHIFT >= N);
+> @@ -563,6 +571,7 @@ pub fn shr_exact<const SHIFT: u32, const RES: u32>(self) -> Option<Bounded<T, RE
+>      ///
+>      /// assert_eq!(v_shifted.get(), 0xff00);
+>      /// ```
+> +    #[inline]
+>      pub fn shl<const SHIFT: u32, const RES: u32>(self) -> Bounded<T, RES> {
+>          const_assert!(RES >= N + SHIFT);
+>  
+> 
+> base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+> -- 
+> 2.56.0
