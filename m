@@ -1,94 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792451218;
-	b=jBsujUQpL0riWG7vucpKO4eKzwSfASrSgiNr10AMliiRaq99JdYkoKEPZRQ8aGAVuL9K
-	 TCcsRr3SsbU3nhjrrteosT7x+MgZNWXvkJpZb+7j35p7ltxRAnwmwjyzvWjz8oRgrGmUS
-	 Fki0crSyFaijPwLKKgzPWvOWowstSY2quRX/hgd7xi1ncGf/en2trJg2Kgr78jWTAeP/B
-	 B+GOG930Y9Bv1wb4yCdTz3gq+7hBob2kDdST54hMnKb/k3B8Ma/F1K4LgnJ/2nivVickc
-	 joc6hWKlaERYqlk1ZScuupdO9ZF+RsthDBYxzI8oNrWPnCGixh+7QFgIXwpLvjW+Y7w==
+	t=1792451199;
+	b=J7pargOHwk438DmMq2rW7OwM4WlbtPtKNoS7/TPiyryALEDlCgSKhXRlTykzqPO4fBKZ
+	 F24clNuCaaI75oPIvb6gDXPdwzg4ZRByv9iAsLOk+BxKTgRjAL9wStxRsgFTS0M0tWkRp
+	 /JhUVJbvPJ35mU2S5h4SPWmilqKwfpgTrgZXk6/XAWbTt3ZBAcpLhmloNCvrcwgSppQWf
+	 jQTFLIwhvvhSpEA6YSQYwdRYs2T0Blg2qWJui+K580SLiq5x1KV5zWPduvac2KOWCY9nd
+	 XQgVdxUjBRCWIMdARpx84whnwbm9YeGAOuO18eiCNQscETkca9he8kV+W7qODpmbHgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792451218;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eI+3DKitrdejqomr4uOZhFHbSbiOklqRvcG3ea3JJEA=;
-	b=cbsKccoty6ASNRaBrALeDWhbrDkTbTE56UdKpcbh6eyQFz4GFiGPeXSEFCTfX9qaE0l6
-	 U4Lpoa8CTTSR2S/zZOftPuYLt7O+kSLRALDhjG8zO+eXEpu1QhZLJcX57hu7USv0VtsUE
-	 KtI42W6n3zgUs/voc8gFu02UUglGxPeGb/hbYHEkA3XPTX85+8KV6P1n59r2cqN0uQk46
-	 ZJfd3BHZIFqqlxSqtItXvUTm8mOjXawXel1Apv7RxgUopxYOPZDcuBqvO/ZUgL8zNleOd
-	 LS1pt+CrFRvvbttDfHTtqg8ezI70uSeQa8BZojmK467xaEcIyv7cIaopxqtKA45T2Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792451199;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=DYOYKIvx6b3Y3aPOxGUrup+U2yFn3WqpjX7LhjjpSEA=;
+	b=0ORkpVJ/n8btAtRpiBvmgJ3o/gdWLgGCX6df0wVq5X6Mws162cjtHYxavubya2hsiOtb
+	 DTnsiqLbII9EZzRv/iUwUdDuDsx7aSa/0bOWwIP5iOxDES9X/HLG9jyCMdEgLE2+GIIQ4
+	 YJZONntFXPYoYA4SDmklTw9wHAZC9buh0fP0vURXFPsfGHnxlJww9WSuaQ6DIYMPCuH/C
+	 nJUqcLn+3aCm58T4rBODTgEceIMYKAkf4I+KD4XZnYMzW9/rjXIHLFqGtgQZTzJDuVbz4
+	 L4ZdKvWSdfewRiBJr+Aj1OT+DwgStanD+/IfPGcNmUylFAvBQOsswP7+st1R3jeYFEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Hm4hnAXq;
-	arc=none smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZaguGSdI;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DBD606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:06:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5DBD606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E68606A31B;
+	Mon, 19 Oct 2026 23:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0E68606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Hm4hnAXq
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-917d595138fso17539706d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:06:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792451217; x=1793056017; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eI+3DKitrdejqomr4uOZhFHbSbiOklqRvcG3ea3JJEA=;
-        b=Hm4hnAXqJAQgYrXqOeGc9+8J+aE1I+TL+SalozRMx9/bYz1NuT8So1KGmSqpI4j3xc
-         YMrwm5M5SlISJroNW/pxWs7gZc/lKhkorZJxAssgOREVyzkGvMzy82jRffq/fdxsiDuf
-         r5SMYHSLevO+6YRrAYtdjydDi/dATxxsxAkAd7c4eSHSUhuR9MWYaSzaqw6gu+mhNuHz
-         CmN6m2dGNwZjLv9YUOhrNTbABhOx6/wEEvmQs4xQfNOjHtM2jxDANeIHfL2hfgMLDad7
-         cXoMzKiOGZeov8AHi1a8/zjRvewPcDGHPy4tdlKXV2+nJIlyKKALqSZqaPi6szgdgQU9
-         ywBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792451217; x=1793056017;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eI+3DKitrdejqomr4uOZhFHbSbiOklqRvcG3ea3JJEA=;
-        b=R3TQnS6NA+uid4CpynIf8QbRmHOSwLxQITvAVM7ifTEzPQzRK7Kurz064nN1yr7faI
-         dnJPtpivv2mFbKcdi/JwUB/JKrrNcjz+WKDKHrNh54xfo65wDyAs+r0/wN9SmRDt7dg1
-         6SCckkvZvuMoewzT0r03HuaUrPsX8H1qTQGgltDdgD3MT83YQuou31vK131R+pxIcstO
-         bcChNWS5ovQj4WEwac9AJsjFk4MHCnF+vv2R61VZ0qJkugsTWYtU29kB97bvwQyYMV28
-         jf9cKugOdKD/3RLN+E53V+zbMZ3vMRdgSGf6l/maHJvnyJY1qVO9fUYrw+PTS3EmhkZ0
-         02/w==
-X-Forwarded-Encrypted: i=1; AKwUvBw+aLXSjKOgYyqIPQxarM0hs/OAMR+SUaZ1unzu9iQH9O2MzEkQF1Dd6HnjSY4NWtxaOy8ypIRxP61Vtv8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsdiJp9d1NLm1yN8NFF7LZP2B72R8FBT5dmgeI0puLz/BPCc7/
-	ZbZAhraZvxU+Odkx9YVVGzM0dBiXB3WIznL/oR934lm8uo0iuDrX2Udr/4vMldg=
-X-Gm-Gg: AYBFou0sTjFQUwVHfcd1R4TtkWdXtOCIZwgp6tdsSmIqVJ4Wv+TSZ2S+zHtbHLjuOp9
-	fw8TLNWuMs8Yoh6kyHGq8TPULiip2bq59CDlfQscCokoTfQSpFaQRqP4tCTMYHV1YGLwPyojahY
-	bn/cLBkPhr0MwvjwtGtGiwI/pzca40wjOY0NrVlGxuJHjqhWWozqAKsHmER0DNoPoAeBLQy3DJZ
-	RfylbdVFl6+9bJW/N1ehFgeTYlPa4uxkhVFTDpE4SbwoZvtpFXDmpGZJBXroNrORFke2T8/OTLk
-	QyasJCtlyHkIA5BDe2ch24M/OWKfcQfaWxubW979lPR0QhFQHRvp/Ob0bFaGWekMWTtYIrjG/cC
-	CIVEQCrICYrTeuNGnDXRpIb5ZWtDCsVkreSSWv7RjKY2kFPOpUaJ+V+jWWVCdefKKj7yY+JUcEf
-	TF47ofw7dQFZSC53ONC7XNPDyhT+l2CMTROT4RDa+A3cnB94OxKlApDwTD7VwvqU8tP9NEVtC+s
-	rme5pUCS4mpdJiUMp3CqUEeOoR/F1TVZqlmpOUEUVltTLtFvXnTQ1h+DIP0L4QgFJoYjz243HH+
-	FkhToesYHl4vzTgO4ce5mT64vcSU
-X-Received: by 2002:a05:6214:468b:b0:917:a8ae:26d6 with SMTP id 6a1803df08f44-91bdf199a1fmr163819196d6.34.1792451216575;
-        Mon, 19 Oct 2026 16:06:56 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c04a5791asm6822066d6.2.2026.10.19.16.06.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 16:06:55 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-samsung-soc@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v2] media: s5p_cec: release IRQ before deleting the adapter
-Date: Mon, 19 Oct 2026 19:06:53 -0400
-Message-ID: <179245120580.760232.1413226255768013894.s5p-cec-v2@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZaguGSdI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792451198; x=1823987198;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=iEKA2AyZdkz+MXs7DYO4QeDo4cly4nKKPbqXuZnTmQ4=;
+  b=ZaguGSdI7GddkHzlibLUA+Nmx+SQ4PuEb69arzQAKp1QunrxEVjrwHiL
+   a7SRaQIPUC0dzv6lNW/MaUaOlD74VKFK/GxdrTRs3WT38egtW3hygpDn8
+   M2tzIVqwfhVv8CcPgFZqwlW2GqtmDFZHUd4oNq0om4xlmHOhcOHxnyFmd
+   iBiapk40lZPzDwltM4rFslVe7pzvR3dy9IHnOxwPsP0qugCbu5An7ufLZ
+   WnE6lW74xhdLWoLj8OmjmKgcDYczsBe1nq8h9ybsY+eyabRAg6lLngNZx
+   wy0WESyGEn6qdwEWYaMlF8iKULtMZdWeO1lLIr2GtGMOZWWZVmsaHzMVE
+   w==;
+X-CSE-ConnectionGUID: 6qNtMbKgSHyJIy/AnHrMSg==
+X-CSE-MsgGUID: rQCtG8g3SZSwb0zTRrWvMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1249175"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1249175"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 16:06:36 -0700
+X-CSE-ConnectionGUID: IlHiKjb1SDyP0DCzurp3ZQ==
+X-CSE-MsgGUID: nm6UnrKlSLmXulIBAuGgwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2989971"
+Received: from vcostago-desk1.jf.intel.com (HELO [10.98.24.84]) ([10.98.24.84])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 16:06:35 -0700
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Date: Mon, 19 Oct 2026 16:06:20 -0700
+Subject: [PATCH 1/4] crypto: iaa - carry the iaa_wq in the request
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,83 +74,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-iaa-crypto-wq-tables-v1-1-fab67b2a1538@intel.com>
+References: <20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538@intel.com>
+In-Reply-To: <20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538@intel.com>
+To: Kristen Accardi <kristen.c.accardi@intel.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>
+X-Mailer: b4 0.17-dev-6be7c
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792451190; l=3039;
+ i=vinicius.gomes@intel.com; s=20230921; h=from:subject:message-id;
+ bh=iEKA2AyZdkz+MXs7DYO4QeDo4cly4nKKPbqXuZnTmQ4=;
+ b=/kTHq4vYKzBU+7IfrJDIKVis89wtoKoPewEQBGKOmNdRJpOSvgodt38j0fZQS3jm8Xec4x2w3
+ l8VDz+3Y+dVCwCF0wspdSeZHiFtqAJoSCJiypOz3qSniZ/XsPs6o23U
+X-Developer-Key: i=vinicius.gomes@intel.com; a=ed25519;
+ pk=aJkrtgqgT6TZ8iIHSG8/rTPsmlYnjMrUjCsMYvCzntk=
 
-cec_unregister_adapter() can free cec->adap while a queued IRQ thread
-still reports transmit or receive events through it. The managed IRQ
-remains registered until devres cleanup, which also unmaps the registers
-before releasing the IRQ.
+The submit helpers and the completion look the iaa_wq up again through
+the WQ's private pointer, after the entry point has already found it to
+take its reference. The submit helpers are also passed the WQ
+separately, so a request has no single record of which WQ it holds its
+reference on.
 
-Use request_threaded_irq() and free_irq() to release the IRQ before
-unregistering the adapter. Request it after the register mapping and
-adapter initialization, and free it on adapter registration failure.
+Store the iaa_wq in the request context when the reference is taken, and
+use it everywhere after that. This makes the association of a
+IAA workqueue and the request clear.
 
-Fixes: 1bcbf6f4b6b0 ("[media] cec: s5p-cec: Add s5p-cec driver")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-
+Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
 ---
-Compile-tested with Clang, W=1.
-No hardware runtime testing.
+ drivers/crypto/intel/iaa/iaa_crypto_main.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-Changes in v2:
-- Use request_threaded_irq() and free_irq() instead of the managed IRQ
-  API, as suggested by Marek Szyprowski.
-- Preserve notifier teardown before releasing the IRQ in remove.
-
-Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
-
- drivers/media/cec/platform/s5p/s5p_cec.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/cec/platform/s5p/s5p_cec.c b/drivers/media/cec/platform/s5p/s5p_cec.c
-index 4a92d3230f661e5f33137eaf81418d5fa529f812..9ce37f2c9ea87b2d385c7eea86bdcd7bf9d642f6 100644
---- a/drivers/media/cec/platform/s5p/s5p_cec.c
-+++ b/drivers/media/cec/platform/s5p/s5p_cec.c
-@@ -199,11 +199,6 @@ static int s5p_cec_probe(struct platform_device *pdev)
- 	if (cec->irq < 0)
- 		return cec->irq;
+diff --git a/drivers/crypto/intel/iaa/iaa_crypto_main.c b/drivers/crypto/intel/iaa/iaa_crypto_main.c
+index c9ab4b83ae02..0f5bd244b00a 100644
+--- a/drivers/crypto/intel/iaa/iaa_crypto_main.c
++++ b/drivers/crypto/intel/iaa/iaa_crypto_main.c
+@@ -159,6 +159,7 @@ static bool async_mode;
+ static bool use_irq;
  
--	ret = devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_handler,
--		s5p_cec_irq_handler_thread, 0, pdev->name, cec);
--	if (ret)
--		return ret;
--
- 	cec->clk = devm_clk_get(dev, "hdmicec");
- 	if (IS_ERR(cec->clk))
- 		return PTR_ERR(cec->clk);
-@@ -231,16 +226,24 @@ static int s5p_cec_probe(struct platform_device *pdev)
- 		goto err_delete_adapter;
+ struct iaa_req_ctx {
++	struct iaa_wq *iaa_wq;
+ 	u32 compression_crc;
+ 	struct page *bounce_src;
+ 	dma_addr_t bounce_src_dma;
+@@ -1070,7 +1071,7 @@ static void iaa_desc_complete(struct idxd_desc *idxd_desc,
+ 
+ 	compression_ctx = crypto_tfm_ctx(ctx->tfm);
+ 
+-	iaa_wq = idxd_wq_get_private(idxd_desc->wq);
++	iaa_wq = req_ctx->iaa_wq;
+ 	iaa_device = iaa_wq->iaa_device;
+ 	idxd = iaa_device->idxd;
+ 	pdev = idxd->pdev;
+@@ -1177,7 +1178,7 @@ static int iaa_compress(struct crypto_tfm *tfm,	struct acomp_req *req,
+ 	struct device *dev;
+ 	int ret = 0;
+ 
+-	iaa_wq = idxd_wq_get_private(wq);
++	iaa_wq = req_ctx->iaa_wq;
+ 	iaa_device = iaa_wq->iaa_device;
+ 	idxd = iaa_device->idxd;
+ 	pdev = idxd->pdev;
+@@ -1328,7 +1329,7 @@ static int iaa_compress_verify(struct crypto_tfm *tfm, struct acomp_req *req,
+ 	struct device *dev;
+ 	int ret = 0;
+ 
+-	iaa_wq = idxd_wq_get_private(wq);
++	iaa_wq = req_ctx->iaa_wq;
+ 	iaa_device = iaa_wq->iaa_device;
+ 	idxd = iaa_device->idxd;
+ 	pdev = idxd->pdev;
+@@ -1405,6 +1406,7 @@ static int iaa_decompress(struct crypto_tfm *tfm, struct acomp_req *req,
+ {
+ 	struct iaa_device_compression_mode *active_compression_mode;
+ 	struct iaa_compression_ctx *ctx = crypto_tfm_ctx(tfm);
++	struct iaa_req_ctx *req_ctx = acomp_request_ctx(req);
+ 	struct iaa_device *iaa_device;
+ 	struct idxd_desc *idxd_desc;
+ 	struct iax_hw_desc *desc;
+@@ -1414,7 +1416,7 @@ static int iaa_decompress(struct crypto_tfm *tfm, struct acomp_req *req,
+ 	struct device *dev;
+ 	int ret = 0;
+ 
+-	iaa_wq = idxd_wq_get_private(wq);
++	iaa_wq = req_ctx->iaa_wq;
+ 	iaa_device = iaa_wq->iaa_device;
+ 	idxd = iaa_device->idxd;
+ 	pdev = idxd->pdev;
+@@ -1555,6 +1557,7 @@ static int iaa_comp_acompress(struct acomp_req *req)
  	}
  
--	ret = cec_register_adapter(cec->adap, &pdev->dev);
-+	ret = request_threaded_irq(cec->irq, s5p_cec_irq_handler,
-+				   s5p_cec_irq_handler_thread, 0, pdev->name, cec);
- 	if (ret)
- 		goto err_notifier;
+ 	iaa_wq = idxd_wq_get_private(wq);
++	req_ctx->iaa_wq = iaa_wq;
  
-+	ret = cec_register_adapter(cec->adap, &pdev->dev);
-+	if (ret)
-+		goto err_free_irq;
-+
- 	platform_set_drvdata(pdev, cec);
- 	pm_runtime_enable(dev);
+ 	dev = &wq->idxd->pdev->dev;
  
- 	dev_dbg(dev, "successfully probed\n");
- 	return 0;
+@@ -1664,6 +1667,7 @@ static int iaa_comp_adecompress(struct acomp_req *req)
+ 	}
  
-+err_free_irq:
-+	free_irq(cec->irq, cec);
-+
- err_notifier:
- 	cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
+ 	iaa_wq = idxd_wq_get_private(wq);
++	req_ctx->iaa_wq = iaa_wq;
  
-@@ -254,6 +257,7 @@ static void s5p_cec_remove(struct platform_device *pdev)
- 	struct s5p_cec_dev *cec = platform_get_drvdata(pdev);
+ 	dev = &wq->idxd->pdev->dev;
  
- 	cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
-+	free_irq(cec->irq, cec);
- 	cec_unregister_adapter(cec->adap);
- 	pm_runtime_disable(&pdev->dev);
- }
+
+-- 
+2.56.0
+
