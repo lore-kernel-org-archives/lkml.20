@@ -1,49 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411E94FC330;
-	Mon, 19 Oct 2026 14:05:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353A150B3AA;
+	Mon, 19 Oct 2026 14:05:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418745; cv=none; b=s5CqgDxMn6aTB1A9eYt7aBFqWoaBv4EBdrKEEtmUsU/FZHelg1lzASl48xG/GrcHrplwWmqmEcyECcHVhJYTyf9CwSOcLvoqycZvzARAn0pToo9SEdnbb3jFLVsl3H/fxIvg+zz5xtARwDgCFaEA+mQajzljDPkpSifD2eotglY=
+	t=1792418748; cv=none; b=oM6B457ojRZMD0rLeYpdYsuzbT4rypup3TFO0Gf7fh95xoy2+QGQGenEdDcMnvV7MRFFJZkRBXNvQlICWk+h2bIuQO/CYNOdgyso53kWMoHF9ANEc+5n2OVF17fB8zu+sDPjPSgRvgGBrxG3fgV8AQRT8HLFlJsZAC8Q2DSVx4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418745; c=relaxed/simple;
-	bh=/jn0gULFWbMrwJjmayeNpkDr63HxLyEcKNnDZCIm2Eg=;
+	s=arc-20240116; t=1792418748; c=relaxed/simple;
+	bh=4oRcyGmXOH1XfD125gD7qiYzHYGO3C2D5aOV3bytk8s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PrwiLz391RuQA6ikUOb6TLr/LF+X1zRqhtYvlhR5hwN9LapiDPUjaKJ6XyqI29ZFJ+xTwkF0hpNjplDZ3ms9AWM3JhYROfcuZtiKumsPigMMjNlKXGUdeNUU4NylZ58o7545EikiKdV0r1r5QqqHCGaTd3JiGRr26bRAoXS1apc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eRZ3wlGL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=RGbLtkdWMUmxEcyOl7WW48uDg8OONIANdRywVWhzaC3lkQOm1ntYgPEyPFq9bZOt1H4CaWw8KIlmHwT9AcgqqW+l50cLpvo64EvZE4uv3qFzjuu4E6lZY/1y5s07g+FFub0/q33S+/HKUfK1tE39dRB7Fh2WmhqHMr+SsZYcaVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtAbQFID; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eRZ3wlGL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E901F000C5;
-	Mon, 19 Oct 2026 14:05:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtAbQFID"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F054C1F000C6;
+	Mon, 19 Oct 2026 14:05:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418742;
-	bh=vAjPh0K/1xcc1UTcvd4vlu2Zj2eAFfcETHWsmqpxz3Q=;
+	s=k20260515; t=1792418744;
+	bh=YFFkrLbjthWIX8mSKrxUrc8VHsO1zAFHlMtQctRZNZE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eRZ3wlGLO3BU1O0vvlpNY8ddCzRqkBWvP/1jPaQHXSe8m8rs9pxaHRGyWskr7eIxn
-	 bQUbqeQLse0wDzV2lvnMe6vosEl+WtrMdxy9m/5JVVfRaXhjyw88qOMeT6iFGwxeTO
-	 6UM/Rg2aruyoIWGsWnmr8wa10bXaSbDFO5iXsDbDyRPvXey2JOm+zeYTTtVWzFXfcV
-	 QQ7KBMIBrlqVVSFSTI9c8v8BWrNQzbLNabyccFx2bV1NqfJ6KlKJMmgkHLI467vjX5
-	 NRd3TFCDliv7OjBlC3MKWD+LuuaqxkMzOFi9JhHA9eH0Yw+7j0AoFONpitaJgozpvB
-	 S+cRidOtSd90Q==
+	b=QtAbQFIDtO2anpDAkwfEOmezSws8jqgDIkEE0x6RfpO0m1M6ic1JHCzUac7zo6brs
+	 JA+XjEv4ReRU5spVspX5LIq7Q5uVAA0Wee7131aw2SOTydGUPkd7LgBQMq4QDYyOo7
+	 tXVULpqz6+TaJts7jW1i6vd5xCQ9Rap4Zb8bzzsI64xn4lTalTGpxikUwiPNL+XNKr
+	 tP5QpcXTh1F+f9a5/qkfVaK2/ccQZe4Yx9LN9MtZKas+jGSpnLkzti0XS5uS/M4wJD
+	 Wb9Bx2YzRTt1bYuVasghDhD9l/nSjPJvX481pPLWcAorswhvdSzFEnCP6ESId1X+Sy
+	 TWlIQs8CR+WQQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+Cc: Gael Blivet <gael.blivet@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	tglx@kernel.org,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	linux-perf-users@vger.kernel.org,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] perf/x86/intel: Fallback to sw branch type decoding if no hw decoding
-Date: Mon, 19 Oct 2026 09:52:34 -0400
-Message-ID: <20261019135441.1420968-463-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] ksmbd: fix durable handle v2 default timeout units (60 -> 60000)
+Date: Mon, 19 Oct 2026 09:52:36 -0400
+Message-ID: <20261019135441.1420968-465-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -59,433 +52,430 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+From: Gael Blivet <gael.blivet@gmail.com>
 
-[ Upstream commit 170cc6b02e3d5203ccaa49ffea1ee5a7ab08c885 ]
+[ Upstream commit c1d7bbfc5e081875053723d1a69eb2cf341eaaf1 ]
 
-intel_pmu_lbr_filter() currently assumes arch-LBR provides hardware
-branch-type decoding and skips software decoding on that path.
+When a client's Durable Handle Request V2 sets Timeout=0 ("let the
+server choose"), fp->durable_timeout was set to 60. Every other use
+of this field is in milliseconds: DURABLE_HANDLE_MAX_TIMEOUT (300000)
+in smb2pdu.h, the nonzero branch immediately above
+(min_t(unsigned int, dh_info.timeout, DURABLE_HANDLE_MAX_TIMEOUT),
+where dh_info.timeout is the wire value and already milliseconds per
+spec), and the scavenger in vfs_cache.c, which adds it directly to
+jiffies_to_msecs(jiffies).
 
-However, arch-LBR may not always expose branch-type information. In
-that case, treating entries as hardware-decoded can misclassify sampled
-branches (for example, defaulting to JCC), which breaks branch-type
-filtering results.
+60 is off by 1000x: the handle becomes scavenger-eligible 60
+milliseconds after close instead of 60 seconds. A client requesting
+Timeout=0 is relying entirely on the server's default to cover the
+gap between a dropped connection and its reconnect -- 60ms is not
+enough time for even a fast network blip to be detected and
+reconnected, so any real disruption loses the race and a subsequent
+DH2C reconnect fails with a durable-handle lookup miss instead of
+succeeding.
 
-Fix this by using software branch-type decoding when hardware
-branch-type decoding is unavailable (that is, when x86_lbr_type is not
-enabled). This keeps branch classification and filtering behavior
-correct across arch-LBR configurations.
-
-Since x86_lbr_type is only set to true when arch-LBR is supported,
-it's unnecessary to check if the CPU has the arch-LBR feature.
-
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260616044654.3468742-4-dapeng1.mi@linux.intel.com
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Gael Blivet <gael.blivet@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough to decide: the 6.18.53 tree still has the JCC
-misclassification, and this is a one-line, already-reviewed correction
-of that path.
+The local tree is **6.12.111** (`p-6.12-3-gc504cf0baa3d8`). The buggy
+`fp->durable_timeout = 60` assignment is still in this checkout; the
+upstream fix is not.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+---
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: [perf/x86/intel] [Fallback] [Use software branch-type decoding
-when Arch LBR does not provide hardware type]
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: **[ksmbd]** **[fix]** durable handle v2 default timeout units
+(60 → 60000). Subsystem is the in-kernel SMB server. Action verb is
+explicitly **fix**.
+
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+Upstream commit `337e5ea7498178b3e50b39c266268a8b4d5b48d6` (not an
+ancestor of this tree):
+- **Assisted-by:** Claude:claude-sonnet-5
+- **Signed-off-by:** Gael Blivet \<gael.blivet@gmail.com\>
+- **Acked-by:** Namjae Jeon \<linkinjeon@kernel.org\> (ksmbd maintainer;
+  query text shows this as SOB from candidate prep)
+- **Signed-off-by:** Steve French \<stfrench@microsoft.com\> (CIFS/SMB
+  maintainer)
+- **No Fixes:** tag (expected for this review queue)
+- **No Cc: stable** (expected)
+- **No Reported-by / Tested-by / Link**
+
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com> (author, Intel)
-- Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org> (perf/x86
-  maintainer; applied to tip)
-- Link: https://patch.msgid.link/20260616044654.3468742-4-
-  dapeng1.mi@linux.intel.com
-- No Fixes: tag (expected)
-- No Reported-by / Tested-by / Reviewed-by / Acked-by / Cc: stable
-- Ignore pipeline tags: [Upstream commit
-  170cc6b02e3d5203ccaa49ffea1ee5a7ab08c885], Signed-off-by: Sasha Levin
+- **Bug:** When Durable Handle Request V2 has `Timeout=0` (“let the
+  server choose”), `fp->durable_timeout` is set to **60**.
+- **Root cause:** Every other use of this field is **milliseconds**:
+  wire Timeout per [MS-SMB2], `DURABLE_HANDLE_MAX_TIMEOUT` (300000), the
+  nonzero `min_t` branch, and the scavenger adding it to
+  `jiffies_to_msecs(jiffies)`.
+- **Symptom:** Handle becomes scavenger-eligible **60 ms** after close
+  instead of **60 seconds**. A client using the server default cannot
+  reconnect after a real disconnect; DH2C fails with a durable-handle
+  lookup miss.
+- **Version info in message:** none. Introducer is in this tree (see
+  Phase 3).
 
-Notable: msgid `-4` is patch 3/8 of “perf/x86: Miscellaneous PMU bug
-fixes” (cover letter is `-1`). Independent patches grouped for
-review/backport, not a tightly coupled series.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not hidden. This is an explicit units/correctness fix (1000×),
+not cleanup.
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+---
+
+## PHASE 2: DIFF ANALYSIS - LINE BY LINE
+
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- Bug: `intel_pmu_lbr_filter()` treats Arch LBR as always having
-  hardware branch-type decode and skips software decode.
-- Reality: Arch LBR CPUID leaf 28H ECX bit 2 (`lbr_br_type`) is
-  optional. If it is clear, `get_lbr_br_type()` returns 0.
-- Symptom: type 0 is `ARCH_LBR_BR_TYPE_JCC`, so sampled branches are
-  classified as JCC. Branch-type filters (`PERF_SAMPLE_BRANCH_*`) and
-  saved types are wrong (calls/returns dropped or shown as
-  conditionals).
-- Root cause: gate is `static_cpu_has(X86_FEATURE_ARCH_LBR)` instead of
-  “hardware type actually present”.
-- Fix: gate on `static_branch_likely(&x86_lbr_type)`, which is enabled
-  only when `x86_pmu.lbr_br_type` is set in `intel_pmu_arch_lbr_init()`.
-- Version info in message: none.
+- File: `fs/smb/server/smb2pdu.c` — **+8 / −1**
+- Function: `smb2_open()`
+- Classification: **single-file surgical fix**
+- Functional change: one assignment `60` → `60000`
+- Extra: comment before `reconnected_fp:` about `conn->is_aapl` on
+  reconnect (documentation only)
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not hidden. Explicit correctness fix for misclassification. Not
-style/cleanup.
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Record (this tree, `smb2_open()` around 3651–3663):
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+**Before:** `DURABLE_REQ_V2` + `dh_info.timeout == 0` →
+`fp->durable_timeout = 60`.
 
-Step 2.1: INVENTORY THE CHANGES
-Record:
-- File: `arch/x86/events/intel/lbr.c` — 1 insertion, 1 deletion
-- Function: `intel_pmu_lbr_filter()`
-- Scope: single-file, one-line surgical change
+**After:** same path → `fp->durable_timeout = 60000`.
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record:
-- Before: if CPU has Arch LBR and `type <= ARCH_LBR_BR_TYPE_KNOWN_MAX`
-  (0–5), map via `arch_lbr_br_type_map[]`. Else `branch_type()` software
-  decode.
-- After: same hardware map only if `x86_lbr_type` is enabled (HW type
-  field present). Otherwise software decode.
-- Path: LBR sample filtering after PMI / branch-stack snapshot, not
-  probe/init-only.
+Nonzero Timeout is unchanged (`min_t(..., DURABLE_HANDLE_MAX_TIMEOUT)`).
+Path is the **normal CREATE** path when the client requests a v2 durable
+handle with Timeout=0, not an error path.
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record:
-- Category: logic/correctness (wrong classifier when optional HW field
-  is absent)
-- Mechanism: `get_lbr_br_type()` is:
+On close/disconnect, `vfs_cache.c` does:
 
-```866:873:arch/x86/events/intel/lbr.c
-static __always_inline int get_lbr_br_type(u64 info)
-{
-        int type = 0;
-
-        if (static_branch_likely(&x86_lbr_type))
-                type = (info & LBR_INFO_BR_TYPE) >>
-LBR_INFO_BR_TYPE_OFFSET;
-
-        return type;
-}
+```1276:1278:fs/smb/server/vfs_cache.c
+        if (fp->durable_timeout)
+                fp->durable_scavenger_timeout =
+                        jiffies_to_msecs(jiffies) + fp->durable_timeout;
 ```
 
-When `x86_lbr_type` is off, stored type is 0. Old filter still took the
-Arch LBR map because `0 <= ARCH_LBR_BR_TYPE_KNOWN_MAX`, so every entry
-became JCC. Fix uses the same static key as the reader.
+The scavenger then expires the handle when `jiffies_to_msecs(jiffies)`
+passes that deadline.
 
-Step 2.4: ASSESS THE FIX QUALITY
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Record: **[Logic / units / correctness]** Default timeout stored as 60
+**seconds-as-if-ms**. Spec Timeout is milliseconds; 0 means server
+default. Result: reconnect window is 60 ms instead of 60 s.
+
+Also advertised to the client: `create_durable_v2_rsp_buf()` sends
+`buf->Timeout = cpu_to_le32(fp->durable_timeout)`, so the client is told
+the window is 60 ms.
+
+**Step 2.4: ASSESS THE FIX QUALITY**
+Record: Obviously correct: same constant the author intended, in the
+units the rest of the code already uses. Samba uses 60×1000 ms when
+Timeout=0; Windows DurableOpenTimeout is 60 s. Risk is low: handles may
+linger 60 s instead of 60 ms after disconnect, which is the designed
+behavior. Cap remains 300000 ms. Comment is unrelated but harmless;
+`conn->is_aapl` and `reconnected_fp` exist in this tree.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+**Step 3.1: BLAME THE CHANGED LINES**
+Record: `fp->durable_timeout = 60` introduced in **`c8efcc786146a`**
+(“ksmbd: add support for durable handles v1/v2”, Namjae Jeon,
+2024-03-12). First appeared in **v6.9-rc1**. Present here. Nearby
+`min_t` cap from **`289ebd9afeb94`** (build warning fix), also in this
+tree.
+
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No Fixes: tag. Introducer is `c8efcc786146a`, confirmed ancestor
+of HEAD.
+
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: Recent `smb2pdu.c` work is other ksmbd fixes (normalized names,
+compound errors, leases). No competing timeout-unit fix. Standalone vs
+series: submitted as **patch 3/8** of “follow-up fixes”; cover letter
+says patch 3 is **unrelated** to the rest (a separate 1000× units bug).
+Other patches are stream delete, mdssvc logs, FSCTL bounds, xattr size,
+DOS attrib init, stream unlink/fallocate.
+
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Gael Blivet has **no** commits in this tree under
+`fs/smb/server/`. Maintainer **Namjae Jeon** acked and applied this
+patch (except 2/8 and 5/8, which are different patches). Steve French
+signed off.
+
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: None for the assignment change. Durable-handle v2, scavenger,
+and `DURABLE_HANDLE_MAX_TIMEOUT` are already here. Comment needs only
+`reconnected_fp` / `is_aapl`, both present. **Can apply standalone.**
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- Obviously correct: one condition aligned with how type is populated.
-- Minimal; no unrelated edits.
-- Regression risk: low on CPUs with `lbr_br_type` (common Arch LBR) —
-  same HW path.
-- On Arch LBR without HW type: software decode in NMI (existing
-  `branch_type()` path). Sashiko flagged extra NMI cost because
-  `intel_pmu_setup_hw_lbr_filter()` always sets `X86_BR_TYPE_SAVE` for
-  Arch LBR, so the filter never early-returns. That is the cost of
-  correct types, not a change to already-correct behavior. Peter merged
-  this form anyway.
-- No public API / data-structure change.
+- `b4 dig -c 337e5ea749817` →
+  https://patch.msgid.link/20260709000548.66445-4-g.blivet@me.com
+- Series: `[PATCH 0/8] ksmbd: follow-up fixes to previously-merged
+  patches` (2026-07-09)
+- `b4 dig -a`: **v1 only** (no later revisions of this patch)
+- Lore HTTP fetch returned 403; full thread retrieved with `b4 mbox` (12
+  messages)
+- Cover letter: patch 3 found in a durable-handle-v2 reconnect
+  investigation; Timeout=0 clients lose the reconnect race
+- Namjae on cover: **“Applied them except 0002, 0005 patch to #ksmbd-
+  for-next-next.”** Patch 3 applied as submitted. No NAK, no stable
+  discussion.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record (`b4 dig -w`): Gaël Blivet-Bailly, **Namjae Jeon**, **linux-
+cifs@vger.kernel.org**. Maintainer ack + apply.
 
-Step 3.1: BLAME THE CHANGED LINES
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No syzbot/bugzilla. Spec: [MS-SMB2] 2.2.13.2.11 Timeout is
+**milliseconds**; 0 = server default. Samba sets default **1 minute
+(60×1000 ms)** and caps at 300×1000. Windows DurableOpenTimeout is 60 s
+(response Timeout sometimes 180 s). Linux CIFS client defaults
+`handle_timeout = 0` (“most clients default to 0”).
+
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: Other 7 patches are independent bugs. This one does not need
+them.
+
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: lore.kernel.org/stable fetch 403. No stable mention in the
+downloaded thread. **UNVERIFIED:** whether anyone already asked for this
+on stable@.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
+Record: `smb2_open()` only.
+
+**Step 5.2: TRACE CALLERS**
+Record: `smb2_open` is `SMB2_CREATE` in `fs/smb/server/smb2ops.c`.
+Reachable from any SMB3 client CREATE with DH2Q. Durable parsing only if
+`KSMBD_GLOBAL_FLAG_DURABLE_HANDLE` is set (ksmbd-tools `durable handles
+= yes`; tools default is no).
+
+**Step 5.3: TRACE CALLEES**
+Record: Timeout consumed by scavenger (`ksmbd_durable_scavenger`) and
+advertised in `create_durable_v2_rsp_buf()`. Parsed from wire via
+`le32_to_cpu(durable_v2_blob->Timeout)`.
+
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Userspace SMB client → SMB2 CREATE + DH2Q Timeout=0 →
+`smb2_open` → later disconnect → scavenger expires in 60 ms → DH2C miss.
+CIFS client sends Timeout=0 by default. **Yes, userspace-reachable** for
+servers with durable handles enabled.
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: Only this `= 60` default. V1 durable requests do not set
+`durable_timeout` (stays 0; scavenger skips). Separate issue, not this
+patch.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: **Yes.** `fs/smb/server/smb2pdu.c:3659`: `fp->durable_timeout =
+60;`. Introduced v6.9-rc1; this is 6.12.111. `git merge-base --is-
+ancestor 337e5ea749817 HEAD` is **false** — fix not present.
+
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: Mainline hunk is around line 4186 vs 3659 here (later AAPL/open
+growth). Context around the assignment matches. Expected apply: **clean
+or trivial offset**. Comment applies; `is_aapl` exists at 3614–3620.
+Mainline `app_instance_id` memcpy in the *provided* candidate context is
+**not** in this tree; the **actual** upstream diff does not touch that —
+only `60`→`60000` plus the comment.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: No other timeout-units fix. `289ebd9afeb94` only changed `min()`
+to `min_t()`.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: **ksmbd** (`fs/smb/server/`). **IMPORTANT** (in-kernel SMB3
+server), not mm/VFS core. Affects ksmbd users with durable handles
+enabled (Windows/macOS SMB3 reconnect).
+
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Active — many recent ksmbd fixes on this 6.12 branch. Durable-
+handle code itself has been in tree since 6.9.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: **Config/feature-specific:** ksmbd with durable handles enabled.
+Not all kernel users. Clients that send Timeout=0 (Linux CIFS default,
+typical Windows). Clients that send a nonzero Timeout are unchanged.
+
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Enable durable handles; CREATE with DH2Q Timeout=0; drop the TCP
+connection; reconnect with DH2C. Common for SMB3 durable opens.
+Unprivileged SMB clients can trigger it if the share allows them. Not a
+timing race of locking — the window is just far too short.
+
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: **Failure:** durable reconnect fails (lookup miss); open does
+not survive a network blip. **Not** panic, UAF, or silent data
+corruption. **Severity: HIGH** for that feature (feature is effectively
+broken for the default Timeout=0 case), **MEDIUM–HIGH** overall (opt-in,
+but that is exactly who needs reconnect).
+
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- Buggy `if (static_cpu_has(X86_FEATURE_ARCH_LBR) &&` introduced in
-  `47125db27e47e9` (“perf/x86/intel/lbr: Support Architectural LBR”, Kan
-  Liang, 2020-07-08). Contained in `perf-core-2020-08-03` (~v5.9).
-  Present in this tree.
-- `x86_lbr_type` added in `6b19788ddc593` (“perf/x86/intel/lbr: Add
-  static_branch for LBR INFO flags”, 2022-01-18, ~v5.17). Present here.
-- `X86_BR_TYPE_SAVE` forced for Arch LBR in `32ba156df1b1c` (2022, Cc:
-  stable). Present here.
+- **Benefit: HIGH** for durable-handle users — reconnect works for the
+  common Timeout=0 case.
+- **Risk: VERY LOW** — one integer, same units as the rest of the code,
+  within the existing 300 s cap. Extra comment is inert.
+- **Ratio:** strong yes.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes: tag. Functionally this is a late correction of
-`47125db27e47e9`, which is in v6.18.53.
+---
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- `3c492c8eba026` “Fix kernel address leakages in LBR stack” is already
-  in v6.18.53 (same series, patch 4/8). Surrounding filter already has
-  `from_plm` kernel-from dropping.
-- Candidate `906dbeecfa0ff` is this patch on autosel; **not** in
-  `v6.18.53` (`git merge-base --is-ancestor 906dbeecfa0ff v6.18.53`
-  failed).
-- v6.18.53 still has `static_cpu_has(X86_FEATURE_ARCH_LBR)` at the
-  filter. Bug is live on the baseline.
-- Standalone vs series: cover letter: “several independent PMU fixes to
-  simplify review and backporting.” This hunk does not need 1/8, 2/8,
-  5–8. 4/8 is already here.
+## PHASE 9: FINAL SYNTHESIS
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Dapeng Mi is a regular Intel perf/x86 contributor. Peter
-Zijlstra applied it. Nearby same-series work: leakage fix already in
-this stable tree.
+**Step 9.1: COMPILE THE EVIDENCE**
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record:
-- Needs `x86_lbr_type` — in this tree since ~v5.17.
-- Does not need other v4 patches.
-- Applies standalone: v6.18.53 already has the exact one-line context
-  (candidate applied as 1 line).
+**FOR:**
+- Real 1000× units bug; Timeout=0 is the spec/common client default.
+- Scavenger and DH2Q response both treat the field as milliseconds.
+- Durable reconnect after a real disconnect fails today.
+- One-line functional change; obviously correct; maintainer acked and
+  applied.
+- Buggy code is in this 6.12 tree since v6.9; fix is not.
+- Applies with no prerequisites.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**AGAINST:**
+- Durable handles are opt-in (tools default off).
+- Not a crash/UAF/CVE.
+- Extra AAPL comment is unrelated (harmless).
+- No Fixes:/Cc: stable (not a negative per rules).
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- `b4 dig -c 170cc6b02e3d5203ccaa49ffea1ee5a7ab08c885` → https://patch.m
-  sgid.link/20260616044654.3468742-4-dapeng1.mi@linux.intel.com
-- Subject: `[Patch v4 3/8] perf/x86/intel: Fallback to sw branch type
-  decoding if no hw decoding`
-- Series: v1 2026-06-05, v2 2026-06-09, v3 2026-06-12, v4 2026-06-16;
-  tip-bot2 applied 2026-06-30.
-- v3→v4: unrelated patches; Peter asked to drop markdown in changelogs.
-- v2→v3: “Patch 3/8: Only keep x86_lbr_type check … (Peter).” Committed
-  form is what the maintainer asked for.
-- v1→v2: software fallback added after Sashiko review of v1.
-- Cover: “independent PMU fixes to simplify review and backporting.”
-- Human NAKs: none in the saved thread.
-- Sashiko AI on v4: High — always-on `X86_BR_TYPE_SAVE` plus software
-  decode can add NMI cost if HW type is missing. Not addressed in the
-  merged patch; maintainer still took it.
-- WebFetch to lore.kernel.org: 403. Thread recovered via `b4 dig -m`.
+**UNRESOLVED:**
+- Direct stable@ lore search (HTTP 403).
+- No public user bugzilla for this specific 60 ms window (found by
+  reconnect investigation).
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`): To/Cc included Peter Zijlstra, Ingo Molnar,
-Arnaldo Carvalho de Melo, Namhyung Kim, Ian Rogers, Adrian Hunter,
-Alexander Shishkin, Andi Kleen, Stephane Eranian, linux-perf-users, Zide
-Chen, Thomas Falcon, Xudong Hao. Peter signed off. No extra Reviewed-by
-on the commit.
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — units match spec and
+   adjacent code; maintainer applied it.
+2. Fixes a real bug that affects users? **PASS** — Timeout=0 durable
+   reconnect fails.
+3. Important issue? **PASS** — protocol feature that exists to survive
+   disconnects is broken in the default-timeout path (not panic, but
+   user-visible functional failure).
+4. Small and contained? **PASS** — 1 file, 1 assignment (+ comment).
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS**
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No Reported-by, bugzilla, or syzbot. Looks Intel-internal / code
-review. Unverified which SKU has Arch LBR without `lbr_br_type`; CPUID
-documents it as optional (`union cpuid28_ecx.lbr_br_type`).
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: None (not a device ID/quirk/DT/build/doc-only). Ordinary
+correctness fix.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: v4 8 independent fixes. 4/8 (kernel LBR address leak) already in
-this tree. This 3/8 is self-contained.
+**Step 9.4: MAKE YOUR DECISION**
+This belongs on 6.12. The durable-handle v2 default is stored in the
+wrong units, so any client that asks the server to pick a timeout
+(including the in-tree CIFS client) gets a 60 ms reconnect window. That
+is not a usable durable handle. The fix is a single constant aligned
+with Samba (60 s) and with every other millisecond use of the field.
+Risk is negligible; the code and introducer are already in this tree.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search returned 403. Cover letter still
-states the series was meant to be easy to backport. UNVERIFIED: no
-stable-list NAK found (could not query the list).
+### What problem this solves for stable users
+ksmbd users who enabled durable handles (Windows/macOS/SMB3 reconnect)
+currently lose the handle ~60 ms after a drop when the client sent
+Timeout=0. The reconnect CREATE then misses. After this change, the
+default window is 60 seconds, matching the intended design and the
+protocol’s millisecond Timeout field.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+### Risk vs benefit
+Benefit is restoring the feature those users turned on. Risk is holding
+durable state for 60 s instead of 60 ms after disconnect — intended, and
+still far below the 300 s cap.
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `intel_pmu_lbr_filter()` only. Uses `x86_lbr_type`,
-`arch_lbr_br_type_map`, `branch_type()`, `common_branch_type()`.
-
-Step 5.2: TRACE CALLERS
-Record:
-- `intel_pmu_lbr_read()` → `intel_pmu_lbr_filter()`
-  - `__intel_pmu_snapshot_branch_stack()` (irq-off snapshot)
-  - Intel PMI handler in `intel/core.c` (~line 3375, NMI)
-- `intel_pmu_store_pebs_lbrs()` → store then filter (PEBS LBR)
-
-Step 5.3: TRACE CALLEES
-Record: `kernel_ip()`, `arch_lbr_br_type_map[]`, `branch_type()` (insn
-decode in `arch/x86/events/utils.c`), `common_branch_type()`.
-`branch_type()` already used for non-Arch LBR and OTHER_BRANCH.
-
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace `perf_event_open` with `PERF_SAMPLE_BRANCH_STACK` →
-PMI/PEBS → LBR read → filter. Reachable from perf. Needs Intel PMU +
-Arch LBR without HW type to hit the bug; with HW type the new check
-matches old behavior.
-
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: AMD `arch/x86/events/amd/lbr.c` has its own filter; not this
-bug. Same file already uses `x86_lbr_type` in `get_lbr_br_type()`; the
-filter was the inconsistent check.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record:
-- `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`; `make
-  kernelversion` → 6.18.53; branch `autosel`.
-- v6.18.53 `intel_pmu_lbr_filter()` still uses
-  `static_cpu_has(X86_FEATURE_ARCH_LBR)`.
-- Bug introduced ~v5.9; still present on this 6.18 baseline.
-
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Clean apply. Candidate is a 1-line replace on the v6.18.53 line.
-Leakage extra checks around it do not conflict.
-
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: No other fallback to `x86_lbr_type` in the filter on v6.18.53.
-Leakage fix is separate and already present.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: perf/x86 Intel LBR (`arch/x86/events/intel/lbr.c`). IMPORTANT:
-Intel PMU branch recording, not core mm/VFS. Widely used on x86 via
-perf.
-
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Actively maintained (Kan Liang, Dapeng Mi, Peter Zijlstra). Arch
-LBR path is mature (since 2020), not brand-new.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Intel x86 with Arch LBR (Ice Lake+) when CPUID leaf 28H does not
-set branch-type. Users of `perf record -j` / `PERF_SAMPLE_BRANCH_STACK`
-with type filters or type save. Not universal; driver/PMU-specific.
-
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Normal LBR sampling when HW type is absent. Unprivileged users
-can open perf events if `perf_event_paranoid` allows; typically needs
-profiling access. Not a rare error-path-only bug.
-
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record:
-- Failure: wrong branch types; type filters drop real calls/returns or
-  keep everything as JCC; saved types lie.
-- Not oops, deadlock, or filesystem corruption.
-- Severity: MEDIUM (silent wrong samples). Important for perf
-  correctness; same class as other LBR type fixes that already went to
-  stable (e.g. `32ba156df1b1c`).
-
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- Benefit: correct LBR classification/filtering on Arch LBR without HW
-  type; no-op where HW type exists.
-- Risk: very low (1 line). Extra software decode only on the previously
-  wrong config; `branch_type()` is already used in NMI.
-- Ratio: favorable.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-Step 9.1: COMPILE THE EVIDENCE
-FOR:
-- Real misclassification (all branches as JCC) when Arch LBR lacks HW
-  type.
-- Bug exists on this 6.18.53 baseline.
-- One-line, obviously correct, matches `get_lbr_br_type()`.
-- Maintainer (Peter Zijlstra) requested this check and signed off.
-- Independent of the rest of the series; cover letter aimed at
-  backporting.
-- Prerequisites (`x86_lbr_type`, Arch LBR filter) are in this tree.
-- Applies cleanly; sibling 4/8 already in 6.18.53.
-
-AGAINST:
-- Not a crash, UAF, or security hole (leak is a different commit already
-  here).
-- No user Reported-by / syzbot.
-- Sashiko NMI-overhead note not addressed; only matters if HW type is
-  missing.
-- Which production SKUs omit `lbr_br_type` is unverified.
-
-UNRESOLVED:
-- Exact CPU/VMM configs with Arch LBR and `lbr_br_type=0`.
-- Stable-list discussion (lore 403).
-
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? PASS — one-line, maintainer-shaped, in
-   tip/mainline.
-2. Fixes a real bug that affects users? PASS — wrong LBR types/filters.
-3. Important issue? PASS (MEDIUM) — silent wrong branch samples on Intel
-   LBR; not a panic, but user-visible PMU corruption.
-4. Small and contained? PASS — 1 line, one function.
-5. No new features or APIs? PASS.
-6. Can apply to the local tree? PASS — v6.18.53 has the buggy line and
-   `x86_lbr_type`.
-
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: None (not a device ID, quirk, DT, build, or doc fix). Qualifies
-as a normal small correctness fix.
-
-Step 9.4: MAKE YOUR DECISION
-This 6.18.53 tree still has the Arch LBR filter assuming hardware types
-whenever `X86_FEATURE_ARCH_LBR` is set. That is wrong when CPUID does
-not advertise the type field: types collapse to JCC and filters lie. The
-fix is the same static key already used to read the field, applies
-cleanly, and does not change the common HW-type path. That is
-appropriate for this stable tree.
-
-What it solves for stable users: Intel perf LBR branch-type
-filtering/classification on Arch LBR configs without hardware type,
-instead of silently tagging everything as conditional jumps.
-
-Risk vs benefit: one line vs wrong samples; remaining risk is extra
-software decode only on the previously broken config.
+---
 
 Verification:
-- [Phase 1] Parsed tags: SOB Dapeng Mi + Peter Zijlstra; Link msgid
-  3468742-4; no Fixes/Reported-by/Cc stable
-- [Phase 1] Cover letter (mbox): independent PMU fixes “to simplify
-  review and backporting”; this is v4 3/8
-- [Phase 2] Diff: 1 line in `intel_pmu_lbr_filter()`,
-  `static_cpu_has(X86_FEATURE_ARCH_LBR)` →
-  `static_branch_likely(&x86_lbr_type)`
-- [Phase 2] Confirmed `get_lbr_br_type()` returns 0 when `x86_lbr_type`
-  is off; 0 maps to JCC
-- [Phase 3] `git blame` on parent: buggy check from `47125db27e47e9`
-  (2020 Arch LBR)
-- [Phase 3] `git merge-base --is-ancestor 47125db27e47e9 v6.18.53` →
-  yes; `6b19788ddc593` (x86_lbr_type) → yes
-- [Phase 3] `git merge-base --is-ancestor 906dbeecfa0ff v6.18.53` → no
-  (not in baseline)
-- [Phase 3] `git show v6.18.53:arch/x86/events/intel/lbr.c` still has
-  `static_cpu_has(X86_FEATURE_ARCH_LBR)` in the filter
-- [Phase 3] Leakage fix `3c492c8eba026` is already in v6.18.53
-- [Phase 4] `b4 dig -c 170cc6b02e3d5`: lore thread
-  20260616044654.3468742-4; v1–v4; Peter asked for x86_lbr_type-only
-  check in v3
-- [Phase 4] `b4 dig -w`: Peter, Ingo, acme, Namhyung, Eranian, linux-
-  perf-users CC’d
-- [Phase 4] Sashiko v4: NMI software-decode cost if TYPE_SAVE always
-  set; unverified product impact
-- [Phase 4] WebFetch lore/stable: 403; UNVERIFIED stable-list discussion
-- [Phase 5] Callers: `intel_pmu_lbr_read()` from PMI and snapshot;
-  `intel_pmu_store_pebs_lbrs()` from PEBS
-- [Phase 6] `git describe HEAD`: v6.18.53-5049-g0f0bdc2b0dffb; `make
-  kernelversion`: 6.18.53
-- [Phase 8] Failure: misclassified LBR samples, severity MEDIUM
-- UNVERIFIED: concrete CPUID dumps with Arch LBR and `lbr_br_type=0`
+- [Phase 1] Subject/tags from `git show 337e5ea749817`: fix, Assisted-by
+  Claude, Acked-by Namjae Jeon, SOB Steve French; no
+  Fixes/Cc:stable/Reported-by
+- [Phase 2] Diff: `fp->durable_timeout = 60` → `60000` plus AAPL
+  reconnect comment in `smb2_open()`
+- [Phase 2] This tree: same assignment at
+  `fs/smb/server/smb2pdu.c:3659`; scavenger adds timeout to
+  `jiffies_to_msecs(jiffies)` at `vfs_cache.c:1276-1278`; response
+  Timeout at `oplock.c:1818`; parse is
+  `le32_to_cpu(durable_v2_blob->Timeout)` at `smb2pdu.c:2868-2869`;
+  `DURABLE_HANDLE_MAX_TIMEOUT` is 300000
+- [Phase 3] `git blame`: line from `c8efcc786146a` (v6.9-rc1); `git
+  merge-base --is-ancestor c8efcc786146a HEAD` true; `289ebd9afeb94`
+  also in tree
+- [Phase 3] `git merge-base --is-ancestor 337e5ea749817 HEAD` false;
+  object exists in repo
+- [Phase 3] `git log -S 'durable_timeout = 60' --
+  fs/smb/server/smb2pdu.c` → only introducer
+- [Phase 4] `b4 dig -c 337e5ea749817`:
+  patch.msgid.link/20260709000548.66445-4-g.blivet@me.com, PATCH 3/8
+- [Phase 4] `b4 dig -a`: v1 only; `b4 dig -w`: Namjae + linux-cifs
+- [Phase 4] `b4 mbox`: cover letter calls patch 3 standalone units bug;
+  Namjae applied all but 2/8 and 5/8
+- [Phase 4] MS-SMB2 Timeout is milliseconds, 0 = server default
+  (WebFetch)
+- [Phase 4] Samba default 60×1000 ms; Windows DurableOpenTimeout 60 s
+- [Phase 4] lore.kernel.org HTTP 403; used b4 mbox instead
+- [Phase 5] `smb2_open` is SMB2_CREATE handler; gated on
+  `KSMBD_GLOBAL_FLAG_DURABLE_HANDLE`
+- [Phase 5] CIFS client `ctx->handle_timeout = 0` (`fs_context.c:1839`);
+  DH2Q Timeout from that (`smb2pdu.c:2461`)
+- [Phase 6] `git describe HEAD` / `make kernelversion`: p-6.12-3 /
+  6.12.111; Makefile VERSION=6 PATCHLEVEL=12 SUBLEVEL=111
+- [Phase 8] Failure: DH2C lookup miss after disconnect; not a panic
+- UNVERIFIED: stable@ mailing list archive via HTTP; no public user
+  bugzilla for this 60 ms window
 
 **YES**
 
- arch/x86/events/intel/lbr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/smb/server/smb2pdu.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-index 44f5556440223..bbfd6ffbdd68a 100644
---- a/arch/x86/events/intel/lbr.c
-+++ b/arch/x86/events/intel/lbr.c
-@@ -1230,7 +1230,7 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
- 		 * Doesn't support OTHER_BRANCH decoding for now.
- 		 * OTHER_BRANCH branch type still rely on software decoding.
- 		 */
--		if (static_cpu_has(X86_FEATURE_ARCH_LBR) &&
-+		if (static_branch_likely(&x86_lbr_type) &&
- 		    type <= ARCH_LBR_BR_TYPE_KNOWN_MAX) {
- 			to_plm = kernel_ip(to) ? X86_BR_KERNEL : X86_BR_USER;
- 			type = arch_lbr_br_type_map[type] | to_plm;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 22c49921b1c07..ccefd325e52e3 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3681,10 +3681,17 @@ int smb2_open(struct ksmbd_work *work)
+ 					min_t(unsigned int, dh_info.timeout,
+ 					      DURABLE_HANDLE_MAX_TIMEOUT);
+ 			else
+-				fp->durable_timeout = 60;
++				fp->durable_timeout = 60000;
+ 		}
+ 	}
+ 
++	/*
++	 * conn->is_aapl detection above (this function's create-context
++	 * parsing) is skipped on the reconnect path below, since a
++	 * reconnect always arrives on a fresh connection -- if the client
++	 * cares, it sends its own AAPL context on this same CREATE, which
++	 * this function's normal (non-reconnect) parsing already handles.
++	 */
+ reconnected_fp:
+ 	rsp->StructureSize = cpu_to_le16(89);
+ 	opinfo = opinfo_get(fp);
 -- 
 2.53.0
 
