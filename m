@@ -1,78 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792421861;
-	b=fbBaSA4hWZ2zyIIPGEFU59zYDxUJ+zgkeC3ZZGJOiOFkMiso7OaBNjlnNogT+8TUywDp
-	 9kJXdDhEm+cVunAO/XUqZ90L7i+piosiyVShYxnFauH6mQolSBRVW55j2bMoE1xsdM8a/
-	 +WCwH+zFum9R7SEPKRrYrbHN5O08mX1Zlxqh2C/3rg5ffqfg1Dp75gnhwlxhgmfMLNmA8
-	 ARLUmIaPVbuJjantD8MUQJfZtHq4PLKKnRh5Cxdjz6g6e845zaqtiwKr9j12jQmtJHPJ+
-	 82CLztwnmTA11QZHsshNXas7R+CbAQpejocWSR5aHFmDPcOoh1YXaESlshveXfcXnCw==
+	t=1792422308;
+	b=x/XeWEpusptUE7OxsolbSpHKYA8TOfOWZsT7et7QhRVRoh89xv4Rx1DpQrxYz2irUtqs
+	 S8uhp7COkYLlmfKrzIXaI53iI9EsS+DFFErLV1rN4nNc4x9VbQ+IHuEjjlUa2clJVeWM2
+	 ZCaw2xBKk3c3F7pvWdy/jFY+p5Bt5goUDN7y60alAlBGhSWtpjR0lG4MQ6avUSUOshdOv
+	 k9ABFCw99Eu49XfhH3v5uGlAVVmrDfh6vGi3YsWNwaAn/SDzVjeRretyIV+JwL9Hf8P67
+	 IuxpfFAwAJvmAHjKAX8XijqRShN7MYKv3Fp5JuPtp1SH5saCBE+FiUg3d3MlkBIHRXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421861;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jb1csYS041OQkRUmll6dd69CLnrWmFEl4dVYrmHtRAU=;
-	b=qS8WGsZHJgNZ2Isnxg/lP4AxJVdGsCAoblID7kYMKtCVYhHuwNcRIccf2aReiwctFZsB
-	 9sO+pgTbz1UhSnZZ3oQ9OkiNJSaLc7jzgM6U8lp3xO2f++tTGAqDMXw0AJCoJpE2qx40U
-	 y6Vr7Pxk6ujjZT2fJxbJ0wCUTztj5q7zf1qPiB0qu1vUtXCgSkWM27OaKHhzDQAvUW3zz
-	 w1OUC9i6TD/S+7brJNFHK3ZYYCSzu7jGmWUM90Hzm8Vvi+8Nr212ESm0EUn9zWWyU40bG
-	 eLyqfZ+902tcsEZjBf+25Cahb1iRgBwslrtgAjaEpX7N8FByq0QpLeiZv665OX5xVsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422308;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:User-Agent:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Spamd-Result;
+	bh=xp7tAbYMTxUvwugqYEZ/EGoH6iiMMyHUKj9Q7EP+qkg=;
+	b=MoaWlgtnfhzjnDFPOnyyY+C2WoyUeSTgN7X6yotnSyB42qfhfnH5i7IvfcLF7pV0aJby
+	 j1S5vAmAtbCRcrDwrZqyNkCJoWdQGn+a0yVjThhELkkWIF2DfD7Z6UQFQtevGbWBSrgm6
+	 +XoPiTGTJz39R6BljNtigYG4TqVPwPopB4yTP/0L6SCNFJbBlrrgMq+yP+QXLXDVbCdEh
+	 TQCVHlnwEy8i1m6a5wmakX/MfSl4JS+iwJ6x5dh+TLANqWwj1V8JkviZ4X4Rs8ZaM6nXa
+	 3kBsjoexp83EPwAgPZPY5IFqb45JwtSAcfHI/eAynVyjfSCBOhauZJa6WJdqNO52L4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gKgqD6z5;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EDA6160740BA;
-	Mon, 19 Oct 2026 14:57:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA6160740BA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1vxifcaL;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W+kG5mDE;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1vxifcaL;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W+kG5mDE;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7BCF6080A81;
+	Mon, 19 Oct 2026 15:05:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7BCF6080A81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gKgqD6z5
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D434E1EA6;
-	Mon, 19 Oct 2026 07:57:29 -0700 (PDT)
-Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.131])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 239C93F673;
-	Mon, 19 Oct 2026 07:57:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792421853; bh=rFQ3QLuKff7vtlNW+Ur6AcpokK+E1Tl4p+PypJsyh/k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gKgqD6z5TyPQLzUtRIFI01FrJpTwkRcyF+muszFRAoPszG94P+njdbUoMt9YNeckJ
-	 OFKy6SWNcoYvVHsuuyWT3yoqSutdQqsTJ1HEjbqr3kjyx6ELSG1AnQpHPTBZGRoAVg
-	 PnDsG4BkJan0/3EQZ20xOSQyBiOun5+QFpm+ZclU=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	Dan Williams <djbw@kernel.org>,
-	Terry Bowman <terry.bowman@amd.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Morduan Zang <zhangdandan@uniontech.com>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [PATCH 4/6] cper: add helpers to handle Memory Error Section 2
-Date: Mon, 19 Oct 2026 16:56:11 +0200
-Message-ID: <20261019145643.1877246-5-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019145643.1877246-1-pierre.gondois@arm.com>
-References: <20261019145643.1877246-1-pierre.gondois@arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1vxifcaL;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W+kG5mDE;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1vxifcaL;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W+kG5mDE
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0145B1F7A8;
+	Mon, 19 Oct 2026 15:05:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792422306;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xp7tAbYMTxUvwugqYEZ/EGoH6iiMMyHUKj9Q7EP+qkg=;
+	b=1vxifcaLo6rs6wHoY/sBCkIYXltbhiWQIUuE+qLWyrvDXm+1JDeq0F66e9tFyWWcNo99Qn
+	8PooJ8VkRCD4vu8M9d59BIV/ocvgQ/Zn1/OuhhSl+09QtnuMaB9xnCDESc7rN5RgWzTaDD
+	MVUmdIK3ZmjvnEmYCV6NkPbV9tYDd/w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792422306;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xp7tAbYMTxUvwugqYEZ/EGoH6iiMMyHUKj9Q7EP+qkg=;
+	b=W+kG5mDElUtI2UNcgbldHnvpTH2U4FufRnUPdSvmoapZNzuVGCwIvHucEiqeKpF4yyAuHd
+	Obkm9JFFkBg8meDw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792422306;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xp7tAbYMTxUvwugqYEZ/EGoH6iiMMyHUKj9Q7EP+qkg=;
+	b=1vxifcaLo6rs6wHoY/sBCkIYXltbhiWQIUuE+qLWyrvDXm+1JDeq0F66e9tFyWWcNo99Qn
+	8PooJ8VkRCD4vu8M9d59BIV/ocvgQ/Zn1/OuhhSl+09QtnuMaB9xnCDESc7rN5RgWzTaDD
+	MVUmdIK3ZmjvnEmYCV6NkPbV9tYDd/w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792422306;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xp7tAbYMTxUvwugqYEZ/EGoH6iiMMyHUKj9Q7EP+qkg=;
+	b=W+kG5mDElUtI2UNcgbldHnvpTH2U4FufRnUPdSvmoapZNzuVGCwIvHucEiqeKpF4yyAuHd
+	Obkm9JFFkBg8meDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3E6B134B3;
+	Mon, 19 Oct 2026 15:05:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id OmfsJqEx1mpmEQAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Mon, 19 Oct 2026 15:05:05 +0000
+Date: Mon, 19 Oct 2026 17:05:04 +0200
+From: David Sterba <dsterba@suse.cz>
+To: guolingxing <guolingxing@tju.edu.cn>
+Cc: David Sterba <dsterba@suse.com>, Qu Wenruo <wqu@suse.com>,
+	Chris Mason <mason@kernel.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] btrfs: prevent deleting the wrong subvolume by ID
+Message-ID: <20261019150504.GD1310987@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+References: <20261018073709.1586733-1-guolingxing@tju.edu.cn>
+ <20261018153810.2692021-1-guolingxing@tju.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,165 +115,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018153810.2692021-1-guolingxing@tju.edu.cn>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo,suse.com:email]
 
-Add separate location and printing helpers for Memory Error
-Section 2:
-- cper_mem_err2_location()
-- cper_dimm_err2_location()
-- cper_print_mem2()
+On Sun, Oct 18, 2026 at 03:38:10PM +0000, guolingxing wrote:
+> When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
+> resolves the requested ID to a name, then looks up that name again
+> under the parent directory lock.
+> 
+> A concurrent rename can change which subvolume is associated with
+> the name between these operations. Since the deletion path does not
+> verify the ID of the resolved subvolume, it can delete a different
+> subvolume while leaving the requested one intact.
+> 
+> This was reproduced by repeatedly exchanging the names of two
+> subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
+> them by ID. The wrong subvolume was deleted in 9 out of 14 independent
+> tests.
+> 
+> Fix this by checking that the resolved subvolume ID matches the
+> requested ID while holding the parent directory lock. Return -EAGAIN
+> on a mismatch so that userspace can retry the operation instead of
+> being told that the requested subvolume does not exist.
+> 
+> Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+> ---
+> Changes since v1:
+> - Return -EAGAIN instead of -ENOENT on a subvolume ID mismatch,
+>   as suggested by Qu Wenruo.
 
-Similar functions/logic exists for Memory Error Section (1),
-but require a compact version of the record. To avoid relying
-and propagating a non-standard record format, the new functions
-diretly rely on struct cper_sec_mem_err2.
+EAGAIN is a good choice here, usually used for restartable operations,
+which in this case it is and allows user to see what happened.
 
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
----
- drivers/firmware/efi/cper.c | 108 ++++++++++++++++++++++++++++++++++++
- include/linux/cper.h        |   3 +
- 2 files changed, 111 insertions(+)
-
-diff --git a/drivers/firmware/efi/cper.c b/drivers/firmware/efi/cper.c
-index 06b4fdb59917..5c9b832b67a1 100644
---- a/drivers/firmware/efi/cper.c
-+++ b/drivers/firmware/efi/cper.c
-@@ -445,6 +445,106 @@ static void cper_print_mem(const char *pfx, const struct cper_sec_mem_err *mem,
- 		printk("%s%s\n", pfx, rcd_decode_str);
- }
- 
-+int cper_mem_err2_location(const struct cper_sec_mem_err2 *mem, char *msg)
-+{
-+	u32 len, n;
-+
-+	if (!msg)
-+		return 0;
-+
-+	n = 0;
-+	len = CPER_REC_LEN;
-+	if (mem->validation_bits & CPER_MEM2_VALID_NODE)
-+		n += scnprintf(msg + n, len - n, "node:%d ", mem->node);
-+	if (mem->validation_bits & CPER_MEM2_VALID_CARD)
-+		n += scnprintf(msg + n, len - n, "card:%d ", mem->card);
-+	if (mem->validation_bits & CPER_MEM2_VALID_MODULE)
-+		n += scnprintf(msg + n, len - n, "module:%d ", mem->module);
-+	if (mem->validation_bits & CPER_MEM2_VALID_RANK_NUMBER)
-+		n += scnprintf(msg + n, len - n, "rank:%u ", mem->rank);
-+	if (mem->validation_bits & CPER_MEM2_VALID_BANK)
-+		n += scnprintf(msg + n, len - n, "bank:%d ", mem->bank);
-+	if (mem->validation_bits & CPER_MEM2_VALID_BANK_GROUP)
-+		n += scnprintf(msg + n, len - n, "bank_group:%d ",
-+			       mem->bank >> CPER_MEM_BANK_GROUP_SHIFT);
-+	if (mem->validation_bits & CPER_MEM2_VALID_BANK_ADDRESS)
-+		n += scnprintf(msg + n, len - n, "bank_address:%d ",
-+			       mem->bank & CPER_MEM_BANK_ADDRESS_MASK);
-+	if (mem->validation_bits & CPER_MEM2_VALID_DEVICE)
-+		n += scnprintf(msg + n, len - n, "device:%u ", mem->device);
-+	if (mem->validation_bits & CPER_MEM2_VALID_ROW)
-+		n += scnprintf(msg + n, len - n, "row:%u ", mem->row);
-+	if (mem->validation_bits & CPER_MEM2_VALID_COLUMN)
-+		n += scnprintf(msg + n, len - n, "column:%u ", mem->column);
-+	if (mem->validation_bits & CPER_MEM2_VALID_BIT_POSITION)
-+		n += scnprintf(msg + n, len - n, "bit_position:%u ",
-+			       mem->bit_pos);
-+	if (mem->validation_bits & CPER_MEM2_VALID_REQUESTOR_ID)
-+		n += scnprintf(msg + n, len - n, "requestor_id:0x%016llx ",
-+			       mem->requestor_id);
-+	if (mem->validation_bits & CPER_MEM2_VALID_RESPONDER_ID)
-+		n += scnprintf(msg + n, len - n, "responder_id:0x%016llx ",
-+			       mem->responder_id);
-+	if (mem->validation_bits & CPER_MEM2_VALID_TARGET_ID)
-+		n += scnprintf(msg + n, len - n, "target_id:0x%016llx ",
-+			       mem->target_id);
-+	if (mem->validation_bits & CPER_MEM2_VALID_CHIP_ID)
-+		n += scnprintf(msg + n, len - n, "chip_id:%d ",
-+			       mem->chip_id);
-+
-+	return n;
-+}
-+EXPORT_SYMBOL_GPL(cper_mem_err2_location);
-+
-+int cper_dimm_err2_location(const struct cper_sec_mem_err2 *mem, char *msg)
-+{
-+	u32 len, n;
-+	const char *bank = NULL, *device = NULL;
-+
-+	if (!msg || !(mem->validation_bits & CPER_MEM2_VALID_MODULE_HANDLE))
-+		return 0;
-+
-+	len = CPER_REC_LEN;
-+	/* SMBIOS handles are 16 bits; never truncate a Section 2 handle. */
-+	if (mem->mem_dev_handle <= U16_MAX)
-+		dmi_memdev_name(mem->mem_dev_handle, &bank, &device);
-+	else
-+		pr_warn(FW_WARN "Memory Error Section 2 module handle 0x%x exceeds SMBIOS range\n",
-+			mem->mem_dev_handle);
-+	if (bank && device)
-+		n = snprintf(msg, len, "DIMM location: %s %s ", bank, device);
-+	else
-+		n = snprintf(msg, len,
-+			     "DIMM location: not present. DMI handle: 0x%.8x ",
-+			     mem->mem_dev_handle);
-+
-+	return n;
-+}
-+EXPORT_SYMBOL_GPL(cper_dimm_err2_location);
-+
-+static void cper_print_mem2(const char *pfx, const struct cper_sec_mem_err2 *mem)
-+{
-+	char rcd_decode_str[CPER_REC_LEN];
-+
-+	if (mem->validation_bits & CPER_MEM2_VALID_ERROR_STATUS)
-+		printk("%serror_status: %s (0x%016llx)\n", pfx,
-+		       cper_mem_err_status_str(mem->error_status), mem->error_status);
-+	if (mem->validation_bits & CPER_MEM2_VALID_PA)
-+		printk("%sphysical_address: 0x%016llx\n", pfx, mem->physical_addr);
-+	if (mem->validation_bits & CPER_MEM2_VALID_PA_MASK)
-+		printk("%sphysical_address_mask: 0x%016llx\n", pfx,
-+		       mem->physical_addr_mask);
-+	if (cper_mem_err2_location(mem, rcd_decode_str))
-+		printk("%s%s\n", pfx, rcd_decode_str);
-+	if (mem->validation_bits & CPER_MEM2_VALID_ERROR_TYPE)
-+		printk("%serror_type: %u, %s\n", pfx, mem->error_type,
-+		       cper_mem_err_type_str(mem->error_type));
-+	if (mem->validation_bits & CPER_MEM2_VALID_STATUS)
-+		printk("%sstatus: 0x%02x\n", pfx, mem->status);
-+	if (cper_dimm_err2_location(mem, rcd_decode_str))
-+		printk("%s%s\n", pfx, rcd_decode_str);
-+}
-+
- static const char * const pcie_port_type_strs[] = {
- 	"PCIe end point",
- 	"legacy PCI end point",
-@@ -650,6 +750,14 @@ cper_estatus_print_section(const char *pfx, struct acpi_hest_generic_data *gdata
- 				       gdata->error_data_length);
- 		else
- 			goto err_section_too_small;
-+	} else if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM2)) {
-+		struct cper_sec_mem_err2 *mem_err = acpi_hest_get_payload(gdata);
-+
-+		printk("%ssection_type: memory error 2\n", newpfx);
-+		if (gdata->error_data_length >= sizeof(*mem_err))
-+			cper_print_mem2(newpfx, mem_err);
-+		else
-+			goto err_section_too_small;
- 	} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
- 		struct cper_sec_pcie *pcie = acpi_hest_get_payload(gdata);
- 
-diff --git a/include/linux/cper.h b/include/linux/cper.h
-index ed355b240685..a466cba4fd61 100644
---- a/include/linux/cper.h
-+++ b/include/linux/cper.h
-@@ -656,6 +656,9 @@ void cper_print_proc_ia(const char *pfx,
- int cper_mem_err_location(struct cper_mem_err_compact *mem, char *msg);
- int cper_dimm_err_location(struct cper_mem_err_compact *mem, char *msg);
- 
-+int cper_mem_err2_location(const struct cper_sec_mem_err2 *mem, char *msg);
-+int cper_dimm_err2_location(const struct cper_sec_mem_err2 *mem, char *msg);
-+
- struct acpi_hest_generic_status;
- void cper_estatus_print(const char *pfx,
- 			const struct acpi_hest_generic_status *estatus);
--- 
-2.43.0
-
+Reviewed-by: David Sterba <dsterba@suse.com>
