@@ -1,97 +1,139 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792431645;
-	b=EukkH8Wh7+E9kqKyxnaLqajUxxMSgMbXLlaewbgq4uns8mw3AGicZHHKCjkH/faByGU5
-	 zWvQW26IPLSy0eJgYn+Q0pAhcQc9kQA7TPZyD42GNpgXH6aTkcEuR2b95S6faBskhutfc
-	 o4C8kUi8AlPWPERhtheEeOxeTNFpTSffp67lniRGJ16tr7WpmEgaQGzDlc/0CRiwoVJUM
-	 8x1IEL6idWnItRGWbcfF6uiw2BDJ4WBKRnozvL6zhdgW9Kkt+IN544SgMySwSZD+cGYRH
-	 9PA12deiQ8+7PPexLXvt7MnlWZZzLLSyOMIw0rXsIRWsgMXgip94QMnEYmXLKzHg5EQ==
+	t=1792431728;
+	b=N021Jw+IpvRa02j3yMZt85t15BhWbxJfpVqD8EBxOoEJsjvdW5Jhae0XCiz41q3/lB6+
+	 qt67XhEtHPeBHApMNkNq+IgST4J6XEbgKowYEBmBLyFJJeo+BinZ4offVHrZqvEulTT9/
+	 kqpO0n4LgjrohkG1UD2hol8+Rq00V8LIG5L1wYduQKeIO87h+eqdszYnGmUUUsx83oF1W
+	 8LUxRtKCdOBP09Esh4q04GsxcAYcr3CCRTPFBCXA0s9k7qMCrIwymywNjs+2+OtaSrWMY
+	 IZhjqr3SpYvkXFSR1Td0GHBHEhYz09o/6ypXQyJYD8r5aklSMe6s6+ZjllEJS1Ykgmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792431645;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=v/jQlKFAyJ7SNrHZqzyWb+ytcJqElZtVWjRhCqgh3p4=;
-	b=ruGlBnkJ3yTlY7/ZUrAyOBvDFYTHBtAvTGYeKJ4j2I6Rv0KLvFpjxIPD9set5olF9ipq
-	 /7kxtyZvhYVFQeEIsKZEw03V0IyyKk/PQfUsqQWV1vN6VPS6eYH0a5zWFjWnkTRCrDEIz
-	 jCdO8ATtuexj2RTVdpSjoBH+IPdk/Gt54LDutYz1gF3NAL4AHXT8gpUveB/57B5e/E0aJ
-	 Tf8wlpfQT44S8YDyhPzTiZFZP93krNkNAwmK9JHnokdOE1HAz6MGPJzBvHQd0lJV68GyC
-	 71Po9GdnzvEdDQMQs3kLVgTscR1gNX122kx2RmTCVj+pWFqW5jykYXUUqUxYnZt7cAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792431728;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=oj02P4ARr8nHFDPAaFaHXc0/AuKhomTGXneezdAxNaQ=;
+	b=PnhR+Nn6i08wizNlTK79tJfKsrmw3nP6qAQkl0gJ6YrzRNfJG6o0M3046d6tpMIT8IgB
+	 yyhEb1mZDkc8D5c2SCkN5hWV0GjKxbvCoIw3arClFKvpv7MmXFBxGKA/EuXztoVmM6hBn
+	 eKf5uuui5cX0s6hEk3opOHJKAE9F4I5YiwUHiOuXrTRfMRH7ALD+8c0+QsQpScoEhe2Av
+	 /2lhtyFphrNLzsbduJN6vMvGbWfuw3vxDfF+kXMkYwhhvMbxNBIRwJOqmQ6bhjvLY2HAB
+	 Hx5B2bga70qU+qwpVaGOag7yGGR7JtZTSwsClecwuJ3cifhyYh68s0TdPjW93HrRviw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rwO+geMN;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VaqWkdLD;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UxoZbMTm;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B338F606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:40:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B338F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FAE606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:42:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2FAE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rwO+geMN
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a018485638so1702925e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:40:44 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VaqWkdLD;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UxoZbMTm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792431726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oj02P4ARr8nHFDPAaFaHXc0/AuKhomTGXneezdAxNaQ=;
+	b=VaqWkdLDSxelxfMQklGc0pJ6I41MWA0DoRYKLFJxtdSdc6P1xkzjLdQXy3jDg01p7Bf7Od
+	1B68ipVt7sLHYfjnpohbFrAdF2I7D+VsMORi9IfoNit7nVaN+KMIVeo9FQrMFN93dOk6HJ
+	5WvbY8L7n/AQT3t/mybZAfMF0oYTOJM=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-57-SIAhIZyzNsGNFoXz6JPZlg-1; Mon, 19 Oct 2026 13:41:59 -0400
+X-MC-Unique: SIAhIZyzNsGNFoXz6JPZlg-1
+X-Mimecast-MFC-AGG-ID: SIAhIZyzNsGNFoXz6JPZlg_1792431718
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f1e62510cso575994885a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:41:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792431643; x=1793036443; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v/jQlKFAyJ7SNrHZqzyWb+ytcJqElZtVWjRhCqgh3p4=;
-        b=rwO+geMN8P92g4uMjYww7zQs4KafmBZ6y5pnceGltnBYeDHTpb+xFKOSp1AVFNYq1M
-         Qjo3VmaJQkkenKPMJSitDdJKzkItcxsJKpybpJdQBC+0Xz34++QZz/V6QUAtwqXQILV0
-         dRiTiLcIGxjkUiKF477Y2HuwjDIW4oqr6GRiedK4v1bHCpnq4xK1wzjlCGGw2mZz8VA0
-         T5njn9XdDlZj5WYOsAU+w+/S4FJ4O9OMXZvd0/ingqhp55IPamK499UovJcrtvHkzC5F
-         6/W8lH/8YcGN6Nk9fWfwf9oYqD9jKk2o2TRoc3/0sDm78eOLRi5Y8BbMal7avIC8k2Y/
-         e43A==
+        d=redhat.com; s=google; t=1792431718; x=1793036518; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=oj02P4ARr8nHFDPAaFaHXc0/AuKhomTGXneezdAxNaQ=;
+        b=UxoZbMTm+oOpWM4UEUqClYt+u2lMBHAkrD3m+LliSj4gaivLwRnANv/w/0a8F5jrU3
+         e8ecdk7jyl1NXRdedIUG3+Ayr5/Mq5KWWe7TBJf/YJ3UmEUccn5AdK8FoCXtPZ2shgCL
+         BjLzpiAcX+aijvF7jFFAmRqD2X+4y18QYaEobYWh0B1BTOiXEQwDWLQRVplfqeoVeDpk
+         JShV+i8JBmEv6mO28OUv77Y2IeoQMc1Ko3C9Bjn7oAi/Nz2LRBDEg9QdDdfU3tYAjMHC
+         8oNOUK3/9/i3/AsIzXKXRBbBkDERG5/q9ln6UkiL8WrZ4Vf7vhkXucqiKKvb5qk6Nj8R
+         BR+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792431643; x=1793036443;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792431718; x=1793036518;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v/jQlKFAyJ7SNrHZqzyWb+ytcJqElZtVWjRhCqgh3p4=;
-        b=Kkmij4RByNEV9/t/b4UhlzFbzEzbtaYd9/LMQ8VIb2HruK794KPJhrNFcy06SCzwO3
-         u8gkEn/oTGpY++oMzql2HJ/KR0pxg3Kounys2Vcq4nZxmP1sdQ44FfqoyYzAhMctaRsj
-         sozAZlFmp0P85Qa/zrf2Pog2V3/CZY118Ljk+B5m4W08+hZta1ac9tYODokUuuRJDz03
-         98u3LUfCXeFUcrWvr9A9NFtsnDI3EBQGxAQLAijI20XRR1SDmlUwvXDXb6xJH+s21y/1
-         H2x6EgNYrpgsEvCGHYYUJhcR5Ybex8fNih7QyYUVExwwDvSL1yCPosCN0QmO53HeB3BO
-         g5fg==
-X-Forwarded-Encrypted: i=1; AKwUvByPsMKHmvrko9WUNbB0CsMvR20BGsPDfEqgBRU/SplzJAlOCnBsuqzFEL+UD5tTmHLkG/2rIqwN5mklDIg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJD1Bufj8fKhMRZ0wDrZXXNqya55nOXX/S7joTxK737mhqmil2C
-	k8FXse20qCl7kZGlYKVXb3PEDwg9M/U7NIoknng0RI0PN2Unwwy3Ib5m
-X-Gm-Gg: AYBFou1YjmbZk2EmXj4fFwnvoQ3vyjgPVoDSsjh1z9duCRdaOrhJtaivsikveHslXCi
-	/SgcYO1lKz1Tc2/nFW9cgpK8M4zHEaCC4+alJPqZrO7l2Kiihe7x/va6h5dlBmSPpJg7djVXuw/
-	dlPkbF2EJUgxeufbjHWuFqZCzlJTSQ7wup0qzBSK1ueoiu+AScbN5Te/8LJ9uVbHkb9e16UsJzu
-	bC5cXJWkopZqwpwV9c1B2RPy/bMi+JDbiYYYEn2LrFOhGSqifBar7dv+FcI/U5EeOmXgLZpsBYB
-	yKXzgJzCrDn4I4YXACWAOPSRho+B1IwEjnnMsXoddaZgRug1E+1PZMhQb24dngnMIAnT8ctURw7
-	W63hMov3R6LIcOM6/4lPKdHb1qJVZzcrPGey4h6bRbP/GFxNjJ5hlzifzDXFfQjvGq6tK7huFpI
-	DrVEB4nzpLzMqZBfOSgpFHTiXRGuODXX/Exgu/o1hn28BjXDFypqum546+lePJenvxjP4tkaWTZ
-	HeywthHeEqZGjTSGgOY+B5hdA==
-X-Received: by 2002:a05:600c:4e11:b0:4a0:13d8:cd0c with SMTP id 5b1f17b1804b1-4a1d75e6f90mr171746505e9.2.1792431642805;
-        Mon, 19 Oct 2026 10:40:42 -0700 (PDT)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cce2fbsm6991445e9.10.2026.10.19.10.40.40
+        bh=oj02P4ARr8nHFDPAaFaHXc0/AuKhomTGXneezdAxNaQ=;
+        b=mCwmhrKLHZCf8r2eSIWuhDuXrjoqry2SnAqwJYa8IxvN1ukqz6MMnoZK2P3pVHd30g
+         Q5snht+r+pFrMNoLU8M3Tdoilx++eD+1U1vodf1VCpZwGkI1nXaR2iqSPpteleyL2BDG
+         j+4iQ5nYo9RPzsuQG2rqrxWXUWKTLoU1PmzAhZ8vRIgYdYWCIaDaZOTmQ6SbrBsYqDfF
+         mKr3ZFGoW5g067s8rXYXNTys5S5CBE5YpMxpK+RLDpfFpL82VNqE1emE72dHRHTNQGa2
+         Cab8saX5h53hjBjUO0FiYchLBf71vrODL654Zuqz/ByNl8n1PgrSQ0XPBoXvucptGsKB
+         mA1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxJzp4yfNL1zsrPrgzYjMkmHnfxJkHoxSUdNXJ4AlnNifl1yJqGh+fX95nCwiRCsQDy2H6m006uXInWuCo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLniWOG1r79Uz8QPQRkPLlCLW0gCYVqsXJY6s6rQ53dyXHOSHQx
+	juMITLUS3aIfKucb3CFPLjDABUeEx7ddhp0d88UnTu2mXMfaKU1+dpI3AwRcyEgc7vGNNK6ehOS
+	WtJaNcw0RsCOxOyUl6ceg9A/iyBq0epLWhZYpXbvBOCgR/PNdStcsTvIzYzjqxiaKYQ==
+X-Gm-Gg: AYBFou2DR7kLLi7Co5XWMsPqO0YImwWOShUlJNon5ERCGmvmTY9xUxPfIlY1oyfQWmA
+	T4rljqkryjP3W9plbl1UJ0eLEeOR/GFIMZgb6KHYl0voRF5YZulZNXgp2mHhjgmsEpweVc2rv4t
+	FYMAdekihOXgtHjIYwMblkShqf7KlcuFO/FT1b4IVUJNW4ODrOMtbq5dE8XDYrBGka/WwgFcQvQ
+	pTNWwFLS7dCzLSz70cJKBA2HzQVDj6GGdQ7Zl8/PVXNVIeuLWDmbfJmN0L5d7v3DOuWhxvRWfFJ
+	KcVPOckicT/N+BeUL+4wk7vYoZesTRBWUqa/WHvaKh2UZGnvjq87DDIBnLe0iIV0mL09hMs=
+X-Received: by 2002:a05:620a:4505:b0:939:6c9a:8f8d with SMTP id af79cd13be357-93f29ceec9bmr1386469885a.28.1792431718245;
+        Mon, 19 Oct 2026 10:41:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:4505:b0:939:6c9a:8f8d with SMTP id af79cd13be357-93f29ceec9bmr1386462085a.28.1792431717358;
+        Mon, 19 Oct 2026 10:41:57 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c0408c4c2sm1555996d6.20.2026.10.19.10.41.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:40:42 -0700 (PDT)
-Date: Mon, 19 Oct 2026 20:40:39 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Shubhang Kaushik <shubhang@os.amperecomputing.com>, "Christoph Lameter (Ampere)" <cl@gentwo.org>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] sched/rt,dl: Remove unreachable migration-disabled
- push checks
-Message-ID: <atZR51V-xwaRL6OL@scheduler.schedules>
-References: <20261014-sched-rt-dead-md-push-v2-1-9f57f1a530dc@gentwo.org>
+        Mon, 19 Oct 2026 10:41:56 -0700 (PDT)
+Message-ID: <b2b0296aaef22f8c4db2ab06ac7a708f8321a313.camel@redhat.com>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+From: lyude@redhat.com
+To: Linus Torvalds <torvalds@linux-foundation.org>, Laurent Pinchart
+	 <laurent.pinchart@ideasonboard.com>
+Cc: Kees Cook <kees@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, 
+ "Lorenzo Stoakes (ARM)"	 <ljs@kernel.org>, Krzysztof Kozlowski
+ <krzk@kernel.org>, Sasha Levin	 <sashal@kernel.org>, corbet@lwn.net,
+ skhan@linuxfoundation.org, 	rdunlap@infradead.org,
+ federico.vaga@vaga.pv.it, apw@canonical.com, 	joe@perches.com,
+ workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,  Justin Stitt <justinstitt@google.com>,
+ Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,  Brian
+ Foster <bfoster@redhat.com>, Christoph Hellwig <hch@infradead.org>, David
+ Disseldorp <ddiss@suse.de>,  Mark Brown <broonie@kernel.org>, Jani Nikula
+ <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,  "David Hildenbrand
+ (Arm)"	 <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Christian
+ Brauner (Amutable)" <brauner@kernel.org>
+Date: Mon, 19 Oct 2026 13:41:55 -0400
+In-Reply-To: <CAHk-=whTs09_ozN+e09GU68N1wPP56MUzDjrg9rnKxQUa0A_4Q@mail.gmail.com>
+References: <asz9AeFe3CutP73z@gremlin>
+	 <20261013123132.GC4214@killaraus.ideasonboard.com>
+	 <as4pAEnLd4H68W4W@gremlin>
+	 <20261013131243.GM56180@killaraus.ideasonboard.com>
+	 <as4xMnT8a75pIw9v@gremlin>
+	 <FAD7F1E6-5FE0-47F5-8D10-40473B39A2D8@kernel.org>
+	 <907933931.787284.1791903485683@kpc.webmail.kpnmail.nl>
+	 <202610131000.43AB316FBC@keescook>
+	 <20261013174243.GC178151@killaraus.ideasonboard.com>
+	 <202610131216.C841415F01@keescook>
+	 <20261013201628.GO4214@killaraus.ideasonboard.com>
+	 <CAHk-=whTs09_ozN+e09GU68N1wPP56MUzDjrg9rnKxQUa0A_4Q@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,172 +143,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014-sched-rt-dead-md-push-v2-1-9f57f1a530dc@gentwo.org>
 
-Hi Shubhang :-),
+On Tue, 2026-10-13 at 13:45 -0700, Linus Torvalds wrote:
+>=20
+> I don't understand this whole idiotic concept of "don't use AI for
+> X".
+>=20
+> Here's a new rule just for you: don't use compilers for any of your
+> kernel submissions.
+>=20
+> Because if you can't show that you really understand what the machine
+> is actually doing by writing your code in assembler, then I don't
+> want
+> to see your code contribution. You clearly aren't competent if you
+> can't write it that way.
 
-On Wed, Oct 14, 2026 at 03:32:10PM -0700, Shubhang Kaushik (Ampere) wrote:
-> push_rt_task() and push_dl_task() select their candidates with
-> pick_next_pushable_task() and pick_next_pushable_dl_task(),
-> respectively. Both helpers skip migration-disabled tasks.
-> 
-> The source rq lock is held after candidate selection. The selected task
-> is queued, not executing, and cannot enter a migration-disabled region
-> while that lock is held.
-> 
-> find_lock_lowest_rq() and find_lock_later_rq() can drop the source rq
-> lock. If that happens, they recheck is_migration_disabled() after
-> reacquiring the locks and reject a task that changed state. Their
-> callers then either exit or retry with a task selected by the same
-> helper, which again excludes migration-disabled tasks.
-> 
-> The migration-disabled fallback in push_rt_task() and the corresponding
-> check in push_dl_task() are therefore unreachable. Remove them. The RT
-> fallback is the only user of the @pull argument, so remove that
-> argument too.
-> 
-> This does not change the migration-disabled handling in pull_rt_task()
-> or pull_dl_task(), which use different candidate selectors and retain
-> their existing donor-push recovery.
-> 
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
-> ---
-> Tested on 80-core SMP, non-SMT Ampere Altra system:
-> 
->   - Built and booted with CONFIG_IRQ_WORK=y.
->   - Ran repeated SCHED_FIFO affinity changes among CPUs 78 and 79 with
->     RT_PUSH_IPI enabled and disabled; both runs completed and cleaned
->     up all worker tasks.
->   - With RT_PUSH_IPI enabled, function tracing confirmed repeated
->     execution of rto_push_irq_work_func() via irq_work_single().
-> 
-> Changes in v2:
->   - Also remove the unreachable migration-disabled check in push_dl_task().
->   - Clarify that both push paths exclude migration-disabled tasks.
-> 
-> Link to v1: https://lore.kernel.org/r/20261014-sched-rt-dead-md-push-v1-1-5f9757be3c80@gentwo.org
-> ---
->  kernel/sched/deadline.c |  3 ---
->  kernel/sched/rt.c       | 48 +++---------------------------------------------
->  2 files changed, 3 insertions(+), 48 deletions(-)
-> 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 0663c00c41c04213fda2ebaf16a0bdf34e0849a8..e9d952853f14aaf48cdca6f89135090adee5f6ba 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -3158,9 +3158,6 @@ static int push_dl_task(struct rq *rq)
->  		return 0;
->  	}
->  
-> -	if (is_migration_disabled(next_task))
-> -		return 0;
-> -
->  	if (WARN_ON(next_task == rq->curr))
->  		return 0;
+I don't think this is a honest comparison when there has been a very
+clear shift in the kind of janitor patches I have received over the
+last 3 years. It used to be only occasional I got patches from people
+that they managed to write and build, but didn't understand. It is
+incredibly frequent now, and there is a very noticeable trend of what
+kind of tools are used for generating those patches. At the dawn of
+programming languages, sure, people could keep throwing things at the
+wall without understanding what they were doing. They could do it
+somewhat faster then before. But it still took time, it was not
+instant.
 
-I sadly started writing from the diff below. But again,
-pick_next_pushable_dl_task() already can't return a task with
-is_migration_disabled() true.
+I've spent most of my career trying to push for new tooling, I pushed
+pretty hard in regards to pushing rust in the kernel. I've pushed for
+gitlab, I've pushed for new build systems, I literally believe that
+change is a part of what makes a developer good at their job. If you
+can't accept change happening anywhere around you, you blind yourself
+to new solutions that could make your work better. I even have started
+using LLM review bots like Sashiko, despite the fact that personally I
+wish these things never existed.
 
->  
-> diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-> index 85303add726df4c2da846c427aab2d627fca9589..f85edc6f896c72d2251b5eb59ee7ffd0e23934f5 100644
-> --- a/kernel/sched/rt.c
-> +++ b/kernel/sched/rt.c
-> @@ -1957,7 +1957,7 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
->   * running task can migrate over to a CPU that is running a task
->   * of lesser priority.
->   */
-> -static int push_rt_task(struct rq *rq, bool pull)
-> +static int push_rt_task(struct rq *rq)
->  {
->  	struct task_struct *next_task;
->  	struct rq *lowest_rq;
-> @@ -1981,48 +1981,6 @@ static int push_rt_task(struct rq *rq, bool pull)
->  		return 0;
->  	}
->  
-> -	if (is_migration_disabled(next_task)) {
-> -		struct task_struct *push_task = NULL;
-> -		int cpu;
+And even I am not going to go out and try to say "it's just a new
+tool", because that's incredibly short sighted and just false.
+Usefulness doesn't change the fact we do not have the same social
+contracts we did before LLMs were around. And when a "new tool" changes
+the de-facto social contracts that a project has had, that seems quite
+a bit different then introducing a static analysis tool, a new API, a
+new programming language, etc. into the kernel. Rust helps attract new
+contributors, but it's never fundamentally changed the way that I've
+handled reviewing people's work or handle working with new
+contributors. It's perhaps saved me some time, but it's never
+fundamentally changed the expectations I had when a new contributor
+appeared. LLMs absolutely have changed that.
 
-Yeah well. This is never true since pick_next_pushable_task() does not
-returns a task with is_migration_disabled() true AFAICT tho.
+This is the distinction between LLMs and other tooling, and it is a
+large enough one that at the very least it should be addressed with
+stronger arguments and a higher level of respect then "You just hate
+new tools don't you?".
 
-> -
-> -		if (!pull || rq->push_busy)
-> -			return 0;
-> -
-> -		/*
-> -		 * Invoking find_lowest_rq() on anything but an RT task doesn't
-> -		 * make sense. Per the above priority check, curr has to
-> -		 * be of higher priority than next_task, so no need to
-> -		 * reschedule when bailing out.
-> -		 *
-> -		 * Note that the stoppers are masqueraded as SCHED_FIFO
-> -		 * (cf. sched_set_stop_task()), so we can't rely on rt_task().
-> -		 */
-> -		if (rq->donor->sched_class != &rt_sched_class)
-> -			return 0;
-> -
-> -		cpu = find_lowest_rq(rq->curr);
-> -		if (cpu == -1 || cpu == rq->cpu)
-> -			return 0;
-> -
-> -		/*
-> -		 * Given we found a CPU with lower priority than @next_task,
-> -		 * therefore it should be running. However we cannot migrate it
-> -		 * to this other CPU, instead attempt to push the current
-> -		 * running task on this CPU away.
-> -		 */
-> -		push_task = get_push_task(rq);
-> -		if (push_task) {
-> -			preempt_disable();
-> -			raw_spin_rq_unlock(rq);
-> -			stop_one_cpu_nowait(rq->cpu, push_cpu_stop,
-> -					    push_task, &rq->push_work);
-> -			preempt_enable();
-> -			raw_spin_rq_lock(rq);
-> -		}
-> -
-> -		return 0;
-> -	}
-> -
->  	if (WARN_ON(next_task == rq->curr))
->  		return 0;
->  
-> @@ -2078,7 +2036,7 @@ static int push_rt_task(struct rq *rq, bool pull)
->  static void push_rt_tasks(struct rq *rq)
->  {
->  	/* push_rt_task will return true if it moved an RT */
-> -	while (push_rt_task(rq, false))
-> +	while (push_rt_task(rq))
->  		;
->  }
->  
-> @@ -2236,7 +2194,7 @@ void rto_push_irq_work_func(struct irq_work *work)
->  	 */
->  	if (has_pushable_tasks(rq)) {
->  		raw_spin_rq_lock(rq);
-> -		while (push_rt_task(rq, true))
-> +		while (push_rt_task(rq))
->  			;
->  		raw_spin_rq_unlock(rq);
->  	}
-> 
-> ---
-> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-
-Someone who writes their base :-)
-
-> change-id: 20261014-sched-rt-dead-md-push-c88b47c3e2f0
-> 
-> Best regards,
-> -- 
-> Shubhang Kaushik (Ampere) <sh@gentwo.org>
->
-
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Frankly - that's part of why you don't understand "Don't use AI for X".
+You keep trying to look at this like someone introduced a simple new
+tool, and now people are just being luddites. If that's the only way
+you can approach these discussions then yes, you're never going to
+actually understand what's going on.
 
