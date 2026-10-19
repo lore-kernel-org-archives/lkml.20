@@ -1,71 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792451203;
-	b=vWSEZMvpTVeLLfhL1wCUFD/2f/0cXLlyekZvGjXBLKnPxsOHJgdoAYhaP7TfzcaLtAEc
-	 zUVEjQvcvngLZD6FcPnaK33n9p4W3I3Qr3CaPyWOTtoqsGQwPAUmRkjWEF+xruExco6uQ
-	 H6sGZnI+G3JSq7hgU8nfGq8nL05sSkS3WBHn4iaAI7YMb9ZMt6pQ/E5fhoQbb46qu0/3c
-	 /32tIQ38t2XE2UByaqcF8P2nVeD2bykArAUg7d5zRtoAPUCVUF7dV/QBZNI0bdbP0lG27
-	 IQTO9VozV/dzAl5SWo7SO0AVJ/eD3jBb7keTfG0vjVat+V6RgwhBxNBeAwg2YKIl/lQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792451203;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792451209;
+	b=ARMj2n5nOCehPGPSMIcH7YPwGSe4tXHg06Lz218ya7Yvp4dVhvLtJZdx2bl9B/L09578
+	 A23fGxC9QEz99VZ+QfW1RsUg6up3ef7SoQ5GKhQZjwtfi1lpPWx56mRAuKUrT3HzywaWg
+	 rqYXmCc+wV2cm5PR4vyAVLjkTsIXXaNqkpm96rltbE8ItiJmmjDf9hLCuvKCQhaCwQrrz
+	 sNTZenyngeeZmmFKkSn5tLFqBPzWaC6PWK8KMZ0NeZX2JSoZJO8UWG5eAcpnENNvbX2Kf
+	 Iw31RKIg/yrLN0B59Shy2VMSLsN74wVrCXHr1NCxbmsoTrj+GvmMaQhgVyxCFO6Srqg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792451209;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=8OzSBSKQBAQmP8x7/bKwGU98Enj16fS4z9hEf8giMac=;
-	b=yiaOAvsBiIUhdWSkQp0kv68H0e+8RDN7bUiJDvAG3RO6p6064zRgxhYGcNbOjyqu/S76
-	 tCaL4iSMCuzgyTBH2sWxUUkTVSqSsHD3z8TSk9W0FNItbVpw7LDSFxYQofePSaj2hBWDa
-	 4xdXHwrEC4w70G2IAOv+ejjLcPbNcoz9it8dIearFEqOBlP5SenTYrhQZM7/49AL8OL6s
-	 4s9QWfBtVwYLk546kxyhVYY6cTFPOBC5N4GAJLELc8iEbRXnN/oJt0XJc5S4HtB5SyOBb
-	 B5KcUgFbbaiZJsnB+7nByoVtzk1/XPYhWJcVIBm3i0dgOViDA5zlFfTsocV8qKO1FEQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=+fPERF99B5ahc8wXTOrEa5IPW7HucxygJ72GCwZdZxo=;
+	b=V5NTS4Bjg0rjdxdUAVMQYRX1fBB+pm2BBZTC/TjC5DiT+Aa63sv9R+SDlR6l2wVp2GBZ
+	 8UOqZuW3CLjehOm/cq+Mp5qnO+Flv51SPj6Y6y/NbLl5LKaW6IEgR3CuwSavoV98kXF4I
+	 0Vaxg8QVWp+rjwZBBZNBt6x9hdo0tVz72CrUjKvbpzySh+DLvoj8RAwd8UFG4F1XbSAFF
+	 qtZpQlg40RNvlUCSoWUEME3SF4HYX9sdjjgcbhGIiiHZkNpakterOEM8zPvOELVY+vSC9
+	 4XpWKN2ci+ust0lDvdWwd64j9mdtpVmddoulG0XnSUUqU1GMhWoTb55jbcz1h2T+l8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M53zdsuE;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cHS9MmO6;
+	arc=fail smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1131C606A319;
-	Mon, 19 Oct 2026 23:06:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1131C606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84C0606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:06:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D84C0606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M53zdsuE
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cHS9MmO6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792451198; x=1823987198;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=hRlLc+25IiT02qqUKtrDG21UjsoWBK02Oeivj/ogzp4=;
-  b=M53zdsuEEQ7fzJI9ZylYRHF91aLaujcF7Iao6Lt07BpIwsSCUGxJd/+J
-   MQ+/uFyt3BcDXXPgLw3xeESSUz63tgBhVRoXpybsQ5PZD8d+nvNocDjfW
-   HnQCOoLfCV+U10Kv9a4vZR4qSL1bMOCYokrlGDnXfSrCOUUIHyW1PtBXC
-   ObYwNUSzcPVCVKcbwplNBSLJ19T1txxTADDa24EhAP33x746H+os3TmD6
-   bmRzgdo0P1IrMBBB3UdmyBR0oTV1YxCEaabhVfuBE6JLefU4S4UOZCCvq
-   58/sY9BCOjr7TVYt6Ylm7LCOcTa3+keHUbwodYftzzjleV/3jf0/8hbxg
+  t=1792451208; x=1823987208;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=itPQ8YWjMx1bwCiamP5qrMCynS/MDCzQ7r8y5lFagFA=;
+  b=cHS9MmO6oBIX/lJlj5kcHk5aILAQNYoIYxvCGtUSJQiMRmGKoJKYNnvA
+   aQ6qcvImrgyWfBTSuxeLizybpLvPeF8x6ih74CbX/0ashO4LpY/gIx34a
+   zd2rpK68kcN4yv2+bnHO5jwblkGZllJmLukb0XDph2MpumGBp86b/979K
+   epQmDAD8Iycg5eplJH0//K/e49K8ylvaJNnPduqBewhsWjkELzCAKjfU+
+   AehKCfy0cEZbZWoZ4AkrPFBC3cTNDcOCFQLRPl6jzbCa+ZhbzjQeZ9kLe
+   TXOqrsU+fAxEVuvvRUWnDDNm2iAGyBox4CBYlIsjEpUlxjP9FXhk6Cs5P
    Q==;
-X-CSE-ConnectionGUID: pH1oazzySfG6JlJpKbPnIQ==
-X-CSE-MsgGUID: iRJAMi+ISF2R1RLNMO+ufA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1249178"
+X-CSE-ConnectionGUID: xCzkXLTpQlWB16FGdCsJrA==
+X-CSE-MsgGUID: Ud6Y7ZiuT+aV/JfRvEgOiw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1162947"
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1249178"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 16:06:36 -0700
-X-CSE-ConnectionGUID: 1nUGjk8kRbmneG4yXjRNhg==
-X-CSE-MsgGUID: MQZ1shB3TwSKl1QZuGrjVg==
+   d="scan'208";a="1162947"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 16:06:46 -0700
+X-CSE-ConnectionGUID: ZabPa0seTaGn64NTguLT4g==
+X-CSE-MsgGUID: XiB9Pku/QtqywrmS3soaOg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2989974"
-Received: from vcostago-desk1.jf.intel.com (HELO [10.98.24.84]) ([10.98.24.84])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 16:06:35 -0700
-From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-Date: Mon, 19 Oct 2026 16:06:21 -0700
-Subject: [PATCH 2/4] crypto: iaa - take the WQ from the request in the
- submit helpers
+   d="scan'208";a="2764262"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 16:06:45 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 16:06:44 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 16:06:44 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.71) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 16:06:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bB7ZDvRyPaRtwSYh4guwmfxDSp4XTFsvMLkuGT/oNSsSHycA+V08puKPyvngp1qGuHmTWKAIDCcUHy54FuVcX+ilzyE67AWxIRCe1njQTV2G+EcIHlRbx4ajlNJQ28LRR//ve3ogK/fy3Pnci5+BGGjMcKnq5f7k+lovVjr1eCJAutCtr+/ZBgXWZ+tm91qgFN36Zze7zpSOygNdrPpn3ojGjl0IR10qQhetBurk4c4sqMP8zra+YJyJG5Iwde83jE+wWTCk762OXfqy4BWBHvozikW1xaxRtG9ZzNFwhVFfIbuAs2zpcQG61kT+b2nz1oTPiy2DLtUVxI2DpD6KLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+fPERF99B5ahc8wXTOrEa5IPW7HucxygJ72GCwZdZxo=;
+ b=hxdp60fKVF0oWZLMmSFPVWdz5GXRXwiYqZSvXacrr+CxqyWoTYHMzZe3lL58QSoMtqFQBqLxE3L39uVtCGKODxZFPggtfEE5vQ2iXAX+k6xZiZ8YkuFmKP0eq3GwNJwnWNigAN9NX0r5dRk1zB3U1xVrgb3TD1WbOU+IgiJDXAqgzLXmdP0fyO916zNpcpRX6RVRCO35/t26wcpSvUiAvtT9YYcAGdwdqI6He4lFQS1OU9edDe5Q8l1lQLbomM0r7xRXgSV4xALJ7pmBAbtgD4LC/fHlWOH1icI81V95PzknLZv1cWGOQsRKtgdGDYfJrwIIbWum01XLmRHFGGelZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by CY8PR11MB7797.namprd11.prod.outlook.com (2603:10b6:930:76::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 23:06:37 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 23:06:37 +0000
+Message-ID: <f054255d-f34a-4f8d-87e1-e7d296bef93f@intel.com>
+Date: Mon, 19 Oct 2026 16:06:35 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] x86,fs/resctrl: Move MSR_IA32_L{2,3}_QOS_CFG scope
+ property to x86 resource
+To: Chen Yu <chen.yu@linux.dev>
+CC: <tony.luck@intel.com>, <ben.horgan@arm.com>, <james.morse@arm.com>,
+	<Dave.Martin@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
+	<tglx@linutronix.de>, <dave.hansen@linux.intel.com>, <x86@kernel.org>,
+	<hpa@zytor.com>, <fustini@kernel.org>, <fenghuay@nvidia.com>,
+	<peternewman@google.com>, <yu.c.chen@intel.com>,
+	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
+References: <cover.1791406459.git.reinette.chatre@intel.com>
+ <c873c62e78f335df6f7b99cb0cf0ccbcdd62b09e.1791406459.git.reinette.chatre@intel.com>
+ <atUEpF4pd4YBncbL@three-body>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <atUEpF4pd4YBncbL@three-body>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0354.namprd03.prod.outlook.com
+ (2603:10b6:303:dc::29) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,151 +140,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-iaa-crypto-wq-tables-v1-2-fab67b2a1538@intel.com>
-References: <20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538@intel.com>
-In-Reply-To: <20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538@intel.com>
-To: Kristen Accardi <kristen.c.accardi@intel.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Vinicius Costa Gomes <vinicius.gomes@intel.com>
-X-Mailer: b4 0.17-dev-6be7c
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792451190; l=4691;
- i=vinicius.gomes@intel.com; s=20230921; h=from:subject:message-id;
- bh=hRlLc+25IiT02qqUKtrDG21UjsoWBK02Oeivj/ogzp4=;
- b=J3cFfUC1vtYfgnhFeNuZpSxp5qsnqplgqEZfXAWnTWN6AqVtJQWYjXpxK4xn7bUHGVnZEmHe9
- LpSiHU1BGcyCoL9HDov3lpKVMybtmYEmXYeY0YIg5ddIfbVeZlustgN
-X-Developer-Key: i=vinicius.gomes@intel.com; a=ed25519;
- pk=aJkrtgqgT6TZ8iIHSG8/rTPsmlYnjMrUjCsMYvCzntk=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|CY8PR11MB7797:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5dc90f0-71f3-4d78-3be3-08df2e35a0a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|7416014|1800799024|6133799003|18002099003|22082099003|11063799006|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: jTvAyNL0Ny2hQxtXFo6mbSBkE4+mjhAR42hnPa7GgpOqAGjT9c+Sn6LoesrTEZQWNgF1jWeN0aPo9tNdWKbBBXUVfR2zEvaS3C8picuiCgYoILqLr4qWa+WGDt7l1IOE7cPr4fWo36IVe+axs9Jr4YioQxMDsL89lBEAaPA8IhmbUwUkZ5gwUzy3oC/bpqjC5sYFG6cRMwAgXk/OlilqobsKACfEKZh1gqFbZ2tEPwfESE0RCGBwfgq8j9X1udevvZrkSbdVoK74dZUzIKB/Fccd/x20ttYHRiCsr3bg1IVkDvlTYyuASTVd6BanJ/k6IWercjA8vx0bnYal/IzGauFqYlVbTygDhIHpKTDKVG1EqudstaFof4OUslwWlDeaHQP2fWIRq7ula5FvTcRmown8DDZUzno5uzkAz4qMcCjigCrTwSbqSgFbIiQ4bM6RHln93BUJhxrLfkcz/JXzog41y9G97Iqp7ww7a+FPs6jUflii061Slug0ylu15oLvZKSDbl7SUZGSgzsDugp0PZmkmqRToSQs2lRL3K+aDKxgz6GlUUpw438xoJ35FZbUGHHsbUh++LXOtt8AAdec6I6XKaptL3QJPR5EpzZxw+jNSFSxj1C9EFWUWPgZWUW/Gj3qPPnDNtK4o5vDSMQcO7AfNEx47n+aX89vNHJ+Xq0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(7416014)(1800799024)(6133799003)(18002099003)(22082099003)(11063799006)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NTRpc25qQU1NeCs4QmhLUGVCNnVsUDBpVm1yTDVOcWxrNnc4akFhT1d2U0ZU?=
+ =?utf-8?B?L24vWGtNRHRjakIyNk5KYWp6Umd3R1lhaVA0UFNzUVV4Ty8yaXdVa0hkRjFk?=
+ =?utf-8?B?UXA0UWlNU2l6SmRsWFNCeTFqUldIcC9aVDZMK05RWXVjM1NORnJudGNsZzBU?=
+ =?utf-8?B?RTNyUUFHdTFOOFRYb3Y3Uk54K0cwMm1OSEpwYnBoZ1FjM2tFWnZYbllWcGNQ?=
+ =?utf-8?B?R0h0c0xzeUZLSFVuVHkzUlBSaW03SkdlOFRGYjYzbnQ4ZENUemJGWU5EaFFk?=
+ =?utf-8?B?cE4yc1hXRTNwbEV3bDdkU1ZoaTZ4bmYzei9oL3hyTElPeDBEM2k4Z3p3VFcx?=
+ =?utf-8?B?djJtMm9QUDhNdXl1cmxJL0JjMTFrY2ZmWDlVVi9TVkFXQTgzSHd3djN5Q3hy?=
+ =?utf-8?B?VlQrMTlMUDVvM25BOU84eEkxOWdXNERDRnFZWmFLTDBVZlRTRldNSEVyU1JX?=
+ =?utf-8?B?OG83MFJqMm9pbWlNVUJWQks4OHI3Ymp5SnhZUDVCWlM4elJqUTIyMndScWVF?=
+ =?utf-8?B?MGcrOXE3Uktvb0xDTklzNzhpYlhFaGllMnhFOE5yYXk3d2ZwODdHMDA1Tzc0?=
+ =?utf-8?B?T0lzbUYrUW9NbEJ1eTlvQmhSMjBnYnVwVHAzUGRFWk9vRDBYVjdoeHBKbFBR?=
+ =?utf-8?B?SVp0T1JzTUJldzNseStOTTl0WTBxbnNPL0Rsckp1dm9xaWp3UDcxdkRCcXc5?=
+ =?utf-8?B?TW9MZ0NTTXZqK2pWMCtnVW5HaGU0eWhycGNlNjBWTWRWcHYrZW0zVENzRHpL?=
+ =?utf-8?B?aXFuaUovVitLYmtKZHdZcjNYU3Z2ZVFMYWR1ZFg4MTIzRUlETllUaDZkdGNL?=
+ =?utf-8?B?RjZ6b3NNR0hNVHpYNXhqVlc5dzJiWXMydm1PdEtnSnM3Q1NqdElFZEJJaW9E?=
+ =?utf-8?B?ZkdkV1pEM2Ric2p6Zzl3WTFGUVVpWEFtaVFvOFYvVlE0VTc3ZnZCMmhPN2pO?=
+ =?utf-8?B?aXFpODRPMjlxVDlHNDgxMDRtNHRrN1J5Wkk4eDBDdjZuSFhQWFZYR2Mzd0sr?=
+ =?utf-8?B?SUsvNDFoN25tYnNwbmg2YkFRNHhUSTRma3hKUkptUlVJMTZ0YmdubmFrQWV6?=
+ =?utf-8?B?R09ramwvc2wreGk5LzE3YU9CbWg4SjFROTVTM2VYdHU5YTJ4NXdWTzdEZjJv?=
+ =?utf-8?B?cFlGTEhuZkhsanZpSDlUWm9iNVE3SDBJcHl6QlhsckZPNHBQaWExTkVKeElG?=
+ =?utf-8?B?YTExYWVVRFVzaXUvaEpydUV2dGh2NFJLdTJ5bmVqZjJzNWdnZ294MEFvejVQ?=
+ =?utf-8?B?V1Jia2k3NkdNRUNrNGNOeG50V2lVZm9jZ1QwNUc3UmtXVVJvdEQvN29YSFJZ?=
+ =?utf-8?B?YjNubTNPWEtzOWFZcEZRdVd1NG5NakV6YnM0dEREb1BRMEl4TzBIMlQ5L3lZ?=
+ =?utf-8?B?WWQyS3lra2RvUGtNSEdnMFluT2NmOXh4V2prQVUzbzRRMEdma0lUMzA2Nlda?=
+ =?utf-8?B?Qm51VDVHVEhKR3AyY1lPZmd6ZGV2cERZci9GT2g0UHQxU01WRmZmVENYWnVi?=
+ =?utf-8?B?bkRNVzVCR2gzZjY3eUlwUkREUGEyUkFJcjV6VDkxZ2lOMHhYeHB2MkZKQ2U5?=
+ =?utf-8?B?Y1RudE14elpDSGhnaloyaStNai9sOEx5NFZhZlptTFZLbHhKaTZFc25pTWJJ?=
+ =?utf-8?B?Y3FlRGNsQnZwbklIOXczdjkwaVJCY3VvZ0dZTTl0NklLQWZTYmtpMFR2bFVy?=
+ =?utf-8?B?cDlJNCtqaGN4bkRkZkJscFVVM2FvM2FxUmJjSlRTUnBGdzV5bTVKNnY4NjdG?=
+ =?utf-8?B?dHRRRFlIa2tRVFp5ME5xRGt5amhoTFd1TTFzUGwzeGI4dzdjdTVMYmYwcjlZ?=
+ =?utf-8?B?TFJUSk53N2lGMFFHbGF2OC9GbVFmS2VneHU1Y1E0cHNQeEphdUdrQXhuRFpr?=
+ =?utf-8?B?bFNDbmJwMGtzdmZhRkhHNng5Ny8vQmtGVnJRaFVkZEpuYVJET01rQ1dBWG9t?=
+ =?utf-8?B?Y3NVRlhiOWNCR3VwYXExU3JUbWcrVUNjVUh6ZHhWSlhwdHF2OTJJdHE0UkhT?=
+ =?utf-8?B?SjNZSkMybjc3ek9iNCtSUnJINGNJZVlFY0JsQ3lseHcxTXFmdFhRWUdhRlI0?=
+ =?utf-8?B?UlJBU0VsQ3lXM0h2SWcrV09hc09walgxajNLUHZ0bmRBYVg5MzBLbjFjK3BD?=
+ =?utf-8?B?ajU5cUtWaUhUQlpkTHUzVEFGb3EvQmtyMW0vNGhhek5yQ2llVmtSaHJtK2Fj?=
+ =?utf-8?B?ditpVUg3ZzNWbmx5YVlWWVkxL0NPd3RoSlZiOXZGbGN1ZzdYeC9YdEF5SDJC?=
+ =?utf-8?B?d2tqcnpFZWZDZlhSMzgyQ2RCU2JUTGtxRCtpRFNnd3p0MXBCWFhFaEx0dW5h?=
+ =?utf-8?B?UGwyRkF5dUJFcTg5bDN1S3BxdjlURjZYSGNqMExXTUxxaWczamw5bkFMRWgx?=
+ =?utf-8?Q?UZWrIohzGhZiaR0Q=3D?=
+X-Exchange-RoutingPolicyChecked: kvRzOAoqkqkqCJTU76SgwmrtagQaCNj+lhTN3RTtAibfqaw/ZOmdZUGynwPR6ADFlaKWnRrit8cjm4PKO5q8mh22q5APZP3+e2UHwWxVp88IaVtD6hixK2zz9eymfO74ExDX1cJLjA12xnV/P906dmM0Zm4Bd5XKZskvZWvbFhhOJvEOJSbWa+J17hQL8lQAg8UEE09zOsIr9TpZcxjYWBsYtNKq5+lxLHPVcQ+Gx3UREaSLEH/JS7SGf2O6w0jj8eBx51RnFIP9X31NSUzyLdT536UkdTRHXgYdbyCAQyBaw+wUrv4LkktzyxqhpV3X7N4ywki3XIaz2VXc+cMvuA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5dc90f0-71f3-4d78-3be3-08df2e35a0a5
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 23:06:37.4832
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AzkMDZfAMkEP50jb8Q6V6WzWwS0uAaBLCa7q8ez0+pqXT0bVeKpmXAx/6XQFZ45lDT0mXH/DTr3ZqXMAi1pG0AsBpszP96eD1qz4yDuXZMM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7797
+X-OriginatorOrg: intel.com
 
-iaa_compress(), iaa_compress_verify() and iaa_decompress() take the WQ
-to submit to as a parameter, and also find the iaa_wq in the request
-context. Nothing ties the two together.
+Hi Chenyu,
 
-Drop the parameter and use the request's iaa_wq->wq.
+On 10/18/26 10:40 AM, Chen Yu wrote:
+> On Wed, Oct 07, 2026 at 02:06:45PM -0700, Reinette Chatre wrote:
+>>
+>> MSR_IA32_L{2,3}_QOS_CFG enable code and data prioritization on x86. On
+>> Intel the registers have the scope of the associated cache while on AMD
+>> they have CPU scope. The scope is recorded as a property of the cache
+>> resource's control, of which each cache resource currently supports only
+>> one.
+>>
+>> The scope of MSR_IA32_L{2,3}_QOS_CFG is only relevant to x86. Even so, the
+>> property is found among the resctrl filesystem's cache properties while only
+>> x86 code sets and reads it. Keeping the property with the cache control
+>> properties would also duplicate it across all controls of a resource when
+>> resources support multiple controls.
+>>
+>> Make the scope of MSR_IA32_L{2,3}_QOS_CFG a property of the x86 hardware
+>> resource and name it for the registers it describes now that it no longer
+>> needs to be generic.
+>>
+>> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+> 
+> [ ... ]
+> 
+>> @@ -140,6 +143,7 @@ struct rdt_hw_resource {
+>>  	unsigned int		mon_scale;
+>>  	unsigned int		mbm_width;
+>>  	bool			cdp_enabled;
+>> +	bool			qos_cfg_has_cpu_scope;
+>>  	bool			mbm_cntr_assign_enabled;
+>>  	bool			sdciae_enabled;
+>>  };
+> 
+> It seems that some flags are in resource scope, while others are in the controller's scope,
+> cache's flags are in the resource scope, MB's flags are in controller's scope, for example "linear".
 
-Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
----
- drivers/crypto/intel/iaa/iaa_crypto_main.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+The goal of this change is to move this information into the only (x86) architectural driver where it
+is relevant.
 
-diff --git a/drivers/crypto/intel/iaa/iaa_crypto_main.c b/drivers/crypto/intel/iaa/iaa_crypto_main.c
-index 0f5bd244b00a..7b02d3836623 100644
---- a/drivers/crypto/intel/iaa/iaa_crypto_main.c
-+++ b/drivers/crypto/intel/iaa/iaa_crypto_main.c
-@@ -1049,7 +1049,6 @@ static int iaa_remap_for_verify(struct device *dev, struct iaa_wq *iaa_wq,
- 				dma_addr_t *src_addr, dma_addr_t *dst_addr);
- 
- static int iaa_compress_verify(struct crypto_tfm *tfm, struct acomp_req *req,
--			       struct idxd_wq *wq,
- 			       dma_addr_t src_addr, unsigned int slen,
- 			       dma_addr_t dst_addr, unsigned int *dlen);
- 
-@@ -1134,7 +1133,7 @@ static void iaa_desc_complete(struct idxd_desc *idxd_desc,
- 			goto out;
- 		}
- 
--		ret = iaa_compress_verify(ctx->tfm, ctx->req, iaa_wq->wq, src_addr,
-+		ret = iaa_compress_verify(ctx->tfm, ctx->req, src_addr,
- 					  ctx->req->slen, dst_addr, &ctx->req->dlen);
- 		if (ret) {
- 			dev_dbg(dev, "%s: compress verify failed ret=%d\n", __func__, ret);
-@@ -1162,7 +1161,6 @@ static void iaa_desc_complete(struct idxd_desc *idxd_desc,
- }
- 
- static int iaa_compress(struct crypto_tfm *tfm,	struct acomp_req *req,
--			struct idxd_wq *wq,
- 			dma_addr_t src_addr, unsigned int slen,
- 			dma_addr_t dst_addr, unsigned int *dlen)
- {
-@@ -1175,10 +1173,12 @@ static int iaa_compress(struct crypto_tfm *tfm,	struct acomp_req *req,
- 	struct idxd_device *idxd;
- 	struct iaa_wq *iaa_wq;
- 	struct pci_dev *pdev;
-+	struct idxd_wq *wq;
- 	struct device *dev;
- 	int ret = 0;
- 
- 	iaa_wq = req_ctx->iaa_wq;
-+	wq = iaa_wq->wq;
- 	iaa_device = iaa_wq->iaa_device;
- 	idxd = iaa_device->idxd;
- 	pdev = idxd->pdev;
-@@ -1313,7 +1313,6 @@ static int iaa_remap_for_verify(struct device *dev, struct iaa_wq *iaa_wq,
- }
- 
- static int iaa_compress_verify(struct crypto_tfm *tfm, struct acomp_req *req,
--			       struct idxd_wq *wq,
- 			       dma_addr_t src_addr, unsigned int slen,
- 			       dma_addr_t dst_addr, unsigned int *dlen)
- {
-@@ -1326,10 +1325,12 @@ static int iaa_compress_verify(struct crypto_tfm *tfm, struct acomp_req *req,
- 	struct idxd_device *idxd;
- 	struct iaa_wq *iaa_wq;
- 	struct pci_dev *pdev;
-+	struct idxd_wq *wq;
- 	struct device *dev;
- 	int ret = 0;
- 
- 	iaa_wq = req_ctx->iaa_wq;
-+	wq = iaa_wq->wq;
- 	iaa_device = iaa_wq->iaa_device;
- 	idxd = iaa_device->idxd;
- 	pdev = idxd->pdev;
-@@ -1400,7 +1401,6 @@ static int iaa_compress_verify(struct crypto_tfm *tfm, struct acomp_req *req,
- }
- 
- static int iaa_decompress(struct crypto_tfm *tfm, struct acomp_req *req,
--			  struct idxd_wq *wq,
- 			  dma_addr_t src_addr, unsigned int slen,
- 			  dma_addr_t dst_addr, unsigned int *dlen)
- {
-@@ -1413,10 +1413,12 @@ static int iaa_decompress(struct crypto_tfm *tfm, struct acomp_req *req,
- 	struct idxd_device *idxd;
- 	struct iaa_wq *iaa_wq;
- 	struct pci_dev *pdev;
-+	struct idxd_wq *wq;
- 	struct device *dev;
- 	int ret = 0;
- 
- 	iaa_wq = req_ctx->iaa_wq;
-+	wq = iaa_wq->wq;
- 	iaa_device = iaa_wq->iaa_device;
- 	idxd = iaa_device->idxd;
- 	pdev = idxd->pdev;
-@@ -1582,8 +1584,7 @@ static int iaa_comp_acompress(struct acomp_req *req)
- 	dev_dbg(dev, "map dst %llx req->dst %p dlen %d sg_len %d\n", dst_addr,
- 		req->dst, req->dlen, sg_dma_len(req->dst));
- 
--	ret = iaa_compress(tfm, req, wq, src_addr, req->slen, dst_addr,
--			   &req->dlen);
-+	ret = iaa_compress(tfm, req, src_addr, req->slen, dst_addr, &req->dlen);
- 	if (ret == -EINPROGRESS)
- 		return ret;
- 
-@@ -1594,7 +1595,7 @@ static int iaa_comp_acompress(struct acomp_req *req)
- 			goto out;
- 		}
- 
--		ret = iaa_compress_verify(tfm, req, wq, src_addr, req->slen,
-+		ret = iaa_compress_verify(tfm, req, src_addr, req->slen,
- 					  dst_addr, &req->dlen);
- 		if (ret)
- 			dev_dbg(dev, "asynchronous compress verification failed ret=%d\n", ret);
-@@ -1719,8 +1720,8 @@ static int iaa_comp_adecompress(struct acomp_req *req)
- 	dev_dbg(dev, "map dst %llx req->dst %p dlen %d sg_len %d\n", dst_addr,
- 		req->dst, req->dlen, sg_dma_len(req->dst));
- 
--	ret = iaa_decompress(tfm, req, wq, src_addr, req->slen,
--			     dst_addr, &req->dlen);
-+	ret = iaa_decompress(tfm, req, src_addr, req->slen, dst_addr,
-+			     &req->dlen);
- 	if (ret == -EINPROGRESS)
- 		return ret;
- 
+These "flags" are different in a couple of ways:
+a) qos_cfg_has_cpu_scope is specific to x86 architecture (thus located in struct rdt_hw_resource of
+   x86 driver, not struct rdt_resource belonging to resctrl fs) - this information is not exposed
+   to user space nor is it of use to resctrl filesystem. This is just information internal to
+   architecture whether the x86 MSR has CPU or domain scope to accommodate this difference between
+   AMD and Intel.
+b) the MB controller flags like scalar and linear are associated with the controller,
+   exposed to user space, and managed by resctrl filesystem.
 
--- 
-2.56.0
+To me this qos_cfg_has_cpu_scope flag is closer to the architectural support you are working on
+that contains within x86 architecture driver the decision whether it should use ACPI or MSR than
+it is to control flags.
+
+> For now, there is only one controller under the L2/L3 cache resource, so it might
+> not be duplicated if we keep qos_cfg_has_cpu_scope in the controller scope to keep consistence? Or do
+
+I do not see how qos_cfg_has_cpu_scope is related to properties of controls exposed via resctrl fs.
+resctrl filesystem may request CDP to be enabled/disabled on a control but how that enabling is done, whether
+the architecture uses MMIO, CPU scope MSR, or domain scope MSR, that knowledge is private to the
+architecture.
+
+> you mean if in the future there are multiple controllers under this cache resource, all controllers'
+> flags (e.g., qos_cfg_has_cpu_scope) would still share the same value, so it is OK to put the flag in
+> the cache resource? If yes, the code looks good to me,
+
+This patch is not about moving a cache control flag into the resource but instead about making
+an architecture specific flag (unrelated to a control) invisible to resctrl filesystem. 
+ 
+> Review-by: Chen Yu <yu.c.chen@intel.com>
+Thanks, but I do not think we have the same view of this change. Please let me know if you
+still feel this patch is ok after this discussion.
+
+Reinette
 
