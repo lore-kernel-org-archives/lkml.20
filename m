@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792436408;
-	b=WZ2I50F7AhIUmQQ3w+3EGye2meCi6OWeS+Sxa9EDPPdcqt3FiAWx88qIStr7q5wg5RJW
-	 BjFOgaHSSxLjWjjtoc1Q5V34USo9szEdn9ifGT1ur65/q8pvaKYqs5NISyFHx8mu2w7ES
-	 tPmL9GBoasJhppJyFrE0eMrvWcLmc0ZC8QEovUEbnNxZmi8TD980flmjps0TRntXPsvux
-	 kMadupsGWJoX+NK+wi8Phkb/uYUgXTW/1JLqmT8QRJaWO345ij/aouw26NI8DL3dSzb9c
-	 Rccsx/crqkyMjBrBo6ptsBazMTbrH2GwmhUg6AgK4Wacp61OhqyhuK1UzFtacb2km1A==
+	t=1792436472;
+	b=xZkoQCesWEw8VXInTnfUGhjcLh7vh06bt8BGKyrbRz62eZnyON4ZhjpfjJNocc4KvcPK
+	 LtLbK400BL0+TbaTts4YdhH/JUhDdJSuXcdM6hBZoxlgt1YCJrI0Gt55PnOWzKwI4qnc+
+	 STIzrzGHnMMEo1kqdB9xAKlh+ElowNH7H8NBC4QcvfwN8LoHIf26wtTtfZcNXB2QTu4MB
+	 sfSFmYBeR0KUREXaV1O/Px/NtCsb0yKoIlnHQ1EfdFtAEnacfBd8K1/St4+n0bUBndvXR
+	 l11Lo0a3JCRosdAW7SCCpuY9ZzU2N4zjdXLLyfAiUAqft+ng1b/6mVcoufHag6MZ/Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436408;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436472;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type;
-	bh=+Bpag77kmspJPEOoTU0jcXIfdYDy3+L/uaEPHFY9Zf8=;
-	b=f+qLRMUvTwp3FDuqDIsmWIf4MqJD9fafXBMzZRK9rlIJzsEgfBO1c30rMu8bq6BqbPEG
-	 iN7OHpM0zDscQViqLb9n+QQMvegOCQB6VXit4etyRM0PSSHUIpH5dMCrU6XfWUTg4Ai69
-	 gv7YE/1v0VAU6keDNvzSWvcMsy5wZw3ZeXuV8M8J6k8JsA6jfHHx8qmbov/YKwt2zZG0v
-	 58AnUo1Dv01IDFBrrjprvLJGkfeMjDfQFxdqKtbsotVxJSn8kBWP881jbPpx/upDc/oS5
-	 2NVUtHkBGo3EGXDn/Yj9S0ZjDOKqbC54JgGpHQcptCHTgEW58TRzdM70tTCm9psrPNA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=AQkkAaWtxUgZD6Kqp6WcVP+DNLI/QqlyqnrtoDUgzXQ=;
+	b=HPwoVl+WUVGHUgAcAYG/ulytzKnJdkvZzcICEVmoFJLt3QnVfhsbCNZEONKOqmM7P1Jk
+	 mXb88gOZAMYQTJ0rLvX3RGor/Sws0l5XHalJUHrJTAC5uw7rOzE4dY2j7pvnfcQ+P5fTD
+	 Uav0pyfffCZuUmqdEmyxBpkdkS5DL9q2WOXd1zID8C3j13J7IiABYBaePCkfZVIdbEdlD
+	 SMjdTsgEqv7cMwQWwuEp9DpLuN58RCDzOVJpIu2s683kKnKmorKYppsw2D7BUkg4HETHf
+	 FHbJOvOmOKINrqPlnEk0T+X/Z5fAjQdup77fd7ZNOsF3soawhl8odkdGoIB2LEECTYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ghx3NeJg;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=MIAaYeQm;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB1E606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:00:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CB1E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18930606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:01:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18930606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ghx3NeJg
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-487049569b6so1318848f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:00:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=MIAaYeQm
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso2041278f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:01:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792436407; x=1793041207; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Bpag77kmspJPEOoTU0jcXIfdYDy3+L/uaEPHFY9Zf8=;
-        b=Ghx3NeJgA0f9sK3SAealcFQayGTaGWIhTT5ukcVaMKNFnDexa6L+nD/FOj9DrfoorV
-         YFuafn89/swpLSIJsHolc7jSvjYEH7s//AihEF1MfjtAsMg5ImnoPzN96su3SFJrXleC
-         8kdBt4GxscCMBb8wgtPW/qwnOfRCtE3I8IusRUbCi22tAdpMYuJ6+0Pnl11JveZPzM1J
-         bFbJ8lgWKgGFvVhYYPQzEYFfRYAqATwgyR9iJmaD3GV+lqSX2UgSx5ZVSaSKiJvKaXLJ
-         WU/7+MMq/ZzOteAHGXwu+zvL/dfpI/TtcOi1kVGLJbsQdegvzuDj2BIU9I2al2g+LfC/
-         Zvsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792436407; x=1793041207;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=purestorage.com; s=google2022; t=1792436470; x=1793041270; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=+Bpag77kmspJPEOoTU0jcXIfdYDy3+L/uaEPHFY9Zf8=;
-        b=wlFBNXYC+goXZaQxDTLhSj/PaejIKf34HS/AiBq6eVn6nptIPTDtjfDyi/tTNlJ8mI
-         RJu8SceEnvxpQdrB5wNQY5ugOtPwmqhNnaMM5mjfaC6SBNUxFY1buiOtvQgtLYQHVgRT
-         bTwl4keoUynaNjLzpPvTm2g3OaG1sH9kxll374yXNOWTwsZBsV55/iuW2oNNkvXfTYQz
-         p1ZXneczXzDhcoF5Vl6a51HDsIz2PU+YqiI/UroEbG/QtAhLTwxxIVuOGpohbnxrrV5P
-         KFlYy6nC6PYsjFypt2Lfu6JeyieAhsgy2J3AtLG3vVCY6dIzH1ZW9lg9byb+XwxZVNZ3
-         PtWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzF0QJhC2leotw8e8xMsktkGUzLd0QTUtkLF/Qj+zOWwHq9zbEnmAGSOClzKbUQnavdnuPNMWanuJA6LR8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmbT7DmcfLPW/a1N8m4hMmhC08fDm4K0GsJMKqvRW3XpDDWESo
-	3LpWFX07XJftkU5prAKWzvo9h3yuh1o7ydwOzYrW3WePleHHZvKTaJFq
-X-Gm-Gg: AYBFou0kYDNZKe1UX7OqCVDT6WCALMnQ3oxCHbXQb8Fe2I+YQOg3TfVwwRALBCg2ntk
-	U34C5HSvAKpdn4IHWbB0OqHsnbc3z1knR2WOkBQndpDxtwepcNCO34b8CFYWuISkJABoHoxi9xc
-	EWC4ddZrlaNM0KguvOS5LCdO1LjshY6dGsJsMfu1RQLgTuoorzqJCUuSq+IYIEaj9+gFkcm6q0W
-	OD6NyRv8T7iqMhss3qXj1qoHl8eWT/cGITyQLklRvhLbhwU0G9klPsW4UA2bOFKLr/ICoeBHfne
-	fOTAPDxRuinImJkNZXH2bR0xMwfBaQ/WNmcEGQIHrV8tLnY5nYeKGct8IJ2SXrlqmtW2mlc4GCE
-	LQbgP74hQZcLv1/2pXdmOc+6DQe1oD/Z+e6iXMVyLd397cbygTQ/+D5FPSBeND+SFyrWra7GZn8
-	01jNA4CAtcmSeffw9BF/DmGdNBvH6XxIBnpzRSdsgOyv2+cuj6uqMikvQTF6pu6M4Jr3l/ykAvH
-	/f/u30NLD2zVSOuMiNa3z/DwQ==
-X-Received: by 2002:a05:6000:5c7:b0:48e:2ac:de30 with SMTP id ffacd0b85a97d-48e07fa6035mr18871744f8f.33.1792436406338;
-        Mon, 19 Oct 2026 12:00:06 -0700 (PDT)
-Received: from silicon.doe.home ([148.69.129.235])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818237sm702781f8f.27.2026.10.19.12.00.03
+        bh=AQkkAaWtxUgZD6Kqp6WcVP+DNLI/QqlyqnrtoDUgzXQ=;
+        b=MIAaYeQmwFR00qdiRMXXMe+IVnzke+IBeqgFCbFsMII3MSTxmPH4bJFMv+4efSUQdS
+         pJNxiBCRpOs0DcD+28UoKaPJ7FqxF4l8oaswd4j7FAsEqySUwc9SF96owOKXmErFu0pL
+         1fgjARu2E+FFtmgGERpqwHJyCecvRg95T7ikKVFIr+E7BvQZh7RD35lcMT4fPtKw7HZJ
+         3Q0RFGUri27zFPW4vQtGrAuRTYdx7hRNI4Wc/VEssUb3mp4vRDA+GJCFq8XkABd9XVI3
+         6nz+h93XSUje3ohLHQO2fQvk5dnccFb1aTNjerAcn0iT0wKcIdlqKqQhzCuZUiA+m6Mh
+         stnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792436470; x=1793041270;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AQkkAaWtxUgZD6Kqp6WcVP+DNLI/QqlyqnrtoDUgzXQ=;
+        b=wBOQclEYL96iBPIsu3ldGzA4EDEx8M13lLHdpmvd78YmsjxBZo7jlbqeIde0femMNv
+         OzKokbNNzi0PjpZVG4+jmmzDUJwzLe6CsVGnZtzBSTcHGkW2u3SS79AMjjWfLVCScqbg
+         7GOrNmBbFxDXlnETGmLs7c0aW3QSaF0sxZ24G10w99ZPaTbC4T+2v5BP2UithLxnuwlE
+         K6h4ATPe+FE2FYdf+IkQnzZj/4en4DzNRQlS8PPpZyj+R8dqA3UccidBM2mRu9+gOoB7
+         M2E/Hs5BV7TPTEFFCt6IYkPGcSDuhJL7LULxa4QkqZ9gc6KL4t7k4WdKtEdx/Nwforaa
+         vT6g==
+X-Forwarded-Encrypted: i=1; AKwUvByeyKKH5DFbO8iHxrp3Pq359QOJMpBxyv8YFV6jbArS2FTcGpdb/IPeQmLF/BDNjdXPlQ0dsjc1JCwxg0Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpuu9o8TY1mgIXUXFubwaaZjpjUuoNjbnITAe8J21GWWgBbVMq
+	6X5VYVCNwNUCrdyhuSxQxUtrwPc5DyFEAviZTqhOPMYg6rv/CTDoOQOSrnUXjJQh7/o=
+X-Gm-Gg: AYBFou2wv1eGEkS293nScFcWEnKD0jFVCizWzHbIri8kIjh/8TXVvrJOA9vXI80NhZP
+	PZ0cBNmvKZwMIng595meDgDb6UUgmcstLRre3eVeqVeXws6eo49qT/0t6WQC3cwS+WyfK26sqpq
+	70gGqXQyb7g4SNe1OtPZ0RKeiiR9CBTBGAUcRXKIE6FLFZTf91h67lSm87lIhud3tN1J/GFsJOP
+	GU+akkMCQQWFOqN5D3QHZq1Axe2PjJf6HBBHFyXf3yyI0DS2KCS1PBKwCJxOzJ1evnYosb1IHkz
+	EtfM9btI5v3aKOeGMpwD6+heB8aw4S9MDQxEfs1Fhgttw/+3ohY/fbXk1mQgpX7WYf+A1lngPL6
+	FpnS7+G1MoMp/PEDIruo7ZSAxAnuBtjJW7F0psdyoTFd9xlZ/Oom227o6X7QESRJSlX/8rAfJJM
+	whwn3/mXDsmAjEUenBIYNgLJQ+XPpmPRinOEIDZIzs2fdRX5x7O1glQ1NnLRfhkt8mCETeFf8W/
+	2OfXu9CmggECS0oTHc=
+X-Received: by 2002:a5d:474c:0:b0:48a:f454:3d4 with SMTP id ffacd0b85a97d-48e07fac2a3mr12245302f8f.53.1792436470203;
+        Mon, 19 Oct 2026 12:01:10 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e1d823cfcsm711128f8f.39.2026.10.19.12.01.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 12:00:04 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-arm-kernel@lists.infradead.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: arnd@arndb.de, krzk@kernel.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>,
- Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
-Subject:
- Re: [PATCH v2 20/24] spi: zx: Add ZTE ZX family SPI flash controller driver
-Date: Mon, 19 Oct 2026 14:15:30 +0200
-Message-ID: <jjb8MyAPSXaXqHtedDkkwQ@gmail.com>
-In-Reply-To: <20261014072109.1759502-21-ghahramani.navid@gmail.com>
-References:
- <20261014072109.1759502-1-ghahramani.navid@gmail.com>
- <20261014072109.1759502-21-ghahramani.navid@gmail.com>
+        Mon, 19 Oct 2026 12:01:09 -0700 (PDT)
+Date: Mon, 19 Oct 2026 12:01:06 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Hannes Reinecke <hare@suse.de>
+Subject: Re: [PATCH v6 02/18] nvmet/debugfs: Export controller CIU and CIRN
+ via debugfs
+Message-ID: <20261019190106.GK2931-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-3-mkhalfella@purestorage.com>
+ <179241127352.3544975.2554197788837860779.b4-reply@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,116 +106,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartw_T8zL-ZTluB82Us-2CIWw";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179241127352.3544975.2554197788837860779.b4-reply@b4>
 
---nextPartw_T8zL-ZTluB82Us-2CIWw
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Date: Mon, 19 Oct 2026 14:15:30 +0200
-Message-ID: <jjb8MyAPSXaXqHtedDkkwQ@gmail.com>
-In-Reply-To: <20261014072109.1759502-21-ghahramani.navid@gmail.com>
-MIME-Version: 1.0
+On Mon 2026-10-19 14:01:13 +0200, Daniel Wagner wrote:
+> On 2026-09-20 11:28 -0700, Mohamed Khalfella wrote:
+> > Export ctrl->ciu and ctrl->cirn as debugfs files under controller
+> > debugfs directory.
+> 
+> Could you add the 'why' part to the commit message?
 
-Hi Navid,
+target# grep . /sys/kernel/debug/nvmet/mysubsystem/ctrl1/{ciu,cirn}
+/sys/kernel/debug/nvmet/mysubsystem/ctrl1/ciu:57
+/sys/kernel/debug/nvmet/mysubsystem/ctrl1/cirn:42541d24813bb536
+target#
 
-I had some time to review the changes you made to my SPI driver.
+host# grep . /sys/class/nvme/nvme0/{cntlid,cirn,ciu}
+/sys/class/nvme/nvme0/cntlid:1
+/sys/class/nvme/nvme0/cirn:42541d24813bb536
+/sys/class/nvme/nvme0/ciu:57
+host# nvme admin-passthru \
+  --opcode 0x38 \
+  --cdw10=$(( 0x1 | 0x57<<16 )) \
+  --cdw12=$(( 0x42541d24813bb536 & 0xffffffff )) \
+  --cdw13=$(( ( 0x42541d24813bb536 >> 32 ) & 0xffffffff )) \
+  /dev/nvme1
+Admin Command Vendor Specific is Success and result: 0x00000000
+host#
 
-I'll grab the code style changes, they seem in line with kernel guidelines.=
- Of=20
-course it'll only live in my gitlab repo for the time being.
+I found it useful to export these values while working on this change.
+For example the command above can be used to trigger CCR and observe the
+target behavior with the expectation that ctrl1 on the target will be
+failed.
 
-Am Mittwoch, 14. Oktober 2026, 09:21:00 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb=20
-Navid Ghahremani:
-> +static int zx_qspi_set_speed(struct zx_qspi *qspi, unsigned int max_hz)
-> +{
-> +	unsigned long rate;
-> +	long rounded;
-> +	int ret;
-> +
-> +	if (!max_hz)
-> +		return -EINVAL;
-> +	if (qspi->speed_hz =3D=3D max_hz)
-> +		return 0;
-> +
-> +	rounded =3D clk_round_rate(qspi->wclk, max_hz);
-> +	if (rounded < 0)
-> +		return rounded;
-> +	if (!rounded || rounded > max_hz)
-> +		return -EINVAL;
-> +
-> +	ret =3D clk_set_rate(qspi->wclk, rounded);
-> +	if (ret)
-> +		return ret;
-> +	rate =3D clk_get_rate(qspi->wclk);
-> +	if (!rate || rate > max_hz)
-> +		return -EINVAL;
-> +	qspi->speed_hz =3D rate;
-> +
-> +	return 0;
-> +}
+Added a sentence to the commit message to mention that.
 
-I think the idea of op->max_freq is that it is the SPI bus clock, not the=20
-controller clock. Existing drivers aren't quite consistent on it though (or=
-=20
-there's HW without a divider register). spi-ma35d1-qspi.c for example sets =
-the=20
-controller's clock divider rather than the clock.
+    Export ctrl->ciu and ctrl->cirn as debugfs files under controller
+    debugfs directory. The values are useful in matching host controller
+    with the corresponding target controller.
 
-So IOW, this function should primarily configure ZX_QSPI_TIMING_REG. If the=
-=20
-target clock can't be achieved with the controller input clock (e.g. divide=
-r=20
-is larger than ZX_QSPI_TIMING_REG supports or clock rate is lower than=20
-requested SPI speed), then a change to the wclk is in order.=20
-
-> +	ctrl->min_speed_hz =3D clk_round_rate(qspi->wclk, 1);
-> +	ctrl->max_speed_hz =3D 50000000;
-
-This looks wrong - the max speed is probably the highest possible wclk rate=
-,=20
-the lowest speed the lowest possible wclk rate divided by the highest possi=
-ble=20
-divider.
-
-> +	/* Ensure proper data sampling point */
-> +	reg =3D readl_relaxed(qspi->io_base + ZX_QSPI_TIMING_REG);
-> +	if (!FIELD_GET(GENMASK(17, 16), reg)) {
-> +		reg |=3D FIELD_PREP(GENMASK(17, 16), 1);
-> +		writel_relaxed(reg, qspi->io_base + ZX_QSPI_TIMING_REG);
-> +	}
-
-I don't know what this is doing. Can you elaborate?
-
-Cheers,
-Stefan
-
---nextPartw_T8zL-ZTluB82Us-2CIWw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrWCeIbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoijXkP/32Re4QchJqG2fSsDvgO
-TLqGuFK4iM6eS1lxCZWBPQJSAk/bvub0FqnXzMPlGtcHj1wfg8BJCXs0yofwg+Lp
-JFgYu/TU6QYBX+qtnwl90wAyPL4Hs22SrDuUbiPbFw7jkmXqxyDfucsgrlsHSrMr
-wvny6/MopUMSNgCMwPjpRYaBmfR5FYtl43J1zxgxIcgGUlioEKdilb8FL0QEUvKe
-5eQw+itIq9+SMiO6p04eFvwWeGcdO6FKti/XrUu6U0/pAJ2wYLFeGSOh5olR3i03
-GgXIl+g+8RdxFF0hBuX31LhgTO6AriXSVXW39Jx8oKdRac28CxLhfQB3l0XURZ05
-+c71wQBpYDUYUdPZzwYGaAyyaaKz8ldui8Jh7+wAK+J9ib4bvR762iAqgLXV+s0T
-hl3A2d1NzNhT+lM6NdynCArkKiQNpOn3C6KHCDopiIaeUebmdWLFUb5bRJ75OMM4
-BDT9iGbsflZ8PUhgZaIdyTqAFygRB4ABwdSV2p5IkBjilf5lH+hQ5w3Xc5eUmMev
-jVvqVtKBW/4f9AVUoCPMyig5zqAtI7LZvlrgF+Ed4t98hWwYDcLtTRAh/R8I8sNh
-sg5QwgVW6r3DxNEpksJiVtL0acXeXejWvVdF7jIvAOv6OCrsT0T0b2JhdJfesqW2
-DLps6w2pKD7uEgXjorZZo5Xt
-=eb9e
------END PGP SIGNATURE-----
-
---nextPartw_T8zL-ZTluB82Us-2CIWw--
-
-
-
+> 
+> > 
+> > Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> > Reviewed-by: Hannes Reinecke <hare@suse.de>
+> > Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+> 
+> Besides the missing 'why', it looks good.
+> 
+> Reviewed-by: Daniel Wagner <dwagner@suse.de>
+> 
