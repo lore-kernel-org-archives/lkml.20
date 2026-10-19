@@ -1,487 +1,669 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE5253F9AB;
-	Mon, 19 Oct 2026 14:05:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657E162D319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:05:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418722; cv=none; b=YENZhJtmEqF5DmFr1KVLe5YvgB78rCkaiDsE821gX6orcg3gEGGEYj+xqOb/JmPXxo3c7dagYIzlOUHOxEREOSbzpkI+nLDinUSZPQisoQbk62ncXpEa/L/SF0QYHl1xPjJSnyDHQgMN8kzH0V0owowy1oda6tmwYQm3vajCaus=
+	t=1792418722; cv=none; b=FUSJDMuI0vZyOfEA23xl/owmPYoOafS7+QogLluuTiw7DnkSHA1O3HjUVSajstbvqc/dP5tQZk4xZcQWqtv7pfJo/LzOOGMlxvZWs3JFqqyCFN8UTBZT7ssAm0swCM9Yrp/D/wlTieQaqN/JMec6fZO7FwEfACHJOLrrbpjmwmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792418722; c=relaxed/simple;
-	bh=fpKt3M6Yb4rAuiuMk+ukdm6y9Uzj2EfKJngLWbZqIMs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NKY1lUzX+odaAmGWP54ybpw9o+tYTg5vpRknxQTt+N8AUEDzX4CEri/KunHDNBzp2QYd6br9C2k1nBrR4KcKxpsLqhG9icOe8EjbmCQvxtYDOb65l78gBij/uzwMAsnHd3mSSRXd6Mu9i7oUvm4Gfn8XD1CFBZNVLta5/y8zZ8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nk2nKAAA; arc=none smtp.client-ip=100.103.45.18
+	bh=tmEiYkXBJICbx9511/42bzdA+vfIAGw4IUISTCCAh4A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XMnBooc9EyPienerPm3w24erQjel7FNqoLlk8IBr15j26uKUaFK0XytqR+/SHRbYrjfg68hq4CIr1cdGz1CKAvMSJ2VLVVQO+2YYjcK42DlgP69KMUuKGkiD0+xMb98WCMFTLYNVKdg1oOF4nHdGxpbLYKOLdpgmnwDhq7CDZrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UIcyZhI4; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ahNAFgUj; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nk2nKAAA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578201F000C5;
-	Mon, 19 Oct 2026 14:05:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418719;
-	bh=+hcH1HiLgHTHuCm0DvzlFDDPUk0wpg9BqkPllEirZrE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nk2nKAAAfJRqHb3yMGbpYrSmumy52OMwELcgJ3AUd9jFnXJdOifg17KGD+dMJmoSt
-	 dlVVh7wRVY8dTc/lfjTTDmMGWoXYZeoXZjLBTUoDVoSH/48rHKMBBB5epixVDKZgYf
-	 c+7K1zdZSEaqasmCrzaQ2AigjMsCJ8ESsNxUKWziIk3pIS8mg3GMPx+KT+mKasFtw4
-	 x4Tj6Ipkqf446IvKVi4nTxzOxERaKDCdFM3xme3csoIlX2rXbfe4/DVelSDgM0RjMz
-	 c+aO86Nmv7l3Z4M9ZAfD9nF98nIqJcJCk29lfa6FZQrEZKoDS4k4bnkLWuVq4xwXFs
-	 pkX2Qx0POPtvQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Genjian Zhang <zhanggenjian@kylinos.cn>,
-	Yu Kuai <yukuai@fygo.io>,
-	Sasha Levin <sashal@kernel.org>,
-	song@kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] md/raid5: complete discard bios while reshape is active
-Date: Mon, 19 Oct 2026 09:52:18 -0400
-Message-ID: <20261019135441.1420968-447-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
-References: <20261019135441.1420968-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UIcyZhI4";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ahNAFgUj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792418716;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ezmLGOLVcnsCSf4Mk5iUqNISUf1eff4TWMy+ztjXUUY=;
+	b=UIcyZhI4CmEV6G++bdlFb8fbAns1uTUpcXHJPHa5/b9fmpyqNV2qix8vb2hx2ptoQA3Kpf
+	iT8toZoKirQefPkDDFg6Q5mGd1R67hLJsEj0WGJmhvSBhMDZkbGEdod0uAi06wu5Tr8Rbn
+	Etk4BLuWjfiIQHjtf2GQURB+/niU0d8=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-679-E8UfrFoCNJeiXOdwwCKV3A-1; Mon, 19 Oct 2026 14:05:14 +0000
+X-MC-Unique: E8UfrFoCNJeiXOdwwCKV3A-1
+X-Mimecast-MFC-AGG-ID: E8UfrFoCNJeiXOdwwCKV3A_1792418714
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c415561aaso1481573f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:05:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792418713; x=1793023513; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ezmLGOLVcnsCSf4Mk5iUqNISUf1eff4TWMy+ztjXUUY=;
+        b=ahNAFgUjB3BzLUSK9GEX2Kb44fpldDULpv9WujtHR9nbMAKPnNwMa5W5rtmh0UGJXC
+         722y60c5nqx7QdeqrbGqtEuBMBU9Ez7uZUr3TEXHL+I5OB3bfXWTHLxvz+bjoFnzVC1Q
+         e1++YpPbNdye9GT8T0K6SAl3C110qV/dYkN5LKNV8AKiiwK4SLzqN/mbIvN9vJYixuu4
+         p7AkeOUWc+XUL2S4wqLz57rHJYjnRfThr0DqZLeNpiOdbyvjrQTuqh/EHesMeXNr59nA
+         HasPL7y6Z701blEfIysBGA4AmcjrcImPGxuLyctGBSkA+jIY8HLkue3eyNGK1AdrQyuo
+         JRGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792418713; x=1793023513;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ezmLGOLVcnsCSf4Mk5iUqNISUf1eff4TWMy+ztjXUUY=;
+        b=NpZO29vUJL2uhBxMjeGXlSjFS2PkXdMV4Gg8JsmGzoF2TLPq1lmYXKGPV58XCDk7PS
+         29ok9Xc+X8MfJl+7gIZRY6WRsW2YUR3olUCnEc/4JxOgiKZdlOh0bxyo9XT3Ckwu8pUl
+         wDv8VYxQe9eNr9Vd7FlaThG5vHzf0BlT08bzKlOwBFOfuDTA5xtqW+fwOh3ITil7arE8
+         d8qPINWwGrsKdEVnSz4QhGsEeJSjyEwVn/E/EffrTGErx9k2z8q/knajW0eeArxfM7zo
+         O5yBAySR0qiZDB7ms8Iw3kAMLuIiDKK2P+yina6Hu06MATqzBmMxOiPV1ycYutKzgjzC
+         4/6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzHDGrKzSceHMk4KOGTedk1kP5ljHfKXsxohYTI10Sp85WLAsbh/+UeAuCtmSIC26l/lX/ZcIyDI7DYcn0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJzXPfinkOHvYO8nEQ7wkpj1OVaZGpzouUFt216+qKbO64UX6m
+	T8/xmBIozmCRk/+9jOcRYJZa8WeEmjwpYeYoZqIqcTH7/D5wS1tfDTUzG4lFZxARYCdJVYcvf8+
+	/6JGo4y2hHQiox2euA50aDvYxP49lz7+uTIIFeU7+JHaPdsHwnaxv45P/bE7sKnFaHg==
+X-Gm-Gg: AYBFou2tYfwtjmxwyu2IpFOm/M0205hMkhKwVYEwG7PqxIxwngd6TBRsW+JAVrXi8AT
+	bu37XiJCz+tCG34GB9WXo0gHGrOIB0C3+R8pVVtAXZjOan5u9k6Lt3DRftObyyP+FcicgQAMd4s
+	p87YFqSKiN3A2tjlvd0e6PCXURGDRuKBNIlVZ8yeaAVg6TtSnq9ffxU5d+ZxUElcCexJu19g6qq
+	2YVGZQ627tEhQGjs2xpSOnoKteDLjN47WVxLDRjXgii+EMHmy+NhwqGgnGdnPFI+RPSxOVofsjq
+	oARcQYiC9GfGhD5q+coJhoe+3HhRAwpMUMlPeDVYM0Q4Ighm90LjpsoUj8nDGi3IdFi47FPsgq5
+	dtdtI
+X-Received: by 2002:a05:600c:4f92:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4a1d76120c4mr175541675e9.23.1792418713183;
+        Mon, 19 Oct 2026 07:05:13 -0700 (PDT)
+X-Received: by 2002:a05:600c:4f92:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4a1d76120c4mr175540065e9.23.1792418712391;
+        Mon, 19 Oct 2026 07:05:12 -0700 (PDT)
+Received: from sgarzare-redhat ([193.207.74.151])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cbedb6f7sm306709635e9.2.2026.10.19.07.05.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 07:05:11 -0700 (PDT)
+Date: Mon, 19 Oct 2026 16:05:04 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Jia Jia <physicalmtea@gmail.com>
+Cc: stefanha@redhat.com, mst@redhat.com, jasowangio@gmail.com, 
+	eperezma@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bobbyeshleman@gmail.com
+Subject: Re: [PATCH net-next v4 2/4] vsock/virtio: amortize RX socket locking
+ for stream packets
+Message-ID: <atYiS6jfctHKksVM@sgarzare-redhat>
+References: <20261014115640.184286-1-physicalmtea@gmail.com>
+ <20261014115640.184286-3-physicalmtea@gmail.com>
+ <atIrLeH8uOCHxsbv@sgarzare-redhat>
+ <CAJwVaMJsBKZSVwaJqTEU_GCFrc2q7dEghMTykR5Jgrj+dv45=w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.57
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Genjian Zhang <zhanggenjian@kylinos.cn>
-
-[ Upstream commit 85764f475f3b3abd956bf8eaeaa643b367676cf4 ]
-
-make_discard_request() returns without completing the bio when reshape
-is in progress. Discard callers block in submit_bio_wait()
-waiting for a completion that never arrives.  The caller hangs in
-uninterruptible sleep, and this does not resolve when reshape finishes.
-
-Complete the bio with BLK_STS_AGAIN so userspace can retry after reshape,
-consistent with the existing policy of not processing discard during
-reshape.
-
-Tested on a loop-backed RAID5 array during mdadm --grow: without this
-patch, blkdiscard hangs in bio_await() and remains in uninterruptible
-sleep after md reports "reshape done"; with this patch it returns
--EAGAIN instead.
-
-Signed-off-by: Genjian Zhang <zhanggenjian@kylinos.cn>
-Reviewed-by: Yu Kuai <yukuai@fygo.io>
-Link: https://patch.msgid.link/20260711161326.962336-1-zhanggenjian@126.com
-Signed-off-by: Yu Kuai <yukuai@fygo.io>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-This tree is **6.1.188**. The reshape discard hang is present here; the
-fix is a small completion of an otherwise leaked bio.
-
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
-
-Step 1.1: PARSE THE SUBJECT LINE
-Record: `[md/raid5] [complete] complete discard bios while reshape is
-active`
-
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-Record:
-- Signed-off-by: Genjian Zhang <zhanggenjian@kylinos.cn> (author)
-- Reviewed-by: Yu Kuai <yukuai@fygo.io> (applied the patch to md-7.3)
-- Link:
-  https://patch.msgid.link/20260711161326.962336-1-zhanggenjian@126.com
-- Signed-off-by: Yu Kuai <yukuai@fygo.io> (maintainer tree)
-- No Fixes: tag (expected)
-- No Cc: stable (expected)
-- No Reported-by / Tested-by / Acked-by
-- Ignore pipeline SOBs
-
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
-Record:
-- Bug: `make_discard_request()` returns without `bio_endio()` when
-  `mddev->reshape_position != MaxSector`.
-- Symptom: discard callers (`submit_bio_wait()` / `blkdiscard`) sleep in
-  D-state forever. Hang survives reshape completion.
-- Root cause: early return that skips completion; the bio is never
-  finished.
-- Fix: complete with `BLK_STS_AGAIN` so userspace gets `-EAGAIN` and can
-  retry after reshape.
-- Author tested loop-backed RAID5 during `mdadm --grow`.
-
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not hidden. This is an explicit hang fix (bio never completed).
-
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
-
-Step 2.1: INVENTORY THE CHANGES
-Record:
-- File: `drivers/md/raid5.c` only
-- Scope: surgical, one function (`make_discard_request`)
-- Candidate form: early `return` → `goto complete_again`; success-path
-  `bio_endio` gets an explicit `return`; new label calls
-  `bio_endio_status(bi, BLK_STS_AGAIN)`
-- Mailing-list v1 (what Yu Kuai applied): 3 insertions / 1 deletion,
-  inline `bio_endio_status` before `return`. Same behavior.
-
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record:
-- Before: reshape active → return, bio left outstanding.
-- After: reshape active → complete bio with `BLK_STS_AGAIN`.
-- Path: discard submit during reshape (admin `blkdiscard` / `fstrim` /
-  FS discard).
-- Success path unchanged (`bio_endio(bi)` still runs).
-
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record:
-- Category: logic / resource-completion bug → uninterruptible hang
-- Mechanism: bio remaining count never reaches zero; `submit_bio_wait()`
-  sits in `wait_for_completion_io()`.
-- Fix: complete the bio with a retryable status instead of dropping it.
-
-Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- Obviously correct: every bio must be completed; this path did not.
-- Minimal: a few lines, one function.
-- Regression: callers see `-EAGAIN` instead of hanging.
-  `blkdev_issue_discard()` maps `-EOPNOTSUPP` to success, so
-  `BLK_STS_NOTSUPP` would lie; `BLK_STS_AGAIN` is the right retry
-  signal. Header comment says `BLK_STS_AGAIN` is for NOWAIT; maintainer
-  still accepted this, and the author showed `NOTSUPP` would look like a
-  successful discard.
-- Red flags: none on the hang fix itself. Helper `bio_endio_status()` is
-  missing in 6.1 (backport uses existing `bio->bi_status` +
-  `bio_endio()`).
-
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
-
-Step 3.1: BLAME THE CHANGED LINES
-Record:
-- Introducer: `620125f2bf8ff0` “MD: raid5 trim support” (Shaohua Li,
-  2012-10-11).
-- The skip-without-complete has been in tree since RAID5 discard was
-  added.
-- Present in this 6.1 checkout at `drivers/md/raid5.c:5809-5811`.
-
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes: tag. Introducer confirmed via blame + `git merge-base
---is-ancestor 620125f2bf8ff0 HEAD`.
-
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- Recent `raid5.c` work is other hang/lockup fixes, not this discard
-  skip.
-- `git log --grep='complete discard'` / `'discard bios while reshape'`
-  on `drivers/md/`: not in this tree.
-- Standalone patch (not `N/M`).
-
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record:
-- Genjian Zhang: not an MD regular in this tree.
-- Yu Kuai: frequent MD contributor here (`md/raid5: account discard IO`,
-  `fix IO hang when array is broken with IO inflight`, etc.) and applied
-  this to md-7.3.
-
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record:
-- Functional dependency: none. Completing the bio does not need later
-  RAID5 refactoring.
-- `bio_endio_status()` is absent in 6.1; equivalent is already used
-  (`bio_wouldblock_error()`, `bio->bi_status = ...; bio_endio()`).
-- `raid5_discard_limits()` is context from later mainline, not used by
-  the fix. Not in 6.1.
-- Applies standalone with a 2-line helper substitution.
-
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
-
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- Lore/msgid: `20260711161326.962336-1-zhanggenjian@126.com`
-- `b4 mbox`: 6-message thread, standalone v1 (no v2).
-- Recipients: Song Liu, Yu Kuai, linux-raid, linux-kernel.
-- Yu Kuai 2026-07-19: Reviewed-by; leave REQ_NOWAIT hang (nowait being
-  removed in mainline).
-- Yu Kuai 2026-07-31: “Rebase and applied to md-7.3”.
-- Author: no v2 for REQ_NOWAIT.
-- No NAK. No reviewer `Cc: stable`.
-- Sashiko bot: (1) REQ_NOWAIT also leaks the bio (pre-existing); (2)
-  `BLK_STS_AGAIN` on blocking bios.
-- Author: NOTSUPP is wrong (discard is supported, just not during
-  reshape); `blkdev_issue_discard()` treats `-EOPNOTSUPP` as success, so
-  NOTSUPP would report success with no discard; `BLK_STS_AGAIN` matches
-  raid10’s discard-during-reshape `-EAGAIN` policy.
-
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record: MD maintainers CC’d (Song Liu, Yu Kuai). Yu Kuai reviewed and
-applied. Song Liu did not comment in the thread.
-
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No bugzilla/syzbot. Author reproduced with `blkdiscard` during
-`mdadm --grow` on loop RAID5. Hang remained after “reshape done”.
-
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Standalone. REQ_NOWAIT leak left unfixed on maintainer request
-(mainline nowait removal). In 6.1 that WARN_ON_ONCE return without
-`bio_endio` is still present; it is a separate, rarer path.
-
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: No stable-list discussion found for this subject. Absence of
-`Cc: stable` is expected for this review pipeline.
-
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `make_discard_request()` only.
-
-Step 5.2: TRACE CALLERS
-Record:
-- Only caller: `raid5_make_request()` when `bio_op(bi) ==
-  REQ_OP_DISCARD` (`drivers/md/raid5.c:6175-6178`).
-- After the call: `md_write_end(mddev)` always runs, so write accounting
-  stays balanced if the bio is completed with error.
-- Context: MD make_request from `submit_bio` / `submit_bio_wait`.
-
-Step 5.3: TRACE CALLEES
-Record: On the buggy skip path, no stripe work, no `bio_inc_remaining`,
-no bitmap. Completing the original bio is sufficient. Success path still
-ends with `bio_endio(bi)` after stripe setup.
-
-Step 5.4: FOLLOW THE CALL CHAIN
-Record:
-```
-blkdiscard / FITRIM / FS discard
-  → blkdev_issue_discard() / sb_issue_discard()
-  → submit_bio_wait()  [wait_for_completion_io, uninterruptible]
-  → raid5_make_request()
-  → make_discard_request()
-  → return without bio_endio  [BUG]
-```
-Reachable from userspace on a RAID5/6 array with discard enabled. Needs
-admin (BLKDISCARD / fstrim), not an unprivileged syscall gadget.
-
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record:
-- Same file still has REQ_NOWAIT `WARN_ON_ONCE` then `return` without
-  completing (6.1-only leftover).
-- RAID10 already returns `-EAGAIN` for discard during reshape
-  (`raid10_handle_discard`, `drivers/md/raid10.c:1653-1654`) and
-  completes NOWAIT discards with `bio_wouldblock_error()`.
-- `raid5_make_request` already uses `bio_wouldblock_error()` for NOWAIT
-  vs reshape on normal I/O (`:6193-6201`). Discard skipped that pattern.
-
-No semcode MCP in this environment; callers/callees from `rg` + reading
-the functions.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes.
-
-```5809:5811:drivers/md/raid5.c
-        if (mddev->reshape_position != MaxSector)
-                /* Skip discard while reshape is happening */
-                return;
-```
-
-- Tree: `p-6.1-11-g10bc6eb33d95f`, `make kernelversion` → 6.1.188.
-- Bug since 2012 (`620125f2bf8ff0`), ancestor of HEAD.
-
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Needs a small backport, not a rework.
-- No `bio_endio_status()` in 6.1 → `bi->bi_status = BLK_STS_AGAIN;
-  bio_endio(bi);` (or `bio_wouldblock_error(bi)`).
-- No `raid5_discard_limits()` (later context only).
-- 6.1 still has the REQ_NOWAIT warning above the reshape check; leave it
-  (out of scope of this commit).
-- Expected difficulty: minor context/helper adjustment.
-
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: This hang is not fixed. Discard still disabled by default
-(`devices_handle_discard_safely = false`), but the hang exists whenever
-that param is set and discard is issued during reshape.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: MD RAID5/6 (`drivers/md/raid5.c`). IMPORTANT: not core VFS/mm,
-but widely used for storage. RAID5 reshape (`mdadm --grow`) is a
-supported production operation.
-
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Active in this tree (recent hang, lockup, discard accounting
-fixes). Yu Kuai is a regular MD committer here. Official maintainer in
-MAINTAINERS: Song Liu.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: RAID5/6 users who enabled discard
-(`raid456.devices_handle_discard_safely=Y`) and run discard
-(`blkdiscard`, `fstrim`, mount-time/online discard) while reshape is
-active. Config- and workload-specific, not universal.
-
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record:
-- Trigger: discard bio while `reshape_position != MaxSector`.
-- How common: reshape is infrequent; overlap with `fstrim.timer` / admin
-  trim is realistic on SSD RAID.
-- Unprivileged: typically no (needs write on the device /
-  CAP_SYS_ADMIN). Still a production hang for admins and FS discard from
-  `fstrim`/ext4/xfs/f2fs (those use `blkdev_issue_discard` →
-  `submit_bio_wait`).
-
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record:
-- Failure: uninterruptible sleep (`wait_for_completion_io`) that does
-  **not** clear when reshape finishes. Process is unkillable; hung-task
-  warnings; reboot to recover.
-- Severity: **CRITICAL** for the affected path (hang), even though the
-  feature is opt-in.
-
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- Benefit: high for RAID5/6 + discard + reshape (unkillable hang →
-  `-EAGAIN`).
-- Risk: very low (few lines, error-only path, no new API, no
-  locking/data-structure change). Worst case: discard fails with
-  `-EAGAIN` instead of hanging.
-- Ratio: strongly favors backport.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-Step 9.1: COMPILE THE EVIDENCE
-
-FOR:
-- Real, tested uninterruptible hang; does not self-resolve after
-  reshape.
-- Small, obviously correct: complete a bio that was leaked.
-- Buggy code present in this 6.1 tree since 2012.
-- Maintainer Reviewed-by and applied (Yu Kuai, md-7.3).
-- `BLK_STS_AGAIN` avoids the `-EOPNOTSUPP`→success lie in
-  `blkdev_issue_discard()`.
-- Matches “complete with retryable error” rather than silent drop.
-- Callers (`blkdev_issue_discard`, FITRIM, `sb_issue_discard`) all wait
-  on completion.
-
-AGAINST:
-- Discard off by default (`devices_handle_discard_safely`).
-- Exact mainline helper `bio_endio_status()` missing (trivial substitute
-  exists).
-- `BLK_STS_AGAIN` is documented as NOWAIT-oriented; maintainer accepted
-  it anyway.
-- No `Cc: stable` (not a negative for this process).
-
-UNRESOLVED:
-- Could not use `b4 dig -c <sha>` (commit not in this checkout). Thread
-  recovered via msgid/`b4 mbox`.
-- No stable-list thread found.
-
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — missing `bio_endio` is the
-   hang; author tested `blkdiscard` vs reshape; Yu Kuai reviewed.
-2. Fixes a real bug that affects users? **PASS** — D-state hang on
-   discard during reshape.
-3. Important issue? **PASS** — unkillable hang / hung task (CRITICAL on
-   that path).
-4. Small and contained? **PASS** — one function, a few lines.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** with a trivial backport
-   (`bio_endio_status` → set `bi_status` + `bio_endio`).
-
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: Not an ID/quirk/DT/docs exception. Ordinary hang fix.
-
-Step 9.4: MAKE YOUR DECISION
-Backport to this 6.1 tree. The hang is in this code, the fix is
-surgical, and the only adjustment is how to set bio status without
-`bio_endio_status()`.
-
-Verification:
-- [Phase 1] Subject/tags/body from the candidate message and lore mbox;
-  hang + `-EAGAIN` policy confirmed.
-- [Phase 2] Diff: reshape early-return without completion → `bio_endio`
-  with `BLK_STS_AGAIN`.
-- [Phase 3] `git blame` `raid5.c:5809-5811` → `620125f2bf8ff0` (2012);
-  `git merge-base --is-ancestor` true; fix not in this tree.
-- [Phase 3] `git log --grep` on `drivers/md/` for this subject: empty.
-- [Phase 4] `b4 mbox` msgid
-  `20260711161326.962336-1-zhanggenjian@126.com`: 6 msgs; Yu Kuai
-  Reviewed-by + applied md-7.3; author rationale for AGAIN vs NOTSUPP.
-- [Phase 4] Openwall/LKML mirrors match the patch; lore.kernel.org fetch
-  403 (Anubis); thread obtained via b4.
-- [Phase 5] `rg make_discard_request`: only `raid5_make_request`.
-  `submit_bio_wait` uses `wait_for_completion_io`.
-  `blkdev_issue_discard` treats only `-EOPNOTSUPP` as 0.
-- [Phase 5] RAID10 already returns `-EAGAIN` for discard during reshape
-  (`raid10.c:1653-1654`).
-- [Phase 6] `git describe HEAD` → `p-6.1-11-g10bc6eb33d95f`; `make
-  kernelversion` → 6.1.188. Buggy return present. `bio_endio_status` /
-  `raid5_discard_limits` absent.
-- [Phase 6] Equivalent completion: `include/linux/bio.h`
-  `bio_wouldblock_error()` / `BLK_STS_AGAIN`.
-- [Phase 7] MAINTAINERS: Song Liu / linux-raid; Yu Kuai active on
-  `drivers/md/raid5.c` in this tree.
-- [Phase 8] Failure mode: D-state hang until reboot; discard opt-in via
-  `devices_handle_discard_safely`.
-- UNVERIFIED: whether some later mainline commit renamed the helper-only
-  form to the `goto complete_again` form (functionally equivalent).
-
-The hang is real in 6.1, the fix is a few lines, and a missing helper is
-not a reason to leave an unkillable discard stall in place.
-
-**YES**
-
- drivers/md/raid5.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index 2817cd7d197e9..b7da2b83e1938 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -5707,8 +5707,7 @@ static void make_discard_request(struct mddev *mddev, struct bio *bi)
- 	int stripe_sectors;
- 
- 	if (mddev->reshape_position != MaxSector)
--		/* Skip discard while reshape is happening */
--		return;
-+		goto complete_again;
- 
- 	stripe_sectors = conf->chunk_sectors *
- 		(conf->raid_disks - conf->max_degraded);
-@@ -5786,6 +5785,11 @@ static void make_discard_request(struct mddev *mddev, struct bio *bi)
- 	}
- 
- 	bio_endio(bi);
-+	return;
-+
-+complete_again:
-+	/* Skip discard while reshape is happening */
-+	bio_endio_status(bi, BLK_STS_AGAIN);
- }
- 
- static bool ahead_of_reshape(struct mddev *mddev, sector_t sector,
--- 
-2.53.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <CAJwVaMJsBKZSVwaJqTEU_GCFrc2q7dEghMTykR5Jgrj+dv45=w@mail.gmail.com>
+
+On Sun, Oct 18, 2026 at 12:52:36PM +0800, Jia Jia wrote:
+>>
+>> On Wed, Oct 14, 2026 at 07:56:38PM +0800, Jia Jia wrote:
+>> >The virtio-vsock RX worker currently looks up the socket and takes its
+>> >lock for every packet. Keep the socket lock and lookup reference across a
+>> >bounded run of STREAM/RW packets for the same established socket.
+>> >
+>> >Reuse the locked socket while packets continue to match the same flow.
+>> >End the batch for a different flow, non-RW traffic, malformed packets, or
+>> >a change in socket state, transport, protocol, or receive-buffer headroom.
+>> >A connected-table miss uses the existing receive path.
+>> >
+>> >The reused path still traces every packet, takes an skb owner reference,
+>> >validates the source and transport, updates credit, and runs the existing
+>> >receive state machine.
+>> >
+>> >Sockmap can replace the protocol without taking the socket lock. Check the
+>> >psock marker at each packet boundary and serialize initial admission with
+>> >sk_callback_lock, so a concurrent attach ends batching at the next packet.
+>> >
+>> >Cap a batch at 64 packets and 64K of payload. The packet limit bounds
+>>
+>> Why this cap?
+>>
+>
+>The 64 KiB limit was chosen to bound one uninterrupted socket-lock
+>ownership interval to one VIRTIO_VSOCK_MAX_PKT_BUF_SIZE worth of
+>payload. For small or zero-length packets, the byte limit alone would
+>not bound the per-packet work, so a separate packet limit is needed. I
+>chose 64 packets as an initial batch size, using VHOST_NET_BATCH as a
+>reference. It is a policy choice rather than a protocol requirement.
+>
+>Beyond these limits, a larger batch would only further amortize the
+>socket lookup and lock/unlock operations, while the virtqueue,
+>validation, tracing, skb ownership, credit update, and queueing work
+>remains per-packet. I therefore expect diminishing returns while the
+>uninterrupted socket-lock interval continues to grow, but I have not
+>measured larger limits yet.
+
+A summary of this should be included in the commit message and where we 
+define the cap in the code.
+
+>
+>> >per-packet work, while the byte limit bounds how much data can queue before
+>> >a reader acquires the socket lock. Batching remains in the process-context
+>> >RX worker.
+>>
+>> IMHO this patch should carry performance results.
+>>
+>
+>Sure, I'll include the relevant Patch 1 - Patch 2 cumulative
+>performance results in this commit message in v5.
+>
+>> >
+>> >Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+>> >---
+>> > include/linux/virtio_vsock.h            |  11 ++
+>> > net/vmw_vsock/virtio_transport.c        |  29 +++-
+>>
+>> Why no changes in vhost-vsock or vsock_loopback?
+>>
+>> I'm not asking to do that, I'd like to understand why only in the
+>> driver.
+>>
+>
+>I have not yet measured the corresponding worker and socket-lock
+>overhead in vhost-vsock or vsock_loopback, and they have different
+>worker and locking models, so I left those paths unchanged. I plan to
+>evaluate vhost-vsock separately as follow-up work.
+
+Please mention this in the commit.
+
+>
+>
+>> > net/vmw_vsock/virtio_transport_common.c | 183 +++++++++++++++++++++++-
+>> > 3 files changed, 216 insertions(+), 7 deletions(-)
+>> >
+>> >diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+>> >index f91704731057e..26dde6909c4ed 100644
+>> >--- a/include/linux/virtio_vsock.h
+>> >+++ b/include/linux/virtio_vsock.h
+>> >@@ -282,6 +282,17 @@ void virtio_transport_destruct(struct vsock_sock *vsk);
+>> >
+>> > void virtio_transport_recv_pkt(struct virtio_transport *t,
+>> >                              struct sk_buff *skb, struct net *net);
+>> >+
+>> >+struct virtio_transport_rx_batch {
+>> >+      struct sock *sk;
+>> >+      unsigned int pkts;
+>> >+      size_t bytes;
+>> >+};
+>> >+
+>> >+void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+>> >+                                   struct sk_buff *skb, struct net *net,
+>> >+                                   struct virtio_transport_rx_batch *batch);
+>> >+void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch);
+>> > void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *skb);
+>> > u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
+>> > void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
+>> >diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+>> >index 4f9aa9c4c3aa5..ef076732158d4 100644
+>> >--- a/net/vmw_vsock/virtio_transport.c
+>> >+++ b/net/vmw_vsock/virtio_transport.c
+>> >@@ -629,8 +629,16 @@ virtio_transport_seqpacket_allow(struct vsock_sock *vsk, u32 remote_cid)
+>> >       return seqpacket_allow;
+>> > }
+>> >
+>> >+/*
+>> >+ * Keep a bounded run of packets for one socket under a single socket lock.
+>> >+ * Limit packet count and payload size to bound the work done while locked.
+>>
+>> Here we should explain why we choose these values.
+>>
+>
+>I'll update the comment here in v5 to explain why the 64-packet and 64
+>KiB thresholds were chosen.
+
+Yeah, exactly, thanks!
+
+>
+>> >+ */
+>> >+#define VIRTIO_TRANSPORT_RX_BATCH_MAX_PKTS    64
+>> >+#define VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES   (64 * 1024)
+>> >+
+>> > static void virtio_transport_rx_work(struct work_struct *work)
+>> > {
+>> >+      struct virtio_transport_rx_batch batch = {};
+>> >       struct virtio_vsock *vsock =
+>> >               container_of(work, struct virtio_vsock, rx_work);
+>> >       struct virtqueue *vq;
+>> >@@ -666,6 +674,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>> >                       /* Drop short/long packets */
+>> >                       if (unlikely(len < sizeof(*hdr) ||
+>> >                                    len > virtio_vsock_skb_len(skb))) {
+>> >+                              virtio_transport_rx_batch_finish(&batch);
+>> >                               kfree_skb(skb);
+>> >                               continue;
+>> >                       }
+>> >@@ -673,6 +682,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>> >                       hdr = virtio_vsock_hdr(skb);
+>> >                       payload_len = le32_to_cpu(hdr->len);
+>> >                       if (unlikely(payload_len > len - sizeof(*hdr))) {
+>> >+                              virtio_transport_rx_batch_finish(&batch);
+>> >                               kfree_skb(skb);
+>> >                               continue;
+>> >                       }
+>> >@@ -680,16 +690,33 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>> >                       if (payload_len)
+>> >                               virtio_vsock_skb_put(skb, payload_len);
+>> >
+>> >+                      if (batch.sk &&
+>> >+                          payload_len > VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES -
+>> >+                                        batch.bytes) {
+>>
+>> Why this?
+>>
+>>
+>
+>This pre-check ends the current batch before admitting a packet whose
+>payload would push it past the byte limit. The post-processing check
+>can end the
+>batch only after that packet has already been processed, so it cannot
+>enforce the limit by itself. I'll encapsulate and document this in the
+>common
+>batching code.
+
+Yes, please.
+
+>
+>> >+                              virtio_transport_rx_batch_finish(&batch);
+>> >+                      }
+>> >+
+>> >                       virtio_transport_deliver_tap_pkt(skb);
+>> >
+>> >                       /* Force virtio-transport into global mode since it
+>> >                        * does not yet support local-mode namespacing.
+>> >                        */
+>> >-                      virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
+>> >+                      virtio_transport_recv_pkt_batch(&virtio_transport, skb, NULL,
+>> >+                                                      &batch);
+>> >+
+>> >+                      if (batch.sk) {
+>> >+                              batch.pkts++;
+>> >+                              batch.bytes += payload_len;
+>> >+                              if (batch.pkts >= VIRTIO_TRANSPORT_RX_BATCH_MAX_PKTS ||
+>> >+                                  batch.bytes >= VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES) {
+>> >+                                      virtio_transport_rx_batch_finish(&batch);
+>> >+                              }
+>> >+                      }
+>>
+>> Why this is not in the common part?
+>>
+>
+>I put this in the driver because it owns the RX loop and its work
+>budget. But I agree that having the caller manipulate the batch
+>counters and active
+>state makes the interface harder to follow. I'll move the accounting
+>and limit checks into the common batching code in v5.
+>
+>> >               }
+>> >       } while (!virtqueue_enable_cb(vq));
+>> >
+>> > out:
+>> >+      virtio_transport_rx_batch_finish(&batch);
+>> >       if (vsock->rx_buf_nr < vsock->rx_buf_max_nr / 2)
+>> >               virtio_vsock_rx_fill(vsock);
+>> > out_nofill:
+>> >diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+>> >index 61ee3bc205d5d..ff74e805527a5 100644
+>> >--- a/net/vmw_vsock/virtio_transport_common.c
+>> >+++ b/net/vmw_vsock/virtio_transport_common.c
+>> >@@ -576,11 +576,16 @@ virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs,
+>> >       skb_queue_splice(&new_queue, &vvs->rx_queue);
+>> > }
+>> >
+>> >+static bool
+>> >+virtio_transport_rx_skb_has_headroom(struct virtio_vsock_sock *vvs)
+>> >+{
+>> >+      return (u64)(skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0) <=
+>> >+              vvs->buf_alloc;
+>> >+}
+>>
+>> Please move this change in a separate patch.
+>>
+>> skb_has_headroom() is confusing IMO, maybe
+>> virtio_transport_rx_buf_full(), but reversing the return value, so
+>> keeping the same check as before.
+>>
+>
+>Sure, I'll move this into a separate preparatory patch
+>
+>> >+
+>> > static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
+>> >                                       u32 len)
+>> > {
+>> >-      u64 skb_overhead = (skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0);
+>> >-
+>> >       /* Allow at most buf_alloc * 2 total budget (payload + overhead),
+>> >        * similar to how SO_RCVBUF is doubled to reserve space for sk_buff
+>> >        * metadata. Check payload against buf_alloc to be sure the other
+>> >@@ -588,7 +593,7 @@ static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
+>> >        * queue growth.
+>> >        */
+>> >       if ((u64)vvs->buf_used + len > vvs->buf_alloc ||
+>> >-          skb_overhead > vvs->buf_alloc)
+>> >+          !virtio_transport_rx_skb_has_headroom(vvs))
+>> >               return false;
+>> >
+>> >       vvs->rx_bytes += len;
+>> >@@ -1798,12 +1803,38 @@ virtio_transport_find_socket(struct sk_buff *skb, struct sockaddr_vm *src,
+>> >       return sk;
+>> > }
+>> >
+>> >+static bool
+>> >+virtio_transport_sock_has_psock(const struct sock *sk)
+>> >+{
+>> >+      return (uintptr_t)rcu_access_pointer(__sk_user_data(sk)) &
+>> >+             SK_USER_DATA_PSOCK;
+>> >+}
+>> >+
+>> >+static bool
+>> >+virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
+>> >+                                  struct sock *sk)
+>> >+{
+>> >+      struct vsock_sock *vsk = vsock_sk(sk);
+>> >+      struct virtio_vsock_sock *vvs = vsk->trans;
+>> >+
+>>
+>> A comment here to explain why some checks like...
+>>
+>
+>I'll add why-focused comments for the condition groups in v5.
+>
+>> >+      return sk->sk_state == TCP_ESTABLISHED &&
+>> >+             sk->sk_type == SOCK_STREAM &&
+>> >+             READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
+>> ... this       ^
+>>
+>> I mean in general to explain better these conditions (I mean not a
+>> description of what we are doing, but why we are doing these checks).
+>>
+>
+>I'll add comments explaining these reasons.
+>
+>> >+             !sock_flag(sk, SOCK_DONE) &&
+>> >+             vsk->transport == &t->transport &&
+>> >+             vvs && virtio_transport_rx_skb_has_headroom(vvs) &&
+>> >+             !virtio_transport_sock_has_psock(sk);
+>> >+}
+>> >+
+>> > /*
+>> >- * The caller holds sk's socket lock and must free skb if this returns true.
+>> >+ * The caller holds sk's socket lock.  Set @batchable if the socket can remain
+>> >+ * locked for another ordinary STREAM/RW packet.  Return true if the caller
+>> >+ * must free @skb.
+>> >  */
+>> > static bool
+>> > virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+>> >-                               struct sk_buff *skb, struct sock *sk)
+>> >+                               struct sk_buff *skb, struct sock *sk,
+>> >+                               bool *batchable)
+>> > {
+>> >       struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+>> >       struct sockaddr_vm src;
+>> >@@ -1813,6 +1844,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+>> >       vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
+>> >                       le32_to_cpu(hdr->src_port));
+>> >
+>> >+      if (batchable)
+>> >+              *batchable = false;
+>> >+
+>> >       /* Listener sockets accept packets from any source and are not assigned to
+>> >        * a transport.
+>> >        */
+>> >@@ -1854,6 +1888,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+>> >               break;
+>> >       }
+>> >
+>> >+      if (batchable)
+>> >+              *batchable = virtio_transport_recv_pkt_batchable(t, sk);
+>> >+
+>> >       return false;
+>> > }
+>> >
+>> >@@ -1894,7 +1931,7 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
+>> >       }
+>> >
+>> >       lock_sock(sk);
+>> >-      free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk);
+>> >+      free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, NULL);
+>> >       release_sock(sk);
+>> >
+>> >       /* Release refcnt obtained when we fetched this socket out of the
+>> >@@ -1910,6 +1947,140 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
+>> > }
+>> > EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
+>> >
+>> >+/*
+>> >+ * Finish the RX batch.
+>> >+ * For a non-empty batch, the caller must hold the socket lock acquired with
+>> >+ * lock_sock(). This function releases the lock and the batch's lookup
+>> >+ * reference.
+>> >+ * An empty batch is a no-op.
+>>
+>> What empty batch means, I mean how the caller can understand that a
+>> batch is empty?
+>>
+>> Maybe we should provide a function for that...
+>>
+>
+>I'll add virtio_transport_rx_batch_empty() and document the
+>associated socket-lock and lookup-reference ownership.
+>
+>> >+ */
+>> >+void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
+>> >+{
+>> >+      struct sock *sk = batch->sk;
+>> >+
+>> >+      batch->sk = NULL;
+>> >+      batch->pkts = 0;
+>> >+      batch->bytes = 0;
+>> >+
+>> >+      if (!sk)
+>> >+              return;
+>> >+
+>> >+      release_sock(sk);
+>> >+      sock_put(sk);
+>> >+}
+>> >+EXPORT_SYMBOL_GPL(virtio_transport_rx_batch_finish);
+>> >+
+>> >+void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+>> >+                                   struct sk_buff *skb, struct net *net,
+>> >+                                   struct virtio_transport_rx_batch *batch)
+>> >+{
+>> >+      struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+>> >+      struct sockaddr_vm src, dst;
+>> >+      struct vsock_sock *vsk;
+>> >+      bool batchable, start_batch;
+>>
+>> Ditto about declarations order, please check in the entire series.
+>>
+>
+>Right, I missed this one too. I'll check and fix the declaration
+>ordering throughout the entire series in v5.
+>
+>> >+      struct sock *sk;
+>> >+      bool free_pkt;
+>> >+
+>> >+      /* Only STREAM/RW packets can share a socket lock. */
+>>
+>> Why?
+>>
+>> Should the caller holds the lock for the entire batch?
+>> Should this be documented?
+>>
+>
+>Yes. Once a batch is started, the receive helper returns with the
+>socket lock and lookup reference held, and the same caller retains
+>them until it calls the finish helper. That ownership contract is not
+>clear enough in the current interface, and I'll document it in the
+>public API in v5.
+>
+>
+>> >+      if (le16_to_cpu(hdr->type) != VIRTIO_VSOCK_TYPE_STREAM ||
+>> >+          le16_to_cpu(hdr->op) != VIRTIO_VSOCK_OP_RW) {
+>> >+              virtio_transport_rx_batch_finish(batch);
+>> >+              virtio_transport_recv_pkt(t, skb, net);
+>> >+              return;
+>> >+      }
+>> >+
+>> >+      vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
+>> >+                      le32_to_cpu(hdr->src_port));
+>> >+      vsock_addr_init(&dst, le64_to_cpu(hdr->dst_cid),
+>> >+                      le32_to_cpu(hdr->dst_port));
+>> >+
+>> >+      if (batch->sk) {
+>> >+              vsk = vsock_sk(batch->sk);
+>> >+              if (vsock_addr_equals_addr(&src, &vsk->remote_addr) &&
+>> >+                  dst.svm_port == vsk->local_addr.svm_port &&
+>> >+                  vsock_net_check_mode(sock_net(batch->sk), net) &&
+>> >+                  virtio_transport_recv_pkt_batchable(t, batch->sk)) {
+>> >+                      sk = batch->sk;
+>> >+                      trace_virtio_transport_recv_pkt(src.svm_cid,
+>> >+                                                      src.svm_port,
+>> >+                                                      dst.svm_cid,
+>> >+                                                      dst.svm_port,
+>> >+                                                      le32_to_cpu(hdr->len),
+>> >+                                                      le16_to_cpu(hdr->type),
+>> >+                                                      le16_to_cpu(hdr->op),
+>> >+                                                      le32_to_cpu(hdr->flags),
+>> >+                                                      le32_to_cpu(hdr->buf_alloc),
+>> >+                                                      le32_to_cpu(hdr->fwd_cnt));
+>> >+                      if (!skb_set_owner_sk_safe(skb, sk)) {
+>> >+                              WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
+>> >+                              virtio_transport_rx_batch_finish(batch);
+>> >+                              kfree_skb(skb);
+>> >+                              return;
+>> >+                      }
+>> >+
+>>
+>> This code is unreadable TBH, there isn't a blank line till here...
+>> and too much nested blocks.
+>>
+>> Maybe you should move this in a function, and use a bit more blank lines.
+>>
+>>
+>
+>I'll move the active-batch path into a helper, reduce the nesting with
+>early returns, and add blank lines between the logical steps.
+>
+>
+>> >+                      free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk,
+>> >+                                                                  &batchable);
+>> >+                      if (!batchable)
+>> >+                              virtio_transport_rx_batch_finish(batch);
+>> >+                      if (free_pkt)
+>> >+                              kfree_skb(skb);
+>> >+                      return;
+>> >+              }
+>> >+
+>> >+              virtio_transport_rx_batch_finish(batch);
+>> >+      }
+>> >+
+>> >+      sk = vsock_find_connected_socket_net(&src, &dst, net);
+>> >+      if (!sk) {
+>> >+              virtio_transport_recv_pkt(t, skb, net);
+>>
+>> Why this?
+>>
+>
+>If you mean the fallback to virtio_transport_recv_pkt(), my
+>understanding of the lookup semantics is that it is needed because the
+>batching fast path only
+>looks in the connected table, as only an established connected socket
+>is eligible for batching. A miss there can still match a bound socket,
+>so the packet
+>must follow the existing receive path rather than being treated as
+>having no socket. Please correct me if I have misunderstood this.
+
+Looks okay to me, but I need to review again to make sure.
+
+Please add a comment in these cases.
+
+>
+>> >+              return;
+>> >+      }
+>> >+
+>> >+      if (virtio_transport_get_type(sk) != le16_to_cpu(hdr->type)) {
+>> >+              sock_put(sk);
+>> >+              virtio_transport_recv_pkt(t, skb, net);
+>> >+              return;
+>> >+      }
+>> >+
+>> >+      trace_virtio_transport_recv_pkt(src.svm_cid, src.svm_port,
+>> >+                                      dst.svm_cid, dst.svm_port,
+>> >+                                      le32_to_cpu(hdr->len),
+>> >+                                      le16_to_cpu(hdr->type),
+>> >+                                      le16_to_cpu(hdr->op),
+>> >+                                      le32_to_cpu(hdr->flags),
+>> >+                                      le32_to_cpu(hdr->buf_alloc),
+>> >+                                      le32_to_cpu(hdr->fwd_cnt));
+>> >+
+>> >+      if (!skb_set_owner_sk_safe(skb, sk)) {
+>> >+              WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
+>> >+              kfree_skb(skb);
+>> >+              return;
+>> >+      }
+>>
+>> We have this code duplicated in several place now, can this be avoided?
+>>
+>
+>Yes. I'll extract the trace and skb owner setup into a small shared helper.
+>
+>> >+
+>> >+      lock_sock(sk);
+>> >+      /*
+>> >+       * Sockmap removal restores the native protocol under sk_callback_lock.
+>> >+       * Serialize this initial eligibility check with that update.
+>> >+       */
+>> >+      read_lock_bh(&sk->sk_callback_lock);
+>> >+      start_batch = virtio_transport_recv_pkt_batchable(t, sk);
+>> >+      read_unlock_bh(&sk->sk_callback_lock);
+>> >+
+>> >+      free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk,
+>> >+                                                  start_batch ? &batchable : NULL);
+>> >+      if (start_batch && batchable) {
+>> >+              /* Keep the lookup reference until the batch is released. */
+>> >+              batch->sk = sk;
+>> >+              return;
+>> >+      }
+>>
+>> Ah, this is for the first run, when the batch is empty, right?
+>>
+>> Can you merge in some way both branches?
+>>
+>> BTW please add some more useful comments (explaining why)
+>>
+>
+>Yes. I'll merge the common parts of the two paths and add comments
+>explaining the remaining differences and why they are necessary.
+
+Yeah!
+
+Thanks,
+Stefano
+
+>
+>
+>> >+
+>> >+      release_sock(sk);
+>> >+      sock_put(sk);
+>> >+      if (free_pkt)
+>> >+              kfree_skb(skb);
+>> >+}
+>> >+EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt_batch);
+>> >+
+>> > /* Remove skbs found in a queue that have a vsk that matches.
+>> >  *
+>> >  * Each skb is freed.
+>> >--
+>> >2.53.0
+>> >
+>>
+>
 
