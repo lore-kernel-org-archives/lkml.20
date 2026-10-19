@@ -1,72 +1,72 @@
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A353818BC3B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6ED2F851
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792368243; cv=none; b=EjE37+6qUJQWG1WqQJPrkjjHRZR8DwbGoK0oiSAfSI43TJgRwXwIU/LNLoQRQPWVwZzJ4UcGhmoP/hyeJHuohWZVAhERDZ32YxfcYeRG1GbTvt/hZJzSdvR1xBecuR+aFmLfY+6zxdeNRDMTPgM2rpQyvc1z053UdmT7PUYeELk=
+	t=1792368274; cv=none; b=lqyb8fPLeMgn5q6EJZurJNgzvqaxPdeBJlR7/uvPB23eyur8Mimc3v6HyBh3UuMnycs7wLJRTgMxxy5fRnzME4NIq+6XpC0O4KfomvLohRsM/7fkC1DHzVLY0Q8i6etX9s9bCs7FS4EwCohnznXzQAk2gVZIAj46CTYiz3RWjwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792368243; c=relaxed/simple;
-	bh=fhGmOi+B+mpJVwkg/1/RQZQhTqesKGGHBxsF45F2mko=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W4KnxbAj1+hYNkJB4c74YIMHlXN/vazeF+ZXTeHv1Y6BcEZ6zvhjqgG75GOkOtcCJfMMRWI4ybTWTTCg17zBYhkEDSVIfnFdnMGnd4OFWcxQgQ2w+zYbtlb8+LwToEqCwjikK2ggP1P9gvZz333UA9P7Z+FyVlgiOvUr9CywK5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nGG+7NHg; arc=none smtp.client-ip=209.85.161.51
+	s=arc-20240116; t=1792368274; c=relaxed/simple;
+	bh=PytpAivb1fwxvfwewsqyJs+b7ShzSeJ8NAvBdrPtn/c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pK2KDFwAyfsVp0IYn66PdeeXtHTE2pm9SdEzH+PNl4VzHStt1d1pp/w9f7N9wqNX+6pMwe8Ow7of0TjaMIYJu5MdKlO/ZgD0E5EhiJiptxrorbl9uaTut5ocsmajFNRoeGUdxsJ8cQYjzQX7j2KEElV0sB8p2+TtGqkMkHodkEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zirc/ri9; arc=none smtp.client-ip=209.85.210.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nGG+7NHg"
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-70094949641so1799283eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:04:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zirc/ri9"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-8198a3a54d7so2968833a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:04:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792368240; x=1792973040; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792368272; x=1792973072; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O37gCsfJT8Hx2fi4gGzz4+n+PK8cIKKGym5NM7TZCmI=;
-        b=nGG+7NHgvYIqYXkftV/iT5xAr5oJpZ1VuBLKyNiaQqiPLVejMpCpy0a1fpjjvBnoH2
-         01TQG5rhmrPeAp0i4tvUMaytRFiHUVAu85+zsv0nUNcdhFAw0EiarDKqCzTo+3IV1/dp
-         vrwc/Bxyo+rUWa1SB2XXoY95OSQHMUGM3tcGLmtljznnA8Vq9TCVS240qIWej/HUt1ub
-         pWvttJHzw1hmqrkbRO2K3IOgQ+7rS9yeM29H5Rxx2WMkDbwmsqT66oO1kKIz8gIgyX6m
-         tAs5GmeX5/cqXqnqPIcTELAJqpyyRaBCQPauGthSq4Qm+i6RV6j/r7E/K8GPDUyxztA+
-         ei2g==
+        bh=wAzJZZYXVc0Jc7U3TE8nNL1ig5ACrPJZxsjIWB1n0Xw=;
+        b=Zirc/ri9Zrfn5dPtL9q903JSIUp+Zq5JaEL9hTXxKUbgTc1kjPDyjsQsYOqx7x1AlW
+         bFrEZhJDCPeqebZP/0Pgpo6PsNlDWUSou6Y0VPpsPw+zoFWPkgwrZ/kdLarP2R0w07FW
+         b1TA2bDJbn6Sw+0/LfyfOs0Fh9FbaXCJrRLicodmFElbKeRICLw9wURitjDPpvjLd+8N
+         sWhybucv+HFe67k3dCzdyT3k1pKeeeiIRoZFlcZnk5rBg7aAjosmtPs3ug1s5Z8vA3Rn
+         E5bW1zT+S7THtjch3ma5hzSpr1V7Y6etqvUbTiK55hbPGx4CErvYgIGgAGyZQAJeF9Sc
+         hq/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792368240; x=1792973040;
+        d=1e100.net; s=20260707; t=1792368272; x=1792973072;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O37gCsfJT8Hx2fi4gGzz4+n+PK8cIKKGym5NM7TZCmI=;
-        b=keTDIm5akDd2Vi9AXcxJxKj0LrhQUE41r2qbLaPjJCqjhWTobDgNFRimZtas9mi7vl
-         EfLkcXnjF+6SL4nvQv3mJPdg0glLhKFpI0jYhlbpLkG2HryB1CkavsivfPnaGVzEnH96
-         mEfrXKCDrIBuVoGQNNjfE0bexPRZZDNs8RqwwldrgglqY4tRjQ4tnMPgFKeq5ozG64QG
-         d9p9ZOAqN1Ww+k4bkomayJh/CUqSCdQtYKpe3Dnkx8i4YCBzO9qV0CjN42ADhjMlfodB
-         gUMurKqki1B6/sLy4vgHJYITX7Jt2jd0u6DVwuNjWkmWwsCtWHvBlGWQpgo0maZc6H+p
-         gvQg==
-X-Forwarded-Encrypted: i=1; AKwUvBxbKIjfKvWgpuSAcqxj2ZIqHQFPHkB+jNv+88EXUeSUp9XEjTa9pvV4WLqFF3VQ+r1j+tmVGH5X2iY2SAQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6GnweU/xV4CtophPliVBD9/sQcn9RBrij1SXJD3VeFpeWJXft
-	d3QcXa9FICld6NUeyU5a+8CXXVEJTNATo4Jiv9HjDZ5s0pT24+N/PlSF
-X-Gm-Gg: AYBFou0ty0K5q0INldS56P3PZttHJfdj7RPqfBoS28+5QPml6yGKPgGGDjsvQrGLqHx
-	sI3Mls88eVwTZJX9fnt3lN4h+hG5+M5Z4ogpJk2IYUGuf6tUoUzpKa59AfVXlbqmAbdGDnILQ37
-	2GhXcj2e9LH0Ziju+WxmIGJIC+kSmmoPaPPFxLNKsxAJukrkFYM/kciT9XJviMzxuOAk2R3UEuW
-	hQahG6iFUUh0Pyy0W54NcXatgrEEIlMFuehV+9u8UkzP2NEbJZ6DBEHW0BiLn/3ZVSgg1UUm2Tb
-	7p2W4+hpOZ6qxNJg8fiB67j7f7IHTxlTd12wz78kzRbQyoiJpauKBgD+tl6BzNH2uVYil0h1vap
-	YQwkgtPMcxOeFut3l06lDhyVCG3nzbHnRJFQaQMLHMmbkGr+8KcSIFcq7cAblHO8tHPwbHa0pAr
-	rei46qiT3It40hjCctM8vABobtNluF3Mdtsz/CnF55zJp0jiRd6AtaW0QOOUWgrigNpBdd7RWZu
-	vt9Jf7AwQIn
-X-Received: by 2002:a4a:ee0e:0:b0:6e1:f7c5:9539 with SMTP id 006d021491bc7-701124b00e0mr5993440eaf.21.1792368240553;
-        Sun, 18 Oct 2026 17:04:00 -0700 (PDT)
+        bh=wAzJZZYXVc0Jc7U3TE8nNL1ig5ACrPJZxsjIWB1n0Xw=;
+        b=V+MCdfAnIqMgS8PcIZ1zzCEBiuVPzJUdLyvDqRTsE6rbiLXKON5meFMvqbIikQO9Gm
+         ZdbuTyi7R16uRP7ZmjIfXQ8KijbA/fwXwx7fR5Gc2l8r/dh40DbuAa9S4h9EwmrAEb4K
+         WP0D2Q4CoUdU/Ez1h0RTM+OZnsSylWOmzNfxDczrbScbNb8pYbmCjL9QIz3YTmmj2xK3
+         vV39mThXdZvXptgPFHhagYfj7xsL8lk4NeEnuNlxhMUcbrJnCoE47qDVnjnz2iQANi/K
+         lhyuBNk4YXr6eh6n8oKmTNFdNthvGFzRIdNVIcuKF5ffLbvwkNuAkFEZw8wvbT7jN+0U
+         cvsw==
+X-Forwarded-Encrypted: i=1; AKwUvBz4/HUIdDkYkL8N8r/whGb0fflt928aisfhx9U3i4XXvmNTe4P2udIMnKjF3ADe+Bci7WmLKXS9kBSsVx8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLD0DyHbMOTiB/BbIadYE/BpJ7rLaVVXj92x/ssIrWUx2BpHkX
+	bd3Fs022+vEeYsdxCfjLVrpjW+xBuL7eMgXGCAXYwxhUuQpEGiNvy72iJEhElQ==
+X-Gm-Gg: AYBFou3o62QVnBN1vTTRBUw4UgHswTbtdJ1oQCQPV9yQexI6fQc/UpyV3I9secYjntG
+	38T2XB3znLyfK60JzxEZlSK014tMsOnN28447Wmd2Ij17CSoNR34ly/dPIxG1PTICz5eF3OYymf
+	aMw2dXlES2ZuHBlm7++PdQYbkbhSo7VgkfPeA8jpf0kusqXzBMHcJypzh40X19o/6U5/Ty6SsZn
+	WzEFvJGdVsD7Sy7QnIOGBHZvKlQkgQhh6lRrwzH6QmM/j4En/DJaj8cfN2jUwKpmorkWuB166M5
+	nDFYKGCnyuiZNaGyeEg9YDhoxpCpLtfn83myKuJfI7C0mJlAPFcS9MzTz8EtkQYMDEJ/NYIKKKe
+	bu6TnqYO/0rmYHdsD65MGvwADQJX0dG3fFWGcN8cPSdRifHqgKnHrOI3E/qwgd3dB9cUbwU9CYY
+	rqQorZgDdG492vICfbGKQerRQrcZCW+kzJ4zyD5SqRm5hv4I82YVWigyGn5ggurropojdmwH3mJ
+	oD5Aqmw0h5l
+X-Received: by 2002:a9d:7f8c:0:b0:816:f1c2:d6b8 with SMTP id 46e09a7af769-841ff60e1b5mr4883351a34.9.1792368272518;
+        Sun, 18 Oct 2026 17:04:32 -0700 (PDT)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a73b7728casm7431833fac.16.2026.10.18.17.03.57
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a4a00f15sm7674561a34.8.2026.10.18.17.04.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 17:03:59 -0700 (PDT)
+        Sun, 18 Oct 2026 17:04:30 -0700 (PDT)
 From: Leizhen Zhang <lzsx618@gmail.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: rostedt@goodmis.org,
-	linux-kbuild@vger.kernel.org,
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Leizhen Zhang <lzsx618@gmail.com>
-Subject: [PATCH] sorttable: bound section names by the section name table
-Date: Sun, 18 Oct 2026 19:03:44 -0500
-Message-Id: <20261019000344.3977701-1-lzsx618@gmail.com>
+Subject: [PATCH] tracepoint-update: bound section names by the section name table
+Date: Sun, 18 Oct 2026 19:04:19 -0500
+Message-Id: <20261019000419.3977860-1-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,64 +76,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-do_sort() looks up the sections it needs by name:
+process_tracepoints() finds its two sections by name:
 
 	secstrings = (const char *)ehdr + shdr_offset(string_sec);
 	...
 		idx = shdr_name(shdr);
-		if (!strcmp(secstrings + idx, "__ex_table"))
+		if (!strcmp(secstrings + idx, "__tracepoint_check")) {
 
 sh_name is a 32-bit offset read from the file and nothing bounds it, so one
 section header can point the name anywhere and strcmp() reads from there.
 
 Found by fuzzing the host ELF tools with mutated object files under
 ASan/UBSan. Reproducer, setting only sh_name of section 1 in an otherwise
-valid vmlinux:
+valid .o:
 
   $ python3 -c 'import struct
-  d = bytearray(open("vmlinux","rb").read())
+  d = bytearray(open("tiny.o","rb").read())
   shoff, = struct.unpack_from("<Q", d, 0x28)
   entsize, = struct.unpack_from("<H", d, 0x3a)
   struct.pack_into("<I", d, shoff + entsize, 0x7ffffff0)
-  open("t.elf","wb").write(bytes(d))'
+  open("t.o","wb").write(bytes(d))'
 
-  $ ./sorttable t.elf
-  ERROR: AddressSanitizer: SEGV on unknown address 0x7f2555f92911
+  $ ./tracepoint-update t.o
+  ERROR: AddressSanitizer: SEGV on unknown address 0x7f8d689ae848
     #0 in strcmp
-    #1 in do_sort scripts/sorttable.c:657
+    #1 in process_tracepoints scripts/tracepoint-update.c
 
 Skip a section whose name offset is outside the name table. Such a section
-cannot be one of the four this loop is looking for, so skipping it changes
-nothing for a valid object: the reproducer and an unmodified vmlinux now
-both print the same "incomplete ORC unwind tables" line and exit 1.
+is neither __tracepoint_check nor __tracepoints_strings, so skipping it
+changes nothing for a valid object: the reproducer and an unmodified object
+now both print the same "no __tracepoint_check in file" line and exit 1.
 
 This bounds the index into the table, not the table itself: a name table
 whose own sh_offset or sh_size is bogus is a separate gap, and in the
 elf_map() path used here there is no mapped size to check it against.
 
-The read predates commit 1091670637be ("scripts/sorttable: Rename
-'sortextable' to 'sorttable'"); I could not pin the original commit from a
-shallow clone, so there is no Fixes tag.
-
+Fixes: e30f8e61e251 ("tracing: Add a tracepoint verification check at build time")
 Assisted-by: LLM ASan UBSan
 Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 ---
- scripts/sorttable.c | 5 +++++
+ scripts/tracepoint-update.c | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/scripts/sorttable.c b/scripts/sorttable.c
-index 88e49a5c4251..2f72a7710a0c 100644
---- a/scripts/sorttable.c
-+++ b/scripts/sorttable.c
-@@ -619,6 +619,7 @@ static int do_sort(Elf_Ehdr *ehdr,
- 	void *sym_start;
- 	void *sym_end;
+diff --git a/scripts/tracepoint-update.c b/scripts/tracepoint-update.c
+index 5cf43c0aac89..2736e91e6f06 100644
+--- a/scripts/tracepoint-update.c
++++ b/scripts/tracepoint-update.c
+@@ -157,6 +157,7 @@ static int process_tracepoints(bool mod, void *addr, const char *fname)
+ 	Elf_Shdr *shdr_start;
+ 	Elf_Shdr *string_sec;
  	const char *secstrings;
 +	uint64_t secstrings_size;
- 	const char *strtab;
- 	char *extab_image;
- 	int sort_need_index;
-@@ -645,6 +646,7 @@ static int do_sort(Elf_Ehdr *ehdr,
+ 	unsigned int shnum;
+ 	unsigned int shstrndx;
+ 	int shentsize;
+@@ -171,6 +172,7 @@ static int process_tracepoints(bool mod, void *addr, const char *fname)
  		shstrndx = shdr_link(shdr_start);
  	string_sec = get_index(shdr_start, shentsize, shstrndx);
  	secstrings = (const char *)ehdr + shdr_offset(string_sec);
@@ -141,17 +138,17 @@ index 88e49a5c4251..2f72a7710a0c 100644
  
  	shnum = ehdr_shnum(ehdr);
  	if (shnum == SHN_UNDEF)
-@@ -653,7 +655,10 @@ static int do_sort(Elf_Ehdr *ehdr,
- 	for (i = 0; i < shnum; i++) {
+@@ -179,7 +181,10 @@ static int process_tracepoints(bool mod, void *addr, const char *fname)
+ 	for (int i = 0; done && i < shnum; i++) {
  		Elf_Shdr *shdr = get_index(shdr_start, shentsize, i);
  
 +		/* sh_name is a file-supplied offset into the name table. */
  		idx = shdr_name(shdr);
 +		if ((uint32_t)idx >= secstrings_size)
 +			continue;
- 		if (!strcmp(secstrings + idx, "__ex_table"))
- 			extab_sec = shdr;
- 		if (!strcmp(secstrings + idx, ".symtab"))
+ 
+ 		/* locate the __tracepoint_check in vmlinux */
+ 		if (!strcmp(secstrings + idx, "__tracepoint_check")) {
 -- 
 2.34.1
 
