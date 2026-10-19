@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427290;
-	b=H0K2hbK2OE8HJsoDUyFuOY0my1z+zj45KK8+pMgxf7TCTrsMwXN3tW/m7+G4hUfhLFmj
-	 HAgW0r8afgzBnh8HVFMuwjCkE0CZVO7ZU2OeKcGdsLlL+LYQyF0LEKPooQpSrUGF48g1Q
-	 V4CvQz0KAxGOxb/THwjZU0AQVOL6vhtfwySasj9lVhnwYlwGFC6NfDTVDORXJ+cTNNEMS
-	 5J/IxdiNOZEZFgiJKRIZZUzO/Ksss1QIIszoBxJX6YKd5yAL/QpQpcsCGDUcpckamy7jt
-	 R4eM76DhiOk9auk81Lo8ZR+jWHHMxEIzX8TCR+KpL/p9lGeupIfff/fcPbF774ebuEQ==
+	t=1792427301;
+	b=3J4OWG4xVTISm4cY+QSeJTSlEIUJfb+wrOLglsW4+smhnI4DjzJ2+F/1rnYP1ws3mu0a
+	 kvsMG8mkfxL0+Uv5ryMFUH20wp/VTLbSRN4A4iR+22LGVJohD70Gj74WIncCnmiIdkiOB
+	 d6b8XtJ8eaBptRfqIAUPEqQLwgsLO6yvCpwcyvFNNZ3ioIZrconfsCUNaSfABp12C7bV+
+	 tsIMvAdxRfPsZ56povwHULweQyulDxQUkFKH3hgZVK216f6x1PpaUKVE9ihBPTEDR24z6
+	 jxMwpU6bsYmvP/XxY4eImKkEknWBg0BZwqCfx2YimNI44Uqtwl1FCH4th8JaSYeWQoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427290;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427301;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=TEZtEk59ar5utkdkofEnlN7m91UDjSKwzqLEuSBAhEY=;
-	b=l1D+0TCYd2CKnLUKzVfTQ+/i7FXDvaKQQyTC0lPRHgikQWnAciIS2HHAxzuUgDUDwpfI
-	 Tpcx3OpqQiIGEr1ojVP5QWYmNvH5+qDZDonPGn95DUi8lB3RVicnrsNlOU0mnpRbmWhiV
-	 qJdIebnXNboFvAO8IMTMPaBxjpfgTnoBqy1JylMonHrkpQWJ2d6Ya4MfKWtucYZXFm0Oe
-	 w6rqeRGoaDfWoFLjKoafryMBPB6HEdoCaIe7suqcfIO3TCRrVmVc/YuYyOwli/PoQBGVY
-	 Qs2jjQB+0q/jtm0MumQe7gUOR4KankTnABuxGrf59Vpux0Fo1gvZf8FGK19j3MIKVRQ==
+	bh=AUPj41ctOhJ+cZQoXn73t6Z/v6D9oxg5RLDX2zwJVW8=;
+	b=mKwi7uaMdkxfAWYZlT7o+khDU17k+e4nQZf0ZrhPwXU8otccBXq3bUlCKDYCrX00fUrj
+	 SBBMIngwvlY+sDcNtwZZuYax1q7yVBfZtx5jUb6fUkRQOuTHC78p8hyMl/QjA2+zW/7LE
+	 IK5DgHp/2YPyzh5u+o+MJnCH3GOG6HnO3xdtBbLLyMYmHNdVRXdvMQTZCUmBmaAlC/wOs
+	 sVUveZNwjENEWeWJNtrRma4Q1hvcaFAHcJyLpKNFovoq4nAtJHV6xOYTL+9uP7EO7Yo01
+	 j2Ta5f9TW1xYv8rJFZYkswEen6fbdE2QAr9GLOydkzUexpANecCAy/2irNMq9UJky7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=FF2uy+gn;
-	arc=none smtp.remote-ip=109.224.244.18
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KcLAl94c;
+	arc=none smtp.remote-ip=109.224.244.123
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2C5606A320;
-	Mon, 19 Oct 2026 16:28:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A2C5606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9146560A2610;
+	Mon, 19 Oct 2026 16:28:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9146560A2610
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=FF2uy+gn
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KcLAl94c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792427286; x=1792686486;
-	bh=TEZtEk59ar5utkdkofEnlN7m91UDjSKwzqLEuSBAhEY=;
+	s=protonmail3; t=1792427298; x=1792686498;
+	bh=AUPj41ctOhJ+cZQoXn73t6Z/v6D9oxg5RLDX2zwJVW8=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=FF2uy+gnGYpqYl72bppS2dTU1h9vJxL/vEWW4cEY/3JMKaVcl1NMavFbTYJ1vf+p/
-	 VqurxJJfrJe0iSmbRDD9M8l37rX5GEDronl/ZXL3/FXh2kZbmqkZzONirYlRU99WYE
-	 8dgVdB368YObGCWigsR4B0NwnT/FwmIjogRrR7TxeyQT1bLGwWiU63PZtNjAdxeBZt
-	 lT3RGL74SM78Y2oGhU6txHCij6PQ6/MQXgeiRE91x8sKbF//hoPa8iZDXgVU2/qLTi
-	 yq3lLYFrcDCD2fmp6MlxXmt3LDdPwI7grGw6enZMwtT2V3iWxAx9M2YmYRRuLwUiP8
-	 dDSxyA6Vv0lxw==
-Date: Mon, 19 Oct 2026 16:28:00 +0000
+	b=KcLAl94cRsDTYQoCxS7MvJ7DzPoHXMGqTUQRdhP8PCnAipBJiIcRzUk0fwFT0Z972
+	 gNBgBwe6eeVPECVdMlSaJ4X2WX0qer5nqk13QSi5FP07b3zXNs4Igegd18acaVZ80S
+	 Kgg103gN6/1cQEo37eMprstfbCZ1KMQX2LNs1IWxvUrHU4xU03eoKh/KRATVf9gJth
+	 LUJOj0A/KzIFn3KBMPZnjjdZOTgpE7QwazJP2oECTrdKweTETNz+tN5RVLzXWJCa1s
+	 wpCTHTpJlkLtyDmQFmd/C93skYSoJbCmAy+tcCsKodVwHwwfMMhlskZAG3VIse9NXi
+	 SnNV1l05/YiBA==
+Date: Mon, 19 Oct 2026 16:28:11 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
 From: Sergey Lebedev <lsa.uz@pm.me>
 Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] media: ipu-bridge: Add ST VD55G0
-Message-ID: <20261019162722.25587-4-lsa.uz@pm.me>
+Subject: [PATCH 4/4] media: ipu-bridge: Add the Surface Pro 11 infrared illuminator
+Message-ID: <20261019162722.25587-5-lsa.uz@pm.me>
 In-Reply-To: <20261019162722.25587-1-lsa.uz@pm.me>
 References: <20261019162722.25587-1-lsa.uz@pm.me>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 33466a21e4a3f7beed11519693c373e9c7b43bd9
+X-Pm-Message-ID: 48126862a596524f46a1020032fa9283563189d3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,39 +67,134 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The infrared camera of the Surface Pro 11 with Intel is an ST VD55G0,
-enumerated by ACPI as SMO55F0 and wired to the IPU7 over one CSI-2 data
-lane.
+On the Surface Pro 11 with Intel the infrared illuminator is driven by the
+VD55G0's GPIO 1, which strobes it during the exposure. The ACPI tables do
+not describe it, so the sensor driver finds no st,leds and offers no
+V4L2_CID_FLASH_LED_MODE.
 
-The vd55g0 driver takes only a link frequency whose MIPI rate, twice it,
-is an integer multiple of the input clock. 396 MHz gives 792 Mbps, 33
-times the 24 MHz the sensor's SSDB lists on the Surface Pro 8, 9, 10 and
-11, and within the sensor's 750 to 1200 Mbps. Peter Marshall's earlier
-patch for the Surface Pro 9 used 380 MHz, 760 Mbps, which is not a
-multiple of 24 MHz, so the driver would refuse it:
-https://lore.kernel.org/all/20260918221705.323510-4-pm@petermarshall.ca/
+Give the sensor's software node st,leds from a DMI match, as the
+upside-down quirk gives a rotation. dev_properties gains an entry for it,
+as a sensor can also have a lens-focus reference.
 
 Assisted-by: Claude:claude-opus-5-5 sparse
 Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/pci/intel/ipu-bridge.c | 60 +++++++++++++++++++++++++++-
+ include/media/ipu-bridge.h           |  2 +-
+ 2 files changed, 59 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
 /ipu-bridge.c
-index 3739c4a2a8c..cb1d1582fa1 100644
+index cb1d1582fa1..05aa6d92bbf 100644
 --- a/drivers/media/pci/intel/ipu-bridge.c
 +++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -120,6 +120,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI5693", 1, 419200000),
- =09/* Omnivision OV8856 */
- =09IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-+=09/* STMicroelectronics VD55G0 */
-+=09IPU_SENSOR_CONFIG("SMO55F0", 1, 396000000),
- =09/* Sony IMX471 */
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
+@@ -283,6 +283,39 @@ static const struct dmi_system_id upside_down_sensor_d=
+mi_ids[] =3D {
+ =09{} /* Terminating entry */
+ };
+=20
++/*
++ * Sensor GPIOs that drive an illuminator, for machines whose ACPI tables =
+do
++ * not say which. They reach the sensor driver as its own leds property.
++ */
++struct ipu_sensor_leds {
++=09const char *hid;
++=09const char *property;
++=09const u32 *gpios;
++=09unsigned int nr_gpios;
++};
++
++/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
++static const u32 surface_pro_11_ir_gpios[] =3D { 1 };
++
++static const struct ipu_sensor_leds surface_pro_11_ir_leds =3D {
++=09.hid =3D "SMO55F0",
++=09.property =3D "st,leds",
++=09.gpios =3D surface_pro_11_ir_gpios,
++=09.nr_gpios =3D ARRAY_SIZE(surface_pro_11_ir_gpios),
++};
++
++static const struct dmi_system_id sensor_leds_dmi_ids[] =3D {
++=09{
++=09=09.matches =3D {
++=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
++=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
++=09=09},
++=09=09.driver_data =3D (void *)&surface_pro_11_ir_leds,
++=09},
++=09{} /* Terminating entry */
++};
++
+ static const struct ipu_property_names prop_names =3D {
+ =09.clock_frequency =3D "clock-frequency",
+ =09.rotation =3D "rotation",
+@@ -563,6 +596,22 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, st=
+ruct ipu_sensor *sensor)
+ }
+ EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
+=20
++static const struct ipu_sensor_leds *
++ipu_bridge_get_leds(const struct ipu_sensor_config *cfg)
++{
++=09const struct dmi_system_id *dmi_id;
++=09const struct ipu_sensor_leds *leds;
++
++=09for (dmi_id =3D dmi_first_match(sensor_leds_dmi_ids); dmi_id;
++=09     dmi_id =3D dmi_first_match(dmi_id + 1)) {
++=09=09leds =3D dmi_id->driver_data;
++=09=09if (!strcmp(cfg->hid, leds->hid))
++=09=09=09return leds;
++=09}
++
++=09return NULL;
++}
++
+ static void ipu_bridge_create_fwnode_properties(
+ =09struct ipu_sensor *sensor,
+ =09struct ipu_bridge *bridge,
+@@ -570,7 +619,8 @@ static void ipu_bridge_create_fwnode_properties(
+ {
+ =09struct ipu_property_names *names =3D &sensor->prop_names;
+ =09struct software_node *nodes =3D sensor->swnodes;
+-=09unsigned int i =3D 0;
++=09const struct ipu_sensor_leds *leds;
++=09unsigned int i =3D 0, d =3D 3;
+=20
+ =09sensor->prop_names =3D prop_names;
+=20
+@@ -624,10 +674,16 @@ static void ipu_bridge_create_fwnode_properties(
+ =09if (sensor->vcm_type) {
+ =09=09sensor->vcm_ref[0] =3D
+ =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
+-=09=09sensor->dev_properties[3] =3D
++=09=09sensor->dev_properties[d++] =3D
+ =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
+ =09}
+=20
++=09leds =3D ipu_bridge_get_leds(cfg);
++=09if (leds)
++=09=09sensor->dev_properties[d++] =3D
++=09=09=09PROPERTY_ENTRY_U32_ARRAY_LEN(leds->property, leds->gpios,
++=09=09=09=09=09=09     leds->nr_gpios);
++
+ =09sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =3D
+ =09=09PROPERTY_ENTRY_U32(names->bus_type,
+ =09=09=09=09   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
+diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
+index 3ef94c2b767..f56ac1c4e96 100644
+--- a/include/media/ipu-bridge.h
++++ b/include/media/ipu-bridge.h
+@@ -179,7 +179,7 @@ struct ipu_sensor {
+=20
+ =09struct ipu_property_names prop_names;
+ =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
+-=09struct property_entry dev_properties[5];
++=09struct property_entry dev_properties[6];
+ =09struct property_entry ipu_properties[3];
+ =09struct property_entry ivsc_properties[1];
+ =09struct property_entry ivsc_sensor_ep_properties[4];
 --=20
 2.54.0
 
