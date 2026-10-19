@@ -1,167 +1,131 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225B44E5346;
-	Mon, 19 Oct 2026 12:42:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2758149364C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:42:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413746; cv=none; b=g09o9XVEZgwpU5MzbB1/UQFCgpj9eEeTEqQSgBbLOH893WtehB06oo/F9nGhJDcOPQbkn+7VxDXiN2U0OcPxQD72Ob9exKaLX6jTQpOImpS/0MpT6pwAtAGQmnb0VZb5GnZXvPAhv/sAPapc+hPwZ2mcFe4HCekXD5FX+dkgu/U=
+	t=1792413748; cv=none; b=HXVMpNFuho1DXCGnoNSgMuWwwKPdn8f11xdrxUuVu3WzTHoMA4ZzcG018TPRI0BDEN0bt4wEcCL65OW6gvWerKVHLthoz1Pgv980c9rKcu83/jEY6V46ZvI5D2IcPwpJhCm/s1ZcFKP6rjDayyzWKvZm+J8cFaAzZvr6TnLkvVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413746; c=relaxed/simple;
-	bh=7rdBxsPN7jiyPDmYCgYr1wLCPcQQc60AuhIJ/RzGIO8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ftvBp14dAShTr7LD/tDH/UBfeGHHXzxUkZyVfVTXpH7xKjqimotTExRuN791LAiEcT8g1jwP/J96GE8fSaG4m125U6sl2rNksVbbs0N/UN1dWz9b16mNbmGKmfz5A2KN3gijSLaNnXuP0yYkhgAZLgXTWL+GY59Jm74HhM7zuz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FXe4IpBd; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792413748; c=relaxed/simple;
+	bh=7iJWaNZjgRSi040bMTpFn/A5Npb6/NW/Z7ByvR+hrS8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cdbXv1EAV71j1n5ttNsoYSRFj19U5ZBFsA8+6JukfkuNC57Kr0pp157v789BxNFpawgBC0dP08lNv6RJ8G2WpwaOKpCipySBjXzjgaxjwbmnR58yh+lEvkNuDOYwEpLNlMC0ob/h36tLCJpicSgFal/8mEqXCrFGWhjXVGwmBf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wkz+rQCe; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FXe4IpBd"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 36FA71A126A;
-	Mon, 19 Oct 2026 12:42:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 095FC60582;
-	Mon, 19 Oct 2026 12:42:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 164D410328D37;
-	Mon, 19 Oct 2026 14:42:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792413733; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=wT9cr19djIZjjMcHHSB8MIQuwEfBnI0V8SxyV1ge0ZY=;
-	b=FXe4IpBdbRfsFkD7ThrqoLCIoPyFdRvGilBxoMYfwQVV9TiZ+xJSUeEC8yDZiqeJ4VtbW0
-	G8Rn1rNBRDy6mgSy07K2Z/SdYzLj7vWIhiOk88FXzlLZdJbnSq1ZHTupdfDzY2MJHPo6h1
-	s+1InRofRUi/Pn1TJ5g/cBfjoUeEWfaSOKYMn81RmBwWjDU8kWRezCyjh2fVp8GSUpRJG1
-	xMMgzE0UmL4FnaZSl4DFc3uQGwBWVYNzs5UMX3lPOHbEPdPslwhW0/oAThW0L+1fOpo8lH
-	5XhzLXzBdBG3MF19bkE+3uasdzAAwiREXSHFdSfwa8iwcfCVpd2zRL/yKipcBA==
-Message-ID: <c67d8a1e-34a0-4e58-a4cc-64003526dcd7@bootlin.com>
-Date: Mon, 19 Oct 2026 14:42:07 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wkz+rQCe"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48df4f540ebso1099188f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:42:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792413742; x=1793018542; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y7EoCo9+cczE65jwKsEPVDD2E1w/i2GesRReq0VwToI=;
+        b=Wkz+rQCeHFgxlm4t08sNEW1k3tSHmpapg/qctvoMT3js2aKN6f53mdWbar7fBL+/tg
+         fvDTFGHy8YROADXyJi0yo+4Q7ySw1okqNh0blxRwPFd8ogChwtBtsQdyObhTY9SRkncJ
+         fHD3ekIooxi7HTn3K8wvC7OG8MoNRs4Yl4VgpPnKl0UTTvtDa8HaJyxhn4shO32BZAd4
+         fl3fxZkUO++UARZc0/XYJSRPsAi9zxK1ZdYHL1U7Mq0zMuDsUhTKnt+IhnPOVbrJoHKH
+         J4HhjCRrwDkQ1STW/GaNCu0f+jJzw/H74103JN4ig2sndaoXBPivqxcrSbeQl9cjmNTw
+         RXPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792413742; x=1793018542;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y7EoCo9+cczE65jwKsEPVDD2E1w/i2GesRReq0VwToI=;
+        b=hRSy6k3qhkSq0swd4PMPv/ZmAvYthgpL7I8WrdlA2QPHa5vrbT8Kk5ayMdyhFROf/I
+         Tnqlvio2RY9iCOoDAC6/cEe3UX4jVW40T3/SvuxuqDrdvVAivoqSfX3CcGjCw2Zr9JoC
+         rp8u44v/ZsFOb2k1OxMP8vWlhdX/AH1NfKTdOytS3PawGNPI73bRHSGriaaW4ATnV+/l
+         Q8EZZCR06U3mFhRTlmgpHtw1raaugz6GLOu90NNxoSY8cFQuPnIlY0BF/6/5ZmXNea5W
+         i7zzo9rixPxOSAH0/cuI8rsmpuxKb45EZ+w6YFgTosVv0glIf1AabagufvChLlimRaAr
+         c/Cg==
+X-Forwarded-Encrypted: i=1; AKwUvByjIJMS0HhK19L9zw8lzJNh3T8i+IATrwvlD67o5xk2CNYsSDlQXh7fVDacFZm1p8nZIrlNQYnk5LQV1ik=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLF1tQ4+5WsrEF05sn7pCuGo7bTNxDZXje8nVcJASIGu86lkBzn
+	zQuJx0nH8s59Ev8znwl06R9ee+OZBV8BwFX/JvMNblOG5igu7ZZ+bcMjUydLOCWqUQ==
+X-Gm-Gg: AYBFou2jHgM2+2LZZYWGH1PubU55k4Q6ib/drDB5X89f0KZUqKyseBI2k9ViPLk1rC4
+	r1VtbUeT67ZC9GpyjMkFROMDF+YhSy/OmDzCW9hpe/RazRU7kU7391KhgJdIRTyrnqnt4kkCktL
+	W+Gfr5yTE6oLK1OwXSkvSOsUK1zHenXjzS8chXWTSdPN2LHaIuUJw8TAWm/MWi4Mzke/GAogKk3
+	qo2NUG6+8FcDe2f/q6yVsexNq584xPb5CKvGpjF/iSFtTvfeM3/0zFxhzLH55xyAuo2WZTrviS8
+	6mMSSySi5L9SY6yjRWeIa3ueu7uYkprtJil/16pCljD84UVSrLfEMHsrG0lYzexUFfq84FHdspg
+	5UcRkHP+EiHFy6TkElHbfmTUAN8A9vqmk3g9PA2ueavSdcvFQWOA+LbE2YlRMmfvIqhAfxOQ4yo
+	RWJwZLaioGSNw43Fewm7//XfZLbYaBWwSp/Pg/XkYwgmd9wgUrbxImrv2wSxXSu6NAZXCsBRjaJ
+	bGTCjWoFAH9U794eEGTs5jDxK6fhj+QkJG0BxX5JD0=
+X-Received: by 2002:a5d:4904:0:b0:488:7787:469d with SMTP id ffacd0b85a97d-48e07fbbf4emr11756626f8f.25.1792413741500;
+        Mon, 19 Oct 2026 05:42:21 -0700 (PDT)
+Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503a0dsm23717496f8f.47.2026.10.19.05.42.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 05:42:20 -0700 (PDT)
+Date: Mon, 19 Oct 2026 13:42:17 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] KVM: arm64: Ensure TLBs and I-cache are private to
+ each vCPU in pKVM
+Message-ID: <atYQKaLo4VJDoNJn@google.com>
+References: <20261014125510.2928306-1-fuad.tabba@linux.dev>
+ <20261014125510.2928306-3-fuad.tabba@linux.dev>
+ <atXqLxU5bBtJ8U9W@google.com>
+ <20261019114357.3528498-1-fuad.tabba@linux.dev>
+ <atYPZeJuw2grFDlz@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/7] arm64: dts: ti: k3-j784s4-ti-ipc-firmware: Reserve
- memory for LPM metadata
-To: "Kumar, Udit" <u-kumar1@ti.com>, Nishanth Menon <nm@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Abhash Kumar <a-kumar2@ti.com>,
- Beleswar Padhi <b-padhi@ti.com>, Thomas Richard
- <thomas.richard@bootlin.com>, Gregory CLEMENT <gregory.clement@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, prao@ti.com
-References: <20260921145325.300025-1-richard.genoud@bootlin.com>
- <20260921145325.300025-6-richard.genoud@bootlin.com>
- <702b80bc-23b1-4057-b613-aa5aef2c8c7a@ti.com>
-From: Richard GENOUD <richard.genoud@bootlin.com>
-Content-Language: en-US, fr
-Organization: Bootlin
-In-Reply-To: <702b80bc-23b1-4057-b613-aa5aef2c8c7a@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atYPZeJuw2grFDlz@google.com>
 
-Le 17/10/2026 à 09:05, Kumar, Udit a écrit :
+On Mon, Oct 19, 2026 at 01:39:01PM +0100, Vincent Donnefort wrote:
+> On Mon, Oct 19, 2026 at 12:43:57PM +0100, Fuad Tabba wrote:
+> > Hi Vincent,
+> > 
+> > On Mon, 19 Oct 2026 11:00:15 +0100, Vincent Donnefort <vdonnefort@google.com> wrote:
+> > [...]
+> > > > diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> > [...]
+> > > > @@ -54,6 +54,9 @@ struct pkvm_hyp_vm {
+> > > >          unsigned short refcount;
+> > > >          hyp_spinlock_t lock;
+> > > >  
+> > > > +        /* Per physical CPU, the vcpu_idx of the last vCPU of this VM loaded there. */
+> > > > +        int *last_vcpu_ran;
+> > > 
+> > > Unlikely to be a problem in pratice, but vcpu_idx is "unsigned int". I wonder if
+> > > this shouldn't be unsigned int here too and initialised to UINT_MAX?
+> > 
+> > I'd copied int and -1 from the host's mmu->last_vcpu_ran, but the
+> > vcpu_idx it's comparing against here is unsigned int, so I'll switch to
+> > unsigned int and UINT_MAX in v2.
+> > 
+> > Thanks,
+> > /fuad
 > 
+> Also,
 > 
-> On 9/21/2026 8:23 PM, Richard Genoud (TI) wrote:
->> Declare a carveout memory region to store LPM metadata on J784S4.
->>
->> For Jacinto devices, this memory region is needed for saving ATF context
->> and the certificate information of ATF and OPTEE and DM image. This LPM
->> metadata area is firewalled to be accessed only by TIFS.
->>
->> U-Boot R5 SPL/TIFS will use this area to save and restore:
->> - ATF context
->> - ATF certificate information
->> - OPTEE certificate information
->> - DM image (which has been copied in memory at boot time by U-Boot
->>    R5-SPL)
->>
->> At resume, U-Boot R5 SPL is executed and detects that the board is
->> resuming (with a flag set in the PMIC), then it:
->> - brings out of retention the DDR
->> - retrieves the LPM memory region from DTS
->> - authenticates certificates from LPM memory region and applies firewalls
->> - asks TIFS to restore TFA and its own minimal context
->> - starts TFA on remote proc
->> - loads back DM image from memory and jumps to DM
->>
->> https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
->>
->> As this is used by U-Boot SPL, bootph-pre-ram is added and the device is
->> enabled.
->>
->> NB: This memory region is not part of DM memory (which is not retained
->> at suspend)
->>
->> Signed-off-by: Prasanth Babu Mantena <p-mantena@ti.com>
->> Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
->> ---
->>   .../boot/dts/ti/k3-j784s4-ti-ipc-firmware.dtsi    | 15 +++++++++++++++
->>   1 file changed, 15 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-ti-ipc-firmware.dtsi
->> index 81b508b9b05e..1c0c1533f0a3 100644
->> --- a/arch/arm64/boot/dts/ti/k3-j784s4-ti-ipc-firmware.dtsi
->> +++ b/arch/arm64/boot/dts/ti/k3-j784s4-ti-ipc-firmware.dtsi
->> @@ -17,6 +17,12 @@ c71_3_memory_region: memory@ab100000 {
->>   		reg = <0x00 0xab100000 0x00 0xf00000>;
->>   		no-map;
->>   	};
->> +
->> +	lpm_memory_region: memory@ac000000 {
->> +		reg = <0x00 0xac000000 0x00 0x00300000>;
->> +		no-map;
->> +		bootph-pre-ram;
->> +	};
+> as it is always allocated when pkvm_hyp_vm is, Would it make sense to add this
+> to pkvm_get_hyp_vm_size() instead of allocating separately?
 > 
-> Could you move this carveout near to optee
-> 0x9E500000 to 0x9E800000 as LPM memory,
-> 
-> Since 0xa***_**** is used by firmware and this is just place-holder for
-> lpm meta data.
-> 
-> Also better to move this k3-j784s4-j742s2-ti-ipc-firmware-common.dtsi
-> file as these two SOCs are same and uses same map
-Ok I'll change to 0x9E500000 and merge with patch 7/7 (j742s2)
+> -- 
+> Vincent
 
-Thanks!
-Regards,
-Richard
-
-> 
-> Thanks
-> Udit
-> 
-> 
->>   };
->>   
->>   &mailbox0_cluster5 {
->> @@ -27,6 +33,15 @@ mbox_c71_3: mbox-c71-3 {
->>   	};
->>   };
->>   
->> +&mcu_r5fss0_core0 {
->> +	memory-region = <&mcu_r5fss0_core0_dma_memory_region>,
->> +			<&mcu_r5fss0_core0_memory_region>,
->> +			<&lpm_memory_region>;
->> +	memory-region-names = "dma", "firmware", "lpm-metadata";
->> +	bootph-pre-ram;
->> +	status = "okay";
->> +};
->> +
->>   &c71_3 {
->>   	mboxes = <&mailbox0_cluster5 &mbox_c71_3>;
->>   	memory-region = <&c71_3_dma_memory_region>,
-> 
-
+Ha, I just saw your answer to Marc and you will switch to a per-cpu approach
+anyway it seems?
 
 -- 
-Richard Genoud, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Vincent
