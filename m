@@ -1,93 +1,109 @@
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C53349BD6D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821664A7CA7;
+	Mon, 19 Oct 2026 09:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401179; cv=none; b=Gv3oFBTk5JqCdE/4mQdIJesn9Yzf+T9VR3dgX4v3onDqzHB3RbtR++jQjIUi9/9cDxuq/guvUXPrwHNalW0EbCf6yVsNkiutd62j0H6VBt2MWrvAN7/jqOCnfpy+Tmi9F6fgl9CmOQOAthTXfwTeFMlOO/Z9E52iB1LZ9qu0Ydw=
+	t=1792401215; cv=none; b=dColdy/HWvb+x75IpERrrBLsl90WWaNm0C1ziH9yLX64xZjcO3z65PowI6UQruyPBjFuHB1SHv3BSvdrIkhsqKVii251pvsVUeYfciG4Cckt0T97Z/kXdrQ0Vwcy7kcXbSAOW4uXchezmuEXJ7b1HUUUuADsAuIVuN9Jj4cg8V0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401179; c=relaxed/simple;
-	bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
+	s=arc-20240116; t=1792401215; c=relaxed/simple;
+	bh=GzKWcGjbfZG1NEm7Ozu5YhknnWtaz3wlww88AAsCa88=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G9d50Pz3s0OmT9KwXkHC8KGoBpufwSijKCrUPwUE7Vzkrrrp/klKzdmL3f7T0fcYKaIILTuhjteQqdCQEReMVq8YsA0gYdEH9gxGZo1LyBefMsonLsMANQ0eSvgD6M5UnPVWRlmchG40P6JAE6iQqdakznC0dng9uyIqHhnZRQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/P2EyqG; arc=none smtp.client-ip=74.125.229.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=DpeITFQ7Hd8ht7vtLt/ODxMyLt2jFZiAym7bAN9vgkW/vSmkqOW2oTk+94Wyve//Ug3oqO1kyUu6gcoM/p/7DhA4nzSAGm6JnkvizfEsFzkyAdn7wjRbVGAgfW/8s7L0ViXp6V1gLXTGMFYfuo9dkvThTKrRhQX+SS3+Hi3kRsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOT8TFo9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/P2EyqG"
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-3535a54c09bso1832203eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:12:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792401177; x=1793005977; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
-        b=h/P2EyqG+vz/k5AG6bPvlzBTpbXciM8oS4PXFPyqt0gyHmhbnqh/x1ZCDItJLnJSvv
-         FHphneFX6sD1g1iyvN1I4vIly2ZNj02BmotmVvzZgIGzPOIrmeJQx1Ha+XfDQI40LrBz
-         qkP+UfQLzZc6oN36YZ1/vp1Bpc58q01to4oFpb2Et3bqBM6ZegHZPQigoFfxslIxEr2n
-         8UiWvDJL9gweZSzWbSeU18GjVYnOKalGoU75jeFOW8oNeTmkmo9gZGagpgd7ATOtQ6ct
-         pBTa3lAf4SgawdmIZCRfne9FW8otDRf5tQDJIuACHZD05aHwe0sqpBMOCJvCSOMYEQMC
-         BVBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792401177; x=1793005977;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t/h5DpMhUIYeLONHjlycBELUNoQmFT3rwegVO/JrzCw=;
-        b=UoSR5qO5Tv1QICFk5c+HPA/I02ZI4JdS9/k9ArY3hNSdWff8O4aTVCbVpRvVePPIZc
-         ux+AU5b6xLrK3YDB4mBferYZcaWoOTmUmogMinPzLTzh/MrSU8+nj5DcU2tP9tiOfj5o
-         cOSCqwGe7E+XHhMAiYKa1am48s8KWw9YjrtXX15DmwrbDcuVzOEU1LvLkKx/EywKrcUZ
-         UOkH2NqaABOJW6X/0tb5kVVnb8Nngp5S1NeA+pJ1sE+uYH0HuCvD+0hapIAJtlab+pp3
-         RlKYVO7dhnOwTm5zJv71F6CXODUUl01ogEAUC6CN7AHNafhxWHVhG7jdc00kutPvWdwQ
-         PMEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSfao1xy4Wi836G1MLCrFhKNa2bw6NNsSeR1j3l2bIFGnzHYdj3qTu9Lh0wqosfxAhR9J/W5T6eSqimd4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6QlpJM5ooFrlE4ei7Qk5VO3hcO1BYbetbXiUicjYC0buBybTp
-	stvJbB+3TakyqNoXMbb0kkatdF+jhthvLfBKwHK41Vb/oP1SYkUJKkiY
-X-Gm-Gg: AYBFou2Snua/sN1nsJiU3uGb7iYNh8ogz5KofLj+Bt92+BU/DxYCAO4Ock9tpNtoBhR
-	PNOyu5qmwqB/eXt8Rvl908RZPepojyQUzKPA/376rAtDIcpqIST68IgkUZMACpr1pCTbhSl/vA0
-	U9U1hsU3JAdPlMOvA81o9o8cdiSj/PZxuJMtZRphu2LRQ78T47YcT17RE0JdjMEvFPUhduLanmW
-	B55fYjAf91i4ggVATYZGWsyjH+RgL6qZx5ekw67tchm+kWQJLohgO8gPgCtP2qjmLSu10KCXPDK
-	FTy4mZuz6p3/Dyky6qA0DVamdK6A8oBHLWHtRSeKBUgY7bAhdPYUlwKj7dmAcIJFtximIpYtaG0
-	PCdciAKpZNNbJ2H/P6AAlIGmKHPx7+5f9L44gFdltT5vlWOd1fRkMSRnrAPOrE42tpWLcC9/r41
-	X/5s+Wm5RwhikwNBlzaqDLUsTGXAwq4pfrR5K3DRdPz4YH/TCY64g4g6/RSUOPIRHq0OL5fqHcf
-	mQgxchXgcQ=
-X-Received: by 2002:a05:7300:d588:b0:35f:4780:518e with SMTP id 5a478bee46e88-361a16609bdmr11651555eec.16.1792401177429;
-        Mon, 19 Oct 2026 02:12:57 -0700 (PDT)
-Received: from blue (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819be413sm30693119eec.13.2026.10.19.02.12.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:12:56 -0700 (PDT)
-Date: Mon, 19 Oct 2026 17:12:52 +0800
-From: yyaqia@gmail.com
-To: Helge Deller <deller@gmx.de>, tzimmermann@suse.de, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] fbcon: Include font geometry in the rotated font
- cache
-Message-ID: <atXeFarSzZcJmThe@blue>
-References: <20261016073023.490430-1-yyaqia@gmail.com>
- <20261016073023.490430-2-yyaqia@gmail.com>
- <b93a87be-f55d-45e9-8705-74a5c63600ab@gmx.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOT8TFo9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A5431F000C4;
+	Mon, 19 Oct 2026 09:13:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792401208;
+	bh=aocQ5BSz662k7TnnzdiDWN8srMNdEjEJUuzG2/8V/QI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kOT8TFo9InwqtTFbuE2Mghy2cRy3iqg9o+ICVbb7xwwPuxd9xAHTIeu26GDNKHacd
+	 hnxU5ymoch6DZOXj6ELeLK1/2DlEOAW8OWrOdSD6zwg0ecFHYdNqa6rmS7LASdcpQO
+	 sI22L5kBZyq9CZFHoMgdCJlJy48RKfJxKSMqErtVxlFUYL0q+H5W2fUM2vpBVQZ3aH
+	 T8VxWBqlcDjjaA0DJjskyijiu6EOE9DhXTzDwkucAxUpaC88Ydw6wfv1x5QViaY4zS
+	 3evYVNfrkslkf1mcfzdnp7X1lk6VfUH7iXq6A1cMLJcmoSB3WcRQkMULr3FVfN8LLs
+	 3TT21O4SmwM+Q==
+Date: Mon, 19 Oct 2026 11:13:26 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: tglx@kernel.org, radu@rendec.net, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, lee@kernel.org, afaerber@suse.com, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, cy.huang@realtek.com, 
+	stanley_chang@realtek.com
+Subject: Re: [PATCH v5 3/8] dt-bindings: mfd: realtek,rtd1xxx: Add interrupt
+ controller child node
+Message-ID: <20261019-prophetic-moth-of-youth-40dbd6@quoll>
+References: <20261018160653.3940371-1-eleanor.lin@realtek.com>
+ <20261018160653.3940371-4-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <b93a87be-f55d-45e9-8705-74a5c63600ab@gmx.de>
+In-Reply-To: <20261018160653.3940371-4-eleanor.lin@realtek.com>
 
-On 2026-10-18 16:05, Helge Deller wrote:
-> I've replaced the v1 version of this series with this v3 version
-> in fbdev/for-next git tree for further testing.
+On Mon, Oct 19, 2026 at 12:06:48AM +0800, Yu-Chun Lin wrote:
+> Allow an interrupt controller as a child node by referencing the
+> rtd1319-intc-iso schema, update additionalProperties to
+> unevaluatedProperties, and append a usage example.
 
-Sorry, the patch was not good enough, Zimmermann reviewed the code and I
-did some modification after that. So we might need to switch to v4
-version, sadly. Anyway, appreciate your continuous work for testing.
+I do not see that "update".
 
-Thanks,
-Yao Yiqi
+> 
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+>  .../bindings/mfd/realtek,rtd1xxx.yaml         | 28 +++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml b/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
+> index 717e29c37b36..b21e14df2879 100644
+> --- a/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
+> @@ -65,6 +65,10 @@ properties:
+>      const: 1
+>  
+>  patternProperties:
+> +  "^interrupt-controller":
+> +    $ref: /schemas/interrupt-controller/realtek,rtd1319-intc-iso.yaml
+> +    unevaluatedProperties: false
+> +
+>    '@[0-9a-f]+$':
+>      type: object
+
+What is this for then? Should it be removed?
+
+>  
+> @@ -76,3 +80,27 @@ required:
+>    - reg
+>  
+>  additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    syscon@7000 {
+> +        compatible = "realtek,rtd1625-iso", "syscon", "simple-mfd";
+> +        reg = <0x7000 0x1000>;
+> +        ranges = <0x0 0x7000 0x1000>;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+
+Why do you have cells it your child has no addressing?
+
+> +
+> +        interrupt-controller {
+
+So the binding requires children with unit address, yes?
+
+Best regards,
+Krzysztof
+
