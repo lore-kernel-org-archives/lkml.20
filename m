@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF1252F82F;
-	Mon, 19 Oct 2026 13:59:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF6A5A681A;
+	Mon, 19 Oct 2026 13:59:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418389; cv=none; b=tEryHEQskWwc6Gp52kbcF6xqHYG4jG7/FV0lGCXF4YH6JZ4ATERVV8rLG2zboQqxYyccxBMFIbkIc28XnMu28pH+g6cdRxbqzOxT6uydO+aHOkU9htWkl0J6ZWgslkfaAO92Ti8f4bZqSOx6x5abFCk9iuKw4nxou/OKfQzOYa0=
+	t=1792418391; cv=none; b=aB+5M1e6unP2Ubnjbr5ypIbs7z7oZWUA6Tb0vVsGXr5tXZeXsqf+6ZGSLvuyMhpa8BU6xc+RdJMww0xRg79M6CDnhGjPMe74AlV9VB4TVJAfQ+y1vbGAw6PoYUEl7W8CKFR3WYVhYPiKTWLEkl2b/exjNM4yCk9QVkps51tkOEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418389; c=relaxed/simple;
-	bh=CXzADxk9wqX09v7ycqrdX6eAVir6soUV+PCXFq9YVhU=;
+	s=arc-20240116; t=1792418391; c=relaxed/simple;
+	bh=u8b9xUyqKxWbcf/9Z/3MgRdZdFL4wustq9U22fd38SA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N/EbjqCU3X7BMqf1MEScMyPc4UFYFykxup8Y0lO8jJAzYa7/KyVVqym5GBOy842bEEwMCfpU8wBB3dJNY6owBcqZLbffdvZeCylbZnYrOkzbzm+HpfrvyXfSc43Fe09zL7w035eiX0pLiSQLb64+mf9o3j69z0DhFzg0bkP9T0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TKQoQXyf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=bKtxBGJ2boewyBaYvpFrb+fSv+P1H7mLoPUzRjqS9ooyboqpiCRKG2MSRdQJL7HUFXwDD0oRx4lUF7luUIl20H5yfk0JS5zryrq1gtczngjzwW5vPh2uc2SYkbXEUKBFLLCx4WZ1eR7AZ3Xa3ydE0ApmCabiS0LySzeT7TOjYAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hYOo4EAF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TKQoQXyf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7EEE1F000C9;
-	Mon, 19 Oct 2026 13:59:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYOo4EAF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3A41F000CB;
+	Mon, 19 Oct 2026 13:59:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418384;
-	bh=8mQ3Y+7UHIH059+NAi9vk+LgHMB4/3HWDkvw9jCS914=;
+	s=k20260515; t=1792418388;
+	bh=lJo+3unty6q0nZ5U5gtEIutsiG4UGZp9XR9qE1PIJDw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TKQoQXyfw4atyFLeKELm/jUlqecQo+rgyrlTYIUx+2HIV2m5H+ceoUzXEMb0lgZNO
-	 u4peYGDHCVg0FGbCHnjtJ57Xv0UIkZGFXGVPrBoiB6n4YacCMeepEfUm8zlgUIDPv/
-	 rjsG1Zhy92+6V3LWVIhd0YDLqEkSf2K4dciowLCWaSGl/TOK7o5nlE9doQsgqxPK+d
-	 1vVHkZ27eF8y6y0aXhE1PHPjTMvUewtzJHE7grF4lUBhX4wtDhrUG+dmqm0hNaqrfU
-	 c4k9pIixM/G2lZrM8LcxQHN6PQAipYI0OUluciASVM7skjFLohpgxbGaQLFPcQEcNo
-	 yi2EH9E6eCoXg==
+	b=hYOo4EAFyGjZHQLJaiRQkDeSayexw8kV8UKAMpW/QWriW1W6rM32WopfhY/5HNbq2
+	 MKO64dmoZYZuaoDgtHOTtRA1Pw79SB7PHxUUeDmKAYnG3ha3A9s+xZQO+7mFd5f39r
+	 Z1K48FQ7O/jkIv6umoNLgQJXa+UR6OGGSwYqImj0Pw2Y3SVAYQkMx0lYbRHELYdwD+
+	 xizS5TpRV/Y4863JLfu/nCBobiVkxfi34xoeG0nACVn9QreYgORwtfvgxtemtaM2E0
+	 EPnwVEvhgUHqqn2QgUi4Ftq1MRNXP4mdrlaV3YivPTEp+ZFx+fGiJWS2iEYMalN8gj
+	 GIuQwpJUa03lQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Michal Pecio <michal.pecio@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	prabhjot.khurana@intel.com,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ALSA: usx2y: Stop clearing urb->hcpriv before submission
-Date: Mon, 19 Oct 2026 09:48:22 -0400
-Message-ID: <20261019135441.1420968-211-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] crypto: keembay - add missing MODULE_DEVICE_TABLE()
+Date: Mon, 19 Oct 2026 09:48:25 -0400
+Message-ID: <20261019135441.1420968-214-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,440 +54,379 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Michal Pecio <michal.pecio@gmail.com>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit fabae5548149ef5c8a056875d9ebdc38366db539 ]
+[ Upstream commit b73b71df4cb4ca241165ad31218c82dfe489147c ]
 
-This is managed by USB core and drivers aren't expected to touch it.
+The driver has an OF match table wired to .of_match_table, but does
+not export the table with MODULE_DEVICE_TABLE().
 
-It should only be not NULL on a submitted URB, in which case clearing
-defeats the "submitted while active" sanity check in usb_submit_urb()
-and may crash the HCD handling the URB and panic the kernel.
+Add the missing MODULE_DEVICE_TABLE(of, ...) entry so module alias
+information is generated for OF based module autoloading.
 
-Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
-Link: https://patch.msgid.link/20260810075728.483c827e.michal.pecio@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+This is a source-level fix.  It does not claim dynamic hardware
+reproduction; the evidence is the driver-owned match table, its use by
+the platform driver, and the missing module alias publication.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have the local tree, the live `hcpriv` path, and the mailing-list
-record. The rest of this is the nine-phase write-up and the backport
-verdict for 6.12 only.
+## Local tree
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+This checkout is **v7.3-rc4** (`7.3.0-rc4`, `git describe`:
+`v7.3-rc4-27-gf0100363d8c37`). The candidate is `b73b71df4cb4c`
+(`crypto: keembay - add missing MODULE_DEVICE_TABLE()`). The Keem Bay
+OCS ECC driver is present here. The verdict is for this tree’s lineage:
+does this one-line autoload fix meet stable rules given that the driver
+and the missing alias exist in this code.
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-
-Record: **[ALSA/usx2y] [Stop]** Stop clearing `urb->hcpriv` before
-`usb_submit_urb()`. “Stop” here means “stop doing something unsafe,”
-i.e. a correctness fix, not a feature.
+Record: **[crypto: keembay] [add] [missing MODULE_DEVICE_TABLE() for OF
+module autoload]**
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-
-Verified from `git show fabae5548149ef5c8a056875d9ebdc38366db539`:
-
-- `Signed-off-by: Michal Pecio <michal.pecio@gmail.com>` (author)
-- `Link: https://patch.msgid.link/20260810075728.483c827e.michal.pecio@g
-  mail.com`
-- `Signed-off-by: Takashi Iwai <tiwai@suse.de>` (ALSA maintainer)
-
-Absent (expected for this pipeline, not a negative signal): `Fixes:`,
-`Cc: stable`, `Reported-by`, `Tested-by`, `Reviewed-by`, `Acked-by`.
-
-No syzbot, no CVE, no multi-user report.
+Record:
+- No `Fixes:` tag (expected for this review)
+- No `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-by:`, `Link:`,
+  or `Cc: stable@vger.kernel.org`
+- `Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>` (author)
+- `Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>` (crypto
+  maintainer; applied the patch)
+- Ignore pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
+  if present; they are not in this git object
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
 Record:
-- **Bug:** Client driver writes `urb->hcpriv = NULL` immediately before
-  `usb_submit_urb()`. `hcpriv` is USB-core/HCD private.
-- **Symptom/failure mode:** If the URB is still active (`hcpriv !=
-  NULL`), that store hides it from `usb_submit_urb()`’s “submitted while
-  active” check. The HCD then treats a live URB as a new submit and
-  **can crash / panic**.
-- **Version info in the message:** none. Git places the commit at
-  `v7.2-rc5-196-gfabae5548149e` (2026-08-10). The assignment itself
-  dates to `1da177e4c3f41` (Linux-2.6.12-rc2).
-- **Root cause (author):** drivers must not touch `hcpriv`; a non-NULL
-  value means “already submitted.”
+- **Bug:** `kmb_ocs_ecc_of_match[]` is wired to `.of_match_table` but
+  not exported with `MODULE_DEVICE_TABLE(of, ...)`.
+- **Symptom:** OF `modules.alias` entries are not generated, so
+  udev/kmod will not autoload `keembay-ocs-ecc` from the DT compatible
+  `intel,keembay-ocs-ecc`.
+- **Version info:** none in the message.
+- **Root cause:** missing module-alias publication for an existing match
+  table. Author states this is a source-level finding, not a live
+  hardware repro.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not disguised cleanup. It is an explicit autoload/enablement
+fix. Same class as adding a device ID for modular builds.
 
-Record: Not a disguised cleanup. The message names the panic path. The
-diff is a one-line deletion of an illegal store.
+---
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
-
 Record:
-- File: `sound/usb/usx2y/usbusx2yaudio.c` — 1 deletion, 0 additions
-- Function: `usx2y_urb_submit()`
-- Scope: single-file, surgical
+- File: `drivers/crypto/intel/keembay/keembay-ocs-ecc.c` — **+1 / −0**
+- Function/scope: file-scope `kmb_ocs_ecc_of_match[]` (no function body
+  change)
+- Classification: **single-file surgical fix**
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-
-Record: Before, `usx2y_urb_submit()` set `start_frame`, **zeroed
-`hcpriv`**, set `urb->dev`, then `usb_submit_urb(GFP_ATOMIC)`. After,
-the `hcpriv` store is gone. This is the **normal ISO resubmit path**
-(completion → `usx2y_usbframe_complete()` → `usx2y_urb_submit()`), not
-an error-only path.
+Record:
+- **Before:** match table exists and is used for bind-time matching if
+  the driver is already loaded (built-in, or loaded some other way).
+- **After:** `modpost`/`file2alias` also emit `of:` aliases from that
+  table, so DT device appearance can load the module.
+- Path affected: **module autoload / init**, not the probe runtime path.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-
-Record: **[Memory safety / HCD invariant]** `urb->hcpriv` is documented
-in `include/linux/usb.h` as HCD-private. `usb_submit_urb()` in this
-tree:
-
-```378:381:drivers/usb/core/urb.c
-        if (urb->hcpriv) {
-                WARN_ONCE(1, "URB %pK submitted while active\n", urb);
-                return -EBUSY;
-        }
-```
-
-`__usb_hcd_giveback_urb()` already sets `urb->hcpriv = NULL` **before**
-the complete callback, so on a legal resubmit the driver’s store is a
-no-op. If the URB is still queued, the store defeats
-`-EBUSY`/`WARN_ONCE`. xHCI then does `urb->hcpriv = urb_priv` in
-`xhci_urb_enqueue()` over a live URB (new `urb_priv`, old still on the
-ring) → DMA/ring corruption and panic.
+Record:
+- Category: **hardware enablement / missing device-ID publication** (OF
+  module aliases)
+- Mechanism: without `MODULE_DEVICE_TABLE`, `scripts/mod/file2alias.c`
+  does not emit aliases for `intel,keembay-ocs-ecc`. Built-in still
+  binds; **`CONFIG_CRYPTO_DEV_KEEMBAY_OCS_ECC=m` does not autoload from
+  DT**.
+- Confirmed in `include/linux/module.h`: `MODULE_DEVICE_TABLE` creates
+  the alias symbol `file2alias` scans.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
+Record:
+- Obviously correct: one standard macro next to the existing table,
+  matching sibling Keem Bay drivers (AES, HCU).
+- Minimal; no locking, no API, no data-structure change.
+- Regression risk: **very low**. Macro is a no-op for built-in; for
+  modules it only adds aliases.
 
-Record: Obviously correct: delete an illegal write. Minimal. Regression
-risk is very low: giveback already NULL’s `hcpriv` before complete;
-first-time submits from `usx2y_urbs_start()` go through
-`usb_submit_urb()` directly with a freshly allocated URB. On a true
-double-submit, users get `-EBUSY` and this driver’s existing `dev_err` +
-`usx2y_clients_stop()` instead of an HCD panic.
+---
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
-
-Record: `git blame` on line 170: `urb->hcpriv = NULL` introduced in
-**`1da177e4c3f41` (Linux-2.6.12-rc2, 2005)**. Present for the entire
-life of this driver. Surrounding function was only renamed/style-fixed
-(Takashi Iwai, 2021).
+Record:
+- Match table introduced in **`c9f608c380090`** (“crypto: keembay-ocs-
+  ecc - Add Keem Bay OCS ECC Driver”, Prabhjot Khurana, 2021-10-20).
+- `git merge-base --is-ancestor c9f608c380090 v5.16` succeeded → first
+  appeared in **v5.16**.
+- Bug: table never had `MODULE_DEVICE_TABLE` until `b73b71df4cb4c`
+  (2026-07-13). Long-lived.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-
-Record: No `Fixes:` tag. The broken line is original driver code, not a
-later regression. The USB-core check was added in **`2f02bc8af3abb`
-(Alan Stern, 2012)** “USB: report submission of active URBs”
-(`WARN_ONCE` + `-EBUSY`). That commit exists in this tree. This driver
-has been defeating that check since the check existed.
+Record: No `Fixes:` tag. Introducer is `c9f608c380090`, ancestor of
+HEAD.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-
-Record: Recent local history on this file includes `86f82bf2b5f99`
-(validate `nrpacks`), print API, `__counted_by`, etc. None of those
-remove `hcpriv`. `git merge-base --is-ancestor fabae5548149e HEAD` →
-**not an ancestor** (exit 1). Standalone one-line patch, not `N/M`.
+Record:
+- `86c85d6657e47` (2024-08-24): **“crypto: keembay - fix module
+  autoloading”** — same fix for HCU (`MODULE_DEVICE_TABLE(of,
+  kmb_ocs_hcu_of_match)`).
+- `0a94091e29f91`: same publication for OCS AES/SM4.
+- `fbf31dd599875` (v6.4-rc1): moved driver to
+  `drivers/crypto/intel/keembay/`.
+- Standalone one-liner; not patch N/M.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record: Michal Pecio has no prior ALSA usx2y commits in this checkout.
-On `origin/master` the only nearby `hcpriv` work is `25e531b422dc2`
-(`usb: xhci: Make usb_host_endpoint.hcpriv survive endpoint_disable()`)
-— different field (`ep->hcpriv`), not a prerequisite. Author is a
-USB/xHCI contributor; ALSA maintainer applied this the same day.
+Record: Pengpeng Hou is a regular contributor of
+missing-`MODULE_DEVICE_TABLE` and validation fixes (ixp4xx crypto,
+several RTC/vdpa/watchdog/hwmon drivers). Not the Keem Bay maintainer.
+Crypto maintainer Herbert Xu applied it.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: None. Uses existing `of_device_id` table and
+`MODULE_DEVICE_TABLE`. Applies standalone on this tree.
 
-Record: None. The function, field, and `usb_submit_urb()` check all
-exist here. `git show fabae5548149e | git apply --check` succeeded.
-Standalone.
+---
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
 Record:
-- `b4 dig -c fabae5548149e` → https://patch.msgid.link/20260810075728.48
-  3c827e.michal.pecio@gmail.com
-- `b4 dig -a`: **v1 only**, 2026-08-10
-- Thread (LKML/openwall): standalone `[PATCH]`, no v2. Takashi Iwai:
-  “Applied to for-next branch. Thanks.” No NAK, no stable discussion, no
-  reviewer risk flags.
+- `b4 dig -c b73b71df4cb4c` →
+  https://patch.msgid.link/20260704124609.16628-1-pengpeng@iscas.ac.cn
+- `b4 dig -a`: **v1 only**; committed version is that v1.
+- Thread (mbox): Herbert Xu: **“Patch applied. Thanks.”** No NAK, no
+  requested changes, no `Cc: stable` from reviewers.
+- Direct lore HTTP fetch returned 403/Anubis; discussion recovered via
+  `b4 dig -m`.
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-
-Record (`b4 dig -w`): To/Cc Jaroslav Kysela, Takashi Iwai, linux-sound,
-linux-kernel. **Not** linux-usb. Applied by the ALSA maintainer the same
-day; no separate Reviewed-by.
+Record (`b4 dig -w`): To/Cc included Prabhjot Khurana, Mark Gross,
+**Herbert Xu**, David S. Miller, `linux-crypto@`, `linux-kernel@`.
+Maintainer applied it. No extra Reviewed-by on the commit.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-
-Record: No `Reported-by`, no bugzilla/syzbot. Inspection-driven.
-Severity from the author is kernel panic; no public crash log was found.
+Record: No Reported-by / bugzilla / syzbot. Author calls it a source-
+level finding. No user crash report found.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: Not a series. `git log origin/master
-fabae5548149e..origin/master -- sound/usb/usx2y/usbusx2yaudio.c` is
-empty (no follow-up/revert).
+Record: Same-day sibling `1e5004d5a3a80` (“crypto: ixp4xx - add missing
+MODULE_DEVICE_TABLE()”), same commit-message template. Systematic scan,
+still a real missing-alias bug.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: **UNVERIFIED** for lore.kernel.org/stable (Anubis bot-wall). No
+in-tree evidence this was rejected for stable.
 
-Record: lore.kernel.org returned 403 via WebFetch. Web search of
-`site:lore.kernel.org/stable usx2y hcpriv` found **no** stable-list
-thread. UNVERIFIED beyond that search: no evidence it was rejected for
-stable.
+---
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-semcode MCP is not available; callers/callees from grep + reads.
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
 **Step 5.1: IDENTIFY KEY FUNCTIONS**
-
-Record: `usx2y_urb_submit()` only.
+Record: No function body changed. Touches `kmb_ocs_ecc_of_match[]` used
+by `kmb_ocs_ecc_driver` (`module_platform_driver`).
 
 **Step 5.2: TRACE CALLERS**
-
-Record:
-- `usx2y_usbframe_complete()` in the same file: playback URB after
-  `usx2y_urb_play_prepare()`, capture `completed_urb` after retire.
-  Called from `i_usx2y_urb_complete()` (URB complete / giveback).
-- `usx2yhwdeppcm.c` includes `usbusx2yaudio.c` and calls
-  `usx2y_urb_submit()` for capture (and second capture) in the
-  hwdep/rawusb path.
-
-Hot path: **every ISO frame** while PCM is running. Userspace trigger:
-open/play/record on a Tascam US-122/224/428 (`CONFIG_SND_USB_USX2Y`).
+Record: `kmb_ocs_ecc_probe()` is the platform `.probe`. Called by the
+platform bus when a device matches `intel,keembay-ocs-ecc`. Autoload is
+the missing step before probe for `=m`.
 
 **Step 5.3: TRACE CALLEES**
-
-Record: `usb_submit_urb(urb, GFP_ATOMIC)`, `dev_err` on failure. No
-alloc, no new locks.
+Record: Probe ioremaps, requests IRQ, starts `crypto_engine`, registers
+ECDH P-256/P-384. Unchanged.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record: `usb_hcd_giveback_urb` → `__usb_hcd_giveback_urb` (`hcpriv =
-NULL`) → `i_usx2y_urb_complete` → `usx2y_usbframe_complete` →
-`usx2y_urb_submit` → `usb_submit_urb`. Reachable from normal PCM. On a
-clean complete, `hcpriv` is already NULL. Double-submit is the dangerous
-case (startup state machine `STATE_STARTING1/2` can pick
-`urb[0]`/`urb[1]` by index; two URBs per substream, `NRURBS == 2`).
+Record: Reachable when `ARCH_KEEMBAY` (or `COMPILE_TEST`) and
+`CRYPTO_DEV_KEEMBAY_OCS_ECC=m`, and DT has `intel,keembay-ocs-ecc`.
+Kconfig: “Say Y or M if you are compiling for the Intel Keem Bay SoC.”
+In-tree DTS (`arch/arm64/boot/dts/intel/`) has **no** `ocs-ecc` node
+(only the binding example). Hardware is still a real SoC (`ARCH_KEEMBAY`
+in `arch/arm64/Kconfig.platforms`). Userspace does not trigger this via
+a generic syscall; DT device + modular driver does.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: Same omission later fixed in HCU (`86c85d6657e47`) and AES
+(`0a94091e29f91`). This is the remaining ECC sibling.
 
-Record: `urb->hcpriv = NULL` in `sound/` exists **only** in this file.
-Other `hcpriv` writes are in HCDs (`xhci`, `ehci`, `ohci`, …), which is
-correct. This driver is the outlier among ALSA USB.
+---
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-
-Record: **Yes.** Local tree: `pending-6.12`, `git describe`
-`p-6.12-3-gc504cf0baa3d8`, **`make kernelversion` = 6.12.111**. Line 170
-of `sound/usb/usx2y/usbusx2yaudio.c` is `urb->hcpriv = NULL;`.
-Introduced in 2.6.12-rc2; present for this entire 6.12 line.
+Record: **Yes.** File and `kmb_ocs_ecc_of_match[]` are here. Pre-fix
+parent of `b73b71df4cb4c` had the table and `.of_match_table` assignment
+with no `MODULE_DEVICE_TABLE`. Introduced v5.16; this tree is 7.3-rc4.
+`git merge-base --is-ancestor b73b71df4cb4c HEAD` is true (landed by
+7.3-rc1). That does not make the fix unworthy of stable; it confirms the
+driver/bug lived in this lineage.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-
-Record: **Clean apply** (`git apply --check` exit 0). Hunk context
-matches. No refactor of this submit helper in 6.12 vs the mainline
-parent.
+Record: **Clean apply** on this tree (already applied as +1 line). Older
+stables before `fbf31dd599875` use `drivers/crypto/keembay/`; that is a
+path tweak only, not a semantic dependency for this checkout.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: HCU and AES already publish OF aliases. No alternate ECC
+autoload fix besides this commit. Driver also has
+`MODULE_ALIAS_CRYPTO("ecdh-nist-p256")` etc., which can load the module
+on crypto-API request, **not** on DT device appearance.
 
-Record: No prior usx2y `hcpriv` fix (`git log --grep=hcpriv --
-sound/usb/usx2y/` empty). Nearby usx2y hardening in this tree (`nrpacks`
-validation, URB `actual_length` checks, etc.) does not replace this
-change.
+---
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 **Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-
-Record: **ALSA USB** (`sound/usb/usx2y/`), driver-specific.
-**PERIPHERAL/IMPORTANT-for-those-devices**: Tascam US-122/224/428
-(`CONFIG_SND_USB_USX2Y`, x86/PPC/Alpha). Not core mm/net, but USB audio
-submit on a live HCD is a **system-wide panic** if it fires.
+Record: `drivers/crypto/intel/keembay/` — SoC crypto accelerator.
+**PERIPHERAL** (Keem Bay / Movidius only), but an existing in-tree
+driver, not staging.
 
 **Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Moderate churn (crypto_engine API, remove-callback, directory
+move). Match table itself unchanged since 2021 except this alias line.
+Maintainer: Prabhjot Khurana; applied by Herbert Xu.
 
-Record: Mature (2002–2005 origin), still receiving real fixes in 6.12
-(parameter validation, bounds). Low churn, not staging.
+---
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 **Step 8.1: DETERMINE WHO IS AFFECTED**
-
-Record: **Driver-specific / config-specific**: users with Tascam
-US-122/224/428 and `CONFIG_SND_USB_USX2Y`. Unprivileged PCM I/O can
-exercise the path.
+Record: **platform-specific / config-specific** —
+`CRYPTO_DEV_KEEMBAY_OCS_ECC=m` on Keem Bay with a DT node for OCS ECC.
 
 **Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-
-Record: Legal resubmit after giveback: `hcpriv` already NULL → **no
-behavior change**. Panic requires submitting a still-active URB (startup
-state machine, lost `completed_urb`, or overlapping complete/submit).
-Not shown with a public reproducer; ISO ping-pong with two URBs makes it
-**plausible**. Unprivileged users running audio can hit the submit path.
+Record: Boot/enumeration when the OF device is created and the driver is
+a module. Not a race. Unprivileged users do not trigger it directly.
+Common on that SoC if the node exists; rare globally.
 
 **Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-
-Record: **HCD crash / kernel panic** if an active URB is submitted after
-`hcpriv` is cleared. **Severity: CRITICAL** when it fires; **likelihood:
-unproven / low** (no Reported-by). After the fix: `-EBUSY` + WARN +
-stream stop — **HIGH** improvement vs panic.
+Record: Hardware crypto module does not autoload from DT; ECDH offload
+missing until manual `modprobe` or a crypto-alias load. Not
+panic/UAF/corruption. **MEDIUM** functional/enablement (stable’s “device
+ID” class).
 
 **Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-
 Record:
-- **Benefit:** Restores USB core’s active-URB guard on a path that
-  otherwise can panic the machine; correct path unchanged.
-- **Risk:** 1-line deletion, no API, no locking, no data-structure
-  change.
-- **Ratio:** Strongly favors backport.
+- **Benefit:** modular Keem Bay ECC actually binds at device discovery.
+  Same class as device-ID additions.
+- **Risk:** very low (one macro).
+- **Ratio:** favorable.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+---
+
+## PHASE 9: FINAL SYNTHESIS
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
 FOR:
-- Objectively illegal write to HCD-private `urb->hcpriv` (docs + USB
-  core).
-- Defeats `usb_submit_urb()`’s `WARN_ONCE`/`-EBUSY` (in this tree since
-  2012).
-- Failure mode is HCD crash/panic (xhci re-owns a live URB).
-- Buggy line present here since 2.6.12; commit is **not** in HEAD.
-- 1 deletion; `git apply --check` clean; no prerequisites.
-- USB-knowledgeable author; ALSA maintainer applied v1 same day; no NAK;
-  no later revert.
+- Real modular autoload bug: OF match table present, aliases not
+  published.
+- Official stable rules: *“fix a real bug that bothers people **or just
+  add a device ID**.”* This is publishing an existing OF ID for modules.
+- User-prompt exception: new/missing device IDs and hardware enablement
+  on an existing driver.
+- +1 line, obviously correct, maintainer-applied, v1 unchanged.
+- Same fix already used on sibling HCU/AES drivers.
+- Driver has been in this lineage since v5.16; no missing prerequisites
+  in this tree.
 
 AGAINST:
-- No `Reported-by` / syzbot / crash log.
-- Tascam-only driver.
-- On the spec-compliant complete path the store is already a no-op
-  (giveback NULL’s `hcpriv` first), so this is **latent** unless double-
-  submit happens.
+- No user/syzbot report; author says source-level only.
+- Niche SoC; no in-tree DTS node for this compatible.
+- `MODULE_ALIAS_CRYPTO` can still load the module on algorithm request.
+- Not a crash, leak, or security bug.
 
 UNRESOLVED:
-- Could not fetch lore.kernel.org (403); discussion recovered via b4 +
-  LKML/openwall.
-- No stable-list hit found; not proven it was ever NAK’d for stable.
+- Stable-list discussion (lore blocked).
+- Whether out-of-tree Keem Bay DTs include `intel,keembay-ocs-ecc`.
 
 **Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-
-1. Obviously correct and tested? **PASS** — one illegal store removed;
-   maintainer applied; correct path unchanged.
-2. Fixes a real bug that affects users? **PASS** — drivers must not
-   clear `hcpriv`; this driver does; users of this hardware exist.
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   bypass can panic the HCD; severity is crash, even if unreported.
-4. Small and contained? **PASS** — 1 line, one function.
+1. Obviously correct and tested? **PASS** — standard macro; applied by
+   Herbert Xu.
+2. Fixes a real bug that affects users? **PASS** — modular OF autoload
+   does not work; device-ID equivalent.
+3. Important issue? **PASS** under the device-ID / hardware-enablement
+   exception (not a panic).
+4. Small and contained? **PASS** — 1 line, 1 file.
 5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — clean apply; code present.
+6. Can apply to the local tree? **PASS** — file and table exist; applies
+   as a single insertion.
 
 **Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-
-Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary small
-bugfix.
+Record: **Device ID / module-alias publication for an existing driver.**
 
 **Step 9.4: MAKE YOUR DECISION**
+This is a one-line, obviously correct enablement fix: the driver already
+matches `intel,keembay-ocs-ecc`, but modular builds never advertised
+that ID to userspace. That is the same class of change stable already
+takes for PCI/USB/OF IDs. Risk is negligible. This 7.3-rc4 tree contains
+the driver and the historical bug; the patch is appropriate to carry on
+this lineage’s stable trees.
 
-This belongs in **this** 6.12 tree. The hardware set is narrow, but the
-patch is the lowest-risk way to stop a driver from disabling USB core’s
-double-submit guard. A panic on ISO resubmit is exactly the class of bug
-stable is meant to take; waiting for a public oops is unnecessary when
-the mechanism is visible in this checkout.
+### What the commit solves
+Without `MODULE_DEVICE_TABLE(of, kmb_ocs_ecc_of_match)`, `modpost` does
+not emit OF aliases, so a modular `keembay-ocs-ecc` will not autoload
+when the DT device appears. Built-in still works. The fix only publishes
+the existing match table.
 
-------------------------------------------------
-What the commit solves for 6.12 users
-------------------------------------------------
-`usx2y_urb_submit()` currently zeros `urb->hcpriv` before
-`usb_submit_urb()`. USB core uses that pointer as “this URB is in the
-HCD.” Clearing it lets a still-active URB through as if it were idle.
-That can crash the host controller. After the deletion, a double-submit
-returns `-EBUSY` and this driver already stops the streams.
+### Risk vs benefit
+Benefit is hardware actually probing on modular Keem Bay systems. Risk
+is a compile-time alias with no runtime logic change.
 
-Meets stable rules: obviously correct, real invariant bug, crash
-severity, 1 line, no new API, applies here.
-
-Risk vs benefit: benefit is avoiding a panic; risk is effectively zero
-on the giveback path this driver uses every frame.
-
-Concerns: niche device, no reproducer. Neither blocks a one-line restore
-of an existing USB-core check.
+### Concerns
+Niche platform; no crash report. That does not disqualify a device-ID-
+class one-liner. No functional dependencies.
 
 Verification:
-- [Phase 1] Tags: author SOB, Link msgid, Takashi Iwai SOB; no
-  Fixes/Reported-by/stable Cc
-- [Phase 1] Subject/body: stop illegal `hcpriv` clear; panic if URB
-  still active
-- [Phase 2] Diff: delete `urb->hcpriv = NULL` in `usx2y_urb_submit()`;
-  confirmed at line 170 in this tree
-- [Phase 2] `usb_submit_urb()` checks `urb->hcpriv` and returns `-EBUSY`
-  (`drivers/usb/core/urb.c:378-381`)
-- [Phase 2] `__usb_hcd_giveback_urb()` sets `urb->hcpriv = NULL` before
-  `urb->complete()` (`hcd.c:1627`)
-- [Phase 2] xHCI `xhci_urb_enqueue()` assigns `urb->hcpriv = urb_priv`
-  (`xhci.c:1552`)
-- [Phase 2] `include/linux/usb.h`: `hcpriv` is HCD-private;
-  Documentation `-EBUSY` = URB already active
-- [Phase 3] blame: `1da177e4c3f41` Linux-2.6.12-rc2 introduced the store
-- [Phase 3] sanity check added `2f02bc8af3abb` (2012), present here
-- [Phase 3] `git merge-base --is-ancestor fabae5548149e HEAD` → not in
-  this tree
-- [Phase 3] no follow-up/revert on `origin/master` for this file after
-  the commit
-- [Phase 4] `b4 dig -c fabae5548149e`: lore msgid; v1 only; To/Cc ALSA
-  maintainers
-- [Phase 4] Takashi Iwai applied to for-next; no NAK
-- [Phase 4] lore.kernel.org WebFetch 403; LKML/openwall used instead
-- [Phase 5] callers: `usx2y_usbframe_complete`, hwdep path via `#include
-  "usbusx2yaudio.c"`
-- [Phase 5] only `sound/` instance of `urb->hcpriv = NULL`
-- [Phase 6] `git describe HEAD` = p-6.12-3-gc504cf0baa3d8; `make
-  kernelversion` = 6.12.111
-- [Phase 6] `git apply --check` of `fabae5548149e` succeeded
-- [Phase 7] `CONFIG_SND_USB_USX2Y` Tascam US-122/224/428
-- [Phase 8] Failure mode: HCD panic on active-URB submit; severity
-  CRITICAL if triggered
-- UNVERIFIED: no public reproducer; stable@ archive not readable (403)
+- [Phase 1] `git log -1 --format='%B' b73b71df4cb4c`: tags as listed; no
+  Fixes/Reported-by/Cc: stable
+- [Phase 2] `git show b73b71df4cb4c`: +1 line `MODULE_DEVICE_TABLE(of,
+  kmb_ocs_ecc_of_match)`
+- [Phase 2] `include/linux/module.h` and `scripts/mod/file2alias.c`:
+  alias generation confirmed
+- [Phase 3] `git blame` on match table: introducer `c9f608c380090`; `git
+  merge-base --is-ancestor c9f608c380090 v5.16` succeeded
+- [Phase 3] Sibling fixes `86c85d6657e47` (HCU) and `0a94091e29f91`
+  (AES) confirmed
+- [Phase 4] `b4 dig -c/-a/-w/-m`: v1 lore URL; Herbert “Patch applied.
+  Thanks.”; crypto list + original Intel authors
+- [Phase 4] lore HTTP: 403/Anubis — UNVERIFIED via WebFetch/curl
+- [Phase 5] Probe at `kmb_ocs_ecc_probe`; grep found no in-tree DTS
+  using `intel,keembay-ocs-ecc`
+- [Phase 6] `git describe HEAD` → v7.3-rc4-27-gf0100363d8c37; `make
+  kernelversion` → 7.3.0-rc4; pre-fix parent lacks the macro; driver
+  present
+- [Phase 6] `git merge-base --is-ancestor b73b71df4cb4c HEAD` succeeded
+- [Phase 7] Kconfig `CRYPTO_DEV_KEEMBAY_OCS_ECC` depends on
+  `ARCH_KEEMBAY || COMPILE_TEST`
+- [Phase 8] Failure mode: missing module autoload, not oops
+- UNVERIFIED: stable@ mailing-list discussion; live hardware
+  reproduction (author did not claim one)
 
 **YES**
 
- sound/usb/usx2y/usbusx2yaudio.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/crypto/intel/keembay/keembay-ocs-ecc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/usb/usx2y/usbusx2yaudio.c b/sound/usb/usx2y/usbusx2yaudio.c
-index c7c7ec9c228b4..1ea181e9bb283 100644
---- a/sound/usb/usx2y/usbusx2yaudio.c
-+++ b/sound/usb/usx2y/usbusx2yaudio.c
-@@ -167,7 +167,6 @@ static int usx2y_urb_submit(struct snd_usx2y_substream *subs, struct urb *urb, i
- 	if (!urb)
- 		return -ENODEV;
- 	urb->start_frame = frame + NRURBS * nr_of_packs();  // let hcd do rollover sanity checks
--	urb->hcpriv = NULL;
- 	urb->dev = subs->usx2y->dev; /* we need to set this at each time */
- 	err = usb_submit_urb(urb, GFP_ATOMIC);
- 	if (err < 0) {
+diff --git a/drivers/crypto/intel/keembay/keembay-ocs-ecc.c b/drivers/crypto/intel/keembay/keembay-ocs-ecc.c
+index 59308926399d0..f31b5ae73f664 100644
+--- a/drivers/crypto/intel/keembay/keembay-ocs-ecc.c
++++ b/drivers/crypto/intel/keembay/keembay-ocs-ecc.c
+@@ -987,6 +987,7 @@ static const struct of_device_id kmb_ocs_ecc_of_match[] = {
+ 	},
+ 	{}
+ };
++MODULE_DEVICE_TABLE(of, kmb_ocs_ecc_of_match);
+ 
+ /* The OCS driver is a platform device. */
+ static struct platform_driver kmb_ocs_ecc_driver = {
 -- 
 2.53.0
 
