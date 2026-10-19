@@ -1,221 +1,157 @@
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA8FA3546CF
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFCF36493C;
+	Mon, 19 Oct 2026 03:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792378901; cv=none; b=CZXvyE1N5aNx8dXXaGjT+eE1d46/ONsPtH1rsoyaQ8xbx9mrTv58CkqI+ohosqwWrooA9q8QIax0V14WadJcnq77F8G2gogvgvRTx5YOBUnOFiG2qE/hfw42TKmIw4ZLkZZ15y0zVKU1L8TyEvKEgwciUWfuiFq5fZOvnAxncUo=
+	t=1792378902; cv=none; b=pgg5rufQmgWgaF/IKPICOuKeeQ7DHhup6daL/dPufqwjWcnljR83PyXxKNdJcnUYP5qq+TT1LTDnm8XOEAnqW3+z5pK71MigHAg1MhvJm/drpOKTqCZJxAkeLMvKEOdp130NR3vAe7fsuBnDXxeYOvvZiBs63/jom4LKkSq84dM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792378901; c=relaxed/simple;
-	bh=2nsse8R9GATfUlGxxMEeK2++aC0508/mNT9onyhFOYQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q1hukKxAzAOtir4xzk8jw3aBRb/ttcoR2DzdS5AccP8uiH30okXtvMnPKZFuqkyZGI5E54NXZx0fesKZFlDUOJM38RhTM2m6wcsoC25btltk8IcYyYdConIAnpZYU0RN5034UjB+/HOgujgqm6Bpl9E+HtiQEFOnAKCgnVFNDeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=eGOeleRj; arc=none smtp.client-ip=209.85.222.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1792378902; c=relaxed/simple;
+	bh=VWn0uQoOEoGiJIbN/zvdT6e5+n9Eufqzc2wlyytqKwM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ij4Cpd7cTtnp7Aaq+Tj0koIwRBnKXNkvdCSMskJrhKlqLS+4JDcFlYF7vDoZwz88hrzKsTyM5FxGvYSBV/9NG0bLXJyB5eyX+lCGTzSK2bSMY2Y6Y8nxtse9uuZRfHpCbU3vKdsnHGeGehWMNwqxH5aXBdhxN8G/8mblbtry80Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifXDmOXQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="eGOeleRj"
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93f20b304c0so159999485a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:01:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792378899; x=1792983699; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9D78vrkEaiw/Is5KlQ/iLJagt3SGFDs7ZK10PGJQZuE=;
-        b=eGOeleRj8E4KZdoAm371SUKpddekP/Q+3C3qrowDDy6rUx4Qtyl2nlQEnBq7RdWdR+
-         VvlJd7Rbs0+tC6kz87kafWRuwxqMtGA66247VGvVYmpXO2RiQB5W+6r3DVn/1L3JhBDK
-         3CMAMVvh9GF9b3EdG/O4VGD8xSnjPwB8FwuESIvTPG/5hiCRq2i1dnlkIRKWK7oAVlGc
-         cYCmMxRFVnIfLRMBBklJoVS+xLTSs/DIfl/DImtH02FfibM6TYjfHU+bk3/KpGI3ZFY8
-         n3NmrG1NngUJgafv7LlL/9GZzHyTk5hDqTQGqseGnTwc1Ceu88r63fE18kr+r2wcCk/4
-         bzCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792378899; x=1792983699;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9D78vrkEaiw/Is5KlQ/iLJagt3SGFDs7ZK10PGJQZuE=;
-        b=MadGVnlAH9kmXuWOx58ZuAytg4ZJOBWzWuw/QjKQ3dbTY8IeOeEPFORnavemJ0+rff
-         Wrp1BfIwE6EJrlmsv/0zKJWlxJLJeMqZey2V7RpM5k1DcTtOW8GhJYvmd94YB+qSVL05
-         YN4FuPHjQAkazcVousOKYIo3U45WEw9NrT8qeLJyf0oBSAyU+GDWGiKQoL7/g6+n/Ctu
-         bv7ZKj87wiO33nLK0wBZN7U+Vf+2BCpPeaLb4igDAKP1j4V7fPU+jQeYEN8ul88Vhg8w
-         6hNWYQGJ6xPwMAtx4v0OHdoZV270SSXgjZR+Sferf3z3g96g2DR8RfKzGFR0ZrapuMF1
-         5wxA==
-X-Forwarded-Encrypted: i=1; AKwUvByvJ7jv8BTenbDFuk6EJJwlNJRIG7egxYFBUydAQGA7zzmTv3y1TBIITqAXXBNM5LI3Qnw1aeOTCuhNbwc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIR9+mjk9zvICOo54iHCoM/1dzz15ZVgBcCsutL7+IHII/0WHZ9
-	FDPLh42QNaddgONK/SsK1Ca//lVd1Zz0/ldRu6KslnUCeQEb7vgzRJ0LCHlMllMATok=
-X-Gm-Gg: AYBFou3S7M3luXqpnCf1nWAJw8xFP1ipt2TagSuqETCmX9f9MEqXIjdQWPUA/ccgUB8
-	2wJWDsmOmbgIeSt4dxoBz+zmYi0lXvEY8fOA3pfq09i5iZI/cQH5YjjFDjbMabzH54PdSVZyjKU
-	3BT4Ct3Veh5kwlzoJPJd8ALpbItoYJv8TWTiUqkHysn0EsxRR9zZLSxEWAtevATWWgo1hU5xICb
-	uUnf6zlHXn7NrP0HNSGXKtXek22qeJluO4OujjlS+kgRU8s/dg5j7ICPu+q96PTicHgfm9zfVBi
-	xRCBEWEZQDE0e4tziMdBQMqgSk9wEdHNskROqg+Of0Z7kME18ZSnkXdaWdVY0C27smnoxOg+gTZ
-	woziArHMls0vat9DK8IIbSk+Hva5kQPjrVOqhp7nntrserl6MfNGf8YpIEdBmH1cBl5xEEuhuJ2
-	tPgHqRZx1m/I4b3johZvEdPFlLc65xqyiieh/dAVhNpzmAA6RderUloeOwWRXm7UDU3iAZm2R6z
-	Iw=
-X-Received: by 2002:a05:620a:28c1:b0:93e:7939:acd0 with SMTP id af79cd13be357-93f29d10508mr1118565485a.37.1792378898919;
-        Sun, 18 Oct 2026 20:01:38 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f3c61c440sm216840185a.10.2026.10.18.20.01.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 20:01:38 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: Daniel Thompson <daniel@riscstar.com>,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	richardcochran@gmail.com,
-	p.zabel@pengutronix.de,
-	peppe.cavallaro@st.com,
-	joabreu@synopsys.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 3/5] net: stmmac: dwxgmac2: Add XGMAC 3.01a support
-Date: Sun, 18 Oct 2026 22:01:26 -0500
-Message-ID: <20261019030129.1470307-4-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019030129.1470307-1-elder@riscstar.com>
-References: <20261019030129.1470307-1-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifXDmOXQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E3A1F000C6;
+	Mon, 19 Oct 2026 03:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792378901;
+	bh=Nm/7u4OXmRI/tZsZaERR4EMWmMNSAf7Kf2Ba0pBac4o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ifXDmOXQq5BHAIYtO3rs41GppZEFu3ne3YbVFCyY7Ownj09lqlFV5wP8QxLvJEaou
+	 BbfBd6nSfvUhGQ+p1ceUJCS9bJ0VmVfClCz2ZS52Jh6y0yP6eL1bL2kfVGEO3Utj7v
+	 QlTvXPFLAIhQaknItdrPoLlwB4wozeL1q7Jcs05CAVeDZFTBPNu0sYFwlv8UL38tmR
+	 4CDy1O/Ffs5IfhqJLxF3cuNbzbaq7KMOa7gOicY2EJW2KhpoOlhkX309TdOfo8uS36
+	 NIwYQhn9pTqCGSaCIA8OYEGub01i6J0d3BQy09R1cQer2WrvZnoh5V1jmaLyoZ+RiN
+	 ZWcGhazbnq3gw==
+Date: Mon, 19 Oct 2026 04:01:35 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Salah Triki <salah.triki@gmail.com>
+Cc: Crt Mori <cmo@melexis.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: temperature: mlx90614: Fix dual channel probe
+ condition check
+Message-ID: <20261019040135.1da889ec@jic23-hlaptop>
+In-Reply-To: <aqvoH9ohxkJ6iPei@pc>
+References: <20260917110121.631587-1-salah.triki@gmail.com>
+	<CAKv63utdoBrCFiw8vkGsMhY9PrWX0DWdxqP5szvTGpdmfSQh5A@mail.gmail.com>
+	<aqvoH9ohxkJ6iPei@pc>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Daniel Thompson <daniel@riscstar.com>
+On Thu, 17 Sep 2026 14:16:15 +0100
+Salah Triki <salah.triki@gmail.com> wrote:
 
-XGMAC 2.x and 3.x are architecturally very similar.  That means that
-for everything except one erratum we can simply use the XGMAC 2.x
-callback functions in the stmmac_dma_ops structure.
+> Hi Crt,
+> 
+> Thanks for your feedback.
+> 
+> Actually, the patch primarily fixes the behavior for the MLX90614.
+> 
+> In the current codebase, MLX90614 has `chip_info->dual_channel = true`.
+> Because `mlx90614_probe_num_ir_sensors()` checks
+> `if (chip_info->dual_channel)`, it returns 0 immediately for MLX90614
+> without reading the EEPROM CONFIG1 register. As a result, dual-channel
+> MLX90614 sensors are incorrectly registered as single-channel devices.
+> 
+> For MLX90615 (`dual_channel = false`), the condition was bypassed, causing
+> an unnecessary SMBus read to EEPROM CONFIG1, even though MLX90615 only
+> supports a single object channel.
+> 
+> By changing the check to `if (!chip_info->dual_channel)`, we fix both
+> issues:
+> 1. MLX90614 correctly reads EEPROM CONFIG1 to detect whether it operates
+> in single or dual channel mode.
+> 2. MLX90615 skips the EEPROM read entirely.
+> 
+> I don't have physical hardware to test this on; this bug was spotted via
+> code inspection.
 
-Only the set_rx_ring_len callback is specific to XGMAC 3.01.  It
-limits the number of outstanding write requests that can be serviced
-per DMA.
+Explanation makes sense to me and as Crt hasn't come back with
+a reply, I'll assuming Crt has no objections (shout if not!)
 
-The other erratum addressed in this patch is simply a comment to
-ensure that a feature that stmmac doesn't currently use is not enabled
-without contemplating the errata.
+Applied and marked stable
 
-Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-Co-developed-by: Alex Elder <elder@riscstar.com>
-Signed-off-by: Alex Elder <elder@riscstar.com>
----
- .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 ++
- .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 52 +++++++++++++++++++
- 2 files changed, 55 insertions(+)
+Thanks,
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index f8ab347f7b5b9..0fe86e9942334 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -374,6 +374,8 @@
- #define XGMAC_DMA_CH_RxDESC_TAIL_LPTR(x)	(0x0000312c + (0x80 * (x)))
- #define XGMAC_DMA_CH_TxDESC_RING_LEN(x)		(0x00003130 + (0x80 * (x)))
- #define XGMAC_DMA_CH_RxDESC_RING_LEN(x)		(0x00003134 + (0x80 * (x)))
-+#define XGMAC_OWRQ			GENMASK(25, 24)
-+#define XGMAC_RDRL			GENMASK(15, 0)
- #define XGMAC_DMA_CH_INT_EN(x)		(0x00003138 + (0x80 * (x)))
- #define XGMAC_NIE			BIT(15)
- #define XGMAC_AIE			BIT(14)
-@@ -465,6 +467,7 @@
- extern const struct stmmac_ops dwxgmac210_ops;
- extern const struct stmmac_ops dwxlgmac2_ops;
- extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
-+extern const struct stmmac_dma_ops dwxgmac301_dma_ops;
- extern const struct stmmac_desc_ops dwxgmac210_desc_ops;
- 
- #endif /* __STMMAC_DWXGMAC2_H__ */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-index ff83858ebc1f3..f9a77d641eb65 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-@@ -36,6 +36,13 @@ static void dwxgmac2_dma_init(void __iomem *ioaddr,
- 	 * Route DMA interrupts to per-channel lines when multi-MSI enabled.
- 	 */
- 	if (dma_cfg->multi_msi_en) {
-+		/*
-+		 * A friendly warning to future adventurers. If Descriptor Posted
-+		 * Write support, which is off by default, is ever enabled then be sure
-+		 * to make it optional. This is required by errata for at least XGMAC
-+		 * 3.01A... and the XGMAC 2.x and 3.x are architecturally similar so we
-+		 * use dwxgmac2 support for the 3.x family as well.
-+		 */
- 		value = readl(ioaddr + XGMAC_DMA_MODE);
- 		value = u32_replace_bits(value, XGMAC_INTM_MODE1,
- 					 XGMAC_INTM_MASK);
-@@ -492,6 +499,20 @@ static void dwxgmac2_set_rx_ring_len(struct stmmac_priv *priv,
- 	writel(len, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
- }
- 
-+static void dwxgmac301_set_rx_ring_len(struct stmmac_priv *priv,
-+				       void __iomem *ioaddr, u32 len, u32 chan)
-+{
-+	u32 val = FIELD_PREP(XGMAC_RDRL, len);
-+
-+	/*
-+	 * Reduce the number of outstanding write requests to 3 (from default
-+	 * of 4). This is an errata workaround for XGMAC 3.01a.
-+	 */
-+	val |= FIELD_PREP(XGMAC_OWRQ, 3);
-+
-+	writel(val, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
-+}
-+
- static void dwxgmac2_set_tx_ring_len(struct stmmac_priv *priv,
- 				     void __iomem *ioaddr, u32 len, u32 chan)
- {
-@@ -621,3 +642,34 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops = {
- 	.enable_sph = dwxgmac2_enable_sph,
- 	.enable_tbs = dwxgmac2_enable_tbs,
- };
-+
-+/* All but one field are the same as dwxgmac210_dma_ops */
-+const struct stmmac_dma_ops dwxgmac301_dma_ops = {
-+	.reset = dwxgmac2_dma_reset,
-+	.init = dwxgmac2_dma_init,
-+	.init_chan = dwxgmac2_dma_init_chan,
-+	.init_rx_chan = dwxgmac2_dma_init_rx_chan,
-+	.init_tx_chan = dwxgmac2_dma_init_tx_chan,
-+	.axi = dwxgmac2_dma_axi,
-+	.dump_regs = dwxgmac2_dma_dump_regs,
-+	.dma_rx_mode = dwxgmac2_dma_rx_mode,
-+	.dma_tx_mode = dwxgmac2_dma_tx_mode,
-+	.enable_dma_irq = dwxgmac2_enable_dma_irq,
-+	.disable_dma_irq = dwxgmac2_disable_dma_irq,
-+	.start_tx = dwxgmac2_dma_start_tx,
-+	.stop_tx = dwxgmac2_dma_stop_tx,
-+	.start_rx = dwxgmac2_dma_start_rx,
-+	.stop_rx = dwxgmac2_dma_stop_rx,
-+	.dma_interrupt = dwxgmac2_dma_interrupt,
-+	.get_hw_feature = dwxgmac2_get_hw_feature,
-+	.rx_watchdog = dwxgmac2_rx_watchdog,
-+	.set_rx_ring_len = dwxgmac301_set_rx_ring_len,	/* Only 3.01 */
-+	.set_tx_ring_len = dwxgmac2_set_tx_ring_len,
-+	.set_rx_tail_ptr = dwxgmac2_set_rx_tail_ptr,
-+	.set_tx_tail_ptr = dwxgmac2_set_tx_tail_ptr,
-+	.enable_tso = dwxgmac2_enable_tso,
-+	.qmode = dwxgmac2_qmode,
-+	.set_bfsize = dwxgmac2_set_bfsize,
-+	.enable_sph = dwxgmac2_enable_sph,
-+	.enable_tbs = dwxgmac2_enable_tbs,
-+};
--- 
-2.53.0
+Jonathan
+
+> 
+> Best regards,
+> Salah
+> 
+> On Thu, Sep 17, 2026 at 01:27:48PM +0200, Crt Mori wrote:
+> > So this fix is for the MLX90615, which is registered as single channel
+> > operation? Did you test on 90614 as well?
+> > 
+> > Best regards,
+> > Crt
+> > 
+> > Crt Mori
+> > 
+> > Melexis Technologies NV
+> > Transportstraat 1
+> > 3980 Tessenderlo
+> > 
+> > Mobile: +32 492 46 22 15
+> > E-mail: cmo@melexis.com
+> > Website: www.melexis.com
+> > 
+> > ----------------------------------------------------------
+> > The contents of this e-mail are CONFIDENTIAL AND PROPRIETARY. Please
+> > read our disclaimer at http://www.melexis.com/mailpolicy
+> > 
+> > 
+> > On Thu, 17 Sept 2026 at 13:01, Salah Triki <salah.triki@gmail.com> wrote:  
+> > >
+> > > In mlx90614_probe_num_ir_sensors(), the check on chip_info->dual_channel
+> > > is inverted.
+> > >
+> > > Currently, if dual_channel is true (MLX90614), the function returns 0
+> > > immediately without checking op_eeprom_config1. This forces all MLX90614
+> > > devices to be registered as single sensor (num_channels = 2), making the
+> > > second object temperature channel inaccessible.
+> > >
+> > > Conversely, if dual_channel is false (MLX90615), the function skips the
+> > > early return and performs an unnecessary SMBus read on EEPROM CONFIG1 even
+> > > though MLX90615 does not support dual channel operation.
+> > >
+> > > Fix this by negating the condition so that single-channel chips return
+> > > early with 0, while dual-channel capable chips (MLX90614) proceed to read
+> > > the EEPROM configuration register to detect whether 1 or 2 object channels
+> > > are present.
+> > >
+> > > Fixes: 3d5ead238bc8 ("iio: mlx90614: Factor our register IO and constants into model specific descriptor")
+> > > Assisted-by: LLM
+> > > Signed-off-by: Salah Triki <salah.triki@gmail.com>
+> > > ---
+> > >  drivers/iio/temperature/mlx90614.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/iio/temperature/mlx90614.c b/drivers/iio/temperature/mlx90614.c
+> > > index 27d6ab5f5d7a..4f79da1f905e 100644
+> > > --- a/drivers/iio/temperature/mlx90614.c
+> > > +++ b/drivers/iio/temperature/mlx90614.c
+> > > @@ -565,7 +565,7 @@ static int mlx90614_probe_num_ir_sensors(struct i2c_client *client)
+> > >         const struct mlx_chip_info *chip_info = data->chip_info;
+> > >         s32 ret;
+> > >
+> > > -       if (chip_info->dual_channel)
+> > > +       if (!chip_info->dual_channel)
+> > >                 return 0;
+> > >
+> > >         ret = i2c_smbus_read_word_data(client, chip_info->op_eeprom_config1);
+> > > --
+> > > 2.43.0
+> > >  
 
