@@ -1,82 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424167;
-	b=PkZ/NVf/ZfB7iVS6lbzuqL5fGcLvaNvS5sqNndyGFbEcjIb0gNaYIGT8fqXM7vagYG+L
-	 lGsWNfN+an1zS7oHGFZ5QgeuokpRtIffHCbocbefB7lfJxCLiMAMz4AGjU9NMqRSgQktF
-	 vq0WR2bwpyjCUBLpR3Kw/j8fNOpmBzoeCqeL99wNpQVbAFjJIpYJOTkdL9P7msA+R+5tJ
-	 UdWAwaa11IEzWf5jryZiy42PFcI7MfF0kgWZQcqA1USKAq8YYG6KKSZ4U3Gga/I/44qJP
-	 AHnrvvbgtSHAQjuBm/aJtjCF9XlVqy5KVw7rJcdX1rjpvlchlkIORbEJwsxwg3uxdjg==
+	t=1792424206;
+	b=V3Ss0BSc5fV8Pnek1mRHjtvs5oSxx3t/CfsBYyq+0ugKwPSWfpQoDntdklxWsf9OUeHW
+	 IYSXxuOpdBAAhtezskw/SC1yo3rR0z4vmvvkND9tmPzu+r0vpgIqUBF9ORBb2/zC7igwT
+	 3RiIV1lip17fPYNsM+9d3PYP4ZWs8ScQFKKSurZh+AafUfAMq7r/ESgbzamjZCycls1Jz
+	 eOp0bJsXNfXjpfE+n5kJb9r4Uvvy9zdC58GqiD6+d81LxqqKQfomjPUnQQomRDqId7v8G
+	 pqNukiUAmzSS68FjonNYc/9nMuxVroe4lY3NHIXaMlkM2lWkpU6ajKZcrVomSv3VIPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424167;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=P/5dqfj7vTG/lINlWEYXcU+uCyfa82tRccYJR49wXCs=;
-	b=pFhkIsz+5kzniaJ9nPrtr3aKUSQOH5LfxUVLtOafsj4IHQfYCY7Qy5SfLY/6K2HWOaR0
-	 nSLBYXT320BSgEzlnKFZQ7MQWJLuPl1j8fZQqO+JXJXdxtJaREE9/AvkZFemCF7CXv+/p
-	 k0LYocBAK18B1lS4POhrwaqm4hM1CZduEy555T5BbPoutbc8UcxaGGcDpgfcoSHlFlF1q
-	 o6mokftKiijgySdkBArdT1XDzF8mDOhqjU+IrqNdFV88EhiovLHipXjeM5IzKW6lVqyta
-	 ops7L+gf74Hw/gz5J5xdfPCr+tPFWqfibqDkVwh01djajg+abFIN4hBZKLH5ANNb8tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424206;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=UOj9knh0frr379rHSoli0b/qodvVS2OqPC7MrjigU40=;
+	b=HG0Tuwg3xMhkz1WlKPU0WpFm6AO08ghcfhJNX8Q+NGKZerXdOyLhwnpNd5BV20UjJuAh
+	 66lDIzEkyd9hCt4YhHTq2Fum34KMUq05O4kM9qEIbsgKpxKFdz59pXBKVR5E8S/Gctapo
+	 DFYjln8mcNZYDnPV/8hpavtYhXGR8VnyESWorH7IYVtTMZQju2FgO+Qf75z2UXkgG9Jam
+	 5E35IX5bj69QdfOlks49ZP4Jrmq0zRVBFWhza8tKiWs3Dv0Va6iPlp53BvUSG36XXF++a
+	 bv76OP1jJKT1iIsiKaD3l5qFprGBBQaIKQ3nC8C1C8j1lnbtwuIuR6zVfxxfwzMF3KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=A6X3d117;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QAv97V8g;
+	arc=none smtp.remote-ip=95.215.58.33
+Received: from mta1.migadu.com (out-33.mta1.migadu.com [95.215.58.33])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F9A606EFF5
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F9A606EFF5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF05606AAD4
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:36:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AF05606AAD4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=A6X3d117
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792424166;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P/5dqfj7vTG/lINlWEYXcU+uCyfa82tRccYJR49wXCs=;
-	b=A6X3d117whShrfPmMAG+qlvrNNVAR5ccqHRSoIydHAPmdXILxdAxciD7ltZYB54NFd01sw
-	2IuJSIGeZ4l6mZyjiLcAifhKr129biY9o9ZAFwRm+dFA5ip7RQLVy8Kgbu6ZKGOyvf/21z
-	Wut8VG39WOs4QSwhK7cTei39AwcS4HA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-119-18dsTZefNZGqODH-NofnOQ-1; Mon,
- 19 Oct 2026 15:36:02 +0000
-X-MC-Unique: 18dsTZefNZGqODH-NofnOQ-1
-X-Mimecast-MFC-AGG-ID: 18dsTZefNZGqODH-NofnOQ_1792424160
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 383941955F29;
-	Mon, 19 Oct 2026 15:36:00 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 4839230000E3;
-	Mon, 19 Oct 2026 15:35:55 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon, 19 Oct 2026 17:35:59 +0200 (CEST)
-Date: Mon, 19 Oct 2026 17:35:54 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Joel Granados <joel.granados@kernel.org>,
-	Allison Henderson <achender@kernel.org>
-Cc: kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev,
-	lkp@intel.com, linux-kernel@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org, linux-s390@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, netdev@vger.kernel.org,
-	wireguard@lists.zx2c4.com, rds-devel@oss.oracle.com
-Subject: Re: [linus:master] [sysctl]  8d75c338f0:
- BUG:KASAN:slab-use-after-free_in_touch_wq_lockdep_map
-Message-ID: <atY42k00k0Waj6o4@redhat.com>
-References: <202610190310.9737b2e3-lkp@intel.com>
- <atYB0bm9eEXp8A2g@redhat.com>
- <atYW0K3t57puHeLW@hobbes>
- <atYuE1xnVYe0BDG4@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QAv97V8g
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XDVY+hJBQ7Ezg2H1SpsrCrnN81f0MMx4M8tEPctpFHU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792424203; v=1; x=1793029003;
+ b=QAv97V8gISE9gLS9YDSGh9BqdBlGkcqlufsQgDuEVuRZbstseQ0/OtUJNNOtmWLybKDBiRd6
+ LOdRf4XOpPqsIQTa35rB6gAX7vuDSQH7ra4JOV5DwH3Iq4gVfFhPuH0U5XyuG3B2f0AnjiP0i/S
+ cDcX6iDXucQeHhz7dn6nPbLY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 503e4b6d01360189;
+	Mon, 19 Oct 2026 15:36:43 +0000
+X-Mizu-Trace-ID: 503e4b6d01360189
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	Masashi Honma <masashi.honma@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>
+Subject: [PATCH bpf-next v2 0/6] bpf: Add syscall common attrs support for xdp link_create
+Date: Mon, 19 Oct 2026 23:36:22 +0800
+Message-ID: <20261019153628.15912-1-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,142 +94,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atYuE1xnVYe0BDG4@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Transfer-Encoding: 8bit
 
-On 10/19, Oleg Nesterov wrote:
->
-> But. rds_init() can also fail even if CONFIG_SYSCTL=y, after
-> rds_sysctl_init(), so to me this looks like a bug in net/rds/.
->
->
-> In any case, I guess net/rds/ init paths should not fail if
-> CONFIG_SYSCTL=n ?
+I'm planning to add syscall common attrs support for LINK_CREATE cmd.
 
-So I think that something like the uncompiled/untested patch below makes
-sense anyway even if doesn't fix all the potential problems with rds_wq.
+This is the first series for the plan, that adds syscall common attrs
+support for xdp LINK_CREATE.
 
-What do you think?
+Thereafter, retire the tracepoint bpf_xdp_link_attach_failed, because
+the underlying driver's error can be back-propagated to user space via
+the syscall common attrs.
 
-Oleg.
----
+Changes:
+v1 -> v2:
+* Add log for invalid prog type in link_create().
+* Reject log_opts for fallback bpf_raw_tracepoint_open() in libbpf.
+* Report log_true_size as 0 before creating concrete link, and report
+  the actual log_true_size when fail to create the concrete link.
+  (Sashiko)
+* Add stub bpf_log() when CONFIG_BPF_SYSCALL is not set. (bots)
+* Check 'extack._msg' before adding 'extack._msg' to log buffer.
+  (Sashiko, bot+bpf-ci)
+* Change __bpf_sys_fd to __sys_bpf_fd in the subject and body of
+  patch 4. (bot+bpf-ci)
+* Move OPTS_VALID(opts, bpf_link_create_opts) to __sys_bpf_fd(). (Sashiko)
+* Move bpf_link_create_log to the LIBBPF_1.9.0 section. (Sashiko)
+* Update patch msg with a concrete case in patch 5. (bot+bpf-ci)
+* Factor out helpers to simplify the tests code. (bot+bpf-ci)
+* v1: https://lore.kernel.org/bpf/20261017142649.51047-1-leon.hwang@linux.dev/
 
-diff --git a/net/rds/ib_sysctl.c b/net/rds/ib_sysctl.c
-index 2af678e71e3c..bccdb5c4df1d 100644
---- a/net/rds/ib_sysctl.c
-+++ b/net/rds/ib_sysctl.c
-@@ -36,19 +36,10 @@
- 
- #include "ib.h"
- 
--static struct ctl_table_header *rds_ib_sysctl_hdr;
--
- unsigned long rds_ib_sysctl_max_send_wr = RDS_IB_DEFAULT_SEND_WR;
- unsigned long rds_ib_sysctl_max_recv_wr = RDS_IB_DEFAULT_RECV_WR;
- unsigned long rds_ib_sysctl_max_recv_allocation = (128 * 1024 * 1024) / RDS_FRAG_SIZE;
--static unsigned long rds_ib_sysctl_max_wr_min = 1;
--/* hardware will fail CQ creation long before this */
--static unsigned long rds_ib_sysctl_max_wr_max = (u32)~0;
--
- unsigned long rds_ib_sysctl_max_unsig_wrs = 16;
--static unsigned long rds_ib_sysctl_max_unsig_wr_min = 1;
--static unsigned long rds_ib_sysctl_max_unsig_wr_max = 64;
--
- /*
-  * This sysctl does nothing.
-  *
-@@ -61,6 +52,14 @@ static unsigned long rds_ib_sysctl_max_unsig_wr_max = 64;
-  */
- unsigned int rds_ib_sysctl_flow_control = 0;
- 
-+#ifdef CONFIG_SYSCTL
-+static unsigned long rds_ib_sysctl_max_wr_min = 1;
-+/* hardware will fail CQ creation long before this */
-+static unsigned long rds_ib_sysctl_max_wr_max = (u32)~0;
-+
-+static unsigned long rds_ib_sysctl_max_unsig_wr_min = 1;
-+static unsigned long rds_ib_sysctl_max_unsig_wr_max = 64;
-+
- static struct ctl_table rds_ib_sysctl_table[] = {
- 	{
- 		.procname       = "max_send_wr",
-@@ -105,6 +104,8 @@ static struct ctl_table rds_ib_sysctl_table[] = {
- 	},
- };
- 
-+static struct ctl_table_header *rds_ib_sysctl_hdr;
-+
- void rds_ib_sysctl_exit(void)
- {
- 	if (rds_ib_sysctl_hdr)
-@@ -118,3 +119,15 @@ int rds_ib_sysctl_init(void)
- 		return -ENOMEM;
- 	return 0;
- }
-+
-+#else
-+
-+void rds_ib_sysctl_exit(void)
-+{
-+}
-+
-+int rds_ib_sysctl_init(void)
-+{
-+	return 0;
-+}
-+#endif
-diff --git a/net/rds/sysctl.c b/net/rds/sysctl.c
-index 025f518a4349..a0673a41633a 100644
---- a/net/rds/sysctl.c
-+++ b/net/rds/sysctl.c
-@@ -36,11 +36,6 @@
- 
- #include "rds.h"
- 
--static struct ctl_table_header *rds_sysctl_reg_table;
--
--static unsigned long rds_sysctl_reconnect_min = 1;
--static unsigned long rds_sysctl_reconnect_max = ~0UL;
--
- unsigned long rds_sysctl_reconnect_min_jiffies;
- unsigned long rds_sysctl_reconnect_max_jiffies = HZ;
- 
-@@ -49,6 +44,10 @@ unsigned int  rds_sysctl_max_unacked_bytes = (16 << 20);
- 
- unsigned int rds_sysctl_ping_enable = 1;
- 
-+#ifdef CONFIG_SYSCTL
-+static unsigned long rds_sysctl_reconnect_min = 1;
-+static unsigned long rds_sysctl_reconnect_max = ~0UL;
-+
- static struct ctl_table rds_sysctl_rds_table[] = {
- 	{
- 		.procname       = "reconnect_min_delay_ms",
-@@ -91,6 +90,8 @@ static struct ctl_table rds_sysctl_rds_table[] = {
- 	},
- };
- 
-+static struct ctl_table_header *rds_sysctl_reg_table;
-+
- void rds_sysctl_exit(void)
- {
- 	unregister_net_sysctl_table(rds_sysctl_reg_table);
-@@ -107,3 +108,15 @@ int rds_sysctl_init(void)
- 		return -ENOMEM;
- 	return 0;
- }
-+
-+#else
-+
-+void rds_sysctl_exit(void)
-+{
-+}
-+
-+int rds_sysctl_init(void)
-+{
-+	return 0;
-+}
-+#endif
+Leon Hwang (6):
+  bpf: Add syscall common attrs support for link_create
+  bpf: Add syscall common attrs support for xdp link_create
+  bpf: Retire tracepoint bpf_xdp_link_attach_failed
+  libbpf: Factor out __sys_bpf_fd helper
+  libbpf: Add bpf_link_create_log API
+  selftests/bpf: Add tests to verify link_create logs
+
+ include/linux/bpf_verifier.h                  |   6 ++
+ include/linux/netdevice.h                     |   3 +-
+ include/trace/events/xdp.h                    |  17 ---
+ kernel/bpf/log.c                              |  19 ++--
+ kernel/bpf/syscall.c                          |  41 +++++--
+ net/core/dev.c                                |   8 +-
+ tools/lib/bpf/bpf.c                           |  69 ++++++++----
+ tools/lib/bpf/bpf.h                           |   5 +
+ tools/lib/bpf/libbpf.map                      |   2 +
+ .../selftests/bpf/prog_tests/xdp_attach.c     |  65 -----------
+ .../selftests/bpf/prog_tests/xdp_link.c       | 101 ++++++++++++++++++
+ .../bpf/progs/test_xdp_attach_fail.c          |  54 ----------
+ 12 files changed, 217 insertions(+), 173 deletions(-)
+ delete mode 100644 tools/testing/selftests/bpf/progs/test_xdp_attach_fail.c
+
+-- 
+2.55.0
 
