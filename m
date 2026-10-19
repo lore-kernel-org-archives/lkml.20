@@ -1,223 +1,229 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010005.outbound.protection.outlook.com [52.101.193.5])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECDA4D956F;
-	Mon, 19 Oct 2026 11:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408790; cv=fail; b=OzHZlKGURQ3ajINaW88vj+kZT5RsDc8NeDp1tQnM5ofhZ8CL+x/yYAXKq2mkVpAfP4t2QEVKpJWFQ0JiZIYk17SjwUNUsu160kX/ii8or5qpaKmziBlbpZd7o72bDx1P4l7DxAyWfkvqG4sfWAghHHq7H0Pq7bW78NTediTksXE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408790; c=relaxed/simple;
-	bh=j9N2mROrQMBU8LP/Er8zlVVZv6fqarg0KJUcfbSNOMk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=VxolMLOSoa2n3RHLHkGlMIdUYFtCwJqoPvXkVqHOBSqOHSVbmFUjRZlZAXCynsTnS9MzguygvwbxGg+Wf2O0s6Ta0TFZcGTzIpKDomLoVi0ccAqtMdq4xNmto29cOxyEQAzWbSjdKvZDiPXbtzyCP49A0eyIABbUW2jlrLl3y1I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YvFwfrPp; arc=fail smtp.client-ip=52.101.193.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C454D956F;
+	Mon, 19 Oct 2026 11:20:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792408812; cv=none; b=E1V/iLx1xOOLv2mxR4Uig7jblO+uzO0Zr8S2DlDBwXlwqsguSYF0FrkbiijOq7WorlIYMDBGjFE3mXisDR0qNBCx/7/OvZmvZldPYkrOQBCi4OTXhFO/92PxxfCwQ/p2G1fzZeGyVIBBsvLFUzQ1bFPFpeoOYHF4Ts3oqEZ7K5g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792408812; c=relaxed/simple;
+	bh=Bh3JFEeSOgD04v+jIOgFLNwqHkEIEEaaV1/NLO2q1zo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oD3pTwnEp0i9826OqDZdatVC+ovEbUopMGOiJDB1Dg7Afsulw9GQicM2FDqtrbCskdwQx2aJP3LGK3NJi8U14XW8MiqEezCXxeZZI5BaBrBgE7HCwKWnMqrGhxXTfJLJlPJGmOPfOuNWG8tcb2VVen+e4EYRfeoXRJcyuJ0HIjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=u7jqlnkt; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YvFwfrPp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RnaZRVNsH+wt/njm/2CcfF/n33384IBJqZRobwjij+ct4B2Th7sxQODUkN/V2vxRF4KDcD0yvz058wkPsZM8uMer9r5VwDVGgeMMNJcSaNxxxJv5V8j9yVBeFgp+O77217+NCLdUb6m47GMLuLHx4BPWq5vkzWJ9KxVzyZ+fJHImAbAOnIyqPyEZWjQRhlUuJRxHj+5YAFoKGvjjxOjC+Ly8Vw+9BsbhF/1swdhs3cKohEk+P+nygMfc9hZzbZA3Cxih8gFb2cO0mn9P2NNvw+ALlmaXioppfD+ThgcUqhVqKeHHvzhs66vvM8fTUC8lvGI8BATvTCjjDwmH3BMIZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WvMWBOLBTr0Cug8bhKZun/c0zMyWNhe1FrjwlLgQoc8=;
- b=TArNPlwk9BIYn6nDBZllg5sSlwxk0RPZXifIOAO+9iuQn7W2x6gb029fwZWLF3VHsKRMkQzb3oUEzg4mwwtvTWvUCUMPsRQSZqlgrAWhiTsaax4EEc57RoYnS/574oGFcncWSh9NW0QWAG15cvDh2N5nZ5E31Si538MWsJd4nZIBE7Nb4nJ55TuMIn0fdBQotCNTlswyWzBj1d9Fzfpxc3Vh9x6/XeNWXcFo2Dx84Vj0qTKViDsEnzfSrC/0sIVEYrjGZzaNdnrislFxX0LyLlkK6ndQ9278GRJ9E3IsnAf907Y2Aj2u1/u5xay1iC0cwAF7LvNHOh3WhaJqjvcj2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WvMWBOLBTr0Cug8bhKZun/c0zMyWNhe1FrjwlLgQoc8=;
- b=YvFwfrPpaWNrVwZpokeBkuMY2Ml3PTvH9WMxkUzsQ/fgDsZbKHGYe9k1S51W46OcsQdWO9UUQeI9hLXdH25eEEO8o+ReCnEsdarM5cvyo+3yuGIAFx2K65np4t/3MpocgGYm0dmQWpCIK+zbhhGi/IcbDrfjQmcur1FLP+aMJdz67VemksuvR00IqhEg9GUHsFMujJ6O6hJesI4CYsk67horujxWjGN3tyrlg44Thpor9xpex2jOthkEPyNXjMHn+bzCy2iNVulNkxxsuNzt/82ZeQr8bMP2WBDW5zBUgZQi/miCQ+KSB8nhYrIRnQgDSoMuH8SUJSM6m2h78KujyA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) by
- IA0PR12MB9012.namprd12.prod.outlook.com (2603:10b6:208:485::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 11:19:42 +0000
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4]) by DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4%3]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 11:19:42 +0000
-Message-ID: <14bc9d0e-ece4-4cd5-99b6-b53b9ce27157@nvidia.com>
-Date: Mon, 19 Oct 2026 16:49:34 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] PCI: tegra194: Notify Endpoint functions on PERST#
- assert
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Jingoo Han <jingoohan1@gmail.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof Wilczynski <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- Rob Herring <robh@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
- Jon Hunter <jonathanh@nvidia.com>, Vidya Sagar <vidyas@nvidia.com>,
- Niklas Cassel <cassel@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
-References: <20260923072554.1141864-1-mmaddireddy@nvidia.com>
- <20260923072554.1141864-4-mmaddireddy@nvidia.com>
- <ogerzdjwq5wus3eb436x5gylxyfekmir7rz72ycywd2xoaiank@h7ayvhizjpu7>
-Content-Language: en-US
-X-Nvconfidentiality: public
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-In-Reply-To: <ogerzdjwq5wus3eb436x5gylxyfekmir7rz72ycywd2xoaiank@h7ayvhizjpu7>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN0PR01CA0014.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:4f::19) To DS0PR12MB8245.namprd12.prod.outlook.com
- (2603:10b6:8:f2::16)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="u7jqlnkt"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792408805; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=SCCN1hNOBzyFuMh0WPo9IiSvrFw2wKE+VBW+2gR8D4E=;
+	b=u7jqlnktM9qUUj/P7JNjiFVSgI8Rgp1VHBy/uJKX9tYc/Zjkwkw9H66ZuLPLkv4SvCDMhQJTiK21/ELp32eeeA6gO1XsZVmMEdmSU63MvqVxyBGVWwqoFTO+ff75cadvigCb/EMzA4mQr2QHbmFfL9xKCCETap7vDsCZwjR9IAM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R541e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XD69E9b_1792408802;
+Received: from 30.251.227.55(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XD69E9b_1792408802 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 19 Oct 2026 19:20:03 +0800
+Message-ID: <b273a680-6b96-4fd6-94e6-c1a79922efc2@linux.alibaba.com>
+Date: Mon, 19 Oct 2026 19:20:02 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB8245:EE_|IA0PR12MB9012:EE_
-X-MS-Office365-Filtering-Correlation-Id: be1fcb15-24f2-4d69-1689-08df2dd2df0e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|18002099003|22082099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	LLWjbOsy0MJxaagNQ8kbmsSFNIhPe+k32McIx72Z1CLXsYRztC3vgoS7j02hVtaNMhupgQUX07Mg1MWqj/Mwrir0TcOj+JWVGuYHioHEPacxuSJsyOQPTWajbthHPqgt50TD28Kk4f93f/DKn3+5nfYq9jjhcVVK0neeVZ4zD6qM+hR+pHm6koYZ3KmHeJrNXpTCMghdgPYJblXy9WT5qtFCgOCWpuFhbSufz0NGCLJp+Xt19amp5TcO2Lll14wRONhG+TxZuCLJ5Tyh79jUXekAa8NeLXToI82Ue+es3O5YU4qyWqCt5kegdohmchVRldsLc+yJrCkzH5CRN2+GY8XMhUsO6Ql59Ug4+ofhYhxaRvCZ0zkkI/sGKK86mcUOux+PgbDN1/LEFblhzKbeElymB2Vp35dwQBLTsd7dW81ztgt0kn0Ym7EXTGv7225UaonTAmRtj+0nB1HQzTC8mTkphwIGguk+wE5oCoVhdtG+bcsYFsNd3zh8gie3Ss1oqKH4ap6+Mr4EnTDG0W8m5n7KG24m2OGmx4hXjmrnK0c2QciFk9v3080CigqSJwwi4qO4q3JU/m0vQdVIO6Wdhs2OLpF5OELrubV0EGAkPlp8l28QSH3wWYnLeQ+kZRUTrsP2cPJxe0XqpQaknZcg4Eeb5zRWuW5IqnkPEDQ5dtQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB8245.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MUZNbVpEeDdxRUNhcjlvazAwWW5ZcW9neVJhTVB5M281OTZrN2t3SUExaTg4?=
- =?utf-8?B?THltZWZoU1FYMC9SM1JvcE5JbVk1K0NNb1Jwd3JoaWRob1REMXdveVhoU2Fs?=
- =?utf-8?B?WDdWbkF0Q0pNNVRIV2RQNU1pQXpsRmZ4ZUIwS2puamdzZE0rbnV2TGMvM25S?=
- =?utf-8?B?bit4NitNTmxocGF4aGlYbVh4TDJ0bzl4aWxOV1BBU1lGaElGdWRsTTJPQ2pI?=
- =?utf-8?B?bkpzN0VJY2pEN0VxaE8vVklYQzZ2b3VBdmtESERiOWs3VWRCam1pS3Rzc1BN?=
- =?utf-8?B?U1VyN3hCb1VHOUUyZ0xONVM0c1plbTIyWllma2ZsWkgxbjRqNFF2SlEwOGE4?=
- =?utf-8?B?eTU2ak1hcXVMb0J0WTIwQVEzYzlTd0pLZlR2a1A3R3VqM2s1NGxsRjZxazc3?=
- =?utf-8?B?Zk1UcVRwZytBWExQazRJV2EwRjBjcFZlWm9XM0o4OGcxUWY4T3RJVjVLZDlP?=
- =?utf-8?B?Q1p4bnZsUmpvQ1RKMXhBZDZIdEZSOE45S0F1R2FLVkErcCtja2pYOEhZdlo2?=
- =?utf-8?B?K1g5VTE5d1VSdUc1aWtzL2NoM3g5cmlZNjVkQUt0WXlzek1pR2FUcmd3TjZw?=
- =?utf-8?B?SHFDWEExQ0VVVkhZdHdtMkc1T2FTaGpkUW85bERKdGtLSWNSaHhGaXNFNE5w?=
- =?utf-8?B?QXc5dFhhTUZJd0RVQUxERXo0c2dEZWJsK28wMkhoeEJXc1M4b3pOU25ER3Ur?=
- =?utf-8?B?Y3d3NnEzd3JFbmdkdUo3anBIa3BWNFB1QnhOeHpubWlueVE5SkxJMHIyTGFV?=
- =?utf-8?B?QUsrSUloRWUrYkgrZElERTZvY0svL2JvQUZFc0RTN0xPVW44Q055dGNKUzI3?=
- =?utf-8?B?VGZVZjUyb1FOaXhBdWdTWXM2a2RsQ3N4eU9JeEl2K2M3dWlvcmJZc3lEREZl?=
- =?utf-8?B?SXVrdWE0N0tBYTZ0MkFWcHhFWm9vR1A3Z0FMM1ZjQ2RsWWlvUW5Oblpqekdt?=
- =?utf-8?B?bHN4Y2toaFlyQ0VaMXhaTUxDQkpjSC9RbVhXaFpXbFpxbFV1YU4yYlhubFNI?=
- =?utf-8?B?bVlaSXlXV2xhem1LODVoQ2NQaDM3TEgzQlBPclpCY0xJcUVLTE1qWlJCNzAx?=
- =?utf-8?B?ZU41ZDhjMVJTSzYvbGlpUVlkL0s2ZnQ0Q05lVTdjakRJZjY2YmV4bGpUMG1w?=
- =?utf-8?B?RldTRGYxKzZUWHBaNE8zNUFPNit0ZXZKQ2FsTlg1WFdZN0dBbGNBbzNnNXY0?=
- =?utf-8?B?cUJMVk1IYnVnMzBSd3dhekowTFlUUzZHQlJKa1ZNVHowTFUzUDMvbnBPa0ky?=
- =?utf-8?B?K3E0aktOU1Eyazlobng5QVNxNmRScUtSSXhxMFNxVjFySWpsanJvYzhWZk5h?=
- =?utf-8?B?L1VyS0xKelVMRUdEWHNTYjR4MCtjb0Mxa0VML0xMaDZrOCtsWklDWTZVSmc4?=
- =?utf-8?B?bnl0RGdGQ0VtQkVhN2J3ZDRMSmJlVy83T2dLNlAzSkQ1R1FhU3pzWVZJRDk0?=
- =?utf-8?B?MGpPekxRa1ZYUmUyMm5YdU9oajFWQ0toK0NzRGRNc0NrMFZ4VUpNTk5WK1lM?=
- =?utf-8?B?UW5SaGc5c1JjMnphK1BJOG56dUk5MHUxY0M0MHArOFBIdEQ2ZVMwRHJIS3Rz?=
- =?utf-8?B?L1R2VlhFVTc1M2dQa2ZhVWppYnJZV0dDUnc4b0xTVHBaWkFKenF0K1daMjJR?=
- =?utf-8?B?TG80UU5pWFVpcHA5Q1RZVjBlMkdxUHNHcmFqZmphbUw0VE1BYkM3TG9STXg1?=
- =?utf-8?B?bXoyZUZBZjJ4bjgyMldqSnN6U2UwNnR1d09acDA2MFQ3RSswMElFZXdId2R1?=
- =?utf-8?B?QXB6UnFyQjFRaXlOUDJyUWdjUlUyaFRrZ1NlWEptaExVTFVDNzVmelZEbm1o?=
- =?utf-8?B?ZHBVeWdqRjdMNjJINkdhS2tkOGhCVUhxKzJZRUI2T0FCYkdteXYyR055ajdJ?=
- =?utf-8?B?S1plNkMvZ0VEdElMelRLMUQvckZ1dG5kVTQ1TVFZaUZ3T3ZuUlhEU3ozT3RQ?=
- =?utf-8?B?aHEreVFFMkdHck40aHRLV20xOXZPREdxLy9lazNVKzUrbGNWcmh2d1RzNHVm?=
- =?utf-8?B?a2NHUzljR1RINy90WjFZenFxM0MrdHk5S3lMK1hMN05DdmJtV3M2bHRuNnRJ?=
- =?utf-8?B?eWpndVlFdmJxRkpWK1dzbGQyOFBwSVF4TUUxWU1ibE11c1ZlTFBhbFJodWpT?=
- =?utf-8?B?WjVCL2M4WWE1TmdYYzhNTnlseWt0TUNMbmxvQzBITVBwR3Z5SkRnT1pLWUZR?=
- =?utf-8?B?VHZIUUsyRC9KdzFCeks5Y0lZQk9wcHhzNC8rSmZGV2lHSmNHTm9HZFFOVUx5?=
- =?utf-8?B?RlNKZWFROElzZkRkb2NmZkhRZmYrbmcrYnRpMjNxd3JjUnZYZ1lYN29BVWxI?=
- =?utf-8?B?b3hxVEVlZ2labzdQOUdVZUJXaEFnRk4yM01COE5nazFzY3pYeFRqZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be1fcb15-24f2-4d69-1689-08df2dd2df0e
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB8245.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 11:19:41.9714
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JZ0Mp0LqcIrpMSW6WSdYYDBnUgOWYWwyLnBNxLoN/cRn8PwcRMOSYW6c+sEe1N+ixpT8Z91RpxRv/2Ohm8p5Ng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9012
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: Keep the dentry lock inode alive until callbacks
+ drain
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com, jack@suse.cz,
+ akpm@linux-foundation.org, rgoldwyn@suse.de, srinivas.eeda@oracle.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
 
-On 17/10/26 2:52 pm, Manivannan Sadhasivam wrote:
-> On Wed, Sep 23, 2026 at 12:55:54PM +0530, Manikanta Maddireddy wrote:
->> Tegra Endpoint mode powers the controller down when the host asserts
->> PERST#. EPF drivers must be told about link down before that happens,
->> otherwise remove while PERST# is asserted can free EPC resources while
->> EPF work is still active.
->>
->> Use pci_epc_linkdown() directly in the PERST# assert path. It is a
->> software-only EPF notification
+On 10/16/26 12:03 AM, Cen Zhang wrote:
+> The inode reference held by a DENTRY lock must outlive callbacks on
+> that lock. ocfs2_drop_dentry_lock() drops dl_inode before marking the
+> lock freeing and waiting for DLM unlock completion, although the BAST
+> path still reads dl_inode->i_sb in ocfs2_get_dentry_osb().
 > 
-> Not entirely true. The EPF drivers can still access the hardware registers in
-> the link_down() callback. But most likely they won't access any DBI registers,
-> so that access may still be OK without REFCLK.
+> An EX request, such as a remote unlink or rename, can make the
+> downconvert worker delete all matching aliases. If no other inode
+> reference remains, its post_unlock callback performs the final iput().
+> The O2CB DLM can deliver another BAST while the request is still
+> blocked, for example when another holder releases the same resource:
+> 
+>   Downconvert worker                 DLM callback
+>   ------------------                 ------------
+>   Remove dentry aliases
+>   Clear QUEUED; post_unlock()
+>   ocfs2_drop_dentry_lock()
+>     iput(dl->dl_inode)
+>     [inode reclaimed after RCU]
+>                                      Duplicate BAST
+>                                      ocfs2_blocking_ast()
+>                                        ocfs2_get_dentry_osb()
+>                                          Read freed dl_inode->i_sb
+>   ocfs2_simple_drop_lockres()
+> 
+> Call ocfs2_simple_drop_lockres() before iput() so the existing inode
+> reference remains held while queued work and DLM callbacks are drained.
+> The inode can only be evicted after the DENTRY lock has been unlocked.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in ocfs2_get_dentry_osb+0x155/0x170
+>     Read of size 8 at addr ffff8881100ff888 by task dlm-5B530197BEF/575
+> 
+>     CPU: 0 UID: 0 PID: 575 Comm: dlm-5B530197BEF Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? ocfs2_get_dentry_osb+0x155/0x170
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? ocfs2_get_dentry_osb+0x155/0x170
+>      kasan_report+0xe0/0x110
+>      ? ocfs2_get_dentry_osb+0x155/0x170
+>      ? __pfx_ocfs2_get_dentry_osb+0x10/0x10
+>      ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
+>      ocfs2_get_dentry_osb+0x155/0x170
+>      ocfs2_blocking_ast+0xd3/0x6d0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __lock_acquire+0x5a3/0x2140
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __mlog_printk+0x212/0x2a0
+>      ? __pfx_ocfs2_blocking_ast+0x10/0x10
+>      ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
+>      dlm_do_local_bast+0x20c/0x300
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_dlm_do_local_bast+0x10/0x10
+>      ? dlm_thread+0x2e36/0x4480
+>      dlm_thread+0x32b8/0x4480
+>      ? __pfx_dlm_thread+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __kthread_parkme+0xc1/0x220
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      ? __pfx_autoremove_wake_function+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __kthread_parkme+0x177/0x220
+>      ? __pfx_dlm_thread+0x10/0x10
+>      kthread+0x351/0x460
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork+0x659/0x940
+>      ? __pfx_ret_from_fork+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __switch_to+0x74f/0xf70
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork_asm+0x1a/0x30
+>      </TASK>
+> 
+>     Allocated by task 584:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_slab_alloc+0x89/0x90
+>      kmem_cache_alloc_lru_noprof+0x205/0x5c0
+>      ocfs2_alloc_inode+0x2b/0x100
+>      alloc_inode+0x69/0x230
+>      new_inode+0x23/0x1a0
+>      ocfs2_get_init_inode+0x84/0x190
+>      ocfs2_mknod+0x8a3/0x2150
+>      ocfs2_create+0x14f/0x3c0
+>      lookup_open+0x88f/0x13e0
+>      path_openat+0x95e/0x2020
+>      do_file_open+0x21e/0x470
+>      do_sys_openat2+0xf4/0x1b0
+>      __x64_sys_openat+0x136/0x1e0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 0:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kmem_cache_free+0x242/0x580
+>      i_callback+0x4b/0x80
+>      rcu_core+0x6be/0x1ed0
+>      handle_softirqs+0x1fa/0x8d0
+>      __irq_exit_rcu+0x113/0x1e0
+>      irq_exit_rcu+0xe/0x20
+>      sysvec_apic_timer_interrupt+0x6c/0x80
+>      asm_sysvec_apic_timer_interrupt+0x1a/0x20
+> 
+>     Last potentially related work creation:
+>      kasan_save_stack+0x33/0x60
+>      kasan_record_aux_stack+0xa7/0xc0
+>      __call_rcu_common.constprop.0+0x80/0x280
+>      destroy_inode+0x131/0x1b0
+>      evict+0x543/0x9f0
+>      iput+0x680/0xb80
+>      ocfs2_dentry_lock_put+0xca/0x230
+>      ocfs2_process_blocked_lock+0x1fb/0x420
+>      ocfs2_downconvert_thread+0x327/0x730
+>      kthread+0x351/0x460
+>      ret_from_fork+0x659/0x940
+>      ret_from_fork_asm+0x1a/0x30
+> 
+>     The buggy address belongs to the object at ffff8881100ff000
+>      which belongs to the cache ocfs2_inode_cache of size 3400
+>     The buggy address is located 2184 bytes inside of
+>      freed 3400-byte region [ffff8881100ff000, ffff8881100ffd48)
+> 
+>     [page and shadow-memory details omitted]
+> 
+> Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
 
-Agreed, “software-only” is too strong. The direct notification avoids 
-the DWC helper’s DBI accesses, but EPF callbacks still need auditing for 
-operation without REFCLK. I’ll correct that wording and remove both the 
-unrelated deinit paragraph and pointer cleanup.
+This is a revert for performance. Not sure if the regression will come
+back with the new order.
 
-- Manikanta>
->> and avoids dw_pcie_ep_linkdown(), which
->> reinitializes non-sticky DWC registers and touches DBI while the host
->> REFCLK may be disappearing.
->>
->> Keep pci_epc_deinit_notify() in the PERST# deassert path, after core
->> reset is deasserted, because EPF deinit callbacks can clear BARs and
->> therefore need register access. If remove runs while the controller is
->> already powered down, pex_ep_event_pex_rst_assert() returns because
->> ep_state is disabled; that is safe because the link-down notification
->> was sent at the earlier PERST# assert.
->>
->> The final dw_pcie_ep_deinit() does not require Tegra register access
->> today: Tegra uses its own MSI-X address-match window instead of the
->> DWC MSI iATU, and the supported DTs do not register a DWC eDMA device.
->>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Assisted-by: LLM
 > 
-> Is the last paragraph related to this patch?
-> 
->> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
->> ---
->>   drivers/pci/controller/dwc/pcie-tegra194.c | 5 ++++-
->>   1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
->> index dd3f4c30ba52..3e9d46850a78 100644
->> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
->> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
->> @@ -1724,6 +1724,7 @@ static int tegra_pcie_config_rp(struct tegra_pcie_dw *pcie)
->>   
->>   static void pex_ep_event_pex_rst_assert(struct tegra_pcie_dw *pcie)
->>   {
->> +	struct dw_pcie_ep *ep = &pcie->pci.ep;
->>   	u32 val;
->>   	int ret;
->>   
->> @@ -1745,6 +1746,8 @@ static void pex_ep_event_pex_rst_assert(struct tegra_pcie_dw *pcie)
->>   	if (ret)
->>   		dev_info(pcie->dev, "LTSSM state: 0x%x detect timeout: %d\n", val, ret);
->>   
->> +	pci_epc_linkdown(ep->epc);
->> +
->>   	/*
->>   	 * Deassert LTSSM state to stop the state toggling between
->>   	 * Polling and Detect.
->> @@ -1913,7 +1916,7 @@ static void pex_ep_event_pex_rst_deassert(struct tegra_pcie_dw *pcie)
->>   	}
->>   
->>   	/* Perform cleanup that requires refclk and core reset deasserted */
->> -	pci_epc_deinit_notify(pcie->pci.ep.epc);
->> +	pci_epc_deinit_notify(ep->epc);
-> 
-> Unrelated change.
-> 
-> - Mani
-> 
+> ---
+> diff --git a/fs/ocfs2/dcache.c b/fs/ocfs2/dcache.c
+> index e06774fd89d8..e2b560797f17 100644
+> --- a/fs/ocfs2/dcache.c
+> +++ b/fs/ocfs2/dcache.c
+> @@ -354,8 +354,9 @@ out_attach:
+>  static void ocfs2_drop_dentry_lock(struct ocfs2_super *osb,
+>  				   struct ocfs2_dentry_lock *dl)
+>  {
+> -	iput(dl->dl_inode);
+> +	/* Keep the inode alive until DENTRY callbacks have completed. */
+>  	ocfs2_simple_drop_lockres(osb, &dl->dl_lockres);
+> +	iput(dl->dl_inode);
+>  	ocfs2_lock_res_free(&dl->dl_lockres);
+>  	kfree(dl);
+>  }
 
--- 
-nvpublic
+Commit 9f70968af3e6e ("ocfs2: Re-order iput in ocfs2_drop_dentry_lock")
+is what moved iput() above ocfs2_simple_drop_lockres() to begin with, and
+it was a deliberate move:
 
+  Do this to avoid a theoretical (I haven't seen this in practice) race where
+  the downconvert thread might drop the dentry lock, allowing a remote unlink
+  to proceed before dropping the inode locks. This could bounce access to the
+  orphan dir between nodes.
+
+With the new order the downconvert thread gives up the dentry lockres and
+only afterwards reaches iput() -> ocfs2_evict_inode() ->
+ocfs2_delete_inode(), which takes the nfs_sync lock in shared mode and
+then the inode lock exclusive.
+
+Thanks,
+Joseph
