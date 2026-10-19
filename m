@@ -1,105 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A933E3D98;
-	Mon, 19 Oct 2026 10:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A23E496D53;
+	Mon, 19 Oct 2026 10:23:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405434; cv=none; b=tWf/D5c8Wqw8mI1C3nMiC65AYRJpQAmHyokzyRaDUdjct3u6j0VzTcFpUuiAdVQ9QIQlF56Qpn2GKbO70A4u1uX3jZJS4ZynjoXplT8fkSR6C+TzEkXkUlLOArVr3slFJI8unYt31yARetB7CBPUH6R8PgyYX1QtdpAB0fhK+go=
+	t=1792405434; cv=none; b=bnKRO82AD9DE+cwNIKdI5TE1aSlaAEPcM0aZs5ysFbIQkEWQbGP8UdafTllNWKvBEjVDlCp26K2thuqOOkQmFkFH560ZYV6j4Bylr8/oCkcOAi2/EF9bKqebGZyfu4BWIJ4LwjZklY/4HIvynmHzRoq9I2nXiVfwDDhNDWGFb1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792405434; c=relaxed/simple;
-	bh=9VzqnfsKgVI4xeMFnPXxt+ZOkbS48oKRvMkL140eyeo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O86zN4PYYG33oOlrH20gGpi9GITQ+PorwHsKgiv1WnzrBv1pWFGkam+TUMaTuoRYfrp9K/6+eoQ4JBEztzMIhkKXAUc2pgmlr4pbg+ZfXAlUeKaYi3UTExwVrKB4JsA1gqCKQUkfUGPqkKT9Xm/POWH3N8oi9E+cxWwf1GUQcKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IHasDC4v; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	bh=CaoT/uf9yGNMSnZay0+VPUgCwq0nmEaTd91fIYl4ZGY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AZ4rP2XurhItX+P+BQPUVfLq32pWnWokEjrvDY5gylz8x4S4o3Vn7RJ37/zh0v5+BDJm3ANz3Vx8wEDhjj7oT1Gqt0I8b6T3Z5K1FAFucBugDFV+zis1SX5HAddFEyEltwbAC60rt/mOaCCM18XSVl7/MKDkBT21pZvHWSg+gbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LiLydUbe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ubskq2ys; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LiLydUbe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ubskq2ys; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IHasDC4v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792405433; x=1823941433;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9VzqnfsKgVI4xeMFnPXxt+ZOkbS48oKRvMkL140eyeo=;
-  b=IHasDC4vKzP9C9a87LL+E9CbgJnioxXUswkYtNgzAvNAsnRjgoeOq5lh
-   zWmtYQLrlX5HshfCxuTRyQODPfD/dSfdCL0lFxdgAug9l26458f3sypb+
-   yiPMvN3mcFKjgKPaz3M2DEK6f5fX4fliDKJJMZ5CiacrqpcyhuK2wdHNR
-   AsYRXpBzwV6OZKm+8TLfOWp8EeoVXxFWyOlox7u8jwlf4fEPOb9wA2bg7
-   SSZZVzaNB1eBNduu87vwMOsck3iAYnLt7JGEa2G/i3e+t2tAUDYpnUhRp
-   8hQnJc/W4UrTq8DRaqgtVgQCpfDlSLSbrW8i91mLSCjDfk9AXhrdlp4ni
-   g==;
-X-CSE-ConnectionGUID: vfJvOX5zQqWHpMZbRK+CwQ==
-X-CSE-MsgGUID: g+RdlvUkR/y64QNK8PTKSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="967833"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="967833"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:23:52 -0700
-X-CSE-ConnectionGUID: 8fzqUgtpR5SeoJwRSL+ojg==
-X-CSE-MsgGUID: OIbKtny1TMKwGPZshtf9gQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="4344007"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:23:49 -0700
-Date: Mon, 19 Oct 2026 13:23:47 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH] [v3] serial: 8250: remove obsolete and broken PORT_RSA
- support
-Message-ID: <atXvsxjAXcOmsCAV@ashevche-desk.local>
-References: <20261019090017.430425-1-arnd@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LiLydUbe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ubskq2ys";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LiLydUbe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ubskq2ys"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 83AF31F441;
+	Mon, 19 Oct 2026 10:23:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792405431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=f3aO6QrmEmWuqorGy29ChZkGSEnc+9ZjcNq9MHbp1SQ=;
+	b=LiLydUbeh9XPXivskgMhZV5sbzrBvy6f65S50Fm7khERCx625dNOtfW+eskD19BPtP4wbv
+	ppTwIIpu8CtVIh3BBoPCZMbC0wzg9MvGI+/zj0b6TZJk1/vU99Axlpepys7Tvp16BY70+x
+	Gbxh6gWcoFLGjxwOuj55UkRoxFylbaA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792405431;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=f3aO6QrmEmWuqorGy29ChZkGSEnc+9ZjcNq9MHbp1SQ=;
+	b=Ubskq2ysujDo2MnFhg8mRbULv8QAKaEQP/aqDLesGJeJ2Kp0IMTcP2bvcogA6blbQm7wNQ
+	k4sosM9zI8P/vNDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792405431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=f3aO6QrmEmWuqorGy29ChZkGSEnc+9ZjcNq9MHbp1SQ=;
+	b=LiLydUbeh9XPXivskgMhZV5sbzrBvy6f65S50Fm7khERCx625dNOtfW+eskD19BPtP4wbv
+	ppTwIIpu8CtVIh3BBoPCZMbC0wzg9MvGI+/zj0b6TZJk1/vU99Axlpepys7Tvp16BY70+x
+	Gbxh6gWcoFLGjxwOuj55UkRoxFylbaA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792405431;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=f3aO6QrmEmWuqorGy29ChZkGSEnc+9ZjcNq9MHbp1SQ=;
+	b=Ubskq2ysujDo2MnFhg8mRbULv8QAKaEQP/aqDLesGJeJ2Kp0IMTcP2bvcogA6blbQm7wNQ
+	k4sosM9zI8P/vNDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 428E8136CC;
+	Mon, 19 Oct 2026 10:23:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id YIgjBrfv1WoXWwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 10:23:51 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Will Bush <will@willbush.dev>
+Subject: [PATCH] ALSA: usb-audio: Avoid applying boot quirk for Behringer UMC204HD
+Date: Mon, 19 Oct 2026 12:23:38 +0200
+Message-ID: <20261019102347.2425406-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019090017.430425-1-arnd@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.com:url,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
 
-On Mon, Oct 19, 2026 at 10:56:55AM +0200, Arnd Bergmann wrote:
+There have been reports about a regression with the recent boot quirk
+for Behringer devices; it broke UMC204HD models(1397:0508 and
+1397:0509).  The quirk was to just run usb_get_descriptor(), so I
+expected it rather harmful, but in this case, it doesn't look so,
+resulting in an error like 'failed to read device descriptor: -110'
+that leads to a fatal probe error.
 
-> For all I can tell, the RSA support in the 8250 driver is not functional
-> and has not been for a long time.
-> 
-> The RSA-DV II/S ISA card[1] was sold by IODATA in the 1990s as a faster
-> alternative to regular ISA serial ports, and it was discontinued in
-> 2002. Linux support was added by Kiyokazu SUTO in 2000.
-> 
-> The driver defines an I/O port base address of -8 (negative eight),
-> which should always get refused by request_region on all architectures
-> for being outside of the valid resource range.
-> 
-> Further, it seems that a patch to setserial would be required in order
-> to set PORT_RSA when not using autoconfiguration.
-> 
-> This patch removes all code related to the RSA support, with the exception
-> of the user-visible PORT_RSA definition.
+As a quick workaround, skip the quirk for those UMC204HD models.
 
-> Link: http://translate.google.com/translate?hl=en&sl=ja&u=http://www.iodata.jp/products/network/rsadv2s.htm
+Fixes: b5c4823cf3e4 ("ALSA: usb-audio: Apply boot quirk for Behringer models generically")
+Reported-by: Will Bush <will@willbush.dev>
+Closes: https://lore.kernel.org/45162613-2802-401c-84c9-742f9c8c68e6@app.fastmail.com
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1285896
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/quirks.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Can we get this without translate? As it adds an unneeded layer.
-
-> Link: https://lore.kernel.org/all/1309211120-2803-6-git-send-email-arnd@arndb.de/
-
-Also would be nice to add references to the Link tags like [1] and [2] and
-mention them in the commit message where appropriate.
-
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 4fadb1fdcdea..4ac4aef47dd7 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1790,8 +1790,15 @@ int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
+ 	}
+ 
+ 	/* Behringer devices may need explicit device descriptor read at boot */
+-	if (USB_ID_VENDOR(id) == 0x1397)
++	if (USB_ID_VENDOR(id) == 0x1397) {
++		/* the quirk seems breaking on some Behringer devices */
++		switch (id) {
++		case USB_ID(0x1397, 0x0508): /* UMC204HD */
++		case USB_ID(0x1397, 0x0509): /* UMC204HD */
++			return 0;
++		}
+ 		return snd_usb_cm1a_boot_quirk(dev);
++	}
+ 
+ 	return 0;
+ }
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
