@@ -1,80 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE1F39099C;
-	Mon, 19 Oct 2026 06:43:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9C448592C;
+	Mon, 19 Oct 2026 06:44:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392239; cv=none; b=FhiB6qPCmU4OoKqdPKvd3lcaqtJAc2/y6FQEkr7Y584lTM3IZH/LAVMkdbr9oN7/jEtlKmC10WnhMZfaQAr6BBJ0XNa79pHBpf9G32Erw+zbTLPjQ8UgxOgZcK0D8uzElbsG1mgNozldF04H7SIWlbnMAdQ+jV2KAbxBpIpOn3o=
+	t=1792392242; cv=none; b=JvTS9RamZsZDKW+wJzLzDdIdcOdEOYKxmbXhy8l6X/2WHJYLGWpUQymiaZIDvxfsz0oOpOG0/99ZvwSU331WMBoAjILt8fOt/TOFGtsRlA4OM7mehHHx8xAeIuM8AGlUa4l1o/6YhiT5gj2o9Q19Oo3rGAIxNR6FKEl1JTubjS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392239; c=relaxed/simple;
-	bh=/vA/9kVrCwE0fqkyOOMo/OA17ASjGtUth1+dNiQ41XY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=auefFJlRm5gLxcirx/ftB5bBxKoejzFoJGnZkg6JRI9WeKpSW0A2LLvZcB70H1qViJstZpjWveN8AZK4zVSkB2f7kdNzzYjFPvHex6Gxwx1yWN/Dt1HPgdx0wDPabf+YJsUaVG5qjQM34oc/Sh9haM1cKzNYCJNX/fisrAH81h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHPzZrBG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792392242; c=relaxed/simple;
+	bh=AG8uLDY1S6wAwAA61tjppNxLsAgbrZPU3u1MoI0wUnk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=go34865mpGN3BtdikYTOWxfRNQEkkoReCjQx8KL286AjRfAnS1B++sABpzg5580btgKdFbUz+9XiTBpl8DqKNaG23fHGb5CbpXfJpfVYVwq6G/KXxNpxtQMEaRJPEWqKgNWV3oHCc9wuG0b5BJk3ot5dCT9qkwsCXuOZ3PH9laE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X7muDs8q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHPzZrBG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527291F000C4;
-	Mon, 19 Oct 2026 06:43:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X7muDs8q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57361F000C4;
+	Mon, 19 Oct 2026 06:43:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792392238;
-	bh=mqOfvKIVgzwAuj39nA2GPRCbFTmqDzZMfWz8fB+0D0Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FHPzZrBGzAzJmEwxLevodGvwtiyw6wm4rC1+1TC6kFH5288WXxy2JoyRpx+Kg+DAn
-	 rxW9Asz1ludNlsW/kMkv4OHJXVZlIanPkZ8W4TNGz5iHrY3iasyM5RTMxM8xuwu9e3
-	 f2OHL+sMI/nbHurmj5FNe/zGA7VfxLY2zTfQR3aeUPb0o0Q3PnxyeqVpXwAzgzxGVL
-	 k7gssySDrk5O6/erpgshCFT/n3erUdfnEEr0Mtbrcft/jwryjP4wqxlZbv/ZYMHaH/
-	 EOeQE2WwsEqnPLgmFrIH8dBA/lrdSfp+/5lI3cuVyhW1oU1pTGRQFYK60kdFuvIwVG
-	 bDE84sE7rVvQA==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xIh6C-000000086Rc-1Lxt;
-	Mon, 19 Oct 2026 08:43:56 +0200
-Date: Mon, 19 Oct 2026 08:43:56 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Torra Sowmya <sowmyatorra@gmail.com>
-Cc: outreachy@lists.linux.dev, elder@kernel.org, gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: fix loopback Kconfig help text
-Message-ID: <atW8LEl3lo5iS3Gv@hovoldconsulting.com>
-References: <20261018172711.8013-1-sowmyatorra@gmail.com>
+	s=k20260515; t=1792392240;
+	bh=3LzAVenLs17+neRI0Kjg60FfMYZTYlgEe17qszI4504=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=X7muDs8qevBAaUUal+neKz8U1C+bfqsr/ySqQClmzwvvq/G6jw+BNCR6EWia3HujI
+	 CSX1N/VyCHAMxt0xpsle2iBCN4r8AYcN54fFuAayBL/KxdtJWA50hW4TeTdbU+Bvcu
+	 Xo4H/FhAI/XVxuOZML7Y+eqZxPkOXzWFEQpUssHmeJHQsSK5+7+6e31iIy8uEXbAoU
+	 UUMr/cyLR5OtEXqBc6u1JV+hlpvbRkqu79USScve5o0MVH6qNnpSKbzKtsnlpq6dFM
+	 rblyboOVD8xvOxKIm6LO9Ow2sGsAyTGXpSF2CWRu6fJBkljEZIXVfnpEuqD4R+9A06
+	 05EonGe9NMGWg==
+Subject: Re: [PATCH net-next v2 1/2] vsock: support SO_INQ on stream sockets
+From: netdev-bot+sashiko@kernel.org
+To: devnexen@gmail.com
+Cc: netdev@vger.kernel.org, sgarzare@redhat.com, bobbyeshleman@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Date: Mon, 19 Oct 2026 06:43:59 +0000
+Message-ID: <179239223925.3135.8476932493136974317@kernel.org>
+In-Reply-To: <20261015154334.3217358-2-devnexen@gmail.com>
+References: <20261015154334.3217358-2-devnexen@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018172711.8013-1-sowmyatorra@gmail.com>
 
-On Sun, Oct 18, 2026 at 10:57:11PM +0530, Torra Sowmya wrote:
-> The GREYBUS_LOOPBACK help text incorrectly describes the Debug Log
-> Class and names gb-log.ko as the module. Correct the description to
-> refer to the Loopback Class and name gb-loopback.ko, matching the
-> driver and Makefile.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Nice find!
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> Signed-off-by: Torra Sowmya <sowmyatorra@gmail.com>
-> ---
->  drivers/staging/greybus/Kconfig | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/Kconfig b/drivers/staging/greybus/Kconfig
-> index e1d7ffdf4a6f..3ff47550081d 100644
-> --- a/drivers/staging/greybus/Kconfig
-> +++ b/drivers/staging/greybus/Kconfig
-> @@ -75,10 +75,10 @@ config GREYBUS_LOOPBACK
->  	tristate "Greybus Loopback Class driver"
->  	help
->  	  Select this option if you have a device that follows the
-> -	  Greybus Debug Log Class specification.
-> +	  Greybus Loopback Class specification.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch puts a different meaning into the generic
+  SOL_SOCKET/SCM_INQ cmsg than the one already in the tree.
+
+--
+
+vsock: support SO_INQ on stream sockets
+
+This adds SO_INQ support to AF_VSOCK SOCK_STREAM sockets. recvmsg() then
+returns an SCM_INQ cmsg filled from vsock_stream_inq_hint(). Accepted
+sockets inherit the setting from the listener, and SOCK_SEQPACKET rejects
+the option with ENOPROTOOPT.
+
+> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+> index 1c2d1cea67f4c..186ed57fd7978 100644
+> --- a/net/vmw_vsock/af_vsock.c
+> +++ b/net/vmw_vsock/af_vsock.c
+
+[ ... ]
+
+> @@ -2637,13 +2679,26 @@ __vsock_connectible_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+>  		err = __vsock_seqpacket_recvmsg(sk, msg, len, flags);
 >  
->  	  To compile this code as a module, chose M here: the module
-> -	  will be called gb-log.ko
-> +	  will be called gb-loopback.ko
+>  out:
+> -	/* Seqpacket has_data counts messages, while io_uring treats msg_inq as
+> -	 * a byte length when sizing retries, so only streams report a hint.
+> +	/* Seqpacket has_data counts messages, while SCM_INQ reports bytes and
+> +	 * io_uring treats msg_inq as a byte length when sizing retries, so
+> +	 * only streams report it.
+>  	 */
+> -	if (msg->msg_get_inq && err >= 0 && sk->sk_type == SOCK_STREAM)
+> +	if ((vsk->recvmsg_inq || msg->msg_get_inq) && err >= 0 &&
+> +	    sk->sk_type == SOCK_STREAM) {
+>  		msg->msg_inq = vsock_stream_inq_hint(sk);
+>  
+> +		/* A negative hint means the transport could not tell. SCM_INQ
+> +		 * has no encoding for that, so report nothing.
+> +		 */
+> +		do_cmsg = vsk->recvmsg_inq && msg->msg_inq >= 0;
+> +	}
+> +
+>  	release_sock(sk);
+> +
+> +	if (do_cmsg)
+> +		put_cmsg(msg, SOL_SOCKET, SCM_INQ, sizeof(msg->msg_inq),
+> +			 &msg->msg_inq);
 
-Reviewed-by: Johan Hovold <johan@kernel.org>
+[Severity: Medium]
+
+Does this give SOL_SOCKET/SCM_INQ a different meaning on vsock than it has
+on AF_UNIX?
+
+SO_INQ/SCM_INQ was added in commit df30285b3670 ("af_unix: Introduce
+SO_INQ.") as the generic version of TCP_INQ. That commit says the cmsg
+holds the exact value of ioctl(SIOCINQ). AF_UNIX follows this:
+
+net/unix/af_unix.c:unix_stream_read_generic() {
+    ...
+			msg->msg_inq = READ_ONCE(u->inq_len);
+			if (do_cmsg)
+				put_cmsg(msg, SOL_SOCKET, SCM_INQ,
+					 sizeof(msg->msg_inq), &msg->msg_inq);
+    ...
+}
+
+tools/testing/selftests/net/af_unix/scm_inq.c also checks that the cmsg
+payload equals the SIOCINQ result.
+
+Here the value comes from vsock_stream_inq_hint(). In several states it
+returns 1 instead of a byte count:
+
+net/vmw_vsock/af_vsock.c:vsock_stream_inq_hint() {
+	if ((sk->sk_shutdown & RCV_SHUTDOWN) || !vsk->transport ||
+	    (sock_flag(sk, SOCK_DONE) && sk->sk_state != TCP_ESTABLISHED))
+		return 1;
+    ...
+	if (sock_flag(sk, SOCK_DONE) ||
+	    (READ_ONCE(vsk->peer_shutdown) & SEND_SHUTDOWN))
+		return 1;
+    ...
+}
+
+The first branch returns 1 even when bytes are still queued. SIOCINQ in
+vsock_do_ioctl() still returns the raw vsock_stream_has_data() value,
+which is 0 at EOF:
+
+net/vmw_vsock/af_vsock.c:vsock_do_ioctl() {
+    ...
+		n_bytes = vsock_stream_has_data(vsk);
+		if (n_bytes < 0) {
+			ret = n_bytes;
+			break;
+		}
+		ret = put_user(n_bytes, arg);
+    ...
+}
+
+After the peer closes or shuts down, SCM_INQ reports 1 while SIOCINQ
+reports 0. After SHUT_RD, SCM_INQ reports 1 no matter how many bytes are
+queued.
+
+The commit message says "As with TCP_INQ, 1 is reported once the stream
+is finished". TCP_CM_INQ is a separate SOL_TCP cmsg, though. Suppose a
+portable program treats SCM_INQ as an exact byte count. Would it see a
+byte on vsock that isn't there?
+
+The vsock selftest in the same series ("vsock/test: cover SO_INQ")
+expects 1 at EOF. Once this is merged, that per-family meaning becomes
+part of the uAPI.
+
+The updated comment above gives "SCM_INQ reports bytes" as the reason to
+refuse SEQPACKET, but the stream path does not report bytes at EOF.
+Should the comment or the reported value change so they match?
+
+>  	return err;
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015154334.3217358-1-devnexen%40gmail.com
