@@ -1,99 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427124;
-	b=CW8YHrZmOe1PuoIi8aaRtZ+dx00kdDxwaEzN6OKVKGG3PJ5KPMdZBcD2w6Iv9yxj9R4S
-	 UB1+CcMzkCyn8uNtsbVlw5+vi+tQuqlPW6DszYn8YxinUHmb6mplub78m1sBzs1d5zZnt
-	 no/CoJKIlaZ2jtd1FLjeDWMc0Glt6eeMNO1m87FMqB+pQvRtGopcB3dMu7PNc2aKY6bAp
-	 iHlkWMtVHWOflGGZborQg0GoUTlsuHZ49S+vBVC4u/nfmW3Q/gLWNhxh4m65VYdYAaeck
-	 DVLw2skuHUfKU44oIt5V8AZnejoDChSXEgDDEA5zGnKfr+Pp5U1IE+LyN4RBqnjeT5w==
+	t=1792427102;
+	b=mrxpi52EIV8Oki/UMUoqBJ71hWACwLMS7+xy4WS6ttIkQSGoTg3QD4kbyfoAim5x4RVF
+	 20Suyx/t+AxxylUlfKNn4fMOo8ZcxVl8P5+bsc3FmHZLs5Lh7qjNnmNDM5NV9ASSRfFF2
+	 +RgOXUKXsfH1G9mbbVMWVhVE+YHRIYck+ynl1b2q9Gvsm1jesrKPnTvFIHG16bd9ghpyO
+	 OHqJlx2sqOqCeZQ7nZiRt/ftGwLathXEftGpiZ2YG3DTAsyZWLYc6rTpt4PzlBaEcpD98
+	 hzoQZoc2TiobxiPfgTO5NaH80qNjzm43AXGCi+t32OAuI7QWJo4uTX5bvykn72OMIVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427124;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=w9H0rQ/bpIYjY7pl4rx3zJBA5MOJkHqcSOXTUsmhAcA=;
-	b=mXpUou7BK5NNE8VbV+4S6OYPwN6iqB32qN6E/CJ0wKO37zcwDsavMV9L02d0gcGKLUXc
-	 qOS5HLbTXm9Qx2Mf/TJ1u6/gHvGDwnTsLrHKJucK04p5Xm3jKUYqmrynEfijTHBXZHKDJ
-	 VxXJnWgtOI/6Nn//uQFjMkI0jHrr7P6QeRzrODoo2v0iEtLlLnDdTmXRk9SCPaWbIVdIi
-	 x8n48cwg3bueLb/HwVlclOvtKS4p5OsXVjanuVEeR+3HGfphET13+TP/xa/H1PCUFn+nS
-	 mM3OKyAy1qpTunLoIgw7kMRhFEY6gapVnZD7KQVufiIyw+wL58UkZ4LI/EBNveSzQXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427102;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=zjqCyCGBCCDyRk9Gb16bTRiDfPQSCM5vy/BOvodCgA8=;
+	b=g07G2lJq77DdGwdPpJT5iMTPSwqbtNXHRa0KFsNvGrDT5s4UiXmmTGZ3656kJT1cmqAV
+	 rHzyMJ3bapV1IdmXJqoaz2AqjTy9z/oVyUHX5COsuLzZQelbhIEvM77+0rwA5HYA2gv3D
+	 VhTup4rGDyTPROr85FZQ/1l2XS2zas0WqrFddi2cMPzXQXSdzmZJa89EWb/ESVAa9qnCN
+	 iJ+S97DrPPxd/JnksR5AsoOA+LLemlQcNZrl36S5Fo18wbym6Ei0LQYWwPO0glsF/SIjf
+	 8V237pE9M338GXuHuODIZ73BoRcp3TKvBXEDkXjX5gnWAsgNuGggyGQ1u5KIFE2pZEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vayavyalabs.com;
-	spf=pass smtp.mailfrom=vayavyalabs.com;
-	dkim=pass header.d=vayavyalabs.com header.i=@vayavyalabs.com header.a=rsa-sha256 header.s=google header.b=AxerQ0fD;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=fail header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A26660A261B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:25:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A26660A261B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.a=rsa-sha256 header.s=google header.b=AxerQ0fD
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3514b90bb89so5928159eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:25:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=vayavyalabs.com; s=google; t=1792427123; x=1793031923; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w9H0rQ/bpIYjY7pl4rx3zJBA5MOJkHqcSOXTUsmhAcA=;
-        b=AxerQ0fDr1DpVZ+eowOCL7I/S2heiZFv9ol7GtELItdxnyQcur/p24QsP8QKwAXTZC
-         +nqRvtm4U19AJAO8xBiQ/vttXInKdigPulC+bcvYt1rFlv3UMxLSB3kADB7TpWv+YQ+l
-         ZO7PWlQAaxK/4k8KSSnlTH4/qCNVW806y99lQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792427123; x=1793031923;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w9H0rQ/bpIYjY7pl4rx3zJBA5MOJkHqcSOXTUsmhAcA=;
-        b=gY6/7Hazjehr4g4KX2lh9PwVUC4zXwKvb60Oj4EXUCHRtZoNxCUYFcjpx7yHOmZ3xq
-         IusjGF/etyQv+7BuV+2fpAFkOwrz4XN+zzva9rbKiqlw4ZzJtXJoThTxMcEiKdaxV905
-         5jr3LNizK27JgQ98ODgWIVwpAS2RdmYe/EijcxDjYu1NGqSdXxrjsoK0GJxLwaai9E7E
-         pbrXdTghdYAwasfQSrFI4AosLp3SHKjiDdwcsIaOu0d5U2H5NcdBLTPX4R3cGAiUs1KT
-         8NhTkkrw1wKQmQRGcMwkTEWmL+u+FVVaDSr7bS8n7o0MThFvy39EvGeyonbeedP7hNxx
-         NhrQ==
-X-Forwarded-Encrypted: i=1; AKwUvByi7fhAkSkpgxH5h3u/Oqx84nKEj3KVDEcELY6sO2BXtrqWlrbFmBdf/G9Y8uv4IwHLZVeAHOVCBLCLB3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHKaoNJctIVuVZpuQh/kR4vrgqiX3kpGi+zwLlkpVUInfpnjCQ
-	KE6Ioh/p7iU7TcHZExisZKCTF2KkaEtF0o8oK5f2wUU6VjctYxn8lJV1ZJ4y6AysDdQ=
-X-Gm-Gg: AYBFou3FSBGdH19aaAou5sHDaoxKl6ijCxj8Mmws9tLOdPLaXzfL+BM6/WWKsJbCqa7
-	IGAc1LLfTR6rXv9yrKh5+eRLnY2rbe5uh5C1Ynq2KZprwNSsPL3P78iGNszr7XgQC4LE7YWPAi/
-	qZT0W7b2CKKuqCyC5vLsEmPZF9LmhYGJrKNShze2YdyThoIfdcGflcT5cuDywlQqWzkfnZR6yr8
-	eczpvzEv7SRVGgjjdgo8mjO5YiQZnXZ+I/WM7NsRkx/YNSTyFMd42w9v8NsQeD5x1wDr8a5KYFq
-	p8iUuZKoLqOddVMWzQc3dJe3sAW+eWHGAyKdccRuRcKES9KZE1xZcJt60+fVq93LVSoKNhp58Ne
-	n++xTlcmhgR6QuYvcRpMienrviOHJXk3/KYq/crv55nos6rhHwRcteAKxQJJb7FIZLekcZzyfkk
-	lPHiL+MMFIgmgr/p8XwuG3Cq+lCNEVlDmUyGD2hKYZyQJQuDj7/gTOCkyy9VBpViKpnA5zSX2Qq
-	pKPGCQZ+GlOVJD4LZ7EmrCfBrv9BAl5Ggf7kWnZzBzjLJF4tCf1B93W1Zmk8Yh5dzNQff1FnE3y
-	bCWaTXS7yZxBH+mx++Xzy3jVfp9wTY8mRSQxjg==
-X-Received: by 2002:a05:693c:69c2:b0:356:23dd:3c72 with SMTP id 5a478bee46e88-3619ed116cbmr9937459eec.4.1792427122345;
-        Mon, 19 Oct 2026 09:25:22 -0700 (PDT)
-Received: from localhost.localdomain ([103.108.57.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819bc569sm32218885eec.11.2026.10.19.09.25.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 09:25:21 -0700 (PDT)
-From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-To: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	herbert@gondor.apana.org.au,
-	robh@kernel.org
-Cc: krzk@kernel.org,
-	conor+dt@kernel.org,
-	ruud.derwig@gf.com,
-	rbannerm@synopsys.com,
-	manjunath.hadli@vayavyalabs.com,
-	adityak@vayavyalabs.com,
-	navami.telsang@vayavyalabs.com,
-	bhoomikak@vayavyalabs.com,
-	nazim.khan@vayavyalabs.com,
-	Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Subject: [PATCH v26 0/4] crypto: spacc - Add SPAcc Crypto Driver
-Date: Mon, 19 Oct 2026 21:54:53 +0530
-Message-Id: <20261019162457.1000115-1-pavitrakumarm@vayavyalabs.com>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBB1606A319;
+	Mon, 19 Oct 2026 16:24:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EBB1606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=zjqCyCGBCCDyRk9Gb16bTRiDfPQSCM5vy/BOvodCgA8=; b=bgiYRe53i1XdaYRJpGMT/1rLt4
+	K7o5Hp/pIU5bwxi/JqXQp0cTo27PXz891gjFPh8cNv5L+idxUF/Ux9Ke8BsQtCp/R3iN+lxvx1Zef
+	UxiOjoRZwRAmKceSJ1v6e8s7BGJlRT3ifF4PQLoePpJBPy1XkVZwtoSrMd8UYY1yyJOdTfwIHGq+i
+	xO/OqwvZeveuYDVSYHHKeoW3IJ8Cif9wKB1j2u4wmwS87fWd9ahVVNmzNiPFu0HVTLC2aAeAyqFb5
+	r4Jhtth7ucP9CI+HQ9H8B7xH+EKLtBjUHcLyoT9vzYdQr+pjWlewJM7kIQSBCP9kt/jHpNnsGPzc2
+	iU0LQuPA==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xIqAH-00000009VGJ-3MbY;
+	Mon, 19 Oct 2026 16:24:45 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xIqAH-000000009gg-1MLb;
+	Mon, 19 Oct 2026 17:24:45 +0100
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paul Durrant <paul@xen.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Fred Griffoul <fgriffo@amazon.co.uk>,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v4 04/12] KVM: x86/xen: Wait out memslot updates in the Xen attribute ioctls
+Date: Mon, 19 Oct 2026 17:24:35 +0100
+Message-ID: <20261019162445.37219-5-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261019162445.37219-1-dwmw2@infradead.org>
+References: <20261019162445.37219-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,195 +72,370 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Add the driver for SPAcc(Security Protocol Accelerator), which is a
-crypto acceleration IP from Synopsys. The SPAcc supports multiple ciphers,
-hashes and AEAD algorithms with various modes. The driver currently supports
-below
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-hash:
-- cmac(sm4)
-- xcbc(sm4)
-- hmac(md5)
-- md5
-- hmac(sha1)
-- sha1
-- sha224
-- sha256
-- sha384
-- sha512
-- hmac(sha224)
-- hmac(sha256)
-- hmac(sha384)
-- hmac(sha512)
-- sha3-224
-- sha3-256
-- sha3-384
-- sha3-512
+Activating a shared_info, vcpu_info, pvclock or runstate cache can
+fail if it races a memslot update: previously with -EFAULT, now with
+-EAGAIN. These ioctls may sleep, so pass wait and let the activation
+ride the update out; userspace never sees the transient state.
 
-changelog:
-  v1->v2 changes:
-    - Added local_bh_disable() and local_bh_enable() for the below calls.
-      a. for ciphers skcipher_request_complete()
-      b. for aead aead_request_complete()
-      c. for hash ahash_request_complete()
-    - dt-bindings updates
-      a. removed snps,vspacc-priority and made it into config option
-      b. renamed snps,spacc-wdtimer to snps,spacc-internal-counter
-      c. Added description to all properties
-    - Updated corresponding dt-binding changes to code
+No waiting happens while xen_lock is held. A vCPU writing the
+hypercall page MSR blocks on xen_lock from within its kvm->srcu read
+section, and the memslot update cannot complete until that section
+quiesces, so waiting while holding the lock would deadlock all three.
+kvm_xen_shared_info_init() is called with the lock held — keeping the
+wallclock publish single-writer — and drops it internally across any
+refresh; the publish location is chosen by re-reading long_mode under
+the re-taken lock. The activation calls wait with the lock dropped at
+the call site. Callers get no state continuity across those waits;
+concurrent SET_ATTR calls racing through the window are userspace's
+own race, and the last one wins. Document the rule at the lock's
+definition.
 
-  v2->v3 changes:
-    - cra_init and cra_exit replaced with init_tfm and exit_tfm for hashes.
-    - removed mutex_lock/unlock for spacc_skcipher_fallback call
-    - dt-bindings updates
-     a. updated SOC related information
-     b. renamed compatible string as per SOC
-   - Updated corresponding dt-binding changes to code
+The hypercall page MSR write cannot wait at all — it would be waiting
+out its own srcu read section — so its shared_info re-init passes
+wait=false and ignores -EAGAIN, skipping the wallclock update and
+leaving the new mode's wallclock stale — or, on a first bitness
+change, never written. Nothing retries that, but the guest latches
+its bitness via the hypercall page early in boot, when nothing should
+be changing memslots anyway. A real failure (-EFAULT) still fails the
+WRMSR as it always did.
 
-  v3->v4 changes:
-   - removed snps,vspacc-id from the dt-bindings
-   - removed mutex_lock from ciphers
-   - replaced magic numbers with macros
-   - removed sw_fb variable from struct mode_tab and associated code from the
-     hashes
-   - polling code is replaced by wait_event_interruptible
+kvm_xen_shared_info_init() gains the wait flag for its refresh.
+It and xen_get_guest_pvclock() keep a kvm->srcu read section around
+each kvm_gpc_check() and the access through the mapping — the check
+consults the memslots — but drop it across the refresh.
 
-  v4->v5 changes:
-   - Updated to register with the crypto-engine
-   - Used semaphore to manage SPAcc device hardware context pool
-   - This patchset supports Hashes only
-   - Dropping the support for Ciphers and AEADs in this patchset
-   - Added Reviewed-by tag on the Device tree patch since it was reviewed on
-     v4 patch by Krzysztof Kozlowski and Rob Herring (Arm)
+The kvm->srcu read sections around the activation calls go away;
+they existed to satisfy the old refresh contract, and holding one
+across a waiting activation would deadlock against the memslot
+update. The runstate updates in kvm_xen_vcpu_set_attr() still read
+guest state through the caches, so they keep narrow read sections
+of their own.
 
-  v5->v6 changes:
-   - Removed CRYPTO_DEV_SPACC_CIPHER and CRYPTO_DEV_SPACC_AEAD Kconfig options,
-     since the cipher and aead support is not part of this patchset
-   - Dropped spacc_skcipher.o and spacc_aead.o from Makefile to fix build errors
-     reported by kernel test robot
-   - Added Reported-by and Closes tags as suggested
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Assisted-by: LLM
+---
+ arch/x86/include/asm/kvm_host.h |   6 ++
+ arch/x86/kvm/xen.c              | 129 +++++++++++++++++++++++---------
+ 2 files changed, 100 insertions(+), 35 deletions(-)
 
-  v6->v7 changes:
-   - Fixed build error reported by Kernel test robot
-   - Added Reported-by and Closes tags as suggested
-
-  v7->v8 changes:
-   - Fixed misleading comment: Clarified that only HMAC key pre-processing
-     is done in software, while the actual HMAC operation is performed by
-     hardware
-   - Simplified do_shash() function signature by removing unused parameters
-   - Updated all do_shash() call sites to use new simplified signature
-   - Fixed commit message formatting by adding "crypto: spacc - <subject>" to
-     all patches
-   - used __free() for scope based resource management
-
-  v8->v9 changes:
-   - Updated the software fallback implementation to use HASH_FBREQ_ON_STACK
-   - Corrected dynamic allocation of statesize and reqsize in init_tfm
-   - Fixed synchronization issues in the digest request
-
-  v9->v10 changes:
-   - Fixed unused variable warning
-
-  v10->v11 changes:
-   - Removed the redundant crypto_alloc_ahash in the init_tfm function
-   - Removed the redundant crypto_free_ahash in exit_tfm function
-   - Removed the redundant crypto_ahash_setkey call in setkey function
-
-  v11->v12 changes:
-   - Removed do_shash() and switched to lib/crypto API in spacc_hash_setkey
-   - Dropped support for SM3 algorithm
-   - Improved multi-device safety by encapsulating handling within priv
-   - Added memzero_explicit() in sensitive paths
-   - Minor code cleanups and style fixes
-   - Algorithm registration cleanups
-
-  v12->v13 changes:
-   - Removed all the sleep function from setkey function
-   - Added shash implemntation for aes algorthims
-
-  v13->v14 changes:
-   -Added fixes based on the reports by Sashiko
-   -Removed the spacc_is_mode_keysize_supported call from do_one_request
-
-  v14->v15 changes:
-   -Added fixes based on the reports by Sashiko on 19/jun/2026
-   -Fixed styling in the Kconfig
-
-  v15->v16 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v16->v17 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v17->v18 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v18->v19 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v19->v20 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v20->v21 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v21->v22 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v22->v23 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v23->v24 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v24->v25 changes:
-   -Added fixes based on the reports by Sashiko
-
-  v25->v26 changes:
-   -Added fixes based on the reports by Sashiko
-   -Removed the additional fallback
-   -Added the CRYPTO_AHASH_ALG_BLOCK_ONLY flag to the cra_flags
-   -Minor code cleanups and style fixes
-
-Pavitrakumar Managutte (4):
-  dt-bindings: crypto: Document support for SPAcc
-  crypto: spacc - Add SPAcc ahash support
-  crypto: spacc - add spacc autodetect support
-  crypto: spacc - Add SPAcc Kconfig and Makefile
-
- .../bindings/crypto/snps,dwc-spacc.yaml       |   50 +
- drivers/crypto/Kconfig                        |    1 +
- drivers/crypto/Makefile                       |    1 +
- drivers/crypto/dwc-spacc/Kconfig              |   65 +
- drivers/crypto/dwc-spacc/Makefile             |    7 +
- drivers/crypto/dwc-spacc/spacc_ahash.c        |  827 ++++++
- drivers/crypto/dwc-spacc/spacc_core.c         | 2547 +++++++++++++++++
- drivers/crypto/dwc-spacc/spacc_core.h         |  863 ++++++
- drivers/crypto/dwc-spacc/spacc_device.c       |  326 +++
- drivers/crypto/dwc-spacc/spacc_device.h       |  182 ++
- drivers/crypto/dwc-spacc/spacc_hal.c          |  349 +++
- drivers/crypto/dwc-spacc/spacc_hal.h          |  113 +
- drivers/crypto/dwc-spacc/spacc_interrupt.c    |  360 +++
- drivers/crypto/dwc-spacc/spacc_manager.c      |  661 +++++
- 14 files changed, 6352 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/crypto/snps,dwc-spacc.yaml
- create mode 100644 drivers/crypto/dwc-spacc/Kconfig
- create mode 100644 drivers/crypto/dwc-spacc/Makefile
- create mode 100644 drivers/crypto/dwc-spacc/spacc_ahash.c
- create mode 100644 drivers/crypto/dwc-spacc/spacc_core.c
- create mode 100644 drivers/crypto/dwc-spacc/spacc_core.h
- create mode 100644 drivers/crypto/dwc-spacc/spacc_device.c
- create mode 100644 drivers/crypto/dwc-spacc/spacc_device.h
- create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.c
- create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.h
- create mode 100644 drivers/crypto/dwc-spacc/spacc_interrupt.c
- create mode 100644 drivers/crypto/dwc-spacc/spacc_manager.c
-
-
-base-commit: 178aff4cf425b3fc51ff09c571fa1bfbc1eb8ea4
---
-2.25.1
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 3af7395c2430..ed633a39a97a 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1108,6 +1108,12 @@ struct kvm_hv {
+ #ifdef CONFIG_KVM_XEN
+ /* Xen emulation context */
+ struct kvm_xen {
++	/*
++	 * Taken from within kvm->srcu read sections (e.g. by a vCPU
++	 * writing the hypercall page MSR), so never held while waiting
++	 * out a memslot update: the update waits for those read
++	 * sections to quiesce.
++	 */
+ 	struct mutex xen_lock;
+ 	u32 xen_version;
+ 	bool long_mode;
+diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
+index ac27b4795d69..8c49ec8aa4d9 100644
+--- a/arch/x86/kvm/xen.c
++++ b/arch/x86/kvm/xen.c
+@@ -36,7 +36,7 @@ static bool kvm_xen_hcall_evtchn_send(struct kvm_vcpu *vcpu, u64 param, u64 *r);
+ 
+ DEFINE_STATIC_KEY_DEFERRED_FALSE(kvm_xen_enabled, HZ);
+ 
+-static int kvm_xen_shared_info_init(struct kvm *kvm)
++static int kvm_xen_shared_info_init(struct kvm *kvm, bool wait)
+ {
+ 	struct gfn_to_pfn_cache *gpc = &kvm->arch.xen.shinfo_cache;
+ 	struct pvclock_wall_clock *wc;
+@@ -44,17 +44,35 @@ static int kvm_xen_shared_info_init(struct kvm *kvm)
+ 	u32 wc_version;
+ 	u64 wall_nsec;
+ 	int ret = 0;
+-	int idx = srcu_read_lock(&kvm->srcu);
++	int idx;
+ 
+-	read_lock_irq(&gpc->lock);
+-	while (!kvm_gpc_check(gpc, PAGE_SIZE)) {
++	/* We only really use xen_lock here to serialize wallclock updates. */
++	lockdep_assert_held(&kvm->arch.xen.xen_lock);
++
++	/*
++	 * kvm_gpc_check() consults the memslots, so take kvm->srcu
++	 * around each check and the write through the mapping — but not
++	 * across the refresh.
++	 */
++
++	for (;;) {
++		idx = srcu_read_lock(&kvm->srcu);
++		read_lock_irq(&gpc->lock);
++		if (kvm_gpc_check(gpc, PAGE_SIZE))
++			break;
+ 		read_unlock_irq(&gpc->lock);
++		srcu_read_unlock(&kvm->srcu, idx);
+ 
+-		ret = kvm_gpc_refresh(gpc, PAGE_SIZE, false);
++		/*
++		 * Drop xen_lock across the refresh, which may wait out a
++		 * memslot update that cannot complete while a vCPU is
++		 * blocked on xen_lock within its kvm->srcu read section.
++		 */
++		mutex_unlock(&kvm->arch.xen.xen_lock);
++		ret = kvm_gpc_refresh(gpc, PAGE_SIZE, wait);
++		mutex_lock(&kvm->arch.xen.xen_lock);
+ 		if (ret)
+ 			goto out;
+-
+-		read_lock_irq(&gpc->lock);
+ 	}
+ 
+ 	/*
+@@ -98,9 +116,9 @@ static int kvm_xen_shared_info_init(struct kvm *kvm)
+ 
+ 	wc->version = wc_version + 1;
+ 	read_unlock_irq(&gpc->lock);
++	srcu_read_unlock(&kvm->srcu, idx);
+ 
+ out:
+-	srcu_read_unlock(&kvm->srcu, idx);
+ 	return ret;
+ }
+ 
+@@ -155,21 +173,29 @@ static int xen_get_guest_pvclock(struct kvm_vcpu *vcpu,
+ 				 unsigned int offset)
+ {
+ 	unsigned long flags;
+-	int r;
++	int idx, r;
+ 
+-	read_lock_irqsave(&gpc->lock, flags);
+-	while (!kvm_gpc_check(gpc, offset + sizeof(*hv_clock))) {
++	/*
++	 * As in kvm_xen_shared_info_init(): kvm_gpc_check() consults the
++	 * memslots, so take kvm->srcu around each check and the copy, but
++	 * not across the refresh.
++	 */
++	for (;;) {
++		idx = srcu_read_lock(&vcpu->kvm->srcu);
++		read_lock_irqsave(&gpc->lock, flags);
++		if (kvm_gpc_check(gpc, offset + sizeof(*hv_clock)))
++			break;
+ 		read_unlock_irqrestore(&gpc->lock, flags);
++		srcu_read_unlock(&vcpu->kvm->srcu, idx);
+ 
+ 		r = kvm_gpc_refresh(gpc, offset + sizeof(*hv_clock), false);
+ 		if (r)
+ 			return r;
+-
+-		read_lock_irqsave(&gpc->lock, flags);
+ 	}
+ 
+ 	memcpy(hv_clock, gpc->khva + offset, sizeof(*hv_clock));
+ 	read_unlock_irqrestore(&gpc->lock, flags);
++	srcu_read_unlock(&vcpu->kvm->srcu, idx);
+ 
+ 	/*
+ 	 * Sanity check TSC shift+multiplier to verify the guest's view of time
+@@ -776,7 +802,6 @@ int kvm_xen_hvm_set_attr(struct kvm *kvm, struct kvm_xen_hvm_attr *data)
+ {
+ 	int r = -ENOENT;
+ 
+-
+ 	switch (data->type) {
+ 	case KVM_XEN_ATTR_TYPE_LONG_MODE:
+ 		if (!IS_ENABLED(CONFIG_64BIT) && data->u.long_mode) {
+@@ -792,19 +817,23 @@ int kvm_xen_hvm_set_attr(struct kvm *kvm, struct kvm_xen_hvm_attr *data)
+ 			 * to make the call anyway.
+ 			 */
+ 			r = kvm->arch.xen.shinfo_cache.active ?
+-				kvm_xen_shared_info_init(kvm) : 0;
++				kvm_xen_shared_info_init(kvm, true) : 0;
+ 			mutex_unlock(&kvm->arch.xen.xen_lock);
+ 		}
+ 		break;
+ 
+ 	case KVM_XEN_ATTR_TYPE_SHARED_INFO:
+ 	case KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA: {
+-		int idx;
+-
++		/*
++		 * Deactivation stays under xen_lock, but an activation may
++		 * wait out a memslot update and so must not hold it: a vCPU
++		 * may block on xen_lock from within the kvm->srcu read
++		 * section which that update must wait out. Concurrent
++		 * SET_ATTR calls racing in the window are userspace's own
++		 * race; the cache layer serializes them, last one wins.
++		 */
+ 		mutex_lock(&kvm->arch.xen.xen_lock);
+ 
+-		idx = srcu_read_lock(&kvm->srcu);
+-
+ 		if (data->type == KVM_XEN_ATTR_TYPE_SHARED_INFO) {
+ 			gfn_t gfn = data->u.shared_info.gfn;
+ 
+@@ -812,8 +841,10 @@ int kvm_xen_hvm_set_attr(struct kvm *kvm, struct kvm_xen_hvm_attr *data)
+ 				kvm_gpc_deactivate(&kvm->arch.xen.shinfo_cache);
+ 				r = 0;
+ 			} else {
++				mutex_unlock(&kvm->arch.xen.xen_lock);
+ 				r = kvm_gpc_activate(&kvm->arch.xen.shinfo_cache,
+-						     gfn_to_gpa(gfn), PAGE_SIZE, false);
++						     gfn_to_gpa(gfn), PAGE_SIZE, true);
++				mutex_lock(&kvm->arch.xen.xen_lock);
+ 			}
+ 		} else {
+ 			void __user * hva = u64_to_user_ptr(data->u.shared_info.hva);
+@@ -829,10 +860,8 @@ int kvm_xen_hvm_set_attr(struct kvm *kvm, struct kvm_xen_hvm_attr *data)
+ 			}
+ 		}
+ 
+-		srcu_read_unlock(&kvm->srcu, idx);
+-
+ 		if (!r && kvm->arch.xen.shinfo_cache.active)
+-			r = kvm_xen_shared_info_init(kvm);
++			r = kvm_xen_shared_info_init(kvm, true);
+ 
+ 		mutex_unlock(&kvm->arch.xen.xen_lock);
+ 		break;
+@@ -937,7 +966,6 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 	int idx, r = -ENOENT;
+ 
+ 	mutex_lock(&vcpu->kvm->arch.xen.xen_lock);
+-	idx = srcu_read_lock(&vcpu->kvm->srcu);
+ 
+ 	switch (data->type) {
+ 	case KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO:
+@@ -959,8 +987,16 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 			if (!IS_ALIGNED(data->u.gpa, sizeof(u32)))
+ 				break;
+ 
++			/*
++			 * As with the shared_info attributes: a waiting
++			 * activation must not hold xen_lock, on which a
++			 * vCPU may block from within the kvm->srcu read
++			 * section the memslot update has to wait out.
++			 */
++			mutex_unlock(&vcpu->kvm->arch.xen.xen_lock);
+ 			r = kvm_gpc_activate(&vcpu->arch.xen.vcpu_info_cache,
+-					     data->u.gpa, sizeof(struct vcpu_info), false);
++					     data->u.gpa, sizeof(struct vcpu_info), true);
++			mutex_lock(&vcpu->kvm->arch.xen.xen_lock);
+ 		} else {
+ 			if (data->u.hva == 0) {
+ 				kvm_gpc_deactivate(&vcpu->arch.xen.vcpu_info_cache);
+@@ -988,9 +1024,11 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 			break;
+ 		}
+ 
++		mutex_unlock(&vcpu->kvm->arch.xen.xen_lock);
+ 		r = kvm_gpc_activate(&vcpu->arch.xen.vcpu_time_info_cache,
+ 				     data->u.gpa,
+-				     sizeof(struct pvclock_vcpu_time_info), false);
++				     sizeof(struct pvclock_vcpu_time_info), true);
++		mutex_lock(&vcpu->kvm->arch.xen.xen_lock);
+ 		if (!r)
+ 			kvm_make_request(KVM_REQ_CLOCK_UPDATE, vcpu);
+ 		break;
+@@ -1022,10 +1060,14 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 
+ 		/* How much fits in the (first) page? */
+ 		sz1 = PAGE_SIZE - (data->u.gpa & ~PAGE_MASK);
++
++		mutex_unlock(&vcpu->kvm->arch.xen.xen_lock);
+ 		r = kvm_gpc_activate(&vcpu->arch.xen.runstate_cache,
+-				     data->u.gpa, sz1, false);
+-		if (r)
++				     data->u.gpa, sz1, true);
++		if (r) {
++			mutex_lock(&vcpu->kvm->arch.xen.xen_lock);
+ 			goto deactivate_out;
++		}
+ 
+ 		/* Either map the second page, or deactivate the second GPC */
+ 		if (sz1 >= sz) {
+@@ -1034,12 +1076,17 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 			sz2 = sz - sz1;
+ 			BUG_ON((data->u.gpa + sz1) & ~PAGE_MASK);
+ 			r = kvm_gpc_activate(&vcpu->arch.xen.runstate2_cache,
+-					     data->u.gpa + sz1, sz2, false);
+-			if (r)
++					     data->u.gpa + sz1, sz2, true);
++			if (r) {
++				mutex_lock(&vcpu->kvm->arch.xen.xen_lock);
+ 				goto deactivate_out;
++			}
+ 		}
++		mutex_lock(&vcpu->kvm->arch.xen.xen_lock);
+ 
++		idx = srcu_read_lock(&vcpu->kvm->srcu);
+ 		kvm_xen_update_runstate_guest(vcpu, false);
++		srcu_read_unlock(&vcpu->kvm->srcu, idx);
+ 		break;
+ 	}
+ 	case KVM_XEN_VCPU_ATTR_TYPE_RUNSTATE_CURRENT:
+@@ -1052,7 +1099,9 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 			break;
+ 		}
+ 
++		idx = srcu_read_lock(&vcpu->kvm->srcu);
+ 		kvm_xen_update_runstate(vcpu, data->u.runstate.state);
++		srcu_read_unlock(&vcpu->kvm->srcu, idx);
+ 		r = 0;
+ 		break;
+ 
+@@ -1132,10 +1181,12 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 		vcpu->arch.xen.runstate_times[RUNSTATE_offline] +=
+ 			data->u.runstate.time_offline;
+ 
++		idx = srcu_read_lock(&vcpu->kvm->srcu);
+ 		if (data->u.runstate.state <= RUNSTATE_offline)
+ 			kvm_xen_update_runstate(vcpu, data->u.runstate.state);
+ 		else if (vcpu->arch.xen.runstate_cache.active)
+ 			kvm_xen_update_runstate_guest(vcpu, false);
++		srcu_read_unlock(&vcpu->kvm->srcu, idx);
+ 		r = 0;
+ 		break;
+ 
+@@ -1181,7 +1232,6 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 		break;
+ 	}
+ 
+-	srcu_read_unlock(&vcpu->kvm->srcu, idx);
+ 	mutex_unlock(&vcpu->kvm->arch.xen.xen_lock);
+ 	return r;
+ }
+@@ -1326,11 +1376,20 @@ int kvm_xen_write_hypercall_page(struct kvm_vcpu *vcpu, u64 data)
+ 
+ 		/*
+ 		 * Re-initialize shared_info to put the wallclock in the
+-		 * correct place.
++		 * correct place. This cannot wait out a memslot update
++		 * from within the vCPU's kvm->srcu read section, so if
++		 * one races (-EAGAIN), the wallclock update is simply
++		 * skipped — leaving the new mode's wallclock stale, or
++		 * never yet written. The guest latches its bitness here
++		 * early in boot, when nothing should be changing memslots
++		 * anyway. A real failure still fails the WRMSR as before.
+ 		 */
+-		if (kvm->arch.xen.shinfo_cache.active &&
+-		    kvm_xen_shared_info_init(kvm))
+-			r = 1;
++		if (kvm->arch.xen.shinfo_cache.active) {
++			int ret = kvm_xen_shared_info_init(kvm, false);
++
++			if (ret && ret != -EAGAIN)
++				r = 1;
++		}
+ 	}
+ 	mutex_unlock(&kvm->arch.xen.xen_lock);
+ 
+-- 
+2.43.0
 
