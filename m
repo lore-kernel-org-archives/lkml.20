@@ -1,114 +1,111 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074B440B6F4;
-	Mon, 19 Oct 2026 10:14:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3F04CB8A1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:14:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404849; cv=none; b=PBfB7i8OF0CAomUOx2/XvJwCqPHIOsIZ0F0lLLuxuBSfW70OC66rzRKXtKUDG3AAGUrjeJYPa2gmHULAzOXDJ+JbPvlJIf14g+Vr/gvdWZJRTKCFMwV0NWDMBNEYcpB0lPEM+NjfXxKrUovIJS9AbogupbbcYuoPuRo1S29mfSY=
+	t=1792404853; cv=none; b=XrcpjZ0PXIXyAkzoStQqETiV84GJ9kM6QjKyf9WJxapnO+Oc3gX5//qIEnnlpdqN22LcONgrwl8BWzoY7BOnzuJkRK8tiTneaJlozVbUjqbwgRxPg5eu1S8Q2qqaZMGarRwXvzBJnkqdn5kK3pkfeK2gRMbJTR0OZKlXZdGN1SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404849; c=relaxed/simple;
-	bh=BFt+qJi4377eMLyOGENL4gyLd6HdQF0i5o/onvNS+4M=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=E3uIPlujyF9M7dCVpKvOWHa6bZm8vJ+WdR1rMtB2Ye7/2nM/kMvBivKmf/B5ysodvHQm4tsVMs0SpsTATDijIv5g/hZksOeC5UjJi/e2/VE+tryj3qblI1aRbiWL/neBwiZLIMUfmoinwl+RUHB+47kcInVL9yRcejXeJTnxfBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=WEXXVbJF; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1792404853; c=relaxed/simple;
+	bh=JxVH/U0EKuR4YXqDHVYox10gj/DArPqHrhBKFVk0k9Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YOyrwI9T2TKrlcEhzB6SYte5HooYEFXLY9p5lefyOSCFLiH+zsaf2gyz0/PiWszevASLvhNOO3Uuo52RgYQrFeAXQG13FPJWQRGXMmFaMyPIqJUdX3vTbgRGiIj+g94yYHuMdbiYGd/JPyy+SeLVlmjnU8LG26+6mwrumCSiIxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qg8a7DvK; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="WEXXVbJF"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B5D1FA1579;
-	Mon, 19 Oct 2026 12:14:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792404845; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=InL61VLUuzPlGWQofu2zxUA1ILOLKdLMcGn7+Lgz2Ys=;
-	b=WEXXVbJF6M9yn4ihy20FLHEgWB27Q6iFhTyeQuJUNad7ojxjXNP4p1hNCijDw3P9khp1uM
-	TUzRNlfTUZcK/b8hNAyWDy2v2KR1blejFtCWYx+OouguCNeIsZHw326AJKPwPv3K/60zS/
-	qLUMJeVKkRbYAfTpCSbsEBX/FJPKoNNUolSDQXHjkd0rBWDfUL9cELxLoQz0Hm2w46+Lbt
-	jCURMgpxtTPPNjls1PWin/hmUblW/y3IHilFtg6q1YkH6uHKmCCCNDeipTugFv6awPYgp5
-	CeUy64nNhCM7zP54wEnM3iKkhtmjZC3Y505n6ZcJrSVFNUgDZJcWdK5Sg39u7g==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qg8a7DvK"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dee593f18so1379778f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:14:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792404850; x=1793009650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vP4YGQ5Le5HIuJGSzxUdWfPQia5YJdsjfkTeNwdpcT0=;
+        b=qg8a7DvKscBqaq85yMueyii7IiW5EzgfR4nL48Nq8xjGVJ8If6aoNmgbTcSBCpZmk9
+         5toJiUezr2iMOyx8jygc5JkedC2eUdpA2Q/iN6HoebB98Un2YAnSv793RAhBJdsqrrmy
+         vAt8jpx4y+ohjOxlNYtrVzJKBL78ymeP8Bs/j/a1P2T8bycyUYZdCQ/mBfIey/JngAuZ
+         nasCCXDTHwBxlLwYEqp7+fTvv+MbvhMXvteSKqqJM4xbPif7Uj1Y78s0/tOgPf2kZ5j4
+         pvUCaU9ciFS6fcB1K/5CDK0z2DWd+AnVlWrXVwk/m6aGORcq7gG+3pI8s0fpBHDZADW7
+         jj2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792404850; x=1793009650;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vP4YGQ5Le5HIuJGSzxUdWfPQia5YJdsjfkTeNwdpcT0=;
+        b=GPpkmHGEjjqHvl/rb5iGVKWI4VjZeMzqSDtGMpXIfGg76c8FwfA464vFe2Ap/LmEri
+         m0amm8h2oPf7R0mx+x4fH9t2uhVxnXK/KdotxDXlxD/dfK61fG2QlOoOkx7TipamE9Zy
+         1IY1WQIixznf/bklTI+OmG++en40iFAb8rTsK0yxfQ7i7XWS7WrJyBi7UZKr2irACj3F
+         HAwp40DcbE1WRgiPmE4OmNZ6iS3sM0q9YCOehqh4gS8RI+aoNWLPkdPa5GVheNXlHSeS
+         D9XIKxLY7dWrnxYNTRKQcB6KkptZVoOl88rJB7mRdsCKbnrOxzMTdbhwonJaZrHIkohY
+         XO6A==
+X-Forwarded-Encrypted: i=1; AKwUvBxauoofiImWERB9o4TbFf/EEnHsQl+VVFcdHAkRWLjZ69upTx/13n1e87E5m+XWnK4zlEjwww/HyS25zNw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeayMaOjnNSCgDc+oe7614FRD8LwUyO0+VKrf2JH5JokbjFVVs
+	YQnYsYosjlyXyDqblGFOIVWVWDH/6j3mCLyPKUbLzMZuynCSK5c5BKqN
+X-Gm-Gg: AYBFou2cHpQxW+LnI9jPdiWzD8LPBaEdkj76bNzdy8Kdv57ute63sQam1E/atGTNRCE
+	GqWN6mb5O1IumA5wsMet+fbtzkJDIk3g9WsNHtuld5wsBE18AVLz5i1OgsDJWvwPB+xu6JRKhvR
+	a0VqnWTXLN8ZQLHs4NJoBQTrL3Gr6gsZxTNNtu6Qxzs0taOGdWJaLeMMSVZURAvkX+2ZYKeD0p3
+	ek2Adv4rRjY8gfuQ84d773ZwEaakD1GlQD6NYBOSaSslSzATaGZs4HolsXaIpYLPz/ThJ326CkX
+	pUc3U9diSWmbQQXxdQ2FiGeTGyn6IosBuxkTNlRfqMrICpu8rRDfm2Q76eL3f2mhR2UC/NpL+A6
+	ZUBofBJYRTO4IwVGceB9TPErrtUeoE2FKYGnfPHUfwqfrC2eUuPM8r0Jp4Tirzb2WFwoszCCZXH
+	GelRbOXg0Z5/jP5UBV1tAXFMI2gdO9saYklPleM/ZxyKFFxrRb2HSIAPu68R6cRLwqOmhxdJm6/
+	ubgK9dl3KbeVGo/Kmg=
+X-Received: by 2002:a05:6000:4021:b0:48e:cd3:b3ec with SMTP id ffacd0b85a97d-48e0cd3b575mr11780776f8f.28.1792404849518;
+        Mon, 19 Oct 2026 03:14:09 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5177sm21822041f8f.30.2026.10.19.03.14.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 03:14:07 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] ASoC: codecs: Add support for Fortemedia FM34NE DSP
+Date: Mon, 19 Oct 2026 13:13:54 +0300
+Message-ID: <20261019101357.117462-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 19 Oct 2026 12:14:05 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Chris Babroski <cbabroski@nvidia.com>
-Cc: bryan.whitehead@microchip.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, richardcochran@gmail.com,
- linux@armlinux.org.uk, maxime.chevallier@bootlin.com,
- Raju.Lakkaraju@microchip.com, davthompson@nvidia.com
-Subject: Re: [PATCH net-next v1 3/5] net: lan743x: quiesce TX before freeing
- the rings
-In-Reply-To: <9e3d980f9853cd73ce4e845f9c3e5b5cb93fd2f5.1792008404.git.cbabroski@nvidia.com>
-References: <cover.1792008404.git.cbabroski@nvidia.com>
- <9e3d980f9853cd73ce4e845f9c3e5b5cb93fd2f5.1792008404.git.cbabroski@nvidia.com>
-Message-ID: <875bb04f66e19cee8b786f4403c006e6@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 15.10.2026 17:00, Chris Babroski wrote:
-> lan743x_pcidev_shutdown(), which suspend also uses, calls
-> netif_device_detach() and then lan743x_netdev_close() with the qdisc
-> still attached. Detaching only sets the queue stop bits. It does not 
-> wait
-> for an ndo_start_xmit() that is already running, and the TX NAPI poll
-> still wakes a stopped queue as soon as it has reclaimed descriptors. 
-> The
-> TX NAPI of a channel that has not been closed yet can therefore restart
-> its queue, and the stack then transmits on a ring that
-> lan743x_tx_close() is freeing.
-> 
-> Only wake a queue from TX NAPI while the device is present. In
-> lan743x_netdev_close(), wait for any NAPI poll that may have missed the
-> detach with synchronize_net(), then stop all queues with
-> netif_tx_disable(), which also waits for transmits in progress, before
-> closing the channels. For ndo_stop the qdisc is already deactivated, so
-> this only adds a grace period there.
-> 
-> Fixes: 23f0703c125b ("lan743x: Add main source files for new lan743x 
-> driver")
-> Assisted-by: LLM
-> Signed-off-by: Chris Babroski <cbabroski@nvidia.com>
-> ---
->  drivers/net/ethernet/microchip/lan743x_main.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/microchip/lan743x_main.c 
-> b/drivers/net/ethernet/microchip/lan743x_main.c
-> index 583f631df701..8d256a80dac6 100644
-> --- a/drivers/net/ethernet/microchip/lan743x_main.c
-> +++ b/drivers/net/ethernet/microchip/lan743x_main.c
-> @@ -2125,7 +2125,8 @@ static int lan743x_tx_napi_poll(struct 
-> napi_struct *napi, int weight)
->  	/* clean up tx ring */
->  	lan743x_tx_release_completed_descriptors(tx);
->  	txq = netdev_get_tx_queue(adapter->netdev, tx->channel_number);
-> -	if (netif_tx_queue_stopped(txq)) {
-> +	if (netif_tx_queue_stopped(txq) &&
-> +	    netif_device_present(adapter->netdev)) {
->  		if (tx->rqd_descriptors) {
->  			if (tx->rqd_descriptors <=
->  			    lan743x_tx_get_avail_desc(tx)) {
-> @@ -3336,6 +3337,9 @@ static int lan743x_netdev_close(struct net_device 
-> *netdev)
-> 
->  	lan743x_phylink_disconnect(adapter);
-> 
-> +	synchronize_net();
-> +	netif_tx_disable(netdev);
-> +
->  	for (index = 0; index < adapter->used_tx_channels; index++)
->  		lan743x_tx_close(&adapter->tx[index]);
+The Fortemedia FM34NE is digital sound processing chip used for
+active noise suppression mainly on ASUS Transformers.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+Changes in v2:
+- remove ports from schema
+- schema moved to dsp
+- add return value check in fm34ne_dsp_set_config()
+- dropped unused headers
+---
 
-Thanks,
-Nicolai
+Svyatoslav Ryhel (2):
+  ASoC: dt-bindings: Document FM34NE DSP
+  ASoC: codecs: Add support for Fortemedia FM34NE DSP
+
+ .../bindings/dsp/asus,tf201-dsp.yaml          |   77 ++
+ sound/soc/codecs/Kconfig                      |   12 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/fm34ne-dsp.c                 |  390 +++++++
+ sound/soc/codecs/fm34ne-dsp.h                 | 1030 +++++++++++++++++
+ 5 files changed, 1511 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
+ create mode 100644 sound/soc/codecs/fm34ne-dsp.c
+ create mode 100644 sound/soc/codecs/fm34ne-dsp.h
+
+-- 
+2.53.0
+
