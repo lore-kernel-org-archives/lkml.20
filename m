@@ -1,95 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792428199;
-	b=mHbKyOAhklSeUCbW0EDYBpdzW65Epf91alyoCQdqg1P76FtqttACS8qGKmuyBHYQIcuV
-	 dk/ct7W8xbd/clIErY8cI3qs99GQDJ7Uz6PZbHe3m3s/1rd8v05Hl7+eKOLfULz0ELq9U
-	 f0Zf32iDX5VwYcFS9keZX7xKE42LKAdYVQcn4HJoyjSNgoYOXhTSKBCIh1N3pPWK8v0WZ
-	 IbA8FoMlIT9HzBhtsy6275wPm8O6HDPgQn4HXe4w0LDMIQRsYLXsPUbaQSN+N8Y6qeu3z
-	 TGXyWi/yB2CD6IbYCYrWt9NBy6qA1BOlzyM6/dKq8gKxKps74bQM9WBKu2X6jW0amqQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428199;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LPxlTJkVfWLbEQsAfP+U7TB3bjpYLsaU0yKIo8xqhH4=;
-	b=TN/3FhDSDob8pgpxHPZF/pvLNGuIttRB/sos0pp64gdrMCMqjHef2gYUr3bseWxFlqST
-	 2qS0QIg0Lk1aYzPcu6Pis7wfJraf/eHWGDBbIItFm7lEy+tdWWeJEMJ2tcSwP8QYK0epU
-	 VO5bwE8xp0KkCivq0WBzQfSQQ+WjokekNpQq6R8xhP5E9PhxIlpSWLNvHvskHB0ZuZkAe
-	 k1wKYdZcWgszmtGSInVTn0JAK/ATO2hfrt8na4elxXnYYjyKPwlCA9mS98vJBZl5FtFNW
-	 GZep7jwDePF+8stqFQrwb9BgeI9fmuG84LMB3hzMpiCD4sGelyodOCAMuQ4UOB8kdqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Wj3OBDLI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.41
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010041.outbound.protection.outlook.com [52.101.61.41])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792428261;
+	b=1U1Dq4FRFvIZ2WvClvtyN53YsVbLxnvt9RggaLjv6QXcNB1rXqPgchKa9Qi9z3BIvNQ8
+	 xo/fYpIDS6Ks5XxUYkzS5I+z3XA/XeskApWIktEyDqSb/Fp3QfIPibCllg7Yez110oYii
+	 9+BYWVsBySHx5Ap7EfYqQSPYcYwFwKUBSUKxFgad0WG9xKO8qj09lWB5F9Jr1V/32sX/j
+	 jl7RV9TCU9NBSJjoedsWR4j9CYvIIT7HzOdXEnXm/05fncVbqrXkGWU+oqwEd8+H8flmb
+	 G1RFUaOK2+zmziGCIHTBKotkzQoGDOF4+4O+ylOHz5Qp62LBFqnKcL9vP9rOmOFfpWA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428261;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=xxmctpVt6LC6OQdxxTHfXyb8cOj5HeFKq0AjwhVXAm4=;
+	b=P+4BUsmb+MDpxRn/QfGpTx026GP/JipUzQ9xxKm2jZ9At5fA3QmOmM8u+ea/18Gg9dDS
+	 6jqd/Z3mfdOLXmBLaXvWr4RL+aS091Sk+iAyytzRqwvgwX8rPVpPWAS+PqY721jWrRFhm
+	 RM2D4UY+PEW2ZD5WdFwNHR62yjSpfQC4Tzw5oCBi+QuqsiAo0BlcShbJzbTXY7rkWqTj/
+	 VMNGfgPdOjLEjvM0YB81Mnw1eBUjY5DtYTqFYMkwn8ioSt9YJm+eAHFUr8y91HK3geQ/z
+	 7vxOx26rbepbxqZmn8gJmAdA+S0sGtT3Z8RdbEXK3L2r0wuyljKqAE1lg7yjVIPcHVA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQaPlh8g;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A515606A31D;
-	Mon, 19 Oct 2026 16:43:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A515606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A5A606A31B;
+	Mon, 19 Oct 2026 16:44:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Wj3OBDLI
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZQrkl1AovHLJK3ffV52IwBhqlsz3gfGO+bCTROoMSrgqghY1gducCV2Y4aaISmabWuGbwpsKi7qtM4WaCED8v4EfGvw+VXzEQfYBepRMWYaOV5439E8DGit0Xr8C3va4E/qzA7kf28ZQtuW50msQpBH1YHozXgkCh39MI7lgXOBKxC8qxXsOq6Dt/iOufa2EjYeIFaD85viA/jX4652cyofC6ZAmzvebD4Q8LwvG+MKogj25QFcbISrRAa6l8bWaetmfU5lsh0MfzaOZR6EChi8ln1Fg2xxNgR1ufteIO7p04LrrTkEJk+DRl5bVInm9MJJlyyHwGfdDnlRW1hc8rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LPxlTJkVfWLbEQsAfP+U7TB3bjpYLsaU0yKIo8xqhH4=;
- b=UN3JkyDaGHGPRKIbALVerti/q1XSt4aIzjKu4cxzlOpQsqX/H1y0quYNaLJETkEyBFr/uDERPoqC3aP+qABnmF+vRHeQ0tNnbjTDVTWYt+doroAY/GyDIFeR3F+rv3jA1AHCeGzimBj/odbHudkpMCyFjnpAeJYJA2S0KjEJiXiHAukR0mhcSyORAzHrDx2SbgF0ASeaurON2vasIQejQTf4s+kQ2wb74XUTWzUsO76csQQidpOo2N+clVwzIWcArveGuNeXnr6mc8RiOZAZfqsJ6cKc9HglpPhxJxEKpieFs2p5bbylYlr37IlCTx5LednwYQP8MdZNgnv2EHiRKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LPxlTJkVfWLbEQsAfP+U7TB3bjpYLsaU0yKIo8xqhH4=;
- b=Wj3OBDLI/wDco46Sw9g3ZsYFrR+Ft8Cshdo31VynNabVVNwMIpdU0rpawvQiotRiMfmlBaO5GILhuuTqgW81sFURYs2Qe8fI2r63PdQVARXkr4/e7j+/1HF7GszICmYFd3sa3Y4/fRLXdKPVWcdZFw1AcvDlfkZO7XpbqvK3lbY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
- by SA3PR12MB7859.namprd12.prod.outlook.com (2603:10b6:806:305::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 16:43:04 +0000
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 16:43:02 +0000
-Message-ID: <11a5b3ee-df45-44ff-b882-557c170ab44a@amd.com>
-Date: Mon, 19 Oct 2026 22:12:48 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: cadence: fix clk disable/unprepare underflow warning
- on remove
-To: Cong Nguyen <congnt264@gmail.com>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Michal Simek <michal.simek@amd.com>,
- Manikanta Guntupalli <manikanta.guntupalli@amd.com>,
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQaPlh8g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C791F000C4;
+	Mon, 19 Oct 2026 16:44:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792428261;
+	bh=xxmctpVt6LC6OQdxxTHfXyb8cOj5HeFKq0AjwhVXAm4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=FQaPlh8gKIwJF1ZMcj9IY6o18bQPgRKhMlTz7Id+3Zx6+imad61o4TKPlBP2bGVZr
+	 JDrZ3VGH4F3C0zcTTwEEbPboog5yLn/j4nTSQz7CA30Q35EPCC7ANuEiIRAAejJzGd
+	 duviv1SH+TWKtbvtx9efkFC6WLU2Yca3ueEATXEAM2gY3gmhtGKF7ESWzvfih6hRGa
+	 rb8CdreYFeuJgbnV+FYiOzd1//UREAPMn62VGFrLnUyof093pXq7eMpxIs0BFE+BDt
+	 kmBYY2FHzU/ntW3Ai7v3Y4EpZ2W+b5VoxLhu1wbvmkheZv8f+A7BXzGWEbhF/hb3R4
+	 xD8v4G6jXfHwQ==
+Subject:
+ Re: [PATCH net v4] net: do not let defer_count outlive an empty defer_list
+From: netdev-bot+sashiko@kernel.org
+To: jkain@nuro.ai
+Cc: netdev@vger.kernel.org, edumazet@kernel.org, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, kuniyu@google.com,
+ kerneljasonxing@gmail.com, bigeasy@linutronix.de, clrkwllms@kernel.org,
+ rostedt@goodmis.org, linux-rt-devel@lists.linux.dev,
  linux-kernel@vger.kernel.org
-References: <20260918164500.2726242-1-congnt264@gmail.com>
-Content-Language: en-US
-From: "Pandey, Radhey Shyam" <radheys@amd.com>
-In-Reply-To: <20260918164500.2726242-1-congnt264@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0263.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f1::11) To CY1PR12MB9697.namprd12.prod.outlook.com
- (2603:10b6:930:107::6)
+Date: Mon, 19 Oct 2026 16:44:19 +0000
+Message-ID: <179242825964.3135.3632926428667630864@kernel.org>
+In-Reply-To: <20261015162209.485940-1-jkain@nuro.ai>
+References: <20261015162209.485940-1-jkain@nuro.ai>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,128 +65,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|SA3PR12MB7859:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7cbbe1f7-d0d3-4424-9c29-08df2e000aa4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|6133799003|18002099003|10067099003|22082099003|260925021911599003|260925021311599003|260925022911599003|261009220027099003|261009223327099003|261009221227099003|261009221727099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	JF6UJHBMRHV2cbWsXkOS5xd2hlfCJCpBqo4s4yppK2Hhd48MWUhskhSGFcSE/JfyjZlAL5Wiy0Qd66/BB7j5w46Wp9GseF0mh6wD0P1CsdIi7v5mKSObzYHeEA+v3+7QZ0nF4UQUWMRfKbBNjzmxdjiMycv2Ng7BcoS+gq11bjHBydZrA5vrUNJlTkgmwC1jHByI0FNd3feC+EUCTMLgP0VppK622JnT5sC6FA3n/CTIOgtVrE5h3X7RE8nu8wkVT6aSwkGPSpcMz7XPyV3VOoabmLqBNKk5jyinad+Xnd9dn67Tf0t9oMpCfo44Exi5pU3UziRDdJ12EXXtap8Qnd85/NHc7LfhhXgAybkmEKxd2c0if/IBWOX5/MuC5xWN49PQ9XFUQqnnmYC6kt8JrGbvxDZGyE6wzBAJOssi5tRruanH56Lb/ByjhZRY2fUA/drVM+z9FWEXSrkatUzt5VkA42cl/l7hSGR7oyDVlHkp+utzfZjUS1sZHybs74SeMvaIwIquRAcfaKspK4jGqCSUFIjY892S8PEy4vJ8V5ehG2USh6V/kIwwgxSCKdPyv2Z/cyFa3PVYcGdOuAShMa0gpUGVB0rPETiHUb+MjSnGu0bSsblWLgVCDXilPmvxjMIgd6+CP83RJYWH/wMl1wyrgqDS/GnMl57LnbdYywU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(10067099003)(22082099003)(260925021911599003)(260925021311599003)(260925022911599003)(261009220027099003)(261009223327099003)(261009221227099003)(261009221727099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WXVJa01ua0VIbFdFZFNFTC8zTUNVZXloTVJrVlNiVWV3MnRZVk0zNmg2clE2?=
- =?utf-8?B?bmo1TkVXcWtQN0pSaFl1VVhZc2Vyam9OSXY3anBVK0tVUHY0Ty8yeW42c2c3?=
- =?utf-8?B?cEVZZmxJcFNoYnRocnYyUjQ5NkFyVWxKcHJicUJqZDk4U1NpV1lUY3duTnZr?=
- =?utf-8?B?d1VoV1cyRUZ5TEtwSzlmK21tWDcwR0JIVm9nSjF1L0dkditnNDdzZVhzdWI4?=
- =?utf-8?B?UytFN3J2MmNESDlTMFJQQy9wQ21naWlsNThQRUtMU1owZ3l5eGJIaStpMng0?=
- =?utf-8?B?ZWs5RWhxVjdxUENOb1ZiMTEraHIwTyt4VG5QU0FaSEEyaTR2NGJDZDNjUTRQ?=
- =?utf-8?B?bnl6T0N4QVdmRVBqVjRBYW00VHIzWEtVdEY2MFNmNzc1UkpxZVBIN0ZzRm1h?=
- =?utf-8?B?djVoRXpxVnNPYzJGam45Y1A3aXZSQm9DdmhNWW5BKzl5b1ViQmEyTDVsZFVq?=
- =?utf-8?B?RUVtajdRcDJMMmRzcHhueWd5S0ZpbTdXVUp5dFJ6WWJEc0FJa09FL1E5Y0hx?=
- =?utf-8?B?eWp0ekhmcW50cE1nM2J1WjA1akp2MUxQSHBwZ0N1VS8zMUZ2cGYrZU9xVjNY?=
- =?utf-8?B?NmViSGpZM2l1c05VdGpid0t0VnBNUmd1VHRPcWFMQXdxd1JYa2RzTHZCK0h4?=
- =?utf-8?B?VGpFQkpYeHZ6TnRxZUE5S293djdYbk5mb3ZNbXd2Rlgvc0dhSW1WdDRwWHBq?=
- =?utf-8?B?bTFRdDN0WFRtdHlTNHBiakRhZk9IQlhWZnYzbExVcWN4N2gvT21haGpvalV3?=
- =?utf-8?B?Tno5eXdUb25UaEJBNVFJNlRrVy92SUZ2UnRkQWNiNlB2bWlSNW8yRndwTGxJ?=
- =?utf-8?B?eFluVWFCUFFjZTFuazV0MG5DK3B3QUEzZTJjSkhOdmozcWJCMEJUTmt6ZWtj?=
- =?utf-8?B?MlRYd2hmcUJKd0hjc2pBbW4vRFRPcFBBYVVTMDA3azhDaEl0M2hvcGFSY1N3?=
- =?utf-8?B?L25GOW9iYzMzdk1heHJaQmsyYkRjSXhYbHNVcXJyNi9RZUcvbzJueHBHMU1z?=
- =?utf-8?B?eEYxbjJCYjg0eFlLUWpHVldpOUs3b000dmxOZW5vYi9ZS0o4QmtsYjNRWUlH?=
- =?utf-8?B?Q01zNDY4TTh5Wkp3c3UvcU8xb0VkSjZXR0xwVjJiZzE1aXJmbEJkcmhhenk0?=
- =?utf-8?B?Si9PekVVaVFjanRpZEM3NDFlc1VNUmRkU1RLTm1VOEVtUStZSDFXbmYxSTlU?=
- =?utf-8?B?aGcwMmJyN1hWUm9RMkdMQTZFb1VnR0lJVU9SeWU5dytYdzYvb3V3aDk3Ymhy?=
- =?utf-8?B?QkRyendBU0k4TEdXZnZDL0VvUUtUZG5uRk5tNlJ4OTdZYUJSandaby9ocFBq?=
- =?utf-8?B?Y3BadTlpRHNrdzY1c0xKMExWa2VwODd0YlNSVHo0c1Z5dkF3UWh1RnJQUGZS?=
- =?utf-8?B?NHJCWXlJN3pWbjdmT3ExdzRqWDhRNE5zU2hucVIxL0ZMK2tlS1o5MXlQVnkv?=
- =?utf-8?B?L09talEwTE44SmlJWTZtNjU1SDBSR1BiYy9WaTQyRDh6TlBxR3Mva1dnelVq?=
- =?utf-8?B?d1NaZnQwQXR3dWd0MXFKUm5BZThoSnBoa1VKZWFKWEhPT2FXNzc5cDZWOTJY?=
- =?utf-8?B?V0hXYktKOVUxaHJ5RHRhc3VFOWo1SERGRy9nMkxrMG0zUFdQSDRjRjM1RGxV?=
- =?utf-8?B?ZmJscmFLYXJvTkcvQ0dmZjBnUUlOK2kwdWZVQ1Z0TC9FMURrM2N0aGxXcGZB?=
- =?utf-8?B?aG81YnJkUmo0ZnhwNGswZlJpY0l0M0NhcWJoRVgvOE04a3JXUzk4UlFhWEJ4?=
- =?utf-8?B?clNJRHJYN2xaUzd3OEVWQkZ6OElyZ200aDYyWHAyWGlwVy81WGxSdXIwRjRY?=
- =?utf-8?B?WVVBdTB1M0RBRG9TV0RHNThnZFRHZHM4ZkJXemo4SFJRd3pIUWZ5c0h4NDlx?=
- =?utf-8?B?Sk1kdFYzME04MVBBc1VFbFhRNjk5T0ZzMThURzk4MXhoMEhSNjh6VndET3F3?=
- =?utf-8?B?M2t1dVNXNHdwVzIzUW95Z2tuK2FVWjU0ajFnNnJObWNOOTJOWCtoN2FVZkNh?=
- =?utf-8?B?c09FVFl4aEFBdjNOT2kyS0k1TG1UOHZ0TlA5WlBKNU8wTnp3eGFjaEl4L1lX?=
- =?utf-8?B?eTZjc1Jra1Y4MCtZcGFIZytBdkplbFR0RFREYy9lWXBaMXNXcXpPR1JWSmdS?=
- =?utf-8?B?dCtOLytOeFhYM1FETEU3YmJOeHBHZHpGMy9Walc1ME5OTkxQOElSMGZCRUsz?=
- =?utf-8?B?c1JNMFhpaVArcVRxaktnTzR1TkxNNThqTVduWEN3SHlQWndwSEFFMXNVWWhm?=
- =?utf-8?B?c3EyaFZIYjJYS0ZnTnpjTHdyRHpPTS9WZktKeHkvS2JYRkI4ZndTRGVOZmFS?=
- =?utf-8?Q?x3e3mGzNwDO3LF/EnY?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cbbe1f7-d0d3-4424-9c29-08df2e000aa4
-X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:43:02.6934
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NwgNdEDwK4mw1j+wwSawJUrQfyLJ53web7yfx5DKRmR4g2tfOgv4+FMh4AUErL7q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7859
 
-On 9/18/2026 10:15 PM, Cong Nguyen wrote:
-> cdns_i2c_probe() enables id->clk via devm_clk_get_enabled(), which
-> auto-disables/unprepares it on unbind. Runtime PM autosuspend
-> separately enables/disables the same clock as the device idles and
-> wakes. remove() never forces the device back active first -- if it's
-> runtime-suspended at removal (routine after any idle period, not a
-> rare race), the devm cleanup then disables an already-disabled clock,
-> hitting the "already disabled"/"already unprepared" WARN().
-> 
-> i2c-imx.c has the identical shape and already gets this right:
-> pm_runtime_get_sync() first, balanced with pm_runtime_put_noidle()
-> before the final disable. Apply the same fix here.
-> 
-> Fixes: 3d36dd1161ca ("i2c: cadence: Simplify using devm_clk_get_enabled()")
-> Assisted-by: LLM
-> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
-> ---
->   drivers/i2c/busses/i2c-cadence.c | 11 +++++++++--
->   1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-cadence.c b/drivers/i2c/busses/i2c-cadence.c
-> index da8770182a18..d0919593456b 100644
-> --- a/drivers/i2c/busses/i2c-cadence.c
-> +++ b/drivers/i2c/busses/i2c-cadence.c
-> @@ -1625,14 +1625,21 @@ static int cdns_i2c_probe(struct platform_device *pdev)
->   static void cdns_i2c_remove(struct platform_device *pdev)
->   {
->   	struct cdns_i2c *id = platform_get_drvdata(pdev);
-> +	int ret;
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch makes the empty-list latch unreachable, but a
+  closely related latch on a non-empty list is still reachable.
+- [Low] Two user-visible behaviour changes in skb_attempt_defer_free()
+  appear only in the v4 notes below the '---' line, so they will be…
+- [Low] Documentation/admin-guide/sysctl/net.rst (lines 362-368) still
+  calls skb_defer_max the 'Max size (in skbs) of the per-cpu list of…
+
+--
+
+net: do not let defer_count outlive an empty defer_list
+
+This patch moves the skb_defer_max test in skb_attempt_defer_free() ahead
+of the atomic increment. A rejected free then no longer leaves defer_count
+raised with nothing queued. It also changes __skb_defer_free_flush() to
+drain the list before it zeroes defer_count.
+
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 41beaf625421a..411cbf6754f9e 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -7390,11 +7390,14 @@ nodefer:	kfree_skb_napi_cache(skb);
+>  	sdn = per_cpu_ptr(net_hotdata.skb_defer_nodes, cpu) + cpu_to_node(my_cpu);
+>  
+>  	defer_max = READ_ONCE(net_hotdata.sysctl_skb_defer_max);
+> -	defer_count = atomic_long_inc_return(&sdn->defer_count);
+> -
+> -	if (defer_count >= defer_max)
+> +	/* Test before incrementing: the reject path returns below without
+> +	 * reaching kick_defer_list_purge(), so a kept increment never flushes.
+> +	 */
+> +	if (atomic_long_read(&sdn->defer_count) >= defer_max)
+>  		goto nodefer;
+
+[Severity: Medium]
+
+This fixes the empty-list case. Can a non-empty list still get stuck the
+same way?
+
+The reject path here still returns through nodefer without calling
+kick_defer_list_purge(). The only kick is an exact-equality test later in
+skb_attempt_defer_free():
+
+	kick = (defer_count - 1) == (defer_max >> 1);
+
+proc_do_skb_defer_max() only acts when the value crosses 0:
+
+	if (nval != oval) {
+		if (nval)
+			static_branch_enable(&skb_defer_disable_key);
+		else
+			static_branch_disable(&skb_defer_disable_key);
+	}
+
+So a change from one positive value to another does not reset
+defer_count, does not flush, and does not kick.
+
+If a limit change leaves the count at or past the new half-capacity
+point, the kick never matches. The counter then climbs to the limit (or
+is already above it), and every later producer rejects without a kick.
+For example:
+
+  skb_defer_max=128, count in 51..64 (the 128 kick only fires at 65)
+  sysctl -w net.core.skb_defer_max=100   # half is 50, already passed
+  count climbs to 100, then every producer rejects
+  sysctl -w net.core.skb_defer_max=128   # half is 64, count is 100
+  pre-increment 100..127 never equals 64, so it stays stuck at 128
+
+A simpler case: lower the limit from 128 to 32 while 40 skbs are queued.
+Every producer then reads 40 >= 32 and rejects.
+
+A preemptible recvmsg producer can also miss the kick. If it samples a
+larger defer_max and the limit is lowered before it increments, it
+compares against the old half and does not kick.
+
+The owner CPU here is the one the commit message describes.
+napi_consume_skb() defers TX-completion frees to skb->alloc_cpu, so a
+TX-only application CPU that never raises NET_RX owns these lists.
+
+Deferral for that (cpu, node) stays off. The queued skbs and their pages
+stay pinned until something runs net_rx_action() or busy-poll on that
+CPU, or the CPU goes offline.
+
+The commit message says:
+
+  "the absorbing state is unreachable without depending on a flush ever
+   running on the owner CPU"
+
+Does that hold only for the empty-list state? The sequence above restores
+the default value and still does not recover, which is the same symptom
+as the reproducer in the commit message.
+
+Would it work to kick on reject when the list is non-empty, rate-limited
+through defer_ipi_scheduled or the backlog NAPI SCHED bit? Another option
+is to make the kick a threshold-crossing test. A third is to have
+proc_do_skb_defer_max() flush or kick the defer nodes when the limit
+changes.
+
+>  
+> +	defer_count = atomic_long_inc_return(&sdn->defer_count);
 > +
-> +	ret = pm_runtime_get_sync(&pdev->dev);
-> +	if (ret < 0)
-> +		dev_err(&pdev->dev, "Failed to resume device (%pe)\n", ERR_PTR(ret));
 
-Nit - With this error handling introduced we also need to sync remove() 
-documentation.
+[Severity: Low]
 
-  * Return: 0 always
+This isn't a bug, but the changelog body leaves out two behaviour changes
+that come from testing before the increment. They are only described in
+the v4 notes below the '---' line, and git am drops that part.
 
+First, the effective per-(cpu, node) limit moves from skb_defer_max - 1
+to skb_defer_max, because the old code rejected on the post-increment
+value.
 
-With that fixed.
-Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Second, the half-capacity kick can now fire at small limits. With
+skb_defer_max=1, the old post-increment value of 1 was always rejected,
+so no kick was ever sent. Now the first producer after each flush sees a
+pre-increment value of 0, which equals 1 >> 1, so it kicks. With
+skb_defer_max=2, the kick now fires on the second producer.
 
-Thanks!
+Could these two changes go into the commit message itself, for stable
+backporters and for anyone tuning skb_defer_max?
 
->   
-> -	pm_runtime_disable(&pdev->dev);
-> -	pm_runtime_set_suspended(&pdev->dev);
->   	pm_runtime_dont_use_autosuspend(&pdev->dev);
->   
->   	i2c_del_adapter(&id->adap);
->   	clk_notifier_unregister(id->clk, &id->clk_rate_change_nb);
->   	reset_control_assert(id->reset);
-> +
-> +	pm_runtime_put_noidle(&pdev->dev);
-> +	pm_runtime_disable(&pdev->dev);
-> +	pm_runtime_set_suspended(&pdev->dev);
->   }
->   
->   /**
+>  	llist_add(&skb->ll_node, &sdn->defer_list);
 
+[Severity: Low]
+
+The commit message says "This makes the limit advisory", but
+Documentation/admin-guide/sysctl/net.rst still describes skb_defer_max
+as:
+
+  Max size (in skbs) of the per-cpu list of skbs being freed
+  by the cpu which allocated them.
+
+The atomic_long_read() check and the atomic_long_inc_return() are now
+separate steps. Producers that read the same below-limit value all pass
+and call llist_add(). The recvmsg callers can also be preempted between
+the two steps. The list can therefore exceed skb_defer_max by roughly the
+number of producers in flight.
+
+__skb_defer_free_flush() now does:
+
+	free_list = llist_del_all(&sdn->defer_list);
+	...
+	atomic_long_set(&sdn->defer_count, 0);
+
+Any skb queued between those two steps stays on the list without being
+counted, and up to skb_defer_max more can be added on top of it.
+
+The old code was not exact either, and the doc already says per-cpu for
+a list that is really per-(cpu, node). Should the sysctl documentation be
+updated to say the limit is approximate?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015162209.485940-1-jkain%40nuro.ai
