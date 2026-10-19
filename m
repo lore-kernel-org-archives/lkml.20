@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4ED06155FD;
-	Mon, 19 Oct 2026 14:04:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0688533D02;
+	Mon, 19 Oct 2026 14:04:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418653; cv=none; b=Q4dAPxk4WEKrev8JkhZQK3ewuNisCfcMUoqdg6to6uOWtCeMiLkXbHqawBwWKIUg0A6aYXAUAwBcA7C23l7aWMa6ORyNWXRgL2CpT8Ew1AB52shwap54HzpCeHVkzoECb7aXxEOa6P3zmZNn2mY+JTmllCnD7ZwQwKREgsbfRuo=
+	t=1792418656; cv=none; b=tv4RIB0vxi9Bo4wH0tQP1zdafvXjctc9ZksJz5RfmTXUxquXWQpyBC/ax0hM//CWW3TAobwFVcN2YE+0BN/bY3Y2+KKQVGwjE4j/qFWIvn8Rl2neevccXv+7kTSOeOhQxRkN6dHaLLrcq9dHgbHHmV014TYziXsFvXF3+9Aphzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418653; c=relaxed/simple;
-	bh=VbBkSARN/JD4yxRjBQ4TICaupMqWacbmGVaB5eDWjSU=;
+	s=arc-20240116; t=1792418656; c=relaxed/simple;
+	bh=C1bgs5jaFhTTg1reKUnIiNRWJYbvls4rGwTNxbfQfjM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GjaAtOiDe76LuQKjUo0lfVc/llcn4fHNDGYzJHtCGs2jzxQf92ewW3nTFECbM2G670nUZPmoXBlM75n0xWsyU2cUPIUj0jGxBaXh2VlrCGFUO+BmipNfgZ/gCosrKFL2+L9cQxusJUaHAeTKANblRo0EWw4I6xPYnSFfVK3O9uE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Okq5Byyq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=dCkzMmDEyCfy9lzrT6N3liGKd/tDXgrAOB1ZU23YdgpKzJDOx5aZyd3XOY5fDjPTP+KWbF02eDhiSWT5O3cLu85uTNYUnZ1ckKGJk8G/LJPdzUUy6V7BwWj9N7LlNrl3XnrZ8puoq7DxdNYtelcP+4bE1fA+H/NgwH68GAFesiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dIIjvSe+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Okq5Byyq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0B91F000C9;
-	Mon, 19 Oct 2026 14:04:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dIIjvSe+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1431F000CA;
+	Mon, 19 Oct 2026 14:04:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418650;
-	bh=QWiDfVMVCaFUz1kFD0OIgw5hrbI95Ilr8io9OQQrYtg=;
+	s=k20260515; t=1792418653;
+	bh=yMtq3J68VL+kcl1SdaOWIUMZYTtpupDYw937qffVKRE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Okq5ByyqFOwr8IXJxvgggHJyCEQDLS4WBScXc/dW1bLguAfzvVpTxhIrAegQ/MBmI
-	 nZKtWoVsJbLN4LDown1Yz3rfT6pcU4stUiX2OIWOJhhDDMO7zXDyau347m1ta2/EGn
-	 NeyDA/3bH8GFKfG5wVth+GKnCBnLVmb68JXf3QcKqUglIjBZ42R9brWSQDnvFNRPIx
-	 qbLxoZofx2Om2OfaNHNFEYpsHhlsVf3pHiok2cstHKChNRcBlRjpT0rnY2+HQvLMj3
-	 Ab4sWJvNHk0YvYS3nvyba5uzYJ8OhaFADQYro1l6nLGvvy/DiuayjDCjCzCdU0mhsY
-	 35ZgWrh3JfIsQ==
+	b=dIIjvSe+zh5eqyHsWRUV5R9hRaol2oaf2vn2QxOHQ6n9z2v7cfoEk0rltJH45ZztL
+	 sDCvcpGV2wwIfbORZUXlgkA5DPb6R7fDMzbAPri3tZdVmxqLg2Q5PDGdenT8nouFPH
+	 5V4PF5XbcGsTUJbgJTBmAwU4teLGGa0ktLQ1Zf0UK5OZRnHXEJf6m1KWehtKCLOCKy
+	 LAWz/LrmzLRwb/2BXfVMYuSG4q64/oCNQY20hgyt4AXRCBAvpdqmzVKpX7wvbh7rhC
+	 xKdWioEbeGlYSO6bEt2jL5VWRCNzAhWsFbf/yaQFgiQugJE3Lsh9VWtuvcCHwgDEO7
+	 igmpYJ9Cpo3WA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Hari Mishal <harimishal1@gmail.com>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: Tyrel Datwyler <tyreld@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>,
-	sagi@grimberg.me,
-	kch@nvidia.com,
-	linux-nvme@lists.infradead.org,
+	maddy@linux.ibm.com,
+	James.Bottomley@HansenPartnership.com,
+	mkp@kernel.org,
+	linux-scsi@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] nvmet: passthru: fix OOB reads when parsing ns id descriptor list
-Date: Mon, 19 Oct 2026 09:51:31 -0400
-Message-ID: <20261019135441.1420968-400-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] scsi: ibmvfc: free ibmvfc_target allocations with mempool_free
+Date: Mon, 19 Oct 2026 09:51:33 -0400
+Message-ID: <20261019135441.1420968-402-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,502 +56,384 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Hari Mishal <harimishal1@gmail.com>
+From: Tyrel Datwyler <tyreld@linux.ibm.com>
 
-[ Upstream commit bc7f75eba50012ed447654d8ce169ebaba695193 ]
+[ Upstream commit 99143433f7f14139ac373c553ec8e1317d0ae58a ]
 
-nvmet_passthru_override_id_descs() walks a namespace identification
-descriptor list populated from the underlying passthru controller's
-Identify response, which is device reported. The loop advanced pos by
-device controlled amounts (sizeof(*cur) + nidl) without checking that
-the next descriptor header actually fits inside the buffer, so a
-malicious device could push pos to within a few bytes of the buffer end
-and cause cur->nidl, cur->nidt or the reserved field to be read past the
-allocation.
+The ibmvfc_target *tgt structures for discovery are allocated using
+mempool_alloc but in turn free'd via kfree in ibmvfc_release_target
+breaking pool guarentees.
 
-Additionally, when a CSI descriptor lands exactly at the last valid
-header offset, cur + 1 points one byte past the end of the buffer.
-The unconditional memcpy(&csi, cur + 1, NVME_NIDT_CSI_LEN) could read
-that out-of-bounds byte and copy it back to the initiator via
-nvmet_copy_to_sgl(), leaking adjacent heap memory.
+Fixup ibmvfc_release_target to call mempool_free instead so that memory
+is properly returned to the mempool instead of the general allocator.
 
-Bounds check both the descriptor header and the CSI value before
-dereferencing them.
-
-Signed-off-by: Hari Mishal <harimishal1@gmail.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
+Link: https://patch.msgid.link/20260723000149.969416-5-tyreld@linux.ibm.com
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.12.111** (`pending-6.12`). The buggy descriptor
-parser is present here; the fix is not. This is a small, obviously
-correct OOB-read/info-leak fix in NVMe target passthrough.
+I have enough to decide: this is a one-line mempool/kfree mismatch in
+ibmvfc that can drain the target pool and hang discovery. The local
+7.3-rc4 tree has the driver and the bug’s code path.
+
+## Phase 1: Commit message forensics
+
+**Step 1.1: Subject**
+Record: `[scsi/ibmvfc] [free] free ibmvfc_target allocations with
+mempool_free` — claimed intent: stop freeing mempool-allocated target
+structs with `kfree`.
+
+**Step 1.2: Tags**
+Record:
+- `Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>` (author; IBM
+  ibmvfc maintainer)
+- `Link:
+  https://patch.msgid.link/20260723000149.969416-5-tyreld@linux.ibm.com`
+- `Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>` (SCSI
+  maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, or `Cc: stable` (absence of the last two is expected for this
+  review)
+
+**Step 1.3: Body**
+Record:
+- Bug: `ibmvfc_target` objects are allocated with `mempool_alloc()` but
+  released with `kfree()` in `ibmvfc_release_tgt` (message says
+  `ibmvfc_release_target`; the function is `ibmvfc_release_tgt`).
+- Symptom: “breaking pool guarantees” — reserved mempool elements never
+  return to the pool.
+- Root cause: allocator/free mismatch (`mempool_alloc` vs `kfree`).
+- No stack trace, reproducer, or version range. Failure mode is implied
+  (pool accounting), not a reported oops.
+
+**Step 1.4: Hidden bug fix?**
+Record: Not hidden. It is an explicit allocator-mismatch fix. The cover
+letter for the series later names it as one of four pre-existing bugs,
+not NVMe feature work.
+
+## Phase 2: Diff analysis
+
+**Step 2.1: Inventory**
+Record:
+- File at commit time: `drivers/scsi/ibmvscsi/ibmvfc.c` (`1 insertion, 1
+  deletion`)
+- Function: `ibmvfc_release_tgt`
+- Scope: single-file, one-line surgical fix
+
+**Step 2.2: Code flow**
+Record:
+- Before: last `kref_put` on a target calls `kfree(tgt)`.
+- After: same path calls `mempool_free(tgt, tgt->vhost->tgt_pool)`.
+- Path: target teardown / kref drain (discovery logout, rport delete,
+  sysfs starget accessors, host teardown), not an error-only path.
+
+**Step 2.3: Bug mechanism**
+Record: `[resource / mempool accounting]` plus a possible `[hang]`
+- Alloc: `tgt = mempool_alloc(vhost->tgt_pool, GFP_NOIO)` in
+  `ibmvfc_alloc_target`.
+- Pool: `mempool_create_kmalloc_pool(IBMVFC_TGT_MEMPOOL_SZ,
+  sizeof(struct ibmvfc_target))` with `IBMVFC_TGT_MEMPOOL_SZ == 64`.
+- `kfree` of a reserved pool object returns that slab object to the page
+  allocator without incrementing `pool->curr_nr`. After 64 alloc/free
+  cycles the reserved pool is empty.
+- `mempool_alloc()` with `GFP_NOIO` (`__GFP_RECLAIM` /
+  `__GFP_DIRECT_RECLAIM`) first tries `kmalloc`; on failure it waits
+  uninterruptibly on `pool->wait` until `mempool_free` refills. If
+  nothing ever calls `mempool_free`, that wait never ends.
+- Commit `5c66d9393f583` (2017) removed the NULL check on this
+  `mempool_alloc` because “mempool_alloc() cannot fail when passed
+  GFP_NOIO”. That is only true if the pool is actually returned to.
+
+**Step 2.4: Fix quality**
+Record: Obviously correct matching free. Minimal. `tgt->vhost` is set
+before `kref_init`, so the pool pointer is valid on the free path.
+Regression risk is low. Theoretical extra requirement vs `kfree`: the
+pool must still exist; `ibmvfc_remove` does `fc_remove_host` /
+`scsi_remove_host` and target `kref_put`s before `ibmvfc_free_mem()` →
+`mempool_destroy()`. No later revert of this change.
+
+## Phase 3: Git history
+
+**Step 3.1: Blame**
+Record: `kfree(tgt)` in `ibmvfc_release_tgt` comes from `b3c10489cb464b`
+/ original driver `072b91f9c6510` (“[SCSI] ibmvfc: IBM Power Virtual
+Fibre Channel Adapter Client Driver”, 2008-07-12, contained in
+v2.6.27-rc1). The mismatch is as old as the driver. `tgt_pool` was
+created in that same commit.
+
+**Step 3.2: Fixes tag**
+Record: None. Introducer is the original 2008 driver, present in this
+tree’s history.
+
+**Step 3.3: File history**
+Record: This commit is `99143433f7f14`. Neighbors from the same
+submission:
+- `9c2aa65000f6f` 01/33 MAD send-failure deadlock
+- `7e35396ec8539` 02/33 rport_add_work_q teardown
+- `0122eab60b151` 03/33 NULL evt deref
+- **this** 04/33 mempool_free
+- `de7ac0f3f08b1` 05/33 move target list (NVMe prep, not required for
+  this line)
+
+Standalone relative to 05/33+. Later `848c70852e3fb` split `ibmvfc.c`
+into `ibmvfc-core.c`; current tree has the fixed `mempool_free` in
+`ibmvfc-core.c`.
+
+**Step 3.4: Author**
+Record: Tyrel Datwyler is the IBM ibmvfc maintainer (majority of recent
+`drivers/scsi/ibmvscsi/` commits). SCSI maintainer Martin K. Petersen
+applied the series.
+
+**Step 3.5: Dependencies**
+Record: None for the one-line change. It does not need NVMe/FC patches.
+`mempool_free` / `tgt_pool` / `ibmvfc_release_tgt` all exist in this
+tree.
+
+## Phase 4: Mailing list
+
+**Step 4.1: b4 dig**
+Record:
+- Lore:
+  https://patch.msgid.link/20260723000149.969416-5-tyreld@linux.ibm.com
+- Subject on list: `[PATCH v2 04/33] ibmvfc: free ibmvfc_target
+  allocations with mempool_free`
+- Series: `[PATCH v2 00/33] ibmvfc: NVMe/FC support over IBM Virtual FC`
+  (2026-07-22)
+- Cover letter (from saved mbox): “Patches 1-5: Bug fixes and
+  preparatory refactoring. Four pre-existing bugs are fixed before any
+  NVMe/FC work is introduced: … an allocator mismatch where mempool-
+  allocated ibmvfc_target structs are freed via kfree rather than
+  mempool_free.”
+- Martin K. Petersen: “Applied to 7.3/scsi-staging, thanks!”
+- No NAK on this patch. No reviewer asked for `Cc: stable` on this
+  specific patch.
+
+**Step 4.2: Recipients (`b4 dig -w`)**
+Record: `james.bottomley@hansenpartnership.com`,
+`martin.petersen@oracle.com`, `linux-scsi@vger.kernel.org`, `linuxppc-
+dev@lists.ozlabs.org`, `brking@linux.ibm.com`, `davemarq@linux.ibm.com`.
+Right SCSI/PPC/IBM lists.
+
+**Step 4.3: Bug report**
+Record: No `Reported-by` / Bugzilla / syzbot. Bug was found by the
+maintainer while preparing NVMe/FC.
+
+**Step 4.4: Series**
+Record: 33-patch NVMe/FC feature series. This patch is explicitly a pre-
+existing bugfix (phase 1, patches 1–4). Self-contained.
+
+**Step 4.5: Stable list**
+Record: UNVERIFIED. lore.kernel.org search hit Anubis bot-protection
+(403). No stable discussion in the saved scsi thread mbox.
+
+## Phase 5: Semantic / call graph
+
+**Step 5.1: Functions**
+Record: `ibmvfc_release_tgt` only.
+
+**Step 5.2: Callers**
+Record: Many `kref_put(&tgt->kref, ibmvfc_release_tgt)` sites in
+`ibmvfc-core.c` and `ibmvfc-nvme.c`: starget node/port name/id sysfs,
+implicit logout / delete, PLOGI/PRLI, rport add/delete, host work
+thread, module remove. Reachable from FC discovery, link events, and
+sysfs.
+
+**Step 5.3: Callees**
+Record: `container_of`, then `mempool_free`. No new locks or
+allocations.
+
+**Step 5.4: Reachability**
+Record: Yes, from normal IBM Power virtual FC use (target
+discovery/logout and host removal). Not an obscure debug path.
+`CONFIG_SCSI_IBMVFC` depends on `PPC_PSERIES`.
+
+**Step 5.5: Similar patterns**
+Record: Only this kfree/mempool mismatch for targets. Event pools in the
+same driver already used mempool correctly. No follow-up fix after
+`99143433f7f14`.
+
+semcode MCP: not available in this session; used `git grep` / file
+reads.
+
+## Phase 6: This tree
+
+**Step 6.1: Local tree and buggy code**
+Record:
+- `git describe HEAD`: `v7.3-rc4-27-gf0100363d8c37`
+- `make kernelversion`: `7.3.0-rc4`
+- `git merge-base --is-ancestor 99143433f7f14 HEAD`: yes — the fix is
+  already in this checkout
+- Current code (`ibmvfc-core.c:1431-1434`) already has
+  `mempool_free(tgt, tgt->vhost->tgt_pool)`
+- The mismatch existed here from v2.6.27 until this commit; the driver
+  and `tgt_pool` still exist
+
+**Step 6.2: Backport difficulty**
+Record: Clean one-liner against pre-split `ibmvfc.c`. This 7.3-rc4 tree
+already contains it; later split to `ibmvfc-core.c` does not change the
+correctness of the fix.
+
+**Step 6.3: Related fixes already here**
+Record: The fix itself is here. `5c66d9393f583` (NULL-check removal) is
+also here, which makes restoring pool refill more important.
+
+## Phase 7: Subsystem
+
+**Step 7.1**
+Record: SCSI LLD `drivers/scsi/ibmvscsi/` — IBM Power Virtual FC.
+Criticality: IMPORTANT for `PPC_PSERIES` storage (enterprise PowerVM),
+PERIPHERAL for everyone else.
+
+**Step 7.2**
+Record: Actively developed in 7.3 (large NVMe/FC series). The bug itself
+is old, not a new-subsystem issue.
+
+## Phase 8: Impact and risk
+
+**Step 8.1: Who is affected**
+Record: Users of `CONFIG_SCSI_IBMVFC` on IBM POWER (pSeries) with
+Virtual Fibre Channel. Not universal.
+
+**Step 8.2: Trigger**
+Record: Target alloc/free churn (discovery, logout, rport delete, host
+reset). After 64 such cycles the reserved pool is empty. Hang requires
+subsequent `mempool_alloc(GFP_NOIO)` while `kmalloc` fails (memory
+pressure, no `__GFP_FS` reclaim). Unprivileged users do not call this
+directly; fabric events and scans do.
+
+**Step 8.3: Failure mode**
+Record: Permanent mempool drain; under memory pressure, uninterruptible
+hang in `mempool_alloc` during discovery (storage bring-up / recovery
+stuck). Severity: HIGH for that platform (hang / lost discovery), not a
+KASAN UAF from `kfree` of kmalloc-backed pool memory.
+
+**Step 8.4: Risk-benefit**
+Record: Benefit HIGH for ibmvfc users (restore mempool guarantees; avoid
+discovery hang). Risk VERY LOW (1 line, matching alloc/free, maintainer-
+authored, SCSI maintainer applied). Ratio favors including the fix.
+
+## Phase 9: Synthesis
+
+**Step 9.1: Evidence**
+
+For:
+- Real allocator mismatch present since 2008
+- One-line, obviously correct `mempool_free`
+- Can empty the 64-element pool and then hang `mempool_alloc(GFP_NOIO)`
+  under memory pressure
+- 2017 change already assumes mempool never fails on this path
+- Cover letter labels it a pre-existing bug, independent of NVMe/FC
+- IBM/SCSI maintainers; applied to 7.3 scsi-staging
+- Driver and bug exist in this 7.3-rc4 tree
+
+Against:
+- No user/syzbot report in 18 years (may be rare or attributed to memory
+  pressure)
+- Sent as 04/33 of a feature series (the line itself does not depend on
+  the rest)
+- Platform-specific (PowerVM virtual FC only)
+- No `Fixes:` / `Cc: stable` (not a negative per the review rules)
+
+Unresolved:
+- Stable-list discussion (lore search blocked)
+
+**Step 9.2: Stable rules**
+1. Obviously correct and tested? **PASS** — matching free; applied by
+   SCSI maintainer.
+2. Real bug that affects users? **PASS** — pool contract broken on every
+   target free; hang is a realistic stress case.
+3. Important (crash/security/corruption/deadlock)? **PASS** —
+   uninterruptible wait in discovery if the drained pool cannot be
+   refilled; storage recovery hang.
+4. Small and contained? **PASS** — 1 line, one function.
+5. No new features/APIs? **PASS** — not the NVMe work; just the free
+   path.
+6. Can apply to this tree? **PASS** — code exists; commit is already an
+   ancestor of HEAD; equivalent `mempool_free` is in `ibmvfc-core.c`.
+
+**Step 9.3: Exception category**
+Record: None needed (not a device ID/quirk/DT/build/doc exception). It
+is a normal bugfix.
+
+**Step 9.4: Decision**
+This should be backported to this tree. It is a one-line correction of a
+long-standing mempool leak/drain in IBM virtual FC target discovery,
+with hang potential under memory pressure, and no meaningful regression
+risk.
 
 ---
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1: PARSE THE SUBJECT LINE**
-
-Record: **[nvmet/passthru] [fix] [OOB reads when parsing namespace ID
-descriptor list]**
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-
-Record:
-- Signed-off-by: Hari Mishal \<harimishal1@gmail.com\> (author)
-- Signed-off-by: Keith Busch \<kbusch@kernel.org\> (NVMe maintainer,
-  applied the patch)
-- No Fixes:, Reported-by, Tested-by, Reviewed-by, Acked-by, Link:, or
-  Cc: stable tags (absence is expected for this review pipeline)
-- Ignore any pipeline “Upstream commit” / Sasha Levin markers — none
-  were on the upstream commit itself
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
-Record:
-- **Bug:** `nvmet_passthru_override_id_descs()` walks a 4096-byte
-  Identify NS descriptor list filled by the backend passthrough
-  controller. The loop advances `pos` by `sizeof(*cur) + nidl` (`nidl`
-  is device-controlled) without checking that the next descriptor header
-  still fits in the buffer.
-- **Symptom/failure:** OOB read of `cur->nidl` / `cur->nidt` / reserved
-  past the allocation. If a CSI descriptor sits at the last valid header
-  offset, `memcpy(&csi, cur + 1, NVME_NIDT_CSI_LEN)` reads one byte past
-  the buffer and that byte can be copied to the initiator via
-  `nvmet_copy_to_sgl()` — heap info leak.
-- **Version info:** none in the message. Introducing code is from v5.19
-  (see Phase 3).
-- **Root cause:** missing bounds checks on descriptor header and CSI
-  payload before dereference.
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-
-Record: Not a disguised cleanup. The subject and body describe a real
-OOB read / leak. The diff is only bounds checks.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1: INVENTORY THE CHANGES**
-
-Record:
-- File: `drivers/nvme/target/passthru.c` — **+9 / -0** (upstream: 9
-  insertions)
-- Function: `nvmet_passthru_override_id_descs()`
-- Scope: single-file surgical fix
-
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-
-Record:
-- **Before:** loop `for (pos = 0; pos < NVME_IDENTIFY_DATA_SIZE; pos +=
-  len)` sets `cur = data + pos`, then immediately reads `cur->nidl` /
-  `cur->nidt`. No check that `pos + sizeof(*cur)` is in range. CSI path
-  does `memcpy(&csi, cur + 1, NVME_NIDT_CSI_LEN)` with no payload-size
-  check.
-- **After:**
-  1. If `pos + sizeof(*cur) > NVME_IDENTIFY_DATA_SIZE`, break (stop
-     before OOB header read).
-  2. On CSI, if `pos + sizeof(*cur) + NVME_NIDT_CSI_LEN >
-     NVME_IDENTIFY_DATA_SIZE`, break (stop before OOB CSI byte read).
-- Path: Identify CNS=NS_DESC_LIST success path when `clear_ids` is set.
-  Fail-safe: truncated/malformed list → `csi_seen` stays false → buffer
-  zeroed, CSI not echoed.
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-
-Record:
-- **Category:** memory safety — out-of-bounds read + heap info leak
-- **Mechanism:** device-controlled `nidl` can place `pos` so a 4-byte
-  `struct nvme_ns_id_desc` (`nidt`, `nidl`, `__le16 reserved`) does not
-  fit. `NVME_NIDT_CSI_LEN` is 1; with header at offset 4092, `cur + 1`
-  is byte 4096 (one past a 4096-byte `kzalloc`). That byte can be
-  returned to the initiator.
-
-Verified sizes in this tree (`include/linux/nvme.h`):
-- `struct nvme_ns_id_desc` = 4 bytes
-- `NVME_NIDT_CSI_LEN` = 1
-- `NVME_IDENTIFY_DATA_SIZE` = 4096
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-
-Record:
-- Obviously correct: two `break`s before dereference.
-- Minimal: no unrelated changes.
-- Regression risk: low. Breaking on a truncated list skips CSI override;
-  `clear_ids` already zeros the rest of the list. Compliant devices put
-  CSI well inside 4096 bytes.
-- Host-side parser later also checks `pos + sizeof(*cur) + cur->nidl`;
-  this passthru patch does not check non-CSI body size, but non-CSI
-  payloads are not read here — only used to advance `pos`. Next
-  iteration’s header check still stops OOB. Not a blocker.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: BLAME THE CHANGED LINES**
-
-Record:
-- Buggy function introduced by **`34ad61514c4c3`** (“nvmet: add a
-  clear_ids attribute for passthru targets”, Alan Adamson, 2022-06-27).
-- First appeared: **v5.19-rc2** (`git describe`:
-  `v5.19-rc2-35-g34ad61514c4c3`).
-- **In this tree:** yes (`git merge-base --is-ancestor 34ad61514c4c3
-  HEAD` → yes). Blame on the local file still points every line of this
-  function at that commit.
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-
-Record: No Fixes: tag. Bug introduced by `34ad61514c4c3`, which is in
-this 6.12 tree.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-
-Record:
-- Local recent history of `passthru.c` includes `e38dad438fc08` (clear
-  EUID/NGUID/UUID on loop) — does not change this loop.
-- Upstream: `bc7f75eba5001` is the latest change to this file on
-  `origin/master`; **no follow-up** after it.
-- Standalone, not “patch X/Y”. Sibling host fix `3c568b35a0d30` (“nvme:
-  bound ns descriptor header and body to identify buffer”) is a parallel
-  pattern in `drivers/nvme/host/core.c`, **not a prerequisite** for this
-  passthru patch.
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record:
-- Author is not the subsystem maintainer. Related upstream work: host NS
-  descriptor bounds (`3c568b35a0d30`) and FDP clamp (`29261f8bb4166`).
-- Applied by **Keith Busch** (NVMe maintainer). Weight is from
-  maintainer application + Christoph Hellwig review, not author
-  identity.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-
-Record:
-- Uses existing `NVME_IDENTIFY_DATA_SIZE`, `struct nvme_ns_id_desc`,
-  `NVME_NIDT_CSI`, `NVME_NIDT_CSI_LEN` — all in this tree.
-- `git apply --check` of the upstream diff against this tree: **clean**.
-- Can apply standalone. **No prerequisites.**
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
-Record:
-- `b4 dig -c bc7f75eba5001` →
-  https://patch.msgid.link/20260717144353.19436-1-harimishal1@gmail.com
-- `b4 dig -a`: **v1 only** (single revision). Keith split the long line
-  when applying (`if (pos + sizeof(*cur) + NVME_NIDT_CSI_LEN >`
-  wrapped).
-- `b4 dig -m /tmp/nvmet-oob.mbox`: full thread saved.
-- Christoph Hellwig (20 Jul 2026): **“Overly long line here. Otherwise
-  this looks sane.”** — no NAK.
-- Keith Busch (10 Aug 2026): **“Thanks, applied to nvme-7.3 with fix to
-  overly long line.”**
-- No reviewer `Cc: stable` in the thread.
-- WebFetch to lore.kernel.org returned **403**; discussion recovered via
-  `b4 dig -m`.
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-
-Record (`b4 dig -w`): To/Cc Hari Mishal, Christoph Hellwig, Sagi
-Grimberg, Chaitanya Kulkarni, linux-nvme@lists.infradead.org, linux-
-kernel@vger.kernel.org. Hellwig reviewed; Busch applied. Appropriate
-NVMe maintainers.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-
-Record: No Reported-by / syzbot / bugzilla. Found by code review (same
-author class as the host parser bounds fix). Bug is still real from
-reading the loop.
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: Standalone v1. Related but independent: host `3c568b35a0d30`
-(not in this tree). Not required to land this passthru fix.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-
-Record: **UNVERIFIED** — lore.kernel.org/stable via WebFetch returned
-403. No stable discussion in the captured linux-nvme/lkml thread.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: KEY FUNCTIONS IN THE DIFF**
-
-Record: `nvmet_passthru_override_id_descs()` only.
-
-**Step 5.2: TRACE CALLERS**
-
-Record:
-- Called from `nvmet_passthru_execute_cmd_work()` when Identify succeeds
-  and `cns == NVME_ID_CNS_NS_DESC_LIST`.
-- That work is used because `nvmet_parse_passthru_admin_cmd()` sets
-  `req->execute = nvmet_passthru_execute_cmd` and `req->p.use_workqueue
-  = true` for CNS CTRL/NS/NS_DESC_LIST.
-- Reachable from an NVMe-oF initiator Identify command on a passthrough
-  subsystem.
-
-**Step 5.3: TRACE CALLEES**
-
-Record: `kzalloc(4096)`, `nvmet_copy_from_sgl` (backend Identify data),
-descriptor walk, `memset` + rebuild CSI, `nvmet_copy_to_sgl` (to
-initiator), `kfree`. No new locks/allocators in the patch.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record:
-- Userspace/admin enables `CONFIG_NVME_TARGET` +
-  `CONFIG_NVME_TARGET_PASSTHRU`, exports a backend NVMe controller.
-- Function only runs if `ctrl->subsys->clear_ids` is set. Default **1
-  for loop** (`core.c`: “By default, set loop targets to clear IDS”);
-  other transports via configfs `clear_ids`.
-- Trigger: initiator Identify NS descriptor list. Backend-controlled
-  bytes; initiator can receive leaked heap. Reachable from the fabrics
-  initiator, not from an unprivileged syscall on the target without an
-  NVMe-oF target setup.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-
-Record: Same missing-bounds pattern in `nvme_identify_ns_descs()`
-(`drivers/nvme/host/core.c`) in this tree. Upstream fixed it separately
-(`3c568b35a0d30`). Confirms a systematic parser bug; this commit is the
-target/passthru instance.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-
-Record: **Yes.** Local `drivers/nvme/target/passthru.c` lines 53–64 are
-the unbounded loop. `git describe HEAD` = `p-6.12-3-gc504cf0baa3d8`,
-`make kernelversion` = **6.12.111**. Upstream fix `bc7f75eba5001` is
-**not** an ancestor of HEAD. Bug since v5.19.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-
-Record: **Clean apply.** Surrounding function matches upstream pre-fix
-(aside from later mainline kmalloc_obj churn, which is after this fix
-and not in 6.12). `git apply --check` succeeded. Difficulty: clean
-apply.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-
-Record: No commit with this subject in this tree. Host-side sibling
-`3c568b35a0d30` also not in HEAD. No alternate fix for this passthru
-loop.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-
-Record: **NVMe target passthrough** (`drivers/nvme/target/passthru.c`).
-**IMPORTANT** for NVMe-oF target/passthru users (storage appliances,
-loop testing), not core mm/VFS. Not staging.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-
-Record: Active. This 6.12 tree already has many nvmet stable-style fixes
-(auth OOB, TCP PDU OOB, rdma leaks). Passthru file itself is relatively
-mature since 2022.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-
-Record: **Config-specific / driver-specific:** `CONFIG_NVME_TARGET=y/m`
-and `CONFIG_NVME_TARGET_PASSTHRU=y`, and `clear_ids` enabled (default on
-loop; optional elsewhere). Not all 6.12 users, but real production NVMe-
-oF passthru and loop setups.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-
-Record:
-- Identify NS descriptor list on a passthru namespace with `clear_ids`.
-- Needs a backend that returns a truncated/malformed list (malicious or
-  buggy NVMe device).
-- Not a hot every-syscall path; realistic for passthru Identify.
-- Unprivileged local user on the target: no, unless they are an
-  initiator to that target. Remote initiator + malicious backend: yes,
-  leak across the fabric.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-
-Record:
-- OOB read of header fields (KASAN / possible oops depending on slab).
-- 1-byte heap leak to the initiator via Identify response.
-- **Severity: HIGH** (memory safety + info leak). Not a universal panic,
-  but security-class.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-
-Record:
-- **Benefit:** high for passthru+clear_ids users — stops OOB read and
-  initiator-visible leak. Same class as other nvmet bounds fixes already
-  in this tree.
-- **Risk:** very low — 9 lines, two bounds checks, fail-closed.
-- **Ratio:** strongly favors backport.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-**FOR:**
-- Real OOB read and heap leak, documented and confirmed in this tree’s
-  code.
-- Bug present since v5.19; fully present on 6.12.111.
-- 9-line, obviously correct bounds checks; `git apply --check` clean.
-- NVMe maintainer applied it; Christoph Hellwig: “looks sane.”
-- No follow-up rework on `origin/master`.
-- Fail-closed: malformed list just omits CSI, which matches `clear_ids`
-  sanitizing.
-
-**AGAINST:**
-- Passthru is `default n`; needs `clear_ids`.
-- No syzbot/CVE/Fixes/Cc: stable.
-- Trigger is a malicious/buggy backend device, not a generic local
-  syscall.
-- Slightly weaker than the host parser (no `nidl` body check on skip).
-
-**UNRESOLVED:**
-- Stable list search (lore 403).
-- No public reproducer beyond the described layout.
-
-None of the against items outweigh a small, verified memory-safety fix
-whose buggy code is in this tree.
-
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-
-1. Obviously correct and tested? **PASS** — Hellwig + Busch; logic
-   verified against struct sizes.
-2. Fixes a real bug that affects users? **PASS** — OOB read/leak on
-   Identify for passthru+clear_ids.
-3. Important issue? **PASS** — HIGH: OOB read + heap leak to initiator.
-4. Small and contained? **PASS** — 9 lines, one function.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — clean apply; code present; no
-   missing deps.
-
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-
-Record: Not a device-ID/quirk/DT/build/docs exception. Qualifies as a
-normal security/memory-safety bug fix.
-
-**Step 9.4: MAKE YOUR DECISION**
-
-Backport to this 6.12 tree. The parser the commit fixes is here, the
-patch applies cleanly, and the failure is an OOB read that can leak heap
-to an NVMe-oF initiator.
-
----
-
-## What the commit solves (for this tree)
-
-`nvmet_passthru_override_id_descs()` copies a 4096-byte Identify NS
-descriptor list from the backend, walks it with device-controlled
-strides, and may reconstruct a CSI descriptor for the initiator when
-`clear_ids` is set. Without header/CSI bounds checks, a crafted list can
-read past the allocation and send that byte to the initiator. On 6.12
-this is the original 2022 loop; two range checks close it.
-
-## Stable rules / risk vs benefit
-
-Meets stable rules: real, important, small, no new API, applies here.
-Benefit is stopping a leak/OOB on a path this tree already ships. Risk
-is two `break`s on malformed input.
-
-## Concerns
-
-None that block backport. Host-side sibling `3c568b35a0d30` is a
-separate candidate, not a dependency. `CONFIG_NVME_TARGET_PASSTHRU` is
-optional; that narrows impact, not correctness.
-
----
-
-## Verification
-
-- [Phase 1] Parsed subject/body/tags from `git show bc7f75eba5001`;
-  tags: two SOBs only.
-- [Phase 2] Diff: +9 in `nvmet_passthru_override_id_descs()`; compared
-  to local lines 53–64.
-- [Phase 2] Sizes: `include/linux/nvme.h` — desc 4 bytes, CSI len 1,
-  Identify size 4096.
-- [Phase 3] `git blame -L 33,78 drivers/nvme/target/passthru.c` →
-  `34ad61514c4c3`.
-- [Phase 3] `git describe 34ad61514c4c3` → v5.19-rc2-35; `merge-base
-  --is-ancestor 34ad61514c4c3 HEAD` → yes.
-- [Phase 3] `merge-base --is-ancestor bc7f75eba5001 HEAD` → no (not in
-  this tree).
-- [Phase 3] `git log origin/master --oneline
-  bc7f75eba5001..origin/master -- drivers/nvme/target/passthru.c` →
-  empty (no follow-up).
-- [Phase 3] `git show bc7f75eba5001 | git apply --check` → clean.
-- [Phase 4] `b4 dig -c/-a/-w/-m`: v1 only; lore URL; Hellwig “looks
-  sane”; Busch applied to nvme-7.3.
-- [Phase 4] WebFetch lore/patch.msgid.link: 403. Discussion from mbox,
-  not WebFetch.
-- [Phase 5] Callers: `nvmet_passthru_execute_cmd_work` ← Identify
-  CNS_NS_DESC_LIST; parse path sets workqueue.
-- [Phase 5] `clear_ids` default 1 for loop in
-  `drivers/nvme/target/core.c:1457-1459`.
-- [Phase 5] Host analog unbounded loop in this tree at
-  `nvme_identify_ns_descs()`; upstream `3c568b35a0d30` not in HEAD.
-- [Phase 6] `git describe HEAD` = p-6.12-3-gc504cf0baa3d8; `make
-  kernelversion` = 6.12.111; branch `pending-6.12`.
-- [Phase 6] Local function matches pre-fix; origin/master post-fix
-  matches this commit.
-- [Phase 8] Failure: OOB read + 1-byte heap leak to initiator; HIGH.
-- UNVERIFIED: lore.kernel.org/stable discussion (HTTP 403). Not used to
-  drive the verdict.
+**What it solves for this tree:** `ibmvfc_target` objects come from
+`vhost->tgt_pool` but were `kfree`d, so reserved pool slots were
+permanently lost. After enough discovery/logout churn,
+`mempool_alloc(GFP_NOIO)` no longer has a reserved pool and can block
+forever if `kmalloc` fails. This 7.3-rc4 tree still has that driver; the
+one-line `mempool_free` restores the guarantee.
+
+**Stable rules:** Small, obviously correct, no new API, real
+hang/discovery-failure bug, applies here.
+
+**Risk vs benefit:** Very low risk, high benefit for PowerVM FC users.
+
+**Concerns:** No field crash report; bug is old. That does not make the
+mismatch or the hang path hypothetical. No extra commits are required.
+
+Verification:
+- [Phase 1] Parsed tags: author Tyrel Datwyler, Link msgid
+  `...969416-5`, SOB Martin K. Petersen; no Fixes/Reported-by/Cc:stable
+- [Phase 2] Diff: 1 line in `ibmvfc_release_tgt`, `kfree(tgt)` →
+  `mempool_free(tgt, tgt->vhost->tgt_pool)`
+- [Phase 2] Confirmed alloc at `ibmvfc_alloc_target`:
+  `mempool_alloc(vhost->tgt_pool, GFP_NOIO)`; pool size 64; `GFP_NOIO`
+  is `__GFP_RECLAIM`
+- [Phase 2] `mm/mempool.c`: `mempool_alloc_noprof` retries and waits on
+  `pool->wait` when `__GFP_DIRECT_RECLAIM` is set; waiters woken from
+  `mempool_free`
+- [Phase 3] git blame: `kfree(tgt)` from original driver `072b91f9c6510`
+  (2008, v2.6.27-rc1)
+- [Phase 3] `git merge-base --is-ancestor 99143433f7f14 HEAD`: yes
+- [Phase 3] Related: `5c66d9393f583` (v4.12-rc1) removed mempool_alloc
+  NULL check
+- [Phase 4] `b4 dig -c 99143433f7f14`: `[PATCH v2 04/33]`; cover letter
+  lists this as a pre-existing bug; Martin: applied to 7.3/scsi-staging
+- [Phase 4] `b4 dig -w`: linux-scsi, linuxppc-dev, Bottomley, Petersen,
+  IBM
+- [Phase 4] `b4 dig -a`: v2 of 33-patch NVMe/FC series; this patch is in
+  the bugfix prefix
+- [Phase 4] UNVERIFIED: lore.kernel.org/stable search (Anubis 403)
+- [Phase 5] Callers: many `kref_put(..., ibmvfc_release_tgt)` in
+  discovery/teardown/sysfs
+- [Phase 6] `git describe HEAD`: v7.3-rc4-27-gf0100363d8c37;
+  kernelversion 7.3.0-rc4; current `ibmvfc-core.c` already uses
+  `mempool_free`
+- [Phase 7] `CONFIG_SCSI_IBMVFC` depends on `PPC_PSERIES`
+- [Phase 8] Failure mode: mempool drain → possible D-state hang in
+  target discovery under memory pressure; severity HIGH for that
+  platform
+- UNVERIFIED: whether a target kref can outlive `mempool_destroy` on
+  remove (no evidence it does; remove deletes rports first)
 
 **YES**
 
- drivers/nvme/target/passthru.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/scsi/ibmvscsi/ibmvfc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/target/passthru.c b/drivers/nvme/target/passthru.c
-index 0c361b1e35665..6d7469c94610e 100644
---- a/drivers/nvme/target/passthru.c
-+++ b/drivers/nvme/target/passthru.c
-@@ -53,13 +53,22 @@ static u16 nvmet_passthru_override_id_descs(struct nvmet_req *req)
- 	for (pos = 0; pos < NVME_IDENTIFY_DATA_SIZE; pos += len) {
- 		struct nvme_ns_id_desc *cur = data + pos;
+diff --git a/drivers/scsi/ibmvscsi/ibmvfc.c b/drivers/scsi/ibmvscsi/ibmvfc.c
+index 63cc569284ded..e3853e05aa27a 100644
+--- a/drivers/scsi/ibmvscsi/ibmvfc.c
++++ b/drivers/scsi/ibmvscsi/ibmvfc.c
+@@ -1366,7 +1366,7 @@ static void ibmvfc_set_rport_dev_loss_tmo(struct fc_rport *rport, u32 timeout)
+ static void ibmvfc_release_tgt(struct kref *kref)
+ {
+ 	struct ibmvfc_target *tgt = container_of(kref, struct ibmvfc_target, kref);
+-	kfree(tgt);
++	mempool_free(tgt, tgt->vhost->tgt_pool);
+ }
  
-+		if (pos + sizeof(*cur) > NVME_IDENTIFY_DATA_SIZE)
-+			break;
-+
- 		if (cur->nidl == 0)
- 			break;
-+
- 		if (cur->nidt == NVME_NIDT_CSI) {
-+			if (pos + sizeof(*cur) + NVME_NIDT_CSI_LEN >
-+						NVME_IDENTIFY_DATA_SIZE)
-+				break;
-+
- 			memcpy(&csi, cur + 1, NVME_NIDT_CSI_LEN);
- 			csi_seen = true;
- 			break;
- 		}
-+
- 		len = sizeof(struct nvme_ns_id_desc) + cur->nidl;
- 	}
- 
+ /**
 -- 
 2.53.0
 
