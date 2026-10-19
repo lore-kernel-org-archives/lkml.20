@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792431578;
-	b=BCqhfBzKIvmcXbMtONp9DvHwh6+bEI/BG4kvRnZ6egHu5oVZYjDIkzk0kiXGKuoUsdkz
-	 Nqo4Eg5sWG7mpHnlwGOXTTfSICWyQBuXqz4noKO9iUcZsLMCV5WRHYhEpa+nAHazCR/Yv
-	 q0A/vDpU8WLQIq/RW3hv4c9t+Ck8L1p0Ug4IobtvH3gj+uJf4i5ILN+jEp4RbRBGFd+Yn
-	 8CcVVTgWgwT59MsR2QlEI6ei/lY7/JtvrgVeK83ufNml7/5700gTxADHgoFg0Xe6RWW5J
-	 EiNBxdiSUdVJr944gobv6Q/SvN+CO3DJbj7uE1KYdC998K4ByygVYrpsGb6c0fMg2ew==
+	t=1792431585;
+	b=x8009BvykA7dR0SDSnCE8WdoVg+N3NI6Otkt3LF8u7Gn+Ip2bkRBW2d8nimg30SrEXtQ
+	 Ko9Dd8kD0WCtMbZL7RYKZM6uYUsyrJfJS8X0VILaTq0MHVfmYf90hFH1/Qz0pFcyXjmfK
+	 GMOkr1TXTcWa8RI63V6g2oqQLvdZS3SWmBUMgtNIe2ZMVihqVH2ETOXvAI4q5PdGMB9c2
+	 OFMkl083gpqc2Qg4SLQ4MZgRAKBFFImxzoe4KFR3xhhXQQG/SiHl9asdxeuxnJfHiTBss
+	 OkCAKdH+Lz44bGXk50zOjr1Dg6f7j7nkMt6HzcC6Kk4EUlszuGDghvtpGaj6C2RrIsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792431578;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=L564zTSbyW7RsQ72MGvk0hgr14JcFjENwmP8MEdxbFQ=;
-	b=rXQNs9s1DohClxtt8OuSBKTE9T9pJ1HyTFQfE5+yVFUvNhlxjsLNSOqzmyvYKwfFFqZ/
-	 vKrUMvH4A4+ncMpAgJdS9BW1gAdoFiGzoLmJg9AZWOkY2E7yEYstvLM7Qr23ZIBVj13Yx
-	 e45mGmUNF3MSZyzGkb8NuwoQrZteNYSQEWF8qc1rAF+3U2Lh3617spjWYFgzszDDxgk+0
-	 cwqdBcVa7LIk99X+69sJnoNgIRBvzb310ix1Hrq7mYXQ1GDMpi1KQBxbSDhx4FvyZCxOk
-	 AK9x2RCktvDmGWQ1+fnvFoUQCmDylomcRCHeFeD8L64qtt8H6a20rpERoYYnDhqkPaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792431585;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GnQBvL9ThoitpYzUQcFIdzE3H2uK7kr1ppoIGal+PjA=;
+	b=NPJmr+nj69mnZuOlUL1sROjotYHgNGrr+E72PtE+x8liUVmvH/sO3pf1oZ7HDNl8UmYM
+	 KkhpEWX4/v5oFV3X0viqs0Ivjo5qsufnE8zid25izsRtatQjewGlMc8olLmcC5M0gcHah
+	 oG/9nD6ooMBvGi6sJNPQpG+WIUe5bDB0ie06pQAOqNht5wFZR2TnW4/ZJNIHuItpLcHHE
+	 EKm0RPmjBUyh4GT9cBstneYmoDlRtFTo4dANjLxfwHnuEItKzXgHu26FXvEFsRHzK689w
+	 aeg2VnO+zGietNNGaC+R5HxNMMepZMNqrP3+n82Dw876AJqgKInIKTe9emDwrUlkqDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=virtuozzo.com;
-	spf=pass smtp.mailfrom=virtuozzo.com;
-	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=vmanoCTZ;
-	arc=none smtp.remote-ip=130.117.225.111
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EkbMnleH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF07F606A322;
-	Mon, 19 Oct 2026 17:39:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF07F606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83FC606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:39:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=vmanoCTZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
-	:From; bh=L564zTSbyW7RsQ72MGvk0hgr14JcFjENwmP8MEdxbFQ=; b=vmanoCTZLSykPeQZOht
-	UIzzTqhnlp9Dvheg7yDZHaUcJNRhXXUFedv6Pzil5NCweL918SkROF2iGIhpfH/VfePskLpBvCHbd
-	1AhEkzUiPhVMgQOMjsaQfykeq2zE1xW+ZzAp8LejrA6wLCZDFY3Zqxlne7enIfkqZaJT2ZHfSlQpj
-	zBoQJfniR3MPA4ZgaUb/MZ0o+X5t5g2RIsWyHDDHN4PJYlSWRpx9trrs8A3DwjvZoPH+oSKBnDcfq
-	iSTiTOw+Xst0BD8ixRMj8Boq3+XN52iK+pH2IJnVf3FlwP1EwYJLTleO1v4UiJ3F++pkI+YkIqegU
-	Wwr+GQgtkoWF9qQ==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xIrH2-007Chf-0H;
-	Mon, 19 Oct 2026 19:39:20 +0200
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Mon, 19 Oct 2026 19:39:24 +0200
-Subject: [PATCH 2/2] mm/shrinker: allocate the per-memcg shrinker units on
- demand
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EkbMnleH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EBC01F0157C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:39:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792431584;
+	bh=GnQBvL9ThoitpYzUQcFIdzE3H2uK7kr1ppoIGal+PjA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EkbMnleH6Ux0aJawtFLpleM4XWROY17SoR2ZJUVHht30tBfxhMdGVLXQPeKAHJl4a
+	 m/Z8JPoRveVu/5pysSp4L87w64yZqLzTCeH0I3RldQg3932x7x7HjTG6If0oePfWPs
+	 Iquoay8yGHz9oP//eJtPewhK+vm4RNOxPMLfrPK1yZlbuHNONZnnKFQH4s/Xf238hq
+	 /J0ODclJLzjeqfLwnlA2kxPObjzWwPwO5o3YK0FHiBtn/1GVjIKsw0eaLFEXQRrilH
+	 DYLgxeGOaLNOeSssJY1nAy0dLbEb73T8Pl7tobbbBUo/BeN1EpOanMu0ZvjQ9ZrK8b
+	 9M2xoZP0tW2MA==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so2285442a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:39:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzjX2x6o/hsFZm2BmV9Oz7zngddwPcHqQgRA80BeOdEVFVEhRbaFjX4TTosUc18jyw9Aesr+5EOqHWKsUE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/ZKnuJMdinm6CYU2gfhLlENtq+KYEh1P0WPQTZ9qMKbxE85+Q
+	O44WW/u+r0hwNZ6xS9erzjpZJdrN07VJlSwOCH33sR92PKqT9YVkrwcHLi6ZTl0VJ6bnSuhS4hB
+	neCnY1NvD1+MenbUek9FEA8HnYAEXdEY=
+X-Received: by 2002:a17:907:944a:b0:c40:19dc:a24d with SMTP id
+ a640c23a62f3a-c419e648fffmr666097466b.9.1792431583119; Mon, 19 Oct 2026
+ 10:39:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,338 +59,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-b4-prep-vstor-144717-per-memcg-shrinker-units-on-demand-xarray-v1-2-64ed1f7957c9@virtuozzo.com>
-References: <20261019-b4-prep-vstor-144717-per-memcg-shrinker-units-on-demand-xarray-v1-0-64ed1f7957c9@virtuozzo.com>
-In-Reply-To: <20261019-b4-prep-vstor-144717-per-memcg-shrinker-units-on-demand-xarray-v1-0-64ed1f7957c9@virtuozzo.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Muchun Song <muchun.song@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
- Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- cgroups@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9941;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=8uo6nmMfK1qRCkrTayzRsZZFLXg9ry/A/NIJpkUVam4=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq1lXPUfI/6sjDSwTkjjRqO/jqCNpkqD/v1yAaF
- wkBa66nkuuJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCatZVzwAKCRBRlgpH+WFc
- Khv8EACI13FKl26bLsJYggvCcjvmFoS/TptyzXRBL9LYsrzPtBtXsdLXs99WMwofIaQZgIOZmCC
- ALjUpX8BZebK5zCQbc7iaVLougI3YM5UmGy+VjHv01YUaU4BzdczUn2Oys62fXspLMRa5bNVzNJ
- GSPNghqASJ7ptVPGddeFTKAvbcaBkYCB8+bHd+7uglcf4ZK+pinhF4fZLtAy8vH+2QmsfuNd6oh
- Svtibcc3C2BMyrPMOyVnzaTv1MEOBjQhUbJZ0wrS/RTnDe+L98f5gkMDappAWW8diBLyMT9dqfd
- ywFgzU1+qiEmxflGkSsPz5Ptx9Y0ccEbcxRgyICZynDFEBNXSw8CCCRTMG9Yk4BRnIR91rLDnnv
- H0CxfyOUMIVyjqd4r6GkatGfTD09Ktv92tbyhZ5r6/oL0X1y7ti7Wso0bw8aLEvPqEj6p4Kn98h
- utEs2R3MoDzEPLkZmOX1BlZu1WVSIqemB+pbu7FWRPN/NNZvdf9ARKarGYhjo2Kyi0AWR+ryBz1
- 6Go1aefBGKhaQu3BLgA9x5i2oOg4KFcs+s5SuiKXUTsrWRUtsDsRsoZrIQbmfhWvrfM5livqjzs
- O5t+DkPAgcDkmGuXGWe+FqbqY3ALVX5WvGD6PgkKdy0HFz1IkkBdw2q9xIW8dbqgnr+I0DmIFGe
- lGL+b3zu3il/PjQ==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+References: <aszH4vpXFAOQP1WG@pcnci.linuxbox.cz> <20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
+ <20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
+ <20261016031242.GDatGWKo98YSOhEOOn@fat_crate.local> <20261015211832.45d87fab15bb3e0bbc2f47cb@linux-foundation.org>
+ <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local> <atI_yuCc4BiweBQP@google.com>
+ <atT5TYyLapHO5ZoX@pcnci.linuxbox.cz> <20261018201538.d0957878f378a9821852836f@linux-foundation.org>
+ <atXXma5NXxoSWJO0@pcnci.linuxbox.cz> <atY1vWRBRUwpISKb@pcnci.linuxbox.cz> <20261019083529.a81910ac0976c1a5687d4c6a@linux-foundation.org>
+In-Reply-To: <20261019083529.a81910ac0976c1a5687d4c6a@linux-foundation.org>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 19 Oct 2026 10:39:30 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zO41EromgLGhKv8H0aKXjrffH+t4CFGU6cLo59JJ3CEuA@mail.gmail.com>
+X-Gm-Features: AclHuK8n2lTFq8e9VdttHlGOs0y_QO-3e4ybHTHpOpRKbp8_vTnwjvldNPZm8AE
+Message-ID: <CAO9r8zO41EromgLGhKv8H0aKXjrffH+t4CFGU6cLo59JJ3CEuA@mail.gmail.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nikola Ciprich <nikola.ciprich@linuxbox.cz>, Sean Christopherson <seanjc@google.com>, 
+	Borislav Petkov <bp@alien8.de>, David Laight <david.laight.linux@gmail.com>, 
+	Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, david@kernel.org, 
+	Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com, 
+	pbonzini@redhat.com, Tal Zussman <tz2294@columbia.edu>, 
+	Matt Fleming <matt@readmodwrite.com>, gregkh@linuxfoundation.org, sashal@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Instead of a shrinker_info_unit for every SHRINKER_UNIT_BITS ids up to
-shrinker_nr_max on every NUMA node, give a memory cgroup only the units
-of the shrinkers it holds a list_lru list of.
+On Mon, Oct 19, 2026 at 8:35=E2=80=AFAM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+>
+> On Mon, 19 Oct 2026 17:22:37 +0200 Nikola Ciprich <nikola.ciprich@linuxbo=
+x.cz> wrote:
+>
+> > >
+> > > Sure! And I have more good news: after applying 55780d8a1dcc
+> > > to 6.18.56, I was able to perform more than 30 migrations without
+> > > a glitch. After booting back into 6.18.56 without it, both VMs
+> > > crashed within 2-3 migrations. Furthermore, some memory apparently
+> > > got corrupted on one of the hosts, since various commands started
+> > > crashing too:
+> > >
+> > > [  303.466091] traps: systemd-logind[3085] trap invalid opcode ip:7f7=
+b5667e616 sp:7ffe1afdec38 error:0 in libsystemd-shared-252.so[7e616,7f7b566=
+6d000+22e000]
+> > > [  303.493810] traps: systemd-coredum[11269] trap invalid opcode ip:7=
+fc6bf67f614 sp:7ffc075da958 error:0 in libsystemd-shared-252.so[7f614,7fc6b=
+f66d000+22e000]
+> > > [  377.528955] traps: systemd[5607] trap invalid opcode ip:7f791447e6=
+16 sp:7ffe83e61cf8 error:0 in libsystemd-shared-252.so[7e616,7f791446d000+2=
+2e000]
+> > > [  377.556993] traps: systemd-coredum[12080] trap invalid opcode ip:7=
+f97ce07f614 sp:7ffe28b56a88 error:0 in libsystemd-shared-252.so[7f614,7f97c=
+e06d000+22e000]
+> > > [ 3746.173043] traps: hostnamectl[45846] trap invalid opcode ip:7fe00=
+cc7f614 sp:7fff89916e48 error:0 in libsystemd-shared-252.so[7f614,7fe00cc6d=
+000+22e000]
+> > > [ 3746.202305] traps: systemd-coredum[45847] trap invalid opcode ip:7=
+f7fe9e7f614 sp:7ffea227cfa8 error:0 in libsystemd-shared-252.so[7f614,7f7fe=
+9e6d000+22e000]
+> > > [ 3750.581940] traps: systemctl[45903] trap invalid opcode ip:7fbb896=
+7f614 sp:7fff733e5748 error:0 in libsystemd-shared-252.so[7f614,7fbb8966d00=
+0+22e000]
+> > > [ 3750.612651] traps: systemd-coredum[45904] trap invalid opcode ip:7=
+f90d347f614 sp:7ffdc7f55148 error:0 in libsystemd-shared-252.so[7f614,7f90d=
+346d000+22e000]
+> > >
+> > > I'm not sure if this is of any use, but I collected a vmcore of
+> > > this state by intentionally crashing the host via /proc/sysrq-trigger=
+.
+> > >
+> > > Anyway, I'll give 55780d8a1dcc some more migration rounds, but it loo=
+ks
+> > > promising.
+> >
+> > 500+ migrations back and forth, no issues. I consider this solved and a=
+m rolling
+> > out the patched kernel; I=E2=80=99ll report if anything new turns up.
 
-The rule the code relies on:
+I am glad the commit fixed your problem!
 
-  A non-root memcg that has a list on a list_lru has the unit of that
-  list's shrinker, on every node.
+>
+> Great, thanks.
+>
+> oops, we haven't been cc'ing Yosry.
+>
+> > Definitely a -stable candidate. Andrew, will you send it to Greg, or sh=
+all I?
+>
+> I volunteer Yosry or Sean ;)
+>
+> I think 55780d8a1dcc should be repackaged before sending over to the
+> -stable people.  Its changelog is very wrong: "The bug is benign
+> though".  Update the changelog to explain that the bug is in fact evil.
+> Otherwise -stable and further downstream won't understand why we sent
+> it to them and won't understand the impact.
 
-The unit is installed before the list is published and lives until the
-memcg is freed, so set_shrinker_bit() always finds it. A reader that
-finds none knows the memcg never held objects of that shrinker.
+It was found through code inspection, there weren't any symptoms, and
+I think I know why my analysis was incomplete. It assumes that
+svm_recalc_instruction_intercepts() already ran at least once for L1
+(vmcb01) to configure its intercepts, which generally must be the case
+(L1 must start L2), except during migration :')
 
-Two cases outside the rule:
-- the root memcg, where global reclaim keeps the deferred work of
-  memcg-aware shrinkers; it gets every unit up front and is the only
-  memcg a shrinker registration still visits;
-- under cgroup.memory=nokmem a list_lru is never per-memcg, so it gets
-  no shrinker id either and no bit can be set.
+About repackaging, yeah we can add a note about the new finding and
+the necessity of the backport. One question tho, is there a way to
+send a patch to "all" stable branch (the same effect as adding Cc:
+stable retroactively), or do I need to send separate backports to all
+open stable branches?
 
-The install runs with the gfp of the list allocation and can sit under
-the i_pages lock, which is taken from interrupts, so the xarray lock is
-irq-safe and a node it could not get under the lock is allocated
-outside of it, as list_lru does for its own xarray.
+>
+> And that repackaging would be an opportunity to add
+> Reported-by:/Closes:/Tested-by: you, which is the least we can do to
+> thank you for all this diligent work!
 
-The units of a memcg now scale with the shrinkers it and its
-descendants hold objects of, not with shrinker_nr_max.
-
-Assisted-by: LLM
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
----
- include/linux/memcontrol.h |  2 +
- mm/list_lru.c              | 15 +++++--
- mm/memcontrol.c            |  7 +---
- mm/shrinker.c              | 98 +++++++++++++++++++++++++++++-----------------
- 4 files changed, 77 insertions(+), 45 deletions(-)
-
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 52f3646e244ae..91641cf082a4a 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -1678,6 +1678,8 @@ static inline u64 mem_cgroup_get_socket_pressure(struct mem_cgroup *memcg)
- 
- void shrinker_unit_cache_init(void);
- int alloc_shrinker_info(struct mem_cgroup *memcg);
-+int memcg_shrinker_unit_alloc(struct mem_cgroup *memcg, int shrinker_id,
-+			      gfp_t gfp);
- void free_shrinker_info(struct mem_cgroup *memcg);
- void set_shrinker_bit(struct mem_cgroup *memcg, int nid, int shrinker_id);
- void reparent_shrinker_deferred(struct mem_cgroup *memcg);
-diff --git a/mm/list_lru.c b/mm/list_lru.c
-index 36662d02ff963..73480d8edf641 100644
---- a/mm/list_lru.c
-+++ b/mm/list_lru.c
-@@ -597,6 +597,12 @@ static int __memcg_list_lru_alloc(struct mem_cgroup *memcg,
- 			parent = parent_mem_cgroup(pos);
- 		}
- 
-+		if (!css_is_dying(&pos->css) &&
-+		    memcg_shrinker_unit_alloc(pos, lru_shrinker_id(lru), gfp)) {
-+			kfree(mlru);
-+			return -ENOMEM;
-+		}
-+
- 		if (!mlru) {
- 			mlru = memcg_init_list_lru_one(lru, gfp);
- 			if (!mlru)
-@@ -666,13 +672,14 @@ int __list_lru_init(struct list_lru *lru, bool memcg_aware, struct shrinker *shr
- 	int i;
- 
- #ifdef CONFIG_MEMCG
--	if (shrinker)
-+	if (mem_cgroup_kmem_disabled())
-+		memcg_aware = false;
-+
-+	/* A list that is not per-memcg sets no memcg's shrinker bit. */
-+	if (shrinker && memcg_aware)
- 		lru->shrinker_id = shrinker->id;
- 	else
- 		lru->shrinker_id = -1;
--
--	if (mem_cgroup_kmem_disabled())
--		memcg_aware = false;
- #endif
- 
- 	lru->node = kzalloc_objs(*lru->node, nr_node_ids);
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index a13f3984f0e09..07075bb220719 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -4110,7 +4110,7 @@ static bool alloc_mem_cgroup_per_node_info(struct mem_cgroup *memcg, int node)
- 	INIT_LIST_HEAD(&pn->objcg_list);
- 
- 	lruvec_init(&pn->lruvec);
--	xa_init(&pn->shrinker_units);
-+	xa_init_flags(&pn->shrinker_units, XA_FLAGS_LOCK_IRQ);
- 	pn->memcg = memcg;
- 
- 	memcg->nodeinfo[node] = pn;
-@@ -4277,11 +4277,6 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
- 
- 	memcg_online_kmem(memcg);
- 
--	/*
--	 * A memcg must be visible for expand_shrinker_info()
--	 * by the time the maps are allocated. So, we allocate maps
--	 * here, when mem_cgroup_iter() can't skip it.
--	 */
- 	if (alloc_shrinker_info(memcg))
- 		goto offline_kmem;
- 
-diff --git a/mm/shrinker.c b/mm/shrinker.c
-index 74fc6f64459f0..cd9441f149363 100644
---- a/mm/shrinker.c
-+++ b/mm/shrinker.c
-@@ -42,31 +42,40 @@ static struct shrinker_info_unit *shrinker_unit_get(struct mem_cgroup *memcg,
- }
- 
- /*
-- * A memcg is visible to expand_shrinker_info() before it goes online, so
-- * a unit may already be there from either side.
-+ * Installs run from the list_lru allocation path with the caller's gfp,
-+ * possibly under the i_pages lock, which is taken from interrupts: the
-+ * xarray lock is irq-safe and a node it could not get under the lock is
-+ * allocated outside of it.
-  */
--static int shrinker_unit_install(struct mem_cgroup *memcg, int nid, int index)
-+static int shrinker_unit_install(struct mem_cgroup *memcg, int nid, int index,
-+				 gfp_t gfp)
- {
--	struct xarray *units = &memcg->nodeinfo[nid]->shrinker_units;
-+	XA_STATE(xas, &memcg->nodeinfo[nid]->shrinker_units, index);
- 	struct shrinker_info_unit *unit;
--	int ret;
-+	unsigned long flags;
- 
--	if (xa_load(units, index))
-+	if (xa_load(xas.xa, index))
- 		return 0;
- 
--	unit = kmem_cache_alloc_node(shrinker_unit_cachep,
--				     GFP_KERNEL | __GFP_ZERO, nid);
-+	unit = kmem_cache_alloc_node(shrinker_unit_cachep, gfp | __GFP_ZERO,
-+				     nid);
- 	if (!unit)
- 		return -ENOMEM;
- 
--	ret = xa_insert(units, index, unit, GFP_KERNEL);
--	if (ret) {
-+	do {
-+		xas_lock_irqsave(&xas, flags);
-+		if (!xas_load(&xas)) {
-+			xas_store(&xas, unit);
-+			if (!xas_error(&xas))
-+				unit = NULL;
-+		}
-+		xas_unlock_irqrestore(&xas, flags);
-+	} while (xas_nomem(&xas, gfp));
-+
-+	if (unit)
- 		kmem_cache_free(shrinker_unit_cachep, unit);
--		if (ret == -EBUSY)
--			ret = 0;
--	}
- 
--	return ret;
-+	return xas_error(&xas);
- }
- 
- static int shrinker_units_install(struct mem_cgroup *memcg, int start, int end)
-@@ -75,7 +84,8 @@ static int shrinker_units_install(struct mem_cgroup *memcg, int start, int end)
- 
- 	for_each_node(nid) {
- 		for (index = start; index < end; index++) {
--			ret = shrinker_unit_install(memcg, nid, index);
-+			ret = shrinker_unit_install(memcg, nid, index,
-+						    GFP_KERNEL);
- 			if (ret)
- 				return ret;
- 		}
-@@ -108,10 +118,17 @@ void free_shrinker_info(struct mem_cgroup *memcg)
- 	mutex_unlock(&shrinker_mutex);
- }
- 
-+/*
-+ * Global reclaim keeps the deferred work of memcg-aware shrinkers in the
-+ * root's units, and root has no list_lru allocation to install them from.
-+ */
- int alloc_shrinker_info(struct mem_cgroup *memcg)
- {
- 	int ret;
- 
-+	if (!mem_cgroup_is_root(memcg))
-+		return 0;
-+
- 	mutex_lock(&shrinker_mutex);
- 	ret = shrinker_units_install(memcg, 0,
- 				     shrinker_id_to_index(shrinker_nr_max));
-@@ -124,26 +141,15 @@ int alloc_shrinker_info(struct mem_cgroup *memcg)
- 
- static int expand_shrinker_info(int new_id)
- {
--	int ret = 0;
- 	int new_nr_max = round_up(new_id + 1, SHRINKER_UNIT_BITS);
--	struct mem_cgroup *memcg;
--
--	if (!root_mem_cgroup)
--		goto out;
-+	int ret = 0;
- 
- 	lockdep_assert_held(&shrinker_mutex);
- 
--	memcg = mem_cgroup_iter(NULL, NULL, NULL);
--	do {
--		ret = shrinker_units_install(memcg,
-+	if (root_mem_cgroup)
-+		ret = shrinker_units_install(root_mem_cgroup,
- 					     shrinker_id_to_index(shrinker_nr_max),
- 					     shrinker_id_to_index(new_nr_max));
--		if (ret) {
--			mem_cgroup_iter_break(NULL, memcg);
--			goto out;
--		}
--	} while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
--out:
- 	if (!ret)
- 		shrinker_nr_max = new_nr_max;
- 
-@@ -211,7 +217,8 @@ static long xchg_nr_deferred_memcg(int nid, struct shrinker *shrinker,
- 	struct shrinker_info_unit *unit;
- 
- 	unit = shrinker_unit_get(memcg, nid, shrinker->id);
--	if (WARN_ON_ONCE(!unit))
-+	/* No unit: this memcg never held objects of this shrinker. */
-+	if (!unit)
- 		return 0;
- 
- 	return atomic_long_xchg(&unit->nr_deferred[shrinker_id_to_offset(shrinker->id)], 0);
-@@ -223,12 +230,35 @@ static long add_nr_deferred_memcg(long nr, int nid, struct shrinker *shrinker,
- 	struct shrinker_info_unit *unit;
- 
- 	unit = shrinker_unit_get(memcg, nid, shrinker->id);
--	if (WARN_ON_ONCE(!unit))
-+	if (!unit)
- 		return 0;
- 
- 	return atomic_long_add_return(nr, &unit->nr_deferred[shrinker_id_to_offset(shrinker->id)]);
- }
- 
-+/*
-+ * Called before @memcg gets a list on a list_lru of shrinker @shrinker_id:
-+ * a map bit is only ever set on a memcg that has such a list.
-+ */
-+int memcg_shrinker_unit_alloc(struct mem_cgroup *memcg, int shrinker_id,
-+			      gfp_t gfp)
-+{
-+	int nid, ret;
-+
-+	if (shrinker_id < 0 || mem_cgroup_is_root(memcg))
-+		return 0;
-+
-+	for_each_node(nid) {
-+		ret = shrinker_unit_install(memcg, nid,
-+					    shrinker_id_to_index(shrinker_id),
-+					    gfp);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
- void reparent_shrinker_deferred(struct mem_cgroup *memcg)
- {
- 	struct mem_cgroup *parent = parent_mem_cgroup(memcg);
-@@ -237,14 +267,13 @@ void reparent_shrinker_deferred(struct mem_cgroup *memcg)
- 	int nid, offset;
- 	long nr;
- 
--	/* Prevent from concurrent shrinker_info expand */
--	mutex_lock(&shrinker_mutex);
- 	for_each_node(nid) {
- 		struct xarray *parent_units = &parent->nodeinfo[nid]->shrinker_units;
- 
- 		xa_for_each(&memcg->nodeinfo[nid]->shrinker_units, index, child_unit) {
- 			parent_unit = xa_load(parent_units, index);
--			if (WARN_ON_ONCE(!parent_unit))
-+			/* Installed but never listed: nothing deferred in it. */
-+			if (!parent_unit)
- 				continue;
- 			for (offset = 0; offset < SHRINKER_UNIT_BITS; offset++) {
- 				nr = atomic_long_read(&child_unit->nr_deferred[offset]);
-@@ -252,7 +281,6 @@ void reparent_shrinker_deferred(struct mem_cgroup *memcg)
- 			}
- 		}
- 	}
--	mutex_unlock(&shrinker_mutex);
- }
- #else
- static int shrinker_memcg_alloc(struct shrinker *shrinker)
-
--- 
-2.43.0
-
+Will do.
