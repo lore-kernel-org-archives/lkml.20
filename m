@@ -1,298 +1,184 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9E7513551
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:12:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0AE511E81
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419132; cv=none; b=bjF5Z5UhsbE3ItWldIMsEPz6gGDkQdx3XQbmUAFC9HzShyMvgZ8Xsja3SGUJeE2k//zfKW5VNIRvSorPZ95MBZ7XfQwIm54Vc11uUvj1eRHndSYtql79oLsIFq/w9+QRkszajRAkZpVOMWM9w133vVLgqTga7Sv8+2NU3LmWYE0=
+	t=1792419177; cv=none; b=ciM5sTyms9t+QukCJx/wCUnbkn800j98fBjEqn3O2q6EFc2TNRABAEs6FyjseWkgzCU5h96x8WmP76i5RMVDhfGcp1Ewy3HdEZCJUtcNhDLG+oSsGRUXaMXQPXDTzdbs6YMAWvA7OADiO84eqhRjz19A3qPyt5EBv+ZsEvV+G+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419132; c=relaxed/simple;
-	bh=38h+2Yebx/4frhJrkasMSHfDfWCWtifqCUTxn5bBarU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uL7ka4f6sMGoNIf2GfdNfsjT+S9NJg/ntpfzrKBNr40qQ5g3oVLAy27+xpnnR9xSn95JRQVUVvGp7ItrYUA5oiAqVsNcCDvF2tX3h7UuNLOfU6x16PxnfVeP5Bxx4+bolSeigfAwnkBnsVT0r2qgA+OP0igxSgjr2To1AdV9bBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FKdywTIk; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=AUEfQbJL; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792419177; c=relaxed/simple;
+	bh=vRT2w3n7Qrb+3plBNb2bRDxhTNqysXhGi2Bc1Yyvx0o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BsZoIf7xBqXuZbbpixYsxigJKQek/aAIHhjVkNjcibVK+vOgopZ/br4GY71TJz4hHbDpfphj9AuUnYVs1O7GzHCnQnq9TUiBrHD8vPZ7dSFxthjI5p4iZsr6+x7XJj1khmRpn0ACa+buqnGx+EkVMTO/5J1ufF/nzBtBYA5k138=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VhltfZtn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=heI4Dc8m; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FKdywTIk";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="AUEfQbJL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792419127;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2M95tyOOQgifHQf5+1v9W4pLBHiwR5Qq/5/JuiYMWjk=;
-	b=FKdywTIkVlVN0ezEdPKhmef1eBqZlKY1XpqYqOa711OY/lHLHfM+TL1Ge3FUIUxMtFXsjM
-	4dHw85/0S3LWFgWHHimaB2ih8AXBn0fB8vhFx3RTS5lzyXaq+VSaMDG9JyNN30CldCJ0y1
-	IDbEIxm4dmw9fuGuMDUjMhprL+v7tOo=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-73-haRO0tEPNM63batq1GNFMg-1; Mon, 19 Oct 2026 14:12:06 +0000
-X-MC-Unique: haRO0tEPNM63batq1GNFMg-1
-X-Mimecast-MFC-AGG-ID: haRO0tEPNM63batq1GNFMg_1792419125
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48c430f0f01so1830049f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:12:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VhltfZtn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="heI4Dc8m"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JE0fuZ1904008
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:12:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=cnfM2y8WvenQ9GTazeyc4m
+	QsxsTJFDmVyLPzApM3Uhc=; b=VhltfZtnjEBK+aqL0/7NSSBF6CM+F729IKcnNi
+	Uf2Y0gILccbAIU3H/mxsuvH52YBd5ALrzgx/dkVyzMv+a5GuUeBL6C4vUA9VWbCl
+	v5jbzxOvJJwxG9Rye2XdeQ5Eu77cqXN1tcFCiphwyqWCGFkFcKofMkhV/QoidZtI
+	Yo9ZcaGR9rpJIsT14TrHw0MT119utwqwHSow/zkDmTDeSBD6Osk2OV/GQHtaf8Nf
+	Pw22KV9Oag39sMcouTndqab1HSh3nvnL95tCnksxTvAkUhFj+fLtvidU0EMu4kh3
+	cHa/LfOsfUhg4QdrGYN5PcrbRGVvPPKlBLo7aOrudeF/3NIw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf5c9j2a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:12:55 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9308eafb465so679963085a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:12:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792419125; x=1793023925; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2M95tyOOQgifHQf5+1v9W4pLBHiwR5Qq/5/JuiYMWjk=;
-        b=AUEfQbJLtk2cx5MAZMdh5bk0WAekC52HsJA5cxj9sHprTtfI4aPvyT+bUsidTG8Mnn
-         k4bpTHV8xdYUigWdLoRF5aB7WR4o0IrUV7Qjc1A4xQs+owr9i682l9ZI7ukHskqAcSsH
-         MEVlrUriTwIyoHccJjG6uhXqrU/1JMnfaNZchrVtcvdngq7J4huU7xK0g0zOKJgtbD0F
-         RKuiPo1u75wIAdX1I2IplolRNyP41dsfEIWN/2lx/8RJKEphkByc90PHpmzXpZe9tYsS
-         u+JwvDH6XlxO6sDSgldljuLkyMNITcjWWYTIIbhCDbJm84N6ApPypPaQ+pwjL1+jSkMl
-         jABQ==
+        d=oss.qualcomm.com; s=google; t=1792419175; x=1793023975; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cnfM2y8WvenQ9GTazeyc4mQsxsTJFDmVyLPzApM3Uhc=;
+        b=heI4Dc8mxvMhcJhuIAuXJBf0hJWWDy0PFLAo07dtqQ7s7MLUWdoZN73TDa/1UL6pmq
+         nq1TxUHNhRKPLc1CeSv+qHF6Aj6cUIOlmyOBa4Fb8qgNsEeIu1y0meF80JLgiOnByK1N
+         7K046i8pCs2MLSdMbifR+o83tcdlVHJwXb+EIN3Tn1oWrRJBRcEJoNG7et0UwvaXPXZJ
+         yrfIepQsp7b2lpR0SD+334AWdVk0etm/qA9Zn1J1bewU6RAG/CcaTsBjt4ENc4d+3d2W
+         XfoOwFE+DH86dpv2JT0I++yEQSACEOhbTnJO0LBWSbNE/sKab4fEOihtSsEltS3zjaOn
+         n1Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792419125; x=1793023925;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2M95tyOOQgifHQf5+1v9W4pLBHiwR5Qq/5/JuiYMWjk=;
-        b=DeZl44mBqZMOW+NlU0dgKVB1v8v3Cl3pxS4Z3Tkg9Oq5uS1o/OaJedlBayhvChvSrj
-         u5sMsHrD8WFAmA65reNgHCrG2aYpOk1Mdn0MY5IGBj1XevtF/jPAPwcxQjgvtyx8ePiv
-         p/v0g6LlfjwUxo5u5yh58cgl+xBpJZB27AnQzdl/zxfUiLCs5NaVuP5CT+JpqqBp0pLN
-         fbV6O8Uctw276cvCYeeMs0jVdYkLDitLL6c3t2ky3T5Jkab7E1bi6fDm1kBTNN41m8At
-         lev7thkhGBYTzil9sDfdTUIOG0v5JNDvlZRnJke8QyZxFvHzHdl65kulBjlKSE29arp2
-         3SPA==
-X-Forwarded-Encrypted: i=1; AKwUvBzx9O1j0I1j9Z/SzWhn4CzhDc+x+dzzEGrptLyz7s0XrJOvloNZjJHGT3AjQsC8d3BwqzUxLUvD7aVC8OA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgsx6Zunls+rYHaCLWqhGwcZlVGhErSNRpz35U+OscrG6Nccf/
-	oIS1LtHQ1l3VKdVwXn2p7c0r9lYXS9YbRe9DT/FOgvxNjsZZu/f3uZ0AOn1FMKmbygND50ivTGM
-	LyCso/4qoDV2nw0uBClgFe4HNXMzM2cuFMALElNCMaqpc+NsfToUEnbYNC5czjNEMCQ==
-X-Gm-Gg: AYBFou2lvVz+Ce8VlqR9QJ3oeghEAKhQ9i3Qirru6suSqyA+scTmuN9fBBqI8bnLlYh
-	RvOF3XX9NpHkyvgIx09uLbiT2Kz8eH4NVTTUx02sUgpJYI4CS1vZ0j036Pmns+osFA+7T1kZ5dU
-	SdmztoGmVF7wC8a6yYsx4f/X0bau1a0NFVjIWMRozVjOm5uUZBPxk8gAz2+hTF+OfNmHAOumukN
-	tpjErPVZP6dZY/T1JslQmA4Y/Zg8/qQRjGzRES/PoyCyFMKaKdXSebPBHps94eoHHwUliKGY63g
-	XjSVL9KW5rS8aAkt5oSICnNTa12bWTI8BZGxJXa4NROOxYjr9WEFNRd2aeEJmqJJvrh8l1n+bnz
-	Q9v+4
-X-Received: by 2002:a5d:534f:0:b0:486:e707:42eb with SMTP id ffacd0b85a97d-48e07f9a00emr12076093f8f.33.1792419124987;
-        Mon, 19 Oct 2026 07:12:04 -0700 (PDT)
-X-Received: by 2002:a5d:534f:0:b0:486:e707:42eb with SMTP id ffacd0b85a97d-48e07f9a00emr12076004f8f.33.1792419124225;
-        Mon, 19 Oct 2026 07:12:04 -0700 (PDT)
-Received: from sgarzare-redhat ([193.207.74.151])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a72sm25288394f8f.4.2026.10.19.07.12.01
+        d=1e100.net; s=20260707; t=1792419175; x=1793023975;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cnfM2y8WvenQ9GTazeyc4mQsxsTJFDmVyLPzApM3Uhc=;
+        b=DnV1oRKnO9oM614/SqVEg0KC1L2PDhjuSm14IulUo3w5uWwO5O8fYQAcQcu2lHUeQy
+         f9Lor/03RH6RDbZSMEN4nCbt60n8wattLcWI1w6p/W2Ol6l5eh9WUqZrKYoIzF6crQF4
+         9MblE3eaV405bx6QYF9p3Phax7ssKlYNOYzg8f6Msc5fOjsTUH0t6g3BXAQwsUDZVWUq
+         Jo22K1ZXabswPoOtuG3R7xh/PduNcbM2gDatI69m4w3RvIiJhssl/dvlXyZ/mHlqKBkr
+         2uyNg/5IP3afRPKUq/7gwE+/Cgfh8OWkXcWrQ1a8uqP/JK1y/0Kdbsy5I/kHGKkOdMdQ
+         KrtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzhSK/H+efHiASxcROc/7DeHjwOLjZHtN0wQrpeu6qHrJaLgR9zhPBiSD1SI12o5u3Uin/NjAk9xS2S73k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLB+AT2pkSlQnWuvH3uyqCDtXX2hjR/bNO5AGmwvHoyMdLQPX1t
+	XsOAdnP2689ALjutbWVsnW2OByhdf6tzU7imiHijJngK8XHyak54sqbh0prBkfOymXJBj8aJp4z
+	6UG5ie0BifJVDmeKrjaURwt2cqBFJeK6DXon9CSurYyNYXBOVZApq74B+v2kgeVnXGGI=
+X-Gm-Gg: AYBFou2r0MG9cDAgkNKwSfBou4axyzwMYoDy9d4x+usb0SdkYgHF83KZDwH5b682BE9
+	edx5Nw/IPlFChqL8ijdv6MUXzFTktq4Q911HVOjqD1ynnSHaMwaPB/SbneSA8WuaWvQBYnWutX0
+	Gr7T2CyppEo3u05hdYw7U9Zbm+YG0FXCs6uv4MBdzZ9FWd2koS4L6NaSJCOdGN9YVZfLDQ26WBj
+	4JT5NoFepOHYYz5SMPmd5i1+lM5hfcNF/qGFuJOu8XdtZTl76Kk6JbMHc5ZuTtzOieODrqimfpa
+	e2mPpP2bFpkMjC98jg9R3kdZLAOvB+J/Qzv7Az+3JBipDnjezBfWc0mkcnD78QB2pgKmQEgwX7i
+	IhQF5FgTw9urMoh80MH6rs0gVdKxFwbBosJRi0mpxbUhOsbAZHrdNKQuJtPWYlDmrXUVykwN68X
+	rg3qa4ziHK4GY8
+X-Received: by 2002:a05:620a:1a14:b0:93f:1437:2e58 with SMTP id af79cd13be357-93f29d70c5emr1305339385a.56.1792419174566;
+        Mon, 19 Oct 2026 07:12:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a14:b0:93f:1437:2e58 with SMTP id af79cd13be357-93f29d70c5emr1305333085a.56.1792419174039;
+        Mon, 19 Oct 2026 07:12:54 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a42ade9sm2015922e87.14.2026.10.19.07.12.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 07:12:03 -0700 (PDT)
-Date: Mon, 19 Oct 2026 16:11:57 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Jia Jia <physicalmtea@gmail.com>
-Cc: stefanha@redhat.com, mst@redhat.com, jasowangio@gmail.com, 
-	eperezma@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bobbyeshleman@gmail.com
-Subject: Re: [PATCH net-next v4 4/4] vsock/virtio: defer RX notifications
- until batch unlock
-Message-ID: <atYlFHcjGMFxHCuM@sgarzare-redhat>
-References: <20261014115640.184286-1-physicalmtea@gmail.com>
- <20261014115640.184286-5-physicalmtea@gmail.com>
- <atI3neoHXhgiEpYJ@sgarzare-redhat>
- <CAJwVaMLmMf1iyWmoZMAJuS2551DsSWSkcRsUVz3M5xi9AXWsWg@mail.gmail.com>
+        Mon, 19 Oct 2026 07:12:51 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 0/8] interconnect: qcom: implement support for MSM8998
+Date: Mon, 19 Oct 2026 17:12:38 +0300
+Message-Id: <20261019-msm8998-icc-v1-0-c2da3934b6c8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CAJwVaMLmMf1iyWmoZMAJuS2551DsSWSkcRsUVz3M5xi9AXWsWg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFYl1moC/yXMTQ5AMBBA4avIrDWZEtK6ilhQg5H4SQeRiLsrl
+ t/ivQuEPJNAEV3g6WDhZQ7QcQRuqOeeFLfBkGCSa9RWTTIZa41i55RBtG2dmVRjBqFYPXV8fre
+ y+i17M5Lb3gXc9wME0m5xbwAAAA==
+X-Change-ID: 20261019-msm8998-icc-8009da583105
+To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Del Regno <angelogioacchino.delregno@somainline.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Andy Gross <agross@codeaurora.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Shawn Guo <shawn.guo@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1500;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=vRT2w3n7Qrb+3plBNb2bRDxhTNqysXhGi2Bc1Yyvx0o=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq1iVZq1byP3JEG/VsBMq2McMM9ItBJLdbJG9KD
+ 1EnxfRLVByJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatYlWQAKCRCLPIo+Aiko
+ 1VpTCACxuteC0/lUC0a2u5RHTyHpnMe0Tn86fLviDV9c6y9XgElNukeemcQVBx7pd/hTDsDQWwn
+ W4vwC3KgMqsbLnlAcFbC4SW06eHUwRTOkssj8BIU+TrN4SKOWk8vRDiYpUMj8StWYy3JU5AygID
+ aBt+cwgeX6GR6nldQZoitAAtkO/cFwG6xdyyl8xRugFfFb+O0TMicQ1qNjK4vmTaYIZJCEkEhwA
+ vVvklNhAenQt58vrg8M9y4AN3ShFLbXDT6XPjHOAZ5Dbg5cNQ+j4BdAcb21fnFhQ1nk2ENJOO2B
+ 8iqUerftm4N5vjGafl49SNNk4L4rYI1rfZTGEb6nVPRT2al8
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1NiBTYWx0ZWRfX1zrXY5ToVf1o
+ nWOl9c6ibMl+ertccTHYqWO+5B/h9txuAu2uph0DR/73HEoFRSi5Hm0I9ZKD4G0lvFtgTiPHu7n
+ wXwMMidPpHiTW0QQ1m5mBXYioxyNDks=
+X-Proofpoint-ORIG-GUID: _jH5RvMixtGelBtW593NUZW1l0ILBXr1
+X-Proofpoint-GUID: _jH5RvMixtGelBtW593NUZW1l0ILBXr1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1NiBTYWx0ZWRfX0kKes3HaGXoJ
+ o5tr0y7HAcn78IxvOiCiWz/fuyGr5UNLoqFf74iXlKYTU0Y+CNBu6MuZFH6GTo3RjRZ/D14L6pY
+ bFReqjKrKvwgI4QgGqu6Vo2VrsLndYCGMqFjXZXYg/yMZHtRF8BOznAFADtIdY4pRNvP26LCFrw
+ x2t36Vp/1OtvJbmMrVHp2VAoDZ9lL7PHgjLNARv1mYsPQyzL732GeUlRrTij053OJt2h/fHexnf
+ IXItrh8coHM0PjZyQb1uDgRGUSzK3g32rhqnv13RlHPo2POnV8KrtmuOZ8fgZQZNs1Cw2e6UFvs
+ EAvaLmzIJX9ldUHa7Rpi7lO/9X7+5z9vNsn198KtEJScz0/x6u19eoIFp36cUyag7IkTw9UNA6G
+ Rjfkyx4ckLXHboB8FeAUh6bdHrtLwHp2boiqcupw4EsLpaC/4MpB8h7+EBqDVpqUMyNAGNLkV+W
+ R6sLDplDpqKkzfxGDLw==
+X-Authority-Analysis: v=2.4 cv=K6O3jCWI c=1 sm=1 tr=0 ts=6ad62567 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=32IeBcnPeD8AdjLfFjIA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_04,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 malwarescore=0
+ adultscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190056
 
-On Sun, Oct 18, 2026 at 12:55:35PM +0800, Jia Jia wrote:
->>
->> On Wed, Oct 14, 2026 at 07:56:40PM +0800, Jia Jia wrote:
->> >An RX batch can make a socket readable while the worker still holds its
->> >socket lock. Waking a blocking reader then only moves it to waiting for
->> >the same lock.
->> >
->> >Record the existing low-watermark condition and notify once after
->> >release_sock(). Move the coalesced write-space notification after the
->> >unlock as well, since both callbacks wake sk_sleep(sk). Deliver
->> >write-space before data-ready and keep the lookup reference until both
->> >callbacks complete.
->> >
->> >As with write-space, save the initial sk_data_ready callback and batch only
->> >while both saved callbacks remain installed. Sockets with replaced
->> >callbacks retain their per-packet behavior.
->> >
->> >The existing psock-marker check also covers a concurrent sockmap attach:
->> >at most the already admitted packet completes on the native path, and the
->> >next packet ends the batch.
->> >
->> >Signed-off-by: Jia Jia <physicalmtea@gmail.com>
->> >---
->> > include/linux/virtio_vsock.h            |  1 +
->> > include/net/af_vsock.h                  |  5 ++--
->> > net/vmw_vsock/af_vsock.c                |  1 +
->> > net/vmw_vsock/virtio_transport_common.c | 35 ++++++++++++++++++-------
->> > 4 files changed, 31 insertions(+), 11 deletions(-)
->> >
->> >diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
->> >index bf077ee0ded88..f1396ca3ad9b5 100644
->> >--- a/include/linux/virtio_vsock.h
->> >+++ b/include/linux/virtio_vsock.h
->> >@@ -288,6 +288,7 @@ struct virtio_transport_rx_batch {
->> >       unsigned int pkts;
->> >       size_t bytes;
->> >       bool write_space_pending;
->> >+      bool data_ready_pending;
->> > };
->> >
->> > void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
->> >diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
->> >index 9a40960d10cbe..78bab5820f528 100644
->> >--- a/include/net/af_vsock.h
->> >+++ b/include/net/af_vsock.h
->> >@@ -64,9 +64,10 @@ struct vsock_sock {
->> >       bool sent_request;
->> >       bool ignore_connecting_rst;
->> >       /*
->> >-       * Initial callback, used to identify replacements and deliver deferred
->> >-       * write-space notifications.
->> >+       * Initial callbacks, used to identify replacements and deliver deferred
->> >+       * notifications.
->> >        */
->> >+      void (*default_data_ready)(struct sock *sk);
->> >       void (*default_write_space)(struct sock *sk);
->> >
->> >       /* Protected by lock_sock(sk) */
->> >diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
->> >index fe7f49da6c4bc..f40659ec29df0 100644
->> >--- a/net/vmw_vsock/af_vsock.c
->> >+++ b/net/vmw_vsock/af_vsock.c
->> >@@ -958,6 +958,7 @@ static struct sock *__vsock_create(struct net *net,
->> >               sk->sk_type = type;
->> >
->> >       vsk = vsock_sk(sk);
->> >+      vsk->default_data_ready = sk->sk_data_ready;
->> >       vsk->default_write_space = sk->sk_write_space;
->> >       vsock_addr_init(&vsk->local_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
->> >       vsock_addr_init(&vsk->remote_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
->> >diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
->> >index f4b5f0230493e..8b62b789b71c5 100644
->> >--- a/net/vmw_vsock/virtio_transport_common.c
->> >+++ b/net/vmw_vsock/virtio_transport_common.c
->> >@@ -1588,7 +1588,8 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
->> >
->> > static int
->> > virtio_transport_recv_connected(struct sock *sk,
->> >-                              struct sk_buff *skb)
->> >+                              struct sk_buff *skb,
->> >+                              bool *data_ready_pending)
->> > {
->> >       struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
->> >       struct vsock_sock *vsk = vsock_sk(sk);
->> >@@ -1607,7 +1608,13 @@ virtio_transport_recv_connected(struct sock *sk,
->> >                       vsock_remove_sock(vsk);
->> >                       break;
->> >               }
->> >-              vsock_data_ready(sk);
->> >+              if (!data_ready_pending) {
->> >+                      vsock_data_ready(sk);
->> >+              } else if (!*data_ready_pending &&
->> >+                         (vsock_stream_has_data(vsk) >= sk->sk_rcvlowat ||
->> >+                          sock_flag(sk, SOCK_DONE))) {
->> >+                      *data_ready_pending = true;
->> >+              }
->> >               return err;
->> >       case VIRTIO_VSOCK_OP_CREDIT_REQUEST:
->> >               virtio_transport_send_credit_update(vsk);
->> >@@ -1820,6 +1827,7 @@ virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
->> >       return sk->sk_state == TCP_ESTABLISHED &&
->> >              sk->sk_type == SOCK_STREAM &&
->> >              READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
->> >+             READ_ONCE(sk->sk_data_ready) == vsk->default_data_ready &&
->> >              READ_ONCE(sk->sk_write_space) == vsk->default_write_space &&
->> >              !sock_flag(sk, SOCK_DONE) &&
->> >              vsk->transport == &t->transport &&
->> >@@ -1830,8 +1838,9 @@ virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
->> > /*
->> >  * The caller holds sk's socket lock.  Set @batchable if the socket can remain
->> >  * locked for another ordinary STREAM/RW packet.  When @batch is non-NULL,
->> >- * record a default write-space notification for batch finish instead of
->> >- * delivering it immediately.  Return true if the caller must free @skb.
->> >+ * record default write-space and data-ready notifications for batch finish
->> >+ * instead of delivering them immediately.  Return true if the caller must
->> >+ * free @skb.
->> >  */
->> > static bool
->> > virtio_transport_recv_pkt_locked(struct virtio_transport *t,
->> >@@ -1883,7 +1892,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
->> >               kfree_skb(skb);
->> >               break;
->> >       case TCP_ESTABLISHED:
->> >-              virtio_transport_recv_connected(sk, skb);
->> >+              virtio_transport_recv_connected(sk, skb,
->> >+                                              batch ?
->> >+                                              &batch->data_ready_pending : NULL);
->> >               break;
->> >       case TCP_CLOSING:
->> >               virtio_transport_recv_disconnecting(sk, skb);
->> >@@ -1957,27 +1968,33 @@ EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
->> > /*
->> >  * Finish the RX batch.
->> >  * For a non-empty batch, the caller holds the socket lock acquired with
->> >- * lock_sock(). Deliver any deferred write-space notification while the lock
->> >- * is held, then release the lock and the batch's lookup reference.
->> >- * An empty batch is a no-op.
->> >+ * lock_sock(). Release the lock, deliver any deferred write-space and
->> >+ * data-ready notifications in that order, then drop the batch's lookup
->> >+ * reference. An empty batch is a no-op.
->> >  */
->> > void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
->> > {
->> >       bool write_space_pending = batch->write_space_pending;
->> >+      bool data_ready_pending = batch->data_ready_pending;
->> >       struct sock *sk = batch->sk;
->> >
->> >       batch->sk = NULL;
->> >       batch->pkts = 0;
->> >       batch->bytes = 0;
->> >       batch->write_space_pending = false;
->> >+      batch->data_ready_pending = false;
->> >
->> >       if (!sk)
->> >               return;
->> >
->> >+      release_sock(sk);
->> >+
->>
->> Why in the previous patch we release the socket after calling
->> default_write_space() and now we are moving before?
->>
->
->My intention was to keep the two behavioral changes separately
->testable. Patch 3 is a complete intermediate state: it coalesces
->repeated sk_write_space()
->notifications while preserving the existing under-lock callback
->context. Patch 4 then adds data-ready coalescing and moves both
->deferred notifications
->after release_sock(). Patch 4 therefore builds on Patch 3 rather than fixing it.
+Add bindings, driver and DT bits necessary to enable bus scaling on
+Qualcomm MSM8998.
 
-Okay, I see, makes sense, please make it clear in the commit 
-description.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (3):
+      dt-bindings: interconnect: add Qualcomm MSM8998 NoC
+      arm64: dts: qcom: msm8998: add interconnect provider nodes
+      arm64: dts: qcom: msm8998: wire up interconnect paths
 
-Thanks,
-Stefano
+Konrad Dybcio (5):
+      soc: qcom: smd-rpm: Handle zero-length errors
+      interconnect: qcom: icc-rpm: depopulate SMD RPM child NoCs
+      interconnect: qcom: icc-rpm: skip duplicate SMD RPM node votes
+      interconnect: qcom: icc-rpm: Allow negative QoS offset
+      interconnect: qcom: add MSM8998 interconnect provider
 
->
->> >       if (write_space_pending)
->> >               vsock_sk(sk)->default_write_space(sk);
->> >
->> >-      release_sock(sk);
->> >+      if (data_ready_pending)
->> >+              vsock_sk(sk)->default_data_ready(sk);
->> >+
->> >       sock_put(sk);
->> > }
->> > EXPORT_SYMBOL_GPL(virtio_transport_rx_batch_finish);
->> >--
->> >2.53.0
->> >
->>
->
+ .../bindings/interconnect/qcom,msm8998.yaml        |  192 ++
+ arch/arm64/boot/dts/qcom/msm8998.dtsi              |  127 ++
+ drivers/interconnect/qcom/Kconfig                  |   11 +
+ drivers/interconnect/qcom/Makefile                 |    2 +
+ drivers/interconnect/qcom/icc-rpm.c                |    5 +-
+ drivers/interconnect/qcom/icc-rpm.h                |    2 +-
+ drivers/interconnect/qcom/msm8998.c                | 1978 ++++++++++++++++++++
+ drivers/soc/qcom/smd-rpm.c                         |    6 +
+ include/dt-bindings/interconnect/qcom,msm8998.h    |  133 ++
+ 9 files changed, 2453 insertions(+), 3 deletions(-)
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261019-msm8998-icc-8009da583105
+
+Best regards,
+--  
+With best wishes
+Dmitry
 
