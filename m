@@ -1,176 +1,311 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954FF4E73C4
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:34:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896174E5339
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:34:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792409659; cv=none; b=C+BHoyFWkMoZuhzTFQAew48k3woR6OCAMA0IYJF07l7aSz35l+/ROeITUWfXxsY0F8HxCjCnycm0RB390c5Vizd6o9C8qsgt7Yr6710QUQzR2VTkbyKLrNoRxUtNvWb/TZn63f46RiH5XT5LSdUQY1TUZD6LRv/P+/8oG7uzZ3k=
+	t=1792409668; cv=none; b=FxtTwEq78DrXrYu4Ws7XRqS0aaCElpEU+uroc/giuen3ZZzYgMNTjEI5XWDnzMsuGjw58ZlfAff9K/0mWPlot343k/3eF9e4E/khs9+sjHDmk3N/dxKkesY+GeYzX8bY4wej9UrcmTLlF+VNqlu0Xd6d7YYPLtVbmsyAASMTkJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792409659; c=relaxed/simple;
-	bh=aEW5+LqvM0LPvmDcEKnfFQVW4CtyhhdRMPcdBIeXis4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JmiIHjwFNNGARH0i8Lv21ufzUsQg4e7icbhPyW3rv1u1LuDIP0hUsPab0k8IfT0fan3GkYsNWv2lpxv/lrXc6xVy+X2EDkMhUF+g5isyYG8GBtCQ/cG2eIjzspJ4toqKOj0DVS4rvgpD7eQpcTlBdyjwOlb+j2zsfBxL+RxH678=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhqT2f3p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792409668; c=relaxed/simple;
+	bh=Lt3ii6eB1D89xJsVplbWR4wuGBxg4Iw/+SvTpHwYNvU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sQaP2PiYevH2k2AunTahXw7MJbsbyuj4606cHAJ5eJj3ikWGDOQ0ZhP2qqGk/8mq/vqh3nAKm9PIhbTroaSJbfMT+DdJk6ELm4TzVDXhBqKMtDUyg1KmIDEq2q3X0y8HTSggf9b574wwZ3wJyLNkea4BJVQ03vE5YgZVqF6XDSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=avUdBo8b; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N6vPCxZS; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhqT2f3p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78EEA1F000C4;
-	Mon, 19 Oct 2026 11:34:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792409655;
-	bh=FJdExEXGOaENgmf58zlk/zZoRToDuwwRgsqxi0xLf3I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mhqT2f3p6cV6Uwoy9gDnyr9vRVz0AEQ7jUWuC0aZqY5zW7Bo9nvqb3MKxxH+Jxie+
-	 fGU2CzKpQdXkdpCxgRSbyFyw4PJ0jMdOGfSFSf0eLuW4OPjjZJjOi9a51JXnMPscLs
-	 vEYcHYfSJLRrTLTPRxgMRyaob3J0Fjabi55nP2ykJ/y2Dduct6N2T5vYAHYH0weszV
-	 b3ti53T//EHZD/EzLGAJhIJs+AiA2NRkrFybOxfHWRQbKdfPLQryp7forWvtkTgE3j
-	 vOAf54ZV+L6CGWGTisvY7DTupddsba/gIvAfA3zSoI7zDWh9D2mOPLcASQ0mbS3Wyz
-	 sv5pFYKGFHZOw==
-Date: Mon, 19 Oct 2026 13:34:09 +0200
-From: Alexey Gladkov <legion@kernel.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: "Eric W. Biederman" <ebiederm@xmission.com>,
-	Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Serge Hallyn <serge@hallyn.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ucount: take the rlimit reference before checking the
- limit
-Message-ID: <atYAMWVRq2t2tExb@example.org>
-References: <20261017234834.797456-1-nickolai@csail.mit.edu>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="avUdBo8b";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N6vPCxZS"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8P3VI2753831
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:34:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=tT+zcc5XaW+x8YKOmYn4nNdNGEaba1CF/fy
+	mymdhyO4=; b=avUdBo8bW4YKwvlbxT6q7YpPZycV/qey/n6ym/HC6zICKLiXU9t
+	PjrbaJN/DaLESDpDPmRlEOzsUFhl/nLEV/Z3As0XvCtFzfrN6P43Vvz4YURosAOa
+	qTSxztRytDxaBexz0GGU7j7UvNYXoZ4PIaimRlEck1lWvXKfIl/XntTa6UY84h8W
+	wwSi4PVnqBJYEz6BrG49IijzWzEZ1E2cq7vd5OZcb9JlhRLHAZZqygvIxEGJYmb4
+	EDaCI07f1qS/RPlJO4K/ffjTrN6Ed2KhFLKdktMoa2hKVTwxpouhwXtQwTrU/YD/
+	tOdNoBvcngWYSdKbPBs8vLUG3+m9hiRENEg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf48gu5q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:34:21 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f26dd2165so706815885a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:34:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792409661; x=1793014461; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tT+zcc5XaW+x8YKOmYn4nNdNGEaba1CF/fymymdhyO4=;
+        b=N6vPCxZS8CgOCo19PELjjDBPqagiig9v5htXr5tjJVOgsAnGIjIhQhsoKQO3aCUuke
+         YXqaqmJYhL31qDthzttHPNrFobTgb4V0XbHa5QNCuSha09tZpsn9PCYOl8hgDRbn/gr2
+         wGTXlKgDLlar9g1PZDH+JKdYouBFbReenF6uxPA7qY7Y8Nmc3OUEdBBTspgHKqZe6+W+
+         MgeWSP+bsJNrtK9CUw65LxQRHE5bGC1M28VR4OU7aD8jJomjhwLHvz5cQ7o/v8N/p+Tr
+         WO5xTEvA7DbqSwAxcLsaue1NtVkv2Qc15cvJ7bP9BVKyPf4GTXA3cujaCdWaRspSEfkK
+         qkOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792409661; x=1793014461;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tT+zcc5XaW+x8YKOmYn4nNdNGEaba1CF/fymymdhyO4=;
+        b=w409yqlljvzg02z7J9AE+7ojPWDK+jE+sCOCLgvuo/TaqkWkGfiZcjAAsezwPHx+nX
+         pRqWzOc6AeApqG2Zoe3k2+adUEnwXHv74U+hgQRLsak8jBwAOOjRIKiJDE/ce4F8qQOL
+         kFb5T0FiFQFUJL2TzQArnrFVqTD58/IUX6PB5mcUDqA3UbLWn+tBzA7g2tCA0Hz+o6w7
+         sTatuAIXrks1tEn/HKOMdBOW4P6YIV7QunEagRANFeOfF2CG1GhVQMMUvC5YLCdYERvz
+         ai16rD5F31cFR644HVqag3Whc/hyLkdOP5zGCqdxa/B9TLzcmmgM6W42hClN3QnE877G
+         lo6g==
+X-Forwarded-Encrypted: i=1; AKwUvByfdgYcXvPMb+R91h+nq11zw6AjnsVfFvq4ZQlUoC6AG9RDE0BQ4dTbGAKGERsNg5xQ78b5GciisAJ10Rc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmDyrDMgNSm4/lARIpzC7PQgB5G8NPnoq8aYWkjAPySLENKvth
+	G5oOSO5xZVmozfMG1rU5Hv6NsesSfwGoM5VuUgCTpuByIuLEPzkhA6VLTFbTvuqNXIIYcSxTaXf
+	tWmdEBHRzcTK1niyaRsRVG76bhgsfhDRoDsFFpJKEAZexYZDCzbVu2rmFX85GsmDZXer1ueGzWo
+	4=
+X-Gm-Gg: AYBFou0i33LeqsPJePXNFWU+h3IMcbtpSrZv+p5yAxxge4exIEA9TbI54Dr5HcAFa5q
+	68OvnfqhR6ji8sQBDdH0B1cvzbrxJ7a/4wnNSsIUIkkl1mXuRQkzIr/PoVJhCRWMZUnpLhe2jP8
+	9ObTUwPZ1XsVv+HBlfhH7EXqMQBj6JjnNAIBcdwh5NqIffK4zCf3kthPuqw+N6oeAU1dGyOyNJB
+	RKagjZ6ncRlBN6pF/t5cWynHo4V8HjqzHV48p6l9awANEUh2Jt9/hCrdWfN3AYceNeuy6qkQ9V6
+	xJNGz97is1a4xh907k8RQDug5l4tsDKyREmlsd1WhiZue9/7lrpriLIc+sjnkdsWqFsGglICZG/
+	KUQp4vS40Op2dSQmGiAYcP7ra3COv2Gfckiv/aY3hG4FS8Xhw6iviEuEajw==
+X-Received: by 2002:a05:620a:4551:b0:93e:869c:43e2 with SMTP id af79cd13be357-93f29d5a75bmr1182668785a.50.1792409661064;
+        Mon, 19 Oct 2026 04:34:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:4551:b0:93e:869c:43e2 with SMTP id af79cd13be357-93f29d5a75bmr1182665785a.50.1792409660537;
+        Mon, 19 Oct 2026 04:34:20 -0700 (PDT)
+Received: from uffe-tuxpro14.. (h-178-174-189-39.A498.priv.bahnhof.se. [178.174.189.39])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1d8b4csm3760297a12.26.2026.10.19.04.34.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 04:34:19 -0700 (PDT)
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+To: Linus <torvalds@linux-foundation.org>, linux-mmc@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Subject: [GIT PULL] MMC/MEMSTICK updates for v7.4
+Date: Mon, 19 Oct 2026 13:34:17 +0200
+Message-ID: <20261019113417.27994-1-ulf.hansson@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017234834.797456-1-nickolai@csail.mit.edu>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfX/y69KllWiBpC
+ YyKufaN/zeusxHvAKKWoQLWX9MO0toW3DW8o21kydUaCYjNTWznw9j+9vhbfLrGH+BpTAAQe1s2
+ Sq9KGSnumnAfzv0xSyZW6bbQpleK6OyK5nywGC/tm7Bv/IewqG70vhoiKEz55fIdj2cGsQK+CgM
+ henhiit+VuEIT3lAuUw27I6hy9Hn88FLvBgLTFa+P7k6j0EY71PikOqxmu/tDU1kO4ch2KdyjHJ
+ kFFkfe/ekzwydL12Du7U1mGUwLobEz9WULy/qZSsEZIC8n4Ol5mxSr8Mrylj1uWKqAVeDEXZZCH
+ k84G9sXrEpFtYobJWKscl3hNK/CWD9f6aMpNxaTjheu9qpq7eNwYHDKvVFpeOzx+debnLMF4vpJ
+ EmFT7H0ewpbBDtkX7oin6O4Ps1JnvxnvztZb9Qp67JLMgj9UJwwHpTpU/y4x5xihOh87H0/7cN9
+ +PhCMLntYhSZ8Z/yYVQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfX2wymtLtXBZnr
+ Gpk1julUmwJe4MfeEGgkOuHIzX9vkj7USEEaFCtxdH/vBzDUJ7G2JlO4CYD0abT70638I60oYTF
+ j8QCwNvgvoTkbZuG21mnTHTv8giliuA=
+X-Proofpoint-ORIG-GUID: MC6JZKl-gzYzS-9YvsTrBFHpdEp34Epq
+X-Authority-Analysis: v=2.4 cv=Qr/LTlyd c=1 sm=1 tr=0 ts=6ad6003d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=h7aNHqOhPKB91FvYUefsSA==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=HqS2aciJiMUm7O0v5zsA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: MC6JZKl-gzYzS-9YvsTrBFHpdEp34Epq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190045
 
-On Sat, Oct 17, 2026 at 07:48:34PM -0400, Nickolai Zeldovich wrote:
-> On a kernel with user namespaces enabled (CONFIG_USER_NS=y, the default on
-> most distributions) an unprivileged user can free a live struct ucounts,
-> and the user_namespace it pins, while they are still in use, giving a use-
-> after-free on the next signal-accounting access or an rcuref "imbalanced
-> put()" warning. It needs no privilege beyond creating a user namespace: in
-> a namespace whose RLIMIT_SIGPENDING is 0, race a thread queueing real-time
-> signals (which obey the limit and fail at that namespace's ucounts level)
-> against one taking a synchronous fault such as SIGSEGV (delivered with
-> override_rlimit set, crossing the same level without the limit check);
-> both charge the same per-namespace SIGPENDING counter. The defect has been
-> present since inc_rlimit_get_ucounts() was introduced in v5.15.
-> 
-> inc_rlimit_get_ucounts() walks the ucounts chain and, for each level,
-> increments iter->rlimit[type] and then grabs one extra reference on the
-> ucounts when the counter goes from 0 to 1 -- the reference that pins the
-> ucounts for as long as the rlimit count stays non-zero, released by
-> dec_rlimit_put_ucounts() when the counter returns to 0. The reference is
-> taken only by the thread that observes new == 1, and only after the limit
-> check: a level that fails "new > max" jumps to dec_unwind, which decrements
-> iter->rlimit[type] again but takes no reference.
-> 
-> That ordering is unsafe under concurrency. The thread that performs the
-> 0 -> 1 transition is not guaranteed to keep its increment:
-> 
->   CPU0 (fails the limit)              CPU1 (overrides it)
->   new = add_return(1) -> 1
->                                       new = add_return(1) -> 2
->                                       new != 1, no get_ucounts()
->   new > max -> dec_unwind
->   sub_return(1) -> 1   (no put)
-> 
-> The count is left at 1 with no reference held: CPU0 took the increment to 1
-> but backed out without taking the reference, while CPU1's surviving
-> increment never took one. When CPU1 later frees its charge,
-> dec_rlimit_put_ucounts() drops the count 1 -> 0 and calls put_ucounts() for
-> a reference nobody ever took. struct ucounts is freed with kfree_rcu() when
-> its last reference goes away, so this stray put drops a live ucounts and
-> frees it while it is still charged and still on the ucounts hash, giving a
-> use-after-free of the ucounts (and of the user_namespace it pinned). The
-> symmetric interleaving instead leaks a reference (CPU0 succeeds and takes
-> the reference, CPU1 fails and unwinds the level to 0 with no put), pinning
-> the ucounts and its user_namespace forever.
-> 
-> The invariant the code wants is "rlimit[type] > 0 implies exactly one
-> ucounts reference held for that level".
-> 
-> Take the reference on the 0 -> 1 transition before the limit is decided, so
-> the thread that raises the count from zero owns that level's reference even
-> when its own request is rejected; the rejecting path then unwinds iter
-> through do_dec_rlimit_put_ucounts(), which releases that reference when the
-> counter returns to 0. The get_ucounts() failure path is unchanged: no
-> reference was taken, so iter is decremented without a put.
-> 
-> Fixes: 15bc01effefe ("ucounts: Fix signal ucount refcounting")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Hi Linus,
 
-Looks good to me. Thanks for catching and fixing this!
+Here's the pull-request with the updates for MMC and MEMSTICK for v7.4.
+Details about the highlights are as usual found in the signed tag.
 
-I'm personally fine with the verbose comment as well, since the race is
-subtle enough to warrant a clear explanation.
+Please pull this in!
 
-Acked-by: Alexey Gladkov <legion@kernel.org>
+Kind regards
+Ulf Hansson
 
-> ---
-> 
-> Notes:
->     A reproducer, available on request, wins the race within seconds
->     under KASAN or rcuref debugging.
-> 
->  kernel/ucount.c | 25 ++++++++++++++++---------
->  1 file changed, 16 insertions(+), 9 deletions(-)
-> 
-> diff --git a/kernel/ucount.c b/kernel/ucount.c
-> index ec8b1445e287..44a78ae80579 100644
-> --- a/kernel/ucount.c
-> +++ b/kernel/ucount.c
-> @@ -308,23 +308,30 @@ long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type,
->  
->  	for (iter = ucounts; iter; iter = iter->ns->ucounts) {
->  		long new = atomic_long_add_return(1, &iter->rlimit[type]);
-> -		if (new < 0 || new > max)
-> +		/*
-> +		 * Grab the extra reference when this walk observes the 0 -> 1
-> +		 * transition, before the limit is checked: the thread that
-> +		 * raises the count from zero owns this level's reference, even
-> +		 * when the limit check below rejects the request. Otherwise a
-> +		 * concurrent walk that raised the count past 1 is left holding
-> +		 * the surviving increment with no reference, and its later
-> +		 * dec_rlimit_put_ucounts() drops a reference nobody took.
-> +		 */
-> +		if (new == 1 && !get_ucounts(iter))
->  			goto dec_unwind;
-> +		if (new < 0 || new > max) {
-> +			/* undo iter too, releasing the reference taken above */
-> +			do_dec_rlimit_put_ucounts(ucounts, iter->ns->ucounts, type);
-> +			return 0;
-> +		}
->  		if (iter == ucounts)
->  			ret = new;
->  		if (!override_rlimit)
->  			max = get_userns_rlimit_max(iter->ns, type);
-> -		/*
-> -		 * Grab an extra ucount reference for the caller when
-> -		 * the rlimit count was previously 0.
-> -		 */
-> -		if (new != 1)
-> -			continue;
-> -		if (!get_ucounts(iter))
-> -			goto dec_unwind;
->  	}
->  	return ret;
->  dec_unwind:
-> +	/* get_ucounts() failed for iter: undo iter without a put */
->  	dec = atomic_long_sub_return(1, &iter->rlimit[type]);
->  	WARN_ON_ONCE(dec < 0);
->  	do_dec_rlimit_put_ucounts(ucounts, iter, type);
-> 
-> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
-> -- 
-> 2.53.0
-> 
 
--- 
-Rgrds, legion
+The following changes since commit c96ca94425b076dc398d929366e378d1e22ec794:
 
+  memstick: rtsx_usb_ms: complete requests after eject instead of dropping them (2026-09-30 17:53:31 +0200)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git tags/mmc-v7.4
+
+for you to fetch changes up to fd9af27f6c2319713bb23832066585f8a59a1771:
+
+  dt-bindings: mmc: sun4i-a10-mmc: add Allwinner B288 (2026-09-30 18:02:57 +0200)
+
+----------------------------------------------------------------
+MMC core:
+ - Add a power-off-delay-us DT property to support HW specific delays
+ - Add mmc_send_tuning_timeout() to allow hosts to specify a timeout
+ - Enable hosts to control the re-programming of the crypto keys
+
+MMC host:
+ - dw_mmc: Add a common watchdog and convert the various timeouts to use it
+ - dw_mmc: Expose the watchdog state in debugfs
+ - dw_mmc-rockchip: Use a tighter per command tuning timeout
+ - greybus-sdio: Convert to devm_mmc_alloc_host()
+ - meson-gx: Enable the bus pipeline clock on T7
+ - rtsx_usb_sdmmc: Start card power-up at 3.3V
+ - sdhci-cadence: Add Altera Agilex5 SD6HC support
+ - sdhci-cadence: Add Cadence SD6HC support
+ - sdhci-msm: Add support for the MSM8952 and Maili variants
+ - sdhci-msm: Use pm ops to better manage restoring of crypto keys
+ - sdhci-of-dwcmshc: Disable CQE error halt request for Rockchip
+ - sdhci-pxav3: Disable clock inversion for SD HS cards
+ - sunplus: Fixup initialization for DDR modes
+ - sunxi: Add support for Allwinner B288
+ - vub300: Remove the driver for the obsolete HW
+
+----------------------------------------------------------------
+Alper Ak (1):
+      mmc: sdhci-pci: Replace deprecated PCI functions
+
+Andrew Gaylard (1):
+      mmc: sunplus: initialise rd_crc_dly=1 for DDR modes
+
+David Laight (1):
+      mmc: core: Replace strcpy() in loop with memcpy() outside
+
+Geert Uytterhoeven (2):
+      mmc: meson-gx: Make sure clk_init_data is fully initialized
+      mmc: sdhci-of-arasan: Make sure clk_init_data is fully initialized
+
+Hemanth Selam (1):
+      mmc: fix typos in comments
+
+Judith Mendez (2):
+      dt-bindings: mmc: Add power-off-delay-us property
+      mmc: core: Add power-off-delay-us support
+
+Linus Walleij (1):
+      CREDITS: Add Pierre Ossman
+
+Lucas Tanure (2):
+      dt-bindings: mmc: amlogic,meson-gx-mmc: document the T7 pipeline clock
+      mmc: meson-gx: enable the bus pipeline clock on T7
+
+Muzaffer Kadir (1):
+      dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
+
+Neeraj Soni (1):
+      mmc: core: Allow host driver to control the re-programming of crypto keys
+
+Nitin Rawat (1):
+      dt-bindings: mmc: sdhci-msm: Document the Maili compatible
+
+Pablo Mazzini (1):
+      dt-bindings: mmc: sun4i-a10-mmc: add Allwinner B288
+
+Peng Fan (1):
+      mmc: use assign_bit() where applicable
+
+Ram Prakash Gupta (1):
+      mmc: sdhci-msm: Use pm ops instead of macro to restore crypto keys
+
+Rosen Penev (2):
+      mmc: sdhci-pxav3: disable clock inversion for SD HS cards
+      mmc: sdhci-pxav3: avoid of_node
+
+Sean Rhodes (1):
+      mmc: rtsx_usb_sdmmc: start card power-up at 3.3V
+
+Shawn Lin (11):
+      mmc: dw_mmc: add central watchdog and convert CTO onto it
+      mmc: dw_mmc: convert DTO onto the central watchdog
+      mmc: dw_mmc: absorb CMD11 timeout into the central watchdog
+      mmc: dw_mmc: expose the watchdog state in debugfs
+      mmc: dw_mmc: remove unused slot member
+      docs: mmc: document eMMC health status support in mmc-tools
+      docs: mmc: fix stale async request documentation
+      mmc: core: fix stale mmc_start_req() references in comments
+      mmc: sdhci-of-dwcmshc: Disable CQE error halt request for Rockchip
+      mmc: core: add mmc_send_tuning_timeout()
+      mmc: dw_mmc-rockchip: use a tighter per-command tuning timeout
+
+Tanmay Kathpalia (5):
+      dt-bindings: mmc: add Cadence SD6HC binding
+      mmc: sdhci-cadence: rename SD4HC symbols for SD6HC groundwork
+      mmc: sdhci-cadence: refactor driver structure for V6 controller support
+      mmc: sdhci-cadence: add Cadence SD6HC support
+      mmc: sdhci-cadence: add Altera Agilex5 SD6HC support
+
+Ulf Hansson (12):
+      mmc: Merge branch fixes into next
+      mmc: Merge branch fixes into next
+      mmc: Merge branch fixes into next
+      mmc: Merge branch fixes into next
+      mmc: Merge branch fixes into next
+      mmc: vub300: Remove the driver for the obsolete HW
+      staging: greybus: sdio: Convert to devm_mmc_alloc_host()
+      mmc: core: Turn mmc_alloc|free_host() into static functions
+      mmc: cavium-thunderx: Drop redundant calls to get|put_device()
+      mmc: Merge branch fixes into next
+      mmc: Merge branch fixes into next
+      mmc: Merge branch fixes into next
+
+bui duc phuc (3):
+      mmc: meson-gx: Handle errors from optional IRQ lookup
+      mmc: davinci: Handle errors from optional IRQ lookup
+      mmc: davinci: Handle optional IRQ return value correctly
+
+ CREDITS                                            |    5 +
+ .../bindings/mmc/allwinner,sun4i-a10-mmc.yaml      |    2 +
+ .../bindings/mmc/amlogic,meson-gx-mmc.yaml         |   29 +-
+ .../devicetree/bindings/mmc/cdns,sd6hc.yaml        |  105 +
+ .../bindings/mmc/mmc-controller-common.yaml        |   10 +
+ .../devicetree/bindings/mmc/qcom,sdhci-msm.yaml    |    2 +
+ Documentation/driver-api/mmc/mmc-async-req.rst     |   64 +-
+ Documentation/driver-api/mmc/mmc-tools.rst         |    1 +
+ MAINTAINERS                                        |   12 +-
+ drivers/memstick/core/ms_block.c                   |    2 +-
+ drivers/memstick/host/r592.c                       |    2 +-
+ drivers/mmc/core/block.c                           |    2 +-
+ drivers/mmc/core/core.c                            |    8 +-
+ drivers/mmc/core/core.h                            |   10 +-
+ drivers/mmc/core/crypto.c                          |    2 +-
+ drivers/mmc/core/host.c                            |   39 +-
+ drivers/mmc/core/mmc.c                             |    2 +-
+ drivers/mmc/core/mmc_ops.c                         |   22 +-
+ drivers/mmc/core/sdio_cis.c                        |    5 +-
+ drivers/mmc/host/Kconfig                           |   31 -
+ drivers/mmc/host/Makefile                          |    2 +-
+ drivers/mmc/host/atmel-mci.c                       |    5 +-
+ drivers/mmc/host/bcm2835.c                         |    2 +-
+ drivers/mmc/host/cavium-thunderx.c                 |    5 +-
+ drivers/mmc/host/davinci_mmc.c                     |    6 +-
+ drivers/mmc/host/dw_mmc-rockchip.c                 |    2 +-
+ drivers/mmc/host/dw_mmc.c                          |  316 ++-
+ drivers/mmc/host/dw_mmc.h                          |   18 +-
+ drivers/mmc/host/meson-gx-mmc.c                    |   31 +-
+ drivers/mmc/host/mvsdio.c                          |    2 +-
+ drivers/mmc/host/rtsx_usb_sdmmc.c                  |    5 +
+ .../host/{sdhci-cadence.c => sdhci-cadence-core.c} |  303 ++-
+ drivers/mmc/host/sdhci-cadence-phy-v6.c            |  975 ++++++++
+ drivers/mmc/host/sdhci-cadence.h                   |  118 +
+ drivers/mmc/host/sdhci-msm.c                       |   34 +-
+ drivers/mmc/host/sdhci-of-arasan.c                 |    4 +-
+ drivers/mmc/host/sdhci-of-dwcmshc.c                |   13 +
+ drivers/mmc/host/sdhci-of-esdhc.c                  |    2 +-
+ drivers/mmc/host/sdhci-omap.c                      |    2 +-
+ drivers/mmc/host/sdhci-pci-core.c                  |    8 +-
+ drivers/mmc/host/sdhci-pxav3.c                     |   13 +-
+ drivers/mmc/host/sdhci.h                           |    2 +-
+ drivers/mmc/host/sunplus-mmc.c                     |    5 +
+ drivers/mmc/host/ushc.c                            |    5 +-
+ drivers/mmc/host/vub300.c                          | 2493 --------------------
+ drivers/staging/greybus/sdio.c                     |   11 +-
+ include/linux/mmc/host.h                           |    6 +-
+ 47 files changed, 1825 insertions(+), 2918 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+ rename drivers/mmc/host/{sdhci-cadence.c => sdhci-cadence-core.c} (67%)
+ create mode 100644 drivers/mmc/host/sdhci-cadence-phy-v6.c
+ create mode 100644 drivers/mmc/host/sdhci-cadence.h
+ delete mode 100644 drivers/mmc/host/vub300.c
