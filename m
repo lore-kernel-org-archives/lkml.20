@@ -1,95 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.1
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792436696;
-	b=jkNgXEZdxHbTm0+0WGVWw5DgofLgQ+/PBsoRPIvIzW9f3tQQ8q9h5ETzhaaXsxcA0sYF
-	 /wLAztmRsPKDvrXCbFloLHy4Mn1fcudoNQNtQdLjy3xRA2Okt+KO4zEygG8BUcwOFF480
-	 x5ZHlWugrisorRro77QUcNl2t0qITFGWGRAaaVq9emS43AnCNnANmaUhcXG1kRHuCxDri
-	 oFIOUf5oUrKgzadq/a1Yaf3f2oz69fP2Pj/XWJBz1UjMQ37vcEQKbyEoCBTDUkEQoHcMR
-	 vyyMf9ukTUCQlB1bY1u9EolcgMPcfglC+PZpImJhxy6poI8FV6J1JGT4ws/oD0lZjBA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436696;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:From:
-	 Subject:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=OwXkYju8Q6RlcwZxR6BWht000Jd6fsJD01BPXoy4dqQ=;
-	b=BFrf8IZTW5EhEgxNB+b3LT9loJnjm4xuHA7Sfx7rBONmOFPcPXcARLpA6NiD/o068T4q
-	 xwKh5v6pUAYq9K11DqS4ASuABTZT2rJ8Jek5590/nloDQdwyiGERLEzX10BRpRmFMIYlx
-	 HdGTqRSjRMrIrNvoYkg80rXA7CUxDULt5IGeLs3Xjyj6PzI7V7l3H3R+2QURDX2jKqbB3
-	 FRcpb/nlnZT6yAQcFiW1J+TibR7nlIeOKSWWCx02pjug5vmxuKbGQFBioweooPm2j6AS8
-	 FlR9FTm5QAJLhLjFcCLKEuiCvc3E34kylLXEzQPZ//AmuVySiLIdhjgXm0dguknnX7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=poMulWY5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.1
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011001.outbound.protection.outlook.com [52.101.52.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792436712;
+	b=w9PqKxF5U9GAuk8V3zznuKUN3cDGQtmVxgDyralsEbhNF1VYQEGK2WEwFNKJxh8cJ+AT
+	 ZSm/D3STWp+lhPAOBJwzEx1bBm6D6p4/XjJ0iQd4hmnV/bZzJXsMGFxVrQC6c7pkWMsk4
+	 E86JfWa4sCPYjznrv/jzDSoSj+s3+ioBTP22BNkjsps484ix/lTvX0ETPGH7hI78JZVM4
+	 VW++rTTU4T1/+LU0jIYiQI3SCFaE6IU0UEUPMdzN9l8Av7tRVaATzUA1YoUTU7j9a6gpb
+	 18G2uTJe7GXbAxltzp5bBUCnwl8jZ5P6m9nyAPO6cvFFGtW9kgg8U8Zc8SszSDnD1YQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436712;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zpmbKGaFEA3TJR1yUi9WhNM/6RoCWpD5DQ4UC5ezlj0=;
+	b=mZkWNE6cCLTE7YrPSzFqMOqo10cVk+lMJJkRtiBacvwXs3mQMgyeld2v1ohe7upj/G3p
+	 /DblamHhqFzfqeLWnk+/julvWYssoUoT1ruvVjbiU0qIaI9i3D8HcJ0Fu2p1QKyGJ0lRZ
+	 egFMxFT+K5lGmdcoyP8OLyCFF+GBs+YuvtCYIW8yRKs2KT2UIBzTDacronm/SipAzWm8L
+	 We9wd5tRKpW2hOPjR4MxvJvmQJ1nunQMtVNe/vDYPZaJ6+5UH5iJ25+h6KMXJIKldHJdV
+	 tQiRltp/V1WLVZk5qGUFIHfI2SUUeKzx2Xg5/8h7Cs64EzwkxTsLRMnzD3cx9uB14FQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=DGtPOJN6;
+	arc=none smtp.remote-ip=209.85.210.47
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAC4606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:04:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AAC4606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CEE606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:05:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55CEE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=poMulWY5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Quki4Pm/YOkNehuQnX19D1guCzjsXuIxs610kQXmro8JDecGTT5oUreB8qAtHgbZ4IZGeShQVtsAFO4N/pfmYHWW5q6PIE96cY5sMSSDr6mnpu0iYBJm7IjqHMQ/6iA0DGMp+/jVPVT7HVCMw0M+kKynPcuMGQvDW5cVkY4LnwMKkE46wMybO1JfOl9ulsZFvIMWvj99/kxmLFgVBbHQ81UNieTG2xCKxZPGwzFTo7cE/wqtYNrRhC2bRJsYtkDDdnjL/KBVcM4i3TiVWQvMgEKAm3LusJS/2Vl+MIiNT08u0IWr2SHl9e0qjpZH+9treiLJOUHfC8pYEk2k8SnX9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OwXkYju8Q6RlcwZxR6BWht000Jd6fsJD01BPXoy4dqQ=;
- b=DxH7Nvv921GaDyjCHn1lUTeWolUdqDxMgaTTvuYqq7NW5SgzfdBSL1BaMrQLUAP8UlCSh8ICfcb2vX+xQxToO/2I5dHlVN/hc9SlgcC7pSCfbcfT5dVk9u/Kc5kaTiF190JwKxMHgtzVq8L0Hq0SJZFHOva2eM4FOaiZCAMAdwamgu4wfVIZJIvIkzRPoSF4HQJxuU4O9aMua8PfMsLPyra4P1wzYNbTo+jkw9tsa2dLnl0VtWrfyVLSVCm9V5ub+O0kK2zA5PYAuJgSgR9+GrdyCmNJ+q8xznH0SLLYgutO3TDdiUvu0ktRqj1Mv/8EsxaAPbpTD4qia4mY0Ku5vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OwXkYju8Q6RlcwZxR6BWht000Jd6fsJD01BPXoy4dqQ=;
- b=poMulWY5fEGJrY0y0o/Yt79h0ISl2ly0Kr16G3LnUtWrk7jOrORMrs7IIgDPW1oppzLzBuQrOzO9HPJNsDKM1Rog8aWymrnkfVvdhFHf+FLg3EMmudx3g7rI5t0tNJGMnWaAFIuRMxw8oYBd56dZH3Dm31Ga+xvcRLuFojbX4ot+lONn/AbeyIbcVL21qqT/u6LIvAiISDTLK1hIkkHIQADhZ0BE84Iy3yDu0y9C/F3z3JbCT83/IMBOx3NtIQAHZEkBVNjII7xAy7HIotL4Lcua738LxldzoYYV4frza3kLtbiMngWNksmLWYwF4mBL6rnMHsyzA6a5U5zcIuxzwQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CH1PPFF9270C127.namprd12.prod.outlook.com (2603:10b6:61f:fc00::62b) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 19:04:46 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 19:04:46 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 15:04:45 -0400
-Message-Id: <DM91RXTJ5EFF.2YQARRB6TXQIK@nvidia.com>
-To: "Gregory Price (Meta)" <gourry@gourry.net>, <linux-mm@kvack.org>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH] mm/memory-tiers: reset demotion targets of nodes
- without memory
-Cc: <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>,
- <akpm@linux-foundation.org>, <david@kernel.org>, <joshua.hahnjy@gmail.com>,
- <rakie.kim@sk.com>, <ying.huang@linux.alibaba.com>, <weixugc@google.com>,
- <aneesh.kumar@linux.ibm.com>
-X-Mailer: aerc 0.22.0
-References: <20261019184712.3422641-1-gourry@gourry.net>
-In-Reply-To: <20261019184712.3422641-1-gourry@gourry.net>
-X-ClientProxiedBy: BLAP220CA0030.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:32c::35) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=DGtPOJN6
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-84621d8c7aaso820025a34.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:05:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792436709; x=1793041509; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zpmbKGaFEA3TJR1yUi9WhNM/6RoCWpD5DQ4UC5ezlj0=;
+        b=DGtPOJN6BeFxOnGhsq2QFxfh0Yf7BDTFRSvDUn0rV5YpZRES6jO/jjwcFkezj61q+a
+         O0m9K8/Y72aznD+vkPSrKngelQM+agk3IK5hDisvtWH+fN8Re3jTeUzrovdjRZixlFug
+         ZSftLFNiE7wFX8I8C9tmViFAzr/cIlDvpM8zVaYiTcmxAKUIjDivqHPmqCb8m/pdB5Sl
+         p4vxlvE+RPCwg4bay7Ilm7ZI5e7zzaY13bgmwk37YAdDF3MIprAw4F8tLiemP0d1FKsB
+         3ENRqRwtccPQjYaOsVIdTO+9sI2RGmOJKWQ/3GoXjeUWrOA4eXjlXRSZ6UkW28938ETx
+         wIiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792436709; x=1793041509;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zpmbKGaFEA3TJR1yUi9WhNM/6RoCWpD5DQ4UC5ezlj0=;
+        b=0yxvL6sR62pjPFXbbKDxJR7R3DKH9j7D0Uu9F9eS/v0sRbEt1GNp+ysibvv7C0pfBO
+         65cB7+hVRC0RlRfawDiFwxT5YUi7C+vfZqBy6kscDpWFpRvRk8LPx98YwzBHumqPdpyk
+         u/grCu6y+1FDlqIzVtK+k7pkPibkNauNQzthWdULF4t/m6ZbRMJDiNiACBEjjnhSnWWw
+         bnHmT+fLPF9dKGEATiFSr/6ELD5rWh2dokERvDd9ODr91pjdK35az6AVjf9ve1HCiPZz
+         jCoRcgWpBLRVcmM//uzZWn8Lc+EAvD2nfdKPXf6DR0LddnB2Hrddoc6FsH1BSW6onNyC
+         U3tw==
+X-Forwarded-Encrypted: i=1; AKwUvBxg7TlMK4EiP+fZ3viNZUupRNlI4O0jPfrX1dIAfQusRZ5/XNjv6gK58RH9zhFMmTc8vaBKGwRrbj9hK5U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpFZfNHoxGa+My3MQ8JJuoSchZspgeaBC+txXj5PQh4PwFjP3U
+	3qOX7KgF2Ur2RsNrfUN1OKMd4HqURLbOQWNdwYAtIg/Bj+7zsr5/OCrFPKBaSIYHXas=
+X-Gm-Gg: AYBFou3N5UnyzKfCxS9nAdvYg/HNbpLUHWRFODcAuj1DwD6AQcRA8ISyDyYQyGl76Zp
+	Qzb6HMA5t2knlbz2KgPfOsDlEGtCykxX5f0Bdoozoz6AZBxvbCGRV3erTjAeu8lQ8njBiMynLbS
+	P9JltTFKGFb3tp9ROgwHvDi6foh1YE7KUY37h1DSnj8Yi6JDZLtlOQM+ITA4qwGUIsfYVnbTcBm
+	6vDMdRpxaI+OfpiJ4WyOUPxlvHvUBIxJ0764e50S84uHO1ehQZrR1fVFJpttO/oGhNt5KML8n/G
+	6yFcoWIDiRxAgaSzmmbHXGzzWrL/nukzbP2FuuZd2QIsXbbugeQKCS2rRt+W4YRB0r8toTormIr
+	qo4sYxnx5lhXUgGTP6qPWk6XUIPVx5BYdHzXVtSxDBQQ2O6uIwJLWyrR+K3Voor73GmHMkM2qEb
+	woqG0C0utUd1yWcrN317dxdM8uMYXhPwOEoL9GOTRpTCOmZ1EMGu4P+NGxIv2gNZWj/ZtKpqf4m
+	ag9ken4RpE96N5/Tlz2pTfjv5ij7HXUoIc+wgL6G77Hg0rA2AFi02o=
+X-Received: by 2002:a05:6830:d0b:b0:826:b77:adef with SMTP id 46e09a7af769-844fe96d6b2mr8373623a34.14.1792436708807;
+        Mon, 19 Oct 2026 12:05:08 -0700 (PDT)
+Received: from [192.168.2.38] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8498d1a4bfdsm3423495a34.20.2026.10.19.12.05.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 12:05:08 -0700 (PDT)
+Message-ID: <23ea58c1-0692-4f11-80d1-8845971902be@kernel.dk>
+Date: Mon, 19 Oct 2026 13:05:07 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,117 +91,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH1PPFF9270C127:EE_
-X-MS-Office365-Filtering-Correlation-Id: 283a8e5e-87b2-4bb5-a1a5-08df2e13d77f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|7416014|22082099003|18002099003|10067099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	NZA/zSO05nJ31oB6SUl3n2b+myK+1n/9tIIDN1+4EIfzxW9OT6cnvfKpfyRr19KJzxbU7x9PaD82PoyCQxeS4fSspC07ht53s7EgSHO94YF6J3h8yrznfKZzHQyPnRXrPgImJo+j/1tcA16PGPw4ggtROde7YHw5Eo56vFvH1AoQDtaSZUpGgU3k5GUvdKC86V4BQ28w9VT+ioKfWDfgjSX4KJ2yNK9G8D7Y0Y8ArfSIYCGgXaqnuQyfzyLrOYEhEBp8VJ9bpOehUcsM3MUPOL1icpGrow6NM+yhk972GIpgeP5z0LbjHikA22zqlT1dV12zwcsOiF0ULRX1ktzpMVmc0dIF1fuDN+3kBf+PsJUa2M8vmvaGRVK6YnJQP78ZghGR5r9lkX4Dpq2DoR712yWfLylPFcYtOA5004fivaaL3W3xdnFPHTfVnd7Yk4TBBbctjNykNXobOq0xJWM3zpQ1IsxphrDC8FlleUZYIhUMZ6tzDxXTjU6tIQphdt7wFIR6Tpk4A4v9Xe0MiDCg1S9Rizo9uNc59jrT0qavk+AqXPaQOuesp++9h5XjIN0zAUCNct6TtABHSf35QuafjarHuDyD9/nqLc8RNeRCESTSbjq/USTmM2v6vO/qx6Ks8jliN09HP2wSRlelLr92L/posLLX5QUzwt57A9+3ZJg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(7416014)(22082099003)(18002099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?blBzOS9rZEhZWmp5RFhaSjlHQ25LNCsxTWlMb2lwZ1hUSGt0dWR0YSs1K1N5?=
- =?utf-8?B?NDNTemsrR3hLS0l3dkRoNS9OL2RvOXlrU0FmL0d6all6bVE2Kytyd2dySnNV?=
- =?utf-8?B?T2hRUUpSYmN0dEZwZTdsdkw5cUp2TVlNRTFBbEhOWldkTWZrNVpzNnV3Y2hH?=
- =?utf-8?B?V0JjWXlZT0RoUTBOaSs1b20yakZNUHVVMzhQQkd0L1dTb1hZejFSaFEyTEhx?=
- =?utf-8?B?bVoxWGtJRWFON3ZQZUV1RGdhbnp6UEJCZi9IdDBCTFQ0SllnRnVOK2kwdi9S?=
- =?utf-8?B?OHpmTmZMMlRwOXVOT1VVazhMdGgyRUVZa0ZvKzhrQ3BPbkJtYVFFeHM4MW9H?=
- =?utf-8?B?NDNxZStOR051b3VvaWx5ZjErWXRqYkdCa2FZblp1eS9nZ3pKa3VqTkIzallP?=
- =?utf-8?B?TC9hZlpGdHM5bFRDcmpZYWY5RXZvMVZ1Z0lYaDZpYkVSMnNMQU9VbmZKc2Zx?=
- =?utf-8?B?SHE5WGpTVHVGSVBPcjBCMXB5UDFpVjJMUWcyMndSMnQ4anV2WVJEdDdYSm5t?=
- =?utf-8?B?M1NlS1BGSHBMR3drdHQ4WC9NOHRKVDAyQTBwRWZ5RjlyK01jODFqcEFlRDdW?=
- =?utf-8?B?MCswY0dINmt4a2YrQVB6SW1pcmhHZzdNYWVSYWVMTmRDcTdQbFFMenNtSGFO?=
- =?utf-8?B?eWJpQktzR3IwS0xBSnR6cXkyN3FUQ1pNeVk1d1ZrQTE3V3JRU2ZGbVdwMWxl?=
- =?utf-8?B?OGUrZG5aOVZvSldZS0JmMDlBNk90RDg2NldwWnZacEhIMzJhSllMclRFWWJ0?=
- =?utf-8?B?cXVhbUdOa1dtOCtyZmxJZUFpcHI4aGxtZy8rUlNOeWtycTlVVmRHb2VnaVNv?=
- =?utf-8?B?Zmk5Wk1pMkd3OUJEZW5yandHeXRWbThjS0loKzlzeGJqUm02dXh6WDRSenh3?=
- =?utf-8?B?Yyt6aXZoNXVrMzBKM290NHpiVURiRW4zQVBUak5Ua3NZUm5veVFHOEE3b3pE?=
- =?utf-8?B?ekZ3dWVWUkR3d0hoYk92UHEyL3pSN3dGbzVjaG93K1JXSy9zYkt1cUpYbCtD?=
- =?utf-8?B?QndodWZUbm9CNGJ5WlRzZFRLTk1HU2k2Qys4V0lxU2NEWi9LL3YrSkpSdUxm?=
- =?utf-8?B?bzBMSGVmcFVlc0tFWDcyRGNwZlRac21aU2pZZnNpaTZNR2k2OVhPOGNNK0Va?=
- =?utf-8?B?Z3VQU2RlYU5weVF6MFFDWmxLLzVONnBKcStKV2NBcHlZdTUxS0Rld3VsUFNh?=
- =?utf-8?B?M29jSHZsZ3BJOEpKQ1pqYXFqYXpoMXhjSnRSenRWQUNiYkVSQ0F6d0d5Ull4?=
- =?utf-8?B?L2U1VVFrKzIyOFRsL25acncyTklBQzlrOGhHS0lSNmc5OEJkWnJSSWxpWW1x?=
- =?utf-8?B?cGEycnh1UTkrQVdTTVZkYno0aThmZENROXVIQkVsbXhXaWNEWnNBUVR3VVNs?=
- =?utf-8?B?TjhHVTZwNnRleXJlS0NGSllKdWpnSCtMOUtqd1F4T2VYYVpIcXBwRXNoVFBD?=
- =?utf-8?B?ZEFTZVpHKzhkZkJReU80SitVTnhmOXBGN0lGWTdFS0Uxcy9YMFJKOGdKUzZW?=
- =?utf-8?B?NGsxM3VxY2Z0Nm52V3psSjRManYrN0UrR0E2bytnaVFjODI0RXpDZkdtRG1n?=
- =?utf-8?B?dnV6NjJKeTRlK3Jwbm1yQU4zajdDNUZBbGVyMGc0RWtnOXVUQmlSSHZrV2V6?=
- =?utf-8?B?K3NiWHlXNUovdXQ4cEluT09GU3lXRmVtOUREQ0FocnhRVWhubDJ3bFVCVXhS?=
- =?utf-8?B?dlpOcWg3NkZRNHQwb01zcTJwNEEveTNIZit0Zm1PN3ZtSm41SnJvSjVGdno3?=
- =?utf-8?B?S0FBVnZRM2V6ZWl1NnlrTVhDWS9jbnJTWXNwNWZIZEJtU2E0Q1VKRllyZFd6?=
- =?utf-8?B?bnBPZUNkS3U5QXJ3TVIvNnFUR2dscmZHRjZCbXg0ZHZQMGxnbjZrL29SQ21Q?=
- =?utf-8?B?bDZaUUNydzMvcTUwaWVGbHBmTHBqSGE2Z2xtZDAySXNWaERtMHQ3S3Z1ak01?=
- =?utf-8?B?UHl0T2dXRWFVeDFUeFBuN1lOYWNQVW5ha0x3TzVmOXFYeWRrMnFubnlQNk9S?=
- =?utf-8?B?WVhETS8vYkpja09uWDFTRGNZVHJQRHJrelovVTlsdVZJdXc3cXBLSTRmN3ZZ?=
- =?utf-8?B?TWVUUzQ3YWE1cmxCM3FmOEQvWiswb1BRZVo4Mjk3VTFqRmE2bkxLWURiTnQ4?=
- =?utf-8?B?VmpXbzBoTlE2L2pZcnhnRlRmeFRORHdoR0s3TmVZeUpLQjM0RWJKQzJoeU1P?=
- =?utf-8?B?aU9QdWpqUE1sb0ZBQXhJdFFTK1g5d2M1aXJvRGVuQ2Y3VzdXdlVQS0N6eFNR?=
- =?utf-8?B?cHNORGNhQ2J2aHlrSmQ1Y3NySEpuMnlrR1lKWVpHTlFOUy9GOVR2L3cvUlJm?=
- =?utf-8?Q?5yuoHU5ufxo/Vsk5E0?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 283a8e5e-87b2-4bb5-a1a5-08df2e13d77f
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:04:46.6382
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aZfMHTX/vJ9dwHINNjbE46Aeq4rQ0K4X9G1Rxxp5Em3mO4aTJlMTXfc/gwg1uMIL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFF9270C127
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring: don't sleep on a claimed DEFER_TASKRUN wakeup
+To: Daniel Byrne <daniel1.byrne@intel.com>
+Cc: Pavel Begunkov <asml.silence@gmail.com>, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261019150607.4026170-1-daniel1.byrne@intel.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261019150607.4026170-1-daniel1.byrne@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon Oct 19, 2026 at 2:47 PM EDT, Gregory Price (Meta) wrote:
-> When a node loses its last memory, offline_pages() clears N_MEMORY
-> before the memory-tier callback rebuilds the demotion targets.
-> disable_all_demotion_targets() resets only N_MEMORY nodes, so the node
-> keeps its old node_demotion[] entry while it has no memory. Before
-> 6c542ab75714, the reset covered every online node.
+On 10/19/26 9:06 AM, Daniel Byrne wrote:
+> A producer that stalls between publishing local task work and
+> running the cq_wait_nr wake protocol can claim an arm from a later
+> wait cycle than the one its work belongs to. The waiter may already
+> have drained that work and re-armed for its next sleep. The claimed
+> wake then fires through wake_up_state() while the waiter is still
+> TASK_RUNNING, before it has set its task state for the sleep, and
+> is a no-op. The arm is spent and nothing restores it in time, so
+> every later producer reads a non-positive cq_wait_nr and skips the
+> wake. No producer wakes the waiter, which sleeps while the
+> completions it waits for pile up on ctx->work_list.
+> 
+> Three waiters arm cq_wait_nr. io_cqring_wait() and the BPF loop
+> waiter io_loop_wait() arm it a few instructions before
+> set_current_state(). The third waiter is the cancel wait in
+> io_uring_cancel_generic(), where exec waits for all of a task's
+> inflight requests and exit waits for its tracked ones, such as
+> futex waits. There, io_uring_try_cancel_requests() arms cq_wait_nr
+> at the start of each cancel pass. The task state is set only after
+> the whole pass, so the window spans the io-wq cancel, the local
+> work run and the cancel walkers. That wait has no timeout. A
+> stranded exec sleeps until a signal arrives, and a stranded exit of
+> the last thread, which no longer receives signals, can sleep for
+> good.
+> 
+> A prototype that busy-polls device completions in TASK_RUNNING from
+> io_cqring_wait_schedule() while armed (to be posted separately, as part of
+> the io_uring DMA copy offload) widens the io_cqring_wait() window to
+> tens of microseconds, and those completions push local work from many
+> CPUs, so what is a narrow race in upstream io_cqring_wait() wedged fio
+> reliably within seconds there. Every ring was parked in
+> io_cqring_wait() with exactly its queue depth of completions stranded
+> on ctx->work_list and cq_wait_nr at IO_CQ_WAKE_INIT.
+> 
+> Add io_cq_wait_arm_spent() and refuse to sleep in all three waiters
+> once the arm is spent. io_cqring_wait() runs its wait loop again,
+> and io_loop_wait() returns to the loop in __io_run_loop(). Both
+> loops drain anything pending and re-arm. The cancel wait runs
+> another pass, which re-arms. Each check follows the setting of the
+> task state, so a later claim can no longer be lost. The cancel wait
+> checks only the rings whose deferred work the task runs, because an
+> arm wakes only ctx->submitter_task. wait.h documents the rule next
+> to IO_CQ_WAKE_INIT.
+> 
+> The check relies on nothing else restoring a spent arm before it
+> runs. The min_wait timer stores an arm only during the timed sleep,
+> which starts after the check and cancels the timer before the
+> waiter checks again. io_uring_try_cancel_requests() also arms the
+> ring when io_ring_exit_work() runs it or when a task that does not
+> own the ring runs it, such as the creator of an R_DISABLED ring
+> that another task enabled. Such a store that lands between the
+> owner's test for pending local work and its check hides a spent
+> arm, and the owner sleeps on work that no later producer wakes it
+> for. Arm only in the owner's passes, the ones that also run the
+> ring's local work, as the owner is the only task an arm wakes.
+> io_ring_exit_work() never sleeps on the arm and runs stranded work
+> itself, so it needs no arm.
 
-establish_demotion_targets() uses for_each_node_state(node, N_MEMORY),
-because the to-be-online node is already added into N_MEMORY?
+This should already be fixed by proper ordering in my
+for-7.4/io_uring branch - see:
 
->
-> A reclaimer reads the stale entry only between the node regaining memory
-> and its targets being rebuilt, and it filters the entry against the
-> current allowed targets, so there is no user-visible effect. To see it,
-> online and then offline a node's only DIMM: a debugger still finds the
-> lower-tier node in node_demotion[nid].preferred.
->
-> Reset the targets of every node.
->
-> Fixes: 6c542ab75714 ("mm/demotion: build demotion targets based on explic=
-it memory tiers")
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  mm/memory-tiers.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
-> index 25e121851b586..7197f1a67a340 100644
-> --- a/mm/memory-tiers.c
-> +++ b/mm/memory-tiers.c
-> @@ -378,7 +378,7 @@ static void disable_all_demotion_targets(void)
->  	struct memory_tier *memtier;
->  	int node;
-> =20
-> -	for_each_node_state(node, N_MEMORY) {
-> +	for_each_node(node) {
+8257f6ec45ee ("io_uring: don't lose the DEFER_TASKRUN wake up")
 
-I think the above code deserves a comment explaining why for_each_node()
-is needed instead of for_each_node_state(N_MEMORY), because when a node
-is added or removed during memory hotadd or hotremove matters here.
+and
 
->  		node_demotion[node].preferred =3D NODE_MASK_NONE;
->  		/*
->  		 * We are holding memory_tier_lock, it is safe
+76a82c666abf ("io_uring/cancel: rearm local work wake up before sleep")
 
+Please take a look and see if you agree.
 
---=20
-Best Regards,
-Yan, Zi
+-- 
+Jens Axboe
 
