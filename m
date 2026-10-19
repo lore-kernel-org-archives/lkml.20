@@ -1,139 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB514DEC3E;
-	Mon, 19 Oct 2026 13:35:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E674E0204
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792416944; cv=none; b=pLRhIQjmwmuA6lvuqDLu0do9NkTrv0TEbgmjX1qFGQGQxIJTLJcRCFH/chUQ8J/b6XmRYhqPVKC6MMwKU/V8Q+0aaXOyGT0K11kxsNLSHb3TUzXo89PioQGYapxdkDnSJyQH+v2Zp7KCEsAt2cReadENSxXAMkUu7HkjTJRC82U=
+	t=1792416970; cv=none; b=GmH5gDD44ZTt3y2RKjrQfPWaCBHwmKlOC1lC72/8bg77GZ1Wz5+Nm4hrLQehaZekdxvrgSZVY3aQ+QxZfCwGuXJ4iW/OO2nZXP5dfuZfxPRYOKWfR7SuAut+8UuZdj9XHaNQoOIBd6N/tfqUiTr0H3xa9og5/okmgE2SO3dKGew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792416944; c=relaxed/simple;
-	bh=YYvE0sRBu1sVS+gOH/0QzLApX8jyXQUMwjo9mnz28FM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BIibSEi/aZjtg39Ez0UswHwGmPthOaQjHkDp6I0TfHMD2W9WdPqG3i4Samz3tk/SIzRmjeZIUn213JiY+QloqCGPZ758lh0H71ucGkGZbis+2ugxxwYuvPSg/mKwWF30+ngRd0r06phZS1SNRouJ0w31wNuZTcc96t3pRRRGfX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iCaeoJzG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792416970; c=relaxed/simple;
+	bh=Ps7Go3xP5HMjfsfq7Eq3Svlmz9WqBPCZvkB2NJg83GE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G6u+TR6U4yKzUBBgZtssVM8KYDhwkchhZnSiXh/WUV2ANQ0jK/WMTtbd/x87v2rmrVPhn6ttq7q/Bg/6W+noxutVI41762hUXLx1Le0O48BIouXrqRdNXMJ++aynBxmXk8sWUNRSSIb3UtuxZLP2zFFdX+bwP8wupwEpsu2dhcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=U/HU94tg; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iCaeoJzG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 574731F000C4;
-	Mon, 19 Oct 2026 13:35:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792416942;
-	bh=rhfvYQElhBdedNKeQxhemvLQ7lZKA7SpMfLghyJzDlI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iCaeoJzGi32z7OgjNCpsdNbhFcUQB+3Gysu7sXHSnjpWSU6rdvcTEoHg5Irw6Yqfu
-	 cewqMZLrZQLa/Vq4S0HPTa6kyokuG74fQrWKMtkKZit/Rn/m9rrD04vJIte1asArN6
-	 DMYVExSCAbu+lEUWOkOr6DXrnTp8p6m1EIC3MBmU=
-Date: Mon, 19 Oct 2026 15:35:38 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hv/vmbus: copy dynamic IDs before dropping the lock
-Message-ID: <2026101936-livable-plug-8bc9@gregkh>
-References: <20261019085544.1834700-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="U/HU94tg"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id EF089240103
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:36:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1792416966;
+	bh=hNbyYL6sFBG2U8Y87Q4AqsX6THkGWQP8zQyGjqptp6I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:From;
+	b=U/HU94tg1PC5ajDmaIXcp6DW0Z9cmGkaSlNKH+OZn9roOk8+nBlhOcoJu9IqWC67U
+	 DhaA1PMb7xBFf0mOCzMkd/cjI0UYGY1WyPJnDGbSKHze6UI1ZoqSb38EhklZIk9cbu
+	 YKaJ2KH22y/eWxmVgHb625pL39X+HW+gTSRIe7VWrOJs2cjFDbb0jFg9qsznab+d4M
+	 sFBOrrrZKBtVQZqzPe7KBSDpqHWU6CwQRuTXqruV9xEZvoSIQUs9gLfuxD5HFwfS6k
+	 /17DJLgNvxFFGKV2iPRugAI5i5TLxwj9THEIM2MI2WQ8z7GjkkEmq2PazQXMEsoUzH
+	 f5czHQBqqWG8A==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4j7c512T7gz6txf;
+	Mon, 19 Oct 2026 15:36:05 +0200 (CEST)
+From: =?UTF-8?q?Rebecca=20Mara=20M=C3=BCller?= <rebecca.mara@posteo.de>
+To: Denis Benato <denis.benato@linux.dev>
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luke Jones <luke@ljones.dev>,
+	Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+	Ivan Levchenko <me@livan.pro>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Paolo Pisati <p.pisati@gmail.com>
+Subject: Re: [PATCH v3 7/7] HID: asus: Re-send the Zenbook Duo keyboard handshake after probe
+Date: Mon, 19 Oct 2026 13:36:06 +0000
+Message-ID: <20261019133557.14092-1-rebecca.mara@posteo.de>
+In-Reply-To: <07076668-3291-4eb6-888b-0e6c518ef21b@linux.dev>
+References: <07076668-3291-4eb6-888b-0e6c518ef21b@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019085544.1834700-1-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 04:55:44PM +0800, Jiale Yao wrote:
-> remove_id_store() can free a matching dynamic ID while VMBus is
-> preparing to invoke a driver probe.
+On Mon, Oct 19, 2026 at 01:03:34PM +0200, Denis Benato wrote:
+> Very good to see it sleeps just fine. So yeah a command is missing...
 
-And how can that be triggered?
+Thank you for the roadmap, I went through it on the UX8407AA with
+BIOS UX8407AA.308. I have since updated to 310, the latest one; its
+ACPI tables only differ from 308 in relocated memory regions, so the
+findings below should hold for both:
 
-> Copy the ID while holding the dynamic ID lock so probe never receives
-> a pointer into a freed list entry.
+- asus-nb-wmi only exposes the basics here (kbd_backlight 0-3,
+  throttle_thermal_policy, charge_mode, screenpad); no TUF/ROG lighting
+  or power-state attributes.
+- In the decompiled DSDT, WMNB answers 75 device IDs. None of the
+  TUF LED power IDs is among them, so it is not a firmware that claims
+  "unsupported" and accepts the write anyway. The kbd backlight ID
+  0x00050021 goes to the EC (SLKB), which does not reach the detachable
+  keyboard, a separate USB/BT device.
+- The LPS0 _DSM in PEPD only notifies the EC (MS entry/exit 0x9a/0x9b,
+  display off/on 0xb7/0xb8, entry/exit 0xae/0xaf). With
+  pm_debug_messages on, Linux calls all of them on s2idle (screen off,
+  lps0 ms entry, lps0 entry, and the exits), so nothing is skipped on
+  our side.
+- With dynamic debug on usbcore, the keyboard does go to USB suspend
+  ("usb 3-6: usb suspend, wakeup 1", and "wakeup 0" with wakeup
+  disabled), and the backlight stays on in both cases.
+- The backlight only goes off when the keyboard loses the connection:
+  lifting it off the dock during s2idle turns it off immediately.
 
-Why is this driver allowed to handle dynamic ids at all?  Is it really
-required?  That will taint the kernel so no real workflow requires it,
-right?
+So the keyboard simply keeps its backlight while it is connected, and
+I guess Windows either cuts the port power in Modern Standby or MyASUS
+turns the light off. I have no Windows on this machine at the moment
+to check which.
 
-> Fixes: fc76936d3ea5 ("vmbus: add support for dynamic device id's")
+Following your advice I did it in userspace: a systemd-sleep hook that
+saves asus::kbd_backlight and writes 0 on "pre", and restores it on
+"post". With v3 loaded the light now goes off just before the screen
+and comes back on resume. If it is useful to anyone else I can post it.
 
-No cc: stable?
-
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/hv/vmbus_drv.c | 25 +++++++++++++++----------
->  1 file changed, 15 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-> index 4692687cdbf3..96ad0dfaa50b 100644
-> --- a/drivers/hv/vmbus_drv.c
-> +++ b/drivers/hv/vmbus_drv.c
-> @@ -661,21 +661,22 @@ hv_vmbus_dev_match(const struct hv_vmbus_device_id *id, const guid_t *guid)
->  }
->  
->  static const struct hv_vmbus_device_id *
-> -hv_vmbus_dynid_match(struct hv_driver *drv, const guid_t *guid)
-> +hv_vmbus_dynid_match(struct hv_driver *drv, const guid_t *guid,
-> +		     struct hv_vmbus_device_id *id_copy)
->  {
-> -	const struct hv_vmbus_device_id *id = NULL;
->  	struct vmbus_dynid *dynid;
->  
->  	spin_lock(&drv->dynids.lock);
->  	list_for_each_entry(dynid, &drv->dynids.list, node) {
->  		if (guid_equal(&dynid->id.guid, guid)) {
-> -			id = &dynid->id;
-> -			break;
-> +			*id_copy = dynid->id;
-
-Shouldn't this be a memcpy() as that's what you are really doing?
-
-> +			spin_unlock(&drv->dynids.lock);
-
-guard() usage instead?
-
-> +			return id_copy;
->  		}
->  	}
->  	spin_unlock(&drv->dynids.lock);
->  
-> -	return id;
-> +	return NULL;
->  }
->  
->  static const struct hv_vmbus_device_id vmbus_device_null;
-> @@ -685,7 +686,8 @@ static const struct hv_vmbus_device_id vmbus_device_null;
->   * If there is no match, return NULL.
->   */
->  static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *drv,
-> -							struct hv_device *dev)
-> +							struct hv_device *dev,
-> +							struct hv_vmbus_device_id *id_copy)
->  {
->  	const guid_t *guid = &dev->dev_type;
->  	const struct hv_vmbus_device_id *id;
-> @@ -697,7 +699,7 @@ static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *
->  		return NULL;
->  
->  	/* Look at the dynamic ids first, before the static ones */
-> -	id = hv_vmbus_dynid_match((struct hv_driver *)drv, guid);
-> +	id = hv_vmbus_dynid_match((struct hv_driver *)drv, guid, id_copy);
->  	if (!id)
->  		id = hv_vmbus_dev_match(drv->id_table, guid);
->  
-> @@ -773,6 +775,7 @@ static ssize_t new_id_store(struct device_driver *driver, const char *buf,
->  			    size_t count)
->  {
->  	struct hv_driver *drv = drv_to_hv_drv(driver);
-> +	struct hv_vmbus_device_id id_copy;
-
-On the stack?
-
-Ok, I guess this would work, but it feels clunky, why doesn't all other
-busses have to do this too?
-
-thanks,
-
-greg k-h
+Thanks,
+Rebecca
