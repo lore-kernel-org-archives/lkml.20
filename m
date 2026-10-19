@@ -1,73 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434214;
-	b=cOK6ncL+fh0v3Kjg2t0pKMzvgQLjrpQ/mvhQlGe0Nn3YrNcC0dFOEdDaYUJVxVSlmoeL
-	 V1tzzo4FBsql0vkd2eppc+UGp5JaAkJgO1SwiHeCdWmJ/VEWSbhUVLkoOsGpWy/TEc3Xr
-	 7C2ROYEHaZv1N04mU7kzYexyQOgUdmCIbTjpm6CpIaoXwrxIeWNwCm60xWWceBBEc6Xmf
-	 XCvo9m+uUDe3e04HqE/QtSncba5qrhwRhwg/PVyQwTzoCOT6QgrAYSUfzExzjLMQ6mcNg
-	 +2kPQ8BxXEX73lVUFlz8gJVsrQsZchKxD7zIbmPFpEXgUljCEB11NrjX3l8SdZhndIA==
+	t=1792434271;
+	b=PgofKn+/n6MJP6qvdrq0zfBWMkZndg8/9kOgMVrg8JN9FRacBnAXKbQ6tcdPY3PJXkZN
+	 Bt1bB9BNQgNQS+zB327XAB1ZBQ1+oRyV5aD6DYwRPHOb/b8yWQjBLXjLMkP0+TvC3eo5F
+	 a7yNc98/t1qpqRIG0cLvCSW4daBLMtaBzweMtS+MjePIs5kGq2KG6gkN5Visohu/lDv/C
+	 1/kegkZlATWgSVm7+eJKbj9SHaJKlFi5Jkmqbisf5ZvoxXipd3Fm7l5EmnRPocgCO4ABz
+	 V5RUTRa29j0QzWCYh4IsXImMZUakOAdoVK8TU4Svl5bboRB7cvcy1mTAc6PCU3MX/QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434214;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KVcP3Tm43vHzjc1i2DamdCuBWvYxe1E0JfYpGwyuP7A=;
-	b=gJNDC2QXbOjOhjTqohlcvvDVqiK0sfQ/FQzGwYMeWkiF9gNyJ+cVK8Im2bB6k0yQrYAv
-	 7IOeOq3mZn9ryo+PpJJVpOk/eiH3PfkRjdLYhBt4rgOG0RF7Sx2gP6M1DvL1l8Fv01sW6
-	 2W5ZYteEhMXKhCc7QODu6IGpcxsJ8YQRahnhSQHfRJXRXpP/YPbFLYmIrVpatktyVjYm/
-	 6sM+V6lPnr7m2108BfAnCSDIfWnaBk8nsbut2YLLWl0Q26RMJ27HKbKcym2EcBHjyJKkj
-	 Z6iSiG/mmwqz8btHlAY05w7M2NO7x4HjUd7a2GsO4fsFOwMpAW95/R8CEKp1bafSd4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434271;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=kVQzCHWMhDAXGaFSs/w45J/x4L4pGUMMFJgDsU1GON8=;
+	b=zyYRuo2qNTtkM5dJGjclGsRAkPABnnDhr0TVUgfDIYQDgzhF1Fk/3g1/MEddRHGFPzys
+	 zbNnueNPno2346BkcDxPTKq3N8cX5bZMlW/2vmKpO1mxiTDlnphzHCpfkGZm8gsXIgASD
+	 nmYZzbb2u9AjdgMLStPJKUzWLnzNL1B+x20IhFvV3Nge2S5WJXqXtqXGboKlL7LgEhatY
+	 0V7QbqUQBn8RjvfUl6ng7DhN7rGMoqo8VyZt3WWRojkiaK+z1hHVc4q2B2mhwMfJo24mk
+	 G+cd39CT/oFMYaHNQ3JOgU7NhnyinHqdBUBNU36GHvEKNoZHPvJSjNlwckGYWPLzNBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tv0cBOFP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="mHr/B30u";
+	arc=none smtp.remote-ip=209.85.222.44
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB31E606A31A;
-	Mon, 19 Oct 2026 18:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10115606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:24:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10115606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tv0cBOFP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4963F1F000C4;
-	Mon, 19 Oct 2026 18:23:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792434213;
-	bh=KVcP3Tm43vHzjc1i2DamdCuBWvYxe1E0JfYpGwyuP7A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Tv0cBOFP+3ltqFO1lPQ5pNq5YKLNFaqXGD31GhJVJZZvdaJLv3vXs20QqMBkAvckj
-	 y6bINwjob8gbD2UmjFLPDxrHWPP6Mx2SiYKzm0J5K6QBD9rvyl/cBasZdkjLFZeHb5
-	 M3KAJqqYTAUjX8xIN5dnN9pPKnhc0cEczMIPXW7qNlEBKjglIKN2BiO135IlAjbjC2
-	 GqgeLuAqIOG+F+woXYiTxoIlTa9uPToWuHEPLczmAW63ZktqfQunRZZ52wdnEgmlx9
-	 QUXat/4TpdaFa7kWWOZdZjKdBl9OAYWyOvweJZMYLQoXe5C202hBX5pByWKcPeN7lm
-	 jWJUqoslVdmqQ==
-Date: Mon, 19 Oct 2026 19:23:27 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
-	Frank.Li@oss.nxp.com, imx@lists.linux.dev,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Ashish Yadav <ashish.yadav@infineon.com>,
-	Colin Huang <u8813345@gmail.com>,
-	Sanman Pradhan <psanman@juniper.net>,
-	Thorsten Blum <blum@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.dev>,
-	Eddie James <eajames@linux.ibm.com>,
-	Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>,
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:DH ELECTRONICS DHSOM SOM AND BOARD SUPPORT" <kernel@dh-electronics.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH 1/1] dt-bindings: spi: Add separate binding for
- dh,dhcom-board
-Message-ID: <20261019-cycling-unnatural-c1adbfb5c9d9@spud>
-References: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
- <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
- <20261018-freeway-twitch-e813208aa9af@spud>
- <fd15f846-94d4-44d8-a42d-5f13a7b18794@nabladev.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mHr/B30u
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-98c78660542so1541862241.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:24:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792434270; x=1793039070; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kVQzCHWMhDAXGaFSs/w45J/x4L4pGUMMFJgDsU1GON8=;
+        b=mHr/B30uJCg+9dz8ifw1Ei5OItcuSEN2zojt85n/IH88as3hIjQ6PGxkyo+lJp3HeE
+         LRKJahdu0insr50PFyPMoz5QXci5S9pbZV31y6/KtW4nd2PfSltB1urFDw6ZPGGr/73u
+         qmjDNT+oCaq9viasnov5gdvHummk2luG4MASYbGTgJe2RnVmA4KB+FtsU9nB1Z3jLv1X
+         OcvpWv1hzah9CIEiMpFy2DhG2onQbZh/wOVk8EqhWdv8ByVVLjcVbl/OoMzePN7yfmNO
+         at/YzyAvlHaTrxvvj54fFjKmyeYl7HyQKhCC3ShStXGePbZ/b/ZQxHSFGM6dB2j1BK9t
+         1v/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792434270; x=1793039070;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kVQzCHWMhDAXGaFSs/w45J/x4L4pGUMMFJgDsU1GON8=;
+        b=s1SUN6U+bBwyC0vciW8m+is6SGtdpgU9/GB3YFJFDUPyML6doZNzg+jhY5nkTV40st
+         0bklB7RqYtsFf/gnE678jafqM2tP+Kkc/K7Znnz6W36VnYB24Q5QrwOBMpnTx9YPTBNQ
+         fJyDPG89QTd092QAWJEr3CkYu4xGNYrNCzm3bj2nD12XM6pI/4ONF2OqDKfLCRH+LJtS
+         ndzpkbl4WAnyUdjLHQqH75Fb2wC54s9XcnsT9Z529xkELukw2WK37yu4CP390M2f66JR
+         R4wr8w8QnyyMysjzNr+flGHLwJdumoTyA+y7X6c8W9ZsW0Sb8yOesnWJwCQZtdgHQynj
+         T/xA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUAJ3Cvi+alqIohoQ4dDYubiA6SDp0z29VqGOR6qHYpuDYPFBNUZhPpkynP/4S5UsdNdPMWc/zJxWtcS0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1cQfeDsOsDHnoOcHjf4mTHlDFnJkJhKVMSHH2kC2dS9KfkLeC
+	xON9QaSbf2Vw8B2rYVE1aS9XEXlW2YUNgoCRNjPeuIOxtmHipxXl2ZE=
+X-Gm-Gg: AYBFou3aecmjNOyItx2h5wPuLtPDcdxtj6b29vDViWDnox3TDR4Hr+rAO41rZM40Qgd
+	Xl3bACd0CXI1xotyVc/ql4EN1uE/I4YltE1Fijw3QETRdeaoTB6gvHmdc7Aifzjb7P1aNJ8CYzC
+	5isMCKcybEhOl154W2XlM1ucLCZ/P/bzkGXEri047BtCN8InE9TZoHVbvSHR894/ueBLv0Z8L2H
+	ky6YjNwtTrXP7qNbVrS7+atndaE2/AGXZjeacynYbjpDX3IkexRnHfGZDTzCIAcH/vEaIdPBwc9
+	LBp2uuvKLeCy60ZrLpOGWlYoOA6ZLeu76lZqcEAfdHgz9HULyN0QnsgUlbueZbfClpJO+z+YswX
+	5zYPC9Ef4Sbw5v5gXreJFJRQbUDsfSCWhvNqiAhiB8e8FYiQH3F42Mfiw6b5nUHDwGY9B4977Yg
+	f5AcdFdmXYDSrxAoIl2mIR7lQyl/FGsxE2orzee/FmL+VaPTZGH5p1cebRk6TYlOu9ZTJy/qAqC
+	bgVWOoF3Kryw4jjRIxAVHBLerb0BHufkw==
+X-Received: by 2002:a05:6102:26d0:b0:7cc:1192:5636 with SMTP id ada2fe7eead31-7cc36905d1emr2860017137.12.1792434269987;
+        Mon, 19 Oct 2026 11:24:29 -0700 (PDT)
+Received: from localhost ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb3642b1sm853242241.8.2026.10.19.11.24.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 11:24:29 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,134 +86,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Q3td6Zy/xdoBJifD"
-Content-Disposition: inline
-In-Reply-To: <fd15f846-94d4-44d8-a42d-5f13a7b18794@nabladev.com>
-
---Q3td6Zy/xdoBJifD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 19 Oct 2026 15:24:22 -0300
+Message-Id: <DM90X0PTA682.3UJMZH614WU9V@gmail.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Benno
+ Lossin" <lossin@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Boqun Feng" <boqun@kernel.org>, "Brigham
+ Campbell" <me@brighamcampbell.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Gary Guo" <gary@garyguo.net>, "Jori
+ Koolstra" <jkoolstra@xs4all.nl>, "Miguel Ojeda" <ojeda@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Shuah Khan"
+ <skhan@linuxfoundation.org>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Trevor Gross" <tmgross@umich.edu>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>
+Subject: Re: [PATCH 1/2] rust: pci: remove TryFrom<&Device> implementation
+ for &pci::Device
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Georgios Androutsopoulos"
+ <georgeandrout13@gmail.com>
+X-Mailer: aerc 0.20.0
+References: <cover.1792417858.git.nico.antinori.7@gmail.com>
+ <d128d86b751a51fff46a1702b636de74a4807097.1792417858.git.nico.antinori.7@gmail.com>
+In-Reply-To: <d128d86b751a51fff46a1702b636de74a4807097.1792417858.git.nico.antinori.7@gmail.com>
 
-On Sun, Oct 18, 2026 at 11:38:09PM +0200, Marek Vasut wrote:
-> On 10/18/26 9:37 PM, Conor Dooley wrote:
-> > On Sat, Oct 17, 2026 at 12:01:55AM +0200, Marek Vasut wrote:
-> > > On 10/16/26 10:57 PM, Frank.Li@oss.nxp.com wrote:
-> > > > From: Frank Li <Frank.Li@nxp.com>
-> > > >=20
-> > > > The dh,dhcom-board SPI device uses spi-cpha and spi-cpol properties,
-> > > > which are not permitted by the trivial-devices schema. Move it to a
-> > > > dedicated binding file that references spi-peripheral-props.yaml and
-> > > > explicitly allows those SPI mode properties.
-> > > >=20
-> > > > Fixes below CHECK_DTBS warnings:
-> > > >     arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dtb: spidev@0=
- (dh,dhcom-board): 'spi-cpha', 'spi-cpol' do not match any of the regexes: =
-'^pinctrl-[0-9]+$'
-> > > >           from schema $id: http://devicetree.org/schemas/trivial-de=
-vices.yaml
-> > >=20
-> > > How come this did not trigger until now ?
-> > >=20
-> > > > Assisted-by: LLM
-> > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > ---
-> > > >    .../bindings/spi/dh,dhcom-board.yaml          | 46 +++++++++++++=
-++++++
-> > > >    .../devicetree/bindings/trivial-devices.yaml  |  2 -
-> > > >    2 files changed, 46 insertions(+), 2 deletions(-)
-> > > >    create mode 100644 Documentation/devicetree/bindings/spi/dh,dhco=
-m-board.yaml
-> > > >=20
-> > > > diff --git a/Documentation/devicetree/bindings/spi/dh,dhcom-board.y=
-aml b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> > > > new file mode 100644
-> > > > index 0000000000000..ed213cbe9b04c
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> > > > @@ -0,0 +1,46 @@
-> > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > > +%YAML 1.2
-> > > > +---
-> > > > +$id: http://devicetree.org/schemas/spi/dh,dhcom-board.yaml#
-> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > +
-> > > > +title: DH electronics GmbH on-board CPLD trivial SPI device
-> > >=20
-> > > This does not look quite right, since compatible this is used only on:
-> > >=20
-> > > arch/arm/boot/dts/imx6ull-dhcor-maveo-box.dts
-> > >=20
-> > >         model =3D "DH electronics i.MX6ULL DHCOR on maveo box";
-> > >         compatible =3D "marantec,imx6ull-dhcor-maveo-box",
-> > > "dh,imx6ull-dhcor-som",
-> > >=20
-> > > So the whole
-> > >=20
-> > >         spidev@0 {
-> > >                 compatible =3D "dh,dhcom-board";
-> > >                 reg =3D <0>;
-> > >                 spi-cpha;
-> > >                 spi-cpol;
-> > >                 spi-max-frequency =3D <54000000>;
-> > >         };
-> > >=20
-> > > Should probably use a different compatible.
-> > >=20
-> > > Christoph, what device is this on this board ?
-> > >=20
-> > > (and this change should only be applied with RB from Christoph, I do =
-not
-> > > have the hardware so I cannot tell what it really is)
-> > >=20
-> > > > +maintainers:
-> > > > +  - Marek Vasut <marex@denx.de>
-> > >=20
-> > > @nabladev.com
-> > >=20
-> > > > +  - Frank Li <Frank.Li@nxp.com>
-> > > > +
-> > > > +allOf:
-> > > > +  - $ref: spi-peripheral-props.yaml
-> > > > +
-> > > > +properties:
-> > > > +  compatible:
-> > > > +    const: dh,dhcom-board
-> > > > +
-> > > > +  reg:
-> > > > +    maxItems: 1
-> > > > +
-> > > > +  spi-cpha: true
-> > > > +
-> > > > +  spi-cpol: true
-> > >=20
-> > > Wouldn't it make more sense to allow those properties for trivial SPI
-> > > devices in general ?
-> >=20
-> > If the device requires them (which it probably does?), then standalone
-> > makes sense to actually set that requirement.
->=20
-> All right.
->=20
-> But in any case, the compatible string should likely be fixed here, this
-> does not seem right. The dh,dhcom-board was describing some CPLD/FPGA on =
-one
-> of the evalboards.
+Hello,
 
-Ye I don't disagree there. "dhcom-board" seems not nearly specific
-enough about what the device is.
+On Mon Oct 19, 2026 at 1:13 PM -03, Nicol=C3=A1s Antinori wrote:
+> Remove the `TryFrom<&device::Device<Ctx>>` implementation for
+> `&Device<Ctx>` since it has no remaining users.
+>
+> Fixes: 7edc491f6fca ("drm: nova: Use nova-core to read VRAM_BAR_SIZE para=
+meter")
+> Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+> Closes: https://github.com/Rust-for-Linux/linux/issues/1264
+> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
 
---Q3td6Zy/xdoBJifD
-Content-Type: application/pgp-signature; name=signature.asc
+I got two reviews from Sashiko [1]
 
------BEGIN PGP SIGNATURE-----
+> [Severity: Low]
+> Does removing this TryFrom implementation break the build when
+> CONFIG_DRM_NOVA is enabled?
+>
+> The commit message references commit 7edc491f6fca ("drm: nova: Use
+> nova-core to read VRAM_BAR_SIZE parameter"), which is not present in
+> this baseline branch. Without that commit applied first, File::get_param(=
+)
+> in drivers/gpu/drm/nova/file.rs still relies on this conversion:
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatZgHwAKCRB4tDGHoIJi
-0rmdAP9dlbIEJr7TjRmPgZBJHo5qL8Bu9Y3JkjzxPA8xK60a2AD/d014Gqp+79+C
-icNtSqiO9uK1vJ6NyVujv8UqXWv52gc=
-=qhcD
------END PGP SIGNATURE-----
+This is true for the rust-next branch in the R4L tree, but the named
+commit is present in linux-next [2] and drm-rust-next [3], and the patch
+application and compilation were tested in those too.
 
---Q3td6Zy/xdoBJifD--
+I am pretty sure the patches were created based on the master branch of
+linux-next tree (because of the discussion in [4]).
+
+> [Severity: Low]
+> Since TryFrom::try_from() was the only caller of bindings::dev_is_pci(),
+> should rust_helper_dev_is_pci() in rust/helpers/pci.c also be removed
+> along with it?
+
+I didn't see this. I apologize for the oversight. I can send a separate
+patch or a v2 of this patch alone, since the patches of the series are
+related but can be applied independently.
+
+Best regards,
+Nicol=C3=A1s=20
+
+[1] https://sashiko.dev/#/patchset/cover.1792417858.git.nico.antinori.7@gma=
+il.com?part=3D1
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/com=
+mit/?id=3D7edc491f6fca8e22f51e37a16d74914cd959274d
+[3] https://gitlab.freedesktop.org/drm/rust/kernel/-/commit/7edc491f6fca8e2=
+2f51e37a16d74914cd959274d
+[4] https://github.com/Rust-for-Linux/linux/issues/1264#issuecomment-619469=
+5910
