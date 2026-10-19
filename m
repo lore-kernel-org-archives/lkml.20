@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83419597F53;
-	Mon, 19 Oct 2026 13:59:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B7559A1E4;
+	Mon, 19 Oct 2026 13:59:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418353; cv=none; b=lR1SO+rov8dVgT/CIXKNhH6E/rbDdfFUyjRgfbx6ZeFYnPAFDPXv8mX+UCA3xluYRUHSHzPkwI2vq5Q/9O4PiVH5P8SR4orydPPbb5p3LxRIGkvHA8iwBoJgkKzXL6JeKDujSq9pH6oxj9Ezs6IivpiI/CYVlgGPmh5pH7/IwVw=
+	t=1792418355; cv=none; b=tttWtuQ2jWAR1FJJXC3qTHe6WS77bb4jE2cjB9ensaCY6JB/YNoK59qZt46R/kWpgGbo38Ur7oELoPNtV4v83jqc1P0xxaT4rFETYOqtvOPKq+yXrZB9ZJmmjS/vTNt+pSH+WXslT9kep7WVwveoS4DbqbuxtEci2pce/gvyQmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418353; c=relaxed/simple;
-	bh=b+OMwOLcW33yq5gnsz2FawLSP8MWAZjLTP9XzueV1Hw=;
+	s=arc-20240116; t=1792418355; c=relaxed/simple;
+	bh=4v+Q+yf40A3JrQnzEe04WecvtS4tmrTkKXvwJlcREuc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kNMmS44PYgbm9lUOPVEhpiBApBrMKcXG1yOReFYevFsARGI058YGbygPFMsYswfiTtlVQp/UDNkZ+xPZrJblgz7chQHBUtud16g6jVU5imHb3+G0lxmVXuc839i1hO9vfm7tkRI3UqUU5aLotJlvLvBsZStuqLHNnNKsNSEG8h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hK+QrYeA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ec7Lc1ZXg7w27I6PhQw9xYONA+jUn0mhPt6ekeHW6tQtGSMen9Uzwgflj2Hcx/P/b3+5oY/I42t3CXdNzs/KJIs+lpRXK7JOYwZ4qm/Do5uZSu/rY0QefmTeEGMJ3zfqiMS/tTAqyFyu/JdH4MOdxVFsPDYykZVC47vmDgNILDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmxiUX3P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hK+QrYeA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E081F000C4;
-	Mon, 19 Oct 2026 13:59:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmxiUX3P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3923D1F000C8;
+	Mon, 19 Oct 2026 13:59:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418350;
-	bh=QEfjg6P1FYqNYGIigcbrCtHbIVajWC/AZaOZAgOrtf4=;
+	s=k20260515; t=1792418353;
+	bh=HSVvtdLhyfDEZ79n3urAObHOsfBV/iJhpsAYZse2t9k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hK+QrYeAlramjQFHe+Yn5NElxq+jbuQRMG3imO0F38+mEbOOJ67wMG4+90aFk9dC8
-	 Biv4VXIWbJidFUe0axu6xGimDSUjHWhlQS2J1n25ay28XIF46g02SkGucjRzT5GpZY
-	 KkTrwddFW1jRexvOyefnvqPpvBryzMCQ1TkVzHehgFfcerSoLhUZ7T2egWORqBdo5m
-	 JvQRpbPwPBwdhL+sFq6EMqpPJZ01q+ueoL7Zi9nL0eHH/FOeBHb9JTNRzBPyUw2JCW
-	 /A1TxPwzxAoD0icgIANIizFvrMMxWVGpT8mu4ciq2i38B8XGFSLA97flJ1PXFcdPQz
-	 W2uewv4EvJdGw==
+	b=bmxiUX3P/tDS/GIfd+7VK8+kEcTdPkXp4Ic6PtRhAoFdb2E4pey3UveJt8i+Go8VG
+	 BdnjK1ne5u4oUglRPMiRh+Khq9MYvYRDl3cu5xJDXZTwp8wL7nWdjXbgk0grm/k27P
+	 aStxXZj6+6mBL1M2LURduRo0CFGQkAE86Wkasem1DrpBEHXt6jiTFelcRtgZ1CD4Eq
+	 in65GVglRUnPPJvjNzfevipqFMKhu42Ct9+7+CX3gd1wSCCsr8cs8jyHNNXXKfAIpP
+	 Fsb6bkawo1BttC1yLYsgPHhn6AIY9bI867lEjzgux//25MbL62DwpukdUdYLyhXeWR
+	 QMSgtrlSjUBNA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Geetha sowjanya <gakula@marvell.com>,
-	Will Deacon <will@kernel.org>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	mark.rutland@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
+	linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] perf: marvell: Cancel CN10K DDR PMU hrtimer on device remove
-Date: Mon, 19 Oct 2026 09:47:56 -0400
-Message-ID: <20261019135441.1420968-185-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] spi: qpic-snand: free OOB buffer with ECC context
+Date: Mon, 19 Oct 2026 09:47:58 -0400
+Message-ID: <20261019135441.1420968-187-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,512 +52,334 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Geetha sowjanya <gakula@marvell.com>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 7dbcb0268d1e2a1d3badb0c6e77ee70e550b1787 ]
+[ Upstream commit 5504e50ffbcf97b3b6ed3740532497922c96a1f1 ]
 
-cn10k_ddr_perf_remove() did not cancel the poll hrtimer before returning.
-If the device was unbound while perf events were still active the timer
-callback could run post-free.
+qcom_spi_ecc_init_ctx_pipelined() allocates qspi->oob_buf as part of the
+pipelined ECC context setup. The buffer is then used by the raw and ECC
+page I/O paths through the NAND ECC context.
 
-To fix the issue by adding hrtimer_cancel() in remove().
+The matching cleanup callback only frees the qpic_ecc structure, and the
+init error path also skips the OOB buffer after it has been allocated.
+Free qspi->oob_buf on both paths and clear the pointer so the ECC context
+teardown owns all resources allocated during init.
 
-Signed-off-by: Geetha sowjanya <gakula@marvell.com>
-Signed-off-by: Will Deacon <will@kernel.org>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Link: https://patch.msgid.link/20260616151129.76060-1-pengpeng@iscas.ac.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough to decide: the UAF is in this 6.1 tree, the cancel is a
-standalone 6-line fix, and it does not need the CN20K series.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1 — Subject**
+Record: `[spi/qpic-snand] [free] free OOB buffer with ECC context`
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-
-Record: `[perf/marvell] [Cancel] Cancel CN10K DDR PMU hrtimer on device
-remove`
-
-Subsystem `perf: marvell:` is the Marvell CN10K DDR uncore PMU driver.
-Verb `Cancel` is a stop-the-timer safety action. Claimed intent: stop
-the poll hrtimer in the platform `remove()` path so it cannot fire after
-the device is torn down.
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-
-Record: tags present in the candidate message:
-- `Signed-off-by: Geetha sowjanya <gakula@marvell.com>` (author)
-- `Signed-off-by: Will Deacon <will@kernel.org>` (ARM perf maintainer
-  merge; pipeline `Signed-off-by: Sasha Levin` ignored per instructions)
-
-Tags **not** present (expected for this review queue, not treated as a
-negative):
-- No `Fixes:`
-- No `Reported-by:` / `Tested-by:` / `Reviewed-by:` / `Acked-by:`
-- No `Link:`
-- No `Cc: stable@vger.kernel.org`
-
-From mailing-list forensics (Phase 4): original submission was `[PATCH
-v8 3/3]` of a CN20K feature series, Message-ID
-`20260601073318.7098-4-gakula@marvell.com`. Will Deacon applied it to
-`arm64 (for-next/perf)` as `7dbcb0268d1e`. Krzysztof’s `Reviewed-by` is
-on patch 1/3 (dt-bindings) only, not on this UAF patch.
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
+**Step 1.2 — Tags**
 Record:
-- **Bug:** `cn10k_ddr_perf_remove()` returned without cancelling the
-  overflow-poll hrtimer.
-- **Symptom / failure mode:** if the device is unbound while events (and
-  therefore the timer) are still active, `cn10k_ddr_pmu_timer_handler()`
-  can run after `devm` frees `struct cn10k_ddr_pmu` and unmaps MMIO —
-  use-after-free / MMIO-after-unmap.
-- **Version info:** cover letter for v8 says this is **pre-existing for
-  CN10K/Odyssey**, not a CN20K-only issue.
-- **Root cause (author):** missing `hrtimer_cancel()` in `remove()`.
+- `Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>` (author)
+- `Link:
+  https://patch.msgid.link/20260616151129.76060-1-pengpeng@iscas.ac.cn`
+- `Signed-off-by: Mark Brown <broonie@kernel.org>` (SPI maintainer)
+- Pipeline-only tags ignored: `[Upstream commit 5504e50ffbcf…]`,
+  `Signed-off-by: Sasha Levin`
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
+  stable` (absence expected)
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
+**Step 1.3 — Body**
+Record: `qcom_spi_ecc_init_ctx_pipelined()` allocates `qspi->oob_buf`.
+Cleanup only frees `qpic_ecc`. Init error path after allocation also
+skips the OOB buffer. Symptom: leaked kmalloc buffer on ECC teardown and
+on init failure after the buffer exists. Root cause: allocation is not
+owned by the ECC cleanup/error path.
 
-Record: Not a disguised cleanup. The message names a post-free timer
-callback. This is an explicit UAF fix. The series is mostly a CN20K
-feature add; **this patch was split out in v8 specifically as a pre-
-existing bug fix**.
+**Step 1.4 — Hidden bug fix?**
+Record: Not disguised. Explicit resource-leak fix (`free` / missing
+`kfree`).
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## Phase 2: Diff analysis
 
-**Step 2.1: INVENTORY THE CHANGES**
+**Step 2.1 — Inventory**
+Record: `drivers/spi/spi-qpic-snand.c` only; **+5 / −1**. Functions:
+`qcom_spi_ecc_init_ctx_pipelined`, `qcom_spi_ecc_cleanup_ctx_pipelined`.
+Single-file surgical fix. Trailing newline at EOF removed (harmless).
 
+**Step 2.2 — Flow**
 Record:
-- File: `drivers/perf/marvell_cn10k_ddr_pmu.c`
-- Scope: **+6 / -0**, single function `cn10k_ddr_perf_remove()`
-- Classification: **single-file surgical fix** (comment +
-  `hrtimer_cancel()`)
+- **err_free_ecc_cfg:** previously `kfree(ecc_cfg)` only → also
+  `kfree(oob_buf)` and NULL it. Covers failures after `kmalloc` (notably
+  `qcom_alloc_bam_transaction()` `-ENOMEM`) and is a no-op if `oob_buf`
+  is still NULL.
+- **cleanup_ctx:** previously only `kfree(ecc_cfg)` → get `snandc` via
+  `nand_to_qcom_snand()`, free `oob_buf`, NULL it, then free `ecc_cfg`.
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+**Step 2.3 — Bug mechanism**
+Record: **resource leak**. `oob_buf` is `kmalloc(mtd->writesize +
+mtd->oobsize)` (typically a few KB). `qspi` itself is `devm_kzalloc`, so
+the buffer is **not** device-managed. `nanddev_find_ecc_configuration()`
+does **not** call `cleanup_ctx` when `init_ctx` fails, so the error-path
+`kfree` is required. Successful attach then `spinand_cleanup()` / probe-
+error after ECC init also leak without the cleanup change.
 
-Record:
-- **Before:** `remove()` got drvdata, dropped the cpuhp instance,
-  unregistered the PMU, returned. Timer left live if it had been
-  started.
-- **After:** `hrtimer_cancel(&ddr_pmu->hrtimer)` **first**, then the
-  same teardown. `hrtimer_cancel()` also waits for a running callback,
-  so the handler cannot continue after `remove()` returns.
-- Path: **driver teardown / unbind / module unload**, not the normal
-  event add/del path (that already cancels on last `event_del`).
+**Step 2.4 — Fix quality**
+Record: Obviously correct. `kfree(NULL)` is safe because `qspi` is
+zeroed in probe (`devm_kzalloc`). NULLing after free avoids a later
+double-free if cleanup runs after the error path. Regression risk is
+very low: no locking, API, or I/O-path change. `QPIC_QSPI_NUM_CS` is 1,
+so no multi-chip sharing of `oob_buf`.
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
+## Phase 3: Git history
 
-Record: **Use-after-free / lifetime bug (memory safety)**
+**Step 3.1 — Blame**
+Record: Driver added in `7304d1909080` (2025-02-24, Md Sadre Alam):
+allocated `oob_buf` in init and never freed it in cleanup.
+`d450cdd9c4398` (2025-03) only freed `ecc_cfg` when OOB alloc failed.
+`65cb56d49f6ede` (in v6.18.53) unified `err_free_ecc_cfg` still only
+`kfree(ecc_cfg)`. Bug present since the driver landed.
 
-Mechanism verified in this tree:
-- `ddr_pmu` is `devm_kzalloc()`’d; MMIO is
-  `devm_platform_get_and_ioremap_resource()`. Both are released after
-  `remove()` returns.
-- Timer is started on first `event_add` (`hrtimer_start`,
-  `HRTIMER_MODE_REL_PINNED`) and cancelled only when `active_events ==
-  0` in `event_del`.
-- Handler always `return HRTIMER_RESTART` after
-  `cn10k_ddr_pmu_overflow_handler(pmu)`, which dereferences
-  `pmu->events[]` and `pmu->base`.
-- `perf_pmu_unregister()` in this tree (`kernel/events/core.c`) does
-  **not** stop events or cancel driver timers; it only unlists the PMU,
-  syncs RCU, and frees PMU context.
+**Step 3.2 — Fixes: tag**
+Record: None. Introducer is `7304d1909080`; `git merge-base --is-
+ancestor 7304d1909080 v6.18.53` → yes. The earlier leak fix
+`d450cdd9c4398` is also in v6.18.53 and is incomplete for `oob_buf`.
 
-**Step 2.4: ASSESS THE FIX QUALITY**
+**Step 3.3 — File history**
+Record: Related: `d450cdd9c4398` (ecc_cfg leak), `f48d805035042`
+(kzalloc→kmalloc; still no free). Standalone; not `N/M`. Later autosel
+commits (quad mode, ECC strength) are not prerequisites.
 
-Record:
-- **Quality:** obviously correct. `hrtimer_cancel()` on an already-idle
-  timer is a no-op; cancelling before cpuhp/PMU teardown is the right
-  order.
-- **Regression risk:** very low. Callback only does `local_irq_save` +
-  MMIO reads; it does not take locks `remove()` holds. No API/data-
-  structure change.
-- **Red flags:** none in the hunk itself. Series context (3/3 of CN20K)
-  is a packaging concern, not a correctness concern — this hunk does not
-  use CN20K code.
+**Step 3.4 — Author**
+Record: Pengpeng Hou has this one SPI qpic commit here; not the original
+driver author. SPI maintainer Mark Brown applied it to `spi/for-7.3`.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 3.5 — Dependencies**
+Record: Needs `nand_to_qcom_snand()`, `qspi->oob_buf`,
+`err_free_ecc_cfg`, and `qcom_spi_ecc_cleanup_ctx_pipelined()`. All
+exist in v6.18.53. Standalone.
 
-**Step 3.1: BLAME THE CHANGED LINES**
+## Phase 4: Mailing list
 
-Record:
-- Buggy `cn10k_ddr_perf_remove()` (no timer cancel) introduced in
-  `7cf83e222bce0` (`perf/marvell: CN10k DDR performance monitor
-  support`, Bharat Bhushan, 2022-03-08).
-- `git merge-base --is-ancestor 7cf83e222bce0 HEAD` succeeded; `git
-  merge-base --is-ancestor 7cf83e222bce0 v6.1` succeeded.
-- Present in this tree from the 6.1 baseline (driver landed in v5.18).
+**Step 4.1**
+Record: `b4 dig -c 5504e50ffbcf` →
+https://patch.msgid.link/20260616151129.76060-1-pengpeng@iscas.ac.cn
+`b4 dig -a`: **v1 only**. Thread: author submission + Mark Brown
+“Applied to … for-7.3”. No NAK, no requested respin.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
+**Step 4.2**
+Record: `b4 dig -w`: To Mark Brown; Cc linux-spi, linux-kernel.
+Maintainer applied it.
 
-Record: No `Fixes:` tag. The introducing commit is `7cf83e222bce0`,
-which **is** in this tree.
+**Step 4.3**
+Record: No bugzilla/syzbot. Leak found by code inspection.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+**Step 4.4**
+Record: Single-patch series, self-contained.
 
-Record: only four commits on this file in this tree:
-- `7cf83e222bce0` CN10k DDR perfmon support
-- `35a43326a9e3c` overflow handling
-- `68fa55f0e05ce` core ownership
-- `6676a42f1e4f1` `!CONFIG_OF` build fix
+**Step 4.5**
+Record: **UNVERIFIED** — lore.kernel.org/stable blocked by Anubis (403).
+No local evidence this was rejected for stable.
 
-No later refactor of `remove()`. **Standalone** relative to this tree.
-Does **not** need patches 1–2 of the CN20K series.
+## Phase 5: Semantic analysis
 
-Related but **separate** bug (v7 of the same series, in patch 2/3):
-`event_add` can `hrtimer_start()` then return `-EINVAL` from
-`ddr_perf_get_event_bitmap()` without rolling back. That leak is **not**
-this commit. This commit still stands alone.
+**Step 5.1**
+Record: `qcom_spi_ecc_init_ctx_pipelined`,
+`qcom_spi_ecc_cleanup_ctx_pipelined`.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+**Step 5.2**
+Record: Wired as `.init_ctx` / `.cleanup_ctx` on
+`qcom_spi_ecc_engine_ops_pipelined`. Call chain: `nand_ecc_init_ctx` /
+`nand_ecc_cleanup_ctx` → `nanddev_ecc_engine_init` /
+`nanddev_ecc_engine_cleanup` → `spinand_init` error paths and
+`spinand_cleanup` from `spinand_probe` failure and `spinand_remove`.
 
-Record: `git log --author=Geetha -- drivers/perf/` is empty in this 6.1
-tree. Author is a Marvell engineer extending a Marvell driver originally
-by Bharat Bhushan. Will Deacon (ARM perf maintainer) merged it. That is
-sufficient maintainer vetting.
+**Step 5.3**
+Record: Init: `kzalloc(ecc_cfg)`, `kmalloc(oob_buf)`,
+`qcom_free_bam_transaction` / `qcom_alloc_bam_transaction`. Cleanup:
+`kfree` only.
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+**Step 5.4**
+Record: Reachable on Qualcomm IPQ9574 SPI-NAND attach/detach (boot
+device on many boards). Unprivileged userspace cannot typically unbind
+without privilege; leak still hits rmmod, unbind, and failed probe after
+ECC init.
 
-Record: **No functional prerequisites.** The only apply wrinkle is 6.1
-still has `static int cn10k_ddr_perf_remove(...)` returning `0`; later
-kernels converted platform `.remove` to `void`. The added
-`hrtimer_cancel()` line and comment apply unchanged.
+**Step 5.5**
+Record: Same driver’s earlier `ecc_cfg` leak (`d450cdd9c4398`) used the
+same pattern. `data_buf` is an op pointer, not a matching leak. MTK SNFI
+cleanup only frees its ecc cfg (different allocation model).
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+## Phase 6: This tree (v6.18.53 / 6.18.y)
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
-Record:
-- `b4 dig -c HEAD` was the wrong SHA (this commit is not in the 6.1
-  checkout). Direct lore fetch returned 403.
-- `b4 am` on Message-ID `20260601073318.7098-4-gakula@marvell.com`
-  succeeded: v8 series, 3 patches, DKIM-signed, no newer revision
-  flagged.
-- Lore/mirrors:
-  https://patch.msgid.link/20260601073318.7098-1-gakula@marvell.com ,
-  openwall, lkml.iu.edu, patchew, ratatoskr.
-- Cover letter v8: “Cancel the poll hrtimer in `cn10k_ddr_perf_remove()`
-  before `devm` frees `struct cn10k_ddr_pmu` (pre-existing for
-  CN10K/Odyssey).”
-- **No NAK.** Will Deacon: “Applied to arm64 (for-next/perf)” with git
-  id `7dbcb0268d1e` for this patch.
-- **No reviewer `Cc: stable` found** (not treated as a negative).
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-
-Record: To/Cc on the original mail: `linux-perf-users`, `linux-kernel`,
-`linux-arm-kernel`, `devicetree`, Mark Rutland, Will Deacon, Krzysztof
-Kozlowski. Will Deacon merged. No NAK on 3/3.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-
-Record: No syzbot, bugzilla, or external user report. Bug was found
-during CN20K series review/development (added in v8). Still a concrete
-UAF, just not fuzzer-reported.
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: Series is:
-1. dt-bindings CN20K — feature, not this decision
-2. CN20K driver support (+ event_add rollback) — feature / separate leak
-   fix
-3. **this UAF cancel** — independent 6-line fix
-
-Do **not** pull 1/3 or 2/3 into 6.1. This commit does not call CN20K
-pdata/helpers.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-
-Record: lore.kernel.org/stable search returned 403. No evidence on the
-public v8 thread that stable rejected this. UNVERIFIED: whether
-`-stable` ever discussed this hash by name.
-
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-
-Record: `cn10k_ddr_perf_remove()` only. Related existing functions:
-`cn10k_ddr_perf_event_add`, `cn10k_ddr_perf_event_del`,
-`cn10k_ddr_pmu_timer_handler`, `cn10k_ddr_pmu_overflow_handler`.
-
-**Step 5.2: TRACE CALLERS**
-
-Record:
-- `cn10k_ddr_perf_remove` is the platform driver’s `.remove`
-  (`cn10k_ddr_pmu_driver`). Callers: device unbind, parent device
-  teardown, `platform_driver_unregister()` from `cn10k_ddr_pmu_exit()`.
-- Timer handler is the hrtimer softirq/callback path, not a syscall.
-
-**Step 5.3: TRACE CALLEES**
-
-Record: `remove()` calls `platform_get_drvdata`, `hrtimer_cancel` (new),
-`cpuhp_state_remove_instance_nocalls`, `perf_pmu_unregister`. Handler
-calls overflow path which does MMIO `readq_relaxed` on `pmu->base`.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record: Userspace can start the timer via `perf_event_open` on this
-uncore PMU (`event_add` when `active_events == 1`). Unbind/unload is
-admin-triggered (module unload, device teardown), not an unprivileged
-syscall by itself. `event_init` does **not** validate `attr.config`;
-`event_add` can start the timer then fail `ddr_perf_get_event_bitmap()`.
-`event_sched_in()` on add failure does **not** call `pmu->del()`
-(verified at `kernel/events/core.c:2591-2595`). That can leave a running
-timer even after a failed `perf_event_open`, after which `rmmod` can run
-`remove()` with the timer still live. Reachable from userspace + admin
-unload.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-
-Record: In this tree, this driver only cancels the timer in `event_del`.
-`drivers/perf/thunderx2_pmu.c` also cancels on CPU offline. Sibling DDR
-PMU `fsl_imx8_ddr_perf.c` also does not cancel in `remove()` here —
-pattern exists, but that does not make this UAF fictional.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-
-Record: **Yes.** Local tree is **6.1.188** (`pending-6.1`, `git
-describe` `p-6.1-10-g80966a5b14be4`).
-
-```700:710:drivers/perf/marvell_cn10k_ddr_pmu.c
-static int cn10k_ddr_perf_remove(struct platform_device *pdev)
+**Step 6.1**
+Record: `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`. `make
+kernelversion` → 6.18.53.
+`git merge-base --is-ancestor f320c3a8b1119 v6.18.53` → **NO** (not in
+baseline).
+v6.18.53 still has:
+```
+err_free_ecc_cfg:
+        kfree(ecc_cfg);
+        return ret;
+…
+static void qcom_spi_ecc_cleanup_ctx_pipelined(...)
 {
-        struct cn10k_ddr_pmu *ddr_pmu = platform_get_drvdata(pdev);
-
-        cpuhp_state_remove_instance_nocalls(
-CPUHP_AP_PERF_ARM_MARVELL_CN10K_DDR_ONLINE,
-                                &ddr_pmu->node);
-
-        perf_pmu_unregister(&ddr_pmu->pmu);
-        return 0;
+        struct qpic_ecc *ecc_cfg = nand_to_ecc_ctx(nand);
+        kfree(ecc_cfg);
 }
 ```
+and still allocates `snandc->qspi->oob_buf`. Driver is in v6.18
+(`7304d1909080` is an ancestor of `v6.18`).
 
-No `hrtimer_cancel()`. Introduced with the driver in `7cf83e222bce0`
-(v5.18), present for the whole 6.1 lifetime.
+**Step 6.2**
+Record: `patch --dry-run` of this diff onto v6.18.53’s file: **clean
+apply**. Context around `err_free_ecc_cfg` / cleanup matches.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+**Step 6.3**
+Record: Incomplete leak fix `d450cdd9c4398` is already here; it does not
+free `oob_buf`. No other equivalent fix in v6.18.53.
 
-Record: **Minor context only.** 6.1 `remove` is `int` and returns `0`;
-later kernels use `void`. OF match table in 6.1 has no `.data` / CN20K
-entries. The added call does not depend on those. Expected apply:
-**minor conflict, trivial rework**.
+## Phase 7: Subsystem
 
-This tree still has `suppress_bind_attrs = true`, so **sysfs**
-bind/unbind is hidden. That does **not** skip `.remove` on parent
-teardown or `platform_driver_unregister()`.
+**Step 7.1**
+Record: `drivers/spi` QPIC SPI-NAND (`CONFIG_SPI_QPIC_SNAND`,
+`ARCH_QCOM`). Compatible `qcom,ipq9574-snand`. **PERIPHERAL** but real
+embedded/router hardware; NAND is often boot/rootfs.
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+**Step 7.2**
+Record: Active in 6.16–6.18 (ECC validation, BAM txn, 8-bit ECC,
+unregister-on-remove). Leak is original, not a new-code regression.
 
-Record: No `hrtimer_cancel` in `remove()`. No event_add rollback (`goto
-err_free_counter`). Nothing already fixes this UAF.
+## Phase 8: Impact and risk
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 8.1**
+Record: Qualcomm IPQ9574 QPIC SPI-NAND users only.
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+**Step 8.2**
+Record: Triggers: (1) `init_ctx` failure after `kmalloc` (BAM realloc
+`-ENOMEM`) — cleanup not called; (2) later `spinand_init` failure; (3)
+`spinand_remove` / unbind / rmmod. Not a hot-path unbounded leak. Not
+unprivileged.
 
-Record: `drivers/perf/` Marvell CN10K DDR PMU. **PERIPHERAL** (SoC-
-specific uncore PMU). Config `MARVELL_CN10K_DDR_PMU` depends on
-`ARCH_THUNDER || (COMPILE_TEST && 64BIT)` — Octeon 10 / Thunder-class
-ARM64.
+**Step 8.3**
+Record: Failure mode: leaked page-sized+OOB kmalloc. Severity **MEDIUM**
+(not oops/corruption; real leak on teardown and some probe errors).
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+**Step 8.4**
+Record: Benefit: medium for this hardware (correct lifetime of ECC-init
+allocations; matches prior leak fix in the same function). Risk: **very
+low** (5 lines, `kfree`+NULL). Ratio favors backport.
 
-Record: File is mature and quiet in 6.1 (four commits total). Bug is
-old, not a last-month regression.
+## Phase 9: Synthesis
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**For:** Real `kmalloc` leak in this 6.18 tree; error path cannot rely
+on cleanup; 5-line obviously correct fix; applies cleanly; no new API;
+maintainer accepted v1; same class as `d450cdd9c4398` already in 6.18.
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
+**Against:** Not a crash/security issue; no reporter; driver is
+Qualcomm-specific; leak is small and not a hot-path OOM.
 
-Record: **Driver-specific / config-specific:**
-`CONFIG_MARVELL_CN10K_DDR_PMU` on Marvell CN10K (`ARCH_THUNDER`). Not
-universal.
+**Unresolved:** Stable-list discussion (lore blocked).
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+**Stable rules:**
+1. Obviously correct and tested? **PASS** — `kfree`/`NULL`; maintainer
+   applied v1.
+2. Real user-visible bug? **PASS** — leak on probe-error and remove for
+   IPQ9574 SPI-NAND.
+3. Important? **PASS** — resource leak on teardown/error; same pattern
+   routinely taken for stable (not a crash; still a real leak of non-
+   devm memory).
+4. Small/contained? **PASS** — 5 lines, one file.
+5. No new features/APIs? **PASS**.
+6. Applies to this tree? **PASS** — clean on v6.18.53.
 
-Record:
-- Timer starts when the first perf event is added; period default
-  **100s** (`poll_period_sec`).
-- Classic trigger: device `remove()` while the timer is queued (unbind /
-  parent removal / module exit).
-- Mitigations in **this** tree: `suppress_bind_attrs = true` (no sysfs
-  unbind); successful events `try_module_get` the module so `rmmod`
-  waits for last close, and last `event_del` already cancels the timer.
-- Remaining realistic triggers: platform device teardown with events
-  still open; **failed `event_add` after `hrtimer_start`** leaving a
-  live timer so `rmmod` can hit `remove()` without `event_del`.
-- Unprivileged user can start/leak the timer via `perf_event_open`;
-  teardown is typically admin. Failure mode is still kernel UAF.
+**Exception category:** none (ordinary leak fix).
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+This tree is **6.18.y**. The buggy allocation and missing free are
+present. The patch is a minimal, correct leak fix with negligible
+regression risk.
 
-Record: Timer callback uses freed `cn10k_ddr_pmu` and unmapped MMIO →
-**use-after-free / oops / memory corruption**. Severity: **HIGH** (UAF).
-Not a guaranteed panic on every boot; when it hits, it is a hard kernel
-memory-safety failure.
+### What it solves for stable users
+On IPQ9574 QPIC SPI-NAND, ECC init allocates an OOB scratch buffer that
+is never freed. Failed attach after that allocation, and every
+unbind/rmmod, leaks that buffer. 6.18 already had a partial leak fix for
+`ecc_cfg` only.
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+### Risk vs benefit
+Benefit is a real leak fix for in-tree hardware. Risk is a handful of
+`kfree`s on error/teardown.
 
-Record:
-- **Benefit:** HIGH for CN10K users who unload/unbind with a live poll
-  timer; prevents UAF. Population is small but the bug class is serious.
-- **Risk:** VERY LOW (6 lines, no-op if timer idle, no locking change).
-- **Ratio:** strongly in favor of backporting.
+---
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-**FOR:**
-- Real UAF: poll hrtimer can run after `devm` free of the PMU struct.
-- Bug exists in this 6.1 tree since the driver was added
-  (`7cf83e222bce0`).
-- Surgical, obviously correct (`hrtimer_cancel` before teardown).
-- Maintainer-merged (Will Deacon).
-- Author/cover letter call it a **pre-existing CN10K** bug, not
-  CN20K-only.
-- Independent of CN20K patches 1–2.
-- Failed `event_add` in this tree can leave the timer running;
-  `pmu->add` failure does not call `del()`.
-- `hrtimer_cancel` on idle timer is safe.
-
-**AGAINST:**
-- Peripheral SoC PMU, not a core path.
-- No syzbot/user report.
-- `suppress_bind_attrs` hides sysfs unbind; happy-path `rmmod` after
-  clean event_del already cancels the timer.
-- Packaged as 3/3 of a feature series (but this hunk is independent).
-- Trivial `int` vs `void` `remove` context mismatch.
-
-**UNRESOLVED:**
-- Could not fetch lore.kernel.org (403) or git.kernel.org (Anubis);
-  discussion reconstructed via `b4 am`, patchew, and mirrors.
-- No `-stable` thread found (403).
-- Exact mainline SHA in Linus’s tree not in this checkout; arm64
-  application id `7dbcb0268d1e` from Will’s mail.
-
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-
-1. Obviously correct and tested? **PASS** — one `hrtimer_cancel()`,
-   merged by Will Deacon, idle-timer cancel is a no-op.
-2. Fixes a real bug that affects users? **PASS** — UAF on remove with a
-   live poll timer; code present here.
-3. Important issue? **PASS** — use-after-free / crash / memory
-   corruption (HIGH). Trigger is not every boot, but severity matches
-   stable’s crash/UAF bar.
-4. Small and contained? **PASS** — 6 lines, one function, one file.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — buggy `remove()` is here;
-   only `int` vs `void` `remove` needs a one-line context tweak.
-
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-
-Record: Not a device-ID / quirk / DT / build / docs exception. It is a
-normal small UAF fix.
-
-**Step 9.4: MAKE YOUR DECISION**
-
-This should be backported to **this** 6.1 tree. The CN20K feature
-patches must stay out; this cancel is self-contained and matches the
-code that has been in 6.1 from day one.
-
-===============================================================
-What the commit solves, and why it matters here
-===============================================================
-
-`cn10k_ddr_perf_remove()` tears down cpuhp and unregisters the PMU but
-never stops the overflow-poll hrtimer. The PMU object and MMIO are
-`devm`-managed, so they are freed as soon as `remove()` returns. If the
-timer is still queued, `cn10k_ddr_pmu_timer_handler()` can run on freed
-memory. That is a real UAF on Marvell CN10K systems that use this driver
-— exactly the hardware this 6.1 tree already supports.
-
-It meets stable rules: obviously correct, small, no new API, and the
-buggy function is in this checkout. Risk is negligible. Benefit is
-preventing a kernel UAF. The only backport edit is matching 6.1’s `int`
-`remove` callback.
-
-===============================================================
-Verification
-===============================================================
-
-- [Phase 1] Parsed subject/body/tags: UAF-on-remove; SOBs Geetha
-  sowjanya + Will Deacon; no Fixes/Reported-by/Cc-stable.
-- [Phase 2] Diff: +6 in `cn10k_ddr_perf_remove()` only; adds
-  `hrtimer_cancel()` before cpuhp/PMU teardown.
-- [Phase 2] `perf_pmu_unregister()` at `kernel/events/core.c:11587` does
-  not cancel driver timers or wait for `event_del`.
-- [Phase 2] Handler at lines 600–612 always `HRTIMER_RESTART` and uses
-  `pmu->base` / `pmu->events[]`.
-- [Phase 3] `git describe HEAD` → `p-6.1-10-g80966a5b14be4`; `make
-  kernelversion` → 6.1.188.
-- [Phase 3] `git merge-base --is-ancestor 7cf83e222bce0 HEAD` →
-  introducing driver commit is in this tree.
-- [Phase 3] `git blame` on `remove()` → `7cf83e222bce0` (no cancel) and
-  `68fa55f0e05ce` (cpuhp).
-- [Phase 3] File history: 4 commits; no existing remove-path timer fix.
-- [Phase 4] `b4 am` msgid `20260601073318.7098-4-gakula@marvell.com` →
-  v8 3/3; cover letter “pre-existing for CN10K/Odyssey”.
-- [Phase 4] Patchew: Will Deacon applied 3/3 as `7dbcb0268d1e`; no NAK.
-- [Phase 4] lore.kernel.org and git.kernel.org fetches: 403 / Anubis —
-  used b4/patchew/mirrors instead.
-- [Phase 5] `event_sched_in` add-failure path (`core.c:2591`) does not
-  call `pmu->del()`.
-- [Phase 5] Local `event_init` does not validate `attr.config`;
-  `event_add` can start the timer then return `-EINVAL`.
-- [Phase 6] Read local `cn10k_ddr_perf_remove()`: no `hrtimer_cancel`;
-  `devm_kzalloc` + `suppress_bind_attrs = true` confirmed.
-- [Phase 7] Kconfig `MARVELL_CN10K_DDR_PMU` depends on `ARCH_THUNDER`.
-- [Phase 8] Failure mode: UAF in hrtimer callback after `devm` free —
-  HIGH.
-- UNVERIFIED: `-stable` list discussion of this exact commit
-  (lore/stable 403).
-- UNVERIFIED: Linus-tree SHA beyond Will’s arm64 id `7dbcb0268d1e`.
+Verification:
+- [Phase 1] Subject/tags: free OOB buffer; SOB Hou + Brown; Link msgid;
+  no Fixes/Reported-by
+- [Phase 2] Diff: +5/−1 in `spi-qpic-snand.c`; `kfree(oob_buf)` + NULL
+  on `err_free_ecc_cfg` and cleanup
+- [Phase 2] v6.18.53 still lacks those `kfree`s;
+  `kmalloc(writesize+oobsize)` present
+- [Phase 2] `qspi = devm_kzalloc` at probe → `oob_buf` starts NULL;
+  `kfree(NULL)` safe
+- [Phase 3] Introducer `7304d1909080` is ancestor of v6.18 and v6.18.53
+- [Phase 3] `d450cdd9c4398` in v6.18.53 frees only `ecc_cfg` on OOB
+  alloc failure
+- [Phase 3] `65cb56d49f6ede` in v6.18.53; `err_free_ecc_cfg` still only
+  frees `ecc_cfg`
+- [Phase 3] Candidate `f320c3a8b1119` is **not** an ancestor of v6.18.53
+- [Phase 4] `b4 dig`: lore thread, v1 only; Brown applied to
+  spi/for-7.3; no NAK
+- [Phase 4] WebFetch lore/msgid 403; curl lore/stable hit Anubis —
+  UNVERIFIED stable-list history
+- [Phase 5] Callers: `nand_ecc_cleanup_ctx` →
+  `nanddev_ecc_engine_cleanup` → `spinand_cleanup` (probe err + remove)
+- [Phase 5] `nanddev_find_ecc_configuration()` returns on `init_ctx`
+  failure **without** `cleanup_ctx`
+- [Phase 5] `QPIC_QSPI_NUM_CS` is 1
+- [Phase 6] `git describe HEAD` = v6.18.53-5049-g0f0bdc2b0dffb;
+  kernelversion 6.18.53
+- [Phase 6] `patch --dry-run` onto v6.18.53 file: success
+- [Phase 6] `nand_to_qcom_snand()` exists in v6.18.53
+- [Phase 7] `CONFIG_SPI_QPIC_SNAND` depends on `ARCH_QCOM`; OF
+  `qcom,ipq9574-snand`
+- [Phase 8] Failure: kmalloc leak, MEDIUM; not oops/corruption
+- UNVERIFIED: whether linux-stable ever discussed this patch (lore
+  blocked)
 
 **YES**
 
- drivers/perf/marvell_cn10k_ddr_pmu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/spi/spi-qpic-snand.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/perf/marvell_cn10k_ddr_pmu.c b/drivers/perf/marvell_cn10k_ddr_pmu.c
-index 72ac17efd846a..9974b62541f0d 100644
---- a/drivers/perf/marvell_cn10k_ddr_pmu.c
-+++ b/drivers/perf/marvell_cn10k_ddr_pmu.c
-@@ -1088,6 +1088,12 @@ static void cn10k_ddr_perf_remove(struct platform_device *pdev)
- {
- 	struct cn10k_ddr_pmu *ddr_pmu = platform_get_drvdata(pdev);
+diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
+index 222e4aa7ee488..919e847c061db 100644
+--- a/drivers/spi/spi-qpic-snand.c
++++ b/drivers/spi/spi-qpic-snand.c
+@@ -394,14 +394,19 @@ static int qcom_spi_ecc_init_ctx_pipelined(struct nand_device *nand)
+ 	return 0;
  
-+	/*
-+	 * Cancel the poll timer before further teardown so the handler
-+	 * cannot run after this function returns.
-+	 */
-+	hrtimer_cancel(&ddr_pmu->hrtimer);
-+
- 	cpuhp_state_remove_instance_nocalls(
- 				CPUHP_AP_PERF_ARM_MARVELL_CN10K_DDR_ONLINE,
- 				&ddr_pmu->node);
+ err_free_ecc_cfg:
++	kfree(snandc->qspi->oob_buf);
++	snandc->qspi->oob_buf = NULL;
+ 	kfree(ecc_cfg);
+ 	return ret;
+ }
+ 
+ static void qcom_spi_ecc_cleanup_ctx_pipelined(struct nand_device *nand)
+ {
++	struct qcom_nand_controller *snandc = nand_to_qcom_snand(nand);
+ 	struct qpic_ecc *ecc_cfg = nand_to_ecc_ctx(nand);
+ 
++	kfree(snandc->qspi->oob_buf);
++	snandc->qspi->oob_buf = NULL;
+ 	kfree(ecc_cfg);
+ }
+ 
+@@ -1660,4 +1665,3 @@ module_platform_driver(qcom_spi_driver);
+ MODULE_DESCRIPTION("SPI driver for QPIC QSPI cores");
+ MODULE_AUTHOR("Md Sadre Alam <quic_mdalam@quicinc.com>");
+ MODULE_LICENSE("GPL");
+-
 -- 
 2.53.0
 
