@@ -1,200 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB353195FE
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:30:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B811A682B;
+	Mon, 19 Oct 2026 01:31:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792373452; cv=none; b=G/0/OBdOq54o1o3tApMAZQ9ZKE5na5vSXnlElKo7BI9y/oMHf1li9596J2adkeTW0PuJNyJGlhpLhkaP42lCx1SeMGUlLKZsJFQZ3tCGproj3KB9c0UgpEk2V6Fc0/tiWFQ8wJksU6T8zZMZW7eam3M3Uv2v97Q8HIqdmfKh8pA=
+	t=1792373487; cv=none; b=SJlE9h1dzgGiFio+ipiY5xqVyu/anKYn6atSgNfLRbn9sP+ehDhji0W/2qXGg2jdsvvslTCmDepRCAqu2Ny6kT9q3VONBxKahx4wwETFQVdj3In5BLZL8kVDzYfT1HJVP93wDNvBMv3i72UpLRFt3U7PfiNYCIjANccF0vkqS0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792373452; c=relaxed/simple;
-	bh=Z0ySzCm4p42xcebUysLz6g5Qcv04uD1bUD2zrOIOm3I=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=pb4XTCKA/B2eFHWKqGZwGya5XxMpyoV8VSW1e99m5MBE/CjAdzgJPpKQUgLbPas/0Oppsy3xQxedJyNs81GNH7NbBxFqckNQ9xwu1opvtleTdV3E8S74gYv+ojXmVEOMV655reXJB4GWLCp+4rVOe77tp5bEndqHt+lEgYMMpL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m+X1yHQB; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792373487; c=relaxed/simple;
+	bh=sCdyTZ67jTOIiaXat5qXaNr9R9GLdZiPNc2+Bj384bs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=koyt3KEWc0VuGqeBUKcI56GXv0VFmy3apMIHBm8AXBJD90jvMEBnzcAqHMJVaHUGDaNTCY/4PBCUO55PNL8M4S2d9HM6kFPJy3agbsnSytHWMMS39PSH73AUZr2GgUZNBAacVc4DsWNdXfTVfgyGHJKc/UCzWEoXOEXDpRbeUEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PKkYdPlN; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m+X1yHQB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792373451; x=1823909451;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Z0ySzCm4p42xcebUysLz6g5Qcv04uD1bUD2zrOIOm3I=;
-  b=m+X1yHQBKfla096Fzt9RcvU15vbI7VOKBAbM2tiAZgSGFpg2ysVtViuw
-   BlY4u2i03aMWoAvYsuYHc/Nlof2gNB/iwTL3smEs8zlVhk6uIESxEDOP6
-   AvGwCo8Gk+Z9y/z4ZmaM3aZrqpFYztyQcsCyVZ8vcyptEgu3tsVoO+W0E
-   hcO8N7sRPoGFSyG3ZheBdiLA6uW5FM4pvfbbqbZ8hgxsRBnf8z0KQR0kw
-   SGClkK9zspfgKRj8fwscbhaDGtfshS+pF3+s3bgAblTKB65a1nDNSLAZC
-   GvV5GJhRvDm0/5RvWHpBB73jyUDOCOuRl7sHsL8+lU5aijGAd8DlobRm0
-   w==;
-X-CSE-ConnectionGUID: xMGXkOr0Snm/T+a7v4CT/w==
-X-CSE-MsgGUID: EGzjJ4L7T/epl9zeIL7Gtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1069104"
-X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
-   d="scan'208";a="1069104"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 18:30:50 -0700
-X-CSE-ConnectionGUID: suzdxA2UT0KxVmfEucdcag==
-X-CSE-MsgGUID: vq2OGzu7S2ugJghDyoXBHA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
-   d="scan'208";a="2765006"
-Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 18:30:47 -0700
-Message-ID: <3a78df93-845a-4432-8aa1-fc4939f4f400@linux.intel.com>
-Date: Mon, 19 Oct 2026 09:30:44 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PKkYdPlN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=S6
+	MuLUT3S/7cmqKaPzxm3WCl7cdI7ecv9ygcgEc7WpU=; b=PKkYdPlN2hz4oXOyZC
+	YfNzjO/lFvv1S6vArtEVjHMxdlff3RXCV5aFVurbmbqyJtVxEfGpahwUTAd0R6cH
+	2HysAF4dmcj3MTCC6bqDH+OCcdkfXFAcG7q2lCAzfsCo62wsdH9x4WI83wFnkJ0x
+	B1aV9fJOxGTtLAgTQalv2yZp8=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3H8HcctVq9ZioBA--.28112S2;
+	Mon, 19 Oct 2026 09:31:08 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Christian Lamparter <chunkeey@googlemail.com>,
+	"John W. Linville" <linville@tuxdriver.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] wifi: p54: unwind failed interface additions
+Date: Mon, 19 Oct 2026 09:31:05 +0800
+Message-Id: <20261019013105.1487978-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Ning Sun <ning.sun@intel.com>,
- Michal Camacho Romero <michal.camacho.romero@intel.com>, x86@kernel.org,
- iommu@lists.linux.dev, tboot-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, Mateusz Mowka <mateusz.mowka@intel.com>,
- Adam Pawlicki <adamx.pawlicki@intel.com>,
- Pawel Randzio <pawel.randzio@intel.com>
-Subject: Re: [PATCH v5 2/2] iommu/vt-d: Disable PMRs and skip force-IOMMU when
- TXT TPRs are active
-To: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>,
- Thomas Gleixner <tglx@kernel.org>
-References: <7f637b22-110b-4e49-b083-6062bcad37c4@linux.intel.com>
- <20261012102211.1739615-1-michal.camacho.romero@linux.intel.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261012102211.1739615-1-michal.camacho.romero@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H8HcctVq9ZioBA--.28112S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr4rCFy5WFW5Ww4xGF4rKrg_yoW8Xr1Dpr
+	4jk3y7Kr1Uta15XayUGF45ZFyfCa1UCryxCF9rCanYkF1vyFyfZw1FgFy7Z3sakrWrJa15
+	Z3W0qF15Wa9I93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piYhF7UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhzjHmrVctyXDwAA3m
 
-On 10/12/2026 6:22 PM, Michal Camacho Romero wrote:
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index 2e3b3ab216f8..ea32730701cf 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -2558,11 +2558,18 @@ static int __init probe_acpi_namespace_devices(void)
->   	return 0;
->   }
->   
-> -static __init void tboot_force_iommu(void)
-> +static __init void tboot_force_iommu(s64 num_of_enabled_tprs)
->   {
->   	if (!tboot_enabled() || intel_iommu_tboot_noforce)
->   		return;
->   
-> +	/*
-> +	 * If TPR is enabled we don't need to force IOMMU, TPR set by SINIT
-> +	 * ACM will take care of DMA protection.
-> +	 */
-> +	if (tboot_is_tpr_protection_enabled(num_of_enabled_tprs))
-> +		return;
-> +
+p54 stores the vif and changes its operating mode before validating the
+interface type and before p54_setup_mac() can fail. Since mac80211 does
+not call remove_interface after a failed add, either path can leave the
+driver believing that an interface remains active.
 
-I don't quite follow this. The TPRs are disabled once DMA remapping is
-enabled in intel_iommu_init(). After that, the IOMMU is the only runtime
-DMA protection, which is why tboot forces it on in the first place.
+Publish the vif only after type validation and restore the monitor state
+when MAC setup fails.
 
-With this change, booting with intel_iommu=off on a TPR-capable platform
-would no longer force the IOMMU on. What happens next?
+Fixes: 1ed32e4fc8cf ("mac80211: remove struct ieee80211_if_init_conf")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/net/wireless/intersil/p54/main.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-- If the TPRs are left enabled, devices can't DMA into the protected
-   ranges, so the system is likely broken.
+diff --git a/drivers/net/wireless/intersil/p54/main.c b/drivers/net/wireless/intersil/p54/main.c
+index 57a62108cbc3..69d85efb9260 100644
+--- a/drivers/net/wireless/intersil/p54/main.c
++++ b/drivers/net/wireless/intersil/p54/main.c
+@@ -236,8 +236,6 @@ static int p54_add_interface(struct ieee80211_hw *dev,
+ 		return -EOPNOTSUPP;
+ 	}
+ 
+-	priv->vif = vif;
+-
+ 	switch (vif->type) {
+ 	case NL80211_IFTYPE_STATION:
+ 	case NL80211_IFTYPE_ADHOC:
+@@ -250,8 +248,14 @@ static int p54_add_interface(struct ieee80211_hw *dev,
+ 		return -EOPNOTSUPP;
+ 	}
+ 
++	priv->vif = vif;
+ 	memcpy(priv->mac_addr, vif->addr, ETH_ALEN);
+ 	err = p54_setup_mac(priv);
++	if (err) {
++		priv->vif = NULL;
++		priv->mode = NL80211_IFTYPE_MONITOR;
++		eth_zero_addr(priv->mac_addr);
++	}
+ 	mutex_unlock(&priv->conf_mutex);
+ 	return err;
+ }
+-- 
+2.34.1
 
-- If the TPRs are later disabled, the measured launch has no DMA
-   protection at all.
-
-Neither seems acceptable. I may have overlooked or misunderstood
-something, so please explain.
-
->   	if (!dmar_can_force_on(DMAR_FORCEON_TBOOT))
->   		panic("tboot: Failed to force IOMMU on\n");
->   
-> @@ -2584,7 +2591,15 @@ int __init intel_iommu_init(void)
->   	 * Intel IOMMU is required for a TXT/tboot launch or platform
->   	 * opt in, so enforce that.
->   	 */
-> -	tboot_force_iommu();
-> +	void __iomem           *txt_heap = NULL;
-> +	struct acpi_table_dtpr *dtpr     = tboot_get_dtpr_table(&txt_heap);
-> +	s64 num_of_enabled_tprs = 0;
-
-Too much tboot internal state leaks into the IOMMU driver. Could tboot
-keep this state internally and expose only simple helpers, for example
-tboot_tpr_active() and tboot_tpr_disable()?
-
-> +	if (dtpr) {
-> +		/* For the existing DTPR Table, verify TPRs activity status */
-> +		num_of_enabled_tprs = tboot_check_tprs(dtpr, &txt_heap);
-> +	}
-> +	
-> +	tboot_force_iommu(num_of_enabled_tprs);
->   	if (!dmar_policy_force_on())
->   		platform_optin_force_iommu();
->   
-> @@ -2623,7 +2638,8 @@ int __init intel_iommu_init(void)
->   		 * calling SENTER, but the kernel is expected to reset/tear
->   		 * down the PMRs.
->   		 */
-> -		if (intel_iommu_tboot_noforce) {
-> +		if (intel_iommu_tboot_noforce ||
-> +			tboot_is_tpr_protection_enabled(num_of_enabled_tprs)) {
-
-tboot_noforce should apply to TPRs as well. See the comment on its
-definition:
-
-/*
-  * Skip forcing iommu on and avoid tboot-related kernel panics during
-  * initialization when set to 1 (via intel_iommu=tboot_noforce).
-  */
-int intel_iommu_tboot_noforce;
-
-It's a debugging feature to avoid kernel panics during early boot.
-
->   			for_each_iommu(iommu, drhd)
->   				iommu_disable_protect_mem_regions(iommu);
->   		}
-> @@ -2697,7 +2713,24 @@ int __init intel_iommu_init(void)
->   			iommu_enable_translation(iommu);
->   
->   		iommu_disable_protect_mem_regions(iommu);
-> +
-
-Unnecessary change.
-
->   	}
-> +
-> +	if (tboot_is_tpr_protection_enabled(num_of_enabled_tprs) && dtpr) {
-> +		/*
-> +		 * TPRs are enabled. It is necessary to disable active TPRs
-> +		 * to enable DMA usage by the system.
-> +		 */
-> +		num_of_enabled_tprs = tboot_disable_tprs(dtpr, &txt_heap,
-> +		                                         num_of_enabled_tprs);
-> +		if (num_of_enabled_tprs != 0)
-> +			panic("tboot: Failed to disable TPRs. DMA is still blocked.\n");
-> +	}
-> +
-> +	/* Release the TXT heap memory if it was allocated */
-> +	if (txt_heap)
-> +		tboot_free_txt_heap_mem(&txt_heap);
-> +
->   	up_read(&dmar_global_lock);
->   
->   	pr_info("Intel(R) Virtualization Technology for Directed I/O\n");
-> @@ -2707,6 +2740,9 @@ int __init intel_iommu_init(void)
->   	return 0;
->   
->   out_free_dmar:
-> +	if (txt_heap)
-> +		tboot_free_txt_heap_mem(&txt_heap);
-> +
->   	intel_iommu_free_dmars();
->   	up_write(&dmar_global_lock);
->   	return ret;
-> -- 2.55.0
-
-Thanks,
-baolu
