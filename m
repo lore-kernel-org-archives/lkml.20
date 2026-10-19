@@ -1,73 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F0339D6EC;
-	Mon, 19 Oct 2026 12:09:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61E004078F0;
+	Mon, 19 Oct 2026 12:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411761; cv=none; b=W5y4q5lHONc8qPevePH7Sl8r77t8R3JihDde1q7ud79uQ/at5ZDQZe85a7rcqZPalYSwa4CmqETKbCW++IBrZTrMAOvHiZTk1ESVQ6LgDJ7wVwpfmutz8FiOYwAAxxiycqByqVsSnMqViMxjX0yE0W7YcgfYcFcHl5RPYpuUTl8=
+	t=1792411785; cv=none; b=oICpN8MrKjnm1ZkC4DVYcVnqc5V6WVOvA5MA+z2xsnHTSaPwdeFCbzjxxp1ObQWT0DlmOA+8vGItpZdd6jBGzVC4vYYtWs37ed1lxJn+8eBtgg95NLlN/1FvXBB1sjlEic9K82xoJlBPKj5CZDuMQzKZCbzQ583MX+Fp0Bz60gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411761; c=relaxed/simple;
-	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZKPsdh2OilWOxDNJpPpFkkaqiVpn5/Al5m3yeRXatSNKa8F/EwFbtMxlzBvzYnMt2RdrtqHl3sgibInzWDro5Rrdu1+FOBkBG94+tgZ5pcqAZ/qn37DpfbWxFz10bZjgeZV/bdebzJHvyWgEnboJbunN8EVTFX06NCla9pQTr58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DnHVZ5Kg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792411785; c=relaxed/simple;
+	bh=66/kSXIZunIvMysX4NXfRh6x8iUihn5RIgQeItorBbU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AtE5KvpaxwFeCrSGhvVMNyJSHJiBaMrSm/a252oeEMBZx3x5D0yeco29yTHN/5OcQizZAeP3geyQeuYvoUz2sXuLoFoeBFWq99/Jaze6aLlH2LmonJwSN7N1ezffweG47bfPUBQIBEXJkmDf9GPoFrmJxTNBZ7dOlZR6tWVBnKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=ZAEyAWYv; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DnHVZ5Kg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18411F000C4;
-	Mon, 19 Oct 2026 12:09:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792411760;
-	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DnHVZ5KgwF0FuzGzKxVAuLEnxZVfDJaKjDmRXGmrgX/IFQTk6aWiJu3g4IjlXOyyb
-	 Sz0JfH0yvBGPxvDS0owJdrRoTS2nRyHesFOjP6QOIll1J5XXqHaLIi0QhHfojgsbbB
-	 g0cCB6XpGfVkYDkdvYswz/aiPVlhcIrjb7pbigCiO34TsbG+uIxwpyhXs/hQOyI8nH
-	 SQP7wl+YyGX0XkhZph3HeoeWAg1omKTT7Srm/20VrLGiEAPZBeBuqoBHhZ+wQYiOKk
-	 78saLiE9gyI6Q/aMGFBfs+syotUOKjvCPuOG3DZxZ4B8RAOx20hvXGPNa3awHyomNu
-	 2mstGVliOv3gQ==
-From: netdev-bot+sinfo@kernel.org
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Chris Arges <carges@cloudflare.com>,
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>,
- Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
- Eugenio =?utf-8?q?P=C3=A9rez?= <eperezma@redhat.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, virtualization@lists.linux.dev,
- Max Krasnyansky <maxk@qualcomm.com>, Rusty Russell <rusty@rustcorp.com.au>
-Subject: Re: [PATCH net v3 0/8] more virtio-net csum hardening
-Date: Mon, 19 Oct 2026 12:09:19 +0000
-Message-ID: <179241175916.3290.3107334544259481724@kernel.org>
-In-Reply-To: <cover.1792411304.git.mst@redhat.com>
-References: <cover.1792411304.git.mst@redhat.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="ZAEyAWYv"
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id 9B7DC20B7188; Mon, 19 Oct 2026 05:09:37 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9B7DC20B7188
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792411777;
+	bh=7srkqM2xefj9HVtBCkJOPVB1o5A3cjKerH/znl0Otwk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZAEyAWYvPJTNGxmIs2Wr/emJ/bVsFjprGvumEr9eZLulMzQk1L/KV9Pd8DmmGQ+y/
+	 Dh4IimOUPA8RXzTeNsOyKWSp7KVI0nG7km5W1hMiz5gbrHom+i4eh8B1mzvPBPVD97
+	 /cnUqEkpxBbYgagtiQvtNkDpEi7anXEg+fP9PpQY=
+Date: Mon, 19 Oct 2026 08:09:37 -0400
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: mhklinux@outlook.com
+Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH 1/1] Documentation: hyperv: Update information on guest
+ CPU offlining
+Message-ID: <atYIgc2jsyh9u1Uy@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20261017160848.14730-1-mhklinux@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017160848.14730-1-mhklinux@outlook.com>
 
-Hi!
+On Sat, Oct 17, 2026 at 09:08:48AM -0700, Michael Kelley wrote:
+> In Hyper-V Overview documentation, remove the out-of-date reference
+> to explicitly reassigning VMBus channel interrupts before taking a
+> guest CPU offline. Instead, reference the VMBus documentation, which
+> is already up-to-date on this topic.
+> 
+> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Reviewed-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+> ---
+>  Documentation/virt/hyperv/overview.rst | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/virt/hyperv/overview.rst b/Documentation/virt/hyperv/overview.rst
+> index 77408a89d1a4..63489f73a299 100644
+> --- a/Documentation/virt/hyperv/overview.rst
+> +++ b/Documentation/virt/hyperv/overview.rst
+> @@ -132,11 +132,11 @@ Starting in Windows Server 2022 Hyper-V, the ACPI tables reflect
+>  only the CPUs actually present in the VM, so Linux does not report
+>  any hot-add CPUs.
+>  
+> -A Linux guest CPU may be taken offline using the normal Linux
+> -mechanisms, provided no VMBus channel interrupts are assigned to
+> -the CPU.  See the section on VMBus Interrupts for more details
+> -on how VMBus channel interrupts can be re-assigned to permit
+> -taking a CPU offline.
+> +A Linux guest CPU may be taken offline, and subsequently brought
+> +back online, using the normal Linux mechanisms. See the "VMBus
+> +Interrupts" section of Documentation/virt/hyperv/vmbus.rst
+> +documentation for how VMBus channel interrupts are automatically
+> +re-assigned if necessary when taking a CPU offline.
+>  
+>  32-bit and 64-bit
+>  -----------------
+> -- 
+> 2.25.1
+> 
