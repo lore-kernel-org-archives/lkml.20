@@ -1,115 +1,116 @@
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6EA3DDDDE
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:26:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1BF390C8A;
+	Mon, 19 Oct 2026 06:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792391165; cv=none; b=iwSsp5ZIf2sNK1aXwIxaeRU4hCBN2iBZK5BSu04yedB2NUgpOs+ar4udoBmnQT0+P1NUEhbx4J65eJoBoRFUwa+hwuvwx3D7NeU5I5TotZyVENfJ62RYs+fZYPiyYfq8oktlg4y2ILyFlDneiAqco9a6plTFeCtuvCwD8pRrdcU=
+	t=1792391205; cv=none; b=ThS/+v+nrRQSMikdDQGC+YIU//ar2Zy0tIWoa7kmaOp09U6Ai1BCXIjhicVexse0GaGYx7eg21MvHiE7e3JxGZLn1X/4JNhc7fNlJi6lKTkHbOWM7DzDUggGgvk6VpimySwlfq4ojaaiVNFusOpiSy5Sk47tlOJVWOBYFPzTNQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792391165; c=relaxed/simple;
-	bh=j+TJapDpmYfqZPFHprlVF6+tOgaNaUREk5h7ejkKKV8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZQC93UGYtny5rHfd0aDogIbMv5ZT8PF87SCInKLbrr006yuPBS6U9sfZgHn8ZeD3Ct7IVAPyZ6w1xsnXrQsBCXXThOrCgazBnJRVV2uatXUWZiQ7473zq2Y/57jaegeXfzcM9BaxUk5dWjR6T9rLD/zPZvdVtJkx2n/o4Uobcd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=1K8b7/wV; arc=none smtp.client-ip=35.89.44.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1792391205; c=relaxed/simple;
+	bh=U/ncPMi8AfkPa3bR1bJFQ1O5+hoo502VXFi6m7pg24E=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=aUiPLUoM0ATBDp9IvXD1b3OBKOYcGvXwCmtNApg94wBtxDFInM/q+FjTlpiMcxO7o+joN/WSYM4olfs0HJRQXiUfaPNFdhPkGkEREQYdD7idz2U7NirYsuis+yEbzceFLoNLxojitsbXCglM6ybk5OnE0LUEo/N2hyA5bap+xXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MGLz6g8w; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="1K8b7/wV"
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
-	by cmsmtp with ESMTPS
-	id IYj7xdVgec3XsIgooxWSjf; Mon, 19 Oct 2026 06:25:58 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id Igonx3gLGouFZIgonxG4TG; Mon, 19 Oct 2026 06:25:57 +0000
-X-Authority-Analysis: v=2.4 cv=Zd4dNtVA c=1 sm=1 tr=0 ts=6ad5b7f5
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=fSA-YJl1BVv2D8DOKtkA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=uaYGuNn0i1tun6haek209KJoUHEVtgzBYNBEkU1rYVI=; b=1K8b7/wV3eAXLi0ln/HsPD0Z+c
-	97A1QFKwNVBwmBRJrwZhli/alyPDtcNKx9mJKSxy1jfAlrlZsDcFlYBaELIpGyWKWevVpif5uILrV
-	cO+LKUZBlI6fGMUxQBUKxDkVXoIC40i4Lzj/wzeGalJjg7Ahe38k6ORTaj5H8rfGAKQOE90EoEG9G
-	Iepu6pyWIlItJRkZo9qzxV4AEPao3Vm32YGgXsdwAcxOqSVgJPcMbQfuJ82akMrZU/fexDhtOzA1W
-	Py4chbE+iBEsg7LJNQWlo13897UfyP+3cTnfyA/MzG4bAsK9nGSr0ZXzTXzDbQCeK0opo4Jrheop/
-	16dAexXw==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:36108 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xIgom-00000002qW0-2L0C;
-	Mon, 19 Oct 2026 00:25:56 -0600
-Message-ID: <efe4ef57-1b48-4532-8d66-3b75980d35e3@w6rz.net>
-Date: Sun, 18 Oct 2026 23:25:54 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MGLz6g8w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792391204; x=1823927204;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=U/ncPMi8AfkPa3bR1bJFQ1O5+hoo502VXFi6m7pg24E=;
+  b=MGLz6g8w50zHiJVOZfSf+zCzNeDoBDhk8boWJvkNU4PwYlTYi/gMfVT5
+   Vh23io52vdlJl3+ZcgG4iShQ0GxbNXVYzeMKb4YDZ2ZLl74Eu4Rac7BJC
+   ICqVfXru3EMEajfs9FhUIdN0R4Y4axjSr2fXpe2G2tn04ju1+O+pIJaAE
+   h6Jmr3CB8YPPcpRSKrLQLkLLpJYc+GqHW0vICOI9XUUnxRsAOibSMXNyK
+   CFkxgi3aibzvtfwjfRC1dq6oyNZJPkdhfHG3e1Fn2h0Mc4yaTApkoCvjn
+   aBfDa639Nc4Q4/B/hF7xV8C3Jsb6NKhPojqReWm/wKpIDLnsDEQ1x/LoG
+   w==;
+X-CSE-ConnectionGUID: CzBHrSCVRZaAxn99xTeikA==
+X-CSE-MsgGUID: gUP/8J8eQACoalqBmto/WQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1081713"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1081713"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 23:26:43 -0700
+X-CSE-ConnectionGUID: fjQXSwv8RtC+vz7f5suDsg==
+X-CSE-MsgGUID: Ik6LpyuiQWi7n8/2QZ5FqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2432998"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 23:26:38 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 19 Oct 2026 09:26:33 +0300 (EEST)
+To: Chris Taraszka <chris@miget.com>
+cc: TuteMthCD <matias.civadda2342001@gmail.com>, 
+    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
+    Mingyou Chen <qby140326@gmail.com>, kento@kekto.ru
+Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Add Xiaomi Book Pro 14
+ platform profile values
+In-Reply-To: <CAAcRvKOADz1T_MCv4VB1QxT6uMxmU5Ax7B3HGRYbZ8Ph7+8-rg@mail.gmail.com>
+Message-ID: <f9da7ec4-2a89-fdd0-b60e-7f7b97b97e05@linux.intel.com>
+References: <20260928153902.139956-1-chris@miget.com> <5430348c-8ff3-c31a-927f-321b2cf94883@linux.intel.com> <CAAcRvKNrRMb44p-v0-wiWQx8QiToYyKCoCzXvVku-o0RGTxEgQ@mail.gmail.com> <793647dd-8835-3bb2-88f4-ddc053580bd3@linux.intel.com>
+ <CAAcRvKOADz1T_MCv4VB1QxT6uMxmU5Ax7B3HGRYbZ8Ph7+8-rg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/10] 7.2.12-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261017155059.698368299@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xIgom-00000002qW0-2L0C
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:36108
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 17
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBSTFJ3nH2EsKXXDsLRFOK2ATwK5ire2xVbHmTeQzFEcwCrW7ux/G26swNejbt1Ri35RUeMCbds5Ly3k8xoyIYUPJqBoJkYcgsdj67j5Vd0xLWr5mF6r
- W65FK0bWUqcAOBVmngPfcuL+7692sB0fzC19Wp1BPHQoNFx/Lmys2XNV953HHO5yyIfYXzmuZilYTNUlGa7H4sARfZ/IKvnZBiI=
+Content-Type: multipart/mixed; boundary="8323328-1414911651-1792391193=:1469"
 
-On 10/17/26 08:54, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.12 release.
-> There are 10 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.12-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+--8323328-1414911651-1792391193=:1469
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Tested-by: Ron Economos <re@w6rz.net>
+On Sat, 17 Oct 2026, Chris Taraszka wrote:
 
+> On Mon, 12 Oct 2026, Ilpo J=C3=A4rvinen wrote:
+> > I've not seen v2 so far, has there been some progress with this?
+> >
+> > (Not having the generalization seems a blocker adding many models.)
+>=20
+> Hi Ilpo,
+>=20
+> Sorry for the silence. Mingyou's v12 5/6 ("platform/x86:
+> bitland-mifs-wmi: Add quirks table") now has the {value, profile}
+> pair table I described, plus the no_set flag for GET-only values and
+> accept_zero_function for SET replies without a function id. That
+> covers what my v2 generic patch would have done, so I won't post a
+> second one.
+
+Okay, thanks. I'll go with that series then.
+
+> I'll test v12 on the Xiaomi Book Pro 14 and base the
+> model entry on top of it.
+>=20
+> Mingyou, one issue in v12 5/6, in bitland_mifs_wmi_call():
+>=20
+>     memcpy(output->data, payload_data, sizeof(*output->data));
+>=20
+> data is u8[28], so this copies a single byte. laptop_hwmon_read()
+> reads res.data[0..7] for the fan speeds, which would then come from
+> uninitialized stack. sizeof(output->data) is what you want.
+>=20
+> Kento, you're right that the match has to be on board_name TM2424.
+> Since we have the same machine, let's send a single TM2424 entry. If
+> you rebase your v2 onto Mingyou's table, I'm fine with it being yours
+> and I'll test it here on BIOS XMAPT4B0P0909 with accept_zero_function
+> set.
+>=20
+> Matias, sorry for the delay. I think your TM2107 v3 can go on top of
+> Mingyou's 5/6 directly.
+
+
+--=20
+ i.
+
+--8323328-1414911651-1792391193=:1469--
