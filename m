@@ -1,90 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053EC4DF4D5;
-	Mon, 19 Oct 2026 11:48:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99534E50D1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:52:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792410535; cv=none; b=ZbafpWAv1QsS7Ue6ofnO/Oa8E8bQ3DhillBNIq6Q5AeOSfHcQfLtj9FannQ7hMeMMcEenO+beKrIofJYYH8xL0qMS3hstezQUPcc/Q5TosHvsAY66S3AMh2dSLNEvVHWyrKbURauOv5LQeP6DFMAoq5n+yzixfyYv2mBVPF1uvQ=
+	t=1792410769; cv=none; b=EOix7sg3ggwfTVCbW3q8lNH9c61J/li/NABibh4Z+CfiulIcqbnwgjneXE4ReSLtRViRGFmsCbCTekY8tMTwerEAAhdKOekExFfKBJ1rf1399QPDDe2d49EkJnwB8gTkf3SYVOZ2/D2VDFrCzHc7lQ5uWDTnMiT2h9fg5k5MdZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792410535; c=relaxed/simple;
-	bh=pKSArXpk/5IJh+/fKSThGW+GIdbiteG9/vEycrk2pds=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GwXVIlbkh1XzpGDWVo73iIK21Uu1rHxYZbnFNEW+VGJ912/wsWc6UJ9HAT+xxyNJMdOwwXaSIk7UsXztOLovNtXtkF5K3jKsXlMm3xDL2Zww6zIPnCyNXgrMAkpJLykcLTNUXA3gLEczJ8lu9o/4Kjzu6b0BHWxivMBY47q8Dcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IXrfQasl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792410769; c=relaxed/simple;
+	bh=Uzb4bzoXMKylCRTCeL2lmM6T+/mg0vJPMov9Rmks3qE=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=qZx3XYIBK0yuPgexgnyIqUme/Lb73fRTKeTQQaxHrlsINtcqjkQW5BdKLaSc1eZN9rKb2uCpYXDdHZm80CX6zKf/KHhwdfcpoKOWmwHrvZkvX3XLrhlkm7fGiza9RM9A/h2Qji58MklvuByWtydmdNL29YAxXmtVgGYE1HRy3dU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VfIg3BJs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IXrfQasl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37841F000C5;
-	Mon, 19 Oct 2026 11:48:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VfIg3BJs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 374801F000C4;
+	Mon, 19 Oct 2026 11:52:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792410533;
-	bh=5bVoZnEarRBs9Xk5wqya8DrG3A1bPmlIgxOyF2pbG3g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IXrfQaslscILGXoY7dMfLmeJ3rKloCn5sPs9jso2bKegmGYtIIOe7BgHYEPtIdYWL
-	 5g3jaVRY1Fdsmot/Xix5bb8Ly1rXPcn+7RX0W+DwPDRGFJ+BPIRLS+3ArjRa5dEfgD
-	 WdoImdUbHvqe+7wOoYLqTdEUixfOFJleozd+591RWzmRkpuMZOkgWSvKeIXh/jchC1
-	 175kH3lfxu08NTv3x178CilXX1fo7wScY04iY+pPyxYrG60KuMSaXeSkC6Czwkb0I8
-	 tfD5BY8dEIq58KmmPN/VWjY7S3REBjKxHMxcl0vvM8lz8yLm5kF1tay7R9l8JJgdOj
-	 c88/1pZSqSsew==
-Date: Mon, 19 Oct 2026 17:18:49 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-	linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tee: optee: allocate a bitmap for all valid notification
- keys
-Message-ID: <atYDodGDc3z6Qv4f@sumit-xelite>
-References: <20261009-fix-tee-max-keys-v1-1-1462d96bf438@oss.qualcomm.com>
+	s=k20260515; t=1792410768;
+	bh=KpX9ATZMQwAwGmffhR7W9Exlbrhcs96ouUDOfF+OaLU=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=VfIg3BJstJ4Y+4iRjf3Ckm0Q9ImVsW9+aR6ZO7TwOxJufIqWjJyEbxMpdZ9IKOKwj
+	 WM5Wetzdwjr+VBbgVkUXlULNc9qgm3Pv8ZKXvCnS/Cnze/JNHElb1kRvHTPH5w4UzI
+	 iO3+dlOWTna03plOfGp+8SIv63/0ovOYvekEeUX7+ZINaT15wrDua2VorTqkHmGNDT
+	 mAQQ75ZfXYcqKjbNaG8gD77RCEGX8Vfq6SjrQ5oIWRLOSa+yzeVL3jnwqMokGfVob4
+	 etNy8GEM6MJHftctjOXkBwFUv91gRka1FH59FyadhggbtwF8Brp6J9WX+y6kvOvaLB
+	 UfquaeUYmP9LA==
+Message-ID: <36220ef3-5b00-4aa1-ad11-60b10857a886@kernel.org>
+Date: Mon, 19 Oct 2026 19:52:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261009-fix-tee-max-keys-v1-1-1462d96bf438@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Nanzhe Zhao <zhaonanzhe@xiaomi.com>, Juan Yescas <jyescas@google.com>,
+ Daeho Jeong <daehojeong@google.com>, Dev Jain <Dev.Jain@arm.com>,
+ David Hildenbrand <David.Hildenbrand@arm.com>, linux-kernel@vger.kernel.org,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v5 10/16] f2fs: support partial uptodate large folio read
+To: Nanzhe Zhao <nzzhao.sigma@gmail.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
+ <20261014064445.2835813-11-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261014064445.2835813-11-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 09 Oct 2026 at 20:19:48 -0700, Amirreza Zarrabi wrote:
->Notification keys are checked against an inclusive maximum, but
->optee_notif_init() passes that maximum to bitmap_zalloc() as the number of
->bits. The bitmap is therefore one bit short. When the maximum key is a
->multiple of BITS_PER_LONG, accessing that key reads or writes beyond the
->allocated bitmap. Word rounding masks the problem.
->
->Allocate max_key + 1 bits so that the highest valid key has storage.
->
->Fixes: 787c80cc7b22 ("optee: separate notification functions")
->Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
->---
-> drivers/tee/optee/notif.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
+On 10/14/26 14:44, Nanzhe Zhao wrote:
+> +static void f2fs_truncate_read_extent(struct inode *inode, struct folio *folio,
+> +				      pgoff_t offset, block_t block_nr,
+> +				      unsigned int *len_blks)
+> +{
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned int next, end;
+> +
+> +	if (!f2fs_folio_has_ffs(folio) || *len_blks <= 1)
 
-Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+For newly allocated large folio which doesn't have ffs, we should still update
+*len_blks before return?
 
--Sumit
-
->
->diff --git a/drivers/tee/optee/notif.c b/drivers/tee/optee/notif.c
->index 68014222d7be..2bf5ce397233 100644
->--- a/drivers/tee/optee/notif.c
->+++ b/drivers/tee/optee/notif.c
->@@ -114,7 +114,7 @@ int optee_notif_init(struct optee *optee, u_int max_key)
-> {
-> 	spin_lock_init(&optee->notif.lock);
-> 	INIT_LIST_HEAD(&optee->notif.db);
->-	optee->notif.bitmap = bitmap_zalloc(max_key, GFP_KERNEL);
->+	optee->notif.bitmap = bitmap_zalloc(max_key + 1, GFP_KERNEL);
-> 	if (!optee->notif.bitmap)
-> 		return -ENOMEM;
->
->
->---
->base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
->change-id: 20261009-fix-tee-max-keys-50f2db87b4e5
->
->Best regards,
->-- 
->Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
->
+Thanks,
