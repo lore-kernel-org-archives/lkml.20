@@ -1,54 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435752;
-	b=EF3rbGTbSBklJVOmBpwTF0GnAr2U0Hplmb+qAjrZCvlw29tLmErgeB20Y2a1r4zeLlae
-	 ZlP5AEwsb8uG0KeJNUmhzYYBYCKNcBHAVlGjkZFDcMm9LlFviewzJ7IhCy96+9UkWuVjc
-	 UHwDf3TsKWCCstCnm2CXoDVDwvMeUCJ+X+SthbH3YGvGGb+UcPuiYfaM0L4wvY7EoSoFE
-	 bjC9YHO7zNiXK78KU8ve0zP++dbCIj24GElSQvIKcmVHeQP0oJ/3ImGwH8yRXTuJFCCU/
-	 slceuC+LqXOfjNkpkvIyI/Q8jesnUuPSq/Zh/Fve2reEwd+8hCipH7gYUtaHudwQ/Ew==
+	t=1792435808;
+	b=JBBiryF7BKvYXWy1+UQ5zbYZN9g+q0SFqAowWdR00zH1SrE3gcY5q3pdBIHmrwIVEhVD
+	 utindmkLPwiadBgDja85NDpBYpDznSfyvVytsbUgKUQgbksjPYT7oh9DNGfjmHTSGhV9a
+	 md2MyQqfuNJZnZj++8urbeh9BTw0NmrnB/zPmbvrx3lsal5pC2p54s2LWZ2W44435CFll
+	 yT2ROi/whVP/55xarm6/m00o0SylJhTbPN1wIkV00r2v+qEo4UsdimbRfu7NEZHfIprW1
+	 Iker+41ACHNWjtpumYKuwoGppc7ks9I5aFiQmGbRD+EVDGC1okeqqgjfWS9he7fBsHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435752;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=odoauVdJqWqaAI8ZwIV7KjQzqBjqQDbAw/30Cb/fZ88=;
-	b=iscSpkktCVVL/vFMLcJEGA45OnAdUkYem/MG6+DKn5PxBPTc8pccAYJJmpRB7SBJ9giz
-	 pl0yvv+hf+8Nub6jtATq6kYo1mAodcZxJrlu74FCYYnIC2Z4OdUerEd8PwN5Rc/nhoI3v
-	 hPZqU/XSvl3+ks7Ucyuro6CkUjyTWWDjA7QPCZnHBP6U+aGwTAUR+AtanuenV89wSbqgG
-	 7bW6YS4DmB5IzQ25wsHa9mFTBcxSS34gEPM+y58x8MuV6ycyY9DkGA0A3RZp8hO/Cv32Y
-	 NUqer6TlkvCOZ5b8mqwUR5O07US5yGZlruIqbj9zQk/t5jO1mlIkZSBK9hMZbPI7jZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435808;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=qQajsp9ObyIZH1W2JtDu/mB6mPActDF2v9UueTjQ/T8=;
+	b=FNIEggYv0Q3q1Jr/hngT/tMmws0YQJIp1kv6Vgs3mowPj01Qjig/REOiIW3YtQ0LRT0K
+	 RkrqpOMXtADEXhE+43DWAEHbQKHfHS3K0BbbWVDW4EEoCGfHGVrqcli5h3sNjebfbGSpf
+	 HSR1Z8zDUEVyYrk5rjrlgWeD5SedTy5aZXcJMBNTUujHFhUCixqMpyYfSPv7rBChPmDIg
+	 MPWz0EQmulGUJ9kHTUAatNvhmymsqxbWQ6Ho2CsksjfIMhxcTLTubluI17F9EvVwg6toG
+	 ZVCXwgnWpaOF3m9JxHdSISSK4a0NH7J5mAHGBs8n+ZB6GkOA+i5exGbKX7g++hmnCdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FpVt81lu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=PC4SbAoc;
+	arc=none smtp.remote-ip=209.85.219.48
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E34606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:49:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08992606A328
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:50:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08992606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FpVt81lu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244821F000C5;
-	Mon, 19 Oct 2026 18:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792435751;
-	bh=odoauVdJqWqaAI8ZwIV7KjQzqBjqQDbAw/30Cb/fZ88=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FpVt81luKpgl1WbnJJ7TGOrqiFGvJE3Vp6obqv4BfKFwpY83JjR22wBTyq00DpteV
-	 Yn5OVnKkHlnjGjCrOznxDdU7mpGANQof2eWfxPOKPb2PltMjR5Xk9FpmPFOihIcyqZ
-	 6A4+TGeNbwggf80qgkj2+YogHGG81aFViwNYLz5nmpdPhfOtGEMT+p9/gRYiaGQxiL
-	 9aeS6k3X6WcPE/UvlwrmOsk7H1p8uGmpJsLUqR19zfRQ57SuTDIBn50er8OPHButkz
-	 zyFMD4MF4QFuSmtQk7gDLFY0NdpysNqdbseTNWlKW88MI2mWQBma+YdXSicarCtQDs
-	 GSnP5tFu7k5+w==
-Date: Mon, 19 Oct 2026 19:49:09 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] mm/percpu: clean up callers of pcpu_obj_full_size()
-Message-ID: <atZiXtW0rmiQLEB8@thinkstation>
-References: <atZWW7V0MI--HOke@thinkstation>
- <20261019181628.2113224-1-joshua.hahnjy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=PC4SbAoc
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-917c04630c2so28113976d6.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:50:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792435807; x=1793040607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qQajsp9ObyIZH1W2JtDu/mB6mPActDF2v9UueTjQ/T8=;
+        b=PC4SbAocOcKCk1olB/9Of3Mk7Qksv9J9g2B61lEgWdLNvU+Yk1s6PVk5lvuLnEx4lr
+         mvmVmSWV7KSn+Z2JaGwGn9L7La1IOFjQymWkn1bzEOHufm9ZTc5KURasEQh5ElYjRbXu
+         pfUjc4qrhvx9DsP/4jkQtXaZpcv3Mp6YWNCZLk3TQKeVpjmfiT5+GN3fj3zKf54x4M71
+         COp8q/V0vv1J9MIAQaXyPB8ayYjoIXNHmwfy7X+Q3jY81iGkW7zlJkNKNoXeZZFxp9ZG
+         gaq36sIN76PGb1mJmGGJGzCb+KRwuTdKUGb69h3rHTb9E9+eurkZ7j0jfzTeNb7aSTA3
+         QUtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792435807; x=1793040607;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qQajsp9ObyIZH1W2JtDu/mB6mPActDF2v9UueTjQ/T8=;
+        b=WgzN+X6U3BmbyPrKMNJLdL1LkIPhBpDjtYlm9bvWKcxP5vjt3/2LvCPsWPFj+oNrei
+         ujxCCOkuDEH2WKbNKoKC8Vf7+7wsvI/aaWqTb/4ePs+4kyEZWYAXTep71XpVEJvREnKF
+         AkjY/m2jcSp57XOMV5l7hjWQvxETULeea9Bx66iUR06RgGjzap0FVe2bk9dUGJIQWJub
+         Jkm/O4t9OmmPh+Pcjdq9F7lIOfkwU0/gfy2nhqW2WcShjJE01qW8+WV+YMuKGWjEnc2U
+         m9VYw2bUzfjxfn+pcTu70haJW3gqgcMl+rVO3SLAbKaBdhVlT6M/z+XSt/rJQnY+L1lL
+         1p4Q==
+X-Gm-Message-State: AFq9FYJjnMg5YHp+7Hj09BkOE2diUQ5mfpfckG9CMHnd2SMIn/S/o9h3
+	SFjkIyzk2uAvw6/u6CAC5YU9xfrGG4zAf9xPM0AX/QLygF2sDc5QI59QNgyjFbwFLhSxK3CNThw
+	+o1gqeXI=
+X-Gm-Gg: AYBFou02zVuYEGtajYbEpFT+xpdNHir+ElS0y2qi7LEqJHJzoxx33VmBvOx33MZkJyq
+	c0XtkVS/T2BaqCFbeC9Fq2a9p8OuysvNcZocfUYUmNVmBtakt58lbCBNggDRiOLd72IyPVOPaf4
+	iRs7gP4N/tmt8VgbYFk2Z5TKCXT2Lijif513uT1TlY2ggDW1E6OpNzA0cOaj++KRyn815kXTeTg
+	nCksqGojDkbWOGy4j0AzWZqTHbhRRveWj51m+Vu96DPcyVhTeQqlOiXvoRkDG+Scll/pUG4lx5D
+	aDN6MCXg38H8MwoUL1WgPIVYm6ZxNeMuOCFr2TkmenwoCCg+Z5QyKZlRQUlEvneOU+y0b6kwPbS
+	hiDOyHTViJ7kojn3tqZKmuh9SDmnWJyRn1RGL66/gzfQVnEPlZvFcTiuViSBTK1O9yhfCEZ9ARL
+	GaZL2MZJoPSThJ9k4REeDXecAtLpPiIcajPwaITeM+mOYtw+k7Ch2iZPHwAjGgwO/SbZIcVpW+8
+	Ta2QGa8HLdkQ6ABo96iMuQ9oL2Wr1Va4T6hGXK5v+gCtIZ3WpnyAGPVaXSZ5pbfhF906dmJEGH2
+	4h1X+Iqi8UyAy/L9rybpQYaVpvoaYVqAge1EzErTrQ==
+X-Received: by 2002:a05:6214:5d02:b0:917:a2ba:e478 with SMTP id 6a1803df08f44-91bdf01992dmr155941286d6.23.1792435806990;
+        Mon, 19 Oct 2026 11:50:06 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c0411586csm3122706d6.44.2026.10.19.11.50.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 11:50:06 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	hannes@cmpxchg.org,
+	david@kernel.org,
+	mhocko@kernel.org,
+	ljs@kernel.org,
+	dave@stgolabs.net,
+	roman.gushchin@linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/vmscan: reclaim every zone in per-node proactive reclaim
+Date: Mon, 19 Oct 2026 14:50:02 -0400
+Message-ID: <20261019185002.3428594-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,83 +110,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019181628.2113224-1-joshua.hahnjy@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 11:16:27AM -0700, Joshua Hahn wrote:
-> On Mon, 19 Oct 2026 18:49:26 +0100 Harry Yoo <harry@kernel.org> wrote:
-> 
-> > On Mon, Oct 19, 2026 at 09:28:02AM -0700, Joshua Hahn wrote:
-> > > The size of a pcpu allocation can be interpreted in two ways:
-> > > 1. The size of the allocation attributable to a single CPU.
-> > > 2. The total size of the allocation across all CPUs, including the
-> > >    allocation overhead (for obj_cgroup membership).
-> > > 
-> > > In most accounting paths for percpu memory, we need the second
-> > > definition (total size). Make this more obvious by coalescing the
-> > > callers of pcpu_obj_full_size().
-> > > 
-> > > No functional changes intended.
-> > > 
-> > > Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> > > ---
-> > > @@ -1662,11 +1661,10 @@ static void pcpu_memcg_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
-> > 
-> > Perhaps it's better to rename 'size' parameter to 'full_size' in those
-> > memcg hooks to make it clear it's expecting total size?
-> 
-> Hi Harry, thanks for the review! That sounds very reasonable to me.
-> I'll spin up a v2 to make this change.
+user_proactive_reclaim() limits per-node reclaim to
+gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
+allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
+folio, so writing to /sys/devices/system/node/nodeN/reclaim never
+reclaims a node's movable memory. A movable-only node, such as dax/kmem
+or hotplugged memory onlined movable, reclaims nothing and fails with
+-EAGAIN.
 
-Thanks!
+To reproduce, fill a movable-only node with clean page cache and write
+200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
+cache stays. The same write to a ZONE_NORMAL node frees 200MB.
 
-> > Otherwise LGTM!
-> > Thanks for cleaning this up.
-> > 
-> > And it might be beyond the scope of this patch, but I think
-> > trace_percpu_alloc_percpu_fail() should take full_size instead of size.
-> 
-> Hmm, I'm not sure. The trace event for percpu_alloc_percpu actually
-> tracks both size and bytes_alloc separately, but percpu_alloc_percpu_fail
-> only tracks the "size" paramter. I think it might be a bit confusing to
-> have the percpu_alloc_percpu_{, fail} have diferent meanings for the
-> "size" parameter.
+Scan every zone, as memory.reclaim does.
 
-Ah, right.
- 
-> Perhaps the right approach here is to add a new field "bytes_alloc"
-> to trace_percpu_alloc_percpu_fail so that we get full parity with
-> trace_percpu_alloc_percpu?
+Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ mm/vmscan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yeah.
-
-> ( Actually I think we don't even really want size, what we really care
->   about to me it would seem is the size of the allocation request that
->   failed but alas...
-
-(looks at fun percpu memory allocator history)
-
-commit df95e795a722 ("percpu: add tracepoint support for percpu memory")
-says the tracepoint is for recording & replaying percpu memory
-allocation requests re-evaluating the decisions.
-
-I guess for 'replaying' purposes we'd need 'size' rather than
-'bytes_alloc'.
-
-> it may be too late to change the meaning of the field )
-
-Agreed.
-
-> wdyt?
- 
-I guess we can revisit this when it actually bothers us or
-somebody then :P
-
-> Thanks again Harry, have an awesome day : -D
-
-No problem, and you too!
-
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index e82ba737c028d..90f7a7bf4e426 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -8180,7 +8180,7 @@ int user_proactive_reclaim(char *buf,
+ 		} else {
+ 			struct scan_control sc = {
+ 				.gfp_mask = current_gfp_context(gfp_mask),
+-				.reclaim_idx = gfp_zone(gfp_mask),
++				.reclaim_idx = MAX_NR_ZONES - 1,
+ 				.proactive_swappiness = swappiness == -1 ? NULL : &swappiness,
+ 				.priority = DEF_PRIORITY,
+ 				.may_writepage = 1,
 -- 
-Cheers,
-Harry / Hyeonggon
+2.53.0-Meta
+
