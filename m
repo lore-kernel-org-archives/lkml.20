@@ -1,647 +1,183 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDE93B995B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707C0446053
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:18:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792383491; cv=none; b=SxngYq+VhZRIdt88BjcPyZWWQvqZPmCqzcYa6eGH0prTtpNzoYWxvRMcovHAreJ9ZJLL1cFDhlcHW/umu/n3GVJZDo3DmHjhBeJkwG9jFv7pkQeUHFH4PPryhHeKBHq9j05HOWMrMzaYIjGmIATeLGvL/Xw3TBBwwUrZHQqEZlU=
+	t=1792383500; cv=none; b=GM12aJE2ohsbKrWXaL4w0zzQxDiJxhEG+KYxY/0Mlul1Nr7vDf+Bgnv6TeAxD28nyBJBNSetzAg4w+8XBltVGcH8QtAplb227ITvyhxO5wEuzHIBrxIC8rEBDbWIqVQQU/sd3amWZ1rkbY/c/hpxmx35B5AkRiLn4I2dvP0QED4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792383491; c=relaxed/simple;
-	bh=oE5kzAgqLo1likBqsZsbwoH2X9fxEFOOjeWbVvumXjc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i2qIwW4x3J7vk9vJ5nFhBOZ6v05Pm3xaRippTfqEuaMVrJpxVq37Q7XQsfDH7MaX4ZRWPAg3I+Oy0pY9w6/YpMVtz4j+WogCMy6f/tnKg6CHRab4GSwkI6EjKT6sK22r3wm2BqHIm2pk8SmbfjkumQzjKiOEIQN8D0a6D/Ws8H4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a17ce1dc00so2098465e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:18:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792383483; x=1792988283;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c+MkjuN+lEsWJZ1kOqNsI5zRWTUQRQd9JZH1J8sAEIU=;
-        b=OCeQDGL3mQBUw4kMdkE2kWIULiJ49T+zHevErWOLJ0HeHabzP77rS2reWvjhHCIUQN
-         LMd7v9NzPUkIa7xVU7RjL59JQxODf59CBxMO7Yb6vLIliCsJE2T+T8TSNi0Eej9xE7s8
-         7HZUgtGfMeQwQtx4im+42g6k7IW8rcDoGaKZGHTQ6JnBrnqTgh1sIZm4evGWRYEiAD1z
-         Lyik1BJipiaIjkQwq8e/haow4dm2odm0emZiZOmapl6ZFsO1YyQqjK22/DmaN2P/EW7p
-         pGw3HkS5aNbMqUb5piP0za/etyyi/6m+VDlrzlWMQ2UhgFYZMU8m2rT34HGU6PP7ymZ/
-         Phmw==
-X-Forwarded-Encrypted: i=1; AKwUvBzdX3/izOtq+vDANfIYY++u9BpE+J3BTQY4oSUl0IZ/ucGO7eyzASBMA/3l/crs3eNuwh1Fkc2A9BIBwIs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxZAlkv58fb5WDY/GjxsthYcQ1xLHij32SL4o9XujKw73pPybq
-	wOxI1CrI3AywndhUOXXItnpS2n+s+SypQ9vCzn+jdsADw802/xy8yOzI
-X-Gm-Gg: AYBFou2bdNYJd5Sx06DRj4BGJDzXV68utMGO/jzwr24lgjc/WvR2bDuy+kxmrCM/wJ8
-	/rB48K8ZYb5lI0aQy8q/6rBDYkiiSe9dXT33BK2tfuyENHpW2wRGQnrbuZDsXTbQwh2wDkHqOGv
-	9izaZ/bHFBH24De49JwtyssxSR6fVLpM8t+JOY+zEky4cuQ3/4Cn3s5kVgtF/uKRR2IXc3EFna/
-	JbbvEzR8/pzqUZqj1zOUsFlue6A5e2Nub1XQuR/aCsogt13d7VbgRMuJpnMIw/8Af9fjUikW+tI
-	FDkKxv8hdx8+52AGbV9TM4HfsDftHcEaleMsBVZiygIvxItYKu2IdLpp2kKvFpc12B5jjluEaI9
-	+NtsXfMmRCB50eDOdrjt1SWAJbI1nDxwgkBiJg3gl/rgAoNDplnIjVIW0cUp0hP5Z1x6XJEg2gd
-	TxIlAo2tZLATqu2w0Qt3O0KSAtap5Ojkj2Na1057Kwtp5qXFfQy+ZrFj4928Jw4Ov76J/4RaLgC
-	18o2vh5w7TPs+GsTf0oaoqfgP12tlrrWbCc
-X-Received: by 2002:a05:6000:2013:b0:48e:412:3825 with SMTP id ffacd0b85a97d-48e07997862mr10570187f8f.2.1792383483012;
-        Sun, 18 Oct 2026 21:18:03 -0700 (PDT)
-Received: from spartian.home ([2a01:cb1c:76:ed00:602f:c5f4:d108:b925])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm20090449f8f.42.2026.10.18.21.18.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 21:18:02 -0700 (PDT)
-From: Aurelien DESBRIERES <aurelien@hackers.camp>
-To: Aurelien DESBRIERES <aurelien@hackers.camp>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	aurelien.desbrieres@gmail.com,
-	linux-api@vger.kernel.org
-Subject: [RFC PATCH 10/18] beamfs: add iomap file operations
-Date: Mon, 19 Oct 2026 06:17:20 +0200
-Message-ID: <20261019041728.327785-11-aurelien@hackers.camp>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019041728.327785-1-aurelien@hackers.camp>
-References: <20261019041728.327785-1-aurelien@hackers.camp>
+	s=arc-20240116; t=1792383500; c=relaxed/simple;
+	bh=DKWcwLVPYEbazp5IrjwAYhy11Btxpm2xb9gQaBxSuL4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FIEo+0dmZKbOIX16GJm0gMgO3t4ZmjchBXf34sicGBdf7I+iENGTrh92HtRd6C8jjT6SoxY9kH58UvkCVMBuusNzopHUO1kwJ2uePYVWGGe9pf9KmvA9yXOZbDpHhljFuffNmukfgyWhygW7u71etBqwWMGL/2vFnQf2ZLx6HUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qm63cRp7; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qm63cRp7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792383496; x=1823919496;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DKWcwLVPYEbazp5IrjwAYhy11Btxpm2xb9gQaBxSuL4=;
+  b=Qm63cRp7q++TTfJnQILTR9SrhONEe4JffZrIinZmvQGGqDOz0AxmXkvh
+   U/0rPhOwgVRMu4A8F9dc/948zfoyeoji4dt60yq1s2gLFHH+hpInJXGGT
+   GnnGm9HN1QszpN2rkmlKi1AbPqhzo9bdeEekiG+6OapOnLdF12B/nwOra
+   eCjmi0rACuP7d1hYm29FXyv4jQ8kzTwI+WxItdxmVVZhn/sdFGJnsbLrj
+   ZLFm/s+JIXydvF8YpoLgm7mY4tB6Y8jcyoNzElRoIe+MDJl1iklJ7j2Z6
+   Rb623BQUBYRiVZGI6rPTz01w+P/riemkU0PZTTiSbEVuEuVftLU8vXGb+
+   A==;
+X-CSE-ConnectionGUID: ejJDAzUATVu1hqxTocziwQ==
+X-CSE-MsgGUID: if43DUXLQNm9CazvYxn6ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="963175"
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="963175"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 21:18:15 -0700
+X-CSE-ConnectionGUID: WQ92mKKYR6mqCmrUJpk1vw==
+X-CSE-MsgGUID: 4lCetu/rTxSuqbD7fpcFIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="2369239"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 18 Oct 2026 21:18:12 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xIep7-00000000LGM-3MQV;
+	Mon, 19 Oct 2026 04:18:09 +0000
+Date: Mon, 19 Oct 2026 12:17:12 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alexander Usyskin <alexander.usyskin@intel.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Menachem Adin <menachem.adin@intel.com>,
+	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+	Karol Wachowski <karol.wachowski@linux.intel.com>,
+	Alexander Usyskin <alexander.usyskin@intel.com>,
+	Reuven Abliyev <reuvenab@gmail.com>
+Subject: Re: [PATCH char-misc-next v2 4/4] issei: add driver to driver
+ interface
+Message-ID: <202610191253.F5L34Ggm-lkp@intel.com>
+References: <20261018-issei_pm_and_itf-v2-4-7a07452e3606@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018-issei_pm_and_itf-v2-4-7a07452e3606@intel.com>
 
-file.c holds the file, inode and address_space operations of the
-iomap-based path used by the INODE_UNIVERSAL scheme (scheme 5). That
-path does not maintain the parity of indirect blocks, so the kernel
-refuses to mount the scheme and mkfs.beamfs refuses to format it: on
-volumes mkfs.beamfs creates, file data takes the inline path of the
-next four patches. inode.c and namei.c choose between the two from the
-volume's scheme.
+Hi Alexander,
 
-Assisted-by: LLM
-Signed-off-by: Aurelien DESBRIERES <aurelien@hackers.camp>
----
- fs/beamfs/file.c | 549 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 549 insertions(+)
- create mode 100644 fs/beamfs/file.c
+kernel test robot noticed the following build warnings:
 
-diff --git a/fs/beamfs/file.c b/fs/beamfs/file.c
-new file mode 100644
-index 000000000000..553d177e5c31
---- /dev/null
-+++ b/fs/beamfs/file.c
-@@ -0,0 +1,549 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * beamfs - File operations
-+ * Author: roastercode - Aurelien DESBRIERES <aurelien@hackers.camp>
-+ */
-+#include <linux/fs.h>
-+#include <linux/mm.h>
-+#include <linux/iomap.h>
-+#include <linux/pagemap.h>
-+#include <linux/buffer_head.h>
-+#include <linux/fiemap.h>
-+#include "beamfs.h"
-+
-+/* Forward declaration - defined after iomap_ops */
-+static ssize_t beamfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from);
-+
-+/*
-+ * generic_file_fsync() was removed along with sync_mapping_buffers() and
-+ * the i_private_list mechanism it drove. Metadata buffer_heads owned by
-+ * an inode now live in a per-inode mapping_metadata_bhs list, flushed
-+ * through mmb_fsync(); ext2_fsync() has the same shape.
-+ */
-+static int beamfs_fsync(struct file *file, loff_t start, loff_t end,
-+			int datasync)
-+{
-+	return simple_fsync(file, start, end, datasync);
-+}
-+
-+const struct file_operations beamfs_file_operations = {
-+	.llseek         = generic_file_llseek,
-+	.read_iter      = generic_file_read_iter,
-+	.write_iter     = beamfs_file_write_iter,
-+	.mmap           = generic_file_mmap,
-+	.fsync          = beamfs_fsync,
-+	.splice_read    = filemap_splice_read,
-+};
-+
-+const struct inode_operations beamfs_file_inode_operations = {
-+	.getattr        = simple_getattr,
-+	.fiemap         = beamfs_fiemap,  /* S2.2: file-precise bench targeting */
-+};
-+
-+/*
-+ * beamfs_iomap_begin -- map a file range to disk blocks for iomap.
-+ * Handles read (no allocation) and write (allocate on demand).
-+ * Supports direct blocks (iblock 0..11) and single indirect
-+ * (iblock 12..523, covering up to ~2 MiB per file).
-+ */
-+static int beamfs_iomap_begin(struct inode *inode, loff_t pos, loff_t length,
-+			      unsigned int flags, struct iomap *iomap,
-+			     struct iomap *srcmap)
-+{
-+	struct beamfs_inode_info *fi  = BEAMFS_I(inode);
-+	struct super_block      *sb  = inode->i_sb;
-+	u64  iblock    = pos >> BEAMFS_BLOCK_SHIFT;
-+	u64  new_block;
-+	u64  phys;
-+
-+	iomap->offset = iblock << BEAMFS_BLOCK_SHIFT;
-+	iomap->length = BEAMFS_BLOCK_SIZE;
-+	iomap->bdev   = sb->s_bdev;
-+	iomap->flags  = 0;
-+
-+	if (iblock < BEAMFS_DIRECT_BLOCKS) {
-+		/* --- Direct block --- */
-+		phys = le64_to_cpu(fi->i_direct[iblock]);
-+		if (phys) {
-+			iomap->type = IOMAP_MAPPED;
-+			iomap->addr = phys << BEAMFS_BLOCK_SHIFT;
-+			return 0;
-+		}
-+		if (!(flags & IOMAP_WRITE)) {
-+			iomap->type = IOMAP_HOLE;
-+			iomap->addr = IOMAP_NULL_ADDR;
-+			return 0;
-+		}
-+		new_block = beamfs_alloc_block(sb, inode);
-+		if (!new_block) {
-+			pr_err("beamfs: iomap: no free blocks\n");
-+			return -ENOSPC;
-+		}
-+		fi->i_direct[iblock] = cpu_to_le64(new_block);
-+		mark_inode_dirty(inode);
-+		iomap->type = IOMAP_MAPPED;
-+		iomap->addr = new_block << BEAMFS_BLOCK_SHIFT;
-+		return 0;
-+	}
-+
-+	if (iblock < BEAMFS_DIRECT_BLOCKS + BEAMFS_INDIRECT_PTRS) {
-+		/* --- Single indirect block --- */
-+		u64 indirect_slot = iblock - BEAMFS_DIRECT_BLOCKS;
-+		u64 indirect_blk  = le64_to_cpu(fi->i_indirect);
-+		struct buffer_head *ibh;
-+		__le64 *ptrs;
-+
-+		if (!indirect_blk) {
-+			if (!(flags & IOMAP_WRITE)) {
-+				iomap->type = IOMAP_HOLE;
-+				iomap->addr = IOMAP_NULL_ADDR;
-+				return 0;
-+			}
-+			indirect_blk = beamfs_alloc_block(sb, inode);
-+			if (!indirect_blk) {
-+				pr_err("beamfs: iomap: no free blocks for indirect\n");
-+				return -ENOSPC;
-+			}
-+			ibh = sb_getblk(sb, indirect_blk);
-+			if (!ibh) {
-+				beamfs_free_block(sb, indirect_blk, inode);
-+				return -EIO;
-+			}
-+			lock_buffer(ibh);
-+			memset(ibh->b_data, 0, BEAMFS_BLOCK_SIZE);
-+			set_buffer_uptodate(ibh);
-+			unlock_buffer(ibh);
-+			mark_buffer_dirty(ibh);
-+			brelse(ibh);
-+			fi->i_indirect = cpu_to_le64(indirect_blk);
-+			mark_inode_dirty(inode);
-+		}
-+
-+		ibh = sb_bread(sb, indirect_blk);
-+		if (!ibh)
-+			return -EIO;
-+		ptrs = (__le64 *)ibh->b_data;
-+		phys = le64_to_cpu(ptrs[indirect_slot]);
-+
-+		if (phys) {
-+			brelse(ibh);
-+			iomap->type = IOMAP_MAPPED;
-+			iomap->addr = phys << BEAMFS_BLOCK_SHIFT;
-+			return 0;
-+		}
-+		if (!(flags & IOMAP_WRITE)) {
-+			brelse(ibh);
-+			iomap->type = IOMAP_HOLE;
-+			iomap->addr = IOMAP_NULL_ADDR;
-+			return 0;
-+		}
-+		new_block = beamfs_alloc_block(sb, inode);
-+		if (!new_block) {
-+			brelse(ibh);
-+			pr_err("beamfs: iomap: no free blocks\n");
-+			return -ENOSPC;
-+		}
-+		ptrs[indirect_slot] = cpu_to_le64(new_block);
-+		mark_buffer_dirty(ibh);
-+		brelse(ibh);
-+		iomap->type = IOMAP_MAPPED;
-+		iomap->addr = new_block << BEAMFS_BLOCK_SHIFT;
-+		return 0;
-+	}
-+
-+	if (iblock < BEAMFS_MAX_IBLOCK_DINDIRECT) {
-+		/* --- Double indirect block (scheme=5 iomap path) --- */
-+		u64 didx = iblock - BEAMFS_MAX_IBLOCK_INDIRECT;
-+		u64 l1_slot = didx / BEAMFS_INDIRECT_PTRS;
-+		u64 l2_slot = didx % BEAMFS_INDIRECT_PTRS;
-+		u64 dindirect_blk, l1_blk;
-+		struct buffer_head *ibh, *l1bh;
-+		__le64 *ptrs;
-+
-+		dindirect_blk = le64_to_cpu(fi->i_dindirect);
-+		if (!dindirect_blk) {
-+			if (!(flags & IOMAP_WRITE)) {
-+				iomap->type = IOMAP_HOLE;
-+				iomap->addr = IOMAP_NULL_ADDR;
-+				return 0;
-+			}
-+			dindirect_blk = beamfs_alloc_block(sb, inode);
-+			if (!dindirect_blk) {
-+				pr_err("beamfs: iomap: no free blocks for dindirect\n");
-+				return -ENOSPC;
-+			}
-+			ibh = sb_getblk(sb, dindirect_blk);
-+			if (!ibh) {
-+				beamfs_free_block(sb, dindirect_blk, inode);
-+				return -EIO;
-+			}
-+			lock_buffer(ibh);
-+			memset(ibh->b_data, 0, BEAMFS_BLOCK_SIZE);
-+			set_buffer_uptodate(ibh);
-+			unlock_buffer(ibh);
-+			mark_buffer_dirty(ibh);
-+			brelse(ibh);
-+			fi->i_dindirect = cpu_to_le64(dindirect_blk);
-+			mark_inode_dirty(inode);
-+		}
-+
-+		ibh = sb_bread(sb, dindirect_blk);
-+		if (!ibh)
-+			return -EIO;
-+		ptrs = (__le64 *)ibh->b_data;
-+		l1_blk = le64_to_cpu(ptrs[l1_slot]);
-+		if (!l1_blk) {
-+			if (!(flags & IOMAP_WRITE)) {
-+				brelse(ibh);
-+				iomap->type = IOMAP_HOLE;
-+				iomap->addr = IOMAP_NULL_ADDR;
-+				return 0;
-+			}
-+			l1_blk = beamfs_alloc_block(sb, inode);
-+			if (!l1_blk) {
-+				brelse(ibh);
-+				pr_err("beamfs: iomap: no free blocks for dindirect L1\n");
-+				return -ENOSPC;
-+			}
-+			l1bh = sb_getblk(sb, l1_blk);
-+			if (!l1bh) {
-+				beamfs_free_block(sb, l1_blk, inode);
-+				brelse(ibh);
-+				return -EIO;
-+			}
-+			lock_buffer(l1bh);
-+			memset(l1bh->b_data, 0, BEAMFS_BLOCK_SIZE);
-+			set_buffer_uptodate(l1bh);
-+			unlock_buffer(l1bh);
-+			mark_buffer_dirty(l1bh);
-+			brelse(l1bh);
-+			ptrs[l1_slot] = cpu_to_le64(l1_blk);
-+			mark_buffer_dirty(ibh);
-+		}
-+		brelse(ibh);
-+
-+		l1bh = sb_bread(sb, l1_blk);
-+		if (!l1bh)
-+			return -EIO;
-+		ptrs = (__le64 *)l1bh->b_data;
-+		phys = le64_to_cpu(ptrs[l2_slot]);
-+
-+		if (phys) {
-+			brelse(l1bh);
-+			iomap->type = IOMAP_MAPPED;
-+			iomap->addr = phys << BEAMFS_BLOCK_SHIFT;
-+			return 0;
-+		}
-+		if (!(flags & IOMAP_WRITE)) {
-+			brelse(l1bh);
-+			iomap->type = IOMAP_HOLE;
-+			iomap->addr = IOMAP_NULL_ADDR;
-+			return 0;
-+		}
-+		new_block = beamfs_alloc_block(sb, inode);
-+		if (!new_block) {
-+			brelse(l1bh);
-+			pr_err("beamfs: iomap: no free blocks (dindirect data)\n");
-+			return -ENOSPC;
-+		}
-+		ptrs[l2_slot] = cpu_to_le64(new_block);
-+		mark_buffer_dirty(l1bh);
-+		brelse(l1bh);
-+		iomap->type = IOMAP_MAPPED;
-+		iomap->addr = new_block << BEAMFS_BLOCK_SHIFT;
-+		return 0;
-+	}
-+
-+	if (iblock < BEAMFS_MAX_IBLOCK_TINDIRECT) {
-+		/* --- Triple indirect block (scheme=5 iomap path) --- */
-+		u64 tidx = iblock - BEAMFS_MAX_IBLOCK_DINDIRECT;
-+		u64 l1_slot = tidx / (BEAMFS_INDIRECT_PTRS * BEAMFS_INDIRECT_PTRS);
-+		u64 l2_slot = (tidx / BEAMFS_INDIRECT_PTRS) % BEAMFS_INDIRECT_PTRS;
-+		u64 l3_slot = tidx % BEAMFS_INDIRECT_PTRS;
-+		u64 tindirect_blk, l1_blk, l2_blk;
-+		struct buffer_head *ibh, *l1bh, *l2bh;
-+		__le64 *ptrs;
-+
-+		tindirect_blk = le64_to_cpu(fi->i_tindirect);
-+		if (!tindirect_blk) {
-+			if (!(flags & IOMAP_WRITE)) {
-+				iomap->type = IOMAP_HOLE;
-+				iomap->addr = IOMAP_NULL_ADDR;
-+				return 0;
-+			}
-+			tindirect_blk = beamfs_alloc_block(sb, inode);
-+			if (!tindirect_blk) {
-+				pr_err("beamfs: iomap: no free blocks for tindirect\n");
-+				return -ENOSPC;
-+			}
-+			ibh = sb_getblk(sb, tindirect_blk);
-+			if (!ibh) {
-+				beamfs_free_block(sb, tindirect_blk, inode);
-+				return -EIO;
-+			}
-+			lock_buffer(ibh);
-+			memset(ibh->b_data, 0, BEAMFS_BLOCK_SIZE);
-+			set_buffer_uptodate(ibh);
-+			unlock_buffer(ibh);
-+			mark_buffer_dirty(ibh);
-+			brelse(ibh);
-+			fi->i_tindirect = cpu_to_le64(tindirect_blk);
-+			mark_inode_dirty(inode);
-+		}
-+
-+		ibh = sb_bread(sb, tindirect_blk);
-+		if (!ibh)
-+			return -EIO;
-+		ptrs = (__le64 *)ibh->b_data;
-+		l1_blk = le64_to_cpu(ptrs[l1_slot]);
-+		if (!l1_blk) {
-+			if (!(flags & IOMAP_WRITE)) {
-+				brelse(ibh);
-+				iomap->type = IOMAP_HOLE;
-+				iomap->addr = IOMAP_NULL_ADDR;
-+				return 0;
-+			}
-+			l1_blk = beamfs_alloc_block(sb, inode);
-+			if (!l1_blk) {
-+				brelse(ibh);
-+				pr_err("beamfs: iomap: no free blocks for tindirect L1\n");
-+				return -ENOSPC;
-+			}
-+			l1bh = sb_getblk(sb, l1_blk);
-+			if (!l1bh) {
-+				beamfs_free_block(sb, l1_blk, inode);
-+				brelse(ibh);
-+				return -EIO;
-+			}
-+			lock_buffer(l1bh);
-+			memset(l1bh->b_data, 0, BEAMFS_BLOCK_SIZE);
-+			set_buffer_uptodate(l1bh);
-+			unlock_buffer(l1bh);
-+			mark_buffer_dirty(l1bh);
-+			brelse(l1bh);
-+			ptrs[l1_slot] = cpu_to_le64(l1_blk);
-+			mark_buffer_dirty(ibh);
-+		}
-+		brelse(ibh);
-+
-+		l1bh = sb_bread(sb, l1_blk);
-+		if (!l1bh)
-+			return -EIO;
-+		ptrs = (__le64 *)l1bh->b_data;
-+		l2_blk = le64_to_cpu(ptrs[l2_slot]);
-+		if (!l2_blk) {
-+			if (!(flags & IOMAP_WRITE)) {
-+				brelse(l1bh);
-+				iomap->type = IOMAP_HOLE;
-+				iomap->addr = IOMAP_NULL_ADDR;
-+				return 0;
-+			}
-+			l2_blk = beamfs_alloc_block(sb, inode);
-+			if (!l2_blk) {
-+				brelse(l1bh);
-+				pr_err("beamfs: iomap: no free blocks for tindirect L2\n");
-+				return -ENOSPC;
-+			}
-+			l2bh = sb_getblk(sb, l2_blk);
-+			if (!l2bh) {
-+				beamfs_free_block(sb, l2_blk, inode);
-+				brelse(l1bh);
-+				return -EIO;
-+			}
-+			lock_buffer(l2bh);
-+			memset(l2bh->b_data, 0, BEAMFS_BLOCK_SIZE);
-+			set_buffer_uptodate(l2bh);
-+			unlock_buffer(l2bh);
-+			mark_buffer_dirty(l2bh);
-+			brelse(l2bh);
-+			ptrs[l2_slot] = cpu_to_le64(l2_blk);
-+			mark_buffer_dirty(l1bh);
-+		}
-+		brelse(l1bh);
-+
-+		l2bh = sb_bread(sb, l2_blk);
-+		if (!l2bh)
-+			return -EIO;
-+		ptrs = (__le64 *)l2bh->b_data;
-+		phys = le64_to_cpu(ptrs[l3_slot]);
-+
-+		if (phys) {
-+			brelse(l2bh);
-+			iomap->type = IOMAP_MAPPED;
-+			iomap->addr = phys << BEAMFS_BLOCK_SHIFT;
-+			return 0;
-+		}
-+		if (!(flags & IOMAP_WRITE)) {
-+			brelse(l2bh);
-+			iomap->type = IOMAP_HOLE;
-+			iomap->addr = IOMAP_NULL_ADDR;
-+			return 0;
-+		}
-+		new_block = beamfs_alloc_block(sb, inode);
-+		if (!new_block) {
-+			brelse(l2bh);
-+			pr_err("beamfs: iomap: no free blocks (tindirect data)\n");
-+			return -ENOSPC;
-+		}
-+		ptrs[l3_slot] = cpu_to_le64(new_block);
-+		mark_buffer_dirty(l2bh);
-+		brelse(l2bh);
-+		iomap->type = IOMAP_MAPPED;
-+		iomap->addr = new_block << BEAMFS_BLOCK_SHIFT;
-+		return 0;
-+	}
-+
-+	/* Beyond triple indirect: not supported */
-+	pr_err_ratelimited("beamfs: iomap: offset beyond tindirect blocks\n");
-+	return -EOPNOTSUPP;
-+}
-+
-+static int beamfs_iomap_end(struct inode *inode, loff_t pos, loff_t length,
-+			    ssize_t written, unsigned int flags,
-+			   struct iomap *iomap)
-+{
-+	return 0;
-+}
-+
-+static const struct iomap_ops beamfs_iomap_ops = {
-+	.iomap_begin = beamfs_iomap_begin,
-+	.iomap_end   = beamfs_iomap_end,
-+};
-+
-+/*
-+ * S2.2: fiemap support for file-precise bench targeting (TODO.md l.1979).
-+ * Thin wrapper over iomap_fiemap() reusing beamfs_iomap_ops. Pattern
-+ * follows fs/ext2/inode.c::ext2_fiemap() (kernel 7.0.x). Required by
-+ * userspace filefrag(8) to expose the file -> physical block mapping
-+ * for beamfs-bench file-level RS-FEC validation.
-+ *
-+ * Shared by both schemes (UNIVERSAL_INLINE and INODE_UNIVERSAL) since
-+ * both use the same direct[12] + indirect[512] block layout, handled
-+ * uniformly by beamfs_iomap_begin().
-+ */
-+int beamfs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
-+		  u64 start, u64 len)
-+{
-+	int ret;
-+	loff_t i_size;
-+
-+	inode_lock(inode);
-+	i_size = i_size_read(inode);
-+	/*
-+	 * iomap_fiemap() returns -EINVAL for len == 0. Trim the request to
-+	 * the file size but never below 1 to keep the call valid for empty
-+	 * files (where it will simply return zero extents).
-+	 */
-+	if (i_size == 0)
-+		i_size = 1;
-+	len = min_t(u64, len, i_size);
-+	ret = iomap_fiemap(inode, fieinfo, start, len, &beamfs_iomap_ops);
-+	inode_unlock(inode);
-+	return ret;
-+}
-+
-+/*
-+ * Write path - beamfs_iomap_write_ops
-+ * get_folio/put_folio use generic helpers (no journaling required).
-+ */
-+static struct folio *beamfs_iomap_get_folio(struct iomap_iter *iter,
-+					    loff_t pos, unsigned int len)
-+{
-+	return iomap_get_folio(iter, pos, len);
-+}
-+
-+static void beamfs_iomap_put_folio(struct inode *inode, loff_t pos,
-+				   unsigned int copied, struct folio *folio)
-+{
-+	folio_unlock(folio);
-+	folio_put(folio);
-+}
-+
-+static const struct iomap_write_ops beamfs_iomap_write_ops = {
-+	.get_folio = beamfs_iomap_get_folio,
-+	.put_folio = beamfs_iomap_put_folio,
-+};
-+
-+static ssize_t beamfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
-+{
-+	return iomap_file_buffered_write(iocb, from, &beamfs_iomap_ops,
-+					 &beamfs_iomap_write_ops, NULL);
-+}
-+
-+/*
-+ * Writeback path - beamfs_writeback_ops
-+ */
-+static ssize_t beamfs_writeback_range(struct iomap_writepage_ctx *wpc,
-+				      struct folio *folio, u64 offset,
-+				     unsigned int len, u64 end_pos)
-+{
-+	if ((loff_t)offset < wpc->iomap.offset ||
-+	    (loff_t)offset >= wpc->iomap.offset + (loff_t)wpc->iomap.length) {
-+		int ret;
-+
-+		memset(&wpc->iomap, 0, sizeof(wpc->iomap));
-+		ret = beamfs_iomap_begin(wpc->inode,
-+					 offset, INT_MAX, 0,
-+					&wpc->iomap, NULL);
-+		if (ret)
-+			return ret;
-+	}
-+	return iomap_add_to_ioend(wpc, folio, offset, end_pos, len);
-+}
-+
-+static const struct iomap_writeback_ops beamfs_writeback_ops = {
-+	.writeback_range  = beamfs_writeback_range,
-+	.writeback_submit = iomap_ioend_writeback_submit,
-+};
-+
-+static int beamfs_writepages(struct address_space *mapping,
-+			     struct writeback_control *wbc)
-+{
-+	struct iomap_writepage_ctx wpc = {
-+		.inode = mapping->host,
-+		.wbc   = wbc,
-+		.ops   = &beamfs_writeback_ops,
-+	};
-+
-+	return iomap_writepages(&wpc);
-+}
-+
-+/*
-+ * Read path - uses iomap_bio_read_ops (kernel-provided)
-+ */
-+static int beamfs_read_folio(struct file *file, struct folio *folio)
-+{
-+	struct iomap_read_folio_ctx ctx = {
-+		.ops       = &iomap_bio_read_ops,
-+		.cur_folio = folio,
-+	};
-+
-+	iomap_read_folio(&beamfs_iomap_ops, &ctx, NULL);
-+	return 0;
-+}
-+
-+static void beamfs_readahead(struct readahead_control *rac)
-+{
-+	struct iomap_read_folio_ctx ctx = {
-+		.ops = &iomap_bio_read_ops,
-+		.rac = rac,
-+	};
-+
-+	iomap_readahead(&beamfs_iomap_ops, &ctx, NULL);
-+}
-+
-+static sector_t beamfs_bmap(struct address_space *mapping, sector_t block)
-+{
-+	return iomap_bmap(mapping, block, &beamfs_iomap_ops);
-+}
-+
-+const struct address_space_operations beamfs_aops = {
-+	.read_folio       = beamfs_read_folio,
-+	.readahead        = beamfs_readahead,
-+	.writepages       = beamfs_writepages,
-+	.bmap             = beamfs_bmap,
-+	.dirty_folio      = iomap_dirty_folio,
-+	.invalidate_folio = iomap_invalidate_folio,
-+	.release_folio    = iomap_release_folio,
-+	.migrate_folio    = filemap_migrate_folio,
-+};
--- 
-2.55.0
+[auto build test WARNING on 79e5797d243a466138f641932f81dc69f796060c]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Usyskin/issei-save-power_down-flag-while-processing-event/20261018-123052
+base:   79e5797d243a466138f641932f81dc69f796060c
+patch link:    https://lore.kernel.org/r/20261018-issei_pm_and_itf-v2-4-7a07452e3606%40intel.com
+patch subject: [PATCH char-misc-next v2 4/4] issei: add driver to driver interface
+config: i386-randconfig-1002-20261019 (https://download.01.org/0day-ci/archive/20261019/202610191253.F5L34Ggm-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261019/202610191253.F5L34Ggm-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610191253.F5L34Ggm-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from include/linux/device.h:15,
+                    from drivers/misc/issei/issei_device.c:4:
+   drivers/misc/issei/issei_device.c: In function 'issei_device_write':
+>> drivers/misc/issei/issei_device.c:163:45: warning: format '%ld' expects argument of type 'long int', but argument 4 has type 'ssize_t' {aka 'int'} [-Wformat=]
+     163 |                         dev_dbg(&idev->dev, "Failed writing data ret = %ld\n", ret);
+         |                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/dev_printk.h:139:49: note: in definition of macro 'dev_no_printk'
+     139 |                         _dev_printk(level, dev, fmt, ##__VA_ARGS__);    \
+         |                                                 ^~~
+   include/linux/dev_printk.h:171:40: note: in expansion of macro 'dev_fmt'
+     171 |         dev_no_printk(KERN_DEBUG, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                        ^~~~~~~
+   drivers/misc/issei/issei_device.c:163:25: note: in expansion of macro 'dev_dbg'
+     163 |                         dev_dbg(&idev->dev, "Failed writing data ret = %ld\n", ret);
+         |                         ^~~~~~~
+   drivers/misc/issei/issei_device.c:163:74: note: format string is defined here
+     163 |                         dev_dbg(&idev->dev, "Failed writing data ret = %ld\n", ret);
+         |                                                                        ~~^
+         |                                                                          |
+         |                                                                          long int
+         |                                                                        %d
+
+
+vim +163 drivers/misc/issei/issei_device.c
+
+   113	
+   114	/**
+   115	 * issei_device_write - send data to the firmware client.
+   116	 * @ctx: opaque context
+   117	 * @ubuf: data to send
+   118	 * @length: data length
+   119	 * @timeout: operation timeout in milliseconds
+   120	 *
+   121	 * Return: >=0 data length on success, <0 on error
+   122	 */
+   123	ssize_t issei_device_write(void *ctx, const u8 *ubuf, size_t length, unsigned long timeout)
+   124	{
+   125		struct issei_host_client *cl = ctx;
+   126		struct issei_device *idev = cl->idev;
+   127		ssize_t ret;
+   128		long wret;
+   129	
+   130		if (idev->rst_state != ISSEI_RST_STATE_DONE) {
+   131			dev_dbg(&idev->dev, "Device is in transition\n");
+   132			return -EBUSY;
+   133		}
+   134	
+   135		if (!length)
+   136			return 0;
+   137	
+   138		/* sanity check */
+   139		if (length > idev->dma.length.h2f) {
+   140			dev_dbg(&idev->dev, "Write is too big %zu > %zu\n", length,
+   141				idev->dma.length.h2f);
+   142			return -EFBIG;
+   143		}
+   144	
+   145		u8 *buf __free(kfree) = kmemdup(ubuf, length, GFP_KERNEL);
+   146		if (!buf)
+   147			return -ENOMEM;
+   148	
+   149		do {
+   150			ret = issei_cl_write(cl, buf, length);
+   151			if (ret < 0 && ret != -EAGAIN)
+   152				return ret;
+   153			/* buf is consumed by issei_cl_write on success */
+   154			if (ret >= 0)
+   155				retain_and_null_ptr(buf);
+   156			wret = wait_event_interruptible_timeout(cl->write_wait,
+   157								issei_cl_check_write(cl) != 1,
+   158								msecs_to_jiffies(timeout));
+   159			if (wret == 0) /* timeout */
+   160				wret = -ETIMEDOUT;
+   161			if (wret < 0) {
+   162				issei_cl_clean_all_wbuf(cl);
+ > 163				dev_dbg(&idev->dev, "Failed writing data ret = %ld\n", ret);
+   164				return wret;
+   165			}
+   166		} while (ret == -EAGAIN);
+   167	
+   168		return ret;
+   169	}
+   170	EXPORT_SYMBOL_GPL(issei_device_write);
+   171	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
