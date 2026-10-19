@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959AF55CA14;
-	Mon, 19 Oct 2026 14:02:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6482B5E0E2A;
+	Mon, 19 Oct 2026 14:02:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418544; cv=none; b=ZHOjaumLS9nw7p93FWJFDvrEHPY9E82wmDjQ38ORwkJB90TyWJbVBhJbzxfNWMpgZrd81ef2zYh9YvkmgFaD6HyCdtY0GUkPGxCkNO/zNNAPOh5VLfJ09S0MvWMK2dFqSN9yTGgmtJZ4WFQ3jhGGnw87yqfS7ZMBGApTmqrdGek=
+	t=1792418546; cv=none; b=K84wleMIFxNVSQWpxoJRcvRZhKh9Y6PLBbhCBJx/qKHRUE97PU8ywfW8hkOyUWbFrJfOLUYOhsaO3/GJbH/9k/sMBYoD9tp3r/N2zczwEEO3O2bhR/niwPL8o+TDNubscFnhXmg9diGCsWkpWjZ7v1eJRqUn5LjDG7Z1AlK/nWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418544; c=relaxed/simple;
-	bh=UDq5053jnIp0nACalX/WLj/JAyswSDu0oN7/MP8AyKM=;
+	s=arc-20240116; t=1792418546; c=relaxed/simple;
+	bh=rvJWQyr0WEfy6/AzCKYHXnWOaMUK+fe8bFgowxnOjPE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=APX0TJQggCSfzPKPKYfGRf6gKoCazAW8ISGeOse1ryT0Lfnx/iLBrAATh298d4ul3hqP6c2j4jKhQONzSV79Ctb4dvnjAHSwqS4C0U8nXCeRt3xo/9ZxPNkWbo1OUYSD/6hVxZgV8XAqbDL0LUlVrHoEKMWruN9hnUZG00+n9TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLrgiH9l; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KDBPJkPKXz9n3VsXHTXRzf1eGY7rBtgCHPdjQF9W5MYzQQxVVb0B7Je2h1IExlEVthPpuoSGfpnsAzm10VFfBqUQNovn5po/gW0hj/Bf1xoa4nU44Nlx6WJIfapOXGAFhh6VKURUIWeXGjSzJ2gwrLb4KpTJnbTIJ3qQeqlkgis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HGX8RH+F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLrgiH9l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0811F000C9;
-	Mon, 19 Oct 2026 14:02:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HGX8RH+F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D75511F000C4;
+	Mon, 19 Oct 2026 14:02:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418540;
-	bh=ML5Ogu5sz5ZvjQpb+auDtP+seRlGoKMEgtVP1eyM/so=;
+	s=k20260515; t=1792418542;
+	bh=/+myPmVbI9znAEmr8DN9yfg2ABmzWBxhiHOVL+nrSUw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MLrgiH9lqyFdyDN8tPbm0azHyvUI+DYljXiM+0qWbHWoj6zFnRcpF9LRff0E4JAk4
-	 yYKk104Ef0IERi17kJjajcIz5OmIb6/8+3TrwBqSmJdw7HUGaNaxJtyYOfOmlireee
-	 Er9B9Bv0EuExddgcqLgqff6Mj1Fz19zaI7glb7HEAX+PR3sheXXdfOqMvmr+mpbR0Q
-	 019MBl8xAhotkF9oaDC0fH3uZ3vElPgjhWEVfubZXswvAuQb7Gu7EZ39/zwZN3ZNyk
-	 Ad5zfdEuFv9qMdK7QkRTaT4tq0u9Gu43BMEqCTeCfGD6pze9Itzo8vEu2ieGFD9iPr
-	 kdIWmsgr7hA1A==
+	b=HGX8RH+FeTCN2UZjI/Z5ESIL7pESDs+/pui29FyQp77K6D57pF8EfZPLvMe7ewqt0
+	 W5X5QFIiRoF2M5NiGQJdxvJQA6/FkauuMd9l/ttaY5QSS0I7Iii0i6XuI0kqvjE1DQ
+	 JzQoL6HVDLaggBKHt80zh2NDSlyNeUZB+HBCluB/vQW1+3bjtxMe2gRinrNLbUeXuJ
+	 5qeEozYqwalDztYZM6dbAay97INrcuZvNQGL9PJyL1FKXArThshpdoWzFi55r3XRd7
+	 0NM00w1eTekQFlkvRMoiJxEOcku31H5gJlvYnfjKuxMYnQV9JTUyCTU5mLNWbpnLl1
+	 bJf2mN1wyCC9Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yun Zhou <yun.zhou@windriver.com>,
-	Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-ext4@vger.kernel.org,
+	jjohnson@kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ext4: set EXT4_STATE_NO_EXPAND in ext4_evict_inode
-Date: Mon, 19 Oct 2026 09:50:12 -0400
-Message-ID: <20261019135441.1420968-321-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] wifi: ath11k: validate regulatory capability phy_id
+Date: Mon, 19 Oct 2026 09:50:13 -0400
+Message-ID: <20261019135441.1420968-322-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -53,377 +56,285 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yun Zhou <yun.zhou@windriver.com>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 2c0e4fb511f97467dafc91b6afb3414100289081 ]
+[ Upstream commit f8729a40ebcc94d164be8f154483a21669f3ab52 ]
 
-An inode being evicted will never need its extra isize expanded.  Set
-EXT4_STATE_NO_EXPAND before ext4_mark_inode_dirty() in ext4_evict_inode()
-to make this explicit and prevent any unnecessary work in
-ext4_try_to_expand_extra_isize().
+ath11k_wmi_tlv_ext_hal_reg_caps() copies firmware regulatory
+capability records into soc->hal_reg_cap[] using reg_cap.phy_id as
+the destination index.  The loop count is bounded by num_phy, but the
+phy_id embedded in each record is not checked against the fixed
+MAX_RADIOS-sized destination array.
 
-This also provides defense-in-depth for the s_writepages_rwsem deadlock
-during mount-time orphan cleanup, ensuring the expand path is blocked
-for inodes under eviction regardless of how they are reached.
+Reject firmware records whose phy_id does not fit soc->hal_reg_cap[]
+before copying the parsed capability.
 
-Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260623061903.2148767-2-yun.zhou@windriver.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260704011040.26233-1-pengpeng@iscas.ac.cn
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have the series context, Jan Kara’s review, and the syzbot stack.
-Compiling the nine-phase analysis and the backport verdict for this
-tree.
+This tree is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The candidate
+is a 6-line firmware `phy_id` bounds check in ath11k WMI parsing. The
+buggy `memcpy` has been in this driver since v5.6; the check is
+obviously correct and belongs here.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-
-Record: **[ext4] [set] set EXT4_STATE_NO_EXPAND in ext4_evict_inode**
-
-- Subsystem: `ext4`
-- Action verb: **set** (the body also uses “prevent” and “ensuring … is
-  blocked”)
-- Claimed intent: mark an inode under eviction so extra-isize expansion
-  is skipped
+Record: **[wifi: ath11k] [validate] [reject firmware `phy_id` that is
+out of range for `soc->hal_reg_cap[]`]**
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-
 Record:
-- **Reviewed-by:** Jan Kara `<jack@suse.cz>` (ext4 reviewer / long-time
+- **Fixes:** none (expected for this review pipeline)
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by:** Rameshkumar Sundaram
+  `<rameshkumar.sundaram@oss.qualcomm.com>`; Baochen Qiang
+  `<baochen.qiang@oss.qualcomm.com>` (Qualcomm ath11k reviewers)
+- **Acked-by:** none
+- **Link:**
+  `https://patch.msgid.link/20260704011040.26233-1-pengpeng@iscas.ac.cn`
+- **Cc: stable:** none (expected; not a negative signal)
+- **Signed-off-by:** Pengpeng Hou (author); Jeff Johnson (ath11k
   maintainer)
-- **Link:** `https://patch.msgid.link/20260623061903.2148767-2-
-  yun.zhou@windriver.com` (patch **2/2**)
-- **Signed-off-by:** Yun Zhou `<yun.zhou@windriver.com>` (author)
-- **Signed-off-by:** Theodore Ts'o `<tytso@mit.edu>` (ext4 maintainer;
-  merged)
-- **No Fixes:** tag on the committed version (expected for this review
-  pipeline)
-- **No Cc: stable** (expected)
-- **No Reported-by / Closes** on this revision (those tags live on patch
-  1/2)
-
-Notable: this is explicitly patch **2/2** of a two-patch series.
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
 Record:
-- **Bug description:** An evicted inode never needs extra isize
-  expanded. Doing that work is unnecessary and can participate in the
-  `s_writepages_rwsem` deadlock during mount-time orphan cleanup.
-- **Symptom/failure mode:** Circular lock dependency / deadlock
-  (`s_writepages_rwsem` → jbd2 handle → `xattr_sem` →
-  `s_writepages_rwsem`).
-- **Version information:** none in this commit; sibling patch 1/2 has
-  `Fixes: c8585c6fcaf2` (v4.7-rc1).
-- **Author’s root-cause framing:** skip expansion by setting
-  `EXT4_STATE_NO_EXPAND` before `ext4_mark_inode_dirty()` in
-  `ext4_evict_inode()`. Described as making the invariant explicit
-  **and** as defense-in-depth for the mount-time orphan deadlock.
+- **Bug:** `ath11k_wmi_tlv_ext_hal_reg_caps()` copies firmware HAL
+  regulatory-capability records into `soc->hal_reg_cap[]` using
+  **`reg_cap.phy_id` as the destination index**. The loop is bounded by
+  `num_phy`, but **`phy_id` inside each record is not checked** against
+  `MAX_RADIOS`.
+- **Symptom/failure mode:** out-of-bounds write into `struct
+  ath11k_base` (memory corruption).
+- **Version information:** none in the message.
+- **Root cause:** firmware-controlled `u32 phy_id` used as an array
+  index without a bounds check.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-
-Record: **Yes — this is a hidden/downplayed deadlock-path fix, not mere
-cleanup.**
-
-The committed text says “unnecessary work” and “defense-in-depth”. The
-**v1** of this exact one-line change was titled *“skip extra isize
-expansion on inode eviction to avoid deadlock”*, carried the syzbot
-`Reported-by`/`Closes`/`Fixes:` tags, and the syzbot stack is
-`ext4_orphan_cleanup` → `evict` → **`ext4_evict_inode`** →
-`__ext4_mark_inode_dirty` → `ext4_try_to_expand_extra_isize`. The tags
-moved to patch 1/2 (`!SB_ACTIVE`) after Jan Kara asked for the real
-lock-order fix; this line remained as the eviction-path closer.
+Record: **Not disguised.** This is an explicit firmware-index validation
+/ OOB-write fix. Verb “validate” is a bounds check, not cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS - LINE BY LINE
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
-
 Record:
-- **Files:** `fs/ext4/inode.c` — **+1 / −0**
-- **Function:** `ext4_evict_inode()`
-- **Scope:** single-file, one-line surgical change
+- **File:** `drivers/net/wireless/ath/ath11k/wmi.c` — **+6 / -0**
+- **Function:** `ath11k_wmi_tlv_ext_hal_reg_caps()`
+- **Scope:** single-file surgical fix
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-
-Record:
-- **Before:** deletion path sets `i_size = 0`, then calls
-  `ext4_mark_inode_dirty()`. That calls `__ext4_mark_inode_dirty()` → if
-  `i_extra_isize < s_want_extra_isize`,
-  `ext4_try_to_expand_extra_isize()`, which may take `xattr_sem`, move
-  xattrs, and `iput()` EA inodes.
-- **After:** `ext4_set_inode_state(inode, EXT4_STATE_NO_EXPAND)` runs
-  first. `ext4_try_to_expand_extra_isize()` already returns `-EOVERFLOW`
-  when that flag is set (check present since 2017), so expansion is
-  skipped for this and later `ext4_mark_inode_dirty()` calls in the same
-  eviction.
-- **Path:** deletion path only (after the `i_nlink` / `is_bad_inode`
-  early outs; not the cache-drop `no_delete` path).
+Record (verified in this tree at `wmi.c:4862-4880`):
+- **Before:** `ath11k_pull_reg_cap_svc_rdy_ext()` fills `reg_cap` from
+  firmware TLV `ext_reg_cap[i].phy_id`, then
+  `memcpy(&soc->hal_reg_cap[reg_cap.phy_id], &reg_cap, sizeof(reg_cap))`
+  with no check that `phy_id < MAX_RADIOS`.
+- **After:** if `reg_cap.phy_id >= ARRAY_SIZE(soc->hal_reg_cap)`, log a
+  warning and return `-EINVAL`; otherwise copy as before.
+- **Path:** firmware `WMI_SERVICE_READY_EXT` event during ath11k bring-
+  up (probe/init), not a hot datapath.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-
 Record:
-- **Category:** deadlock / lock-ordering (plus skipping pointless
-  expansion that can `iput` EA inodes under a jbd2 handle).
-- **Mechanism:** mount-time orphan cleanup (`!SB_ACTIVE`) of a deleted
-  inode (`i_nlink == 0`) hits `ext4_evict_inode` → expand extra isize →
-  `ext4_xattr_block_set` → `iput(ea_inode)` → `write_inode_now()` →
-  `s_writepages_rwsem`, while a jbd2 handle and `xattr_sem` are held.
-  Setting `EXT4_STATE_NO_EXPAND` removes that edge for every inode under
-  eviction.
+- **Category:** **(d) memory safety — buffer overflow / out-of-bounds
+  write**
+- **Mechanism:** `phy_id` is a firmware `u32`
+  (`wmi_hal_reg_capabilities_ext.phy_id`). Destination is
+  `hal_reg_cap[MAX_RADIOS]` with **`MAX_RADIOS == 3`** (`core.h:242`,
+  `core.h:971`). Loop bound `num_phy` is also firmware-supplied and is
+  **not** the same as `phy_id`. A record with `phy_id >= 3` writes
+  `sizeof(struct ath11k_hal_reg_capabilities_ext)` (10 × `u32` = 40
+  bytes) past the array into following `ath11k_base` fields
+  (`free_vdev_map`, `tbl_mtx_lock`, peer rhashtables).
+- The parse helper only checks TLV count vs `num_phy`
+  (`n_ext_hal_reg_caps >= param.num_phy` → `-ENOBUFS`); it does **not**
+  validate `phy_id`.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-
 Record:
-- **Quality:** obviously correct. An inode being deleted cannot benefit
-  from extra isize. The flag’s save/restore in `ext4_write_lock_xattr` /
-  `ext4_write_unlock_xattr` keeps it set (`*save == 1` → do not clear).
-- **Regression risk:** very low. One inode-state bit on an inode that is
-  about to be freed. No API, locking, or on-disk format change.
-- **Red flags:** none (1 line, one function). It is patch 2/2 but does
-  **not** depend on patch 1’s `!SB_ACTIVE` check.
+- **Obviously correct:** `ARRAY_SIZE(soc->hal_reg_cap)` is the real
+  destination size; reject-and-return is the right failure mode.
+- **Minimal:** 6 lines, one check, no API/struct changes.
+- **Regression risk:** **very low**. Well-formed firmware with `phy_id`
+  0–2 is unchanged. Invalid `phy_id` now fails WMI parse instead of
+  corrupting memory. That is the intended probe failure, not a behavior
+  change for working hardware.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
-
 Record:
-- Added line: commit **`2c0e4fb511f97`** (this change, 2026-06-23).
-- Surrounding `inode->i_size = 0` / `ext4_mark_inode_dirty()`: Dave
-  Kleikamp 2006 / Ted Ts’o **`bc965ab3f2b4b7`** (2008). Extra-isize
-  expansion from dirtying: **`6dd4ee7cab7e3`** (2007).
-  `EXT4_STATE_NO_EXPAND` early-out in `ext4_try_to_expand_extra_isize`:
-  **`cf0a5e818fe216`** (2017, from **`2e81a4eeedcaa`** in 2016).
-- This path has been in-tree for many years; not a newly introduced
-  subsystem.
+- Loop + `memcpy`: **`d5c65159f28953`** — “ath11k: driver for Qualcomm
+  IEEE 802.11ax devices” (Kalle Valo, 2019-11-25).
+- Bounds check: **`f8729a40ebcc9`** (this commit).
+- Introducer is in **v5.6**, not v5.5 (`git merge-base --is-ancestor`).
+  Bug has been in every tree with ath11k since then.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-
-Record: **No Fixes: tag on this commit.** Sibling **`7461c60b9c6a8`**
-(patch 1/2, parent of this commit) has `Fixes: c8585c6fcaf2` (“ext4: fix
-races between changing inode journal mode and ext4_writepages”,
-2016-04-25, **v4.7-rc1**). That commit is an ancestor of this tree. It
-introduced `s_writepages_rwsem` (originally `s_journal_flag_rwsem`),
-which is the lock in the cycle.
+Record: **No Fixes: tag.** Not applicable. Introducer identified by
+blame: `d5c65159f28953` (original driver).
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-
 Record:
-- **`7461c60b9c6a8`** — skip expansion when `!SB_ACTIVE` (primary mount-
-  time fix).
-- **`2c0e4fb511f97`** — this commit (eviction-path flag).
-- **`4f48af3dc7554` / `a54778243e88f`** — later deferred `iput` for EA
-  inodes (Jan Kara’s deeper lock-order fix; larger).
-- This change is **standalone**: it only uses `ext4_set_inode_state()`
-  and a flag check that has existed since 2017. It is part of a series
-  but is not patch-X-that-needs-Y to compile or run.
+- Recent `wmi.c` work is other firmware TLV hardening (overread, stride,
+  leak) — related thematically, **not prerequisites**.
+- Earlier `84eee3c845d37` (“refine the phy_id check in
+  ath11k_reg_chan_list_event”) is a **different** event path.
+- **Standalone**, not patch N/M. Maintainer applied it as `[1/1]`.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record: Yun Zhou is a regular ext4 contributor (orphan/xattr/deadlock
-work in this area), not the maintainer. Ted Ts’o merged it; Jan Kara
-reviewed it. Related author commits: the `!SB_ACTIVE` skip, then
-deferred EA `iput` helpers.
+Record: Pengpeng Hou has this one ath11k commit here. Weight comes from
+**Qualcomm reviewers** and **maintainer Jeff Johnson** (MAINTAINERS:
+ATH11K).
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-
-Record: **No hard prerequisites beyond code that is already old.** Needs
-`EXT4_STATE_NO_EXPAND` and the test at the top of
-`ext4_try_to_expand_extra_isize()` (2016–2017). Does **not** need patch
-1. Applies as a single insertion before the existing
-`ext4_mark_inode_dirty()` call.
+Record: **None.** Uses existing `ARRAY_SIZE`, `ath11k_warn`, `-EINVAL`,
+`soc->hal_reg_cap`. Can apply standalone on any tree with this 2019
+function.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
 Record:
-- **b4 dig:** `[PATCH 2/2] ext4: set EXT4_STATE_NO_EXPAND in
-  ext4_evict_inode` — `https://patch.msgid.link/20260623061903.2148767-
-  2-yun.zhou@windriver.com`
-- **Revisions:** evolved from standalone v1 (2026-06-11) through v5–v8
-  of a larger xattr-iput series, then a simplified 2-patch series that
-  Ted applied. Applied version is that final 2/2.
-- **v6/v8 cover letter (author):** “Patch 2 is a belt-and-suspenders
-  semantic improvement: an inode under eviction never needs extra isize
-  expansion.” “v1 … Only fixes the syzbot reproducer, not the underlying
-  lock ordering violation.”
-- **Jan Kara (2026-06-11) on the original identical change:** agrees
-  expansion is pointless in `ext4_evict_inode`; says it **does not fix
-  the real lock-order bug**, only the particular syzbot reproducer. No
-  NAK of this line; he wanted a deeper fix as well.
-- **No NAK** of setting the flag. Ted merged it with Jan’s Reviewed-by.
+- **Lore URL (b4 dig):**
+  `https://patch.msgid.link/20260704011040.26233-1-pengpeng@iscas.ac.cn`
+- **Revisions:** **v1 only** (`b4 dig -a`); committed v1.
+- **Thread (saved via `b4 dig -m`):**
+  - Baochen Qiang: `Reviewed-by`
+  - Rameshkumar Sundaram: `Reviewed-by`
+  - Jeff Johnson: “Applied, thanks!” `[1/1]`
+- **No NAKs, no stable nomination, no requested revisions.**
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-
-Record (b4 dig -w): `tytso@mit.edu`, `adilger.kernel@dilger.ca`,
-`libaokun@linux.alibaba.com`, `jack@suse.cz`, `ojaswin@linux.ibm.com`,
-`ritesh.list@gmail.com`, `yi.zhang@huawei.com`, `linux-
-ext4@vger.kernel.org`. Subsystem maintainers/reviewers were on To/Cc.
-Jan Kara reviewed; Ted merged.
+Record (`b4 dig -w`): To/Cc were Jeff Johnson, `linux-wireless`,
+`ath11k@lists.infradead.org`, `linux-kernel`. Right lists and
+maintainer.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-
-Record:
-- Syzbot: `https://syzkaller.appspot.com/bug?extid=5d19358d7eb30ffb0cc5`
-  — **possible deadlock in wait_transaction_locked**, prio:high, C
-  repro, Denial-of-service via filesystem mount.
-- Stack (verified): `ext4_orphan_cleanup` → `evict` →
-  **`ext4_evict_inode`** → `__ext4_mark_inode_dirty` →
-  `ext4_try_to_expand_extra_isize` → `ext4_expand_extra_isize_ea` →
-  `ext4_xattr_block_set` → `iput` → `write_inode_now` →
-  `ext4_writepages` / `s_writepages_rwsem`.
-- Still reported on linux-5.15 / 6.1 / 6.6 at the time of the dashboard
-  snapshot. Syzbot’s “fix commit” is **`7461c60b9c6a`** (patch 1),
-  because that commit carries the tags; this commit closes the **same**
-  `ext4_evict_inode` frame.
+Record: **No user/syzbot/bugzilla report.** Found by code review of
+firmware TLV parsing. Severity is from the mechanism (OOB write), not
+from a crash log.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: Series is (1) skip expansion during mount, (2) this flag in
-evict, then later deferred-iput patches. Patch 1 covers all `!SB_ACTIVE`
-callers (including `ext4_process_orphan` → `ext4_truncate`). Patch 2
-covers **all** eviction, including post-mount. They complement; this one
-is not incomplete on its own for the syzbot stack.
+Record: Standalone `[PATCH]`, not a series. ath12k still has an
+analogous unguarded `soc->hal_reg_cap[reg_cap.phy_id] = reg_cap` in
+`ath12k/wmi.c` — sibling issue, **not a dependency**.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-
-Record: No stable-list thread found for this subject. Absence of Cc:
-stable is expected for this pipeline.
+Record: **UNVERIFIED** for lore.kernel.org/stable (HTTP 403). Local
+history has no stable-specific discussion of this subject.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-
-Record: **`ext4_evict_inode()`** (modified). Indirectly
-**`__ext4_mark_inode_dirty()`**, **`ext4_try_to_expand_extra_isize()`**.
+**Step 5.1: KEY FUNCTIONS**
+Record: `ath11k_wmi_tlv_ext_hal_reg_caps()`; helpers
+`ath11k_pull_reg_cap_svc_rdy_ext()`,
+`ath11k_wmi_tlv_ext_hal_reg_caps_parse()`.
 
 **Step 5.2: TRACE CALLERS**
-
-Record:
-- `ext4_evict_inode` is `ext4_sops.evict_inode` (`fs/ext4/super.c`).
-  Called from VFS `evict()` on last `iput` when `i_nlink == 0`.
-- Reachable from unlink/close, and from **`ext4_process_orphan()` →
-  `iput()`** during `ext4_orphan_cleanup()` at mount
-  (`fs/ext4/orphan.c`). That is the syzbot path.
+Record (verified with grep/read):
+- `ath11k_wmi_tlv_ext_hal_reg_caps()` ←
+  `ath11k_wmi_tlv_svc_rdy_ext_parse()` (`WMI_TAG_ARRAY_STRUCT` after hw-
+  mode and mac-phy TLVs)
+- ← `ath11k_service_ready_ext_event()`
+- ← WMI event switch `WMI_SERVICE_READY_EXT_EVENTID`
 
 **Step 5.3: TRACE CALLEES**
-
-Record: After the new flag: `ext4_mark_inode_dirty` →
-`__ext4_mark_inode_dirty` → `ext4_try_to_expand_extra_isize` (now a no-
-op via `-EOVERFLOW`) → later `ext4_truncate`, `ext4_xattr_delete_inode`,
-`ext4_free_inode`. No new callees.
+Record: `ath11k_wmi_tlv_iter()`, `ath11k_pull_reg_cap_svc_rdy_ext()`
+(copies firmware `phy_id`), `memcpy()`.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record: **Yes, userspace-reachable.** Unprivileged unlink hits eviction
-(no deadlock there once `SB_ACTIVE` is set). The deadlock needs mount-
-time orphan cleanup (`!SB_ACTIVE`), typically `mount(2)` (admin /
-crafted image). Syzbot reproduced it. Assessment: DoS, filesystem
-trigger.
+Record: Reachable on **ath11k device init** when firmware sends service-
+ready-ext. Not a syscall hot path. Trigger needs **CONFIG_ATH11K** +
+Qualcomm 802.11ax hardware + firmware that puts `phy_id >= 3` (or
+otherwise ≥ `ARRAY_SIZE`). Unprivileged users cannot poke this WMI path
+directly; **buggy or malicious firmware** can. That is still a real
+kernel OOB write.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-
-Record: Only this site sets `EXT4_STATE_NO_EXPAND` outside the xattr
-lock helpers. No sibling-driver clone. Patch 1 is the related early-
-return in `ext4_try_to_expand_extra_isize`.
+Record: Same driver already bounds other firmware indices (e.g. `phy_idx
+>= reg_caps->num_phy` in the pull helper). This copy site was the hole.
+ath12k has the same hole unfixed.
 
 ---
 
 ## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-
-Record:
-- Local tree: **`v7.3-rc4-27-gf0100363d8c37`**, `make kernelversion` =
-  **7.3.0-rc4** (mainline, not a `*.y` stable branch).
-- `ext4_evict_inode` + `ext4_mark_inode_dirty` + expand-on-dirty all
-  exist.
-- This commit **is already an ancestor** of HEAD (`2c0e4fb511f97`). That
-  is expected (source tree), not a reason to treat it as “already
-  selected for stable”.
-- Bug class dates to extra-isize expansion (2007) plus
-  `s_writepages_rwsem` (2016 / v4.7).
+Record: **Yes.** `ath11k_wmi_tlv_ext_hal_reg_caps()` and
+`hal_reg_cap[MAX_RADIOS]` are present. The unguarded `memcpy` was here
+from v5.6 until `f8729a40ebcc9`. **Bug introduced in v5.6, long before
+7.3.** `git merge-base --is-ancestor f8729a40ebcc9 HEAD` is true (fix is
+in 7.3-rc1+); that is mainline merge, not “already selected for stable.”
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-
-Record: **Clean apply.** Insert one call between long-stable
-`inode->i_size = 0` and `ext4_mark_inode_dirty()`. No refactor of that
-sequence. `EXT4_STATE_NO_EXPAND` exists here.
+Record: **Clean apply.** Surrounding function body is still the 2019
+structure plus this 6-line check. No refactor of this function in
+between.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-
-Record: Patch 1 (`7461c60b9c6a8`) and later deferred-iput work are also
-in this mainline checkout. They do not make this line wrong or redundant
-for stable: patch 1 is mount-only; this flag also covers post-mount
-eviction and is the direct closer of the syzbot `ext4_evict_inode`
-frame.
+Record: No alternate fix for this memcpy. Other nearby TLV fixes address
+different bugs.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+**Step 7.1: SUBSYSTEM AND CRITICALITY**
+Record: **ath11k (Qualcomm 802.11ax)** under
+`drivers/net/wireless/ath/ath11k/`. **IMPORTANT** — not core mm/fs, but
+a widely used Wi-Fi driver (laptops, AP SoCs, Chromebooks, phones).
+CONFIG: `ATH11K` / `ATH11K_PCI` / `ATH11K_AHB`.
 
-Record: **ext4 (`fs/ext4/`)** — **IMPORTANT** (default filesystem on a
-large fraction of Linux systems; mount/orphan cleanup is a common path
-after crash).
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-
-Record: Actively developed (recent writeback, xattr, orphan, deadlock
-fixes). The eviction dirtying sequence itself has been stable for many
-years; this is a small invariant on old code, not a feature on new code.
+**Step 7.2: SUBSYSTEM ACTIVITY**
+Record: Actively maintained (Jeff Johnson). Recent WMI work is firmware-
+message validation, consistent with this patch.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
+**Step 8.1: WHO IS AFFECTED**
+Record: **Driver-specific / config-specific:** `CONFIG_ATH11K` users.
+Impact only if firmware sends a `phy_id` that does not fit
+`hal_reg_cap[]`.
 
-Record: **Filesystem-specific (ext4), but a very large user
-population.** Triggered on mount of a filesystem with orphans that still
-need extra-isize expansion and have xattrs that must move.
+**Step 8.2: TRIGGER CONDITIONS**
+Record: Device init / firmware service-ready-ext. **Not** every packet.
+Needs bad `phy_id` in the WMI record (firmware bug or hostile firmware).
+Unprivileged userspace cannot fire it without controlling firmware.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+**Step 8.3: FAILURE MODE SEVERITY**
+Record: **Out-of-bounds write** of 40 bytes into `struct ath11k_base`
+after `hal_reg_cap[]` — can corrupt `free_vdev_map`, mutexes, peer
+tables → crash, deadlock, or further memory corruption. **Severity:
+HIGH** (OOB write / memory corruption). Not a panic on every boot with
+good firmware.
 
+**Step 8.4: RISK-BENEFIT RATIO**
 Record:
-- **Deadlock:** mount-time orphan cleanup, inode with `i_extra_isize <
-  s_want_extra_isize`, expansion moves xattrs, `!SB_ACTIVE` forces
-  `write_inode_now` on EA `iput`. Syzbot has a C repro.
-- **Post-mount:** every deletion of such an inode would previously
-  attempt a pointless expand (not this deadlock).
-- **Unprivileged mount:** generally no; crafted/unclean ext4 images and
-  admin mount yes. Syzbot still reached it from syscall fuzzing.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-
-Record: **Deadlock / lockdep circular dependency → hang or lockdep
-splat. Severity: HIGH (DoS on mount/orphan cleanup).** Not a data-
-corruption bug.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-
-Record:
-- **Benefit:** high for a 1-line closer of a documented, syzbot-
-  reproduced deadlock path on ext4 eviction; also stops pointless expand
-  (xattr shuffle / EA `iput`) on every delete.
-- **Risk:** very low (1 line, existing flag, deletion-only).
-- **Ratio:** strongly favorable.
+- **Benefit:** High for ath11k — stops a real OOB write on a long-
+  standing path (v5.6+).
+- **Risk:** Very low — 6 lines, error-path reject, no lock/API change,
+  good firmware unaffected.
+- **Ratio:** strongly favors backport.
 
 ---
 
@@ -431,142 +342,130 @@ Record:
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
-**FOR backporting:**
-- Syzbot C-repro deadlock; stack is exactly `ext4_evict_inode` → mark
-  dirty → expand extra isize.
-- 1-line, obviously correct; Jan Kara Reviewed-by; Ted Ts’o merged.
-- Uses a flag and check that have existed since 2016–2017; no new API.
-- Independent of patch 1; complements the `!SB_ACTIVE` skip.
-- Defense-in-depth on a HIGH-severity hang in a core filesystem.
-- Applies cleanly to this tree’s `ext4_evict_inode`.
+**FOR:**
+- Real OOB write: firmware `u32 phy_id` used as index into a 3-element
+  array.
+- Small, obviously correct check (`ARRAY_SIZE` + `-EINVAL`).
+- Present in this tree’s ath11k code; bug dates to original driver
+  (v5.6).
+- Reviewed by Qualcomm ath11k developers; applied by the maintainer.
+- Standalone; no new APIs; no series dependencies.
+- Matches stable pattern: buffer overflow / firmware TLV validation.
 
 **AGAINST:**
-- Final message frames it as “unnecessary work” / “defense-in-depth”;
-  author called v1 incomplete vs the real lock-order bug.
-- Patch 2/2; the tagged “real” mount fix is patch 1.
-- Jan Kara: this line alone does not fix `ext4_xattr_block_set` taking
-  `s_writepages_rwsem` under a handle.
-- Deadlock is mount-time / orphan-specific, not every unlink.
+- No `Reported-by` / syzbot / production crash.
+- Trigger is firmware-supplied data at probe, not a generic syscall.
+- No explicit `Cc: stable` (not a negative per pipeline rules).
 
-**UNRESOLVED:** lore.kernel.org returned 403 to WebFetch; discussion
-recovered via b4 dig, openwall/lkml mirrors, patchew, and the syzbot
-dashboard. No stable@ thread found.
+**UNRESOLVED:**
+- Could not query lore.kernel.org/stable (403).
+- No public report that shipping firmware actually sent `phy_id >= 3`.
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-
-1. Obviously correct and tested? **PASS** — 1-line invariant; Reviewed-
-   by Jan Kara; in mainline; syzbot exercised the path.
-2. Fixes a real bug that affects users? **PASS** — same path as the
-   syzbot deadlock; also skips harmful extra work on delete.
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   deadlock / DoS (HIGH), not theoretical.
-4. Small and contained? **PASS** — +1 line, one function.
+**Step 9.2: STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — local review + two Qualcomm
+   Reviewed-by + maintainer apply.
+2. Fixes a real bug that affects users? **PASS** — OOB write on firmware
+   parse; ath11k users are real users.
+3. Important issue? **PASS** — OOB write / memory corruption (**HIGH**),
+   not style.
+4. Small and contained? **PASS** — +6 lines, one function.
 5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — call site and
-   `EXT4_STATE_NO_EXPAND` are present; insertion is mechanical.
+6. Can apply to the local tree? **PASS** — same function/context; no
+   missing prerequisites.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+**Step 9.3: EXCEPTION CATEGORIES**
+Record: None (not a device ID / quirk / DT / build / doc exception).
+Qualifies as a normal bugfix.
 
-Record: Not a device-ID/quirk/DT/docs/build exception. It is a normal
-small correctness/deadlock-path fix.
+**Step 9.4: DECISION**
 
-**Step 9.4: MAKE YOUR DECISION**
-
-This tree is **7.3-rc4 mainline**. The eviction dirtying path exists;
-the extra-isize expand-on-dirty path exists; the syzbot stack is this
-function. The committed wording is modest, but the change is the direct
-closer of a real, reproduced deadlock edge, not a refactor or a new
-feature. Risk is negligible. It should be backported.
+This is a surgical firmware-index bounds check that stops a memcpy past
+`hal_reg_cap[MAX_RADIOS]`. The destination array and unguarded copy
+exist in this 7.3 tree’s ath11k code; the bug is older than this branch.
+Risk is negligible; the failure mode is memory corruption. That meets
+stable criteria for **this** tree.
 
 ---
 
-### What the commit solves for stable users
+### What the commit solves for this tree
+`ath11k_wmi_tlv_ext_hal_reg_caps()` trusted firmware `phy_id` as an
+index into a 3-slot array. A bad `phy_id` overwrites the rest of `struct
+ath11k_base`. The patch rejects those records before the copy.
 
-On ext4, `ext4_mark_inode_dirty()` may try to grow `i_extra_isize`.
-During **mount-time orphan cleanup**, that runs from
-**`ext4_evict_inode`** while `!SB_ACTIVE`. Expanding can move xattrs and
-`iput()` EA inodes, which then calls `write_inode_now()` and takes
-`s_writepages_rwsem` under a jbd2 handle and `xattr_sem`. Syzbot
-reproduced that cycle. Setting `EXT4_STATE_NO_EXPAND` before the dirty
-call is correct (the inode is being deleted) and stops that expand/iput
-edge for every eviction.
+### Stable rules
+Small, obviously correct, no new APIs, applies cleanly, fixes a real OOB
+write.
 
-### Stable rules / risk
-
-Meets all six criteria: one line, reviewed, real deadlock path, no new
-API, applies cleanly. Sibling patch 1 (`!SB_ACTIVE`) is the broader
-mount fix; this line does not need it, and it still helps post-mount by
-skipping pointless expansion.
+### Risk vs benefit
+Benefit is preventing kernel memory corruption on ath11k bring-up with
+bad firmware. Risk is an early `-EINVAL` only when `phy_id` is already
+invalid.
 
 ### Concerns
-
-Incomplete as the *only* lock-order fix (Jan Kara). That is a reason to
-also want patch 1 / deferred iput, not a reason to drop this 1-liner. No
-backport rework needed on this tree.
+No in-the-wild crash report; trigger is firmware, not unprivileged
+syscalls. That does not make an OOB write unsuitable for stable. No
+backport rework needed here.
 
 ---
 
 Verification:
-- [Phase 1] Subject/tags: ext4 set NO_EXPAND; Reviewed-by Jan Kara; Link
-  patch 2/2; Ted Ts’o SOB; no Fixes/Reported-by on this revision
-- [Phase 1] Body: skip expand on evict; defense-in-depth for
-  s_writepages_rwsem deadlock
-- [Phase 2] Diff: +1 line in `ext4_evict_inode` before
-  `ext4_mark_inode_dirty`
-- [Phase 2] Expand skip: `ext4_try_to_expand_extra_isize` returns
-  `-EOVERFLOW` if `EXT4_STATE_NO_EXPAND` (inode.c:6597)
-- [Phase 2] Flag restore: `ext4_write_unlock_xattr` clears only if
-  `*save == 0` (xattr.h:166-170)
-- [Phase 3] `git describe HEAD`: v7.3-rc4-27-gf0100363d8c37; `make
-  kernelversion`: 7.3.0-rc4
-- [Phase 3] `git merge-base --is-ancestor 2c0e4fb511f97 HEAD`: yes
-  (mainline already has it)
-- [Phase 3] Blame: `i_size=0` 2006; `mark_inode_dirty` in evict
-  `bc965ab3f2b4b7` 2008; expand-on-dirty `6dd4ee7cab7e3` 2007; NO_EXPAND
-  check `cf0a5e818fe216` 2017
-- [Phase 3] Sibling 7461c60b9c6a8 Fixes: c8585c6fcaf2 (v4.7-rc1);
-  `merge-base --is-ancestor c8585c6fcaf2 HEAD`: yes
-- [Phase 4] `b4 dig -c 2c0e4fb511f97`: msgid 20260623061903.2148767-2
-- [Phase 4] `b4 dig -a`: v5–v8 larger series then final 2-patch series
-- [Phase 4] `b4 dig -w`: tytso, adilger, jack@suse.cz, linux-ext4 on
-  To/Cc
-- [Phase 4] Jan Kara 2026-06-11 (openwall/lkml): agrees with the flag;
-  says it only covers the syzbot reproducer, not the full lock-order bug
-  — no NAK
-- [Phase 4] Cover letter: “belt-and-suspenders semantic improvement”
-- [Phase 4] Syzbot bug extid=5d19358d7eb30ffb0cc5: stack through
-  `ext4_evict_inode`; prio high; C repro; linux-5.15/6.1/6.6 still
-  listed
-- [Phase 4] lore.kernel.org WebFetch: 403; used b4 + mirrors. Stable
-  list search: no hits
-- [Phase 5] Caller: `ext4_sops.evict_inode`; orphan:
-  `ext4_process_orphan` → `iput` (orphan.c:359)
-- [Phase 6] Local `ext4_evict_inode` already contains the line at
-  inode.c:268; apply would be clean on the pre-patch form of the same
-  function
-- [Phase 7] ext4, IMPORTANT, actively developed
-- [Phase 8] Failure: circular lockdep / deadlock on mount orphan
-  cleanup; severity HIGH; risk very low
-- UNVERIFIED: live lore.kernel.org HTML of the thread (403);
-  reconstructed from b4, openwall, patchew, syzbot
+- **[Phase 1]** Parsed tags: two Qualcomm Reviewed-by, maintainer
+  SOB/Link; no Fixes/Reported-by/Cc:stable
+- **[Phase 2]** Diff: +6 in `ath11k_wmi_tlv_ext_hal_reg_caps()`;
+  `ARRAY_SIZE` check before `memcpy(&soc->hal_reg_cap[reg_cap.phy_id],
+  ...)`
+- **[Phase 2]** `MAX_RADIOS` is 3; `hal_reg_cap[MAX_RADIOS]` in
+  `core.h:971`; `phy_id` is firmware `u32`
+- **[Phase 3]** `git blame`: memcpy from `d5c65159f28953` (2019); check
+  from `f8729a40ebcc9`
+- **[Phase 3]** Introducer in v5.6, not v5.5; fix in v7.3-rc1, not v7.2
+- **[Phase 3]** `git merge-base --is-ancestor f8729a40ebcc9 HEAD` → yes
+  (mainline already has the fix; ignored as “already selected”)
+- **[Phase 3]** No series/prereqs; author has only this ath11k commit
+  here
+- **[Phase 4]** `b4 dig -c f8729a40ebcc9`: v1 at
+  patch.msgid.link/20260704011040.26233-1-pengpeng@iscas.ac.cn
+- **[Phase 4]** `b4 dig -a`: v1 only; `b4 dig -w`: maintainer + linux-
+  wireless + ath11k list
+- **[Phase 4]** mbox: Reviewed-by Baochen Qiang + Rameshkumar Sundaram;
+  Jeff Johnson applied `[1/1]`; no NAK
+- **[Phase 4]** lore HTTP fetch 403; used `b4 dig -m` instead
+- **[Phase 5]** Call chain: WMI `SERVICE_READY_EXT` →
+  `ath11k_service_ready_ext_event` → TLV parse → this function
+- **[Phase 5]** ath12k has the same unguarded pattern (sibling, not a
+  prereq)
+- **[Phase 6]** `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`;
+  `make kernelversion` = 7.3.0-rc4; buggy function present
+- **[Phase 6]** Surrounding code still matches 2019 introducer → clean
+  apply
+- **[Phase 7]** MAINTAINERS: Jeff Johnson, Supported
+- **[Phase 8]** Failure mode: 40-byte OOB write into `ath11k_base` after
+  `hal_reg_cap[]` → HIGH
+- **UNVERIFIED:** stable@ lore search (HTTP 403); whether any shipping
+  firmware actually sent `phy_id >= 3`
 
 **YES**
 
- fs/ext4/inode.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/wireless/ath/ath11k/wmi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index bbc437be5e63b..9a5c08650bd1e 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -261,6 +261,7 @@ void ext4_evict_inode(struct inode *inode)
- 	if (ext4_inode_is_fast_symlink(inode))
- 		memset(EXT4_I(inode)->i_data, 0, sizeof(EXT4_I(inode)->i_data));
- 	inode->i_size = 0;
-+	ext4_set_inode_state(inode, EXT4_STATE_NO_EXPAND);
- 	err = ext4_mark_inode_dirty(handle, inode);
- 	if (err) {
- 		ext4_warning(inode->i_sb,
+diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
+index 3305ec66ddbf2..c6b9e84b169c9 100644
+--- a/drivers/net/wireless/ath/ath11k/wmi.c
++++ b/drivers/net/wireless/ath/ath11k/wmi.c
+@@ -4816,6 +4816,12 @@ static int ath11k_wmi_tlv_ext_hal_reg_caps(struct ath11k_base *soc,
+ 			return ret;
+ 		}
+ 
++		if (reg_cap.phy_id >= ARRAY_SIZE(soc->hal_reg_cap)) {
++			ath11k_warn(soc, "invalid reg cap phy_id %u\n",
++				    reg_cap.phy_id);
++			return -EINVAL;
++		}
++
+ 		memcpy(&soc->hal_reg_cap[reg_cap.phy_id],
+ 		       &reg_cap, sizeof(reg_cap));
+ 	}
 -- 
 2.53.0
 
