@@ -1,64 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792448992;
-	b=I7UvYnj9LbYyPHYt+QCc6H/krIJ86GX4TXkjHV/t26zhf7XWUd5q8pR/T7pETK3XQh1u
-	 nfmo0oJ8DlzpHhfQF09CJ0YfrMg9sg99pBAM4Ld20Yl7H8Jkymmv6j9l9F7QoA4SNBEQt
-	 U48mJmzOVzfplCOyGTFLCKIyP1PoBpyvoScHL+s+1Eqtjk0OKijAAmi26Q3jLKs0bDPfq
-	 A095LJNGPcdeNKGHNXEmWJ7hfQNLrSrrDD0xEOkmQO980gxy29O9Den2X83jJag/B7q4K
-	 u4D6D7mmF2qJBX9arE9R3gzRnVdiWuytV0nV6X+ez7/qELwYdWt4oEM4Eeysd+0xNLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448992;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=bn0LUV8nV0X9AL2Oe4mZF4R4gBNcAcDh87LSeEPK0aQ=;
-	b=wOJBytxu6qIeGFTqjw09ACZmjtvUR7fOD5Vu86+W1W9U/v6WYFXGat2A3+ol3dWoBLpD
-	 rX8UheofdpssNmS3oZJUvDYa7Mqx6n5ozdxabjS00wkdufA++euaJT1XRfuaYbQGpFXCT
-	 1l6frqhvju4QzgNZoD0WmjnM/JD02BhwyOYr8i8RwljlWwegWVdeSOCaBvlhMNpmJvoze
-	 3hb0cFEjjKGw5T1ACDmSb12gTDQxwGenoNMCQzXOQA2pj46VYC6LNMW5lfoW9F6u2C6Ht
-	 kQGvdtdf0/uFVfr6uJGVlmPGneA52fSQ+AW2sEDRG3V0Mby+RvkuCB9PLZNcmCyDIWQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYpjPcO4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792449076;
+	b=VasMUfhG7LZpdKtPCiOCgT1gmSXkK1PykadpiRLbe+GbYd74Z/r6AXmkrVFPCHqQYXlo
+	 IQTTG88ihtOHUv4DVxGW2gl+XguALxTZ4d1p9aGsSj6AVYvuFZgR/3FNb6ph6jaATNq3o
+	 zNmaQsxN5mbuozSLMS90hr/PJBanfQupI9VahHVisAUkHdP9UZLjAbsOlKWCDi2XPLn4s
+	 GMH1/KT/HuO+YgZljIkn2UbJqGPqtOreMVd0Ts4ggMd1PYFEXhxR33qmfVGZWt792QAoY
+	 PDmlxA32m05x32Cxg1Tj6VePr2137mix2UmQ1COY2582PkHKp4Fd0725H1s31MchmZw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792449076;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=7Y7YiwpHnHRTlx4OY6pg4GKzGSuy4/quEwIOKfF9VTA=;
+	b=GU6J4RojR3EwUqktkZQ2P0oMIr5+kAhLggxswJ2Csx83GjDJSmUOI6dzYWh2yv4afZFq
+	 PQVnQyv3v38BYdoXHAr9kuaJ4WX6iQwh3NoGHSvyU5m7VGKCX5CznGXeGvVubd5McJkj6
+	 dR6bes2RFCjHGZ+P+UNez6MATnMXkh22PrI07omtpA91mjmwQ6+gpGvOx1VRTMYm8kYpC
+	 PvjBpp9ZT9BZGkRjXZ6QFzqlTjWynbdg+KHzGj8n3q+hQuVqsD2wge4A0paMiX2rYfBKi
+	 s6e7O3ZvGu3ZpzGwnJUsBGMsSD2/PcxJaKGte8EDXxOY+Qwuv9G0kWgYK7YVFsyds+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=X3mjpDas;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E026606A31B;
-	Mon, 19 Oct 2026 22:29:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2EE606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:31:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F2EE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYpjPcO4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3FE1F000C4;
-	Mon, 19 Oct 2026 22:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792448991;
-	bh=bn0LUV8nV0X9AL2Oe4mZF4R4gBNcAcDh87LSeEPK0aQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oYpjPcO4+qyVgDvU0SXTwuY03Cd2EM9GgCLwi1KJycLvfsoISiFgeC+/vCtrHS6XR
-	 WwUhW/XFyuaRVUFj3NDGImX7TebArRQIIRgpbiMqQi1CKZbOs5FOYy8ovxKjJC+mQA
-	 Q0H59J9WpJ6lbBRizcyO2B1xnIGHmo5eGZOKjPL/JRuxXDhbQ/M+9u/m0YbZpdkOgz
-	 aglhJjgWCro1GTi7eqZpbYGPMQJMxMCOsGvR9q+PZ9WAQcd97d/zMaKSIvmFS/+ZjJ
-	 hSvgRSVWV5eLah25O2qz/oO0LyVuwyT814urBfaEYZyU2Y8gDWyELU4tdOqKNXj8Qy
-	 q7tJkkGi/z8/Q==
-Subject:
- Re: [PATCH net-next v4] net: stmmac: dwxgmac2: enable L2 split header support
-From: netdev-bot+sashiko@kernel.org
-To: sagar.cheluvegowda@oss.qualcomm.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- lorenzo.bianconi@oss.qualcomm.com, hongmei.xu@oss.qualcomm.com,
- abhishek.chauhan@oss.qualcomm.com, sarosh.hasan@oss.qualcomm.com
-Date: Mon, 19 Oct 2026 22:29:49 +0000
-Message-ID: <179244898962.3135.12890405028818098249@kernel.org>
-In-Reply-To: <20261015221215.1714047-1-sagar.cheluvegowda@oss.qualcomm.com>
-References: <20261015221215.1714047-1-sagar.cheluvegowda@oss.qualcomm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=X3mjpDas
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-354ba08cfd1so4765016eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:31:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792449075; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MuW+I5gScIif1uzSoFRxn7lcEM47Px6ZeE/58ruBFkHyM3ok8elNOLbjUgIGx6C58m
+         6qfX7nP/qbgN0xAiJ6if05ZvGI05L+ItjTrF6gAKWWozqVgQ8booioTDwOMnX87l735d
+         ramIt3NZRH8ySqU89djxIhmz1qt7PFRxwt2snNWGVZ94dqeD1aZVPkAXEFWBmfYvdW0U
+         k8KylPXOcDkDUbIvJc+UO7UTUgcxFJdxhHne7OVkFwGvvvqFHfdQe56w1W4KuKJLcbia
+         no91gk1vDZE2CRCRpFFlaAatx+EC+5KMSKeF4Dkhme2i8w4WestjbXb+fKOW2wA9XKb+
+         qJmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=7Y7YiwpHnHRTlx4OY6pg4GKzGSuy4/quEwIOKfF9VTA=;
+        fh=AT4XGMF5OnmFNP+gNBZd7eTwvAesx/ZASl7YOAnIVZo=;
+        b=saw7ZLeC7jaDVULHMZ2y5UWLyEkOZilZNTIgKeF8GcIuinYRdudc6iIgdI6ro0Pahy
+         BWXHKWuYXgYStMoZKNH6OicTVMsJfnzJ3Ok3A9e+EgNL78BmAIRjf0w3d2rkLdSlD1O0
+         lzmAwAg734MwtOykbm2ZezYjkNs/eaJF4FtvXYrIzR6csk2kHZvCDqLAGeCe/zTuKX1o
+         0RRYBvq+sxvotCA8PYsZJrmJArI7GOl1AtXhHeZuwnLblEQAhrT31UBDtnC+7EQZkf6u
+         NjLPB/aVv4RA75Y7aRU3JyoI1Drffvd1HUriEa3tF6fowsvGqY/2I1ltnx7Z8PElbxUX
+         0OeQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792449075; x=1793053875; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7Y7YiwpHnHRTlx4OY6pg4GKzGSuy4/quEwIOKfF9VTA=;
+        b=X3mjpDasQAnbvTscP8iKS25txgnb2JYwM0tGQojP4D39YTn/DPY8MK20qFyemelnNb
+         lFuHp1Am8dyutcx58RNt+EXDeDSSpsTgJbtrKsA3XgovVedhi1zt1221nzSRDbK6sqLP
+         fh/B9c5iPMlx6tMjPItPnomzF9sW7AwpgHF3mZPx4I8/y6mWSJS90Ghn4QBOnjtLhsWI
+         617HhZz8dnnvaoN1nP80ipvL8HlM7SgiY+2uLc57UWrBE0pw0qGz92/OhWgPuze+/hMF
+         YV3f3x8OqkW2thWDRYm02VSAZogwiREQqo1aNo2PhDkiLhjsRsL6YQLf+G65FVS929cN
+         pErA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792449075; x=1793053875;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7Y7YiwpHnHRTlx4OY6pg4GKzGSuy4/quEwIOKfF9VTA=;
+        b=Pjx/ykO0XTERZD4b9X/jGrGRlsJKqYlYpUkfCoiwcVhQxn8a9DYuIJnYTdE4MZvDjz
+         WBA2hpe303nckJZXFPalfCy+o2SgMkJza0TLF02HBc29QbwOdgykCwqmEpwQkZ/hOFWa
+         evf2HRfxWraxdm4QEMuSrDw7Xw8wDPqm/5jQmj6iYk1NA/36IyrAOyZUKX/mYl8PuRrF
+         aO42w/0oVJX44954mchdooboIVJQqT78VVT7XrVhtN/j0YVArqHGrdSjsY7MIMC8tfHV
+         Fms2w7pO9KfNDg0DYktFox5SH9GYSEMMTQFXi5894SjOY7O+X64O8w/zM1l7j0QPQGwr
+         T1Rg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUuP4YluvYlb+ZEbd0e5A6wA05euR7wa1VnZnDLSq1v8pdyvoSrCN3BFwAczn/dVvnQfd6v9u3bNYdQ10=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuMMjxgqrefjh53G+Fx/0EUcDofLA+ol6qYITmnlm5e/+MRBlV
+	PXz/9PhnfPKUOdIjinhtUlStDqD1TetbC4N/86WoCT9jtsG+V1IWAsXQTBCrhIp22rWImN5FgVY
+	n4m+2k3ghvnIxpzBD54dz5sXI+MIW1Q5hyyuPs5x0
+X-Gm-Gg: AYBFou27HQdYtl75pQ2vhBI9+2bbnDc3PrZjioDI1Qa812/61XWJDu3iE09mOO8VmxA
+	mTAkZ72Yu7knYddsazU4KJdTKHIynGrjFK6fxzwWuudaJWVduxS6c/KLUJgwPUf/BoJ7IL5IU0W
+	wFJAJdKBXMIEk+Qkn82NHVGB9oy5x6E7s2sgRM4EkpGb7Z+3OgBZBNtcM4iskbik0L1/2O9hUd4
+	Qg+felnz7MDp+tk03PLbflDaq0bsmkShbqWJFADfCqerT78upKuCQb7FhP7pTaY1nDKf9SrQFjb
+	CirN0u/Ef5iHfijrg2qIjnzZ1Cozkkf2S6NpMKV/dwKH0CW9vKlOKNR7tht9dAdgxN6tLyNi0+b
+	0iJXE2ZojKWuF/cQvjU7zM76COaRyQjkYesGmR8ZVITHZZjbUmMgX1XshCT7T/en06bJT
+X-Received: by 2002:a05:701b:42cb:10b0:169:b1b1:1445 with SMTP id
+ a92af1059eb24-18512e2515fmr12984330c88.31.1792449074316; Mon, 19 Oct 2026
+ 15:31:14 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,212 +103,250 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261019-bug-word-at-a-time-zeropad-kasan-v1-0-f21a3ed6a477@gmail.com>
+ <20261019-bug-word-at-a-time-zeropad-kasan-v1-1-f21a3ed6a477@gmail.com>
+In-Reply-To: <20261019-bug-word-at-a-time-zeropad-kasan-v1-1-f21a3ed6a477@gmail.com>
+From: Marco Elver <elver@google.com>
+Date: Tue, 20 Oct 2026 00:30:37 +0200
+X-Gm-Features: AclHuK-9KfyXQ0m8f9CHsU2jTa1lgiXB2sNpwhyCmDMarQWZL2s0qBm4al6Ih6c
+Message-ID: <CANpmjNPPncfo41Hu=TKB8cd1aFm0Lm-9+AT6pXVsYyUgFVx8TQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] word-at-a-time: check the first byte in load_unaligned_zeropad()
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>, 
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	linux-arm-kernel@lists.infradead.org, Kees Cook <kees@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+	Peter Collingbourne <peter@pcc.me.uk>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+On Mon, 19 Oct 2026 at 03:58, Qiliang Yuan <odys.yuan@gmail.com> wrote:
+>
+> load_unaligned_zeropad() reads a word that may run into an unmapped
+> page and recovers through an exception fixup. It does the word loads of
+> sized_strscpy() and of the name compare in dentry_string_cmp(), path
+> components in hash_name() and hashlen_string(), and the trailing bytes
+> in x86's csum_partial().
+>
+> It is inline assembly on every architecture that implements it, so
+> KASAN and KCSAN never see these loads, while read_word_at_a_time() at
+> least checks the first byte of each word. A use-after-free or
+> out-of-bounds read of a name handed to path lookup goes unreported, and
+> so does strscpy() reading from a bad source, which the kasan_strings
+> KUnit case expects to be reported. On x86_64 with generic KASAN:
+>
+>   KASAN and string KUnit suites      failures
+>                                   before    after
+>   CONFIG_FORTIFY_SOURCE=n              1        0
+>   CONFIG_FORTIFY_SOURCE=y              1        0
+>
+> Check the first byte at the start of load_unaligned_zeropad() on every
+> architecture, as read_word_at_a_time() does. All callers only load a
+> word whose first byte belongs to the string or buffer they read, so
+> the check does not flag their intended reads past the end. Add no-op
+> stubs for the powerpc selftest that builds the header in user space.
+>
+> Suggested-by: Peter Collingbourne <peter@pcc.me.uk>
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-Critical: 0 · High: 1 · Medium: 1 (1) · Low: 2
+Reviewed-by: Marco Elver <elver@google.com>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks!
 
-- [High] On XLGMAC cores, dwxgmac2_enable_sph() now corrupts the RX queue
-  enable register.
-- [Medium] dwxgmac2_enable_sph() programs MAC-global split and preamble
-  settings regardless of `en`.
-- [Low] The patch includes a fix for an existing XGMAC split-header bug
-  inside a feature patch, with no Fixes: tag.
-- [Low] dwxgmac2_enable_sph() sets the 2-bit SPLM field
-  (XGMAC_CONFIG1_SPLM_MASK = GENMASK(9,8)) with `value |=…
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but the stmmac
-  RX path has no dma_rmb() between seeing RDES3.OWN cleared and reading…
-
---
-
-net: stmmac: dwxgmac2: enable L2 split header support
-
-This patch makes dwxgmac2_enable_sph() program SPLM and SAVE_EN in
-XGMAC_EXT_CFG1 and clear the variable preamble bit in XGMAC_EXT_CFG0. It
-also changes dwxgmac2_get_rx_header_len() so the header length is read
-only on the first descriptor. For non-IP (L2T) packets on the last
-descriptor, the length comes from RDES2[9:2].
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> index 6719ac6e395bc..b28aa39f99472 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> @@ -292,8 +292,22 @@ static int dwxgmac2_get_rx_hash(struct dma_desc *p, u32 *hash,
->  
->  static void dwxgmac2_get_rx_header_len(struct dma_desc *p, unsigned int *len)
+> ---
+>  arch/arm/include/asm/word-at-a-time.h                           | 7 +++++++
+>  arch/arm64/include/asm/word-at-a-time.h                         | 7 +++++++
+>  arch/powerpc/include/asm/word-at-a-time.h                       | 6 ++++++
+>  arch/riscv/include/asm/word-at-a-time.h                         | 6 ++++++
+>  arch/s390/include/asm/word-at-a-time.h                          | 6 ++++++
+>  arch/x86/include/asm/word-at-a-time.h                           | 6 ++++++
+>  tools/testing/selftests/powerpc/primitives/linux/kasan-checks.h | 3 +++
+>  tools/testing/selftests/powerpc/primitives/linux/kcsan-checks.h | 3 +++
+>  8 files changed, 44 insertions(+)
+>
+> diff --git a/arch/arm/include/asm/word-at-a-time.h b/arch/arm/include/asm/word-at-a-time.h
+> index 5023f98d8293d..f672aad2e30e6 100644
+> --- a/arch/arm/include/asm/word-at-a-time.h
+> +++ b/arch/arm/include/asm/word-at-a-time.h
+> @@ -56,6 +56,9 @@ static inline unsigned long find_zero(unsigned long mask)
+>  #include <asm-generic/word-at-a-time.h>
+>  #endif
+>
+> +#include <linux/kasan-checks.h>
+> +#include <linux/kcsan-checks.h>
+> +
+>  #ifdef CONFIG_DCACHE_WORD_ACCESS
+>
+>  /*
+> @@ -69,6 +72,10 @@ static inline unsigned long load_unaligned_zeropad(const void *addr)
 >  {
-> -	if (le32_to_cpu(p->des3) & XGMAC_RDES3_L34T)
-> +	u32 rdes3 = le32_to_cpu(p->des3);
+>         unsigned long ret, tmp;
+>
+> +       /* open-coded instrument_read(addr, 1), as in read_word_at_a_time() */
+> +       kasan_check_read(addr, 1);
+> +       kcsan_check_read(addr, 1);
 > +
-> +	/* HL is only defined on the first descriptor */
-> +	if (!(rdes3 & XGMAC_RDES3_FD))
-> +		return;
+>         /* Load word from unaligned pointer addr */
+>         asm(
+>         "1:     ldr     %0, [%2]\n"
+> diff --git a/arch/arm64/include/asm/word-at-a-time.h b/arch/arm64/include/asm/word-at-a-time.h
+> index 824ca6987a516..11ecca99057aa 100644
+> --- a/arch/arm64/include/asm/word-at-a-time.h
+> +++ b/arch/arm64/include/asm/word-at-a-time.h
+> @@ -40,6 +40,9 @@ static inline unsigned long zero_bytemask(unsigned long bits)
+>  #include <asm-generic/word-at-a-time.h>
+>  #endif
+>
+> +#include <linux/kasan-checks.h>
+> +#include <linux/kcsan-checks.h>
 > +
-> +	/* when FD=1 and LD=0, HL is RDES2[9:0] */
-> +	if (!(rdes3 & XGMAC_RDES3_LD)) {
-> +		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
-> +		return;
-> +	}
-
-[Severity: Low]
-Should this FD/LD handling go in its own patch with a Fixes: tag?
-
-The commit message says L34T can hold stale data on a non-last
-descriptor. If so, the old code:
-
-	if (le32_to_cpu(p->des3) & XGMAC_RDES3_L34T)
-		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
-
-could return hlen == 0 for the first descriptor of a multi-descriptor IP
-frame with SPH active. stmmac_rx_buf1_len() would then take this path:
-
-	/* Not last descriptor and not split header: buffer1 is fully filled */
-	if (status & rx_not_ls)
-		return priv->dma_conf.dma_buf_sz;
-
-even though buffer 1 only holds the header.
-
-That looks like an existing XGMAC split-header bug in the code from
-commit 96147375d49f ("net: stmmac: xgmac: Only get SPH header len if
-available"). With the fix bundled into this feature patch, stable trees
-would also need the new EXT_CFG0/EXT_CFG1 programming to pick it up.
-
+>  /*
+>   * Load an unaligned word from kernel space.
+>   *
+> @@ -51,6 +54,10 @@ static inline unsigned long load_unaligned_zeropad(const void *addr)
+>  {
+>         unsigned long ret;
+>
+> +       /* open-coded instrument_read(addr, 1), as in read_word_at_a_time() */
+> +       kasan_check_read(addr, 1);
+> +       kcsan_check_read(addr, 1);
 > +
-> +	if (rdes3 & XGMAC_RDES3_L34T)
->  		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
-> +	else if (rdes3 & XGMAC_RDES3_L2T)
-> +		*len = (le32_to_cpu(p->des2) & XGMAC_RDES2_NONIPHL) >> 2;
->  }
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch, but
-is a dma_rmb() missing between the OWN check and the read of des2 here?
-
-dwxgmac2_get_rx_status() loads des3 and des2, then checks OWN:
-
-	u32 rdes3 = le32_to_cpu(p->des3);
-	u32 rdes2 = le32_to_cpu(p->des2);
-
-	if (unlikely(rdes3 & XGMAC_RDES3_OWN))
-		return dma_own;
-
-stmmac_rx() then calls stmmac_rx_buf1_len()->dwxgmac2_get_rx_header_len()
-with no barrier in between. The TX completion path in stmmac_main.c calls
-dma_rmb() after its own check, and dwxgmac2_rx_check_timestamp() also
-uses one.
-
-On weakly ordered CPUs, could the RDES2 load complete before OWN is seen
-as cleared? That would give a stale HL and a wrong buf1_len.
-
-The new FD/LD logic doesn't depend on this ordering.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> index ff83858ebc1f3..0a9c787305a4e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> @@ -561,6 +561,16 @@ static void dwxgmac2_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
->  	value |= XGMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
->  	writel(value, ioaddr + XGMAC_RX_CONFIG);
->  
-> +	value = readl(ioaddr + XGMAC_EXT_CFG1);
-> +	value |= XGMAC_CONFIG1_SPLM(1);
-
-[Severity: Low]
-SPLM is a two-bit field (GENMASK(9, 8)). Should it be cleared with
-XGMAC_CONFIG1_SPLM_MASK before the OR, the way HDSMS is handled just
-above?
-
-	value &= ~XGMAC_CONFIG_HDSMS;
-	value |= XGMAC_CONFIG_HDSMS_256;
-
-If bit 9 were already set, the field would end up as 3 instead of mode 1.
-
-In stmmac_hw_setup(), the SWR from stmmac_init_dma_engine()->
-stmmac_reset() runs before this. So in practice the result depends on
-the register's reset value.
-
-> +	value |= XGMAC_CONFIG1_SAVE_EN;
-> +	writel(value, ioaddr + XGMAC_EXT_CFG1);
+>         __mte_enable_tco_async();
+>
+>         /* Load word from unaligned pointer addr */
+> diff --git a/arch/powerpc/include/asm/word-at-a-time.h b/arch/powerpc/include/asm/word-at-a-time.h
+> index 54653a8634149..49c6a1f65c493 100644
+> --- a/arch/powerpc/include/asm/word-at-a-time.h
+> +++ b/arch/powerpc/include/asm/word-at-a-time.h
+> @@ -5,6 +5,8 @@
+>   * Word-at-a-time interfaces for PowerPC.
+>   */
+>  #include <linux/bitops.h>
+> +#include <linux/kasan-checks.h>
+> +#include <linux/kcsan-checks.h>
+>  #include <linux/wordpart.h>
+>  #include <asm/asm-compat.h>
+>  #include <asm/extable.h>
+> @@ -168,6 +170,10 @@ static inline unsigned long load_unaligned_zeropad(const void *addr)
+>  {
+>         unsigned long ret, offset, tmp;
+>
+> +       /* open-coded instrument_read(addr, 1), as in read_word_at_a_time() */
+> +       kasan_check_read(addr, 1);
+> +       kcsan_check_read(addr, 1);
 > +
-> +	/* Disable variable preambles to keep the L2 split offset deterministic. */
-> +	value = readl(ioaddr + XGMAC_EXT_CFG0);
-> +	value &= ~XGMAC_EXT_CFG0_VPRE;
-> +	writel(value, ioaddr + XGMAC_EXT_CFG0);
-
-[Severity: High]
-Can this corrupt the RX queue enable register on XLGMAC cores?
-
-The DWXLGMAC_CORE_2_00 entry in hwif.c uses the same DMA ops as XGMAC:
-
-	.desc = &dwxgmac210_desc_ops,
-	.dma = &dwxgmac210_dma_ops,
-	.mac = &dwxlgmac2_ops,
-
-so dwxgmac2_enable_sph() runs there too. On XLGMAC, dwxlgmac2.h defines
-offset 0x140 as:
-
-	#define XLGMAC_RXQ_ENABLE_CTRL0		0x00000140
-
-and dwxlgmac2_rx_queue_enable() programs it like this:
-
-	value = readl(ioaddr + XLGMAC_RXQ_ENABLE_CTRL0) & ~XGMAC_RXQEN(queue);
-	if (mode == MTL_QUEUE_AVB)
-		value |= 0x1 << XGMAC_RXQEN_SHIFT(queue);
-
-BIT(8) is therefore the AVB enable for RX queue 4. Clearing
-XGMAC_EXT_CFG0_VPRE would disable that queue.
-
-The write to 0x144 also sets BIT(8) and BIT(24) in an XLGMAC register
-that the driver doesn't describe.
-
-stmmac_hw_setup() enables the MTL queues through
-stmmac_mtl_configuration() first. Later it runs:
-
-	sph_en = (priv->hw->rx_csum > 0) && priv->sph_active;
-	for (chan = 0; chan < rx_cnt; chan++)
-		stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
-
-There is no sph_capable or core check, so this would happen on every
-XLGMAC open, whether or not split header is supported. Should this be
-gated on the core type, or moved into a per-core MAC op?
-
+>         asm(
+>         "1:     " PPC_LL "%[ret], 0(%[addr])\n"
+>         "2:\n"
+> diff --git a/arch/riscv/include/asm/word-at-a-time.h b/arch/riscv/include/asm/word-at-a-time.h
+> index 3802cda71ab7e..fb7e2904dd7fd 100644
+> --- a/arch/riscv/include/asm/word-at-a-time.h
+> +++ b/arch/riscv/include/asm/word-at-a-time.h
+> @@ -11,6 +11,8 @@
+>
+>  #include <asm/asm-extable.h>
+>  #include <linux/bitops.h>
+> +#include <linux/kasan-checks.h>
+> +#include <linux/kcsan-checks.h>
+>  #include <linux/wordpart.h>
+>
+>  struct word_at_a_time {
+> @@ -60,6 +62,10 @@ static inline unsigned long load_unaligned_zeropad(const void *addr)
+>  {
+>         unsigned long ret;
+>
+> +       /* open-coded instrument_read(addr, 1), as in read_word_at_a_time() */
+> +       kasan_check_read(addr, 1);
+> +       kcsan_check_read(addr, 1);
 > +
->  	value = readl(ioaddr + XGMAC_DMA_CH_CONTROL(chan));
->  	if (en)
->  		value |= XGMAC_SPH;
-
-[Severity: Medium]
-Only the per-channel XGMAC_SPH bit depends on en here. SPLM/SAVE_EN are
-set and VPRE is cleared on every call, and nothing restores them.
-
-stmmac_hw_setup() calls stmmac_enable_sph() for every RX channel, even
-when sph_en is false or the core has no SPH support.
-stmmac_set_features() calls it with sph_en == false when NETIF_F_RXCSUM
-is cleared, and stmmac_xdp_open() also calls it.
-
-Doesn't that leave the variable preamble disabled on every XGMAC device
-after hw_setup? It would also stay disabled after split header is turned
-off with ethtool.
-
-The commit message says:
-
-    Finally, disable the variable-length preamble when L2 splitting
-    is enabled.
-
-which doesn't seem to match this behavior.
-
-Also, dwmac4_enable_sph(), which this extends, doesn't change the
-preamble configuration. And these MAC-global read-modify-writes are
-repeated once per RX channel.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015221215.1714047-1-sagar.cheluvegowda%40oss.qualcomm.com
+>         /* Load word from unaligned pointer addr */
+>         asm(
+>         "1:     " REG_L " %0, %2\n"
+> diff --git a/arch/s390/include/asm/word-at-a-time.h b/arch/s390/include/asm/word-at-a-time.h
+> index eaa19dee76994..59393cf065964 100644
+> --- a/arch/s390/include/asm/word-at-a-time.h
+> +++ b/arch/s390/include/asm/word-at-a-time.h
+> @@ -3,6 +3,8 @@
+>  #define _ASM_WORD_AT_A_TIME_H
+>
+>  #include <linux/bitops.h>
+> +#include <linux/kasan-checks.h>
+> +#include <linux/kcsan-checks.h>
+>  #include <linux/wordpart.h>
+>  #include <asm/asm-extable.h>
+>  #include <asm/bitsperlong.h>
+> @@ -52,6 +54,10 @@ static inline unsigned long load_unaligned_zeropad(const void *addr)
+>  {
+>         unsigned long data;
+>
+> +       /* open-coded instrument_read(addr, 1), as in read_word_at_a_time() */
+> +       kasan_check_read(addr, 1);
+> +       kcsan_check_read(addr, 1);
+> +
+>         asm_inline volatile(
+>                 "0:     lg      %[data],0(%[addr])\n"
+>                 "1:     nopr    %%r7\n"
+> diff --git a/arch/x86/include/asm/word-at-a-time.h b/arch/x86/include/asm/word-at-a-time.h
+> index 422a47746657a..1319e1d87a9c4 100644
+> --- a/arch/x86/include/asm/word-at-a-time.h
+> +++ b/arch/x86/include/asm/word-at-a-time.h
+> @@ -3,6 +3,8 @@
+>  #define _ASM_WORD_AT_A_TIME_H
+>
+>  #include <linux/bitops.h>
+> +#include <linux/kasan-checks.h>
+> +#include <linux/kcsan-checks.h>
+>  #include <linux/wordpart.h>
+>
+>  struct word_at_a_time {
+> @@ -71,6 +73,10 @@ static inline unsigned long load_unaligned_zeropad(const void *addr)
+>  {
+>         unsigned long ret;
+>
+> +       /* open-coded instrument_read(addr, 1), as in read_word_at_a_time() */
+> +       kasan_check_read(addr, 1);
+> +       kcsan_check_read(addr, 1);
+> +
+>         asm volatile(
+>                 "1:     mov %[mem], %[ret]\n"
+>                 "2:\n"
+> diff --git a/tools/testing/selftests/powerpc/primitives/linux/kasan-checks.h b/tools/testing/selftests/powerpc/primitives/linux/kasan-checks.h
+> new file mode 100644
+> index 0000000000000..000c92de6baf2
+> --- /dev/null
+> +++ b/tools/testing/selftests/powerpc/primitives/linux/kasan-checks.h
+> @@ -0,0 +1,3 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/* There is nothing for KASAN to check in user space. */
+> +#define kasan_check_read(p, size)      ((void)(p), (void)(size))
+> diff --git a/tools/testing/selftests/powerpc/primitives/linux/kcsan-checks.h b/tools/testing/selftests/powerpc/primitives/linux/kcsan-checks.h
+> new file mode 100644
+> index 0000000000000..39c97bc15531e
+> --- /dev/null
+> +++ b/tools/testing/selftests/powerpc/primitives/linux/kcsan-checks.h
+> @@ -0,0 +1,3 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/* There is nothing for KCSAN to check in user space. */
+> +#define kcsan_check_read(p, size)      ((void)(p), (void)(size))
+>
+> --
+> 2.43.0
+>
+> --
+> You received this message because you are subscribed to the Google Groups "kasan-dev" group.
+> To unsubscribe from this group and stop receiving emails from it, send an email to kasan-dev+unsubscribe@googlegroups.com.
+> To view this discussion visit https://groups.google.com/d/msgid/kasan-dev/20261019-bug-word-at-a-time-zeropad-kasan-v1-1-f21a3ed6a477%40gmail.com.
