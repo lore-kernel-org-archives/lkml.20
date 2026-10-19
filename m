@@ -1,54 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.94
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792432417;
-	b=vXdp/niV7J3g0O49K645krq+RhQ6WRFxs+UeKDJ9U8RpArGVFcQBaxBHJw4e69E/DyCp
-	 T8jOeMocR29PMRXgclhbWT6nh3GXUg6nq5niR1D35u0plLvlK2zBeIUmd+5GfnQQ5B7nu
-	 TH3h2246q6E74lQzNeL4nQ/W1bs03gGWG1QgJzLOO06vWvTQGmBiC/iI2X402RwbE3+rO
-	 jn8jSKci6E0SRVzNzO/8/nn4UIibXUMN5Qh1i72Qpb85iEST1U/cv3msuISDYeScLaDI3
-	 /QJUShchrjEeFSu8XYX08VRnCTy731yvsGRocv4HzPo6LWrYDBLF4hOMniHuV4xU2qA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792432417;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=vGcQptXdlM4hwvNCPfFEa1fOO8xQP2wP1II9AEpPcBo=;
-	b=xqWUAQA/ybzLx3uPAR7lyPLTiTPq/jTNCTnahELGCYga2qi2zzhdpdE21xYwS4AY6Jjx
-	 AYqdIEH9ZMNHNp49dm0iGmlRjCTIhCf8lV86EKQ2yp2g9jslYnWSl1X4Azmxhv64xwp7a
-	 KSBUtZq5ues4+lMpRAqv+bgPpENZeyfO78m15BzdtPdQQbGkYK/Y5jtlltAU5V/xkwv84
-	 pawdP9QyHwmr0o2h1JJzWbGzk2hSLmkLLBXZOQSKDexPcrmkSTPuJxboWkkUd8yj9mKIj
-	 VhYTZ5bBNGovltg6YY7R7O3hUhVhiNU+Pp9XUGVhiZqr5pD51viqlRvmZRhoLRJ+MaA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SvVwcrYz;
-	arc=none smtp.remote-ip=95.215.58.94
-Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.21
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792432421;
+	b=LX9eTjLz/uq4S+casEgiON7P6Vt+T7WsCxYWbRA91UEvyS0QAGktVNrz6miJ1oATaQhK
+	 bhVcUVHuuwaytGRApDcolPMnSyxuxAGv50nKngVnPH3yPGfMsGy+kOp1nVfECRYkjTA+0
+	 zKjAXiH0t5LnW7dAplyrwDLNvRH8Qi2oS2neLlX8k8HgUBP5E/xiiwRpI8b1Hqs9DQn+e
+	 CvEjblbIzRg1iEVahTHJWvD64Pb5CJm11riIqiCh6kStZ0Aacs8lcrUFfpsKiHMq9SKgv
+	 Ux7zVIy4Cg7b5r9BCPMmIDPGqIYffqxEi5HLSTn9FmbLKn/8u8jPiGFr8cF5JZsggCg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792432421;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:From:Subject:To:
+	 CC:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=2JWQeQQGivI9lH8TkgT8J6x/sQxmHej8acdswZ8WcW8=;
+	b=k/q6s0s6BpO1nWjGa0ZWlPtwcFkFux8G7dpNho7RYWSvCfDVPcQKPx4qLWuzeTJyYtqM
+	 l62/uDbhZzR/hjt8FMUTBdfJ1Du+KFOqij/z4d8AiiZwstJKd2UjA3OyerVlsOo8Jwymv
+	 PtMBulNeviSetJLyBPeGk+f2VRvvDr7dTiBBhAD9P9+kbvhOrqtMokoJv46IBvOZM3u1E
+	 m9HBf2W5M5q7+khUXl+aCWTzx6YfE4ZH/68WqHoF5GoZq69Y+LdcRpFYdAHQfMW0Mc/OW
+	 YqaT2ok4gCYCFYeKKfPkN6J4GaGTIjYFMIDXvMV0x9tjgDiyip3VnQNac+xkAqR8C1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	arc=fail smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B28606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:53:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08B28606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SvVwcrYz
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Hwg6biItus18+ExsHyZoGl+eRbDPQibV1nO/VDxM+ic=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792432414; v=1; x=1793037214;
- b=SvVwcrYzTRJ/mhgaFb6IbXipqQE3HwDonWTBIswaWZaH+bCZSoXXTWLMmNej2NVWgowgHPzW
- haVRyZ0C0meg/6VBxBKu5ZZvhtBOh5+GnoCWgrAPnpCUwgqfmjgiGP39gqSz+rS7j+nwSfGW3TZ
- HyM0K8nv6tWchu8I1k68jd8g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9c83749833c3a8eb;
-	Mon, 19 Oct 2026 17:53:33 +0000
-X-Mizu-Trace-ID: 9c83749833c3a8eb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4c1a8b04-d873-4395-badb-2762e6c40f59@linux.dev>
-Date: Mon, 19 Oct 2026 10:53:29 -0700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E2F606A31F;
+	Mon, 19 Oct 2026 17:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7E2F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792432414; x=1823968414;
+  h=message-id:date:from:subject:to:cc:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=drAm3HEzTJUtZEZX4KuedCczgOz/5tYW7IEsn51mdY8=;
+  b=a29MZB4SozUr+WKhWZZ18MY4oKNMQ5K46YJau4gTrohM0poNUZc/duet
+   fYGWqAhV3pCrmjmfHR6UpYRcIIrMTHnq1hb7rKow8ZbjumlEurv8Glpj1
+   YZq8Gqc2MG3RfCELmOBniMLnM7uvAm9+77bpbinJnxSAM/H0e6aBAa9p6
+   ER/gaIaHbZEfSqtVm6JxdyIENtIHRrj1sUfxj31lFsZXhYv6O/lShDcsG
+   nlAU2GB5SdWVlKsn5qZZPoWN4pZsE8fRz/XA4QvjNGJa/sLQcRWo7j130
+   Un9e5x/Ac5VJm0pGEouMETSVraFD0hdmTMsZSOOBJhjdwmOPKfMOWvSW4
+   Q==;
+X-CSE-ConnectionGUID: ohsox4GbT8+AaXH4miZQgA==
+X-CSE-MsgGUID: Uxau1L6iSOW0hBxd4S5DBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1225001"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1225001"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 10:53:32 -0700
+X-CSE-ConnectionGUID: u7ew6WmNQ3KqBDRVhBM23A==
+X-CSE-MsgGUID: taYjHMnTQJm/xwhTn7o/yw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2701367"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 10:53:32 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 10:53:31 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 10:53:31 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.57) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 10:53:31 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fjpES0rQfUvitHHMbrxlZ3EFoj3PsENwG8JQbgr2JFP7EjViuPTmSt5JAtvBTu2qEP/lpvDjdHia5WkxssgvTj9tpRww2849rQx4gWHj8JRdzJmn1lacVt1Pb1Op6YGPPX7yrz1LWAn/86WmIMRTBml32ZQb7IUQ4QEYrWikg2OYRHThVCfMwtiUnrQE83dtSAysV5aUiAFrOjARnTsWo91Kt0MMpDIxoCPHGTqiW98fZkFxme1wf8eV41cqxmvfK31gLYz+I2/LqGQj8UJgzHDdQBGWm2F6WT3GANTdrrxHIoSoRiq0dTzsjt7IaVOzVnQwXUdi7+TRC9XkWeET8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2JWQeQQGivI9lH8TkgT8J6x/sQxmHej8acdswZ8WcW8=;
+ b=X33WF/EpQ2qLxv5ZnQaaI2YTG4ag3Uxbuvc/mVX8YpdG5R8e6v0rtco/HxB8RqhXFNWVH5Qob/02kIA/WiA/5j0w4hCHw+ipti2Q3iQVe92CIYmqgw2wxZn0rCgeyrFg9pNu63cdIj/HRy8PsfHrZPWjvMQ0MGIZszcQa1OkBjecgWpkOufYvROFSIqSif/tFPX8Eo7id19Z36F3MV3+GJ1mrGFsRkigeDUw79Mv8PfERJZEiJ2wORNLecfqU9GyRBfUCVFNZGBXBbuFRnqNV6VQFIjnH4BuAZkrhadlVp5ZqRdFnqeixv/EJO+Wh5pE4iDUns9rs/Gpaf9s153Oog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
+ SJ0PR11MB4829.namprd11.prod.outlook.com (2603:10b6:a03:2d3::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 17:53:29 +0000
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0496.015; Mon, 19 Oct 2026
+ 17:53:28 +0000
+Message-ID: <89727492-b1d1-4f14-955a-0673ebaee753@intel.com>
+Date: Mon, 19 Oct 2026 10:53:24 -0700
+User-Agent: Mozilla Thunderbird
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+Subject: Re: [PATCH v2 1/2] x86/fpu: Fix memory leak with dynamic fpstate and
+ exec()
+To: Guixiong Wei <weiguixiong@bytedance.com>, <x86@kernel.org>
+CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H
+ . Peter Anvin" <hpa@zytor.com>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <cover.1791428412.git.weiguixiong@bytedance.com>
+ <b9277cad5e1098d3e60d5c0f025c58061df10af0.1791428412.git.weiguixiong@bytedance.com>
+ <d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com>
+Content-Language: en-US
+In-Reply-To: <d28dc497-a74b-4c52-bb6c-8b9010f9ee2d@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR03CA0042.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e::17) To DS0PR11MB7925.namprd11.prod.outlook.com
+ (2603:10b6:8:f8::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,333 +136,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] ASoC: tas2783-sdw: keep the volume settings across
- resets
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, broonie@kernel.org
-Cc: Lee Mann <leepaulmann@gmail.com>, Shenghao Ding <shenghao-ding@ti.com>,
- Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
- Sen Wang <sen@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Andrey Golovko <andrey.golovko@gmail.com>, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261018200009.1493438-1-matthew.schwartz@linux.dev>
- <20261018200009.1493438-2-matthew.schwartz@linux.dev>
- <bdc967fd-c056-492d-b970-db5630f21b95@linux.dev>
-Content-Language: en-US
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-In-Reply-To: <bdc967fd-c056-492d-b970-db5630f21b95@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|SJ0PR11MB4829:EE_
+X-MS-Office365-Filtering-Correlation-Id: 143af086-833b-4cd1-d960-08df2e09e18f
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: ttYD68IU46hUFyrcTu0fsUYCXVKKNjxVyw7xbdyge+TIE5+Gi92PvEwOvuJS+DMTtnVLKvBY1jNYGKBYoC8eKuIkDGI3f8/+sGlxYQyvhjEvLPSqA1UZuxgednGTRsJcQcRzTBL7xlI94omoY0NCAZNSrJ7h3WAjUyAgcLTRY2WBnx5oyJBreMjq632ziDP5Mn9DteJnDVEWCDqh4/WAKEYdIxtTTBi4WPmCsho+zHpGJsSiPibqMHRSDKZp7G59tKyeNuz9GPSnmhF5ANEIXrEQfWVCUiJofWggazjdCfq/thp3LA96A1pJmX3qcIBsOY2MMD9YB900jjeLl5RqAw1AmD5bbFKKYWtLZgluyCPeRo3goLpAEI057qWYlYWuaTi29PB3hCSf+vi3sGFTdRVrePymslT4wUFY7qqclhICjlskqJg18IykdKI26AUhW+yz9fZjqttoulso69j0AxzwjAca+au4cqTcq6FFyl4aWEp+JhESyT1I0wCMt0f+y9nnQvvDz+30X7YgMTdAGZMrztSDXYJK/Mrfor279dN8JWFLSUNA9lJ81k/hawf2ygPG/cP+MOICLOymRHDz0iehhqx7Vigc9TDdVZsi7gPwdeXvZ4VjoJbNu2BKJJuI/k4+02tzCsNbGlQYV6H3becUuTgrErbgEvl+3zPTXoU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akpxVUoxa2x1U2NacVBkdzFQL09GK0xpY1FndHNjVXhPWGpIa05yUFNKcW5Y?=
+ =?utf-8?B?YlN0Q2NVWlJiMTNWZ0NyaGFDSE1iaHNXemQwemhwbkE4c1pqKzJMQzM1NGZr?=
+ =?utf-8?B?R3NpczVSc2wzcUdWQ3lkV2ZuVC92ZWFsazBFWDlSZ1cxdlZXYWdZUFhFMjlD?=
+ =?utf-8?B?MUxjc2N6aWprOExJd2tuNFZWQmNrbWFVZWV6cU9CRjBRTE5zYmtXSkpNcit4?=
+ =?utf-8?B?dzRFWXBKTWVxOVk4OVByUEpWSTRPdS9UaSt4VGFrSlZpdEIxM3FnTmFkNEox?=
+ =?utf-8?B?Z3NHMEZpTWZKY2lKYmdvUUlNZytBbmtobUIrTXY4aENjSi81V2owVUxITVNI?=
+ =?utf-8?B?Q2pvd3RldGUrSmJ2US84RlBMbnA1Vys4NHVyamxXTUV5dkJwMWRyWnBJV2h3?=
+ =?utf-8?B?SktiRWN5OTh3b0FFdExVRVVkUHNvTmNpZ01EelZrQmNOYlRSN01iaUZ6ZklJ?=
+ =?utf-8?B?VjVUeWVzTzVSUGJLbEhWTEZYUGVlTzhSL1hxRmtoc0JKeEVvRGcwOHVTZTV4?=
+ =?utf-8?B?OFdLUXZaZlBVUnFSTzRkUG5LNkh2NVptZGxoK2RZVWI0bUZpT3VTUmJUaGNq?=
+ =?utf-8?B?ZkVacGtEdTJpVUllYnVtUnFQdXRpQ0VQdHcvUHNVWlE1dk9GckhOWWdzaUM2?=
+ =?utf-8?B?QkczbDRjVytLL0NIZnRBQ0hxUzFsNEJkS3ZCWXVCSms1KzVnYk9QZTl6WUNo?=
+ =?utf-8?B?OVNRVGxSb0lpRXlTSHU4L1kyMU5DaXVaNFJhVDBzNGxUaHhXUnpTaXVraXdH?=
+ =?utf-8?B?VEgxM1RQSUt0dmg3QzNlOCtFWHBTekp5SXVVVFYzMi9RbzQ0bjdyYW1SSXZE?=
+ =?utf-8?B?ait6dG44RmlzeE9aZWpTK0JVd2w3UjJXSHFTWXBMZ0xnNGxQUmRxOTFLb1FD?=
+ =?utf-8?B?b2dNV3lJWUhjajBvOGg1SkdNa1UyZ1ArYzErZnJGejBKc1kzd2hIN2NTS01a?=
+ =?utf-8?B?bE5TUThmUEE1dlJNKzBSRVVRKzNTOUJBL0kxN0FMemtlRW51cVJkYlVXRC9n?=
+ =?utf-8?B?T3V6Ti9rV2Vpbll3V0dlTlVmbHdWbUpldnowZS9OMENjRU9LV1JmUXZPQ1lw?=
+ =?utf-8?B?dE5yV2t5aWlsYmo5aEJGb2Y3Q08zdU1GUjBkTHlReGNVcXFvVUV0d0FuTWNQ?=
+ =?utf-8?B?eGFsVHlEUkJmZmFPUFhmb3VCUGc0ZDZua3MreVQvdjU1cmx6RWo3aExFc2h4?=
+ =?utf-8?B?eXl3a2tlMlBMNTF3UWZjeVJqRlB4blh1dGpVQjF1czl6bElZK1VxVmF2Mmt4?=
+ =?utf-8?B?eGdQT3A3cVpZcEo4R083bzJEN2laMk9RSC9uMFI0OXBhdEJPdmRsc1VjVldq?=
+ =?utf-8?B?T3BJWTZUalJSeEE1SHhaV2NWL0taK3NuVmdxVCs5SWJ0MlNyc1NGb280YkM4?=
+ =?utf-8?B?Q2VFaFl1eldDL2ZYMDFEb3hkV0NXaGFCNFp0TStWUmdYWVphcXZVekhPT3NJ?=
+ =?utf-8?B?WWdhSWk0aTVGNVlXR3MxclZ0MUFKN2dWZTA0NzBqdWNlNWVVZWx4bitmVE9D?=
+ =?utf-8?B?bTBlL0ZlaHk2Y3p6bDRGV3p6RzQrQk5wL1V2K1ZUUFF2RG90NGlSZjdCVDho?=
+ =?utf-8?B?d0wwM0lQaUUrMUxoTS9VMTZVcGhTOGp3OWpUTE01anBrUWVScTlidnRMY2d6?=
+ =?utf-8?B?aU51QVJDcHF3QlladUxIQUs4NkdMWGJMYkJabTVvZTJ2SE5FMTNWbmtJcnJF?=
+ =?utf-8?B?TCsrbkZZUlNtRHVNT1hxVGhQYXV0aU8yZkJEMks4bDRjYndBdWtlUlJtbEEr?=
+ =?utf-8?B?TTRnWXh3WTNVcDZLdFN5NE1hSXF3akcwZWF5Y3lvQTliczE5UmZnZ0xua1NV?=
+ =?utf-8?B?WlV1WTMyNUZoVWl1RmdCV2tPUUJtK3RYa1A0c2pISFlkbkhCVmpsZ3RXREM2?=
+ =?utf-8?B?ZnJsQ2g3TWJMcGdad0p3bC9NMkluWks0czc1N3o5UU9iVktiZXBaOERtcVdy?=
+ =?utf-8?B?anhFNmg2cm52Z29NU2RoZHN0bUI4Ym95RHdFWFFHbUFVTFp0RzJlVTRrMGh3?=
+ =?utf-8?B?Ri9pR2JsajNMTWt4K1hoNmRvblllN2FuREhqVzdEbmthbWo3QnN6MkN1cEVK?=
+ =?utf-8?B?MFhpSGVpS0llOURmTWowNVhjbWlUTnpSZDJSNy94TGFnNmVZbFcxbW1HZXJw?=
+ =?utf-8?B?RWlwL25Wa1dMeUFZVGZ2NUhWR0ljREtkVG1LemRsZUJHQm5GWjUyazgvVHk0?=
+ =?utf-8?B?TU1ta1lxYkNPWjBzS0pkZ0pBTU40KzlQbzJpdm5ZMWt3d0EyRDlNbEkvZ1h3?=
+ =?utf-8?B?ZDU0WGNtd0QzSC90S3pSdmE2U0VTZnl5OG1MVE5lMUpzWm9uTlZMcUhzRVBm?=
+ =?utf-8?B?UE5hWnk0MUhZVmwvTTVhcVh2MDdydGZYcjN6ckx4RUkxM1ZjeGxtUT09?=
+X-Exchange-RoutingPolicyChecked: yRq4qv7NYVdTa/wwbB9z/rcr8CUrDZg3maWqG+5QhWrU0YLU8Nt6o4ZXLSNVR19e+zXI2/+2FSSoNOXAnv2iWqStlWVSBIBp7wIknBodw+0jcijRF0uwV8TQWt7MqlSdm/xOAJ20WQMLK9GKJaf6bzhCyk+1u5GttQQ3K3IyTnqoJF8MxZ+ad7a0UVN1OsX4NQd9gv1KjfewMrEvhuNbv07FYoqhkof2WNNfI2jECaOsjqUjfjGep+rK89AtHTkdkVnMnuRjDZT7+xF/VfPWuxPS1rH/WC3pixkxYRBPcfuzZfCdrXVWc/EYTbCy0LIQnt5AIXuActOK12KAWc3NtA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 143af086-833b-4cd1-d960-08df2e09e18f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 17:53:28.9015
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: khpfU6p2oCpM+WMSAJ1Lr6n19ZHPl0TnVtepgPigTwDN/qFLAIVhGHp7a0HTOmYptc+8wHLbVDb12v+HsJEtiNdgeErt9RJuTspuHCdVZ6Y=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4829
+X-OriginatorOrg: intel.com
 
-On 10/19/26 8:56 AM, Pierre-Louis Bossart wrote:
-> On 10/18/26 22:00, Matthew Schwartz wrote:
->> The register cache is dropped when the amp attaches uninitialized and
->> again after the firmware download, so the Amp Volume and Speaker Volume
->> registers are not cached while the amp is runtime suspended, and every
->> read or write of those controls fails with -EBUSY. On a platform that
->> powers the SoundWire link off when idle, such as the ASUS ROG Xbox Ally
->> X20, the amp is also reset and initialized again on every wake, so a
->> volume set while it was awake is lost the next time the link idles.
+On 10/14/2026 5:19 PM, Chang S. Bae wrote:
+> On 10/7/2026 10:59 PM, Guixiong Wei wrote:
 >>
->> Keep both settings in the driver, as the cache has to be dropped
->> whenever the reset and the firmware download change registers behind
->> it. Reads return the kept value, a write reaches the device only while
->> it is runtime active and initialized, and the settings are programmed
->> again after every init and resume. Until userspace sets a control, the
->> value the firmware leaves after each init is adopted instead, so its
->> tuning stays in effect. Waking the amp for a control access would
->> instead cost a full init of both X20 amps, about 0.2 s each.
->>
->> Fixes: b627da430357 ("ASoC: tas2783-sdw: drop stale regcache on uninitialized re-attach")
+>> -void fpstate_free(struct fpu *fpu)
+>> +void fpstate_free(struct fpstate *fpstate)
+>>   {
+>> -    if (fpu->fpstate && fpu->fpstate != &fpu->__fpstate)
+>> -        vfree(fpu->fpstate);
+>> +    if (fpstate && fpstate->is_valloc)
+>> +        vfree(fpstate);
+>>   }
 > 
-> Erm, not sure what to think about this fix of a fix.
-> 
-> This commit b627da430357 introduced the regcache_drop_region() for all
-> kinds of reasons, and now this new patch introduces a manual management
-> of the volume registers - but why limit this management to volume
-> settings only? Shouldn't other features such as e.g. bass boost or EQ
-> also be restored?
-> 
-> It really feels like the problem is that the regmap is not properly
-> restored...at the end of the day, this driver is missing a
-> regcache_sync(), no?
+> Shouldn't is_valloc be cleared here, or when fpstate_reset() replaces 
+> fpu->fpstate with the embedded fpstate?
 
-The driver only has the two volume controls, there's no bass boost or
-EQ control. The rest of the tuning comes from the firmware, which
-tas_io_init() writes again on every init, apart from a retained PRAM.
+No, is_valloc is pat of the vmalloc'ed memory itself.
 
-A regcache_sync() can't restore these two because the firmware
-download writes registers with sdw_nwrite_no_pm(), behind the cache,
-and that includes AMP_LEVEL. Of the 72 TAS2783 files in linux-firmware,
-44 set it to something other than the 0x28 in tas2783_reg_default[],
-mostly levels 9 to 16, and two set DVC to 0x04 instead of 0x00.
-Syncing the default values would replace that per-platform tuning with
-full gain. So the driver has to know whether userspace set a value,
-which needs restoring, or left it alone, in which case the firmware's
-value should stay, and regmap doesn't track that per register.
+That said, removing the original check does not seem reassuring either. 
+Maybe, another option would be adding an internal helper:
 
-The volume was also lost before b627da430357, since the sync ran
-before the reset wiped it. The Fixes tag is for the -EBUSY that commit
-added when reading an uncached volume register while the amp is
-runtime suspended.
+   void __fpstate_reset(struct fpstate *fpstate)
+   {
+       if (fpstate && fpstate->is_valloc)
+           vfree(fpstate);
+   }
 
-Certainly open to suggestions for improvement here if there's a simpler
-way to fix this.
+Then, refactor fpstate_realloc() and replace the vfree() in 
+fpstate_free() with it, keeping the fpstate_free() prototype unchanged.
 
-> 
->> Reported-by: Lee Mann <leepaulmann@gmail.com>
->> Link: https://lore.kernel.org/r/20261016102846.22908-1-leepaulmann@gmail.com
->> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
->> ---
->>  sound/soc/codecs/tas2783-sdw.c | 159 +++++++++++++++++++++++++++++++--
->>  1 file changed, 151 insertions(+), 8 deletions(-)
->>
->> diff --git a/sound/soc/codecs/tas2783-sdw.c b/sound/soc/codecs/tas2783-sdw.c
->> index a57230e01f75..ebb52efc1edf 100644
->> --- a/sound/soc/codecs/tas2783-sdw.c
->> +++ b/sound/soc/codecs/tas2783-sdw.c
->> @@ -12,6 +12,7 @@
->>  // Author: Baojun Xu <baojun.xu@ti.com>
->>  // Author: Kevin Lu <kevin-lu@ti.com>
->>  
->> +#include <linux/bitfield.h>
->>  #include <linux/cleanup.h>
->>  #include <linux/unaligned.h>
->>  #include <linux/crc32.h>
->> @@ -89,6 +90,15 @@ struct tas2783_prv {
->>  	struct mutex calib_lock;
->>  	/* pde and firmware download */
->>  	struct mutex pde_lock;
->> +	/* volume settings, kept across resets */
->> +	struct mutex vol_lock;
->> +	unsigned int amp_level;
->> +	unsigned int dvc_level;
->> +	/* set by userspace, so program it instead of adopting it */
->> +	bool amp_set;
->> +	bool dvc_set;
->> +	/* runtime active, so volume writes reach the device */
->> +	bool vol_live;
->>  	struct regmap *regmap;
->>  	struct device *dev;
->>  	struct class *class;
->> @@ -530,36 +540,151 @@ static const struct regmap_sdw_mbq_cfg tas2783_mbq_cfg = {
->>  	.mbq_size = tas2783_sdca_mbq_size,
->>  };
->>  
->> +#define TAS2783_AMP_LEVEL_MAX	20
->> +#define TAS2783_DVC_LVL_MAX	200
->> +
->> +/* forced, as a failed write leaves the new value in the cache */
->> +static s32 tas2783_write_amp_level(struct tas2783_prv *tas_dev,
->> +				   unsigned int level)
->> +{
->> +	return regmap_write_bits(tas_dev->regmap, TAS2783_AMP_LEVEL,
->> +				 TAS2783_AMP_LEVEL_MASK,
->> +				 FIELD_PREP(TAS2783_AMP_LEVEL_MASK, level));
->> +}
->> +
->> +static s32 tas2783_write_dvc_level(struct tas2783_prv *tas_dev,
->> +				   unsigned int level)
->> +{
->> +	return regmap_write(tas_dev->regmap, TAS2783_DVC_LVL,
->> +			    TAS2783_DVC_LVL_MAX - level);
->> +}
->> +
->> +/* program the volume settings userspace set, adopt the firmware ones */
->> +static s32 tas2783_sync_volume(struct tas2783_prv *tas_dev)
->> +{
->> +	unsigned int val;
->> +	s32 ret;
->> +
->> +	lockdep_assert_held(&tas_dev->vol_lock);
->> +
->> +	if (tas_dev->amp_set) {
->> +		ret = tas2783_write_amp_level(tas_dev, tas_dev->amp_level);
->> +	} else {
->> +		ret = regmap_read(tas_dev->regmap, TAS2783_AMP_LEVEL, &val);
->> +		if (!ret) {
->> +			val = FIELD_GET(TAS2783_AMP_LEVEL_MASK, val);
->> +			tas_dev->amp_level = umin(val, TAS2783_AMP_LEVEL_MAX);
->> +		}
->> +	}
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (tas_dev->dvc_set)
->> +		return tas2783_write_dvc_level(tas_dev, tas_dev->dvc_level);
->> +
->> +	ret = regmap_read(tas_dev->regmap, TAS2783_DVC_LVL, &val);
->> +	if (!ret)
->> +		tas_dev->dvc_level = TAS2783_DVC_LVL_MAX -
->> +				     umin(val, TAS2783_DVC_LVL_MAX);
->> +
->> +	return ret;
->> +}
->> +
->> +static bool tas2783_vol_valid(struct snd_kcontrol *kcontrol, long val)
->> +{
->> +	struct soc_mixer_control *mc =
->> +		(struct soc_mixer_control *)kcontrol->private_value;
->> +
->> +	if (mc->platform_max && val > mc->platform_max)
->> +		return false;
->> +
->> +	return val >= 0 && val <= mc->max;
->> +}
->> +
->>  static s32 tas2783_digital_getvol(struct snd_kcontrol *kcontrol,
->>  				  struct snd_ctl_elem_value *ucontrol)
->>  {
->> -	return snd_soc_get_volsw(kcontrol, ucontrol);
->> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
->> +	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
->> +
->> +	guard(mutex)(&tas_dev->vol_lock);
->> +	ucontrol->value.integer.value[0] = tas_dev->dvc_level;
->> +
->> +	return 0;
->>  }
->>  
->>  static s32 tas2783_digital_putvol(struct snd_kcontrol *kcontrol,
->>  				  struct snd_ctl_elem_value *ucontrol)
->>  {
->> -	return snd_soc_put_volsw(kcontrol, ucontrol);
->> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
->> +	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
->> +	long val = ucontrol->value.integer.value[0];
->> +	s32 ret;
->> +
->> +	if (!tas2783_vol_valid(kcontrol, val))
->> +		return -EINVAL;
->> +
->> +	guard(mutex)(&tas_dev->vol_lock);
->> +	if (tas_dev->vol_live && tas_dev->hw_init) {
->> +		ret = tas2783_write_dvc_level(tas_dev, val);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +
->> +	tas_dev->dvc_set = true;
->> +	if (val == tas_dev->dvc_level)
->> +		return 0;
->> +
->> +	tas_dev->dvc_level = val;
->> +
->> +	return 1;
->>  }
->>  
->>  static s32 tas2783_amp_getvol(struct snd_kcontrol *kcontrol,
->>  			      struct snd_ctl_elem_value *ucontrol)
->>  {
->> -	return snd_soc_get_volsw(kcontrol, ucontrol);
->> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
->> +	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
->> +
->> +	guard(mutex)(&tas_dev->vol_lock);
->> +	ucontrol->value.integer.value[0] = tas_dev->amp_level;
->> +
->> +	return 0;
->>  }
->>  
->>  static s32 tas2783_amp_putvol(struct snd_kcontrol *kcontrol,
->>  			      struct snd_ctl_elem_value *ucontrol)
->>  {
->> -	return snd_soc_put_volsw(kcontrol, ucontrol);
->> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
->> +	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
->> +	long val = ucontrol->value.integer.value[0];
->> +	s32 ret;
->> +
->> +	if (!tas2783_vol_valid(kcontrol, val))
->> +		return -EINVAL;
->> +
->> +	guard(mutex)(&tas_dev->vol_lock);
->> +	if (tas_dev->vol_live && tas_dev->hw_init) {
->> +		ret = tas2783_write_amp_level(tas_dev, val);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +
->> +	tas_dev->amp_set = true;
->> +	if (val == tas_dev->amp_level)
->> +		return 0;
->> +
->> +	tas_dev->amp_level = val;
->> +
->> +	return 1;
->>  }
->>  
->>  static const struct snd_kcontrol_new tas2783_snd_controls[] = {
->>  	SOC_SINGLE_RANGE_EXT_TLV("Amp Volume", TAS2783_AMP_LEVEL,
->> -				 1, 0, 20, 0, tas2783_amp_getvol,
->> +				 1, 0, TAS2783_AMP_LEVEL_MAX, 0, tas2783_amp_getvol,
->>  				 tas2783_amp_putvol, tas2781_amp_tlv),
->>  	SOC_SINGLE_RANGE_EXT_TLV("Speaker Volume", TAS2783_DVC_LVL,
->> -				 0, 0, 200, 1, tas2783_digital_getvol,
->> +				 0, 0, TAS2783_DVC_LVL_MAX, 1, tas2783_digital_getvol,
->>  				 tas2783_digital_putvol, tas2781_dvc_tlv),
->>  };
->>  
->> @@ -1116,6 +1241,9 @@ static s32 tas2783_sdca_dev_suspend(struct device *dev)
->>  {
->>  	struct tas2783_prv *tas_dev = dev_get_drvdata(dev);
->>  
->> +	scoped_guard(mutex, &tas_dev->vol_lock)
->> +		tas_dev->vol_live = false;
->> +
->>  	if (!tas_dev->hw_init)
->>  		return 0;
->>  
->> @@ -1148,6 +1276,14 @@ static s32 tas2783_sdca_dev_resume(struct device *dev)
->>  		return ret;
->>  	}
->>  
->> +	guard(mutex)(&tas_dev->vol_lock);
->> +	if (tas_dev->hw_init) {
->> +		ret = tas2783_sync_volume(tas_dev);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +	tas_dev->vol_live = true;
->> +
->>  	return 0;
->>  }
->>  
->> @@ -1245,11 +1381,14 @@ static s32 tas_io_init(struct device *dev, struct sdw_slave *slave)
->>  
->>  		/* Re-active AMP after resume. */
->>  		regmap_write(tas_dev->regmap, TASDEV_REG_SDW(0, 0, 2), 0);
->> +		if (!ret) {
->> +			guard(mutex)(&tas_dev->vol_lock);
->> +			ret = tas2783_sync_volume(tas_dev);
->> +			tas_dev->hw_init = !ret;
->> +		}
->>  		if (ret)
->>  			dev_err(tas_dev->dev,
->>  				"init writes failed, err=%d", ret);
->> -		else
->> -			tas_dev->hw_init = true;
->>  	}
->>  
->>  	return ret;
->> @@ -1427,6 +1566,9 @@ static s32 tas_sdw_probe(struct sdw_slave *peripheral,
->>  	tas_dev->fw_version = 0;
->>  	mutex_init(&tas_dev->calib_lock);
->>  	mutex_init(&tas_dev->pde_lock);
->> +	mutex_init(&tas_dev->vol_lock);
->> +	tas_dev->amp_level = TAS2783_AMP_LEVEL_MAX;
->> +	tas_dev->dvc_level = TAS2783_DVC_LVL_MAX;
->>  
->>  	init_waitqueue_head(&tas_dev->fw_wait);
->>  	dev_set_drvdata(dev, tas_dev);
->> @@ -1452,6 +1594,7 @@ static void tas_sdw_remove(struct sdw_slave *peripheral)
->>  	tas_remove(tas_dev);
->>  	mutex_destroy(&tas_dev->calib_lock);
->>  	mutex_destroy(&tas_dev->pde_lock);
->> +	mutex_destroy(&tas_dev->vol_lock);
->>  	dev_set_drvdata(&peripheral->dev, NULL);
->>  }
->>  
-> 
-
+Thanks,
+Chang
