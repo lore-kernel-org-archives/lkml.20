@@ -1,101 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792442257;
-	b=McMyHWAcRW8S0kS++LltyebLbssWoqlm2xDpQUwpWyrrpyYjdfATN6/wTxFCv/V3hYxs
-	 aweHO7/ASNabHO14OWt8XkYZPEG3FdrsUxMs6LFJn6gSk0fWEZkdR1/9iKC1K89psbOKu
-	 jy4jEVD7SA9y+g5nZWm0k+IyHqZKP354B7Xcf4vMtvqooTr4xZYZkyS2oQcZ2G3Zn5LSU
-	 +4WT1q1z/Nfw990ned12SmPTpPGN5ovACu4a36lRb33CeN4Fz89SYn1ESWrje24i+6QKb
-	 a+nB/uWNMqS66GtFJdfq1GMUSKg1d4aXoQuilmKB0kH1Pn/YY21nfyqIJJounekvFsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792442257;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PO9p69nb6+vsNmUFhgfonclxpqAf2KqjRDuFhGInggw=;
-	b=Y7kpcmHtro6H8y7UbbfwrP9lhEW0omKDJbTo4kSFpfcXfpUM0zD0bd0yj3kzbT2vYk46
-	 jbF8vjIw2T4fqnNjU2RqVOi+5aokkhCRBY5e1RNZZccyHeEMJ39TQKltHsFaMjqC2NgOQ
-	 kile/PUoF8xaANEib8wuK0JqFKDNUstmG6q0ZGEkqfrk9EsIG/tz2ojjyiHce5RZx/DME
-	 ndkG3KXWLEbLexDMbgjG9bYGfFarpEM5qFYxVGqrFSvflc3+2W4eUge/Rnmbi3R/Q6YIQ
-	 Ntx0cBuBnFzvWh67HF09AAjRfXw3v+1WmYU5rcPNzGu82SgAXaFngs/OVQv9yj4wIGg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="UnAQs+Z/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.90
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792442298;
+	b=XGEnVuooY1VvC3Z/9Yi3ccMSE7y4alfz4dyYb/IC7uQESCIamHJHbk2XY693pGGITTpb
+	 l8+7CCTckdjbuZ+2+Je86LHb1AhTKzS80FB0tYmoOGzzecg1WQniZDTVJafZJhyKVNDWl
+	 4jcsNyf3GinY24loDPTcoRU4jerGIWrTaIpwij/klMMFNfWW8e/RNYa0IZgm6zxg/u7PI
+	 BqjB2aSJIvFL+edpTtapdzRwnkj3MfoAq/3lNFSKe7pnnKhg47GE5pBzDsx97oh9tPjWD
+	 XhBGdPihp5JwOyHP+I4muLrElVA/UxGSvuShWpLSz09URgFixVmY6atZ5h977G0Ctow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792442298;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HicBhdq3FFz5Zw997fRIFryI1pXSgad+sCXMpVwuGsc=;
+	b=Mm1D4Y7wHRIqaEpVBlhsIyse+gPBdl/+zfcibJk143D+WhzmEvVuP9TbySzvScNrvDnr
+	 eoBhynsvg+uEfosAYCWBCc+T6nzLRaS5l40hPwDKENuqyFYU7Aj38Ph7nCri/dljzyRii
+	 tLFEHs6/Jzpn3VF06h14slDZbsPgo8ba1z+3VCGHxwX4UcCXgOmTezBudzxIhJcC3/hnY
+	 xjt3xtXu2Nr3bGCjA3MpRjBSZq8/9ha/eHJbIWQZef316KjDDTuOJM5wiMmgWYTbRO7d6
+	 Zxebxl1dwvjOGWORUCjKmkQP2OtfM1cjK0kpj8+wC0ebXnoPk2dH4pAdYHTuV2DYf/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.90
+Received: from mta0.migadu.com (out-90.mta0.migadu.com [91.218.175.90])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B575606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:37:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B575606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UnAQs+Z/
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8ab43af5e97so785807b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:37:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792442256; cv=none;
-        d=google.com; s=arc-20260327;
-        b=frwIzXi8o+35UoYi1bojdxxUUzFeQ7jPIc5QidzhIFrx122foz+FcNgSfxbG9TWkGJ
-         e9lwLuYDB50xwH3NvuRdNUjxlSftmAJuT16dYW6Sq0B4l9IRJHQMfgiKkMBWYRrID6pb
-         qPj/QUyEDCgV7R4EbrlsyQwED+bWHau+f59n+3UXhfuIWh8r9HPu2Mc0YcrHZvXyWUY/
-         ZsXxHzyRPNfh95LJWsMtgN2oUQDYdte58YCksr5HHYr35WO3EBHoM2GAmtjEAwq/QXJu
-         jfI6qj+qIz84a5a4eHbGJ5RIXdNWi3RBNbLra9I2tdmQpQh/kKEpmn3clcJANy3eEQTM
-         zHIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PO9p69nb6+vsNmUFhgfonclxpqAf2KqjRDuFhGInggw=;
-        fh=DAPryi0Dapw5NEvRsnvfq0frvY6n693A8Ek+L0osX0o=;
-        b=CXAwfODBTSwLIQO4LEvlV8sVyk5e26z0MqQismQoOSGhmYALQaos6AuC/iwyDwKyMX
-         ACp1J16/5ai93UCvHzjOjPOjNMi1Zf/c2HO7na21hst3VA+oojORXZVVvyNCXiybxWFx
-         KfzKcDLA3pFhcG6Rr2vIwsZDJdRYWQZBnzFAC8U8E3YPEAcn3lrPmuXWKbcBdVt95unU
-         1YYfHhb+4Q08bOIv/0rzU2JOlXH12nATq4MWP7N3ye/hrGX6XIFjfpGFQ8L0S95xgESC
-         JAXRGbIT+dMZdMDNuVDo70ORYjfibHMIy3g5ICm1tTYoblvH+xkHx4BGB0WygyuzAR3Z
-         dYFg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792442256; x=1793047056; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PO9p69nb6+vsNmUFhgfonclxpqAf2KqjRDuFhGInggw=;
-        b=UnAQs+Z/rCSGX025saSqvENYaj5VmR5HpjCKVhhee/ym5jLqePz7qzcOqi9rdGJryn
-         C8iJzsaZhjl00kwf3Jx5mBWyW+FXPH8PFomM2wBgrp/Kh5OQ4IUd+pY0oF/EF4B1jnFU
-         mTeCYNw/bynGRtw/fi+sbRxYUSL937Bcdh2HyX2o9vRywolga7I5du2JtPHjkrF40Mm3
-         8HqrYU4noZTaO6yxYa98Pn4Lxp+ghXGoryANp2UJpYinkLJnBZCbqGVz9zZPDKccdRVw
-         g6xLzyqOHQKrXzpga99neiw5neTu6fvDU42IsIP/uTuNYYBvCFkHMkh1n+vt7ZTZH5T4
-         c+nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792442256; x=1793047056;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PO9p69nb6+vsNmUFhgfonclxpqAf2KqjRDuFhGInggw=;
-        b=X0GOzTyhKMDF57QGEQVAk5Wwvz+GxBIOcxmq/JH/spU8MbPcCMumoFGs6iF5+Tkh0D
-         iCccvB8ibLuQ/1v9r985r3UgPZIoImpq71BKkydatAh8he/ArkwcygRV8onFw7KlSFlO
-         W0XI6vV/0t+sCmlkUN5c+lG902ObzifSPAYboy/2FKw8lapYCBwTyiQTN37BnkfCYXUf
-         kF4PG4C9HTxkPw4hzbc5rStJOoiYAEIroiBoEV5SkAUtfxhtKfe8TDalpNU42IwtNg6a
-         XBVhXbm+N4m+2d/U/zWHalR35Y+oZM5HFljvfY0bg0EvLCObCJkKqPZjQLQDhcen5N8p
-         Hwuw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+bN3v8Q0el6Mq7N/rgOzI+lwWMIHHyfou2PLHyguuaNXXwNTjV/fsBMrqUGIm9DUSiWcqQaUjZu+5cD4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcY/lSwyIXoMJ5PJYC0+onU2iP+XgwVmETMcpjPj8gcgepUvPT
-	FWJkLqc0ZHIFuPDTaWUTXrcz/SWzsodcbSNBPkoSMgoinVaJqueqJR0JYWpeXqoDpAs+tHv2KDX
-	H2o/Abg57WfNy0T7jewtCk6wKH/ELSQQ=
-X-Gm-Gg: AYBFou13/OUftSHcmBHsn2Aa8p5IHlTCxre0RmjGBChbrabtQfbZ/6pCpztw3Iupwk9
-	JZeKyc1Z8xRKK6PcmfBpqVAIWk7UsQDObhT8F8p8YionPOxemX9WWtD+/ERzgV48N7giZaJ3EAZ
-	hJyZHP9QzC0fRORNDDY8Kf7D3/ucb2/GGqEGaMksNaf8A/zWuoM8EDu+nlyzzjXUovIlPImWt1c
-	aKhABPYUwlrl+ieHrHEM1dUW/bGss4o0Uk53e+3mx8lZXwKr2vdh7aCXcHFedd0D8Ka+TRsUk/j
-	MFxPOnwi8vmbZ0v0MqWMUzddQXQxU/5iTpk3MRbUyGau10gyVrOiRB+gacP5wd55314yA37Ag2C
-	VzxigNI7PIANIXG3zPVv+oJ7oWNMu5z6OLY05ZrX/Oy7t9xAqH55+ArAfd+zrkTqYR7/CZIKvPa
-	BI3SqehgyWFHFfyktpf1AohNQ=
-X-Received: by 2002:a05:690c:fce:b0:8b0:e13c:2857 with SMTP id
- 00721157ae682-8b1200efc87mr992317b3.13.1792442255969; Mon, 19 Oct 2026
- 13:37:35 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18671606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18671606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pDuLM45vvYweqsInlLjAFK3/ehNdWBWqOomWqBmuzHc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792442292; v=1; x=1793047092;
+ b=i0gwiP6vCdLbQD0caS7VpHtuQM+R6xWc5H1MLicWXr97xhLECrTNuB1fOUYCFAnvMVgIiJ9g
+ QflQkcNZ4w107dv4xUUI2WI9rIXl6S5gZwE9/4j1o56Hzu3te6vs5XesVUta2Urtvqy5bvfUGgX
+ AciMqmUeZyFAbVSJg9IZBYYM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f830ea09c65c2622;
+	Mon, 19 Oct 2026 20:38:11 +0000
+X-Mizu-Trace-ID: f830ea09c65c2622
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5e44ab55-09e3-4043-a369-05b792b5e0d3@linux.dev>
+Date: Mon, 19 Oct 2026 22:38:11 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,140 +55,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017050928.128582-1-sidchintamaneni@gmail.com> <CAGsJ_4whqGRQ4JY5rLLJZU=f8u5T75qHkJYQFDoqZSx5c6EBHQ@mail.gmail.com>
-In-Reply-To: <CAGsJ_4whqGRQ4JY5rLLJZU=f8u5T75qHkJYQFDoqZSx5c6EBHQ@mail.gmail.com>
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Date: Mon, 19 Oct 2026 13:37:23 -0700
-X-Gm-Features: AclHuK9gI4T4O854Y6L1TXMVucW7npKKDzemjhJTunU2ylrUfYVjiEaTh7rHj_8
-Message-ID: <CAE5sdEgR3C30xMayXJkWOECQTfADHgNE8Qf9=wjB5eGimjwLYg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref
- with memcg disabled on cmdline
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
-	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
-	Hardik Garg <hargar@linux.microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/7] HID: asus: Re-send the Zenbook Duo keyboard
+ handshake after probe
+To: =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Luke Jones <luke@ljones.dev>,
+ Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+ Ivan Levchenko <me@livan.pro>, Nathan Chancellor <nathan@kernel.org>,
+ Paolo Pisati <p.pisati@gmail.com>
+References: <07076668-3291-4eb6-888b-0e6c518ef21b@linux.dev>
+ <20261019133557.14092-1-rebecca.mara@posteo.de>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261019133557.14092-1-rebecca.mara@posteo.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, 18 Oct 2026 at 14:05, Barry Song <baohua@kernel.org> wrote:
->
-> On Sat, Oct 17, 2026 at 1:09=E2=80=AFPM Siddharth Chintamaneni
-> <sidchintamaneni@gmail.com> wrote:
-> >
-> > When CONFIG_MEMCG=3Dy, lruvec_pgdat() returns lruvec->pgdat, which for =
-the
-> > per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled =
-in
-> > lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
-> > first folio_add_lru().
-> >
-> > With cgroup_disable=3Dmemory, lru_gen_shrink_node() passes &pgdat->__lr=
-uvec
-> > directly to shrink_one(). If direct reclaim runs before anything has
-> > called mem_cgroup_lruvec() for the node, which can happen during early
-> > boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
-> > up dereferencing a NULL pgdat:
-> >
-> >   Unable to handle kernel NULL pointer dereference at virtual address 0=
-000000000005040
-> >   pc : get_swappiness+0x68/0xb0
-> >   lr : try_to_shrink_lruvec+0x54/0x2c0
-> >   Call trace:
-> >    get_swappiness+0x68/0xb0 (P)
-> >    try_to_shrink_lruvec+0x54/0x2c0
-> >    shrink_one+0x8c/0x240
-> >    shrink_node+0xc6c/0xe08
-> >    do_try_to_free_pages+0xdc/0x570
-> >    try_to_free_pages+0x124/0x278
-> >    __alloc_frozen_pages_noprof+0x6e8/0xf78
-> >    alloc_pages_mpol+0xc4/0x1c0
-> >    alloc_frozen_pages_noprof+0x54/0xe8
-> >    alloc_pages_noprof+0x1c/0x40
-> >    atomic_pool_expand+0x98/0x300
-> >    __dma_atomic_pool_init+0x58/0xd8
-> >    dma_atomic_pool_init+0x154/0x170
-> >    do_one_initcall+0x64/0x350
-> >    kernel_init_freeable+0x214/0x430
-> >    kernel_init+0x2c/0x208
-> >    ret_from_fork+0x10/0x20
-> >
-> > The classic LRU path and MGLRU before per-node lru_gen_folio lists
-> > obtained the lruvec through mem_cgroup_lruvec(), which sets
-> > lruvec->pgdat.
-> >
-> > The above was hit on an arm64 kdump kernel (6.18-based) booted with
-> > cgroup_disable=3Dmemory nr_cpus=3D4. It also reproduces on mainline on =
-an
-> > arm64 VM with CONFIG_ARM64_64K_PAGES=3Dy, CONFIG_MEMCG=3Dy,
-> > CONFIG_LRU_GEN_ENABLED=3Dy and:
-> >
-> >   mem=3D160M nr_cpus=3D4 coherent_pool=3D512M cgroup_disable=3Dmemory
-> >
-> > These options only serve to force direct reclaim early in boot; with
-> > 160M the boot eventually ends in OOM regardless. On mainline the first
-> > LRU reclaim happens while unpacking the initramfs, and faults the same
-> > way:
-> >
-> >   Unable to handle kernel NULL pointer dereference at virtual address 0=
-000000000005040
-> >   pc : get_swappiness+0xd4/0x150
-> >   Call trace:
-> >    get_swappiness+0xd4/0x150 (P)
-> >    try_to_shrink_lruvec+0x44/0x2b8
-> >    shrink_one+0x80/0x1a0
-> >    shrink_node+0xd98/0xea8
-> >    do_try_to_free_pages+0xf4/0x4b0
-> >    try_to_free_pages+0x110/0x360
-> >    __alloc_frozen_pages_noprof+0x8b0/0x1718
-> >    ...
-> >    __filemap_get_folio_mpol+0x2ac/0x548
-> >    simple_write_begin+0x44/0xf8
-> >    page_symlink+0x178/0x198
-> >    ...
-> >    do_populate_rootfs+0x13c/0x200
-> >
->
-> So this happens before any folios are added to the LRU and before
-> the userspace init process starts?
->
 
-Yes!
+On 10/19/26 15:36, Rebecca Mara Müller wrote:
+> On Mon, Oct 19, 2026 at 01:03:34PM +0200, Denis Benato wrote:
+>> Very good to see it sleeps just fine. So yeah a command is missing...
+> Thank you for the roadmap, I went through it on the UX8407AA with
+> BIOS UX8407AA.308. I have since updated to 310, the latest one; its
+> ACPI tables only differ from 308 in relocated memory regions, so the
+> findings below should hold for both:
 
-> > Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> > Cc: stable@vger.kernel.org # 6.3+
-> > Assisted-by: LLM
-> > Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-> > Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
-> > ---
-> >  mm/vmscan.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > index f11491ee9ed5..0c57e4f1eb15 100644
-> > --- a/mm/vmscan.c
-> > +++ b/mm/vmscan.c
-> > @@ -5253,7 +5253,7 @@ static void lru_gen_shrink_node(struct pglist_dat=
-a *pgdat, struct scan_control *
-> >                 sc->nr_reclaimed =3D 0;
-> >
-> >         if (mem_cgroup_disabled())
-> > -               shrink_one(&pgdat->__lruvec, sc);
-> > +               shrink_one(mem_cgroup_lruvec(NULL, pgdat), sc);
->
-> What's a bit weird is that even if we fix this here, with an empty
-> lruvec, we still won't be able to reclaim a single page. But it's
-> hard to see where we could break out early, right?
->
+Most findings will hold for multiple models across different years
+as asus reuses a lot of code for the same lineup. Thankfully!
 
-I am not really sure about simple bailout logic. Please let me know if
-anyone have any thoughts.
+> - asus-nb-wmi only exposes the basics here (kbd_backlight 0-3,
+>   throttle_thermal_policy, charge_mode, screenpad); no TUF/ROG lighting
+>   or power-state attributes.
 
-> >         else
-> >                 shrink_many(pgdat, sc);
->
-> Best Regards
-> Barry
+Fair enough.
+
+> - In the decompiled DSDT, WMNB answers 75 device IDs. None of the
+>   TUF LED power IDs is among them, so it is not a firmware that claims
+>   "unsupported" and accepts the write anyway. The kbd backlight ID
+>   0x00050021 goes to the EC (SLKB), which does not reach the detachable
+>   keyboard, a separate USB/BT device.
+
+Does this laptop have other lights? I wonder what that is changing...
+
+> - The LPS0 _DSM in PEPD only notifies the EC (MS entry/exit 0x9a/0x9b,
+>   display off/on 0xb7/0xb8, entry/exit 0xae/0xaf). With
+>   pm_debug_messages on, Linux calls all of them on s2idle (screen off,
+>   lps0 ms entry, lps0 entry, and the exits), so nothing is skipped on
+>   our side.
+
+I have a cursed TUF that does the same and looks correct and yet it
+doesn't sleep in linux... Someday I will understand what's going on
+with that. Thankfully it's not the case here as the sleep residency
+is high for you.
+
+> - With dynamic debug on usbcore, the keyboard does go to USB suspend
+>   ("usb 3-6: usb suspend, wakeup 1", and "wakeup 0" with wakeup
+>   disabled), and the backlight stays on in both cases.
+
+Wow... okay... so it was actually designed this way. 
+
+> - The backlight only goes off when the keyboard loses the connection:
+>   lifting it off the dock during s2idle turns it off immediately.
+
+Probably because the idea is that "keyboard lit" = "ready to go"/"press a key to resume".
+
+> So the keyboard simply keeps its backlight while it is connected, and
+> I guess Windows either cuts the port power in Modern Standby or MyASUS
+> turns the light off. I have no Windows on this machine at the moment
+> to check which.
+
+Could be that they simply leave it on as said above.
+
+Doesn't look like something to be investigated further, perhaps try to see
+if there is some unknown devid in wmi that does something cool.
+
+> Following your advice I did it in userspace: a systemd-sleep hook that
+> saves asus::kbd_backlight and writes 0 on "pre", and restores it on
+> "post". With v3 loaded the light now goes off just before the screen
+> and comes back on resume. If it is useful to anyone else I can post it.
+
+in the OGC discord (ex asus-linux discord, you find it on our website) people
+are planning a GUI redesign, perhaps if you have spare time you can add an option
+to asusd to shutdown leds when entering sleep to have a GUI on a widely used tool
+but I think this is time consuming enough that is probably not worth unless you find
+it funny to do.
+
+> Thanks,
+> Rebecca
