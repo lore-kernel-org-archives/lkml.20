@@ -1,59 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443078;
-	b=DPW26RGBBnrutViqg/Xk7WA6M0DnGcaOgbLcnnMQVwuL5SSxENGwHPNRDpZxjifxg2qa
-	 wT/pad1E+v2lGNpsT2+w/jp4ydzq/wMTeRfuWtg4f8qXGoNY0kLofO9toW0N8gYS3zZ43
-	 n3TNZgpVdVZfutxgj71pVUoqvxbm3Qtjx5WKCCwz0ysxqmUJiObJ3lDFDr2OyvMhui67s
-	 XnfatNhX6J8+JKPd5nogXXAC+iGilP5pu8JqIXsOm2h1V+1icrIOHrG58ahq5RjR9lDIx
-	 XIGJPyKpigUyUgI2kKccrvGWifDwquzDGL1f6Tjd/14TUfBkoM5n4Hel2XkW84zDHfw==
+	t=1792443067;
+	b=y6v2s5iDLlA7GyELeTmhEIOiw8M0L5fWYZoMbzKY/SUnTi2JbpUnGM+yBopL0toANhMe
+	 O0q9kurhnT4JodJfXVbwmUJweoUsMvHyIqDUsc0yrobb21PyzTs0HkFj0E1eYvffn+krG
+	 w0x8/Vn4EySBmXdvi88ktkefflnoccKcpxOZhZMi+iPB3ZkwKNHvQkqOarqq74JIy7y3N
+	 gXOHUl6ywHg7CHaRjXH8XTehSH+zh+x8KEU2tR96UOjikc4OFJqUcrrHaD8fLx4RsS9bH
+	 qPY3W773dzeama0KNcpucGlLJNUkhiWekH6H2MGZYn4PCClLa7W0OG5wJ/mLNFg6s5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443078;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zfW8vKVwAPFLCJpFfrgthdURXxETyav5wwNzczUFP3s=;
-	b=C+e3a2hTeZYtpC9I0TGoUyviYXQE8Ww2hpPMoblReTK5dpeWvdZ+79RiV/Y8+mgDWMYg
-	 A8SufojDC1dGZvP6krPV2ofinBbdUrXsLlERuYtomcaec3flj7d1MOa7pDoJ/yO56B+7E
-	 uvU8IBaCeZLBuHCdwX0ArZ6abu5XMfJ8pQYpoQkkefkxR3HaK7NDtONanZ4kyw2T80UQN
-	 kaxus/WLiIETGw26gsj5tvttw33rI7ucGP8Mz5bjclq9dWDWmOgr4nBY+lixkHho7R83n
-	 tdeOyEw7SAKr5Nd/pCoy3CqN7TaAliVhlvODDMipIlKjQBywcjNNXUxyrzHyRK9r8DQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443067;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=k0i/N1b5yWNh2DrHfWtbHgv/fVPwrlaI2gnbJ6ty73w=;
+	b=pD2PpqnMCVo5utaNGXfdxY+aVlBzBGDuDQBdugTNWjxv/+NPdQszzS+f+dRoxiYi4tUA
+	 5VT9+p/rFASVeyYuW0N9FbKcis6Dl3sRBpOVNhpS68MTu/Y0b+8D1ymoZDPyp70c3Ul1F
+	 U4nH8OaKa3mrLLZh9tT/TPZJT1GZUMMenJEAILTDAC1j1n4XW/trADtdLIrtswxQXxtAA
+	 uZVMm16SVVjGZtBFyUUd399XBAlpRGzLokVWLG6tMiTbFV1ZJwjZej8r29qKJl/o7M1ZP
+	 PhsDI4O0wwzA4zR9KAPqr4qJxRlT0G+Qeec9HNoK1WRC1Zi08ivX9tnscsWqnl1pjrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vmp6keEJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KhmjTbJi;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095D560A6F44;
-	Mon, 19 Oct 2026 20:51:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E39C606A332
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E39C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vmp6keEJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0811F000C5;
-	Mon, 19 Oct 2026 20:51:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443077;
-	bh=zfW8vKVwAPFLCJpFfrgthdURXxETyav5wwNzczUFP3s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vmp6keEJklR0Umt8EXKRhsUO2hQfqfjmQ0Rmidhw9JbHI2lIHe8ajRRlhYME+5ebr
-	 hTa7EjQVgBwDbXJWhOmik/zYMOA1MRblF1etj7at3M8c3lnruXusHWZIh0th0SPoGj
-	 KT6Y6sMgTXkm46T2n9GNUGi3zfnHvnIN623q1M4OJt3H8u6IyegQXB1kBb4Ushu+qy
-	 ekTfFHKpiHMHjBdtKYYJi1yyLG2X/dzxt+Xt41otof9u+iKllVzEI2jMzengyzTMPP
-	 YMbzqPRHRJywt5mBy7qculoeJII5RIBwA5q7PakMjTA0U+T9tgqUqpDnSS//rabHmo
-	 CD0QspKsPHV0g==
-Date: Mon, 19 Oct 2026 10:51:16 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Waiman Long <longman@redhat.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>, cgroups@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>,
-	Guopeng Zhang <guopeng.zhang@linux.dev>
-Subject: Re: [PATCH-next v4 0/9] cgroup/cpuset: Fix various housekeeping
- check problems
-Message-ID: <ataCxJxYwg_uhS-j@slm.duckdns.org>
-References: <20261019181020.1069325-1-longman@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KhmjTbJi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792443067; x=1823979067;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=xsbwNdGGLJOC/4bW7nqSY811th/00q9A8AGx07zDNwk=;
+  b=KhmjTbJi10+P7m7viwUHj0SFCcENABVoA8GOfpeHUciKoKbtVjGrg5dQ
+   FF+bpyd1mQ8qh3Off8BqBT1CSXDnPX6p9LEbIZxTrqbcjUEEaW+r2hsG0
+   SRQknEn+TbXmEKoiGJo0PDVRnvAVtSGUu7Z2fM3fAOpMSwY9U4o9XmPJa
+   0Rp+SWf4JmujHeGKReMR+S7dqQJGVn9c0qx9iC+eDBoYQzldyMDZ9S/IO
+   RMKi8rwf8j1ZzYFMoKvAFPQjphEctmnzlrKzUzIX1Zq28TQWkXtxwYF8E
+   YP4KmoE+ICPbgZa6KSsFORPM2sifKo7P/hn0Qb21UNi8+FOhjm+r//qp6
+   w==;
+X-CSE-ConnectionGUID: i57SsmZxTUCl5f16WWHtWw==
+X-CSE-MsgGUID: cfSreivsR1WDT6glPpSzqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1131256"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1131256"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:51 -0700
+X-CSE-ConnectionGUID: Js7ajy48RSW4+vvWNL3+WQ==
+X-CSE-MsgGUID: CkT+Jh2ARPG0Nemy2BI1kA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3008671"
+Received: from spandruv-mobl5.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.220.87])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:51 -0700
+From: Tony Luck <tony.luck@intel.com>
+To: Fenghua Yu <fenghuay@nvidia.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>,
+	Babu Moger <babu.moger@amd.com>,
+	Drew Fustini <dfustini@baylibre.com>,
+	Dave Martin <Dave.Martin@arm.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	David E Box <david.e.box@intel.com>,
+	x86@kernel.org
+Cc: Christoph Hellwig <hch@infradead.org>,
+	linux-kernel@vger.kernel.org,
+	patches@lists.linux.dev,
+	Tony Luck <tony.luck@intel.com>
+Subject: [PATCH v14 16/24] platform/x86/intel/pmt: Register enumeration functions with resctrl
+Date: Mon, 19 Oct 2026 13:50:23 -0700
+Message-ID: <20261019205031.16977-17-tony.luck@intel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261019205031.16977-1-tony.luck@intel.com>
+References: <20261019205031.16977-1-tony.luck@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,32 +92,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019181020.1069325-1-longman@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 02:10:11PM -0400, Waiman Long wrote:
->  v4:
->   - Adjust a number of patches to fix issues reported by Sashiko and
->     Guopeng Zhang.
->   - Add more test cases to test_cpuset_prs.sh to improve test coverage.
-> 
->  v3:
->   - https://lore.kernel.org/lkml/20261014140548.575122-1-longman@redhat.com
->   - Further revise the code based on feedback from sashiko and
->     reviewers.
->   - Add a new fix patch which fixes a bug found during the testing process.
->   - Add a patch to impose a new restriction that creating a child root
->     partition under an isolated parent partition is not allowed.
-> 
->  v2:
->   - Update patches 2 and 3 to address bugs reported by sashiko.
->   - Add a new test_cpuset_prs.sh patch to skip the test if some of the
->     required CPUs are offline.
+resctrl enumerates Application Energy Telemetry (AET) features by calling
+pmt_telemetry functions directly, which requires pmt_telemetry to be built
+in. resctrl now provides functions with which pmt_telemetry can register
+those enumeration functions instead.
 
-Can you ping me after -rc1 drops?
+Register the enumeration functions with resctrl when pmt_telemetry is
+loaded, in preparation for resctrl calling them through the registration
+and for pmt_telemetry being built as a module.
 
-Thanks.
+Register only after the driver has probed all telemetry devices so that resctrl
+does not enumerate a partial set. Force synchronous probing to avoid issues
+if kernel command line or module parameter requests asynchronous operation.
 
+Unregister the enumeration functions before tearing down the telemetry
+devices on unload, so that resctrl cannot start enumeration while they are
+being removed.
+
+Suggested-by: Christoph Hellwig <hch@infradead.org>
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+---
+v14:
+	New commit message.
+---
+ drivers/platform/x86/intel/pmt/telemetry.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/intel/pmt/telemetry.c b/drivers/platform/x86/intel/pmt/telemetry.c
+index 953f35b6daec..57eb2967a4d0 100644
+--- a/drivers/platform/x86/intel/pmt/telemetry.c
++++ b/drivers/platform/x86/intel/pmt/telemetry.c
+@@ -427,16 +427,29 @@ static struct auxiliary_driver pmt_telem_aux_driver = {
+ 	.id_table	= pmt_telem_id_table,
+ 	.remove		= pmt_telem_remove,
+ 	.probe		= pmt_telem_probe,
++	.driver		= {
++		.probe_type = PROBE_FORCE_SYNCHRONOUS,
++	},
+ };
+ 
+ static int __init pmt_telem_init(void)
+ {
+-	return auxiliary_driver_register(&pmt_telem_aux_driver);
++	int ret;
++
++	ret = auxiliary_driver_register(&pmt_telem_aux_driver);
++	if (ret)
++		return ret;
++
++	intel_aet_register_enumeration(THIS_MODULE, intel_pmt_get_regions_by_feature,
++				       intel_pmt_put_feature_group);
++
++	return 0;
+ }
+ module_init(pmt_telem_init);
+ 
+ static void __exit pmt_telem_exit(void)
+ {
++	intel_aet_unregister_enumeration();
+ 	auxiliary_driver_unregister(&pmt_telem_aux_driver);
+ 	xa_destroy(&telem_array);
+ }
 -- 
-tejun
+2.56.0
+
