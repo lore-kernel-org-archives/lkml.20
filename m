@@ -1,78 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792451863;
-	b=fi2vhmjB0hBHCScSCECbjnxbDGlqbNu6oE9UsHP0MT8nCIBya8XPkcQjMyXLERGUG2Fr
-	 NJutxqliGs9YxhOBqTpGLYMIe1ioN4yjeiOfU2ZcW428kNy0Js2bg2Alv7E1/O1099FjE
-	 A7dTnXu+SwvZjgwdFuXulsNu/fvYywrHq8Sg8Q+VCqQJeU+lQWSo5p5VSDby3XoUVMmuI
-	 Xd6F904SsFloSOwXs0Wt4kP+5QM5dFByTqef8oB4evbIqZJl600e1lbYdQFN2p8Yb2lkg
-	 ahweM+TRXtmfOb7GXvPKS6EdJu1bU5KHNBaecYq2mnl9SVBJrszeYk6pghcufrQ1cHA==
+	t=1792451898;
+	b=pOsEWlNLlHjMooEzKCHj5pHp5UrrAFQgAwmxGDKLvRfba1a8lUH0mSb0/YoUr4cgYeHa
+	 Rim93qHI25oC26aQpQ9lSGG8+mutLPg6YaEp3yXp0Gk9gyYiDSo/Pda/NwhznpRRznc3R
+	 Yt1hkS0c8pAVQsNE6YqF6EPdDuX8crk+tdhiQMBjBiprrUreW6fwDNYSoye66P4sf6b0J
+	 d4PFWRrrHTbwTGIJ92Ym+BuCmAHXth4aA+a5YBGQG8Vs2CIgx2vYbq0Cia97CBgYd+tXm
+	 KUa1JQ2F8NeBpPFemPcbn5J15vrEKdQogYgoufumqU2XnCCLENCag+49xOvfs6uReQQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792451863;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qMV4MHzD9X6bj2fo95tLdn6ggwKiyHTtTGXppl18I60=;
-	b=QEtYUPVpuVknADiq6Ua3lMp9RCUXAMCcCtYs5A1EDaqhzwADMMhLedojNrAifo9f6LTZ
-	 HAWo+DrsV1SB8wd0TkvpWYio/U1hA+DVDDereo8m7eoZM7o5qvH2kwvbCfNAOtgCfnsSj
-	 oEp7OVAJ6cw4sfsisBx089qF/uNQH6/5vEuaa0oNpZHHYqV64bb9x7WarIZjSulKWs7tI
-	 4TJrigFwrHwMrIqxDBIS4yU9WTOaJumIYCUXjobiFPqloc9zffq/FTNQDm1T5fId/AXPe
-	 7XKH8ijFbsl4TMWRAXaXiEAtMIKM4rWqgNQZRJ1GCCe9rviR3A6scq2AsQ+YtWzb/6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792451898;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=xkEO/OSiRmfTcfnZn00ylSAwEOQz293NLx30J9yMRbI=;
+	b=kk9UMupioxryr0WqwWhXG183muOl7mi9XHrYcyW4OGUd94pKI5KIV0LHo8/N8iBi7fk4
+	 dBOELyyDuR8zTHJz9lRkii3EWci9SleNPD1U9KdgWIo9IY1tsst6PiaDCXtPNShZImqEF
+	 7A2ueiqecuQWKU89Oi3QZ8sff6apd/+PCjvSNf+EFVDE/Oe2GSDDHHlOdFlA3d2moC4MP
+	 cEP61tVqUKCNlE4mTLJPHpDzbVc+lxNiByc6j1TRDEAafJAjttsgA5wpi8GM8wG2RSXSh
+	 Mle/SZvEomNTX5Gj3ZjY32dCunrSP+IN9+qMgu5IjkY+WgX2sLaHkr/KtmukIE8xDQw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BPuJHk5a;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F6D606A323;
-	Mon, 19 Oct 2026 23:17:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BPuJHk5a
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792451863;
-	b=PGeeQmUrKX5DDr9RfLciPOf5imVhGL0fxGXApwYCkwSISphv56jlNXUq8obcIZXiAAUC
-	 9TryMCCQp98aBjNfSV63z90gtVDqExuDOsPwLMdBGP8/V17Ua2uzLWYibC5W48mSE9Ve+
-	 UABuovJy0LDYfdJ/KnrKN885ZL1rc6proMC9DwzuVjljeQr/1k5r31tsqtkC5V/vLG4bx
-	 tJ4LKB5hrdWC15A/rsD+3dSjQ9HCuHcHTDuNFUZFLTP/VndFur48PPIINx1aLKs8mKxGt
-	 uWIt5HVijTj8xrZNIQ1EGZiLb0humW4IR+K0FE7LWN0siTBaQLUTbtkxKNn0i39k5yA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792451863;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qMV4MHzD9X6bj2fo95tLdn6ggwKiyHTtTGXppl18I60=;
-	b=zMecOjllS0IX0AGqsV/tohaQ9MjpqtfUeUeWaGbquKU+n91oLveC2cVcsp5TPZkBZH23
-	 Wyiur9GskTaxCfFdQywd5b5xnqvfrNydxckVWWeReaoEqtJdiG5C0QHnqwGY40rNnpv3S
-	 h2+Sz3g7zZcxrp87pRe1yg4LefFhRf9crkKHCaJZ1Uo1nGTfVr3lez4OqVAlNaLpWwvRS
-	 66TjF2u1itf/I+RsKcvMWJEQ8OMm0U60WEC7poySTWSj+suWMVWn7Xz3zv+mP8IVc1+k8
-	 gEZUgvekxcpO4dWJZ9R6+/tNo21N9EUtFUziC+Kla/JsTWUOotdwPpZ0BKskpYjqj6w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=lXSTaDUM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2693B1F000C6;
-	Mon, 19 Oct 2026 23:17:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792451863;
-	bh=qMV4MHzD9X6bj2fo95tLdn6ggwKiyHTtTGXppl18I60=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BPuJHk5a5P6LqI3E6uX7WyqBkmN7l4W/abLjQkrElo2kaUctyfgXMkbNAYAmKOLzP
-	 R9P6dHOgX2V1FeOZXK2g0sA+aAQOe2Nnag7ea+1IyBi2AYuh4kbZfrMe9QRiDnuoyr
-	 35Wnvs+AxYQSBZFxdbbcP8N+S/BzXVSS5yyIwXKL1+exO3Hn2A1AkWZTdhmQgllGnH
-	 DWXXk7EmnWFG+XmPDd/q0GiUXeqQ8H/6hGnvzA8tifakBUHWoZJicdj5H+9t5uUpPd
-	 0CvIo08QHKYT8JsEyriZX0mt110rpRZQ1Zc69jJX42+QPy1JY2JNJSyV80aQPjUGsd
-	 ppSoXAhsoFcKQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 863FB406AD;
-	Mon, 19 Oct 2026 23:17:40 +0000 (UTC)
-From: Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org>
-Date: Tue, 20 Oct 2026 00:03:42 +0530
-Subject: [PATCH 2/3] dt-bindings: iio: proximity: Add Benewake TF-Luna
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A4F606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:18:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46A4F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=lXSTaDUM
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5337fa12431so72311cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:18:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792451896; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b3Be8C1+T6ZMkBVNpbG7r5yGlB8n07zWrObsyg4bLqRLJ7tHy1t5fFgp+qitwyXMvx
+         AI83gk+nExm+cwjkvka8glB3ZC8Ub1RR3k+B8mGxOtQ5qZSfrbmzsOsjSOWg7PbUGoQh
+         Bb1G9aY7Jy05H8xtGcX8aVLSlIoVwYvEf4spP7wAvi766wXI69jXZu83koMI05ryBcJ6
+         JBDAKQGG6qBrKb6xqoOyA/1odnIMdi2zWx/W8EFqFQpLF0RAh9qPKPwOvxZbhgl+Sn6u
+         zDtY8DcJa6pc3lbJjxisoulY2Q5jeETiWX8pX2T+Hgr73Z5PpGl7X/aJFCrzSk3aya99
+         V73A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xkEO/OSiRmfTcfnZn00ylSAwEOQz293NLx30J9yMRbI=;
+        fh=Y87TslK/TEeZYRTrjcNX+qvZvXr3F4Wt1zmD1xjxoL8=;
+        b=T6JXb6GZinHWtJh3kulY7l4paUKAmt+JJ/nl4BlsZ+OVrASZ6lwXaZepfdcpkjyouo
+         T++iNFkBxhJrsahvHpUCxp++sFf1k3fCxSEDGeZQHpPC+ZDkAJ4+dRYgQ4txu/YI+t58
+         vqR7KCeZxhHI82ka8MagZbrtURanBD90AV1Ro3I+F7VY6x+zM+4P/ZoSpCVGwcdI1Eid
+         I7EaVMNlkn+JWNdoOMgQ8Yvb04H0hL99S2y4SmptBD10rnioIN1aD1eJ24n0nEe9/PZM
+         t70FO1bPQ2KaY3SEVDH5xxklp1qxtcyBpmS0a24/ReGNz513KZEVyOvHRx6BPDN9VG+Y
+         JY0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792451896; x=1793056696; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xkEO/OSiRmfTcfnZn00ylSAwEOQz293NLx30J9yMRbI=;
+        b=lXSTaDUMPxunqT4NG8XOu+6a4OArT7pDWEU93VGCHzg1SUOAWgq/AmOkvPZ3aWJjoE
+         cwCm+bFLjJNw+1X6WCGZIwHMMve1j0ZTHgmSFGSnYMVvRX/GQ7rp5vwQjsw9MouTPbUP
+         NDOCW5Oeeu7hEi8H4+OHFU5jWndcCD90gzXO2MltTiz6vQE/tsZpX+P4mw9qBLVAy5d/
+         A28hrIIKE0NAix8sx6oabnORuMi4RxV6km6Dz7iL4jW3qQzf6OGFfYrGi4vMmOhPiyi4
+         WqTpk2bsF9gC5zLdti+hAQ0R4DqeA0U0Fk2lCMo7++axBH8mFnEvVRw8jO0qZpA1cKX3
+         1wYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792451896; x=1793056696;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xkEO/OSiRmfTcfnZn00ylSAwEOQz293NLx30J9yMRbI=;
+        b=wCUqCIfJOSYOm6WI39wFJbEBsuXXZIeyxAN+v7rln+J6jSS/P7W37tldfKWBmdOlll
+         TuLQn5cQFuWEgrbeBEyKYPOAh9bqGIspU5bnwxWWIpTAGjRQ3kJesqOBrPR5P/1V+dmq
+         heAKJ0AWpbFzwzUbRdDwsUpMLCTt40XUyyMbthh6SR5DFJtcHeNg9tRyYr51b8j0MS9Z
+         9qhcI0jSHZZpF6bo3PnNQdnGIgwRTFcxAE875TNYYCuy5wuEgao5LxOVoz5VyaPxOlaC
+         ZOnr8n3QB/NHfsj5L8MK4zAOo8QeWhqeu9qyXOqYeJqwUaiVDx9QSDlN32k329X4ny+v
+         VeIw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/aSPXO3mRRgnDsVmrFSSBXRwpeoznFITklrXS47rs4EXXGB0MPx/zyBTDd+TPkE7qX+PL2koro6QxwMw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfeKQn7NuQDOrYg+LmodUOmgFcC/RE41ffGKoTvwz0uPgkz0QN
+	OJkL3DrdV6TbNZt0P7Rrd8xuJJTYOyUYddSMqbtnbgjjYScvIb27Fuk58afNLTdkxrAnvV+Su+K
+	ufbeaDjvBUsMrw0JU1G1VAdffmolkGhS02qVmRiak
+X-Gm-Gg: AYBFou0eB8Hx9g0ZZlNPq02AnXdP9zGa7VocNGpPTJ+RybaGShmCbiOdeglMAMGv20z
+	qfIfP7lUX3CRIJi1qcGUvlPNcmhFN7SZPydbSDmwYm9GdPitF68EFynA3tezCcu0Zo84JpzhdcI
+	IQiz0g7dkY+Qa5pGojjNBAT3LvuO1rXM+/L1lW0GkETRfROypa3T/6kTIsM1eqTCWGUHSOPnBxu
+	yHA1P7Y0BcnEdQkXtfAr4KOSAfiPTyfovEzzNiUFFakz0CU4a1CaTwKgpiWumNvnMKRhg1nrHL2
+	ae6qiI+CujXEeyV2cBfM51sN2Ji0RgH0Z/+vHbVL7jBJgIXX4gDUhakYV7T0xKQNpzvMPyInjhd
+	s1oI2hlil788/itO7WK/pHgSdyFSny+QnI4iK5TRkNhlv+IDx9zW8Yzxqkw==
+X-Received: by 2002:a05:622a:418c:b0:52f:9ed4:8d76 with SMTP id
+ d75a77b69052e-53688361cc0mr3730081cf.14.1792451895603; Mon, 19 Oct 2026
+ 16:18:15 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,129 +104,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-tf-luna-v1-2-53a88f93db24@gmail.com>
-References: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com>
-In-Reply-To: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Vidhu Sarwal <vidhu.linux@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-iio@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792434836; l=2973;
- i=vidhu.linux@gmail.com; s=20260713; h=from:subject:message-id;
- bh=0UBEPrfvmA3ptYlQPCqBd+fp3dX9vJ8y5I7yTq7Hq1s=;
- b=RZQf02ROujFEc4ayDljTkgirbR0+KERzramPjlK8nLFoB7Ma5i/5YJpaQIB7qpDyiK+te7XnN
- 4JHqEHmxu41ATWBz7bPws7I87rWh9ZUkeAQivk1bLUXsClSUCUrFVo8
-X-Developer-Key: i=vidhu.linux@gmail.com; a=ed25519;
- pk=xDu3Cbesz76CQXwY8lteI74n3ELVIV7wCsuYAvcX1Q4=
-X-Endpoint-Received: by B4 Relay for vidhu.linux@gmail.com/20260713 with
- auth_id=869
-X-Original-From: Vidhu Sarwal <vidhu.linux@gmail.com>
-Reply-To: vidhu.linux@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261019164241.403644-1-bwicaksono@nvidia.com> <20261019164241.403644-5-bwicaksono@nvidia.com>
+In-Reply-To: <20261019164241.403644-5-bwicaksono@nvidia.com>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 19 Oct 2026 16:18:02 -0700
+X-Gm-Features: AclHuK-P4jTEpdJSRDgE-1GK0BbwVAkaLE7mt8LMQ_UZz4JJYrKoVTt4WXDObg8
+Message-ID: <CAP-5=fWucvdYefDOL3Vn=O=YUPEXE+tngDDfPLv-T5i3WkCJVA@mail.gmail.com>
+Subject: Re: [PATCH 4/6] perf jevents: Add support for NVIDIA Tegra410
+ PCIE-TGT PMU aliasing
+To: Besar Wicaksono <bwicaksono@nvidia.com>
+Cc: acme@kernel.org, namhyung@kernel.org, linux-tegra@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, vsethi@nvidia.com, rwiley@nvidia.com, 
+	skelley@nvidia.com, mochs@nvidia.com, rajjoshi@nvidia.com, treding@nvidia.com, 
+	jonathanh@nvidia.com, john.garry@linux.dev, will@kernel.org, 
+	james.clark@linaro.org, mike.leach@arm.com, leo.yan@linux.dev, 
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
+	adrian.hunter@intel.com, ctshao@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Vidhu Sarwal <vidhu.linux@gmail.com>
+On Mon, Oct 19, 2026 at 9:45=E2=80=AFAM Besar Wicaksono <bwicaksono@nvidia.=
+com> wrote:
+>
+> Add alias support for NVIDIA Tegra410 PCIE-TGT PMU events and metrics.
+>
+> Signed-off-by: Besar Wicaksono <bwicaksono@nvidia.com>
+> ---
+>  .../nvidia/t410/sys/uncore-pcie_tgt.json      | 93 +++++++++++++++++++
+>  1 file changed, 93 insertions(+)
+>  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/unco=
+re-pcie_tgt.json
+>
+> diff --git a/tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-pcie=
+_tgt.json b/tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-pcie_tg=
+t.json
+> new file mode 100644
+> index 000000000000..74786fc3d578
+> --- /dev/null
+> +++ b/tools/perf/pmu-events/arch/arm64/nvidia/t410/sys/uncore-pcie_tgt.js=
+on
+> @@ -0,0 +1,93 @@
+> +[
+> +    {
+> +        "EventCode": "0x4",
+> +        "EventName": "PCIE_TGT_CYCLES",
+> +        "BriefDescription": "Counts cycles at the PCIe interface to the =
+Tegra SoC data fabric.",
+> +        "PublicDescription": "Counts cycles at the PCIe interface to the=
+ Tegra SoC data fabric.",
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
 
-Add binding for the Benewake TF-Luna, a single point ToF
-LiDAR distance sensor with a range of 0.2 m to 8 m.
+It looks like the PMU names are broken because of the _rc_ in their names:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/drivers/perf/arm_cspmu/nvidia_cspmu.c#n901
+```
+   .name_pattern =3D "nvidia_pcie_pmu_%u_rc_%u",
+```
+The convention is for either a numeric (preferable) or hexadecimal suffix:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/ABI/testing/sysfs-bus-event_source-devices
+Extra information about the PMU belongs in a caps file.
 
-The sensor talks either UART or I2C, selected by the level of pin 5 at
-power-up. This binding covers the I2C interface. Pin 6 is a data ready
-output and is described as an interrupt.
+By definition nothing can work with wildcard matching using the
+existing PMU name, so please rename it. If a new suffix convention is
+necessary then  you should update the ABI and perf tool suffix
+matching logic like pmu_name_len_no_suffix:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/tools/perf/util/pmus.c#n65
 
-Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
----
- .../bindings/iio/proximity/benewake,tf-luna.yaml   | 58 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 +++
- 2 files changed, 64 insertions(+)
+Thanks,
+Ian Rogers
 
-diff --git a/Documentation/devicetree/bindings/iio/proximity/benewake,tf-luna.yaml b/Documentation/devicetree/bindings/iio/proximity/benewake,tf-luna.yaml
-new file mode 100644
-index 000000000000..cfc3dff58013
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/proximity/benewake,tf-luna.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/proximity/benewake,tf-luna.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Benewake TF-Luna LiDAR distance sensor
-+
-+maintainers:
-+  - Vidhu Sarwal <vidhu.linux@gmail.com>
-+
-+description: |
-+  Single-point time-of-flight LiDAR ranging sensor with a range of 0.2 m to
-+  8 m. The sensor talks either UART or I2C, selected at power-up by the level
-+  of pin 5. Pin 5 must be tied to ground for the I2C interface described here.
-+
-+  Datasheet: https://en.benewake.com/uploadfiles/2025/04/20250430174501874.pdf
-+
-+properties:
-+  compatible:
-+    const: benewake,tf-luna
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    description:
-+      Data ready output on pin 6. Goes high when a new measurement is
-+      available and goes low again once any register has been read.
-+    maxItems: 1
-+
-+  vcc-supply:
-+    description: Power supply, 3.7 V to 5.2 V.
-+
-+required:
-+  - compatible
-+  - reg
-+  - vcc-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        proximity@10 {
-+            compatible = "benewake,tf-luna";
-+            reg = <0x10>;
-+            vcc-supply = <&reg_5v>;
-+            interrupt-parent = <&gpio>;
-+            interrupts = <17 IRQ_TYPE_EDGE_RISING>;
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 52024397dc78..24fa7cdf6a57 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4662,6 +4662,12 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/luisbg/linux-befs.git
- F:	Documentation/filesystems/befs.rst
- F:	fs/befs/
- 
-+BENEWAKE TF-LUNA LIDAR IIO DRIVER
-+M:	Vidhu Sarwal <vidhu.linux@gmail.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/proximity/benewake,tf-luna.yaml
-+
- BFQ I/O SCHEDULER
- M:	Yu Kuai <yukuai@fygo.io>
- L:	linux-block@vger.kernel.org
-
--- 
-2.53.0
-
-
+>
+> +    },
+> +    {
+> +        "EventCode": "0x2",
+> +        "EventName": "PCIE_TGT_RD_REQ",
+> +        "BriefDescription": "Counts read requests from any source to PCI=
+e BAR or CXL HDM ranges under this PCIe root complex.",
+> +        "PublicDescription": "Counts read requests from any source to PC=
+Ie BAR or CXL HDM ranges under this PCIe root complex, where the target res=
+ponds with data. Request size can be from 1 to 256 bytes. Filters: dst_rp_m=
+ask selects PCIe BAR traffic to root ports (bit n =3D root port n). dst_add=
+r_en with dst_addr_base and dst_addr_mask selects PCIe BAR or CXL HDM addre=
+sses that equal the base in the mask's set bits. If both dst_rp_mask and th=
+e address filter are set, a request matching either is counted. With no fil=
+ter, PCIe BAR traffic to all root ports is counted.",
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
+> +    },
+> +    {
+> +        "EventCode": "0x3",
+> +        "EventName": "PCIE_TGT_WR_REQ",
+> +        "BriefDescription": "Counts write requests from any source to PC=
+Ie BAR or CXL HDM ranges under this PCIe root complex.",
+> +        "PublicDescription": "Counts write requests from any source to P=
+CIe BAR or CXL HDM ranges under this PCIe root complex, where the source se=
+nds data. Request size can be from 1 to 256 bytes. Filters: dst_rp_mask sel=
+ects PCIe BAR traffic to root ports (bit n =3D root port n). dst_addr_en wi=
+th dst_addr_base and dst_addr_mask selects PCIe BAR or CXL HDM addresses th=
+at equal the base in the mask's set bits. If both dst_rp_mask and the addre=
+ss filter are set, a request matching either is counted. With no filter, PC=
+Ie BAR traffic to all root ports is counted.",
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
+> +    },
+> +    {
+> +        "EventCode": "0x0",
+> +        "EventName": "PCIE_TGT_RD_BYTES",
+> +        "BriefDescription": "Counts bytes transferred by the read reques=
+ts counted by PCIE_TGT_RD_REQ.",
+> +        "PublicDescription": "Counts bytes transferred by the read reque=
+sts counted by PCIE_TGT_RD_REQ. Destination filters work as described for P=
+CIE_TGT_RD_REQ.",
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
+> +    },
+> +    {
+> +        "EventCode": "0x1",
+> +        "EventName": "PCIE_TGT_WR_BYTES",
+> +        "BriefDescription": "Counts bytes transferred by the write reque=
+sts counted by PCIE_TGT_WR_REQ.",
+> +        "PublicDescription": "Counts bytes transferred by the write requ=
+ests counted by PCIE_TGT_WR_REQ. Destination filters work as described for =
+PCIE_TGT_WR_REQ.",
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
+> +    },
+> +    {
+> +        "MetricName": "pcie_tgt_freq",
+> +        "MetricGroup": "PCIE_TGT_Frequency",
+> +        "MetricConstraint": "NO_GROUP_EVENTS",
+> +        "MetricExpr": "(PCIE_TGT_CYCLES / aggr_nr(PCIE_TGT_CYCLES)) / 1e=
+9 / duration_time",
+> +        "ScaleUnit": "1GHz",
+> +        "BriefDescription": "Frequency of the cycles at the PCIe interfa=
+ce to the Tegra SoC data fabric.",
+> +        "PublicDescription": "Average frequency of the cycles at the PCI=
+e interface to the Tegra SoC data fabric over the measurement interval.",
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
+> +    },
+> +    {
+> +        "MetricName": "pcie_tgt_avg_rd_bandwidth_to_all_dst",
+> +        "MetricGroup": "PCIE_TGT_Bandwidth;PCIE_TGT_BW_PCIE_BAR_CXL_HDM"=
+,
+> +        "MetricExpr": "PCIE_TGT_RD_BYTES@dst_addr_en=3D1,dst_addr_base=
+=3D0,dst_addr_mask=3D0@ / 1e6 / duration_time",
+> +        "ScaleUnit": "1MB/s",
+> +        "BriefDescription": "Average read bandwidth to all PCIe BAR and =
+CXL HDM ranges under this PCIe root complex.",
+> +        "PublicDescription": "Average read bandwidth of requests from an=
+y source to all PCIe BAR and CXL HDM ranges under this PCIe root complex.",
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
+> +    },
+> +    {
+> +        "MetricName": "pcie_tgt_avg_wr_bandwidth_to_all_dst",
+> +        "MetricGroup": "PCIE_TGT_Bandwidth;PCIE_TGT_BW_PCIE_BAR_CXL_HDM"=
+,
+> +        "MetricExpr": "PCIE_TGT_WR_BYTES@dst_addr_en=3D1,dst_addr_base=
+=3D0,dst_addr_mask=3D0@ / 1e6 / duration_time",
+> +        "ScaleUnit": "1MB/s",
+> +        "BriefDescription": "Average write bandwidth to all PCIe BAR and=
+ CXL HDM ranges under this PCIe root complex.",
+> +        "PublicDescription": "Average write bandwidth of requests from a=
+ny source to all PCIe BAR and CXL HDM ranges under this PCIe root complex."=
+,
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
+> +    },
+> +    {
+> +        "MetricName": "pcie_tgt_avg_rd_bandwidth_to_pcie_bar",
+> +        "MetricGroup": "PCIE_TGT_Bandwidth;PCIE_TGT_BW_PCIE_BAR",
+> +        "MetricExpr": "PCIE_TGT_RD_BYTES / 1e6 / duration_time",
+> +        "ScaleUnit": "1MB/s",
+> +        "BriefDescription": "Average read bandwidth of PCIe BAR traffic =
+to all root ports under this PCIe root complex.",
+> +        "PublicDescription": "Average read bandwidth of PCIe BAR traffic=
+ from any source to all root ports under this PCIe root complex.",
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
+> +    },
+> +    {
+> +        "MetricName": "pcie_tgt_avg_wr_bandwidth_to_pcie_bar",
+> +        "MetricGroup": "PCIE_TGT_Bandwidth;PCIE_TGT_BW_PCIE_BAR",
+> +        "MetricExpr": "PCIE_TGT_WR_BYTES / 1e6 / duration_time",
+> +        "ScaleUnit": "1MB/s",
+> +        "BriefDescription": "Average write bandwidth of PCIe BAR traffic=
+ to all root ports under this PCIe root complex.",
+> +        "PublicDescription": "Average write bandwidth of PCIe BAR traffi=
+c from any source to all root ports under this PCIe root complex.",
+> +        "Compat": "1070036b",
+> +        "Unit": "nvidia_pcie_tgt_pmu_,rc_"
+> +    }
+> +]
+> --
+> 2.43.0
+>
