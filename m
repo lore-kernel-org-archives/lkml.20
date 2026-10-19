@@ -1,106 +1,123 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE36E485925
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFC73469FA;
+	Mon, 19 Oct 2026 07:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394194; cv=none; b=GGMSU7YxFTNMD4ixU36Z2+75Go4yqUf/0CV9A9pvnFH8ivPcLj4Tr7UbPxl7gRZZbJyvLTqrKp+3slF9zju89MEgsJl8WeBEuGARxGUJUVX8QbtbSNaR8DxRes0ngL6woZ+wAG1Dz8//ThMBJF8qeZN3RXRKbfCTiNRm3s3QKcM=
+	t=1792394198; cv=none; b=UoUtNgnl/9GionE5Dici+9hcDl1tsql04nNeOciIuhatQzAXnmbia7vWnI9VReaFplC4j1Jf0d5bhThFdAkhauCzhE9uZfG3m/KzeQRg2KsLLYZaHMGNECJIT+kLS5qWxTCI0lYyD290uXbaplj2SVnIKz+wH15P4dxjkydytho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394194; c=relaxed/simple;
-	bh=Ib/0Jiq2CTtAN56Lsm/P1GvxUcXEmvLrLBBKb9p6EyI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D5KcyOzi7xwh14J8kGnyfFtxAvKvwJ+wAhXteNykgnxU4UZ0r/3YoTgxBaSoQ/bcD4p1omYEHT81F1fLvZM77JY5Qv08Ik4SJ/tinv+hsYYxK3yWlJlPEqbbpBqPRKKFyFluuIxtjtkZ9KNJubg/KO1pShE4SeWLhYspvzZm9wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j5gTX9VD; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792394198; c=relaxed/simple;
+	bh=4WgwU9shtUU+fE4j68GsBLuuELuvCZdWuT88IOOcqEo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p+afxJKo4KlLD8/FupS1hdZ7vdZZh1kPE4OtpftEak0bwGXI1A3ZXopU6RWSbblIClfSrIvCLSIL3eznpuiRQ2MeU1cQP/XhvuHhHdE1s3fyj/lli5bpr4U+WAMjF7Z7a8iTmv3oxLppF9yr0KNTv52MBMomZeDahETkZUizXQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m4Fz8hFi; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j5gTX9VD"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so1005405f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:16:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792394191; x=1792998991; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K8UC1h33uTXAmEsOd21N1W9UrPJgvJpD5tf5yIkoy5E=;
-        b=j5gTX9VDiFbsvh+w/lsD3j/obhi+wuRwRWXeiS0+8q53GUkMgbNERswou1sToAlLHu
-         wQQCkiHj1AsYPFJyLnOoLZVL1AlG+S9dJzcw5hG+n2OypqOdNBKzTkWzsMv0dZmpAseE
-         hA5o2wintxEjkyl2EfKX0EumKBvHEJksTEepSPvZjzyDrAMfh1lQkAUQsFk/Y8uj3bhn
-         eWkMhE2hNxaxTgZRUcvsFc7RwMekOR7CD4jaBthKJOdJE9e8CbvbRe/01swOfMyq4XQv
-         KK0yV1XlxVEsEjTlLUUC2YiFxmpt5CU8ert+mamkT5okLEujYzFSTmlb0YOrKpmTz7bb
-         istQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792394191; x=1792998991;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K8UC1h33uTXAmEsOd21N1W9UrPJgvJpD5tf5yIkoy5E=;
-        b=WR0G9KFXAVl9hS0Uz+cyDd0lMxj80evt976iuz/N36BW3iphaEuLKkR9v3y5UQO0pP
-         r1sgiIycACppvwGj5ZuwaLtkcFhqLzqrs80binCf5g64nDr0sYSGAZ4mj3DF66f60mSQ
-         2Ng67T7aYMBlCyiSJxzIf4MUJo/johk+7h13nZRnmvUmlGcW2TnyLFc2nA2yddoNHve6
-         4RLM56jiRoQ1z0L9TcrI0/10QPsjcVU+SH2bv+3ArL/YZFnwVHaL7e7Blx2duH45bH6e
-         Xy44dEDD2GpmakZgIqS8X9UpTEA1kj9IUL8Wlnc9eQpBrEwY+75FBCuRXFjaBmjJIowf
-         IJCw==
-X-Forwarded-Encrypted: i=1; AKwUvBzOdP19e7CEk1CBBKL++vXTI6jwWtry9+wU5IQ+9OV4Gb/A+Ik0H/oChe/RiNaK/pWb9v9sNnZ2CGa57/8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKliwMIQxBfdNeNQuSRxvuxtEigExPvsDM5RVzD9cJIEveD7ob
-	msDrA6yB6RuLL1iK3zWyFXCcLXCVd/HehbpzTOjX2P84tH4rUtp3HWKX
-X-Gm-Gg: AYBFou1WoYs7FLzrEsDL+PaiUq3JqIx+TqecRQt7J1yv9M6uMpN/8TmUSIOJITrVZBO
-	jT/CJNN930US5cGxSV9WSWw2bOJsJrYbJ1uHqNjkpbfd8wauD/l2a4wSvTP6y2mUb2Ud91w5i7W
-	aIBGToObl7Mvmg93I30h4GgW5e9R9hxAI1t69JqE5ZkbMIUGGyNENW6fPJqhk/X0lcRuMLrzwgT
-	UJIrFJIGwAUAt7pfoxhDBX2sFFJIuKrxhB0cB25wluiyWAVPaPpUQ3m2769Os6xJ1JXjdaknptq
-	oa1B/xurBVqLW9UMaVObhZZJV8ok5Q927IEZki+tLKVV8i0hgzlvhgbA5YYjK7dLRgontvE8gEY
-	ewbCVcwJ1fpdun1wlEN93QdVebRb8L3vDu77hPmiX9Dhvnyudid4r6O5moVOzHzsaE2IiuSDBwi
-	BBdI7yoDKqmpVNNir+yxax3Tc1XAraSb2Gev8Kw5B2CbzqhVcPnSIvmyUvdVe/R+vwfCQ=
-X-Received: by 2002:a05:600c:4e8a:b0:49f:cbf3:551c with SMTP id 5b1f17b1804b1-4a1d75f8399mr148752645e9.12.1792394190220;
-        Mon, 19 Oct 2026 00:16:30 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd91c55bsm303395445e9.0.2026.10.19.00.16.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 00:16:29 -0700 (PDT)
-Date: Mon, 19 Oct 2026 10:16:26 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Ashmit Kumar <work.ashmitkumar@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] staging: rtl8723bs: clean up SIZE_PTR usage and
- remove custom macro
-Message-ID: <atXDyq4nVUb3ODKu@stanley.mountain>
-References: <20261018164403.14921-1-work.ashmitkumar@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m4Fz8hFi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792394197; x=1823930197;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=4WgwU9shtUU+fE4j68GsBLuuELuvCZdWuT88IOOcqEo=;
+  b=m4Fz8hFiE5PFqimM+104Tp65wnY8WA5qo8dBDPdE6zEmWaiO1vnmaP4L
+   wr0nafpejcV3gWnb8CVpAM2R8hHEMjxdp0/U0Bx0hErtkU8vS5RhcpidY
+   ARwWM9NzH4saewSe87GQYIhJtKt4AxeSrfTMpbao1lBM60X1QX/r0rdO0
+   OhoLD0y4qDNFRGJfJ70sesRz8FhBtr3GU7dBUXHisjwzmRkwW0wkr3lAf
+   9UXrGepDTvE1x2qPK9OddAI1J0pxyMlG9PkuQU5Hk+5xGVC27VP5M1q9J
+   7bmXzUxxCoEB8oyRUkY07IuS31TvLGeiiHWAetf5BcaAXiPOmtZN5u22B
+   Q==;
+X-CSE-ConnectionGUID: PB/Kz5kkTQ22NbJhFQLEPQ==
+X-CSE-MsgGUID: +AJpZQmMQpK0hSRtqTov1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1085674"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1085674"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 00:16:36 -0700
+X-CSE-ConnectionGUID: RiVP1Ei0SKqmxh7tLgjD2w==
+X-CSE-MsgGUID: f8IRIGV2RIeUkTK2PHv/Vw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2807228"
+Received: from spr.sh.intel.com ([10.112.229.196])
+  by fmviesa007.fm.intel.com with ESMTP; 19 Oct 2026 00:16:31 -0700
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>,
+	Sandipan Das <sandipan.das@amd.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Song Liu <song@kernel.org>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
+	Ananth Narayan <ananth.narayan@amd.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>
+Subject: [Patch v3 0/4] perf/x86: Limit branch snapshots to valid entries
+Date: Mon, 19 Oct 2026 15:08:32 +0800
+Message-Id: <20261019070836.2972403-1-dapeng1.mi@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018164403.14921-1-work.ashmitkumar@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 04:43:59PM +0000, Ashmit Kumar wrote:
-> This patch series cleans up the custom macro SIZE_PTR (__kernel_size_t)
-> across the rtl8723bs driver as part of addressing the TODO item to
-> "convert any remaining unusual variable types".
-> 
-> Instead of a mechanical substitution, each occurrence has been converted
-> to its idiomatic kernel equivalent:
-> 1. Replace open-coded pointer alignments with the standard PTR_ALIGN()
->    macro, removing an unused variable left behind.
-> 2. Remove redundant pointer-to-integer casts where pointer arithmetic or
->    pointer arguments are already sufficient.
-> 3. Replace the remaining pointer-to-integer address casts with uintptr_t,
->    use size_t for alignment offsets, and delete the custom SIZE_PTR macro
->    definition entirely.
-> 
-> Ashmit Kumar (3):
->   staging: rtl8723bs: use PTR_ALIGN() for pointer alignment
->   staging: rtl8723bs: remove unnecessary pointer-to-integer casts
->   staging: rtl8723bs: replace SIZE_PTR with uintptr_t and remove
->     definition
+Sashiko reported that the vendor-specific branch snapshot callbacks
+used by bpf_get_branch_snapshot() copy up to x86_pmu.lbr_nr entries
+from cpuc->lbr_entries[], regardless of how many valid entries the
+last LBR read produced. This makes BPF programs read stale or invalid
+branch records. Patch 1 addresses AMD and patch 2 addresses Intel.
 
-This driver has been deleted in linux-next.
+Changes in v3:
+- Patch 01: A new patch to ensure x86_pmu.lbr_nr not to exclude
+  MAX_LBR_ENTRIES (Internal Sashiko).
+- Patch 03: Clean cached LBR stack when reseting hardware LBR registers,
+  which prevents stale LBR stack leakage.
+- Patch 04: Don't reset cached LBR stack if all LBR events are PEBS
+  events. This ensures PEBS captured LBR stack isn't cleared (Sashiko).
 
-regards,
-dan carpenter
+Changes in v2:
+- Include a fix for Intel LBR.
+- Add Tested-by from Dapeng to the Intel fix.
+  https://lore.kernel.org/all/eb6c7bda-0dcf-4fac-ad69-9f5b24abc21b@linux.intel.com/
+
+History:
+v2: https://lore.kernel.org/all/cover.1792064123.git.sandipan.das@amd.com/
+v1: https://lore.kernel.org/all/20261007181002.4005262-1-sandipan.das@amd.com/
+
+Dapeng Mi (3):
+  perf/x86: Clamp x86_pmu.lbr_nr to MAX_LBR_ENTRIES
+  perf/x86/intel/lbr: Reset the cached LBR stack in
+    intel_pmu_lbr_reset()
+  perf/x86/intel/lbr: Limit branch snapshots to valid entries
+
+Sandipan Das (1):
+  perf/x86/amd/lbr: Limit branch snapshots to valid entries
+
+ arch/x86/events/amd/core.c   |  2 +-
+ arch/x86/events/amd/lbr.c    |  4 +++-
+ arch/x86/events/core.c       |  2 ++
+ arch/x86/events/intel/core.c |  2 +-
+ arch/x86/events/intel/lbr.c  | 14 +++++++++++---
+ 5 files changed, 18 insertions(+), 6 deletions(-)
+
+
+base-commit: f5a78ecccd98a04c47cea1cd63c2a2fdce8a4b48
+-- 
+2.34.1
 
