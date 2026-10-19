@@ -1,134 +1,154 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32684DCB0C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792420152; cv=none; b=H+RJw8cbq6JPqa8Rb+HU7G44yNXmvFsE+y3qS5gsC4gmMLof92h0d8GizUKSeqJUMz4wVvKB9Yk7b/QB9WFVxuxZ3LZpm14qtGvJuGxnJ6RVDcaqFILEzhyuDMteLHPKGv3+9j3mOPgPKKnJzl8UEriYzA4D/chBhHfsCR6RMss=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792420152; c=relaxed/simple;
-	bh=/3GYM6e3KSQwOy5DHFvv/ek3eAXA4BguOnW6ebsVCBQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kYG3IfpIK3Tv8C80rakKvYqMaBlhf2Ui4U2Xy71cyeUSwFV+F79qY29dorXO2SBm+T/VYmpfJVHR1GFTDcd2wupXqOyspvqOMVBPzQUREN9+8LBLo7e+IuZgxA8mfv4IhdGFtj94r9iNabGEPJcb19IfKJ/QA7E9xoX3o+lRYy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=pPFHK3Bl; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2DE4DCB0C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792420191; cv=pass; b=rd3SMLPGP82nbkJtgBmcpkm/tgflwI23aSa294ItvsNYasTQfVprT8pUMfnsK15OTI1i5BPm2XF2RDuJNOSKrKovqJoJmQz585pE3ikgduNXq/ElTLE84Sega86l/kDcGw7K7zfhV+4LoZFXfctJn6PxS6iAjgk8/WBadrC6L2g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792420191; c=relaxed/simple;
+	bh=1815ZKD8D0Cw6LnUL4cFghBinoHsDcTyW6YJxteqQLg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TWLOxyV7QuZ3ffZjSFGpYXf3APZVXkIzJOht/spXP0Sv6nD4MK6n5vu2uQFJdrK0Hc6UkO34XjKM7DY83ThtQUkByyPajEn9E7KSjlwoLkpfDG3oqIvEMzizfjMFdFDu9NtvlVlNecb/h/UAgkAXJYgiBKySXJ2zvKdOMII+kMY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yo5M6yyv; arc=pass smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="pPFHK3Bl"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 52BC840A48
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1792420149; bh=cbQHpCyY5KQ1RW2CdSwyxcYyKJ0BYtbi3mnA/u0WO/U=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=pPFHK3BlK9dwd1ufFOoc7zQeylOlrADhrQd88B9Yg5/dYRafLUO5eVLxJhTQfxlls
-	 wEIxKnOwYIhSyTsEVPrAOg/AnIe9mXzq/GUyOyUI93YozNc2THGjpMff5p/c5Vq+u6
-	 LWDgZMCSd8udd5n2QKyW3RlK1lxX+LI3RqinAcaxiyfCQrgT1ipHGDJPNvkRerW3cH
-	 jEMBsd70YcdQBBD4oYHPMUYaikb4MDtEMDzSTJv+Duue4AbSMHQ+ve86jy8ljgt/9r
-	 a1aqtk8g5TPp82JxUuz0fnX5gWDFQFfcd+mDsmfxK32dPl/kMJXyUuKBh/6AT2yXie
-	 HyZWlfoOvQyAA==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 52BC840A48;
-	Mon, 19 Oct 2026 14:29:09 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Breno Rodrigues Alves <breno3011alves@gmail.com>, Heiko Carstens
- <hca@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, Andy Whitcroft <apw@canonical.com>, Joe
- Perches <joe@perches.com>, Dwaipayan Ray <dwaipayanray1@gmail.com>, Lukas
- Bulwahn <lukas.bulwahn@gmail.com>
-Subject: Re: [RFC PATCH 0/7] scripts: convert remaining Perl utilities in
- scripts/
-In-Reply-To: <20261019133452.4826-1-breno3011alves@gmail.com>
-References: <20261019100505.3199861A74+hca@linux.ibm.com>
- <20261019133452.4826-1-breno3011alves@gmail.com>
-Date: Mon, 19 Oct 2026 08:29:08 -0600
-Message-ID: <87wlrd932j.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yo5M6yyv"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f1cf92c9eso228530285a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:29:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792420189; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O0cg9wzNN8FzenxyAHs4fpz1DK39ENFj1X5htHyibojLvpW8UN5qtKv8XzEX54gEVc
+         /qYgz6rlEMVb/yw8elEBOSPCPMdD7mFWT6MPBlGSgvULQ1AgUkUETomKfWM3cCe6FaFn
+         fm8V6oQh+qzNA7dW81gK3G0tMsGhltYEiBpFkBRdEUOS61RAnjryxuCKxSsA7aWfsBZ3
+         WfzNHdmFg8Q/CzRjURourgJ1AB8TkFgRx3nktwM65ixXUxIqHAY/KwQg0qXoWXmEqus1
+         WuQle85pBHKYW+FYlCWmHaWpxQ+U8SqZjJNYj757gu5yl+5lH/2Xz2+SFvQROvAYDTft
+         4S/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=G0dMN6vSXcfuXrHsY+C/X/nR9uDe+9XWJ3CV7QZbaZk=;
+        fh=f3Xrs01k3PtreWax47djVgJQBtNWrfzqbjKfsYlOQ4A=;
+        b=OclClsR3VT708TWtxI2Xi1XHaZGGnI4ZXHpoe1/YyRcJnK2YsU4bhEiBq+honaFNzQ
+         7yflIh3L7cHIw5toC+mcjRJ0OjhCOsR07VfsxwyaAdocLCUJ8lZAZS/Qsb0hGcOEiK6u
+         y3AIcdQcegqgWw5Qb0POufnWbrXklPgv98VIoAl+YRnQrLQMB9KRM/iv2TweLTC9BE8w
+         tK+8Z4KQirqENZVC1AQroWOdQwayug5wgh86ZuOUO222IRdyqWd6hu9hQohV9QR/EO62
+         CZPgbLkif3Xi0vdn31evEYw+J52PJ6GKLrBb1UkWARzSw0AUTuBDKZRubg4mf2T0WcWv
+         Ljkw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792420189; x=1793024989; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G0dMN6vSXcfuXrHsY+C/X/nR9uDe+9XWJ3CV7QZbaZk=;
+        b=Yo5M6yyvHjhJgBBk9/3+cZeYfCGs9gWgqFXTDtzLSKQ6bJbWDcLAG5cKsnKgEkHCML
+         oBPGqsqWTlyC1LRO0kAwI6WSPMiqDpouBk2VysUpqMrN8sxojVjjL44stj0PHvKCQB88
+         rwGKiHX+86r/AS8BrUB5JOgL3wVn9JElWr4qVB8KCPJ5puw+IzJpVrKrpkY4bqIe87hb
+         eShcKku/GZVA5xWsj4DIvRkbfmEC5SBw70Rz5J9t6cnBn6bE0gW/1jCKSX00/MYDPNbF
+         zZhghVWaOtvGrICp1o5Vih5YcRoW+jtd7Ij3FOSLlcgkDLqrIlMtFvC3aRetHT4WUf/M
+         5EiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792420189; x=1793024989;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G0dMN6vSXcfuXrHsY+C/X/nR9uDe+9XWJ3CV7QZbaZk=;
+        b=kEWgtiJHg8JwJEGayBGDqUBCZo+Tc09SdcsvJyQ+wEFt3VpJxO7g0SFhIcusZrbYoi
+         u2nNnfKp10qb1EpOcgrX//xOiQHDt476GjSxC7fvLMMELa/2Atlceg20TdKHoSkRadIy
+         P14omOr8431bBTAqLBmcdkcGz8R77yyvZNK3KY6c0UdKFPqblS9FXd73AJoQGf3IX6AW
+         OfD7N6Dy7Mrpa2aD45pWZy+K6V92YV30hDx534dKN/PDA+/83S1bTQKsAyqms7/11UAc
+         nXSXNDQjYIDfYcV0i5TzOUl+r0LXkq9YUlS/viBfeJfiUTxPfFXz8JZ+pvmF22NOmPPD
+         AomA==
+X-Forwarded-Encrypted: i=1; AKwUvBwGbQlkcI3tdf+rfBpUl2eP2Z7pewswLObmcCSao4vvMdq8PyO885moViexqbhZPr7MEVELu0qeUpctHeU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJis0FdVe3SVofwGaTBCqNQdZhWouh3mGnwHb3MxMcyJ0JKUoGb
+	Z1kkfGXmaRAyPt/XM6ym7zhGLlRoQfKXANsCCvolRZ6wBBhVSbAfADgYAVbBz7PCpCeVY81tUrG
+	xqPvZAK6EhArkO9M68YPFOzicWie5YQI=
+X-Gm-Gg: AYBFou0zXqb0rZtvIjEAXUG+NRoXgnqDhBF1DoSX9OztNVuFBY2nLQ+BJocdINysCzY
+	N1+y/Iqpk2yYEvy+nl7AB8Z5hM/UDq4IBH3zp01QoQvD/mXv6+kAjE4IdswefkdaJCQ8RqdX7S9
+	ajG7rErdtS4A08iKVHlBdcqtVnZqugc5uCytMzL21U9GwzIpfwOARHu/IRNO17iSciZSGvfND9g
+	F9pgyQ4j/zzQ4hHejjAd0ayls0b9U6I+S6r34wOl+zie6XzEVZYlPIJ5uztT60R9jgZhlgbuc8p
+	gbKgdVy7UltW2cSPjUCHYf2Unfv5x7BRJyftze/Ze9AEVipkVnqB01yJfCWJDFxJGilb7MSrtk6
+	x8QV2SNk+dXM8
+X-Received: by 2002:a05:620a:8808:b0:93e:c12c:f12e with SMTP id
+ af79cd13be357-93f29df8430mr1133759085a.73.1792420188341; Mon, 19 Oct 2026
+ 07:29:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261019135307.2074577-1-bruceli20040604@gmail.com>
+In-Reply-To: <20261019135307.2074577-1-bruceli20040604@gmail.com>
+From: Alexey Charkov <alchark@gmail.com>
+Date: Mon, 19 Oct 2026 18:29:37 +0400
+X-Gm-Features: AclHuK9cnl2EsfcrhGGH-sXis-mAncR2ezLY-0k25GrZdO9W1GU6GuzZn-sH_E4
+Message-ID: <CABjd4YzjRAJ8+U+fmSNjbx7AbD8Caiit5MpE=NEL=SsmSc5SQQ@mail.gmail.com>
+Subject: Re: [PATCH] mmc: wmt-sdmmc: release DMA descriptors after stopping
+ the host
+To: Guanxin Li <bruceli20040604@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-mmc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Breno Rodrigues Alves <breno3011alves@gmail.com> writes:
-
-> Hi Heiko,
+On Mon, Oct 19, 2026 at 5:53=E2=80=AFPM Guanxin Li <bruceli20040604@gmail.c=
+om> wrote:
 >
->> That is an odd reason - if I'm not wrong then you have zero upstream
->> commits, and now are proposing fundamental changes to tools maintained
->> and used by others? I guess this is 100% LLM work(?).
+> wmt_mci_remove() currently frees the DMA descriptor buffer before calling
+> mmc_remove_host() and freeing the controller IRQs. The controller may sti=
+ll
+> be using the descriptors, and an interrupt handler may still access them
+> during this window.
 >
-> You are right to suspect that I used an LLM as an aid for this series.
-> As required by the kernel policy, I will include an Assisted-by: tag in
-> every commit to make this fully transparent.
-
-The tag is no longer required, but openness about how you did this work
-is. 
-
-> Regarding my lack of upstream history: that is true, I am a new
-> contributor. However, I fully understand the code I am submitting. The
-> LLM was used to speed up the mechanical translation, but I reviewed every
-> line, checked the logic, and tested the scripts' behavior to ensure 1:1
-> parity. I am aware that final responsibility for the code is mine.
+> Stop the MMC host and free both IRQs before releasing the DMA buffer to
+> prevent DMA or interrupt accesses to the freed memory during device remov=
+al.
 >
->> So an important part of describing any change is *why* you are doing it.
->> Why are you doing all of these conversions? Some of these scripts have
->> not seen changes in decades and are likely unused; why do we want to
->> mess with them now?
+> Signed-off-by: Guanxin Li <bruceli20040604@gmail.com>
+> ---
+>  drivers/mmc/host/wmt-sdmmc.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 >
-> I would like to clarify the motivation behind the conversion, because I
-> do not think I presented it convincingly in the cover letter. The goal
-> is not simply to "remove Perl", but to reduce the long-term maintenance
-> burden.
+> diff --git a/drivers/mmc/host/wmt-sdmmc.c b/drivers/mmc/host/wmt-sdmmc.c
+> index 489daee4f4fc..c44befabc909 100644
+> --- a/drivers/mmc/host/wmt-sdmmc.c
+> +++ b/drivers/mmc/host/wmt-sdmmc.c
+> @@ -896,14 +896,14 @@ static void wmt_mci_remove(struct platform_device *=
+pdev)
+>         writeb(0xFF, priv->sdmmc_base + SDMMC_STS1);
+>
+>         /* release the dma buffers */
+> -       dma_free_coherent(&pdev->dev, priv->mmc->max_blk_count * 16,
+> -                         priv->dma_desc_buffer, priv->dma_desc_device_ad=
+dr);
+> +
 
-What is the maintenance burden of scripts that have not been touched in
-decades and, perhaps, are not used at all?
+If you are moving the function call, please move the comment too (or
+better yet delete it altogether, as it doesn't add much information).
+And no double blank lines please.
 
-To the extent that these scripts *are* maintained, they have maintainers
-who understand them; that may no longer be the case after you replace
-them.  Who will maintain them going forward?  You can surely understand
-that there might be some reluctance to entrust that role to a new
-contributor with no track record.
+>         mmc_remove_host(mmc);
+>
+>         free_irq(priv->irq_regular, priv);
+>         free_irq(priv->irq_dma, priv);
+> -
+> +       dma_free_coherent(&pdev->dev, priv->mmc->max_blk_count * 16,
+> +                         priv->dma_desc_buffer, priv->dma_desc_device_ad=
+dr);
+>         iounmap(priv->sdmmc_base);
+>
+>         clk_disable_unprepare(priv->clk_sdmmc);
 
-> The kernel already has a clear track record of migrating critical
-> tooling to Python (e.g. get_maintainer and checkpatch).
+Other than the above,
 
-Huh?  You are *trying* to convert those scripts, that certainly has not
-been done.  The current maintainer of checkpatch, I believe, was not
-enthusiastic about your proposed change.
+Reviewed-by: Alexey Charkov <alchark@gmail.com>
 
-> Keeping a
-> residual set of Perl scripts forces maintainers and contributors to deal
-> with two environments and two sets of idioms for the same class of
-> tasks. Unifying that code base in Python simplifies review, testing, and
-> future contributions. Even scripts that have not changed in decades are
-> still part of the tooling ecosystem and may be used by developers;
-> removing them from the Perl equation is a consistency gain.
-
-People running them do not care what language they are written in.
-
-> To reduce the risk and demonstrate my commitment, I would like to
-> propose a different path: can we start with a single script? I could
-> prepare a patch focused only on checkstack.pl (or another script you
-> consider a priority), with a detailed justification and a test plan, so
-> you can evaluate the process and quality before we consider the rest of
-> the series.
-
-You really need to justify such changes beyond "consistency"; the
-existing scripts work and the ones that are in active use have at least
-some sort of maintenance that you are attempting to sweep aside.
-
-If you want examples, look at the kerneldoc conversion.  There was a
-clear reason for that change (it has to integrate with Sphinx, which is
-a Python application) and developers who spent several cycles working on
-and evaluating the change.  We knew what the maintenance picture would
-be going forward.
-
-This work looks more like change for its own sake.
-
-Thanks,
-
-jon
+Best regards,
+Alexey
