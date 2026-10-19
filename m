@@ -1,182 +1,220 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013046.outbound.protection.outlook.com [40.107.159.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451424B1CE0;
-	Mon, 19 Oct 2026 09:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403700; cv=fail; b=BPHOWUvuIc/8tXXAZt+gk8NQKN95mHfOuaZT6EiNMGWROQ5p8CADVXcWmUB1IeurFEmeOtehyzD2YAbRb0yll/O0uzTv6yaxwUkDu5aSNSW7KLzFFDi5kPYrUBJzgoZUOgDrWS/93OCmbPoM7/wzTvUe/ji79mWwVA/pFJnsGSY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403700; c=relaxed/simple;
-	bh=iXVRMJheGvvP8hGbVeIl2TIrajVMQJGgCSQ+qkZbLjY=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LwRKjY2BGUPuY5V7iLV5xUZilG8ollrr5bWij4SWhVP5xdc3+729UynyyIopieSUArRzu/vpgEYyr6EAei6cx/fgrl1ooE6M5IU9sXjjLJUeVXvrzryIx9ii6pN7yhBx8H/1D5eUEDJ0s+U7PqK+LTH+bBWtMhYBDTen4QZP5Uk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hSnWZFTY; arc=fail smtp.client-ip=40.107.159.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B1B4A3F26;
+	Mon, 19 Oct 2026 09:55:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792403723; cv=none; b=Cez3Qe5vs336HTYJloPadXpebqhZAGpYjrSX/trVQaLoKOqw/ft/wNV6vG5ovpcZQ5wCeyUrIGpWrEgrBOivlJcg/rbUlwMI3tsK4RXrkQDD+DbLLQ6XOhc38hnuh7RRZPPCPhelG2qkk+Bnk/rg9za5kFYVnCeg02eHB3WTPBc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792403723; c=relaxed/simple;
+	bh=ZAzYRrnVrp7LVtZMtaXO3WoR0zPjaRNfxBzvxbNHw4Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I2Nnh1KeobkdYif+yuq9BwL5wGgl/bDuGxUJzpWwTGFEKuYMJDv3/tX3iaNFijts5b4h84bmfr8E3shLhDsFOGf/zj47tbvG/YAVCm6ciscI4GgNJsQ03HdcauHVrkN4jKM8+wDvvX1izbVr6eD1Up4G6Mti2CKu+sCCzp+61WQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEdFOg+t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hSnWZFTY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FJteu7339wXBphm9p6+UshGgOY6muR/ZtbZwdmuMkfkSjWEq8FiwzeHjr/S6lH36VdGC5eUBCYrIMbq+a7G0WxjluyNQNA9o2TnmY1IXmSY8+wwKHUzTI/c+2YiDys111V1k2taQOj9UwlINbUj5ygU+CyqGfsN7opprfwadqq4dfTYrt+O2WMMTMcUy44QU7dqaO2O66mswh0MnuYvZTZftSlXaVNbNFW1m/ksozOXK7KMJ2WOSDdh3TweVJjdLbje9zPoDerhxgwztdf6aMQJbbLptXiLCol24G40FHEbfMn+/rdWR9RFtW0IaDU1QiK0z48W8vqNHWxM1Ac4/cA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2rPCSCvcCGAu49FuaHTDjTF8Qb0AWinX0gnXKKcD3/8=;
- b=DUumW9+c9gsDbn40Tsyee9v94Z2bQhrlv3/QukCpGOUUVaJXmLGSGOQ/QUlmNMUznUSs/k67Z1WN54cmK0uVsn9O/FimN8Cmc5HZAX7gBvp8q6uPT6L8EvmxVicTzr2epi/RnjmHguNLLVN/Y/NRNpaiUHZVhxT78cft4ht5JrRiuD0LAg5u77UheWHMetCskYX1hOZUhdHEXJBf0CCEuVR0M72BEJFmXF1Y9IojBFFIgg8fqvc0s6o1g6wG2PfRTKxUZT3tKGvGlfOEJMx03nCmdVBziFLMxpD8T8V4cjRl5D7/sV735JUkkwP37NnA8ir6mln9oWIk7y3H0ZMVqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2rPCSCvcCGAu49FuaHTDjTF8Qb0AWinX0gnXKKcD3/8=;
- b=hSnWZFTYUztmMimyyYZC1YEevZ4GogZD+HpAB6HgOABvfdnoimS75Z976l1r0Q5jI8iYHybEkNoZwtt7ASvevOI/q8VKPlxer1L5lnRCi9doK2buc3ux3v+2JWB6IPJd6hzrtNWkv7kI74dtR/97id4I0SmKXLc1hdk7n14JzNYa62l1Q3H3/IdxByaz7/yXuUCYW+bsiKACLnpmJvxeEtT/BHIFkW+thHcpWQLS3QrIb6L+qfOcl9LTBGMlRSwIJ08ZQWXxl3ynJduT3jRJtvQsqwo51b0sX2AMA/DQE40RB996p2m1n1pswJC7/kWsAj+BS/F8iyovUYvPMCo5hw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DB9PR04MB9791.eurprd04.prod.outlook.com (2603:10a6:10:4ce::9)
- by AS8PR04MB8676.eurprd04.prod.outlook.com (2603:10a6:20b:42b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 09:54:51 +0000
-Received: from DB9PR04MB9791.eurprd04.prod.outlook.com
- ([fe80::806a:199b:49ec:b4f3]) by DB9PR04MB9791.eurprd04.prod.outlook.com
- ([fe80::806a:199b:49ec:b4f3%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 09:54:50 +0000
-Message-ID: <7b3e3de6-ed2c-417d-b26e-efc582be0ddf@oss.nxp.com>
-Date: Mon, 19 Oct 2026 17:54:41 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] media: amphion: handle core runtime resume failures
-To: Jiale Yao <yaojiale02@163.com>, Ming Qian <ming.qian@nxp.com>,
- Zhou Peng <eagle.zhou@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261019082754.1806443-1-yaojiale02@163.com>
- <20261019082754.1806443-2-yaojiale02@163.com>
-From: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>
-In-Reply-To: <20261019082754.1806443-2-yaojiale02@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2P153CA0028.APCP153.PROD.OUTLOOK.COM (2603:1096:4:190::9)
- To DB9PR04MB9791.eurprd04.prod.outlook.com (2603:10a6:10:4ce::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEdFOg+t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0418F1F000C4;
+	Mon, 19 Oct 2026 09:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792403721;
+	bh=cEDEdBQSjfHF2sgr1B0e6z58gBo2WM/Q9xw4l5QiHv0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FEdFOg+t9QR8ckTMiMXLv+8cjdPdG44hFp6TDdPICFAKaNE+1CCBlpobOSfnRgchx
+	 TX2Q7I5rkdJuVEHA0BfQA+YPXMc5hep5s5Pw4hitbC7PQpZfUVKkHaNkauiW4uWx6j
+	 YB0i2FWG5i/CDU1WV7/bqFEdrH0WULhGg+c8QREU43urszcsKlaVlHluDrorEHffA4
+	 twn4XgnbKQUYZrAbYmNfmrFKb2ucNza8qiFpq00Byu47vMQee6kTiqOZ0lwYzV/Iss
+	 S1+jQdVvF4C2OrvzSU7kBz9NYN0zTJ8WZ/HCdaxWnVLMmdrZI0t9IAm1YhTeK6oG+A
+	 gP6L1rllajBtw==
+Message-ID: <fc2c2f40-8a55-442a-9b0a-d73f040af60d@kernel.org>
+Date: Mon, 19 Oct 2026 10:55:16 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9791:EE_|AS8PR04MB8676:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1cd1da0-e593-4efe-9bd5-08df2dc703d2
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|11063799006|4143699003|56012099006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	etXu+cPpxj0tsRQzz6BVtNbJhU1NB8GVzeXXSindQnem4cd8ttVt7takcc9POt8vFclHPbqHSwMbyN3IsnGyz2PUcm1PLrDkyJjQQsYwQCgyOEMlKB0/wtYv94HrOHq420qPB9d331njzqh2rBipEYon/nFk9s4v3Qa3uuYTYyy9mHtaHMHyQOuIIOnzRy6Irw3Ig0yOeChFG8j9kuPcin8BQ5iBScta7vdMayEC+UhIcpAByIG2QEwjeFCA/ZG49Opg5n889dmTNOW1c1Yrd/YWB2UO7W/9YDuDZbuSQRuHQl3wFmasEJvopwWkfcDQX3vr9rS8WP27Bv526jblta3bRUkrh1rHJj5uFcf3fYUVRuh+Y2ltv/fMXsUSW2BUIbVNx+VESDJsrLdiXbIN6qng1+hLqjv0TJAlv715CfRxYSazbMBwdvAR8u5qRUTOtaWaw2hwOaoFu6zNA5LChrzS88F8HSOiPhUmRLFKauMl0pQ8c/Ziv8pOkeAdyk6bLAftu61sorgXiNa2eGYtqd7KiqbVIQP0RJHY56yKoGksdvOkcYHwBVzA2AYr536J2rvsAGznfYWaL9vr9SZZu6IOPcIlemUukbX0AMgUIb3Ihlagz0YNFE0iYRtt8KZiLdo73QFyXyjkfMFXh2eGjawYIi8U4TQrOaN44QDzzi0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S21DcFlqZWE0MWZva3RiZ3ZBWjVZMGE2cUc2bjY0QSttdVNRellXYlQrbkg0?=
- =?utf-8?B?K0tlRDZCeEtNUjN1eHVTQkFHNlFiR1ZkNS9RUGRtYStKUzdmS2pUbzZMSUQv?=
- =?utf-8?B?UWNDRWh4NEwxU0xPY0NYcjFtR1pzdnM2NkFua3FwYWNqc1dpTG1zQjRVM1FQ?=
- =?utf-8?B?aDgzZW1pQTBIYkMyYTJWU2tEcEUrWUFodnNGRm13M29FSWpkdG9Sa05WbWJa?=
- =?utf-8?B?cjB0M0dScXQvcUtOWi90a29nR1A0MGVrc1RubUg1bHU0a3NHUWpTQ3lRSk9k?=
- =?utf-8?B?aW80Ri82Tm9uZU83TzlOQTBpbTc0VkV4bWxGVVR0cFM2TnF5cVpZcEgrMzZY?=
- =?utf-8?B?U3BNUXNrb2h2aE0yeFRBZWhKczFpYVFETUw5WU1UNUhzVHpKUU5acEFRa3R0?=
- =?utf-8?B?T3BtT0M5UnpDV1laK2ZVaENIYVRrT29BMGV5ZGdIVnJSUy9YSGdNOXhpRjFZ?=
- =?utf-8?B?WWFIMFIzNGl2TUlYamtOQ20rL2RKWjlMc01GRzVGYS94VWlVbDB5dmkrMkpu?=
- =?utf-8?B?d3BPNUw3cGtTL2FBRHM0NFlmMEp1WFJPODJZT3VESDd1Z0ZCZ3MvSk8xYm15?=
- =?utf-8?B?MzVwSnR6R0dTSGlFRTRaa1puOTZONnVYMUpQOFQzZEFNc2g2MytoMG9jaU9B?=
- =?utf-8?B?eHpUZ0RnbmlMT0lXQlpjMUloT0gxUjA4alFoV1czVEx2RitMMDNxUDZkU25Z?=
- =?utf-8?B?NG9aR29YL2lFcDIxV3RtbDlaa0l5dWthMStjeEZCeTNyaXNGa1M1SG5zOXJk?=
- =?utf-8?B?UDdnY3Z5WlI2SXJtRHBqZ2l5bk5Sd3lPdjVuQ25Qd0pSbklsaGIzNGZhVlNN?=
- =?utf-8?B?Y0JINFNNVEc0Vk5GYyt5WGQ0QXI1OFV3aFdqR3NNcVJMVjRTTWtaMmhCR1c4?=
- =?utf-8?B?V1d4R3UxYW9KTEZSN1A3WEhGY3J4Vm9qWm5STGV5L0FON1N3ZmZ0dW4rL3Vm?=
- =?utf-8?B?MXY5S3BwcWdJb0lpTUpxNVYrWEQvekRUbHdBRlZSSk5kbUV0Vmkvczk4bE5M?=
- =?utf-8?B?TExTNFBicnAwWGtEV0VUUEJuTC9NSk5LQWw4MkNnYThlYklveU5oQllRL1F0?=
- =?utf-8?B?alVMY1pycWh6YnFPRzFYekpreTZNcGEzOEh1U3dHZlZMRVk3UG0yaU9pcnZ3?=
- =?utf-8?B?SkwxWGlIUmx6NnlsOWsvUTRGYUZ0NlgwTkJxaGJFZ0xiaG9LQlZ2Z1lDU2RI?=
- =?utf-8?B?eUxibDAyTG1vanZNY0l6N1c2TUhPMFNQTUxXN3F5bm5HUFRJdTAwbUlPVEhi?=
- =?utf-8?B?Zng3R05KQ3lRb1BSWGtLdUtLT01RelJIZHhKVjY4M0UyZ0Nob3VMUGlKOUhG?=
- =?utf-8?B?SnpiUE5lVnYyRVZ6UVlVWWxzcDVCdmZQL3ZiaVN0OU5jbVhiNFpKbGI2YTlh?=
- =?utf-8?B?VlllVGtpTVFwWHdla1hocUlqMVhFSmZWWW03blN6Nk04bEZzYm5RNFNqK3Zi?=
- =?utf-8?B?cXNJZS84R3hWNUlwREl1ZmN4TjRZR2JoaUczU0duQ0JtazR2cElTOElrNElY?=
- =?utf-8?B?UlpMQi9HOHRZdGlCZ3VtbEVxK2hBZFVBeDR0NFJWQW5xK1hXdUJ2NE94MERK?=
- =?utf-8?B?NmRVaW4zaGxDVDFkWmluRXJKdlJEYmlyTWs0dTFHUWpvWmphb2IzYXBudGRF?=
- =?utf-8?B?OS9ZUmlKVjU5TnBwTGREL3VIZ1poZUtXZ2hMK3Z5RHRxcGdWdkc1cFRMdjdQ?=
- =?utf-8?B?WW1HVGhieEp4L3pyQndUSXFHVmpBVWJnQjJHNFY2UXZNMlQ5cFdrRHlQZXY3?=
- =?utf-8?B?UDZsa1J2eUsxcHZqZ1FaNHM2YW5YMzRrWTdhKzdUaFZsKzNReTM1ekMvUTBw?=
- =?utf-8?B?VXdKQUVNVnZRQVIwSzBZQVd0SEJYZWErTVNJYXZ1Znc0SzhXaHhuTzA3Q3Jq?=
- =?utf-8?B?SVJ4NE4vMHJrYStGYUUvYnZsOTJ1TjJwZHJCMVhuQ1c0YzM1QzhYOGVBL1NV?=
- =?utf-8?B?RElNYlRyN3JCNXNuY210VXpqV0hoSjlIZTRRMGlMbDN4Yk9IZlJkMXVkQ2RK?=
- =?utf-8?B?a2ZjN2M3MlhnbGdVTithVmYwSm9uVithTEhIUVgydDZET1dZNnk4TTFHdDJF?=
- =?utf-8?B?UE5PMkg4bXU1VVBQNGx3TW9xMkZwMjRJMHZNZ2xReVBWZVRyOG5KcnNwdmo3?=
- =?utf-8?B?M1BYUWpKOEtxeFRKa1FLTWJTOXMyR2srZFErTjJKWHRkQmpqYk5kYWhtQ29P?=
- =?utf-8?B?TTJQZkdVczFxWk40V1NtcWIwTGFnN2pEOWtkblg4K0p2WEdEMUNqVFdnVWZv?=
- =?utf-8?B?UE9sT2FpdGJQbWlMbUFnV0pmUVhjaWU3SFNrSmNUOHYvdWU4eW9kZjBBUHdt?=
- =?utf-8?B?c0NlVzgraEphRURxTDkyV2Z5QWRNZ1V6VXlWNjlVRkpIN2psbDlxZz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1cd1da0-e593-4efe-9bd5-08df2dc703d2
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9791.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 09:54:49.9644
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1J1jJ+OolSxOqyCPt1fIg/LTy0LtdA7RrPYhc0EChN6mHV7ZSo76Udfx4+ex4zV072geyVuxxRbu0dhxEQMRhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8676
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] phy: qcom-mipi-csi2: fix -EEXIST probe failure on
+ single power-domain SoCs
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, vkoul@kernel.org,
+ kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ neil.armstrong@linaro.org, mani@kernel.org
+Cc: gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
+ vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
+ <0L6D4EGEbw9SabH4L1sIcfqiZK6SmLBEjQEK5ljwkWxWQyXebQ9BNv71oBQmg61s3p8ja2Se4FlB5VtG5EdMXQ==@protonmail.internalid>
+ <20261016235502.2274268-2-anusha.nandi@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261016235502.2274268-2-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-
-On 10/19/2026 4:27 PM, Jiale Yao wrote:
-> The core request and resume paths continue with VPU state and hardware
-> access after pm_runtime_resume_and_get() fails. A failed runtime resume
-> leaves the device unavailable, so those accesses can fail and the later
-> runtime PM put does not match an acquired reference.
+On 17/10/2026 00:54, Anusha Arun Nandi wrote:
+> sa8775p, qcs8300 and sc7280 each list exactly one power-domain ("top")
+> on the CSI2 PHY node. For a device with a single power-domain phandle,
+> the generic platform-bus code (platform_probe() ->
+> dev_pm_domain_attach()) auto-attaches it via genpd_dev_pm_attach()
+> before the driver's own probe() runs. phy_qcom_mipi_csi2_probe() then
+> unconditionally calls devm_pm_domain_attach_list(), which fails with
+> -EEXIST because dev->pm_domain is already set, and the driver treats
+> that as fatal:
 > 
-> Check the runtime resume result before accessing the VPU. Release the
-> core lock and return without touching the hardware when resume fails.
+>    qcom-mipi-csi2-phy ace6000.phy: error -EEXIST: Failed to attach
+>    power-domain list
+>    qcom-mipi-csi2-phy ace6000.phy: probe with driver qcom-mipi-csi2-phy
+>    failed with error -17
 > 
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> x1e80100 is unaffected: it lists three power-domains, so the generic
+> code does not auto-attach any of them (auto-attach only applies to
+> single-power-domain devices); the driver's explicit attach is the
+> only one that runs.
+> 
+> For the single power-domain case, call dev_pm_domain_attach() instead
+> of devm_pm_domain_attach_list(): it returns early when dev->pm_domain
+> is already set, so csi2phy->pd_list is left NULL rather than built up
+> by hand. The three call sites that walk pd_list for genpd
+> performance-state scaling now guard against a NULL pd_list, which is
+> harmless since scaling is unused (scaled = false) on every SoC that has
+> a single "top" domain.
 
-Reviewed-by: Ming Qian <ming.qian@oss.nxp.com>
+Fix implies bug but, this patch really adds support for one power-domain 
+cases.
 
+I think the patch title should be something like "Add support for single 
+power-domain case"
+
+or if you believe it is a bugfix level change add
+
+Fixes:
+Cc: stable@vger.kernel.org
+
+My own preference is "Add support" since the driver hasn't been designed 
+to support single PD cases thus far but, OTOH you could make an argument 
+that that is in fact a design bug.
+
+> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
 > ---
->   drivers/media/platform/amphion/vpu_core.c | 13 +++++++++++--
->   1 file changed, 11 insertions(+), 2 deletions(-)
+>   .../phy/qualcomm/phy-qcom-mipi-csi2-core.c    | 24 +++++++++++++------
+>   1 file changed, 17 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/media/platform/amphion/vpu_core.c b/drivers/media/platform/amphion/vpu_core.c
-> index ad54f014d8..3d71442807 100644
-> --- a/drivers/media/platform/amphion/vpu_core.c
-> +++ b/drivers/media/platform/amphion/vpu_core.c
-> @@ -372,7 +372,12 @@ struct vpu_core *vpu_request_core(struct vpu_dev *vpu, enum vpu_core_type type)
->   		goto exit;
->   
->   	mutex_lock(&core->lock);
-> -	pm_runtime_resume_and_get(core->dev);
-> +	ret = pm_runtime_resume_and_get(core->dev);
-> +	if (ret < 0) {
-> +		mutex_unlock(&core->lock);
-> +		core = NULL;
-> +		goto exit;
-> +	}
->   
->   	if (core->state == VPU_CORE_DEINIT) {
->   		if (vpu_iface_get_power_state(core))
-> @@ -760,7 +765,11 @@ static int __maybe_unused vpu_core_resume(struct device *dev)
->   	int ret = 0;
->   
->   	mutex_lock(&core->lock);
-> -	pm_runtime_resume_and_get(dev);
-> +	ret = pm_runtime_resume_and_get(dev);
-> +	if (ret < 0) {
-> +		mutex_unlock(&core->lock);
-> +		return ret;
-> +	}
->   	vpu_core_get_vpu(core);
->   
->   	if (core->request_count) {
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> index c0a4fa20eaf0..00285be9dd64 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> @@ -43,7 +43,7 @@ phy_qcom_mipi_csi2_set_clock_rates(struct mipi_csi2phy_device *csi2phy,
+>   	}
+> 
+>   	pstate = 0;
+> -	for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
+> +	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
+>   		unsigned int perf;
+> 
+>   		if (!csi2phy->soc_cfg->genpds[i].scaled)
+> @@ -174,7 +174,7 @@ static int phy_qcom_mipi_csi2_power_on(struct phy *phy)
+>   unset_rate:
+>   	dev_pm_opp_set_rate(csi2phy->dev, 0);
+> 
+> -	for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
+> +	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
+>   		if (!csi2phy->soc_cfg->genpds[i].scaled)
+>   			continue;
+> 
+> @@ -204,7 +204,7 @@ static int phy_qcom_mipi_csi2_power_off(struct phy *phy)
+> 
+>   	dev_pm_opp_set_rate(csi2phy->dev, 0);
+> 
+> -	for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
+> +	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
+>   		if (!csi2phy->soc_cfg->genpds[i].scaled)
+>   			continue;
+> 
+> @@ -233,6 +233,19 @@ static int phy_qcom_mipi_csi2_attach_pm_domains(struct mipi_csi2phy_device *csi2
+>   	const char **pd_names;
+>   	int i;
+> 
+> +	/*
+> +	 * A device with a single power-domain entry in the devicetree is
+> +	 * already attached by the generic platform-bus code before probe()
+> +	 * runs (genpd_dev_pm_attach()), so calling devm_pm_domain_attach_list()
+> +	 * here would fail with -EEXIST. dev_pm_domain_attach() returns early
+> +	 * in that case (dev->pm_domain already set) instead of leaving
+> +	 * csi2phy->pd_list unset; this is fine since pd_list is only used for
+> +	 * performance-state scaling, which is unused ("scaled = false") on
+> +	 * every SoC that has a single "top" power-domain.
+> +	 */
+
+This is alot of comment - looks like LLM babble to me. I think it can be 
+dropped the code is pretty obvious, if num_genpds == 1 do this other 
+thing here.
+
+> +	if (csi2phy->soc_cfg->num_genpds == 1)
+> +		return dev_pm_domain_attach(csi2phy->dev, 0);
+> +
+>   	pd_names = devm_kzalloc(csi2phy->dev,
+>   				sizeof(char *) * csi2phy->soc_cfg->num_genpds,
+>   				GFP_KERNEL);
+> @@ -369,11 +382,8 @@ static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
+>   		return ret;
+> 
+>   	ret = phy_qcom_mipi_csi2_attach_pm_domains(csi2phy);
+> -	if (ret < 0 || csi2phy->pd_list == NULL) {
+> -		if (ret == 0)
+> -			ret = -ENODEV;
+> +	if (ret < 0)
+>   		return dev_err_probe(dev, ret, "Failed to attach power-domain list\n");
+> -	}
+> 
+>   	ret = devm_pm_runtime_enable(dev);
+>   	if (ret < 0)
+> --
+> 2.34.1
 
