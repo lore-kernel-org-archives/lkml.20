@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1C353AEAE;
-	Mon, 19 Oct 2026 13:56:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E2E53FA22;
+	Mon, 19 Oct 2026 13:56:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418179; cv=none; b=ZfoxEg+TDmczzAImdFFtIfs4BLdZHJTYGNJFcSg7dL2SJdwobznve9t1QqGhzzzcIoSi2qRyqvPFj3pBF719rf274L0pyNmZpEslfAkZgr6nk/ifYGhVpZUZ2EYqH0xk2C15erjMtgzbstNzN48Mhb4Gw9pB5dXDhBB4gP0PfAM=
+	t=1792418180; cv=none; b=VM22sgQc1pOLc3q+bMC38sr4MlrAWcOoGPsbYHUYqj/Gwu7VVqiKb4O5rCJsB/J5h5+QlTCoBz0mDX+xz+eVMWjRPcqWffF49AS4tHRQYIgz0/DdnmXtG4NHGZX2vOC2T9x9Y66elnQmYyVlTd8QF+UpfJ0hgvsagEiI6kh54T0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418179; c=relaxed/simple;
-	bh=I2TXrsw0dwPSGyIu9U7do2aj1JyZTXoV56b9WsmD+r8=;
+	s=arc-20240116; t=1792418180; c=relaxed/simple;
+	bh=d90ZrNWGybZ/fopWYi0lPp9zHkViaDcRPzWPu+Nm33M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=POGE0lo69a2TqMcN+tEYAYSOcks91rGwcHagVfWt5z2CZ8rQwPYOnSoQEAtgU1Y6SA2wsD70szEH/CsWXkYsxRBB/M9rDgfjq1g56XdSjoRpUuZezQT0jc1370CgW2Kw9Ei0CN8ms/bEXdjsykR20PP22AA6gRvoSD+VIyPqeY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f/UJYnUX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TgoYRjjWVO7M2/bHhr6VXRvPEGbJdG19Gfx9LPZtbQzRfJ0UsRb94TMeQgS2SBTnN8rq2DBRvOKuGU7VHqOvdrnJ0N1nAKeurq6Eb/FJC8OFdDQxWMSYeimvKzolhzaYbTxMPcnOJlCOelJpEcqk5jK+Bw/Pb0vcqfCiEi8+9Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCgHFXK3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f/UJYnUX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBFD21F000C4;
-	Mon, 19 Oct 2026 13:56:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCgHFXK3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30F41F000CC;
+	Mon, 19 Oct 2026 13:56:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418175;
-	bh=++C4Wsz8QikOVQXgFYChxoV4NuDK+ohvb+u2XY/cVT0=;
+	s=k20260515; t=1792418178;
+	bh=2uU7PWYBqpQgVB2lo4xNTADonPX7dwGLfKqej5TgR7E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f/UJYnUXXuXQM2k7DSJHtaYguc3SzGP84gXGYKhF1rYSCcEiUpHTJ1zs6BR0C17xW
-	 QFFC9mmUqsN59z7cAd837VqHx3t9QYevjWOnrc2EKpZR/CpOQSbvYOkT3crKKwSka0
-	 d7h0F1fsvgtYF26fP30zUg2Giy0CNwTKcIpV4zSuLMKesIoKOka5u9qid8ET9Cr78L
-	 duApeSLfQpMlWQeTtXhVcJxhMBIkyr4k2tYzh6D0ld6QAh/8IubRaYhcx8ExQUSD/t
-	 WLJR3Jntx1Td63IqwecvGMvhBNDlPISbWp2IkdiwzGjXnk5t30K9aIbsQFkTBeqYAG
-	 wBfmavr5E5+Kw==
+	b=VCgHFXK34xD1N1KPut+MjIbsumSqfzSsVsyS85ZRwAegaYIAMieNexsef3/8V3jAa
+	 /OqdKarBzLD3qI2V0qsnjw1Wj54R0FSLlbF+9hFRIEYQ57LPwW03x4vPabym6x8eil
+	 6mubKVx0RpDByNM85/EpAo+v2vEHTsGvSlv71pHlWi2VauHu2g17R2Yb/0x/vmCSQ8
+	 i5SDzY8iZvoMLGK2kHkqvh9hgE/f4Ed2dTDfsIRNlzGuU1CVFD/qK0yMXnziUzYgIi
+	 D0iEve0X5995aqenToUdQVDIUr6bVY8SbaqYvi2b08JL0KkrxuxSO/GT9x29sMmO5/
+	 WStE8km1JcTmg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-input@vger.kernel.org,
+	yung-chuan.liao@linux.intel.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] HID: rmi: check report length before trimming sentinel bytes
-Date: Mon, 19 Oct 2026 09:45:57 -0400
-Message-ID: <20261019135441.1420968-66-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] soundwire: intel_auxdevice: Add cs42l44 to wake_capable_list
+Date: Mon, 19 Oct 2026 09:45:59 -0400
+Message-ID: <20261019135441.1420968-68-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,363 +53,397 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit 28a3e326fad2451bdb66b747dd1f7ccbb900eed6 ]
+[ Upstream commit d08e4d9197396ceb906715d976b63aed0c5cc8e5 ]
 
-rmi_check_sanity() trims trailing 0xff sentinel bytes, but its loop
-reads data[valid_size - 1] before checking that valid_size is non-zero.
+Add cs42l44 to the wake_capable_list because it can generate
+jack events whilst the bus is stopped.
 
-Reverse the condition so the length is proved before the last byte is
-inspected.
-
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://patch.msgid.link/20260708122948.1502227-1-ckeepax@opensource.cirrus.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **pending-6.12** (`6.12.111`). The buggy
-`rmi_check_sanity()` loop is still present, the one-line short-circuit
-reorder is not an ancestor of HEAD, and the patch applies here with only
-a line-number offset.
+I have enough to judge this: it is a one-line Intel SoundWire wake quirk
+for CS42L44, which this 7.3-rc4 tree already contains.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## Local tree
+
+- `git describe HEAD`: `v7.3-rc4-27-gf0100363d8c37`
+- `make kernelversion`: `7.3.0-rc4`
+- Makefile: `VERSION=7 PATCHLEVEL=3 SUBLEVEL=0 EXTRAVERSION=-rc4`
+- Commit under review: `d08e4d9197396ceb906715d976b63aed0c5cc8e5`
+- `git merge-base --is-ancestor d08e4d9197396 HEAD`: yes (merged via
+  `soundwire-7.3-rc1`; not in `v7.2`)
+
+Verdict is for this 7.3-rc4 checkout only. `intel_auxdevice.c`,
+`wake_capable_list`, and `is_wake_capable()` are present here. This is a
+host-side ID quirk in an existing Intel SoundWire master driver.
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[HID: rmi]** **[check]** check report length before trimming
-sentinel bytes. Same class of wording as other HID length-check fixes:
-the length must be proved before `data[valid_size - 1]` is read.
+Record: `[soundwire/intel_auxdevice] [Add] [put CS42L44 on the Intel
+wake-capable quirk list]`
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Signed-off-by: Pengpeng Hou \<pengpeng@iscas.ac.cn\> (author)
-- Signed-off-by: Jiri Kosina \<jkosina@suse.com\> (HID maintainer)
-- No Fixes:, Reported-by, Tested-by, Reviewed-by, Acked-by, Link:, or
-  Cc: stable (absence is expected for this review pipeline)
-- Ignore any pipeline “Upstream commit” / Sasha Levin SOB markers
+- `Fixes:` none (expected)
+- `Reported-by:` none
+- `Tested-by:` none
+- `Reviewed-by:` none on the committed version
+- `Acked-by:` none
+- `Link:` `https://patch.msgid.link/20260708122948.1502227-1-
+  ckeepax@opensource.cirrus.com`
+- `Cc: stable@vger.kernel.org`: none (expected)
+- `Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>`
+  (Cirrus, chip vendor)
+- `Signed-off-by: Vinod Koul <vkoul@kernel.org>` (SoundWire maintainer)
+- Ignore any Sasha Levin SOB / `[Upstream commit]` markers (none in the
+  real commit)
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- Bug: `rmi_check_sanity()` trims trailing `0xff` sentinels but
-  evaluates `data[valid_size - 1]` before `valid_size > 0`.
-- Symptom: one-byte out-of-bounds read when the loop has already trimmed
-  the buffer to length 0.
-- Root cause: C `&&` is left-to-right; the original order does the index
-  first.
-- No stack traces, syzbot IDs, or version list in the message.
-- Introducer (from git, not the message): `5b65c2a029664` (“HID: rmi:
-  check sanity of the incoming report”, 2014-09-10), first tagged
-  `v3.18-rc1`.
+- Bug: CS42L44 can raise jack events while the SoundWire bus is clock-
+  stopped, but the Intel master did not treat it as wake-capable.
+- Symptom: headset plug/unplug while audio is idle is missed; bus/system
+  does not wake for jack detect.
+- Version info: none in the message. Commit landed for 7.3-rc1.
+- Root cause (from this patch plus `e66f91a2d10b9`): ACPI does not
+  export wake capability; the codec driver’s `wake_capable` flag is too
+  late (set at probe, after device-number assignment). The Intel master
+  uses a static mfg/part quirk table.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a disguised cleanup. It is an explicit short-circuit-order
-OOB fix. The `valid_size > 0` test was already there; it was just on the
-wrong side of `&&`.
+Record: Not disguised cleanup. Explicit hardware-quirk / device-ID
+addition.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+---
+
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/hid/hid-rmi.c` (1 insertion, 1 deletion)
-- Function: `rmi_check_sanity()`
-- Scope: single-file, one-line surgical fix
+- File: `drivers/soundwire/intel_auxdevice.c` (`+1 / -0`)
+- Function: none; one entry in `wake_capable_list[]`
+- Scope: single-file surgical ID add
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- Before: `while ((data[valid_size - 1] == 0xff) && valid_size > 0)` —
-  when `valid_size` is 0, `data[-1]` is still read.
-- After: `while (valid_size > 0 && data[valid_size - 1] == 0xff)` — the
-  subscript is not evaluated on an empty buffer.
-- Path: runtime HID `raw_event` input, not probe/error-only.
+- Before: `{0x01fa, 0x4244}` was absent, so `is_wake_capable()` returned
+  false for CS42L44 unless firmware already set
+  `slave->prop.wake_capable`.
+- After: match on Cirrus `mfg_id 0x01fa` + `part_id 0x4244`.
+- Path: SoundWire enumeration / device-number allocation
+  (`intel_get_device_num_ida`, `generic_new_peripheral_assigned`), not
+  an error path.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **Memory safety / OOB read.** HID core rejects a zero-length
-report (`hid_input_report()` returns if `!size`), so the realistic
-trigger is trimming an all-`0xff` (or fully trailing-`0xff`) report down
-to 0, then doing one more iteration. That is the exact Dell XPS 13 9333
-bus-sentinel case this helper was written for. One OOB byte is compared
-to `0xff` and discarded; it is not copied to userspace, so this is not
-an info leak, but it is still undefined-behavior / KASAN-class.
+Record:
+- Category: **hardware workaround / device ID in an existing quirk
+  table**
+- Mechanism: Intel Lunar Lake-class wake requires a system-unique SDI
+  and IDA device numbers in a reserved range. Without the list entry,
+  CS42L44 is allocated a non-wake number, `program_sdi()` is skipped,
+  and jack IRQs while the bus is stopped are not handled.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct C short-circuit reorder. No API, locking, or
-control-flow change beyond skipping the illegal index. Regression risk
-is negligible. `rmi_raw_event()` already drops `size < 2` after this
-call.
+Record:
+- Obviously correct: same pattern as CS42L43 (`0x4243`), CS42L45
+  (`0x4245`), CS42L49 (`0x4249`), CS42L43B (`0x2A30`/`0x2A3B`).
+- Minimal: one array line; no API, locking, or structure change.
+- Regression risk: very low. Extra list iteration is cheap; the new ID
+  only matches that part. Wrong SDI assignment would only affect that
+  exact codec, and the vendor authored the entry.
+- Nearby gap (does not make this patch wrong):
+  `drivers/mfd/cs42l43-sdw.c` still has no `SDW_SLAVE_ENTRY` for
+  `0x4244`. DT only gained `cirrus,cs42l44` later (`d4c669890ed08`).
+  This commit is still the correct host-side quirk.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
-Record: Line 389 blamed to `5b65c2a029664` (Benjamin Tissoires,
-2014-09-10). Present since **v3.18-rc1**. Long-lived in this 6.12 tree.
+Record:
+- Table introduced in `e66f91a2d10b9` (2023-07-31, described as
+  `v6.5-rc1-6-ge66f91a2d10b9`): “add hybrid IDA-based device_number
+  allocation”.
+- That commit states the quirk table is expected to grow for each new
+  headset codec because firmware does not provide wake capability.
+- Line `0x4244` itself is this commit (`d08e4d9197396`, Charles Keepax,
+  2026-07-08).
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. Introducer confirmed via blame: `5b65c2a029664`
-is an ancestor of HEAD.
+Record: No `Fixes:` tag. Not applicable. The “bug” is an incomplete
+quirk table, not a regression from a single earlier SHA.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record:
-- Candidate SHA on master: `28a3e326fad2451bdb66b747dd1f7ccbb900eed6`
-  (author date 2026-06-30, committer 2026-08-03). `git merge-base --is-
-  ancestor` vs HEAD: **not in this tree**.
-- Related later commit already here: `ab2958e0c94ed` / upstream
-  `183da103022ec` “HID: rmi: fix OOB access with undersized RMI reports”
-  — probe-time report-size clamps and copy bounds. **Does not change
-  this loop.**
-- Standalone one-line patch, not “X/Y”.
+Record: Same one-line additions: `fe600c8e2dc5d` (cs42l43),
+`f87e5575a6bd1` (cs42l45), `b8f2d65fec19f` (cs42l49), `be6d8daaab654`
+(cs42l43b), `4b8fc2b17272d` (CS47L47), `4e90368e8680d` (es9356).
+Standalone, not `N/M`.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Pengpeng Hou is not the HID maintainer. Jiri Kosina applied it.
-No other hid-rmi commits from this author in this checkout.
+Record: Charles Keepax is a regular Cirrus SoundWire/ASoC contributor
+and also authored the CS42L43B and CS42L49 wake-list entries. Vinod Koul
+applied it.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: None. Same `while` line exists here. `git apply --check` of
-`28a3e326fad24` succeeded (hunk offset 21 from the later OOB patch).
+Record: Depends only on `wake_capable_list` / `is_wake_capable()`,
+present here since `e66f91a2d10b9`. Applies standalone. No new helper or
+struct.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- `b4 dig -c 28a3e326fad24`:
-  https://patch.msgid.link/2026063007016439.1-ccfa108-0006-HID-rmi-
-  check-report-length-pengpeng@iscas.ac.cn
-- `b4 dig -a`: **v1 only** (2026-06-30).
-- Thread (3 messages): submission; Sashiko bot flagging **unrelated pre-
-  existing** read/write OOB in `rmi_hid_{read,write}_block` (later the
-  undersized-report patch already in this tree); Jiri Kosina “Applied,
-  thanks.” (2026-08-03).
-- No NAK. No reviewer asked for Cc: stable.
+- `b4 dig -c d08e4d9197396`: `https://patch.msgid.link/20260708122948.15
+  02227-1-ckeepax@opensource.cirrus.com`
+- `b4 dig -a`: v1 only; committed version is that v1
+- Thread: submit (Keepax) + “Applied, thanks!” (Vinod Koul). No NAK, no
+  v2, no reviewer risk notes, no `Cc: stable` in-thread.
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To Jiri Kosina and Benjamin Tissoires; Cc linux-
-input and linux-kernel. HID maintainers were on the original To: line.
+Record (`b4 dig -w`): To `vkoul@kernel.org`; Cc Bard Liao, Pierre-Louis
+Bossart, linux-sound, linux-kernel, Cirrus patches. Maintainer applied;
+no extra Reviewed-by on this revision.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No syzbot/bugzilla link on this patch. The sentinel behavior
-itself is documented in-tree and in `5b65c2a029664` (Red Hat bugzilla
-1123584 for Dell XPS 13 9333). That is the hardware path that can fill a
-report with `0xff` and drive this loop to length 0.
+Record: No bugzilla/syzbot. Vendor (Cirrus) patch. Later DT text:
+“cs42l44 is a cost optimised variant of cs42l43b” (`d4c669890ed08`).
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Standalone. Sibling OOB work (`HID: rmi: fix OOB access with
-undersized RMI reports`) is already on pending-6.12 and does not subsume
-this change.
+Record: Standalone 1/1. Related later: DT compatible only. MFD SoundWire
+ID for `0x4244` is still missing in this tree.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: **UNVERIFIED** — `lore.kernel.org/stable/?q=...` returned HTTP
-403. No evidence in the linux-input thread that stable was discussed or
-rejected.
+Record: lore.kernel.org/stable fetch returned 403. Web search found
+`[PATCH AUTOSEL 6.19-6.12] ... add cs42l45 codec to wake_capable_list` —
+same class of ID was auto-selected for stable. No evidence this CS42L44
+patch was rejected for stable.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+---
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `rmi_check_sanity()` only.
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: `wake_capable_list[]` data only. Consumers: `is_wake_capable()`,
+`intel_get_device_num_ida()`, `intel_put_device_num_ida()`,
+`generic_new_peripheral_assigned()`.
 
 **Step 5.2: TRACE CALLERS**
-Record: Sole caller is `rmi_raw_event()` (`drivers/hid/hid-rmi.c`),
-registered as `.raw_event`. HID core `hid_input_report()`
-(`drivers/hid/hid-core.c`) calls it after rejecting empty reports and
-resolving a valid `hid_report`. hid-rmi has no `report_table`, so
-`hid_match_report()` matches all reports. `rmi_raw_event()` then
-requires `RMI_DEVICE` (set after probe validates RMI report IDs).
+Record:
+- `is_wake_capable()` is static; three call sites in this file (lines
+  135, 269, 283).
+- `intel_get/put_device_num_ida` are `sdw_intel_ops.get_device_num` /
+  `put_device_num`.
+- `generic_new_peripheral_assigned` is
+  `sdw_intel_ops.new_peripheral_assigned`.
+- Context: Intel SoundWire enumeration / PM, not syscall-hot or IRQ
+  handler body.
 
 **Step 5.3: TRACE CALLEES**
-Record: The function only indexes `data[]` and decrements `valid_size`.
-No alloc/lock/I/O.
+Record: `ida_alloc_range` / `ida_free` for wake devices;
+`hw_ops->program_sdi()` when wake-capable.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: USB/i2c HID interrupt → `hid_input_report()` → `rmi_raw_event()`
-→ `rmi_check_sanity()`. Reachable from Synaptics RMI touchpads
-(`HID_GROUP_RMI` in `hid_scan_report()`, plus specific USB IDs: Razer
-Blade, Lenovo X1 cover, Primax, Acer Switch). Unprivileged USB can also
-feed HID reports. Userspace-reachable: **yes** (device I/O, not a
-syscall that crafts the buffer directly).
+Record: ACPI Intel SoundWire controller → peripheral enumeration →
+device number → optional SDI programming. Reachable on Intel laptops
+with this codec when audio clocks stop (idle/runtime PM). Not a
+userspace-triggered memory-safety bug; it is a device-operation path.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Only this loop in hid-rmi. Same-tree HID length checks already
-backported include `HID: lg4ff: validate report length before fixed
-offsets` and `HID: wacom: validate report length in
-wacom_intuos_pro2_bt_irq`.
+Record: Same Cirrus IDs already in the table (`0x4243`, `0x4245`,
+`0x4249`, `0x2A30`, `0x2A3B`). `sdca_class.c` binds
+`0x4245`/`0x4249`/`0x4747` but not `0x4244`. `cs42l43-sdw.c` binds
+`0x4243` and `0x2A3B` only.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: **Yes.** `drivers/hid/hid-rmi.c` lines 389–390:
-`while ((data[valid_size - 1] == 0xff) && valid_size > 0)`. Introduced
-v3.18, still here on 6.12.111. Candidate `28a3e326fad24` is **not** an
-ancestor of HEAD.
+Record: Yes, the Intel quirk table and lookup exist
+(`drivers/soundwire/intel_auxdevice.c`). Without this ID, CS42L44 would
+not be wake-capable here. `e66f91a2d10b9` is from 2023; the table is
+long-lived. This commit is already in 7.3-rc1+, so the ID is present at
+HEAD; the evaluation is whether that change belongs in this tree’s
+stable stream, not whether 6.x is different.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply with +21 line offset. No refactor of this helper.
+Record: Clean apply: insert `{0x01fa, 0x4244}` next to the other Cirrus
+entries. No refactor needed on this tree.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: `ab2958e0c94ed` is a different OOB (report descriptor / copy
-length). It does not reorder this condition. No earlier equivalent of
-this one-liner.
+Record: This SHA is already an ancestor of HEAD. Sibling codec IDs are
+already in the same table. No alternate CS42L44 wake fix.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 **Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **HID / hid-rmi** (Synaptics RMI4 over i2c-hid/usbhid).
-**IMPORTANT** for laptops with Synaptics HID touchpads; not mm/VFS core,
-but not staging/obscure either.
+Record: `drivers/soundwire/` Intel master (`CONFIG_SOUNDWIRE_INTEL`).
+**IMPORTANT** for Intel laptop audio, not core mm/VFS. Peripheral
+relative to the whole kernel; standard for headset jack/wake.
 
 **Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: hid-rmi is mature (2014+). Recent churn is security-style OOB
-hardening, not a rewrite of this path.
+Record: Active (regular wake-list IDs, DMI quirks, cadence clock-stop
+work). The table mechanism itself has been stable since 2023.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 **Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific: CONFIG_HID_RMI / Synaptics RMI HID devices
-(common on some Dell/Lenovo/Acer laptops). Also any malicious HID gadget
-bound as hid-rmi.
+Record: Intel SoundWire hosts with Cirrus CS42L44 (`mfg 0x01fa`, `part
+0x4244`). No effect on other devices.
 
 **Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: A report whose remaining bytes are all `0xff` (documented XPS 13
-9333 bus glitch, or a device sending that pattern). After the last
-decrement, `valid_size == 0` and the next condition still reads
-`data[-1]`. Not every report; it is the sentinel path this function
-exists to handle. Physical HID access required; not a random
-unprivileged syscall.
+Record: Jack insert/remove while the SoundWire bus is stopped (runtime
+idle / clock stop). Common on laptops. Not a security trigger from
+unprivileged syscalls.
 
 **Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: One-byte heap underflow read. Typical result: KASAN report;
-crash only if that byte is unmapped (uncommon for kmalloc). Not data
-corruption. **Severity: HIGH** for memory safety / HID attack surface,
-not a guaranteed panic.
+Record: Missed jack / wake events (headset not detected until something
+else restarts the bus). **MEDIUM** functional hardware bug; not
+oops/corruption. Covered by the hardware-quirk exception.
 
 **Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- Benefit: stops a real OOB on a long-lived, hardware-motivated path; 1
-  line.
-- Risk: very low (boolean operand swap).
-- Ratio: strongly in favor of backport.
+- Benefit: restores jack-wake on CS42L44, same as sibling Cirrus codecs.
+- Risk: very low (one static ID).
+- Ratio: strongly favors backport.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+---
+
+## PHASE 9: FINAL SYNTHESIS
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
 FOR:
-- Real OOB; the `> 0` check was present but evaluated too late.
-- Trigger matches the in-tree Dell XPS sentinel comment, not a
-  hypothetical size=0 from HID core.
-- Code has been in this tree since v3.18.
-- 1-line, obviously correct; HID maintainer applied v1 as-is.
-- Applies cleanly; no prerequisites.
-- Same class as other HID length-check stable backports already on this
-  branch.
+- One-line ID in an existing Intel SoundWire quirk table
+- Real hardware: CS42L44 is a documented CS42L43B cost-down variant
+  (Cirrus + DT `cirrus,cs42l44`)
+- Without it, jack events while the bus is stopped are dropped (by
+  design of `e66f91a2d10b9`)
+- Same pattern already used for cs42l43/45/49/43b; cs42l45 was AUTOSEL’d
+  for stable
+- Vendor author, SoundWire maintainer applied, v1 accepted
+- Applies cleanly; no new API
 
 AGAINST:
-- No Fixes:/Cc: stable/syzbot (not a negative under these rules).
-- Single-byte read, not a demonstrated oops or leak.
-- Affects hid-rmi users, not every machine.
+- Not a crash/UAF/security fix
+- No `Reported-by` from end users
+- MFD `cs42l43-sdw.c` still lacks `0x4244`, so codec bind on Intel SDW
+  is incomplete in this tree
+- No in-thread `Cc: stable` (not a negative per rules)
 
 UNRESOLVED:
-- Could not search lore.kernel.org/stable (HTTP 403).
+- lore.kernel.org/stable search HTTP 403
+- How many shipping Intel SKUs use CS42L44 (unverified; vendor patch is
+  the evidence)
+
+The missing MFD ID is a separate gap. This patch only teaches the
+**Intel master** to treat the part as wake-capable at enumeration, which
+must happen before codec probe. That is exactly what this table is for.
 
 **Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — C short-circuit; applied by
-   Jiri Kosina.
-2. Fixes a real bug that affects users? **PASS** — OOB on the sentinel-
-   trim path this driver documents.
-3. Important issue? **PASS** — memory-safety OOB on HID input (HIGH, not
-   a guaranteed panic).
-4. Small and contained? **PASS** — 1 line, one function.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — buggy line present; `git
-   apply --check` succeeded.
+1. Obviously correct and tested? **PASS** — one ID, established table,
+   maintainer applied
+2. Fixes a real bug that affects users? **PASS** — missed jack/wake on
+   CS42L44
+3. Important issue? **PASS** via hardware-quirk exception (broken jack
+   detect while bus stopped)
+4. Small and contained? **PASS** — +1 line, one file
+5. No new features or APIs? **PASS** — ID in existing quirk list, not a
+   new driver
+6. Can apply to the local tree? **PASS** — `wake_capable_list` exists;
+   patch is a clean insert
 
 **Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: None. Ordinary small bugfix.
+Record: **Hardware quirk / device ID addition to an existing driver**
+(`wake_capable_list` in `intel_auxdevice.c`). Prompt: these are YES for
+stable.
 
 **Step 9.4: MAKE YOUR DECISION**
-This belongs on **this** 6.12 tree: the bug exists here, the later
-undersized-report patch does not fix it, and the change is a one-line
-operand swap with no API or locking impact.
+This tree has the Intel SoundWire master and the quirk table. Adding
+CS42L44 is the same class of change as USB/PCI ID and codec quirks:
+small, obviously correct, and required for real hardware. Benefit
+outweighs risk.
 
-===============================================================
-What the commit solves for stable users
-===============================================================
-`rmi_check_sanity()` is supposed to strip trailing `0xff` filler from
-Synaptics HID reports. Because `&&` evaluates left-to-right, an all-
-sentinel report is trimmed to length 0 and then still reads `data[-1]`.
-Laptop touchpads that hit that bus glitch, and USB HID devices that send
-the same pattern, can fire a KASAN OOB on every such report. Reordering
-the condition makes the existing length check actually protect the
-index.
+---
 
-Risk vs benefit: benefit is a real memory-safety hole on a driver
-already receiving other OOB backports; risk is a one-line boolean
-reorder. No dependencies beyond code that has been here since v3.18.
+## What the commit solves for this tree
 
-===============================================================
-Verification
-===============================================================
-- [Phase 1] Parsed subject/body/tags: no Fixes/Reported-by/Cc: stable;
-  SOBs Hou + Kosina.
-- [Phase 2] Diff: 1 line in `rmi_check_sanity()`; operand order only.
-- [Phase 3] `git describe HEAD` / Makefile: **pending-6.12, 6.12.111**.
-- [Phase 3] `git blame -L 379,410 -- drivers/hid/hid-rmi.c`: introducer
-  `5b65c2a029664` (v3.18-rc1).
-- [Phase 3] `git merge-base --is-ancestor 5b65c2a029664 HEAD`: yes;
-  `28a3e326fad24`: **no**.
-- [Phase 3] Current file still has `while ((data[valid_size - 1] ==
-  0xff) && valid_size > 0)`.
-- [Phase 3] Related `ab2958e0c94ed` already in tree; does not touch this
-  loop.
-- [Phase 3] `git show 28a3e326fad24 | git apply --check`: hunk succeeded
-  at offset 21.
-- [Phase 4] `b4 dig -c 28a3e326fad24`: lore msgid
-  `2026063007016439.1-ccfa108-...`; To: Kosina + Tissoires.
-- [Phase 4] `b4 dig -a`: v1 only; Kosina “Applied, thanks.”
-- [Phase 4] Mbox: Sashiko comments are about other pre-existing OOBs,
-  not this line.
-- [Phase 5] Callers: `rmi_raw_event` ← `hid_input_report`; empty `size`
-  rejected at hid-core.c:2111–2115.
-- [Phase 6] Bug present; apply clean; no duplicate fix.
-- [Phase 8] Failure mode: 1-byte OOB read on all-`0xff` reports; HID
-  input path.
-- UNVERIFIED: stable@ lore search (HTTP 403).
+On Intel SoundWire, device numbers for wake-capable codecs must be
+assigned at enumeration from a reserved IDA range, and SDI must be
+programmed. Firmware does not advertise wake capability, and the codec
+driver has not probed yet, so the master uses `wake_capable_list`.
+CS42L44 can generate jack IRQs while the bus is clock-stopped; without
+`{0x01fa, 0x4244}` those events are lost. That is a real user-visible
+headset-detect failure, not a new feature.
+
+Risk is a single static table entry. No locking, alloc, or ABI change.
+
+---
+
+## Verification
+
+- [Phase 1] `git show d08e4d9197396 --format=fuller`: tags as listed;
+  body is the two-line jack-event rationale
+- [Phase 2] Diff: `+{0x01fa, 0x4244}` only in `wake_capable_list`
+- [Phase 2] Read `intel_auxdevice.c`: `is_wake_capable()` used at lines
+  135, 269, 283
+- [Phase 3] `git blame -L 53,77 drivers/soundwire/intel_auxdevice.c`:
+  table from `e66f91a2d10b9`; this ID from `d08e4d9197396`
+- [Phase 3] `git show e66f91a2d10b9`: explains why the quirk table
+  exists and will grow
+- [Phase 3] `git merge-base --is-ancestor d08e4d9197396 HEAD`: yes; not
+  an ancestor of `v7.2`; is in `v7.3-rc1`
+- [Phase 3] No `Fixes:`; related one-liners listed above
+- [Phase 4] `b4 dig -c/-a/-w/-m`: v1 lore thread; Vinod applied;
+  recipients include Liao, Bossart, linux-sound
+- [Phase 4] WebSearch: AUTOSEL of the cs42l45 equivalent; CS42L44 thread
+  has no NAK
+- [Phase 4] UNVERIFIED: stable@ lore (HTTP 403)
+- [Phase 5] Callers confirmed by grep in
+  `drivers/soundwire/intel_auxdevice.c`
+- [Phase 5] `cs42l43-sdw.c` id_table: `0x4243` and `0x2A3B` only — no
+  `0x4244` (verified)
+- [Phase 6] `git describe HEAD` / `make kernelversion`: 7.3.0-rc4; file
+  and table present
+- [Phase 6] `git show d4c669890ed08`: DT `cirrus,cs42l44` = cost-
+  optimised CS42L43B
+- [Phase 8] Failure mode: missed jack/wake, not oops; quirk exception
+  applies
 
 **YES**
 
- drivers/hid/hid-rmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/soundwire/intel_auxdevice.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/hid/hid-rmi.c b/drivers/hid/hid-rmi.c
-index d55a0388895fb..ecc19387f6b05 100644
---- a/drivers/hid/hid-rmi.c
-+++ b/drivers/hid/hid-rmi.c
-@@ -386,7 +386,7 @@ static int rmi_check_sanity(struct hid_device *hdev, u8 *data, int size)
- 	 * such reports here.
- 	 */
- 
--	while ((data[valid_size - 1] == 0xff) && valid_size > 0)
-+	while (valid_size > 0 && data[valid_size - 1] == 0xff)
- 		valid_size--;
- 
- 	return valid_size;
+diff --git a/drivers/soundwire/intel_auxdevice.c b/drivers/soundwire/intel_auxdevice.c
+index c0c8ffcecc6bf..347e06ad6edba 100644
+--- a/drivers/soundwire/intel_auxdevice.c
++++ b/drivers/soundwire/intel_auxdevice.c
+@@ -54,6 +54,7 @@ static struct wake_capable_part wake_capable_list[] = {
+ 	{0x01fa, 0x2A30},
+ 	{0x01fa, 0x2A3B},
+ 	{0x01fa, 0x4243},
++	{0x01fa, 0x4244},
+ 	{0x01fa, 0x4245},
+ 	{0x025d, 0x5682},
+ 	{0x025d, 0x700},
 -- 
 2.53.0
 
