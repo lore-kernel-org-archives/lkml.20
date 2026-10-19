@@ -1,47 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69373383987;
-	Mon, 19 Oct 2026 11:48:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED4143E48B;
+	Mon, 19 Oct 2026 11:48:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792410490; cv=none; b=TIeHVUDt3tzlGZYsdy71sA0e4VDlOmBI/er+kAe/5riD2kh8wtMYqBNRICu4gR7ZF4gZxACbZ/rUm8b1GfFW3H8FNYRFzZusH7lvhhYzqxe31/5l6vOZHEB7QUb5vd5JVyIBnmNPPCrI6BBzwQ0HD7CCCqwcf6Y0rwJZT1Dlqdc=
+	t=1792410491; cv=none; b=h/IMbqYepJXaQrnuXSHpmgbQYrfGVruGxIWjIan55eCXacMJkq/D2y7bMFtsekXckexQ6iRqfliXJ1BEtEt40KXPM9RPWktNIkEmNmwBRnLdlFEB52sO3xHNizYkk7L5wTh0YzkybazmaYGIfbHJsIunWQ+EmWpRLKgLdfgjZ2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792410490; c=relaxed/simple;
-	bh=j9DTdzuMHp6o2ymNuO91s3arRm/GC2Fm9oPBrZ35KvY=;
+	s=arc-20240116; t=1792410491; c=relaxed/simple;
+	bh=p2RC2pRCO+1oiOyqh6qwIORQiDJGoZ7BkU65dixdI+s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DJ4wSpa4aLJhfAO3cMr4krUB6MGetltG76o+VGBNfVhWDfKQop6zbkAB6e3uxnX5fyUqTQj/3zHjQpJnAJPSDOeou1t0YR8AJ7Wy+4g+fDkurUj4VfOwmMiHJ/dZkIVf0OR4ZKcXkmVjilND10R299MmrxBpy+vebt1P8BIuj3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CR1MaVtJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dJorRFEBlNfdffe3jLtQvXcBK5UEpoYlNOFNWVoA15oiH4hOXe4z89Xx0s+axEOj6JjbbJxBKNcpVw2W6VR+udCB5t2MW4ejus8T3keiQDUcsOedg5kHx58KYbS8lahiXooFaOEwMMcVSkBIEnvW7HQ/hO85mKK3s/kbMsI9Mk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nMWlJvWv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CR1MaVtJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CD6B1F000C4;
-	Mon, 19 Oct 2026 11:48:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nMWlJvWv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3D21F000C8;
+	Mon, 19 Oct 2026 11:48:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792410489;
-	bh=XhZkuF2eR/i1Yi28UvjfvoNq7TSSm4cB7UNJ+LdTcQw=;
+	s=k20260515; t=1792410490;
+	bh=RtoIVqaodiCg+dNzww+iraTc1OL+OOJjUO/4Brgj6sE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CR1MaVtJ167CuSeKTS3I+2mULrZaj89GmcgdNXb8XNt5hq0auJzKE7aEFP4ExUGPs
-	 BMwQOR+PTXgkxgGvdJPpy3Eo2ls+RW968PNMJxrioZCYB43t1+31uQm3sHxyzySVsf
-	 +bkwi1QoSdYnZ2u5MmA/+SUQDvvjd1dMA13iEjyQOcamcK1YV83zJXLLl1X3fzXu5s
-	 NjY+hD9vKAlygm4LqcR0GC0ngTP8dQDMwiNF7D9oW2sNYU+ST0u9jIUYDRAE1UuYlv
-	 IGmVdEkc2u3OtS9YdoxEvMAIKRZ6jBDkxYE2uU740B9Jjih0vbkkdZeHCcZpnlv4RC
-	 04N/fTnvCXVOQ==
+	b=nMWlJvWvDZSLr536rhVgq5a0ctHr9LnDSHs3GBBEBBEN20pMnzEOEz3SPTrpz4rey
+	 ENUmDHUPGOCoqKHiN07iWa3nd2l0Tt2TiSgKDLL0Z4O3sc4Ec0i62oI5hL10vXDpS8
+	 WrxVKZplWVvyaAQySzgnMxOsDAVSq78Kq/kPphLWJhT8wZy/tX8xrQEzJRySjGHOmk
+	 JuOXhVUvVM7J/q+o1XYiI4l9Bp/1UPu8GjaNBsW6o1u0UF1Se6wkhXispFso3EfdTn
+	 KcuhAVGqDy6/0N7TX7EF0g16KBzAFoSfXJT4DXcXZRFz3w1sVDKBbD+DRTtwOd2bKD
+	 QZXr3rvO9/h/w==
 From: Sasha Levin <sashal@kernel.org>
 To: Mark Brown <broonie@kernel.org>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
+Cc: Igor Korotin <igor.korotin@linux.dev>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Carlos Song <carlos.song@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Pei Xiao <xiaopei01@kylinos.cn>,
+	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-next@vger.kernel.org
-Subject: Re: linux-next: manual merge of the fs-next tree with the mm tree
-Date: Mon, 19 Oct 2026 07:48:05 -0400
-Message-ID: <20261019114806.1298980-1-sashal@kernel.org>
+Subject: Re: linux-next: manual merge of the i2c-rust tree with the origin tree
+Date: Mon, 19 Oct 2026 07:48:06 -0400
+Message-ID: <20261019114806.1298980-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <f7d2fe6f-558a-4bf6-bf17-00f3842b923a@sirena.org.uk>
-References: <arUS5b85ed6L01qc@sirena.org.uk> <arZn0IB-L3hnNniw@cronus.toxiclabs.cc> <f9ddfd24-ee1b-47d9-a906-299421247b1d@sirena.org.uk> <araNBVKW6MXR97P1@cronus.toxiclabs.cc> <20260925141448.57220a7d3f76b92d8f1cb130@linux-foundation.org> <99ec7529-0733-4d04-a30c-d9a2b299182f@huawei.com> <f7d2fe6f-558a-4bf6-bf17-00f3842b923a@sirena.org.uk>
+In-Reply-To: <aqK86A1SuLKQP5Gi@sirena.org.uk>
+References: <aqK86A1SuLKQP5Gi@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,62 +50,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 01:48:14PM +0100, Mark Brown wrote:
-> There is a fixup in -next already which is hopefully OK, I don't recall
-> it being especially bad so probably Linus would be OK with resolving it.
+On Thu, Sep 10, 2026 at 03:21:28PM +0100, Mark Brown wrote:
+> Today's linux-next merge of the i2c-rust tree got a conflict in:
+>
+>   drivers/i2c/busses/i2c-imx-lpi2c.c
 
 Hi Mark,
 
-The fixup in -next takes the mm side of xfs_btree_split_worker()
-verbatim, which puts xfs_trans_set_context()/xfs_trans_clear_context()
-back and drops
+The probe hunk of this resolution takes the i2c-rust side, which
+reverts
 
-23f91a51425e ("xfs: fix NOFS state corruption in btree split worker")
+27c9445be86b ("i2c: imx-lpi2c: avoid accessing target registers on master-only controllers")
 
-next-20261016 still has it this way.
+SCR is written unconditionally again, so master-only controllers such
+as i.MX8QM are back to the asynchronous SError at probe. target_supported
+is also never set, so lpi2c_imx_register_target() always returns
+-EOPNOTSUPP. It builds without warnings, and next-20261016 still has it.
 
-The two changes are independent:
-
-2e6a6ca06fec ("xfs: remove dead kswapd flag inheritance from btree split worker")
-
-removes the pflags handling, and the xfs fix replaces the transaction
-context calls with a local memalloc_nofs_save()/memalloc_nofs_restore().
-The resolution should keep both. The delta against next-20261016 is
+That block should match mainline. The delta against next-20261016 is
 below.
 
-Neither tree conflicts with v7.3 here on its own, so whichever of the mm
-and xfs pull requests goes second will hit this. Andrew, Carlos, could
-that pull request point Linus at this resolution rather than the one
-earlier in this thread?
+The conflict comes back on every merge because rust-i2c-next carries
+older copies of mainline's lpi2c commits, for example
 
-This is the resolution llminus generates:
+90311787f483 ("i2c: imx-lpi2c: reset controller in probe stage")
 
-diff --git a/fs/xfs/libxfs/xfs_btree.c b/fs/xfs/libxfs/xfs_btree.c
-index 6738d9d1511bc..2434c54a35708 100644
---- a/fs/xfs/libxfs/xfs_btree.c
-+++ b/fs/xfs/libxfs/xfs_btree.c
-@@ -3007,12 +3007,18 @@ xfs_btree_split_worker(
- {
- 	struct xfs_btree_split_args	*args = container_of(work,
- 						struct xfs_btree_split_args, work);
--	xfs_trans_set_context(args->cur->bc_tp);
-+	unsigned int		nofs_flags;
-+
-+	/*
-+	 * Don't use xfs_trans_set_context() here: it would overwrite the
-+	 * caller's saved NOFS state in tp->t_pflags. Use a local scope.
-+	 */
-+	nofs_flags = memalloc_nofs_save();
- 
- 	args->result = __xfs_btree_split(args->cur, args->level, args->ptrp,
- 					 args->key, args->curp, args->stat);
- 
--	xfs_trans_clear_context(args->cur->bc_tp);
-+	memalloc_nofs_restore(nofs_flags);
+This is what llminus generated:
+
+diff --git a/drivers/i2c/busses/i2c-imx-lpi2c.c b/drivers/i2c/busses/i2c-imx-lpi2c.c
+index dd5b8bcd05d04..7302464c371ae 100644
+--- a/drivers/i2c/busses/i2c-imx-lpi2c.c
++++ b/drivers/i2c/busses/i2c-imx-lpi2c.c
+@@ -1553,13 +1553,23 @@ static int lpi2c_imx_probe(struct platform_device *pdev)
+ 	pm_runtime_enable(&pdev->dev);
  
  	/*
- 	 * Do not access args after complete() has run here. We don't own args
-
+-	 * Reset all internal controller registers of both Master and Target
+-	 * to avoid effects of previous status.
++	 * Reset all internal controller registers to avoid effects of any
++	 * state left over from a previous stage (e.g. the bootloader).
++	 *
++	 * The Master block (MCR) is present on every controller, so reset it
++	 * unconditionally. VERID shows whether the target feature is supported.
++	 * Do not touch the Target block (SCR) on a master-only controller to
++	 * avoid an asynchronous SError.
+ 	 */
+ 	writel(MCR_RST, lpi2c_imx->base + LPI2C_MCR);
+-	writel(SCR_RST, lpi2c_imx->base + LPI2C_SCR);
+ 	writel(0, lpi2c_imx->base + LPI2C_MCR);
+-	writel(0, lpi2c_imx->base + LPI2C_SCR);
++
++	lpi2c_imx->target_supported = !!(readl(lpi2c_imx->base + LPI2C_VERID) &
++					 VERID_FEATURE_TARGET_PRESENT);
++	if (lpi2c_imx->target_supported) {
++		writel(SCR_RST, lpi2c_imx->base + LPI2C_SCR);
++		writel(0, lpi2c_imx->base + LPI2C_SCR);
++	}
+ 
+ 	ret = devm_request_irq(&pdev->dev, lpi2c_imx->irq, lpi2c_imx_isr, IRQF_NO_SUSPEND,
+ 			       pdev->name, lpi2c_imx);
 -- 
 Thanks,
 Sasha
