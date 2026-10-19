@@ -1,669 +1,504 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657E162D319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8E553F9BB;
+	Mon, 19 Oct 2026 14:05:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418722; cv=none; b=FUSJDMuI0vZyOfEA23xl/owmPYoOafS7+QogLluuTiw7DnkSHA1O3HjUVSajstbvqc/dP5tQZk4xZcQWqtv7pfJo/LzOOGMlxvZWs3JFqqyCFN8UTBZT7ssAm0swCM9Yrp/D/wlTieQaqN/JMec6fZO7FwEfACHJOLrrbpjmwmU=
+	t=1792418723; cv=none; b=L2j8WdLE65xvbTu/M+lKW+jjKnPL1IFdgx6S1Plv9H703zGfDhrDwB76OHES3WRSMq0SWOw9FvRI9e+3tT6b66gfANoDhfirDLTYv4LnLDvC/i4GeKWZUjUn1fUMsLUMfkLT37RKd9zoYcx8nwYblTpKFllmf0xr7UGoAPMApfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418722; c=relaxed/simple;
-	bh=tmEiYkXBJICbx9511/42bzdA+vfIAGw4IUISTCCAh4A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XMnBooc9EyPienerPm3w24erQjel7FNqoLlk8IBr15j26uKUaFK0XytqR+/SHRbYrjfg68hq4CIr1cdGz1CKAvMSJ2VLVVQO+2YYjcK42DlgP69KMUuKGkiD0+xMb98WCMFTLYNVKdg1oOF4nHdGxpbLYKOLdpgmnwDhq7CDZrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UIcyZhI4; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ahNAFgUj; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792418723; c=relaxed/simple;
+	bh=++X0frGjoGy9FF1OPPzbPItCI8j7Z01sMLl2eAaan/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gU7B7nNMM18HPEhDLimBshjRamlx2Wd0QBjhuNZ16nkSYNe2W4bRaPeA8j/GJeYkQht0eBsoE1cNts2UQhVwEYi8MLtjhyn1eGemRUeja66elvvsoqneKB0GIyJ2L/RFm6ZQRRgiBNHh976o6pivlZsW/xp7sB+vW56w8i0ppSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eK0XhjQg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UIcyZhI4";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ahNAFgUj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792418716;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ezmLGOLVcnsCSf4Mk5iUqNISUf1eff4TWMy+ztjXUUY=;
-	b=UIcyZhI4CmEV6G++bdlFb8fbAns1uTUpcXHJPHa5/b9fmpyqNV2qix8vb2hx2ptoQA3Kpf
-	iT8toZoKirQefPkDDFg6Q5mGd1R67hLJsEj0WGJmhvSBhMDZkbGEdod0uAi06wu5Tr8Rbn
-	Etk4BLuWjfiIQHjtf2GQURB+/niU0d8=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-679-E8UfrFoCNJeiXOdwwCKV3A-1; Mon, 19 Oct 2026 14:05:14 +0000
-X-MC-Unique: E8UfrFoCNJeiXOdwwCKV3A-1
-X-Mimecast-MFC-AGG-ID: E8UfrFoCNJeiXOdwwCKV3A_1792418714
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c415561aaso1481573f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:05:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792418713; x=1793023513; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ezmLGOLVcnsCSf4Mk5iUqNISUf1eff4TWMy+ztjXUUY=;
-        b=ahNAFgUjB3BzLUSK9GEX2Kb44fpldDULpv9WujtHR9nbMAKPnNwMa5W5rtmh0UGJXC
-         722y60c5nqx7QdeqrbGqtEuBMBU9Ez7uZUr3TEXHL+I5OB3bfXWTHLxvz+bjoFnzVC1Q
-         e1++YpPbNdye9GT8T0K6SAl3C110qV/dYkN5LKNV8AKiiwK4SLzqN/mbIvN9vJYixuu4
-         p7AkeOUWc+XUL2S4wqLz57rHJYjnRfThr0DqZLeNpiOdbyvjrQTuqh/EHesMeXNr59nA
-         HasPL7y6Z701blEfIysBGA4AmcjrcImPGxuLyctGBSkA+jIY8HLkue3eyNGK1AdrQyuo
-         JRGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792418713; x=1793023513;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ezmLGOLVcnsCSf4Mk5iUqNISUf1eff4TWMy+ztjXUUY=;
-        b=NpZO29vUJL2uhBxMjeGXlSjFS2PkXdMV4Gg8JsmGzoF2TLPq1lmYXKGPV58XCDk7PS
-         29ok9Xc+X8MfJl+7gIZRY6WRsW2YUR3olUCnEc/4JxOgiKZdlOh0bxyo9XT3Ckwu8pUl
-         wDv8VYxQe9eNr9Vd7FlaThG5vHzf0BlT08bzKlOwBFOfuDTA5xtqW+fwOh3ITil7arE8
-         d8qPINWwGrsKdEVnSz4QhGsEeJSjyEwVn/E/EffrTGErx9k2z8q/knajW0eeArxfM7zo
-         O5yBAySR0qiZDB7ms8Iw3kAMLuIiDKK2P+yina6Hu06MATqzBmMxOiPV1ycYutKzgjzC
-         4/6g==
-X-Forwarded-Encrypted: i=1; AKwUvBzHDGrKzSceHMk4KOGTedk1kP5ljHfKXsxohYTI10Sp85WLAsbh/+UeAuCtmSIC26l/lX/ZcIyDI7DYcn0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJzXPfinkOHvYO8nEQ7wkpj1OVaZGpzouUFt216+qKbO64UX6m
-	T8/xmBIozmCRk/+9jOcRYJZa8WeEmjwpYeYoZqIqcTH7/D5wS1tfDTUzG4lFZxARYCdJVYcvf8+
-	/6JGo4y2hHQiox2euA50aDvYxP49lz7+uTIIFeU7+JHaPdsHwnaxv45P/bE7sKnFaHg==
-X-Gm-Gg: AYBFou2tYfwtjmxwyu2IpFOm/M0205hMkhKwVYEwG7PqxIxwngd6TBRsW+JAVrXi8AT
-	bu37XiJCz+tCG34GB9WXo0gHGrOIB0C3+R8pVVtAXZjOan5u9k6Lt3DRftObyyP+FcicgQAMd4s
-	p87YFqSKiN3A2tjlvd0e6PCXURGDRuKBNIlVZ8yeaAVg6TtSnq9ffxU5d+ZxUElcCexJu19g6qq
-	2YVGZQ627tEhQGjs2xpSOnoKteDLjN47WVxLDRjXgii+EMHmy+NhwqGgnGdnPFI+RPSxOVofsjq
-	oARcQYiC9GfGhD5q+coJhoe+3HhRAwpMUMlPeDVYM0Q4Ighm90LjpsoUj8nDGi3IdFi47FPsgq5
-	dtdtI
-X-Received: by 2002:a05:600c:4f92:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4a1d76120c4mr175541675e9.23.1792418713183;
-        Mon, 19 Oct 2026 07:05:13 -0700 (PDT)
-X-Received: by 2002:a05:600c:4f92:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4a1d76120c4mr175540065e9.23.1792418712391;
-        Mon, 19 Oct 2026 07:05:12 -0700 (PDT)
-Received: from sgarzare-redhat ([193.207.74.151])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cbedb6f7sm306709635e9.2.2026.10.19.07.05.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 07:05:11 -0700 (PDT)
-Date: Mon, 19 Oct 2026 16:05:04 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Jia Jia <physicalmtea@gmail.com>
-Cc: stefanha@redhat.com, mst@redhat.com, jasowangio@gmail.com, 
-	eperezma@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bobbyeshleman@gmail.com
-Subject: Re: [PATCH net-next v4 2/4] vsock/virtio: amortize RX socket locking
- for stream packets
-Message-ID: <atYiS6jfctHKksVM@sgarzare-redhat>
-References: <20261014115640.184286-1-physicalmtea@gmail.com>
- <20261014115640.184286-3-physicalmtea@gmail.com>
- <atIrLeH8uOCHxsbv@sgarzare-redhat>
- <CAJwVaMJsBKZSVwaJqTEU_GCFrc2q7dEghMTykR5Jgrj+dv45=w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eK0XhjQg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AFB81F000CB;
+	Mon, 19 Oct 2026 14:05:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792418720;
+	bh=ACbfuDX4SmepyLpW4JiPlajQNzRadVRjDpG4gszd+WQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eK0XhjQgWXbkhTSHKW+3LayqUxZjQ80tRl38NkUn06wK0jTvMS21uVTMiFI4zA+Z8
+	 ZDJ49BDLRJopg8zl0DfBZEFF0sFu+pyDSNmKFL24Swl5UyofHC6ElKg+IjrEDteWD5
+	 q4J+ueTWTEYI0yUbNX2+EjXjOsXI9bzO4HEw3DMDWVq2/Jxhqhxmd4r3Gsl0WiTgBF
+	 7KnAxne+7emT/9ZrFBDC4vtRNkhVEQvUucy2o1O+0AeuIUFBO0Z+mmwp3UTNM6UsGC
+	 TRIfqXfiiVUvrnob/fO9mTrSi4PzQdUZd4J59W7VUN9xnmJOE9tEIt99Xgc4quwz2t
+	 0+TRX4Dq7x3sw==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Heyang Tan <thy15333007817@163.com>,
+	Christian Lamparter <chunkeey@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	chunkeey@googlemail.com,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] wifi: p54: validate firmware record lengths
+Date: Mon, 19 Oct 2026 09:52:19 -0400
+Message-ID: <20261019135441.1420968-448-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
+References: <20261019135441.1420968-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CAJwVaMJsBKZSVwaJqTEU_GCFrc2q7dEghMTykR5Jgrj+dv45=w@mail.gmail.com>
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.57
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 12:52:36PM +0800, Jia Jia wrote:
->>
->> On Wed, Oct 14, 2026 at 07:56:38PM +0800, Jia Jia wrote:
->> >The virtio-vsock RX worker currently looks up the socket and takes its
->> >lock for every packet. Keep the socket lock and lookup reference across a
->> >bounded run of STREAM/RW packets for the same established socket.
->> >
->> >Reuse the locked socket while packets continue to match the same flow.
->> >End the batch for a different flow, non-RW traffic, malformed packets, or
->> >a change in socket state, transport, protocol, or receive-buffer headroom.
->> >A connected-table miss uses the existing receive path.
->> >
->> >The reused path still traces every packet, takes an skb owner reference,
->> >validates the source and transport, updates credit, and runs the existing
->> >receive state machine.
->> >
->> >Sockmap can replace the protocol without taking the socket lock. Check the
->> >psock marker at each packet boundary and serialize initial admission with
->> >sk_callback_lock, so a concurrent attach ends batching at the next packet.
->> >
->> >Cap a batch at 64 packets and 64K of payload. The packet limit bounds
->>
->> Why this cap?
->>
->
->The 64 KiB limit was chosen to bound one uninterrupted socket-lock
->ownership interval to one VIRTIO_VSOCK_MAX_PKT_BUF_SIZE worth of
->payload. For small or zero-length packets, the byte limit alone would
->not bound the per-packet work, so a separate packet limit is needed. I
->chose 64 packets as an initial batch size, using VHOST_NET_BATCH as a
->reference. It is a policy choice rather than a protocol requirement.
->
->Beyond these limits, a larger batch would only further amortize the
->socket lookup and lock/unlock operations, while the virtqueue,
->validation, tracing, skb ownership, credit update, and queueing work
->remains per-packet. I therefore expect diminishing returns while the
->uninterrupted socket-lock interval continues to grow, but I have not
->measured larger limits yet.
+From: Heyang Tan <thy15333007817@163.com>
 
-A summary of this should be included in the commit message and where we 
-define the cap in the code.
+[ Upstream commit db7b86bd97b380ece8fa39cfdd7502a9fd35e56f ]
 
->
->> >per-packet work, while the byte limit bounds how much data can queue before
->> >a reader acquires the socket lock. Batching remains in the process-context
->> >RX worker.
->>
->> IMHO this patch should carry performance results.
->>
->
->Sure, I'll include the relevant Patch 1 - Patch 2 cumulative
->performance results in this commit message in v5.
->
->> >
->> >Signed-off-by: Jia Jia <physicalmtea@gmail.com>
->> >---
->> > include/linux/virtio_vsock.h            |  11 ++
->> > net/vmw_vsock/virtio_transport.c        |  29 +++-
->>
->> Why no changes in vhost-vsock or vsock_loopback?
->>
->> I'm not asking to do that, I'd like to understand why only in the
->> driver.
->>
->
->I have not yet measured the corresponding worker and socket-lock
->overhead in vhost-vsock or vsock_loopback, and they have different
->worker and locking models, so I left those paths unchanged. I plan to
->evaluate vhost-vsock separately as follow-up work.
+The p54 firmware parser accesses component ID and component version
+records without checking that their lengths cover the fields being read.
+A malformed record can therefore make the parser read past the record.
 
-Please mention this in the commit.
+Validate the component ID and component version record lengths before
+accessing their data. The descriptor record is also checked against the
+shortest descriptor length found in the supported firmware images.
 
->
->
->> > net/vmw_vsock/virtio_transport_common.c | 183 +++++++++++++++++++++++-
->> > 3 files changed, 216 insertions(+), 7 deletions(-)
->> >
->> >diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
->> >index f91704731057e..26dde6909c4ed 100644
->> >--- a/include/linux/virtio_vsock.h
->> >+++ b/include/linux/virtio_vsock.h
->> >@@ -282,6 +282,17 @@ void virtio_transport_destruct(struct vsock_sock *vsk);
->> >
->> > void virtio_transport_recv_pkt(struct virtio_transport *t,
->> >                              struct sk_buff *skb, struct net *net);
->> >+
->> >+struct virtio_transport_rx_batch {
->> >+      struct sock *sk;
->> >+      unsigned int pkts;
->> >+      size_t bytes;
->> >+};
->> >+
->> >+void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
->> >+                                   struct sk_buff *skb, struct net *net,
->> >+                                   struct virtio_transport_rx_batch *batch);
->> >+void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch);
->> > void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *skb);
->> > u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
->> > void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
->> >diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
->> >index 4f9aa9c4c3aa5..ef076732158d4 100644
->> >--- a/net/vmw_vsock/virtio_transport.c
->> >+++ b/net/vmw_vsock/virtio_transport.c
->> >@@ -629,8 +629,16 @@ virtio_transport_seqpacket_allow(struct vsock_sock *vsk, u32 remote_cid)
->> >       return seqpacket_allow;
->> > }
->> >
->> >+/*
->> >+ * Keep a bounded run of packets for one socket under a single socket lock.
->> >+ * Limit packet count and payload size to bound the work done while locked.
->>
->> Here we should explain why we choose these values.
->>
->
->I'll update the comment here in v5 to explain why the 64-packet and 64
->KiB thresholds were chosen.
+Reject descriptor values that underflow the RX offset or produce an empty
+RX range before updating the driver state.
 
-Yeah, exactly, thanks!
+Assisted-by: LLM Codex
+Signed-off-by: Heyang Tan <thy15333007817@163.com>
+Tested-by: Christian Lamparter <chunkeey@gmail.com>
+Link: https://patch.msgid.link/20260918083349.891-1-thy15333007817@163.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
->
->> >+ */
->> >+#define VIRTIO_TRANSPORT_RX_BATCH_MAX_PKTS    64
->> >+#define VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES   (64 * 1024)
->> >+
->> > static void virtio_transport_rx_work(struct work_struct *work)
->> > {
->> >+      struct virtio_transport_rx_batch batch = {};
->> >       struct virtio_vsock *vsock =
->> >               container_of(work, struct virtio_vsock, rx_work);
->> >       struct virtqueue *vq;
->> >@@ -666,6 +674,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
->> >                       /* Drop short/long packets */
->> >                       if (unlikely(len < sizeof(*hdr) ||
->> >                                    len > virtio_vsock_skb_len(skb))) {
->> >+                              virtio_transport_rx_batch_finish(&batch);
->> >                               kfree_skb(skb);
->> >                               continue;
->> >                       }
->> >@@ -673,6 +682,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
->> >                       hdr = virtio_vsock_hdr(skb);
->> >                       payload_len = le32_to_cpu(hdr->len);
->> >                       if (unlikely(payload_len > len - sizeof(*hdr))) {
->> >+                              virtio_transport_rx_batch_finish(&batch);
->> >                               kfree_skb(skb);
->> >                               continue;
->> >                       }
->> >@@ -680,16 +690,33 @@ static void virtio_transport_rx_work(struct work_struct *work)
->> >                       if (payload_len)
->> >                               virtio_vsock_skb_put(skb, payload_len);
->> >
->> >+                      if (batch.sk &&
->> >+                          payload_len > VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES -
->> >+                                        batch.bytes) {
->>
->> Why this?
->>
->>
->
->This pre-check ends the current batch before admitting a packet whose
->payload would push it past the byte limit. The post-processing check
->can end the
->batch only after that packet has already been processed, so it cannot
->enforce the limit by itself. I'll encapsulate and document this in the
->common
->batching code.
+LLM Generated explanations, may be completely bogus:
 
-Yes, please.
+The local tree is **6.18.57**. The p54 firmware parser here still lacks
+record-length checks, so this is a real bounds-check fix for this
+series.
 
->
->> >+                              virtio_transport_rx_batch_finish(&batch);
->> >+                      }
->> >+
->> >                       virtio_transport_deliver_tap_pkt(skb);
->> >
->> >                       /* Force virtio-transport into global mode since it
->> >                        * does not yet support local-mode namespacing.
->> >                        */
->> >-                      virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
->> >+                      virtio_transport_recv_pkt_batch(&virtio_transport, skb, NULL,
->> >+                                                      &batch);
->> >+
->> >+                      if (batch.sk) {
->> >+                              batch.pkts++;
->> >+                              batch.bytes += payload_len;
->> >+                              if (batch.pkts >= VIRTIO_TRANSPORT_RX_BATCH_MAX_PKTS ||
->> >+                                  batch.bytes >= VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES) {
->> >+                                      virtio_transport_rx_batch_finish(&batch);
->> >+                              }
->> >+                      }
->>
->> Why this is not in the common part?
->>
->
->I put this in the driver because it owns the RX loop and its work
->budget. But I agree that having the caller manipulate the batch
->counters and active
->state makes the interface harder to follow. I'll move the accounting
->and limit checks into the common batching code in v5.
->
->> >               }
->> >       } while (!virtqueue_enable_cb(vq));
->> >
->> > out:
->> >+      virtio_transport_rx_batch_finish(&batch);
->> >       if (vsock->rx_buf_nr < vsock->rx_buf_max_nr / 2)
->> >               virtio_vsock_rx_fill(vsock);
->> > out_nofill:
->> >diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
->> >index 61ee3bc205d5d..ff74e805527a5 100644
->> >--- a/net/vmw_vsock/virtio_transport_common.c
->> >+++ b/net/vmw_vsock/virtio_transport_common.c
->> >@@ -576,11 +576,16 @@ virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs,
->> >       skb_queue_splice(&new_queue, &vvs->rx_queue);
->> > }
->> >
->> >+static bool
->> >+virtio_transport_rx_skb_has_headroom(struct virtio_vsock_sock *vvs)
->> >+{
->> >+      return (u64)(skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0) <=
->> >+              vvs->buf_alloc;
->> >+}
->>
->> Please move this change in a separate patch.
->>
->> skb_has_headroom() is confusing IMO, maybe
->> virtio_transport_rx_buf_full(), but reversing the return value, so
->> keeping the same check as before.
->>
->
->Sure, I'll move this into a separate preparatory patch
->
->> >+
->> > static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
->> >                                       u32 len)
->> > {
->> >-      u64 skb_overhead = (skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0);
->> >-
->> >       /* Allow at most buf_alloc * 2 total budget (payload + overhead),
->> >        * similar to how SO_RCVBUF is doubled to reserve space for sk_buff
->> >        * metadata. Check payload against buf_alloc to be sure the other
->> >@@ -588,7 +593,7 @@ static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
->> >        * queue growth.
->> >        */
->> >       if ((u64)vvs->buf_used + len > vvs->buf_alloc ||
->> >-          skb_overhead > vvs->buf_alloc)
->> >+          !virtio_transport_rx_skb_has_headroom(vvs))
->> >               return false;
->> >
->> >       vvs->rx_bytes += len;
->> >@@ -1798,12 +1803,38 @@ virtio_transport_find_socket(struct sk_buff *skb, struct sockaddr_vm *src,
->> >       return sk;
->> > }
->> >
->> >+static bool
->> >+virtio_transport_sock_has_psock(const struct sock *sk)
->> >+{
->> >+      return (uintptr_t)rcu_access_pointer(__sk_user_data(sk)) &
->> >+             SK_USER_DATA_PSOCK;
->> >+}
->> >+
->> >+static bool
->> >+virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
->> >+                                  struct sock *sk)
->> >+{
->> >+      struct vsock_sock *vsk = vsock_sk(sk);
->> >+      struct virtio_vsock_sock *vvs = vsk->trans;
->> >+
->>
->> A comment here to explain why some checks like...
->>
->
->I'll add why-focused comments for the condition groups in v5.
->
->> >+      return sk->sk_state == TCP_ESTABLISHED &&
->> >+             sk->sk_type == SOCK_STREAM &&
->> >+             READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
->> ... this       ^
->>
->> I mean in general to explain better these conditions (I mean not a
->> description of what we are doing, but why we are doing these checks).
->>
->
->I'll add comments explaining these reasons.
->
->> >+             !sock_flag(sk, SOCK_DONE) &&
->> >+             vsk->transport == &t->transport &&
->> >+             vvs && virtio_transport_rx_skb_has_headroom(vvs) &&
->> >+             !virtio_transport_sock_has_psock(sk);
->> >+}
->> >+
->> > /*
->> >- * The caller holds sk's socket lock and must free skb if this returns true.
->> >+ * The caller holds sk's socket lock.  Set @batchable if the socket can remain
->> >+ * locked for another ordinary STREAM/RW packet.  Return true if the caller
->> >+ * must free @skb.
->> >  */
->> > static bool
->> > virtio_transport_recv_pkt_locked(struct virtio_transport *t,
->> >-                               struct sk_buff *skb, struct sock *sk)
->> >+                               struct sk_buff *skb, struct sock *sk,
->> >+                               bool *batchable)
->> > {
->> >       struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
->> >       struct sockaddr_vm src;
->> >@@ -1813,6 +1844,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
->> >       vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
->> >                       le32_to_cpu(hdr->src_port));
->> >
->> >+      if (batchable)
->> >+              *batchable = false;
->> >+
->> >       /* Listener sockets accept packets from any source and are not assigned to
->> >        * a transport.
->> >        */
->> >@@ -1854,6 +1888,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
->> >               break;
->> >       }
->> >
->> >+      if (batchable)
->> >+              *batchable = virtio_transport_recv_pkt_batchable(t, sk);
->> >+
->> >       return false;
->> > }
->> >
->> >@@ -1894,7 +1931,7 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
->> >       }
->> >
->> >       lock_sock(sk);
->> >-      free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk);
->> >+      free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, NULL);
->> >       release_sock(sk);
->> >
->> >       /* Release refcnt obtained when we fetched this socket out of the
->> >@@ -1910,6 +1947,140 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
->> > }
->> > EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
->> >
->> >+/*
->> >+ * Finish the RX batch.
->> >+ * For a non-empty batch, the caller must hold the socket lock acquired with
->> >+ * lock_sock(). This function releases the lock and the batch's lookup
->> >+ * reference.
->> >+ * An empty batch is a no-op.
->>
->> What empty batch means, I mean how the caller can understand that a
->> batch is empty?
->>
->> Maybe we should provide a function for that...
->>
->
->I'll add virtio_transport_rx_batch_empty() and document the
->associated socket-lock and lookup-reference ownership.
->
->> >+ */
->> >+void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
->> >+{
->> >+      struct sock *sk = batch->sk;
->> >+
->> >+      batch->sk = NULL;
->> >+      batch->pkts = 0;
->> >+      batch->bytes = 0;
->> >+
->> >+      if (!sk)
->> >+              return;
->> >+
->> >+      release_sock(sk);
->> >+      sock_put(sk);
->> >+}
->> >+EXPORT_SYMBOL_GPL(virtio_transport_rx_batch_finish);
->> >+
->> >+void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
->> >+                                   struct sk_buff *skb, struct net *net,
->> >+                                   struct virtio_transport_rx_batch *batch)
->> >+{
->> >+      struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
->> >+      struct sockaddr_vm src, dst;
->> >+      struct vsock_sock *vsk;
->> >+      bool batchable, start_batch;
->>
->> Ditto about declarations order, please check in the entire series.
->>
->
->Right, I missed this one too. I'll check and fix the declaration
->ordering throughout the entire series in v5.
->
->> >+      struct sock *sk;
->> >+      bool free_pkt;
->> >+
->> >+      /* Only STREAM/RW packets can share a socket lock. */
->>
->> Why?
->>
->> Should the caller holds the lock for the entire batch?
->> Should this be documented?
->>
->
->Yes. Once a batch is started, the receive helper returns with the
->socket lock and lookup reference held, and the same caller retains
->them until it calls the finish helper. That ownership contract is not
->clear enough in the current interface, and I'll document it in the
->public API in v5.
->
->
->> >+      if (le16_to_cpu(hdr->type) != VIRTIO_VSOCK_TYPE_STREAM ||
->> >+          le16_to_cpu(hdr->op) != VIRTIO_VSOCK_OP_RW) {
->> >+              virtio_transport_rx_batch_finish(batch);
->> >+              virtio_transport_recv_pkt(t, skb, net);
->> >+              return;
->> >+      }
->> >+
->> >+      vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
->> >+                      le32_to_cpu(hdr->src_port));
->> >+      vsock_addr_init(&dst, le64_to_cpu(hdr->dst_cid),
->> >+                      le32_to_cpu(hdr->dst_port));
->> >+
->> >+      if (batch->sk) {
->> >+              vsk = vsock_sk(batch->sk);
->> >+              if (vsock_addr_equals_addr(&src, &vsk->remote_addr) &&
->> >+                  dst.svm_port == vsk->local_addr.svm_port &&
->> >+                  vsock_net_check_mode(sock_net(batch->sk), net) &&
->> >+                  virtio_transport_recv_pkt_batchable(t, batch->sk)) {
->> >+                      sk = batch->sk;
->> >+                      trace_virtio_transport_recv_pkt(src.svm_cid,
->> >+                                                      src.svm_port,
->> >+                                                      dst.svm_cid,
->> >+                                                      dst.svm_port,
->> >+                                                      le32_to_cpu(hdr->len),
->> >+                                                      le16_to_cpu(hdr->type),
->> >+                                                      le16_to_cpu(hdr->op),
->> >+                                                      le32_to_cpu(hdr->flags),
->> >+                                                      le32_to_cpu(hdr->buf_alloc),
->> >+                                                      le32_to_cpu(hdr->fwd_cnt));
->> >+                      if (!skb_set_owner_sk_safe(skb, sk)) {
->> >+                              WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
->> >+                              virtio_transport_rx_batch_finish(batch);
->> >+                              kfree_skb(skb);
->> >+                              return;
->> >+                      }
->> >+
->>
->> This code is unreadable TBH, there isn't a blank line till here...
->> and too much nested blocks.
->>
->> Maybe you should move this in a function, and use a bit more blank lines.
->>
->>
->
->I'll move the active-batch path into a helper, reduce the nesting with
->early returns, and add blank lines between the logical steps.
->
->
->> >+                      free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk,
->> >+                                                                  &batchable);
->> >+                      if (!batchable)
->> >+                              virtio_transport_rx_batch_finish(batch);
->> >+                      if (free_pkt)
->> >+                              kfree_skb(skb);
->> >+                      return;
->> >+              }
->> >+
->> >+              virtio_transport_rx_batch_finish(batch);
->> >+      }
->> >+
->> >+      sk = vsock_find_connected_socket_net(&src, &dst, net);
->> >+      if (!sk) {
->> >+              virtio_transport_recv_pkt(t, skb, net);
->>
->> Why this?
->>
->
->If you mean the fallback to virtio_transport_recv_pkt(), my
->understanding of the lookup semantics is that it is needed because the
->batching fast path only
->looks in the connected table, as only an established connected socket
->is eligible for batching. A miss there can still match a bound socket,
->so the packet
->must follow the existing receive path rather than being treated as
->having no socket. Please correct me if I have misunderstood this.
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-Looks okay to me, but I need to review again to make sure.
+Step 1.1: PARSE THE SUBJECT LINE
+Record: `[wifi: p54:] [validate] firmware record lengths` — wireless p54
+firmware parser; “validate” is a correctness/safety fix, not a feature.
 
-Please add a comment in these cases.
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+Record:
+- `Assisted-by: LLM Codex`
+- `Signed-off-by: Heyang Tan <thy15333007817@163.com>` (author)
+- `Tested-by: Christian Lamparter <chunkeey@gmail.com>` (original p54
+  author; hardware test)
+- `Link:
+  https://patch.msgid.link/20260918083349.891-1-thy15333007817@163.com`
+- `Signed-off-by: Johannes Berg <johannes.berg@intel.com>` (wireless
+  maintainer)
+- Pipeline-only (ignored): `[Upstream commit
+  db7b86bd97b380ece8fa39cfdd7502a9fd35e56f]`, `Signed-off-by: Sasha
+  Levin`
+- No `Fixes:`, no `Cc: stable` (expected)
+- No `Reported-by:`, no syzbot tag on the commit itself
 
->
->> >+              return;
->> >+      }
->> >+
->> >+      if (virtio_transport_get_type(sk) != le16_to_cpu(hdr->type)) {
->> >+              sock_put(sk);
->> >+              virtio_transport_recv_pkt(t, skb, net);
->> >+              return;
->> >+      }
->> >+
->> >+      trace_virtio_transport_recv_pkt(src.svm_cid, src.svm_port,
->> >+                                      dst.svm_cid, dst.svm_port,
->> >+                                      le32_to_cpu(hdr->len),
->> >+                                      le16_to_cpu(hdr->type),
->> >+                                      le16_to_cpu(hdr->op),
->> >+                                      le32_to_cpu(hdr->flags),
->> >+                                      le32_to_cpu(hdr->buf_alloc),
->> >+                                      le32_to_cpu(hdr->fwd_cnt));
->> >+
->> >+      if (!skb_set_owner_sk_safe(skb, sk)) {
->> >+              WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
->> >+              kfree_skb(skb);
->> >+              return;
->> >+      }
->>
->> We have this code duplicated in several place now, can this be avoided?
->>
->
->Yes. I'll extract the trace and skb owner setup into a small shared helper.
->
->> >+
->> >+      lock_sock(sk);
->> >+      /*
->> >+       * Sockmap removal restores the native protocol under sk_callback_lock.
->> >+       * Serialize this initial eligibility check with that update.
->> >+       */
->> >+      read_lock_bh(&sk->sk_callback_lock);
->> >+      start_batch = virtio_transport_recv_pkt_batchable(t, sk);
->> >+      read_unlock_bh(&sk->sk_callback_lock);
->> >+
->> >+      free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk,
->> >+                                                  start_batch ? &batchable : NULL);
->> >+      if (start_batch && batchable) {
->> >+              /* Keep the lookup reference until the batch is released. */
->> >+              batch->sk = sk;
->> >+              return;
->> >+      }
->>
->> Ah, this is for the first run, when the batch is empty, right?
->>
->> Can you merge in some way both branches?
->>
->> BTW please add some more useful comments (explaining why)
->>
->
->Yes. I'll merge the common parts of the two paths and add comments
->explaining the remaining differences and why they are necessary.
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
+Record:
+- Bug: component ID and component version records are used without
+  checking that `len` covers the fields read. A short record can make
+  the parser read past the record.
+- Extra: descriptor records are checked against the shortest known valid
+  length (`0xa` words). Descriptor RX values that underflow `0x3500` or
+  produce an empty RX window are rejected before driver state is
+  updated.
+- Symptom: out-of-bounds read of the firmware blob; invalid
+  `rx_start`/`rx_end` (the old code even had `/* FIXME add sanity
+  checking */`).
+- Version info: none in the message. The parser dates to 2009 in this
+  tree.
 
-Yeah!
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not hidden. Explicit bounds and range checks. The descriptor
+work implements the old FIXME.
 
-Thanks,
-Stefano
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
->
->
->> >+
->> >+      release_sock(sk);
->> >+      sock_put(sk);
->> >+      if (free_pkt)
->> >+              kfree_skb(skb);
->> >+}
->> >+EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt_batch);
->> >+
->> > /* Remove skbs found in a queue that have a vsk that matches.
->> >  *
->> >  * Each skb is freed.
->> >--
->> >2.53.0
->> >
->>
->
+Step 2.1: INVENTORY THE CHANGES
+Record:
+- File: `drivers/net/wireless/intersil/p54/fwio.c` (+37 / −5)
+- Function: `p54_parse_firmware()`
+- Scope: single-file surgical fix
+
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record:
+- `BR_CODE_COMPONENT_ID`: previously `be32_to_cpup(bootrec->data)` with
+  no length check. After: reject if `len < sizeof(struct
+  bootrec_comp_id)/sizeof(*bootrec->data)` i.e. `len < 1`.
+- `BR_CODE_COMPONENT_VERSION`: previously `strnlen(..., 24)` even for a
+  short record. After: require `len >= DIV_ROUND_UP(24, 4)` (= 6 words),
+  then `strnlen` limited to `sizeof(struct bootrec_comp_ver)` (still 24;
+  no functional change for valid records).
+- `BR_CODE_DESCR`: previously stored `rx_start` and `rx_end - 0x3500`
+  with an explicit FIXME. After: require `len >= 0xa`; compute
+  `rx_start`/`rx_end` locally; reject if `rx_end < 0x3500` or `rx_end -
+  0x3500 <= rx_start`; only then write `priv->rx_start` /
+  `priv->rx_end`.
+
+`len` is in **u32 words**, matching the existing loop `bootrec->data +
+len <= end_data`.
+
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record:
+- Category: memory safety (OOB read) + integer underflow / invalid RX
+  window.
+- Mechanism: the outer loop only keeps the *declared* record inside the
+  blob. If `len` is 0 and the record is at the end,
+  `be32_to_cpup(bootrec->data)` reads `*end_data` (past the firmware).
+  `strnlen(..., 24)` can read up to 24 bytes past a short version
+  record. `rx_end - 0x3500` wraps if `rx_end < 0x3500`;
+  `p54_assign_address()` then uses that window as firmware memory.
+
+Step 2.4: ASSESS THE FIX QUALITY
+Record:
+- Obviously correct for the OOB: don’t read fields the record does not
+  contain.
+- `len < 0xa` matches the packed descriptor through `padding2` (40 bytes
+  / 10 words); `rx_mtu` remains gated on `len == 11`.
+- Regression risk is low: checks only reject truncated/inconsistent
+  records. Christian Lamparter tested PCI and USB, including firmware
+  down to 2.5.2.0.
+- Reviewer nits on v2 (`len != 1` vs `len < 1`, local `bootrec_comp_ver
+  *`) are style; he called v2 “technically correct.” A later v3 only
+  restyles the same checks and is not in this tree. v2 is what Johannes
+  merged.
+
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
+
+Step 3.1: BLAME THE CHANGED LINES
+Record: Unchecked parser body is from `76074e1670b197` (“p54: Move
+firmware code”, 2009-06-23, Christian Lamparter). Present in this tree
+(`git merge-base --is-ancestor` succeeded). The logic is older than that
+(original p54 driver `eff1a59c48e3`, also in this tree).
+
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No `Fixes:` tag. N/A. Introducer is the 2009 move / original
+2007 driver, both ancestors of HEAD.
+
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record (same directory, already in this tree):
+- `da1b9a55ff116` / `d38f5d868a0a4`: p54 EEPROM/RX length checks
+  (malicious USB / KASAN)
+- `3bdcc4d61212b` / `d2fb6b588dc5b`: p54 EEPROM/PDA length checks (`Cc:
+  stable`)
+This patch is standalone, not patch X/Y. It does not depend on those
+EEPROM fixes.
+
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Heyang Tan has this p54 fix and an unrelated octeontx2 debugfs
+change. Not the subsystem maintainer. Weight comes from Christian’s
+Tested-by and Johannes’s SOB.
+
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: No new helpers or structs. Uses existing `bootrec_comp_id`,
+`bootrec_comp_ver`, `bootrec_desc`. Standalone. `git diff v6.18.57
+ac2ff9b564e82^ -- fwio.c` is empty, so it applies cleanly to this
+series.
+
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+- `b4 dig -c db7b86bd97b380ece8fa39cfdd7502a9fd35e56f` →
+  https://patch.msgid.link/20260918083349.891-1-thy15333007817@163.com
+- Series: v2 submitted 2026-09-18 (this is the committed version).
+- Christian Lamparter, 2026-09-19: tested USB (`isl3887usb` LM87) and
+  PCI (LM86), plus older 2.5.2.0 firmware; `Tested-by`. Called the
+  `sizeof`/`DIV_ROUND_UP` checks “technically correct”; asked for
+  readability (`len != 1`, local version pointer). No NAK.
+- v3 (2026-10-09) is that style follow-up (`len != 1`, `len < 6`, local
+  pointer). Not the merged commit.
+- Syzbot CI on v2: KASAN build/boot/fuzz passed (no new findings).
+- Direct lore.kernel.org fetch returned 403; thread recovered via `b4
+  dig -m`.
+
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record (`b4 dig -w`): To `linux-wireless@`, Cc Christian Lamparter.
+Johannes Berg merged it. Christian is the long-time p54 author.
+
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No syzbot/bugzilla `Reported-by` on this commit. Bug is from
+code inspection. Author later asked whether a CVE is appropriate (OOB
+firmware parser). Christian’s answer to that CVE question was not
+retrieved (UNVERIFIED). Practical trigger is a malformed firmware file,
+not a BadUSB frame.
+
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Standalone v2. v3 is cosmetic and unmerged here. Related p54
+length-check work is EEPROM/PDA, already in this tree.
+
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: No useful `lore.kernel.org/stable` hit for this subject. No
+known “do not backport” discussion.
+
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: `p54_parse_firmware()` only.
+
+Step 5.2: TRACE CALLERS
+Record:
+- `p54pci.c`: after firmware request, before upload
+- `p54usb.c`: `p54u_start_ops()` after firmware load
+- `p54spi.c`: `p54spi_request_firmware()` (`"3826.arm"`)
+All probe/firmware-load paths, not the datapath.
+
+Step 5.3: TRACE CALLEES
+Record: `le32_to_cpu` / `be32_to_cpup` / `strnlen` / `wiphy_err`.
+Descriptor fields feed `priv->rx_start`, `priv->rx_end`, `headroom`,
+`tailroom`, `privacy_caps`, `rx_keycache_size`, `rx_mtu`.
+
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: USB/PCI/SPI probe → `request_firmware[_nowait]` →
+`p54_parse_firmware`. Reachable whenever p54 hardware is present and
+firmware is loaded. Firmware comes from the host (`isl3886pci`,
+`isl3887usb`, `3826.arm`, etc.), not from the USB packet stream.
+Unprivileged users normally cannot plant that file; a bad file still
+oopses/reads OOB in kernel.
+
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Same class as the p54 EEPROM/PDA length checks already in this
+tree. `BR_CODE_EXPOSED_IF` in this same function still walks `exp_if`
+from `len` without a per-record fit check; that is a leftover, not a
+reason to drop this hunk.
+
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record: Yes. This checkout is `v6.18.57-155-gcdf239ca885b2`,
+kernelversion `6.18.57`.
+`v6.18.57:drivers/net/wireless/intersil/p54/fwio.c` still does
+unvalidated `be32_to_cpup`, `strnlen(..., 24)`, and `rx_end - 0x3500`
+with the FIXME. Bug introduced ~2009, long before 6.18.
+
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Clean apply. Pre-candidate `fwio.c` matches `v6.18.57`. No
+refactor between mainline context and this series.
+
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: EEPROM/PDA validation is already here; it does not cover this
+firmware bootrec parser. No earlier version of this exact fix in
+6.18.57.
+
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: `drivers/net/wireless/intersil/p54` — old
+Prism54/ISL38xx/STLC45xx (USB/PCI and Nokia N800/N810 SPI). Criticality:
+PERIPHERAL, but real hardware and already-supported in 6.18.
+
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Mature/low churn. Recent work is mostly bounds checks. A long-
+standing parser hole is more, not less, relevant for stable.
+
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: Users with p54 USB/PCI/SPI (`CONFIG_P54_*`) and a malformed or
+truncated firmware image.
+
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: Device probe / firmware load. Common with p54 hardware; the
+*malformed* case is uncommon (bad file, truncated image, attacker-
+controlled firmware path). Not a hot-path race. Unprivileged trigger is
+limited (firmware is host-provided).
+
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record:
+- Short records near the end of the blob: kernel OOB read (KASAN-class).
+  Severity HIGH for memory safety; practical exploitability is lower
+  than the USB EEPROM bugs.
+- `rx_end` underflow: wrapped firmware memory window used by
+  `p54_assign_address()` / `p54_setup_mac()`. Severity MEDIUM–HIGH for
+  driver malfunction / bad device addresses.
+- Overall: HIGH memory-safety, not a universal panic on valid vendor
+  firmware.
+
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record:
+- Benefit: stops OOB reads and bogus RX windows on a parser this tree
+  has had since 2009; same robustness class as p54 fixes already in
+  6.18.y.
+- Risk: ~40-line, error-path-only; hardware-tested; no API change.
+- Ratio: favorable.
+
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
+
+Step 9.1: COMPILE THE EVIDENCE
+
+FOR:
+- Real OOB read in `p54_parse_firmware()` plus RX-range underflow the
+  original code flagged with FIXME.
+- Small, contained, no new API.
+- Present in this 6.18 tree for ~17 years; applies cleanly.
+- Tested-by original p54 author on PCI and USB, including old firmware.
+- Merged by Johannes Berg.
+- Same validation pattern as other p54 stable fixes already here.
+
+AGAINST:
+- Niche driver; trigger is a bad firmware file, not a malicious URB.
+- No syzbot/CVE on this specific patch.
+- v3 is a later style tweak (not a functional hole in v2).
+
+UNRESOLVED:
+- Christian’s reply on CVE classification not retrieved.
+- lore.kernel.org HTTP fetch 403; thread obtained via b4 instead.
+
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — reviewer called v2
+   technically correct; Tested-by on real devices.
+2. Fixes a real bug that affects users? **PASS** — OOB read and invalid
+   RX window on malformed firmware.
+3. Important issue (crash, security, corruption, deadlock)? **PASS** —
+   kernel OOB read / firmware-parser memory safety (HIGH). Not a
+   universal oops on good firmware, but this class is accepted for
+   stable.
+4. Small and contained? **PASS** — one function, +37/−5.
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — identical pre-image to
+   v6.18.57 `fwio.c`.
+
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: None (not a device ID, quirk, DT, build, or doc fix). Qualifies
+as a normal bugfix.
+
+Step 9.4: MAKE YOUR DECISION
+Backport. The 6.18 parser still has the hole; the fix is small, tested,
+and addresses a real OOB/underflow without depending on later refactors.
+
+What it solves for this tree: `p54_parse_firmware()` can read past a
+truncated component-ID/version record and can wrap `rx_end`. That hits
+USB/PCI/SPI probe when firmware is loaded. Stable rules are met; risk is
+low because valid images were tested and only invalid records are
+rejected.
+
+Verification:
+- [Phase 1] Tags: Tested-by Christian Lamparter; SOB Johannes Berg; Link
+  msgid 20260918083349.891-1; no Fixes/Cc:stable/Reported-by (expected).
+- [Phase 2] Diff: +37/−5 in `p54_parse_firmware()`; ID `len < 1`,
+  version `len < 6`, descriptor `len < 0xa` plus RX-range check.
+  `bootrec_desc` packed size 42 bytes; `0xa` words covers fields used
+  when `len != 11`.
+- [Phase 3] `git blame` on parent: `76074e1670b197` (2009). `git merge-
+  base --is-ancestor 76074e1670b197 HEAD` succeeded. No Fixes tag.
+- [Phase 3] Related p54 length checks (`da1b9a55ff116`, `d38f5d868a0a4`,
+  `3bdcc4d61212b`, `d2fb6b588dc5b`) are EEPROM/PDA, not this parser.
+- [Phase 4] `b4 dig -c db7b86bd97b380ece8fa39cfdd7502a9fd35e56f`: v2
+  lore thread; `-a` only v2 as committed series; `-w` linux-wireless +
+  chunkeey. Christian: “technically correct” + Tested-by PCI/USB.
+- [Phase 4] WebSearch: v3 is style-only; syzbot CI passed v2.
+  lore.kernel.org WebFetch 403.
+- [Phase 4] UNVERIFIED: Christian’s CVE-classification reply.
+- [Phase 5] Callers: `p54pci.c:79`, `p54usb.c:872`, `p54spi.c:166` on
+  firmware load. `rx_end` used in `p54_assign_address()` /
+  `p54_setup_mac()`.
+- [Phase 6] `git describe HEAD` → `v6.18.57-155-gcdf239ca885b2`; `make
+  kernelversion` → `6.18.57`. Buggy code in
+  `v6.18.57:drivers/net/wireless/intersil/p54/fwio.c`. `git diff
+  v6.18.57 ac2ff9b564e82^ -- fwio.c` empty.
+- [Phase 8] Failure mode: OOB read of firmware blob; wrapped RX window.
+  Severity HIGH for memory safety, driver-specific trigger.
+
+**YES**
+
+ drivers/net/wireless/intersil/p54/fwio.c | 42 +++++++++++++++++++++---
+ 1 file changed, 37 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wireless/intersil/p54/fwio.c b/drivers/net/wireless/intersil/p54/fwio.c
+index 3baf8ab01e22b..4b8e6cf711d8f 100644
+--- a/drivers/net/wireless/intersil/p54/fwio.c
++++ b/drivers/net/wireless/intersil/p54/fwio.c
+@@ -52,6 +52,13 @@ int p54_parse_firmware(struct ieee80211_hw *dev, const struct firmware *fw)
+ 		u32 code = le32_to_cpu(bootrec->code);
+ 		switch (code) {
+ 		case BR_CODE_COMPONENT_ID:
++			if (len < sizeof(struct bootrec_comp_id) /
++				sizeof(*bootrec->data)) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware component ID is too short\n");
++				return -EINVAL;
++			}
++
+ 			priv->fw_interface = be32_to_cpup((__be32 *)
+ 					     bootrec->data);
+ 			switch (priv->fw_interface) {
+@@ -72,16 +79,41 @@ int p54_parse_firmware(struct ieee80211_hw *dev, const struct firmware *fw)
+ 			}
+ 			break;
+ 		case BR_CODE_COMPONENT_VERSION:
++			if (len < DIV_ROUND_UP(sizeof(struct bootrec_comp_ver),
++					       sizeof(*bootrec->data))) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware component version is too short\n");
++				return -EINVAL;
++			}
++
+ 			/* 24 bytes should be enough for all firmwares */
+-			if (strnlen((unsigned char *) bootrec->data, 24) < 24)
+-				fw_version = (unsigned char *) bootrec->data;
++			if (strnlen((unsigned char *)bootrec->data,
++				    sizeof(struct bootrec_comp_ver)) <
++				    sizeof(struct bootrec_comp_ver))
++				fw_version = (unsigned char *)bootrec->data;
+ 			break;
+ 		case BR_CODE_DESCR: {
+ 			struct bootrec_desc *desc =
+ 				(struct bootrec_desc *)bootrec->data;
+-			priv->rx_start = le32_to_cpu(desc->rx_start);
+-			/* FIXME add sanity checking */
+-			priv->rx_end = le32_to_cpu(desc->rx_end) - 0x3500;
++			u32 rx_start, rx_end;
++
++			/* 0xa is the shortest descriptor in supported firmware. */
++			if (len < 0xa) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware descriptor is too short\n");
++				return -EINVAL;
++			}
++
++			rx_start = le32_to_cpu(desc->rx_start);
++			rx_end = le32_to_cpu(desc->rx_end);
++			if (rx_end < 0x3500 || rx_end - 0x3500 <= rx_start) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware descriptor has invalid RX range\n");
++				return -EINVAL;
++			}
++
++			priv->rx_start = rx_start;
++			priv->rx_end = rx_end - 0x3500;
+ 			priv->headroom = desc->headroom;
+ 			priv->tailroom = desc->tailroom;
+ 			priv->privacy_caps = desc->privacy_caps;
+-- 
+2.53.0
 
