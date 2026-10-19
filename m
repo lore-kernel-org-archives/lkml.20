@@ -1,113 +1,107 @@
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935A336166A;
-	Mon, 19 Oct 2026 02:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293ED22F388;
+	Mon, 19 Oct 2026 02:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792377418; cv=none; b=Tf147S0ZgcD2GIldodc+K+fNkIFf9zJikkITa5Xg9DYCf8E/ZZZnhAmf2TIqg4RxLszmjlfCMLiGBplH4xMnS0R267Zh75mUGCwyFSTL3UDiTZOMAPOWjWnQsH1aWHGPVZD4xoR7gRZPZHGhDYyT2MOMDWbHnlsmRTUpWY8tDWs=
+	t=1792377452; cv=none; b=YKz/LzKYbMUsOBnItOA3A9GPJSN8aNFeR/3bypDOEyMIG4YmhA9dblpmusSmJ6hy76fGiZ4Gmjf72hFVBBlLGJ8xzkCKrAFIsugy+hX1SGyJWvRogLNvG0UOHKFaSOwAE1mlzY82eSUk6hlVj5J4gq7pvbZF9PCkKCmi5aaEbDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792377418; c=relaxed/simple;
-	bh=voy+69M2j73/rg5pZ/Gi4GdtPGNNDipFw+0cyyMnrkQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XL9EhOFWItTN3bDiMzab27hbY6ANfOBMV2cH+U6JVTxHv9CKT+MTeW/v3b1/uAsH//oSetIzdVOq5pHGFdv+09KDyh6k8E1L8FmfKO72GFjQ6tDvE9U0tEELFzsj9KTrS83LMgli+VmGCfI5v41CPL60O50EQgSE7GBycilG29U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=RmhkwRNb; arc=none smtp.client-ip=115.124.30.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792377452; c=relaxed/simple;
+	bh=TkH8KN6LIiaJU4JnU3ChbfF2cTiFvm6nT2EnB88xD+U=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=E6feG/i24g7ZEXw6w+1KvI4lpRxtaY1M4b6yq6JBs2oljhO06fg23NzPtcVD3qz22nXK/GH7mb0eAAm/izscHOPBi/a4WxbiKHYbkoCmtqT5zqfUo+8YD92BWHMa7p3aPj5d+Fk5hnWkyx9+gFHstwlti+dgCtM+hQEcVlE2jOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BGWqxTIk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="RmhkwRNb"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792377405; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=bYulk3GXLoVYYpQAyazL7Lp8MZaupBoLyMjOWYb39QM=;
-	b=RmhkwRNbkFBjEi9HzsMbDRHolRlsag1MU6PA0ekAkkL7NeB30tyilt6aKpGPSI9DbOxsiN01l+Slux0v5vW1w3fydJpesOWxLikljugu7DaHttSwZs7OKH36YTGn5NsZuBqWUmbW2EYtRWe2JWj6HuFvkZVsj67CVhFYHqqX0JY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=fuwenxin@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XD-LCcj_1792377404;
-Received: from t50b09067.sqa.eu95.tbsite.net(mailfrom:fuwenxin@linux.alibaba.com fp:SMTPD_---0XD-LCcj_1792377404 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 19 Oct 2026 10:36:45 +0800
-From: fuwenxin@linux.alibaba.com
-To: paulmck@kernel.org,
-	frederic@kernel.org,
-	dave@stgolabs.net,
-	josh@joshtriplett.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	boqun@kernel.org,
-	urezki@gmail.com,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	oliver.yang@linux.alibaba.com,
-	xlpang@linux.alibaba.com
-Subject: [PATCH] rcutorture: Fix busted_srcud crash on module unload
-Date: Mon, 19 Oct 2026 10:36:44 +0800
-Message-ID: <20261019023644.2750352-1-fuwenxin@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BGWqxTIk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 935B31F000C4;
+	Mon, 19 Oct 2026 02:37:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792377450;
+	bh=8OV6L8m+iCE0AL+70lzJ6KmZ3QSA0HDI4+I9OhsFUug=;
+	h=Date:From:To:Cc:Subject;
+	b=BGWqxTIk6KDipwu9T2WyauM1dVC9nMZwpZywVUXgun+y95C7XtA796qKX9NojANJa
+	 9RjdDAusSHH7Am1EvEVvUqpwNMEJupz9/Jpaq30hi6s3OfrXvZOj7HMI8ra0IcRIA7
+	 SDMU2r/qT942Y7W0Bcd2fw/nb8S05zGi4KUZ0H+DZ/9rOZN54RwoAIA+cbTr5IAnZ8
+	 wZTsoYkh0lB3Dw2kU6d5O03mwTM3QvwIuC/OdNnrOM4DqfpwQvYG0WtRcgn26l29d6
+	 TwXV1yXEXv0bTnZ7Yjzd1OrE9Bd326sx7AHSGqHDblHljQRO5cnYkR6Y+H2vuUdX7e
+	 gE87Olhqx75hg==
+Date: Sun, 18 Oct 2026 19:37:29 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: fsverity@lists.linux.dev, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Theodore Ts'o <tytso@mit.edu>,
+	Andrey Albershteyn <aalbersh@kernel.org>
+Subject: [GIT PULL] fsverity updates for 7.4
+Message-ID: <20261019023729.GC3270@sol>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-From: Fu Wenxin <fuwenxin@linux.alibaba.com>
+The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
 
-Commit e4ed20c1603c ("rcutorture: Exercise DEFINE_STATIC_SRCU_FAST() and
-init_srcu_struct_fast()") split SRCU torture initialization into two
-helpers: srcu_torture_init(), which now only points srcu_ctlp at the
-static srcu_ctl/srcu_ctlf/srcu_ctlfud structures, and the new
-srcud_torture_init(), which calls init_srcu_struct(&srcu_ctld) for the
-dynamically allocated srcu_ctld.
+  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
 
-That commit updated srcud_ops to use srcud_torture_init(), but left
-busted_srcud_ops pairing .init = srcu_torture_init (static srcu_ctl) with
-.cleanup = srcu_torture_cleanup (which unconditionally calls
-cleanup_srcu_struct(&srcu_ctld)). As a result srcu_ctld is never
-initialized when running torture_type=busted_srcud, yet it is torn down
-at module unload.
+are available in the Git repository at:
 
-cleanup_srcu_struct() then dereferences ssp->srcu_sup, which is still
-NULL for the zero-initialized srcu_ctld, and faults on the ->lock field
-accessed by raw_spin_lock_irq_rcu_node():
+  https://git.kernel.org/pub/scm/fs/fsverity/linux.git tags/fsverity-for-linus
 
-  Unable to handle kernel paging request at virtual address dfff80000000001b
-  ...
-  el1_abort -> do_translation_fault -> do_bad_area -> die_kernel_fault
+for you to fetch changes up to f9e450420da2624c93ce9585deebfabb87932774:
 
-(The fault address is the KASAN shadow of NULL + offsetof(srcu_usage,
-lock) == 0xd8.)
+  fsverity: hoist statx reporting of fs-verity flag (2026-10-04 19:47:47 +0200)
 
-This is trivially reproducible:
+----------------------------------------------------------------
 
-  modprobe rcutorture torture_type=busted_srcud
-  sleep 45
-  rmmod rcutorture    # panic here
+Patches from Andrey Albershteyn to prepare for XFS fsverity support:
 
-Fix it by making busted_srcud_ops initialize the same srcu_ctld that its
-cleanup handler tears down, matching srcud_ops.
+- Report verification errors through fserror, instead of only through
+  an unstructured log message and generic I/O error return
 
-Fixes: e4ed20c1603c ("rcutorture: Exercise DEFINE_STATIC_SRCU_FAST() and init_srcu_struct_fast()")
-Signed-off-by: Fu Wenxin <fuwenxin@linux.alibaba.com>
----
- kernel/rcu/rcutorture.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- Move the reporting of STATX_ATTR_VERITY into the VFS, so that each
+  fsverity-capable filesystem doesn't need to do it. This also fixes a
+  bug where btrfs didn't return STATX_ATTR_VERITY in attributes_mask
 
-diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-index 8a9282a0245cc..7cc78da1356f9 100644
---- a/kernel/rcu/rcutorture.c
-+++ b/kernel/rcu/rcutorture.c
-@@ -991,7 +991,7 @@ static struct rcu_torture_ops srcud_ops = {
- /* As above, but broken due to inappropriate reader extension. */
- static struct rcu_torture_ops busted_srcud_ops = {
- 	.ttype		= SRCU_FLAVOR,
--	.init		= srcu_torture_init,
-+	.init		= srcud_torture_init,
- 	.cleanup	= srcu_torture_cleanup,
- 	.readlock	= srcu_torture_read_lock,
- 	.read_delay	= rcu_read_delay,
--- 
-2.43.7
+- Make the VFS prevent enabling DAX on fsverity files, so that it will
+  be handled in a single place for ext4 and XFS
 
+- Move ext4 and f2fs's code to read verity metadata from the pagecache
+  into shared code, so that XFS will be able to use it too
+
+- Export fsverity_ensure_verity_info() for XFS scrub to use
+
+- Pass all-zeroes hash to ->write_merkle_tree_block() so that XFS will
+  be able to implement an optimization for sparse files
+
+----------------------------------------------------------------
+Andrey Albershteyn (6):
+      fsverity: report validation errors through fserror to fsnotify
+      fsverity: expose ensure_fsverity_info()
+      fsverity: pass digest size and hash of the all-zeroes block to ->write
+      fsverity: hoist pagecache_read from f2fs/ext4 to fsverity
+      fsverity: don't allow setting DAX file attribute on fsverity files
+      fsverity: hoist statx reporting of fs-verity flag
+
+Eric Biggers (1):
+      MAINTAINERS: List the fsverity branches
+
+ MAINTAINERS              |  3 ++-
+ fs/btrfs/inode.c         |  3 ---
+ fs/btrfs/verity.c        |  6 +++++-
+ fs/ext4/inode.c          |  5 +----
+ fs/ext4/verity.c         | 36 ++++++------------------------------
+ fs/f2fs/file.c           |  5 +----
+ fs/f2fs/verity.c         | 34 ++++------------------------------
+ fs/file_attr.c           | 11 ++++++++---
+ fs/stat.c                |  6 +++++-
+ fs/verity/enable.c       |  4 +++-
+ fs/verity/open.c         | 26 ++++++++++++++++++++++++--
+ fs/verity/pagecache.c    | 33 +++++++++++++++++++++++++++++++++
+ fs/verity/verify.c       |  4 ++++
+ include/linux/fsverity.h | 10 +++++++++-
+ 14 files changed, 105 insertions(+), 81 deletions(-)
