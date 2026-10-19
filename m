@@ -1,119 +1,79 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC91C4AA033;
-	Mon, 19 Oct 2026 09:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E7C648FF74;
+	Mon, 19 Oct 2026 09:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401772; cv=none; b=CPGl7EzY0w4ij9xdGoCC5XI+QkBTqR9M5oATPtcBpXWgqX8KdcdgyrfaoWqRb+D056cH4RIThZJ/JGmGf8DZB/iFdFXG8+tZWPLpM1t0QlyOn8JvMo8YVltQ85D3HXyImk8ddgqbA9rkNRIyZwH7BzMNAprn4OG8VBjiQNFB3nA=
+	t=1792401799; cv=none; b=lbKhxYx+kQWRhqdJk1lDXQVXdWnvl2vNb5mxoLUKW1gbrR6AM3ks5Ub71dTe8G0xFqtgMFVHBYRFTepb08SgerRvWpUoG3h2kv2aCclG5dqrH1kZlSZ6/BsqvPgoh9hhBxYRky+DGdNJVpGreZr79cEWH4C0byQLXrnTd0Z1XGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401772; c=relaxed/simple;
-	bh=W50cj58I41P0amBD3Gwmn1grFT2/yBXFDueFYbxiJoI=;
+	s=arc-20240116; t=1792401799; c=relaxed/simple;
+	bh=9PebdIH/SVuVj9MRbPB/1J1o0shLFs/Jpdx34TKGXEg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HmlJ+wqVasLEqFkIWn5wuNOgVVWVoYdSl7Z2okJHTyM5fNBuI3t6ZCyEWIYYHnHwGrtg8Uxesy4a0+JuN+shwYop3XuOd05avXxccdBQ++t5ws04RjDZOeU8jYfTsiXMivPJbk70F9RlUGQcMFzRmtwljIX1ctLvNWORCOXZCKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HFj1YThk; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=Jlr1noSM+lth8ejndvjbJhoWVKCbxmdlCsDLhzY/dkHLRwbtppXnYzw/mprQ+bQDv3S3bKoF12Fav0MNiA4JB4JlvrADn5jHhuLMtpTKyV1++UihNuquiYAMqscrsLkcn4Bk2fDg5RlxXBXHzeOAdKihImvoxtCwo+efGhTCSTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C+Y1yTco; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HFj1YThk"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 213201A1279;
-	Mon, 19 Oct 2026 09:22:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E02C460582;
-	Mon, 19 Oct 2026 09:22:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8649F10328429;
-	Mon, 19 Oct 2026 11:22:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792401766; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=aFzwGLSO7+RbqxryM9GCX4O+lQKeiiXFkttu5dRw2bc=;
-	b=HFj1YThkrMwCC0zp4DujoOXanRDftrdtowffwYLa58N99pmuWVaGjLS8C8J3Aw7yWHavOW
-	sCvDw0xFVDx4l7T7W+eZ/4pRBwoLbRdXOGUnwMus27YkOLkL4Tt4Z84p8EctWyKAhfLjRL
-	8cKtFi51W6Go1/BtiFX0R984VjvrHbynIuWtPa9Kpl2kyHL/m2+s/aMzreF4h0iRMFwzg4
-	nbkx29hxtIyy2e/9326toXpxjHXK8Fzs2qfyRwXIHP2kG0moKN30L5ANBb07T23asjqwIO
-	07dvh+ynhxU6r7eaJwwaDM/QTXl9acy4mmb1zuOd2gyolmNc5y2kp9Rvfn3OYg==
-Message-ID: <4d2eeba6-30d9-4628-a755-96a635c6bf42@bootlin.com>
-Date: Mon, 19 Oct 2026 11:22:39 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C+Y1yTco"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CB0351477;
+	Mon, 19 Oct 2026 02:23:12 -0700 (PDT)
+Received: from [10.0.152.204] (e121487-lin.cambridge.arm.com [10.0.152.204])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8BF463F7D8;
+	Mon, 19 Oct 2026 02:23:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792401796; bh=9PebdIH/SVuVj9MRbPB/1J1o0shLFs/Jpdx34TKGXEg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=C+Y1yTcoKKTeRGxeqTyg1bb//zBo/34B94yQoPCY8Z3TFTWlPLYAqR+kfzFP/WUTg
+	 wcMt2ARDZEf2af+mvA9gjVQuj5IIGdx+Cvs/7LSXLhe70k4TcVAJprfzM2ozRDBJKM
+	 AD6JEGRA9yLKmyScnBGv/fMHzUKKr7+ir8KeI1Cc=
+Message-ID: <494fd8b9-b7cc-43ef-af0a-218c6afe0fed@arm.com>
+Date: Mon, 19 Oct 2026 10:23:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH net 01/10] net: pse-pd: size the notification kfifo after
- defaulting nr_lines
-To: Carlo Szelinsky <github@szelinsky.de>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: Piotr Kubik <piotr.kubik@adtran.com>,
- Sai Krishna <saikrishnag@marvell.com>, Simon Horman <horms@kernel.org>,
- Kyle Swenson <kyle.swenson@est.tech>, netdev-bot+sashiko@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261018082314.48950-1-github@szelinsky.de>
- <20261018082314.48950-2-github@szelinsky.de>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261018082314.48950-2-github@szelinsky.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] arm64: tlb: Add tlbi workaround for FUJITSU-MONAKA
+ Erratum E#030001
+To: Tomohiro Misono <misono.tomohiro@fujitsu.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+ Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>
+Cc: Kohei Enju <enju.kohei@fujitsu.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ kvmarm@lists.linux.dev
+References: <20261016-monaka-fix-for-upstream-v2-0-fc7ede7f9f48@fujitsu.com>
+ <20261016-monaka-fix-for-upstream-v2-2-fc7ede7f9f48@fujitsu.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20261016-monaka-fix-for-upstream-v2-2-fc7ede7f9f48@fujitsu.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
+On 10/16/26 11:00, Tomohiro Misono wrote:
+> +#ifdef CONFIG_FUJITSU_ERRATUM_030001
+> +	{
+> +		.desc = "FUJITSU-MONAKA Erratum E#030001",
+> +		.capability = ARM64_WORKAROUND_FUJITSU_030001,
+> +		ERRATA_MIDR_RANGE_LIST(((const struct midr_range[]) {
+> +					MIDR_ALL_VERSIONS(MIDR_FUJITSU_MONAKA),
+> +					{}
+> +				})),
+I reckon that can be simplified to
 
-On 10/18/26 10:23, Carlo Szelinsky wrote:
-> pse_controller_register() allocates the notification kfifo before it
-> turns nr_lines == 0 into 1, and kfifo_alloc() fails for a size below 2.
-> So a controller with nr_lines 0 or 1 cannot register. pse_regulator
-> (podl-pse-regulator) never sets nr_lines, so its probe has failed with
-> -EINVAL ever since the kfifo was added.
-> 
-> Apply the default first, and allocate at least two entries.
++	ERRATA_MIDR_ALL_VERSIONS(MIDR_FUJITSU_MONAKA),
 
-Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
+Cheers
+Vladimir
 
-Thank you!
-
-> Fixes: ffef61d6d273 ("net: pse-pd: Add support for budget evaluation strategies")
-> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
-> ---
->   drivers/net/pse-pd/pse_core.c | 11 +++++++----
->   1 file changed, 7 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-> index a5e6d7b26b9f..c0573cbbba5b 100644
-> --- a/drivers/net/pse-pd/pse_core.c
-> +++ b/drivers/net/pse-pd/pse_core.c
-> @@ -1044,16 +1044,19 @@ int pse_controller_register(struct pse_controller_dev *pcdev)
->   	mutex_init(&pcdev->lock);
->   	INIT_LIST_HEAD(&pcdev->pse_control_head);
->   	spin_lock_init(&pcdev->ntf_fifo_lock);
-> -	ret = kfifo_alloc(&pcdev->ntf_fifo, pcdev->nr_lines, GFP_KERNEL);
-> +
-> +	if (!pcdev->nr_lines)
-> +		pcdev->nr_lines = 1;
-> +
-> +	/* kfifo_alloc() rejects a size that rounds up to less than 2 */
-> +	ret = kfifo_alloc(&pcdev->ntf_fifo, max(pcdev->nr_lines, 2U),
-> +			  GFP_KERNEL);
->   	if (ret) {
->   		dev_err(pcdev->dev, "failed to allocate kfifo notifications\n");
->   		return ret;
->   	}
->   	INIT_WORK(&pcdev->ntf_work, pse_send_ntf_worker);
->   
-> -	if (!pcdev->nr_lines)
-> -		pcdev->nr_lines = 1;
-> -
->   	if (!pcdev->ops->pi_get_admin_state ||
->   	    !pcdev->ops->pi_get_pw_status) {
->   		dev_err(pcdev->dev,
-
--- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
 
