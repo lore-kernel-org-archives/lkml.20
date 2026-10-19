@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792438461;
-	b=o3+u+E8vH/ZnFztYmlQvvG3uw+EhGbnyyVPJI1TTJkfQBeUlWXYTdDUAr0CBd7sS0fxB
-	 BqYNx5eO010hxJyvIupAWjU+BPUmRSr7BtOaS7la4D1PiTjToAMd+J6+qsTA8PLzcXwxA
-	 3qSoLh3UnCc0R87isQZsSvCyGbzEotsxEcDvu0fhmbePW6c+ZOExGrOJaDNKkUmm6K3eW
-	 cE7Y4L+cr2InabJLSBtuGQZjf2iCmSrKVwLQMsJE/a5p8TpmyzPOnv/qzDs91qkeP9kUb
-	 QJVjIdSm4wbjok09LNbXC0wjmfKI+4xAKxh0ez0ZusXvnAKIz4Me2c52gMxzWMOv8xw==
+	t=1792438504;
+	b=uz1lAuLfTA2JFKJnW67r+PGhnvhDDu9uFm3olyrXQHusOmZbbZrCUBVoihfMBe9yoFCp
+	 k/pSaveshEtiWDEu6QxnCk09w5i7pTwkw3bhVTVRH2ym8gwolAvlzP1tazuFpNx2l33O3
+	 wKYJ+flLqz9oSNv0AUiFQLKkiC1lwiJaZa79NTjPCVZBkfZVUoQsqF6QW9245nFXyAfhH
+	 yvkDeQY54M1DYy0zZXygBoy2rAW8OkHr/4vdROs7Cm8VBkbcvkfNoggQ0ba8XQTpRsxPR
+	 3/YxHvt0WSj2vxRjX2k1kZb7k1TcJL3wwYZHEJgMvrBabvaHcGb77LosennT+NO7ViA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792438461;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=nPdCuYuE8jyGvyTrrFNZUzAKYMUp25mkxsbENdnsNeI=;
-	b=aQSNtuV4fZiF9FguIRiWMFyLnwH9gCP8Qsr1DnBLNCkgnmCbRpinbv9rzviuZ1Hchdov
-	 M+YRyBw/Y9CBznMBInJKnGvLUasY5Bkzk+bHizgp9jTYn/9cCavcAa4+e9cDnMxHghSEo
-	 FQUl2ONtkj35YuXUtY1yS7qHqnq3hF8HXcv0mDRV7j6PrQ+zh8sKZGawxgzOOXWQDv/zz
-	 jJ9dck2CjOD1zjga+MhX/zsUKU1yBpTxd5kHd5+5jsicT+CcYnTGsDMF+s74vSMitZrxa
-	 P0VIeoYrWkQdxoBulWwoTVAgFNzPbh9kVgB7NxH+AJcIm8xZgrNfCc4lcE+hG7InAEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792438504;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6FDivqGbQ2m9S9GI11uVbE4gSmSgYlZcK4N36HyOXSQ=;
+	b=knV7aw3tWfjTjVKuWr8Bu0VoMfmw30J/y+WhJmA4DnfAgd4G+6gYXZwKviubK0PsnllF
+	 cP5LcxIUUDMCFD91cb2YXoh8A4lYCiCUffQRNWvftM0Z8dEa0SkwEzoguTRsbyjVEsg05
+	 qhYILZ/2aebGKG/xOYFE50ZEYfLOw54oTp7aRuTjfToJAoaceaaIkiP10Y8umPzv0Ak1n
+	 ieppNvYRdkFl5/BAJWPLECPKmU8/NjI2mnLjegkwM+YhQYAYUHr9ddUwOj6uCVX795Sce
+	 FfOaB+h5Ux0Scbe6fF3Py8VRR7rZOBT5kddeVvtXvNv3z+9wK8hQ6wgEP6vhHzTsqvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=ACBjv9jq;
-	arc=none smtp.remote-ip=109.224.244.116
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Z3h/7BmJ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27418606A31D;
-	Mon, 19 Oct 2026 19:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27418606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE41606A31B;
+	Mon, 19 Oct 2026 19:35:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=ACBjv9jq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792438457; x=1792697657;
-	bh=nPdCuYuE8jyGvyTrrFNZUzAKYMUp25mkxsbENdnsNeI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ACBjv9jqUcqTZ93BZ5Xg1NT+JWcIbkWtgyivUbjYQBUuWmBumZ7F+O0AM9/bHC9w/
-	 Ve2ml/KQPnoaD44hqgabn3WAGdB+i4GroXbGQakkh21dfCDUXsLPIlZ3Qua7aHfKfh
-	 Az+jWYgCHzTaZn8l/sruye7wr63+nVILEVTGcQI9llaF5ukqXymWlQz7Ps0lYa0CDE
-	 ScjtWv546bDxXDU81RQu+cotn6TsvR3TSfuO8rrJzHcqsvf8+/F/XVYF5zp2m7IFNi
-	 N1HNzWtEORYmkmxZOE+mjYd3MqqRM8GejQVV24XmbT30NMsW2yuTJ1RSda9q6leE1+
-	 94BenJWe40GqQ==
-Date: Mon, 19 Oct 2026 19:34:10 +0000
-To: George Neacsu <geocausa@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Message-ID: <20261019193402.52923-1-lsa.uz@pm.me>
-In-Reply-To: <179243379000.31842.4735750009847702427@gmail.com>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me> <179243379000.31842.4735750009847702427@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 84ef21798b2e9c9cd5a8dec8a5dcfd56519c438e
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3h/7BmJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D386A1F000C4;
+	Mon, 19 Oct 2026 19:35:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792438504;
+	bh=6FDivqGbQ2m9S9GI11uVbE4gSmSgYlZcK4N36HyOXSQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z3h/7BmJS1RrcbU9aAVifUeRE5MjTyhhuVlT6S5eQiKtPgt//Y41wQ43AzVIYNwru
+	 C8m8u6pLfMAYxzbOIR0VSSl0RMG1RVFC/uENvW5RGuPcolKJ+8hGVY+s4KAfxHrZ9R
+	 uhQSi8kxLJrSSVI2EzRuDhdOP2F5YqvME2NGxeT17URibgGDSpVF6wN1cO/rfBZpvB
+	 +aNknq0/S7D7ibmCZmk77ck5B5wM5ygl1aP2FBBvTl0L8yo89rs+CAAhFoLKUcZCYk
+	 Y2wtRQM0APLPvppYEcg/Gc9EGqfvK8+x0+CWP2CMHOnNxbv+7PL+0v9hS0K37GvTIg
+	 3N62bJmcVfOIw==
+Date: Mon, 19 Oct 2026 12:35:02 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 6/6] KEYS: Verify the key identity in __keyctl_unlink
+Message-ID: <20261019193502.GF65095@quark>
+References: <20261019181732.449591-1-jarkko@kernel.org>
+ <20261019181732.449591-7-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,42 +61,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019181732.449591-7-jarkko@kernel.org>
 
-Hi George,
+On Mon, Oct 19, 2026 at 09:17:26PM +0300, Jarkko Sakkinen wrote:
+> [PATCH v2 6/6] KEYS: Verify the key identity in __keyctl_unlink
 
-Thank you for trying it on the Snapdragon model.
+There is no __keyctl_unlink.  Seems you mean __key_unlink_begin.
 
-On 19/10/2026 19:24, George Neacsu wrote:
-> As posted, patch 2/4 fails probe at the integer-multiple check because
-> 840 MHz is not an integer multiple of 19.2 MHz.
+> Let's define the following preconditions:
+> 
+> - Two keys: A and B.
+> - R is a keyring.
+> - Both have the same type/description/domain.
+> 
+> Then:
+> 
+> 1. KEYCTL_LINK(A, R) => {A}
+> 1. KEYCTL_LINK(B, R) => {B}
+> 2. KEYCTL_UNLINK(A, R) => {}
 
-That refusal is deliberate. The MIPI rate is an integer multiple of the
-input clock, and the sensor rounds a request down (UM2829 13.6): asked
-for 840 Mbps from 19.2 MHz, it runs at 825.6 while the receiver is set
-up for 840. camera-sensor.rst asks a sensor driver to use only the link
-frequencies the firmware gives, so the driver refuses one it cannot
-produce. From 19.2 MHz, 403.2 MHz (806.4 Mbps, 42 times the clock) and
-384 MHz (768 Mbps, 40 times) are exact, so the change is one value in
-your board's DT, in the sensor endpoint:
+Should be 1, 2, and 3?
 
-=09link-frequencies =3D /bits/ 64 <403200000>;
+> Instead, verify key tidentity before unlinking, and return -ENOENT on
 
-On the Intel model I ran it at 403.2 MHz with a 19.2 MHz clock, and every
-mode ran at 60.22 fps, as the controls give.
+tidentity => identity
 
-> For a test only, I removed that rejection and left the rest of the driver
-> unchanged. The sensor then probes, the CAMSS media graph completes, and
-> capture delivers one complete 644x604 Y10 frame. A continuous five-frame
-> capture then times out waiting for frame 2.
+Also should explicitly say what the bug is.
 
-With the check removed, the sensor runs at 825.6 Mbps against a receiver
-set up for 840, and the driver reports a pixel rate of 140 MHz where it
-is 137.6. I do not know whether CAMSS minds, but a run at 403.2 MHz with
-the driver as posted would take that out of the question. If it still
-stops after one frame, I would be glad to compare what the two drivers
-write at stream start.
-
-Sergey
-
+- Eric
