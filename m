@@ -1,126 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792444581;
-	b=5SI2IkIEAT76iB3cgj4OjGf1CRmgKvJJ/YSFmM7Di0xG9iD1ufBb83BTDPl4So8ToFyc
-	 y4farkQij8SXS3XnSXRX3aKvTd3NeOnjiHAZnyfUFoacgC4qgrsnagtNTMRlCtWRaQVS3
-	 C3MbPGnwRyXQX7riZMLC9xy5AviB4btQP5exm6mgrwBTLkkRavaukvsqYssOJ3uyy4QCp
-	 DhU08BRBRfv4cTJ7bRnxcQ+D9NgGC/I+rIrfYd8fdDN7Fhfs6UsvnQ8HmZ63Be4H3G0Sd
-	 Z3NWHWpe+LLyKmlL9ESUH29wMM2AazlscxmQngvlaKEr0Tun4Wpj+Czg8SilXpqzpyw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792444581;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+VxzWuvnA+V3BE3KwZmHCg52Qh/sYxSOOvdX43I3wdw=;
-	b=HWYH+MpfeAXccS+69MLo8VgKrqSkpb9iCzXS6n7v9jubmoyAiRs5Xz4MtB154kX4Nzm9
-	 lKd9IZzPt2jMaEIZeicndZ63e6LHr++7kwJPvlAXpZrTjfoJTwbbtuSwNcg3CSAtiDhND
-	 4xhnVjziHIgoHGorehqqexiMGgKHjBmFj+9IXQObw0v7dmVe1OxhxMlzlCmqW+g50pP+h
-	 V/MW+Kmvwtrpu3Ay8ppq4+xrHjNADmCFN+kQC4g16WP08c7pkKUk6u45og5FBWZcu8VNQ
-	 yObH8UcNvF6a69kiYUUkeI6FLhr6AZivpKYOTMiE7+PoIilPh382vIz409twmY6zlnA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fluxnic.net;
-	spf=pass smtp.mailfrom=fluxnic.net;
-	dkim=pass header.d=fluxnic.net header.i=@fluxnic.net header.a=rsa-sha256 header.s=fm2 header.b=z7qYBQi4;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=XScH0lWX;
-	arc=none smtp.remote-ip=202.12.124.155
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.2
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792444612;
+	b=cXGrUvwhpCXr9Ie0zCXVXLwdRlIuaTcKaYf1FoDf1TaSrIcUmMHx8TT2BvLbDhOOjOax
+	 /SuriYaZ+RfK/CjQRyg4H7315GL1M8dy4RyE/g2ZJY5QeCkRfboebcgwGypkPAGgMkKwK
+	 Rt/9uhCbsHVBswjTHSaRUtKjlCUz07IFqO+2s7gylNiRad7WHKDVB3qrdToW2rQ4mNdbc
+	 1O1WswwmgUTBzLum+APhS0wkd3zDjwXu4qCCaVC282XemJVax+rn3oCV5OtD82UP32yHK
+	 UqK4VkZPnoJBQaOi7f5lEJUuUFFgtM3sOk+5Ftsthqdhyj94XbTHXWM/neMQh8U5TLA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792444612;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uKT+pI5SkmJNnPjxvzq8yGKSG+XidkiCglWu8x67nnU=;
+	b=hLnGeM2MgBLqdnI+EEe4zFI+wq7j3LlXrO/Qnc0oN8xMNmhcxWQfoRNy8J0GKEa5lnP1
+	 l7A6n5kGCHKSQqwp1vwA0itMpIUd9eoBn6XUnKGhjK8j478HY31tNd3945M5KALUBPb1Q
+	 Sx4sb47Y4rcW42MxbvRuGyczkmPWs/CkLoCdj9LDGH4CgAThh4gVo+UbzzI7zDtb1nWM9
+	 v95zaj1OwJ7+rs8SMzhVz6Qe3KBCPFJSRSavhZwFLo/hM2JvPKA/ip3WoMGsrFY7JUKBV
+	 2Wg1UIl/njkA4w2TAyCUaBod1Khs/Z/oYGvxgGtFggLADUyk4TCvT1ylWSF58i0SDnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=gOVA9R2q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.2
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011002.outbound.protection.outlook.com [40.107.130.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D268606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:16:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D268606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fluxnic.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fluxnic.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985FF606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:16:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985FF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fluxnic.net header.i=@fluxnic.net header.a=rsa-sha256 header.s=fm2 header.b=z7qYBQi4;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=XScH0lWX
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 955567A01F4
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:16:19 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-06.internal (MEProxy); Mon, 19 Oct 2026 17:16:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fluxnic.net; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1792444578; x=
-	1792530978; bh=+VxzWuvnA+V3BE3KwZmHCg52Qh/sYxSOOvdX43I3wdw=; b=z
-	7qYBQi4yKtrddauaPcLdhOmChsnyBSteIiazxnNHr4RbZr5yR33dM+3uIOnn7aMJ
-	Y2BInv2mNTDc9A1SBQ7x6hMdZ8fLMNDkDDVwNfEDjQmQaIFK46M5u0l4acB1Nns3
-	B+lklk5CrX7PdjMmFDzAsT1W1ozJZSfIvGRQPH48W+3n48CTDEqfsVM+KeU+ENjt
-	bzYxXJhNXLf44eGe1+ihXKz5k0YkwFNWamNAgS4f3aTr4gAagrUH5d92rPzliRM1
-	aC7BbvSLVg2y/eaf+BKAnXA6KmRKJ7vUaRpBtoCYr0j1fDQFs4nt7GENF9JMsKrL
-	vA+1EuZCOXmW54uPkl84A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1792444578; x=1792530978; bh=+
-	VxzWuvnA+V3BE3KwZmHCg52Qh/sYxSOOvdX43I3wdw=; b=XScH0lWXdF7Ub2Me6
-	5sfiMkQ7ODFn3Y9Ikv3n4nmAirSSW9I9pk5MJbpw9TnyoYPMGv4Uc+g6sU1s//qJ
-	6zzxPD8PnGltEBzCN6TipKo5na95DiCG3HWggnppncsdkglI7KIYkfTBeL5kWYMC
-	Bsz8wVTnFY4HwzTu2G+0lPGqBfZonWM3Xb8wvjigMSa74nQhoOevl4cw1j6NZfAm
-	yy6A+v8Ro/mYhqRbhM+z8UqzzFQRefwxV3ECOYuoKnaJhdG5ZC4LgmhThsoTCsN1
-	TirmbTfoIFOCorq1CGSStfsR6b2GSHHtAr0l+uTU876PD+/Gty94FrwcxaMbawjx
-	xXjyA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=fluxnic.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792444578; d=fluxnic.net;
-	mf=PG5pY29AZmx1eG5pYy5uZXQ+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:i2iIOIcJoW2jwl3cvfwt++KmFE+/Xu1tODx13/jSqEA/9Zk
-	BGvTAG0kopGl7H2VgD2A2uSsAlta1KbkL3TU+lg1fyuIPirQLvwFurNb1cGuvcrb
-	WH0gxuSCXQqvMwfHRrpH74KPiFOOWvtFpWF6frMDOxD6wycgXhK5q4yyv5nxwC9b
-	1dxTgKxIpRXlnR3IW8Cv/vzxPUjVTLZu//rfZtrfcZjOQDvAYevoAWgh5phW/1cf
-	EZJJNJUDfhb7TFkxHVnnL+hGfIaSWfsJ982Q/O8ODLTFqwK+7gFczDFFq2P5RQRW
-	bgUb3uEtGqGJtuqljoTcRylJGvAWiG2b8yb9ViA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:utB6vBsOBci+IYFCHJKRhuLOYM32k94sv1Q0YAU02uI=:qgeHQPMKljJtP4SqpcnVkaCEjQeJYK9Jyq1liX7PUok=;
-X-ME-Sender: <xms:oojWarl3XLSCu1uTkoR_cHDelIk5UzTRG_Hyzwz0lqTUE0mV0CxIMQ>
-    <xme:oojWagVaHDF_yij0QShuD4hVbsQwSrLeyd-kQ-yAcc2b2N2Esdd9iHKFOGXjz1GdR
-    lDmh7CHFwuqlVjDHDL5nppYOx61nLDVKbcR7M0JjgxlrXS5gzANfXo>
-X-ME-Received: <xmr:oojWahuPpOnzDHCm8s7Sn6FDVYZNkoG0dwRZlB22lL1sTWZBqOmSfb50AJSg5c8F6dWalQ-T85ZtgXRI1AMhwWD3Tby4OEBRwhFJuLdaZbaom1A>
-X-ME-Proxy-Cause: dmFkZTF/vnGH0ScjvaxYxr+nv3rutIYng+eq1vxPiBPKiE3JZvmH65b3P8DmdCRPD7IBeK
-    ugrAkzbPG9SBPGIZZDEhXEU7X6KDMKyBnLklQSkB1UxyewQvB6HLrWMnvG34mk3U2/2Ceq
-    L779tVQ95/2tM/emuq54ysohR+3E+imrKQaInlUmEBa8mAQxiOo4HIqcAwsbbNTM5yXiuV
-    /covjUzx/4rs6/hTGjpWVRBDT59UFTYfH6YGC/8gtytJybgRnCtj6Rx8PG6DPhxg+tN+2E
-    gOb84bpauyj4Op6Vy1u5U1c6FIwS/0yons6lWFB7uL6EU0nvV63APo2Fi9pO9x4+KwyXi0
-    2c1TLscqcMiyRZUFzddNaX0dRDzjREMEvynQGJfhp6DdCVFMTIr/NVguOw9eSmqVyNxqsn
-    LRIV9CnepVsp7cInQv16NklAvX1i9kuP36bIH1Xj22PvhffQACTtkX33gSMme8a17A6kq+
-    dKxgZqGRBOe1rdILAfedvI28xS+4pDM3WAEnW8wRGmxEoeuwR6+dWeaHgGiNJcWDwTNupn
-    3u6K8XhrzRJqWpnZwk7aPOyYX8OFFNtWY2JPbzzd5KAg8LndkSQONNl1BeoTklffR4q0k3
-    /ACDPg3iyeRALDzZKevWV83roOsq1UHM22mH6O7i+M8TNLzWXAhvCSL1an7g
-X-ME-Proxy: <xmx:oojWajaKg64JYaf_xYRtMm4WfQrrsNgQHtM63Gm1pGXKceVcPKYmIA>
-    <xmx:oojWagWlLxBiDLQOQzMLIh6XhIF3gvip6uyqSzo7tftVOm7VFqoT6Q>
-    <xmx:oojWaoQCmSANb90FZwBoyoGpwQ6FuYCQYjkPvAgJtMkVKJR_F8LtXw>
-    <xmx:oojWauME3Gtr6uW7oymdqk4hpOYxxpi927vFrwb-FUc6b2ljA2dnuw>
-    <xmx:oojWarGP8cxq-TLhjhct8YdTx5dHe520iI1O4hbHn_F8nB_-mjJulmvV>
-Feedback-ID: i58514971:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 17:16:18 -0400 (EDT)
-Received: from xanadu.lan (_gateway [192.168.1.1])
-	by yoda.fluxnic.net (Postfix) with ESMTPSA id DEB5B2331B;
-	Mon, 19 Oct 2026 17:16:17 -0400 (EDT)
-From: Nicolas Pitre <nico@fluxnic.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nicolas Pitre <npitre@baylibre.com>
-Subject: [PATCH 3/3] vt: add DECRQM support to report mode states
-Date: Mon, 19 Oct 2026 17:16:17 -0400
-Message-ID: <ec7608275b930b9c31c1e08881b9984bc982a6a8.1792443833.git.npitre@baylibre.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1792443833.git.npitre@baylibre.com>
-References: <cover.1792443833.git.npitre@baylibre.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=gOVA9R2q
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PbF/8WCQLrc8s8H0CppcnWAFqUcPzEvbNyNk/wjLNIdLOTrEokjSaYnyrrAXjfRaGk4aYL2JHrQ9axrNu2Uek6OYs4FSdFqRZ2d3JgTFGpOYrfoiYsZ5/4kxv7Uzcqn3Ei1nAMuz8x5ThMqHFXPpfSTOdHaPFFC09yQ9ET9Mn32P5fvJY/L3t3oVJ4/m/u7762Ddp7bpIDnMd901H3S2Zyy4QpEQi1MrXBGSbCua1ZeZwqF2GCvF+fLVBo0RWpvpVEHQciKqgWUsSMuUnuYnyP12pZpVJOhdGl2jTQnc7gpurTnbZvZHDy07YewZiOPUGxz+ZhZpgf+cUuJfrgHnyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uKT+pI5SkmJNnPjxvzq8yGKSG+XidkiCglWu8x67nnU=;
+ b=yg7o5+osIAENf1JI4OmhO1/OjTW1yr6G/vjCsZo97WoaBeLxBet6+WMaW2IOptj3+ClUr1cl18XRG3FLHHtHb5DRboctoEXosmRL7Hesfms+lfDVqd5dBAqztzR5e837MvS70YQesx1Zpfec70XoT/AHFgW3F+QXxSzT/O9IrDBQK2tahvVWbaO8dg4kwP/JAxiuwfdhKDAxsHnZk6p9MfZxNLmvD/WsqqLASAy6OjNq1cY10Aq8U/1hWoifRNh5T/MBK6Efyf6BMzMl+sGtN3kXl++jA0fhueFgqgpHqBxIxsozc9dsVW/task2nfL8Fd+ihEE0uRoNZgivGosLyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uKT+pI5SkmJNnPjxvzq8yGKSG+XidkiCglWu8x67nnU=;
+ b=gOVA9R2q71pUkNMZswiWAfVhUlUr95G13CLB2q+HNwtHtulUbHcAQST6VKabm2J8sXTjFNXGSEL3S6dQcA1lYRSzDZT4Bco0iRpEyEcqOeZv4eKjzlwn+xvLphsEBWpo60QkhGjU9lwYOnqEY+hFYW55aq5uQ/aI3dAK4LhPnxG9cnW8QNqhfWKQCAK4odnNRiI6OMlOy6G5SQvrFZDpEscrtdU8poyuAsM/Yr7PagiOBtyIKkaCWC0Csig6pN/4z1ZUk45OXZrtH50B04uBFcqW2zlkUlW6X+dXXWQZ+NLaAcdwq5DPGck8tNa+WuvPZcV4t8Rzp9rbJ0ZgXhjmAw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM9PR04MB8779.eurprd04.prod.outlook.com (2603:10a6:20b:40a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 21:16:45 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 21:16:45 +0000
+Date: Mon, 19 Oct 2026 16:16:35 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Nishanth Menon <nm@ti.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Frank Li <Frank.Li@nxp.com>,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	linux-kernel@vger.kernel.org, linux-bsp@toradex.com
+Subject: Re: [PATCH] MAINTAINERS: Add entry for Toradex boards
+Message-ID: <ataIs-d7mYhNu_wa@SMW015318>
+References: <20261009064705.10116-1-francesco@dolcini.it>
+ <20261019190930.eqev72zc7pkzrc26@mummy>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019190930.eqev72zc7pkzrc26@mummy>
+X-ClientProxiedBy: CY5PR04CA0015.namprd04.prod.outlook.com
+ (2603:10b6:930:1e::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,162 +99,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB8779:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9baf898b-0054-4607-681c-08df2e264728
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	TQ6tbyIJQuW07HsJlZODUOCJqGDyIYSXfaOxv33Mf4rQ5JAsnb0UUYiXHYW9YJfjeL64EHkxfHMDCP4LccCC3Q1u6qgg/7tpsGY8/FRiG3yZUfVHkAFzUJKXJiAK4zUzFAqvAsWYDIXllTjH1sUVnfY3W38eL4mXMU08q4fYZuJnD99GVUVIkYYjwqUlxsDyeD4Bew377qIcxyfE1By1ZhP0djXlJwa2RbPf3hBpB6q3+tSWGgCmRpUKP0f5874EhHU3x8fgTqjo441S0xjX6OpHL9/mX4x+Mkx6rISmGkYTg6EOu2KuEspNFIG0aTj1YkqdN79sPqhV3iC/3jO59lLYszFNgVQHNTbIHmk+bi0ZnUDi4tLJoVTK3SsJ7SE1apUa1jj2YltBQwxzKXaDeT6CQJ0kRtK2mJo1gDAQXkeUkhqbTfWzrE0N858EmmNfjO7lTBO2jM8XM28qECK6i5ZlnrKI0SqjDl7ru096fgeiath4LQzYWGJPfLkMfi/6GpGl0oVhbUZuVwxW1GgDWk+4UouP5MhWdeV4ZEiHZzXyduTUabVM4VWRFqHK3wXy9zlYyekGALHEDDgGpwg1PjMoekbO6c2dQkm4PtEdrhzxo7eTCWtbGDkXGqKvzcxX/KlRwm4JjutTxmfDbcd7zbAYYeaEThBXnUFkQmUjWBQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Gti/B08xX4pq57RVrVCqGUpgSeUV2RbX7TlKXzK2JV4pMwF0Uc//FPrgJf6F?=
+ =?us-ascii?Q?FqWArn7KaUtPhCKi9nwUc+4lwcA3FKQFfFIJw0DddEr1/u2bCRYskD4bjkUd?=
+ =?us-ascii?Q?Uc/l7TjJs+WMb85H7fmjWsx6VDa8Y+Ql9chwQ/lYIIVOh8TTRSmmQ49SbzRa?=
+ =?us-ascii?Q?Y07hxw5aG1Dz2BdktvtpeI0jgcGO5obBwGfR+MeLBKL6dzsM1rcCBmYgj4Oc?=
+ =?us-ascii?Q?QH8y4Dw0zFYcmUoSXXV19ENc2e1weEXA09kBE1/dC8AzysOsbqlay2cKV6Bt?=
+ =?us-ascii?Q?5gGG3QKvr9BIlTKNl9NWGDpy2e9jdZbEp8jtcg3mavUt4N3g/bTJTKkqmsdr?=
+ =?us-ascii?Q?jPXKUSXpcd7Ymmu8GxXrNhdVFzhNimP1IJl7MLTYDOgpRHnLzOgH4rKb//Vp?=
+ =?us-ascii?Q?q2drd1CEFDNEwf4ZAVnS9YqSzioswTvVWH8XqCatNep/tmoLpXkBZ8UDvIZU?=
+ =?us-ascii?Q?ZdlmD9E3YRY5yC97Cx3sO0NI/HWxXoWnfmVYG13QFM5KsAt5RJTwD6uTxbvL?=
+ =?us-ascii?Q?ptkJmwDVP2ehQJJpJL8Xia0bi3t8Byxbb2TQQV8QIRWJqvpcL1Yl27yu0E/p?=
+ =?us-ascii?Q?9dvjnTZR4rl5hWa3dxUJzQ+rMwQHsFTVsTVKyK3d9sHpLQd1/fpPQKifm87K?=
+ =?us-ascii?Q?FcnRXk8pHQPe/fmWvXqUzGoSxgQNxCicmAK89uNxyjhnRwfCreta6kwUp2wG?=
+ =?us-ascii?Q?QcyjdWXxzql+DVBaUXgHQKVbnmiCFWI/I51yzgU6eP6DnlBfAzBFUn0hl2Fa?=
+ =?us-ascii?Q?c7vkkyynPsSgwK5vTOZGRchZDwItta7PuZ8ftEXWBfKG/yQhqyO1Cm164QRG?=
+ =?us-ascii?Q?afdjOH/344xJj5U1OCZ+lkrvRR6JCUwUUKDLa/g2RSOUTtDO+ALeCzsymn7R?=
+ =?us-ascii?Q?iKLiRFyX7REN7oJBcpTD07OnrPHeKvNAL5Q+M5O5Xzp28/EjvkqxC+GubWOv?=
+ =?us-ascii?Q?/tST1kGghkGOzqnni7fxuw8ESZlyXPpk1m6oWZlaVsQqNiXG3VxRito/njsM?=
+ =?us-ascii?Q?BL4NvWJY0CPrmec7zDU59YSdw3Qs2ADh01e/7mMxT1S/vfkKiWcUCCyeI/rj?=
+ =?us-ascii?Q?ll6WBHie+s0imagW3tF6uzzUGCv6oN8M+lQBLo40nZQKE86e1iGx80igPvnn?=
+ =?us-ascii?Q?fvxcuMdsWlMTinusXTGxy6n4Nj9xx3rftXlW9l/q9DQVSPlNi98TYXjt+WCD?=
+ =?us-ascii?Q?p2LtGdubDh4kzGJ48+tJ47DPQAlrZtY5/PETE16GnRx8qnwyDTWWARxz/Kkk?=
+ =?us-ascii?Q?5fz88jnxs1gjTx5rgAVDWT4U6XgwbamoU2f9HiKD+gTaRyifG1qbwkLN91hX?=
+ =?us-ascii?Q?cg1LrF+EyLw3Adjy7UMRKoh3idsLp1qdZS9VqPY8ak11Btto0H/nAQEU7wHA?=
+ =?us-ascii?Q?6cyIpV55AX0Jo1pzHhLqKO8q+tFGer6x15aenzz0OQgjAKoMCwtsMfnFK/7O?=
+ =?us-ascii?Q?7ulSPlF0Lajf1X9iqt56YpMw6qLZ9J33RAzo1ar49HPtLJQS2Icc4x7rMinb?=
+ =?us-ascii?Q?CwnmPVFSM+4G0Jq4Ugvo5cLC6/J7EDke2BLBUX5fDeMCLLkgY4P2CPQX9WSh?=
+ =?us-ascii?Q?QpS0qgr4LtKWYjIJLUfGNcRnKZlyunQPM6mbKd5dzS2D0zumCOH1B1iIOQXn?=
+ =?us-ascii?Q?obrxTp9psY9qkWqtXfxBdy7iqIRoKAYaJnpHeNh+VW2fTORxPtOpaXIbZvlx?=
+ =?us-ascii?Q?5IuOBcHt24J2+/eUpDLXd4yA+9IWMqB4TEaoDSbQPLWXXA3KE9BmMZGHEiox?=
+ =?us-ascii?Q?0ekTSkfoaZEPfynSna1BWIzZJe3yJ8W71QIktreLI5OQN3lWyjAr?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9baf898b-0054-4607-681c-08df2e264728
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:16:44.9403
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LwqMy90UaBOZXXiIPG5Uu7gYJXwveGGGNjhplKgf8YNW80oVUuDIBoNzRRFHlOO4Nh7tJsGRMxx3DDr5cSrE0dcKcYpwYTyoBYcDHvuZE1W5Jv58DKiwk3y1A4tJ1qCn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8779
 
-From: Nicolas Pitre <npitre@baylibre.com>
+On Mon, Oct 19, 2026 at 02:09:30PM -0500, Nishanth Menon wrote:
+> On 08:47-20261009, Francesco Dolcini wrote:
+> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> >
+> > Add a MAINTAINERS entry for Toradex board device trees to ensure
+> > that we are included in patch discussions and can provide reviews
+> > and feedback on proposed changes.
+> >
+> > Toradex has been developing and supporting its System on Modules and
+> > carrier boards for many years, including their Linux mainline support.
+> >
+> > As the hardware vendor, Toradex has access to schematics, bills of
+> > materials and other internal hardware documentation, allowing to
+> > review and validate changes against the actual hardware.
+> >
+> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > ---
+> > Frank, Nishanth, Vignesh: up to you to decide who is picking up this
+>
+> Reviewed-by: Nishanth Menon <nm@ti.com>
+>
+>
+> Frank, if you like to take it via your tree, I have no objections.
 
-Applications currently have no way to find out whether the VT supports
-a given mode, nor what its current state is. DECRQM, "CSI Ps $ p" for
-ANSI modes and "CSI ? Ps $ p" for DEC private modes, is the standard
-query for this. But the '$' intermediate makes the parser ignore the
-whole sequence, leaving applications waiting for a reply that never
-comes.
+Most part is imx. So I will take it after 7.4-rc1.
 
-This matters especially for mode 2027, whose specification relies on
-DECRQM for applications to detect support before enabling it.
+Frank
 
-Add an ESdollar parser state for "CSI parameters $", and answer a final
-'p' with DECRPM, "CSI [?] Ps ; Pm $ y", where Pm is 1 (set), 2 (reset),
-0 (not recognized) or 4 (permanently reset). All modes handled by
-csi_DEC_hl() and csi_hl() are reported, with 132-column mode reported
-as permanently reset since it isn't implemented. Other sequences using
-the '$' intermediate are still ignored.
-
-Assisted-by: LLM
-Signed-off-by: Nicolas Pitre <npitre@baylibre.com>
----
- drivers/tty/vt/vt.c | 90 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 90 insertions(+)
-
-diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-index 4d5c9cabd058..22dfab8de7bc 100644
---- a/drivers/tty/vt/vt.c
-+++ b/drivers/tty/vt/vt.c
-@@ -2083,6 +2083,82 @@ static void csi_hl(struct vc_data *vc, bool on_off)
- 		}
- }
- 
-+/* DECRPM mode states */
-+enum {
-+	DECRPM_NOT_RECOGNIZED	= 0,
-+	DECRPM_SET		= 1,
-+	DECRPM_RESET		= 2,
-+	DECRPM_PERMANENTLY_RESET = 4,
-+};
-+
-+static int decrpm_state(bool set)
-+{
-+	return set ? DECRPM_SET : DECRPM_RESET;
-+}
-+
-+/* State of a DEC private mode as handled by csi_DEC_hl() */
-+static int csi_DEC_mode(struct vc_data *vc, unsigned int mode)
-+{
-+	switch (mode) {
-+	case CSI_DEC_hl_CURSOR_KEYS:
-+		return decrpm_state(is_kbd(vc, decckm));
-+	case CSI_DEC_hl_132_COLUMNS:
-+		return DECRPM_PERMANENTLY_RESET;
-+	case CSI_DEC_hl_REVERSE_VIDEO:
-+		return decrpm_state(vc->vc_decscnm);
-+	case CSI_DEC_hl_ORIGIN_MODE:
-+		return decrpm_state(vc->vc_decom);
-+	case CSI_DEC_hl_AUTOWRAP:
-+		return decrpm_state(vc->vc_decawm);
-+	case CSI_DEC_hl_AUTOREPEAT:
-+		return decrpm_state(is_kbd(vc, decarm));
-+	case CSI_DEC_hl_MOUSE_X10:
-+		return decrpm_state(vc->vc_report_mouse == 1);
-+	case CSI_DEC_hl_SHOW_CURSOR:
-+		return decrpm_state(vc->vc_deccm);
-+	case CSI_DEC_hl_MOUSE_VT200:
-+		return decrpm_state(vc->vc_report_mouse == 2);
-+	case CSI_DEC_hl_ALT_SCREEN:
-+		return decrpm_state(vc->vc_saved_screen != NULL);
-+	case CSI_DEC_hl_BRACKETED_PASTE:
-+		return decrpm_state(vc->vc_bracketed_paste);
-+	case CSI_DEC_hl_GRAPHEME_WIDTH:
-+		return decrpm_state(vc->vc_vs16_wide);
-+	}
-+	return DECRPM_NOT_RECOGNIZED;
-+}
-+
-+/* State of an ANSI mode as handled by csi_hl() */
-+static int csi_ANSI_mode(struct vc_data *vc, unsigned int mode)
-+{
-+	switch (mode) {
-+	case CSI_hl_DISPLAY_CTRL:
-+		return decrpm_state(vc->vc_disp_ctrl);
-+	case CSI_hl_INSERT:
-+		return decrpm_state(vc->vc_decim);
-+	case CSI_hl_AUTO_NL:
-+		return decrpm_state(is_kbd(vc, lnm));
-+	}
-+	return DECRPM_NOT_RECOGNIZED;
-+}
-+
-+/*
-+ * DECRQM: request mode, "CSI Ps $ p" for ANSI modes and "CSI ? Ps $ p" for
-+ * DEC private modes. Reply with DECRPM: "CSI [?] Ps ; Pm $ y".
-+ */
-+/* console_lock is held */
-+static void csi_RQM(struct tty_struct *tty, struct vc_data *vc)
-+{
-+	unsigned int mode = vc->vc_par[0];
-+	bool dec = vc->vc_priv == EPdec;
-+	char buf[32];
-+	int len;
-+
-+	len = snprintf(buf, sizeof(buf), "\033[%s%u;%d$y", dec ? "?" : "",
-+		       mode, dec ? csi_DEC_mode(vc, mode) : csi_ANSI_mode(vc, mode));
-+	respond_string(buf, len, tty->port);
-+}
-+
- enum CSI_right_square_bracket {
- 	CSI_RSB_COLOR_FOR_UNDERLINE		= 1,
- 	CSI_RSB_COLOR_FOR_HALF_BRIGHT		= 2,
-@@ -2233,6 +2309,7 @@ static void restore_cur(struct vc_data *vc)
-  * @ESsetG1:		ESC ) parsed
-  * @ESpercent:		ESC % parsed
-  * @EScsiignore:	CSI [0x20-0x3f] parsed
-+ * @ESdollar:		CSI parameters $ parsed -- final char expected
-  * @ESnonstd:		OSC parsed
-  * @ESpalette:		OSC P parsed
-  * @ESosc:		OSC [0-9] parsed
-@@ -2254,6 +2331,7 @@ enum vc_ctl_state {
- 	ESsetG1,
- 	ESpercent,
- 	EScsiignore,
-+	ESdollar,
- 	ESnonstd,
- 	ESpalette,
- 	ESosc,
-@@ -2788,6 +2866,9 @@ static void do_con_trol(struct tty_struct *tty, struct vc_data *vc, u8 c)
- 			vc->vc_par[vc->vc_npar] *= 10;
- 			vc->vc_par[vc->vc_npar] += c - '0';
- 			return;
-+		case '$':
-+			vc->vc_state = ESdollar;
-+			return;
- 		}
- 		if (c >= ASCII_CSI_IGNORE_FIRST && c <= ASCII_CSI_IGNORE_LAST) {
- 			vc->vc_state = EScsiignore;
-@@ -2846,6 +2927,15 @@ static void do_con_trol(struct tty_struct *tty, struct vc_data *vc, u8 c)
- 			return;
- 		vc->vc_state = ESnormal;
- 		return;
-+	case ESdollar:	/* CSI parameters $, final char expected */
-+		if (c >= ASCII_CSI_IGNORE_FIRST && c <= ASCII_CSI_IGNORE_LAST) {
-+			vc->vc_state = EScsiignore;
-+			return;
-+		}
-+		vc->vc_state = ESnormal;
-+		if (c == 'p' && (vc->vc_priv == EPdec || vc->vc_priv == EPecma))
-+			csi_RQM(tty, vc);
-+		return;
- 	case ESpercent:	/* ESC % */
- 		vc->vc_state = ESnormal;
- 		switch (c) {
--- 
-2.55.0
-
+>
+> > ---
+> >  MAINTAINERS | 15 +++++++++++++++
+> >  1 file changed, 15 insertions(+)
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 483415e46217..fcc2e429bcd7 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -28088,6 +28088,21 @@ L:	platform-driver-x86@vger.kernel.org
+> >  S:	Maintained
+> >  F:	drivers/platform/x86/topstar-laptop.c
+> >
+> > +TORADEX BOARD SUPPORT
+> > +M:	Francesco Dolcini <francesco.dolcini@toradex.com>
+> > +L:	linux-bsp@toradex.com
+> > +S:	Supported
+> > +F:	arch/arm/boot/dts/nxp/imx/imx*-apalis*
+> > +F:	arch/arm/boot/dts/nxp/imx/imx*-colibri*
+> > +F:	arch/arm64/boot/dts/freescale/imx*-apalis*
+> > +F:	arch/arm64/boot/dts/freescale/imx*-aquila*
+> > +F:	arch/arm64/boot/dts/freescale/imx*-colibri*
+> > +F:	arch/arm64/boot/dts/freescale/imx*-lino*
+> > +F:	arch/arm64/boot/dts/freescale/imx*-toradex-*
+> > +F:	arch/arm64/boot/dts/freescale/imx*-verdin*
+> > +F:	arch/arm64/boot/dts/ti/k3-*-aquila*
+> > +F:	arch/arm64/boot/dts/ti/k3-*-verdin*
+> > +
+> >  TORADEX EMBEDDED CONTROLLER DRIVER
+> >  M:	Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+> >  M:	Francesco Dolcini <francesco@dolcini.it>
+> > --
+> > 2.47.3
+> >
+>
+> --
+> Regards,
+> Nishanth Menon
+> Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+> https://ti.com/opensource
+>
