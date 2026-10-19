@@ -1,81 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1818F379C5D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:15:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B9E447811;
+	Mon, 19 Oct 2026 03:20:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792379741; cv=none; b=SVDbm5x+cdje4M4tDBhq4OM9RHtCvlo20o8p6WAYMOG+HeVOhxkrW7f5WWLXs2LAd/uaQNhbp7y5YbAB8tYPhLqG5fa8lfLYCdqiPzCxDLXu69c1VP4xN0esIiLzQ5STZeJ0+r+wDL3aefwByXCr20u2omxPdITpa8/EFgSj+yE=
+	t=1792380009; cv=none; b=cyUHyAj24u0atLJ3MebJYgx5KDDeNz015AVfCd9rg0+htAfUSHa5sZopzKrSbyf2rIx+QJ9PhIjLN627PZtcQC/J2RlzbeKEkUSWzWyaLPUvfozQsj2knWCqRvv9CXwfOyzybOf1IUUEEg7aRa8E0dyoLZewVLpAo6nppJHc67Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792379741; c=relaxed/simple;
-	bh=bdGfcucAiWw7jol+tlMNMZDMPnuOhYfQNvMnFv2+Z68=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=m6wSbGPEbne3AkcnRyyYAEAyPntgXGWYadzLTTVZaqs21mwl95BYgF0e4pd3YRsXNRsWBZmPNiMDHY6FrVqpPL+x2h+vD9PHIDufgRdC3kllvg0vgtHdXyDf9TAEv08kldWoTO0lRnmPN7b8JmcIAh03rWtEL0ZV7GngBIJtNsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1p9YLpeT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792380009; c=relaxed/simple;
+	bh=9D/tTq4orHUatReRSC0s/yYSLUXAjs0NGHI8nfR6iU0=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=hPN4MSXc3vf0BZc9Gg+OiUDBeCBK4p3bYmH/bXAsUEoRYFWgMgLfRt4g7XQ8r92h3NImGDwyetxXBXY/H9fUkj304tJsl/TQ+P3ym16SJsBGpRvn+rZR/2mV9Nh5CYZkKMp4s9bkyYhUwCYoH5Qqtb1Grk324d+/GqFNarz83BU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXsJ9G4R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1p9YLpeT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121F71F000C4;
-	Mon, 19 Oct 2026 03:15:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792379739;
-	bh=kHRfflK+JeBKoM8boglU8kC3zJbIN9N75Z6QiHDkTXc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=1p9YLpeTOebim74GzqQgO/JSYfD0qidsx549ARU1z3ZbUSWPp5tvwfqKiGJnIDrul
-	 TzjrGDlGgmF9XVSIGdws19OVOpIvUYX3AM6z0MJzKf/NExsGf+n2LgCJnkBhoSmrgp
-	 P+lheZzrelM0gZBfu14xN7Td5QGNFkzRv/PZTr+s=
-Date: Sun, 18 Oct 2026 20:15:38 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-Cc: Sean Christopherson <seanjc@google.com>, Borislav Petkov <bp@alien8.de>,
- David Laight <david.laight.linux@gmail.com>, Rik van Riel
- <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, david@kernel.org, Mike Rapoport
- <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, Pedro Falcato
- <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com,
- pbonzini@redhat.com, Tal Zussman <tz2294@columbia.edu>, Matt Fleming
- <matt@readmodwrite.com>
-Subject: Re: hunting memory corruption bug in 6.18.x
-Message-Id: <20261018201538.d0957878f378a9821852836f@linux-foundation.org>
-In-Reply-To: <atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
-References: <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
-	<20261008182356.GBasffvDuTemTu1VUY@fat_crate.local>
-	<20261009090042.39ba9c06@pumpkin>
-	<aszH4vpXFAOQP1WG@pcnci.linuxbox.cz>
-	<20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
-	<20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
-	<20261016031242.GDatGWKo98YSOhEOOn@fat_crate.local>
-	<20261015211832.45d87fab15bb3e0bbc2f47cb@linux-foundation.org>
-	<20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
-	<atI_yuCc4BiweBQP@google.com>
-	<atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXsJ9G4R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073791F000C4;
+	Mon, 19 Oct 2026 03:20:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792380008;
+	bh=CNKDQtmKSS3+n5QZzQjFbPVGBPOyM0GNuPUPPITwubQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=MXsJ9G4R+GN9olJb4nktvleN20dsr+1EWMDqzwK0NfiCiIyFVEEjjYnf2KPb9UIGb
+	 V9r491TixLohKL7eZ5bfw0zYzfY65/rqp4M3X7JcKbPkbw0XnGe6zdLatOGEwZCvuF
+	 yQc8XBJuSIRI8IobnRf2ygljDKMeZxAzWJbJyGWz7G/BJK/IePn+pPDRkJAB0oFr+w
+	 4AOoA9R18qfrSg4wMpmYihylGSn/eAaSjt6W76ELzpmcVpkeZSKpfFj2YTXYq3Kr95
+	 4DRvAr4idxrstYec55LysTNHAZ6B6v+dctC44I/HPkK3L9wUcS9L2sIro8u5KxHGmV
+	 l23cUB0sxBueQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F143938119C5;
+	Mon, 19 Oct 2026 03:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next] selftests/bpf: Run the cpumask map insert tests
+ only for the test task
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179238000660.2381645.14989315546275364536.git-patchwork-notify@kernel.org>
+Date: Mon, 19 Oct 2026 03:20:06 +0000
+References: 
+ <20261009-selftests-bpf-cpumask-insert-filter-v1-1-3249218594d7@gmail.com>
+In-Reply-To: 
+ <20261009-selftests-bpf-cpumask-insert-filter-v1-1-3249218594d7@gmail.com>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: andrii@kernel.org, eddyz87@gmail.com, ihor.solodrai@linux.dev,
+ ast@kernel.org, daniel@iogearbox.net, memxor@gmail.com, martin.lau@linux.dev,
+ song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
+ emil@etsalapatis.com, shuah@kernel.org, void@manifault.com,
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-On Sun, 18 Oct 2026 18:52:29 +0200 Nikola Ciprich <nikola.ciprich@linuxbox.cz> wrote:
+Hello:
 
+This patch was applied to bpf/bpf-next.git (master)
+by Kumar Kartikeya Dwivedi <memxor@gmail.com>:
+
+On Fri, 09 Oct 2026 09:49:32 +0800 you wrote:
+> verify_success() attaches each cpumask test program to task_newtask,
+> forks a single child, and expects err to be 0 afterwards. Most programs
+> return right away for other tasks than the test one.
 > 
-> Hello Sean (and others),
+> test_insert_leave and test_insert_remove_release don't, and insert a
+> cpumask into the single entry of __cpumask_map for every task created
+> in the system while they are attached. test_insert_leave leaves its
+> cpumask in the map, so a second task created, for instance by a test
+> running in parallel, fails to insert one and sets err to 3. Two tasks
+> created at the same time can do the same to test_insert_remove_release.
 > 
-> I think I've finally found the (at least) one missing piece needed to reproduce
-> this. At first I wasn't paying much attention to nested virtualization, because
->  we don't use it much (or so I thought), but I was still wondering why
->  why all of this seems to be tied to Windows guests. So I dug into advanced
-> Windows security features and found out that newer Windows versions use
-> something called Virtualization-Based Security (VBS), which relies on
-> exactly that: SVM/VMX, i.e. nested virtualization. (I'm not a Windows guy,
-> so excuse my ignorance here.)
+> [...]
 
-Well we initially thought that nested virtualization was not involved.
+Here is the summary with links:
+  - [bpf-next] selftests/bpf: Run the cpumask map insert tests only for the test task
+    https://git.kernel.org/bpf/bpf-next/c/e2c978ad415c
 
-It it indeed is in the picture then it might have been 55780d8a1dcc
-which unknowingly fixed this.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Are you able to test that commit on the 6.18 kernel?
 
