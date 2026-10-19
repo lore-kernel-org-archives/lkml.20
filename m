@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792441157;
-	b=ZkaRZoEKRfyUp4VFJzeXcx7zbe1C3W15LXqLeNEuuVhRe9E6hl4s+d3OVHIFEc5r/gxn
-	 hCWuOepYwTZqOuczNsiWgzyDkbDv0I6zM5K9PhHnCMJP6mpmscwqp6AdfERqU8TmfUt4G
-	 H+Cj88ae44Qppjzk/gwTDfSjQRiU++PYAIDOATVchmQ8cNbCcp/4wgCKwg6VLqaozzaIt
-	 XkHgaLgfJ+YHv8GDudIGhu/nkWzjzMrkOI7Bika/JeXQeRVNW3xt0xPdxlM0bsij0k7EX
-	 rRxnun+gete0uLjTPRfOscEkqD2UiEj/hy9Ng1cmrVlxtYb9/aqlhIqD0H5ZJ4FzfRQ==
+	t=1792441168;
+	b=VuZCYyopzlVR4xnv21JKTn+qTXhalKc/P8tATs/nkmDGoCcQLwmCAgVefXYPuf0RXjxk
+	 kmm8F9oXUJe7QAHi0+Fhy+GE+insunrnX3b+cxRYaT3Mn+8Rhe4pIKe+R4UGsLJenvU2i
+	 y+4/s5ekYu43UDiWJEVAkEfd7nhY+BDMmzQ18aRJJvTEnoozQigJNkV4vfTeq7fvJzFSa
+	 uVcj0nSawxz7DMfGf22O/xSkOGzZepgicVAKlQYhgi3hE4WSl79U6Prsqc1EXUHjM2jTJ
+	 gRt+BsL67nuohxGFOU9OcdOqFbMG8QkNALwxJ3rN9fp5zsgNFfHBCLuspklNCnjDSFw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792441157;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792441168;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=4y2MuAUYuz785FG6IKdKgNPIRDSZ8uzR2aajtFs+O54=;
-	b=Vh/UDL5rQ1MNPT0hloCA7WdsrY3SMeiUhohrBqV7LOBAJVHiVlVx3if++VEnKW1MSPOr
-	 VNQCeCOXMDTVq5SVlVhsv6/X/yUOHTVuuATOqHuzKnZt68CmJKB+CMIcsDjrPbL0uu1Dp
-	 d4rR8bgNnLaKw2coDjOWxquo6XpCoGk/9pqUjts2YXtEByNvaWOth4/O0jzf38/JO3Wbg
-	 SsZoI+LCXY/+w+QbwqMpH8SmrmHvCAYv9aJ7KaLdaMMoRaR2HMBODcAJb2mlYnlLFEIbm
-	 /1KxR1fPVOPuDxZuOZ/kKMdxthG/Q5hqct7fruycn3nME8Fj3+puzRYx3VWS6OI5u8g==
+	bh=LTdVgoSITfVsfZdWSZPA0V20iiS+iFwD6Q/7o3LP7eg=;
+	b=z4yWXnS/5FrjHLEiZnflaJt44arqWuCb8pzEQUbxntF9ZNdjLkaHaU1yt3+NAk+MrzP5
+	 vxhr1kvHKgDQiFQUn8pUo3dNaJynsEJMmPJ51EtMkQYh6FDuRfLhzQjovuP3E+fYA2g99
+	 +2PzNOf1yJ/YUMXRXWNiBT/Sl+cKOx2TYvnY2BT9HT7u11Ba5bfu/rL/8M46ReEd1O2WU
+	 0ku4toNHGLOVnCgxlmoqXPudbKySHLFRgjv6GEJZz1A/IKIaWrYto+z3kDTsYJUSUrYeZ
+	 Nfz+DWqltbcZoo6ftONGo9ec7STDUQ2VJ0ZqQSASjlOlcc21k5tvQYp6SKNyU4RVBnA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rong.moe;
 	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=GkI6mabF;
+	dkim=pass header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=BPP1iqzr;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41154606A319;
-	Mon, 19 Oct 2026 20:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41154606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA6E606A31D;
+	Mon, 19 Oct 2026 20:19:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA6E606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=GkI6mabF
-ARC-Seal: i=1; a=rsa-sha256; t=1792441125; cv=none; 
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=BPP1iqzr
+ARC-Seal: i=1; a=rsa-sha256; t=1792441127; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=kvyJiUxVx44knwl5lJRnq9yfBe9C9Qlu82cCWcI88RLhx4UnGIey7i+PFA5iTMEiv4SC2vToR0M7ewFlIwDMYW5ovteR17dnHkgpo8vkJzb0Ptf3cojFe8nISveYL79ickiz5m/9y/sFYAeenmQ+lB+rwbbsTOTgR0QxnbB0WIM=
+	b=CBtJjlpUmj0H90LZ84cPQcllnZNp+0k/XQOQm9T+aeDK8Ye9E/+q1hLquMjZqCHR2ZEOhMBWy52GoT2rqtNxeIyr/EiXnLg7RMl2ezNBuMky6TLFCHNN0TJyuFm9sKqwrjLfvpf68d7Y6HeVLtWQINHEM/gU1JOoiRObN79ASgc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792441125; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=4y2MuAUYuz785FG6IKdKgNPIRDSZ8uzR2aajtFs+O54=; 
-	b=d2q7MYc5DhUeOmf1w/uW12BIA7ozpq3TpO11HFKl6C37Az4gZ2m9z1Y7FF9dnARXSH/0DIjXSISey6KauGHxmjPifkw4Qfc5YvpCV+ROSTVHhbaYgL6kj5w67ZMZgXMp/bZlJknel6y23l5lYFoJUO5fqfadB5gM8ArFWiG0OBA=
+	t=1792441127; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=LTdVgoSITfVsfZdWSZPA0V20iiS+iFwD6Q/7o3LP7eg=; 
+	b=YHrozDd67KFw+QcGVcoTSliW8zKq04omrjNV81fcHnOrAAwBdOt5m6twxjgIaB8GhDrPQygPYssCme2ZAuazOWk4S1Xr/cyC+4hvo4USgF993xznTva0pl6+ZrebuStLR3GRhU3QCKS5GQLusU/WzWP7/4dz5O1RiPssxs+h1U4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=rong.moe;
 	spf=pass  smtp.mailfrom=i@rong.moe;
 	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792441125;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792441127;
 	s=zmail2048; d=rong.moe; i=i@rong.moe;
 	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=4y2MuAUYuz785FG6IKdKgNPIRDSZ8uzR2aajtFs+O54=;
-	b=GkI6mabF5UqPWbtUUVjUt64KM4Mgc8Tq+We/zIPuGe8kA0R2lOTJ3ZdcA/ZrEQ1K
-	73EMTAIgyrUt9WPUXCXoa8dS4f+2luLFgdDlNOOwHHI8kEqE+957byrvGt47klpfU2g
-	yFXaVV0OVD+bRbU0t061Xp3eHJeiyHEaor/NwZu39qsBRPp7MoVABWYtRT3YXPT4mqo
-	0MTP2TVmVyUjuIG1SLp46PkNZHW1GdyqvQ+2+m/z9cjGp2a3IgAblm07a2OsCprn6xa
-	dcUc9XCWnUHQFIiGhzVRsI5BYma1oXsuaGI5GKLXaPM3X6gMuFgZnujqlaCNkzAfhNM
-	bn/utGarQw==
-Received: by smtp.zohomail.com with SMTPS id 1792441122463982.9102243246947;
-	Mon, 19 Oct 2026 13:18:42 -0700 (PDT)
+	bh=LTdVgoSITfVsfZdWSZPA0V20iiS+iFwD6Q/7o3LP7eg=;
+	b=BPP1iqzrJBWDyqG8EGtlmqDQj58sUFJ+ygUtFEEQLwAiFDjLQMH98OW4VwVhxHhj
+	4quzNddG3YtWCkU8AtJG/B+T5GVLxFzdxHnoWLX8uWeVCumM2ChtmIM+c1u2ytplE8r
+	Yf5GroJX7YWicEceHlyTepZ1kMjPNFIkse3GHrHPCuWKOJtogj4SL2/Te1UNFTA4VZ9
+	UnLobaUnGDoJzrWY6q/23g/8UzXQinZGDcruwjuNzm+Mi6HkSkndxG2QMlRTQQgJ0BA
+	XgEAaobBfxpCflHwWERcirfJrdsd6g5JJc3EEYsl8Mv2GUlDicIDcj+XZEfnHV62yJt
+	E+sroRwrrQ==
+Received: by smtp.zohomail.com with SMTPS id 1792441124511640.9708389218838;
+	Mon, 19 Oct 2026 13:18:44 -0700 (PDT)
 From: Rong Zhang <i@rong.moe>
-Date: Tue, 20 Oct 2026 04:18:23 +0800
-Subject: [PATCH 2/4] ALSA: usb-audio: Apply MV-SILICON linear volume quirk
- per mixer
+Date: Tue, 20 Oct 2026 04:18:24 +0800
+Subject: [PATCH 3/4] ALSA: usb-audio: Add dB scale quirk for an AB13X
+ variant
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,7 +71,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-b4-uac-ya-audio-v1-2-2d6e053b7f50@rong.moe>
+Message-Id: <20261020-b4-uac-ya-audio-v1-3-2d6e053b7f50@rong.moe>
 References: <20261020-b4-uac-ya-audio-v1-0-2d6e053b7f50@rong.moe>
 In-Reply-To: <20261020-b4-uac-ya-audio-v1-0-2d6e053b7f50@rong.moe>
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
@@ -80,44 +80,214 @@ Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.17-dev-6be7c
 X-ZohoMailClient: External
 
-The snd_usb_mv_silicon_quirks() tries to apply both
-MIXER_PLAYBACK_LINEAR_VOL and MIXER_CAPTURE_LINEAR_VOL on the device at
-the same time, as long as one of the mixers fulfills val == 0/4096/1.
-IOW, even if only one of them matches the control values, the linear
-volume quirk applies to all mixers.
+I recently got an AB13X variant with insane volume control, so I tried
+to measure its volume mapping @ 1000Hz:
 
-Apply the quirk by calling snd_usb_mixer_fu_quirk_linear_scale()
-directly, so that the MV-SILICON quirk becomes mixer-wise. The existing
-quirk flags are also checked to respect conflicting quirks.
++--------+--------+-----------+---------+----------+--------+
+|  hex   |  dec   | dec => dB | mVrms * | mV => dB |  res   |
++--------+--------+-----------+---------+----------+--------+
+| 0xd300 | -11520 |    -45.00 |         |          |        |
+| 0xdb5a |  -9382 |    -36.65 |   1.285 |   -26.68 | 2138 # |
+| 0xe2d0 |  -7472 |    -29.19 |   4.104 |   -21.63 | 1910 # |
+| 0xe7cc |  -6196 |    -24.20 |  13.693 |   -16.40 | 1276 # |
+| 0xeb8c |  -5236 |    -20.45 |  26.71  |   -13.50 |  960   |
+| 0xee8d |  -4467 |    -17.45 |  42.29  |   -11.50 |  769   |
+| 0xf10e |  -3826 |    -14.95 |  66.81  |    -9.52 |  641   |
+| 0xf335 |  -3275 |    -12.79 |  94.43  |    -8.01 |  551   |
+| 0xf517 |  -2793 |    -10.91 | 133.25  |    -6.52 |  482   |
+| 0xf6c5 |  -2363 |     -9.23 | 168.73  |    -5.49 |  430   |
+| 0xf847 |  -1977 |     -7.72 | 212.05  |    -4.50 |  386   |
+| 0xf9a7 |  -1625 |     -6.35 | 267.1   |    -3.50 |  352   |
+| 0xfae9 |  -1303 |     -5.09 | 336.3   |    -2.50 |  322   |
+| 0xfc13 |  -1005 |     -3.93 | 377.4   |    -2.00 |  298   |
+| 0xfd27 |   -729 |     -2.85 | 423.6   |    -1.50 |  276   |
+| 0xfe29 |   -471 |     -1.84 | 475.3   |    -1.00 |  258   |
+| 0xff69 |   -151 |     -0.59 | 533.1   |    -0.50 |  320   |
+| 0x0000 |      0 |      0.00 | 597.7   |     0.00 |  151   |
++--------+--------+-----------+---------+----------+--------+
 
-Fixes: dfd4b0d46e77 ("ALSA: usb-audio: Apply linear volume quirk on MV-SILICON devices")
+Footnote *: measured through a power amplifier's loopback line out
+to ensure high input impedance (see #). The raw voltage at 0x0000
+without going through a power amplifier is 677mVrms.
+
+Footnote #: low output power. Even the impedance of a multimeter is
+too low, causing a massive voltage drop (-10dB!), which means that
+they are inaudible when connected to earphones. Do not expose them.
+
+The volume control mixer has uneven resolutions in reality. Setting any
+value between [0xd300, 0xdb5a] results in the same audible volume as
+0xdb5a, (0xdb5a, 0xe2d0] results in the same audible volume as 0xe2d0,
+and so on. The read back value always acts like res == 1.
+
+Carefully overrides cval->{min,max,res} so that volume steps with
+0.5dB or 1.0dB resolution can be approximately represented togother.
+With that, we can expose a 19-step TLV range mapping with 7 items.
+
+The capture mixer is also quirky and requires linear volume.
+
+The AB13X seems to have a lot of variants, probably because it's a OEM
+product. I believe mine is one of them considering that its idVendor,
+idProduct, Manufacturer and SerialNumber are the same as the original
+AB13X. Only the Product string differs.
+
+Both quirks are applied only when the mixer values match the seen ones,
+so that they won't be accidentally applied on unaffected variants.
+
+Quirky device sample:
+
+  usb 7-1: new full-speed USB device number 2 using xhci_hcd
+  usb 7-1: not running at top speed; connect to a high speed hub
+  usb 7-1: New USB device found, idVendor=001f, idProduct=0b21, bcdDevice= 1.00
+  usb 7-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+  usb 7-1: Product: YA USB Audio
+  usb 7-1: Manufacturer: Generic
+  usb 7-1: SerialNumber: 20210726905926
+  usb 7-1: From builtin table apply quirk flag IFACE_DELAY for device 001f:0b21
+  usb 7-1: From builtin table apply quirk flag FORCE_IFACE_RESET for device 001f:0b21
+  usb 7-1: Found last interface = 0
+  usb 7-1: 1:1: add audio endpoint 0x3
+  usb 7-1: Creating new data endpoint #3
+  usb 7-1: 1:1 Set sample rate 48000, clock 0
+  usb 7-1: 2:1: add audio endpoint 0x83
+  usb 7-1: Creating new data endpoint #83
+  usb 7-1: 2:1 Set sample rate 48000, clock 0
+  usb 7-1: [2] FU [PCM Playback Switch] ch = 1, val = 0/1/1
+  usb 7-1: [2] FU [PCM Playback Volume] ch = 1, val = -11520/0/1
+  usb 7-1: [5] FU [Mic Capture Switch] ch = 1, val = 0/1/1
+  usb 7-1: Warning! Unlikely big volume step count (=8191), linear volume or wrong cval->res?
+  usb 7-1: [5] FU [Mic Capture Volume] ch = 1, val = 0/8191/1
+  input: Generic YA USB Audio as /devices/pci0000:00/0000:00:08.3/0000:67:00.4/usb7/7-1/7-1:1.3/0003:001F:0B21.000F/input/input41
+  hid-generic 0003:001F:0B21.000F: input,hidraw12: USB HID v2.01 Device [Generic YA USB Audio] on usb-0000:67:00.4-1/input3
+
 Signed-off-by: Rong Zhang <i@rong.moe>
 ---
- sound/usb/mixer_quirks.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ sound/usb/mixer_quirks.c | 99 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 99 insertions(+)
 
 diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index e2f7ca4252e2..7e2cfb176348 100644
+index 7e2cfb176348..6cdd3ee94d66 100644
 --- a/sound/usb/mixer_quirks.c
 +++ b/sound/usb/mixer_quirks.c
-@@ -4753,13 +4753,11 @@ static void snd_usb_mv_silicon_quirks(struct usb_mixer_interface *mixer,
- 		/* The final effects will be printed later. */
- 		usb_audio_info(mixer->chip, "applying MV-SILICON quirks (0/4096/1 variant)\n");
+@@ -4682,6 +4682,26 @@ static void snd_usb_apply_db_scale(struct usb_mixer_interface *mixer,
+ 	kctl->vd[0].access &= ~SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK;
+ }
  
--		/* Respect MIN_MUTE set by module parameters. */
--		if (!(mixer->chip->quirk_flags & QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE))
--			mixer->chip->quirk_flags |= QUIRK_FLAG_MIXER_PLAYBACK_LINEAR_VOL;
--		if (!(mixer->chip->quirk_flags & QUIRK_FLAG_MIXER_CAPTURE_MIN_MUTE))
--			mixer->chip->quirk_flags |= QUIRK_FLAG_MIXER_CAPTURE_LINEAR_VOL;
-+		if (deconflict_playback_tlv_quirks(mixer, kctl) ||
-+		    deconflict_capture_tlv_quirks(mixer, kctl))
-+			snd_usb_mixer_fu_quirk_linear_scale(mixer, cval, kctl);
- 	} else {
--		usb_audio_dbg(mixer->chip, "not applying MV-SILICON quirks on unknown variant");
-+		usb_audio_dbg(mixer->chip, "not applying MV-SILICON quirks on unknown variant\n");
++static void snd_usb_apply_db_scale_val(struct usb_mixer_interface *mixer,
++				       struct usb_mixer_elem_info *cval, struct snd_kcontrol *kctl,
++				       const unsigned int *scale, const char *desc,
++				       int min, int max, int res)
++{
++	snd_usb_apply_db_scale(mixer, cval, kctl, scale, desc);
++
++	usb_audio_info(mixer->chip,
++		       "overriding [%s] val (%d/%d/%d => %d/%d/%d) to fit %s dB scale quirk\n",
++		       kctl->id.name, cval->min, cval->max, cval->res, min, max, res, desc);
++
++	/*
++	 * We are not fixing the cached values, as get_relative_value() will
++	 * ensure userspace always sees compliant ones.
++	 */
++	cval->min = min;
++	cval->max = max;
++	cval->res = res;
++}
++
+ static void snd_usb_mixer_fu_quirk_linear_scale(struct usb_mixer_interface *mixer,
+ 						struct usb_mixer_elem_info *cval,
+ 						struct snd_kcontrol *kctl)
+@@ -4745,6 +4765,81 @@ static void snd_dragonfly_quirk_db_scale(struct usb_mixer_interface *mixer,
  	}
  }
  
++static void snd_ab13x_quirks(struct usb_mixer_interface *mixer, struct usb_mixer_elem_info *cval,
++			     struct snd_kcontrol *kctl)
++{
++	/*
++	 * Volume mapping based on voltage level measurement @ 1000Hz:
++	 * +--------+--------+-----------+---------+----------+--------+
++	 * |  hex   |  dec   | dec => dB | mVrms * | mV => dB |  res   |
++	 * +--------+--------+-----------+---------+----------+--------+
++	 * | 0xd300 | -11520 |    -45.00 |         |          |        |
++	 * | 0xdb5a |  -9382 |    -36.65 |   1.285 |   -26.68 | 2138 # |
++	 * | 0xe2d0 |  -7472 |    -29.19 |   4.104 |   -21.63 | 1910 # |
++	 * | 0xe7cc |  -6196 |    -24.20 |  13.693 |   -16.40 | 1276 # |
++	 * | 0xeb8c |  -5236 |    -20.45 |  26.71  |   -13.50 |  960   |
++	 * | 0xee8d |  -4467 |    -17.45 |  42.29  |   -11.50 |  769   |
++	 * | 0xf10e |  -3826 |    -14.95 |  66.81  |    -9.52 |  641   |
++	 * | 0xf335 |  -3275 |    -12.79 |  94.43  |    -8.01 |  551   |
++	 * | 0xf517 |  -2793 |    -10.91 | 133.25  |    -6.52 |  482   |
++	 * | 0xf6c5 |  -2363 |     -9.23 | 168.73  |    -5.49 |  430   |
++	 * | 0xf847 |  -1977 |     -7.72 | 212.05  |    -4.50 |  386   |
++	 * | 0xf9a7 |  -1625 |     -6.35 | 267.1   |    -3.50 |  352   |
++	 * | 0xfae9 |  -1303 |     -5.09 | 336.3   |    -2.50 |  322   |
++	 * | 0xfc13 |  -1005 |     -3.93 | 377.4   |    -2.00 |  298   |
++	 * | 0xfd27 |   -729 |     -2.85 | 423.6   |    -1.50 |  276   |
++	 * | 0xfe29 |   -471 |     -1.84 | 475.3   |    -1.00 |  258   |
++	 * | 0xff69 |   -151 |     -0.59 | 533.1   |    -0.50 |  320   |
++	 * | 0x0000 |      0 |      0.00 | 597.7   |     0.00 |  151   |
++	 * +--------+--------+-----------+---------+----------+--------+
++	 *
++	 * Footnote *: measured through a power amplifier's loopback line out
++	 * to ensure high input impedance (see #). The raw voltage at 0x0000
++	 * without going through a power amplifier is 677mVrms.
++	 *
++	 * Footnote #: low output power. Even the impedance of a multimeter is
++	 * too low, causing a massive voltage drop (-10dB!), which means that
++	 * they are inaudible when connected to earphones. Do not expose them.
++	 *
++	 * The volume control mixer has uneven resolutions in reality. Setting
++	 * any value between [0xd300, 0xdb5a] results in the same audible volume
++	 * as 0xdb5a, (0xdb5a, 0xe2d0] results in the same audible volume as
++	 * 0xe2d0, and so on. The read back value always acts like res == 1.
++	 */
++	static const DECLARE_TLV_DB_RANGE(scale,
++		 0,  0, TLV_DB_SCALE_ITEM(-1350, 0, 0), /*                             -5500 */
++		 1,  3, TLV_DB_SCALE_ITEM(-1150, 0, 0), /*               -5200, -4900, -4600 */
++		 4,  5, TLV_DB_SCALE_ITEM( -952, 0, 0), /*                      -4300, -4000 */
++		 6,  7, TLV_DB_SCALE_ITEM( -801, 0, 0), /*                      -3700, -3400 */
++		 8,  9, TLV_DB_SCALE_ITEM( -652, 0, 0), /*                      -3100, -2800 */
++		10, 13, TLV_DB_MINMAX_ITEM(-550, -250), /*        -2500, -2200, -1900, -1600 */
++		14, 18, TLV_DB_MINMAX_ITEM(-200,    0), /* -1300, -1000,  -700,  -400,  -100 */
++	);
++
++	if (cval->min == -11520 && cval->max == 0 && cval->res == 1) {
++		if (!deconflict_playback_tlv_quirks(mixer, kctl))
++			return;
++
++		/*
++		 * These values are carefully chosen so that volume steps with
++		 * 0.5dB or 1.0dB resolution can be approximately represented
++		 * togother.
++		 *
++		 * It's literally a miracle that these values can flawlessly
++		 * align to 100.
++		 */
++		snd_usb_apply_db_scale_val(mixer, cval, kctl, scale, "AB13X", -5500, -100, 300);
++	} else if (cval->min == 0 && cval->max == 8191 && cval->res == 1) {
++		/* The final effects will be printed later. */
++		usb_audio_info(mixer->chip, "applying AB13X Capture quirk (0/8191/1 variant)\n");
++
++		if (deconflict_capture_tlv_quirks(mixer, kctl))
++			snd_usb_mixer_fu_quirk_linear_scale(mixer, cval, kctl);
++	} else {
++		usb_audio_dbg(mixer->chip, "not applying AB13X quirk on unknown variant\n");
++	}
++}
++
+ static void snd_usb_mv_silicon_quirks(struct usb_mixer_interface *mixer,
+ 				      struct usb_mixer_elem_info *cval,
+ 				      struct snd_kcontrol *kctl)
+@@ -4812,6 +4907,10 @@ void snd_usb_mixer_fu_apply_quirk(struct usb_mixer_interface *mixer,
+ 				  struct snd_kcontrol *kctl)
+ {
+ 	switch (mixer->chip->usb_id) {
++	case USB_ID(0x001f, 0x0b21): /* AB13X Headset Adapter */
++		if (cval->control == UAC_FU_VOLUME)
++			snd_ab13x_quirks(mixer, cval, kctl);
++		break;
+ 	case USB_ID(0x21b4, 0x0081): /* AudioQuest DragonFly */
+ 		if (unitid == 7 && cval->control == UAC_FU_VOLUME)
+ 			snd_dragonfly_quirk_db_scale(mixer, cval, kctl);
 
 -- 
 2.55.0
