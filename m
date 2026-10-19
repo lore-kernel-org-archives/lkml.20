@@ -1,116 +1,165 @@
-Received: from mail-m1973190.qiye.163.com (mail-m1973190.qiye.163.com [220.197.31.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 883103EF0AA
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.90
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87231401A3B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792380896; cv=none; b=VNbxak8E01z+2uDEFkPvTbDGxDeqtUFwYOCKfDDyKR76xudZic1fCUrR6V3CrgP4ogcqvCU7byxbcdQyr+unk3nnBa1VIxaer/Zi/pTvALXO61V4OsjEZ30NJL8/7s9wk0aHKq9x9haRIh7k6eChn9aZrsIjetp/k3nUPVYYXik=
+	t=1792380943; cv=none; b=Ki/8USPS/41Y8MpB7GTvKxPMehJGeoJVecW1tKU+uQ0Oyh7vhx+yZ7dc0kSbJqlWlRT3imt7jcFhKRyCW99Ot4wQ9emecfmyf+khV4qAA9e2YwLBW+QNeXL8rCk4g5BXi9GtLFKL9Bt5z1iMaXjIXWPbJ7QXTSkCP4e67nbzEvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792380896; c=relaxed/simple;
-	bh=ChgzJFotOHk4FwoFNuMy7w9LtUF4Yyb/meEaeTRD69g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gUnAkZyTVqZE2uw/ALOQ0CtEgmnielGiyv22ZKvCvjjthVkv/2LopmPNN1Bpv52N4MqKLGw5nSKUM1pqeGv4Ahj7GiBbNhUKcighVaJ+I2ahBDK0d7g9D8tEi2q09OOQP9TuFrY9Tdwa9I38PiRjasr6t82hEOMmyTmK6sKVsFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=X8qrc33b; arc=none smtp.client-ip=220.197.31.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1792380943; c=relaxed/simple;
+	bh=cvuvWuvGv9Z2Lk/0KigTFd9FadnFFHEycgAfdzJtmgE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cDgpLaZcfuBsusiw9ZJpEDSSuuiZ6nUtdZQn9dNnfkZNmmwSD4kSOj3vFtQT1aUKQcD7G2MhozCVYU3UGpYdZ2DiZJ8fcKLDz7PgKzXXaG+RvBwOgdbklRMLYAEMrgIEJETCI3rmnDHLxzYUOwYcpj2iE0Ew6fOsTGTEL4pSfEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M22mcz+G; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="X8qrc33b"
-Received: from [127.0.0.1] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 517ccec8a;
-	Mon, 19 Oct 2026 11:19:24 +0800 (GMT+08:00)
-Message-ID: <039f91a1-7944-4092-9f9c-29b60e8fb17a@rock-chips.com>
-Date: Mon, 19 Oct 2026 11:19:14 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M22mcz+G"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so440596a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:35:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792380942; x=1792985742; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WIXgzDkcDaZz08s4IW9pP5BfYLuDRW0ADUF3wvX19Fg=;
+        b=M22mcz+GrKOvc8MzD83mg7JUIfH2n4Sm/vuJ4QDoFEyvjYCZ0M630bKVCy//UWT9a9
+         2Ae8GJAo168iez7YT4RXzjYF6PSq++toYlY9e92Xqs6o8KYj1Y5bm+Zq53EvLl/tqvCF
+         t6ijQZRVjpWbpkZknqhgZobR5sVE4Au8iyH6lBZ0gIenpP0fHcdChPUcu3WYk5HA7DqY
+         8oZyBfqDnnj9QfU7n518JMgQP5kZrCqOyQYa9gMieYquvqsa9fdstleEVwqnN5srsomI
+         gBV6hXPYZjVOX9+RzQxypn4eDKlLq8BW3szrZtvcAh7uxxokAo3jj6t/sDTODBhVoG+b
+         nNjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792380942; x=1792985742;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WIXgzDkcDaZz08s4IW9pP5BfYLuDRW0ADUF3wvX19Fg=;
+        b=UaU5qADuserbhraj4PLII9vZsOTz8vtGMis3hVh0HzkaM+dFgJ9pe6sjehCuotue8L
+         al0ZuaX9M6G2gcYYZEwcqrn/7VJvfgks+U75F8kyZx0/Qr+qO/GfllsXk9mEFR4JkdUM
+         CEK+tno9ZjzU2YsAVpv1WB77yvt0HY0QZtibhO0mLXnaX2aAyxqqEyUqWi16aHezXKJo
+         XsMqBQiLGpu2AKraRWxt+EZD/8DQBd7VyYTqDdNp0ObriKI+9RDTNfT9yVJX5HY1s3v/
+         Ct9vz9GPBmAUgDU4sncxo/ur4yEZTiUrWp6JotbaFzUcBA66BR5mqDyNyUhpBW0iqu3Q
+         +VLg==
+X-Forwarded-Encrypted: i=1; AKwUvBwC8yWKTBaH1gzuf8BRF7X8Q1Vo+4e9LZ0Zc0sRAl11Jeggn72+dDlos+0iDSC7MSmKgmoeM07s3j0ER3k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfwfPQlH4iYvKRME9dY4oZPlVFCVSYkezCIE0yA7sSxQ3sqbJZ
+	q3IG255qfsavRVtmHfB99OKzFQM/pf2P8J62kgvj0WXak9PItMuWmetl
+X-Gm-Gg: AYBFou1YPd0h9uMMkY5oBgy5P29q3yMoxwgiLZymyICo1nSmQmndljDt4b77Ev9Krs1
+	hqIRZS8IM6vlK6zshKbWTcWexwCG3BxE0s6S9L0DNFAChM23KASA534OejVz7CHgE6Vc8jvO3VL
+	DKAMQWnLAzF5wynnap50wzGlQC2uGjHByK6XPFln0EhoxeiZEL8PAFSK8163AL6kKN6ZZpnZ8+E
+	R3CgHQdKz0I9w/SFyqA95uJSbzG3SZ+RChML5rpvwZAXXgeBFnbiUn4yS2YQERORVhsAm3Xqvdj
+	46nbrUk+clMBZ2lrVvW1mfPYGIPnnORinErJAyq+8IFmWXFneNQaRx4BGND9NMTCt4MYO0hzDTt
+	XkusMmka+FSFFH0VPRdbCaPbko+Y9/WMChdylxRc/JAPuBcqGUztxyCxr27n6d6YEIODzafDKHP
+	yPrSttx8KL2cqX+g+iwDQBGjAovz/IR4Gx+qTilOqt9WkhzSlvBER+ZbIhHLL2SOimDlaPTCmD1
+	yj2F66w0Umww85JlC4D9HJ1NTIP3n625sxvOgUJweS8F8itW581wWMwIltfasRWJOzY/DJAYYpk
+	+uk2tqH8cV4v5HHc7ZVXNELzGiVEr/iWwKy8vLmZvKso6OVA
+X-Received: by 2002:a05:6a20:9184:b0:3e2:5624:694e with SMTP id adf61e73a8af0-3e256247190mr664484637.39.1792380941823;
+        Sun, 18 Oct 2026 20:35:41 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57268ff1sm3352670b3a.22.2026.10.18.20.35.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 18 Oct 2026 20:35:41 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: "Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Christie <michael.christie@oracle.com>
+Cc: target-devel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yu Zhang <yuz08559@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: target: fix list corruption in core_alua_free_tg_pt_gp()
+Date: Mon, 19 Oct 2026 13:35:32 +1000
+Message-ID: <20261019033532.73575-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/6] drm/rockchip: dw_hdmi_qp: Advertise BT.709 and
- BT.2020 colorimetries
-To: =?UTF-8?Q?Jan_Clau=C3=9Fen?= <jan.claussen10@web.de>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261018123037.19560-1-jan.claussen10@web.de>
- <20261018123037.19560-7-jan.claussen10@web.de>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261018123037.19560-7-jan.claussen10@web.de>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1522bcbba03a7kunm2ba821ca621edd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTR9KVhkaGExPSRkdSxhJT1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=X8qrc33bAdqlCUhSSbAnZ7Rg0xsGeQmWcCbJS176oyZkg2wZzy/HQVrpMmR7d7krcZ8mgQDMHVWnffVtLTJOO/maaoxdKbG7QGGk9gvw5pkv9W6qA8geJFC97doHHcDT4cxXOMCS8Cwt/F6Ozb2vYl+RaJa1xkjdhBwCavmCljM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=bQMCpVw1uFP1boBJUVC1GNNS3Uq4o6Be3+8+DlETUU0=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Jan,
+core_alua_free_tg_pt_gp() moves every se_lun off the group being freed
+and reattaches it to the default group.  For each lun it removes the
+membership link under tg_pt_gp->tg_pt_gp_lock, drops that lock, and only
+then takes lun->lun_tg_pt_gp_lock to call __target_attach_tg_pt_gp().
 
-On 10/18/2026 8:30 PM, Jan Claußen wrote:
-> Expose BT.2020 RGB and YCC colorimetry so userspace can enable HDR
-> output. Also explicitly expose BT.709 YCC as it is listed in the
-> Rockchip RK3588 TRM V1.0-Part2 20220309 data sheet.
-> 
-> Tested on a Radxa Rock 5B (RK3588) with an LG OLED55B87LC in KDE
-> Plasma 6.7.5: enabling HDR switches the colorspace to BT.2020, and
-> disabling it restores the default.
-> 
-> Signed-off-by: Jan Claußen <jan.claussen10@web.de>
-> ---
-> 
-> Not sure if BT.709 needs to be explicitly exposed here, but it is mentioned in the data sheet.
-> Might be covered by DRM_MODE_COLORIMETRY_DEFAULT though.
+lun->lun_tg_pt_gp still points at the group being freed across that gap.
+A concurrent core_alua_store_tg_pt_gp_info() holds lun->lun_tg_pt_gp_lock
+across both the detach and the attach (via target_swap_tg_pt_gp()), so it
+can move the same lun to a third group and re-add lun_tg_pt_gp_link to
+that group's list in the window.  When the free path then runs
+__target_attach_tg_pt_gp(), its bare list_add_tail() links the
+already-linked node a second time, corrupting both lists; the lun's
+group pointer is also overwritten and tg_pt_gp_members is decremented
+twice.
 
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Writing a new group id to a LUN's alua_tg_pt_gp attribute while another
+process removes the LUN's current group (both via configfs) is enough to
+trigger it:
 
-Hi Cristian, may be you would be interested in this series?
+  list_add double add: new=ffff8880055a64e0, prev=ffff8880055a64e0, next=ffff8880055a64e0.
+  kernel BUG at lib/list_debug.c:35!
+  RIP: 0010:__list_add_valid_or_report+0xdf/0xf0
+  Call Trace:
+   __target_attach_tg_pt_gp+0x9b/0x190
+   core_alua_free_tg_pt_gp+0x22f/0x3a0
+   config_item_put+0x89/0xa0
+   configfs_rmdir+0x42f/0x5b0
+   vfs_rmdir+0x22a/0x4b0
 
-"DEFAULT" may refer to either BT.601 or BT.709. It should support the
-following color spaces:
+Re-check under lun->lun_tg_pt_gp_lock that the lun still references the
+group being freed before reattaching it to the default group.  If a
+concurrent store has already moved it, there is nothing to do: that
+store holds lun->lun_tg_pt_gp_lock across its own detach and attach, so
+the node stays consistently linked in the new group's list.
 
-#define HDMI_COLORSPACE_CAPS_V1		(DRM_MODE_COLORIMETRY_DEFAULT | \
-					DRM_MODE_COLORIMETRY_SMPTE_170M_YCC | \
-					DRM_MODE_COLORIMETRY_BT709_YCC | \
-					DRM_MODE_COLORIMETRY_BT2020_RGB)
+The store side was already made atomic in commit f9793d649c29 ("scsi:
+target: Perform ALUA group changes in one step"); the free path was left
+reattaching without revalidating the lun's group.
 
-#define HDMI_COLORSPACE_CAPS_V2		(HDMI_COLORSPACE_CAPS_V1 | \
-					DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65)
+Fixes: adf653f92f38 ("target: Subsume se_port + t10_alua_tg_pt_gp_member into se_lun")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+---
+ drivers/target/target_core_alua.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-> 
-> BT.709/BT.2020 YCC are untested.
-> 
->  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 9c4cf68d79d5..dbb87dfd000c 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> @@ -605,6 +605,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
->  				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
->  				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
->  
-> +	plat_data.supported_colorspaces = BIT(DRM_MODE_COLORIMETRY_BT709_YCC) |
-> +				      BIT(DRM_MODE_COLORIMETRY_BT2020_RGB) |
-> +				      BIT(DRM_MODE_COLORIMETRY_BT2020_YCC);
-> +
->  	encoder = &hdmi->encoder.encoder;
->  	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
->  
-
+diff --git a/drivers/target/target_core_alua.c b/drivers/target/target_core_alua.c
+index 10250ac..3a085e2 100644
+--- a/drivers/target/target_core_alua.c
++++ b/drivers/target/target_core_alua.c
+@@ -1746,16 +1746,23 @@ void core_alua_free_tg_pt_gp(
+ 
+ 		spin_unlock(&tg_pt_gp->tg_pt_gp_lock);
+ 		/*
+-		 * If the passed tg_pt_gp does NOT match the default_tg_pt_gp,
+-		 * assume we want to re-associate a given tg_pt_gp_mem with
+-		 * default_tg_pt_gp.
++		 * tg_pt_gp_lock was dropped above, so a concurrent
++		 * core_alua_store_tg_pt_gp_info() may already have moved this
++		 * lun to another group and re-added lun_tg_pt_gp_link to that
++		 * group's list.  Reattach to the default group only while the
++		 * lun still references the group being freed; otherwise the
++		 * bare list_add_tail() in __target_attach_tg_pt_gp() would add
++		 * the already-linked node a second time and corrupt the list.
+ 		 */
+ 		spin_lock(&lun->lun_tg_pt_gp_lock);
+-		if (tg_pt_gp != dev->t10_alua.default_tg_pt_gp) {
+-			__target_attach_tg_pt_gp(lun,
+-					dev->t10_alua.default_tg_pt_gp);
+-		} else
+-			rcu_assign_pointer(lun->lun_tg_pt_gp, NULL);
++		if (rcu_dereference_check(lun->lun_tg_pt_gp,
++				lockdep_is_held(&lun->lun_tg_pt_gp_lock)) == tg_pt_gp) {
++			if (tg_pt_gp != dev->t10_alua.default_tg_pt_gp)
++				__target_attach_tg_pt_gp(lun,
++						dev->t10_alua.default_tg_pt_gp);
++			else
++				rcu_assign_pointer(lun->lun_tg_pt_gp, NULL);
++		}
+ 		spin_unlock(&lun->lun_tg_pt_gp_lock);
+ 
+ 		spin_lock(&tg_pt_gp->tg_pt_gp_lock);
 -- 
-Best, 
-Chaoyi
+2.43.0
+
