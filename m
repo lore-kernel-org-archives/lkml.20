@@ -1,156 +1,250 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010011.outbound.protection.outlook.com [52.101.228.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2DB2F9D85
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792390680; cv=none; b=IlfKAHLamUgTO+MANF7QR+xRfnhVaYZpAkwhYnSt92LoONq1PE4Y87KsgZRLMqJxFrPmJqBreqOQiolT3QW9KLb/20+tQkVVi7nsk9VF580LEH4IxPHMQuHJT37RifDsgv7sYSzpRZeiVbYlJljT/SVas+B8pjtdc/pbkReUYFI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792390680; c=relaxed/simple;
-	bh=hT3kconPAO71ZAgCnNBq9KkOENtVYYhR4KqdJA6cfk0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e9bgP73yXfAVsC4PuavDeE7J/vTssVbJIvAM+DzqxOTKhEFn3e2Dpp5MC2/6f/OKKaL06EjKMU5lgVGaMG/Zt90BW5g5vcpWDm5Pni5f7pFcKxIm5P/DY9NpKCBn+rRFAlBUAcjnfCpmIYnDbx9blokivaU6qs/tppwCWDS1rfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CiLn2vQu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CbmbzSQ1; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00DD36605E;
+	Mon, 19 Oct 2026 06:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792390785; cv=fail; b=f3GDLkVCx1ULKXHanQrvs1riwC1rOeu8HAQ7/8sFRDKji+qd50tuQbP8HcMpeEayMMWN07PE8afvNoRY2thZ85d8FmclsmBMU5W23eomh/rSr1Y4e9RQqfExKADZ4Xkpa2Qwys8VGt1jx0puMN4t2yihohCqOxQToQUd6pmqrP4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792390785; c=relaxed/simple;
+	bh=x4lp3vz7k2dALzsz7Xifh/INIdl4+GWwu/Nhpwcnwpg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=YeWP0v3fjj3P32edox7kAERDBB6ObLoNs0JikkqJXPrXDNzvnIrDiUa04CHRngg6BSkXVUs9jzfrFlq9Bq6EK5YFoMRwa859SeppXfnz2zgGl+IXXxECkhXRa4BrVilTWY/MH1GKqSOaxFtnLC5FTzS+Z1n55tr8WNapNC89yX4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=H/uKuep3; arc=fail smtp.client-ip=52.101.228.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CiLn2vQu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CbmbzSQ1"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J4jQ5m2179783
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:17:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	06159emas6EFWdKcDMqYp+aj70RJ3dHGp+7F881lMJ0=; b=CiLn2vQuMcLzGow0
-	xpNe9dDGBIItBH+h7uzFCA1iQKtfahmc3/In2zjq7GhKXTRfzEGSauz/Z78BPQVk
-	xskwMPfTcmOIblFHnjMnvWyIXs4fVo1tGPrHgQy6mX1fkZO38GJS5qVfMlbYMn/U
-	p9I9sajflr3RWPxJfCsDcHfaQyog/f6a0lDFe3Gd95fs187trY/sT9dcnBCr5+lk
-	5ln43iHtYpBeeFK6MZN3Yjfcb/ScRur4d+wLpbYnUbkuy8WP7JQnevsLtwy/TQJx
-	CoHe2N3MnrV+dD+NmWmuyefVEjlHo96h5KqzW5n3Bx4FUJb9sETFXdFJidjRY6Ws
-	rgzYJg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5u1h8j4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:17:57 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35d4538fd74so6548788eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:17:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792390677; x=1792995477; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=06159emas6EFWdKcDMqYp+aj70RJ3dHGp+7F881lMJ0=;
-        b=CbmbzSQ14QCNnbHIMjAS9r5MOOzVobnMeRFeAmLiuGKxHFuI7giPYKEeGX9IND8ptV
-         NM0htSAdV6tKXumrdqOfQBJuRq+7FGMC6L0513w9Srl8nXAplROLOvzPNNK3gmlJU8Su
-         XjIwAPU0I0S4ZvJ0pakxW9jgYZUEVGhDc/YWKwg3JpgeEgOOg1LCRJFk5uJc7VC6Dcmh
-         i42oaqjwDjcNU5Yg8N5cviqT9dDS4eQWY0r4E2/ZIgs4pSyIjfypSivbj9VECq0XL1UZ
-         7N/NL6HMl4ZJIYBRfUzCdQLO9NC+5MixYm/Sx1dgqeB/9if2GDD8TQFcsB95T/vt9CU1
-         k7jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792390677; x=1792995477;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=06159emas6EFWdKcDMqYp+aj70RJ3dHGp+7F881lMJ0=;
-        b=HQ2sQwNYVQE4WFAVkvBSXi4dN8HUv1qitr6Yvn7FT5NNvxEJ6NjKOtBx8saeBkJifb
-         O5FcJ4jZ/HKahcx0OWJAYZoCe1BeymDC28vlvuhOMBIMN2QewYG8Dx7LCjuxwl2scv/4
-         M/X7VRhXnpD2Ttx0dW+h0EoytEERZ2bfStD02Zy3HsmaVGr4pax9ifr3RkJcnEucvEU+
-         nfsWtPz99PpuK4yXxpG0ryc2Ej1mdJCXJkiRFgZ5hvCTUPAOt3rwiV9NUB1rn/UjMM+z
-         0/aJQFiJplPGHDuWjLmad51YZvc3tuD6yAXd2fxL6ASqR9N8iyeB3YqBWj7Zio5nJe+e
-         4n+w==
-X-Forwarded-Encrypted: i=1; AKwUvBwQH2w2AHE3cj/ljAgT+uMmxw+NZhv8ydpkLuJTua1S8kTOJIAk9lzYrsVx3Msd3ZqquC6MVajqN6SVKT4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIj+T2jxU+QZ2QFRC0OQ6CiZ7umA2trlR/Y1yM2EtcVFC+F+/+o
-	E4/VZqblsmpuZibK5SZhL5DxMseJlEJrObiA4f4aUPBB3/DJsb3r+T0+GmS5Fu4WMCduzaxCDOR
-	HvL418RkYt0Q/0dEdP+rRtsFvtxHtG4veUNpl3oo7GdIBDrA156cXEex2vwnf+IJPM+g=
-X-Gm-Gg: AYBFou3D6HCwCsEfIUe2OdO/SCGlrdVKaolOyTqE388ZjaCiefxXuMuAl2rxwtF6tCt
-	fnOcYXrfKIOnf9rZAQcYwcg4devOheLCWtBkz8076kGDPtpa2Xkx5RR38Zc6Ycyz8UFstE8KEvJ
-	OxWrG6fPLo12cB2H9bJvHWzCeQPBfwXe9aoGQoVN1djd/CJrUlF1Fd3hhyLVL1QIWwsG9TrOylx
-	W1ZtmDU0fE2n7OS+GxYGZVJ2GOGVYW5nLL7yI93l6Kwdu4gU1YMTsRduHBMedvqGhUXl9tTSPy1
-	1fVtmLZncKkal9expY2InlyTojRScBvQwiV10SVe61pbfBrWoKkEp6pj46RlK2UyYcsBrgwkRRE
-	nO2tFF0ubT1RTlkXCue93KihSHhTGvw==
-X-Received: by 2002:a05:7300:ea8e:b0:35c:8abb:b4ae with SMTP id 5a478bee46e88-361a1f505eamr9695490eec.25.1792390676665;
-        Sun, 18 Oct 2026 23:17:56 -0700 (PDT)
-X-Received: by 2002:a05:7300:ea8e:b0:35c:8abb:b4ae with SMTP id 5a478bee46e88-361a1f505eamr9695458eec.25.1792390676169;
-        Sun, 18 Oct 2026 23:17:56 -0700 (PDT)
-Received: from [10.218.31.125] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cc23sm34095658eec.2.2026.10.18.23.17.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 23:17:55 -0700 (PDT)
-Message-ID: <fca1f5e8-2b11-4912-98b0-42ea2e9a3d1b@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 11:47:50 +0530
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="H/uKuep3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H9tseiLn7acK/um7ZSOsz8PyXcVLdBGGMLmKI7l+rJ0k5+Rsf2+FqHYNi5b/rsw8v+bdBJhsQupRwZm3MABxC7jSpYOY/L7Y4+mmaEQwMyWWR3h58ESLX/DbtHudLliziCnL1G2lZAbyY30sOMcK4afYyHEpH12/LeR7XhDgyYFks4dzGeRlOVkpDuThg3L39LPsIJvsCuHbu6whRk/5DHX+rzO+3uFkuJshJoOiZR/5B0tr6dxYKfEWESlikcONdhPKf9ecQrqHAmfdYDq5zzcn/ht4JEo2uQlk8aZ6kA8QvO12Vd5vvR2KQeOaXjOQPVSZLqC4u6SsTatW00RTiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iQYtJj9pzuBEu8fqxXANYq6Z7GlZbDsPr4ZK5gqbZOA=;
+ b=sP/+LDmSinAVEUK2rRnKHmFYvt/bhH7Gg6BHjuYlWQr6p3F5B4yTGV745EeYPSVv6Zr98dOcg61MNvv781uKMEPLPXlO+GB63+VTZT+orcnOyhyDaUEZDvydZYRrDg04Tma6ZPltFlcnc1w8GuAp2m41sUbmC3xhcbwGBa7wNU8TfWWieHGigfUu3HR28E9jXasvxKV3GIAVUSDfcjbRDCqzsAdV2HPHhqegWZMVMmhA2lZZHHsOIOj+veUdbMyCA1wFRbPasFWFMVu/wD+m55W7vQ+CVd/M/F5yJXXPEqSlEuLTgbhXQXujU/t4Jm4d+EOlCRt6zI5uG0ONcUE4rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iQYtJj9pzuBEu8fqxXANYq6Z7GlZbDsPr4ZK5gqbZOA=;
+ b=H/uKuep3RMTN00qMNBkm5ycjmsP25k9AZKFyPc4RbMR9odFvy8t310Y3mLpwGwDWv2la0HPAGxO6v5VEkCILtBME9ZkjmoVL/zlrptUZJK1WiAmu3fKXN5bHis9sWKOiaCrGrhw8sgB1meynKMx6ta/Bry6IIocDMBQmb1YwyQko3Ru9p51tasMG0clQamGxq1bfiuc8vyYOyWmedTtcTwcIQs8sKy6s/scF8aF7CfYchBHVY0RIVRiB/4IAoLkhKITQcv+SfXbdUW6vCApFo98jbQ0tapdrs42nWX7s3LS7DWQ7gVt1riKjtqPWDCpCIrhx7A9BV0/No16SilXHPQ==
+Received: from TY7PR01MB15746.jpnprd01.prod.outlook.com (2603:1096:405:290::6)
+ by TYYPR01MB7998.jpnprd01.prod.outlook.com (2603:1096:400:ff::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Mon, 19 Oct
+ 2026 06:19:40 +0000
+Received: from TY7PR01MB15746.jpnprd01.prod.outlook.com
+ ([fe80::bc79:d427:b0a9:a793]) by TY7PR01MB15746.jpnprd01.prod.outlook.com
+ ([fe80::bc79:d427:b0a9:a793%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 06:19:40 +0000
+From: "Tomohiro Misono (Fujitsu)" <misono.tomohiro@fujitsu.com>
+To: 'Mark Rutland' <mark.rutland@arm.com>
+CC: 'Catalin Marinas' <catalin.marinas@arm.com>, 'Will Deacon'
+	<will@kernel.org>, 'Jonathan Corbet' <corbet@lwn.net>, 'Shuah Khan'
+	<skhan@linuxfoundation.org>, 'Randy Dunlap' <rdunlap@infradead.org>, 'Marc
+ Zyngier' <maz@kernel.org>, 'Thomas Gleixner' <tglx@kernel.org>, 'Radu Rendec'
+	<radu@rendec.net>, 'Oliver Upton' <oupton@kernel.org>, 'Fuad Tabba'
+	<fuad.tabba@linux.dev>, 'Joey Gouly' <joey.gouly@arm.com>, 'Steffen Eiden'
+	<seiden@linux.ibm.com>, 'Suzuki K Poulose' <suzuki.poulose@arm.com>, 'Zenghui
+ Yu' <yuzenghui@huawei.com>, "Kohei Enju (Fujitsu)" <enju.kohei@fujitsu.com>,
+	"'linux-arm-kernel@lists.infradead.org'"
+	<linux-arm-kernel@lists.infradead.org>, "'linux-kernel@vger.kernel.org'"
+	<linux-kernel@vger.kernel.org>, "'linux-doc@vger.kernel.org'"
+	<linux-doc@vger.kernel.org>, "'linux-perf-users@vger.kernel.org'"
+	<linux-perf-users@vger.kernel.org>, "'kvmarm@lists.linux.dev'"
+	<kvmarm@lists.linux.dev>
+Subject: RE: [PATCH v2 3/4] perf: arm_pmu: Add workaround for FUJITSU-MONAKA
+ Erratum E#030002
+Thread-Topic: [PATCH v2 3/4] perf: arm_pmu: Add workaround for FUJITSU-MONAKA
+ Erratum E#030002
+Thread-Index: AQHdXVVbzJOi/425oUyzsr9T2p9p/LcAE4mAgAADN9CAABKyAIAEOluQ
+Date: Mon, 19 Oct 2026 06:19:25 +0000
+Deferred-Delivery: Mon, 19 Oct 2026 06:18:41 +0000
+Message-ID:
+ <TY7PR01MB15746F6C7CF8E021A0FBA5743E5982@TY7PR01MB15746.jpnprd01.prod.outlook.com>
+References: <20261016-monaka-fix-for-upstream-v2-0-fc7ede7f9f48@fujitsu.com>
+ <20261016-monaka-fix-for-upstream-v2-3-fc7ede7f9f48@fujitsu.com>
+ <atIT0dmeqAXLoThW@J2N7QTR9R3.cambridge.arm.com>
+ <OSCPR01MB1573944ED57DC682897594F06E59B2@OSCPR01MB15739.jpnprd01.prod.outlook.com>
+ <atImMmlBmOYlY5T2@J2N7QTR9R3.cambridge.arm.com>
+In-Reply-To: <atImMmlBmOYlY5T2@J2N7QTR9R3.cambridge.arm.com>
+Accept-Language: ja-JP, en-US
+Content-Language: ja-JP
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_1e92ef73-0ad1-40c5-ad55-46de3396802f_ActionId=969935b1-c26a-4e1f-90e2-a7a740456de3;MSIP_Label_1e92ef73-0ad1-40c5-ad55-46de3396802f_ContentBits=0;MSIP_Label_1e92ef73-0ad1-40c5-ad55-46de3396802f_Enabled=true;MSIP_Label_1e92ef73-0ad1-40c5-ad55-46de3396802f_Method=Privileged;MSIP_Label_1e92ef73-0ad1-40c5-ad55-46de3396802f_Name=FUJITSU-PUBLIC?;MSIP_Label_1e92ef73-0ad1-40c5-ad55-46de3396802f_SetDate=2026-10-19T06:16:17Z;MSIP_Label_1e92ef73-0ad1-40c5-ad55-46de3396802f_SiteId=a19f121d-81e1-4858-a9d8-736e267fd4c7;MSIP_Label_1e92ef73-0ad1-40c5-ad55-46de3396802f_Tag=10,
+ 0, 1, 1;
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=fujitsu.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY7PR01MB15746:EE_|TYYPR01MB7998:EE_
+x-ms-office365-filtering-correlation-id: df24a1ae-4703-4b28-b54f-08df2da8f569
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|38070700021|1580799027|6133799003|5023799004|11063799006|22082099003|18002099003|10067099003|4143699003|56012099006;
+x-microsoft-antispam-message-info:
+ lYCLPfhW09tUtU5G2Jf06T8iKwXx4CwGqt9Ejb0JIU95rsxElTXZMGy9EC7f+CK73Up3Tq29+RhRERj37jqG+tFHstwo2Lhrg8QiQiaTNLoz6U6uBWMsLImTJqSMe08h9xQmoWEZMY1pFUyXDI5DFR+tXpmrfokpDO0pwdLn6g1vsMXr62fMTuYwcVsWsPf7OAxl9qQZytByz1hQo2MAbM1TNvVqUE92SDZczd331yJC+YQiKAEakCHE98XGyC2uGoztbNxaXoPpFHbV2JRFkCA2xuYllhnP97E0nDmShn+4nZGRuUrPCNidaiCg8S/fhjtdL08jGRboK6+PyIyihoVm/aPz17rfMRElpDo9qJAoPCZjCDDX0pqcMB2h3quIqUVivN2ZEv5SYsdeHZvIa5ef5vd0a7Ns47YDiyqCqxNv2uTtLPaYMCvgWQBFSq5mD+rl8lfaslJDWE2Mez2azzdNZkAevz7t/WKxtOPPD2fTzCcX/s7jcb6R3gLUR309D9z3YUIkGUltznsh3lLjMShki9slGMP/MedXnfOaFhh1jY4Iyt/M2fVWnXOZwuAQOfR5C+R3o9EE9INJXcbhpt86RYimHMyjfBNGOPRO964I0ckHbTbHUZB6UaQd0YuiE5cy/Xr5eC1RUUwXpXTYAHMM2qk0KFA9DuDAEaXpK7NmJFphu3Ba+1RfW1tahby7OSmIvNAnmXGTaszxff5pBsz16Hf8tCPSWCoWqQdfn//Lyj3LA5hc3Bmyr/ouBDpg
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7PR01MB15746.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(38070700021)(1580799027)(6133799003)(5023799004)(11063799006)(22082099003)(18002099003)(10067099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-2022-jp?B?VlhianJXN1FTei9sTlBlMmN5QmQ3TDdGNlY2N1BWRndWM0JiSVJZOW9C?=
+ =?iso-2022-jp?B?T1dPV2dhcnEwcVBnUlBHc0ZLbHU0STlzR0Uya0hzNi8rT2RBZVo3ZFV4?=
+ =?iso-2022-jp?B?MjFESUJtNExwRGx6TncrRVFTQ1BBUDZVcVJQWm9qNnB0dUlFV2ZONDhY?=
+ =?iso-2022-jp?B?V3JBWk5oczhtUXpEcndYMWozL0VxOEZtVnBGSytxRUFXTEd4ODIySjlZ?=
+ =?iso-2022-jp?B?MlFXZ1ZNTjlpMU5BSkJ6TitlUk1WZlR1UklTWjdSRlg5N3pXN0JNVDVD?=
+ =?iso-2022-jp?B?KzdUWm0vSGxTejFvVXJoSmRvM1pXbEFlclRZZnBTd1NLeEgwM1JTQmFI?=
+ =?iso-2022-jp?B?bklQc2tyN29hQUZhV2NoRjZEZ2dsZHA3bzRkY0RCb2cvdHFKWXkvZUlv?=
+ =?iso-2022-jp?B?cVN2OEJWY1plUExKZGtweVRkQnhqZklpbWo1ZlJydnZ5ZVdJRmN3WVB3?=
+ =?iso-2022-jp?B?YThpa3g1d2Y3Z2E0QUc4TWplMENvZzYwSnZvenBtU1VnaGViRFNMQ0lH?=
+ =?iso-2022-jp?B?WFFoTDFuc1h2UWRCVVNlQ2RZUHBBazN2d2IwUnBNZTBNSWdFWE5QN3pF?=
+ =?iso-2022-jp?B?L1hTVnpiM1RxQWk5ZEtaV3VKdnQ5dFR1TlZQZUorc0FpUXluYy9pa0lU?=
+ =?iso-2022-jp?B?a3U2WkhaOXFiMStSRUFhSXRsQ0NrNUpHT0dXbFFSSDBHcm50Z3U1NWFq?=
+ =?iso-2022-jp?B?Um5DRXc2OTRMMWxTRG5WSnhBYTJtM2hsdGIxaDFPOHkzM1BKaThHNWh2?=
+ =?iso-2022-jp?B?WE93RmZZUzBEckU5dENScXpXd05EaUtlMnR0VDZOS1EwMFp3eDBQSGJI?=
+ =?iso-2022-jp?B?RGE4d2p6Rm9nN0crWDlYQW9iK3dvK2NlVHUrUnhscmxWd2QrY3p5ejhk?=
+ =?iso-2022-jp?B?MUh1T2UxQVhPSFdubjFSWVY1MmdMTU52NC9YR0NZYkhHSGtRNHQ0MzdX?=
+ =?iso-2022-jp?B?TWpHZnlvTjhvcU9qVFVwLzU4LzRmSXMzYVU5QjVzd0RtWXgrOStONy80?=
+ =?iso-2022-jp?B?WkM4cWExaDNNdk9hUEhnVXdCdHhhRGV0eXZIKy9MNWhCSkRSZ3BSZ3VX?=
+ =?iso-2022-jp?B?ek9mdldqdVVITVpmRWp3THJQMklRWHJ5MzZ0NHJzU243amJCdGFiZDdI?=
+ =?iso-2022-jp?B?cDNzUDlaRmNvSGpsUDFOOGZLOWd5RG54K1RFTDM2YTZ4NVJET3R4cXNT?=
+ =?iso-2022-jp?B?dnRJZEdGV09ZZjJWNXBlMFBtTjdHNUNkSVZWQmdWMmFwdHhaWms4WGNs?=
+ =?iso-2022-jp?B?eGRqM3FaZENIOWFDWUUxS1IzR2VTaDFEQ2dsbkVCQU9NL2pTS3RrRUVn?=
+ =?iso-2022-jp?B?MkpmdGl1UisrSjR0Mml5cklHSXlMb09MTzEvQmI4bi85TjBiQkZjeURk?=
+ =?iso-2022-jp?B?c3Y1UDh0UHp1Q3FwTm1UT2FMTC9iQVFaWlVCK2F0Zk8xeXhBNVVSUE1v?=
+ =?iso-2022-jp?B?bW1YcUlxRWJWQVdPMkZKdTZIZkNmUU9LbUhEWk4zY2RMTDZ4SVp4VFJW?=
+ =?iso-2022-jp?B?QzF4aktQdFg0U2tMZjgxZWRqbUtaU09CbW1vb3hiTFlQbjVEd2VYRUgv?=
+ =?iso-2022-jp?B?V1BjQWtuYkhTSVA5VXdBa1JWWlZMb0hwbDJiK3V3RkZVR3hXMWtBRC9I?=
+ =?iso-2022-jp?B?SXBndXVvMWh6K0Jqd0VTU2xDajhoRzk0Skl0cTA2VVlLZ3o4L0F1N2ND?=
+ =?iso-2022-jp?B?N1dMZWZkTUkwUTNhemQvTVUxMGpqMERvNjl4VktqR1A5TE5mRkZ0QTFO?=
+ =?iso-2022-jp?B?Z1g2a0xxQ1o2SmRKeEM1N1Y4TGZmbDJOaE5OQXJtM3UrYTFCVnE5Nk94?=
+ =?iso-2022-jp?B?L1ZZSTNUcDFYdlZFc28zVmNjMk9tbHVSWEtGbFdlV3dZMjBzYW9wVXFp?=
+ =?iso-2022-jp?B?NGhmS2owdWpUYjV2dW0xUDA1eWMvQ0NJY2Vad1FPa3ZlUGxxanJEb29s?=
+ =?iso-2022-jp?B?Z1h3V3d4VmFKcEFyZ1ZpQXhuMGlKVWdKbVAyVys5U25iQ0pSS0hXMWtU?=
+ =?iso-2022-jp?B?cnFjSk9WWkZJNC9YeDhRcjZNNGpSR2pURnhraUUrS2hiTTNCNnltZU05?=
+ =?iso-2022-jp?B?Vk9udVhVUW5wejRCSnNKMkRub2pCT2h1OU04Uzk2RE5TNXZ3ZlYvbWpN?=
+ =?iso-2022-jp?B?U0NCSmhjdnlEZzlMTE1GdTRsRUc0Njl2eFE0MmlOa0c4SFlGY1ZQWno2?=
+ =?iso-2022-jp?B?U2RzOGVZWGd5TDh5b1hpbXk1S1pwTUw1Zm1PQ3oxRVdVeEVWQ1J1VDVZ?=
+ =?iso-2022-jp?B?UDM3UzhPalNpWmtMWE5NaFBFVGN3LzAyREIxV1pHZVQrQkFmdWhCTjdL?=
+ =?iso-2022-jp?B?RGNyUEJOaU1zZ3hUZ2JqeXU0TSs2NkFHNXhoSWJYU29JKzZxdW1Idlh6?=
+ =?iso-2022-jp?B?ZkxNaFE3K1BsZ3k5LzFJRkV1SHdZSmV4enNkV2JoQ1l5anUyYzY0c0hO?=
+ =?iso-2022-jp?B?Zmw4cTQ0ay84M2dmcmRrSXJSNlpLYWdmVURuRzdRb1QxWWZWMDdMS0hI?=
+ =?iso-2022-jp?B?eDN5M25PZ290VWZXR3NTREhjK3Zid08wREJXM2g3OGw3bjFhQmFSZ3hL?=
+ =?iso-2022-jp?B?MVkySVFGOD0=?=
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] tpm: Introduce Qualcomm TPM driver
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-        linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-        linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
-References: <20261015-tpm_qcom_driver-v3-0-247c8e50250e@qti.qualcomm.com>
- <20261015-tpm_qcom_driver-v3-2-247c8e50250e@qti.qualcomm.com>
- <atKpjLYdUuugwAUQ@kernel.org>
-Content-Language: en-US
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-In-Reply-To: <atKpjLYdUuugwAUQ@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: FgzTpw0PbDOCeDZq8BC72jPS-dClGYuJ
-X-Authority-Analysis: v=2.4 cv=NItAaE6g c=1 sm=1 tr=0 ts=6ad5b615 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=Ebq4Ce3iuLL-fAZv0N0A:9 a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAyNCBTYWx0ZWRfX2S2l99Cb46tN
- 0FTDqjhJWszg7Ol6sIHFBk/a30zf5u37A4uLmkyXHIXSvsKUvq5VKW5alwzKkF1Uze3CbleggM/
- BjrindKihxOUFCsVSk6lf231NhNJZPE=
-X-Proofpoint-GUID: FgzTpw0PbDOCeDZq8BC72jPS-dClGYuJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAyNCBTYWx0ZWRfX6S1euu63rGfJ
- 6+cuKnEJO+WPHJOFtuXFu9cPlfdjYjCFK0VqP2NCk2kOEi0dpDUYBrkNZ07AIP8eC7Fj0MQNamK
- 1c2J6sExmphrmX+qOpHw1wGTwj9FmFnbkyaODtuS5ucvnFVJ/iUPqn7Cgu+tBHxdOfVRADMDNGQ
- LV8zTvdTXDbvKt601nTvjF1DjCbmM5QgrK8tv4Uw1HNcLhMy69yZKfciCU5KmjtTkUZc2oVYzxw
- +NODMX//Z8HX7zBoHxJRHq0DP3GXT7MK0uazZqfYpG78VHZyLpf7hln1AfausD7pMapF2GefdOV
- 4z081V2S0f752R233/pqAsfNWUCj+Sev/Dm29lQz53sNIwoqc9y9z/PdljE+nRTODeRU+wLJlUO
- bkD/rpQypV9bKQjsgDpLzAGqtttsag1GfWGFOIEzVUf7Xc9ktPWs91XJgDsjoSUa/nYMUAajwWG
- L77sBNDxAe87tEHjzrQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 bulkscore=0 malwarescore=0 impostorscore=0
- spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190024
+X-Exchange-RoutingPolicyChecked:
+	SXy04JchoOmfNp0YEc0XX4zGM5X1AJnhm/rBxj6RcdRkjf+F+O7toESSDSoXUCho/dyexFO6ca5Y47moZ+fsVKHkh8tELwGusrUCHnYGO15a1FMghlinZ5h87EssDZ1xLm4ORQL3d3EXFiAo8OH8H06xLyUA5exj6SR4X9V5VIoc8R4iBDQHzGobpqDhd7GCeyCLm7+w4IImNWZbQznJYUYhuls5PU3cB/XEP8KMiUaeIbauRhAWWGTdh2XhVLXB9iJ//00fj/7RtkfpvxHO+2TXe9nWU8n5Cw0/w2nukmY3igWPlZf56W/8f0fTCFextuqjUma9mFGOhrobm1QtTQ==
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY7PR01MB15746.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: df24a1ae-4703-4b28-b54f-08df2da8f569
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2026 06:19:40.4424
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LqAtKdOmz3S4uo1z6Zex/Hu9QKhJnaKmlgtgjCflLEyUvkmAKH3F1I1dEuhhOl/SDdc0M4uY+v4LEsFw/OhsXP9P7RwiLi0ScgejtSouqJ8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB7998
 
->> +	err = tpm_chip_register(pvt_data->chip);
->> +	if (err) {
->> +		dev_err(dev, "tpm_chip_register failed with rc=%d\n", err);
->> +		goto out_svc_obj;
->> +	}
->> +
->> +	return 0;
->> +
->> +out_svc_obj:
->> +	tpm_qcom_release_object(pvt_data->ctx, tpm_svc_obj);
-> 
-> This is very cleanly laid out driver. This goes perhaps unhealthy
-> levels of nitpicking but we usually tend to have newline before
-> the next label.
+> Subject: Re: [PATCH v2 3/4] perf: arm_pmu: Add workaround for FUJITSU-MON=
+AKA Erratum E#030002
+>=20
+> On Fri, Oct 16, 2026 at 01:00:13PM +0000, Tomohiro Misono (Fujitsu) wrote=
+:
+> > > Subject: Re: [PATCH v2 3/4] perf: arm_pmu: Add workaround for FUJITSU=
+-MONAKA Erratum E#030002
+> > >
+> > > On Fri, Oct 16, 2026 at 07:00:47PM +0900, Tomohiro Misono wrote:
+> > > > FUJITSU-MONAKA Erratum E#030002 affects FUJITSU-MONAKA CPU.
+> > > >
+> > > > On affected FUJITSU-MONAKA CPUs, after a PMU event counter is
+> > > > stopped at a value just before overflow, an overflow might still
+> > > > be incorrectly detected, resulting interrupt storm in some case.
+> > > >
+> > > > For example, if the following conditions are met:
+> > > >   1) Running perf to count an event in user space only
+> > > >   2) The event can also occur in kernel space
+> > > >   3) The counter value is set just before the overflow
+> > > >      (when using the -F option, initial counter value is -1)
+> > > >
+> > > > when the kernel is about to return to user space after enabling
+> > > > the count, an overflow interrupt is incorrectly triggered by an
+> > > > event that occurred in kernel space. Since the counter value is
+> > > > not updated (correctly), the interrupt handler does nothing and
+> > > > returns with the same condition. This leads to another wrong interr=
+upt
+> > > > and results in an interrupt storm and eventually a softlockup.
+> > >
+> > > I don't fully understand this.
+> > >
+> > > Surely the relevant PMOVS{CLR,SET}[n] bit set as if the counter n
+> > > overflowed?
+> > >
+> > > If that bit is set, the handler will certainly do *something*.
+> > >
+> > > If that bit is not set, the interrupt shouldn't be asserted at all. W=
+hen
+> > > does it get de-asserted?
+> >
+> > Sorry, my explanation wasn't clear. The interrupt will be de-asserted
+> > as usual.
+>=20
+> I'm trying to work out which of the following happens due to the
+> erratum:
+>=20
+> (a) When the erratum occurs, the HW sets a bit in PMOVS*. An overflow
+>     interrupt is asserted because PMOVS* is non-zero. The overflow
+>     handler will see that bit was set in PMOVS*. Clearing PMOVS*
+>     de-asserts the interrupt as usual.
+>=20
+> (b) When the erratum occurs, the HW does not set a bit in PMOVS*, and
+>     asserts an overflow interrupt even if PMOVS* is clear.  The overflow
+>     handler might not see a bit set in PMOVS*.
+>=20
+> (c) Something else.
+>=20
+> Can you pleaes confirm what HW does with PMOVS* when the erratum occurs?
+> I assume (a), but you haven't explicitly stated that so far.
 
-No worries!!
-I'll add new line before out_ctx and post next version.
-Let me check any other goto usage and update that one too.
+I confirmed that HW works as (a). I will update the comments in v3.
 
--- 
-Regards
-Kuldeep
+>=20
+> > The problem is that armpmu_event_set_period() will not update the count=
+er
+> > value if, for example, the counter is -1. Therefore, false overflow det=
+ection will continue.
+> > With this patch, armpmu_event_set_period() will force the counter to -6=
+ so that
+> > false overflow detection won't occur in the kernel, since the maximum e=
+vent
+> > count at a time is 5.
+>=20
+> I expected that were this to occur a number of times in quick
+> succession, the core perf code would throttle the event, and adjust the
+> period.
 
+I didn't see that happen. I'll take a look at the core perf code.
+
+>=20
+> I am presumably missing some detail that prevents that.
+> I assume you've seen the issue in practice? i.e. you've actucally
+> triggered this with the perf tool on real hardware?
+
+Yes, I see this problem on real hardware when using perf with
+the -F 99 option or the -c 1 option, specifying counting in user space only=
+.
+
+Best Regards,
+Tomohiro Misono
