@@ -1,158 +1,645 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2D749B5C1
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DF6346AED;
+	Mon, 19 Oct 2026 09:00:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400416; cv=none; b=iAnAuK7nBJGoZfIE8h87XmI5xSGFRpYqtOAYdlB1qwvfTAOrAn9BQ2NAgc5ZnDFu1UWyFSwl/eReuFQfYAvMYgsLK9uqnZxqu1pJj+ic09HH5XTw5KKgJyCc8yc0YqlMfn+qs2UsE2Nx33U5izWd9/A7VwckLaas+dDLrYpj3Uw=
+	t=1792400430; cv=none; b=HrJD7bbsSEFwU01nXAxf7KYfK/jZ0lp8gVadyQ+hc0oUv0sgE6YipMMnRHj7ipV0h2eTj5LdE0BVAObJzp4IPP/ecZ7L5/di4num4K5y+KlXpo7JcFQka99vO68MeKbuY6tXbmHp7PXd1Nj3NYDFpFbJH/SnSLGJ7Xjzh4p6tkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400416; c=relaxed/simple;
-	bh=gpJsPC1bgzRrB21bbmuJR8Rh6on/+2rqdpt3atueTZQ=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=aURlGVRbO6Gg3fnBnfTvBoiueXi3ApzMtroyfBFWSkEF2INZIIMezYXeTQ0KRyNXjZODXXgILySLs3oa5pwyynDPNycHg5LiBPVNfKPuO0vACKM6yY1YMPp7Yv4NrmjIdbiLAP0oyH8Z8x3SSUDHWpB37HV4XHx3LmGtNU4iGlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fN+BNRMy; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1792400430; c=relaxed/simple;
+	bh=Cl4qIFk5ZdhC61eFLi3+fCvdSXbpuScYPEtB5HaXORU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BcmTxt3gFJ/5lr0VJf4Uim8QI0hngE+PBfblAXP1FHnP4XQXyHSWYwmxk+xWWv1LZX2nTnmL/W5O9D7nRhUs4LSUQSZA37vXJSQzQ9WLQnwEBtFHTwzewlvqS/sxcs686HvYsodl7ltUxAqxcLHhWxNHI04Mf8sziNl5BcXU4kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXMXgH+s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fN+BNRMy"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b001cd92bso957635f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:00:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792400411; x=1793005211; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iKwgkkYty1GRm5iOvnB2r7jBXi8LeJAk2XCbdMUEAe4=;
-        b=fN+BNRMy3yaJF/FdwdHvNcegyohj+tYdKq5C4xm0HASyVhvPDbU1EDEr8KYGb9eStL
-         35KPdGIvCgw+ZmsdoT4ANr4M5YnMI/RYdhTvWavBKGcUPAMlqZkK/mca28btjllzL7MF
-         kNnhvzXQr9JsFvK4yDIp76rKTUCgVVzcrutf7dCBh61cCI6EZ4AOrBLMvv7JQiaKaQNB
-         NzfLhoI3WkpTkIBZ4sysnvKQLJ/6XzSiVWvtsjJqXW/n4NvPyh9qt0E8RwvCUBTMXNvn
-         NSNnbyGFqo2U7j3rVgi4VCbHRaxnVYUPXDXRLFW+XljQvVdSzasK/0i/2/EJc3M7lfk/
-         lJSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792400411; x=1793005211;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iKwgkkYty1GRm5iOvnB2r7jBXi8LeJAk2XCbdMUEAe4=;
-        b=fJ8vzjIkaTgSjlOXQF09zOUEadRNZpS765kjoZjgtEkHGxcqXugxs8rmogEfcZwNgI
-         7aJKNcDfxHLXKTSmzH6mpyMhIxoYQWpl+tf/xSLeSWBvLirLFmG9YCujFxzhjGWzvQgI
-         31OBCw10gge27kiWqmOPTeWDL5YsqHvwegc9RRICjiPt0fQ/8UvjGnk6oe6Ah5RjLG1Y
-         7D87+bVxD1Br6iSvZjghJzY0K1ye1pWaiqvdFFUW2Xezlt/HrAks6zQ3fLZUKTCXfT/u
-         glw7xJZQuxnuHufqFtyivRlr7FSUlncZ3SfhFTDC6zJ5mW/Z8xEI4pufmNVXj00pZ1Tt
-         8cVw==
-X-Forwarded-Encrypted: i=1; AKwUvBwUr6Sf++4aVqh0ggAlNiNLYN0XB7E4x1QCHLmOwGRTcgV+Y3EV3qoxxJ0XnOv6s3grg+7GVVptQS9SXnk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzSLkc6j+yOD4YOIQJsAbXf12AQf8H/LIuKdhhtDVIjFolo4RO
-	ibtrreOVXgR0TdVHbzwYFqByMvHw0PrhOD2hI9vmsDvwjWZGAT+rP8qOo7I0homML7A=
-X-Gm-Gg: AYBFou2ZCp0nv0PFPCLuudYtACyQbNm/Z/T2CuWfuc/gkjElLhO3amuJDpA3YFBFb0I
-	kuFUktMjbBetH/udkRwor8ZYYmqoLMzjS0YNeCkXITwrvgdTzBZD5rkdN6TZysUSrmMEaEXvD5U
-	BaqHM5PLWCCit4ps734uktpiA0impWso2V8xgDry9L+ILsS2aDYyqRyD0SIfV37Qu84zvy6kgvN
-	VHJh2VYldSVO68fpHCDVXDdeb6CUfggssKc4kRnl5SAxjS+uLyz2LtkVBYW4mwWImEQJYsf+yMX
-	TES6MDSlC4m9Vxx/WtqCmu6ZL6XnFfDhN88b6mW8La95RqhCMal3MK5/cr4l8+StYzvAoTJvyXk
-	ofCiuvQGUPbB1E5DOkYdBelyR1p/BmhJwLi+te4VuE1JhFs5F9v9jg4CYeEgir5d0NhiRi0Uiev
-	YH3a2uU8v9yaU67YV3fNjY1ny8mmZsYzKmVyAkuX2q3oRr/AWKbfkeQPP1OKx3uRH+1H52kYAim
-	oJ2BqaYqEvjMLWA1edbjFAtDgZj
-X-Received: by 2002:a05:6000:240d:b0:48e:eb5:4976 with SMTP id ffacd0b85a97d-48e0eb54a52mr9171721f8f.53.1792400411273;
-        Mon, 19 Oct 2026 02:00:11 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd510201sm22649658f8f.55.2026.10.19.02.00.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:00:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXMXgH+s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35851F000C4;
+	Mon, 19 Oct 2026 09:00:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792400428;
+	bh=wmCP/G+1SdqTYqgWwkVYDmr4J5LTx5qx21m/SdrHYHI=;
+	h=From:To:Cc:Subject:Date;
+	b=LXMXgH+sVCGYF1a03SpoUhJNiXMm2g5tMFdVF3gPNVridg6+8I9xroyK0gFr4WHSZ
+	 A51T8Fic6qbmX+ck3tF9Q55Vk6kzoOICjpvfiX/oUXOU8eDn3GLKtXCgMZa+raitld
+	 /+joRsZIwHVnqQXjF3XWM4M8v7/fKI5b39xKuPxRlVkGREK0uRDBCCBwLxE0a+8HcA
+	 OaemBVDDsB2T2g+JL1JGUtOUTtHWrklDKYpgJh0CENc2jcDU7RJoxLCBYm3lCf9ZR/
+	 rkr1kJ0hyk6nOGW5UxV1JgD9RuO8/lbEMTvxmVejImWtEtpoDeSkQn5c/oJbLO/Vu2
+	 hgxrtHZtxyN4Q==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: [PATCH] [v3] serial: 8250: remove obsolete and broken PORT_RSA support
+Date: Mon, 19 Oct 2026 10:56:55 +0200
+Message-ID: <20261019090017.430425-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v1] clk: Free the parent map only in __clk_release()
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261016164050.790594-1-nickolai@csail.mit.edu>
-References: <20261016164050.790594-1-nickolai@csail.mit.edu>
-Date: Mon, 19 Oct 2026 10:59:59 +0200
-Message-Id: <179240039974.859276.7525896118303728782.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3516; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=gpJsPC1bgzRrB21bbmuJR8Rh6on/+2rqdpt3atueTZQ=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlX7wgbXi0WaJ2yJfaFwjrpOZo/D0zR4y0pffvhgon9R
- FWlDX8aOkpZGMS4GGTFFFlquKvF30lqfZk1Xec2zBxWJpAhDFycAjCR89MZGbpbZv963i7fPFn8
- 3eGbJXwP9xxm/Bl/8U9N3MfMJdMsSrYy/Pdd+2B2c+WOiBmHDrnV3BF4fKdqcbLkk5olyzv4Y4V
- uTuMGAA==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Transfer-Encoding: 8bit
 
-> clk_core_populate_parent_map() can fail in two ways, and since
-> __clk_register() answers every failure with kref_put(&core->ref,
-> __clk_release), both end in clk_core_free_parent_map() walking a parent
-> map that is not there to walk:
-> 
->  - If the allocation of the map fails, core->parents is NULL while
->    core->num_parents was already set from init->num_parents.
->    clk_core_free_parent_map() only tests num_parents, so it reads
->    core->parents[i].name through a NULL pointer: an oops.
-> 
->  - If a later kstrdup_const() of a parent name fails, the function
->    frees the names it copied so far and the map itself, but leaves
->    core->parents pointing at the freed memory. __clk_release() then
->    frees the same names and the same map a second time: a double free
->    on top of a use-after-free read.
-> 
-> Both arms are the -ENOMEM path of clk_register(), clk_hw_register() and
-> of_clk_hw_register(), so of every clock provider in the tree with
-> num_parents > 0. A user sees it when a clock provider's probe hits a
-> memory allocation failure (in practice under fault injection, as these
-> allocations are small): instead of the probe failing with -ENOMEM and
-> "failed to register clk", the kernel oopses in __clk_release() called
-> from __clk_register(), or, for the second arm, corrupts the slab
-> allocator and reports a double free.
-> 
-> clk_core_populate_parent_map() has cleaned up after itself since commit
-> fc0c209c147f ("clk: Allow parents to be specified without string names"),
-> when __clk_register()'s fail_parents label skipped
-> clk_core_free_parent_map() and only the later fail_create_clk label
-> freed the map. Commit 9d05ae531c2c ("clk: Initialize struct clk_core
-> kref earlier") moved the freeing of everything into __clk_release() and
-> pointed all failure labels at kref_put(), so the map is now freed by
-> __clk_release() on this path too.
-> 
-> Make clk_core_populate_parent_map() leave the map to __clk_release():
-> return the error without freeing anything (the map is zero-allocated and
-> kfree_const(NULL) is a no-op, so the partially filled map is freed
-> correctly by clk_core_free_parent_map()), and have
-> clk_core_free_parent_map() return when there is no map rather than when
-> num_parents is zero, which is what clk_core_get_parent_by_index()
-> already does for the same state.
-> 
-> Found by formal verification of __clk_register() against the kernel
-> binary. Reproduced on riscv64 under QEMU by re-running a fixed-factor
-> clock provider's probe through its sysfs bind file with failslab aimed
-> at the parent map allocation: the unpatched kernel oopses with a NULL
-> pointer dereference in __clk_release() (clk_core_free_parent_map() is
-> inlined there), the patched kernel fails the bind write with -ENOMEM
-> and logs "failed to register clk". A userspace transcription of the
-> four functions reproduces both arms under AddressSanitizer before the
-> change and is clean after it. The clk KUnit suites pass before and
-> after on x86_64 and riscv64.
-> 
-> Fixes: 9d05ae531c2c ("clk: Initialize struct clk_core kref earlier")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+From: Arnd Bergmann <arnd@arndb.de>
 
-Fix looks good to me. Thanks for this
+For all I can tell, the RSA support in the 8250 driver is not functional
+and has not been for a long time.
 
-The description is a touch verbose for just few lines fix, which is usual
-for LLM generated content. If for some reason another version, it would
-be nice you could summarize it.
+The RSA-DV II/S ISA card[1] was sold by IODATA in the 1990s as a faster
+alternative to regular ISA serial ports, and it was discontinued in
+2002. Linux support was added by Kiyokazu SUTO in 2000.
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+The driver defines an I/O port base address of -8 (negative eight),
+which should always get refused by request_region on all architectures
+for being outside of the valid resource range.
 
+Further, it seems that a patch to setserial would be required in order
+to set PORT_RSA when not using autoconfiguration.
+
+This patch removes all code related to the RSA support, with the exception
+of the user-visible PORT_RSA definition.
+
+Link: http://translate.google.com/translate?hl=en&sl=ja&u=http://www.iodata.jp/products/network/rsadv2s.htm
+Link: https://lore.kernel.org/all/1309211120-2803-6-git-send-email-arnd@arndb.de/
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+v2: rebased my own patch after 15 years
+v3: fix up Makefile and sunsu.c file
+---
+ drivers/tty/serial/8250/8250.h          |  17 --
+ drivers/tty/serial/8250/8250_core.c     |   6 -
+ drivers/tty/serial/8250/8250_platform.c |   4 -
+ drivers/tty/serial/8250/8250_port.c     |   8 -
+ drivers/tty/serial/8250/8250_rsa.c      | 209 ------------------------
+ drivers/tty/serial/8250/Kconfig         |  11 --
+ drivers/tty/serial/8250/Makefile        |   1 -
+ drivers/tty/serial/sunsu.c              |  92 -----------
+ include/uapi/linux/serial_reg.h         |  51 ------
+ 9 files changed, 399 deletions(-)
+ delete mode 100644 drivers/tty/serial/8250/8250_rsa.c
+
+diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+index 75afeb8c0cef..6225027ed7b4 100644
+--- a/drivers/tty/serial/8250/8250.h
++++ b/drivers/tty/serial/8250/8250.h
+@@ -126,9 +126,6 @@ void serial8250_isa_init_ports(void);
+ 
+ extern struct platform_device *serial8250_isa_devs;
+ 
+-extern const struct uart_ops *univ8250_port_base_ops;
+-extern struct uart_ops univ8250_port_ops;
+-
+ static inline int serial_in(struct uart_8250_port *up, int offset)
+ {
+ 	return up->port.serial_in(&up->port, offset);
+@@ -323,20 +320,6 @@ static inline int serial8250_pnp_init(void) { return 0; }
+ static inline void serial8250_pnp_exit(void) { }
+ #endif
+ 
+-#ifdef CONFIG_SERIAL_8250_RSA
+-void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops);
+-void rsa_enable(struct uart_8250_port *up);
+-void rsa_disable(struct uart_8250_port *up);
+-void rsa_autoconfig(struct uart_8250_port *up);
+-void rsa_reset(struct uart_8250_port *up);
+-#else
+-static inline void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops) { }
+-static inline void rsa_enable(struct uart_8250_port *up) {}
+-static inline void rsa_disable(struct uart_8250_port *up) {}
+-static inline void rsa_autoconfig(struct uart_8250_port *up) {}
+-static inline void rsa_reset(struct uart_8250_port *up) {}
+-#endif
+-
+ #ifdef CONFIG_SERIAL_8250_FINTEK
+ int fintek_8250_probe(struct uart_8250_port *uart);
+ #else
+diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
+index 96c99f0ae683..b9ce22948389 100644
+--- a/drivers/tty/serial/8250/8250_core.c
++++ b/drivers/tty/serial/8250/8250_core.c
+@@ -307,9 +307,6 @@ static void univ8250_release_irq(struct uart_8250_port *up)
+ 		serial_unlink_irq_chain(up);
+ }
+ 
+-const struct uart_ops *univ8250_port_base_ops;
+-struct uart_ops univ8250_port_ops;
+-
+ static const struct uart_8250_ops univ8250_driver_ops = {
+ 	.setup_irq	= univ8250_setup_irq,
+ 	.release_irq	= univ8250_release_irq,
+@@ -352,9 +349,6 @@ struct uart_8250_port *serial8250_setup_port(int index)
+ 	up->port.port_id = index;
+ 
+ 	serial8250_init_port(up);
+-	if (!univ8250_port_base_ops)
+-		univ8250_port_base_ops = up->port.ops;
+-	up->port.ops = &univ8250_port_ops;
+ 
+ 	timer_setup(&up->timer, serial8250_timeout, 0);
+ 
+diff --git a/drivers/tty/serial/8250/8250_platform.c b/drivers/tty/serial/8250/8250_platform.c
+index 8aa769085bfa..1a41a4ac25f8 100644
+--- a/drivers/tty/serial/8250/8250_platform.c
++++ b/drivers/tty/serial/8250/8250_platform.c
+@@ -73,10 +73,6 @@ static void __init __serial8250_isa_init_ports(void)
+ 	for (i = 0; i < nr_uarts; i++)
+ 		serial8250_setup_port(i);
+ 
+-	/* chain base port ops to support Remote Supervisor Adapter */
+-	univ8250_port_ops = *univ8250_port_base_ops;
+-	univ8250_rsa_support(&univ8250_port_ops, univ8250_port_base_ops);
+-
+ 	for (i = 0; i < ARRAY_SIZE(old_serial_port) && i < nr_uarts; i++) {
+ 		struct uart_8250_port *up = serial8250_get_port(i);
+ 		struct uart_port *port = &up->port;
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index 3593e7209879..462441237a90 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -1186,8 +1186,6 @@ static void autoconfig(struct uart_8250_port *up)
+ 		break;
+ 	}
+ 
+-	rsa_autoconfig(up);
+-
+ 	serial_out(up, UART_LCR, save_lcr);
+ 
+ 	port->fifosize = uart_config[up->port.type].fifo_size;
+@@ -1199,7 +1197,6 @@ static void autoconfig(struct uart_8250_port *up)
+ 		/*
+ 		 * Reset the UART.
+ 		 */
+-		rsa_reset(up);
+ 		serial8250_out_MCR(up, save_mcr);
+ 		serial8250_clear_fifos(up);
+ 		serial_in(up, UART_RX);
+@@ -2156,9 +2153,6 @@ static void serial8250_startup_special(struct uart_port *port)
+ 				UART_DA830_PWREMU_MGMT_URRST |
+ 				UART_DA830_PWREMU_MGMT_FREE);
+ 		break;
+-	case PORT_RSA:
+-		rsa_enable(up);
+-		break;
+ 	}
+ }
+ 
+@@ -2450,8 +2444,6 @@ void serial8250_do_shutdown(struct uart_port *port)
+ 
+ 	serial8250_clear_fifos(up);
+ 
+-	rsa_disable(up);
+-
+ 	/*
+ 	 * Read data port to reset things, and then unlink from
+ 	 * the IRQ chain.
+diff --git a/drivers/tty/serial/8250/8250_rsa.c b/drivers/tty/serial/8250/8250_rsa.c
+deleted file mode 100644
+index da971437e89c..000000000000
+--- a/drivers/tty/serial/8250/8250_rsa.c
++++ /dev/null
+@@ -1,209 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0+
+-
+-#include <linux/errno.h>
+-#include <linux/ioport.h>
+-#include <linux/module.h>
+-#include <linux/moduleparam.h>
+-
+-#include <linux/serial.h>
+-#include <linux/serial_8250.h>
+-
+-#include "8250.h"
+-
+-#define PORT_RSA_MAX 4
+-static unsigned long probe_rsa[PORT_RSA_MAX];
+-static unsigned int probe_rsa_count;
+-
+-static const struct uart_ops *core_port_base_ops;
+-
+-static int rsa8250_request_resource(struct uart_8250_port *up)
+-{
+-	struct uart_port *port = &up->port;
+-	unsigned long start;
+-	unsigned int size;
+-
+-	if (!uart_iotype_io(port->iotype))
+-		return -EINVAL;
+-
+-	start = UART_RSA_BASE << port->regshift;
+-	start += port->iobase;
+-	size = 8 << port->regshift;
+-
+-	if (!request_region(start, size, "serial-rsa"))
+-		return -EBUSY;
+-	return 0;
+-}
+-
+-static void rsa8250_release_resource(struct uart_8250_port *up)
+-{
+-	struct uart_port *port = &up->port;
+-	unsigned long offset;
+-	unsigned int size;
+-
+-	if (!uart_iotype_io(port->iotype))
+-		return;
+-
+-	offset = UART_RSA_BASE << port->regshift;
+-	size = 8 << port->regshift;
+-	release_region(port->iobase + offset, size);
+-}
+-
+-static void univ8250_config_port(struct uart_port *port, int flags)
+-{
+-	struct uart_8250_port *up = up_to_u8250p(port);
+-	unsigned int i;
+-
+-	up->probe &= ~UART_PROBE_RSA;
+-	if (port->type == PORT_RSA) {
+-		if (rsa8250_request_resource(up) == 0)
+-			up->probe |= UART_PROBE_RSA;
+-	} else if (flags & UART_CONFIG_TYPE) {
+-		for (i = 0; i < probe_rsa_count; i++) {
+-			if (probe_rsa[i] == up->port.iobase) {
+-				if (rsa8250_request_resource(up) == 0)
+-					up->probe |= UART_PROBE_RSA;
+-				break;
+-			}
+-		}
+-	}
+-
+-	core_port_base_ops->config_port(port, flags);
+-
+-	if (port->type != PORT_RSA && up->probe & UART_PROBE_RSA)
+-		rsa8250_release_resource(up);
+-}
+-
+-static int univ8250_request_port(struct uart_port *port)
+-{
+-	struct uart_8250_port *up = up_to_u8250p(port);
+-	int ret;
+-
+-	ret = core_port_base_ops->request_port(port);
+-	if (ret == 0 && port->type == PORT_RSA) {
+-		ret = rsa8250_request_resource(up);
+-		if (ret < 0)
+-			core_port_base_ops->release_port(port);
+-	}
+-
+-	return ret;
+-}
+-
+-static void univ8250_release_port(struct uart_port *port)
+-{
+-	struct uart_8250_port *up = up_to_u8250p(port);
+-
+-	if (port->type == PORT_RSA)
+-		rsa8250_release_resource(up);
+-	core_port_base_ops->release_port(port);
+-}
+-
+-/*
+- * It is not allowed to directly reference any symbols from 8250.ko here as
+- * that would result in a dependency loop between the 8250.ko and
+- * 8250_base.ko modules. This function is called from 8250.ko and is used to
+- * break the symbolic dependency cycle. Anything that is needed from 8250.ko
+- * has to be passed as pointers to this function which then can adjust those
+- * variables on 8250.ko side or store them locally as needed.
+- */
+-void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops)
+-{
+-	core_port_base_ops = core_ops;
+-	ops->config_port  = univ8250_config_port;
+-	ops->request_port = univ8250_request_port;
+-	ops->release_port = univ8250_release_port;
+-}
+-EXPORT_SYMBOL_FOR_MODULES(univ8250_rsa_support, "8250");
+-
+-module_param_hw_array(probe_rsa, ulong, ioport, &probe_rsa_count, 0444);
+-MODULE_PARM_DESC(probe_rsa, "Probe I/O ports for RSA");
+-
+-/*
+- * Attempts to turn on the RSA FIFO.  Returns zero on failure.
+- * We set the port uart clock rate if we succeed.
+- */
+-static int __rsa_enable(struct uart_8250_port *up)
+-{
+-	unsigned char mode;
+-	int result;
+-
+-	mode = serial_in(up, UART_RSA_MSR);
+-	result = mode & UART_RSA_MSR_FIFO;
+-
+-	if (!result) {
+-		serial_out(up, UART_RSA_MSR, mode | UART_RSA_MSR_FIFO);
+-		mode = serial_in(up, UART_RSA_MSR);
+-		result = mode & UART_RSA_MSR_FIFO;
+-	}
+-
+-	if (result)
+-		up->port.uartclk = SERIAL_RSA_BAUD_BASE * 16;
+-
+-	return result;
+-}
+-
+-/*
+- * If this is an RSA port, see if we can kick it up to the higher speed clock.
+- */
+-void rsa_enable(struct uart_8250_port *up)
+-{
+-	if (up->port.type != PORT_RSA)
+-		return;
+-
+-	if (up->port.uartclk != SERIAL_RSA_BAUD_BASE * 16) {
+-		guard(uart_port_lock_irq)(&up->port);
+-		__rsa_enable(up);
+-	}
+-	if (up->port.uartclk == SERIAL_RSA_BAUD_BASE * 16)
+-		serial_out(up, UART_RSA_FRR, 0);
+-}
+-
+-/*
+- * Attempts to turn off the RSA FIFO and resets the RSA board back to 115kbps compat mode. It is
+- * unknown why interrupts were disabled in here. However, the caller is expected to preserve this
+- * behaviour by grabbing the spinlock before calling this function.
+- */
+-void rsa_disable(struct uart_8250_port *up)
+-{
+-	unsigned char mode;
+-	int result;
+-
+-	if (up->port.type != PORT_RSA)
+-		return;
+-
+-	if (up->port.uartclk != SERIAL_RSA_BAUD_BASE * 16)
+-		return;
+-
+-	guard(uart_port_lock_irq)(&up->port);
+-
+-	mode = serial_in(up, UART_RSA_MSR);
+-	result = !(mode & UART_RSA_MSR_FIFO);
+-
+-	if (!result) {
+-		serial_out(up, UART_RSA_MSR, mode & ~UART_RSA_MSR_FIFO);
+-		mode = serial_in(up, UART_RSA_MSR);
+-		result = !(mode & UART_RSA_MSR_FIFO);
+-	}
+-
+-	if (result)
+-		up->port.uartclk = SERIAL_RSA_BAUD_BASE_LO * 16;
+-}
+-
+-void rsa_autoconfig(struct uart_8250_port *up)
+-{
+-	/* Only probe for RSA ports if we got the region. */
+-	if (up->port.type != PORT_16550A)
+-		return;
+-	if (!(up->probe & UART_PROBE_RSA))
+-		return;
+-
+-	if (__rsa_enable(up))
+-		up->port.type = PORT_RSA;
+-}
+-
+-void rsa_reset(struct uart_8250_port *up)
+-{
+-	if (up->port.type != PORT_RSA)
+-		return;
+-
+-	serial_out(up, UART_RSA_FRR, 0);
+-}
+diff --git a/drivers/tty/serial/8250/Kconfig b/drivers/tty/serial/8250/Kconfig
+index 9917b7e1bb26..908fc86852b6 100644
+--- a/drivers/tty/serial/8250/Kconfig
++++ b/drivers/tty/serial/8250/Kconfig
+@@ -236,17 +236,6 @@ config SERIAL_8250_DETECT_IRQ
+ 
+ 	  If unsure, say N.
+ 
+-config SERIAL_8250_RSA
+-	bool "Support RSA serial ports"
+-	depends on SERIAL_8250_EXTENDED
+-	help
+-	  Say Y here if you have a IODATA RSA-DV II/S ISA card and
+-	  would like to use its >115kbps speeds.
+-	  You will need to provide module parameter "probe_rsa", or boot-time
+-	  parameter 8250.probe_rsa with I/O addresses of this card then.
+-
+-	  If you don't have such card, or if unsure, say N.
+-
+ config SERIAL_8250_MANY_PORTS
+ 	bool "Support more than 4 legacy serial ports"
+ 	depends on SERIAL_8250_EXTENDED
+diff --git a/drivers/tty/serial/8250/Makefile b/drivers/tty/serial/8250/Makefile
+index d241ce486953..a6ee25eee9fe 100644
+--- a/drivers/tty/serial/8250/Makefile
++++ b/drivers/tty/serial/8250/Makefile
+@@ -14,7 +14,6 @@ obj-$(CONFIG_SERIAL_8250)		+= 8250_base.o
+ 8250_base-$(CONFIG_SERIAL_8250_DWLIB)	+= 8250_dwlib.o
+ 8250_base-$(CONFIG_SERIAL_8250_FINTEK)	+= 8250_fintek.o
+ 8250_base-$(CONFIG_SERIAL_8250_PCILIB)	+= 8250_pcilib.o
+-8250_base-$(CONFIG_SERIAL_8250_RSA)	+= 8250_rsa.o
+ 
+ obj-$(CONFIG_SERIAL_8250_CONSOLE)	+= 8250_early.o
+ 
+diff --git a/drivers/tty/serial/sunsu.c b/drivers/tty/serial/sunsu.c
+index f43b802add12..33e2b11f9d69 100644
+--- a/drivers/tty/serial/sunsu.c
++++ b/drivers/tty/serial/sunsu.c
+@@ -150,75 +150,6 @@ static void serial_icr_write(struct uart_sunsu_port *up, int offset, int value)
+ 	serial_out(up, UART_ICR, value);
+ }
+ 
+-#ifdef CONFIG_SERIAL_8250_RSA
+-/*
+- * Attempts to turn on the RSA FIFO.  Returns zero on failure.
+- * We set the port uart clock rate if we succeed.
+- */
+-static int __enable_rsa(struct uart_sunsu_port *up)
+-{
+-	unsigned char mode;
+-	int result;
+-
+-	mode = serial_in(up, UART_RSA_MSR);
+-	result = mode & UART_RSA_MSR_FIFO;
+-
+-	if (!result) {
+-		serial_out(up, UART_RSA_MSR, mode | UART_RSA_MSR_FIFO);
+-		mode = serial_in(up, UART_RSA_MSR);
+-		result = mode & UART_RSA_MSR_FIFO;
+-	}
+-
+-	if (result)
+-		up->port.uartclk = SERIAL_RSA_BAUD_BASE * 16;
+-
+-	return result;
+-}
+-
+-static void enable_rsa(struct uart_sunsu_port *up)
+-{
+-	if (up->port.type == PORT_RSA) {
+-		if (up->port.uartclk != SERIAL_RSA_BAUD_BASE * 16) {
+-			uart_port_lock_irq(&up->port);
+-			__enable_rsa(up);
+-			uart_port_unlock_irq(&up->port);
+-		}
+-		if (up->port.uartclk == SERIAL_RSA_BAUD_BASE * 16)
+-			serial_out(up, UART_RSA_FRR, 0);
+-	}
+-}
+-
+-/*
+- * Attempts to turn off the RSA FIFO.  Returns zero on failure.
+- * It is unknown why interrupts were disabled in here.  However,
+- * the caller is expected to preserve this behaviour by grabbing
+- * the spinlock before calling this function.
+- */
+-static void disable_rsa(struct uart_sunsu_port *up)
+-{
+-	unsigned char mode;
+-	int result;
+-
+-	if (up->port.type == PORT_RSA &&
+-	    up->port.uartclk == SERIAL_RSA_BAUD_BASE * 16) {
+-		uart_port_lock_irq(&up->port);
+-
+-		mode = serial_in(up, UART_RSA_MSR);
+-		result = !(mode & UART_RSA_MSR_FIFO);
+-
+-		if (!result) {
+-			serial_out(up, UART_RSA_MSR, mode & ~UART_RSA_MSR_FIFO);
+-			mode = serial_in(up, UART_RSA_MSR);
+-			result = !(mode & UART_RSA_MSR_FIFO);
+-		}
+-
+-		if (result)
+-			up->port.uartclk = SERIAL_RSA_BAUD_BASE_LO * 16;
+-		uart_port_unlock_irq(&up->port);
+-	}
+-}
+-#endif /* CONFIG_SERIAL_8250_RSA */
+-
+ static inline void __stop_tx(struct uart_sunsu_port *p)
+ {
+ 	if (p->ier & UART_IER_THRI) {
+@@ -596,14 +527,6 @@ static int sunsu_startup(struct uart_port *port)
+ 		serial_out(up, UART_LCR, 0);
+ 	}
+ 
+-#ifdef CONFIG_SERIAL_8250_RSA
+-	/*
+-	 * If this is an RSA port, see if we can kick it up to the
+-	 * higher speed clock.
+-	 */
+-	enable_rsa(up);
+-#endif
+-
+ 	/*
+ 	 * Clear the FIFO buffers and disable them.
+ 	 * (they will be reenabled in set_termios())
+@@ -719,13 +642,6 @@ static void sunsu_shutdown(struct uart_port *port)
+ 				  UART_FCR_CLEAR_XMIT);
+ 	serial_out(up, UART_FCR, 0);
+ 
+-#ifdef CONFIG_SERIAL_8250_RSA
+-	/*
+-	 * Reset the RSA board back to 115kbps compat mode.
+-	 */
+-	disable_rsa(up);
+-#endif
+-
+ 	/*
+ 	 * Read data port to reset things.
+ 	 */
+@@ -780,10 +696,6 @@ sunsu_change_speed(struct uart_port *port, unsigned int cflag,
+ 	if (uart_config[up->port.type].flags & UART_USE_FIFO) {
+ 		if ((up->port.uartclk / quot) < (2400 * 16))
+ 			fcr = UART_FCR_ENABLE_FIFO | UART_FCR_TRIGGER_1;
+-#ifdef CONFIG_SERIAL_8250_RSA
+-		else if (up->port.type == PORT_RSA)
+-			fcr = UART_FCR_ENABLE_FIFO | UART_FCR_TRIGGER_14;
+-#endif
+ 		else
+ 			fcr = UART_FCR_ENABLE_FIFO | UART_FCR_TRIGGER_8;
+ 	}
+@@ -1128,10 +1040,6 @@ static void sunsu_autoconfig(struct uart_sunsu_port *up)
+ 	/*
+ 	 * Reset the UART.
+ 	 */
+-#ifdef CONFIG_SERIAL_8250_RSA
+-	if (up->port.type == PORT_RSA)
+-		serial_out(up, UART_RSA_FRR, 0);
+-#endif
+ 	serial_out(up, UART_MCR, save_mcr);
+ 	serial_out(up, UART_FCR, (UART_FCR_ENABLE_FIFO |
+ 				     UART_FCR_CLEAR_RCVR |
+diff --git a/include/uapi/linux/serial_reg.h b/include/uapi/linux/serial_reg.h
+index 9c987b04e2d0..e4f288b557ca 100644
+--- a/include/uapi/linux/serial_reg.h
++++ b/include/uapi/linux/serial_reg.h
+@@ -285,57 +285,6 @@
+ #define UART_ACR_ICRRD	0x40	/* ICR Read enable */
+ #define UART_ACR_ASREN	0x80	/* Additional status enable */
+ 
+-
+-
+-/*
+- * These definitions are for the RSA-DV II/S card, from
+- *
+- * Kiyokazu SUTO <suto@ks-and-ks.ne.jp>
+- */
+-
+-#define UART_RSA_BASE (-8)
+-
+-#define UART_RSA_MSR ((UART_RSA_BASE) + 0) /* I/O: Mode Select Register */
+-
+-#define UART_RSA_MSR_SWAP (1 << 0) /* Swap low/high 8 bytes in I/O port addr */
+-#define UART_RSA_MSR_FIFO (1 << 2) /* Enable the external FIFO */
+-#define UART_RSA_MSR_FLOW (1 << 3) /* Enable the auto RTS/CTS flow control */
+-#define UART_RSA_MSR_ITYP (1 << 4) /* Level (1) / Edge triger (0) */
+-
+-#define UART_RSA_IER ((UART_RSA_BASE) + 1) /* I/O: Interrupt Enable Register */
+-
+-#define UART_RSA_IER_Rx_FIFO_H (1 << 0) /* Enable Rx FIFO half full int. */
+-#define UART_RSA_IER_Tx_FIFO_H (1 << 1) /* Enable Tx FIFO half full int. */
+-#define UART_RSA_IER_Tx_FIFO_E (1 << 2) /* Enable Tx FIFO empty int. */
+-#define UART_RSA_IER_Rx_TOUT (1 << 3) /* Enable char receive timeout int */
+-#define UART_RSA_IER_TIMER (1 << 4) /* Enable timer interrupt */
+-
+-#define UART_RSA_SRR ((UART_RSA_BASE) + 2) /* IN: Status Read Register */
+-
+-#define UART_RSA_SRR_Tx_FIFO_NEMP (1 << 0) /* Tx FIFO is not empty (1) */
+-#define UART_RSA_SRR_Tx_FIFO_NHFL (1 << 1) /* Tx FIFO is not half full (1) */
+-#define UART_RSA_SRR_Tx_FIFO_NFUL (1 << 2) /* Tx FIFO is not full (1) */
+-#define UART_RSA_SRR_Rx_FIFO_NEMP (1 << 3) /* Rx FIFO is not empty (1) */
+-#define UART_RSA_SRR_Rx_FIFO_NHFL (1 << 4) /* Rx FIFO is not half full (1) */
+-#define UART_RSA_SRR_Rx_FIFO_NFUL (1 << 5) /* Rx FIFO is not full (1) */
+-#define UART_RSA_SRR_Rx_TOUT (1 << 6) /* Character reception timeout occurred (1) */
+-#define UART_RSA_SRR_TIMER (1 << 7) /* Timer interrupt occurred */
+-
+-#define UART_RSA_FRR ((UART_RSA_BASE) + 2) /* OUT: FIFO Reset Register */
+-
+-#define UART_RSA_TIVSR ((UART_RSA_BASE) + 3) /* I/O: Timer Interval Value Set Register */
+-
+-#define UART_RSA_TCR ((UART_RSA_BASE) + 4) /* OUT: Timer Control Register */
+-
+-#define UART_RSA_TCR_SWITCH (1 << 0) /* Timer on */
+-
+-/*
+- * The RSA DSV/II board has two fixed clock frequencies.  One is the
+- * standard rate, and the other is 8 times faster.
+- */
+-#define SERIAL_RSA_BAUD_BASE (921600)
+-#define SERIAL_RSA_BAUD_BASE_LO (SERIAL_RSA_BAUD_BASE / 8)
+-
+ /* Extra registers for TI DA8xx/66AK2x */
+ #define UART_DA830_PWREMU_MGMT	12
+ 
 -- 
-Jerome
+2.53.0
 
