@@ -1,172 +1,106 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C5049BB62;
-	Mon, 19 Oct 2026 08:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509513D5227
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399630; cv=none; b=sKJ7XJ8cMtCPuV/L2n84stpcv883PyuOr1IuFByAQHO3QrQlJiV4YqnrGXdju6VnSmjYSqDbDA4q+LksSant+oV/b8arPm9xq5wPA3LWoRzSPJTVgwHoujdM/PNvUhhVz/7aC/AMzz618j9LbncEoVlqs2Tr5k7JpGRyX+DubEA=
+	t=1792399657; cv=none; b=nGWmuHTRa1Q0zaAOV93xES4nPD9ekDGFlX4uSRQIEA/R2WZQQCVxvld3qeqrCO0oft7WE4u6xxFdQloqlUE9znYrpwvKMhMJRBKI2PfaaYlHjK+2ihVv8BjsfoakFvFk0wuweiGBs96YWmMHh6RopoYE/eJvrHuVkhHLGnZXwno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399630; c=relaxed/simple;
-	bh=DcUe9IsmofiXAMZG6fZHBDln4Os4BoYcTTscDrnqzGk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IQcHzukoXfq6CEf+ZIs8jWh/R4aof2rrxsOiWie18oUurKg46xUXjfYpz4iIRUKxtxQv7c/cel8UFzvShqtLikO7PZ3I/dbIjUib6CRSQKDC1O8ui1+PBbAPZoEpgRhOv68cIKRchqcnwF/HRjAMXi8H2hCmjOCJYuOF6Q28oUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YHhNQAGU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Pyp/7ov4; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YHhNQAGU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Pyp/7ov4; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792399657; c=relaxed/simple;
+	bh=jFAkyj5yoPWtYLC+zOW72R2wyKdGUE2qk/tecO0yjmA=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=p87TCJqMvNhYAGi/nFxaBQv95nqoLbjIMXPIATNi4DJgNGt9cgI0DwSZ3PvdQa72A/RM+fYhFL+9EKb/R+tAj1vlwfGoOLMUl3KvjvKl24J1wwQ7nwVBlIN3/sIYWEMDNR4pdaJ9OlL15ff3flMiz3QUxFqPON3RZsDo3vQ3aUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JZ1ZcpQ6; arc=none smtp.client-ip=91.218.175.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YHhNQAGU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Pyp/7ov4";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YHhNQAGU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Pyp/7ov4"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 848CB1F79A;
-	Mon, 19 Oct 2026 08:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792399627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gHLSmA7VpQsCx8Al9pxjTgMv7IrJsmRb0gjmLUJNCS4=;
-	b=YHhNQAGU3vpIwR6+nht7PBnuvYYt2BVmsatncL0m0/ouQnvehpsUrUMJlaKbhG6AOsZhIq
-	Sx72f90f7/w5ZiI22De7dmNVU1rxlbMJyZFT2d+nJrn1UoSzq3COF8XCBf1xLKJyYYcyH2
-	pQxqgEbZe16imXlhIP1JQWVGTBR4MJo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792399627;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gHLSmA7VpQsCx8Al9pxjTgMv7IrJsmRb0gjmLUJNCS4=;
-	b=Pyp/7ov4nvJWeoiPhH2k98OMzBfVN3/yCWDbaEHLC7yRbHllxrXgm7ctw0CcJXkJKQh95L
-	PbUo6VV23OXrzoBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792399627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gHLSmA7VpQsCx8Al9pxjTgMv7IrJsmRb0gjmLUJNCS4=;
-	b=YHhNQAGU3vpIwR6+nht7PBnuvYYt2BVmsatncL0m0/ouQnvehpsUrUMJlaKbhG6AOsZhIq
-	Sx72f90f7/w5ZiI22De7dmNVU1rxlbMJyZFT2d+nJrn1UoSzq3COF8XCBf1xLKJyYYcyH2
-	pQxqgEbZe16imXlhIP1JQWVGTBR4MJo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792399627;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gHLSmA7VpQsCx8Al9pxjTgMv7IrJsmRb0gjmLUJNCS4=;
-	b=Pyp/7ov4nvJWeoiPhH2k98OMzBfVN3/yCWDbaEHLC7yRbHllxrXgm7ctw0CcJXkJKQh95L
-	PbUo6VV23OXrzoBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2E3EA136CC;
-	Mon, 19 Oct 2026 08:47:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id n0gDOwrZ1WobdQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 08:47:07 +0000
-Date: Mon, 19 Oct 2026 10:47:06 +0200
-Message-ID: <87ecdmaxh1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: webgeek1234@gmail.com
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-sound@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/hdmi: Enable HBR capability
-In-Reply-To: <20261018-tegra-hda-hbr-v1-1-b8bb1f1d8d15@gmail.com>
-References: <20261018-tegra-hda-hbr-v1-1-b8bb1f1d8d15@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JZ1ZcpQ6"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jFAkyj5yoPWtYLC+zOW72R2wyKdGUE2qk/tecO0yjmA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792399653; v=1; x=1793004453;
+ b=JZ1ZcpQ6rs/nEXE0tIhJ2SEUgsoq0dF8fHk1c2XZC/ntxtHo0YRtOJW3N9MnO5OHSt69/45h
+ cFJMesqOXbslNCCjA7t3qGuv7hGFkdkt++X/8EHLPGzVWC05S1O2uL/N48ZTniAem+GJ/Kw3DVX
+ UvENTPelfBKUpx6sW5sqAEW8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d39df06ac6c62a0f;
+	Mon, 19 Oct 2026 08:47:33 +0000
+X-Mizu-Trace-ID: d39df06ac6c62a0f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6f2cb853-5eb5-4f3b-9021-ab24735a61c3@linux.dev>
+Date: Mon, 19 Oct 2026 16:47:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
+ cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
+ linux-kselftest@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>,
+ ameryhung@gmail.com, alexei.starovoitov@gmail.com
+Subject: Re: [RFC PATCH v10 0/4] blk-iocost: add BPF struct_ops cost model
+ support
+To: Tejun Heo <tj@kernel.org>
+References: <20261003124045.1289305-1-cui.tao@linux.dev>
+ <a3dfbc2d-8580-478c-8189-3794d49aee11@linux.dev>
+ <20e2b2a51fd97292add8d8e527b14a45@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20e2b2a51fd97292add8d8e527b14a45@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 19 Oct 2026 04:16:31 +0200,
-Aaron Kling via B4 Relay wrote:
+Hello Tejun,
+
+在 2026/10/17 01:49, Tejun Heo 写道:
+> Hello, Tao.
 > 
-> From: Aaron Kling <webgeek1234@gmail.com>
+> On Thu, 15 Oct 2026 20:00:20 +0800, Tao Cui wrote:
+>> When you have a chance, could you take a look at this series? I'd
+>> appreciate your thoughts on whether the implementation still matches
+>> what we discussed, or whether it has drifted somewhere along the way.
 > 
-> Tegra HDA does not set the HBR capability bit, however every SoC since
-> Tegra114 does support HBR. Override the hbr setup function for these
-> SoCs to unconditionally enable the feature. Since Tegra30 does not
-> support HBR, this function will report invalid on that SoC.
+> The behavior matches what was discussed, but the implementation needs a
+> lot of cleanup, and there are bugs in the detach path and the
+> iocg_init()/iocg_free() pairing. Details are in the replies to the
+> patches.
 > 
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
-> Before this, any attempt to open an hbr stream resulted in a rejection
-> on Tegra hardware. Looking at the downstream support, that just bypassed
-> the capbility check for all supported Tegra hardware in the common code.
-> This replicates that in a driver specific hook.
+
+Thank you for the careful review, and especially for confirming that
+the behavior is where we wanted it.
+
+The two bugs are mine to fix, and v11 reworks both. The detach path
+follows your map-reference suggestion, and the iocg_init()/iocg_free()
+pairing moves to ioc_pd_online() as you described, with iocg_free()
+keeping the delivered flag per your catch about bios still holding the
+blkg across offline. 
+
+>> Sashiko flagged a possible ABBA between the BPF paths and
+>> ioc_cost_model_write(): attach/detach take the queue freeze before
+>> q->rq_qos_mutex, while the cost-model write holds rq_qos_mutex across
+>> its freeze. That is indeed the current ordering, but I don't think this
+>> can deadlock because the queue freeze is a depth counter
 > 
-> This has been tested on a SHIELD TV 2019 Pro trying to bitstream an
-> Atmos demo video. It attempts to play, but mostly just underruns the
-> entire time, with a few spurts of correct noise. My expectation is that
-> issue is userspace, since that is a WIP android audio hal. But even if
-> there are more kernel problems, this should be correct as a standalone
-> change.
-> ---
->  sound/hda/codecs/hdmi/tegrahdmi.c | 37 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
+> The attach and detach order matches ioc_qos_write(). The reverse order in
+> ioc_cost_model_write() predates this series and is better fixed
+> separately. An earlier attempt to convert it ran into blk_iocost_init()'s
+> percpu allocation under the freeze:
 > 
-> diff --git a/sound/hda/codecs/hdmi/tegrahdmi.c b/sound/hda/codecs/hdmi/tegrahdmi.c
-> index ebb6410a48313..c4d8d8a570542 100644
-> --- a/sound/hda/codecs/hdmi/tegrahdmi.c
-> +++ b/sound/hda/codecs/hdmi/tegrahdmi.c
-> @@ -227,6 +227,41 @@ static int nvhdmi_chmap_validate(struct hdac_chmap *chmap,
->  	return 0;
->  }
->  
-> +static int tegrahdmi_pin_hbr_setup(struct hda_codec *codec, hda_nid_t pin_nid,
-> +				   int dev_id, bool hbr)
-> +{
-> +	int pinctl, new_pinctl;
-> +
-> +	// Tegra 3 does not support HBR
-> +	if (codec->core.vendor_id == 0x10de0020)
-> +		return -EINVAL;
+>   https://lore.kernel.org/all/aV5OwAvw1sRF1IW1@fedora/
+> 
+Agreed. The write path ordering predates the series and
+I've left it alone there.
 
-I guess this will break the HDMI on old Tegra.
+The implementation cleanup from the patch replies is in v11 as well.
 
-Better to enable pin_hbr_setup conditionally for newer chips below, so
-that the older chip continues to work without HBR.
+Thanks,
+Tao
 
-> +	spec->ops.pin_hbr_setup = tegrahdmi_pin_hbr_setup;
+> Thanks.
+> 
 
-
-thanks,
-
-Takashi
