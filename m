@@ -1,48 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9BF5B67BC;
-	Mon, 19 Oct 2026 14:00:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505EA5B79A1;
+	Mon, 19 Oct 2026 14:00:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418445; cv=none; b=OdLXZW7DtyggFIPxNaXhbXikDz1vkyShciP0zoPgG2tK2e55GW6xfqC59Oe6vWTbPSgN8P+OdYXeWeGoqwMi+7GUKxWpCN9Dz9nBf4DgUIZimZEIOxsKceQw46TxMDgGiHLl+FtVe6q4cH2CIf0hduEjsSxedTaO3veS9LDoblQ=
+	t=1792418448; cv=none; b=s1Xz+FLKILQJNHL0ccu2cfsFn3NsVN7ngdAsJCW+pqbjRgbI9hl6loV4BTMyiBD2poPbioEsruCpaJds8pY7upWnOq28gnSG51CO+rDBOJTbWGR5pGr2xu0ZcuExk6lw4e1kpuN18oYxP+dXBLcNcg6PEFezMqc8lW5ReoPWvzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418445; c=relaxed/simple;
-	bh=AJlwbBz5hu9qk6tcGpKoYI14lMBX3Ih9zAw/WqN8b9M=;
+	s=arc-20240116; t=1792418448; c=relaxed/simple;
+	bh=WxDbETXTCvk7MDK8LMlTz8PpFXUsuAQ8lxlFUWSJNes=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ftMznlZDejBi29TghaXqIk7pKG2IVCXN8nErPYEfIUgiYyc/Uc3Ei8tsX/gp6ulYaEl3dWQZ9j7m04XcA7ghJGM81/6KLAuOYnhftl5UaflHI4XAqK5tWqnU9IvHrwlF3JQo8cGW9xt+MwsJv6ABergeNeMzHStbGaUi4AWtj1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PxLnJ/ej; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tyVGU5XsqRHHZdhgCiJpRCMSeVkGcgHDg9QPRW8CLiCqy7Pp2WK5bLKktZiKGcKqlLdb08HYz6VjBPZSIAhNcQy95qcbgjoxz3xqwVYFIOi+9TN+4a1gnS554S/klEItbfQQDK4vOHP1aEua9keGgwZ/OHDgVwnfi83NGxBpBJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SkRPM+wV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PxLnJ/ej"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A441F000CA;
-	Mon, 19 Oct 2026 14:00:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SkRPM+wV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BFB61F000C4;
+	Mon, 19 Oct 2026 14:00:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418442;
-	bh=xy3kLagWdTJP6ZfDbHny/OxnWXLKiOpy4Ok4SL2BMpQ=;
+	s=k20260515; t=1792418445;
+	bh=jEwxnsQF6sHZjugZq/00AG00Xt7EceYd4qsDmz22KOc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PxLnJ/ej0mHR3ugRcGnN1bCZLaUIwFPQJCjO8GCcRh9jvH9mlEZ4iDvUt5meLJquk
-	 5k9OFVfJ2ikRyqqKTr7G7be5wGyOHNzm7FKcfgyl58zAoGsx3FNkapyZRs8ff1tWgV
-	 x/WVBJBdn/iHvO0EGLVpL34+qz1QWtEnjm2C0ZSYANpJ/rbQMz9uPNR0+RHJSDjz8W
-	 V++9h4WtwvY27VrKVw36HXFa/R2vnUR7ANFzm0HW2agZ95PpibBOY6octsMuVzhiTV
-	 pXlOUvWvybFnn6UVFYzUzB4UozKMSLJXYD9tt4jSzynvjOk/hRIGfoZ5CckIY+VO8B
-	 6I8cDbOEWjlfw==
+	b=SkRPM+wVvki+CaYEessUE0RLQnRVLnA1kvQC0H3vr196yfIJk17Vv217irKKt1uGM
+	 11OhZbKvuDQoMIITOL19iJdi3GXwyuuKZl4AHMO4duBxLsae65iKOWJRTuceIlEQwM
+	 9NjCltvtSfttfxULd/qDxMJG+RJ0FDZ5wi8DN1BUNkbb8R+l1N2pIaoxof05ReGpIm
+	 nzXKEjYKyOs0EjrVjjguwZFaT05PxL4rghAeZINFYHHYVDkdzK8bL4SfUyI+pp6ogd
+	 JTN154p5T7OtPJG1ehiHRuWDS0iDLlj3ursSyMSy+whGuKyEC4Tu0eDG5gYv8LvXcd
+	 P5yuK32kshVug==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Qing Luo <luoqing@kylinos.cn>,
-	Xin Long <lucien.xin@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Nicolin Chen <nicolinc@nvidia.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	marcelo.leitner@gmail.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
+	thierry.reding@kernel.org,
+	joro@8bytes.org,
+	jonathanh@nvidia.com,
+	linux-tegra@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] sctp: auth: propagate HMAC calculation errors to callers
-Date: Mon, 19 Oct 2026 09:49:03 -0400
-Message-ID: <20261019135441.1420968-252-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] iommu/tegra241-cmdqv: Rate-limit the error ISR's log message
+Date: Mon, 19 Oct 2026 09:49:05 -0400
+Message-ID: <20261019135441.1420968-254-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -58,532 +57,409 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Qing Luo <luoqing@kylinos.cn>
+From: Nicolin Chen <nicolinc@nvidia.com>
 
-[ Upstream commit 5d3ae80ecddeb82b492a2cf31ac3e44412b426f4 ]
+[ Upstream commit a86c36163c9722545d27e92bdad8418fdcaa8b1d ]
 
-sctp_auth_calculate_hmac() can fail when building the association secret
-under memory pressure, but its void return silently leaves the HMAC digest
-zeroed.  On the receive path, sctp_sf_authenticate() compares this zeroed
-digest against the peer-supplied one using crypto_memneq(), potentially
-accepting an all-zero HMAC from the peer if the allocation failed.  On the
-send path, sctp_packet_pack() transmits a packet with a zeroed HMAC that
-the peer would reject.
+tegra241_cmdqv_isr() logs the error-map registers on every error interrupt.
+A malfunctioning device, or a guest deliberately faulting its own VCMDQs,
+can raise these interrupts rapidly, and the unconditional dev_warn() then
+floods the kernel log.
 
-Improve error handling by making sctp_auth_calculate_hmac() return int:
-- sctp_sf_authenticate() returns SCTP_IERROR_NOMEM instead of accepting
-  a zero HMAC.
-- sctp_packet_pack() drops the packet on failure instead of transmitting
-  a zeroed HMAC.
+Rate-limit the message with dev_warn_ratelimited(), and pass the error-map
+registers straight to it so their four MMIO reads run only when the limiter
+prints, instead of building the string on every interrupt.
 
-Update the declaration in auth.h accordingly.
-
-Assisted-by: LLM
-Signed-off-by: Qing Luo <luoqing@kylinos.cn>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20260807064314.500742-1-l1138897701@163.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+Signed-off-by: Will Deacon <will@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a real SCTP-AUTH fail-open under memory pressure, and the buggy
-`void` HMAC helper is present in this 6.12 tree. The fix is small,
-reviewer-acked, and backportable with a trivial `auth.c` context tweak.
+The local checkout is **v7.3-rc4**. The driver and the unconditional ISR
+`dev_warn()` are present here; the change is a small, self-contained
+log-flood / guest-DoS mitigation, so it belongs in this tree.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: `[sctp/auth] [propagate] HMAC calculation errors to callers` —
-turn `sctp_auth_calculate_hmac()` from `void` into an `int` so ENOMEM is
-not swallowed.
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: **[iommu/tegra241-cmdqv] [Rate-limit] [stop the error ISR from
+printing on every interrupt]**
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- `Assisted-by: LLM` (author used an LLM)
-- `Signed-off-by: Qing Luo <luoqing@kylinos.cn>` (author)
-- `Acked-by: Xin Long <lucien.xin@gmail.com>` (SCTP maintainer)
-- `Link:
-  https://patch.msgid.link/20260807064314.500742-1-l1138897701@163.com`
-- `Signed-off-by: Paolo Abeni <pabeni@redhat.com>` (netdev)
-- No `Reported-by`, `Tested-by`, `Reviewed-by` on the committed message
-- No `Fixes:` / `Cc: stable` on the committed v4 text (expected for this
-  review queue; see Phase 4 — they were present on v2/v3, and Xin Long
-  re-added `Fixes:` when acking v4)
+- **Fixes:** none (expected)
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by / Acked-by:** none on the commit itself
+- **Link:** none
+- **Cc: stable:** none on this patch
+- **Assisted-by:** Claude:claude-opus-4-8
+- **Signed-off-by:** Nicolin Chen (NVIDIA; author), Will Deacon (arm-
+  smmu maintainer; applied it)
+- Pipeline markers such as Sasha Levin SOB / “[Upstream commit]” were
+  not on the real commit (`a86c36163c972`)
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+Notable: no user/syzbot report. The cover letter says the series came
+from **Sashiko** (LLM) review, not a production crash.
+
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- Bug: `sctp_auth_calculate_hmac()` can fail while building the
-  association secret; it still returns void and leaves the HMAC field
-  zeroed.
-- Receive symptom: `sctp_sf_authenticate()` compares that zero digest to
-  the peer HMAC with `crypto_memneq()`, so an all-zero HMAC can be
-  accepted.
-- Send symptom: `sctp_packet_pack()` ships a packet with a zero HMAC,
-  which the peer rejects.
-- Root cause: silent early return on `sctp_auth_asoc_create_secret()`
-  failure.
-- No kernel-version range in the message.
+- **Bug:** `tegra241_cmdqv_isr()` logs error-map registers with
+  unconditional `dev_warn()` on every error interrupt.
+- **Symptom:** kernel log flood.
+- **Trigger (stated):** malfunctioning device, or a **guest deliberately
+  faulting its own VCMDQs**, raising interrupts rapidly.
+- **Root cause:** every interrupt builds a 256-byte string (including
+  four extra MMIO reads) and prints it.
+- **Fix:** `dev_warn_ratelimited()`, and pass the MMIO reads as printk
+  args so they run only when the limiter actually prints.
+- **Version info:** none in the message.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not a disguised cleanup. It is an explicit error-propagation fix
-for a fail-open AUTH path. v1 understated it as “wrong error code
-(BAD_SIG vs NOMEM)”; later revisions correctly describe acceptance of a
-zero HMAC.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not a disguised cleanup. It is an explicit flood/DoS mitigation.
+It does not fix a UAF, leak, or crash by itself.
 
 ===============================================================
 PHASE 2: DIFF ANALYSIS - LINE BY LINE
 ===============================================================
 
-Step 2.1: INVENTORY THE CHANGES
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- `include/net/sctp/auth.h`: `void` → `int` for
-  `sctp_auth_calculate_hmac()`
-- `net/sctp/auth.c`: return `-ENOMEM` on secret allocation failure;
-  `return 0` on success
-- `net/sctp/output.c`: drop packed skb on HMAC failure; treat `pkt_count
-  <= 0` as transmit failure
-- `net/sctp/sm_statefuns.c`: on HMAC failure, `kfree(save_digest)` and
-  return `SCTP_IERROR_NOMEM`
-- Scope: ~24 insertions / 13 deletions, four files, surgical, SCTP-only
-- Functions: `sctp_auth_calculate_hmac`, `sctp_packet_pack`,
-  `sctp_packet_transmit`, `sctp_sf_authenticate`
+- File: `drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c` (+7 / −9)
+- Function: `tegra241_cmdqv_isr()`
+- Scope: **single-file surgical** (one logging site)
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- HMAC helper: allocation failure used to `return;` with digest
-  untouched → now `-ENOMEM`.
-- Receive: digest is `memset` to 0, then HMAC is computed into it. On
-  failure, compare is skipped; NOMEM is returned instead of comparing
-  against zeros.
-- Send: HMAC failure frees `packet->auth`, frees the GSO fragment if
-  needed, returns `-ENOMEM`. Non-GSO `nskb == head`, so `nskb` is not
-  freed there (avoids double-free); `sctp_packet_transmit` frees `head`
-  when `pkt_count <= 0`.
+- **Before:** ISR always `snprintf()`s into `char err_str[256]`, always
+  does four `CMDQ_ERR_MAP` MMIO reads, always `dev_warn()`.
+- **After:** no stack buffer; `dev_warn_ratelimited(...)` with the four
+  `readl_relaxed()` calls as arguments.
+- Path: **error interrupt path** (threaded IRQ). Error *handling* after
+  the log is unchanged.
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record:
-- Category: logic / correctness with security impact (AUTH fail-open),
-  plus missing error-path handling.
-- Mechanism: RFC 4895 requires the AUTH HMAC field to be zero during
-  computation. The receive path zeros it, then writes the computed MAC.
-  If computation is skipped, the field stays zero, so
-  `crypto_memneq(peer_hmac, zeros)` succeeds when the peer sent zeros.
-- Trigger: `key_id != asoc->active_key_id` (non-active configured shared
-  key) plus `sctp_auth_asoc_create_secret()` GFP_ATOMIC failure.
+Verified `dev_level_ratelimited()` in `include/linux/dev_printk.h`: the
+`__VA_ARGS__` are only substituted inside `if (__ratelimit(&_rs))`, so
+those MMIO reads run only when a line is printed.
 
-Step 2.4: ASSESS THE FIX QUALITY
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
 Record:
-- Obviously correct: callers already have NOMEM handling
-  (`sctp_sf_eat_auth` → `SCTP_DISPOSITION_NOMEM`; transmit already drops
-  on pack failure).
-- Minimal: no API for userspace, no new features.
-- Regression risk: low. Send path drops the packet instead of emitting a
-  MAC the peer would reject. Receive path no longer accept-on-OOM.
-- Residual in this tree: `crypto_shash_setkey()` failure still `goto
-  free` without an error (mainline HMAC helpers no longer have that
-  path). That is preexisting and outside this commit.
+- **Category:** ISR log flood / availability (guest-triggered printk
+  storm), plus extra MMIO on every interrupt.
+- **Not:** UAF, leak, deadlock, OOB, or NULL deref.
+- **Hardware workaround?** No.
+
+**Step 2.4: ASSESS THE FIX QUALITY**
+Record:
+- Obviously correct: standard `*_ratelimited` pattern already used in
+  other IOMMU fault paths (`arm-smmu-v3.c`, `virtio-iommu.c`, AMD/Intel,
+  etc.).
+- Minimal; no unrelated edits.
+- Regression risk: **very low**. Worst case is fewer error-map dumps in
+  dmesg (intended). Error recovery is untouched.
+- Red flags: LLM-assisted; no `Fixes:`/`Reported-by`. Not a new API.
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
 ===============================================================
 
-Step 3.1: BLAME THE CHANGED LINES
-Record: Silent `return` on failed `sctp_auth_asoc_create_secret()` is
-from `1f485649f52929` (“[SCTP]: Implement SCTP-AUTH internals”, Vlad
-Yasevich, 2007-10-09), first in `v2.6.24-rc1`. Present for the entire
-life of SCTP-AUTH.
+**Step 3.1: BLAME THE CHANGED LINES**
+Record:
+- Unconditional `dev_warn()` + `snprintf` were in the original driver:
+  `918eb5c856f6` (“Add in-kernel support for NVIDIA Tegra241 (Grace)
+  CMDQV”), **2024-08-30**, first in **v6.12-rc1**.
+- This tree is **v7.3-rc4**, so that code is in this lineage.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: Committed v4 has no `Fixes:` line. Xin Long added `Fixes:
-1f485649f529 ("[SCTP]: Implement SCTP-AUTH internals")` on ack. That
-commit **is** an ancestor of this tree (`git merge-base --is-ancestor
-1f485649f52929 HEAD` succeeded). Mainline fix `5d3ae80ecdde` is **not**
-in this tree.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. N/A. The logging has been there since the
+driver was added.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record: Recent SCTP work here is unrelated (INIT leaks, ASCONF, TOCTOU,
-STALE_COOKIE). No prior attempt to propagate HMAC errors.
-`hmac_sha1_usingrawkey` is **not** in this tree; this tree still uses
-`crypto_shash`.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: This is **v2 11/11** of “Fix error-interrupt races and VINTF
+lifecycle bugs” (Nicolin Chen, 2026-07-14). Cover letter: ordered
+**most-critical-first**; this is the last, smallest issue (“ISR flooding
+the kernel log under repeated guest errors”).
+Standalone: it only changes the log line and does **not** need the
+earlier UAF/lifecycle patches to be correct.
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Qing Luo is not the SCTP maintainer. Xin Long **is** (recent
-`net/sctp` commits, and he acked this). That ack is the quality signal.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Nicolin Chen is the NVIDIA CMDQV contributor for this file; Will
+Deacon applied the series. Same-day siblings are real
+lifecycle/UAF/bounds fixes. This one is the leftover logging hardening.
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: No functional prerequisite. Mainline `auth.c` later switched to
-`hmac_sha*_usingrawkey`; this tree still has `crypto_shash`. The error-
-return change does not need that conversion. Standalone after a small
-context adapt in `auth.c`.
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: None required. `dev_warn_ratelimited` is old. The hunk applies
+to the original ISR as well as the post-series ISR.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 ===============================================================
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- `b4 dig -c 5d3ae80ecdde` →
-  https://patch.msgid.link/20260807064314.500742-1-l1138897701@163.com
-- Series: v1 net-next (2026-07-30), v2 net (2026-08-04), v3 net
-  (2026-08-04), v4 net-next (2026-08-07, applied)
-- v1 changelog only mentioned BAD_SIG vs NOMEM.
-- Jakub Kicinski forwarded an AI review he treated as valid: the real
-  bug is **accepting an all-zero HMAC**, reachable from the wire via a
-  configured non-active key id, including delayed COOKIE-ECHO AUTH;
-  asked for `Fixes:` and `Cc: stable`.
-- v2/v3 retargeted to `net`, added security wording, `Fixes:`, `Cc:
-  stable`, and a `sctp_auth_chunk_verify()` refactor.
-- Xin Long on v3: “This patch is intended as a **fix**”; drop the
-  `sctp_auth_chunk_verify()` churn (send that kind of cleanup to net-
-  next). Returning `-ENOMEM` from pack is fine because transmit already
-  treats non-positive pack results as drop.
-- v4 dropped the verify refactor and was sent to net-next; Xin Long
-  acked and re-added `Fixes:`. Paolo applied it to net-next
-  (`5d3ae80ecdde`).
-- No NAKs. Applied version is v4 (latest).
+- `b4 dig -c a86c36163c972` → https://patch.msgid.link/2e9d088c059037d5f
+  c23532820444720b870d2c7.1784059577.git.nicolinc@nvidia.com
+- **v1** (2026-07-02) and **v2** (2026-07-14); committed version is **v2
+  11/11**.
+- No NAK on this patch. Review noise in the thread was about **patch
+  10/11** (dropped); Will applied 01–09 and 11.
+- No reviewer asked for `Cc: stable` on *this* patch. Patch 07/11 in the
+  same series did have `Cc: stable` (unrelated vSID check).
+- WebFetch to lore returned **403**; thread was read from the b4 mbox
+  instead.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`): netdev maintainers (davem, edumazet, kuba, pabeni,
-horms), `linux-sctp@`, `lucien.xin@gmail.com`. Xin Long acked. Jakub’s
-review drove the security description.
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record (`b4 dig -w`): Nicolin Chen, Will Deacon, Robin Murphy, Joerg
+Roedel, Jason Gunthorpe; lists `iommu@`, `linux-arm-kernel`, `linux-
+tegra`. Maintainer **Will Deacon applied it** (“Applied (apart from
+patch 10)”).
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla/user crash report. Bug was found by code
-review (LLM-assisted, then confirmed on the list). Unverified: whether
-any production user has hit the zero-HMAC accept path.
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No syzbot/bugzilla link. Origin is **Sashiko** static review,
+described in the cover letter. Nicolin also noted Sashiko false
+positives (including a wrong “level-triggered / kdump storm” claim);
+CMDQV is **edge-triggered**, so an *unacked* pending error does not re-
+assert. **Each new error still fires the ISR**, which is the remaining
+flood path this patch addresses.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Single patch, not 2/N. v3’s `sctp_auth_chunk_verify()` NOMEM vs
-BAD_SIG split was deliberately **not** merged. Without it, delayed
-COOKIE-ECHO treats HMAC-calc ENOMEM as auth failure
-(`sctp_auth_chunk_verify` still returns bool / false) and discards —
-fail-closed, which is the safe direction.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: 11-patch series; this patch is independent logging. Not blocked
+on the dropped 10/11.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search returned 403. From the netdev
-thread, v2/v3 carried `Cc: stable`; v4 dropped it only because the
-author retargeted after Xin Long asked to strip the verify refactor.
-Unverified: no separate stable@ thread found.
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: **UNVERIFIED** via lore.kernel.org/stable (HTTP 403). The
+submitted 11/11 message itself has no `Cc: stable`.
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `sctp_auth_calculate_hmac`, `sctp_packet_pack`,
-`sctp_packet_transmit`, `sctp_sf_authenticate`. (semcode MCP not
-available; used grep + reads.)
+semcode MCP: **not available**. Used `git grep` / file reads.
 
-Step 5.2: TRACE CALLERS
-Record: `sctp_auth_calculate_hmac` has exactly two call sites in this
-tree:
-- `sctp_sf_authenticate()` — receive AUTH, GFP_ATOMIC, reachable from
-  the wire
-- `sctp_packet_pack()` — transmit path
-`sctp_sf_authenticate` is used by `sctp_sf_eat_auth` and by
-`sctp_auth_chunk_verify` (delayed COOKIE-ECHO). Softirq/packet receive
-context.
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: `tegra241_cmdqv_isr()` only.
 
-Step 5.3: TRACE CALLEES
-Record: `sctp_auth_asoc_create_secret()` allocates key vectors
-(`sctp_auth_make_local_vector` / `peer_vector` /
-`sctp_auth_asoc_set_secret`) with the caller’s `gfp`. Receive uses
-`GFP_ATOMIC`.
+**Step 5.2: TRACE CALLERS**
+Record: Registered in `__tegra241_cmdqv_probe()` via
+`request_threaded_irq(..., tegra241_cmdqv_isr, IRQF_ONESHOT, ...)`. Not
+a hardirq; still a hot error path. Hardware: NVIDIA Tegra241 (Grace)
+CMDQ-V (`CONFIG_TEGRA241_CMDQV`).
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace/peer can trigger this: enable SCTP AUTH
-(`net.sctp.auth_enable` is **0 by default**, but applications/sysctl can
-turn it on; ADD-IP needs AUTH), configure more than one shared key, send
-AUTH with a non-active key id and an all-zero HMAC while the host is
-under atomic-allocation pressure. Reachable from the network, not a
-local-only path.
+**Step 5.3: TRACE CALLEES**
+Record: `readl_relaxed` of VINTF/CMDQ error maps;
+`dev_warn_ratelimited`; then `tegra241_vintf0_handle_error` /
+`tegra241_vintf_user_handle_error`. Those handlers are unchanged.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: No other `sctp_auth_calculate_hmac` copies. Same fail-open
-exists on both send and receive via the single helper.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Reachable when CMDQV is enabled (Grace SMMU). A guest with a
+user VINTF/VCMDQ can generate command-queue errors; each new error
+latches and interrupts. That is a userspace/VM-reachable path, not a
+theoretical internal-only site.
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: Rate-limited IOMMU fault logs are the normal pattern elsewhere.
+This driver was the outlier with a raw `dev_warn()` in the ISR.
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes. Tree is `pending-6.12` / `6.12.111`
-(`p-6.12-3-gc504cf0baa3d8`).
-```707:731:net/sctp/auth.c
-void sctp_auth_calculate_hmac(...)
-{
-        ...
-                asoc_key = sctp_auth_asoc_create_secret(asoc, ep_key,
-gfp);
-                if (!asoc_key)
-                        return;
-```
-Receive still zeros the digest then compares unconditionally
-(`net/sctp/sm_statefuns.c` ~4426–4433). Bug introduced in v2.6.24, long
-before 6.12.
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record:
+- `git describe HEAD` → **v7.3-rc4-27-gf0100363d8c37**
+- `make kernelversion` → **7.3.0-rc4**
+- Driver file exists; original ISR logging from `918eb5c856f6` (v6.12).
+- `git merge-base --is-ancestor a86c36163c972 HEAD` → **yes** (already
+  merged here). That is not used as “already selected for stable”; it
+  only confirms this lineage has the driver and the fix.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Mainline `auth.c` uses `hmac_sha1_usingrawkey` /
-`hmac_sha256_usingrawkey`; this tree uses `crypto_shash_setkey` +
-`crypto_shash_tfm_digest`. Exact mainline hunk context in `auth.c` will
-not match. The signature change, `-ENOMEM` return, `return 0`, and both
-caller sites match this tree. An adapted patch (`void`→`int`, `return
--ENOMEM`, `return 0` after the existing `free:` label, plus the
-output/statefuns hunks) applies (`git apply --check` succeeded on that
-adaptation). Difficulty: **minor conflicts / trivial rework**, not a
-rewrite.
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: **Clean apply** on this tree (already applied). The hunk does
+not depend on later ISR locking. On a tree that still has the original
+`snprintf`/`dev_warn` ISR, it would apply with at most trivial context.
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: `git merge-base --is-ancestor 5d3ae80ecdde HEAD` failed. No
-“propagate HMAC” commit. `sctp_auth_calculate_hmac` is still `void`. No
-substitute fix.
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: No earlier equivalent rate-limit. `a2ee315db4261` only uses
+`WARN_ON_ONCE` for out-of-bounds map bits; it does not throttle the
+“unexpected error reported” line.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: `net/sctp` — IMPORTANT (transport protocol; not mm/core). AUTH
-is optional but is the integrity mechanism for SCTP-AUTH / ADD-IP.
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: **drivers/iommu/arm/arm-smmu-v3** (NVIDIA Grace CMDQ-V).
+**PERIPHERAL/IMPORTANT for that platform**: only `CONFIG_TEGRA241_CMDQV`
+/ Tegra241 (Grace) systems, including virtualization hosts using user
+VINTFs.
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Actively maintained (Xin Long and others still landing SCTP
-fixes on this branch). Mature protocol; this bug is old, not a new-
-subsystem artifact.
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Actively developed in 2026 (large Sashiko fix series + iommufd
+work). Logging bug itself is old (v6.12).
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Config/protocol-specific: `CONFIG_IP_SCTP` plus AUTH enabled
-(`net->sctp.auth_enable` defaults to 0 in `net/sctp/protocol.c`). Users
-who enable AUTH (telecom, WebRTC data-channel stacks, ADD-IP) are the
-population that matters.
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: **platform-specific / config-specific** — NVIDIA Grace +
+`CONFIG_TEGRA241_CMDQV`. Hosts that expose guest VCMDQs are the
+interesting population.
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record:
-- AUTH enabled and a non-active shared key configured
-- Peer uses that key id
-- `sctp_auth_asoc_create_secret()` fails (`GFP_ATOMIC` on receive)
-- Peer HMAC is all zeros
-Allocation failure is not attacker-controlled; key id and zero HMAC are.
-Unprivileged remote peer on an AUTH-enabled association can attempt
-this. Commonness: uncommon; severity if it hits: high.
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: CMDQV error IRQ. Commonness: rare on healthy HW; can be
+**frequent** if a device malfunctions or a **guest injects VCMDQ
+errors**. Unprivileged guest with VCMDQ access can trigger it. Not every
+boot.
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
 Record:
-- Receive: AUTH bypass (`chunk->auth = 1`) for chunks that should have
-  been rejected — **HIGH** (security / integrity). Not a panic, but
-  fail-open authentication.
-- Send: packet with zero HMAC dropped by peer — **LOW/MEDIUM** (failed
-  send under OOM; already broken).
-Overall: **HIGH** because of the receive fail-open.
+- Direct effect: dmesg/console flood; extra MMIO + `snprintf` on every
+  interrupt.
+- Indirect: printk/console contention, lost messages, possible stalls on
+  a slow console.
+- Not an oops, UAF, or data corruption.
+- **Severity: MEDIUM** (availability / “oh, that’s not good”), with a
+  stated guest DoS path.
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- Benefit: high for AUTH users — stops accepting unauthenticated chunks
-  under OOM.
-- Risk: very low — ~20 lines, error paths only, existing NOMEM/drop
-  handling.
-- Ratio: strongly favors backport.
+- **Benefit:** medium for Grace virtualization hosts; low for everyone
+  else.
+- **Risk:** very low (7 lines, logging only).
+- **Ratio:** favorable. Official stable rules allow “oh, that’s not
+  good” and require an exploit explanation for “could be a problem”
+  issues; the message gives that explanation.
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
 ===============================================================
 
-Step 9.1: COMPILE THE EVIDENCE
+**Step 9.1: COMPILE THE EVIDENCE**
+
 FOR:
-- Real AUTH fail-open: zeroed digest compared to peer HMAC after silent
-  HMAC-calc failure (verified in `sctp_sf_authenticate`).
-- Present in this 6.12 tree since `1f485649f529` (v2.6.24).
-- Small, obviously correct; NOMEM already handled on the eat-AUTH path.
-- SCTP maintainer acked it as a fix and supplied `Fixes:`.
-- Jakub’s review explicitly called for stable.
-- Two call sites only; no new APIs.
+- Real, described flood: guest or bad device can fire the error IRQ
+  repeatedly; each new error still interrupts (edge-triggered, latched
+  per event).
+- Tiny, obviously correct, matches other IOMMU drivers.
+- Error handling unchanged; MMIO for the log runs only when printing.
+- Driver and buggy logging exist in **this** 7.3-rc4 tree (since v6.12).
+- Applied by the arm-smmu maintainer; no NAK on this patch.
+- Official rules: not a trivia cleanup; exploit path is written down.
 
 AGAINST:
-- AUTH off by default; needs extra keys + atomic ENOMEM + zero HMAC.
-- No syzbot/user crash report.
-- Merged via net-next as v4 without `Cc: stable` in the commit text.
-- Exact mainline `auth.c` context differs (`crypto_shash` vs
-  `hmac_sha*`).
-- Delayed COOKIE-ECHO still maps NOMEM to “auth failed” (fail-closed;
-  acceptable, and what was merged).
+- No production `Reported-by`; LLM-found.
+- Least-critical patch in its series (11/11).
+- Threaded IRQ (`IRQF_ONESHOT`), so not a hardirq printk.
+- Unacked-guest *storm* was already ruled out as a false positive; this
+  only limits *new*-error spam.
+- Not a crash/corruption/UAF.
 
 UNRESOLVED:
-- No stable@ archive confirmation (lore 403).
-- No evidence of a real-world exploit/report.
+- Could not query lore.kernel.org/stable (403).
+- No Tested-by.
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — logic is local; acked by Xin
-   Long; applied to net-next.
-2. Fixes a real bug that affects users? **PASS** — fail-open AUTH on a
-   wire-reachable path when AUTH is enabled.
-3. Important issue? **PASS** — authentication bypass / integrity failure
-   (HIGH), not a crash. Narrow trigger, but security-class.
-4. Small and contained? **PASS** — four files, ~24 lines, one helper +
-   two callers.
-5. No new features or APIs? **PASS** — return type only, internal.
-6. Can apply to the local tree? **PASS** — buggy code is here; caller
-   hunks match; `auth.c` needs a 3-line adapt around `crypto_shash` (not
-   a missing subsystem).
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — standard ratelimit;
+   maintainer applied. No extra tester tag.
+2. Fixes a real bug that affects users? **PASS** — log flood / guest-
+   driven interrupt spam on Grace CMDQV; users of that hardware exist.
+3. Important issue? **PASS** (low end) — not oops/corruption; it is an
+   explained availability issue (“oh, that’s not good” / guest printk
+   DoS), which the documented rules allow.
+4. Small and contained? **PASS** — ~16 lines, one function.
+5. No new features or APIs? **PASS**.
+6. Can apply to the local tree? **PASS** — pre-image exists here; apply
+   is clean.
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: None (not a device ID/quirk/DT/build/doc exception). It
-qualifies as a normal security/correctness fix.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: None (not a device ID, quirk table, DT, build, or docs fix).
+Qualifies as a normal small bugfix, not via an exception.
 
-Step 9.4: MAKE YOUR DECISION
-Backport to this 6.12 tree. The bug exists here, the fix is surgical,
-and leaving AUTH fail-open under OOM is worse than dropping the packet /
-returning NOMEM.
+**Step 9.4: MAKE YOUR DECISION**
+This tree contains the Tegra241 CMDQV driver and the original
+unconditional ISR `dev_warn()`. The patch is a 7-line, obviously correct
+rate-limit that closes a guest-reachable log flood without touching
+recovery logic. Benefit is limited to Grace CMDQV, but risk is
+negligible, so it meets the bar for this tree.
+
+What it solves for users here: a VM or failing CMDQ can spam the host
+log and extra MMIO on every error IRQ. That is not a panic, but it is a
+real host-side availability nuisance on this platform.
 
 Verification:
-- [Phase 1] Tags parsed from the provided message and from the lore
-  mbox: Acked-by Xin Long; no Fixes on v4 commit text; v2/v3 had Fixes +
-  Cc: stable
-- [Phase 2] Diff: void→int, -ENOMEM on secret alloc, receive NOMEM +
-  kfree(save_digest), send drop + `pkt_count <= 0`
-- [Phase 2] Confirmed receive zeros digest then `crypto_memneq` in
-  `sm_statefuns.c` 4426–4433
-- [Phase 3] `git blame net/sctp/auth.c`: silent return from
-  `1f485649f52929` (2007); `git describe --contains` → v2.6.24-rc1
-- [Phase 3] `git merge-base --is-ancestor 1f485649f52929 HEAD`
-  succeeded; `5d3ae80ecdde` is not an ancestor
-- [Phase 3] `hmac_sha1_usingrawkey` absent in this tree; HMAC still via
-  `crypto_shash`
-- [Phase 4] `b4 dig -c 5d3ae80ecdde`: v1–v4; Jakub review identified
-  zero-HMAC accept and asked for stable; Xin Long: “intended as a fix”,
-  drop verify refactor; acked v4 with Fixes
-- [Phase 4] lore.kernel.org/stable WebFetch 403 — UNVERIFIED whether
-  stable@ discussed it separately
-- [Phase 5] grep: only two `sctp_auth_calculate_hmac` call sites;
-  `sctp_sf_eat_auth` already handles `SCTP_IERROR_NOMEM`
-- [Phase 5] `net->sctp.auth_enable = 0` by default (`protocol.c:1382`)
-- [Phase 6] `git describe HEAD` → `p-6.12-3-gc504cf0baa3d8`; `make
-  kernelversion` → 6.12.111
-- [Phase 6] Adapted patch `git apply --check` succeeded; exact mainline
-  `auth.c` context would conflict
-- [Phase 8] Failure mode: AUTH bypass under ENOMEM + zero HMAC + non-
-  active key — HIGH; send of zero HMAC — LOW
-- UNVERIFIED: real-world exploitation; whether `crypto_shash_setkey`
-  failure is practically reachable for HMAC-SHA1/256 (not required for
-  this verdict)
+- [Phase 1] Tags: Assisted-by Claude; SOB Nicolin Chen + Will Deacon; no
+  Fixes/Reported-by/Cc: stable on this commit
+- [Phase 2] Diff: `tegra241_cmdqv_isr()` snprintf+dev_warn →
+  dev_warn_ratelimited; +7/−9
+- [Phase 2] Confirmed `dev_level_ratelimited` only evaluates args when
+  `__ratelimit()` allows print
+- [Phase 3] `git blame` / original file: logging from `918eb5c856f6`
+  (v6.12-rc1)
+- [Phase 3] `git describe --contains 918eb5c856f6` →
+  v6.12-rc1~149^2^2~19
+- [Phase 3] Series: v2 11/11; parent is VINTF0 leak fix, not a
+  functional prereq
+- [Phase 4] `b4 dig -c a86c36163c972`: lore/patch.msgid.link match; v1
+  then v2
+- [Phase 4] `b4 dig -a`: v1 2026-07-02, v2 2026-07-14 (applied)
+- [Phase 4] `b4 dig -w`: iommu maintainers on To/Cc; Will applied 11/11,
+  dropped 10/11
+- [Phase 4] mbox: cover letter lists log flood; no comments/NAK on
+  11/11; Cc: stable only on 07/11
+- [Phase 4] WebFetch lore/stable: 403; stable-list search UNVERIFIED
+- [Phase 5] Caller: `request_threaded_irq` in `__tegra241_cmdqv_probe`;
+  CONFIG_TEGRA241_CMDQV
+- [Phase 6] `git describe HEAD` → v7.3-rc4-27-gf0100363d8c37; `make
+  kernelversion` → 7.3.0-rc4
+- [Phase 6] `git merge-base --is-ancestor a86c36163c972 HEAD` → ancestor
+  (code exists here)
+- [Phase 8] Failure mode: printk flood / guest DoS, severity MEDIUM
+- UNVERIFIED: lore.kernel.org/stable discussion (HTTP 403)
 
 **YES**
 
- include/net/sctp/auth.h |  6 +++---
- net/sctp/auth.c         | 10 ++++++----
- net/sctp/output.c       | 12 +++++++++---
- net/sctp/sm_statefuns.c |  9 ++++++---
- 4 files changed, 24 insertions(+), 13 deletions(-)
+ drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/include/net/sctp/auth.h b/include/net/sctp/auth.h
-index 3d5879e08e78a..27a098411e4cc 100644
---- a/include/net/sctp/auth.h
-+++ b/include/net/sctp/auth.h
-@@ -84,9 +84,9 @@ int sctp_auth_send_cid(enum sctp_cid chunk,
- 		       const struct sctp_association *asoc);
- int sctp_auth_recv_cid(enum sctp_cid chunk,
- 		       const struct sctp_association *asoc);
--void sctp_auth_calculate_hmac(const struct sctp_association *asoc,
--			      struct sk_buff *skb, struct sctp_auth_chunk *auth,
--			      struct sctp_shared_key *ep_key, gfp_t gfp);
-+int sctp_auth_calculate_hmac(const struct sctp_association *asoc,
-+			     struct sk_buff *skb, struct sctp_auth_chunk *auth,
-+			     struct sctp_shared_key *ep_key, gfp_t gfp);
- void sctp_auth_shkey_release(struct sctp_shared_key *sh_key);
- void sctp_auth_shkey_hold(struct sctp_shared_key *sh_key);
- 
-diff --git a/net/sctp/auth.c b/net/sctp/auth.c
-index fbbfa0c279552..6971cb00f5e30 100644
---- a/net/sctp/auth.c
-+++ b/net/sctp/auth.c
-@@ -613,9 +613,9 @@ int sctp_auth_recv_cid(enum sctp_cid chunk, const struct sctp_association *asoc)
-  *    zero (as shown in Figure 6) followed by all chunks that are placed
-  *    after the AUTH chunk in the SCTP packet.
-  */
--void sctp_auth_calculate_hmac(const struct sctp_association *asoc,
--			      struct sk_buff *skb, struct sctp_auth_chunk *auth,
--			      struct sctp_shared_key *ep_key, gfp_t gfp)
-+int sctp_auth_calculate_hmac(const struct sctp_association *asoc,
-+			     struct sk_buff *skb, struct sctp_auth_chunk *auth,
-+			     struct sctp_shared_key *ep_key, gfp_t gfp)
+diff --git a/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c b/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
+index fdbd487848e64..8c9530873ed98 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
++++ b/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
+@@ -350,21 +350,19 @@ static irqreturn_t tegra241_cmdqv_isr(int irq, void *devid)
  {
- 	struct sctp_auth_bytes *asoc_key;
- 	__u16 key_id, hmac_id;
-@@ -636,7 +636,7 @@ void sctp_auth_calculate_hmac(const struct sctp_association *asoc,
- 		/* ep_key can't be NULL here */
- 		asoc_key = sctp_auth_asoc_create_secret(asoc, ep_key, gfp);
- 		if (!asoc_key)
--			return;
-+			return -ENOMEM;
+ 	struct tegra241_cmdqv *cmdqv = (struct tegra241_cmdqv *)devid;
+ 	void __iomem *reg_vintf_map = REG_CMDQV(cmdqv, VINTF_ERR_MAP);
+-	char err_str[256];
+ 	u64 vintf_map;
  
- 		free_key = 1;
- 	}
-@@ -654,6 +654,8 @@ void sctp_auth_calculate_hmac(const struct sctp_association *asoc,
+ 	/* Use readl_relaxed() as register addresses are not 64-bit aligned */
+ 	vintf_map = (u64)readl_relaxed(reg_vintf_map + 0x4) << 32 |
+ 		    (u64)readl_relaxed(reg_vintf_map);
  
- 	if (free_key)
- 		sctp_auth_key_put(asoc_key);
-+
-+	return 0;
- }
+-	snprintf(err_str, sizeof(err_str),
+-		 "vintf_map: %016llx, vcmdq_map %08x:%08x:%08x:%08x", vintf_map,
+-		 readl_relaxed(REG_CMDQV(cmdqv, CMDQ_ERR_MAP(3))),
+-		 readl_relaxed(REG_CMDQV(cmdqv, CMDQ_ERR_MAP(2))),
+-		 readl_relaxed(REG_CMDQV(cmdqv, CMDQ_ERR_MAP(1))),
+-		 readl_relaxed(REG_CMDQV(cmdqv, CMDQ_ERR_MAP(0))));
+-
+-	dev_warn(cmdqv->dev, "unexpected error reported. %s\n", err_str);
++	dev_warn_ratelimited(
++		cmdqv->dev,
++		"unexpected error reported. vintf_map: %016llx, vcmdq_map %08x:%08x:%08x:%08x\n",
++		vintf_map, readl_relaxed(REG_CMDQV(cmdqv, CMDQ_ERR_MAP(3))),
++		readl_relaxed(REG_CMDQV(cmdqv, CMDQ_ERR_MAP(2))),
++		readl_relaxed(REG_CMDQV(cmdqv, CMDQ_ERR_MAP(1))),
++		readl_relaxed(REG_CMDQV(cmdqv, CMDQ_ERR_MAP(0))));
  
- /* API Helpers */
-diff --git a/net/sctp/output.c b/net/sctp/output.c
-index 23e96305cad7c..3d7ead9d40e19 100644
---- a/net/sctp/output.c
-+++ b/net/sctp/output.c
-@@ -517,8 +517,14 @@ static int sctp_packet_pack(struct sctp_packet *packet,
- 		}
- 
- 		if (auth) {
--			sctp_auth_calculate_hmac(tp->asoc, nskb, auth,
--						 packet->auth->shkey, gfp);
-+			if (sctp_auth_calculate_hmac(tp->asoc, nskb, auth,
-+						     packet->auth->shkey, gfp)) {
-+				sctp_chunk_free(packet->auth);
-+				packet->auth = NULL;
-+				if (gso)
-+					kfree_skb(nskb);
-+				return -ENOMEM;
-+			}
- 			/* free auth if no more chunks, or add it back */
- 			if (list_empty(&packet->chunk_list))
- 				sctp_chunk_free(packet->auth);
-@@ -619,7 +625,7 @@ int sctp_packet_transmit(struct sctp_packet *packet, gfp_t gfp)
- 
- 	/* pack up chunks */
- 	pkt_count = sctp_packet_pack(packet, head, gso, gfp);
--	if (!pkt_count) {
-+	if (pkt_count <= 0) {
- 		kfree_skb(head);
- 		goto out;
- 	}
-diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
-index 86f26b8b39934..8dc65498763cc 100644
---- a/net/sctp/sm_statefuns.c
-+++ b/net/sctp/sm_statefuns.c
-@@ -4457,9 +4457,12 @@ static enum sctp_ierror sctp_sf_authenticate(
- 
- 	memset(digest, 0, sig_len);
- 
--	sctp_auth_calculate_hmac(asoc, chunk->skb,
--				 (struct sctp_auth_chunk *)chunk->chunk_hdr,
--				 sh_key, GFP_ATOMIC);
-+	if (sctp_auth_calculate_hmac(asoc, chunk->skb,
-+				     (struct sctp_auth_chunk *)chunk->chunk_hdr,
-+				     sh_key, GFP_ATOMIC)) {
-+		kfree(save_digest);
-+		return SCTP_IERROR_NOMEM;
-+	}
- 
- 	/* Discard the packet if the digests do not match */
- 	if (crypto_memneq(save_digest, digest, sig_len)) {
+ 	/* Handle VINTF0 and its LVCMDQs */
+ 	if (vintf_map & BIT_ULL(0)) {
 -- 
 2.53.0
 
