@@ -1,87 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434578;
-	b=q7zCRFwpnV+nmLeh4O9g7/hHlH3ti5QZZ04gt8ecnRu/Ozw6migKY6TlTQjvNIpr+WdU
-	 jqrzTrcUARx1n0YRH1wB/RM+X9Y4TUaymb8NtoS1KonXkog4EJrbqQcZAOwN8JyAauNhV
-	 5EtjL+4BT0VEIkUq0TNmmJOJwV9b+ieIhsoXKUigJJo6T7vftInHWDWDNMLeHBUgNfZtl
-	 pDcQy2ppQSXr591iSzBqWPuZP7sTWZpccqnBvDK5d33/H46bm0Yz3dfdoXs75QmE9N8NK
-	 QMP8Diw0QifiE4Ez7BB/FkUUMnchLqsrjdTkKPwqJ1ZyMZ99kWLuuteN6/ekQX058tA==
+	t=1792434591;
+	b=CjqBS8KZRTanlNPXym9j4g1z+t4h+NZn8+PrTe6yZCh1MDIcfhomW4BNXtiRhDkm2ka4
+	 3yXixOLwsICVUd4pw+O9O8hLs3JrTRjI0rSMDEGLaH8gsA0IKPTfZfnZAI8kQc70ju1RS
+	 573H2r4bbMxDN9xcLFWPmdmxHjiSW1fV9PorFdQZcGCqOZ6NFaABX/QBlseelHca+bIeV
+	 JY6v3bQgUGokxTJ+OCjG5/SKs7MRKmBcsLGA1auViWyOKFQrzkBjZDq69GdfnLCMDuEsQ
+	 8Rxuiy4BoFVTp0pqhP7ox08o9VbUJ6/MZYfsjQM7ju6UkUCTHFSLvKg3wYvx7s+AtyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434578;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434591;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=jSBiV7ul+0Ul9MLE/H5BpAaYAk0aqMfUljP7X5tbwpw=;
-	b=EVSmQlVss/sMhCH+BN/czJTTi+E+826GkjeU30wzc/J+9a0uPRvhV4fpdmAbaus+zQaY
-	 dOVhfPygrbGDHEAh5vWHWdJWZVBt60OWmboKWgqvORus3DaUGlCH5OQbFsgh/wChnuhdC
-	 RZtqPAi/JqZc0GskZVeSIGV6d3axFZ4g56t/0cPOMEbFIAIgFRQH+R4SYK+OXxHMjyv83
-	 nnqNcsfqraxAiDFiLgNG9cPNlLUQXSqAEZsN3vm1SNaNMED2Kip9HZIrnMMvuoWhk5B/i
-	 jPZ+UgeT3ggMBdLsVcI+vqooJXMz1g3dkOTmOyiYpK3Y4leoeoxhQk0TwMnkio0wmgw==
+	bh=3WB24rA8ZdBO+wgJnzmfsh+oAV8Yu7u/lMoaF1dD+/A=;
+	b=dd4IzybOO7QYEtaL25onjxF8GIDAwkrSEyiHT9guCmjRi2A4ex+duAxfbDAYTut5bPSt
+	 aVFX2OxmIuuerWAteJD6APNzUHg9wffmB7ewHVc2iw1xQP0cOTlF8XGjDfHP2Zmz+1T8T
+	 rZHqvFt8vOX8i07BrYKTtjVHRNyKcaiWPLVbhAr/J3mX57YQ2SSngj2aJID6glLzAlIDd
+	 kZB91BCADU3ntrSlRAK2Q9RJwPQSJ14Noa5TbUTHQY91mRZAALRLnS5wVjkb6OB+sK1lw
+	 tGArSnZQ1NRII6/RSlCMs5AABpXTTLX3frKg8GW9ym+xyYWGazY64SmIMahIi1XkncA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKfHipk3;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="W/4w8wek";
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9AE606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:29:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C9AE606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046BA606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:29:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 046BA606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKfHipk3
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e5d0ee1951so15932425ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:29:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W/4w8wek
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33fb4680717so4057887eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:29:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792434578; x=1793039378; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jSBiV7ul+0Ul9MLE/H5BpAaYAk0aqMfUljP7X5tbwpw=;
-        b=YKfHipk3Wi83rizz/EWO30DPPheCuy9J9OmvthKmNGtuEoK8Pb+EucZUTJGGRn4dmP
-         XQjRPbdI79HzDEzEQkBXytw17phqWORjxadrbkdTHmtJfjIryM2ouBGzm61Lw0Y0l7D4
-         +hRsjXIILWMmTh2dolAE6rytJuZiWp4IuxQFnzkX34dgvJc/sCiNJxG6PNHpWtnJb3IH
-         /2T1R4UcYnCqkTL6boWGXAn/0fVLsHc7F1q6p9Mj7J53QitfvH3J+TanMP2+ZaO6amd9
-         t7Q6dwkDbulWee5RHD7pLmxGEu9nVLtlOawdRhjKYD9BV4ZWOuzz1Aq8L7lZ5zJXRxAS
-         EcoQ==
+        d=gmail.com; s=20251104; t=1792434590; x=1793039390; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3WB24rA8ZdBO+wgJnzmfsh+oAV8Yu7u/lMoaF1dD+/A=;
+        b=W/4w8wekQdvr1HJK1p/qx8Vj7tq7/FS7PiMMu/LEUQY8HU7559yv8Nh3ZrpToQbpcR
+         UakII9Z1uV2JZeMoGDH9vIGXXFSTYvJejgOsAHA87mIgE9vlGNjENdJkxpTGMoiSsvp0
+         lmSIvtTE78fcBk8dFMTv+1LpsCWAVr+V+e2yWQli7qV4Xtr27X/asupcdvg+hvCaEJhs
+         +rA/nJYkfQGP9uHG9dQUkzeUray2s+w9sOaMGmJvL/+zb8xr5e81rcrcBcDc8DpEI6DP
+         zOYizs+iUJstsDCn05GzMEYggqkRWMompUNGCX87oMjMvTobPBYfZ1Bh1nTHsq+kMncE
+         ja5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792434578; x=1793039378;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792434590; x=1793039390;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jSBiV7ul+0Ul9MLE/H5BpAaYAk0aqMfUljP7X5tbwpw=;
-        b=fLa+h4c8LicgrtDSz7jjkHf4pbwgwdj0+6Egqf3gczsaTAT03PMfiukFRoOWSiqwpZ
-         mZfMCz+69XMaJRPPD50SZWyGxiCU3pFw0fpbpin9X4QbbO782934FgGS6T5NL1ePtYjM
-         ZAtSwaQcIcvbw++WJ969Rr8WoFNSmJ3vkKucGQ2xEiBLaHu92N1mkQKCWho/edxMny3+
-         TYbkT33jyfpJr5sGlhY6ziK2Z5+JpfK5u+BBbQWcbBKVu147IZjFN9fkyw4FLUPlkhoq
-         Ww0VmFTXCyr4342+GOxYsXNx9XxmjoXvPD4p6onh4gWVWPsF1kw1fjJKEE2SAOo1MehH
-         tUkw==
-X-Forwarded-Encrypted: i=1; AKwUvBy9bcOOBS2HH2YYJGcAPwchKfGG2gi98aym1RSvO1LvD+khYqIWfFSXfVdZpwbJ5OIKUItqkdQ6eti8oHs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLcajEtwD3c8ts+p6CEVhriECzR/IUqZz3rT4C7kwgD9p4Mqocc
-	yJ3+M/RDb2TDvd5E5Y8KjIAHKXAyHjIU5uKqFT+6ShVrCtfXAJ8SWd/Y
-X-Gm-Gg: AYBFou2bRQ4+ZMH94RlR60V2QUddL1J78ba1J4xahyRXGR6K1WPB7zBQVXUaRcPP8GQ
-	AmfeWruPPXGFwZVQ53XfcIonncOV0Fl1wiYmm2yZLfhVCR9STlS/RqFsYRZTY5k/07qibgf/NR+
-	0z/HRknQxRk7j5Y5unuld1s/9oFixC1V+c+9JsVuqHdHzioU/27Xr+2i+46Ly1EpYFEkhEJHYR7
-	foPfTIGzLA5mTPqRmewOb/yxj0NcJdU55wyFDjx6pjb1Q1FrWDM8dGSf9F2Mx3jTnr+xgijnc1+
-	XXljdbApp5twaBv1a1Piu6NrSuZepUkJsmSQNSBi4VavZDuHBDz221N0G4kr6ySKAnPv+oeu4nF
-	5yiVA/TOIDQZSvITysjoJmxFxjU7stLibTVtxITqHsktHZl7ZPNBU58OCy8EhElES+mAbWrtXZJ
-	XfjUsB35fKYoaE1Kn7XWz8cUbx0JqlRkDCVvGsvQUOpPsf24pPw9e4CXSWVm65fPXfTq6g2PSgU
-	DmMRH9jiODxlulAD8b3HWnc
-X-Received: by 2002:a17:902:f546:b0:2dd:ad73:c938 with SMTP id d9443c01a7336-2e9a6d40f02mr71830455ad.25.1792434577572;
-        Mon, 19 Oct 2026 11:29:37 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea13c7ddc9sm5303515ad.0.2026.10.19.11.29.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 11:29:36 -0700 (PDT)
-Message-ID: <8bef225d-f3aa-403c-aab4-f629aa197b3a@gmail.com>
-Date: Mon, 19 Oct 2026 11:29:34 -0700
+        bh=3WB24rA8ZdBO+wgJnzmfsh+oAV8Yu7u/lMoaF1dD+/A=;
+        b=ef+ZzVLYxFgHA8gSS+ED0YbgpZPRFancGW7klgdtzPDXKx3L2brR2yH3HJtdYTy4Ma
+         oRc57o3KsqiHBr9OMDHMG2d9QHYPZZfZaA0dr4upUuI4621k4ANBDTx3h9N4O6jyzTqI
+         zAmY9mqcJwuwRc2D9q0hbrRbHygdQTyg/pO1MQA6FPFlbAaooTQ5wmv036qLIAzyeHno
+         JfYB8XIOlOc8X0lTAWi4UZ+tBHlfgz8qOxGUZPFHwEi/yVK9oRP+/anbEviW+cgSedJi
+         FUYXvDWrg8aFS+2m7vln+W3P7Cv5TsNElmrh9G/udToObWwbdwqaapXg71xeCEhPHn2C
+         cYjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxeaY3zAUz+LwSYjs1JmgcPJBfymcsOJzNKSp+RVtSRnHsgx3g2v0O4H3V0gCeVN6+90jlgSlB/3MquWK8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHcjWLbrCPZgv6+/JwIb+a/X4xBxwsET8kNahglj07BfJHCi4u
+	4T0pfD1LHuYjcnJpedfBpbZfyguTnW+l+ku0xM76GlDqH5Q+dYlqkeUT
+X-Gm-Gg: AYBFou3OdBYuEjnk4JoeW06QKERsN6IFFBZ+7uXzheBG4mKaXzrtNsEZXT11MEtEOp1
+	/yzgvK2FUFISfZ+RfNGXImuDGiXqJc8neKYB/BYBslOpoyvqAnU4qUpxmoCexYpg6vMvkVUEwk3
+	nv74yEbftcS9RbuBlX3cPnpyn6iDbOmijQidhmGomJt9wB61Ly2qoez+96jOFOK7e79qQ43F6LO
+	D+RIc3xEuDijqrWLv4tWrxX1BYQEJRcF+eampYRWBWlrFkVxUI3pWtkB0ol/X248YNsb8mF3Sks
+	gFrCJ6OBnbEZSuba6pqw1Rmo5NseCh6sNpy9ZlfwgcBmZPfxa1G2PSZ9MMqVKsi8ZdMBUj/NIlL
+	+gmJ4TdJPY2ZSLG3tsP0dvlYg9A980dN70zW8xgMeKHDiIfZYLJOJo+kx+KEpXOgjCCEi7fkD6s
+	Qjw9cp9VqWcrZUchzEQDvMWKM9OlJZ5BKJ3bu8LguEJ+v0p1H/YOPzAYgJztfaMZh2C9wl+qKCr
+	a9Pg5+RFbrfLIigefhMhYq43AlklrSv6cs/BzVV+AT/hqNLft80RQZm2qRTWVi3rIL3CpOSCEic
+	hkiWLoBBPdtRJdy2
+X-Received: by 2002:a05:7301:1888:b0:339:7c91:21f4 with SMTP id 5a478bee46e88-361a312c22emr11721148eec.34.1792434589929;
+        Mon, 19 Oct 2026 11:29:49 -0700 (PDT)
+Received: from pranith.org (c-67-164-4-239.hsd1.ca.comcast.net. [67.164.4.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b792bsm35009576eec.5.2026.10.19.11.29.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 11:29:49 -0700 (PDT)
+From: Pranith Kumar <bobby.prani@gmail.com>
+To: target-maintainer@vger.kernel.org
+Cc: Pranith Kumar <bobby.prani@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/2] eventpoll: scale nested leaf additions
+Date: Mon, 19 Oct 2026 11:29:31 -0700
+Message-ID: <cover.1792432666.git.bobby.prani@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,45 +98,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 00/52] 6.18.58-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261017155104.830766652@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261017155104.830766652@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/17/26 08:54, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.58 release.
-> There are 52 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.58-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Adding an ordinary file to an epoll watched by another epoll takes
+epnested_mutex. Workers adding different files to different epoll
+instances therefore serialize on one global lock, even though their
+reverse-path checks do not conflict.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+The first patch freezes the epoll topology with a shared rwsem during
+these leaf additions and uses a hashed per-file mutex to serialize
+checks for the same target file. An epoll topology change takes the
+rwsem for write and retains epnested_mutex for cycle and path checks.
+The second patch separates the generation stamp and topology rwsem
+onto cache lines of their own on SMP builds. In the tested ARM64
+layout, this also separates them from epnested_mutex.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+The series was built and tested on linux-next tag next-20261016
+(7.3-rc7 based). Four workers each ran 2,000 epoll
+add/delete pairs in nested and flat modes. Throughput:
+
+  Kernel                 Nested pairs/s  Gain % Flat pairs/s Gain %
+  Unpatched linux-next        1,558,641    0.0%    6,736,037  0.00%
+  Parallel additions          5,325,959 +241.7%    6,771,375 +0.52%
+  Parallel + alignment        5,487,081 +252.0%    6,780,276 +0.66%
+
+This patch was developed with AI assistance.
+
+Pranith Kumar (2):
+  eventpoll: parallelize independent nested leaf additions
+  eventpoll: separate nested-check objects by cache line
+
+ fs/eventpoll.c | 116 ++++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 90 insertions(+), 26 deletions(-)
+
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
 -- 
-Florian
+2.47.3
