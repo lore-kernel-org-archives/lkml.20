@@ -1,110 +1,136 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F813A48ED;
-	Mon, 19 Oct 2026 13:39:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4A34F4039;
+	Mon, 19 Oct 2026 13:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417172; cv=none; b=nJs0glT9ShfTHU6kxQ7Rkc+vvvZzbcMXa7r0pIlz+5m6TPqzLOtrqQwMKMuFmWkdeLg/O73vq54uOIXgYVB+RPWb6XZAAj285GC0awYyQ678zAkjcEkcAzZzGPhcU78Be8pWf3PA8MFsHfJQ+PqwYlXz75LwUsKRkXnYJiKUNVk=
+	t=1792417189; cv=none; b=uJv+O+evIPaKddhuiji5Lq9od91G4glCehMlC49kBEJOUKFMD8HqZFkQ/xOp1Xqukmhs7L4f4PvU7Ka5cOI7F5cWS0g2MGHHnY8af0NPqIT9g1cbJs44k0QHTWrSPx4E/rSlCpKIQwnTJkPjn8zJrOLgTpmEeBo/6rIG1AtRAgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417172; c=relaxed/simple;
-	bh=ngUBoix9dtKSnZkI0CS0G87uTOxA5tC/jiZ1VTHUC+I=;
-	h=Message-ID:Date:MIME-Version:CC:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=iVnUIhViDXoDHKOp0AcESgUVRfD96O9EUHAeKO+mp6glWIchTuS4+Y2ZsdoTbjWrh+WESNdm9b/4a56FIvE74oaunQx89rf6KfSjVdg6SxV0vKGRv4bkePQppbekEUzzacd95xU+d8WlfAl3i81q/0jxtHtq5d/JQbymBByVnuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=UVeuBwOR; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1792417189; c=relaxed/simple;
+	bh=rfPbKhCA+A6vIjorseDK6y7DZlhxJ9AuGFP0jPmcowI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R2r4uo/CPNKX3QX2s/M98Bu8wCQ9SSxnBD5p1jS/hjrhaLgrueUKpSJu89SMoJp6lUxA0orFr1YzyjdmpIURhpn4Txp94KGh2a0kX5OjKRrAc3lAAHD+E/M3Uaf8EzdKzwiI4lczOGU+RN3WS8RZTzP3F+OozmEofrK4Ihk1UQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=wUxq30uE; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="UVeuBwOR"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=czbkqsq2pcEM/rFQZWf8Jk8Y3M/gHEHgTQVhxW29WYE=;
-	b=UVeuBwORIcpI+1j7MdhnhLBiIlwt9/I1Cn7XwqNK9939zWEycsaPMkbmIwHrpFQ2kkOBlvdhG
-	e9l6RLWLTkJ0VO/qLnbfy9A7eqE9q5rKCv7qmbJiQQ48FMz0wfyhcrsYZd1ds1lRnMRFD+eCATG
-	fMH2ox8MkTDb+AFOos4tds8=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4j7c8g5WmtzLlT6;
-	Mon, 19 Oct 2026 21:39:15 +0800 (CST)
-Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7A36A40586;
-	Mon, 19 Oct 2026 21:39:19 +0800 (CST)
-Received: from [10.67.121.233] (10.67.121.233) by
- kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 19 Oct 2026 21:39:19 +0800
-Message-ID: <e5715cfc-f116-43ab-a117-38b913b2cd69@huawei.com>
-Date: Mon, 19 Oct 2026 21:39:18 +0800
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="wUxq30uE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1792417181;
+	bh=rfPbKhCA+A6vIjorseDK6y7DZlhxJ9AuGFP0jPmcowI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=wUxq30uEEq+6qBHxxCpiLpx3FStes43U0QMsamzMCIbi/kBQP4xebe9S+3nB4MDKs
+	 jPZ0Uxo5UmIgmJ0rQenUh8dWeIYQAJ9hO45ipZYqrfk3aBb7wmMA18dVmhb1D0XS3Q
+	 s/Jc9uocR2m+cM91mj6fGXLkvK2f4WNJosId0RgXROb3aOSRvCM0lwB3SNirKhB53v
+	 UJuyXLB4Jz4pYT+Lbo8nXGv1epz+GxbUZkdhwkkCsUbwHZIkIFmbTwzgP6pWFuzEvd
+	 MgLZO4AD6+Yp43xn5X9skQn3Cvp3actzMrVV3ZxQTgBQMD558+XI1pyhUjOQbxDZ2p
+	 2i/JjACnymXFw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 1A09F25871;
+	Mon, 19 Oct 2026 16:39:41 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Mon, 19 Oct 2026 16:39:40 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.51.9])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j7c971tNmzqSH;
+	Mon, 19 Oct 2026 16:39:39 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>,
+	Dan Carpenter <error27@gmail.com>,
+	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
+	Andrei Khomenkov <khomenkov@mailbox.org>,
+	Michael Huang <tehsiu.huang@gmail.com>,
+	Jinke Wu <coolbeaner@126.com>,
+	Nikolay Kulikov <nikolayof23@gmail.com>,
+	William Hansen-Baird <william.hansen.baird@gmail.com>,
+	Serhat Kumral <serhatkumral1@gmail.com>,
+	Nazar Kletskii <nazar.kletskii@gmail.com>,
+	Jennifer Guo <guojy.bj@gmail.com>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable <stable@kernel.org>
+Subject: [PATCH 5.10] staging: rtl8723bs: fix missing shared-key auth challenge length check
+Date: Mon, 19 Oct 2026 16:35:34 +0300
+Message-ID: <20261019133535.1940-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-CC: <shaojijie@huawei.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] net: hns3: bound debugfs queue-name sprintf with
- scnprintf
-To: Haoran Wang <haoranwangsec@gmail.com>, Jian Shen <shenjian15@huawei.com>
-References: <179241616311.5916.9868151766207198451@whr>
-From: Jijie Shao <shaojijie@huawei.com>
-In-Reply-To: <179241616311.5916.9868151766207198451@whr>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemo500018.china.huawei.com (7.202.195.199)
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/19 12:18:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206796 [Oct 19 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/19 08:59:00 #28702808
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/19 12:18:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
+From: Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>
 
-on 2026/10/19 21:22, Haoran Wang wrote:
-> hns3_dbg_bd_file_init() builds one debugfs file name per queue with an
-> unbounded sprintf into a stack buffer.
->
->      char name[HNS3_DBG_FILE_NAME_LEN];
->      sprintf(name, "%s%u", hns3_dbg_cmd[cmd].name, i);
->
-> The only two table entries that reach this sprintf use the 11-char prefixes
-> "tx_bd_queue" and "rx_bd_queue".  i is a u16 loop index bounded by
-> max_queue_num = hns3_get_max_available_channels(handle), a
-> firmware-reported u16 with no kernel-side clamp on either the PF path
-> (le16 tqp_num, ext_tqp_num, pf_rss_size_max from the hclge config
-> command) or the VF mailbox path.  When firmware reports >= 10000
-> queues, i reaches five decimal digits and the write becomes
->
->      11 (prefix) + 5 (digits) + 1 (NUL) = 17 > 16
->
-> so the NUL terminator lands one byte past the 16-byte stack buffer.
->
-> Replace sprintf with scnprintf(name, sizeof(name), ...) so the write is
-> bounded, guarding against a potential overflow.  Queue counts below
-> 10000 are unaffected (no truncation); in the firmware-misreport case
-> the name is truncated instead of corrupting the stack.
+commit 2c56ef658ac8c6bca36bc5574715e8f717207c6c upstream.
 
-Thank you for the report.
-However, the number of queues on our hardware will not exceed 10000,
-and the driver trusts the queue count reported by firmware.
-So this issue is not practically possible.
+The WEP shared-key authentication handler uses the challenge-text
+element's attacker-controlled length without checking it against the
+fixed 128-byte chg_txt buffer.
 
-Thanks,
-Jijie Shao
+In OnAuthClient() the length from rtw_get_ie() - up to 255 - is used
+to perform memcpy() into the 128-byte pmlmeinfo->chg_txt, so a
+malicious AP sending a malformed WLAN_EID_CHALLENGE element can
+overflow/underfill chg_txt by up to 127 bytes. It is reachable over the
+air, before association, during shared-key authentication. In the case
+of an overflow, the driver can write out of bounds. In the case of an
+underfill, the driver can echo stale buffer memory.
 
+The challenge text is defined to be exactly 128 octets, which is
+already provided as the WLAN_AUTH_CHALLENGE_LEN define; require the
+element to be exactly that length before use.
 
->
-> Signed-off-by: Haoran Wang <haoranwangsec@gmail.com>
-> ---
->   drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c |    2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c b/drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c
-> index 1347edac7..e186ec940 100644
-> --- a/drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c
-> +++ b/drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c
-> @@ -860,7 +860,7 @@ static int hns3_dbg_bd_file_init(struct hnae3_handle *handle, u32 cmd)
->   		data[i].handle = handle;
->   		data[i].cmd = hns3_dbg_cmd[cmd].cmd;
->   		data[i].qid = i;
-> -		sprintf(name, "%s%u", hns3_dbg_cmd[cmd].name, i);
-> +		scnprintf(name, sizeof(name), "%s%u", hns3_dbg_cmd[cmd].name, i);
->   		debugfs_create_file(name, 0400, entry_dir, &data[i],
->   				    &hns3_dbg_bd_info_fops);
->   	}
+Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Panagiotis Petrakopoulos <npetrakopoulos2003@gmail.com>
+Link: https://patch.msgid.link/20260720082409.168379-1-npetrakopoulos2003@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ mdmitrichenko: in 5.10 the challenge element is still looked up as
+  _CHLGETXT_IE_ and the NULL check is the braced "p == NULL" form, so
+  the length check is added to that condition. ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-74649
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+index 46ce8ca12c02..eb1dab9c735c 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+@@ -1116,7 +1116,7 @@ unsigned int OnAuthClient(struct adapter *padapter, union recv_frame *precv_fram
+ 			p = rtw_get_ie(pframe + WLAN_HDR_A3_LEN + _AUTH_IE_OFFSET_, _CHLGETXT_IE_, (int *)&len,
+ 				pkt_len - WLAN_HDR_A3_LEN - _AUTH_IE_OFFSET_);
+ 
+-			if (p == NULL) {
++			if (p == NULL || len != WLAN_AUTH_CHALLENGE_LEN) {
+ 				/* DBG_871X("marc: no challenge text?\n"); */
+ 				goto authclnt_fail;
+ 			}
+-- 
+2.43.0
+
