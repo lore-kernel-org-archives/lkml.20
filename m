@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B8760FF13;
-	Mon, 19 Oct 2026 14:03:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0F952F9A2;
+	Mon, 19 Oct 2026 14:03:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418626; cv=none; b=n82I2hkkFcRrZwcT4Ldzv4BmU1kNtZ3+9EedpDI5rWWHJPUSAPuFwuYOcixV3y1OMG7+JxzPac4Po+k0j8zhr7ibRudaZO7N2jfhVvsUxZLv97RM0AOt1hnFXRedQPr19KQ+WDa9K7GvgoEn0JXHAJ10IJB6tPR6BQkm3kZ+5NQ=
+	t=1792418628; cv=none; b=NNAFGHBsISr1zBpsO0uBplHHu8vFNeN85x99DwfLaOiURZyJz/W8xdmTyxi7WaYTnfAIAkZDKGBDxCFrUX4keaIIQETD1KJf0F+74FMMZcPZXpKvRqZGnXMvdVsq9xLlFVWQ3A8/qGjL5PyoqoDwDNuwikaJQnOpK1s3Q7+9mgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418626; c=relaxed/simple;
-	bh=ZGnTgfXqdal5DZnvrtBQ2YiyOLTR25XTTjrIwhgswps=;
+	s=arc-20240116; t=1792418628; c=relaxed/simple;
+	bh=lEe040fMAo+CPU8jdV6O5Z2V4KBYzQ6++iuPEVT39zQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Nm1CyMDM82MB3dviva96UC/Jkx831rYWL9lCXyPPJqdFFYWSpNrbCJTRkmyJ0fYswZ1eWTfa3dUCOQ8el7u0OM1RCGyK+2IIiTeFY5TKUVxNKUn5OYogs/dWEhlQIUs6ktZhQ6JYfD8luSB7a95T6WjZCMneOkteatzzVZYCnTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVCZWA1n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=bQzzmwz1ucF9iYCs9WPjH4eDh47RbUoN+6e3GMSXp56MjajFMmMgw6X2p163iBdp7qTY9F/XtUfnO/FTmtzxp2ESYwoqf9t8rBb2Uc7fQPf8o4Pxp+qkot76LMKqBSkSdAwd5KeiQ3cUvgxxL1TZe9yN4LotgrlR0x6ivjAsL1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZVRkXTD9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVCZWA1n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDD01F000C7;
-	Mon, 19 Oct 2026 14:03:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZVRkXTD9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA57E1F000C8;
+	Mon, 19 Oct 2026 14:03:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418622;
-	bh=okAr1bUawofvPjILhZ5Aw4ILC5K/NCJtVAorY5sCEL8=;
+	s=k20260515; t=1792418625;
+	bh=7BDK+crvFAJNRkrf+kIBvqU5VWEEIrHWQysBFcfsRbA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XVCZWA1n4W1utnIjsBMMlPnaXWfnR5Wc8eV3RX3PZbabg1k9EQUPVQGQe0KB1cGU1
-	 dwCSzreB2SWiwdlRcWOraY37+MoqZBY61NnkjVAmwWWOy38FTu8ZeZiaxm56Thi9UA
-	 XoTSgGKSBi2S2DNWlb5gk998k6aoLq2kwNDHhymdwog8BOGmNiBeWcaJu8w6eYXkag
-	 fZ2h7pNSbMOJAeZOUnSThG4I0QRjPzQ7CIJLHyUA5QVwZLzVm21SI0Zk3rYsLPLTSs
-	 ELECbJ5oCcgwVUZAx094lKc6g5+jg4Iwl152WrCcMy/K/qt+osFNa0U0Ks6cek1dse
-	 co/JUEXf3NDEA==
+	b=ZVRkXTD9LSHNTi8xhIrw5YWaS183AG/rZ0vWfEO4A4yeh5UD5dcXKWBYAjW5OVqgc
+	 29ws4s9+WGjjlQYE31KQGu1/uEQ/y6MxUHQvsocTCciXuvT5bSmdeQyJRnRTWj0c4f
+	 nogw6N8D9L2ePtuib2asgrqL0i24DcY0U4JqEa1qxA/XUoZlzR6uAeKStkBAHqfOQC
+	 4vOUBRsiEARZIYLvVPwcivC0sDxA0bI0apxFzJ4KVnFg8wcVZ4PvApa9ZSVbYznRrx
+	 ZRmNaXOUXSPSSvKvgZfK5+gA8Y/FzHyiqk4utMSOndHpyj2BMNB97L4TEzH7PRjxFU
+	 vunGNAj2zKWkQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jurison Murati <eng.juri@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: Avraham Stern <avraham.stern@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] media: i2c: ov8865: Program the sensor on stream start
-Date: Mon, 19 Oct 2026 09:51:11 -0400
-Message-ID: <20261019135441.1420968-380-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: support aborting an ongoing ftm request
+Date: Mon, 19 Oct 2026 09:51:13 -0400
+Message-ID: <20261019135441.1420968-382-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -53,456 +52,410 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jurison Murati <eng.juri@gmail.com>
+From: Avraham Stern <avraham.stern@intel.com>
 
-[ Upstream commit 4e1446ac169a1a621ba90502ab8db3be821fe726 ]
+[ Upstream commit ef704fc32ae1a519801ac4a06aa290fece5f403c ]
 
-The sensor registers are only written in the runtime PM resume
-handler; ov8865_set_fmt() merely stores the requested mode, relying on
-the sensor being runtime suspended between uses so that the next
-resume applies it.
+Add support for aborting an ongoing FTM request.
 
-That assumption breaks when something keeps the sensor powered. On
-IPU3 platforms, ipu_bridge instantiates the VCM device with a
-DL_FLAG_PM_RUNTIME device link to the sensor, so a userspace process
-holding the VCM subdev open (e.g. wireplumber's camera monitor) pins
-the sensor runtime-active. A subsequent set_fmt() then never reaches
-the hardware: the sensor keeps streaming the mode programmed on the
-last resume while the CSI-2 receiver expects the newly negotiated
-format.
-
-On a Surface Book 2 (IPU3, ov8865 + dw9719 VCM), requesting the
-3264x2448 mode while the hardware was left programmed for the
-1632x1224 binned mode makes ipu3-cio2 report "frame sync error" and
-"payload length is 10340352, received 2585088" (exactly one binned
-frame) for every frame, and the inverse case stalls the stream after
-a single frame. Camera applications end up displaying one bogus frame
-forever.
-
-Program the sensor configuration and apply the control values on
-stream start instead, where the negotiated mode is always current,
-and only write the configuration in the runtime PM resume handler
-when resuming with the stream already started.
-
-Signed-off-by: Jurison Murati <eng.juri@gmail.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Avraham Stern <avraham.stern@intel.com>
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Link: https://patch.msgid.link/20260715220243.340040bdc6a3.Ifbbf70021e42bf1d59db6ec45a73f1806a1c2289@changeid
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local checkout is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
-verdict is whether this ov8865 programming fix belongs **here**, not in
-other series.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1: Subject line**
+Record: **[iwlwifi/mld]** **[support]** add abort for an in-flight FTM
+(Fine Timing Measurement / peer measurement) request.
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[media: i2c: ov8865] [Program] Program the sensor on stream
-start` — “Program” here is a correctness change: write the negotiated
-mode at `s_stream`, not only on runtime resume.
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+**Step 1.2: Tags**
 Record:
-- `Signed-off-by: Jurison Murati <eng.juri@gmail.com>` (author)
-- `Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>`
-  (media/I2C sensor maintainer; merger)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable`, `Link:`, or syzbot tags (absence expected)
-- Mailing-list thread (Phase 4) has `Reviewed-by: Daniel Scally` on
-  series patch 1/2 only, not on this 2/2 as merged
+- Signed-off-by: Avraham Stern <avraham.stern@intel.com> (author)
+- Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+  (iwlwifi maintainer)
+- Link: https://patch.msgid.link/20260715220243.340040bdc6a3.Ifbbf70021e
+  42bf1d59db6ec45a73f1806a1c2289@changeid
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+  stable (absence of the last two is expected for this review)
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+**Step 1.3: Body**
 Record:
-- Bug: `set_fmt()` only stores the mode; registers are written in the
-  runtime-PM resume handler. That assumes the sensor suspends between
-  uses.
-- Trigger: IPU3 `ipu_bridge` VCM device link (`DL_FLAG_PM_RUNTIME`) plus
-  userspace holding the VCM subdev open (wireplumber camera monitor)
-  keeps the sensor runtime-active, so resume never runs after
-  `set_fmt()`.
-- Symptom: CSI-2 receiver (`ipu3-cio2`) sees a format mismatch. Full
-  3264×2448 vs leftover 1632×1224 binned mode → `"frame sync error"` and
-  `"payload length is 10340352, received 2585088"`; the inverse stalls
-  after one frame. Camera apps show one bogus frame forever.
-- Hardware: Surface Book 2 (IPU3, ov8865 + dw9719 VCM).
-- Fix: program + apply controls on stream start; resume only reprograms
-  if already streaming (mid-stream suspend).
+- Bug description from message: none. One sentence: “Add support for
+  aborting an ongoing FTM request.”
+- Symptom/failure mode: not stated
+- Version information: none
+- Root-cause explanation: none
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not hidden. Explicit functional bug: hardware left in the
-previous mode.
+**Step 1.4: Hidden bug fix?**
+Record: **Yes.** The wording is feature-like, but the MLD path already
+stores `mld->ftm_initiator.req` and later dereferences it. cfg80211
+frees that object on abort whether or not the driver implements
+`abort_pmsr`. Missing abort is a use-after-free / stuck-FTM hole, not a
+new userspace API.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## Phase 2: Diff analysis
 
-**Step 2.1: INVENTORY THE CHANGES**
+**Step 2.1: Inventory**
 Record:
-- File: `drivers/media/i2c/ov8865.c` (+25 / −9)
-- Functions: `ov8865_s_stream()`, `ov8865_resume()`
-- Scope: single-file, surgical
+- `drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.c`: +21 (new
+  `iwl_mld_ftm_abort`)
+- `drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.h`: +1
+  (prototype)
+- `drivers/net/wireless/intel/iwlwifi/mld/mac80211.c`: +10
+  (`iwl_mld_abort_pmsr` + `.abort_pmsr` ops)
+- Total: **+32 / −0**, single-driver surgical change
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+**Step 2.2: Code flow**
 Record:
-- `ov8865_s_stream(enable=1)` before: `pm_runtime_resume_and_get()` then
-  only `ov8865_sw_standby(false)`. After: still resume_and_get, then
-  always `ov8865_sensor_init()` + `__v4l2_ctrl_handler_setup()` then
-  standby off. Stream-start path.
-- `ov8865_resume()` before: always `sensor_init` + ctrl setup, then
-  standby off if streaming. After: those writes only if
-  `state->streaming`. Runtime-resume path; skipped when VCM merely pins
-  power.
+- Before: `.start_pmsr` was wired; `.abort_pmsr` was NULL. On netlink
+  close or wdev teardown, cfg80211 still `kfree()`s the request while
+  the driver keeps the pointer and firmware keeps ranging.
+- After: abort sends `TOF_RANGE_ABORT_CMD`, cancels queued FTM RX
+  notifications, then `iwl_mld_ftm_reset()` NULLs `req`/`req_wdev`.
+- Path: abort/teardown only, not the normal completion path.
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: `[Logic / correctness]` Mode was applied only on RPM resume.
-With an external RPM pin, `set_fmt()` never reached the sensor. Fix
-writes the current software mode at stream start. Category is not
-UAF/leak/race; it is a hardware/software format desync.
+**Step 2.3: Bug mechanism**
+Record: **Use-after-free + leftover firmware ranging**, fixed by
+implementing the existing mac80211 `abort_pmsr` op (same pattern as
+MVM). Also prevents the next `iwl_mld_ftm_start()` from returning
+`-EBUSY` forever because `ftm_initiator.req` stayed non-NULL after the
+object was freed.
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct. Matches the usual sensor pattern (configure
-at stream on). Extra I2C on every start is harmless (same work resume
-used to do). Resume still covers mid-stream suspend. `int ret = 0` is
-required because disable no longer assigned `ret` before the new `if
-(!ret)` guard. Regression risk low; no API/lock change. Depends on
-sibling 1/2 (`3fe797a12bfa9`) for unified `pm_runtime_put` on
-`sensor_init` failure — that commit **is** in this tree.
+**Step 2.4: Fix quality**
+Record: Obviously correct relative to `iwl_mvm_ftm_abort()`. Minimal.
+Regression risk is low: new code runs only on abort; on firmware abort
+failure it still resets local state (the UAF-critical part). Helpers it
+calls already exist in this tree.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+## Phase 3: Git history
 
-**Step 3.1: BLAME THE CHANGED LINES**
+**Step 3.1: Blame / introduction**
+Record: Buggy pattern came in with **`d1e879ec600f9`** (“wifi: iwlwifi:
+add iwlmld sub-driver”, 2025-02-16). FTM start stored `req` and
+registered `RX_HANDLER_OF_FTM_REQ` / `IWL_MLD_OBJECT_TYPE_FTM_REQ` from
+day one, but never called cancel/abort. MVM has had abort since
+**`fc36ffda32670`** (2019, “support FTM initiator”).
+
+**Step 3.2: Fixes: tag**
+Record: None. Not applicable.
+
+**Step 3.3: File history**
+Record: Recent FTM-initiator commits are unrelated (location BW
+encoding, switch indentation). Neighbor **`71ac392d8b5c2`** (FW recovery
+reset) is a different path. No prerequisite refactor for this hunk.
+
+**Step 3.4: Author**
+Record: Avraham Stern is a regular iwlwifi FTM contributor. Maintainer
+Miri Korenblit signed off. Related later Stern commits in this tree are
+MEI length checks, not FTM abort follow-ups. **No follow-up fix** to
+`iwl_mld_ftm_abort` after this commit.
+
+**Step 3.5: Dependencies**
+Record: Standalone. Uses existing `iwl_mld_send_cmd_pdu`,
+`iwl_mld_cancel_notifications_of_object`, `IWL_MLD_OBJECT_TYPE_FTM_REQ`,
+`iwl_mld_ftm_reset`, `TOF_RANGE_ABORT_CMD`. Series membership is **01/15
+of an iwlwifi-next “updates” dump**; other patches (MEI, WoWLAN, LARI,
+etc.) are unrelated. Can apply alone.
+
+## Phase 4: Mailing list / external
+
+**Step 4.1: Original discussion**
 Record:
-- Driver added in `11c0d8fdccc56` (“Add support for the OV8865 image
-  sensor”, 2020-12-31, first in **v5.12-rc1**). Original `s_stream` only
-  toggled standby after RPM get; resume always called `sensor_init`.
-- Original `ov8865_state_configure()` **did** call
-  `ov8865_mode_configure()` when the device was already runtime-active
-  (`!pm_runtime_suspended`). That covered the VCM-pin case at
-  `set_fmt()`.
-- `da8f23e359166` (“move mode_configure out of state_configure”,
-  2025-09-09, contained in **v6.18-rc1**) removed that powered-path
-  `mode_configure`. That is the regression this commit repairs. Present
-  in this 7.3 tree.
+- `b4 dig -c ef704fc32ae1a`: https://patch.msgid.link/20260715220243.340
+  040bdc6a3.Ifbbf70021e42bf1d59db6ec45a73f1806a1c2289@changeid
+- Cover: `[PATCH iwlwifi-next 00/15] wifi: iwlwifi: updates -
+  07-15-2026` — “Cleanups, features, and fixes from our internal tree.”
+- `b4 dig -a`: **v1 only**, this is the applied version
+- No reviewer comments, NAKs, or Cc: stable on this patch in the saved
+  thread
+- lore.kernel.org WebFetch returned 403; thread recovered via `b4 dig
+  -m`
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. The introducing commit is `da8f23e359166`. `git
-merge-base --is-ancestor da8f23e359166 HEAD` succeeded.
+**Step 4.2: Recipients**
+Record: To Johannes Berg; Cc linux-wireless, Avraham Stern. Subsystem
+maintainer (Miri) submitted the series.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+**Step 4.3: Bug report**
+Record: None. No syzbot/bugzilla.
+
+**Step 4.4: Series**
+Record: Mixed iwlwifi-next batch. This patch does not depend on 02–15.
+
+**Step 4.5: Stable list**
+Record: No stable-list discussion found (search did not surface this
+subject).
+
+## Phase 5: Semantic / call-chain
+
+**Step 5.1: Functions**
+Record: `iwl_mld_ftm_abort` (new), `iwl_mld_abort_pmsr` (new),
+`iwl_mld_hw_ops.abort_pmsr` assignment.
+
+**Step 5.2: Callers**
 Record:
-- `3fe797a12bfa9` — same author, same second, series 1/2: drop RPM count
-  on stream failure. v2 changelog says 2/2 was rebased on that unified
-  error path.
-- `8e3e916e23f5a` (2023-08-10) — `ipu-bridge` VCM `DL_FLAG_PM_RUNTIME`
-  link (the pin).
-- No follow-up/revert of `4e1446ac169a1` on this file after it landed.
+- `cfg80211_release_pmsr()` from `nl80211.c` on netlink port release
+- `cfg80211_pmsr_wdev_down()` from `net/wireless/core.c` on wdev
+  teardown
+- both → `cfg80211_pmsr_process_abort()` → `rdev_abort_pmsr()` →
+  `ieee80211_abort_pmsr()` → `drv_abort_pmsr()` → `iwl_mld_abort_pmsr()`
+- `drv_abort_pmsr` only calls the driver if `local->ops->abort_pmsr` is
+  set; cfg80211 **always kfree()s** afterward (`pmsr.c` around the abort
+  loop)
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Jurison Murati has these two ov8865 commits in-tree. Not the
-subsystem maintainer. Sakari Ailus merged both. Dan Scally (Intel
-IPU3/libcamera) reviewed the series.
+**Step 5.3: Callees**
+Record: firmware abort PDU; `iwl_mld_cancel_notifications_of_object()`;
+`iwl_mld_ftm_reset()`.
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Soft prerequisite: `3fe797a12bfa9` (already in HEAD). Without
-it, `sensor_init` failure after `resume_and_get` would leak the RPM ref.
-No new helpers. Standalone on this tree.
+**Step 5.4: Reachability**
+Record: Yes, from userspace: start peer measurement
+(`NL80211_CMD_PEER_MEASUREMENT_START`), then close the netlink socket or
+take the interface down while ranging is in progress. Typically
+privileged (`nl80211`), but a crashing location/RTT helper is a
+realistic trigger (Android Wi-Fi RTT uses this API).
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 5.5: Similar patterns**
+Record: Only iwlwifi MVM/MLD and mac80211_hwsim implement `.abort_pmsr`.
+MVM has had it since FTM was added; MLD start without abort was the
+incomplete copy.
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+Verified UAF path in this tree:
+
+```246:247:drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.c
+        if (mld->ftm_initiator.req)
+                return -EBUSY;
+```
+
+```267:270:drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.c
+        if (!ret) {
+                mld->ftm_initiator.req = req;
+                mld->ftm_initiator.req_wdev =
+ieee80211_vif_to_wdev(vif);
+        }
+```
+
+```340:342:drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.c
+        if (IWL_FW_CHECK(mld, !mld->ftm_initiator.req,
+                         "FTM response without a pending request\n"))
+                return;
+```
+
+That NULL check does not save a dangling pointer.
+`cfg80211_pmsr_process_abort()` kfree’s the request after the (optional)
+abort op.
+
+## Phase 6: This checkout
+
+**Step 6.1: Local tree and buggy code**
 Record:
-- `b4 dig -c 4e1446ac169a1`: https://patch.msgid.link/fa341298dfd2ba9ce4
-  31e21c2cf45002efacf2cf.1781085860.git.eng.juri@gmail.com
-- Series: v1 then v2 (2 patches).
-  - v1 1/2: “Program the mode on stream start if needed” — extra
-    `hw_mode`/`hw_mbus_code` state
-  - v1 2/2: RPM put on stream-start failure
-  - v2 1/2: RPM leak fix (reordered)
-  - v2 2/2: this commit (unconditional program at start; resume gated on
-    streaming)
-- Applied version is v2, latest. No NAK. Sakari: do not add more driver
-  state; Dan: program unconditionally at `s_stream` and gate resume —
-  that is what landed. Author retested on Surface Book 2 with the sensor
-  held runtime-active; both modes worked; mid-stream resume still
-  reprogrammed.
-- No `Cc: stable` in the thread.
+- `git describe HEAD`: **v7.3-rc4-27-gf0100363d8c37**
+- `make kernelversion`: **7.3.0-rc4**
+- MLD FTM initiator **is present**. Bug introduced with MLD
+  (`d1e879ec600f9`), long before 7.3 branched.
+- Candidate SHA **`ef704fc32ae1a`**; `git merge-base --is-ancestor
+  ef704fc32ae1a HEAD` → already in this mainline snapshot (landed in
+  **7.3-rc1**, not in 7.2). Evaluation is still on technical merit, not
+  “already selected.”
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: `b4 dig -w` recipients: Sakari Ailus, Daniel Scally, Hans de
-Goede, Mauro Carvalho Chehab, linux-media. Right audience (sensor
-maintainer, IPU3/VCM authors).
+**Step 6.2: Backport difficulty**
+Record: Clean apply on this tree. Structures and helpers match the hunk.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No bugzilla/syzbot. Concrete user-visible failure on Surface
-Book 2 with exact cio2 log lines. Author is the reporter; not a
-theoretical race.
+**Step 6.3: Related fixes already here**
+Record: `iwl_mld_ftm_restart_cleanup()` covers FW restart only, not
+userspace abort. No earlier abort implementation.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: 2/2 of a two-patch series. 1/2 is `3fe797a12bfa9`, already in
-this tree. This hunk does not need other media patches.
+## Phase 7: Subsystem context
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: WebFetch of lore.kernel.org/stable returned 403. `b4` mbox has
-no “stable” mention. UNVERIFIED whether stable@ discussed this later.
+**Step 7.1**
+Record: **iwlwifi MLD** (Intel Wi-Fi 7 opmode). Criticality:
+**IMPORTANT** (common client Wi-Fi driver), not core mm/VFS. FTM itself
+is a subset of users (RTT / indoor location).
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 7.2**
+Record: Actively developed; MLD is the current Intel path. This is a
+missing piece from the original MLD port, not a brand-new subsystem.
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: `ov8865_s_stream` (modified), `ov8865_resume` (modified).
-Callees used: `ov8865_sensor_init`, `__v4l2_ctrl_handler_setup`,
-`ov8865_sw_standby`. `ov8865_set_fmt` → `ov8865_state_configure` is the
-path that only stores `state->mode`.
+## Phase 8: Impact and risk
 
-**Step 5.2: TRACE CALLERS**
-Record: `ov8865_s_stream` is `.s_stream` on the V4L2 subdev. Called from
-the media pipeline when userspace starts/stops capture (libcamera /
-camera apps), not IRQ. `ov8865_resume` is `SET_RUNTIME_PM_OPS` runtime
-resume.
+**Step 8.1: Who is affected**
+Record: Intel MLD devices using nl80211 peer measurement (FTM
+initiator). Not universal.
 
-**Step 5.3: TRACE CALLEES**
-Record: `ov8865_sensor_init` does sw reset, standby, chip-id, init
-sequence, then `ov8865_mode_configure(sensor->state.mode, …)` — so it
-programs the **currently negotiated** mode. That is why calling it from
-`s_stream` after `set_fmt()` is the right place.
+**Step 8.2: Trigger**
+Record: Start FTM, then abort via socket close or iface down before
+firmware completes. Not every boot; realistic for location stacks and
+interface teardown. Unprivileged trigger: unverified (nl80211 PMSR is
+typically admin-capable).
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace opens VCM (wireplumber) → `ipu_bridge`
-`device_link_add(..., DL_FLAG_PM_RUNTIME)` keeps sensor RPM-active →
-`VIDIOC_S_FMT`/`set_fmt` updates software mode only → `s_stream(1)` used
-to only leave standby, leaving old registers → `ipu3-cio2` receives the
-wrong frame size. Unprivileged user with camera access can trigger it;
-wireplumber makes it the common case.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: `ov5648_s_stream` still only does standby after RPM get and
-always inits in resume — sibling still has the old pattern. Not a reason
-to reject this ov8865 fix. `ipu-bridge.c:714` still has the VCM PM link.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+**Step 8.3: Failure mode**
 Record:
-- Tree: VERSION=7 PATCHLEVEL=3 SUBLEVEL=0 EXTRAVERSION=-rc4
-- `drivers/media/i2c/ov8865.c`, `VIDEO_OV8865`, ipu3-cio2,
-  `ipu_bridge_instantiate_vcm_work` + `DL_FLAG_PM_RUNTIME` all exist
-- Regression `da8f23e359166` is an ancestor of HEAD
-- Pre-fix `s_stream` (parent of `4e1446ac169a1`) only called
-  `ov8865_sw_standby`; pre-fix `resume` always inited
-- cio2 strings `"frame sync error"` and `"payload length is %lu,
-  received %u"` match the report (`ipu3-cio2.c`)
+- Firmware response after abort: **UAF** of `cfg80211_pmsr_request`
+  (crash / KASAN / potential memory corruption)
+- Without a later notification: FTM stays “busy” (`-EBUSY`) until driver
+  reset
+- Firmware keeps ranging until timeout
+Severity: **HIGH** (UAF), not a panic on every probe.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply on this tree. Prerequisite `3fe797a12bfa9` already
-present. Difficulty: clean.
+**Step 8.4: Risk/benefit**
+Record: Benefit medium-high for MLD FTM users (UAF + stuck session).
+Risk **low** (32 lines, abort path only, same design as MVM). Ratio
+favors taking it.
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No other fix for “wrong mode while RPM-pinned.” `git merge-base
---is-ancestor 4e1446ac169a1 HEAD` is true — used only to confirm file
-state, not as “already selected for stable.”
+## Phase 9: Synthesis
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 9.1: Evidence**
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `drivers/media/i2c` OmniVision OV8865. **IMPORTANT** for IPU3
-laptops that use this sensor (Surface Book 2 and similar); not core
-mm/fs/net. Camera capture is a primary function of that hardware.
+FOR:
+- Verified UAF: driver borrows cfg80211’s request; abort path frees it
+  without clearing the driver pointer
+- Also stuck `-EBUSY` on later FTM starts
+- Small, self-contained, copies a long-standing MVM abort
+- Cancel infrastructure (`IWL_MLD_OBJECT_TYPE_FTM_REQ`) was already
+  registered; abort was the missing caller
+- Maintainer-signed; applies cleanly here
+- Same class of “missing stop/abort op” that stable routinely takes
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Driver is mature (v5.12). Recent changes are targeted fixes, not
-a rewrite. Bug is a 2025 regression in a long-lived driver.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Users of ov8865 with a VCM RPM device link (IPU3 +
-`ipu_bridge`), especially when wireplumber/PipeWire keeps the VCM open.
-Driver-specific / platform-specific, but real shipping laptops.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Common on affected machines: camera monitor holds VCM, then a
-capture app sets format and streams. Not a rare race. Unprivileged users
-with camera access can hit it.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: Not oops/UAF/deadlock. Camera stream is wrong or stuck: cio2
-frame-sync/payload errors, one frozen bogus frame, or stall after one
-frame. **HIGH** for those users (device unusable), **MEDIUM–HIGH**
-overall.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record: Benefit: restores working capture after a v6.18 regression.
-Risk: low (~34-line, one driver, reviewed, retested). Ratio favors
-including the fix.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-FOR backporting:
-- Real, reproduced bug on Surface Book 2 with exact cio2 logs present in
-  this tree
-- Regression from `da8f23e359166` (v6.18), which is in this tree; that
-  commit removed the only powered-path `mode_configure` on `set_fmt`
-- Trigger is ordinary (wireplumber + IPU3 VCM PM link, also in this
-  tree)
-- Small, obviously correct, no new API
-- v2 matches maintainer (Sakari) and IPU3 reviewer (Dan Scally)
-  feedback; retested
-- Prerequisite RPM error-path fix is already here
-
-AGAINST backporting:
-- Not a kernel crash, UAF, or security hole
-- Affects one sensor + IPU3/VCM, not all users
-- No explicit `Cc: stable` (not a negative by itself)
-- Merged 2/2 has no in-commit `Reviewed-by` (review happened on the
-  list)
+AGAINST:
+- Message sells it as “add support,” no crash report, no Fixes/syzbot
+- Sent to **iwlwifi-next** in a mixed updates series
+- FTM is not a hot path for most desktops
+- Adds a new ops pointer (looks like a feature if you only read the
+  subject)
 
 UNRESOLVED:
-- lore.kernel.org WebFetch 403; thread recovered via `b4 dig -m`
-- Whether stable@ later discussed this (no hit in the patch mbox)
+- Could not fetch lore HTML (403); used `b4` mbox instead
+- No evidence of a real-world crash report
+- Unverified whether unprivileged users can start PMSR on typical
+  distros
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — v2 as Dan/Sakari asked;
-   author retested both modes and mid-stream resume on SB2
-2. Fixes a real bug that affects users? **PASS** — camera unusable when
-   VCM pins the sensor
-3. Important issue? **PASS** — serious functional failure of the laptop
-   camera (wrong CSI-2 format / stuck frame), not cosmetic
-4. Small and contained? **PASS** — +25/−9, one file, two functions
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — same functions;
-   `3fe797a12bfa9` present
+**Step 9.2: Stable rules**
+1. Obviously correct and tested? **PASS** (MVM analogue; Intel-authored)
+2. Real user-visible bug? **PASS** (UAF / stuck FTM after abort)
+3. Important (crash/security/corruption)? **PASS** (UAF is crash/memory-
+   safety; FTM-specific but real)
+4. Small and contained? **PASS** (32 lines, one driver)
+5. No new features/APIs? **PASS** — implements an existing mac80211 op;
+   not a new syscall/uAPI
+6. Can apply to this tree? **PASS** (MLD FTM code is here; helpers
+   exist)
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: None of ID/quirk/DT/build/docs. It is a normal driver
-correctness fix (plus the spirit of a hardware-path workaround for the
-VCM PM link).
+**Step 9.3: Exception category**
+Record: Not ID/quirk/DT/build/docs. Ordinary driver correctness fix.
 
-**Step 9.4: MAKE YOUR DECISION**
-This tree has the ov8865 driver, the v6.18 `mode_configure` removal that
-dropped the powered `set_fmt` path, and the IPU3 VCM RPM pin that makes
-that path the default with wireplumber. The result is a format mismatch
-that breaks capture. The fix is small, reviewed, and tested. It meets
-stable rules for this checkout.
+**Step 9.4: Decision**
+This is a missing abort handler on a driver that caches a cfg80211-owned
+object. That is a UAF fix, even though the subject says “support.” It is
+small, applies here, and does not need the rest of the 15-patch series.
+
+### What it solves for this tree
+On 7.3-rc4, iwlwifi MLD FTM start stores `req` and handles firmware
+range responses. Without abort, closing the measurement netlink socket
+or taking the wdev down frees `req` while the driver and firmware still
+use it. That is a use-after-free and can pin FTM at `-EBUSY`. The patch
+aborts firmware, drops queued FTM notifs, and clears driver state.
+
+### Risk vs benefit
+Low risk, high severity if the abort path is hit. Benefit is limited to
+Intel MLD + FTM users, which is enough given UAF.
 
 Verification:
-- [Phase 1] Parsed tags: author + Sakari SOB only; no Fixes/Reported-
-  by/syzbot/Cc:stable
-- [Phase 2] Diff: `ov8865_s_stream` always inits+ctrl setup on enable;
-  `ov8865_resume` inits only if `state->streaming`
-- [Phase 3] Blame: `s_stream`/resume from `11c0d8fdccc56` (v5.12);
-  powered `set_fmt` `mode_configure` removed by `da8f23e359166`
-  (v6.18-rc1)
-- [Phase 3] `git merge-base --is-ancestor da8f23e359166 HEAD` succeeded;
-  `3fe797a12bfa9` also ancestor
-- [Phase 3] `git show da8f23e359166`: removed `if
-  (!pm_runtime_suspended) ov8865_mode_configure()` from
-  `ov8865_state_configure`
-- [Phase 4] `b4 dig -c 4e1446ac169a1`: v2 2/2 at
-  patch.msgid.link/fa341298…; v1 added hw_mode state; Sakari objected;
-  Dan proposed this design
-- [Phase 4] Author reply: retested SB2 with sensor held runtime-active
-- [Phase 4] `b4 dig -w`: Sakari, Dan Scally, Hans de Goede, Mauro,
-  linux-media
-- [Phase 4] lore/stable WebFetch: 403; mbox has no “stable”
-- [Phase 5] `ov8865_set_fmt` → `ov8865_state_configure` only stores
-  `state->mode`; `sensor_init` calls
-  `ov8865_mode_configure(state->mode)`
-- [Phase 5] `ipu-bridge.c:714` `device_link_add(...,
-  DL_FLAG_PM_RUNTIME)`
-- [Phase 6] Makefile/describe: 7.3.0-rc4; `VIDEO_OV8865` present
-- [Phase 6] cio2: `"frame sync error"` and `"payload length is %lu,
-  received %u"` in `ipu3-cio2.c`
-- [Phase 8] Failure: wrong/stalled camera frames, not oops; HIGH for
-  affected IPU3+ov8865 users
-- UNVERIFIED: later stable@ discussion (lore 403)
-
-The patch is a real, tested regression fix for this tree’s ov8865 + IPU3
-VCM PM link path.
+- [Phase 1] Parsed tags: SOB Stern + Korenblit; Link msgid; no
+  Fixes/Reported-by/Cc stable
+- [Phase 2] Diff: +32 lines, `iwl_mld_ftm_abort` + `.abort_pmsr`
+- [Phase 3] `git show ef704fc32ae1a`; ancestor of HEAD; introduced with
+  `d1e879ec600f9`; MVM abort `fc36ffda32670`
+- [Phase 3] `git merge-base --is-ancestor ef704fc32ae1a 8d3ae59288f1e` →
+  not in 7.2; in 7.3-rc1
+- [Phase 3] No follow-ups on `ftm-initiator.c` after this commit
+- [Phase 4] `b4 dig -c/-a/-w/-m`: v1 iwlwifi-next 01/15, To Johannes, no
+  review replies in mbox
+- [Phase 4] WebFetch lore/msgid.link → 403; used local mbox
+- [Phase 5] Call chain: `cfg80211_release_pmsr` /
+  `cfg80211_pmsr_wdev_down` → kfree after optional abort;
+  `iwl_mld_handle_ftm_resp_notif` derefs `ftm_initiator.req`
+- [Phase 6] `git describe HEAD` = v7.3-rc4-27-gf0100363d8c37;
+  kernelversion 7.3.0-rc4; MLD FTM present
+- [Phase 8] Failure mode: UAF on FTM abort + `-EBUSY` stuck state,
+  severity HIGH
+- UNVERIFIED: unprivileged PMSR start; no user crash report
 
 **YES**
 
- drivers/media/i2c/ov8865.c | 34 +++++++++++++++++++++++++---------
- 1 file changed, 25 insertions(+), 9 deletions(-)
+ .../intel/iwlwifi/mld/ftm-initiator.c         | 21 +++++++++++++++++++
+ .../intel/iwlwifi/mld/ftm-initiator.h         |  1 +
+ .../net/wireless/intel/iwlwifi/mld/mac80211.c | 10 +++++++++
+ 3 files changed, 32 insertions(+)
 
-diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
-index 5b909a8561287..c6d53c3d55caa 100644
---- a/drivers/media/i2c/ov8865.c
-+++ b/drivers/media/i2c/ov8865.c
-@@ -2609,7 +2609,7 @@ static int ov8865_s_stream(struct v4l2_subdev *subdev, int enable)
- {
- 	struct ov8865_sensor *sensor = ov8865_subdev_sensor(subdev);
- 	struct ov8865_state *state = &sensor->state;
--	int ret;
-+	int ret = 0;
- 
- 	if (enable) {
- 		ret = pm_runtime_resume_and_get(sensor->dev);
-@@ -2618,7 +2618,23 @@ static int ov8865_s_stream(struct v4l2_subdev *subdev, int enable)
- 	}
- 
- 	mutex_lock(&sensor->mutex);
--	ret = ov8865_sw_standby(sensor, !enable);
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.c b/drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.c
+index 3464b32687124..6e174c4d8b75e 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.c
+@@ -449,3 +449,24 @@ void iwl_mld_ftm_restart_cleanup(struct iwl_mld *mld)
+ 			       mld->ftm_initiator.req, GFP_KERNEL);
+ 	iwl_mld_ftm_reset(mld);
+ }
 +
-+	/*
-+	 * The sensor may have been kept powered by something else (e.g. the
-+	 * VCM's runtime PM device link on IPU3 platforms), in which case
-+	 * runtime resume did not run and the hardware may still be
-+	 * configured for a previous mode. Always program the negotiated
-+	 * configuration on stream start.
-+	 */
-+	if (enable) {
-+		ret = ov8865_sensor_init(sensor);
-+		if (!ret)
-+			ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
-+	}
++void iwl_mld_ftm_abort(struct iwl_mld *mld, struct cfg80211_pmsr_request *req)
++{
++	struct iwl_tof_range_abort_cmd cmd = {
++		.request_id = req->cookie,
++	};
 +
-+	if (!ret)
-+		ret = ov8865_sw_standby(sensor, !enable);
++	lockdep_assert_wiphy(mld->wiphy);
 +
- 	mutex_unlock(&sensor->mutex);
++	if (req != mld->ftm_initiator.req)
++		return;
++
++	if (iwl_mld_send_cmd_pdu(mld, WIDE_ID(LOCATION_GROUP,
++					      TOF_RANGE_ABORT_CMD),
++				 &cmd))
++		IWL_ERR(mld, "failed to abort FTM process\n");
++
++	iwl_mld_cancel_notifications_of_object(mld, IWL_MLD_OBJECT_TYPE_FTM_REQ,
++					       mld->ftm_initiator.req->cookie);
++	iwl_mld_ftm_reset(mld);
++}
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.h b/drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.h
+index 3fab25a52508a..e82237b314673 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.h
++++ b/drivers/net/wireless/intel/iwlwifi/mld/ftm-initiator.h
+@@ -25,5 +25,6 @@ int iwl_mld_ftm_start(struct iwl_mld *mld, struct ieee80211_vif *vif,
+ void iwl_mld_handle_ftm_resp_notif(struct iwl_mld *mld,
+ 				   struct iwl_rx_packet *pkt);
+ void iwl_mld_ftm_restart_cleanup(struct iwl_mld *mld);
++void iwl_mld_ftm_abort(struct iwl_mld *mld, struct cfg80211_pmsr_request *req);
  
- 	if (ret || !enable)
-@@ -2914,15 +2930,15 @@ static int ov8865_resume(struct device *dev)
- 	if (ret)
- 		goto complete;
+ #endif /* __iwl_mld_ftm_initiator_h__ */
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
+index 69a066904a808..5234229a070a7 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
+@@ -2609,6 +2609,15 @@ static int iwl_mld_start_pmsr(struct ieee80211_hw *hw,
+ 	return iwl_mld_ftm_start(mld, vif, request);
+ }
  
--	ret = ov8865_sensor_init(sensor);
--	if (ret)
--		goto error_power;
-+	if (state->streaming) {
-+		ret = ov8865_sensor_init(sensor);
-+		if (ret)
-+			goto error_power;
- 
--	ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
--	if (ret)
--		goto error_power;
-+		ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
-+		if (ret)
-+			goto error_power;
- 
--	if (state->streaming) {
- 		ret = ov8865_sw_standby(sensor, false);
- 		if (ret)
- 			goto error_power;
++static void iwl_mld_abort_pmsr(struct ieee80211_hw *hw,
++			       struct ieee80211_vif *vif,
++			       struct cfg80211_pmsr_request *request)
++{
++	struct iwl_mld *mld = IWL_MAC80211_GET_MLD(hw);
++
++	iwl_mld_ftm_abort(mld, request);
++}
++
+ static enum ieee80211_neg_ttlm_res
+ iwl_mld_can_neg_ttlm(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
+ 		     struct ieee80211_neg_ttlm *neg_ttlm)
+@@ -2696,5 +2705,6 @@ const struct ieee80211_ops iwl_mld_hw_ops = {
+ 	.prep_add_interface = iwl_mld_prep_add_interface,
+ 	.set_hw_timestamp = iwl_mld_set_hw_timestamp,
+ 	.start_pmsr = iwl_mld_start_pmsr,
++	.abort_pmsr = iwl_mld_abort_pmsr,
+ 	.can_neg_ttlm = iwl_mld_can_neg_ttlm,
+ };
 -- 
 2.53.0
 
