@@ -1,50 +1,79 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1014C4CA279;
-	Mon, 19 Oct 2026 10:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892C840F75B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404685; cv=none; b=egcyMjO51hWlm/FLwbIqtF3lb4+DVgY5l67TSrn/QKJrr2pzJwkBcUwrz5dvMIL26tAluAb1Dw/5iBDY4GVxR3VS/kbZuD7FcZZ73C1H1Mee1u7XpBb9AV/XfIKO+F7mo/WrUvey0wAggoM/1HxZF2CdGzMgAjnKhDDn7U63DD8=
+	t=1792404717; cv=none; b=TaimlkBvncPeygJvKZQyUSf1INjxk7LMQrNF3ygfEi9WPQQ1HTigLbaFCpxGx16GHEh4t0dF9IPmDBLnyBpDYF82+kgPGmN07wnb//YQ0R86mQYCH9v4YPt8YeGrB82f4hQjcxwnTQCL77I4eqX1+SswoTD1BRDlGhgj4B4w2MY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404685; c=relaxed/simple;
-	bh=W4WbAHKMSK+zM1XK1A9sT0Yizxm27ozAmn0TGYV5Gh4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jCDLoJL6PV0fSK3Na3yaVrdBPLNVlvWqlCwAt6bLfIBbF+ArP9/+hIGGCmA6/XpSdNar40vM6xV7W2T8uinf80Maq5yRh+IWXKQWfLrgmTHatF1/+nFVo1CHs8HklmEkXSlmF5KJcTqY80sLU2a4BZ5Q9g90C3DEfceDIn0Aqkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=bNLckP4h; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792404717; c=relaxed/simple;
+	bh=jWTEok0paj4wYBxHWebM3QwVcjvEzsCSuh7Dk8XhRis=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BIaW5M4hMLnp7Xjn2dl0VZ46TYODu+XMRW5pk/R297NEYzpIYwtLboNxr4iuqBn/r6C3BtwW4tqK2cOndlbMMSfKgqWjzDaZl++4eJsOkofMdaFQ9dq8sHnZmp1OA9mOeS+e5sDMIxwf+Iddc66t7aReB6i9G99ZS6sjrinYWgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FCnwo4Sk; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="bNLckP4h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=G3
-	OAGVXW2Ko+Y9YRydzxhFTQ2EohK4kPgZFn6DX2A4U=; b=bNLckP4h5X/l5nfUnn
-	bmK/IBrOE0+dD2VaP5x4ha9dxH2I8+u/GPzE3ylxBaZRv0UEbDqopH68WupJXmp1
-	91NNEJD9C20oJyNqmTM89b36Lzn2ot1Zp8r/QWRF7MRprcKyqD6wZnJjQ9U7tTVG
-	1hmT/DpK3bGXJz4S0WXWdOEm4=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3_8Wk7NVq1VPPBA--.45843S4;
-	Mon, 19 Oct 2026 18:10:48 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	MeiChia Chiu <meichia.chiu@mediatek.com>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FCnwo4Sk"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1ddc7c9beso7994285e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:11:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792404715; x=1793009515; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2ESX8jvKxc64R1yrNwWQ44kHJ1omr9swT5HG7pWrcCo=;
+        b=FCnwo4SknpJWfUngU67M6TinoO07SpBLut5Nfsp197//k1VkRYGwQX5uS2WNojfkCr
+         AlRr2b72x2DYaMhAKTPTe3fqZoXbmQXsCzpoLpxTD7pVCqzX2u8mTx5EcOn9RsNuLnUH
+         /DppWyE3ttNw0WdSd/mmGr+MCdPvB+uKHP4Pn6lxexWanuoSrDXFy9xg8M7VOAdjBzxz
+         0nqku8On10QNhNot9K/Ts3XRXceVhn5d1bIJzSXsyPUGMJSoIKF2nzxwkd9Mu6rH9gah
+         71oDamEbL2GQ+Jv5hzUcoppiBYd5DhaxtfYrqXHtRh+ezfsg+HmttXnh9XumOU4hRvM9
+         KK7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792404715; x=1793009515;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2ESX8jvKxc64R1yrNwWQ44kHJ1omr9swT5HG7pWrcCo=;
+        b=0SGCI8f7WEL0CL7hpDZZQ+j3tez4FaTWYroSCg/UzrbJKnS7oOSIsD0u0gqlO6chzy
+         CPdkG2A3Cv3x6lvu2I9gjsFAvw6cmLEmDEtkKLhfAkZ5n9CTpzBzisyX60rCTeyxajjv
+         qvNl/KxGfP2zVSlxlfDFdJH4ik+YDBZr3z2faf/BX9Gr08XH8JeruKSDgnPi9qO5BgGL
+         SZ32RQcEMkElFaXxpFulyKabx3mjgC78Q33MWHi4k7MYxi69KYzB5n/tUG0ZtXwHoFo0
+         LRj5dQr9bqYwnEHQQ+9LYgMcQJ//3hOdV8C9H6URNeu3sgkCCM9Il37UaX7XT9YZ4X4i
+         oMyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzPOJGtFEXMsqDa0Aol55tfuc55NhSUAxiLin7UAOsFou77C24LysBPh3lQjI8nCHY5bSiG/29vAlDuMfI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKmp1hiE+7SGImPhPNnAEQEy+WQjTPZuPErUdis6/H/zFoDWar
+	fAt37NGXksAyoTNicYt98nPpeABgv83HcPdDK6qL0iHKtN3b+YNuBvfY2V7j9zMSS7k=
+X-Gm-Gg: AYBFou1VeJlH9jXLVDzSuybZHq/I/4tRu3AkYBTI9vWGZlhhWZPihbE4D0EwtaWUlL+
+	B96/KR1QpjmceIkvWvXHNig86hMjQHhxsLjnMQqvLx2JQU+kpUqBisrY+zTYo1ZVFx3WAtsY2Pw
+	hFQg5Rz7R18whnCYqwjZytkIUootrBtFm7Dp3Cp40MoMW67/cEzmDLMGLmywl8/vzUYLgVb0twH
+	4ooM1DvYC93CedEG80Iwz2u2NLt7te44aDAfzVi7yZfT5fxaVbSzkmJf9K0TVZ8pZjPL2JP91vk
+	v0miHZ7GW9S06ikLbDsmjCiXlManiG6Oz+S8KCABVJm5u5CA2HIWmL8fIx0w8bz2j8jMEcN6l/h
+	2uD3wPILPVLNdA5nKuVIUK/Y2kvljA6QCtgCAD2Ts4r1EvPnyDYxMZ2ZOG+Q3sj/lv95BUuI3vO
+	VQJCwbmaBSCAVRFrKiYphCTkC1WKreQrL8/8IAl8+eFIGJWYahPNNvKh3SggYq3qepkiKnhNGfw
+	OIdN7TGchBNKUos201I80E=
+X-Received: by 2002:a05:600c:3ba7:b0:4a1:e6cb:25bb with SMTP id 5b1f17b1804b1-4a1e6cb2ad6mr65909455e9.2.1792404714420;
+        Mon, 19 Oct 2026 03:11:54 -0700 (PDT)
+Received: from LAPTOP-AVI.taile24b5.ts.net ([2a06:c701:4778:c500:b2d3:8bcc:9626:2887])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1dea678cdsm182559845e9.1.2026.10.19.03.11.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 03:11:54 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 2/2] wifi: mt76: mt7996: clamp EHT beamforming NSS
-Date: Mon, 19 Oct 2026 18:10:42 +0800
-Message-Id: <20261019101043.1922205-3-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019101043.1922205-1-yaojiale02@163.com>
-References: <20261019101043.1922205-1-yaojiale02@163.com>
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] sunrpc: instantiate rpc_pipefs dentry before publishing it
+Date: Mon, 19 Oct 2026 13:11:17 +0300
+Message-ID: <20261019101117.54038-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,67 +81,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3_8Wk7NVq1VPPBA--.45843S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw1DJFW3KFyUtF1kGr1DAwb_yoW5Wr4Up3
-	yfZa42vr4xArWkW3WfArs7tr98Ga13G34aka1kWrs3CryfKFyxJF4xuF9xJF1rAF4UAry3
-	Zw1DArn8Wa4Y9FDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRwmi_UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wh1r2rV7KggHQAA37
 
-An EHT peer can advertise zero receive spatial streams for an MCS
-range.  The beamforming setup decrements that value, causing an
-underflow and sending an invalid column count to firmware.
+rpc_mkpipe_dentry() publishes pipe->dentry before
+d_make_persistent() attaches its inode. A concurrent
+rpc_queue_upcall() or rpc_timeout_upcall_queue() can
+conceivably dereference the dentry while d_inode() is NULL.
 
-Clamp the converted NSS value to zero for 80, 160, and 320 MHz
-beamforming configurations.
+Attach the inode before publishing the dentry, restoring the
+ordering used before the rpc_pipefs conversion refactor.
 
-Fixes: ba01944adee9 ("wifi: mt76: mt7996: add EHT beamforming support")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Fixes: 946e2256775e ("convert rpc_pipefs")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- drivers/net/wireless/mediatek/mt76/mt7996/mcu.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
-index e6243dd33c31..29b67248fad7 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
-@@ -1969,7 +1969,7 @@ mt7996_mcu_sta_bfer_eht(struct ieee80211_link_sta *link_sta,
- 	struct ieee80211_eht_cap_elem_fixed *pe = &pc->eht_cap_elem;
- 	struct ieee80211_eht_mcs_nss_supp *eht_nss = &pc->eht_mcs_nss_supp;
- 	u8 nss_mcs = u8_get_bits(eht_nss->bw._80.rx_tx_mcs9_max_nss,
--				 IEEE80211_EHT_MCS_NSS_RX) - 1;
-+				 IEEE80211_EHT_MCS_NSS_RX);
- 	const struct ieee80211_eht_cap_elem_fixed *ve;
- 	const struct ieee80211_sta_eht_cap *vc;
- 	u8 snd_dim, sts;
-@@ -1988,6 +1988,7 @@ mt7996_mcu_sta_bfer_eht(struct ieee80211_link_sta *link_sta,
- 	snd_dim = EHT_PHY(CAP2_SOUNDING_DIM_80MHZ_MASK, ve->phy_cap_info[2]);
- 	sts = EHT_PHY(CAP0_BEAMFORMEE_SS_80MHZ_MASK, pe->phy_cap_info[0]) +
- 	      (EHT_PHY(CAP1_BEAMFORMEE_SS_80MHZ_MASK, pe->phy_cap_info[1]) << 1);
-+	nss_mcs = nss_mcs ? nss_mcs - 1 : 0;
- 	bf->nrow = min_t(u8, snd_dim, sts);
- 	bf->ncol = min_t(u8, nss_mcs, bf->nrow);
- 	bf->ibf_ncol = explicit ? min_t(u8, MT7996_IBF_MAX_NC, bf->ncol) :
-@@ -2001,7 +2002,8 @@ mt7996_mcu_sta_bfer_eht(struct ieee80211_link_sta *link_sta,
- 		snd_dim = EHT_PHY(CAP2_SOUNDING_DIM_160MHZ_MASK, ve->phy_cap_info[2]);
- 		sts = EHT_PHY(CAP1_BEAMFORMEE_SS_160MHZ_MASK, pe->phy_cap_info[1]);
- 		nss_mcs = u8_get_bits(eht_nss->bw._160.rx_tx_mcs9_max_nss,
--				      IEEE80211_EHT_MCS_NSS_RX) - 1;
-+				      IEEE80211_EHT_MCS_NSS_RX);
-+		nss_mcs = nss_mcs ? nss_mcs - 1 : 0;
- 
- 		bf->nrow_gt_bw80 = min_t(u8, snd_dim, sts);
- 		bf->ncol_gt_bw80 = nss_mcs;
-@@ -2012,7 +2014,8 @@ mt7996_mcu_sta_bfer_eht(struct ieee80211_link_sta *link_sta,
- 				   ve->phy_cap_info[3]) << 1);
- 		sts = EHT_PHY(CAP1_BEAMFORMEE_SS_320MHZ_MASK, pe->phy_cap_info[1]);
- 		nss_mcs = u8_get_bits(eht_nss->bw._320.rx_tx_mcs9_max_nss,
--				      IEEE80211_EHT_MCS_NSS_RX) - 1;
-+				      IEEE80211_EHT_MCS_NSS_RX);
-+		nss_mcs = nss_mcs ? nss_mcs - 1 : 0;
- 
- 		bf->nrow_gt_bw80 = min_t(u8, snd_dim, sts) << 4;
- 		bf->ncol_gt_bw80 = nss_mcs << 4;
+Build-tested with x86 defconfig, CONFIG_SUNRPC=y, and W=1
+using the net/sunrpc/rpc_pipe.o target.
+Runtime concurrency reproducer: not run.
+
+ net/sunrpc/rpc_pipe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/sunrpc/rpc_pipe.c b/net/sunrpc/rpc_pipe.c
+index 9d349cfbc4831..6d005231bc334 100644
+--- a/net/sunrpc/rpc_pipe.c
++++ b/net/sunrpc/rpc_pipe.c
+@@ -665,8 +665,8 @@ int rpc_mkpipe_dentry(struct dentry *parent, const char *name,
+ 	rpci->private = private;
+ 	rpci->pipe = pipe;
+ 	rpc_inode_setowner(inode, private);
+-	pipe->dentry = dentry; // borrowed
+ 	d_make_persistent(dentry, inode);
++	pipe->dentry = dentry; // borrowed
+ 	fsnotify_create(dir, dentry);
+ 	simple_done_creating(dentry);
+ 	return 0;
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 -- 
-2.34.1
+2.43.0
 
