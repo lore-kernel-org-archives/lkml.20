@@ -1,89 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792421829;
-	b=BoaU54HUQS5MHZALrOvNgEHz8IlijgL1skXaGqISEn7DCmeYlBeIs/d1fKIwkkly97lA
-	 zsm4TttDfYNil3ZVFzjccmENcaHxLZAZzji/XwFIJ+stoFfvTI+OrkcJs/RFz/jTluKJE
-	 ettQ6Dbc6yDlkRX3rTj/rx4lD77ehCQg1ci9Zzg//2MFB+WZSTzFiJ7JgzCieEKqDiVjC
-	 4NAfMAUjF3bYx077mzqvIR+8Lo+MdUhtal8WQZrXBguGV6GtkE4v4rWEgpRILsCDdw2ga
-	 E4S9L132TYsgnMQE+ENmU6EioqyUdt1u54DQhLEyaTLLWYUUGqNnm2nITkxNWvmfpyw==
+	t=1792421679;
+	b=MaiCJHk31qelLoWOB2Aw2/ASeuWCr3CZ1UjzYny+5fSrLlyb0JS7ACFCOJsayQPABHq0
+	 zh3Zj3gC4UNQGEixkHRI4BWUYk8G3h8fKRhcX855GIZgYFtD+r/QKLohf7wAApV+MyB1T
+	 mNm+6KOCR0k5W+dAmiTVNEXzgftX1INkI0xPrjyrtjcsamlSj0YpX6rbY9OrP8rSAGIVy
+	 +2tnQVBVOwyexC0Ed7OB8HqDjIyN8lG4mkk8v3q2PWOzQQiDAZAGqsPOzzA1DfiYMVxGU
+	 tkk7GtcUD+awCsjtcPoOSN+ppVNU3+79kB4A2j2mfn8DuIZ489PKAxmbjuWzfyIzong==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421829;
-	h=Received:Received:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421679;
+	h=Received:Received:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VCgwC73CEIkR5p1wAPzHafgllwFVQaoLyQhXqaXGVnk=;
-	b=dRY7RYev8/gaGOgIEOS5RAxDD3P7WmUSOir2aYt4KP16gQsbOtIlpSM8ZaOSGZRp4LSv
-	 h1TLZdyl0rof1GqRKQhW+fXAsN7Mgo0Ur8Ht4wue21l+agNUYLIqSS4Aa/OV/T16PmtR3
-	 h51Oeng0uMrdOvDldFpMa/3eStfVkeyXbX1SDCmlH9g6yjUL2vjbQYZCUpWF4dEYmqR6U
-	 27Ma2ZcPuakwQ8LlvaJ7mV00UQAypPD/ko+4v9CQzC0+xtZXC30OWo5VlBIJP7NS/AyeH
-	 OF0oNUUaUJ4p79FIsLp3Q4QNWEkzIDi9ZOSVWYYXz9FVSkf3IwUU6QTgQkFTn6q4nkQ==
+	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
+	 DKIM-Signature;
+	bh=xOumFf8QovRxhD1eGGAGpu54ZcAWxs2MC729deNVVtU=;
+	b=thwH2cU7nru2ffU3oRM7PXzzqWG/+ayt30SvqaBjO/reOJGQsoB7ZvYvuhPqD07AE0yY
+	 WEZ85qjQ0P8HisRPcj7IVJpWV/DM8VfKd/BqVYF05q/Q/74yyyW7cyT8KGNeawXrjES2S
+	 Hixh3xwgDg4g4NojoS3o0/vkGjIofcbcTKcO1/hV+69iGUJowEgVia13WzWbUQqzHVnwW
+	 40uqetPfwNf1SzaAhxN4w5KO8NfN7Na7d0rYHXCdfDnFDxFQAdihxyzNrT6nqcsLGUDTy
+	 lyxKaMVm+Aeb1j0ojmEToCeiMvvh8ZO52l7scX+OqTbSnUUUF9DQA+QZcJRpLrkNHWA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kmO6KxO0;
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=G34Zwobk;
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
 Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BEE206074095;
-	Mon, 19 Oct 2026 14:57:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2C40606DA77
+	for <linux-kernel.vger.kernel.org@localhost.mlmmj>; Mon, 19 Oct 2026 14:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kmO6KxO0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F7FC6513FF;
-	Mon, 19 Oct 2026 14:57:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+	dkim=pass (4096-bit key, unprotected) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=G34Zwobk
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16554C4613
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:54:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.172.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421829; cv=none; b=fdS1wquQYSdBMqJm4rspcZC1A5mpxtYDrwC8cO/MtR4gnMQGW23/1mB1+2vczzFKRwNQSrRCM8AR5TkNJYd/Bg7C2Jbs4Tmitf+iS7LcdfWoQz/dbaMKquQiQdF8g+Wacxu2T/l/gzKAXB+I5AAKoJXke6mZ9Ic2zsDoHWNqqqY=
+	t=1792421678; cv=none; b=lgikfT6EbBVKOUslH+dlp+gnpuNcZWUQlvMdqYCsDRV+0o/FW+wFpRZ7EfurpuTzR7Zg5DXtYSknGSP+HQY8l1zjsI7aUGCDmjkJCpJkjIPGLj7SW9nQnn89HIVhXjB45+QsPOT4gTEEBGY0By+DptNmE75YAipoQXj1bazH9FA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421829; c=relaxed/simple;
-	bh=YlaWlYaZIkAnlD2LKt78HyIT9RVMdmLuS6Ccg2ZGCLU=;
+	s=arc-20240116; t=1792421678; c=relaxed/simple;
+	bh=Hipy/KE3TsEelU94kP3nCg+Z58+mCcvF4l6Qeuvkmms=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jtf8ti1aauayl3xP1b0silwqDJCiE7sepjGYUHawEqQvW6Qqwg6H/pmSdRxTUHERKFmEA1vK77GnNDAWnoEWy/FOQyJZOSp+9av45LtHVID9g51yXTygk0JG6b7q/nZlF4Qp4pdExvpni/QDd0W4jcbTNjrVHDXZId/U3YsI1vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kmO6KxO0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7E16E1D34;
-	Mon, 19 Oct 2026 07:57:04 -0700 (PDT)
-Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.131])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 99A763F673;
-	Mon, 19 Oct 2026 07:57:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792421827; bh=YlaWlYaZIkAnlD2LKt78HyIT9RVMdmLuS6Ccg2ZGCLU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kmO6KxO0EaT2UX7XQwEqVTYJDoqisGCaBNf49e9mWIIU090eRvJ4LbuYMZ+lkWJ52
-	 jh8Sd9Z7Tj4QgtvLHKai+ACKt9MPl+sdTOou5BpHyBQ+/Ipgfl2HZRRdL+EU5KHJjH
-	 /iM9CYyMaNTNhJwd0oCJ7A1AYKHeB2nalvjwIcsQ=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
+	 MIME-Version; b=EO09gdI20sJDNtCctVxH1mNhisFEfbMIiM+2Z2vOGNSsL957hM7Vhd+jaZ6JOegCt8dTEs/SYnikEzDaBHf5E6MnUPLAuqjwJqjVT/wTtUeNVfy0oAwiqRPORALAxQUTkC9YQ61dWO7p5VhJrxCyXvqV9hsdOfG4rcpe3diY4vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl; spf=pass smtp.mailfrom=lausen.nl; dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b=G34Zwobk; arc=none smtp.client-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id 3EC4D6114E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:54:35 +0200 (CEST)
+Received: (qmail 28350 invoked by uid 990); 19 Oct 2026 14:54:35 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 19 Oct 2026 16:54:34 +0200
+From: Leonard Lausen <leonard@lausen.nl>
+To: linux-acpi@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael@kernel.org>
+Cc: leonard@lausen.nl,
 	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
 	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	Terry Bowman <terry.bowman@amd.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Morduan Zang <zhangdandan@uniontech.com>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [PATCH 1/6] ACPI: extlog: fix extlog_mem_event build issue
-Date: Mon, 19 Oct 2026 16:56:08 +0200
-Message-ID: <20261019145643.1877246-2-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019145643.1877246-1-pierre.gondois@arm.com>
-References: <20261019145643.1877246-1-pierre.gondois@arm.com>
+	acpica-devel@lists.linux.dev,
+	Len Brown <lenb@kernel.org>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Ivan Hu <ivan.hu@canonical.com>,
+	Joshua Grisham <josh@joshuagrisham.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] ACPICA: Initialize ParserState.AmlEnd in AcpiInstallMethod
+Date: Mon, 19 Oct 2026 16:54:17 +0200
+Message-ID: <20261019145421.47181-2-leonard@lausen.nl>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261019145421.47181-1-leonard@lausen.nl>
+References: <20261019145421.47181-1-leonard@lausen.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,50 +80,71 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -----
+X-Rspamd-Report: REPLY(-4) BAYES_HAM(-2.97699) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -5.57699
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=Hipy/KE3TsEelU94kP3nCg+Z58+mCcvF4l6Qeuvkmms=;
+	b=G34Zwobk7+jTQBscFXiVl0wGO6Tg694XtvV7EdCgNByMswpXAAHkC/NWoS2OHCCmmc4Wx9aC08
+	f9GuU5l6gfqtWFwQ/elECYEZhu1HPdedLFG/2IeOv0gmoTaz/n76FjaNvQbblViulMw+UOVgzcRz
+	20ndPfGyGVhYSuYRc/QmLtVRwr3ZZZnSYHsjedOTyC6LnyUu5eEtkWtSEND+7ZOe+omi6z7KIooQ
+	wroZrKtbzgISr/hCm7jRhUhIV1R9KfsO16VzW69N48yJlIkCWuM/61tte2qrzzEdkVtoxDwurYok
+	w1alnWRJN1rAqFA3JJGyzK5G5CgpoTMugQnarBVGA+uIdYlKL1K6Uz2LqiFxAZtgw0IcruSiW669
+	4An0xXHOJb8/W9hTbNYzlNCNLuLfdaKUstzBI03uSKQJ3Y+XSMw1Hd/2/vPnjLmbOQQNZpGfTrrh
+	s+qkcFWI9mIqZmk9Smxjc578MaAHK2c5ikFCUhmEuQa1YXVZsX52pNCHvz8SMwGX47oWWhXmJl6F
+	uf3WoBUzgjhXqt1pdehm0q0TyAZVuZaexC/4VZq/idZ7tcvgH1TLaIH/HsfyYoR0495PxzyyvTrE
+	9oep4yW+QlozYICzBmA84E4GO20dkv9dJQSw2kE+56GZ3Ra8XLmUnHkcch3gSOxSi/Guu6+KbAAm
+	8=
 
-With CONFIG_ACPI_EXTLOG=n and with the following command:
-make -j4 drivers/acpi/acpi_extlog.o drivers/acpi/
+From: Ivan Hu <ivan.hu@canonical.com>
 
-trace_extlog_mem_event() is not defined. Add a extlog_mem_err_event()
-wrapper to fix the build issue.
+In AcpiInstallMethod(), the local ParserState is stack-allocated and
+only ParserState.Aml was initialized. Parser helpers called by this path
+read ParserState.AmlEnd for bounds checking: AcpiPsPeekOpcode() reads it
+before validating the first AML opcode, and AcpiPsGetNextPackageEnd()
+reads it indirectly via AcpiPsGetNextPackageLength(). The subsequent
+package-limit check also compares against ParserState.AmlEnd. Because
+AmlEnd was never set, these checks operated on an uninitialized value,
+which Coverity flagged as an uninitialized read (CID 1684785) and which
+could lead to incorrect parser bounds decisions.
 
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+Coverity report:
+
+*** CID 1684785:         Memory - illegal accesses  (UNINIT)
+/src/acpica/source/components/namespace/nsxfname.c: 712             in AcpiInstallMethod()
+        ParserState.Aml += AcpiPsGetOpcodeSize (Opcode);
+>>>     CID 1684785:         Memory - illegal accesses  (UNINIT)
+>>>     Using uninitialized value "ParserState.AmlEnd" when calling
+        "AcpiPsGetNextPackageEnd".
+        ParserState.PkgEnd = AcpiPsGetNextPackageEnd (&ParserState);
+
+Initialize ParserState.AmlEnd to the end of the table
+(Buffer + Table->Length) so the parser bounds checks operate on a valid
+limit.
+
+Link: https://github.com/open-acpica/acpica/commit/19429ef91ebfb2144c918038dce13e297b4ef051
+Fixes: bdc357540129 ("ACPICA: add boundary checks in two places")
+Signed-off-by: Ivan Hu <ivan.hu@canonical.com>
+Signed-off-by: Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>
+Signed-off-by: Leonard Lausen <leonard@lausen.nl>
 ---
- drivers/acpi/acpi_extlog.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/acpi/acpica/nsxfname.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/acpi/acpi_extlog.c b/drivers/acpi/acpi_extlog.c
-index 7ad3b36013cc..e764d61f71ca 100644
---- a/drivers/acpi/acpi_extlog.c
-+++ b/drivers/acpi/acpi_extlog.c
-@@ -180,6 +180,15 @@ extlog_cxl_cper_handle_prot_err(struct cxl_cper_sec_prot_err *prot_err,
- #endif
- }
+diff --git a/drivers/acpi/acpica/nsxfname.c b/drivers/acpi/acpica/nsxfname.c
+index b6534187cd43..fcd94947fedb 100644
+--- a/drivers/acpi/acpica/nsxfname.c
++++ b/drivers/acpi/acpica/nsxfname.c
+@@ -503,6 +503,7 @@ acpi_status acpi_install_method(u8 *buffer)
+ 	/* First AML opcode in the table must be a control method */
  
-+static void
-+extlog_mem_err_event(struct cper_sec_mem_err *mem, u32 err_seq,
-+		     const guid_t *fru_id, const char *fru_text, u8 sev)
-+{
-+#if defined(CONFIG_ACPI_EXTLOG) || defined(CONFIG_ACPI_EXTLOG_MODULE)
-+	trace_extlog_mem_event(mem, err_seq, fru_id, fru_text, sev);
-+#endif
-+}
-+
- static int extlog_print(struct notifier_block *nb, unsigned long val,
- 			void *data)
- {
-@@ -229,8 +238,9 @@ static int extlog_print(struct notifier_block *nb, unsigned long val,
- 			struct cper_sec_mem_err *mem = acpi_hest_get_payload(gdata);
- 
- 			if (gdata->error_data_length >= sizeof(*mem))
--				trace_extlog_mem_event(mem, err_seq, fru_id, fru_text,
--						       (u8)gdata->error_severity);
-+				extlog_mem_err_event(mem, err_seq, fru_id,
-+						     fru_text,
-+						     (u8)gdata->error_severity);
- 		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
- 			struct cxl_cper_sec_prot_err *prot_err =
- 				acpi_hest_get_payload(gdata);
+ 	parser_state.aml = buffer + sizeof(struct acpi_table_header);
++	parser_state.aml_end = buffer + table->length;
+ 	opcode = acpi_ps_peek_opcode(&parser_state);
+ 	if (opcode != AML_METHOD_OP) {
+ 		return (AE_BAD_PARAMETER);
 -- 
-2.43.0
+2.55.0
 
