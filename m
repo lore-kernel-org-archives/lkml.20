@@ -1,59 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792442823;
-	b=zqA7bWne9axyx1SXtpQHp5G34eVp3L8eg5df0lG1I7bwrXoJxnNPgY4veCyolS8xT5uH
-	 gOdn/Sv4nI6d0KwW41ovLxasZhqN3G0xB6QP4x4ikCZ1hzE5hkSmmWY3T+3fGkZegXys7
-	 QQSPv5gIOJgStaoj1qL563wtXVpW/xD8wPu3DPGoHBIyXjW1RUo24ffk5LtnTSvmA3ERe
-	 opk0/Wsx3C/UNUfk7e5E9keAB38Ygdq6mE+uLxPHzABNyPwYMVbCtubQM6DlYhIscHYbB
-	 SE8eAps0axYGSrA+Ho5NIl0bpfuKr+Npuol3UT0tMqFeUw41GOWhv3AaW+npK8re1Cw==
+	t=1792442870;
+	b=HquE/1eaha5NZdSPP2L99bmr0maLstuyByxUiZIRYn+Slrdo6RrvFXAL4dIuVNe751V7
+	 +4Rs5YZlRfT7JfjMjWFhuhz9vQav4KbnCxlkBdLKttL/E4ubWdLHMSnRXoMNEzscpnl7N
+	 rvh/sDdY0O/N4v7byg4fYy5rCfD5vsJl9Fnnu2yanm8qnZf+p/nvvr6hCQ0v12MYfwtxt
+	 DU9o24TLnoeQirYsQR6SGrYjtqiZXh2gBg2m35mjmVQKDgeliezpCOf6GfWcOmC2caw2r
+	 daQyXGfkKD8aJlQ1hFPZtn2HGOUb9TzTUjxVMh3t+GtFcGnn1uY4YjupSl0Uylbhr0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792442823;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=V1WbwvhVT+CaOduktfFrsnpnmJC/bkfFVrmRm8iPY4A=;
-	b=3HI94pChNavWyuYjZB821HmUiCDafMGMfP6uSYQpOk3uJGyWrggjJ4fobt4Bgqa9L9EN
-	 +cD8gKgzLWvc6Euz/acVbkNoax0v0Scf+KIYQYTxaeyluQOcnNZfWFx2KMeC28wBWUNns
-	 TMiITa25/x0f46l/qCV2Eb1JPuDRgW6TvvBmr9TKmY7sz7cqc8+aSoHR/P8shiP1I8cfZ
-	 8XxBKUiRtjoxCcnfT10SBMk+RKNzloIQUFrRx5RES503QlfPtQiAVYsEAD039aDtFUbg6
-	 lWlicgY2mWFtkroyX43JJ0L/8q9mK8bz3QpcROd48GgKUlLqDdOmk8eM5zxKmMzU0rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792442870;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=KnhFauQRQMdP/HvCz8tr9YCb6Rhc9i5YKUinTTqwk7s=;
+	b=lAA/6u2BDee9zilTqgYLhFFCEyfWvfqFg8Ndl7BLC5zW6n4DPJHGyN4ZLPlYApQLjFhm
+	 k1fpwCfqNdA01ExJlL/M+/Qe1lQjmP115e9yX3UiH9cISjSDSEJpSFl0J1Pmz/Wa+9oJY
+	 BTuc47dqzD6fIJeGzHke8LZ2i850ARoanC+hsgQGbb0BBXoOHHDpBS3k1S+/auN/iSrRm
+	 +e57HexIem5q4+QbHcBnpHCowiUlpTzKTpWwuKu2w1ad/nm8RQwpGE2Qm+VxFsHIisvkD
+	 dfv3Lh7tUNLGCyzxUViE3sBa3Unpy1dxifP2GMaz/jSF/26c16fB4SOCi1nPcb5/FMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPX21dfN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qOjdJqR3;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 05CF7606A31B;
-	Mon, 19 Oct 2026 20:47:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23127606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:47:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23127606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPX21dfN
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2AA791F000C4;
-	Mon, 19 Oct 2026 20:47:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792442822;
-	bh=V1WbwvhVT+CaOduktfFrsnpnmJC/bkfFVrmRm8iPY4A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lPX21dfNa/srFS30DqBEg08zS+0XWWTbE8Gd9yfXMbpXTtzN7wg3al9B01EpvJ2Z9
-	 Gt9G2kr7S9un7IaTaGjBKIUw0nlSvgXFxKSE9Zq4ckFRrAR1xt9aNgnpKatoiQ2dKf
-	 wIubCd76No+obcmZdBMgo68aoeIrGvC1Ep4Y3wzhoOuyF9a5Ctn2W3g9Y1rROtzTMr
-	 ZoArsTHr3+C+g+FZpTvuEtQFs915UjYKKfHTIHRn6kBeyUyTMBdY27qGuMJGijUzaI
-	 K+BNPePs4TcQqQRSpDUTTiQGQPyvKzloZvGgDGZSwFj+iU0v/dIVy2EdANa4hJWz/H
-	 Fo4T2wVd2z/Qw==
-Date: Mon, 19 Oct 2026 23:46:58 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v2 2/6] KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE
- in key_alloc()
-Message-ID: <ataBwhb8d2M1q2ux@kernel.org>
-References: <20261019181732.449591-1-jarkko@kernel.org>
- <20261019181732.449591-3-jarkko@kernel.org>
- <20261019191759.GB65095@quark>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qOjdJqR3
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 8E39C1A11F2;
+	Mon, 19 Oct 2026 20:47:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4225F60582;
+	Mon, 19 Oct 2026 20:47:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0751310328C52;
+	Mon, 19 Oct 2026 22:47:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792442866; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=KnhFauQRQMdP/HvCz8tr9YCb6Rhc9i5YKUinTTqwk7s=;
+	b=qOjdJqR3k95ePaXqLDsXj58BeX4o7gJ2DJ0aMsiDBuQR+ZfmEspsHZB2snqQkbGMqc1Gr2
+	rSClNf+7XDf5/yT0i6D2xo3OJ+Q26jBeTvXGJMOv0IwnOuSKx/BfZMx/j3OreZNAMgZH4w
+	rUaiErFutFhSrZc410WOBsHkenIk0HhDxQzstqduil/d2xFk71wa/5U0ge24YhhAjheKwA
+	snfst7Tyj4modqa7nfnbP18pfZ9hO6hseH/SrNsJRE8XBk9z13P67wjsuy50BivnF/orzS
+	+aAVVJUIGvSCX5YpJo4UKP4TV4EFp2+hYSz9DAK2kj7TNx0DOfN4ft/YN3r4Rw==
+Date: Mon, 19 Oct 2026 22:47:44 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Heiko Schocher <hs@nabladev.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>, linux-rtc@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] rtc: rs5c372: add Ricoh R2223x support
+Message-ID: <179244285492.113856.13160350426783860313.b4-ty@b4>
+References: <20260825071927.4090460-1-hs@nabladev.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,41 +69,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019191759.GB65095@quark>
+In-Reply-To: <20260825071927.4090460-1-hs@nabladev.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 19, 2026 at 12:17:59PM -0700, Eric Biggers wrote:
-> On Mon, Oct 19, 2026 at 09:17:22PM +0300, Jarkko Sakkinen wrote:
-> > @desclen in key_alloc() is saved to the 16-bit wide desc_len field in
-> > struct keyring_index_key.
-> > 
-> > Reject @desclen values at or above KEY_MAX_DESC_SIZE with -EINVAL in
-> > order to account for the NUL terminator and prevent integer overflow.
+On Tue, 25 Aug 2026 09:19:15 +0200, Heiko Schocher wrote:
+> The Ricoh R2223x is an I2C RTC from the same family as the r2025sd and
+> r2221tl which the rtc-rs5c372 already supports. It shares the R2x2x
+> control register layout, so only the new type must be added to the driver.
 > 
-> This should say something like: "in order to match the userspace limit
-> and avoid u16 truncation".
+> The ricoh R2223x drives a clock output and offers an eco mode that
+> lowers its current consumption while running from the backup supply.
 > 
-> There are also similar truncations of desc_len to u16 in
-> key_create_or_update() and keyring_search().
+> [...]
 
-Ack.
+Applied, thanks!
 
-> 
-> > +#define KEY_MAX_DESC_SIZE 4096
-> 
-> Could use a comment mentioning that it includes the trailing NUL.
+[1/3] dt-bindings: rtc: add ricoh,r2223x binding
+      https://git.kernel.org/abelloni/c/026f8b1d515b
+[2/3] rtc: rs5c372: add support for Ricoh R2223x
+      https://git.kernel.org/abelloni/c/df8a0f6db214
+[3/3] rtc: rs5c372: support eco mode on R2223x
+      https://git.kernel.org/abelloni/c/95e83d98e104
 
-OK, that improved the commit mesage somewhat:
+Best regards,
 
-    KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE in key_alloc()
-
-    @desclen in key_alloc() is saved to the 16-bit wide desc_len field in
-    struct keyring_index_key.
-
-    Reject @desclen values at or above KEY_MAX_DESC_SIZE with -EINVAL in order
-    to match the userspace limit. The constraints inherits from the one byte
-    required for the NULL character.
-
-> 
-> - Eric
-
-Br, Jarkko
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
