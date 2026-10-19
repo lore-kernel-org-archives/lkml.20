@@ -1,61 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422754;
-	b=M+4IpuK3uXgNUgaUOe7LYTBdsGmDFx9S8NgAQo+NxV52iu3lBMDVQ9r4p6y6Za/o+RtO
-	 j3x+csv+fTYTSSJLyjMOpwo0wH22GFe6b86rdo78XmIz0jhgLY/wyrYRS/PwKAzLQretb
-	 v//+8mS3dfOSTxvdycZu3k/fKBdYHcWJGsVuvTX9ZLU+tcvDG7Bw3OWCqFxL+juYXD7GZ
-	 MgABuDwQ9byrXgwbwoyX1pfEEEsNwFqQlV0f+dj0s1caZhBnTv4jBXS4mCOm/lgtTxRA6
-	 +FQd3D3POJEyvrYnvvevGjFXNFQBFYphDNh1Ner41JhN2d4cXpjRJ4c7ai/3nler6ZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422754;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RqMiwNrNvXh5GTQNf5CbmkH7lo3XiBlAJIsepE6Yk1Y=;
-	b=q+ARuiylmJcT92FIsKflHVzyERFbntwpuOYjVg/NSMYFJ52viwlBGOdtf77RmH2gVQ9H
-	 rJrdaKNnoAr++HKLY832DJdZKiaPBmLhnjMpLkJVB56vygocdjweF0U1RDmcApDhmR5pt
-	 Nh13GHzhDe/MRUnp29+8cRPnoTe4Uv0UMsRNsFYfVm/UBdyzpUrb7v0uAnGEvZJ+td9yL
-	 EQGrIQmF76GB7mItT9JwAHbLGLyBJxmUJGZbih2udlHbVkdDPVtfnGlTb5mwRJJzJXw5v
-	 a6C8HzhrnErncT58+9NeqK9+2CbE9NvNHIcX40p8TSgXOKZfcDIPboHKRkO1bQ9zO0w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=rp7lkRsF;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=YjxLj5UB;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AD36098A0D;
-	Mon, 19 Oct 2026 15:12:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97AD36098A0D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792421851;
+	b=0fZQBcxobdAbRvOLdTOmpQyxbMAa7WWwMnMVEbn1vPH6talT9J/K66+FoalsU7JHXOxO
+	 EvlV3+QMdOqJCAyQdLeZzRHM+j2sMKP/ppXdAJLATXRFD+heoD4oy1xacNgcN2ZnjAltN
+	 eCkGe7FTCBfhs8Hw+cwWSYsPodh+GiTc0GC2QXxTvj5zFeO786vWOr0BZU+6xLQbgLTG+
+	 EMhE6kyQrOV4u2MZpPzj4dOTicGqCE4ijNnLe1BlpA7DdSNMbnCerIotaiy3SGUnUrDyY
+	 a/xwZnfENtgekcnMcnqIsc75Tr/+xb5wx3aYVxAg9yL75WcAeuGqHEovj3WaJRLOttA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421851;
+	h=Received:Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=CC9KOYdH8iipSn0DMAkiuxxsVI+upeJ/ejzJwpUoiSI=;
+	b=XeE4KiEHWJICSyNB16l+sc4NU4ClnBbaCaYDrt2J3NRUckQcLInZPgJkND74a2POy9e5
+	 fGvSEetkvFuLvDhkkdpXoshcM2T7o5J/HEkd+dYzZyry6HQUoU90Yw9NiVZvrObV+4/4d
+	 qbxBWKu8DIi6xYt6PR3Z1EG1A59Tw2oCaOcqvwD8bnUsaVyhWDutkiL4GFdje/b45lYnw
+	 5FRxk+GVA2pqcUnuYUI0KFbCm9dQ98+EY18mF28wVoNBZKVDWtgQUBh6XqRJ0pDJQxnd+
+	 mPldxgtz7B3VNQSIkZcYSBH7u52XYskq+l5JD9pNevOD73bAhPr+826uwTU9ZsgfWfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f972M3PB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D387A60740B2
+	for <linux-kernel.vger.kernel.org@localhost.mlmmj>; Mon, 19 Oct 2026 14:57:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=rp7lkRsF;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=YjxLj5UB
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792422751; bh=RqMiwNrNvXh5GTQNf5CbmkH
-	7lo3XiBlAJIsepE6Yk1Y=; b=rp7lkRsFVw84fXeEVT6DW+0FtZqF7z0IaBHDWwxOJ9mxkc+zG+
-	6J429ltznkrG79JiYuvVJOMkrMDF8B7KEiL2PJ/qx/ClddCvzXzWDvFy0H8yRU3LkJoYblvI7LF
-	aoDBUpgxbHwezGRTA8Bt8LkjgcHfyXCEsQlf1HwYOI9mm/ndzj3iSzKVHKHLiiarxKuROMAkjq8
-	dzpoxdlHqO5ik8nq1+ULO14MST6Tn2ASKd9qObD6fbep3py2WHicdRLfR7KZx13gqTGtkg3bqFM
-	TH7zxKkMSHvSjKrzOWyao6KgdBN1APLv5PwDQBxcTQs5jRYPIvO9Ck5HrZw6Pyl7FoQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792422751; bh=RqMiwNrNvXh5GTQNf5CbmkH
-	7lo3XiBlAJIsepE6Yk1Y=; b=YjxLj5UB5NHsSwNRPzGbYpNe2BZB/uX2RWtNWtYIAAuny3xhuc
-	M0x9v5mWGNDPdtTUynqmoDj4YafgidjPHeDA==;
-Date: Mon, 19 Oct 2026 16:12:31 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: qiang.zhang@linux.dev
-CC: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
- linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org, paulmck@kernel.org,
- rcu@vger.kernel.org, urezki@gmail.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_doc=3A_Update_recent_RC?=
- =?US-ASCII?Q?U/SRCU_API_additions_to_whatisRCU=2Erst?=
-In-Reply-To: <20261019122209.15604-2-qiang.zhang@linux.dev>
-Message-ID: <DD585FED-EB1E-4D71-B6DB-CFA4A15D4DCF@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f972M3PB
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6EA6513F3
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421851; cv=none; b=gV8kXyZQdCitXTQyRwe8j9Hu4iCRUYjk8FyKWNiZyogaZbPOdQTsHtDwMCsBFhe6PunjayUiSc2OTagg1jORKjB8j5MAHyiauNW+Pxo3Vcg0k21K+EoNJh7hAO25SblTb6EKx5UviKEYPNr8spP/7/hXaST7S4kFdNoBaGFF2oo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421851; c=relaxed/simple;
+	bh=h46JYwZL+29g5uUJsUhXDYs4fuoB9mGkH+A6SooeuuA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Y1+oprenrKHbsKKLwWLDMpO8E/uq2VTEm9VcPdVLsrbx0MxxhtNEUn7Bi9ARyw/MAKCQOqnWhpg8Q2FlIfZ3QpCIZyZqazm1xrAJXDZJ40dNg1lmljHX3d7ESQd9poTpn7V3rCbLFO2l9DbQtzFpHsWwxNm2vyObtvoOLQOwoyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f972M3PB; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366041F000C4;
+	Mon, 19 Oct 2026 14:57:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792421850;
+	bh=CC9KOYdH8iipSn0DMAkiuxxsVI+upeJ/ejzJwpUoiSI=;
+	h=From:To:Cc:Subject:Date;
+	b=f972M3PBK9ekots40MMWEY5ROIY2rhSMd/l94jc3k0g1i5VxdouGTo5354POAC4vk
+	 lXNROnuTJldCeq+2zLMrY1+lvz5e2yFfEDEatMsp90DfAPcKTp9WP3GfDl86G3ygdH
+	 pZKnolE2NN0vgC19WAzRMvvOW2cee/nO4khqnPBxRsMLHgC8Ohfh9e/sAJREH27XuG
+	 pTMKU74q5kj9Ef5IPpdLMM44D/zog4WpwJ4CHFGiV8ebjW7vxeVc+mdFgRsFwKR9En
+	 +fxr7zjbVgkZRUP4RDyF984+7XM9VWLjAuHrRN8Omz+Z2oceH1iMT63vbh/o2KOkbk
+	 Y04BNk6DB+Wtw==
+From: Dinh Nguyen <dinguyen@kernel.org>
+To: torvalds@linux-foundation.org
+Cc: dinguyen@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] NIOS2: update for v7.4 part 2
+Date: Mon, 19 Oct 2026 09:57:21 -0500
+Message-ID: <20261019145729.2619867-1-dinguyen@kernel.org>
+X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,93 +66,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19 October 2026 13:22:09 BST, Zqiang <qiang.zhang@linux.dev> wrote:
->The following commit introduces some new RCU/SRCU APIs:
->
->Commit 'd3f52f53a562 ("srcu: Create an SRCU-fast-updown API")'
->Commit 'dab06d6f9379 ("srcutree: Add an atomic Tree SRCU")'
->Commit 'cacadb630375 ("srcu: Add guards for notrace variants of SRCU-fast
->readers")'
->Commit 'fa8a2d55139f ("srcu: Add lock guard for srcu_fast_updown flavor")'
->Commit '954c0d741299 ("srcu: Add guards for SRCU-fast readers")'
->
->This commit therefore update thems and some missing RCU related APIs
->to whatisRCU.rst.
->
+The following changes since commit b963f2345fa20417401c51a69dedb6a58eea33a9:
 
-Since this relates to my patch, and it looks good:
+  nios2: fix __wsum type degradation in csum_fold() (2026-10-13 18:37:54 -0500)
 
-Acked-by: Bradley Morgan <brads@mainlining.org>
+are available in the Git repository at:
 
+  git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git tags/nios2_update_for_v7.4_part_2
 
->Signed-off-by: Zqiang <qiang.zhang@linux.dev>
->---
-> Documentation/RCU/whatisRCU.rst | 24 +++++++++++++++++++++---
-> 1 file changed, 21 insertions(+), 3 deletions(-)
->
->diff --git a/Documentation/RCU/whatisRCU.rst b/Documentation/RCU/whatisRCU.rst
->index e6767baff2d3..fe9dc3948690 100644
->--- a/Documentation/RCU/whatisRCU.rst
->+++ b/Documentation/RCU/whatisRCU.rst
->@@ -1084,8 +1084,9 @@ RCU::
-> 	rcu_dereference			call_rcu
-> 	rcu_dereference_check		call_rcu_hurry
-> 	rcu_dereference_protected	kfree_rcu
->-	rcu_read_lock_held		kvfree_rcu
->-	rcu_read_lock_any_held		kfree_rcu_mightsleep
->+	rcu_dereference_all		kvfree_rcu
->+	rcu_read_lock_held		kfree_rcu_mightsleep
->+	rcu_read_lock_any_held		kvfree_rcu_mightsleep
-> 	rcu_pointer_handoff		cond_synchronize_rcu
-> 	unrcu_pointer			cond_synchronize_rcu_full
-> 					cond_synchronize_rcu_expedited
->@@ -1209,13 +1210,23 @@ SRCU::
-> 	srcu_read_lock_nmisafe		start_poll_synchronize_srcu
-> 	srcu_read_unlock_nmisafe	start_poll_synchronize_srcu_expedited
-> 	srcu_read_lock_notrace		poll_state_synchronize_srcu
->-	srcu_read_unlock_notrace
->+	srcu_read_unlock_notrace	synchronize_srcu_atomic
-> 	srcu_down_read
-> 	srcu_up_read
-> 	srcu_down_read_fast
-> 	srcu_up_read_fast
->+	srcu_read_lock_fast_updown
->+	srcu_read_unlock_fast_updown
->+	srcu_read_lock_atomic
->+	srcu_read_unlock_atomic
-> 	guard(srcu)()
->+	guard(srcu_fast)()
->+	guard(srcu_fast_notrace)()
->+	guard(srcu_fast_updown)()
-> 	scoped_guard(srcu)
->+	scoped_guard(srcu_fast)
->+	scoped_guard(srcu_fast_notrace)
->+	scoped_guard(srcu_fast_updown)
-> 	srcu_read_lock_held
-> 	srcu_dereference
-> 	srcu_dereference_check
->@@ -1229,9 +1240,16 @@ SRCU: Initialization/cleanup/ordering::
-> 	DEFINE_STATIC_SRCU
-> 	DEFINE_SRCU_FAST        // for srcu_read_lock_fast() and friends
-> 	DEFINE_STATIC_SRCU_FAST // for srcu_read_lock_fast() and friends
->+	DEFINE_SRCU_FAST_UPDOWN		// for srcu_read_lock_fast_updown() and friends
->+	DEFINE_STATIC_SRCU_FAST_UPDOWN	// for srcu_read_lock_fast_updown() and friends
->+	DEFINE_SRCU_ATOMIC		// for srcu_read_lock_atomic() and friends
->+	DEFINE_STATIC_SRCU_ATOMIC	// for srcu_read_lock_atomic() and friends
-> 	init_srcu_struct
-> 	init_srcu_struct_fast
->+	init_srcu_struct_fast_updown
->+	init_srcu_struct_atomic
-> 	cleanup_srcu_struct
->+	smp_mb__after_srcu_read_lock
-> 	smp_mb__after_srcu_read_unlock
-> 
-> All: lockdep-checked RCU utility APIs::
->
+for you to fetch changes up to 2180d11e06fb56fd13643ae59964f144896870be:
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+  nios2: ksyms: Declare __mulsi3 export (2026-10-19 09:24:54 -0500)
+
+----------------------------------------------------------------
+NIOS2: update for v7.4, part 2
+- Declare __mulsi3 export
+
+----------------------------------------------------------------
+Thomas Weißschuh (1):
+      nios2: ksyms: Declare __mulsi3 export
+
+ arch/nios2/kernel/nios2_ksyms.c | 1 +
+ 1 file changed, 1 insertion(+)
