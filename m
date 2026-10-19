@@ -1,63 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792439580;
-	b=wgJ0tLup4h0X5hRCcFLYIA+N0hJZ+T9+RI8kKEuBmMF9I9D4O3aCLNUR/qZmaaK1mC7u
-	 e31kqEb8e4Iu+z74jS2eVKvpoEgiu87esAfoKVr6eNlbqqjxVJcwIj4eWb7SpdFUCBrrj
-	 cnRy9fvwiqvMm3OOkV9gn1Es2Bx88uhQlcs6p7epP0mEBQ3QvhDcuipTDulv8zKIqHW0P
-	 oHDevc23KJvqgZhl3mqaH2KmUObELx5kdVpCF3Hm22E/QrKm7i1Ftj1yzH8aL5EpLdOCQ
-	 N+3+icEkK2rfX80zhuj3mh8QClfS1bXyJmdYeBUyTd48GW9Gnz43VpKG5Dbpnbbew6g==
+	t=1792439596;
+	b=yn+59mmO0GjBvQ8RUzCQMB/O+cl1CX2L2dsRqWsyJMllht0TYBdeLNgJixuKWph1I8I/
+	 uLqkULmyaWe0ECp9aRfdxa8jyT6SbKzCBGbPGmU40wwHkFEQ9Aa9r460GOpcqZPZk+hXr
+	 8r5SJyF/iWORSiYmlAyI/qVmu5Y6K43attXkax4fA76qKs59C7elo7KdrIYpLocpDGKXe
+	 AgJLLjxRFK3APsvBR9s9juGNFDqqBsk2oA2Zj0lEAea+NjVeevn/Ig7Uyu1+P3Nj7ovRD
+	 flv7BplBluJ2hGyPJj3TdElU6n2vp0avyYesHLVWahguSnKRXEN3DiZGdaBZUkcmEIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792439580;
-	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=/B8Sf2t/5DBguvLLrjlEO7Kkln0Oyn/55MT9a1pjZ1o=;
-	b=KdOqvTeGH8L9TI3ybkVU17ky7T3JY5rDUkUDmlMCX70LYfSaGdiEtrnaUBx0jkHFW0i8
-	 +eKVAQPPRGOwngyJtsG9v8YjDpx14Y7LjISGyT82Y9mYh6rc2Xe7RxDQsQhg2ccE7teNE
-	 O3XQtO/gS/FxXIgj7p36wMYQW8Mk5V2d3hJ4ew7pQB2g/qiPxh76PDKpTGyAT0RRsrWNK
-	 kLfI1uTvkmN3PsLsKBX+UHcqExFgU2rfd2HXtq9CXvTWxpLe26ecd9/nEye7aDky3XwiD
-	 STjNdxxoTGK0npf4Rgz7oLH5YpHSXXqx6JHuw95BKYDN9hCsTetML1ktZgqKfAShl3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792439596;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=dyY7JNrqiai4abS/gqtvGdCXTYu9bu6Za3R7laojQRg=;
+	b=d+nf/BsGSwjxj4qQhBqQYJ7+zw8GPG4XPSjBwUMcsIhRei9pdcVG8OsfPIXYKVLzGuYv
+	 j/R+mhMdyZDh/0GTPawDOSi3yYEwzarBwUMdUyFHPng7PV7d7iPOb6esG1kl8qUuD+Xnk
+	 QMU9rgDVYV77i7dhlEAhGpr2bqZlB8QOpu6yiGWX2rzffFLPjp66VbiEDhkXpRdEbNeCs
+	 sfVkNBeg2i0+qDjT2jtGgg8asFqsxDidlUM2xwFe1EdZOGLJ34ajulBJnWmBROsJ+7FQh
+	 wOhvEcmKIi1WuRNUqR0qaOhzWxDWQIKfPpHjQ4OAzm990X7Mm1YxNsy47jM7O52xIkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuNF1GbO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNwZmfob;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539B9606A319;
-	Mon, 19 Oct 2026 19:53:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF14606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:53:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuNF1GbO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592F91F000C4;
-	Mon, 19 Oct 2026 19:52:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNwZmfob
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4DD1F000D1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:53:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792439579;
-	bh=/B8Sf2t/5DBguvLLrjlEO7Kkln0Oyn/55MT9a1pjZ1o=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XuNF1GbOzd2BBEAJU6p1RypmvBu3/DMrL0b3wWdC+D++Poq0HXIRFWesrR1Oo8lL/
-	 mhtWvhuAYtWIocMai5rqtHzVncAteP+BI3w+hOW2hU6IBI6rvJPA15oR+4bdizjuTn
-	 dsf8kxRwLKdwlPv9l424Xna5CgBVMDCcZ1Jcc/qlP4AB/uOupNzjZvqcz7BE6QGBD7
-	 c7ltj0F3siFa6PMy6uq9tVAO//JSmGoFMld/h5nkyGLtrIXdadBY6yo0uZO+Vp3XbW
-	 h5+bZIQfi4A3lXHhXdvAJPgvsYBe0a+zHp1pPcLAaAFO9pB5lh38SAOIcLgJAfdjpA
-	 FaZxRbZ3iFzxw==
-Message-ID: <42964fa071bd8dcafd418c89be6d66856def4dc5.camel@kernel.org>
-Subject: Re: [linus:master] [sysctl]  8d75c338f0:
- BUG:KASAN:slab-use-after-free_in_touch_wq_lockdep_map
-From: Allison Henderson <achender@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>, Joel Granados <joel.granados@kernel.org>
-Cc: kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev, 
- lkp@intel.com, linux-kernel@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org,  linux-s390@vger.kernel.org,
- linux-fsdevel@vger.kernel.org,  netdev@vger.kernel.org,
- wireguard@lists.zx2c4.com, rds-devel@oss.oracle.com
-Date: Mon, 19 Oct 2026 12:52:58 -0700
-In-Reply-To: <atY42k00k0Waj6o4@redhat.com>
-References: <202610190310.9737b2e3-lkp@intel.com>
-	 <atYB0bm9eEXp8A2g@redhat.com> <atYW0K3t57puHeLW@hobbes>
-	 <atYuE1xnVYe0BDG4@redhat.com> <atY42k00k0Waj6o4@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	s=k20260515; t=1792439596;
+	bh=dyY7JNrqiai4abS/gqtvGdCXTYu9bu6Za3R7laojQRg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JNwZmfobCYy44kF73fLPY3nx2mQpel3uc8oCw5yPeblOK9knkM7xVo/+J9D8Iq7bu
+	 /iQPRLEf22B1WMVJG4qUjLLweblmu2RuVgTpQUS1XILp4cAzI+lcyrtvezARBYnkoO
+	 PrE6DSv+IJafrFiSHGYTBNzfB2MbBNAs/N8BU+axmotJzpmeqs104le2tTMJoeHeVp
+	 1xuj8vb3rCtxQSkiIfEALrtAXehbiavVBYVjxb62W2RbsKO9mmx+2HOSIQ78fhyDzB
+	 mJmZQgH+m/0TWSGP4EDkA08nZl1EVzRZrtqMLivYRhtmHtTsTNdogjD0dleMijjE4d
+	 HhdwzF0pz/7xA==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2afa22e1dcso384891166b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:53:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByOMLr0HBa3O9UkjB8Pflwv3jVGKH2vYOLOaWkVH7P0SzNj5y1TFAyfJmbgLlrAIjqplGHKqjnS9VPMm/U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIp166YB2r1COwKSmGcMLa+1sY8wz4AbAOqYBdmjeAmn3ckKHQ
+	B/kijwQgZ3ONzY3v8dY6OlAyJfvXS44z/kjtHfCrveolDErnzoFp0/I5OdlRCuDlYII/qgLXUKU
+	NqNXyTedve0bXrgAyBZSvZnBIVionE5A=
+X-Received: by 2002:a17:907:9346:b0:c41:8e21:4d5a with SMTP id
+ a640c23a62f3a-c4199c63959mr703570166b.5.1792439594928; Mon, 19 Oct 2026
+ 12:53:14 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,180 +59,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
+ <atI_yuCc4BiweBQP@google.com> <atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
+ <20261018201538.d0957878f378a9821852836f@linux-foundation.org>
+ <atXXma5NXxoSWJO0@pcnci.linuxbox.cz> <atY1vWRBRUwpISKb@pcnci.linuxbox.cz>
+ <20261019083529.a81910ac0976c1a5687d4c6a@linux-foundation.org>
+ <CAO9r8zO41EromgLGhKv8H0aKXjrffH+t4CFGU6cLo59JJ3CEuA@mail.gmail.com>
+ <20261019105844.02d4623b7063fec25ebd34ad@linux-foundation.org>
+ <CAO9r8zN1dTJmULsKCwNrNr_vKyrV+vMfD7wifQ05uAti7E-yDw@mail.gmail.com> <20261019181510.GAatZeLtUmU3Zy9VZt@fat_crate.local>
+In-Reply-To: <20261019181510.GAatZeLtUmU3Zy9VZt@fat_crate.local>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 19 Oct 2026 12:53:01 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMdLN+wms164bs_c5BfnrYZoNAPz6b6hcODt1JnUMniVQ@mail.gmail.com>
+X-Gm-Features: AclHuK9WexEVPWPjZM8Xg7vW7SIGXnR7j5todzSpiBgiM_zmWuBHXiwBEKHuGRQ
+Message-ID: <CAO9r8zMdLN+wms164bs_c5BfnrYZoNAPz6b6hcODt1JnUMniVQ@mail.gmail.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+To: Borislav Petkov <bp@alien8.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Nikola Ciprich <nikola.ciprich@linuxbox.cz>, 
+	Sean Christopherson <seanjc@google.com>, David Laight <david.laight.linux@gmail.com>, 
+	Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, david@kernel.org, 
+	Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com, 
+	pbonzini@redhat.com, Tal Zussman <tz2294@columbia.edu>, 
+	Matt Fleming <matt@readmodwrite.com>, gregkh@linuxfoundation.org, sashal@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-10-19 at 17:35 +0200, Oleg Nesterov wrote:
-> On 10/19, Oleg Nesterov wrote:
+On Mon, Oct 19, 2026 at 11:15=E2=80=AFAM Borislav Petkov <bp@alien8.de> wro=
+te:
+>
+> On Mon, Oct 19, 2026 at 11:00:00AM -0700, Yosry Ahmed wrote:
+> > Right, but this is for new patches that get merged into Linus's tree,
+> > what about existing patches? Any way to retrigger that workflow?
+>
+> You take your patch, apply it to the stable trees here:
+>
+> https://www.kernel.org/category/releases.html
+>
+> and send the applied and tested version it to <stable@kernel.org>.
+>
+> I.e., you backport it yourself. :)
 
-Hi Oleg, Joel,
+Will do, I have done manual backports before but only for conflicts. I
+was more asking if I need to send the patch to all branches or if it
+will be automatically backported to the others if there are no
+conflicts.
 
-Thanks for running this down.  Agreed we shouldn't just fail to init becaus=
-e
-sysctl is off.  Some comments below:
-
-
-> >=20
-> > But. rds_init() can also fail even if CONFIG_SYSCTL=3Dy, after
-> > rds_sysctl_init(), so to me this looks like a bug in net/rds/.
-> >=20
-Yes that's a separate bug, so I'll send a separate fix for that.
-
-> >=20
-> > In any case, I guess net/rds/ init paths should not fail if
-> > CONFIG_SYSCTL=3Dn ?
->=20
-> So I think that something like the uncompiled/untested patch below makes
-> sense anyway even if doesn't fix all the potential problems with rds_wq.
->=20
-> What do you think?
->=20
-> Oleg.
-> ---
->=20
-> diff --git a/net/rds/ib_sysctl.c b/net/rds/ib_sysctl.c
-> index 2af678e71e3c..bccdb5c4df1d 100644
-> --- a/net/rds/ib_sysctl.c
-> +++ b/net/rds/ib_sysctl.c
-> @@ -36,19 +36,10 @@
-> =20
->  #include "ib.h"
-> =20
-> -static struct ctl_table_header *rds_ib_sysctl_hdr;
-> -
->  unsigned long rds_ib_sysctl_max_send_wr =3D RDS_IB_DEFAULT_SEND_WR;
->  unsigned long rds_ib_sysctl_max_recv_wr =3D RDS_IB_DEFAULT_RECV_WR;
->  unsigned long rds_ib_sysctl_max_recv_allocation =3D (128 * 1024 * 1024) =
-/ RDS_FRAG_SIZE;
-> -static unsigned long rds_ib_sysctl_max_wr_min =3D 1;
-> -/* hardware will fail CQ creation long before this */
-> -static unsigned long rds_ib_sysctl_max_wr_max =3D (u32)~0;
-> -
->  unsigned long rds_ib_sysctl_max_unsig_wrs =3D 16;
-> -static unsigned long rds_ib_sysctl_max_unsig_wr_min =3D 1;
-> -static unsigned long rds_ib_sysctl_max_unsig_wr_max =3D 64;
-> -
->  /*
->   * This sysctl does nothing.
->   *
-> @@ -61,6 +52,14 @@ static unsigned long rds_ib_sysctl_max_unsig_wr_max =
-=3D 64;
->   */
->  unsigned int rds_ib_sysctl_flow_control =3D 0;
-> =20
-> +#ifdef CONFIG_SYSCTL
-> +static unsigned long rds_ib_sysctl_max_wr_min =3D 1;
-> +/* hardware will fail CQ creation long before this */
-> +static unsigned long rds_ib_sysctl_max_wr_max =3D (u32)~0;
-> +
-> +static unsigned long rds_ib_sysctl_max_unsig_wr_min =3D 1;
-> +static unsigned long rds_ib_sysctl_max_unsig_wr_max =3D 64;
-> +
->  static struct ctl_table rds_ib_sysctl_table[] =3D {
->  	{
->  		.procname       =3D "max_send_wr",
-> @@ -105,6 +104,8 @@ static struct ctl_table rds_ib_sysctl_table[] =3D {
->  	},
->  };
-> =20
-> +static struct ctl_table_header *rds_ib_sysctl_hdr;
-> +
->  void rds_ib_sysctl_exit(void)
->  {
->  	if (rds_ib_sysctl_hdr)
-> @@ -118,3 +119,15 @@ int rds_ib_sysctl_init(void)
->  		return -ENOMEM;
->  	return 0;
->  }
-
-
-The real rds_sysctl_init() also does the runtime setup of
-rds_sysctl_reconnect_min_jiffies (msecs_to_jiffies(1)).  Without
-it, the reconnect back off is lost.
-
-Also, if register_net_sysctl_sz() returns NULL in rds_tcp_init_net(),
-it fails as an -ENOMEM.  So RDS/TCP would still fail to come up with
-CONFIG_SYSCTL=3Dn.  A simpler fix might be to just handle the NULL at the
-three call sites, e.g.:
-
-        rds_sysctl_reg_table =3D
-                register_net_sysctl(&init_net, "net/rds", rds_sysctl_rds_ta=
-ble);
-        if (!rds_sysctl_reg_table && IS_ENABLED(CONFIG_SYSCTL))
-                return -ENOMEM;
-
-And same for rds_ib_sysctl_init() and rds_tcp_init_net().  The exit
-paths are ok, since unregister_net_sysctl_table() is already a
-no-op stub when sysctl is off.
-
-Let me know if you want to respin or if you'd rather I send it.
-Either way is fine with me.
-
-Thanks
-Allison
-
-> +
-> +#else
-> +
-> +void rds_ib_sysctl_exit(void)
-> +{
-> +}
-> +
-> +int rds_ib_sysctl_init(void)
-> +{
-> +	return 0;
-> +}
-> +#endif
-> diff --git a/net/rds/sysctl.c b/net/rds/sysctl.c
-> index 025f518a4349..a0673a41633a 100644
-> --- a/net/rds/sysctl.c
-> +++ b/net/rds/sysctl.c
-> @@ -36,11 +36,6 @@
-> =20
->  #include "rds.h"
-> =20
-> -static struct ctl_table_header *rds_sysctl_reg_table;
-> -
-> -static unsigned long rds_sysctl_reconnect_min =3D 1;
-> -static unsigned long rds_sysctl_reconnect_max =3D ~0UL;
-> -
->  unsigned long rds_sysctl_reconnect_min_jiffies;
->  unsigned long rds_sysctl_reconnect_max_jiffies =3D HZ;
-> =20
-> @@ -49,6 +44,10 @@ unsigned int  rds_sysctl_max_unacked_bytes =3D (16 << =
-20);
-> =20
->  unsigned int rds_sysctl_ping_enable =3D 1;
-> =20
-> +#ifdef CONFIG_SYSCTL
-> +static unsigned long rds_sysctl_reconnect_min =3D 1;
-> +static unsigned long rds_sysctl_reconnect_max =3D ~0UL;
-> +
->  static struct ctl_table rds_sysctl_rds_table[] =3D {
->  	{
->  		.procname       =3D "reconnect_min_delay_ms",
-> @@ -91,6 +90,8 @@ static struct ctl_table rds_sysctl_rds_table[] =3D {
->  	},
->  };
-> =20
-> +static struct ctl_table_header *rds_sysctl_reg_table;
-> +
->  void rds_sysctl_exit(void)
->  {
->  	unregister_net_sysctl_table(rds_sysctl_reg_table);
-> @@ -107,3 +108,15 @@ int rds_sysctl_init(void)
->  		return -ENOMEM;
->  	return 0;
->  }
-> +
-> +#else
-> +
-> +void rds_sysctl_exit(void)
-> +{
-> +}
-> +
-> +int rds_sysctl_init(void)
-> +{
-> +	return 0;
-> +}
-> +#endif
->=20
-
+>
+> Do git-log on those branches to see how stable backports are annotated. I=
+t
+> needs to say:
+>
+> "Commit <sha1> upstream."
+>
+> at the top.
+>
+> There's also Documentation/process/stable-kernel-rules.rst
+>
+> HTH.
+>
+> --
+> Regards/Gruss,
+>     Boris.
+>
+> https://people.kernel.org/tglx/notes-about-netiquette
