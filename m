@@ -1,52 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.143
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792436483;
-	b=PnKapdg2HqMmd6LobF09BgztVHOmaAvmI2u7P4e7G+Z6PkuVjiKc4rFcuDtHtFldKB/0
-	 myZ233S2euKGlSR64YsAT2W8ID3KlnwWVpsAeWzk4BZ2BBFMBPZEjy6Mc8H70bCN1AwDB
-	 lkFHfB3MeRmCdKiwqDVHpqRYDEcf+rOsVJdU47Yzo9n6FplGsd/73b6yV+899Wgy3E4CL
-	 8u0W4Tnhy118eL+CPIRbS7hQKtgFbXqtIiD+O1AktOONBj2BFtPZrQrInKXPGAVOdaMtc
-	 wFv8Zp80J0DUtW+QwgvZ8s7SyNIw5Lp3eUDuFrG0OZ91j0w0lGucq8YwMg5BR5P57Yg==
+	t=1792436503;
+	b=h3CyH3pTDL15UCDayLwTp+p4g0LV4jYSMKIk+de0W/e5f8nTOItZmq4njIxd8SChcrHb
+	 tZnaZphJnxoxEbG4qibJ84GY7pBpJrY/RdqF/jEK71G+Iwu0i/ZWu3sLFNE85hjKvuV+F
+	 X3mka0JV4qNYjh18LEB6KPoAqp1XliPZJxJY73Im+gIyH0pNJyTDfdfjX6D+eQHYyvXdG
+	 7vilTqKpnFGO3TOB21zxiz+fsLbj1lpF/12vJWXJMMcjd21lw/aIrgHutM9fiidQuyCXv
+	 5ty13MZ2CP+T6bZC9xJQfdfUTUnnPfXkTZinFOq3/cbBF6pbIE7B77sQXOsWaUDUySA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436483;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=09iLhdKoA+WjgjSiEhQrFgF/+LcrRb1ryygNNtnygEA=;
-	b=0dtKcNel2RL28Rd6JvtjqENxTBxdnY//sEftgmw5fEDK36szRyP1+LA7E/PrdqYC+eYE
-	 MvfJOJbOA9iudDdWWWVIXfLOZUfrpBbARiVd1IGRrtZc7lyfSj/ieFdSUf3nWXWMoh0TO
-	 F/r3Co7GAysH4QJX1o3jwg784/7MBkOX9G02wwNHHpSsP4M9hFCyBlqMwd2NwLq5bS1AL
-	 n7LTlRuUWn8TNLi8Sc0cJokAsJog+6Vj4hg0rFRO+217Hwo7SnpEjvZEnsfNjPJtZsKP7
-	 eacTg38NxVcLzZIK0eELD/U3YogTFirC7gVK/gJb82213GIEocsWTXNVCqD12nOfK7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436503;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=2eRPlR+94fvNn1alXmS2n5Fk1SOjjMjgPURYDu+7Ovc=;
+	b=otId6Dk8YJfsewFBv0/L55fleRPi7pWZbWC7LlsasCkzb/AjOjzhNejm8WD4vn1X1ujG
+	 4Qyyea/dJnhd25IevgCtXCEof8pyRxw4HlIBmyyEWejAyJYxLnFJTXBwj/a13PsaBW3VS
+	 GrM4Tel6O7VcbQTG/86+Mw3E5p3is3gNHjMfwJd8J6jklzm9FrdwPllt9FWeER0doxn4d
+	 7tt+1wLs+2UnwtjU1RQOtpLSpazKkk4f27sKp36Pb4okawU3oB5Xu79w0STmgjnqmNcD+
+	 EYN8ma7ZlzZsww8uweePIhXg45eZxXcmRwj03q7+7axTL6rMXtowvvgDORXm7LyYIXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rgjBWiNm;
-	arc=none smtp.remote-ip=91.218.175.143
-Received: from mta0.migadu.com (out-143.mta0.migadu.com [91.218.175.143])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=kgfy37ar;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38032606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:01:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38032606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506D060A4AFE
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:01:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 506D060A4AFE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rgjBWiNm
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=09iLhdKoA+WjgjSiEhQrFgF/+LcrRb1ryygNNtnygEA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792436477; v=1; x=1793041277;
- b=rgjBWiNm7ij4VVOmDH6xN6QfCVE9RSCvwfDSiGdgvkdbaAc93sbHB9qYMf/97/P5wITWQIWd
- iKRpVi6p8UrK30ulueNymZxOXCUUuWN1sK2625k+ha7kGQTnVC6vwbIRwYULQzLytQ7eZcsw8JE
- P/7Xzq0Nkarf7qUiIMnr+mDM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d7dc869a0a89dcb8;
-	Mon, 19 Oct 2026 19:01:17 +0000
-X-Mizu-Trace-ID: d7dc869a0a89dcb8
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=kgfy37ar
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e9d1114320so12300395ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:01:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792436503; x=1793041303; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2eRPlR+94fvNn1alXmS2n5Fk1SOjjMjgPURYDu+7Ovc=;
+        b=kgfy37arOgukMush81hl8Cvp2zXkH5KiGTxemT+8tr9EVicIaww9Q/8DpPeOzNHVhZ
+         lZSL/oyrfqm2p/xSZMYXNcS91rM6S1ssKl0mzRopkxjyPaq2xgCjcuJsKkpE4yJuMrsn
+         bmJUZL9odEefHHhQGJFubDZhjnd5frTuhlSl8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792436503; x=1793041303;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2eRPlR+94fvNn1alXmS2n5Fk1SOjjMjgPURYDu+7Ovc=;
+        b=0LnjQJEIHxun75aRcSw5RUPnRUWnaD5k0xYmks7CFQX4UxO2qwIpk5Vg3RVUXzhcij
+         gTgFJUrY2CgD4+JV48H3LWRyx9JtVBMCyv4+7MN3ODML5jCAEvJhkB9SOtdAuO4hqwO+
+         Aq3oIgKIPYvgzNZGgSOWL6JXXjdJMlfmG7QjlqXc0CepE90M3WcKnobhAgBKVRK1jEFa
+         4km5aiypCK/XHIN30sQOJojRrrl6ZEeqX9kUaHc4SoF17Wtp6jXTO1NOyseRYu+tK625
+         RlccOnWACLlTk+X6WAVlrEq448tTtA++QeTC8KkRV73Mda7IqTjiiwdSjBgeNzP9/jqC
+         t27A==
+X-Forwarded-Encrypted: i=1; AKwUvByy18PPGCktCe00PyP2UyP3FimYB0qLR3LVnOUnZ3IN7rpeGOQsZsYlwgs0Aioi3YGAl92dQ00cRNR6uyw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVQxZkSk0REHyQl/CQKKb+JfYbruxi399ONpDu6PaYWLCDA97G
+	oSKDHpqX6HnLM4LXVDuI5TTlmIVOGK1Hqpnax4vOGVsudNyZCtYz6ZlIVyLvQFTlYg==
+X-Gm-Gg: AYBFou2LWb0YXdwYL5hsap731+l7Xtq7aTSJ1IYQa11QHiiWyVngK0qdorPV/1ZXByK
+	uwoojFM0uS1G5M8juFTDagKytj1T1A+SVW/PSjHyRuOoSm5vJu6Q5HWR+ZRKy9sd4PwP0jglnKO
+	2Pvv9jVxqiyQmUDKDtH5E06xcLokhWZZosUU548k4DiD+ZVPx29H11graQ6vXuEWK5EpFPOulWe
+	y4dthsSrXCOQIJP5dkkf8r4qRfDE02pwlmG88fQzDz08MBuowqKN8YPvkuDzc6Wwms7B0MTzuh9
+	WRXqovlstvpETdw+WE5R/64poWSviFBApF6m6j3F+5OFKN2suDzGosQlpSLkBcUSW+weBTQuUNJ
+	MxpICjtiPtA79zMVUY3MWNqXvRHIZJfel9wctBaV7rxU5EWz3L7ltMwPmHda3n8Iukht3TdmrT2
+	DIDVE7rl1JmpwN/+Tu8P78oMhqxRgODiAMhZ5VObARJjR7KTjp2wCzU1k2ehkMdkHoUa3NTzRwy
+	5gb9HaCu3avqYKQdID6dBGqCXJS1gWCuLNTeltx4SsBR2slIjoeFy82zyjSUaeWP8pi2xt+p4Tz
+	tVQV/A==
+X-Received: by 2002:a17:902:ceca:b0:2e9:6788:9369 with SMTP id d9443c01a7336-2e9a6c022cfmr75916075ad.34.1792436502524;
+        Mon, 19 Oct 2026 12:01:42 -0700 (PDT)
+Received: from jingyliang-input-linux.c.googlers.com (218.117.230.35.bc.googleusercontent.com. [35.230.117.218])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea151e1b7esm4473105ad.75.2026.10.19.12.01.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 12:01:41 -0700 (PDT)
+From: Jingyuan Liang <jingyliang@chromium.org>
+Date: Mon, 19 Oct 2026 19:01:22 +0000
+Subject: [PATCH v6 10/11] HID: spi-hid: add power management implementation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,39 +89,346 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 19 Oct 2026 19:01:17 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <5ae48a49833ada4e600ba4a72dc82d240bb3b354@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] wifi: rtw88: allow key removal when the CAM table is
- full
-To: "Hungyu Lin" <dennylin0707@gmail.com>, pkshih@realtek.com
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- reza1234khan1234@gmail.com, "Hungyu Lin" <dennylin0707@gmail.com>
-In-Reply-To: <20261019165103.5990-1-dennylin0707@gmail.com>
-References: <20261019165103.5990-1-dennylin0707@gmail.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-send-upstream-v6-10-cb9ba4b3d6fa@chromium.org>
+References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
+In-Reply-To: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ hbarnor@chromium.org, tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com, 
+ Jingyuan Liang <jingyliang@chromium.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792436487; l=10211;
+ i=jingyliang@chromium.org; s=20260213; h=from:subject:message-id;
+ bh=m94MWGytMIFKEIezc7FTaFXVcCvwAj2XLUeozobMJ/s=;
+ b=A+6JFay6un/HkAbi5tw4lTm65PxTGJTWv7/Cwr6mBHKvSwv1hdxuoMO1xwxyeIerZvbcibnDW
+ mdovjb5iyEnAVydTvQdfbyidX7hF67oMdMQVoqLP1aaIMTH/aeOtNkj
+X-Developer-Key: i=jingyliang@chromium.org; a=ed25519;
+ pk=VTYSdqslTtYOjWWoIGgYoWupGWqNSidrggReKMgfPo4=
 
-October 19, 2026 at 6:51 PM, "Hungyu Lin" <dennylin0707@gmail.com> wrote:
+Implement HID over SPI driver power management callbacks.
 
+Tested-by: Dale Whinham <daleyo@gmail.com>
+Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
+---
+ drivers/hid/spi-hid/spi-hid-acpi.c |   1 +
+ drivers/hid/spi-hid/spi-hid-core.c | 185 +++++++++++++++++++++++++++++++++++++
+ drivers/hid/spi-hid/spi-hid-core.h |   2 +
+ drivers/hid/spi-hid/spi-hid-of.c   |   1 +
+ drivers/hid/spi-hid/spi-hid.h      |   1 +
+ 5 files changed, 190 insertions(+)
 
->=20
->=20rtw_ops_set_key() looks for a free CAM entry before checking the
-> command. When all pairwise entries are in use, DISABLE_KEY returns
-> -ENOSPC without clearing the existing entry.
->=20
->=20Move the allocation and bounds check into SET_KEY. DISABLE_KEY uses
-> the existing key->hw_key_idx.
->=20
->=20Fixes: 10d58823cb44 ("wifi: rtw88: fix out-of-bounds CAM write when k=
-ey table is full")
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
+diff --git a/drivers/hid/spi-hid/spi-hid-acpi.c b/drivers/hid/spi-hid/spi-hid-acpi.c
+index 31ca3fa336cd..a52cafe86c05 100644
+--- a/drivers/hid/spi-hid/spi-hid-acpi.c
++++ b/drivers/hid/spi-hid/spi-hid-acpi.c
+@@ -246,6 +246,7 @@ static struct spi_driver spi_hid_acpi_driver = {
+ 	.driver = {
+ 		.name	= "spi_hid_acpi",
+ 		.owner	= THIS_MODULE,
++		.pm	= &spi_hid_core_pm,
+ 		.acpi_match_table = spi_hid_acpi_match,
+ 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+ 		.dev_groups = spi_hid_groups,
+diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi-hid-core.c
+index 96805c10bfe3..c2232d5959b8 100644
+--- a/drivers/hid/spi-hid/spi-hid-core.c
++++ b/drivers/hid/spi-hid/spi-hid-core.c
+@@ -36,6 +36,8 @@
+ #include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
++#include <linux/pm.h>
++#include <linux/pm_wakeirq.h>
+ #include <linux/slab.h>
+ #include <linux/spi/spi.h>
+ #include <linux/string.h>
+@@ -60,6 +62,7 @@
+ 
+ #define SPI_HID_MAX_RESET_ATTEMPTS	3
+ #define SPI_HID_RESP_TIMEOUT		1000
++#define SPI_HID_RESET_TIMEOUT		1000
+ 
+ /* Protocol message size constants */
+ #define SPI_HID_READ_APPROVAL_LEN		5
+@@ -91,6 +94,11 @@
+  * ll_close. Input reports are only forwarded while this flag is set.
+  */
+ #define SPI_HID_STARTED	6
++/*
++ * dead indicates that the device was powered off after too many failed
++ * resets. It stays off until the driver is rebound, even across resume.
++ */
++#define SPI_HID_DEAD	7
+ 
+ /* Processed data from input report header */
+ struct spi_hid_input_header {
+@@ -242,6 +250,148 @@ static const char *spi_hid_power_mode_string(enum hidspi_power_state power_state
+ 	}
+ }
+ 
++/*
++ * Wait for the device descriptor response after reset; the device then takes
++ * requests. Set READY here: the report descriptor check that normally sets it
++ * needs power_lock, which callers hold.
++ */
++static void spi_hid_wait_for_reset(struct spi_hid *shid)
++{
++	unsigned long timeout = msecs_to_jiffies(SPI_HID_RESET_TIMEOUT +
++						 SPI_HID_RESP_TIMEOUT);
++
++	if (!wait_for_completion_timeout(&shid->reset_done, timeout)) {
++		dev_warn(&shid->spi->dev,
++			 "Device descriptor not received after reset\n");
++		return;
++	}
++
++	set_bit(SPI_HID_READY, &shid->flags);
++}
++
++static int spi_hid_suspend(struct spi_hid *shid)
++{
++	int error;
++	struct device *dev = &shid->spi->dev;
++
++	/* HID driver suspend may talk to the device; responses need the IRQ. */
++	scoped_guard(mutex, &shid->power_lock) {
++		if (shid->power_state != HIDSPI_OFF && shid->hid) {
++			error = hid_driver_suspend(shid->hid, PMSG_SUSPEND);
++			if (error) {
++				dev_err(dev, "%s failed to suspend hid driver: %d\n",
++					__func__, error);
++				return error;
++			}
++		}
++	}
++
++	/*
++	 * disable_irq() waits for a running IRQ thread, so no new reset_work
++	 * can be queued after it returns. Then wait for any queued or running
++	 * instance. Must not hold power_lock here: reset_work takes it.
++	 */
++	disable_irq(shid->spi->irq);
++	cancel_work_sync(&shid->reset_work);
++
++	guard(mutex)(&shid->power_lock);
++	if (!device_may_wakeup(dev)) {
++		if (shid->power_state != HIDSPI_OFF) {
++			/* Device is fully reset on resume; drop stale state. */
++			clear_bit(SPI_HID_READY, &shid->flags);
++			clear_bit(SPI_HID_RESET_RESPONSE, &shid->flags);
++			clear_bit(SPI_HID_CREATE_DEVICE, &shid->flags);
++			clear_bit(SPI_HID_ERROR, &shid->flags);
++			set_bit(SPI_HID_RESET_PENDING, &shid->flags);
++
++			shid->ops->assert_reset(shid->ops);
++
++			error = shid->ops->power_down(shid->ops);
++			if (error) {
++				dev_err(dev, "%s: could not power down\n", __func__);
++				shid->regulator_error_count++;
++				shid->regulator_last_error = error;
++				/*
++				 * Undo partial suspend before returning error.
++				 * Complete the reset; RESET_PENDING stays set
++				 * until the device sends its reset response.
++				 */
++				shid->ops->sleep_minimal_reset_delay(shid->ops);
++				reinit_completion(&shid->reset_done);
++				shid->ops->deassert_reset(shid->ops);
++				enable_irq(shid->spi->irq);
++				if (shid->hid) {
++					spi_hid_wait_for_reset(shid);
++					hid_driver_reset_resume(shid->hid);
++				}
++				return error;
++			}
++
++			shid->power_state = HIDSPI_OFF;
++		}
++	}
++	return 0;
++}
++
++static int spi_hid_resume(struct spi_hid *shid)
++{
++	int error;
++	struct device *dev = &shid->spi->dev;
++	bool was_reset = false;
++
++	guard(mutex)(&shid->power_lock);
++	if (test_bit(SPI_HID_DEAD, &shid->flags)) {
++		/* Stay off; only balance disable_irq() in suspend. */
++		enable_irq(shid->spi->irq);
++		return 0;
++	}
++
++	if (!device_may_wakeup(dev)) {
++		if (shid->power_state == HIDSPI_OFF) {
++			shid->ops->assert_reset(shid->ops);
++
++			shid->ops->sleep_minimal_reset_delay(shid->ops);
++
++			error = shid->ops->power_up(shid->ops);
++			if (error) {
++				dev_err(dev, "%s: could not power up\n", __func__);
++				shid->regulator_error_count++;
++				shid->regulator_last_error = error;
++				/* Suspend runs next even if resume fails. */
++				enable_irq(shid->spi->irq);
++				return error;
++			}
++			shid->power_state = HIDSPI_ON;
++			reinit_completion(&shid->reset_done);
++			shid->ops->deassert_reset(shid->ops);
++			was_reset = true;
++		}
++	}
++
++	enable_irq(shid->spi->irq);
++
++	/*
++	 * For devices that may wake up, process work that was pending when
++	 * suspend cancelled reset_work. Otherwise suspend already dropped it.
++	 */
++	if (test_bit(SPI_HID_RESET_RESPONSE, &shid->flags) ||
++	    test_bit(SPI_HID_CREATE_DEVICE, &shid->flags) ||
++	    test_bit(SPI_HID_ERROR, &shid->flags))
++		schedule_work(&shid->reset_work);
++
++	if (shid->hid) {
++		if (was_reset)
++			spi_hid_wait_for_reset(shid);
++		error = hid_driver_reset_resume(shid->hid);
++		if (error) {
++			dev_err(dev, "%s: failed to reset resume hid driver: %d\n",
++				__func__, error);
++			return error;
++		}
++	}
++	return 0;
++}
++
+ static void spi_hid_stop_hid(struct spi_hid *shid)
+ {
+ 	struct hid_device *hid;
+@@ -280,6 +430,7 @@ static void spi_hid_error_handler(struct spi_hid *shid)
+ 			shid->regulator_last_error = error;
+ 		}
+ 		shid->power_state = HIDSPI_OFF;
++		set_bit(SPI_HID_DEAD, &shid->flags);
+ 		/* Dead device: leave the IRQ permanently disabled. */
+ 		return;
+ 	}
+@@ -561,6 +712,8 @@ static int spi_hid_dev_desc_response(struct spi_hid *shid,
+ 	shid->reset_attempts = 0;
+ 	set_bit(SPI_HID_CREATE_DEVICE, &shid->flags);
+ 	schedule_work(&shid->reset_work);
++	/* The device can take requests now; see spi_hid_wait_for_reset(). */
++	complete(&shid->reset_done);
+ 
+ 	return 0;
+ }
+@@ -1381,6 +1534,7 @@ int spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
+ 	mutex_init(&shid->power_lock);
+ 	mutex_init(&shid->io_lock);
+ 	init_completion(&shid->output_done);
++	init_completion(&shid->reset_done);
+ 
+ 	INIT_WORK(&shid->reset_work, spi_hid_reset_work);
+ 
+@@ -1414,6 +1568,18 @@ int spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
+ 		return error;
+ 	}
+ 
++	/*
++	 * Use device_can_wakeup(), not device_may_wakeup(): power/wakeup can
++	 * change after probe, and the PM core checks it at suspend time.
++	 */
++	if (device_can_wakeup(dev)) {
++		error = devm_pm_set_wake_irq(dev, spi->irq);
++		if (error) {
++			dev_err(dev, "%s: failed to set wake IRQ\n", __func__);
++			return error;
++		}
++	}
++
+ 	error = shid->ops->power_up(shid->ops);
+ 	if (error) {
+ 		dev_err(dev, "%s: could not power up\n", __func__);
+@@ -1454,6 +1620,25 @@ void spi_hid_core_remove(struct spi_device *spi)
+ }
+ EXPORT_SYMBOL_GPL(spi_hid_core_remove);
+ 
++static int spi_hid_core_pm_suspend(struct device *dev)
++{
++	struct spi_hid *shid = dev_get_drvdata(dev);
++
++	return spi_hid_suspend(shid);
++}
++
++static int spi_hid_core_pm_resume(struct device *dev)
++{
++	struct spi_hid *shid = dev_get_drvdata(dev);
++
++	return spi_hid_resume(shid);
++}
++
++const struct dev_pm_ops spi_hid_core_pm = {
++	SYSTEM_SLEEP_PM_OPS(spi_hid_core_pm_suspend, spi_hid_core_pm_resume)
++};
++EXPORT_SYMBOL_GPL(spi_hid_core_pm);
++
+ MODULE_DESCRIPTION("HID over SPI transport driver");
+ MODULE_AUTHOR("Dmitry Antipov <dmanti@microsoft.com>");
+ MODULE_LICENSE("GPL");
+diff --git a/drivers/hid/spi-hid/spi-hid-core.h b/drivers/hid/spi-hid/spi-hid-core.h
+index 1d8356f787f3..0b3248aedfce 100644
+--- a/drivers/hid/spi-hid/spi-hid-core.h
++++ b/drivers/hid/spi-hid/spi-hid-core.h
+@@ -92,6 +92,8 @@ struct spi_hid {
+ 	struct mutex io_lock;
+ 
+ 	struct completion output_done;
++	/* Completed once the device descriptor is received after a reset. */
++	struct completion reset_done;
+ 
+ 	u32 report_descriptor_crc32;	/* HID report descriptor crc32 checksum. */
+ 
+diff --git a/drivers/hid/spi-hid/spi-hid-of.c b/drivers/hid/spi-hid/spi-hid-of.c
+index 24215ffaaafd..71b230c1000a 100644
+--- a/drivers/hid/spi-hid/spi-hid-of.c
++++ b/drivers/hid/spi-hid/spi-hid-of.c
+@@ -225,6 +225,7 @@ static struct spi_driver spi_hid_of_driver = {
+ 	.driver = {
+ 		.name = "spi_hid_of",
+ 		.owner = THIS_MODULE,
++		.pm = &spi_hid_core_pm,
+ 		.of_match_table = spi_hid_of_match,
+ 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+ 		.dev_groups = spi_hid_groups,
+diff --git a/drivers/hid/spi-hid/spi-hid.h b/drivers/hid/spi-hid/spi-hid.h
+index f5a5f4d54beb..17b2fdf192ed 100644
+--- a/drivers/hid/spi-hid/spi-hid.h
++++ b/drivers/hid/spi-hid/spi-hid.h
+@@ -41,5 +41,6 @@ int spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
+ void spi_hid_core_remove(struct spi_device *spi);
+ 
+ extern const struct attribute_group *spi_hid_groups[];
++extern const struct dev_pm_ops spi_hid_core_pm;
+ 
+ #endif /* SPI_HID_H */
 
-Looking good to me.
+-- 
+2.56.0.212.g129ede20d9-goog
 
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-
-Best regards,
-Luka Gejak
