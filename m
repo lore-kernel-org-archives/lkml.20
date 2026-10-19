@@ -1,103 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792441519;
-	b=4EGBH6EBzA148hzT7P41a4snN7D8ZYXogTw2oaSTBYTAHs2u2uizHZehcfTHal3KC4yZ
-	 PkEl1xy4H/ghcAundyZmvaw/ftL4gK+Yij1/K8JN3z6k1NemYKQ/r6nQIUx/4eZ3BoQkR
-	 SaXH9rqXejZsRWmv7OJMB3fpNgWgwJoloozBgqfiDlsJ0QjLFul+sPtLVWWBVISGRWeLh
-	 HUgHw+3MFyejDVss8WsUpgDN2F9GLKQGCgL0LRXllGALa7MbcxRpfKrVG+4Tm4PM8pzvK
-	 gNzsyjI51tmG4q0hYacoA6gCZ9XIa5VWM5/De2li0LTla7kT6FVwCHaX3lM7OZ6HfXw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792441519;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4q9LZR8lO5Ut3wMXLJYCt156smic9s4b9LeYVAkPcUw=;
-	b=Qc4kSbzPL8d2WgnwF+840GwDa+WUp9wsKx0nJEVWW2EUsOxLT/CGrIZu3xesvSKpQSME
-	 /uMkPeED2/iFbhojnGdkaSJ6NTKuv9ykWY6vDhMO00rZAdx083aTO/Fn2P2YDvoJw6hQT
-	 5soZ71W5Xdbfc8rEDUVgwD68WtmMAMg8ccpRwMEcGZtj6dtNtFJPyGagVvvvjkP5k/FAn
-	 g+AASNlh93W4xen6lnE6V878/hTBfGew+99dyg/yfycEHRDrUtD6l/Ag+XwiMU0m9ogF7
-	 QSzfgYTCYj2mE/hsZrzIgSmQk74/Qp2I1StaPNXbOfLLgtEhqEz2JbS1PeYaGV43oQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b3n3iESw;
-	arc=none smtp.remote-ip=209.85.221.170
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.60
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792441537;
+	b=cZ4BMsLjThTc/IOG07eGoq+aG7NoPcEhdC/W7HEl3WJ1xzMyFRkRkIpEe+ya7fjinVXE
+	 NUrGIVFZAtL8oZ5CFBdi3fVTWG20lDKCKOPXbUo4VE2IFxNy751KTwEU6h7D7eQyhbO/V
+	 yiibAy5Se8PTwkoSXV7C77yKAa8/Rl9NaaCw1zlcMd1vw6WNn7E3qFLUC/qqERqDLAxH2
+	 StDnnVnya+Hpul5ileN38rNR0jj19wlc6/2qFohRroezxKTJ+e421+bwn15rmBqnVs2aM
+	 D2b+auSFcokyiCnLOxpTNP9M/Wgv7xNqde7Rjsp2k50iiiD8ZhMVQ5f8y1xV7jWquyg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792441537;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=LDVaE5mGE4du174qJMvoZmYRI0+L3kZnvS6evUqgAcQ=;
+	b=dMGPF9vmRQU/pi3VqFhqFMCv5XVOijd4YAJPz1HJr16Dq/SvN0zlXrP26zQ/VZlurGzZ
+	 +VdwdhBy7e79jStl8IG5NBC7In2aMFJxSiLNNlB8jd50Bqbtr/AeENh7mjNjk00K/v0s+
+	 mdKv6oOQxMCeFy3BuOIDfIUlJc5wo9fw2ZQ4UYiA15iJyJne0TpziL0OHo86suu+b1Uht
+	 egcSqPl0MCKQCIPOLNPlBDQGzSgpQTT/ctRS4un6k0JpksYfna3leOMS4J8r52Vb+g96a
+	 AAd1Y02vua39ekj9+vCTkIpNGQQNKsJzZ+qBaeBTj80Ynf1b2u2iihUKMwX4CIQtAyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="pnUuS/4m";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.60
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013060.outbound.protection.outlook.com [40.107.159.60])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90FD606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:25:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C90FD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3D3606A31D;
+	Mon, 19 Oct 2026 20:25:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB3D3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b3n3iESw
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5e189660cbdso1740700e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:25:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792441518; x=1793046318; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4q9LZR8lO5Ut3wMXLJYCt156smic9s4b9LeYVAkPcUw=;
-        b=b3n3iESwm43cGITB3Nstp67NHJ9NaTjO8YW6SzFN0R8RveeAZUxnbsu+4Ef/Yhe8AO
-         33evcLFrWK+B8KyjJKEmJjStJ/bZyJgtZtA2T0PqY6W3za0WygokmuekeVF+Z+DLHfH2
-         WKhuUF6W/vwLY0XegluMV/fhj8GXFSAOQ5f1Eu8vHmsuZ5oSpG0SGNbWFHYj6jnCdzX5
-         ROT3sXIxosF1+cjjbog8StFejCo9gi+gX2Yx/llkyAzTBdTMpYwHx03axYPQb9d0/+vh
-         /srxTzpK1bl19mWL8u/GwvoMBQreIJLXkEnnTGlJqBCUh64sdJIzaY56Hqn/MUsNd/Sw
-         V6DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792441518; x=1793046318;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4q9LZR8lO5Ut3wMXLJYCt156smic9s4b9LeYVAkPcUw=;
-        b=Qo87inTxsTtwXFeaxrbZMd4jrvYaKyz26dD4unjs2l82I5sqPAmHoL2ambU6ndM9Ep
-         brtKvmyuFes8YbkJPTrqiHqpUJO2uDdTyKbhkIGeFh/N0w127AQvl/J8T7LLKf8cC26H
-         OKKklfDLBwERO0EzTq/M8Al4H1WAlMss9hnWmN82FR1s98HYqwIiKcUYukn48No2fVeo
-         9BqIBPmJFOILCN1EAbqmn9kuKil6h7f5VMWK1sAnJ7p2anNfNtmT4ohL9MTxS8hlNUqM
-         hDPuwvktKUDLC3+DO+UqTFC8TsYAXpHiNt6i0KcVAbZk+tjeWswyZs4QkXfEXmPCUvCx
-         L7Vw==
-X-Forwarded-Encrypted: i=1; AKwUvBz4do2xR1A47CNTiJBREHkViI8UOyYxaRUounKGfu0fuMzSzgomZLJ1ba3WWW363FokKoszqEEA5T8XWFE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGIdE6YphAXP6xaLV2WiFxjF12Dss5pl3ykfkNGkXkrZxPjXQK
-	wSI5uqSlVWZWeToYHjlmUGPGa8ylRAdHnt+enHI3qi1cTEr2j5fvS0ks
-X-Gm-Gg: AYBFou2T2KzOw17tnBLhiFt5GX/jZZasS60g26BbcAJyQ+IxeYh48pTxiFWG7A9oisB
-	wgKmsaSF8QVAbz6esGt3J5+4OrkKvVuXLJFqak/rEVFbyu5QJPpFxtyzZ1HtelLdOjuvwDB/tMk
-	2YQDMcGn885AuBWeAC1WWfi4Z5pDS3vJIjSJmBSklfdGWGix4xMwP9A5t0F9c8IRcgTvQzzzwfc
-	6fwpjb1/1TUg1DMEWA3rKRBTLZFQBhnFlrVccSpEbYhq5ZcJ6jklC/iETtpxGKBoI3S0QcJdKaq
-	UZPlIqdQ1oivS5MR1VuTXi825kckv5HyziW1S8ZRDLu17Vag8OhZlHBKK3WQwj5Zg/nmaPMoAtX
-	Oo+kfl4BzFbYycHyxMZJlBlY+IyCq+X7P21lhbI2PrNdauR4P+jSomlS9iXVaE1iLe3BNAsssoF
-	DHUp4NT8FRIyh2dzEUfp7b4aAdWRevLy/98n3yd1eLjb/8Yy4t2n2eVnS4MalmBnIADrdcz/TPo
-	d5AVrea
-X-Received: by 2002:a05:6122:32d4:b0:5e9:176f:a548 with SMTP id 71dfb90a1353d-5eaa9eb7e68mr3507437e0c.0.1792441517762;
-        Mon, 19 Oct 2026 13:25:17 -0700 (PDT)
-Received: from maclinux ([2803:c600:9110:8ba5:1c75:eeaa:b22f:20dc])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b128725sm11194050e0c.0.2026.10.19.13.25.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 13:25:17 -0700 (PDT)
-From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org
-Cc: Bjorn Helgaas <helgaas@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lukas Wunner <lukas@wunner.de>,
-	Farhan Ali <alifm@linux.ibm.com>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Darrell Gum <d@rrell.co>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] PCI: Do not mistake an absent device for an active link
-Date: Mon, 19 Oct 2026 17:24:45 -0300
-Message-ID: <20261019202445.38259-3-fbeltranmillalen@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019202445.38259-1-fbeltranmillalen@gmail.com>
-References: <20261019202445.38259-1-fbeltranmillalen@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=pnUuS/4m
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x/JsKU2G3ao8nC8yumgjM0DK2kHTXruRc8OQuEb+HK39QVIBujqru9xuKVbTTq70lkUMP0YgvK+REja8kKfFLw5BpWOTG17vJhKTieYUoyu++yL60kabA70i56giZqPla4ITSgfjfljdBk3CXkNlTL/ESU9I6DIbczWVSW1puQNT+ZCr2CuuedWNRhaOgvqCWtDeM9sx8Y/1Fv7bkn8YvKtXvjY12IutVWyiNvw9pI3pl3y+aP1/sKpsluBl4Q8UZC+yfKC+zwzZzHfemnKDzoI5tOEvnOUvpTjiMfVgJmGzFEk0xd3fFEVqFOtt5S2/6r51LpLfWeIz87esSS/xZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LDVaE5mGE4du174qJMvoZmYRI0+L3kZnvS6evUqgAcQ=;
+ b=tqIj6ImgH8Ox7wUo4FN0xxE86fz4hXOCPh4BC0eODz9rq7MHTj/VO1EktulvUvOjdA9AKyo14HqRaDRRccSh45zE0SSElJeKyqNPIAYD57gILMO4ALCn3/WihW+X0uDm747cyRNI3eYWS9u8BPdodlDdJ+jxAPblFRd9kBHJ7SqLjhK14AluRMgi8vSF36nTpWHwwPWKzXXyCUGVkdGCeZFDTICsDSyOAnJswgD9kdKofckFEkeNBu5/1mAhzPnGraDNBqWrwgJSeRWeuxyQ7sX12h8+SmJzI97G7dC2+vl/fqh0Ugu8OaUhx5Ts4Dq8XvV67TebdO3stfpXQ3Ka8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LDVaE5mGE4du174qJMvoZmYRI0+L3kZnvS6evUqgAcQ=;
+ b=pnUuS/4mvkPkcMuDaOeFRouA3Oc1p8xSMzWhl2Ds5gtUjY09Csxm0RajukUCiViWAbT9OOrmM3UhkZ/pz4YCI7DqjgHQHQ0dFelS4V20NmcYHVGTYcTNtZFjvZUNuUgjwES8nRVScDkaUOAcVaQ7o6TV/RI2zfIOpA2KcCvNQKL9yKOagxG69wn4Xfy7AfvzZWTun/LvOyN3GIs3G23X59h4D64Fnv0LmpTzFTAKRvaSrStvPg8/2746EJDUj/D5SYG4bhrmskY4zfAV6MxD351JVtSkmIdYr2GjcGbBnlPoCjI3qjQytXLhy5A2vP2AZGggAbSABJCmYDsJNEi96w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM7PR04MB6776.eurprd04.prod.outlook.com (2603:10a6:20b:103::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 20:25:33 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 20:25:33 +0000
+Date: Mon, 19 Oct 2026 15:25:22 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx8mm-var-dart-sonata: Add OV5640
+ camera support
+Message-ID: <atZ8su4Y4yg9CULA@SMW015318>
+References: <20261015162301.63838-1-stefano.r@variscite.com>
+ <atEci_KwxUdvAekv@SMW015318>
+ <atJY6DzjmAeq7U8q@Lord-Beerus.station>
+ <atKHI1B0hL6q-CmY@SMW015318>
+ <atXver4B2Acc3z0w@Lord-Beerus.station>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atXver4B2Acc3z0w@Lord-Beerus.station>
+X-ClientProxiedBy: PH8PR22CA0011.namprd22.prod.outlook.com
+ (2603:10b6:510:2d1::22) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,94 +108,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM7PR04MB6776:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3e724ee-2ec7-491c-903d-08df2e1f207d
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|19092799006|23010399003|366016|1800799024|7416014|6133799003|22082099003|18002099003|4143699003|11063799006|10067099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+ I+NBfoK486APThArPlOFPhMcQ4rHsysTaBcfe9aojIY7LAoBaW93bXLNs97eUbed4MYYOYWxIf75I5qCW0KN3c6S3HZQaYgTE9a4UZGVT+tUygybsWKpDQg6FIbheNTWCOJkgDb6S41b9BWOEZEIL8S77y2Fupi696jWfuCi0bhEdLUwzhp2IzGUifeMOcsWNFmdj8q/Q7UMg/7Vurn/dWKkJ4Z2lXf3Sr7E2LNNdGIBaPewTTVp/YIKjHouc/8bpQZsuYiHVTy4xG9PmDTZY/dLaQDsNKbz6ozh0Z/ynwv1a+uwUPbVGIRoNA64A6gY+hzYTMGS9IsA4guAcCWb0/16WSCN6AkCstI2wjs9aAG25s6NpHexHNItYTcjHGG11hdId5B9NcVibBuXlpHf2HoWql19m5QywQiGxbpvkwIxYF+f67XVchl6qQLEJN6kekYyhVJdfeU2ngTN3Eff+lZjjlxPAnenXQ5uT0G+sWQu16P80hXDxG2BvM/MIzs1gmWYBmGgmDmHaI0z+8HZbweXzpTj++U6BA/zlyWte5hoSiPtWwZd1O2TZFbttlxPbZZP0nY1xSSeh0Mlwbm7EydAx/j50qMsfDgCxavCRjkz+xBD7LnVUhvUSZDtbr2UPQhOJE8Imu4e8RL56uzqjh7L6YwFpab2djw55Er3fhs=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(23010399003)(366016)(1800799024)(7416014)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?bCgeGLNXLYH5N3I+2F0xK0pOFLAijOmCECe+UPaQ7mJCykcEAHE/shBZ9c53?=
+ =?us-ascii?Q?xPMCLiXi00Bs9SeI5hafUmruufPDeCZa/PKnCNj1UCI9QWNz08sHlZFXKNoM?=
+ =?us-ascii?Q?BOendFOL1an5wBPqiiShnzJYwCIqWhdbEEifxy4Z7K38hcOdHB1uDXxWbDi5?=
+ =?us-ascii?Q?DNWZVZrsb/GZyOrvT8DRP3Hj9a4nLpQaIuGK8i5hZ7VT/tSv2IcoT3zX6Skz?=
+ =?us-ascii?Q?o41mCathIa6wbuQdKxmlKVA+u08ujWxbBFNnGPTXudmaZnOX4O09B5JlJ2gY?=
+ =?us-ascii?Q?XEZFj/ZLAGxQ830gEmgcjQ7VyKcxfxoduNs/YEV8DQQ7Hu+LZP+nXWsZn/Ho?=
+ =?us-ascii?Q?KegP9XBPcjZreVPdBWq3A7TZOp63U7NxuGFOnMQbuS0UVKEWEhdkd7F9LuP+?=
+ =?us-ascii?Q?mSqbX/rBJ+G0NmdK4V7uZJ2QAVUq3sKKAWjE+pJs1ldrJkNho7chzwJj5kR3?=
+ =?us-ascii?Q?F3+mz9k/YFYKltkGXwtz9nReUqodsQr7/sNDWU0x6rWQRfm+92jzy8wCRFJM?=
+ =?us-ascii?Q?VU9H5rdW5Gmtz6InJr12qTQX2GoBbfmYvXhdI4uL1ZsqdS4LxYiGn9zDikpx?=
+ =?us-ascii?Q?plM1tlVmnbiQH3MOiZEsRWR+R6whriug7uFeXRb4DJ6lG9Wac57QpGkThtQk?=
+ =?us-ascii?Q?R/89XQ/D4OUYkRC4DKQeOSa5qWUcCmgZgXZPMlJebOInkplYHOs3w3iD/w5s?=
+ =?us-ascii?Q?UrIVu8qmGrVTLsnWA9yb6RcnmHswBzEwB4u6YnuIyNFRprJ6+3g8D0+wosUc?=
+ =?us-ascii?Q?TZEBnzjlLiAv/an22zWE56DzY2PiXYw1UIk7+dLPH2Qp+IDFfoTkN9DZvDss?=
+ =?us-ascii?Q?mJ4UBkQw6XYvV6L08efk7/ObjMBN9HyGt5EXPTYS/r+WUrNAuhLGI94pY0lU?=
+ =?us-ascii?Q?M+zT5OaB4j5i6+eeXP7jGM4yaoMuIf7ZfQcq/riK2XbrGmm/QKr+Ty/FX73l?=
+ =?us-ascii?Q?wz8t2YC+HMXXIMsm1Mz2ugHIeZF1/u5+G9mRniAPAXEEub3tZrfZfJIGwlnM?=
+ =?us-ascii?Q?TDlDnz1oz2ZhB7aDu7t9JVdjYuuWmvgsff/w7k2amVJibSCE8UmGL8ROcHvR?=
+ =?us-ascii?Q?oQXLAfybapubFGB4zoVv+SWBbwdIGYUNBtqqjSfMheCwTZWcXbB8sRWPOajy?=
+ =?us-ascii?Q?nzxFYN70QKhbOX42Wb+pW2gzuOirXo2PJQw6wYC2q0Q78d5RItcOAf5ujAeA?=
+ =?us-ascii?Q?ErEQY9L3eJDoske6IqPMx+ewbBtqtQwRYiXrww1NWv7PgDRLBp80MKOJq51f?=
+ =?us-ascii?Q?jbncPcYArfVX2t1zy3z98WVKEiBw38KwfTa+O5uEkxFv5UHgy8eSnBk+5BHF?=
+ =?us-ascii?Q?4wBwKOPWT2gnTtHHFvgmaTE6sXa/BhQ7bn/xfdzxZVJpIFrdOCLtapdbsE0r?=
+ =?us-ascii?Q?N3t8yJbwNVa75GfpdIxo3ndH1DLu/efKQuLB38CYMIQuPink14nlNtf4WjFX?=
+ =?us-ascii?Q?bUjUoFZFf1jw2iiLdn+LaxIH4puSa5xfhgeYyXv/3GnY0gvPLCwC1Dzyo36t?=
+ =?us-ascii?Q?pPomgtqCROkfjt3g/Q6EsVGywf8v4yclmmmY0LcgmFFAjINOvdychK0jSeba?=
+ =?us-ascii?Q?cJgQD1atFKDWdp2NVRje6JGLb0cW1sg+UqGPCoDBp/jI4Q9agE5SpeLtbzCc?=
+ =?us-ascii?Q?YI19D5l51jl0R2gnkLbhAtKkasHNz1yhyR/CYR2ypFKdk2Nn1syCOr/6pwMG?=
+ =?us-ascii?Q?CEh29l5H0kNtd4eRGrdNcWZugCL6ul+H9dpceYeTOPCSy/0ySmOc7AqqOBDY?=
+ =?us-ascii?Q?iXomxkHJ/rKt7UuiV8I0GzYK47whG2gkWc+MrBDCMpzApYNKj6dS?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3e724ee-2ec7-491c-903d-08df2e1f207d
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 20:25:33.6199
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0rDX2ceJLucMCu2gVFOgWKWIBIewrA02LKCA0LPlYBgWmaItFi7ru9UdA5lfKELkNLEVhu+vViclhq5fJ1p1nUKs9CizR4L9EgAI6BgnkYC17j3oS0jKJYhayg+18bpV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6776
 
-When an inaccessible bridge's Link Status register reads as 0xffff,
-both PCI_EXP_LNKSTA_DLLLA and PCI_EXP_LNKSTA_LT appear set.  The link
-wait code then takes the inaccessible bridge for an active link:
+On Mon, Oct 19, 2026 at 12:22:50PM +0200, Stefano Radaelli wrote:
+> On Fri, Oct 16, 2026 at 03:20:51PM -0500, Frank Li wrote:
+> > On Fri, Oct 16, 2026 at 07:03:36PM +0200, Stefano Radaelli wrote:
+> > > On Thu, Oct 15, 2026 at 01:33:47PM -0500, Frank Li wrote:
+> > > > On Thu, Oct 15, 2026 at 06:23:01PM +0200, Stefano Radaelli wrote:
+> > > > > From: Stefano Radaelli <stefano.r@variscite.com>
+> > > > >
+> > > > > Add support for the OV5640 camera connected to the Sonata carrier
+> > > > > board's first MIPI CSI port.
+> > > >
+> > > > Does this board only support ov5640 camera? Suppose ov5640 module also use
+> > > > for other boards.
+> > > >
+> > > > Can you refer https://lore.kernel.org/imx/20261011-expulsion-frivolous-690de090cf9d@spud/
+> > > > to define connectors?
+> > > >
+> > > > Frank
+> > > >
+> > >
+> > > Hi Frank,
+> > >
+> > > Thanks for your feedback! I looked at the Toradex approach you linked.
+> > >
+> > > In our case, the same connector can also accommodate Basler cameras and
+> > > potentially other camera modules in the future, while some of our other
+> > > carrier boards use different connectors.
+> > >
+> > > Given these differences, I would prefer to keep the classic approach proposed
+> > > in this patch, describing the camera directly in the carrier board DTS.
+> > > Do you think we should still use connector bindings in our case?
+> > > If so, how would you suggest handling these differences?
+> >
+> > Need understand whole board familar, basic Two problem:
+> >
+> >  	Does carrier board support difference kinds camera?
+> >
+> > 	Does carrier board or camera module reused for other boards?
+> >
+> > Frank
+> >
+>
+> Hi Frank,
+>
+> Yes to both:
+>
+> - The carrier board supports different cameras: we currently support
+>   OV5640 and Basler modules, and support for another camera is planned.
+> - The OV5640 module can be used on multiple carrier boards that share
+>   the same camera connector.
+>   Other carrier boards in our family use a different connector.
 
-  - pci_bridge_wait_for_secondary_bus(), for ports up to 5 GT/s, decides
-    that the link is up and waits PCIE_RESET_READY_POLL_MS for the device
-    below it;
+Carrier board -> camera_connector-> OV5640 (and other camera).
 
-  - pcie_wait_for_link_status(), used for faster ports and by
-    pcie_retrain_link(), reports success at once when waiting for an
-    active link, and times out after PCIE_LINK_RETRAIN_TIMEOUT_MS when
-    waiting for LT to clear.
+==== defined camera_connector carrie boards dts/dtso
 
-Treat an all-ones read as the device being gone.  All callers of
-pcie_wait_for_link_status() and pcie_retrain_link() treat any non-zero
-return as failure.
+camera_conn1: camera-connect-0 {
+	compatible = "variscite,mx8mm-snonata-camara";
+	gpio-map = <>;
+}
 
-On a MacBookPro14,3 whose Thunderbolt controller does not come back from
-S3, the downstream ports of the controller are 2.5 GT/s ports that no
-longer answer.  Resume spent about 65 seconds waiting for the xHCI
-controller behind one of them ("not ready 65535ms after resume"); with
-the pci_bridge_wait_for_secondary_bus() change it gives up on that
-controller after about one second.  That machine never reaches
-pcie_wait_for_link_status() in this situation, so that part has not been
-tested.
+camera-i2c-0: &i2c2 {
+};
 
-Assisted-by: LLM
-Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
-Tested-by: Darrell Gum <d@rrell.co>
----
-v3:
-- No change, apart from adding Darrell's Tested-by from v2 (was 3/3).
+camera-regulator-0: { /* if exist */
+};
 
-v2:
-- Also cover pcie_wait_for_link_status().
+mipi_csi {
 
- drivers/pci/pci.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+	ports {
+		 camera-port-0: port@0 {
+		};
+	}
+}
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index eacaa1e71a83..24b51dd0f9cc 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -4604,8 +4604,8 @@ static int pci_pm_reset(struct pci_dev *dev, bool probe)
-  * @use_lt: Use the LT bit if TRUE, or the DLLLA bit if FALSE.
-  * @active: Waiting for active or inactive?
-  *
-- * Return 0 if successful, or -ETIMEDOUT if status has not changed within
-- * PCIE_LINK_RETRAIN_TIMEOUT_MS milliseconds.
-+ * Return 0 if successful, -ENODEV if @pdev is not accessible, or -ETIMEDOUT
-+ * if status has not changed within PCIE_LINK_RETRAIN_TIMEOUT_MS milliseconds.
-  */
- static int pcie_wait_for_link_status(struct pci_dev *pdev,
- 				     bool use_lt, bool active)
-@@ -4620,6 +4620,9 @@ static int pcie_wait_for_link_status(struct pci_dev *pdev,
- 	end_jiffies = jiffies + msecs_to_jiffies(PCIE_LINK_RETRAIN_TIMEOUT_MS);
- 	do {
- 		pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
-+		/* All ones means @pdev is gone; it would look like an active link */
-+		if (PCI_POSSIBLE_ERROR(lnksta))
-+			return -ENODEV;
- 		if ((lnksta & lnksta_mask) == lnksta_match)
- 			return 0;
- 		msleep(1);
-@@ -4642,8 +4645,9 @@ static int pcie_wait_for_link_status(struct pci_dev *pdev,
-  * according to @use_lt.  It is not verified whether the use of the DLLLA
-  * bit is valid.
-  *
-- * Return 0 if successful, or -ETIMEDOUT if training has not completed
-- * within PCIE_LINK_RETRAIN_TIMEOUT_MS milliseconds.
-+ * Return 0 if successful, -ENODEV if @pdev is not accessible, or -ETIMEDOUT
-+ * if training has not completed within PCIE_LINK_RETRAIN_TIMEOUT_MS
-+ * milliseconds.
-  */
- int pcie_retrain_link(struct pci_dev *pdev, bool use_lt)
- {
-@@ -4876,8 +4880,10 @@ int pci_bridge_wait_for_secondary_bus(struct pci_dev *dev, char *reset_type)
- 		if (!dev->link_active_reporting)
- 			return -ENOTTY;
- 
-+		/* All ones means @dev is gone; it would look like an active link */
- 		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &status);
--		if (!(status & PCI_EXP_LNKSTA_DLLLA))
-+		if (PCI_POSSIBLE_ERROR(status) ||
-+		    !(status & PCI_EXP_LNKSTA_DLLLA))
- 			return -ENOTTY;
- 
- 		return pci_dev_wait(child, reset_type,
+==== ov5640.dtso
+
+reg_camera_1v5: regulator-camera-1v5 {
+	...
+	vin-supply = <&camera-regulator-0>  //if exist
+}
+
+&camera-i2c-0 {
+	camera@3c {
+		compatible = "ovti,ov5640";
+		reset-gpios = <&ov5440_ep 1 GPIO_ACTIVE_LOW>;
+		...
+		port {
+			ov5440_ep_0: endpoint {
+				remote-endnpoint = <camera-port-0-ep>;
+				...
+			}
+		}
+}
+
+&camera-port-0 {
+	camera-port-0-ep: endpoint {
+		remote-endpoint = <ov5440_ep_0>;
+	}
+}
+
+Use Makefile create combination for difference carrier boards and
+camera modules.
+
+You can use similar method to create connector for carrier boards, if
+it shared for difference boards.
+
+Connector have some limiation to support multi instance ( more than one
+camera module).
+
+>
+> Given these combinations, would you consider reasonable keeping the
+> camera described directly in the carrier board DTS as proposed in this patch?
+
+It is only if support one only camera.
+
+> This would avoid adding complexity across the different configurations.
+>
+> If you still recommend connector bindings, how would you suggest
+> structuring them to handle these differences?
+
+See above code segment.
+
+Frank
+
+>
+> Thank you so much for your help,
+> Best Regards,
+> Stefano
