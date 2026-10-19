@@ -1,83 +1,81 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.127.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792439774;
-	b=sIJg3BhvelKfiw+Kv6WoBhDI5ngf55jPQHDRXXwfO/g/0e7jGylcl1Rz8BZC0OLbD2fM
-	 SA+iRHX4mrbiGa2C794Uz75YU5I6EAe2MnosGNsZ7MbkulgdAySvStyAwJQQfk4UIo0Fs
-	 UJH3T3UcAStOMo4Sb8IUmzaP2wNjDX7EyMXry4Q7B2RD90mQDEXO6dvX4sR/Z+xqiB5g6
-	 6QJtcoNqFtm5opVM/5ueUpG3DDr6K8uyw9Ysum47z+BObtEymWdwDhsA5RbrPj/cK94Vg
-	 KTPHcyHRyKh++MHBd0XdU8+8bSWlWv5fRKrqVaxPgu08Dds8rj8Okaim+riGj/tsR9w==
+	t=1792439787;
+	b=vXJxQPN5/3u5WFr+4R8d5RD7dCGk3ZROVkApjR6++Ag8CwOyJnTeva4H+9BBd7jVl3Hk
+	 S1kKER4jntWjuYacQoT6HeWr0PfFIMdz+LAq2Fzka311HdL1Oc9RH7gmvtknKHoc/X/Iu
+	 GHIwy7ih7aHYCt0v6PtDsgK1J1nXv5BDRyPFCVT8wMmIVRIRt0fG8c0GbFYJvWEamXUCt
+	 v0Xdfmzvvg7qTLJNjbIk3SeW57OOHXmJqQW0StrQliuyvVzmCco+Zzc0vSJCnzJQVPw1H
+	 iFpj5e9x5HguKw/rDiJcop8MiPj+JsxhMx1Y++0QxsW+0N3NxQzouXzOhL2jV5VcaJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792439774;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792439787;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=3ETVpawH8TGNqcJn+eA+c7nYtySgKc/TG+P1cZ3T8mY=;
-	b=It8cOdF8kRmyOtDvdG/FOp3WC2ECsWzScNLkl11xuIQDWStI7uVHOxcIRX+V6+RFkoNj
-	 XmKfn0VYkA5eN3DOmUvJYe045OVGxldBd74Y0/xwKGoCivtn/pibkIApUqoAw6pdImJBx
-	 Mhm65/mFwTHiG0kAIaY8MNVRfs9ZMUrIHSb2yAv/Gkm6V7n9psdSTgeIbrhgDXdDMkc/o
-	 USTGJGcGQV+qTwXeGXhfpQAerkyFNvDWPXDFxVu1DVf44Rem0DQsL5WtWjgT67HwIv2kC
-	 +5bMS7//oaaMPYuv4REVAElYtt5zW+4uVt/hhwDFmx9R53nR419EiVJIOq61bvkMgrg==
+	bh=/jsRliy91BFODbj93z9kV7xYbKl60fLDTuXOxvxJ32o=;
+	b=zTvgNre4MPiPjb5TpMuooC19TAnieOEqIfwWoGdbPBl1rO7JCLoDHQiFUV3rYe4hsvro
+	 xaN2/XO1Ze//OcrjD7enJndG2ki9qbpAr5xw69nvkT5z5dwmlicB/GsCb7PcgZ5S9HB5Z
+	 B5tscm/9HL2Hc4gvyuDbkcihirROiPg0x1SVb69svgCUZ0f+9uIJVvhrJy/vv2TkX5KqH
+	 9OIaK17+nED0K9tOv+aVWknPhyGgh7y7yxPym1P5YMQ/65iWYfn9t4xbrMiHbmaqgyNWB
+	 NXpsLl3aFm0pwXm+ZeGu034+wGoeHJbzlMeuitbFdr/1gBpCv9w/IJv7LHoeYfTy+WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=szelinsky.de;
 	spf=pass smtp.mailfrom=szelinsky.de;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=c5lDjmGH;
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=RdeKNFxe;
 	arc=none smtp.remote-ip=85.214.127.56
 Received: from szelinsky.de (szelinsky.de [85.214.127.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C75606A33E;
-	Mon, 19 Oct 2026 19:56:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25C75606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5D160A2614;
+	Mon, 19 Oct 2026 19:56:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B5D160A2614
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=c5lDjmGH
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=RdeKNFxe
 Received: from localhost (localhost [127.0.0.1])
-	by szelinsky.de (Postfix) with ESMTP id 4938EE83AA4;
-	Mon, 19 Oct 2026 21:56:12 +0200 (CEST)
+	by szelinsky.de (Postfix) with ESMTP id 6654BE83AA3;
+	Mon, 19 Oct 2026 21:56:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
-	s=mail; t=1792439772;
+	s=mail; t=1792439785;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3ETVpawH8TGNqcJn+eA+c7nYtySgKc/TG+P1cZ3T8mY=;
-	b=c5lDjmGHpIkFfadXsxjbwFjF1PUFGQEE0wDNPALe/F5H6lsIUPd180rrJCMLez+1WCCgz9
-	BJrOAb4GVx5LrpSHyjUilMf0KKz29arjiTd1LuCMQ0lzq66WiZPHNP2H45Dy27zfHpm/lY
-	+AcgYBKn/SKdHyiTvlYTz/dbQ8K6vFiEGVMwv6m51VnaskPD9uSS16Ll/drtaZMPpNBeyn
-	tdR4tA/B1k0+ogHGx0FvW5v0Ud6rne7k46oD4EnwXAyAsgnm03dsKo25AgW1T512S18E6U
-	o7JXxFREKqDdV2Oj1pxs+a94jq7iZ+hg3Z3QmJfzDHSD4rs2lhWhpyRM1LLElw==
+	bh=/jsRliy91BFODbj93z9kV7xYbKl60fLDTuXOxvxJ32o=;
+	b=RdeKNFxe7esz40o+CZVO1cdhrr+a2HnHKGD6bH+4Y4j4Fa9D/fbeZL5R/8SUf+A8dC2TpH
+	Hpn3lqNx9pibVMHRiFIMOER5Z7b8HRZLrpaeDKxC7Fe0J9KlNsX0bVxBapFkUfT36s+96z
+	nqdMjVQkob9f9AUlA3O2pV6JUdiIKfh/MWTXSyyJzo/t6kYBitx+vBelHWQz1klYv1kGkR
+	MLYhU0mAW/ZdKOrgaKCHnF1fhEFNn0YmyPgXF7o5LCJ+vTdffuj4kBaj5V1JygMVQ2DZli
+	FUNkPOhVC7/+mN343VUhTkyYEUmzo8mEr+lZtNr9ymOm3Zubd4GYbcqtXUrzXg==
 X-Virus-Scanned: Debian amavis at szelinsky.de
 Received: from szelinsky.de ([127.0.0.1])
  by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
- id Zoo4JnsoDhL2; Mon, 19 Oct 2026 21:56:11 +0200 (CEST)
+ id LLh8fmBoGBhy; Mon, 19 Oct 2026 21:56:25 +0200 (CEST)
 Received: from p14sgen5.. (unknown [91.25.97.186])
 	by szelinsky.de (Postfix) with ESMTPSA;
-	Mon, 19 Oct 2026 21:56:11 +0200 (CEST)
+	Mon, 19 Oct 2026 21:56:25 +0200 (CEST)
 From: Carlo Szelinsky <github@szelinsky.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: o.rempel@pengutronix.de,
-	kory.maincent@bootlin.com,
+To: Kory Maincent <kory.maincent@bootlin.com>
+Cc: netdev-bot+sashiko@kernel.org,
+	o.rempel@pengutronix.de,
 	andrew+netdev@lunn.ch,
 	davem@davemloft.net,
 	edumazet@kernel.org,
 	kuba@kernel.org,
 	pabeni@redhat.com,
-	broonie@kernel.org,
-	lgirdwood@gmail.com,
-	corey@leavitt.info,
-	kyle.swenson@est.tech,
+	piotr.kubik@adtran.com,
+	saikrishnag@marvell.com,
 	horms@kernel.org,
+	kyle.swenson@est.tech,
 	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH net-next 2/4] net: pse-pd: unwind allocations when controller registration fails
-Date: Mon, 19 Oct 2026 21:56:09 +0200
-Message-ID: <20261019195609.307868-1-github@szelinsky.de>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 05/10] net: pse-pd: check the PI state under the lock when setting a power limit
+Date: Mon, 19 Oct 2026 21:56:23 +0200
+Message-ID: <20261019195623.308032-1-github@szelinsky.de>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179239893785.3135.13786246432250454158@kernel.org>
-References: <179239893785.3135.13786246432250454158@kernel.org>
+In-Reply-To: <bb8eaf92-2b5b-46a1-b39d-a29ae273a3b5@bootlin.com>
+References: <bb8eaf92-2b5b-46a1-b39d-a29ae273a3b5@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,54 +87,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, 19 Oct 2026 08:35:37 +0000, netdev-bot+sashiko@kernel.org wrote:
-> [Severity: Medium]
-> Do these goto free_kfifo paths leak the OF node references held in
-> pcdev->pi[]?
+On Mon, 19 Oct 2026 14:30:24 +0200, Kory Maincent wrote:
+> I think you can ignore this sashiko point as for now.
+[...]
+> With the change ask by sashiko on the kdoc you can add my Reviewed-by tag.
 
-Yes, and the commit message is wrong about that. The regulator core
-takes its own reference on the PI node, so I will drop the references
-on these paths and keep only the array. That goes into the next
-version, in net.
-
-> [Severity: Medium]
-> This recheck covers pse_pi_update_pw_budget() itself. Doesn't
-> pse_ethtool_set_pw_limit() still read pw_d and the PI state without
-> pcdev->lock before it calls this function?
-
-Yes. That is fixed in net by "net: pse-pd: check the PI state under
-the lock when setting a power limit".
-
-> [Severity: Low]
-> Should this patch carry a Fixes: tag
-
-Yes. The patch moves to net, where it gets Fixes tags.
-
-> [Severity: High]
-> This is a pre-existing issue, but it sits next to this teardown code.
-> devm_pse_alloc_pw_d() still allocates the power domain against the
-> controller that creates it
-
-Older bug, fixed in net by "net: pse-pd: do not tie a shared power
-domain to its creator's devres".
-
-> [Severity: High]
-> This is a pre-existing issue, but does the normal unregister path follow
-> the rule in this comment?
-
-No, an older bug. The PI regulator part is fixed by the second patch
-of [1], which I will rework and fold into the net series. Ethtool
-callers that still hold a handle are fixed by the PSE notifier series.
-
-> [Severity: Medium]
-> This is a pre-existing issue, but none of the error paths after a
-> successful setup_pi_matrix() undo what the driver did in that callback.
-
-Only pd692x0 leaves something behind there: its power budget. That is
-fixed in net by "net: pse-pd: pd692x0: release the manager power
-budget through devres". The other drivers only read the device tree
-and write registers there, so nothing is left to undo.
-
-[1] https://lore.kernel.org/netdev/20260813200653.980170-1-github@szelinsky.de/
+Thanks, Kory. I will fix the kernel-doc and leave the race for now.
 
 Carlo
