@@ -1,62 +1,64 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904FE48381E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:50:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FD248594D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392638; cv=none; b=tbAo8U8AD5pbdi4FaeexRVq0hGaQ3WIgH0DOHUVwVzHshu+OexJXeAkCOU/SkhHWVKS0jO7wV5UbEBm3uICEIw3P2l1x8dbHnuYoHfgIZ8CkekPlUsfzW5PqqdKROSYcbn8QwnZzttROdNZr/Oz1MWIl/5hLXDhp69YVoYK+obs=
+	t=1792392639; cv=none; b=Ehts9+3Dz4XRXzVhQg7rbvptQg1Hx2K8RThRXtc2+hKfgNyXeOe/bzMp9A/p44KmWV8CfDsJigl/PQ1j43vupnq6R5l0ob+ox/9BnreKAO5AWb0+qef5dpLqYCGQ7lJU3SkPgPsQfhMYTVb0fPF6fn7cnA+sCcBJh9i2TJEL9Iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392638; c=relaxed/simple;
-	bh=5Rlziv/VURH/P/cEyWDRx48qF+WbCr4jIknaDmyCnqs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lm1a9noFP4W6qmLrXgfcvmT5DHKWrl18XB3d9AjiqEXQzxpj9Gtw0o4fm3dYI1H2e0CfSgX2P2IO6Zl2KQVSyMgCxnyKIDPVBha0fVbAdob7ZNJlOXuJvT37inrtLbP+hqNDFh+uRy+at4PFuQzoabDE4nZKV6O+WdO8w96mnY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=gra0rGup; arc=none smtp.client-ip=209.85.215.181
+	s=arc-20240116; t=1792392639; c=relaxed/simple;
+	bh=z6OivWSzqfsIkGB+qypMYD9sy6gvak55sKurmHllDIY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=asicFqEmP0wX2LNpuSksh7T1+6fsgutVcqr4iulsLWpIqAwPtYLpI7kbMvRori73mA2gi6Qp/6uarb5WokfYChgvO19JAkQERUiWo6MrC5LHjjqXwJshV1kOpuK1oRZF3+6drXlbkq6200pbA1rN/B7McwbD6wr+JlSsWDdE5PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=PnNBLts5; arc=none smtp.client-ip=209.85.215.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="gra0rGup"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-ccc6b11a19aso611460a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:50:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="PnNBLts5"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so749691a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:50:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792392634; x=1792997434; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QK6qh5+NKSNYETgjkTPsz31lzea7ZQK2GxBH2To2CPA=;
-        b=gra0rGupPLGWFGL16VbpOM1EcGj0hIgtsTFjqaVx4qlBs/D6QZ+RAYKz8Ksqut0sCs
-         0XEF7Cvrnv/EQiE9nYWhiUlN4blyi8a966WIv/E/AY8Gs7pN4oCOCaTVwznhU/af/3E3
-         crDAdvDyOWGlucQumxll2k2dbJ7ut5dYIcUTf4tFqVzSsgAO0a5stIYOWAuyA3il/nlT
-         a8TKB3zeL3S4WkOY3As1kMwkmxGFzScvtnJ+5+GOdDixF9W9z5m8XTBHH32KLiHU2S+F
-         Udg49fAaCE/COWXfetHcKOjuWSDmQEoirdsgr/kZ/7oiMoGAGeMJ7vr7zgDQcbbW5Aq9
-         2wmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792392634; x=1792997434;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792392638; x=1792997438; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QK6qh5+NKSNYETgjkTPsz31lzea7ZQK2GxBH2To2CPA=;
-        b=iKzmNXhd/ATGpLGJ1l7HQ53kH9M+KhHAGdYW1ZBuuX5NI27DidrtGMTDexW0qqbPGT
-         FIOehzxRiswpX/j7UjTKRnzxdUKAfePgri/iVBOnJo7MwfB/XYwq3/Rz8o75PZi24M/f
-         9RjnefNIbP2jeQbBf3Ogx4CakZH3lfueabpYiQslJnqMhMrbqSGvULLuZi9Itv7CyKPG
-         b2XlRHRSuV/Ekx1yYRoRMH4pu2nPOGxVbdFCB2epzk8dRbFawZJiGCY22BgVUxaHV3rM
-         DLQbRk4qKeQ/p28S35Ap/QGbcGFTRh/8i6Fw/0UA69Om97GpeWa8iZutN1e8hoq+Yi6w
-         +UOA==
-X-Forwarded-Encrypted: i=1; AKwUvBzJaQxDzP4tuxZp7fEmjCq5dvPrvS4MCpef0bjEuDQOHFAboPVOP2ttSHBBcuIz3LQr6VZy6WpdVel5U3A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6JPE/Ry1ENkWU1QyPlU2rCehcgGs6+S/nxzCZEJWX3e/i/vIw
-	Bl2mUl11L/lRQLdQjCPvJGjiD0Y7FB0nfFusoN3c6iPmpzNxFlvD7sMdhfr0rbSotUA=
-X-Gm-Gg: AYBFou0HY6cZPuxSbV0Pl4iEbuLYDh8IW0rqtl0KLmlJSXHTBq6pTNgmAIGunGvxETG
-	IgAasfXHNTSspIGBQ7czIUpiasQ7d9Wlme2lgXvCCemUkStjlJBhzGDUf9nDfuQd6cX3EhXmN2M
-	zpiDaBtPb1fV09+va8laMLf6wbq+4A+IdZp/q55uhKJ6AYFKFSldeRsiLHAg0iZ3xcncao+EohS
-	tlIicBcz5ObAAIuqE/xm5/DGdGZmgUOGMlJK1Uhy3w3D650xF+wzaJ7QZNIH3dyCjGNyjk51h3x
-	xFO2uagVAJwdOX/IS1DT6Y7ftM+mDoRK4quqmkG+kB1u2b+WKPHOq7AHfNwKGxmAkxHjaTFT/5l
-	xS35iHglSZHpppYvS0TQZ2vdlQ0yJ8sy29tqDdtcldJUeC6MbXlAGWjMgw9SyETIKb/2Y86blDG
-	nEzyJp+0v9QXAQ+T3Rby8eJrUM5f+97kLHR7GuqCHQNUVihzVr4Q7wiaucbRwHDKqL1A7g7Tbwj
-	Oz52g==
-X-Received: by 2002:a17:90b:2c90:b0:3ac:a521:953 with SMTP id 98e67ed59e1d1-3acef0ff0cdmr5700956a91.46.1792392633670;
-        Sun, 18 Oct 2026 23:50:33 -0700 (PDT)
+        bh=g6wresGPlOerJ8rL7c+F8upCIM1dzOSfqyD9Zn2laIU=;
+        b=PnNBLts59+ZjE0mn8497vEQjSIMe0AW7vywZSY147n9N9YyvJ9FV6Ki2+5VXzWv9Jj
+         5hvlLOE4s/PBGD1jMDFEMrL5CB6jtqLAutGd4FUPLaEgPJz/J1lLKArD6+XQGL9McuCn
+         +/GIqK7XVyqC3qgHLhfT1AUbHoqpVNQLBtYJXahT5H3xkHtB7PaJYUWOxW0ESlLdGFcb
+         3TLM7SB5bc+2mHqV0zSbAOufEFYxaxbuL+ZaSjHICVhGE5OwqkDwIZLvGCoZoZvlIw42
+         YH1GrqjMJ3Z4Z0xkd5F46hQgb6N6pl10jTslgJIS/i/agPkqBnzk52G8uWyR5wu3sSB6
+         I2dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792392638; x=1792997438;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g6wresGPlOerJ8rL7c+F8upCIM1dzOSfqyD9Zn2laIU=;
+        b=hMUXIdoDXX5nkJVSEdgL4Xlj50Qx81LhW09WTYrGZFj8KznCvDNXVc93/GEjptkPnk
+         79GWSqlmceoQ1FS/IbaPdozZ8NE1K9Abq0B4xOlykxcBHyab7sjX+gsPlmrbNWL14iF6
+         CHAq8f9izLHtIf0UbqJMZLSL/6HiGWLHMOFd3g2DOrZ5odJK8uOI0mF6wMhh+Km4bN8j
+         +frafCflnfUuseI4U2gcMXSn09NLYdnIdJvt6gHI9VTAzVyPSJbjarmVnlVdlcpayazG
+         R99lYZ/7xCoLcASQZcqtLFNaKHaH6O1ysHutiJOlRCofZUF/FOA6mLvUIb/2D+TMC3d2
+         aNbw==
+X-Forwarded-Encrypted: i=1; AKwUvByAEO1yrhQrTVPpeUxBwWCjLd9arB5v8j8l8WZOVfw5YBTa7l8FXQpf7VBGLw45iVl5kDbwMrn2lKK7TIo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISR7vaxU49Ns8FUzLMwFFAH/1UWvdrEdoVMc2OWQNjySjUsjk/
+	IJ8xMQRe2gXvtWbwO85zJVGvZCvEaz9hN9jybNjKr2adHQElCZtTT4IhaELReRvif4s=
+X-Gm-Gg: AYBFou1GizH7PzlLrKU5x8VOGWPjozRsFmk0ATJEppVU0ZplB2g/BIYLBtLPU2Yo/iN
+	NEGnbOTm/oh1X4MtH33bbBZEBCe4isTrfSiNt4HzVd70DFjXjCQQ9W+g90WmiSigbA06+rDs7u/
+	U03F+Jke1QjvGNZXllVMNaRivqPitgUZ+TjYUX3chUGiEre458xP8nsEfNdbHGKbwzZVBETu5SO
+	oca5owH0liwguIxbFM+3P3WcccrO8h55INpwCOSMGVltlACX8wRIXdKfmyqfdLecsnWq9lZehRS
+	/UO0M/pn1uaas8JfdpOS/HvpsRIYGhJMcmShFGcY3/Rk6KrsrstK0tpHxGrf/0uuK1ezWOEHjyp
+	5Hg0/+35XQ74cWeL5rc//36hzAZToHsyNOPj3HZSk6jrMiCjVpoHkf16Rm9zGeZcwr0IbJQ+IPn
+	UHzOEf6Duch9yA3v7jwQf2T25qeFfyO6vFByOgUOswDO95SUendraPllxf6LihtYcEyFuHX/eVj
+	NVUxrUMO4SZTnZs
+X-Received: by 2002:a17:90b:4ac3:b0:3ac:7874:639e with SMTP id 98e67ed59e1d1-3acef4fb85dmr6103457a91.46.1792392637645;
+        Sun, 18 Oct 2026 23:50:37 -0700 (PDT)
 Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3f3ce5asm5870887a91.3.2026.10.18.23.50.31
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3f3ce5asm5870887a91.3.2026.10.18.23.50.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 23:50:33 -0700 (PDT)
+        Sun, 18 Oct 2026 23:50:37 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: njavali@marvell.com,
 	mrangankar@marvell.com,
@@ -66,10 +68,12 @@ Cc: GR-QLogic-Storage-Upstream@marvell.com,
 	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 0/2] scsi: qedi: bound firmware-reported lengths before they become copy lengths
-Date: Mon, 19 Oct 2026 15:50:17 +0900
-Message-ID: <20261019065019.537183-1-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH 2/2] scsi: qedi: bound the sense data length reported by the firmware
+Date: Mon, 19 Oct 2026 15:50:19 +0900
+Message-ID: <20261019065019.537183-3-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019065019.537183-1-yhlee@isslab.korea.ac.kr>
+References: <20261019065019.537183-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,27 +82,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two places in qedi take a length out of a completion queue entry and use it
-as a memcpy() length without ever comparing it against the buffer it is
-read from or the one it is written to.  Both of the masks involved are
-0xFFFFFF.
+qedi_scsi_completion() reads the sense length out of the CQE and uses it to
+copy sense data out of the command's sense buffer:
 
-The first is the unsolicited PDU path, where the destination is a 256-byte
-array on the stack of the nop-in and async handlers.  The second is the
-sense data copy on the SCSI response path, where the source is a 96-byte
-coherent DMA allocation.  Both lengths are ones a target can reach: the
-unsolicited one by sending a nop-in or an async message whose payload is
-larger than a single BDQ buffer, the sense one with any check condition.
+	datalen = cqe_data_in->reserved2 &
+		  ISCSI_COMMON_HDR_DATA_SEG_LEN_MASK;
+	memcpy((char *)conn->data, (char *)cmd->sense_buffer, datalen);
 
-I have no FastLinQ hardware, so patch 1 is backed by a KUnit harness that
-drives the real copy helper with the two DMA buffers swapped for kmalloc()
-of the same size so that KASAN can see them, and patch 2 rests on the sizes
-in the source.  Neither patch changes what is delivered for a PDU whose
-data segment fits in the buffer it was given.
+That mask is 0xFFFFFF as well.  cmd->sense_buffer is a
+SCSI_SENSE_BUFFERSIZE coherent DMA allocation and the firmware is only ever
+given its address, so 96 bytes is all there is to read there, while
+conn->data is the ISCSI_DEF_MAX_RECV_SEG_LEN buffer libiscsi allocates for
+the connection.  A reported length above 96 reads past the sense buffer and
+one above 8192 writes past conn->data, and datalen reaches
+__iscsi_complete_pdu() afterwards, which reads it back out.  Every
+SAM_STAT_CHECK_CONDITION completion takes this path.
 
-Yehyeong Lee (2):
-  scsi: qedi: bound the data segment length of an unsolicited PDU
-  scsi: qedi: bound the sense data length reported by the firmware
+Cap the length at the size of the buffer the firmware was pointed at.
 
- drivers/scsi/qedi/qedi_fw.c | 75 ++++++++++++++++++++++++++-----------
- 1 file changed, 51 insertions(+), 24 deletions(-)
+Unlike the unsolicited path in the previous patch this one is not covered
+by the KUnit harness, since reaching it needs a whole task and connection;
+the bound here is just the size of the allocation the sense data is copied
+out of.
+
+Fixes: ace7f46ba5fd ("scsi: qedi: Add QLogic FastLinQ offload iSCSI driver framework.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+diff --git a/drivers/scsi/qedi/qedi_fw.c b/drivers/scsi/qedi/qedi_fw.c
+--- a/drivers/scsi/qedi/qedi_fw.c
++++ b/drivers/scsi/qedi/qedi_fw.c
+@@ -640,8 +640,10 @@
+ 	hdr->residual_count = cpu_to_be32(cqe_data_in->residual_count);
+ 
+ 	if (hdr->cmd_status == SAM_STAT_CHECK_CONDITION) {
+-		datalen = cqe_data_in->reserved2 &
+-			  ISCSI_COMMON_HDR_DATA_SEG_LEN_MASK;
++		/* The firmware can only have filled the buffer it was given; cap at that. */
++		datalen = min_t(u32, cqe_data_in->reserved2 &
++				     ISCSI_COMMON_HDR_DATA_SEG_LEN_MASK,
++				SCSI_SENSE_BUFFERSIZE);
+ 		memcpy((char *)conn->data, (char *)cmd->sense_buffer, datalen);
+ 	}
+ 
