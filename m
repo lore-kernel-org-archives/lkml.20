@@ -1,174 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEEF4D9F6A;
-	Mon, 19 Oct 2026 10:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0724B2CD3
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404536; cv=none; b=SeGbYHL+TMpsTQed0bMsPM3L9oTg1qo6aAOeYEAMmAbieWkfwFXHohnqAVNDtlXH3uVSi4RFYMLFM3l2gmhkrUnGjdsLz50R9HQFtm9FTZziB90snD3jmuK0nZNbR4/6VyM9HBt97eYRpL0DOdrm3dfUXVX/rMlvUVcqd6QwqJs=
+	t=1792404584; cv=none; b=ma+97HOQlgVCl2qtQrD63cYscntCKRcerbDJK7kr10kvb1vr2mgRoMovt6k0K60O61LFtkgj5yL2Ulh8fqsduCVfZ0W2UQMlCYyug19FNWolbN7tN5BZrwY10Xo6Yzl1fSLy+fMG9sBhiz3bfqP2RenGUcFgdikRZjUtWurxFZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404536; c=relaxed/simple;
-	bh=e4M5GIVHRKJleKxwEFL10u3DdioDxRxmWP8f9Ju2vLo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=H/A5LJpBvulBIEFYkGevT7D6wm6kSl/vNxHlhDaWsGhji0dZuCE5RUObEU4NFwxcZBZhn17L4wGL5rVF/QPEiBD7rt0BW6heSVmQWUcnMYRQycn9JP3FAQO20z0VkynMzdsnaSgFk28caZ4jXt4Tx91g5URmy+6NQTb2+q68amg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S8C4+uhv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792404584; c=relaxed/simple;
+	bh=gdG7DaAftWT3ADCplqkxnyzdbLARSb0KMGw7e2oKzQU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W6G3ywmPdLdamxMSKVf2ap9m38aeblaclof+fovJ5s1HCSi58otE6GZSQ4deW7tw8HpfbyyMKDgtVisM+oC0RNInA3mD9cKzL1hWT45QZTYXi6uXw+E+RM4Gdt+mStgps//7QjAqb1HTRKtxvb0hW5EMxoibu1otFee4soPqvEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TapkNhEJ; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S8C4+uhv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 794691F000C5;
-	Mon, 19 Oct 2026 10:08:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792404534;
-	bh=if/r576nCJveP9pEbWDHZQui6hukAF4UhYA2QYWeDXE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=S8C4+uhvJw0yvIP1nCu0HUXdFKmwKY+A1Zxvy9bSXOwszU9YzIn4ZzCc8T1irXaly
-	 2Aij6KHnms6nJ9YP6c9Sxn8OetPaY8bhueWvmDw9r1BKHP8+Ey/wxHeZTcBQzGyfV7
-	 rUF1lHEF57a90V9Jh3Ayg53tFQAleaipU04dNBO4fQxx6qh3TSvaNxHtTLo5QeI3r9
-	 jxUXWHt7yduz/e7ZgK3yDMoIDrcxR5EN3KGUCLBpjXlhUgFV96WI/r4D8qnKqBixFJ
-	 wxVrsLDTEyPfp11mJvbJ5xBUFdTyTtD0XgW28hJ2OpR+bqL++rfavIWpiIPyTjpFGl
-	 dUom/HUMVDOMg==
-Subject: Re: [PATCH net-next v15 9/9] net: dsa: lan9645x: add port statistics
-From: netdev-bot+sashiko@kernel.org
-To: jensemil.schulzostergaard@microchip.com
-Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- woojung.huh@microchip.com, linux@armlinux.org.uk,
- Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- geert+renesas@glider.be, magnus.damm@gmail.com, edumazet@kernel.org,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Mon, 19 Oct 2026 10:08:53 +0000
-Message-ID: <179240453307.3135.2065386937763476332@kernel.org>
-In-Reply-To:
- <20261015-dsa_lan9645x_switch_driver_base-v15-9-562f316f78b9@microchip.com>
-References:
- <20261015-dsa_lan9645x_switch_driver_base-v15-9-562f316f78b9@microchip.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TapkNhEJ"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so14191555e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:09:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792404581; x=1793009381; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2k1+XdFZpFLCHbc15Fx/KjwLwLdvrI4ZxyGFOBKUCSU=;
+        b=TapkNhEJU7Vgkd5wU7fYUDwxh7e7/IyI263kpRXTOwuS9ynyuObk06aZhZT47W1i0Q
+         XAfwisAaONZnNG6L46nT4ve+z6eVled+VGc3t7eSEXQd0KMcaUaJiTfhkknBUVdnTFNd
+         BLWT52XU7GiTBDx+axAPoja9tw08BR0pZHixLMloW6jaDC5gUZ0kqlg5Lus5ik+eK/jk
+         KTGk6UIk+mUf3v6R/Q3wdXl/UteV3Zm7g79QxHtTLG/edn+5FRocgMhW8zxWE5VBkCmf
+         Fnofqwh4r0A9+C2eS34kPCwcDqmfQV1kHHV3IHr6V1JzZ/CmZX6/kayhxOpVQu8X++72
+         pv5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792404581; x=1793009381;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2k1+XdFZpFLCHbc15Fx/KjwLwLdvrI4ZxyGFOBKUCSU=;
+        b=X7hJfOKOLx4ZLvHWPjg0W3V5Ta93RqSwRUW8AZ9ns6I1Z+GNzLInddRFczPHM7S15U
+         JPnU3kWy6eVxRvvnj99/s98geR3u1flZPOySu+kWXg42zDurmQxciPEavRNyXLv54cxr
+         uiph3sCC7xbOr0AvHfwTn20vgbkVAiUWWjjifd1E9njMPBKoMuyOiGLONG4KG5jdlAfl
+         50lNwLdvos/c8tdSqW/qoOe9knSKBdfzFGy3HEPHss/jCSu0I+6onps3o88rgmjr7lYI
+         pqPnjXSImjCSN/luvnAsCcfifIy/DkJPJ1MRvJJHcOl2r4UUirhw7W+kUTPRJOBTIIAf
+         QlmA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9ac0cwkF45fFmUAk9CkMUOMk8cOPa7+O2K7gDVeTxwWtIVzvbcCEubG282tybAECFf28eqFX/IyS0KQc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXyeR/iLmzZeGx5z5GlqAE1urQqVD2cXyvNFNwAL7Wpe2UNo3S
+	0cxrrRDXBfrtfSC9xd78rhFKC19Ie9+enSvm7IfZ9CYVt8zbvJDws4up
+X-Gm-Gg: AYBFou3qwOvQrMgWXmweF9MoGOZiSSEVpqNdbwLw4Mw7hBKEgcCH2illzt2bGJtgVwv
+	zRW4IlSJZeAXmWunLBluWEAW2Dd95+RPSkA/W1NEuSRDdNQ7WvrBk9Nk8iHV/txYz1wf0PSffJ1
+	BJWsJEs12emVtg49PjFdQeZ5qAKAnCdEZ1Osap5M02QhSnUo5cSjr7Jp8XKPxRcw5PN/DWbQ+T6
+	tfXOanCYNWwXTt8BXkBECyXvGVRoXuVebmIvqalo52KP2T5nYoud5MwsnR987mbtoKAmjQsuSXb
+	BpGijHgqOLz3aoOy2PON1AI23EiI7I3VfHuycNEzDLawgC7fHkP0OqJYiRBNDE5Biur/W/wJmbK
+	7ohsKX3PAL6YXFlnKi0mwX8FQ+DYursGaQkNw/PLPjtSSWj0fWfnEFve5sN/R3hkJDQchpmI7s6
+	3JZRCv8mBQ7h7Ol6mj+jMF8Bew9U/92zFONgnk+3Zdoyvo1OlMm55SrjNk0t0vwgXeHRl+XUMKs
+	nekJY2MwoFs3i1BWfM=
+X-Received: by 2002:a05:600c:4e8a:b0:4a1:8961:78dd with SMTP id 5b1f17b1804b1-4a1d7616464mr162248185e9.27.1792404580998;
+        Mon, 19 Oct 2026 03:09:40 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a81587sm510533485e9.1.2026.10.19.03.09.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 03:09:40 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 0/4] mfd: aat2870: Convert to use OF bindings
+Date: Mon, 19 Oct 2026 13:09:26 +0300
+Message-ID: <20261019100930.110954-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Document Skyworks AAT2870 into schema, convert existing driver to
+use OF bindings and remove platform data, add support for
+in-supplies.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+---
+Changes in v2:
+- fixed led-max-microamp scaling
+- fixed max_brightness parsing
+- fixed regulator init_data and of_node passing
+- of_platform_populate > devm_of_platform_populate
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Changes in v3:
+- removed max-brightness property
+- switched from dedicated max_brightness property to dynamically
+  calculating brightness steps
+- update regulator registration to use mostly core regulator framework
 
-- [Medium] lan9645x_stats_get_stats64()
-  (drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c) counts error…
+Changes in v4:
+- set max_brightness form aat2870_bl->max_current instead pdata->max_current
+- switch gpiod_set_value() > gpiod_set_value_cansleep()
+- constify aat2870_regulators
+- max_current in bl switched from int to u32
+---
 
---
+Svyatoslav Ryhel (4):
+  dt-bindings: mfd: Document Skyworks AAT2870
+  mfd: aat2870: Derive brightness steps from max current
+  mfd: aat2870: Convert to use OF bindings
+  mfd: aat2870: Add support for VIN and IN-LDO power supplies
 
-net: dsa: lan9645x: add port statistics
-
-This adds port statistics support to the lan9645x DSA driver. The 32 bit
-hardware counters are polled into a 64 bit software cache, and the pMAC
-counters are summed into the aggregate source. The cache is exposed through
-ethtool -S, the standard ethtool groups and ndo_get_stats64.
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> new file mode 100644
-> index 0000000000000..a21afb4d98532
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> @@ -0,0 +1,854 @@
-
-[ ... ]
-
-> +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
-> +				struct rtnl_link_stats64 *stats)
-> +{
-
-[ ... ]
-
-> +	stats->rx_packets = c[SCNT_RX_SHORT] +
-> +			    c[SCNT_RX_JABBER] +
-> +			    c[SCNT_RX_SZ_64] +
-> +			    c[SCNT_RX_SZ_65_127] +
-> +			    c[SCNT_RX_SZ_128_255] +
-> +			    c[SCNT_RX_SZ_256_511] +
-> +			    c[SCNT_RX_SZ_512_1023] +
-> +			    c[SCNT_RX_SZ_1024_1526] +
-> +			    c[SCNT_RX_SZ_JUMBO] +
-> +			    c[SCNT_RX_LONG] +
-> +			    c[SCNT_RX_PMAC_SHORT] +
-> +			    c[SCNT_RX_PMAC_FRAG] +
-> +			    c[SCNT_RX_PMAC_JABBER] +
-> +			    c[SCNT_RX_PMAC_SZ_64] +
-> +			    c[SCNT_RX_PMAC_SZ_65_127] +
-> +			    c[SCNT_RX_PMAC_SZ_128_255] +
-> +			    c[SCNT_RX_PMAC_SZ_256_511] +
-> +			    c[SCNT_RX_PMAC_SZ_512_1023] +
-> +			    c[SCNT_RX_PMAC_SZ_1024_1526] +
-> +			    c[SCNT_RX_PMAC_SZ_JUMBO] +
-> +			    c[SCNT_RX_PMAC_LONG];
-> +
-> +	stats->multicast = c[SCNT_RX_MC] + c[SCNT_RX_PMAC_MC];
-> +
-> +	stats->rx_errors = c[SCNT_RX_SHORT] +
-> +			   c[SCNT_RX_JABBER] +
-> +			   c[SCNT_RX_CRC] +
-> +			   c[SCNT_RX_LONG] +
-> +			   c[SCNT_RX_PMAC_SHORT] +
-> +			   c[SCNT_RX_PMAC_JABBER] +
-> +			   c[SCNT_RX_PMAC_CRC] +
-> +			   c[SCNT_RX_PMAC_LONG];
-
-[Severity: Medium]
-Should short, jabber and oversize frames be counted in rx_packets in
-lan9645x_stats_get_stats64()?
-
-rx_packets and rx_errors both add SCNT_RX_SHORT, SCNT_RX_JABBER and
-SCNT_RX_LONG, plus their pMAC versions. JABBER and LONG are also added to
-rx_length_errors. So every malformed frame received on a user port counts
-once as a good packet and once as an error.
-
-The rtnl_link_stats64 kernel-doc in include/uapi/linux/if_link.h says:
-
-  @rx_packets: Number of good packets received by the interface.
-
-The v5 changelog also says CRC and symbol error frames "are already counted
-in SZ_* buckets". Since those buckets feed rx_packets, frames with a bad CRC
-would be counted as good packets as well.
-
-This also gives a different answer from lan9645x_stats_get_eth_mac_stats(),
-which counts good received frames as UC + MC + BC only:
-
-	m->FramesReceivedOK = c[SCNT_RX_UC] +
-			      c[SCNT_RX_MC] +
-			      c[SCNT_RX_BC] +
-			      ...
-
-As a result, rx_packets is larger than FramesReceivedOK by the number of
-errored frames. ocelot_port_get_stats64() uses a similar rx_packets formula,
-but that does not match the uAPI description either.
-
-Could rx_packets be derived the same way as FramesReceivedOK?
-
-A separate point: c[SCNT_RX_PMAC_FRAG] is added to rx_packets but not to
-rx_errors. The comment in lan9645x_stats_get_rmon_stats() says:
-
-	/* ... Only SCNT_RX_PMAC_FRAG counts runts with an invalid
-	 * CRC, so fragments is left unset rather than reporting the pMAC alone.
-	 */
-
-Going by that comment, a pMAC runt with a bad CRC would be counted as a
-good packet and left out of the error total. Is that intended?
-
-v12 removed the eMAC SCNT_RX_FRAG from rx_packets, but the pMAC version is
-still there. Since the pMAC gets no traffic without MAC merge, this has
-little effect today.
+ .../bindings/leds/skyworks,aat2870.yaml       | 124 ++++++++++++++
+ drivers/mfd/aat2870-core.c                    | 120 ++++---------
+ drivers/regulator/aat2870-regulator.c         | 160 ++++++++----------
+ drivers/video/backlight/aat2870_bl.c          |  79 ++++-----
+ include/linux/mfd/aat2870.h                   |  95 +----------
+ 5 files changed, 260 insertions(+), 318 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015-dsa_lan9645x_switch_driver_base-v15-0-562f316f78b9%40microchip.com
+2.53.0
+
