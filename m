@@ -1,83 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427469;
-	b=lqiXBCYWk9wa/vvOEvHHx9xUgIKGC4R65Jil7ZZAhHHaFLv1cU0m5TL7n3s8/zOh14KQ
-	 t8iR9I+lRxmEieEevb6CTe4DU4sih4fAHq2dfV7ZKi8qY4whgSQqkhqP8lIOuDU3IpNNX
-	 6R5LVyImX2DR7XO0rE90zZTSEDr2/WrmU/hA9zX0/gMKhabBvqyfGeUgqc1/UFAUUpHVx
-	 19Zee6Uz//+hyPiz39DaYaidYp8g6oOCHewAMF7N2Jg5I2Ae9uJ7MIUtqkrKmREeLxWAH
-	 d0wrlxYCvsdp306gGTxdjXlU8M8tqfKrpz8Tgse+S8yJ0mcyblXpyRXBh9ck9QU4bpw==
+	t=1792427490;
+	b=ZQzdlicqZN5k0zRpHlduplxjGpEbEi5MNJy/uiVO19mAbyEZ3SF9/ReIcNCwbZgifbYv
+	 N8O7OZmJOA4uMoPKVcOlcZYai7SP9Tq44ZGThNVCCJ7tqdzNMgork1C9PzcxunuxOtRCI
+	 BOqa/04edfPwkfTfx/aIzbPh8liTeM8WLsByp8rt9SLoo5oU+CubOcurSbN0sOTpuUHPy
+	 WeQ5xy6bneWKeVMV9KgjTxCVkJXu2Vb4KX/nr3rSWw1Y7Tw9hNoKXr7EZkCYvnCzwRhNE
+	 d30++q4FUPAR+/+RwTdNWXPVkjNvjTUgHzcOxrBkOlI+h3c5xgovBiZiGjQ9VWFgLWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427469;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Scanned-By;
-	bh=7vGFlsnjZ5TUMr/EjNcJOClHWlRBtcNRQf4NXslTfyM=;
-	b=xEYeFeAE9As+rcfszzlUSIuFjO1fXZDZeMCED6/E6wiQIgGh7w+95bic9HwwCkqgGjX5
-	 CQBUSJ6VQacxMN5LCn5mICo8Bg58q3o5+fJkRFBaRPuntyI6e5K1e5vXmxtjt9tUit8vW
-	 +x2KikMyS71rSi4r/Tujz3wJ5rsvG8WOeXFAAVUUtuOHzBo22qWqVmvb2UAGWhdkRzu4n
-	 EYht+fV8B42p8ij3GnZilSiLfPI+JVVCEd9LTcLTRaMji263H9hKmi0TyBvl1VbhtagoV
-	 e9y0h33p6Z5vvndIXuvgJMgBL/Mk9L9Gt+VWNL290niG9mdWSEg8hh4XbHNmLd0UfjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427490;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject;
+	bh=BQkPCxRYiTAiL9B7JuC/MlADAPxMOkFS/2yakF4ZChw=;
+	b=GI2Btkjb8vIqj/t0WajZ8mQuE79BdPy7U1u8ucNAJpbcJQY//KrihnLQi/lp16Z4O+y7
+	 K9VOCuyml4cxn9MpaTLE4KD2wdZP4tqGLZSCrMTpkuOu98yS0iATbwoR9NMY4xwCqqgDs
+	 +hDgLIs7j0YMEh42KP6+VjIw/GF4Lqty7V2hHCdYmVHWvkNihfOWIsDe5srWZVs3xa2VP
+	 Lr7WbSxhJaxHY+g7vPjxE7eh46bPg9GekZwBZO6jqRvbRDAlUptrGQOrmz6m7t52agPE3
+	 a1gfbLRMQYXgXKqfKMWhYOVF0bt/3bk0+VIDIIG7ZJveKUTIYPyq3mM3iS7v9trts5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TD+fKMNs;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ic3lOEBK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D1B606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:31:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19D1B606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3339D606A31B;
+	Mon, 19 Oct 2026 16:31:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TD+fKMNs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792427468;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7vGFlsnjZ5TUMr/EjNcJOClHWlRBtcNRQf4NXslTfyM=;
-	b=TD+fKMNsK0fosoAX2pbCBih0qV88/JuzgijcjA7REmxm5oEJ2/TXtpuAeSQaCVXD9rUbGp
-	n2q/fUA4ZArJYXUV4s7k4UcRS20G9zwaVuXtOUmnBWyjB+vCSPyA9HbuZD0DvH4edHXrJE
-	/5gv+CYlpl65LtIKDmA/0F8WHKqwJpA=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-240-Rx91e-ptPqaFVRcYxJHLXA-1; Mon,
- 19 Oct 2026 16:31:02 +0000
-X-MC-Unique: Rx91e-ptPqaFVRcYxJHLXA-1
-X-Mimecast-MFC-AGG-ID: Rx91e-ptPqaFVRcYxJHLXA_1792427460
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9488C1800EF5;
-	Mon, 19 Oct 2026 16:30:59 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 9F5241803A40;
-	Mon, 19 Oct 2026 16:30:54 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon, 19 Oct 2026 18:30:59 +0200 (CEST)
-Date: Mon, 19 Oct 2026 18:30:53 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: Binbin Deng <18983559317@163.com>, mhiramat@kernel.org,
-	peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
-	namhyung@kernel.org, mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-	irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org,
-	andrii@kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] uprobe: Assign session ID before publishing consumer
-Message-ID: <atZFvTrDIyBtzWbo@redhat.com>
-References: <20261019080709.477548-1-18983559317@163.com>
- <atX2FsqHIkOvhrLy@redhat.com>
- <CAEf4BzbX7vmpd2da4eKphX1r8=QXGey_1m32-KP=-8FOkFk15Q@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ic3lOEBK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BDF1F000C4;
+	Mon, 19 Oct 2026 16:31:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792427489;
+	bh=BQkPCxRYiTAiL9B7JuC/MlADAPxMOkFS/2yakF4ZChw=;
+	h=Date:From:To:Cc:Subject;
+	b=ic3lOEBKFW8+8x9aXXtK2W8QGxpo8anNSSF6YEir9Q0JYW6txe0XRw+cwYf5l4S4E
+	 84WB0LafN1mPVRCVntKvIzFBdlpPHqkqYRaouxvIUoqlHSl/SVJHEO0C+RMv5iSkCr
+	 fSFChdvaB+QkNcWcyxsr21XLYNQRpRcfHw2ppmivyqA1nonyMoVTy/5z5KnoPHiBJR
+	 cQ2UiMSJ/QU5cgQT1PyG6d5WLOGNPUbeFfmh2wMImxGmTNFvz0e77wXXg+tHpac5O5
+	 PH4cFCkWEow+4ZM4GKTOgVPQWtwluIWi4tCpt8o1Jq2IJDfWxc6ncDojwJWvbA8mDo
+	 HJmMDnVy2Nf4Q==
+Date: Mon, 19 Oct 2026 06:31:28 -1000
+Message-ID: <410cdfd35a22cb6eb13ea6324bad7eda@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Koutny <mkoutny@suse.com>,
+ Waiman Long <longman@redhat.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [GIT PULL] cgroup: Changes for v7.4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,52 +54,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEf4BzbX7vmpd2da4eKphX1r8=QXGey_1m32-KP=-8FOkFk15Q@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On 10/19, Andrii Nakryiko wrote:
->
-> On Mon, Oct 19, 2026 at 3:51 AM Oleg Nesterov <oleg@redhat.com> wrote:
-> >
-> > On 10/19, Binbin Deng wrote:
-> > >
-> > > consumer_add() publishes a consumer on uprobe->consumers
-> > > before assigning its session ID.  handler_chain() traverses the consumer
-> > > list under the trace RCU read-side critical section and can therefore
-> > > observe the new consumer while uc->id still contains its initial value.
-> > >
-> > > The race is reachable when an uprobe at the same inode:offset is already
-> > > active and a task hits its entry breakpoint while another CPU registers a
-> > > second session consumer.  handler_chain() may store the stale ID in the
-> > > return_instance consumer array.  By the time the function returns,
-> > > uc->id has been assigned a nonzero value, so return_consumer_find() fails
-> > > to match the saved ID and the session ret_handler is incorrectly skipped.
-> >
-> > I guess we don't really care, this doesn't differ from the case when
-> > consumer_add() is called right after list_for_each_entry_rcu() in
-> > handler_chain().
->
-> that uc->id is important for "uprobe session" semantics,
+Hello,
 
-Yes, but
+The following changes since commit b8eb5fd5bdb4c03758b056c70e5e1d962ca89757:
 
-> which seems a
-> bit different situation compared to barely missing consumer_add() in
-> handler_chain(),
+  cgroup/cpuset: Call is_in_v2_mode() after acquiring cpuset_mutex in cpuset_handle_hotplug() (2026-10-06 06:36:51 -1000)
 
-I must have missed something... If handler_chain() misses consumer_add()
-then push_consumer(uc->id) won't be called.  This means that then later
-handle_uretprobe_chain() -> return_consumer_find(uc->id) will equally fail?
+are available in the Git repository at:
 
-> but regardless, the fix looks good, we should apply it
->
-> Acked-by: Andrii Nakryiko <andrii@kernel.org>
+  https://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup.git tags/cgroup-for-7.4
 
-Agreed, I have acked it too.
+for you to fetch changes up to 1850c669516cb8568150937497a9a16a7bfa1582:
 
-Oleg.
+  selftests/cgroup: test pids.events notification (2026-10-16 09:52:06 -1000)
 
+----------------------------------------------------------------
+cgroup: Changes for v7.4
+
+- A write to cgroup.subtree_control or cgroup.type could hang in D state for
+  as long as a task pinning a dying controller took to exit, as syzbot
+  reported. The wait is now interruptible.
+
+- cpuset: the deadline bandwidth check ran on cpusets that weren't valid
+  partition roots, failing cpuset writes with -EBUSY while deadline tasks
+  existed. The CPU count the fair class takes from cpuset assumed a shared
+  hierarchy that cgroup1 may not have.
+
+- Finding a cgroup's effective controller state no longer walks up the
+  hierarchy, for per-I/O users such as nvmet. io.stat reads of cgroups
+  without block devices skip the stat flush.
+
+- cpuset v1-only code moved to the v1 file and the exclusive flag dropped
+  from v2, with documentation corrections for partition roots and
+  boot-isolated CPUs.
+
+- Dead cgroups fail writes with -ENODEV consistently, plus small cleanups.
+
+- Selftest fixes, most visibly for tests that skipped on machines with many
+  mounts, and a new pids.events notification test.
+
+----------------------------------------------------------------
+Guopeng Zhang (3):
+      cgroup/cpuset: Remove redundant sched domain rebuild from update_prstate()
+      docs: cgroup-v2: Describe boot-isolated CPUs in cpuset.cpus.isolated
+      docs: cgroup-v2: Describe effective CPUs of partition roots
+
+Karl Mehltretter (1):
+      cgroup/dmem: Fix eviction helper reference in dmem_cgroup_try_charge()
+
+Konstantin Khorenko (2):
+      selftests: cgroup: skip test_memcg_sock under cgroup.memory=nosocket
+      selftests: cgroup: make test_memcg_sock check flushed sock stats
+
+Peng Fan (1):
+      cgroup: use assign_bit() where applicable
+
+Peng Yu (1):
+      cgroup: Track the effective css in each cgroup
+
+Ren Tamura (2):
+      selftests: cgroup: Enable the cpu controller in test_cpu
+      selftests: cgroup: Preserve command arguments in with_stress.sh
+
+Ridong Chen (1):
+      cgroup/cpuset: Move cpuset_update_flag() to cpuset-v1.c
+
+Sahaj Chaudhari (1):
+      selftests/cgroup: test pids.events notification
+
+Sasha Levin (2):
+      selftests: memcg: Don't close an uninitialized fd
+      selftests/cgroup: Free the paths returned by cg_control()
+
+Sebastian Andrzej Siewior (2):
+      cgroup: Move cgrp_dead_ task+iwork into its own struct
+      cgroup: Use %p for pointer formatting
+
+Shaojie Sun (3):
+      cgroup: namespace: Drop BUG_ON() in copy_cgroup_ns()
+      selftests/cgroup: read the entire file in read_text()
+      selftests/cgroup: don't crash on a truncated mount entry in cg_find_root()
+
+Tejun Heo (4):
+      cgroup: Return -ENODEV consistently for a dead cgroup
+      cgroup: Return ERR_PTR from cgroup_kn_lock_live()
+      cgroup: Make the offline drain interruptible
+      cgroup: Merge branch 'for-7.3-fixes' into for-7.4
+
+Usama Arif (1):
+      blk-cgroup: skip rstat flush for cgroups without blkgs
+
+Vishal Chourasia (1):
+      selftests/cgroup: add settings file with a longer timeout
+
+Waiman Long (3):
+      cgroup/cpuset: Run SCHED_DEADLINE shrink test on valid partition root only
+      cgroup/cpuset: Remove CS_CPU_EXCLUSIVE handling code from v2
+      cgroup/cpuset: Use cpuset_v2() in cpuset_num_cpus()
+
+ Documentation/admin-guide/cgroup-v2.rst            |  62 +++++--
+ block/blk-cgroup.c                                 |  11 +-
+ include/linux/cgroup-defs.h                        |   8 +
+ kernel/cgroup/cgroup-internal.h                    |   2 +-
+ kernel/cgroup/cgroup-v1.c                          |  26 ++-
+ kernel/cgroup/cgroup.c                             | 181 +++++++++++++--------
+ kernel/cgroup/cpuset-internal.h                    |   8 +-
+ kernel/cgroup/cpuset-v1.c                          |  59 ++++++-
+ kernel/cgroup/cpuset.c                             | 145 ++---------------
+ kernel/cgroup/debug.c                              |  18 +-
+ kernel/cgroup/dmem.c                               |   4 +-
+ kernel/cgroup/freezer.c                            |   5 +-
+ kernel/cgroup/namespace.c                          |   2 -
+ tools/testing/selftests/cgroup/lib/cgroup_util.c   |  58 ++++++-
+ .../selftests/cgroup/lib/include/cgroup_util.h     |   3 +
+ tools/testing/selftests/cgroup/settings            |   1 +
+ tools/testing/selftests/cgroup/test_cpu.c          |   5 +-
+ tools/testing/selftests/cgroup/test_kmem.c         |   2 +-
+ tools/testing/selftests/cgroup/test_memcontrol.c   |  81 ++++++---
+ tools/testing/selftests/cgroup/test_pids.c         |  73 +++++++++
+ tools/testing/selftests/cgroup/with_stress.sh      |   2 +-
+ 21 files changed, 471 insertions(+), 285 deletions(-)
+ create mode 100644 tools/testing/selftests/cgroup/settings
+
+-- 
+tejun
