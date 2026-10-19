@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792428382;
-	b=IwJiAuBkwLYyXhlUelG7QXF9kqAu3GQU7vAPLlxwvW9Bp3B88FiBVJFErhU0qhzGHP7X
-	 bFJiomILipO/RNf8qn8VxlLZjhmhGf0B202L3Wv1YblxO1kuSnB3WQoWBC7X2KpUI9iee
-	 tjQ5PgnzpjhZWSMPgeVUJF378BzI+aP7LlSW0hT2YYcUYB0bs9BHnDvtnGp5tsVU8GIDA
-	 webky5bbyT8EVTwbaK1biJslPT0y/A6n/EHiwqz0IQiy6gcusQPijjsSc4EMZBBSKKce9
-	 loyWi98/ix5SkYtfmvuFimJcZJUxUjYlsBWBtW1FcEDYunUgvPXSNW8jDw/R7VLmhWQ==
+	t=1792428378;
+	b=IxkSzJQjq+kD5/DKd7BMszzuIxXlM4F0NCqsFUTyUXkmgOyU0+IjcUYZlLMyRLp69gFZ
+	 eOjX2UuBCj9WLkHiQdmzlV791wtGc2SlDVeZ0hP37YKXywpp547AXkInsVi5qsNfcZ8v/
+	 TY2yh56sHznmKgiBPMljOADgzL5wsqQ0Uecy60Ri2CWxXNrljrESzuuX7hCibSA4FB4xt
+	 /46caItaskIe6PNznN7O2rqwPOQKulkiGpucrEKpDVru3+ZBTngSv9GFpDw/nS6Vw2vX7
+	 V9xigqqhV8tsohbUOxHKmnK4bugr/bi2KQ9NFSOTadxJivAdL99a0O/a2549L69YgYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428382;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428378;
 	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
 	 MIME-Version:Content-Type:Content-Disposition;
-	bh=Ott1dM7VdaK9PpdeTDrYGlrvyU2cB6X2X/fYD8MccmQ=;
-	b=IT/btT+tNi6RXduUECHbtnVoTo5nPd9o9XBzgxp0LBN6w5252nHUJNe2W17X2QhCpQF3
-	 ZlUKMduGNWw0Fb999DKAHXiFmT7EWzxDoJPgOjCgbRz2i5+3OFci93Zu1QsmFX3d2eEgQ
-	 s1nWfbCOeuvMWvl5Fq1e+LBZakBcUO66+v9Xgtttx//4RIB34o7NQ8Fw9rLcE8Bu4DKJY
-	 sn1OUqzhBIcl/FSJ8reBl8PUlWEgZbYH04UVi+1o1+qsBFlGEqHdkdQvGCVTgjB/d1ZeW
-	 Jq9E+YbBOcARJdXfI4mYOxMORmVAc3q5Bz2hvv5ht1e8+ChCa1eX+VIowHjO6HEwalA==
+	bh=zG9l3gdEZv24Wv1+jYwCr9vu8fFpf5WmZW/fv7xLtNI=;
+	b=KM4rj/6+XgXRmU43CUkjC2QQLX8L08nf1PQerOcaoCQ159IqT+I1KxX/dvvHC45BFOEt
+	 v3CpOK0fI9dpuTyziARrzqrBUKZre1Kpg2kPvzyhOXD1IbWGvKffFhvOvMbcPswLUOVvE
+	 4AZ1TaUU9e1jkiL1NtTqWmEbqCihKDcZbUkbOK6UtUObdwRd25kxwfjmjjbBlbZTXRhgb
+	 +YHIA6NCZH+42DnffKtgHCoj4e3Y90b0T34hW/Kbk1SWLrhiny91EDFMZK1dSyhjxrbCg
+	 FxKxP+zNEfAdPrpGF/K/bUFftzXVREFL/G5kh2pi4C9dPpVCh8yl9EznGPgHiSIwLYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+hcNmaJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYg7Jdh4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4CF606A326;
-	Mon, 19 Oct 2026 16:46:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EA8606A31D;
+	Mon, 19 Oct 2026 16:46:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+hcNmaJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289381F000C6;
-	Mon, 19 Oct 2026 16:46:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYg7Jdh4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949271F000C4;
+	Mon, 19 Oct 2026 16:46:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792428381;
-	bh=Ott1dM7VdaK9PpdeTDrYGlrvyU2cB6X2X/fYD8MccmQ=;
+	s=k20260515; t=1792428377;
+	bh=zG9l3gdEZv24Wv1+jYwCr9vu8fFpf5WmZW/fv7xLtNI=;
 	h=Date:From:To:Cc:Subject;
-	b=n+hcNmaJ4/P+AvSQVcKPCojzVCwy3mM5Td5qj1ynPyL9JHLxZ4Ne5VUGoxkn5sOzt
-	 YlkogA4RGbSo8U76pcLhmou2Xcbn8QGcJCV04Cr639QtUDvSICKyKi2A1ueViGch/f
-	 k8YoKWXqumsJKP20XkvmIherVRmXHBXK1mYbgyZKipG8brlTgSrqT7HHoEi7yojdak
-	 ZmejNTLa4DeXlslCUoiSVL3WQflYaM2dNlZewYbH/903+rh+pqTzoP4BeHUMNtkG1Z
-	 0nkYwoKVsAnA4WHI0S1qzz+8ZvfNViuCfL0/ApSQopvKEnFjXcPT8oVEnP4NmO0Skk
-	 Ye8cOAHvk7Fvw==
+	b=GYg7Jdh4E8FUAFl8R+uAscN46oKSgEe3ROvwudBV21lFN2Sk6Yv/HG050fATFK/Lt
+	 gdKdp81In8Ol/92ATo2aupE+kh1FTYtMtJGp133fhBIJs3STDC6m4fXeNIeVZKU46G
+	 YIqPjzu3y0EXyyrGvAST74ge5zo5A40MkgyY+tAaMoIHEuqkt6hwbaiRZfTBDR2jwN
+	 /5OZP7JYT7pBk8DAxx9ve4R5ysbXNF3L7IFNBbXxQcVj0Hq7URXIURyGhfpIE/IzbS
+	 wkltKZdN09pd90PXLN6yL5C7tQVEMxsIA1e5beZz0Vdq598otH7TRpfKmHLi7QZ6NV
+	 TjYj2eivSxW9A==
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 19B111AC57D0; Mon, 19 Oct 2026 17:46:19 +0100 (BST)
-Date: Mon, 19 Oct 2026 17:46:19 +0100
+	id 7AF921AC57D0; Mon, 19 Oct 2026 17:46:15 +0100 (BST)
+Date: Mon, 19 Oct 2026 17:46:15 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Oliver Upton <oupton@kernel.org>, Marc Zyngier <maz@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+Cc: KVM <kvm@vger.kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the kvm-arm tree with the kvm-arm-fixes
- tree
-Message-ID: <atZJW7bMdSGZtwoQ@sirena.co.uk>
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: linux-next: manual merge of the kvm-arm tree with the kvm tree
+Message-ID: <atZJV1B79VsZoy8u@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,11 +61,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Uz0hAbouyhfhWe/6"
+	protocol="application/pgp-signature"; boundary="72M+QjVQ4xoMSxcZ"
 Content-Disposition: inline
 
 
---Uz0hAbouyhfhWe/6
+--72M+QjVQ4xoMSxcZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -73,19 +74,16 @@ Hi all,
 
 Today's linux-next merge of the kvm-arm tree got a conflict in:
 
-  arch/arm64/include/asm/kvm_asm.h
+  arch/arm64/kvm/mmu.c
 
-between commits:
+between commit:
 
-  ecb6b43cd2224 ("KVM: arm64: Reject the GICv5 CPU interface hypercalls und=
-er pKVM")
-  8c6599d4e4893 ("KVM: arm64: Reject the stage-2 flush hypercalls under pKV=
-M")
+  dd0bc00e3e920 ("Merge branch kvm-arm64/cca-7.4 into kvmarm-master/next")
 
-=66rom the kvm-arm-fixes tree and commit:
+=66rom the kvm tree and commits:
 
-  421c18edc7f3a ("Merge branch kvm-arm64/pkvm-tracing-7.4 into kvmarm-maste=
-r/next")
+  b44a8c32f0116 ("KVM: arm64: Abstract out memory abort handling")
+  892c8a0bcc8e3 ("Merge branch kvm-arm64/cca-7.4 into kvmarm-master/next")
 
 =66rom the kvm-arm tree.
 
@@ -96,63 +94,164 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --combined arch/arm64/include/asm/kvm_asm.h
-index abda476e023de,7d799cd05dcd0..0000000000000
---- a/arch/arm64/include/asm/kvm_asm.h
-+++ b/arch/arm64/include/asm/kvm_asm.h
-@@@ -63,17 -63,6 +63,17 @@@ enum __kvm_host_smccc_func=20
-  	__KVM_HOST_SMCCC_FUNC___vgic_v3_init_lrs,
-  	__KVM_HOST_SMCCC_FUNC___vgic_v3_get_gic_config,
-  	__KVM_HOST_SMCCC_FUNC___pkvm_hyp_alloc_selftest,
- +	__KVM_HOST_SMCCC_FUNC___vgic_v5_make_resident,
- +	__KVM_HOST_SMCCC_FUNC___vgic_v5_make_non_resident,
- +	__KVM_HOST_SMCCC_FUNC___vgic_v5_vdpend,
- +	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
- +	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
- +	__KVM_HOST_SMCCC_FUNC___kvm_flush_vm_context,
- +	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa,
- +	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa_nsh,
- +	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid,
- +	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_range,
- +	__KVM_HOST_SMCCC_FUNC___kvm_flush_cpu_context,
+diff --combined arch/arm64/kvm/mmu.c
+index 6e28ded84b4d2,c9622b6e4c741..0000000000000
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@@ -329,6 -329,9 +329,9 @@@ static void kvm_vm_stage2_unmap_range(s
+  	struct kvm *kvm =3D kvm_s2_mmu_to_kvm(mmu);
+  	int (*fn)(struct kvm_pgtable *, u64, u64);
  =20
-  	MARKER(__KVM_HOST_SMCCC_FUNC_MIN_PKVM),
++ 	lockdep_assert_held_write(&kvm->mmu_lock);
++ 	WARN_ON(size & ~PAGE_MASK);
++=20
+  	if (kvm_is_nested_s2_mmu(kvm, mmu))
+  		fn =3D kvm_pgtable_stage2_unmap_tracked;
+  	else
+@@@ -1585,11 -1588,32 +1588,11 @@@ transparent_hugepage_adjust(const struc
+  	return PAGE_SIZE;
+  }
  =20
-@@@ -82,6 -71,12 +82,6 @@@
-  	/* Hypercalls that are always available and common to [nh]VHE/pKVM. */
-  	__KVM_HOST_SMCCC_FUNC___kvm_adjust_pc,
-  	__KVM_HOST_SMCCC_FUNC___kvm_vcpu_run,
- -	__KVM_HOST_SMCCC_FUNC___kvm_flush_vm_context,
- -	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa,
- -	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa_nsh,
- -	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid,
- -	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_range,
- -	__KVM_HOST_SMCCC_FUNC___kvm_flush_cpu_context,
-  	__KVM_HOST_SMCCC_FUNC___kvm_timer_set_cntvoff,
-  	__KVM_HOST_SMCCC_FUNC___tracing_load,
-  	__KVM_HOST_SMCCC_FUNC___tracing_unload,
-@@@ -93,6 -88,11 +93,6 @@@
-  	__KVM_HOST_SMCCC_FUNC___tracing_write_event,
-  	__KVM_HOST_SMCCC_FUNC___vgic_v3_save_aprs,
-  	__KVM_HOST_SMCCC_FUNC___vgic_v3_restore_vmcr_aprs,
- -	__KVM_HOST_SMCCC_FUNC___vgic_v5_make_resident,
- -	__KVM_HOST_SMCCC_FUNC___vgic_v5_make_non_resident,
- -	__KVM_HOST_SMCCC_FUNC___vgic_v5_vdpend,
- -	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
- -	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
-  	__KVM_HOST_SMCCC_FUNC___pkvm_hyp_topup,
-  	__KVM_HOST_SMCCC_FUNC___pkvm_hyp_reclaim,
-  	__KVM_HOST_SMCCC_FUNC___pkvm_hyp_reclaimable,
+ -static int get_vma_page_shift(struct vm_area_struct *vma, unsigned long h=
+va)
+ +static int get_vma_page_shift(struct vm_area_struct *vma)
+  {
+ -	unsigned long pa;
+ -
+ -	if (is_vm_hugetlb_page(vma) && !(vma->vm_flags & VM_PFNMAP))
+ +	if (vma_is_hugetlb(vma))
+  		return huge_page_shift(hstate_vma(vma));
+ =20
+ -	if (!(vma->vm_flags & VM_PFNMAP))
+ -		return PAGE_SHIFT;
+ -
+ -	VM_BUG_ON(is_vm_hugetlb_page(vma));
+ -
+ -	pa =3D (vma->vm_pgoff << PAGE_SHIFT) + (hva - vma->vm_start);
+ -
+ -#ifndef __PAGETABLE_PMD_FOLDED
+ -	if ((hva & (PUD_SIZE - 1)) =3D=3D (pa & (PUD_SIZE - 1)) &&
+ -	    ALIGN_DOWN(hva, PUD_SIZE) >=3D vma->vm_start &&
+ -	    ALIGN(hva, PUD_SIZE) <=3D vma->vm_end)
+ -		return PUD_SHIFT;
+ -#endif
+ -
+ -	if ((hva & (PMD_SIZE - 1)) =3D=3D (pa & (PMD_SIZE - 1)) &&
+ -	    ALIGN_DOWN(hva, PMD_SIZE) >=3D vma->vm_start &&
+ -	    ALIGN(hva, PMD_SIZE) <=3D vma->vm_end)
+ -		return PMD_SHIFT;
+ -
+  	return PAGE_SHIFT;
+  }
+ =20
+@@@ -1927,7 -1951,7 +1930,7 @@@ static short kvm_s2_resolve_vma_size(co
+  		vma_shift =3D PAGE_SHIFT;
+  	} else {
+  		s2vi->max_map_size =3D PUD_SIZE;
+ -		vma_shift =3D get_vma_page_shift(vma, s2fd->hva);
+ +		vma_shift =3D get_vma_page_shift(vma);
+  	}
+ =20
+  	switch (vma_shift) {
+@@@ -2078,6 -2102,16 +2081,6 @@@ static int kvm_s2_fault_pin_pfn(const s
+  				return -EFAULT;
+  			}
+  		} else {
+ -			/*
+ -			 * If the page was identified as device early by looking at
+ -			 * the VMA flags, vma_pagesize is already representing the
+ -			 * largest quantity we can map.  If instead it was mapped
+ -			 * via __kvm_faultin_pfn(), vma_pagesize is set to PAGE_SIZE
+ -			 * and must not be upgraded.
+ -			 *
+ -			 * In both cases, we don't let transparent_hugepage_adjust()
+ -			 * change things at the last minute.
+ -			 */
+  			s2vi->map_non_cacheable =3D true;
+  		}
+ =20
+@@@ -2179,10 -2213,10 +2182,10 @@@ static int kvm_s2_fault_map(const struc
+ =20
+  	/*
+  	 * If we are not forced to use page mapping, check if we are
+ -	 * backed by a THP and thus use block mapping if possible.
+ +	 * backed by a huge stage-1 mapping and thus use block mapping if
+ +	 * possible.
+  	 */
+ -	if (mapping_size =3D=3D PAGE_SIZE &&
+ -	    !(s2vi->max_map_size =3D=3D PAGE_SIZE || s2vi->map_non_cacheable)) {
+ +	if (mapping_size =3D=3D PAGE_SIZE && s2vi->max_map_size !=3D PAGE_SIZE) {
+  		if (perm_fault_granule > PAGE_SIZE) {
+  			mapping_size =3D perm_fault_granule;
+  		} else {
+@@@ -2276,6 -2310,10 +2279,6 @@@ static int user_mem_abort(const struct=20
+  			return ret;
+  	}
+ =20
+ -	/*
+ -	 * Let's check if we will get back a huge page backed by hugetlbfs, or
+ -	 * get block mapping for device MMIO region.
+ -	 */
+  	ret =3D kvm_s2_fault_pin_pfn(s2fd, &s2vi);
+  	if (ret =3D=3D -EHWPOISON) {
+  		/* If result is specified, let the caller handle this. */
+@@@ -2298,9 -2336,11 +2301,11 @@@
+ =20
+  static int kvm_vm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+  {
+- 	VM_WARN_ON_ONCE(kvm_s2_fault_is_perm(s2fd) &&
+- 			!esr_abt_is_write_fault(s2fd->esr) &&
+- 			!kvm_s2_fault_is_exec(s2fd));
++ 	struct kvm_vcpu *vcpu =3D s2fd->vcpu;
++=20
++ 	VM_WARN_ON_ONCE(kvm_vcpu_trap_is_permission_fault(vcpu) &&
++ 			!kvm_is_write_fault(vcpu) &&
++ 			!esr_abt_is_exec_fault(kvm_vcpu_get_esr(vcpu)));
+ =20
+  	if (kvm_slot_has_gmem(s2fd->memslot))
+  		return gmem_abort(s2fd, NULL);
+@@@ -2953,18 -2993,18 +2958,18 @@@ void kvm_set_way_flush(struct kvm_vcpu=
+=20
+ =20
+  	/*
+  	 * If this is the first time we do a S/W operation
+ -	 * (i.e. HCR_TVM not set) flush the whole memory, and set the
+ +	 * (i.e. HCR_EL2_TVM not set) flush the whole memory, and set the
+  	 * VM trapping.
+  	 *
+  	 * Otherwise, rely on the VM trapping to wait for the MMU +
+  	 * Caches to be turned off. At that point, we'll be able to
+  	 * clean the caches again.
+  	 */
+ -	if (!(hcr & HCR_TVM)) {
+ +	if (!(hcr & HCR_EL2_TVM)) {
+  		trace_kvm_set_way_flush(*vcpu_pc(vcpu),
+  					vcpu_has_cache_enabled(vcpu));
+  		stage2_flush_vm(vcpu->kvm);
+ -		*vcpu_hcr(vcpu) =3D hcr | HCR_TVM;
+ +		*vcpu_hcr(vcpu) =3D hcr | HCR_EL2_TVM;
+  	}
+  }
+ =20
+@@@ -2982,7 -3022,7 +2987,7 @@@ void kvm_toggle_cache(struct kvm_vcpu *
+ =20
+  	/* Caches are now on, stop trapping VM ops (until a S/W op) */
+  	if (now_enabled)
+ -		*vcpu_hcr(vcpu) &=3D ~HCR_TVM;
+ +		*vcpu_hcr(vcpu) &=3D ~HCR_EL2_TVM;
+ =20
+  	trace_kvm_toggle_cache(*vcpu_pc(vcpu), was_enabled, now_enabled);
+  }
 
---Uz0hAbouyhfhWe/6
+--72M+QjVQ4xoMSxcZ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatZJWgAKCRAv73Ows9A4
-iY/OAP0ZSX2Mlukl1jyX47bXSLC/KunmgtAY52ILAF1vN4AI3AD+L1lTVRjfgpIC
-mhQ/z0fcLCo3JNQ4W+5vIo1U2AF2PAA=
-=y24i
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatZJVwAKCRAv73Ows9A4
+iUArAP9MxhAaziYZm6gt5kMgAompfS0w+yvFAgvIBGMwpTy9+AD8CXQjiHiPF/m4
+bR7VzHVTTX5Fna6hrPAmOebsBZfQgQk=
+=q7Jb
 -----END PGP SIGNATURE-----
 
---Uz0hAbouyhfhWe/6--
+--72M+QjVQ4xoMSxcZ--
