@@ -1,77 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792446408;
-	b=1DPdVQkq3vgv+ipbRZEI19aDHfKF38IWjYDRM34iqVSRPSAcdLIlSa9gWBqBtR/Wi741
-	 ksfYqRszLTPIIEd9xjIvp5Qt6CYC7ex+rQyQ9F5l+yrLD2i8+kkY89EZpNvZxQRSqoYpu
-	 Bl+6op/wuFB3bORv0XOZiTVJ7PSYdcvE3a5xrQAS7MOzPtqT2bF8eW6feDnwqSt4dbazY
-	 EMLQgpAeP1TRkOV+IvObV7xoevWK/EyfHdmBp1QadhlooxxrpoADIbUz/M6k7zXPk8Mu/
-	 w5gvYLsXJSXeTITkdteKvHdLpDWAJiHeaan+JZswUZV7V2bvZs1oQp4sjvlEZaPh2lw==
+	t=1792446427;
+	b=GarpJCsiuLfptV0WCiZlYuFNl1VUVml9QXvEcJUskGchn3hHDvQ35Y9vuaeO0aWG/fwG
+	 a66nwajDciBQk1YnOXAVXOvD1EAp9ICq+W1ZEZIyce6YZgV6Wq0UXTunO7WCUebFpizmA
+	 4Em2aD24PjXaj0fyMvwTRw9MNHiibZ59Rhp3LAcFcGEo/HNLjVg++O7M6bc37EyORKUo2
+	 NSM//7hPOz0axXItkKTd7xVHnsZvki8H02Q8nA3+Ns0929lp8+Z2HjT4KXhkgotM7ACGO
+	 moZPONMxz8icQGkU8Hma0h/A+jtyfo7O0iLeqLSwyVfzSf4L5JjWmW0+okN1DjMddoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792446408;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZMh0iCAmhjZDg07+iXZGqb/qmaSMmikK3Gld4B4JZmI=;
-	b=3U42ioGzEsSvtN1xHPkJMb2lrzs8wJudSazcHrJ5nXSlDLmujTWXf7H7yuTfRVVs1tiT
-	 aAauPGgdvW+9RoqYyVlsNj9gX+KRJR6lGye2SLH5MEpGUCM4eWw39meOoDlCcNmP+ICsP
-	 baOJ5S18Rbkj3UjcCt2tHIm/H/3QtJIEILGjelYUQQtlImEITQCxQrscyhpomNeebXZqV
-	 ytVw6rrx5pRpmuo3fEeLu+YAawgfpoKP0BZ2uG8B/iXlbywDEk2Xq3uxxjUyAikUHbEVP
-	 fTdSHNkKs2pkQEoz+o1X/JH714YRXiicV2K4fYtrQfmtORy6XQRn/QVf3EbOFe9bIhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792446427;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
+	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:Date:
+	 Message-ID:X-Scanned-By;
+	bh=nCuZlJhYpzEDE8MZyIKHldrb9zK6HERF/NakAdQi+bo=;
+	b=pPfc2KCeh2Mv45BDUEaQDZMezg9kbYDIuEwTY/xjESBqTDFRdtXX+ZHAhFk2UHGYg8zL
+	 3wniYuBz1E9WGHw9sK/a6bJbmnoeYXLE4zCfmid2WUwzECIj+pjKD1hbVUH0cI8VQlv/w
+	 TW5evKIUQ81Cy9MCxatFfE+DmhiOjcRiCxvYTRCNsjYdmfbln/0iVIdEfbPpzkx0kBUPG
+	 ssV1idUFPim8E+XGORy+9rIu/+Jsjbrc80jNWkjv4kv8Sd4YQ9AA2Q3+RBqeMgKS4+21D
+	 KinwqcRTFXIUYfPjIqhzIz2Tu4YWz7GyjUinlaq48B8180QwRN+xFLJB/LqBUl6AVPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLRw0p56;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=feo3VPL0;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3CF606A319;
-	Mon, 19 Oct 2026 21:46:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620BE606A323
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:47:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 620BE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLRw0p56
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F372B1F000C4;
-	Mon, 19 Oct 2026 21:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792446408;
-	bh=ZMh0iCAmhjZDg07+iXZGqb/qmaSMmikK3Gld4B4JZmI=;
-	h=From:To:Cc:Subject:Date;
-	b=MLRw0p56RTCHYs3ndbGLGg7z8qzas9EKQRXKxLMBtobIGIxXx4IHlH9PI7P0GAWsm
-	 PWBdvrRrHVNMeg9q/rKDe4sgK/UJ/dkBYaYLahu7vwGNT6Cp6ug9RiadqWjPgp5NiA
-	 hGlj3I3ozZ8gOm+ExBIBm6OwWzVFoJnRHck++v4sRIalGpDDHsnaX6gnd6MM8APRDq
-	 EDPRkWh7uHn5ONmUmyZU8JNPBvx3Z33yDMNApXnooBDDmUl0WqO0PwnftvAcSfz/rH
-	 vGnPuORqalJowiqLL8GU4r0oxf2Goe9gqa7Oa+8yqd+ipktAIW3zyexgTTVJXAS5Dl
-	 nDSnVhwtbSj7g==
-From: Yosry Ahmed <yosry@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jim Mattson <jmattson@google.com>,
-	Kevin Cheng <chengkev@google.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Luiz Capitulino <luizcap@redhat.com>,
-	Matt Fleming <matt@readmodwrite.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Rik van Riel <riel@surriel.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Tal Zussman <tz2294@columbia.edu>,
-	andrew.cooper3@citrix.com,
-	gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	Yosry Ahmed <yosry.ahmed@linux.dev>,
-	Nikola Ciprich <nikola.ciprich@linuxbox.cz>,
-	Yosry Ahmed <yosry@kernel.org>
-Subject: [PATCH 6.18.y] KVM: SVM: Stop toggling virtual VMSAVE/VMLOAD on intercept recalc
-Date: Mon, 19 Oct 2026 21:46:11 +0000
-Message-ID: <20261019214611.404880-1-yosry@kernel.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=feo3VPL0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792446420;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nCuZlJhYpzEDE8MZyIKHldrb9zK6HERF/NakAdQi+bo=;
+	b=feo3VPL0HdRJom+S35JN6t3d7U9stRR1zTeFImFFZgcnm2qHxwzfDsYHGEF0STj0nOEYZv
+	p5D2kRBg8uVMxOHTrWW5ZSzwOL8JzzapkBKMEJYHsMiJRDGF6KxxnxfDHEvOYSRBYy1imv
+	kg0hjX3zj5xkdMj3qz0hUg6lgyxvJJ8=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-664-xWjmjAB1O92E7IPUm-h4dA-1; Mon,
+ 19 Oct 2026 21:46:54 +0000
+X-MC-Unique: xWjmjAB1O92E7IPUm-h4dA-1
+X-Mimecast-MFC-AGG-ID: xWjmjAB1O92E7IPUm-h4dA_1792446411
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D19AC18011E9;
+	Mon, 19 Oct 2026 21:46:50 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.48.11])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 712CE1800257;
+	Mon, 19 Oct 2026 21:46:43 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20261016215326.4110064-7-jarkko@kernel.org>
+References: <20261016215326.4110064-7-jarkko@kernel.org> <20261016215326.4110064-1-jarkko@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com, keyrings@vger.kernel.org,
+    Linus Torvalds <torvalds@linux-foundation.org>,
+    Jonathan Corbet <corbet@lwn.net>,
+    Shuah Khan <skhan@linuxfoundation.org>,
+    Randy Dunlap <rdunlap@infradead.org>, Alex Shi <alexs@kernel.org>,
+    Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
+    Andrew Morton <akpm@linux-foundation.org>,
+    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+    "Serge E. Hallyn" <serge@hallyn.com>,
+    Bagas Sanjaya <bagasdotme@gmail.com>,
+    Pasha Tatashin <pasha.tatashin@soleen.com>,
+    Jani Nikula <jani.nikula@intel.com>,
+    "Mike
+ Rapoport (Microsoft)" <rppt@kernel.org>,
+    Pratyush Yadav <pratyush@kernel.org>,
+    Frederic Weisbecker <frederic@kernel.org>,
+    linux-doc@vger.kernel.org (open
+                         list:DOCUMENTATION),
+    linux-kernel@vger.kernel.org (open list),
+    linux-security-module@vger.kernel.org (open
+                         list:SECURITY SUBSYSTEM)
+Subject: Re: [RFC PATCH 6/6] lib: Remove unused assoc_array
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,98 +98,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <2630214.1792446401.1@warthog.procyon.org.uk>
+Date: Mon, 19 Oct 2026 22:46:41 +0100
+Message-ID: <2630215.1792446401@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-From: Yosry Ahmed <yosry.ahmed@linux.dev>
+Jarkko Sakkinen <jarkko@kernel.org> wrote:
 
-[ Upstream commit 55780d8a1dcc93d2c4b33c565ada88df12c9f206 ]
+> Drop the obsolete leaf-count reference from a dm-verity test comment.
 
-Virtual VMSAVE/VMLOAD enablement (i.e.
-VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK) is set/cleared by
-svm_recalc_instruction_intercepts() when the intercepts are cleared/set.
-This is unnecessary because the bit is meaningless when intercepts are
-set and KVM emulates the instructions. Initialize the bit in vmcb01 base
-on vls, and keep it unchanged.
+This might need reworking as a commit message...
 
-This is similar-ish to how vGIF is handled. It is enabled in init_vmcb()
-if vgif=1 and remains unchanged when the STGI intercept is enabled (e.g.
-for NMI windows).
-
-This fixes a bug in svm_recalc_instruction_intercepts(). The intercepts
-for VMSAVE/VMLOAD are always toggled in vmcb01, but
-VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK is toggled in the current VMCB, which
-could be vmcb02 instead of vmcb01 if L2 is active.
-
-Virtual VMSAVE/VMLOAD enablement in vmcb02 is separately controlled by
-nested_vmcb02_prepare_control() based on the vCPU features and VMCB12,
-and if intercepts are needed they are set by recalc_intercepts().
-
-The bug is benign though. Not toggling the bit for vmcb01 is harmless
-because it's useless anyway. For vmcb02:
-
-- The bit could be incorrectly cleared when intercepts are set in
-  vmcb01. This is harmless because VMSAVE/VMLOAD will be emulated by KVM
-  anyway.
-
-- The bit could be incorrectly set when the intercepts are cleared in
-  vmcb01. However, if the bit was originally clear in vmcb02, then
-  recalc_intercepts() will enable in the intercepts in vmcb02 anyway and
-  VMSAVE/VMLOAD will be emulated by KVM.
-
-Signed-off-by: Yosry Ahmed <yosry.ahmed@linux.dev>
-Link: https://patch.msgid.link/20260110004821.3411245-3-yosry.ahmed@linux.dev
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Fixes: 5a1a726e68ff ("KVM: x86: Use KVM_REQ_RECALC_INTERCEPTS to react to CPUID updates")
-Reported-by: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-Closes: https://lore.kernel.org/linux-mm/arY1Wq6R9OY20ans@pcnci.linuxbox.cz/
-Tested-by: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-[ yosry: The bug is not benign. Since 5a1a726e68ff, a vCPU restored into
-  L2 (e.g. on live migration) recalculates intercepts with vmcb02
-  loaded, leaving vmcb01 with neither VMLOAD/VMSAVE intercepts nor
-  virtual VMLOAD/VMSAVE, so L1's VMLOAD/VMSAVE corrupt host memory. ]
-Signed-off-by: Yosry Ahmed <yosry@kernel.org>
----
- arch/x86/kvm/svm/svm.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 335b214aa3711..5f3c6d7974fb9 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -981,10 +981,14 @@ static void svm_recalc_instruction_intercepts(struct kvm_vcpu *vcpu)
- 			svm_set_intercept(svm, INTERCEPT_RDTSCP);
- 	}
- 
-+	/*
-+	 * No need to toggle VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK here, it is
-+	 * always set if vls is enabled. If the intercepts are set, the bit is
-+	 * meaningless anyway.
-+	 */
- 	if (guest_cpuid_is_intel_compatible(vcpu)) {
- 		svm_set_intercept(svm, INTERCEPT_VMLOAD);
- 		svm_set_intercept(svm, INTERCEPT_VMSAVE);
--		svm->vmcb->control.virt_ext &= ~VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK;
- 	} else {
- 		/*
- 		 * If hardware supports Virtual VMLOAD VMSAVE then enable it
-@@ -993,7 +997,6 @@ static void svm_recalc_instruction_intercepts(struct kvm_vcpu *vcpu)
- 		if (vls) {
- 			svm_clr_intercept(svm, INTERCEPT_VMLOAD);
- 			svm_clr_intercept(svm, INTERCEPT_VMSAVE);
--			svm->vmcb->control.virt_ext |= VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK;
- 		}
- 	}
- }
-@@ -1137,6 +1140,9 @@ static void init_vmcb(struct kvm_vcpu *vcpu, bool init_event)
- 		svm->vmcb->control.int_ctl |= V_GIF_ENABLE_MASK;
- 	}
- 
-+	if (vls)
-+		svm->vmcb->control.virt_ext |= VIRTUAL_VMLOAD_VMSAVE_ENABLE_MASK;
-+
- 	if (vcpu->kvm->arch.bus_lock_detection_enabled)
- 		svm_set_intercept(svm, INTERCEPT_BUSLOCK);
- 
--- 
-2.56.0.212.g129ede20d9-goog
+David
 
