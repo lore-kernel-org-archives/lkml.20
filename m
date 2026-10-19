@@ -1,99 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B4156DCDD;
-	Mon, 19 Oct 2026 14:26:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F3757084A;
+	Mon, 19 Oct 2026 14:26:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419967; cv=none; b=lrgUPDAOZv4FW3XOx+IghBwZJC5O/her8HmuV4oQdmIRVn4zx9YJUgIUtWZPuCmG8zHND5Xp49ZzqwEpu+zN00torOfwfZ4UKB0gFbHor0zqX5FEfXaWAwDf6qArFCEj24ZKXQ9kkAVp8k/1Wt8pkwsJB4luRGZCQ/UBp0VlsFA=
+	t=1792419974; cv=none; b=OO99EaFUeCH7UpKFWOivViGabKnCBTHGACEC9slnDDUZJOd56CiFwnoSz74oz+XuQSf6wxmvuO+mflYsyLOxIxOpGNCE7GsCdnOxQFgyvDBVxFrvQCv/YNn4ez5XwQTZY4LQa97M7u199Ye21FBLBbFBS+di6lAP01HiF/L4Two=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419967; c=relaxed/simple;
-	bh=koZeMyxGNBlOTT1LjPvu2Qikkq5hyG+Vr4MPSrsGO6A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Viksvd/GjdMTP6hscZqBjAdaH4FeVcIT2glt64M1a7w2eSwMkDK1Z9vP1qR7q09G5B9Hqik1iWcuUdjA4Gsv3JYLj5PJ1FlX6+4Eut5BbWBRbuP8xodxtXsb65LEsHFPEDqQdlBP83g4goLVOryoC+eWBwZTJ/EtNLE5wZ9ETs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUP8N/rJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792419974; c=relaxed/simple;
+	bh=wXaA4Lqd/Sq5Q7tVGx0pHDGgIpUc+OopZZmi8rNrlWM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LSvPyaDEZjhnY+mmOGAbEC+4R34cyzCo5wNxpAOtjfNma9YK0PoQJaKJB+K/QLuGHWOqbCstZ+uYaqfy6Wa1inBSe7i9wQnHoLb67dA+2VQeE8oOP1Ae0hBip9sm9LZfoAlrIrMxz4Uai5hdyezQ0wpIlmeG+BgyA6vClEEhv7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4yIvsjV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUP8N/rJ"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1B8571F000C7;
-	Mon, 19 Oct 2026 14:26:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4yIvsjV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB301F000C8;
+	Mon, 19 Oct 2026 14:26:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792419965;
-	bh=skxcJp9zwrJVgDVjVljLICivl5v/0jQaIPiugtaJATk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JUP8N/rJY/CDiTnI6wWIvQ4LpUoUCpPNElaVf/Ldbctyu74lex5U+6KF798a3STML
-	 l8TU0YWVCtKTQc7vFl+rWjS0UDldLXQxXYyEzJr85DAA+k5JvdGP5AQucU3LfQpeFn
-	 18QdC5OQx0Xr42dnIMSABFRF/an9bTgMCPVRvh46cegPbZPSVCPBUbZumg96MVB4Jg
-	 N9sycEk1GIfP3zc+fr3l+nhTHHp9Xf/FMm73XglSY8PrJvCvlAnQCJyKoidKqaSLSf
-	 I3vt6Pr5OU4GRb+tID7ibo097AJOLfKQ9iE9E1QZ0TeonPyo87SDjGcMdP+4Yfnsts
-	 HbVGFyWCa5I8w==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	stable@vger.kernel.org,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [RFC PATCH 8/8] KEYS: Verify the key identity in __keyctl_unlink
-Date: Mon, 19 Oct 2026 17:25:08 +0300
-Message-ID: <20261019142516.300040-9-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261019142516.300040-1-jarkko@kernel.org>
-References: <20261019142516.300040-1-jarkko@kernel.org>
+	s=k20260515; t=1792419972;
+	bh=DaSM4M9tttPQz83r2q9i9D3CTwdtlsu+SwUsFN6pCCE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G4yIvsjVmphgJHjlfUfE/6GYYeJx1kXsyQlJW5HuvU2CtXQl2wBMaVfXXAwJh7vwn
+	 keNWffRbKPQt4B7W/kR9vcrB1BlHZe+y8+lnTTqM5TrUPcCAC8fx3bYqolFyam8l8S
+	 2vH/EDK7jYsgGek+QtOlynq06slOd79NxoyuOCPt6Uj+EZYQT7NsWGpiasPp1M1uip
+	 27jDdVVKVhV/9lRqslOPBO9M6gKIF99fOeAEvQBVfY9Kjt2y6Ib4EA4uT2VBHJMELA
+	 4NgAK1xemzmiM36Y1cs6URb0Y+2GGyZ0wZfGs8ZcPbEa3uo9Dh1yTlbBNDSLhZGUbU
+	 8C5WCkb2PDpGw==
+Date: Mon, 19 Oct 2026 16:26:08 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Vignesh Raman <vignesh.raman@collabora.com>
+Cc: Helen Koike <helen.fornazier@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v2] drm/ci: Add CI pipeline for drm-misc branches
+Message-ID: <atYoMnjtOhDLJwza@houat>
+References: <20260911-drm-drm-misc-ci-v2-1-1847f89585cb@kernel.org>
+ <9e1fc5c6-53ff-4a4d-9744-77bcf6a0325e@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="p6yas62h76l2tfcz"
+Content-Disposition: inline
+In-Reply-To: <9e1fc5c6-53ff-4a4d-9744-77bcf6a0325e@collabora.com>
 
-Let's define the following preconditions:
 
-- Two keys: A and B.
-- R is a keyring.
-- Both have the same type/description/domain.
+--p6yas62h76l2tfcz
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] drm/ci: Add CI pipeline for drm-misc branches
+MIME-Version: 1.0
 
-Then:
+Hi Vignesh,
 
-1. KEYCTL_LINK(A, R) => {A}
-1. KEYCTL_LINK(B, R) => {B}
-2. KEYCTL_UNLINK(A, R) => {}
+On Mon, Oct 19, 2026 at 03:30:54PM +0530, Vignesh Raman wrote:
+> Hi,
+>=20
+> On 11/09/26 17:48, Maxime Ripard wrote:
+> > The DRM CI infrastructure builds upon Mesa's CI to run IGT tests on
+> > hardware. Its focus is on functional testing on a selected number of
+> > targets.
+> >=20
+> > The concern for drm-misc is different: it merges a large number of
+> > patches across many platforms, and build or unit test breakages happen
+> > on a regular basis. Adding build and unit testing for drm-misc has been
+> > on the back of our minds, and a first attempt was made last year. The
+> > feedback was to rely more on the existing infrastructure.
+> >=20
+> > Introduce a CI entry point that runs on pushes to drm-misc-next,
+> > drm-misc-fixes, and drm-misc-next-fixes. It reuses kunit.yml,
+> > check-devicetrees.yml, and the freedesktop ci-templates, while defining
+> > build templates inline to avoid pulling in the Mesa pipeline.
+> >=20
+> > A single Debian container with LLVM handles cross-compilation to all
+> > three architectures. The pipeline compiles the kernel using defconfigs
+> > from the drm/tip rerere-cache branch, runs the DRM KUnit tests, and
+> > checks device tree bindings.
+> >=20
+> > Link: https://lore.kernel.org/all/20250319-greedy-sturgeon-from-avalon-=
+ac758f@houat/
+> > Acked-by: Vignesh Raman <vignesh.raman@collabora.com>
+> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > ---
+> > Changes in v2:
+> > - Run dt_bindings_check
+> > - Run on push instead of MR after some discussions with Dave and Sima
+> > - Test run here: https://gitlab.freedesktop.org/mripard/kernel/-/pipeli=
+nes/1744733
+> > - Link to v1: https://lore.kernel.org/r/20260902-drm-drm-misc-ci-v1-1-4=
+9d05e228eab@kernel.org
+>=20
+> Acked-by: Vignesh Raman <vignesh.raman@collabora.com>
 
-Instead, verify key tidentity before unlinking, and return -ENOENT on
-mismatch.
+Thanks for the review, see below
 
-Cc: stable@vger.kernel.org
-Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
-Assisted-by: LLM
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- security/keys/keyring.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+> > ---
+> >   drivers/gpu/drm/ci/drm-misc-ci.yml | 147 ++++++++++++++++++++++++++++=
++++++++++
+> >   1 file changed, 147 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/ci/drm-misc-ci.yml b/drivers/gpu/drm/ci/dr=
+m-misc-ci.yml
+> > new file mode 100644
+> > index 000000000000..4ab87547794e
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/ci/drm-misc-ci.yml
+> > @@ -0,0 +1,147 @@
+> > +# CI pipeline for drm-misc-next, drm-misc-fixes, and drm-misc-next-fix=
+es.
+> > +#
+> > +# Runs on pushes to drm-misc-next, drm-misc-fixes, and
+> > +# drm-misc-next-fixes. Compiles the kernel for arm, arm64, and
+> > +# x86_64, runs the DRM KUnit tests, and checks device tree bindings.
+> > +#
+> > +# A single container image is built using freedesktop ci-templates with
+> > +# the packages needed for kernel compilation and LLVM for
+> > +# cross-compilation. QEMU is installed at runtime by the KUnit jobs.
+> > +#
+> > +# check-devicetrees.yml and kunit.yml are included directly. build.yml
+> > +# and the Mesa container/build pipelines are not:
+> > +# they pull in hundreds of Mesa-specific jobs and templates that would
+> > +# each need to be individually stubbed or disabled. The build templates
+> > +# (.build:arm32, .build:arm64, .build:x86_64) are defined inline.
+> > +
+> > +variables:
+> > +  CI_TEMPLATES_COMMIT: &ci-templates-commit aec7a6ce7bb38902c70641526f=
+6611e27141784a
+> > +  # Project whose container registry stores the built images
+> > +  FDO_UPSTREAM_REPO: mripard/kernel
+> > +  KERNEL_BUILD_CONTAINER_TAG: "2026-09-11-01"
+> > +  LLVM_VERSION: "19"
 
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 7143f3079d20..b025331488c5 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -1501,9 +1501,15 @@ static int __key_unlink_begin(struct key *keyring, struct key *key,
- 			      struct assoc_array_edit **_edit)
- {
- 	struct assoc_array_edit *edit;
-+	const void *object;
- 
- 	BUG_ON(*_edit != NULL);
- 
-+	object = assoc_array_find(&keyring->keys, &keyring_assoc_array_ops,
-+				  &key->index_key);
-+	if (!object || keyring_ptr_to_key(object) != key)
-+		return -ENOENT;
-+
- 	edit = assoc_array_delete(&keyring->keys, &keyring_assoc_array_ops,
- 				  &key->index_key);
- 	if (IS_ERR(edit))
--- 
-2.47.3
+I just realised there's still my personal repo being used as the
+container registry. Are you ok if I change it to drm/misc/kernel when
+applying?
 
+Thanks again,
+Maxime
+
+--p6yas62h76l2tfcz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCatYoegAKCRAnX84Zoj2+
+dnkIAYD9emTICkJ8mFFLwtNMnDVkVgaKoJFQXbZOQYfIfJl1SupzOJcfDQCPRIYz
+tnmc9UUBgMsaFLuNBpEovo1gqNoIN982LvHJwBdGMrTqRLSksr/yt68nv12PFWIR
+O33X37wBtA==
+=r0xP
+-----END PGP SIGNATURE-----
+
+--p6yas62h76l2tfcz--
