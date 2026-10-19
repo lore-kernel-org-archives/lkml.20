@@ -1,98 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792448945;
-	b=IZ77nLUNZZq5lGYSXWSPI8VULi31evrQt5x7GxPOe9XgfU4efLos5OWS99O4ECfL5IkJ
-	 N7e0FHkRKKd5FmovwvP+gkFxM727i+V2r4BWmJiEvUiOKTe9M+xFF0YnQygxF9SmiJa3b
-	 cpdigXA0FJoiEhNFdoZqLfmSMr+MaM4Jl94aWN4Z+GrLvnq93bBKOT/NVFjxQ3+yPHSlI
-	 eQPsPSRZRqHhHv5tpYPd6+rCBKXWO8karmQPKc6MHhytjgRa+Xe5maCk9TgMKbD1u7ID9
-	 Q+hIo4DEAp5dKu3TzFj8/adVW9KENjfSmUm/kll95deQtvwiWhBS6BThOWa6UrxlHKg==
+	t=1792448992;
+	b=I7UvYnj9LbYyPHYt+QCc6H/krIJ86GX4TXkjHV/t26zhf7XWUd5q8pR/T7pETK3XQh1u
+	 nfmo0oJ8DlzpHhfQF09CJ0YfrMg9sg99pBAM4Ld20Yl7H8Jkymmv6j9l9F7QoA4SNBEQt
+	 U48mJmzOVzfplCOyGTFLCKIyP1PoBpyvoScHL+s+1Eqtjk0OKijAAmi26Q3jLKs0bDPfq
+	 A095LJNGPcdeNKGHNXEmWJ7hfQNLrSrrDD0xEOkmQO980gxy29O9Den2X83jJag/B7q4K
+	 u4D6D7mmF2qJBX9arE9R3gzRnVdiWuytV0nV6X+ez7/qELwYdWt4oEM4Eeysd+0xNLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448945;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=grPMzPcjuw5NknkchPGY17WHY+uOk9YxlvMRLz3jlQ8=;
-	b=E1BqrKF2XP04Ek84YS1gkHqtHTSkhbMruAT+a3XEjEt/9QapIo9WLeLCLQLDHsnx3s+G
-	 4a0MurSy8q5vIInp0bAMRG8r5/I7y7aCx4rNCjQ5equLpuDlOXo569z40KLnhz6zJSLE5
-	 4JJ9+QNzQmFF3RcsuvrsQMyei/gcFl6hdSpovVE7EYngsYOzP6AldbLaNK8q56+849xsa
-	 8aEer7IvyAUmvQCGJ9OCg9S//ye1kjbUC+/NjeM1bJZSJvlr1nIPqxKnecP62OZuZetO1
-	 s9npMGd7x9jfI5dyFJxvkCCfvLJtPMMOL3hikpKc65HgzwLtknkyfv1tKB38zV4JIaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448992;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=bn0LUV8nV0X9AL2Oe4mZF4R4gBNcAcDh87LSeEPK0aQ=;
+	b=wOJBytxu6qIeGFTqjw09ACZmjtvUR7fOD5Vu86+W1W9U/v6WYFXGat2A3+ol3dWoBLpD
+	 rX8UheofdpssNmS3oZJUvDYa7Mqx6n5ozdxabjS00wkdufA++euaJT1XRfuaYbQGpFXCT
+	 1l6frqhvju4QzgNZoD0WmjnM/JD02BhwyOYr8i8RwljlWwegWVdeSOCaBvlhMNpmJvoze
+	 3hb0cFEjjKGw5T1ACDmSb12gTDQxwGenoNMCQzXOQA2pj46VYC6LNMW5lfoW9F6u2C6Ht
+	 kQGvdtdf0/uFVfr6uJGVlmPGneA52fSQ+AW2sEDRG3V0Mby+RvkuCB9PLZNcmCyDIWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pXYlgfS1;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYpjPcO4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7183F606A322
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7183F606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E026606A31B;
+	Mon, 19 Oct 2026 22:29:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pXYlgfS1
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso1545180f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:29:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792448943; x=1793053743; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=grPMzPcjuw5NknkchPGY17WHY+uOk9YxlvMRLz3jlQ8=;
-        b=pXYlgfS1gr29AG2ETT3tGp8vnAw3OYUwF9u9S1+h14H4z8PaaXwUwYa/x+kMzWr+iq
-         L/6gWmUy8KCi6Xf1AeD7LCF7dYBG1BbslumTqj3delnhMmtqach4KBDHoin5bnHKDenD
-         tKG8smktnJakoKQnD85begvJwgg4l9Kx+viAPm39Wj13vCiiOWelwE8wqJE9+snWNzSn
-         dZ/uiQhXk+8Ng2j3TzBlZ3Cou8gBYsMp09SGwSmu2UBnVr9RSKR2kRHUf01wfisrRNYf
-         xJjUuUUi68b0sPiUu2uHFedcSG3zdHG8yq6r2bD6tzeMqf7uOz+g+VJbUgwiQ7pHxlB1
-         yMSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792448943; x=1793053743;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=grPMzPcjuw5NknkchPGY17WHY+uOk9YxlvMRLz3jlQ8=;
-        b=nIaEfg+ODB6Xh4sqLJrgBV4SRmyLSEoGD+jYgZ4p172mrAGomniuLo33F4KUhBPNMJ
-         KB3NgUnATYmx6vLyJAHjQ/zeQAKqT/WKczTLZ27zZnJrzIo9ctDTYTerff510V1vHpCb
-         Fe4ltRBAopeWEC3rwrta/IQ+zMeeII46jw95ZTOOdE0Qf3ItbuV2HW3TSBshimtdzQw1
-         8PbSPBfz9Wm2wcSjqPeQkEMS4FiBPycR2Mugq7pDvd+9Qkl80e0eDJcWfaJgqN+7hSK6
-         i1JaRGfyJI6d8LA0LLhnlJgoEznakHOtYyXcCtfjC+z5IY9v5k1rxfNkF2G7w3vuq0MR
-         EGXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxDrQdhwU16b5TBYudNCX6mm3rX5tEkk2+XIGhVPAgFyErNgqnH2fOeJ3oM8iHZb8khZ7a8mQ5uoA1bDMo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQAjAiJQa4WEJzkk+Ul8Pw+KxLmamBO6GhfpKLMqHlo64t3NlZ
-	HNVF1Xz7xRwTcuZdk0XI23xGJSH2WmXcoqDsQphqWxAYcQdUCN7qAwWq
-X-Gm-Gg: AYBFou0+RD997AtrUl9YLQmn8MmX6sF+MsHUYjW8IG5fKkOSF9cMyZhJbl1SixV/+eW
-	enlO6msWqQupv2XPh4c1ZwnsXkH3eeovhz9iJlfyTXQ8foY8Eei1beATowAbFiKKKzQICRrELcd
-	q8frQTHHFUrzijfsKBFjriScSHpxl9cKlDBCaAH3SslSOUPG6cGA/6p78PdNQ3TogGTA/aSlDa1
-	ePaMFXeW+MvxDEZjhL19Yzbw6ymoJtedZkZLNUlcuKTOIcPMaG/T3P9FMFDhcN8LhFeOjLucoYC
-	1chTOSPrZdhWd7s8dZQDkgmGZtShVSCbZtzThZVTduAODkdginwOS6C8udenuXd7Au8Bk9O7Apc
-	g+iiz9T5XRkAlgkCpgPQFpKbGIKtPZN2nrs4g2k9PwaRp90pzQj1WRTdfk/P1TwUs4dCsn+m5qs
-	LE+VRsR3CxNtHMYFhrYP54zMtonr2fc8EkeoLi7mVDAD1UKdmyNC9NufNAlCQi5uup/o61h5rhL
-	K095DcyNzaGgOL09CUgGiHiZnDVoUn8fm/EoPgYJ0NuWAq7MYU=
-X-Received: by 2002:a5d:6b4c:0:b0:487:baa:aa6b with SMTP id ffacd0b85a97d-48e07fb1f63mr12709378f8f.43.1792448942577;
-        Mon, 19 Oct 2026 15:29:02 -0700 (PDT)
-Received: from DESKTOP-IR7J1S9.localdomain ([105.102.223.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818d61sm1666544f8f.31.2026.10.19.15.29.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 15:29:02 -0700 (PDT)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Cc: jack@suse.cz,
-	linux-security-module@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com,
-	neganhat@gmail.com,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Subject: [PATCH] lsm: don't call d_path() when current->fs is NULL
-Date: Mon, 19 Oct 2026 23:28:58 +0100
-Message-ID: <20261019222858.1766-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYpjPcO4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3FE1F000C4;
+	Mon, 19 Oct 2026 22:29:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792448991;
+	bh=bn0LUV8nV0X9AL2Oe4mZF4R4gBNcAcDh87LSeEPK0aQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=oYpjPcO4+qyVgDvU0SXTwuY03Cd2EM9GgCLwi1KJycLvfsoISiFgeC+/vCtrHS6XR
+	 WwUhW/XFyuaRVUFj3NDGImX7TebArRQIIRgpbiMqQi1CKZbOs5FOYy8ovxKjJC+mQA
+	 Q0H59J9WpJ6lbBRizcyO2B1xnIGHmo5eGZOKjPL/JRuxXDhbQ/M+9u/m0YbZpdkOgz
+	 aglhJjgWCro1GTi7eqZpbYGPMQJMxMCOsGvR9q+PZ9WAQcd97d/zMaKSIvmFS/+ZjJ
+	 hSvgRSVWV5eLah25O2qz/oO0LyVuwyT814urBfaEYZyU2Y8gDWyELU4tdOqKNXj8Qy
+	 q7tJkkGi/z8/Q==
+Subject:
+ Re: [PATCH net-next v4] net: stmmac: dwxgmac2: enable L2 split header support
+From: netdev-bot+sashiko@kernel.org
+To: sagar.cheluvegowda@oss.qualcomm.com
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ lorenzo.bianconi@oss.qualcomm.com, hongmei.xu@oss.qualcomm.com,
+ abhishek.chauhan@oss.qualcomm.com, sarosh.hasan@oss.qualcomm.com
+Date: Mon, 19 Oct 2026 22:29:49 +0000
+Message-ID: <179244898962.3135.12890405028818098249@kernel.org>
+In-Reply-To: <20261015221215.1714047-1-sagar.cheluvegowda@oss.qualcomm.com>
+References: <20261015221215.1714047-1-sagar.cheluvegowda@oss.qualcomm.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,138 +68,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When the last reference to a file is put from exit_task_work(), the task
-has already run exit_fs(), so current->fs is NULL.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-syzbot reported:
+Critical: 0 · High: 1 · Medium: 1 (1) · Low: 2
 
-Unable to handle kernel paging request at virtual address dfff800000000002
-KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Call trace:
- kasan_mem_to_shadow include/linux/kasan.h:65 [inline] (P)
- kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210 (P)
- kasan_check_byte include/linux/kasan.h:402 [inline]
- lock_acquire+0xa4/0x320 kernel/locking/lockdep.c:5916
- seqcount_lockdep_reader_access include/linux/seqlock.h:73 [inline]
- read_seqbegin+0x6c/0x144 include/linux/seqlock.h:838
- get_fs_root_rcu fs/d_path.c:244 [inline]
- d_path+0x224/0x4dc fs/d_path.c:287
- audit_log_d_path+0xdc/0x19c kernel/audit.c:2221
- audit_log_lsm_data+0xe0/0x12d0 security/lsm_audit.c:199
- dump_common_audit_data security/lsm_audit.c:421 [inline]
- common_lsm_audit+0x1d0/0x290 security/lsm_audit.c:451
- smack_log+0x1f4/0x264 security/smack/smack_access.c:400
- smk_tskacc+0x210/0x2ac security/smack/smack_access.c:255
- smack_file_open+0x1d0/0x230 security/smack/smack_lsm.c:2078
- security_file_open+0xec/0x258 security/security.c:2739
- do_dentry_open+0x2a8/0xfbc fs/open.c:973
- vfs_open+0x44/0x2dc fs/open.c:1101
- dentry_open+0x74/0xc0 fs/open.c:1124
- ima_calc_file_hash+0x120/0x5cc security/integrity/ima/ima_crypto.c:269
- ima_collect_measurement+0x420/0x874 security/integrity/ima/ima_api.c:300
- ima_update_xattr+0x160/0x230 security/integrity/ima/ima_appraise.c:617
- ima_check_last_writer security/integrity/ima/ima_main.c:227 [inline]
- ima_file_free+0x40c/0x528 security/integrity/ima/ima_main.c:251
- security_file_release+0x84/0x148 security/security.c:2424
- __fput+0x2c4/0x74c fs/file_table.c:506
- ____fput+0x20/0x30 fs/file_table.c:541
- task_work_run+0x1cc/0x25c kernel/task_work.c:233
- exit_task_work include/linux/task_work.h:40 [inline]
- do_exit+0x58c/0x1a74 kernel/exit.c:986
- do_group_exit+0x198/0x238 kernel/exit.c:1129
- __do_sys_exit_group kernel/exit.c:1140 [inline]
- __se_sys_exit_group kernel/exit.c:1138 [inline]
- pid_child_should_wake+0x0/0x104 kernel/exit.c:1138
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0x19c/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+- [High] On XLGMAC cores, dwxgmac2_enable_sph() now corrupts the RX queue
+  enable register.
+- [Medium] dwxgmac2_enable_sph() programs MAC-global split and preamble
+  settings regardless of `en`.
+- [Low] The patch includes a fix for an existing XGMAC split-header bug
+  inside a feature patch, with no Fixes: tag.
+- [Low] dwxgmac2_enable_sph() sets the 2-bit SPLM field
+  (XGMAC_CONFIG1_SPLM_MASK = GENMASK(9,8)) with `value |=…
 
-d_path() renders a path relative to current->fs->root.  After exit_fs()
-there is no such root, and no substitute root is meaningful: the
-record's pid/comm describe a task that can no longer name the file, and
-the file may have been opened by a different task entirely.  Falling
-back to another root would produce a well-formed but misleading path,
-so report the field as unknown instead, as exe=(null) and name=(null)
-already do.
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but the stmmac
+  RX path has no dma_rmb() between seeing RDES3.OWN cleared and reading…
 
-Handle this in audit_log_lsm_data(), where the meaning of the field is
-known, for LSM_AUDIT_DATA_PATH (Smack file_open), LSM_AUDIT_DATA_FILE
-(SELinux file_open), LSM_AUDIT_DATA_IOCTL_OP and the AF_UNIX path in
-LSM_AUDIT_DATA_NET.
+--
 
-Alternative: omit " path=" as it is done for inode in audit_log_lsm_data.
+net: stmmac: dwxgmac2: enable L2 split header support
 
-Fixes: 4a9d4b024a31 ("switch fput to task_work_add")
-Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=975ace299d6ba2eb1cea
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
----
- security/lsm_audit.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+This patch makes dwxgmac2_enable_sph() program SPLM and SAVE_EN in
+XGMAC_EXT_CFG1 and clear the variable preamble bit in XGMAC_EXT_CFG0. It
+also changes dwxgmac2_get_rx_header_len() so the header length is read
+only on the first descriptor. For non-IP (L2T) packets on the last
+descriptor, the length comes from RDES2[9:2].
 
-diff --git a/security/lsm_audit.c b/security/lsm_audit.c
-index 955b2e7b2c8e..5ed505d781bb 100644
---- a/security/lsm_audit.c
-+++ b/security/lsm_audit.c
-@@ -169,6 +169,15 @@ static inline void print_ipv4_addr(struct audit_buffer *ab, __be32 addr,
- 		audit_log_format(ab, " %s=%d", name2, ntohs(port));
- }
- 
-+static inline void audit_log_lsm_path(struct audit_buffer *ab,
-+									const struct path *path)
-+{
-+	if (current->fs)
-+		audit_log_d_path(ab, " path=", path);
-+	else
-+		audit_log_format(ab, " path=(null)");
-+}
-+
- /**
-  * audit_log_lsm_data - helper to log common LSM audit data
-  * @ab : the audit buffer
-@@ -196,7 +205,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 	case LSM_AUDIT_DATA_PATH: {
- 		struct inode *inode;
- 
--		audit_log_d_path(ab, " path=", &a->u.path);
-+		audit_log_lsm_path(ab, &a->u.path);
- 
- 		inode = d_backing_inode(a->u.path.dentry);
- 		if (inode) {
-@@ -209,7 +218,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 	case LSM_AUDIT_DATA_FILE: {
- 		struct inode *inode;
- 
--		audit_log_d_path(ab, " path=", &a->u.file->f_path);
-+		audit_log_lsm_path(ab, &a->u.file->f_path);
- 
- 		inode = file_inode(a->u.file);
- 		if (inode) {
-@@ -222,7 +231,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 	case LSM_AUDIT_DATA_IOCTL_OP: {
- 		struct inode *inode;
- 
--		audit_log_d_path(ab, " path=", &a->u.op->path);
-+		audit_log_lsm_path(ab, &a->u.op->path);
- 
- 		inode = a->u.op->path.dentry->d_inode;
- 		if (inode) {
-@@ -321,7 +330,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 				if (!addr)
- 					break;
- 				if (u->path.dentry) {
--					audit_log_d_path(ab, " path=", &u->path);
-+					audit_log_lsm_path(ab, &u->path);
- 					break;
- 				}
- 				len = addr->len-sizeof(short);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> index 6719ac6e395bc..b28aa39f99472 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> @@ -292,8 +292,22 @@ static int dwxgmac2_get_rx_hash(struct dma_desc *p, u32 *hash,
+>  
+>  static void dwxgmac2_get_rx_header_len(struct dma_desc *p, unsigned int *len)
+>  {
+> -	if (le32_to_cpu(p->des3) & XGMAC_RDES3_L34T)
+> +	u32 rdes3 = le32_to_cpu(p->des3);
+> +
+> +	/* HL is only defined on the first descriptor */
+> +	if (!(rdes3 & XGMAC_RDES3_FD))
+> +		return;
+> +
+> +	/* when FD=1 and LD=0, HL is RDES2[9:0] */
+> +	if (!(rdes3 & XGMAC_RDES3_LD)) {
+> +		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
+> +		return;
+> +	}
+
+[Severity: Low]
+Should this FD/LD handling go in its own patch with a Fixes: tag?
+
+The commit message says L34T can hold stale data on a non-last
+descriptor. If so, the old code:
+
+	if (le32_to_cpu(p->des3) & XGMAC_RDES3_L34T)
+		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
+
+could return hlen == 0 for the first descriptor of a multi-descriptor IP
+frame with SPH active. stmmac_rx_buf1_len() would then take this path:
+
+	/* Not last descriptor and not split header: buffer1 is fully filled */
+	if (status & rx_not_ls)
+		return priv->dma_conf.dma_buf_sz;
+
+even though buffer 1 only holds the header.
+
+That looks like an existing XGMAC split-header bug in the code from
+commit 96147375d49f ("net: stmmac: xgmac: Only get SPH header len if
+available"). With the fix bundled into this feature patch, stable trees
+would also need the new EXT_CFG0/EXT_CFG1 programming to pick it up.
+
+> +
+> +	if (rdes3 & XGMAC_RDES3_L34T)
+>  		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
+> +	else if (rdes3 & XGMAC_RDES3_L2T)
+> +		*len = (le32_to_cpu(p->des2) & XGMAC_RDES2_NONIPHL) >> 2;
+>  }
+
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch, but
+is a dma_rmb() missing between the OWN check and the read of des2 here?
+
+dwxgmac2_get_rx_status() loads des3 and des2, then checks OWN:
+
+	u32 rdes3 = le32_to_cpu(p->des3);
+	u32 rdes2 = le32_to_cpu(p->des2);
+
+	if (unlikely(rdes3 & XGMAC_RDES3_OWN))
+		return dma_own;
+
+stmmac_rx() then calls stmmac_rx_buf1_len()->dwxgmac2_get_rx_header_len()
+with no barrier in between. The TX completion path in stmmac_main.c calls
+dma_rmb() after its own check, and dwxgmac2_rx_check_timestamp() also
+uses one.
+
+On weakly ordered CPUs, could the RDES2 load complete before OWN is seen
+as cleared? That would give a stale HL and a wrong buf1_len.
+
+The new FD/LD logic doesn't depend on this ordering.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> index ff83858ebc1f3..0a9c787305a4e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> @@ -561,6 +561,16 @@ static void dwxgmac2_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
+>  	value |= XGMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
+>  	writel(value, ioaddr + XGMAC_RX_CONFIG);
+>  
+> +	value = readl(ioaddr + XGMAC_EXT_CFG1);
+> +	value |= XGMAC_CONFIG1_SPLM(1);
+
+[Severity: Low]
+SPLM is a two-bit field (GENMASK(9, 8)). Should it be cleared with
+XGMAC_CONFIG1_SPLM_MASK before the OR, the way HDSMS is handled just
+above?
+
+	value &= ~XGMAC_CONFIG_HDSMS;
+	value |= XGMAC_CONFIG_HDSMS_256;
+
+If bit 9 were already set, the field would end up as 3 instead of mode 1.
+
+In stmmac_hw_setup(), the SWR from stmmac_init_dma_engine()->
+stmmac_reset() runs before this. So in practice the result depends on
+the register's reset value.
+
+> +	value |= XGMAC_CONFIG1_SAVE_EN;
+> +	writel(value, ioaddr + XGMAC_EXT_CFG1);
+> +
+> +	/* Disable variable preambles to keep the L2 split offset deterministic. */
+> +	value = readl(ioaddr + XGMAC_EXT_CFG0);
+> +	value &= ~XGMAC_EXT_CFG0_VPRE;
+> +	writel(value, ioaddr + XGMAC_EXT_CFG0);
+
+[Severity: High]
+Can this corrupt the RX queue enable register on XLGMAC cores?
+
+The DWXLGMAC_CORE_2_00 entry in hwif.c uses the same DMA ops as XGMAC:
+
+	.desc = &dwxgmac210_desc_ops,
+	.dma = &dwxgmac210_dma_ops,
+	.mac = &dwxlgmac2_ops,
+
+so dwxgmac2_enable_sph() runs there too. On XLGMAC, dwxlgmac2.h defines
+offset 0x140 as:
+
+	#define XLGMAC_RXQ_ENABLE_CTRL0		0x00000140
+
+and dwxlgmac2_rx_queue_enable() programs it like this:
+
+	value = readl(ioaddr + XLGMAC_RXQ_ENABLE_CTRL0) & ~XGMAC_RXQEN(queue);
+	if (mode == MTL_QUEUE_AVB)
+		value |= 0x1 << XGMAC_RXQEN_SHIFT(queue);
+
+BIT(8) is therefore the AVB enable for RX queue 4. Clearing
+XGMAC_EXT_CFG0_VPRE would disable that queue.
+
+The write to 0x144 also sets BIT(8) and BIT(24) in an XLGMAC register
+that the driver doesn't describe.
+
+stmmac_hw_setup() enables the MTL queues through
+stmmac_mtl_configuration() first. Later it runs:
+
+	sph_en = (priv->hw->rx_csum > 0) && priv->sph_active;
+	for (chan = 0; chan < rx_cnt; chan++)
+		stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
+
+There is no sph_capable or core check, so this would happen on every
+XLGMAC open, whether or not split header is supported. Should this be
+gated on the core type, or moved into a per-core MAC op?
+
+> +
+>  	value = readl(ioaddr + XGMAC_DMA_CH_CONTROL(chan));
+>  	if (en)
+>  		value |= XGMAC_SPH;
+
+[Severity: Medium]
+Only the per-channel XGMAC_SPH bit depends on en here. SPLM/SAVE_EN are
+set and VPRE is cleared on every call, and nothing restores them.
+
+stmmac_hw_setup() calls stmmac_enable_sph() for every RX channel, even
+when sph_en is false or the core has no SPH support.
+stmmac_set_features() calls it with sph_en == false when NETIF_F_RXCSUM
+is cleared, and stmmac_xdp_open() also calls it.
+
+Doesn't that leave the variable preamble disabled on every XGMAC device
+after hw_setup? It would also stay disabled after split header is turned
+off with ethtool.
+
+The commit message says:
+
+    Finally, disable the variable-length preamble when L2 splitting
+    is enabled.
+
+which doesn't seem to match this behavior.
+
+Also, dwmac4_enable_sph(), which this extends, doesn't change the
+preamble configuration. And these MAC-global read-modify-writes are
+repeated once per RX channel.
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015221215.1714047-1-sagar.cheluvegowda%40oss.qualcomm.com
