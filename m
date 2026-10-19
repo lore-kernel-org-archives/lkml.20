@@ -1,66 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792442640;
-	b=H46Po/3nsJ7DYcHLDu9ycfs3mOP7ZjIkPNo5AbTy5WSszxy20gMBeoAlLRtknqPpZLdF
-	 JB+bLzYc+6Jr+/Qb6rgsCUWD2foFf7koMgbSbxrng6Fkv7MqJdiVvj0PWMnFf4UD4Qz+s
-	 3hkLKq6j5m7cMyKchRA6Uqto8AM+utYMPXDW1FuTHu0QrRHCw4w32qMrZPQYqIRZBwOY0
-	 fsMnSwo5X1SBCIrwOJ1UcIkP5uVK4+bwkmTKDAQnBwLaFUuDkBFQnDffZsEoUCZ6Wcz0l
-	 02iFQDw5bgzZLFFAkclnHiO2vqLqA/lbn3jvXODR2CBdVomkdXojHlbRIIvMIaYtcwQ==
+	t=1792442671;
+	b=PWgFiXIDtabTktD6O4dBithzlEkY8ucHJ6nIQIF9nAF/1eQQhh7gbHtMJ4PIhV37WthD
+	 RUzH3GJJkRDzuQSU+Nph1u7lT/IH1bwIDrYguJABXpGfiruasi+yEzP0MOn/yxoLjZ4Zq
+	 f2GCTy4cX07OMUuJWyfFhzLfP9FMEQY5S86bUtM1NSHfYGkdadTxF3EGfnbo9ryq3y/bm
+	 dVa75TRN36Wis51CaSZyNtII/2utAZ83ZivqtozfzlT00KICFC64xCdGaINEguTHSVLql
+	 GHDpi7Td0jsZpbnbZYt8UtYWHsSKm3GfcLaY26A6C0h6ZBEK6bp9H0wYCgl6F/1+JhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792442640;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=U5m2BuDV1gmMh95uqNNkCLVlC0dsxerxNZCgV4VM2uQ=;
-	b=JkD3jqhwf4jn3/Y1IX2hALIhP5gn6tZDlxwoiGab1Z1nISy+gHh17Z1xSSbA5UDwCa1J
-	 9vIwHl9sAeM9bUkNoakqwTsQN2P/Ai6AnMBvSE1wTkvge6ix+qZo74Iwz543/CpyZdU6J
-	 aIAJcHRXXV8ayDGomGjsa9MOxV3iJMFsCoFCpOs0jjcFsIh2RpxSS3LbDOTdlf9kvUR3R
-	 Re7bChk3ZTp3COwQ5Z3M13bfo05dQ5r3Po44CHwKu3T5AW6HbhASgd5ElRpgws+xGWiQ5
-	 c5jZXBN20Zu5QtQxAbk0rUci5EpDXbkzT60A/vfg3g+A4GISPL8Nu8f2oaJfvHIVVXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792442671;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=OI9lKdgg9N7w+H+FjjD3PMTR1h/HXgOufjguNaO7058=;
+	b=vhftBjOZjMSU69UUsong/erJkOipCqSBI8Vz3OkRw8+XecQwIqJZy4rfnWUHn6OkMEPt
+	 Jc3SU56HfMcG2Jif81iMmt2y3ZnBHZL+k2YgDOvqTD6dY01BkKIZjpCPHdPrNerAq6OMX
+	 7c2aexIDCt2PHc7yHm4I6MqXgtdVOMMBg0CDoXsAcMZOl2xS3Zkv+gtBIebAgwdqCXyJ8
+	 VNS2YBgPTiIh6DUy1YPTB3o6pN9YTVi7vDzIPudH0z7X5Z7ZaoVt0QTOYc21J1L+Kyxfa
+	 wISMk+erkbsq7nKMPCjXTDJODbaKpf6pQ3XH+D6BbkFsclEtkhYmxeJxT6YGQFGXiZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=EKqAkVfW;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SbbGkTZp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD90606A31B;
-	Mon, 19 Oct 2026 20:44:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DD90606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48601606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:44:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=EKqAkVfW
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j7nZl59NlzlfvpT;
-	Mon, 19 Oct 2026 20:43:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792442635; x=1795034636; bh=U5m2BuDV1gmMh95uqNNkCLVl
-	C0dsxerxNZCgV4VM2uQ=; b=EKqAkVfWMA11zoBp9wyZMphVAigq4Z6kplOLFr2b
-	3vWj3BzPya4XZBGpdqdcAgySGzsGE0Ig9o4eyNYXuoqlv5Zo07+dIoAIHKHsnOLV
-	tnJm5froySMqtj+Xv3ctRcPTEoj3kPi0EwVvonJxqV/K5JHx3rgJXhGl4+galR4O
-	1w7PG2LmV5lNGxGlKaYnDTKxa8TL63gC2cNXjCU66qR9zrX8GndYImTjoSwhZ9H2
-	7buA7ZcwUHbPro4sZN0fEjHD2B8yfAZas7Hy7b6ktk3Mep8CeFG6+ZZ+qFNdS7LZ
-	lYX7vNRmnpIunr2lLE87mEbxRu0PlwRR3PL5qCCyNmWJKg==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id rQInMFPKngAg; Mon, 19 Oct 2026 20:43:55 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j7nZf3LWqzlfvpH;
-	Mon, 19 Oct 2026 20:43:54 +0000 (UTC)
-Message-ID: <2060a8da-581b-46d1-a510-779f4df716cd@acm.org>
-Date: Mon, 19 Oct 2026 13:43:52 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SbbGkTZp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F351F000C4;
+	Mon, 19 Oct 2026 20:44:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792442670;
+	bh=OI9lKdgg9N7w+H+FjjD3PMTR1h/HXgOufjguNaO7058=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=SbbGkTZpKu2y7ByMjeN5eOyf7aOxrAdHimzwU7WnUNopuQNaLeXIUzlJBP+gSSfP4
+	 3GgBKyYBVKXiJR2S0AyBTp2PSY6poVYIT5iI6OJ6ciCVr7H47ATBNk+NUU92VHhJ5j
+	 hl0g0nso7Ve9UMEnWXoFJGFEHaKDZv/v9wbBtBOkJyt1FJkaA7yziBchTLiNAd41Ho
+	 +85YbZlw1iDNGM2EqiVYXwAztu7CnWqlfjxiRyZKBlaUxdLbH10O8OX4xnNv26tLb3
+	 dTqD/s6uxd6p4ml2umBxC/hriZEnrmO6/u6WuuvZoRl2sgLO2Bl/ykY6pmhXUITTgg
+	 w/RaX9Zo3x7Vw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 6CB3ECE09FC; Mon, 19 Oct 2026 13:44:30 -0700 (PDT)
+Date: Mon, 19 Oct 2026 13:44:30 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH v2] x86/nmi: Enable panic() when NMI handler runs too long
+Message-ID: <8b14bd35-8f7e-4e41-9aae-e085f9a536f6@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <53ff8d29-b7ce-4b3f-bdcf-9ac1f31f0a9f@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,49 +62,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] scsi: ufs: core: Factor hba->outstanding_reqs
- helper and fix double completion
-To: Bean Huo <beanhuo@iokpp.de>, Stanley Jhu <stanleyjhu@google.com>,
- "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
- Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261017084403.875420-1-stanleyjhu@google.com>
- <2e042211ca0ebc974ad5ec4c0de9f3f93b3c75c0.camel@iokpp.de>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <2e042211ca0ebc974ad5ec4c0de9f3f93b3c75c0.camel@iokpp.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <53ff8d29-b7ce-4b3f-bdcf-9ac1f31f0a9f@paulmck-laptop>
 
-On 10/18/26 12:52 PM, Bean Huo wrote:
-> One more place has the same problem. In ufshcd_abort(), the "cmd was completed,
-> but without a notifying intr" path completes the request but leaves its bit set
-> in hba->outstanding_reqs:
-> 
-> if (!hba->mcq_enabled && !(reg & (1 << tag))) {
-> 	...
-> 	 __ufshcd_transfer_req_compl(hba, 1UL << tag);
-> 	...
-> }
-> 
-> 
-> could use the new helper in the same way as patch 2?
-> 
-> 
->   if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
-> 	ufshcd_compl_one_cqe(hba, tag, NULL);
+Firmware, device-driver, and configuration issues can result in
+long-running NMI handlers, for example, nmi_cpu_backtrace_handler()
+running for more than two seconds, and with no console issues.  In this
+case, this is not the fault of nmi_cpu_backtrace_handler(), but it is
+the first symptom of the underlying problem.  These NMI handlers result
+in various other problems, including CSD-lock warnings, clocksource
+watchdog false positives, scheduler frequency invariance wobbliness,
+systemd excessive-CPU complaints, and even the occasional RCU CPU
+stall warning.  Eventually, the automation will take the system out of
+service, but with quite a bit of noise obscuring the underlying issue,
+and thus confusing both automation and human beings.
 
-Hi Bean,
+Therefore, provide a toolong_nmi_panic __setup() parameter that makes
+nmi_check_duration() invoke nmi_panic() if the just-completed NMI handler
+ran for more than the specified number of milliseconds.  This parameter
+defaults to zero, which disables the nmi_panic().  As in, by default
+you get the same behavior that you get today.
 
-There are two problems with calling ufshcd_compl_one_cqe() from
-ufshcd_abort():
-* ufshcd_compl_one_cqe() must only be called for SCSI commands while
-   'tag' may refer to a device management command.
-* SCSI commands must not be freed by a SCSI abort handler. Otherwise
-   a use-after-free may be triggered in scmd_eh_abort_handler() when it
-   tries to call scsi_queue_insert() or scsi_finish_command().
+[ paulmck: Apply kernel test robot feedback, add documentation. ]
 
-Bart.
+Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: <x86@kernel.org>
+
+---
+ Documentation/admin-guide/kernel-parameters.txt |    6 ++++++
+ arch/x86/kernel/nmi.c                           |   21 +++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 2 deletions(-)
+
+Changes since v1:
+
+o	Add documentation of new toolong_nmi_panic kernel boot parameter.
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 68647ff4bdd24..e7dbd5bf48fc9 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -7642,6 +7642,12 @@ Kernel parameters
+ 			Format: {ipi}
+ 			ipi: switch to IPI-based TLB flushing
+ 
++	toolong_nmi_panic= [X86]
++			Cause a panic upon return from an NMI handler
++			that took longer than the specified number
++			of milliseconds.  The default value of zero
++			suppresses these panics.
++
+ 	topology=	[S390,EARLY]
+ 			Format: {off | on}
+ 			Specify if the kernel should make use of the cpu
+diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
+index 3c9f60d6ca5a7..aae7254774680 100644
+--- a/arch/x86/kernel/nmi.c
++++ b/arch/x86/kernel/nmi.c
+@@ -85,6 +85,7 @@ static DEFINE_PER_CPU(struct nmi_stats, nmi_stats);
+ static int ignore_nmis __read_mostly;
+ 
+ int unknown_nmi_panic;
++static unsigned long toolong_nmi_panic;
+ int panic_on_unrecovered_nmi;
+ int panic_on_io_nmi;
+ 
+@@ -101,6 +102,20 @@ static int __init setup_unknown_nmi_panic(char *str)
+ }
+ __setup("unknown_nmi_panic", setup_unknown_nmi_panic);
+ 
++static int __init setup_toolong_nmi_panic(char *str)
++{
++	int ret;
++
++	ret = kstrtoul(str, 0, &toolong_nmi_panic);
++	if (ret) {
++		pr_alert("%s: %s on '%s', disabling to zero.\n",
++			 __func__, ret == -ERANGE ? "Overflow" : "Parse error", str);
++		toolong_nmi_panic = 0;
++	}
++	return 1;
++}
++__setup("toolong_nmi_panic=", setup_toolong_nmi_panic);
++
+ static u64 nmi_longest_ns = 1 * NSEC_PER_MSEC;
+ 
+ static int __init nmi_warning_debugfs(void)
+@@ -111,7 +126,7 @@ static int __init nmi_warning_debugfs(void)
+ }
+ fs_initcall(nmi_warning_debugfs);
+ 
+-static void nmi_check_duration(struct nmiaction *action, u64 duration)
++static void nmi_check_duration(struct nmiaction *action, u64 duration, struct pt_regs *regs)
+ {
+ 	int remainder_ns, decimal_msecs;
+ 
+@@ -126,6 +141,8 @@ static void nmi_check_duration(struct nmiaction *action, u64 duration)
+ 
+ 	pr_info_ratelimited("INFO: NMI handler (%ps) took too long to run: %lld.%03d msecs\n",
+ 			    action->handler, duration, decimal_msecs);
++	if (toolong_nmi_panic && duration >= toolong_nmi_panic)
++		nmi_panic(regs, "Panic per toolong_nmi_panic");
+ }
+ 
+ static int nmi_handle(unsigned int type, struct pt_regs *regs)
+@@ -165,7 +182,7 @@ static int nmi_handle(unsigned int type, struct pt_regs *regs)
+ 		delta = sched_clock() - delta;
+ 		trace_nmi_handler(a->handler, (int)delta, thishandled);
+ 
+-		nmi_check_duration(a, delta);
++		nmi_check_duration(a, delta, regs);
+ 	}
+ 
+ 	rcu_read_unlock();
