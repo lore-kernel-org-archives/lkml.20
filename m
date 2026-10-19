@@ -1,142 +1,98 @@
-Received: from linkmauve.fr (linkmauve.fr [82.65.109.163])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C99349B456;
-	Mon, 19 Oct 2026 10:57:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC92C4CDDF4;
+	Mon, 19 Oct 2026 10:58:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407479; cv=none; b=XoMb7CKD2CN3zI+celORp1/hEQqEU2m9MFn2rQvmrsaSmE16ld7+82QE9Yc+zllijOTM+gs+tUrHvS7zYrVlZ966jZU8brsYsxHKAO15yIi0OkcxS80iN1XBElgegydwhqnFMAo0SR5GBk5clnIyA81ndtf9c0Ni38mZdkLFd68=
+	t=1792407491; cv=none; b=n4h0znGQH8PsGDSmbm72xX34b8hYoT9BrbRmpZoiQxKnO7NrFoOr86yngs0UyNPPJ/vbSH4E9HzNBGBn89Lx+Ll/XsJg3ymxZ/BX3+HJfXchYHwqgKlvu6ePcyDN4V4Ac/agwssS/HkVvyhzRGOiGbDSIqf/W+VpkwL+Z2jpFiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407479; c=relaxed/simple;
-	bh=opH950SuKwOKJTrlUbTFeedkdIPWn4W8U1UYKGiUkRY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JEu4gxMjlEThQwb5XljCWsr73nl32qUX6LYBooOtZNG5/0h6gki9oqXzlVzb7kPWK/ERVAyppQ68QJUDP/tfVycj+OLQpLKHXeD3/sp4C+hkv+VmV1W3prQri5vu3NHvZEscYd9HuK8xyok3d+b0RFsOpdhSFQbepXL80ido/Wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
-Received: by linkmauve.fr (Postfix, from userid 1000)
-	id AC5CA720C634; Mon, 19 Oct 2026 12:57:46 +0200 (CEST)
-From: Link Mauve <linkmauve@linkmauve.fr>
-To: Alexandre Courbot <acourbot@nvidia.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	rust-for-linux@vger.kernel.org
-Cc: Link Mauve <linkmauve@linkmauve.fr>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] rust: num: Add inline annotation to Bounded methods
-Date: Mon, 19 Oct 2026 12:57:38 +0200
-Message-ID: <20261019105744.2943249-1-linkmauve@linkmauve.fr>
-X-Mailer: git-send-email 2.56.0
+	s=arc-20240116; t=1792407491; c=relaxed/simple;
+	bh=ewQ2L/U+T777donZgm1mtkM3BgJTCrtDf8wlLKmxRzY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kaBdSNwwx/LLhSkYL4elZsiczAiEn7hW6+EXSBDV/QBTEPQsH2uDZKYzUPO/0ffT5a+EMAYDFZv2fbz0whakh7beUduj0jmNHH5d2pN3fcjmQap1rkghQ3a72wSrTXQ/l8/DK07DRIrqfNwjeH84QsQUK5i+o8cuNtMAbeeQgnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dAUaYDvP; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MpPdZ/LR; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dAUaYDvP";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MpPdZ/LR"
+Date: Mon, 19 Oct 2026 12:58:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792407487;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DwKbQZe0ssbC2v1gH5o7qPfZg2R/nJOsGqE8xTOvxCs=;
+	b=dAUaYDvPPAZ4i5wUYKPK4fmChdu3Mb1k72b+Mc7s3P/lbzO+U2bEOanXObDKCNSVwXFFUn
+	19eJIvai59IG7Zl5Z9F7+P2d8YjLJR3wKRGd8TzfjxgA3HXSywuNySV65PeWSegZeRP9Q7
+	ci3HK1s3g48GFNnJ37RN3trmsgmRaD8ofVJ0oKxK0osfO1yrTQnYi4rH2ejfObijPRODs9
+	j7HEIj5bLxgMRvRws24tGd1uXJI+TrWxYStFLK2Kd83hIltJJPxIdzOFWDty0mXaSxOgJh
+	gFkQEYsgW7v8ymarCH//fCd5YFK4edXUFsHfp9Om/ansHBfrSf4+h9zUKA84Yg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792407487;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DwKbQZe0ssbC2v1gH5o7qPfZg2R/nJOsGqE8xTOvxCs=;
+	b=MpPdZ/LR8ZBoHgwqyyr4Sb7LvQoTq8J+ppzFIga9CGIBhyw1wTJd9oI3SbaUnT7aCeoh/f
+	whJg6yMCyOHg1RAA==
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpio: sim: constify struct configfs_attribute
+Message-ID: <20261019125659-aed31326-8dc6-427f-b8c2-f4a55b622cd2@linutronix.de>
+References: <20261019-gpio-sim-const-configfs-attrs-v1-1-e9f919b32f08@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261019-gpio-sim-const-configfs-attrs-v1-1-e9f919b32f08@oss.qualcomm.com>
 
-It was previously generating a ton of very short functions, such as
-<<kernel::num::bounded::Bounded<u32, 32>>::shr::<17, 15>> or
-<<kernel::num::bounded::Bounded<u16, 16>>::new::<16384>> on use.
+On Mon, Oct 19, 2026 at 12:49:50PM +0200, Bartosz Golaszewski wrote:
+> In preparation for the constification of configfs attributes, make the
+> existing instances of struct configfs_attribute in gpio-sim const and
+> use the new st_attrs_const field of struct config_item_type.
+> 
+> Suggested-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
+> Closes: https://lore.kernel.org/all/20261016105712-707634de-c955-4c66-957a-2bdb84bca3e4@linutronix.de/
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/gpio/gpio-sim.c | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpio/gpio-sim.c b/drivers/gpio/gpio-sim.c
+> index 0c73bec042670fc5706b4a93700e652cbaf3605e..acfe56af515dfd494f1f08bef5806524a6ef7f01 100644
+> --- a/drivers/gpio/gpio-sim.c
+> +++ b/drivers/gpio/gpio-sim.c
+> @@ -1037,7 +1037,7 @@ gpio_sim_device_config_live_store(struct config_item *item,
+>  
+>  CONFIGFS_ATTR(gpio_sim_device_config_, live);
+>  
+> -static struct configfs_attribute *gpio_sim_device_config_attrs[] = {
+> +static const struct configfs_attribute *gpio_sim_device_config_attrs[] = {
 
-These are obviously better inlined, although I wasn‚Äôt completely sure
-between #[inline] and #[inline(always)], but the former worked fine in
-my setup so I went for it, we can always adjust it later.
+Here should be a second 'const' after the '*':
 
-Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
----
- rust/kernel/num/bounded.rs | 9 +++++++++
- 1 file changed, 9 insertions(+)
+static const struct configfs_attribute *const gpio_sim_device_config_attrs[] ...
 
-diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
-index 0b32f4343922..d3486675046a 100644
---- a/rust/kernel/num/bounded.rs
-+++ b/rust/kernel/num/bounded.rs
-@@ -264,6 +264,7 @@ impl<const N: u32> Bounded<$type, N> {
-                 ", 4>::new::<7>();")]
-             /// assert_eq!(v.get(), 7);
-             /// ```
-+            #[inline]
-             pub const fn new<const VALUE: $type>() -> Self {
-                 // Statically assert that `VALUE` fits within the set number of bits.
-                 const_assert!(fits_within!(VALUE, $type, N));
-@@ -309,6 +310,7 @@ impl<T, const N: u32> Bounded<T, N>
-     /// # Safety
-     ///
-     /// The caller must ensure that `value` can be represented within `N` bits.
-+    #[inline]
-     const unsafe fn __new(value: T) -> Self {
-         // Enforce the type invariants.
-         // `N` cannot be zero.
-@@ -350,6 +352,7 @@ impl<T, const N: u32> Bounded<T, N>
-     /// let v = Bounded::<i8, 4>::try_new(8);
-     /// assert_eq!(v, None);
-     /// ```
-+    #[inline]
-     pub fn try_new(value: T) -> Option<Self> {
-         fits_within(value, N).then(|| {
-             // SAFETY: `fits_within` confirmed that `value` can be represented within `N` bits.
-@@ -412,6 +415,7 @@ pub fn from_expr(expr: T) -> Self {
-     /// let v = Bounded::<u32, 4>::new::<7>();
-     /// assert_eq!(v.get(), 7u32);
-     /// ```
-+    #[inline]
-     pub const fn get(self) -> T {
-         self.0
-     }
-@@ -430,6 +434,7 @@ pub const fn get(self) -> T {
-     /// // The contained values are equal even though `larger_v` has a bigger capacity.
-     /// assert_eq!(larger_v, v);
-     /// ```
-+    #[inline]
-     pub const fn extend<const M: u32>(self) -> Bounded<T, M> {
-         const_assert!(
-             M >= N,
-@@ -459,6 +464,7 @@ pub const fn extend<const M: u32>(self) -> Bounded<T, M> {
-     /// // ... but doesn't fit within `2` bits.
-     /// assert_eq!(v.try_shrink::<2>(), None);
-     /// ```
-+    #[inline]
-     pub fn try_shrink<const M: u32>(self) -> Option<Bounded<T, M>> {
-         Bounded::<T, M>::try_new(self.get())
-     }
-@@ -482,6 +488,7 @@ pub fn try_shrink<const M: u32>(self) -> Option<Bounded<T, M>> {
-     /// // This won't build: a `u8` is smaller than the required 12 bits.
-     /// // let _: Bounded<u8, 12> = v.cast();
-     /// ```
-+    #[inline]
-     pub fn cast<U>(self) -> Bounded<U, N>
-     where
-         U: TryFrom<T> + Integer,
-@@ -510,6 +517,7 @@ pub fn cast<U>(self) -> Bounded<U, N>
-     ///
-     /// assert_eq!(v_shifted.get(), 0xff);
-     /// ```
-+    #[inline]
-     pub fn shr<const SHIFT: u32, const RES: u32>(self) -> Bounded<T, RES> {
-         const_assert!(SHIFT < T::BITS);
-         const_assert!(RES + SHIFT >= N);
-@@ -563,6 +571,7 @@ pub fn shr_exact<const SHIFT: u32, const RES: u32>(self) -> Option<Bounded<T, RE
-     ///
-     /// assert_eq!(v_shifted.get(), 0xff00);
-     /// ```
-+    #[inline]
-     pub fn shl<const SHIFT: u32, const RES: u32>(self) -> Bounded<T, RES> {
-         const_assert!(RES >= N + SHIFT);
- 
+(Same for the others)
 
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
--- 
-2.56.0
+With these:
 
+Reviewed-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
+
+
+>  	&gpio_sim_device_config_attr_dev_name,
+>  	&gpio_sim_device_config_attr_live,
+>  	NULL
+
+(...)
