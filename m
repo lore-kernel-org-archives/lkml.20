@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792445484;
-	b=H9ov806Sky52DgXIq6nk37oqjJFrDZKd5HyA3HfvjjVyrFbzPw6RNF0WsoY7i3zU72Fx
-	 YpEv07EcTCkCv3S99jPMQA8JAAmdLjYHWM4bLy8iT8Pf9hK3rzXNaTAFnwXcj6MUBpvZf
-	 Ob3VL5vbOaX+BN1HE8HUNKA1NR80bZ6nUoYcCxD5EZRSlKXGHy5OXpIbN1KUV7pZIGMJq
-	 /zBJchABGb3X+buGOv9hrLeIpfFZ6UBkWN1dAx52q1IwOErqh3+YviVxqSkK1kmTKb/eC
-	 +E5GiuXOHjtV4ZBI3M7CHVNy+A4X1RCLop0tLAcb8BEasSyqdMhP+AkdZzAVbxIh9nw==
+	t=1792445488;
+	b=OI49J/ETl9FHR96/RlulqiEUDDYftuNArPmuRblvCSVEkG19JpurdVlEyLkvmt8959Ha
+	 KdGnE3El8xKi4aKTT/3900xS9lrl1w/oJ0+fEEOjPqKdCC8LtVpJqxTD0jH1y0sHKYGGe
+	 BMy/eG+r6IzYBCGVYRnXU1CNuqjsgYBrKJi6dYFKNFP5mq994Bwkas1SCHJq4FlVAD0uO
+	 WRNhboqqWC2judlUFMhpIGx4u+so3tXu6l+W5qH5nY1WVX3bcWmPhummfDDRKXC0zHlrD
+	 JTaLw+7xoxwUDZjTdfB9kmbnk1U93MD+GCcIR40/hCUpeRFldjuQy59sfVDxDbpiezw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792445484;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792445488;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=lTYTkWMi5xcceVhwhueApgEoPQA4CpHfxU1jS/q1Tmw=;
-	b=M6dYdwLCKDlXcOLn8Anj//3SNgVgTsRUJPgF6OUk/t5EKrjauba9UvtejP3osnI2UyLe
-	 Kt6wnKnuSzPtoTxo7fvFvUOSCoqQRwWUzCLOUxkL+JqRa/qyb6dxpbtGByaBGtc5KWiF9
-	 wgxV9Ho7kNSyvgU0XhdsmstrB7lop/po6vLGfC/oI10Hw8xkbDfkxSlNsxIKbtjfUi1Hd
-	 dlouLd2FalEVCxmDbwC01nU5/J6MQ9lURBLZ1qYx4hq+9RXMvYWQuJDZyX5eHfL99SQPn
-	 dLoXLdIowxvlD7vMWfn2jHNB7/mk/4/E5kZI8QyOmKoP2BHM0dyN2x/R4/mI0suvEMw==
+	bh=+8+r+UgUrY8DXLFgmEvSoqHNnXfv9U//CDOtL9HGeYU=;
+	b=m/VmeT/xs1mjKOf2hnanMoP+j3ZpCCDcbixhioJh+MKZgqH9Ze2BugUPV+CBn9T/6L1U
+	 9zDDvC4lp5VbtszCJ43+rH867+QU52zYbNoNFzDXpHYaANoPvTF0eUWB9JMMOI10h5sHw
+	 jMGGaLsS5QtDVuJZ6G/Ax9MGe7nsHR04IteQjGz8SVEQyzj5jEcvL9fHbh/s9LJBXQ50H
+	 uAYwdOzSDCPPSUZPEzPYvoM2+3SHEoB9OMNpvWkSGex7pR2B8vCLp17WqGGHSynun0HlE
+	 /7eOAD3YCSz+Rf1pIXtnpMZKeiunJJKostFLby96hoy9cLx3E8URf17F+5D8spK9oyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RTPKsHvS;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="FxBua4/s";
+	arc=none smtp.remote-ip=209.85.215.199
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B89606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:31:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3B89606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D94606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:31:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6D94606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RTPKsHvS
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-88629a452e0so1493831b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:31:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FxBua4/s
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc73895c7d5so2950648a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:31:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792445483; x=1793050283; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792445487; x=1793050287; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lTYTkWMi5xcceVhwhueApgEoPQA4CpHfxU1jS/q1Tmw=;
-        b=RTPKsHvSL+NwwANyjvOShV/4Fa1DGxk1aiJ7vPbDRZyH7R6cWnbMweVqCaJUnCsgXi
-         ZtQ3mG7V8WAFOTE1suYAxxWTOWuWgfpG858W442HMVOGakBf/rrvJ3wY15TZ7oXb4ofA
-         b7Na7wfH9OLAOOstQK1e39n3CHIMszd+AVRTEARRXwap99o5gxiESeikQvntJ3u9JX1h
-         wzUeWmcdJLwWprMWN1lOGvT/BUMsoE+Z+7RCTwo02ZK4LTDbpVIuK0Szzu/t83nLA/QN
-         3qynqZmOroXPBSBIki1Xy35vyKyz2lYVnN/v/8e71iu4e8X7iOMtlUBZ8ZVGpXnfx9eN
-         UBKw==
+        bh=+8+r+UgUrY8DXLFgmEvSoqHNnXfv9U//CDOtL9HGeYU=;
+        b=FxBua4/sC2oI6uxaytrezFsmEKgAUwfY4cUOp6d3l+MBVxLe9m6phtMDlBx38MB8gW
+         NuxaWOaC5XODWKRIL/7EBfx5RHkdrdwfi03rXZULj5WxQqhNawBtfmmn62op+NWXtKnj
+         3+FJgRdOFREBpR9/4YI6W+O7nYLz/cHj1UcgnmiGJmtXIfnM9jM0uyGe2Yfu3qg49CKt
+         EmcGabXWNomie1cKOaAPgOPG2bd+ThnE8lXs7d1W3phnhrSGeU8Jwz81oPN6PdNezlNH
+         uR2clLXofzm6l93+0fOyzxgy4IOvn7CPT7IcqmqP1V4FadVixYwv4oglVNufmur+gA/C
+         GbBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792445483; x=1793050283;
+        d=1e100.net; s=20260707; t=1792445487; x=1793050287;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lTYTkWMi5xcceVhwhueApgEoPQA4CpHfxU1jS/q1Tmw=;
-        b=fftCsIP5ZybdlJyqqkH0G/jcZeILEcOkjru4hGNBQ28XBxL3C+4A0ydSygxOTUM7Ip
-         vGUmalH457ep4UwUgNiJUeJx8JsHRFZCs0T7DFEmMA01ki3AC3D4QBMH/cSFgqE64WM1
-         WZYrjXgVsyfBlMU8FclwjSxi0911f3ZlHG1Fklzd5iN0GZDjDjOxm9OQ5JTrz9UYrq0U
-         hnrcY9bP/mk/dUrHIHEUMCoYpnkxfNXxlWoXcGFvXgHlluxCjOcIhKO64igP0ePXLUMO
-         OxzmM6dhowUlHVvVYJR/mVP/fFxJh+QAplFTQpdiOExwvzPTp8snRJ8BctvNGOoitxeN
-         HNpg==
-X-Forwarded-Encrypted: i=1; AKwUvBzO8kytbFbU3qT/i1PPFtTgVwvx8bk7ljQ0Om+5o1Td4wA0lBZRsOol7kB7t+/hsYvRvpwbSDuuOGpxlI4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjZ0NY6ZFKy17fWquGP22vLDNcAzTGgKQ6RwEgLZwdd17qniPJ
-	19yFP/kgIxzonWW9nPi7Z4V+yAxlOeAJxd0awbJ1FnmTDm8Z8+HoC2sedMDMXiY+jSK8uAjHUfo
-	WgC9C6j5lfcmVvw==
-X-Received: from pgni18-n1.prod.google.com ([2002:a05:6a02:6a52:10b0:cd6:1e55:140d])
+        bh=+8+r+UgUrY8DXLFgmEvSoqHNnXfv9U//CDOtL9HGeYU=;
+        b=RsaYCMQcAQt+Got1vqVcJsKzc+eCB09d4e8i8Uv7hYcoaYe2a5ggdIiOcznyt6R6eS
+         uDeBBy0Nuf9vvDRPSWNzpE4QpUpYUpPQ/bpXhDM0gBz08fx/Y6AqU1YG+5gavywzys/Y
+         xhtKrrBl8gVtdDtnOzyqzj0ppXcjX02F9QB0X1OSgq5Y3a635H+Egk49PXKaULdVcnDb
+         baTKvdJ+C/00DS1Q2Wt0HE9h6FrnDQOcB96cWwwtxnUE82aehrRGJlI0e1UpCxPb5Yzr
+         /jOQlQ2oEvhrEyocsqO6+Sa3bq+tqmBNR8xWiv9xCQgJtYbi+4Hm3TDtRavHbWbYRF8J
+         JHpw==
+X-Forwarded-Encrypted: i=1; AKwUvBzu4Fukco7no5Wzq/oOwxCYfHcZmghCQNECRlkxLeuP3naTQVmRstU7HrLzgk6896pvsMXQ3ULWuFWmaRs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSObCTjQFh0PjXsphhT0QdLE5yRC5n8vdx5V3SGHtdwvqhM2RT
+	VTAqvAyrDyEybgQR3BrWO8oo0OkWr+NthA+OJLG6kPA9hLaaPDbhLzaCIDXqI7tkDzc7qFIM/6j
+	O+YUVPt49ysCgyw==
+X-Received: from pglk6-n1.prod.google.com ([2002:a05:6a02:6b86:10b0:cc7:dd4c:a852])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:3295:b0:3de:48ca:c578 with SMTP id adf61e73a8af0-3e225f843c1mr6648063637.33.1792445482515;
- Mon, 19 Oct 2026 14:31:22 -0700 (PDT)
-Date: Mon, 19 Oct 2026 21:30:46 +0000
+ 2002:a05:6a20:ac44:b0:3e2:1656:b7c9 with SMTP id adf61e73a8af0-3e226401953mr7453690637.66.1792445486484;
+ Mon, 19 Oct 2026 14:31:26 -0700 (PDT)
+Date: Mon, 19 Oct 2026 21:30:50 +0000
 In-Reply-To: <20261019213054.3157159-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261019213054.3157159-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261019213054.3157159-3-dmatlack@google.com>
-Subject: [PATCH 02/10] PCI: liveupdate: Avoid sizing BARs of incoming devices
+Message-ID: <20261019213054.3157159-7-dmatlack@google.com>
+Subject: [PATCH 06/10] PCI: liveupdate: Claim resources of incoming devices
+ during scanning
 From: David Matlack <dmatlack@google.com>
 To: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
 	linux-mm@kvack.org, linux-pci@vger.kernel.org
@@ -98,381 +99,218 @@ Cc: Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.
 	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Avoid sizing the BARs of incoming preserved devices during enumeration.
-Instead, have the previous kernel pass the BAR masks in struct
-pci_dev_ser and use those in place of sizing.
+Claim the BARs and bridge windows of incoming preserved devices, as
+programmed by the previous kernel, while scanning. Claim them for each
+bus after its devices have been enumerated and pcibios_fixup_bus() has
+run, and before the buses below it are scanned.
 
-Sizing a BAR requires disabling decoding. While decoding is disabled,
-the device does not respond to memory transactions targeting its BARs:
-Posted Writes are silently dropped and Reads fail with Unsupported
-Request. This would disrupt anything that keeps accessing a preserved
-device across Live Update, such as P2PDMA from other preserved devices,
-or MMIO from VMs whose vCPUs keep running during kexec.
+This ensures that the address ranges decoded by incoming devices are in
+the resource tree before anything sizes or assigns resources,
+regardless of how the host bridge driver sets up resources. Without
+this, whether existing resources are claimed depends on the platform:
+x86 claims them in pcibios_resource_survey(), pci_host_probe() and the
+generic ACPI host bridge code only claim them if the host bridge has
+preserve_config set, and some host bridge drivers (e.g. VMD) never
+claim them.
 
-Sizing is the only part of reading a BAR that requires writing to it.
-The address and type of each BAR can be read from the device without
-disturbing it. So pass only the result of sizing across Live Update:
-for each BAR register, the value it returns when read after writing all
-1s to it (its mask). Append the masks to struct pci_dev_ser and
-advertise their presence with a new optional feature flag,
-PCI_SER_OPTIONAL_BAR_MASKS. The next kernel then decodes the BARs as if
-it had sized them, so the ABI does not depend on any kernel-internal
-state such as IORESOURCE_* flags.
+Buses are scanned top-down and all bridges upstream of a preserved
+device are also preserved, so the windows that contain the resources of
+an incoming device are always claimed before the device's resources.
+Outside of x86, bridge windows are not read from hardware during
+scanning, so read them first if needed. Code that claims resources
+later, such as pcibios_resource_survey() and pci_bus_claim_resources(),
+skips resources that are already claimed.
 
-Compute the masks from the size of each resource in
-pci_liveupdate_freeze(), once preservation status can no longer change
-and just before kexec, rather than when the device is preserved. A BAR
-can change size after the device is preserved, e.g. via Resizable BAR,
-in which case the next kernel would decode the BAR with the wrong size.
+Panic if claiming fails because something else has already claimed part
+of the range decoded by an incoming device, since memory transactions
+that still target the incoming device (e.g. P2PDMA, or MMIO from VMs
+whose vCPUs keep running during kexec) may be corrupting it. Also panic
+if a bridge window cannot be claimed for any other reason, e.g. because
+it does not fit in the upstream window, since the bridge would keep
+forwarding a range that the resource tree considers free, and the PCI
+core could assign it to another device. Neither should ever happen,
+since the previous kernel had the same resources claimed. A BAR that
+fails for any other reason was never assigned an address (e.g. a ROM BAR
+that the previous kernel left unassigned), so there is nothing to claim.
 
-Cache the optional features of the incoming FLB that this kernel
-supports in struct pci_liveupdate_global when the FLB is retrieved, so
-they can be checked without getting a reference to the incoming FLB,
-and verify that the incoming struct pci_dev_ser entries are large
-enough to contain the fields of those features.
+pci_liveupdate_claim_bus_resources() does nothing if the previous kernel
+did not preserve any devices, so the only overhead outside of Live
+Update is checking a flag under the PCI Live Update rwsem.
 
-If the previous kernel did not pass BAR masks, fall back to sizing the
-BARs.
+An alternative that was considered was setting preserve_config on host
+bridges with incoming devices, which makes pci_host_probe() and the
+generic ACPI code claim all existing resources. However, not all host
+bridge drivers honor preserve_config, it is a firmware-provided policy
+that applies to every device below the host bridge, and it would have
+to be cleared once Live Update finishes.
 
 Assisted-by: LLM
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- drivers/pci/liveupdate.c    | 138 +++++++++++++++++++++++++++++++++++-
- drivers/pci/liveupdate.h    |   9 +++
- drivers/pci/probe.c         |  10 +++
- include/linux/kho/abi/pci.h |  25 ++++++-
- 4 files changed, 178 insertions(+), 4 deletions(-)
+ drivers/pci/liveupdate.c | 99 ++++++++++++++++++++++++++++++++++++++++
+ drivers/pci/liveupdate.h |  5 ++
+ drivers/pci/probe.c      |  8 ++++
+ 3 files changed, 112 insertions(+)
 
 diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
-index 6f92d4ddca2b..f48cab3cc232 100644
+index 72ad4fd00f7b..ac4525568818 100644
 --- a/drivers/pci/liveupdate.c
 +++ b/drivers/pci/liveupdate.c
-@@ -197,6 +197,13 @@
-  *  * The PCI core does not disable bus mastering on outgoing preserved devices
-  *    during kexec. This allows preserved devices to issue memory transactions
-  *    throughout the Live Update.
+@@ -184,6 +184,12 @@
+  * The PCI core treats preserved devices differently than non-preserved devices.
+  * This section enumerates those differences.
+  *
++ *  * The PCI core claims the BARs and bridge windows of incoming preserved
++ *    devices, as programmed by the previous kernel, while scanning and before
++ *    any resources are sized or assigned. This ensures no other device is
++ *    assigned address space that an incoming device is still decoding, and
++ *    that the resources of incoming devices are never reassigned.
 + *
-+ *  * The PCI core does not size the BARs of incoming preserved devices, since
-+ *    sizing requires disabling decoding, which would disrupt memory
-+ *    transactions targeting the device (e.g. P2PDMA, or MMIO from VMs whose
-+ *    vCPUs keep running during kexec). Instead, the previous kernel passes the
-+ *    size of each BAR in struct pci_dev_ser. Everything else about the BARs
-+ *    (e.g. their addresses and types) is read from the device as usual.
-  */
- 
- #define pr_fmt(fmt) "PCI: liveupdate: " fmt
-@@ -221,10 +228,14 @@
-  * @had_incoming: True if the previous kernel preserved at least one PCI device.
-  *                Set when the incoming FLB is retrieved and never cleared, so
-  *                it stays true after Live Update finishes.
-+ * @incoming_optional_flags: The optional features in the incoming FLB
-+ *                           (struct pci_ser::optional_flags) that this kernel
-+ *                           supports. Set when the incoming FLB is retrieved.
-  */
- struct pci_liveupdate_global {
- 	struct rw_semaphore rwsem;
- 	bool had_incoming;
-+	u64 incoming_optional_flags;
- };
- 
- static struct pci_liveupdate_global pci_liveupdate = {
-@@ -267,6 +278,26 @@ struct pci_flb_incoming {
-  */
- #define PCI_SER_REQUIRED_FLAGS_SUPPORTED	0ULL
- 
-+/*
-+ * Bits in struct pci_ser::optional_flags that this kernel knows how to handle.
-+ * This kernel also provides all of them to the next kernel.
-+ */
-+#define PCI_SER_OPTIONAL_FLAGS_SUPPORTED	PCI_SER_OPTIONAL_BAR_MASKS
-+
-+/*
-+ * The minimum size of struct pci_dev_ser given the optional features that are
-+ * present in it.
-+ */
-+static u32 pci_dev_ser_min_size(u64 optional_flags)
-+{
-+	u32 size = PCI_DEV_SER_MIN_SIZE;
-+
-+	if (optional_flags & PCI_SER_OPTIONAL_BAR_MASKS)
-+		size = max(size, offsetofend(struct pci_dev_ser, rom_mask));
-+
-+	return size;
-+}
-+
- /* PCI_LIVEUPDATE depends on 64BIT, so domain and bdf always fit. */
- static unsigned long pci_ser_xa_key(u32 domain, u16 bdf)
- {
-@@ -287,7 +318,7 @@ static int pci_flb_preserve(struct liveupdate_flb_op_args *args)
- 		return PTR_ERR(ser);
- 
- 	ser->required_flags = 0;
--	ser->optional_flags = 0;
-+	ser->optional_flags = PCI_SER_OPTIONAL_FLAGS_SUPPORTED;
- 	ser->dev_ser_size = sizeof(struct pci_dev_ser);
- 	ser->nr_devices = 0;
- 	ser->devices = 0;
-@@ -325,6 +356,7 @@ static int pci_flb_retrieve(struct liveupdate_flb_op_args *args)
- 	struct pci_flb_incoming *incoming;
- 	struct pci_dev_ser *dev_ser;
- 	struct kho_block_set_it it;
-+	u64 optional_flags;
- 	int ret;
- 
- 	pr_debug("Retrieving struct pci_ser (0x%llx)\n", args->data);
-@@ -333,12 +365,16 @@ static int pci_flb_retrieve(struct liveupdate_flb_op_args *args)
- 		panic("Incoming PCI FLB requires unsupported features (0x%llx)\n",
- 		      ser->required_flags & ~PCI_SER_REQUIRED_FLAGS_SUPPORTED);
- 
-+	/* Ignore any optional features that this kernel does not support. */
-+	optional_flags = ser->optional_flags & PCI_SER_OPTIONAL_FLAGS_SUPPORTED;
-+
- 	/*
- 	 * The previous kernel may have appended fields to struct pci_dev_ser,
- 	 * which this kernel ignores, but every entry must be at least the
--	 * minimum size.
-+	 * minimum size, including the fields of the optional features that
-+	 * are present.
- 	 */
--	if (ser->dev_ser_size < PCI_DEV_SER_MIN_SIZE)
-+	if (ser->dev_ser_size < pci_dev_ser_min_size(optional_flags))
- 		panic("Incoming PCI FLB has unsupported struct pci_dev_ser size (%u)\n",
- 		      ser->dev_ser_size);
- 
-@@ -378,6 +414,8 @@ static int pci_flb_retrieve(struct liveupdate_flb_op_args *args)
- 	if (!xa_empty(&incoming->xa))
- 		pci_liveupdate.had_incoming = true;
- 
-+	pci_liveupdate.incoming_optional_flags = optional_flags;
-+
- 	args->obj = incoming;
+  *  * The PCI core adopts all ACS controls enabled on incoming preserved devices
+  *    rather than assigning new ones. This ensures that TLPs are routed the same
+  *    way after Live Update and ensures that IOMMU groups do not change. Note
+@@ -1207,6 +1213,99 @@ int pci_liveupdate_read_bridge_windows(struct pci_dev *bridge)
  	return 0;
  }
-@@ -541,6 +579,53 @@ static void pci_liveupdate_unpreserve_path(struct pci_flb_outgoing *outgoing,
- 	}
- }
  
 +/*
-+ * Compute the value that the BAR backing resource @resno of @dev returns when
-+ * read after writing all 1s to it, from the size of the resource.
++ * Check if the windows of @bridge have been read from hardware. Outside of x86
++ * that does not happen during scanning.
 + */
-+static u64 pci_liveupdate_bar_mask(struct pci_dev *dev, int resno)
++static bool pci_liveupdate_windows_read(struct pci_dev *bridge)
 +{
-+	struct resource *res = &dev->resource[resno];
-+	resource_size_t size = resource_size(res);
-+
-+	if (!res->flags || !size)
-+		return 0;
-+
-+	/* Skip resources that are not decoded by the BAR. */
-+	if (res->flags & IORESOURCE_PCI_EA_BEI)
-+		return 0;
-+
-+	if (resno == PCI_ROM_RESOURCE && (res->flags & IORESOURCE_ROM_SHADOW))
-+		return 0;
-+
-+	/* The size of a BAR is always a power of 2. */
-+	pci_WARN_ONCE(dev, size & (size - 1),
-+		      "%s %pR: Size is not a power of 2\n",
-+		      pci_resource_name(dev, resno), res);
-+
-+	return ~((u64)size - 1);
-+}
-+
-+static void pci_liveupdate_save_bar_masks(struct pci_dev *dev,
-+					  struct pci_dev_ser *dev_ser)
-+{
-+	u64 mask;
 +	int i;
 +
-+	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-+		mask = pci_liveupdate_bar_mask(dev, i);
-+		dev_ser->bar_masks[i] = lower_32_bits(mask);
-+
-+		/* The upper half of a 64-bit BAR is in the next register. */
-+		if ((dev->resource[i].flags & IORESOURCE_MEM_64) &&
-+		    i + 1 < PCI_STD_NUM_BARS)
-+			dev_ser->bar_masks[++i] = upper_32_bits(mask);
++	for (i = PCI_BRIDGE_RESOURCES; i <= PCI_BRIDGE_RESOURCE_END; i++) {
++		if (pci_resource_n(bridge, i)->flags)
++			return true;
 +	}
 +
-+	mask = pci_liveupdate_bar_mask(dev, PCI_ROM_RESOURCE);
-+	dev_ser->rom_mask = lower_32_bits(mask);
++	return false;
 +}
 +
- static int pci_liveupdate_preserve_device(struct pci_flb_outgoing *outgoing,
- 					  struct pci_dev *dev)
- {
-@@ -833,6 +918,14 @@ void pci_liveupdate_freeze(struct pci_dev *dev)
- {
- 	guard(rwsem_write)(&pci_liveupdate.rwsem);
- 	dev->liveupdate.frozen = true;
++static void pci_liveupdate_claim_resource(struct pci_dev *dev, int resno)
++{
++	struct resource *r = pci_resource_n(dev, resno);
++	int ret;
 +
 +	/*
-+	 * Save the BAR masks of outgoing devices now that preservation status
-+	 * is frozen, rather than when the devices are preserved, in case the
-+	 * size of a BAR changes in between (e.g. via Resizable BAR).
++	 * Skip resources that are unused, already claimed, or disabled (e.g.
++	 * bridge windows that are turned off).
 +	 */
-+	if (dev->liveupdate.outgoing)
-+		pci_liveupdate_save_bar_masks(dev, dev->liveupdate.outgoing);
- }
- 
- static int pci_liveupdate_finish_device(struct pci_ser *ser, struct pci_dev *dev)
-@@ -984,6 +1077,45 @@ bool pci_liveupdate_is_outgoing(struct pci_dev *dev)
- 	return dev->liveupdate.outgoing;
- }
- 
++	if (!r->flags || resource_assigned(r) ||
++	    (r->flags & IORESOURCE_DISABLED))
++		return;
++
++	/*
++	 * Panic if something else has already claimed part of the range, since
++	 * memory transactions still targeting the device may be corrupting it.
++	 * Also panic if a bridge window cannot be claimed at all, since the
++	 * bridge forwards the range even though the resource tree considers it
++	 * free. BARs that fail for other reasons were never assigned an address
++	 * (e.g. a ROM BAR that was left unassigned), so there is nothing to
++	 * claim.
++	 */
++	ret = pci_claim_resource(dev, resno);
++	if (ret == -EBUSY || (ret && pci_resource_is_bridge_win(resno)))
++		panic("%s %s %pR: Failed to claim resource of device preserved across Live Update\n",
++		      pci_name(dev), pci_resource_name(dev, resno), r);
++}
++
 +/**
-+ * pci_liveupdate_read_bar_masks() - Get the BAR masks of an incoming device
-+ * @dev: The PCI device
-+ * @nr_bars: The number of standard BARs to get masks for
-+ * @bar_masks: Array of @nr_bars entries to fill with the standard BAR masks
-+ * @rom_mask: Filled with the Expansion ROM BAR mask, if not NULL
++ * pci_liveupdate_claim_bus_resources() - Claim the resources of incoming
++ *                                        devices on a bus
++ * @bus: The PCI bus
 + *
-+ * Get the BAR masks passed by the previous kernel, i.e. the values that the
-+ * BARs of @dev return when read after writing all 1s to them, so that the BARs
-+ * do not need to be sized.
++ * Claim the windows of the bridge upstream of @bus, if it is
++ * incoming-preserved, and the BARs of the incoming preserved devices on @bus,
++ * as programmed by the previous kernel. The PCI core calls this while
++ * scanning, after enumerating the devices on @bus and before scanning the
++ * buses below it, so that the resources of incoming devices are claimed before
++ * any resources are sized or assigned.
 + *
-+ * Return: 0 on success, or <0 if @dev is not incoming-preserved or the
-+ * previous kernel did not pass BAR masks.
++ * Buses are scanned top-down and all bridges upstream of a preserved device
++ * are also preserved, so the windows that contain the resources of an incoming
++ * device are always claimed before the device's resources. Failing to claim a
++ * resource because something else has already claimed part of its range is
++ * fatal, since memory transactions still targeting the device may be
++ * corrupting it.
++ *
++ * This does nothing if the previous kernel did not preserve any devices.
 + */
-+int pci_liveupdate_read_bar_masks(struct pci_dev *dev, unsigned int nr_bars,
-+				  u32 *bar_masks, u32 *rom_mask)
++void pci_liveupdate_claim_bus_resources(struct pci_bus *bus)
 +{
-+	struct pci_dev_ser *dev_ser;
-+	unsigned int i;
++	struct pci_dev *dev;
++	int i;
 +
 +	guard(rwsem_read)(&pci_liveupdate.rwsem);
 +
-+	dev_ser = dev->liveupdate.incoming;
-+	if (!dev_ser)
-+		return -EINVAL;
++	if (!pci_liveupdate.had_incoming)
++		return;
 +
-+	if (!(pci_liveupdate.incoming_optional_flags &
-+	      PCI_SER_OPTIONAL_BAR_MASKS))
-+		return -EOPNOTSUPP;
++	if (bus->self && bus->self->liveupdate.incoming) {
++		if (!pci_liveupdate_windows_read(bus->self))
++			pci_read_bridge_bases(bus);
 +
-+	for (i = 0; i < nr_bars; i++)
-+		bar_masks[i] = dev_ser->bar_masks[i];
++		for (i = PCI_BRIDGE_RESOURCES;
++		     i <= PCI_BRIDGE_RESOURCE_END; i++)
++			pci_liveupdate_claim_resource(bus->self, i);
++	}
 +
-+	if (rom_mask)
-+		*rom_mask = dev_ser->rom_mask;
++	list_for_each_entry(dev, &bus->devices, bus_list) {
++		if (!dev->liveupdate.incoming)
++			continue;
 +
-+	return 0;
++		for (i = 0; i < PCI_BRIDGE_RESOURCES; i++)
++			pci_liveupdate_claim_resource(dev, i);
++	}
 +}
 +
  /**
   * pci_liveupdate_is_incoming() - Check if a device is incoming-preserved
   * @dev: The PCI device to check
 diff --git a/drivers/pci/liveupdate.h b/drivers/pci/liveupdate.h
-index 333ddd8f36c5..80749f14beea 100644
+index 4c4104025a7e..98d23e217308 100644
 --- a/drivers/pci/liveupdate.h
 +++ b/drivers/pci/liveupdate.h
-@@ -19,6 +19,8 @@ bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev)
- int pci_liveupdate_adopt_acs(struct pci_dev *dev);
- int pci_liveupdate_adopt_ari(struct pci_dev *dev);
- bool pci_liveupdate_is_outgoing(struct pci_dev *dev);
-+int pci_liveupdate_read_bar_masks(struct pci_dev *dev, unsigned int nr_bars,
-+				  u32 *bar_masks, u32 *rom_mask);
+@@ -22,6 +22,7 @@ bool pci_liveupdate_is_outgoing(struct pci_dev *dev);
+ int pci_liveupdate_read_bar_masks(struct pci_dev *dev, unsigned int nr_bars,
+ 				  u32 *bar_masks, u32 *rom_mask);
+ int pci_liveupdate_read_bridge_windows(struct pci_dev *bridge);
++void pci_liveupdate_claim_bus_resources(struct pci_bus *bus);
  #else
  static inline void pci_liveupdate_setup_device(struct pci_dev *dev)
  {
-@@ -57,6 +59,13 @@ static inline bool pci_liveupdate_is_outgoing(struct pci_dev *dev)
+@@ -72,6 +73,10 @@ static inline int pci_liveupdate_read_bridge_windows(struct pci_dev *bridge)
  {
- 	return false;
+ 	return -EINVAL;
  }
 +
-+static inline int pci_liveupdate_read_bar_masks(struct pci_dev *dev,
-+						unsigned int nr_bars,
-+						u32 *bar_masks, u32 *rom_mask)
++static inline void pci_liveupdate_claim_bus_resources(struct pci_bus *bus)
 +{
-+	return -EINVAL;
 +}
  #endif
  
  #endif /* DRIVERS_PCI_LIVEUPDATE_H */
 diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 9187f1d91766..3cb2e481eddf 100644
+index 184d93aa8522..a53d0077a08b 100644
 --- a/drivers/pci/probe.c
 +++ b/drivers/pci/probe.c
-@@ -328,6 +328,16 @@ static void pci_size_bases(struct pci_dev *dev, unsigned int howmany, int rom,
- {
- 	u16 orig_cmd;
+@@ -3155,6 +3155,14 @@ static unsigned int pci_scan_child_bus_extend(struct pci_bus *bus,
+ 		bus->is_added = 1;
+ 	}
  
 +	/*
-+	 * Sizing BARs requires disabling decoding, which would disrupt memory
-+	 * transactions targeting devices preserved across Live Update (e.g.
-+	 * P2PDMA, or MMIO from VMs whose vCPUs keep running during kexec), so
-+	 * use the BAR masks passed by the previous kernel for those devices.
++	 * Claim the resources of devices preserved across Live Update before
++	 * scanning the buses below and before any resources are sized or
++	 * assigned, so that nothing else is assigned the address space they
++	 * decode.
 +	 */
-+	if (!pci_liveupdate_read_bar_masks(dev, howmany, stdbars,
-+					   rom ? rombar : NULL))
-+		return;
++	pci_liveupdate_claim_bus_resources(bus);
 +
- 	/* No printks while decoding is disabled! */
- 	if (!dev->mmio_always_on) {
- 		pci_read_config_word(dev, PCI_COMMAND, &orig_cmd);
-diff --git a/include/linux/kho/abi/pci.h b/include/linux/kho/abi/pci.h
-index c2e3a5949f73..5fa2ecfe5b6d 100644
---- a/include/linux/kho/abi/pci.h
-+++ b/include/linux/kho/abi/pci.h
-@@ -8,8 +8,10 @@
- #ifndef _LINUX_KHO_ABI_PCI_H
- #define _LINUX_KHO_ABI_PCI_H
- 
-+#include <linux/bits.h>
- #include <linux/bug.h>
- #include <linux/compiler.h>
-+#include <linux/pci_regs.h>
- #include <linux/stddef.h>
- #include <linux/types.h>
- 
-@@ -56,11 +58,24 @@
-  *            reference count is equal to the number of preserved devices at or
-  *            below it in the PCI hierarchy when the struct pci_dev_ser is in
-  *            use, and 0 otherwise.
-+ * @bar_masks: The value each standard BAR register returns when read after
-+ *             writing all 1s to it, i.e. the mask that encodes the size of the
-+ *             BAR. Only the address bits are meaningful. A 64-bit BAR uses two
-+ *             entries, like it uses two registers. 0 if the BAR is not
-+ *             implemented. Used by the next kernel instead of sizing the BARs,
-+ *             which requires disabling decoding and would disrupt memory
-+ *             transactions targeting the device.
-+ * @rom_mask: Same as @bar_masks, but for the Expansion ROM BAR.
-+ *
-+ * Each field after @refcount is only present if the ``PCI_SER_OPTIONAL_*``
-+ * flag that covers it is set in ``pci_ser.optional_flags``.
-  */
- struct pci_dev_ser {
- 	u32 domain;
- 	u16 bdf;
- 	u16 refcount;
-+	u32 bar_masks[PCI_STD_NUM_BARS];
-+	u32 rom_mask;
- } __packed;
- 
- /*
-@@ -80,7 +95,7 @@ struct pci_dev_ser {
-  * @required_flags: Features that the next kernel must support to take over
-  *                  the preserved devices. No flags are currently defined.
-  * @optional_flags: Features that the next kernel may ignore if it does not
-- *                  support them. No flags are currently defined.
-+ *                  support them (``PCI_SER_OPTIONAL_*``).
-  * @dev_ser_size: The size in bytes of each struct pci_dev_ser in @devices.
-  * @nr_devices: The number of devices that were preserved.
-  * @devices: Physical address of the first KHO block containing pci_dev_ser.
-@@ -93,4 +108,12 @@ struct pci_ser {
- 	u64 devices;
- } __packed;
- 
-+/*
-+ * Bits in struct pci_ser::optional_flags. If a bit is set, @dev_ser_size is
-+ * large enough to contain the fields of struct pci_dev_ser that it covers:
-+ *
-+ *  * PCI_SER_OPTIONAL_BAR_MASKS: @bar_masks and @rom_mask
-+ */
-+#define PCI_SER_OPTIONAL_BAR_MASKS	BIT_ULL(0)
-+
- #endif /* _LINUX_KHO_ABI_PCI_H */
+ 	/*
+ 	 * Calculate how many hotplug bridges and normal bridges there
+ 	 * are on this bus. We will distribute the additional available
 -- 
 2.56.0.212.g129ede20d9-goog
 
