@@ -1,188 +1,83 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1B3381EAB;
-	Mon, 19 Oct 2026 07:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC412701B8;
+	Mon, 19 Oct 2026 07:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393690; cv=none; b=EkpoNQhOPjeFpO8fffjVzJnkOeX9v2fErNOkqk540T8yKEbR6C0FJdSMQmK6wdVTHwZHdTaFncWsPP1vU/S4d7oOflIahH+q1/BRv/H4HdIT5ZVIV6IajtLCuG+WYDk6P+b3cF09Qmyxe+aMl+5j+FqMslTmuLzKhnSuMhe4gUs=
+	t=1792393850; cv=none; b=VUoZ0TXCxfsgvj/Jri1pPk2dqgGhvwbmYm8LRHY1hU0silhqMz5bM5Y1r/qhwrCX4rNOj3D9hmt2FOxqH/HmBQnEQpfZ51vCPhhbqvrHEpPj3lyNRUG0o5dZDfjqX+fGave3oRdzHR50rcuAvagObV5NeYvn9dhPNYWdcB+/PNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393690; c=relaxed/simple;
-	bh=0wGfQ0XPs7lB/bDXWbqok2I+QadslRUR9q3Nce4S+5Y=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=P0VnWKdaxyZZxsC992wX5xkb6YPmebRIL2RhiYTrWPifi9gX8y1GZUjEDQjETkwXBbbWxTmil+IBtoZG8bwsCqyG3k0DLP9n1+4VVvU8Fj7ZaxVK5KWK/I0uoxAxtTYS36oBs3yLQJ0VRD9tTtHmd+59KIWLut6o69opU4KylN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=1kXAjV1U; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1792393850; c=relaxed/simple;
+	bh=w91k1QsKRkrtOeUpf3w7FWHdc9ZLG8doEONCwCERito=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nuuhGYpRjfiW/oa9mkkoA7YUJtYF2afDTU/DhzgBzp35sOiYc3d0b0w2Ju7Lq84ZE8XlkMV6kpmw1Y71e3crtFc4hrshBSvoG4+LbYoB2iAYW7Ilu+mwlyiwzBafpExuPdpbU5LPohJq1cM+lqHSfdiNBxhij3VFMnK82JHUddI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nXTb5rrh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="1kXAjV1U"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 39A01A012B;
-	Mon, 19 Oct 2026 09:07:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792393676; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=b9AfkPN0whNzXKMk9jVeURmiAA85vJrvwszbixcG7EY=;
-	b=1kXAjV1UrVDcmsAHeOhwpVQbA/ZsQXakJEwsTm2RfMqLnVr0ENkd0AOieKdWq/wVCdwNN3
-	PYhJDnbWpX+xM4EreuUkMFbYYQWuvKOm2/1f9CNpt2ZFCajp6GVay2EIaVyZUJYrnHXY5v
-	5ctfETh9f9uuyfxTc8Zj5hOrDzLC8CVwp9yWHUdwWV/X3wUVci1bIx9M9nE9etTRYE93m9
-	3IZqbDURcW2znSCW88QGcCFMNVPWH8fuRhmKsiM9QiUMRSLPWYpQaTgSNaJ+REjqmjMn1/
-	yyWHipWdujxYreVHWxXNohCvsA9PE+KFpatLOJA+HzkU8ZhVvlDyVBbLJqO+BA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nXTb5rrh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70FE61F000C4;
+	Mon, 19 Oct 2026 07:10:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792393849;
+	bh=iwXXc6E0ACOnd4/DDvcelYvl1dfFyQdOSpned7ICjQ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nXTb5rrhH+KebbOEeF3fmeeH4VjyxBY0J6wmXjvlCrhcheIkVj/2Q+8ICwLRulY3Y
+	 RbcW90N+zAxElmoHLwgK8shnmrXvUJxRnFMJpZQvfYer6pdOD43I3PPn8RD+QOsCj0
+	 b1auBFGCu/20rPTfNt+zsBrME67H7ko9aXZOiXsgZfR9BYb6OLtVUSZb71ZgwatXY7
+	 uGNrBYe2OShivP+2usfUJm1LD54JIKYErqlfUJDKm3ogV+IjlSDwOZjSDd23fNfGWK
+	 7nySOn+7v5W0q2DwlV3qxB2rKVaoZtWQBwyGikO6iTX1RBi7wiJIil2dB9psUi4Grc
+	 QmB2CH/ugYDnQ==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xIhWB-00000008Fcu-0oLD;
+	Mon, 19 Oct 2026 09:10:47 +0200
+Date: Mon, 19 Oct 2026 09:10:47 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] greybus: operation: arm the timeout timer before
+ sending the request
+Message-ID: <atXCd0ywMCTDi_5J@hovoldconsulting.com>
+References: <20261018151340.62626-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 19 Oct 2026 09:07:54 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, f.fainelli@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 1/4] net: bcmgenet: stop the PHY when a WoL resume
- rebuilds the datapath
-In-Reply-To: <179232492989.3135.6148472964891077526@kernel.org>
-References: <20261017-nb-genet-fini-dma-net-v1-1-47e7c57f6834@tipi-net.de>
- <179232492989.3135.6148472964891077526@kernel.org>
-Message-ID: <36ccdbbc90bd9d77237819c33c5d0e20@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018151340.62626-1-ngocthang2710.1999@gmail.com>
 
-On 18.10.2026 14:02, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
+On Sun, Oct 18, 2026 at 10:13:40PM +0700, Nguyen Ngoc Thang wrote:
+> gb_operation_request_send() sends the request message and only then arms
+> the operation timer. The host driver can complete the operation before
+> add_timer() runs, e.g. when the transfer fails right away. The completion
+> work then calls timer_delete_sync() on a timer that is not armed yet,
+> the synchronous caller wakes up and drops the last reference, and
+> the operation is freed while the timer is still pending:
 > 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+>   ODEBUG: free active (active state 0) object type: timer_list
+>           hint: gb_operation_timeout+0x0/0xc0
+>   WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0
+>    kmem_cache_free+0xfd/0x6d0
+>    gb_operation_sync_timeout+0x1c7/0x270
+>    gb_svc_process_deferred_request+0x5f3/0x1150
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let 
-> patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your 
-> reply
-> (one such reply per series is enough).
-> 
-> - [Medium] In bcmgenet_resume()
->   (drivers/net/ethernet/broadcom/genet/bcmgenet.c), the new guard on 
-> the…
-> 
-> --
-> 
-> net: bcmgenet: stop the PHY when a WoL resume rebuilds the datapath
-> 
-> This patch adds a phy_stop() to the WoL teardown path in
-> bcmgenet_resume(), which runs when the MAC was found reset, so the
-> phy_start() in the rebuild does not warn and do nothing. The stop is
-> skipped when phy_is_started() says the PHY is not running, because a
-> failed earlier rebuild may already have stopped it.
-> 
->> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
->> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
->> index e8908916558b1..308716cddc077 100644
->> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
->> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
->> @@ -4288,6 +4288,9 @@ static int bcmgenet_resume(struct device *d)
->>  		bcmgenet_rdma_disable(priv);
->>  		bcmgenet_intr_disable(priv);
->>  		bcmgenet_fini_dma(priv);
->> +		/* An earlier rebuild of this datapath may have stopped it */
->> +		if (phy_is_started(dev->phydev))
->> +			phy_stop(dev->phydev);
-> 
-> [Severity: Medium]
-> 
-> If the PHY is in PHY_ERROR at this point, does it get past this guard
-> and still hit the phy_start() warning during the rebuild?
-> 
-> phy_is_started() only returns true for states at or above PHY_UP:
-> 
-> include/linux/phy.h:phy_is_started() {
-> 	return phydev->state >= PHY_UP;
-> }
-> 
-> In enum phy_state, PHY_ERROR comes before PHY_UP, so a PHY in that 
-> state
-> skips phy_stop(). phy_stop() itself accepts PHY_ERROR without warning
-> and moves the PHY to PHY_HALTED:
-> 
-> drivers/net/phy/phy.c:phy_stop() {
-> 	if (!phy_is_started(phydev) && phydev->state != PHY_DOWN &&
-> 	    phydev->state != PHY_ERROR) {
-> 		WARN(1, "called from state %s\n",
-> 		...
-> 	phydev->state = PHY_HALTED;
-> 	...
-> }
-> 
-> The kernel-doc for PHY_ERROR in enum phy_state also says "phy_stop 
-> moves
-> to @PHY_HALTED".
-> 
-> Next, the rebuild calls bcmgenet_netif_start()->phy_start(), which only
-> accepts READY or HALTED:
-> 
-> drivers/net/phy/phy.c:phy_start() {
-> 	if (phydev->state != PHY_READY && phydev->state != PHY_HALTED) {
-> 		WARN(1, "called from state %s\n",
-> 		     phy_state_to_str(phydev->state));
-> 		goto out;
-> 	}
-> 	...
-> }
-> 
-> When that happens, the PHY is not resumed and the state machine is not
-> restarted. bcmgenet_resume() still returns 0, but the link stays down
-> until the interface is taken down and up again.
-> 
-> Nothing stops the PHY state machine during a WoL suspend:
-> 
->   - bcmgenet_mii_probe() sets mac_managed_pm = true, so
->     mdio_bus_phy_suspend() and mdio_bus_phy_resume() return early.
->   - The WoL branch of bcmgenet_suspend() does not call phy_stop().
->   - bcmgenet_wol_power_up_cfg() writes PHY_RUNNING or PHY_NOLINK
->     without stopping the machine.
-> 
-> So two things in that window could leave the PHY in PHY_ERROR when this
-> check runs:
-> 
->   - an MDIO error in _phy_state_machine(), via phy_error_precise()
->   - a phy_error() call from a PHY driver's interrupt handler
-> 
-> Nobody has seen this happen in practice yet. It follows from the code
-> paths above.
+> Arm the timer before the message is sent. If sending fails, delete the
+> timer again. If it has already fired, its work is queued and drops the
+> active and operation references itself, so the error path must not drop
+> them a second time.
 
-Agreed, but lets fix it anyway as Clashiko will flag this once the path 
-is
-touched again in the future anyway ...
+Fixing this is going to be a bit more involved, for example, as you now
+have to deal with the request message potentially being cancelled before
+it has been submitted.
 
-> 
-> The commit message says:
-> 
->     A rebuild that failed can have stopped it already, and
->     phy_stop() warns about that too.
-> 
-> That holds for PHY_READY and PHY_HALTED, but not for PHY_ERROR. Would 
-> it
-> make sense to have the guard accept the same states phy_stop() does?
-> For example:
-> 
-> 	if (phy_is_started(dev->phydev) ||
-> 	    dev->phydev->state == PHY_ERROR)
-> 		phy_stop(dev->phydev);
-> 
-> The non-WoL path does not have this gap, because bcmgenet_netif_stop()
-> always calls phy_stop().
-> 
->>  		enable_irq(priv->irq1);
->>  	}
->> 
+Sashiko also flagged this, and some other implications:
 
-Will change this in v2.
+	https://sashiko.dev/#/patchset/20261017171743.24612-1-ngocthang2710.1999%40gmail.com
 
---
-pw-bot: cr
+Johan
