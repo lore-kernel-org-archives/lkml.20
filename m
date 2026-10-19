@@ -1,96 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435636;
-	b=f48lp78FL1WDEEj9Pz0rfTkD5s0W58A8yHspL4qwmbQEVuOFtpH+Au4+ka0fC6sdE95t
-	 H11hru6SfTNE+eFbkTca5AVDCamnd2laP0/ygLx7kEly2qCqzmKuw/cTKz2dkdSYWeNtZ
-	 vV33Ry9NCTnIHW5nNx2f1LrpYx5TJG4jNXPWnvllUNwn2O0vEh/DyGt1vsS5o159AfHTD
-	 EQWkAYlgpctzfa95JzFgEyD/8OOLQogGLQPk+J5i+b2feLWhthh8qImUNpfBYw9tajdjn
-	 DTi7rDRtezG/m3le+oc9BMMmxuJ5Aiy/wMstjvytvTkTx2MqKWZreniFXiBJ7LQ3xHQ==
+	t=1792435641;
+	b=YqhoK5i+4sIgIuoOoCKKT2Dk7fDQDQA+cWCRki5Z1rdYAjJv2Ak6ktcUbLHjiahcaGVP
+	 RjfsFbboxinMpeXsYpqFMbHrsTFn0ttYYqVBE37JtDflnpv1FzhiNLIylcm0dXKLpFEUd
+	 8+ntisomHQF9buFwS4q+KB5xCRnAO5/N4t4Os9DlY5QjhZMOQr64NQMYI5h+ZCNA54YvD
+	 tMKxidjbTPgtZAtzjMCXXffVmHOtf5Txj7zQ0lkNw4YVa5+96uNF9O9Wqlrcmwg8hkQwv
+	 v51gy8pkPzRclqL7h/iInl/XkOPNBBYirt2Bdt+cy9VGjTf9DExnSqJI85d/Cyarh/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435636;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=hbKgm88xqZwylAt4q2OznWtgQkbJqO8+m4FSvU2MBBc=;
-	b=dbLivkUN0ZQXZPA39WJnz4TSri5zUVBsfhH4dwAYXvw9vIVEvyXy9HSms9K8a6Sgnnyx
-	 rGS0+nsFmVfuK22SRuR0GIygcikti4S2G5dz1+gwano0BGxaNMDMZol8V+h9j2f+j89fH
-	 k5RDtOyKTl1NKKJKHgkAgVNWgpGE8ceNdzKp/DP0uEwZOAlRMKP1bX/VzYMPQ7C6yASqi
-	 6ZZhkV8x4kWVqlTdSDWapiAB52KQF/nt4vhKIbP58hg8TbCOWZWwye1cG6fWNMGyXD1mM
-	 KDbbaPknHwOh9ZFxJK8+YJEZz2SzJLks2Yak/FLzxpsxHsm5V3F7m5i741wChAoQQQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435641;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:Autocrypt:In-Reply-To:Content-Type;
+	bh=8lRJe6qcL32g26xvlmRfstXqu2NrULSP/zOENc5q8uM=;
+	b=gM6QbpTwg+Hwigie/C1VLbIG69Pt4AwittI6J2hZk9CO+VdsdTA1FQDvGH1P2dKwSgEy
+	 iWhMpuc6YsLyCT5XVwfA4Fid3MspP1FZ/vVKIMkW6NBqXyuKnmg86WyWk3DXOeapTHB5q
+	 OLuw0yrBZzF8cHSgqfZLA2GhERgvg9M0dPxjak/CahzMZHJgvUgjbI9ragBRbKRO3VIsT
+	 gOxs04tKBksGrNcosPl+goUzUl2xjTXD2ud9Qe1AbXeMk+e2N8thHQLZd3++vZg5lkk7O
+	 HfzQxaCcVH2mOE3bVsd2+KxIOAN7V8kbdurKoCNMcRLO4JSOwCZOUy5hx4tYgncmU2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=tNehWdLT;
-	arc=none smtp.remote-ip=209.85.219.52
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=erebion.eu;
+	spf=pass smtp.mailfrom=erebion.eu;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=XSgqmx6G;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=JV+d0HXt;
+	arc=none smtp.remote-ip=142.132.183.134
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30ABB606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:47:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30ABB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10BC606A32A;
+	Mon, 19 Oct 2026 18:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A10BC606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=tNehWdLT
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-917866225aaso22768956d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:47:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792435635; x=1793040435; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hbKgm88xqZwylAt4q2OznWtgQkbJqO8+m4FSvU2MBBc=;
-        b=tNehWdLTzbkrxKoy4JfY9AR/tpf+2We0X1o7PCutb5lhn6HVqVkRwcCvQhOUdwT0q0
-         4rFoIMAuHYB1ApM2Gzf6Asg+fECWXXo53+H0NDnW1XftiXckREe7V685vrAJPfK6HLpb
-         T2rAyT0NnEDH5vUUATSU1fy4fstM375D2eV4xkHak0uLChoiFvru8GUcv7s+y6V/KK5Q
-         8g3nt/2f0IYoppg4Dr/woMksr6ZwGOxgj9j5jupYh19c4KmxcvSlkKK1Cnh5U2QApjO+
-         FP36uir4WYT/VJBGCelP6sXFvTUVqPBlbBWMDIIFIJhh55RRZfLhV5fMxZZY/azd3cku
-         fVag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792435635; x=1793040435;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hbKgm88xqZwylAt4q2OznWtgQkbJqO8+m4FSvU2MBBc=;
-        b=nFjROUyIijjCfV/fqH5wEHu76dIr6dw2KXYG1Egbx3ffQu3oK0glkr0rkNQ8FSwGH6
-         OgPO2Zb3/mIDQR2sMtWHAU0VgaElHs82rytUrdMhw+04Hib/Xsn4RJRqV3otwzQax4lZ
-         JDbD06EZ+/wojxkUiH2aMrHKJJJqgGFwl8FN/LoGAUQsUz8NszL0QkKBN1+wUh/dlXRp
-         3AaC+mIB3NuPBzYLaHjcg1dj03W5/ID0FKrFkLfqCZk5e7zfgPxyTEi5Llp7mu4AxS0l
-         DNklrqeBgFcVUsz5vDXV7NqXEV+gFPqA6GlmJ4/AwOezEJu5e+Ya+kdn2zsVqYl/LgLs
-         xQPA==
-X-Gm-Message-State: AFq9FYKCXRRY6GGOgdAQB+Jpu0j7l3kRBMZtXcuInx1DeGu+zLXLf+26
-	zPGmv/uNuRRwIw79UW+szYdoSWSYL2hmbXy0rM2HucvWOz4eUAKX4OFwHohJHBipxM8=
-X-Gm-Gg: AYBFou00DMC2flVyn48LDITB8ufGxGWfYjYABpKEn1Z5X2zCRMC7GXXfs+YebDmba8j
-	hBxdXfbMxn9k/+lSqvoBe0XxFoRWxrgsUSnF+4yWUAxynNOFUlCOWIOGgyr/ycGMYKTkDOw+5du
-	1ppaFeqJSB+IpueUrRw9GrG02l4yhLghRBFLjPhpw2IzyK1WhtwWy+WCEmm+I7CCQAt3R1WO2NW
-	OmhrZsWU9HrjNunZ1y2e29z2MFFz5cbdg2XpMRHGvCZYgorJ6NZsDekpmKzsAtKUhYulzvp6gHa
-	OI56d1gRTWWSUP6OuSAAx8lkA/483kj6KintDGKgYET0Tu4GtJJ25MF8eGFVa8NwwuKyZHbXAcV
-	mA3vuuH9ctq0tHb44y9vHVHgI7iIXE28DU/QrN4h/IvcZ4dFdjbD+e1h52V8+v+GAaZavfjQfhd
-	duuuHofrQcIVLdu6f7Geoi+bxN0we5KvQWr2Oz7nZlYQBWVSMO0OTIYPXir4qaFCscxA6tznw8F
-	Zt9+/JNJ3aKjbMa6cE5T49iYLhqIdH+7vC+4S0HcL3gijqSdaN29B6NqILQ
-X-Received: by 2002:a05:6214:3f89:b0:915:4229:17a3 with SMTP id 6a1803df08f44-91bdf7ef1bfmr142927206d6.25.1792435635045;
-        Mon, 19 Oct 2026 11:47:15 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040e2ddesm3081366d6.36.2026.10.19.11.47.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 11:47:14 -0700 (PDT)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	gourry@gourry.net,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	weixugc@google.com,
-	aneesh.kumar@linux.ibm.com
-Subject: [PATCH] mm/memory-tiers: reset demotion targets of nodes without memory
-Date: Mon, 19 Oct 2026 14:47:10 -0400
-Message-ID: <20261019184712.3422641-1-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=XSgqmx6G;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=JV+d0HXt
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1792435619; bh=8lRJe6qcL32g26xvlmRfstX
+	qu2NrULSP/zOENc5q8uM=; b=XSgqmx6GJFEc55A58Z69kzM+ZxM+9OMpCkmlyMX8PMhn0Trq5Y
+	o8SKSZQ44tSyEo/EJu0Aes9S9Rp9xU1d9zDg==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1792435619; bh=8lRJe6qcL32g26xvlmRfstX
+	qu2NrULSP/zOENc5q8uM=; b=JV+d0HXtsgjVFmk7ygN7jYk+YTiX17byMVPzU1/L1+GnxvHSMT
+	Ua6wxvFAg1d+xBFx2TcaxeX932UyYGPXM05oUpdgSKJM6Y6X5ZRqH1/aUhhT7Ls0h1A2fBqllL9
+	sLOw91ZnZ1w60mjxk7NEYaL2V2ryqQTxe4H/5Pef+BdCExdP3jtBddJ3cpL/khngdkkQk8oH9Wo
+	5qY4eOizsTHQZ00YsesGn6r1naQAyuAbv3OsSJ14r6/4JHlCRo0Ihg/1BLMPrjE+IRS4ezfwaS0
+	ZtqZjKciYakJgIbmswyAf08FIwpFvzIusV3Iw32a7iihCr6u4Aq6nc0x+zW6DxXTiXw==;
+Message-ID: <4fda6ac5-b6e9-4c95-a671-5a9aa86a4c38@erebion.eu>
+Date: Mon, 19 Oct 2026 20:46:58 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,41 +57,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/8] arm64: dts: qcom: sm6350-lena: Enable PM7250B
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-7-b4612e3eb536@erebion.eu>
+ <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------H90K3fw2jYTnIrWn1g01WfTJ"
 
-When a node loses its last memory, offline_pages() clears N_MEMORY
-before the memory-tier callback rebuilds the demotion targets.
-disable_all_demotion_targets() resets only N_MEMORY nodes, so the node
-keeps its old node_demotion[] entry while it has no memory. Before
-6c542ab75714, the reset covered every online node.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------H90K3fw2jYTnIrWn1g01WfTJ
+Content-Type: multipart/mixed; boundary="------------FDJmtutktn8xqKdrIpzVE0Qk";
+ protected-headers="v1"; hp="clear"
+Message-ID: <4fda6ac5-b6e9-4c95-a671-5a9aa86a4c38@erebion.eu>
+Date: Mon, 19 Oct 2026 20:46:58 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/8] arm64: dts: qcom: sm6350-lena: Enable PM7250B
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-7-b4612e3eb536@erebion.eu>
+ <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
 
-A reclaimer reads the stale entry only between the node regaining memory
-and its targets being rebuilt, and it filters the entry against the
-current allowed targets, so there is no user-visible effect. To see it,
-online and then offline a node's only DIMM: a debugger still finds the
-lower-tier node in node_demotion[nid].preferred.
+--------------FDJmtutktn8xqKdrIpzVE0Qk
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Reset the targets of every node.
+T24gMTAvMTUvMjYgMTI6NTUsIEtvbnJhZCBEeWJjaW8gd3JvdGU6DQoNCj4gYXJjaC9hcm02
+NC9ib290L2R0cy9zb21jL2NoYXJnZXItbGVuYS1jb21tb24uZHRzaQ0KPiAxODogICAgIHFj
+b20sb3RnLWNsLXVhID0gPDEwMDAwMDA+Ow0KPiANCj4gc2hvdWxkIHRyYW5zbGF0ZSBpbnRv
+IHRoZSBtYXggYmVpbmcgMSBBIGhlcmUNCj4gDQo+IEtvbnJhZA0KDQpDaGVja2VkIHRoYXQg
+YWdhaW4gYW5kIHlvdSdyZSByaWdodCwgd2lsbCBmaXggdGhhdC4gVGhhbmsgeW91Lg0KDQot
+LSANCmVyZWJpb24NCg0KWE1QUDogZXJlYmlvbkBlcmViaW9uLmV1DQoNCk15IGxhbmd1YWdl
+czogR2VybWFuLCBFbmdsaXNoLCBTd2VkaXNoLCBOb3J3ZWdpYW4sIERhbmlzaA0KWWVzLCBJ
+J20gYSBsYW5ndWFnZSBuZXJkLiBGZWVsIGZyZWUgdG8gd3JpdGUgdG8gbWUgaW4gYW55IG9m
+IHRoZSANCmFmb3JlbWVudGlvbmVkIGxhbmd1YWdlcy4NCg0K
 
-Fixes: 6c542ab75714 ("mm/demotion: build demotion targets based on explicit memory tiers")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
----
- mm/memory-tiers.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--------------FDJmtutktn8xqKdrIpzVE0Qk--
 
-diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
-index 25e121851b586..7197f1a67a340 100644
---- a/mm/memory-tiers.c
-+++ b/mm/memory-tiers.c
-@@ -378,7 +378,7 @@ static void disable_all_demotion_targets(void)
- 	struct memory_tier *memtier;
- 	int node;
- 
--	for_each_node_state(node, N_MEMORY) {
-+	for_each_node(node) {
- 		node_demotion[node].preferred = NODE_MASK_NONE;
- 		/*
- 		 * We are holding memory_tier_lock, it is safe
--- 
-2.53.0-Meta
+--------------H90K3fw2jYTnIrWn1g01WfTJ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCatZlogUDAAAAAAAKCRCOr0AybgKufcOQ
+AP9yABAksAOzQkkp/37NV1Jto2w2xrpXku2ghU37JtTZ1QEA2VVc1EF7TAvaTPnMs/SO5CmQB9+b
+XiqaUT9UBcAI2Ag=
+=M7OE
+-----END PGP SIGNATURE-----
+
+--------------H90K3fw2jYTnIrWn1g01WfTJ--
