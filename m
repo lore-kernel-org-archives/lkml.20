@@ -1,133 +1,320 @@
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531D74A64D5;
-	Mon, 19 Oct 2026 09:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8F44A2A75
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403770; cv=none; b=oCKKZZPBUDI7BSn3tRZgOwdr7NQfyHLanDpJcc8fk4LfurWl4I+rujDU1au7lg3xvk55tOPGNcvs9txhhVkJ+e+/w5AcoG5sq/ifJlj0hGGFLXjwRbhlU1oA6txYomBTj8GG2ZWbwyPea4qEiMJKPOr5pOKze5eHesMAY09N0cI=
+	t=1792403822; cv=none; b=c48HR4sms790RWTMvvz9rya6jeMxxnLAIFi4MvlSKa0wCan/ZTvmLn8sV2s/Fb1dfQ4WdX8w92syqvTRwRrhbCAQMWjhy3jcp55uu7AEGzSHHM0tsLBhtCeYZ9eArkP1EICAHH4p4q5wzDK61stmn6TV7+HseSyiCwEvizNJack=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403770; c=relaxed/simple;
-	bh=wKmAu87rZ/6z8bFi1pbn67n7qUR2NkDwhx8xdFo9qMI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=k+Gvi7bK3oy/0IEegnoruMPg9OgzRaonB5DjkyXA7p45XF42fYXJV4vijUVzNtBEdvqHC3uYpZXIhJXHkgBWA3frejTYpo+o9xIyqXhKDQjoq8sOlP9pGNkvRIfC7Xxlr1ulL5nEKeNjEOrU8OZ+T13aVCqv/3iEpUXCU5vOzb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=FuLV+QZj; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=M4C2c1Td; arc=none smtp.client-ip=210.171.160.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	s=arc-20240116; t=1792403822; c=relaxed/simple;
+	bh=1LQ8tuq6eCJ7CKlaUA7lRv4aQQfptnwnc/3+q/JhHzo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Uu46CR9X+3/od5Sk3zLtaJuiQRNGfnyBdU2VSivbhOyrAHgPmLNXA/X2k9/wNxiokLukrHymIwc3kG6wOhjgq9IHLJJpLzYgSuEYA9Z5/H8W1D+7IFf49jA0NJwlzo6ZTiTQgL0fgropPHrm5FDEE6rAaMMhoOfE38rDZuVAXn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=D3ZDWYmX; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="FuLV+QZj";
-	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="M4C2c1Td"
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id E7D4826F7698;
-	Mon, 19 Oct 2026 18:55:58 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1792403759;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R53a9EiALsYd16hERFKG5ZGiNaW/l8gOjf1X9uDyE34=;
-	b=FuLV+QZjA5rUZZGei5HipG65NvSFiKSvBoZGYdyZlsgQ4RtzN06CcMB+mTAsz7VUZMuA2d
-	BwouG/Xg5H3s4c1qUgo5AGDYn01XFxpMeBboz2QamGds672F3q8sMCKr0+BO0UUFeIYjtI
-	0Be0f52O2dhmJvitU573RKUyhcaaSHLAQ0TSPdjyJn8dU6JEtcdpSNPxxRaWiWfKFgmwjZ
-	tqZGbbgcTHcVMkNUJlN9hhKUYlrvKhBNGyjBjv3xZ8snIFRlyPYT4rVtqrTm2u1WNUd35T
-	85mWIfOCHpDNriph3lVOMkykXl3KTIi8yTLh9VtpLAUGNLAPcNfp3sdx21VD3A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1792403759;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R53a9EiALsYd16hERFKG5ZGiNaW/l8gOjf1X9uDyE34=;
-	b=M4C2c1TdeZRuSq6IdhLGGQuOE1E4FWLPdfaSodGorF9tRd3QI1TTK9KwKif2gFPI+xoC3k
-	5FM+Te8v4kZoZ8BA==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 695FAE00699;
-	Mon, 19 Oct 2026 18:55:58 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 624C02200209; Mon, 19 Oct 2026 18:55:58 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-Cc: linux-kernel@vger.kernel.org,  linux-fsdevel@vger.kernel.org,
-  syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3] fat: make rename recovery safe after metadata write
- errors
-In-Reply-To: <c820357a-a7cf-4f4b-ab23-91530a12218b@gmail.com>
-References: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
-	<20260929090029.742579-1-krystianmkaniewski@gmail.com>
-	<87ld8j4161.fsf@mail.parknet.co.jp>
-	<1f18819d20c92960b8b2d6ccc8bc4506d346150e.1790779353.git.krystianmkaniewski@gmail.com>
-	<87bj90m6dq.fsf@mail.parknet.co.jp>
-	<20261014082315.190262-1-krystianmkaniewski@gmail.com>
-	<87qzhqvloo.fsf@mail.parknet.co.jp>
-	<55a1f016-a7a2-469f-b481-37223d695f29@gmail.com>
-	<87cxt921rc.fsf@mail.parknet.co.jp>
-	<f9b27432-4104-4323-8cd7-e2cda73db2f9@gmail.com>
-	<875wz11xfg.fsf@mail.parknet.co.jp>
-	<c820357a-a7cf-4f4b-ab23-91530a12218b@gmail.com>
-Date: Mon, 19 Oct 2026 18:55:58 +0900
-Message-ID: <878q3uhv4h.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="D3ZDWYmX"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8iJWF3250657;
+	Mon, 19 Oct 2026 09:56:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=CuWa+S
+	kgGgXLoxRtbTofBCsCmxGYvW2B7XqjsBrIafs=; b=D3ZDWYmXf6ohN7xnzDN4Xl
+	KL3/RpQeOq5ViOT0nnz0pgsZrv4hUY6yXgHAXaqDv4QpNTqJ+PiF+ndYwKv0fwbe
+	dT5PI32a1dGEHL/88ezGyIxkSH1Ox3ypez4LXYwZ4dLkDfsx8z6BEO7yXE3bezRx
+	lrJ7IWPwHErEZw3qM2OjkTEtaSyJkBeo3xbaXB3Q1wzfl/D27qlXNXbD5L6+Bt1L
+	OXdU9wYjeUVFV1YmjIdKBVWq01Trg6+wzSuLDhvBRqrYngQNKkjLtFulZpIXAHRx
+	CMcFRn8NxX1RcMxCgPD8RjKx1A1GRhlPhE4b3mPWJ5w9LYkG3zdtlnDysZJuMAvA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hbxeht1dj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 19 Oct 2026 09:56:37 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8noPh3845750;
+	Mon, 19 Oct 2026 09:56:36 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hckqvd8c6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 19 Oct 2026 09:56:36 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69J9uVap54985214
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 19 Oct 2026 09:56:32 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D46612004D;
+	Mon, 19 Oct 2026 09:56:31 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AB4CF20040;
+	Mon, 19 Oct 2026 09:56:28 +0000 (GMT)
+Received: from [9.124.217.62] (unknown [9.124.217.62])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 19 Oct 2026 09:56:28 +0000 (GMT)
+Message-ID: <620b6ea4-bb68-4e1f-b345-d8055df86538@linux.ibm.com>
+Date: Mon, 19 Oct 2026 15:26:27 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/5] powerpc/pseries/eeh: Implement RTAS-based EEH
+ error injection
+To: Sourabh Jain <sourabhjain@linux.ibm.com>, mahesh@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
+        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
+        alex@shazbot.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        sbhat@linux.ibm.com, harshpb@linux.ibm.com
+References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
+ <20260831065441.48654-5-nnmlinux@linux.ibm.com>
+ <23c0e185-c56b-4025-8136-326dae53ef4e@linux.ibm.com>
+Content-Language: en-US
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+In-Reply-To: <23c0e185-c56b-4025-8136-326dae53ef4e@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAzOCBTYWx0ZWRfX44Zmhu0qU6uk
+ tnK9xJiqrm6rWG0CxVpohnxqCNS4GWmu0EcW9sMPVzuOrCsh0Fo3ywN3hphp8UnKr5YLtQ4l3uA
+ 5yZeEecH2IYNBd4UxLW5GpzYCOpgsKeUHH+ojPgX+p5iCS2wmpT29K+9X+lo/fI8ewjZm7N+DTj
+ piq+cAwwS5TcVin2xAxsqi6GzlQSF62zCdUQRlGqgf4ZqX4UqK2t9ulTo8vEKR/6JGxXgNmNFb/
+ fMCx779i+0YXfgfkcZ3Npmv0s0LkEkKs5LCbe7R36ieWDswYDh0Ysu2uul0ud40rrCDjc3c2uiP
+ aTAkkW7EmobdoJzVDZMefo/TioB0Co3H8ktpIGFbQ3w7vIq1stf85w/jvb9XLn53K+GiS9N01U9
+ +KgfXUYuEwbT2Mj3OzibTcGda5S/dIzWRhPDt+Rda5RQXrKaQr+YarWQi+JVH9gzhnKUaT9O03g
+ 8u4LvmEPug5WoMkkOyQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAzOCBTYWx0ZWRfX3cVxBcCMkmbW
+ Z1L/p13KvMkhedft/YvcUdbrAj0VPD/oNNxQN7f6+ucAxu5GuVJ8hysgqaV3nezOcstERWoA0VR
+ 7Tb6kBU5aUVeYDQZ8EI395b+p8fCwMU=
+X-Proofpoint-GUID: Hb2uSgDWyumJ65ziIJSRgfOgZu8JbFwc
+X-Proofpoint-ORIG-GUID: qERKp8eKe-TQKESximFoASxCoIcEnvuM
+X-Authority-Analysis: v=2.4 cv=OZQNnRTY c=1 sm=1 tr=0 ts=6ad5e955 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=B0ODx0f1l_MszaswaQUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190038
 
-Krystian Kaniewski <krystianmkaniewski@gmail.com> writes:
+Hi Sourabh,
 
-> On 10/16/26 17:23, OGAWA Hirofumi wrote:
->> Krystian Kaniewski <krystianmkaniewski@gmail.com> writes:
->> 
->>> On 10/16/26 15:50, OGAWA Hirofumi wrote:
->>>> Krystian Kaniewski <krystianmkaniewski@gmail.com> writes:
->>>>
->>>>> On 10/15/26 20:54, OGAWA Hirofumi wrote:
->>>>>
->>>>>>> +	} else if (!rollback_err) {
->>>>>>> +		/* Read the entry block again if a failed write invalidated it. */
->>>>>>> +		rollback_err = bh_read(sinfo.bh, 0);
->>>>>>
->>>>>> Why do this read the bh from on disk?
->>>>>>
->>>>>
->>>>> The bh_read(sinfo.bh, 0) is needed because a failed inode-position write clears BH_Uptodate. fat_remove_entries() modifies and dirties that retained buffer directly, which otherwise triggers the warning. Reading it first refreshes the whole block. If the read fails, the buffer is left untouched.
->>>>>
->>>>> The same reasoning applies to both the VFAT and MS-DOS paths.
->>>>
->>>> If sinfo.bh is required to read because of failure of I/O error, I guess
->>>> the bh will fail to write again. I think we should give up to rollback
->>>> in that case.
->>>>
->>>> Thanks.
->>>
->>> Thanks. I was trying to handle transient errors here. The old entry still exists at this point, so if the read and removal succeed, the rename can be fully rolled back.
->>>
->>> In my tests with a single injected write error, giving up left the new entry pointing at the root directory, and fsck.fat wanted to remove it. Retrying the cleanup left the filesystem clean. If either the read or the cleanup write fails, we stop and report corruption anyway.
->>>
->>> Do you still think we should give up here? If you prefer not to retry the new-entry block after its failed write, should we also avoid rereading and rewriting dotdot_bh after a failed .. update?
->> 
->> Basically that path is not the failure of sinfo.bh, true? If so, we will
->> not need to re-read sinfo.bh here, just removing the added entries would
->> be ok. 
->> 
->> If we have to read sinfo.bh, the sinfo.bh may be failed the write and
->> cleared the uptodate. If so, I wonder why succeed by retry?
->> 
->> The above is my understand.
->> 
->> Thanks.
-> Thanks. error_inode can also be reached when a different metadata buffer fails. In that case, sinfo.bh is still uptodate and bh_read() returns 1 without doing any I/O, so the removal proceeds directly.
->
-> The test I mentioned did fail the write of sinfo.bh itself. The trace shows __sync_dirty_buffer() called from fat_sync_inode_metadata() failing on the new-entry block. The retry succeeded because fault injection was configured with times=1, so only that single write failed. bh_read() then reloaded the block and the cleanup write succeeded.
->
-> That is why I kept the read. It is a no-op when sinfo.bh is still uptodate, and it allows a complete rollback after a transient write error. Would you still prefer to give up when the failed write cleared BH_Uptodate?
+On 23/09/26 3:52 PM, Sourabh Jain wrote:
+> 
+> 
+> On 31/08/26 12:24, Narayana Murty N wrote:
+>> Replace the legacy MMIO stub in pseries_eeh_err_inject() with a full
+>> PAPR-compliant RTAS error injection path using the existing RTAS
+>> work-area allocator.
+>>
+>> The mutex is not a buffer lock; it serializes the firmware session
+>> open/inject/close sequence as required by PAPR.  No global buffer
+>> is allocated or used.
+>>
+>> VFIO EEH error injection exposes a generic userspace ABI.  pSeries maps
+>> the generic EEH error types to RTAS ibm,errinjct encodings via
+>> pseries_eeh_type_to_rtas().  EEH_ERR_TYPE_32 and EEH_ERR_TYPE_64 are
+>> unchanged; their values are defined in arch/powerpc/include/uapi/asm/ 
+>> eeh.h
+>> and are not renumbered.
+>>
+>> Tested with corresponding QEMU patches:
+>> https://lore.kernel.org/all/20251029150618.186803-1- 
+>> nnmlinux@linux.ibm.com/
+>>
+>> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+>> ---
+>>   arch/powerpc/platforms/pseries/eeh_pseries.c | 123 ++++++++++++++-----
+>>   1 file changed, 95 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/arch/powerpc/platforms/pseries/eeh_pseries.c b/arch/ 
+>> powerpc/platforms/pseries/eeh_pseries.c
+>> index fafe0004e738..fcb8c560d813 100644
+>> --- a/arch/powerpc/platforms/pseries/eeh_pseries.c
+>> +++ b/arch/powerpc/platforms/pseries/eeh_pseries.c
+>> @@ -25,6 +25,7 @@
+>>   #include <linux/rbtree.h>
+>>   #include <linux/sched.h>
+>>   #include <linux/seq_file.h>
+>> +#include <linux/mutex.h>
+>>   #include <linux/spinlock.h>
+>>   #include <linux/crash_dump.h>
+>> @@ -34,6 +35,7 @@
+>>   #include <asm/machdep.h>
+>>   #include <asm/ppc-pci.h>
+>>   #include <asm/rtas.h>
+>> +#include <asm/rtas-work-area.h>
+>>   /* RTAS tokens */
+>>   static int ibm_set_eeh_option;
+>> @@ -958,8 +960,6 @@ static int prepare_errinjct_buffer(void *buf, 
+>> struct eeh_pe *pe,
+>>               return -EINVAL;
+>>           if (upper_32_bits(addr) || upper_32_bits(mask)) {
+>> -            pr_err("32-bit IOA injection cannot encode addr=%#lx 
+>> mask=%#lx\n",
+>> -                   addr, mask);
+>>               return -EINVAL;
+>>           }
+>> @@ -992,50 +992,117 @@ static int prepare_errinjct_buffer(void *buf, 
+>> struct eeh_pe *pe,
+>>           break;
+>>       default:
+>> -        pr_err("unsupported RTAS error injection type 0x%x\n", 
+>> rtas_type);
+>> +        pr_err("unsupported RTAS error injection type 0x%x\n",
+>> +               rtas_type);
+>>           return -EINVAL;
+>>       }
+>> -    pr_debug("errinjct buffer ready: rtas_type=0x%x func=%d 
+>> addr=0x%lx mask=0x%lx\n",
+>> -         rtas_type, func, addr, mask);
+>>       return 0;
+>>   }
+>> +/* pseries-local mutex serializes the open/inject/close RTAS session */
+>> +static DEFINE_MUTEX(pseries_errinjct_mutex);
+>> +
+>>   /**
+>>    * pseries_eeh_err_inject - Inject specified error to the indicated PE
+>>    * @pe: the indicated PE
+>> - * @type: error type
+>> - * @func: specific error type
+>> - * @addr: address
+>> - * @mask: address mask
+>> - * The routine is called to inject specified error, which is
+>> - * determined by @type and @func, to the indicated PE
+>> + * @type: generic EEH error type (EEH_ERR_TYPE_32 or EEH_ERR_TYPE_64)
+>> + * @func: specific error function
+>> + * @addr: address argument (type-dependent, may be zero)
+>> + * @mask: address mask (type-dependent, may be zero)
+>> + *
+>> + * Implements PAPR-compliant error injection using:
+>> + *   ibm,open-errinjct -> ibm,errinjct -> ibm,close-errinjct
+>> + *
+>> + * A short-lived RTAS work area is allocated per call; no global buffer
+>> + * is used.  pseries_errinjct_mutex serializes the open/inject/close
+>> + * session sequence.
+>> + *
+>> + * Return: 0 on success, negative errno on failure.
+>>    */
+>>   static int pseries_eeh_err_inject(struct eeh_pe *pe, int type, int 
+>> func,
+>>                     unsigned long addr, unsigned long mask)
+>>   {
+>> -    struct    eeh_dev    *pdev;
+>> +    struct rtas_work_area *area;
+>> +    phys_addr_t area_phys;
+>> +    u32 buf_phys;
+>> +    void *buf;
+>> +    int open_token, errinjct_token, close_token;
+>> +    int session_token;
+>> +    int rtas_type;
+>> +    int close_rc;
+>> +    int rc;
+>> +
+>> +    rc = validate_errinjct_args(pe, type, func, addr, mask);
+>> +    if (rc)
+>> +        return rc;
+>> -    /* Check on PCI error type */
+>> -    if (type != EEH_ERR_TYPE_32 && type != EEH_ERR_TYPE_64)
+>> +    rtas_type = pseries_eeh_type_to_rtas(type);
+>> +    if (rtas_type < 0)
+>>           return -EINVAL;
+>> -    switch (func) {
+>> -    case EEH_ERR_FUNC_LD_MEM_ADDR:
+>> -    case EEH_ERR_FUNC_LD_MEM_DATA:
+>> -    case EEH_ERR_FUNC_ST_MEM_ADDR:
+>> -    case EEH_ERR_FUNC_ST_MEM_DATA:
+>> -        /* injects a MMIO error for all pdev's belonging to PE */
+>> -        pci_lock_rescan_remove();
+>> -        list_for_each_entry(pdev, &pe->edevs, entry)
+>> -            eeh_pe_inject_mmio_error(pdev->pdev);
+> 
+> Only caller of eeh_pe_inject_mmio_erro() is getting removed here. Should 
+> we remove the eeh_pe_inject_mmio_error() from the source?
+Yes, this removes the last caller of eeh_pe_inject_mmio_error().
 
-The actual write retry should be done by the block layer or drivers
-(with reset of devices if it is required), retrying on FS layer just
-make slower to fail basically.  I think we should just believe the
-failure from block layer and don't retry.
+I have removed eeh_pe_inject_mmio_error() and its declaration in v5.
 
-Thanks.
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Thanks,
+Narayana
+
+>> -        pci_unlock_rescan_remove();
+>> -        break;
+>> -    default:
+>> -        return -ERANGE;
+>> +    open_token    = rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
+>> +    errinjct_token = rtas_function_token(RTAS_FN_IBM_ERRINJCT);
+>> +    close_token   = rtas_function_token(RTAS_FN_IBM_CLOSE_ERRINJCT);
+>> +
+>> +    if (open_token    == RTAS_UNKNOWN_SERVICE ||
+>> +        errinjct_token == RTAS_UNKNOWN_SERVICE ||
+>> +        close_token   == RTAS_UNKNOWN_SERVICE)
+>> +        return -ENODEV;
+>> +
+>> +    area = rtas_work_area_alloc(RTAS_ERRINJCT_BUF_SIZE);
+>> +    buf  = rtas_work_area_raw_buf(area);
+>> +    area_phys = rtas_work_area_phys(area);
+>> +
+>> +    if (WARN_ON_ONCE(upper_32_bits(area_phys))) {
+>> +        rc = -ERANGE;
+>> +        goto out_free_area;
+>>       }
+>> -    return 0;
+>> +    buf_phys = lower_32_bits(area_phys);
+>> +
+>> +    rc = prepare_errinjct_buffer(buf, pe, rtas_type, func, addr, mask);
+>> +    if (rc)
+>> +        goto out_free_area;
+>> +
+>> +    mutex_lock(&pseries_errinjct_mutex);
+>> +
+>> +    do {
+>> +        rc = rtas_call(open_token, 0, 2, &session_token);
+>> +    } while (rtas_busy_delay(rc));
+>> +
+>> +    if (rc) {
+>> +        pr_err("ibm,open-errinjct failed: status=%d\n", rc);
+>> +        rc = rtas_error_rc(rc);
+>> +        goto out_unlock;
+>> +    }
+>> +
+>> +    do {
+>> +        rc = rtas_call(errinjct_token, 3, 1, NULL,
+>> +                   rtas_type, session_token, buf_phys);
+>> +    } while (rtas_busy_delay(rc));
+>> +
+>> +    if (rc) {
+>> +        pr_err("ibm,errinjct failed: status=%d\n", rc);
+>> +        rc = rtas_error_rc(rc);
+>> +    }
+>> +
+>> +    do {
+>> +        close_rc = rtas_call(close_token, 1, 1, NULL, session_token);
+>> +    } while (rtas_busy_delay(close_rc));
+>> +
+>> +    if (close_rc) {
+>> +        pr_warn("ibm,close-errinjct failed: status=%d\n", close_rc);
+>> +        if (!rc)
+>> +            rc = rtas_error_rc(close_rc);
+>> +    }
+>> +
+>> +out_unlock:
+>> +    mutex_unlock(&pseries_errinjct_mutex);
+>> +
+>> +out_free_area:
+>> +    rtas_work_area_free(area);
+>> +    return rc;
+>>   }
+>>   static struct eeh_ops pseries_eeh_ops = {
+> 
+
