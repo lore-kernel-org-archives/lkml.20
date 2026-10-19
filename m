@@ -1,492 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012043.outbound.protection.outlook.com [52.101.43.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC524E0B6A;
-	Mon, 19 Oct 2026 13:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418088; cv=none; b=LSWmpTUpqN97UkMKOKvw/ayvJ9xzJz3y9yQ6yq5nUKWsHpNIjztKOBQIPMF0LVB08z0t8/xqfwL58qnAW0hY/t8CMG8eknGROheorIOhBKZvreJa5sLxrGxEtJlpeSq7gs1n+IpXmkd/AgLh3kc1FyBMid/VE28e7uMVuyeajhI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418088; c=relaxed/simple;
-	bh=CCCkZGrH5vk3HVHXeEajIAsjdCp6kQyrwsDC0sjXb20=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SxC7K8q15wub/Ry53NIyZEnmOBzdBk5GRJR86z6V4RpDNBvbzywLKgM1CTxn+AmXctS8l1G408dPiFDSYZ9jlgyA1vwBkrvfOjfx3nhMD8fGYoSoWVxYK/8mgoZZ6kYPfoFGPNC7XMJuxMRQhCPH+fUTGF4ya1KLqz5uCqx2UFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JtNuvU1N; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1434FC34F;
+	Mon, 19 Oct 2026 13:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792418089; cv=fail; b=HGV6RgzrkTgfohiwXZaPGWCNnBg2HHWPjtaOz6cPWVoYDqVcAvGDvdGxpeseIzbPCeZdDhy70/4qEok5s8UQ0hZLqkcOEDo7MU74n7LsF4OoS9U1TVAUYGVowyYmBQU9D3TMtGqSqbCx3kmdp2tEPvfCipumfH1LAlWg9nQ/8oo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792418089; c=relaxed/simple;
+	bh=JM0YjG8nvVw9pjYzBghFmu0oK+bi83RM+sJvVxEtPz4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Uk9IpyC2CW1nSVvXESPDh11QPi41N0cE+0EGuHcdzst6yu1uD9XJf0AR/HYH6J0Dt5Hr8V08N98vWC1G6QAsWQrkHoo93poylI6+1CrpEBVy95Yj/GjCkLorqV9dmJc4BMpXuWFQI9EZvPpgYeeC+cfuiv55Rut/WgGSe4TEpqQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IKnlaSY2; arc=fail smtp.client-ip=52.101.43.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JtNuvU1N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7211F000C6;
-	Mon, 19 Oct 2026 13:54:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418085;
-	bh=8MyCnyVjuDkCWTOXbthwEjWPs5nnvJurQGBkZhq41Es=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JtNuvU1NhYBWSPhnBiEPSYR0S8U8E8YBpUwWS0ruyLRDrfkAWp4b53mGXDpaP6xxZ
-	 /l2ZvVrnwFUcdCKu3LfYzORQ717YdHXz8TuNvnBW3ewcX7RcoJoC9WPiOu5FZWrfqk
-	 UVoLq1hE4wNYTA5PUmMt4o9ENnnbna7kjIcV2E1jtjGpUgRM6ESQM/vrPK72wHfdlF
-	 ZBKJZZ5MNaqalmmeiVJKVbW3t7DdDmLJ+sDaPWyHXLmJGbFDlzgZdjQzsrbdxWylmP
-	 A72WaoXaLY5XmdqRNGx+4bBY/0TQb3fLLlIJMaQbhyWgLJx01gdl9OjJtP/ymfYo3i
-	 +o1j/VncrdXRg==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Jiaxing Hu <gahing@gahingwoo.com>,
-	Will Deacon <will@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	joro@8bytes.org,
-	heiko@sntech.de,
-	iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] iommu/rockchip: Clear stale page faults before enabling stall
-Date: Mon, 19 Oct 2026 09:44:53 -0400
-Message-ID: <20261019135441.1420968-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
-References: <20261019135441.1420968-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IKnlaSY2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fIAceooJjo0FD9VK27TSCCb4GtTOtqtjaKiNFAG/BbxGi2BK05MBj8sWUG5TcsV+HPE9T5117OZ2TwoY6cMymN776AtHmKEd2Slsj6TAtmgM2iY7W+foQ+mbuUlsZlSX5ZQS4+yYlr1mhM4gT62udOyzb/xl9ouDHdAdejfWVj+IZAW6HRRMkCV7AgqtYyscXr8F8O0lGAQfRdxHdowIbJQr9uPdGtjqdUz4stReI2hKZMSEKrYWxXpwXb8swICAq3reJUuQBOC09BlsV252SfQmAre6pZautSR0GBrYv4joXu0gyS7H7kjpe1RaNPrH8n0ll0Cg0YCe2rO8uKh1DA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+dD9/hvy8CjdpytNmMTQelv0WDFvgfCSAODHd8XjH8g=;
+ b=aSJYNk/V89xWXyUQawe2DTjIKUY7bVI0xChXWHrAFDvytoNpj4rTBat+MPbY7hMvxuA8ImudXQar2ULiDo1oaNYztT5w1yU3GJpaQpnVIPMBN7pjw5Lo2uSYwMTYEAmsipPeDqNLa/TuF+T5uf1YuxKAinFPuwOm1rpLET0EA6X0uFqCsLgt1OQwaUherLNYIcPkAZL2yv7w73VYIlPYSvoyKzIFodqimeHZHY+DCL7gBBGDdi6SbbzvaPykc7rZSrSIadf1RXmhqsyXvnaaRPks9A80iCjJ69podBpE56PnCMwHL5lymAzemSS8/cMttxaAT3HuHYMQ4Ufr2i1bTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+dD9/hvy8CjdpytNmMTQelv0WDFvgfCSAODHd8XjH8g=;
+ b=IKnlaSY2ZMNZQnnRFGJGnBqF2+zjvpv/7OLYdyIm9ZDWlFlekSSP4FZ7wi0xHWj00R4JpszZEN8wSLjMViYutwF+vsNCPjOiKcsrWLpNtY80ddnC0rTLLUCl5ZPgbrwIr2Kir/enTORRFyHQ79Uq0ASn8u0J/4Ti7G4JfSSa2J0x/GRaWklkGiW+w8u0wwhmJFq56ZsaVA7L5Ku3+qeWg+wjkePqbloqIZJYPIufe5qBgjHwDFvR0McgegKfADY8ERYL47wmZY6QEiPrZNTS7oP/uiKVrysqhWARzYQQnjl7babSp3Ugx5jxHMiTq9v+AJvQ3tVtVWIGgTBUZwgqWQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by MW3PR12MB4491.namprd12.prod.outlook.com (2603:10b6:303:5c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 13:54:45 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 13:54:45 +0000
+Date: Mon, 19 Oct 2026 15:54:38 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Michal Blaszczyk <michalblk@google.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Kuba Piecuch <jpiecuch@google.com>
+Subject: Re: [PATCH 2/2] selftests/sched_ext: Add class_switch_stall test
+Message-ID: <atYhHvJAxLp01QbT@gpd4>
+References: <20261019124146.3582127-1-michalblk@google.com>
+ <20261019124146.3582127-3-michalblk@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019124146.3582127-3-michalblk@google.com>
+X-ClientProxiedBy: ZR0P278CA0014.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:16::24) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.57
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Jiaxing Hu <gahing@gahingwoo.com>
-
-[ Upstream commit b10d5920cafa292ee3cab9c20f813da4fe4f00b8 ]
-
-Boot firmware can leave an IOMMU bank in PAGE_FAULT_ACTIVE before the
-driver has configured paging:
-
-  PAGE_FAULT_ACTIVE=1  STALL_ACTIVE=0  IDLE=1
-
-Such a bank ignores CMD_ENABLE_STALL and never reaches STALL_ACTIVE, so
-rk_iommu_enable_stall()'s readx_poll_timeout() spins until it times out
-(seen on the RK3576 NPU, whose MMUs share this poll across banks).
-
-Rather than special-casing these banks in the stall path, acknowledge the
-stale fault with CMD_PAGE_FAULT_DONE before enabling stall, so every bank
-starts from a clean state and the normal stall sequence applies to all of
-them.  Banks without a pending fault are untouched.
-
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-The local checkout is mainline **7.3-rc4**. The stall-timeout path is in
-this tree, and the 13-line firmware leftover workaround is a real IOMMU
-enable failure, not a new API.
-
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
-
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[iommu/rockchip] [Clear] [acknowledge leftover
-PAGE_FAULT_ACTIVE so stall enable does not poll-timeout]**
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-Record:
-- Signed-off-by: Jiaxing Hu \<gahing@gahingwoo.com\> (author)
-- Signed-off-by: Will Deacon \<will@kernel.org\> (IOMMU maintainer;
-  applied the patch)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
-  or Cc: stable (absence of Fixes/Cc:stable is expected for this review)
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- **Bug:** Boot firmware can leave an IOMMU bank in
-  `PAGE_FAULT_ACTIVE=1`, `STALL_ACTIVE=0`, `IDLE=1` before the driver
-  configures paging.
-- **Symptom:** That bank ignores `CMD_ENABLE_STALL` and never reaches
-  `STALL_ACTIVE`. `rk_iommu_enable_stall()`’s `readx_poll_timeout()`
-  fails. Observed on the RK3576 NPU, whose MMUs share the stall poll
-  across banks (`rk_iommu_is_stall_active()` ANDs every bank).
-- **Root cause:** Stale firmware page-fault state blocks the stall
-  command.
-- **Fix:** Issue `CMD_PAGE_FAULT_DONE` on any bank that still has
-  `PAGE_FAULT_ACTIVE`, then use the normal stall sequence. Banks without
-  a pending fault are untouched.
-- **Version info in message:** none beyond RK3576 NPU.
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not disguised. This is an explicit hardware/firmware leftover
-workaround that prevents a stall-enable timeout.
-
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
-
-**Step 2.1: INVENTORY THE CHANGES**
-Record:
-- File: `drivers/iommu/rockchip-iommu.c` — **+13 / -0**
-- Function: `rk_iommu_enable_stall()`
-- Scope: single-file surgical fix
-
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- **Before:** If stall is not already active and paging is enabled,
-  broadcast `CMD_ENABLE_STALL` and poll until every bank reports
-  `STALL_ACTIVE` (1 ms timeout, `RK_MMU_POLL_TIMEOUT_US=1000`). One
-  stuck bank fails the whole poll.
-- **After:** Same path, but first walk each bank; if
-  `RK_MMU_STATUS_PAGE_FAULT_ACTIVE` is set, write
-  `RK_MMU_CMD_PAGE_FAULT_DONE` to that bank’s command register, then
-  enable stall as before.
-- Path: initialization / attach / resume (`rk_iommu_enable` →
-  `rk_iommu_enable_stall`), and also disable/suspend (return value
-  ignored there).
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **[Hardware workaround / logic correctness]** Firmware leaves
-`PAGE_FAULT_ACTIVE`. Hardware ignores `CMD_ENABLE_STALL` in that state.
-`rk_iommu_enable()` treats stall timeout as fatal (`if (ret) goto
-out_disable_clocks`), so the IOMMU never reaches
-`rk_iommu_force_reset()` / paging setup and **device attach fails**. The
-fix acks the leftover fault with the same command the IRQ handler
-already uses (`RK_MMU_CMD_PAGE_FAULT_DONE`).
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Minimal and readable. Gated on `PAGE_FAULT_ACTIVE`, so idle
-banks are unchanged. Uses the existing command encoding. Regression risk
-is low; the only flagged concern is not also writing `RK_MMU_INT_CLEAR`
-(see Phase 4), which is incomplete-ack, not a new deadlock or API
-change.
-
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
-
-**Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- `rk_iommu_enable_stall()` introduced in **c68a292152d32**
-  (`iommu/rockchip: rk3288 iommu driver`, 2014) — contained in
-  **v3.19-rc1**.
-- Multi-bank `num_mmu` loop: **cd6438c5f8446**, contained in
-  **v4.6-rc1**.
-- `readx_poll_timeout`: **0416bf6479acef**, contained in **v4.17-rc1**.
-- The 13-line ack loop is this commit (**b10d5920cafa2**).
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. Not applicable. Buggy interaction is firmware
-leftover vs stall path that has existed for years.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record:
-- Immediate parent on the file: **841363ebb5082** `iommu/rockchip: Take
-  all DT clocks` — same author, same RFC series (patch 4/8). Different
-  problem (extra clocks so DTE_ADDR writes land). **Not a code
-  dependency** of the stall ack.
-- No later commits on this file after b10d5920cafa2 in this tree.
-- Standalone IOMMU change; Will applied 4/8 and 5/8 without the rest of
-  the NPU series.
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Jiaxing Hu is not the IOMMU maintainer. In this tree, two
-rockchip-iommu commits (clocks + this). Will Deacon applied both.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Diff only needs `rk_iommu_enable_stall`, `num_mmu`,
-`RK_MMU_STATUS_PAGE_FAULT_ACTIVE`, `RK_MMU_CMD_PAGE_FAULT_DONE` — all
-present long before 7.3. **Can apply standalone.**
-
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- Lore (via b4):
-  https://patch.msgid.link/20260718031146.3368811-6-gahing@gahingwoo.com
-- Series: **[RFC PATCH v2 0/8] accel/rocket: RK3576 NPU (RKNN)
-  enablement**
-- This patch is **v2 5/8**. v1 had two “skip orphaned-fault banks”
-  patches; v2 replaced them with this fault-ack after Chaoyi Chen asked
-  whether clearing the fault avoids skipping banks.
-- Will Deacon (2026-07-26): “Applied driver changes to iommu (rockchip)”
-  for 4/8 and 5/8. No NAK on this patch.
-- Cover letter: NPU bring-up is still incomplete (“full inference is not
-  correct yet”). This IOMMU fix was still taken on its own.
-- v3 of the wider series was not out when Will applied this; applied
-  version is the latest for this hunk.
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: Recipients included Will Deacon, Joerg Roedel, Robin Murphy,
-Heiko Stuebner, iommu@lists.linux.dev, linux-rockchip. No human
-Reviewed-by on 5/8 in the thread. Will applied it. Sashiko bot
-(automated) commented.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No syzbot/bugzilla. Author hit it on a Radxa ROCK 4D while
-bringing up the RK3576 NPU IOMMUs. Cover letter lists “clearing a stale
-firmware page fault” as required for those IOMMUs to come up.
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: RFC 8-patch NPU enablement. Only the two IOMMU driver patches
-were merged. NPU DT/driver patches are **not** in this tree (no NPU
-IOMMU nodes in `rk3576.dtsi`). This stall patch does not depend on them.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search returned HTTP 403. **UNVERIFIED**
-whether stable@ discussed this. No in-tree grep hit except this commit.
-
-Sashiko bot concern (verified from mbox): `CMD_PAGE_FAULT_DONE` without
-`RK_MMU_INT_CLEAR` might leave a raw IRQ pending. On `rockchip,disable-
-mmu-reset` instances (in-tree: px30, rk3288, rk3368, rk3399, rk356x,
-rk3576 vdec), `rk_iommu_force_reset()` is skipped, then
-`RK_MMU_INT_MASK` is programmed in `rk_iommu_enable()`. A leftover raw
-bit could fire a page-fault IRQ. The existing IRQ handler already logs,
-optionally `report_iommu_fault()`, zaps cache, issues `PAGE_FAULT_DONE`,
-and clears INT_STATUS. That is a possible spurious IRQ/log, not a
-verified panic. No follow-up commit addressed it; Will still applied the
-patch.
-
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: `rk_iommu_enable_stall()` (modified). Helpers used:
-`rk_iommu_read`, `rk_iommu_is_stall_active`,
-`rk_iommu_is_paging_enabled`, `rk_iommu_command`.
-
-**Step 5.2: TRACE CALLERS**
-Record:
-- `rk_iommu_disable()` line 928 — detach / runtime suspend. Return
-  ignored.
-- `rk_iommu_enable()` line 950 — attach / runtime resume. **Failure
-  aborts enable.**
-- `rk_iommu_enable()` called from `rk_iommu_attach_device()` (line 1064)
-  and `rk_iommu_resume()` (line 1349).
-
-**Step 5.3: TRACE CALLEES**
-Record: MMIO status/command. No allocation, no new locks.
-`writel(RK_MMU_CMD_PAGE_FAULT_DONE, base + RK_MMU_COMMAND)` matches
-`rk_iommu_base_command()`.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace/DMA attach or runtime PM resume →
-`rk_iommu_attach_device` / `rk_iommu_resume` → `rk_iommu_enable` →
-`rk_iommu_enable_stall`. Reachable on Rockchip SoCs with
-`CONFIG_ROCKCHIP_IOMMU`. Trigger is firmware leftover + paging already
-enabled. Not a syscall fuzz path; it is device bring-up.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: IRQ path already does `RK_MMU_CMD_PAGE_FAULT_DONE` (line 642)
-plus `RK_MMU_INT_CLEAR`. No other stall-path fault ack. In-tree RK3576
-`vdec_mmu` is two-bank (`reg` two regions), so the AND-poll issue is not
-NPU-only in principle.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: **Yes.** Local tree: `git describe HEAD` =
-**v7.3-rc4-27-gf0100363d8c37**, `make kernelversion` = **7.3.0-rc4**.
-`rk_iommu_enable_stall()` is present; this commit is already an ancestor
-of HEAD (`git merge-base --is-ancestor b10d5920cafa2 HEAD` succeeded).
-Landed via `iommu-updates-v7.3` (not in v7.2). Stall path itself dates
-to v3.19.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Hunk is a contiguous insert after the paging-enabled check.
-Expected apply: **clean** on trees that have the 2016 multi-bank
-`num_mmu` loop (v4.6+). No conflicting later edits on this function in
-this checkout.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: This is the only “stale page fault” commit. No alternate fix.
-Sibling clocks change is independent.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **drivers/iommu/rockchip-iommu.c** — Rockchip IOMMU.
-Criticality: **IMPORTANT** (platform IOMMU for multimedia/NPU DMA; not
-core mm/VFS, but attach failure takes down the consumer device).
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature driver (2014), still receiving Rockchip bring-up fixes.
-Joerg’s v7.3 pull: “Rework Rockchip state handling and fix clock, probe
-and stale-fault handling.”
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: **driver-specific / platform-specific** —
-`CONFIG_ROCKCHIP_IOMMU` on Rockchip. Practical trigger reported on
-RK3576 NPU MMUs (those DT nodes are **not** in this tree). Any multi-
-bank instance whose firmware leaves `PAGE_FAULT_ACTIVE` can hit the same
-poll (e.g. in-tree RK3576 `vdec_mmu` has two banks).
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Boot firmware leftover fault, then first stall enable while
-paging is still enabled. Timing: probe/attach or resume, not a hot path.
-Unprivileged users do not trigger it directly; it is firmware × driver
-init. No public reproducer beyond the author’s ROCK 4D bring-up.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: **IOMMU enable fails after a 1 ms poll**
-(`RK_MMU_POLL_TIMEOUT_US=1000`). Attach returns error; the DMA device
-does not get a working IOMMU. **Not** a panic, hang, UAF, or corruption.
-Severity: **HIGH** for the affected device (non-functional), **MEDIUM**
-system-wide (1 ms timeout + error, rest of the machine continues).
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** Hardware/firmware workaround so stall enable succeeds;
-  IOMMU attach can proceed. High for RK3576 NPU users; modest for other
-  Rockchip boards unless firmware leaves the same bit.
-- **Risk:** 13 lines, status-gated. Theoretical spurious IRQ if
-  INT_STATUS is not cleared on `disable-mmu-reset` devices. No new
-  locks/APIs.
-- **Ratio:** Benefit outweighs risk. Same class as other hardware
-  leftover/quirk fixes.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-FOR:
-- Real, explained failure: stall poll times out, `rk_iommu_enable()`
-  aborts, device attach fails.
-- Small (+13), contained, status-gated.
-- Same command the IRQ handler already uses.
-- Will Deacon applied it independently of the unfinished NPU RFC.
-- v7.3 IOMMU pull listed stale-fault handling as a fix.
-- Driver and stall path exist in this tree since v3.19 / v4.6.
-- Hardware/firmware workaround (stable exception category).
-- No new APIs or features.
-
-AGAINST:
-- Originated in an RFC series to enable RK3576 NPU; NPU IOMMU DT is
-  still not in this tree.
-- Observed on that NPU, not reported on long-shipped VOP/VDEC.
-- Not crash/security/corruption; 1 ms timeout then enable failure.
-- Sashiko noted missing `INT_CLEAR`; unaddressed.
-- No Fixes:/Cc:stable (not a negative by itself).
-
-UNRESOLVED:
-- lore.kernel.org/stable search HTTP 403.
-- Whether in-tree vdec/vop firmware also leaves `PAGE_FAULT_ACTIVE`
-  (author only cited NPU).
-- Whether a leftover INT_STATUS after `PAGE_FAULT_DONE` actually fires
-  on `disable-mmu-reset` hardware.
-
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — logic matches the described
-   hardware state; author tested on ROCK 4D; IOMMU maintainer applied
-   it.
-2. Fixes a real bug that affects users? **PASS** — stall timeout
-   prevents IOMMU enable/attach.
-3. Important issue? **PASS** — device IOMMU never comes up (not a panic,
-   but hardware non-functional). Severity HIGH for that device.
-4. Small and contained? **PASS** — 13 lines, one function.
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — stall path and symbols are
-   here; hunk is a clean insert.
-
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: **Hardware quirk/workaround** — firmware leftover
-`PAGE_FAULT_ACTIVE` so stall commands work. Not a new driver, not a new
-userspace API.
-
-**Step 9.4: MAKE YOUR DECISION**
-
-This tree is 7.3-rc4; the stall path is old and the bug is a firmware
-leftover vs that path, not a 7.3-only feature. The patch is a small,
-maintainer-acked workaround that stops IOMMU attach from failing. Origin
-in an unfinished NPU RFC does not make it a new API; Will merged it as a
-standalone IOMMU fix. Missing `INT_CLEAR` is a residual IRQ-ack concern,
-not a reason to drop a stall-timeout fix that already uses the
-documented fault-done command.
-
-Verification:
-- [Phase 1] Parsed tags: only author SOB + Will Deacon SOB; no
-  Fixes/Reported-by/Cc:stable
-- [Phase 1] Body: PAGE_FAULT_ACTIVE leftover → ENABLE_STALL ignored →
-  poll timeout on RK3576 NPU multi-bank poll
-- [Phase 2] Diff: +13 in `rk_iommu_enable_stall()`; loop acks
-  `PAGE_FAULT_ACTIVE` with `CMD_PAGE_FAULT_DONE`
-- [Phase 2] `rk_iommu_enable()` returns on stall timeout before
-  `force_reset` (line 950-952) — attach fails
-- [Phase 3] git blame: function from c68a292152d32 (v3.19); poll from
-  0416bf6479acef (v4.17); multi-mmu cd6438c5f8446 (v4.6)
-- [Phase 3] git merge-base --is-ancestor b10d5920cafa2 HEAD: yes; not in
-  v7.2; in v7.3-rc1
-- [Phase 3] Sibling 841363ebb5082 is clocks-only; not required for this
-  hunk
-- [Phase 4] b4 dig -c b10d5920cafa2:
-  https://patch.msgid.link/20260718031146.3368811-6-gahing@gahingwoo.com
-- [Phase 4] b4 dig -a: RFC v1 (skip banks) → v2 (this ack); Will applied
-  v2 4/8 and 5/8
-- [Phase 4] b4 dig -w: iommu maintainers + rockchip list on CC
-- [Phase 4] mbox: Will “Applied driver changes to iommu (rockchip)”;
-  Sashiko INT_CLEAR warning; no human NAK
-- [Phase 4] lore.kernel.org WebFetch/curl: HTTP 403 — stable-list
-  discussion UNVERIFIED
-- [Phase 5] Callers: disable (unchecked) and enable (fatal); enable from
-  attach_device and resume
-- [Phase 5] IRQ handler already issues PAGE_FAULT_DONE at line 642
-- [Phase 6] git describe HEAD: v7.3-rc4-27-gf0100363d8c37; Makefile
-  7.3.0-rc4; file present
-- [Phase 6] No NPU IOMMU nodes in
-  arch/arm64/boot/dts/rockchip/rk3576.dtsi; vdec_mmu is two-bank +
-  disable-mmu-reset
-- [Phase 7] iommu-updates-v7.3 merge text: “fix clock, probe and stale-
-  fault handling”
-- [Phase 8] Failure: 1 ms poll then IOMMU enable/attach failure; not
-  oops/UAF
-- UNVERIFIED: whether firmware leaves this bit on in-tree vdec/vop;
-  whether INT_STATUS spurious IRQ reproduces; stable@ thread
-
-The fix is small, surgical, and meets the stable criteria as a hardware
-leftover workaround in a long-lived driver.
-
-**YES**
-
- drivers/iommu/rockchip-iommu.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-index 309ba78e27d4f..982ea9cafee1b 100644
---- a/drivers/iommu/rockchip-iommu.c
-+++ b/drivers/iommu/rockchip-iommu.c
-@@ -422,6 +422,19 @@ static int rk_iommu_enable_stall(struct rk_iommu *iommu)
- 	if (!rk_iommu_is_paging_enabled(iommu))
- 		return 0;
- 
-+	/*
-+	 * Boot firmware can leave a bank in PAGE_FAULT_ACTIVE with no handler
-+	 * (PAGE_FAULT_ACTIVE & !STALL_ACTIVE & IDLE).  Such a bank ignores
-+	 * CMD_ENABLE_STALL and never reaches STALL_ACTIVE, timing out the poll
-+	 * below.  Acknowledge any stale fault first so every bank starts clean.
-+	 */
-+	for (i = 0; i < iommu->num_mmu; i++) {
-+		if (rk_iommu_read(iommu->bases[i], RK_MMU_STATUS) &
-+		    RK_MMU_STATUS_PAGE_FAULT_ACTIVE)
-+			writel(RK_MMU_CMD_PAGE_FAULT_DONE,
-+			       iommu->bases[i] + RK_MMU_COMMAND);
-+	}
-+
- 	rk_iommu_command(iommu, RK_MMU_CMD_ENABLE_STALL);
- 
- 	ret = readx_poll_timeout(rk_iommu_is_stall_active, iommu, val,
--- 
-2.53.0
-
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|MW3PR12MB4491:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5de77641-1864-41b4-1226-08df2de8882b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|6133799003|18002099003|22082099003|11063799006|4143699003|10067099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	+6ajNGDDpyztVfWwoQ7QCMk/4Er442QzhH8bq64r/L7BHaG8UnM+6AaEy4BY/yF4OpTPwB1o/PtTxJ3RsdponlkmukAGpMEftXpxHjGusVhrF/z9aQJPB4SduCjOakpg9wXpikKHNSUFfnhwC1lNvC2q/7rEoXH5LGREYtg4vx25he/cswsEyYZvq2y6ZE474R1/SIWw10soyo2zxYLqqQQbXuBB6oJvtCpNpFIUURmj/inNp1PtFOK/2AVVqF/5Wb2UVbktKaxgl4Ka/GhmHd88bgdMsghMxsNp8fh0r/PN5lpAuoWpViFRq2/6B6e6i6ODIesDXACrNfPOZLL5UJy6BZacNp8eXUrzsv3BH7rwE1jUGV/fDAnO/dzrOAh1pDFhgGlhNMLny6xJn+iQm3qsHtz6a0/VTC6rCjuG7CiVxjEsc0Cz67G4YewuDN8nATGNYFZoxcG1yr9ymAuPPGRXKedhwI1KXpE5bvS5WMvfvzA8Fv6mzUPQO2jIafbdvnx/UmgsVpwkhcKgAQlCHI6zPFa/X0Zj98LmGAOHOELbyOCBX+ZtXTvXixZOU4foRhVOJMcgiYxCSxWrdbWuDNuY5vZ1b4myctJVn2bOoKF1mL2WhMdKeahAZoLG8JDHXAgmtIHH8eLKOiZcehJ3HvaM+Bj25l+Ypj7csGVLf58=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(6133799003)(18002099003)(22082099003)(11063799006)(4143699003)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rYXPqEIEybstq6ZvLv+Aoe9m4IYi6wYLvbRZdwUHJOqWI+OUUUpgG4B2XIly?=
+ =?us-ascii?Q?0AHFMvf8FDFqfK2E/OpJo2hH9Z2crUPfOT8yC5tlafOmN9YXn02IJtpsaLGf?=
+ =?us-ascii?Q?qfXw1/21+1iITafrgGgmReVurzK4EeS3jVNfipUjdRMcx9jvEB/jlF9Xs3UI?=
+ =?us-ascii?Q?VyamxCud//616J1JCpVZ+qPrAVaVP8P1oby+08oA1TJBSgpqQAiGEocBcIhv?=
+ =?us-ascii?Q?4y2d45b+Q6boDx6VQIPyvx/VFHJ/8Ntdd4oymF8RCZkwQXDtu5m2mwPIenSP?=
+ =?us-ascii?Q?8hwEKrj/38Khs7na7K0ry5lq4kzmeYtfYqka3kegrMkqUdEVKN86fvPBFWQt?=
+ =?us-ascii?Q?kTvrb4lHOH8f+VFkJCebf2hZ/YsL1I64tG5Uf1MmWUY/9Xg9RvFOUyhE9S9Q?=
+ =?us-ascii?Q?4KvwSZGIPK/Rvipd0agX6OERPoLomyQDGheICO2CxWQ/Fi9zbNXgAbi1Mujz?=
+ =?us-ascii?Q?X96LqAEh6+MuGazgbKiTf05I3gBK3CEha07fX8pfRdCmycCL5kHOXcRdmvGq?=
+ =?us-ascii?Q?0RIlQXCTmbh0LB3oOiXLVigYIc3LPTwP15OAITmYeFVM2HWW16UR+e9oOx8r?=
+ =?us-ascii?Q?bAfTiisjs64tIhQZ7fUOUoBsRRAozIzVsj8E6iAkI9uTQYi9m/AA6cne2Nmr?=
+ =?us-ascii?Q?aQ0/YW1mMeU4V2agudTJTVyB7m4KPlFeCn9p1AWoGCfOIyo1R49uffUQRnS+?=
+ =?us-ascii?Q?wVtW31F1dUYHtYJ0cMN293HEgZ4NUjkjjBkK0QaSJ7aPmLyWF2MddfESLMne?=
+ =?us-ascii?Q?zXiUHvjwdiqWzq3/oU/p7VMwSSAWZPu5p85pRRm6ubIqprTA8LEUwR4ZKwmt?=
+ =?us-ascii?Q?Rtjo/l1RUjV6CG0cL1j72uc4kPi8n9GhdW0xx+FS7oLk8CcrBRcbVDKt0xGJ?=
+ =?us-ascii?Q?/SYnozPMIVuT2Jvu8J2nAEW62a2aUAn0ZQjatxBvimC+8L92zRYFZ0xdrG5m?=
+ =?us-ascii?Q?/tw5nFqz9jY6M1r0bOiqHe8VBHpQkxPMv7cT6pyRuSWk4w+i2o4U6arvwLXN?=
+ =?us-ascii?Q?N5pz2Ida/34TWy8ALu7KfKY/tb4Ra2Y4m8OGJ9C3sRdWPbEHeXkiXg0X2JRH?=
+ =?us-ascii?Q?qcrQCa5VTkdveYSz5s/iQO69UGmWi3dh4a9St/bVQM8wy/cGYosFA6ZjV2Tk?=
+ =?us-ascii?Q?KJprWZi1dMjKE6Q+DTvndLpDJ6SCwModcZ7qSQE270DUVET++LC7sN+eQi37?=
+ =?us-ascii?Q?C1BxyX8rVyLlBnrnqc/7C+CTouOWArD8QxTs5WRCsW6vSNqP4xItWYhFYQg1?=
+ =?us-ascii?Q?Bc+Xka3zQnuDmqBdZoHQdUt0GfkcT96SmCDVgPD6/hPaCmcOxmSfcZXp+uFD?=
+ =?us-ascii?Q?r0R4AqZ8rdqyqYP3m20m4cLQzyXLJlycKrCms+KbXnBM2kzXonfKj7RE/fw8?=
+ =?us-ascii?Q?H1R14XN8Cfk8YSEdkM0N0Y0ucvaRDMb3uoEfjEE9km5uiZA9Gmwfe/T+IxJI?=
+ =?us-ascii?Q?SmfpkkWJntZBzfu8HwlFfmVYbPVooPmvRrh4iURMTrbJKN0soyef7YklypX+?=
+ =?us-ascii?Q?EAMRZ5M7L7AamABAqMgvowVzZ2zt1o9r5O3ZHPS1I13hoSCmMR9SitALYnz6?=
+ =?us-ascii?Q?lU01uQjuo77Lggy+TxmKEzW5uqyBdlL/ynYEEExYqGGxoB8Ny47voTxxX/OC?=
+ =?us-ascii?Q?uaOpj2TxcxNqfSjuSk/0MsjbACWmrf12iIh2WzZxc7gt5i+nlXDTYllrsGCm?=
+ =?us-ascii?Q?jQVVE3XxbmMy1q7J+cxeHxTERMqniUvF+oyeq+CFxOYGoGJHdAIsEtpbH5R1?=
+ =?us-ascii?Q?WzUemmsDlA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5de77641-1864-41b4-1226-08df2de8882b
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 13:54:45.0766
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9t3U78GOSvXcV9s+SKz/e2RUPZHe6sYPcyAVV02vSoVYsk8MpCJ/tU9FqGbxPWZAfeLoq/aVlxR7JlUZ6PqFCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4491
+
+Hi Michal,
+
+On Mon, Oct 19, 2026 at 12:41:46PM +0000, Michal Blaszczyk wrote:
+> Add a test for a task which leaves SCHED_EXT while it's waiting. Its
+> scheduler keeps the task waiting on a DSQ after it wakes up. The test
+> switches the task to SCHED_OTHER while it's waiting, lets it sleep outside
+> of SCHED_EXT for three times the watchdog timeout, then switches it back
+> and wakes it up. The scheduler keeps it waiting again, for longer than the
+> watchdog interval but shorter than the timeout, which the watchdog must not
+> report as a stall.
+> 
+> Without the previous patch, the watchdog charges the task for the time it
+> spent outside of SCHED_EXT and aborts the scheduler.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Michal Blaszczyk <michalblk@google.com>
+
+...
+
+> diff --git a/tools/testing/selftests/sched_ext/class_switch_stall.c b/tools/testing/selftests/sched_ext/class_switch_stall.c
+> new file mode 100644
+> index 0000000000000..489d23c777f05
+> --- /dev/null
+> +++ b/tools/testing/selftests/sched_ext/class_switch_stall.c
+> @@ -0,0 +1,240 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Check that a task which leaves SCHED_EXT while it's waiting doesn't carry
+> + * that wait over to its next stay on SCHED_EXT. If it did, the watchdog would
+> + * count the time the task spent outside SCHED_EXT as waiting and abort the
+> + * scheduler.
+> + *
+> + * Copyright (c) 2026 Google LLC.
+> + */
+> +#define _GNU_SOURCE
+> +
+> +#include <bpf/bpf.h>
+> +#include <poll.h>
+> +#include <sched.h>
+> +#include <scx/common.h>
+> +#include <signal.h>
+> +#include <stdio.h>
+> +#include <string.h>
+> +#include <sys/wait.h>
+> +#include <unistd.h>
+> +#include "class_switch_stall.bpf.skel.h"
+> +#include "scx_test.h"
+> +
+> +#ifndef SCHED_EXT
+> +#define SCHED_EXT 7
+> +#endif
+> +
+> +/* class_switch_stall_ops.timeout_ms, the watchdog checks every half of it */
+> +#define TIMEOUT_MS 1000
+> +/* longer than the watchdog interval, but shorter than the timeout */
+> +#define PARK_MS 750
+> +/* time spent outside of SCHED_EXT, a stale wait would exceed the timeout */
+> +#define OUTSIDE_MS (3 * TIMEOUT_MS)
+
+Could we increase the watchdog timeout to 3s and the park duration to
+2s, updating timeout_ms accordingly?
+
+With the current values, there is only about 250ms of headroom for timer
+delivery, dispatch, and the child actually getting CPU time before it
+becomes eligible for a watchdog stall The first phase also depends on
+userspace switching the parked child out within 1s.
+
+I haven't observed a false failure, so this is a robustness suggestion
+(I'm thinking at loaded CI VMs) rather than an observed problem. A 2s
+park would still span the nominal 1.5s watchdog interval while leaving
+more headroom.
+
+Thanks,
+-Andrea
