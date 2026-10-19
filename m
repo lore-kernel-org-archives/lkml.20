@@ -1,132 +1,121 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD1E4854F6
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:42:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C37B485502;
+	Mon, 19 Oct 2026 06:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392156; cv=none; b=ZfyvoIA0/AI/F4QUiArwTjo48G4/aOSV8ma8HYkozreJ59MqkSvijIw1/yB9hZ2vHuyFIa7gyMeBtuooas5cshZMK2QibN1cIo5QMkYBFrkDgENe5whyFWzUxWEtZ6chiemTqn598yiN0nJdASc2Ig0PSRPc0+wE+X4i9+gPKkA=
+	t=1792392165; cv=none; b=jEvdAxPuXIFjRDGehiIGuTFSaidS79PV4ZYE7kn8l++aL2JNt6cSBK3InbB6wcqgWIV8hWm/Y3Ki9Mz2ScDxfFCDEbJCgu06LmHa3YHNtpk8ptGW1te3ECea7YEICw4jBQSf8L/GKTbVP+/Vcx0/llC6O6mSYC7o6YlzHU68YHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392156; c=relaxed/simple;
-	bh=sI0uRdJyIwS/576GKroHmj+P9dYFOWObm8nsBCmV8W4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ts5pSb0HldlgviQNTyIy9uKSg8B6XZAcm9O/r9P6Jp725foX5ZWitOt8K9KTE82IYCNhtha8GUvgcu7hoi5CaiGu4TtUlRscbPiuZ7hUg6RWCXBmayFuoGHpewuu7GCuB0lNrHDw+QFI1fMGE0DtciDIHfc2xJ0H4V+0yTyrYi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mym2WOqc; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792392165; c=relaxed/simple;
+	bh=mG0ssjMFAqzBF8Nmuf2BLS/qbjtCpjzqJbiwQCoLYB8=;
+	h=Date:From:To:Cc:Subject:References:Mime-Version:Message-ID:
+	 Content-Type; b=Dg9b+YqaXz6iODHFYol/KS5Cs15inMsU5ItQY5KLJYPo0ch/uRPsZy89JHPLnYivfZXWnmltnndffv6fK9SCsKEICQYSdFu+oi7mD/cQE2zVnQrVg2s8CrL/4+8GoW0JP4oJA+fmM9DtwgPauNFzwDy9YBMM7lmoUzwETrh8REM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=iqxCGKaQ; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mym2WOqc"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac7c7b3a90so807713a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:42:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792392155; x=1792996955; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/fCpTvdWPIdjGXF0xCoYGynFxh0LgUrYpyRnN0Oo9VE=;
-        b=Mym2WOqc9oVz5JdiDodpZbxyQrCS1b415cTpdTpqMAy/wGVn5Yt+0GCw5lXqdrKEPK
-         3tkazyRF19Y+4sfvHKglEGcGGmAqHg38t9SiVo95NQTVaT/Z9ddMOlamcRVZB7Ep13X3
-         S46CdaSerNZnpWJtI8jO2FMS1VpCM/ZMs+siWYFKBIAq8/rICFwFpEZ2fWlJKwYJ8VHv
-         jv9KcDyQ67m3EJ1MbNCw0EOHxXJmT+0VarTbaGWo0Dwg3FMJ17o7PqRChM/T1LCY7DM0
-         6bfJ4x2KD4kSBfDiBsrvLXDzfYLzMXKiSF/AuD7udoRD2OuY/D/e6lZeivcFJsGrUThK
-         b3Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792392155; x=1792996955;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/fCpTvdWPIdjGXF0xCoYGynFxh0LgUrYpyRnN0Oo9VE=;
-        b=IYc13g3AsVSoF6u80xtk9TD8A95pWcXMx+n/8L7DHiOBNmlCVFBRm9SuPyK3F685zn
-         QP+t2jGYHSq5DmVZ0ssmnIOhdmpVp+TG2Z0UtsJHupyI6MZa9VAMShqjRGCIjkd3Zp4D
-         GcIFap2RgHMtKyxeU48n83UkCP+POloABMvJA1kOL3iTxcGZfaJuPnRHTTeQIA7Rsgwp
-         loVB7O8np/9zxILo+emjtTyf8Tu25pcYcX5/RmKsKpkmOFEakb53zu0LlFoPjKDrYbYv
-         PcSdHmf070O7zZqeMJwcN/RY3SFI4X1SifArInG3c6xh9/cT1jBbfELp79d7e1kuqrvO
-         /Q9w==
-X-Forwarded-Encrypted: i=1; AKwUvByTM9+YGJAP2YvdFaPALFw38br3DAYNhMpipUuFW7G1R4ljWK0IsotLaiBXsx8OcR6tQ9YdCFq66NxVMzY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJWJIKu9//rWdGHQC4GAywwOU1sr1S333aOJxRZ/zD+495zIYsa
-	/Lz08pPQvYweOIa3GEucsRl7XCVHqCBhNfCdPpn1jYPg6/oqxI20SH9N
-X-Gm-Gg: AYBFou2fegI2TJQleNjtQPCwpKb8MV8w9ob+7Mm+ZgrM+u/tF49Q+Tzvzr0QJyQU4ae
-	92tHaFzOvdZ4rL9qY0lf0k14jbE0KkU4WqykqleZonmcdqjxvyY0N+w3pw04dLKH/NvNK7LF4gW
-	3ULdjTlVaB6pV/do8XGS+G5d1B6xoVE3le+Z2iyiwnfwPXb6KqBSqtLMhWuRw7RRs5MYBCi16Gs
-	fVOI14LXgOzjb1NDg0CW/YP1XmPs8Y0f2DN4/N6cSepnu692JywtNa9JgtxUk8wn4tWIu+ijOlP
-	6tqqe3ODia1bFD0IN86zY7T6XITix/FRqItvmCkydEVr/9xljJ5CZ5mJjFyR5nRxTOHJtg6ExtX
-	mRhWZUmlTExaOlnH3y9pf13vgbi+SGxSfoP1qaM9m0uB/OGMQTX+TFkHcm4+kyhZANVPajQFXUd
-	1idyp8XvOwHqrTylpbJkO2dyEBr4reMTpsWin6ox/lbcBUq8V7QvxjqPCYBxOrF+fXU+PI85D+o
-	nXjh3Zqk29BXboIBkj/Ue5+ERJgo7V+1dGgr52ESXeLDRWqu82D+LOWpHHiX9b0iSeiXQ==
-X-Received: by 2002:a17:90b:4c92:b0:3ab:b764:826c with SMTP id 98e67ed59e1d1-3acef134becmr6190292a91.12.1792392154938;
-        Sun, 18 Oct 2026 23:42:34 -0700 (PDT)
-Received: from localhost.localdomain ([240e:46d:2100:3fed:6938:3f14:63eb:c479])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a3a592sm3688960a12.30.2026.10.18.23.42.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 18 Oct 2026 23:42:34 -0700 (PDT)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	gourry@gourry.net,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shakeel.butt@linux.dev,
-	roman.gushchin@linux.dev,
-	yu.c.chen@intel.com,
-	zhao1.liu@intel.com,
-	tim.c.chen@linux.intel.com,
-	lizhe.67@bytedance.com
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: [RFC PATCH v3 bpf-next 1/5] sched: fix stale get_pref_llc() stub for !CONFIG_SCHED_CACHE
-Date: Mon, 19 Oct 2026 14:41:53 +0800
-Message-ID: <20261019064157.29885-2-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261019064157.29885-1-laoar.shao@gmail.com>
-References: <20261019064157.29885-1-laoar.shao@gmail.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="iqxCGKaQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1792392110;
+	bh=mG0ssjMFAqzBF8Nmuf2BLS/qbjtCpjzqJbiwQCoLYB8=;
+	h=Date:From:To:Subject:Mime-Version:Message-ID;
+	b=iqxCGKaQ+kEKq3DeKjS7A37YJuOoPKMFc67+kcwN+T1C6S4+9s7ZMuJp/3AVWhFBP
+	 sgayQYJlEzHl82rIRIsKAR+uQXL5dOnTed0scLUt+Eku9HOV4bgmcrVeY+8r0pgY2I
+	 Rmpg2H8Lq4GDo0jN26CatkmpLQ76UTtc+QOoiGgE=
+X-QQ-mid: esmtpsz19t1792392103t79caaa3a
+X-QQ-Originating-IP: 4FLorRqvu9ksBRu2FZoUp74sIwk0o+b3lTnhR8E8luQ=
+Received: from PEN002676 ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 19 Oct 2026 14:41:40 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 18404627450710380155
+Date: Mon, 19 Oct 2026 14:41:41 +0800
+From: =?GB2312?B?1dS98MP3?= <zhaojinming@uniontech.com>
+To: "Eric Biggers" <ebiggers@kernel.org>
+Cc: brgl <brgl@kernel.org>, 
+	herbert <herbert@gondor.apana.org.au>, 
+	davem <davem@davemloft.net>, 
+	thara.gopinath <thara.gopinath@linaro.org>, 
+	linux-crypto <linux-crypto@vger.kernel.org>, 
+	linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, 
+	stable <stable@vger.kernel.org>
+Subject: Re: [PATCH 0/3] crypto: qce - fix CCM AAD buffer leak and the AEAD error paths
+References: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>, 
+	<20261016155628.GA3947801@google.com>
+X-Priority: 3
+X-GUID: 9191DB10-C88B-4DAC-A051-F800609F7DC6
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.25.375[cn]
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Message-ID: <CA7A5103C91FA945+2026101914414023542111@uniontech.com>
+Content-Type: text/plain;
+	charset="GB2312"
+Content-Transfer-Encoding: base64
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NWLpwLZrMWrIHCw6m4REeHpuAj5h5Im2QmkeMWqQjSWN/KQwphzej+Vc
+	LikyNJdugrwl9xe+YTFW1lh9h2oR7yTvSq8bZTW/77ultkE2XsO2ep6PDGPKs20drYR5jno
+	VkVYxX5KdULe+u4b2AhnxtuoZanFcM4dvhgbYCdpQXBRO+GC+bmfFZ/FaKJoKwByPyIOUr8
+	GymCAeQchuRp+DfgtofuZvP5CZ4modil+TCKy1AnfaVQhKT+4VrgddGFNrzWFbY+ztgya4d
+	NT3cdh6G5BxIG02+xmUQ2QspAGh/MkxCyxNIRnzpCXv1u/m3w6xTb5zca5QVTr7sacXwFYS
+	vyqtydrJHjBOGBpuRhbCamFWI3d6XmrdAKCKqOF0jwXk62Vnoh0+eM0sap5hvcs+UI5mcMe
+	D0YLUtIR39gklHpjVSrkM8hpucEe02It616RoFlLEF4NBVeh3MkdeOmaQDueJoOwMiB542G
+	nZCsTaDwVRI5scrEQa+QeFpWpvAY5cK2n6yqQ7Gkf+41eoe3KoOSrQDyJvpw5jr7V44Lpw2
+	V3DE2x1k1etGcgZosu8BtlgkB3afAgfliMYpsQkroNnuvg4wsMAnxT6KiJxZurTzByTwxbE
+	ul0wylheGEzlPlLxydSLg8Tz7rAiTYV2i09jt0+rDCvSzniJVw5Zw99W8fx7q5DyoM6IIsL
+	mqxOC+c7SjdvuwJgjEjGjonngrz40cMcBDUn83Hgv7niXDkh+ujFtF4L0J97stsdzG69nE7
+	SDzHNqkoSQsJJnUkBhPO7lnjwNkNlhtQDpyL7mUXBGoU85IATorcbCveQjrTqlJr7rkLaiU
+	bDdCf69lRqWxLiEJ5HDWyXuxGAWZtsxLAlVyegDEnRsVPblEwnyfP2eB5MbyGMTSIynLXOD
+	Qmvqveaa2mxHpX9dR+MFZle7qXI2FxG+HHdWFLEMKwRWxIkwjVfzJu5zBEq+ub5AoPg4j2L
+	Zc8HR1QdO+FvHKzRlZB3GnBBC+SNcBIXzEg6DULqWsROxWKGlRCPdOux/wz0pC/licVS1RN
+	emDIOzBvzJcOLu72d89yUaUcThoQTsBK5ISkTw84VA1+LXJnXA2v6VNpiyKCY=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-Commit b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp
-to fix UAF") switched get_pref_llc() from taking a struct mm_struct * to
-taking the task's struct sched_cache_group *, but only updated the
-CONFIG_SCHED_CACHE definition and its caller: the stub in the
-!CONFIG_SCHED_CACHE branch kept the old mm_struct parameter.
-
-Fixes: b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp to fix UAF")
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-Cc: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: Chen Yu <yu.c.chen@intel.com>
----
- kernel/sched/fair.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5cdde4..973647ad6c2d 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -2194,7 +2194,7 @@ void init_sched_mm(struct task_struct *p) { }
- static void task_tick_cache(struct rq *rq, struct task_struct *p) { }
- 
- static inline int get_pref_llc(struct task_struct *p,
--			       struct mm_struct *mm)
-+			       struct sched_cache_group *grp)
- {
- 	return -1;
- }
--- 
-2.52.0
+CkhpIEVyaWMsCgpUaGFua3MgLSB5b3UncmUgcmlnaHQsIGFuZCBJIHNob3VsZCBoYXZlIGR1ZyB1
+cCB0aGUgb3JpZ2luYWwgdGhyZWFkCmZpcnN0LiBUaGUgU2FzaGlrbyByZXZpZXcgb25seSBmbGFn
+Z2VkIHRoZXNlIGFzIHByZS1leGlzdGluZzsgeW91CnJlcG9ydGVkIHRoZW0gZmlyc3QuIEknbGwg
+Y3JlZGl0IHRoYXQgcHJvcGVybHkgYW5kIHJlc2VuZDoKCiAgICBSZXBvcnRlZC1ieTogRXJpYyBC
+aWdnZXJzIDxlYmlnZ2Vyc0BrZXJuZWwub3JnPgogICAgTGluazogaHR0cHM6Ly9sb3JlLmtlcm5l
+bC5vcmcvbGludXgtY3J5cHRvLzIwMjYwNzIzMTgzNDM4LkdCOTM1MzRAcXVhcmsvCgpJJ2xsIGZv
+bGQgdGhvc2UgdHJhaWxlcnMgaW4gYW5kIHNlbmQgYSB2MiBzaG9ydGx5LgoKVGhlIHJlbWFpbmlu
+ZyBidWdzIHlvdSBsaXN0ZWQgYXJlIG9uIG15IHJhZGFyOyBJIGNhbiB0YWtlIHRoZW0gYXMKc2Vw
+YXJhdGUgZm9sbG93LXVwcyB1bmxlc3MgeW91J2QgcHJlZmVyIG90aGVyd2lzZS4KClRoYW5rcywK
+Wmhhb0ppbm1pbmcKCgoKPk9uIEZyaSwgT2N0IDE2LCAyMDI2IGF0IDEwOjA5OjQyQU0gKzA4MDAs
+IFpoYW9KaW5taW5nIHdyb3RlOgoKCgo+PiBUaGlzIHNlcmllcyBmaXhlcyBhIG1lbW9yeSBsZWFr
+IGluIHRoZSBRQ0UgQUVBRCBkcml2ZXIgdG9nZXRoZXIgd2l0aCB0d28KCgoKPj4gYnVncyBpbiB0
+aGUgZXJyb3IgaGFuZGxpbmcgYXJvdW5kIGl0LgoKCgo+PiAKCgoKPj4gcWNlX2FlYWRfY2NtX3By
+ZXBhcmVfYnVmX2Fzc29jbGVuKCkgYWxsb2NhdGVzIHJjdHgtPmFkYXRhIGZvciBldmVyeSBDQ00K
+CgoKPj4gcmVxdWVzdCB0aGF0IGNhcnJpZXMgYXNzb2NpYXRlZCBkYXRhLCBidXQgdGhlIGJ1ZmZl
+ciBpcyBuZXZlciBmcmVlZC4KCgoKPj4gCgoKCj4+IFdoaWxlIHByZXBhcmluZyB0aGF0IGZpeCwg
+dHdvIHByb2JsZW1zIGluIHRoZSBlcnJvciBwYXRoIG9mCgoKCj4+IHFjZV9hZWFkX2FzeW5jX3Jl
+cV9oYW5kbGUoKSB0dXJuZWQgb3V0IHRvIG1hdHRlcjoKCgoKPj4gCgoKCj4+Pz8gLSBJdCB1bm1h
+cHMgcmVxLT5zcmMgYWx0aG91Z2ggcmN0eC0+c3JjX3NnIGlzIHRoZSBzY2F0dGVybGlzdCB0aGF0
+IHdhcwoKCgo+Pj8/Pz8gcGFzc2VkIHRvIGRtYV9tYXBfc2coKS4/IEZvciBDQ00gcmVxdWVzdHMg
+d2l0aCBhc3NvY2lhdGVkIGRhdGEsCgoKCj4+Pz8/PyByY3R4LT5zcmNfc2cgY2FycmllcyB0aGUg
+QUFEIGJ1ZmZlciwgc28gaXRzIG1hcHBpbmcgaXMgbGVha2VkLCBhbmQKCgoKPj4/Pz8/IGZyZWVp
+bmcgcmN0eC0+YWRhdGEgdGhlcmUgd291bGQgZnJlZSBtZW1vcnkgdGhhdCBpcyBzdGlsbCBETUEt
+bWFwcGVkLgoKCgo+PiAKCgoKPj4/PyAtIEEgZG1hX21hcF9zZygpIGZhaWx1cmUgZm9yIHRoZSBz
+b3VyY2Ugc2NhdHRlcmxpc3QgaXMgbm90IGRldGVjdGVkLAoKCgo+Pj8/Pz8gYmVjYXVzZSB0aGUg
+cmVzdWx0IGlzIGNoZWNrZWQgZm9yIGEgbmVnYXRpdmUgdmFsdWUgd2hpbGUKCgoKPj4/Pz8/IGRt
+YV9tYXBfc2coKSByZXR1cm5zIDAgb24gZmFpbHVyZS4/IFRoZSBlcnJvciBwYXRoIHRoZW4gdW5t
+YXBzIGEKCgoKPj4/Pz8/IHNjYXR0ZXJsaXN0IHRoYXQgd2FzIG5ldmVyIG1hcHBlZC4KCgoKPj4g
+CgoKCj4+IFBhdGNoIDEgdW5tYXBzIHRoZSBjb3JyZWN0IHNjYXR0ZXJsaXN0LCBwYXRjaCAyIGFk
+ZHMgdGhlIG1pc3NpbmcgZnJlZXMKCgoKPj4gYW5kIHBhdGNoIDMgZml4ZXMgdGhlIGRtYV9tYXBf
+c2coKSBjaGVjay4KCgoKPj4gCgoKCj4+IEFsbCB0aHJlZSB3ZXJlIHJlcG9ydGVkIGFzIHByZS1l
+eGlzdGluZyBpbiB0aGUgU2FzaGlrbyByZXZpZXcgb2YgdGhlIFFDRQoKCgo+PiBCQU0gbG9ja2lu
+ZyBzZXJpZXMuPyBUaGV5IHRvdWNoIHRoZSBzYW1lIGZ1bmN0aW9uIHRoYXQgd2FzIHJlY2VudGx5
+IGZpeGVkCgoKCj4+IGJ5IGNvbW1pdCA3ZjIzNDVmNDdkZDEgKCJjcnlwdG86IHFjZSAtIGZpeCBD
+Q00gQUFEIGJ1ZmZlcgoKCgo+PiB1bmRlcmFsbG9jYXRpb24iKS4KCgoKPgoKCgo+Tm90ZSB0aGF0
+IEkgcmVwb3J0ZWQgdGhlc2UgYnVncyAoYW5kIG90aGVycyBzdGlsbCB1bmZpeGVkKSAzIG1vbnRo
+cyBhZ286CgoKCj5odHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1jcnlwdG8vMjAyNjA3MjMx
+ODM0MzguR0I5MzUzNEBxdWFyay8KCgoKPgoKCgo+LSBFcmljCgoKCj4KCgo=
 
