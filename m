@@ -1,113 +1,100 @@
-Received: from esa2.hc1455-7.c3s2.iphmx.com (esa2.hc1455-7.c3s2.iphmx.com [207.54.90.48])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647444AB1A8;
-	Mon, 19 Oct 2026 12:54:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.90.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414484; cv=none; b=MmgdnhrzW2nDkpKUOYDMtDaAFSM14cA2wn5k7kVUV1A9ew08SnhAki+dxpN7Udlegd7kGxzLI/Tz65pQL7LSTkKUVJ6Yn6ZC5f1LTRl0xK7d4JJ8vhIyX/hEjgeq5Pi8neeO9a/LKUYgcNFRlK33fb6Vcw0LS+vQbVU4WWA7a9A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414484; c=relaxed/simple;
-	bh=lG8ba8f3XvMZ016RxZR1uTEgZGmbv/N4GGCyJVqPUXg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sG0UuE4mkHGEpQqInnZAZ6IgKe8MwEAMRAqF1AyuTOG3NOxQN7oqTWTKi4kr43pNzvb9bdq8tgoK+7nH+g0uwUcp/uIRSIUgmwOzebntCNbSPtM9+iCa5b6fFKofV66PFsdN8BAplPHJYvCmx4QtlXhNv7QrLJvbrQjaKTqAhZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=Tw5QL/pZ; arc=none smtp.client-ip=207.54.90.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 025433DDB04;
+	Mon, 19 Oct 2026 12:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792414519; cv=pass; b=l7Sv+GwgjbiGBcvNQesQkUHKnsEHY85xQ5fTb5jRaePaUAhkr8ZLXUgOKS33ObQZrxsAelrQgfZxvnwozwSg9Rwa8ejHcm9/GpUVb2O+rPJ4ZBSAeLhaHlzZGZx2QYegJe1j4/h0d+Fd4FHoeJzqrcRkab0JWNSwSW/lFNiEy2g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792414519; c=relaxed/simple;
+	bh=D62cup5vprZgFRRa2wzv2xPzHFDPatAnjBm5Em342R8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=S+8cV4wpb/e7537yXjzy38mjqFV+64pYQQCpZgKaiLAC+y34haBWRq3w/EugpkKf6KWWQ/TXEQzNudx2XYs8KpmR6Scx3xgh6oIDV732zDgpYXHRiq0js40umxkSaANwbvmSqmjfb78diWNbqHJQwPWTb/Kr+3Z/KVgbhgMT5Ik=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=CvLrU8+G; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="Tw5QL/pZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1792414488; x=1823950488;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lG8ba8f3XvMZ016RxZR1uTEgZGmbv/N4GGCyJVqPUXg=;
-  b=Tw5QL/pZ20tk9BQT1nNGhI6mrrTYb1vfZkMylF3Gv9Gwb9jrAdCDi45S
-   bAA6MwVwTV4F9FWbyBzz9sAgxk1g6x1mP/3OzO0OgEB/OxIBHVwJYUGlX
-   vcpvUeLxRQ8vaI4le/5n6qKUUx5eqQKO3dEIHUyWdBRuBfooeqGzdcNmw
-   VzSTHygkoZsa1wjEr8/3xaYIG7zRLIoV1NQh5zz50gjZ/tCpLDn5x5ENw
-   /L33dBfpxSIRM3yn35yr0Vg6LNqGZ5jVcAIxrzep8umSJZW9PNMnsY2EY
-   5UN/J+KimyGiJOw3PIrdLNapKGZ1qSrsIzDsdwkCoT6970Ggv2zMD7dO3
-   w==;
-X-CSE-ConnectionGUID: liAOrRF1RQ6AdicakOhZCw==
-X-CSE-MsgGUID: n67OlmF4SUmbLeE8K6aFIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="258703256"
-X-IronPort-AV: E=Sophos;i="6.27,167,1786978800"; 
-   d="scan'208";a="258703256"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa2.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 21:53:36 +0900
-Received: from az2nlsmgm4.fujitsu.com (unknown [10.150.26.204])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 357C41C000D4;
-	Mon, 19 Oct 2026 12:53:30 +0000 (UTC)
-Received: from az2nlsmom4.fujitsu.com (unknown [10.150.26.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm4.fujitsu.com (Postfix) with ESMTPS id D86341000867;
-	Mon, 19 Oct 2026 12:53:29 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.8.51.148])
-	by az2nlsmom4.fujitsu.com (Postfix) with SMTP id 9EDCE2000233;
-	Mon, 19 Oct 2026 12:53:21 +0000 (UTC)
-Date: Mon, 19 Oct 2026 21:53:20 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: kernel test robot <lkp@intel.com>
-Cc: Tomohiro Misono <misono.tomohiro@fujitsu.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, llvm@lists.linux.dev, 
-	oe-kbuild-all@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	kvmarm@lists.linux.dev
-Subject: Re: [PATCH v2 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA
- erratum E#030003
-Message-ID: <atYOKfirjR1VqBZ3@FCCLS0092175.localdomain>
-References: <20261016-monaka-fix-for-upstream-v2-4-fc7ede7f9f48@fujitsu.com>
- <202610171939.VWCcPPra-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="CvLrU8+G"
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D2E57202283;
+	Mon, 19 Oct 2026 14:55:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792414514;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D62cup5vprZgFRRa2wzv2xPzHFDPatAnjBm5Em342R8=;
+	b=CvLrU8+GmNypWn9xx/r4fdYSchqqMToLCIphjGezVcKgEReCLDwu4KClpz/9k7dw1wUZtT
+	mLQJtWWOEHZfwcmFWN2Q0u2KPfbgvNIFKpnHc4M4eL9J2ppYYeE8kakZHVR8qglWYiPRhu
+	tYZ3D7c/SUgQN2jLVW6PuM12R8trJGPc4aFTkE8PIX51UoIsHFVHBRJ33hRwRkzchdulpY
+	TVZnMDQwW1y/Pl2ERHoUNvPVbd45xg0JL6nIHyj7/6YpzHqR+ujBDiobvlNxhcyRSmyXj2
+	hC7WNh59pIeLAC0D8SM1sL9x1INHzeOVwMPXM66o8yUD8SdwazuBiFhfQttJJQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792414514; a=rsa-sha256;
+	cv=none;
+	b=Z3Hoz5ZYqpiDZNjSQCUX4qtokt95RYWHbGqNXWqhqiGqf+TwUCDZ8tMYc1DdbjSl0As+kp
+	no2s+1YvTtJ47puPaAYw0LLqisyWf1XSiXfOutBQNcWZnR56ARSWULa/+Z1Vi3EQSwB6Vf
+	2PG+IVa7/V/TDFQuDeNZZK2s/2OwcJ27ePvLyXSygTXpTRMFdkMHUCKccQ63E9TjcdyLRF
+	qAAIM+ugML03WPm6FjdGWP37XLj8TnexXawtwG++tmeanbeufaJjOnmWZr1UfZRpc+P96r
+	PiYVYIvtUXh+bgSKvdZ7ubpLSfrmYX5zTFZdUY095wH8ruyWH+E5eXYEIS86hA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792414514;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D62cup5vprZgFRRa2wzv2xPzHFDPatAnjBm5Em342R8=;
+	b=PqOAWYC9utW8pHVrGs/4aeyNUl89dwzkhYkJEoxW9do8WrW2lE7H6h/Dx2Ebkf4qFRaSMz
+	tV9u2MvW/3x7lVS6juzYWIkKfOmGFMNRVZcAQZN0tnH5bOtoaoFN1ta4h76p3ANwS54IbJ
+	4asBYp0P9935uack+6hWfLV3repCSXTntsMywf1TZTIo8IaTFA918AbUxAAA8GfrIgoB1x
+	HbX+tGOzBHSZgtOQA5WnVqTN6OiUqzse8VZKDZ+UjxKS0sOfwGappRHsHqb+C616Z2k+cN
+	ifQ344VCgdmFjU6y3fwGq4cz6mLcupOmwGQkySCga9wDVz3tDIyRtqz8CTOPdQ==
+Message-ID: <80b084d130b7dc7406ae23e54a77706a4f42b606.camel@pengutronix.de>
+Subject: Re: [PATCH 04/20] dt-bindings: i3c: dw: support up to two reset
+ lines
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Jisheng Zhang <jszhang@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stephen Boyd	 <sboyd@kernel.org>, Brian Masney
+ <bmasney+clk@redhat.com>, Jerome Brunet	 <jbrunet+clk@baylibre.com>, Andi
+ Shyti <andi.shyti@kernel.org>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, Lee Jones
+ <lee@kernel.org>,  Linus Walleij <linusw@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,  Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Sebastian
+ Hesselbarth	 <sebastian.hesselbarth@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
+ linux-gpio@vger.kernel.org, 	linux-serial@vger.kernel.org,
+ linux-spi@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org
+Date: Mon, 19 Oct 2026 14:55:14 +0200
+In-Reply-To: <20260929061417.20733-5-jszhang@kernel.org>
+References: <20260929061417.20733-1-jszhang@kernel.org>
+	 <20260929061417.20733-5-jszhang@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <202610171939.VWCcPPra-lkp@intel.com>
 
-On 10/17 19:48, kernel test robot wrote:
-> Hi Tomohiro,
-> 
-> kernel test robot noticed the following build errors:
-> 
-> [auto build test ERROR on 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907]
-> 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Tomohiro-Misono/arm64-cputype-Add-FUJITSU-MONAKA-definition/20261016-190045
-> base:   24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-> patch link:    https://lore.kernel.org/r/20261016-monaka-fix-for-upstream-v2-4-fc7ede7f9f48%40fujitsu.com
-> patch subject: [PATCH v2 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA erratum E#030003
-> config: arm-defconfig (https://download.01.org/0day-ci/archive/20261017/202610171939.VWCcPPra-lkp@intel.com/config)
-> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 6719b9e31d6a93099612c474eec76d9f41d0275a)
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610171939.VWCcPPra-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202610171939.VWCcPPra-lkp@intel.com/
-> 
-> All errors (new ones prefixed by >>):
-> 
-> >> drivers/irqchip/irq-gic-v3.c:1892:34: error: use of undeclared identifier 'ARM_CPU_IMP_FUJITSU'
->     1892 |         if (read_cpuid_implementor() != ARM_CPU_IMP_FUJITSU ||
->          |                                         ^~~~~~~~~~~~~~~~~~~
-> >> drivers/irqchip/irq-gic-v3.c:1893:34: error: use of undeclared identifier 'FUJITSU_CPU_PART_MONAKA'
->     1893 |             read_cpuid_part_number() != FUJITSU_CPU_PART_MONAKA)
->          |                                         ^~~~~~~~~~~~~~~~~~~~~~~
->    2 errors generated.
+On Di, 2026-09-29 at 14:14 +0800, Jisheng Zhang wrote:
+> The Synopsys DesignWare I3C master controller can have multiple reset
+> lines, such as core reset, apb reset, and dma reset.
+>=20
+> Update the DT binding documentation to increase maxItems for the resets
+> property to 2.
 
-Oops, I missed testing this with CONFIG_ARM=y. I will fix this in v3.
+The last sentence just listed three reset lines. Why increase to 2?
+
+regards
+Philipp
