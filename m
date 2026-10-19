@@ -1,102 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792452265;
-	b=ieZF6ePEfIcKeiteTvBfFlKEJQs+2HHb3y4cM5rNFBp0Tkw1iMEi53QXpbarxxhkeOUS
-	 9XR7kd6w1y8mFdarNdnlp9+0w+rnggsOJqPQZHeGaInZAlo/myYuJ0Hes9jHDGCJ5UtL1
-	 VGuELqDbEYUQafM6miV2/exJB91Iuf2ETrIRPbsl89rLBurWHAKn8XoLwx+z9NLjP3en4
-	 pOplMqJAWB/RnQA6qr4vyBK78E4l7WifZijvH6bhABakKPEdMbctd60l3Wd5THdaVkBb5
-	 k+T9fiIqkUAMw9EVxDXqTGi2wqusGaybit87N2yIfKf0jEdgGB00PYa4I+IXEsnC22w==
+	t=1792452271;
+	b=ASNWvggvpSe/ngp8VSBvUbnMjjB5oFlomsmoQFw8TSlIFQgAyCHfvr/2l96C2EE75i9i
+	 W/Hdi/w1kDe5cqtyG8XNQ8N01p902Baij1rFOhOl/k4N/9XGX39bEbCNz7qmCW69vuSw7
+	 v+zdNjH7yOBWkMkjl3tVXukfZYQnYd1dbTjIsABGYiTptE3sH38xNM2tqnpEyeeaBTIWa
+	 5ZxRBnYxBwjN9qEtPE11gcZj80dRhOb0X7V00VnBYPcipwq6pMiJagJ21ckF5NSxQScXT
+	 8hFHfB+EkrhXZBsDLJjFdyoX5hokFnc+u4M2yB00So0k83990W49OsuqKLojyoA9t3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792452265;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Qp6mhWPp883ejORG1lCokPuAQSQmWRK0wbW6sXM1LFg=;
-	b=NU/Ym+urVO4Fmc3g11ylHKqiZa1rMpiXQve29n8GEXM1VTGoxXQ0U2KCaWQwgUnswsDW
-	 qGVOo1wbQMPrx1waM7oieF+HxU2aU796dIYqONBDbJyBL2sCSsqXBR61IAl2bCPpD+9Cv
-	 1ZdQ8eDfuxanTmVthM1rRa9nc7bIQovhmhI8sY1ZeHSAkd7EPgo1AOB9a6xza7tdV4tNE
-	 IyoaAoAjrHgoptT758DYLt+1Rn/98PSwfzUVLNGyUx++9cI98GPGtMjhuj3mGXTRjDe4g
-	 irAvnuD5/1RbdxziTlkZiSQEW/ykVMQcpM34JhBMaO7GULmnHwf7Ie8Xl8UJCUyDeaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792452271;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=10eCjaMoOwpoINyqTdOdhi6Mz8qOVskSc0NuNTtMy2U=;
+	b=XIGNycMAc4bR/29tkt8xvlEzHFTvOCQFOz4CbKUOMGpXiJYRhaph97wi2afGrCBzU8vc
+	 ddZukydqkutw2a1YnKfuCp49tAmAJZ1j3vFrEl2TXRJjk078exu8kNRmTi0P/8l+KnMQ/
+	 qMW0GQokUHQqXyJnoUAS3y1U1ac4e7oa1/m692Cl0geecvUR9OUA2SYQyXdmm3d65OOlQ
+	 DlYP6jMnZIfQdycEfR3DkwIjx3GO5wBYma8055ipde4fd9la77YNK2qXlkocicjqd+PTj
+	 jlNHicnwCv3x1n2i5lBpAx9mw21QNPHfp3hX3uYWKGCSiYeADeKFm4/qrwFOnQg+neg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qlIWEzYZ;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bakaace3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B676606A328
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:24:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B676606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD294606A32E;
+	Mon, 19 Oct 2026 23:24:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qlIWEzYZ
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1e266fca2so11776605e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:24:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792452263; x=1793057063; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Qp6mhWPp883ejORG1lCokPuAQSQmWRK0wbW6sXM1LFg=;
-        b=qlIWEzYZWTpLVZ87fQOhoefZgH871KE0r26083GLDjuoH/SAIxZVs7eYsZjYy9sOXe
-         AFiP7hq1HhBBm3mU2mA0DWk+XbxilAYbQL/TRSrZG9v9291VXlIvGLr+S4RLbkXgB9Z8
-         jZ2jsX+M3IN+ahxLBrzONvjRmfLvP1lHuuokE4mo1xZQC1+BYiKFULyD1TcH/EB+D0kW
-         1k9/7zqpRcgWiee4DFOKWpS+A5RIO3Yt7HxMfFK+uvLX6ikTXuLDC1U1cTnknkUytawk
-         TdZ9rgtQ0uT1dJgd13knkx+MhFw21J5p1B7T4k0WhsOr4XO4a9cA52OoPaYGxyYKBU7b
-         JEvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792452263; x=1793057063;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Qp6mhWPp883ejORG1lCokPuAQSQmWRK0wbW6sXM1LFg=;
-        b=MAAlupA659cDSf1mKSMXkYjEDh6kCKbjaAn0nzP5Mmzeh+QxJ+MIMkRdUIqYS2iyoh
-         8rGAy6CJKSsXua8TQgFHw5ITHqS+aDvsQdezxzIlMW4Uz3jzaejnhq+zgTtJ2pOO88Pv
-         tj4e58sY6pxwn0OulqQK+QIFyCt6Q9vNSOm3eOiHa7zlLAlWvg4m6XNv7EeNAqqn8elI
-         UbOIt4yxHAE/Ct1z7r2jGMz3c/Y7Da9chiVcLJOwxBdA3hqVI5obMi7f6N1PnQjTp4i8
-         4X+8LY1bfjrtJUq/mm7fBSptZfx6rgVyPvyq8vGvt2xB+McD+3gJKo6OOSvN+pcvS2Ch
-         phgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/r4IQ8icMuQkTZsmIiJDzNyg15kZKm3/MsUiVu540z6OM9CtVajZA0b+4G6EM+Xk+9z7tYQxyjRGCUi0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIG32LiWlXCHZffx6HGgX9d3gnSUdj1jVQKn4RE+ozNDPlQNJDM
-	nYjWdWtmGQ6hqAAWT8uWLcwyk94lh5UjUjJ18dW8aYMWbwqtdX+uO8dkMoTeRw==
-X-Gm-Gg: AYBFou3RXn9FTTp+6b4VsV1WFiFrgIf5qki9vPdmkGM6Qf0cF4Fg7rZtrWauV5lWF8m
-	2Ht6eD0Vge0FPiVR/ogVAzR4KnoRVyCZTacEYFy/g4vYQ9GON2EorkVnt7AaYYnDifRxxVwICvL
-	LWgM67S3uqWIDtnTa6ulpKTVuFO6MYZ1IoBvy2wMTbT0RoA3Q8K9gIDIthU5hsC8beAN02iEMJm
-	w0k6/R743VjnyaegVuZT1wQsysHYrkyR/hBuDigxzDHClFx3mDeZi/+JObd/aUY6L1IjwMxQ7X/
-	Gi4YkzyoPJRtGDaRpdgbmpZ1C3tChOXeeo0CzzcF/ftXfikwEsqkDQ+GWw5cHXdzD+vD7zsG6qg
-	uN1PcQUFRlOQ4pnyorTwKAXz2D6FIPJwUwziTGB+Yhf6Rzd0b89Mst5N7rHppKX/06Pc23mx6kq
-	uwXzkoGlnnlkx9EhfRSYV95klmEJezCjsj86Nofq7+Lda65bREz7fA1a9v++FnN/LkOClsd6f0I
-	QHagngMyCaA7mJ/qiS17zGDLAsPwjqhVPnsrPArEC+LHQjuvQVH4IFrIOCmb92vxrCx4sUPL23h
-	0kk=
-X-Received: by 2002:a05:600c:4fce:b0:4a0:1b14:e283 with SMTP id 5b1f17b1804b1-4a1d75ac25cmr214576945e9.1.1792452263000;
-        Mon, 19 Oct 2026 16:24:23 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cd348asm26244055e9.11.2026.10.19.16.24.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 16:24:22 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 1/2] ASoC: dt-bindings: airoha: Add AN7581 PCM controller
-Date: Tue, 20 Oct 2026 01:24:10 +0200
-Message-ID: <20261019232412.516028-2-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019232412.516028-1-ansuelsmth@gmail.com>
-References: <20261019232412.516028-1-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bakaace3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 149A71F000C5;
+	Mon, 19 Oct 2026 23:24:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792452270;
+	bh=10eCjaMoOwpoINyqTdOdhi6Mz8qOVskSc0NuNTtMy2U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Bakaace39seCT2ZID1tB3Fq7vSyjpWFjZ1HVCSBHouhQEaiXt6DwJFPi2wMv8GDTo
+	 RJhsWg2MonTPnBzT5VpIm1D1DY6h86io/Q2ohXeeRbA4iYGEoiFMUB7JOxG2mGI4PM
+	 VK0C2HVXc/NoTGwVSAimo3rdUtPHLpjMBBO8u163fD5NHQkCWnfTNmX2gOQ5DKPhPT
+	 /Tf6QO6POJMlCkzBuzAx78L5Eit3ceA7GCvXvz7Nr6BO7u/N4eKjI1IfcQ2jFUUJQV
+	 PtueLnFbS0KFOToipm/sPrjw7kK0/95zodzT0B4a7InueoiFNVuI6sdpXFXShQ3vC0
+	 idLxjf8bz0UlQ==
+Message-ID: <f35b0ff4-6479-4670-9883-77b3f918de20@kernel.org>
+Date: Mon, 19 Oct 2026 16:24:29 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,81 +51,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 2/4] keys: add KEY_SPEC_IPE_KEYRING
+To: manuelh@nvidia.com, David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+ Andrew Halaney <andrew@amutable.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ linux-security-module@vger.kernel.org, keyrings@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
+ <20261019-b4-ipe-keyring-rfc-v1-2-156f0b93e843@nvidia.com>
+Content-Language: en-US
+From: Fan Wu <wufan@kernel.org>
+In-Reply-To: <20261019-b4-ipe-keyring-rfc-v1-2-156f0b93e843@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
-supporting playback and capture at sample rates of 8 kHz and 16 kHz.
-The driver configures the PCM bit clock to 2.048 MHz and supports
-8-bit and 16-bit samples, with up to 32 channels.
 
-Document the related compatible and required interrupt/reset and provide an
-example for it.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/sound/airoha,an7581-pcm.yaml     | 52 +++++++++++++++++++
- 1 file changed, 52 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml
+On 10/19/2026 2:40 PM, Manuel Huber via B4 Relay wrote:
+> From: Manuel Huber <manuelh@nvidia.com>
+> 
+> The IPE policy keyring is allocated unlinked, so userspace would
+> otherwise have to scrape /proc/keys to name it.
+> 
+> Signed-off-by: Manuel Huber <manuelh@nvidia.com>
+> ---
 
-diff --git a/Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml b/Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml
-new file mode 100644
-index 000000000000..e73236453b88
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml
-@@ -0,0 +1,52 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/airoha,an7581-pcm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Airoha PCM controller for AN7581 SoC
-+
-+maintainers:
-+  - Christian Marangi <ansuelsmth@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: airoha,an7581-pcm
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  reset-names:
-+    const: pcm1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - resets
-+  - reset-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/reset/airoha,en7581-reset.h>
-+
-+    pcm@1fbd0000 {
-+        compatible = "airoha,an7581-pcm";
-+        reg = <0x1fbd0000 0x10000>;
-+
-+        interrupts = <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
-+        resets = <&scuclk EN7581_PCM1_RST>;
-+        reset-names = "pcm1";
-+    };
-+
-+...
--- 
-2.55.0
+I'm ok with this id addition, but why can't Kata use keyctl to find the keyring by name? e.g. keyctl padd asymmetric "" %:.ipe < cert.der.
 
+If the concern is that /proc/keys can be spoofed, that would mean other processes are already running while the keyring is still unsealed, which seems even less appropriate.
+
+Fan
