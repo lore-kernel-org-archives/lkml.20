@@ -1,74 +1,126 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83DF4E3241;
-	Mon, 19 Oct 2026 12:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6603839D6EC;
+	Mon, 19 Oct 2026 12:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414283; cv=none; b=EWdzRVNKwkvHpkcAN+PGTkYoVQT277TCtkRNs3IJbdFBa7+hs5zNUCA3FADye1RuqpoT1IGXbfi2kIX5fCpq+jZ9Km2fVcmBwSCcE93K6e8btrS1JoPT3glbg2+EE1VgpkkyWVlhw0FwOPxEQp1HfFF1e75cUpvlZV9V1IH09TY=
+	t=1792414339; cv=none; b=JCIqlvOH3maJNVa2x6R+vUKsuIBNKaP9HgvfBftPe9FpWqdtDOvXhS1LnuG4SDYc5yCb02POxSu+rE4InkHx955UojTY9MyAkqYyYD1YmE3oMXT4ykQiRpHT0n4uxs9t9wBPn9DVDqxYXdSNv+KWTNe0LckXle0MgWRui5vZ1bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414283; c=relaxed/simple;
-	bh=XoshIT4Yk4/+L4hPu7UGN3v0X7efLSGXlzYYsxhxI94=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Z0oEtA1ekB3RbwkgeueyJPgFIQS7aX8XAknApXWZ9gihcOBVuqAoNlDyvswWvxJoPylkTeQnUvJbDKutmUez7VmcyGepiQdJVZ/+hXBV0cNdD2YbvrcvQlH4GjzItOyFh0+ZpSgxVTZSK21XmWgVhepSLLIQitlVOYRDpB5RVvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=QvKejIiq; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=FJk40+i2; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792414339; c=relaxed/simple;
+	bh=UvnW/ptFCVa6iQGyAM0E5xT9G7n7qsnHLg33EU/MtTg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nqet4a9CBoaDudyiSKp0Brl4L3sVBxNHZjMKMUVmbuBEJL2L6HMDKtsj3zIIU51WBF7pKSkQFgh51Ia163mUDxf14El7lt20Ml0NSRmktAL3NIOKP90+ZoGRs4KVyUGqTry1Ykb9/1rerq6jQ95zJ+VXJ2RXY13yOjuaSNr+X0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=g4SvlhnW; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="QvKejIiq";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="FJk40+i2"
-From: Nam Cao <namcao@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792414277;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XoshIT4Yk4/+L4hPu7UGN3v0X7efLSGXlzYYsxhxI94=;
-	b=QvKejIiq8ol5xZJAeoYurGN4c/qcdbHaPn2Iy1ujoEnvLndWq/AcGusMFw9e3AWIDlmDd7
-	RrlcbHyfVFIiHLXYPjZ86tirtl+IMKXlmgBiKuwLTj5Of8C2JG3nLg+Bca6bVvSA5BYKDk
-	pGOREtbOOGo0vIWcmlJlwIzqdKkcSiNj3ngR5PJAGPrJEwt100JZUdIev9OjiD7c7TMAT4
-	+QmwDc8XLZv4uhsvbV0OYBO3qh4i9u19rdYAQ88ROvdetRTX6ZjM31sSbBkHol2JJ73Q35
-	zwVMxoMisaSNWKimzW35NX1bUwDG7fqOpGGokvaoZnaCj1/SnJRvC+ncRUogtg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792414277;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XoshIT4Yk4/+L4hPu7UGN3v0X7efLSGXlzYYsxhxI94=;
-	b=FJk40+i2llwR8Tz/teaLjzJSZOdd7HSfIfKbJCD7EzAypOzwhlOACc4AnjOm1PEK6Mjqx/
-	smAhjrA1+XsCiWDw==
-To: John Ogness <john.ogness@linutronix.de>, Gabriele Monaco
- <gmonaco@redhat.com>, Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>
-Cc: Wen Yang <wen.yang@linux.dev>, Tobias
- Schaffner <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-In-Reply-To: <871p9mqcn2.fsf@jogness.linutronix.de>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
- <20261001152042.124445-11-gmonaco@redhat.com>
- <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
- <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
- <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
- <878q3xtptq.fsf@jogness.linutronix.de>
- <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
- <87bj8s8ih9.fsf@jogness.linutronix.de>
- <b76dfd3e5a118e30ab25910f243db1cbcedc1c00.camel@redhat.com>
- <871p9mqcn2.fsf@jogness.linutronix.de>
-Date: Mon, 19 Oct 2026 14:51:15 +0200
-Message-ID: <87ld7trgzg.fsf@yellow.woof>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="g4SvlhnW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:From:Reply-To; bh=U/XKh6GM1z/aGHCctk0Rw56ql2dui7YkAPDZ0Gsb3Qg=; b=
+	g4SvlhnWYEClp9ivcUM0jIP5DKxNAErNqCeiy0FSCi3oV6rccrH9cv7k+DKj3wjSN3rIF7ey3bTf+
+	ZV50wvHpWFThIA0CzBsxeKqXPnbhRqYEIhpTNbkhn7M5vMzgZ3z2OdO1sXtmbZJXWreb/owYT2E4l
+	tTR3ya6vZxg/KkS72s+ANQjSWguHZLVJpTUM6a51cfxsRfXKvqy6coc7ocEG32Cxthd1+hODoQ0ZJ
+	lsBucpqJmKiFfkZqnJNvvb42WgbA3SgJik1eMO60GI9LIN6G4LKo+YZXdIB64WKBcGNgnDjyMkFEC
+	Bc96EO+OZ3WS9SNmHInNso82wIJWQ7S2Gg==;
+Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xImqS-003Tpz-PJ; Mon, 19 Oct 2026 14:52:04 +0200
+From: Luis Henriques <luis@igalia.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: luis@igalia.com,
+	mszeredi@redhat.com,
+	fuse-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Matt Harvey <mharvey@jumptrading.com>,
+	kernel-dev@igalia.com,
+	stable@vger.kernel.org
+Subject: [PATCH] fuse: fix 'inval_wq' parameter setting during module initialisation
+Date: Mon, 19 Oct 2026 13:53:29 +0100
+Message-ID: <20261019125329.17932-1-luis@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-John Ogness <john.ogness@linutronix.de> writes:
-> @namcao: Maybe you could chime in if you want the transitions as events.
+If the fuse module is loaded with a 'inval_wq' parameter the inval_wq_set()
+function will schedule work into dentry_tree_work.  However this worker is
+not initialised at this point because fuse_dentry_tree_init() will not have
+been executed yet.
 
-No. Those are only useful for debugging RV itself and do not need to be
-upstream.
+This can be fixed by delaying the work scheduling until later if the module
+is still being initialised.
 
-Nam
+While there, also simplify the sched/cancel by using mod_delayed_work()
+instead of schedule_delayed_work().  This will result in having the period
+being changed immediately instead of waiting for the next reschedule.
+
+Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidate expired dentries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Luis Henriques <luis@igalia.com>
+---
+Hi!
+
+My initial approach to fix this was to use DECLARE_DELAYED_WORK() to
+initialise the wq statically.  But this would then move the problem to
+fuse_dentry_tree_work(), as the worker could still be scheduled before
+the module finishes initialisation.
+
+Cheers,
+-- 
+Luis
+
+ fs/fuse/dir.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+index e49b4e874b15..23c8259725c9 100644
+--- a/fs/fuse/dir.c
++++ b/fs/fuse/dir.c
+@@ -43,7 +43,6 @@ unsigned __read_mostly inval_wq;
+ static int inval_wq_set(const char *val, const struct kernel_param *kp)
+ {
+ 	unsigned int num;
+-	unsigned int old = inval_wq;
+ 	int ret;
+ 
+ 	if (!val)
+@@ -62,11 +61,14 @@ static int inval_wq_set(const char *val, const struct kernel_param *kp)
+ 
+ 	*((unsigned int *)kp->arg) = num;
+ 
+-	if (num && !old)
+-		schedule_delayed_work(&dentry_tree_work,
+-				      secs_to_jiffies(num));
+-	else if (!num && old)
+-		cancel_delayed_work_sync(&dentry_tree_work);
++	/* Only start/stop workqueue if we're past module initialisation */
++	if (!module_is_coming(kp->mod)) {
++		if (num)
++			mod_delayed_work(system_percpu_wq, &dentry_tree_work,
++					 secs_to_jiffies(num));
++		else
++			cancel_delayed_work_sync(&dentry_tree_work);
++	}
+ 
+ 	return 0;
+ }
+@@ -224,6 +226,14 @@ void fuse_dentry_tree_init(void)
+ 		dentry_hash[i].tree = RB_ROOT;
+ 	}
+ 	INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
++
++	/*
++	 * Start workqueue immediately if the module was loaded with the
++	 * 'inval_wq' parameter set
++	 */
++	if (inval_wq)
++		schedule_delayed_work(&dentry_tree_work,
++				      secs_to_jiffies(inval_wq));
+ }
+ 
+ void fuse_dentry_tree_cleanup(void)
