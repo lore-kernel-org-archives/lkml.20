@@ -1,216 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013013.outbound.protection.outlook.com [40.93.196.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDC53DCD85;
-	Mon, 19 Oct 2026 13:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417163; cv=none; b=oXpVihr1L2kH62+sBsvABEkXn8vC3lJtrRmjhZKMcIOhtyF3C4EXWW4zEY734fyosT5484iWEb4UzlclWZ68hlrf+hG+50BxzaugszpHqfnE97/+plgOkpG2IdTLVkYGIwnzy7AcfW5lOlaTKS0y+FoSBBWdRDpaC7HO9ktxbi8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417163; c=relaxed/simple;
-	bh=slYxthp496E4xcRQzJ2OurTUqSc5h7per4A8X+sBkMc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kM/mwmBVy8G4hGeca70jguPCfGFYCZ3hwj9adT9rFznTsSNpcEceJUnQVyMz2qmq/Af1CmxqrE7ZLqEHhnqh6KElVXuOzsqoHxun8k3wuNftw3P8ZVx3jKWusPWKZvmVU3HdCcDZV6VABY2n1Y88vxPYmScVOOgyc69ZoziY54U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooQ1JabA; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE14C4F3EA1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:39:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792417169; cv=fail; b=YxHhELb7gNEfktEAn/UQVVQnCt8GXBS19WzSJOFvl42cRxD43af8gZoBSW7W5HWg5KUYNnkdv3evqlLtInR5lp6nlIfo/Rq2sL10A27lK2FXuaI4fss3pok8BAZ8eYzBA6S7RcqqlDlTMx+yRp/4TuXhG9ngB6/k7OxUHqWwOF0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792417169; c=relaxed/simple;
+	bh=8KmUopJ29An74vGfwC10yIoswdCDAVmADYEO3FEX3YU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=TQI5ILuts7Wb3JnlBT8buPDiBR4IyGbt/3CZ0rlYP8998+Le67lqSeGFypFvJNqWPs7q5KzAwjKcwL7FevGRsQ8TEfXWZFpc3r1MADOmwF+FbZCERZCtoFnqwJnmbGwsiCgOEkNM7r0MdEPD30lHPwwo/+IZ/s1k6rqgw/I7Dss=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zgwy/H6y; arc=fail smtp.client-ip=40.93.196.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooQ1JabA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B87AC2BCFC;
-	Mon, 19 Oct 2026 13:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792417162;
-	bh=slYxthp496E4xcRQzJ2OurTUqSc5h7per4A8X+sBkMc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ooQ1JabA+OKT/VV/Ola+j8K5TW/1zqY49k4ymYvOnOaFuUUozVqQ0QrOQFb4j/3c2
-	 iR8z2/7xXv8ZeGANB3t6nVpErxwppOf1KpXzkIbjr9+1nmhZVKO0vKgawzcQnw/qWa
-	 vz0PflMFYx+uPgYPT3b3lUfwOkDF2i73tGQSg8rEuIKrHh7Aro0uwK+BcPMaAXez0W
-	 k1ZMNlBcD82416yrUo5u+1s7yaYbYeMyoMtOEh/FBUPYF+YxYm4Rl0yClj5wx6KBwg
-	 iIyRP6HxZjUkEIj4yVWesIx2fam3Tk6tiJ5IbT6+/4xbHZ2q0KqZqDpmWCszrGakHY
-	 CaWCCIO7gG7tw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B4C2CCF2E3;
-	Mon, 19 Oct 2026 13:39:22 +0000 (UTC)
-From: Mohammed AlHashim via B4 Relay <devnull+eng.m7mdhashim.1.gmail.com@kernel.org>
-Date: Mon, 19 Oct 2026 16:38:55 +0300
-Subject: [PATCH v2] drm/msm/adreno: Register devfreq after the GPU-specific
- init
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zgwy/H6y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pYziZp0DfEqCxRXQzOuS1bx4JWCQQ70DZ1X/wKzVlEZNPkFMjEbVmgl8bHV1eIHm2Xk9X/b06mHXarz+RQte+xOVK04EZn0oJ74e8O5LnAbCh++GHMNWV6rnVUdU2kJl2JF820NgyXPU2hS2mbA3Br7VHjRo6i1qeBFtoWwGmioxYb3IrNKFBf1HApRgUUcElTGz64Sn3Y6DC5GLUFaS1HfAwqwlMd7qViJbqohjSV8KIFRQHhmgRsvG7pRDd22co8qbnpbaH4U9OzrRHO9de4qjA0KmEnl1kOwO496yM4SQ/ftOg/U2UWhQIcouRjfgtomndagAnon35dG/HDdr9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ehQRufu6Kw19laxxbfr6y2QHESby6WlCcyGgm4CfcBE=;
+ b=Ov/U+UZme/XvgI5KLbKjyRpG/QjKWTqG11ZNK2xU5BlQpkUaJvYhfQKo9xzLlfcEccWsu2gksTWH6ESVnUsLBCzgbkX485csJT6AJT8YPwU3WM0/uON1CWwNSHR5V7NazX7ISMEHQeUa1LSjZEhqpstRhpvktoMxx9KCcSzJIOisgf3FMBV/ZlHUX4HRDSqIlp4wocIZGpJ3xJiZjP43U/zUg8VoEsmiCn587HVrW0X3QWXN5anfd3kM3gKmppShWOy0eIWMw7gtTzBD32XXySJIGOZzMaKp5OBC0TOLP/Z9bARqoiSiGPwr2afG4z4PWZVA4qGdfp3gyceOZUPvDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ehQRufu6Kw19laxxbfr6y2QHESby6WlCcyGgm4CfcBE=;
+ b=zgwy/H6ya0TjhyKgCJm4xKeoYsm902OorCdOwWxdeEfC0qRpXKcGdO/CjHbfwSSN6etIEkpIrSLkVKJHF3Nh8kbaNwLIfkFiHxuA6uyVge4f774HeLcx6SMZysU/XKBcTBxG664nkn0vgDxJ+tzg6HYzDOCrF8PQofttOgxNYNo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by DS6PR12MB500340.namprd12.prod.outlook.com (2603:10b6:8:52c::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 13:39:24 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 13:39:24 +0000
+Message-ID: <c9586000-8286-48d9-941a-bcf2841fe79d@amd.com>
+Date: Mon, 19 Oct 2026 19:09:07 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 12/24] iommu/amd: Store per-segment iommu_dev_data in
+ an xarray
+To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
+ jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com, chrisl@kernel.org,
+ wvw@google.com, wnliu@google.com, dantuluris@google.com, kpsingh@google.com,
+ alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com,
+ guanghuifeng@linux.alibaba.com
+References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
+ <20260930092344.5616-13-suravee.suthikulpanit@amd.com>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20260930092344.5616-13-suravee.suthikulpanit@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0249.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ae::15) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-msm-gmu-freq-guard-v2-1-799eb15890ba@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jm7RhaA6muvIdhUaZDGWNBWyAaw
- t0F3Lt8yfvvz5A4Cie4ZDNEniRJ362gDxlQazvPKG5l0LkuVa4MhhTQhxGbyC/0o40OubBkToV
- RTV3AOnxGbuS9R2/Vj9NY35mGrbQZraShj5/9dVKb9/dgUqjQubN2RMRsyqsPVh5H6gNUy7J8A
- cCu7pbGAAAA
-X-Change-ID: 20261018-msm-gmu-freq-guard-e5ac83581fb5
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792417161; l=6463;
- i=eng.m7mdhashim.1@gmail.com; s=20261018; h=from:subject:message-id;
- bh=r8SfK/Iz/wVLnIplhj+V3MUujIzOEzMTsriA+q8roW4=;
- b=loEzTtjSzd0LghPPlDggXNMIcuYnZGEFrwTAxA0TB7rMZD0/qmxz2e5HNpxS0/wFLX9gzxI30
- l6uInSRHW73A5aMS4YIeT3LYrcoRHIcQfEipypSRSt7Q5RAuj81yrwr
-X-Developer-Key: i=eng.m7mdhashim.1@gmail.com; a=ed25519;
- pk=nadicxm5lJrpr6u2tkxbYV+wi8bWOYqheGU3HolXoXA=
-X-Endpoint-Received: by B4 Relay for eng.m7mdhashim.1@gmail.com/20261018
- with auth_id=1228
-X-Original-From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
-Reply-To: eng.m7mdhashim.1@gmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|DS6PR12MB500340:EE_
+X-MS-Office365-Filtering-Correlation-Id: a600c9e0-b7eb-4e09-66c2-08df2de6638a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|18002099003|22082099003|4143699003|11063799006|10067099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	QAH7hZZLN4JyYhcA7ebp2TiS/qkoWLWy414LXRnLSPtz0xMaSLTykf3mzjm1/8hoWaNfz0MHKo80HLLkBBqNHfSFhoEfw2ZC65Lwm2ZnN/wsBOZvgofAD7rmApNXkkcrzdfPGAY8o4sp6xSaFaew3qD0iZvzA2HJq/SeGboQtNyFlw6X3CPhF+4zQo80GMt5EzZzM8FZp3IrslokrCUi+PM9sWOtuFZhU9tWiAX8CEOtx+cmSvIUROXlQebPMb4mAwfTsdRqMa1vDQ4ts8SK78tBHCzFm8KIHdVwQ8Qz0uxRvjyzqaUYrkRerBXjh22QONc89qyobw5m703i9sVj5jRnCRVxLGn21sLY3Rm01eZM5a9z7nBiXuk0Kg4I2CMQ0AgHvH9d1R3fFSc6yrZ1pXj74xjEo85v9xhtfRq75vfyYpf2eGxbLmdkUJbd2LJEvX8RrlCt/azWj7ADB+Jg47+21cp63Dq4YDSvFjx8QZzLoHu5EsBw5u7Z2SMWty7pB5+lsWkqMnR1x3siWguIfNfefJ+oywwL7CJrqIb/uobumgAw5JUKn9lEhngNB8f2FU+SegxNQjhp3k20tREl0CKrA7fk1KamUM6O57NXy4B8k6T3ckyb3klzUeytvKZHLh3T6IFlNk+EcMH673OE7C7aDb6Oagn5XidTrWTbf4U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(4143699003)(11063799006)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SmxVVXBvRjVqSHozSzdIR0JrNkxBb29vUnNKazlZWmIram5YTEFUSTJ0SjJs?=
+ =?utf-8?B?WkVWNU1kUHpsdXlZN1FhT1dvYy8zNTNyQmxmakdQK1ltTWQ5K1RiY2QxbHVo?=
+ =?utf-8?B?cmxhdXFRenFMZTIyTWVhS2RWUEN5cjBVakwyZUR2L2hBei95bWpyT0hQM1FI?=
+ =?utf-8?B?d0piT0h1MGg4dkZqOUpMd2dzcFhiVkVSNGFqc1JrNjcvRTVqZk5qbGtXLzhu?=
+ =?utf-8?B?TUh2SDJZNHFJRFptWUpBajRFTDVYaW5ndC9Nb0dTLzU4ZHE0S1lmOHBIYjZ0?=
+ =?utf-8?B?c2pvNFVXZ0VzWUlIRGlGbGpGWE8vMmpLQWxwU3UyTlRKRWtqcHhmQU1VYld6?=
+ =?utf-8?B?TXF1OGZCcXJJL2t5VERxVHpjSE9hcXF2ZTFFV2FuM0Z6cUtMZ0VxaHlWc2lk?=
+ =?utf-8?B?Z1dDek1zb0k0eVlPZFZVSnlZaUwyZGFVNDA5Y1FNUnBydjRhWEhoU1F6Vmha?=
+ =?utf-8?B?aXZxcGNzUG1XbWF5Tlk3S0pvcW9lZEFPa2lFNitPcGNFb0tsaHlPcEhmTllq?=
+ =?utf-8?B?VkhGZHY0aXBPdmtqOHhUeUVVanNjS3lyWEg5elhVRUdlUVh1V09vQm9mN2FU?=
+ =?utf-8?B?Sjl6L1BKUG9uZVpxUnRVN0k2ZjdqQmRHSXA2SHZYWWcrUzhzbzhhcm5QaU5Y?=
+ =?utf-8?B?WGtTSUlMQ3pEM3U4M1AxTlk5d1VlTTlSVnZkblhKNk9OemtiaWo4TmJxeTJC?=
+ =?utf-8?B?TDhzdWN0T2s4RFNlTWxEVU9BV0ZhTU1PbUlpWS9XaGhFZS9mTmtLZjVvWi9s?=
+ =?utf-8?B?MUdOVjcyN3Njc3o0bVZURVpDNmYyZ3BDcmhwYXRvcW9OOXp4QkRtRDVDMmJj?=
+ =?utf-8?B?SlZnSDB1SXp5dVdRdllNS0ZUVXl2WC9YY2NHVFBhZTE2bllhYk5RMmJxSzZt?=
+ =?utf-8?B?WUFLc0xKT3J3cU5DYW9KVC9CR0hpWDVDVWxvSnJoUk10cWRSd09mOEtCVnRn?=
+ =?utf-8?B?TnNIKzArbVJVOWtHSmpxSFYzcHVIS1FHZXN0cTFLdTBDUWh0d2ZwWGNRc2Q2?=
+ =?utf-8?B?enY2aHMzV1RWRzVSOXBCSElXRzN3VzNCMzBDK1p1VTYwU0Z3NjlpbENtd1ZN?=
+ =?utf-8?B?R0hHdFJmeDV4eDZHWUZDbkRsZ0JZeDlFRCtoMHFHT0FXREpweFNLTk1aQXFw?=
+ =?utf-8?B?Y3lCa3h3a2NiU1o3RTBPOVZqZWtZT3d5Q083R2h4ODJWSVR5VkcrT0JiMWEr?=
+ =?utf-8?B?YzNOK3AyS2FXQWFIcjRCVGxaT3hsNnIxbHBvK1NwYVhDNE5ZbS9iTWxSbUVH?=
+ =?utf-8?B?VXM4MHJZc3V3Z3NuK3VXVjFIZkNicURtV3FxRVNjdGhRVEpSK3czc3hWWHVD?=
+ =?utf-8?B?N3JuN2ZwaU9DbHhHU3JVKzlRRXluQ1dESEJqSm9DRXh3SGVKNEhlSk9KTS94?=
+ =?utf-8?B?R2JlWklOOXlLRVVYWjZlQVM4QWNQZGg2QWdETzNybmJJV2dsYXVsZ05tVGs1?=
+ =?utf-8?B?S3JSVHBwdWxFaGJ0bS9meHlZbTRDMWlRb1o0aG1SSEtHOHY5alFBKzg5RDFD?=
+ =?utf-8?B?eVR5ODFsSVkwbWdQZHZTQnVUUVU1Yk5jbVBsZ0RtTThkeC8wNzJQU1ArV1ds?=
+ =?utf-8?B?VnpFeXdPRGRKek9CcFBNTkhWcGFHYnN2d1dlZnZqVGZMZTZteTdnV2xMbHd3?=
+ =?utf-8?B?WGZ2NkcvYlBwSkVBbmlGQ244NkdwVWt6OWxSa25oMUlQQnhHOGpWY0JDTW9D?=
+ =?utf-8?B?aFdTZEYyYVNZbXVvUEZ6d1dOQ1pEYW5sZkVGYkd2NHFzQm1lU0ZCQXJoWlcz?=
+ =?utf-8?B?blVCRVJESGN6ZitVTTRHL3ZQcXowT2c3U0I3S1Z2a3M1VFp6OGltSzZpdHRP?=
+ =?utf-8?B?M0w5THNJZElhRzExZ3BPeWRCUEtMSmVnNnpCcVhHNi9wb2RqM0ZwUkE2ZEE0?=
+ =?utf-8?B?WEo2aiszeW1aSWN2VDJKRnZGM3czT1NadXNyU1FydVdtUjJCd2NYOFpUdFVW?=
+ =?utf-8?B?bXBDUVYwMVd6UWhIR3dLSm9zYUJ6REt4RXM3UjU3U0xBanpiaVpuamNsVlRs?=
+ =?utf-8?B?NWs5dENjQzVYa3FmQWJ5T3JmT2E5WnFERzlrQ1RyS0FsR1JlQXRja0FjWGVL?=
+ =?utf-8?B?dWozb2Vxa3NzTUJKODRFbmV4emEyMVZDa1dpUWxRTGFrRHdiUmU3VEZBRVVo?=
+ =?utf-8?B?UXlCM2tpa3h6em5aRnNJdndNWmVQL1VqUTJlUHRNdXVNeFhYZGloYjVkUlJG?=
+ =?utf-8?B?ZEk4dnBmK2ZwTmlaU1kyM0tKTFpRNXp4aUlDbDB5SitBZ2VFMHlTWjZDdFow?=
+ =?utf-8?B?TTZNelE4S2Z3d0ptMGlQOVFOMkxmUklvajhOcDlmQzR3cUxINks3dUZvQ3J4?=
+ =?utf-8?Q?rThk+aXgann8Z7tHm+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a600c9e0-b7eb-4e09-66c2-08df2de6638a
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 13:39:24.6998
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PHNe704RKsfGO94v8nIzJ214NDVbWPK28qyzdJm3zZD1A04C8kL+Tv9kTbuQYG8uLNNRLrQGhxOH7pLf2kbETQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB500340
 
-From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
 
-a6xx_gpu_init() registers devfreq through adreno_gpu_init() ->
-msm_gpu_init() -> msm_devfreq_init(), and only afterwards calls
-a6xx_gmu_init(), which fills gmu->gpu_freqs[] and sets
-gmu->nr_gpu_freqs. The devfreq sysfs node and the cooling device are
-live in that window, so a write to min_freq or max_freq, or a thermal
-QoS update, can reach a6xx_gmu_set_freq() while nr_gpu_freqs is still
-0.
 
-The lookup loop then compares a u32 perf_index against
-gmu->nr_gpu_freqs - 1. With a count of 0 the bound converts to
-UINT_MAX, so the loop reads past the end of gpu_freqs[] until it hits
-unmapped memory. It faults with devfreq's lock held, so every later
-GPU user blocks and the machine hangs.
+On 9/30/2026 2:53 PM, Suravee Suthikulpanit wrote:
+> Replace the per-segment llist of iommu_dev_data with an xarray keyed
+> by devid so lookup is O(1). These objects stay immortal for the life
+> of the PCI segment: amd_iommu_release_device() keeps them for replug,
+> and IRQ/DTE paths look them up locklessly via xa_load().
+> 
+> Same-devid intern on xa_cmpxchg() covers replug and racing
+> find_dev_data(). Aliases still get separate keys. Intern remains
+> local to iommu.c; only the lookup table changes.
+> 
+> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+> ---
+>  drivers/iommu/amd/amd_iommu_types.h |  6 ++---
+>  drivers/iommu/amd/init.c            |  4 +++-
+>  drivers/iommu/amd/iommu.c           | 34 +++++++++++++++--------------
+>  3 files changed, 24 insertions(+), 20 deletions(-)
 
-This was hit at boot on an X1P42100 (Adreno X1-45) laptop, where a udev
-rule wrote min_freq as soon as the devfreq device appeared:
+.../...
 
-  Unable to handle kernel paging request at virtual address ffff000b80000000
-  Internal error: Oops: 0000000096000005 [#1]  SMP
-  CPU: 0 UID: 0 PID: 487 Comm: (udev-worker) Tainted: G        W  O
-  Hardware name: SAMSUNG ELECTRONICS CO., LTD. Galaxy Book4 Edge/NP750XQA-KB2US
-  pc : a6xx_gmu_set_freq+0x74/0x2a0 [msm]
-  lr : a6xx_gmu_set_freq+0x3c/0x2a0 [msm]
-  ...
-  x4 : 00000000ffffffff ...
+> + * Allocate an immortal per-devid object stored in pci_seg->dev_data_xa.
+> + * These are never erased: amd_iommu_release_device() keeps them for
+> + * replug, and IRQ/DTE paths look them up locklessly via xa_load().
+> + */
+>  static struct iommu_dev_data *alloc_dev_data(struct amd_iommu *iommu, u16 devid)
+>  {
+> -	struct iommu_dev_data *dev_data;
+> +	struct iommu_dev_data *dev_data, *old;
+>  	struct amd_iommu_pci_seg *pci_seg = iommu->pci_seg;
+>  
+>  	dev_data = kzalloc_obj(*dev_data);
+> @@ -404,26 +409,23 @@ static struct iommu_dev_data *alloc_dev_data(struct amd_iommu *iommu, u16 devid)
+>  	dev_data->devid = devid;
+>  	ratelimit_default_init(&dev_data->rs);
+>  
+> -	llist_add(&dev_data->dev_data_list, &pci_seg->dev_data_list);
+> +	old = xa_cmpxchg(&pci_seg->dev_data_xa, devid, NULL, dev_data,
+> +			 GFP_KERNEL);
+> +	if (xa_is_err(old)) {> +		kfree(dev_data);
+> +		return NULL;
+> +	}
+> +	if (old) {
 
-x4 holds the wrapped loop bound. The faulting address is 1 GiB
-aligned, which matches a linear read running off the end of the
-linear map.
+If old is valid means someone is already using devid. Allocation should fails if
+xa_array is not empty.
 
-Move msm_devfreq_init() out of msm_gpu_init() and call it last in
-adreno_bind(), once the generation's init function has returned, so
-devfreq only appears after the freq and bandwidth tables are complete.
-Do it after dev_pm_opp_of_find_icc_paths() so a deferral there does not
-leave a devfreq or cooling device behind.
-This also closes the narrower race where a6xx_gmu_pwrlevels_probe()
-writes the tables and counts while a6xx_gmu_set_freq() may already be
-running, and it does not drop a frequency request the way an early
-return in a6xx_gmu_set_freq() would.
-
-a2xx has no gpu_busy() and never registers devfreq. a3xx, a4xx and
-a5xx build nothing after msm_gpu_init() that the devfreq callbacks
-read, and a6xx parts with a GMU wrapper or RGMU set the rate through
-the OPP core, so for all of them devfreq simply appears a little later
-in the same bind. GPU runtime PM is only enabled on first open, in
-adreno_load_gpu(), so no resume or suspend can reach
-msm_devfreq_resume() or msm_devfreq_suspend() during bind, and both
-return early through has_devfreq() in any case.
-
-Fixes: a2c3c0a54d4c ("drm/msm/a6xx: Add devfreq support for a6xx")
-Cc: stable@vger.kernel.org
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Assisted-by: LLM
-Signed-off-by: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
----
-How this was found and tested:
-
-- Seen twice at boot (2026-10-03 and 2026-10-05) on a Samsung Galaxy
-  Book4 Edge 15" (NP750XQA, X1P42100 / Adreno X1-45) running a
-  downstream 7.2.7 tree with an out-of-tree device tree. Both oopses
-  were at a6xx_gmu_set_freq+0x74, about 9 s after power-on, from a udev
-  rule writing min_freq when the devfreq device appeared. The log ends
-  at "Call trace:" because the machine hung.
-- With v1's guard applied to the same downstream tree, the laptop has
-  booted 20 times since 2026-10-14 with no oops. That only shows the
-  guard did no harm. It does not prove the race was closed, because the
-  udev rule was moved to a delayed systemd unit on 2026-10-06 and the
-  window is narrow.
-- v2, backported to the same downstream tree in place of v1's guard,
-  booted 5 times with the original udev rule restored, so min_freq was
-  written the moment the devfreq device appeared. All 5 boots were
-  clean and the floor was applied (min_freq and cur_freq read back as
-  requested). Suspend/resume could not be tested: s2idle does not yet
-  resume on this machine for an unrelated reason.
-- On v7.3-rc7 v2 is only build-tested (arm64 defconfig, W=1, all of
-  drivers/gpu/drm/msm/). It has not been run on mainline or msm-next,
-  and I could only reason about a3xx-a5xx from the source.
-
-AI disclosure: an LLM coding assistant helped read the oops, trace the
-init ordering, check the other GPU generations and draft this commit
-message. I reviewed the result, tested it as described above, and take
-responsibility for it.
----
-Changes in v2:
-- Register devfreq from adreno_bind() after the GPU-specific init,
-  instead of returning early in a6xx_gmu_set_freq() (Konrad).
-- This also addresses the two Sashiko findings on v1: the residual
-  race with a6xx_gmu_pwrlevels_probe() and the dropped frequency
-  request on resume.
-- Register devfreq after dev_pm_opp_of_find_icc_paths(), so a probe
-  deferral there does not leave a devfreq or cooling device behind.
-- Retitled from "drm/msm/a6xx: Don't set GPU freq before the GMU freq
-  table is built", since the change now touches common adreno code.
-- Link to v1: https://patch.msgid.link/20261018-msm-gmu-freq-guard-v1-1-dd92dcccee86@gmail.com
----
- drivers/gpu/drm/msm/adreno/adreno_device.c | 8 ++++++++
- drivers/gpu/drm/msm/msm_gpu.c              | 2 --
- 2 files changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 05c77fe27..52d90e1d1 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -247,6 +247,14 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
- 	if (ret)
- 		return ret;
- 
-+	/*
-+	 * Register devfreq last: its sysfs, QoS and cooling device can reach
-+	 * gpu_set_freq() as soon as it exists, and on a6xx the GMU freq and
-+	 * bandwidth tables are only built by a6xx_gmu_init(), after
-+	 * msm_gpu_init().
-+	 */
-+	msm_devfreq_init(gpu);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 0c2c35636..452da9272 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -968,8 +968,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 
- 	platform_set_drvdata(pdev, &gpu->adreno_smmu);
- 
--	msm_devfreq_init(gpu);
--
- 	gpu->vm = gpu->funcs->create_vm(gpu, pdev);
- 	if (IS_ERR(gpu->vm)) {
- 		ret = PTR_ERR(gpu->vm);
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261018-msm-gmu-freq-guard-e5ac83581fb5
-
-Best regards,
---  
-Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+-Vasant
 
 
