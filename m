@@ -1,77 +1,89 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102C043F0B9;
-	Mon, 19 Oct 2026 08:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E27F48DB27;
+	Mon, 19 Oct 2026 08:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399558; cv=none; b=tkis8+IosUvUBQBiLGKEwa30zKwZEah6gAJ3mCvIyoZHXjwvIc7TvNMHMZlj66JxkmhtGDJB0PPIqps0HQgArpRbxUi53jzwBp4MWFRLGX7r9WP4b+muQpmmkcLQvUEfs5PJuwnQnYgn535b95jQNdpOq7Ge+LnMH3OjzasyYO4=
+	t=1792399593; cv=none; b=Dm0I4P1iFJ2QZ1OIlkgj/prDkKPyXzEbv1SWWbgGY8qNkeSDazyuzSAiiiNDibV1ydOquJGYGEdkYbVWNMx8Cic6yuvwpxpIrOZcrMasxd+FvEwBybWZlXSAYi7vxF4pRckT4kL1sfRFRe3Q6oLjOpB8jr70V4QaDztoX7a0eEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399558; c=relaxed/simple;
-	bh=kKlrkFuAUxfvTKMppFChJ0Sca8cHI+LswahOB3weEYI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dNp6PQYcqCCFodSroudNgjBmoJl1gZgrClKJWK3z69zVHWcIELeL8QD6pEd2ZfGC/9mnZmoStpm0/vTmwHgl2zuYJUwUvcjQFt+QoKOBBngNcfB3D8TFV8T+dcBuPzkSvDriWddpLwtxfNd+o9ztBqzbEYsy4+gVv2YO5h6FeNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=m5hFG6uQ; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792399593; c=relaxed/simple;
+	bh=SoGd/ETgqCPUGBixFFzWc8lWVqcbreDxgQWOaVajhKc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UoJOo90jY4Z0HqliPvgXYc/heJKUSRXUq7aM/4gGFJNfud9dr/VrdBLFKSF9Cd9cxkpYdOVyaqAM8tcY73F37wQulv+Ri/biyKSxbdbQk63Ihl1GmZMtk7dt2/szpp37WZJZSDnKQF/YnJfcVFgJYzvDJBNTnZXnD/KOj0wPFn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y8qRvSpe; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="m5hFG6uQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Dq
-	JahHfr1UsBLx8USbl6IZSZVQjmiL0holT7orMb9uo=; b=m5hFG6uQBjs3cbTEJI
-	KMaz73vJMwPOM48mwB1dsGl5UTJhJC72PhMibf/BXSNFfh9vzg7P3RwsA0mplte+
-	GYBwpwR0MVyybP1nTXxEjugGFCEmH7iGNVxxZ1uh663YRXNyzcZtcn44nit+7WsC
-	vCAjggFCa7CpGKjwMsrqULQYI=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgBnaJF82NVqrQQEAw--.30772S2;
-	Mon, 19 Oct 2026 16:44:45 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Mark Brown <broonie@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Felix Gu <ustc.gu@gmail.com>,
-	Atsushi Nemoto <atsushi.nemoto@sord.co.jp>,
-	linux-spi@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y8qRvSpe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792399592; x=1823935592;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=SoGd/ETgqCPUGBixFFzWc8lWVqcbreDxgQWOaVajhKc=;
+  b=Y8qRvSpeWwQGHom+X/UrSux+qznET+K9kayTrxf9sbUehxovFVLVPX/q
+   TSrnk91CXPsdaT7j2LaRhnEy58PHPDUKQzbggUpJn8XBXLZ+9mf/XpGii
+   EIXmpKfT4CQufcF6O6EcBfNsqzEiXPAIVhVy2YnzAwWaI5p17LUl1oR3g
+   aSm3DOYzeX3831/FqW9xR1Hxp1+0GA10d8G3oVv6/i9c4MUS0pzatQZ9v
+   /ntoGFkejZlcnmIKOKgiGIAs9BEF/1EztOvzUSbed2aDvaw00dNiZJ4Ki
+   PiVym+RXw2+3pvZFyIdAQLSMG2im2rjWVUQ6KdZ/w7IXFWsqGxItdL17n
+   g==;
+X-CSE-ConnectionGUID: 2JoJUma1RWCxVE3p52YbrA==
+X-CSE-MsgGUID: HvCy7/EMSXa/XwlkFfFXKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1179967"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1179967"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 01:46:31 -0700
+X-CSE-ConnectionGUID: gMge9sjvRnirRa1OS1IUDg==
+X-CSE-MsgGUID: pnL85SkuRvSd+RHPnrnX5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2799107"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 01:46:29 -0700
+Date: Mon, 19 Oct 2026 11:46:26 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: bruce.tsao@analog.com
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 0/2] spi: handle runtime resume failures
-Date: Mon, 19 Oct 2026 16:44:41 +0800
-Message-Id: <20261019084443.1824122-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH 0/2] iio: dac: add support for AD5413
+Message-ID: <atXY4kLEXxmG-tnk@ashevche-desk.local>
+References: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgBnaJF82NVqrQQEAw--.30772S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZr4UAr13XF47Zw1rGryxuFg_yoW3ZFg_Gw
-	4kCF97X3WjkF9Yya42vFs3ZFyj9FWUuw17ta4qy3ZxJF12qFs8Cw1UZrsrC3WDZwsIk3Z5
-	Kr42vFWxJr9xujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRM9a93UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8B1ln2rV2H3F-wAA33
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The STM32 OSPI remove path and the TI QSPI clock setup helper ignore
-pm_runtime_resume_and_get() failures. A failed runtime resume leaves the
-controller unavailable, so following register accesses are unsafe and a
-later runtime PM put can be unmatched.
+On Sat, Oct 17, 2026 at 03:23:52AM +0800, Bruce Tsao via B4 Relay wrote:
+> This series adds support for the Analog Devices AD5413: a single-channel,
 
-Keep OSPI resource teardown on a failed resume while skipping the
-controller register write and its matching put. Return the error from the
-QSPI clock setup helper and propagate it before either caller touches the
-controller registers.
+Why in a brand new driver?
 
-Jiale Yao (2):
-  spi: stm32-ospi: handle runtime resume failure in remove
-  spi: ti-qspi: handle setup clock runtime resume failure
-
- drivers/spi/spi-stm32-ospi.c | 12 ++++++++----
- drivers/spi/spi-ti-qspi.c    | 21 ++++++++++++++++-----
- 2 files changed, 24 insertions(+), 9 deletions(-)
+> 14-bit, serial-input DAC with software-selectable voltage (+/-10.5 V) and
+> current (0-24 mA) outputs. The SPI interface runs in mode 1 and carries a
+> CRC-8 on every frame, which the device has enabled out of reset.
+> 
+> Patch 1 documents the device-tree binding; patch 2 adds the IIO driver.
+> 
+> Tested on an EVAL-AD5413SDZ with a Raspberry Pi 5 and an NXP i.MX93 FRDM
+> board (probe, voltage- and current-output, scale/offset, powerdown/resume).
 
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
