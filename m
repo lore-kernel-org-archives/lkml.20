@@ -1,71 +1,43 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010062.outbound.protection.outlook.com [52.101.193.62])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47618331EB8
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.62
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415328; cv=fail; b=rXbo5wa7Z6WKGxpVqqrnKvGN1agGB1ValKvckerxCqW8Ut/QuBhCD4/DzZ8ZT6dLwb5TY/Jd16kyBrtOJw3UIBBUP0bexPCd8v4JikJxkGf7NNi2N2dT4N9B5iN4U6m5dyZpgfcrH3QLzejaG2BMSQBivk6kmggK0qVkGzH4Eig=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415328; c=relaxed/simple;
-	bh=Di9NLDCBHikRT3enWVpRvZydgdoFVpuTrCBd9uUrXIY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B87Jk2Bp26cpF+p5zE1cobSiQHcx4XXoubJ3MOiqladsSGpTM0CGhkWybH6S43iA25Nb71LfLND2UHfdNliD38ebZKkmouvJGy4hVcoA64dYDlevBO9081xRlfRqOM0PPAat3ayn1/ELlg7ExgH2+bXcyfrx3YQ5KMaPSnkPPC0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=cqgkDfBR; arc=fail smtp.client-ip=52.101.193.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74AD4F3900
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:09:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792415345; cv=none; b=TN5bLFUDvyQQZd86R02mJ3LHYuo1zfJDIhktuhgDE2AYAtPJ+MldK0Ec8QO8Jx/rDH6bbUmUYa3RL3hkA1KMEWcJvvuN6rDeyIAZgRQZuV6IgcDsgYCWYi5+gXvVzDur5A1nqZuyfeFri1tIp050uWjFFBygqnLqlD+RdE5hlYo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792415345; c=relaxed/simple;
+	bh=kuqyzRGqdIPgJEMsHn7b7HHU09F9Og+XtAYaSE5sTj4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HtZMA3EFWmGvrYQJR5yNgpdG88u2M9x3ClPuVRe9af0DFCGSqdSjPhU0NmIl7MUc/xw/fMObypOFQtIkn94/OmUJzy+vLLzEqvgJdj/2/uNa406tL0sPdM+0MXHl1e8C0E4r4ggmB1yp1ZDAJKoz9SPHSU+9ayMuB2mXN/wW9r8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FypRTH/v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="cqgkDfBR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U18IQhX7SvE876Sg/ucjHR/7YDR8RKW9PtdMdltITfaSNbtWEOMKF2LEq8Mu1c3FQxe4sZeeVJlGurUcp+hINRE/zIXtgV7MDnO1++Hc+CvCIEIyS+byAA3UHUQJS1PiQS9A6pedQiQfMXUQD8ZYzBImsuNBFwrwpoY3Uc6v53IB+i0mIrFVxbTdiB64hGz44dFM1WopqNx06M6iPUkQpd94mLweViOjWJJHUw7pqq3u8LiUJHC0WnbHAHqXR32q8LVcDBAy4NC8V40YLpITyJWCpQ1iqv/22WAkVbAFJgJjA//w8jGn/ASnoQHUG0RwIou+1HvYt2CrJS5Cwm/6qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IFlpmdbBzUv9s2j2f2lbUP9bgXxGMcl++OXI++ElY2o=;
- b=cDMeKxo1xy++/crhU25573tZYqKssegqtvM9IIhgzABVInCjECR4SOXR+UxWdoUAS7nrxqFLrErQx6a337mKUjab3i679JlxOX9G4ON3oSTFV1XJmZMs+WtrDlKjouQ7w2QhgfrNaZhZgqpB/DfozHcHxAVw1kYR/vgV1V37uCc0ZzsUBfTQwxrDmq9vIA8CEtPOk8gkhnSy5+yvdlCKaVp5Ti/zl7qdv5sFdoXuUshdevuYxUOWDoSxO5s12p3cArconvW4FxPtr6uHPpT31tsV6owWEUkvhGi8AN/UgO+hw59o7w3TmnRbAseslK89jp/KPkgtQFlqGWmDYVN2Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IFlpmdbBzUv9s2j2f2lbUP9bgXxGMcl++OXI++ElY2o=;
- b=cqgkDfBRlu/0+lKLuAf9NEfTErcVx+li1xU6RjGy3mo/fwhjRzE0zuUZH2cqTQf7kviTy6++wJxHc/XGxxVa+fZ/Du/ueCJ8vtzTGD1jyOkStYLZbYVCq0R2pH85LKdQYgHtlb+OuvzOEaLkNOGjUQxPyuMJQWVFB3zNyvljtr0=
-Received: from BN9PR03CA0987.namprd03.prod.outlook.com (2603:10b6:408:109::32)
- by IA0PR12MB8974.namprd12.prod.outlook.com (2603:10b6:208:488::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Mon, 19 Oct
- 2026 13:08:44 +0000
-Received: from BN5PEPF0004698A.namprd02.prod.outlook.com
- (2603:10b6:408:109:cafe::a) by BN9PR03CA0987.outlook.office365.com
- (2603:10b6:408:109::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Mon, 19
- Oct 2026 13:08:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN5PEPF0004698A.mail.protection.outlook.com (10.167.245.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 13:08:44 +0000
-Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
- 2026 08:08:31 -0500
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: <iommu@lists.linux.dev>
-CC: <vasant.hegde@amd.com>, <suravee.suthikulpanit@amd.com>,
-	<joro@8bytes.org>, <will@kernel.org>, <robin.murphy@arm.com>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 1/2] iommu/amd: Move page-table setup into init_pgtable_params()
-Date: Mon, 19 Oct 2026 13:08:01 +0000
-Message-ID: <e41769912ec11799e1d4bdd3b892412da5ffb466.1792156095.git.Ankit.Soni@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792156095.git.Ankit.Soni@amd.com>
-References: <cover.1792156095.git.Ankit.Soni@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FypRTH/v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E17681F000C4;
+	Mon, 19 Oct 2026 13:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792415343;
+	bh=EwCAbbWXPr8KlvzMdNcocMc8nvxaFh0SNbBea1X+xQs=;
+	h=From:To:Cc:Subject:Date;
+	b=FypRTH/vImJuDeKmGTJ1hD2s+stFuAOZ18Kg7zoaxq/475oRvlAOB71IrY89VeCil
+	 okY9UHKR8O21AFbsLT+MJvHh9O94LNQUW0SoDUhbcs0LiFXAlX19mlBPPSXRU4wYVt
+	 PlpjDpox4IOXGfjCVKQy8y6KmO4D4x/0zvtwwvCP0JROpHGOq8L3P7kAIeUoYSfhVQ
+	 rUD+PWTUK9N1Y3c0NpJoVAQc8ccCXpktbxaZpFIBuuiLDoXtCY993NSfDIMcj0aoSR
+	 um6Jsm5IUi2WnyqEQnlU/SuU9w49WWeTE1CMQUtNhzvWV+K40sMnCeOq4rXc8jAsZN
+	 lSUKXhxnofPPw==
+From: Frederic Weisbecker <frederic@kernel.org>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Phil Auld <pauld@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Waiman Long <longman@redhat.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>
+Subject: [RFC PATCH 00/49] cpu/hotplug: Remove cpu_down() global stop_machine() except for CPUHP_TEARDOWN_CPU itself
+Date: Mon, 19 Oct 2026 15:08:07 +0200
+Message-ID: <20261019130856.49711-1-frederic@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,168 +45,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN5PEPF0004698A:EE_|IA0PR12MB8974:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5082d171-6d1e-41d8-92ce-08df2de21a84
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|6133799003|18002099003|22082099003|10067099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	rgmMA3hMikhJ8+6DoLVzYgtIP7jvg6tRq/vzuFBVhHqfxZ+MfZCS+fwf2nqwalWrZwk9fqI84J0ODkayPYFsm8Bbc74ztSKt9eCYMAcBg6ogiqR7jT1FYgPLsb+rtOJv0743Wrkt40fSBXtlqloZfPqhPgfKip99gHWwxdWWraIbuB7oa3YH1kqEICrizp7MncxymG0WXxpFR6QCP/NYMqGcfwRKCliVdnQPlmFngbQM1GC80CfxRZSKR6SKzGKlaIdkttKFctstfCzPBdjlKXVoESSV47kdOkFDpdDqjqfPUDJ5QxM4JAQ2o0L1oetQrlLzZeBI5H2JVLaciL/KMMCz53Kj7fKxjZWucZsyussgJf5P+ZCD7Q31smbZZS81Zfz/hgcdKhO4PAPcrBuw4ob52KbZLGPzwNlg8lzHyVGjzUCbL7gbyKL4aYwvuGOCiRI0Em+olhNdV6TaZZk7jgjKxnUjfjb0RSYF8I+0HpWfjH+NSH+OFM7M6bhdiLOnzYftwcrzHbzhBMC+6QTYIub2RJ0gJx7hXq582Fr4AzhQ/fGzSqhVWKrZ7jV0Ud4PNPmzAcCPIK8PKbAAfNI/Q0bqZ8urQi75ZtpOS3wRDjkmhYv0otofAFGPyO2FrtV1CXLePWZe74k6PudH4bCK2NByve3DfbYe+FzubdMyFxI/0subt1Nqh5qAfwR+KMNpRw91Ze0ZH+axT3NckVY0PQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(6133799003)(18002099003)(22082099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	KleYjQpT/rSprOwv0IIQIajO5+xo3ZcvydfS+15rkqZ+OOsPdxNZMS9L76vopDcTg91mkNdsZPh+q18GOhXuxvNt4RNL8WJQlj82/lQddfK02CqX5YogoeFnEM4SoPJfPS5HXTsD1WCn02cBO5gquB6Z5BEsgXJf5qZPG9yMs7LNhb1TSMPVHsUf7zWKIRQo7dt6LJyY4Z/8ix18oP/oea0d3PAxe6hceicjxk8uQywWEl4jJsr3pjs9mnZc3EM7gCQqItqWcw3V/J0GpO4ukw9A5V/uR0qZXOXNKnzoc8miTeDnbedQULAuMfpiApxhbRL3hWryJCBkZzeS94Fzcm2zuMerPEr1c86DZqAYWLaNxe5zfg6kr+uAigfrzp3tTi6Fuwo4yZcfoshElGYbUtmuA8F40333xg7GsgbaaHFd2csVZCh4OcztTIikBRaH
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 13:08:44.0204
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5082d171-6d1e-41d8-92ce-08df2de21a84
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN5PEPF0004698A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8974
 
-early_amd_iommu_init() currently sets guest page-table level, host
-address size, and v1/v2 fallback inline after the IVHD walk. That
-clutters the function.
+Hi,
 
-Move the page-table setup into a separate function. No functional
-change.
+As discussed in LPC, cpu_down()'s stop_machine() is a problem for
+running real time and nohz_full workloads, for example if we want to
+provide a cpuset interface for nohz_full and isolated partitions are
+created at the same time as those critical workloads.
 
-Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
+Here is a first step to start. stop_machine() gets a new "post" callback
+that is executed after the main one such that:
+
+* As before the main fn executes while all the other CPUs spin.
+* While other CPUs can exit stop_machine(), the target keeps IRQs
+  disabled and execute the post_fn.
+
+All the states between CPUHP_AP_ONLINE and CPUHP_AP_OFFLINE are moved
+to the post callback because they can eventually run concurrently with
+the other CPUs. I made a dedicated commit for each of them with
+individual justification analysis and tweaked a bit CPUHP_AP_TICK_DYING
+to adapt it.
+
+There are two states for which I'm not too confident, please double
+check CPUHP_AP_CPU_PM_STARTING and CPUHP_AP_ARM_CACHE_B15_RAC_DYING.
+
+In the end only CPUHP_TEARDOWN_CPU (which is __cpu_disable()) remains in
+the global stop machine, this will be the next step. The plan will be to
+(all with IRQs disabled)
+
+* Clear the CPU from cpu_online_mask
+
+* Start an RCU grace period and poll on it (while doing momentary eqs in
+  the loop), this *should work* with IRQs disabled. So all CPUs observe
+  the CPU as offline.
+
+* Check if the rest of x86 __cpu_disable() can be accomodated to run
+  without making other CPUs spin.
+
+git://git.kernel.org/pub/scm/linux/kernel/git/frederic/linux-dynticks.git
+	core/hotplug
+
+HEAD: 8ff5f866a7c2825213c6aa525a88840cbccf1211
+
+Thanks,
+	Frederic
 ---
- drivers/iommu/amd/init.c | 88 +++++++++++++++++++++-------------------
- 1 file changed, 47 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index edcc187b8f14..89da993d7d15 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -3194,6 +3194,52 @@ static void __init ivinfo_init(void *ivrs)
- 	amd_iommu_ivinfo = *((u32 *)(ivrs + IOMMU_IVINFO_OFFSET));
- }
- 
-+static void __init init_pgtable_params(void)
-+{
-+	u8 vasize, efr_hats;
-+
-+	vasize = FIELD_GET(IOMMU_IVINFO_VASIZE, amd_iommu_ivinfo);
-+	if (!vasize)
-+		vasize = 64;
-+
-+	/* 5 level guest page table */
-+	if (cpu_feature_enabled(X86_FEATURE_LA57) &&
-+	    FIELD_GET(FEATURE_GATS, amd_iommu_efr) == GUEST_PGTABLE_5_LEVEL)
-+		amd_iommu_gpt_level = PAGE_MODE_5_LEVEL;
-+
-+	efr_hats = FIELD_GET(FEATURE_HATS, amd_iommu_efr);
-+	if (efr_hats != 0x3) {
-+		/*
-+		 * efr[HATS] bits specify the maximum host translation level
-+		 * supported, with LEVEL 4 being initial max level.
-+		 */
-+		amd_iommu_hpt_vasize = min_t(unsigned int, vasize,
-+					 (efr_hats + PAGE_MODE_4_LEVEL - 1) * 9 + 21);
-+	} else {
-+		pr_warn_once(FW_BUG "Disable host address translation due to invalid translation level (%#x).\n",
-+			     efr_hats);
-+		amd_iommu_hatdis = true;
-+	}
-+
-+	if (amd_iommu_pgtable == PD_MODE_V2) {
-+		if (!amd_iommu_v2_pgtbl_supported()) {
-+			pr_warn("Cannot enable v2 page table for DMA-API. Fallback to v1.\n");
-+			amd_iommu_pgtable = PD_MODE_V1;
-+		}
-+	}
-+
-+	if (amd_iommu_hatdis) {
-+		/*
-+		 * Host (v1) page table is not available. Attempt to use
-+		 * Guest (v2) page table.
-+		 */
-+		if (amd_iommu_v2_pgtbl_supported())
-+			amd_iommu_pgtable = PD_MODE_V2;
-+		else
-+			amd_iommu_pgtable = PD_MODE_NONE;
-+	}
-+}
-+
- /*
-  * This is the hardware init function for AMD IOMMU in the system.
-  * This function is called either from amd_iommu_init or from the interrupt
-@@ -3226,7 +3272,6 @@ static int __init early_amd_iommu_init(void)
- 	struct acpi_table_header *ivrs_base;
- 	int ret;
- 	acpi_status status;
--	u8 efr_hats, max_vasize;
- 
- 	if (!amd_iommu_detected)
- 		return -ENODEV;
-@@ -3256,10 +3301,6 @@ static int __init early_amd_iommu_init(void)
- 
- 	ivinfo_init(ivrs_base);
- 
--	max_vasize = FIELD_GET(IOMMU_IVINFO_VASIZE, amd_iommu_ivinfo);
--	if (!max_vasize)
--		max_vasize = 64;
--
- 	amd_iommu_target_ivhd_type = get_highest_supported_ivhd_type(ivrs_base);
- 	DUMP_printk("Using IVHD type %#x\n", amd_iommu_target_ivhd_type);
- 
-@@ -3271,42 +3312,7 @@ static int __init early_amd_iommu_init(void)
- 	if (ret)
- 		goto out;
- 
--	/* 5 level guest page table */
--	if (cpu_feature_enabled(X86_FEATURE_LA57) &&
--	    FIELD_GET(FEATURE_GATS, amd_iommu_efr) == GUEST_PGTABLE_5_LEVEL)
--		amd_iommu_gpt_level = PAGE_MODE_5_LEVEL;
--
--	efr_hats = FIELD_GET(FEATURE_HATS, amd_iommu_efr);
--	if (efr_hats != 0x3) {
--		/*
--		 * efr[HATS] bits specify the maximum host translation level
--		 * supported, with LEVEL 4 being initial max level.
--		 */
--		amd_iommu_hpt_vasize = min_t(unsigned int, max_vasize,
--					 (efr_hats + PAGE_MODE_4_LEVEL - 1) * 9 + 21);
--	} else {
--		pr_warn_once(FW_BUG "Disable host address translation due to invalid translation level (%#x).\n",
--			     efr_hats);
--		amd_iommu_hatdis = true;
--	}
--
--	if (amd_iommu_pgtable == PD_MODE_V2) {
--		if (!amd_iommu_v2_pgtbl_supported()) {
--			pr_warn("Cannot enable v2 page table for DMA-API. Fallback to v1.\n");
--			amd_iommu_pgtable = PD_MODE_V1;
--		}
--	}
--
--	if (amd_iommu_hatdis) {
--		/*
--		 * Host (v1) page table is not available. Attempt to use
--		 * Guest (v2) page table.
--		 */
--		if (amd_iommu_v2_pgtbl_supported())
--			amd_iommu_pgtable = PD_MODE_V2;
--		else
--			amd_iommu_pgtable = PD_MODE_NONE;
--	}
-+	init_pgtable_params();
- 
- 	/* Disable any previously enabled IOMMUs */
- 	if (!is_kdump_kernel() || amd_iommu_disabled)
--- 
-2.43.0
+Frederic Weisbecker (49):
+      stop_machine: Add post function to execute while other CPUs can exit
+      x86/cpu/cacheinfo: Move CPUHP_AP_CACHECTRL_STARTING to post stop machine
+      sched: Move CPUHP_AP_SCHED_STARTING to post stop_machine()
+      rcu: Move CPUHP_AP_RCUTREE_DYING to post stop_machine()
+      cpuidle: Move CPUHP_AP_CPU_PM_STARTING post stop_machine()
+      cpu: Move CPUHP_AP_IRQ_ARMADA_XP_STARTING..CPUHP_AP_IRQ_GIC_STARTING range post stop_machine()
+      irqchip/bcm2836: Move CPUHP_AP_IRQ_BCM2836_STARTING post stop_machine()
+      cpu: Move [CPUHP_AP_IRQ_EIOINTC_STARTING..CPUHP_AP_IRQ_MIPS_GIC_STARTING] range post stop_machine()
+      irqchip/loongarch-avec: Move CPUHP_AP_IRQ_AVECINTC_STARTING post stop_machine()
+      irqchip/sifive-plic: Move CPUHP_AP_IRQ_SIFIVE_PLIC_STARTING post stop_machine()
+      irqchip/aslint-sswi: Move CPUHP_AP_IRQ_ACLINT_SSWI_STARTING post stop_machine()
+      irqchip/irq-riscv-imsic-early: Move CPUHP_AP_IRQ_RISCV_IMSIC_STARTING post stop_machine()
+      cpu: Move [CPUHP_AP_PERF_X86_AMD_UNCORE_STARTING..CPUHP_AP_IRQ_RISCV_SBI_IPI_STARTING] range post stop_machine()
+      perf/x86: Move CPUHP_AP_PERF_X86_STARTING post stop_machine()
+      perf/amd/ibs: Move CPUHP_AP_PERF_X86_AMD_IBS_STARTING post stop_machine()
+      cpu: Move CPUHP_AP_PERF_XTENSA_STARTING post stop_machine()
+      ARM: vfp: Move CPUHP_AP_ARM_VFP_STARTING post stop_machine()
+      cpu: Move [CPUHP_AP_PERF_ARM_ACPI_STARTING..CPUHP_AP_ARM64_DEBUG_MONITORS_STARTING] range post stop_machine()
+      perf/arm_pmu: Move CPUHP_AP_PERF_ARM_STARTING post stop_machine()
+      perf: RISC-V: Move CPUHP_AP_PERF_RISCV_STARTING post stop_machine()
+      ARM: l2c: Move CPUHP_AP_ARM_L2X0_STARTING post stop_machine()
+      clocksource/drivers/exynos_mct: Move CPUHP_AP_EXYNOS4_MCT_TIMER_STARTING post stop_machine()
+      clocksource/drivers/arm_arch_timer: Move CPUHP_AP_ARM_ARCH_TIMER_STARTING post stop_machine()
+      clocksource/drivers/arm_arch_timer: Move CPUHP_AP_ARM_ARCH_TIMER_EVTSTRM_STARTING post stop_machine()
+      clocksource/drivers/arm_global_timer: Move CPUHP_AP_ARM_GLOBAL_TIMER_STARTING post stop_machine()
+      clocksource/drivers/jcore: Move CPUHP_AP_JCORE_TIMER_STARTING post stop_machine()
+      ARM: smp_twd: Move CPUHP_AP_ARM_TWD_STARTING post stop_machine()
+      clocksource/drivers/qcom: Move CPUHP_AP_QCOM_TIMER_STARTING post stop_machine()
+      clocksource/drivers/timer-tegra: Move CPUHP_AP_TEGRA_TIMER_STARTING post stop_machine()
+      clocksource/drivers/armada: Move CPUHP_AP_ARMADA_TIMER_STARTING post stop_machine()
+      LoongArch: Move CPUHP_AP_LOONGARCH_ARCH_TIMER_STARTING post stop_machine()
+      clocksource/drivers/mips-gic-timer: Move CPUHP_AP_MIPS_GIC_TIMER_STARTING post stop_machine()
+      clocksource/drivers/arc_timer: Move CPUHP_AP_ARC_TIMER_STARTING post stop_machine()
+      clocksource/drivers/rtl-otto: Move CPUHP_AP_REALTEK_TIMER_STARTING post stop_machine()
+      clocksource/drivers/timer-riscv: Move CPUHP_AP_RISCV_TIMER_STARTING post stop_machine()
+      clocksource: clint: Move CPUHP_AP_CLINT_TIMER_STARTING post stop_machine()
+      clocksource/drivers/c-sky: Move CPUHP_AP_CSKY_TIMER_STARTING post stop_machine()
+      clocksource/drivers/timer-ti-dm: Move CPUHP_AP_TI_GP_TIMER_STARTING post stop_machine()
+      clocksource: hyper-v: Move CPUHP_AP_HYPERV_TIMER_STARTING post stop_machine()
+      clocksource/dummy_timer: Move CPUHP_AP_DUMMY_TIMER_STARTING post stop_machine()
+      ARM: xen: Move CPUHP_AP_ARM_XEN_STARTING post stop_machine()
+      ARM: xen: Move CPUHP_AP_ARM_XEN_RUNSTATE_STARTING and CPUHP_AP_ARM64_ISNDEP_STARTING post stop_machine()
+      smp: Move CPUHP_AP_SMPCFD_DYING post stop_machine()
+      hrtimer: Move CPUHP_AP_HRTIMERS_DYING post stop_machine()
+      irq_work: Introduce irq_work_kick_cpu()
+      tick-sched: Convert ad-hoc implementation of irq_work_kick_cpu()
+      tick: Move CPUHP_AP_TICK_DYING post stop_machine()
+      x86/boot/tboot: Move CPUHP_AP_X86_TBOOT_DYING post stop_machine()
+      ARM: mm: Move CPUHP_AP_ARM_CACHE_B15_RAC_DYING post stop_machine()
 
+ arch/arm/kernel/patch.c                  |  2 +-
+ arch/arm/probes/kprobes/core.c           |  2 +-
+ arch/arm64/kernel/patching.c             |  4 ++--
+ arch/csky/kernel/probes/kprobes.c        |  3 ++-
+ arch/loongarch/kernel/inst.c             |  3 ++-
+ arch/parisc/kernel/patch.c               |  4 ++--
+ arch/powerpc/mm/book3s64/hash_pgtable.c  |  4 ++--
+ arch/powerpc/platforms/powernv/subcore.c |  2 +-
+ arch/powerpc/platforms/pseries/lpar.c    |  2 +-
+ arch/riscv/kernel/patch.c                |  3 ++-
+ arch/s390/kernel/kprobes.c               |  4 ++--
+ arch/s390/kernel/time.c                  |  3 ++-
+ arch/x86/kernel/cpu/microcode/core.c     |  3 ++-
+ arch/x86/kernel/cpu/mtrr/mtrr.c          |  3 ++-
+ arch/x86/virt/vmx/tdx/seamldr.c          |  2 +-
+ arch/xtensa/kernel/jump_label.c          |  4 ++--
+ include/linux/irq_work.h                 |  1 +
+ include/linux/stop_machine.h             | 10 +++++++---
+ kernel/cpu.c                             | 21 +++++++++++++++++++--
+ kernel/irq_work.c                        | 16 ++++++++++++++++
+ kernel/sched/core.c                      |  1 -
+ kernel/stop_machine.c                    | 14 +++++++++++---
+ kernel/time/tick-common.c                | 14 ++++++++------
+ kernel/time/tick-sched.c                 | 12 ++----------
+ 24 files changed, 91 insertions(+), 46 deletions(-)
