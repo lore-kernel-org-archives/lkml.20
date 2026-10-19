@@ -1,111 +1,172 @@
-Received: from mail-dy1-f193.google.com (mail-dy1-f193.google.com [74.125.82.193])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F92B49B44E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C5049BB62;
+	Mon, 19 Oct 2026 08:47:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399604; cv=none; b=FsE7fM64klvv3DX4Oy6DtSbecMil684aM+PKUsaiMoz68mZvM7C3NI7nn8OdSTGIZp8AZNm2p7Biv4vuWzoz8Who+k/4MOfHvelKMhAw+kkFP7c1epjIHbzuSp0oBdxfUtc2ORtLiES7orC/aUO+pG0E1rIRuTUBndP6z5cIqAI=
+	t=1792399630; cv=none; b=sKJ7XJ8cMtCPuV/L2n84stpcv883PyuOr1IuFByAQHO3QrQlJiV4YqnrGXdju6VnSmjYSqDbDA4q+LksSant+oV/b8arPm9xq5wPA3LWoRzSPJTVgwHoujdM/PNvUhhVz/7aC/AMzz618j9LbncEoVlqs2Tr5k7JpGRyX+DubEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399604; c=relaxed/simple;
-	bh=eHZnAQ4WZ6l0Eaf7O6GrKOei6GuPLKILghtVjSoOUZ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d8WyphfAsYcnIJNG9rOQr6sPzmw9vsAz1iZypCh+teOfyLPgiWR2Ar5+tCYLxaK0fy8ZnCVr2PhzTvZNgvtri+lnHABFqWX1kfqK77Z8f+TAqmjbPA+on/YR99TDTWi4GDeuY+FZzFvdr1yUmj3/n2RRb2MGb08dvQoYoFvgXu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TGCBEKQk; arc=none smtp.client-ip=74.125.82.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792399630; c=relaxed/simple;
+	bh=DcUe9IsmofiXAMZG6fZHBDln4Os4BoYcTTscDrnqzGk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IQcHzukoXfq6CEf+ZIs8jWh/R4aof2rrxsOiWie18oUurKg46xUXjfYpz4iIRUKxtxQv7c/cel8UFzvShqtLikO7PZ3I/dbIjUib6CRSQKDC1O8ui1+PBbAPZoEpgRhOv68cIKRchqcnwF/HRjAMXi8H2hCmjOCJYuOF6Q28oUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YHhNQAGU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Pyp/7ov4; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YHhNQAGU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Pyp/7ov4; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TGCBEKQk"
-Received: by mail-dy1-f193.google.com with SMTP id 5a478bee46e88-35829219da8so3345397eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:46:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792399602; x=1793004402; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R81uGUDBlkE6/NsZn54/pArgBx2k2sR0sHNuKkRuNRE=;
-        b=TGCBEKQkm9ByF8rvnvFnmryNDAtYJzZVjaHD7See3f37qJQ6bm4SthcPi7aoNyn3mn
-         UQJhGGtiAgQkekfzYzM5ELHrgZZCcMwoAG/3Ck2xWlmvDxD4IMuD3UT9x0OcCmssenT3
-         9XisLTYxJJYKEQyVtRnR6zRu/SxKw7ptJEHm/Hg+RwdMHiQifoorTHwT61RelEVzy17l
-         Uq0NHQTNkJxmBJyRBHqvMJBP8zJiAJs82liG6cEBH3VE9KG9ebkzHzeBYYwhIODuVbkP
-         WJk7ASSpPwYb7OZQZazYWwoCmHHg2jiZ4GSYP8nAmRit5c1MzhVQzwynfRU+jPBeNYgu
-         9FqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792399602; x=1793004402;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=R81uGUDBlkE6/NsZn54/pArgBx2k2sR0sHNuKkRuNRE=;
-        b=PPElEvCf7iQc2zJ7pAuyuaqa5EgLdxJrv+K2E85wdQG1eQotmiM3bdnJ9NmXGLHyaW
-         mab2d+TyKCSMGKhSUL32YrP1bN89RbTB+4qRLuQR/z/9eQyNG5OSpW2lGLNoZb467/Ly
-         Cv2iqynVC0vokh2gFMKSY2cPq4w+MA4feHE5YoJ3d8ubVyaRTrVMjt34D10AQiEsdEwl
-         CVmUbT91N7+46L86N27Hh5UnNZxF7mV0iSXLcnDdkhZ+1tjdoG6NH433nnQ6tgqY+G5I
-         K8MJbNrJSawf+rpL5MaB8UjdCZDpA75lIQbyTNtIZar6/lysoo9Qb2yg85jqyIwemJsx
-         waNg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2W5ZwkvfoaP3m1BepopQ1eFr2pGSQEVHyc9WHxq5PHrX1T1nh/raCj0h91v0VLZdctfIV3E1NCWCky6Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4T2MwV1XxKVWNbezecYZkdoQFJxuG0/bLW45EcfNIMlCa/xf9
-	F8dKmZczwQPFi68a/wW/mdLnO/mDkafBQpLMkSfwHH4SpspQVyF5fCHT
-X-Gm-Gg: AYBFou2F344Fnmv3/2lPd0GZmJIeZPYoXPKvX5at4jrQimSDxUVQ42VClV1s4V/RTx7
-	rWL9R5xgnfyQ1Z6drhQLZoGGwfQIszYMf8APli/a8wCcniGHpmCQ1iScllfvaMKM7/++Srd3E77
-	QQB6/+vbQHrj5wPeEDHWIMQ3UrQRq2INDq5dndGi11yMcS5KHYHlnWsENa6PEx4KsB2U2oVp5/0
-	R+b+TqFv/WU3b7AoH2m5G7Fo+wUOMQH70hoZGd+zObnl6kU3Z3G3IwPcuu4Vngl+TfEdJ8UJX3X
-	z3S4x3pjRrGN9Xq6VSsd3z3vjgDk2W8VHssO8K2DbWadgRLWIcHmhwsBGyOm3rmHYFsBcI7nU3w
-	fPIilFj7sCcGqbOLsNxs+781GgOei+ibzZNu3MfbvS0Ck04qyc6QxaM/LTHp6eu4s5iQrYJyLY7
-	OSHoDVnLHKqVs2LJWtbCgzQXoe0Zy49jkHqZf0R27iWYmtbbvevCA64g5kxwRKAFo6lAa5EAvDQ
-	FX4AbKPa7N6XlwphhmYCg==
-X-Received: by 2002:a05:701b:2092:20b0:143:808b:b178 with SMTP id a92af1059eb24-1825c27d1a0mr14024480c88.26.1792399602431;
-        Mon, 19 Oct 2026 01:46:42 -0700 (PDT)
-Received: from blue (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360826875b3sm32116751eec.21.2026.10.19.01.46.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 01:46:41 -0700 (PDT)
-Date: Mon, 19 Oct 2026 16:46:37 +0800
-From: yyaqia@gmail.com
-To: Thomas Zimmermann <tzimmermann@suse.de>, deller@gmx.de, 
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] fbcon: Rebuild rotated font buffer on font change
-Message-ID: <atHdEJjrSTrlZtSU@blue>
-References: <20261016073023.490430-1-yyaqia@gmail.com>
- <20261016073023.490430-3-yyaqia@gmail.com>
- <3382a02c-ed79-4214-99c5-dc81ee59d633@suse.de>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YHhNQAGU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Pyp/7ov4";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YHhNQAGU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Pyp/7ov4"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 848CB1F79A;
+	Mon, 19 Oct 2026 08:47:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792399627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gHLSmA7VpQsCx8Al9pxjTgMv7IrJsmRb0gjmLUJNCS4=;
+	b=YHhNQAGU3vpIwR6+nht7PBnuvYYt2BVmsatncL0m0/ouQnvehpsUrUMJlaKbhG6AOsZhIq
+	Sx72f90f7/w5ZiI22De7dmNVU1rxlbMJyZFT2d+nJrn1UoSzq3COF8XCBf1xLKJyYYcyH2
+	pQxqgEbZe16imXlhIP1JQWVGTBR4MJo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792399627;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gHLSmA7VpQsCx8Al9pxjTgMv7IrJsmRb0gjmLUJNCS4=;
+	b=Pyp/7ov4nvJWeoiPhH2k98OMzBfVN3/yCWDbaEHLC7yRbHllxrXgm7ctw0CcJXkJKQh95L
+	PbUo6VV23OXrzoBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792399627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gHLSmA7VpQsCx8Al9pxjTgMv7IrJsmRb0gjmLUJNCS4=;
+	b=YHhNQAGU3vpIwR6+nht7PBnuvYYt2BVmsatncL0m0/ouQnvehpsUrUMJlaKbhG6AOsZhIq
+	Sx72f90f7/w5ZiI22De7dmNVU1rxlbMJyZFT2d+nJrn1UoSzq3COF8XCBf1xLKJyYYcyH2
+	pQxqgEbZe16imXlhIP1JQWVGTBR4MJo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792399627;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gHLSmA7VpQsCx8Al9pxjTgMv7IrJsmRb0gjmLUJNCS4=;
+	b=Pyp/7ov4nvJWeoiPhH2k98OMzBfVN3/yCWDbaEHLC7yRbHllxrXgm7ctw0CcJXkJKQh95L
+	PbUo6VV23OXrzoBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2E3EA136CC;
+	Mon, 19 Oct 2026 08:47:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id n0gDOwrZ1WobdQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 08:47:07 +0000
+Date: Mon, 19 Oct 2026 10:47:06 +0200
+Message-ID: <87ecdmaxh1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: webgeek1234@gmail.com
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-sound@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/hdmi: Enable HBR capability
+In-Reply-To: <20261018-tegra-hda-hbr-v1-1-b8bb1f1d8d15@gmail.com>
+References: <20261018-tegra-hda-hbr-v1-1-b8bb1f1d8d15@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3382a02c-ed79-4214-99c5-dc81ee59d633@suse.de>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 2026-10-16 09:59, Thomas Zimmermann wrote:
+On Mon, 19 Oct 2026 04:16:31 +0200,
+Aaron Kling via B4 Relay wrote:
 > 
-> It's way too long and boring to read. Can you please try to shorten the
-> AI-generated commit description?
+> From: Aaron Kling <webgeek1234@gmail.com>
 > 
+> Tegra HDA does not set the HBR capability bit, however every SoC since
+> Tegra114 does support HBR. Override the hbr setup function for these
+> SoCs to unconditionally enable the feature. Since Tegra30 does not
+> support HBR, this function will report invalid on that SoC.
 > 
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+> Before this, any attempt to open an hbr stream resulted in a rejection
+> on Tegra hardware. Looking at the downstream support, that just bypassed
+> the capbility check for all supported Tegra hardware in the common code.
+> This replicates that in a driver specific hook.
+> 
+> This has been tested on a SHIELD TV 2019 Pro trying to bitstream an
+> Atmos demo video. It attempts to play, but mostly just underruns the
+> entire time, with a few spurts of correct noise. My expectation is that
+> issue is userspace, since that is a WIP android audio hal. But even if
+> there are more kernel problems, this should be correct as a standalone
+> change.
+> ---
+>  sound/hda/codecs/hdmi/tegrahdmi.c | 37 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 37 insertions(+)
+> 
+> diff --git a/sound/hda/codecs/hdmi/tegrahdmi.c b/sound/hda/codecs/hdmi/tegrahdmi.c
+> index ebb6410a48313..c4d8d8a570542 100644
+> --- a/sound/hda/codecs/hdmi/tegrahdmi.c
+> +++ b/sound/hda/codecs/hdmi/tegrahdmi.c
+> @@ -227,6 +227,41 @@ static int nvhdmi_chmap_validate(struct hdac_chmap *chmap,
+>  	return 0;
+>  }
+>  
+> +static int tegrahdmi_pin_hbr_setup(struct hda_codec *codec, hda_nid_t pin_nid,
+> +				   int dev_id, bool hbr)
+> +{
+> +	int pinctl, new_pinctl;
+> +
+> +	// Tegra 3 does not support HBR
+> +	if (codec->core.vendor_id == 0x10de0020)
+> +		return -EINVAL;
 
-Sorry for that, I was a bit lazy to think commit desc by myself. I am
-new to kernel and a little afraid that my message does not cover all
-things.
+I guess this will break the HDMI on old Tegra.
 
-> > - Also select the blitting type again in the error path of
-> >    fbcon_do_set_font(). On tile-blitting hardware, set_blitting_type()
-> >    uploads the font map to the text engine; without the second call, a
-> >    failed vc_resize() left the engine with the rejected font (found by
-> >    the Sashiko review).
-> 
-> The problem is that rotate_font can fail as well. Handling that in the error
-> path is not possible; hence results might be worse than keeping the rejected
-> font.  Can you try to keep the original rotated font and reinstall that
-> directly?
-> 
+Better to enable pin_hbr_setup conditionally for newer chips below, so
+that the older chip continues to work without HBR.
 
-Good advice, I will fix this in V4.
+> +	spec->ops.pin_hbr_setup = tegrahdmi_pin_hbr_setup;
 
-Thanks for your review,
-Yao Yiqi
+
+thanks,
+
+Takashi
