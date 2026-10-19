@@ -1,121 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC47488201
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:00:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB4E4A4EE4
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400443; cv=none; b=Q9k2kBZ2gsb8tcDTmcf51St+AOW6ddlbA0K2D9XRcdoAdGYcv8OX3ZdMlYFRhZMK/3wv/HqyMPvPtmizfNkK3imX/Raj2/EDL7NQ4NNwtE4QoBS995kLmRa80gXCnMonR/FZL4hdVEXA1dS140vBDAqsTOv2Gp8VHqmqmovrak8=
+	t=1792400483; cv=none; b=OEPtiKtNZ9CwpPUqf1tOlKpltq9gqhdaYJavgvvJYw7gSduuScGvncRfbVu3FaDIpJrRzZ8umGDR7iD47ahvoBtLZsx/m/Kejujd2yNOs3prCGLFwsv7HxdpZ6SdJtQRcec36f8BaDx/yXp4rlj8GgKU6BNJFNlA6tozRNYTCYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400443; c=relaxed/simple;
-	bh=nJwavie+2NumadszN3aES2YGtRRlL/vf9ityggBJpyo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=riRO/1hagxirAnowAD754vBCCxCW+wGZfO+9TFSOY80MRDp72UrzT7/ZuE0TJ8B6pMArn2Co/I8vmknuxLNWAjX3THIn4R9a/lyR96Dh8arp3vzl7VX8RHLQpUbBuZC45PsXIfvp3lbeI2YGssll9a95iroK92J8KAqwDMfnz/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QSAE5DHr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792400483; c=relaxed/simple;
+	bh=WLWwWzeZBOSKp0C0wY8LsKsrti3WYaCx6yssolyVc20=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aGHOJY+QErJuyePjm+c1F+OAYnaRLmuuQ7jPRzbPnXbuLKbKtg8xFKwQNMh4wJuY4sTwiUWxX39aTFXnQmT1BM8mM7w1E2Hp3tvlF5xF7qluOinm86qIEkW1oTqppUrddaISKfAfurW0/q90nQxUFFE0uD795bmRwx5SHkz6F34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UL+ENG4D; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QSAE5DHr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02CF81F000C4;
-	Mon, 19 Oct 2026 09:00:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792400442;
-	bh=1YlIEAgP2+fxmetkRzFsykbdiTOnFRgm7xmecjSZ33g=;
-	h=From:To:Cc:Subject:Date;
-	b=QSAE5DHrAsDSWfHNRyHs6d2Opjn6DDB3aMaS5U3eymAUQIaUIK2rgORqyQk1vCYbv
-	 R9XTNmsKggZ7dvRu8yjPkE6VGJ9X1W9cqa20LGlMOuE2zYfvzvdEeoboHL2syVWZSj
-	 x0Vdrx3mTNLOq8RY5FT54odmt2IvWrDEqKHo92xXEBL8RnPFGakJ+ybTSIh58tKlQp
-	 jj8WjL93NX4AYh0rFhnJ3WQ/3q+hf4kyPG6iJIkuTmgwjwgJtKklaMtR9gHNEWcRyM
-	 UFNjPthKjYxWOPsVd5d0ZSb6QZBZ44nM6aa7uv6tsiU/eiWJZO8wp7SRiur5SOChlx
-	 CYu/fBOu6ofrQ==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	stable@kernel.org
-Subject: [PATCH] f2fs: zone: fix to don't fail to grab GC target block on zoned device
-Date: Mon, 19 Oct 2026 09:00:32 +0000
-Message-ID: <20261019090032.1170825-1-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UL+ENG4D"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso874458a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:01:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792400481; x=1793005281; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vybmS5BYak1w5heTo7DTlFP7z60krqMLtPatgKuV1rE=;
+        b=UL+ENG4DQGJypialzcokFBbH2hNcqkiklUgduMttVl/6uw8zMl7mHACrAXIXHTR5OO
+         vcirIIG84nBTUYsTaXAR8AjlRRSWg7LPm9TGemx6R0+KtBrW/JW2pCAUMi1+QzsGcXrR
+         VeTxqHMoeSKx6L5/POgD5MevOXAei04SgH+xa0FsbAIi2NOlJ7UDpyeSt72InRIzXPIQ
+         6WKZ29nlT9f3xae/YNrfefeFary1xpB2WKr6KCgKJD0sbi0pVzkw3hx9SZ1Y8PVLuLP1
+         a6cuPxIxkca399ANA9Oi2gOguTwPbOMA9nSTGtmS2gnrgV2YJE/m1qREufbd5RxdWggX
+         Gxvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792400481; x=1793005281;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vybmS5BYak1w5heTo7DTlFP7z60krqMLtPatgKuV1rE=;
+        b=1uNbjqehqLSyiCYMoGVMEC8C8uGJcOorU5WOB+PhuIvowUClh4I6hzZcVnU4LJGvjS
+         BBfJ+KlGHX8HqGpg/4rTFT0j4TCMaiUKXn4+uFRqQwJe0wqlTMobLvNxlLbZ/H4Rgtg+
+         DSlOyEHiQL4YqiFzd3OK/Q9931jUalbQHRYypKuMCxn35txr9YLUQhhErZzpOPuavZSB
+         i8Dpm9lmV5bcQmHkKV0E3fLmO2sAL3rzyfoy8R8kqmDnRbC+D4RFnR1ivyqN9M7Fo22a
+         5ulrOYXB7x4Xf0npMQL73O8n6TUd94a81DRRj+OQJ9Dl8jOtazjuVCG9y7+JZbCFeKtA
+         mE0A==
+X-Forwarded-Encrypted: i=1; AKwUvBye0oQhwE1fdCdehu2rsdpwTnE4V8RHA7lyq+Z5iC9/MYdask5mOCrZFbvRvG/O1ehyJjgqkPYImbIw22M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWNycndj4Pj+AgPnmrokO7n69+Df7kWYkVMzsM+bR145aBkgv7
+	Encf5Zb02i81BV+kJE7KV1deUxTkI1tv+SQcT0casX/7Yq4V6XPYozCa
+X-Gm-Gg: AYBFou0UYkFJT3TKf2S7U70bg5rHdEAX/SWBEElwLFoVIVOr3JtBnVhANLJx4ZrxRnO
+	4WQTKq5bPkyFH5iGc+WAmMrne0lrrYaM22hJXIz4XXAv23LjKq64mRJ3WTF9Ohz5EBcVXIvCJB/
+	GO9X/wi8EksYT2CjpDSCn5LFoOYhVRBYjNKkAXE5NaJuXgQ1IKm7y56V3DQ1n1I5kqpMmSDbbad
+	7teOE+ZslKxFxprR5FJH0GANJzHgm3bmtToh7fMCRP7tRGly5easqrPq+0Tg48SVhou7qEVl6BM
+	3YHm6czrShaEe5Yx8RVY7qjZx3f45/9MVfM2iyeFoQhcV6nQUppi5lboh1TbMQzfnJpnzTBOPjK
+	mO/WBTDekZ/3ujBC8ZTOtBnSY60XN9utx1ctdxDEdZns4oApCI4zPKiNKGG4SfNEYOPsaZhWVYr
+	GtEnNIYoCj0y/cR4mmEflHG38YqdW3aJkz1Y0IZxgE7mRRip8eVCurixa+9MBzkU2L6FWXhrojU
+	6bh2TURYWtTkLquTb0=
+X-Received: by 2002:a17:90b:1a87:b0:3a2:bb45:d37b with SMTP id 98e67ed59e1d1-3aceec26e88mr5914108a91.25.1792400481075;
+        Mon, 19 Oct 2026 02:01:21 -0700 (PDT)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9d266d6sm7618163a91.1.2026.10.19.02.00.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 02:00:55 -0700 (PDT)
+Date: Mon, 19 Oct 2026 17:00:13 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 6/6] gpiolib: let the character device free its IRQs
+ first on chip removal
+Message-ID: <20261019090013.GA29798@rigel>
+References: <20261016-gpiolib-chip-removal-v2-0-aambrozewicz@nvidia.com>
+ <20261016-gpiolib-chip-removal-v2-6-aambrozewicz@nvidia.com>
+ <20261016134003.GA155960@rigel>
+ <atXXi_EA6iROhK0C@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atXXi_EA6iROhK0C@ashevche-desk.local>
 
-From: Chao Yu <chao@kernel.org>
+On Mon, Oct 19, 2026 at 11:40:43AM +0300, Andy Shevchenko wrote:
+> On Fri, Oct 16, 2026 at 09:40:03PM +0800, Kent Gibson wrote:
+> > On Fri, Oct 16, 2026 at 12:23:38PM +0300, Adrian Ambrozewicz wrote:
+> 
+> ...
+> 
+> > > +	/* Called with gdev->chip already NULL, so gpiod_to_irq() can't be used. */
+> > > +	if (gc->to_irq)
+> > > +		irq = gc->to_irq(gc, gpiod_hwgpio(desc));
+> > > +	else
+> > > +		irq = 0;
+> > > +	if (irq <= 0)
+> > > +		return;
+> > 
+> > Perhaps I'm channelling Andy here, but how about:
+> 
+> It was in the previous version and I suggested to move it to the above. Seems
+> like we have an opposite comments. Can you provide a rationale behind your choice?
+> 
 
-With out-of-memory fault injection (inject_type=0x0080800f) on a zoned
-device, f2fs stopped checkpoint during GC:
+Ha, so it was, though your suggestion was not quite the above - it
+didn't allow for gc->to_irq() returning 0 and it set the irq to a
+negative error code.
 
- F2FS-fs (dm-0): inject kmalloc in f2fs_kmalloc of move_data_block+0xc0b/0x12b0
- Workqueue: dm-1_zwplugs blk_zone_wplug_bio_work
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x4d/0x70
-  f2fs_stop_checkpoint+0x1df/0x5d0
-  f2fs_write_end_bio+0xdbb/0x1320
-  blk_zone_wplug_bio_work+0x2aa/0x7d0
-  process_one_work+0x5c6/0xde0
-  worker_thread+0x403/0xb70
-  kthread+0x235/0x2e0
-  ret_from_fork+0x2f/0x70
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
- F2FS-fs (dm-0): Stopped filesystem due to reason: 3
+> > 	if (!gc->to_irq)
+> >         return;
+> > 	irq = gc->to_irq(gc, gpiod_hwgpio(desc));
+> > 	if (irq <= 0)
+> > 		return;
+> 
 
-In move_data_block(), the target block is grabbed from the meta cache
-after f2fs_allocate_data_block() has allocated newaddr. If grabbing it
-fails w/ -ENOMEM, recover_block calls f2fs_do_replace_block() to restore
-the old block address and curseg's next_blkoff, which already points
-past newaddr, so newaddr is never written. That leaves a hole in a
-sequential zone: the next write to the zone is not at the write pointer,
-the zone write plug fails it, and f2fs_write_end_bio() stops checkpoint
-w/ STOP_CP_REASON_WRITE_FAIL.
+This way is clearer given gc->to_irq() can return 0 - the <= condition
+there is purely because of its possible return values.
+Setting irq to either 0 or an negative error code, rather than just returning
+on the spot, are both more confusing and pointless.
 
-move_data_block() allocates newaddr before grabbing its meta page and
-goes to recover_block if the grab fails since commit 4356e48e6437
-("f2fs crypto: fix incorrect positioning for GCing encrypted data page"),
-the meta cache only replaced the meta page w/ a meta cache entry. That
-is harmless on a regular device, but it leaves the hole since f2fs
-supports host-managed SMR (now zoned block) devices, which only accept
-writes at the write pointer of a sequential zone.
+This is my preferred form, and I obviously expected that you would prefer the
+shorter form as well, but apparently not.
 
-If newaddr is in a sequential zone, grab the target block w/
-F2FS_CACHE_NOFAIL, so nothing can fail between allocating newaddr and
-writing it. In a conventional zone or on a regular device, skipping
-newaddr is harmless, so keep the error handling for them.
-
-Cc: stable@kernel.org
-Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
-Fixes: d1b959c87702 ("f2fs: Check zoned block feature for host-managed zoned block devices")
-Signed-off-by: Chao Yu <chao@kernel.org>
----
- fs/f2fs/gc.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 926e6976bc22..b6d7ed299f14 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1453,8 +1453,16 @@ static int move_data_block(struct inode *inode, block_t bidx,
- 		goto up_out;
- 	}
- 
-+	/*
-+	 * If newaddr is in a sequential zone, it must be written once it is
-+	 * allocated, otherwise it leaves a hole in the zone, and the following
-+	 * write to the zone will fail as an unaligned write, so don't fail
-+	 * here.
-+	 */
- 	tentry = f2fs_grab_cache(META_CACHE(fio.sbi), newaddr,
--					F2FS_CACHE_LOCK_CREATE);
-+			F2FS_CACHE_LOCK_CREATE |
-+			(f2fs_is_sequential_zone_area(fio.sbi, newaddr) ?
-+			 F2FS_CACHE_NOFAIL : 0));
- 	if (IS_ERR(tentry)) {
- 		err = PTR_ERR(tentry);
- 		f2fs_put_cache(sentry, true);
--- 
-2.49.0
+Cheers,
+Kent.
 
