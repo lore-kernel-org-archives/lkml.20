@@ -1,261 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560144FFA5D;
-	Mon, 19 Oct 2026 14:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B2B3F0749
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419347; cv=none; b=BNqx/GVvDOO2Q0KZvgRk0wbRdZ1cvdrP/gdndFyZq4RcQWYF8XVKJm/J2TFqYT/U/rJDFxkIE5MUISOXQ3WCWqFzzK/mevaX8g22sQDkGNQlS5KI3/RviLthKyJfNrW8ED421JT+2NMWVGljPCu+Ejg7OXkzgJinfj5G/DZyw1A=
+	t=1792419355; cv=none; b=A7dZCpUkdUMn53LA3/oVIYkqGmNySK5PMbYe1x1i13obGpjQuoPWL0MY1zGAEye61yiDd6O45o5sWYQVqXEmt7vwDqnwF+kPclxhKR9kAB35+gaMM8onqnX43eqHkTMITOpRwc2L/WqKycFfgPMoFWjoryVuoJeTuQVrXElalQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419347; c=relaxed/simple;
-	bh=8Y2f801rBRE00nMrtbsbMzZc6dUaavgIbB687gNGB1M=;
-	h=From:Subject:Date:Message-Id:To:Cc:MIME-Version:Content-Type; b=h2Q6glwqt4W/MJSsJxK0Ixv905DNXPLduvBjQ6b2onMrVkipB655NFruLgaQ3GNo+NaT02le1s/J/iqF6KWR+GocoIOYs0T1B9UwLysIRmLGBGrYVIyZdz/uQUDMgXvgoWsNDno//fyjWt1Bq6pyxkf6EyFg6xYAnqS3j2fPxQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMJh0kCg; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMJh0kCg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ED7DDC2BCFC;
-	Mon, 19 Oct 2026 14:15:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792419347;
-	bh=8Y2f801rBRE00nMrtbsbMzZc6dUaavgIbB687gNGB1M=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=hMJh0kCgz5Fm4GaoCRt6TIktgRlw+PVAlcQ8DmoooMUVz7rm6fxq84iUqzAyiS5UY
-	 9xbgRKSWm9EZJ5Wn7MUmSCUjsGO/3FbIZ41g5C6e6x3f2hBHVNmtWiGtPNV5U81LGO
-	 EBtXVOpbkHCiGck8NNCwzby4Lu44A69yPbRNz6xw2umyzS+vp7aWQvnru6JNcBFVxN
-	 gTRlBO7zoNBdh9BctmYDgs3V3X9DMnvyhE7xwcgGjr1/EgVV5tr3HzribXs4j5aktK
-	 dpuI3kfkh+crccrG24nIQV1hwAM9DLD79KQs/4QKXI4I7DxGSGkLT9K1ws7GYpntyS
-	 FjexjtnTN/JBw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5AC9CCF2E5;
-	Mon, 19 Oct 2026 14:15:46 +0000 (UTC)
-From: Amir Atef via B4 Relay <devnull+amiratefabdallah1122.gmail.com@kernel.org>
-Subject: [PATCH v3] staging: iio: frequency: ad9834: use guard(mutex)
-Date: Mon, 19 Oct 2026 17:15:45 +0300
-Message-Id: <179241934543.347.7026859519510388428.20261019-ad9834-guard-mutex-v3@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
+	s=arc-20240116; t=1792419355; c=relaxed/simple;
+	bh=Bw5159SWZK0MfXRnp1tl8h36EKMSwk4lSrReIomW8O8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dMudVKrOSBo97CORZWaIPjn7+sMW3NgkquxtqMtafU9of99/QAzpFXAA2+3EWeiMDwDs7AVcXMd50G0wvuo3E0JxbbVDWuj8vv/RxtXHS0TSELTNM52TmlGAwYIHZ/rX6xYdAUyAboGGTQBiNk4l5oQ0JZzjupj8iM/tdUQjbL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7c33cc572e6so2090939137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:15:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792419353; x=1793024153;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gTsMBv+BX/aLxxsbc3oBL3K2Qt4xiXtXHE4nz5I9X0E=;
+        b=ZcNqVnKndE24LNEwJ2zfLLxvoKjkjYIDA0baJLZIWZNdRIz5LLJtlBrxZfm/ssgVYM
+         Li95JxmiSsCkBJRXYHGzIxHG/i0XInwVjKeUrj2pE0mm4y+MW8lDVPaPxXRkvU6B/lly
+         MJgAgZAkm+RSOUH6k/rAaM56Q1hy1IKVxgOJr2fS/KEiJccd3OMKPYbcD5PzUXYC0JET
+         AfQI376iCpV4UZSUa6R+Sa8FaXcn0y1qd4X+OviRj7VLjadb6wUHR7XPmIDmcy9QSaJy
+         ZMFAFRyqWLwym4aN/S6ma5x0R2Sw1ImZb3LxCwZpR9pjUeN7rqBuc49uVBfPaJJYYkKx
+         zqHg==
+X-Forwarded-Encrypted: i=1; AKwUvBzK23jmkbZOSVomFKeZEiP54ppgojUVi6nVu5hbg+huTr8htXP2C30mxsD2zgyT1iiFW7/cfmdiTebKnY4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+tNFgEsd9ef4fQqq6bhTfmkIspvIEVP6fErYbqIYSCwStwg/7
+	YEa7Z11cZzv5+k8cSZClo8yPQU85915gjuS+Q4niIxYMK9C85VYu5rw2S//RdvOl37I=
+X-Gm-Gg: AYBFou0+d5uem/NgjjvJnDg3DB7GY+xBkH1cfyUk0ipsI32Xw881hNypHtWYXdioF2n
+	Er//UoGDJ+5nQYoDGLYrXYTc95YgDpZMh2grzjLUpnwKWKq8tIk+7Mqe33BlhjCxpw+1thY1gB8
+	2wqHGQxZdp76Yner2DysarxoIvcQtm1d1ccVzkm5f0TzUUto4yfrL3VXj2K6PWu1EJTFcoArmAK
+	wd8b9Dxta1gDYzUTjnZuOJgiHZ4SCTxcqcG9tWLxVSCVjan9b1ZJo/hmOtDCeeBgFJBa9HRC+b7
+	7oSsPLnMNY7T5E6uJmb2jVRtRNRPLYPQ7JL5YwE4RTQ1caTB8YCqihZ0z5ArRZap+f0z5745lba
+	nhVBDacZXrj2CwGNmQAZ3FZtxh8OZnvqYnKJ9qMynVvwffdlbcTFJgC6PJzf4jgrEqvvJYLQSZf
+	I7/w7d/g5ycLVsMxLvEzuvduwWZKYxYG9sqpkOON/Gpp2C/9ggzE0o/Mf9q40IXaxC3qNRtmUL6
+	pHgSc53q8CKLB4qegYf9KlRAVIEBkg1BDIeULVYseCnaM0=
+X-Received: by 2002:a05:6102:292b:b0:7bd:ce85:b00f with SMTP id ada2fe7eead31-7cc18271943mr2533415137.40.1792419353144;
+        Mon, 19 Oct 2026 07:15:53 -0700 (PDT)
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb334183sm261105241.5.2026.10.19.07.15.48
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 07:15:49 -0700 (PDT)
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9908346255fso1635610241.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:15:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxUKX8HDAFcWA7Ua2tr7Xin09z0lfLFM8oa5hd5rbsn7xDlNsvYy7u4cN0fI8uf+CJHkuu7wIgG0f/uvbk=@vger.kernel.org
+X-Received: by 2002:a05:6102:75a:b0:7ba:7a64:5946 with SMTP id
+ ada2fe7eead31-7cc1823be8bmr2159864137.35.1792419347856; Mon, 19 Oct 2026
+ 07:15:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792419345; l=5661;
- i=amiratefabdallah1122@gmail.com; s=20261016; h=from:subject:message-id;
- bh=PV0A3X3jMYRAMHW9+7PzYY3QywINPlgt8surF5pA0F4=;
- b=h217iyIPKRwvW3p+k4iK6rCRduauMeZLu49yLaHdgl8g1kQrvJrmcwuxl9eTHiXOpCBQnGAHe
- W63AAv0S0MGDwwihPNIteZI9ESbzIvyT9ct60D7xxIV1CEm0BZPCqpq
-X-Developer-Key: i=amiratefabdallah1122@gmail.com; a=ed25519;
- pk=FRhtQptjt3GSkQBUg7qfVL8eusorsJqHzciu3+ss11o=
-X-Endpoint-Received: by B4 Relay for
- amiratefabdallah1122@gmail.com/20261016 with auth_id=1209
-X-Original-From: Amir Atef <amiratefabdallah1122@gmail.com>
-Reply-To: amiratefabdallah1122@gmail.com
+References: <20261001082225.125956-1-herve.codina@bootlin.com> <20261001082225.125956-4-herve.codina@bootlin.com>
+In-Reply-To: <20261001082225.125956-4-herve.codina@bootlin.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Oct 2026 16:15:36 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUXbeTU9ROjHQKje_+-hUCgtBOXEUpvnpRMh_dyJTo+Ew@mail.gmail.com>
+X-Gm-Features: AclHuK91kcP9qOZ_DEuR872u-j2nw4CzwPaKsUs5BANpggKtpgKKO3z0eBpg8xs
+Message-ID: <CAMuHMdUXbeTU9ROjHQKje_+-hUCgtBOXEUpvnpRMh_dyJTo+Ew@mail.gmail.com>
+Subject: Re: [PATCH v7 3/4] ARM: dts: r9a06g032: Add support for timers
+To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Pascal Eberhard <pascal.eberhard@se.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Amir Atef <amiratefabdallah1122@gmail.com>
+On Thu, 1 Oct 2026 at 10:22, Herve Codina (Schneider Electric)
+<herve.codina@bootlin.com> wrote:
+> In the Renesas RZ/N1 SoCs family, two timers block are available. Each
+> block contains 8 timers composed of 6 16-bits timers and 2 32-bits
+> timers. Each timer has its own interrupt line.
+>
+> Describe those timers blocks.
+>
+> Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Use guard(mutex) to manage the state lock in ad9834_write() and
-ad9834_store_wavetype(). This simplifies error handling by allowing
-early returns instead of setting the return code and breaking out of the
-switch statement to manually unlock the mutex.
+Thanks, will queue in renesas-devel for v7.5.
 
-Signed-off-by: Amir Atef <amiratefabdallah1122@gmail.com>
----
-Changes in v3:
-- Handle errors immediately at the point where they originate in
-  ad9834_write() using 'if (ret) return ret;' followed by 'break;', and
-  replace 'return ret ? ret : len;' with 'return len;'.
-- Link to v2: https://lore.kernel.org/r/179219435216.322.13409717511306957730.20261017-ad9834-guard-mutex-v2@gmail.com
+Gr{oetje,eeting}s,
 
-Changes in v2:
-- Add blank line after guard(mutex) in ad9834_write().
-- Move 'int ret;' to the end of the variable declaration block in
-  ad9834_store_wavetype().
-- Drop redundant 'else' in ad9834_store_wavetype() case 1 by inverting
-  the condition (kept 'else' in ad9834_write() and case 0 where they are
-  part of if-else-if-else chains).
-- Replace ternary return with explicit 'if (ret) return ret;' in
-  ad9834_store_wavetype().
-- Link to v1: https://lore.kernel.org/r/179214943270.333.5921549521929682753.20261016-ad9834-guard-mutex@gmail.com
+                        Geert
 
- drivers/staging/iio/frequency/ad9834.c | 70 +++++++++++++++-----------
- 1 file changed, 41 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/staging/iio/frequency/ad9834.c b/drivers/staging/iio/frequency/ad9834.c
-index 0d20f796e0f0..8686a22f3fc1 100644
---- a/drivers/staging/iio/frequency/ad9834.c
-+++ b/drivers/staging/iio/frequency/ad9834.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/dev_printk.h>
- #include <linux/err.h>
-@@ -154,21 +155,26 @@ static ssize_t ad9834_write(struct device *dev,
- 	if (ret)
- 		return ret;
- 
--	mutex_lock(&st->lock);
-+	guard(mutex)(&st->lock);
-+
- 	switch ((u32)this_attr->address) {
- 	case AD9834_REG_FREQ0:
- 	case AD9834_REG_FREQ1:
- 		ret = ad9834_write_frequency(st, this_attr->address, val);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_REG_PHASE0:
- 	case AD9834_REG_PHASE1:
- 		ret = ad9834_write_phase(st, this_attr->address, val);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_OPBITEN:
--		if (st->control & AD9834_MODE) {
--			ret = -EINVAL;  /* AD9834 reserved mode */
--			break;
--		}
-+		if (st->control & AD9834_MODE)
-+			return -EINVAL;  /* AD9834 reserved mode */
- 
- 		if (val)
- 			st->control |= AD9834_OPBITEN;
-@@ -177,6 +183,9 @@ static ssize_t ad9834_write(struct device *dev,
- 
- 		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_PIN_SW:
- 		if (val)
-@@ -185,6 +194,9 @@ static ssize_t ad9834_write(struct device *dev,
- 			st->control &= ~AD9834_PIN_SW;
- 		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_FSEL:
- 	case AD9834_PSEL:
-@@ -194,11 +206,13 @@ static ssize_t ad9834_write(struct device *dev,
- 			st->control |= this_attr->address;
- 			st->control &= ~AD9834_PIN_SW;
- 		} else {
--			ret = -EINVAL;
--			break;
-+			return -EINVAL;
- 		}
- 		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9834_RESET:
- 		if (val)
-@@ -208,13 +222,15 @@ static ssize_t ad9834_write(struct device *dev,
- 
- 		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	default:
--		ret = -ENODEV;
-+		return -ENODEV;
- 	}
--	mutex_unlock(&st->lock);
- 
--	return ret ? ret : len;
-+	return len;
- }
- 
- static ssize_t ad9834_store_wavetype(struct device *dev,
-@@ -225,10 +241,10 @@ static ssize_t ad9834_store_wavetype(struct device *dev,
- 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
- 	struct ad9834_state *st = iio_priv(indio_dev);
- 	struct iio_dev_attr *this_attr = to_iio_dev_attr(attr);
--	int ret = 0;
- 	bool is_ad9833_7 = (st->devid == ID_AD9833) || (st->devid == ID_AD9837);
-+	int ret;
- 
--	mutex_lock(&st->lock);
-+	guard(mutex)(&st->lock);
- 
- 	switch ((u32)this_attr->address) {
- 	case 0:
-@@ -241,7 +257,7 @@ static ssize_t ad9834_store_wavetype(struct device *dev,
- 				st->control &= ~AD9834_OPBITEN;
- 				st->control |= AD9834_MODE;
- 			} else if (st->control & AD9834_OPBITEN) {
--				ret = -EINVAL;	/* AD9834 reserved mode */
-+				return -EINVAL;	/* AD9834 reserved mode */
- 			} else {
- 				st->control |= AD9834_MODE;
- 			}
-@@ -249,31 +265,27 @@ static ssize_t ad9834_store_wavetype(struct device *dev,
- 			st->control &= ~AD9834_MODE;
- 			st->control |= AD9834_OPBITEN;
- 		} else {
--			ret = -EINVAL;
-+			return -EINVAL;
- 		}
- 
- 		break;
- 	case 1:
--		if (sysfs_streq(buf, "square") &&
--		    !(st->control & AD9834_MODE)) {
--			st->control &= ~AD9834_MODE;
--			st->control |= AD9834_OPBITEN;
--		} else {
--			ret = -EINVAL;
--		}
-+		if (!sysfs_streq(buf, "square") || (st->control & AD9834_MODE))
-+			return -EINVAL;
-+
-+		st->control &= ~AD9834_MODE;
-+		st->control |= AD9834_OPBITEN;
- 		break;
- 	default:
--		ret = -EINVAL;
--		break;
-+		return -EINVAL;
- 	}
- 
--	if (!ret) {
--		st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
--		ret = spi_sync(st->spi, &st->msg);
--	}
--	mutex_unlock(&st->lock);
-+	st->data = cpu_to_be16(AD9834_REG_CMD | st->control);
-+	ret = spi_sync(st->spi, &st->msg);
-+	if (ret)
-+		return ret;
- 
--	return ret ? ret : len;
-+	return len;
- }
- 
- static
 -- 
-2.51.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
