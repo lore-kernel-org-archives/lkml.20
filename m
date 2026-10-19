@@ -1,163 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594284F0525
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792412614; cv=none; b=XV6dkLJAce9OXFG0Lpub8Icn0JZRmfeVwa65lSf3AZq1qPckxh6oaVXLGa2ibW5hbmReh6HrXi164CT5sInFcnbRAhC13HdTFsFEtJKyE7tMe+VUwnN6c0b/Rk0S3s6yohY1JEu4YE+IEa7Q6KD0QV4THe9gV7If1KAyZe1rm8c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792412614; c=relaxed/simple;
-	bh=D/K+gtDanH7LL1oVUnqBXGxW5Q4Nl7tGMlKqfoNYBV4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OfdkW+kxqw3Zh3Tun8x2REfvz9HuLoLpgavr5jBTwTawMYrZv2+4EbU9drIvkiSFsYBsz5bha88od/4WbKvhb5clxKa1VWdxJWqNuq0F7NI/AHcJRPFLGAetiq/Mxa5uXAItm4qrab+t5pTO8R7FvD4JBX3rC2/okxAFQZc4cG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oq7f7u02; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28184F30D3
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792412657; cv=pass; b=sP1F5eSKXo9ESUJdP3KzrZr0DFPowC396MIsDg0s+JKe8Ei1OaAXygdIQ9QtOkMrJ394T3ua2/9a4vo1D40+PjgerR5/ShDsy0QB8pWM5UOPoKh9dqVo/dlEu8IbCCml6Vr8+b8LhseGV2GCgoH1S3+ijDuYPmRoZh8aC7SJrOA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792412657; c=relaxed/simple;
+	bh=zIl3797HKzBaRekdH/RX1kheOlY2s6cxDUnXXsRaPAI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IMrnV9V7VmHE7hLwIVUe87wUPqEjE8J5as+qIRM9AObjKUdggULklgAsrkV5Yv/2xY/9HLLce/xhh9Y5BAEGwezo9rCGdz86w2BmTm2MYUMbdK5dzjqtpDRO0/ppcbcfnBiIekPlEoI4nYvrN+ziarnzvDuYCUvKoodZ+n2o9Gc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cBUhGN+b; arc=pass smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oq7f7u02"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3DAA1F000C4;
-	Mon, 19 Oct 2026 12:23:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792412609;
-	bh=LuiCl+I2h452P2ySjY/aKFWNJcn4drc6seXyIqCSVY8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Oq7f7u02z1MZMAwTdBQfCe7hZrRaN2XCtCDfk6Kmv9L+JzDLETnM+pXZ/QdKeAsCd
-	 IpjIT35E4EWLub8zbfJYdEvr8sZ4ATo9B3YFfoBKHidQyqWtp4k/yGXOOfSAqWKM2t
-	 QWLsVwUuEgK3krujErnkqv/z5CluTrRgy8Wb9rkHIc8/PFjdynqwnoEr0y171MeIWK
-	 Oi1QRss8lATZaL/cdyQqfX0yX/tPIMhMufaemhnMMfIWtYuzBTRhc8ASlitX1iJdCU
-	 Te16u5lGojfvFc7g8Sur8XSomaWBT9BS3Kd3isIO6Lwj9C2EWSGmMInLc1vQF14u1G
-	 R0gIBW3J68SWg==
-Message-ID: <ad34dd6d-f106-42b1-b8b6-a4487822285f@kernel.org>
-Date: Mon, 19 Oct 2026 14:23:21 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cBUhGN+b"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b0584ad71so1379782f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:24:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792412652; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hO6Aa4ET7HQdtsCgO0G4hbvzMfOyQD54/6sjBg/LALzA9RUTiuSwGQYjIYx926f8B4
+         /Qg4BuVZQJK70swgiG/K4+ne+DUMJOQZfggeLlZnIndDmuYCyy7CNCHpQjpN8TCbKs4P
+         QMs62k0Ov64KyN7BAs9eOAgQpYZonT20TbJe84FRwFIvjpS2RDbDiHM+s2DvQvIYCnuF
+         S2xW7zQLcbQLtrHWeHRZuGr4tFK3mtQyKWQH6yeG0Ia62S0bUgoofe8v+Qsiklz2zFUJ
+         2US3bizBoMKk7HSkF766L9Fv6MT7tsEoZ3hM7TYQK71XAq1a7c0TuYT3CkORm/1/L2Oo
+         Gpdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zIl3797HKzBaRekdH/RX1kheOlY2s6cxDUnXXsRaPAI=;
+        fh=FX1y/1oxSNeGmnaigVrpyoL9p/1rPbqPa3TCBYQMcq0=;
+        b=Gvl9w8d4TDF2Wf+ZKSDZzJTh1ZgUvZ5Ld/ZbwiIaF0K9lERLnEMQnwgvwkDf4C+orW
+         vtSgdFK+nXt3u6+RT8lAEVh5gNW6ip6RW8gCAUfvwSbmwcphhsuv51osGE+NUJiMU3ve
+         I+cNgz60p08jUlTX8pN63TcV97tz3ItQXKSIvbwzSLO/U6eEi8Xb60bv/H9Qk8D2a5n9
+         ouSO6nRTkQBYXYU15TB24YPpopJDJMZNqaszTzgL5Ig24SKwPHAkb9tvCiiaCYReIPVX
+         bzpEiEspvd2tGuCHAlAxL/aFocuBRB0CKV/piCLNryaeUFNxCMMYspOYN1Vv3VeTjJsP
+         1jkw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792412652; x=1793017452; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zIl3797HKzBaRekdH/RX1kheOlY2s6cxDUnXXsRaPAI=;
+        b=cBUhGN+bc6z4JOwb7GD65Mmty/kREQqoFp2h2ZssoAZ1K+cLzitmjC0S+VszKct80p
+         Ts8Q8YVt8uIa44putvYIauY70Q9ldU9C70Zax7r+mcfj2rn8OjomUqTUW3ybzpq1Z1mi
+         hDX9HVmL1gXta3qnuImS7OheEaOUBKNZAQaGNdPmrsz0pVTt5mPxlXSse8zrPT0XBwm4
+         cveqrWZ/wnGL0KjaZFDUeer8oxH4G8VZPb0AtN1DKLUACTKC8DflIm2u2G6SaBol9+Rm
+         Boz1mww+EwtDAXJEjL23vlCWmbhqe2OndJzRCgqxBLSOX4SqkcYCOrqBIE31TpzUfy4U
+         agHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792412652; x=1793017452;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zIl3797HKzBaRekdH/RX1kheOlY2s6cxDUnXXsRaPAI=;
+        b=lQpJdB8jexuTzCIaxOnu4onoBKF25jE3HQILKxrOMETTZZSkwuEEMelffWknQbua2S
+         rKY7AUZ1/Bdwy2MoPMsskWHPaZXMpx+2LyJzqmLw29PCPoVXCGY/zSwMbCYLT4RBJb+7
+         LLvN3cEGj3ORyUVzBeO+EQUBI0CwsDxtBVHPR+SfZ9jG4si9MKRqMSi2nUVfKMGLFXdX
+         KKMaPxVYrPZEIUy7PqsVkbDuTZJCzUoLdURBerQU+eZZ/uYAtpMqffYp6KJ1e/W6E9HZ
+         eVZJxcL6JX4Oyjt3Ad2M310qW9GBaWZM93TlzUJKHrY8G16c7IVv1LNXQiA5n6D99e3p
+         l2og==
+X-Forwarded-Encrypted: i=1; AKwUvBx6HmcnDrK194MfUIy8rVhuoqimTuz+Zc4T0MHyXxSLxpjgOp/fv/uBZi7GpYqMnEz1V2nQZrdYjYcG7vk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtouUov64SDmd11DBZizqEcONFSHk07Zgw2eaNfzBeei092bmt
+	T43pUlFi2RjtRNKXmgzSUot65Ikh27LbtRSKDJNSgSuNqmA8PMJGPZhHns4s7uFgfQcGR/DBC3e
+	ElQ4dXk+6sPrnaZxAlg3Qe69tdXzFJ68=
+X-Gm-Gg: AYBFou1wlIJYnHDfRUn8FIF+Q/dvO2ZATC0koYBrd7RBXkHK/WXjlzevFTQZ6AUO8Nd
+	8TVDT3JaUDNxrkP3MjLMZHjeVcZplvPeOkMc5oUsRF4Bk7sWek29Bhg/mNsmS94chzJR7g+5k+R
+	q6BZOZZ0czrCPOeT4Gm0El9Oq3zMkO/P+gvuZ1Hh2YzAN8lkCNbuaG2CPNdiJaDmySyAW/MVcxw
+	TbA9pUV/zTRligp0zg1k+CS1AuSGI9M16Ks34Bm/bDG58pt0x6Wc73sVK2L5ucCyIvDO72+zg4+
+	W+pD0EJZjfNX+zteP9+P/dJL6XAE8EdcmQ5dxKwDlN26a/QiMFHpeHqmG1fZwTz947//L9UxtHY
+	E6C7wqOm5YYyiS4TRtKcTwe2HcrfS4roUun/xyQ+yttMMZdAjVG0Uor3epntOBjXLYWdzBMo=
+X-Received: by 2002:a5d:584b:0:b0:48d:f831:2688 with SMTP id
+ ffacd0b85a97d-48e079767e7mr16787506f8f.3.1792412651411; Mon, 19 Oct 2026
+ 05:24:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2] mm: introduce copy_mc_highpages() and batch copy
- in folio_mc_copy()
-To: Pedro Falcato <pfalcato@suse.de>, Shivank Garg <shivankg@amd.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Borislav Petkov <bp@alien8.de>, Ankur Arora <ankur.a.arora@oracle.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner
- <tglx@kernel.org>, Bharata B Rao <bharata@amd.com>,
- Hrushikesh Salunke <hsalunke@amd.com>, Ingo Molnar <mingo@redhat.com>,
- "H . Peter Anvin" <hpa@zytor.com>,
- David Laight <david.laight.linux@gmail.com>,
- David Rientjes <rientjes@google.com>,
- Linus Torvalds <torvalds@linuxfoundation.org>,
- Teja Vojjala <tejavojjala@google.com>, Huan Nguyen <nhuhuan@google.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com>
- <atX3lpXQBHH1JPhW@pedro-suse.tail5790ac.ts.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <atX3lpXQBHH1JPhW@pedro-suse.tail5790ac.ts.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
+ <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <20261014195354.GA371161@cmpxchg.org>
+In-Reply-To: <20261014195354.GA371161@cmpxchg.org>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Mon, 19 Oct 2026 05:24:00 -0700
+X-Gm-Features: AclHuK9g4IT-C2lPq_2bwXW7AKF8KuPzBZKFA4kZoiUqrTyhjKQMGSX85iLRdLw
+Message-ID: <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Chris Li <chrisl@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->> +}
->> +#else
->> +
->> +#define COPY_MC_PAGES_NON_PREEMPT_BATCH		1
-> 
-> I would suggest that perhaps this should be the fallback for non-preemptible
-> models. But it gets a little weird with PREEMPT_DYNAMIC I think?
+On Wed, Oct 14, 2026 at 12:53=E2=80=AFPM Johannes Weiner <hannes@cmpxchg.or=
+g> wrote:
+>
+> On Mon, Oct 05, 2026 at 01:06:28PM +0200, David Hildenbrand (Arm) wrote:
+> > On 9/22/26 15:38, Chris Li wrote:
+> > > On Mon, Sep 21, 2026 at 8:56=E2=80=AFAM Nhat Pham <nphamcs@gmail.com>=
+ wrote:
+> > >>
+> > >> On Fri, Sep 18, 2026 at 11:50=E2=80=AFPM Chris Li <chrisl@kernel.org=
+> wrote:
+> > >>> No that time slot is too late for Asia developers. I don't think we
+> > >>> should use that time slot for swap alignment.
+> > >>>
+> > >>> We should find a time slot more friendly to Asia.
+> > >>
+> > >> Any time slot would have that kind of problem. We're spread out acro=
+ss
+> > >> the globe.
+> > >>
+> > >> Let's just use a standardized time slot we have for MM alignment ses=
+sions.
+> > >
+> > > There are more swap maintainers in Asia than in the US + Europe, at
+> > > least based on the maintainer file. Please be more inclusive. If the
+> > > alignment is done without key stakeholders, it miss the point.
+> > >
+> > > Sigh, we can't even align on a time slot.
+> > >
+> > > In that case, let's keep discussing on the mailing list. At least it
+> > > is accessible to every one.
+> >
+> > Looking at the mailing list, that approach doesn't seem to work.
+> >
+> > Finding a time slot that makes US, Europe and Asia happy is ... tricky.
+> >
+> > 1 AM is certainly unpleasant.
+> >
+> > US vs. Asia is also tricky, but doable.
+> >
+> > China 8AM vs. US West Coast 5PM?
+> >
+> > China 9AM vs. US West Coast 6PM?
+> >
+> > (Europe is 2AM vs. 3AM, who besides me from Europe would join?)
+>
+> Either slot works for me. 8pm/9pm on US Eastern.
+>
+> Apologize as well for the late response. Travel week followed by
+> post-travel sick week...
 
-Why can't we just use PROCESS_PAGES_NON_PREEMPT_BATCH where we have similar
-handling already?
+I hope you're feeling better, Johannes!
 
-> 
->> +
->> +static inline int copy_mc_highpages(struct page *to, struct page *from,
->> +		unsigned long nr_pages)
->> +{
->> +	unsigned long i;
->> +
->> +	for (i = 0; i < nr_pages; i++)
->> +		if (copy_mc_highpage(to + i, from + i))
->> +			return -EHWPOISON;
->> +	return 0;
->> +}
->> +#endif
->> +
->>  static inline void memcpy_page(struct page *dst_page, size_t dst_off,
->>  			       struct page *src_page, size_t src_off,
->>  			       size_t len)
->> diff --git a/mm/util.c b/mm/util.c
->> index 7f374bb8bf36..5015cfdfeaa5 100644
->> --- a/mm/util.c
->> +++ b/mm/util.c
->> @@ -763,13 +763,23 @@ EXPORT_SYMBOL(folio_copy);
->>  
->>  int folio_mc_copy(struct folio *dst, struct folio *src)
->>  {
->> -	long nr = folio_nr_pages(src);
->> -	long i = 0;
->> +	const unsigned long nr_pages = folio_nr_pages(src);
->> +	/*
->> +	 * Copy the largest extent possible to allow for architecture specific
->> +	 * extent based optimizations. copy_mc_highpages() does not call
->> +	 * cond_resched(), so limit the unit size when running under
->> +	 * non-preemptible scheduling models.
->> +	 */
->> +	const unsigned long unit = preempt_model_preemptible() ?
->> +				   nr_pages : COPY_MC_PAGES_NON_PREEMPT_BATCH;
-> 
-> See? now mm is aware of preemption models! eww!
+Folks, I just realized we never really clarified the exact date, and
+since we are in different timezones it can be ambiguous. How about
+this:
 
-Yeah, we have that in clear_contig_highpages() already, which is getting
-replicated here for copying instead of zeroing.
+PDT: Wed Oct 21, 5:00 PM
+EDT: Wed Oct 21, 8:00 PM
+Europe: Thu Oct 22, 2:00 AM
+China: Thu Oct 22, 2:00 AM
 
--- 
-Cheers,
+Please let me know if folks are busy, sick etc. I'm flexible myself,
+unless my flu shot fails me again :)
 
-David
+(Also starting from November, Vancouver, where I live, will have their
+own timezone. We'd have to add another row to this).
