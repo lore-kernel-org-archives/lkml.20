@@ -1,203 +1,81 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1E3299920
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308F42222C5;
+	Mon, 19 Oct 2026 01:40:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792373962; cv=none; b=kUCxSAf/jnIOoA7Nl7c0l9dfVrf2kN54JbjJwviN8YJMRtqcsoLsUz2RcDA4+E7+DTEfBLndyYuEXlrdm/bE+nLsBro1E0B5ipFHl/UbNLouSqxd4uv8IcVldfxwMVoum1QQTCkpDDANjOx9lRqIO9U9Bg5gt5Owdnj6B+F33L8=
+	t=1792374029; cv=none; b=X3kU9GDDlimzvZuzVToWfhOChjh4tY0ZZmpCY/ilQ1y0aRrckNEydezAAkS3tDmuUPT2cQRN43iuyz4at17XBbC0CUeOwL1ylIkLxOTJbSZ/XvuKYNPgBxK3llJWzsnPo4TXlsrNA28M7eIBJFEgWwm9VicAaVz3StDJ2+3WuEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792373962; c=relaxed/simple;
-	bh=HDe/sJAEmYOylIZNpRHLAmB90wcCrlY+qlF1S0YnkWc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p81YzgkTB2vHEfX+UR7km6+AwXXk2LJngghBjgZMJ3kWTdFz8StZIb9NN3T6Y95rb1rXA2nkefgb5QU9KPwZLBj+aD1LTaBlG7wSn9Y7ELa/k4/s9Mq9T9F+CtJ3jFb3xvoTsHQyzWxh9CAtwAdlU6sVy/VoFOfTU1nI+7IWOjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=sL8NwdK3; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1792374029; c=relaxed/simple;
+	bh=trYEdX8uQs0hlx750aq4gfYSGLY7LPxJvgFUtb0TcwU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qqaKsb71fLdN8E4t7QIYHS3Ngkgn0I6BiLWS2kojBsQqGpGPyABiIy1CTJW/qxmwS00+pz3aXYesW1Cr9H6TM9uwbB8SA4jooofhLTAw3X9COPnCXKcgHVrmZlDd5YpB4kN6Wb/MQc3KzxCcFfNh7EdCK/YY88dyM2BZVEyPMLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ScmAcf6h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="sL8NwdK3"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so1386153a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:39:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792373958; x=1792978758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y7FGjbZkzoe6sSfHIZ7/1NewrsALE0UfgLMmOjZ+FHk=;
-        b=sL8NwdK34shQcJNNM6irTQQa69JpLqegC1/k+AqvDkoqnG/MOaBsSJPE7fwsIOzkdy
-         9GiO9a4L1JqdinJ/wF9JA0JPEmK8FDCeXDEOWY9JkK0NlK38q0pMtDOaRavP/uQKPTYn
-         VugfXiCCDD+j7VDx7Eb47W5hd1AzcurDX6gd/AwRqSBu1tl/yISPJt+m3F1Mwmgh0LsZ
-         iOgw4PnE8Om+se8Uc++w+I585QQl1PdCR9A0xoS70J/CnITsR78MIonk/RuCixcBlyce
-         5sjh+iZLdvSiW/+N3YC+rcRWTlYZ5ZCFy1BcSF5UhaXiwYstsLVz52a8w9dy2HKM4SKG
-         u20g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792373958; x=1792978758;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y7FGjbZkzoe6sSfHIZ7/1NewrsALE0UfgLMmOjZ+FHk=;
-        b=yfvlvvvxDiJXCnaDyuPTBjdqAotAYr20dOx47KUCmwg2k+3Tbm9OvH1of7u1eoYkjb
-         bB7IoN4j/B7hyBeTe/QRl/sPhS2ZvWhAjDOu83/2db8JD6sFsMxhF+m0A3cdfX1dmvj/
-         5AmPw3ANgsAGCDA/cKZUaYsVw5JLfyyvuxcZfbOhDiLkK36nAgBxRwmmql44jElMuTRw
-         hzRGN14msOvEpiXV+JAZCcBvT+04zWLBdWR/bATuSUGefrUvNZX4xHBT3Bn68tNXO0z7
-         +B+6h/cNqJLjW7yXvdnlZFXMlZFXdoy0xXJ+Qhdm+qHB2J+u3QoU3tnyDJjnZ1mCI3qJ
-         K+7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxfv6V9QCGBU4IC6ehTmTz52RtxG0MABjzxgqErtyzWLwSmBt6mzJfqTGf0PwT18DY8MPBqkBO7XBjiO5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKF2YY09Sp8VUFB5wy2tM7nLN9jw+U8q5bAkML360wrXW9cFli5
-	W6UMIn/fDRI12/dAc9ajtdijES7BsygW1syPr8R/H7g9TWWNdIqJqtuq3StZFM9XUGA=
-X-Gm-Gg: AYBFou1t0NFmpWw1WT6hNnCM5fM3TTL3fHi48yOdm6eeKRV4NTfwCE2kpi4913zoTnB
-	MLtfBvFchUkQhQ0YnIo/6wc9giNJq5p34NLuVTKnTxsN+C6l6GgLGMehqT/ExpOE0r4gL60CkoU
-	E+tMK8kyQJabBSUbSZ/FLbL5ou5t+9Ol+FEnMjP/86hkZYciX0DdWmLADF0ynHqxYcFemDPMHx6
-	LgFM/iATnHAsh5tFiz3XBPiiE+WssXvBkAilSM4S8oHS/r0Q2JNIcJpuj9Wr9dQl6yVl4Tyu2Xf
-	DgN+gKJNeUaEAOjAQKkPXTlIzY9yPoYyBhgyMxvpZ7Y6aDHQbRSMEguv42oEz83EUwM665dNmid
-	n3lD4baBQshQsSNuofOk+gknmyq3UA3sDIXxK8Mtwwd//H95cq7Oi7R4kw5IJHtnked76Tb5TgK
-	6vm5vetWnJe5JDzF2wYFL73TvdxXhmup5oN7fATHMuO9t6jUV0zR5CYgigal5X1g72DPWi43HSq
-	Ed3CQ==
-X-Received: by 2002:a17:90b:4c85:b0:3ab:188b:c5bf with SMTP id 98e67ed59e1d1-3aceec79ae9mr5212268a91.18.1792373958258;
-        Sun, 18 Oct 2026 18:39:18 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4972fe6sm13789915a91.15.2026.10.18.18.39.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 18:39:17 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: pmcraid: bound the HCAM data length reported to user space
-Date: Mon, 19 Oct 2026 10:39:12 +0900
-Message-ID: <20261019013912.3729383-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ScmAcf6h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933E41F000C4;
+	Mon, 19 Oct 2026 01:40:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792374027;
+	bh=0TWAttW+jzTYSOQF5ruJVHSwvGCQ9V/PrVQgOjz6jAA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ScmAcf6hDusWU128UigGUFFVGfqtCcrGpaK5wgPjoYptHoc6y/GfAOEM+nmO7Qc1o
+	 jU+ttxVdhgy0VCWiiJgArTayHzQTH4YpjE4ilrwGZ45e2ohoigP9sXNdDLU27XitoB
+	 /n4qHXXgy08pUSY0L0HIwf8kYf0YAk86J1EtuvVnis4kX4DrYMjKD8oQnsmn3rDold
+	 6eM8oKz6pfNa+6883aOwEb0ha/OJoWjvmn6F7XDvVkcjb+AfAGOZ4OF2eE7gV9ShwU
+	 DKvccDH25Zio88Tq1TGd/K9GfzWhhEyoAy0/Dq+Ergz79QEFAE8BPAo/TEmhzl3lzs
+	 W2WfJBIrxOyMw==
+Date: Mon, 19 Oct 2026 02:40:22 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Alexey Klimov <alexey.klimov@linaro.org>, Sam Protsenko
+ <semen.protsenko@linaro.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Peter Griffin
+ <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] iio: adc: exynos_adc: add Exynos850 support
+Message-ID: <20261019024022.19b7bd4b@jic23-hlaptop>
+In-Reply-To: <ar9elr1_tuFhJi1r@ashevche-desk.local>
+References: <20261001-exynos850_adc-v1-0-791b3516bb9d@linaro.org>
+	<20261001-exynos850_adc-v1-2-791b3516bb9d@linaro.org>
+	<ar9elr1_tuFhJi1r@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-pmcraid_notify_ccn() and pmcraid_notify_ldn() take data_len out of the
-HCAM header the IOA wrote into the coherent DMA buffer and pass it on to
-pmcraid_notify_aen(), which uses it as the netlink attribute length:
+On Fri, 2 Oct 2026 10:34:46 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-      data_size = le32_to_cpu(pinstance->ccn.hcam->data_len) +
-                  sizeof(struct pmcraid_hcam_hdr);
-      ...
-      nla_put(skb, PMCRAID_AEN_ATTR_EVENT, data_size, aen_msg);
+> On Thu, Oct 01, 2026 at 04:09:13AM +0100, Alexey Klimov wrote:
+> > The Exynos850 ADC controller located inside the CMGP block differs from
+> > other Exynos ADC controllers, mainly in its register layout.
+> > Specifically, the data register sits at offset 0x08.
+> > 
+> > Abstract the read_value() operation in driver data exynos_adc_data to
+> > support SoC-dependent data register read callbacks.
+> > Add the exynos850_adc_data struct that describes Exynos850 ADC ops.
+> > It also requires its own hardware initialization and exit routines.
+> > Add them as well.  
+> 
+> Split this to at least two patches:
+> - add .read_value() callback and switch existing users
+> - add new user
+> 
+Agreed. Other than that looks fine to me.
 
-data_len is never checked against the buffer it came from.  The CCN
-buffer is 4048 bytes, so an IOA reporting more than 4008 makes nla_put()
-read past the end of it, and what it reads is multicast to whoever is
-bound to the event group.  The LDN buffer is 4112 bytes and has the same
-problem above 4072.
+Thanks,
 
-Driving pmcraid_notify_ccn() with data_len one byte past the limit, with
-the HCAM buffer allocated by kmalloc() at the production size because
-dma_alloc_coherent() memory is page granular and not tracked by KASAN:
+Jonathan
 
-  BUG: KASAN: slab-out-of-bounds in nla_put+0xc7/0x160
-  Read of size 4049 at addr 00000000622c2000 by task kunit_try_catch/19
-
-  CPU: 0 UID: 0 PID: 19 Comm: kunit_try_catch Tainted: G        W        N  7.3.0-rc7-g58161ead29e5-dirty #5 VOLUNTARY
-  Tainted: [W]=WARN, [N]=TEST
-  Call Trace:
-   [<6008af12>] ? dump_stack_lvl+0x5e/0x7a
-   [<6003e621>] ? _printk+0x0/0xd7
-   [<6004b21d>] ? print_report+0x14b/0x517
-   [<6003e621>] ? _printk+0x0/0xd7
-   [<606ffcb7>] ? nla_put+0xc7/0x160
-   [<603aeebb>] ? kasan_report+0x11b/0x160
-   [<60950e4d>] ? __alloc_skb+0x1bd/0x9c0
-   [<606ffcb7>] ? nla_put+0xc7/0x160
-   [<603afe70>] ? kasan_check_range+0x0/0x1c0
-   [<603affbe>] ? kasan_check_range+0x14e/0x1c0
-   [<603b0a41>] ? __asan_memcpy+0x31/0x80
-   [<606ffcb7>] ? nla_put+0xc7/0x160
-   [<608801af>] ? pmcraid_notify_aen+0x19f/0x440
-   [<60882ba7>] ? pmcraid_aen_ccn_oob_one+0x1a7/0x380
-   [<60213550>] ? ktime_get_ts64+0x0/0x2c0
-   [<606ea77c>] ? kunit_try_run_case+0x1bc/0x310
-   [<606ea5c0>] ? kunit_try_run_case+0x0/0x310
-   [<603b08f0>] ? __kasan_check_read+0x0/0x20
-   [<600af020>] ? um_set_signals+0x0/0x60
-   [<600af020>] ? um_set_signals+0x0/0x60
-   [<6012e3cd>] ? __kthread_parkme+0xdd/0x1c0
-   [<606ea5c0>] ? kunit_try_run_case+0x0/0x310
-   [<606f0840>] ? kunit_generic_run_threadfn_adapter+0x0/0x100
-   [<606f08bc>] ? kunit_generic_run_threadfn_adapter+0x7c/0x100
-   [<6013464e>] ? kthread+0x36e/0x560
-   [<601342e0>] ? kthread+0x0/0x560
-   [<6008f0de>] ? new_thread_handler+0xce/0x130
-
-  The buggy address belongs to the object at 00000000622c2000
-   which belongs to the cache kmalloc-4k of size 4096
-  The buggy address is located 0 bytes inside of
-   allocated 4048-byte region [00000000622c2000, 00000000622c2fd0)
-
-W is a UML virtio warning and N marks the KUnit harness that drove the
-call; neither comes from this path.
-
-Clamp data_len to what the buffer can hold before it is used as a length.
-A working IOA never reports more than that, so this does not change what
-user space sees from one.
-
-Found by inspection.  Not tested on a MaxRAID adapter.
-
-Fixes: 89a3681041507 ("[SCSI] pmcraid: PMC-Sierra MaxRAID driver to support 6Gb/s SAS RAID controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-diff --git a/drivers/scsi/pmcraid.c b/drivers/scsi/pmcraid.c
-index 942a993932049..f59d5a775aebb 100644
---- a/drivers/scsi/pmcraid.c
-+++ b/drivers/scsi/pmcraid.c
-@@ -1451,6 +1451,17 @@ static int pmcraid_notify_aen(
- 	return result;
- }
- 
-+/* The IOA picks data_len, so cap it at what the HCAM buffer holds before it
-+ * becomes a copy length.  Returns the size to report, header included.
-+ */
-+static u32 pmcraid_hcam_data_size(__le32 data_len, size_t hcam_size)
-+{
-+	size_t hdr_size = sizeof(struct pmcraid_hcam_hdr);
-+
-+	return min_t(u32, le32_to_cpu(data_len), hcam_size - hdr_size) +
-+	       hdr_size;
-+}
-+
- /**
-  * pmcraid_notify_ccn - notifies about CCN event msg to user space
-  * @pinstance: pointer adapter instance structure
-@@ -1460,10 +1471,10 @@ static int pmcraid_notify_aen(
-  */
- static int pmcraid_notify_ccn(struct pmcraid_instance *pinstance)
- {
--	return pmcraid_notify_aen(pinstance,
--				pinstance->ccn.msg,
--				le32_to_cpu(pinstance->ccn.hcam->data_len) +
--				sizeof(struct pmcraid_hcam_hdr));
-+	u32 data_size = pmcraid_hcam_data_size(pinstance->ccn.hcam->data_len,
-+					       sizeof(struct pmcraid_hcam_ccn_ext));
-+
-+	return pmcraid_notify_aen(pinstance, pinstance->ccn.msg, data_size);
- }
- 
- /**
-@@ -1475,10 +1486,10 @@ static int pmcraid_notify_ccn(struct pmcraid_instance *pinstance)
-  */
- static int pmcraid_notify_ldn(struct pmcraid_instance *pinstance)
- {
--	return pmcraid_notify_aen(pinstance,
--				pinstance->ldn.msg,
--				le32_to_cpu(pinstance->ldn.hcam->data_len) +
--				sizeof(struct pmcraid_hcam_hdr));
-+	u32 data_size = pmcraid_hcam_data_size(pinstance->ldn.hcam->data_len,
-+					       sizeof(struct pmcraid_hcam_ldn));
-+
-+	return pmcraid_notify_aen(pinstance, pinstance->ldn.msg, data_size);
- }
- 
- /**
--- 
-2.43.0
 
