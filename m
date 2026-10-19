@@ -1,229 +1,133 @@
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C454D956F;
-	Mon, 19 Oct 2026 11:20:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8464DDB2E;
+	Mon, 19 Oct 2026 11:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408812; cv=none; b=E1V/iLx1xOOLv2mxR4Uig7jblO+uzO0Zr8S2DlDBwXlwqsguSYF0FrkbiijOq7WorlIYMDBGjFE3mXisDR0qNBCx/7/OvZmvZldPYkrOQBCi4OTXhFO/92PxxfCwQ/p2G1fzZeGyVIBBsvLFUzQ1bFPFpeoOYHF4Ts3oqEZ7K5g=
+	t=1792408820; cv=none; b=KInhzLPRpU02Luv532Sd/DNPjl7jp7ZUOsZ9qm1eCYV6tklSM1ofPwtuDVkeQX1kHV1J56O2ILoiMUFWt9pTd7TyZvmLmiwGsaIvqZfZhpe5tF7kSx48a8xtH43de+cBNQxPIyPR7TIKrbFdbEMMByqJ0yoRhfuWN+flmav9V88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408812; c=relaxed/simple;
-	bh=Bh3JFEeSOgD04v+jIOgFLNwqHkEIEEaaV1/NLO2q1zo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oD3pTwnEp0i9826OqDZdatVC+ovEbUopMGOiJDB1Dg7Afsulw9GQicM2FDqtrbCskdwQx2aJP3LGK3NJi8U14XW8MiqEezCXxeZZI5BaBrBgE7HCwKWnMqrGhxXTfJLJlPJGmOPfOuNWG8tcb2VVen+e4EYRfeoXRJcyuJ0HIjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=u7jqlnkt; arc=none smtp.client-ip=115.124.30.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792408820; c=relaxed/simple;
+	bh=QA1eOrPJrYNKlxWlaIRYtRL2w5ep69GInvvuM85VaoU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=pqUeFumA1kinYt5mWRYaxYInTo9IQf75yjyo29d6mxfj7nuYXytydepoGWnFjZ4Yd4yc6tQ7wFZRb8+RQQOxsyHcoKELOqVQuz74tBSkv6Qx8vIgoFRyUacKMcCbzBLTxce/dHEZSUa3+mh4CP8XYdwn80sDWXVx8kmYwEuTSok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=G7/dfBEE; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="u7jqlnkt"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792408805; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=SCCN1hNOBzyFuMh0WPo9IiSvrFw2wKE+VBW+2gR8D4E=;
-	b=u7jqlnktM9qUUj/P7JNjiFVSgI8Rgp1VHBy/uJKX9tYc/Zjkwkw9H66ZuLPLkv4SvCDMhQJTiK21/ELp32eeeA6gO1XsZVmMEdmSU63MvqVxyBGVWwqoFTO+ff75cadvigCb/EMzA4mQr2QHbmFfL9xKCCETap7vDsCZwjR9IAM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R541e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XD69E9b_1792408802;
-Received: from 30.251.227.55(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XD69E9b_1792408802 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 19 Oct 2026 19:20:03 +0800
-Message-ID: <b273a680-6b96-4fd6-94e6-c1a79922efc2@linux.alibaba.com>
-Date: Mon, 19 Oct 2026 19:20:02 +0800
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="G7/dfBEE"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69JBJIrdC1843777, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1792408758; bh=QA1eOrPJrYNKlxWlaIRYtRL2w5ep69GInvvuM85VaoU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=G7/dfBEEogSn5trDkoOtJmwNN5o9QZHOYwrYPKKpKyGua4LreGDym9O3fL3b974LB
+	 i3T5UnL2PyeMupjYK2hohgb+KktC1IKbUCn0zEb49IAIRwz+E3zRfXfdnuG2cBKWE+
+	 o4LZxhjsPbPdYWVbYX/dgAfC09W0udypNeFESx8cQSMnkMUy3Cor2A06pXrvbN6gfL
+	 oRUPRIqpHgv8gUeb1WEzgowX0BWnMShpBPUOu5j334bnD1CwdyLq+fRoGoAFL7gG5S
+	 Pntc6cSoDfu0uk5eWfM9CR2hQtWM0ISnJVd8m9OdY11sIzIbKFQvwsFBUf3TOcqTQR
+	 1XqdwlsWCCkaQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69JBJIrdC1843777
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 19 Oct 2026 19:19:18 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 19:19:18 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 19:19:17 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Mon, 19 Oct 2026 19:19:17 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: "tglx@kernel.org" <tglx@kernel.org>, "radu@rendec.net" <radu@rendec.net>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"lee@kernel.org" <lee@kernel.org>, "afaerber@suse.com" <afaerber@suse.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"mfd@lists.linux.dev" <mfd@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>,
+	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
+Subject: RE: [PATCH v5 3/8] dt-bindings: mfd: realtek,rtd1xxx: Add interrupt
+ controller child node
+Thread-Topic: [PATCH v5 3/8] dt-bindings: mfd: realtek,rtd1xxx: Add interrupt
+ controller child node
+Thread-Index: AQHdXxqxrooHtuvy+0+IPKYEf41fuLcED+AAgACnvNA=
+Date: Mon, 19 Oct 2026 11:19:17 +0000
+Message-ID: <b12ff328ebca405f96a9b25decdb7c81@realtek.com>
+References: <20261018160653.3940371-1-eleanor.lin@realtek.com>
+ <20261018160653.3940371-4-eleanor.lin@realtek.com>
+ <20261019-prophetic-moth-of-youth-40dbd6@quoll>
+In-Reply-To: <20261019-prophetic-moth-of-youth-40dbd6@quoll>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: Keep the dentry lock inode alive until callbacks
- drain
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com, jack@suse.cz,
- akpm@linux-foundation.org, rgoldwyn@suse.de, srinivas.eeda@oracle.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-
-
-On 10/16/26 12:03 AM, Cen Zhang wrote:
-> The inode reference held by a DENTRY lock must outlive callbacks on
-> that lock. ocfs2_drop_dentry_lock() drops dl_inode before marking the
-> lock freeing and waiting for DLM unlock completion, although the BAST
-> path still reads dl_inode->i_sb in ocfs2_get_dentry_osb().
-> 
-> An EX request, such as a remote unlink or rename, can make the
-> downconvert worker delete all matching aliases. If no other inode
-> reference remains, its post_unlock callback performs the final iput().
-> The O2CB DLM can deliver another BAST while the request is still
-> blocked, for example when another holder releases the same resource:
-> 
->   Downconvert worker                 DLM callback
->   ------------------                 ------------
->   Remove dentry aliases
->   Clear QUEUED; post_unlock()
->   ocfs2_drop_dentry_lock()
->     iput(dl->dl_inode)
->     [inode reclaimed after RCU]
->                                      Duplicate BAST
->                                      ocfs2_blocking_ast()
->                                        ocfs2_get_dentry_osb()
->                                          Read freed dl_inode->i_sb
->   ocfs2_simple_drop_lockres()
-> 
-> Call ocfs2_simple_drop_lockres() before iput() so the existing inode
-> reference remains held while queued work and DLM callbacks are drained.
-> The inode can only be evicted after the DENTRY lock has been unlocked.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in ocfs2_get_dentry_osb+0x155/0x170
->     Read of size 8 at addr ffff8881100ff888 by task dlm-5B530197BEF/575
-> 
->     CPU: 0 UID: 0 PID: 575 Comm: dlm-5B530197BEF Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? ocfs2_get_dentry_osb+0x155/0x170
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? ocfs2_get_dentry_osb+0x155/0x170
->      kasan_report+0xe0/0x110
->      ? ocfs2_get_dentry_osb+0x155/0x170
->      ? __pfx_ocfs2_get_dentry_osb+0x10/0x10
->      ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
->      ocfs2_get_dentry_osb+0x155/0x170
->      ocfs2_blocking_ast+0xd3/0x6d0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __lock_acquire+0x5a3/0x2140
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __mlog_printk+0x212/0x2a0
->      ? __pfx_ocfs2_blocking_ast+0x10/0x10
->      ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
->      dlm_do_local_bast+0x20c/0x300
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_dlm_do_local_bast+0x10/0x10
->      ? dlm_thread+0x2e36/0x4480
->      dlm_thread+0x32b8/0x4480
->      ? __pfx_dlm_thread+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __kthread_parkme+0xc1/0x220
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      ? __pfx_autoremove_wake_function+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __kthread_parkme+0x177/0x220
->      ? __pfx_dlm_thread+0x10/0x10
->      kthread+0x351/0x460
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork+0x659/0x940
->      ? __pfx_ret_from_fork+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __switch_to+0x74f/0xf70
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork_asm+0x1a/0x30
->      </TASK>
-> 
->     Allocated by task 584:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_slab_alloc+0x89/0x90
->      kmem_cache_alloc_lru_noprof+0x205/0x5c0
->      ocfs2_alloc_inode+0x2b/0x100
->      alloc_inode+0x69/0x230
->      new_inode+0x23/0x1a0
->      ocfs2_get_init_inode+0x84/0x190
->      ocfs2_mknod+0x8a3/0x2150
->      ocfs2_create+0x14f/0x3c0
->      lookup_open+0x88f/0x13e0
->      path_openat+0x95e/0x2020
->      do_file_open+0x21e/0x470
->      do_sys_openat2+0xf4/0x1b0
->      __x64_sys_openat+0x136/0x1e0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 0:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kmem_cache_free+0x242/0x580
->      i_callback+0x4b/0x80
->      rcu_core+0x6be/0x1ed0
->      handle_softirqs+0x1fa/0x8d0
->      __irq_exit_rcu+0x113/0x1e0
->      irq_exit_rcu+0xe/0x20
->      sysvec_apic_timer_interrupt+0x6c/0x80
->      asm_sysvec_apic_timer_interrupt+0x1a/0x20
-> 
->     Last potentially related work creation:
->      kasan_save_stack+0x33/0x60
->      kasan_record_aux_stack+0xa7/0xc0
->      __call_rcu_common.constprop.0+0x80/0x280
->      destroy_inode+0x131/0x1b0
->      evict+0x543/0x9f0
->      iput+0x680/0xb80
->      ocfs2_dentry_lock_put+0xca/0x230
->      ocfs2_process_blocked_lock+0x1fb/0x420
->      ocfs2_downconvert_thread+0x327/0x730
->      kthread+0x351/0x460
->      ret_from_fork+0x659/0x940
->      ret_from_fork_asm+0x1a/0x30
-> 
->     The buggy address belongs to the object at ffff8881100ff000
->      which belongs to the cache ocfs2_inode_cache of size 3400
->     The buggy address is located 2184 bytes inside of
->      freed 3400-byte region [ffff8881100ff000, ffff8881100ffd48)
-> 
->     [page and shadow-memory details omitted]
-> 
-> Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-
-This is a revert for performance. Not sure if the regression will come
-back with the new order.
-
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> Assisted-by: LLM
-> 
-> ---
-> diff --git a/fs/ocfs2/dcache.c b/fs/ocfs2/dcache.c
-> index e06774fd89d8..e2b560797f17 100644
-> --- a/fs/ocfs2/dcache.c
-> +++ b/fs/ocfs2/dcache.c
-> @@ -354,8 +354,9 @@ out_attach:
->  static void ocfs2_drop_dentry_lock(struct ocfs2_super *osb,
->  				   struct ocfs2_dentry_lock *dl)
->  {
-> -	iput(dl->dl_inode);
-> +	/* Keep the inode alive until DENTRY callbacks have completed. */
->  	ocfs2_simple_drop_lockres(osb, &dl->dl_lockres);
-> +	iput(dl->dl_inode);
->  	ocfs2_lock_res_free(&dl->dl_lockres);
->  	kfree(dl);
->  }
-
-Commit 9f70968af3e6e ("ocfs2: Re-order iput in ocfs2_drop_dentry_lock")
-is what moved iput() above ocfs2_simple_drop_lockres() to begin with, and
-it was a deliberate move:
-
-  Do this to avoid a theoretical (I haven't seen this in practice) race where
-  the downconvert thread might drop the dentry lock, allowing a remote unlink
-  to proceed before dropping the inode locks. This could bounce access to the
-  orphan dir between nodes.
-
-With the new order the downconvert thread gives up the dentry lockres and
-only afterwards reaches iput() -> ocfs2_evict_inode() ->
-ocfs2_delete_inode(), which takes the nfs_sync lock in shared mode and
-then the inode lock exclusive.
-
-Thanks,
-Joseph
+SGkgS3J6eXN6dG9mLA0KDQo+IE9uIE1vbiwgT2N0IDE5LCAyMDI2IGF0IDEyOjA2OjQ4QU0gKzA4
+MDAsIFl1LUNodW4gTGluIHdyb3RlOg0KPiA+IEFsbG93IGFuIGludGVycnVwdCBjb250cm9sbGVy
+IGFzIGEgY2hpbGQgbm9kZSBieSByZWZlcmVuY2luZyB0aGUNCj4gPiBydGQxMzE5LWludGMtaXNv
+IHNjaGVtYSwgdXBkYXRlIGFkZGl0aW9uYWxQcm9wZXJ0aWVzIHRvDQo+ID4gdW5ldmFsdWF0ZWRQ
+cm9wZXJ0aWVzLCBhbmQgYXBwZW5kIGEgdXNhZ2UgZXhhbXBsZS4NCj4gDQo+IEkgZG8gbm90IHNl
+ZSB0aGF0ICJ1cGRhdGUiLg0KPiANCg0KU29ycnkgYWJvdXQgdGhpcy4gSSB1cGRhdGVkIHRoZSBk
+aWZmIGJ1dCBtaXNzZWQgdXBkYXRpbmcgdGhlIGNvbW1pdA0KbWVzc2FnZS4gV2lsbCBmaXguDQoN
+Cj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IFl1LUNodW4gTGluIDxlbGVhbm9yLmxpbkByZWFsdGVr
+LmNvbT4NCj4gPiAtLS0NCj4gPiAgLi4uL2JpbmRpbmdzL21mZC9yZWFsdGVrLHJ0ZDF4eHgueWFt
+bCAgICAgICAgIHwgMjgNCj4gKysrKysrKysrKysrKysrKysrKw0KPiA+ICAxIGZpbGUgY2hhbmdl
+ZCwgMjggaW5zZXJ0aW9ucygrKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdA0KPiA+IGEvRG9jdW1lbnRh
+dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9yZWFsdGVrLHJ0ZDF4eHgueWFtbA0KPiA+IGIv
+RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9yZWFsdGVrLHJ0ZDF4eHgueWFt
+bA0KPiA+IGluZGV4IDcxN2UyOWMzN2IzNi4uYjIxZTE0ZGYyODc5IDEwMDY0NA0KPiA+IC0tLSBh
+L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvcmVhbHRlayxydGQxeHh4Lnlh
+bWwNCj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWZkL3JlYWx0
+ZWsscnRkMXh4eC55YW1sDQo+ID4gQEAgLTY1LDYgKzY1LDEwIEBAIHByb3BlcnRpZXM6DQo+ID4g
+ICAgICBjb25zdDogMQ0KPiA+DQo+ID4gIHBhdHRlcm5Qcm9wZXJ0aWVzOg0KPiA+ICsgICJeaW50
+ZXJydXB0LWNvbnRyb2xsZXIiOg0KPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvaW50ZXJydXB0LWNv
+bnRyb2xsZXIvcmVhbHRlayxydGQxMzE5LWludGMtaXNvLnlhbWwNCj4gPiArICAgIHVuZXZhbHVh
+dGVkUHJvcGVydGllczogZmFsc2UNCj4gPiArDQo+ID4gICAgJ0BbMC05YS1mXSskJzoNCj4gPiAg
+ICAgIHR5cGU6IG9iamVjdA0KPiANCj4gV2hhdCBpcyB0aGlzIGZvciB0aGVuPyBTaG91bGQgaXQg
+YmUgcmVtb3ZlZD8NCj4gDQoNClRoZSBvcmlnaW5hbCBzeXNjb24gY29tcGF0aWJsZSBoYXMgb3Ro
+ZXIgY2hpbGQgbm9kZXMgdGhhdCBkbyBoYXZlICdyZWcnDQpwcm9wZXJ0aWVzIGFuZCB1bml0IGFk
+ZHJlc3Nlcywgc28gdGhpcyBwYXR0ZXJuIGlzIHN0aWxsIG5lZWRlZCBmb3IgdGhlbS4NCg0KPiA+
+DQo+ID4gQEAgLTc2LDMgKzgwLDI3IEBAIHJlcXVpcmVkOg0KPiA+ICAgIC0gcmVnDQo+ID4NCj4g
+PiAgYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlDQo+ID4gKw0KPiA+ICtleGFtcGxlczoNCj4g
+PiArICAtIHwNCj4gPiArICAgICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJv
+bGxlci9hcm0tZ2ljLmg+DQo+ID4gKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvaW50ZXJydXB0
+LWNvbnRyb2xsZXIvaXJxLmg+DQo+ID4gKw0KPiA+ICsgICAgc3lzY29uQDcwMDAgew0KPiA+ICsg
+ICAgICAgIGNvbXBhdGlibGUgPSAicmVhbHRlayxydGQxNjI1LWlzbyIsICJzeXNjb24iLCAic2lt
+cGxlLW1mZCI7DQo+ID4gKyAgICAgICAgcmVnID0gPDB4NzAwMCAweDEwMDA+Ow0KPiA+ICsgICAg
+ICAgIHJhbmdlcyA9IDwweDAgMHg3MDAwIDB4MTAwMD47DQo+ID4gKyAgICAgICAgI2FkZHJlc3Mt
+Y2VsbHMgPSA8MT47DQo+ID4gKyAgICAgICAgI3NpemUtY2VsbHMgPSA8MT47DQo+IA0KPiBXaHkg
+ZG8geW91IGhhdmUgY2VsbHMgaXQgeW91ciBjaGlsZCBoYXMgbm8gYWRkcmVzc2luZz8NCj4NCj4g
+PiArDQo+ID4gKyAgICAgICAgaW50ZXJydXB0LWNvbnRyb2xsZXIgew0KPiANCj4gU28gdGhlIGJp
+bmRpbmcgcmVxdWlyZXMgY2hpbGRyZW4gd2l0aCB1bml0IGFkZHJlc3MsIHllcz8NCj4gDQoNClRo
+ZSBpbnRlcnJ1cHQtY29udHJvbGxlciBkb2VzIG5vdCBuZWVkIGEgdW5pdCBhZGRyZXNzIGJlY2F1
+c2UgaXQgYWNjZXNzZXMNCnRoZSByZWdpc3RlcnMgdmlhIHRoZSBwYXJlbnQncyByZWdtYXAuDQoN
+CldpbGwgdXBkYXRlIHRoZSBleGFtcGxlIHRvIHJlbW92ZSB0aGUgdW5uZWNlc3NhcnkgcHJvcGVy
+dGllcyBmcm9tIHRoZQ0KcGFyZW50IGFzIGZvbGxvd3M6DQoNCnN5c2NvbkA3MDAwIHsNCiAgICBj
+b21wYXRpYmxlID0gInJlYWx0ZWsscnRkMTYyNS1pc28iLCAic3lzY29uIiwgInNpbXBsZS1tZmQi
+Ow0KICAgIHJlZyA9IDwweDcwMDAgMHgxMDAwPjsNCg0KICAgIGludGVycnVwdC1jb250cm9sbGVy
+IHsNCiAgICAgICAgY29tcGF0aWJsZSA9ICJyZWFsdGVrLHJ0ZDE2MjUtaW50Yy1pc28iOw0KICAg
+ICAgICBpbnRlcnJ1cHQtY29udHJvbGxlcjsNCiAgICAgICAgaW50ZXJydXB0LXBhcmVudCA9IDwm
+Z2ljPjsNCiAgICAgICAgaW50ZXJydXB0cyA9IDxHSUNfU1BJIDQxIElSUV9UWVBFX0xFVkVMX0hJ
+R0g+LA0KICAgICAgICAgICAgPEdJQ19TUEkgNTcgSVJRX1RZUEVfTEVWRUxfSElHSD4sDQogICAg
+ICAgICAgICA8R0lDX1NQSSAzOSBJUlFfVFlQRV9MRVZFTF9ISUdIPjsNCiAgICAgICAgI2FkZHJl
+c3MtY2VsbHMgPSA8MD47DQogICAgICAgICNpbnRlcnJ1cHQtY2VsbHMgPSA8MT47DQogICAgfTsN
+Cn07DQoNCkJlc3QgcmVnYXJkcywNCll1LUNodW4NCg0KPiBCZXN0IHJlZ2FyZHMsDQo+IEtyenlz
+enRvZg0K
