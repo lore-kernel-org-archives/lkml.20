@@ -1,131 +1,69 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5057D46C851
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA3D4F0527;
+	Mon, 19 Oct 2026 13:25:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792416268; cv=none; b=NuYzvO7hrX/4ohbHsi8Xk+U66TCEMdmMUO58AmHzMXyYL/HEcE5B79EovXxFRu+j70Mp5xLuiOfxKm8fBw4SCVboHbIHjVqFibQwx91cKIGrYvFPyfXn0g9GgkJLkarjLv9MS+HsUDz2XQhXAqiAfMT6iNCzn4sB5k2Usi87K58=
+	t=1792416320; cv=none; b=YcGs7//hVAvoOMFQK5C7C5qJ13HWpf2XUTo/UwF+7jntd4Crzwtqh5kWqaFvaSLgVOodK104XvSVV7CKhXYBc3rwcQ1IzPvYpW2+8V8H0dT4GeakTW5DD+HFN4HrH6hFBo+jf/UINTKBL1CU/jyFlJz2ygpdpgbNcpciUuoXHGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792416268; c=relaxed/simple;
-	bh=yoaGZiQ9H2vRb1xLQBCf1fZhJ3mt/eR09MUsi84PMZ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sc5urrcvjntGLjOp4LExyTyMCLun8XPBjZRX8c1xn5RexwT/TGF4YQAb0DMuGLvUX4hIbutY7En3ZG9VidAwwRXGjJWiuHfv/yKz7So7utiWbWEg4vE9IheZAodft/KIafiZjrh5Ps6oIYCz41Nvi4RSDw6uEsjtNBEsD5Gfd9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgpdvKhq; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792416320; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lx+hwsPD6Fbc4KqDh8SJrdafNFtIWGUgVmqbBX+YBXVKOsvNk1aJfBreSg2pvqnSPfmE+wkLqfCGFZ9HgHdXBhBupKHGxQ/xY5Ln6hh6oa9SM/jdZ49nAKMsVilEh28tKH0UaBLa3Y9KjFaWSG2qJVdJxc9lYVwoemG1FZp4ye0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+QhBJmw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgpdvKhq"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-353804b591eso4035216eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:24:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792416265; x=1793021065; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gHkvJRImAGRTzqUxR43Iw2Rk7eqpTmHI2Ma9f9R50ho=;
-        b=AgpdvKhqi04YMn77dpglwRqTiOMJgCik0Xrsk19JmSfAy7kQyeFYMOHO5xvcFwN7ic
-         wvJiUTG4tNrzPSqM+faQfxRerBA1eqjp/HxLlHkBke0zyD2JyheZdEy1ridSV+8RAQcN
-         yCo8xRrnvHbzyJ18Pj7P4vkbBWaWWqp7aJSdRcf6n/YVPjGwsMr7zqbdVbi1jGhEAYUy
-         W+nwpwEdMsmUpajs2MEz0RC1GMVblPc8QBXhLVjBIQnVKgEvVTRFjVgZuplY34m4UzAL
-         UZhotemi9TrR3dyXE/B9VvhrLANOi2Lt/Jq8B5MMivXpf0DmwYz3nHeeTovHoUzE1AvR
-         p1gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792416265; x=1793021065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gHkvJRImAGRTzqUxR43Iw2Rk7eqpTmHI2Ma9f9R50ho=;
-        b=rIcEKgYjLQYd4mmVx7BBshb5MbAwxaccQ/zMv3+jOLsVihy5UM71W0LA20W9LcSKw5
-         23i0Ae3aZwzWcBxk1RdTo8RVR5Pkza+nSNQhCxqOQ5NQ5DRSzt7UyeX5JfUOvpQD5Enh
-         NeHlF5HmrVf76MoRnjgu74bqFwozEYk7mWn1wcH+7VSUEQzAKXGA7LE4+oBo5jQSgTGV
-         CYLuGy2mST/2kZOAtbU+Ndh6fXBI+BnKSJqte0aJfaT6AjSWn5VAsrv/QExg6SoM6bWW
-         z6fyhM6mThLBqzW+w5QyurM/t6bWW4S/MJ3GajrAVk5CXxPKr1yWAtgHsblGK/++x/gK
-         3pEA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1jPaDqFl3s/3UaScbbP1z+n6V30Pb91SzG4AxEu167hJ0CNyMnf6VOgAvNVqYRLXcUzQ/cwcrw0shCSc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHhasihgGalZprLV+D8O7ieCT1vtDYToiUCZE0R/xtRtaykG44
-	AQDqhHAa4Ara/Nh3+yEB9iujYSjO3loTMQFFZpnAfrADLYBiKXKuszKh
-X-Gm-Gg: AYBFou0e5eUWULRLweDzeRSOSPKHBbpSdEuCrk24n1GxWPvvNIlJReqKtp/aNpW1/aG
-	W+REppJcqpsdKQp65KWTSQ5yMvOU/jT0+ZF1nKCMMpIr4yERa7LCYFkNBAAwAjXw0ZyEsuf293E
-	vwUwgG/jfFtzlDsvFiudDxx1ExoZu6edSfLE4DZax7XbSoDzy0idDM5UGHFLOIMq2vL2ePbORLB
-	/YuJ93yAVBSs9mRqN6nCKb4rRRZKaKGzgEvpiYFeJf9/ib1zCSO+dF7bdnRRy6HJfD6kK41L0B7
-	wgmlvp8kB7JEDX6FnF60yAxnyCCxXgIJps4gQYaYLKqi+XbBUicFfJ2i2vtVIy7IS5l0VA4t8uF
-	oAPo5VPlnHH57oZlSSCuoucj2hr07drpK1KNtleX/45j0TOQK8M5PJ4V+zmZ8G3/XSQd2RFJ8LN
-	r378i3QNeUFFd/b7UrysLUDnkPBN+hEn2+l0MWPl/ukgyH+MP8o7bKi8IH7T/e35DValhRHw==
-X-Received: by 2002:a05:7300:d0ab:b0:35d:2633:ff79 with SMTP id 5a478bee46e88-361a2a3c429mr11431088eec.40.1792416265293;
-        Mon, 19 Oct 2026 06:24:25 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac1:7a80:50::3cf:67])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081ab80f9sm52717230eec.12.2026.10.19.06.24.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 06:24:23 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Cc: jack@suse.cz,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH] d_path: fall back to init_fs when called after exit_fs()
-Date: Mon, 19 Oct 2026 20:24:19 +0700
-Message-ID: <20261019132419.62905-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+QhBJmw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650B21F000C4;
+	Mon, 19 Oct 2026 13:25:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792416319;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=W+QhBJmw7wJCiqyzBNAHpepvNLtMo1bc2rYrlIPMgnYb7oiI2LKWXj2zVfIR4i7mt
+	 741yfQOld4xExZpg/Lxg+K1SGoF5JzWSIWXV5yGE2ti4918DO6bzJ2lSSvz59IjvpT
+	 5HMqgi2EXNjVjjlm6kgvb3Mmbm5q7itlJT8q4XLHWXdpTIxNNM+Si1IkCVLo4wyrcr
+	 +mMvBHX4b7iKWWLKKEcCq5db8GTZ5BgiM6V5PbEl+0Vet8fy2WmfjXFjDkHCT4tFq8
+	 RAKatShd1y5bHwguqm50EaLoOHgKWaiSWN8M99D0h2d3o4Nh9E9bBPMvd8YJ1svYBx
+	 FSmEY7h5IQ87w==
+From: netdev-bot+sinfo@kernel.org
+To: Haoran Wang <haoranwangsec@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH] ipv6: icmp: use skb_dst_dev_net_rcu() for echo reply and unreach
+Date: Mon, 19 Oct 2026 13:25:18 +0000
+Message-ID: <179241631899.3290.12435413086500350464@kernel.org>
+In-Reply-To: <179241613335.5916.18191480036849517944@whr>
+References: <179241613335.5916.18191480036849517944@whr>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-d_path() dereferences current->fs unconditionally. do_exit() runs
-exit_fs() before exit_task_work(), so a deferred __fput() sees
-current->fs == NULL. If that fput ends up in d_path(), it crashes:
+Hi!
 
-  ima_file_free() -> ima_update_xattr() -> ima_calc_file_hash()
-    -> dentry_open() -> smack_file_open() -> smack_log()
-    -> common_lsm_audit() -> audit_log_d_path() -> d_path()
-    -> read_seqbegin(&current->fs->seq)
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Any LSM or audit path that formats a path on open can hit this. Fall
-back to init_fs, whose root is always valid, when the task has no fs.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=975ace299d6ba2eb1cea
-Fixes: 4a9d4b024a31 ("switch fput to task_work_add")
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-Reproduced in QEMU (x86_64, KASAN, Smack+IMA+audit) with the syzbot C
-reproducer: without the patch the first exiting child hits a null-ptr-deref
-in d_path(); with it the reproducer runs to completion with no KASAN/Oops.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Alternatives considered: fixing only the IMA->Smack audit path (too narrow,
-any open-time LSM/audit hook can hit this), or reordering exit_fs() and
-exit_task_work() (too invasive). Happy to rework if you prefer another approach.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
- fs/d_path.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/d_path.c b/fs/d_path.c
-index c25309006d5d..24fd56e80631 100644
---- a/fs/d_path.c
-+++ b/fs/d_path.c
-@@ -3,6 +3,7 @@
- #include <linux/export.h>
- #include <linux/uaccess.h>
- #include <linux/fs_struct.h>
-+#include <linux/init_task.h>
- #include <linux/fs.h>
- #include <linux/slab.h>
- #include <linux/prefetch.h>
-@@ -284,7 +285,8 @@ char *d_path(const struct path *path, char *buf, int buflen)
- 		return path->dentry->d_op->d_dname(path->dentry, buf, buflen);
- 
- 	rcu_read_lock();
--	get_fs_root_rcu(current->fs, &root);
-+	/* exit_fs() already ran if we are called from exit_task_work() */
-+	get_fs_root_rcu(current->fs ?: &init_fs, &root);
- 	if (unlikely(d_unlinked(path->dentry)))
- 		prepend(&b, " (deleted)", 11);
- 	else
--- 
-2.43.0
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
