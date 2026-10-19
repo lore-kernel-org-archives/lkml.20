@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792423985;
-	b=nihLMF5exXLthd9TdSWQ6LNXbFQs8JSFpVxf7h4XwG4ygxYk89cTsh5EcDsW8dyRDdFL
-	 6LcLurDLb9DP9OM2JMPy7wK6bjnXfD94rwaaRCZexJ4Hcf6mtBzUa115AMlIax1l9fmWs
-	 TrMcDnUrVT8vWtJclA8UXePiHPKhYtXp4qqNy9K0MgX8FMOlMIGCk/A541WH0H/3aCHqc
-	 r8cD2SY3Y0gTJ6vGbzD0ObGlOtYxLCE3phMc1bjx7u5RCt/esS9CInwjeF26DlgdTBt+3
-	 yeW/LWPVWh9hbuQdHLSypNmzCoyqnu+pvD7QwFamJpzhWdM2s6GDzs8yA4M2TqSwgGQ==
+	t=1792424024;
+	b=uxQFLH2LPY/f7v+CHPH/jPKHCWFRfv/G33umj40P1uww/cs2JIQbY6KaISYTaT60z0Ou
+	 WxaEWbe49Wd95Zn1EgB9o+UFP/hveV6vLGoeypi8bEGRfPTJ9HapqCVnpRo5XSOrCAFEo
+	 7DenEHy0e0Ki6xQT+Z3T3hGrPw2FFVH8snB4RxqjCGI6UxO5YixJdKJq2Dz+Qc5c0rFws
+	 RKljqmcnkXedX3a++RxsPwpsVjGVHq+xadytPU7G4yBH69TtYAisygwFLXv8YWql7Z1jc
+	 J4vmrhfwchzZUlmMBWaogwxo14ErchN/CcPhBani1H9PjYvwiRh+KrG0kHkIoiWDTEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423985;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424024;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RTU0GqXO0v09/wvq3q/okf4+AOCgqZ21ovd0A51lLqA=;
-	b=Jq+VzHhhE68t/PFd2dqNNz+lLDQEPpN3X1TGZYb5sM0WTIOHcu0i/dlgIxPsQrDAB8mP
-	 XOmXauNrF6cQCW5XcUZgyH/2mrFzjY0zCFn/h/Ch8opDkPsH74vFYl0QUdBnqjRe1a3xR
-	 t/rRCPE1ytCnNJZqeLNuuKSCy/u8vUX5rMSXVa+p6vSMPOF3ii26jAe6MJiwEFRsK+sp1
-	 3hXyuTPxcJSKVRBgqanfu2Fb6zDaCI/pGJKN+cqspC7K/DCKYFc7rlXPra9+tNLNOcUYt
-	 3E39t9zqSBXHwi1TlsjPbwdGu8IgCuFtbeclwmpOMVhY9TTOVtQvSbEAWr1EGHjd0xA==
+	 Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References;
+	bh=40VX55JE7I8lotG+m4tWob4wIq5xuHTD0e55HnuCuwU=;
+	b=IxZl1kJ8LuZcHxO50VzKe0K0tqp22y8/M7W520IOuszNLdksKtan2RyyEGFdbxscg2Xd
+	 MIzqRMiEAtKD7pR1bGlvmV7qZdtp3oPOiCWqCDQA15EQf4Sgs093TqW1/720Ts/bj6VJd
+	 /rHLpCRDj7Z5oDosnzsBQ7PcXrewmfEbNiN5oYfssjHU5wFaU0m0GM7vHcYkMFM+tniQd
+	 WDwqa0Gph9Sp/700GmM7rGw26Sey3YyaErLl4xNvL2hcCNHdYIDDDF3Y3VCYKNHbKuKtv
+	 UFJlFo6dfMx2exln1teHQWTuU3OTqHb4QLrWSi8TaxvT1+yHKv9vbEUrZKAJMYk2j6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rKiBaLiH;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MOHhUoaC;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E03B606C908
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:33:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E03B606C908
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7345D60705CF
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:33:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7345D60705CF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rKiBaLiH
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd6324caa0dso121095a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:33:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MOHhUoaC
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3550dd02c9cso181961eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:33:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792423984; x=1793028784; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RTU0GqXO0v09/wvq3q/okf4+AOCgqZ21ovd0A51lLqA=;
-        b=rKiBaLiHA+wAj+IDHNi51Xs9grM09WoPm+Jryti86x78iXrYmwZHGurSps/Ezf9PLa
-         rht/nC+yCW9W4lyFiHWeRTlkKkmTbEytKscB+/TT/XVoIyJVP658YmxRhCdlGHIIMKe8
-         gJBSi2JDs+cDjFlbwf8anbdTuSxgxZZWQAnXlqZAbvkoIdpzNQQwAMXmCHVgRhl9NPTk
-         KrKIwz9JwKqlbhcb2Fmh+ocA/wFBsTpjtOtiZjocNGt1ME6zY1TMBSUJFOLtWFEFCBGT
-         +N8FGdT0XhQVHUoVOMVS021IZ3RNDbI4iHuxC+XuSmLo5OhIklT+2w4pb64aO6SvsdnL
-         OoyQ==
+        d=gmail.com; s=20251104; t=1792424023; x=1793028823; darn=vger.kernel.org;
+        h=references:in-reply-to:subject:cc:to:from:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=40VX55JE7I8lotG+m4tWob4wIq5xuHTD0e55HnuCuwU=;
+        b=MOHhUoaCewBDcQI7j97alFtBVMoYrtatfUH0aiOZ78clFxr65xZZB5ortlDk3JbdmC
+         W5zWvxKhOuyH3G3kVkl3Tjux8i3MCzCJyeE1s6+8cJKbl1So2HT3+3pkw96zaMEpSox5
+         jny7r0NfuTAxxznYCurcAD3cIfEzQE4zfnz81Jlde0acBq6aXt/0zj1ERmA1MskQXEDp
+         QQYDPioLlikUR6WRWoFX2fJRY9OX66ZWYm3KrVPRoMGdGGPA3HKUE43pN7coONk6im+c
+         VNahbk4fHoaddaEzh91dK+8SL6nQW2c1ex0CRB0xqs24Ub1lyjNML9O/nEJLjzPUktA7
+         nycQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792423984; x=1793028784;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RTU0GqXO0v09/wvq3q/okf4+AOCgqZ21ovd0A51lLqA=;
-        b=eWQywllRiuytYTcHr+RWUa31Ydr/MvKjoStbS/EJFvBSDHUYrjU6PvgrKLc7YC9LNS
-         kA1srsOGQ1TnZ16t4qvHoiT2vwDsP1WReVltsW2KCJ4/H8IpCGKPKRMkpvZiGuV04RWS
-         cUd7G3RX5qVRzl724wd27MT8CHSd3WeC9x7QH7guTOFzNuTEWnDxMedC2C8GMcNxKNJU
-         ylwyae38bLKUR6n7XWudUAF01KYQz79hLo2fri9Bcq32n4ZBIUc4vSezlhs/jxVTK0fn
-         awYfj4uv1jn3QC+dg/Jfmy08VGGFsW5QyNv9h4JWQmzxdMv6FbpfqBNX/DkCKrvmSMWg
-         /Xjg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUdukd8D/roqECJrdWRDDST7tphwnMpaKvPU1IazN8wV//ANCZnM8E34Wu+Yd0++f6318xJi/Q3QhFynU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPe46Bv0kiKgKGEV89CDQ6C+uDcHmvXlVUO0IlS8jzT+uNoGtN
-	IzQeCLCAEi4RnOrvEBsEKpvdc3piwb8cfiyxJQ9++R5H6Q0/oSu8Xl5z
-X-Gm-Gg: AYBFou1tgJb7zUmkq33kVy2ooqBwcLoNINa9gkTfCXtJsZhH979d4KiOjXCnPMNh9Ux
-	4rAIwSGCoLeXWtg1nxWgGZd2gOZ4oB0SpKd+LX294L1bqZX3bbwECYvW2/zJRXKXo6uW1tK2bll
-	uYUXIGKLdDGv/i02xU1BTQrN1noTP3CHGoLq+qYp33uComg0JMzFjYvRk312uPyll03mhdUWAX8
-	prUWjCOSWrPYazKkW6hTVccN+L6jw5ZRHtsX0CJ7BMuh9h/nYLWKVixCPl20Kez94ylBjURb8kx
-	kKaPiwfLPiqpiAyLcMcIx7yjj83HOvxjdBTPYJKMVq+Ec6TETUH0gQwPOSnskKmzUn0G+Q30WYp
-	yn+zkwbHQgSbrXgy+h+qx4ysE3Z1MHNBbHnwnyOLbYzl1nmOCM1h2/7/t/BUAL74XxOlJlixLeH
-	cj20l++NqwubsQpfS/omEsEnUfe5bU9VGNL5+n78VdRLgpGAe1JnGznO9nXFQjXzFF+hj4ny6QO
-	PiIGlD4wzmDCqgFAjZ1okg2Gv9zDUOLhTq6JMa/N3+wj76ud46xuN7UcBiT+RMFdblhpvjgry+z
-	aQ==
-X-Received: by 2002:a05:6a00:4786:b0:8a0:1269:651e with SMTP id d2e1a72fcca58-8a04be68eeamr6694821b3a.3.1792423983578;
-        Mon, 19 Oct 2026 08:33:03 -0700 (PDT)
-Received: from localhost.localdomain ([183.42.136.236])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57452b16sm4017801b3a.29.2026.10.19.08.32.58
+        d=1e100.net; s=20260707; t=1792424024; x=1793028824;
+        h=references:in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=40VX55JE7I8lotG+m4tWob4wIq5xuHTD0e55HnuCuwU=;
+        b=Wo3NsJlyraAjlm5hGJqEIj4eBd/+2fNSlmZ7UHCMenumSsmdK+R88djxCoFmpi4yuZ
+         MiOzgjPYCYXoKqtksV5fon+m9Lxi4GyCr2kBtXVXvTi+xB6zKjKyfR2z/5TxlQ+JGtFk
+         r78ruTQbw/96X9grTRAuK6pUA+RyFiZmqQxu1AbTY/QCl9RUPlJvDwi1GIJEXHDMtsjb
+         D+tyYPIuz/u7Eldg09tKde2K6jmHQjikVWUC5DGGuMY0/kDajGzG6+jVH09QuUEdnpy4
+         i9KLjPQSgtlBWICrnf7xEnbgx2z02G8qs3k6CFhNCcM2+Y0Khp6RJRtz0IRn2fmdPxxn
+         boWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzY9FlpMY+ia7Oy+GI8Qd8wnUOWiAO+WXX0OQRKmGxhMYdQH94y41Iir56d1Dq3gjj2ap7uqwPtY4QKKnw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYInlNZj5zQMSWW7MSUgFrGaEzCjCx360Xj4DEbipgH6y8HT5oXL
+	+WPISzx4UivesGycqqLRn25uUcRvd28a5GW/WQvztXt001GzIMcXehtX
+X-Gm-Gg: AYBFou2M5ct5prYFoeK35dubJhLO79DYeQt8YbrAXLPZFs/UmtZ3EH4XgoIHLXnbHot
+	YCf4jh7XiJCn6AS8hvDfwsCjTlgekOc+tjPFiCxYVM+pXAQ6L7Cfp1tjfYOtOjbj26KRsk+uPy9
+	MkCJEY0SkjE8/AKAsnQZNhR1k7SZEjp0Mkqfx7MpVm8YBxfl6Ax1mYGNGsFhqLbsVukATtmvPgd
+	tDos/fUezviMZRhFEpCb/fFtPjP6d5xOmivoV3oSLDBGgD+bfXjRqhxIXYESUlXYwtgeVdPe8S9
+	+t9lh5lnOKhq6s9o/5pgJpo+KUtjFxhIrJ0VfdBriK1srRmYDJ0tCv0/H4xJLCJ1B8ioeKsIobL
+	/zu+RmpKvLZ1LqQwbO79gTiz39Vfk2yUUCHl2UbTwMkth4sLGFMY9QHrxppTRA6IZuKe2mPtj+i
+	b6GZwIQwywXsRnwaIu0lxJnBiflcuSf/Rs9Sege04EP7cz/4L8vTX4VFUjpfNGo4Q2CN3rij1ns
+	61X+JprqPgrtcLLjQP3vlBglvjocJ4QGsHgR0mHjHgZz7Jf6qI=
+X-Received: by 2002:a05:693c:65cc:b0:35e:9cb2:b88a with SMTP id 5a478bee46e88-361a136a601mr17263822eec.2.1792424023344;
+        Mon, 19 Oct 2026 08:33:43 -0700 (PDT)
+Received: from msg ([188.253.120.76])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b684dsm33067697eec.10.2026.10.19.08.33.36
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 08:33:03 -0700 (PDT)
+        Mon, 19 Oct 2026 08:33:42 -0700 (PDT)
+Message-ID: <1792424010.89978.05cf1ab60e@gmail.com>
+Date: Mon, 19 Oct 2026 15:33:30 +0000
 From: Qihang <q.h.hack.winter@gmail.com>
 To: netdev@vger.kernel.org
 Cc: steffen.klassert@secunet.com,
-	chopps@labn.net,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v5 1/3] xfrm: run the receive callback before dropping the skb->dev reference
-Date: Mon, 19 Oct 2026 23:32:45 +0800
-Message-ID: <20261019153247.89957-2-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261019153247.89957-1-q.h.hack.winter@gmail.com>
-References: <20261019153247.89957-1-q.h.hack.winter@gmail.com>
+    Christian Hopps <chopps@labn.net>,
+    Herbert Xu <herbert@gondor.apana.org.au>,
+    "David S. Miller" <davem@davemloft.net>,
+    Eric Dumazet <edumazet@kernel.org>,
+    Jakub Kicinski <kuba@kernel.org>,
+    Paolo Abeni <pabeni@redhat.com>,
+    Simon Horman <horms@kernel.org>,
+    David Ahern <dsahern@kernel.org>,
+    Ido Schimmel <idosch@nvidia.com>,
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 3/3] xfrm: hold the tunnel device reference across the input path
+In-Reply-To: <20261018090638.55686-3-q.h.hack.winter@gmail.com>
+References: <20261018090638.55686-3-q.h.hack.winter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,50 +101,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The drop path in xfrm_input() releases the skb->dev reference that is
-held across an async resumption before it runs the receive callbacks.
-The callbacks may still dereference skb->dev, xfrmi_rcv_cb() reads
-skb->dev->ifindex, so they can race a concurrent teardown of the
-device.  Run the callbacks first and drop the reference afterwards,
-like the success path does.
+The [High] finding is valid, thanks.
 
-The early drop for a state that is no longer valid releases the
-reference on its own; let the drop label handle that reference too.
+__input_process_payload() reaches the drop label from several inner-packet
+validation failures, and the drop label sits after the loop that delivers
+the packets queued on @sublist.  When the outer skb is reused in place for
+the first inner packet it is already on @sublist and carries the cached
+tunnel device reference, so jumping to the drop label skipped delivery and
+left both the skb and its tunnel device reference behind; the same applies
+to a packet queued by iptfs_reassem_cont().
 
-Fixes: 1c428b038400 ("xfrm: hold dev ref until after transport_finish NF_HOOK")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
----
- net/xfrm/xfrm_input.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v5 drops whatever is still queued on @sublist in the drop path through
+xfrm_input_drop(), so the reference is released.  The normal path already
+empties @sublist, so the added loop only runs on the early-error path.
 
-diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 5ed87d51392a..94de4f698c33 100644
---- a/net/xfrm/xfrm_input.c
-+++ b/net/xfrm/xfrm_input.c
-@@ -496,7 +496,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 					       LINUX_MIB_XFRMINSTATEINVALID);
- 
- 			if (encap_type == -1)
--				dev_put(dev);
-+				async = 1;
- 			goto drop;
- 		}
- 
-@@ -779,9 +779,9 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- drop_unlock:
- 	spin_unlock(&x->lock);
- drop:
-+	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
- 	if (async)
- 		dev_put(dev);
--	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
- 	kfree_skb(skb);
- 	return 0;
- }
--- 
-2.54.0 (Apple Git-157)
+A revert-based runtime check agrees: with an aggregated IPTFS payload whose
+first inner packet is complete and whose second inner packet has an invalid
+IPv4 header length, v5 completes RTM_DELLINK, while the same code without
+the drain leaks the reference and unregister_netdevice() waits for vti0
+(Usage count = 2).
+
+v5 sent separately.
+
+pw-bot: cr
 
