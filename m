@@ -1,48 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAEF45DD574;
-	Mon, 19 Oct 2026 14:02:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C7A5DE999;
+	Mon, 19 Oct 2026 14:02:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418538; cv=none; b=KdQJQTbCRbNSXuBymwUn5wcd4cAnZ8cQvYI299p9bk7N/eKW2kBcKjJUKP/XpjhpcMD7ukQIooU6IBNbfNwQGefaaozEbAjr2u4fMHnBPM1WEgYYBKjDBphCC1HtYrE6+CLe5mQ6PQ80Az8OiWCMfJoUyoOnVSC1UX1SEjR0Uqk=
+	t=1792418539; cv=none; b=sQSxs9yknSLwNhtGfyipRc3iqgxDztYDdinMr8A2Qnglu+d8xBZ6U9iAiING/IW26yzBOhI31J2Utd7jI5GFTOst1EfmiDiZqQvj/DMxQb5KQhCSNIR46VooLc3H2wNre5egu8Pph07RkVA6H4x0iq6G+slMuyxfIMP2pXRRIVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418538; c=relaxed/simple;
-	bh=rdreeGsyL3pCHnz92Zx9K7T1XZ/e3VBbHHTB7w/ja3k=;
+	s=arc-20240116; t=1792418539; c=relaxed/simple;
+	bh=2p0mEzJLWfOGEC5OD/3TM2/rVM6Kn5a7xXK7lqvUKQY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=peY3AfcrSe6lB1LyGx0CcYY7a17LE2P4/h8yL36jWFaM+mO/EEtCGamwsvQgK33jrtFhWtpEeY8TqrytEWE+IrAlIx/OKykTB0WsFOKzONCfCa56nqepsriR/PkOTnU1xUVZ2nc/nMD4ktPCpnQl6PHT4Ml1TNm0HVf+LpTrpuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Or2ODciU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ua8SUNNLpkFctNwZOjgfivelO6c2zmS5gDiGM51IgR0g++Esjcz+dvfmgd8N7VkZHoKWyjx4VQ1V+3Dsb4BUVOT+UgmcLLND7W/jvYQ+CpnRrdaqin/b7+ILhQrAqPtkd6Y41EfbkhYyIjXpOvQLBGIdD//RVVo7vm6FEtx5mN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nqx9rlDX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Or2ODciU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978431F000C7;
-	Mon, 19 Oct 2026 14:02:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nqx9rlDX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70E9D1F000C4;
+	Mon, 19 Oct 2026 14:02:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418531;
-	bh=Y0Acs1GjZ8s3VI9YkREK3IWGQmpvGOM/AWX2WIww85A=;
+	s=k20260515; t=1792418534;
+	bh=RSFCUUn9tTT4o2aFy4MJqRVfv+N/W91AMgfdwSwp4fc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Or2ODciU7WUELSUSN+yZmyPGr/PS8WZKTgNbpybAuAqGVWDsVCkxt8LrS7x8JmDwu
-	 KpFhrgYCCRh4r9iNfIWGD+LE4LSNShoVp2ZfQ91HbE1ONYV246+aJJm1TWS3Vrmwq3
-	 24VwhOf6iLMqYb642cHJwhAeY9axs2BHX/FSfSpk6gfld9amhoSsaZ9GUIyFSmyMl9
-	 882G2cKs9ZNbq1b/KEOqwlE0nXwKiP8Z8i+bvworf+P9cJ/bd9WkimaICz39EjezPH
-	 Pe5mygpsVRxtKPsQWhJ69/O94+jt1bhGdLwfKrsG8SQe7u0POrUenilTSEAc5T3T/i
-	 I348Ibf1o5sKQ==
+	b=Nqx9rlDXesh3DNKxHVXSSASUTzLsrfkDaPfNlOjfxePn/MjXrTc2voJboy0hLNOcC
+	 wYyXkuGJVMBvbcF/ta98ypi6l40Db4ArsnQ7Ko44++3k1aydrhuV3f9BjUYUgECrnl
+	 lwwsDHqIQW170v/bZ4nIWAKwHlyCxWHzLs3D5LL9Z6Qvp7RWR8FjTbXDpgghhUC5XV
+	 ZCHCOM6a6w8BcvuNNMLpx07SJWfkwnWov4R3qUvYta2SgjChJ0dgUIWyvxEw0eJ6mh
+	 IDo72EOVTGoWSi2nCA9OsO4ZGWJeGLt9EwRQPm6PONHPrTaufshHk5EAm16XGFs7Zc
+	 lwVqG6DJLs+LQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Dio Zhang <dioyc_zhang@compal.corp-partner.google.com>,
-	Douglas Anderson <dianders@chromium.org>,
+Cc: Tomasz Bojanowski <tomasz@bojanowski.me>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	neil.armstrong@linaro.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/panel: panel-edp: Adjust T8 timing for AUO B116XAK01.6 and B140XTK02.4
-Date: Mon, 19 Oct 2026 09:50:05 -0400
-Message-ID: <20261019135441.1420968-314-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.15] ALSA: usb-audio: Add mixer mapping for MSI MAG B850M MORTAR WIFI
+Date: Mon, 19 Oct 2026 09:50:07 -0400
+Message-ID: <20261019135441.1420968-316-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -58,405 +54,411 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Dio Zhang <dioyc_zhang@compal.corp-partner.google.com>
+From: Tomasz Bojanowski <tomasz@bojanowski.me>
 
-[ Upstream commit 0d40cab39158704e372240ed9821a00bfe117125 ]
+[ Upstream commit 7b457ae8cf711831f19d20963f5ed2fdf4842d3a ]
 
-Screen garbage or flickering can be observed during mode changes (such
-as VT switches) on systems using the AUO B116XAK01.6 and B140XTK02.4
-panels.
+The USB audio device 0db0:cc78 (Realtek ALC4080) on the MSI MAG B850M
+MORTAR WIFI motherboard exposes all playback controls as "PCM", which
+makes it hard to tell the outputs apart.
 
-This occurs because the backlight is enabled before the video signal
-stabilizes. Waveform measurements show that the panel signal takes
-around 140ms to stabilize after a mode change, meaning the previous 50ms T8
-timing was insufficient.
+Its mixer layout matches the one of the MSI MPG X570S Carbon Max Wifi
+(units 29, 30 and 32), so reuse msi_mpg_x570s_carbon_max_wifi_alc4080_map
+for this device too. With the mapping applied, the controls show up as
+"Speaker", "Front Headphone" and "IEC958".
 
-To resolve this issue, adjust the eDP panel delay entry from
-delay_200_500_e50 to delay_200_500_e200 (increasing T8 from 50ms to 200ms).
-This matches the updated panel specifications from AUO, which now formally
-define T8 as 200ms to mask any display abnormalities during mode changes.
+Tested with a patched snd-usb-audio module on a 7.2.7 kernel.
 
-Signed-off-by: Dio Zhang <dioyc_zhang@compal.corp-partner.google.com>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260720025358.2781136-1-dioyc_zhang@compal.corp-partner.google.com
+Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
+Link: https://patch.msgid.link/20260923184957.6687-1-tomasz@bojanowski.me
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This checkout is **Linux 7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
-change is a two-line eDP T8 delay quirk for two AUO panels. Both panel
-IDs and `delay_200_500_e200` exist here; the fix is a hardware timing
-workaround, not a new API.
+This is a four-line USB mixer-map ID addition for an existing `snd-usb-
+audio` quirk table. The local tree is **6.18.57**; the reused ALC4080
+map is already here, and the new ID is not in `v6.18.57`.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[drm/panel: panel-edp] [Adjust] [increase T8/enable delay from
-50ms to 200ms for two AUO eDP panels]`
+Record: **[ALSA/usb-audio] [Add] mixer mapping for MSI MAG B850M MORTAR
+WIFI (USB ID 0db0:cc78)**
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- `Signed-off-by: Dio Zhang <dioyc_zhang@compal.corp-
-  partner.google.com>` (author)
-- `Reviewed-by: Douglas Anderson <dianders@chromium.org>` (panel-edp
-  reviewer in MAINTAINERS)
-- `Signed-off-by: Douglas Anderson <dianders@chromium.org>` (applied via
-  drm-misc)
-- `Link: https://patch.msgid.link/20260720025358.2781136-1-
-  dioyc_zhang@compal.corp-partner.google.com`
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Acked-by:`, or `Cc:
-  stable` (absence expected)
-- Ignore any pipeline `Upstream commit` / Sasha Levin SOB (none present
-  on the real commit)
+- **Fixes:** none (expected for this review class)
+- **Reported-by:** none
+- **Tested-by:** none as a tag; body says the author tested a patched
+  `snd-usb-audio` on **7.2.7**
+- **Reviewed-by / Acked-by:** none in the commit; mailing-list apply-ack
+  from Takashi Iwai
+- **Link:**
+  `https://patch.msgid.link/20260923184957.6687-1-tomasz@bojanowski.me`
+- **Cc: stable:** absent (not a negative signal)
+- **Signed-off-by:** Tomasz Bojanowski (author); Takashi Iwai
+  `<tiwai@suse.de>` (SOUND maintainer). Ignore Sasha Levin.
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- **Bug:** On AUO B116XAK01.6 and B140XTK02.4, the backlight comes on
-  before the video signal is stable after a mode change.
-- **Symptom:** Screen garbage or flickering during mode changes (e.g. VT
-  switches).
-- **Root cause:** T8 (`delay.enable`) was 50ms; waveforms show ~140ms
-  until the signal is stable. AUO’s updated spec now lists T8 as 200ms.
-- **Fix:** Point those two `EDP_PANEL_ENTRY` rows at
-  `delay_200_500_e200` instead of `delay_200_500_e50`.
-- **Versions:** none named in the message.
+- **Bug:** USB audio `0db0:cc78` (Realtek ALC4080 on MSI MAG B850M
+  MORTAR WIFI) exposes every playback control as `"PCM"`, so speaker,
+  front headphone, and S/PDIF cannot be told apart.
+- **Symptom:** unusable/ambiguous mixer controls;
+  PulseAudio/PipeWire/UCM cannot bind the right output.
+- **Root cause:** generic USB mixer names; layout matches existing MSI
+  ALC4080 maps (units 29, 30, 32).
+- **Fix:** reuse `msi_mpg_x570s_carbon_max_wifi_alc4080_map`.
+- **Version info:** tested on 7.2.7; hardware is a current AM5 board, so
+  6.18.y users have this device.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a disguised cleanup. It is an explicit hardware-timing fix
-for a user-visible display glitch.
+Record: **Not a hidden fix.** It is an explicit hardware quirk / mixer-
+map ID addition. Not cleanup or a new API.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+---
+
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/gpu/drm/panel/panel-edp.c` — **2 insertions, 2
-  deletions** (4 lines with context).
-- No functions rewritten; two table initializers in `edp_panels[]`.
-- Scope: single-file, surgical table tweak.
+- **File:** `sound/usb/mixer_maps.c` — **+4 / −0**
+- **Function/data:** `usbmix_ctl_maps[]` only
+- **Scope:** single-file surgical table entry
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- Before: AUO 0x1ea5 (B116XAK01.6) and AUO 0x67a8 (B140XTK02.4) used
-  `delay_200_500_e50` (`enable = 50`).
-- After: both use `delay_200_500_e200` (`enable = 200`).
-- Path: EDID-matched panel probe copies `detected_panel->delay` into
-  `desc->delay`; `panel_edp_enable()` then `msleep(delay.enable)` before
-  backlight-on. Only those two product IDs change.
+Record: **Before:** `snd_usb_mixer_controls()` walks `usbmix_ctl_maps`;
+`0x0db0:0xcc78` misses, so units keep generic `"PCM"` names. **After:**
+that ID selects `msi_mpg_x570s_carbon_max_wifi_alc4080_map`, and
+`find_map()` / `check_mapped_name()` rename units 29/30/32. Probe-time
+mixer build only; other USB IDs unchanged.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record:
-- **Category:** hardware workaround / timing quirk (T8 too short).
-- **Mechanism:** backlight enabled while the panel still shows invalid
-  frames; lengthening T8 masks the garbage until the signal is valid.
-  Matches other `delay_200_500_e200` users in the same table.
+Record: **[Hardware workaround / USB mixer-map ID]** — same pattern as
+PCI/USB ID additions. No leak, race, or crash.
+
+Verified map in this tree:
+
+```476:481:sound/usb/mixer_maps.c
+static const struct usbmix_name_map
+msi_mpg_x570s_carbon_max_wifi_alc4080_map[] = {
+        { 29, "Speaker Playback" },
+        { 30, "Front Headphone Playback" },
+        { 32, "IEC958 Playback" },
+        {}
+};
+```
+
+Lookup in `snd_usb_mixer_controls()`:
+
+```3278:3286:sound/usb/mixer.c
+        for (map = usbmix_ctl_maps; map->id; map++) {
+                if (map->id == state.chip->usb_id) {
+                        state.map = map->map;
+                        state.selector_map = map.selector_map;
+                        mixer->connector_map = map->connector_map;
+                        break;
+                }
+        }
+```
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- Obviously correct: reuses an existing delay struct; no new constants
-  or control flow.
-- Minimal; no unrelated edits.
-- Regression risk is low and local: +150ms backlight-on delay only for
-  those two EDID IDs. Maintainer Doug Anderson noted that longer delays
-  “always stink, but sometimes is unavoidable,” then reviewed and
-  applied the patch. No deadlock/API/locking change.
+Record: **Obviously correct.** Four lines, reuses a 2022 map already
+used for two MSI ALC4080 IDs. **Regression risk: very low** — scoped to
+one USB ID; wrong names would only affect that board, and the author
+tested it. No locking, allocation, or API change.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- Current lines are commit `0d40cab391587` (Dio Zhang, 2026-07-20) —
-  this fix.
-- B116XAK01.6 (`0x1ea5`) added in `a70abdd994cb` (“drm/panel-edp: Add
-  AUO B116XAK01.6”, 2022-09-23) with `delay_200_500_e50`. Contained in
-  `v6.1-rc1`.
-- B140XTK02.4 (`0x67a8`) added in `4c34cdb93ea1` (2026-05-09) with
-  `delay_200_500_e50`. Present in this 7.3 tree.
-- `delay_200_500_e200` first appeared in `f6ff4570e567` (2022-07-20,
-  “Add panel entry for R140NWF5 RH”), also `v6.1-rc1` era.
+Record: Candidate lines blamed to `53b3abbe6e262` (this patch). Reused
+map from **`5762f980ca10d`** (Johannes Schickel, 2022-01-15, “add
+mapping for MSI MPG X570S Carbon Max Wifi”). Sibling ID `0x0db0:0xa073`
+from **`4ddef9c4d70aa`** (2022-04-18, Torpedo Max). Neighboring
+`usbmix_ctl_maps` MSI/ASUS entries date to 2020.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Not applicable. The original panel-add commits
-used a conservative generic 50ms T8 that later proved too short for
-these two SKUs.
+Record: **No Fixes: tag.** Bug is missing a device-specific map, not a
+regression from a named commit. Prerequisite map **is** in this series:
+`git merge-base --is-ancestor 5762f980ca10d v6.18.57` → yes; same for
+`4ddef9c4d70aa`.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record:
-- Same file has many “Fix delays for …” / “Modify … delay” commits (e.g.
-  `43113fd4c5f56` INX N116BCA-EA2, `9abe13a0598a8` CMN 0x14d6).
-  Established pattern.
-- Follow-ups after `0d40cab` are unrelated (I2C leak, new panel IDs,
-  `pre_unprepare`).
-- Standalone; not “patch X/Y”.
+**Step 3.3: CHECK FILE HISTORY**
+Record: Recent `mixer_maps.c` work is more ID/quirk entries (Corsair
+Virtuoso, Razer Barracuda dB map, KTMicro rename, Corsair HS80).
+**Standalone.** No “patch X/Y”.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Dio Zhang has this one commit under `drivers/gpu/drm/panel/`.
-Douglas Anderson is the listed reviewer for `DRM DRIVER FOR GENERIC EDP
-PANELS` and authored/applied many `panel-edp` changes.
+Record: Only this ALSA commit in-tree. Author is a hardware reporter,
+not the maintainer. Weight comes from **Takashi Iwai** applying it.
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Needs `edp_panels[]`, `delay_200_500_e200`, and the two
-`EDP_PANEL_ENTRY` rows. All exist in this tree. Standalone.
+**Step 3.5: DEPENDENT/PREREQUISITE COMMITS**
+Record: Needs `msi_mpg_x570s_carbon_max_wifi_alc4080_map` and
+`usbmix_ctl_maps[]`. Both exist at `v6.18.57`. **Applies standalone.**
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+Precedent: Torpedo Max (`4ddef9c4d70aa`) is the same reuse and carried
+**`Cc: stable@vger.kernel.org`**. This 6.18.y tree already has later
+mixer-map ID quirks (`5144ddfb71c18` Corsair Virtuoso later revision,
+`a7de2b873f3db` HS80, `93adf20ff4d6e` KTMicro) — `git merge-base --is-
+ancestor` of each vs `v6.18.57` is true.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- `b4 dig -c 0d40cab391587`: v2 at https://patch.msgid.link/202607200253
-  58.2781136-1-dioyc_zhang@compal.corp-partner.google.com
-- `b4 dig -a`: v1 2026-07-17, v2 2026-07-20 (applied).
-- v1 review (mbox): Doug asked only for a real name in SOB/authorship;
-  no NAK; no stable debate.
-- v2 review (mbox): Doug R-b’d, fixed subject to name both panels, noted
-  it needed a trivial rebase onto drm-misc-next, pushed as
-  `0d40cab391587`.
-- WebFetch of lore.kernel.org returned **403**; discussion recovered via
-  `b4 dig -m`.
+- `b4 dig -c 53b3abbe6e262` →
+  https://patch.msgid.link/20260923184957.6687-1-tomasz@bojanowski.me
+- `b4 dig -a`: **v1 only**, 2026-09-23
+- Thread: submission + Takashi Iwai **“Applied now. Thanks.”**
+  (2026-09-28). **No NAK, no revision requests, no stable discussion in-
+  thread.**
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc included `dianders@chromium.org`,
-`neil.armstrong@linaro.org`, `airlied@gmail.com`, `daniel@ffwll.ch`,
-`sam@ravnborg.org`, `dri-devel@lists.freedesktop.org`, `linux-
-kernel@vger.kernel.org`. Subsystem reviewer Doug Anderson both reviewed
-and applied it.
+Record (`b4 dig -w`): To/Cc **Takashi Iwai**, **Jaroslav Kysela**,
+`linux-sound`, `linux-kernel`. Right maintainers. Maintainer applied v1
+unchanged.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No `Reported-by` / bugzilla / syzbot. Evidence is the author’s
-waveform measurements plus AUO’s updated T8=200ms spec. Compal/Google-
-partner author implies Chromebook-class hardware.
+Record: No bugzilla/syzbot. Author hit it on real hardware. Related
+userspace: alsa-ucm-conf PR #581 (“add UCM2 support for MSI MAG B850M
+Mortar Wifi (ALC4080)”) describes **front-panel and S/PDIF routing
+problems** on this board. Kernel mixer names matter for UCM. That PR is
+supporting context, not a second kernel report.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Single-patch series. v2 vs v1 is authorship/subject cleanup,
-same diff.
+**Step 4.4: RELATED PATCHES AND SERIES**
+Record: Standalone 1/1. A later lore subject “USB-Audio: add MSI MAG
+B850M Mortar **Max** WiFi (0db0:83ed)” is a **different** USB ID — not a
+dependency.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: **UNVERIFIED** — lore.kernel.org/stable WebFetch returned 403.
-No stable mention in the dri-devel mbox.
+Record: `lore.kernel.org/stable/?q=...` returned **403**. Openwall/LKML
+copies had **no stable NAK**. Unverified whether anyone mailed stable@
+about this exact patch. Not used as a negative.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+---
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: No function bodies edited. Runtime users of the table:
-`find_edp_panel()`, panel identification in `panel_edp_probe()` path
-(`desc->delay = *panel->detected_panel->delay`), `panel_edp_enable()`.
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: KEY FUNCTIONS**
+Record: No function bodies changed. Data consumed by
+`snd_usb_mixer_controls()` → `find_map()` → `check_mapped_name()`.
 
 **Step 5.2: TRACE CALLERS**
-Record:
-- `find_edp_panel()` called from the generic eDP identification path
-  (~line 820) after reading the EDID panel ID.
-- `panel_edp_enable` is the DRM panel `.enable` callback
-  (`panel_edp_funcs`).
-- Called on modeset/enable (including VT switch), not a rare error path.
+Record: `snd_usb_mixer_controls()` runs when `snd-usb-audio` builds
+mixers for a matching USB audio interface (device probe). Userspace-
+reachable via plugging/enumerating this onboard codec.
 
 **Step 5.3: TRACE CALLEES**
-Record: `panel_edp_enable()` uses `msleep(delay)` then
-`panel_edp_wait()` for `prepare_to_enable` / `powered_on_to_enable`.
-This change only increases the `msleep` for those two IDs.
+Record: `find_map` is a linear table walk; `check_mapped_name` copies a
+string into `kctl->id.name`. No alloc/lock beyond existing mixer control
+creation.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace modeset / VT switch → DRM enable →
-`panel_edp_enable()` → extra 150ms wait → backlight. Reachable on any
-system whose eDP panel EDID is AUO 0x1ea5 or 0x67a8.
-`CONFIG_DRM_PANEL_EDP` (OF + backlight). Not a syscall memory-safety
-bug; it is a common display path for those laptops.
+Record: USB enumerate → `snd-usb-audio` probe → mixer parse → kcontrol
+names. **Yes, reachable** for anyone with this motherboard. Unprivileged
+users see the names via ALSA/PulseAudio; they cannot trigger a kernel
+crash with this change.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Many other panels already use `delay_200_500_e200`. Prior “Fix
-delays for …” commits in this file use the same table-pointer swap.
+Record: Same map already used for `0x0db0:0x419c` and `0x0db0:0xa073`.
+This is the established ALC4080 pattern.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
 Record:
-- `git describe HEAD`: `v7.3-rc4-27-gf0100363d8c37`; `make
-  kernelversion`: **7.3.0-rc4**.
-- Both panel rows exist. `git merge-base --is-ancestor 0d40cab391587
-  HEAD` is true (this is mainline after the fix).
-- Pre-fix state used `delay_200_500_e50` for both IDs; that is the bug
-  this tree’s history actually had. B116XAK01.6 has been in tree since
-  v6.1-rc1; B140XTK02.4 since May 2026, also in 7.3.
+- `git describe HEAD` → **`v6.18.57-155-gcdf239ca885b2`**
+- `make kernelversion` → **6.18.57**
+- `v6.18.57:sound/usb/mixer_maps.c` has the ALC4080 map and IDs `0x419c`
+  / `0xa073`, **not** `0xcc78`
+- The unmapped-ID bug **exists on this 6.18.y base**
+- `git merge-base --is-ancestor 53b3abbe6e262 v6.18.57` → **false** (not
+  in the 6.18.57 tag)
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Context in this tree matches the committed hunk (same
-vendor/product rows). `delay_200_500_e200` is present. No structural
-mismatch. Forward `git apply --check` of the patch on current HEAD fails
-only because the after-image is already applied — expected on this
-mainline checkout.
+(The candidate is present on current HEAD because autosel applied it for
+evaluation. That is ignored as selection evidence.)
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: This is the delay fix for those two IDs. No competing alternate
-T8 patch found on this file.
+**Step 6.2: BACKPORT COMPLICATIONS**
+Record: **Clean apply.** Context around the Torpedo Max entry is
+identical at `v6.18.57`. Needle found; `0xcc78` absent; map symbol
+present.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 6.3: RELATED FIXES ALREADY HERE**
+Record: Carbon Max and Torpedo Max maps are here. **No equivalent
+`0xcc78` mapping** at `v6.18.57`.
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `drivers/gpu/drm/panel/panel-edp.c` — generic eDP panel driver.
-**IMPORTANT** for laptops/Chromebooks using generic eDP, not core
-mm/VFS. Peripheral relative to the whole kernel, but the driver is
-widely used.
+---
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Actively updated (panel IDs, delay tweaks, probe leak fixes).
-Mature table-driven delay model since ~2022.
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 7.1:** Record: **ALSA USB audio (`sound/usb/`)** — **IMPORTANT**
+(common onboard USB audio on AM5 boards). Not core mm/net, not staging.
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific / hardware-specific: only EDID AUO 0x1ea5 and
-0x67a8. No effect on other panels.
+**Step 7.2:** Record: Active; this 6.18.y tree already backports mixer-
+map ID quirks. SOUND maintainers: Takashi Iwai, Jaroslav Kysela
+(`MAINTAINERS`).
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Mode changes such as VT switches (author). Common on laptops.
-Unprivileged users can trigger VT/modeset on typical distro setups. Not
-a security exploit path.
+---
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: Screen garbage/flickering. Not oops/deadlock/corruption.
-**MEDIUM** user-visible display bug. Official stable rules explicitly
-list **hardware quirk** next to oops/hang as acceptable
-(`Documentation/process/stable-kernel-rules.rst`).
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** Stops garbage/flicker on two real AUO panels; matches
-  vendor T8=200ms; waveform-backed (~140ms needed vs 50ms old).
-- **Risk:** Very low — 2 pointer swaps, existing struct, +150ms enable
-  delay only for those IDs.
-- **Ratio:** Favorable. Same class as USB/PCI delay quirks that
-  routinely go to stable.
+**Step 8.1:** Record: **Driver-specific / USB-ID-specific** — MSI MAG
+B850M MORTAR WIFI (`0db0:cc78`) with `CONFIG_SND_USB_AUDIO`. Other
+devices unaffected.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+**Step 8.2:** Record: Trigger is **every probe** of that codec. Common
+for that board. Unprivileged users see wrong mixer names; not a syscall
+crash.
 
-**Step 9.1: COMPILE THE EVIDENCE**
+**Step 8.3:** Record: **Failure mode:** all playback controls named
+`"PCM"` → users cannot control speaker vs headphone vs IEC958
+independently; userspace routing/UCM can pick the wrong output.
+**Severity: MEDIUM** as a functional hardware quirk (not
+oops/corruption). Still the class stable explicitly wants.
 
-FOR:
-- Real user-visible bug (garbage/flicker on VT/mode change), measured
-  and spec-backed.
-- Hardware quirk / timing workaround — allowed by stable-kernel-rules.
-- 2-line table change; existing `delay_200_500_e200`; no new
-  API/feature.
-- Reviewed and applied by panel-edp reviewer Douglas Anderson.
-- Both panel IDs and delay helper exist in this 7.3 tree.
-- Isolated to two EDID IDs.
+**Step 8.4:** Record: **Benefit: high for those boards, zero
+elsewhere.** **Risk: very low** (4 lines, one ID). **Ratio: strongly
+favorable.**
 
-AGAINST:
-- Not a crash, UAF, or data-corruption bug.
-- +150ms backlight delay (maintainer accepted that tradeoff).
-- No `Reported-by` from multiple end users / no syzbot.
-- Stable list discussion could not be fetched (lore 403).
+---
 
-UNRESOLVED:
-- Could not read lore.kernel.org/stable (HTTP 403).
-- Could not independently view AUO datasheets (not in-tree).
+## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — reuses existing delay
-   struct; maintainer review; author reports waveform data.
-2. Fixes a real bug that affects users? **PASS** — garbage/flicker on
-   mode change.
-3. Important issue? **PASS** as hardware quirk (documented exception);
-   severity MEDIUM visual, not CRITICAL crash.
-4. Small and contained? **PASS** — 2 lines, one table.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — target rows,
-   `delay_200_500_e200`, and enable path all exist here.
+**Step 9.1: EVIDENCE**
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: **Hardware quirk/workaround** (panel power-sequence delay,
-analogous to USB delay quirks).
+**For:**
+- Official rule: *“fix a real bug that bothers people **or just add a
+  device ID**”* and *hardware quirk* (`Documentation/process/stable-
+  kernel-rules.rst`)
+- Same class as USB/PCI ID and mixer-map quirks routinely taken into
+  6.18.y
+- Identical 2022 sibling (Torpedo Max) was **Cc: stable**
+- Real hardware: ALC4080 with colliding `"PCM"` names
+- 4 lines, reuses an in-tree map, maintainer-applied, author-tested
+- Map + table exist at `v6.18.57`; applies cleanly
+- Only that USB ID is affected
 
-**Step 9.4: MAKE YOUR DECISION**
-This tree has the driver, both panel IDs, and the 200ms delay helper.
-The change is a small, reviewed T8 quirk that fixes real display garbage
-on mode changes. That meets stable rules for this checkout.
+**Against:**
+- Not a crash, UAF, or security fix
+- No Fixes:/Cc: stable on this commit (expected; not a veto)
+- No second independent reporter in the kernel thread
 
-Verification:
-- [Phase 1] Parsed tags: Reviewed-by/SOB Douglas Anderson; Link to
-  msgid; no Fixes/Reported-by/Cc:stable
-- [Phase 1] Body: VT-switch garbage; T8 50ms vs ~140ms measured; AUO
-  spec T8=200ms
-- [Phase 2] Diff: two `EDP_PANEL_ENTRY` pointer swaps in `edp_panels[]`;
-  +2/-2
-- [Phase 2] `delay_200_500_e50.enable=50`,
-  `delay_200_500_e200.enable=200` verified in panel-edp.c
-- [Phase 2] `panel_edp_enable()` `msleep(p->desc->delay.enable)`; probe
-  copies `detected_panel->delay`
-- [Phase 3] `git show 0d40cab391587`: confirmed subject/body/stat
-- [Phase 3] `git merge-base --is-ancestor 0d40cab391587 HEAD` → yes
-  (already in 7.3-rc4 history; not used as circular “already selected”
-  reasoning)
-- [Phase 3] `git blame` on the two rows: this commit; origins
-  `a70abdd994cb` (v6.1-rc1) and `4c34cdb93ea1` (2026-05, in this tree)
-- [Phase 3] `delay_200_500_e200` introduced `f6ff4570e567` (v6.1-rc1
-  era)
-- [Phase 3] Similar delay-fix pattern: `43113fd4c5f56` and others in the
-  same file
-- [Phase 4] `b4 dig -c 0d40cab391587`: v2 lore URL; `-a`: v1+v2; `-w`:
-  dri-devel + dianders
-- [Phase 4] mbox: v1 name-only feedback; v2 Reviewed-by + pushed to drm-
-  misc-next; no NAK
-- [Phase 4] WebFetch lore/stable: 403 — UNVERIFIED stable-list history
-- [Phase 5] Call chain: EDID match → delay table → `panel_edp_enable` on
-  modeset; CONFIG_DRM_PANEL_EDP
-- [Phase 6] `git describe HEAD` / `make kernelversion`: 7.3.0-rc4; both
-  IDs and e200 present
-- [Phase 7] MAINTAINERS: Douglas Anderson reviewer for panel-edp.c
-- [Phase 8] Failure mode: display garbage, MEDIUM; official rules
-  include hardware quirk
-- [Phase 9] stable-kernel-rules.rst lines 15–20: quirk is an accepted
-  class
-- UNVERIFIED: AUO datasheet text; stable@ mailing-list traffic
+**Unresolved:**
+- lore.kernel.org/stable search 403 — no verified stable-list thread
+- Commit text says controls show as `"Speaker"` / `"Front Headphone"` /
+  `"IEC958"`; table strings are `"* Playback"`. Same as the 2022 map.
+  Does not change correctness.
 
-The fix is small, confined to two EDID entries, and is the usual panel-
-edp delay quirk pattern. Benefit outweighs the extra 150ms enable wait
-on just those panels.
+**Step 9.2: STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — 4-line ID add; author
+   tested; maintainer applied
+2. Fixes a real bug that affects users? **PASS** — indistinguishable
+   mixer controls on real hardware
+3. Important issue? **PASS** as **hardware quirk / device ID**
+   (documented exception); not a panic
+4. Small and contained? **PASS** — +4 lines, one file
+5. No new features or APIs? **PASS** — existing map, existing driver
+6. Can apply to the local tree? **PASS** — clean against `v6.18.57`
+
+**Step 9.3: EXCEPTION CATEGORY**
+Record: **Device ID addition + hardware quirk/workaround** (USB mixer-
+map ID on existing `snd-usb-audio`).
+
+**Step 9.4: DECISION**
+Backport. This is the standard stable-eligible USB mixer ID quirk:
+small, isolated, already-supported driver, real board, in-tree map.
+
+---
+
+### What the commit solves and why it matters here
+
+On this 6.18.y tree, `snd-usb-audio` already drives Realtek ALC4080
+motherboard codecs, but `0db0:cc78` has no name map. All playback
+volumes appear as `"PCM"`, so users (and UCM) cannot separate speaker,
+front headphone, and S/PDIF. The patch binds that ID to the existing MSI
+ALC4080 map.
+
+### Stable rules / risk vs benefit
+
+Meets the written stable rules via the **device ID / hardware quirk**
+exception. Benefit is correct mixer labels for this AM5 board; risk is
+confined to that USB ID. No prerequisites beyond code already in
+`v6.18.57`.
+
+### Concerns
+
+None material. Different Mortar **Max** ID `0db0:83ed` is a separate
+patch and not required. Presence of this commit on current autosel HEAD
+is evaluation-pipeline state, not a reason to skip a technical YES.
+
+---
+
+### Verification
+- **[Phase 1]** Parsed subject/tags/body from `git show 53b3abbe6e262`;
+  Link msgid `20260923184957.6687-1-tomasz@bojanowski.me`
+- **[Phase 2]** Diff: +4 lines in `usbmix_ctl_maps[]`; map contents and
+  `snd_usb_mixer_controls()` lookup read in this tree
+- **[Phase 3]** `git blame` on map (5762f980ca10d, 2022) and ID rows;
+  Torpedo Max `4ddef9c4d70aa` has `Cc: stable`; `git merge-base --is-
+  ancestor` of map/Torpedo vs `v6.18.57` = yes
+- **[Phase 3]** `git log --oneline -20 -- sound/usb/mixer_maps.c`;
+  author search only this commit
+- **[Phase 4]** `b4 dig -c/-a/-w` and `-m /tmp/thread.mbox`: v1 only; To
+  Iwai/Kysela/linux-sound; Iwai “Applied now”
+- **[Phase 4]** Openwall + LKML mirrors of the same thread;
+  lore.kernel.org 403 on patch.msgid.link and stable search
+- **[Phase 4]** Web search found alsa-ucm-conf PR #581 for this board
+  (userspace routing)
+- **[Phase 5]** Call path: `snd_usb_mixer_controls` → `find_map` →
+  `check_mapped_name` verified in `mixer.c`
+- **[Phase 6]** `git describe HEAD` = `v6.18.57-155-gcdf239ca885b2`;
+  `make kernelversion` = 6.18.57; `git grep` on `v6.18.57 --
+  sound/usb/mixer_maps.c`: map yes, `0xcc78` no; ancestor check of
+  candidate vs `v6.18.57` = no
+- **[Phase 6]** Context around Torpedo Max entry identical at `v6.18.57`
+  (clean apply)
+- **[Phase 6]** Similar mixer-map ID quirks already in `v6.18.57`
+  (Corsair Virtuoso, HS80, KTMicro)
+- **[Phase 7]** SOUND maintainers in `MAINTAINERS`; `sound/usb/` still
+  receiving 6.18.y quirks
+- **[Phase 8]** Failure mode is misnamed mixer controls for one USB ID,
+  not a kernel oops
+- **UNVERIFIED:** whether this patch was already discussed on stable@
+  (lore stable search 403)
+
+The patch is a contained hardware quirk for an existing driver and
+should be taken into this 6.18.y tree.
 
 **YES**
 
- drivers/gpu/drm/panel/panel-edp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/usb/mixer_maps.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 0da04d75e4e96..614c63e95c357 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -1901,7 +1901,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x145c, &delay_200_500_e50, "B116XAB01.4"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1999, &delay_200_500_e50, "Unknown"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1e9b, &delay_200_500_e50, "B133UAN02.1"),
--	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1ea5, &delay_200_500_e50, "B116XAK01.6"),
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1ea5, &delay_200_500_e200, "B116XAK01.6"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x203d, &delay_200_500_e50, "B140HTN02.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x208d, &delay_200_500_e50, "B140HTN02.1"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x235c, &delay_200_500_e50, "B116XTN02.3"),
-@@ -1921,7 +1921,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x635c, &delay_200_500_e50, "B116XAN06.3"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x639c, &delay_200_500_e50, "B140HAK02.7"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x643d, &delay_200_500_e50, "B140HAN06.4"),
--	EDP_PANEL_ENTRY('A', 'U', 'O', 0x67a8, &delay_200_500_e50, "B140XTK02.4"),
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0x67a8, &delay_200_500_e200, "B140XTK02.4"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x723c, &delay_200_500_e50, "B140XTN07.2"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x73aa, &delay_200_500_e50, "B116XTN02.3"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x8594, &delay_200_500_e50, "B133UAN01.0"),
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index ace4ccad8f51c..a82b9c1d578d9 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -718,6 +718,10 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 		.id = USB_ID(0x0db0, 0xa073),
+ 		.map = msi_mpg_x570s_carbon_max_wifi_alc4080_map,
+ 	},
++	{	/* MSI MAG B850M MORTAR WIFI */
++		.id = USB_ID(0x0db0, 0xcc78),
++		.map = msi_mpg_x570s_carbon_max_wifi_alc4080_map,
++	},
+ 	{	/* MSI TRX40 */
+ 		.id = USB_ID(0x0db0, 0x543d),
+ 		.map = trx40_mobo_map,
 -- 
 2.53.0
 
