@@ -1,66 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792421972;
-	b=0iq8pMPOXhjAz7ybUawRBCG7VP+EKFj5DzqwEzn69h3Gy+EAo3qXMYf3HqHf0PIXoEYH
-	 4LCWVzDVhh+K0zhFlGIwFxwHrVa6tDWYJWIayhRXQ22u48rkelVBiuxUIeQU4JZ+RZFE3
-	 n1mlby30m3Mf8d6Zl4UJW1BKVxOsjFRXyzkPE5j+aJq2yXTv5W2opKrLw5oIzhSB2WnK0
-	 XAVbkeusyObqDDvXBZMsYm4xUZ3Z9rjiT+jkp/fCrW/rNKJ5dhN5nd+W+L72g4FZD1CXO
-	 Oqv3p+Ke1K3qJr6Lb59AAmxgPbELmHJTLVFrj2InTLHJ6a7qqpl7k6p7lk4GhvwZmeQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421972;
-	h=Received:Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yve0cUum9UQSEKmMOgKb9cO5F5O72C97ZH6SJDHLlwk=;
-	b=GpQlw5Pm7QHkoSNZcdKhbPTiiqVC8TGk77fQdG/PqiAB+BHxY3EczVXdiVpXeHJoSPhK
-	 9wKwDS2B9PjJ3z3qeLI19xw9rKfSz/rm3QFYfe1RYyLZPbmfpSOh/KDyRyJDkHcVv21xp
-	 YaSNFpOxuZ4EtAP7+4/s3l72fSM7beeGq5jS/SRS15db1ANNWHKzRR3xRwIkBzaaogrtq
-	 eF+93OcixAAazcU7QIZq1E7R9q8lt2FVqO+KLHCkRDY5+Igsf5El2am/XTzpSJk697MMz
-	 ziaNAfRswenTtlYyz7Kx/zdAKlJBvIyRKMqT5skufbeafHPa765Qxp+Cp+/6WMzbXCA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9CQocWC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11F346078847;
-	Mon, 19 Oct 2026 14:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792421863;
+	b=0iKjtUqD0VbnUQ2LYO/uze0AumF77/BadGYja3Ky8eKO4rOB6gLkLNwjeviYjEKlqoCr
+	 0UF0CGCC+lMsSINKfp12cole82wlnllsv5sN//Uriw+DyXayx7TICmhN945UL186InhZV
+	 1+QbwSn8rTcACiT5M4fPYIpZ0hoqCL0tZPdTuJ9rW1aPbtreLbcVB/vjldXaIALr7OEVE
+	 fcwj+tUJHZZXO+SJGf94IG3Al6O3JhCeGto8NRWOz5y+ADxVq+9iitRb+/a9xR7pDbHsl
+	 q3kbLbwi1+4mcGiD62aUt9gWLArEkgTv5JBMgRxtQJZKnSObKZ9a0JJe810emJa78ng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421863;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UzY0WV17KtoguFGC5HPs6JnZnsTzj7BsHSqpC9j8C1s=;
+	b=S7yPnW7Wb8gzvQQIIgjDxN7xhWhR0DIWc74jr2jtck/r6RtFs9VJmGwT9LsM18xluT7w
+	 7iq/xKdxHzZ6osSBJHa+faSekmtgE4BQuEX7ACqtHwLsGZYqkX1oXWO/uxXDIKNjIbW3F
+	 O89NP3b+B0FQ4uj6nu9kg86VmBYdV7ptNTFB9lcaM5h1xT0YwlQXVTIH/hc19N+GozQ7H
+	 /lNa9S14N1dvEbQ0sj5QXqWPPPGjFaj5cFRNsoeYX+aihE1eMgX0LlmadNS0hrECk4eRW
+	 Jy719oSpcq28HTS6WyrkOxQkd1iPJoakoIzpZcJAljkRra4WOq072xLLCM1USVnIunA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CqqIcGKZ;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F17246075500;
+	Mon, 19 Oct 2026 14:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F17246075500
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9CQocWC
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C2A6513C1;
-	Mon, 19 Oct 2026 14:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421972; cv=none; b=V3mFbQTMJqP1o+0cmp8VRhRbamWZzZFIEdD35xdky6kDAg29cXgi+JCrK2LcZzDgt7dJT0g6oFzUU3uFNOrUXV99lFWgpwBfCuXne+lhXSADJAy+F3xEq+rYfdki7u8O/dcYG6OfapefDHHFqO1GN+agok7fIDQuPsvatjLP00c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421972; c=relaxed/simple;
-	bh=yve0cUum9UQSEKmMOgKb9cO5F5O72C97ZH6SJDHLlwk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f+IJFNnT+hyzuM0Amwnt/FsqJ3rQivmOwwkULXUOzq035h6oQFbQ9SelrigFisK7mGUjq+CSbL5lVRhlFmH3SlvI2rYLsGrUm4MhT0bMdHJs4Jdw8LBPhwjuxIV6i/mMgNEEogMoyFNSwbJjggaCCYZFsoK3ks9qKeuler/9qu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d9CQocWC; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBEAD1F000C4;
-	Mon, 19 Oct 2026 14:59:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792421970;
-	bh=yve0cUum9UQSEKmMOgKb9cO5F5O72C97ZH6SJDHLlwk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d9CQocWCrg1MwkPcNEJMJTPoYIufvaWwh7pFHAQXpkzVF3uzdXwg0HLcq8QO/UDoJ
-	 nYY2j6wFjSjqMNiiN3eIkKE7NnxlOhm9APJcn7RdKsXPOOT5TG1w5B0wrT6xNjF/wJ
-	 WCWmur5wo5pI3OXmNZB2/p/GW+5uOp6ttTsAiT1G4Vzonsno5y/unM28H5i7aX50hf
-	 lKJYk/asfEKtupqvgScK8RG7GL99tx3n+2zhO8A4lKTO8Fyci2FsQPnGxuYX91GeH6
-	 4BIRhxBT2CiXQwwovFJ6ZeVFgN+8oZFsXegfZU2Jqp5FHsYjUU2vDIAfZtcnSYSc3r
-	 5Fnq961JIFrBg==
-Date: Mon, 19 Oct 2026 15:59:26 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: Re: [PATCH] mm/mremap: populate calculated fields in vrm state
- correctly
-Message-ID: <atYv-s4dz_UD4YXJ@gremlin>
-References: <20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CqqIcGKZ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 237471F91;
+	Mon, 19 Oct 2026 07:57:38 -0700 (PDT)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.131])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 626AD3F673;
+	Mon, 19 Oct 2026 07:57:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792421861; bh=xsAU47rIG+fvtnlYzCeM96L00uwBVp59abpxrB9Ib0U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=CqqIcGKZnza3kQ+PgaE2l08cnDrkf4UuPxLndNBM3jADzYCqNXCnijbJAn7MaonUV
+	 JYcy5vuCaSg1cqx/G2cPFNFDcE39N+P173GcMlfSIiHpMF+hzHJtzd+fw2kgvS/Rzv
+	 awbOmMaN8zd49nahNx8ALUFR8L6SYA5ScSNcB3eE=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Morduan Zang <zhangdandan@uniontech.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH 5/6] ACPI: APEI: add separate Memory Error Section 2 handlers
+Date: Mon, 19 Oct 2026 16:56:12 +0200
+Message-ID: <20261019145643.1877246-6-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019145643.1877246-1-pierre.gondois@arm.com>
+References: <20261019145643.1877246-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,37 +82,290 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 03:28:27PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Commit d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
-> introduced the vma_remap_struct helper to pass state sanely through
-> mremap() logic.
->
-> Part of this state is vrm->delta - equal to the absolute difference between
-> vrm->old_len and vrm->new_len (the old and new lengths of the VMA,
-> respectively).
->
-> This value is used to correctly charge accounted VMAs.
->
-> When shrinking a VMA, mremap_to() sets vrm->old_len equal to vrm->new_len
-> having performed the shrink of the VMA first, prior to any potential
-> move (e.g. MREMAP_FIXED | MREMAP_MAYMOVE specified).
->
-> However it does not recalculate vrm->delta, which results in incorrectly
-> overcharging the VMA.
+Add dedicated GHES and EDAC callbacks for Memory Error Section 2
+records. Use a separate GHES notifier chain so existing consumers
+continue to receive legacy memory error sections.
 
-Andrew - could you update this to:
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+---
+ drivers/acpi/apei/ghes.c |  49 ++++++++++++-
+ drivers/edac/ghes_edac.c | 150 +++++++++++++++++++++++++++++++++++++++
+ include/acpi/ghes.h      |   2 +
+ 3 files changed, 200 insertions(+), 1 deletion(-)
 
->>
-However it does not recalculate vrm->delta, which results in incorrectly
-overcharging the VMA when both moving and shrinking a VMA.
-<<
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index fe10ab0e02f6..c7fb15543b56 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -101,6 +101,7 @@
+ #endif
+ 
+ static ATOMIC_NOTIFIER_HEAD(ghes_report_chain);
++static ATOMIC_NOTIFIER_HEAD(ghes_report_mem2_chain);
+ 
+ static inline bool is_hest_type_generic_v2(struct ghes *ghes)
+ {
+@@ -551,6 +552,29 @@ static bool ghes_handle_memory_failure(struct acpi_hest_generic_data *gdata,
+ 	return false;
+ }
+ 
++static bool ghes_handle_memory_failure2(struct acpi_hest_generic_data *gdata,
++					int sev, bool sync)
++{
++	int flags = -1;
++	int sec_sev = ghes_severity(gdata->error_severity);
++	struct cper_sec_mem_err2 *mem_err = acpi_hest_get_payload(gdata);
++
++	if (!(mem_err->validation_bits & CPER_MEM2_VALID_PA))
++		return false;
++
++	/* iff following two events can be handled properly by now */
++	if (sec_sev == GHES_SEV_CORRECTED &&
++	    (gdata->flags & CPER_SEC_ERROR_THRESHOLD_EXCEEDED))
++		flags = MF_SOFT_OFFLINE;
++	if (sev == GHES_SEV_RECOVERABLE && sec_sev == GHES_SEV_RECOVERABLE)
++		flags = sync ? MF_ACTION_REQUIRED : 0;
++
++	if (flags != -1)
++		return ghes_do_memory_failure(mem_err->physical_addr, flags);
++
++	return false;
++}
++
+ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+ 				     int sev, bool sync)
+ {
+@@ -915,7 +939,8 @@ static void ghes_log_hwerr(int sev, guid_t *sec_type)
+ 		return;
+ 	}
+ 
+-	if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM)) {
++	if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM) ||
++	    guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM2)) {
+ 		hwerr_log_error_type(HWERR_RECOV_MEMORY);
+ 		return;
+ 	}
+@@ -952,6 +977,16 @@ static void ghes_do_proc(struct ghes *ghes,
+ 
+ 			arch_apei_report_mem_error(sev, mem_err);
+ 			queued = ghes_handle_memory_failure(gdata, sev, sync);
++		} else if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM2)) {
++			struct cper_sec_mem_err2 *mem_err = acpi_hest_get_payload(gdata);
++
++			if (gdata->error_data_length < sizeof(*mem_err)) {
++				pr_warn(FW_WARN "Memory Error Section 2 length is too small\n");
++				continue;
++			}
++
++			atomic_notifier_call_chain(&ghes_report_mem2_chain, sev, mem_err);
++			queued = ghes_handle_memory_failure2(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+ 			ghes_handle_aer(gdata);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+@@ -1973,3 +2008,15 @@ void ghes_unregister_report_chain(struct notifier_block *nb)
+ 	atomic_notifier_chain_unregister(&ghes_report_chain, nb);
+ }
+ EXPORT_SYMBOL_GPL(ghes_unregister_report_chain);
++
++void ghes_register_report_mem2_chain(struct notifier_block *nb)
++{
++	atomic_notifier_chain_register(&ghes_report_mem2_chain, nb);
++}
++EXPORT_SYMBOL_GPL(ghes_register_report_mem2_chain);
++
++void ghes_unregister_report_mem2_chain(struct notifier_block *nb)
++{
++	atomic_notifier_chain_unregister(&ghes_report_mem2_chain, nb);
++}
++EXPORT_SYMBOL_GPL(ghes_unregister_report_mem2_chain);
+diff --git a/drivers/edac/ghes_edac.c b/drivers/edac/ghes_edac.c
+index d80c88818691..b18460ba8f40 100644
+--- a/drivers/edac/ghes_edac.c
++++ b/drivers/edac/ghes_edac.c
+@@ -386,6 +386,154 @@ static struct notifier_block ghes_edac_mem_err_nb = {
+ 	.priority	= 0,
+ };
+ 
++static int print_mem_error2_other_detail(const struct cper_sec_mem_err2 *mem, char *msg,
++					 const char *location, unsigned int len)
++{
++	u32 n;
++
++	if (!msg)
++		return 0;
++
++	n = 0;
++	len -= 1;
++
++	n += scnprintf(msg + n, len - n, "APEI location: %s ", location);
++
++	if (mem->validation_bits & CPER_MEM2_VALID_ERROR_STATUS) {
++		n += scnprintf(msg + n, len - n, "status(0x%016llx): ", mem->error_status);
++		n += scnprintf(msg + n, len - n, "%s ",
++			       cper_mem_err_status_str(mem->error_status));
++	}
++	if (mem->validation_bits & CPER_MEM2_VALID_STATUS)
++		n += scnprintf(msg + n, len - n, "section_status:0x%02x ",
++			       mem->status);
++
++	msg[n] = '\0';
++
++	return n;
++}
++
++static int ghes_edac_report_mem_error2(struct notifier_block *nb,
++				       unsigned long val, void *data)
++{
++	struct cper_sec_mem_err2 *mem_err = data;
++	struct edac_raw_error_desc *e;
++	struct mem_ctl_info *mci;
++	unsigned long sev = val;
++	struct ghes_pvt *pvt;
++	unsigned long flags;
++	char *p;
++
++	/*
++	 * We can do the locking below because GHES defers error processing
++	 * from NMI to IRQ context. Whenever that changes, we'd at least
++	 * know.
++	 */
++	if (WARN_ON_ONCE(in_nmi()))
++		return NOTIFY_OK;
++
++	spin_lock_irqsave(&ghes_lock, flags);
++
++	pvt = ghes_pvt;
++	if (!pvt)
++		goto unlock;
++
++	mci = pvt->mci;
++	e = &mci->error_desc;
++
++	/* Cleans the error report buffer */
++	memset(e, 0, sizeof(*e));
++	e->error_count = 1;
++	e->grain = 1;
++	e->msg = pvt->msg;
++	e->other_detail = pvt->other_detail;
++	e->top_layer = -1;
++	e->mid_layer = -1;
++	e->low_layer = -1;
++	*pvt->other_detail = '\0';
++	*pvt->msg = '\0';
++
++	switch (sev) {
++	case GHES_SEV_CORRECTED:
++		e->type = HW_EVENT_ERR_CORRECTED;
++		break;
++	case GHES_SEV_RECOVERABLE:
++		e->type = HW_EVENT_ERR_UNCORRECTED;
++		break;
++	case GHES_SEV_PANIC:
++		e->type = HW_EVENT_ERR_FATAL;
++		break;
++	default:
++	case GHES_SEV_NO:
++		e->type = HW_EVENT_ERR_INFO;
++	}
++
++	edac_dbg(1, "error validation_bits: 0x%08llx\n",
++		 (long long)mem_err->validation_bits);
++
++	/* Error type, mapped on e->msg */
++	if (mem_err->validation_bits & CPER_MEM2_VALID_ERROR_TYPE) {
++		u8 etype = mem_err->error_type;
++
++		p = pvt->msg;
++		p += snprintf(p, sizeof(pvt->msg), "%s", cper_mem_err_type_str(etype));
++	} else {
++		strscpy(pvt->msg, "unknown error");
++	}
++
++	/* Error address */
++	if (mem_err->validation_bits & CPER_MEM2_VALID_PA) {
++		e->page_frame_number = PHYS_PFN(mem_err->physical_addr);
++		e->offset_in_page = offset_in_page(mem_err->physical_addr);
++	}
++
++	/* Error grain */
++	if (mem_err->validation_bits & CPER_MEM2_VALID_PA_MASK)
++		e->grain = ~mem_err->physical_addr_mask + 1;
++
++	/* Memory error location, mapped on e->location */
++	p = e->location;
++	p += cper_mem_err2_location(mem_err, p);
++
++	if (mem_err->validation_bits & CPER_MEM2_VALID_MODULE_HANDLE) {
++		struct dimm_info *dimm = NULL;
++
++		p += cper_dimm_err2_location(mem_err, p);
++		if (mem_err->mem_dev_handle <= U16_MAX)
++			dimm = find_dimm_by_handle(mci, mem_err->mem_dev_handle);
++		else
++			pr_warn(FW_WARN "Memory Error Section 2 module handle 0x%x exceeds SMBIOS range\n",
++				mem_err->mem_dev_handle);
++		if (dimm) {
++			e->top_layer = dimm->idx;
++			strscpy(e->label, dimm->label);
++		}
++	}
++	if (p > e->location)
++		*(p - 1) = '\0';
++
++	if (!*e->label)
++		strscpy(e->label, "unknown memory");
++
++	/* All other fields are mapped on e->other_detail */
++	p = pvt->other_detail;
++	p += print_mem_error2_other_detail(mem_err, p, e->location, OTHER_DETAIL_LEN);
++	if (p > pvt->other_detail)
++		*(p - 1) = '\0';
++
++	edac_raw_mc_handle_error(e);
++
++unlock:
++	spin_unlock_irqrestore(&ghes_lock, flags);
++
++	return NOTIFY_OK;
++}
++
++static struct notifier_block ghes_edac_mem_err2_nb = {
++	.notifier_call	= ghes_edac_report_mem_error2,
++	.priority	= 0,
++};
++
+ static int ghes_edac_register(struct device *dev)
+ {
+ 	bool fake = false;
+@@ -490,6 +638,7 @@ static int ghes_edac_register(struct device *dev)
+ 	spin_unlock_irqrestore(&ghes_lock, flags);
+ 
+ 	ghes_register_report_chain(&ghes_edac_mem_err_nb);
++	ghes_register_report_mem2_chain(&ghes_edac_mem_err2_nb);
+ 
+ 	/* only set on success */
+ 	refcount_set(&ghes_refcount, 1);
+@@ -533,6 +682,7 @@ static void ghes_edac_unregister(struct ghes *ghes)
+ 	if (mci)
+ 		edac_mc_free(mci);
+ 
++	ghes_unregister_report_mem2_chain(&ghes_edac_mem_err2_nb);
+ 	ghes_unregister_report_chain(&ghes_edac_mem_err_nb);
+ 
+ unlock:
+diff --git a/include/acpi/ghes.h b/include/acpi/ghes.h
+index 8d7e5caef3f1..73d099a4ea7d 100644
+--- a/include/acpi/ghes.h
++++ b/include/acpi/ghes.h
+@@ -143,4 +143,6 @@ static inline int ghes_notify_sea(void) { return -ENOENT; }
+ struct notifier_block;
+ extern void ghes_register_report_chain(struct notifier_block *nb);
+ extern void ghes_unregister_report_chain(struct notifier_block *nb);
++extern void ghes_register_report_mem2_chain(struct notifier_block *nb);
++extern void ghes_unregister_report_mem2_chain(struct notifier_block *nb);
+ #endif /* GHES_H */
+-- 
+2.43.0
 
-To make it clear that only when you do this (rather unusual) action do you
-encounter the issue.
-
---
-Cheers, Lorenzo
