@@ -1,123 +1,113 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0435304BB3
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:36:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935A336166A;
+	Mon, 19 Oct 2026 02:36:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792377377; cv=none; b=oKk2ZDdo3gXD0P/+t7grBLFOjnU3Sc4sKhgAm94oibkXwsnPkvh2BFrH7/NS4M51aNz0CMn55Xl++Yi/86Cq1MoWXHm7dwYX0Udl92h/oL/NTVUAKAXiYJ2sk1lIENnhs/MkaLRwvD1H+Wicb51dr/ejm00wVOVIUkH7hRUvHp0=
+	t=1792377418; cv=none; b=Tf147S0ZgcD2GIldodc+K+fNkIFf9zJikkITa5Xg9DYCf8E/ZZZnhAmf2TIqg4RxLszmjlfCMLiGBplH4xMnS0R267Zh75mUGCwyFSTL3UDiTZOMAPOWjWnQsH1aWHGPVZD4xoR7gRZPZHGhDYyT2MOMDWbHnlsmRTUpWY8tDWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792377377; c=relaxed/simple;
-	bh=iNt0kPYsw7dxBfWIAxR3gPDhzaBRX1UrKHotWnU2Dwg=;
-	h=Date:Message-Id:Subject:References:To:Cc:From:Mime-Version:
-	 Content-Type:In-Reply-To; b=k9STO7OBJtNVi7dHX8qXhIujuR331U0wqX76zLgHxVF9RCzPwjpocjZpBdz/ddLWLlIo+Y+xQNqosvJrg261wIX6+Fa0f17Vl7h/KdkXSnB3e+t3ZXu47qYZnTVxQvGt40GjatziaTd3RE0OvzguSHbadzEqXnWAGpZVrW+AvCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jFsG5Apj; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792377418; c=relaxed/simple;
+	bh=voy+69M2j73/rg5pZ/Gi4GdtPGNNDipFw+0cyyMnrkQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XL9EhOFWItTN3bDiMzab27hbY6ANfOBMV2cH+U6JVTxHv9CKT+MTeW/v3b1/uAsH//oSetIzdVOq5pHGFdv+09KDyh6k8E1L8FmfKO72GFjQ6tDvE9U0tEELFzsj9KTrS83LMgli+VmGCfI5v41CPL60O50EQgSE7GBycilG29U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=RmhkwRNb; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jFsG5Apj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792377362; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=PHriPCstg+i0z+ONxMg+lO4AK2AiTlrmJeaS1ABljFU=;
- b=jFsG5ApjPDMjlMerIak1gTsjH8Eh7KCWxr9n74b75FE1A0K75zzGnmoWz0MichRc0kzFrT
- YTp0OAZS3y+bEHYdukgizOWqgMVZx0FY2XQrFeHWeUXilW0IWyRBncXp58wrGdF4Q4597k
- x6llivluwdsjC+EqdUoTLIxmx+yGMhIWGBxHb5SVC/g/b6PfyeAyu0vJAYl3i1LA6wb9lw
- gzNYMG1IzxokfaOiZBXlpvL7jpA4S+r6gtwNFfU1m4+1L310TDVzOLqNn6UoQ5cwgLc2sK
- dJTmW5mVYMp3yn+u6vaYtKMTXfAZ5UfLkTgLEpOoqZCvhWWwG8Ta4mOaws+ZdA==
-Date: Mon, 19 Oct 2026 10:35:44 +0800
-Message-Id: <b80c0fd0-498b-4c6c-93df-acee59d2be85@bytedance.com>
-X-Lms-Return-Path: <lba+26ad58210+1d7611+vger.kernel.org+zhaogongyi@bytedance.com>
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: ptrace: don't warn on missing siginfo in a group-stop
-References: <20261016024536.18938-1-zhaogongyi@bytedance.com> <atHHttWKtnKHJnVQ@redhat.com>
-To: "Oleg Nesterov" <oleg@redhat.com>
-Cc: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>, 
-	<ruanjinjie@huawei.com>, <linux-arm-kernel@lists.infradead.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="RmhkwRNb"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792377405; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=bYulk3GXLoVYYpQAyazL7Lp8MZaupBoLyMjOWYb39QM=;
+	b=RmhkwRNbkFBjEi9HzsMbDRHolRlsag1MU6PA0ekAkkL7NeB30tyilt6aKpGPSI9DbOxsiN01l+Slux0v5vW1w3fydJpesOWxLikljugu7DaHttSwZs7OKH36YTGn5NsZuBqWUmbW2EYtRWe2JWj6HuFvkZVsj67CVhFYHqqX0JY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=fuwenxin@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XD-LCcj_1792377404;
+Received: from t50b09067.sqa.eu95.tbsite.net(mailfrom:fuwenxin@linux.alibaba.com fp:SMTPD_---0XD-LCcj_1792377404 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 19 Oct 2026 10:36:45 +0800
+From: fuwenxin@linux.alibaba.com
+To: paulmck@kernel.org,
+	frederic@kernel.org,
+	dave@stgolabs.net,
+	josh@joshtriplett.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	boqun@kernel.org,
+	urezki@gmail.com,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	oliver.yang@linux.alibaba.com,
+	xlpang@linux.alibaba.com
+Subject: [PATCH] rcutorture: Fix busted_srcud crash on module unload
+Date: Mon, 19 Oct 2026 10:36:44 +0800
+Message-ID: <20261019023644.2750352-1-fuwenxin@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <atHHttWKtnKHJnVQ@redhat.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 10/16/26 2:44 PM, Oleg Nesterov wrote:
-> On 10/16, Zhao Gongyi wrote:
->>
->> --- a/arch/arm64/kernel/ptrace.c
->> +++ b/arch/arm64/kernel/ptrace.c
->> @@ -573,9 +573,11 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
->>   	if (regs->syscallno == NO_SYSCALL)
->>   		return;
->>   
->> -	/* We should only be called when target is in a ptrace stop */
->> -	if (WARN_ON_ONCE(!info))
->> +	/* Only non-seized group-stops lack siginfo (see do_jobctl_trap()). */
->> +	if (!info) {
->> +		WARN_ON_ONCE(target->ptrace & PT_SEIZED);
->>   		return;
->> +	}
-> 
-> Perhaps we can simply remove this WARN_ON_ONCE?
-> 
-> Oleg.
-> 
-> --- x/arch/arm64/kernel/ptrace.c
-> +++ x/arch/arm64/kernel/ptrace.c
-> @@ -573,10 +573,6 @@ static void update_syscall_orig_x0_after
->   	if (regs->syscallno == NO_SYSCALL)
->   		return;
->   
-> -	/* We should only be called when target is in a ptrace stop */
-> -	if (WARN_ON_ONCE(!info))
-> -		return;
-> -
->   	/*
->   	 * For compat tasks, orig_r0 is provided directly through GPR index
->   	 * 17.
-> @@ -588,7 +584,7 @@ static void update_syscall_orig_x0_after
->   	 * Don't update orig_x0 for a syscall-exit-stop, as x0 now contains the
->   	 * return value of the system call.
->   	 */
-> -	if ((info->si_code & ~0x80) == SIGTRAP &&
-> +	if (info && info->si_code == (SIGTRAP | 0x80) &&
->   	    target->ptrace_message == PTRACE_EVENTMSG_SYSCALL_EXIT) {
->   		return;
->   	}
+From: Fu Wenxin <fuwenxin@linux.alibaba.com>
 
-Hi Oleg,
+Commit e4ed20c1603c ("rcutorture: Exercise DEFINE_STATIC_SRCU_FAST() and
+init_srcu_struct_fast()") split SRCU torture initialization into two
+helpers: srcu_torture_init(), which now only points srcu_ctlp at the
+static srcu_ctl/srcu_ctlf/srcu_ctlfud structures, and the new
+srcud_torture_init(), which calls init_srcu_struct(&srcu_ctld) for the
+dynamically allocated srcu_ctld.
 
-Thanks. I agree that we can remove WARN_ON_ONCE() and allow the
-orig_x0 update when last_siginfo is NULL.
+That commit updated srcud_ops to use srcud_torture_init(), but left
+busted_srcud_ops pairing .init = srcu_torture_init (static srcu_ctl) with
+.cleanup = srcu_torture_cleanup (which unconditionally calls
+cleanup_srcu_struct(&srcu_ctld)). As a result srcu_ctld is never
+initialized when running torture_type=busted_srcud, yet it is torn down
+at module unload.
 
-I tested syscall-exit-stops on an arm64 7.3.0-rc6-syz kernel with and
-without PTRACE_O_TRACESYSGOOD. In both cases, ptrace_message was
-PTRACE_EVENTMSG_SYSCALL_EXIT, and an NT_PRSTATUS write succeeded.
-The observed si_code values were:
+cleanup_srcu_struct() then dereferences ssp->srcu_sup, which is still
+NULL for the zero-initialized srcu_ctld, and faults on the ->lock field
+accessed by raw_spin_lock_irq_rcu_node():
 
-   without PTRACE_O_TRACESYSGOOD: SIGTRAP        (5)
-   with    PTRACE_O_TRACESYSGOOD: SIGTRAP | 0x80 (133)
+  Unable to handle kernel paging request at virtual address dfff80000000001b
+  ...
+  el1_abort -> do_translation_fault -> do_bad_area -> die_kernel_fault
 
-There were no kernel warnings. With the proposed equality check, the
-syscall-exit-stop without PTRACE_O_TRACESYSGOOD would fall through and
-update orig_x0 from x0, which contains the syscall return value at
-that stop.
+(The fault address is the KASAN shadow of NULL + offsetof(srcu_usage,
+lock) == 0xd8.)
 
-I think we should retain the check for both si_code values, while
-guarding the dereference:
+This is trivially reproducible:
 
-         if (info && (info->si_code & ~0x80) == SIGTRAP &&
-             target->ptrace_message == PTRACE_EVENTMSG_SYSCALL_EXIT)
-                 return;
+  modprobe rcutorture torture_type=busted_srcud
+  sleep 45
+  rmmod rcutorture    # panic here
 
-I'll send a revised patch with the warning removed and this condition.
+Fix it by making busted_srcud_ops initialize the same srcu_ctld that its
+cleanup handler tears down, matching srcud_ops.
 
-Thanks,
-Gongyi
+Fixes: e4ed20c1603c ("rcutorture: Exercise DEFINE_STATIC_SRCU_FAST() and init_srcu_struct_fast()")
+Signed-off-by: Fu Wenxin <fuwenxin@linux.alibaba.com>
+---
+ kernel/rcu/rcutorture.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
+index 8a9282a0245cc..7cc78da1356f9 100644
+--- a/kernel/rcu/rcutorture.c
++++ b/kernel/rcu/rcutorture.c
+@@ -991,7 +991,7 @@ static struct rcu_torture_ops srcud_ops = {
+ /* As above, but broken due to inappropriate reader extension. */
+ static struct rcu_torture_ops busted_srcud_ops = {
+ 	.ttype		= SRCU_FLAVOR,
+-	.init		= srcu_torture_init,
++	.init		= srcud_torture_init,
+ 	.cleanup	= srcu_torture_cleanup,
+ 	.readlock	= srcu_torture_read_lock,
+ 	.read_delay	= rcu_read_delay,
+-- 
+2.43.7
+
