@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792451405;
-	b=NXiABks8b89lLZxsl/dEJTktVWyK/l2BMNnqEus0vzlOwMK/e3mTDZVczS44GQMg/K0N
-	 D3Fhybbk4bgoxy4leFXR0Ph9QWGMZxhUFsv1dXq31F8MC5DDwJd8czg2cscOY6Huw1rKg
-	 TO330GIG3QhkNrHFmwNEtGfYG8qF3k9pZF9HOP2yzJOXwCjRKDm6oINObQ1x5BPlahp0H
-	 qNG/ev7nIuBju4hH3WG1aTvCXOPLxUFNJwj7IZEczO5N9jIMtKBgVfzugYsusC5KL6H5f
-	 5EzhEgWQ1i0FAW6STPND7VGRMyZzEDQY7gx7+BKHbZabLszhaaAreALcb5ZoobQYP4g==
+	t=1792451406;
+	b=3rWYtCz76m2LMREoN8uAIAbiqVsxylIIOD3NllMXESI/+xUK2aMp1h2xsiew9I8M81RB
+	 LiXXYKdRO1n3fvKNodOCLwW0GSgUM0o8YfvfVmcCFaPI9VAQ6o/tYlntpel/ew7S+b4lD
+	 XFLgecBKfkuJo6R8QCcDU+FUZkDcbD5JctA389u1IIztny7HHMj5mvW97kGrOr9uG5aTe
+	 /SpK8B6Y559tCQ/6Mg/qtHnsPg9kZZHuS0ynmZCRguXfGafCp0RYoufAw6s015kOEhSJu
+	 tIGhG+mlQ3iNIZw/rXwiIzZR7R6lKDqOp54Rfko/xlRwpk0RgAlCh+C0r9YYx5wBjWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792451405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792451406;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
-	bh=euImZm62ogtAGWAfFy17KrdQNvsi9UasxMLHFQ4WlK0=;
-	b=4lWAkufz6i0vl4fNQwFoCpsJgzRnAozKPfhvU7KbaZ47VKyL9knfVGKW0kVTI5iW2bjP
-	 Wfa4TOV+AwGaIsPdDeOhZxfAFSUTT/pSYh8EIePJyFjY/r2KsmMOYj50c92qXkcXAAMzO
-	 KYLTla4YUfAWWyovqsgx6920bNI8fWod4fMBr3vBqmvoUPWN+w64T/rAfFtn03uesxWRK
-	 BXzPg0XXVrl0kpF4xw7mVQjmpQtyQLz0Rg/QiagT+PwHKIKNo9dpujxxMieCjPGg8WR7U
-	 6svGfpV39KwjN+KqwXSjBvQYD3f32KWEZhcSbfFffMaQNfSSd/IFuEdo9fIH8HUUkcg==
+	bh=JIntPpTmyFyrUz+tKxCFK19TA+Voo41AkbZbpi4onV4=;
+	b=Ba1o7gkaC2HhkQSnQhyW6IARPC5kSweJWIzpRXZkFfKErvM3I++frb6ow7WHKxvqUGEN
+	 tjQjP2mlhQDgbNhhJ3WnRxFIULdV4cVA4nEaJZsZNYcDCK/y4jWqSK3ynwSgaJ2m+gFf0
+	 3NTwXRoRL5s7XUERtJ2BLvZZvONehGo70LRQDJY537mZZjthm19m4sUfMWnvzGFfYPyxw
+	 1Dp+uujjRJ7DWwOZkJ1iqbtOOnLyu5uHBuEIxhETwVW22QpupmuG3KIhR4FUoTonoD5Wi
+	 Qnk9z/FxQwAdHiJiWJrfm2LkRzJ4DahOo5wgpvt1pvGva3AnskZgYWxvvREVkl6zAJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.microsoft.com;
 	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BEtjhT9h;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=JC8GASkQ;
 	arc=none smtp.remote-ip=13.77.154.182
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 509BB606A31B;
-	Mon, 19 Oct 2026 23:10:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 509BB606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 582D4606A326;
+	Mon, 19 Oct 2026 23:10:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 582D4606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BEtjhT9h
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=JC8GASkQ
 Received: from linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net (linux.microsoft.com [13.77.154.182])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 311D120B716C;
-	Mon, 19 Oct 2026 16:09:53 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 311D120B716C
+	by linux.microsoft.com (Postfix) with ESMTPSA id 0A09820B716E;
+	Mon, 19 Oct 2026 16:09:54 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0A09820B716E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792451393;
-	bh=euImZm62ogtAGWAfFy17KrdQNvsi9UasxMLHFQ4WlK0=;
+	s=default; t=1792451394;
+	bh=JIntPpTmyFyrUz+tKxCFK19TA+Voo41AkbZbpi4onV4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BEtjhT9h+5Hoc2nvUL8Voi3IY3L/AbYmAHbzv8FpTjyw6oCcBHNS/uptcPoyJUfre
-	 c4yBhMijJcHEwhjoEcy66gqyivY78aoYAxOugOUrxJrBVFUGTIBd8sQm1EVny2ocWC
-	 Bc/eJWMGNkwnq16xV/1QRG92109mGtp7pExrsY8Y=
+	b=JC8GASkQFODjyb2ITECY1CceTtFQ5Q4VFiKVJNO8lXdkBCSeh1NjKN0P9yO8uuhXo
+	 oq8cN0azM/KBVmNqH+j+AvMJoLiDL8DsEzfgEk2tb7GTvOzj061DkeFnUGkvqBNd0v
+	 HUvpoCgZG0VVc/Mjptmyk3zKWd5PTMBQCJzKMGo4=
 From: Kameron Carr <kameroncarr@linux.microsoft.com>
 To: Haiyang Zhang <haiyangz@microsoft.com>,
 	Wei Liu <wei.liu@kernel.org>,
@@ -48,9 +48,9 @@ To: Haiyang Zhang <haiyangz@microsoft.com>,
 	Michael Kelley <mhklinux@outlook.com>
 Cc: linux-hyperv@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/5] Drivers: hv: vmbus: Bounds check the shared ring buffer indices
-Date: Mon, 19 Oct 2026 16:09:46 -0700
-Message-ID: <20261019230950.1573677-2-kameroncarr@linux.microsoft.com>
+Subject: [PATCH v2 3/5] Drivers: hv: vmbus: Compute ring byte counts from a caller-held snapshot
+Date: Mon, 19 Oct 2026 16:09:48 -0700
+Message-ID: <20261019230950.1573677-4-kameroncarr@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20261019230950.1573677-1-kameroncarr@linux.microsoft.com>
 References: <20261019230950.1573677-1-kameroncarr@linux.microsoft.com>
@@ -65,104 +65,248 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In a CoCo VM the host is untrusted. Since the VMBus ring buffer read and
-write indices live in shared memory, the guest has to treat both as
-potentially malicious.
+hv_get_ringbuffer_availbytes() reads the indices directly, so a caller
+that also wants the index values has to read them a second time. The
+host can change them in between, resulting in the byte counts and the
+indices reflecting two different states of the ring.
 
-hv_ringbuffer_write() copies into the ring at write_index with no bounds
-checking, so the host can make the guest write packet data at any offset
-up to 4 GiB past the start of the ring buffer. read_index matters too:
-the available space derived from both indices is the only bound on how
-much is copied, and an out-of-range index can make it far larger than
-the ring.
+Replace it with hv_ringbuffer_avail_write() and
+hv_ringbuffer_avail_read(), which take the indices as arguments and
+return a single count. They are separate because most callers want only
+one of the two values. Use them in hv_ringbuffer_write() in place of the
+open-coded equivalent. hv_get_bytes_to_read(), hv_get_bytes_to_write()
+and hv_pkt_iter_avail() duplicated the same arithmetic, so put the
+helpers in include/linux/hyperv.h and use them there too.
 
-The fix is to validate both indices before use and to use the validated
-snapshot instead of re-accessing. For invalid indices,
-hv_ringbuffer_write() logs and returns -EIO.
+Add a hv_ringbuffer_indices_invalid() helper that bounds checks a pair
+of read and write indices, and use it for the check in
+hv_ringbuffer_write(). Convert the remaining callers to use a single
+snapshot:
 
-One re-read of write_index is left unchecked in this patch:
-hv_get_ring_bufferindices() fetches it again for the prev_indices
-trailer. The value is only returned to the host and is not used as an
-offset or length for indexing. Since this is not a security issue, it is
-addressed later in the series.
+  - hv_ringbuffer_get_debuginfo() now reports the indices and the
+    computed byte counts from the same snapshot.
 
-Open-coding the bytes available arithmetic keeps the fix free of
-prerequisites; a later patch refactors it into a helper function.
+  - hv_pkt_iter_close() computes the free space from priv_read_index
+    instead of re-reading the shared read index. The two agree unless a
+    misbehaving host has rewritten the value.
 
-Fixes: 3e7ee4902fe6 ("Staging: hv: add the Hyper-V virtual bus")
-Cc: <stable@vger.kernel.org> # 5.15.x
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+No functional change intended for a well-behaved host.
+
 Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
 ---
-The unchecked write goes back to the commit in the Fixes tag, but the
-host is only untrusted in CoCo VMs, which Linux has supported since
-v5.12, so the stable tag starts at 5.15.x. This applies as-is to v5.15
-and later.
-
- drivers/hv/ring_buffer.c | 29 ++++++++++++++++-------------
- 1 file changed, 16 insertions(+), 13 deletions(-)
+ drivers/hv/ring_buffer.c | 68 ++++++++++++++++--------------------------------
+ include/linux/hyperv.h   | 50 +++++++++++++++++++++++++++--------
+ 2 files changed, 61 insertions(+), 57 deletions(-)
 
 diff --git a/drivers/hv/ring_buffer.c b/drivers/hv/ring_buffer.c
-index 592a960..a18b309c 100644
+index 7f466c5..cda957d 100644
 --- a/drivers/hv/ring_buffer.c
 +++ b/drivers/hv/ring_buffer.c
-@@ -70,15 +70,6 @@ static void hv_signal_on_write(u32 old_write, struct vmbus_channel *channel)
- 	}
+@@ -107,35 +107,12 @@ static u32 hv_copyto_ringbuffer(
+ 	return start_write_offset;
  }
  
--/* Get the next write location for the specified ring buffer. */
--static inline u32
--hv_get_next_write_location(struct hv_ring_buffer_info *ring_info)
+-/*
+- *
+- * hv_get_ringbuffer_availbytes()
+- *
+- * Get number of bytes available to read and to write to
+- * for the specified ring buffer
+- */
+-static void
+-hv_get_ringbuffer_availbytes(const struct hv_ring_buffer_info *rbi,
+-			     u32 *read, u32 *write)
 -{
--	u32 next = ring_info->ring_buffer->write_index;
+-	u32 read_loc, write_loc, dsize;
 -
--	return next;
+-	/* Capture the read/write indices before they changed */
+-	read_loc = READ_ONCE(rbi->ring_buffer->read_index);
+-	write_loc = READ_ONCE(rbi->ring_buffer->write_index);
+-	dsize = rbi->ring_datasize;
+-
+-	*write = write_loc >= read_loc ? dsize - (write_loc - read_loc) :
+-		read_loc - write_loc;
+-	*read = dsize - *write;
 -}
 -
- /* Set the next write location for the specified ring buffer. */
- static inline void
- hv_set_next_write_location(struct hv_ring_buffer_info *ring_info,
-@@ -281,6 +272,7 @@ int hv_ringbuffer_write(struct vmbus_channel *channel,
- 	u32 totalbytes_towrite = sizeof(u64);
- 	u32 next_write_location;
- 	u32 old_write;
+ /* Get various debug metrics for the specified ring buffer. */
+ int hv_ringbuffer_get_debuginfo(struct hv_ring_buffer_info *ring_info,
+ 				struct hv_ring_buffer_debug_info *debug_info)
+ {
+-	u32 bytes_avail_towrite;
+-	u32 bytes_avail_toread;
 +	u32 read_index;
- 	u64 prev_indices;
- 	unsigned long flags;
- 	struct hv_ring_buffer_info *outring_info = &channel->outbound;
-@@ -295,7 +287,20 @@ int hv_ringbuffer_write(struct vmbus_channel *channel,
++	u32 write_index;
  
- 	spin_lock_irqsave(&outring_info->ring_lock, flags);
+ 	mutex_lock(&ring_info->ring_buffer_mutex);
  
--	bytes_avail_towrite = hv_get_bytes_to_write(outring_info);
-+	read_index = READ_ONCE(outring_info->ring_buffer->read_index);
-+	old_write = READ_ONCE(outring_info->ring_buffer->write_index);
-+	if (unlikely(read_index >= outring_info->ring_datasize ||
-+		     old_write >= outring_info->ring_datasize)) {
-+		spin_unlock_irqrestore(&outring_info->ring_lock, flags);
-+		pr_err_ratelimited("outbound ring indices out of range: relid %u read %u write %u size %u\n",
-+				   channel->offermsg.child_relid, read_index,
-+				   old_write, outring_info->ring_datasize);
-+		return -EIO;
-+	}
-+
-+	bytes_avail_towrite = old_write >= read_index ?
-+		outring_info->ring_datasize - (old_write - read_index) :
-+		read_index - old_write;
+@@ -144,13 +121,14 @@ int hv_ringbuffer_get_debuginfo(struct hv_ring_buffer_info *ring_info,
+ 		return -EINVAL;
+ 	}
+ 
+-	hv_get_ringbuffer_availbytes(ring_info,
+-				     &bytes_avail_toread,
+-				     &bytes_avail_towrite);
+-	debug_info->bytes_avail_toread = bytes_avail_toread;
+-	debug_info->bytes_avail_towrite = bytes_avail_towrite;
+-	debug_info->current_read_index = ring_info->ring_buffer->read_index;
+-	debug_info->current_write_index = ring_info->ring_buffer->write_index;
++	read_index = READ_ONCE(ring_info->ring_buffer->read_index);
++	write_index = READ_ONCE(ring_info->ring_buffer->write_index);
++	debug_info->bytes_avail_toread =
++		hv_ringbuffer_avail_read(ring_info, read_index, write_index);
++	debug_info->bytes_avail_towrite =
++		hv_ringbuffer_avail_write(ring_info, read_index, write_index);
++	debug_info->current_read_index = read_index;
++	debug_info->current_write_index = write_index;
+ 	debug_info->current_interrupt_mask
+ 		= ring_info->ring_buffer->interrupt_mask;
+ 	mutex_unlock(&ring_info->ring_buffer_mutex);
+@@ -282,8 +260,8 @@ int hv_ringbuffer_write(struct vmbus_channel *channel,
+ 
+ 	read_index = READ_ONCE(outring_info->ring_buffer->read_index);
+ 	old_write = READ_ONCE(outring_info->ring_buffer->write_index);
+-	if (unlikely(read_index >= outring_info->ring_datasize ||
+-		     old_write >= outring_info->ring_datasize)) {
++	if (unlikely(hv_ringbuffer_indices_invalid(outring_info, read_index,
++						   old_write))) {
+ 		spin_unlock_irqrestore(&outring_info->ring_lock, flags);
+ 		pr_err_ratelimited("outbound ring indices out of range: relid %u read %u write %u size %u\n",
+ 				   channel->offermsg.child_relid, read_index,
+@@ -291,9 +269,8 @@ int hv_ringbuffer_write(struct vmbus_channel *channel,
+ 		return -EIO;
+ 	}
+ 
+-	bytes_avail_towrite = old_write >= read_index ?
+-		outring_info->ring_datasize - (old_write - read_index) :
+-		read_index - old_write;
++	bytes_avail_towrite = hv_ringbuffer_avail_write(outring_info, read_index,
++							old_write);
  
  	/*
  	 * If there is only room for the packet, assume it is full.
-@@ -317,9 +322,7 @@ int hv_ringbuffer_write(struct vmbus_channel *channel,
- 	channel->out_full_flag = false;
+@@ -445,10 +422,7 @@ static u32 hv_pkt_iter_avail(const struct hv_ring_buffer_info *rbi)
+ 	 */
+ 	write_loc = virt_load_acquire(&rbi->ring_buffer->write_index);
  
- 	/* Write to the ring buffer */
--	next_write_location = hv_get_next_write_location(outring_info);
+-	if (write_loc >= priv_read_loc)
+-		return write_loc - priv_read_loc;
+-	else
+-		return (rbi->ring_datasize - priv_read_loc) + write_loc;
++	return hv_ringbuffer_avail_read(rbi, priv_read_loc, write_loc);
+ }
+ 
+ /*
+@@ -568,6 +542,7 @@ void hv_pkt_iter_close(struct vmbus_channel *channel)
+ {
+ 	struct hv_ring_buffer_info *rbi = &channel->inbound;
+ 	u32 curr_write_sz, pending_sz, bytes_read, start_read_index;
++	u32 write_index;
+ 
+ 	/*
+ 	 * Make sure all reads are done before we update the read index since
+@@ -607,11 +582,13 @@ void hv_pkt_iter_close(struct vmbus_channel *channel)
+ 		return;
+ 
+ 	/*
+-	 * Ensure the read of write_index in hv_get_bytes_to_write()
+-	 * happens after the read of pending_send_sz.
++	 * Ensure the read of write_index happens after the read of
++	 * pending_send_sz.
+ 	 */
+ 	virt_rmb();
+-	curr_write_sz = hv_get_bytes_to_write(rbi);
++	write_index = READ_ONCE(rbi->ring_buffer->write_index);
++	curr_write_sz = hv_ringbuffer_avail_write(rbi, rbi->priv_read_index,
++						  write_index);
+ 	bytes_read = hv_pkt_iter_bytes_read(rbi, start_read_index);
+ 
+ 	/*
+@@ -627,8 +604,7 @@ void hv_pkt_iter_close(struct vmbus_channel *channel)
+ 	 * Exactly filling the ring buffer is treated as "not enough
+ 	 * space". The ring buffer always must have at least one byte
+ 	 * empty so the empty and full conditions are distinguishable.
+-	 * hv_get_bytes_to_write() doesn't fully tell the truth in
+-	 * this regard.
++	 * curr_write_sz doesn't fully tell the truth in this regard.
+ 	 *
+ 	 * So first check if we were in the "enough free space" state
+ 	 * before we began the iteration. If so, the host was not
+diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+index 5c65820..09f25ad 100644
+--- a/include/linux/hyperv.h
++++ b/include/linux/hyperv.h
+@@ -209,31 +209,59 @@ struct hv_ring_buffer_info {
+ };
+ 
+ 
++/*
++ * The indices live in memory shared with the untrusted host, so check a
++ * snapshot of them before using it as an offset or to compute a byte count.
++ */
++static inline bool
++hv_ringbuffer_indices_invalid(const struct hv_ring_buffer_info *rbi,
++			      u32 read_loc, u32 write_loc)
++{
++	return read_loc >= rbi->ring_datasize ||
++	       write_loc >= rbi->ring_datasize;
++}
++
++/*
++ * Byte counts for a caller-supplied snapshot of the indices, so that the
++ * counts and the indices the caller goes on to use describe one state of the
++ * ring.
++ */
++static inline u32
++hv_ringbuffer_avail_write(const struct hv_ring_buffer_info *rbi,
++			  u32 read_loc, u32 write_loc)
++{
++	u32 dsize = rbi->ring_datasize;
++
++	return write_loc >= read_loc ? dsize - (write_loc - read_loc) :
++		read_loc - write_loc;
++}
++
++static inline u32
++hv_ringbuffer_avail_read(const struct hv_ring_buffer_info *rbi,
++			 u32 read_loc, u32 write_loc)
++{
++	return rbi->ring_datasize -
++		hv_ringbuffer_avail_write(rbi, read_loc, write_loc);
++}
++
+ static inline u32 hv_get_bytes_to_read(const struct hv_ring_buffer_info *rbi)
+ {
+-	u32 read_loc, write_loc, dsize, read;
++	u32 read_loc, write_loc;
+ 
+-	dsize = rbi->ring_datasize;
+ 	read_loc = READ_ONCE(rbi->ring_buffer->read_index);
+ 	write_loc = READ_ONCE(rbi->ring_buffer->write_index);
+ 
+-	read = write_loc >= read_loc ? (write_loc - read_loc) :
+-		(dsize - read_loc) + write_loc;
 -
--	old_write = next_write_location;
-+	next_write_location = old_write;
+-	return read;
++	return hv_ringbuffer_avail_read(rbi, read_loc, write_loc);
+ }
  
- 	for (i = 0; i < kv_count; i++) {
- 		next_write_location = hv_copyto_ringbuffer(outring_info,
+ static inline u32 hv_get_bytes_to_write(const struct hv_ring_buffer_info *rbi)
+ {
+-	u32 read_loc, write_loc, dsize, write;
++	u32 read_loc, write_loc;
+ 
+-	dsize = rbi->ring_datasize;
+ 	read_loc = READ_ONCE(rbi->ring_buffer->read_index);
+ 	write_loc = READ_ONCE(rbi->ring_buffer->write_index);
+ 
+-	write = write_loc >= read_loc ? dsize - (write_loc - read_loc) :
+-		read_loc - write_loc;
+-	return write;
++	return hv_ringbuffer_avail_write(rbi, read_loc, write_loc);
+ }
+ 
+ static inline u32 hv_get_avail_to_write_percent(
 
 -- 
 2.45.4
