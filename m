@@ -1,99 +1,138 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51A640099C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA2E4DA548
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407119; cv=none; b=XADx3tTcqtN8GlJTdXXaD5L7CKi9oYFUZ1/xAcKNW7Ig8Gs7Hlm86XGEepb7rOhJZ+xRe1Q22mpWsWVAify+44zkz1oLodidtgcCeYfm3jLZ3YzK+kHGLfYhcC7LAT+jeB4wSeJsxFdWXvQT+p0QnsLSmEjBMMUaHMFxOsGrj1s=
+	t=1792407169; cv=none; b=rgui2RaBvgNT0MeNVX1sBzBaPtqkG6aFVFqQBooOfaoxGMPgipIzRVoS8j9BoUETFKuOBgt6bf54NnjSJ9j9H9N2oK/wQutTJU6sCKrRyk1fAQ4RFSe487z41Dh4vxOBt7r1p/ylhr1fUS6hqBoCxQf4qKJ5Nm6lZiME2SgAo7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407119; c=relaxed/simple;
-	bh=DYETpg2ch3RE6Zgv4/hYXxN4Wo2kZmgkDZJdYz89Evk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=La0mveeu+UsgFIilvxw+Pw9rkCNyYctFII/cIEtY2rFIbA0rdfBVQkMu7r83GXCRcPL13Rp+XbkllKFNmmJm9sALhZJoFSvuzR+hUCp9f3zUexaSPpzlFdc06lCsW2919TYETbMcquxfCzAGK2tnRPy0eKHhIXyLwiNyiql+ouk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=mihnb2lN; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1792407169; c=relaxed/simple;
+	bh=21H+oiuRQhr1bTwN5k5fm68vZAo/wIv/vUXUABGcE/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JAulN1n//1CxNUsFg4CyWb3OR2Yorq5AunPx3HKIL1/nyg1o6e3me1UOs6ZpZ7ndKgThn2GMcaJvpaiMRCK0RuuwtfVtgQxDhLaOPHBDReEAl2vj9e3goCNojG8HkHR55XhVPH1lE5k8uM1JMg/J9GS/JTy3Y0h/j47mmgVbfTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=LjiEw6VQ; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="mihnb2lN"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso1149013f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:51:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792407116; x=1793011916; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DYETpg2ch3RE6Zgv4/hYXxN4Wo2kZmgkDZJdYz89Evk=;
-        b=mihnb2lNs0zq84B4egRQGOF7XNQjSy4XS7+axCL8ohb4ZufbZE/XPSK//tOwjI0Iss
-         tZB1MjbHTh1WjwPqo4/Wbh9I9Z3519yPIbieIXnUzmVKGuVX30bnJ+qy69c2jwktGbsY
-         +aF4+AYoiNofdREcuASsGN1UHlJulqZ0QJlsDnSs6Z3ta3rs/gazBKg7lI7oB7J0r+j2
-         JdDuzLZUglB4nLIMvm3boevXEFKYLfzQtd1krffrx4Pk6/or4vl4Bk1SJjzYYRyKJ4c1
-         HEQ03NgADEXDldMr8Qx4yyOeDalMHo6RKUW2VIn31ioByHF+tUZ8eFYPsRGxazYzjBcS
-         XWyA==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="LjiEw6VQ"
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8CD643F321
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:52:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1792407162;
+	bh=FCCK4lukVu46UX8q/+nvsePnhoGpz0IH4czbYBTEba0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version;
+	b=LjiEw6VQ38GVAI1qWjT4BFpQcwsd3O4jiuaGVgp5/ZgFqG38qQoiLKb1Dnmz+myCH
+	 7dtIekLq3JlmdT69m3yVG+/qCK3vcf6qp7zVuPZeroLQ7qrWBCzGlQkQ3vMa0YCMg/
+	 lPCyYX3T1JKoW0Bl4hbmlojTgAwTyycL33OivJHpfQ6uBFtAtFnOyCPBFxN/Q9lof3
+	 cfa3KieV8sfklpOSdoHYxRCfxmiCmhrIpYFYBmhs3yhSjjrnuERqnbWB3DRWC5JllP
+	 Z4CJCspHJVpnVSZ4AW0WIwZXHPXUfl5kmrQgdWW3xi4RrlP89ZW8dZe2bNVJiSpx2s
+	 YMKn28lBu+5nf8Qc2gKL9hXWG/z5hJzJGrfTU1aEPJSx1v2a6LVc7oHbws0XVckh2C
+	 HyRtLlslQLaCUNGUqLo60ACk9wUHWKTCGsJxehIlEcvILtNZ2ImkGTne2dcK2VUBIq
+	 s5WpTC+h6wmZMTL5/u5nzTVtWkbUcjmbqCLrukGfmQLDDrl9wMU+FtHnQSJtwLE6yx
+	 nP7ReKLom7JvKV4eQI/LoRvh1WZk9QQVGTERjd9XCJNXjpDqE9VDv4S5ViLMjoYy1s
+	 5Mj+uXx7OfWZWH8KgyG3+orriTnSejWtSHEgghkG1OXZfLXtIOC3xGO1OyHW36dF4E
+	 8ZtLFKfzKOYlqs5j0j3qAkh8=
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1bfd5516bso19998125e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:52:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792407116; x=1793011916;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DYETpg2ch3RE6Zgv4/hYXxN4Wo2kZmgkDZJdYz89Evk=;
-        b=1uG6LcA/JLaRoib1fWrUmb0Zmb0cq3876UC8LIsoeCkc6oDik34XeljPOwioR9hqfy
-         QHSdf1RoVb02UD/OyLyPodDWHC1mAz52RZuiYaXJsHn+UFN7jGIm933EQYBaz5NdvHss
-         H0iGJxkf3sIIvpbadxKFBfCmKix/AHgzqSDOxkZlx66clwbTn6qoDnSIU4vMtG/nmQm6
-         AiTF2CmTpECGiwmh9hFU0QCEzGjBgXxOe9d87+NU77sKba2Ct5xW0bdbsGLWhVFOq6Lg
-         YNYRB/ATJeQbtTFbdVRe1dXYVhluhPG6f4AbSMBmFN8NRXuJ+LueIOyzS8WEv6rGvd0k
-         9Zdg==
-X-Forwarded-Encrypted: i=1; AKwUvByz3/HbsDVmsNRSxYCqdgIp0Gcor0WWFXDslcVpCCwMqw/qZBz7zQZwaUWnysUnyzcWHyfaGofziZm+f0M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMKQZX4wtEJzJxkjrxPouCkC7vO6e/GlHUhjQSajAfI5L7xX2W
-	Ew9LkNP/VIQyB8mxhZQabME0aKZS6lR9J4l8/dAUSsFT5YIqrdgJr8hsWtE3eBGykgI=
-X-Gm-Gg: AYBFou2IzTsEriexkZtHCPEbR40LbR9P8ypf7h26X+Yj7P9i25ulTopALQYQ2TjDzgm
-	KK1xRDQPnGRasCGI4xYbdJPDXSYd2H1AeRYJ4+ogFOMe4QPvrSWMSdwuv6c8bKcvVoskSikIcG6
-	xx7cQy7+6bxZ6oNZFkUu/S50OpgPRqeU+ktC3ou9isCMZNBjoFeVol+utILicFZXYYkcKm7b2wb
-	hLdXfS17Cmj5pjUwOiLBsqC6sM2yDW4ULyaWWgkQonSocBdX4tk2Ce9R91pOFF6/7AabEMSTqgU
-	2IdpXA45oThToLB1QJE6Cb87dtQPDvOD/WxznikSiS0YhCgsqyROUu7SpYKcgcuW2hjsnbdP/YS
-	68wzxEaktGZoHB4shA7L9LOJ/bzTrMnJYIODRvRu91CxzFDAsF8X1RSfhOXuYZDcbrhUF1mRhZi
-	TaFt0Cs9iCD+hAAY/IWDyPc5OkCFGMfsNiLMIAso3bFZzBqG7RURSJZQyoBaaPAFXqVkIBZU4EO
-	TgGFCv3kMTCfAMsDhH5vsIgsjlzQ88/65Pj2rbvCawTN+Xxu4b9q88BA2bZpa503IK2+EG5jRSG
-	aIrDX4YNQXzS6oc+Zhs9rBdyVoHznBrHt2nHihW9IAO2sapovtqthOTcM89NtXvk6EOC8w==
-X-Received: by 2002:a05:600c:1da1:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-4a1d76011ffmr159510145e9.19.1792407115972;
-        Mon, 19 Oct 2026 03:51:55 -0700 (PDT)
-Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b303csm349369535e9.8.2026.10.19.03.51.54
+        d=1e100.net; s=20260707; t=1792407162; x=1793011962;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FCCK4lukVu46UX8q/+nvsePnhoGpz0IH4czbYBTEba0=;
+        b=HxKtv3Ie26oOmzdD1WbQJG50iGYof778eLYWw6ynXidDrmrotL23Qo0gwyytQ6vGoq
+         xFQM8ieH7PXSKxNmp+33zV8UyDybEsGrzwnDd3AfPiNHvrxqUGyJZEJjrjSw10mL9VVJ
+         v3/PwDquRbI0JEN/z3ZviRTuWAfItPh7nb792IRO9SCNkafNPyrTcnZA/rNjI/6oFCWb
+         n4jASFVtmljqdEuaTVO3rhKqLYwgloSPjhybx5h/Rij23Thyr+hgR8av9NjBi8OYvjN3
+         ckwpRcMCLddIBMIdzUe2Yuvc0xekVosMbZ/mN21IpQrjZsWiBgGOYahEwOCUqxUNZckE
+         ZrQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDWj+1aMPoJcfzioQAhm5dwtknvtcHz7NigLXGxN7vkVn3eYWDGN3W67GBvgLjHVTGm0itedLiG+mwqYE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKo1VrEhj6/pp8Hs2XEuGgSPa4SzjnMlGkcBPQZqbjPNcYyPrX3
+	oAyNUhg5km84r66ZtiSOdmaBcj0oN/dp0fofDBGzmvVnJkFxhWf8Fup+CALMru8hO1EmqX8eSbY
+	2FglzpqPSHtmLu8ryCsUgXbPdKTijBIyRXfmAD8w0nSg5udGzWk/Ff1rj3qPsLTCogHsd/kR0gD
+	dftPWoTQ==
+X-Gm-Gg: AYBFou35E2TGzoG+iFzqokjLX5sAO2u2W82t0NY4GRdjlvu+Vl9ZGQmv3jHblkjA4cv
+	BGKraqPyn3Nc7v44RJCfENuQflw2GjTdWq5LoBTTM1Z29bxJaIxcDpFUsNoQTXnJ1hZ+smVSyZl
+	uOQYaEN9YzHvF8Z6FxHDgKgFw4kbqkieFQ6Xpye6okapiUUFVSOx+OJYqN+G0rsgb54nxKxg4iq
+	WkfaAqwuQrbeqXLrdnVFkDFuebARTknG2IDoE5MxOencGRvOdkEvYNbpxUPMw722Wqft3cNQWh9
+	1/+oXj1BTSobwzxkhDxFMz8A53vN4kUcPIby/F3vCTj7kmVAYXZz1PgRwc2PF9nLBZ8Z3egzbKZ
+	A1lMaJJAAiAhrtjO7RnlMED4pQDPPfeEOmoNDhXR2uclkdqrZ6ToRhI+jcoTkl38J9TkUySElnN
+	z3bP89k5olv/+e8lVtaB+amDgrbh9bQzWaujdadB7CsZc2MRjmRArwwjoukQNE4UGhVgnl4HPdf
+	v1DDvBZ9v23+CTCclr0EMUP+g6G1OoADJFrmKrv
+X-Received: by 2002:a05:600c:b99:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-4a1d75a9828mr140136165e9.1.1792407162004;
+        Mon, 19 Oct 2026 03:52:42 -0700 (PDT)
+X-Received: by 2002:a05:600c:b99:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-4a1d75a9828mr140135825e9.1.1792407161618;
+        Mon, 19 Oct 2026 03:52:41 -0700 (PDT)
+Received: from u-ThinkPad-X1-Extreme-Gen-4i ([103.155.100.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd510201sm23238930f8f.55.2026.10.19.03.52.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:51:55 -0700 (PDT)
-Date: Mon, 19 Oct 2026 11:51:53 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: Luka Panio <lukapanio@gmail.com>
-Cc: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com,
-	pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, deller@gmx.de, dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] backlight: Add Awinic AW99703 backlight driver
-Message-ID: <atX2Sf4GJNFYq2ZY@aspen.lan>
-References: <20261016162912.64581-1-lukapanio@gmail.com>
- <20261016162912.64581-3-lukapanio@gmail.com>
+        Mon, 19 Oct 2026 03:52:40 -0700 (PDT)
+From: Aaron Ma <aaron.ma@canonical.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Dan Nowlin <dan.nowlin@intel.com>,
+	Brett Creeley <brett.creeley@intel.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	intel-wired-lan@lists.osuosl.org (moderated list:INTEL ETHERNET DRIVERS)
+Subject: [PATCH 1/5] ice: check the full PF reset polling limit
+Date: Mon, 19 Oct 2026 18:51:51 +0800
+Message-ID: <20261019105155.3793063-2-aaron.ma@canonical.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019105155.3793063-1-aaron.ma@canonical.com>
+References: <20261019105155.3793063-1-aaron.ma@canonical.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016162912.64581-3-lukapanio@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 06:29:12PM +0200, Luka Panio wrote:
-> Add a driver for the Awinic AW99703 3-string WLED backlight controller.
->
-> Register values follow the AW99703 datasheet (V1.6), the structure
-> follows the aw99706 driver.
+The PF reset polling loop includes the Global Configuration Lock timeout
+in addition to the normal PF reset wait. Its timeout check still compares
+the iteration count against only the normal PF reset wait.
 
-Given how much the structure follows the aw99706 driver I'd expect there
-to be more code sharing between the drivers.
+Consequently, exhausting the extended loop reports success while PFSWR
+is still set. A reset completing exactly at the old limit can instead
+report a false failure. Subsequent initialization must not proceed on
+the assumption that an unfinished reset succeeded.
 
-Cold AW99703 support be implemented by extending the existing aw99706
-driver?
+Compare the count against the same bound used by the polling loop.
 
+Fixes: c9a12d6d2091 ("ice: Increase timeout after PFR")
+Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+---
+ drivers/net/ethernet/intel/ice/ice_common.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Daniel.
+diff --git a/drivers/net/ethernet/intel/ice/ice_common.c b/drivers/net/ethernet/intel/ice/ice_common.c
+index 04633103e3e61..82b803e74aac0 100644
+--- a/drivers/net/ethernet/intel/ice/ice_common.c
++++ b/drivers/net/ethernet/intel/ice/ice_common.c
+@@ -1291,7 +1291,7 @@ static int ice_pf_reset(struct ice_hw *hw)
+ 		mdelay(1);
+ 	}
+ 
+-	if (cnt == ICE_PF_RESET_WAIT_COUNT) {
++	if (cnt == ICE_GLOBAL_CFG_LOCK_TIMEOUT + ICE_PF_RESET_WAIT_COUNT) {
+ 		ice_debug(hw, ICE_DBG_INIT, "PF reset polling failed to complete.\n");
+ 		return -EIO;
+ 	}
+-- 
+2.53.0
+
