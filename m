@@ -1,52 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792451773;
-	b=mPmcAFywp4nQyuiXYTsDQu1H0/baJoRJ6na4anrBfibdWHbkdB4i7+6iMBSatzU1ic7P
-	 ReiOcZPAk4/Z6v8qhi+zEtW2EAa+8YdRsqlHZH4NKcmzhPTHpwX8ODwL2NI56Zf4bgYj7
-	 glMSb3hdY6UAfl6/wCuG25ANah3frWQPlEl8m3NAmklRJYrKCgPfhosxHSSM+2XP3IHm1
-	 enWCgtabr/74Al2bv6/fFa1T9ABxeq2ULwrOC0WLFAzRHU/iBygtbMNLVZ0cHE3Hm4kpk
-	 SrWBr+bFozlkY2GoRxwNKgT/D7XzXJZkUtX9Sni1SZKGG2sUbifEn/pQjASuJad6FXA==
+	t=1792451805;
+	b=ajznCXCPK308mNSbp3lxXGCevJj3Kt8lAVbI9rwpPzmnEWsrT+gBEpYSM4bt5ZIzRCVx
+	 5wb2O+9mH5TAJMNv7PCbvhrCay4k44C8RTAEOKqgl2LbyFteJ+SaUGC08e9o8MOMvN0PT
+	 p6dxqhuEIj1Dik5CSWkWbHaFIjaP7ycJyNVkBhCpuFcIU4q2Htq3G4p3K18Q34lKnY834
+	 sY6McxTvrz5YankaLrsMss/TAiFelBb708UZMOi1GN9JGy+MZhYu5F2MhM81GumN/hsGB
+	 BbbVZJ+jgFLbeaT4KLHyuhYXsArbLl/xWgiA7ZvuLDXWiU1MIWHpHnbzZXBiujTv0Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792451773;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References;
-	bh=RHXpfgE6tlNl9Q6xniJ7GDPBy2ifPJZgPpwX8kMvrqc=;
-	b=uAkIWZlGj0G5h3EKsP1MrbcftNTPvxh/bnD/8yoZXFN1tubIy9Wivhm2DenbVxq3DJa7
-	 qbvffpiUBPWG599MsMvS07uofJd+d3LFJ+UtwGmLTzbqVvVc+wmCXv75xLb3JmVkT58Rh
-	 qwv4WIek/+f4dVceZiSFYc3R0NFER2TWM3iZksbE3FoWBEiNDMgj9ZywXYsZsJSdVwE5t
-	 RPKNCwtXxAzOBTjbnLI54VaWQ/Scg56dA7w9F9OsLUgG9FHNGwSXqNQtDFJpvOwvsOLnn
-	 qbXCJ7BoQkHOUOLbPvx3g/cwoACZTbQZ2iUXFCHWVwiwFBpD7znfLX985e6ckdjyEgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792451805;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=It+ck8nd35giJ9f/s5woVqaK2BP0dqpDizWPCzMcFLo=;
+	b=XYDyVvKJrrjaROZUjq15/2X8Jr+N/YZfNHCm0w0IP0GPml1J8R1ZOynQIykqsV6VVzlK
+	 awMrdS0qxe9Gcj28/wZOsA09RtGFenW+TSeCdkV4jQyh4MszoFA8cWkMllKa/CV9jFDXe
+	 lmMsFAzMDfdL0LabMUqEzswo0HXgv2zmunko9haNVOIewbYaw7+M1IQ1vPfAGS6M/NJh8
+	 zj2cakTwsKfkGfIFyOacT4Jl6R9XcoMbPAinj/5Epc+7tCDICHetfoZkXQb60FsmZi7Aj
+	 CipvzMwVVfg4LuY3uVOaVyR/FGqEyll/U1DGGXteqVswfsK6xtMvW2NNcy33HvuGEMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MyhoVkWS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AVksGCyC;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB1B606A31E;
-	Mon, 19 Oct 2026 23:16:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E92606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6E92606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MyhoVkWS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F2A1F000C4;
-	Mon, 19 Oct 2026 23:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792451773;
-	bh=RHXpfgE6tlNl9Q6xniJ7GDPBy2ifPJZgPpwX8kMvrqc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MyhoVkWSpTpCncGb6cV8vu3lH8diglxcCc/EJ8bObYRmb0P7KVNrjs4pI6UuODSiL
-	 MpRZNtY4IVqL4yFHl2Ah8PnnVVG31tSBl1CXvZQBXz6eZC2B2meyLZ5xzFJWz3KAw/
-	 YWEPDw5YdIsHNuJolJzIQgprGk5EkWHo9pmiSC8MnvSolTqEYjYenSSI9cBUliU9lP
-	 9TP+E7VndYVCdJ9ANZpvcoywWMtKW+Bavs8tinyF1FXsuGpMe5s9ZmXCBsLmCZO3IX
-	 1YfFi15Ff1PM3LbFIhrz84pQPOeG/nxufxidyPq88WebDIG2fwlhPEwF4Z8arRNVUl
-	 hv/UksEnpdhag==
-Date: Mon, 19 Oct 2026 13:16:12 -1000
-Message-ID: <d9ba33d7358769a98a35eea9d603305d@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 sched_ext/for-7.3-fixes] sched_ext: Reenqueue IMMED tasks when their CPU picks idle
-In-Reply-To: <20261017221924.3908922-1-arighi@nvidia.com>
-References: <20261017221924.3908922-1-arighi@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AVksGCyC
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1e34ecb02so12777855e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:16:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792451803; x=1793056603; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=It+ck8nd35giJ9f/s5woVqaK2BP0dqpDizWPCzMcFLo=;
+        b=AVksGCyCTJpVQwQYlBtACBlni6R/2km4VkXUbpuS5HMnMzcp2+QblpS8GSkwayTo+3
+         eJsZ6LWx3b7vmNBbL6ce/E1nmRdP5R9GwAmwKaM7gT+LyKI8i79oZhamElbcYptEhqHW
+         P1VBk2Z9OH38d1PiM8olJPEdexYY7psHF/TEIE8H5eQStvtD4EMRiyyN3Uw7Vh8lg7NO
+         HLLNztMyK/T6nHsytQzKwZVWAaxFlW5NVGujK9CxHZGCbNu0LNlHcdcPGxg+xm6wQxoW
+         Oe0klOUBEAIyXMSFxQjxVwYDsYKxT6647UpGyAUst2bYYbEPwZeOHYhQFKt8kP/4i6YE
+         1m8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792451803; x=1793056603;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=It+ck8nd35giJ9f/s5woVqaK2BP0dqpDizWPCzMcFLo=;
+        b=1i04nV032cdXIVaowXwFFKi8r8EZfpm0sFuirjzQnpN32sGp9yt1Dxjm0nhwmtCxAz
+         TZAQfq4oDwLWdFkMR4wBCY6fFh1s3dZLICY3kQUCDc2/nbWpMMONU2JLWpWb3jRziFkb
+         MVL9ZufNJmu8Z5q60ZOyGXbAI4FLf1Zpw6Mqx1QH6IwXgK4FUCXoP/qO34Tv+77duD0v
+         KKGaU5GhDs9mH1Y/sQbBtaHzo0+MJDnYp0bsHSAUi/tx4gBUiQe67smIrNXSw6btcd4/
+         FHtRX7tZdF6khqQm6QJt3o1ynRLSP2i3EuoO1W/oI2Lq93fQLCicyYbEay1fu/cedHJl
+         leog==
+X-Forwarded-Encrypted: i=1; AKwUvBw96kzk435WjeK2/JFb87KEfXHM4ymOTPBx75QrwHOsDAg32Clc3bY7XqaSbe6PWVLCWpixPr5CPHXHz7o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRARBy3YXVwK7jWQlhRPuznmIzc2Xwvk/YfRc8GD2e1I0JEnjS
+	dluxPb2/iCCF0r1bf/H5v2OUpi4CJ9UrDDGKv8d6hLwWSClwe+wXIeWu
+X-Gm-Gg: AYBFou2znPdhavscQdESkDPvJhbo75nFuImy9jswlBYvPdKxLbzRYqY+JFDTNPMRoU/
+	SUxL8C6Diu4u38xMLzkuang8O+2nuYBG831qiigBNr23ugPJDHHoP7n51j4KRI3YQwd2BwBEZgh
+	VstyUqFTaq52g0gudrpHDl65LZEFL4rlkRUrV7PoCoHPyeJznBv0Fv9CX/loYxS+eLPnqcrP1yD
+	cNugR3suE4K5KqWdB9SIWbwzqRizugdnUKBxluuiAN6gQuoAYDqPJzZ07+zGU/355QoHlYnKx+J
+	5TCLW2U/WjbHgUyPcp3Tdst31iRZ3UosIn3cdtWSCRI+PzgtpUOpPGYtlqt0Px6DwF1YsdvcWQu
+	Y7q6RW/9BdZr1HON5fySJL7O9ASn8Jxn/mh15OGcd7q/C/eb5/T3EOHKOuyIxc31wv7CV9oGWes
+	Kcua92MW5oFHTjrd/3medeeCEkRSwwUud8GQA2iAU+T2PDzW99PNvAQXhd8FZUGmmR/Xqmw4weI
+	IgLM9M7TaykT+u3rOmU
+X-Received: by 2002:a05:600c:6290:b0:4a1:6af4:c6be with SMTP id 5b1f17b1804b1-4a1d7622364mr193940515e9.34.1792451802906;
+        Mon, 19 Oct 2026 16:16:42 -0700 (PDT)
+Received: from gmail.com ([2a01:e0a:bc7:8550:7c78:34d9:2b13:9a53])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2c1e0e6sm31068045e9.0.2026.10.19.16.16.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 16:16:42 -0700 (PDT)
+Date: Tue, 20 Oct 2026 01:16:39 +0200
+From: Mahe Tardy <mahe.tardy@gmail.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+	Amery Hung <ameryhung@gmail.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, Petr Pavlu <petr.pavlu@suse.com>,
+	Leon Hwang <leon.hwang@linux.dev>
+Subject: Re: [PATCH bpf-next 3/3] bpf: Fix ksock build with BPF_LSM=y and
+ SECURITY_NETWORK=n
+Message-ID: <atak1wakfuKz3ZYi@gmail.com>
+References: <20261019211006.2574350-1-sashal@kernel.org>
+ <20261019211006.2574350-4-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,72 +117,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019211006.2574350-4-sashal@kernel.org>
 
-Hello, Andrea.
+On Mon, Oct 19, 2026 at 05:10:06PM -0400, Sasha Levin wrote:
+> bpf_ksock.c references bpf_lsm_socket_sendmsg() whenever
+> CONFIG_BPF_LSM=y, but the socket LSM hooks, and with them the BPF LSM
+> socket_sendmsg hook, only exist with CONFIG_SECURITY_NETWORK=y. Without
+> it resolve_btfids warns:
+> 
+>   WARN: resolve_btfids: unresolved symbol bpf_lsm_socket_sendmsg
+> 
+> and since commit 201a454df948 ("resolve_btfids: Fix the --fatal_warnings
+> exit status") that fails the build with CONFIG_WERROR=y.
+> 
+> Only reference the hook with CONFIG_SECURITY_NETWORK=y, and use
+> BTF_ID_UNUSED otherwise. The ID stays zero, as it was when unresolved,
+> so bpf_ksock_kfunc_filter() keeps allowing LSM programs: none can be
+> attached to socket_sendmsg without CONFIG_SECURITY_NETWORK.
+> 
+> Fixes: 7ae4eb14c5f9 ("bpf: Add ksock kfuncs")
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-The following is a Claude-generated review.
+Acked-by: Mahe Tardy <mahe.tardy@gmail.com>
 
-On Sun, Oct 18, 2026 at 12:19:24AM +0200, Andrea Righi wrote:
-> +	/*
-> +	 * Picking idle with IMMED tasks on the local DSQ means that they didn't
-> +	 * run immediately, e.g., core scheduling forced the CPU idle. Outside
-> +	 * of that, pick_task_scx() would have taken the local DSQ head. As
-> +	 * next_class is idle, the rq looks open to rq_is_open(), tell
-> +	 * reenq_local() to reenqueue the IMMED tasks anyway.
-> +	 */
-> +	if (idle && unlikely(rq->scx.nr_immed))
-> +		scx_schedule_reenq_local(rq, SCX_REENQ_IDLE_PICK);
+Makes sense, thanks for fixing this warning.
 
-The forced-idle CPU is still advertised as idle: update_builtin_idle()
-marks it idle right below, and the bounced task's task_cpu() is still
-that CPU. A scheduler that trusts the idle state can put the task
-straight back, e.g. scx_cosmos for a per-CPU task, which checks
-test_cpu_idle(prev_cpu) and inserts into SCX_DSQ_LOCAL_ON | cpu with
-SCX_ENQ_IMMED:
-
-1. The IMMED insert calls wakeup_preempt() and reschedules the CPU.
-2. The core-wide selection forces it idle again, and pick_task_idle()
-   queues another IDLE_PICK reenq.
-3. reenq_local() bounces the task again. p->scx.reenq_cnt is reset only
-   when the task runs, so after SCX_REENQ_MAX_REPEAT rounds the
-   scheduler exits with SCX_EXIT_ERROR_REENQ.
-
-Before this patch, the task waited until the cookie allowed it to run.
-With SCX_OPS_ALWAYS_ENQ_IMMED, scx_bpf_dsq_move_to_local() also inserts
-with IMMED, so a dispatch can close the same loop.
-
-"Outside of that, pick_task_scx() would have taken the local DSQ head"
-doesn't hold for SCX_ENQ_LAST, with or without core scheduling, and the
-same assumption was in the v1 suggestion. put_prev_task_scx() runs
-ops.enqueue(SCX_ENQ_LAST) before set_next_task_idle(). If that inserts
-the task into the local DSQ with IMMED, nr_immed is 1 here and the task
-is bounced, although set_tsk_need_resched(next) was about to run it.
-ENQ_LAST schedulers using IMMED would take an extra reenq every time a
-lone task's slice expires. Would triggering from pick_task_idle(),
-regardless of rq->curr, work? It runs before put_prev_task_scx(), and
-the core-wide selection calls it for every forced-idle sibling.
-
-Also, next_class isn't idle yet when this runs. On the re-pick after an
-insert, it's still ext. It's idle by the time the deferred reenq_local()
-runs.
-
-> -	if (rq_is_open(rq, 0))
-> +	if (!(reenq_flags & SCX_REENQ_IDLE_PICK) && rq_is_open(rq, 0))
->  		reenq_flags |= SCX_REENQ_TSR_RQ_OPEN;
-
-Maybe update the %SCX_REENQ_TSR_RQ_OPEN description above
-local_task_should_reenq() to mention SCX_REENQ_IDLE_PICK?
-
-Separately, a case that neither this patch nor the existing triggers
-cover: when the IMMED task at the head of the local DSQ doesn't match
-the core cookie but sched_core_find() finds a matching SCX task outside
-the local DSQ, the CPU runs that task instead of going idle, and the
-IMMED task stays parked.
-
-None of the above has been reproduced. It all comes from reading the
-code.
-
-Thanks.
-
---
-tejun
+> ---
+>  net/core/bpf_ksock.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/core/bpf_ksock.c b/net/core/bpf_ksock.c
+> index 7bf796193ab61..48a2e2327acef 100644
+> --- a/net/core/bpf_ksock.c
+> +++ b/net/core/bpf_ksock.c
+> @@ -258,7 +258,12 @@ BTF_ID_FLAGS(func, bpf_ksock_send, KF_SLEEPABLE)
+>  BTF_KFUNCS_END(ksock_kfunc_btf_ids)
+>  
+>  #ifdef CONFIG_BPF_LSM
+> -BTF_ID_LIST_SINGLE(bpf_lsm_socket_sendmsg_id, func, bpf_lsm_socket_sendmsg)
+> +BTF_ID_LIST(bpf_lsm_socket_sendmsg_id)
+> +#ifdef CONFIG_SECURITY_NETWORK
+> +BTF_ID(func, bpf_lsm_socket_sendmsg)
+> +#else
+> +BTF_ID_UNUSED
+> +#endif
+>  #endif
+>  
+>  static int bpf_ksock_kfunc_filter(const struct bpf_prog *prog, u32 kfunc_id)
+> -- 
+> 2.53.0
+> 
