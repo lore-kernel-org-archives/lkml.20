@@ -1,95 +1,148 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0C74F0545
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:38:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BF34E3EF6;
+	Mon, 19 Oct 2026 12:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413496; cv=none; b=TmnMRCm3HDlHKssnl+eGDAkxgzpUrnYtpSPuWIEkZpyrL8WrjSH9fJCP+kDrBuDP11k6sBrRCB8nsl+veinJfGDnuftBhaqri9//5YMtKYsPAH227OIEpexDIQ30ezw6vnmvzBadRRd8HHUq2HCmZfLAzUfthaYw0y6D/iAwOds=
+	t=1792413498; cv=none; b=LE8qXL+EjynKTeWtQVv1RWMxs3fvTd3kFpkdgut1pL+Fazn7sERGuXLTPgcT7KbsgI2uwgjqAMRBJDdVuLD+W8I0988RgEdKOs42c1kVNS6jHdMPwxXJ0aVuX2yqlE3Im29RxZvGy5IcZJXHFXfFNoCmn4B/ddPp1FNjVENJtYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413496; c=relaxed/simple;
-	bh=a1RIJ/bMmJNxSAKekcWOeb0aocNYtYHTHwsGPOtVJgM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T2Wb7mDsDHsjeKV9fJMk2+vRfygu5R7YtpvDcG4WBZz2wNwMGCEDxBDENST5XNDwb+up1//LEYr5SDNU6ZDPuZtE066bSWCoGZob/xJKXn5siNlXvJ9RXZ4e+Henr2zE+wobgRui4S3RUtZUQ8S+OMSHefLMV9tTP7oOOM9JdFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aYgeeVNb; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792413498; c=relaxed/simple;
+	bh=TO/S6KVK1H7HpELPgxH3S44B16HHp3OoVjLk9zaUKJs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XXvL+iWg82w+pcAbFNLLhsdvAcWKGK1ukwuwZQ6c/B3YvzX+MALKZfpY8Bq6H54ZcMicuLGosAmSXUpjliBKfpv2g7WXOTQeeU9ppT4Oh8/NtUcqUvjZkT7LXNEAotWoP0vUy0dKHqZ7f0Pm+OKDbfm7uozsiMsigc65aE+EBL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dHfz2xgH; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aYgeeVNb"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab41538192so1525713a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:38:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792413485; x=1793018285; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a1RIJ/bMmJNxSAKekcWOeb0aocNYtYHTHwsGPOtVJgM=;
-        b=aYgeeVNb0jyF0nsnwPwRzpdfZ4zXWVOQRUBCCDWo13ZNVkM0FynTh2gQ59lIUn+8gl
-         YehwNlUH+zbBA/FrBP4MIla26b4lzw4Jg8SF+uMPHyPEIiFkG6j78Ru6AKc5w3nt/Ngg
-         UAr8CMboyEQcGdE6uE4Q2zsWZQMi+chFlDDJF8qlCtfXBmU4qwkpzZ6bGNwoIUnDetSa
-         15V205ZrbN+B0lOUmA5gGNI5Ptpf20XzvBlIAr4t+3EgEjEf8BRfgslkQWnwwtijbvSf
-         xSi6NQDV9wG1XfaCkTNVci8xY9XoF637xJo6wj6EX3FoL/n+3fiXb1NoHHSR6NXvLTSK
-         VupA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792413485; x=1793018285;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a1RIJ/bMmJNxSAKekcWOeb0aocNYtYHTHwsGPOtVJgM=;
-        b=ofJh41gNwof/hT4Rq41kyMUPoAIzoFMXFtFi9v5a4uxYz2ulalvIeftbTywKHsslM6
-         Fzmirw+bx5TI+gmC6/xKY6zhAzdh5Kocahg+0dXlg5vQ6+x9Ud+2ojTEil3zhqUMbQON
-         U625QAbxIaDiL5zwLHszCIMkrdEMuVtnxywQiOFPkaH1q+NFZo/3wMD0p04d39wNbyJx
-         Wg+1dUEsctsb0c9fMMewfjq8W0YICM0QFFU9C9VUzyw3DsTA5BGwrkOTZXB73EXG2mwH
-         uUvKVhMIsAK4irJDuHAPSN+oIDutHBAkeOfm2/Kw8bYNaa6lYT/TrybNlRum54tJJWf7
-         NAKw==
-X-Forwarded-Encrypted: i=1; AKwUvBwh3A4gZXur5GgasICXoPUKsQfHLMCLccnY+Yj2T51HUX1mchh1zNCD68SkxLUJ78TLHNgMfZiBaxXa6uw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRO6kl2CJDEw5/w4Id7OMKLiRnGPVl5CqeeKkHS6gYicc/6I+A
-	nuHEemZDeCVceOvsWBGqTLqKA/Xh0NZ/xbmfB7cujS7WuOSu+tuXoz2l
-X-Gm-Gg: AYBFou2CWH4JB3m/Vxpn6AqzGqSaejT7OLzhUJ24d5XxI15oxrrp+tq9GjOpntLcMDI
-	EiC44NrYAkIK6UbtZ6lfNUYnfW5En640YW0c2MgyDORGatXKRP3KZx4uuTmBng8Cnypf27Yo87j
-	qYQWdxtV0xJb33yUOKw4fYcUO7CXtwcVtetxF2butwdADU8BDdbh4G+d4xFB1T8o4eJ8VskpT7o
-	TKQehnlZtDAObovYtB6deYDwtF8bAJtPv6D8oqLy3RGvC6wLjvZCwcZHxTgUlK6QKqqp+FSXAO1
-	GMHB9kifyis+iU00KSdpSCTpyti+uiCS3tiCjXSi4ftGZyW1lt34q/1WQNOb9jXsaVjDGBsITbn
-	Ftmv/4w4Yn1JKa80rdyv7XBX9SvXMacNsXF9TB+I7IsRDNtW7zWwfqJ3GnAKGfmhzyB1r8zR05K
-	B7ZHvs5MYe/Vu60HeWHqMoL8atK02BpsqZrlzx3G/USQY0c4yAL5454YHBC55iL5xVA2+Sv3/BP
-	2t6BL7pghwT9rzheJWGt7VLO588xugDBerWkxrzImpCNzOaBaYs68sOFnV3XcRkbRT4mXX98AJe
-	/A==
-X-Received: by 2002:a17:90b:4ac6:b0:3ac:9e76:aa97 with SMTP id 98e67ed59e1d1-3acee277119mr6899551a91.6.1792413485432;
-        Mon, 19 Oct 2026 05:38:05 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a15c57sm3902419a12.25.2026.10.19.05.38.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 05:38:04 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	patches@opensource.cirrus.com,
-	Zhang Yi <zhangyi@everest-semi.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: core: Warn about controls whose register fields overlap
-Date: Mon, 19 Oct 2026 21:38:00 +0900
-Message-ID: <20261019123800.3410554-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <atXh3Br+fuH83S0q@opensource.cirrus.com>
-References: <atXh3Br+fuH83S0q@opensource.cirrus.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dHfz2xgH"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 35C1E593;
+	Mon, 19 Oct 2026 14:35:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792413359;
+	bh=TO/S6KVK1H7HpELPgxH3S44B16HHp3OoVjLk9zaUKJs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dHfz2xgHLpUYLWRmQd8nQSwek3OE3kZ+MXgAnj7KZMPlZTuEfKXdL53wGT/GTLRgd
+	 ovdzwgrFgx2H3EPdTHQnIHVN+CMJMrH2lrjI5c275MYAEB9wtWmv8YeOGTPw0qlHZ6
+	 NzLLjX0JMCYvFc/vZMLgyt5Qh2T9pFE+xmUxQctg=
+Date: Mon, 19 Oct 2026 15:38:03 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans de Goede <hansg@kernel.org>
+Cc: =?utf-8?B?0JrQvtC90YHRgtCw0L3RgtC40L0g0J7RgdGC0LDRiNC+0LI=?= <ostashow@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE for
+ SVBONY SV105C
+Message-ID: <20261019123803.GA855235@killaraus.ideasonboard.com>
+References: <20261019-sv105c-retry-set-interface-v1-1-ab2f08bc3fcb@gmail.com>
+ <20261019111712.GP595565@killaraus.ideasonboard.com>
+ <449eb143-37a8-4044-a071-63fe495c0213@kernel.org>
+ <20261019112726.GR595565@killaraus.ideasonboard.com>
+ <CAAquLuDc==WsbOYTfuKV2tspTSQAvB7kg2r2aqbE2rs3tYx2LA@mail.gmail.com>
+ <d2d5e53a-ba8b-4b66-8e15-0c45e08e0f3f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <d2d5e53a-ba8b-4b66-8e15-0c45e08e0f3f@kernel.org>
 
-Hello Charles,
+On Mon, Oct 19, 2026 at 02:33:11PM +0200, Hans de Goede wrote:
+> On 19-Oct-26 1:58 PM, Константин Осташов wrote:
+> > On Mon, Oct 19, 2026 at 02:27:26PM +0300, Laurent Pinchart wrote:
+> >> On Mon, Oct 19, 2026 at 01:21:49PM +0200, Hans de Goede wrote:
+> >>> On 19-Oct-26 1:17 PM, Laurent Pinchart wrote:
+> >>>> What does Windows do differently then ?
+> >>>
+> >>> I guess Windows always has a short-delay of at least one USB frame-time
+> >>> between the VS_COMMIT and SET_INTERFACE. I think we should simply add
+> >>> a flseep(1000) before the set_interface instead of adding a quirk for
+> >>> this.
+> >>
+> >> The commit message says it doesn't help, but I can't tell if that can be
+> >> trusted.
+> > 
+> > Fair point. I have measured both sides again.
+> > 
+> > Windows 11, AMD xHCI, camera on a root port, 120 stream starts with
+> > ffmpeg/DirectShow (MJPEG 1920x1080, and YUYV 1920x1080 for 5 of them),
+> > captured with USBPcap and an ETW trace of USBXHCI/UCX/USBHUB3:
+> > 
+> > - The requests are the same as on Linux: PROBE GET_CUR, SET_CUR,
+> >   GET_CUR, GET_MAX, GET_MIN, SET_CUR, GET_CUR, then a 26 byte COMMIT,
+> >   then SET_INTERFACE alt 6. There is nothing else in between.
+> > - The SET_INTERFACE URB is submitted 22 us after the COMMIT completes.
+> >   The xHCI driver first runs a Configure Endpoint command (3 ms), then
+> >   queues the control transfer. That puts about 3 ms between the two
+> >   requests.
+> 
+> When you say "then queurs the control transfer", you mean the control
+> transfer for the SET_INTERFACE, right ?
+> 
+> I wonder if the problem is that Linux is missing this Configure Endpoint
+> command ?
+> 
+> > - The control transfer completes successfully after 263 ms, every time
+> >   (402 ms for YUYV 1920x1080). In a 100 start run, the ETW trace shows
+> >   exactly 10 control transfers on the camera's EP0 per start (8 for
+> >   probe/commit and 2 for SET_INTERFACE alt 6/alt 0). There was no
+> >   Reset Endpoint command, and every xHCI command completed with Success.
+> >   Windows does not see an error and does not retry. 0 failures out of
+> >   120.
+> > 
+> > Linux 6.18, Raspberry Pi 4 (VL805 xHCI, camera behind the VL805's
+> > internal USB 2.0 hub). I added an fsleep() right before
+> > usb_set_interface() in uvc_video_start_transfer() and checked the
+> > resulting gap in usbmon. 20 starts per value, MJPEG 1920x1080, auto
+> > exposure:
+> > >   fsleep()   COMMIT -> SET_INTERFACE (usbmon)   first SET_INTERFACE -EPROTO
+> >   none          0.35 -   0.90 ms                 1/20
+> >   1 ms          1.53 -   1.84 ms                 2/20
+> >   5 ms          5.42 -   7.26 ms                 6/20
+> >   20 ms        20.4  -  26.4  ms                 3/20
+> >   100 ms      100.7  - 108.1  ms                 5/20
+> >   300 ms      319.5  - 325.2  ms                 1/20
+> > 
+> > So a delay does not help, even one longer than the time the device
+> > takes to complete the request.
+> > 
+> > The timing differs between failure and success. A failing
+> > SET_INTERFACE completes with -EPROTO about 1 ms after it is submitted.
+> > A successful one, whether the first attempt or the retry, takes about
+> > 260 ms, the same as on Windows. My guess is that the device starts
+> > reconfiguring right after the SETUP stage and sometimes fails to
+> > answer the status stage for a few microframes before it starts
+> > NAKing. The VL805 then reports a transaction error. I have no bus
+> > analyzer to confirm this.
+> > 
+> > I also need to correct the commit message: the failure rate is not a
+> > stable 80%. Today it was between 0% and 50% per series of 10 to 20
+> > starts, with auto exposure failing more often than manual exposure.
+> > The retry always succeeded on the first attempt.
+> > 
+> > With 0 out of 120 on Windows against roughly 15% per start on the Pi,
+> > the difference is real. I can't tell yet whether it comes from the OS
+> > or from the host controller. I haven't tested the camera with Linux
+> > on a non-VL805 controller. I can do that before a v2 if it would help.
+> 
+> Have you tried reproducing this on a different XHCI controller then
+> the one found in the Raspberry Pi 4 ?
 
-Thank you for looking at this, and for the explanation. That makes
-sense to me. If it is all right with you, I would be glad to send the
-patch myself. I will Cc you on it, and I would be grateful for a review
-when you have a moment.
+In particular the same one as the system running windows.
 
-Best regards,
-HyeongJun
+> I wonder if this problem
+> is specific to the VL805 xHCI controller.
+> 
+> Likewise have you tried reproducing this under Windows with an USB2.0
+> hub in between ?
+
+-- 
+Regards,
+
+Laurent Pinchart
