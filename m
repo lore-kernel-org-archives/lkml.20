@@ -1,86 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422875;
-	b=0aDoASZUX9N8q8uz7jvKpbX3tlVBs/JZAwTgnI87XDldcA7GheS1Zua1zPShfwF+O7qV
-	 6K5aBDOO7jOr6k11rOKKZ0wTRiy0TOvFCujKU4mmOaBDsXf1KLAITwglBYXDOy0zvZL5R
-	 NhrJOijUPmgroSSGAyW5L1u/kvcjJv/POj0pMVMqcbvjYZAR+OngdVHAsu0MfYn5Zs9gH
-	 Clr37Yr/AeGpyqqzhAVLoLvGYl6E6w5fg7gv26GgqhCAEUyXraYl0LoeyniYg/1IiKv+M
-	 u5PTVjO32hGrG6wyj+AE2vgMQ/tEoiwngLum+/tteE66mt+U803bHZufSiyH5zZt2qA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422875;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xIJeajS9jjtNcUTuok39zQGD54vxXLVdXbql+UaLazs=;
-	b=a8Br/XZ4FgvHqgeETPyZgGbIoykrHRGim5hiOqmyZnoLtPdTbmQZdZFaM7dJOjn+G60P
-	 aG/rKcTyP3EQCQc7Pp07/DwuqeJY05WrcGPVhOrifuiDpNEncBvw+OS4un6SLlcc4KvhF
-	 Q7Jp3FxNqWDVl3YWCVNdab4aexsS245kT0H/V4hstdvbDlSzPKnJZYps1Hur2IG+2I0vt
-	 LyCC/C/Domx6NTm6o9vtN8kjagIrcEAVyTNR3CaLnFBwDzT5l8iwBx6QKOZ53MdtEJElu
-	 oS6SOdk6ZXkAqCp1V7Eaeutsb2Wze12BDJeLj+m7VP/FX+vqM09wTP3dphHTb9sL9cA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dLK2KVCg;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54D7609CECD;
-	Mon, 19 Oct 2026 15:14:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54D7609CECD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792421677;
+	b=xpb/dVZLAeABXus7aQQ/r6EYAaNON5XauIK3i8YY7TFWTyPq3K/X7EsJR3bpH4lgVDLQ
+	 R7H8VjtzzkDdQhaCHD+dwJ81cSacBBpiuv72ii/aS1+d5lHPVIWm1HnzWhjcmLBDRozSd
+	 a4KDb0iq6RoFyB/OrLBTdQUQVJOIIsxv0rCfamXaDXEAGB0MWNgeBOrPsitckD3e5NIkn
+	 49Nu5Gjl/3gt1IvJgAtbarMBII1qaKEr1WzRmsCueYp9dLwA5UhHTzolyXsOOk+yTyKoi
+	 GNMfqJ0WANTm15IjBhw6douxnlZGbFQQ512fvyAi4z3NO2iG0IG60+Nao1O3pvhsbcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421677;
+	h=Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
+	bh=WkQB7qDFPVZGub3RTV6RHc3gNA986fIdMZHw4FaBpKE=;
+	b=XDBwOGIsnC8gGKleP9tHn7Il8qByvbYr+PP6VEHbGibDbOKJNMD5OeCm5AvH4i+7wZn0
+	 XSshc9JEmu0R0N4bMV4OuF/UMTKiSBveAaFWk3CSevJwsiUwlbMTeKs3EWUx9tFsfvwDX
+	 6gptC+7rLsCT1uBrEwE0GTpQLEMsJS4U95A1eDrAOclJDPALBhFd3fRlbQaYF4KznH8E9
+	 tom3YdlLr1UzoL5+gh0xEhtoFucTu4sxK/Xqutj1ooEjgmZvkq1UrWxJv3r+Mt2x9mEW/
+	 +bJR515DKY9lQpBaV/OlCf7lYmgwSMCVOMqrtGGIxJ4D+ekZDasquwrv7k1hu9ddd2Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Q1FxhUA2;
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E869E606DA71
+	for <linux-kernel.vger.kernel.org@localhost.mlmmj>; Mon, 19 Oct 2026 14:54:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dLK2KVCg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422875; x=1823958875;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=G5nEe1IhmdwwprxW4cb6uNZ0ux+LJmOrwz33ArBAsZY=;
-  b=dLK2KVCg9bgIc9cHErUP5Opk+ZZOChtQF4kDZFNZzqU3V5nJAhGxxDba
-   qqYqbxSKKlhrM8Zr/djBS4WyyYw/3Yrhw95Rgq+55ThfYK0jJ6Uy/DOEj
-   rSi0OP65EW1pyqaO57prv71etxQvnidcF6kQAxjASsnGkbMae2ff5TrkW
-   2EcqVWKNEfE0YxpLq8RVrJ9EzpdV0j1alPwAdGP0B83Hu8dui3gZVsg1E
-   CzBb6iEZ/4nFV2TU2C3omxdZHG2wUDbGSCJEBe1YnLHBID4wnlTzEU1X0
-   MmBz1IAY/k95viB6K7U3iixjYt6uxsCEU+ogGGBNUyvv9J2ycWQRjj+ua
-   Q==;
-X-CSE-ConnectionGUID: 3DSCbVpVRkGmEL4m+Oc3kg==
-X-CSE-MsgGUID: Dn9TagwpSqmLGNdmxJFbWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986900"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986900"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:34 -0700
-X-CSE-ConnectionGUID: rF/5olWiQqmz3RTMepllKA==
-X-CSE-MsgGUID: 1OhYzD1fQjiHK/xv6WrXSg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2536950"
-Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:33 -0700
-From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>
-Cc: Fenghua Yu <fenghua.yu@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Kristen Accardi <kristen.c.accardi@intel.com>,
-	dmaengine@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 03/17] dmaengine: idxd: refuse a memcpy longer than the WQ max transfer size
-Date: Mon, 19 Oct 2026 08:06:16 -0700
-Message-ID: <20261019150630.4026341-4-daniel1.byrne@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
-References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+	dkim=pass (4096-bit key, unprotected) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Q1FxhUA2
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480EE3E5EFE
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.172.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421676; cv=none; b=D+Gceat42qACmYLZvB8HDBBAiz6jPyUthD9OxeZYxsOnlc9WSUUiNn6/imS6Dko4UyvKq0vMIG7x8Fg/5d5hLvBDW++H9nDyyoR0PeNFR9SynYQ+TfSbhrPFQKxJ0Klh6KwVMYzIqpmd9n7mnt74zuEgMDOhvBS+PcoOHYyL8/0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421676; c=relaxed/simple;
+	bh=7XMXx1Y7exmnq8CDw6ZcXKJ1xd2nrPwkUnm6kz2V26M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KfXPQdhf5fzHq/XCDeIhuOds7id8IPZK7DaLCpt4zofGa5qCwAxQZgM5TQzLq7XCQgv/zASNNFUZa2cicwDnb7b1DUrXbSADGkRhorI8ce+Irl7FZ/+Ngz3Hqj8y7GocrxXsPgUpzzAImlk7yYJ7oieB4447I3vQ6DTWE1VcQMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl; spf=pass smtp.mailfrom=lausen.nl; dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b=Q1FxhUA2; arc=none smtp.client-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id 837196113B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:54:32 +0200 (CEST)
+Received: (qmail 28266 invoked by uid 990); 19 Oct 2026 14:54:32 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 19 Oct 2026 16:54:32 +0200
+From: Leonard Lausen <leonard@lausen.nl>
+To: linux-acpi@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael@kernel.org>
+Cc: leonard@lausen.nl,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	acpica-devel@lists.linux.dev,
+	Len Brown <lenb@kernel.org>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Ivan Hu <ivan.hu@canonical.com>,
+	Joshua Grisham <josh@joshuagrisham.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] ACPI: Work around Samsung Galaxy Book 930XDB firmware errors
+Date: Mon, 19 Oct 2026 16:54:16 +0200
+Message-ID: <20261019145421.47181-1-leonard@lausen.nl>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,48 +76,74 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -
+X-Rspamd-Report: MID_CONTAINS_FROM(1) BAYES_HAM(-2.999969) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -1.599969
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=7XMXx1Y7exmnq8CDw6ZcXKJ1xd2nrPwkUnm6kz2V26M=;
+	b=Q1FxhUA2qSv9UrISvCXPVWNroaQCDNyfK9oPlpMB/PtstW3V4rLHIes4mUnbwdz03uUd+/seiV
+	TbF4zY1mxPLpUwLNgZ+iphBvVDOvGPEz1/9RYzb+njjOrKiGW+6Sww/rJfCvNck8EfNxC4KrY7zK
+	doSk1dRfuiBjaRj+sjzE7OvUictr6gpuKP3YZ+wIznMOlVFq5HN6zPlhK9+Iz8MpbLp7CJ/D/jsS
+	mFeuNl/TbvSWrWTKqccjMh+44dIi5OAqwxZFJ5wE+z4Wa7E65ESywbo6s0wDc36xuWvuTbtkHw+H
+	BFU280bjc3h225cBZ98xN0Y243n/r7NkcU/VJbetcFiasPcbr9m3Lg8YkMfYwClIUmCW9wRxRcXw
+	L0O6Tawqo8QraIPxkKS9LCmwN1+oLRmsF0PRIICCi3xC0B8GpVVseUqnw9nhfJZJbqVnXLOlHV6/
+	V5DMGXverJFdSfaxz52E8R7Dr62M1eGmWgCqFyouLD3AP8swjhCr4zKzSvelX2yNuJ7qa9wm2JN/
+	etJ73HrcN7/AnPSN9EJVZcsLWVucDfX6W42B8O3FCjyrKBcsxlc7Jnhvu+RbX++OCrIgd7nDX7+3
+	tFb8IdRzI41Oqng6Gm729DZdOPeTLQmH+xyaVizZMgmCFqotGfoqSiqxSCs6r4BE/+FrXe7GaQxp
+	4=
 
-idxd_dma_submit_memcpy() checks the length only against the device
-limit from GENCAP. Since commit d7aad5550eca ("dmaengine: idxd: add
-support for configurable max wq xfer size"), WQCFG is programmed with
-the work queue's own max_transfer_size instead, and that is the limit
-the hardware enforces. Since commit 92452a72ebdf ("dmaengine: idxd: set
-defaults for wq configs"), that limit defaults to 2 MiB.
+This series addresses two firmware errors on my Samsung Galaxy Book
+930XDB (NP930XDB-KF2US): repeated FAN0._FST errors when the fan is running,
+and a wrong namespace lookup in PEG0._STA.
 
-A copy longer than the work queue's limit is therefore accepted at prep
-time and then fails in hardware with DSA_COMP_XFER_ERANGE. A client that
-sets only tx->callback cannot see that error, so the copy looks
-complete. Also check the work queue's limit, so that prep returns NULL
-and the caller can fall back.
+The tested system identifies itself as:
+  System vendor: SAMSUNG ELECTRONICS CO., LTD.
+  Product name: 930XDB/931XDB/930XDY
+  BIOS version: P11RFX.067.230331.SP (03/31/2023)
 
-On a Granite Rapids DSA with the default 2 MiB work queue limit and a
-device limit of 2 GiB, dmatest with norandom=1 and test_buf_size=4194304
-reports a data error for every copy on v7.2: the destination is never
-written, yet each copy completes. With this change the same test fails
-at prep, and copies of 1 MiB and 2 MiB pass as before.
+Patch 1 ports Ivan Hu's already accepted ACPICA parser fix [1]. This is a
+prerequisite for patch 3, which uses acpi_install_method() to replace
+PEG0._STA before namespace initialization evaluates it. Patch 2 skips the
+broken fan status method and its notification handling while preserving
+legacy fan control. Both firmware quirks match the vendor and full DMI
+product string.
 
-Fixes: d7aad5550eca ("dmaengine: idxd: add support for configurable max wq xfer size")
-Cc: stable@vger.kernel.org # 5.10+
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
----
- drivers/dma/idxd/dma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Testing on this machine includes a successful Linux 7.3 (7.3.0+) boot
+with both quirks enabled. I have also been running the original versions
+of these fixes during general laptop use, including suspend/resume, and
+fan behavior has been fine.
 
-diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
-index 9937b671f637..c116416e10e5 100644
---- a/drivers/dma/idxd/dma.c
-+++ b/drivers/dma/idxd/dma.c
-@@ -115,7 +115,8 @@ idxd_dma_submit_memcpy(struct dma_chan *c, dma_addr_t dma_dest,
- 	if (wq->state != IDXD_WQ_ENABLED)
- 		return NULL;
- 
--	if (len > idxd->max_xfer_bytes)
-+	/* The work queue's configured limit is what the hardware enforces. */
-+	if (len > idxd->max_xfer_bytes || len > wq->max_xfer_bytes)
- 		return NULL;
- 
- 	op_flag_setup(flags, &desc_flags);
+Additional validation during preparation:
+  - All five changed C files build on x86_64 with W=1.
+  - All patches pass scripts/checkpatch.pl --strict.
+  - acpiexec fixtures reproduce the original PEG0 lookup error and verify
+    that the replacement returns 0 or 0x0f according to the root PG0E field.
+  - A fixture of FAN0._FST reproduces the reference/Add error at nonzero
+    speed and confirms that the zero-speed path can succeed.
+
+A separate platform/x86 patch accepts notification 0x71 in the Samsung
+Galaxy Book driver. It has no dependency on this ACPI series.
+
+[1] https://github.com/open-acpica/acpica/commit/19429ef91ebfb2144c918038dce13e297b4ef051
+
+Ivan Hu (1):
+  ACPICA: Initialize ParserState.AmlEnd in AcpiInstallMethod
+
+Leonard Lausen (2):
+  ACPI: fan: Ignore broken _FST on Samsung Galaxy Book 930XDB
+  ACPI: x86: Repair broken PEG0._STA on Samsung Galaxy Book 930XDB
+
+ drivers/acpi/acpica/nsxfname.c |  1 +
+ drivers/acpi/bus.c             |  2 ++
+ drivers/acpi/fan_core.c        | 31 +++++++++++++++++---
+ drivers/acpi/x86/utils.c       | 53 ++++++++++++++++++++++++++++++++++
+ include/acpi/acpi_bus.h        |  2 ++
+ 5 files changed, 85 insertions(+), 4 deletions(-)
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 -- 
-2.43.0
+2.55.0
 
