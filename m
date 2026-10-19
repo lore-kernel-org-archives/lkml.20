@@ -1,111 +1,150 @@
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01018499F31;
-	Mon, 19 Oct 2026 12:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC84499F31
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411285; cv=none; b=qAUi+2rl0Bf7q9VsqpgP7n1rr2am0pwJZZtV1Il9Y7sX7P4//OM/ZnGGL34U/a8dzdp4yvATxw0zuYiZ3kTZ5GAyc8TnUsXu497kH0oxxUxbe0d/UNA5HAVMZx0AJSnTsCJcaV1qm6DOivBm5tdzfEB990WL1oEqi/E1oL+V4as=
+	t=1792411291; cv=none; b=JF2lmXAsJzXsEtYyXvx6DjwlOTrD6bHRlE/AeFW2Mpvx84W9949ueQSIKbV7tQHvMs3/x+aJShSjMqzRM3Uv8ZAQpUOY6kqbifUw2S63fENQcD3Z6EcCbgqJ/chEO/rfEz6uO7kzqNzEvYNpROfAJDrLm5++xI2KBAkH/d1JPlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411285; c=relaxed/simple;
-	bh=qKmVXnbvrgmbSBXMKmgswg1CPuvbjvxz9Gk4ESPpl6A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qTVrGakQ/bze64Roy2QzodeeKDsX4QmTMGwTCui47Dv01L06AF0A7Drn5PYfNMazE9xPYYeDkg5b15hKMjX0OMe+MhdgxfwoeUHl+y3zAdZF2QmQ7812vVLkHfJndaTt4aq4Tk0B+sEV0O9BNgugtiey8O1x92P5gnrdR/TVY0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=unknown smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=A/kCnsFd; arc=none smtp.client-ip=178.63.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=tempfail smtp.mailfrom=hallyn.com
+	s=arc-20240116; t=1792411291; c=relaxed/simple;
+	bh=a+JFhcktEUT/otUAjLtO1S11cPdVYmE+Lbqz7XLfBh4=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=dWVagIca5q/iT8nMxKXmZ/xXWwb2ZHvVf4g5hQTgChD5T4sbN8Oi4m5sPU8WFlBf5kKuimXaleRoHxshkWX5S5JREa8OAN5sne9SuVB7B9ECROzGptuhZ5Ucg/kN3Q++iPi7PYTRZodgwwe6u9d5lGbaboZeygwhAcj5GvHBWhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=E2juYitc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=B+5CrO4G; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=lyYoJ6Ji; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=X/4CYOJS; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="A/kCnsFd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1792411274; bh=qKmVXnbvrgmbSBXMKmgswg1CPuvbjvxz9Gk4ESPpl6A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A/kCnsFdVahR7QfbpjZXgip7cYuAwrFHMy6jj+hQsFjoG2PoZziStt9ULE90JR5ab
-	 /GTr5AxS0qLDW+Paw2sJstgccU4ceyqUhKW/CEuQ3e6PL1H0gGJRCciU1CTZHH7Ned
-	 GTwyWyaz+OdiDM3z4pI/5fu5U/DLiDXbT17lNQ5BCpTCWfhA/YtZBtVx7HYh2XeIe6
-	 F18vEmbSYP1H4KhBuyMBkB8iF/jicUt0cmhMG23gHR5VLoinNgOBW1RY2gDv/8E1db
-	 3g+0YAplb9cOSIjw52WB3Xc54wehX5iuCbZ5zdrGtEB4LQIM+57/+YnRL0ujBD19EK
-	 VUyOr96ayTeSg==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id D8E6CF05; Mon, 19 Oct 2026 07:01:14 -0500 (CDT)
-Date: Mon, 19 Oct 2026 07:01:14 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	"Andrew G. Morgan" <morgan@kernel.org>,
-	Serge Hallyn <sergeh@kernel.org>,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 0/5] capabilities: close the ways around the CAP_SETFCAP
- rule for uid 0
-Message-ID: <atYGiiGPs39lTFQ7@hallyn.com>
-References: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
- <asehZEWAwsJcbqvM@hallyn.com>
- <179147397027.4.15064782992163283819@toxicpanda.com>
- <asfBRYy597qvzdCW@hallyn.com>
- <20261009-aussicht-wortbruch-bohnenkraut-9e7a1cfd7580@brauner>
- <179191993398.6.7035194670175996999@toxicpanda.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="E2juYitc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B+5CrO4G";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lyYoJ6Ji";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X/4CYOJS"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A551D21CAB;
+	Mon, 19 Oct 2026 12:01:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792411283; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eizw4Kp0fIdeSJH2kfJJvLAORXAdc5N5Ckf4TmLSqPo=;
+	b=E2juYitcp/qobVMtOz9jE853ph6Gq1X9Zo7mt01mrGjaRRJ1xLxgTl1BhBqot+Bb0EXJhF
+	wHn8lacXnqkwMZoQFugyAwQkd/w46D7jjX1gf0tsP+y/ibEsyWI9GPYqVX90gVTdWxOHuR
+	YQvX2BIqeZ9DWvSpPdMWEtrQn3jMGq0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792411283;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eizw4Kp0fIdeSJH2kfJJvLAORXAdc5N5Ckf4TmLSqPo=;
+	b=B+5CrO4GXcb2bzjj+cekLWGvGil3GioODo37qAn17GSktk2LJyn5tjeFP1VHYPct/LRGpS
+	NIxhKw8Tg8jQINBg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=lyYoJ6Ji;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="X/4CYOJS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792411278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eizw4Kp0fIdeSJH2kfJJvLAORXAdc5N5Ckf4TmLSqPo=;
+	b=lyYoJ6JiarDMyrCxZqTcc2OA2F/+J9aCig+Xsp/07GwWWGsxWURhEPzv5R2Y+UKk1TnX8A
+	H92jL14TrFLys/5abUjf1LVLI7IHaVFqxen7naykFdnvem93qzYgCg/b/7t+pCEvEaMtw6
+	i8JodyS5aFqLyP87p6dLUAx598h3kMM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792411278;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eizw4Kp0fIdeSJH2kfJJvLAORXAdc5N5Ckf4TmLSqPo=;
+	b=X/4CYOJShcC0aCzxwrpzZpEi37m9AOys9POzAd2xR6sIx6Muy37Rl0pc7PYp+avCrU8OKW
+	0B2hexYJjVF4eXAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6B996136CC;
+	Mon, 19 Oct 2026 12:01:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Vi1wFI4G1mojTAAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Mon, 19 Oct 2026 12:01:18 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179191993398.6.7035194670175996999@toxicpanda.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 02/18] nvmet/debugfs: Export controller CIU and CIRN
+ via debugfs
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Justin Tee <justin.tee@broadcom.com>, 
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+ Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260920182936.2317916-3-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-3-mkhalfella@purestorage.com>
+Date: Mon, 19 Oct 2026 14:01:13 +0200
+Message-Id: <179241127352.3544975.2554197788837860779.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: A551D21CAB
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org,suse.de];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
-On Tue, Oct 13, 2026 at 07:32:13PM +0000, Josef Bacik wrote:
-> On Fri, Oct 09, 2026 at 09:41:59AM +0200, Christian Brauner wrote:
-> > On Thu, Oct 08, 2026 at 11:13:57AM -0500, Serge Hallyn wrote:
-> > > Yeah, that's what I was thinking.  Or even stricter: ensure that to join
-> > > any user namespace, a process must have a superset of the namespace
-> > > creator's capabilities.
-> >
-> > I think both are fine and I like this proposal.
+On 2026-09-20 11:28 -0700, Mohamed Khalfella wrote:
+> Export ctrl->ciu and ctrl->cirn as debugfs files under controller
+> debugfs directory.
+
+Could you add the 'why' part to the commit message?
+
 > 
-> One correction to what I wrote: the weaker version isn't enough.  A
-> namespace that maps "0 100000 1000" doesn't map the parent's uid 0, so
-> it passes that check.  But with an idmapped mount that maps fs 0 to
-> 100000, a task that joined it can write fscaps that are stored with
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> Reviewed-by: Hannes Reinecke <hare@suse.de>
+> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 
-I actually don't think that's something we should work around here.
+Besides the missing 'why', it looks good.
 
-Christian, what is your opinion on this?
+Reviewed-by: Daniel Wagner <dwagner@suse.de>
 
-IMO most people should not do id-mapped mounts from host range anyway
-(they should shift a base rootfs to a high range, then do idmapped
-mounts from there),
-
-> rootid 0 and honoured by the host.  We test that flow.  So it has to be
-> Serge's stricter version.
-> 
-> > I think that this is an acceptable restriction. Mapping uid 0 to 0 and
-> > dropping caps is borderline useless.
-> 
-> That makes the restriction wider than the 0 to 0 case.  A root task
-> without CAP_SETFCAP couldn't join an ordinary "0 100000" container
-> either.
-> 
-> setns() also only covers the routes that go through it.  These don't,
-> and need their own checks either way:
-> 
-> - writing through a uid_map fd opened by a task with CAP_SETFCAP
-> - ptrace and pidfd_getfd of an entitled task from outside
-> - a task without CAP_SETFCAP creating its own namespace, which a
->   privileged task then maps "0 0 1" for
-> 
-> So v2 would be a level on the namespace computed at create time, the
-> strict setns() check, and the checks at the map write, setxattr and
-> ptrace reading the namespace's level instead of the cred's.  If that
-> sounds right I'll put it together.
-
-I still think it would be easier to reason about, long term, if we
-could get away with storing the cap_eff of the process which creates
-the user namespace, and check (ns-targeted) the capabilities of any task
-trying to setns to it against that.
-
-> Thanks,
-> Josef
