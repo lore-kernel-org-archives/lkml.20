@@ -1,120 +1,346 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A8494EF142
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD884394EB0
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:03:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411437; cv=none; b=sPc8iaUhIuKUooCQxDc1qmsYvqjnE/WbkWSQTMXk3Is+FZMcr6yoaMOZPDFUf1bXUie7MtSgUnMDhxY17RS3+22MIMnuhHN0giMEieifQDnj8Hl0tfbUNEZf9Vrnz3fWxo3RJGkA4sg9qmR4xVvKlc5SSBDl7EvdbcodEpDuPbM=
+	t=1792411436; cv=none; b=ZFdz8iZTRiMZl/H3RlAncTvifkpuaSjjpzxebjEap7Gm1R8PMAb3pQW08ZJ2SdLc22SwPrnaEVLna5U4pwFMo/DTClk5Ov4B4wo6H2DBk0odvdhAnF5EbZooYgb81t0jzzxUdQ0x5SPYBI978iZQ0U8Odw/96AxAPfX0klFXiVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411437; c=relaxed/simple;
-	bh=MX+Iz+ShiaE8nHEd/iGh1hntzDuqO+M+7JVZ/MbnG2c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tF0b/JHhMio3hCptucVcKmqHznLfnMYBZcW2Io7SAiLQ2JqBBnYipUax+MVO1YoxYgeISOYuq8eVMGRv9T4jbd2fRnQF8/tjRx6QGLFPYR73q4PHa2B6OKmNkMB+V1vZQR1xPnLb0EgJ4v4FqfVZwE28Wem3LG8dxYSG3nIr+w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mxvpULg5; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792411436; c=relaxed/simple;
+	bh=4xBJ6J3iuSF36G6RpbWT4lVJdCclbuvdUzPPgykXxfc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xib3DtPyNChL3Cl439UASbqyjtR9Vv+srI1dY6ohsjHR1/8Iug8m7hgLdtIkm9rwO/y+UaKeA5lV73MRlbsfwlCTwpiA4Ii/BiNPRMjCKd3FH9faVe+vNSwTNkc09xFxBrfPtvaVJp0wbFGQ94s9vycCdtVwcekhjGjduBBsQ1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bzGpnUc0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qGXWl9xw; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxvpULg5"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so15603415e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:03:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bzGpnUc0";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qGXWl9xw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792411431;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gCjp2dQNMUJar27ptT1bxSKOhQtdKOeP9BpU3pm389M=;
+	b=bzGpnUc0T+vLiB6j+uusIG+KbEWFJmZUnEl5mNGTsxoqmCPUA7jz6HzrLsCV2h90Lq8jib
+	TEu+E63AmueJw2fSzlzR3Cz9I4ERVv7MJDmqmnADrInm3vOIlz648nUGhh2GLK1zI5/VOo
+	ilN2vPaB2dPhqxiHbrURCsLvDoFUo8c=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-643-LI240oniObCngX4huIaQrg-1; Mon, 19 Oct 2026 12:03:44 +0000
+X-MC-Unique: LI240oniObCngX4huIaQrg-1
+X-Mimecast-MFC-AGG-ID: LI240oniObCngX4huIaQrg_1792411423
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1d6db1d9eso16634675e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:03:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792411434; x=1793016234; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PWBhm50kJKv5rgN7AYPJlHAnuK3+SCL8hQ69bW0a2u8=;
-        b=mxvpULg5Iral8pImNVhKjAhNRUReYYlYOXjQCXXnCM/0A9uWqOAhNajREey1AzDWZN
-         tLmngT8F40hk2FmiamQtw/T7HARvfya95kTy+XIYbajIc6nO6bDwAcPhwb2txcNASxYA
-         xbkXmL3DYxGN3gAMjHAh2LWdlmd3ZR24S0MjDclU2iTDpvLok274czKXm+7Y3fA8PkrA
-         mwE8hSwhjlBiFqWP45kkBLvJXNX1SKZIbnHy5FPza46Hdiau4XKr93TdhSJeZCvXt9l2
-         JJfKVg2bYZceGG366EUUDaftwSiXsUgkW95rWG3GF9Qy7d1Sh7B3RCukO+PYN5BfWsga
-         ETug==
+        d=redhat.com; s=google; t=1792411423; x=1793016223; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gCjp2dQNMUJar27ptT1bxSKOhQtdKOeP9BpU3pm389M=;
+        b=qGXWl9xwH1lDXahifLlTEFrzryXOe4ezVLursNMNMlzrLnwSR7Ez06rQvdqTml3lTZ
+         hfwnkRwhGdiL/1+5gi50cPx7dZeO4QRPicdfY/Z1FXLpCnCu1hT/+WuG2G70wyx//87S
+         50w2UB9Ap0M8GY9Hz//f09M6XM4059LxuSSpnGmCgtVFsjcDj0eHiXdTrztD44CL6IwF
+         Hx+Epz90UHgX7BrxLCWV7udRlsFS8CVJsjkqOsgeVhA3VvcZWohE0yA69YmO4mbkBAxh
+         Z150i9bfB88Rp/eC6DA90fxfRjSqtDkQpXOcbfw0eXjLhkMTdm9CmhkNQKvflczO4b7m
+         bQlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792411434; x=1793016234;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PWBhm50kJKv5rgN7AYPJlHAnuK3+SCL8hQ69bW0a2u8=;
-        b=JEgKsIYv3nSHMsqkx6GE1JoJsD0gQt6MiqIrQctQoZSa0NpdPRY6DKyI/IFI7Sq4xo
-         rbBybVdNEpcfNjzcirCtdeG/tWxIYQG86qwjejmC93kMBRmzEWYXoZkLvs5nVAn2h1tw
-         F5lnJMiwObz6ugTQRG44PFZ+1PGGzXAbEUSVi67dog981Ya4HyCoEp/AmRLGGvfdy6RQ
-         6c0J0Nm4bepl3SzC2Pvzl9FI/8riuInV3ligHWWgZoFgIG2vaM5ESfS8C/IFASDBs41E
-         UTxTwtW6jMlsN0VlZjrN0jrv2Crt8qRZCo4hAURSdYigeMdWvjZ2QUkOYXnP/Zr7HYDn
-         3uDg==
-X-Forwarded-Encrypted: i=1; AKwUvBy0w3rbiatds9KDZwVZuOHf/FJ/WV0nFPt9xT9lceHsPYl5h5IhzAXknA2gLlSSkJLv1huP673alun7/rU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzSKU+eyexw+jmQF6lAouRkge/1NxBHsH7v6bi2K2h8dxaoshi
-	5F9cKf9QxroBc44KMogsOyPCG+GPqBthvwvxn0tRDd+yUdTzrqQEaTxo
-X-Gm-Gg: AYBFou3xyX8vrFW6BoVuDAVosW9UN5tbme3hJwGivO03JDFhKrUnh0KojofNNtXUIFI
-	CNVX3i/Y2PZVv4B/1/BopqWNaSh17KH6rj/mFkr1PIF2ce+A9csmh0901j04x+6xAb0JBBBpRSn
-	N//DQbxderNusHhoGFFl9Qu5hQIYc6b/JUghVyHOpbmNv3W+liiLVRzaK8CNbaxmnvOwsNF1QW3
-	XXBQ2IBTIp39icz7bBRrVzR9j1Hh6oMFFGRPmgR+IGSaSilqbafha4WX8zBaqhLgvVNFYAa4r2k
-	/sGh6zpXaqFffeddfHVL2MEYSNNqY0WKuREsfMj2IZS767FP1tVbjvSWPHSF1WCXkiqIn3NRc+1
-	8vJYn7H/qX5zK0a1QMvyF3NqS0UWtpaWtpZfQ+Z2B2/AxqCW2EM166CPjLpbtVQC6DJj3QUqWf2
-	UjQh4zw/nEKHJBs3DBZjfZV0mJ1UOXjr8mm/k3/1eHJiuU6PWURtz0R3Bz+EnMZSoTSsK+zqWWu
-	oMowsYhJA1V6W1pNFPte702Z/650qX3MDeijYEk4qclRd1c5NKnwA7Ucd6M4LR1cdqgPrLq6djf
-	XUNxijTOjxIqRp3yvHd7gEhS9raRJPunLQkfcInWZ3TG90dUEupk8z0I0KMWpxdreN8hCV2s0LN
-	4v98prh6iFCTN+cKeDPZQ07TqhMo=
-X-Received: by 2002:a05:600c:820e:b0:4a0:174:579e with SMTP id 5b1f17b1804b1-4a1d761637amr143638045e9.28.1792411433506;
-        Mon, 19 Oct 2026 05:03:53 -0700 (PDT)
-Received: from longitude (2a02-8434-fda5-4201-884a-68e2-6a4e-545c.rev.sfr.net. [2a02:8434:fda5:4201:884a:68e2:6a4e:545c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a35sm19555486f8f.7.2026.10.19.05.03.52
+        d=1e100.net; s=20260707; t=1792411423; x=1793016223;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gCjp2dQNMUJar27ptT1bxSKOhQtdKOeP9BpU3pm389M=;
+        b=wwP8A3aDa1tS/6+sX0l9ZNm+TA/sj7Bo0i5ej/9jDgtPiHCNh1nBGyySBoRsk5XCo1
+         kI7YMcUcWHTj2K0rv6zrJDIWLiSaALgcRrV7uMMuma8Yf2TY+dxFMhuGe0dv21BrLsGx
+         zbHlcn6C0u1OHds6l4ClHnoRUQ3if2otHdpDeEofs6QAWL5sq2ORHaBqcOmzGcqj4e/N
+         otTd/BO4b8amF5cpoOWeJK5TXkFFpaxi9P3OLAKBgxFIlEaGnDmuIKYnU3hCF91l8Oer
+         mXmon6qx3sCWVDvC1YWWUGdu6OPCVoAvY7ZzOzHxtiiJtCybfOB0Mr7ebC5HNlwbRH/Q
+         QrFQ==
+X-Gm-Message-State: AFq9FYL009ymWxS6oYqPUmTTgdoB4YHlAV14kVVoY4GLp5eYF6SVKEpV
+	88recbCJW94e900E0DzJfIy6ZIHvHT2cUqqkLfRSJah0kCNd3QcesNAbIs8ZH+cQ95Yp5ar684h
+	ixZwwSjf2oXy4qbP2vA6wH6NixChi/mjNvAitiX5DG/QP+1oYAGmzLsfmb45Rf2nfH28YXzadaW
+	2CpMOl+cre4voplBTy9e32nVTyW7/2WjnQwtFksAdW9A8=
+X-Gm-Gg: AYBFou2aRpsfsGCryy1sh08hpMhRB5th0vqhcoeOIzK4NPse+rwPRerWDqQNW9iB7pU
+	KKeU396EqAFIQdq2SRQ5F9xJWEvjeYHnDpca/sfeCd4psp4pDzHEM4HrxmHLK4lqJcX04U8xlk3
+	hu4HhCBJpVyIgANXVLi2+eMN4PjZaTnkjcZPvUNcen7YGc1WznGcRtzMlr72pKeEkHyT5bgfmFf
+	G0wKRAYJBL3lzeO5J58tsfHSC26itm1xxtf2N/clD0relyFeCFm+WfQLksPQXcDxY9q7R27QQ7G
+	yn6OLb1ivRL3DUhtp8aXiQ/MjQs1JGALfjnluZ9P9xcdwdYVnmCIHN1ro8TTxjiJz+f8pA==
+X-Received: by 2002:a05:600c:64c9:b0:4a1:f0ca:2de6 with SMTP id 5b1f17b1804b1-4a1f0ca3812mr1628395e9.14.1792411422960;
+        Mon, 19 Oct 2026 05:03:42 -0700 (PDT)
+X-Received: by 2002:a05:600c:64c9:b0:4a1:f0ca:2de6 with SMTP id 5b1f17b1804b1-4a1f0ca3812mr1626725e9.14.1792411422109;
+        Mon, 19 Oct 2026 05:03:42 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9c001dsm356079805e9.12.2026.10.19.05.03.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 05:03:52 -0700 (PDT)
-From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
-To: mhiramat@kernel.org
-Cc: rostedt@goodmis.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tools/bootconfig: Quote CPU masks containing comma-separated words
-Date: Mon, 19 Oct 2026 14:03:32 +0200
-Message-ID: <20261019120332.553567-1-edumucelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Mon, 19 Oct 2026 05:03:41 -0700 (PDT)
+Date: Mon, 19 Oct 2026 08:03:37 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Chris Arges <carges@cloudflare.com>,
+	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@nvidia.com>, Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, bridge@lists.linux.dev
+Subject: [PATCH net v3 7/8] net: add ip4_parse()
+Message-ID: <8a90cdf35017ad3e2baf04c209718dd4e8d93b0b.1792411304.git.mst@redhat.com>
+References: <cover.1792411304.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <cover.1792411304.git.mst@redhat.com>
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
-ftrace2bconf.sh writes the CPU mask without quotes. For a mask selecting
-CPUs 0 and 32, the output is:
+Multiple places in the net stack open-code the same minimal IPv4 header
+validation: pull the fixed header, check version 4 and IHL >= 5 (where 5
+is the fixed header size in 32-bit units) - and locate the transport
+header at IHL * 4 past the network header.
 
-  ftrace.cpumask = 00000001,00000001
+Add a helper for doing that: it returns the validated header and
+the transport header offset, or NULL if truncated or malformed.
 
-Bootconfig reads the two comma-separated words as separate array values.
-When bconf2ftrace.sh applies the saved settings, it writes those values
-on separate lines instead of restoring the original CPU mask.
+As noted by Phil Sutter, there are more places that could use this
+helper, e.g. ip_mc_check_iphdr(). They will be converted in a follow-up
+patch.
 
-Quote the mask so the commas remain part of a single value.
-
-Fixes: 2b86062a34a8 ("tools/bootconfig: Add a script to generates bootconfig from ftrace")
-Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Assisted-by: LLM
+Reviewed-by: Björn Töpel <bjorn@kernel.org>
+Reviewed-by: Phil Sutter <phil@nwl.cc>
 ---
-This is my first kernel contribution, so I'd appreciate any feedback.
+ include/linux/ip.h                  | 27 +++++++++++++++++++++++++++
+ include/linux/virtio_net.h          | 28 +---------------------------
+ net/bridge/br_netfilter_hooks.c     | 15 +++++----------
+ net/ipv4/ip_input.c                 | 13 +++++--------
+ net/ipv4/netfilter/nf_reject_ipv4.c | 13 +++++--------
+ 5 files changed, 43 insertions(+), 53 deletions(-)
 
-Tested with the exporter, bootconfig parser and generated replay commands
-using tracefs fixtures for 00000001,00000001, 0f,ffffffff and 1.
-The masks containing commas fail before the fix and pass afterwards;
-the single-word mask passes in both cases.
-
- tools/bootconfig/scripts/ftrace2bconf.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/bootconfig/scripts/ftrace2bconf.sh b/tools/bootconfig/scripts/ftrace2bconf.sh
-index 8eed445c2..f8f288f90 100755
---- a/tools/bootconfig/scripts/ftrace2bconf.sh
-+++ b/tools/bootconfig/scripts/ftrace2bconf.sh
-@@ -238,7 +238,7 @@ instance_options() { # [instance-name]
- 	fi
- 	val=`cat $INSTANCE/tracing_cpumask`
- 	if [ `echo $val | sed -e s/f//g`x != x ]; then
--		emit_kv $PREFIX.cpumask = $val
-+		emit_kv $PREFIX.cpumask = "\"$val\""
- 	fi
- 	val=`cat $INSTANCE/tracing_on`
- 	if [ "$val" = "0" ]; then
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+diff --git a/include/linux/ip.h b/include/linux/ip.h
+index d11c25f5030a..7dc666e55a72 100644
+--- a/include/linux/ip.h
++++ b/include/linux/ip.h
+@@ -56,4 +56,31 @@ static inline void iph_set_totlen(struct iphdr *iph, unsigned int len)
+ {
+ 	iph->tot_len = len <= IP_MAX_MTU ? htons(len) : 0;
+ }
++
++/**
++ * ip4_parse - pull and minimally validate an IPv4 header
++ * @skb: buffer to parse
++ * @nhoff: offset of the IPv4 header within the linear data
++ * @thoff: returns the transport header offset
++ *
++ * Only the fixed header is guaranteed linear on return: callers
++ * that need the options or the transport header must pull
++ * further.
++ */
++static inline struct iphdr *ip4_parse(struct sk_buff *skb,
++				      unsigned int nhoff,
++				      unsigned int *thoff)
++{
++	struct iphdr *iph;
++
++	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
++		return NULL;
++
++	iph = (struct iphdr *)(skb->data + nhoff);
++	if (iph->version != 4 || iph->ihl < sizeof(struct iphdr) / sizeof(u32))
++		return NULL;
++
++	*thoff = nhoff + iph->ihl * sizeof(u32);
++	return iph;
++}
+ #endif	/* _LINUX_IP_H */
+diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+index 25aa95c11e31..beaecd9cd28d 100644
+--- a/include/linux/virtio_net.h
++++ b/include/linux/virtio_net.h
+@@ -53,32 +53,6 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
+ 	return 0;
+ }
+ 
+-/* TODO: nothing virtio specific here, move to ip.h */
+-
+-/*
+- * Pull and minimally validate the IPv4 header at @nhoff.
+- * Returns the header and stores the transport header offset in
+- * @thoff, or NULL if truncated or malformed.  Only the fixed header
+- * is guaranteed linear; callers that need the options or the
+- * transport header must pull further.
+- */
+-static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
+-						  unsigned int nhoff,
+-						  unsigned int *thoff)
+-{
+-	struct iphdr *iph;
+-
+-	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
+-		return NULL;
+-
+-	iph = (struct iphdr *)(skb->data + nhoff);
+-	if (iph->version != 4 ||
+-	    iph->ihl < sizeof(struct iphdr) / sizeof(u32))
+-		return NULL;
+-
+-	*thoff = nhoff + iph->ihl * sizeof(u32);
+-	return iph;
+-}
+ /* Defined in net/core/dev.c, enabled while any network namespace
+  * has net.core.virtio_net_hdr_csum_check set to 0.
+  */
+@@ -153,7 +127,7 @@ virtio_net_l4_start(struct sk_buff *skb, unsigned int nhoff, __be16 proto,
+ 		    unsigned int *thoff, int *ip_proto)
+ {
+ 	if (proto == htons(ETH_P_IP)) {
+-		const struct iphdr *iph = virtio_net_ip4_parse(skb, nhoff, thoff);
++		const struct iphdr *iph = ip4_parse(skb, nhoff, thoff);
+ 
+ 		if (!iph || ip_is_fragment(iph))
+ 			return false;
+diff --git a/net/bridge/br_netfilter_hooks.c b/net/bridge/br_netfilter_hooks.c
+index 0a394e5f4391..e89da0e41542 100644
+--- a/net/bridge/br_netfilter_hooks.c
++++ b/net/bridge/br_netfilter_hooks.c
+@@ -206,18 +206,13 @@ static inline void nf_bridge_pull_encap_header_rcsum(struct sk_buff *skb)
+ static int br_validate_ipv4(struct net *net, struct sk_buff *skb)
+ {
+ 	const struct iphdr *iph;
+-	u32 len;
++	u32 len, thoff;
+ 
+-	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
++	iph = ip4_parse(skb, 0, &thoff);
++	if (!iph)
+ 		goto inhdr_error;
+ 
+-	iph = ip_hdr(skb);
+-
+-	/* Basic sanity checks */
+-	if (iph->ihl < 5 || iph->version != 4)
+-		goto inhdr_error;
+-
+-	if (!pskb_may_pull(skb, iph->ihl*4))
++	if (!pskb_may_pull(skb, thoff))
+ 		goto inhdr_error;
+ 
+ 	iph = ip_hdr(skb);
+@@ -228,7 +223,7 @@ static int br_validate_ipv4(struct net *net, struct sk_buff *skb)
+ 	if (skb->len < len) {
+ 		__IP_INC_STATS(net, IPSTATS_MIB_INTRUNCATEDPKTS);
+ 		goto drop;
+-	} else if (len < (iph->ihl*4))
++	} else if (len < thoff)
+ 		goto inhdr_error;
+ 
+ 	if (pskb_trim_rcsum(skb, len)) {
+diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
+index 9860178752b8..5adf01763e85 100644
+--- a/net/ipv4/ip_input.c
++++ b/net/ipv4/ip_input.c
+@@ -500,7 +500,7 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ {
+ 	const struct iphdr *iph;
+ 	int drop_reason;
+-	u32 len;
++	u32 len, thoff;
+ 
+ 	/* When the interface is in promisc. mode, drop all the crap
+ 	 * that it receives, do not try to analyse it.
+@@ -520,10 +520,6 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ 	}
+ 
+ 	drop_reason = SKB_DROP_REASON_NOT_SPECIFIED;
+-	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
+-		goto inhdr_error;
+-
+-	iph = ip_hdr(skb);
+ 
+ 	/*
+ 	 *	RFC1122: 3.2.1.2 MUST silently discard any IP frame that fails the checksum.
+@@ -536,7 +532,8 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ 	 *	4.	Doesn't have a bogus length
+ 	 */
+ 
+-	if (iph->ihl < 5 || iph->version != 4)
++	iph = ip4_parse(skb, 0, &thoff);
++	if (!iph)
+ 		goto inhdr_error;
+ 
+ 	BUILD_BUG_ON(IPSTATS_MIB_ECT1PKTS != IPSTATS_MIB_NOECTPKTS + INET_ECN_ECT_1);
+@@ -546,7 +543,7 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ 		       IPSTATS_MIB_NOECTPKTS + (iph->tos & INET_ECN_MASK),
+ 		       max_t(unsigned short, 1, skb_shinfo(skb)->gso_segs));
+ 
+-	if (!pskb_may_pull(skb, iph->ihl*4))
++	if (!pskb_may_pull(skb, thoff))
+ 		goto inhdr_error;
+ 
+ 	iph = ip_hdr(skb);
+@@ -559,7 +556,7 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *skb, struct net *net)
+ 		drop_reason = SKB_DROP_REASON_PKT_TOO_SMALL;
+ 		__IP_INC_STATS(net, IPSTATS_MIB_INTRUNCATEDPKTS);
+ 		goto drop;
+-	} else if (len < (iph->ihl*4))
++	} else if (len < thoff)
+ 		goto inhdr_error;
+ 
+ 	/* Our transport medium may have padded the buffer out. Now we know it
+diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/nf_reject_ipv4.c
+index 59ec465a9df9..42d639854ddf 100644
+--- a/net/ipv4/netfilter/nf_reject_ipv4.c
++++ b/net/ipv4/netfilter/nf_reject_ipv4.c
+@@ -25,22 +25,19 @@ nf_reject_ip_tcphdr_get(struct sk_buff *oldskb,
+ static int nf_reject_iphdr_validate(struct sk_buff *skb)
+ {
+ 	struct iphdr *iph;
+-	u32 len;
++	u32 len, thoff;
+ 
+-	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
+-		return 0;
+-
+-	iph = ip_hdr(skb);
+-	if (iph->ihl < 5 || iph->version != 4)
++	iph = ip4_parse(skb, 0, &thoff);
++	if (!iph)
+ 		return 0;
+ 
+ 	len = ntohs(iph->tot_len);
+ 	if (skb->len < len)
+ 		return 0;
+-	else if (len < (iph->ihl*4))
++	else if (len < thoff)
+ 		return 0;
+ 
+-	if (!pskb_may_pull(skb, iph->ihl*4))
++	if (!pskb_may_pull(skb, thoff))
+ 		return 0;
+ 
+ 	return 1;
 -- 
-2.53.0
+MST
 
