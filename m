@@ -1,55 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792439530;
-	b=Y4U3HUh0UytEaPXFGu1VK4p5zBImpD5T6/qjGBKW+xkOjgAKRpvzB1iaufOi6RdnvsT3
-	 ENgoGai0k52+JNe6Tog4ode5QxV1KptVWR+s8qpcjTaUiQVSKq1WNqUvAWGs3lLCsbGRX
-	 pxjEfJIwwgEBfOUOcC0WB6PSClcRzEIqnLQKJceI+RarEyXufRIBakWjmZ3cixz/EjdWx
-	 +J3qVC9hOF7KyPxJNlNo0ERkJfNLTKQ+16HtN65oaKbkExNgPxl5qY+5LAbLE2J1eGJR2
-	 8w5/FVGwb4Kxg/C3fHrT7R5G4/ysUB3MynKtAPFpR4oxlQcgET7RCe9HXUmyeo8ClUg==
+	t=1792439580;
+	b=wgJ0tLup4h0X5hRCcFLYIA+N0hJZ+T9+RI8kKEuBmMF9I9D4O3aCLNUR/qZmaaK1mC7u
+	 e31kqEb8e4Iu+z74jS2eVKvpoEgiu87esAfoKVr6eNlbqqjxVJcwIj4eWb7SpdFUCBrrj
+	 cnRy9fvwiqvMm3OOkV9gn1Es2Bx88uhQlcs6p7epP0mEBQ3QvhDcuipTDulv8zKIqHW0P
+	 oHDevc23KJvqgZhl3mqaH2KmUObELx5kdVpCF3Hm22E/QrKm7i1Ftj1yzH8aL5EpLdOCQ
+	 N+3+icEkK2rfX80zhuj3mh8QClfS1bXyJmdYeBUyTd48GW9Gnz43VpKG5Dbpnbbew6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792439530;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fw09UutyHUduFpWZBPLYb8dsT3BQWfkURXiLOP0HpZI=;
-	b=XICq0zyEWxCN6DSD9J+5WXDHo2vlY+p1VFV95f5e3OPMEvN0uFRNNwUkSPdk97SsrQpW
-	 +ZPTkuHlYx2n1INtublP1AST9mrkQv2itFF2fuiP90n1ymM0+Wyg+NPt53oggOgdYRCnh
-	 cz07xBdRaBhBsV9uVpjF6VCp2CbiRyH13CGLO/XUIWJX6Gf3yJXA80gMjZ8p6JC+Z3TR1
-	 1mxlJJgC7ZCLc8RpIcX+J5Va9OI8ML3D1L53mzPSZ5oaWkMx/45yJoJxUFiZGwWSsRo5D
-	 yAx80hRETw3UUVemOWJN7gq6s4pyYbk9Di/A5DCR74XpbzAe+7v8kXHPtShu8o6bxOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792439580;
+	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=/B8Sf2t/5DBguvLLrjlEO7Kkln0Oyn/55MT9a1pjZ1o=;
+	b=KdOqvTeGH8L9TI3ybkVU17ky7T3JY5rDUkUDmlMCX70LYfSaGdiEtrnaUBx0jkHFW0i8
+	 +eKVAQPPRGOwngyJtsG9v8YjDpx14Y7LjISGyT82Y9mYh6rc2Xe7RxDQsQhg2ccE7teNE
+	 O3XQtO/gS/FxXIgj7p36wMYQW8Mk5V2d3hJ4ew7pQB2g/qiPxh76PDKpTGyAT0RRsrWNK
+	 kLfI1uTvkmN3PsLsKBX+UHcqExFgU2rfd2HXtq9CXvTWxpLe26ecd9/nEye7aDky3XwiD
+	 STjNdxxoTGK0npf4Rgz7oLH5YpHSXXqx6JHuw95BKYDN9hCsTetML1ktZgqKfAShl3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UseryT/I";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuNF1GbO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61623606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:52:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539B9606A319;
+	Mon, 19 Oct 2026 19:53:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UseryT/I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E381F000CB
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:52:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuNF1GbO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592F91F000C4;
+	Mon, 19 Oct 2026 19:52:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792439530;
-	bh=fw09UutyHUduFpWZBPLYb8dsT3BQWfkURXiLOP0HpZI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UseryT/Igs3wY9yrdIUhYM97JXPicnHfuRjZzE4dofPbPoBDZ4dL77JuAwIj5RveP
-	 4IwfuEPY+jF2pqU6XhlR7NZIuPblwc6cH1DOBmdfKRTtSrZyV0CNAx6JfHACyhNFx4
-	 G9ohCEnRp8jtw1Ggt2hU+38ZTKsi+zYDpaSB1bH0JCvWPt2YsTo1Il3JNMiSDDTRje
-	 OU1Ppn73AdMUnmi5Q9e4A8KR/6t/HB0T3/+Xwu8S4OH/LWG+5fd0DTGi3LUUy/IxBa
-	 Sqc4LEuvCKGUyFuBsCE6c14mAlPb2B5FqEvQhnx2bOaH+E+MWi5qNr4KjD34KkrBJ5
-	 l944mX+f0rfXQ==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso3462023a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:52:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx/BWheYPxRzyhMbUGUw1t0GfqkSfXX3BPUCe/RSHAxMuGG9QH6NTTePuEibkCc4u4oH/9Xj2AsbTqsJgM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImsikxznAeiKx/anaqBc/9n70Ahwz2cKeFBysMYC1LRbz/Zqwd
-	6hxd7/hgBbe+/CUMDDyF35yqBLuPxDsiAfDtLbJsoH7Mj03jJjdPLsdEOsR81nyl3xAAoMpKPK8
-	MFR6TPc5eGJjG3OSuaaHNY3UCzHMuPQA=
-X-Received: by 2002:a17:907:e114:b0:c42:6350:dfc4 with SMTP id
- a640c23a62f3a-c426350e5e0mr292574466b.24.1792439528817; Mon, 19 Oct 2026
- 12:52:08 -0700 (PDT)
+	s=k20260515; t=1792439579;
+	bh=/B8Sf2t/5DBguvLLrjlEO7Kkln0Oyn/55MT9a1pjZ1o=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XuNF1GbOzd2BBEAJU6p1RypmvBu3/DMrL0b3wWdC+D++Poq0HXIRFWesrR1Oo8lL/
+	 mhtWvhuAYtWIocMai5rqtHzVncAteP+BI3w+hOW2hU6IBI6rvJPA15oR+4bdizjuTn
+	 dsf8kxRwLKdwlPv9l424Xna5CgBVMDCcZ1Jcc/qlP4AB/uOupNzjZvqcz7BE6QGBD7
+	 c7ltj0F3siFa6PMy6uq9tVAO//JSmGoFMld/h5nkyGLtrIXdadBY6yo0uZO+Vp3XbW
+	 h5+bZIQfi4A3lXHhXdvAJPgvsYBe0a+zHp1pPcLAaAFO9pB5lh38SAOIcLgJAfdjpA
+	 FaZxRbZ3iFzxw==
+Message-ID: <42964fa071bd8dcafd418c89be6d66856def4dc5.camel@kernel.org>
+Subject: Re: [linus:master] [sysctl]  8d75c338f0:
+ BUG:KASAN:slab-use-after-free_in_touch_wq_lockdep_map
+From: Allison Henderson <achender@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>, Joel Granados <joel.granados@kernel.org>
+Cc: kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev, 
+ lkp@intel.com, linux-kernel@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org,  linux-s390@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org,  netdev@vger.kernel.org,
+ wireguard@lists.zx2c4.com, rds-devel@oss.oracle.com
+Date: Mon, 19 Oct 2026 12:52:58 -0700
+In-Reply-To: <atY42k00k0Waj6o4@redhat.com>
+References: <202610190310.9737b2e3-lkp@intel.com>
+	 <atYB0bm9eEXp8A2g@redhat.com> <atYW0K3t57puHeLW@hobbes>
+	 <atYuE1xnVYe0BDG4@redhat.com> <atY42k00k0Waj6o4@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,131 +67,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-27-yosry@kernel.org>
- <CALMp9eS8KDozNGT9J_uN69W32QEvTbg2JrtRqN0ESi00b_uq=A@mail.gmail.com>
- <atK3Y5XxL-zmAvY-@google.com> <CALMp9eRcWZ8fh8_m35RDw-VNrqz4kapVodGoLr=B_iAZaPOA=Q@mail.gmail.com>
-In-Reply-To: <CALMp9eRcWZ8fh8_m35RDw-VNrqz4kapVodGoLr=B_iAZaPOA=Q@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 19 Oct 2026 12:51:56 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMdu+YyPb3RhdTDzYteRAE9dBqxTQZKSajm4eYZCp9Y9Q@mail.gmail.com>
-X-Gm-Features: AclHuK-WXUmbGE969wYGI9ZZxINhiGhrG6z65F41z9sxkj_UYKXRaPnp2UFqYDg
-Message-ID: <CAO9r8zMdu+YyPb3RhdTDzYteRAE9dBqxTQZKSajm4eYZCp9Y9Q@mail.gmail.com>
-Subject: Re: [PATCH v3 26/27] KVM: nSVM: Use different ASIDs for L1 and L2
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Woodhouse <dwmw@amazon.co.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 19, 2026 at 11:50=E2=80=AFAM Jim Mattson <jmattson@google.com> =
-wrote:
->
-> On Fri, Oct 16, 2026 at 5:25=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> >
-> > On Fri, Oct 16, 2026 at 02:17:30PM -0700, Jim Mattson wrote:
-> > > On Mon, Oct 12, 2026 at 4:37=E2=80=AFPM Yosry Ahmed <yosry@kernel.org=
-> wrote:
-> > > >
-> [ ... ]
-> > > Per the APM, volume 2, Section 15.16.1, "TLB Flush":
-> > >
-> > > > All TLB entries belonging to all ASIDs are flushed by SMI, RSM, MTR=
-R modifications, IORR modifications, and access to other system MSRs that a=
-ffect address translation.
-> > >
-> > > With two separate ASIDs and the unconditional flush removed, do we
-> > > flush both ASIDs in the above instances?
-> >
-> > SMI and RSM, yeah I think so. kvm_smm_changed() ->
-> > kvm_mmu_reset_context() deletes all roots, and kvm_mmu_load() will flus=
-h
-> > the current ASID when a new root is loaded.
->
-> Okay. Is this mechanism obvious to those who are versed in the ways of
-> the KVM MMU?
+On Mon, 2026-10-19 at 17:35 +0200, Oleg Nesterov wrote:
+> On 10/19, Oleg Nesterov wrote:
 
-I don't consider myself versed in the ways of the KVM MMU, it took me
-a few minutes to track this done, so I think it's okay.
+Hi Oleg, Joel,
 
->
-> > MTRR writes seem to do nothing beyond store the value, probably since
-> > 0a7b73559b39 ("KVM: x86: Remove VMX support for virtualizing guest MTRR
-> > memtypes"). It is documented as an errata but I maybe KVM should still
-> > flush the TLB? If that's a real bug, it's separate from this series tho=
-.
-> > We just need to make sure if we fix it, we should flush both ASIDs. We
-> > can probably just reset the MMU context here too?
->
-> Probably. Admittedly, it's orthogonal to this series.
+Thanks for running this down.  Agreed we shouldn't just fail to init becaus=
+e
+sysctl is off.  Some comments below:
 
-Agreed.
 
->
-> > I can't find anything related to IORR in KVM.
->
-> Me neither. :)
->
-> > For MSRs, I think the relevant ones are EFER and PAT:
-> >
-> > - For EFER, a change to KVM_MMU_EFER_ROLE_BITS resets the MMU similar t=
-o
-> >   SMI/RSM, so covers both ASIDs. Clearing EFER.SVME frees L2's ASID and
-> >   re-allocating an ASID will flush it by clearing last_asid.
->
-> Okay.
->
-> > - For PAT, I am not sure if that falls under "system MSRs that affect
-> >   address translation", but KVM isn't flushing for L1 today on PAT
-> >   writes anyway, so I hope not?
->
-> Maybe not. Intel, at least, puts the burden of flushing TLBs on
-> software. In volume 3 of the SDM, section 14.12.4, "Programming the
-> PAT":
->
-> > The operating system (OS) is responsible for ensuring that changes to a=
- PAT entry occur in a manner that maintains the consistency of the processo=
-r caches and translation lookaside buffers (TLB). It requires the OS to inv=
-alidate all affected TLB entries (including global entries) and all entries=
- in all paging-tructure caches.
+> >=20
+> > But. rds_init() can also fail even if CONFIG_SYSCTL=3Dy, after
+> > rds_sysctl_init(), so to me this looks like a bug in net/rds/.
+> >=20
+Yes that's a separate bug, so I'll send a separate fix for that.
 
-Nice!
+> >=20
+> > In any case, I guess net/rds/ init paths should not fail if
+> > CONFIG_SYSCTL=3Dn ?
+>=20
+> So I think that something like the uncompiled/untested patch below makes
+> sense anyway even if doesn't fix all the potential problems with rds_wq.
+>=20
+> What do you think?
+>=20
+> Oleg.
+> ---
+>=20
+> diff --git a/net/rds/ib_sysctl.c b/net/rds/ib_sysctl.c
+> index 2af678e71e3c..bccdb5c4df1d 100644
+> --- a/net/rds/ib_sysctl.c
+> +++ b/net/rds/ib_sysctl.c
+> @@ -36,19 +36,10 @@
+> =20
+>  #include "ib.h"
+> =20
+> -static struct ctl_table_header *rds_ib_sysctl_hdr;
+> -
+>  unsigned long rds_ib_sysctl_max_send_wr =3D RDS_IB_DEFAULT_SEND_WR;
+>  unsigned long rds_ib_sysctl_max_recv_wr =3D RDS_IB_DEFAULT_RECV_WR;
+>  unsigned long rds_ib_sysctl_max_recv_allocation =3D (128 * 1024 * 1024) =
+/ RDS_FRAG_SIZE;
+> -static unsigned long rds_ib_sysctl_max_wr_min =3D 1;
+> -/* hardware will fail CQ creation long before this */
+> -static unsigned long rds_ib_sysctl_max_wr_max =3D (u32)~0;
+> -
+>  unsigned long rds_ib_sysctl_max_unsig_wrs =3D 16;
+> -static unsigned long rds_ib_sysctl_max_unsig_wr_min =3D 1;
+> -static unsigned long rds_ib_sysctl_max_unsig_wr_max =3D 64;
+> -
+>  /*
+>   * This sysctl does nothing.
+>   *
+> @@ -61,6 +52,14 @@ static unsigned long rds_ib_sysctl_max_unsig_wr_max =
+=3D 64;
+>   */
+>  unsigned int rds_ib_sysctl_flow_control =3D 0;
+> =20
+> +#ifdef CONFIG_SYSCTL
+> +static unsigned long rds_ib_sysctl_max_wr_min =3D 1;
+> +/* hardware will fail CQ creation long before this */
+> +static unsigned long rds_ib_sysctl_max_wr_max =3D (u32)~0;
+> +
+> +static unsigned long rds_ib_sysctl_max_unsig_wr_min =3D 1;
+> +static unsigned long rds_ib_sysctl_max_unsig_wr_max =3D 64;
+> +
+>  static struct ctl_table rds_ib_sysctl_table[] =3D {
+>  	{
+>  		.procname       =3D "max_send_wr",
+> @@ -105,6 +104,8 @@ static struct ctl_table rds_ib_sysctl_table[] =3D {
+>  	},
+>  };
+> =20
+> +static struct ctl_table_header *rds_ib_sysctl_hdr;
+> +
+>  void rds_ib_sysctl_exit(void)
+>  {
+>  	if (rds_ib_sysctl_hdr)
+> @@ -118,3 +119,15 @@ int rds_ib_sysctl_init(void)
+>  		return -ENOMEM;
+>  	return 0;
+>  }
 
->
-> > >
-> > > Moreover, does this change the semantics of PV TLB flush? In
-> > > record_steal_time(), we have:
-> > >
-> > > if (st_preempted & KVM_VCPU_FLUSH_TLB)
-> > >         kvm_vcpu_flush_tlb_guest(vcpu);
-> > >
-> > > IIUC, an idle vCPU that wakes into L2 will flush only L2's ASID. In
-> > > the past, with a shared ASID, L1's ASID was always flushed on emulate=
-d
-> > > VM-exit anyway. Now, L1's ASID will be unaffected. Though I can't fin=
-d
-> > > any real documentation on PV TLB flush, it *seems* like the remote
-> > > vCPU would want L1's ASID to be flushed. OTOH, this change makes nSVM
-> > > behave just like nVMX.
-> >
-> > I am honestly not sure. It seems like we should be flushing the context
-> > that issued the PV flush. But I also suppose (aside from Hyper-V) all L=
-2
-> > PV calls should go to L1, not L0, so should we always flush L1's contex=
-t
-> > here?
-> >
-> > It would be a pre-existing bug, but this series would be adding it to
-> > SVM as well. Adding David here since his name appears all over the git
-> > log for that code, so hopefully he'll tell us for sure.
->
-> It's just happenstance that the PV TLB flush mechanism works with nSVM
-> today, but I don't think we should feel free to break it.
 
-Nested virtualization on Intel is probably more popular than AMD at
-this point, so my gut feeling is that we shouldn't block on fixing
-this. But I agree we shouldn't feel free to break it either. Will wait
-for Sean or David to chime in before deciding the way forward, but if
-there's a fix it would be separate from this series imo anyway.
+The real rds_sysctl_init() also does the runtime setup of
+rds_sysctl_reconnect_min_jiffies (msecs_to_jiffies(1)).  Without
+it, the reconnect back off is lost.
+
+Also, if register_net_sysctl_sz() returns NULL in rds_tcp_init_net(),
+it fails as an -ENOMEM.  So RDS/TCP would still fail to come up with
+CONFIG_SYSCTL=3Dn.  A simpler fix might be to just handle the NULL at the
+three call sites, e.g.:
+
+        rds_sysctl_reg_table =3D
+                register_net_sysctl(&init_net, "net/rds", rds_sysctl_rds_ta=
+ble);
+        if (!rds_sysctl_reg_table && IS_ENABLED(CONFIG_SYSCTL))
+                return -ENOMEM;
+
+And same for rds_ib_sysctl_init() and rds_tcp_init_net().  The exit
+paths are ok, since unregister_net_sysctl_table() is already a
+no-op stub when sysctl is off.
+
+Let me know if you want to respin or if you'd rather I send it.
+Either way is fine with me.
+
+Thanks
+Allison
+
+> +
+> +#else
+> +
+> +void rds_ib_sysctl_exit(void)
+> +{
+> +}
+> +
+> +int rds_ib_sysctl_init(void)
+> +{
+> +	return 0;
+> +}
+> +#endif
+> diff --git a/net/rds/sysctl.c b/net/rds/sysctl.c
+> index 025f518a4349..a0673a41633a 100644
+> --- a/net/rds/sysctl.c
+> +++ b/net/rds/sysctl.c
+> @@ -36,11 +36,6 @@
+> =20
+>  #include "rds.h"
+> =20
+> -static struct ctl_table_header *rds_sysctl_reg_table;
+> -
+> -static unsigned long rds_sysctl_reconnect_min =3D 1;
+> -static unsigned long rds_sysctl_reconnect_max =3D ~0UL;
+> -
+>  unsigned long rds_sysctl_reconnect_min_jiffies;
+>  unsigned long rds_sysctl_reconnect_max_jiffies =3D HZ;
+> =20
+> @@ -49,6 +44,10 @@ unsigned int  rds_sysctl_max_unacked_bytes =3D (16 << =
+20);
+> =20
+>  unsigned int rds_sysctl_ping_enable =3D 1;
+> =20
+> +#ifdef CONFIG_SYSCTL
+> +static unsigned long rds_sysctl_reconnect_min =3D 1;
+> +static unsigned long rds_sysctl_reconnect_max =3D ~0UL;
+> +
+>  static struct ctl_table rds_sysctl_rds_table[] =3D {
+>  	{
+>  		.procname       =3D "reconnect_min_delay_ms",
+> @@ -91,6 +90,8 @@ static struct ctl_table rds_sysctl_rds_table[] =3D {
+>  	},
+>  };
+> =20
+> +static struct ctl_table_header *rds_sysctl_reg_table;
+> +
+>  void rds_sysctl_exit(void)
+>  {
+>  	unregister_net_sysctl_table(rds_sysctl_reg_table);
+> @@ -107,3 +108,15 @@ int rds_sysctl_init(void)
+>  		return -ENOMEM;
+>  	return 0;
+>  }
+> +
+> +#else
+> +
+> +void rds_sysctl_exit(void)
+> +{
+> +}
+> +
+> +int rds_sysctl_init(void)
+> +{
+> +	return 0;
+> +}
+> +#endif
+>=20
+
