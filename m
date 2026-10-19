@@ -1,82 +1,84 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230864B44DB;
-	Mon, 19 Oct 2026 09:33:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317C4367B9B;
+	Mon, 19 Oct 2026 09:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792402427; cv=none; b=CJM1+HdIa6mRbNQuZIww7cfMR0S7U5xHG1TKFmNSPyohBaUB2wOf6FTMuhj/bNTTu3+5ictJvcFsJlBRFoR+DYKlZ3m/8HRg6zG+ckdpiQ+BtJeIoNdezmYaGXMy+KxHq2Qer+uK0HNWvK+QAUJODDBHfoiS/hA/JbVE7eudei4=
+	t=1792402448; cv=none; b=GkdsxQZsUcrxtiCctXd9cDneOHIkSJhVSysBe8PdcYuJ35fwSFDt/Ffi4M8R6eCvV89zPF3mauzvoy2Vdf3SmsT2tsOBUoU7U8bvYTEGqf3KFagbDXP9zL4xVfnkQro6s+jHc0i/Co1bpGZyLrbX/nhsR8/AA+prLTCSVHXuZ4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792402427; c=relaxed/simple;
-	bh=ZsDB7UVL/LmloWNnVluFsvsrHlfyNh8c7eT+F4/l8Ng=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EeZT69e4ilvCNcp+noXsTMSup3tlWrIvZ8Qma8FJeUJGDcjK/Cr9A0t+AgkzXBvstKKeMSwoaNu8Allpe7y10G6YPpvpOrMxjy6La12xjghjgQkjyMBes4Qu1K+FVBYpu8pqxy6BMAWJh00tcj/X4AchBB5gl4T3GehHt+v90xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LI7XT3pK; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792402448; c=relaxed/simple;
+	bh=qDkD2xbz5JG6OM6D2+bwCztqcbCXRkklUC3KNYDjQvQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X7g4QmRjlPwyH2JDqw1DdaXb86iTmwixXdClSG/5ECZBDHdQEjpYFwCNPPfo5U0x2JFpy43w2Z7SuFUI1Cq1PfL3NK2IrwwlT0xhXt0tMhzLoqkcwJn2+FOGsRdS76HL9C1u5pQb/qFHyahq3HIJnPp3IH/mfoP8v7t0QSNZbCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TKCn15rW; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LI7XT3pK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=VB
-	omzRk9uUTgk753tHBnspcaDlOQMppIF8orQT9r2mI=; b=LI7XT3pKwH1BQw30Gm
-	3Mpv/Wk+Ex+kdYYifhKsQM2TjcXW74AaQfqYDZ2GXm0fCyRT9Y3kh02uYq2TNTiC
-	4TsAWS9pihgdCBa4/MjYOJGi4FksYb+W6fVIAXrGbOyy3KbIN7gcRRpD6atTW/PY
-	fOvFWpU9ZxE/u0cZEAnxzstEI=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3H73U49VqbIAVBQ--.320S2;
-	Mon, 19 Oct 2026 17:33:11 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	MeiChia Chiu <meichia.chiu@mediatek.com>,
-	Howard Hsu <howard-yh.hsu@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: Jiale Yao <jiale.yao@example.com>
-Subject: [PATCH 0/2] wifi: mt76: mt7996: clamp beamforming NSS
-Date: Mon, 19 Oct 2026 17:33:05 +0800
-Message-Id: <20261019093307.1869749-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TKCn15rW"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 75EA61A1271;
+	Mon, 19 Oct 2026 09:34:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 46D4260582;
+	Mon, 19 Oct 2026 09:34:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D721F10328429;
+	Mon, 19 Oct 2026 11:33:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792402444; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=pRrg5/fp6p+lUqJFcCXXTnkupFlZ/vWdb0belyXUCZ0=;
+	b=TKCn15rWlW9xEHDt9zPqzSEYDg2g6QhDhkfrbPj+kjDXtdvwgY01ez5n87wceCon8i6oOp
+	84b+jwoIxCmvWZTptaeHX/tcROniyQ8hmAMVfdvGgVlFLUuGF8zpXWqHlD4e/YhyknI/vr
+	wdqaNdwFa2a5dF395oZQaQdEqAW4KuNukVZSWBBiQRadkZcGO3v7TMgtfQqYmguxDBwhSv
+	nY6HLO8yYRlYFaYb4H+23l6z2OlvmZqCJqmJ1oPKx3ey1ttjsNPc7eRac2sYOuYKJQH3kf
+	W1nzhk8/paZ7v0IWybomagsTYqYp7aEb7W+0N9mNo9GPJw9ZV1r0w2IPgPENXw==
+Message-ID: <c4149750-e337-48fc-a9c1-71b168f144c7@bootlin.com>
+Date: Mon, 19 Oct 2026 11:33:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net 03/10] net: pse-pd: do not keep a failed IRQ in
+ pcdev->irq
+To: Carlo Szelinsky <github@szelinsky.de>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Piotr Kubik <piotr.kubik@adtran.com>,
+ Sai Krishna <saikrishnag@marvell.com>, Simon Horman <horms@kernel.org>,
+ Kyle Swenson <kyle.swenson@est.tech>, netdev-bot+sashiko@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261018082314.48950-1-github@szelinsky.de>
+ <20261018082314.48950-4-github@szelinsky.de>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261018082314.48950-4-github@szelinsky.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H73U49VqbIAVBQ--.320S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKFyrurWrJr1UZFyxJw4UCFg_yoW3trg_C3
-	4vyr98JF48tFWrKF17Kwn7XryI9ay8Kr1DG34Yy398Xw1xJrs3WrZ7Jr17XwsrWay8XF13
-	Jrn3XFyxA34SvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjLL07UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xc+eGrV49dfWAAA3y
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Jiale Yao <jiale.yao@example.com>
 
-The mt7996 beamforming configuration converts a peer maximum NSS to a
-zero-based column count.  A peer may report no receive streams for a
-VHT, HE, or EHT MCS range.  Decrementing that zero value underflows and
-can send an invalid beamforming configuration to firmware.
 
-Patch 1 fixes the shared VHT and HE MCS-map conversion.  Patch 2 fixes
-the corresponding EHT conversions for 80, 160, and 320 MHz operation.
+On 10/18/26 10:23, Carlo Szelinsky wrote:
+> devm_pse_irq_helper() keeps the IRQ number in pcdev->irq even when the
+> IRQ request failed. The failed probe then runs
+> pse_controller_unregister(), which calls disable_irq() on that line. If
+> another device owns it, that device stops getting interrupts.
+> 
+> Clear pcdev->irq when the request fails. It is now set before the
+> request, because pse_isr() can run as soon as the IRQ is enabled and
+> pse_pw_d_is_sw_pw_control() reads it.
 
-The series was checked with scripts/checkpatch.pl, and each patch was
-checked for application against the common base.
+Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
 
-Jiale Yao (2):
-  wifi: mt76: mt7996: clamp VHT/HE beamforming NSS
-  wifi: mt76: mt7996: clamp EHT beamforming NSS
-
- drivers/net/wireless/mediatek/mt76/mt7996/mcu.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
+Thank you!
 -- 
-2.34.1
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
