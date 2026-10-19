@@ -1,79 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D332E4E9C22;
-	Mon, 19 Oct 2026 12:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483EF4EBAF0
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413616; cv=none; b=rHNcA6vvE74BmwFdA39s3KKXEAD61y8Pyc8YJeK4mXewV/L058xvRT6lU6vEVH7KcagDHotZq7Lfkjtw6UWijKs7Sls6vYUJy5GsN65dcDdOUD9aRu57+MTmGpedEWvKu8/f/Or7BA8MHWCCtxnYOaPB8wjq+zm9SEqXh9i19DM=
+	t=1792413645; cv=none; b=B6q0gu+4c8N7k7sJhrKo62EQxmc9I4nKi/SzUkraRTQfQoGyiqh/nXP3yox3/wSZJtc2t8oRCAeIsYW2Z9+Pa/a55pMPwZS49TT1KNek/kl9dVc0ccH9M7xlbE1ryCWcGAnzdP/LfJpwrS1dTRvQOn4WxFd1cj2y898WXI15mOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413616; c=relaxed/simple;
-	bh=c2jJL8g1o78ZHcWn2hWaMeykmocZ1Jrl/60Jv1Ak2kc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ftmi7vwt1s7+DKRbqKfTDR9lE/FawDNsdhxGBAiBOz4HPsV5g4N7PdzG+ygTi1eNgtqSvu4w/Ca7NDbj/4BEzIqrigr3t6cpss7NPTs2qVU14NKzDlWzGqktRvIpO63CCSEVpq03hz5D0X/Lq9G8yKK1kvi6JLC20qw8beioqag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FceDrw6E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792413645; c=relaxed/simple;
+	bh=+U3UOitV9swawLPUgHDjqXjMi6tF/ayfw+8rddSHT3s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C59QFQUJtgsVG23od8u4bejxJS/wYA50ZqdpS5qkKiROC5wAw7qznImHd9afMcifUMVgGD4AfTcMMD+UCTz6fKK1oZ7OfSrEuWK5aGeS24Wm9t7FWP0MRfEttSrs9hbgStt5NAggOtpSH/pzBaXQzF0XgTJpWXJb2rI6HYPhoGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=srfRRoDt; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FceDrw6E"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5CCEA1F000C4;
-	Mon, 19 Oct 2026 12:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792413605;
-	bh=Lt3t+hZCkJKDCkgZ9RLSNhgjFT8G4p+7rBrqWmCeF2U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FceDrw6EYmp9Eq/4QZT7kFwc7TNvkJf1WpONqCkjTJr4Dy30SP0p/h7SJDNiQWGu6
-	 JLqqXK/UWY45KsWa70U6jZ6liJUYTWIL0dVD8ede5QlpUUHWLFPNQ9tWGpAQJoSvYM
-	 sukVJUiK40DNYCh29b08aiqM3bZZz8a2KTMmNoJhr7I0YU+wgWl9K3zIYvCKdMS4Pf
-	 n9Bodc4j+4WJtyPpGf/UDHxEdRX5L0JPNVx8TsQlG10Fiv66AZuqXPsG4PRvkNMZ89
-	 AA09rqznCRJo+XLcuFgR8NX3+8mtApm68Wlwh6/dVrWeadbCqLPWMhrxgNQA4GD68b
-	 dCgoCb+xaowDw==
-Date: Mon, 19 Oct 2026 15:40:02 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Dionna Glaze <drdeeglaze@gmail.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Jiri Pirko <jiri@resnulli.us>,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
-	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
-	sameo@meta.com, James.Bottomley@hansenpartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-Message-ID: <atYPohN7ztVVGko-@kernel.org>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261016234354.GA664420@nvidia.com>
- <CANwfdvXFLJpC4Bc1PwRoUUP20fu2K8b+FHZ1JLLFXAikC-cBaw@mail.gmail.com>
- <20261017203407.GM13920@nvidia.com>
- <atPgqROZZxnihYfC@kernel.org>
- <20261017231007.GP13920@nvidia.com>
- <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="srfRRoDt"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a070b3f44aso213264b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:40:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792413630; x=1793018430; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AsWYDDajpUNibo8xaupeGhhH1lTDWeFw4XFOrh3OmFs=;
+        b=srfRRoDtD3C17DiyYAeDJYoH1fxQIIym1xyIDFwmvc+ORBH/Pop0HA0ce8C/QtvciM
+         e/bx+IQatr0LtsgSeatIFICoXuwgpK4+19c84qPdN9HvMfDJjh7EfhJzG+aBFVRJ39CD
+         r4SVpMAtcd5/6uLhIoiHSE74r+OCYbAFD5ggKdGlK56mHyvGGCVzVpp+ZlyA46GH0UfX
+         MGgCJhgUIZZ/5MtQivVPAnF/3uljTkxdCz+rjrsuou5HjHn2FG51qVwRr8CV+KxXn15D
+         HQxBjCMBunAf8T2g3ZHo84aK+Dyhx5OUukxiPfKcCMP/7jQUgt70ZxFImsREPBVl2+Ib
+         uaKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792413630; x=1793018430;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AsWYDDajpUNibo8xaupeGhhH1lTDWeFw4XFOrh3OmFs=;
+        b=wWny033fk3Vo34BRDXY/cbEvPPXLVkcC8TTCfDMvWB+QDXHEjDWRxPmDy7VaNH51Cp
+         kYjPrK2lhwo5cnlPYCf8nY7YsWju0kfvp5omHLfN83uSDRKUqn2HQ7dT4CGdsVJ0WlPh
+         akLWQQha6YZnvgQkQF26e5L3DrZ5HhUouFp91Goima9o5ztNomtU15HBXsfQl27GsObh
+         SdG5em4ofLbAMC4FumpUl1D5dCEIJI1H9oK1tfQXYWKJlLKdzm6LqnXlx5mqqJujN+gm
+         DHAFsEpijxEsP5LsBCv7JWkHf0Qhh8xsfwGI01C9tB0Eh5Zb4aNImDHAFfsFpyPhk2Jb
+         mDig==
+X-Forwarded-Encrypted: i=1; AKwUvBzdis5HCKk5iSmbDapAaXpvaS3daetgsyyM1s6Gbk4ljaOHHun+4JKUy7WBMBP9dLRRM95NYTbh3kHMcSY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIbA1DH7hd5WIBFFcobXqlCnESdMMt+xkp46lviun99XLZ9+EJ
+	CwYbrOeAJXbjRz6tqkcAnc7PqNGOCHfQ7O3Esjf2Dof8D0lhwVQdVjhG
+X-Gm-Gg: AYBFou2PyNKLpeYR3vTM8rUUK+Zmr5KueX3+E2upuC7Yr9urqa6GG3KIxQCIO8QOL2S
+	MHiol0EQBhXFgmuTkwA4jrwnjUyBOxf08mDapatVB10RVBbUmQMlNy6Ho6VjFTl4Pg3FG51S9fw
+	KNj277nc32V2VODx951NwCjAs7jNxgJFHqiiUAVQ3/F7UsU3G2Zo+rzA7Y6IUFg1oo87So9JHJt
+	X1nQ6k4tUMAQVYPXZLZz/lhq2Gk3YrbybxbSbENVK9p738ov1kWwrpxKUOBZVvjztAVk2r9piSt
+	HfSajaMag0iiv89+sBNPXR/W59Y3p1ilPyre7JfHMbejOHtpyFWBsVqXV3cu3DWPJGZS23IM5q8
+	EUNzC/XKewh8yppuDdmMBOKVkr3erDFBQovqrxcGyJMYQjKLpHIVNADzwrjjNawMRFOHGN38I6U
+	F+AK9+jsvkaXLgVV4oHMm/FL29mNHOSWZq85SaHnvxmQT4u/+S6WsMFVFkCRBsD8WpimvLyUfon
+	ati0lgfSUVpCHQv2qqyn6LxN3VzdUXgcFKYxadkZEr3jHNGc+QAWR21oPjc7VMHKVmaJL9za+Hd
+	2nERe8+G6SVo
+X-Received: by 2002:a05:6a00:4385:b0:89e:779b:d03 with SMTP id d2e1a72fcca58-8a04ac28ab1mr5908872b3a.6.1792413630214;
+        Mon, 19 Oct 2026 05:40:30 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89fcceb71a5sm3443033b3a.54.2026.10.19.05.40.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 05:40:29 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	patches@opensource.cirrus.com,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH] ASoC: cs42l56: Remove the ADC Mute Switch control
+Date: Mon, 19 Oct 2026 21:40:22 +0900
+Message-ID: <20261019124022.3410793-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 04:53:28PM -0700, Dionna Glaze wrote:
-> > On Sat, Oct 17, 2026 at 11:55:05PM +0300, Jarkko Sakkinen wrote:
-> > > I wish I had a better picture what is going on.
-> 
-> Me too. I've spent my Sunday with Claude trying to build some
-> understanding of all this stuff, and put together a static site about
-> this series.
+The ADC Mute Switch control writes bits 2 and 3 of the Misc ADC Control
+register. These are the ADCA Invert and ADCB Invert bits, which have
+their own controls. The ADC mute bits are bits 0 and 1, and the DAI mute
+callback already sets them.
 
-So I got the information I needed from Jason. If there is something that
-is scoped well that it does not take too much time to digest, feel free
-to contact me again on this topic (or anyone involved).
+So the control has never muted the ADCs, and nobody can be relying on
+it. Remove it rather than point it at the mute bits, so the ADCs are
+muted in one place only.
 
-I.e. I can help if the problem is defined but figuring out what the
-problem is - that is out of my scope :-) Hope you understand this,
-and I'm saying this from polite/constructive point of view.
+Fixes: 272b5edd3b8f ("ASoC: Add support for CS42L56 CODEC")
+Suggested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/all/atXh3Br+fuH83S0q@opensource.cirrus.com/
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+ sound/soc/codecs/cs42l56.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Br, Jarkko
+diff --git a/sound/soc/codecs/cs42l56.c b/sound/soc/codecs/cs42l56.c
+index 54d23857b0ad..ecce51985a11 100644
+--- a/sound/soc/codecs/cs42l56.c
++++ b/sound/soc/codecs/cs42l56.c
+@@ -419,7 +419,6 @@ static const struct snd_kcontrol_new cs42l56_snd_controls[] = {
+ 			      CS42L56_PGAB_MUX_VOLUME, 0, 0x34, 0x24, pga_tlv),
+ 	SOC_DOUBLE_R_TLV("ADC Volume", CS42L56_ADCA_ATTENUATOR,
+ 			      CS42L56_ADCB_ATTENUATOR, 0, 0x00, 1, adc_tlv),
+-	SOC_DOUBLE("ADC Mute Switch", CS42L56_MISC_ADC_CTL, 2, 3, 1, 1),
+ 	SOC_DOUBLE("ADC Boost Switch", CS42L56_GAIN_BIAS_CTL, 3, 2, 1, 1),
+ 
+ 	SOC_DOUBLE_R_SX_TLV("Headphone Volume", CS42L56_HPA_VOLUME,
+-- 
+2.43.0
+
