@@ -1,352 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC644A384A;
-	Mon, 19 Oct 2026 08:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399890; cv=none; b=EQRL5s8sbrYyQxxvWtfKISu+KvOtXcvt7tbup+bUw+SKO6EXEo44xEZxWmWqG1vFybAIqmtD6ud+z6PTmWhByfgkJbMxXCKvthQrk4g7M/UGiDCUHukcSrBitPL0vt6WwLF8Mqh6IjudCVqkpzKI16cEP0FZY2ZI37MNjuNcf+c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399890; c=relaxed/simple;
-	bh=2NSqRpEuX7v4Xg6GlQD2CRZRzWslpUrxuvy9cVQX8KA=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=o/45fPUTakJGwko3WzQecXC6Ah4/RoaStGNxmY7oXVzSi6DN/HcEOEKCcOFxXse2jvTOOseXuiH4cWLDzxnUsNIj1h/keZzgw0kww1nmmP4Hx6viJ9rWhqyTktvTz4d9sdyqsDvPjzmMasHluzLYrH0zGMsfusySPo52myQ19dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZU/Ytda9; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE594A1DEA
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792399899; cv=pass; b=QO5YiGP73wJxc37NeEgVVwidLzE+igo7NFgCNH3ys2AJ+oSv3RQ0kzr4RiK+8cChf6p17aBmCbyRsJ9wt+bV2V7VY+THucUarZzMXgAI7iVE+F/Cjp77B15dUBu5bAmivY5598qSJ1ygitVxhpni6lmCu2ja/clp+aA9fFKe7vo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792399899; c=relaxed/simple;
+	bh=YZGPcgD9AFqKQnqdPo2/PO6pxJ4WnzRDZW0BsKuEGoY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FwMlhw1bMhbakFd7n6ANj5mZFMRT2TCnLL7fmtkv8tRziFQANXX2H6hx8NMpvH/NoLZeOZELap6rIzvFCP34St7A4E5nMaBHPSxYkuomsmCIH0vjklMpfTj2vgLALMsZs3zAYbxv82/IBNxBSP6vp4uv4gtC/gEck683Qnj37A0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h4kdIJwC; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZU/Ytda9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792399889; x=1823935889;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=2NSqRpEuX7v4Xg6GlQD2CRZRzWslpUrxuvy9cVQX8KA=;
-  b=ZU/Ytda98a15JME8b7XfeFYCF+rMiC1EOQFoyAZv3igQd93AxpHJhr0N
-   jSkOnYBHjgswa9HWj5KvuEk/LHu/KLz9MbGMihIzeTnr3VLNrG6w6MfZo
-   cJDV1L0aWKZfCaVL0KgCHD3Bz+vYdpeHOFWSE7KLylbXSts84Qjb+ruSD
-   2xbdxjt8LeN2d8idDfXGppTTcMopPzwhLFlXVdnresDGyYTBOdjwIN8J1
-   BlbfcKsd54xuijH/7NUDXqI/Dhz8ibPbzAOcGrXDAk7vQ0bzjJvjWnkU0
-   f0emVCaKEMXyDXOb7O7RFVJftyDEZ1xSvdgJnXNOUPiatJG1sk6Jg7Fxs
-   w==;
-X-CSE-ConnectionGUID: K0+cD5I9Qi2bf4ETsBrW7w==
-X-CSE-MsgGUID: 2nJnt8ONQciwEddG5LPw3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1100550"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1100550"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 01:51:09 -0700
-X-CSE-ConnectionGUID: Ks/3HmzpQyy4sifFt1K2aA==
-X-CSE-MsgGUID: 9uRHwIj9TzqlaBf9HksSbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="4239543"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 01:51:01 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 19 Oct 2026 11:50:56 +0300 (EEST)
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-    Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-    Viresh Kumar <viresh.kumar@linaro.org>, Hans de Goede <hansg@kernel.org>, 
-    Maximilian Luz <luzmaximilian@gmail.com>, 
-    Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
-    Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Daniel Lezcano <daniel.lezcano@kernel.org>, 
-    Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-    Armin Wolf <W_Armin@gmx.de>, Jai Luthra <jai.luthra@ideasonboard.com>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    "Mario Limonciello (AMD)" <superm1@kernel.org>, 
-    Jack Wu <jackbb_wu@compal.com>, 
-    Mario Limonciello <mario.limonciello@amd.com>, 
-    Zhang DM <jixianqiang1540@gmail.com>, linux-acpi@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-    linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] platform profile: Separate handler locking from
- sysfs lifetime
-In-Reply-To: <20261019073930.2352283-2-daniel.lezcano@oss.qualcomm.com>
-Message-ID: <2818716f-3502-aa4b-0b7b-4efc61e46f6c@linux.intel.com>
-References: <20261019073930.2352283-1-daniel.lezcano@oss.qualcomm.com> <20261019073930.2352283-2-daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h4kdIJwC"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b1a5a64aaeso227603a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:51:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792399897; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TwgMfg1xhtlv2MhOHglaH2oWh1/aucv//V7p7oN/SIaEHHVJ+NK3d4b5dX4AZAab2m
+         FoeEE1+oKP2sdYmnB0dVIq7H4e6eIvjSHA3f7XEhatrSlCXBf3XO6iC3mRSsZO/C/bM5
+         DL+HpUvgutAfPrpdenxSOYiFH9g6RsgFDvM2gOjA+kjx5znYZ0NqwnmXGwC6hCKnhHMK
+         LynerxNOGlFEqxRlAa+wVFwCSRJcjQ6OUtdfBzGOCsC6neHKrcs4WULqp4uXJ3EqpAsp
+         d6eunukKwGObDj0aSVqHon9c2Pae0OHN41qIyErgbiEJxzjJjmMSjbCxF5uG6C3t2PAl
+         IGTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=YZGPcgD9AFqKQnqdPo2/PO6pxJ4WnzRDZW0BsKuEGoY=;
+        fh=Kg5ZBsNHIW+TLfOWqbdxiXuEZ+yByEy5dqAwTThLzDU=;
+        b=nDzSqRD2j7erj6xWfw0CzEG0Q0n2Tryees3fBsqdqAP4OwiN0nWfPZXupDW4kuGINo
+         APpuN3HfQXE5PvNhZDBK8OJ33muIedm9x7e3cnQAl35gj3MznAWLzVyX5W8UHtrBJH8P
+         NZT0sZR5i5FmVIKJ5JvbtLWT39nrc9ZfhaRP2BAxH5asDVq/R2YKeFnAENNDh0Hp8JU2
+         Q7Ml3MTwQ150ds9T2cR2uFbBeC95BPYbD0YoM1vy7M9Hdcn4pigco0EeQnS5xEN71Xjf
+         S3R+SyVuHdaNUz2xmuU4KzW5/T7WONSc8HpLamuzGKnCac2CpiyoB4jYhxeR/DldW9/H
+         ehUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792399897; x=1793004697; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YZGPcgD9AFqKQnqdPo2/PO6pxJ4WnzRDZW0BsKuEGoY=;
+        b=h4kdIJwC3BSlODG+uWwjhUoVKgH21GnE/26XSzalXkBFvjCbzB7VKV/SZ26esGMGNK
+         z4aLukjexfdeDN3dY7rmH9dH6c9WDuibYKqkONoDhZ6DYlepVL1j9LxBfE4g1VTuD1RL
+         2tM1BgJ5VAETgTbksQmmxjrgBvDWRcizslaGqM8fRLPXqxzrtLgCgJd5GorGdxGgNwmh
+         oAbvPGOMG1FWG6xiK0gQBE7Q8uJGYu/eXLnhS6iVeI3TIEQVU4zmLy7IfAdctSQPOSpF
+         QJ2WtxIoewRFAvF2Et37HVLpW5FitwfO0+UUzsnM9H7JzO3UbX/fWrliJY8fuhsETBGy
+         MoCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792399897; x=1793004697;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YZGPcgD9AFqKQnqdPo2/PO6pxJ4WnzRDZW0BsKuEGoY=;
+        b=Dd6x0jEUTDMiU0BXOw3nVQ/3KuS0M9M5T/R+GyTTOw3s1VEq7ZmkjR9zDPHCqNdINz
+         1DpVF4Pes+EZbTfhpssTRo9vV67uV386wSbApTMMjSWOkaPzZ9y1JdmwJIKJ2+1wGuAC
+         4uPad7KVqpzOuCkkV4XHaxdfzOPJET3pA+2ha3+PTgjSSs4uZBTDPzdMvp2TdEg0g0cS
+         vA9loiWpMAzKCGhMM3JisP/L+MVGBcll74gGkV8GrjuYvs0xfEC8Mqqf3HxGEF6UgVeN
+         PSRrh+10I1nq7Qgz39bvKnLJ0hfEAEYYkgU1i+uZc+Zax4L6+EwRdLwvLK00hqXC2t+c
+         3mww==
+X-Forwarded-Encrypted: i=1; AKwUvBxODwN5CrGQVw4KFUDhfxo84a6Ahd2QohkdeTwmljGYvL+hqTO6oTeZUzu7sNQjNzlPa7ZKGlzntibJdkE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8w9a24/MurAOrbMvyGzMttwp2KAjHf0SNbKxTKqYMFtgblZ+v
+	c4sC5CL30OGn5ATg8tZA4718S0hWjjN1VnishLjcW2fwqhNeEHVCZFGqkhw016qH9WQGio1zQFW
+	wbiA369020a04ETua1vImKoz9K4xXC5o=
+X-Gm-Gg: AYBFou2wY16cflHE4zwvJM+cnPqD5T/Q/h+9nDS83WoLy0UZTFrF+UkfwQCosUqK3WO
+	xeHyv95kQDtJGjdZh2K0MbYj75B80CcYo+wnLDHtXuAKDZtqI+cIFv7t2YY9MuDBf5Hp/hWk+wt
+	6kEI/qG0O60J1QdKo8EtK12RHPq1LSs1kViFqaFZqd8KybvnZHZnD77yy8KABiwjqWu1AZiuPZC
+	5wpQ06H81ehBxUtCi6YfRQ60/5TRGteK/iysN504hXrC2uFxUAmj5uhovAUABlfKzyJ62++9rJt
+	pxCnGrXKoFVi56ke5BSlwqFKn5LjG7lwZjSg4S+PxpJCt7Z9ecgqJA==
+X-Received: by 2002:aa7:cd16:0:b0:6b1:a509:8a2 with SMTP id
+ 4fb4d7f45d1cf-6b3a8153c70mr3342735a12.2.1792399896018; Mon, 19 Oct 2026
+ 01:51:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261016-dcphy-rx-v1-v5-2-e63b49eabe2d@gmail.com> <f337f41f-2ada-4958-b0f9-379e78e96a3d@linaro.org>
+In-Reply-To: <f337f41f-2ada-4958-b0f9-379e78e96a3d@linaro.org>
+From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Date: Mon, 19 Oct 2026 16:51:23 +0800
+X-Gm-Features: AclHuK_WAI6-16edIPrAFWjpLBUVloumDqFsNS60JoizZzHWBKP6V-AdFc5lP64
+Message-ID: <CAPwA33KFY0avDH-F_5w01vqWu=RK=nXZ=za-Do5Zm3S8CPtGgA@mail.gmail.com>
+Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
+ a cell to select TX or RX
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 19 Oct 2026, Daniel Lezcano wrote:
+Hi Bryan,
 
-> Registration and removal currently hold profile_lock across
-> device_unregister() and sysfs_update_group(). These operations can remove
-> sysfs attributes and wait for their active callbacks to finish. The
-> profile read and write callbacks acquire profile_lock themselves, so a
-> concurrent access can deadlock:
-> 
->   Removal/update path             Active sysfs callback
->   -------------------             ---------------------
->   acquire profile_lock            hold kernfs active reference
->   remove a sysfs attribute         wait for profile_lock
->   wait for its active references
-> 
-> The removal path cannot finish until the callback returns, and the
-> callback cannot return until the removal path releases profile_lock.
-> This applies both to per-provider device teardown and to updates of the
-> legacy aggregate attribute group.
-> 
-> Commit 041142d7d252 ("ACPI: platform-profile: Fix possible deadlock in
-> platform_profile_remove()") previously fixed this lock ordering by moving
-> sysfs_remove_group() outside profile_lock. Commit 55b1e68134bf ("ACPI:
-> platform_profile: Use guard(mutex) for register/unregister") reintroduced
-> the issue by extending the mutex guard over sysfs_remove_group(). Later,
-> commit 77be5cacb2c2 ("ACPI: platform_profile: Create class for ACPI
-> platform profile") replaced that teardown with device_unregister() and
-> sysfs_update_group(), still under the same mutex, extending the problem
-> to class-device teardown and aggregate attribute updates.
-> 
-> Simply dropping profile_lock around these operations is insufficient.
-> Aggregate operations currently discover providers through the class
-> device list. A provider being unregistered could therefore still be
-> selected for an aggregate read, write or cycle while its sysfs files are
-> being torn down. Concurrent registrations and removals would also race
-> when updating aggregate attribute visibility.
-> 
-> Introduce profile_registration_lock to serialize registration, removal
-> and aggregate sysfs updates. Sysfs callbacks never acquire this mutex.
-> Retain profile_lock for profile operations and use it to protect an
-> explicit list of handlers participating in the aggregate interface.
-> 
-> Add a handler to that list only after device_register() succeeds. On
-> removal, unlink it under profile_lock before calling device_unregister().
-> Acquiring profile_lock first waits for any aggregate operation already
-> using the handler to complete; unlinking prevents later aggregate
-> operations from finding it. Release profile_lock before draining sysfs
-> callbacks, allowing active per-provider callbacks to complete before the
-> device is released. Apply the same unlink-before-unregister ordering to
-> registration error cleanup.
-> 
-> Walk this list for aggregate reads, writes and profile cycling, and use
-> its emptiness to determine aggregate attribute visibility. The class
-> devices remain the per-provider userspace interface.
-> 
-> There can now be an interval between removing the last handler from the
-> list and removing the aggregate attributes. Explicitly reject choices
-> reads and writes during that interval: the intersection bitmap starts
-> with every bit set, so an empty traversal must not advertise all profiles
-> or report a successful write without updating a provider.
-> 
-> This separates aggregate membership from class device teardown while
-> preserving the existing class and ACPI sysfs interfaces.
-> 
-> Fixes: 55b1e68134bf ("ACPI: platform_profile: Use guard(mutex) for register/unregister")
-> Assisted-by: OpenCode:gpt-6.1-sol
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> ---
->  drivers/acpi/platform_profile.c | 75 ++++++++++++++++++---------------
->  1 file changed, 42 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/acpi/platform_profile.c b/drivers/acpi/platform_profile.c
-> index 79d2e92e5c28..f98ce4cda02c 100644
-> --- a/drivers/acpi/platform_profile.c
-> +++ b/drivers/acpi/platform_profile.c
-> @@ -8,6 +8,7 @@
->  #include <linux/bits.h>
->  #include <linux/cleanup.h>
->  #include <linux/init.h>
-> +#include <linux/list.h>
->  #include <linux/mutex.h>
->  #include <linux/platform_profile.h>
->  #include <linux/sysfs.h>
-> @@ -15,8 +16,12 @@
->  #define to_pprof_handler(d)	(container_of(d, struct platform_profile_handler, dev))
->  
->  static DEFINE_MUTEX(profile_lock);
+> Two consumers use them - which them ? Two consumers use the receivers at
+> the same time ?
 
-Should definitely add comment to this lock as well to explain what it 
-protects.
+> Its minor but instead of "them" define what the them is.
+> The second cell, if present
+>
+> -> you want to make clear it is optional.
 
-> +/* Serialize registration and sysfs updates without blocking sysfs callbacks. */
-> +static DEFINE_MUTEX(profile_registration_lock);
-> +static LIST_HEAD(profile_handlers);
+I will check my description and make sure there is nothing misleading.
 
--- 
- i.
+> Not really related to this patch but how do you envision that
+> requirement being enforced, per driver ?
 
+The transmitter and the receiver of this PHY share the bias block, and
+the TRM explicitly does not allow them to run in different modes. Since
+this is part of this PHY's spec, the check is done in this driver's
+xlate for now.
 
->  struct platform_profile_handler {
-> +	struct list_head node;
->  	const char *name;
->  	struct device dev;
->  	int minor;
-> @@ -44,6 +49,22 @@ static_assert(ARRAY_SIZE(profile_names) == PLATFORM_PROFILE_LAST);
->  
->  static DEFINE_IDA(platform_profile_ida);
->  
-> +static int profile_walk_handlers(void *data,
-> +				 int (*fn)(struct device *dev, void *data))
-> +{
-> +	struct platform_profile_handler *handler;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&profile_lock);
-> +	list_for_each_entry(handler, &profile_handlers, node) {
-> +		ret = fn(&handler->dev, data);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  /**
->   * _commmon_choices_show - Show the available profile choices
->   * @choices: The available profile choices
-> @@ -306,20 +327,18 @@ static ssize_t platform_profile_choices_show(struct kobject *kobj,
->  	int err;
->  
->  	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
-> -		err = class_for_each_device(&platform_profile_class, NULL,
-> -					    &data, _aggregate_choices);
-> +		err = profile_walk_handlers(&data, _aggregate_choices);
->  		if (err)
->  			return err;
->  		if (data.count == 1) {
-> -			err = class_for_each_device(&platform_profile_class, NULL,
-> -						    &data, _remove_hidden_choices);
-> +			err = profile_walk_handlers(&data, _remove_hidden_choices);
->  			if (err)
->  				return err;
->  		}
->  	}
->  
->  	/* no profile handler registered any more */
-> -	if (bitmap_empty(data.aggregate, PLATFORM_PROFILE_LAST))
-> +	if (!data.count || bitmap_empty(data.aggregate, PLATFORM_PROFILE_LAST))
->  		return -EINVAL;
->  
->  	return _commmon_choices_show(data.aggregate, buf);
-> @@ -384,8 +403,7 @@ static ssize_t platform_profile_show(struct kobject *kobj,
->  	int err;
->  
->  	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
-> -		err = class_for_each_device(&platform_profile_class, NULL,
-> -					    &profile, _aggregate_profiles);
-> +		err = profile_walk_handlers(&profile, _aggregate_profiles);
->  		if (err)
->  			return err;
->  	}
-> @@ -423,15 +441,13 @@ static ssize_t platform_profile_store(struct kobject *kobj,
->  		return -EINVAL;
->  
->  	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
-> -		ret = class_for_each_device(&platform_profile_class, NULL,
-> -					    &data, _aggregate_choices);
-> +		ret = profile_walk_handlers(&data, _aggregate_choices);
->  		if (ret)
->  			return ret;
-> -		if (!test_bit(i, data.aggregate))
-> +		if (!data.count || !test_bit(i, data.aggregate))
->  			return -EOPNOTSUPP;
->  
-> -		ret = class_for_each_device(&platform_profile_class, NULL, &i,
-> -					    _store_and_notify);
-> +		ret = profile_walk_handlers(&i, _store_and_notify);
->  		if (ret)
->  			return ret;
->  	}
-> @@ -450,22 +466,11 @@ static struct attribute *platform_profile_attrs[] = {
->  	NULL
->  };
->  
-> -static int profile_class_registered(struct device *dev, const void *data)
-> -{
-> -	return 1;
-> -}
-> -
->  static umode_t profile_class_is_visible(struct kobject *kobj, struct attribute *attr, int idx)
->  {
-> -	struct device *dev;
-> -
-> -	dev = class_find_device(&platform_profile_class, NULL, NULL, profile_class_registered);
-> -	if (!dev)
-> -		return 0;
-> -
-> -	put_device(dev);
-> +	guard(mutex)(&profile_lock);
->  
-> -	return attr->mode;
-> +	return list_empty(&profile_handlers) ? 0 : attr->mode;
->  }
->  
->  static const struct attribute_group platform_profile_group = {
-> @@ -502,8 +507,7 @@ int platform_profile_cycle(void)
->  	int err;
->  
->  	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
-> -		err = class_for_each_device(&platform_profile_class, NULL,
-> -					    &profile, _aggregate_profiles);
-> +		err = profile_walk_handlers(&profile, _aggregate_profiles);
->  		if (err)
->  			return err;
->  
-> @@ -512,8 +516,7 @@ int platform_profile_cycle(void)
->  		    profile == PLATFORM_PROFILE_LAST)
->  			return -EINVAL;
->  
-> -		err = class_for_each_device(&platform_profile_class, NULL,
-> -					    &data, _aggregate_choices);
-> +		err = profile_walk_handlers(&data, _aggregate_choices);
->  		if (err)
->  			return err;
->  
-> @@ -525,8 +528,7 @@ int platform_profile_cycle(void)
->  					  PLATFORM_PROFILE_LAST,
->  					  profile + 1);
->  
-> -		err = class_for_each_device(&platform_profile_class, NULL, &next,
-> -					    _store_and_notify);
-> +		err = profile_walk_handlers(&next, _store_and_notify);
->  
->  		if (err)
->  			return err;
-> @@ -583,7 +585,7 @@ struct device *platform_profile_register(struct device *dev, const char *name,
->  		}
->  	}
->  
-> -	guard(mutex)(&profile_lock);
-> +	guard(mutex)(&profile_registration_lock);
->  
->  	/* create class interface for individual handler */
->  	minor = ida_alloc(&platform_profile_ida, GFP_KERNEL);
-> @@ -604,6 +606,8 @@ struct device *platform_profile_register(struct device *dev, const char *name,
->  		put_device(ppdev);
->  		goto cleanup_ida;
->  	}
-> +	scoped_guard(mutex, &profile_lock)
-> +		list_add_tail(&to_pprof_handler(ppdev)->node, &profile_handlers);
->  
->  	sysfs_notify(acpi_kobj, NULL, "platform_profile");
->  
-> @@ -614,6 +618,8 @@ struct device *platform_profile_register(struct device *dev, const char *name,
->  	return ppdev;
->  
->  cleanup_cur:
-> +	scoped_guard(mutex, &profile_lock)
-> +		list_del(&to_pprof_handler(ppdev)->node);
->  	device_unregister(ppdev);
->  
->  cleanup_ida:
-> @@ -636,7 +642,10 @@ void platform_profile_remove(struct device *dev)
->  
->  	pprof = to_pprof_handler(dev);
->  
-> -	guard(mutex)(&profile_lock);
-> +	guard(mutex)(&profile_registration_lock);
-> +
-> +	scoped_guard(mutex, &profile_lock)
-> +		list_del(&pprof->node);
->  
->  	ida_free(&platform_profile_ida, pprof->minor);
->  	device_unregister(&pprof->dev);
-> 
+Best regards
+Jason
