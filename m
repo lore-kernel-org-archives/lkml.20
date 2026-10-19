@@ -1,126 +1,117 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11564F4045
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:33:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A62D4E73DD;
+	Mon, 19 Oct 2026 12:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413235; cv=none; b=QoxfEtiUilKqh+Ir8E0jYDWBECwyzeWe49ng+DWIEbQ5uYi4KKayqSm5XyS6yvXRqtNpqFSHsO2ws4pfDdPU5Hl0dCSlhfa/qI8mpQWbwXlVB5pxE6L76saq23fjeBuhkYT4tBRTiY9q0MsdW7wwliC7+VTyv+xdfyZFcfRTsE8=
+	t=1792413294; cv=none; b=oTQOgyvGYCs1n11eJ6f94gxOg2HrRsXND1Rz99kBWk9ebUCAcJ0ev4wWvd0SieZc3g2Lw2OlK71LerPpRTlyeJ6CZrwkHeAAOD27Ku7uAEL7NLvrKDDe/VvGZNrm3noZmiNV1e0HAVzF46FysmMjdCNHy15EFG1U2ockyHUkAbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413235; c=relaxed/simple;
-	bh=36Ydwg03/Py75ETTK71nGG80SBMvB5wH6/U6tz95hME=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UdZlUoxOTGsXSmmmwJ7+y786oQpxUNgD4Zi6ozlnWCjJmD19xTVJJRuZwMB/F+dTGRhLp7wVzu+TAsW9g1545+s5zxrFv7CtjpdnBz5g8NIOs8A+0XhAPtR7tNiOk+g7YEx1q8FhsiFRPGbe8S6+S5PbmjlD3WTaHBlSOwsvVMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BAWq2G2Q; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1792413294; c=relaxed/simple;
+	bh=FIumoOSiyMnllkdH7vaQGmgMeA2n14LStVbQbffjoB4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BcPiLXcMN5FNZmnyVyH4PgwQQTCzS81kGy9UylZIppN2H/pyPf4j9IdDgGbDuj3RaFyNZdImH25fg7q0iJNKROEx50TqXvf2n6BMhyvin029vKeaGtWsTCYNM9ZGWq0PpisXr6y1PY/7IccgDjkG4MWayHcTweXcmSW1f9gskKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JAjlQDRV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BAWq2G2Q"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dee593f18so1500141f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:33:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792413219; x=1793018019; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XMgbNhwoeuCGyN6Tie1PzlNRtNa+QjScRMtBLI/9URY=;
-        b=BAWq2G2QuD6WG26Z/trNDzN9Sm2IqEPyUVDzSIsYOgWrbyhh0E28hYvtKaoWE9ZY+x
-         S9k6JcU8L+0SzF7QqGZ3TsSYqiOo0ofMpelYZKIf8kqy5YzuVq1ikxOhjjSUVVpM44Pi
-         cgcuut2K0Oq2Mkl9u/IxItwmhtW9BvRKKonc4HoXkQqqExbCkX9+H2amkTNA8sWf5ZAM
-         ax+AKszNeONytsziBu5EOROasS9q5edYGIHwxojZnzg+9VhbNyNstjek4Qv1X4tfX0be
-         Q9GIsMnC3S3xFZYepYHENr+cs+VAmD0JX+PtSkt06cC4VDTmGTlpmTcURHVYc472PQpg
-         JziA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792413219; x=1793018019;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XMgbNhwoeuCGyN6Tie1PzlNRtNa+QjScRMtBLI/9URY=;
-        b=kWPu9N3ZFBHC2jW+ssu6rdDMeIocK06PDbKqyn47rUiS3P2+8ji0KPPBMlDCd443ri
-         1e9ffKrJ/kEHzFU4WsmN7aV1LIfCMgftuL+AU5mqZIinHKwAJ8CuUw6th+zE3wG613Mx
-         n5YDXrK4DB5jRC7J4tMel9ylm8UHQITJIstZ+U8sipre6obUeqEF7mBPqyrNgMCi7Vr0
-         I47VuhvBDP3GkP1M2az5ZdcQcmYGCPfUW2+e0rQTBSIYxnVvuUpz0jRl7n9emMu3nZ0S
-         WvrDYwbzWJYK1c0K00ZQFrpNyb77+XwfFttYsyO9C85fuFDM7e2BceS5ERlPpSsmeeOz
-         1JZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx5O6vv2ELw9sslV0dMv5KYP0AOtuiFbaH+DoWiCfpEe7yhXCNtd9ZOhGq4m+kW0Pzz82e70/hB+Ju81zQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXs3LwliQsA+cogV1bJBOO1wSwmccgceecwMKIoHSnr/ufmqTn
-	BS7vgOoleTy9qy9CSbCLQEhuv6HXU90oxK3fbe46QeUcivYCppbzbJ+BjMLGKLcnmrU=
-X-Gm-Gg: AYBFou2wgGjf0+ZkZEtYdzeUW5tAhjHB6x3MH/aKiVK/HyTrAxJTcjYHXkF07T5D1+L
-	7/b5BNVgPJ2r+trZxeBp/k9Y1klW1EPkCS9YeAnGOEjmD4yu3KmsKohMfcqVIQtsh0cAPNL3ZiD
-	mWP3cQY+GLnkeX38UxlEN9GQXA+la9X8+0E3AJny4HTgOjLLLHPNclqkls6P0PU5aUSIlGm2S9+
-	1x83nqx/GcvxWo0ECBfgM53C40r/xc0opaPyC2mh0BNtetDLXq0hfCZMbaFN83sGQTeumdUoQ8u
-	IOSsuxd5EN88tMaORpv1Owypd0lgU5srhsaPkPAI3sJgHwIMj7LLPzJub6c5ymU3gJoqYORzldE
-	Jx+J6l5yB5TKih/TrJx5k5QQrGx00XT2eAVBJX1KF2IUaGq5Y7iW6i4gDb7zY+Y7s7UTzjxqbhG
-	dCda612T4cLdZW9VLUSvkEJY9RI4TJ1cVHETRz9CW8MRMVEd0Wy8Zo6TxTXHMyJD0p1dBcWPptJ
-	l/iSKXihCIzzddGLCliTXTqYCTVCahsSjH6xv6975+o8sBjNCwSJiufKwX5cqxWW72pUQg8E1H7
-	ROoJMXSVSVh4YZiDqYnqgckchlbn0/Ou9nT+2RndJb9ONtE28YkBU54=
-X-Received: by 2002:a5d:5e03:0:b0:48a:fbcf:6f43 with SMTP id ffacd0b85a97d-48e07fbc4camr16385796f8f.54.1792413218623;
-        Mon, 19 Oct 2026 05:33:38 -0700 (PDT)
-Received: from [192.168.1.100] (2a02-8434-7c41-c701-8278-849f-666b-c282.rev.sfr.net. [2a02:8434:7c41:c701:8278:849f:666b:c282])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f576asm24677930f8f.32.2026.10.19.05.33.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 05:33:38 -0700 (PDT)
-From: Julien Stephan <jstephan@baylibre.com>
-Date: Mon, 19 Oct 2026 14:33:56 +0200
-Subject: [PATCH 2/2] pmdomain: mediatek: mt8365: add missing define
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JAjlQDRV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13DC01F000C4;
+	Mon, 19 Oct 2026 12:34:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792413278;
+	bh=pfqRwNvIDXgUK6rGQbaCri0jI6Kk8YS9TVYwG5chEmA=;
+	h=From:To:Cc:Subject:Date;
+	b=JAjlQDRVWQwBdvZpZ07ULBaVloHNT/S/NQPi1JoD5macBPZM+Q8vMwqqwfYGUjR92
+	 K97xaFoCGYtxkRombanMP3u6Sqm6IFCSKiANyS+ylk2D/918ZavMXI6Vr/v472jIBU
+	 p76q1VjWJSaPfYGQXZIRp8oiq1W5lpeiDPXLbn2WmN9rzgtbwtut/SR7DJZjnNfZ3P
+	 /3HZ/xyK8b6Di1uaIq7PGjPnCCMfaAGIRPZd3TTugFOzBmZE/DGIJTN81J8CoeziZs
+	 sQYnsVWCKUlFcQDokW6qAXMqWggwPI80wLrASB/DSKdXq9P0q1XyL4nW+Qy3OiF67e
+	 yVy+wWA3YgfhQ==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xImZX-00000008QJ0-3pYq;
+	Mon, 19 Oct 2026 14:34:35 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Maksim Salau <maksim.salau@gmail.com>
+Subject: [PATCH] USB: serial: upd78f0730: fix NULL-deref on hangup
+Date: Mon, 19 Oct 2026 14:34:12 +0200
+Message-ID: <20261019123412.2007715-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-pmdomain-mtk-mt8365-fix-defines-v1-2-dfd445dc3763@baylibre.com>
-References: <20261019-pmdomain-mtk-mt8365-fix-defines-v1-0-dfd445dc3763@baylibre.com>
-In-Reply-To: <20261019-pmdomain-mtk-mt8365-fix-defines-v1-0-dfd445dc3763@baylibre.com>
-To: Ulf Hansson <ulfh@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Julien Stephan <jstephan@baylibre.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-Add missing define for BIT(25) inside MT8365_POWER_DOMAIN_MFG
-declaration.
+The port tty pointer is cleared on hangup before deasserting the modem
+control signals and should not be used in the dtr_rts() callback.
 
-No functional changes expected.
+Factor out a new upd78f0730_port_tiocmset() helper that can be used in
+upd78f0730_dtr_rts() to avoid dereferencing a NULL-pointer on hangup
+(e.g. on disconnect).
 
-Signed-off-by: Julien Stephan <jstephan@baylibre.com>
+This issue was flagged by an LLM.
+
+Fixes: ea534e0b4047 ("USB: serial: add uPD78F0730 USB to Serial Adaptor Driver")
+Cc: stable@vger.kernel.org	# 4.11
+Cc: Maksim Salau <maksim.salau@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/pmdomain/mediatek/mt8365-pm-domains.h | 3 ++-
- include/linux/soc/mediatek/infracfg.h         | 1 +
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/usb/serial/upd78f0730.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pmdomain/mediatek/mt8365-pm-domains.h b/drivers/pmdomain/mediatek/mt8365-pm-domains.h
-index 3775e4dc2c91..e360fe142027 100644
---- a/drivers/pmdomain/mediatek/mt8365-pm-domains.h
-+++ b/drivers/pmdomain/mediatek/mt8365-pm-domains.h
-@@ -126,7 +126,8 @@ static const struct scpsys_domain_data scpsys_domain_data_mt8365[] = {
- 		.sram_pdn_bits = GENMASK(9, 8),
- 		.sram_pdn_ack_bits = GENMASK(13, 12),
- 		.bp_cfg = {
--			MT8365_BUS_PROT_INFRA_WR_TOPAXI(BIT(25)),
-+			MT8365_BUS_PROT_INFRA_WR_TOPAXI(
-+				MT8365_INFRA_TOPAXI_PROTECTEN_INFRA2MFG),
- 			MT8365_BUS_PROT_INFRA_WR_TOPAXI(
- 				MT8365_INFRA_TOPAXI_PROTECTEN_MFG_M0 |
- 				MT8365_INFRA_TOPAXI_PROTECTEN_MFG_M1),
-diff --git a/include/linux/soc/mediatek/infracfg.h b/include/linux/soc/mediatek/infracfg.h
-index d2cfa09f81ba..ddc53675529e 100644
---- a/include/linux/soc/mediatek/infracfg.h
-+++ b/include/linux/soc/mediatek/infracfg.h
-@@ -14,6 +14,7 @@
- #define MT8365_INFRA_TOPAXI_PROTECTEN_CONN2INFRA_AHB			BIT(14)
- #define MT8365_INFRA_TOPAXI_PROTECTEN_MFG_M0				BIT(21)
- #define MT8365_INFRA_TOPAXI_PROTECTEN_MFG_M1				BIT(22)
-+#define MT8365_INFRA_TOPAXI_PROTECTEN_INFRA2MFG				BIT(25)
- #define MT8365_INFRA_TOPAXI_PROTECTEN_1_STA1				0x258
- #define MT8365_INFRA_TOPAXI_PROTECTEN_1_SET				0x2a8
- #define MT8365_INFRA_TOPAXI_PROTECTEN_1_CLR				0x2ac
-
+diff --git a/drivers/usb/serial/upd78f0730.c b/drivers/usb/serial/upd78f0730.c
+index 78c4d3c19a8e..f2189b994ed7 100644
+--- a/drivers/usb/serial/upd78f0730.c
++++ b/drivers/usb/serial/upd78f0730.c
+@@ -201,10 +201,9 @@ static int upd78f0730_tiocmget(struct tty_struct *tty)
+ 	return res;
+ }
+ 
+-static int upd78f0730_tiocmset(struct tty_struct *tty,
++static int upd78f0730_port_tiocmset(struct usb_serial_port *port,
+ 			unsigned int set, unsigned int clear)
+ {
+-	struct usb_serial_port *port = tty->driver_data;
+ 	struct upd78f0730_port_private *private;
+ 	struct upd78f0730_set_dtr_rts request;
+ 	struct device *dev = &port->dev;
+@@ -238,6 +237,13 @@ static int upd78f0730_tiocmset(struct tty_struct *tty,
+ 	return res;
+ }
+ 
++static int upd78f0730_tiocmset(struct tty_struct *tty, unsigned int set, unsigned int clear)
++{
++	struct usb_serial_port *port = tty->driver_data;
++
++	return upd78f0730_port_tiocmset(port, set, clear);
++}
++
+ static int upd78f0730_break_ctl(struct tty_struct *tty, int break_state)
+ {
+ 	struct upd78f0730_port_private *private;
+@@ -267,7 +273,6 @@ static int upd78f0730_break_ctl(struct tty_struct *tty, int break_state)
+ 
+ static void upd78f0730_dtr_rts(struct usb_serial_port *port, int on)
+ {
+-	struct tty_struct *tty = port->port.tty;
+ 	unsigned int set = 0;
+ 	unsigned int clear = 0;
+ 
+@@ -276,7 +281,7 @@ static void upd78f0730_dtr_rts(struct usb_serial_port *port, int on)
+ 	else
+ 		clear = TIOCM_DTR | TIOCM_RTS;
+ 
+-	upd78f0730_tiocmset(tty, set, clear);
++	upd78f0730_port_tiocmset(port, set, clear);
+ }
+ 
+ static speed_t upd78f0730_get_baud_rate(struct tty_struct *tty)
 -- 
-2.56.0
+2.55.0
 
