@@ -1,103 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792448793;
-	b=yL2nvIUeNXbMybzZKhaVq9pruYbMJ/0hjFfDY+lgWanLf/GMVVNZBZ5G7NjZo53Y8rO0
-	 Th3jJde9ziZpf1xfET4z6pw0aoq36beQj9D5vQUfMQlHVxICDuBs6gthMKsPRZDGePYha
-	 3/eu+2XVRs0mzaOSZIxJ+gYnbHr3c3AyimPH+9rnjGq7WysGyvYLOAJMyNiNcjcY4aWzQ
-	 y4HwtPENLCXLVy+2FRBXinr8pASJchqT9gS+H3D91ndGjT3rk5PS2fdJC0awDt25xUyF2
-	 tzAOeZpMikUthPDZZzrXIMDLJBQX4ssmckN6ViiViGh9Gq8yfwHQPrgL5N30wwpQamA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448793;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=5CcGNBxA/7HKGEBtVuQ4LgJyCODKoj4rV1rvYEcwUQg=;
-	b=fWdLFj+bXAxumH4SCabbXCSxNK8zhkYXwHXkUbW8DAx67+Z+9tlZ/BOk0/WK9DkpVfMI
-	 jY+19AxHqwVzvHu17qcY0bx8GzCthLKC7/E7aW4SyaoAj65JYZ8qX+thtLcbc+JOBs8KP
-	 NGJyYJtfMSvTC45dwOlxrKH3WfK2Pa89XJxQJixLK+u7tDyhSGcktL52rRrrvbVldeass
-	 dMubdUuiUyxN1WuDwNhltCEQWGtKO2rQ4V2BVSPtnQ18AHEpOdRWdPuq9a7tpcxV94hoe
-	 1A4kWEEuC13uRk7fNhPpmAKShKHmzsyaYSiYJZ45xFdqyW/odhwq06Zv5o3F04KC65w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=N3fCF3Qw;
-	arc=none smtp.remote-ip=209.85.216.97
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.240
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792448825;
+	b=VxA5aETmsqGZi03w/7F5YPeYU/9Q2QHOYDxZpQaCdgI1jtOB46Hi35F1g9wYq4coE8Z+
+	 9LKcEKdL8gco/fpHFU3kb399oFft36uYCMAt506bs+lJ1OWV7pc13eEFBLcuj0ouXJxXR
+	 fneZkt4DonT9a3ASBYjex/Ceau1gL93lbab5QEhejXRb47Zd5Nb0yCVicFOX4mbtTFuh9
+	 EL1ZxffytkOkmJieq/zNKMbKRYd/ZK8uNuHNr0QocT5uPeBPBIsOLEVTmdXgIqQye2zR7
+	 7Xhmk8StApZrfjMWrHPZbTdzibXU9uqYYB6YFA0+itw0S0NtehyArv2WSIMk1yKWwug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448825;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Orig-IP:X-Proofpoint-Spam-Details;
+	bh=7W0BmcepB6Aeqg3by+8VUO80cva2C9MnIOBEI/kRUkM=;
+	b=wBCKGMupB0f2fH10JzDqjRB2CjM0WWCcbxPyg396xayH/6pxIF8uVkPcq5uEihHwQ6lh
+	 9WeeUti9bLjiTIm8FqZnnT6/eqiuHSQ7/I4tH23eJRpz6EQH58Vy0k898TA/6sxnPhxqI
+	 1CxH5AK9rvdAJbJHfFTn98ziebFIWrWPamhyE48/bZxULBNl/40hL2jd7k7dWLMpH2lwu
+	 m9vPJU2PBRpQJc3LLs4DkAtwrIR/911UP59SRX91hmO1GGQPlWCARRCWiux4nVOL2q6q2
+	 4lPMYTRC6sZMdMahpCHTKVPxfRp89ut3gHavnHMDl5x+Ao9cX8DupjFalfrR2zH/WDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nyu.edu;
+	spf=pass smtp.mailfrom=nyu.edu;
+	dkim=pass header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=20180315 header.b=Ik8aelSe;
+	dkim=pass header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=nyu-googleapps1 header.b=nf9o7U+C;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.240
+Received: from mx0b-00256a01.pphosted.com (mx0a-00256a01.pphosted.com [148.163.150.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFEA606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:26:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFEA606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD94606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:27:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADD94606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nyu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=N3fCF3Qw
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so956319a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:26:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=20180315 header.b=Ik8aelSe;
+	dkim=pass (2048-bit key, unprotected) header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=nyu-googleapps1 header.b=nf9o7U+C
+Received: from pps.filterd (m0094546.ppops.net [127.0.0.1])
+	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JL8mtu3294808
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:27:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyu.edu; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=20180315; bh=7
+	W0BmcepB6Aeqg3by+8VUO80cva2C9MnIOBEI/kRUkM=; b=Ik8aelSen+0yPt9sa
+	EocafKhobDXbKGKRRviMN6sAcOIuxKAj5l9lAdqzxQe8Kt/1ps6w2LkiPA1OLDFa
+	lcRgEKIG0hiEgsV8PwrEQXlRmhPFB2Jkyi2eYBt4RERzLswy3Vmw5HYeT6d0addK
+	D1FlUbITAR3x8hg8S9ckM4Z+QA4ebhPOXzyQeSk5GReME2Ua9j+MpLfkE0I3jILR
+	JYuihYXTP6C1VVbJ23jV4kI8wVTHEKr1f+/eVq6pw7kDbbxwfSkFckQktuZpBKx6
+	qO7EYqiTD4NzfHm3nxB2Xfme353iVlvZS85Jw53Q1I8X9fRG0QBOe67+IjCmwqin
+	YZCGg==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4hdttc91au-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:27:02 -0400 (EDT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3592749a017so137851eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:27:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792448822; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jeFY8jHgzLiHjuDGCpHrs1XcfiLWvFVXigHu9edaACqD541wVWdoP85XxVxZdiw+Mm
+         LRpdE/7mrUzjlf6dHML68pQDqoBgbbX8RFytLRJhqkCC7YTOGBUJXPmiJlWCWjo+qBf7
+         tLW6Uu0Unqgp/stnE+tc3ZgKGlQ7ixKr9fmkoiqBP9WwkAA7hYRaEcMFHR5eLziMME9Y
+         deEvWspmeA76Zx6DkX1jis/gPE/K2fPzu25kknGtQg7yKKempOuradFzPtgqXErbHTNH
+         aGCE+4CQGxRWJSYqBQp92og7d8fL+D3y/twEfrUEJXTdU6bzVVJCp3ZFTjvyzsrgt2di
+         aNFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7W0BmcepB6Aeqg3by+8VUO80cva2C9MnIOBEI/kRUkM=;
+        fh=rqa612LceND+NiyomAsc9eRBvcL8i5Ll9B79661MGv4=;
+        b=eSsAb0OJJjeg9O/lkIxhqtFQOd8nOX/y4BP580uQTfXmQwiJ7P5W2pHFM9ZtGcMhS3
+         9v0CiCkHrLFpf+nGRnMp2f3pe2aaIrrJFWnXgudDu09uG5echJkq6Fl/5TQT+CjsrWKL
+         O8XCtL/C+0W7elM9l/t7YVBVan48MYFzdI5EJdlXp8bSVk8PEMiIksi0tUK4jUIhjglG
+         wFKl682KtcXYsNRD4lamnPhvc637N+9s9vDFaJkaQgCmMtBLvVVtxC+W3D/3HUT1gZPJ
+         tZs+IRtsHkQKZ76I1lSO5W2ZZ+GOQMMJGStKxjDFVf+fxQ778UYvA0KEYjq/Ow37d3Ym
+         hDIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1792448792; x=1793053592; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5CcGNBxA/7HKGEBtVuQ4LgJyCODKoj4rV1rvYEcwUQg=;
-        b=N3fCF3QwS+gCHAtDHerz2M74399hcHFUsiKCKhqXD64dw5kYaJSPlonVlav7+0jY2Z
-         wqNNet1817nhJdtK51YwbwYMaCenhsxE6ss9QI+svKJPxERN+vnQUgAP5aY0MM2g1jAH
-         uylrIh7vYSSWu5vomrad2NrR+fAUjTH5eOd7hoIrog/XKMR8a0QwItw7WkXI23+DeCs4
-         JU7hxC8RNRQH4dDQ80P8YXETDvBhE7mhXVNwIEa+zms1TmdD9I4aVBy8O821H0/aSHYa
-         b/7fY9nPnT3NrZAHqzdE0JwjFtok2LejMhZvy45QqMbyQm8aILWSjoa/gLHzlhX5ube6
-         pK2g==
+        d=nyu.edu; s=nyu-googleapps1; t=1792448822; x=1793053622; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7W0BmcepB6Aeqg3by+8VUO80cva2C9MnIOBEI/kRUkM=;
+        b=nf9o7U+CdVmNSA8SypncHM+YKDlJKnoP6jBDVVYI5lhlc9p3KaU6f9RGOk4JVolzlh
+         kgo9KHZ9+1DnWHtHbKOZb5gmVdQobCb+jpQZBqva8haMFlhvws3VJm4l0Mf4x2HhYfcR
+         74MqhWecZjGCVCBFJ4YTAImmvUW9jG7or0pcimmfMWYTT+aloWHcG9xaOQTeaVISOKgI
+         ZfEpC8F+VFBPOJBvlB3crO93GfVAu37GQ5X/PfIk/cuxLHXB7WLKWXnbCRJkP/TpeMF8
+         YtSQ0Klh2ydpBNhV7KUMppTGPl4JfCj6p+26OlSvA9R1XKxf0/UlPk8YZyH5e3fQ3FmQ
+         4G6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792448792; x=1793053592;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5CcGNBxA/7HKGEBtVuQ4LgJyCODKoj4rV1rvYEcwUQg=;
-        b=whtm/QLGcNIrcZtRgeg4Cmd3OGcnM9amPsjIkFR4+m04H4Qzu2dABtxASPkuiQfu/j
-         tkM4Q5jbnlHvGMBK6BqdJ6XcUihRkgPf5z/1n7Y2oTFkXzCL1k5Cv1p82mC/WD3w5ANi
-         lcA9Kb2ZE1jkAS843fMlQXPQ5nmg6I35ZkGX2yEZyswT2yzvCEiLfJm4gKkTs9EL1FJX
-         BId+69btb3Moasq5If1UfhFJ2HskY+Hgyzl3bO+d96Hwt6gNwU7I9k+96epmW5w8maIE
-         IMZBdQygen69eKbCJElz8Gh+OVtr+IiaB7tUvJXK9nJUdm98hvFKYbdGKo7XnJihdSDJ
-         ccAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy33xAm6wndhz53G2T3vSPyLTMQbFI/wtVdg1U2hPoaoxreUANsrA2EvM0UHpy0xzc/9kqVOxXuEm3EqEA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrwNSYfw6oHuyjxh/UT0yzFU5zzDf/q80XbbbCH6w/8D5Wnnpk
-	E2fiYN6gU6K5WNT4G67nSwgXEkKO9sEvTOUpsI9w4U8euzar8cwJt9vLqeWQBhJswUz20RkMBmQ
-	zfkNW2nqL1UDzXD62LfnE7fdvOP+LysHHGz8s
-X-Gm-Gg: AYBFou2jXcTEA2kYnD3jXerb0o8kY3zuESw+r0KYEfbXg2GRFSCIMDWp/V7np8m0Bex
-	7ryVK1LXNB7rMuvwJN/LpVuLzNL6sKPhLWU4QcqYUkS0qkfZx00fzp//12duP8Rl4od4UCu0cOx
-	T++hJFY8HtWi1cifxFdOeVx4PGyQZoKoS4g5oZANI5bZ8N5bx4H4RKJpI9jZIPtyDOVc1zOk7O2
-	rAngOkdxRt27pNQS0CzwYnrUlIXS5iTmE+CM0OkDV0Z/vHvTDiv+PFS9ETovy7+FenEVpqLCjDZ
-	ofpoCWJUCghUTS7mHCdpeOhB2Ooy2VMh04s7BQGHau8t6ct2QVdz+sGtglxx9ZrggS3l4smWDyb
-	uzzuFQnX0ufhxG6aZ8H7hvwEeQJHNmYf4+88=
-X-Received: by 2002:a17:90b:4c49:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3aceeb95f82mr8443199a91.10.1792448790997;
-        Mon, 19 Oct 2026 15:26:30 -0700 (PDT)
-Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.128])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3acd0dfe366sm3131066a91.3.2026.10.19.15.26.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 15:26:30 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [IPv6:2620:125:9025:23::2ea])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 4AC7B401CC;
-	Mon, 19 Oct 2026 16:26:30 -0600 (MDT)
-Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
-	id 44F77DC0D6A; Mon, 19 Oct 2026 16:26:30 -0600 (MDT)
-From: Rishikesh Jethwani <rjethwani@purestorage.com>
-To: netdev@vger.kernel.org
-Cc: john.fastabend@gmail.com,
-	kuba@kernel.org,
-	sd@queasysnail.net,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	wilfred.mallawa@wdc.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Rishikesh Jethwani <rjethwani@purestorage.com>
-Subject: [PATCH net] tls: check the right open record in TLS_TX_MAX_PAYLOAD_LEN
-Date: Mon, 19 Oct 2026 16:26:25 -0600
-Message-ID: <20261019222626.745408-1-rjethwani@purestorage.com>
-X-Mailer: git-send-email 2.50.1
+        d=1e100.net; s=20260707; t=1792448822; x=1793053622;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7W0BmcepB6Aeqg3by+8VUO80cva2C9MnIOBEI/kRUkM=;
+        b=UDeLISGBFpDTtEJUUxEYsM6dtGz3CVa93SrMGTXLmCqwrv8NqAv1/IoRtfOBcxIQ9n
+         EofnNip3KZ75aN9awkgcikI3Dxs4pTKfPmZwvsAz7wzqIXkHgE2xnmwUYEnYUAZhpKyn
+         ud7156vzuMCMDhZfRwIxeeGXgBXntbpR/KbbxQ7fyISab0Nt7+QLHDxZGOA0NHkVKFgH
+         uhNlUz5cTOB2XH/6NIrfYdWOWW/Z8+PjE0Mlgjrxm6MHeMt4OciExmNZk2APmc/9zt3X
+         Xku3gcdpPvVbu6bmetuzyUo39sCBZ4NCc5+tbzmDNCtefHLt/xEBnzI7rg+a1uvKsawh
+         e4cg==
+X-Forwarded-Encrypted: i=1; AKwUvBz/D1KPaQRCV803WxDj3Pi7PMtFcpdldLfuBsDXLgIra27C20LCdGqo6Ds4+W3PStAXKp94bob9EpWdxiA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyONhTKLgsyTD9ZPGlSsQYMTagzKw8ir4SpZ4vKIK/TMyJUofo
+	TfvyWWtLSJWQqIybbh5DOQ/7ujxdbfs8z+6PqcDsJvqJl0cNdjKlSkPgE8rFY/px9B5LnBqLg1p
+	y/y7B+R6Li7MUOSaWf9hfE4sBLAw5SXYCG6Ssa9vEVi+WFWhtF3hXru67n2Wxp/1V7ZnqPKSB8e
+	2MliV9uHd3LDNpf9NNXi5U7EO7AE6CMUrnSaJjWMkHjf4eh8Tp2Vg=
+X-Gm-Gg: AYBFou0hAJ8//ii9Xo3g2fkxK2hl9lMedL665DnNuCiOBxQVm89NTl5qnQZ3dGROKbF
+	3LViTwZNOGP6lDF//LJrMHzTqzysORChINHnK878Swx5BJdLlR0XNy3WyfOr5Nxiv2z6tu+cJPi
+	aDCyitl6XRs+DgRsFnTlcIiRKnabqh3OgX4IsrQHSw0l4ka4SAEn9/L0RAkg==
+X-Received: by 2002:a05:7300:fe8c:b0:33e:61ab:8309 with SMTP id 5a478bee46e88-365fbe702e6mr513083eec.23.1792448821948;
+        Mon, 19 Oct 2026 15:27:01 -0700 (PDT)
+X-Received: by 2002:a05:7300:fe8c:b0:33e:61ab:8309 with SMTP id
+ 5a478bee46e88-365fbe702e6mr513046eec.23.1792448821208; Mon, 19 Oct 2026
+ 15:27:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,87 +126,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261017214845.28769-2-kj2864@nyu.edu> <atXVqZDUhE9Z8InH@kwain>
+In-Reply-To: <atXVqZDUhE9Z8InH@kwain>
+From: Jerry Jiang <kj2864@nyu.edu>
+Date: Mon, 19 Oct 2026 18:26:50 -0400
+X-Gm-Features: AclHuK_OizrKzXhjvZJbJnNHqcKl2cJmdxnoqVFQ_oSZGq_xEOdyc5Kt-heihiY
+Message-ID: <CAPqbLS3wzSQTJJRoBGjJ-C-2GZ95qn6GLAwYBYOt3o75uRiW8Q@mail.gmail.com>
+Subject: Re: [PATCH net v4] net: ipv4: add zero check for snd_cwnd_clamp
+To: Antoine Tenart <atenart@kernel.org>
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+        kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+        edumazet@google.com, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, co+71b6509cb791e531@bugs.sh,
+        stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: 5Kal8XCzPRqpvnNu6Vb6IYDsLCHAlcqj
+X-Proofpoint-GUID: 5Kal8XCzPRqpvnNu6Vb6IYDsLCHAlcqj
+X-Authority-Analysis: v=2.4 cv=Qu3LTlyd c=1 sm=1 tr=0 ts=6ad69936 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=x7bEGLp0ZPQA:10 a=S0S_EcBMpFAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Se5WoFf3ZZRiLcel0nel:22 a=T67y4n-0JBmO_r8OIWtK:22 a=VwQbUJbxAAAA:8
+ a=hKX_YmtgrgkOCiSBCTgA:9 a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4OSBTYWx0ZWRfX9Fxbzp6iGMFn
+ /Kw1g6WC2qpj6t16sOFa63Ys1s1nsANXFvWk7qJ+Q8QfvP2h3zu8Vqwh2mL6QDBZC8uKoOpAoCT
+ 6PDB5nvgDP7KaWxTC0Rq7e891nmFXTL2hwPNEWuS+g1iKVSAYymVqQAG6TTwJRYcPI78avBuebq
+ JZfrlXUPV1R3KQCqO+p9+xElFPFGYb0oLsPYRP9fgT+lKEbndhPMLrfNzCW+xNIHpRDP7uYn/RW
+ RYUWnN7PM43Hs9l79TLQ5sdnV3VJNCQL9gOz0M0sQhT40BDT+VQ5nm45sI9jz3/NV8JNXmDTs21
+ CSqwpq3stfL+TWDipMF/SKlvE+HGTTgrgwfSRayzvH1ISAC6/SEuW7s6NxC+uFNLIaiOngNTq4t
+ h/HVG0LYRPXzSGW1N9bOAYgZsir7kiLh0xf9OSdJ/zH60qDCFdijznkhwID1qSd/KOO99fD1tiT
+ gOGOeAUq5CtpkP4j7LQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4OSBTYWx0ZWRfX2qbqET/GKga/
+ ji64HyDrUEkm0DK/u+uhgS9KxVqQrvIUX1pFnsNsXFIRrbbFWTupGa19HxKN5uoAY93VKhpSC9u
+ RSu1gxTlKD0CxMFZ5Ui/ao7L6GGahuo=
+X-Orig-IP: 74.125.82.197
+X-Proofpoint-Spam-Details: rule=outbound_bp_notspam policy=outbound_bp score=0
+ priorityscore=1501 phishscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ adultscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190089
 
-do_tls_setsockopt_tx_payload_len() refuses to change the record size
-limit while a record is open, because both TX paths size the record they
-are filling against tx_max_payload_len. It looks for the open record
-through tls_sw_ctx_tx(), a plain cast of priv_ctx_tx to
-struct tls_sw_context_tx.
+I apologize for deleting the warning.
 
-On a socket whose TX side is HW offloaded (tx_conf == TLS_HW),
-priv_ctx_tx is a struct tls_offload_context_tx, so the load lands in an
-unrelated field. In the tested x86_64 configuration, open_rec sits at
-offset 144, which aliases sg_tx_data[2].dma_address. TLS never DMA-maps
-that table, so the check reads zero even while a record is open. This
-alias depends on the structure layouts: other configurations can read a
-populated field instead and reject a legitimate call with EBUSY.
+v5 is proposed:
+https://lore.kernel.org/all/20261019222531.1073-1-kj2864@nyu.edu/
 
-The missed check matters:
-
-  setsockopt(SOL_TLS, TLS_TX, ...)          TX offloaded to the NIC
-  send(fd, buf, N, MSG_MORE)                leaves an open_record of N
-  setsockopt(SOL_TLS, TLS_TX_MAX_PAYLOAD_LEN, M), M < N, accepted
-  send(fd, buf, len, 0)
-
-tls_push_data() recomputes max_open_record_len from the new limit, so
-max_open_record_len - record->len underflows. The next chunk is appended
-to the open record regardless of the limit. The record on the wire
-exceeds the record_size_limit the peer advertised, which the peer must
-answer with a fatal record_overflow alert, exactly what the option exists
-to prevent.
-
-Dispatch on tx_conf and look at tls_offload_context_tx::open_record for
-TLS_HW. TLS_BASE has no TX context and nothing to check.
-
-Found during review of the TLS core.
-
-Tested on two nodes using mlx5 TLS TX offload. Sending 256 bytes with
-MSG_MORE and then lowering the limit returns EBUSY with this patch and is
-silently accepted without it. The same sequence on a loopback TLS_SW
-socket returns EBUSY either way. With the limit set to 512 before
-sending, records carry at most 512 bytes of payload. Without this patch,
-lowering the limit after a MSG_MORE send produces a record exceeding the
-requested payload limit.
-
-Fixes: 82cb5be6ad64 ("net/tls: support setting the maximum payload size")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
----
- net/tls/tls_main.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
-index fbb274287aa5..8f11b8629492 100644
---- a/net/tls/tls_main.c
-+++ b/net/tls/tls_main.c
-@@ -837,12 +837,23 @@ static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
- 					    unsigned int optlen)
- {
- 	struct tls_context *ctx = tls_get_ctx(sk);
--	struct tls_sw_context_tx *sw_ctx = tls_sw_ctx_tx(ctx);
- 	u16 value;
- 	bool tls_13 = ctx->prot_info.version == TLS_1_3_VERSION;
- 
--	if (sw_ctx && sw_ctx->open_rec)
--		return -EBUSY;
-+	/* Both TX paths size the record they are filling against
-+	 * tx_max_payload_len, so refuse to change it under an open record.
-+	 * priv_ctx_tx is a different struct for each TX configuration.
-+	 */
-+	switch (ctx->tx_conf) {
-+	case TLS_SW:
-+		if (tls_sw_ctx_tx(ctx)->open_rec)
-+			return -EBUSY;
-+		break;
-+	case TLS_HW:
-+		if (tls_offload_ctx_tx(ctx)->open_record)
-+			return -EBUSY;
-+		break;
-+	}
- 
- 	if (sockptr_is_null(optval) || optlen != sizeof(value))
- 		return -EINVAL;
--- 
-2.50.1
-
+On Mon, Oct 19, 2026 at 4:33=E2=80=AFAM Antoine Tenart <atenart@kernel.org>=
+ wrote:
+>
+> On Sat, Oct 17, 2026 at 05:48:46PM -0400, Kaho Jiang wrote:
+> > User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
+> > This could lead to division of zero error if not checked properly.
+> >
+> > Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+> > Call Trace:
+> >  <IRQ>
+> >  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
+> >  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/=
+tcp_input.c:4440)
+> >  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
+> >  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
+> >  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
+> >  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
+> >  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
+> >  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netf=
+ilter.h:319 net/ipv4/ip_input.c:262)
+> >  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:=
+492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./i=
+nclude/li)
+> >  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
+> >  __netif_receive_skb (net/core/dev.c:6410)
+> >  process_backlog (net/core/dev.c:6761)
+> >  __napi_poll.constprop.0 (net/core/dev.c:7830)
+> >  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
+> >  handle_softirqs (kernel/softirq.c:645)
+> >  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softi=
+rq.c:758)
+> >  irq_exit_rcu (kernel/softirq.c:775)
+> >  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discrim=
+inator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+> > RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
+> >
+> > Fix by checking if user pass in zero as parameter,
+> > if so reject the value zero.
+> >
+> > Fixes: 814d488c6126 ("tcp: fix the timid additive increase on stretch A=
+CKs")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: co+71b6509cb791e531@bugs.sh
+> > Assisted-by: LLM
+> > Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+> > ---
+> >  include/net/tcp.h  | 3 +--
+> >  net/ipv4/metrics.c | 4 ++++
+> >  2 files changed, 5 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/include/net/tcp.h b/include/net/tcp.h
+> > index 4416cdf9bf30..ad80b8fb8a52 100644
+> > --- a/include/net/tcp.h
+> > +++ b/include/net/tcp.h
+> > @@ -1521,8 +1521,7 @@ static inline u32 tcp_snd_cwnd(const struct tcp_s=
+ock *tp)
+> >
+> >  static inline void tcp_snd_cwnd_set(struct tcp_sock *tp, u32 val)
+> >  {
+> > -     WARN_ON_ONCE((int)val <=3D 0);
+> > -     WRITE_ONCE(tp->snd_cwnd, val);
+> > +     WRITE_ONCE(tp->snd_cwnd, max(val, 1U));
+>
+> Please keep the warning (it's not only about 0).
+>
+> >  }
+> >
+> >  static inline bool tcp_in_slow_start(const struct tcp_sock *tp)
+> > diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+> > index ad40762a8b38..cb36686973e5 100644
+> > --- a/net/ipv4/metrics.c
+> > +++ b/net/ipv4/metrics.c
+> > @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+> >                       NL_SET_ERR_MSG(extack, "Unknown flag set in featu=
+re mask in metrics attribute");
+> >                       return -EINVAL;
+> >               }
+> > +             if (type =3D=3D RTAX_CWND && !val) {
+> > +                     NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater=
+ than zero");
+> > +                     return -EINVAL;
+> > +             }
+> >               metrics[type - 1] =3D val;
+> >       }
+> >
+> > --
+> > 2.43.0
+> >
