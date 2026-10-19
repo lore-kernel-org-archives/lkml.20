@@ -1,244 +1,155 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280294EC653;
-	Mon, 19 Oct 2026 12:30:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5424E80B0
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413055; cv=none; b=Czd+budnWm7UmulWRbZjsSD+ANhizstTqHeZtPUoWQNRy/T5W/8lrJbmjW+5kVS3eSRW/2m6u+5/xKGOgcQ0s6ZbPNPBemxtqpX9ezOryH10hqYCsPgKoR2bBLPwVua3COddtlEqq+rw9PdAMzVxPChirZlrzmc52R7ObVIDLzI=
+	t=1792413095; cv=none; b=VZBx00WI8+nhW1AqrG4Dw67Fm2CI7sraORaGT75S54CeHkMPMuQj9nJSABHec8FuNQa46RRS8DK36Y6j6vZLuZyEkQt7MEj/7tPyeX9sX/pdZ8/6bQz6dTIHTMR2zUlE6ZBk5x0XnV0MeV9R+8366lWpks7QZ6pmWdJdF0N8u9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413055; c=relaxed/simple;
-	bh=zSf4aXy8T9THsYKKiop3NtLaYmSnRT+Q+AiZBZpzG2Y=;
+	s=arc-20240116; t=1792413095; c=relaxed/simple;
+	bh=8EGxWuYlQ7OXKhzQbvph7ohelP0EC9V3y0OQ4e+V/kE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MZk/zDHbh+Ls9oqar6cXcPbhEcw+K/KuT/UJ4NB1f92mb3cNVEAhs69qSQMJ9zdp/EjpvbajVF4f2m6OfxgLBa3979LElenA3A/2mAk6ROd230Aq1WDJqMs/tIUF/Fu6L5zOZOUUGcd21ULM/5u3Nto/FlNkbH66fsz42t5TBYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SBqQ4hDM; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=cfQmx9OVlK0QaIbwTnYQUVLZ5TkU+N3FtaqMjbHMKZLmtgeQzyG4GivYCECRqls20+b9BUVp+rt+gwr9naQTpjX5TDLCxLkSga7X6b1bpf/QCwKd4jCabdVgqoTKN2KXgO6zFwiaUN1J3WofLAhpBH37cRjo2tHBUk0jy8i+rIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PgXxb2lP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZAg1ldlz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SBqQ4hDM"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 0B8EA4E4127B;
-	Mon, 19 Oct 2026 12:30:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D1B0560582;
-	Mon, 19 Oct 2026 12:30:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 41C3010328A96;
-	Mon, 19 Oct 2026 14:30:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792413031; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Logan3gn6C/KU3n5Q3xCq0kz6xJTn36NU41NqOjNh2E=;
-	b=SBqQ4hDMhIVyg7hDwTgClDvVzXR1QrwSevbck8neNch1NkNEU8m693eiC82ayamRPt5wMk
-	KrlIDMW2gZeFt+MHAwbqMhinVt1JPlmr8zOo86Tr1oS9QDCZoH/0bgSsdGKqcCxVUvDSFM
-	hFKOhd+J+7I8P/pBw2v0/eKXgHy0s5PMuC97e2jGI8Bd3iKVnyC+jB9RMQAl7Ks+Z9/1YP
-	5haA4bB2jWIs6QDE/dAQk+/8nqNNuOBLYyUokA/RtRj7T0pl+EHtPWe+9COfh5iXWJx2pN
-	0UtYNV3tAfVf90W5oZ8pqEj4/JtB0870/oQGQDL8DRUdkWA0VhSIwfLwHTsJRw==
-Message-ID: <bb8eaf92-2b5b-46a1-b39d-a29ae273a3b5@bootlin.com>
-Date: Mon, 19 Oct 2026 14:30:24 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PgXxb2lP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZAg1ldlz"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8OteV2752271
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:31:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	txESpfZ1KaTUu4rWKR+uZuZxaLU8Tf/Hk0bNSZQy788=; b=PgXxb2lPr8/6R74a
+	4EMF60QmvDN4AltVu/aRXIWapYshPM/aRd4TppnpCrjI/2YXQZXRbZiG5jh3glSM
+	uujC8uFb78h+4iejMiPiX452wkGFjRXatOYLOr3oX9r3bTTCqC/Ga4GV+DK3cAtt
+	MJLjnjk0WlKolKmr0hV6zrQkixIrEl0RnSJMeQUKoUuBchNISoR+n72biJ1+KHhF
+	rURKfkxtN41j3pfXzodr0d1rFmjtDh8ninwh9p9QNbkAeTmJnzo+mag9ngY8aOCk
+	EJP7C+hrRL6ViFFbY2a3N85q3WHWyxjkHfgFuJMHXkW/kwToWiu7zmncNykthO2X
+	bftmYQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf48h1jp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:31:13 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7cc081f3066so45526137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:31:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792413073; x=1793017873; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=txESpfZ1KaTUu4rWKR+uZuZxaLU8Tf/Hk0bNSZQy788=;
+        b=ZAg1ldlzUi6CYYY8ljiuPoxvdBkbLUKpE7q0SL9Bza0lpWYffImNNc/L/anl+JKhxP
+         Fu54ET93EWJ4aa9s9UXD7nz/cfq2Q3tuH5dWa3N4051Yu6b++UUfkULz2EkB2KtKAiI+
+         p3fTdw3KwES7/ficD62FWOD4UuGl8mpMAtVw2+rBIGRtEQsDfSwyZCCYSXw3yPD4Kthi
+         cAL5qC6/6psfA0czXfFiOThsYq9SGUFx3vD+Av4b2S0vrN9E50XpYvnl7/k33YejISDt
+         q2B/yX5NR668LgWk7zJCCghWS0X33yNOcrHY5sbdhlyCaGbueMChi09jRCaKw9XKDSyE
+         8KlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792413073; x=1793017873;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=txESpfZ1KaTUu4rWKR+uZuZxaLU8Tf/Hk0bNSZQy788=;
+        b=tG5vVscRHpZ0A2Icqkmj/9rDYTOvreJ8bD3ru5IUczlFsTam17N/qKmJkzEZdFYknc
+         XeHgJWNc6yErjut2wL26cVQlYGzBl3Kw1eCKqAOPpXlG03wKOX3jJi4YxUvT9Ft+C709
+         Z+0bexzDeXJGJb8Lf/DqP3UL4PH51PkRNcMP99WzZzymRrHQPYjhdphtTju9LkwEh+ys
+         xfz9OMFLWedMRHDs9aYEELBvNasLzkyNW45yMfFjSWr7UgtQmEu+mfgbLXevqZfID5//
+         rKQ7utzMfU7S5/WguQkRJ9/M47zrJJy+OOR68KKckzDwNxJ+z2LLHSO8b8t66uRJ9OgL
+         2Omg==
+X-Forwarded-Encrypted: i=1; AKwUvBwBOwpRvJfCcBod7C4k/gL58qAf6uv8pW1nFPDLDFLoGLg6BhBL2sFH7HUYqeMjH1yy4mpRHuol8Cw76zk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1RAPAROgC+1uKVf9CvjZiWeK14QB4kBfCqCRDnuGcfCcJnK4G
+	rDKUHVzRneOsJJwwk1/NIIw6kcc0s1bu5w+Fby7wlRziLrEMniHryFxJdTvvJA1bTTth12QDX+t
+	ekZX9qSZTHs6g0BQ6bCyArFwxzUQmZ0/n/y+x2D5qgplXY3aHmSeHQAsnNfxCrQapBQ4=
+X-Gm-Gg: AYBFou3PJZOkRaAQSmo+2Na3MKPkSHDfk6A3DRMhWEoSELbUyp7H3e/rb09KfM8uZHa
+	DyfXDVbHaDx5zyA4dMsmxlJgi8yHUkzw4+uDgumtGeGTDWVMdxo6ZKEKpZv+6WMPBwWdhGN5G48
+	BBYW2FWr1DeneeW56A/iKPiFHvmGrrHTE+0zKXMqfzWYGSJfkKG7VYZmX4yTw43asXnn8U3gU4M
+	dSNgR7xrWN9vQMh6J2kP36vdSgdq49gagLJipob4n1IbPduGGaC+seccHQLzewpRi2BB4xfQD8e
+	jN9kaBJzgN2uHsNNLuJat32Y+rBWsr5PGvvWt3HXj6TToVZhVriUjSfLjVT0wQ+AERTyg/VRoG9
+	k8z4p1ebnkw+zpsZnIfupRA==
+X-Received: by 2002:a05:6102:50a1:b0:7c3:91f5:26d4 with SMTP id ada2fe7eead31-7cc369efc05mr1517840137.3.1792413072779;
+        Mon, 19 Oct 2026 05:31:12 -0700 (PDT)
+X-Received: by 2002:a05:6102:50a1:b0:7c3:91f5:26d4 with SMTP id ada2fe7eead31-7cc369efc05mr1517832137.3.1792413072286;
+        Mon, 19 Oct 2026 05:31:12 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1ea48bsm3601007a12.35.2026.10.19.05.31.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 05:31:11 -0700 (PDT)
+Message-ID: <e675b54f-9eae-46f0-a207-02580fd0b974@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 14:31:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH net 05/10] net: pse-pd: check the PI state under the lock
- when setting a power limit
-To: netdev-bot+sashiko@kernel.org, github@szelinsky.de,
- o.rempel@pengutronix.de
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, piotr.kubik@adtran.com,
- saikrishnag@marvell.com, horms@kernel.org, kyle.swenson@est.tech,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261018082314.48950-6-github@szelinsky.de>
- <179239987339.3135.11130245905103238734@kernel.org>
-From: Kory Maincent <kory.maincent@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: lemans: Add Draco EVK board
+To: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
+        Ajinkya Inchure <ainchure@qti.qualcomm.com>,
+        Anuj Tripathi <anuj.tripathi@oss.qualcomm.com>
+References: <20261019-lemans-draco-final-changes-bringup-v1-0-dcabe94f1074@oss.qualcomm.com>
+ <20261019-lemans-draco-final-changes-bringup-v1-3-dcabe94f1074@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <179239987339.3135.11130245905103238734@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261019-lemans-draco-final-changes-bringup-v1-3-dcabe94f1074@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0OSBTYWx0ZWRfX6BpvFj3EsWnt
+ uvBqZ+4uuq4WGWwAtFgqRYm23Amjo9LOMW/LIdd6V3Ea6B2q7ACvwF/PsQMpkpTysgW/mXh7vOT
+ mOOtwlXEfKC5P2N8Wiwdvt0ORqNeQvbjxftkPE+YBsRt4VOdTK0+PXLlnTuX28MIYpz8QuquD68
+ IJ0FeYqTjx/wxffFmV3otpa/+RTT62NSiY3O9n/PWI8A+RE4SI+oRtG5CJbzl2dEnbtvDsa55mP
+ gs917TefPGejkFCF4tr5yFlXUENP0jq0gnsJxYqukkmW6Ogs8Wg/+lcj5J3AUdBnd+eaZNKXv0W
+ +4VC07yUvBDRRt9SZQ7ifPfRLwLTheJp2rT7QlohEZG/05MsO1DMr95KmKB3O4ppI7APcx5CLFc
+ gMMvPpX6Lu/oQF7ItI49kZ2JK6rZ4kUA5GoYbwr3oV8OpnqktwspJH5p6sZA/l/SNvx+M0/OHVA
+ weS6fXgoJ59Lz8tva4Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0OSBTYWx0ZWRfX4UB/ZVq5H7iA
+ pxEv5bMSn5DcFOms6JfiCC3BZKMUzZf5T+aW8H3xpl5jdSTIa2Zv/9ba33aMsGpVbu/EfcozXuq
+ khqfo+i/eE+IMfM4YGLmaxeISv344QI=
+X-Proofpoint-ORIG-GUID: dv8N_KhHiLXR72t84nFLBJcPHDP_5ANf
+X-Authority-Analysis: v=2.4 cv=Qr/LTlyd c=1 sm=1 tr=0 ts=6ad60d91 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=2y-c5VRBA9tA1ecnzscA:9 a=QEXdDO2ut3YA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: dv8N_KhHiLXR72t84nFLBJcPHDP_5ANf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190049
 
+On 10/19/26 12:27 PM, Gopikishan Thawre wrote:
+> Add the device tree for the LeMans Draco EVK platform which combines
+> the LeMans Draco EVK SoM and Draco carrier board.
+> 
+> This device tree adds board-specific peripheral configuration on top
+> of the SoM, including:
+> 
 
-On 10/19/26 10:51, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] The patch puts the PD-state check and the budget change in one
->    pcdev->lock critical section inside pse_pi_update_pw_budget().
-> - [Low] The kernel-doc for pse_pi_update_pw_budget() (drivers/net/pse-
->    pd/pse_core.c:1835) still says "Return: Previous power allocated on…
-> 
-> --
-> 
-> net: pse-pd: check the PI state under the lock when setting a power limit
-> 
-> This moves the software power control, admin state and PD detected checks
-> from pse_ethtool_set_pw_limit() into pse_pi_update_pw_budget(), so they now
-> run under pcdev->lock. A new updated output parameter reports whether the
-> budget changed. The rollback after a failed regulator_set_current_limit()
-> now runs only when updated is true.
-> 
->> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
->> index 336f00d82b5f8..d5f863834179c 100644
->> --- a/drivers/net/pse-pd/pse_core.c
->> +++ b/drivers/net/pse-pd/pse_core.c
->> @@ -1829,22 +1829,32 @@ EXPORT_SYMBOL_GPL(pse_ethtool_set_config);
->>    * @pcdev: a pointer to the PSE controller device
->>    * @id: index of the PSE PI
->>    * @pw_req: power requested
->> + * @updated: set to true if the budget was changed
->>    * @extack: extack for reporting useful error messages
->>    *
->>    * Return: Previous power allocated on success and failure value on error
->>    */
->>   static int pse_pi_update_pw_budget(struct pse_controller_dev *pcdev, int id,
->> -				   const unsigned int pw_req,
->> +				   const unsigned int pw_req, bool *updated,
->>   				   struct netlink_ext_ack *extack)
->>   {
-> 
-> [ ... ]
-> 
->>   	mutex_lock(&pcdev->lock);
->> +	/* Only a powered PI under software power control holds a budget.
->> +	 * Check it here, as pse_isr() changes it under the same lock.
->> +	 */
->> +	if (!pse_pw_d_is_sw_pw_control(pcdev, pi->pw_d) ||
->> +	    !pi->admin_state_enabled || !pi->isr_pd_detected)
->> +		goto out;
->> +
-> 
-> [Severity: Low]
-> This isn't a bug, but the kernel-doc for pse_pi_update_pw_budget() still
-> says:
-> 
->   * Return: Previous power allocated on success and failure value on error
-> 
-> This new early exit returns 0 with *updated = false, whatever
-> pi->pw_allocated_mW holds. The existing !pw_diff exit also returns 0.
-> 
-> pw_allocated_mW can be non-zero when this check fails. For example,
-> _pse_pi_disable() returns before pse_pi_deallocate_pw_budget() if
-> ops->pi_disable() fails, but pse_set_config_isr() still clears
-> isr_pd_detected on disconnection.
-> 
-> Could the Return description say that 0 can also mean no change was made?
-> It could also say that callers should check *updated, not the return
-> value, before rolling back.
-> 
->>   	previous_pw_allocated = pi->pw_allocated_mW;
->>   	pw_diff = pw_req - previous_pw_allocated;
->>   	if (!pw_diff) {
-> 
-> [ ... ]
-> 
->> @@ -1908,21 +1920,17 @@ int pse_ethtool_set_pw_limit(struct pse_control *psec,
->>   	/* Update power budget only in software power control case and
->>   	 * if a Power Device is powered.
->>   	 */
->> -	if (pse_pw_d_is_sw_pw_control(psec->pcdev,
->> -				      psec->pcdev->pi[psec->id].pw_d) &&
->> -	    psec->pcdev->pi[psec->id].admin_state_enabled &&
->> -	    psec->pcdev->pi[psec->id].isr_pd_detected) {
->> -		ret = pse_pi_update_pw_budget(psec->pcdev, psec->id,
->> -					      pw_limit, extack);
->> -		if (ret < 0)
->> -			return ret;
->> -		previous_pw_allocated = ret;
->> -	}
->> +	ret = pse_pi_update_pw_budget(psec->pcdev, psec->id, pw_limit,
->> +				      &updated, extack);
->> +	if (ret < 0)
->> +		return ret;
->> +	previous_pw_allocated = ret;
->>   
->>   	ret = regulator_set_current_limit(psec->ps, 0, uA);
-> 
-> [Severity: Medium]
-> The scenario in the commit message, where budget is reserved for a port
-> that is no longer powered, looks closed now. But can the budget and the
-> hardware limit still drift apart in the other direction?
-> 
-> The state check and the budget change now share one pcdev->lock critical
-> section. The hardware limit is still written in a separate one:
-> 
-> pse_ethtool_set_pw_limit()
->    pse_pi_update_pw_budget()        <- takes and drops pcdev->lock
->    regulator_set_current_limit()
->      pse_pi_set_current_limit()     <- takes pcdev->lock again
->        ops->pi_set_pw_limit()
-> 
-> The threaded pse_isr() only needs pcdev->lock, so it can run in between:
-> 
-> CPU0 (ethtool set_pw_limit)
-> pse_pi_update_pw_budget()
->    sees isr_pd_detected == false
->    *updated = false, nothing reserved
->    mutex_unlock(&pcdev->lock)
-> 
-> CPU1 (pse_isr, classification event)
-> pse_set_config_isr()
->    isr_pd_detected = true
->    _pse_pi_delivery_power_sw_pw_ctrl()
->      pw_req = min(pi_get_pw_req(), pi_get_pw_limit())  <- old hw limit
->      pse_pi_allocate_pw_budget(pcdev, id, pw_req, extack)
->      ops->pi_enable()
-> 
-> CPU0
-> regulator_set_current_limit()
->    pse_pi_set_current_limit()
->      ops->pi_set_pw_limit()         <- new, higher limit
+[...]
 
-@Oleksij, Here is another example of an issue related to the PSE PI 
-being a regulator provider.
+> +	ethernet0_default: ethernet0-default-state {
+> +		ethernet0_mdc: ethernet0-mdc-pins {
 
-@Carlo, Kyle is working on a series that remove the support for a PSE PI 
-being a regulator provider. We will see where it goes.
-I think you can ignore this sashiko point as for now.
+Please drop unused labels
 
-> The port would then be powered with a hardware limit above its reserved
-> budget, and nothing later corrects pi->pw_allocated_mW. Could that
-> over-subscribe the power domain?
-> 
-> A disconnect followed by a reconnect between the two sections seems to end
-> the same way. If regulator_set_current_limit() then fails, this rollback
-> writes back the previous_pw_allocated value that was read before the
-> reconnect:
-> 
-> 	if (ret < 0 && updated) {
-> 		pse_pi_update_pw_budget(psec->pcdev, psec->id,
-> 					previous_pw_allocated, &updated,
-> 					extack);
-> 
-> Would a full fix need the state check, the budget update and
-> ops->pi_set_pw_limit() in a single pcdev->lock critical section?
-> pse_pi_set_current_limit() takes pcdev->lock itself, so that looks like it
-> needs a different structure from calling regulator_set_current_limit()
-> after pse_pi_update_pw_budget().
-> 
->> -	if (ret < 0 && previous_pw_allocated) {
->> +	if (ret < 0 && updated) {
->>   		pse_pi_update_pw_budget(psec->pcdev, psec->id,
->> -					previous_pw_allocated, extack);
->> +					previous_pw_allocated, &updated,
->> +					extack);
->>   	}
->>   
->>   	return ret;
-
-With the change ask by sashiko on the kdoc you can add my Reviewed-by tag.
-
--- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
-
+Konrad
