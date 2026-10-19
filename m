@@ -1,152 +1,213 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012039.outbound.protection.outlook.com [40.93.195.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1280349CFD
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421305; cv=none; b=QAlrfPDI900JpUqgF46l0RRX6NbP+Ua/bB+nEo6ET+qzXegZLJ2OkbdrGE8iBtusVGaRXbwirzsFql6QzH1BmcjlrLw7AMzEOqEi+SCRdu8n/1btuDpfSAQIcymQeclVs3lw+sDcER8y2BcYE5/kH/nrXz9Z1V+IqPVTYTybObI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421305; c=relaxed/simple;
-	bh=y7hhy0jMwIBWPpKFihLcA9zDPb8SzNujCS4xLyCrVPc=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=G07Erv330Jg5JyU0bfmrq3Acmryg6MmJxCDDwuww4+9JT0P80JG9UJNGodBEL+gGknUkk0fJc3S5/HXx3VE/0Rt3fZYc36BZCe+xY2Ci5R81bhV4KH7ble56p8bYOld/13knewAIz+0WJC55X+17kwI2PMFlY2CSM2wEZBMelbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sUvBvNeE; arc=none smtp.client-ip=209.85.128.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A6A470842;
+	Mon, 19 Oct 2026 14:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421306; cv=fail; b=KoKpRaBOcksEVgks4bZuFfccCOt4jR2mj6NmOQadGUoqJJLfkLQtvvLm/dkNHetki5s//iwexKDQTRizMOD1at6pIWjWdW18jgsTYYaz3fwl8Fkph+ecw1EkTOsIWnX6rxXdJziviEc+ox4HyLuASXR2X2lNxfq7gBPO4ijHXwA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421306; c=relaxed/simple;
+	bh=7whlLeKEE1ypPRDQYrkw4iga2oCHQkSUca3zS38Ahtk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=D3l5u7PvKZfYk9/gWJhvHt2f1N9olOnU+UgCGH0UJ2UMWhaR/KskqykZkHfKVtgJPgTM/VNFoISEg2XAg36Lxquj7jmwFdYvVG5Kna2uv/5wxP4BuMavfODS9T5U4jHapCJBth0QmWqQEOc3lidqB0aW2Esj8ByJMYhWEIMDLoA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=j0JemJHL; arc=fail smtp.client-ip=40.93.195.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sUvBvNeE"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1895ffc83so16244255e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:48:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792421302; x=1793026102; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bF3manf6h/sdWmju/9t0IgXnvtLovSvm8SwVL7k7d50=;
-        b=sUvBvNeEkXK1QlcOhSqJPvKlYpI/knTEvGBnon5X6FFNlektSEYWdCKyUwzF6cJ07j
-         9wjQdu/anPLE5IG8L12cSkaOeFIMp2kFdHLzsw4GuSCbZmfHEz6HHOWghyhlpFSzGxRB
-         IRBrODzXPKmkhkPojdsK+1INBghAm4D136rY7U03X64U3K3C9AWCcPScheNuWthS4BcK
-         uS/K+x/eVOPAeBQxE/A8Hmukmv3EyBJXzXvDwsj5qujCfRREcv8/zbEaObi1dtB5v92B
-         BOBNMfId9xTzkDANAk1pYKmb5BtpHyDqskOBilObAh8U9CSATLGvYMOtiJbslLVxLuK0
-         L3JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792421302; x=1793026102;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bF3manf6h/sdWmju/9t0IgXnvtLovSvm8SwVL7k7d50=;
-        b=LcOOoq6dyfhn5fs6rO3O3Vi1Yqk+mAb0F6UE9xCt6/5gIWmRqUifuRTDXwZfR0+jUh
-         i0r0jD8r2f5Lh5Tk/dbZrqM8s3KCjCEPrfyQRxL1mD+/IBh0H5gzIkReZKEGzG3FzUTB
-         //+eoQHuvta4APV1ILRyxwcQiIdds41mt3+ueVAKnqgPWgo2u3FG1DgP4Ws3JO4Ur6iU
-         Bo4L4mS8lKZrRajPzGNDkg4EMMz9BMGMAiw4LCTb091bzCBBiSlTDXEV+woZs6j2SmiZ
-         xZ4wKH0F/DaNuuz8BiSRt+xhJbcnF+7rRZh9vLCUvYVDRRuw0zDbJzTTKHG75Sxym0HA
-         F+VA==
-X-Forwarded-Encrypted: i=1; AKwUvBzuu8ndCDqBs+cvJeizvtprmIDb65bLwqvhNnIMbBY5Li+ZWM/3gpr9+u6OSr+zSx2dcuSqH8/yqBFxkN0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbnro84aXB8/Zk50SMa5hwq+Giwv0CVKniyW/fDFZRqIvxMAs4
-	aIe/T5tARqEq5YCg0v6jfhQiPlsMiYz9IYoYT3xkvilpBLPdgrcX7W0S8mwGyy8cBCrZNswVIx9
-	13gn91Bhy+Ikqsg==
-X-Received: from wmej10.prod.google.com ([2002:a05:600c:42ca:b0:4a1:e58a:b550])
- (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:6218:b0:4a1:ddaa:571e with SMTP id 5b1f17b1804b1-4a1ddaa5803mr151862875e9.15.1792421300447;
- Mon, 19 Oct 2026 07:48:20 -0700 (PDT)
-Date: Mon, 19 Oct 2026 14:48:05 +0000
-In-Reply-To: <cover.1792248922.git.jpiecuch@google.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="j0JemJHL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ob28qS+sM2K+mVgdvoGcOwVHnG5/JXn9deRpZoXIrlUfxG/BHoXc/3aQ9wS1pEUUzpuWz3O5BPW7tyOX8XC7aCWsmp5FVHQUmuFzVw4IabRL8RNo7MLICfVBx05mKOwA+9GPBUvTeicgR8wKFtVCvYX1SrlJFEhw3pz0418UWjNwwjh6buw9z49JgTJHP48VNddUSZiYYv99V5OHrJZ5CqACZsUOTfxFB/+RZ+1HXIrQgwivoFkL6hjT0+5CDwa6WeoA8ZjNnIwwS/4QOFtkz3rViXoR1YRtbuLr4CHtFU0QPqi75V6en/dU3wtnmu1dvpMk1SoKqgKu70sj5KDsiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uxsVq36+6YP4UudoLlQFXQ6CJPlH1353QkIuI6ztx1g=;
+ b=F2cPkjTKqHMcrl3bbB0SN3BQT1BzoZTgfaHRvwT+ZfuxYaCoi6CbB3bHRwd7/LFsb52jUnCeUv39Rya64f9et2Zp9zCmS59OrfaBPmqbhObSLsAndZiFtbpgatQcImM9UFFHtro4XB2yIgIbX56S4t+KN7cz/7r2vsNsKGCb3+Zny3RGi87EBxQsJo3GWfKYRHGVTYH63YfJJzjYokB4vEFJCUDIbda5ffDG3OH8AZWk5OJZaBI8NfXvUwhJlRQdKCymPE0MSR9ylI739Ii3zZeLu5lLON7zIVY8B3wm1Mqo4l8jcyKA2KBe2W4b+XAwezS+tDa0SOaBID3uQO4xCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uxsVq36+6YP4UudoLlQFXQ6CJPlH1353QkIuI6ztx1g=;
+ b=j0JemJHLd/dHdO3S43SXqEQIVt6EPe8UUeXFmZVabNABp1en9XoTZF3l4MoJGiuSr5OiNBKQ/QcggrGfn5wH7kKPrVYAthsjWvGZet0t0rN2Ds6iaV/59V3ZAgHSxitVSms5Ejg7w30NpvdUbYF/0y8cQBC0VhZ0Rc5oGsmpBgc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB9447.namprd12.prod.outlook.com (2603:10b6:8:1b4::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 14:48:19 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 14:48:19 +0000
+Message-ID: <b9f5ee4d-987f-44c2-a1fc-2570f4500803@amd.com>
+Date: Mon, 19 Oct 2026 16:48:13 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] media: synchronize CPU access to imported DMA-BUFs
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>
+Cc: linux-media@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede
+ <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Tomasz Stanislawski <t.stanislaws@samsung.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <cover.1792392288.git.kmehltretter@gmail.com>
+ <20261019124433.GU595565@killaraus.ideasonboard.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261019124433.GU595565@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0358.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f4::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1792248922.git.jpiecuch@google.com>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261019144807.1207781-1-jpiecuch@google.com>
-Subject: Re: [RFC PATCH sched_ext/for-7.4 0/5] sched_ext: Make
- ops.cpu_acquire/release() reliable
-From: Kuba Piecuch <jpiecuch@google.com>
-To: Tejun Heo <tj@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Cc: Kuba Piecuch <jpiecuch@google.com>, David Vernet <void@manifault.com>, 
-	Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB9447:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ff771ab-58ae-4b5d-ab96-08df2df0040e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|18002099003|10067099003|22082099003|3023799007|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Lyxld7rgtwNNI/O9+JobFIUkObqmUIhal0vuAt7DLJ+ZySezdbyhD7C9W6ThwdF7IYgcEC9rT53ClVEBST5LwKSA5Nd040XRb55Tp1+xwW/f6ybX0mOVk3/ngQjxUJD6OuqcghUVTCH3MSuczUTrIt3U4aIa0JpAgZmdMxw071VGqxc22Oi91y/k0hiVyxxwV5Kv0gh/bejcXxYfsH4qpSpNiie0HGXmpVYn3ys3LqIROjnKVdGEi9AWG4ksaQOJ5RJoKBaETTKmcKmdBvbkUGVdwURwKkEQYNcY1fhPrt+gZQXlKYRLsc9jPTfmBHI8l0bjL0+SrYBzC7p3eTT4YMfMQnF1azGD5Sx11Ll6SBbrtSxw6ab8BU0tfvU89SJ8LHCFg7U1/dGrFJDXPg7frJjyaaozJYJPzycQbhSFSuqe0F9TLRSKjbAfhCzXSneS2ic3xJwvdrDlTgCf8SgRx2keIJnkNQzYZepv0GY7DLMt1yHoG6xxXsjF0ykXW1rlopr3lW8H3hsHmA+ueuwhRQ35u7lfGuVZO41YEal3iDj9irYGAdp/3rwdVRU/W6bi0kUC6Y7r1rPAoZ6VFyzUlMZD6tMu0ha1LzZzt3pJi49EASM4PCf5N8Q3426Ds9Js
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(18002099003)(10067099003)(22082099003)(3023799007)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S2hxNVFOMXBOVWErSXdVdUJzTDlZV2xoeXRvL3RQdlFFNjE2bVQyRUcrVGtj?=
+ =?utf-8?B?USthczVibHB0b3hCRDFkUHZ3anA3VHNPaWhmZytaNEl2YnhUY1dFdlBrSjV3?=
+ =?utf-8?B?aU9PVzFkRURyTy80blVNWi9oZEljU3IxNGR1dm1jLy92ZnM4WXRDSHU5QWFl?=
+ =?utf-8?B?akVWdllNOVV1V2xDUEYrMVQ2SGdpRzBuY09IOW1vSHBIUzRTSTJ6akEraG95?=
+ =?utf-8?B?bVdoNmFZendtMnZSZU56ODBKYTNmbXM5azNOMG9OMVlCSG5URWk1ZnU4eUtF?=
+ =?utf-8?B?MW5hajRqMWlRVVBaKzVqV3BlZkVhZ3pLbFdCUnRza014NjY1NDdiK3FNbDNT?=
+ =?utf-8?B?djhFY1B2OWg3OGlFclNBa2E4bWloU1l0VnUwUEdkWjdldUNtelJwWGlHcTlO?=
+ =?utf-8?B?cGlha2k2aGs1bE8xUlR5bjZpb3VlZnNXWnJYUlV2bVlMVjZkK09MSUdER2I0?=
+ =?utf-8?B?VjU5Wk5uWVQyYjdIVGpVU1dxcFcwK0hZOVczTGFycmw1cmJNTkUrcUVqdGtj?=
+ =?utf-8?B?MllnTnZTMXVOMzgxREZyb2hwVzJSNHJNR3ZNRndjMDZqZS9tNWgyNEpxT0lD?=
+ =?utf-8?B?a3R6dk5RdklKM2xlMUZML2V0aDNMNzNpWWNyT21ybUFEU0MzcE5QbnkvWVUw?=
+ =?utf-8?B?UkZRcnNlb0Y3a0ovQ1V1cWRVeUNPUzV6S0xLY2diL1ljQUFxMEJmNzN2VnRt?=
+ =?utf-8?B?eGJOZncyZUkzYllpLzV1dEFsZEhGbVVDK2V5Q3I3YTRFTDZvR3NZTVg3MlNQ?=
+ =?utf-8?B?NkhMRURsQnlQYlI2Q29IWm1DSWZ0UjhyOXJ0QzN1NlFsSWRhdWw0UDlBS2Mx?=
+ =?utf-8?B?VEx4YkRDejNTZXZ0c3phSVk2TmFFYkR1WHVHb0xmVDhCRmkxS3llOGRvbU1N?=
+ =?utf-8?B?OWZFRzFNL2xCQy8wRkdVSGY1MUo4SGZsampiQ0VxWjBEMy9yVDl6eWQ4ZXo1?=
+ =?utf-8?B?bFFDK0o3Q1NuNDlmam1YR2p0Y01RUWhReU1QRm9EcUpQVlF0MHBHMkZiNzFK?=
+ =?utf-8?B?TDlKNWNVa3FjKzU3U2RtZ1REWE9WbkVtcnhqdlBBekxIaURXNGdiZzBlNU5t?=
+ =?utf-8?B?OEZram9CYkhPRmpGNWZySzNsUnBCTldFODM0NDNXZkNxV2lTM2w4TURGYzZ2?=
+ =?utf-8?B?R3ZnTEt2NFd4YWU1dy96cmIvRGNCSGdmTVVZMVZ5ZUwraHdlV2hLT3UyTjlu?=
+ =?utf-8?B?S3JzZ2xveGpPOG5Rd2xiWXNaVThaODJveVppTURSU0MxWE9HQjgzeU5VeFdI?=
+ =?utf-8?B?SXV6TW8wM2tBdGJ3WXVSZVRhRER3anU2SEE3bGhRdFluVFVvL1U4Z05kdlQ4?=
+ =?utf-8?B?dWtGbHc3b2hGbXFESjY5MkNZSnFVdnVGY1JPbm1UU0VvNkdzSG1ua3RzMks1?=
+ =?utf-8?B?dnR5Skx0U1NCNkliUFYxaDFrYXBLYUNCcXMxZU1CRzE2enN0VWE2cGJyc0Yw?=
+ =?utf-8?B?bWgyL2NTSkVwT2IwSkhTV1F1MlJpZkEwVHFoU1hxeDVNWFJjNVo4MlMvbzZz?=
+ =?utf-8?B?ZWFQeCs3aVFWQUVpNDJPcXJLSWM2eWJHdFJaZFVsU3kxWXNFc3JSdk5vSkVj?=
+ =?utf-8?B?WUoySXJ4WEJLUWNXbnJvenpDQUtySlNld1JjOHBGRlBvQW5TY1lOdEVsRmFK?=
+ =?utf-8?B?d2QwTGR5ZkdsUVpXdmJyVlNOWDJYZFBwVUhWdDJQaW5yUURZV1NOdkNPYnM4?=
+ =?utf-8?B?TlpkdXZ0U09CRGp6WitpQkJUUTEwRm1lOWxaZFF6TU1TbzRyK0V0SUhpdUFx?=
+ =?utf-8?B?eEdtamJHNjQ2ZUU4VlkrNWNQaTRUdlhxRXNEYkNXOVFSN1hOVXdoL0ZkZmhm?=
+ =?utf-8?B?SzR5eUx4R2w1NHdvQUZiZ0xaUFBseWowUk9LOUN1Q2REZVM4czJneEZYN0xx?=
+ =?utf-8?B?cmQ0SmtER0RsQlNCcXk5aHIzQmNvK1FiVjdXQXZRM1I5bVBQMkVxS21UbnVo?=
+ =?utf-8?B?VUF1Z2JpMlA5SUVLRy92NWJ0RlZYV0dLSzZHMllEQVgrSEc2MXNBek1DRzA4?=
+ =?utf-8?B?SGo2TXVGZVVMUU1GNEVRNFQ2NXdzcFVjRFJMamFldTJ2SlFETVcxajdsRHFP?=
+ =?utf-8?B?VGVkMmxtUWtmQWl1RzhxRkQ0bExxSDJJNGthK21BREorRklWQUpHZy9LTkE5?=
+ =?utf-8?B?L0xPT0ZvVjlkeGZKKzZsODdsNjVCVGZOOWl4NC9aa3ZxQ1VVc01QRXIxZk9M?=
+ =?utf-8?B?ZmFGTEdWd2l0WkFTZS9VbUcrRXFOZk9JTWRVcXNsVU1tYXJXNTlFMVFXNm40?=
+ =?utf-8?B?V3NUTDBRVFh6RXlGcERGang0cFBQaWtUQUM4YVUzVzRvcGVlWkVOT3RXMzNL?=
+ =?utf-8?Q?mgBprrjVnIJFGhcYS8?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ff771ab-58ae-4b5d-ab96-08df2df0040e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 14:48:19.4966
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KlrCSvh/d0kL7l2lhAGJUNTgAkHzaji+afie3/5SW0ZoIkSv9r4ycfafqNIsLfJ+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9447
 
-On Sun, Oct 18, 2026 at 12:14:44PM +0000, Kuba Piecuch wrote:
-> - ops.cpu_acquire() moves from before ops.dispatch() to the point where
->   the CPU actually switches to an SCX task or idle, so ops.dispatch()
->   may now run on a released CPU. A speculative acquire before dispatch
->   can't be made reliable without hooks in every class.
+On 10/19/26 14:44, Laurent Pinchart wrote:
+> On Mon, Oct 19, 2026 at 09:14:07AM +0200, Karl Mehltretter wrote:
+>> UVC and vivid access imported DMA-BUFs with the CPU without cache
+>> synchronization. On a Pi 400, captured data remained in the CPU cache
+>> while physical RAM was stale.
+>>
+>> Add an opt-in queue flag to bracket CPU access from buf_prepare() through
+>> buf_finish(). The allocator cannot imply CPU use because some vb2-vmalloc
+>> drivers pass buffers to hardware. Patch 1 balances finish operations in
+>> VIDIOC_REMOVE_BUFS so removing prepared buffers closes this interval.
+> 
+> This seems completely wrong.
 
-I'd like to reconsider this part of the approach, for two reasons.
+It looks a bit questionable from 1000 miles above, but I might be wrong.
 
-First, it changes the semantics of ops.cpu_acquire() relative to the
-original implementation. Schedulers could so far assume that the CPU
-is acquired whenever ops.dispatch() runs. With this patchset they can't.
+Let me iterate the rules here:
 
-Second, it loses a case ops.cpu_release() should cover. Say an RT task
-blocks, ops.dispatch() inserts T into the local DSQ, the rq lock gets
-dropped, another RT task wakes up on the CPU, the SCX pick returns
-RETRY_TASK and the RT task wins. That's an RT -> RT switch, so the CPU
-never becomes available, no ops.cpu_release() is invoked and T sits on
-the local DSQ until the CPU picks from SCX again.
+Accessing imported DMA-buf with the CPU from userspace should only be possible by using the dma_buf_mmap() interface and that includes the DMA_BUF_IOCTL_SYNC IOCTL to flush buffers dirtied by the CPU. If that is not done this way then that would be a *major* security issue, but I guess that this isn't the issue here.
 
-The standard answer to that would be SCX_ENQ_IMMED, but IMMED isn't
-bulletproof either. It relies on rq->next_class being raised through
-wakeup_preempt() whenever a higher-class task is about to take the CPU,
-and there are several ways around that:
+What the drivers do more likely is that they use the vmap interface to access the DMA-buf with the CPU inside the kernel. Correct?
 
-- sched_setscheduler() or a PI boost promoting a queued task to RT/DL:
-  sched_change_end() doesn't call wakeup_preempt() for non-running
-  tasks, switched_to_rt() only does resched_curr() and switched_to_dl()
-  calls wakeup_preempt_dl() directly.
+In this case dma_buf_begin_cpu_access() and dma_buf_end_cpu_access() should be called to properly frame that access.
 
-- DL replenishment (dl_task_timer()), CFS bandwidth unthrottling
-  (partial mode) and RT group unthrottling enqueue and resched_curr()
-  without going through wakeup_preempt().
+That seems to be added in patch #2, but I absolutely can't judge if that is correct or not since at the same time you speak about userptr access and the code really looks a bit like spaghetti. 
 
-- When the ext dl_server picks an SCX task, next_class becomes ext
-  although RT tasks are queued, so rq_is_open() accepts IMMED inserts.
-  Once the server runs out of budget, RT takes over without any wakeup.
+Regards,
+Christian.
 
-- With core scheduling, a forced idle pick resets next_class to idle
-  while tasks remain on the local DSQ, so a later RT wakeup goes to
-  wakeup_preempt_idle() rather than wakeup_preempt_scx().
+> 
+>> This follows the per-queue flag proposed here:
+>> https://lists.openwall.net/linux-kernel/2024/06/20/236
+>>
+>> Based on Linux 7.3. Tests cover the same code on these earlier bases:
+>>
+>> - Pi 400, 7.3-rc4, all four patches: eight 640x480 YUYV frames per run,
+>>   imported CMA DMA-BUFs with a DRM device mapping:
+>>
+>>   Path                          Runs   Stale frames
+>>   UVC, vb2-vmalloc               12        0/96
+>>   vivid, vb2-vmalloc             12        0/96
+>>   vivid, vb2-dma-contig          12        0/96
+>>
+>>   All six lifecycle cases passed with both vivid allocators. Read-only
+>>   output USERPTR passed. The test added no warnings or failed CPU-access
+>>   callbacks. A control without the DRM mapping found 4/16 stale frames.
+>>
+>> - SAM9X75 (ARMv5), 6.18 backport of all four patches: the baseline
+>>   PREPARE_BUF/REMOVE_BUFS imbalance was fixed. USERPTR and six lifecycle
+>>   cases passed. All 128 vivid and 96 UVC frames matched RAM, with 100/100
+>>   begin/end calls. The baseline was already coherent.
+>>
+>> - BeagleV Ahead (RISC-V), 7.3-rc7, patches 1, 2 and 4: read-only USERPTR,
+>>   six traced lifecycle cases and 60 repeats passed with balanced callbacks
+>>   and no kernel diagnostics. A vendor 5.10 backport of patches 2 and 3
+>>   captured 96 UVC frames without stale data, with 100/100 begin/end calls.
+>>   Its baseline was already coherent.
+>>
+>> Karl Mehltretter (4):
+>>   media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
+>>   media: videobuf2: add opt-in DMA-BUF CPU access
+>>   media: uvcvideo: synchronize imported DMA-BUFs for CPU access
+>>   media: vivid: synchronize imported DMA-BUFs for CPU access
+>>
+>>  .../media/common/videobuf2/videobuf2-core.c   | 96 ++++++++++++++++++-
+>>  .../common/videobuf2/videobuf2-dma-contig.c   |  5 +-
+>>  .../media/common/videobuf2/videobuf2-dma-sg.c |  5 +-
+>>  .../common/videobuf2/videobuf2-vmalloc.c      |  5 +-
+>>  drivers/media/test-drivers/vivid/vivid-core.c |  1 +
+>>  drivers/media/usb/uvc/uvc_queue.c             |  1 +
+>>  include/media/videobuf2-core.h                | 12 ++-
+>>  7 files changed, 116 insertions(+), 9 deletions(-)
+>>
+>>
+>> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> 
 
-In all of these, IMMED tasks end up stranded on the local DSQ behind
-the higher-class task.
-
-Making next_class exact would mean touching rt, dl, fair and core, and
-still wouldn't cover the dl_server and forced idle cases. What I think
-would fix it is a single SCX hook in __schedule(), right after the pick:
-
-	next = pick_next_task(rq, &rf);
-	rq->next_class = next->sched_class;
-	scx_settle_pick(rq, next);
-
-gated on scx_enabled() and next's class being above ext. At that point
-the pick is final, the hook runs on the CPU that's going to run next
-(core-sched siblings settle in their own __schedule()), and a preempted
-prev as well as anything ops.dispatch() inserted are already on the
-local DSQ. If rq->scx.nr_immed is non-zero, the hook schedules a
-re-enqueue of the IMMED tasks, whatever made the higher-class task
-runnable.
-
-The same hook also allows fixing ops.cpu_acquire/release() while
-preserving the original semantics. ops.cpu_acquire() stays in
-dispatch_one(), before ops.dispatch(), and the hook releases the CPU
-if it's still acquired when the pick lands above ext, with the task
-actually picked in args->task. That correctly handles every abandoned
-pick (RETRY_TASK, the ext dl_server returning NULL, core-sched
-restarts), and in the example with an RT task above ops.cpu_release()
-gets to re-enqueue T. The release calls v1 adds to put_prev_task_scx()
-and put_prev_task_idle() go away. The rest of v1 (class changes,
-hotplug, enable/disable) stays.
-
-Tejun, Peter, would a hook like this be acceptable? The core.c
-footprint is one line, it's a static branch when SCX isn't enabled, and
-the out-of-line call only happens when the pick goes to a class above
-SCX. If you're OK with it, I'd send the IMMED fix first, separately
-(Fixes: 98d709cba319 ("sched_ext: Implement SCX_ENQ_IMMED")), and
-rebase v2 of this series on top of it.
-
-Thanks,
-Kuba
