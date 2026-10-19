@@ -1,60 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792421711;
-	b=FJN6lX1l1Ks60EyJMfW7bK1PbE1P4295lGDKh1wY66kP8mYjibnAzEO2fr9LTnjSs16m
-	 7vIQfp3FtSitcQbCUSOBqdY9+29ZDtDCc7XLB5oo/wVy6S0Ngz//ZPSaS69GEY5vIoozV
-	 ZWTXrXjpNqinevj0qvWsnLRo460XX5/tGHCvTgnshUMuvIw3RduytsJS03seVht/6DqV1
-	 9dx+Cu/h5H55WZpbWop0tQQkzwZiXqZ2lNPFIAfdsOZubA3Hv79n9ZgfeLC1FXQalPs4t
-	 gV4uky7CD+PePTgSqpNGAyyq4TlxZ33yi3a700LKSjYWc0yh199V0XHgtj68jtjO3+w==
+	t=1792421681;
+	b=4cnj/QFZxwSaRf+9j9idDtlP7BewYLq3nvaDKywymLHT0Fyi41yN9kGIFR4PfUjXRE9r
+	 q7EIcSwHladtGMsXr9HlzXQEmDJeZuQaoPY41HxTaMYOtDkAtUIO6IfVrOKUfdJQYxnLt
+	 ZT0CW1rHazjAzZ62y5Zfic7JzAf6Uhxbm0Dp5+noA9/BoqXXcY8GrCvrdC5GOP0zJlw4/
+	 MmkmHEnqMVt6MSpGNJ4JOIxqtKxHMXINag+4MHZkXSw03yzUiUYJZD6KzNKDsTw2ICmvR
+	 vruoRFqzRZnjC8KFM13XEKk/dxLOo800R6X6CurJW0lQRGGbbpfuUlHmpKD3PUHfLeQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421711;
-	h=Received:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=S4hxhJmvPn7AcnQ/ZWKG7QsPda8INusHl4ZJ/PDgaQU=;
-	b=leJazWCODmRRMIYBOs4IPE/2hNbVJZtrtmhU74jBK6euknkjAhUoRvW+9ZwEbxJQyyYE
-	 rq/r5KYqWwmURzr9iongc0scMaH4te32u7ArftlzcDLacr/SZKjDCdPTbPPTKr1XGTrtF
-	 MDr1rMe4Glu3CwpdERFkYeELw7BbSbdYJ8o6ra6OBqGgzblXEkwEhFd1qRTDwafHrfx3c
-	 yF1cLlgDmDEaSyqOuzL6EtSlK7WPIC6B27zbiCQEeIIR8k/XnWCT75IxyDOI1h12QuCKN
-	 N99V4ygovYJUzVuyh2QiO98oYTZwPg7KSe+65YkH6A90mzn0RqFeR3T+Ip9E+OBucaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421681;
+	h=Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
+	 DKIM-Signature;
+	bh=rwhf8EAuiOMaypHO3detYAeDV9E3dgFxaDUeqSzQJsM=;
+	b=Q0C+jh7c7C/G0Xx89uOsfXNdq5qHbfNxI/vE658rta2g+MvfRTD8YM9lmiHCO7kW7FCq
+	 Hk30CZG7hpCrDiwkQiPeVcTzrNd69IELT5nZuaHN8wT4Qffb9eLijxz9Xfta1xRIMCBOD
+	 KXieG1P2MY95gykQSeyfaYHDO3sMefb1lyn2F3OhG2WDi3SgJRqzSsgJFfKUX8o1wcYLQ
+	 rPCLWc3uP7OwKxucFZZLoc+op0+j4gbt6CFj4cSaSFk2u3gyvmTOyYFOMZCMfQlJauwVl
+	 kGA4aUif4wSrNwCUymQcwqrrDqkEUaaokYQaqFknPrGWCrqGOkswk712ahYDxSnzppQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dquZ0zsb;
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Evzt9PyL;
+	dmarc=pass header.from=lausen.nl;
+	spf=pass smtp.mailfrom=lausen.nl;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
 Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D7AF9606EFEC;
-	Mon, 19 Oct 2026 14:55:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE26B606DA7F
+	for <linux-kernel.vger.kernel.org@localhost.mlmmj>; Mon, 19 Oct 2026 14:54:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dquZ0zsb
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46D543451CE;
-	Mon, 19 Oct 2026 14:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+	dkim=pass (4096-bit key, unprotected) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Evzt9PyL
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642422741A0
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.172.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421710; cv=none; b=J9/QY/7TJyZJSbVqisQHHL+7FLACYr9i7VJrXd9savBK7QFvIpwYYNbtkuENSDfCT9XTosviZlnmUI2THjYAMxan42uoAARVLB7FtMLKd32mLBDEFe4EuA9uhCGIDoz+wErkkb1JbmnVXy0YTrniB5E1PD9BkPC/Kpplm9bsl14=
+	t=1792421681; cv=none; b=kl2nLrO5odmEVbApovv5tRRwQyW8Pixs8PGb9+ZvYkBppQTfn26TBAhlxdxg8+Zl9N9llmx0CCKK+0gvBta44ipHXokU+7+lIYjW4s0K42bhjQQZycxG8D1D8qriYwxb2vEa5uvzW0melt96U86KtnmjTuenVJpc4aIC0d6jnWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421710; c=relaxed/simple;
-	bh=JePCMnx8/su8AAS/ZVIThUJhxAH7QCVSw2VlUvAcrQc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TApFiCU0fnVHU1aidQZRfZZpe1EsI5dXVVMqwlQjGBh1p63mWlbCoM9lRZLXM/WKPdyxl64ZlXb1+eNhpA5rhHn49FaaZTuP77B5FnyTHniY5aWELNVKS8K5+mxwVzw3DD253nVwAEu/wdKQiaFkMNARy1hdyv3GJWGEM4TEepY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dquZ0zsb; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 268E01D34;
-	Mon, 19 Oct 2026 07:55:03 -0700 (PDT)
-Received: from [10.164.19.55] (unknown [10.164.19.55])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 637A23F673;
-	Mon, 19 Oct 2026 07:55:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792421706; bh=JePCMnx8/su8AAS/ZVIThUJhxAH7QCVSw2VlUvAcrQc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dquZ0zsb8TUxQqrVKFHzKecjJPxmFn9BPWmSPeUt4pp2uBPq8APeVyzMisLgssh1v
-	 TZU/WEC3H5pP58oL4cP/OjMccLrvXkUY+5HU52USqCNbPlN+hEGwvXf1yR7AkaGpR7
-	 gskM7Oy6PccGDnhdnyilm74wYQa3HEvySaszSEwE=
-Message-ID: <45c5ebc9-a4d2-44e6-a08f-79676ecb0579@arm.com>
-Date: Mon, 19 Oct 2026 20:24:57 +0530
+	s=arc-20240116; t=1792421681; c=relaxed/simple;
+	bh=oRhTvAdmIe1fqBlfvU3hzri5hH3R1/FUZpcl7jrPQMA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gX+QtBQzE8xU3uCA//NHE7FzJ/E9sde8qr5LAVuNtTZO9krYuRl8cKJ5mdtdn2c+tWZzZuuEiLsPuSsr1o0HzMqr3pJ/ubhgHTS2Uax2AYCFfjnZZ1xdKaygNMf+danG+DUIEzDEN+dagVKQUBg97JtbBRsvW3mfl42iwaweUfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl; spf=pass smtp.mailfrom=lausen.nl; dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b=Evzt9PyL; arc=none smtp.client-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id D115061150
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:54:38 +0200 (CEST)
+Received: (qmail 28483 invoked by uid 990); 19 Oct 2026 14:54:38 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 19 Oct 2026 16:54:38 +0200
+From: Leonard Lausen <leonard@lausen.nl>
+To: linux-acpi@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael@kernel.org>
+Cc: leonard@lausen.nl,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	acpica-devel@lists.linux.dev,
+	Len Brown <lenb@kernel.org>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Ivan Hu <ivan.hu@canonical.com>,
+	Joshua Grisham <josh@joshuagrisham.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/3] ACPI: x86: Repair broken PEG0._STA on Samsung Galaxy Book 930XDB
+Date: Mon, 19 Oct 2026 16:54:19 +0200
+Message-ID: <20261019145421.47181-4-leonard@lausen.nl>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261019145421.47181-1-leonard@lausen.nl>
+References: <20261019145421.47181-1-leonard@lausen.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,69 +79,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] mm/kmsan: undo the shadow mapping when the origin
- mapping fails
-To: Hao Ge <hao.ge@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
- Uladzislau Rezki <urezki@gmail.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
- <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org, stable@vger.kernel.org
-References: <20261019054531.87652-1-hao.ge@linux.dev>
- <20261019054531.87652-2-hao.ge@linux.dev>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261019054531.87652-2-hao.ge@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: -----
+X-Rspamd-Report: REPLY(-4) BAYES_HAM(-2.999999) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -5.599999
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=oRhTvAdmIe1fqBlfvU3hzri5hH3R1/FUZpcl7jrPQMA=;
+	b=Evzt9PyLxiU16qEy0E+1gYVsbgBsgzFJ9Ppf0eqTOpnvmlqRwOAhtX1MU7KrHxeF0maXbb+uyl
+	EfH7p801/7WGvMoRc1NEhZ/k+BSLn3hOIhARLvRi5xJ3EOC8Lpuga1NqfFei0Eli27ge2qNLI+n9
+	Nrol1351+teKkBYstcQAxGyiuKNPT64ZuBZ5UcoZ9+/7cCQeXnmV4XFE27RwUbBsLnwRqTovWQST
+	Gx47O1s/0Go5ak2kAwI9O9meBL0fhW+wzFLniJqwl8NLY3vUQ2kMrVFYwZDfJiIBEqSHcrNVHyiU
+	QIWGhFtJ82H5R2JNoPw+CfngicHgIEGTpT8WJfhtMw8ZkC/gnvkdRPkwfdo5bGIfvSuXs9qYBUKL
+	BXWbYVU6HQLX2d5tXkg7lGpHM4f7y2yzHfalCX9vxdwV9TUlGpFbWkl4Ohqvg1SGfnQ8qm1whGVA
+	WpmHXtQOop6M91AGhb3oaCJQIuUYPM/DMS4U06ENJuw6/WS84cUUoZ9rtfSAeyUdySKd+2luK1yc
+	Fj5NIUcSAtO+IB+HZBCHccDFh0Le7Jy4LKwM0/XJTWVvDC2Miy3noG+3gjXzG+XMzgAyjLrT+qe0
+	eQChxqs7qQC2g/Dlaj6edcZF/Kx1+lt1Mlj2IwcsjMzRP4TKekOOF9pBYp/M5LzOCWrdriywPu5o
+	0=
 
+The SaSsdt table on the Samsung Galaxy Book 930XDB with BIOS
+P11RFX.067.230331.SP declares PG0E as an external object at the namespace
+root. PEG0._STA nevertheless encodes PG0E as an unqualified NameSeg.
 
+Namespace lookup from PEG0 finds the unrelated empty Package at
+\_SB.PC00.PG0E before the intended integer field at \PG0E. Comparing
+that Package with One aborts _STA with AE_AML_OPERAND_TYPE.
 
-On 19/10/26 11:15 am, Hao Ge wrote:
-> kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
-> the origin pages. If the second mapping fails, the first one is left
-> mapped, and the callers do not roll it back. The next vmap of the
-> same metadata range hits the stale PTEs again and BUG()s on the huge
-> mapping path, or gets -EBUSY with a WARN_ON() on the small page one.
-> 
-> Undo the shadow mapping on that error path, the same way
-> kmsan_ioremap_page_range() cleans up after a partial failure.
-> __vunmap_range_noflush() only clears the PTEs; nothing has touched
-> the shadow mapping, so no TLB flush is needed.
-> 
-> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
+A regular acpi_device status override is too late to prevent this.
+ACPICA evaluates _STA while initializing namespace objects, before
+struct acpi_device exists, and acpi_get_devices() evaluates it again
+without going through acpi_bus_get_status().
 
-Reviewed-by: Dev Jain <dev.jain@arm.com>
+Replace only PEG0._STA after the tables have been loaded and before ACPI
+objects are initialized. The replacement retains the firmware logic but
+uses an absolute path for \PG0E, so every _STA evaluation follows the
+intended namespace object. Match the vendor and full DMI product string,
+930XDB/931XDB/930XDY.
 
+Signed-off-by: Leonard Lausen <leonard@lausen.nl>
+---
+ drivers/acpi/bus.c       |  2 ++
+ drivers/acpi/x86/utils.c | 53 ++++++++++++++++++++++++++++++++++++++++
+ include/acpi/acpi_bus.h  |  2 ++
+ 3 files changed, 57 insertions(+)
 
->  mm/kmsan/shadow.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
-> index 0c88d89bf0d6..2166086d3dc3 100644
-> --- a/mm/kmsan/shadow.c
-> +++ b/mm/kmsan/shadow.c
-> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
->  					    o_pages, page_shift);
->  	kmsan_leave_runtime();
->  	if (mapped) {
-> +		/* Undo the shadow mapping set up above. */
-> +		kmsan_enter_runtime();
-> +		__vunmap_range_noflush(shadow_start, shadow_end);
-> +		kmsan_leave_runtime();
->  		err = mapped;
->  		goto ret;
->  	}
+diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
+index 808c6746be14..555270fb49dd 100644
+--- a/drivers/acpi/bus.c
++++ b/drivers/acpi/bus.c
+@@ -1376,6 +1376,8 @@ static int __init acpi_bus_init(void)
+ 		goto error1;
+ 	}
+ 
++	acpi_quirk_override_broken_methods();
++
+ 	/*
+ 	 * ACPI 2.0 requires the EC driver to be loaded and work before the EC
+ 	 * device is found in the namespace.
+diff --git a/drivers/acpi/x86/utils.c b/drivers/acpi/x86/utils.c
+index 418951639f51..661267a5f8ba 100644
+--- a/drivers/acpi/x86/utils.c
++++ b/drivers/acpi/x86/utils.c
+@@ -67,6 +67,59 @@ struct override_status_id {
+ #define NOT_PRESENT_ENTRY_PATH(path, cpu_vfm, dmi...) \
+ 	ENTRY(0, "", NULL, path, cpu_vfm, dmi)
+ 
++/*
++ * The firmware method is equivalent to this ASL, except that it references
++ * PG0E without the root prefix and resolves to an unrelated Package object:
++ *
++ * Method (\_SB.PC00.PEG0._STA, 0, NotSerialized)
++ * {
++ *     If ((\PG0E == One))
++ *         Return (0x0F)
++ *
++ *     Return (Zero)
++ * }
++ *
++ * acpi_install_method() requires a complete table containing one method.  The
++ * AML below was generated from the ASL above with iasl 20250404.
++ */
++static u8 samsung_930xdb_peg0_sta[] __initdata = {
++	0x53, 0x53, 0x44, 0x54, 0x48, 0x00, 0x00, 0x00,
++	0x02, 0xc8, 0x4c, 0x49, 0x4e, 0x55, 0x58, 0x20,
++	0x50, 0x45, 0x47, 0x30, 0x53, 0x54, 0x41, 0x20,
++	0x01, 0x00, 0x00, 0x00, 0x49, 0x4e, 0x54, 0x4c,
++	0x04, 0x04, 0x25, 0x20, 0x14, 0x23, 0x5c, 0x2f,
++	0x04, 0x5f, 0x53, 0x42, 0x5f, 0x50, 0x43, 0x30,
++	0x30, 0x50, 0x45, 0x47, 0x30, 0x5f, 0x53, 0x54,
++	0x41, 0x00, 0xa0, 0x0b, 0x93, 0x5c, 0x50, 0x47,
++	0x30, 0x45, 0x01, 0xa4, 0x0a, 0x0f, 0xa4, 0x00,
++};
++
++static const struct dmi_system_id acpi_method_override_dmi_ids[] __initconst = {
++	{
++		.ident = "Samsung Galaxy Book 930XDB/931XDB/930XDY",
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "930XDB/931XDB/930XDY"),
++		},
++	},
++	{}
++};
++
++void __init acpi_quirk_override_broken_methods(void)
++{
++	acpi_status status;
++
++	if (!dmi_check_system(acpi_method_override_dmi_ids))
++		return;
++
++	status = acpi_install_method(samsung_930xdb_peg0_sta);
++	if (ACPI_FAILURE(status))
++		pr_warn(FW_BUG "Failed to replace broken PEG0._STA: %s\n",
++			acpi_format_exception(status));
++	else
++		pr_info(FW_BUG "Replaced broken PEG0._STA method\n");
++}
++
+ static const struct override_status_id override_status_ids[] = {
+ 	/*
+ 	 * Bay / Cherry Trail PWM directly poked by GPU driver in win10,
+diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+index a10a591c18b2..ebdd197dbbc4 100644
+--- a/include/acpi/acpi_bus.h
++++ b/include/acpi/acpi_bus.h
+@@ -713,10 +713,12 @@ int acpi_enable_wakeup_device_power(struct acpi_device *dev, int state);
+ int acpi_disable_wakeup_device_power(struct acpi_device *dev);
+ 
+ #ifdef CONFIG_X86
++void acpi_quirk_override_broken_methods(void);
+ bool acpi_device_override_status(struct acpi_device *adev, unsigned long long *status);
+ bool acpi_quirk_skip_acpi_ac_and_battery(void);
+ int acpi_quirk_skip_serdev_enumeration(struct device *controller_parent, bool *skip);
+ #else
++static inline void acpi_quirk_override_broken_methods(void) { }
+ static inline bool acpi_device_override_status(struct acpi_device *adev,
+ 					       unsigned long long *status)
+ {
+-- 
+2.55.0
 
