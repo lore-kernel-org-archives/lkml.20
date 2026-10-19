@@ -1,44 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435578;
-	b=jBg2wFoy25SZGZRHlB+cxyuBuYy38gfWcvzqKKSITChI2dpVU2H52AP2nPhiv3RCyWjW
-	 Bx+eurlfVdXK2J0jAh8Cyhsu2gW6DUYydlyuuVTeR3lIHN++EZDB+8O9Cow+5yMylSMnF
-	 U+nC0SRKtEVlSJvo0sniWGABjoLxTa5U0gA6/gEge4cs7WRC7KoHWdMTKK7vYk9xLO8pS
-	 mjvIQji3xw7QZ9fYOPUioT06SE/Qk+OyG6woOLQWUK2hjP7t/ORuCIsmrhTmDbemudo7m
-	 hTuZwry3I9kZP9dNQawDPZ0PEN9h996H50R0WjLqO06FbyvsAHgZ94QAfaSaWI/u3BA==
+	t=1792435599;
+	b=3z1g0OIEP5lU2wUFNPuB2NbLKjDJiIwlUHssA4kptzpdn0jLxxmq65YMo7yFY8JeuC+P
+	 Jer4A+dTh56UZGOV7NrhQcMkL7zRVjoJ0Nfm9r0OUwy4BIwYCDdvXUg4SrTtY9jdunDMi
+	 6FDDrFZtS3GmeCZZPZFDWBxfddeI4PQSU56NfZY/76KtVew7+MUU3aJIXH7iGBe9SbfR5
+	 IXF5vRPsFcK+ll7WHItnT5DiUDfM5wtHSAKdEI8gN5tGLG5/D8ULaQNJv2++H+RAsopVp
+	 S0VLekN/EdGWZgo1iQA4QVqncK6n5ndBoD66ZvUEyPbMfg3JgenfYsGEUDWRynsRpmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435578;
-	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type;
-	bh=+hRafnmGtnX0Gmpp+5qnp4hQWU6BZlwPRu0BRGDJHOk=;
-	b=IUHBOJ5/j05khJLONdjmE/+p8MaAaBsq3Q1OJsma/ZsPP58hvbNO2ij4C45NU04r7nQf
-	 3wlZ2iB/2PMVbvLcdMUKMSKmOnJeeqmNj3dYbS+254Rg2w9Cw8NhtHlP4CMbyFilKcodV
-	 mVYEAww18uET85ka+3gJ3xrIT3xjLJj0TYf0grtnrJ/U2TmCeHugofVgeyiXqkETemJLJ
-	 n0ozrBIS6aqTDbHdlzbQ7wlxKdMHt6ty9JsWeKMkWLJ11pVXa1dPV+8D0g+vV8KINhHAb
-	 CC/zP+Ef76z8OCEzDcp1XKoAqLXEJ9UEikYSXOxlzDGNDHO8itpSggaXf4REea+zVHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435599;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GrZgAedNjjfc1Cat6H/JuMrMooH5xXHjvJkahsdj4AA=;
+	b=ydR5lXiiSie7zVU1ZYimkPPLNFliYNr3EpDob9E/WGEMQX8kxzpV7VmKllk4xtttcOg6
+	 ppb1YrfJHL0TimF37O8KEC2aB2jO0oOQWZXnnJ6fSH47d/WU/0P7b41RJdt67+MsNjIJZ
+	 U3+PA1YuxV2Wh8j/yMng+Nn2Ydxp5A2YKsgtIKs8k/V9+bu0ukJCvi+GPT409CSGbKjpc
+	 T5yYmLpus+GWiD3v1iZEvesgQ6uq0kgSvcCZsunB0HFpJ4ANZWbQfRwV1u/zcY77abcPt
+	 HLwAc4b+Np6yNbLSFYebMyiFcbvQBRk/pDRsEHPtrDBhNuN6YYpDlA7rgi0uLyYDnlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toke.dk;
-	spf=pass smtp.mailfrom=toke.dk;
-	arc=none smtp.remote-ip=45.145.95.4
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="Z5CFZUP/";
+	arc=none smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F1F606A31D;
-	Mon, 19 Oct 2026 18:46:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9F1F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Nick Hainke <vincent@systemli.org>, linux-wireless@vger.kernel.org
-Cc: Nick Hainke <vincent@systemli.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] wifi: ath9k: restore background spectral scan after reset
-In-Reply-To: <20260915194327.30397-1-vincent@systemli.org>
-References: <20260915194327.30397-1-vincent@systemli.org>
-Date: Mon, 19 Oct 2026 20:46:14 +0200
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87fqy1wmtl.fsf@toke.dk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398FD606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:46:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 398FD606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Z5CFZUP/
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so3651771a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:46:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792435597; x=1793040397; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GrZgAedNjjfc1Cat6H/JuMrMooH5xXHjvJkahsdj4AA=;
+        b=Z5CFZUP/fC9aRll/uqty9SC8XdKFsdsHi6Zm57fNXicwgewr+DN1Gm5+Ea7GK6QS/g
+         xPA4S6aQfT0VldEUPkzMuq2vdG6MbrbJuGdSJ8HULHBjs//svJ2dnnsciVqyMregnENs
+         4ruLS8xXoDa3mo53OOVMhcrFBG0sU4gVLFxtU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792435597; x=1793040397;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GrZgAedNjjfc1Cat6H/JuMrMooH5xXHjvJkahsdj4AA=;
+        b=lNViRb6Dhptrj6bXAGIYqjenU1f8XxSAtiTEVJ987FkJ7IES4kSjtIG4NFF2lxMs7Z
+         svKYDcTs6h0uXBzDf6iZPKXU5+76F4JFTUTC0Ju5LshzD9eObzmL2TJsHixIspR4Pc6Z
+         mxiSCDa6Xg33bFmBh1VHfMBGYvtNXLXjxD5jhU0D54nbMRSk2sShoqSLBzgdU907jSDB
+         NYzHHFuJ5MYpL1RntXkZTvr1841v78K5OGq5LIUpMyN7ESvgR1cgmKSCGRP+DXDCJ7tN
+         JJAyXLWDy+70fkVftokTT9Rijc9CJz+dcasapQsWI5+EMqwQ1Q8jv2UqYxZ7/VtaUvNI
+         5DBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzPJbOBYJQD6qi9OXgfScZ9BWfGpftq7UYq6E/enFGL1XyiI5VRFvql6CFbh9UtGJwJWglbXyfIAtt/bxs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhWREregDKy7G+GaBaDYR8jHB00coRlScFAJ1KILmnXxRbxx+S
+	qFky8q6AQw/q7Fo11kXYK7QHP7KSCt0bmw0O5e445Eju5yrPdhUi71cJX5uxWV/rRbxe86X+DQn
+	j24hBzw==
+X-Gm-Gg: AYBFou2TqqyQeS4J6G6ALRTIXkgQM9R4ttQsrCm1BF+qbdbCWRgpwL493LigxLHh0JZ
+	3jsXlTQQG0Bq5O4+Rl8MUCwYHWeNTciad6VlOCk9mR/ZRXYr8xD8i+iRdKHVsLqlvHPL13HAgEm
+	Lc2/C+cReOAP9M1Y7nAoxEA++ldC9rfoeoLAKibZCqvdvSn9zoCClp3cGSeYdD7q18ZrbdnXfxX
+	B1wasBVEMC/KnZrdbkGG95O2Po1SBnxXUEPueXyCSa1G4fxH3tcVtlP6inpJDqK5AnbxyxRs9r0
+	WKrVm/JYE/0eJDOnRihyn/396KmFxPsnijnY7Z3lbiqPnGrDKYy1Kdg49eC45Z5gN4Y3yjda/Mv
+	3a87RYutZ9XnOGXeVocRkxWtvgVczJrNuHswRGGMGsdy1oAbJDsgFHopNDtYaq7r2FmWessbSX9
+	rvZPvViG1Kok+jJfrWnJQ5H6HcwOV9eREXnugmX9SOOISGnWjF6U00Wd5AWDa6R8KJVaDIS3TM8
+	5rBEgAXVimpnt7NnSuSUN+HIxZ7tIrTbRp39jucZKpYGTZn
+X-Received: by 2002:a05:6402:a2c5:20b0:6af:dd04:bb21 with SMTP id 4fb4d7f45d1cf-6b3a814b1e3mr4187132a12.15.1792435597561;
+        Mon, 19 Oct 2026 11:46:37 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com. [209.85.128.42])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1d5262sm4319324a12.22.2026.10.19.11.46.35
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 11:46:37 -0700 (PDT)
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a01933b584so17517265e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:46:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxIcj61aHDYrsR7qlyLo1xVpoJRpKDsfcaqY7AafiPe+c7cHTfYZnbiFl150Qwr3G/5n5zWOSUip5HnoRw=@vger.kernel.org
+X-Received: by 2002:a05:600c:1395:b0:4a1:d73d:4137 with SMTP id
+ 5b1f17b1804b1-4a1d760f94dmr197402015e9.28.1792435594264; Mon, 19 Oct 2026
+ 11:46:34 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,19 +93,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261014235035.1731419-1-luke@phorex.org>
+In-Reply-To: <20261014235035.1731419-1-luke@phorex.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 19 Oct 2026 11:46:22 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=U51TQF8r1Afv5D6HkRcE6CpnFJDJ_H1S+N6VGFaj9zLw@mail.gmail.com>
+X-Gm-Features: AclHuK-9HZBpXRo11uBNzUEGmEbKurAg5Xd6yd5l18lGII7-MYI5avJghYF_wM0
+Message-ID: <CAD=FV=U51TQF8r1Afv5D6HkRcE6CpnFJDJ_H1S+N6VGFaj9zLw@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: Add BOE NE140WUM-N41 (0x0d9b) panel
+To: Luke Macken <luke@phorex.org>
+Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Nick Hainke <vincent@systemli.org> writes:
+Hi,
 
-> A reset leaves spectral_mode set to SPECTRAL_BACKGROUND, but resets the
-> spectral registers and receive filter. The driver therefore still reports
-> a background scan even though the hardware no longer produces FFT samples.
+On Wed, Oct 14, 2026 at 4:51=E2=80=AFPM Luke Macken <luke@phorex.org> wrote=
+:
 >
-> Re-trigger background spectral scanning after reset recovery so the
-> software and hardware state match again. Do not re-trigger spectral
-> scanning in disabled, manual, channel-scan, radar, or off-channel
-> modes.
+> The Lenovo ThinkPad T14s Gen 7 (Snapdragon X2 Elite) uses this 14"
+> 1920x1200 panel. Without an entry panel-edp warns at every boot ("Unknown
+> panel BOE 0x0d9b, using conservative timings").
+>
+> The panel's timing requirements are not published, so use the same delays
+> as the other BOE NE140WUM entries (delay_200_500_e80). With them the pane=
+l
+> trains and lights up reliably on this machine.
+>
+> Assisted-by: LLM
+> Signed-off-by: Luke Macken <luke@phorex.org>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-What bug is this fixing, and how did you test the change?
+Looks fine, but please follow the example of all other recent similar
+patches and include the EDID in the commit message. Thanks!
 
--Toke
+-Doug
