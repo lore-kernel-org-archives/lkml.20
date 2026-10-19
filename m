@@ -1,230 +1,128 @@
-Received: from mta0.migadu.com (out-31.mta0.migadu.com [91.218.175.31])
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6116E447807
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AD2221F24
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792382026; cv=none; b=D+OCzFM4znL36/Z2vmdpzhp/F5hQNcZYy0SGlu53UcwRV+csW8ODF22IY6iPe2L3E4UUFVuu4//R8IuZ4REl8cF6xty4l52B3m5kuUu+jzkgmBQpIIGnbYHe2HgdaJr+Xn/4ufvhzztoAB8IzI/Pl238zPhCzkaEu0OcTYnJFFU=
+	t=1792382457; cv=none; b=j30GPijvVKOAQmLA9fQnpWsjIFF5QVbp78CG06gafnQNO/d9Z8YZa79wT1YxnHrnOmiJMW4kmMCyb05Rc26jHhzcXwfqo9oyLCqP0m/8uIEeYK8GActsoJ9Mss89lxN++dbWYhrvGb46WCO3A1UM5A/6+cUfYsGtGx+NffSqT7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792382026; c=relaxed/simple;
-	bh=Vcxvr/qaW7PDnOXJbF3Nyf0hUX2HYPQGMERHgFWI0EY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=aFAJ4xrSf7M321Wypn11X7PuQLPnZ4PBz6KHFqFe4JloNR7qncfPqpeuwUTfauUJkgW9GM9ivDTGERjd1dfOAc2FmEJ8NopMMQ2iSWjYd8E9VooUTJXy4YE+NLVPJyoCICDxVe6OOnaJ1JcFPB37647ntK4KATGArwPiK71Co3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DOhYQEVI; arc=none smtp.client-ip=91.218.175.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792382457; c=relaxed/simple;
+	bh=czjGtQCylPKGOxgwRT4H3LIqs4PEQr/yg9uE5mWxNEA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=A7AO1Va0ZQyHolvHFsRt/19500UaQLIv/1hxAN7w64yF1jc3ztWzBaHRDj1O5fR/E5VLYgM1qp/jOOLievbdQzcXMdAR+tt32oQrQM8NN17S7U8CFBWtkWNxWNY00CNaBtI10+lcgAAM8UWTkgW3AT59Op6snyQ1N+7JaCIBWIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+7uTkkX; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DOhYQEVI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Vcxvr/qaW7PDnOXJbF3Nyf0hUX2HYPQGMERHgFWI0EY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792382023; v=1; x=1792986823;
- b=DOhYQEVIK6uoGJJBJkGThlqWnZvqo6wucO1tK6quYc84H21xMGpHknVNq8vL3M5fgCnTxl7q
- HSKPjeXj8LltMg28TVshGv6dxToX7FUcJkJJoNPUC4FUiGabGaIrQ0J483t5WA98cpFWBVrIAsp
- rueAPEor9IDeS0bMVupYmVq0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 577f89e16abcb16c;
-	Mon, 19 Oct 2026 03:53:43 +0000
-X-Mizu-Trace-ID: 577f89e16abcb16c
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Dave Chinner <david@fromorbit.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH v4 5/9] mm/vmscan: pass scan_control to the LRU isolate/shrink tracepoints
-Date: Mon, 19 Oct 2026 11:52:48 +0800
-Message-Id: <20261019035252.2357900-5-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019034426.2354049-1-ridong.chen@linux.dev>
-References: <20261019034426.2354049-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+7uTkkX"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd5e2d696e0so1139144a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:00:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792382455; x=1792987255; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HFoWvp0cIKmjLdrdC+FIWOJcYRrNmj2fb+vTIhO0WMk=;
+        b=G+7uTkkXpdtNA2uYFLNGoRqnvRHU5+i70JoCtsHzGFy7THRDJ04W/KXHtzvT0Big6N
+         EcGM9pe6TtC4DrQ0PPuOP6wHCKrD4+6kw6xKSn7hgpm7hvux/fg6bsXlvYi6H/iCtr7U
+         e0YEOE0SU+1Iu7QEMTWRBUTESjcp8wPADPqHNcU9zxvtLwFB2EFQzFCH8AL3IjSviMni
+         Fc+rLwqf2YejZzrk4Eekt3xO725QDgXvuYg6JYXEloJgsAnTuMSGWzLS99nfDNuZ/con
+         ajzz2MWmN/Y4P87D7ZU4n8UVNstuouJt5+5Gi3mTKFajAJCkxZC7cMFfb7JRUMFirIAy
+         fuVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792382455; x=1792987255;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HFoWvp0cIKmjLdrdC+FIWOJcYRrNmj2fb+vTIhO0WMk=;
+        b=XsjR8eSvBLnjeaPOnyBARSdHCIVuRwFOULEnAf+HucohIFZANVXH/FPH9yc38btfuu
+         fRMhOVJ625VoAfC9162tb5w6CFL7pegGBFXBK7GzhUZC7wn7tgKvCGvj4aAPOWQgrENC
+         /XBhlDht6f/6+5o8aXqPop17I+FrRBCdkUSmiySnZ6zHL/yjRU9ML0Ajis+iSwxu494q
+         vm3YlIgMxRXbfYzx0LDzfkQJSfK7aXuzidDrwJYy9PbT051QtZ6djVTNhAziPWaSmUOJ
+         AoWwRLoHVc+4rNG5gdgfBjBRlrU9mimwMKPlBuLvzyIuqWeCrWQ+PtXBnj3gYe3gjJC1
+         MNJA==
+X-Forwarded-Encrypted: i=1; AKwUvBzIbp5b21Ev6ezRlpNj8O4dhALNnjAYGDvOL0T0wZ6OklERxwKAgcRaUJdEs3WuAf6Gq2GeRTE9EXPI8DY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLeVEDOsEQObltkHLV2z+fouyN1C5Ok5OLbQwcSGNSUQUz/D/9
+	1KMKKhzj0hrjuwe54N08R6XrtqnkB8jFfGYn6FpboFSg3BytXDLtEA3W
+X-Gm-Gg: AYBFou14Vne6+5YyTj5YLWgNDZtz6tFU8zzd6ETdKcT5Gqwq4/I4+E3jO9kAYu5L6Py
+	k5WvbQwbREN1VHXRUTl9WIrxzl841royBOuei8iWA7xVfPnlf4V9RYb9jtgoXAavhu70fYwuNLG
+	yvqUkpz45omeNEe3mMUk1Z5pwWpf8zJ+wsxguE6G9/CdXkS2UyK7laErYP5QEm9mKTqFmbys3LY
+	degEdhUQLKklcEMcPYe918+GJKALi/0GSH9Tm5ScFikDcVmqHBBOWXUeW7dWTnWFhZztqdcLyQJ
+	q8/r3IqAlH+xiZZtb7lX8yN8CwkkfcHuSKVKC8ksSJl4gIo9IDOcNXNWeqhwi93rI9m9T+svZIq
+	YLBZg9goD29XjzA5MT0x30JcRLDOQfX2bxMmYKErfFiN3/CLa0KBC06E7nrr0IPvJ9jxgPuqmuQ
+	01aaGtnW590rUVJoJZYVI2KKmaekJ+aW/TUb7QIJMW1h/T5M5ovWoTnusWY3AY6ElT2aXfLmr/t
+	8Shxd0Wos7HGFAk
+X-Received: by 2002:a17:90b:570d:b0:3ac:397c:574b with SMTP id 98e67ed59e1d1-3acef3cc8bamr6000770a91.54.1792382455469;
+        Sun, 18 Oct 2026 21:00:55 -0700 (PDT)
+Received: from smtpclient.apple ([202.8.105.123])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd0939725sm7800291a91.3.2026.10.18.21.00.51
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 18 Oct 2026 21:00:54 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [tip:sched/core 35/37] ld.lld: error: relocation refers to a
+ symbol in a discarded section: __UNIQUE_ID_addressable_overflowuid_553
+From: Jemmy Wong <jemmywong512@gmail.com>
+In-Reply-To: <202610170544.6hPndDUW-lkp@intel.com>
+Date: Mon, 19 Oct 2026 12:00:29 +0800
+Cc: Jemmy Wong <jemmywong512@gmail.com>,
+ llvm@lists.linux.dev,
+ oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ x86@kernel.org,
+ Peter Zijlstra <peterz@infradead.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <629C00D8-BEF2-4B35-A056-2D8699F355FD@gmail.com>
+References: <202610170544.6hPndDUW-lkp@intel.com>
+To: kernel test robot <lkp@intel.com>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-From: Ridong Chen <chenridong@xiaomi.com>
 
-mm_vmscan_lru_isolate, mm_vmscan_lru_shrink_inactive and
-mm_vmscan_lru_shrink_active spell out reclaim state (reclaim_idx, order,
-priority) as individual arguments, all of which the caller already holds
-in struct scan_control. Now that the struct is visible from the trace
-header, pass sc directly and pick the fields out in TP_fast_assign.
+> On Oct 18, 2026, at 3:46=E2=80=AFPM, kernel test robot <lkp@intel.com> =
+wrote:
+>=20
+> <Mail Attachment>
 
-No functional change. The tracefs event format (TP_STRUCT__entry and
-TP_printk) is unchanged, so tracefs-based consumers are unaffected.
-BPF programs attached via raw_tp/tp_btf see the new TP_PROTO and need
-to be adjusted; tracepoints are not a stable ABI (see
-Documentation/bpf/bpf_design_QA.rst).
+Hi,
 
-Assisted-by: LLM
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- mm/trace_vmscan.h | 31 +++++++++++++++----------------
- mm/vmscan.c       | 14 +++++++-------
- 2 files changed, 22 insertions(+), 23 deletions(-)
+I reproduced discarded-section relocation errors on tip's sched/core
+branch using the reported configuration, adjusted by olddefconfig:
 
-diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
-index db4590356845..b1b329039e14 100644
---- a/mm/trace_vmscan.h
-+++ b/mm/trace_vmscan.h
-@@ -350,15 +350,14 @@ TRACE_EVENT(mm_shrink_slab_end,
- );
- 
- TRACE_EVENT(mm_vmscan_lru_isolate,
--	TP_PROTO(int highest_zoneidx,
--		int order,
--		unsigned long nr_requested,
--		unsigned long nr_scanned,
--		unsigned long nr_skipped,
--		unsigned long nr_taken,
--		int lru),
-+	TP_PROTO(struct scan_control *sc,
-+		 unsigned long nr_requested,
-+		 unsigned long nr_scanned,
-+		 unsigned long nr_skipped,
-+		 unsigned long nr_taken,
-+		 int lru),
- 
--	TP_ARGS(highest_zoneidx, order, nr_requested, nr_scanned, nr_skipped, nr_taken, lru),
-+	TP_ARGS(sc, nr_requested, nr_scanned, nr_skipped, nr_taken, lru),
- 
- 	TP_STRUCT__entry(
- 		__field(int, highest_zoneidx)
-@@ -371,8 +370,8 @@ TRACE_EVENT(mm_vmscan_lru_isolate,
- 	),
- 
- 	TP_fast_assign(
--		__entry->highest_zoneidx = highest_zoneidx;
--		__entry->order = order;
-+		__entry->highest_zoneidx = sc->reclaim_idx;
-+		__entry->order = sc->order;
- 		__entry->nr_requested = nr_requested;
- 		__entry->nr_scanned = nr_scanned;
- 		__entry->nr_skipped = nr_skipped;
-@@ -466,9 +465,9 @@ TRACE_EVENT(mm_vmscan_lru_shrink_inactive,
- 
- 	TP_PROTO(int nid,
- 		unsigned long nr_scanned, unsigned long nr_reclaimed,
--		struct reclaim_stat *stat, int priority, int file),
-+		struct reclaim_stat *stat, struct scan_control *sc, int file),
- 
--	TP_ARGS(nid, nr_scanned, nr_reclaimed, stat, priority, file),
-+	TP_ARGS(nid, nr_scanned, nr_reclaimed, stat, sc, file),
- 
- 	TP_STRUCT__entry(
- 		__field(int, nid)
-@@ -498,7 +497,7 @@ TRACE_EVENT(mm_vmscan_lru_shrink_inactive,
- 		__entry->nr_activate1 = stat->nr_activate[1];
- 		__entry->nr_ref_keep = stat->nr_ref_keep;
- 		__entry->nr_unmap_fail = stat->nr_unmap_fail;
--		__entry->priority = priority;
-+		__entry->priority = sc->priority;
- 		__entry->reclaim_flags = trace_reclaim_flags(file);
- 	),
- 
-@@ -517,9 +516,9 @@ TRACE_EVENT(mm_vmscan_lru_shrink_active,
- 
- 	TP_PROTO(int nid, unsigned long nr_taken,
- 		unsigned long nr_active, unsigned long nr_deactivated,
--		unsigned long nr_referenced, int priority, int file),
-+		unsigned long nr_referenced, struct scan_control *sc, int file),
- 
--	TP_ARGS(nid, nr_taken, nr_active, nr_deactivated, nr_referenced, priority, file),
-+	TP_ARGS(nid, nr_taken, nr_active, nr_deactivated, nr_referenced, sc, file),
- 
- 	TP_STRUCT__entry(
- 		__field(int, nid)
-@@ -537,7 +536,7 @@ TRACE_EVENT(mm_vmscan_lru_shrink_active,
- 		__entry->nr_active = nr_active;
- 		__entry->nr_deactivated = nr_deactivated;
- 		__entry->nr_referenced = nr_referenced;
--		__entry->priority = priority;
-+		__entry->priority = sc->priority;
- 		__entry->reclaim_flags = trace_reclaim_flags(file);
- 	),
- 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index e064354ea24f..5d5eee757c61 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1759,7 +1759,7 @@ static unsigned long isolate_lru_folios(unsigned long nr_to_scan,
- 		}
- 	}
- 	*nr_scanned = total_scan;
--	trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
-+	trace_mm_vmscan_lru_isolate(sc, nr_to_scan,
- 				    total_scan, skipped, nr_taken, lru);
- 	update_lru_sizes(lruvec, lru, nr_zone_taken);
- 	return nr_taken;
-@@ -2048,7 +2048,7 @@ static unsigned long shrink_inactive_list(unsigned long nr_to_scan,
- 
- 	handle_reclaim_writeback(nr_taken, pgdat, sc, &stat);
- 	trace_mm_vmscan_lru_shrink_inactive(pgdat->node_id,
--			nr_scanned, nr_reclaimed, &stat, sc->priority, file);
-+			nr_scanned, nr_reclaimed, &stat, sc, file);
- 	return nr_reclaimed;
- }
- 
-@@ -2155,7 +2155,7 @@ static void shrink_active_list(unsigned long nr_to_scan,
- 		mod_lruvec_state(lruvec, PGROTATE_ANON + file, nr_rotated);
- 
- 	trace_mm_vmscan_lru_shrink_active(pgdat->node_id, nr_taken, nr_activate,
--			nr_deactivate, nr_rotated, sc->priority, file);
-+			nr_deactivate, nr_rotated, sc, file);
- }
- 
- static unsigned int reclaim_folio_list(struct list_head *folio_list,
-@@ -4844,9 +4844,9 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	mod_lruvec_state(lruvec, item, isolated);
- 	mod_lruvec_state(lruvec, PGREFILL, sorted);
- 	mod_lruvec_state(lruvec, PGSCAN_ANON + type, isolated);
--	trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
--				scanned, skipped, isolated,
--				type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
-+	trace_mm_vmscan_lru_isolate(sc, nr_to_scan,
-+				    scanned, skipped, isolated,
-+				    type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
- 
- 	*isolatedp = isolated;
- 	return scanned;
-@@ -4988,7 +4988,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	if (isolated)
- 		handle_reclaim_writeback(isolated, pgdat, sc, &stat);
- 	trace_mm_vmscan_lru_shrink_inactive(pgdat->node_id,
--			type_scanned, reclaimed, &stat, sc->priority,
-+			type_scanned, reclaimed, &stat, sc,
- 			type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
- 
- 	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
--- 
-2.34.1
+- fcceb7da9465 ("sched/cache: Avoid publishing partial LLC utilization")
+- Its parent, 96a494c9cfd8 ("sched/cputime: Don't account idle time =
+twice after dyntick-idle")
+- The earlier ancestor 840e23085b03 ("Merge branch 'tip/sched/urgent'")
 
+ALl were tested with Clang/LLD with 23.1.3. It fails similarly.
+All tests used separate build directories on macOS, with a host-only
+gen_init_cpio compatibility workaround and no kernel source changes.
+
+The generated ELF32 `vmlinux.o` files contain:
+
+  fcceb7da9465: 21,371,209 symbols
+  96a494c9cfd8: 21,370,053 symbols
+  840e23085b03: 21,370,091 symbols
+
+These exceed the 24-bit symbol-index range of ELF32 relocations. In the
+840e23085b03 build, I inspected the relocation for the basic_stm_init
+initcall:
+
+  Encoded symbol index:       1,427,711 -> unrelated .L0 label
+  Encoded index plus 2^24:    18,204,927 -> basic_stm_init
+
+This demonstrates symbol-index wrap in the local build, explains
+the references to unrelated symbols and suggests a toolchain issue=20
+requiring a fix in ELF32 relocation handling.=20
+The local failure occurs without my scheduler patch.
+
+
+Thanks,
+Jemmy=
