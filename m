@@ -1,37 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94D727FB37;
-	Mon, 19 Oct 2026 06:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9C444F564
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792391730; cv=none; b=QmKUgHPizIo7+H3IqipAR8abGGUg5SmD3wj30IN8cUL0t4pwgJPboiDf4g/tjd2eo8WTTrVMd88yqV068bRgXzb1yrYuzvWHNWkeN/NREfeNMXpHSSAOz5AZJgjeKKWYoDvRnp/YyG5+6+9Go5PoPM2lFK5dhKasG5qwYByRzF0=
+	t=1792391765; cv=none; b=r70A+zHLx2+Sc2Qw/KYWsPQXqo2/SS+6gBK1kta/q9x9YCp1jUfSf7kKkPvnfPtz49YSVjI/mzxagtWqmoUc09cLiI+cjT8CvO+dzhbN1yNCsx0NoCixda3CGu8Fw3Ds2fwQiPzhYRd3p6pDXUTCKQcisp9FcEMIoymgig8phkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792391730; c=relaxed/simple;
-	bh=kePtRRZ+IkseaqJqRMKEo8geDV41QRgd4VX9RhZOrm8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SPl7+baA7zrc3TU18dLNUlb/SNOmjQ3YRn2mDMC5RNMa6fQtYS1Wh5up51jtFBU/XPv5BEEZ+bL69r0e50W2BIQPB2whzCMamdL/ORQnwxhPK8kUnFA3iJCgMHZLdLGsdZ0ABqz4pkO5hUC6LLLTypsRL3xDR/cz6MlQIdL1AR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AHQTU2BH; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792391765; c=relaxed/simple;
+	bh=PX9zZj4iTg9WzoWwoCz6MvS21cdwDV4voOBVLw9O6pg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hnCzqvC9vFFb2su1uVPONgX3M6wGF1GVik6mIruZ2/gKrL0oa1N+E9gxvAmmy70Fw2zX24+n/7k4D3oh2goF1NU9bhm40eDtsQkkr5iZgGJN4jvf1ucwNbGBzmL4Q2yz4Zs6o1xo4TRFMR6myEci6SVbhHI51Ayi4NC+XVIFcrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cYVYgvkf; arc=none smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AHQTU2BH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1E23EC2BCF7;
-	Mon, 19 Oct 2026 06:35:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792391730;
-	bh=kePtRRZ+IkseaqJqRMKEo8geDV41QRgd4VX9RhZOrm8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=AHQTU2BHhh3UzFvZCH5xZlTyFaC/nyTOJhJorOA2eGCdUIqYz/v9lDGIW3NXCK208
-	 rvUPQ4fbGazXMpkAFq9oBQ+ptww/FBba8yB72Ud+r6P7tKMpn4N0KIlLQZfKpVfB3i
-	 FoSXCRsr2b22YXYKe93sWBOv1ZtRw/5qC3YjNOhJw8LJmFIhFZGpOHlptW043yWq8u
-	 rl+L+Tlih7dHYuzbsEb9DYfhhTZM1r/M2fSYfjhi7NmdNDJX5Ki6uT4rPyyPj7PNSD
-	 RLDp2laj3obeU7NmhqkzPQnv5cPz9ToA3wgi2c3uwwACowjkzqeGiuGOSk41Sfxyzt
-	 VmWlLPLO02lTA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6003CCF2D3;
-	Mon, 19 Oct 2026 06:35:29 +0000 (UTC)
-From: Zane Hunt via B4 Relay <devnull+git.turtledev.nz@kernel.org>
-Date: Mon, 19 Oct 2026 19:35:18 +1300
-Subject: [PATCH v4] platform/x86: asus-wmi: fix camera key LED on Zenbook
- S14
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cYVYgvkf"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-17bc533fda3so1893829c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:36:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792391762; x=1792996562; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yFQatoeAsD0uy3HEOPLZwlpYB4M5Dzpm+OdX5z+s5s4=;
+        b=cYVYgvkfPdscFvhdjQ+ja9tAa2jhRirfYFvFiVJeT83Kc6Z6KMDe8MBRAL6p8YZiBU
+         RcX0qxIGWCiGtDnGcOJnH54rSUe579OI3mcCq6EN+5EXujv7kOLpW6PPmiJDZN0ISqo5
+         Bgms6d68dCbj9TacB8ALnDQCzlVXcGdjBSJSKzkW2q7aK+MRNc+l+A/DNoJljKvsyKsm
+         9NlKnJwLsJr500KvPCuyRjxP0jo5hixWn3pLt80t2U8FBpvTDOtxfgrnJMjQGkwQpxDo
+         /zW0Mu09+NcFayZVb16OLZtXLOYoMJXOJ2K/4VBIgp58Lhkr4BDgUgo6OmPSTXtXrBih
+         SL2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792391762; x=1792996562;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yFQatoeAsD0uy3HEOPLZwlpYB4M5Dzpm+OdX5z+s5s4=;
+        b=XC2CrM+ZT6R15M81Ey8j4jvg8rwSBATY3+myztwySfm14z+UTAnbBX2yY9ZtpSdHM2
+         /mPPqTxFDR69otU70Geg0cjY36dpaesMgqQWJUtDXb0s6OtDlRqdvLseNpr+d1CmEnYQ
+         8/KXy5ZZip+DpIgEgIs3v0+hGuei7IJTE7Zxfh9SfMsKxBvkWV7xUXbtFs7Q14f6K1/z
+         tsXY6060984c1JfYISijbNcSBOtbobu+Ip09RhE3lb1Z/vvR76mGWru9P8p8giabkC56
+         zr8Bvh0iDhJLOHFmcbZpFHhjpAuEOFFIyI1kGr51q9UMlKpZI3AzRLjc9SoZnAION16A
+         546Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz/Y/OdHQWpb/Ifpbk4JgGYc0UsbdVihELJjkoeSRQQj+cjd8sT0VAJ27PkFWk9lwKjHnptFusMUtgBa+Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6b3DuDYEgBvAo3j0cGQcwURCN3GPPEL7Qhs/4ikr0hxLqANpt
+	6XbFWGojFskHihJTxtqpHu2t4Y1b69A788NZggM3sFPHEDstuf6Kb0cL
+X-Gm-Gg: AYBFou2HPIWs4L0YZ3kXAq4vAjaMsfWUzPHaYXPqe2cFB6obQgAB5fCWQO+MmrY3RRH
+	ZIOARSz0YgLN3HpGdih3/KCY9dCYYie8ofA9iMkdYX5LDCMtj0hgonxcKuc+VFrbhcD636qU8Ip
+	OaPjik4iDEUFJxzj2aBECw5KWFRPPI3HBtpFgVQN9TT24wkBmh8Vl92bdirINB2BalYYIhhQjGJ
+	9qnhJgBy7C0IWz9nJTwXZTlX9GZFYyN+ykQFnWJGgmhGfonH+o1zZ7ajxHpBozXwT+Un6Q2yzhg
+	3biuBpTQM5FpOakNupVdjFX68j9DJ6MeyZC1i4Rx8F2dvxjRioTYhfwEdNdOHoyZGH+uptvvytB
+	dHqgJ1IxcMPuPF98+TuB8G8Pkk4FvOFTFRpOOwASupERd8N93XzyI9ap9Az8mCKTtuzRIPi3YhM
+	5Lmxa4VyPUA4mepp+95CzYNesZj/1gLyETfK/cTuK3laOAAq+Fj/2aVTp27misAHaO2A==
+X-Received: by 2002:a05:701b:458e:10b0:15d:d124:b7c7 with SMTP id a92af1059eb24-185120a8bbfmr9772701c88.10.1792391762455;
+        Sun, 18 Oct 2026 23:36:02 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f5a13sm30785476c88.12.2026.10.18.23.35.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 23:36:01 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Mon, 19 Oct 2026 14:35:55 +0800
+Subject: [PATCH bpf-next v2] selftests/bpf: Time tc_edt from its first
+ packet with data
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,248 +68,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261019-asus-wmi-camera-led-v4-1-7744c125bcc9@turtledev.nz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NyQ6CMBCGX4XM2TFdWD35HoZDhVFqBEyn1IXw7
- ha8e/zyL98MTM4SwyGZwVGwbMchQrpLoOnMcCW0bWRQQuVSyAINT4zP3mJjenIG79SiyE1OIrs
- ISQri8uHoYl/b66n+MU/nGzV+vVobnWU/uvemDXrt/TcEjRLLNDOl0oWuquLoJ+djQmE/fKBel
- uULk+Yk58sAAAA=
-X-Change-ID: 20261017-asus-wmi-camera-led-06a6e05f01e2
-To: Corentin Chary <corentin.chary@gmail.com>, 
- "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- platform-driver-x86@vger.kernel.org
-Cc: =?utf-8?q?Jos=C3=A9_Guilherme_de_Castro_Rodrigues?= <jose.guilherme.cr.bh@gmail.com>, 
- linux-kernel@vger.kernel.org, Zane Hunt <git@turtledev.nz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792391727; l=8814;
- i=git@turtledev.nz; s=20261016; h=from:subject:message-id;
- bh=AyQeJsVv3Fvj/hhwEjxbvqi52N6/K7t7CxQK2jV7yZQ=;
- b=iVahtRUtnbKMAQhxGYCqHy1eS/Zhk1sFZazzgBTEw12G4fRTcs0QsAh/EMXAV95Mw5otTmCf3
- RHl7AxV6KVQB7NOsccV0s/aPvOTfidH5nBV9K+/x9jMqDZTq/wePimu
-X-Developer-Key: i=git@turtledev.nz; a=ed25519;
- pk=7P3HBZD1ukp3nMYpf+9Dcl3ryKIU5pYgOUKe/HOox6c=
-X-Endpoint-Received: by B4 Relay for git@turtledev.nz/20261016 with
- auth_id=1217
-X-Original-From: Zane Hunt <git@turtledev.nz>
-Reply-To: git@turtledev.nz
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-selftests-bpf-tc-edt-serial-v2-1-41c3813e7916@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEq61WoC/42NTQqDMBBGryKz7pQkGK1d9R7FRRonGvCPTAgW8
+ e6NnqDLx/t43w5MwRPDs9ghUPLslzmDuhVgBzP3hL7LDEqoSgrRINPoInFk/KwOo0XqIp4RM2J
+ jK21cLd2j1JALayDnt6v+hnM+0xahzWbwHJfwvW6TvPxfD0miRFcrEqV2qqz0q5+MH+92maA9j
+ uMHtgQgdNAAAAA=
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>, 
+ =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-From: Zane Hunt <git@turtledev.nz>
+tc_edt sends 1MB over a TCP connection that a BPF program shapes with
+EDT, and checks that the rate it measures is within 2% of the target
+rate. The transfer takes about 200ms, so the margin is about 4ms.
 
-On some newer Zenbooks (Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) the
-camera key turns the camera off in firmware, but the LED on the key never
-lights up under Linux. These machines don't have
-ASUS_WMI_DEVID_CAMERA_LED, so asus-wmi never registers asus::camera. The
-firmware exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG instead.
+The measurement starts before send_recv_data(), which first creates the
+sender thread and accepts the connection. On a KASAN kernel, x86_64 VM
+with 32 vCPUs, that takes 0.7ms when idle and up to 4.7ms with all
+CPUs busy, while the BPF program spreads the data over 200.08ms in the
+median. The test also fails without test_progs -j where everything runs
+slower, e.g. on s390x and with ASAN in BPF CI.
 
-Reading CAMERA_LED_NEG is what drives the LED: the DSTS handler reads the
-camera state from the EC and writes it to the LED GPIO before returning
-it. The set side can't be used, the firmware only accepts DEVS on this
-device once per boot.
+Have the BPF program note when the first packet with data goes out, and
+start the measurement there.
 
-When CAMERA_LED is missing but CAMERA_LED_NEG is there, register
-asus::camera as a read-only LED backed by CAMERA_LED_NEG, and read it
-after every camera key event, sending a brightness_hw_changed event.
-Registering the LED reads it as well, which fixes the LED being dark after
-a cold boot with the camera disabled.
+tc_edt run 100 times on the same VM, idle and with 32 busy loops in the
+background, before and after this patch:
 
-While at it, include <linux/container_of.h>, which this file already
-relied on.
+                 before                after
+  idle           0 of 100 failed       0 of 100 failed
+  busy loops     3 of 100 failed       0 of 100 failed
 
-Link: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221752
-Assisted-by: Claude:claude-opus-5-5 iasl
-Co-developed-by: José Guilherme de Castro Rodrigues <jose.guilherme.cr.bh@gmail.com>
-Signed-off-by: José Guilherme de Castro Rodrigues <jose.guilherme.cr.bh@gmail.com>
-Signed-off-by: Zane Hunt <git@turtledev.nz>
+Fixes: b0f82e7ab6fb ("selftests/bpf: integrate test_tc_edt into test_progs")
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
-Changes in v4:
-- Keep José's Signed-off-by from v2 and add his Co-developed-by
-- Use my full name in the tags
-- Include <linux/container_of.h>
-- Reuse the existing asus::camera registration block, only the
-  handlers and flags differ
-- camera_neg_led_available is now only set when CAMERA_LED is missing,
-  so asus::camera is always the CAMERA_LED_NEG one when it's set. That
-  makes the LED_BRIGHT_HW_CHANGED check in the event handler unneeded,
-  so it's gone
-- Drop the explicit read at probe, led_classdev_register() already
-  reads the state through brightness_get
-- Link to v3: https://patch.msgid.link/20261017-asus-wmi-camera-led-v3-1-845a82373997@turtledev.nz
+V1 -> V2:
+- Start the measurement at the first packet with data instead of running
+  tc_edt serially, as it also fails without -j (Alexei)
+- Add before/after data
 
-Changes in v3 (picking up José's v2, which had stalled):
-- Rebased on pdx86 for-next
-- Also read CAMERA_LED_NEG at probe, so the LED is right after a cold boot
-- Register a read-only asus::camera LED when only CAMERA_LED_NEG exists,
-  with brightness_hw_changed on key presses (Ilpo's suggestion on v2)
-- Comment on why the read is what updates the LED (also from v2 review)
-- v2: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
-
-Tested again on the Zenbook S 14 UX5406SA (BIOS 309), on Fedora's 7.2.9
-kernel with the same change applied: camera key presses keep the LED,
-asus::camera and the camera output in sync, and with the camera disabled
-and the LED forced off, loading the driver turns the LED back on.
-
-I used Claude while working on this. It helped
-me read through the DSDT, drafted the changes on top of v2 and wrote the
-test scripts. I went through the patch myself and ran the tests on my
-laptop.
+v1: https://lore.kernel.org/r/20261009-selftests-bpf-tc-edt-serial-v1-1-f72e045f2465@gmail.com
 ---
- drivers/platform/x86/asus-wmi.c            | 75 ++++++++++++++++++++++++++++--
- include/linux/platform_data/x86/asus-wmi.h |  2 +-
- 2 files changed, 73 insertions(+), 4 deletions(-)
+ tools/testing/selftests/bpf/prog_tests/test_tc_edt.c | 13 ++++++++++---
+ tools/testing/selftests/bpf/progs/test_tc_edt.c      | 13 ++++++++++---
+ 2 files changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index fb1d4a0..93b51c8 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -17,6 +17,7 @@
- #include <linux/backlight.h>
- #include <linux/bits.h>
- #include <linux/cleanup.h>
-+#include <linux/container_of.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
- #include <linux/dmi.h>
-@@ -72,6 +73,8 @@ module_param(fnlock_default, bool, 0444);
- #define NOTIFY_KBD_TTP			0xae
- #define NOTIFY_LID_FLIP			0xfa
- #define NOTIFY_LID_FLIP_ROG		0xbd
-+#define NOTIFY_CAMERA_TOGGLE_1		0x82
-+#define NOTIFY_CAMERA_TOGGLE_2		0x85
- #define NOTIFY_KEYSTONE			0xb4
- 
- #define ASUS_WMI_FNLOCK_BIOS_DISABLED	BIT(0)
-@@ -312,6 +315,7 @@ struct asus_wmi {
- 	u32 kbd_rgb_dev;
- 	bool kbd_rgb_state_available;
- 	bool oobe_state_available;
-+	bool camera_neg_led_available;
- 
- 	u8 throttle_thermal_policy_mode;
- 	u32 throttle_thermal_policy_dev;
-@@ -2096,6 +2100,54 @@ static int camera_led_set(struct led_classdev *led_cdev,
- 	return err < 0 ? err : 0;
+diff --git a/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c b/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c
+index 462512fb191f1..1391978a3e309 100644
+--- a/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c
++++ b/tools/testing/selftests/bpf/prog_tests/test_tc_edt.c
+@@ -90,7 +90,7 @@ static void cleanup(void)
+ 	remove_netns(SERVER_NS);
  }
  
-+static bool is_camera_toggle(int code)
-+{
-+	return code == NOTIFY_CAMERA_TOGGLE_1 || code == NOTIFY_CAMERA_TOGGLE_2;
-+}
-+
-+/*
-+ * Some models (e.g. Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) have no
-+ * ASUS_WMI_DEVID_CAMERA_LED. The firmware handles the camera key itself and
-+ * only exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG, and reading
-+ * that has a side effect: the firmware copies the state to the LED GPIO.
-+ * Nothing else updates the LED, so read it after every camera key event.
-+ * Registering asus::camera reads it too (via brightness_get), which sets the
-+ * LED at probe. Setting it is no use, the firmware accepts DEVS on this
-+ * device only once per boot.
-+ *
-+ * Returns 1 if the camera is disabled (LED lit), 0 if enabled, or -errno.
-+ */
-+static int camera_neg_led_sync(struct asus_wmi *asus)
-+{
-+	u32 result;
-+	int err;
-+
-+	err = asus_wmi_get_devstate(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG, &result);
-+	if (err)
-+		return err;
-+
-+	return !(result & ASUS_WMI_DSTS_STATUS_BIT);
-+}
-+
-+static enum led_brightness camera_neg_led_get(struct led_classdev *led_cdev)
-+{
-+	struct asus_wmi *asus = container_of(led_cdev, struct asus_wmi, camera_led);
-+	int state = camera_neg_led_sync(asus);
-+
-+	return state < 0 ? LED_OFF : state;
-+}
-+
-+/* The firmware owns this LED; a write just resyncs it with the camera state. */
-+static int camera_neg_led_set(struct led_classdev *led_cdev,
-+			      enum led_brightness brightness)
-+{
-+	struct asus_wmi *asus = container_of(led_cdev, struct asus_wmi, camera_led);
-+
-+	if (!(led_cdev->flags & LED_UNREGISTERING))
-+		camera_neg_led_sync(asus);
-+	return 0;
-+}
-+
- static void asus_wmi_led_exit(struct asus_wmi *asus)
+-static void run_test(void)
++static void run_test(struct test_tc_edt *skel)
  {
- 	scoped_guard(spinlock_irqsave, &asus_ref.lock)
-@@ -2227,11 +2279,18 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
- 			goto error;
- 	}
- 
--	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
-+	if (asus->camera_neg_led_available ||
-+	    asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
- 		asus->camera_led.name = "asus::camera";
- 		asus->camera_led.max_brightness = 1;
--		asus->camera_led.brightness_get = camera_led_get;
--		asus->camera_led.brightness_set_blocking = camera_led_set;
-+		if (asus->camera_neg_led_available) {
-+			asus->camera_led.flags = LED_BRIGHT_HW_CHANGED;
-+			asus->camera_led.brightness_get = camera_neg_led_get;
-+			asus->camera_led.brightness_set_blocking = camera_neg_led_set;
-+		} else {
-+			asus->camera_led.brightness_get = camera_led_get;
-+			asus->camera_led.brightness_set_blocking = camera_led_set;
-+		}
- 
- 		rv = led_classdev_register(&asus->platform_device->dev,
- 						&asus->camera_led);
-@@ -4733,6 +4792,13 @@ static void asus_wmi_handle_event_code(int code, struct asus_wmi *asus)
- 	if (is_display_toggle(code) && asus->driver->quirks->no_display_toggle)
+ 	int server_fd, client_fd, err;
+ 	double rate_mbps, rate_error;
+@@ -113,12 +113,19 @@ static void run_test(void)
+ 	if (!ASSERT_OK_FD(client_fd, "connect client"))
  		return;
  
-+	if (is_camera_toggle(code) && asus->camera_neg_led_available) {
-+		int state = camera_neg_led_sync(asus);
+-	ts_start = get_time_ns();
+ 	err = send_recv_data(server_fd, client_fd, TX_BYTES_COUNT);
+ 	ts_end = get_time_ns();
+ 	close_netns(nstoken);
+ 	ASSERT_OK(err, "send_recv_data");
+ 
++	/*
++	 * Start from the first packet with data rather than before
++	 * send_recv_data(), which also sets up the sender.
++	 */
++	ts_start = skel->bss->tx_start_ns;
++	if (!ASSERT_GT(ts_start, 0, "tx_start_ns"))
++		return;
 +
-+		if (state >= 0)
-+			led_classdev_notify_brightness_hw_changed(&asus->camera_led, state);
+ 	rate_mbps = TX_BYTES_COUNT / ((ts_end - ts_start) / 1000.0);
+ 	rate_error =
+ 		fabs((rate_mbps - TARGET_RATE_MBPS) * 100.0 / TARGET_RATE_MBPS);
+@@ -138,7 +145,7 @@ void test_tc_edt(void)
+ 	if (!ASSERT_OK(setup(skel), "global setup"))
+ 		return;
+ 
+-	run_test();
++	run_test(skel);
+ 
+ 	cleanup();
+ 	test_tc_edt__destroy(skel);
+diff --git a/tools/testing/selftests/bpf/progs/test_tc_edt.c b/tools/testing/selftests/bpf/progs/test_tc_edt.c
+index 4f6f03122d61d..69f4b16acbef6 100644
+--- a/tools/testing/selftests/bpf/progs/test_tc_edt.c
++++ b/tools/testing/selftests/bpf/progs/test_tc_edt.c
+@@ -24,6 +24,7 @@ struct {
+ } flow_map SEC(".maps");
+ 
+ __uint64_t target_rate;
++__uint64_t tx_start_ns;
+ 
+ static inline int throttle_flow(struct __sk_buff *skb)
+ {
+@@ -62,7 +63,8 @@ static inline int throttle_flow(struct __sk_buff *skb)
+ 	return TC_ACT_OK;
+ }
+ 
+-static inline int handle_tcp(struct __sk_buff *skb, struct tcphdr *tcp)
++static inline int handle_tcp(struct __sk_buff *skb, struct tcphdr *tcp,
++			     uint32_t hdr_len)
+ {
+ 	void *data_end = (void *)(long)skb->data_end;
+ 
+@@ -70,8 +72,12 @@ static inline int handle_tcp(struct __sk_buff *skb, struct tcphdr *tcp)
+ 	if ((void *)(tcp + 1) > data_end)
+ 		return TC_ACT_SHOT;
+ 
+-	if (tcp->source == bpf_htons(9000))
++	if (tcp->source == bpf_htons(9000)) {
++		/* Note when the first packet with data goes out */
++		if (!tx_start_ns && skb->len > hdr_len + tcp->doff * 4)
++			tx_start_ns = bpf_ktime_get_ns();
+ 		return throttle_flow(skb);
 +	}
-+
- 	if (!sparse_keymap_report_event(asus->inputdev, code,
- 					key_value, autorelease))
- 		pr_info("Unknown key code 0x%x\n", code);
-@@ -5210,6 +5276,9 @@ static int asus_wmi_add(struct platform_device *pdev)
- #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
  
- 	asus->oobe_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_OOBE);
-+	asus->camera_neg_led_available =
-+		!asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED) &&
-+		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG);
+ 	return TC_ACT_OK;
+ }
+@@ -94,7 +100,8 @@ static inline int handle_ipv4(struct __sk_buff *skb)
+ 		return TC_ACT_SHOT;
  
- 	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY))
- 		asus->throttle_thermal_policy_dev = ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY;
-diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
-index 4ea1ccc..5964063 100644
---- a/include/linux/platform_data/x86/asus-wmi.h
-+++ b/include/linux/platform_data/x86/asus-wmi.h
-@@ -57,7 +57,7 @@
- #define ASUS_WMI_DEVID_MUTE_LED	0x0004001C
+ 	if (iph->protocol == IPPROTO_TCP)
+-		return handle_tcp(skb, (struct tcphdr *)(((void *)iph) + ihl));
++		return handle_tcp(skb, (struct tcphdr *)(((void *)iph) + ihl),
++				  sizeof(struct ethhdr) + ihl);
  
- /* Disable Camera LED */
--#define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on (unused) */
-+#define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on */
- #define ASUS_WMI_DEVID_CAMERA_LED	0x00060079 /* 1 = on */
- 
- /* Backlight and Brightness */
+ 	return TC_ACT_OK;
+ }
 
 ---
-base-commit: ea40f1e9f07aab937b9a217633be7a1f66260394
-change-id: 20261017-asus-wmi-camera-led-06a6e05f01e2
+base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
+change-id: 20261009-selftests-bpf-tc-edt-serial-9c65af71f845
 
 Best regards,
---  
-Zane Hunt <git@turtledev.nz>
-
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
 
