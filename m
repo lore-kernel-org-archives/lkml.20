@@ -1,152 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F224E50DE;
-	Mon, 19 Oct 2026 11:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411122; cv=none; b=KeBGnNVYEPekdCNJimxbroHS9qAWg+APOTGPIFtI4s8fqB6wHQzBHIngA93dNUqByC29IfToEKp39Sp9h5wk0pq7aw9XDVRq61cbhX5wMY6WXa4u+NLSxWAU/wTgw+wZ7Wh1q2OxvD9LfNXwYrigufnmboA4Z18Kaitv0tn/PnM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411122; c=relaxed/simple;
-	bh=tpHEVwr5zi3cs6emQM/4XPpanYTAxTUpFrtREz6XgQA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KOyyL0lwZJE4Ft/MBYjn2fAbFaTZ3zLZ2sF9zTlX0/ZcVk01tX5J0lwVhlRndpZcTmJmi13w1pedkCuY6KsPRuJv7MMAhhiE3SURTXILbVHQLEWdSPDygcs3EQ0uqKX7s44tiE1oZxVBb6L6O76F7WMIltodT7P+kJMZdHPk/5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j6i4hxcg; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9E74E50DE
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792411133; cv=pass; b=QYye8/nmkhrQKKmQcmy+rMG7ARdOD1xX2i9IvcqTeqcNbEc0yITCrMKVVVeyqMX/weGCzV1LD6QJ6WGRrhSu5Kx7Se+mdqB0ZZMLGgIR/0hT+SsE7dEWRsqYymksDzY9nXBZOsdzPp/nu9vWdwzmx1tdjRik9Gaf7mN1OwB/Kww=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792411133; c=relaxed/simple;
+	bh=fj67lO3edxVDgvlqN8Zdz2Nd2dpZhUF61eD8eEdkb48=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gYAxpbigGoIIpPQpZOTWUYawYI1m+hrgGXtYZAhzdNOSTib2PEKuPMsfXn9f8CxSGDNO0jJCDuiaDeryOD1NcozO/xt+jZaOYPIrYJqRi8i92+RZIr+qIxROZvNJtPzo/6X7dv7ToZgu4M/EgFbpINQGbxAegNZurtlgWC5j1a0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QDIy3Et4; arc=pass smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j6i4hxcg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06611F000C5;
-	Mon, 19 Oct 2026 11:58:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792411121;
-	bh=mBQRezzvWOaxmu6e2fGLCSHm5PK5c8WKYX6473SGzCU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=j6i4hxcgR2q8/kpXiQGOOIEQisz8dy2aTGUN5Rwgc/D/Oz5EPy9EeAD8tAdg+67HM
-	 GfiYoi0ciS1UZoMSgwpUJeUqqNc4nQ9nHtXwNf/17EYhkUJbtFQEgv7bQs5UL5GlWw
-	 BIbP2kpb1sC3LcenDWDDcc8MLKYoEhOHbGAqK/K6IwqMuXiQpkZU1Pl9O+Wh20hvKG
-	 NudFlwNC+9ZMuNUluQOG2PxfP0B83RTApx4sgev49aEInBHvzgVPvQjZhqud9hf0+T
-	 l/BVzK3CNRDEbep4Ew8RyLhSGN6ybubHVVM7Qh3VXH/V0ScO16AfxXcPzyQzo3t+81
-	 xZeeNliiAWcWw==
-Subject: Re: [PATCH net v2 2/2] sfc: ptp: avoid racing PPS timestamp updates
-From: netdev-bot+sashiko@kernel.org
-To: alex.austin@amd.com
-Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, alucerop@amd.com, pieter.jansen-van-vuuren@amd.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 19 Oct 2026 11:58:40 +0000
-Message-ID: <179241112030.3135.17575594097702232193@kernel.org>
-In-Reply-To: <20261015114104.2531624-3-alex.austin@amd.com>
-References: <20261015114104.2531624-3-alex.austin@amd.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QDIy3Et4"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15354aa70e8so913741c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:58:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792411131; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WuosKe8RwhZRx9pmmfUVmBkW3uzcJOm89eGboW7oA5y11+Bm9OqpXOzj1+P5iSiQh7
+         eZhPF+cQj2fAF/+AoZyLZAD5WuyZTfWcknOMyXJRA6g0Z9cB/LD9uOO7N/Eum8rBnHUL
+         U+W6OQsmOjMCH43yPpTj0dI1Dhb+FdEfDqpSnkcnDhvCAGshpCE87jKN4C3VZfz3v3rX
+         WFwza/QnfH35QLup15fXcXXLF6ODavM3gx+S4quZhje1Fi1DLKKwYWOkmPDfyBVDe3fr
+         TOOM2pNFePtPakEECjRk0D9nmzxBMK2HONwdGX5dafFsJZ1XcC3uhDS9MmLRXEXhzZ44
+         LJaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=5dYf1TZbMSijaFd8YK2BOfOlVhvl2NvNeNo192tf8ws=;
+        fh=7q65qdnnBXj7SE5FOYxuyP6v7ieqiIRRTW4kRpUvFHc=;
+        b=eAnLV08zQZes7IABi3FwAuyym51nS066PQfUKXd5Lofc+pOfBrv+snTRv51UBBl//f
+         6VXWc7XqAbpstirIqT5R6P2xAVvoaTOfjdSVrNZ2K+HpF9jIBwuB4bi2wyIgzJjwgaVf
+         Ox5CMRlbj+x82VbMQLQJGtcAEgV8mJfjT307Ctm6nVP9tvEYGIx66nXsuG9oKkEqpgzA
+         1CMZiEahozLyvZgz4cf6oyHxF0t3EnGtbqkqApzunJjXhVY6KKfWs0YoHKP8szOmIdDm
+         QORZKAAtJ0AdPkm9QwXQt4yHXhQEOEJazF0InCWJwyKuRs65e7HvgtbO6d3gHeAQnHnj
+         yNXw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792411131; x=1793015931; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5dYf1TZbMSijaFd8YK2BOfOlVhvl2NvNeNo192tf8ws=;
+        b=QDIy3Et42ie3HmL9JSktzNb4ORoabqjBuSrlZyRkuMN1+mxRsRV4i8lRladWf7Y20c
+         hny7aH4j/crwsBSDWsgc4eEM8kukyiNEnOoomrC8SnkAp62K8/+Sb132b5p78KUV1/em
+         JA1SHWa3RShBRNIR5MZ58pxR/2KEkADY7IIcb8yfOjGMWmFby/JLvTG4Rk0Xx46v7K4r
+         0/oQVK0MJgfLQW5BhMSuRl7DELX0vnRF2SHajAvm2/28rFK2OU09LQyOwsRXnk1P7Ij1
+         Lf6bEXmnZ8eyzeBvf3gnFjSLvRTqsZpzAj2a4coZPUZk2v9/JXRwRJNzDb3KlVc7kBGH
+         VXVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792411131; x=1793015931;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5dYf1TZbMSijaFd8YK2BOfOlVhvl2NvNeNo192tf8ws=;
+        b=g0nqyPbEV78hRWYX5QEQpxJn7yUh+yzwBPrhMldiymylk7E9f5uZ7hqCup0IVFEiFc
+         B/RSP7eEGBTX2dpdObg+Y7BcxOePxGX7VVJS+ny2rh9Jxh7JkBOhui77OwGsyKfHOe4M
+         /0VyqEZn7CMIWLGxENhkh+wRqjKwtmhyvlyzlnSAMS01w5SMhsWCohDbg9xFoeQoUQVP
+         t3L76GtonK6o+zc/wCXHXyO5AAzcdpBw+B7upebuTWP2hZT1pPE+WdOEc4EcSwJ6mGNM
+         qnuTsL1ABDj/mmIgdXHriprQIuh4lNom0/j53QouqcOKulYB94uvIgRiWVOdsdr9h2Cr
+         VoHg==
+X-Forwarded-Encrypted: i=1; AKwUvBzXV56KqekxVGSLLKuiDoXDByZk8Vc4RJ/bJKFSXCiwM59YPSvC776+R2oYKvNV18EqywgAAZElCoauUsE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLp+PnEdY23SwRdnBLPxYcpOpp1QRzM+l/F0K0LIBVSQUziXM0K
+	0ZzGAyaCJ/tdXxRaoLd5yZyWjwH7IfEzpK2nCoTaFLjHm0mvy1DbdTQPWmZ5NwimA6U70wGkm47
+	xsBrv9hwVXF4bYkkByNIzPDYPYBfdoSA=
+X-Gm-Gg: AYBFou2HhivdG4Jo136lRKeHVzqs6cNGYJAh59R9vxsEhnLD6OCfaPooouIyi6/5AXq
+	v/5JWVunxIjOXgn5mvfgvuyu0Ou8/iv2Arg6oVrgHY1jXY/uz2hwPq5jAaZ8sEKKrT/6ZICktgB
+	s+dPngcGTpc0d7aGBgWp6XKeTUgAyfsvwFkrAmpqq5n+bY/6DhGfi9wfaR+8hVh0/wvjLV/11FE
+	4wlmi1HVK+SanUruFWk+waSSl2wZqGUFWYBS4xCh0C3PiRIbfSYbPUcG9A0aHeMwFHL+IjkIkNf
+	l+jSkLnI6H+RWdYlZEO16qKf5dOJPdfzYktj3vEt4kiBd5ZMoLM24FjA0Ksjl6sB
+X-Received: by 2002:a05:701b:260d:b0:185:6b47:dcf with SMTP id
+ a92af1059eb24-1856b470e22mr10309664c88.36.1792411131321; Mon, 19 Oct 2026
+ 04:58:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261019-sv105c-retry-set-interface-v1-1-ab2f08bc3fcb@gmail.com>
+ <20261019111712.GP595565@killaraus.ideasonboard.com> <449eb143-37a8-4044-a071-63fe495c0213@kernel.org>
+ <20261019112726.GR595565@killaraus.ideasonboard.com>
+In-Reply-To: <20261019112726.GR595565@killaraus.ideasonboard.com>
+From: =?UTF-8?B?0JrQvtC90YHRgtCw0L3RgtC40L0g0J7RgdGC0LDRiNC+0LI=?= <ostashow@gmail.com>
+Date: Mon, 19 Oct 2026 14:58:39 +0300
+X-Gm-Features: AclHuK-LRHqWo9ViJ33OiTVWU8haG9ETAHoju0Ier-hutiYfpJ9-Czbp4j4W_n0
+Message-ID: <CAAquLuDc==WsbOYTfuKV2tspTSQAvB7kg2r2aqbE2rs3tYx2LA@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE for
+ SVBONY SV105C
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Laurent, Hans,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+On Mon, Oct 19, 2026 at 02:27:26PM +0300, Laurent Pinchart wrote:
+> On Mon, Oct 19, 2026 at 01:21:49PM +0200, Hans de Goede wrote:
+> > On 19-Oct-26 1:17 PM, Laurent Pinchart wrote:
+> > > What does Windows do differently then ?
+> >
+> > I guess Windows always has a short-delay of at least one USB frame-time
+> > between the VS_COMMIT and SET_INTERFACE. I think we should simply add
+> > a flseep(1000) before the set_interface instead of adding a quirk for
+> > this.
+>
+> The commit message says it doesn't help, but I can't tell if that can be
+> trusted.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fair point. I have measured both sides again.
 
-- [Medium] The fix only covers drivers/net/ethernet/sfc/ptp.c.
+Windows 11, AMD xHCI, camera on a root port, 120 stream starts with
+ffmpeg/DirectShow (MJPEG 1920x1080, and YUYV 1920x1080 for 5 of them),
+captured with USBPcap and an ETW trace of USBXHCI/UCX/USBHUB3:
+
+- The requests are the same as on Linux: PROBE GET_CUR, SET_CUR,
+  GET_CUR, GET_MAX, GET_MIN, SET_CUR, GET_CUR, then a 26 byte COMMIT,
+  then SET_INTERFACE alt 6. There is nothing else in between.
+- The SET_INTERFACE URB is submitted 22 us after the COMMIT completes.
+  The xHCI driver first runs a Configure Endpoint command (3 ms), then
+  queues the control transfer. That puts about 3 ms between the two
+  requests.
+- The control transfer completes successfully after 263 ms, every time
+  (402 ms for YUYV 1920x1080). In a 100 start run, the ETW trace shows
+  exactly 10 control transfers on the camera's EP0 per start (8 for
+  probe/commit and 2 for SET_INTERFACE alt 6/alt 0). There was no
+  Reset Endpoint command, and every xHCI command completed with Success.
+  Windows does not see an error and does not retry. 0 failures out of
+  120.
+
+Linux 6.18, Raspberry Pi 4 (VL805 xHCI, camera behind the VL805's
+internal USB 2.0 hub). I added an fsleep() right before
+usb_set_interface() in uvc_video_start_transfer() and checked the
+resulting gap in usbmon. 20 starts per value, MJPEG 1920x1080, auto
+exposure:
+
+  fsleep()   COMMIT -> SET_INTERFACE (usbmon)   first SET_INTERFACE -EPROTO
+  none          0.35 -   0.90 ms                 1/20
+  1 ms          1.53 -   1.84 ms                 2/20
+  5 ms          5.42 -   7.26 ms                 6/20
+  20 ms        20.4  -  26.4  ms                 3/20
+  100 ms      100.7  - 108.1  ms                 5/20
+  300 ms      319.5  - 325.2  ms                 1/20
+
+So a delay does not help, even one longer than the time the device
+takes to complete the request.
+
+The timing differs between failure and success. A failing
+SET_INTERFACE completes with -EPROTO about 1 ms after it is submitted.
+A successful one, whether the first attempt or the retry, takes about
+260 ms, the same as on Windows. My guess is that the device starts
+reconfiguring right after the SETUP stage and sometimes fails to
+answer the status stage for a few microframes before it starts
+NAKing. The VL805 then reports a transaction error. I have no bus
+analyzer to confirm this.
+
+I also need to correct the commit message: the failure rate is not a
+stable 80%. Today it was between 0% and 50% per series of 10 to 20
+starts, with auto exposure failing more often than manual exposure.
+The retry always succeeded on the first attempt.
+
+With 0 out of 120 on Windows against roughly 15% per start on the Pi,
+the difference is real. I can't tell yet whether it comes from the OS
+or from the host controller. I haven't tested the camera with Linux
+on a non-VL805 controller. I can do that before a v2 if it would help.
 
 --
-
-sfc: ptp: avoid racing PPS timestamp updates
-
-This commit removes the shared host_time_pps field from efx_ptp_data.
-efx_ptp_process_times() now writes the PPS timestamp into storage that
-the caller provides. efx_ptp_pps_worker() passes a stack-local
-pps_event_time, and efx_ptp_change_mode() passes NULL.
-
-> diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
-> index c2f8b94592718..116b38079d8e6 100644
-> --- a/drivers/net/ethernet/sfc/ptp.c
-> +++ b/drivers/net/ethernet/sfc/ptp.c
-
-[ ... ]
-
-> @@ -1504,14 +1508,15 @@ static void efx_ptp_pps_worker(struct work_struct *work)
->  {
->  	struct efx_ptp_data *ptp =
->  		container_of(work, struct efx_ptp_data, pps_work);
-> +	struct pps_event_time host_time_pps = {};
->  	struct efx_nic *efx = ptp->efx;
->  	struct ptp_clock_event ptp_evt;
->  
-> -	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS))
-> +	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS, &host_time_pps))
->  		return;
->  
->  	ptp_evt.type = PTP_CLOCK_PPSUSR;
-> -	ptp_evt.pps_times = ptp->host_time_pps;
-> +	ptp_evt.pps_times = host_time_pps;
->  	ptp_clock_event(ptp->phc_clock, &ptp_evt);
->  }
-
-[Severity: Medium]
-Should the same change also go into drivers/net/ethernet/sfc/siena/ptp.c?
-
-That file was split off from the code that commit 7c236c43b838 added,
-and it still has the shared field. In the Siena copy of
-efx_ptp_process_times():
-
-	ptp->host_time_pps = *last_time;
-	pps_sub_ts(&ptp->host_time_pps, delta);
-
-The Siena efx_ptp_pps_worker() then copies it after synchronize returns:
-
-	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS))
-		return;
-
-	ptp_evt.type = PTP_CLOCK_PPSUSR;
-	ptp_evt.pps_times = ptp->host_time_pps;
-
-Meanwhile, the timestamping config path can still rewrite that field:
-
-siena_ptp_set_ts_config()
-  efx_siena_ptp_change_mode()
-    efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS * 2)
-      efx_ptp_process_times()
-
-This is the same partially updated PPS timestamp race that the commit
-message describes for efx_ptp_pps_worker() and change_mode.
-
-The Siena efx_ptp_synchronize() also takes no driver lock around the
-transaction, while the sfc version holds phc_lock. Only the MCDI request
-itself is serialized. Two concurrent synchronizations could therefore
-overlap on these:
-
-	WRITE_ONCE(*start, 0) on the shared DMA start flag
-	the ptp->timeset[] writes in efx_ptp_process_times()
-	the sync stats counters
-
-Since the patch carries the same Fixes tag, stable kernels that have the
-Siena split would get this fix only for sfc. Could Siena get the same
-treatment, meaning a caller-owned pps_event_time, NULL from
-efx_siena_ptp_change_mode(), and serialization of efx_ptp_synchronize()?
-If Siena is left out on purpose, could the commit message say so?
-
-> @@ -1847,7 +1852,8 @@ int efx_ptp_change_mode(struct efx_nic *efx, bool enable_wanted,
->  				rc = efx_ptp_start(efx);
->  			if (rc == 0) {
->  				rc = efx_ptp_synchronize(efx,
-> -							 PTP_SYNC_ATTEMPTS * 2);
-> +							 PTP_SYNC_ATTEMPTS * 2,
-> +							 NULL);
->  				if (rc != 0)
->  					efx_ptp_stop(efx);
->  			}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015114104.2531624-1-alex.austin%40amd.com
+Regards,
+Constantine
