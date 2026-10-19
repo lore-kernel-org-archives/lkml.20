@@ -1,58 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422323;
-	b=smrxGPlcRo9uTtT2tZtcJgchpUovCvY/0SiQj2j7NJtSxkSjEulK3R8Awr0EQWV8bOnX
-	 jgU4o2I5ou9KYGbPWosKK293auFC5TP2I2jFN9BUC1p0FZJA2UEQ9XAq2mbFha8KYVz9P
-	 ybmsVbQVeRdwzKfLh3lCizoxQLvbWRCz4tAqWm0oVjNGcILB+yXYBey4hDTEE8sxr8vMv
-	 AXlShGl2M8Oo2TAzr5gR7iJ2jmfqBr2U/ybWmWROk2RHHhssNJ8Iqqj38uq6nRElAA12U
-	 fTpzDYmEp1hIs2bO4N7J3t9s7DsCHskAp+zWJR/8CCgk+rmuF8nTKlzdjY1qKFNLqaQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422323;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=S/mEjzuagw3q0X+ihl6sYp/jM/35hiswml3dS+BNhZY=;
-	b=PZeh97IKSaipTcCgv93+ScPArZxsWOcHYuPmocBpR+Ts24jgqa2HFW9MrbU9t/PpaJAD
-	 cE5f7J5UtMDRtoO4q2/+Q+n1Ivp4MjGZi9sQ5ZKZ12yR8thdoFtjz44ttKTKDbikS/4fE
-	 cAaNyvyExpmBcN/D4LVthb3iWGSsZCIQk1clupoMsug5zAtMgIx+QGv1Or8qxV34vd8BE
-	 D9DaN9DhtS9UL2u8i4U+Gh9IP9zUt6z7c3LyQQbM4yUjq+8uKqfMdwuEqRyQbTHsbRBvw
-	 gwoHEb7qYLlW0RbS7WMVkaO6V5KJYjUM740lxYWBP+JM/lu9wfY+zebmKV/sB3paFiA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=sGapG2IH;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792423041;
+	b=2nYhEqvFJUlxZFM8hQw8wsShTc3PV7KxBeX2qytstyUJAaXNYgzdKDh4HEk3yeMn1M86
+	 FCGU/EZeH3uZW9Ghl2g/ksE/zR04NGCvhez2bcw4mxNKY+GKR/Swqi/bx1xpZbaW/wuXt
+	 9xaNrDKZzslttU68Y1suFTehiBeEyVJ31phmTh1GMlvY8X7yvAjhK06SavUTBZhi0C75m
+	 7NunRvnBydnUxJeqzg9LRPhYlypuEEAjfoU9s3IT1jFXWRTm7ma8rXjCd452sytCeyE3q
+	 JSkKxXqJgKA2ArGH+24Di4GKJmD862CYQ/UnPnuahozd6YdDnr/zqqyg8DG1zz/ktsQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792423041;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=g80TJgftAYOuY1eEY8Pj3cKxe/RJlcWG/Y9dI5fdM0I=;
+	b=S4lD6u5yVeC/LUPZX8HnolB9nV4SmQL9SPO6ESYtrEGwnVWKcnQGLO8eCJpTzIZ1kBHX
+	 dW8J9unNkzF62d1ZTjBxjGumiyjz0JVD5OVCLBB5dBb/NcL0A+aBZfDkto5CMTIESt6x/
+	 0QCkZLmOc4KpOqGQ5y8jNWnzjAviRVPWxttCvESPTAa5hZ16tKBiwZLwQf9/Z1ex32bN0
+	 Y1Pzhg7bw0JnudQTVUfmH9MHzOUn98N3n9EZSAo3cQSNj1kl2wQBlcAq1Om/KXBBZu2Id
+	 m9HB/Vu9W5whDz3tEZRKf5gCB3y/8NKGgo7FV3nIgxV4AhutoSa4/LJEl+eH9Z57EJw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ezLXwHIz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90136080A93;
-	Mon, 19 Oct 2026 15:05:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D90136080A93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B4A60A2602
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:17:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91B4A60A2602
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=sGapG2IH
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j7f3q6dRbzKmd0;
-	Mon, 19 Oct 2026 17:05:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792422311;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S/mEjzuagw3q0X+ihl6sYp/jM/35hiswml3dS+BNhZY=;
-	b=sGapG2IH1/1s46vhm0FmaUmtkIMUcxNZVfpL/JpQ1ywx3AZmL9Bhhn9S2vHKzojye5eYVP
-	/LDEwoAHPEGrqZrQPBYd8m4qPvDhBwMUMBUkKKfdUUEgmNTS/WX8gF8zV2JH920uKJCPgx
-	fpXzYC5GCvkXghk5DceclOBD17qk26W86S0KtoXn8kJTDpyhJjskTIns/WRR0sGqbFjia9
-	U7rRm/i+mSZXm0SzgWeLYUqKj2kMIEg0khIhKmE48XDSxX1ETsBuJCIef7mEjsOYtT8p9g
-	595QngrUH5mdJiq52DbaOsxZBnkHVelIHcsRHNVO7a35HsIzWfe9NFwKPKrqxA==
-Message-ID: <622ffd73-1dd1-4a77-aade-9f2219e18933@mailbox.org>
-Date: Mon, 19 Oct 2026 17:05:07 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ezLXwHIz
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so18004a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:17:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792423040; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kiNnZaXFAgFMoUgxuJtxECkOeLN2zPda7bHLQdc8glpxB+2Al94gcJFUkXAvTbuNSI
+         Wf0N9Ocq0bkT/SyBOSntvB7L+SlP7OUXzFs2n/o67jiVGdo6UMkgj9CLczyMVke0nYw3
+         uq3DZVCVNYzA6xPnugLKibrYlsopRBm1xm1kxr24ol/me260kKDmzCrMUiXYwvLIbyzf
+         eQfImehKAppwyHSGItWGDfTRFpW2vNffEYHPOa7NoVZGikFCVnzb4tkEOfw5RIHGBO/6
+         5ErlSBPZYsCXRT8u+4jJK4D/EgvYv5gg6xmN0BXR2mRffdd+w1cOtDSkNerXeCxnF9LY
+         Yu9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g80TJgftAYOuY1eEY8Pj3cKxe/RJlcWG/Y9dI5fdM0I=;
+        fh=KNRZLusofPx79UZ8cgk+yc4jxck6EoUpaA1TdaAYUVc=;
+        b=fOJJ/oOGGPu6FidMFSjiqc2zPJ3cVrlSucYyXS+wYuMCyBZ0jAY5L5xRXz59WHbBMw
+         gTmez70ZoLlaMSoFkkF8qPtuzRZdKBVpMyRBL+nfGKWDREMLp2PwuzVgqjpZ/Ix9Ec4l
+         dDvSXRb5t8Ov3zXC6X8DHkxvB4OE5ImKdpRluHTu7ftyL2kZhAW+RbiiNC3hbjxh4C6Y
+         Y/J8fSjLvxE8hoO6svnMMSPueFeATKrfNr3eAe0R7m8P5Da+wB8kodgnFJO8vpvb2s/F
+         oMtfszcT7BsONSKT75tZ77CokhrKHeOxJP+/APgsd/uoU0U8ODglrJ9t/gHS4Xu4PYlF
+         cJSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792423040; x=1793027840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g80TJgftAYOuY1eEY8Pj3cKxe/RJlcWG/Y9dI5fdM0I=;
+        b=ezLXwHIzPfS4sEb4a/lZXhXGEhuDtOUs1if1P/9Ak+Qq4maPAojdQ/9u0w1JCobLs6
+         X2qdgAH/pLcQQVTxacqSHUYx6U1JRUcIZn4tCqNb3LkXxjpcgVHNqa3WoTOGvqyOills
+         BiT2SHvEyuzjoiUDwEqrkKaqqIzh6GuaX4ulvYHeJnHQYLR1ElbgGP4U4xx7Lagi2fO0
+         Vynf2ZaV+Wzz0LcbAkKRjY0IP9jZkLPwazVoJg22qEttAj4FtBF1o+o2OJakE541fU8u
+         FgKrm31Dik2dQYyZFm8ilfQpMr5pGVDf4JR9znCUx7KiyvzqmlL+y1djjhWdf7HTbGCf
+         568A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792423040; x=1793027840;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g80TJgftAYOuY1eEY8Pj3cKxe/RJlcWG/Y9dI5fdM0I=;
+        b=Wu7PjfO1syCqP6E9SVfp3b/nVaGAr48nXeDngHUHPeq5yh+SIvg7RRYa0CWgTQ973C
+         rFFZHiwH5oSxuyyhQUlcFKYgRAjkmzNb7Wx9RuTWM12JNPSAp63T7Ph993x8Xgk5SW1n
+         51L6FDNZBfRVpQnaMdJUiCSJchMnOfm8T09mf3MxkNx6hIihhiQHINoWYSlSWIAff6Ji
+         uqcZP80KUm4peKUbvN2ATTylSNYQPu5N34fgxTXZmEsZVjdcdk3J/7xbq3jLn54kydJW
+         D22gra2SjWusWENVhdhxTUAubAlSuF1Zvg5dece+Eg0e92GvPSxoHMB3U5DGVUIGPuyB
+         /lBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzdq3thwclasD+R3C7NFdPutNyzhq7XfFNLdsWCCVQwu8iFTgSh4PZRGWlUXaCnxgVphHPj74za4gVCJB4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3y6R4NVQRpwi1lECW5eWe3wbhNAB7cKsZ+lpmgw3HggdjTBJy
+	wa2BkrV3mT20pFZt8ptIq23e0wN1RYqGueEN8SPBfiPPC+H1hA9XJJcDYB2CF+bs7QKlL+SFEL+
+	YJ0iSv2IPPN0XJD12/w1BGy0kRLzwchsSGFvWNeBO
+X-Gm-Gg: AYBFou2fNu6t305IpcYQ+5JxoeFMXindyCXerLL34Xe2M+2YpZechI3JNhHpQ5h2re/
+	xmPpOTt2X3ka4JY6XRN6SjjC5xm/bSdSpc8ztTa8P/WODZontRCUFRgndS3zi67EgftUts8akFa
+	RGXlyv7uFArOAj+4EmHB5buON0IncjjCvQHh+v7lUwrSSVeBFwLmSmf9nKwaRpi7eXyrvturQCs
+	HOjXE/kBHeiyQghMyVhQe3oRVcQ3YrlwLjfe1Q8A0z14XPTP3sPveKZrybQW89ZRM+COqZlH0cO
+	U0bghfj8q0HpCzbcOtvSZHElzVyEsxHabVb5Y28VuaOdmUnkskzqkFVQ5zFIs7FOR9ugrPvJs4h
+	1x++1C3SS6A==
+X-Received: by 2002:a05:6402:24ca:10b0:6b1:cee4:8d8e with SMTP id
+ 4fb4d7f45d1cf-6b3c73e2b3amr54877a12.14.1792423039402; Mon, 19 Oct 2026
+ 08:17:19 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,139 +104,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/18] dt-bindings: PCI: rcar-gen4: Add optional "aer"
- interrupt for R-Car Gen4 SoCs
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-5-den@valinux.co.jp>
- <814043dc-d194-4afd-8317-03b55cc9e913@mailbox.org>
- <j6ayfdb4evnc45urk4n5ewtnn22f2gwgqyjkhpxr4c7outy5va@5dhrlhgqp2ms>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <j6ayfdb4evnc45urk4n5ewtnn22f2gwgqyjkhpxr4c7outy5va@5dhrlhgqp2ms>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: a26e4a6c6dc22a17598
-X-MBO-RS-META: y9koge3foc8rwkyxfwu35w75piahkcse
+References: <20261014173945.373295-5-almasrymina@google.com> <179209666252.434549.1850964039919625643@kernel.org>
+In-Reply-To: <179209666252.434549.1850964039919625643@kernel.org>
+From: Mina Almasry <almasrymina@google.com>
+Date: Mon, 19 Oct 2026 08:17:07 -0700
+X-Gm-Features: AclHuK-S5bmzvfsy_xN2FySxs-CZRN_0ke8ew0HfEdZQ0PJrgt9ujVcZv4HD-hY
+Message-ID: <CAHS8izPkWy4mMj+mDyHq8rKfthzj3n7dj7=Phzq2sut79JydkA@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 4/6] net: skbuff: replace __skb_frag_ref()
+ with symmetric skb_netmem_ref()
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, bpf@vger.kernel.org, ayush.sawal@chelsio.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, tariqt@nvidia.com, horms@kernel.org, 
+	steffen.klassert@secunet.com, herbert@gondor.apana.org.au, 
+	ncardwell@google.com, kuniyu@google.com, john.fastabend@gmail.com, 
+	sd@queasysnail.net, ebiggers@kernel.org, kees@kernel.org, 
+	aleksandr.loktionov@intel.com, petrm@nvidia.com, u.kleine-koenig@baylibre.com, 
+	j.raczynski@samsung.com, wang.zhan@smartx.com, willemb@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/19/26 4:31 AM, Koichiro Den wrote:
-> On Sat, Oct 17, 2026 at 02:17:38PM +0200, Marek Vasut wrote:
->> On 10/15/26 5:30 AM, Koichiro Den wrote:
->>> The intreq_pcim_lperr interrupt carries Root Port AER notifications,
->>> separately from the integrated MSI receiver interrupt. Describe it with
->>> the "aer" name so the controller driver can use it for Root Port error
->>> reporting.
->>>
->>> Keep the fifth interrupt optional on R-Car Gen4 SoCs so existing device
->>> trees remain valid. Extend the example accordingly.
->>>
->>> Signed-off-by: Koichiro Den <den@valinux.co.jp>
->>> ---
->>> Changes since v3:
->>>     - Rebase on Marek's Gen5 AER binding fix:
->>>       https://lore.kernel.org/r/20261003215710.792518-1-marek.vasut+renesas@mailbox.org/
->>>       This requires "aer" for the Gen5 SoC PCIe4 controller from the
->>>       beginning. Update the subject to clarify that it is optional only
->>>       on Gen4 SoCs, for compatibility with existing DTs.
->>>     - Drop R-b tags due to the changes.
->>>
->>> v3: https://lore.kernel.org/r/20261006084638.3821710-5-den@valinux.co.jp/
->>>
->>>    .../devicetree/bindings/pci/rcar-gen4-pci-host.yaml | 13 ++++++++++---
->>>    1 file changed, 10 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
->>> index 083b77d4de8f..a86c06701fa9 100644
->>> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
->>> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
->>> @@ -26,7 +26,8 @@ properties:
->>>              - const: renesas,rcar-gen5-pcie4 # R-Car Gen5 PCIe4
->>>      interrupts:
->>> -    maxItems: 4
->>> +    minItems: 4
->>> +    maxItems: 5
->>
->> Wouldn't it be easier/cleaner keep only maxItems: 4 here and set ...
->>
->>>      clocks:
->>>        maxItems: 2
->>> @@ -93,11 +94,13 @@ allOf:
->>>                - const: config
->>>            interrupt-names:
->>> +          minItems: 4
->>
->> ... minItems/maxItems here ^ for R-Car Gen4 (because Gen4 is the only SoC
->> family which has optional non-mandatorily-described AER interrupt) ...
->>
->>>              items:
->>>                - const: msi
->>>                - const: dma
->>>                - const: sft_ce
->>>                - const: app
->>> +            - const: aer
->>>      - if:
->>>          properties:
->>>            compatible:
->>> @@ -117,6 +120,9 @@ allOf:
->>>                - const: app
->>>                - const: config
->>> +        interrupts:
->>> +          maxItems: 4
->>
->> ... and drop this interrupts: hunk here entirely (because Gen5 always has
->> mandatorily described AER interrupt) ?
->>
->>>            interrupt-names:
->>>              items:
->>>                - const: msi
->>> @@ -146,8 +152,9 @@ examples:
->>>                interrupts = <GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
->>>                             <GIC_SPI 417 IRQ_TYPE_LEVEL_HIGH>,
->>>                             <GIC_SPI 418 IRQ_TYPE_LEVEL_HIGH>,
->>> -                         <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>;
->>> -            interrupt-names = "msi", "dma", "sft_ce", "app";
->>> +                         <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>,
->>> +                         <GIC_SPI 421 IRQ_TYPE_LEVEL_HIGH>;
->>> +            interrupt-names = "msi", "dma", "sft_ce", "app", "aer";
->>>                clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
->>>                clock-names = "core", "ref";
->>>                power-domains = <&sysc R8A779F0_PD_ALWAYS_ON>;
->>
->> What do you think ?
-> 
-> Seems that wouldn't work as-is. With your proposed layout and a Gen4 DT that
-> includes "aer":
-> 
->    $ dt-validate -V
->    2026.9
->    $ dt-validate -s <schema-dir> -l rcar-gen4-pci-host <gen4.dtb>
->      interrupts: [[0, 416, 4], [0, 417, 4], [0, 418, 4], [0, 422, 4], [0, 421, 4]] is too long
->        from schema $id: http://devicetree.org/schemas/pci/rcar-gen4-pci-host.yaml
-> 
-> The top-level maxItems:4 would still apply to Gen4.
-> We could instead drop the top-level interrupts limits and set them separately in
-> the Gen4 and Gen5 'then' blocks, if that would be more readable.
-> 
-> But TBH, I don't see much benefit over the current (v4) layout, so I'd prefer to
-> keep v4 as it is. I'd appreciate your thoughts on it.
-I agree, please keep this patch as-is.
+On Thu, Oct 15, 2026 at 1:37=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The commit fixes reachable page_pool refcount imbalances but
+>   has no Fixes: tag, so the fix will not be picked up for stable.
 
-Thank you for checking !
+Yes, this series completely cleans up the skb frag refcounting IMO and
+makes it all make sense and touches a lot of the skb frag refcounting
+call sites. It's a bit too drastic to mark this refactor to net. I'm
+suggesting just fixnig this forward for net-next.
 
--- 
-Best regards,
-Marek Vasut
+--=20
+Thanks,
+Mina
