@@ -1,97 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4393139A802;
-	Mon, 19 Oct 2026 12:05:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A594ED1A5;
+	Mon, 19 Oct 2026 12:07:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411546; cv=none; b=prhMLX3cbpAnlHdL4cTef0vWDoJVPYVr8lfap/Ckx+qzEeGBaBMSVMxzvLw6AKxlF4a4CTHbWDV+ySX8mshUX3a6JT/zbezHVlWHmxvVAc6ilG22Xjw5VCAh6qFXaCEvrIrJANAS5CYroyF2IeKv8+8dG8lE0bmcOcee4M/KlW8=
+	t=1792411657; cv=none; b=sQzUtcJug97FzK08S5DhVPRlFn6wmZWxpx24nutfzcrXvwblcC+IX7GLnuDQFzmfzgLaJQesuTTAyCpW0cuJZY3sfuZkdq5B0KBjgyGFaaUIKriugB1/6YTkVcipFM1TmV8R1oxFRJUugtWnKCObo3+nSN1s2BHqmujWhbYctjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411546; c=relaxed/simple;
-	bh=nYSS2IYw13pyhnbJO1ErGYRo3CUonH00oT9u7bgla48=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QNx5OCLqmkp0GpIXnUypTn2gwLpq/+l7806SA55mHr9m6z3Vdd/xbHHz4BQYV7zykagfytCMkBaIMuWG5YEHc5OyDIsAshqzYWntvm+UyKfnYL6MLe1tHNEo4U2VmnK3l9jbvFQZQ+6PruKcmc1wJLXzAzM1DE3gmYdvnpMXMMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtwM4OgV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792411657; c=relaxed/simple;
+	bh=0VD279vbdOS0EiyvVxP/U5jXF1MFq44rMijcaDVhVNc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FhM/jOCSh/ueGvW/xwl4hM/7xkDUPwwBiqBMPju3fKaZV2vV4KNSuTwWsD43SbEjgdSdWuipaNcehY+e4dzbs8OWACr6TCYd6DvGfhQr5oDUjy9/woiquz9opD5CH+GYvd96PGBTaEWSVteGlii97uJOWm/myiGUUJkv4Fl3Lso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jW0uv/+P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtwM4OgV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9E21F000C4;
-	Mon, 19 Oct 2026 12:05:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jW0uv/+P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2871F000C6;
+	Mon, 19 Oct 2026 12:07:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792411544;
-	bh=k5Yyj8vCsAnzHeWLL+PbRQWwWPbgPOmrW/W5BOPg2O4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dtwM4OgVnuqvtO7MIC0pbZanCORHJ1GRv65XygtPNe42XGU/H0uMvVWb9U/LUmuvb
-	 kpag6MBtDnmnpIJ4ZhMVeB/mOpBe+OcFoFFzg0hPvUSprvWDvIIeaPnRF3IBfn0q2l
-	 aGXv3vY2IJgEzOypJglAJ7VXXNqwhzoaE0kcgEeeCqFtpVMqNLy8aDkRdO8yOCRuX+
-	 bWjQEu/f7CYFnl3Eq+XuC0pDz6El/vFXOH5MSMsXj8qd7IAkMQmiH6IsL7UzHS8B/K
-	 aD69AgcoNwqX8rkNNX/5uqOZUaMZglecUNgdqY2kqKO8a33vQ5xXz+u1nWzPB4dIHx
-	 j/2veTfOf/MyQ==
-Date: Mon, 19 Oct 2026 14:05:40 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: syzbot <syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com, linux-i2c@vger.kernel.org
-Subject: Re: [syzbot] [usb?] WARNING in ec168_ctrl_msg/usb_submit_urb
-Message-ID: <atYHEIRoE_I-EenD@zenone.zhora.eu>
-References: <6ad4f154.a6d1a155.34a93f.00b5.GAE@google.com>
- <0a758fb7-6c71-4e59-a9df-0d2a71649f1e@rowland.harvard.edu>
+	s=k20260515; t=1792411654;
+	bh=RF1BCrenhcVKcdUJCeYXXIn58WVKEsWB0QjtqkJFbPY=;
+	h=From:To:Cc:Subject:Date;
+	b=jW0uv/+P1WZ7NmnDqoeL1W5d6JLqGiqZ9qff4O2AtRpYHx86WoKa8B6/b/cW4ypPi
+	 CskWQJImUMnuy9XwYK/np6IlxHWjr3AVQINzxHILh/v3XaP0HXoVuGY7hN+QwBg4A/
+	 wUOFcDBwZgtLA/Gfu/8zVftH1F8lllmzvYrWjBh+QfN7rXiiKOWf581PGAB4XvCHY9
+	 Wp8oOnRDUHRKAWa/OM64a2YH9L0jjiDVAACfa+RYySnwDCUB47bIGJxv9UOQ+xhW7H
+	 aT1E5nkvYgMuuwkJtxkawSrs4YhtlPPvHI4p4XEIJfFELJfgS4G4u6GMjMZveuauk8
+	 Ur6wLkTQay09w==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Fengguang Wu <fengguang.wu@intel.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] tracing/histograms: Verify event_call identity when updating synth_event refcount
+Date: Mon, 19 Oct 2026 12:07:29 +0000
+Message-ID: <20261019120730.2342739-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0a758fb7-6c71-4e59-a9df-0d2a71649f1e@rowland.harvard.edu>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+In event_hist_trigger_parse() and hist_unreg_all(), the histogram
+registration and unregistration paths look up find_synth_event() using
+trace_event_name(file->event_call) and adjust se->ref if a match is
+found.
 
-On Sun, Oct 18, 2026 at 12:30:24PM -0400, Alan Stern wrote:
-> On Sun, Oct 18, 2026 at 09:18:28AM -0700, syzbot wrote:
-> > Hello,
-> > 
-> > syzbot found the following issue on:
-> > 
-> > HEAD commit:    4056b3c9d3c9 Merge tag 'nios2_update_for_v7.4' of git://gi..
-> > git tree:       upstream
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=11370ce1580000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=7d1b274ca9837366
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=ed3ada41c4eb1c4ab78e
-> > compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=114faaea580000
-> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=154faaea580000
-> > 
-> > Downloadable assets:
-> > disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-4056b3c9.raw.xz
-> > vmlinux: https://storage.googleapis.com/syzbot-assets/811a43c89106/vmlinux-4056b3c9.xz
-> > kernel image: https://storage.googleapis.com/syzbot-assets/2bb4f3abea76/bzImage-4056b3c9.xz
-> > 
-> > IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> > Reported-by: syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com
-> 
-> This looks like another example of a 0-length I2C-over-USB read.  It 
-> would be nice if we could rule out these things at all at once, instead 
-> of going after them piecemeal.
-> 
-> Alternatively, this WARN() in the USB core could be reduced to something 
-> less severe in the case of length-0 control reads.  We haven't been 
-> seeing very many instances of it apart from I2C, and those have only 
-> occurred during fuzzing.
+Because find_synth_event() only compares the event basename, registering
+or removing a histogram on a non-synthetic trace event whose basename
+matches a synthetic event erroneously modifies the synthetic event's
+reference count.  If a histogram is registered on the non-synthetic
+event before the synthetic event is created and removed afterwards,
+se->ref is decremented without a matching increment, allowing the
+synthetic event to be freed while an active histogram action still holds
+a pointer to it.
 
-I am about to send a patch for it, we just need to disallow size
-'0' read messages:
+Introduce find_synth_event_call() to verify that &se->call matches
+file->event_call before adjusting se->ref.
 
-@@ -115,7 +115,7 @@ static int ec168_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msg[],
- 	while (i < num) {
- 		if (num > i + 1 && (msg[i+1].flags & I2C_M_RD)) {
- 			if (msg[i].addr == ec168_ec100_config.demod_address) {
--				if (msg[i].len < 1) {
-+				if (msg[i].len < 1 || msg[i+1].len < 1) {
- 					i = -EOPNOTSUPP;
- 					break;
- 				}
+Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+v1 -> v2:
+  - Introduce find_synth_event_call() helper instead of open-coding the
+    &se->call == file->event_call check at each call site (Steven).
 
-Thanks,
-Andi
+ kernel/trace/trace_events_hist.c  | 11 +++--------
+ kernel/trace/trace_events_synth.c | 10 ++++++++++
+ kernel/trace/trace_synth.h        |  1 +
+ 3 files changed, 14 insertions(+), 8 deletions(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 00a1d8522036..9a789f57ed95 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6792,7 +6792,6 @@ static void hist_unreg_all(struct trace_event_file *file)
+ 	struct event_trigger_data *test, *n;
+ 	struct hist_trigger_data *hist_data;
+ 	struct synth_event *se;
+-	const char *se_name;
+ 
+ 	lockdep_assert_held(&event_mutex);
+ 
+@@ -6805,8 +6804,7 @@ static void hist_unreg_all(struct trace_event_file *file)
+ 			list_del_rcu(&test->list);
+ 			trace_event_trigger_enable_disable(file, 0);
+ 
+-			se_name = trace_event_name(file->event_call);
+-			se = find_synth_event(se_name);
++			se = find_synth_event_call(file->event_call);
+ 			if (se)
+ 				se->ref--;
+ 
+@@ -6830,7 +6828,6 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 	struct hist_trigger_data *hist_data;
+ 	char *param, *filter, *p, *start;
+ 	struct synth_event *se;
+-	const char *se_name;
+ 	bool remove;
+ 	int ret = 0;
+ 
+@@ -6924,8 +6921,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 		}
+ 
+ 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
+-		se_name = trace_event_name(file->event_call);
+-		se = find_synth_event(se_name);
++		se = find_synth_event_call(file->event_call);
+ 		if (se)
+ 			se->ref--;
+ 		ret = 0;
+@@ -6960,8 +6956,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 	if (ret)
+ 		goto out_unreg;
+ 
+-	se_name = trace_event_name(file->event_call);
+-	se = find_synth_event(se_name);
++	se = find_synth_event_call(file->event_call);
+ 	if (se)
+ 		se->ref++;
+  out:
+diff --git a/kernel/trace/trace_events_synth.c b/kernel/trace/trace_events_synth.c
+index dc15658a887c..e2870212e58d 100644
+--- a/kernel/trace/trace_events_synth.c
++++ b/kernel/trace/trace_events_synth.c
+@@ -914,6 +914,16 @@ struct synth_event *find_synth_event(const char *name)
+ 	return NULL;
+ }
+ 
++struct synth_event *find_synth_event_call(struct trace_event_call *call)
++{
++	struct synth_event *se;
++	const char *name;
++
++	name = trace_event_name(call);
++	se = find_synth_event(name);
++	return se && &se->call == call ? se : NULL;
++}
++
+ static struct trace_event_fields synth_event_fields_array[] = {
+ 	{ .type = TRACE_FUNCTION_TYPE,
+ 	  .define_fields = synth_event_define_fields },
+diff --git a/kernel/trace/trace_synth.h b/kernel/trace/trace_synth.h
+index 43f6fb6078db..d4ebf01b7049 100644
+--- a/kernel/trace/trace_synth.h
++++ b/kernel/trace/trace_synth.h
+@@ -37,5 +37,6 @@ struct synth_event {
+ };
+ 
+ extern struct synth_event *find_synth_event(const char *name);
++extern struct synth_event *find_synth_event_call(struct trace_event_call *call);
+ 
+ #endif /* __TRACE_SYNTH_H */
+-- 
+2.56.0.212.g129ede20d9-goog
+
