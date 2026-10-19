@@ -1,40 +1,94 @@
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1AA47D450;
-	Mon, 19 Oct 2026 07:00:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5BA483BD1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393252; cv=none; b=cv1KmLf1k0fub5drR4hcQo1QGa7etT7jHqg9dbnrIFALYuFTwH+pKg7GpLTNWmL6sykZkFjaqgVwDkb8mByD19AF6L5EsROmneyveaF9oZQGw88z3xRv6z00a95jhDA560CeZW2MQavB6G1qeqwfwK7R0BaeFRkl06zSnue8GiE=
+	t=1792393259; cv=none; b=lxqdjkzqZsnbyCz/F9duQohZSHahvJT79VEBjOVOaoyVCpq16mQnsksNXHqUGgmxo7yiBceDWJqpHbEpnpmXmUn13rU9/drbhJGIroaRgC0TuuISmDYHyHNcfNwKHPv6HIObpxa5gtkt6mOTjNL0s98QmbIVV4VTElyvwKqbJGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393252; c=relaxed/simple;
-	bh=o9ccJtBQN/UHaebcgJ1AB8L/RyzZ0eVWVRDgn2iPHMI=;
-	h=Message-ID:Date:MIME-Version:CC:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Qbo7LaCoUzE24tiQSyVl2ysZ50Nl4mCB3esWr3VN7DLO2zi+0uKq/7KF+wPW/jtJmtZcf+LEZeqKPRxSYLle04hXKe2n8858PFcsyyAtiJpZZJjY7DO+L6zojxuqJ0fd4q4cxTMihUOO7q4Z1KTJSGYu/09BmONfcDt/GKCkCxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=odZIim5j; arc=none smtp.client-ip=113.46.200.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1792393259; c=relaxed/simple;
+	bh=1STDMwj9uzR4WBJXtTWOS59DAsb5w6o1AuR9iCqD5SM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pzRt8FkgLr8liwPN9Dn2M1iwlEfGfQiKzsy4rOKb09FTVYPouNs3pi33xQYUZRQ+AZosPxW0DBtBl9yuXyfLCc1/IAeVOfUW5HBUyc1s8LWg59vBiHZzKNKoO3aZcR14m8PDPTu2rPbwpKDSapxojw8wAhT2msRihMxu2f67dQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=lk+JC79s; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tN5jOPig; arc=none smtp.client-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="odZIim5j"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=uznnWvmHPQA48ZAqcGlW3kshcHeIrSRenmgmGp7j/Qc=;
-	b=odZIim5jb8qGPFxAcWSOTVbPewXiSpKNEUtDtxDItD9PkR0iQpskiEKH9cPLs6wkP4O1AfEpJ
-	9iiQRkxbp9elw1H6dpm1Z20MVcvP6eiZxTJakU/f7Q32T7uFh8WDtmsYqXKVZnXgrICoJG6UKSf
-	bRHO8/Dt1KrQJsmRWBfP9F4=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4j7RJh3TXzzRhrr;
-	Mon, 19 Oct 2026 15:00:36 +0800 (CST)
-Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8DE8540579;
-	Mon, 19 Oct 2026 15:00:39 +0800 (CST)
-Received: from [10.67.121.233] (10.67.121.233) by
- kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 19 Oct 2026 15:00:38 +0800
-Message-ID: <e17bcdcf-3ae6-4444-ae18-aed0f98d5a6b@huawei.com>
-Date: Mon, 19 Oct 2026 15:00:37 +0800
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="lk+JC79s";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tN5jOPig"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 323737A01A9
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:00:56 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-06.internal (MEProxy); Mon, 19 Oct 2026 03:00:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792393255;
+	 x=1792479655; bh=Y5bYXGYvPJN6inJuQQBnrzR/y9AUfMwo0Jm7CFTezwI=; b=
+	lk+JC79shz4VjjsNJgTV3aFzHYL1Ej+g30U5gwUVmku2N6dhgP2KUyI4bPVeHb+j
+	P0hVGcMfjY8wOhdPONWYgWD+x3GeU36ca082YATE2kVtEegxFjN+oSdbziVwWHR9
+	yNcttgTIqUqUFOu7rSABg4sSK7uXZhCRZfkm7Xg3FbVparcHiDVeqB777tuePepo
+	FYrQjz42iB8vyIy8WkzVZQQTHUSi7R0mNkGgM07BZwT3OE/sriLJDIR/j7c4zu4J
+	of0Cc8F4N+glbBL+FYlFPHSpQ4Sljg30wwsjG7BMpv8mogvem9VHMjnxHKVpNQU6
+	LxtN0iCVvUUKRF3FUS61Qw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792393255; x=
+	1792479655; bh=Y5bYXGYvPJN6inJuQQBnrzR/y9AUfMwo0Jm7CFTezwI=; b=t
+	N5jOPigHk13gNkGnJ/Bop2O8tkQNSk3sCDlyy4kGZ6FkNXlG4phctpkLCzhWZ7To
+	+z4iNpzIZmEsGBUYvPKPM2RkHLI2yS0X1RRQTceM9CyE58ajmDh2STGyog7Ia2Vx
+	1yTYFqAZ5zeIiuZvvTaMWMnuKLHNH+hjPsfclNRhcVWae7kGrHC8gfApHTYvAOf6
+	Pu32o1u5bHfnl2lRVdXvBSm+iDGIJxageAgcjwNg7X138bmCGLkgcn+aBSKa5TMS
+	Ra4C0NnTfQR2PcCZ/w970ZeyIqkJcYBckVKVx0Bul3UkBuyLjrqRsihoanOhfU7E
+	3dRf/dAiv2sZjIF8iUFTw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792393255; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:jXo95s5I3TroNiXyF/aT21+Hw7SjuhbOH2kADnmHbs3DAwP
+	z5z30rxtTTeUq89rhLAdE06/X/TNjCeR8QuB7SUdaC8YgsF1QuPKJoAv/8RxRDXb
+	M9UUg879dwTQAK62+Gl9i4J+/LELjCyHgQeUP8JgVpi4bDepyUjF1e/rn8jxJ9Gw
+	7Keimz7lY1fZFTzxj99tWmWcTf/JrgHLgH5GhiVexA+Q8FNX3mtC/33JW3FzeQDd
+	XR3Z0eLClQmZYB6aplJA4Gkqyk30Ip3AeN2soiKUw6dTWD9ZzYwHTX5j6suqx82o
+	etWyxPNQZAnfmkhf7xNi2BQHvkqlL5Sns1nyh2A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:93ExNsgr8vl+BBDk1et2SpthhZjc4BdlrKa+VegUl8Q=:1STDMwj9uzR4WBJXtTWOS59DAsb5w6o1AuR9iCqD5SM=;
+X-ME-Sender: <xms:JsDVang1mhd0HqZJK4EsIUqzmglVlkHooXvvMLqv0Cd6_um3NStCFw>
+    <xme:JsDVav7iVc9Kxw_dRUGsMVRs5GVkG4ZDyLPxaro-2hH0lH06HmrCfIVYspIXVs5eJ
+    8IWk9B3JqYvipzmZgoFzjDQ1VoGKH40IoXxqY00AaOGi-3_3eJWqEHv5A>
+X-ME-Received: <xmr:JsDVainBvQAYdPDDNaQ6FeUXaUG4D9vKbDFTC493iwBk--y3FCtS6bLV9ClzgcmQeFL8Ilg3Dl74Ji_GIuduYExsWrACwY1G>
+X-ME-Proxy-Cause: dmFkZTFNv/uwNiMnP3PRAagtCwdDJWac+z/MN5lvwp+dBuvYxTK61HfAu3IcgWC8djDTKt
+    rpCOMfi+pp8mQwnDoFr1s98ozL13LNu2n7LJ/+gXO+hKGai1M/KTaNhT83iQ2LEwSY9ATZ
+    t7E+yK/QTHSq1ktX381YJUE9ENtlF2KwH8EMFuVyb7TMLOBnK49bV8AfvofrFYoZMQiyK2
+    sPZJTma681pRr1F+sH8PYeAvSHEEkmxN5JhSxMtuo4jsUpt+tG4m3i40E5atJVuM0JQa8j
+    gOX2VdCDZTHjK4GfuL/mgylmcdNwSrKhqoTh51FmRT/9P6GiZDUWstP3/6vk0FODmQWdRt
+    NTGa+45lwJMFa3L174bLUb4t4vPNodN0xo3vI36kyCIu0M8DZjcs7/B/AzevMulYYI7mM9
+    H7MMF7YL1noaHxl2cRu6SDDYkric/VnzknSWgDYOWds2AP/rb+XIcAiKV+7NPJWuN0lYW8
+    bATGufHdqa6qx/BQqwZ5HMST5A1NrAF5KuC8EpJL1x02ver7Q4BWsbAV090uLolr0F14zz
+    MR4I8SvpkZrE8rqaC1s7R7FSZAgwR7mXNC7NlzkZVYRzN59cozKRqsHHIYXwdOJtfh8EWj
+    2kQv3SqZM2tuGfN5rEQW3KA9SF025KP69NQ/doCoePKmQAEAslOmCf3esCqQ
+X-ME-Proxy: <xmx:JsDVaoP-lL-ZPjHZqM5x-uTzddaqXcQWgvWWJhdREsAMouG5wx1gnQ>
+    <xmx:JsDVasrISSXCj_TNUuZRmhCeON5OslPUs6TgTkrjIyu0aPLmd2GhFg>
+    <xmx:JsDVapuQYzFuq1JrgNfIAtksvJJP6HoOb_N2pZ0Ac8kVdJsxh_GCIg>
+    <xmx:JsDVao71_T2NiqcBXsT8XMjo8sqS2HrXA0-6TP355uYPZLS2XwtA0Q>
+    <xmx:J8DValUeHNOTG7eiiycPGqrGGoZamb2JV_CChSXbo0IqFQdKWW63XlqC>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 03:00:52 -0400 (EDT)
+Message-ID: <01358de1-7f97-4bfb-92fb-4ed97ebbc29f@pobox.com>
+Date: Mon, 19 Oct 2026 00:00:51 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,139 +96,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-CC: <shaojijie@huawei.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH net] net: hns: retire service work before releasing device
- resources
-To: Myeonghun Pak <mhun512@gmail.com>, Jian Shen <shenjian15@huawei.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>
-References: <20261016020035.3621768-1-mhun512@gmail.com>
-From: Jijie Shao <shaojijie@huawei.com>
-In-Reply-To: <20261016020035.3621768-1-mhun512@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH 6.18 00/52] 6.18.58-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261017155104.830766652@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261017155104.830766652@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemo500018.china.huawei.com (7.202.195.199)
 
+On 10/17/26 8:54 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.58 release.
+> There are 52 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.58-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-on 2026/10/16 10:00, Myeonghun Pak wrote:
-> The remove path releases ring, PHY and accelerator resources before
-> canceling service work, allowing use-after-free. A pending worker can
-> also reinitialize the device or publish linkwatch events after
-> unregister.
->
-> Set REMOVING, synchronize an in-flight TX timeout, then shut down the
-> service timer and drain work before unregister invokes ndo_stop.
-> Serialize reset and link-update state checks and operations with
-> unregister under RTNL.
->
-> Compile-tested with Clang 22.1.2 (W=1); not tested on hardware.
->
-> This issue was identified as part of our ongoing research while
-> reviewing kernel code.
->
-> Fixes: b5996f11ea54 ("net: add Hisilicon Network Subsystem basic ethernet support")
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->   drivers/net/ethernet/hisilicon/hns/hns_enet.c | 37 ++++++++++++++-----
->   1 file changed, 27 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/net/ethernet/hisilicon/hns/hns_enet.c b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
-> index e905f10b894e..977f054b00c3 100644
-> --- a/drivers/net/ethernet/hisilicon/hns/hns_enet.c
-> +++ b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
-> @@ -2024,21 +2024,22 @@ static void hns_nic_reset_subtask(struct hns_nic_priv *priv)
->   		return;
->   	clear_bit(NIC_STATE2_RESET_REQUESTED, &priv->state);
->   
-> -	/* If we're already down, removing or resetting, just bail */
-> +	rtnl_lock();
-> +	/* Serialize the reset decision with ndo_stop and unregister. */
->   	if (test_bit(NIC_STATE_DOWN, &priv->state) ||
->   	    test_bit(NIC_STATE_REMOVING, &priv->state) ||
->   	    test_bit(NIC_STATE_RESETTING, &priv->state))
-> -		return;
-> +		goto out;
->   
->   	hns_nic_dump(priv);
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-Since hns_nic_dump() can be highly time-consuming, is it really appropriate
-to execute it inside the rtnl_lock critical section? Holding the global
-RTNL lock for a long period might block the entire network control path
-and impact system responsiveness.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-
->   	netdev_info(priv->netdev, "try to reset %s port!\n",
->   		    (type == HNAE_PORT_DEBUG ? "debug" : "service"));
->   
-> -	rtnl_lock();
->   	/* put off any impending NetWatchDogTimeout */
->   	netif_trans_update(priv->netdev);
->   	hns_nic_net_reinit(priv->netdev);
->   
-> +out:
->   	rtnl_unlock();
->   }
->   
-> @@ -2058,7 +2059,14 @@ static void hns_nic_service_task(struct work_struct *work)
->   	struct hnae_handle *h = priv->ae_handle;
->   
->   	hns_nic_reset_subtask(priv);
-> -	hns_nic_update_link_status(priv->netdev);
-> +
-> +	rtnl_lock();
-> +	/* Keep linkwatch events within the netdev's registered lifetime. */
-> +	if (!test_bit(NIC_STATE_DOWN, &priv->state) &&
-> +	    !test_bit(NIC_STATE_REMOVING, &priv->state))
-> +		hns_nic_update_link_status(priv->netdev);
-> +	rtnl_unlock();
-> +
->   	h->dev->ops->update_led_status(h);
->   	hns_nic_update_stats(priv->netdev);
->   
-> @@ -2398,6 +2406,21 @@ static void hns_nic_dev_remove(struct platform_device *pdev)
->   	struct net_device *ndev = platform_get_drvdata(pdev);
->   	struct hns_nic_priv *priv = netdev_priv(ndev);
->   
-> +	set_bit(NIC_STATE_REMOVING, &priv->state);
-> +	if (priv->notifier_block.notifier_call)
-> +		hnae_unregister_notifier(&priv->notifier_block);
-> +	priv->notifier_block.notifier_call = NULL;
-> +
-> +	/* Join a TX timeout that passed the REMOVING check before work drain. */
-> +	if (ndev->reg_state != NETREG_UNINITIALIZED) {
-> +		netif_tx_lock_bh(ndev);
-> +		netif_tx_unlock_bh(ndev);
-> +	}
-> +
-> +	/* Stop the timer and drain work before ndo_stop touches the hardware. */
-> +	timer_shutdown_sync(&priv->service_timer);
-> +	cancel_work_sync(&priv->service_task);
-
-The commit message states "Serialize ... with unregister under RTNL",
-but cancel_work_sync() has now been moved before unregister_netdev(),
-which already drains the service_task.
-Is the RTNL serialization in hns_nic_reset_subtask() still necessary?
-
-> +
->   	if (ndev->reg_state != NETREG_UNINITIALIZED)
->   		unregister_netdev(ndev);
->   
-> @@ -2411,12 +2434,6 @@ static void hns_nic_dev_remove(struct platform_device *pdev)
->   	if (!IS_ERR_OR_NULL(priv->ae_handle))
->   		hnae_put_handle(priv->ae_handle);
->   	priv->ae_handle = NULL;
-> -	if (priv->notifier_block.notifier_call)
-> -		hnae_unregister_notifier(&priv->notifier_block);
-> -	priv->notifier_block.notifier_call = NULL;
-> -
-> -	set_bit(NIC_STATE_REMOVING, &priv->state);
-> -	(void)cancel_work_sync(&priv->service_task);
->   
->   	/* safe for ACPI FW */
->   	of_node_put(to_of_node(priv->fwnode));
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
