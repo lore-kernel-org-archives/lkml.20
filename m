@@ -1,245 +1,243 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D250C48BD5B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:36:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A124A3F1B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398994; cv=none; b=BUCNfTeEFz5FF7EjK/pjR/jxgPCdi5ENFYAAXY+xD8HOsweuLvBFdzF3hUIWLWkRANnHXVMVlkdtQFvTntatkZyYQTiOy1wQD6Zh/wxZqLlVHrNhiYjIeLUl6KaCxawBgEyJYzl3uY+ROiVvNrMSHpmm7vpxsSzqne/gF0cYQaU=
+	t=1792399004; cv=none; b=fHCV/bjkyVCTs7CmX1+GLM78Q6Gvh1cGhQUwBhUPhtH5YLBpM7I1TOAWswHgwXI0bUR+ZFClKTthh4ASSg1GvjMNF38G73xpdb5GARxlvJY2ROEPP7b3zaFTsVOHkNsfnQL8ExYd+i3ruGUlFp6AF54YvxCYy7ZXhFhhf2Ct6eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398994; c=relaxed/simple;
-	bh=bPsIjFyp39Z94fBg22xhCS9HmLo6jH1MO8WFti3n2q8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XdJxPPvv0Hc/ryr9V4AbRJgK9HRvfx33J1DDyqbHPa6XuaFi5Am84iq3UtY9i0OI4wIa/kwbpQfT/rekx07+J1P1aR4KrcVTIrGilfJ+JrCYMhRQWxY3ydADRGVE7yKjIYs+kPERNZ6xj0qlZccDKLr+cZHEzN84Wq+ugJWQ4o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UOZ+P7AZ; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792399004; c=relaxed/simple;
+	bh=wopnKdIWquQ/19iqJ+7yuXZ+uNue8zlPP3xAl38VlP0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PuhrUxM1RqsdWBUbc3sYrass1hmKTOG590qmfy6XP415/n1mwJpbGXROyTKeMySI0DcT3xcRAESufb+tITz8VURzee++fP/Dk3d0m7Wrxvtjp+4+AUegctDIfAyBIIgjix9q9uEbMmkEy+uh1o94S4OdQQx83f+xo0mG/w7qKpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=cbMwav/M; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UOZ+P7AZ"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so191170866b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:36:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="cbMwav/M"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso8982875ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:36:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792398991; x=1793003791; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7xr7dewXyeCCEIBwxKlgHkjYVFXC1X9oPOY150s4lZ8=;
-        b=UOZ+P7AZw9AJyU/icyEY3XBCluSHAOO479bTlBNz5kFVJYUAnZsHX6zyu4J8fKnQL+
-         ClRHzdY+Uc0uynFOIT62dkit75hgDM+jtGQOvpYxAJ4zK4InJ9YD8D5cxIS44UM5h/5m
-         A7TvpVoCKT1tc9WgRYBOC9bsRsbLOfsh0v/kdnql0J+BtOdh8NqoTh8gDBtCgO3lqjDP
-         U6ycWRGmiVza5HDNzszmc+mdXs2b2BshCc2ZsN/5W33zEM87caERjnQR9GqjFjCtDqz7
-         CAazLs3U6hPy3Xjpm1hTRwmv1U9uqcrWKSXrOQV/hewyGGUzQclrUkoTyXZuqtGLsiJN
-         eAqg==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792398998; x=1793003798; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XHO8V/wDfiBEINRArRhvsbbx6Jsua2LG1hGVoz5r0fs=;
+        b=cbMwav/MduEe4QE+8peVSBdNdzulLpla3wI2ZY4h/2+ET8qgncd8zbm9wMcuiPKy15
+         CMCjqDYi47hyd8wsvbxDtEcSL23Iv7WXQpaIYhNLPNMJ7MF5MXZEqB/OcKvgUhZjc9Gy
+         Va311ZGojuT4Z0Aq0Wvt2Xd0rodzNhlJCj/WbKq0vVu5e0T25dn3rW0iZDGMvmXORSQf
+         9AeVc5NMosU9NpgwPpWvDmvOLTxfKqWWYWB1Obd5Tw3tw59f40vbVLhGimVMyhdlZ2AP
+         STI+bhxkpcLBtnAsxVZk0ZM1WhMU69BHjI/WCqAN2cP+B8lURw8cQgjHrt4CDllDrC/a
+         QuVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792398991; x=1793003791;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7xr7dewXyeCCEIBwxKlgHkjYVFXC1X9oPOY150s4lZ8=;
-        b=f/kG7qN5Qgq79SvAJ5AoYDtyXWLaxLk65K7xkr0tHRCJ11XAm8yKwGt/IYbHVHpzmr
-         ZtqrNJeJx3VkX3cad6/HkUekuvpHb8drp81R0ptelnjM/ctN8NhXwS8S1LjSJa7jXImK
-         CMM9Bs6qHT7chsoXKlS0FJMC2QGSPOL7EtLpN/4RCJdg4fYKSEBlPx+CnMKOu4uT5xEi
-         0RP4F6K2eT9VOYlAyUGV3ifWg7mKSNGoISK9bvQhejc5on9mKjF+LAV9HEkR30md5zL9
-         gubvYya1TclW11FYQcewQgXr7Y1NvhKnNQ4HFjxUxtCpxNFvnkLs5fYVcAlV6G1BQQ1F
-         Gmrw==
-X-Forwarded-Encrypted: i=1; AKwUvBzO6sIZH0pOIQjIUllYJxsRBbufEG55cMLkOSpPAKyZ10DCWqLMFmdjgXhJ5rCSf/AUyPRxiU319uVO5DE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIARbY4nLKYuyvLtfWkWkhu7DZj4hKuiZXCoJB/gF1trW8ql74N
-	zSOeSokw2L1q9CWejabYYpowaw3VDUgBwvkxP57kIwi4bGV37jh0n0lI
-X-Gm-Gg: AYBFou2ibLsC3Xjjh1J1h6hu2i5ZOyE80bkJIj6Nxo7f98FC11GArA4BKguV5i8G7+Z
-	BUR3FEKmbPyV0lwmJ4h2+X5XTdinLTaPTNGxPqoDfKY37XFp7Pb5f4uaQX72aHexCXo53mP5+dN
-	rlPjKsvErGFzMQoojn5y6htXyfscEpEtt3HifjTYN3wCv4L8aIrwCAxFls6pJDJ/Xn77TC79nvJ
-	F30Zu/2mU4FrWkL2g0SUVuYCbPinGC3Gz4cHu3nAu2/oQk+pEG6fhkO4Tr3Iylz70cvnldeqC8B
-	xATNduo0djw9ebKNEngmEgZS8tM2juPAjeKrtqDPzzKkAaBNlFRtlg/9Xi4ks1injugW+jOgQFT
-	ukxcWNNOzcgrGNChKwfGQ/D+nzYgcuDqoIKHRQiL23iryrA7e/uVPL1IVGWcxZQQinpkhsWuYn1
-	d/36kMPaAngO9T9XkIasZZKgoknrskkw7P9k25obm3xeMOI/cNgTpWpJh9/Wgy5kW/ygPGkWSzm
-	GoRs5dHS1okUR9x5nfNuT2RT/7TvMGpUStAVZEAQPs3+Xfk9Ehyjn8wCck+D1D93b4gQp558Ee4
-	0SiJMkUkGdZT/jDfMZ1k18d1K/g=
-X-Received: by 2002:a17:907:3f1f:b0:c36:a4b4:b1ed with SMTP id a640c23a62f3a-c419e039bd1mr507835266b.11.1792398990921;
-        Mon, 19 Oct 2026 01:36:30 -0700 (PDT)
-Received: from M-K2012N0113010.localdomain ([88.119.128.229])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dcf98fsm323106966b.13.2026.10.19.01.36.29
+        d=1e100.net; s=20260707; t=1792398998; x=1793003798;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XHO8V/wDfiBEINRArRhvsbbx6Jsua2LG1hGVoz5r0fs=;
+        b=X77vJaKmPr1ce6UyOH7gu6Bf66BKj5mQsD7lSg/4KAx6JtJKTi8W2UiQF3+c6CILaH
+         B+7rb/XgE8eJQf36AVr/4aUs61dNpUjbmMO+a9ISGD/JZVai3fPNb8vky1JfwNmwuUQy
+         tFH1zUIwLIRnmoUX74G/KMiXOSvJGzNNySaMj3ZxkzenDdU/YqDnkmjQVJYsIWZ/8+a4
+         NrwBQ7ealHafKD25t5u2DpX8/R/aUVh5DiVX4N2wMV9A6Xb+3oGYPRusbZPh0T9vOCcl
+         dqdLAXgoyeO7ZUxn52+66XJ1SHqIVJl/32qhrNFe5NHvYJfNXSSNJoAvM+7vYh1IvFYJ
+         nlFg==
+X-Forwarded-Encrypted: i=1; AKwUvBwMzxMYIQYnrRLS0nYhA+95vJSNP2t8K8CPQHbdsIlrHX5kkNX/IlrdH+jqclzk7Ou9bOlitbe3FFL2cTE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgxOOTrEj3mMRw5UdhbxurWq5uS4bxWV0yWwCoSsoy6i+U45wy
+	fHyuxedqFlO7aTcLHZCJSJ6wDSUVEoe0Zm5P/KT81Sq7nb3DGtcLeb0vCUlo88TjwV0=
+X-Gm-Gg: AYBFou1K7KNLZMiWU3liOnQBBN/UK/j00ovz93QtNvAxHvwpGA7C5TXLt96BiE6Uyep
+	SwMd+ltEC3QkQfPoKSE4Pd5gjeJXzxp4eYKG4NoZlFCzJnxEiSmhcbdGntYw0pMYNluzYLcr49m
+	WF3TohRrJTDgUPD5PQRPysf6AMj4IjwwGp6DmRlKqdJBUgVv9Jq4Wsrfu8PHZU+4QxzD1jBpsnB
+	NvKWBXKk5sFdrizCpgZD/Ufy3Hv+eGEVpXu5rO9/OG4pPvajeNXcu7YA5wMk+TFP3YK4Q8GQf1F
+	d/KAwhGD5KLMynW8mrw5t3tD7yZhOK8oS80NyuUL5XrJ7a6sTqnaN3nOrPybVnvj9u8bpHPkCgL
+	rrMy/tGn7cp1XB81QNhq9yNAYH6u0sfXjJnGuKeQa8WWO1n8qLi+3lLkM2TtHuHvkeE1ZysqK/H
+	p06/rSfOzrl4xAorGkLmDJbHHbWZncK7PRr1lXX+dNq/36c7GgMIYHZCO1NyPclsbpes+0ol/nW
+	FjIafpH+umgw8Hf
+X-Received: by 2002:a17:902:e84c:b0:2e9:6b5b:3db6 with SMTP id d9443c01a7336-2e9a69e93d4mr64066135ad.30.1792398998323;
+        Mon, 19 Oct 2026 01:36:38 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804c11sm35469425ad.22.2026.10.19.01.36.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 01:36:30 -0700 (PDT)
-From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org
-Cc: Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>,
-	devicetree@vger.kernel.org,
+        Mon, 19 Oct 2026 01:36:37 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: skashyap@marvell.com,
+	jhasan@marvell.com,
+	mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com
+Cc: GR-QLogic-Storage-Upstream@marvell.com,
+	mrangankar@marvell.com,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: [PATCH v5 5/5] iio: pressure: dps310: add Zilltek ZTS8032 support
-Date: Mon, 19 Oct 2026 11:36:20 +0300
-Message-ID: <20261019083620.1285782-6-paulius.zaleckas@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019083620.1285782-1-paulius.zaleckas@gmail.com>
-References: <20261019083620.1285782-1-paulius.zaleckas@gmail.com>
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] scsi: qedf: bound the unsolicited frame length the firmware reports
+Date: Mon, 19 Oct 2026 17:36:22 +0900
+Message-ID: <20261019083622.718838-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The Zilltek ZTS8032 has the DPS310 register map, scale factors,
-compensation and FIFO, with these differences:
+qedf_process_unsol_compl() takes the length of an unsolicited FCoE frame
+out of the completion queue entry and copies that many bytes out of the BDQ
+buffer the firmware put the frame in:
 
-- two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
-  c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
-- TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
-  the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
-  bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
-  25/16 Hz background rate instead of the external sensor.
-- product ID 0x11 instead of 0x10, the driver does not check it
+	uint16_t pktlen = cqe->cqe_info.unsolic_info.pkt_len;
+	...
+	bdq_addr = qedf->bdq[bdq_idx].buf_addr;
+	if (!bdq_addr) {
+	...
+	memcpy(fh, (void *)bdq_addr, pktlen);
 
-Add its chip data, reading 22 coefficient bytes and with TMP_EXT clear,
-a Horner step for each of c40 and c31, and the I2C and OF IDs.
+The BDQ index and a NULL buffer are both checked; the length is not.  A BDQ
+buffer is a QEDF_BDQ_BUF_SIZE coherent DMA allocation and pkt_len is a
+__le16, so a frame the firmware reports as longer than 2072 bytes reads up
+to 63 KiB past the end of one.  The print_hex_dump() under qedf_dump_frames
+a few lines earlier reads the same length out of the same buffer.
 
-Tested on a ZTS8032 over I2C: in_pressure_input is within 1 Pa of the
-datasheet formula evaluated from the raw and coefficient registers at
-every oversampling rate from 1 to 128, TMP_CFG reads 0x00 after probe,
-and buffered capture through the FIFO returns the same pressure and
-temperature as direct reads.
+The destination is not where this goes wrong.  fc_frame_alloc() is handed
+pktlen - sizeof(struct fc_frame_header) and sets the frame length to that
+plus the header again, so there is room for exactly pktlen bytes from
+fc_frame_header_get() onwards.  Only the source runs off the end.
 
-Assisted-by: LLM
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+How much room there is was the driver's decision in the first place: it
+advertises QEDF_BDQ_BUF_SIZE to the firmware as rq_buffer_size while
+setting up its PF parameters, and allocates every BDQ buffer at exactly
+that size. A pkt_len above it contradicts the size the driver itself handed
+over, so there is nothing to be gained by trying to honour it.
+
+A lower bound belongs with the upper one, and not merely for tidiness.
+payload_len underflows for any length below an FC header, and
+fc_frame_alloc() then takes the fc_frame_alloc_fill() path whenever the
+result is not a multiple of four.  That passes payload_len + fill on to
+_fc_frame_alloc(), where alloc_skb_fclone() and skb_put() both take an
+unsigned int and quietly truncate it, so the allocation succeeds at a few
+dozen bytes while payload_len stays at 0xffffffff.  The
+
+	memset((char *) fr_hdr(fp) + payload_len, 0, fill);
+
+that follows then writes a byte roughly 4 GiB past the frame.
+
+Drop such a frame rather than clamping it.  A truncated FC frame is not
+something libfc can do anything useful with, and the out-of-range cases
+this handler already has take the increment_prod exit so that the producer
+index still advances and the BDQ entry goes back to the firmware.
+
+Driving the handler with a reported length one byte past a BDQ buffer shows
+the copy running off the source.  The harness is a KUnit test that is not
+part of this patch; it calls the real handler with the BDQ buffer swapped
+for kmalloc() of the same size, because coherent DMA allocations are page
+granular and KASAN does not track them:
+
+  BUG: KASAN: slab-out-of-bounds in qedf_process_unsol_compl+0x336/0x10b0
+  Read of size 2073 at addr 00000000627ca000 by task kunit_try_catch/25
+  
+  CPU: 0 UID: 0 PID: 25 Comm: kunit_try_catch Tainted: G                 N  7.3.0-rc7-g58161ead29e5-dirty #3 VOLUNTARY
+  Tainted: [N]=TEST
+  Stack:
+   6133bca2 00000000 00000000 00000000
+   ffffff00 6133bca2 61343506 627ca000
+   613d1680 600c3c61 62893d00 6004301e
+  Call Trace:
+   [<600c3c61>] ? dump_stack_lvl+0x5e/0x7a
+   [<6004301e>] ? _printk+0x0/0xd7
+   [<6004fc1a>] ? print_report+0x14b/0x517
+   [<603b68e4>] ? __kmalloc_node_track_caller_noprof+0x1a4/0x3c0
+   [<60ada41d>] ? __alloc_skb+0x1bd/0x9c0
+   [<603b6740>] ? __kmalloc_node_track_caller_noprof+0x0/0x3c0
+   [<6004301e>] ? _printk+0x0/0xd7
+   [<609437f6>] ? qedf_process_unsol_compl+0x336/0x10b0
+   [<603e0d0b>] ? kasan_report+0x11b/0x160
+   [<609437f6>] ? qedf_process_unsol_compl+0x336/0x10b0
+   [<60932a10>] ? qedf_test_pool_alloc+0x0/0x30
+   [<603e1cc0>] ? kasan_check_range+0x0/0x1c0
+   [<603e1e0e>] ? kasan_check_range+0x14e/0x1c0
+   [<603e2891>] ? __asan_memcpy+0x31/0x80
+   [<609437f6>] ? qedf_process_unsol_compl+0x336/0x10b0
+   [<600e147d>] ? os_nsecs+0x2d/0x40
+   [<60944ec1>] ? qedf_unsol_oob_2073+0xc1/0x260
+   [<602453a0>] ? ktime_get_ts64+0x0/0x2c0
+   [<6071e2ac>] ? kunit_try_run_case+0x1bc/0x310
+   [<6071e0f0>] ? kunit_try_run_case+0x0/0x310
+   [<601d9b30>] ? sched_setscheduler_nocheck+0x180/0x220
+   [<600e0e70>] ? um_set_signals+0x0/0x60
+   [<600e0e70>] ? um_set_signals+0x0/0x60
+   [<6016021d>] ? __kthread_parkme+0xdd/0x1c0
+   [<6071e0f0>] ? kunit_try_run_case+0x0/0x310
+   [<60724370>] ? kunit_generic_run_threadfn_adapter+0x0/0x100
+   [<607243ec>] ? kunit_generic_run_threadfn_adapter+0x7c/0x100
+   [<6016649e>] ? kthread+0x36e/0x560
+   [<60166130>] ? kthread+0x0/0x560
+   [<600c80de>] ? new_thread_handler+0xce/0x130
+  
+  The buggy address belongs to the object at 00000000627ca000
+   which belongs to the cache kmalloc-4k of size 4096
+  The buggy address is located 0 bytes inside of
+   allocated 2072-byte region [00000000627ca000, 00000000627ca818)
+  
+  The buggy address belongs to the physical page:
+  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x27c8
+  head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+  flags: 0x40(head|zone=0)
+  page_type: f5(slab)
+  raw: 0000000000000040 0000000061802140 0000000000000122 0000000000000000
+  raw: 0000000000000000 0000000000040004 00000000f5000000
+  head: 0000000000000040 0000000061802140 0000000000000122 0000000000000000
+  head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000003
+  head: 000000009f28b3c1 00000000ffffffff 00000000ffffffff 0000000000000000
+  head: 0000000000000000 00000000ffffffff
+  page dumped because: kasan: bad access detected
+  
+  Memory state around the buggy address:
+   00000000627ca700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+   00000000627ca780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  >00000000627ca800: 00 00 00 fc fc fc fc fc fc fc fc fc fc fc fc fc
+                              ^
+   00000000627ca880: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+   00000000627ca900: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+  ==================================================================
+
+Reported lengths of 4097 and 65535 report the same way at their own sizes.
+A reported length of 23 takes the kernel down instead, with
+fc_frame_alloc_fill() and qedf_process_unsol_compl() the two frames above
+memset_orig in the trace and payload_len still in RBX:
+
+  RIP: 0033:memset_orig+0x81/0xaf
+  RSP: 00000000628c3d68  EFLAGS: 00010246
+  RAX: 0000000000000000 RBX: 00000000ffffffff RCX: 0000000000000000
+  RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000161a2439f
+  RBP: 00000000628a2c00 R08: 0000000000000001 R09: 0000000000000007
+  R10: 0000000161a2439f R11: 00000000609128c0 R12: 0000000000000001
+  R13: 0000000062740608 R14: 00000000611f1d40 R15: 00000000628c8000
+  Kernel panic - not syncing: Segfault with no mm
+
+With the length checked, the three over-reads and the panic all go away,
+while a frame that fills a BDQ buffer exactly and an ordinary small one are
+both still handed to libfc.
+
+Fixes: 61d8658b4a43 ("scsi: qedf: Add QLogic FastLinQ offload FCoE driver framework.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/iio/pressure/Kconfig  |  6 ++++--
- drivers/iio/pressure/dps310.c | 32 +++++++++++++++++++++++++++++---
- 2 files changed, 33 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/iio/pressure/Kconfig b/drivers/iio/pressure/Kconfig
-index 9de63908936f..ffd072e4bb8f 100644
---- a/drivers/iio/pressure/Kconfig
-+++ b/drivers/iio/pressure/Kconfig
-@@ -115,8 +115,10 @@ config DPS310
- 	select IIO_BUFFER
- 	select IIO_TRIGGERED_BUFFER
- 	help
--	  Support for the Infineon DPS310 digital barometric pressure sensor.
--	  It can be accessed over I2C bus.
-+	  Support for the following digital barometric pressure sensors:
-+	  - Infineon DPS310
-+	  - Zilltek ZTS8032
-+	  They can be accessed over I2C bus.
+diff --git a/drivers/scsi/qedf/qedf_io.c b/drivers/scsi/qedf/qedf_io.c
+index a120f0e37a644..807202f575499 100644
+--- a/drivers/scsi/qedf/qedf_io.c
++++ b/drivers/scsi/qedf/qedf_io.c
+@@ -2504,6 +2504,15 @@ void qedf_process_unsol_compl(struct qedf_ctx *qedf, uint16_t que_idx,
+ 		  le32_to_cpu(p_bd_info->opaque.fcoe_opaque.lo),
+ 		  qedf->bdq_prod_idx, pktlen);
  
- 	  This driver can also be built as a module.  If so, the module will be
- 	  called dps310.
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index 999ae4ce73f7..a2ac8101ff31 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -5,6 +5,10 @@
-  *
-  * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
-  *
-+ * The Zilltek ZTS8032 is register compatible, with two more pressure
-+ * calibration coefficients (c31, c40) and temperature calibrated against
-+ * the internal sensor.
-+ *
-  * Temperature calculation:
-  *   c0 * 0.5 + c1 * T_raw / kT °C
-  */
-@@ -67,8 +71,9 @@
- #define  DPS310_RESET_MAGIC	0x09
- #define DPS310_COEF_BASE	0x10
- #define DPS310_COEF_LEN		18
-+#define ZTS8032_COEF_LEN	22
- 
--#define MAX_COEF_LEN		18
-+#define MAX_COEF_LEN		22
- 
- /* Section 4.8: 32 shared entries. Stops when full, so late drains lose data */
- #define DPS310_FIFO_DEPTH	32
-@@ -109,6 +114,7 @@ struct dps310_chip_info {
- 	const char *name;
- 	bool coef_for_ext_sensor;
- 	u8 coef_len;
-+	bool has_c31_c40;
- };
- 
- static const struct dps310_chip_info dps310_chip_info = {
-@@ -117,6 +123,13 @@ static const struct dps310_chip_info dps310_chip_info = {
- 	.coef_len = DPS310_COEF_LEN,
- };
- 
-+static const struct dps310_chip_info zts8032_chip_info = {
-+	.name = "zts8032",
-+	.coef_for_ext_sensor = false,
-+	.coef_len = ZTS8032_COEF_LEN,
-+	.has_c31_c40 = true,
-+};
-+
- struct dps310_data {
- 	struct i2c_client *client;
- 	struct regmap *regmap;
-@@ -125,6 +138,7 @@ struct dps310_data {
- 
- 	s32 c0, c1;
- 	s32 c00, c10, c20, c30, c01, c11, c21;
-+	s32 c31, c40;
- 	s32 pressure_raw;
- 	s32 temp_raw;
- 	bool timeout_recovery_failed;
-@@ -244,6 +258,11 @@ static int dps310_get_coefs(struct dps310_data *data)
- 	c30 = (coef[16] << 8) | coef[17];
- 	data->c30 = sign_extend32(c30, 15);
- 
-+	if (data->info->has_c31_c40) {
-+		data->c31 = sign_extend32(get_unaligned_be16(&coef[18]), 15);
-+		data->c40 = sign_extend32(get_unaligned_be16(&coef[20]), 15);
++	/* The firmware can only have filled the buffer it was given. */
++	if (pktlen < sizeof(struct fc_frame_header) ||
++	    pktlen > QEDF_BDQ_BUF_SIZE) {
++		QEDF_ERR(&qedf->dbg_ctx,
++			 "pkt_len %u out of range, dropping unsolicited frame.\n",
++			 pktlen);
++		goto increment_prod;
 +	}
 +
- 	return 0;
- }
- 
-@@ -745,10 +764,15 @@ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
- 	if (rc)
- 		return rc;
- 
--	/* Section 4.9.1 of the DPS310 spec, Horner form to avoid overflow */
--	if (!dps310_horner_step(&prs, data->c30, p, kp) ||
-+	/*
-+	 * Section 4.9.1 of the DPS310 spec, Horner form to avoid overflow.
-+	 * c40 and c31 are ZTS8032 only and zero on the DPS310.
-+	 */
-+	if (!dps310_horner_step(&prs, data->c40, p, kp) ||
-+	    !dps310_horner_step(&prs, data->c30, p, kp) ||
- 	    !dps310_horner_step(&prs, data->c20, p, kp) ||
- 	    !dps310_horner_step(&prs, data->c10, p, kp) ||
-+	    !dps310_horner_step(&tmp, data->c31, p, kp) ||
- 	    !dps310_horner_step(&tmp, data->c21, p, kp) ||
- 	    !dps310_horner_step(&tmp, data->c11, p, kp) ||
- 	    !dps310_horner_step(&tmp, data->c01, t, kt))
-@@ -1418,12 +1442,14 @@ static int dps310_probe(struct i2c_client *client)
- 
- static const struct i2c_device_id dps310_id[] = {
- 	{ .name = "dps310", .driver_data = (kernel_ulong_t)&dps310_chip_info },
-+	{ .name = "zts8032", .driver_data = (kernel_ulong_t)&zts8032_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, dps310_id);
- 
- static const struct of_device_id dps310_of_match[] = {
- 	{ .compatible = "infineon,dps310", .data = &dps310_chip_info },
-+	{ .compatible = "zilltek,zts8032", .data = &zts8032_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, dps310_of_match);
--- 
-2.55.0
-
+ 	bdq_idx = le32_to_cpu(p_bd_info->opaque.fcoe_opaque.lo);
+ 	if (bdq_idx >= QEDF_BDQ_SIZE) {
+ 		QEDF_ERR(&(qedf->dbg_ctx), "bdq_idx is out of range %d.\n",
