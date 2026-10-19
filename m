@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792433752;
-	b=weWPEUNB81VzVQU8ibxMU6G3q20mShTLtFLVAx0YOP7ZXdrZFwrpm3wGI2fPrz9ObG/K
-	 6zdxwNATI2KYFI0VELicy8019phRX9xRe4viGJhy9wEsEfCFKvJpr3jLp5fhSJkGw0Qqa
-	 4aa9wZTTFVr6HEvWDKkV7CVNeiAJ6yXxT24yTJqW7/zR1V6ycGVtkJTdxnMu5keepnuh6
-	 QiKaJ6ZJ+MiZfgtKx2u/e8snrfWiwr9gj2L0IqQIAtAAyG2tpbDnWFyqFB+TTG/K3zGmU
-	 g7XTORxk7yt996U3D3YaLDbg0RqRl+AzTp/BMMbpCRZgPH872+cNDHLpsGrkTZdkYCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792433752;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=4w7YFTBtscoIjxgLMpx7cQ62ZcRL/yC92+hTKY2Gc7Q=;
-	b=hUhBCl2bRJB6jkEZOgeuRT4m7TacjvMUDLGOdBW3CK/dP6CxlwfWu7CsHkycPYwXGEaB
-	 klr4cjMppriFUdi6D1+W6+xO5pZhbhIwJlHWZkXrXRBqOTC60kCq7uatyYia1gspbGdh3
-	 N86gIFNdcI/AW4D6fEsje453+exLnkI9Ico0ro1gu0VDI4nLUWXNlSyXKwta19Ps9mR1p
-	 UfHTZwduWbgdE8lUAiMi7Sd0EPy7RnSnzVk+uYgz8qphqmN1jr5byQHkp9Z1wSsLngT1N
-	 nJaCLLTjO5Zs7W4CRCBzRO4cnRBrKNDX89JdEpPMZpbqiQQQW52CKBm8pLMeRatPCxA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=O8zf9CEj;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.14
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792433766;
+	b=nflj6DMojvtxQOG0ontDogkICxU9goQyVFu9pEUHYPw7fmo9XBvjrWSKSHWJMR5SE9W+
+	 /vnPSkJfYpLPXVtW6nrtbjzZMG9VqywxzFVLymhvwm0Aoyb5JBG6SnZ//Aze+PWzZz54S
+	 z9U5ir+SjVJ3+vs1IKh3EVpJfKCh5Hmuv9Binnat9pwRmdNtqz/s3Ygur4dcubqMabgAN
+	 T1tv1eqM3XdStSKpVbvO0GC5K7flHqpPy5LnUsoxCMnpbgrkPgt52UEErNzSuM9ovY3J7
+	 I6oE8KCf1UHMV2beXYfc5bthAog+13JiWErOx7fKJj2BkKL9CiPJ6zmZep/Pvxr9ZXw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792433766;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:From:
+	 Subject:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6NAS5FCOe0uWCTOSabYVW2oPkhuozyNObtB4DxBuEUY=;
+	b=nrpUW+fW37S9SnWE0wezPo5SQuH+DYGagjnqS/j34uadVzjHvp3S+LA00M27xDWJ1x9O
+	 DELhJm6o76YIZwU6BU0oLhvbQBxpe6XGOPYBrigu9NMFpHPaodpJQS+aDn4nWn78owfFD
+	 I4eJo4B9uIyUDd1o4sA+zH3KuEA0QXN59axnpNZDLvO2qaoFg7I+tLFA909lB2mb6V854
+	 j0R29BIpP7TW31Xh3HrOeuZ1mCVEscZW2CoZfePfDlGolCmsszGo7WwY79FaUQjc6B8W0
+	 w4ahKnCcFWXBPHjwjFHcRtk8vJdNhUCnHu6AVplMHDOrb1GyOZK0eMGSKMYF8t7rE7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Y1l6nEg0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.14
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012014.outbound.protection.outlook.com [40.107.200.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205A2606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:15:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 205A2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3F9606A31A;
+	Mon, 19 Oct 2026 18:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C3F9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=O8zf9CEj
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5A2FB40E029C;
-	Mon, 19 Oct 2026 18:15:42 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 2vR_LGbI_aXz; Mon, 19 Oct 2026 18:15:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792433735; bh=4w7YFTBtscoIjxgLMpx7cQ62ZcRL/yC92+hTKY2Gc7Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=O8zf9CEjohQ3LUBYJVk4K44Xx8LNvFk/sIF0mu6AePh5AI6eobVCNOs7FEE4r2SbJ
-	 c5UG6JaOdiR19Cnb8odfqiEUnkjOKIf0Ce2khTOpPwLVfv4icKB0811U21/szJttOE
-	 NK3ex/bHxr9XZSKM0kOZBw4HXPBNR1DeD1LpjF4TV6pG03AI+eOvcCrqjFBLJsF1Ep
-	 lNXcllkXMq7HmgiDT56MId8aZ0bRW/ocG+Jg7XuyKlZHcv4p0CTj49XwYAW6B9S42o
-	 MvZOJRWPWlBHLFOd1fb4ouMv4rpNFy7p4ijHpeNujsFh5+tv23evVyenYy0P+rZIPT
-	 fL+ZVZ5SyjQ/ZUsinA4qdHX/pQczzB14+xFlHSdl5KViBiMtztSYrALNuMteJtAJtC
-	 9c58CzcXHZ8SuB2gJULlIn9wMK2A0baYz0O5KD3YEmYmxK09v2uMSJ3Fg5wrcGCYMp
-	 XZWu00EW92jAoqikHBGwLp0MkdDnp5Gaf/v5c9Zgqgu5SAX5Bv+Wpa22/M+FIiG0yU
-	 4sLaBAxm8dWvPdopS5uhadfeGS2Ld9IEAD9sPBpw4pDFQzmdJKD9bDsb5ypE+seeFB
-	 egHsCag6kSSNTqeBb3RD6wVeEXnrhL4o3xHa9Ex7YiwNqtSyIQyS5dyBrx2sjullGb
-	 MvXkaBiVi8hrhbKmjWOVSpok=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4EDAD40E015B;
-	Mon, 19 Oct 2026 18:15:14 +0000 (UTC)
-Date: Mon, 19 Oct 2026 11:15:10 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Nikola Ciprich <nikola.ciprich@linuxbox.cz>,
-	Sean Christopherson <seanjc@google.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, david@kernel.org,
-	Mike Rapoport <rppt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
-	luizcap@redhat.com, pbonzini@redhat.com,
-	Tal Zussman <tz2294@columbia.edu>,
-	Matt Fleming <matt@readmodwrite.com>, gregkh@linuxfoundation.org,
-	sashal@kernel.org
-Subject: Re: hunting memory corruption bug in 6.18.x
-Message-ID: <20261019181510.GAatZeLtUmU3Zy9VZt@fat_crate.local>
-References: <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
- <atI_yuCc4BiweBQP@google.com>
- <atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
- <20261018201538.d0957878f378a9821852836f@linux-foundation.org>
- <atXXma5NXxoSWJO0@pcnci.linuxbox.cz>
- <atY1vWRBRUwpISKb@pcnci.linuxbox.cz>
- <20261019083529.a81910ac0976c1a5687d4c6a@linux-foundation.org>
- <CAO9r8zO41EromgLGhKv8H0aKXjrffH+t4CFGU6cLo59JJ3CEuA@mail.gmail.com>
- <20261019105844.02d4623b7063fec25ebd34ad@linux-foundation.org>
- <CAO9r8zN1dTJmULsKCwNrNr_vKyrV+vMfD7wifQ05uAti7E-yDw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Y1l6nEg0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bh4J/5urzbpqLM3GjXqOJ9aqDadUjNmzW+QBC5MZRrbAt244zCZYhJ4jcIhbFubqf+hztYXTn9S82dctXgUt8mBD3T7RZw4QMfGoFvv+hnXqGg4IotPjIMQ34b6U/3LvHXPJOXOnpwtQsjeU0WYSZMuzuHYCptyZWjP8TY6Pb2Ij+j/rmi0zlFdJhvRB2HRfZd/viD3DDoypQh+58nya5tVpE+g2sJKqFHPGXGdWgaNbSUS9vz4b4VJBpLy5AMbTwar9rfXABwwAxnTmXES+iM5RGswX/eANSDo2Q2xpkh0hEBlKlzLeRDjrDgW0Jucw9xNLUXRjHEoZkxa4hw3u/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6NAS5FCOe0uWCTOSabYVW2oPkhuozyNObtB4DxBuEUY=;
+ b=E3evH32JIruihH1Ep3WVYWL7CvDQ9IvqhKFxGTAYNtni53vK/+ADbMXSTGprX1IzHLISTkaLPto2tImAVJIQOI8zERewSXohvIlWJI5h3mv5tVCTmhUZAVtXFUCOTCGr0mRJUtL4tWnrOEF99neR98s0IrSiLL9vksWPQhU0ueKAVsGko4+DxJovkMoI1brE41S17Z80PA/5f4/ad/k/y5OS2zarOe7wAM7NAYHsLMSsWQ5Y7ErnKx5VOcGGw7D9w8xcK0kiNiwRjd7It2UiNohsx8BzQ8UMKHp1WeblN7AIPOf90F5SV+2okEOPN0DY+mK2QV83YAyekGvJCdcFDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6NAS5FCOe0uWCTOSabYVW2oPkhuozyNObtB4DxBuEUY=;
+ b=Y1l6nEg0OGv/ct0VRRvXuxIWfuXAcYVTh5yeVMR0UDVZAoiNKTiR2iU0K2KlC+TNXfk8QWqdn1CbQLh3LPept+G6TIbcZF9SVyCswlA4KfzuMpWkaJjYpLL+qQ2fhndnhvblaTuCK7eNU+Q385pfH05/IQsnSaMoXCEofeKWytdGBVHJUUO5wpT/+WlEiTOJUoAGfvs5MpybfnqGedS3DKnsIs42qckgSv1BK9yQR7g9VFEXaeCz2qn6lIIht5lMiIpnM+ccq08illX3O7vGGGJxXUE+hNAbOIQXskYlm/Z40dzKflpCS4h0wEGTdgiDVfIvgII/3HoJAcYUamR/FA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by IA1PR12MB8539.namprd12.prod.outlook.com (2603:10b6:208:446::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Mon, 19 Oct
+ 2026 18:15:52 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 18:15:52 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 19 Oct 2026 14:15:50 -0400
+Message-Id: <DM90QHKDUUUT.1130I6AKO8LN8@nvidia.com>
+To: "Yunhui Cui" <cuiyunhui@bytedance.com>, <paul.walmsley@sifive.com>,
+ <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <tongtiangen@huawei.com>,
+ <akpm@linux-foundation.org>, <pasha.tatashin@soleen.com>,
+ <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [RESEND PATCH] riscv: mm: exclude invalid THP PMDs from page
+ table check
+Cc: <stable@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20260523042052.35476-1-cuiyunhui@bytedance.com>
+In-Reply-To: <20260523042052.35476-1-cuiyunhui@bytedance.com>
+X-ClientProxiedBy: YQBPR0101CA0354.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6b::11) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,35 +99,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAO9r8zN1dTJmULsKCwNrNr_vKyrV+vMfD7wifQ05uAti7E-yDw@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA1PR12MB8539:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f72635f-012f-409c-4c4b-08df2e0d0298
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|11063799006|261009223027099003|56012099006|18002099003|10067099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	UWY1h0y+x9RMWYDP1pGAhB7Q6QN7WyhaN5FVN4KW3Lx5DG2pKAtCeXQkIpv7DLRiH3gAY9DHlRZ12VjMNb5MiguSlUHoUekJ5q6u7wpWAH2rkJ4xgs2JW9nE0K+sPKM7PbuXO8d6zw2HUFAHnQSPNMnaa+RTDRD++oR9E7Ri3foGPo/tl3jCA8i8P0WoGk9WxBHb0MT04rcC53muHPdRMB78x2N4LpsI0Cqd6hDAH2bA2cT+uaaqnrvWO5jBob2w5s0H9cJzPPV2oU18zLw1J+AiL8Auep/5dufxTnDJCaRf5yAgajbAyXjxJ6wMfqr4Y3cMlaNOW6yyVdTvMyGNLsAQI+S2IP6IkeT5Wfb7+fLWZ9Rzd5GRESPPK5devdCHK0js6uyCXb4ABcJs5SkW1sU7I8/z7+COQ7VzvnqBEk3ME6LhBbEU9Ar+WtuIKCP2F8/yqR0CbZTbvu9qsI+pTolc88ZTvBSmShoj9jrFwZuUkGINV+x/WPVaL3fk8j6+gomqpCQET1DPykH54RbWkfJm+fZ3TR8lv6UJCIZmlxrc3BlRW4s8QY5By2fekUHT3s/ZQI77HXvO2zgV35j1dZs3YrJf+xj77YtTuvvHjRmEdJLTNRwRSdiDoQaFMuta7dUjemPl8qqbMLefEmoxmltxzRApwfXF1hqzA8g2kZ0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(11063799006)(261009223027099003)(56012099006)(18002099003)(10067099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OGhBMWV6YkRqR01RRVc5ZGVTT3hMMjlNQzUyblFNL0E3bTg0SmpaSzVjcldC?=
+ =?utf-8?B?aUE5ejZIS0lva2RtVUNaU2trUkRidE9GaWNDbUlOLytOdytCcVhqYVduWHpn?=
+ =?utf-8?B?RzVaK2VTY3dKUndtZVIyRlRGMXp0c0VCM0tsME02b0tFQVc4NjJaNGRtdFFj?=
+ =?utf-8?B?dkRGc25uL3lDWnNFekVlMVVKU09CcUVURkZDTTdEQmducFdYVmdHcWgwNEJ4?=
+ =?utf-8?B?cDAycjFuc3Z3RlZSY0VnWXEwQTNEMkI0Vnprd0kyelNJQkxieGZNUDZ4U3dy?=
+ =?utf-8?B?bTVLTnhmZ3JkekxZaVN6Q1JDdEpLU3ZrQTVEamZHRGdZNmtxRGR5Qnd6NmIw?=
+ =?utf-8?B?WWxTY2tEYlNkd1ZSVWhPN3hWMi9IZEs0MTh5ZDFpODZ3ZURZeGI3YWNkQnRo?=
+ =?utf-8?B?ejNTZmMreXprUW0wSmkvZy9JZXd5dFBCRXFnMTZSeThqVUdxclREN0tkTFpk?=
+ =?utf-8?B?dTRhSDRISFJ0aU80OTZ5Vk5vSGo0YWNoemdQbG4xWXpJNUdtanhrNUsrczJG?=
+ =?utf-8?B?eERtM21CUHNua2pkekwvT01TQ1pGZkxEYnpYMXBuNnY0aG8zZ0tZeGpkWUNE?=
+ =?utf-8?B?blhJMThmeEt5ckphakdtcGZ1SzkzaGVXREhHdUEyYWFhbHpVdldNd3gxQ2ln?=
+ =?utf-8?B?L3JseFg3TDVyVUJNQW12Nyt0VllURlgrSnVIalpKYzNpOFJrZG15MXZpNXhQ?=
+ =?utf-8?B?WWJ2L0w3RFBLdlNyanBRYW1Rejg0UFZFYzNhSmtzL1c0a25iVEJCRHpoeFpX?=
+ =?utf-8?B?b2JHSTBkUGFJVGNjeXBuanZOZDdEKzRSN3oxM3BKL3hpVFE3WWROa3hPT3F1?=
+ =?utf-8?B?NEdpMk5IRHNFS1N3a2lKWUdrcUNzTzQ0ekUvdnZBSnAwMWVwR2JrRWJKTDhN?=
+ =?utf-8?B?T2hXU3dXNDQrU3VBd2VWK2xzcTJTamg3c3o5S3ZtRzZVTU1WUTR4MHdBL2Uv?=
+ =?utf-8?B?MnV3U2FqcDBkeThTa21sY2FZYlpQUnRRVkYvTVlmdlJZamNqMzBITmNjU3Nv?=
+ =?utf-8?B?Y0Q1eFFtNXpna2llOXYwUGVjdUlDclVXT1BuMWRzb2F2N1FkMDVYaStzN1Uw?=
+ =?utf-8?B?enoreHdsYW9pZ1NNbHErTS9WWUtTQXR5SXR3L1Q0MVRyNnBNYnBETllmWWtu?=
+ =?utf-8?B?UVpVTjNBZkpLQnNIcXFRUDZmVUNkaUk5M3Rxd0Fqd0xoSFRoQU03QXVBVVFH?=
+ =?utf-8?B?VHNkYmxhbWMyU0VTTE9SK3FwT3QwQVdoTXFJT1MwV2tDMjRLWmRPdFo0aVVU?=
+ =?utf-8?B?bmxXVHFoZnRaVk5rOFJYMk16L3R1Z0tpUFNpT3dBUUZWdGdXWWgydVB2dnBK?=
+ =?utf-8?B?SmZLVEtLaU1PVEdibHVDU1pGM1BwTnBsc1dGRi9tNUpOOElBNUZDWHg0VlFy?=
+ =?utf-8?B?ei95dFpuaEFsSkl5VjdLVGJYUEVQTUdQOE13TExMQVlKOHFlb1k4bDVlZ3d4?=
+ =?utf-8?B?Mmh0bVlpOUpUb251TnBXSUhqVUUrNE41QzNSUVFUelZzalRmRVZjdWl6Zlg2?=
+ =?utf-8?B?cWthVXplc3BLVWFyUmpubjMrTUNYM3JwM0NGOFczTXFjSUN5YkFMYmU0THBW?=
+ =?utf-8?B?MFQwR3hNcmcrMTFjRlNOUlBUcHlaZDEyUFhlU3VySFBZRDAvNUpJOWNnNXVG?=
+ =?utf-8?B?UURnNHhQVERjN016TE1YNUV3UFJUT0JidWJ2YlpQWTRUdHd5SHpXL1Y1bE1r?=
+ =?utf-8?B?eFBaenpRWUxxRHBPbHFoejFPbUNYM1N5bm1xQ3Bmd3EwNlJOU2FqcDhaNVRR?=
+ =?utf-8?B?a04vaThacVlqNGZvL293bi83akNWZjUxcGpERVd0alUxY3FpVVJGM3hDMXlN?=
+ =?utf-8?B?Q1Y5OFZocGZEVFZhTGFoTzFXRFp3T2tXUU5pa28xeEJpemVYaUplRk91UVhz?=
+ =?utf-8?B?U3BJVTk3K2RxYTg3cytFV1R4eDBWdEZteElHZUNKZy8xTC9WejZOUnRudXhJ?=
+ =?utf-8?B?Z29kWnMydVdBR1lLNEJjNENxYmczeW9sZGxzWG5hQjJRRnVxaFE5Sk13aVBm?=
+ =?utf-8?B?ZVAwaHdIZmVVMTJEejNvVW5RWG9Sd29sNXZYMjZVejBzN1Z0SXQydUhPcEpF?=
+ =?utf-8?B?dEpDYmxpT0xqeEo5TjcwRjhWY1ZXczIyR0tXVE5wNXpoNGdraUdxank4L1Ba?=
+ =?utf-8?B?bWxmMnhtcVlOb3R6WFY2Z0kvTzcwTWliNnRYbmhUVXlEMDR6VVRISUV5a2lU?=
+ =?utf-8?B?U2U0Wk5BQ2p0UTAwSm5YL0xOOGZoY2xoekUwck5VZ25QTGNpL2l4S0JmYmxN?=
+ =?utf-8?B?UHppTVFPY1N6MXY1U29ubFFheFM4VWFTNFZnY2d1Y2J2MEMvUU5qUDd0aHNj?=
+ =?utf-8?Q?TiQjIyaLkPpWLEv110?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f72635f-012f-409c-4c4b-08df2e0d0298
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 18:15:52.4504
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UAUrAM2tPQB5tDZggg4H1xJ4TUcBh5/yx0E5g1xDk574ZL8l+B6ZNLc8MttUrnjE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8539
 
-On Mon, Oct 19, 2026 at 11:00:00AM -0700, Yosry Ahmed wrote:
-> Right, but this is for new patches that get merged into Linus's tree,
-> what about existing patches? Any way to retrigger that workflow?
+On Sat May 23, 2026 at 12:20 AM EDT, Yunhui Cui wrote:
+> RISC-V THP splitting uses a temporary invalid PMD state where
+> pmd_mkinvalid() clears _PAGE_PRESENT and _PAGE_PROT_NONE but leaves
+> _PAGE_LEAF set so the MM code can still recognize the PMD as a THP split
+> in-progress entry.
+>
+> That temporary state no longer describes a user-accessible mapping, but
+> page_table_check currently treats it as one because the RISC-V PMD
+> user-accessibility test only checks whether the PMD is a leaf and has
+> user permissions.
+>
+> As a result, when a PMD-sized anonymous THP is split during a COW fault,
+> page_table_check can account the invalid intermediate PMD as a live PMD
+> mapping, and then account the replacement PTE mappings again when the
+> split installs the PTE table. This leaves stale PMD accounting behind and
+> later triggers page_table_check failures such as a non-zero
+> anon_map_count when the folio is freed.
+>
+> Fix this by tightening pmd_user_accessible_page() so PMD page-table-check
+> accounting only considers leaf PMDs that still carry either
+> _PAGE_PRESENT or _PAGE_PROT_NONE. This preserves the THP split semantics
+> required by the MM code while preventing page_table_check from treating
+> invalid split PMDs as live user mappings.
+>
+> With CONFIG_PAGE_TABLE_CHECK=3Dy and CONFIG_PAGE_TABLE_CHECK_ENFORCED=3Dy=
+,
+> tools/testing/selftests/mm/cow completes successfully on RISC-V after
+> this change.
+>
+> Fixes: 3fee229a8eb9 ("riscv/mm: enable ARCH_SUPPORTS_PAGE_TABLE_CHECK")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+> ---
+>  arch/riscv/include/asm/pgtable.h | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+>
 
-You take your patch, apply it to the stable trees here:
+When I am fixing inconsistent handling of pmdp_invalidate() issues[1],
+this patch caught my attention and helped me fix a similar issue on
+powerpc book3s 64bit (patch 1 from [1]).
 
-https://www.kernel.org/category/releases.html
+Acked-by: Zi Yan <ziy@nvidia.com>
 
-and send the applied and tested version it to <stable@kernel.org>.
+[1] https://lore.kernel.org/all/20261015-anon_vma_uaf_fix-v1-0-7b977303b42b=
+@nvidia.com/
 
-I.e., you backport it yourself. :)
+--=20
+Best Regards,
+Yan, Zi
 
-Do git-log on those branches to see how stable backports are annotated. It
-needs to say:
-
-"Commit <sha1> upstream."
-
-at the top.
-
-There's also Documentation/process/stable-kernel-rules.rst
-
-HTH.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
