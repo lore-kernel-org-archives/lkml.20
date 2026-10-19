@@ -1,130 +1,144 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A0F2652A2
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792375039; cv=pass; b=I0HBsVaGOaIrWnOVh3tv5HZTAZxTwDvMQMS1A42ixrMVRIzmbWBSfW6UwBq/vOeRIS/iriFoLG/j87FGD9Mk5SnV9ef4+B0saably2sC2V7o5hvTiVzpnE4KUzA/qtGM8DcP2NI52p7JZ7M7s5eCWB95hlq3TZIcTujCG0akNd8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792375039; c=relaxed/simple;
-	bh=VViPh7OnXQ7WsZkAwbFjPgPYCAuEYt1IC/1sZX7Ven8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qucYqPq7KzEJo1IomiXVtxtzNvcE1wnajVKFLYzjQnutHYodNyJsXnIhsFCN+5nBAjeK0jELR02QzwbKsbR/VobAYsZUbFEcYq9WPxUMXakE9xQ8KM7mEpdGSS13c/e9YHmDzV+F+i4SGVs50Md0fVW7HUYwDEsznLZGnJOphdQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q9Fhstd5; arc=pass smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27393385A7
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:58:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792375104; cv=none; b=gzjchGBLSji9fI/E8/iL9yOdHBipcrabM6B95modiIYR9Vjnunx9zLBLFKT6HN6D0e9HGCrjKDT3pVaVvEzd5xrllYnrzoOEyp42EvCcAEorIA31jXZcfQtXE8SVRPUkglNa+biLJvrgdTM2y8Y6fw/FXERFcukr/1ATdwUc3+Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792375104; c=relaxed/simple;
+	bh=IvgpY5vdVqEpCEAsZKzoB7BbMpzUVF8+3uNWD1OUHNc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iCZ8o8u8uNk3HTbg2SY84n2h++ieMWyl6Yj28RlSZLWgn1HV9x0RCy8EcGScluBG9zsaSG1WpIqSN2PKetFGNUSHVGQpetGOmk8ZisrIfZNc5HuGx6izhYtP7+vORGy4qr7pzlVUJKfOfgaiVVAqqp6t3b6S9b7cMpNWd06vayY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cndT/ivD; arc=none smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q9Fhstd5"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6ac76a02368so1433074a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:57:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792375036; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TaLwefAnJDqTkvmHNXARQxugL2PWIV7hMCimLBgsu0DURTrclZCHR1oVEK7Kqx65ac
-         O4IfE1VGnGCY9qvZkfnRTC9w492uLq8kVLzWSUa5nl5VGEGAWC9e0iuwzRBW9eHPm10P
-         ZOBKjrRgHXw3qlLnSJMBflNUWyTCHodzjo5BXBj0EkNv2zwcLOy0Pvr5Jsvft1lpeaql
-         4qYIdNQM6MkZxq0zp8zthE6jTON5il2W7k75U6MwJtjGJ7YkfbwZV8YshOnYFuU+CMHd
-         cyzGoQ4xHY5KrfT2VBTK6Jta8VXMhhg7LO+Ytn5PatvtTEmESVL9CLyFkoeamOo11f6n
-         koqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uu2T5CQkhWnsUGc0Gsza1QExCIhxJWw9L+EYhkzHHCQ=;
-        fh=Tx2oErUh//z2gmZdPsYIP8dJFOvcCNUey2GCWCk1ZSU=;
-        b=PpIRUheOg4Xv6uVP9qVObd99Zxhoaj5mIOXGkFvu6c34zq72eZIK2cokOoblqA373V
-         OaefpUd9Sfws3Bi7/G6K6p8+fLk3xbmSCPK672l4y1wgGmm8h9xoR46Vc3ek6IHChOT2
-         Q5l/J7f1/0kkDsW18EFOXn7DuhxIIN5gmBMDCjZ2qtq0ZsIC3aIoCL8OxlUW90CdpKgh
-         jZObekmqZ96aBK28XLu0U4zufEpsb4bZKK4wIoW0F9PFP1ffCczdOvsZHpP5jK9HG58q
-         toufwBhD54ybtzUVFYdCsPPgEojKGE2uhJNCmd7R3sEvE8fC9O1riaAdMJzLZDovnQLR
-         4n0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cndT/ivD"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3550c917fd3so1844209eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:58:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792375036; x=1792979836; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uu2T5CQkhWnsUGc0Gsza1QExCIhxJWw9L+EYhkzHHCQ=;
-        b=q9Fhstd56PDdL5hsKsQnp3CDKcDE3gemaB7OI6TnhXl1BY8HKm5i0P1av2w8GpPxFm
-         K4p+3V+Y1/2SX4aaYogTMupe9NtJW97B1YROE9s3BxPHOKG+zFK2qj3/w/yoVSfDp7oy
-         TA1UyecZpfPtE1C8AgFFldbTkdncr0prfHSK77VCP26oP1Aq4Kb7HyRYf7xUlEvKHNXS
-         tnWZWKWDkg3gXh2XrIGCSHIx8DA7rWT5s63rREGjItdaX+MVyg32vIQ/qqqW12jmpuhz
-         xoyt/baRKAsFAD6kNaRQfrGABEBPSb5HqObx9aF9OFqVPk9uNBhvO9MD3ZaR5E/t3tPh
-         AQ0w==
+        d=gmail.com; s=20251104; t=1792375101; x=1792979901; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DIsHUtJOv8JTVFKl2AI7iFPSk57QktOjQTbDJ2/Phac=;
+        b=cndT/ivDicq5kDK3cPUhETpzYzGDIDiSeFFuKde5Q97EeoxUYr2TTWIRJ1cRzieW7o
+         tO5tatlKgakdZrxY4q7zVjPH5LYdTyH2tefyLiQWQXRC3xW9ZuauFq+goFKdQa7HwxoQ
+         J+lqPjAEbtSfaS6ofD9Cnok7iY2/yhvmeYCDteshy0zrv7347A0yMmO/5gzWT4AHFB2a
+         uNZxX3EOI3aSjnTNSqK9bHxMbw4PsnLG7qfntKUxZJO2I6fDCLr/vCY+jlLAgb+cgihh
+         4baB9B9uithiQUZqHU366ycEoW90URbZfhoGoleIZYKNmMV9a+KssQeTHISo9VVZAq/o
+         f1eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792375036; x=1792979836;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uu2T5CQkhWnsUGc0Gsza1QExCIhxJWw9L+EYhkzHHCQ=;
-        b=oyFvJ93Ye5z5uBH/yWEl//bb4lH5qMDIfNv84E6lAU/kY+M+ZRXLBO0kF0HADHe467
-         wwbwT+FGXS45oPZUDql68ecgMNB0YoxCX3WBJNAQhEeZdiCiy5El5HBXfIc+frrJ36xB
-         7z73Xyy57AGbWTTvQlK0CFO7xZJX71jfs6vwCZBWpNVi9TwaKLIvB0/547FuIZX/ODig
-         kIcCYi0QeK38DCQKn5xHYMbtBfVAQ1PM4jVOs/ZtLP1wPsCK/gRAsrY98H0GqhkmvL1C
-         1utIY2DpxnYmfylHjI3M7zjsYdqbZQQC5I3y3KTuvpoubS7pic7uCzhwv11UWZvlRtf/
-         IzEw==
-X-Forwarded-Encrypted: i=1; AKwUvBzX4q3e7FB0LmI6HHDrdD/5Yh56XZ5rJb95IVMh6X9FbXbj33p0TOt+BrSYif0QllD1JklpKnVWmC/3eyQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRq3wj/QCy2wz2jmj1NCIHztqMFAPwXfgS6nZeLUKh6dFJkX/2
-	HvwjCqV5UAjbG5aY5zoRteJEDdHLcWufRsJXAltwB5aSuwwRYVqcytubJG5JpiLbcgadvzqiEa7
-	AEBZpg8xAVx5VIIEV1VRRy8Y3T7U9FG8=
-X-Gm-Gg: AYBFou1sTaoopwHlsmNp9HFMJdJojAUHfCOeyb810dshQlMpCpBKusYzihirJNRCWDL
-	b25MDOIGtZJUGqbCBpdqy451uaSAH7iLBmtIAt8iC5uzNnH4QAFtYI5sEtkLnSVZLFz0qje7s2q
-	tM4J/9APBej9RqRtxNrhDvytQRe+pNk6Pa187aavQ2u0geVcNBECB+JlOuWNV9/G/VGUQ+w1t8W
-	pwnrZsn0w373KUAYJgFSK65CX27OICIgM0b2pbYELhJBGsF+7TwLvYY9oCBntJuMdTOv2xkBCsO
-	0NNhpfq1Q3jYxobEP+78xa7kzNMxxEcl4RZBc/l6c551FZMz9HDratO32oekVrHekJNvHgTB0Fd
-	DF8tMurxKTkZUDr6qO4M49bA8+2DTsgsy7FgPxkKLKnx59vUXIxKW/zltFzRHKyfrN7GlekGEEQ
-	iYRnK1frChfTveQ2wKAyg7iPjZZerWEqvAOrxrRk7Y7QGNpZF9wzK3TbgfoS5dwVZa3w==
-X-Received: by 2002:a05:6402:46d7:b0:6b3:af2b:3aaa with SMTP id
- 4fb4d7f45d1cf-6b3af2b40d7mr2758333a12.34.1792375035596; Sun, 18 Oct 2026
- 18:57:15 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792375101; x=1792979901;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DIsHUtJOv8JTVFKl2AI7iFPSk57QktOjQTbDJ2/Phac=;
+        b=zA5BCZLAwb3cRe+OwU9pau3mSowLiehu5NCtdqBcphMuxVA4gG/mpwBpqiZaTqJwLY
+         mtLuIgqkUDSygxhDj2ILwNSAxSqETHUTRfneUgegjt/IcCgrE6IZRv3OGDnLdNMESnpf
+         ee9yeZO6/+gTMegbebEJ8qzFA5BLhjtDOulvy75gU7iimv31slO1rq3Q/Yrtm2pOdLHS
+         8HJ2gqzW9NE4gJYSFdsmcMzyOBA/rsT3N1CkFUKODuriAEmasLlAb3DP0ec7otvwsgtU
+         fXd9tBO6JP5z9D8FY1TADpym6hP8Q5Wp0ipOaDxEuVaitxvBUw40c4Sw53KGTh03WrgJ
+         CFbg==
+X-Forwarded-Encrypted: i=1; AKwUvBwBwYITu21wOUZYl1jvjGNcMjh+/q/hEFYYYBkzFGmOHiVXQGSxf5fRHD/dccjzBakTlO51rcKAh4LcFkA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRdARiVmBQnRwRlcls8Wpbxe0IeKQsqvA9hnu/LLIw6DBMICKw
+	ITFs74/AixeeeK2nJ5f//6ztMoD6gQVXhqHfRVV1O/QzM7FbTJY5A+ub
+X-Gm-Gg: AYBFou0m5/gFAZ9MkXgEIW+3hhFpUDYOY3UZex8By0rEwGXo2/ZYIBOMTgVsbyF7gY6
+	cSJ+awIVBp6wM0d0uevy1kTzryEXHxcKlsUGKG6pt0Ke4QHbXWMol0qPZyZ12WkEzZZBPgG4CYl
+	6sv/JoQTL8KyEwu9LuDz3xM537jhLzJF1fTKGZGwR5wkBhMGEY26O95h38X6gdzdkevmKA3/vQC
+	7V9hEIb+wpeRhGStYmS3CUgI/nEJ2pyZS/m7y9NB02JpecduG/94qqiZG8VT3WscCcj/w4BiI+F
+	77ZoF3c5oYDxcRbeYPQJ+Bqm98jEub2X9g/ZVatJbkkrsc1n0j0UW5dkwZDZjjf3IMFvgpm7guF
+	DfMN5BWZA0VUsKFCi4IWuwcgEjyT0Cyfoul9V4jFu0TXRJr7/Rq4WcVdOE9pkokpBkhW6fsboZD
+	Y0GzW2IvJ42w52m9ep8iJL9TZIN7fPz39U2ho/4TW4muXDcIT41KWixCRlL+L0Bxw3p8Q=
+X-Received: by 2002:a05:7022:150e:b0:141:b2c3:d84e with SMTP id a92af1059eb24-185120a8bb4mr10990864c88.11.1792375100720;
+        Sun, 18 Oct 2026 18:58:20 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831ba424a6sm24177311c88.17.2026.10.18.18.58.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 18:58:19 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Subject: [PATCH 0/2] word-at-a-time: let KASAN see load_unaligned_zeropad()
+Date: Mon, 19 Oct 2026 09:58:08 +0800
+Message-Id: <20261019-bug-word-at-a-time-zeropad-kasan-v1-0-f21a3ed6a477@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261019014438.199718-1-rosenp@gmail.com> <179237452010.3290.14331369140080870388@kernel.org>
-In-Reply-To: <179237452010.3290.14331369140080870388@kernel.org>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Sun, 18 Oct 2026 18:57:02 -0700
-X-Gm-Features: AclHuK-is_PhbKGnyMvnRjhFXlqCIscHeBJ45h-hIVHRpjpoiN0ZUW6yNuD9i8w
-Message-ID: <CAKxU2N_zyLN7=MOvB60L8J+2nUfRZM10B5S+iotU9279JwLw_A@mail.gmail.com>
-Subject: Re: [PATCH net] net: ag71xx: reallocate rx buffers when changing the MTU
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, Chris Snook <chris.snook@gmail.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADB51WoC/x3NwQqDMAyA4VeRnBdoiwT0VcYOmY0aZK2kTsfEd
+ 1/Z8bv8/wlFTKVA35xgsmvRnCr8rYFh5jQJaqyG4AJ55zt8vic8skXkDRk3fQl+xfLKERcunJD
+ H0JJriUQIamY1GfXzX9wf1/UDDOF2FXIAAAA=
+To: Russell King <linux@armlinux.org.uk>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>, 
+ Marco Elver <elver@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-arm-kernel@lists.infradead.org, Kees Cook <kees@kernel.org>, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+ Qiliang Yuan <odys.yuan@gmail.com>, Peter Collingbourne <peter@pcc.me.uk>
+X-Mailer: b4 0.13.0
 
-On Sun, Oct 18, 2026 at 6:48=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
-:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-Sashiko flagged this on a performance improvement for net-next.
->
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+load_unaligned_zeropad() is inline assembly, so KASAN and KCSAN never
+see the word loads that sized_strscpy(), the dcache name compare, path
+name hashing and x86 csum_partial() do through it. While reviewing a
+strscpy() KASAN fix, Peter Collingbourne suggested checking the first
+byte inside load_unaligned_zeropad() itself, as read_word_at_a_time()
+does [1].
+
+Patch 1 adds that check on the six architectures that implement
+load_unaligned_zeropad(). Patch 2 adds a KASAN KUnit case for it.
+
+This is independent of the strscpy() fix, which makes sized_strscpy()
+copy byte by byte under software KASAN so that every byte it reads is
+checked. Either can be applied without the other.
+
+[1] https://lore.kernel.org/r/CAPQLkRhXZwozmfhNd_PEx1ihwdH1_5qthP6PANYJ_m-v9vfQTw@mail.gmail.com
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+Qiliang Yuan (2):
+      word-at-a-time: check the first byte in load_unaligned_zeropad()
+      kasan/test: cover load_unaligned_zeropad()
+
+ arch/arm/include/asm/word-at-a-time.h              |  7 +++++++
+ arch/arm64/include/asm/word-at-a-time.h            |  7 +++++++
+ arch/powerpc/include/asm/word-at-a-time.h          |  6 ++++++
+ arch/riscv/include/asm/word-at-a-time.h            |  6 ++++++
+ arch/s390/include/asm/word-at-a-time.h             |  6 ++++++
+ arch/x86/include/asm/word-at-a-time.h              |  6 ++++++
+ mm/kasan/kasan_test_c.c                            | 24 ++++++++++++++++++++++
+ .../powerpc/primitives/linux/kasan-checks.h        |  3 +++
+ .../powerpc/primitives/linux/kcsan-checks.h        |  3 +++
+ 9 files changed, 68 insertions(+)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261019-bug-word-at-a-time-zeropad-kasan-af2460466ee6
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
+
