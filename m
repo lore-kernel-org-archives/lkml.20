@@ -1,92 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792437186;
-	b=kddEdnuAEORcvcTsCQPKgM5XRiO/OKIfaB5IU9tfH+dNHyRQ2CpYg5ylwTtCO7Ew8473
-	 FUko0il27TRY3bxsYndhLZ6mnPDqyUFasL54CeKty1FqtgFtSQmokZ4WZmJwr5ybBMpt5
-	 RltuxC0wJ5RnqQ0lshgiyBpAQ2LW11nq/aryoMa+jPeax6ubQT/jJQnA7/PQPavsrb+ok
-	 xcM4KSQ3sqRX1bQKfRcHqLHUKTVmOoKdPEX8JCPbBrmWcGqOOUDE1068Hcna9fFUFJfvU
-	 Jnftu+NEHmEZeoWeQGMClUlqf4s8WnBB48ix6gByjJQTxZ4HM5x1XRpF+hc7HycpgcQ==
+	t=1792437309;
+	b=IYgb8S25P1XtFQH2PzPObuFNeU6B1JHCPmGpTdqDDJy5f3cnvK2Yg1GrQMeMztMN2jNz
+	 Q9KZfZ2uXwRQdHVSaYHWC3/mMYKq7YSJQHeSSE86XBLfwgCo613jtd7hRCPfMbCUepgsl
+	 5lD/HFjIP6WyqAP8ZgKLaMTafROpw5A0cZkraDD4o2ckeCdwVr9DDOP5WW/I3/ClKFTw5
+	 g/vr8tjajfyEnqGdsQVNCKs5wsAf4+XSPoErSdRlGhgbJC3b6zvlSUnFPtVM/S7o3XiDC
+	 B1YvI1uDQprfp9zeURFsl/flMjaHyPbgOnx8QdkFZnCBACR7Cx06QkegvllzwTeI/Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792437186;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=JlYuJFL698MPXVE8UPk93QJm/Q3q10vd5sQJv1hUa+M=;
-	b=v/Gr+Z4az4Xb/Qpe3QZ0tYit3X0P3nfdgnNynWrFoIW5dyhj51uql+MoSM6zvPKB7JfD
-	 aqZqZYgV5EcfORBmCiXRwjJpU5c5lQFsnSbBe+f4n9eEBSgtKmhby5MfibkAAfabm82ep
-	 VcC0MpNZ2wtU43pIvds9BZWYOdYnP5wgbRRH7lTu7dwTKeWrihP4A/mjoH/F93DXiIiYG
-	 1f/oulcxR7mtHeCRRQVxfSxM88tZxgS9QPleFbfoTw4mFfH7aBNGiOM4le+Xd3CPTyd+I
-	 zXmp9RmXsm1deXadwQaQQNKDKFmDYXuno2InHYJiy3sH3wQ7L45atRiJR6649NmbVUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792437309;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=rFOi8DF9otl7QSq9yN9Q1rig7a71rUpd/odhmx+OLmo=;
+	b=39xE9vRizreGWRwKzMKmkARhwGDSUvhPd7W2n7efJT38LDaWC1Pinq3I36qv1wnPvBB7
+	 fjnvvxDfvxsZGCMAPzPZt+1qwd2NHB3cuXRvHw4vQE9ToLajTmjCoY7J8EI/2M51egZWW
+	 KdjbpX7LDRtmJGhzv4sj9YDyzCrIkj9EwzzkypaJ/N1hAnNwTb4amVQJ1JdzsAsxFtYBK
+	 dCZhD6jdxtB5S5H/ZmVn+p0zwXu3uPKvenGWQ5BigTDhm8DdKFvVtr0UQeIvId8ouq4dD
+	 tJLPLCFZCdHuuUlQKYe6puLGDKn3cS20zxHxkl4krpGqLVk6Dq1lqknYlDUBP+v4N9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=ehcUHhqd;
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EZ20yDLX;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E9E606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E9E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2D6606A31B;
+	Mon, 19 Oct 2026 19:15:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA2D6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=ehcUHhqd
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-84a248254f4so648187a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:13:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792437185; x=1793041985; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JlYuJFL698MPXVE8UPk93QJm/Q3q10vd5sQJv1hUa+M=;
-        b=ehcUHhqdv7LAsfYWK9WpM7vkkCvXaZnvosnqo7AqRtmWKd2hRMSZOu3mtYiXX9DUB6
-         P65CFuXOdhVpi0F/LS+ta328YpW80vsOPoSyTfqu6ncXmNMZV9tSS2gqfpV4arVmGhsL
-         5WamlmOYi830m0yrB++Shi5d8uG0RhafYPdWNeEz5e4E4FavY+SjM3r8DgunhCWFwPSQ
-         OiRP0GXzSIQ0LZnmya2uSeQoTWMib2scV+qCTPOkOasY4Lc7AeWiP1KizpST3UUCwTde
-         /sNkvtmmgPkdlgido/6lO7l2j+Dx6Zp9u/58DRqnbvcQIPJB8bmgAD2MJSOROa3EJbol
-         ASaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792437185; x=1793041985;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JlYuJFL698MPXVE8UPk93QJm/Q3q10vd5sQJv1hUa+M=;
-        b=hDAOq+hojIBGdMWWiJnOUGQPfF8qyzgmmOAgp1eJgeo5zRNLqaTQJFKNaoF3MIvB68
-         z011uWx6XYgE/v+C58I6gN65DpirqZ6E4mypd5c7KMuK7LHEelnHS6FKDgbH5PO+NSKM
-         EGs34QW1vxtJKmCn3hLfvfgk3EfuvZQX+Jtov/GZ3X8UcQKS3Yntluq8V2p4KWo9Xl8w
-         qayqanUhFvh1I9EO98t35lCanrUT1J/2a5jSOBxW7WYdBDoJdp3hQWEVCjxty6Xaf5vo
-         OZHzFR0wirOnWixJ2VSLMa2Tu8dYVRJsC3CLBd2X3B0AmnAeE91ub/zlIbYnSs+XJqik
-         tD2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy6IVQWaecT+sB7Z66LZHV4Ju1AyHIcHpOp0qsqkPrUxEOyeNaJhxnVBeOoE+R0c56TZ3EXxQ+2Vj40F5k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPsUWu6A8iM1gERDD3i/UJpOe+RZc0bSm3QHWbyePgzAwlX2u7
-	znRyMopPtfkVgKd3rCuN9KvAbO4uSuNyPBqcq1jHp09VpbLkiOcwLV/+NlUzieNTPyNqa66B4Os
-	5YGAFNtM=
-X-Gm-Gg: AYBFou0cXibIqPlzojsSIkNjhTU8uzMG+w9OZgzmuAZhvRaAc8Gb17ZlrqsnoTsBKUC
-	G2eypMyW2BjmhN90EZxFyGCDninmZDKjUffskUSW2mlld9YCXe6xFRE8YMqsnDNE6i92bC4e/4l
-	Ma1oT2WV8URZM3LvXJ8LGrZiyaLmLcLEFwlR/TjWoRVN19RTTJJD0nVTpEj+41HX6hDeWeEdDHK
-	RKjoBDc69+UYYwBYysslZ+/ZVfsaga9WQh0WtNT3k1Y1v2mW3RKntV80g1VgKEvTCowtdZRMDlc
-	OBME+U8XBp2MG0o2AV4nkbpAk6PwPfmL0bGGA9x1UJNv9dWj6U9Y6uxt6JGQPwh6jgAqOwKqiCu
-	SCJRxPl6V+23UYeJj9v7no9sJya7drtBTv5rWK1WMhb4FBbkdHsyStUq++/S8HvjbM41+WQs7fm
-	Z6Ly6W1EZf82y83KqB7TVAccOA+SK9RqMwP5Gtcczg2hgyK9cAGdO36tQPLV0wqNPV60seh3dOB
-	K2+QnpObgM/AIZWYHvIFCFoSl1r5r5us9iqIwICfh1wHk8Y7AJyaBTKCmKVWlFs5Q==
-X-Received: by 2002:a05:6830:6738:b0:80c:d34f:5f5a with SMTP id 46e09a7af769-844fffc14b7mr6946604a34.19.1792437184957;
-        Mon, 19 Oct 2026 12:13:04 -0700 (PDT)
-Received: from [192.168.2.38] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8462659e3f0sm6669149a34.17.2026.10.19.12.13.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 12:13:02 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: io-uring@vger.kernel.org, Junyeong Lee <jylee5498@gmail.com>
-Cc: greg@kroah.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261019152100.63565-1-jylee5498@gmail.com>
-References: <20261019152100.63565-1-jylee5498@gmail.com>
-Subject: Re: [PATCH] io_uring/waitid: prevent cancel reference wrap
-Message-Id: <179243718143.3127071.15080151622998954631.b4-ty@b4>
-Date: Mon, 19 Oct 2026 13:13:01 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EZ20yDLX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792437309; x=1823973309;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=6eY0X/AE+MaCXxfTIcBVpl37SW1NNYBffDDp97xe7PE=;
+  b=EZ20yDLXD+7RHJf26QwxMpEUBcS9QYPJ01fmZMQwsJ+hD0iI32L+yk30
+   bYUBnVU765Vf+k5X2f7XELMdQDXTEc8OPLurEYDBFzsh4QmwgBKVyJ4DI
+   TELwvOSALXP2Dv5cg0fbRJmNPl+98Se/+fNqU7447VYPSAyr4Td8sbuca
+   BXUvM76v3o8DbdEb8MthhlD0ouMifWAf1JeAAh/kBKQXduBCBlEKuf551
+   gV5Z3F/GONYZdvWUgL0gFD5Vb9m0r1uVrcCqLKQO9OvHEhKyy9aL1urUt
+   SZZwk2K/iQeGyhR/RYVd8hfZgRXlhKGy1f5+b10l2IeOyEAXS1YZe+Wxl
+   w==;
+X-CSE-ConnectionGUID: 1DsutZt/RqCb4jMxsZwPwg==
+X-CSE-MsgGUID: eT4GuLBNQoG8e23+np7Ysw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1144129"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1144129"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:15:08 -0700
+X-CSE-ConnectionGUID: bcwaIiXyRXWlbu6WaVle6w==
+X-CSE-MsgGUID: 8K6XFerOTuCcG9L7RO3GmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2595531"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:15:07 -0700
+Message-ID: <354ca46e-7038-4a78-a248-6e2f60c23601@intel.com>
+Date: Mon, 19 Oct 2026 14:15:06 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,35 +72,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] KVM: x86/pmu: Add mediated vPMU PerfMon v5 support
+To: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
+Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260827223755.143247-1-zide.chen@intel.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <20260827223755.143247-1-zide.chen@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+
+Hi Sean,
+
+Friendly ping on this series. The v2 addresses all of your feedback from
+the v1 review. I'd appreciate your thoughts whenever you have some cycles.
+
+For context, it would be ideal to land this vPMU v5 series before my
+other series to keep the stack clean:
+
+1. PMU Partitioning:
+https://lore.kernel.org/kvm/20260821222002.54907-1-zide.chen@intel.com/T/#t
+2. TMA:
+https://lore.kernel.org/kvm/20260817183143.226156-1-zide.chen@intel.com/
+
+Thanks,
+Zide
 
 
-On Tue, 20 Oct 2026 00:21:00 +0900, Junyeong Lee wrote:
-> io_waitid packs the cancellation state into bit 31 of ->refs and
-> uses bits 30:0 as a 31-bit reference counter:
+On 8/27/2026 5:37 PM, Zide Chen wrote:
+> KVM currently caps the guest Intel architectural PMU version at 2. This
+> series bumps it to PerfMon v5 and adds support for some features that
+> are introduced in PerfMon v3-v5.
 > 
->   #define IO_WAITID_CANCEL_FLAG BIT(31)
->   #define IO_WAITID_REF_MASK    GENMASK(30, 0)
+> - CPUID.0AH:ECX fixed-counter bitmap (v5): supersedes EDX[4:0] and
+>   lets KVM/guests represent non-contiguous fixed counters (e.g. some
+>   E-core server parts skip fixed counter 3).
+> - Add support for IA32_PERF_GLOBAL_STATUS_SET (v4): lets software set
+>   individual bits in the global status MSR.
+> - Add support for IA32_PERF_GLOBAL_INUSE (v4): reports which counters
+>   and PMI are currently claimed.
+> - Implement ANYTHREAD_DEPRECATION capability.
 > 
-> __io_waitid_cancel() marks a request canceled, then increments the low
-> bits of ->refs to claim completion ownership. When another path owns the
-> request, the increment remains even though cancellation returns false.
-> The request remains discoverable by cancellation, so repeated failed
-> attempts can wrap the 31-bit reference field to zero. A later cancellation
-> can claim ownership and complete the request a second time.
+> Intel PerfMon v5 doesn't support non-contiguous GP counters; however,
+> this series lays the groundwork for GP counter bitmap support anyway,
+> for consistency with the host perf API interface, and prepares for
+> Perfmon Masking support.
 > 
-> [...]
-
-Applied, thanks!
-
-[1/1] io_uring/waitid: prevent cancel reference wrap
-      commit: 98787d3fa4e99564d2b2bc21255b21f670c450d0
-
-Best regards,
--- 
-Jens Axboe
-
-
+> Freeze_PerfMon_On_PMI virtualization is not implemented because, as
+> commit 3daa96d67274 ("perf/intel: Remove Perfmon-v4 counter_freezing
+> support") states, the Freeze-on-PMI mechanism violates the perf counter
+> independence.
+> 
+> Streamlined Freeze_LBRs_On_PMI is not implemented because LBR is not
+> yet supported on mediated vPMU.
+> 
+> Tested on SPR and CWF:
+> 
+> - Ran "perf test" on both L0 and L1; no issues attributable to this
+>   series have been observed so far.
+> 
+> - Ran KVM selftests on both L0 and L1.
+> 
+> - Passed AnyThread tests on both fixed and gp counters:
+>   $ perf stat -e r20003c,r2000c4,r2000c0 -- sleep 1
+> 
+> - Tested various guest fixed-counter configurations:
+>       CPUID.0AH:ECX = 0x7   CPUID.0AH:EDX[4:0]=3
+>       CPUID.0AH:ECX = 0x2   CPUID.0AH:EDX[4:0]=0
+>       CPUID.0AH:ECX = 0x6   CPUID.0AH:EDX[4:0]=0
+>       CPUID.0AH:ECX = 0x5   CPUID.0AH:EDX[4:0]=1
+>       CPUID.0AH:ECX = 0x0   CPUID.0AH:EDX[4:0]=0
+> 
+>   Verified that the guest PMU reflected the configured fixed-counter
+>   and that the following command used fixed or general-purpose counters
+>   as expected:
+> 
+>   $ perf stat -e instructions,cpu-cycles,ref-cycles -- sleep 1
+> 
+> - Manually tested IA32_PERF_GLOBAL_INUSE.
+> 
+> - Ran some additional perf tests on both L0 and L1.
+> 
+> - Sanity testing on nested VMs.
+> 
+> Patch series summary:
+> patch 1-4: Code cleanup and a fix.
+> patch 5-10: Implement PMC bitmap support.
+> patch 11-14: Implement PerfMon v3-v5 new features.
+> patch 15: Advertise PerfMon version up to v5.
+> patch 16: Fix pmu_counters_test selftests fixed counter test case.
+> 
+> Rebased to kvm-x86/next: 76671054f9a1
+> 
+> v2 changes:
+> - Dropped v1 11/15: KVM: x86/pmu: Emulate streamlined Freeze-LBR-on-PMI
+> - New patch 4/15 to gate BUFFER_OVF reserved bit on guest DS feature.
+> - Some renames:
+>   - all_valid_pmc_mask to pmc_exists;
+>   - add _is to kvm_{gp,fixed}_pmc_supported();
+>   - split kvm_for_each_set_pmc_idx() to kvm_for_each_{gp,fixed}_counter().
+> - Add missing AnyThr handling in IA32_FIXED_CTR_CTRL and advertise
+>   anythread_deprecated only if kvm_pmu_cap.version >= 5.
+> - Cap vPMU v3/v4 to v2, as AnyThread cannot be safely virtualized.
+> - Miscellaneous updates to changelogs and some minor fixes.
+> 
+> Dapeng Mi (6):
+>   KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters from kvm_pmu
+>   perf/x86: Plumb counter bitmap from x86_pmu to x86_pmu_cap
+>   KVM: x86/pmu: Switch to bitmask-based KVM PMU capabilities
+>   perf/x86: Remove num_counters_{gp,fixed} from x86_pmu_capability
+>   KVM: x86/pmu: Advertise PerfMon version 5 on Intel hosts
+>   KVM: selftests: Support fixed counters bitmap in pmu_counters_test
+> 
+> Zide Chen (10):
+>   KVM: x86/pmu: Remove redundant Perf Global Status MSR bit definitions
+>   KVM: x86/pmu: Rename all_valid_pmc_idx to pmc_exists
+>   KVM: x86/pmu: Rename reserved_bits to eventsel_rsvd in kvm_pmu
+>   KVM: x86/pmu: Gate BUFFER_OVF reserved bit on guest DS
+>   KVM: x86/pmu: Add PMC bitmap accessor helpers
+>   KVM: x86/pmu: Expose kvm_host_pmu to vendor modules
+>   KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and GLOBAL_INUSE MSRs
+>   KVM: x86/pmu: Populate CPUID.0AH:ECX fixed-counter bitmap
+>   KVM: x86/pmu: Factor out fixed counter control bit calculation
+>   KVM: x86/pmu: Ignore AnyThread bit if CPUID.0AH:EDX[15] is set
+> 
+>  arch/x86/events/core.c                        |   8 +-
+>  arch/x86/include/asm/kvm_host.h               |   9 +-
+>  arch/x86/include/asm/msr-index.h              |  12 +-
+>  arch/x86/include/asm/perf_event.h             |  10 +-
+>  arch/x86/kvm/cpuid.c                          |  21 ++-
+>  arch/x86/kvm/msrs.c                           |  12 +-
+>  arch/x86/kvm/pmu.c                            |  85 ++++++---
+>  arch/x86/kvm/pmu.h                            |  54 +++++-
+>  arch/x86/kvm/svm/pmu.c                        |  37 ++--
+>  arch/x86/kvm/svm/svm.c                        |  17 +-
+>  arch/x86/kvm/vmx/nested.c                     |   8 +-
+>  arch/x86/kvm/vmx/pmu_intel.c                  | 167 +++++++++++++-----
+>  arch/x86/kvm/vmx/vmx.c                        |  19 +-
+>  .../selftests/kvm/include/x86/processor.h     |   6 +-
+>  .../selftests/kvm/x86/pmu_counters_test.c     |  26 ++-
+>  15 files changed, 349 insertions(+), 142 deletions(-)
+> 
 
