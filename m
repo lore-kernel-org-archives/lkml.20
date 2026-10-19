@@ -1,386 +1,157 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010037.outbound.protection.outlook.com [52.101.56.37])
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAD931BCAE
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:10:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792390239; cv=fail; b=bCHS/XNUnooGKGsZMAe7os54SJ6ZuFdY0kqcbB8RypG1uMW8AGeVzGcjpb2QwYIXXesIpJ2hOvGykiaFmwMj3gnU14Q8pM+Y9NCPOgtMmkwNPh4RVoD3PI+/ZkG+zJ0Yo62vbNmM5QrmmEYEvytu6rukB1+J55cbIMHbnHeOeDg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792390239; c=relaxed/simple;
-	bh=rcHB4+pl9qxBRnqvKM9saqs/0ZSXf+/3s3bAGNryU4M=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ngx2/lclHsiyeL9WcYl9pIyOIhuSlRGuani9qOP92w6spuT5SWGUFBEN9a/Otdbp+hyBWo7MsKR4nISwZN4EzV5aFFkG2ajqWXmkvZXW4b6LmmaMEAuTUMuRJ7pyePRY7BpmHwSx9/Pwvq2zjfxRHq2v84yApdV487npJkUzOHs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=g6u1J7FT; arc=fail smtp.client-ip=52.101.56.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE142357D11;
+	Mon, 19 Oct 2026 06:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.77.92
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792390367; cv=none; b=ZPqaGQuv76TJBJ30bBiU6bZcnSLmsUgl2Sd+bDpbc1vZw3vnJPjQB5ikOiT0riPPj3zzGYEArFqWewG+TxGNgBPf0u1h9Nh6SK/02f6IYe+iStXJbic2fhVJJNOptyUA1P8jRzFwUus2M7bTRPme/Q+y2RLrbQDg3+2AyQ9TgW0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792390367; c=relaxed/simple;
+	bh=Y8atOi4iW6zMgCfQEc6MXoNFIPIJqJDfUcwTymYLk20=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lWWTM3SM7Kd6uctZgoRs+ISR5Nlj7tepI5+K5MXCtI5UPGDwY7hRsUzYlwf5KZDgxYOvNb1RbwbMTaLG1rTuP4c553N6mFvGuNlD5lJzlEIoPXnjs02t1qAmxx++0gV1hwRH7a3AN4OIvH7juxCO5bLYww9NtubUEIT52XxOa1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=Pz+LwG0i; arc=none smtp.client-ip=44.246.77.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="g6u1J7FT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I+9+IjPxUQcNpTs9TOv5ROv1mw7oFFZLn6Y/TKPXB+ZZxfuy/OhMQs3KVJIGj2VeBQgNE99qTzKJtwfRkMh/zZVRhRzFmUgs2l3fS33aMkNqQ055zAjyCbjZc0OdDyDbiTeeD2es5mIz+7xuW3ydcjJh7l8nXP1v/Jv1VYg400JbSnWfrLwm6VSNHIXEfgduQN00bw8PTx1N1bHx+aK2sXGbRCmq7TVbntnjS/BwIRpeoWoN633CupKWpqdecvwYqYp/3kUbciOWu07CtJ+N76WHbcH3C91q1g/QkVWlzt1+HGgCCsAVozeiCdZ1jl2tj+gq77QaSx+bZZOMdaSXeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sQSalPaoeIP3CvNRevoDUMkHeNpt9/S0zCr7H9FKO+k=;
- b=LbMpaI028/vTcowZM4bDXVR867RDAGEojSnHyzgG5zW9OKnrwKhntwXYPC+G43PvH2gJ7Pfttt6e1UCXeWYHTwrWcgMYEARabZHbPwcwzKL9imKyz+Tsq6lVg+u5wjxHf3jrfDqQqL6FXZlz4CgtQrVD/+iU7A8xMftpSuTronQHOgqs0C+q9yzBrQuWLD46vzsExM1cDXws+g9GpWV6hBzpcmEVg1L4cyvvnGJIGPiJDP+e0zLDkk6/R7l7fv8UgY6jjD3CHTh2t3umRPrfvAJDaY2xqpxnID7BBOv8NGBNRxtIO1W6nKZa83myGY3+dc8D/fkILbBFD0JrZu8zvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sQSalPaoeIP3CvNRevoDUMkHeNpt9/S0zCr7H9FKO+k=;
- b=g6u1J7FTEyPPQmKEbRmz9KW/z1d7RZx2GD6LsJi1mnLE05jxOZ7wznVOrP7JLg1+p2v8M6g4WK79HJWcldYjerA77ByhnBNRHu0lHqh0P+yUy/siDytvP4yuAIyKI3UqRCdd9nAbpSRa4rVzWS4eLENRmhnEN3QiHBsjKtSqx2I=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by PH8PR12MB999320.namprd12.prod.outlook.com (2603:10b6:510:42f::15) with
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="Pz+LwG0i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792390365; x=1823926365;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+ZuEBREPnjQP0ocHOy7sJ9kz3pJPEhTb65hzCV4dBzI=;
+  b=Pz+LwG0iw4J8DOl7V8VwEXRI0q+a+PT28YJG5zfuSnyH8D/sEVqtygOb
+   eyrR06Wub7eUoD1CGKR1LA2VRX1YtMRJt31vU3xiPJBt6Zgiy5vBPNGCu
+   pU9/wucwVPSFyuc6uYfRhKpoU7ldUpUdbiOxJdEBHQMlKYIKqV23z/4gC
+   ihaw7CZr4xrmGPxSYTrnHSwzLLvfnDxAamy8/fy3EZS6O9xIDibVRcyNS
+   LeP3zUEFA/orZ13wGXTpYioWfmMcZc+zPQc5qF86pr6Rt2foTcoOo7BGc
+   NsDeFyU0gbWbfzQ4/iy/vBJRjuwWY+aUinysy1GzsnBLgadaUtU/i6Sim
+   A==;
+X-CSE-ConnectionGUID: nfnNkhEWTgmQzFq1TE3Vqw==
+X-CSE-MsgGUID: JUQb/GKhSIebNguxg5Qnkg==
+X-IronPort-AV: E=Sophos;i="6.27,167,1787011200"; 
+   d="scan'208";a="31611543"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 06:12:42 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:26038]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.19.38:2525] with esmtp (Farcaster)
+ id d42a3cbc-0f46-4544-ba96-583eb45a9e09; Mon, 19 Oct 2026 06:12:42 +0000 (UTC)
+X-Farcaster-Flow-ID: d42a3cbc-0f46-4544-ba96-583eb45a9e09
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 19 Oct 2026 06:12:42 +0000
+Received: from dev-dsk-dkeogh-ai2-36d3b9a7.us-west-2.amazon.com
+ (172.19.55.127) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 06:10:33 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 06:10:33 +0000
-Message-ID: <787b4f08-fd74-4597-8508-fe4ccaf75a24@amd.com>
-Date: Mon, 19 Oct 2026 11:40:16 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 02/24] iommu/amd: Introduce
- EVENT_TYPE_GUEST_EVENT_FAULT
-To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
- jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
- jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com, chrisl@kernel.org,
- wvw@google.com, wnliu@google.com, dantuluris@google.com, kpsingh@google.com,
- alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com,
- guanghuifeng@linux.alibaba.com
-References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
- <20260930092344.5616-3-suravee.suthikulpanit@amd.com>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20260930092344.5616-3-suravee.suthikulpanit@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0271.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:21d::8) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Mon, 19 Oct 2026
+ 06:12:41 +0000
+Date: Mon, 19 Oct 2026 06:12:33 +0000
+From: David Keogh <dkeogh@amazon.com>
+To: Daniel Borkmann <daniel@iogearbox.net>, Dragos Tatulea
+	<dtatulea@nvidia.com>, David Woodhouse <dwmw2@infradead.org>,
+	<netdev@vger.kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>, Alasdair McWilliam
+	<alasdair@mcwilliam.dev>, "open list:BPF [RINGBUF]" <bpf@vger.kernel.org>
+CC: Nimrod Oren <noren@nvidia.com>, <nh-open-source@amazon.com>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [RFC net-next 0/6] net: configurable extra TX headroom for local
+ egress
+Message-ID: <atW00dwVpYS4WO5a@dev-dsk-dkeogh-ai2-36d3b9a7.us-west-2.amazon.com>
+References: <20261015235335.4162993-1-dkeogh@amazon.com>
+ <b8914a523b4a6b80424c5001d3d8012c6a98fd04.camel@infradead.org>
+ <bba453eb-769e-458b-88f7-8cc9bcafc1db@nvidia.com>
+ <a8f2f84e-7dc0-473d-afb1-af710d621f69@iogearbox.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|PH8PR12MB999320:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9432b351-9ec4-4c72-d8fe-08df2da7af3b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|261009223027099003|10067099003|56012099006|6133799003|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	ayEDuJwrzKL4r6pdH6QmiyydjLV7IhnsfxSx3i/QXWga6bLn6CXHzH/HiJTTT+jjCTbhnTpV1vsEyMNZPtVX5/htEOQay/I7xLaWyMhLUljLYMsJP8TBMUMJEEZVcdishzS/rgPHK5qMimrwiOAkR1saBHhQukQkMA7/0/ZR4elwo2iVNJBdUxt8zsmmu4+wq9O51HcK4zzdkty5MiOWZcRHzwi8uRhHoXTFr9M9GkwIE25s4wWdcb50i+uBEu7HU3Yocy+BW9VK1oM8h+J6fgeoNnFm8hspmQ+EZLSngQppsdX4cWszIsr68lWg1edI0ztzo5BjOkdghM6VyiKpM3TFiiNwJL1ltk5sQ6WMaQwM0dmO9kRHeneIgH2qlbJ6eh+j2Svpocp0xU0K3d+emHwH5bOuKoHdhr0uz3AUn1VeOPstvi4aIM277mP+5ZLGUPfljwD1m5xFzXdi9mCSdz7/lLD2XBBvrAAHWugzXYQ3a2XB4r/94LDhrI/FbJWoforo7LAb3iGOODGfi3bh8BAiKuZ7sqo87yZtTd1F0sayUnbP+KWCb4Ko9zwUL0kxgPIQ09H/jCC1V2AIqsEzgntESeV7Xe6AueEaincIzWZisd/BN/70eJz4GUSFWzhygNTxErM1Ks0T7hou999QSn6alGkWrdR2ZxAJk8zSRBE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cm90UUJvZGlaUDZnTWorNElaT0ZJdGJxbWEwdFp4c1RqZ2FjcENOMVR5SFdz?=
- =?utf-8?B?ZTZqL0J2YmdCR1QxMzJqdVdUZGJKN2ZPTmQ3TDN2Q0ozdndCRDBqSUZsWjI0?=
- =?utf-8?B?TVVnbnJHak95R0JBczNaM1oxcDBURjgrUFh3K2t0V3NGak9UdXIyWE1Va3Av?=
- =?utf-8?B?YlJLOVpzalorTnBQeTArVTNIbHJ5RTZDZ2FhUjFxTm1qdW13SzdQNkZWZVZy?=
- =?utf-8?B?SFZ0OGlKVW9tL2JIaWU3ckdlVUZQU21iRzhDbzN1emRlb05RaTd1QnN4Nmwr?=
- =?utf-8?B?bmlkU0Uva2N5MEFzWStzRjBCRUFWRkx2RTNUYlV0Ly9YTmU3NzVxa0c2RGRu?=
- =?utf-8?B?VjdEdFcvZkdOeTZwbnVNWGIxV3ZweFk4bFR6WldpT0FRckVCeEo1YmlISnlV?=
- =?utf-8?B?WmNGdTR0VHJGdFdLVlVJNFNCWENuMUY1RXJSV3ZzRHBUNlY4Y1Z0RDRPSTJD?=
- =?utf-8?B?R2tyZ0FoVG01VDMxNXVuQjVXQTczVUgwZ1NmVVJJVGpKZ3FjV0E3RGw1a2Q2?=
- =?utf-8?B?ekl0N1FvTjZ0YWpETGIvZUhqcGZiTFdiUWxUS2RuMFlJWll0M05CN2lhcmtI?=
- =?utf-8?B?ZzE1b3VaUDJqbTdsOTdoU3duUXU2NDhNR3BLcmVkZWFGdkJZTVJvb21MK3JF?=
- =?utf-8?B?YzdOeGJGZUZxQlJjVXlUOHJXdFdRY3hBM3piRlI4YzlaTVVxcytUMXMwalBC?=
- =?utf-8?B?OXpjVUlaZmJqK2d1WHhzRDFETHpHUEhsYnh1SFAxVmdsTEMrQ1g3L2M1U3dt?=
- =?utf-8?B?RlF1UnFzZ3lvT2JHdUQ3aHdFSEh3UFZIZU9wblB1SzhLZjh1WWYreHppZTN2?=
- =?utf-8?B?M3VaLzVKam5aNHRreDFDS2drNmVtNTJCdGNVWDd2aDNhaFRUL1gvRVphdWlH?=
- =?utf-8?B?Vm1MSk5WNVhoVUIxK0hRekd3Q2s4L2dpUWRPQThLa2tSdW9mUG9UaUJtcFpE?=
- =?utf-8?B?QkU1YjRTdkNkcGtZdUFNYTJCZmVNNEJUZ3hrT3NVd3JqZDdCZXY5bUNtYjNF?=
- =?utf-8?B?U2xxRmdMS3V1Q01OOXpydGd3ZG1mR0drL25wVWJqcGFSTEpoNUpjY21VN0RJ?=
- =?utf-8?B?cVl0blRIQmsyMmpKa0MzQkd3OXhnSE1xaTFaZXE3Nk1WTEI5RElqcUxSS3Av?=
- =?utf-8?B?KzBzM09XUURESmdFbXovdmNDdmI4T0xiNFZHUldlUFlGWG1zaTlndDN3VmEr?=
- =?utf-8?B?SytIQWI2UHhGdXJKZ0dMbWJ4NXJHVXluSzV2UllhZm43dXJIOUpMT2txTURo?=
- =?utf-8?B?c1hPbXVWQ1A1OFRVOUE0RFpIeGcrcWp3d1dwVmlpK0tENE1hNitrcHA1L21T?=
- =?utf-8?B?U0NnZXNTdFlCODI1Wm44MFlQMXhRYWhPVjMrNGtpcElTYkhQUnRYcHJlQm12?=
- =?utf-8?B?WXM5bnNTWlhLTmRwRkxLY2xlZ0xYdE80OEJyakZvNjFxRjRmc3hmb0hjUWJE?=
- =?utf-8?B?bHNEQ3RJdnNQQmlEdnZBYUZPRVRqd09pN29RZFFLZnM4ZWdMTkh4TmZwVWZJ?=
- =?utf-8?B?OHN6bzAxMFltN2N1aElDUk1KUnkxTjRNNUl5eW9Lb1lUSUdTdDJDNzBtc1ZC?=
- =?utf-8?B?OHlqSmlPa3BTVmwvUU1vZjNOZkJRbmF4QXJ3ckd2a2JGQzZqdmhlb29QazRL?=
- =?utf-8?B?VlpWZ1dzTlpqMUZ0d0lLbkZkOXkyQ2RqeGZOUHhBdGw3WWNQTkVrS2grRDN2?=
- =?utf-8?B?NEV0SGpzQmpyQVlEbDJEczJMTGwzaVR2ay91c2pyWWo3QWk4V0ZGcTdDelQ4?=
- =?utf-8?B?Qi9RcmdCSkFVWWxOcVVrSEtrUWh6YStzM3NhWGpGTmdreEpWSUZRWWtsUlA4?=
- =?utf-8?B?NXgrcjhJS3ZQWUZIUGRoSzBralFHaHBqeFNNRmVJS3hHd1BtYis2K2VUODYy?=
- =?utf-8?B?dDRHdElkbUp0UDNRMTNKYzA2RXhsSnRqR25WV0JlZU5iVEFFMUlmME9WaXpF?=
- =?utf-8?B?Tld0RTlFZDBaODVHUmZXK3RoSXFqcmJKWUoxQUtESkI2VTMxN01YZ1V1WHRL?=
- =?utf-8?B?Q2dkWFBCQXp3QUJhWmlOcmtqTi9YcThqUXRHc0NVT1BjcGpwM2Q1NG9xRW1x?=
- =?utf-8?B?TlN6d0d5cGE1VjJTT2xZZDNLcHAvakFyOWo0ZHhMSXZpM3FubUxBbkZJR25y?=
- =?utf-8?B?cTNsUVNDeEFoMW5hT041SG96YStzeTJxOUdmQ0RzYVh1cVdSZW1YanlDZVQ5?=
- =?utf-8?B?c2Y1NVpMRmFiUXdQenBHMEFPbGRXWjJUcEF0N3h4STdEMSs1YWtPVVZpU3VN?=
- =?utf-8?B?V2ZoZHp6eklsWkJKNEFHNzdpOWo4TzJIRDRvNEtqL0VzejBjLzBXUHpxN2R5?=
- =?utf-8?Q?4a7xhMRhELncTPG5c0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9432b351-9ec4-4c72-d8fe-08df2da7af3b
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 06:10:33.6326
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S9a4plI8mwdi3Lz6GeQr11XfNaDpoVjkZxfK6/t7j2DA+/mq/th103JyxFOXZe8GY+KiiDCL32GhZ8WIcTfcOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB999320
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <a8f2f84e-7dc0-473d-afb1-af710d621f69@iogearbox.net>
+X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
+Thanks David, Dragos and Daniel for the feedback, and for the pointers to
+prior art. There are really two questions in your replies: can the kernel
+derive the reservation instead of an operator setting it, and is a new value
+even needed given what already exists. Let me take both, and correct one thing
+in my own cover letter while I am at it.
 
+First, one correction to my cover letter: I overstated the TCP case. TCP already
+reserves MAX_TCP_HEADER of headroom, so raising needed_headroom only reallocates
+a TCP segment if the push would exceed that existing room, which a modest bump
+does not. The packets that actually lose are the low-headroom ones the program
+does not encapsulate (forwarded and received skbs) and stacked devices that
+snapshot the value.
 
-On 9/30/2026 2:53 PM, Suravee Suthikulpanit wrote:
-> INSERT_GUEST_EVENT with non-zero reserved bits logs
-> GUEST_EVENT_FAULT followed by the original guest event.
-> Consume both event-log slots, wrapping via
-> evt_buf+(head+EVTLOG_ENTRY_SIZE)%size, and dump the guest
-> payload raw so it is not decoded as a host event.
-> 
-> Wait until occupancy is at least two entries, not merely
-> until live tail is not the pair offset. Re-read the
-> event-log tail each poll iteration so a return of 2 cannot
-> advance head past a stale cached tail and walk empty slots
-> with the type-0 erratum retry.
-> 
-> Retry a type-0 guest slot up to LOOP_TIMEOUT, the same way
-> erratum 732 waits for the primary slot. Return 2 only when
-> that slot is already in [head, live_tail). Return 1 if the
-> pair never appears in tail. Rate-limit the guest-triggered
-> logs.
-> 
-> Log an invalid guest-event when the pair slot is still
-> missing or type 0 after that wait, instead of stalling
-> the event log.
+David (Woodhouse):
 
+> could we try really hard to have it auto-tuning?
 
-As per spec:
-  GUEST_EVENT_FAULT event is always written in pairs with a guest event entry
-immediately after it into the event log.
+Auto-tuning is a reasonable generalisation and I want to be honest about why I
+have not gone there. It is tractable in principle: the push helper, skb_cow_head()
+in the encap path, knows the exact bytes it adds and whether it reallocated, so a
+per-device high-water mark learned there would be attributable, roughly the
+monotonic-raise shape of ip_tunnel_adj_headroom(). But making that correct brings
+in bounding, decay when a map-driven push depth shrinks, per-program attribution
+when several programs are attached, and a chunk of runtime state to get wrong, and
+it still eats one reallocation on the first packet of every new depth.
 
-Why not add one additional check in iommu_poll_events() such that:
-  if event at head is GUEST_EVENT_FAULT and actual fault event is
-not-yet-written by HW just return.
-  If subsequent event is also written then handle the event.
+That is a lot of machinery for what I actually need, which is narrow: reserve a
+small fixed amount of egress headroom, on the order of 128 bytes, so a UDP encap
+push stops reallocating every packet. It is set once for performance and never
+touched at runtime. A static reservation matches that: no learning, no per-packet
+state, nothing to converge, and it is trivially observable because the value is
+exactly what the operator set. I would rather keep the mechanism that simple than
+build an adaptive one to avoid configuring a constant. If the consensus is that
+only an auto-tuning version is acceptable upstream I will take that on board, but
+I think the static reserve is the proportionate fix for this problem and I would
+like to make that case before reaching for a learning loop.
 
-and increase head pointer accordingly.
+Dragos:
 
+> Maybe this tx_extra_headroom could be declared as a BTF decl tag in the
+> program. If this is the only usecase there's no need for a rtnetlink uAPI.
 
+A BTF tag is an interesting way to attach the value to the program, and for a
+purely BPF deployment it may be enough. The one caveat I would flag is the one
+you raise yourself: a decl tag is static per program, while a program's push
+depth can depend on map state at runtime, so the tag is really an upper bound
+rather than an exact figure. For my case that is fine, since I want a single
+fixed reservation rather than a per-program one, but it is worth bearing in mind
+if the tag is meant to be tight. Whether a device-level attribute still earns its
+place for non-BPF egress transforms is really a question for you and the other
+maintainers; I do not have a stake in those paths myself.
 
-> 
-> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-> ---
->  drivers/iommu/amd/amd_iommu_types.h |   2 +
->  drivers/iommu/amd/iommu.c           | 116 +++++++++++++++++++++++++---
->  2 files changed, 107 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-> index f26a9059a356..704b4c8acdc5 100644
-> --- a/drivers/iommu/amd/amd_iommu_types.h
-> +++ b/drivers/iommu/amd/amd_iommu_types.h
-> @@ -138,6 +138,7 @@
->  #define EVENT_TYPE_IOTLB_INV_TO	0x7
->  #define EVENT_TYPE_INV_DEV_REQ	0x8
->  #define EVENT_TYPE_INV_PPR_REQ	0x9
-> +#define EVENT_TYPE_GUEST_EVENT_FAULT	0xb
->  #define EVENT_TYPE_VIOMMU_HW_ERR	0xc
->  
->  #define EVENT_TYPE_RMP_FAULT	0xd
-> @@ -255,6 +256,7 @@
->  
->  /* Constants for vIOMMU event fields */
->  #define EVENT_VFLAGS_MASK		GENMASK_ULL(31, 27)
-> +#define EVENT_GID_MASK			GENMASK(15, 0)
->  
->  /* Constants for PPR Log handling */
->  #define PPRLOG_ENTRY_SIZE	0x10
-> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-> index 43a5690721af..2df81e29519e 100644
-> --- a/drivers/iommu/amd/iommu.c
-> +++ b/drivers/iommu/amd/iommu.c
-> @@ -942,8 +942,18 @@ static void amd_iommu_report_ppr_err(struct amd_iommu *iommu, volatile u32 *even
->  	pci_dev_put(pdev);
->  }
->  
-> -static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
-> +static u32 evtlog_used(u32 head, u32 tail)
->  {
-> +	return (tail + amd_iommu_evtlog_size - head) % amd_iommu_evtlog_size;
-> +}
-> +
-> +/*
-> + * Decode one event-log slot (or a GUEST_EVENT_FAULT pair).
-> + * Returns the number of slots consumed.
-> + */
-> +static unsigned int iommu_print_event(struct amd_iommu *iommu, u32 head)
-> +{
-> +	void *__evt = iommu->evt_buf + head;
->  	struct device *dev = iommu->iommu.dev;
->  	int type, devid, flags;
->  	volatile u32 *event = __evt;
-> @@ -965,7 +975,7 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->  		/* Did we hit the erratum? */
->  		if (++count == LOOP_TIMEOUT) {
->  			pr_err("No event written to event log\n");
-> -			return;
-> +			return 1;
+Daniel:
 
-This will cause head to progress event though there is no event.
+> there was some work in this area here in the past ...
+>   - b9ed315d3c4c ("netkit: Allow for configuring needed_{head,tail}room")
+>   - b73b8146d7ff ("rtnetlink: add needed_{head,tail}room attributes")
 
->  		}
->  		udelay(1);
->  		goto retry;
-> @@ -975,7 +985,7 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->  
->  	if (type == EVENT_TYPE_IO_FAULT) {
->  		amd_iommu_report_page_fault(iommu, devid, pasid, address, flags, vflags);
-> -		return;
-> +		return 1;
->  	}
->  
->  	switch (type) {
-> @@ -1023,9 +1033,90 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->  	case EVENT_TYPE_INV_PPR_REQ:
->  		amd_iommu_report_ppr_err(iommu, event, devid, address, flags);
->  		break;
-> +	case EVENT_TYPE_GUEST_EVENT_FAULT:
-> +	{
-> +		u16 gid = FIELD_GET(EVENT_GID_MASK, event[1]);
-> +		u32 next = (head + EVTLOG_ENTRY_SIZE) % amd_iommu_evtlog_size;
-> +		u32 *guest;
-> +		u32 live_tail, w0, w1, w2, w3;
-> +		int guest_type, wait;
-> +
-> +		dev_err_ratelimited(dev, "Event logged [GUEST_EVENT_FAULT gid=%#x flags=0x%04x vflags=%#x]\n",
-> +				    gid, flags, vflags);
-> +
-> +		/*
-> +		 * GUEST_EVENT_FAULT is paired with the original guest
-> +		 * event in the next log slot (possibly wrapped). The
-> +		 * poll-time tail can predate that slot. Wait until
-> +		 * occupancy is at least two entries, then retry a
-> +		 * type-0 pair slot the same way erratum 732 waits
-> +		 * for DMA visibility. Return 2 only when that slot
-> +		 * is already in [head, live_tail). iommu_poll_events()
-> +		 * re-reads tail each iteration so head cannot skip
-> +		 * past tail.
-> +		 */
-> +		wait = 0;
-> +		for (;;) {
-> +			live_tail = readl(iommu->mmio_base + MMIO_EVT_TAIL_OFFSET);
-> +			if (evtlog_used(head, live_tail) >=
-> +			    2 * EVTLOG_ENTRY_SIZE)
-> +				break;
-> +			if (++wait == LOOP_TIMEOUT) {
+Thanks, these are the right references and I had not connected them. For traffic
+generated inside a Pod on netkit, the creation-time needed_headroom already feeds
+LL_RESERVED_SPACE() at the allocation sites, so Cilium setting it from the control
+plane does solve that case today. The gap I am trying to close is the same value
+on an ordinary egress device (a physical NIC, plain veth) without raising the
+expand-on-demand threshold for traffic that is not being encapsulated. Do you see
+needed_headroom as sufficient for that too, or is a separate allocation-only
+reserve worth it there?
 
-I think we should avoid avoid this loop in interrupt handler path.
+On scope: the core patches (the field and the allocation-site macros) have no
+in-tree consumer without a setter, so they do not stand alone for net-next, and I
+will repost them together with whatever configuration surface we land on rather
+than ahead of it. What I want to avoid is turning a fixed performance reservation
+into an adaptive subsystem it does not need. If a static per-device value is
+acceptable, the open question is only how it is set (the rtnetlink attribute as
+posted, a BPF-side declaration for the BPF case, or reusing a control-plane path
+like Cilium's), and I am happy to follow the list on that.
 
-> +				dev_err_ratelimited(dev, "Event logged [GUEST_EVENT_FAULT invalid guest-event (does not exist)]\n");
-> +				if (!amd_iommu_snp_en)
-> +					memset(__evt, 0, EVTLOG_ENTRY_SIZE);
-> +				return 1;
-> +			}
-> +			udelay(1);
-> +		}
-> +
-> +		guest = (u32 *)(iommu->evt_buf + next);
-> +		wait = 0;
-> +		for (;;) {
-> +			w1 = READ_ONCE(guest[1]);
-> +			guest_type = (w1 >> EVENT_TYPE_SHIFT) & EVENT_TYPE_MASK;
-> +			if (guest_type)
-> +				break;
-> +			if (++wait == LOOP_TIMEOUT) {
-> +				w0 = READ_ONCE(guest[0]);
-> +				w2 = READ_ONCE(guest[2]);
-> +				w3 = READ_ONCE(guest[3]);
-> +				dev_err_ratelimited(dev, "Event logged [GUEST_EVENT_FAULT invalid guest-event %08x %08x %08x %08x]\n",
-> +						    w0, w1, w2, w3);
-> +				if (!amd_iommu_snp_en) {
-> +					memset(__evt, 0, EVTLOG_ENTRY_SIZE);
-> +					memset(guest, 0, EVTLOG_ENTRY_SIZE);
-> +				}
-> +				/* Occupancy already includes this slot.
-> +				 * Skip it so a late DMA fill is not
-> +				 * decoded as a host event.
-> +				 */
-> +				return 2;
-> +			}
-> +			udelay(1);
-> +		}
-> +
-> +		w0 = READ_ONCE(guest[0]);
-> +		w2 = READ_ONCE(guest[2]);
-> +		w3 = READ_ONCE(guest[3]);
-> +		dev_err_ratelimited(dev, "Event logged [GUEST_EVENT_FAULT guest-event %08x %08x %08x %08x]\n",
-> +				    w0, w1, w2, w3);
-> +
-> +		/*
-> +		 * Erratum 732: clear both pair slots so a stale guest
-> +		 * event is not decoded on the next poll. The second
-> +		 * slot may wrap to the start of the ring. Skip on SNP;
-> +		 * that buffer is not writable.
-> +		 */
-> +		if (!amd_iommu_snp_en) {
-> +			memset(__evt, 0, EVTLOG_ENTRY_SIZE);
-> +			memset(guest, 0, EVTLOG_ENTRY_SIZE);
-> +		}
-> +		return 2;
-> +	}
->  	case EVENT_TYPE_VIOMMU_HW_ERR:
->  	{
-> -		u16 gid = event[0] & 0xFFFF;
-> +		u16 gid = FIELD_GET(EVENT_GID_MASK, event[0]);
->  		u8 src = (event[0] >> 16) & 0x3;
->  
->  		dev_err(dev, "Event logged [VIOMMU_HW_ERR gid=%#x address=%#llx src=%#x flags=0x%04x vflags=%#x]\n",
-> @@ -1044,24 +1135,27 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->  	 * SNP enabled system.
->  	 */
->  	if (!amd_iommu_snp_en)
-> -		memset(__evt, 0, 4 * sizeof(u32));
-> +		memset(__evt, 0, EVTLOG_ENTRY_SIZE);
-> +
-> +	return 1;
->  }
->  
->  static void iommu_poll_events(struct amd_iommu *iommu)
->  {
->  	u32 head, tail;
-> +	unsigned int n;
->  
->  	head = readl(iommu->mmio_base + MMIO_EVT_HEAD_OFFSET);
-> -	tail = readl(iommu->mmio_base + MMIO_EVT_TAIL_OFFSET);
-> -
-> -	while (head != tail) {
-> -		iommu_print_event(iommu, iommu->evt_buf + head);
-> +	for (;;) {
-> +		tail = readl(iommu->mmio_base + MMIO_EVT_TAIL_OFFSET);
+Thanks again, this was useful.
 
-We should read tail outside the loop. Otherwise we may stuck in interrupt
-handler context for long time and cause softlockups.
-
-
--Vasant
-
-> +		if (head == tail)
-> +			break;
-> +		n = iommu_print_event(iommu, head);
->  
->  		/* Update head pointer of hardware ring-buffer */
-> -		head = (head + EVTLOG_ENTRY_SIZE) % amd_iommu_evtlog_size;
-> +		head = (head + n * EVTLOG_ENTRY_SIZE) % amd_iommu_evtlog_size;
->  		writel(head, iommu->mmio_base + MMIO_EVT_HEAD_OFFSET);
->  	}
-> -
->  }
->  
->  #ifdef CONFIG_IRQ_REMAP
-
+David
