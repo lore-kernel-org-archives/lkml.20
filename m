@@ -1,111 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792448222;
-	b=si3WyYSKedPrIcbmjEG8n1lWv84NICcDFIadtUOMmxvaO2YjZbAZ4FMmudDLRsMDda7a
-	 1NBv5h3kfoVXZq63SOaJcrHB7UjoacqVriU7FMYpF2+BqZa2KLIJb6vVLifdHo66OkAsA
-	 R78ea4zkhlXoYRXIy8o4CklGv7wFO2IM2D83Y17TeoHZn2ZG3p5eAV3iABJsh0741EPYv
-	 pBPNjBKer/2+4N2WA02d/sSNssGa9niu8WCtTSwUCUnhQitYvKJZB/Igjkzt964ngjHYq
-	 Yhf0kGpTP7fF6RDvcoKOzSAJCfnR3mmX7Up7+55ueguyftXsIaUytRlccgoG7lNgImw==
+	t=1792448351;
+	b=NzNXM8VBLrXGQM/ZjgUjL1+lIVx7oIOWOkKiKpbooq1HG4pMyl2QV4nbIZhVoYZyb+pL
+	 ClSceE/ZXOYJz5Zn+P9Vt06L4uZaCLGt8aYmP14jJaQI7fmMa9IR3/QzP3iD10XtXQXiB
+	 /RfcuzTeWlxLmyRZI5RyUmIWtX3NQxugLXpm6btOcJoVYLi8YRqrRqQczG30hooGpI9NW
+	 UoeFmSiiXlb21bBvmk98qN56yW3//Fbq/96bSc+XljGClPrQrgAYEdyiQnQlTQw9d/pDy
+	 V4kq1Q2eB3cHMzsKbP4lk+nqONy/t6uGGOdtfM6CLFhvRHnMGozmYQlkosm5ID0h91w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448222;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=zRJTeMWmwyeteHSitD0X0AULZiFtm+NfCHUhoRCgyVM=;
-	b=e/I8gj+hRkdunrkuXMe33ZVZxr9iTx+xb1UtGl3EZEMVouESsTbfFf91srUWBWfuU3O7
-	 JH46dUFHsZ7DcgHLH9jaJVmDckQcOfVLqHKEt/9mOD8ODSxz7f+XpWm8/v87MlFImbyAE
-	 nMYC+31yEs7kch1SSwC/ngjjha9YiNl4X3JLAuGa2Jf0+50LJIDawBSDlZ3RZEtfkAqUh
-	 SUaNbrp70GMex/O2knzDL+fcEb2xQESWVw8Rgxz0I20b9VHmjYqutcUzRuTk1+HjeUg47
-	 RpfpinJmRDu6KVaAoizYgQIVW27VO7r1U5VjVaJWcM6+SXRpFI5jogMNPRbIc5stnAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448351;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=kOe4Im1LSzQe6YlhCXm9ZoEY1kfmGwsxFeEwr5kqbYo=;
+	b=dT8CWlsDRIRF8LEiptvawrBu9fq1eKP2SrXfF2zDarW9JbV9FyBoMZc/ONS94C+vmkJ6
+	 Rlu2FUUD0tLOg/ezevCFUbAOc6sAvVnrdbOAhKvpbvw6uZ8vbwCUplvrDZjUg14AtjieW
+	 QwJrfFbugyI5w1GJMHqmCZ0rn41U1t/d7kBP7o/J79vNFr2L9lPX9ycb1DoBBWIowO8Yp
+	 kVUqSg2ENIhyV8RDNV/ta1uMBfE0D9fHcQIxmMff8HombKBhC4A9rtaHMNsgcyXM1Vp4i
+	 J0SR1CszllZJPCzcUoPNejp+C9yiUSY6G2rSXogxit2o0pDs9b+dlO00YGp9eGkdgkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="FIwt/DEw";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pgNB6bJT;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=RCmRXJyx;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AetS436Z;
+	arc=none smtp.remote-ip=103.168.172.155
+Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153E3606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 153E3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2034606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:19:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2034606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FIwt/DEw;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pgNB6bJT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792448221;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zRJTeMWmwyeteHSitD0X0AULZiFtm+NfCHUhoRCgyVM=;
-	b=FIwt/DEwBkbYwoebF3ElzJh2ggGIbj1qzKba4zO8AJ+KpXMYsMrQgg0nblxRYWPWY7TJw8
-	jEukznh5LrpvaID9LwxJ2uJrsFHs5Pg5Fb3R/q9dUClFDvTkVz08ZdrajBLGQKo8gpVc2N
-	y8ja05GDLpU875yhcsuQvpZi4VQUiTw=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-625-D79OMSL1O9aU-hMigVRloA-1; Mon, 19 Oct 2026 22:16:59 +0000
-X-MC-Unique: D79OMSL1O9aU-hMigVRloA-1
-X-Mimecast-MFC-AGG-ID: D79OMSL1O9aU-hMigVRloA_1792448219
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a3f673221so965147485a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:16:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792448219; x=1793053019; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=zRJTeMWmwyeteHSitD0X0AULZiFtm+NfCHUhoRCgyVM=;
-        b=pgNB6bJTeVm+ECMjWtESp2dfpouBWGGHhEkV2pzYr9op490zYFYmi2XRIGoEt8mk95
-         iQBI5c4W2+aQcRCBDEmuE2TbxsOpjCUGJYFwqaqn6GXyU3cCXbmOiaCRDcAqUT9rWxCP
-         3VPYztIUZJg8vjw/BasvSaFRSeBuRgQ8FfsN8XkCqmaIWVd6Xv+rijcIQbTRUskQ0xcs
-         UTpKhi28zTRoGevzaAuUtXbRQQuyo4+Njrv966VEIijlc+yUUfNssoP1ggWXmDxelUs7
-         vd80/Qj9wPnU4QeUl8oad85nIDq1x3uge70Hoyl82d/2pQ3L6YI8+z+g2PsehX9svTFF
-         +9qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792448219; x=1793053019;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zRJTeMWmwyeteHSitD0X0AULZiFtm+NfCHUhoRCgyVM=;
-        b=Z75+SFJ4X/6xz0vp9URlrqUxPu+SO2DsaNjBfRLc0i2HLTdmdaV7nt5vHaapNWEcA/
-         CmUqP28X5D+TJMGem4a7m2EwaSIzgug6gkDEi/UJMb1+n6IMVSLz9o5O6iD3L2m2Gcwb
-         etj13EGmj5Ye5EK+difTewKwoPmSsSkRQ5p7BTKv2n0swTnYhXvNZSJzzZGTGr/KtlbW
-         HhATIUDFtN17Ekvpp8NEWAQCra7gH1LUQfjB/PjLflPE7W0nDEs/jGMkw7Wn5RGNxoMy
-         hoOBLYRYCOzwEzrkdO4IncUOkY4dtNUoJKLd7JeNtdtDRJGvC9GRFycvI3JxdZV68F+Z
-         YwCw==
-X-Forwarded-Encrypted: i=1; AKwUvBxu4ufKdxoqNF2G9wF0U7cAF/4XOP5obimCT5K2OiFEsQx2M9b6JJChI3eChjWfC6dJlSE5TRkj6l9fl/Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ89gv66LKIuhU/B1Ef45PLFKyCYEo1eCqhaymHPpMmVf3AxYYJ
-	nJLjxxNYp2fTYeHVP4MOwupi8IjGJhxBe7Go6t+c1RmDLitL4gPUeuNNv2bcyPUwsVWj0P8WoLJ
-	3l/ekGgxkgU1AqPeb6aRp9QP3kwlFDARRMff/qe9iwlYD8VVNNPO6HJbmCZV1mxSHYw==
-X-Gm-Gg: AYBFou0h7LNseTYcZULtuaBZ+wD+hlhUTRCG99vFr0GBRmw4gmL4tB7MXvw/ifl8MQ4
-	NgUeoNYALS0QqZbjeRZyzuKKu3wN7QQiLGr+3A+6ggQzepV6G/iOMQEp9yJHug3jr+5D1qrK5G0
-	7hhQwNEG2vs/6z5CzXja0EAWpnOsIts4ZqLKkCcMEDPDHZJcbScyU5FX9H3QgvJzU4T7Hj9nG4v
-	uIDxW7I0BYvbO1TIfTf77wovF6tKUcOCj+7l8/h6DdiVOb69YYPAzBHDcuZpcJmKKyHPnkcrIkM
-	5/VlvdibCEWWB3Zd3elefWSwqCNjuUR2p3ZRFZeNAoXhNAO9iBHl3G/kTWOOJqslZlOeer75jrp
-	cUfKTavXBsjKAGoTiFugJm/P7Ru8=
-X-Received: by 2002:a05:620a:444b:b0:93f:47fa:b727 with SMTP id af79cd13be357-93f47fab7d0mr334484685a.28.1792448218920;
-        Mon, 19 Oct 2026 15:16:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:444b:b0:93f:47fa:b727 with SMTP id af79cd13be357-93f47fab7d0mr334481985a.28.1792448218430;
-        Mon, 19 Oct 2026 15:16:58 -0700 (PDT)
-Received: from redhat.com ([69.43.42.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c0405ec3fsm7982966d6.7.2026.10.19.15.16.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 15:16:57 -0700 (PDT)
-Date: Mon, 19 Oct 2026 18:16:55 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] clk: Free the parent map only in __clk_release()
-Message-ID: <ataW1-SGLhXJIcBB@redhat.com>
-References: <20261016164050.790594-1-nickolai@csail.mit.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=RCmRXJyx;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AetS436Z
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id CF27A14000EC
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:19:09 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 18:19:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792448345;
+	 x=1792534745; bh=kOe4Im1LSzQe6YlhCXm9ZoEY1kfmGwsxFeEwr5kqbYo=; b=
+	RCmRXJyxqEdtgqqTPG5ZmqHjdH8E5bq/K9FxPFoyz8jl7GlkI3G+gUgvqij/VJR2
+	YOxbMGBPOpW+636UErWUQdD/20DxsOwdt1Y7ScyVnrDLIgiT+R5u8juNyg17iThN
+	uOKKSE2sOKr70UN0/qjz/T7rrUZboqSq1ndeQD2HA7Am2oBM5bYjNcgw1aqw18Jd
+	YWzeBhlZXlccMeQewWEwpB1PrHjUkbHV5nhM68dJ62cdW2l3jOo6DYGXPdqcr3PI
+	Yy1pACxMwIt6fYTnNAAAZO7359dKdNcxSlMxMsZEzVRu2TNkeG8/OVY0dGMuZZdM
+	SqvbIv4VOTw6e06qhNnLfw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792448345; x=
+	1792534745; bh=kOe4Im1LSzQe6YlhCXm9ZoEY1kfmGwsxFeEwr5kqbYo=; b=A
+	etS436Zh8qxtYdaU/CJq/i9GBjIwq2B9kYd0kXxye/nNgLvgVP4LVV4xXuFxWtoh
+	MxmO0xdBThsUjLtI77Sp4WT+2AyIpNfFfBxFOm3rQMMG4rbvOPUY0ItG+iORdx9N
+	XsGL1HNhJSuEmBLvzmNWsg1ld/kVvfJ0Gs1Q8ZV9TTHf6F7DLMD1pb1hF6e9FTgg
+	+rgyqF1S/wY4+FppkXzTmlfJWIXULOvsFcxeiKlSCwFzbGx784AcyVUwKRnsrRs+
+	dvUjx01nF8XakEYus1XYjCN1h9mQVebnMeJTWTnGOi2SHuCBUcp4+VhfGgF3l3G5
+	yJhkguc55ho2Jye0UqgFw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792448345; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:RFTMcswWpUWf06MZ4P5WC8JEoOwXFNappmxdZLdzIhm3TfL
+	WR4JZ/wwZC3/YafGO+wbtBwcnIq0MabARv98JLN6zbeq2BoK9kMEAmLDVxC6ABoe
+	KeB1AqykNpTLL/aIsNEVU5et9Ycep3NzX1pW9QY1K54NrGvp9pTm1cB551uFADxG
+	ogQ9IHM6sUqr5oI4Mx6lseMFXmsRtB2CZCFQHEnrHNYXt7vV2oaQok/mPFG66sR+
+	ZC6uIUlxmnH31Y1gvkyxONfbl/RD2lefRj4e6kVzfkxs38Qvf7Ky0kpLRCH0f5hO
+	dbLtYBOBPSGhOAcz+zMI5BE3OwFK7Peecf3L41w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:7qFSRCKsAm2ZfSbhMkUQBP+eGmVHB8T4s0OQ32AUg8A=:DUipovr+RJ2NSjtSSx+bpSGkCWo+ERoIpLldzN+AaDY=;
+X-ME-Sender: <xms:VJfWaj_uYYTKjZkWENXQ2wAZ69kOIyboHP8mAT4Q0uU6boJ8igX9zA>
+    <xme:VJfWaqjeYXlD6brTZepS8cSOSEWp4301iECxN58JyMRKLrJ2jmwmgBLPbQL26ywJs
+    FkCv0HOtflgB8bClfSmDhIDGh80dzdypLU3LlMWO7x8S3qUzIiyvm4>
+X-ME-Proxy-Cause: dmFkZTGh3VcsoUo+kxXucaKvj9NoR1JkiHcqPaFchknzDs8G+4FcZMoWxMdEK9h+JTCaQH
+    Z0o+iZ7kqFp1/FeuSd/hVwSC2CANsSzc1m82zVf08of7YujL+yrRS1BeH3yO6VrCu+jN4b
+    5JXMc4eFLv+T2BngkIjFhgsthO3ySULh7s4u6PfUSXf662GOO7gznJ/GTHJR7vtU0q/RKZ
+    bk4MSREmjwp92vZg3lfiVNmCJdYAvFbByDZzj4jUDiu41HtP1lh2D0O9Sp+cUCPA3l6sEx
+    il1SySS23YThltlWe9KAs8xi1QH/XobMxR5IlB8X0tKbQvSwWwDhwN58wwePu8cjh4z+YJ
+    oLyQZMlHV2UFNyp4xkZUi24JAIzqWV0zwqe5OdafKAkiuZQNmur02epshKZAt71JmE3nLN
+    605MrmutubwQzlJboxFuimDybjjW5Z4zm14HhovOMvacWSaKMkcvc2ImJCJVChMyyVd9CM
+    epMSI2h1irIolRT1iP/nAXzlLwVK9+A3GSKxtbICTKA9fHZQ2NPakkRaSuDuPzewAb7kat
+    pOLUAdZCVxPMwBYn4GXywRjcuxsnxc55Op6ZOBfO3u896Z5IoUhlKQGVYPa3apYx4JT7N0
+    JY8qIGBJjaT5xXq3jz/dqcb9CWF48XWkmra70nVVHc2oOscJOOFNRdaxSRng
+X-ME-Proxy: <xmx:VpfWasH65rjYJEkR4NOWLCJVcoEb07yaH1AkK8UvkzE6w-_haydRFQ>
+    <xmx:VpfWahKVv4ThIn4DEaKscH8nYo2e7JREt9DeEkjliGYtpBzoS-8lnw>
+    <xmx:VpfWahjeaXaIbjWRlDK64oOq3oDDOPnb2Dg2peifQ_QfnvHeSHW3Iw>
+    <xmx:VpfWanlda0k5GUmABGLeF7WHUhqD9xCFhZZRA5xM9TRHr5y0qp8TyA>
+    <xmx:WZfWavlUEeLDUmegjPy5QQRf93bbwcrM8ctROfKm98GUEijmSqhLkLkK>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id B173932A008F; Mon, 19 Oct 2026 18:19:00 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,73 +115,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016164050.790594-1-nickolai@csail.mit.edu>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+X-ThreadId: A2vF7igrjTD-
+Date: Tue, 20 Oct 2026 00:18:39 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Huacai Chen" <chenhuacai@loongson.cn>,
+ "Huacai Chen" <chenhuacai@kernel.org>
+Cc: loongarch@lists.linux.dev, "Yinbo Zhu" <zhuyinbo@loongson.cn>,
+ "Xuefeng Li" <lixuefeng@loongson.cn>, guoren <guoren@kernel.org>,
+ "WANG Xuerui" <kernel@xen0n.name>, "Jiaxun Yang" <jiaxun.yang@flygoat.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ "kernel test robot" <lkp@intel.com>
+Message-Id: <e9489def-3fd1-48c7-a042-98395a3d1589@app.fastmail.com>
+In-Reply-To: <20261019144240.4035274-1-chenhuacai@loongson.cn>
+References: <20261019144240.4035274-1-chenhuacai@loongson.cn>
+Subject: Re: [PATCH] soc: loongson: loongson2_pm: Fix build warnings for 32BIT
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 12:40:49PM -0400, Nickolai Zeldovich wrote:
-> clk_core_populate_parent_map() can fail in two ways, and since
-> __clk_register() answers every failure with kref_put(&core->ref,
-> __clk_release), both end in clk_core_free_parent_map() walking a parent
-> map that is not there to walk:
-> 
->  - If the allocation of the map fails, core->parents is NULL while
->    core->num_parents was already set from init->num_parents.
->    clk_core_free_parent_map() only tests num_parents, so it reads
->    core->parents[i].name through a NULL pointer: an oops.
-> 
->  - If a later kstrdup_const() of a parent name fails, the function
->    frees the names it copied so far and the map itself, but leaves
->    core->parents pointing at the freed memory. __clk_release() then
->    frees the same names and the same map a second time: a double free
->    on top of a use-after-free read.
-> 
-> Both arms are the -ENOMEM path of clk_register(), clk_hw_register() and
-> of_clk_hw_register(), so of every clock provider in the tree with
-> num_parents > 0. A user sees it when a clock provider's probe hits a
-> memory allocation failure (in practice under fault injection, as these
-> allocations are small): instead of the probe failing with -ENOMEM and
-> "failed to register clk", the kernel oopses in __clk_release() called
-> from __clk_register(), or, for the second arm, corrupts the slab
-> allocator and reports a double free.
-> 
-> clk_core_populate_parent_map() has cleaned up after itself since commit
-> fc0c209c147f ("clk: Allow parents to be specified without string names"),
-> when __clk_register()'s fail_parents label skipped
-> clk_core_free_parent_map() and only the later fail_create_clk label
-> freed the map. Commit 9d05ae531c2c ("clk: Initialize struct clk_core
-> kref earlier") moved the freeing of everything into __clk_release() and
-> pointed all failure labels at kref_put(), so the map is now freed by
-> __clk_release() on this path too.
-> 
-> Make clk_core_populate_parent_map() leave the map to __clk_release():
-> return the error without freeing anything (the map is zero-allocated and
-> kfree_const(NULL) is a no-op, so the partially filled map is freed
-> correctly by clk_core_free_parent_map()), and have
-> clk_core_free_parent_map() return when there is no map rather than when
-> num_parents is zero, which is what clk_core_get_parent_by_index()
-> already does for the same state.
-> 
-> Found by formal verification of __clk_register() against the kernel
-> binary. Reproduced on riscv64 under QEMU by re-running a fixed-factor
-> clock provider's probe through its sysfs bind file with failslab aimed
-> at the parent map allocation: the unpatched kernel oopses with a NULL
-> pointer dereference in __clk_release() (clk_core_free_parent_map() is
-> inlined there), the patched kernel fails the bind write with -ENOMEM
-> and logs "failed to register clk". A userspace transcription of the
-> four functions reproduces both arms under AddressSanitizer before the
-> change and is clean after it. The clk KUnit suites pass before and
-> after on x86_64 and riscv64.
-> 
-> Fixes: 9d05ae531c2c ("clk: Initialize struct clk_core kref earlier")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+On Mon, Oct 19, 2026, at 16:42, Huacai Chen wrote:
+> Since loongson_sysconf.suspend_addr is unsigned long, use "unsigned
+> long" instead of "u64" for casting, so as to avoid build warnings for
+> 32BIT:
+>
+>    drivers/soc/loongson/loongson2_pm.c: In function 'loongson2_pm_probe':
+>>> drivers/soc/loongson/loongson2_pm.c:178:49: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+>      178 |                 loongson_sysconf.suspend_addr = 
+> (u64)phys_to_virt(suspend_addr);
+>          |
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 3d9aba6618d1 ("LoongArch: Adjust build infrastructure for 
+> 32BIT/64BIT")
+> Closes: 
+> https://lore.kernel.org/oe-kbuild-all/202610190549.WM2PO3vO-lkp@intel.com/
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 
-Cc: stable@vger.kernel.org
+Reviewed-by: Arnd Bergmann <arnd@arndb.de>
 
-This looks good to me. Can you summarize the commit message since this
-is a bit too verbose?
+Feel free to pick that up through the loongarch tree, or send it to
+soc@linux.linux.dev if you prefer us to pick it up through the soc tree.
 
-Brian
-
+      Arnd
