@@ -1,133 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792426888;
-	b=lRqlBzra9UOPefXToUK7fD6o2Xlk+cOeO7fio8bhprj/0VEsXgJydAbDZLMYF0hHbrkO
-	 PmkvaeFIdWigz/mOX3CJe0lMhBBa6wxEupZ7YPt3VkphJBb4mtdtAwqZbLYW+zu3uy3nE
-	 JkfP9UQvNdnZkn662YLnGiaLt0R6CWq/i2Gwkez05VgFCJeIpznZ9k3ZN9KvsUMdZZtFP
-	 MS19Z6W6bQH41MH/ds4EZeRATTqhW0yudHanOf1eJY4C9M4OV7v47f6FQuK/ct7s5OBzh
-	 Jl/G16mdp9NmAATcoSH1xb7oucCL70ZFHY/MrtW3gYsi5Oyv8gizGb8owAJ4acVTCAg==
+	t=1792426904;
+	b=Qequiq9LUVWgnMDe7SNmC61LQGlTPQKDFF0Ev7i5mifgsHJxuJfahkD49Y8SujpuwlNE
+	 ZBKRCbfaFMRatAMMtJ8Gkf/AO/8hIwMAQl8uEkgqkNWktOpsET8HjE2XvpypWnMfWJM1A
+	 C4TAuxy2vEA1iyviRvsgmRxu6OYcjJSRLMhTNWw5m4+jHPMO/1LuwwuPfGvRfAmsTUdCp
+	 F8BOvKWe/1T4h11iW19M6r8vMULeeP7vGI0M93ye7eLh+rLxT/vg2fJjJ6B+CmMMlARYd
+	 HySqeZZHoEgY4pRzaHkfaU1yCDCgqlHNoBDx0VM+GzB/uC/+GDnLT99xI1d2XswJD9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792426888;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=GHs0/gDr8EptH4dRJZ9/o18rXIjU8lVzShf3k6REhvo=;
-	b=XaQ4liPRsKbvyasKhjf4PFmUlY+IX2I0TyDZP/jHpyS817p/9fj97qGi2w8sWnZnFqom
-	 xkmOvFJAtsRBHMyd6mSv4Ec+LLL29Y+LVMhSX5GEa9reVEVcr2fFZXkqzpErt6+MsMWfN
-	 /DSOQ8V7ExlgfbBx/J3O6uVvBr8ZxKJf6KS2wq/1wk/BO1gQlTCXeHj+IVdR8t3wxLNHh
-	 RygTzQ7aQMvugnOAK/NdxSI6y8VeVtVT6ITnempST4DavmqDau8nd4F2SVDyMlrvddtpZ
-	 k/E69T0u9OYEshYjuuFPU0YrFsLiiq+ZaPa2RABdYZsthjF4kgHHVkkZZm1hXFxEjDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792426904;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=AXALzYiDlqNLgw2O3tAb14ubqs9EH5rpsxDv02Io52g=;
+	b=MwatuWJDvINOXatYQvY2rTdmTd2Ns3bn/7MllfPSnjlLsx/liTn9FkrQ56TM73Oqjooo
+	 k8JvORC2evrSbKKpoxIV36hIOYfWhksaRuSCY0yz1yyxzkvQgFteak2WHwLPpLLSB9EDT
+	 CkPrWBWPYni8f/KCNO2YPdunZ41wxxcEUSzELL+SCrK2mYYg24ZMNi+4YW31yaEpbJknB
+	 tKZJGoESA3mueczY9SJsj+EYgEazCyQnU6DnFJxCwmS/RKkwvg2bRvn8Yyo94Q436dJnj
+	 mJm+KZZMv8lO8p35IL2IdYb/CvQ88UWb8UFwnjEdJEIansuILjcAhI6xWIVrnx6kk9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Q3m0mLNe;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IPKp3SdH;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=H5phoMDY;
+	arc=none smtp.remote-ip=209.85.222.174
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21ED9606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21ED9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB8D606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:21:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB8D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Q3m0mLNe;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IPKp3SdH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792426887;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GHs0/gDr8EptH4dRJZ9/o18rXIjU8lVzShf3k6REhvo=;
-	b=Q3m0mLNeHi2LmPYTQyaoiVPXnwNZSfFtv1+UwTYrLQ/ivNmcOcF7oAqvVGFB5+66ryyDHy
-	cN1sJQyM/bTx3Ufs9Hmccxfi500LlRAcPH97QoD9r+YyagvYCq7HVcTDO6/IlL7mUhi76Q
-	A5EJajo7yOIkr9cV2ZKUT2lBmPb9Cko=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-677-Md48X0BvMJadT4A7RE9VuQ-1; Mon, 19 Oct 2026 16:21:19 +0000
-X-MC-Unique: Md48X0BvMJadT4A7RE9VuQ-1
-X-Mimecast-MFC-AGG-ID: Md48X0BvMJadT4A7RE9VuQ_1792426879
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f33438950so544919685a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:21:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=H5phoMDY
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93a40a9a01aso451668385a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:21:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792426879; x=1793031679; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GHs0/gDr8EptH4dRJZ9/o18rXIjU8lVzShf3k6REhvo=;
-        b=IPKp3SdHzNcMMUFRjMN0z4IjBKdz185MM/ojfsCW0G0I56u/5CoIiVm0Rj7KseYb7f
-         06/jK+4EMISm/kY+7CkORTxSVPRjTKD+DVinUZo+zwvH5vvBIK5AGjceiR3oUrGb+TXi
-         okDRqcxvfHFkZfrNAlwLgFYSVnCaEVco0O3mZnpFcrIEaUiQme5bso73uj/x1ykiZ4VE
-         ZzhEFpfpFjOmpb77TN7cG7DM4h6MRn5x+WsgdWdTHAoReWv3EtflVi+NboGCedgwJ3TE
-         cc9Wu6Mjg1yiE7mhQ+ghSG0CibLSl/c97ZiAngnVz+WxR7cq0d2RNmXElwQ2OtCqMgOP
-         tgDg==
+        d=gourry.net; s=google; t=1792426903; x=1793031703; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AXALzYiDlqNLgw2O3tAb14ubqs9EH5rpsxDv02Io52g=;
+        b=H5phoMDYTzRbKT2WQq6v53aaHIsZvm1oxzEgECPunKwtKkbsSkCE4MZxkn3xcEJxR0
+         fiG9OVJ7vkjQVXNajJY0aqT84jQrovr8c6S0wljKhLKPpFPb0SyY0/vyWAGnU8G5moAx
+         8fvA/aKfZSXKPjrxjGyt91Wl+Gu7f33xJtLuX2g/ZpAMYM0JxV5M0346QUsIK67D7i5K
+         vnUOI7rghz/gEcqY2A0ZS8nVFU9w3I85sbau0/gmmL4PH4CTRs8XX/nc2A5uTm6Q8Ux7
+         VNWBxxiDeYkDZjlZIt7Aap2r7budsQqPO9TLhv4BjSi/UeAk2pYZ/cSEMPZBa0r5V/Wd
+         XsEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792426879; x=1793031679;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GHs0/gDr8EptH4dRJZ9/o18rXIjU8lVzShf3k6REhvo=;
-        b=fNjTMgPFpMiTvWOzAxP3SbKSsKCe+KHjPRlALAEWW1seoz/aWXradmtw1B+1DMLtsV
-         T5n3JtVluqtgPEZngB7kN+PGOKaQigzBQPIfYrRyrdOKQ9ZxDBmLDGv2FnuROr0FjQlM
-         wzbBFc5XZesqv4iM9ScyyaV9w7EJKO2eGcO2qsmD7cq4uFlK4mgXa5zZ0A0+yWcjAMNG
-         0rD5RQvW3tnX1Oi88mhWh2mfqcRmOgGd+fGZet1em1Re+6ZWkNsnwnNzdqMkA62wgYv2
-         ML4MJF7ONYqJCZiL+nAKoBejfaiTXLabTRqByPPgqor7Xk432ZKuCVDf6ti7YF4xX5Hp
-         Ko2A==
-X-Forwarded-Encrypted: i=1; AKwUvBy8Et3TWa9Ci7qNnkRYpsVk9AiwBOOWpcuQwZ7UfE1Hp2P/ON2tJwPg/pZTKupJyQLsS3RPT9SpDr2TqDM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwG4Md6Kp92ouohVljvy+AYoh3fbZOcHrJGzMucxlUbefNfCBY
-	ckp2LFds3j499WYnjVUe1QdGlyucYg9/vCauUvR5RgoYaOQb9MqO7IJoqJI8e8T4GsRh9pbzDsJ
-	g5zSIKR1PER6JSP/R1CBeY+gitJeMreya92si8sOesMd7gkhC7mzLf37h54uNH5VNpA==
-X-Gm-Gg: AYBFou1yx+6uOXHwzrNzlcepKQjgSyFP/wgl6EENa9SQi+9uVddoEA6C4xLj6jR39FH
-	ke0Z0fYyvi9UhOI4kmHhrIekHE099af5JcjcfX0drAm7kmZcRD/EksAR5AuKZWciOG/GnNsc3pB
-	XOQvN0+1MDcMTePO7KxhGaN0Eq0hlPuAuyIYw/iLI+mAXmE7LKm7lEYwy/B0dqWxMs+oFuvApa5
-	bpPArinaVLJMXceD5gf8Zj8pwczjUDufx3zAucAvdBqCon90cSJrLNnCPiboy1ogL4ON6RdkJDf
-	1wa93TdVXvzgjuAIvzQMbrProaEyuC6R5vLGINIncimJ4nuvxnI52Pz/0ygIaJ+Hbpjcgdk=
-X-Received: by 2002:a05:620a:1a17:b0:93f:1ed3:a9d6 with SMTP id af79cd13be357-93f29d39476mr1436079385a.38.1792426879074;
-        Mon, 19 Oct 2026 09:21:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a17:b0:93f:1ed3:a9d6 with SMTP id af79cd13be357-93f29d39476mr1436073785a.38.1792426878408;
-        Mon, 19 Oct 2026 09:21:18 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a17f226sm998258985a.17.2026.10.19.09.21.17
+        d=1e100.net; s=20260707; t=1792426903; x=1793031703;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AXALzYiDlqNLgw2O3tAb14ubqs9EH5rpsxDv02Io52g=;
+        b=I9+sLwnw0qhsHjb2xtFOYa06XGC+iOQIDQm5wR9tN0CSPnz7I90yzYxFymJ5bitijj
+         vmxa6mYu3psdU272llFVVLwsEtpEul+cOTTPodELG3hxDq+L6ahDXJvxpSli5MTuQU5D
+         m+M1qb9QTY+PM70vazPNj0J3D4bW5hn7bhCuXDTQFCc7mDum8K5TqFO/UPKSjWdBIr2Y
+         vFBcdH0QBOeMARvLiM4eMW4ImQFjQVqzeOdlCRh3eoD6GB5okrAqbCeM9/k6KQOK/Koy
+         1RqKSdob4DSFFLkTzMr1SxPP6Zwe7p8HKbpvX5TZjC1vAkCqFky3pzuE5B5KQfG6eRJZ
+         kpmw==
+X-Gm-Message-State: AFq9FYK29DUaicDpbRxCw3frm3AsWs7ngu3NoL2t4ILygloAmkNIKKia
+	pSW6d08ELItRdB9uJuiGcC1EJFxJE44Rngt2ROvM9LBAAr0zy+ebyQwsdbYWb9hD9kEL0qHRy5P
+	vdC2bEfw=
+X-Gm-Gg: AYBFou2MkJw/zZSCEEjKhVgZQUV0jP/jc4zhaPny1FBGZnENL/RwJYGSG8x0aAb6ivO
+	Qsd66UyoxEYDv/DbcNCaQPS8bo7rsHUQ8Tf0YtA0YTYceqqfYZTmNlEvROSLW5H8pffQrcjXPFr
+	ZH9tuldgi4lvjWq6fUnDmqqWtLU06gVm4uAhxD4q8OX6DvXSS7xVe/AsKbUM2Ht8Ncy7VY2AJrd
+	1wFq4JW0YJwkrEeIO7XLangUU0q30JU+tE9+qIM6YEpX4EWtCibiHgPRvfN24tUBNkybMw4MTvo
+	9FDxmyDssO2bcFILxZT5T3+JqQ9mdnauz4j4i0FfVKP0+AiwuPPN+lHunYuSC7zaR+CeYon7GHV
+	RrtDsWMBt2QTFslv2r7KbNWPIQiOo/6+p5e39XGsqNIkase7NnY2MTjLGPhQ9woTcPW34Pb4qv8
+	tP2NHY52wwUHRL72diYQ1hW34Fe4QdXZ9wSSU/YdbBAG6b2Ez4o6tLYF17akJyL+KNhmO8xNoEe
+	nCeCa+Ll7e6o1M8RPhlGzEFhYaCx9okSTqGZ1JJFam0k8YkMCQcx2vFQjdBNByDN3ynre4=
+X-Received: by 2002:a05:620a:6cc4:b0:93f:2b65:593b with SMTP id af79cd13be357-93f2b655ed6mr1165985985a.38.1792426902714;
+        Mon, 19 Oct 2026 09:21:42 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba4b9e1sm102394026d6.14.2026.10.19.09.21.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 09:21:17 -0700 (PDT)
-Message-ID: <f89d8c26ea178cc326aeda2d43d1a27a8f8d0e8b.camel@redhat.com>
-Subject: Re: [PATCH] docs: remove Assisted-by references
-From: lyude@redhat.com
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "Lorenzo Stoakes
- (ARM)" <ljs@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>, 
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com, 
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,  Linus Torvalds
- <torvalds@linux-foundation.org>, Justin Stitt <justinstitt@google.com>,
- Carlos Maiolino	 <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Jori
- Koolstra	 <jkoolstra@xs4all.nl>, Brian Foster <bfoster@redhat.com>,
- Christoph Hellwig	 <hch@infradead.org>, David Disseldorp <ddiss@suse.de>,
- Mark Brown	 <broonie@kernel.org>, Jani Nikula <jani.nikula@intel.com>, Jens
- Axboe	 <axboe@kernel.dk>, "David Hildenbrand (Arm)" <david@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Christian Brauner (Amutable)"
- <brauner@kernel.org>
-Date: Mon, 19 Oct 2026 12:21:16 -0400
-In-Reply-To: <20261013131243.GM56180@killaraus.ideasonboard.com>
-References: <20261009083137.3-1-sashal@kernel.org>
-	 <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
-	 <asz9AeFe3CutP73z@gremlin>
-	 <20261013123132.GC4214@killaraus.ideasonboard.com>
-	 <as4pAEnLd4H68W4W@gremlin>
-	 <20261013131243.GM56180@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+        Mon, 19 Oct 2026 09:21:42 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org,
+	cgroups@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	akpm@linux-foundation.org,
+	mgorman@suse.de,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Subject: [PATCH v2] cgroup/cpuset: use mems_allowed_seq when checking a policy nodemask
+Date: Mon, 19 Oct 2026 12:21:38 -0400
+Message-ID: <20261019162138.3271947-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,21 +101,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-13 at 15:12 +0200, Laurent Pinchart wrote:
-> How do you decide which patches to ignore ?
+A cpuset update changes the task's mems_allowed and rebinds its
+mempolicy in separate steps under mems_allowed_seq, but the check
+reads both without it.  This can cause a spurious numa placement
+miss under some cpuset/mempolicy combinations.
 
-Seriously.
+A reader that loads one mask before the update and the other after
+it can see a spurious empty intersection and drop the nodemask.
 
-There isn't a little slop icon that comes with a slop submission,
-people actually have to sit down and take time to read through it
-before determining whether or not to ignore it.
+For example, a task with cpuset.mems={0} and MPOL_BIND={0}.  If the
+cpuset moves to mems={1,2}, the policy is rebound to {1}.
 
-If people are ignoring patches without even reading them, that's going
-to be a serious issue that is going to lock a lot of well meaning new
-contributors out. We already have a tremendous issue in multiple
-subsystems with maintainers being able to keep up with workloads, the
-issue that should be getting solved here is being -more clear- about
-how an LLM was used so that people who aren't just copying code
-straight from their chat bot don't need to tag things.
+The allocator can race and compare the old mems_allowed {0} against
+the new policy {1} - which will result in a dropped nodemask and a
+misplaced allocation on node 2.
+
+Simply retry the intersection until mems_allowed_seq is stable.
+
+This covers the task policy, which is rebound under mems_allowed_seq.
+VMA policies are rebound afterwards by mpol_rebind_mm(), outside
+mems_allowed_seq, and are not covered by this change.
+
+Fixes: cc9a6c877661 ("cpuset: mm: reduce large amounts of memory barrier related damage v3")
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Waiman Long <longman@redhat.com>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+v2: there is no real update here, i'm breaking it off of the page_alloc
+    series so the page_alloc fixes backport collectively cleaner.
+
+ kernel/cgroup/cpuset.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 3f52717c19654..8ee239d5c6b48 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -4354,10 +4354,21 @@ nodemask_t cpuset_mems_allowed(struct task_struct *tsk)
+  * @nodemask: the nodemask to be checked
+  *
+  * Are any of the nodes in the nodemask allowed in current->mems_allowed?
++ *
++ * A cpuset update rebinds the task's mempolicy and changes mems_allowed in
++ * separate steps, so retry if an update raced with the check.
+  */
+ int cpuset_nodemask_valid_mems_allowed(const nodemask_t *nodemask)
+ {
+-	return nodes_intersects(*nodemask, current->mems_allowed);
++	unsigned int seq;
++	int ret;
++
++	do {
++		seq = read_mems_allowed_begin();
++		ret = nodes_intersects(*nodemask, current->mems_allowed);
++	} while (read_mems_allowed_retry(seq));
++
++	return ret;
+ }
+ 
+ /*
+-- 
+2.53.0-Meta
 
