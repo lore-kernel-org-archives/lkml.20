@@ -1,134 +1,188 @@
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F69485957
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1B3381EAB;
+	Mon, 19 Oct 2026 07:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393619; cv=none; b=ocWuOWNwI4P7Fz7ZWVcz6j+4F5bLq8jZIT+dHT5ZPO50CPoW2Zr6IXM922EZgUo57RIDlHtgG4Fr9PBO8mDiEc0oXmdCzyp+OEjuF333WTV3ueu/o4N2OVm9G6QNEZ/o6tQYmmpyioDGbkvpA3u+uiZOgJsiqQqW736A7BYS7yQ=
+	t=1792393690; cv=none; b=EkpoNQhOPjeFpO8fffjVzJnkOeX9v2fErNOkqk540T8yKEbR6C0FJdSMQmK6wdVTHwZHdTaFncWsPP1vU/S4d7oOflIahH+q1/BRv/H4HdIT5ZVIV6IajtLCuG+WYDk6P+b3cF09Qmyxe+aMl+5j+FqMslTmuLzKhnSuMhe4gUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393619; c=relaxed/simple;
-	bh=R8sRVKV2d+v3K80VHraXj2HaX+giPyb6UdNqMy7CE5Q=;
-	h=In-Reply-To:References:Cc:Date:Content-Type:Subject:Mime-Version:
-	 To:From:Message-Id; b=ICCQwMB26+3Af3Uj9f/buvKkstyqhgiaIXF6p52MEbp0ee04byq6cqqy8/ewM0s/j0ITBWn/Ktv2CtHeJxCjylueHxDyVX/prHpCqoRSf2UMDF8dJ+ltI7xfmullAiO2qykH4RPW02UJ7Ypv528SV8f5pW50TuTGUWVGdeNDYcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=hXWIrbHh; arc=none smtp.client-ip=209.127.230.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792393690; c=relaxed/simple;
+	bh=0wGfQ0XPs7lB/bDXWbqok2I+QadslRUR9q3Nce4S+5Y=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=P0VnWKdaxyZZxsC992wX5xkb6YPmebRIL2RhiYTrWPifi9gX8y1GZUjEDQjETkwXBbbWxTmil+IBtoZG8bwsCqyG3k0DLP9n1+4VVvU8Fj7ZaxVK5KWK/I0uoxAxtTYS36oBs3yLQJ0VRD9tTtHmd+59KIWLut6o69opU4KylN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=1kXAjV1U; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="hXWIrbHh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792393610; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=96Wm4D57LuIgrDtXs3jtILL79TgZtcHA3nY+j4YAW3Q=;
- b=hXWIrbHh/zoTrGqhiFS5hJfKXv7MRtu9h/fgsAkvpSItQI1ZG3FHO+G9k83wsyWDD4qgki
- PVEpHMONKYA3jenAosXFCEvzbFEqVwqDPSWlw27Ku4IedpYrk/BWxL3jjfTXQkArNftX0r
- wslhnH5fkcuTMGu9tfm5OcnI9J01SIfF9tKV8DfHzJd6+yuvo7/TjFbe1OnHc/3DSyahu8
- yrDImSeKhxMyZhCaJi9Z7uN3VI9xHFiyl6Fd7lXsSiXkTiIwFs/xP8IfpXt5LAwp1YEa9h
- fp6l9kbTv6lZ795Io88mkKpGU949+GbPPfh/1OuG54DekUD3Dg4Mnd6Di6fYwA==
-In-Reply-To: <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-User-Agent: Mozilla Thunderbird
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com> <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
-Cc: <dev.jain@arm.com>, <baolin.wang@linux.alibaba.com>, 
-	<lance.yang@linux.dev>, <mark.rutland@arm.com>, 
-	<akpm@linux-foundation.org>, <ljs@kernel.org>, <liam@infradead.org>, 
-	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>, 
-	<mhocko@suse.com>, <linux-arm-kernel@lists.infradead.org>, 
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Date: Mon, 19 Oct 2026 15:06:26 +0800
-Content-Type: text/plain; charset=UTF-8
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="1kXAjV1U"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 39A01A012B;
+	Mon, 19 Oct 2026 09:07:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792393676; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=b9AfkPN0whNzXKMk9jVeURmiAA85vJrvwszbixcG7EY=;
+	b=1kXAjV1UrVDcmsAHeOhwpVQbA/ZsQXakJEwsTm2RfMqLnVr0ENkd0AOieKdWq/wVCdwNN3
+	PYhJDnbWpX+xM4EreuUkMFbYYQWuvKOm2/1f9CNpt2ZFCajp6GVay2EIaVyZUJYrnHXY5v
+	5ctfETh9f9uuyfxTc8Zj5hOrDzLC8CVwp9yWHUdwWV/X3wUVci1bIx9M9nE9etTRYE93m9
+	3IZqbDURcW2znSCW88QGcCFMNVPWH8fuRhmKsiM9QiUMRSLPWYpQaTgSNaJ+REjqmjMn1/
+	yyWHipWdujxYreVHWxXNohCvsA9PE+KFpatLOJA+HzkU8ZhVvlDyVBbLJqO+BA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ad5c188+14f43e+vger.kernel.org+zhaogongyi@bytedance.com>
-Content-Transfer-Encoding: 7bit
-To: "David Hildenbrand (Arm)" <david@kernel.org>, <catalin.marinas@arm.com>, 
-	<will@kernel.org>, "Ryan Roberts" <Ryan.Roberts@arm.com>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Message-Id: <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
+MIME-Version: 1.0
+Date: Mon, 19 Oct 2026 09:07:54 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, f.fainelli@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 1/4] net: bcmgenet: stop the PHY when a WoL resume
+ rebuilds the datapath
+In-Reply-To: <179232492989.3135.6148472964891077526@kernel.org>
+References: <20261017-nb-genet-fini-dma-net-v1-1-47e7c57f6834@tipi-net.de>
+ <179232492989.3135.6148472964891077526@kernel.org>
+Message-ID: <36ccdbbc90bd9d77237819c33c5d0e20@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/14/26 5:41 PM, David Hildenbrand (Arm) wrote:
-> CCing Ryan:
+On 18.10.2026 14:02, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 > 
-> https://lore.kernel.org/r/20261013093600.54995-1-zhaogongyi@bytedance.com
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
 > 
-> On 10/13/26 11:36, Zhao Gongyi wrote:
->> The transparent contpte layer treats PTE_CONT as software state: when a
->> PTE has PTE_CONT set, the contpte helpers may align the operation to a
->> CONT_PTE_SIZE block and operate on the whole block. That invariant only
->> makes sense for valid mappings. Explicit users such as hugetlb manage
->> their contiguous encodings separately.
->>
->> contpte_set_ptes() currently sets PTE_CONT from alignment alone. Batched
->> set_ptes() users can therefore install present-invalid PTEs with
->> PTE_CONT set, for example mprotect(PROT_NONE), NUMA hinting through
->> modify_prot_commit_ptes(), fork() copying a PROT_NONE large folio, or a
->> PMD split installing PAGE_NONE PTEs.
->>
->> This is not a hardware programming problem: invalid descriptors are not
->> translated, so the hardware ignores descriptor bits such as PTE_CONT. It
->> is a software-state problem. Some arm64 fast paths intentionally test
->> pte_cont() directly instead of pte_valid_cont(), for example commit
->> 9970a9a27ffc ("arm64: mm: implement the architecture-specific
->> test_and_clear_young_ptes()"). Fixing the producer side preserves these
->> fast paths and covers all consumers.
->>
->> In the observed failure, mprotect(PROT_NONE) installed a full
->> CONT_PTE_SIZE range of present-invalid PTEs with PTE_CONT set.
->> MADV_GUARD_INSTALL then zapped one PTE. The nr == 1 clear_full_ptes()
->> path only unfolds pte_valid_cont() entries, so the neighbouring
->> present-invalid entries kept PTE_CONT while the target entry became a
->> guard marker.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let 
+> patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your 
+> reply
+> (one such reply per series is enough).
 > 
-> Hm, is there a good reason why we cannot just use the cont-pte bit for all
-> *present* PTEs, even if HW would not be prepared to benefit (!pte_valid())?
+> - [Medium] In bcmgenet_resume()
+>   (drivers/net/ethernet/broadcom/genet/bcmgenet.c), the new guard on 
+> the…
 > 
-> I guess we really only have to make sure to shatter properly, right?
+> --
 > 
+> net: bcmgenet: stop the PHY when a WoL resume rebuilds the datapath
+> 
+> This patch adds a phy_stop() to the WoL teardown path in
+> bcmgenet_resume(), which runs when the MAC was found reset, so the
+> phy_start() in the rebuild does not warn and do nothing. The stop is
+> skipped when phy_is_started() says the PHY is not running, because a
+> failed earlier rebuild may already have stopped it.
+> 
+>> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
+>> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> index e8908916558b1..308716cddc077 100644
+>> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> @@ -4288,6 +4288,9 @@ static int bcmgenet_resume(struct device *d)
+>>  		bcmgenet_rdma_disable(priv);
+>>  		bcmgenet_intr_disable(priv);
+>>  		bcmgenet_fini_dma(priv);
+>> +		/* An earlier rebuild of this datapath may have stopped it */
+>> +		if (phy_is_started(dev->phydev))
+>> +			phy_stop(dev->phydev);
+> 
+> [Severity: Medium]
+> 
+> If the PHY is in PHY_ERROR at this point, does it get past this guard
+> and still hit the phy_start() warning during the rebuild?
+> 
+> phy_is_started() only returns true for states at or above PHY_UP:
+> 
+> include/linux/phy.h:phy_is_started() {
+> 	return phydev->state >= PHY_UP;
+> }
+> 
+> In enum phy_state, PHY_ERROR comes before PHY_UP, so a PHY in that 
+> state
+> skips phy_stop(). phy_stop() itself accepts PHY_ERROR without warning
+> and moves the PHY to PHY_HALTED:
+> 
+> drivers/net/phy/phy.c:phy_stop() {
+> 	if (!phy_is_started(phydev) && phydev->state != PHY_DOWN &&
+> 	    phydev->state != PHY_ERROR) {
+> 		WARN(1, "called from state %s\n",
+> 		...
+> 	phydev->state = PHY_HALTED;
+> 	...
+> }
+> 
+> The kernel-doc for PHY_ERROR in enum phy_state also says "phy_stop 
+> moves
+> to @PHY_HALTED".
+> 
+> Next, the rebuild calls bcmgenet_netif_start()->phy_start(), which only
+> accepts READY or HALTED:
+> 
+> drivers/net/phy/phy.c:phy_start() {
+> 	if (phydev->state != PHY_READY && phydev->state != PHY_HALTED) {
+> 		WARN(1, "called from state %s\n",
+> 		     phy_state_to_str(phydev->state));
+> 		goto out;
+> 	}
+> 	...
+> }
+> 
+> When that happens, the PHY is not resumed and the state machine is not
+> restarted. bcmgenet_resume() still returns 0, but the link stays down
+> until the interface is taken down and up again.
+> 
+> Nothing stops the PHY state machine during a WoL suspend:
+> 
+>   - bcmgenet_mii_probe() sets mac_managed_pm = true, so
+>     mdio_bus_phy_suspend() and mdio_bus_phy_resume() return early.
+>   - The WoL branch of bcmgenet_suspend() does not call phy_stop().
+>   - bcmgenet_wol_power_up_cfg() writes PHY_RUNNING or PHY_NOLINK
+>     without stopping the machine.
+> 
+> So two things in that window could leave the PHY in PHY_ERROR when this
+> check runs:
+> 
+>   - an MDIO error in _phy_state_machine(), via phy_error_precise()
+>   - a phy_error() call from a PHY driver's interrupt handler
+> 
+> Nobody has seen this happen in practice yet. It follows from the code
+> paths above.
 
+Agreed, but lets fix it anyway as Clashiko will flag this once the path 
+is
+touched again in the future anyway ...
 
-Hi David,
+> 
+> The commit message says:
+> 
+>     A rebuild that failed can have stopped it already, and
+>     phy_stop() warns about that too.
+> 
+> That holds for PHY_READY and PHY_HALTED, but not for PHY_ERROR. Would 
+> it
+> make sense to have the guard accept the same states phy_stop() does?
+> For example:
+> 
+> 	if (phy_is_started(dev->phydev) ||
+> 	    dev->phydev->state == PHY_ERROR)
+> 		phy_stop(dev->phydev);
+> 
+> The non-WoL path does not have this gap, because bcmgenet_netif_stop()
+> always calls phy_stop().
+> 
+>>  		enable_irq(priv->irq1);
+>>  	}
+>> 
 
-Right, there is no architectural restriction preventing PTE_CONT from
-being used as software grouping state for present-invalid PTEs. For this
-particular failure, making contpte_try_unfold() recognize something like
+Will change this in v2.
 
-         pte_present(pte) && pte_cont(pte)
-
-would make clear_full_ptes(nr == 1) unfold the block before replacing one
-entry with the guard marker.
-
-My reason for preferring the producer-side fix is that the existing
-transparent contpte helpers mostly use pte_valid_cont() as the membership
-test, including contpte_try_unfold(), ptep_get[_lockless](),
-pte_batch_hint() and contpte_is_consistent(), while some range fast paths
-test pte_cont() directly.
-
-If present-invalid PTEs are also considered members of a transparent
-contpte block, I think we should audit the single-PTE modification paths,
-rather than changing only this clear path. We would likely also need a
-pte_present_cont() helper: the pte_present() guard matters because the
-PTE_CONT bit position is part of the swap offset for non-present entries.
-
-There is no hardware benefit while the descriptors are invalid, and
-set_ptes() can recreate the contiguous encoding when an eligible range is
-made valid again. For a stable fix, I therefore preferred to stop
-contpte_set_ptes() from creating present-invalid transparent contpte
-mappings, which also matches the pte_valid_cont() contract used by most
-of the existing helpers.
-
-I agree that saying this invariant "only makes sense" for valid mappings
-is too strong. I will reword that to describe the current helper
-contract instead.
-
-If preserving the software grouping across PROT_NONE is the intended
-semantics, I can rework this as a broader unfold-path audit instead.
-
-Thanks,
-Gongyi
+--
+pw-bot: cr
