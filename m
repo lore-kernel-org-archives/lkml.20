@@ -1,55 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792452961;
-	b=L+fkXbUYH3D41Dvfiig0U3Y96IqjW8b1xKPjMdtCR4uN2tnO+HSHG+cwnAIFGVkir4xP
-	 Yy7fqD7CfkHGMSwOr7mZeWsZFlNkCqYOyN84TZnq2CLtbCZcKLmBHrFePe8vgg8QyJv5W
-	 2IyMrAdZBE93TtD9KJmHkROneWzpX1e5KptjtQcJVW4pLPBkNYmgdh+rIxCC4nF3YIv/y
-	 XbEN+nwZbdEZS4BWn0c5KFMHJAyGdz8NSVY3YyhP3e4ItN1JkZ8l8jdK+9tDCE/O3/Qf5
-	 pZmJpwXC0aDbD8yhP1SYYwVRon/tjyy+2VQA0eFvHYyRwC87KXSbxyhMJEYqT9BuFYg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792452961;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FhKtU5w8GBj/yeJDEwS7da8UC+5x8nc458iXyjzet9g=;
-	b=2bhHAxgkgSRQxcNb5YhVO8TlhzVUVYy1HiNOsSOOA3z1SVKBs8Bf1CJxxgFRlGY9wL/W
-	 D5NHEsfhHyrCittDDEBVPvle/SmMLGCzG0Y0pUwBHdwlUOiy/OY9XWt+LVngZP/6sXT0F
-	 zSN3CL8sA1Ytf6N6/+nEVOATC+xV4m6UjDJYELfMs2khvRfbw5L70TvWjagSETRtK8dUW
-	 fC2xC8I96q0GiSCgnGXfjmcFMsorKscAF2Vx8lLGFgUQO7mCVCXmAMEzUB9XGQO4ToPpd
-	 gxMuXFHCASmq0N5stIjBTw7J0XbUogKJlGmDjCKEbD5MG1tzd7TUS0ot9j3HvwwNHNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNXTSu92;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792453112;
+	b=Qp56qTa9RrGuDdC+2S7g9FlchP+/a5gmvp5L1HnLurIbtUOTz2jzxUmIMQi9KGA4HBgP
+	 AHXSjacbtim1S6nr0z7givaqpmA/6tSOg/bPmxffw4qCD2SRNXjLUmBwyDQg3XgwWTd3p
+	 tnLOMBOIAtXlRPH3p5Ha8w9lYocExpLnUi5PscNF1glzc19LmlXKIELYqmlPkkN2y8ph+
+	 QMjV3uf5re2NlZwKc9hfHwKduoCKQXp1bnOQM1PA9ybVY7EAkRitOXB/Ny+fxACEQ20BE
+	 sSbAhXRlLpcNTlJ3YT2IBzhxCNQ03iuBpyFBFUCbF9WdJInsIG2B205dkHSq4IAHjDg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792453112;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp;
+	bh=uShKQUWFwgSh7DQhGWBd/23uQd+cee0N/l3UrzJ2TbM=;
+	b=ue7iutMKuL1UQo5BxIL9TEF64uZqaeMjCT79+O0VZJLvl6YDNN7hudEZSEAHrBTEjaWH
+	 kXD+Lz9eIkM4J1Br/veOhus4xLQTQjJgOjUje6DpA5tupNGeglSSBA3o2WP58i4sQV5wk
+	 +7RkM01Vux/ikpdZy0IEN4hPUEVQ+uIPX9DymHbVqmi7k2elu4GkRYptfYs/G71e5o4ko
+	 nXoyRoTqjebKaoYp2GFo9o87/CfFdtRR+0MrBF+vx4RWrKwJzs6rHw99phIoRInhbcOPw
+	 aNOlMBRwebgsz73zsPb3ctJ/yssWHRA9dzOLibJ8Tg292pSWRDccsWkAMBsCHwfGGmA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Lp19sFVn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06EA606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:36:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF9E606A319;
+	Mon, 19 Oct 2026 23:38:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FF9E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNXTSu92
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8706E1F000C6
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:36:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792452960;
-	bh=FhKtU5w8GBj/yeJDEwS7da8UC+5x8nc458iXyjzet9g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gNXTSu92jBmXmdxQAiSfPljfEV05rK6BJ3RpiKEQ8XRwVUwxD47Iy2yQpmQPI8rGr
-	 a0tfbEe44MYi5/6ImPwdDhvNth6OoSa8+tru3+d3uAeRTNUfHBgvnUj7jcYiCw5ccj
-	 jNytduKQoMz+o9r04sXSCNlimT5Yd7+Ze3Gh3NqdOyr4c4rVoU3yt5Dbbn2vsNyxN6
-	 H8pLOjIDJmJ6lw+sROT8F8pILSFhRFf9UebtFlcF5gJI15Ah91X5Bg+z/MUPLLGrsi
-	 GQG1m9eRlWKo8K/1Mk1gF75G7n5exymRzJYA//sgauhgH16Zd6jXZd3I1NW5IJzPoW
-	 M4qt/rrJoq/BA==
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93f2f2edb19so217220485a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:36:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy5sHQfUDK+e4udb5CDtN9FQq2R7YDlK2s+5XlHTI+EltKy91mY8gsofvfFFuxXnv2W1o5Ei9xQf4tK4H4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/2AXm3cOn3nrQbk4OYdpAyLjuWVQ2sVr72jdM2ktPeltltfzX
-	RvrkUWEo3GseR161+1WV8JOgDxo37K1qvfOMcsD4j/Otd0ByfENO/0A304j/hFLZrknJMeIpE3W
-	sj/34aw6mDkruTt/k/1f+QHlibu5s0v4=
-X-Received: by 2002:a05:620a:4552:b0:93f:3829:8494 with SMTP id
- af79cd13be357-93f38298718mr932075885a.31.1792452959559; Mon, 19 Oct 2026
- 16:35:59 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Lp19sFVn
+ARC-Seal: i=1; a=rsa-sha256; t=1792453082; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Q9CIDi9fCUFgqY0uS/7OL+qn0attrEAh+92cX9w2dXPDS5L50EU7mdVCwH0gyCzRSqdKm6rrOydq/zo6ycMb8RoIEYvcxZ63KCz5N1xdC4YG0m79L8znzwLkr3UAVCVO3qA3octqrGU4lRH22zxPUqSkaYFA58ATFzjygiObAdg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792453082; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uShKQUWFwgSh7DQhGWBd/23uQd+cee0N/l3UrzJ2TbM=; 
+	b=GJv5x3O+WvZfrEs869ebbE9Whj6fpT1145jHXp2L4SIQL2excS35tYrKU26xrvU+BBksWK4tNv9lHVKMWfIKBG7YcgtIbG/421iwRScHe5GAFuEdvMIY3TwTmqQVNhj8dl3b8qaHRdk8LEalrQsaecPW0WD62nYlpkJ8ppS4Jp8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+	dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792453082;
+	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=uShKQUWFwgSh7DQhGWBd/23uQd+cee0N/l3UrzJ2TbM=;
+	b=Lp19sFVndvpCIPXLe+5AZvSQ1xqq6gEgf2f8k1LTFRHKDJZhUC4jYcLdZYhPDmnk
+	FREedBJW9fofhlel8bZOO8PHOHxx495zSLyR4CKn3YqaIGOAMrK7d66Fgoaifo4n83L
+	5yxT2zPpuO1+Y5y8+zBI0OpoNXHgDKdZ7BquMvXo=
+Received: by smtp.zohomail.com with SMTPS id 1792453080386614.7316189103576;
+	Mon, 19 Oct 2026 16:38:00 -0700 (PDT)
+Date: Mon, 19 Oct 2026 16:37:59 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 2/2] drm/tyr: allow userspace buffers to be mismatched
+Message-ID: <atap18Uo7U2OY92b@um790>
+References: <20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com>
+ <20261015-b4-dev_query_fixes-v2-2-e3e6d25050cb@collabora.com>
+ <atHwZg245MM7l9Ty@google.com>
+ <DM6Q8HOV2J6Z.19M92D448I2JQ@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,88 +84,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
- <20261017050928.128582-2-sidchintamaneni@gmail.com> <CAGsJ_4wGq9oc05=-g4aWptLdCbTwUjMjXk4Rd6KjJ6x=tzMm+g@mail.gmail.com>
- <CAE5sdEhGFtGF6LC4xNkMwGj3vTxLOW=GNBXnk3-JmsgjntXx0Q@mail.gmail.com>
-In-Reply-To: <CAE5sdEhGFtGF6LC4xNkMwGj3vTxLOW=GNBXnk3-JmsgjntXx0Q@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 20 Oct 2026 07:35:48 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wmvBvEn_vXu8-c6BRAnRewYmTs8iUd8T7KRx7_svZrwg@mail.gmail.com>
-X-Gm-Features: AclHuK_aaDmiOoPjOifUmGBKmvM4s-x70UIqD7plw7aV8rDhARGqcnWCGr0bz_Q
-Message-ID: <CAGsJ_4wmvBvEn_vXu8-c6BRAnRewYmTs8iUd8T7KRx7_svZrwg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref in get_lruvec()
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
-	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
-	Hardik Garg <hargar@linux.microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM6Q8HOV2J6Z.19M92D448I2JQ@nvidia.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/292.448.41
 
-On Tue, Oct 20, 2026 at 4:33=E2=80=AFAM Siddharth Chintamaneni
-<sidchintamaneni@gmail.com> wrote:
->
-> On Sun, 18 Oct 2026 at 14:24, Barry Song <baohua@kernel.org> wrote:
+On Sat, Oct 17, 2026 at 10:36:49AM +0900, Alexandre Courbot wrote:
+> On Fri Oct 16, 2026 at 6:37 PM JST, Alice Ryhl wrote:
+> > On Thu, Oct 15, 2026 at 11:35:21AM -0700, Deborah Brouwer wrote:
+> >> +// If the user buffer is at least the minimum required size, then
+> >> +// copy as much of the kernel object as will fit into the user buffer.
+> >> +// Don't fail if the user buffer is smaller than the kernel object.
+> >> +// If the user buffer is bigger than needed, zero out the remainder.
+> >> +fn set_uobj<T: AsBytes>(usr_dst: u64, size: u32, min_size: usize, src_obj: &T) -> Result {
+> >> +    if (size as usize) < min_size {
+> >> +        return Err(EINVAL);
 > >
-> > On Sat, Oct 17, 2026 at 1:09=E2=80=AFPM Siddharth Chintamaneni
-> > <sidchintamaneni@gmail.com> wrote:
-> > >
-> > > Andrew Morton reported that get_lruvec() has the same problem as
-> > > lru_gen_shrink_node(): when memcg is disabled on the command line
-> > > (cgroup_disable=3Dmemory), it returns &pgdat->__lruvec directly and s=
-o
-> > > bypasses the initialization of lruvec->pgdat. The MGLRU debugfs
-> > > interface calls get_lruvec(), then dereferences the pgdat pointer in
-> > > lru_gen_seq_show() and other paths, so these can hit the same NULL
-> > > dereference.
+> > Use `kernel::num::casts::u32_as_usize` here.
 > >
-> > So userspace must have booted, since otherwise we couldn't read
-> > debugfs. The reachable case is therefore a memory node with no
-> > LRU folios when debugfs is read? So this could happen on a multi-node
-> > system where folios are landed on other nodes but not on this node?
+> >> +    }
+> >> +
+> >> +    let mut writer = UserSlice::new(UserPtr::from_addr(usr_dst as usize), size as usize).writer();
 > >
->
-> That is my high level understanding. I'll let Andrew to comment if I
-> am missing something,
->
+> > Avoid casting to usize twice.
+> >
+> > 	let size = kernel::num::casts::u32_as_usize(size);
+> 
+> Or `usize::from_safe_cast(size)` after importing `FromSafeCast` -
+> `u32_as_usize` is useful in const context, but for regular conversions
+> the `FromSafeCast` trait looks slightly better.
 
-I made a silly toy setup by running two numa nodes with one of them has onl=
-y 4KB
-memory, the other one has 1G-4K:
+Yes, since we aren't using this in a const context I will switch over to
+usize::from_safe_cast(size) in the next version, thanks.
 
-qemu-system-aarch64 -M virt,gic-version=3D3,mte=3Doff -cpu cortex-a53 -nogr=
-aphic \
--smp 4 \
--m 1G \
--object memory-backend-ram,id=3Dram0,size=3D1048572K \
--object memory-backend-ram,id=3Dram1,size=3D4K \
--numa node,nodeid=3D0,memdev=3Dram0,cpus=3D0-1 \
--numa node,nodeid=3D1,memdev=3Dram1,cpus=3D2-3 \
-  -kernel arch/arm64/boot/Image \
- -nographic -append "cgroup_disable=3Dmemory
-...
-
-Then I got a machine where node1 is very difficult to have a page in lru.
-
-then i ran the debugfs for mglru:
-
-/ # cat /sys/kernel/debug/lru_gen
-memcg 0
- node     0
-          0      14972          0         953
-          1      14972          0           1
-          2      14972         18        3308
-          3      14972          0           0
- node     1
-          0      14972          0           0
-          1      14972          0           0
-          2      14972          0           0
-          3      14972          0           0
-
-now you see node 1 has no page in lru but yet i didn't have any crash.
-
-i think i will need more time to figure out what is the problem and how to
-reproduce it.
+> 
