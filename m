@@ -1,87 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422881;
-	b=bc4eHX5SCDiuMGjV84l7OMYzh2VcKnIGXRqSiyhPzpI3+Eedpim8pzX21iWfUx/F7Qcb
-	 RGloAz5OW5W6pRPbdaKcBYhRdBAEylRmuUoHbPdtZRA7Zh7xIcO9hfonsRNRxxPncvz4X
-	 kI5V2qdcK3F2IHU+BSmHXD392sK5gT1ZteWnvMRJW706JqFM6j+a7qA7K8gwVI+EQLvx/
-	 FptWG3zTdAvh/q7VEr3C6kbBIoKXIkdEjc9ur6UW965NY+RZKLJTzsPlpgMAkr4Vplksx
-	 KOEUuPFzX+5dKhHx2NLeeoGkwPtJycCYvHk1oqyW7HKON99OlXjFvWPD6Ox/J3VhpVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422881;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-Ironport-Invalid-End-Of-Message:X-ExtLoop1:
-	 X-IronPort-AV:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MQb8B/qhw+4yCI3Cj8R+lrtVqs8STV1i2INQuKnCvNw=;
-	b=0EhfHbKk18cIZDpB+Dnm54WrxFIaLmQf86sgRuGvaCjycoCs60yytX4KkhrUKhKQNAZ3
-	 +FD5ThRA7owWble/dk8+DtCXo0xeeWw5VxdJPEoIViL8mSyD8fmpnjgKLOyWzUMpYYCeJ
-	 Zq5s8KNQkRCgZHDoTRm6KsBkDyRlCz8PMQrn6R3LqcY9FfrIuob8DCXOapJHom4Vvn72d
-	 o/N8MmmRB+fE2rRlXemDDmYru3lAxQlyYBvuoGeNe1JdDkuwKO97LQ8rBOIsQiST+TBPF
-	 RGh6apuc+PAcEQgkVFLB4t7lTdeVnlFC0i9bAtXrJL2HHvaL+psB260T1CnNmN8c+hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CC46qBE9;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2458E609CEEA;
-	Mon, 19 Oct 2026 15:14:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2458E609CEEA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792421796;
+	b=JMYM5XwsorwVN4aeuRb0pLE67jJ4KGTJ+0YWCgIgurn6sCzacK4Q7ZpgN62jIM9J2ztF
+	 /LM9L4xUwjvOozliYEBJUEuzVzbSPmA0sE42GCJNqdO8ZNgET3FihlUhTn5g1xF2ymsRy
+	 /+XHCNv2cW7gNay7APjPEGUJjjMXQX4rKKxL5GmsqGq0crQXSJJexj7wutWKt2ZMhtjQ9
+	 OH/fV5R/n/J6Of5ryDyYr1UDLhkaHS2CtjVuRiCKFIp0AthfqrFerfjfxWmStel5qNIwJ
+	 DmEi2npRPOQpT5PGqNDkVH95AOrJIwyAbJYNR37+WzM1JJPSdk+7KAFfMJrrvCu2uVQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421796;
+	h=Received:Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=1Gq2xabCUzWCgQFVttvePt4Zi7fwm2U8qXzH8Q9Ni/Q=;
+	b=wg3HlpDwDLWCVRlHEgLAWX89EDzaAIF+t9KVaH/CfXH22h/EZKvvpuExERjRU5e1v8Vn
+	 DdV+S2VZ1hYzUfQXx19xzALN2k60b0AMPw+eMIwsFP9urt8rXG5HpZa36XCs+nItRpdY5
+	 UyTn7Ma8C+lBwUTEnExmO3z/Krz6hkqzEBx8wh+dj9btGwmiW7hmHpR7qOamXCtxXqqcw
+	 4K0mfXL+M3pfmeimO/t4C+pe+CrYtHgwd+4Zzz4ZhZ6CClU2C4jWXYxgpBOzP2HOvIqwW
+	 BFo3KhTMHtr4XEa/lXxC2ev133PknMtJYkQZ1hFHoWljwvlbsLCusD+12RCfVt7AxHw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h4FlIoiC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CBF1760724A8;
+	Mon, 19 Oct 2026 14:56:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CC46qBE9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422882; x=1823958882;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=z0SkwW//ef7ZJBaFBPaI8edP8HDdXv5L0ptXLFoUlhA=;
-  b=CC46qBE90hvWXyDls/cD7sZtX1nDBEZzDiu1IfzRY2SDWrrI6HQvW46l
-   GznsHv2cXs5YUyTYVzNiSOjW5hkmweiIvQSg8fpDbbAE79otYhcppbJrq
-   V3HqfL+Q36wMJti9qrEOc6d+87FNjcorJEhY+VQoXKvkDXsvnxv7MH1In
-   +pZqkWPxkgvrcjJ1AWLnF8Tcex4SF8ko2UZFMSW1VI8KMUEyAqDZdG8Ah
-   ojKh0NRNJ4O90Ioe7oOlCHtK+BiwhLXdv9GhpAMxDiv9lyBzF2gBUxQjA
-   lq60KGjBzm/Y8GGr77dnc45Yt0nOgesx4M9+dUcjflZnpYu5LOCNu1o0/
-   g==;
-X-CSE-ConnectionGUID: jgmDl+l3SGq+yGwnXGQ8WQ==
-X-CSE-MsgGUID: JRqmPQ4DR0OLsLrOPgztqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986942"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986942"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:35 -0700
-X-CSE-ConnectionGUID: GGDSOwEDQZ61D8gwWWlfYQ==
-X-CSE-MsgGUID: qXaD5L4/QjeN7C8PwD3kgA==
-X-Ironport-Invalid-End-Of-Message: True
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2537007"
-Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:35 -0700
-From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>
-Cc: Fenghua Yu <fenghua.yu@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Kristen Accardi <kristen.c.accardi@intel.com>,
-	dmaengine@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 17/17] dmaengine: idxd: run the interrupt-handle revoke under the queue lock
-Date: Mon, 19 Oct 2026 08:06:30 -0700
-Message-ID: <20261019150630.4026341-18-daniel1.byrne@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
-References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h4FlIoiC
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95206513C1;
+	Mon, 19 Oct 2026 14:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421796; cv=none; b=erpIf4m0+al3Unx5M7lfx9ZeMDn72Ek7RlA2D3BblYUZqi7fPB/eFBHg0uRYVLTZx7Z59Gdlv6NhWSg9SukG7YwOxwdDaEGKBmkNT6Ig3sSFUuEHlmpk2999Vb96+zjaXNDN3hUAnSVH609cz0WKGZeT2XPfFvu3ZjOMNNRzxu8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421796; c=relaxed/simple;
+	bh=DwEfxiBZ++0PR9E/Pqv4joVI5/7plphHGS4+UCDxy1w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JggorhJoy5DgEkisj0J35jWkhKqWmAYeVYIv05IXg89w4GwKs01cuOydHKW3Ia1NJkQ/QdMUM6T+VIammAaTn7z8ISG/wqOxq3pIM0eB/qSyhbBe/Xllin0Vs+eUYQSQaqAmmiW18/sfbzbRnK03EewQdkCBAExbwsOzJPuBKpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h4FlIoiC; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D584D1F000C4;
+	Mon, 19 Oct 2026 14:56:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792421795;
+	bh=1Gq2xabCUzWCgQFVttvePt4Zi7fwm2U8qXzH8Q9Ni/Q=;
+	h=From:To:Cc:Subject:Date;
+	b=h4FlIoiCv3D+ES1G8MT6j4RW5bq5GmaYRH8qBgMKRvYB9D+WXOrDPcOdQiio5dRbH
+	 63rANYmMZGMaPbaJyKssOyszIcvC9xZiDdCfCIrUYs+KNq68eqwlM9RKo0NhRVWymP
+	 uK4qvvpy/hCnvoSpVbOujwVGPDX7YJzKTwUtTPxdiTPTZVCmNLPUIhwE89NR3iFQrd
+	 h344LLQpsnjnYK2vf7wzSYHZEh6MoeAYvCUR34MaGT7AAbSSocDkkdVFAkhw4Jf0+C
+	 WGLJE6jDVhw4G23yht9x/8Z1P/6mTNUHP5QvH06i8RLPg6v6SALgp8OGkqS8SYpioN
+	 4Qk3hu5whq3lA==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	stable@vger.kernel.org,
+	Jann Horn <jannh@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+	linux-kernel@vger.kernel.org (open list),
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
+Subject: [PATCH v2 1/2] KEYS: Return user session keyring on lookup
+Date: Mon, 19 Oct 2026 17:56:22 +0300
+Message-ID: <20261019145624.309790-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,119 +80,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The interrupt-handle revoke worker requests each new handle without
-wq_lock, so that a reset can end the request, and the queue may be
-unbound while it waits. It reads the queue's state without the lock,
-submits the drain after unlocking, and on a failed request quiesces the
-queue and completes the descriptors that carry the revoked handle
-outside the lock, so an unbind can unmap the portal under the drain, or
-free the descriptors, the allocator and the driver under the
-completions.
+A process without a session keyring looking up KEY_SPEC_SESSION_KEYRING
+without KEY_LOOKUP_CREATE mutates the credentials. This causes struct creds
+instances shared with other subsystems to become stale.
 
-The unbind invalidates the handle in the same wq_lock hold that tears
-the queue down, so after the request the worker takes wq_lock and goes
-on only if the handle is still valid. The handle swap and the drain, or
-the quiesce and the completions after a failed request, then run in
-that hold. A queue a halt already killed and did not revive is left
-dead rather than revived behind the halt.
+Address this by returning the resolved user session keyring directly
+without installing it into credentials.
 
-Assisted-by: Claude:claude-opus-5
-Assisted-by: Claude:claude-opus-5-5
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+Cc: stable@vger.kernel.org # v5.10+
+Suggested-by: Jann Horn <jannh@google.com>
+Closes: https://lore.kernel.org/keyrings/CAG48ez0XjVSR=M--UBauTm8sJuc+ZbhKzaPa3a6wrSVHyoKevw@mail.gmail.com/
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- drivers/dma/idxd/irq.c | 45 +++++++++++++++++++++++++++++++-----------
- 1 file changed, 33 insertions(+), 12 deletions(-)
+v2:
+- Added mandatory tags.
+- No code changes.
+---
+ Documentation/security/keys/core.rst |  6 ++--
+ security/keys/process_keys.c         | 44 +++++++---------------------
+ 2 files changed, 14 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
-index 4517a09fcf1b..8217698056bb 100644
---- a/drivers/dma/idxd/irq.c
-+++ b/drivers/dma/idxd/irq.c
-@@ -115,6 +115,11 @@ static void idxd_abort_invalid_int_handle_descs(struct idxd_irq_entry *ie)
- 	struct idxd_desc *d, *t;
- 	struct llist_node *head;
+diff --git a/Documentation/security/keys/core.rst b/Documentation/security/keys/core.rst
+index 326b8a973828..c81a3a9fe236 100644
+--- a/Documentation/security/keys/core.rst
++++ b/Documentation/security/keys/core.rst
+@@ -165,8 +165,10 @@ The key service provides a number of features besides keys:
+      When a process changes its real UID, if it used to have no session key, it
+      will be subscribed to the default session key for the new UID.
  
-+	/*
-+	 * An unbind frees the descriptors and the allocator under
-+	 * wq_lock, so they are completed under it as well.
-+	 */
-+	lockdep_assert_held(&ie_to_wq(ie)->wq_lock);
- 	spin_lock(&ie->list_lock);
- 	head = llist_del_all(&ie->pending_llist);
- 	if (head) {
-@@ -142,6 +147,7 @@ static void idxd_int_handle_revoke(struct work_struct *work)
- 	struct pci_dev *pdev = idxd->pdev;
- 	struct device *dev = &pdev->dev;
- 	int i, new_handle, rc;
-+	bool killed;
+-     If a process attempts to access its session key when it doesn't have one,
+-     it will be subscribed to the default for its current UID.
++     If a process attempts to access its session keyring when it doesn't have
++     one, the default user session keyring for its current UID is returned
++     without being installed into its credentials.  If creation is requested,
++     an anonymous session keyring is installed.
  
- 	if (!idxd->request_int_handles) {
- 		kfree(revoke);
-@@ -166,15 +172,31 @@ static void idxd_int_handle_revoke(struct work_struct *work)
- 			continue;
+   *  Each user has two quotas against which the keys they own are tracked. One
+      limits the total number of keys and keyrings, the other limits the total
+diff --git a/security/keys/process_keys.c b/security/keys/process_keys.c
+index 1a51a36ce32a..558ffe58b5d6 100644
+--- a/security/keys/process_keys.c
++++ b/security/keys/process_keys.c
+@@ -346,31 +346,6 @@ int install_session_keyring_to_cred(struct cred *cred, struct key *keyring)
+ 	return 0;
+ }
  
- 		rc = idxd_device_request_int_handle(idxd, i, &new_handle, IDXD_IRQ_MSIX);
--		if (rc < 0) {
-+		if (rc < 0)
- 			dev_warn(dev, "get int handle %d failed: %d\n", i, rc);
-+
-+		/*
-+		 * The request runs without wq_lock, so that a reset can end
-+		 * it, and the queue may have been unbound meanwhile. An
-+		 * unbind invalidates the handle in the same wq_lock hold
-+		 * that unmaps the portal and frees the descriptors, so a
-+		 * handle still valid under the lock means that the queue
-+		 * still has its portal, its descriptors and its completion
-+		 * handler. Everything below, the drain included, stays in
-+		 * this hold.
-+		 */
-+		guard(mutex)(&wq->wq_lock);
-+		if (ie->int_handle == INVALID_INT_HANDLE)
-+			continue;
-+
-+		if (rc < 0) {
- 			/*
- 			 * Failed to acquire new interrupt handle. Kill the WQ
- 			 * and release all the pending submitters. The submitters will
- 			 * get error return code and handle appropriately.
- 			 */
- 			ie->int_handle = INVALID_INT_HANDLE;
--			idxd_wq_quiesce(wq);
-+			__idxd_wq_quiesce(wq);
- 			idxd_abort_invalid_int_handle_descs(ie);
- 			continue;
- 		}
-@@ -193,21 +215,20 @@ static void idxd_int_handle_revoke(struct work_struct *work)
- 			continue;
- 		}
- 
--		mutex_lock(&wq->wq_lock);
--		reinit_completion(&wq->wq_resurrect);
+-/*
+- * Install the given keyring as the session keyring of the current task,
+- * replacing the existing one if any.  If the given keyring is NULL, then
+- * install a new anonymous session keyring.
+- *
+- * Return: 0 on success; -errno on failure.
+- */
+-static int install_session_keyring(struct key *keyring)
+-{
+-	struct cred *new;
+-	int ret;
 -
--		/* Kill percpu_ref to pause additional descriptor submissions */
--		percpu_ref_kill(&wq->wq_active);
+-	new = prepare_creds();
+-	if (!new)
+-		return -ENOMEM;
 -
--		/* Wait for all submitters quiesce before we change interrupt handle */
--		wait_for_completion(&wq->wq_dead);
-+		/*
-+		 * Kill percpu_ref to pause additional descriptor submissions
-+		 * and wait for all submitters to quiesce before we change
-+		 * the interrupt handle. A queue a halt already killed and did
-+		 * not revive is left dead.
-+		 */
-+		killed = idxd_wq_kill(wq);
+-	ret = install_session_keyring_to_cred(new, keyring);
+-	if (ret < 0) {
+-		abort_creds(new);
+-		return ret;
+-	}
+-
+-	return commit_creds(new);
+-}
+-
+ /*
+  * Handle the fsuid changing.
+  */
+@@ -664,20 +639,21 @@ key_ref_t lookup_user_key(key_serial_t id, unsigned long lflags,
  
- 		ie->int_handle = new_handle;
+ 	case KEY_SPEC_SESSION_KEYRING:
+ 		if (!ctx.cred->session_keyring) {
+-			/* always install a session keyring upon access if one
+-			 * doesn't exist yet */
+ 			ret = look_up_user_keyrings(NULL, &user_session);
+ 			if (ret < 0)
+ 				goto error;
+-			if (lflags & KEY_LOOKUP_CREATE)
++
++			if (lflags & KEY_LOOKUP_CREATE) {
++				key_put(user_session);
+ 				ret = join_session_keyring(NULL);
+-			else
+-				ret = install_session_keyring(user_session);
++				if (ret < 0)
++					goto error;
++				goto reget_creds;
++			}
  
- 		/* Revive percpu ref and wake up all the waiting submitters */
--		percpu_ref_reinit(&wq->wq_active);
-+		if (killed)
-+			percpu_ref_reinit(&wq->wq_active);
- 		complete_all(&wq->wq_resurrect);
--		mutex_unlock(&wq->wq_lock);
- 
- 		/*
- 		 * The delay here is to wait for all possible MOVDIR64B that
+-			key_put(user_session);
+-			if (ret < 0)
+-				goto error;
+-			goto reget_creds;
++			key = user_session;
++			key_ref = make_key_ref(key, 1);
++			break;
+ 		} else if (test_bit(KEY_FLAG_UID_KEYRING,
+ 				    &ctx.cred->session_keyring->flags) &&
+ 			   lflags & KEY_LOOKUP_CREATE) {
 -- 
-2.43.0
+2.47.3
 
