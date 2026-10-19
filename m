@@ -1,160 +1,103 @@
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E714BD7AA
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.172.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A868D4A68BC;
+	Mon, 19 Oct 2026 09:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401874; cv=none; b=nh9COHTRxsbSmOYbde8hkuvHHbgkWgb3OW8hVL/DiphBmr0OsX3xPTgzbCwvSjfPoiXsPvyjQElGtnDmQiaHFLF5AhZle0QEIojGyLI9ns5Vwz3/w7Cq6jxWrXFtbr8z9UYJ5d8xr7tdO5ZvcSX/1DPdBWKpXszc/HQ2QwcIB3Q=
+	t=1792401883; cv=none; b=C+aeFeW5y6BLt4SstbpCOesH+7YAzvCv62n1nJURA9bDH5Tfz4bhNzLnYj9wtQCmsm+Bg7zDmz5NVwR92oIu666/1Cl6HSeyMMvl/hKp4kh4GZMiktDIwds6DHDuT8m13KKpJEnncSCj4prTRZ5Ul88LGa9GNd9Z/ytEAck1hIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401874; c=relaxed/simple;
-	bh=X3gkuVRX8tdhLti2WNzQTsQKzVS/D9O3ELOwUGL+GC4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BLUGIxvFOjjxRAF3yIZDRL7z4V9C41MmyT4P2yCfRW9rqZ/2wC8kwsITOfKhG+USqCVuMg8azIPx0YsmuYl4BbYrt7HO/SBcdEFzi0fDO4NvEVvm0od4cMFoK8niydSQzEP/zh3wwQUFMaUnXamiuoEZa0gbs4A3CbDODiF0xbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl; spf=pass smtp.mailfrom=lausen.nl; dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b=OHpzFPa9; arc=none smtp.client-ip=95.143.172.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	s=arc-20240116; t=1792401883; c=relaxed/simple;
+	bh=Qw6EgPhet4HBE+Fp3N9OvLKAKBsDCuHsZePPSoodzro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NL8vgk/ghyKxX5875+ea4RfJrxwJ26V2A2mBZeB79L7GQiwWOhVOFPyU2wMxkLHrQCJDtdJ7eEaIf7seQClBVnBUqzaEYISyz5hhvSCR/xl4tfgerXGMUjAikJvRhR34k96oCEWGIX44fG2AmMyGNCqn3lmzt5G6lqvFte88Flo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TcEKiSYR; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b="OHpzFPa9"
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id E7EA661106
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:24:30 +0200 (CEST)
-Received: (qmail 17512 invoked by uid 990); 19 Oct 2026 09:24:30 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 19 Oct 2026 11:24:30 +0200
-From: Leonard Lausen <leonard@lausen.nl>
-To: ulfh@kernel.org,
-	heiko@sntech.de
-Cc: leonard@lausen.nl,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	detlev.casanova@collabora.com,
-	finley.xiao@rock-chips.com,
-	zhangqing@rock-chips.com,
-	inindev@gmail.com,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	gahing@gahingwoo.com
-Subject: [PATCH 2/2] arm64: dts: rockchip: Fix GPU domain supply on NanoPi M5
-Date: Mon, 19 Oct 2026 09:24:16 +0000
-Message-ID: <20261019092417.391522-3-leonard@lausen.nl>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261019092417.391522-1-leonard@lausen.nl>
-References: <20261019092417.391522-1-leonard@lausen.nl>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TcEKiSYR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792401882; x=1823937882;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Qw6EgPhet4HBE+Fp3N9OvLKAKBsDCuHsZePPSoodzro=;
+  b=TcEKiSYReqWLKxCK8boaplpIyOefb5W1/N+TpBGKWvLvGCjPeAok60vq
+   /yfZRY909OZEOjD41wYYX/E/UA0hZlcdRE0mVM9p9J7SpaguOFIxdBvZx
+   IB8cRv8pe5Dp5wbfiruqrxbk0AKS8bH7Aub7Hahdg8fVleIeioljkR0Vd
+   B+tknOY6dJzQq0dYUEqNoeE/p6RPjZZrcwTGjut6Tpebd81IMPxWG1khL
+   fBzohHDrPFoQYOQUEy1odJti23rfEx1F+K1TgP+T7ueZC/ZfT7yM8/Kbx
+   DCt/yHwIEgBIYk+InH60SBq3V8fyLIBbICwp9xqC6FSXDD7MEMGVbaRnO
+   A==;
+X-CSE-ConnectionGUID: NKqr373kSJumdSgWflynoA==
+X-CSE-MsgGUID: ujCitKT6Trm0+6tnSrUACQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="949559"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="949559"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:24:42 -0700
+X-CSE-ConnectionGUID: a3wHqUL3QSWY+nZ/e9Q6bA==
+X-CSE-MsgGUID: t5CxkMO3SvKKlakpb2p8rg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2485005"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.246.31])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:24:35 -0700
+Date: Mon, 19 Oct 2026 12:24:31 +0300
+From: Tony Lindgren <tony.lindgren@linux.intel.com>
+To: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: x86@kernel.org, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, dave.hansen@intel.com,
+	kvm@vger.kernel.org, yilun.xu@intel.com, xiaoyao.li@intel.com,
+	sohil.mehta@intel.com, adrian.hunter@intel.com,
+	kishen.maloor@intel.com, peter.fang@intel.com,
+	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com,
+	chao.gao@intel.com, artem.bityutskiy@linux.intel.com,
+	nik.borisov@suse.com
+Subject: Re: [PATCH v4 4/6] x86/virt/tdx: Support DPAMT when adding memory
+ for the extensions
+Message-ID: <atXhz1APsHqBCQfW@tlindgre-MOBL1>
+References: <20261013-tdx-module-ext-v4-0-de5ffac65470@linux.intel.com>
+ <20261013-tdx-module-ext-v4-4-de5ffac65470@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: ----
-X-Rspamd-Report: REPLY(-4) SUSPICIOUS_RECIPS(1.5) MIME_GOOD(-0.1) MID_CONTAINS_FROM(1) BAYES_HAM(-2.999999) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -4.099999
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=X3gkuVRX8tdhLti2WNzQTsQKzVS/D9O3ELOwUGL+GC4=;
-	b=OHpzFPa9AHcbe2SSrRNebQ3tIBItFPrzk58HxTXH5GJAX8sFJr7rei2dB2X5B0kohLEyMkWi6f
-	DdPVoPL85Uv0lJkCitUc/tTkuKt29G8PyT0/Fpqjx9/anhGBb4r8GQ7BMX9o+T883loTcbIQaqgV
-	m3ic7YI/umBmsZETkwg5+kYvQygncU5RgicxvU8nve36v/pvOlXE644JTC7yjYoZ3s/knCUKEUUT
-	4E9TktfaIQ+/4HwNyfAJUR6ozajbvGiRnK6QFaGdQDivVQvbyUvVciu4IlSd3rt7YFGhkrzdYvLk
-	1mXk0SFiIdp4+un3edwAkuAHDkXdrk3RCZvYyt5GeSrc80bvnDcSvOBWshA8Dy9AuL+se38PqNoh
-	mbAWRnNaq+Ewy3GgX7aUITA9Z6xdopFUjtHwrs7GBlTTjEU4KkL3yfBELqZAeI2qPpt6+lKNimMM
-	yLz9V91ERp4vGqLvwB628F/mrcCx3MYkS+UAJozv7J+rG6p+9O0DRP6+NILQcVnIj/purQXsPEeV
-	UtwWA9YtlhgptBWYKlY/dSCkg+4MkUadVKnlP4mccDVPXxDjcY4RpbJxoXQ5uips/OrI1pV9yB8H
-	/n4uwhsxawjyAznsOpX+Enl6ZDbIxyklWncHXLR3dLcIIvd8JiGB2fy+Q9ylk8BxNF72C1mYaMu8
-	Q=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-tdx-module-ext-v4-4-de5ffac65470@linux.intel.com>
 
-On the NanoPi M5, boot hangs during Panfrost initialization. Before this
-fix, booting required blacklisting Panfrost on the kernel command line.
-Loading Panfrost after boot reports a GPU power-domain acknowledgment
-timeout:
+On Tue, Oct 13, 2026 at 11:28:54PM +0800, Xu Yilun wrote:
+> The TDX module uses Physical Address Metadata Table (PAMT) to track some
+> state for each page of physical memory that it might use. 3 levels of
+> PAMTs are used to track pages of different sizes - 1GB, 2MB and 4KB.
+> The Dynamic PAMT (DPAMT) feature allows saving memory by allocating
+> 4KB-level PAMT dynamically, while the 1GB and 2MB levels remain
+> allocated on TDX module initialization.
+> 
+> A previous kernel change [1] enabled the DPAMT feature by default so
+> that the kernel must install DPAMT before adding any 4KB pages to the
+> TDX module.
+> 
+> Although the memory for the extensions is tens of megabytes and the
+> kernel allocates it in a large chunk, the TDX module accepts it at 4K
+> granularity. Thus the kernel has to install DPAMT for each page of it,
+> otherwise TDH.EXT.MEM.ADD would fail to execute.
+> 
+> The kernel has helpers to install DPAMT for a 4K page. Call
+> tdx_pamt_get() for each extension page before adding it to the TDX
+> module. Normally, these operations should not fail, and if they do,
+> intentionally keep the error handling as simple as before - leak all
+> pages, including the installed DPAMT.
+> 
+> AI was used under supervision to review code and workshop logs.
+> 
+> Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Link: https://lore.kernel.org/all/20260904215841.303070-1-rick.p.edgecombe@intel.com/ # [1]
 
-  failed to get ack on domain 'gpu', val=0x113ff
-
-Label the GPU power domain and connect its domain-supply to vdd_gpu_s0,
-so the power-domain driver can manage the GPU rail. Keep mali-supply for
-Panfrost's regulator use.
-
-Fixes: 96cbdfdd3ac2 ("arm64: dts: rockchip: Add FriendlyElec NanoPi M5 support")
-Signed-off-by: Leonard Lausen <leonard@lausen.nl>
-
----
- arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts | 4 ++++
- arch/arm64/boot/dts/rockchip/rk3576.dtsi          | 2 +-
- 2 files changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-index 227fe6f3ec7c7..c056b3eeafed3 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-@@ -791,24 +791,28 @@ rgmii_phy1: phy@1 {
- 		reset-gpios = <&gpio3 RK_PA3 GPIO_ACTIVE_LOW>;
- 	};
- };
- 
- &pcie0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie0_perstn>;
- 	reset-gpios = <&gpio2 RK_PB4 GPIO_ACTIVE_HIGH>;
- 	vpcie3v3-supply = <&vcc3v3_m2_keym>;
- 	status = "okay";
- };
- 
-+&pd_gpu {
-+	domain-supply = <&vdd_gpu_s0>;
-+};
-+
- &pinctrl {
- 	gmac {
- 		gmac0_int: gmac0-int {
- 			rockchip,pins = <2 RK_PB1 RK_FUNC_GPIO &pcfg_pull_up>;
- 		};
- 		gmac0_rst: gmac0-rst {
- 			rockchip,pins = <2 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>;
- 		};
- 		gmac1_int: gmac1-int {
- 			rockchip,pins = <3 RK_PA2 RK_FUNC_GPIO &pcfg_pull_up>;
- 		};
- 		gmac1_rst: gmac1-rst {
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index b0c0d3c8b1b14..0dd7e9ca908ed 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -1075,25 +1075,25 @@ power-domain@RK3576_PD_NPU0 {
- 							#power-domain-cells = <0>;
- 						};
- 						power-domain@RK3576_PD_NPU1 {
- 							reg = <RK3576_PD_NPU1>;
- 							clocks = <&cru HCLK_RKNN_ROOT>,
- 								 <&cru ACLK_RKNN1>;
- 							pm_qos = <&qos_npu_m1>;
- 							#power-domain-cells = <0>;
- 						};
- 					};
- 				};
- 
--				power-domain@RK3576_PD_GPU {
-+				pd_gpu: power-domain@RK3576_PD_GPU {
- 					reg = <RK3576_PD_GPU>;
- 					clocks = <&cru CLK_GPU>, <&cru PCLK_GPU_ROOT>;
- 					pm_qos = <&qos_gpu>;
- 					#power-domain-cells = <0>;
- 				};
- 
- 				power-domain@RK3576_PD_NVM {
- 					reg = <RK3576_PD_NVM>;
- 					clocks = <&cru ACLK_EMMC>, <&cru HCLK_EMMC>;
- 					pm_qos = <&qos_emmc>,
- 						 <&qos_fspi0>;
- 					#power-domain-cells = <1>;
--- 
-2.47.3
-
+Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
