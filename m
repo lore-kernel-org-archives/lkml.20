@@ -1,88 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443052;
-	b=mjfI7Nn4lVVSICamunN6HrA08y2bz+rX8CKyfj4aYw0XSg2tknt+cbGDiEZeMctN68IS
-	 qEdDAaLPntjRfvShI+N2k2JVKel60aNDqQLlIVoxuGbNDnDsLGlET8eFaQ95J6Zr43Zet
-	 b4hlVT/D+iJP3k0+GHcUx2Ewt8Mlvhgi+4nL4j/R8fMrYPMnX/g25ufARQOzN8UAWEj+r
-	 qaUkva8iuQ+9nHl43Hk9x/bKJaz2eO4LqT8/zl9JZP/dabRnqmLU9MJOoQicetMS2Fyke
-	 BaX6Ku6oJ/lcJ668Rzx+Pgz6/L++km3JoisH6Q8ym8yHfRJA6r+RdqX+xZSP8jA/uOA==
+	t=1792443067;
+	b=4MWZb/0/dPKOTJeTAOJHmtN1mZVFIr/HzEgX7gn0cjbKIfBDk1OOn4QXcDUyDozD30Ph
+	 mLeuvBBg2ewHdteyWVHGELKOmUHzCZfpmFWM1NAe5EvOG1mlMqSW/h/jAVTr1aVu3Wi8O
+	 z+TydbaJjz+4gp+4xemckLnJ8Ysb+9yi2cVzSjlT7N4ofHDHWZ4giyDvGvpLnUIWL6VOU
+	 oL1EllfO5HbPbDScbnKKu+MzFHMfDPuJaJgIIDkwIqZy4tehZByeo+/XBRo/AWNAVLfAT
+	 pC9VdsIDTTpzbLoPhCJGsm9TvGmFZuNWPTQu9VHRCp0S4Zie0+teTFAEJl2Ulqp6e2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443052;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443067;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=fFV+ePMSuvzYML9yaWKb9HMSvgNkAUop4qhyYIxImGs=;
-	b=hjFlXZp74aeL3/JH/vBeYdwuaJ4T0/7JvvUjm7dyzwBm9MMiGsQX0UW7sZoPKF6zCzHx
-	 grKHL2jqdeIMPpI+ytVrIJCUuWrjfvhWQycNEYz6CHW0q/Vxt6iuHD3ksfytRrhKjeZaK
-	 b44PUBmlgCijkM7lp9FRuq+4eAJCSl/G6LlHqpxTH0ay4XOycn9jaV02rHDzfsSJ+6odf
-	 6ti4ws1MDyEj9HiNn3E4G+yxxfoSGXRPPtAn2JeEHAGQxGYUMylK9Qviw+ABunV1ClWuw
-	 3pcibnL1Op/fB4dgo2/HeeK7kqIPHeNM78EsNZDMa/QvY9qlyh2mZHW2n9wZDBeKjLg==
+	bh=cMxHhu55q/o95RP1vvVzg1JkTp2m0fLATx6ROeGb19c=;
+	b=RVVQVMjLq0kDpQHn5YpmnUmle5KMr1H1b8xVIq8jk/Aj/0Y3Vgojy4etRaUopnQIsfgP
+	 NVKCqJTH3G/qCtv7B2kX3Q217YCHqeuYc4SYsvGrDApFl4Ln3HzWi6v9DdKFSfrzRthUl
+	 20FC3u6/zASCQ/HtSi8YxRo3A3PNIVNdrmOhdNJwuLsYMFPwofiaMjTSgaUFRlBo2Hubp
+	 f+iuFYsatFQjRV4a/1W+v/ogc3NDDLlSaP9vxFADQuOAa2GpX8N9unufWcukEoNJ9OCpr
+	 YA2foZGUN93XgJxkKXmKqMJTo/ISfnqF4p/HW9IaTp3+gvns3Fqy1cKZda4cRCjWC+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZVS1cuZN;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=k+JQPBeT;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F7C606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6F7C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0315F606A33A;
+	Mon, 19 Oct 2026 20:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0315F606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZVS1cuZN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792443051; x=1823979051;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=OEhFWoohzJAQsnbEU6+qh3E8KtBe1eFBjZy8vQv9TdI=;
-  b=ZVS1cuZNEgMOh4qngt+LmRYwFmOkrhxN+If2iaJ7AB8kdqJL+FR9DZTV
-   9a/rE2PisOliBaqxBU0HX8sCJfEfyz/g4LVQpwnCUMJ9fRxCj2fx+VlMf
-   jQyHe56vgjf2BMDnjp+95yTv1JE9Za56uhR87ZGrmQHZTSP6gFnUTEUr7
-   qbH9MGoFh3NP+LFzLBKOME9v98/CVIjfTvVVLhLxraZ3fEjAzDltSig5G
-   jTtvXVafhMFtwy7qIWYA9Yck7ruV1JffM+d5esUgRPpMwYo0gRlZzu43A
-   GtllrS0F0Vyfs28PIBQeUaf58z6XnA1IfyUvVMedkpMx26Z4CbQHYTmqS
-   w==;
-X-CSE-ConnectionGUID: dFQS6jf6TNWebOlIbj0sqQ==
-X-CSE-MsgGUID: wB72WVkEQ0i/v0gsbHCfxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1131123"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1131123"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:48 -0700
-X-CSE-ConnectionGUID: 7OAd5viQSY64WiG03SEM2g==
-X-CSE-MsgGUID: dM2KSZ5bTUyxkHsd0ZxuHA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3008620"
-Received: from spandruv-mobl5.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.220.87])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:48 -0700
-From: Tony Luck <tony.luck@intel.com>
-To: Fenghua Yu <fenghuay@nvidia.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>,
-	Babu Moger <babu.moger@amd.com>,
-	Drew Fustini <dfustini@baylibre.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	David E Box <david.e.box@intel.com>,
-	x86@kernel.org
-Cc: Christoph Hellwig <hch@infradead.org>,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v14 02/24] x86/resctrl: Check if monitoring features are supported
-Date: Mon, 19 Oct 2026 13:50:09 -0700
-Message-ID: <20261019205031.16977-3-tony.luck@intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019205031.16977-1-tony.luck@intel.com>
-References: <20261019205031.16977-1-tony.luck@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=k+JQPBeT
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j7nks3X1HzlfvpT;
+	Mon, 19 Oct 2026 20:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792443056; x=1795035057; bh=cMxHhu55q/o95RP1vvVzg1Jk
+	Tp2m0fLATx6ROeGb19c=; b=k+JQPBeTRUxeqqN9jH5ZJQoGjYg/besJgX5fF3Hh
+	b72+P2nTnuqfe5MyzuP2O8/K7jHD5qWHiAx/gfkYI6rM4goKZsD0q/u4YsRdQ5xh
+	1SQhOqWKzXTBMTiAiNfsSROdO0GZNF/P40VVRTrV1gybxGjvf6wLJ0i5evDNkmdQ
+	KQMG8RxbTCNsCRUrWTfrh1eKbg3uRI42KAH9EG53xB/PrZRsKyufHY2usxoXeNX7
+	yiGSPtwWP8hxJGE9HuUnjrYmWWHFVxdGeuDToM81izB4h9Y/H3SpQ33T6dX0V9oQ
+	dXh/bscpKHI/rhUeOLCvBAoNffg5ZvZOVLtJBAjgs+/g9Q==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id IT6NnXxwkQPt; Mon, 19 Oct 2026 20:50:56 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j7nkl4QtDzlfvpH;
+	Mon, 19 Oct 2026 20:50:55 +0000 (UTC)
+Message-ID: <0da98f23-274d-4279-85ce-94cbe650de30@acm.org>
+Date: Mon, 19 Oct 2026 13:50:54 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,60 +70,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] scsi: ufs: core: Add a helper for clearing
+ hba->outstanding_reqs
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+ <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
+ Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261017084403.875420-1-stanleyjhu@google.com>
+ <20261017084403.875420-2-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261017084403.875420-2-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Both Intel and AMD manuals say that software must first check
-CPUID(0x7,0x0).EBX[12] (X86_FEATURE_CQM) to see if any resource monitoring
-features are supported before checking for resource specific features
-supported in subleaves. The L3 resource monitoring features are further gated
-by CPUID(0xF,0x0).EDX[1] (X86_FEATURE_CQM_LLC).
+On 10/17/26 1:44 AM, Stanley Jhu wrote:
+> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+> index bcc2512bf34b..71f4b9d0a850 100644
+> --- a/drivers/ufs/core/ufshcd.c
+> +++ b/drivers/ufs/core/ufshcd.c
+> @@ -6052,6 +6052,37 @@ static void ufshcd_clear_polled(struct ufs_hba *hba,
+>   	}
+>   }
+>   
+> +static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
+> +						     unsigned long mask,
+> +						     bool from_irq)
+> +{
+> +	unsigned long completed_reqs = mask & hba->outstanding_reqs;
+> +
+> +	lockdep_assert_held(&hba->outstanding_lock);
+> +	WARN_ONCE(completed_reqs & ~hba->outstanding_reqs,
+> +		  "completed: %#lx; outstanding: %#lx\n", completed_reqs,
+> +		  hba->outstanding_reqs);
+> +	if (from_irq) {
+> +		/* Do not complete polled requests from interrupt context. */
+> +		ufshcd_clear_polled(hba, &completed_reqs);
+> +	}
+> +	hba->outstanding_reqs &= ~completed_reqs;
+> +
+> +	return completed_reqs;
+> +}
 
-resctrl enables L3 monitoring based only on the individual monitoring
-features. It can thus enable L3 monitoring on a system that does not report
-support for resource monitoring.
+Please use __must_hold() instead of lockdep_assert_held(). __must_hold()
+is evaluated at compile time (by Clang) while lockdep_assert_held() is
+evaluated at run-time. If you don't want to depend on Clang, feel free
+to use both.
 
-Do not enable L3 monitoring unless both X86_FEATURE_CQM and X86_FEATURE_CQM_LLC
-are supported. This also applies to assignable counters, which rely on the
-RMID count and scale enumerated in CPUID leaf 0xF.
+> +static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
+> +						   unsigned long mask)
+> +{
+> +	unsigned long completed_reqs, flags;
+> +
+> +	spin_lock_irqsave(&hba->outstanding_lock, flags);
+> +	completed_reqs = __ufshcd_clear_outstanding_reqs(hba, mask, false);
+> +	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+> +
+> +	return completed_reqs;
+> +}
 
-Fixes: cbc82b172638 ("x86: Add support for Intel Cache QoS Monitoring (CQM) detection")
-Signed-off-by: Tony Luck <tony.luck@intel.com>
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-Tested-by: Tested-by: Chen Yu <yu.c.chen@intel.com>
----
-v14:
-Maintainer note: No need to backport this fix. No issues have been seen
-from this failure to follow the exact enumeration process in the manual.
+The seven-line body of the above function can be reduced to two lines by
+using guard():
 
-	Move maintainer note after the "---"
-	Put the X86_FEATURE_* parenthetical comments back (without "Linux")
-	s/monitoring features/resource monitoring features/g
-	Add Reinette RB tag
-	Add problem paragraph between context and solution.
-	Add Chen Yu Tested-by tag
----
- arch/x86/kernel/cpu/resctrl/core.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
+						   unsigned long mask)
+{
+	guard(spinlock_irqsave)(&hba->outstanding_lock);
+	return __ufshcd_clear_outstanding_reqs(hba, mask, false);
+}
 
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 55214d6fdc49..34ca3c7cc046 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -968,6 +968,14 @@ static __init bool get_rdt_mon_resources(void)
- 	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
- 	bool ret = false;
- 
-+	/* Any monitoring at all? */
-+	if (!cpu_feature_enabled(X86_FEATURE_CQM))
-+		return false;
-+
-+	/* Any of the L3 monitoring features? */
-+	if (!cpu_feature_enabled(X86_FEATURE_CQM_LLC))
-+		return false;
-+
- 	if (rdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC)) {
- 		resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID, false, 0, NULL);
- 		ret = true;
--- 
-2.56.0
+Otherwise this patch looks good to me.
 
+Thanks,
+
+Bart.
