@@ -1,180 +1,192 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EE34F649A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E29495510;
+	Mon, 19 Oct 2026 13:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417097; cv=none; b=PGFRBrV5oMeoHabkYESe/EDKTW1NrZUvC0YQV4e/VpmSgGtHM/VeogTLR7iKwY4ltjSWR2elUqIhKKnPRr13NIhdKCKIdWW4DVOTGN0dvdmJSUrcZhVmlM/5trcNIIKR1I39LWTSAIJgvj9rEma3VcxhwBHTEd87RUd4qu2cM5M=
+	t=1792417154; cv=none; b=ElOEqbYRFRpVVRWc8kKMGTngFNsjWPcxwUlqjNyB3JEb+88Xp59h0hza6/pCnkCbEqs/i2QrUZfez5XI4uDhpHNR7sbPmn2VFfnoRWHHrqTuJp7X4DOObivfSDA2Ooo0Jp9uCGYYc4kbo+PowXz3EgstZH5GLtA+kS99eILb1co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417097; c=relaxed/simple;
-	bh=mWHEiduWCdoe6oHOOZuNhdfgFF0aV6NZSx6eqvqdovQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bP8EYNTlU4uf4xPPlUBoi1YmzSu7ECq2PfEOZSa/4vurSfmnMZPtpolg3YXWe9tqhPtlOvRibBPmo8Gp5ltnmesIgoTNyqMHxrhXuMU4EEtQHWUki3VYyXCv1t2HrF7SBgEx5WL57OYAL1LGpC8PDWaMgpKrEs/xpvlmF0umaLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JF0pp6sL; arc=none smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792417154; c=relaxed/simple;
+	bh=uspzV/dJrz8pu2AAzfeE45CxyH97ulPh1CLm1+C3K30=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EQw6nV/iAi+G37TWJeCAD7TTrUKK5/DhVHPnUKX8vM0vW0hqj9smR9Eq8XIRT9ZYzRNC26yVPz6M569RVO58jgbqkO3HiZmDC77HCCLpNLhg3wbDCVp4CeGmmxZKhcHKzHERZVFccL4P2d9a/fyXIdeDeNxGERknUPprPkhczQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WQl2eY5q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JF0pp6sL"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4395d31228so152951866b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:38:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792417094; x=1793021894; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UH5Ra2iLtsN9dIdCSOuhdt13W7AxYmxe3vEMuRCu76o=;
-        b=JF0pp6sLLnIguaazsiO+D8KHOn2VSyhx3XQp9L/8CxwIBorhcD7hJ5msByWjr32d1r
-         CBvAm1F8tU/FcL/VGbXul5epCiHxk3nr1WOdaZL66xycPHGOdsOlWB/OWj4yqb+GIqwG
-         77VLVIFiwRTpCp0+xTt0UaNgn6dL3NZbFkDDvy6GNhei30COhknJTu+FiRYaG1s7YRFA
-         9XnG1FVKopyXS3DzL1rG0T33ay3Orzr90KwXgJhb38QFAxvevbvEEPZRVJrYK7Lvd6+X
-         0b697rjFYdCPSXHkONOBAFIZd+l8U+AjxD3n+AkSMYsBTUvRPD7/ORBSIAIS/kyEX7UQ
-         K7DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792417094; x=1793021894;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UH5Ra2iLtsN9dIdCSOuhdt13W7AxYmxe3vEMuRCu76o=;
-        b=y4rDErGYO01+3Auhni8Q54Wwy8CJJElyR4gpqrWlu5EOv2VkMyPr+pX53uQmobEE5k
-         EH9TwQKOtvCDJGUJhX+td/TX0doAD1bX7n67P3Co3CCESMsp8LQILqOpvRUxHW8FwUN2
-         0/5tyAT6Q9fRp0zrfthIKj1T6ai6YpdWmKcZ4i/WCRGlDyjD84si0g7aDAU5+ilSvKg3
-         S2EKpYenW0tmNWLdfYDGrwMOtADBiPjSTXJvBODb8uOa9KGeNZnS9Z2g/rCKSpMTzfky
-         BVKxGzYLtH1stzouKtqvUqqGa7W7fIZfJdrzvpZaUUkpON0qX2L2ZRDfAck1foAWGx7Q
-         r2tQ==
-X-Forwarded-Encrypted: i=1; AKwUvByIE9LXY7uDI4qfGNLNTZOwPi8KMmH6z7sphziybJM5wwAU5IigcdUTuG04Vzo7TYqlEUgTsqTNsQA02ZY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKY9gAb49Kuv76K1W31ocMTGhGT+nLx/LUyH5dIRmEphutj/VJT
-	H+F5W/tqzftvbRW4oB1gIBY2YD9J0YNDfwN1LjLCIanMT4pbxMDGRgiw
-X-Gm-Gg: AYBFou07fT+F/MONat6sQSsNat7d+VZO2Y3F/8+3tNAX1IUJ0mk7D4QNsIcevKlknL2
-	dWn3F98YHWD0Z4i/WNKWAJmhmU3kbCNtzLV3RrjApY8R5DKI/la36B+cSyHpVZv4GoHWmT+DNEl
-	Dkbs/uWrUc89F3X/6o+LUF/9r3PQ7Z26emWTnkw6QP2qOhB1PuMkrFXFWx39nitZbFGsLZvBAr8
-	cCakwWESiiBw77b1I4BCYhFVlfPtZNcY2bRxa3aYY20qO2VevhFc7b4q74T/BYqRtIISkujUndE
-	ZPKd3IRzByt5gn2G+TzgGh8qx8DEoaJIjlMoa5647UNXA9bHDbbc6iJlT7kUFJj5dBcAnpdBfkO
-	rTWuCdBi1+fyyKlwonXLxoHEzqjw6TZwxGWNTqmEAcgrodqBxXnIU3i/W+EpZ/vjSCJAxYfRXDD
-	0j2SGoBsrx4Btp4NS82undos11GPDSz+hQ2e530GcftswASQksQ7U1/oWJw+QVmTr/tjOw3mb5w
-	jWQxALOYNtFMl25ZVYws+4rHUpKlmQNq0UVEZbGgB9b05YF/4nnviSLN8nX
-X-Received: by 2002:a17:907:d86:b0:c2e:49b4:ab8b with SMTP id a640c23a62f3a-c419e0388d0mr490983266b.8.1792417093328;
-        Mon, 19 Oct 2026 06:38:13 -0700 (PDT)
-Received: from [192.168.1.122] (cpc159313-cmbg20-2-0-cust161.5-4.cable.virginm.net. [82.0.78.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503862sm23131553f8f.46.2026.10.19.06.38.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 06:38:11 -0700 (PDT)
-Message-ID: <e6e5a292-0512-47d0-964b-249ff35074ac@gmail.com>
-Date: Mon, 19 Oct 2026 14:38:09 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WQl2eY5q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943531F000C4;
+	Mon, 19 Oct 2026 13:39:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792417152;
+	bh=jFDkykTpCFq9YT8TT2xwNVz5rz5D5UYP/IyAQl0FhJU=;
+	h=From:To:Cc:Subject:Date;
+	b=WQl2eY5qduO/ycVgT9nFECZAtwHY8BcuxkWXEtGaMyZcoWRr10cgdIql5DB6VQJ6v
+	 pf/pzsioytZw2BC2C7loqHvXe20yFpfuGsIPAR2FeoFY+OZUhY/LR5HbRVbdbEhgyx
+	 fiesFcMNxTnouwP+oaTnTBYvdbcUEwiL6Jw9Ecm4XI0pHukfzFD26HNQyyYDFeb4SY
+	 TbcA7KpnDDkrgKaOU9QDiXAKlhUt3AQt6ZSTFUou72vo5ASNrkArSXOnCFbpyVyeAB
+	 5CRq8pVppS7nSk3Yzg9HDrStqoYiAvxGsoK8d7sIzSpri3gTMVZU6zQygsZ66eFVFH
+	 Rc5bJ2UfIXKdw==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v2] mm/damon/core: filter out damos address filter-split failed region
+Date: Mon, 19 Oct 2026 06:38:55 -0700
+Message-ID: <20261019133856.86835-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net: sfc: run hardware-classified UDP packets through GRO
-To: manpacket@gmail.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-net-drivers@amd.com,
- linux-kernel@vger.kernel.org
-References: <20261018-sfc-gro-udp-v1-1-f7bf378178f8@gmail.com>
-Content-Language: en-GB
-From: Edward Cree <ecree.xilinx@gmail.com>
-In-Reply-To: <20261018-sfc-gro-udp-v1-1-f7bf378178f8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/10/2026 22:05, Michael Baikov via B4 Relay wrote:
-> From: Michael Baikov <manpacket@gmail.com>
-> 
-> This commit partially undoes changes made by the commit e79255de8581
-> ("sfc: Do not pass non-TCP packets into GRO code"). Those changes made
-> sense back then, but now GRO can help with more message types. Instead
-> of passing just TCP packets driver to GRO now also pass UDP packets.
-> 
-> Tested on SFC9250 with a UDP_GRO socket.
-> 
-> Signed-off-by: Michael Baikov <manpacket@gmail.com>
+When an address type DAMOS filter is configured, DAMOS tries to split
+the region for the filter range, and apply DAMOS action to the filter-in
+region.  The split operation (damon_split_region_at()) could fail from
+allocation failure under extreme memory pressure.  In the case, DAMOS
+action could be applied more or less than expected, ignoring the address
+filter.
 
-This seems sensible enough, but I wonder whether, instead of doing GRO
- on TCP|UDP, it would be better at this point to just pass all protocols
- to GRO and not try to be clever about it in the driver.  I don't know
- how likely other ipprotos are to grow GRO support in the future, or
- whether the front-end check in the driver (potentially adding cycles to
- every RX) is more expensive than having random IP go partway up the GRO
- stack to then be kicked out onto the non-GRO RX path, given that
- there's not likely to be much high-rate traffic that's neither TCP nor
- UDP (whereas when we wanted to separate those two there was potentially
- much more value in doing so early).
-So on those grounds I think there's a case for a straight revert of
- e79255de8581, but I'm also okay with the approach taken here, so
-Acked-by: Edward Cree <ecree.xilinx@gmail.com>
- if you want to proceed with this version.
+The issue only rarely happens under extreme memory pressure.  No crash
+or leak happens.  Occasionally not applying the action to a few regions
+shouldn't be a real problem.  But applying the action to a region that
+the user has excluded via address filter could be a surprise depending
+on the use case.  It is only theoretical.  No such real case is found
+yet.
 
-> ---
-> Problem I'm trying to solve: I'm dealing with high data rate, small
-> message size multicast UDP traffic - uniform size, addresses - a perfect
-> candidate for UDP Generic Receive Offload (GRO). Made a prototype - it
-> worked as expected on the desktop during development, but wasn't
-> producing any GRO coalesced messages on the server.
-> 
-> The server uses SFC9250 and turns out its driver only allows GRO for TCP
-> packets. Change was made back in 2013.
-> 
-> Expected user impact:
-> 
-> 1. GRO will start working for UDP
-> 2. It might add a slight overhead for UDP traffic for e10 drivers.
->    (this bypass only exists for e10 drivers, for e100 (ef100_rx.c:140)
->    packets are passed to GRO unconditionally
-> ---
->  drivers/net/ethernet/sfc/ef10.c       | 2 ++
->  drivers/net/ethernet/sfc/net_driver.h | 1 +
->  drivers/net/ethernet/sfc/rx.c         | 3 ++-
->  3 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/sfc/ef10.c b/drivers/net/ethernet/sfc/ef10.c
-> index 73bc064929f6..ab0f5e8aae6e 100644
-> --- a/drivers/net/ethernet/sfc/ef10.c
-> +++ b/drivers/net/ethernet/sfc/ef10.c
-> @@ -2955,6 +2955,8 @@ static int efx_ef10_handle_rx_event(struct efx_channel *channel,
->  
->  	if (rx_l4_class == ESE_FZ_L4_CLASS_TCP)
->  		flags |= EFX_RX_PKT_TCP;
-> +	else if (rx_l4_class == ESE_FZ_L4_CLASS_UDP)
-> +		flags |= EFX_RX_PKT_UDP;
->  
->  	channel->irq_mod_score += 2 * n_packets;
->  
-> diff --git a/drivers/net/ethernet/sfc/net_driver.h b/drivers/net/ethernet/sfc/net_driver.h
-> index 71144bb4c6c8..57cb508d82fa 100644
-> --- a/drivers/net/ethernet/sfc/net_driver.h
-> +++ b/drivers/net/ethernet/sfc/net_driver.h
-> @@ -341,6 +341,7 @@ struct efx_rx_buffer {
->  #define EFX_RX_BUF_LAST_IN_PAGE	0x0001
->  #define EFX_RX_PKT_CSUMMED	0x0002
->  #define EFX_RX_PKT_DISCARD	0x0004
-> +#define EFX_RX_PKT_UDP		0x0020
->  #define EFX_RX_PKT_TCP		0x0040
->  #define EFX_RX_PKT_PREFIX_LEN	0x0080	/* length is in prefix only */
->  #define EFX_RX_PKT_CSUM_LEVEL	0x0200
-> diff --git a/drivers/net/ethernet/sfc/rx.c b/drivers/net/ethernet/sfc/rx.c
-> index ffca82207e47..929ecb539b64 100644
-> --- a/drivers/net/ethernet/sfc/rx.c
-> +++ b/drivers/net/ethernet/sfc/rx.c
-> @@ -401,7 +401,8 @@ void __efx_rx_packet(struct efx_channel *channel)
->  	if (unlikely(!(efx->net_dev->features & NETIF_F_RXCSUM)))
->  		rx_buf->flags &= ~EFX_RX_PKT_CSUMMED;
->  
-> -	if ((rx_buf->flags & EFX_RX_PKT_TCP) && !channel->type->receive_skb)
-> +	if ((rx_buf->flags & (EFX_RX_PKT_TCP | EFX_RX_PKT_UDP)) &&
-> +	    !channel->type->receive_skb)
->  		efx_rx_packet_gro(channel, rx_buf, channel->rx_pkt_n_frags, eh, 0);
->  	else
->  		efx_rx_deliver(channel, eh, rx_buf, channel->rx_pkt_n_frags);
-> 
-> ---
-> base-commit: 98c2ad4f5d805dbc1ea436a334ee59311806a48c
-> change-id: 20261018-sfc-gro-udp-5d3e9a3b2b54
-> 
-> Best regards,
+Filter out the entire region if the split is failed.  Update
+damos_filter_match() signature to receive the error from split.  Also
+update kunit tests for the updated signature.
 
+The issue was discovered [1] by sashiko.
+
+[1] https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org
+
+Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
+Cc: <stable@vger.kernel.org> # 6.6.x
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+Changes from RFC
+- RFC: https://lore.kernel.org/20261018220253.158238-1-sj@kernel.org
+- Handle failure in another split operation in damos_filter_match().
+
+ mm/damon/core.c             | 16 ++++++++++++----
+ mm/damon/tests/core-kunit.h | 11 ++++++-----
+ 2 files changed, 18 insertions(+), 9 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index b63e60ef89901..479169dc9ac75 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2551,13 +2551,14 @@ static void damos_update_stat(struct damos *s,
+ 
+ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 		struct damon_region *r, struct damos_filter *filter,
+-		unsigned long min_region_sz)
++		unsigned long min_region_sz, int *err)
+ {
+ 	bool matched = false;
+ 	struct damon_target *ti;
+ 	int target_idx = 0;
+ 	unsigned long start, end, wsum;
+ 
++	*err = 0;
+ 	switch (filter->type) {
+ 	case DAMOS_FILTER_TYPE_TARGET:
+ 		damon_for_each_target(ti, ctx) {
+@@ -2583,12 +2584,13 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 		}
+ 		/* start before the range and overlap */
+ 		if (r->ar.start < start) {
+-			damon_split_region_at(t, r, start - r->ar.start);
++			*err = damon_split_region_at(t, r,
++					start - r->ar.start);
+ 			matched = false;
+ 			break;
+ 		}
+ 		/* start inside the range */
+-		damon_split_region_at(t, r, end - r->ar.start);
++		*err = damon_split_region_at(t, r, end - r->ar.start);
+ 		matched = true;
+ 		break;
+ 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
+@@ -2607,10 +2609,16 @@ static bool damos_core_filter_out(struct damon_ctx *ctx, struct damon_target *t,
+ 		struct damon_region *r, struct damos *s)
+ {
+ 	struct damos_filter *filter;
++	bool matching;
++	int err;
+ 
+ 	s->core_filters_allowed = false;
+ 	damos_for_each_core_filter(filter, s) {
+-		if (damos_filter_match(ctx, t, r, filter, ctx->min_region_sz)) {
++		matching = damos_filter_match(ctx, t, r, filter,
++				ctx->min_region_sz, &err);
++		if (err)
++			return true;
++		if (matching) {
+ 			if (filter->allow)
+ 				s->core_filters_allowed = true;
+ 			return !filter->allow;
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 3fbb4e4e36fac..43e2f950f8ff4 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -1783,6 +1783,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r2;
+ 	struct damos_filter *f;
++	int err;
+ 
+ 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
+ 	if (!f)
+@@ -1803,27 +1804,27 @@ static void damos_test_filter_out(struct kunit *test)
+ 	damon_add_region(r, t);
+ 
+ 	/* region in the range */
+-	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
++	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region before the range */
+ 	r->ar.start = 1;
+ 	r->ar.end = 2;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(NULL, t, r, f, 1, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region after the range */
+ 	r->ar.start = 6;
+ 	r->ar.end = 8;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(NULL, t, r, f, 1, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region started before the range */
+ 	r->ar.start = 1;
+ 	r->ar.end = 4;
+-	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
++	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
+@@ -1839,7 +1840,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	r->ar.start = 2;
+ 	r->ar.end = 8;
+ 	KUNIT_EXPECT_TRUE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(NULL, t, r, f, 1, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
+
+base-commit: 7e7e74286672b8e164e60aec0e94f05f62eb357e
+-- 
+2.47.3
