@@ -1,126 +1,215 @@
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2198E44F54D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D333E5EE7;
+	Mon, 19 Oct 2026 06:00:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389391; cv=none; b=f1DGZtFV/lX3T+tPlIw0xj363lArvc5chrEJnTS619wtqp/rO5fnmmNF14J2NxXlHycGnrt8rf8lW1aC+QFUYziakkz7CLN5wspt4Z3ag8w/sGpwTpKDp/mp4jfgpoHFwxsFDi8IQBGJrG4Fa0I/AFJivNgi4Ktiw8jzzBzCskg=
+	t=1792389655; cv=none; b=DCOxXwr3ECVjaYCWaKDCAch1hjj3ETof6+REDwwDRm8BT/3drs6DUKqaxhiMzuzptpGvSiZYanQjVs54bNXlAJS9IODi3nIEvC4Knco53xR4VEVdKOhOu+LgEYLe0cA/3B/6JutTKojGi9rUu0j6DuUtEaANt8y/za+oZY77baE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389391; c=relaxed/simple;
-	bh=HTGKwnfLYH9sQbmZR4jgm3rmqqSqjEKTTF/qUw6axck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lotO4fL3wrsskpokEso1fA1+dz6Hyhh/JInxpCMGH3uZ2lcuQZzL/UtLHNLnKC800FROqlD5y/yKbjuFlcx5WvFDWo7v7NVOy3EnbP+Ku0v9oJJb0ZxPPL6fVXKBLhHbnezeP0O0y+Er/oekOnDvTtPUgEMOUs1otZf7vbreFaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev; spf=pass smtp.mailfrom=seanlyon.dev; dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b=KqqoozzM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=v2tiQJ02; arc=none smtp.client-ip=202.12.124.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
+	s=arc-20240116; t=1792389655; c=relaxed/simple;
+	bh=7quTRFphz4yNtwm02mJ5+bRkGYJqbCC4+RsFZyyoHWs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kglzsg2eBvtLO4BjQQUNMBwfZl1ddPUeX2RjHboUgaSU9rXmE8m5nahV74oUXm7YSKcd9OUvm+0vy/vbNhJ5VCC8APXs7sVVQ/flwspQprQ6/kiVbj85cMHiPRe7ujiIGx/Pa+6DtxTeJw28BwpR7dBRWwvLTqt0x//fnnXmCpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zbpz5q5+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b="KqqoozzM";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="v2tiQJ02"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id 0F8901D00153
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:56:27 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 19 Oct 2026 01:56:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1792389386; x=1792475786; bh=LfsgXYX7S6
-	XEMaq5hg6L+X+ToacozK9CRcIiiRJcD64=; b=KqqoozzMTGKNaW0OnMrnv4wIK6
-	kwCRU5evq/7xPv67cXk3tNkKIIo5KfiNqfLZua8aHyv6/qSHnTSJA0Ls1nrTeRza
-	O/JLJoiKpMVt0EnfT0omQ97P4ld0r+tixgCyLLG2NSb1/Op41SYTmWXM5zcyhu1u
-	ndiE5ms/BofTe/yAViL/5ujQGIZ4GiPVIqL1H6EG4ZBBiHAdNwOJh7k+PFP70KvD
-	Y/q+sRDuGplwJ/o2K1o+6utVKQAFZUkYB65tk1akDU6r33J4RTsnNR+UqyE/fbjC
-	0eEBNE+tKLfrwMADwZUdHysMFqBy/GqwyTOgW0AEbcFQYqgx7wVRMMO6YkWw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792389386; x=1792475786; bh=LfsgXYX7S6XEMaq5hg6L+X+ToacozK9CRcI
-	iiRJcD64=; b=v2tiQJ02uJpUDtyt5lcDLSv4VGC7GlGhHLJdpkavUSfwGt28xWP
-	UsvQoMwQOdUR3uyQpwqxySqxsXDIWhSDiDKLywIud/Ny3huynwPhgMfFvnBv1U1H
-	Ad+Bc6dqN21+HYJOXgMzzwUI/GWOJlGRU7l4Sxmm26HLc7yLzHS7AA+vqnnoHVPg
-	2z/td4MdCmhfanTlM+Nm+qmaY5D9FCgXgj9hZ2drGYhZe1WWqSf1RN8Z43+N2c/1
-	Tu9EUEG5kNZYIls8VfJSDptmc4fZaWASHiQWCgrbpjQ5quHnDpgfM/4GMMTCiSBx
-	nZY79FltnkS0C14oJyXJZDpzvx6RCJCEFjA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=seanlyon.dev a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792389386; d=seanlyon.dev;
-	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:ANS3m0R8WkdQlduJwJ7YIiIKcL0RQU4oxg4URJATVTmpIjv
-	CpTHB5Wco7tgtZWEQjVNjM/EUn+vUMLBiKckoyrzv/4t7Wg+db+WqpmfhpNmJThe
-	Re57myAY9hefjOCP2ntXPh9Tt2xrct56SVV62e7FgIGTgmTF4vvhKInWXgCIK9x4
-	eElVtvZCY0HJocImRlv3NzZ2nxstLZlobup7rj87dfHpxfGBVEbuJ9EdE6GhcRod
-	mq2IheQKJdjhm1D48WExi/gyAp29U6QsUzhd4vfOwyAKn8DMXUFBaGXRvn+Krhn0
-	O3J5TJXDi5npqtLw6lBnKGUPDWyWvS+gv0Gp6XQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:U9ElxEG/jPgoJeWySPP9W/VOJMtTLCBIJwF3GEj7NwE=:HTGKwnfLYH9sQbmZR4jgm3rmqqSqjEKTTF/qUw6axck=;
-X-ME-Sender: <xms:CbHVal3UW1liSXpHEJPVYeF-SVkA1f-gOPYuuIpW1u9nYOJh2oeAUQ>
-    <xme:CbHVan9IpNSz14ivoAnk6l-c-iFQRhbZ6RBoMBPJnTEgf3Dbj-LJNxsJazj5HpFIH
-    1NsP-8waGFE9kJGzXEOAsxeUDLkIbws4LLE7qoFVvrMIdXjXqNh3Rl2ng>
-X-ME-Received: <xmr:CbHVahbfPCOC9wsjs8JcwyAFBqA3wF7V6e2yitJnPrwADXG-qgxzYwA29HY1urVtRJ288f5n6aCMCyfph7eO8fQ9kMc>
-X-ME-Proxy-Cause: dmFkZTEUaVLKYko0MyiWFKhfebKoDmpe4JifwL4IxiJucUPynfOcgcGHE471IhtrYKsx8Y
-    xFo0EEtgcdmULc8WTEiWNTnhhz6TGsnMxSdv6h47oK2K6KgR+DqbCD+RYp0V+PewkCbiq9
-    kUbuoNmxBXfvetzEFoTZmMuvU8rDfF+WvxuoZRfVjqTkyehkxKwo2tLYRl2m3HDpgqFnjP
-    aWb7hIllC/24/RNXDftGyu7FgaBPzoKvivEJQ/w1Jt23z01P3R+5RiTYo/Ved+pkoTl2X4
-    KU4MuFZr+Jtib5mriNztx5LNn8AppEqfBAK/7Hslruck4Ow6NtbYyuLEqUg+XxX1mEv+Lc
-    ZSZVrJoikyri6K4JugXE6Vlm6hL1GU8IB1FJ0Zn4IuzuP4ZNAiNSmh6w+8CvLT5RHz00Kn
-    gF3P7NG7CUrwb0JtAwmCCo1BKb7+YKqS4iKFYJRdDDyDwORz1x586x17dXOS5Z8dB0ckuc
-    Ff36kQ3NbGxCHv435iC5BF6sjTgic8lg0iK8QtVaixTwXBR5M6UqmdpZgaKPP193/3WE9S
-    NQV03Ekr24jULSgqhR4UkSy57tB6pICKh0H5uULtBiM5cShENZ/dMJFqZrj+1rP35WN0ZD
-    NXuX4XzzHKgc7+Zq9L2WvAFJJy1Z88BvtybV/rl0S/9m5stAVmSsREvhGOKw
-X-ME-Proxy: <xmx:CbHVamyqE8FGbBBBCDIdmFkqBEUaLkImXGZmM7iBlZFeYTfj5-Ezag>
-    <xmx:CbHVav9QeB_qEezRnAl1VqT-1RjvtxhrBRmZhZw0DUbRZbGPMlhw8Q>
-    <xmx:CbHVaiwtbww81xt_UFdQQ7YsKRJtGxyOTod9LTAtmVQsWzZasNAaKQ>
-    <xmx:CbHVakvlRQSH5Eb-8Cv7k4Qy7BAbJiil2rT4kfQtW0pbJ_l33vlB5g>
-    <xmx:CrHVaiLj63OJVIYiKZY92EO1gKB09CSRCaqib2pgNhEpePZlMhCq2pkr>
-Feedback-ID: i07c64b5b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 01:56:25 -0400 (EDT)
-Date: Mon, 19 Oct 2026 01:56:24 -0400
-From: Sean Lyon <sean@seanlyon.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 000/869] 6.12.114-rc1 review
-Message-ID: <atWxCC4cJhFjYmCS@ncase>
-References: <20261017160036.979869304@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zbpz5q5+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A441F000C4;
+	Mon, 19 Oct 2026 06:00:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792389651;
+	bh=hL5PQEK/ie9WfNiFzlAjb8P6kM5LwoPPjq6aWCCppCc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Zbpz5q5+6RVkJa2gx9yrULY66JBVQz6RjOFTSlHqlXNAAT3zSgoZlF78ffGQ1xwRb
+	 Iwh/3hF1S2K6upOfbfK7Iha58xCpcuPn5EFFGbd2V1BI/EUwx0jgPsJQ453dzbWLFo
+	 Mcq0MNYYZDwRqfkIhOKSZ7kauhqTFhEsckaoB8uwbDHn+R4IDM5YG5lmJAIMvAs+bS
+	 BqjG4zp/5K+IJ/pjA1u+orH6J1v7EkhXM3Oj+C4oMauYCi5ZtWGYlyN9lOcpZhxs1/
+	 VaDXm4qFEc6gXqip0jrt+9mFkO/HsG/GPk5jpuaZHHv4VwWnxn0ea2zlsFqb+xzjOR
+	 Jw+UtE1+PJzlA==
+Message-ID: <c84d861a-2e28-45b0-80c8-e533864d5e6c@kernel.org>
+Date: Mon, 19 Oct 2026 08:00:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] dt-bindings: i3c: Add Amlogic A9 I3C controller
+To: junyi.zhao@amlogic.com, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
+ linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
+ Kelvin.Zhang@amlogic.com
+References: <20261019-a9_i3c-v1-0-329d819d621f@amlogic.com>
+ <20261019-a9_i3c-v1-2-329d819d621f@amlogic.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261019-a9_i3c-v1-2-329d819d621f@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 17, 2026 at 05:47:21PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.114 release.
-> There are 869 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 19/10/2026 07:34, Junyi Zhao via B4 Relay wrote:
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - amlogic,i3c-a9
+> +      - amlogic,i3c-ao-a9
 
-Built, booted, and tested on hardware for x86_64:
+What is ao?
 
-- Intel N100
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    maxItems: 2
 
-No regressions found.
+Names go here
 
-Tested-by: Sean Lyon <sean@seanlyon.dev>
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +
+> +unevaluatedProperties: false
 
-Thanks!
-Sean
+This goes before example
+
+> +
+> +if:
+
+And this in allOf, see example schema or other bindings.
+
+> +  properties:
+> +    compatible:
+> +      const: amlogic,i3c-a9
+> +then:
+> +  properties:
+> +    clocks:
+> +      items:
+> +        - description: APB peripheral clock
+> +        - description: I3C fast clock
+> +    clock-names:
+> +      items:
+> +        - const: pclk
+> +        - const: fast_clk
+
+That's just fast
+
+minItems: 1
+
+> +else:
+> +  properties:
+> +    clocks:
+> +      maxItems: 1
+> +    clock-names:
+> +      items:
+> +        - const: fast_clk
+
+maxItems: 1
+
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    i3c@3a7000 {
+> +        compatible = "amlogic,i3c-a9";
+> +        reg = <0x3a7000 0x10000>;
+> +        interrupts = <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>;
+> +        #address-cells = <3>;
+> +        #size-cells = <0>;
+> +        clocks = <&clkc 15>,
+> +                 <&clkc 16>;
+> +        clock-names = "pclk", "fast_clk";
+> +        status = "disabled";
+> +    };
+> +
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    i3c@22000 {
+
+Drop, one example is enough.
+
+> +        compatible = "amlogic,i3c-ao-a9";
+> +        reg = <0x22000 0x10000>;
+> +        interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
+> +        #address-cells = <3>;
+> +        #size-cells = <0>;
+> +        clocks = <&clkc 17>;
+> +        clock-names = "fast_clk";
+> +        status = "disabled";
+> +    };
+> +...
+> 
+
+
+Best regards,
+Krzysztof
