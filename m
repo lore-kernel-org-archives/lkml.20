@@ -1,62 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792421851;
-	b=0fZQBcxobdAbRvOLdTOmpQyxbMAa7WWwMnMVEbn1vPH6talT9J/K66+FoalsU7JHXOxO
-	 EvlV3+QMdOqJCAyQdLeZzRHM+j2sMKP/ppXdAJLATXRFD+heoD4oy1xacNgcN2ZnjAltN
-	 eCkGe7FTCBfhs8Hw+cwWSYsPodh+GiTc0GC2QXxTvj5zFeO786vWOr0BZU+6xLQbgLTG+
-	 EMhE6kyQrOV4u2MZpPzj4dOTicGqCE4ijNnLe1BlpA7DdSNMbnCerIotaiy3SGUnUrDyY
-	 a/xwZnfENtgekcnMcnqIsc75Tr/+xb5wx3aYVxAg9yL75WcAeuGqHEovj3WaJRLOttA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421851;
-	h=Received:Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CC9KOYdH8iipSn0DMAkiuxxsVI+upeJ/ejzJwpUoiSI=;
-	b=XeE4KiEHWJICSyNB16l+sc4NU4ClnBbaCaYDrt2J3NRUckQcLInZPgJkND74a2POy9e5
-	 fGvSEetkvFuLvDhkkdpXoshcM2T7o5J/HEkd+dYzZyry6HQUoU90Yw9NiVZvrObV+4/4d
-	 qbxBWKu8DIi6xYt6PR3Z1EG1A59Tw2oCaOcqvwD8bnUsaVyhWDutkiL4GFdje/b45lYnw
-	 5FRxk+GVA2pqcUnuYUI0KFbCm9dQ98+EY18mF28wVoNBZKVDWtgQUBh6XqRJ0pDJQxnd+
-	 mPldxgtz7B3VNQSIkZcYSBH7u52XYskq+l5JD9pNevOD73bAhPr+826uwTU9ZsgfWfQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f972M3PB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D387A60740B2
-	for <linux-kernel.vger.kernel.org@localhost.mlmmj>; Mon, 19 Oct 2026 14:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f972M3PB
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792422875;
+	b=0aDoASZUX9N8q8uz7jvKpbX3tlVBs/JZAwTgnI87XDldcA7GheS1Zua1zPShfwF+O7qV
+	 6K5aBDOO7jOr6k11rOKKZ0wTRiy0TOvFCujKU4mmOaBDsXf1KLAITwglBYXDOy0zvZL5R
+	 NhrJOijUPmgroSSGAyW5L1u/kvcjJv/POj0pMVMqcbvjYZAR+OngdVHAsu0MfYn5Zs9gH
+	 Clr37Yr/AeGpyqqzhAVLoLvGYl6E6w5fg7gv26GgqhCAEUyXraYl0LoeyniYg/1IiKv+M
+	 u5PTVjO32hGrG6wyj+AE2vgMQ/tEoiwngLum+/tteE66mt+U803bHZufSiyH5zZt2qA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422875;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xIJeajS9jjtNcUTuok39zQGD54vxXLVdXbql+UaLazs=;
+	b=a8Br/XZ4FgvHqgeETPyZgGbIoykrHRGim5hiOqmyZnoLtPdTbmQZdZFaM7dJOjn+G60P
+	 aG/rKcTyP3EQCQc7Pp07/DwuqeJY05WrcGPVhOrifuiDpNEncBvw+OS4un6SLlcc4KvhF
+	 Q7Jp3FxNqWDVl3YWCVNdab4aexsS245kT0H/V4hstdvbDlSzPKnJZYps1Hur2IG+2I0vt
+	 LyCC/C/Domx6NTm6o9vtN8kjagIrcEAVyTNR3CaLnFBwDzT5l8iwBx6QKOZ53MdtEJElu
+	 oS6SOdk6ZXkAqCp1V7Eaeutsb2Wze12BDJeLj+m7VP/FX+vqM09wTP3dphHTb9sL9cA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dLK2KVCg;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6EA6513F3
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421851; cv=none; b=gV8kXyZQdCitXTQyRwe8j9Hu4iCRUYjk8FyKWNiZyogaZbPOdQTsHtDwMCsBFhe6PunjayUiSc2OTagg1jORKjB8j5MAHyiauNW+Pxo3Vcg0k21K+EoNJh7hAO25SblTb6EKx5UviKEYPNr8spP/7/hXaST7S4kFdNoBaGFF2oo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421851; c=relaxed/simple;
-	bh=h46JYwZL+29g5uUJsUhXDYs4fuoB9mGkH+A6SooeuuA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Y1+oprenrKHbsKKLwWLDMpO8E/uq2VTEm9VcPdVLsrbx0MxxhtNEUn7Bi9ARyw/MAKCQOqnWhpg8Q2FlIfZ3QpCIZyZqazm1xrAJXDZJ40dNg1lmljHX3d7ESQd9poTpn7V3rCbLFO2l9DbQtzFpHsWwxNm2vyObtvoOLQOwoyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f972M3PB; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366041F000C4;
-	Mon, 19 Oct 2026 14:57:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792421850;
-	bh=CC9KOYdH8iipSn0DMAkiuxxsVI+upeJ/ejzJwpUoiSI=;
-	h=From:To:Cc:Subject:Date;
-	b=f972M3PBK9ekots40MMWEY5ROIY2rhSMd/l94jc3k0g1i5VxdouGTo5354POAC4vk
-	 lXNROnuTJldCeq+2zLMrY1+lvz5e2yFfEDEatMsp90DfAPcKTp9WP3GfDl86G3ygdH
-	 pZKnolE2NN0vgC19WAzRMvvOW2cee/nO4khqnPBxRsMLHgC8Ohfh9e/sAJREH27XuG
-	 pTMKU74q5kj9Ef5IPpdLMM44D/zog4WpwJ4CHFGiV8ebjW7vxeVc+mdFgRsFwKR9En
-	 +fxr7zjbVgkZRUP4RDyF984+7XM9VWLjAuHrRN8Omz+Z2oceH1iMT63vbh/o2KOkbk
-	 Y04BNk6DB+Wtw==
-From: Dinh Nguyen <dinguyen@kernel.org>
-To: torvalds@linux-foundation.org
-Cc: dinguyen@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] NIOS2: update for v7.4 part 2
-Date: Mon, 19 Oct 2026 09:57:21 -0500
-Message-ID: <20261019145729.2619867-1-dinguyen@kernel.org>
-X-Mailer: git-send-email 2.42.0.411.g813d9a9188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54D7609CECD;
+	Mon, 19 Oct 2026 15:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54D7609CECD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dLK2KVCg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792422875; x=1823958875;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=G5nEe1IhmdwwprxW4cb6uNZ0ux+LJmOrwz33ArBAsZY=;
+  b=dLK2KVCg9bgIc9cHErUP5Opk+ZZOChtQF4kDZFNZzqU3V5nJAhGxxDba
+   qqYqbxSKKlhrM8Zr/djBS4WyyYw/3Yrhw95Rgq+55ThfYK0jJ6Uy/DOEj
+   rSi0OP65EW1pyqaO57prv71etxQvnidcF6kQAxjASsnGkbMae2ff5TrkW
+   2EcqVWKNEfE0YxpLq8RVrJ9EzpdV0j1alPwAdGP0B83Hu8dui3gZVsg1E
+   CzBb6iEZ/4nFV2TU2C3omxdZHG2wUDbGSCJEBe1YnLHBID4wnlTzEU1X0
+   MmBz1IAY/k95viB6K7U3iixjYt6uxsCEU+ogGGBNUyvv9J2ycWQRjj+ua
+   Q==;
+X-CSE-ConnectionGUID: 3DSCbVpVRkGmEL4m+Oc3kg==
+X-CSE-MsgGUID: Dn9TagwpSqmLGNdmxJFbWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986900"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="986900"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:34 -0700
+X-CSE-ConnectionGUID: rF/5olWiQqmz3RTMepllKA==
+X-CSE-MsgGUID: 1OhYzD1fQjiHK/xv6WrXSg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2536950"
+Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
+  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:33 -0700
+From: Daniel Byrne <daniel1.byrne@intel.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Kristen Accardi <kristen.c.accardi@intel.com>,
+	dmaengine@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 03/17] dmaengine: idxd: refuse a memcpy longer than the WQ max transfer size
+Date: Mon, 19 Oct 2026 08:06:16 -0700
+Message-ID: <20261019150630.4026341-4-daniel1.byrne@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,28 +90,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The following changes since commit b963f2345fa20417401c51a69dedb6a58eea33a9:
+idxd_dma_submit_memcpy() checks the length only against the device
+limit from GENCAP. Since commit d7aad5550eca ("dmaengine: idxd: add
+support for configurable max wq xfer size"), WQCFG is programmed with
+the work queue's own max_transfer_size instead, and that is the limit
+the hardware enforces. Since commit 92452a72ebdf ("dmaengine: idxd: set
+defaults for wq configs"), that limit defaults to 2 MiB.
 
-  nios2: fix __wsum type degradation in csum_fold() (2026-10-13 18:37:54 -0500)
+A copy longer than the work queue's limit is therefore accepted at prep
+time and then fails in hardware with DSA_COMP_XFER_ERANGE. A client that
+sets only tx->callback cannot see that error, so the copy looks
+complete. Also check the work queue's limit, so that prep returns NULL
+and the caller can fall back.
 
-are available in the Git repository at:
+On a Granite Rapids DSA with the default 2 MiB work queue limit and a
+device limit of 2 GiB, dmatest with norandom=1 and test_buf_size=4194304
+reports a data error for every copy on v7.2: the destination is never
+written, yet each copy completes. With this change the same test fails
+at prep, and copies of 1 MiB and 2 MiB pass as before.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git tags/nios2_update_for_v7.4_part_2
+Fixes: d7aad5550eca ("dmaengine: idxd: add support for configurable max wq xfer size")
+Cc: stable@vger.kernel.org # 5.10+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+---
+ drivers/dma/idxd/dma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-for you to fetch changes up to 2180d11e06fb56fd13643ae59964f144896870be:
+diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
+index 9937b671f637..c116416e10e5 100644
+--- a/drivers/dma/idxd/dma.c
++++ b/drivers/dma/idxd/dma.c
+@@ -115,7 +115,8 @@ idxd_dma_submit_memcpy(struct dma_chan *c, dma_addr_t dma_dest,
+ 	if (wq->state != IDXD_WQ_ENABLED)
+ 		return NULL;
+ 
+-	if (len > idxd->max_xfer_bytes)
++	/* The work queue's configured limit is what the hardware enforces. */
++	if (len > idxd->max_xfer_bytes || len > wq->max_xfer_bytes)
+ 		return NULL;
+ 
+ 	op_flag_setup(flags, &desc_flags);
+-- 
+2.43.0
 
-  nios2: ksyms: Declare __mulsi3 export (2026-10-19 09:24:54 -0500)
-
-----------------------------------------------------------------
-NIOS2: update for v7.4, part 2
-- Declare __mulsi3 export
-
-----------------------------------------------------------------
-Thomas Weißschuh (1):
-      nios2: ksyms: Declare __mulsi3 export
-
- arch/nios2/kernel/nios2_ksyms.c | 1 +
- 1 file changed, 1 insertion(+)
