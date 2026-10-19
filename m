@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792440809;
-	b=egOsmJtaaCfd4vGEaMP7dkmMSG5uKcPDdB5aYDnuX9DNDX7h/LbDBhIRxuXqIkH2Hk9g
-	 zUfs4GElfolNMEFVDFjm8BuBBU17m1H8EWUSFubHgoXNvICeN2WWE79acVIjbLf6lnAqd
-	 AdRyaF1dBu15GiiAyc+AAD0FDabX8tk9bl0LjUTh7bYYUHtS6guA9Z1bZe4XmVEm54bQV
-	 eK2Azt1kksPxOSf1lM5wy7LQwUqKDr67GToGnaRQZOhADBk3XGcwICAmWvsCaPBBNXzZb
-	 xCfh5h2ISf1OsyU2jdrkk2p2n6H7wcAkx58hjCNN+5Gdo9Kj/n8cbiiHEqikyyhbN3w==
+	t=1792440848;
+	b=0jRh1k1bRyLAOoz0RVS4lTxmBoddP48kdrh7HxPajKxfYBq3T0Xi/+PZin+3VQrqrOwk
+	 GZG+22qFiesqjPTYozNz8m/T0y/y1FEMiUpUTwUR7xPUJeqJ6wY8PRlq68dDewC489JHy
+	 Vb3ZiV83tNC5OG848kFujKaxDlZTXUdjCWLvsoY7OqI6FexUHUXPsMHW0hMqegcx2ZhUO
+	 oJyfArhAF1TpopmDdyp7+hbzX6tBGb0iU6RnYD6m4eKE1TEr6/AK/obh+luGjXvU8fhFq
+	 TuWQU+TID3CZqt+iB7EW65OsEf9G+3TSDaUTJO4i/v5Zm/gu/A+CPgMlOa6U9kCwncg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792440809;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792440848;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=33VILW/iOz2Ho7n7DFsaPmdMpjSfqsU0e30Nc2GjpZ0=;
-	b=W94jN26wNQuS0+EafciaLIuco8mwZkNEv3hscWJ5ZUADAhUL/1aAsoUEYXL7KoifgAyl
-	 pqeQSgaSDYQia/zm+EXDk0b3j1bFMVdz2vrku1lSg+AAKET+X/gw8gffDFJGIJVp8BF+l
-	 OyWizz6W+4wlJetGXfTvxiCGgk6VZJ/jg1i7kqAZEKTUR7O+vUSdSiberCZ7chjcOHpWU
-	 qoFBG4fPxM6tGGjNweq2lqJYMfUgpKbUd8k5AnAbjg4eWsQsAlNb7hAJY1G7H7zB9hbns
-	 n1f8nDWQb8UtFLylqrzi9atlIY9EWoTryI8XPe02POH/30Pk3wc35jlG45o7qLvY1QA==
+	bh=tQ/Eevs1qc0B1ETH+DkpySLtNug9OnFGZO2K4RbuMeA=;
+	b=Q8ehA5ipjbDz2BU2Iau477bkQmcYY91hrp7zot19m0dctDEB4mQbZqKWkevvjYaPAHHU
+	 0nxjrjdi2sUizOGw0EBNrswpgaRsjmt7l3BY39bNyscIi+X0beTcLkQAoRCF8MGdv1lPc
+	 Zj7WorIvLixApEwOYqsfNsW4bX4ds3Inr6FlCT4WgvhtkXMcNvLVTWDpnzHFt/LSeNd5L
+	 Ay3iPRU3DWUAKI11M3yon69iPPhHk+0hRLsnrxLKmA7MasdpXwZDyjeWZnsz5K6ZNIlZs
+	 Y/G20EiWzOC6oWYzocN/5zwP7JrxRp70QDRlRTpGL9JPYWsKCTwfU2hE3E2XQzLbAwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=Qw06nLbI;
-	arc=none smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OZYO12Yc;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A81606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26A81606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8AC0606A327
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:14:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8AC0606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=Qw06nLbI
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b0c5a64de8so512837b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:13:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OZYO12Yc
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35943f55c06so78898eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:14:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1792440807; x=1793045607; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792440847; x=1793045647; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=33VILW/iOz2Ho7n7DFsaPmdMpjSfqsU0e30Nc2GjpZ0=;
-        b=Qw06nLbIl6vgcbPwBJNaM6cguWt+HvtAQKKN8jK+h3l3Tpxby7v/7B1zWmhf+sYXTQ
-         quIXO+5TRQpqMi5nfR0qq2KQMZMg1D4Azg2seDePtoylhZOeqSzzs4eO9nryfv5mPFD4
-         l7qkR/mmAG0Voijmtar/Yz9AJu3K/uHqoPzlNsYmKHctwaW5T9nGjw5zShcfWHJ2yG2w
-         lMHbt1tYYGH7vc5jqT5j/hx5trBryn9+kMmDFhoLDNCYcOFdTm3wA4HdBsTm0O+T74XM
-         FHZzGVX1QcPE9Ozg+XNpcPqTJgVonXNosaV3lOrkCn5Wykxs1aTlXXKNTWzSTzpzPXN/
-         /Nbw==
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tQ/Eevs1qc0B1ETH+DkpySLtNug9OnFGZO2K4RbuMeA=;
+        b=OZYO12Ycc3vPEovHCGXwJhPLH9PH1fd2AujveGshzfQ/Rw01uCafBZwim39ej9ASUV
+         guuW5V3SZKVydXR3ZUZ3yc+h4hzTZnrhqEjXvUfAwTEVNzimmHXJ6YonKewbdT7NYMMI
+         sCdoYjFsEZRpPhoWMm7NR7i3X5bSZBN4Jn7DddiWfMht8mDIlh++A3O/oWjzMnO69m6q
+         akoA4GmY3x69dOsI4+Fj+SvP1If6MACbhHl5VntKUqx9Vc/4UR2+wG4w/CqMvYCq7QdP
+         dTUayBZFnj9XoMar36s5CCfHb0JWa3u1lAmA/F1eQ7vtmdlVcj6lyOWCLJmEdAFisgUz
+         Xi7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792440807; x=1793045607;
+        d=1e100.net; s=20260707; t=1792440847; x=1793045647;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=33VILW/iOz2Ho7n7DFsaPmdMpjSfqsU0e30Nc2GjpZ0=;
-        b=HZU7jYDktuNMsQT8hJy30BuCwlaqlcOhoOkF00UFlceLTJm8C47PDbYOfXcyb1cGko
-         yLUNjCPZOcqH6f3etzgYR9RyOkTBdn7fGuenLz1/N1YzJ02Wlck2nVQlBqvQQcZdcyiJ
-         R8zFGCmZcGAhP+LncWEu6RQt6BmaGOgzhJ2WVosNmoBPC6KJF8GX+eMDTV/o7rUmvUON
-         GPFonxABwu7mVy1IBBXc1bup14Z4CzjB3a6ZNxDBOXE7QHKC9ixLvnlthH7FlNWjZT1a
-         BSJ1/Kq8893wRtSPZWD7K3PV4/Tvyql/fQXmNsemxvhMhkOvFT+ShGKaorvVrnkmcsh9
-         2iUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/HN+8gP4CC4lf57ViH30ADC2iaDzdEx3ybN1FQaIfW5G3DW4If75ZJpwMHu06qlw2i7GKV+887kbecsA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLw2rrH/Gpz0fKal7H8s8Hz8I3jPDxXksCs0EPHYcEF3okoaq9E
-	QcxNsjqCC+CdaKzwPQtuk/Emyq7Aectj7BJC/ODlbxs94iPjlFsrDM9ciBZZtgWnhlE=
-X-Gm-Gg: AYBFou3Xkzl+A+6Py+WBVJGiWT78BSYHiraWDe3Xq4YEXqmVu3NeJW8eff9y1aPdb7F
-	dj3U0YzFjSs9XTlhMxyTm2UrXBdw1EfDIB91QCFR9oJFer7rWixTmIH8xlvL0NM0kqdxtIs/HiS
-	iXcVlqtcRK0ZOgqGZz1Ic5RfDGVBaJEMaQe6VhTS7q5Z1bILUp7zO2okEhh/jHNiPW/AjQyMN1Q
-	12m5VW1QYMJRrVj5GfDPmKlK/Gwb0AeOyK3fQWRMQWuFqNJF7vByOuNM+MA//5sJKDBRchY1tjT
-	JTyrxysssqburEtgDEYYLeklL1rAGEf11GGHUkqWinQoxa7oE/COaRlf2JqCew+EHr7UiWQp924
-	vOmNsjpoG8FuNYS247Vo/YneGCvXrCux9NlApXjVCNRz2+Wd/TdQaOCpe/lueiJ6lCJVMvA6RBB
-	afX0G4JysBeggxjosgSM7Qj4YrC0RpVHzVHi9H9khQJfKHVLNoZi/yS7BHO0mcAga57YSE9g==
-X-Received: by 2002:a05:690c:4992:b0:8ac:e48c:4f97 with SMTP id 00721157ae682-8b1201bff9emr666537b3.24.1792440806814;
-        Mon, 19 Oct 2026 13:13:26 -0700 (PDT)
-Received: from localhost ([2605:8600:200:1d58:2ffc:79a5:7374:fa95])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b11b8117ebsm4601537b3.16.2026.10.19.13.13.24
+        bh=tQ/Eevs1qc0B1ETH+DkpySLtNug9OnFGZO2K4RbuMeA=;
+        b=HBm5x6kfIHslq5ThXYy/J6wz/uuwcosR7foOpr1TqQDWHoBWLpKLht2dEx7O0Us4ib
+         IHjtvaoMlxkt/aFQ4tO5mOkeRdPGpkEqnenxMH0TDV7UzKgVRC3+oD+2YWDq5ST4cgkc
+         YJLlB5wgzWeCpgs6nUvEndTfHKqC8uh8bf4fqKhyIRceFbLjQY8g1xtIXc1AJ+LQThZg
+         J7T3KbcWLltQbLWjbjxPcDHvkhHuRjlj25MTVY1E5ydnZ2i5ewQeUSNlNGCHJsSzQRBz
+         HQiOSjhBXdsbUUgHlPMK7g46yUxLR1u9JFfhn6sOcTLDUan3CuxNdlkgyzLV0fd9ItMa
+         QG5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzAhLnKvWNL6oJqRwmrRYC5t1eOiXEeX4c3qAyRMfihF2DydTaCPkuXvquOIA+0/DRKvF3928wCzQ0D9gQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqPAbkD1emwuKtUE75WV4VtTD0c03aRWLM5WLlDmsiPedJYNz1
+	SpJGuKS/TH4iFMM3W6EgyClPxRTfudAanWRAg1/GGiYvcDkwd3VwInZt
+X-Gm-Gg: AYBFou3gKFxahv6tcE3fA5qxIndeENMuEGxOCyVssPFD/wHJHcTLKtya+uHDt9k5Du0
+	rE2zZWTJulZTnvmvLoxPYAQYtSs/wz9ZftaU5PQvrwwn8xtv1dB0vB7rvpJaxXeFmX581onaQGQ
+	yxsAAyVWLjFTTgcBg6j2gOGcVQXnAZ6SJQPGhMit8EfF7p87zzxrXsRYRH4xzHBEEjvyFFQN6en
+	Ilrl6xWqmGeXzaGOX75YcuXNAZkf3GAh7zchj6Orj3b0kHyCUcUG46sf3Bm2O5G6nLWnR/vq3yf
+	aN0QR71OgJXb7SXAIUAO8j3a7BH8tYVwu++9kMwPwm+g7ZATC4xLybXvj+0QpB5WyOuPux0ieRg
+	NWVXhUGvPqZTOJd8eotaNE9pmRTtlq+zFOd2o5oGkG3QA3tc8JkWhVOcD2V8uOqnVnOpHFLRxjK
+	mNWzhqoAdT6HM3TBww1SVT3xj45nAf/m0tGymigaH9l/amxONeZ8dnZyfPhrPuwzmC8j2P0KpCB
+	fdrUZeScpGlEQ==
+X-Received: by 2002:a05:693c:20cf:20b0:363:a45d:10b1 with SMTP id 5a478bee46e88-365fa49061dmr230217eec.5.1792440846820;
+        Mon, 19 Oct 2026 13:14:06 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm63348675eec.24.2026.10.19.13.14.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 13:13:25 -0700 (PDT)
-Date: Mon, 19 Oct 2026 22:13:21 +0200
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com,
-	mhocko@suse.com, brendan.jackman@linux.dev, ziy@nvidia.com,
-	flyinrm@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page_alloc: let the highest memory node recover from
- hopeless state
-Message-ID: <20261019201321.GJ371161@cmpxchg.org>
-References: <20261019184850.3427905-1-gourry@gourry.net>
+        Mon, 19 Oct 2026 13:14:05 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 13:14:04 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+Cc: victor.duicu@microchip.com, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (mcp9982) Update the interval cache only after
+ successful writes
+Message-ID: <1b0a818b-55ea-4f7a-92a7-721e1f78a0fe@roeck-us.net>
+References: <20261018055750.1318723-1-pocj8ur4in@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,43 +99,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019184850.3427905-1-gourry@gourry.net>
+In-Reply-To: <20261018055750.1318723-1-pocj8ur4in@gmail.com>
 
-On Mon, Oct 19, 2026 at 02:48:50PM -0400, Gregory Price (Meta) wrote:
-> free_frozen_page_commit() clears a hopeless node's kswapd failures once
-> its zone recovers above the high watermark, but only if another memory
-> node exists for allocations to fall back to.
+On Sun, Oct 18, 2026 at 02:57:50PM +0900, Baek Kyu, Kim wrote:
+> mcp9982_write() updates interval_idx before writing the conversion-rate
+> register. If the write fails without changing the register, subsequent
+> update_interval reads report the requested interval instead of the
+> previous setting.
 > 
-> The test `next_memory_node(nid) < MAX_NUMNODES` finds only memory nodes
-> with a higher id. The highest-numbered memory node therefore never
-> recovers on this path, and its kswapd stays disabled until reclaim on
-> that node makes progress and balances it, or demotion is re-enabled.
-
-This seems to be the express goal in the commit referenced by
-Fixes:. Can you explain why this premise was wrong?
-
-The patch in question also only added another re-wake event. It didn't
-remove one. How can it be at fault for kswapd getting stuck?
-
-> In many cases, direct reclaim many never fully run against a lower
-> node (CXL/kmem), and that means its kswapd can end up full disabled
-> in rare situations.
+> Update interval_idx only after regmap_write() succeeds, leaving the
+> previous cached interval in place on error.
 > 
-> To reproduce, fill the highest memory node with bound, non-THP anonymous
-> memory and no swap until kswapd gives up, then free it: /proc/zoneinfo
-> keeps showing node_unreclaimable 1 for that node. A lower node recovers.
+> Fixes: e2fe950f34e5 ("hwmon: add support for MCP998X")
+> Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+> Acked-by: Duicu Victor <victor.duicu@microchip.com>
 
-> Count the memory nodes instead. Adding first_memory_node != nid to the
-> existing test would also work, but a count says directly what the check
-> means: some other memory node exists.
+Applied.
 
-I don't understand what "having more than one node in the system"
-means for re-igniting kswapd on this one node.
-
-Generally I don't understand what the heck we're trying to do with all
-these patches against the hopeless state code. It shouldn't be that
-hard, right?? If kswapd on a node failed for whatever reason, let it
-sleep until direct reclaim makes forward progress, or other frees
-(unmap, etc.) put the node back above the high watermarks (which means
-enough of the unreclaimable pages were freed to justify a new wakeup
-in the future to attempt reclaim against new pages).
+Thanks,
+Guenter
