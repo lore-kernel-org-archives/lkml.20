@@ -1,145 +1,102 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB5B4E7808;
-	Mon, 19 Oct 2026 11:32:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A1F4E4314;
+	Mon, 19 Oct 2026 11:34:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792409543; cv=none; b=lk8gLQRYlP1nd+IvUL+YE4vmzo7BY9/w4gOKU5l9GwBshZ+Ep3N/o+01yfj0y8YwNP0ICk9lEcgm0AdsMki8JUI7xkxdXu4HxBwlAf4TR0gShSnodQVWDo3RrT23VCxVRLsfE2YsxOsVU074ucixDEta13nyCfVJZg8XSH5ywcA=
+	t=1792409655; cv=none; b=icFPn/Zu8Jz15n72GPUhreNtwtQOdx/k8o96IUVti62zkqsgxAcA1WaGgy8QeErosvrYGbHTyr/yMaNV/PrSiwcEUmI3vA1zgFDYC6ueAr/clEtTcCRuiXKyybd9fw2wCsfLNQNR9/0X1MxccVrj7SI230LE7xTdUlyEMnRv/pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792409543; c=relaxed/simple;
-	bh=lo9zUxJ4IDoU0BPSsG/keYDLx5MfS4Xq7tX6TBV6MNE=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=N2/O3o1LL6iDI/OW+JurLkO5LAOgs9+oH3VGsdvMM5IZ0VcoM9HOJYqsZc/6ccw5QLnuREG9S4aAsY0Y0o9bwl36fkR0SOniiMpMen1MIa9su8sybHwO0Vw4Rps6xgklnHzT4oHhTRkjLHhI0gNi5Bdv8LS83leKJUV9ZE+Gf4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=vrC07do9; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1792409655; c=relaxed/simple;
+	bh=lx8GDY6UuwwohGUgszSq0IXVmdTWy6dvIcmQip9mIy8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=CNUzlZoAKa9vyJQEnEa8T4kyacWjFK5PjB7v2pmqkonHaZk39Pk93cKFGDpJzJlhgUw+7w0kigWCKLxrtlAPPg3aVRms/Fv93DcJpBHZ4UR3zQJwPs1rxQe0bgobx3RVhoCv8XRP8E9replx0I6tkV5Hn/8e6jq4KZQJ58+tvUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b1sVNqls; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="vrC07do9"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 30063A15A5;
-	Mon, 19 Oct 2026 13:32:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792409539; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=sUYlmOugU7MtjRD+n63PLNv4sB8Cfzdv44OFMAwozD0=;
-	b=vrC07do9nl4D0F6ehlWaXB3h6VqXoaX5dVTSvr6CA5IFTGKp2usr5OGa4H/RnmI9ENHeyG
-	UZmVi3kOeKoP6PCu9br38/IphjCfNBdlkdU6GlZhF5qfTlmSYf97ntmLZ8AB1YKL94pl5G
-	9khoWhgET8p6hws40Sl7fQjwRIxNqtP5gI6fljC3BXbrHDXMzWlNNFw1lFgwcNyrgO74vc
-	4WveGydqPNkerANk+MlZSe+Tl05r6B0Fo7dR/hjbPhUwUozOAp+DhVDeJs6Y02btxqWCyB
-	FzCfbtG+ZTSH6NnKqvD/hd7FpC78nvNECeAx+1uBsf4LiXjiOAG449n4HKuaTw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b1sVNqls"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ACED2C2BCFF;
+	Mon, 19 Oct 2026 11:34:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792409654;
+	bh=lx8GDY6UuwwohGUgszSq0IXVmdTWy6dvIcmQip9mIy8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=b1sVNqls6hyuig0dpmWG3DNegTC1r2kRDzZmcpm46DNAf490Hn5YN6Z1E+DD8Nkki
+	 CHcCHOlUvBTsnjcLHdqz1v2yxm3W02DwaEuSiJZP8pL7nSJBglJWHPkj3ReVJnNiSV
+	 idfgUGGnfq0pNl9HorqCDTzbd9ONY9cgzKseiYing7GBuqpU4yC6AIco97lcAGem+7
+	 y1Ydwiz2TIYgV4YsZkdvORcf/TlSwIjl7C854PpBdj0CEjxwyD70mnp1hZdJq2S0fu
+	 3Sk2ikVvbO3KQ9HzqUlnLjyieAdl/mUqEJg2yoCzyZUgewWM0y660p/SlWvnjY9crS
+	 ouAyTsklUcjZw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86901CCF2E3;
+	Mon, 19 Oct 2026 11:34:14 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Mon, 19 Oct 2026 13:33:27 +0200
+Subject: [PATCH v2 1/4] ceph: report the requested length in the netfs read
+ metrics
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 19 Oct 2026 13:32:18 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Paolo Valerio <pvalerio@redhat.com>, Vladimir Kondratiev
- <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
- <gregory.clement@bootlin.com>, =?UTF-8?Q?Beno=C3=AEt_Monin?=
- <benoit.monin@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH net-next v5 1/3] net: macb: add QUEUE_DISABLE capability
- to 3 compatibles
-In-Reply-To: <20261016-macb-set-channels-v5-1-90ce0c0b8e75@bootlin.com>
-References: <20261016-macb-set-channels-v5-0-90ce0c0b8e75@bootlin.com>
- <20261016-macb-set-channels-v5-1-90ce0c0b8e75@bootlin.com>
-Message-ID: <d4c8dd5afbb3fa6c74a14fc8a877e49e@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-ceph-metrics-percpu-v2-1-1fa5229b00b8@clyso.com>
+References: <20261019-ceph-metrics-percpu-v2-0-1fa5229b00b8@clyso.com>
+In-Reply-To: <20261019-ceph-metrics-percpu-v2-0-1fa5229b00b8@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Xiubo Li <xiubo.li@clyso.com>, Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dan van der Ster <dan.vanderster@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792409634; l=1451;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=CzKRsfVGnXiWaBtWsr/Fqsu917e+WRvEXbKXVxY/rmA=;
+ b=D3IIpAx4UkwduCGz3ETWsaXRSCBl5gQQhmehxEGZPmscvAXWF54I4egX4BD6RYhtZl/Yl4o7E
+ DQr1eqvFAwjAwSt2SP8/dxB9PrxOujPBhmF9g3JIV1/exL8pF61gBVZ
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
 
-Hi Théo
+From: Xiubo Li <xiubo.li@clyso.com>
 
-On 16.10.2026 18:58, Théo Lebrun wrote:
-> From datasheets, we know those 3 IP versions support Tx and Rx queue
-> disabling, ie bit 0 in RBQP and TBQP registers.
+finish_netfs_read() passes osd_data->length to
+ceph_update_read_metrics(), but a buffered read of an unencrypted
+file attaches its data as CEPH_OSD_DATA_TYPE_ITER, and
+ceph_osd_iter_init() only sets the type and the iov_iter.  length
+shares a union with the iov_iter, so the read size metrics record
+some unrelated iov_iter field, which is normally 0, for every page
+cache read, and metrics/size is useless for buffered reads.
 
-nit: Just learned that git am will turn this into >From. Maybe reword 
-the first sentence.
+Report op->extent.length, the length the OSD read asked for, which is
+set for every data type and equals osd_data->length for the page
+vector that encrypted files still use.
 
-> 
-> All revisions I've seen either support it on both Tx & Rx or don't
-> support it at all.
-> 
-> Sources:
-> 
->    Compatible            | Match data         | Datasheet
->    
-> ----------------------|--------------------|-------------------------
->    atmel,sama5d29-gem    | sama5d29_config    | DS60001764 [0]
->    microchip,mpfs-macb   | mpfs_config        | header files [1]
->    microchip,sama7g5-gem | sama7g5_gem_config | DS60001765 [2]
-> 
-> To contrast, check out the SAM9X60 DS60001579C datasheet [3] that does
-> not document bit 0 as anything special on page 1041 and page 1042.
-> 
-> [0]:
-> https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/ProductDocuments/DataSheets/SAMA5D29-Data-Sheet-ds60001764.pdf
-> 
-> [1]:
-> https://github.com/polarfire-soc/polarfire-soc-bare-metal-library/blob/614a67ab/src/platform/drivers/mss/mss_ethernet_mac/mss_ethernet_mac_regs.h#L200-L207
-> 
-> [2]:
-> https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/ProductDocuments/DataSheets/SAMA7G5-Series-Data-Sheet-DS60001765.pdf
-> 
-> [3]:
-> https://ww1.microchip.com/downloads/en/DeviceDoc/SAM9X60-Data-Sheet-DS60001579C.pdf
-> 
-> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-> ---
->  drivers/net/ethernet/cadence/macb_main.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/cadence/macb_main.c 
-> b/drivers/net/ethernet/cadence/macb_main.c
-> index 020a47353d01..625171fd3f9b 100644
-> --- a/drivers/net/ethernet/cadence/macb_main.c
-> +++ b/drivers/net/ethernet/cadence/macb_main.c
-> @@ -5743,7 +5743,7 @@ static const struct macb_config sama5d2_config = 
-> {
-> 
->  static const struct macb_config sama5d29_config = {
->  	.caps = MACB_CAPS_USRIO_DEFAULT_IS_MII_GMII | MACB_CAPS_GEM_HAS_PTP |
-> -		MACB_CAPS_USRIO_HAS_MII,
-> +		MACB_CAPS_USRIO_HAS_MII | MACB_CAPS_QUEUE_DISABLE,
+Fixes: 4de77f25fd85 ("ceph: use osd_req_op_extent_osd_iter for netfs reads")
+Reported-by: Dan van der Ster <dan.vanderster@clyso.com>
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+---
+ fs/ceph/addr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-AFAIU this also switches WoL suspend on these SoCs from the tieoff ring 
-to
-QUEUE_DISABLE. Was WoL tested on any of them? Worth a line in the commit
-message too.
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index dd2bd8ed2424..8500d72702d6 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -236,7 +236,7 @@ static void finish_netfs_read(struct ceph_osd_request *req)
+ 	ceph_blog_enter_gfp(fsc, &__ji, GFP_ATOMIC);
+ 
+ 	ceph_update_read_metrics(&fsc->mdsc->metric, req->r_start_latency,
+-				 req->r_end_latency, osd_data->length, err);
++				 req->r_end_latency, op->extent.length, err);
+ 
+ 	boutc(cl, "result %d subreq->len=%zu i_size=%lld\n", req->r_result,
+ 	      subreq->len, i_size_read(req->r_inode));
 
->  	.dma_burst_length = 16,
->  	.usrio = &at91_default_usrio,
->  };
-> @@ -5799,7 +5799,8 @@ static const struct macb_config mpfs_config = {
->  	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE |
->  		MACB_CAPS_JUMBO |
->  		MACB_CAPS_GEM_HAS_PTP |
-> -		MACB_CAPS_USRIO_HAS_TSUCLK_SOURCE,
-> +		MACB_CAPS_USRIO_HAS_TSUCLK_SOURCE |
-> +		MACB_CAPS_QUEUE_DISABLE,
->  	.dma_burst_length = 16,
->  	.init = init_reset_optional,
->  	.usrio = &mpfs_usrio,
-> @@ -5812,7 +5813,7 @@ static const struct macb_config 
-> sama7g5_gem_config = {
->  		MACB_CAPS_USRIO_DEFAULT_IS_MII_GMII |
->  		MACB_CAPS_USRIO_HAS_REFCLK_SOURCE |
->  		MACB_CAPS_MIIONRGMII | MACB_CAPS_GEM_HAS_PTP |
-> -		MACB_CAPS_USRIO_HAS_MII,
-> +		MACB_CAPS_USRIO_HAS_MII | MACB_CAPS_QUEUE_DISABLE,
->  	.dma_burst_length = 16,
->  	.usrio = &sama7g5_gem_usrio,
->  };
+-- 
+2.53.0
 
-Thanks,
-Nicolai
+
