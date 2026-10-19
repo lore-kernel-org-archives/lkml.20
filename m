@@ -1,110 +1,74 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838124973B3
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA97498E00;
+	Mon, 19 Oct 2026 08:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398701; cv=none; b=Ck0FIjMyHd9gYuFvUXl9FN89RspsLADKEgV5hee2MVL5ns9bsd5Bzr6CRjf39u7EDDd6zEuv2AXXckezbS8WaJaUgZI4hdC+YmuXrKsNW7RAwZwybSLpOudEbvu0QZ3iVsWEbnDO639ULoqCeO6xbZXJlnnm0l6uSyiH7OnRo+Q=
+	t=1792398713; cv=none; b=t4Mrvg5NVtgxh5ac0+tPMsoZaznhBKhSMrSNeZW4ASov62BBewZtGCeRNlhZkKHhclTK9/5He0Zl0TqyWSp4x0mkLZ+VHpuY5jmCMaQWDS1X39OUIUmp9HY4q3cpZwVM4xRWuvq0a+GCSp/kUJhN9OjlZ/GjI2CXKoOrVtlmATk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398701; c=relaxed/simple;
-	bh=F6GGwF0UndXrEOdTW5UOAWuVGc3KPqmnTmyKeAgfJao=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eLReXLBvqGuD+ZcJvCMnQw9E0cuH8HYhGKl/Y11n2StxsP0RDEvfnO5Wn1H8qXaakgbj1NeYFZvRB4cg19zb3H+8O8AvdAyXHMPn4+fbGqeKgxcI34w0oeO+2FstuhUAEMcKf6kdXc3NlLGDhd+faXc/OJkCyhXc1/2V0jI2cCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vl6yU5ie; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792398713; c=relaxed/simple;
+	bh=Leh50SvBY86fxbEEdSy2xlT0QS4Rh4SWeQrgAgheDaM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=ZRrr8lc9PwZAyxrYExV38XYldb+fB8OTyf6x4RP5koY9hDUDRBOeMKoaoX2WAAgNbEbJTmFdXZZAsR7+I8MNaRH6gAqeSutQ2eDOMqyBLqxcSsFxUbOy0ejMkxHxjc0jUygrnrta6IUDM82l2pUczhGQJB2xNtmCizpNhK6b5I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qeR0rgIg; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vl6yU5ie"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso983899f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:31:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792398698; x=1793003498; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F6GGwF0UndXrEOdTW5UOAWuVGc3KPqmnTmyKeAgfJao=;
-        b=Vl6yU5ieq4TN+jZPAxwre+U8IwR5yIBxoAl3gnQKPP4VUUP7mIJKGbd3Fuz9NkPg3g
-         J/9uOwoLIUIbav4KYZ4ENhoCuYesk+juuX80n2i8zFn3yhBaznHOZFy3hjqVb/N0euGl
-         jM+nKVgVg8acyRvlU6C8HQkvtRvE5p9OS0IOFsAvRisZ0hr+85nECmIeGtfwOr0JMa5j
-         HvwR9RjE8+C34obWHXw+4s+EpYD6/+9WKQGFSoxm6L7r6wiEAinvTZeu25p5MQ1VXltq
-         agen/UAop90gaC1ciLTq8oDCjyzZnFdTfcVdbl8F4VSbUb1/LYBvgyp6RIUlNwKzeUiE
-         ewWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792398698; x=1793003498;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F6GGwF0UndXrEOdTW5UOAWuVGc3KPqmnTmyKeAgfJao=;
-        b=Gf2OkPXegN8YPCdXFb3s8JtFMQvsL1znuF+ZQoqpam3pbZpgZgzBrumgYzSKSgo8tb
-         QHO+055nJ7Qyb2Ciunu0E48Y9tjOlofEaT79OBMRw6LgowKizm6404NUkX/T2fkBCA6C
-         u+eEDKMegyFAMBkihEMH6QeTgcQy1nmE6Cs2cY1EPq5Rmw+I3NLq8t2TUAqYhINNj0V/
-         JPcwOj+SOJS54DmUINziogJscL8LOdPJ+HUucN0iUFSXrq+rxO2TGJiZrunIEBTJCCny
-         WN7hmdu735jS5FuEOIr9kAw5HGCCK2Wwlucy30QImBnMk++xhEDp1TUZIzmk7jvUQR7/
-         3PLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzE8wqFpWRpl3P/4WZQEwZjuaGXbe+mvTjtGTKA3dLmDBKgaBVZXFVncJjACX+53Y3yXwCBBZnEcfXayVE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYqKxguXjF6bVr/6VoNTU+tsSHmoQ7aMgKsNFtOSkvuNvJZKpP
-	FaARLrB5S48YxCxbuWNop27iWufvWM5PWJBjUj1jTejB+9uaxPpmEpmd
-X-Gm-Gg: AYBFou1tR8MfakNrrphXTgSBdGykSgoJJFfvLdQqnN9SzS8NxlfE4LgwT5iW5osMSq/
-	Kq0AQdmJnp9Np5pZNrcLAX4ziN+IsQ8y9/o5T97bayFJYyx18CpH4uAZoBbvsInD7DWGwtddhiJ
-	vljZ7uHZRun6/b3c3vSzofiyBrgyJ9tKAK6D/K8DndivEul+gvd+zI/dsSqk/LGXm0roF6a9X4U
-	Zev5AblbGL4EStGX6/PDbJbEIBdokmpL6wt9CN8wA6iqGejDHm12eDjupWiM9qL9OtNEVA5yA8q
-	oRiMa1oTRpz07FZ4SA8A7VwH5OnTdzlKGgll+FKe4qP8/XtdmVeNULghJha66qBXJuYOqBa5Tf2
-	jF1akhte66teJY1sMATS+lv/H4VV7rxIX9HPNsdiE0zDQ+lxTEAjzaORZneWzTZ7pUmfKnqYe4Q
-	uys2JYhwqXFPW1shUe8z81cy9rNpjj1ds4c1t56Q0bppjBuysgWxIkOSdyH5DCK2hSPRcXA1lSE
-	Y2obS9qfUS1lueH
-X-Received: by 2002:a05:6000:200e:b0:48e:e9e:129 with SMTP id ffacd0b85a97d-48e0e9e0142mr8100420f8f.29.1792398697381;
-        Mon, 19 Oct 2026 01:31:37 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd50d1bcsm22222268f8f.54.2026.10.19.01.31.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 01:31:36 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH rtw-next v6 2/2] wifi: rtw88: support channel switch in AP mode
-Date: Mon, 19 Oct 2026 10:31:35 +0200
-Message-ID: <20261019083135.3251458-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <b9bdebf6dac043ce9b3e285e0d12209b@realtek.com>
-References: 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qeR0rgIg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=Leh50SvBY86fxbEEdSy2xlT0QS4Rh4SWeQrgAgheDaM=; b=q
+	eR0rgIg7W9TEZ4K+9f/yvAJLZGYZmfrm7IFJRc4y+/LnDluQJTZaUXnvBmdUGKVg
+	/hDtDr4DoxJzKpppn87XzaM2fnAmO1fjhcByOHqzrYQ0zhf2wzXMhngm7jESjzSf
+	pN6nV3UFZ38H/5Vocp/y4z4fSBYkzybZbarJ47Ku84=
+Date: Mon, 19 Oct 2026 16:31:39 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Ming Qian" <ming.qian@nxp.com>, "Zhou Peng" <eagle.zhou@nxp.com>,
+	"Mauro Carvalho Chehab" <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re:[PATCH 2/2] media: amphion: handle debug runtime resume failure
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20261019082754.1806443-3-yaojiale02@163.com>
+References: <20261019082754.1806443-1-yaojiale02@163.com>
+ <20261019082754.1806443-3-yaojiale02@163.com>
+X-NTES-SC: AL_Qu2SAP+St04i7yiaZOkcn08ShO49XMOyvfoi2YFTc+sEsgbPyy4KU3RyIkLM8cuONRuwiCKtbD1I7O9AZ4B6BQHFjNyDint8AoXvGzKGQg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <735f8b3a.7990.1a15349ad37.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZCgvCgD3dwpr1dVq1epbAA--.1290W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Auf2WrV1Wt4QwAA3H
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Hi Ping-Ke,
-
-On 2026-10-19, Ping-Ke Shih wrote:
-> If you download beacon to firmware twice within a period of beacon_int,
-> a countdown in the air will not present, no? Like this
-[...]
-> The 4 is missing.
-
-Yes, when a download runs late past the next TBTT. The absolute due
-time keeps the pace, one download per beacon interval on average, so
-the AP switches when its stations expect it; v5 queued relative to
-the previous download and drifted 10 ms per beacon on USB. The price
-of a download that late is one stale beacon and one count never sent.
-A station takes its switch time from the counts it sees; at worst one
-whose first count is the stale one switches one interval late.
-
-Forced on an RTL8821CU with a 90 ms delay on every second download: a
-sniffer saw 9, 8, 8, 6, 4, 4, 2, 2 for count 10, the AP finished on
-time, and a Windows station followed ten such switches (counts 10 and
-50) without a re-association. Without the delay it happened once in
-nine switches.
-
-If you would rather not have it: timing the downloads from the TSF,
-10 ms after each TBTT, leaves nearly a whole interval before a beacon
-goes out without the download. I tried that briefly on the 8821CU;
-with a 60 ms delay every count stays on the air. Which do you prefer?
-
-Thanks,
-Mehmet
+QXQgMjAyNi0xMC0xOSAxNjoyNzo1NCwgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
+d3JvdGU6Cj5UaGUgZGVidWdmcyBjb3JlIHdyaXRlIGhhbmRsZXIgcmVhZHMgdGhlIFZQVSBwb3dl
+ciBzdGF0ZSBhZnRlcgo+cG1fcnVudGltZV9yZXN1bWVfYW5kX2dldCgpIGZhaWxzLiBUaGUgZGV2
+aWNlIG1heSBiZSB1bmF2YWlsYWJsZSBhZnRlcgo+YSBmYWlsZWQgcnVudGltZSByZXN1bWUsIGFu
+ZCB0aGUgZmluYWwgcnVudGltZSBQTSBwdXQgZG9lcyBub3QgbWF0Y2ggYW4KPmFjcXVpcmVkIHJl
+ZmVyZW5jZS4KPgo+UmV0dXJuIHRoZSByZXN1bWUgZXJyb3IgYmVmb3JlIHRha2luZyB0aGUgY29y
+ZSBsb2NrIG9yIGFjY2Vzc2luZyBWUFUKPmhhcmR3YXJlLgo+CgpGaXhlczogZjQ0NTAxNGEyMjkx
+ICgibWVkaWE6IGFtcGhpb246IGZpeCBhbiBpc3N1ZSB0aGF0IHVzaW5nIHBtX3J1bnRpbWVfZ2V0
+X3N5bmMgaW5jb3JyZWN0bHkiKQoKPlNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUw
+MkAxNjMuY29tPgo+LS0tCj4gZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9hbXBoaW9uL3ZwdV9kYmcu
+YyB8IDYgKysrKystCj4gMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlv
+bigtKQo+Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9hbXBoaW9uL3ZwdV9k
+YmcuYyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vYW1waGlvbi92cHVfZGJnLmMKPmluZGV4IDQ5
+N2FlNGU4YTIuLmZmZjRkZjRmNDUgMTAwNjQ0Cj4tLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRmb3Jt
+L2FtcGhpb24vdnB1X2RiZy5jCj4rKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL2FtcGhpb24v
+dnB1X2RiZy5jCj5AQCAtMzgyLDggKzM4MiwxMiBAQCBzdGF0aWMgc3NpemVfdCB2cHVfZGJnX2Nv
+cmVfd3JpdGUoc3RydWN0IGZpbGUgKmZpbGUsCj4gewo+IAlzdHJ1Y3Qgc2VxX2ZpbGUgKnMgPSBm
+aWxlLT5wcml2YXRlX2RhdGE7Cj4gCXN0cnVjdCB2cHVfY29yZSAqY29yZSA9IHMtPnByaXZhdGU7
+Cj4rCWludCByZXQ7Cj4rCj4rCXJldCA9IHBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQoY29yZS0+
+ZGV2KTsKPisJaWYgKHJldCA8IDApCj4rCQlyZXR1cm4gcmV0Owo+IAo+LQlwbV9ydW50aW1lX3Jl
+c3VtZV9hbmRfZ2V0KGNvcmUtPmRldik7Cj4gCW11dGV4X2xvY2soJmNvcmUtPmxvY2spOwo+IAlp
+ZiAodnB1X2lmYWNlX2dldF9wb3dlcl9zdGF0ZShjb3JlKSAmJiAhY29yZS0+cmVxdWVzdF9jb3Vu
+dCkgewo+IAkJZGV2X2luZm8oY29yZS0+ZGV2LCAicmVzZXRcbiIpOwo+LS0gCj4yLjM0LjEK
