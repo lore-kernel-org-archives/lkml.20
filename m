@@ -1,68 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=24.134.29.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792437309;
-	b=IYgb8S25P1XtFQH2PzPObuFNeU6B1JHCPmGpTdqDDJy5f3cnvK2Yg1GrQMeMztMN2jNz
-	 Q9KZfZ2uXwRQdHVSaYHWC3/mMYKq7YSJQHeSSE86XBLfwgCo613jtd7hRCPfMbCUepgsl
-	 5lD/HFjIP6WyqAP8ZgKLaMTafROpw5A0cZkraDD4o2ckeCdwVr9DDOP5WW/I3/ClKFTw5
-	 g/vr8tjajfyEnqGdsQVNCKs5wsAf4+XSPoErSdRlGhgbJC3b6zvlSUnFPtVM/S7o3XiDC
-	 B1YvI1uDQprfp9zeURFsl/flMjaHyPbgOnx8QdkFZnCBACR7Cx06QkegvllzwTeI/Lg==
+	t=1792437412;
+	b=C4qVU20T0sOvW3L2aAgPpQU+Y7fIBlJ4+AGo+SQaUgWZjD0GjhVEt8BAS8e/hkdSg4GT
+	 jv4rpukPqPWk87lEQ3aprt8thGXKoWA4LIrB0GNGgWACzvVS9QYGk2QyT8trIojHLKALG
+	 BlRGMMLtJUl4eXyuocV0CBdItwIHYj5av5/ecX5jSYz5cW1zK1H5XYLstSFbiNBDwdGV/
+	 bkT4WqS0E2ybCUxFAnhcibBURNz0rRl6ab9HzqJ/jA0NfJtN97Nv0CGRACgfM6HUnFp5E
+	 +Itn5ftbb/n/vHbQYN7XSs7RKNUa25EIOck/Qg8CoIcMlWPDVux7QWlgEeFnoZ/n4Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792437309;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=rFOi8DF9otl7QSq9yN9Q1rig7a71rUpd/odhmx+OLmo=;
-	b=39xE9vRizreGWRwKzMKmkARhwGDSUvhPd7W2n7efJT38LDaWC1Pinq3I36qv1wnPvBB7
-	 fjnvvxDfvxsZGCMAPzPZt+1qwd2NHB3cuXRvHw4vQE9ToLajTmjCoY7J8EI/2M51egZWW
-	 KdjbpX7LDRtmJGhzv4sj9YDyzCrIkj9EwzzkypaJ/N1hAnNwTb4amVQJ1JdzsAsxFtYBK
-	 dCZhD6jdxtB5S5H/ZmVn+p0zwXu3uPKvenGWQ5BigTDhm8DdKFvVtr0UQeIvId8ouq4dD
-	 tJLPLCFZCdHuuUlQKYe6puLGDKn3cS20zxHxkl4krpGqLVk6Dq1lqknYlDUBP+v4N9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792437412;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=vsNDKPsv2Nc56gelrCKVe1H1Ze5X6Wh61dSY9Ujbhgo=;
+	b=Lr+/b1LgWQMNbTrO+obLEsGiFeYedVdhIqHSjtle7TBQmPDdKCIT3XKUGLQVSv13xEPd
+	 i8e0NgGXMN7TaAmlEPsWZeEGt5ohMhTN8s+E+R7Xw5KcU5H6gEW9859eGgyxqPGthl0sS
+	 S49w4eOTQTtuTvbsxk3Zq0kzHJDSivDa7IYKt8XgGrIcBhqkGfKrW77D4RzkVWl8rr/3i
+	 dVNeji+gyRCvik0yjxh7zVuP05SFHT7TFDtIGSe49AG7+dZcaBXLRY0jboYev0QTJWPXP
+	 J5LUvCle8/LkM5f8ShKMiOFmM9eyVz91WT5rQBDi16/R7ZcFFuCSuLYod3GmfGUh7VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EZ20yDLX;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=sigxcpu.org;
+	spf=pass smtp.mailfrom=sigxcpu.org;
+	dkim=pass header.d=sigxcpu.org header.i=@sigxcpu.org header.a=rsa-sha256 header.s=2024 header.b=MBIvZc3i;
+	arc=none smtp.remote-ip=24.134.29.49
+Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2D6606A31B;
-	Mon, 19 Oct 2026 19:15:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA2D6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4174D606A31B;
+	Mon, 19 Oct 2026 19:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4174D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigxcpu.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigxcpu.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EZ20yDLX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792437309; x=1823973309;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=6eY0X/AE+MaCXxfTIcBVpl37SW1NNYBffDDp97xe7PE=;
-  b=EZ20yDLXD+7RHJf26QwxMpEUBcS9QYPJ01fmZMQwsJ+hD0iI32L+yk30
-   bYUBnVU765Vf+k5X2f7XELMdQDXTEc8OPLurEYDBFzsh4QmwgBKVyJ4DI
-   TELwvOSALXP2Dv5cg0fbRJmNPl+98Se/+fNqU7447VYPSAyr4Td8sbuca
-   BXUvM76v3o8DbdEb8MthhlD0ouMifWAf1JeAAh/kBKQXduBCBlEKuf551
-   gV5Z3F/GONYZdvWUgL0gFD5Vb9m0r1uVrcCqLKQO9OvHEhKyy9aL1urUt
-   SZZwk2K/iQeGyhR/RYVd8hfZgRXlhKGy1f5+b10l2IeOyEAXS1YZe+Wxl
-   w==;
-X-CSE-ConnectionGUID: 1DsutZt/RqCb4jMxsZwPwg==
-X-CSE-MsgGUID: eT4GuLBNQoG8e23+np7Ysw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1144129"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1144129"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:15:08 -0700
-X-CSE-ConnectionGUID: bcwaIiXyRXWlbu6WaVle6w==
-X-CSE-MsgGUID: 8K6XFerOTuCcG9L7RO3GmQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2595531"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:15:07 -0700
-Message-ID: <354ca46e-7038-4a78-a248-6e2f60c23601@intel.com>
-Date: Mon, 19 Oct 2026 14:15:06 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=sigxcpu.org header.i=@sigxcpu.org header.a=rsa-sha256 header.s=2024 header.b=MBIvZc3i
+Received: from localhost (localhost [127.0.0.1])
+	by honk.sigxcpu.org (Postfix) with ESMTP id D1007FB03;
+	Mon, 19 Oct 2026 21:16:40 +0200 (CEST)
+Received: from honk.sigxcpu.org ([127.0.0.1])
+ by localhost (honk.sigxcpu.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id cWQfq1ABOZcv; Mon, 19 Oct 2026 21:16:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sigxcpu.org; s=2024;
+	t=1792437398; bh=i7pfi2dvH2g8e49rm8K0l11bs7VB2420fSge4yMDfjM=;
+	h=From:Date:Subject:To:Cc:From;
+	b=MBIvZc3iHVXkQ9obvTYoxyOIp77re1dOnkckE0QqvUkPT/fsjzlkKjRO/FrlHYt7V
+	 a5i+t2pm9GLI1Ed9XK73EuqKJ3ez/DWQa/RsXx7gkZJ0ZdwWvREJu7tnopsiqmpws5
+	 IP2lJI0fTGDDkVlYxkJqfQ9jsLewyktCHv7Q0DGO4cBllfKBGohFF9QxvmrWbYiAnu
+	 wSzjNxkLCqLJBARuDOVDCqwx4zgqQmjLBheq/01SdE4N+0dlhzBlEtmCKnHVgbTR7A
+	 dGm8xRMVLujB6l1lFksXfvFwnSNOx2ieePZyl+DpBgJ5adEvwx5S3Q16TthUIv/AKR
+	 ky4+MPLVxptbA==
+From: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+Date: Mon, 19 Oct 2026 21:16:14 +0200
+Subject: [PATCH] kbuild: deb-pkg: allow to set package name version
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,151 +61,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] KVM: x86/pmu: Add mediated vPMU PerfMon v5 support
-To: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
- Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <20260827223755.143247-1-zide.chen@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261019-deb-pkg-v1-1-7f8e60bbede5@sigxcpu.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBjF8VfRd21lUxteRS6wg49CG1Ly7obLX
+ /3PucjDMTwV0UUOB3te5gAZR9QO9dxDsA0mlSgtE5kLi0asUy9qjU5lqdGZAYV6dej4/J7K6rf
+ fmxHt9s7pvh/Qj6n1awAAAA==
+X-Change-ID: 20261019-deb-pkg-a6ef2837687e
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1977; i=agx@sigxcpu.org;
+ h=from:subject:message-id; bh=i7pfi2dvH2g8e49rm8K0l11bs7VB2420fSge4yMDfjM=;
+ b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0VCYlFLUy9aQU5Bd0FJQVNXL2hsSksvT
+ UhqQWNzbVlnQnExbXlWQnZLOEcwMWdTbXA5azV4bkk1TGFYOXBICnN0V1g0ZXpCVGdHa2lzUnlh
+ d0tKQWpNRUFBRUlBQjBXSVFSajlzemZsaUtkQ1NocktzTWx2NFpTU3Z6QjR3VUMKYXRac2xRQUt
+ DUkFsdjRaU1N2ekI0eTZ5RC85UmJWL3RXV0hPUHVkSlRDQVJUaHh2WmdOZW1RTjNvTmREOXlOcg
+ pjYlNob0xwUWZTQUYzQkFuWnlTaSsvUWxNSVhNUVBOOCt4dEtIaGE2WEF1cjRkblQ0Y0o0dkU1M
+ 3dDdGFNaW4vCnRmVHFTV3lOZXpJN25nUGgreUMvWGVPVkFPTW9EUFhuM3loT01zc3NQTmx2ZXd5
+ V1NyYUZtN0MvOTMxSUtOc3AKN0V6dkUwTTFZWllrOW1FQkVORUJnSXVuVGhmdzF6bXFPOGJ3SGZ
+ OM05PUmlaMC8zeFNIWFE1Q2JSeURxdkozTQpwZ1FsMGVKRzFSS05BNXVOWXdXL2t5THVzdGliTm
+ JTeVdRTTlaTFlqMko4NXRna1loNTBYMCsxem9nZC8rTnlrCkhOdE5FZTBJcWxoQWxyQjNVeGVCT
+ TVxSFV4cSttNjN1OUhMemdZOUdnRUFIYk9Wd1hIRGNHYTltaXRVaFhCM0MKY1ovREdsVmVvMFNU
+ MURXKzlVZUhDanJOWE50UktkTjNsMW40S3VsZjNuZnNxcVdiL0g1NVpZUTFZaXNMMFYzOApQNUt
+ WLzdMNTNOSm05dlk1cVdyckU2ZndpcERDM3ZiWUd6dnBMK3kwa1IwazFuV1dEN0ZpM3c3eVVzLy
+ swTm13CjNIeVhZSkRUeitFTFZZaDVVUnZLOWxNKy9uMld1RWNtS1RwMHNuMUZwMGtURkRpekxLZ
+ kdCbCszdDVNeG1JbTcKQ01CODZGMTBoSGZrS3dvUXZNaVdVMWk4NElzR3d5OEphMEZVeUpLaW5k
+ Y2l2WHB6K2JlTFFJV3Fkb3VTL1VkOApsWlIwVWlCYW51K3lhVGpDc05aN0RyK2t1UUxYV2pqZFU
+ 3a1krcXhzeTdmK0IrTE44TVZCbWY3VGYwd2p6UnFPCmNQTE1RZz09Cj1oM2wvCi0tLS0tRU5EIF
+ BHUCBNRVNTQUdFLS0tLS0K
+X-Developer-Key: i=agx@sigxcpu.org; a=openpgp;
+ fpr=0DB3932762F78E592F6522AFBB5A2C77584122D3
 
-Hi Sean,
+Instead of hardcoding ${KERNELRELEASE} in the package name allow
+the user to override this.
 
-Friendly ping on this series. The v2 addresses all of your feedback from
-the v1 review. I'd appreciate your thoughts whenever you have some cycles.
+This can be useful if one doesn't want to accumulate different packages
+for every commit or micro version bump by setting
+KDEB_PKGNAMEVERSION=7.3 or even KDEB_PKGNAMEVERSION=stable.
 
-For context, it would be ideal to land this vPMU v5 series before my
-other series to keep the stack clean:
+Signed-off-by: Guido Günther <agx@sigxcpu.org>
+---
+ scripts/package/mkdebian | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-1. PMU Partitioning:
-https://lore.kernel.org/kvm/20260821222002.54907-1-zide.chen@intel.com/T/#t
-2. TMA:
-https://lore.kernel.org/kvm/20260817183143.226156-1-zide.chen@intel.com/
+diff --git a/scripts/package/mkdebian b/scripts/package/mkdebian
+index d4b007b38a475..44ca9991fd6f4 100755
+--- a/scripts/package/mkdebian
++++ b/scripts/package/mkdebian
+@@ -172,6 +172,12 @@ else
+ 	packagename=linux-image
+ fi
+ 
++if [ "${KDEB_PKGNAMEVERSION:+set}" ]; then
++	packagenameversion=$KDEB_PKGNAMEVERSION
++else
++	packagenameversion=$KERNELRELEASE
++fi
++
+ debarch=
+ set_debarch
+ 
+@@ -215,7 +221,7 @@ Build-Depends-Arch: bc, bison, flex,
+  python3:native, rsync
+ Homepage: https://www.kernel.org/
+ 
+-Package: $packagename-${KERNELRELEASE}
++Package: $packagename-${packagenameversion}
+ Architecture: $debarch
+ Description: Linux kernel, version ${KERNELRELEASE}
+  This package contains the Linux kernel, modules and corresponding other
+@@ -238,7 +244,7 @@ EOF
+ if is_enabled CONFIG_MODULES; then
+ cat <<EOF >> debian/control
+ 
+-Package: linux-headers-${KERNELRELEASE}
++Package: linux-headers-${packagenameversion}
+ Architecture: $debarch
+ Build-Profiles: <!pkg.${sourcename}.nokernelheaders>
+ Description: Linux kernel headers for ${KERNELRELEASE} on $debarch
+@@ -252,7 +258,7 @@ fi
+ if is_enabled CONFIG_DEBUG_INFO; then
+ cat <<EOF >> debian/control
+ 
+-Package: linux-image-${KERNELRELEASE}-dbg
++Package: linux-image-${packagenameversion}-dbg
+ Section: debug
+ Architecture: $debarch
+ Build-Profiles: <!pkg.${sourcename}.nokerneldbg>
 
-Thanks,
-Zide
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261019-deb-pkg-a6ef2837687e
 
-
-On 8/27/2026 5:37 PM, Zide Chen wrote:
-> KVM currently caps the guest Intel architectural PMU version at 2. This
-> series bumps it to PerfMon v5 and adds support for some features that
-> are introduced in PerfMon v3-v5.
-> 
-> - CPUID.0AH:ECX fixed-counter bitmap (v5): supersedes EDX[4:0] and
->   lets KVM/guests represent non-contiguous fixed counters (e.g. some
->   E-core server parts skip fixed counter 3).
-> - Add support for IA32_PERF_GLOBAL_STATUS_SET (v4): lets software set
->   individual bits in the global status MSR.
-> - Add support for IA32_PERF_GLOBAL_INUSE (v4): reports which counters
->   and PMI are currently claimed.
-> - Implement ANYTHREAD_DEPRECATION capability.
-> 
-> Intel PerfMon v5 doesn't support non-contiguous GP counters; however,
-> this series lays the groundwork for GP counter bitmap support anyway,
-> for consistency with the host perf API interface, and prepares for
-> Perfmon Masking support.
-> 
-> Freeze_PerfMon_On_PMI virtualization is not implemented because, as
-> commit 3daa96d67274 ("perf/intel: Remove Perfmon-v4 counter_freezing
-> support") states, the Freeze-on-PMI mechanism violates the perf counter
-> independence.
-> 
-> Streamlined Freeze_LBRs_On_PMI is not implemented because LBR is not
-> yet supported on mediated vPMU.
-> 
-> Tested on SPR and CWF:
-> 
-> - Ran "perf test" on both L0 and L1; no issues attributable to this
->   series have been observed so far.
-> 
-> - Ran KVM selftests on both L0 and L1.
-> 
-> - Passed AnyThread tests on both fixed and gp counters:
->   $ perf stat -e r20003c,r2000c4,r2000c0 -- sleep 1
-> 
-> - Tested various guest fixed-counter configurations:
->       CPUID.0AH:ECX = 0x7   CPUID.0AH:EDX[4:0]=3
->       CPUID.0AH:ECX = 0x2   CPUID.0AH:EDX[4:0]=0
->       CPUID.0AH:ECX = 0x6   CPUID.0AH:EDX[4:0]=0
->       CPUID.0AH:ECX = 0x5   CPUID.0AH:EDX[4:0]=1
->       CPUID.0AH:ECX = 0x0   CPUID.0AH:EDX[4:0]=0
-> 
->   Verified that the guest PMU reflected the configured fixed-counter
->   and that the following command used fixed or general-purpose counters
->   as expected:
-> 
->   $ perf stat -e instructions,cpu-cycles,ref-cycles -- sleep 1
-> 
-> - Manually tested IA32_PERF_GLOBAL_INUSE.
-> 
-> - Ran some additional perf tests on both L0 and L1.
-> 
-> - Sanity testing on nested VMs.
-> 
-> Patch series summary:
-> patch 1-4: Code cleanup and a fix.
-> patch 5-10: Implement PMC bitmap support.
-> patch 11-14: Implement PerfMon v3-v5 new features.
-> patch 15: Advertise PerfMon version up to v5.
-> patch 16: Fix pmu_counters_test selftests fixed counter test case.
-> 
-> Rebased to kvm-x86/next: 76671054f9a1
-> 
-> v2 changes:
-> - Dropped v1 11/15: KVM: x86/pmu: Emulate streamlined Freeze-LBR-on-PMI
-> - New patch 4/15 to gate BUFFER_OVF reserved bit on guest DS feature.
-> - Some renames:
->   - all_valid_pmc_mask to pmc_exists;
->   - add _is to kvm_{gp,fixed}_pmc_supported();
->   - split kvm_for_each_set_pmc_idx() to kvm_for_each_{gp,fixed}_counter().
-> - Add missing AnyThr handling in IA32_FIXED_CTR_CTRL and advertise
->   anythread_deprecated only if kvm_pmu_cap.version >= 5.
-> - Cap vPMU v3/v4 to v2, as AnyThread cannot be safely virtualized.
-> - Miscellaneous updates to changelogs and some minor fixes.
-> 
-> Dapeng Mi (6):
->   KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters from kvm_pmu
->   perf/x86: Plumb counter bitmap from x86_pmu to x86_pmu_cap
->   KVM: x86/pmu: Switch to bitmask-based KVM PMU capabilities
->   perf/x86: Remove num_counters_{gp,fixed} from x86_pmu_capability
->   KVM: x86/pmu: Advertise PerfMon version 5 on Intel hosts
->   KVM: selftests: Support fixed counters bitmap in pmu_counters_test
-> 
-> Zide Chen (10):
->   KVM: x86/pmu: Remove redundant Perf Global Status MSR bit definitions
->   KVM: x86/pmu: Rename all_valid_pmc_idx to pmc_exists
->   KVM: x86/pmu: Rename reserved_bits to eventsel_rsvd in kvm_pmu
->   KVM: x86/pmu: Gate BUFFER_OVF reserved bit on guest DS
->   KVM: x86/pmu: Add PMC bitmap accessor helpers
->   KVM: x86/pmu: Expose kvm_host_pmu to vendor modules
->   KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and GLOBAL_INUSE MSRs
->   KVM: x86/pmu: Populate CPUID.0AH:ECX fixed-counter bitmap
->   KVM: x86/pmu: Factor out fixed counter control bit calculation
->   KVM: x86/pmu: Ignore AnyThread bit if CPUID.0AH:EDX[15] is set
-> 
->  arch/x86/events/core.c                        |   8 +-
->  arch/x86/include/asm/kvm_host.h               |   9 +-
->  arch/x86/include/asm/msr-index.h              |  12 +-
->  arch/x86/include/asm/perf_event.h             |  10 +-
->  arch/x86/kvm/cpuid.c                          |  21 ++-
->  arch/x86/kvm/msrs.c                           |  12 +-
->  arch/x86/kvm/pmu.c                            |  85 ++++++---
->  arch/x86/kvm/pmu.h                            |  54 +++++-
->  arch/x86/kvm/svm/pmu.c                        |  37 ++--
->  arch/x86/kvm/svm/svm.c                        |  17 +-
->  arch/x86/kvm/vmx/nested.c                     |   8 +-
->  arch/x86/kvm/vmx/pmu_intel.c                  | 167 +++++++++++++-----
->  arch/x86/kvm/vmx/vmx.c                        |  19 +-
->  .../selftests/kvm/include/x86/processor.h     |   6 +-
->  .../selftests/kvm/x86/pmu_counters_test.c     |  26 ++-
->  15 files changed, 349 insertions(+), 142 deletions(-)
-> 
+Best regards,
+--  
+Guido Günther <agx@sigxcpu.org>
 
