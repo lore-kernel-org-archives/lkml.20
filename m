@@ -1,42 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86ED0533589;
-	Mon, 19 Oct 2026 13:55:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6CC547055;
+	Mon, 19 Oct 2026 13:55:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418121; cv=none; b=sgb83vZUFlZZWvd9/O5q1bH4RKSAO+CJ7qQv2sWQ0AdnFSP0N2olmac2wiEUgtkiznqv/fLsvW4Pbsy+ImNMX2TCYkJOAEqXEidfivtRdBIi0aPFb2jTJ0TShoECGQvGvaxdL1WYXnhbJCEFJvpAVFFXQpY/tF70RiWQerKyrMg=
+	t=1792418123; cv=none; b=Sj8s7N20dzmql6+BZxwi6KpJBsJaDS1uQO7VmeUcC7gNuN1kJJxVRp58yvEdnuSwC8qT0PICZSi1kR0ydBCMT/XDtuJXPspa/QvMy242iMVrVe1DscOBH92HwLY3KhxdywoibGPrL72lx1U6O0nEHOm9jKha5v3Vv2dhmzLXsNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418121; c=relaxed/simple;
-	bh=SnwDmaGbB/8D8fMnHoOLc+J87zXg6C8AhzDsyavSZ4c=;
+	s=arc-20240116; t=1792418123; c=relaxed/simple;
+	bh=6MkNtGr4amCWFbF87aKQUi2Elw82i+dKvZ0St44wBxk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ax/Pa0v682tDBQsGFtKHRMVuSnef8nQK8dDR2+qoIfjhTDoG6bFTqkFZAq/wWkdQPlTaYYCg0hH16dQ7TcHm7wKMT1t/ucC5pNBGVPG8yH9ti3pBHnHFKZ4rXbcPeQVi4W/FtRq+tOM0rreyCz0k0gGeL5+slLo7YoOa6cF4JDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jmhg3X6/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=YHv6VLkRGYB4+HFC4VNwKvWthPa3R4zlOzcwJ+hqs9DRXNr2t0tMOOrboLZPJrNSzrdPfZxGG11WtoxSSOqWOamRBO5XT1fsbfI3kcd/ZpmAOXsznWzMpIYlGyeq8z3QeplionOeDtC3g+7NFCE6qfyAMAR+pBMjfm4YVFXRkpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdkQ333E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jmhg3X6/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6F341F000C9;
-	Mon, 19 Oct 2026 13:55:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdkQ333E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F23221F000C6;
+	Mon, 19 Oct 2026 13:55:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418118;
-	bh=DzXpLSCmKSDxDzNcGxTReR6rG9pLC1ND/bBlnj/rcEw=;
+	s=k20260515; t=1792418121;
+	bh=5/1jcJJIxX8v0UySJxP1SWO0UmoewAoWmMe6s3O/mbE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jmhg3X6/+iTiATNI7B5njoEp4ZfGl3sip4C9L77GcA+7leQ1ZcV8aYqdbnQgbK4LI
-	 LzrngKYlN2cbVglRzaofwK35bQTo46mldKeRUTB5Kw2N5RFRQzoq/y++XPRYYdFZsM
-	 B/Ymgw8WQCFch27cuTUySsT48r+n7BWNj0BQo7TQlrRAxiPJHMIMskyRjz0hp3YDKu
-	 eOwEqHqTbNOiEBL/e57WAjYQGTmQqQ6Jq0BVZYnx1p1sOfqa/VB/Wo+btfwdGMeWPN
-	 HtyxdSGlMOEBcVCCB/laCfzuPTfxPruG8eYoZ6PO+8iBAbsCiRt3pfOTsHyXEyw2DY
-	 /oEAtOafHzHlA==
+	b=UdkQ333Evo2RiWHbejzCh7Q1i2pm32dyAwpHgCVY6rldqY7PFj+AHvNdSWQGUNeyQ
+	 rW1hqWX80gEiFZYrO6yw3cHyJllsn2RubwjyW9+kSjqNvoM/nbOL1MDVyXAGsOGCRL
+	 pad5mibffMFKBffmF6vceSePsMoI+x0kTB/qVJgY3sYfprbGQfQEO7WeKXTx2rOOys
+	 by/JSd8uY8nmZ8Mcgg4Cjge6GmUMxBvm0kM53FKKZHiKHG+lqVgLuoplZRhAQjrPtg
+	 5LDn58u/5Owqm9QApvOlUV6ljlQncPz0aiGIBJW82PHiSI9MLoZmh8Xza8KrKOtc0M
+	 uQwLhLofd9xKw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Tao Cui <cuitao@kylinos.cn>,
-	Tejun Heo <tj@kernel.org>,
+Cc: Weiji Wang <nebclllo0444@gmail.com>,
+	Douglas Anderson <dianders@chromium.org>,
 	Sasha Levin <sashal@kernel.org>,
-	sched-ext@lists.linux.dev,
+	neil.armstrong@linaro.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] sched_ext/scx_flatcg: expire cached hweights on weight changes
-Date: Mon, 19 Oct 2026 09:45:15 -0400
-Message-ID: <20261019135441.1420968-24-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/panel-edp: Add BOE NE140QDM-NX2
+Date: Mon, 19 Oct 2026 09:45:17 -0400
+Message-ID: <20261019135441.1420968-26-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -52,417 +58,385 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
+From: Weiji Wang <nebclllo0444@gmail.com>
 
-[ Upstream commit 94c20e1fb334c2082b443c4470a86ad982f67282 ]
+[ Upstream commit 354b9c43d36ce9b41e48b2d67c5d9b953a0e9d64 ]
 
-fcg_cgroup_set_weight() updates cgc->weight and the parent's
-child_weight_sum but doesn't bump hweight_gen, so the hweights cached by
-cgrp_refresh_hweight() stay stale until some task activation bumps the
-generation. For cgroups whose tasks never go through a 0->n runnable
-transition (e.g. persistently busy ones), a cpu.weight change never
-propagates to scheduling at all.
+Add timing from datasheet for BOE NE140QDM-NX2.
 
-Bump hweight_gen on weight changes so the next refresh recomputes with
-the new weight.
+edid-decode (hex):
 
-Verified on a flatcg VM: a live cpu.weight 100->800 change on a busy
-cgroup leaves HWT update at 0 and the distribution unchanged; with it,
-hweight_gen increments and the refresh recomputes.
+00 ff ff ff ff ff ff 00 09 e5 f2 0a 00 00 00 00
+20 1f 01 04 a5 1e 13 78 03 ee 96 a3 54 4c 99 26
+0f 4e 51 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 60 d2 00 a0 a0 40 32 60 30 20
+35 00 2e bd 10 00 00 18 c8 9d 00 a0 a0 40 32 60
+30 20 35 00 2e bd 10 00 00 18 00 00 00 fd 00 30
+78 c6 c6 36 01 0a 20 20 20 20 20 20 00 00 00 fe
+00 4e 45 31 34 30 51 44 4d 2d 4e 58 32 20 01 f8
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+70 13 79 00 00 03 01 14 30 69 00 05 ff 09 9f 00
+2f 00 1f 00 3f 06 31 00 02 00 04 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 4d 90
+
+Signed-off-by: Weiji Wang <nebclllo0444@gmail.com>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Link: https://patch.msgid.link/82fc6395-3425-4f71-ba58-813856cee61d@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough to decide: the buggy path is in this 6.12 tree, the patch
-is a three-line cache-invalidation fix, and it applies here.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1: Subject line**
+Record: `[drm/panel-edp] [Add] [one-line BOE NE140QDM-NX2 panel-id /
+delay table entry]`
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: [sched_ext/scx_flatcg] [expire] [invalidate cached hierarchical
-weights when cpu.weight changes]
-
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Step 1.2: Tags**
 Record:
-- Signed-off-by: Tao Cui <cuitao@kylinos.cn> (author)
-- Signed-off-by: Tejun Heo <tj@kernel.org> (sched_ext maintainer;
-  applied the patch)
-- No Fixes: tag on the committed version (expected for this review
-  pipeline)
-- No Reported-by, Tested-by, Reviewed-by, Acked-by, Link, or Cc: stable
-- BPF CI bot later suggested Fixes: a4103eacc2ab4 ("sched_ext: Add a
-  cgroup scheduler which uses flattened hierarchy")
+- `Signed-off-by: Weiji Wang <nebclllo0444@gmail.com>` (author)
+- `Reviewed-by: Douglas Anderson <dianders@chromium.org>` (listed `R:`
+  for this driver in MAINTAINERS)
+- `Signed-off-by: Douglas Anderson <dianders@chromium.org>` (applied via
+  drm-misc)
+- `Link: https://patch.msgid.link/82fc6395-3425-4f71-ba58-
+  813856cee61d@gmail.com`
+- No `Fixes:`, no `Cc: stable`, no `Reported-by`, no `Tested-by` tag
+  (author later said they verified on `next-20260726` in the v1 thread)
+- Ignore pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
+  if present
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.3: Body**
 Record:
-- Bug: `fcg_cgroup_set_weight()` writes `cgc->weight` and the parent's
-  `child_weight_sum` but does not bump `hweight_gen`. Cached hweights in
-  `cgrp_refresh_hweight()` stay valid until some task activation changes
-  the active set.
-- Symptom: for cgroups that never go through a 0→n runnable transition
-  (persistently busy ones), a live `cpu.weight` write never affects
-  scheduling.
-- Author verification: on a flatcg VM, `cpu.weight` 100→800 on a busy
-  cgroup left HWT updates at 0 and the distribution unchanged; with the
-  bump, `hweight_gen` increments and refresh recomputes.
-- Root cause: generation counter used as a cache key is not invalidated
-  on the weight-change path, even though the file comment says it "gets
-  inc'd on weight tree changes".
+- Claimed intent: add datasheet timing for BOE NE140QDM-NX2.
+- Failure mode is not a crash dump; it is missing table data for a real
+  eDP panel identified by EDID.
+- Included raw EDID (base + CTA). Manufacturer `09 e5` is BOE; product
+  `f2 0a` little-endian is `0x0af2`; ASCII descriptor is `NE140QDM-NX2`.
+- Root cause: generic `edp-panel` path looks up power-seq delays by
+  panel ID; this ID was absent.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not hidden. This is an explicit correctness fix: a control knob
-is updated but the derived cached state is not expired.
+**Step 1.4: Hidden bug fix?**
+Record: Not a disguised UAF/leak. It is hardware-table enablement.
+Without the row, `generic_edp_panel_probe()` hits
+`WARN_ON(!panel->detected_panel)` and falls back to conservative delays
+(2000 ms unprepare / 200 ms enable). That is a real user-visible issue
+for this panel (warning + slow suspend/resume), not style cleanup.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+---
 
-Step 2.1: INVENTORY THE CHANGES
+## Phase 2: Diff analysis
+
+**Step 2.1: Inventory**
 Record:
-- File: `tools/sched_ext/scx_flatcg.bpf.c` (+3 / -0)
-- Function: `fcg_cgroup_set_weight()`
-- Scope: single-file surgical fix (blank line, comment, one atomic
-  increment)
+- File: `drivers/gpu/drm/panel/panel-edp.c` (+1 / −0)
+- Function/data: `edp_panels[]` only
+- Scope: single-file, one table row
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.2: Code flow**
 Record:
-- Before: lock; if the cgroup is active, adjust parent
-  `child_weight_sum`; store new `cgc->weight`; unlock; return. Cached
-  `cgc->hweight` is left tagged with the old `hweight_gen`.
-- After: same updates, then `__sync_fetch_and_add(&hweight_gen, 1)` so
-  the next `cgrp_refresh_hweight()` (called from
-  `try_pick_next_cgroup()` / dispatch) misses the cache and recomputes
-  `hweight` from the new weight.
-- Path affected: cgroup `cpu.weight` write while scx_flatcg is loaded.
-  Normal (not error) path.
+- Before: BOE IDs jump from `0x0ae8` (NV140WUM-N41) to `0x0b09`
+  (NV140FHM-NZ). `0x0af2` is unknown.
+- After: `EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2,
+  &delay_200_500_e50_p2e80, "NE140QDM-NX2")`.
+- Path: probe of compatible `"edp-panel"` → `generic_edp_panel_probe()`
+  → `find_edp_panel()` → copy `*delay` into `desc`. Modes still come
+  from EDID (`override_edid_mode` is not set).
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
+**Step 2.3: Bug mechanism**
+Record: **Hardware ID / quirk table** (device-ID exception). Not a
+memory-safety bug. Missing identity causes:
+1. `WARN_ON` splat at probe
+2. `panel_edp_set_conservative_timings()`: `unprepare=2000`,
+   `enable=200`, vs datasheet delays `hpd_absent=200`, `unprepare=500`,
+   `enable=50`, `prepare_to_enable=80`
+
+**Step 2.4: Fix quality**
+Record: Obviously correct one-liner using an existing delay blob. Sorted
+by product ID. Regression risk is confined to this panel ID; other
+panels are untouched. Commit text says “timing” but the row only sets
+**power sequencing**; that matches the driver’s design comment “Update
+the delay; everything else comes from EDID”.
+
+---
+
+## Phase 3: Git history
+
+**Step 3.1: Blame**
 Record:
-- Category: logic / correctness (stale cache)
-- Mechanism: `cgrp_refresh_hweight()` returns early when
-  `cgc->hweight_gen == hweight_gen`. `hweight_gen` is only bumped in
-  `update_active_weight_sums()` when a cgroup's active membership
-  actually changes. A weight write on an already-active cgroup never
-  does that, so dispatch keeps charging with the old hierarchical share.
+- New line is commit `354b9c43d36ce` (Weiji Wang, 2026-07-28).
+- Neighbors: `0x0ae8` from `993d36ac99efe` (2024), `0x0b09` from
+  `c03dd019f0b56` (2025).
+- `delay_200_500_e50_p2e80` introduced in `f4ccd9fea2270` (2023-12-14),
+  present long before this change.
+- Driver file from `5f04e7ce392db` (2021-09-20).
 
-Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- Obviously correct: it reuses the exact invalidation already used on
-  the active-set path (`__sync_fetch_and_add(&hweight_gen, 1)` at the
-  existing line 504).
-- Minimal; no unrelated edits.
-- Regression risk is very low: extra generation bumps only force more
-  hweight refreshes, which the code already treats as the slow-but-
-  correct path. No new locks, no API change.
+**Step 3.2: Fixes: tag**
+Record: None. Bug is “this panel ID was never listed”, not a regression
+from a specific SHA.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 3.3: File history**
+Record: Many similar `drm/panel-edp: Add …` one-liners. Standalone; not
+`N/M`. Parent `eb7979f6014a1` already has the delay struct and
+surrounding BOE rows. `git grep 0x0af2` on the parent: not present.
 
-Step 3.1: BLAME THE CHANGED LINES
-Record: The whole of `fcg_cgroup_set_weight()`,
-`cgrp_refresh_hweight()`, `hweight_gen`, and the existing bump in
-`update_active_weight_sums()` come from a4103eacc2ab4 (Tejun Heo,
-2024-09-04), first contained in v6.12-rc1. The bug is as old as the
-example scheduler itself.
-
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes: tag on the commit. The introducing commit is
-a4103eacc2ab4, which is an ancestor of this tree (`git merge-base --is-
-ancestor` exit 0). No later in-tree commit already expires hweights on
-set_weight.
-
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record (this tree, `tools/sched_ext/scx_flatcg.bpf.c`):
-- 65e72372d5282 sched_ext/scx_flatcg: Fix cvtime true-up on slice expiry
-  (already here; same author/thread)
-- ab3d9439475a2 sched_ext/scx_flatcg: Fix cvtime_delta race and add
-  hweight scaling to bypass charging
-- c9c809f4137c3 scx_flatcg: Use a user DSQ for fallback instead of
-  SCX_DSQ_GLOBAL
-- a4103eacc2ab4 original addition
-Standalone: one-line generation bump. Not patch N/M. The related cvtime
-true-up was discovered in the same mailing-list thread but is already in
-this tree.
-
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Tao Cui has two origin/master commits on this file (this one and
-the cvtime true-up). Tejun Heo is the sched_ext maintainer and applied
-both. This tree already contains the cvtime true-up (65e72372d5282).
-
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: None. `hweight_gen`, `__sync_fetch_and_add`, and
-`fcg_cgroup_set_weight()` all exist unchanged in this checkout. `git
-apply --check` of 94c20e1fb334c succeeded (hunk offset 1 line from the
-already-backported cvtime fix).
-
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
-
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- `b4 dig -c 94c20e1fb334c`:
-  https://patch.msgid.link/20260814144116.2767304-1-cui.tao@linux.dev
-- `b4 dig -a`: single v1 series; no later unapplied revision
-- lore.kernel.org fetches returned 403; discussion recovered from
-  patchew and openwall mirrors
-- Tejun Heo: "Applied to sched_ext/for-7.3." No NAK
-- BPF CI bot: "This looks like a bug fix. Should this include a Fixes:
-  tag..." suggesting a4103eacc2ab4
-- No reviewer asked to keep it out of stable; no Cc: stable either
-  (expected)
-
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`): To/Cc included tj@kernel.org, void@manifault.com,
-arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev,
-linux-kernel@vger.kernel.org, bpf@vger.kernel.org. Maintainer Tejun
+**Step 3.4: Author**
+Record: Only this commit by Weiji Wang in `drivers/gpu/drm/`. Douglas
+Anderson is `R: DRM DRIVER FOR GENERIC EDP PANELS` and both reviewed and
 applied it.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla. Author follow-up: VM with A(100)→A1/A2(100)
-and D(varying weight), 3 busy tasks per leaf, 4 vCPUs. D=200 ≈ 47% CPU,
-D=800 ≈ 46% — weight changes did nothing. That is how the missing
-`hweight_gen` bump was found.
+**Step 3.5: Prerequisites**
+Record: Needs `EDP_PANEL_ENTRY`, `edp_panels[]`, and
+`delay_200_500_e50_p2e80`. All exist in this checkout. Applies
+standalone.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Standalone v1. Same thread spawned the cvtime true-up fix
-(already in this tree as 65e72372d5282). Tejun noted that even after
-this cache fix, runnable-task limits still cap shares; that is a
-documented example-scheduler limitation, not a dependency of this patch.
+---
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search returned 403. Local `git log
---grep='expire cached hweights'` on this file is empty — not already in
-this tree. No local evidence of a prior rejection.
+## Phase 4: Mailing list
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `fcg_cgroup_set_weight()` (modified). Related:
-`cgrp_refresh_hweight()`, `update_active_weight_sums()`,
-`try_pick_next_cgroup()`.
-
-Step 5.2: TRACE CALLERS
+**Step 4.1: Original discussion**
 Record:
-- `fcg_cgroup_set_weight` is registered as `.cgroup_set_weight` in the
-  BPF struct_ops (line 959).
-- Kernel calls it from `scx_group_set_weight()` in `kernel/sched/ext.c`
-  when `cpu.weight` / `cpu.weight.nice` changes and scx_flatcg is loaded
-  (`SCX_CALL_OP(..., cgroup_set_weight, ...)`).
-- Reachable from a privileged cgroupfs write, not from an unprivileged
-  syscall.
+- `b4 dig -c 354b9c43d36ce` → https://patch.msgid.link/82fc6395-3425-
+  4f71-ba58-813856cee61d@gmail.com
+- v1: 2026-07-24, https://patch.msgid.link/697e79c2-98a9-4bb3-b5fb-
+  db327cbe1bce@gmail.com
+  Used unsorted `0x0af2` with `delay_200_500_e80`.
+- v2: 2026-07-28 (applied). Changelog: sort fix +
+  `delay_200_500_e50_p2e80`.
+- Doug on v2: mailer wrapped/tabs-to-spaces; he fixed and pushed to drm-
+  misc-next as `354b9c43d36ce`. `Reviewed-by` given. No NAK.
+- v1 review: sort bug; asked if datasheet vs guess. Author: Panelook
+  datasheet; T4+T5+T6+T8-min given. Doug recommended
+  `delay_200_500_e50_p2e80`. Author confirmed T7/T8 match and verified
+  on `next-20260726`.
+- No reviewer `Cc: stable`.
 
-Step 5.3: TRACE CALLEES
-Record: `find_cgrp_ctx`, `find_ancestor_cgrp_ctx`,
-`bpf_spin_lock/unlock(&cgv_tree_lock)`, and after the patch
-`__sync_fetch_and_add(&hweight_gen, 1)`. No allocation.
+**Step 4.2: Recipients (`b4 dig -w`)**
+Record: Weiji Wang, Doug Anderson, `dri-devel@lists.freedesktop.org`,
+`linux-kernel@vger.kernel.org`. Right reviewer and list.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: userspace writes `cpu.weight` → `cpu_weight_write_u64` →
-`scx_group_set_weight` → BPF `fcg_cgroup_set_weight`. Dispatch later
-calls `try_pick_next_cgroup()` → `cgrp_refresh_hweight()`. If
-`hweight_gen` was not bumped, that refresh hits `FCG_STAT_HWT_CACHE` and
-keeps the old share. Users who load scx_flatcg and change cgroup weights
-can trigger this; busy cgroups are the common case where weights matter.
+**Step 4.3: Bug report**
+Record: No syzbot/bugzilla. Hardware addition from someone with the
+panel/datasheet. EDID in the message is the identification evidence.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: The only other `hweight_gen` bump is in
-`update_active_weight_sums()` when `nr_active` crosses 0. That is the
-missing counterpart this patch adds on the weight-write path. No other
-copy of the same omission in this file.
+**Step 4.4: Series**
+Record: Single patch, v1→v2 only.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 4.5: stable@**
+Record: lore HTTP fetch returned 403. `b4` threads have no stable
+discussion. Not used as a negative signal.
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes. Local tree is pending-6.12, `make kernelversion` =
-6.12.111, `git describe HEAD` = p-6.12-3-gc504cf0baa3d8.
-`fcg_cgroup_set_weight()` at lines 590–609 has the weight update and no
-`hweight_gen` bump. Introduced by a4103eacc2ab4 (in this tree).
-94c20e1fb334c is not an ancestor (`merge-base --is-ancestor` exit 1).
+---
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Clean apply. `git show 94c20e1fb334c | git apply --check`
-succeeded with hunk offset 1 (from the already-present cvtime true-up).
-No refactor of this function here.
+## Phase 5: Semantic analysis
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: No alternate hweight-expiry fix. Related accounting fixes
-(cvtime true-up, cvtime_delta race) are present and independent.
+**Step 5.1: Functions**
+Record: No function body change. Data: `edp_panels[]`. Consumers:
+`find_edp_panel()`, `generic_edp_panel_probe()`.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: tools/sched_ext example BPF scheduler (scx_flatcg), used only
-when `CONFIG_SCHED_CLASS_EXT` is enabled and this program is loaded.
-Criticality: PERIPHERAL relative to core CFS, but IMPORTANT for anyone
-actually running this shipped scheduler — its whole job is hierarchical
-weight control. Not staging.
-
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: sched_ext was new in 6.12; this file has a handful of later
-correctness backports in this tree. Mature enough that the bug is
-original, not from post-branch churn.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Config- and userspace-specific: `CONFIG_SCHED_CLASS_EXT=y` plus
-loading `scx_flatcg`. Not universal. This tree already ships that
-example and has been taking its correctness fixes.
-
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Write `cpu.weight` on a cgroup whose tasks stay runnable. Common
-for exactly the workload the scheduler is meant to manage (competing
-busy cgroups). Requires privilege to write the cgroup knob. Not a race;
-it fails every time until some sibling goes idle.
-
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: Failure mode = live cgroup CPU shares do not follow `cpu.weight`
-for busy groups (author: 100→800 left HWT updates at 0). No oops,
-deadlock, or corruption. Severity: MEDIUM–HIGH functional/fairness bug
-for that scheduler; LOW for the rest of the kernel.
-
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Step 5.2: Callers**
 Record:
-- Benefit: makes the primary fairness knob work for persistently busy
-  cgroups on a scheduler this tree already ships and already patches.
-- Risk: very low (3 lines, existing atomic, no lock/API change).
-- Ratio: strongly favors backport.
+- `panel_edp_probe()` if DT compatible is `"edp-panel"`
+- `panel_edp_platform_probe()` / AUX-bus probe → `panel_edp_probe()`
+- Context: device probe (boot / connector bring-up), not IRQ/hot path
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+**Step 5.3: Callees**
+Record: `find_edp_panel()` walks `edp_panels`; on hit, `desc->delay =
+*panel->detected_panel->delay`.
 
-Step 9.1: COMPILE THE EVIDENCE
+**Step 5.4: Reachability**
+Record: Yes, from normal laptop/embedded eDP probe when the panel EDID
+is BOE `0x0af2`. Unprivileged users do not program the ID; it is
+firmware/EDID. Impact is display power-seq and a kernel warning at
+probe.
+
+**Step 5.5: Similar patterns**
+Record: The table is full of the same `EDP_PANEL_ENTRY` pattern
+(including other BOE NE140QDM parts, e.g. `0x0b1e` NE140QDM-N6A). This
+is the standard way this driver is extended.
+
+---
+
+## Phase 6: Local tree (this checkout)
+
+**Step 6.1: Does the code exist here?**
+Record:
+- Tree: `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
+  kernelversion` = `7.3.0-rc4`
+- `drivers/gpu/drm/panel/panel-edp.c` present; `CONFIG_DRM_PANEL_EDP` in
+  Kconfig
+- `delay_200_500_e50_p2e80` at lines 1768–1773
+- `edp_panels[]` and `WARN_ON` unknown-panel path at 829–833
+- Line 2060 already has this entry because `354b9c43d36ce` **is an
+  ancestor of HEAD**. That is mainline history, not a reason to treat
+  the change as “already selected for stable”.
+
+**Step 6.2: Backport difficulty**
+Record: Clean apply: one sorted row, delay symbol already in this tree.
+No API/struct change.
+
+**Step 6.3: Related fixes already here?**
+Record: No other `NE140QDM-NX2` / `0x0af2` commit besides this one. No
+alternate fix.
+
+---
+
+## Phase 7: Subsystem context
+
+**Step 7.1:**
+Record: DRM panel (`drivers/gpu/drm/panel/`). Criticality: **IMPORTANT**
+for systems using generic eDP (`edp-panel`), typical
+laptops/Chromebooks/ARM boards. Not mm/net core; not staging.
+
+**Step 7.2:**
+Record: Active table (many recent `Add` commits). Mature lookup/delay
+design since ~2021–2023.
+
+---
+
+## Phase 8: Impact and risk
+
+**Step 8.1: Who is affected**
+Record: Driver/config-specific: `CONFIG_DRM_PANEL_EDP` + DT `"edp-
+panel"` + BOE product ID `0x0af2`. No effect on other panels.
+
+**Step 8.2: Trigger**
+Record: Every probe of that panel (boot / display init). Not a race. Not
+a syscall exploit path.
+
+**Step 8.3: Failure mode**
+Record:
+- `WARN_ON` on unknown panel (MEDIUM as a warning, but intentional
+  “please add this ID” splat)
+- Conservative delays: extra ~1.5 s unprepare vs 500 ms (user-visible
+  resume/power-off lag)
+- Panel is still expected to work; this is enablement + warning/latency,
+  not panic
+- Severity: **MEDIUM** as a bug; **high value** as a device-ID exception
+
+**Step 8.4: Risk-benefit**
+Record:
+- Benefit: correct power-seq and no warning for this hardware; same
+  class as PCI/USB ID adds
+- Risk: very low (1 line, ID-matched only)
+- Ratio: favorable
+
+---
+
+## Phase 9: Synthesis
+
+**Step 9.1: Evidence**
 
 FOR:
-- Real, reproduced bug: busy-cgroup `cpu.weight` changes never reach
-  scheduling.
-- Matches the file's own cache-invalidation design; the set_weight path
-  simply omitted the bump.
-- 3-line, obviously correct, same primitive as the existing active-set
-  path.
-- Bug present since v6.12-rc1 in this tree; patch not yet here; applies
-  cleanly.
-- Maintainer applied it; author and maintainer both tested.
-- Companion scx_flatcg correctness fixes are already in this 6.12 tree.
+- Existing driver; only a new panel ID + existing delay pointer
+- Matches the documented **new device ID** / hardware-quirk exception
+- Prevents `WARN_ON` + 2000 ms conservative unprepare for BOE NE140QDM-
+  NX2
+- 1 line, sorted, uses `delay_200_500_e50_p2e80` already in this tree
+- EDID in the message matches vendor/product/name
+- Reviewed and applied by the panel-edp reviewer; v2 delay choice came
+  from datasheet discussion
+- Author verified on `next-20260726`
 
 AGAINST:
-- Example BPF scheduler in `tools/`, not CFS/core.
-- No crash, UAF, deadlock, or CVE.
-- Optional config; production SCX users often load schedulers from the
-  out-of-tree scx repo.
-- Residual share compression from window granting remains even after
-  this fix (separate example-scheduler limit).
+- Not a UAF/crash/security fix
+- Unknown panel still functions with conservative timings
+- No `Fixes:` / `Cc: stable` (expected for this review path)
+- Commit subject is enablement (“Add …”), not “fix”
 
 UNRESOLVED:
-- lore.kernel.org and lore stable search returned 403; discussion taken
-  from patchew/openwall. No evidence of a stable NAK.
+- lore.kernel.org via WebFetch was 403; thread recovered with `b4`
+- No stable@ thread found
+- Exact laptop SKUs using this panel not identified beyond the EDID
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? PASS — same generation bump as the
-   other path; author + maintainer verified on a VM.
-2. Fixes a real bug that affects users? PASS — `cpu.weight` ignored for
-   busy cgroups; measured.
-3. Important issue? PASS — fairness/control-knob failure of this
-   scheduler (not a panic, but the feature is broken in the case that
-   matters).
-4. Small and contained? PASS — +3 lines, one function.
-5. No new features or APIs? PASS.
-6. Can apply to the local tree? PASS — `--check` succeeded.
+**Step 9.2: Stable rules**
+1. Obviously correct and tested? **PASS** (1-line table add; maintainer
+   review; author verified)
+2. Real bug affecting users? **PASS** (missing ID → warning + wrong
+   delays on real hardware)
+3. Important (crash/security/corruption/deadlock)? **PASS via
+   exception** (device ID / panel quirk; warning + bad power-seq). Not
+   CRITICAL memory safety.
+4. Small and contained? **PASS** (+1 line, one file)
+5. No new features/APIs? **PASS** (no new driver, syscall, or userspace
+   ABI; ID in existing table)
+6. Can apply to this tree? **PASS** (driver, macro, delay struct, and
+   sort neighbors all present)
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: None (not a device ID, quirk, DT, build, or docs fix). Qualifies
-as a normal small correctness fix.
+**Step 9.3: Exception**
+Record: **New device ID / hardware quirk** on an existing driver
+(`EDP_PANEL_ENTRY` is this driver’s ID table).
 
-Step 9.4: MAKE YOUR DECISION
-This tree is 6.12.y. The buggy example scheduler is here, the one-line
-invalidation is the intended cache protocol, and the only cost is extra
-hweight refreshes. That is a YES for this checkout.
+**Step 9.4: Decision**
+This is the eDP equivalent of adding a PCI/USB ID: a one-line table
+entry so existing `panel-edp` uses datasheet power sequencing instead of
+the unknown-panel `WARN_ON` + conservative delays. This tree has every
+prerequisite. Benefit is real for owners of this panel; risk is
+negligible.
 
-What the commit solves for stable users:
-Anyone on this 6.12 tree who loads the shipped `scx_flatcg` scheduler
-currently cannot change CPU shares of persistently busy cgroups through
-`cpu.weight`. That is the main knob the scheduler advertises. The patch
-expires the hweight cache so the next dispatch refresh uses the new
-weights.
+### What the commit solves for this tree
+On `v7.3-rc4`, generic `"edp-panel"` devices read EDID and look up
+`edp_panels[]`. BOE `0x0af2` (NE140QDM-NX2) had no row, so probe warned
+and used 2000/200 ms conservative delays. The patch adds that row with
+`delay_200_500_e50_p2e80`. Display modes remain EDID-driven.
 
-Risk vs benefit:
-Benefit is restoring advertised cgroup fairness for that scheduler; risk
-is a generation bump that already exists on another path. No
-prerequisites beyond code already in this tree.
+### Risk vs benefit
+Very low risk, contained to one product ID. Benefit is working/faster
+power sequencing and no warning for that panel—standard stable device-ID
+material.
+
+---
 
 Verification:
-- [Phase 1] Parsed subject/body/tags from `git log origin/master` / `git
-  show 94c20e1fb334c`; no Fixes:/Reported-by; Tejun SOB
-- [Phase 2] Diff is +3 lines in `fcg_cgroup_set_weight()`; local
-  function at lines 590–609 lacks the bump
-- [Phase 2] Confirmed `cgrp_refresh_hweight()` cache test at lines
-  206–208 and existing bump at 503–504
-- [Phase 3] `git blame -L 590,609`: a4103eacc2ab4; `git describe
-  --contains a4103eacc2ab4` = v6.12-rc1~111^2~20
-- [Phase 3] `git merge-base --is-ancestor a4103eacc2ab4 HEAD` → 0 (bug
-  in this tree)
-- [Phase 3] `git merge-base --is-ancestor 94c20e1fb334c HEAD` → 1 (fix
-  not in this tree)
-- [Phase 3] `git apply --check` of 94c20e1fb334c succeeded (offset 1)
-- [Phase 3] Author history on path: this commit + cvtime true-up
-  (already 65e72372d5282 here)
-- [Phase 4] `b4 dig -c 94c20e1fb334c`: msgid
-  20260814144116.2767304-1-cui.tao@linux.dev; v1 only
-- [Phase 4] `b4 dig -w`: Tejun and sched-ext/bpf lists on CC
-- [Phase 4] patchew: Tejun applied to sched_ext/for-7.3; BPF CI asked
-  for Fixes: a4103eacc2ab4
-- [Phase 4] Author measurements: D=200 ~47% vs D=800 ~46% before the
-  bump
-- [Phase 4] lore.kernel.org 403 — UNVERIFIED on lore itself; recovered
-  from patchew/openwall
-- [Phase 5] Call path: `scx_group_set_weight()` in
-  kernel/sched/ext.c:4113 → BPF `cgroup_set_weight`; refresh from
-  `try_pick_next_cgroup()` line 677
-- [Phase 6] `git describe HEAD` = p-6.12-3-gc504cf0baa3d8; `make
-  kernelversion` = 6.12.111
-- [Phase 7] README: scx_flatcg is the flattened hierarchical weight
-  example
-- [Phase 8] Failure: stale hweights → cpu.weight ignored for busy
-  cgroups; severity MEDIUM–HIGH for that scheduler
-- UNVERIFIED: whether this SHA was discussed on lore.kernel.org/stable
-  (HTTP 403)
+- [Phase 1] Parsed subject/tags/body from `git show 354b9c43d36ce`; EDID
+  `09 e5 f2 0a` + `NE140QDM-NX2` checked against the new `BOE, 0x0af2`
+  row
+- [Phase 2] Diff is +1 line in `edp_panels[]`;
+  `generic_edp_panel_probe()` / `WARN_ON` /
+  `panel_edp_set_conservative_timings()` read in `panel-edp.c`
+- [Phase 3] `git blame -L 2058,2062`; `git log -L
+  :delay_200_500_e50_p2e80:…` → `f4ccd9fea2270`; parent has no `0x0af2`;
+  `git merge-base --is-ancestor 354b9c43d36ce HEAD` → yes
+- [Phase 3] No `Fixes:`; author log only this DRM commit
+- [Phase 4] `b4 dig -c 354b9c43d36ce` / `-a` / `-w` / `-m`; v1 mbox (7
+  messages) with Doug’s sort + delay review; v2 applied despite wrap
+- [Phase 4] WebFetch lore → 403; discussion taken from b4 mboxes instead
+- [Phase 5] Call path: `"edp-panel"` → `panel_edp_probe()` →
+  `generic_edp_panel_probe()` → `find_edp_panel()`
+- [Phase 6] `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`;
+  `VERSION=7 PATCHLEVEL=3 SUBLEVEL=0 EXTRAVERSION=-rc4`; delay struct
+  and table present
+- [Phase 7] MAINTAINERS: `R: Douglas Anderson` for `panel-edp.c`;
+  Kconfig `DRM_PANEL_EDP`
+- [Phase 8] Failure mode verified: unknown panel → WARN_ON + unprepare
+  2000 / enable 200
+- UNVERIFIED: stable@ archive (lore HTTP 403); specific machine models
+  shipping this panel
 
 **YES**
 
- tools/sched_ext/scx_flatcg.bpf.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/panel/panel-edp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/tools/sched_ext/scx_flatcg.bpf.c b/tools/sched_ext/scx_flatcg.bpf.c
-index d1fc6cb8206c0..3f01441731b7e 100644
---- a/tools/sched_ext/scx_flatcg.bpf.c
-+++ b/tools/sched_ext/scx_flatcg.bpf.c
-@@ -605,6 +605,9 @@ void BPF_STRUCT_OPS(fcg_cgroup_set_weight, struct cgroup *cgrp, u32 weight)
- 		pcgc->child_weight_sum += (s64)weight - cgc->weight;
- 	cgc->weight = weight;
- 	bpf_spin_unlock(&cgv_tree_lock);
-+
-+	/* expire cached hweights so the new weight propagates */
-+	__sync_fetch_and_add(&hweight_gen, 1);
- }
- 
- static bool try_pick_next_cgroup(u64 *cgidp)
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 614c63e95c357..65e2f68b919ef 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -1989,6 +1989,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a6a, &delay_200_500_e80, "NV140WUM-N44"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ac5, &delay_200_500_e50, "NV116WHM-N4C"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ae8, &delay_200_500_e50_p2e80, "NV140WUM-N41"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2, &delay_200_500_e50_p2e80, "NE140QDM-NX2"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b09, &delay_200_500_e50_po2e200, "NV140FHM-NZ"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b1e, &delay_200_500_e80, "NE140QDM-N6A"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b34, &delay_200_500_e80_d50, "NV122WUM-N41"),
 -- 
 2.53.0
 
