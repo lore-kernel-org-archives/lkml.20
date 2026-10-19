@@ -1,32 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83210286A0;
-	Mon, 19 Oct 2026 12:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05AF3EAC84
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:33:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413203; cv=none; b=SULADKReO1k8oVsOgfvUot1HU0BcocP1vYZn2o4bEBUhonBj9b/IUpBv04QOQvazCalPvz5vA2NfbKYvrX7f+Aimgc4vcu/1OmRvj2iDdiWtA0AFoDmmUQjLr9gakDiFub59xBIxmbCy9p/hdg7fIHbbygeJ41gRTbLbNHcgiXI=
+	t=1792413207; cv=none; b=cp4wb4E8JAHa2o0oIiqfwSQRsf+TVpmFtIGREWmv+hrbCyFl2Y7RbJ59KUZVJwUwXvH/koQxj3UVybwIzy01s+hySNSlgHEvW43+peILKLZWZjtt1PV17WBgGPoldt2wEmsiW8Yaz4sEUrSkvR64+m6ozobjDnMZ7iTKSOXoYsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413203; c=relaxed/simple;
-	bh=J9Z7HYiINp3Opr0SzOP8Y+bsdzX7DTzpWGS9b6a2h/I=;
+	s=arc-20240116; t=1792413207; c=relaxed/simple;
+	bh=WuSIXePJZfAwr2w90b8o7Rc5jYA58jcVuPMl6rfMIio=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ijvoA2usB5BQEXYkBxhJB6XhEim3YHBqZ6GrF4hNs00iQxu8iWA2K5X59+fvdX/PD+BaEh3JGCbRl5mJ0jluUa4keOL1sYBjkc1JU5LSDWt2emTYRIdEMzjY6eCtCcjQLReuxXa47OWjt2irzQ0sTKsUdZSzs84uu547ksmS59s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=neclC2+d; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=QFAlMdS1o78sGCOXx/lsk91k4Q66RgvUmWDUHRs7OtQ/CO+J+7bq2eVnO547re3zigAcZdDv5uS8sha1ASnMeDw13oIRPHqSIFuN3Bz5008tXEPHi3G3KJtjPBaPete4z8D1tSoqe6llztit/a0RjYNtCk6ommIKw/bczD24N50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fEgLOVbS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FUlq0naM; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="neclC2+d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB6A1F000C4;
-	Mon, 19 Oct 2026 12:33:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792413194;
-	bh=7QsMAmx6bVCRKshMz0ZcsU7Vzx2slkNkXzpX4VFjYRQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=neclC2+da5Xha9IP0VkSPHa5EvLUvbFVLHI5X93uWCTVwoHcjETbG18TYPwinLoj5
-	 TKdSYjXzw/9VWD7Wdy+RsLH4ZpPK5uvOBDTo5Dn+/5wdAIui2hTBGaby0AFfTFeA4u
-	 hiAJn4zDURwf8/fSVFeeLIHBREsbPU7BeE4LWLOr+D9Ykb62I/zMcY7YsKvSB5rmMQ
-	 Iy/g02nf3FUntEFAphlqgxurcpbp6DJHR2D49I3gxLky8ltfrKYDMHgT68K3hD/PqX
-	 aJkpIsy6Xs6G2I3+dNGEn6IiqQ/ozhQ0MdFBfLpvO4RqZZUsZxn+a0HHTJpYqcmq/6
-	 AmUF12EfoWGmg==
-Message-ID: <d2d5e53a-ba8b-4b66-8e15-0c45e08e0f3f@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fEgLOVbS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FUlq0naM"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8P1K32041873
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:33:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OHkb8hS3ILJ7jtb6Ae0OQ+p6ZaeWT/Gl2MVFAVf41S8=; b=fEgLOVbSldv3UDuH
+	8S+FVzaK1IhDVEyUGw3ha1hHCKJ+qcUDJtfC3e7myWcNbHsUvSAuD66LcTd15nEM
+	tNHbBP9v+SFT/FAt7HwssxOzTAu5h3H1fRaJYgpHiJr4w1PSGQn/SwHQMcyNVQUU
+	+ioXFKsWTkC4b+f65kLFTF+K1PXxXsKwa1xE0eKyCFEuwErVBGGuGAS8jAg84S2n
+	ZGkDSe+pkNfIEprazh/gknADz1mRwG/seX2H75hslfSKlWl5dfy9PCDnSrFGOkaD
+	AKkaQkXSaaEqgLbt3xBM0Ls0gmsmp8hcgoN9F3tWRA7rQOqkBh+RI2k1C7n6N637
+	tdEvsw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5ur2pq1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:33:15 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-536708d1a3eso2454261cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:33:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792413195; x=1793017995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OHkb8hS3ILJ7jtb6Ae0OQ+p6ZaeWT/Gl2MVFAVf41S8=;
+        b=FUlq0naM3Cy0JLl6tVZ2/VHvAdCr32reiY7775ncOPUUDAhnbb8nLwhbRYcvfsjclh
+         HAjhBYM3sJac8mEiODvKJYvlaqjPHMpQloxMIZWuaomQdqiLq3wqnVwCqo05pU1elL3w
+         mBnncx3VcNFyz2ySYO4SeFzL6z9e2MvRRS2ofRNMjhskfZzAOeVp+hRzw19CAFtCgbz2
+         SgNt6RcD93NBtoeA23uLQ5rcOs2KAFGqN7SfsCoUqIrQM5VCdjn9YYs8cnncA0g94T0l
+         kTWYbIX+Ptn01FAyQYlU5e+LBu18Bs/oAcv1YiDhD6KH4UewsFWBHOrRp/aLMdRUZL+B
+         jj6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792413195; x=1793017995;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OHkb8hS3ILJ7jtb6Ae0OQ+p6ZaeWT/Gl2MVFAVf41S8=;
+        b=Zzp9cebyC8eumz5xaVdGv2CKSMbCv4UrbTUNLBAasBo7iCqSbTDRdqBoMHRg6qap7I
+         UoVeZOLwycXyllMd9kflfDOOSbKuqCeLt15JNByal4zpRcQbpBIBeD3xc9n6t+5bauux
+         p5EvYRrFoegZB5X8D06hai6QGCtJ04Ra4hE1fjmpgYd8GCoSDnZTGpITH09QU0pYJbHn
+         ZapTrqxp5E9BpHMkm2GmBjOEtU5+3or84iQmWRicc99wy1ZzsmEzYlZW++0UbqxOzGke
+         xqiipo8qvWGemrlADyp0XDl6oGvRmPI5/ifFwxuNSSC9VVvqjW4MvcCX53zyHpiSgWr3
+         R8Gw==
+X-Forwarded-Encrypted: i=1; AKwUvBy5hDpt/2F9zGoYFHnIQ8Y3ckVKkhwmu41CxnrT/jLGU9j8IebViUh2athcqCyJudBbxAFKDT4JP4Oc4pk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJs/vZZX2BS2uwRhdGcvqLw6tq/5HFsDxmkSSs8ubHha1EC1ydW
+	vqe08Ogga5DGwg3zOJ8f4Bg3uiEm2BEXeuqMRJHXbC9YQnTS1cDrldGxF0hajWnxFu5CbnWwfZT
+	hAozOnBZ8C1a83Que0OlzKsxkvkzu78AtOfyahB75XG4eaI9hZlXhCsID8Ly0nYrE/rI=
+X-Gm-Gg: AYBFou1Ggqwa93kmQzuXUAk2cQvHGGJF3wqtPgYDCFEKRHDPPX3XY8PT80n8Ia6s+yF
+	UyDkPCwSw11ab2TzuVbMASeCEmIMR3FugePRdcIFCi65jjrA+Skx/BRMdnb6x0MKPdabqN5vvc0
+	GbwLRgmSZhaOXzDQwFcSeWxG38s/fr0MK0S/RUlsHgSMrm4I8ccvOa9tkwcokfjA941xkNNC5ww
+	Ib0X/Dg1OD156i3ifgoFjeKK0Q932ih/nWh2tKl1G1cP6pg2905PkRo303//UqDzVvP6GyxY6rB
+	99ge0zVdBUqpE0X1nwzq+HulwTKjsGqaGrMxiZjtJR3tk+BoZ8FvnFoykGmzYtzcHLpRvYOe2hF
+	wxfneLzn0rKInXqUm+XeX1w==
+X-Received: by 2002:ac8:5701:0:b0:535:fd16:4393 with SMTP id d75a77b69052e-536461cc281mr132702841cf.5.1792413194936;
+        Mon, 19 Oct 2026 05:33:14 -0700 (PDT)
+X-Received: by 2002:ac8:5701:0:b0:535:fd16:4393 with SMTP id d75a77b69052e-536461cc281mr132702391cf.5.1792413194431;
+        Mon, 19 Oct 2026 05:33:14 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dceadesm368526966b.20.2026.10.19.05.33.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 05:33:13 -0700 (PDT)
+Message-ID: <c2f7946b-ba31-4f0c-bd84-fae3481f2965@oss.qualcomm.com>
 Date: Mon, 19 Oct 2026 14:33:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -35,113 +89,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE for
- SVBONY SV105C
-To: =?UTF-8?B?0JrQvtC90YHRgtCw0L3RgtC40L0g0J7RgdGC0LDRiNC+0LI=?=
- <ostashow@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261019-sv105c-retry-set-interface-v1-1-ab2f08bc3fcb@gmail.com>
- <20261019111712.GP595565@killaraus.ideasonboard.com>
- <449eb143-37a8-4044-a071-63fe495c0213@kernel.org>
- <20261019112726.GR595565@killaraus.ideasonboard.com>
- <CAAquLuDc==WsbOYTfuKV2tspTSQAvB7kg2r2aqbE2rs3tYx2LA@mail.gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <CAAquLuDc==WsbOYTfuKV2tspTSQAvB7kg2r2aqbE2rs3tYx2LA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
+ Galaxy Tab S9 Wi-Fi
+To: Nizat Mikayilli <nacht@dxdmail.cc>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc>
+ <20261005-gts9wifi-dts-v2-2-c3ac9b0f9ceb@dxdmail.cc>
+ <2e3c1082-e5d0-4a33-ad3f-272dd74aa54c@oss.qualcomm.com>
+ <f7ba4d5a-0e8c-417d-a1fd-5b5e392df71a@dxdmail.cc>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <f7ba4d5a-0e8c-417d-a1fd-5b5e392df71a@dxdmail.cc>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=CP6/zhrD c=1 sm=1 tr=0 ts=6ad60e0b cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=AqZmfHzJsoaMp3Ki:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=Fpsou6_slo2yYXvzRi8A:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: RFPe_BWAoF_ktH3of3sBYAGS-MAHlQ0G
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0OSBTYWx0ZWRfX936xl6Nz5QIW
+ mZY95v3GVunat7YYF/7WpHOrU4hrQE4szCSs+GcxhTEKu328x/GZczYTXlpoP+flJyq0cv6xSzz
+ RI6Bqs0snxJZU4y83p+u+inme66XpAY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0OSBTYWx0ZWRfX/MxpHGE5X7GZ
+ X7rNJElLGRSNRjaHA9ezoLZ3JdTBpOkE+toB+I3e7IzzmFvwvnxhpp3xhwa9nVW1wWHRJchJ6xY
+ M/hZMf2IbDREx/TYhyxTm9OOO7hQcTdo8EZvHAXcslQ1NNkyh9Uh02ARKhQAgayS+Qh9qBCOZAV
+ DB03cr6rGKkRCsTV/zrl4iqq7imlud1gaaOIGv/e3tjo5mSjzJS8pWMe8ZBe4/RY0Bw9gyv01tt
+ 9qb9yKmvUQZZyiqp72GmQLQ2+I/7FTKcGbYK6IUsBTi2BxzVVe7i9QlrFYR7lizmg7akhAwTVOD
+ IL2Wcy4xncul9ykDmiA4SyGGubSR7s+mZnavgo8eriNQvyLZOh1XRiFrOvKBjXEwqqwoYzZP63c
+ Qu01bCEd+zng9Z+4MAu0j/vkmfIesg==
+X-Proofpoint-ORIG-GUID: RFPe_BWAoF_ktH3of3sBYAGS-MAHlQ0G
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
+ phishscore=0 malwarescore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2610080000 definitions=main-2610190049
 
-Hi,
-
-On 19-Oct-26 1:58 PM, Константин Осташов wrote:
-> Hi Laurent, Hans,
-> 
-> On Mon, Oct 19, 2026 at 02:27:26PM +0300, Laurent Pinchart wrote:
->> On Mon, Oct 19, 2026 at 01:21:49PM +0200, Hans de Goede wrote:
->>> On 19-Oct-26 1:17 PM, Laurent Pinchart wrote:
->>>> What does Windows do differently then ?
->>>
->>> I guess Windows always has a short-delay of at least one USB frame-time
->>> between the VS_COMMIT and SET_INTERFACE. I think we should simply add
->>> a flseep(1000) before the set_interface instead of adding a quirk for
->>> this.
+On 10/15/26 11:06 PM, Nizat Mikayilli wrote:
+> On 10/12/26 4:14 PM, Konrad Dybcio wrote:
+>> On 10/5/26 9:47 PM, Nizat Mikayilli via B4 Relay wrote:
+>>> amplifiers and the VA macro probing. The microSD slot is described but
+>>> not yet tested; audio playback and capture were not exercised.
 >>
->> The commit message says it doesn't help, but I can't tell if that can be
->> trusted.
+>> Please test them!
 > 
-> Fair point. I have measured both sides again.
+> Done: microSD works (UHS-I SDR104, read/write verified, card detect
+> works), and so do speaker playback and DMIC capture. I'll update the
+> commit message in v3.
 > 
-> Windows 11, AMD xHCI, camera on a root port, 120 stream starts with
-> ffmpeg/DirectShow (MJPEG 1920x1080, and YUYV 1920x1080 for 5 of them),
-> captured with USBPcap and an ETW trace of USBXHCI/UCX/USBHUB3:
+>>> The display panel, touch, pen digitizer, cameras, battery/charging and
+>>> the wireless module are not described here; the latter needs additional
+>>> power sequencing and follows as a separate series.
+>>
+>> Wi-Fi/BT should be a low-hanging fruit, see e.g. sm8550-qrd.dts
 > 
-> - The requests are the same as on Linux: PROBE GET_CUR, SET_CUR,
->   GET_CUR, GET_MAX, GET_MIN, SET_CUR, GET_CUR, then a 26 byte COMMIT,
->   then SET_INTERFACE alt 6. There is nothing else in between.
-> - The SET_INTERFACE URB is submitted 22 us after the COMMIT completes.
->   The xHCI driver first runs a Configure Endpoint command (3 ms), then
->   queues the control transfer. That puts about 3 ms between the two
->   requests.
-
-When you say "then queurs the control transfer", you mean the control
-transfer for the SET_INTERFACE, right ?
-
-I wonder if the problem is that Linux is missing this Configure Endpoint
-command ?
-
-> - The control transfer completes successfully after 263 ms, every time
->   (402 ms for YUYV 1920x1080). In a 100 start run, the ETW trace shows
->   exactly 10 control transfers on the camera's EP0 per start (8 for
->   probe/commit and 2 for SET_INTERFACE alt 6/alt 0). There was no
->   Reset Endpoint command, and every xHCI command completed with Success.
->   Windows does not see an error and does not retry. 0 failures out of
->   120.
+> I tried a qrd-style description (wcn6855-pmu, PCIe0 with wifi@0, BT on
+> uart14). From a cold boot the chip doesn't come up: all PMU rails are on
+> and wlan-en is high, but there's no PCIe link and BT times out.
 > 
-> Linux 6.18, Raspberry Pi 4 (VL805 xHCI, camera behind the VL805's
-> internal USB 2.0 hub). I added an fsleep() right before
-> usb_set_interface() in uvc_video_start_transfer() and checked the
-> resulting gap in usbmon. 20 starts per value, MJPEG 1920x1080, auto
-> exposure:
-> >   fsleep()   COMMIT -> SET_INTERFACE (usbmon)   first SET_INTERFACE -EPROTO
->   none          0.35 -   0.90 ms                 1/20
->   1 ms          1.53 -   1.84 ms                 2/20
->   5 ms          5.42 -   7.26 ms                 6/20
->   20 ms        20.4  -  26.4  ms                 3/20
->   100 ms      100.7  - 108.1  ms                 5/20
->   300 ms      319.5  - 325.2  ms                 1/20
-> 
-> So a delay does not help, even one longer than the time the device
-> takes to complete the request.
-> 
-> The timing differs between failure and success. A failing
-> SET_INTERFACE completes with -EPROTO about 1 ms after it is submitted.
-> A successful one, whether the first attempt or the retry, takes about
-> 260 ms, the same as on Windows. My guess is that the device starts
-> reconfiguring right after the SETUP stage and sometimes fails to
-> answer the status stage for a few microframes before it starts
-> NAKing. The VL805 then reports a transaction error. I have no bus
-> analyzer to confirm this.
-> 
-> I also need to correct the commit message: the failure rate is not a
-> stable 80%. Today it was between 0% and 50% per series of 10 to 20
-> starts, with auto exposure failing more often than manual exposure.
-> The retry always succeeded on the first attempt.
-> 
-> With 0 out of 120 on Windows against roughly 15% per start on the Pi,
-> the difference is real. I can't tell yet whether it comes from the OS
-> or from the host controller. I haven't tested the camera with Linux
-> on a non-VL805 controller. I can do that before a v2 if it would help.
+> It works with the same nodes once the 11 WLAN PDC messages from the
+> downstream qcom,pdc_init_table are sent to AOP over the AOSS QMP during
+> power-up (tested with a hacked-up pwrseq-qcom-wcn). So this needs a
+> driver change first, and I'd like to send it separately.
 
-Have you tried reproducing this on a different XHCI controller then
-the one found in the Raspberry Pi 4 ?   I wonder if this problem
-is specific to the VL805 xHCI controller.
+Sure!
 
-Likewise have you tried reproducing this under Windows with an USB2.0
-hub in between ?
+> Any preference on how to model that? I'd rather not put the raw strings
+> in DT, so a table in the driver seems better, but I'm not sure what to
+> key it on, since other boards don't need it.
 
-Regards,
+Please show me what your current diff is, on other platforms we didn't
+have to go through these hoops..
 
-Hans
-
-
+Konrad
