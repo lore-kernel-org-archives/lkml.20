@@ -1,107 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 883433AB496
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED61C3CFF73;
+	Mon, 19 Oct 2026 04:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792384486; cv=none; b=QKfVOAOOpaLy6nQuScpcEVe6ugvtRsZLSC9f3XQlkou/wc2hgWSqzyl7WVKNxOp5MK7Ng2EFt9bqetlxbRdXvItt9AlPdQZNeeaZvReYk20d8WiZR0yc/rry01NUv/AVa7Y9lRzrFK0lqCKszgNE1oSfpmTAFK1DfB6mNRGPypw=
+	t=1792384663; cv=none; b=T+7pQCZozX3BPH1yTw6HogzXV5isyvMn1RT7LYwR5eLKdKEccNNVJ1Z862bqW+gnCWgU3gKSzCJ8R+r5WJHv5Csnfo2x2kZkrBClolWkIqunHA87tlQqfS8BrauIcHk+XZU2sPJP6UdYy0DSg6emKMHiqC2SSNjCSM78HBqQXwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792384486; c=relaxed/simple;
-	bh=mHhqrgsAoLJr5sWC8AoEBXHRf3BoJJXAUS79JWBs8AU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EWu6+unMX/aKakBU6KwDuicv2VbBzb/Szw8r699NPskbWyxF+lD5dier/Yo5/Gpduu+a2V/u1jIIDqgf7jLc9Ja2T7jVxLxFSkh8wlF/PsCs9wE7ERQ9O7lcqKCXeIgnapIwggF5/wTVzkgjL/BzDsMnDTyNlDbmV90AB21cZNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jZT2KO2d; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jZT2KO2d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792384481; x=1823920481;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mHhqrgsAoLJr5sWC8AoEBXHRf3BoJJXAUS79JWBs8AU=;
-  b=jZT2KO2dqqbaVNlg9ocCNhBYW/bnvzwCzOq7kn1u7w7KHdbOTzae+fxT
-   MfkT3oK9mMQedp2JPWPUzacCKWVZH3s0PVY/TzqYJljqMyHlJReR8A8Wk
-   tXC4rqFVVj3ptWEE1Je4T2CvIeVTw7bnetBM4dWdFkVZMnvTi9TiYv1VB
-   3ToHK6otcHCaB2H5sVIx5O6w7YvlkJV+jH+DFSzrvCBkEVmLisqCMVSKn
-   /pKCGfZxqWAGz+gzX5QkoZeo1NsGBJcs9z/2Yk68/GO2LisRQuX81V9ru
-   Xyq274GRlax0s5RQDecQM/hIDo/NMQk4Q6r5LN3Ff1asJr/EsK0cuFZzQ
-   Q==;
-X-CSE-ConnectionGUID: /+zs7boQQXC9DwAILRRqvA==
-X-CSE-MsgGUID: zmQF4JN2REmo8ERsjmfmfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1069594"
-X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
-   d="scan'208";a="1069594"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 21:34:40 -0700
-X-CSE-ConnectionGUID: ODvNpmOmSFG17sEOfufQRw==
-X-CSE-MsgGUID: Sp7PrqLKSo+Eoxq4ZN4GFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
-   d="scan'208";a="2495021"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa006.jf.intel.com with ESMTP; 18 Oct 2026 21:34:39 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 4375C99; Mon, 19 Oct 2026 06:34:37 +0200 (CEST)
-Date: Mon, 19 Oct 2026 06:34:37 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Navon John Lukose <navonjohnlukose@gmail.com>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] mfd: intel-lpss: Set d3hot_delay to 0
-Message-ID: <20261019043437.GY176164@black.igk.intel.com>
-References: <20261016114347.23633-1-navonjohnlukose@gmail.com>
- <atIjpJn1Y0GPmQbP@ashevche-desk.local>
+	s=arc-20240116; t=1792384663; c=relaxed/simple;
+	bh=KJZRUE8NAjHGlHQTZ6R2JUvzX9FNQbI8LZog5aJZ0fA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=uxG2E1JsP7I5FVeOmBnrz2HwkeGySR6gwHWFcHW5FdOwEdWbO7FRV5qcruqKl5KU199Il79cB1NtQ2e8pUtNWHpq7CM4TMygWS3TgR2hSK1ExeRyW5Vu+/2RT/NhnOMz9n+D1TwKCegeDT7HZwxSw7fUdGc4Yre9rHHD8gAs3sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn; spf=pass smtp.mailfrom=hust.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from dzm91$hust.edu.cn ( [10.12.191.55] ) by ajax-webmail-app1
+ (Coremail) ; Mon, 19 Oct 2026 12:37:06 +0800 (GMT+08:00)
+Date: Mon, 19 Oct 2026 12:37:06 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5oWV5Yas5Lqu?= <dzm91@hust.edu.cn>
+To: "Weijie Yuan" <wy@wyuan.org>
+Cc: "Daniel Pereira" <danielmaraboo@gmail.com>,
+	"Jonathan Corbet" <corbet@lwn.net>,
+	"Shuah Khan" <skhan@linuxfoundation.org>,
+	"Randy Dunlap" <rdunlap@infradead.org>,
+	"Alex Shi" <alexs@kernel.org>, "Yanteng Si" <si.yanteng@linux.dev>,
+	"Chen-Yu Yeh" <chenyou910331@gmail.com>,
+	"Federico Vaga" <federico.vaga@vaga.pv.it>,
+	"Akira Yokosawa" <akiyks@gmail.com>,
+	"Carlos Bilbao" <carlos.bilbao@kernel.org>,
+	"Avadhut Naik" <avadhut.naik@amd.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Jani Nikula" <jani.nikula@linux.intel.com>
+Subject: Re: Re: [PATCH v2 1/2] docs: doc-guide: add a guide for translators
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
+ 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
+In-Reply-To: <atQ_mXYNqs4tnDpW@wyuan.org>
+References: <20261015125644.12908-1-danielmaraboo@gmail.com>
+ <20261015125644.12908-2-danielmaraboo@gmail.com>
+ <atQ_mXYNqs4tnDpW@wyuan.org>
+X-CM-CTRLMSGS: =?B?+GNTwDiH6nJ5xwDR7hwMki1N8jM=
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <atIjpJn1Y0GPmQbP@ashevche-desk.local>
+Message-ID: <79dd90f0.11f3f.1a15272eff3.Coremail.dzm91@hust.edu.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:IAEQrMBGj6VyntVqpdb8AA--.60830W
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/1tbiAQIFD2rU8Wuw-QABsh
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Hi,
+Cj4g5Y+R5Lu25Lq6OiAiV2VpamllIFl1YW4iIDx3eUB3eXVhbi5vcmc+Cj4g5Y+R6YCB5pe26Ze0
+OjIwMjYtMTAtMTggMTE6NDA6MDkgKOaYn+acn+aXpSkKPiDmlLbku7bkuro6ICJEYW5pZWwgUGVy
+ZWlyYSIgPGRhbmllbG1hcmFib29AZ21haWwuY29tPgo+IOaKhOmAgTogIkpvbmF0aGFuIENvcmJl
+dCIgPGNvcmJldEBsd24ubmV0PiwgIlNodWFoIEtoYW4iIDxza2hhbkBsaW51eGZvdW5kYXRpb24u
+b3JnPiwgIlJhbmR5IER1bmxhcCIgPHJkdW5sYXBAaW5mcmFkZWFkLm9yZz4sICJBbGV4IFNoaSIg
+PGFsZXhzQGtlcm5lbC5vcmc+LCAiWWFudGVuZyBTaSIgPHNpLnlhbnRlbmdAbGludXguZGV2Piwg
+IkRvbmdsaWFuZyBNdSIgPGR6bTkxQGh1c3QuZWR1LmNuPiwgIkNoZW4tWXUgWWVoIiA8Y2hlbnlv
+dTkxMDMzMUBnbWFpbC5jb20+LCAiRmVkZXJpY28gVmFnYSIgPGZlZGVyaWNvLnZhZ2FAdmFnYS5w
+di5pdD4sICJBa2lyYSBZb2tvc2F3YSIgPGFraXlrc0BnbWFpbC5jb20+LCAiQ2FybG9zIEJpbGJh
+byIgPGNhcmxvcy5iaWxiYW9Aa2VybmVsLm9yZz4sICJBdmFkaHV0IE5haWsiIDxhdmFkaHV0Lm5h
+aWtAYW1kLmNvbT4sIGxpbnV4LWRvY0B2Z2VyLmtlcm5lbC5vcmcsIGxpbnV4LWtlcm5lbEB2Z2Vy
+Lmtlcm5lbC5vcmcsICJKYW5pIE5pa3VsYSIgPGphbmkubmlrdWxhQGxpbnV4LmludGVsLmNvbT4K
+PiDkuLvpopg6IFJlOiBbUEFUQ0ggdjIgMS8yXSBkb2NzOiBkb2MtZ3VpZGU6IGFkZCBhIGd1aWRl
+IGZvciB0cmFuc2xhdG9ycwo+IAo+ICtjYyBKYW5pIE5pa3VsYQo+IAo+IE9uIDIwMjYtMTAtMTUg
+MDk6NTY6NDIgLTAzMDAsIERhbmllbCBQZXJlaXJhIDxkYW5pZWxtYXJhYm9vQGdtYWlsLmNvbT4g
+d3JvdGU6Cj4gCj4gPiBUaGUgZG9jdW1lbnRhdGlvbiBoYXMgc2V2ZW4gdHJhbnNsYXRpb25zLCBi
+dXQgbm90aGluZyBpbiB0aGUgRW5nbGlzaAo+ID4gZG9jdW1lbnRhdGlvbiBleHBsYWlucyBob3cg
+dG8gY29udHJpYnV0ZSB0byB0aGVtLiAgVGhlIG9ubHkgZ3VpZGUgdGhhdAo+ID4gZXhpc3RzLCBE
+b2N1bWVudGF0aW9uL3RyYW5zbGF0aW9ucy96aF9DTi9ob3ctdG8ucnN0LCBpcyB3cml0dGVuIGlu
+Cj4gPiBDaGluZXNlIGFuZCBjb3ZlcnMgdGhlIHpoX0NOIHRyYW5zbGF0aW9uIG9ubHkuCj4gPiAK
+PiA+IEFzIGEgcmVzdWx0LCB0aGUgc2FtZSBwcm9ibGVtcyBjb21lIHVwIG92ZXIgYW5kIG92ZXIg
+aW4gdGhlIHJldmlldyBvZgo+ID4gdHJhbnNsYXRpb24gcGF0Y2hlczogbGFiZWxzIGFuZCBjaXRh
+dGlvbnMgY29waWVkIGZyb20gdGhlIG9yaWdpbmFsLAo+ID4gd2hpY2ggYXJlIGdsb2JhbCBpbiBT
+cGhpbnggYW5kIGNvbGxpZGUgd2l0aCB0aGUgRW5nbGlzaCBvbmVzOyBwYXJ0aWFsCj4gPiBidWls
+ZHMgd2l0aCBTUEhJTlhESVJTIHRoYXQgaGlkZSB0aG9zZSBjb2xsaXNpb25zOyBsaW5lcyBvdmVy
+IDgwCj4gPiBjb2x1bW5zOyB0cmFuc2xhdGlvbnMgbm90IGFkZGVkIHRvIGFueSB0b2N0cmVlOyBt
+aXNzaW5nIGNvbW1pdAo+ID4gZGVzY3JpcHRpb25zLCB0YWdzIHNlcGFyYXRlZCBieSBibGFuayBs
+aW5lcywgSFRNTCBlbWFpbCByZWplY3RlZCBieSB0aGUKPiA+IGxpc3RzLCBhbmQgdGhlIGRvY3Vt
+ZW50YXRpb24gbWFpbnRhaW5lciBsZWZ0IG91dCBvZiB0aGUgcmVjaXBpZW50cy4KPiA+IAo+ID4g
+QWRkIERvY3VtZW50YXRpb24vZG9jLWd1aWRlL3RyYW5zbGF0aW9ucy5yc3QsIGEgZ3VpZGUgdGhh
+dCBjb3ZlcnMgdGhlCj4gPiB3aG9sZSB3b3JrZmxvdyBvZiBhIHRyYW5zbGF0aW9uOiBjaG9vc2lu
+ZyB3aGF0IHRvIHRyYW5zbGF0ZSwgdGhlIGxheW91dAo+ID4gb2YgYSB0cmFuc2xhdGVkIGRvY3Vt
+ZW50IChwYXRoLCBoZWFkZXIsIGxhYmVscywgY2l0YXRpb25zLAo+ID4gY3Jvc3MtcmVmZXJlbmNl
+cywgd2hhdCBtdXN0IG5vdCBiZSB0cmFuc2xhdGVkKSwgdHJhbnNsYXRpb24gcXVhbGl0eSBhbmQK
+PiA+IHRlcm1pbm9sb2d5LCBhZGRpbmcgdGhlIGRvY3VtZW50IHRvIHRoZSBidWlsZCwgY2hlY2tp
+bmcgaXQgd2l0aCBhIGZ1bGwKPiA+IGh0bWxkb2NzIGJ1aWxkLCBjaGVja3BhdGNoIGFuZCBjaGVj
+a3RyYW5zdXBkYXRlLnB5LCBwcmVwYXJpbmcgYW5kCj4gPiBzZW5kaW5nIHRoZSBwYXRjaCwgdGhl
+IHJldmlldyBwcm9jZXNzLCBrZWVwaW5nIHRyYW5zbGF0aW9ucyB1cCB0byBkYXRlCj4gPiBhbmQg
+c3RhcnRpbmcgYSBuZXcgdHJhbnNsYXRpb24uICBUaGUgY29tbWl0IG1lc3NhZ2UgZm9ybWF0IGl0
+IHN1Z2dlc3RzCj4gPiBpcyB0aGUgb25lIGFscmVhZHkgcmVjb2duaXplZCBieSB0b29scy9kb2Nz
+L2NoZWNrdHJhbnN1cGRhdGUucHkuCj4gPiAKPiA+IExpbmsgdGhlIGd1aWRlIGZyb20gdGhlIGRv
+Yy1ndWlkZSBpbmRleCBhbmQgZnJvbSB0aGUgdHJhbnNsYXRpb25zCj4gPiBpbmRleC4KPiA+IAo+
+ID4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIFBlcmVpcmEgPGRhbmllbG1hcmFib29AZ21haWwuY29t
+Pgo+ID4gLS0tCj4gPiBDaGFuZ2VzIGluIHYyOgo+ID4gLSBEcm9wIHRoZSBBc3Npc3RlZC1ieSBy
+ZWZlcmVuY2VzIGZyb20gdGhlIEFJIHRvb2xzIHNlY3Rpb24sIHRoZSB0YWdzCj4gPiAgIGV4YW1w
+bGUgYW5kIHRoZSBjaGVja2xpc3QgKFdlaWppZSBZdWFuKS4KPiA+IC0gVXNlIGEgcGxhaW4gcGF0
+aCBpbiB0aGUgIjpPcmlnaW5hbDoiIGV4YW1wbGUgYW5kIGRyb3AgIjpUcmFuc2xhdG9yOiIKPiA+
+ICAgZnJvbSBpdCAoV2VpamllIFl1YW4pLgo+ID4gCj4gPiB2MTogaHR0cHM6Ly9sb3JlLmtlcm5l
+bC5vcmcvbGludXgtZG9jLzIwMjYxMDEzMDAzNzAyLjU4MjQtMi1kYW5pZWxtYXJhYm9vQGdtYWls
+LmNvbS8KPiA+IAo+ID4gIERvY3VtZW50YXRpb24vZG9jLWd1aWRlL2luZGV4LnJzdCAgICAgICAg
+fCAgIDEgKwo+ID4gIERvY3VtZW50YXRpb24vZG9jLWd1aWRlL3RyYW5zbGF0aW9ucy5yc3QgfCA2
+OTQgKysrKysrKysrKysrKysrKysrKysrKysKPiA+ICBEb2N1bWVudGF0aW9uL3RyYW5zbGF0aW9u
+cy9pbmRleC5yc3QgICAgIHwgICAzICsKPiA+ICAzIGZpbGVzIGNoYW5nZWQsIDY5OCBpbnNlcnRp
+b25zKCspCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vZG9jLWd1aWRlL3Ry
+YW5zbGF0aW9ucy5yc3QKPiAKPiBbLi4uXQo+IAo+ID4gK0FuYXRvbXkgb2YgYSB0cmFuc2xhdGVk
+IGRvY3VtZW50Cj4gPiArPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KPiA+ICsKPiA+
+ICtMb2NhdGlvbiBhbmQgZmlsZSBuYW1lCj4gPiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ID4g
+Kwo+ID4gK0EgdHJhbnNsYXRpb24gbWlycm9ycyB0aGUgcGF0aCBvZiBpdHMgb3JpZ2luYWwgdW5k
+ZXIgdGhlIGxhbmd1YWdlCj4gPiArZGlyZWN0b3J5LCBhbmQga2VlcHMgdGhlIHNhbWUgZmlsZSBu
+YW1lOjoKPiA+ICsKPiA+ICsgIERvY3VtZW50YXRpb24vcHJvY2Vzcy9ob3d0by5yc3QKPiA+ICsg
+IERvY3VtZW50YXRpb24vdHJhbnNsYXRpb25zLzxsYW5nPi9wcm9jZXNzL2hvd3RvLnJzdAo+ID4g
+Kwo+ID4gK0RvIG5vdCB0cmFuc2xhdGUgZmlsZSBvciBkaXJlY3RvcnkgbmFtZXMuICBUaGUgZG9j
+dW1lbnRhdGlvbiBidWlsZCB1c2VzCj4gPiArdGhpcyBtYXBwaW5nIHRvIGFkZCwgYXQgdGhlIHRv
+cCBvZiBldmVyeSBwYWdlLCBsaW5rcyB0byB0aGUgc2FtZSBwYWdlIGluCj4gPiArdGhlIG90aGVy
+IGxhbmd1YWdlczsgaXQgb25seSB3b3JrcyBpZiB0aGUgcGF0aHMgbWF0Y2guCj4gPiArCj4gPiAr
+VGhlIGZpbGUgaGVhZGVyCj4gPiArLS0tLS0tLS0tLS0tLS0tCj4gPiArCj4gPiArU3RhcnQgdGhl
+IGZpbGUgd2l0aCB0aGUgc2FtZSBTUERYIGxpY2Vuc2UgaWRlbnRpZmllciBhcyB0aGUgb3JpZ2lu
+YWwuCj4gPiArTW9zdCB0cmFuc2xhdGlvbnMgdGhlbiBpbmRpY2F0ZSwgaW4gc29tZSBmb3JtLCB3
+aGljaCBkb2N1bWVudCB3YXMKPiA+ICt0cmFuc2xhdGVkIGFuZCBpbmNsdWRlIHRoZSBsYW5ndWFn
+ZSdzIGRpc2NsYWltZXIuICBGb3IgZXhhbXBsZSwgdGhlCj4gPiArSXRhbGlhbiB0cmFuc2xhdGlv
+biB1c2VzOjoKPiA+ICsKPiA+ICsgIC4uIGluY2x1ZGU6OiAuLi9kaXNjbGFpbWVyLWl0YS5yc3QK
+PiA+ICsKPiA+ICsgIDpPcmlnaW5hbDogRG9jdW1lbnRhdGlvbi9jb3JlLWFwaS9zeW1ib2wtbmFt
+ZXNwYWNlcy5yc3QKPiA+ICsKPiA+ICtBIHBsYWluIHBhdGggaXMgZW5vdWdoIGluIHRoZSBgYDpP
+cmlnaW5hbDpgYCBmaWVsZDogdGhlIGRvY3VtZW50YXRpb24KPiA+ICtidWlsZCB0dXJucyBgYERv
+Y3VtZW50YXRpb24vLi4uYGAgcGF0aHMgaW50byBsaW5rcyBhdXRvbWF0aWNhbGx5Lgo+IAo+IE9o
+LCBidHcuIFRoZXJlJ3MgYSBjb21tZW50IGFib3V0ICI6T3JpZ2luYWw6IiBmcm9tIEphbmkgWzFd
+Ogo+IAo+IHwgSSdtIHdvbmRlcmluZywgYXJlIHRoZXNlIDpPcmlnaW5hbDogZmllbGRzIHVzZWZ1
+bCBhbnltb3JlIHNpbmNlIHRoZQo+IHwgdHJhbnNsYXRpb25zIGV4dGVuc2lvbiBhZGRzIHRoZSBi
+dXR0b24gdG8gc3dpdGNoIGJldHdlZW4gbGFuZ3VhZ2VzPwo+IHwgCj4gfCBUaGUgcHJldHR5IG11
+Y2ggaGFyZC1jb2RlZCBleHBlY3RhdGlvbiBpcyB0aGF0IHRoZSBFbmdsaXNoIHZlcnNpb24gYXQK
+PiB8IHBhdGgvdG8vZm9vLnJzdCBpcyB0aGUgb3JpZ2luYWwsIGFuZCBpdHMgdHJhbnNsYXRpb25z
+IGFyZSBhdAo+IHwgdHJhbnNsYXRpb25zL3h4X1lZL3BhdGgvdG8vZm9vLnJzdC4KPiB8IAo+IHwg
+SS5lLiBuZWl0aGVyIHRoZSBIVE1MIG5vciB0aGUgUlNUIGJlbmVmaXQgZnJvbSBpdCwgYW5kIGl0
+J3MganVzdAo+IHwgcmVwZXRpdGlvbi4KPiAKPiBQZXJoYXBzIHdlIGNvdWxkIGhhdmUgYSBiaXQg
+b2YgZGlzY3Vzc2lvbiBoZXJlPwoKSGkgSmFuaSBhbmQgV2VpamllLAoKaWYgYWxsIHRoZSB0cmFu
+c2xhdGlvbiBkb2N1bWVudGF0aW9uIGZvbGxvd3MgdGhlIHJlbG9jYXRpb24gc3R5bGUgLQoKRG9j
+dW1lbnRhdGlvbi9YWFgvWFhYLnJzdCB0byBEb2N1bWVudGF0aW9uL3RyYW5zbGF0aW9ucy9YWFgv
+WFhYLnJzdCwKCnRoZSAiOk9yaWdpbmFsOiIgaGFzIG5vIG1lYW5pbmcsIGJ1dCBhY3R1YWxseSB0
+aGlzIGNvbnZlbnRpb24gZG9lcyBub3Qgd29yayBzb21ldGltZXMuCgpCVFcsIHRvb2xzL2RvY3Mv
+Y2hlY2t0cmFuc3VwZGF0ZS5weSB1c2VzIHRoaXMgcmVsb2NhdGlvbiBzdHlsZSBpbiB0aGUgemhf
+Q04gdHJhbnNsYXRpb24uIFdoZW4gSSB0cnkgdG8gdGVzdCB0aGlzIHNjcmlwdCBpbiBvdGhlciB0
+cmFuc2xhdGlvbnMsIHRoaXMgaXNzdWUgb2NjdXJzLgoKU28gbXkgc3VnZ2VzdGlvbiBpcyB0aGF0
+LCBhZnRlciBjb25maXJtaW5nIGFsbCB0aGUgdHJhbnNsYXRlZCBkb2N1ZW1lbnRhdGlvbiBmb2xs
+b3dzIHRoaXMgc3R5bGUsIHdlIGNhbiBkZWxldGUgdGhpcyBmaWVsZCBhbmQgd3JpdGUgdGhpcyBy
+ZWxvY2F0aW9uIHN0eWxlIGluIHRoZSB0cmFuc2xhdGlvbiBndWlkYW5jZS4KCkRvbmdsaWFuZyBN
+dQoKPiAKPiBUaGFua3MuCj4gCj4gWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LWRv
+Yy9jNzE5YzY3NTZmMzQ1YzZjMzlkYjQ4MzY1NDU3OGVmMDlkZTE5NDhmQGludGVsLmNvbS8KCgot
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KQmVzdCByZWdhcmRzLApEb25nbGlhbmcgTXU=
 
-On Fri, Oct 16, 2026 at 04:16:20PM +0300, Andy Shevchenko wrote:
-> On Fri, Oct 16, 2026 at 05:13:47PM +0530, Navon John Lukose wrote:
-> > intel-lpss-pci already clears d3cold_delay, but every runtime resume of an
-> > LPSS controller still sleeps the default 10 ms d3hot_delay in
-> > pci_power_up().
-> > 
-> > On Arrow Lake-H (Lenovo Yoga Pro 7 14IAH10) the delay costs 8-16 ms per
-> > resume of the touchpad's I2C controller, which lands on the first
-> > touchpad report after each 1 s autosuspend. With d3hot_delay set to 0 the
-> > power-up takes 64-256 us and the I2C transfers that follow complete
-> > without errors.
-> 
-> So, do you state that this patch fixes some bad touchpad behaviour? If so,
-> please, provide some logs.
-> 
-> > Commit 815b4448198f ("i3c: mipi-i3c-hci-pci: Set d3hot_delay to 0 for Intel
-> > controllers") does the same for the Intel I3C controllers.
-> 
-> Okay, it means they were tested.
-> 
-> ...
-> 
-> > Notes:
-> >     RFC because I could only test Arrow Lake-H, and this applies to every LPSS
-> >     generation the driver handles, back to Sunrise Point. Andy, do any of the
-> >     older ones need the D3hot->D0 delay? If so I can limit it to newer IDs
-> >     through the driver data.
-> 
-> AFAIK 10 ms for D3hot delay is in accordance with PCI specification.
-> Yes, we use quirk_remove_d3hot_delay() for very old Intel Atom SoCs,
-> but I have no idea about Skylake line of products.
-> 
-> Mika, Ilpo, do you have any ideas or comments on this?
-
-Like you say it's requirement of the PCI spec. However, since these are
-really not PCI connected devices the delay likely is not needed as seen
-here. No objections from my side.
