@@ -1,122 +1,82 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26C4947F3DC;
-	Mon, 19 Oct 2026 08:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A43346ADB;
+	Mon, 19 Oct 2026 08:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398612; cv=none; b=ODizG4ZkjsjqbN7c7JcVaLzVS/hbF+gqEEngg+Y8ZmUgr5C41GUlRNiAVVXKfFJnt9uoY4O34gjEe311uxrhjpqLMkp/9O5InaNRt5lnhwaJW9OophGIOAqAmILvoCfd3GxvX4r5RGp74i+O5zR6QkkVrWN02szSGxWJwafgcHI=
+	t=1792398685; cv=none; b=ZLKdLNO54ohcT/QjAmQrC/wu2VWdCVITktbwlbaHiCcWQX89yV++oN7BG6++fQ3b+cNayNfnv/bdGBKiS7Vv5l0wUGUsGbWcyNiEcn5ksFsieqhwn17axtDWd4VZHjr5Eicftz5Uj7se9ibCI+kytjXoV41eKvDD0Sdi7APSpuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398612; c=relaxed/simple;
-	bh=aOzna2tKsxYTR2RxunC5kBmzZ1wRrGC3l57QIAzemNo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pl7GVDsH+FHLoHEGIiask6y23gYrKlWjDryWuO4JByBeMo3jAOAimXcGHmGFn9cn5hXvCdaLGxX1usIgsLRJHJILOxgLmgaEi8pKauJrk1jF3UhuDvkaACF6piYYpdmgxsrIyGnxsQV6LLTtLDn3NQvJV2dYPBF6ZfcvZVgoZho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxC9IP1dVqWToXAA--.2050S3;
-	Mon, 19 Oct 2026 16:30:07 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJBxJs0O1dVqy_ItAA--.54644S2;
-	Mon, 19 Oct 2026 16:30:06 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next v3] selftests/bpf: Drop subtest descriptions in jit_insns_arena.c
-Date: Mon, 19 Oct 2026 16:30:05 +0800
-Message-ID: <20261019083005.12236-1-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
+	s=arc-20240116; t=1792398685; c=relaxed/simple;
+	bh=IaDoVIhFumhvjvfFsGDYQfKMeoHMs8XG9grWqugVlfY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=CP4vU5MR/Vf0R95dFZjYsvT+FaBAUG7aTKtdJr49a1cDMKPIdGpXvU1usKzZC0KK56FfmWDDE4N39wYArQXmtaqd11uf6xwPl4kATdY5yV5LtwXqgXgAwG1AM0bh9eZhuWD/ShWNJAEdk25+iiny7PemyQAd6xu419xGkhNz+q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Lb/oag14; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Lb/oag14"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=IaDoVIhFumhvjvfFsGDYQfKMeoHMs8XG9grWqugVlfY=; b=L
+	b/oag14J+si+qWoAvcKx9Qhwr4XOHkyJechbW/wfe3XLlf0dW1ZMEJyB+0oKub6X
+	yBiUAzRIUHf4QaX77Nwqu3v/V/HKxyvsyCIJ97PPZnRmvpLJ/65niurymCyprMY7
+	ZH8yNT3zAHA2Z4ynHfJUOk57i7RqSERULs17nXxumg=
+Date: Mon, 19 Oct 2026 16:31:09 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Ming Qian" <ming.qian@nxp.com>, "Zhou Peng" <eagle.zhou@nxp.com>,
+	"Mauro Carvalho Chehab" <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re:[PATCH 1/2] media: amphion: handle core runtime resume failures
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20261019082754.1806443-2-yaojiale02@163.com>
+References: <20261019082754.1806443-1-yaojiale02@163.com>
+ <20261019082754.1806443-2-yaojiale02@163.com>
+X-NTES-SC: AL_Qu2SAP+St04t7yafbekcn08ShO49XMOyvfoi2YFTc+sEsgbPyy4KU3RyIkLM8cuONRuwiCKtbD1I7O9AZ4B6oLgdbofoj73BjULeu0ccng==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBxJs0O1dVqy_ItAA--.54644S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZF4UuFy8CFWUuryrKry5KFX_yoW8Zw1xpF
-	Z7Ww18trWfX3WSvw48Zr1kG3WruFs5GFn8Gw4rXr4rurs8Jrn8XryxKFsIkF90kFW2v3WY
-	kF12yrZFqF17ArcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE
-	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
-	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
-	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcV
-	C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jOuc_UUUUU=
+Message-ID: <14fa9461.7966.1a153493777.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZCgvCgD3XyNN1dVqnupbAA--.1242W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A2Y0mrV1U105AAA3A
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Drop the redundant __description macros from arena_zero_off and
-cast_to_user inside jit_insns_arena.c.
-
-This allows the test_loader framework to automatically fallback
-to the snake_case C function names rather than the description
-string for test display.
-
-Before:
-
-  $ sudo ./test_progs -t jit_insns/arena_zero_off | tail -3
-  #191/1   jit_insns/arena access with zero offset:FAIL
-  #191     jit_insns:FAIL
-  Summary: 1/0 PASSED, 0 SKIPPED, 1/1 FAILED
-
-  $ sudo ./test_progs -t jit_insns/cast_to_user
-  #191/2   jit_insns/cast to a user address:OK
-  #191     jit_insns:OK
-  #192     jit_insns_blinded:OK
-  Summary: 2/1 PASSED, 0 SKIPPED, 0/0 FAILED
-
-After:
-
-  $ sudo ./test_progs -t jit_insns/arena_zero_off | tail -3
-  #191/1   jit_insns/arena_zero_off:FAIL
-  #191     jit_insns:FAIL
-  Summary: 1/0 PASSED, 0 SKIPPED, 1/1 FAILED
-
-  $ sudo ./test_progs -t jit_insns/cast_to_user
-  #191/2   jit_insns/cast_to_user:OK
-  #191     jit_insns:OK
-  #192     jit_insns_blinded:OK
-  Summary: 2/1 PASSED, 0 SKIPPED, 0/0 FAILED
-
-The main goal is that if a test fails, developers can immediately
-recognize the exact, actionable test name from the standard output
-and rerun it without any confusion.
-
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
- tools/testing/selftests/bpf/progs/jit_insns_arena.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/tools/testing/selftests/bpf/progs/jit_insns_arena.c b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
-index b396d5aefb5a..95736eae2a58 100644
---- a/tools/testing/selftests/bpf/progs/jit_insns_arena.c
-+++ b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
-@@ -34,7 +34,6 @@ struct {
- 
- #if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
- SEC("syscall")
--__description("arena access with zero offset")
- __success __retval(0)
- int arena_zero_off(void *ctx)
- {
-@@ -82,7 +81,6 @@ int arena_zero_off(void *ctx)
- }
- 
- SEC("syscall")
--__description("cast to a user address")
- __success __retval(0)
- int cast_to_user(void *ctx)
- {
--- 
-2.42.0
-
+QXQgMjAyNi0xMC0xOSAxNjoyNzo1MywgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
+d3JvdGU6Cj5UaGUgY29yZSByZXF1ZXN0IGFuZCByZXN1bWUgcGF0aHMgY29udGludWUgd2l0aCBW
+UFUgc3RhdGUgYW5kIGhhcmR3YXJlCj5hY2Nlc3MgYWZ0ZXIgcG1fcnVudGltZV9yZXN1bWVfYW5k
+X2dldCgpIGZhaWxzLiBBIGZhaWxlZCBydW50aW1lIHJlc3VtZQo+bGVhdmVzIHRoZSBkZXZpY2Ug
+dW5hdmFpbGFibGUsIHNvIHRob3NlIGFjY2Vzc2VzIGNhbiBmYWlsIGFuZCB0aGUgbGF0ZXIKPnJ1
+bnRpbWUgUE0gcHV0IGRvZXMgbm90IG1hdGNoIGFuIGFjcXVpcmVkIHJlZmVyZW5jZS4KPgo+Q2hl
+Y2sgdGhlIHJ1bnRpbWUgcmVzdW1lIHJlc3VsdCBiZWZvcmUgYWNjZXNzaW5nIHRoZSBWUFUuIFJl
+bGVhc2UgdGhlCj5jb3JlIGxvY2sgYW5kIHJldHVybiB3aXRob3V0IHRvdWNoaW5nIHRoZSBoYXJk
+d2FyZSB3aGVuIHJlc3VtZSBmYWlscy4KPgoKRml4ZXM6IGY0NDUwMTRhMjI5MSAoIm1lZGlhOiBh
+bXBoaW9uOiBmaXggYW4gaXNzdWUgdGhhdCB1c2luZyBwbV9ydW50aW1lX2dldF9zeW5jIGluY29y
+cmVjdGx5IikKCj5TaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4K
+Pi0tLQo+IGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vYW1waGlvbi92cHVfY29yZS5jIHwgMTMgKysr
+KysrKysrKystLQo+IDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9u
+cygtKQo+Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9hbXBoaW9uL3ZwdV9j
+b3JlLmMgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL2FtcGhpb24vdnB1X2NvcmUuYwo+aW5kZXgg
+YWQ1NGYwMTRkOC4uM2Q3MTQ0MjgwNyAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZv
+cm0vYW1waGlvbi92cHVfY29yZS5jCj4rKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL2FtcGhp
+b24vdnB1X2NvcmUuYwo+QEAgLTM3Miw3ICszNzIsMTIgQEAgc3RydWN0IHZwdV9jb3JlICp2cHVf
+cmVxdWVzdF9jb3JlKHN0cnVjdCB2cHVfZGV2ICp2cHUsIGVudW0gdnB1X2NvcmVfdHlwZSB0eXBl
+KQo+IAkJZ290byBleGl0Owo+IAo+IAltdXRleF9sb2NrKCZjb3JlLT5sb2NrKTsKPi0JcG1fcnVu
+dGltZV9yZXN1bWVfYW5kX2dldChjb3JlLT5kZXYpOwo+KwlyZXQgPSBwbV9ydW50aW1lX3Jlc3Vt
+ZV9hbmRfZ2V0KGNvcmUtPmRldik7Cj4rCWlmIChyZXQgPCAwKSB7Cj4rCQltdXRleF91bmxvY2so
+JmNvcmUtPmxvY2spOwo+KwkJY29yZSA9IE5VTEw7Cj4rCQlnb3RvIGV4aXQ7Cj4rCX0KPiAKPiAJ
+aWYgKGNvcmUtPnN0YXRlID09IFZQVV9DT1JFX0RFSU5JVCkgewo+IAkJaWYgKHZwdV9pZmFjZV9n
+ZXRfcG93ZXJfc3RhdGUoY29yZSkpCj5AQCAtNzYwLDcgKzc2NSwxMSBAQCBzdGF0aWMgaW50IF9f
+bWF5YmVfdW51c2VkIHZwdV9jb3JlX3Jlc3VtZShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gCWludCBy
+ZXQgPSAwOwo+IAo+IAltdXRleF9sb2NrKCZjb3JlLT5sb2NrKTsKPi0JcG1fcnVudGltZV9yZXN1
+bWVfYW5kX2dldChkZXYpOwo+KwlyZXQgPSBwbV9ydW50aW1lX3Jlc3VtZV9hbmRfZ2V0KGRldik7
+Cj4rCWlmIChyZXQgPCAwKSB7Cj4rCQltdXRleF91bmxvY2soJmNvcmUtPmxvY2spOwo+KwkJcmV0
+dXJuIHJldDsKPisJfQo+IAl2cHVfY29yZV9nZXRfdnB1KGNvcmUpOwo+IAo+IAlpZiAoY29yZS0+
+cmVxdWVzdF9jb3VudCkgewo+LS0gCj4yLjM0LjEK
