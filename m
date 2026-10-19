@@ -1,57 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792436945;
-	b=JdC+4ew4ccDGFXtTVzsSirMvyTYgsAs8NR7mDnStU1ZCYrxLyymS4SOPL6Blvjn5ZwFq
-	 62ZQTuxtoTYI9SwMqnexmH8HboUY/WhmWT67wQsivmJo6kFfK0T+KfN0gnVmHDZO5OSuj
-	 GmElrWy0CPBo/Lkv1AIWKEV1Itol4j0r9lAQ+PaFc6oER18HKDmvwSCPMOiLko3Nd29e5
-	 yvTdDX44NRg57RtmCtjegL/IhU2N6nkUelgpaQsiMeOOq4hwjHKcbRMUocW2Nk96eggl8
-	 OudrzWmjZ43w+ip/NNH+O5E9JuGBuenMvAKKYkYp/GtDQXl3s9y2IYQ8hfm5EAtg7yw==
+	t=1792436958;
+	b=2fubCsdCvGVXwNIiO9Q0wKhMrpqYYC7RTxvCTWNZFf2Qkb/IEMF0tm3EBoMIMG2fOkxg
+	 A1i257LETxaZYuRYNc18zV3BpFmAMuqC2ERurH1OwYQYZCGS1LYodZDHNubG1N/1St2MY
+	 qskf+U7rKmXrUSztDgImqdI6nsUU7Yc8nB7wnhddaMX20jV2qd21e4Z1oEFdP/5JRe/nZ
+	 eHeDPtQSPdkEemCUELewNZtOqnBMf98I5y0O/LfcqvMpJgQgTveQzpfbaOXrE6YsAIUPs
+	 UjyhS0LhE5XPLsTo4nmf9XX7zmewxpCUT3qkU+RtwnLaCAn8Lu3zSCFfCGPyQGk5Vzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436945;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=uoy8pB8eZJpJieanFUm0m/365Njz/Cwd1+0xU9uSGCg=;
-	b=GEqJl+uM+MdxKOXUH1jQhfgaM/50VjhAQxm+SHzNyvtfJ/eJ12wkLojFCX3s7KdFGwzI
-	 /fWFtIQvyYl9nsOdDAjPWExyA9vCeFT/uhchgk2+jZAiBeNeg0xklnZZNpKneNZb4hBrU
-	 Rw3Es9N3s6OhHIuKGy4EE0sK01fRKFKl3fJWEWaZYARIk9TzHV0b/NGtKXMDtLo61VPLY
-	 pRVBc5oc7bhLhS7myj4MRe88HvhTe2zjtXRdMmRNUzWh0qVsfx6TkXlxS7uAxmiD3NGM3
-	 n99h/95Q6KAFArqcS8Xf4mK9BwGphahicrfBN+z1e/qXkQ2N9A6tMKYWi1yJ50xWSaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436958;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=TpG57D5r1lU2T1hO9/UVKS6qEvJQlV4XgEA7nKMmsdA=;
+	b=fsljH7G88uKXzPkzySmXPZhyN3PTMUwlouPZDEO4s5N/832UOGoUfToROAozpn8fGvnU
+	 Kk8S0ZvtPuqd0FBopJOoyOlhUj2Z2bsBbfDigJtw3Cb67QmM7uwzvS3Fo4oZYrTTRaat3
+	 PTZ90znwuQD998b7hvB6ef8YEssinoTVgthieGSQxJcAZ8kLPtGb7R6PjficllJ8iUIcJ
+	 HtJqJPA7q7iS+R5GHuDZ6ZUnFNBmt/eKH96eRM6F2SpSMbdOnWRQyL7ZzITxmt9V1lt49
+	 i1LTBlz5cK5+qu77YWULmRl6KjKITXu9WMX2PJxjiRZhtjE5QIDWb01Smr4hMlGBO4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L65D5Vpt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QUXGlwPw;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194DE606A31B;
-	Mon, 19 Oct 2026 19:09:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DE4606A31F;
+	Mon, 19 Oct 2026 19:09:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40DE4606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L65D5Vpt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96891F000C4;
-	Mon, 19 Oct 2026 19:09:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792436944;
-	bh=uoy8pB8eZJpJieanFUm0m/365Njz/Cwd1+0xU9uSGCg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L65D5VptkHG3+1UlqK3fIfhocgLYtB3ROuaJ9nse62/XD+vlM5FCQu/h5xkRSIo2v
-	 Jbk7P4+EsXlX9is0ZOQQ2qcl/d/EJzGi3qEVYSvLeawxxClGU6iP56zcdSd9diaZex
-	 UFCR7Ptgd/C0z5ybvc7p+VgudhbG1ue1Z8/9scg48uXsqntDE6FmVfE43fVR0Gm/wD
-	 SNnKuGLhCUHREjZH1qUE4DIqiOdvRDvsAucuJWWj8Vmfa1DomYhbc4n+8Yqb+wX0S/
-	 PJxlzv9qCBr620LQmNuszEqxxUf297RdgiK6sdVhDxqJxdW61Nwf74z6tl17jwIv4q
-	 O9Nsx8Vs+UlyA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 54D691AC57D0; Mon, 19 Oct 2026 20:08:51 +0100 (BST)
-Date: Mon, 19 Oct 2026 20:08:51 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mike Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Re: Missing signoff in the clk tree
-Message-ID: <atZqw7pdZjMwahdf@sirena.co.uk>
-References: <ar_0GFOb5hZfhHHx@sirena.co.uk>
- <asOdxWlcjSP0DrB0@sirena.co.uk>
- <6ef47587-5d3d-4561-b0be-f906fe48c8e2@sirena.org.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QUXGlwPw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792436957; x=1823972957;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Rb/b13h+jFhVWzUzAl3ubaixIgBWcQk/eqQr2GkBJbU=;
+  b=QUXGlwPwiTB/R3yi4q/twDsJePMMAIIM1VbEoiQWZQhXeGAlzSWmlGzL
+   e7NjNZIyWeAW9xZn9BjFHBFmHWrS/9GqbaoQcZRAlBiUt31bctpOsQ7fJ
+   EL3w9KWU9YTkmToIgZvOMwxU/tWp1QBdvYXLK0GGvuF9D8D4eU9n+WCzl
+   XuXbFWPgrllZ+vVCUe9a/SJ+rLgmLdfqpsPleXXjsPS3IuuNCatLVjhLt
+   hzxwluNBDwhbvxQR6t/3m15flosfI0pxP7rWsY1fXt4DdvPdMBpOWRfLB
+   uL2ofE0g5ldp6Jdo+vzL4jTVzmwSWjuXRh1PdajCsUR3hIDSU46hYRASB
+   w==;
+X-CSE-ConnectionGUID: YaZphw5BRHmrfdGIabZ7pw==
+X-CSE-MsgGUID: jzlzFFmgTHWaN3CoLc7O0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1231644"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1231644"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:09:17 -0700
+X-CSE-ConnectionGUID: e19MQXKLRQmB9ZoHh1yAUA==
+X-CSE-MsgGUID: poWNiUHNT+e8kFbHrSskMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="3077749"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:09:15 -0700
+Date: Mon, 19 Oct 2026 22:09:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nithishvelan M <mnithishvelan@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] staging: iio: impedance-analyzer: ad5933: use
+ guard(mutex) in ad5933_show()
+Message-ID: <atZq2GstK_rxOgbj@ashevche-desk.local>
+References: <20261019150248.416-1-mnithishvelan@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,53 +84,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4hKppixGS12x958i"
-Content-Disposition: inline
-In-Reply-To: <6ef47587-5d3d-4561-b0be-f906fe48c8e2@sirena.org.uk>
-X-Cookie: If in doubt, mumble.
-
-
---4hKppixGS12x958i
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261019150248.416-1-mnithishvelan@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 12, 2026 at 08:01:34PM +0100, Mark Brown wrote:
-> On Mon, Oct 05, 2026 at 02:53:25PM +0200, Mark Brown wrote:
-> > On Fri, Oct 02, 2026 at 07:12:40PM +0100, Mark Brown wrote:
-> > > Commits
-> > >=20
-> > >   d31b7d87d1b28 ("clk: nuvoton: ma35d1: Add missing WDT/WWDT parent c=
-locks")
-> > >   488d2cfdf3c99 ("dt-bindings: clock: ma35d1: Add missing WDT/WWDT pa=
-rent clocks")
-> > >   9546425453234 ("dt-bindings: clock: ma35d1: Drop CLK_MAX_IDX define=
-")
-> > >   ea2ee01da5555 ("dt-bindings: clock: ma35d1: Document the missing cr=
-ystal inputs")
-> > >   35ba0118dac01 ("clk: nuvoton: ma35d1: Keep the clock count in the d=
-river")
-> > >   e92291a009f7c ("clk: clk-gpio: do not blame the DT property on prob=
-e deferral")
-> > >=20
-> > > are missing a Signed-off-by from their committers
-> >=20
-> > This issue is still present today.
->=20
-> And today.
+On Mon, Oct 19, 2026 at 03:02:48PM +0000, Nithishvelan M wrote:
+> Use guard(mutex) to automatically manage the state lock in
+> ad5933_show(). This simplifies the function by allowing direct returns
+> from each switch case, eliminating the mutable return variables and
+> manual mutex_unlock() calls.
 
-And today.
+...
 
---4hKppixGS12x958i
-Content-Type: application/pgp-signature; name="signature.asc"
+>  	case AD5933_IN_PGA_GAIN:
+> -		len = sysfs_emit(buf, "%s\n",
+> -				 (st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1) ?
+> -				 "1" : "0.2");
+> -		break;
+> +		return sysfs_emit(buf, "%s\n",
+> +				  st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1 ? "1" : "0.2");
 
------BEGIN PGP SIGNATURE-----
+You can (re-)use ridx here as well
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatZqwwAKCRAv73Ows9A4
-iS7jAQC9XJMIIptPkt6dIF7Cslg1WBwkCNvCmSm4TXYCxQ2HuQEAxJMzgKNRep0W
-O6gB7ow/fXo/Dv/d4HdsqIn355HpTw0=
-=3+Q/
------END PGP SIGNATURE-----
+		ridx = st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1;
+		return sysfs_emit(buf, "%s\n", ridx ? "1" : "0.2");
 
---4hKppixGS12x958i--
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
