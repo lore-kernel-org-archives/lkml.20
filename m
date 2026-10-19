@@ -1,75 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792421681;
-	b=4cnj/QFZxwSaRf+9j9idDtlP7BewYLq3nvaDKywymLHT0Fyi41yN9kGIFR4PfUjXRE9r
-	 q7EIcSwHladtGMsXr9HlzXQEmDJeZuQaoPY41HxTaMYOtDkAtUIO6IfVrOKUfdJQYxnLt
-	 ZT0CW1rHazjAzZ62y5Zfic7JzAf6Uhxbm0Dp5+noA9/BoqXXcY8GrCvrdC5GOP0zJlw4/
-	 MmkmHEnqMVt6MSpGNJ4JOIxqtKxHMXINag+4MHZkXSw03yzUiUYJZD6KzNKDsTw2ICmvR
-	 vruoRFqzRZnjC8KFM13XEKk/dxLOo800R6X6CurJW0lQRGGbbpfuUlHmpKD3PUHfLeQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421681;
-	h=Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:
-	 DKIM-Signature;
-	bh=rwhf8EAuiOMaypHO3detYAeDV9E3dgFxaDUeqSzQJsM=;
-	b=Q0C+jh7c7C/G0Xx89uOsfXNdq5qHbfNxI/vE658rta2g+MvfRTD8YM9lmiHCO7kW7FCq
-	 Hk30CZG7hpCrDiwkQiPeVcTzrNd69IELT5nZuaHN8wT4Qffb9eLijxz9Xfta1xRIMCBOD
-	 KXieG1P2MY95gykQSeyfaYHDO3sMefb1lyn2F3OhG2WDi3SgJRqzSsgJFfKUX8o1wcYLQ
-	 rPCLWc3uP7OwKxucFZZLoc+op0+j4gbt6CFj4cSaSFk2u3gyvmTOyYFOMZCMfQlJauwVl
-	 kGA4aUif4wSrNwCUymQcwqrrDqkEUaaokYQaqFknPrGWCrqGOkswk712ahYDxSnzppQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Evzt9PyL;
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE26B606DA7F
-	for <linux-kernel.vger.kernel.org@localhost.mlmmj>; Mon, 19 Oct 2026 14:54:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=Evzt9PyL
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792424354;
+	b=2BuH1ulxOBNG70s0pKI6rAPFwtT1dU1x3YVVntyKQi/HcDgB7NUuHGgvSVbeFNGLOEwM
+	 lYgF2s0m7tH7dcXe7azHGTak4Ryw34ENkXzwfNwDYZDHnIX8Os3hMAZjqkNne/Kf3MhD2
+	 cXCmtDj/Utfzp0bp1Y66Sl/L8+pdcpcJMuhxgQXUF0eDHGXpiFHFKuD6Div7pb+mL9pX7
+	 7Ui0Kq0SUTmQ8Oj/EZuJpVV+E6alJUEkWTsQJfXZ8L/Fw/qFjY19hSTfkygm8PNBo02FB
+	 +jS11CcdlCnj2Ma7TjnmpBjvSO8z2HWWai0RameqW3+2+bdTLfMNXdF6Jo3nI4NNZaw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424354;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=TfrAkDnNRAseKss28vJrgiLPA/uB5YGf7+cWpy0YIgs=;
+	b=GZv/onWku7MFZFDVfbtO98dbZhf0CmgUh2jylKHy5OohlZe4+r351FWbMMw8adu0Mwlm
+	 1In3gji7DNSs7hNxJ8QoArck3D5Bbw02PvPjBxO2LQBgVZ9DDoLViW8QlGFXtdWkzZ9LY
+	 uGalpN/SrZNefAQJH5MvU/vnDm73aV9mUOuDph+sd9T1M+GUXPWjz0IbP5MxUvgjIa4J7
+	 qUg0p6fvMuwNQTWJHOuezgAKnlbWWX7lPMBJOOhf23uKRmzV902lNwEkHoYx7Z97SjVHd
+	 eR2jdFwkab/jONOCAwk9W60zY9XHa7ssogGncQPRkmVVcg3A0uXfUu0BbktNnANvajA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=heeU8wWv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642422741A0
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.172.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421681; cv=none; b=kl2nLrO5odmEVbApovv5tRRwQyW8Pixs8PGb9+ZvYkBppQTfn26TBAhlxdxg8+Zl9N9llmx0CCKK+0gvBta44ipHXokU+7+lIYjW4s0K42bhjQQZycxG8D1D8qriYwxb2vEa5uvzW0melt96U86KtnmjTuenVJpc4aIC0d6jnWs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421681; c=relaxed/simple;
-	bh=oRhTvAdmIe1fqBlfvU3hzri5hH3R1/FUZpcl7jrPQMA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gX+QtBQzE8xU3uCA//NHE7FzJ/E9sde8qr5LAVuNtTZO9krYuRl8cKJ5mdtdn2c+tWZzZuuEiLsPuSsr1o0HzMqr3pJ/ubhgHTS2Uax2AYCFfjnZZ1xdKaygNMf+danG+DUIEzDEN+dagVKQUBg97JtbBRsvW3mfl42iwaweUfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl; spf=pass smtp.mailfrom=lausen.nl; dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b=Evzt9PyL; arc=none smtp.client-ip=95.143.172.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id D115061150
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:54:38 +0200 (CEST)
-Received: (qmail 28483 invoked by uid 990); 19 Oct 2026 14:54:38 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 19 Oct 2026 16:54:38 +0200
-From: Leonard Lausen <leonard@lausen.nl>
-To: linux-acpi@vger.kernel.org,
-	"Rafael J. Wysocki" <rafael@kernel.org>
-Cc: leonard@lausen.nl,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	acpica-devel@lists.linux.dev,
-	Len Brown <lenb@kernel.org>,
-	Armin Wolf <W_Armin@gmx.de>,
-	Ivan Hu <ivan.hu@canonical.com>,
-	Joshua Grisham <josh@joshuagrisham.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] ACPI: x86: Repair broken PEG0._STA on Samsung Galaxy Book 930XDB
-Date: Mon, 19 Oct 2026 16:54:19 +0200
-Message-ID: <20261019145421.47181-4-leonard@lausen.nl>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019145421.47181-1-leonard@lausen.nl>
-References: <20261019145421.47181-1-leonard@lausen.nl>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95013606AAF0;
+	Mon, 19 Oct 2026 15:39:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=heeU8wWv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F0A41F000C5;
+	Mon, 19 Oct 2026 15:39:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792424353;
+	bh=TfrAkDnNRAseKss28vJrgiLPA/uB5YGf7+cWpy0YIgs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=heeU8wWv9OZ0rW8DeGnVkemXhPpMwJC/5i01zI/OGv84NwwBGmBRQ/S29FWL37FAe
+	 XSPj6SSXA6G3hIbIIxQfuhkg8XWqOAumTy6Tc7IxMViuYsEEV1116Um2/TDdFPjsSQ
+	 yOK9FuezKhOJNxQUMQCxs1cD3lhjtF08IWKoQSmk2Dq1PaaqoopnC0NV2TmmbVBdAR
+	 DIfERYI1wSj+vrrk4lRNJtO7GDy4uXfYk4cgb5aXsIm1CNeI/v572z0fqHTopI/lEI
+	 3n/jIaE2mI+LgRPqosYPeWyxdE4NoUCwM2S8E5uXhcueV/5PA6BFSbzo9foqxxJHzP
+	 oyrG2Ksd1Y1sQ==
+Subject:
+ Re: [PATCH net-next] net: dsa: qca8k: report port statistics from the MIB
+From: netdev-bot+sashiko@kernel.org
+To: kuncy7@gmail.com
+Cc: ansuelsmth@gmail.com, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 19 Oct 2026 15:39:12 +0000
+Message-ID: <179242435208.3135.4308200364249714892@kernel.org>
+In-Reply-To: <20261018153658.209999-1-kuncy7@gmail.com>
+References: <20261018153658.209999-1-kuncy7@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,145 +63,310 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: -----
-X-Rspamd-Report: REPLY(-4) BAYES_HAM(-2.999999) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -5.599999
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=oRhTvAdmIe1fqBlfvU3hzri5hH3R1/FUZpcl7jrPQMA=;
-	b=Evzt9PyLxiU16qEy0E+1gYVsbgBsgzFJ9Ppf0eqTOpnvmlqRwOAhtX1MU7KrHxeF0maXbb+uyl
-	EfH7p801/7WGvMoRc1NEhZ/k+BSLn3hOIhARLvRi5xJ3EOC8Lpuga1NqfFei0Eli27ge2qNLI+n9
-	Nrol1351+teKkBYstcQAxGyiuKNPT64ZuBZ5UcoZ9+/7cCQeXnmV4XFE27RwUbBsLnwRqTovWQST
-	Gx47O1s/0Go5ak2kAwI9O9meBL0fhW+wzFLniJqwl8NLY3vUQ2kMrVFYwZDfJiIBEqSHcrNVHyiU
-	QIWGhFtJ82H5R2JNoPw+CfngicHgIEGTpT8WJfhtMw8ZkC/gnvkdRPkwfdo5bGIfvSuXs9qYBUKL
-	BXWbYVU6HQLX2d5tXkg7lGpHM4f7y2yzHfalCX9vxdwV9TUlGpFbWkl4Ohqvg1SGfnQ8qm1whGVA
-	WpmHXtQOop6M91AGhb3oaCJQIuUYPM/DMS4U06ENJuw6/WS84cUUoZ9rtfSAeyUdySKd+2luK1yc
-	Fj5NIUcSAtO+IB+HZBCHccDFh0Le7Jy4LKwM0/XJTWVvDC2Miy3noG+3gjXzG+XMzgAyjLrT+qe0
-	eQChxqs7qQC2g/Dlaj6edcZF/Kx1+lt1Mlj2IwcsjMzRP4TKekOOF9pBYp/M5LzOCWrdriywPu5o
-	0=
 
-The SaSsdt table on the Samsung Galaxy Book 930XDB with BIOS
-P11RFX.067.230331.SP declares PG0E as an external object at the namespace
-root. PEG0._STA nevertheless encodes PG0E as an unqualified NameSeg.
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
-Namespace lookup from PEG0 finds the unrelated empty Package at
-\_SB.PC00.PG0E before the intended integer field at \PG0E. Comparing
-that Package with One aborts _STA with AE_AML_OPERAND_TYPE.
+Critical: 0 · High: 2 · Medium: 4 · Low: 0
 
-A regular acpi_device status override is too late to prevent this.
-ACPICA evaluates _STA while initializing namespace objects, before
-struct acpi_device exists, and acpi_get_devices() evaluates it again
-without going through acpi_bus_get_status().
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Replace only PEG0._STA after the tables have been loaded and before ACPI
-objects are initialized. The replacement retains the firmware logic but
-uses an absolute path for \PG0E, so every _STA evaluation follows the
-intended namespace object. Match the vendor and full DMI product string,
-930XDB/931XDB/930XDY.
+- [High] Once qca8k_sw_shutdown() has run, nothing cancels the self-
+  rearming stats_work.
+- [High] The new stats worker is an unsynchronized regmap user that runs
+  outside rtnl and reg_mutex.
+- [Medium] qca8k_stats_read64() builds RxGoodByte/TxByte from two
+  independent 32-bit reads, `qca8k_read(reg)` then `qca8k_read(reg +…
+- [Medium] The new statistics path assumes qca8k_mib_init() succeeded,
+  but qca8k_setup() still treats MIB init failure as non-fatal (`if…
+- [Medium] The self-rearming stats_work keeps accessing the switch over
+  MDIO/mgmt Ethernet across system suspend and resume, because the…
+- [Medium] rx_bytes/tx_bytes are copied directly from the switch's
+  RxGoodByte/TxByte MIB counters with no FCS adjustment.
 
-Signed-off-by: Leonard Lausen <leonard@lausen.nl>
----
- drivers/acpi/bus.c       |  2 ++
- drivers/acpi/x86/utils.c | 53 ++++++++++++++++++++++++++++++++++++++++
- include/acpi/acpi_bus.h  |  2 ++
- 3 files changed, 57 insertions(+)
+--
 
-diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
-index 808c6746be14..555270fb49dd 100644
---- a/drivers/acpi/bus.c
-+++ b/drivers/acpi/bus.c
-@@ -1376,6 +1376,8 @@ static int __init acpi_bus_init(void)
- 		goto error1;
- 	}
- 
-+	acpi_quirk_override_broken_methods();
-+
- 	/*
- 	 * ACPI 2.0 requires the EC driver to be loaded and work before the EC
- 	 * device is found in the namespace.
-diff --git a/drivers/acpi/x86/utils.c b/drivers/acpi/x86/utils.c
-index 418951639f51..661267a5f8ba 100644
---- a/drivers/acpi/x86/utils.c
-+++ b/drivers/acpi/x86/utils.c
-@@ -67,6 +67,59 @@ struct override_status_id {
- #define NOT_PRESENT_ENTRY_PATH(path, cpu_vfm, dmi...) \
- 	ENTRY(0, "", NULL, path, cpu_vfm, dmi)
- 
-+/*
-+ * The firmware method is equivalent to this ASL, except that it references
-+ * PG0E without the root prefix and resolves to an unrelated Package object:
-+ *
-+ * Method (\_SB.PC00.PEG0._STA, 0, NotSerialized)
-+ * {
-+ *     If ((\PG0E == One))
-+ *         Return (0x0F)
-+ *
-+ *     Return (Zero)
-+ * }
-+ *
-+ * acpi_install_method() requires a complete table containing one method.  The
-+ * AML below was generated from the ASL above with iasl 20250404.
-+ */
-+static u8 samsung_930xdb_peg0_sta[] __initdata = {
-+	0x53, 0x53, 0x44, 0x54, 0x48, 0x00, 0x00, 0x00,
-+	0x02, 0xc8, 0x4c, 0x49, 0x4e, 0x55, 0x58, 0x20,
-+	0x50, 0x45, 0x47, 0x30, 0x53, 0x54, 0x41, 0x20,
-+	0x01, 0x00, 0x00, 0x00, 0x49, 0x4e, 0x54, 0x4c,
-+	0x04, 0x04, 0x25, 0x20, 0x14, 0x23, 0x5c, 0x2f,
-+	0x04, 0x5f, 0x53, 0x42, 0x5f, 0x50, 0x43, 0x30,
-+	0x30, 0x50, 0x45, 0x47, 0x30, 0x5f, 0x53, 0x54,
-+	0x41, 0x00, 0xa0, 0x0b, 0x93, 0x5c, 0x50, 0x47,
-+	0x30, 0x45, 0x01, 0xa4, 0x0a, 0x0f, 0xa4, 0x00,
-+};
-+
-+static const struct dmi_system_id acpi_method_override_dmi_ids[] __initconst = {
-+	{
-+		.ident = "Samsung Galaxy Book 930XDB/931XDB/930XDY",
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "930XDB/931XDB/930XDY"),
-+		},
-+	},
-+	{}
-+};
-+
-+void __init acpi_quirk_override_broken_methods(void)
-+{
-+	acpi_status status;
-+
-+	if (!dmi_check_system(acpi_method_override_dmi_ids))
-+		return;
-+
-+	status = acpi_install_method(samsung_930xdb_peg0_sta);
-+	if (ACPI_FAILURE(status))
-+		pr_warn(FW_BUG "Failed to replace broken PEG0._STA: %s\n",
-+			acpi_format_exception(status));
-+	else
-+		pr_info(FW_BUG "Replaced broken PEG0._STA method\n");
-+}
-+
- static const struct override_status_id override_status_ids[] = {
- 	/*
- 	 * Bay / Cherry Trail PWM directly poked by GPU driver in win10,
-diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
-index a10a591c18b2..ebdd197dbbc4 100644
---- a/include/acpi/acpi_bus.h
-+++ b/include/acpi/acpi_bus.h
-@@ -713,10 +713,12 @@ int acpi_enable_wakeup_device_power(struct acpi_device *dev, int state);
- int acpi_disable_wakeup_device_power(struct acpi_device *dev);
- 
- #ifdef CONFIG_X86
-+void acpi_quirk_override_broken_methods(void);
- bool acpi_device_override_status(struct acpi_device *adev, unsigned long long *status);
- bool acpi_quirk_skip_acpi_ac_and_battery(void);
- int acpi_quirk_skip_serdev_enumeration(struct device *controller_parent, bool *skip);
- #else
-+static inline void acpi_quirk_override_broken_methods(void) { }
- static inline bool acpi_device_override_status(struct acpi_device *adev,
- 					       unsigned long long *status)
- {
+net: dsa: qca8k: report port statistics from the MIB
+
+This adds a .get_stats64 implementation to qca8k that reports per-port
+counters from the switch MIB. A delayed work polls the MIB every 3 seconds
+and adds the deltas into a cached rtnl_link_stats64, which .get_stats64
+copies out under a spinlock. qca8k_setup() starts the work and a new
+qca8k_teardown() cancels it.
+
+> diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+> index 07227ae8bc040..9fef54a888502 100644
+> --- a/drivers/net/dsa/qca/qca8k-8xxx.c
+> +++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+> @@ -1851,6 +1851,156 @@ static void qca8k_setup_hol_fixup(struct qca8k_priv *priv, int port)
+
+[ ... ]
+
+> +static int qca8k_stats_read64(struct qca8k_priv *priv, u32 reg, u64 *val)
+> +{
+> +	u32 lo, hi;
+> +	int ret;
+> +
+> +	ret = qca8k_read(priv, reg, &lo);
+> +	if (!ret)
+> +		ret = qca8k_read(priv, reg + 4, &hi);
+> +	if (!ret)
+> +		*val = ((u64)hi << 32) | lo;
+> +
+> +	return ret;
+> +}
+> +
+> +static u64 qca8k_stats_delta64(u64 now, u64 *last)
+> +{
+> +	/* a flushed MIB starts again from zero */
+> +	u64 delta = now >= *last ? now - *last : now;
+> +
+> +	*last = now;
+> +	return delta;
+> +}
+
+[Severity: Medium]
+Can the two reads in qca8k_stats_read64() tear? RxGoodByte and TxByte are
+each built from two separate qca8k_read() transactions. There is no
+hi/lo/hi re-read and no latch. If the low word carries between the two
+reads, the sample comes out about 2^32 too high.
+
+The existing ethtool -S path reads the halves the same way. The code
+doesn't show whether the switch latches the high word, so this part may
+depend on the hardware.
+
+If a sample ever goes backwards, qca8k_stats_delta64() treats it as a flush
+and returns the full absolute value of now. A torn read or a bogus value
+from a racing regmap access would both do this. Would the next good sample
+then add the whole byte count since setup to s->rx_bytes or s->tx_bytes a
+second time?
+
+As far as I can see, the only MIB flush is the QCA8K_MIB_FLUSH in
+qca8k_mib_init(). That runs before the worker starts, and
+QCA8K_MIB_FLUSH_PORT is never used. So the "flushed MIB" branch has no
+legitimate trigger at runtime.
+
+The 32-bit counters in qca8k_stats_read_port() use plain modular
+subtraction instead:
+
+    d[i] = raw[i] - ps->last[i];
+
+So the two paths disagree on what a decrease means. In either case, one
+bad sample permanently corrupts the cumulative totals.
+
+> +
+> +static void qca8k_stats_read_port(struct qca8k_priv *priv, int port)
+> +{
+
+[ ... ]
+
+> +	/* all of the slow MDIO reads before the lock */
+> +	if (qca8k_stats_read64(priv, base + QCA8K_MIB_RX_GOOD_BYTE, &rx_bytes) ||
+> +	    qca8k_stats_read64(priv, base + QCA8K_MIB_TX_BYTE, &tx_bytes))
+> +		return;
+> +
+> +	for (i = 0; i < QCA8K_STATS_MIB_COUNT; i++)
+> +		if (qca8k_read(priv, base + qca8k_stats_mib[i], &raw[i]))
+> +			return;
+
+[Severity: High]
+Is this worker safe against other regmap users? The qca8k regmap is
+created in qca8k_regmap_config with:
+
+    .disable_locking = true, /* Locking is handled by qca8k read/write */
+
+However, regmap_read() and regmap_write() both put the formatted register
+and value into the shared map->work_buf, through _regmap_bus_read(),
+_regmap_raw_read() and _regmap_bus_raw_write().
+
+The mdio_lock and mgmt_eth_data->mutex cover only the bus transaction.
+qca8k_bulk_read() reads *(u16 *)reg_buf before taking any lock.
+qca8k_bulk_gather_write() also reads reg and *val before locking. And
+_regmap_bus_read() parses work_val after the transport has unlocked.
+
+This worker issues about 31 regmap_read() calls per user port every 3
+seconds. It holds neither rtnl nor reg_mutex. It can run alongside
+rtnl-held paths such as qca8k_get_ethtool_stats(), FDB/VLAN/ATU
+programming through qca8k_write() and qca8k_busy_wait(), and port setup.
+
+Could an interleaving give the worker another caller's value, or the 0
+from *val = 0 in qca8k_mii_read32()? The delta logic would then add about
+2^32, or the whole counter, for good.
+
+Could it go the other way and give an rtnl reader the worker's MIB value?
+For example, qca8k_busy_wait() could see a bogus busy bit.
+
+Could it overwrite the register or value of a pending write in work_buf?
+The config write could then be lost, land on a MIB register, or write a
+MIB value into a config register.
+
+The unlocked regmap design is older than this patch. However, this patch
+adds a reader that runs all the time outside rtnl and relies on it.
+
+> +
+> +	spin_lock_bh(&ps->lock);
+> +
+> +	for (i = 0; i < QCA8K_STATS_MIB_COUNT; i++) {
+> +		d[i] = raw[i] - ps->last[i];
+> +		ps->last[i] = raw[i];
+> +	}
+> +
+> +	s->rx_bytes += qca8k_stats_delta64(rx_bytes, &ps->last_rx_bytes);
+> +	s->tx_bytes += qca8k_stats_delta64(tx_bytes, &ps->last_tx_bytes);
+
+[Severity: Medium]
+Do RxGoodByte and TxByte include the FCS? In
+include/uapi/linux/if_link.h, struct rtnl_link_stats64 says rx_bytes and
+tx_bytes:
+
+    For IEEE 802.3 devices should count the length of Ethernet Frames
+    excluding the FCS.
+
+The commit message cites rtl8365mb as a model, and
+rtl8365mb_stats_update() removes the FCS:
+
+    /* if{In,Out}Octets includes FCS - remove it */
+
+ksz_common.c and ksz8.c also subtract stats->rx_packets * ETH_FCS_LEN.
+
+The 64..1518 size buckets used in this same function count the FCS in the
+frame length. That suggests the byte counters include it too. If so,
+every packet is overcounted by 4 bytes, which is about 6% for 64-byte
+frames.
+
+The test in the commit message shows the netdev now matches the switch's
+own TxByte. That is agreement with the hardware number, not with the uAPI
+definition.
+
+The code doesn't confirm whether the QCA8K counters include the FCS, and
+ar9331 doesn't subtract it either.
+
+[ ... ]
+
+> +static void qca8k_stats_poll(struct work_struct *work)
+> +{
+> +	struct qca8k_priv *priv = container_of(work, struct qca8k_priv,
+> +					       stats_work.work);
+> +	struct dsa_port *dp;
+> +
+> +	dsa_switch_for_each_user_port(dp, priv->ds)
+> +		qca8k_stats_read_port(priv, dp->index);
+> +
+> +	schedule_delayed_work(&priv->stats_work, QCA8K_STATS_INTERVAL);
+> +}
+
+[ ... ]
+
+> +static void qca8k_teardown(struct dsa_switch *ds)
+> +{
+> +	struct qca8k_priv *priv = ds->priv;
+> +
+> +	cancel_delayed_work_sync(&priv->stats_work);
+> +}
+
+[Severity: High]
+What stops this work after qca8k_sw_shutdown()? qca8k_stats_poll()
+re-arms itself with no stop condition. qca8k_teardown() is the only place
+that cancels stats_work, and it is reached only through
+dsa_unregister_switch() and the DSA setup error paths.
+
+qca8k_sw_shutdown() calls dsa_switch_shutdown(), which doesn't call
+ds->ops->teardown. It then clears drvdata:
+
+    dsa_switch_shutdown(priv->ds);
+
+    dev_set_drvdata(&mdiodev->dev, NULL);
+
+The driver keeps this so that .remove can still come after .shutdown,
+when the parent bus driver unregisters its children during its own
+shutdown. In that case qca8k_sw_remove() takes the early return:
+
+    if (!priv)
+        return;
+
+That skips dsa_unregister_switch(), so qca8k_teardown() never runs. devm
+then frees priv, which embeds stats_work and port_stats[].
+
+Wouldn't the still-queued timer then fire on freed memory? And wouldn't
+qca8k_stats_poll() dereference priv->ds and priv->regmap and write into
+the freed priv->port_stats[]?
+
+Even without a later remove, the worker keeps sending MDIO or management
+Ethernet traffic to a switch and conduit that are already shut down.
+
+The commit message cites ar9331 and rtl8365mb. Both cancel their MIB work
+in mac_link_down, which runs when dsa_switch_shutdown() closes the
+conduit. The global work added here gets no such call.
+
+> @@ -2020,6 +2170,11 @@ qca8k_setup(struct dsa_switch *ds)
+>  	/* Set max number of LAGs supported */
+>  	ds->num_lag_ids = QCA8K_NUM_LAGS;
+>  
+> +	for (int port = 0; port < QCA8K_NUM_PORTS; port++)
+> +		spin_lock_init(&priv->port_stats[port].lock);
+> +	INIT_DELAYED_WORK(&priv->stats_work, qca8k_stats_poll);
+> +	schedule_delayed_work(&priv->stats_work, 0);
+
+[Severity: Medium]
+Should the poller and .get_stats64 depend on qca8k_mib_init() succeeding?
+Earlier in qca8k_setup(), a failure there is still only a warning:
+
+    ret = qca8k_mib_init(priv);
+    if (ret)
+        dev_warn(priv->dev, "mib init failed");
+
+qca8k_mib_init() flushes the MIB, busy-waits, sets QCA8K_MIB_CPU_KEEP and
+then writes QCA8K_MODULE_EN_MIB. It stops at the first error. That can
+leave the MIB module disabled, so the counters are frozen. It can also
+leave CPU_KEEP unset, so the counters may clear on read.
+
+dsa_user_get_stats64() uses ds->ops->get_stats64 whenever it is set:
+
+    if (ds->ops->get_stats64)
+        ds->ops->get_stats64(ds, dp->index, s);
+    else
+        dev_get_tstats64(dev, s);
+
+So the software tstats fallback is no longer used.
+
+Would every user port then show zero traffic for the life of the device?
+That would include the CPU-terminated traffic that was counted before.
+
+With clear-on-read counters, would raw[i] - ps->last[i] wrap to about 2^32
+on every decrease?
+
+Before this patch, a MIB init failure only affected ethtool -S. The code
+doesn't show the hardware defaults for MODULE_EN and CPU_KEEP, so the
+clear-on-read case is speculative.
+
+[Severity: Medium]
+Does this work also need to be stopped across system suspend?
+qca8k_suspend() and qca8k_resume() are not updated, and qca8k_suspend()
+only does:
+
+    qca8k_set_pm(priv, 0);
+
+    return dsa_switch_suspend(priv->ds);
+
+dsa_switch_suspend() doesn't touch stats_work. The work is queued on
+system_percpu_wq, which isn't freezable.
+
+The work can still run after the switch is suspended, and later after the
+parent MDIO controller or conduit is suspended too. On resume after any
+sleep longer than 3 seconds, the timer has already expired. qca8k_stats_poll()
+can then run before dpm_resume() reaches the MDIO controller.
+
+Couldn't qca8k_read() then be issued on a suspended bus? Depending on the
+SoC, the result ranges from a skipped sample to a bus fault, or a hang on
+a clock-gated controller.
+
+ar9331 and rtl8365mb stop their MIB work in mac_link_down, which
+phylink_stop() triggers during dsa_switch_suspend(). The global work added
+here has no such hook.
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261018153658.209999-1-kuncy7%40gmail.com
