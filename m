@@ -1,85 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792436500;
-	b=iQBKrbEi2V3FspCZTB35NTjfE60pwFRemQzdHHGf1R4vYddFpIsHQlf7go9LTBphuy3b
-	 L+eyZifA7vkvGYB9AbheEKYHXj/uLNAVlpaqePWfAvjWhYBVEyG6JKCgnzztcrVrB283s
-	 r4BALscyhDH1tsTkfrpEhKP7aX6uNEXnqgXPeebyGjEE2xV/TspC0u41kZdVu0M7Op2GB
-	 QE8wniOC81XlxxH0hAM66HuUJhAdM+puzp6y/TBfGbNIiU5tXrnh/AQIAQFBTXIGxZbWh
-	 UNHm7r0G77DgGFWBwt7Eg22NSyfOV+gmwJsoSkax5ALyXCU9QhMlbenfegZZpiwDfgg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436500;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=knSMb1LCCCwS1RlP3a3YG2pI2EdQ26l7Uk9lyEfeZEg=;
-	b=wTyfM18QqnCgjHrQDDxYOKbHZldNesRwYnBuHioUGH9bCptQ04l4V0PHBpvWJ1h4u3Xa
-	 6ZJDoQTBnioumd0DGMzwlVo7ugHpdYWUWcHYSZ90YkYCOvdqmzMxgWPnKQwCw0yPC6GHQ
-	 vypFSY5hTMOYgT/d4X4wcUUWwyy+3SZvP8X6BtqOXUuUOzjTM28KVygtIm0F/t/DvRmuE
-	 Ws7S14gohP5XRLulqgKn6tagrVBeqIk4MVxfxQStpVgshYi5F8Vv48lfwdhSWhKoK/Pgz
-	 bx4qH0qBIPBme7nopy2oApY89rTKN+ZGTFjOiVN9OwRF9lo1IEtV9KeVfOv9gPXVtAA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XrXni+e1;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.57
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792436537;
+	b=lWtw9fe34bXahvsVATOwG7gRmiYCUvRB5hIJoen3QL410KRZbaOc4z89zQkY61NPPkKo
+	 oTmFZUjomqR37ytOj210jUgKVosOsbmwLpf5kF0M9NhxUovQMcpfZl9D5pK+iTCZT8UUb
+	 OZMyevhwW/mTm9k9TL4L4vuop0RnPsKZTXqYckv9fe2po0KLbW1UOdWFcbHtAskeL1W8Q
+	 r0N33oW+9hjjmJfm0pliAGs2nvYyWqSbjEaoVNBe/LB3FdJMRBoSPQSIv0luhPB3gKhGO
+	 RuE/6tE0+eCgMfJM42C6IlF63WY0EnT+rIbxCFFdm0Mca/SpukGZqHpGGdLC7jYUXlQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436537;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TgjcH2X0iwKVb8P+szXGbyxcALMb9b+Cosfo+ApNGXE=;
+	b=EfwW0kvyzYxpAwx6mtSvdy8d2eslOAG22rV+pectViISNMDoLD51X/+PZq9tj7tmdwMv
+	 PCUQGQfFuiLXyVE0vkLHuN4nQjcRpXb+ttSmz0W43YGAND/G4vbkulpgzqa7t9FJVZPXR
+	 /y6uKDXP3fVBSB01QJ7nQtMoOzXASE9DTG7vybMglPLJqFpDK6zKNoA//h7I5FA7pLSjv
+	 VswdA326iz/QN/p3ZHUs4u900rQq94yuezpRwxu1ZMyVsYFXA8Z5JT1ZkeAAaxpWuwRNS
+	 tUf7D5pA0L/Zx+cM3vi4t2ESCRtqyowRhdxyP0x9A4B4xL5RR/W37yfvbD67knkd06A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EFec1rmD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.57
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012057.outbound.protection.outlook.com [52.101.66.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4566D606A334
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:01:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4566D606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620E8606A320;
+	Mon, 19 Oct 2026 19:02:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 620E8606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XrXni+e1
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e98798cbddso9618695ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:01:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792436499; x=1793041299; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=knSMb1LCCCwS1RlP3a3YG2pI2EdQ26l7Uk9lyEfeZEg=;
-        b=XrXni+e1B+yPH+38EamS+iWh4IPeE2CaTM724gbwiQHa/ykB2LnSn4QhFwR7xb/OaR
-         bE1vH7rLp2lkGqYarVtOriL+SEUk7NWf122HhY+86F2c1mU0dL44QB+kOeIV3+0luL7m
-         F1eTq07yIboL0xadaHqRARhoGmNHeKlVVJOLg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792436499; x=1793041299;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=knSMb1LCCCwS1RlP3a3YG2pI2EdQ26l7Uk9lyEfeZEg=;
-        b=AHDzItvhseQGcPDeanDKbSwlswP61oxrDjBr0ezZ9R5d+BGu9BmiyXQ1PhTsKZ0ghp
-         GuHefkWxXXnEY8IV08F8WE4HzF2oweWnOuPOt0DzxNT4+buLX5n6lFdJgsEOBAk5nW2d
-         db8DQ2Fv+keTYKRLIq9ikOi/foIE5KXHNJhyfBownqyQa6Khob8xvt870bCLtFDFk9Eh
-         6gYdcxmR4Td2OakMU7OGTDKEY3Q7lPJwfWKCmGU50OP8I5uHDjr2aS6jFI3VW9CQSUgM
-         kTe9B2qJsezuVyC9nCA5OnullJrF5slEg58tLs/DWgfROSyjADiMlkBpDxBSxCaGwFxh
-         HIbA==
-X-Forwarded-Encrypted: i=1; AKwUvBzHKNSIne+3XXrThDQPyHP20QSO4H5q3SGmBlNvcoIUf3y5PtK1rF1sAbNHfVuZ3QuMfML15eDV8MqT878=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQu97JxJ5y2vn46gDz3LrKXCbJKPa+aI8vHMbCi7ZOvgsMbfhC
-	930UjSKMOl4iSOh4JRsC63TD1uLBUNVi4n7aSQP9oWsHQO+jmF/nTWU61GGLEucvaw==
-X-Gm-Gg: AYBFou1oUXqvWj/Q7tGD8gKZdz4NeJv9Dsn0FuSD4qIPNj1iFKGEILvqW6CBPhMsLux
-	L5mzUioqmY2lGfqRDNnNvWMW71Zxf9V2sCB0YtNWVtg25CL2KfKfOzAcrVmGfDNALj7qRVbk4Si
-	juSOICW/eudRCTdKUAaGA/R3MPA2Kmf+l+foYH3y7fus8jEoatP5BEpNY4Dg9WDLLcd+xCB9yfH
-	V4Ydqy9VJo2KS+AT8F0clj3qPnky6Ynw4AxLGKvTZGf+4U+Eg++ccveaByeWobU83Oi8wuRPkm2
-	zGdohlc6zGSstWxRSglGVfsP1/qOug/RtKW4Gfc3E69NEG3pXXHUI2krVIXS3VmqCNNvTsO2OGx
-	zKbs/rkul4icthuqypPdizyM311veY0YV6JuYko1/B9vRVZsYPQ566kjGekwW+v7IP9SkG3Q55Y
-	KL6aW/U1yZOS6IO+MI1kA1JQJ1JEPTr7FMQrrHS6YeQKxefItMQwxFjqXFQabXUcbuNpvxUdQSz
-	YpY7IPAK1Y61K/9uFqAVODx3FJM/n1F3M3OZmksHAlX5oKcVTwfFOl4SPuUqBor5PjHLFWtheI+
-	2UiuyA==
-X-Received: by 2002:a17:902:c40a:b0:2e5:e1de:9c3c with SMTP id d9443c01a7336-2e9a6d2b9b3mr74547125ad.47.1792436498569;
-        Mon, 19 Oct 2026 12:01:38 -0700 (PDT)
-Received: from jingyliang-input-linux.c.googlers.com (218.117.230.35.bc.googleusercontent.com. [35.230.117.218])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea151e1b7esm4473105ad.75.2026.10.19.12.01.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 12:01:37 -0700 (PDT)
-From: Jingyuan Liang <jingyliang@chromium.org>
-Date: Mon, 19 Oct 2026 19:01:19 +0000
-Subject: [PATCH v6 07/11] HID: spi-hid: add ACPI support for HID over SPI
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EFec1rmD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sVXkAovOYbfrwYfl0mjNNmqgIUjJJJm2XAdTtokH5v+rhH+ZmKA2OVWnhrxD32D+lssAG41QULSiyHkm+lKUovJVIqiEgV15960zI/6fJa2/k0/tE2FTiX8yEBBBUfNTCLjt3WU1bObt7fXnbzuBaDuDQ8IbIw3AIDp43A3+ZPe1vYhdqNx0GjyRZLifOCC5JSQersfe7xeillaiBSREzDQlKSsuZtiQzIXzjEdMlXumY7TV8afe67+sm7gumdgqCqBDVEXqcOZYZ+rFBF1WQ80zifCpLp0A5fHwMyD68L+rAaJ09TI1MXS6ANadKj/4IV8nfIY9c1WnvYCo7Mn6Lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TgjcH2X0iwKVb8P+szXGbyxcALMb9b+Cosfo+ApNGXE=;
+ b=GfDFHjkSf4VzIKMpH3NZBMY+4xFERtd4wa+mQJ5a4e069LddyrYtJOT0rDBPyChYzwXvLH9dFF8aK6HCWVslGwA9Sm/4HReDxsHxzKBbiL9YleWC1WBpygUJig8lCEKKZDMRV4SqRJByby2w7uNHFfDVRznN8GR1h9dJvacwMVjt/TCE2vq7nvv+D/i37fzkmHS5BfC6U0gGnk53t+3d32PcMFZDrYtrogXF6nvfiqtj8zuxNk/KXsUSxNbVzFkKO3FYmC1r3R38C0jlU19dfyUTc7XAgZghlpylSneieJB90wGrHx9wq2Tk8tTEOi1gsMVDCgr+0KLIIW3f7uvAEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TgjcH2X0iwKVb8P+szXGbyxcALMb9b+Cosfo+ApNGXE=;
+ b=EFec1rmDZIZgRHQi8N/fkShAB8smk4ay8ip+kCJ5bbNCWjFYim5u+NLWaLe/vylS8r9xo6Z4evXYuQE7WgCe2treO2oCfiG3evp1iBsSXxxql8O0YmNyJAYl6lXh/ojrmhcBQZdA0M5wc0QIP/jSTVe32SBqK3tjeyButyY5T5Z0jnif10m7tSN/X81HD+CO85rcVaBRm0exAok8XTTXwvvvywD1F4/H+mIAnHaOaOj6/T1oTvx94EuLUbSdmWTdvnLNxQhiBa0DaVP8hRZ3qM6wtF6E2wrFnY70pVxyLtet4n6pP412pX24PRZrJVDA2AsatNTqnOmBww3KZzuj5w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI0PR04MB12661.eurprd04.prod.outlook.com (2603:10a6:800:346::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 19:02:13 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 19:02:13 +0000
+Date: Mon, 19 Oct 2026 14:02:04 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Daniel Byrne <daniel1.byrne@intel.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
+	Fenghua Yu <fenghua.yu@intel.com>, Frank Li <Frank.Li@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Ludovic Desroches <ludovic.desroches@microchip.com>,
+	dmaengine@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] dmaengine: drop DMA_COMPLETION_NO_ORDER and
+ DMA_OUT_OF_ORDER
+Message-ID: <atZpLBovBBsSGHPq@SMW015318>
+References: <20261019150632.4026424-1-daniel1.byrne@intel.com>
+ <20261019150632.4026424-4-daniel1.byrne@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019150632.4026424-4-daniel1.byrne@intel.com>
+X-ClientProxiedBy: DS1PR05CA0012.namprd05.prod.outlook.com
+ (2603:10b6:8:457::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,485 +102,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-send-upstream-v6-7-cb9ba4b3d6fa@chromium.org>
-References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
-In-Reply-To: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- hbarnor@chromium.org, tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com, 
- Jingyuan Liang <jingyliang@chromium.org>, Angela Czubak <acz@semihalf.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792436487; l=13793;
- i=jingyliang@chromium.org; s=20260213; h=from:subject:message-id;
- bh=pT22yksqmt09BNvdotyWmbbvsqwK0g2QM86zwVsCKC4=;
- b=zEF7oHW7aAQ2hZ0Pzk5WJrpGqiKNHcWk5UUcV14MHHh8m0jvnMDiG6iBXtioS+InHHPJbaXSN
- dRCaXljb1AjC4cxahGZTsRnpg3KxAmDfInZ03GwjUJsUoyjWs2XEFPd
-X-Developer-Key: i=jingyliang@chromium.org; a=ed25519;
- pk=VTYSdqslTtYOjWWoIGgYoWupGWqNSidrggReKMgfPo4=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI0PR04MB12661:EE_
+X-MS-Office365-Filtering-Correlation-Id: f12e4e31-3b29-4c36-9347-08df2e137c66
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|19092799006|23010399003|1800799024|261009223027099003|10067099003|56012099006|22082099003|18002099003|4143699003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	353FMh9rjuRfqq2Jm4rnS41FdYVejFQ6DkDH3Q6LpEg7WSBikyLCKp+/pWn/lewc85WRvs/vxZVGWz7ahNS6gs31W9mmGDkbiW5JCkLmddRElvtm21XXGncijUc2dnA62UaEFgSZyJipY3ZmbwdS0DLXgHLKH2T3iZd2SGVw3rn06a+BKWNjQvdJ8xXbihL80tke8vGezXOzw6u+nKEwJNlgCkg05JmTv8SvBhWRZcA+7BuzRY0u/qUhnaB88TniDjA3Z+oFHIeC3/Vxbow4CJ1+4WC2pRLaT9tDcX/DgQMSPrwfRDkqXJlXvLlUdzmYNcGmkpiU+Mv+nZO0dWhGGcFR/BLSRe6Y1oNsazw0sdIACB6EZXJOrLUEPcsGA4WHlDt3pQd5x8HDdTyL/9nmHhNd2jkK3jGQrcWO0RvPOTo2aIDNFoCV6t77h0cwXNPqgeuJlJHCc0Ui9VykQ3rkYUwh0YTUtMan12qbqQ1jvSkYu0l7zxvdmhauZuhF6aup5O7uL+/6wz5/DfOlps42PDL1gNsT++pdm0tQVuqNbAYYq3jVntrKFkasswuFrcFLVb7f6Hhog4j3u5MH0DYuhxt/aWu+7W/5czKe5bmlmkX8/stwy/TuglkNcORAWhokXC/e6r3x0vT6tRNEzMU0KzGBGilcGGPv7u/CFMMeRm0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(19092799006)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?CA3vHgouPtDts/FIQP4ZZTRiZB7dYu9r/4vyThLhGiqKM27WLWdvgOcwACUu?=
+ =?us-ascii?Q?ITrSbedxhF6auag0bqRODphGldiZ/mcOZG6F6DH/MllxnZ3gKSbAd+Z5YK4Q?=
+ =?us-ascii?Q?k/ew+IHwh2mvO4wbJR1p3B0LCZ14BF/eSqmHS9J83v2AVCO6xI8DKmbj2Cyb?=
+ =?us-ascii?Q?gdUaeL+UP3tB6XFd1IqXU5XB4uP8dYUSIKf8ihESKunjJf//2G1yBmih8Hl5?=
+ =?us-ascii?Q?/SlxWh+9IwZmTXP22oXRKtVpt1HeSMPIhI3QDmLvKXnsNpY2HaWx1cKHE/TH?=
+ =?us-ascii?Q?cmEDFmpRp6OH7ygH42jt18J+88xt+Os393LbQUqAM/93Ajd1rhAHF6zQ/cIV?=
+ =?us-ascii?Q?c3bUbP7FFIfC8DZ33op70f4InILd7tdz5itYeRbZqvcNTMcRqoETp+PzUYZ7?=
+ =?us-ascii?Q?kYmG2dyM8lDLd86idFW9XZrJQoNl1J3lgyceifGqtYrjkQ2JrTYtGBBwYSUf?=
+ =?us-ascii?Q?m0K+/2s9wqu46YM9SM5yQOygZqEFQF1jILuje2HQUPRjrFPnqi07zWQfCw19?=
+ =?us-ascii?Q?Bb40WOV9Lvc/7OCq9VdNp9NvLTxAQqKMOG2CJBFjeCWQzyaHXWO/tYvt9NwK?=
+ =?us-ascii?Q?EIkpt6cVQJko0g7fXVI8o+Ewz/cOCRojKuxCgD/PhmCpi5Gs0NJi6oyRMnx9?=
+ =?us-ascii?Q?jIc2mY0L1GfQBItqnrQBmxasAOopDEpTeOM8izEz92O6CfvTmmRK8Ul4aU21?=
+ =?us-ascii?Q?lPhbwPR4XxWtRDIc1fioGaRuyykFxjMZbVNxrEldCcMPyy2rbLYXMAGMsbN2?=
+ =?us-ascii?Q?JuD437cISsZNxP5pja08i9KHnD2UCMVpcXTjUpA07RknsXkouHohqBnM3Jka?=
+ =?us-ascii?Q?negGoXJCva2msKYK2+0tCV31Tcy7vCuzpZixIbzZZdfofCi6rcY1+JokAOro?=
+ =?us-ascii?Q?A1L5t/Mco9C+OBlDkm3Lq9/qJFel0/4dnwbGfCl9a7iRhoJlxAqMXs8bhYQn?=
+ =?us-ascii?Q?fftzwU5t2equtpuKqems6ofI7RBYUGVCr/ov5HhJjxKh0+cr8nOgUaDzd8R3?=
+ =?us-ascii?Q?fXUH8M9YK0QHyaxUyj47V25Vs30s/hGKycCtxAEDWEbzT0i5nImhRndgqRU0?=
+ =?us-ascii?Q?J+ycW8nV7XF6zQMssTCKDc6bIELpwqdPZKdyR3bmPw7KDb8uu63Dlqur/s9J?=
+ =?us-ascii?Q?7vNnRsy6Mh2JX017JM3cvIjatc1SmvWQZ2LWL9MqzNVG19YUM5TKQ82zOqQy?=
+ =?us-ascii?Q?HrFYdlICfFOG3/yqm3IWz7cY1xuJV7phqERVYbSg4ZyccJpCMGdmsMfhWu+Y?=
+ =?us-ascii?Q?BfkIXMOs2eC0VmGidpDqfls6g/2qVE+Zr9d0yD6wwxFS3KFooayNLuB4owjL?=
+ =?us-ascii?Q?aOo4sWbfYi6LKdLaBPvP1QL2awkKWBB/quiygv22J2munbAExUEajXy35mO1?=
+ =?us-ascii?Q?neDUEE37JeXL5eUfBUUGWRhiRDTpj4YTekBY4yvZBvIwExCXgVevotX3KMSX?=
+ =?us-ascii?Q?L66ieXlzISE1T+hyRCUgHNzG16ymqRlDBg+RvyOjyC6yPdxgeqsvsiDih80h?=
+ =?us-ascii?Q?CThPy/Cdg+h4hWopO9Ek6Cc2t0QIpMWxny1o27yyOcSzbcVE87r43EqA7xou?=
+ =?us-ascii?Q?7ydBOCArjx+yD78+Cq4SERT19p21sZ+CHVrSScs1sW4CuiWViGVGCkOE2ATZ?=
+ =?us-ascii?Q?QBl5Q6zGEsJmoGdz68Jx4uKWKF47hXw7Ac59MaLbKpV+gOKr59ci2ntH15Bb?=
+ =?us-ascii?Q?FVocVfwxPhkCHKcFLn/5gCg6/RqaE3objQ+rmalHG/MIrnchuylzD6KAKV7O?=
+ =?us-ascii?Q?sF/O5ub+WhxYnW6YPG0XvgK2fEIJ+CYz66zuAvrPFDOOmmljtN/x?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f12e4e31-3b29-4c36-9347-08df2e137c66
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:02:13.8131
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TaQCm5UGpu7lM8CnVd2G8BoQhsw/ifozhAImPN3X51g//ODIvqUzxh1GS4MWtr0rQ2s8MomSkgwqSjkw3k59vvKYS/ewdHA8aP9zmJh9R5qrsvn558LvrATM8wVSIRrU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12661
 
-From: Angela Czubak <acz@semihalf.com>
+On Mon, Oct 19, 2026 at 08:06:32AM -0700, Daniel Byrne wrote:
+> [You don't often get email from daniel1.byrne@intel.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> DMA_COMPLETION_NO_ORDER (commit 47ec7f09bc10 ("dmaengine: cookie bypass
+> for out of order completion")) flagged devices whose completions can
+> overtake submission order. On DSA this happens when a work queue (one
+> dmaengine channel) belongs to a group that contains several engines.
+> Per-channel cookie tracking gives wrong answers in this case, since
+> dma_cookie_complete() moves the completed-cookie watermark past
+> still-in-flight earlier descriptors, so cookie-order status can report
+> DMA_COMPLETE for a running transfer. Clients were told to use
+> callbacks only, dmatest refused polled mode, and DMA_OUT_OF_ORDER
+> existed as the tx_status answer for such devices.
 
-Detect SPI HID devices described in ACPI.
+Thank you for such cleanup. But I have not understood what means. Does
+DMA_OUT_OF_ORDER will never happen now?
 
-Signed-off-by: Angela Czubak <acz@semihalf.com>
-Reviewed-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Tested-by: Dale Whinham <daleyo@gmail.com>
-Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
----
- drivers/hid/spi-hid/Kconfig        |  16 +++
- drivers/hid/spi-hid/Makefile       |   1 +
- drivers/hid/spi-hid/spi-hid-acpi.c | 261 +++++++++++++++++++++++++++++++++++++
- drivers/hid/spi-hid/spi-hid-core.c |  48 +++----
- drivers/hid/spi-hid/spi-hid.h      |  45 +++++++
- 5 files changed, 344 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/hid/spi-hid/Kconfig b/drivers/hid/spi-hid/Kconfig
-index 836fdefe8345..303ada03a1bf 100644
---- a/drivers/hid/spi-hid/Kconfig
-+++ b/drivers/hid/spi-hid/Kconfig
-@@ -10,6 +10,22 @@ menuconfig SPI_HID
- 
- if SPI_HID
- 
-+config SPI_HID_ACPI
-+	tristate "HID over SPI transport layer ACPI driver"
-+	depends on ACPI
-+	select RESET_CONTROLLER
-+	select SPI_HID_CORE
-+	help
-+	  Say Y here if you use a keyboard, a touchpad, a touchscreen, or any
-+	  other HID based devices which are connected to your computer via SPI.
-+	  This driver supports ACPI-based systems.
-+
-+	  If unsure, say N.
-+
-+	  This support is also available as a module.  If so, the module
-+	  will be called spi-hid-acpi. It will also build/depend on the
-+	  module spi-hid.
-+
- config SPI_HID_CORE
- 	tristate
- endif
-diff --git a/drivers/hid/spi-hid/Makefile b/drivers/hid/spi-hid/Makefile
-index 733e006df56e..3ca326602643 100644
---- a/drivers/hid/spi-hid/Makefile
-+++ b/drivers/hid/spi-hid/Makefile
-@@ -8,3 +8,4 @@
- obj-$(CONFIG_SPI_HID_CORE)	+= spi-hid.o
- spi-hid-objs 			= spi-hid-core.o
- CFLAGS_spi-hid-core.o 		:= -I$(src)
-+obj-$(CONFIG_SPI_HID_ACPI)	+= spi-hid-acpi.o
-diff --git a/drivers/hid/spi-hid/spi-hid-acpi.c b/drivers/hid/spi-hid/spi-hid-acpi.c
-new file mode 100644
-index 000000000000..31ca3fa336cd
---- /dev/null
-+++ b/drivers/hid/spi-hid/spi-hid-acpi.c
-@@ -0,0 +1,261 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * HID over SPI protocol, ACPI related code
-+ *
-+ * Copyright (c) 2021 Microsoft Corporation
-+ * Copyright (c) 2026 Google LLC
-+ *
-+ * This code was forked out of the HID over SPI core code, which is partially
-+ * based on "HID over I2C protocol implementation:
-+ *
-+ * Copyright (c) 2012 Benjamin Tissoires <benjamin.tissoires@gmail.com>
-+ * Copyright (c) 2012 Ecole Nationale de l'Aviation Civile, France
-+ * Copyright (c) 2012 Red Hat, Inc
-+ *
-+ * which in turn is partially based on "USB HID support for Linux":
-+ *
-+ * Copyright (c) 1999 Andreas Gal
-+ * Copyright (c) 2000-2005 Vojtech Pavlik <vojtech@suse.cz>
-+ * Copyright (c) 2005 Michael Haboustak <mike-@cinci.rr.com> for Concept2, Inc
-+ * Copyright (c) 2007-2008 Oliver Neukum
-+ * Copyright (c) 2006-2010 Jiri Kosina
-+ */
-+
-+#include <linux/acpi.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/reset.h>
-+#include <linux/uuid.h>
-+
-+#include "spi-hid.h"
-+
-+/* Config structure is filled with data from ACPI */
-+struct spi_hid_acpi_config {
-+	struct spihid_ops ops;
-+
-+	struct spi_hid_conf property_conf;
-+	u32 post_power_on_delay_ms;
-+	u32 minimal_reset_delay_ms;
-+	struct acpi_device *adev;
-+	struct device *dev;
-+};
-+
-+/* HID SPI Device: 6e2ac436-0fcf41af-a265-b32a220dcfab */
-+static guid_t spi_hid_guid =
-+	GUID_INIT(0x6E2AC436, 0x0FCF, 0x41AF,
-+		  0xA2, 0x65, 0xB3, 0x2A, 0x22, 0x0D, 0xCF, 0xAB);
-+
-+static int spi_hid_acpi_populate_config(struct spi_hid_acpi_config *conf,
-+					struct acpi_device *adev)
-+{
-+	acpi_handle handle = acpi_device_handle(adev);
-+	union acpi_object *obj;
-+
-+	conf->adev = adev;
-+
-+	/* Revision 3 for HID over SPI V1, see specification. */
-+	obj = acpi_evaluate_dsm_typed(handle, &spi_hid_guid, 3, 1, NULL,
-+				      ACPI_TYPE_INTEGER);
-+	if (!obj) {
-+		acpi_handle_err(handle,
-+				"Error _DSM call to get HID input report header address failed\n");
-+		return -ENODEV;
-+	}
-+	conf->property_conf.input_report_header_address = obj->integer.value;
-+	ACPI_FREE(obj);
-+
-+	obj = acpi_evaluate_dsm_typed(handle, &spi_hid_guid, 3, 2, NULL,
-+				      ACPI_TYPE_INTEGER);
-+	if (!obj) {
-+		acpi_handle_err(handle,
-+				"Error _DSM call to get HID input report body address failed\n");
-+		return -ENODEV;
-+	}
-+	conf->property_conf.input_report_body_address = obj->integer.value;
-+	ACPI_FREE(obj);
-+
-+	obj = acpi_evaluate_dsm_typed(handle, &spi_hid_guid, 3, 3, NULL,
-+				      ACPI_TYPE_INTEGER);
-+	if (!obj) {
-+		acpi_handle_err(handle,
-+				"Error _DSM call to get HID output report header address failed\n");
-+		return -ENODEV;
-+	}
-+	conf->property_conf.output_report_address = obj->integer.value;
-+	ACPI_FREE(obj);
-+
-+	obj = acpi_evaluate_dsm_typed(handle, &spi_hid_guid, 3, 4, NULL,
-+				      ACPI_TYPE_BUFFER);
-+	if (!obj) {
-+		acpi_handle_err(handle,
-+				"Error _DSM call to get HID read opcode failed\n");
-+		return -ENODEV;
-+	}
-+	if (obj->buffer.length == 1) {
-+		conf->property_conf.read_opcode = obj->buffer.pointer[0];
-+	} else {
-+		acpi_handle_err(handle,
-+				"Error _DSM call to get HID read opcode, too long buffer\n");
-+		ACPI_FREE(obj);
-+		return -ENODEV;
-+	}
-+	ACPI_FREE(obj);
-+
-+	obj = acpi_evaluate_dsm_typed(handle, &spi_hid_guid, 3, 5, NULL,
-+				      ACPI_TYPE_BUFFER);
-+	if (!obj) {
-+		acpi_handle_err(handle,
-+				"Error _DSM call to get HID write opcode failed\n");
-+		return -ENODEV;
-+	}
-+	if (obj->buffer.length == 1) {
-+		conf->property_conf.write_opcode = obj->buffer.pointer[0];
-+	} else {
-+		acpi_handle_err(handle,
-+				"Error _DSM call to get HID write opcode, too long buffer\n");
-+		ACPI_FREE(obj);
-+		return -ENODEV;
-+	}
-+	ACPI_FREE(obj);
-+
-+	/* Value not provided in ACPI,*/
-+	conf->post_power_on_delay_ms = 5;
-+	conf->minimal_reset_delay_ms = 150;
-+
-+	if (!acpi_has_method(handle, "_RST")) {
-+		acpi_handle_err(handle, "No reset method for acpi handle\n");
-+		return -EINVAL;
-+	}
-+
-+	/* FIXME: not reading hid-over-spi-flags, multi-SPI not supported */
-+
-+	return 0;
-+}
-+
-+static int spi_hid_acpi_power_none(struct spihid_ops *ops)
-+{
-+	return 0;
-+}
-+
-+static int spi_hid_acpi_power_down(struct spihid_ops *ops)
-+{
-+	struct spi_hid_acpi_config *conf = container_of(ops,
-+							struct spi_hid_acpi_config,
-+							ops);
-+
-+	return acpi_device_set_power(conf->adev, ACPI_STATE_D3);
-+}
-+
-+static int spi_hid_acpi_power_up(struct spihid_ops *ops)
-+{
-+	struct spi_hid_acpi_config *conf = container_of(ops,
-+							struct spi_hid_acpi_config,
-+							ops);
-+	int error;
-+
-+	error = acpi_device_set_power(conf->adev, ACPI_STATE_D0);
-+	if (error) {
-+		dev_err(&conf->adev->dev, "Error could not power up ACPI device: %d\n", error);
-+		return error;
-+	}
-+
-+	if (conf->post_power_on_delay_ms)
-+		msleep(conf->post_power_on_delay_ms);
-+
-+	return 0;
-+}
-+
-+static int spi_hid_acpi_assert_reset(struct spihid_ops *ops)
-+{
-+	return 0;
-+}
-+
-+static int spi_hid_acpi_deassert_reset(struct spihid_ops *ops)
-+{
-+	struct spi_hid_acpi_config *conf = container_of(ops,
-+							struct spi_hid_acpi_config,
-+							ops);
-+
-+	/*
-+	 * Probe guarantees an ACPI reset method exists. Use the optional
-+	 * variant so that the absence of an additional reset controller
-+	 * binding is not reported as an error after a successful reset.
-+	 */
-+	return device_reset_optional(conf->dev);
-+}
-+
-+static void spi_hid_acpi_sleep_minimal_reset_delay(struct spihid_ops *ops)
-+{
-+	struct spi_hid_acpi_config *conf = container_of(ops,
-+							struct spi_hid_acpi_config,
-+							ops);
-+	fsleep(1000 * conf->minimal_reset_delay_ms);
-+}
-+
-+static int spi_hid_acpi_probe(struct spi_device *spi)
-+{
-+	struct device *dev = &spi->dev;
-+	struct acpi_device *adev;
-+	struct spi_hid_acpi_config *config;
-+	int error;
-+
-+	adev = ACPI_COMPANION(dev);
-+	if (!adev) {
-+		dev_err(dev, "Error could not get ACPI device\n");
-+		return -ENODEV;
-+	}
-+
-+	config = devm_kzalloc(dev, sizeof(struct spi_hid_acpi_config),
-+			      GFP_KERNEL);
-+	if (!config)
-+		return -ENOMEM;
-+
-+	config->dev = dev;
-+
-+	if (acpi_device_power_manageable(adev)) {
-+		config->ops.power_up = spi_hid_acpi_power_up;
-+		config->ops.power_down = spi_hid_acpi_power_down;
-+	} else {
-+		config->ops.power_up = spi_hid_acpi_power_none;
-+		config->ops.power_down = spi_hid_acpi_power_none;
-+	}
-+	config->ops.assert_reset = spi_hid_acpi_assert_reset;
-+	config->ops.deassert_reset = spi_hid_acpi_deassert_reset;
-+	config->ops.sleep_minimal_reset_delay =
-+		spi_hid_acpi_sleep_minimal_reset_delay;
-+
-+	error = spi_hid_acpi_populate_config(config, adev);
-+	if (error) {
-+		dev_err(dev, "%s: unable to populate config data\n", __func__);
-+		return error;
-+	}
-+
-+	return spi_hid_core_probe(spi, &config->ops, &config->property_conf);
-+}
-+
-+static const struct acpi_device_id spi_hid_acpi_match[] = {
-+	{ "ACPI0C51", 0 },
-+	{ "PNP0C51", 0 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(acpi, spi_hid_acpi_match);
-+
-+static struct spi_driver spi_hid_acpi_driver = {
-+	.driver = {
-+		.name	= "spi_hid_acpi",
-+		.owner	= THIS_MODULE,
-+		.acpi_match_table = spi_hid_acpi_match,
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+		.dev_groups = spi_hid_groups,
-+	},
-+	.probe		= spi_hid_acpi_probe,
-+	.remove		= spi_hid_core_remove,
-+};
-+
-+module_spi_driver(spi_hid_acpi_driver);
-+
-+MODULE_DESCRIPTION("HID over SPI ACPI transport driver");
-+MODULE_AUTHOR("Angela Czubak <aczubak@google.com>");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi-hid-core.c
-index e428fae762ac..96805c10bfe3 100644
---- a/drivers/hid/spi-hid/spi-hid-core.c
-+++ b/drivers/hid/spi-hid/spi-hid-core.c
-@@ -44,6 +44,7 @@
- #include <linux/wait.h>
- #include <linux/workqueue.h>
- 
-+#include "spi-hid.h"
- #include "spi-hid-core.h"
- 
- #define CREATE_TRACE_POINTS
-@@ -115,31 +116,6 @@ struct spi_hid_output_report {
- 	u8 *content;
- };
- 
--/* struct spi_hid_conf - Conf provided to the core */
--struct spi_hid_conf {
--	u32 input_report_header_address;
--	u32 input_report_body_address;
--	u32 output_report_address;
--	u8 read_opcode;
--	u8 write_opcode;
--};
--
--/**
-- * struct spihid_ops - Ops provided to the core
-- * @power_up: do sequencing to power up the device
-- * @power_down: do sequencing to power down the device
-- * @assert_reset: do sequencing to assert the reset line
-- * @deassert_reset: do sequencing to deassert the reset line
-- * @sleep_minimal_reset_delay: minimal sleep delay during reset
-- */
--struct spihid_ops {
--	int (*power_up)(struct spihid_ops *ops);
--	int (*power_down)(struct spihid_ops *ops);
--	int (*assert_reset)(struct spihid_ops *ops);
--	int (*deassert_reset)(struct spihid_ops *ops);
--	void (*sleep_minimal_reset_delay)(struct spihid_ops *ops);
--};
--
- static struct hid_ll_driver spi_hid_ll_driver;
- 
- static void spi_hid_populate_read_approvals(const struct spi_hid_conf *conf,
-@@ -327,8 +303,21 @@ static void spi_hid_error_handler(struct spi_hid *shid)
- 
- 	shid->power_state = HIDSPI_ON;
- 
--	shid->ops->deassert_reset(shid->ops);
-+	error = shid->ops->deassert_reset(shid->ops);
-+	if (error) {
-+		dev_err(dev, "failed to deassert reset: %d\n", error);
-+		shid->bus_error_count++;
-+		shid->bus_last_error = error;
-+		/*
-+		 * Without a successful reset the device will not send a reset
-+		 * response, so no IRQ would trigger another recovery attempt.
-+		 * Retry from here; reset_attempts bounds the number of tries.
-+		 */
-+		set_bit(SPI_HID_ERROR, &shid->flags);
-+		schedule_work(&shid->reset_work);
-+	}
- 
-+	/* Balance disable_irq() above; a retry disables it again. */
- 	enable_irq(shid->spi->irq);
- }
- 
-@@ -1431,7 +1420,12 @@ int spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
- 		return error;
- 	}
- 
--	shid->ops->deassert_reset(shid->ops);
-+	error = shid->ops->deassert_reset(shid->ops);
-+	if (error) {
-+		dev_err(dev, "%s: failed to deassert reset: %d\n", __func__, error);
-+		shid->ops->power_down(shid->ops);
-+		return error;
-+	}
- 
- 	enable_irq(spi->irq);
- 
-diff --git a/drivers/hid/spi-hid/spi-hid.h b/drivers/hid/spi-hid/spi-hid.h
-new file mode 100644
-index 000000000000..f5a5f4d54beb
---- /dev/null
-+++ b/drivers/hid/spi-hid/spi-hid.h
-@@ -0,0 +1,45 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2021 Microsoft Corporation
-+ * Copyright (c) 2026 Google LLC
-+ */
-+
-+#ifndef SPI_HID_H
-+#define SPI_HID_H
-+
-+#include <linux/spi/spi.h>
-+#include <linux/sysfs.h>
-+
-+/* struct spi_hid_conf - Conf provided to the core */
-+struct spi_hid_conf {
-+	u32 input_report_header_address;
-+	u32 input_report_body_address;
-+	u32 output_report_address;
-+	u8 read_opcode;
-+	u8 write_opcode;
-+};
-+
-+/**
-+ * struct spihid_ops - Ops provided to the core
-+ * @power_up: do sequencing to power up the device
-+ * @power_down: do sequencing to power down the device
-+ * @assert_reset: do sequencing to assert the reset line
-+ * @deassert_reset: do sequencing to deassert the reset line
-+ * @sleep_minimal_reset_delay: minimal sleep delay during reset
-+ */
-+struct spihid_ops {
-+	int (*power_up)(struct spihid_ops *ops);
-+	int (*power_down)(struct spihid_ops *ops);
-+	int (*assert_reset)(struct spihid_ops *ops);
-+	int (*deassert_reset)(struct spihid_ops *ops);
-+	void (*sleep_minimal_reset_delay)(struct spihid_ops *ops);
-+};
-+
-+int spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
-+		       struct spi_hid_conf *conf);
-+
-+void spi_hid_core_remove(struct spi_device *spi);
-+
-+extern const struct attribute_group *spi_hid_groups[];
-+
-+#endif /* SPI_HID_H */
-
--- 
-2.56.0.212.g129ede20d9-goog
-
+Frank
