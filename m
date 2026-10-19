@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795AB54024F;
-	Mon, 19 Oct 2026 14:05:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BD863020F;
+	Mon, 19 Oct 2026 14:05:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418727; cv=none; b=WbqPpn8JxZZnVWtPSREwR9xQxcfdiU0MxlaIU9WtiqNC08DTmd1E9BXsVIYBiNlNjPNasBhQaRq1H+FY8vfEpPbxpoabrATXMzstXk9OoOw0wOKbbyauyTtrrT2LIwbpZjf30QQ76KrQ3Kzhpx7ZKfZKS8yw13ZWXgxv32iDTH8=
+	t=1792418730; cv=none; b=hekT6ndq7dBOI18bGDkbFgwfKSM4Jrwk/OsOB0hZXLOZQsJCezW95tOmygZMmLUs6tTH+qZ8q/iuIxnX+HruzG1drG/s9eE9SJWwbY4lncIft1qaFHdkg6jEwKAPsNXo/9MWunLq81KfZGrWOaRD6UhIy1bnUPZX6B2ykNUY5zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418727; c=relaxed/simple;
-	bh=zAbzEIwYHU/qp4jRLkxsZDK5qS5LL626QZGpVqB1D/k=;
+	s=arc-20240116; t=1792418730; c=relaxed/simple;
+	bh=qvoG948+wlY6YhQE8UFJDGh3inRWIHWrZ1ygpY4gKuw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UQg38y6ic7BoUF/WG9OXoIPmDCyxpDc1hiOBjoUxHgemzFGOzsvk8kgN+seri4hYXBumrQWBU7SoRoFXWqTa9qvlVRbG5f7W603CTLlDwECkdiN+iXN7/o40V13vKp1JIpbRxGoy2N8MILOrW8UO7RU6C6Q6aYqUn7Qf2Mq6E9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoF05GmG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cjxQ1F7Pq7r2Ngi01k0FWUr1xsuveSkv8qWj6bdsrSBQyupjgL+bWk187GQnaN7pRY6hMeb4zYvxT95NwmdV/d4TP+jT68+XtBhLR31j7v8d0qlHz7HLBWqnkVBEi5LyMU61ZitKqqRB94rRMJpuegyoIpZ6NV7Mzk/Fp24YcAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YWNFuYXy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoF05GmG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF9A1F000C8;
-	Mon, 19 Oct 2026 14:05:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YWNFuYXy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168A21F000CB;
+	Mon, 19 Oct 2026 14:05:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418724;
-	bh=OL2beYpPvbFBzAAyisE5y8bt5ZznuG/GnZOAEoYd9rA=;
+	s=k20260515; t=1792418726;
+	bh=DJWgP9LAVP+WfTHuThDxm+9DemxUo7ypk1YTH37/tT8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HoF05GmGW2+8gLcl0Pj6MorGfyfzrATwuvAiSpRYjqLdyC6vXqDYYgZ4rPAfYvTW1
-	 6qYgk8FLt4CIIdrg5duKVi7+FpjRSw53ryIdLp2vd1IusZdQCwvdXuNXI+vkjYToTV
-	 3mPALpmzuIoaONsjPcnE8JPWjMInsHihDrfrm7PVUAn3H2XKEpzenyAW54fp3J55br
-	 X4mPATMJOoKlLJxehUJUT67VL7X9+EyrH9efPyq3wU7qPRVrJ1pR3rGEN4ZbNMaZnU
-	 9Rc1f72EAhyzz42L/AI1QuSESdNOPO/WR7TpwJgSEWwGkx/+dTdqCCayoyfofAqwE/
-	 ip7rmLfBf41XA==
+	b=YWNFuYXyMz64LMhuCQ/6Rk3RLS/LQxbO2M+9pHq2dWeBNXRPiHSk8y6Q21st3TBO/
+	 grsRI+EOFrQGPSWpk8tXTMh5n3SNNCbAzTaV245AXhoV+Ik/1Ig+4jk1iq2WfxLjPz
+	 9ln7g08oUhNd0YOgQvEfUjRI1tB692RfOaeHKEw2J3UaueTM5uqS3Df5kR5mMtKiwZ
+	 nJcbfv8lTy33Fz2gXlAvmirxu3XpgDJjHwlDz1fUeUuhHP5ieP8SCdDdUpN+bJ1ooS
+	 eI2xLI5a/w1GJ7+y9Nw8ZhNyfgs0xcdyyFJtVbyriMspUB6gih3uin0A/7S3Xa2QZS
+	 bERiG2EDLd0rw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Gael Blivet <gael.blivet@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Ayala Beker <ayala.beker@intel.com>,
+	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-cifs@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] ksmbd: fix AsyncId zeroed before use in smb2_lock() cancel response
-Date: Mon, 19 Oct 2026 09:52:22 -0400
-Message-ID: <20261019135441.1420968-451-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mld: drop connection on D3 resume failure
+Date: Mon, 19 Oct 2026 09:52:24 -0400
+Message-ID: <20261019135441.1420968-453-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -52,474 +53,412 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Gael Blivet <gael.blivet@gmail.com>
+From: Ayala Beker <ayala.beker@intel.com>
 
-[ Upstream commit 7b461610882c8baa64d56dade57cdbfb686739fa ]
+[ Upstream commit 4f5384b58b483e4aec576ce461dec45b41df18db ]
 
-release_async_work() zeroes work->async_id before the CANCELLED path
-calls smb2_send_interim_resp(work, STATUS_CANCELLED), which reads
-work->async_id to build the response's AsyncId field. The cancellation
-response for a cancelled blocked-lock request is sent with AsyncId=0
-instead of the id the client received in the original STATUS_PENDING
-response for this request.
+When FW crashes on D3 exit, iwl_mld_nic_error() sets
+STATUS_RESET_PENDING and queues restart wk, but mac80211's resume
+callback synchronously calls iwl_trans_stop_device() which clears
+the flag. As a result restart wk skips sw_reset, and the FW error
+recovery buffer is never read.
 
-Checked against every other release_async_work() call site in this
-file: smb2_read()/smb2_write() don't send a further async response
-afterward (their status goes out on the synchronous path instead), and
-smb2_notify()'s two async paths already transfer the id to a separate
-struct before releasing, so this reordering is scoped to smb2_lock()
-only.
+The new FW boots with empty BA state and initial sequence numbers,
+while the AP still holds its A-MPDU RX reorder window.
+This causes MPDUs to be dropped as IWL_RX_MPDU_REORDER_BA_OLD_SN until
+ADDBA is renegotiated.
 
-Send the STATUS_CANCELLED response while work->async_id is still valid,
-then release the async work afterward.
+We don't know how long the firmware has been in an error state
+or whether the AP still considers us associated, so keeping the
+connection alive is not worth it.
+Call ieee80211_resume_disconnect() when iwl_mld_wait_d3_notif() fails,
+and let userspace reassociate.
 
-Signed-off-by: Gael Blivet <gael.blivet@gmail.com>
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Ayala Beker <ayala.beker@intel.com>
+Reviewed-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Link: https://patch.msgid.link/20260717172958.3e10c8498f53.Icf5644b42d79e984ecc16abfa873bd37f611e778@changeid
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.12.111** (`pending-6.12`). The buggy `smb2_lock()`
-cancel path is present here; it was introduced by a UAF backport already
-on this branch. This is a small protocol-correctness follow-up for that
-regression.
+This is a real WoWLAN resume recovery bug in `iwlwifi` MLD: after a
+firmware crash on D3 exit the driver keeps the association, so traffic
+is dropped. The local tree is **7.3.0-rc4**
+(`v7.3-rc4-27-gf0100363d8c37`); the MLD D3 path exists here, and the
+three-line fix is self-contained.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: **[ksmbd]** **[fix]** AsyncId is cleared before the SMB2 lock-
-cancel interim response is built, so the client gets AsyncId=0.
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: `[wifi: iwlwifi: mld:] [drop] [drop the association when
+D3/WoWLAN resume fails to get firmware notifications]`
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-Record (from the candidate text, ignoring pipeline-added Sasha Levin SOB
-/ Upstream markers):
-- **Signed-off-by:** Gael Blivet `<gael.blivet@gmail.com>`
-- **Assisted-by:** Claude:claude-sonnet-5
-- **Signed-off-by:** Namjae Jeon `<linkinjeon@kernel.org>` (candidate
-  text)
-
-Verified mainline object `af25b28a866c85662723f437d2f2bd433b3ecf92`
-(same patch-id) actually has:
-- **Acked-by:** Namjae Jeon
-- **Signed-off-by:** Steve French
-- No **Fixes:**, no **Cc: stable**, no **Reported-by**, no **Tested-
-  by**, no **Link:**
-
-Absence of Fixes/Cc:stable is expected for this review and is not a
-negative signal.
-
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- **Bug:** `release_async_work()` sets `work->async_id = 0` before
-  `smb2_send_interim_resp(work, STATUS_CANCELLED)`. That helper copies
-  `work->async_id` into the SMB2 header AsyncId field.
-- **Symptom:** A cancelled blocked lock is answered with **AsyncId=0**,
-  not the id from the earlier STATUS_PENDING interim response.
-- **Root cause:** Ordering: release-then-send on the CANCELLED path.
-- **Author’s audit:** Other `release_async_work()` sites in that file do
-  not send another async response afterward (read/write) or copy the id
-  aside first (notify on mainline). Reorder is scoped to `smb2_lock()`
-  only.
-- **Version info:** None in the message. The ordering bug is a side-
-  effect of the earlier UAF reshuffle (see Phase 3).
+- `Fixes:` — none (expected; not a negative signal)
+- `Reported-by:` — none
+- `Tested-by:` — none
+- `Reviewed-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>`
+  (iwlwifi maintainer)
+- `Acked-by:` — none
+- `Link: https://patch.msgid.link/20260717172958.3e10c8498f53.Icf5644b42
+  d79e984ecc16abfa873bd37f611e778@changeid`
+- `Cc: stable@vger.kernel.org` — none (expected)
+- `Signed-off-by: Ayala Beker <ayala.beker@intel.com>` (author)
+- `Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>`
+  (iwlwifi-next maintainer)
+- No syzbot / kernel test robot tags
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not hidden. It is an explicit protocol-correctness fix: the
-cancel response is unusable if AsyncId does not match the pending
-request.
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+Record:
+- **Bug:** Firmware crash on D3 exit. `iwl_trans_fw_error()` →
+  `iwl_trans_schedule_reset()` sets `STATUS_RESET_PENDING` and queues
+  restart work. mac80211 resume then calls `iwl_trans_stop_device()`,
+  which clears that flag, so restart work skips SW reset and never reads
+  the FW error recovery buffer.
+- **Symptom:** New firmware boots with empty BA state / initial SNs
+  while the AP still has its A-MPDU RX reorder window. RX MPDUs are
+  dropped as `IWL_RX_MPDU_REORDER_BA_OLD_SN` until ADDBA is
+  renegotiated. Association state with the AP is also unknown.
+- **Version info:** none in the message. MLD D3 code has existed since
+  the MLD driver was added (in this history: `d1e879ec600f9`, present by
+  v6.15).
+- **Root cause (author):** keep-alive after a failed D3 resume is not
+  safe; disconnect and let userspace reassociate.
+
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not a hidden cleanup. Explicit recovery/correctness fix for a
+broken post-resume connection.
 
 ===============================================================
 PHASE 2: DIFF ANALYSIS - LINE BY LINE
 ===============================================================
 
-Step 2.1: INVENTORY THE CHANGES
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- **File:** `fs/smb/server/smb2pdu.c` — **+9 / −6** (net +3), one hunk
-- **Function:** `smb2_lock()`
-- **Scope:** single-file surgical reorder of existing calls; no
-  API/struct changes
+- File: `drivers/net/wireless/intel/iwlwifi/mld/d3.c` (+3 / −0)
+- Function: `iwl_mld_wowlan_resume()`
+- Scope: single-file surgical fix (3 lines on the existing error path)
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Local tree today (`smb2_lock` deferred-wait cleanup):
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Record: Before, `iwl_mld_wait_d3_notif()` failure logged `"Couldn't get
+the d3 notifs"` and `goto err`, which sets `in_hw_restart = true` and
+returns `1`. mac80211 treats `1` as “full reconfig on wakeup” and
+**keeps** the STA associated. After, if `bss_vif->cfg.assoc`, it also
+calls `ieee80211_resume_disconnect(bss_vif)` so mac80211 tears the
+connection down during resume reconfig. The same function already did
+that on the success path when `keep_connection` is false.
 
-```7794:7814:fs/smb/server/smb2pdu.c
-                                list_del(&smb_lock->llist);
-                                release_async_work(work);
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Record: `[Logic / correctness]` — failed D3 resume left a zombie
+association. Firmware BA state is reset; AP reorder window is not.
+`ieee80211_resume_disconnect()` sets
+`IEEE80211_SDATA_DISCONNECT_RESUME`, taints keys, and
+`ieee80211_sta_restart()` later calls `ieee80211_sta_connection_lost()`.
+This matches MVM: `__iwl_mvm_resume()` always runs
+`iwl_mvm_d3_disconnect_iter` unless `keep` is true (and `keep` stays
+false on error).
 
-                                if (work->state == KSMBD_WORK_ACTIVE)
-                                        goto retry;
-
-                                locks_free_lock(flock);
-
-                                if (work->state == KSMBD_WORK_CANCELLED)
-{
-                                        rsp->hdr.Status =
-STATUS_CANCELLED;
-                                        kfree(smb_lock);
-                                        smb2_send_interim_resp(work,
-STATUS_CANCELLED);
-                                        work->send_no_response = 1;
-                                        goto out;
-                                }
-
-                                rsp->hdr.Status =
-                                        STATUS_RANGE_NOT_LOCKED;
-```
-
-After the patch:
-- **CANCELLED:** send STATUS_CANCELLED **while `async_id` is live**,
-  then `release_async_work()`, then `locks_free_lock()`, then `goto out`
-- **ACTIVE:** `release_async_work()` then `goto retry` (unchanged)
-- **other non-ACTIVE (e.g. CLOSED):** `release_async_work()` then
-  `locks_free_lock()` then STATUS_RANGE_NOT_LOCKED (unchanged)
-
-`smb2_send_interim_resp()` really does use the id:
-
-```731:733:fs/smb/server/smb2pdu.c
-        rsp_hdr = smb_get_msg(in_work->response_buf);
-        rsp_hdr->Flags |= SMB2_FLAGS_ASYNC_COMMAND;
-        rsp_hdr->Id.AsyncId = cpu_to_le64(work->async_id);
-```
-
-and `release_async_work()` really zeroes it:
-
-```707:710:fs/smb/server/smb2pdu.c
-        if (work->async_id) {
-                ksmbd_release_id(&conn->async_ida, work->async_id);
-                work->async_id = 0;
-        }
-```
-
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: **Logic / protocol correctness** (wrong AsyncId on the cancel
-response).
-Not a UAF/leak/null-deref in this patch itself. The UAF invariant from
-`463bbd79698513` is kept: `release_async_work()` still runs **before**
-`locks_free_lock(flock)` on every terminal path, so `smb2_cancel()`
-cannot invoke `smb2_remove_blocked_lock()` on a freed `file_lock`.
-
-Step 2.4: ASSESS THE FIX QUALITY
-Record: Obviously correct from the code. Minimal. No new locks, APIs, or
-control-flow besides reordering existing calls.
-**Regression risk:** Low. The extra window is only
-`smb2_send_interim_resp()` before dequeue; `cancel_fn` still sees a live
-`flock`. Same three `work->state` outcomes as today.
+**Step 2.4: ASSESS THE FIX QUALITY**
+Record: Obviously correct and minimal. `ieee80211_resume_disconnect()`
+is documented for the resume callback; `iwl_mld_wowlan_resume()` is
+called only from `iwl_mld_resume()`. Must be used here rather than
+`ieee80211_hw_restart_disconnect()`, which WARNs unless
+`local->in_reconfig`. Guarded by `bss_vif->cfg.assoc`. Regression risk
+is low: extra disconnect only when D3 notifs already failed, which is
+already treated as a restart-needed error.
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
 ===============================================================
 
-Step 3.1: BLAME THE CHANGED LINES
-Record: The current “release, then maybe send CANCELLED” block was
-written by **`463bbd79698513`** (“ksmbd: fix UAF of struct file_lock in
-SMB2_LOCK deferred-lock cancellation”, Greg backport 2026-07-18). That
-commit **is an ancestor of HEAD**.
+**Step 3.1: BLAME THE CHANGED LINES**
+Record: The `iwl_mld_wait_d3_notif()` error path comes from
+`d1e879ec600f9` (“wifi: iwlwifi: add iwlmld sub-driver”, 2025-03-05).
+Present in this tree; `git merge-base --is-ancestor d1e879ec600f9 v6.15`
+succeeds. The bug is old relative to 7.3, not brand-new code.
 
-`release_async_work()` itself is from `3a9b557f44ea8f` (2023). Interim
-AsyncId is filled from `work->async_id` since `9ac45ac7cf65b` (2023),
-also in this tree.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. Buggy behavior is the original MLD wowlan-
+resume error path, not a later regression.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes: tag. The commit that introduced **this** bug is the
-UAF reshuffle:
-- This tree: `463bbd79698513af4dad50fe1c573825f297ca2e`
-- Upstream: `d20d1c8ba5765` (present as an object; already backported
-  here)
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: Recent `mld/d3.c` work is other WoWLAN validation (`validate
+D3_END notif size`, `validate WoWLAN notif header`, wake-packet checks).
+`ieee80211_resume_disconnect` on the *success* path was added in
+`99f201a9a7d59` (keep_connection). No prerequisite refactor is required
+for these three lines. No later commits on this file after
+`4f5384b58b483`.
 
-Before `463bbd`, the CANCELLED path sent STATUS_CANCELLED **without**
-calling `release_async_work()` first (that skip was the UAF). After
-`463bbd`, release always happens first, which zeros AsyncId and breaks
-the cancel response.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Ayala Beker is a regular Intel iwlwifi contributor (MVM and
+MLD). Reviewed by Emmanuel Grumbach; applied by Miri Korenblit. Strong
+maintainer signal.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record: Related lock/cancel UAF series already in this tree, in order:
-- `89ae9df09d2c1` double SMB2_CANCEL UAF
-- `ddb9239828336` CLOSE then CANCEL UAF
-- `463bbd7969851` deferred-lock cancellation UAF (introduces this
-  AsyncId bug)
-
-This patch is a **standalone follow-up** to `463bbd`, not part of a
-numbered series. No extra prerequisite beyond that UAF fix, which is
-already here.
-
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Gael Blivet has **no other ksmbd commits on this branch**.
-Namjae Jeon (ksmbd maintainer) **Acked** the patch on-list and applied
-it (`#ksmbd-for-next-next`); Steve French signed it into the CIFS tree.
-
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: Needs `release_async_work()`, `smb2_send_interim_resp()` filling
-AsyncId from `work->async_id`, and the `463bbd` lock-wait layout. All
-are in this tree. Applies standalone. A string match of the local hunk
-confirmed the old block is present and the new block is not.
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: Submitted as **patch 4/8** of `iwlwifi-next` updates
+(2026-07-17). Cover letter: “A couple of fixes, features and cleanups.”
+Other patches (wake-packet validation, scan-abort init, MVM sync frames,
+SAR define move, MCC v2, debug log, BIOS code move) do not change this
+error path. Standalone: uses existing `ieee80211_resume_disconnect()`
+and `bss_vif->cfg.assoc`.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 ===============================================================
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- Mainline SHA: **`af25b28a866c85662723f437d2f2bd433b3ecf92`** (not an
-  ancestor of this HEAD)
-- Lore/msgid:
-  `https://patch.msgid.link/20260717073721.7487-1-g.blivet@me.com`
-- **v1 only** (`b4 dig -a`); applied version is that v1
-- Namjae reply (same thread): “Applied it to #ksmbd-for-next-next.
-  Thanks!” — **no NAK, no requested changes, no stable discussion**
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+Record: `b4 dig -c 4f5384b58b483` → https://patch.msgid.link/20260717172
+958.3e10c8498f53.Icf5644b42d79e984ecc16abfa873bd37f611e778@changeid
+`b4 dig -a`: single v1 series, no v2/v3.
+Mbox (`b4 dig -m`): 9 messages, cover + 8 patches, **no replies, NAKs,
+or reviewer concerns**. `Reviewed-by: Emmanuel Grumbach` was already on
+the submission. No `Cc: stable` in-thread.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`): To/Cc were **Namjae Jeon** and **linux-
-cifs@vger.kernel.org**. Maintainer reviewed and applied.
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record: `b4 dig -w` recipients: Johannes Berg
+(`johannes@sipsolutions.net`), `linux-wireless@vger.kernel.org`, Ayala
+Beker, Emmanuel Grumbach, Miri Korenblit. Right maintainers/list.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla/Reported-by. The bug is deduced from code
-after the UAF reorder; that analysis matches the local sources.
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No `Reported-by` / bugzilla / syzbot. Bug is described from
+driver/firmware analysis, not a public user report.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Standalone one-patch series. The author’s note about
-`smb2_read()`/`smb2_write()`/`smb2_notify()` async sites describes
-**mainline**; in **this** 6.12 tree `smb2_notify()` is a
-`STATUS_NOT_IMPLEMENTED` stub and only `smb2_lock()` (plus oplock) uses
-`setup_async_work()`. That does not change the `smb2_lock()` fix.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: Mixed iwlwifi-next dump; this hunk does not depend on 1–3 or
+5–8.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org search URLs returned 403. `b4 dig` found only
-the linux-cifs thread (2 messages). **UNVERIFIED:** no evidence this was
-already NAK’d or requested on stable@; no evidence it was rejected.
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: lore.kernel.org HTTP 403 from this environment. No stable-list
+discussion verified. `b4` thread does not mention stable.
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `smb2_lock()` only. It uses `release_async_work()`,
-`smb2_send_interim_resp()`, `locks_free_lock()`.
+**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
+Record: `iwl_mld_wowlan_resume()`; calls
+`ieee80211_resume_disconnect()`.
 
-Step 5.2: TRACE CALLERS
-Record: `smb2_lock` is registered as the SMB2_LOCK handler in
-`fs/smb/server/smb2ops.c` (`[SMB2_LOCK_HE] = { .proc = smb2_lock}`).
-Reachable from an authenticated ksmbd client issuing a blocking byte-
-range lock, then SMB2_CANCEL.
-
-Step 5.3: TRACE CALLEES
+**Step 5.2: TRACE CALLERS**
 Record:
-- `setup_async_work()` allocates `async_id` and registers
-  `smb2_remove_blocked_lock`
-- `smb2_send_interim_resp()` copies the SMB2 header and sets AsyncId
-  from `work->async_id`
-- `release_async_work()` unlinks from `conn->async_requests`, clears
-  `cancel_fn`, frees `cancel_argv`, releases and zeros `async_id`
-- `smb2_remove_blocked_lock()` only unblocks/wakes the `file_lock`
-  (verified in `smb2pdu.c`)
+- `iwl_mld_wowlan_resume()` ← `iwl_mld_resume()` in `mld/mac80211.c`
+  (mac80211 `.resume`)
+- `iwl_mld_resume()` ← `drv_resume()` in `ieee80211_reconfig()` when
+  `local->wowlan`
+- `iwl_mld_wait_d3_notif()` also used by `iwl_mld_no_wowlan_resume()`;
+  this patch does **not** change that path (no-wowlan resume is handled
+  in `iwl_mld_mac80211_start()`; mac80211 already cleaned state)
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace-triggerable over SMB (needs a ksmbd share and a
-blocking lock). Not a local unprivileged syscall UAF, but a real server
-path for Windows/`LockFileEx`-style blocking locks plus cancel.
+**Step 5.3: TRACE CALLEES**
+Record: `ieee80211_resume_disconnect()` →
+`ieee80211_reconfig_disconnect(..., IEEE80211_SDATA_DISCONNECT_RESUME)`
+→ set sdata flag + `KEY_FLAG_TAINTED`. Later `ieee80211_sta_restart()` →
+`ieee80211_sta_connection_lost()`.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: In this tree, `release_async_work()` call sites are
-`smb2_lock()`, `connection.c` teardown, and `oplock.c`. Only
-`smb2_lock()` sends STATUS_CANCELLED afterward. Matches the author’s
-“scope to smb2_lock only” claim **for this tree**.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Userspace/system suspend with WoWLAN → resume →
+`ieee80211_reconfig()` → `iwl_mld_resume()`. If wait for D3 notifs
+fails, return 1 still triggers full reconfig **and** (with this patch)
+disconnect. Reachable on laptops with Intel MLD (Wi-Fi 7) firmware and
+WoWLAN. Unprivileged users do not trigger it directly; any user who
+suspends the machine can.
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: MVM already disconnects on D3 resume unless `keep` is true
+(`iwl_mvm_d3_disconnect_iter`). Same `ieee80211_resume_disconnect()`
+already used in this function when wowlan status says not to keep the
+connection. MLD also has `iwl_mld_restart_disconnect_iter` for invalid
+recovery blobs during `iwl_mld_send_recovery_cmd()` — a different path,
+and it does not cover “recovery buffer never read.”
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: **Yes.** `pending-6.12` / **6.12.111** (`git describe`:
-`p-6.12-3-gc504cf0baa3d8`). The exact pre-patch block is at
-`fs/smb/server/smb2pdu.c:7794-7808`. The bug was introduced **in this
-series** by the `463bbd79698513` stable backport (2026-07-18), not by
-original v6.12.
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: Yes. Tree is **7.3.0-rc4**.
+`drivers/net/wireless/intel/iwlwifi/mld/d3.c` and
+`iwl_mld_wowlan_resume()` exist (`CONFIG_IWLMLD`). Error path introduced
+with MLD (`d1e879ec600f9`, in v6.15+). `ieee80211_vif.cfg.assoc` exists
+in this tree.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Clean apply.** Context around `list_del(&smb_lock->llist)` /
-`release_async_work` / CANCELLED send matches the candidate; only line
-numbers differ (mainline ~9319 vs local ~7794 because this file is
-smaller here). Confirmed with a direct string match of the old hunk.
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: Clean apply on this tree. Context around the wait-d3-notif error
+path matches the hunk. No conflicting local changes.
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: `git log --grep="AsyncId zeroed" -- fs/smb/server/` is empty on
-this branch. `af25b28a866c8` **is not** an ancestor of HEAD. The UAF fix
-is here; this follow-up is not.
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: No other commit greps as an alternate fix for “D3 resume
+failure” disconnect in MLD. MVM already had the equivalent behavior;
+this fills the MLD gap.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: **ksmbd** (`fs/smb/server/`, `CONFIG_SMB_SERVER`). **IMPORTANT**
-for systems that run the in-kernel SMB3 server (NAS/embedded); not core
-mm/VFS for every machine. Default is `n`.
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: `[drivers/net/wireless/intel/iwlwifi/mld]` `[IMPORTANT]` — not
+core mm/VFS, but Intel Wi-Fi 7 (MLD) on laptops; WoWLAN resume is a
+common path.
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Actively patched on this branch (many recent ksmbd fixes in
-`smb2pdu.c`). Mature SMB2 lock/cancel path, recently hit by several UAF
-fixes.
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Actively developed (frequent mld/d3.c changes). Bug is in
+original wowlan-resume error handling, not a one-off new feature.
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: **Driver/config-specific:** ksmbd users (`CONFIG_SMB_SERVER`)
-who issue **blocking SMB2_LOCK** and then **SMB2_CANCEL**.
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: Driver/config-specific: `CONFIG_IWLMLD` + `CONFIG_PM_SLEEP`,
+Intel MLD firmware, WoWLAN enabled. Typical: recent Intel Wi-Fi 7
+laptops.
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Common SMB lock-cancel pattern (blocking lock held by another
-client, then cancel). Needs SMB authentication to the server. Timing:
-after the wait returns with `KSMBD_WORK_CANCELLED`.
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Not every resume. Trigger is D3-exit firmware failure
+(crash/timeout so D3 notifs never arrive). Timing-dependent around
+firmware error vs resume `stop_device`. Not a syscall smash; any
+suspend/resume with WoWLAN can hit it if FW dies on the way out of D3.
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: **Protocol mismatch → client cannot correlate the cancel
-completion with the STATUS_PENDING AsyncId.** Typical client effect is a
-**hung/outstanding lock request until timeout**, not a kernel oops.
-Severity **HIGH** for ksmbd lock-cancel (user-visible hang), not
-CRITICAL kernel crash.
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: Not a panic. User-visible **broken Wi-Fi after sleep**:
+interface still associated, MPDUs dropped as old SN, possible stale
+association if the AP already dropped the client. Severity **HIGH**
+(serious connectivity failure on a common laptop path), not CRITICAL (no
+oops/deadlock/corruption).
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- **Benefit:** High for this tree specifically — restores correct cancel
-  matching **after a UAF backport that regressed it**.
-- **Risk:** Very low — ~15-line reorder, UAF dequeue-before-free
-  preserved, maintainer-acked.
-- **Ratio:** Strongly favors backport.
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Record: Benefit high for affected users (restores a clean reassociate
+instead of a zombie session). Risk very low (3 lines, existing API,
+error path only, same pattern as MVM and the local success path). Ratio
+strongly favors applying it.
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
 ===============================================================
 
-Step 9.1: COMPILE THE EVIDENCE
+**Step 9.1: COMPILE THE EVIDENCE**
 
-**FOR:**
-- Real bug: cancel response AsyncId is 0; clients match async work by
-  AsyncId
-- Regression introduced by `463bbd79698513`, **already in this 6.12.y
-  tree**
-- Small, obviously correct, applies cleanly
-- Maintainer ack + applied upstream (`af25b28a866c8`)
-- Does not undo the UAF fix (still `release_async_work` before
-  `locks_free_lock`)
+FOR:
+- Real post-resume connectivity bug (dropped MPDUs / unknown
+  association), not style
+- Matches MVM’s long-standing “disconnect unless keep” D3 resume
+  behavior
+- 3-line, obviously correct use of `ieee80211_resume_disconnect()` from
+  the resume callback
+- Reviewed by Emmanuel Grumbach; applied by Miri Korenblit; To: Johannes
+  Berg
+- Buggy path present in this 7.3 tree since MLD introduction
+- Standalone; series-mates are unrelated
+- Tiny error-path change; disconnect is conservative when firmware state
+  is untrustworthy
 
-**AGAINST:**
-- Not a kernel oops/KASAN bug; protocol/hang rather than panic
-- ksmbd is opt-in (`CONFIG_SMB_SERVER` default n)
-- No Fixes:/Cc:stable/syzbot (expected; not a reason to reject)
-- Author’s read/write/notify audit refers to newer mainline, not this
-  tree (irrelevant to the lock hunk)
+AGAINST:
+- No crash, UAF, or CVE; not every resume
+- No user `Reported-by` / syzbot
+- Mixed “fixes, features and cleanups” series (this patch itself is a
+  fix)
+- Lore HTTP 403; no independent stable-list confirmation
 
-**UNRESOLVED:**
-- Could not search lore.kernel.org/stable/?q=… (HTTP 403); `b4` only saw
-  the linux-cifs v1 + maintainer apply
+UNRESOLVED:
+- Could not read lore/stable HTML (403). Thread contents were recovered
+  via `b4 dig -m`.
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — ordering is visible in
-   source; maintainer applied v1 with no revisions
-2. Fixes a real bug that affects users? **PASS** — wrong AsyncId on
-   lock-cancel completion
-3. Important issue? **PASS** — client-visible hang/mismatch on cancel;
-   **stable-to-stable regression** after the UAF backport
-4. Small and contained? **PASS** — one function, +9/−6
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — uses the documented resume-
+   disconnect API; maintainer Reviewed-by
+2. Fixes a real bug that affects users? **PASS** — WoWLAN resume leaves
+   a dead/stale association
+3. Important issue? **PASS** — serious connectivity loss after suspend,
+   not a panic but user-visible and persistent until reassoc/ADDBA
+4. Small and contained? **PASS** — 3 lines, one function
 5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — hunk matches local
-   `smb2_lock()`
+6. Can apply to the local tree? **PASS** — MLD D3 resume code is here;
+   context matches
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: None (not a device-id/quirk/DT/build/docs exception). It
-qualifies as a normal bugfix, specifically a **follow-up to a prior
-stable backport**.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: None (not a device ID/quirk/DT/build/docs exception). Qualifies
+as a normal bugfix.
 
-Step 9.4: MAKE YOUR DECISION
-Backport. Leaving `463bbd79698513` in 6.12.y without this reorder keeps
-a regression: lock-cancel replies with AsyncId=0. The fix is tiny and
-keeps the UAF-safety ordering.
+**Step 9.4: MAKE YOUR DECISION**
+The local 7.3 tree has the MLD wowlan-resume error path. Without this
+change, a firmware crash on D3 exit keeps the mac80211 association
+through reconfig while BA state is reset, so traffic dies until ADDBA.
+Disconnect-on-failure is the same policy MVM already uses and is a
+three-line, low-risk fix.
 
-What problem it solves for stable users: after the deferred-lock UAF
-fix, a cancelled blocking SMB2_LOCK still sends STATUS_CANCELLED, but
-with AsyncId already cleared, so SMB2 clients cannot match it to the
-STATUS_PENDING they already got.
-
-Risk vs benefit: benefit is restoring lock-cancel completion on ksmbd;
-risk is a short send-before-dequeue window on a still-valid `file_lock`.
-
-===============================================================
 Verification:
-- [Phase 1] Parsed tags: no Fixes/Cc:stable/Reported-by; mainline
-  `af25b28a866c8` has Acked-by Namjae + SOB Steve French
-- [Phase 2] Diff: +9/−6 in `smb2_lock()`; send CANCELLED before
-  `release_async_work()`; confirmed `async_id` zeroed in
-  `release_async_work()` and copied in `smb2_send_interim_resp()`
-- [Phase 3] blame: buggy order from `463bbd79698513` (2026-07-18
-  backport of `d20d1c8ba5765`); `git merge-base --is-ancestor
-  463bbd79698513 HEAD` → yes
-- [Phase 3] related UAF commits `89ae9df09d2c1` and `ddb9239828336` are
-  ancestors; this patch is the missing follow-up
-- [Phase 4] `b4 dig -c af25b28a866c8`:
-  https://patch.msgid.link/20260717073721.7487-1-g.blivet@me.com
-- [Phase 4] `b4 dig -a`: v1 only
-- [Phase 4] `b4 dig -w`: Namjae + linux-cifs
-- [Phase 4] mbox: Namjae “Applied it to #ksmbd-for-next-next”; no NAK
-- [Phase 4] lore.kernel.org HTTP search: 403 — UNVERIFIED for stable@
-  archive
-- [Phase 5] `smb2_lock` is SMB2_LOCK proc; `smb2_remove_blocked_lock`
-  only wakes the flock
-- [Phase 6] `git describe HEAD` = `p-6.12-3-gc504cf0baa3d8`; `make
-  kernelversion` = 6.12.111; buggy code at smb2pdu.c:7794-7808;
-  `af25b28a866c8` is NOT ancestor; hunk string-matched
-- [Phase 7] CONFIG_SMB_SERVER default n; subsystem actively receiving
-  lock/cancel UAF fixes
-- [Phase 8] Failure mode: wrong AsyncId → client cannot complete
-  cancelled lock (hang/timeout), not kernel oops
-- UNVERIFIED: whether every SMB client treats AsyncId=0 as a timeout vs
-  ignore; spec matching is by AsyncId, so mismatch is real regardless
+- [Phase 1] Parsed tags: Reviewed-by Emmanuel Grumbach; Link msgid; no
+  Fixes/Reported-by/Cc-stable
+- [Phase 1] Body: FW D3-exit crash → reset flag cleared by
+  `iwl_trans_stop_device()` → empty BA vs AP reorder window → OLD_SN
+  drops
+- [Phase 2] Diff: +3 lines in `iwl_mld_wowlan_resume()` after
+  `iwl_mld_wait_d3_notif()` failure
+- [Phase 2] Confirmed `goto err` already sets `in_hw_restart` and
+  returns 1; mac80211 `drv_resume()` res==1 does full reconfig and keeps
+  association
+- [Phase 2] Confirmed success path already calls
+  `ieee80211_resume_disconnect()` when `keep_connection` is false
+  (`99f201a9a7d59`)
+- [Phase 2] Confirmed MVM `__iwl_mvm_resume()` disconnects all STATION
+  vifs unless `keep` (false on error)
+- [Phase 3] `git describe HEAD` / `make kernelversion`: v7.3-rc4 /
+  7.3.0-rc4
+- [Phase 3] `git blame`: error path from `d1e879ec600f9` (MLD intro);
+  `git merge-base --is-ancestor d1e879ec600f9 v6.15` true
+- [Phase 3] `git merge-base --is-ancestor 4f5384b58b483 v7.2` false
+  (landed in 7.3 cycle)
+- [Phase 3] No Fixes tag; no later d3.c commits after this one
+- [Phase 3] Series 4/8 of mixed iwlwifi-next; parent is unrelated MVM
+  patch; standalone
+- [Phase 3] `iwl_trans_fw_error()` → `iwl_trans_schedule_reset()` sets
+  `STATUS_RESET_PENDING`; `iwl_trans_stop_device()` clears it — matches
+  the described mechanism (nic_error itself sets `in_hw_restart`, not
+  the bit)
+- [Phase 4] `b4 dig -c`: lore msgid match; `b4 dig -a`: v1 only; `b4 dig
+  -w`: Johannes + linux-wireless + Intel iwlwifi maintainers
+- [Phase 4] mbox: 9 messages, no replies/NAKs; cover lists this as a fix
+  among mixed patches
+- [Phase 4] lore.kernel.org WebFetch/curl 403 — UNVERIFIED via HTML;
+  thread recovered with b4
+- [Phase 5] Callers: `iwl_mld_resume` ← mac80211 wowlan resume;
+  `ieee80211_sta_restart` honors `IEEE80211_SDATA_DISCONNECT_RESUME`
+- [Phase 5] `agg.c` drops frames when `IWL_RX_MPDU_REORDER_BA_OLD_SN` is
+  set
+- [Phase 6] File and `iwl_mld_wait_d3_notif` error path present;
+  `bss_vif->cfg.assoc` valid in this tree
+- [Phase 7] iwlwifi MLD, important for Intel Wi-Fi 7 laptops
+- [Phase 8] Failure: zombie association / packet drops after suspend,
+  severity HIGH; fix risk very low
+- UNVERIFIED: public stable@ discussion (lore HTTP 403)
+
+The patch is a small, maintainer-reviewed recovery fix for a real WoWLAN
+resume failure on hardware this tree already supports.
 
 **YES**
 
- fs/smb/server/smb2pdu.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/net/wireless/intel/iwlwifi/mld/d3.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index ea5a130ef83ce..ad6faaf54b991 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -7909,22 +7909,25 @@ int smb2_lock(struct ksmbd_work *work)
- 				spin_unlock(&fp->f_lock);
- 
- 				list_del(&smb_lock->llist);
--				release_async_work(work);
--
--				if (work->state == KSMBD_WORK_ACTIVE)
--					goto retry;
--
--				locks_free_lock(flock);
- 
- 				if (work->state == KSMBD_WORK_CANCELLED) {
- 					rsp->hdr.Status = STATUS_CANCELLED;
- 					kfree(smb_lock);
- 					smb2_send_interim_resp(work,
- 							STATUS_CANCELLED);
-+					release_async_work(work);
-+					locks_free_lock(flock);
- 					work->send_no_response = 1;
- 					goto out;
- 				}
- 
-+				release_async_work(work);
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/d3.c b/drivers/net/wireless/intel/iwlwifi/mld/d3.c
+index b75936125b46d..69d8afda9fcd9 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/d3.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/d3.c
+@@ -2077,6 +2077,9 @@ int iwl_mld_wowlan_resume(struct iwl_mld *mld)
+ 	ret = iwl_mld_wait_d3_notif(mld, &resume_data, true);
+ 	if (ret) {
+ 		IWL_ERR(mld, "Couldn't get the d3 notifs %d\n", ret);
 +
-+				if (work->state == KSMBD_WORK_ACTIVE)
-+					goto retry;
-+
-+				locks_free_lock(flock);
-+
- 				rsp->hdr.Status =
- 					STATUS_RANGE_NOT_LOCKED;
- 				kfree(smb_lock);
++		if (bss_vif->cfg.assoc)
++			ieee80211_resume_disconnect(bss_vif);
+ 		goto err;
+ 	}
+ 
 -- 
 2.53.0
 
