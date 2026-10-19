@@ -1,195 +1,89 @@
-Received: from mail-m103131191187.xmail.ntesmail.com (mail-m103131191187.xmail.ntesmail.com [103.131.191.187])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58939498922;
-	Mon, 19 Oct 2026 10:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.131.191.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B478549A3AE;
+	Mon, 19 Oct 2026 10:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404338; cv=none; b=TJIh8cM1vs/AwGKzcNfgxtI98IHUbqb1D0dMcCmf/ZqKZhemFwei2MmaUF51l6AbZ9R1bUmDlv/wugwQ/nlxs09OyYkBqz2mXA32fPT+f/Y9msQrML/TSVc0QRCOsIssswv15pJUQlxQcMlxoNV9wGqw6910Qgy0Fu+LseaoCuY=
+	t=1792404349; cv=none; b=AtyJU4meuovgtKgfOv/82byW71VYuwubU/x3y+A9XPuo/vVrylUaoZ9nJq8521elDEKCXePwfLYgJgjpy4LzMVQLHVC4bbNfdT/aReX/5J2QSeiM0n5dxsSss8O7CfANYBweH8cfnSC1v5Kczx0yl0n/9Q894d/7rclcF0KFyhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404338; c=relaxed/simple;
-	bh=aP6gpqF3SRKV+cz/DZ3F4I5kr6Ch5wFAFsX4kBbIe6E=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=CThoDaqtWBwNXr5L8j/sl5MGZjDFAB1I7+xsdO750MblLVR9kJkGq0QSGNWmpVaDYcPgMYSsrBrt7GmyF6uXLNAXXtC9W2ynz4z4YbVN/Hgk32YFyRusAmDT4gG4SSJWnuYtlZsVzT40Q5k587vkD7Ny8HUx5ZRbYTWiBFVPolI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=OzAuOrMS; arc=none smtp.client-ip=103.131.191.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1792404349; c=relaxed/simple;
+	bh=cmLH/ycCNvs1cslTh6wqSAW5gYflw07bckubyrv4I+8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LiVUaeMP9EddQO6+qCrOBvXkpnDox4f4DmGffjACMXEDKmMluWr+WssGrKX0a+25CeuHMlGYNba7ryGmvJL/37XF1DZir8HAuSgyr/Zh6rGjh6gaJ4AdhBu3g2UNfM5Bc6NfjC/0CAhJtTZoG+pcePIdvwDTVbra9HeGYclrsxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EVJSNz/n; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="OzAuOrMS"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 518c72105;
-	Mon, 19 Oct 2026 18:05:22 +0800 (GMT+08:00)
-Message-ID: <dd24624f-25cf-4f1f-aafe-064c22b0226c@rock-chips.com>
-Date: Mon, 19 Oct 2026 18:05:20 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EVJSNz/n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=x/
+	lTBcvbDBAETbw6KOJHM2bPYpGYh6uRe7+houmWly4=; b=EVJSNz/nEqhy9DLwmr
+	iqglyHq26MpxkwDWfTKPNOOD/QFRcBzrEu1MQhYI8kKuIOCA6Q0gcAOpV8cCVGyM
+	wSVkMM7QOUvDlwKH+6A5qQx3UO7AdRz4n6Cf2mPzLE6LDFqTXD5wN26LKI92bxr+
+	tvy/0B1dfZC1ENfMz+Cha8n9Q=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnLyhT69VqOE_ABA--.43992S5;
+	Mon, 19 Oct 2026 18:05:12 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+	Venkateswara Naralasetty <quic_vnaralas@quicinc.com>,
+	Muna Sinada <quic_msinada@quicinc.com>,
+	Rajkumar Manoharan <rmanohar@codeaurora.org>,
+	Bhagavathi Perumal S <bperumal@codeaurora.org>,
+	John Crispin <john@phrozen.org>,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH 3/4] wifi: ath11k: validate ready event MAC address array length
+Date: Mon, 19 Oct 2026 18:05:05 +0800
+Message-Id: <20261019100506.1915181-4-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019100506.1915181-1-yaojiale02@163.com>
+References: <20261019100506.1915181-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, detlev.casanova@collabora.com,
- finley.xiao@rock-chips.com, zhangqing@rock-chips.com, inindev@gmail.com,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, gahing@gahingwoo.com
-Subject: Re: [PATCH 1/2] pmdomain: rockchip: Manage the RK3576 GPU domain
- supply
-To: Leonard Lausen <leonard@lausen.nl>, heiko@sntech.de, ulfh@kernel.org
-References: <20261019092417.391522-1-leonard@lausen.nl>
- <20261019092417.391522-2-leonard@lausen.nl>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261019092417.391522-2-leonard@lausen.nl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1539f76c503a4kunm93d66b22706dd2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSh1MVh8fThgfQx4fSEpPGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=OzAuOrMSSc4NEyK3dbA+prFmbfSJSxw5HEAON51DvF6GTPJVffqPDlex3dFUBRy2S9HvYOPftQFIgl4fA7JvkPCNi5LZ7D9ENmebMHjkcDak22FxF26WQsuQpxniuyaMosRo5/Uhu85VIqI5d2Uw1iAQcEZXPr6Z44eOMxaejwk=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=217PjOf4FEFkv0Sop8OiYO8Cf7p7mV1hzNZL4FLAjcY=;
-	h=date:mime-version:subject:message-id:from;
+X-CM-TRANSID:_____wDnLyhT69VqOE_ABA--.43992S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7JrWDtr4rKrWktF17Cw45ZFb_yoW8Jr1Upr
+	WfJ3Wjyr97Ja17Xw4rJa1xuFyrG3ZxJF17trWrK34F9Fs2vr15CF98WFy5Xry5tr48JF12
+	vF4jyrsxWF90v3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pM5lbXUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BghW2rV61iALQAA3z
 
+The ready event reports the number of extra MAC addresses separately
+from the fixed-structure address array. ath11k checks the reported
+count before assigning addresses to radios, but does not check the
+length of the array TLV. A truncated array therefore causes reads past
+the supplied event data.
 
-在 2026/10/19 星期一 17:24, Leonard Lausen 写道:
-> On the NanoPi M5, boot hangs during Panfrost initialization. Before this
-> fix, booting required blacklisting Panfrost on the kernel command line.
-> Loading Panfrost after boot reports a GPU power-domain acknowledgment
-> timeout:
-> 
->    failed to get ack on domain 'gpu', val=0x113ff
-> 
-> Add regulator support to the RK3576 domain descriptors and mark the GPU
-> domain as regulator-dependent. This lets the existing Rockchip
-> power-domain regulator handling manage the GPU domain supply.
-> 
-> A corresponding domain-supply property is needed in the board DT.
-> 
-> The regulator-capable descriptors are based on the regulator support in
-> Jiaxing Hu's pending RK3576 NPU enablement series, without its NPU settle
-> delay changes.
-> 
+Validate the array capacity before copying any addresses.
 
-It looks correct to me after checking TRM that PD_GPU need a VD_GPU on
-this Soc.
+Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/net/wireless/ath/ath11k/wmi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-
-> Link: https://lore.kernel.org/all/20260924102135.92217-10-gahing@gahingwoo.com/
-> Fixes: cfee1b507758 ("pmdomain: rockchip: Add support for RK3576 SoC")
-> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
-> 
-> ---
->   drivers/pmdomain/rockchip/pm-domains.c | 10 +++++++---
->   1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-> index e193f978d5f35..b41f9fcb62bfe 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> @@ -176,41 +176,42 @@ struct rockchip_pmu {
->   	.mem_offset = m_offset,				\
->   	.mem_status_mask = (m_status),			\
->   	.repair_status_mask = (r_status),		\
->   	.req_offset = r_offset,				\
->   	.req_w_mask = (req) << 16,			\
->   	.req_mask = (req),				\
->   	.idle_mask = (idle),				\
->   	.ack_mask = (ack),				\
->   	.active_wakeup = wakeup,			\
->   	.need_regulator = regulator,			\
->   }
->   
-> -#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, wakeup)	\
-> +#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, wakeup, regulator)	\
->   {							\
->   	.name = _name,					\
->   	.pwr_offset = p_offset,				\
->   	.pwr_w_mask = (pwr) << 16,			\
->   	.pwr_mask = (pwr),				\
->   	.status_mask = (status),			\
->   	.mem_offset = m_offset,				\
->   	.mem_status_mask = (m_status),			\
->   	.repair_status_mask = (r_status),		\
->   	.req_offset = r_offset,				\
->   	.req_w_mask = (req) << 16,			\
->   	.req_mask = (req),				\
->   	.idle_mask = (idle),				\
->   	.clk_ungate_mask = (g_mask),			\
->   	.ack_mask = (ack),				\
->   	.active_wakeup = wakeup,			\
-> +	.need_regulator = regulator,			\
->   }
->   
->   #define DOMAIN_M_R(_name, pwr, status, req, idle, ack, wakeup, regulator)	\
->   {							\
->   	.name = _name,				\
->   	.pwr_w_mask = (pwr) << 16,			\
->   	.pwr_mask = (pwr),				\
->   	.status_mask = (status),			\
->   	.req_w_mask = (req) << 16,			\
->   	.req_mask = (req),				\
->   	.idle_mask = (idle),				\
->   	.ack_mask = (ack),				\
-> @@ -250,25 +251,28 @@ struct rockchip_pmu {
->   	DOMAIN(name, pwr, status, req, req, req, wakeup)
->   
->   #define DOMAIN_RK3528(name, pwr, req)		\
->   	DOMAIN_M(name, pwr, pwr, req, req, req, false)
->   
->   #define DOMAIN_RK3562(name, pwr, req, g_mask, mem, wakeup)		\
->   	DOMAIN_M_G_SD(name, pwr, pwr, req, req, req, g_mask, mem, wakeup, false)
->   
->   #define DOMAIN_RK3568(name, pwr, req, wakeup, regulator)		\
->   	DOMAIN_M_R(name, pwr, pwr, req, req, req, wakeup, regulator)
->   
->   #define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, wakeup)	\
-> -	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup)
-> +	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup, false)
-> +
-> +#define DOMAIN_RK3576_R(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, wakeup)	\
-> +	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup, true)
->   
->   /*
->    * Dynamic Memory Controller may need to coordinate with us -- see
->    * rockchip_pmu_block().
->    *
->    * dmc_pmu_mutex protects registration-time races, so DMC driver doesn't try to
->    * block() while we're initializing the PMU.
->    */
->   static DEFINE_MUTEX(dmc_pmu_mutex);
->   static struct rockchip_pmu *dmc_pmu;
->   
->   /*
-> @@ -1323,25 +1327,25 @@ static const struct rockchip_domain_info rk3576_pm_domains[] = {
->   	[RK3576_PD_VOP]		= DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(11), 0x0, 0x6000,  0x6000,  0x6000,  false),
->   	[RK3576_PD_VO1]		= DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(14), 0x0, BIT(12), BIT(12), 0x7000,  false),
->   	[RK3576_PD_VO0]		= DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(15), 0x0, BIT(11), BIT(11), 0x6800,  false),
->   	[RK3576_PD_USB]		= DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(16), 0x0, BIT(10), BIT(10), 0x6400,  true),
->   	[RK3576_PD_VI]		= DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(17), 0x0, BIT(9),  BIT(9),  BIT(9),  false),
->   	[RK3576_PD_VEPU0]	= DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT(18), 0x0, BIT(7),  BIT(7),  0x280,   false),
->   	[RK3576_PD_VEPU1]	= DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT(19), 0x0, BIT(8),  BIT(8),  BIT(8),  false),
->   	[RK3576_PD_VDEC]	= DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(20), 0x0, BIT(6),  BIT(6),  BIT(6),  false),
->   	[RK3576_PD_VPU]		= DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(21), 0x0, BIT(5),  BIT(5),  BIT(5),  false),
->   	[RK3576_PD_NPUTOP]	= DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BIT(22), 0x0, 0x18,    0x18,    0x18,    false),
->   	[RK3576_PD_NPU0]	= DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(23), 0x0, BIT(1),  BIT(1),  0x1a,    false),
->   	[RK3576_PD_NPU1]	= DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(24), 0x0, BIT(2),  BIT(2),  0x1c,    false),
-> -	[RK3576_PD_GPU]		= DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
-> +	[RK3576_PD_GPU]		= DOMAIN_RK3576_R("gpu",  0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
->   };
->   
->   static const struct rockchip_domain_info rk3588_pm_domains[] = {
->   	[RK3588_PD_GPU]		= DOMAIN_RK3588("gpu",     0x0, BIT(0),  0,       0x0, 0,       BIT(1),  0x0, BIT(0),  BIT(0),  false, true),
->   	[RK3588_PD_NPU]		= DOMAIN_RK3588("npu",     0x0, BIT(1),  BIT(1),  0x0, 0,       0,       0x0, 0,       0,       false, true),
->   	[RK3588_PD_VCODEC]	= DOMAIN_RK3588("vcodec",  0x0, BIT(2),  BIT(2),  0x0, 0,       0,       0x0, 0,       0,       false, true),
->   	[RK3588_PD_NPUTOP]	= DOMAIN_RK3588("nputop",  0x0, BIT(3),  0,       0x0, BIT(11), BIT(2),  0x0, BIT(1),  BIT(1),  false, false),
->   	[RK3588_PD_NPU1]	= DOMAIN_RK3588("npu1",    0x0, BIT(4),  0,       0x0, BIT(12), BIT(3),  0x0, BIT(2),  BIT(2),  false, false),
->   	[RK3588_PD_NPU2]	= DOMAIN_RK3588("npu2",    0x0, BIT(5),  0,       0x0, BIT(13), BIT(4),  0x0, BIT(3),  BIT(3),  false, false),
->   	[RK3588_PD_VENC0]	= DOMAIN_RK3588("venc0",   0x0, BIT(6),  0,       0x0, BIT(14), BIT(5),  0x0, BIT(4),  BIT(4),  false, false),
->   	[RK3588_PD_VENC1]	= DOMAIN_RK3588("venc1",   0x0, BIT(7),  0,       0x0, BIT(15), BIT(6),  0x0, BIT(5),  BIT(5),  false, false),
->   	[RK3588_PD_RKVDEC0]	= DOMAIN_RK3588("rkvdec0", 0x0, BIT(8),  0,       0x0, BIT(16), BIT(7),  0x0, BIT(6),  BIT(6),  false, false),
+diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
+index 995fee2ffdfa..9a048c7d9858 100644
+--- a/drivers/net/wireless/ath/ath11k/wmi.c
++++ b/drivers/net/wireless/ath/ath11k/wmi.c
+@@ -7328,6 +7328,9 @@ static int ath11k_wmi_tlv_rdy_parse(struct ath11k_base *ab, u16 tag, u16 len,
+ 		if (!(ab->num_radios > 1 && num_mac_addr >= ab->num_radios))
+ 			break;
+ 
++		if (len / sizeof(*addr_list) < ab->num_radios)
++			return -EINVAL;
++
+ 		for (i = 0; i < ab->num_radios; i++) {
+ 			pdev = &ab->pdevs[i];
+ 			ether_addr_copy(pdev->mac_addr, addr_list[i].addr);
+-- 
+2.34.1
 
