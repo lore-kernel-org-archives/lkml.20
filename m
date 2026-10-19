@@ -1,60 +1,45 @@
-Received: from mail-m127162.xmail.ntesmail.com (mail-m127162.xmail.ntesmail.com [115.236.127.162])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768124DA9C8;
-	Mon, 19 Oct 2026 10:44:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AE94DE72C;
+	Mon, 19 Oct 2026 10:44:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792406657; cv=none; b=t4RJ31PCgGqZeHTDV9XHFlsIZYvjYEmHEJG8DwmMvqc+5ykSfALhtlUwl6sJAqBDxoqQDVNkpjVd7j0SlEl9Clm4K5nzHR3hCHpeimkKiGYkb1+MAWrqKKtBu06qHmnT8LYJhvXCbuZ7wL4xiPVPWUxvBBmF+5xCzYWT8dgpGrE=
+	t=1792406686; cv=none; b=MQh20UYuNddEwtHH7fWnJ26NoBQtG9nOXdEowOaUxDl7rsfOMlzpNExNkkujFmiTDhu/fmX3BmUpBnjuEPkbYNvy19PqhBtzpDPz/vZ8qxVD1xUaKGLjMXuD7tt+yuAy3R1j2SIb5GTgsPPDhyisGcWhfh9AY0SeUsMGPr7Rkm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792406657; c=relaxed/simple;
-	bh=EvB3Z2XyDhQwH45gURXKFb/m8BuDOSRmKYIVZjHvTfo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=apQ9q5c7plsd2XLWbop812CHx1i9bWwUjAz/qWVEjKDhEVJ0pSVgK1NcUj0YysrIBetndVFZsR3Dm9kCO4P3TvOWTE4S1UbGyDOFsWEWIzJOn6v+1/JR++cAlF9R+rRrFj7O2cAeYWarkxuzLCshMsFHzbUVOzefsVz45KyOdNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Knnwf9Oe; arc=none smtp.client-ip=115.236.127.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1792406686; c=relaxed/simple;
+	bh=fZ6tdMU+xDFlCKp6/g54mW+NehhUNiI5gX+j3jGmJ84=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QJB/unVy1Wf+uK98ThmsiuFTAqzY54aZ45BvJn63WjppChku+tSb6nGRk9O4Ln2ff3ToTJqllU4qvnj7SJTrYlXU4ZV+gTzOAFFbtj7T/H5CJedCKKJTEdh5ITEgfNVQaP0e8bFCa8zVITECOxZradv1LjaZn30pOGz6CaOga2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nro3wfJA; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Knnwf9Oe"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 518d3ddb4;
-	Mon, 19 Oct 2026 18:28:49 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Sandy Huang <hjc@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dave Jones <s.dave.jones@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nro3wfJA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=7H
+	sp2j1tf8cRBwXqGrTFpBRG70ae8Bpm1vq/0qeFeSY=; b=nro3wfJAcjOj2tUGCW
+	u9L2XP0KiEzsx4c4XRzztIjvPuMFYDXD3tagkN1XtUIRS+My5wCv2gTDkwclvjWM
+	RZFMC6GZe7KBUoHL5ugq7Xvi1lSbGd/lbE4hd7Lp2umyDRRh2gF40K1AQH1KYURV
+	BbmmQEWeMopboJ9nqOtPcKWRM=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnVxJq9NVqY0ncAw--.3185S2;
+	Mon, 19 Oct 2026 18:43:55 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: jmaloy@redhat.com,
+	tung.quang.nguyen@est.tech,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v2 6/6] arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
-Date: Mon, 19 Oct 2026 18:28:24 +0800
-Message-Id: <20261019102824.3157044-7-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019102824.3157044-1-damon.ding@rock-chips.com>
-References: <20261019102824.3157044-1-damon.ding@rock-chips.com>
+	Binbin Deng <18983559317@163.com>
+Subject: [PATCH net v2] tipc: fix use-after-free of broadcast reception link at node release
+Date: Mon, 19 Oct 2026 18:43:52 +0800
+Message-ID: <20261019104352.488347-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,84 +47,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa153b4f0f103a8kunme348c01b2f6c59
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGUpJVklLSkNKH0odTkMeS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Knnwf9OeJchsgWsBAold0rtvUsMcikqn3N7Tstzi0RF78LiKL+0hcUNzU3r66POuNBTKSc6aCQNh5ya64BLf4RfzI5tvu6iSx2UT0321l0g6IsDWW0wOw/4aIZw7VUk0LsLvVA+lqVUHpHaB+uYvsxtVEdloGDUjX85pRvm1NSs=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=u0DlQ/xf40TjrEq/cqhW2BlOW/2RL9CDbLOchel23Qo=;
-	h=date:mime-version:subject:message-id:from;
+X-CM-TRANSID:_____wDnVxJq9NVqY0ncAw--.3185S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr1fCr18ZFyUtr13GFy8Krg_yoW5KF45pF
+	W3W39xAr4DXr4F9r4kt3yxGa409F43XFW3G3y09FsrZrs8tr4fXrn29Fy2gFyFkF4v9FW5
+	tF4UG347CFs8ArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U0385UUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC-AtnS2rV9GtezgAA3r
 
-Add the eDP PHY GRF (with the eDP PHY child node) and the eDP
-controller nodes for the RK3568/RK3566 SoCs.
+When the last reference to a tipc_node is dropped, the node itself is
+deferred to the RCU callback tipc_node_free(), but the nested broadcast
+reception link, n->bc_entry.link, is kfree()d synchronously in
+tipc_node_kref_release(), before call_rcu(), and the pointer is never
+cleared.  Readers that obtained the node from node_list and then
+dereference bc_entry.link deep into the link (tipc_link_name() in
+tipc_nl_node_reset_link_stats(), bcl->name/stats in
+tipc_nl_add_bc_link() on the link dump path) therefore touch freed
+memory although the enclosing node stays alive for a full grace period.
+The sibling per-bearer links get "kfree + NULL" under the node write
+lock in tipc_node_clear_links(); the broadcast entry was missed.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+The race is reachable through the node cleanup timer: once a peer has
+been unreachable for NODE_CLEANUP_AFTER (300 s), tipc_node_timeout() ->
+tipc_node_cleanup() unlinks the node under the write lock, and the
+final tipc_node_put() at the caller runs outside node_list_lock, so the
+kfree executes in timer softirq context, concurrently with genl dump/
+reset walkers that hold only rcu_read_lock().  (A netlink "peer remove"
+cannot race those walkers itself: tipc_genl_family has no parallel_ops,
+so all doit/dumpit calls serialize on the global genl lock.)
+
+Reproduced in a QEMU/KVM guest running v7.3.0 with KASAN and
+PREEMPT(full): 10 TIPC peer namespaces on veth bearers, bearer removal
+staggered so the 300 s node cleanup timers expire while other tasks
+loop link dumps with the broadcast filter and reset-link-stats lookups.
+KASAN hit within two cleanup cycles:
+
+  BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+  Read of size 1 at addr ffff88800b54a004 by task poc_eth/371
+   strlen+0x85/0xa0
+   tipc_nl_add_bc_link+0x2f9/0xd40
+   __tipc_nl_add_node_links+0x10c/0x140
+   tipc_nl_node_dump_link+0x8d5/0xd50
+  Freed by task 0:
+   kfree+0x121/0x380
+   tipc_node_timeout+0xa33/0xcf0
+   run_timer_softirq+0x144/0x250
+   sysvec_apic_timer_interrupt
+
+with the freed object being the kmalloc-1k tipc_link allocated by
+tipc_link_bc_create() during peer discovery.  The same defect fires in
+strcmp() called from tipc_nl_node_reset_link_stats().
+
+Move the kfree of n->bc_entry.link into the tipc_node_free() RCU
+callback so the broadcast link lives exactly as long as the enclosing
+node.  All readers are covered: the netlink walkers are inside
+rcu_read_lock(), and the packet reception path reaches the node via
+tipc_node_find(), whose kref defers kref_release itself.
+
+Found during a static-analysis-assisted audit: candidate sites were
+surfaced by a Coccinelle rule, and the reader/writer paths were
+confirmed by LLM-assisted (GLM-5.3) code inspection.
+
+Fixes: d25a01257e42 ("tipc: fix crash during node removal")
+Assisted-by: GLM-5.3 coccinelle
+Signed-off-by: Binbin Deng <18983559317@163.com>
 ---
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 41 +++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ net/tipc/node.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index a5832895bd39..3b60e4355ad8 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -403,6 +403,20 @@ usb2phy1_grf: syscon@fdca8000 {
- 		reg = <0x0 0xfdca8000 0x0 0x8000>;
- 	};
+diff --git a/net/tipc/node.c b/net/tipc/node.c
+index bd91378b7540..fdc679fe2d91 100644
+--- a/net/tipc/node.c
++++ b/net/tipc/node.c
+@@ -303,6 +303,7 @@ static void tipc_node_free(struct rcu_head *rp)
+ #ifdef CONFIG_TIPC_CRYPTO
+ 	tipc_crypto_stop(&n->crypto_rx);
+ #endif
++	kfree(n->bc_entry.link);
+ 	kfree(n);
+ }
  
-+	edp_phy_grf: syscon@fdcb0000 {
-+		compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
-+		reg = <0x0 0xfdcb0000 0x0 0x100>;
-+		clocks = <&cru PCLK_EDPPHY_GRF>;
-+
-+		edp_phy: edp-phy {
-+			compatible = "rockchip,rk3568-edp-phy";
-+			clocks = <&pmucru XIN_OSC0_EDPPHY_G>;
-+			clock-names = "refclk";
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+	};
-+
- 	pmucru: clock-controller@fdd00000 {
- 		compatible = "rockchip,rk3568-pmucru";
- 		reg = <0x0 0xfdd00000 0x0 0x1000>;
-@@ -879,6 +893,33 @@ hdmi_out: port@1 {
- 		};
- 	};
+@@ -310,7 +311,6 @@ static void tipc_node_kref_release(struct kref *kref)
+ {
+ 	struct tipc_node *n = container_of(kref, struct tipc_node, kref);
  
-+	edp: edp@fe0c0000 {
-+		compatible = "rockchip,rk3568-edp";
-+		reg = <0x0 0xfe0c0000 0x0 0x10000>;
-+		clocks = <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDP_CTRL>, <&cru HCLK_VO>;
-+		clock-names = "dp", "pclk", "hclk";
-+		interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-+		phys = <&edp_phy>;
-+		phy-names = "dp";
-+		power-domains = <&power RK3568_PD_VO>;
-+		resets = <&cru SRST_EDP_24M>, <&cru SRST_P_EDP_CTRL>;
-+		reset-names = "dp", "apb";
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			edp_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			edp_out: port@1 {
-+				reg = <1>;
-+			};
-+		};
-+	};
-+
- 	qos_gpu: qos@fe128000 {
- 		compatible = "rockchip,rk3568-qos", "syscon";
- 		reg = <0x0 0xfe128000 0x0 0x20>;
+-	kfree(n->bc_entry.link);
+ 	call_rcu(&n->rcu, tipc_node_free);
+ }
+ 
 -- 
-2.34.1
+2.43.0
 
