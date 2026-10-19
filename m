@@ -1,48 +1,48 @@
 Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC04C48FF6E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:35:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED1F490BFC
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:35:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395323; cv=none; b=C99ahZmMdLANRAXNpjmBx7bymLrs9yaMMd8hFdYqrqVFykAw2Zm5XI4AAVhh792t7C+v0UbgabQN9SzENUEMpoKalyReWOaiVeoAf6SppB7SZZpXhecBXvWAuAvQ468l+1dJidcnX8XBb88+9D7Wu6gTF4xzvzevIMHz/dKd4cM=
+	t=1792395325; cv=none; b=Zk/+Qb5fQDRtb9pLkpj8OBVMYaDKOvFype/TXE+0fMwIDCyPt3Os3xs9HR0A1fEcKrUz5oi0AcMJJMDng46vy2VjlvNhDmM1gE99DkbGwzDULAVVoz4a93d161EgBr/lrmXgjLV9vYfb8QxQp5i7YjZAT1a4VPoIlp0v1d9zWIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395323; c=relaxed/simple;
-	bh=AVjSN+no6wLWebuEZW1WqoHPn9SdSWxn+aWjA3tg3AE=;
+	s=arc-20240116; t=1792395325; c=relaxed/simple;
+	bh=f35/t7zjADQ/MZTeMESmOfTnmHUcK/tl/nrSrFtJu6s=;
 	h=Message-ID:From:To:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=uXhnCw5d10pLnn3O96EOzZTVglYUPX2Zabz645J/FDoORxgmxYh9taIOntLtwcoqCbdMnGn+96zUlw/f8iLP3jhWaRHBXaI+LAacWJ3EtK80UKvyaLv7SSX3Dt29EJNtBedN2G/ommpqzOUxDgROhLF+HmG5S9Gb1qJZ+tlUmQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=jQiMVou6; arc=none smtp.client-ip=162.62.57.210
+	 MIME-Version; b=pnL6WAEK0xq7auemTwyWEk5AR3+QJbEoMb6NHj7bwqY5uVRfjX+iIKaAS9Cwlij1UUAoNlEimdL49sF2ws8CDKp7Fr3hVrtizMN9LknGjoMaukcbZ/0dIAtcikZ64gg8Ul1QvCAA2Vwncgj7ropNxXPVs7XBjD8LQ928BrDXPcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=LYDcedOQ; arc=none smtp.client-ip=162.62.57.210
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="jQiMVou6"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="LYDcedOQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792395310; bh=Ue++TDzw2qo5AXu78eUhZOpwEGgAAB6mxLfyRHQ5jlE=;
+	t=1792395319; bh=HqJwVqzmYltEuhXENlX6nwBG8T60ZnZi4h9+aoPtYdw=;
 	h=From:To:Subject:Date:In-Reply-To:References;
-	b=jQiMVou6PaV3nR3GPXgRDmQzC7QVpD95UewqeYVSoMo7RRkhtmC/kMt3kS9+RgraN
-	 /LOs960PQPD2Pvh9Zyv0aaTfk7KAHkmp93S/oGkhMQgwtJ/o2yXDDNTT5v2ZKEnR7L
-	 Sp8/WWt+uN7KW0Ab3TQbgoTVmTenNmqAaxMgvNuM=
+	b=LYDcedOQhLK20WH3FcRi/hfsbPkGTTPjYh1MjV7VU44zmx+4tXGaP5uqSlCmRtNi+
+	 fQNre462RsYqfodk1Xwt0+itYbPnJFMU4wOZRQCpm7koW1U1GgRt6R3YGSpvhbTD5Y
+	 xHwNovtnmZdRrrNLnb5wJEsxJdpFMuyVgciwzbVo=
 Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
 	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
 	id 8B707E35; Mon, 19 Oct 2026 15:34:55 +0800
-X-QQ-mid: xmsmtpt1792395307t6sm986ry
-Message-ID: <tencent_956D46E4D86F2531CD70820411E6B6506A05@qq.com>
-X-QQ-XMAILINFO: Od8VqZhFMB3NvQrI8oKxM76xeG1VpCg3obRNPUnNcDffRb6c7Q1a8bEsLqoPZL
-	 Z19QqfSnMdEMNdZY12FfspZHf+ZavHugmNalbnDdb+hnqblgaKBDasZEkzumFR6+CzPf0CbvsDcL
-	 afCnJe3N98+Rhg+XFvPAI7OPB/85TG3vIcpVwUh4KNNY0mrT0VHgWD8kec2jj3A+dqcVqSbsb22L
-	 BY4Okuy/T3wEzOeN1oYfnxytZdvKkM/3ojPCJlUgqIUaAxrV+V8b2GVvrBhLEzBESl2EHxux1wJi
-	 AJcqa56gXpqP1+d/xE+C/cD7FgO9+XJr+dNEt0oG1DVYGJc/6B4Fdxit/76AaWCm9dpeASiZKShL
-	 nM2Oru2raaquSuG9eziC9Q4nxgJSslOC0BqCkse8Yf64PG2UdzWoQNFO/TIA/AYRjK/kNg6fwmfd
-	 +NuUfx/CSeLnxJwXjaIz3fVlfC9TWD2IaHi2V+AGWeE59JrD7KvRH94NqKsvBvikDOr0HGhsNeRB
-	 H3qmuLRT36Bz785qidhMPRuytlH42GxS4uHTxdRm2Cm/aerYAL/Px2bCostJcQP465a5IhFObqCX
-	 83x3SCB2qNCVCPcsedVzATi263khWCwncEFe+avbPkGRZaAnUBsptIeforaY/u3qRcKt4DmrCv4n
-	 lTLghWPTjMu/dva5yC1xJvRPiRJ7xh9LSJCRneJne0RtHcTbCzMLmyRsWy3vSOnh7kCnj35p4o7P
-	 t7ZH5/TwHW/KjRjCP3pipLZQ2celtW0NtcxEMtbYe4jQTd3k6IxeU+j8Qb8f5ol7JNbl16MW3th6
-	 q8DMiYbmmYKDCTZtHMod3ipHTQvXAy9MBLmMAAf4dtYuD2O1n1PRjUQTCAgLGUcXVEPz19vb3d1E
-	 baRtXdbo5SdHiqovCqlxRINfkbBmrq6pWucchJS8n8hVei/5b86p4Xbm4Q+xu914wL88wniE/gY6
-	 j1Asu5HgYIppn23npdwKq7Gx1qt1WUarK9k6sdqIku0ZiRQDXVVA5bLfifMbh9WVhT+96gui+GNa
-	 s+2qL+zoU1V1BoVfdEYoWQNCXldGNOiqK3JFEl0xlVlJ1QsiDoYyda76O69uGClaL9Rf8gkgYlBj
-	 UgOwmn
+X-QQ-mid: xmsmtpt1792395315t8p933xn3
+Message-ID: <tencent_8162C8AD8CD4DF0CD931E28A6C1AEA840406@qq.com>
+X-QQ-XMAILINFO: Mxl1cXmTLcf7ARWfuBJMP8612+O2aQatBUuTLZ7vY2Dck1Mso3Heoj35Qnoj/y
+	 xOrVsr8tM9AcRHcZ4+ucbYTW9hPUjPlF3OPTmi8nWh9Rs587Dv2i4a9Nq3G9262tIlr5ubu13Vgy
+	 itv3jd7E7VXk2LMBiqjquoL5eFebWatCQ+5T52P03kh1NjyhnopM9PXluHelCffz/zM46URPyaRj
+	 UdoeUg0Tp0dSu4Md/jAww1wI6o5JGrSte9CuCcVbp+RLQgXId5+9MrBTGpdn5+gvprSq190ay7ey
+	 jsRh/tqdIDDuHHEiAKNCzh+klPHP5xi9jE2sftKCHGZEBVwDrklydwbyuKOcG22vGqapikVwc3y4
+	 sgh4VKO63MJmfIAljh3bSAk4ktLu9qQyo+y+Z35QQYo0AJCQLYJERdWF20WAjw1LVBr9Gx1V9SFd
+	 H+pwH9fCIDgt04rM63EZOiGOitzeUqD0oP/+x8lnDzHXqjGM/041O92qcn9wAYJBoce1SuBxIvyE
+	 xntUCU90866BKj0iT7UrZPkVKA87qjPazRQAynDMqtcq1by/GLB9b4InMXNJO1dKm7ELAeDNoJPI
+	 LW9eZBlthFHilZDpIZU6+JbWPP2vYaWga1wBQiE/Vw688bJ13z6rU2YeHPq9fW6g6PyE/534JzEH
+	 M90HAycoXj//+C/xS5Zgy0QSXSjk2Ix65o6joyXnRzE3owqqRNcc+eeDDnwZggN3lHaL/WQol1gK
+	 lJAfhAa3bcn4HvR0pWEcYaAPgqwgtUJw3UkNJPIHqlNkz5Pn1yZbe8JfMruf568GuKY7XveRyiW6
+	 XJJV5srL1xYpzc6lqHn3G57NFh2xuZ63YrGQjoZxI+45f9n2v72csKO9Y46xLeS/jXth9lgkD84X
+	 O/9UUTvKvrE+hsoy1vz3fWPd/3aqKoIal9417xsg+QInfVnk5x/Xc3r8DgPVNf4nPburg5AqC8au
+	 3EhWOk935DwIfE09Pi2WDlAVNZhKp2bcfLOhsKt0QXwXaErk7bQKcs4Ri0YyQ9mk6Kz/R0EVvCSI
+	 NBbiPSEUfNLqwpRVXfTGS6Zr7gyRe3+VgzU0ybfMqtgp05iteqdeyBva3BKNLBxpO3pz1BaTCQ1Y
+	 8fH21a
 X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 From: Jinjie Ruan <2118537295@qq.com>
 To: babu.moger@amd.com,
@@ -65,9 +65,9 @@ To: babu.moger@amd.com,
 	zengheng4@huawei.com,
 	x86@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 07/15] fs/resctrl: Add resctrl_arch_rmid_idx_match() helper
-Date: Mon, 19 Oct 2026 15:33:33 +0800
-X-OQ-MSGID: <20261019073453.2142856-8-2118537295@qq.com>
+Subject: [PATCH v10 12/15] arm_mpam: Map resctrl RMIDs onto the request PARTIDs
+Date: Mon, 19 Oct 2026 15:33:38 +0800
+X-OQ-MSGID: <20261019073453.2142856-13-2118537295@qq.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261019073453.2142856-1-2118537295@qq.com>
 References: <20261019073453.2142856-1-2118537295@qq.com>
@@ -79,116 +79,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jinjie Ruan <ruanjinjie@huawei.com>
+From: Zeng Heng <zengheng4@huawei.com>
 
-The current RMID allocator assumes that RMID and CLOSID are entirely
-independent or follow a rigid 2D encoding. This prevents architectures
-where an RMID is bound to a specific CLOSID from properly filtering
-free RMIDs.
+The current resctrl RMID allocation assumes a rigid 2D encoding, which
+limits the total number of monitoring groups to the hardware CLOSID count.
 
-Introduce resctrl_arch_rmid_idx_match() to allow architectures to define
-their own compatibility rules between a target CLOSID and an allocated
-RMID's CLOSID.
+To decouple control and monitoring, redefine resctrl_arch_rmid_idx_encode()
+as a flat, global monitoring index. When extra request PARTIDs are active,
+the task's hardware PARTID and PMG are derived directly from this global
+RMID via modulo division. Otherwise, legacy 1:1 behavior is preserved.
 
-No functional change.
+CDP and PARTID narrowing can now coexist through a two-phase mapping:
+when both features are active, extract reqPARTID from rmid first, then
+apply CDP's even/odd split on that reqPARTID.
 
-Cc: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Dave Martin <Dave.Martin@arm.com>
+No functional change for now as resctrl_using_extra_partids
+remains false.
+
 Cc: James Morse <james.morse@arm.com>
-Cc: Babu Moger <babu.moger@amd.com>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: H. Peter Anvin <hpa@zytor.com>
 Cc: Ben Horgan <ben.horgan@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
 Cc: Fenghua Yu <fenghuay@nvidia.com>
 Suggested-by: James Morse <james.morse@arm.com>
+Link: https://lore.kernel.org/all/2944b506-a462-42f8-95cf-404241fb27f0@arm.com/
 Signed-off-by: Zeng Heng <zengheng4@huawei.com>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/x86/include/asm/resctrl.h |  6 ++++++
- drivers/resctrl/mpam_resctrl.c |  6 ++++++
- fs/resctrl/monitor.c           | 13 +++----------
- include/linux/arm_mpam.h       |  1 +
- 4 files changed, 16 insertions(+), 10 deletions(-)
+v9->v10:
+ - Remove CDP + narrowing mutual exclusion check
+ - Add narrowing path in resctrl_closid_rmid_to_partid_pmg() for CDP case
+ - Handle CDP in resctrl_partid_in_closid()
+ - Add consistent NULL checks in legacy path
+ - Remove the dead WARN_ON_ONCE(partid > U16_MAX)
+---
+ drivers/resctrl/mpam_resctrl.c | 76 ++++++++++++++++++++++++++++------
+ 1 file changed, 64 insertions(+), 12 deletions(-)
 
-diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-index 8f6edcdcfd87..7bb297a0ab6e 100644
---- a/arch/x86/include/asm/resctrl.h
-+++ b/arch/x86/include/asm/resctrl.h
-@@ -181,6 +181,12 @@ static inline u32 resctrl_arch_rmid_idx_encode(u32 ignored, u32 rmid)
- 	return rmid;
- }
- 
-+/* x86 RMIDs are independent; any RMID can be used with any CLOSID. */
-+static inline bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid)
-+{
-+	return true;
-+}
-+
- /* x86 can always read an rmid, nothing needs allocating */
- struct rdt_resource;
- static inline void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
 diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 945be7465ad3..5107f4811cb2 100644
+index 332388a092ce..d60dea846486 100644
 --- a/drivers/resctrl/mpam_resctrl.c
 +++ b/drivers/resctrl/mpam_resctrl.c
-@@ -279,6 +279,12 @@ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
+@@ -62,6 +62,9 @@ static DEFINE_MUTEX(domain_list_lock);
+  */
+ static bool cdp_enabled;
+ 
++/* If resctrl is leveraging extra request PARTIDs for monitoring. */
++static bool resctrl_using_extra_partids;
++
+ /*
+  * We use cacheinfo to discover the size of the caches and their id. cacheinfo
+  * populates this from a device_initcall(). mpam_resctrl_setup() must wait.
+@@ -274,8 +277,28 @@ u32 resctrl_arch_system_num_rmid_idx(void)
+ 	return (mpam_pmg_max + 1) * (mpam_partid_max + 1);
+ }
+ 
++/* The request PARTID and PMG a resctrl RMID maps onto. */
++static u16 resctrl_rmid_to_partid(u32 rmid)
++{
++	return rmid / (mpam_pmg_max + 1);
++}
++
++static u8 resctrl_rmid_to_pmg(u32 rmid)
++{
++	return rmid % (mpam_pmg_max + 1);
++}
++
++/* The control group that owns a request PARTID. */
++static u16 resctrl_partid_to_closid(u16 partid)
++{
++	return mpam_partid_to_intpartid(partid);
++}
++
+ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
+ {
++	if (resctrl_using_extra_partids)
++		return rmid;
++
  	return closid * (mpam_pmg_max + 1) + rmid;
  }
  
-+/* Check if the RMID's associated closid matches the target CLOSID. */
-+bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid)
-+{
-+	return closid == rmid_closid;
-+}
-+
+@@ -287,8 +310,18 @@ bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid)
+ 
  void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid)
  {
- 	*closid = idx / (mpam_pmg_max + 1);
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index ffa9c67c9f00..b5a3b70bb809 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -208,23 +208,16 @@ bool has_busy_rmid(struct rdt_l3_mon_domain *d)
- static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
+-	*closid = idx / (mpam_pmg_max + 1);
+-	*rmid = idx % (mpam_pmg_max + 1);
++	if (resctrl_using_extra_partids) {
++		if (rmid)
++			*rmid = idx;
++		if (closid)
++			*closid = resctrl_partid_to_closid(resctrl_rmid_to_partid(idx));
++		return;
++	}
++
++	if (closid)
++		*closid = idx / (mpam_pmg_max + 1);
++	if (rmid)
++		*rmid = idx % (mpam_pmg_max + 1);
+ }
+ 
+ void resctrl_arch_sched_in(struct task_struct *tsk)
+@@ -303,19 +336,35 @@ static void resctrl_closid_rmid_to_partid_pmg(u32 closid, u32 rmid,
+ 					      u8 *pmg_d, u8 *pmg_i)
  {
- 	struct rmid_entry *itr;
--	u32 itr_idx, cmp_idx;
+ 	WARN_ON_ONCE(closid > U16_MAX);
+-	WARN_ON_ONCE(rmid > U8_MAX);
++	WARN_ON_ONCE(!resctrl_using_extra_partids && rmid > U8_MAX);
  
- 	if (list_empty(&rmid_free_lru))
- 		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
- 
- 	list_for_each_entry(itr, &rmid_free_lru, list) {
- 		/*
--		 * Get the index of this free RMID, and the index it would need
--		 * to be if it were used with this CLOSID.
--		 * If the CLOSID is irrelevant on this architecture, the two
--		 * index values are always the same on every entry and thus the
--		 * very first entry will be returned.
-+		 * Check if the free RMID matches the target CLOSID.
-+		 * Architecture-specific rules apply.
- 		 */
--		itr_idx = resctrl_arch_rmid_idx_encode(itr->closid, itr->rmid);
--		cmp_idx = resctrl_arch_rmid_idx_encode(closid, itr->rmid);
--
--		if (itr_idx == cmp_idx)
-+		if (resctrl_arch_rmid_idx_match(closid, itr->closid))
- 			return itr;
+ 	if (!cdp_enabled) {
+-		*partid_d = *partid_i = closid;
+-		*pmg_d = *pmg_i = rmid;
++		u16 partid;
++		u8 pmg;
++
++		if (resctrl_using_extra_partids) {
++			partid = resctrl_rmid_to_partid(rmid);
++			pmg = resctrl_rmid_to_pmg(rmid);
++		} else {
++			partid = closid;
++			pmg = rmid;
++		}
++
++		*partid_d = *partid_i = partid;
++		*pmg_d = *pmg_i = pmg;
+ 	} else {
+-		/*
+-		 * When CDP is enabled, resctrl halves the closid range and we
+-		 * use odd/even partid for one closid.
+-		 */
+-		*partid_d = resctrl_get_config_index(closid, CDP_DATA);
+-		*partid_i = resctrl_get_config_index(closid, CDP_CODE);
+-		*pmg_d = *pmg_i = rmid;
++		if (resctrl_using_extra_partids) {
++			u16 req_partid = resctrl_rmid_to_partid(rmid);
++			u8 pmg = resctrl_rmid_to_pmg(rmid);
++
++			*partid_d = resctrl_get_config_index(req_partid, CDP_DATA);
++			*partid_i = resctrl_get_config_index(req_partid, CDP_CODE);
++			*pmg_d = *pmg_i = pmg;
++		} else {
++			*partid_d = resctrl_get_config_index(closid, CDP_DATA);
++			*partid_i = resctrl_get_config_index(closid, CDP_CODE);
++			*pmg_d = *pmg_i = rmid;
++		}
  	}
+ }
  
-diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
-index f92a36187a52..0bc8049a3733 100644
---- a/include/linux/arm_mpam.h
-+++ b/include/linux/arm_mpam.h
-@@ -60,6 +60,7 @@ void resctrl_arch_sched_in(struct task_struct *tsk);
- bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid);
- bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rmid);
- u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid);
-+bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid);
- void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid);
- u32 resctrl_arch_system_num_rmid_idx(void);
+@@ -359,6 +408,9 @@ static bool resctrl_partid_in_closid(u16 partid, u32 closid)
+ 	if (cdp_enabled)
+ 		partid >>= 1;
+ 
++	if (resctrl_using_extra_partids)
++		partid = resctrl_partid_to_closid(partid);
++
+ 	return partid == closid;
+ }
  
 -- 
 2.43.0
