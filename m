@@ -1,75 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792428886;
-	b=ETX/PoLVXsZqH4TDOPGLVBz6ek9U4mjWIDhmEU4MTatop/+SfvGytOOTUCCGlGF0bo4Z
-	 gRGb1TfLm52qe2IgZGxNnnsv+4obakLgaE+O4moT0o51G42vFvXpdHHWS8GBhjzY9EABR
-	 Gxk3qaCxsXFo16LCg+m5JGnbc92BD20QNuEG1ogShcvnwQlB9IRNVRr9OvL/75kOOy36R
-	 269PojApSonb1N+TCMzUGuUpZUjwYabs+OV6PbuPbyRonH6RkQeRWeF7O4J3cULrwpZLQ
-	 zdDBGlueN7FIJrueLT31IQrsnnqzoDZR+4GUcftyA7P/15yWoTuXtkl8FIr6OpmBWAA==
+	t=1792428887;
+	b=Lynx58SzDKpLLaeET/vFcExu8YTRtwtlivGi3W+R731WyQSBsleYWNHyjY9D6dejlQug
+	 zKLbiXjmhlck3PgobEyMDMHNwHJ0QzjlxBTyVmJSyp0WE15Kl/SfEBcisls3nRt6EMynr
+	 3WJxjb73fihJa/XLDmCoMi+r4SUffEiKymey2WPhvubznl4QUMB05yHejpWBTwsK7CR5W
+	 XtImny0cB8l2yAm+8vPfRQ35ABkIQaC07C93wz3FgDiQ1KDrGH/wk2KwsnmPhS7+F1igB
+	 1oyuF1pi5kRH7VTezOoUp24BLfZL4FLhV8u2/9N2sQAGlW0UnrBkETILQyuaK5ZSW8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428886;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mw/YN7QprLCeeR01eTmOl8h4o6QKEAmu0NdhWRuwULE=;
-	b=47+Ks4hN2wZLXRIlDo5mKcy6+h4K2vH87/8XGG6FXuydX9MnaHA1vjZdGi/MQ6GbE4pd
-	 aS3yeBZJz/lZ7ZIfdYJ0QdkEXD0w6oGIBKwHJD0D/s89e2VsKo4ozTJts/5gxQayXbrab
-	 b2uUrzXKiqyuaEiKiOp48ZOp2M5JZ6B5Mfoa6i1cVTcotJ/5PgkHtl6VKmJFOnvsSQNMP
-	 O8GQwEYoglzCuHEMeMkOFLhxR31K7IrkxeXs9xkNl+A810TVRlNeepgLwzbe8X9tvzGVW
-	 Ps1QMI48Li+iDG/hPbFUEHxQsTMLuv+fpJzauf5jjutXBwgK1j7y7VUgLCMVYVb6p3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428887;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=F8z8y09+jVKBbKZimDHdTs8APxEMDZ3eZWZtEqP2bQg=;
+	b=bvumkwgReM0aBb8oGEXF6H2JSEShcJOGAZREjXf2Je744WVuxGAf+IjlShAHdS+DnSg/
+	 ZIacTsQIfi2QqK+7bPizz8e8xbSXZMyt8ijcZuzLQ2IrSAX5tGcaHgVI89DGg2Q1n+Uuj
+	 9HQ+13MYB5T0yZypJFScAp3MRXb2KDgi4WTF76nrgAfR5EHxNuq2MCXZcWzagFfY9VDUV
+	 r6eEOJplxVsVromxTH1EsMF+3dI8vy4ozxTnwEPMjDxPGELvl+ftus2vtMFFQ470bG4nR
+	 xsTs2hNCAAtANz04eK3qVkhGHiOVRDanpudwNCo+NKsxYfTr2M067YvDaUSCOCcHdaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KkyGwT4b;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNfrCfF2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAEFE606A31F;
-	Mon, 19 Oct 2026 16:54:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC5A606A324;
+	Mon, 19 Oct 2026 16:54:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KkyGwT4b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9925F1F000C4;
-	Mon, 19 Oct 2026 16:54:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNfrCfF2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CC121F000C8;
+	Mon, 19 Oct 2026 16:54:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792428885;
-	bh=mw/YN7QprLCeeR01eTmOl8h4o6QKEAmu0NdhWRuwULE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KkyGwT4b9e4KbNqEkLA6I9Ac6sTn2+C6OHTBOlvq/as7G5XjOhjfimYDgaEx63YvM
-	 eLSLxjDWpOhXZ77vYs60szKv7Woj9ySQFwTOuelfCvvMtmKjcaI9pxvJcQt59AP4A+
-	 wH6T04KE+q/x3yuWLAftcFAB/W72ML2kno7M/1+7+g7yyH5SdDC3nrBl0B+UaotTwo
-	 3Kb3Qor66KZuTHN5HsySDYB3phouX8+j3Ipg61qYv5i0jTBI59+jcwcHbdZU0CYAph
-	 lEzy30vG8HGObIkWSgUYBnjgpch7ROoGWe8pY/ypUZ97rNBP6KMZqHwqp0NWeJdMnB
-	 XK7/FwxPIVj8Q==
-From: Sasha Levin <sashal@kernel.org>
-To: Peter Schneider <pschneider1968@googlemail.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [PATCH 6.6 0000/1674] 6.6.160-rc1 review
-Date: Mon, 19 Oct 2026 12:54:29 -0400
-Message-ID: <rc-reply-0001-6f27dc9abcab@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <7201018c-20e8-4187-832a-aeb0e5db98ca@googlemail.com>
-References: <20261017160431.119607952@linuxfoundation.org> <827e9f8d-5654-4964-a999-5ce94bd98fd4@googlemail.com> <7201018c-20e8-4187-832a-aeb0e5db98ca@googlemail.com>
+	s=k20260515; t=1792428886;
+	bh=F8z8y09+jVKBbKZimDHdTs8APxEMDZ3eZWZtEqP2bQg=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=iNfrCfF22qt69ASu4DIy5bvfZGH2R+H/cN1fb+j0aBwNaUWdKBqb4S82vM8qqwVhq
+	 fJJi85A6fAd2Wxrqj/PTAGLl8eSGPWVqXc118mzfdJZFS1JiTFvRxk8GT1a0yuST/t
+	 Uw5OhjxPpMrp2rncy9sM9SBMQrJKZq5lHwhQR+pTJCeXzmDDWPE5KLUh5FD5ezSAkO
+	 BFX2Uxr9XzpDjn1cP/pJe6S50qpYIaj9KqZgT9Z2z8oLJCOD+g9G/IjuB6+8kEjBmi
+	 KFZ5w042d4cImFxL3KZWxYisdEY6cTQUZN/GFvIOgldipVsL7pTIy6lnLGO7Yd4Bzz
+	 UuWVHYto7Ku6g==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 42293CE09FC; Mon, 19 Oct 2026 09:54:46 -0700 (PDT)
+Date: Mon, 19 Oct 2026 09:54:46 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: =?iso-8859-1?Q?Sebasti=E1n?= Peyrott <speyrott@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-hwmon@vger.kernel.org,
+	linux-next@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (minisforum-um780xtx) Fix clamp() build failure
+ with GCC 11
+Message-ID: <04a379a5-f2ab-48b4-96dd-9c6d611224b5@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <fda0e59f-20e1-4a94-a714-288940dcdd37@paulmck-laptop>
+ <20261014214522.243253-1-speyrott@gmail.com>
+ <2bffbd3b-391d-492f-959c-fb9128bce49b@roeck-us.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,23 +64,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2bffbd3b-391d-492f-959c-fb9128bce49b@roeck-us.net>
 
-On Mon, Oct 19, 2026 at 06:02:37AM +0200, Peter Schneider wrote:
-> # first bad commit: [7c1e132b0967210526de05e7af6f1c26ad0c1516] sysfs: Introduce a mechanism to hide static attribute_groups
+On Sun, Oct 18, 2026 at 09:16:44AM -0700, Guenter Roeck wrote:
+> On Wed, Oct 14, 2026 at 06:45:22PM -0300, Sebastián Peyrott wrote:
+> > GCC 11 fails to build the driver:
+> > 
+> >   error: call to '__compiletime_assert_727' declared with attribute error:
+> >   clamp() low limit 0 greater than high limit points[1] - 1
+> > 
+> > The store function returns -EIO unless points[0] < points[1], so
+> > points[1] - 1 cannot be negative when the clamp is reached. GCC 11 jump
+> > threading, however, duplicates the clamp() limit check and does not prune
+> > the copy in which points[1] is zero, so the compile-time check in clamp()
+> > fires on an unreachable path. GCC 8 to 10 and 12 to 16 accept the code.
+> > 
+> > Select both limits first and use a single clamp_val(). This does not
+> > change behavior.
+> > 
+> > Fixes: 9d980da93bbc ("hwmon: Add Minisforum UM780 XTX EC monitoring and fan control")
+> > Reported-by: Paul E. McKenney <paulmck@kernel.org>
+> > Closes: https://lore.kernel.org/r/fda0e59f-20e1-4a94-a714-288940dcdd37@paulmck-laptop
+> > Assisted-by: LLM
+> > Signed-off-by: Sebastián Peyrott <speyrott@gmail.com>
+> > Tested-by: Paul E. McKenney <paulmck@kernel.org>
+> 
+> Folded into original patch, as suggested.
 
-Thanks for bisecting this.
+Thank you both!
 
-> I think the problem is, that if you take this patch for stable, you need to also take the patch which is upstream [
-> cd69fedf58f8ab1ab511f7c6ac1969cebf1c935f] sysfs: Fix crash on empty group attributes array. It addresses the exact crash
-> that I've run into.
-
-Rather than adding cd69fedf58f8, I dropped d87c295f599c ("sysfs: Introduce a
-mechanism to hide static attribute_groups") and its dependent c7fbb8218b4a
-("sysfs: check visibility before changing group attribute ownership") from the
-6.6 and 6.1 queues.
-
--- 
-Thanks,
-Sasha
+							Thanx, Paul
