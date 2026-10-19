@@ -1,197 +1,183 @@
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E07500AA1
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768464DCB05;
+	Mon, 19 Oct 2026 14:24:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419832; cv=none; b=UMd2ehVtYSUwXIBdpoVSRFCAq23Qno/OjXNq8xzJljZdoOj54N0S+du8iqEAsOQMxy6YAfEafpseeiSvrCvLsFKtCYbI2mLbYPOeCdAq/Ood1ruFp1npIOX/jCmdR36SWqEXANkZUr3Xeqr0FsXdsobWxqOm4x5R7O3vVJJyMy4=
+	t=1792419865; cv=none; b=bVunbbD83S5KtHYdFc4cIa6TxtBv4EtT9DAgBB6UN6Wh8k/Q/aC64sBlHVQR78i+JOoAQCsD8U7q1guQ3ZSXOldzqDcarx9AAIDI8Al8mpv3fUJVkrjR/0pBZg3ARadvvfwHeXfkxrm3JhezE+sK8ogG2s8gVo9FPkGORTDj684=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419832; c=relaxed/simple;
-	bh=oZw5WkstFSQ0MjMjvXdwItfizGF9O/zHM7f3xT+7fVY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DrQaLInWP/ugVXI/CmQrvDNp8EzVcxMtfVZ8vYOODn7BCU/MA+7I+rrz9zTLbWagespOtjk0JrF79LCqqpmfnqqhWpQK6MAHVg88g/AotndGDk7AvcBcYBN5dM8JQkmxMU/DOrqfwI2I5X9ObAeF+KyJG6cjqmq2vJW4MDz/g1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=Ml511SBs; arc=none smtp.client-ip=209.85.221.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	s=arc-20240116; t=1792419865; c=relaxed/simple;
+	bh=3B7MdByhrk1EPptVvUzibw3UCMpOimig5+KAKzMrv7E=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BnX7gDGP1OtQVXu9k1H+fOa2MtAXLYUODuTSWIqrleaxdlQfYytYExBkUGQF3MwgeBqO+eU77F/3nOS0Od3wNC4W4adZQXRgbohbRokdttu6VvFhh1YmNYfz1CQlVd7uL+z6vDPGPm2R2uKk27wO++mD67Btm5OMigPHj6ekSrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ue6iEI6Y; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cjR2H2CO; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ue6iEI6Y; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cjR2H2CO; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="Ml511SBs"
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5eac48af23fso440643e0c.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:23:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792419829; x=1793024629; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ynTwWaih3UWb7VmKOqAZKdwwEp9nTZ8YKOhE35tWuk0=;
-        b=Ml511SBs121ed0qKXWQ2MchBZJYue2tK8+rpZEDVGyLeI+P8eAucjVcFkNCGV1G9yN
-         ssUGANQ0E86JcTrDSBuD5cL8VFG3TwFZY1C8dyiJOVeJ6EsnQVejL0aN8Smmg6TH3tgk
-         jJPy1Sxk2Dpz9UwL9oe6ijj96402F770va9RLb597/GxYFKtHkYVPABsrELT3NKAwtQC
-         JbzsVX7vZveFhMCKPQKoKNmAkpLuv4/6NjbsidhjOproMYHto6WQeevU60INFuyTK3Gv
-         0A46XWt3aqojTZ0SzC30Gvowy/+ZeSrIpMjBSreViRmtjbY6XpGvRtt3ux17FUvXRhgp
-         2okg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792419829; x=1793024629;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ynTwWaih3UWb7VmKOqAZKdwwEp9nTZ8YKOhE35tWuk0=;
-        b=R/a9nfy+nuYuNRQSYtTVOsUvGl8IlLYmjUT3bGiOUm4yQMZnoiDpCUe4CmJlZfMhF3
-         eMfD6U8wG+lng91/fAMO8PdDc65FtDai67u1w5rEt/mPVIommXnZLBCsBFCfLmxGvow2
-         YlDT2Z+w+VpNAuhf/ET3rHjG42L4QCtOjWXXtmbP1uzxLuMsiIXuxUGzGLgiDEzHHpaC
-         LoIof82gcKxiiM/IVeeszApcrcyeYIkoHLfIjk35ysNpmtalxWAe8RikS7c2xK9fDK2Q
-         qktyR2utGooKM5HB95aDpOFK4k4fDxHtC5kwRidcJHkOTr0f/ntpfmBz+/zvORBmLzuc
-         7lUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwM1esf/R7o+3sl8gVDhCrYoOMDtihmmhXMM7mx6EKqqyEWhcIdXIGTISCs+zHU+aNfmrAzvwXcZ5O1XB0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeTiT66oQ6aKKlixEbqXO5l7KMcrNklxynnqyoSVKQMYb7tyBc
-	80mbmTjCMd+jN+4LZ50ZR1T74kiZ2LBYeQkDFEod/e+HzhkCVLwS+oHA7jq4D1unclY=
-X-Gm-Gg: AYBFou18vP0ZgSUkhZ32GSlCocbHYS/dkG5XfYPvXHwmFMz33wQZNTt45YVWgnlUrJy
-	OyWWBweHnYGPS25F3MhrdDXFgbifefitU9Rjrf8Sl/NsJ+YfSjNzcUq/ZMfmzVYp4QhnS8WIhtp
-	pfQlmpUHU9d8hjXlJ3bmsbZsIE7GzTkkxbMAYdNBbGM/wv4x1uthy+T12zQkRobweI2wFu0W0dO
-	TO7dl1hIdGLsbBINawq/7JpUtUstUaBJ3kOtEPUiUVNEo/zh/a/3dfvPz/T6IwJ1Rb6UdDzfq04
-	bl03xVXQUkYDyVpozKtT1Rj3kt9k9wwy+mux7Lg7xBNKgAj7OKBntOW3fth/QUiduuVLmTgeScv
-	sgOYxYFVg1Jq5N65XHHz1vU9yheZkSl3RuudlVjMP08Nb0J+lWPNIU3xves09iTeP2eoszUiNeh
-	Hu0ep7DulnsB5iopZAhBrSBtbuBxAe1CsjH1WZVzv6xn/crjUK5u6qBCXhPdTMfCeFzOjiCpGjK
-	aTYNrB69G5DOdls09NYZ7UA8sgy2br/uoLEOPvzKmczSmtKayX2RDbU87AkWVNivX8FsgDGWnE=
-X-Received: by 2002:a05:6122:6d10:b0:5c9:c60e:3a48 with SMTP id 71dfb90a1353d-5eaaa941aebmr2358171e0c.20.1792419829096;
-        Mon, 19 Oct 2026 07:23:49 -0700 (PDT)
-Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eabf0f70ffsm4885498e0c.16.2026.10.19.07.23.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 07:23:48 -0700 (PDT)
-Date: Mon, 19 Oct 2026 10:23:47 -0400
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	linux-kselftest@vger.kernel.org, kuba@kernel.org,
-	enelsonmoore@gmail.com, bp@alien8.de, shuah@kernel.org,
-	david@kernel.org, akpm@linux-foundation.org, linux-mm@kvack.org,
-	ljs@kernel.org, mhocko@suse.com, skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org, vbabka@kernel.org,
-	dapeng1.mi@linux.intel.com, linux-kernel@vger.kernel.org,
-	corbet@lwn.net, surenb@google.com, kexec@lists.infradead.org,
-	pratyush@kernel.org, rdunlap@infradead.org, elver@google.com,
-	graf@amazon.com, lirongqing@baidu.com, liam@infradead.org,
-	jlayton@kernel.org
-Subject: Re: [PATCH v1 0/8] kho: add read-only Kexec Handover mode
-Message-ID: <atYn87kYpuIhRxLP@google.com>
-References: <20261019021111.990394-1-pasha.tatashin@soleen.com>
- <atXYMK5tmW8f23gs@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ue6iEI6Y";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cjR2H2CO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ue6iEI6Y";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cjR2H2CO"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 839121F444;
+	Mon, 19 Oct 2026 14:24:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792419862; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RQLVvVc/eHmNiNUzGm2R6MgNdvxEfxgILqRlIV9WxuU=;
+	b=ue6iEI6YZGF3kxLC1V0AkJbq/pKtcwFUPQIPj220eDldbwMnmrvT/8m0y8xnUdKKrWTMrX
+	VnT9DOb2YK/2lXIm3gP5Zoe2aq6WnZZIyOKsqn3l4/ctgJNMbnf9IgYiwCqN9DuI/1cI5z
+	cqXkPar4bNqXew4DU1Wk/d7MP+etdZs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792419862;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RQLVvVc/eHmNiNUzGm2R6MgNdvxEfxgILqRlIV9WxuU=;
+	b=cjR2H2COztLY2Lan0A/gb6zABAFDt3n2qQ14ueSz/Ifit3SiJ+tv69giMxtjjXj6YDXmND
+	mCMOObc4X4OMWQCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ue6iEI6Y;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cjR2H2CO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792419862; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RQLVvVc/eHmNiNUzGm2R6MgNdvxEfxgILqRlIV9WxuU=;
+	b=ue6iEI6YZGF3kxLC1V0AkJbq/pKtcwFUPQIPj220eDldbwMnmrvT/8m0y8xnUdKKrWTMrX
+	VnT9DOb2YK/2lXIm3gP5Zoe2aq6WnZZIyOKsqn3l4/ctgJNMbnf9IgYiwCqN9DuI/1cI5z
+	cqXkPar4bNqXew4DU1Wk/d7MP+etdZs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792419862;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RQLVvVc/eHmNiNUzGm2R6MgNdvxEfxgILqRlIV9WxuU=;
+	b=cjR2H2COztLY2Lan0A/gb6zABAFDt3n2qQ14ueSz/Ifit3SiJ+tv69giMxtjjXj6YDXmND
+	mCMOObc4X4OMWQCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 311A6136CC;
+	Mon, 19 Oct 2026 14:24:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Jw0cAhYo1mqLZAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 14:24:22 +0000
+Date: Mon, 19 Oct 2026 16:24:21 +0200
+Message-ID: <874iehahuy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH] ALSA: pcm: Remove channel-map controls before freeing substreams
+In-Reply-To: <pm-pmb-4a207d9ef3a3597a74a4-v4-80b0113669b1a62fbbe9@gmail.com>
+References: <pm-pmb-4a207d9ef3a3597a74a4-v4-80b0113669b1a62fbbe9@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atXYMK5tmW8f23gs@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Action: no action
+X-Spam-Score: -3.51
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,vger.kernel.org,gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 839121F444
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On 10-19 11:43, Mike Rapoport wrote:
-> Hi Pasha,
+On Mon, 19 Oct 2026 12:01:46 +0200,
+Cen Zhang wrote:
 > 
-> Some brief comments before digging in.
+> A late HDA codec bind on an already registered card builds new PCMs
+> before registering them. add_std_chmaps() publishes generic channel-map
+> controls during this BUILD stage. If an earlier chmap succeeds and a
+> later allocation fails, probe cleanup frees the BUILD PCM while the
+> card's control device remains accessible.
 > 
-> On Sun, Oct 18, 2026 at 10:11:03PM -0400, Pasha Tatashin wrote:
-> > This series introduces a read-only Kexec Handover mode, enabled at boot
-> > via 'kho_ro=<pa>' pointing to the physical address of the KHO FDT.
-> > 
-> > In standard KHO, the target kernel takes ownership of preserved memory
-> > during early boot, initializes struct pages for preserved folios, and
-> > reclaims KHO metadata and preserved pages back into the page allocator
-> > as they are restored.
-> > 
-> > In some scenarios (such as a caretaker, inspection kernel, firmware), a
-> > kernel needs to inspect and consume preserved KHO subtrees, radix trees,
-> > and serialized metadata without taking ownership of or modifying the KHO
-> > state, leaving the preserved KHO tree intact for a subsequent kernel.
-> > In this mode, the KHO physical memory lies outside the kernel's direct
-> > map.
-> > 
-> > To support this cleanly without duplicating KHO traversal logic:
-> > - Patch 1 exposes the physical address of the outgoing KHO FDT via
-> >   /sys/kernel/debug/kho/out/fdt_phys so userspace tooling can pass it
-> >   to a 'kho_ro=<pa>' kernel.
+> These generic controls are added directly by snd_pcm_add_chmap_ctls();
+> snd_hda_ctls_clear() only removes codec-tracked mixer controls. BUILD
+> devices also skip dev_disconnect. snd_pcm_free_stream() then frees the
+> substreams before free_chmap() withdraws their generic control:
 > 
-> We already pass the physical address, why adding a boolean kho_ro is not
-> enough?
-
-In standard KHO, we pass the physical address as part of the normal 
-kexec_file_load() reboot path. In that flow, the outgoing kernel shuts 
-down or serializes all devices into LUO state, releases machine control, 
-and hands over all machine resources to the next kernel, which becomes the 
-sole "Machine Owner" (MO) and owns all machine resources.
-
-Here, we are using a model where a minimal "Linux Caretaker" (LC) kernel 
-runs concurrently while the MO is still active. We spin off LC on 
-dedicated CPUs that have been offlined from the MO scheduler, giving LC 
-read-only access to KHO so it can temporarily take care of VM while MO 
-undergoes a standard KHO-preserved kexec reboot (i.e. Live Update). Once 
-the new MO kernel boots up, it takes back the resources from LC and 
-retrieves everything normally from LUO/KHO.
-
-LC is never the machine owner: it has no PCI support compiled in, does 
-not handle device interrupts, cannot handle page faults, etc. It only 
-exists as a temporary caretaker. LC is booted entirely inside a small 
-LUO-preserved memfd area (in our use case, LC's RAM is only ~128MB, 
-while the host machine has terabytes of memory). Because LC's direct map 
-only covers its own tiny memory footprint (for isolation reasons, and to 
-save on struct pages), the KHO FDT, radix tree, and preserved VM memory 
-all reside outside of LC's direct map.
-
-LC is configured and launched directly from userspace while MO is still 
-running. Therefore, LC does not receive bootloader handoff data from an 
-outgoing kernel, as MO is not even shutting down yet. Userspace 
-therefore reads needs PA address of KHO FDT and explicitly passes 
-'kho_ro=<pa>' on LC's kernel command line.
-
+>   Late HDA codec bind / rollback        Control GET on the live card
+>   ------------------------------       ----------------------------
+>   hda_codec_driver_probe()
+>     snd_hda_codec_build_pcms()
+>       PCM is BUILD
+>     snd_hda_codec_build_controls()
+>       add_std_chmaps()
+>         publish an earlier chmap
+>         later allocation: -ENOMEM
+>     snd_hda_codec_cleanup_for_unbind()
+>       snd_hda_ctls_clear()
+>         generic chmap remains
+>       codec_release_pcms()
+>         snd_device_free()
+>           BUILD: skip dev_disconnect
+>           snd_pcm_free_stream()
+>             kfree(substream)
+>                                        snd_ctl_elem_read()
+>                                          down_read(controls_rwsem)
+>                                          pcm_chmap_ctl_get()
+>                                            walk freed substream
+>             free_chmap()
+>               snd_ctl_remove()
+>                 wait for GET
+>                                          up_read(controls_rwsem)
 > 
-> > - Patch 2 moves the shared radix-tree key encoding and indexing,
-> >   vmalloc flag conversion, and FDT validation and subtree lookup helpers
-> >   to kernel/liveupdate/kexec_handover_internal.h so they can be shared
-> >   between standard and read-only KHO.
-> > - Patch 3 hardens kho_restore_vmalloc() by introducing
-> >   kho_vmalloc_validate() in kernel/liveupdate/kexec_handover_internal.h
-> >   to validate the preservation metadata header and flags before
-> >   restoring the vmalloc area.
+> The control read lock cannot protect a substream already freed before
+> control removal starts. The failure above occurs before
+> snd_card_register(), so the PCM has not transitioned out of BUILD.
 > 
-> The diff for kexec_handover_internal.h 
+> Move free_chmap() before the substream free loop. Its snd_ctl_remove()
+> withdraws the control and drains readers under controls_rwsem before any
+> substream is released. Normal registered-device disconnect already
+> removes the control, so the later call remains harmless on that path.
 > 
-> >  kernel/liveupdate/kexec_handover_internal.h   | 171 +++++++-
-> 
-> seems a wee too large. Maybe some of this should move to a .c file?
+> Fixes: 2d3391ec0ecc ("ALSA: PCM: channel mapping API implementation")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-Agreed. I originally kept them in the header as static inlines because 
-they are mostly small bit manipulations and helper routines without loops, 
-but moving them into a dedicated kernel/liveupdate/kho_core.c is OK.
+Applied now.  Thanks.
 
-Also, for v2, I am planning to allow CONFIG_KEXEC_HANDOVER and 
-CONFIG_KEXEC_HANDOVER_READONLY to co-exist in the same build instead of 
-being mutually exclusive. That way we won't need two different kernels 
-for vmtests. In that model, common KHO API will use function vectors 
-dynamiclly decided at early boot depending on which mode is activated 
-('kho=on' vs 'kho_ro=<pa>').
 
-> > - Patch 4 avoids modifying ser->next and bs->head_pa in kho_block_add()
-> >   and kho_block_set_shrink_one() when operating on an incoming block
-> >   set, as the chain is already linked and incoming blocks must not be
-> >   modified in KHO read-only mode.
-> > - Patch 5 adds CONFIG_KEXEC_HANDOVER_READONLY and
-> >   kernel/liveupdate/kexec_handover_ro.c. When booted with
-> >   'kho_ro=<pa>', preserved KHO metadata is mapped read-only
-> >   (PAGE_KERNEL_RO), with the FDT and radix-tree nodes mapped lazily on
-> >   first visit and kept cached, providing read-only implementations of
-> >   kho_retrieve_subtree(), kho_restore_vmalloc(),
-> >   kho_ro_lookup_folio_order(), kho_ro_map_folio(), and kho_ro_unmap().
-> 
-> What are the expected users of these APIs?
-
-The primary use case is achieving ultra-low disruption Live Update 
-(<30ms VM blackout time) while running a minimal VMM inside the caretaker 
-kernel. This VMM keeps VMs responsive by servicing software-only, fully 
-virtualized devices that do not require host hardware interrupts or global 
-machine state (such as virtio-console, pvpanic, virtio-rng, etc.).
-
-Thanks,
-Pasha
+Takashi
