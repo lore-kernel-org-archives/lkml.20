@@ -1,255 +1,155 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B514CA789
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CE84CEE7E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405219; cv=none; b=kkOAOKNldSz+GDeFRKL4d4XCnS5OQWqTShu5IAiL9X70V0GN3NoUAeOoaUwiBjrAwI4ZfGDeOyefF2negcQNaK0+IuOsYXEvg2g9WPIh2jaj4O+2fGMAjgeArM9QKrdPjPcLLVbURaVzapl81GyKK61ElLjAszRfYtSKWfBcAzU=
+	t=1792405231; cv=none; b=SP0WrC+LqXohyob9aOd5Psa5Aa7ZvOnJBKBx0yaJFHYwazn1F6k2u2F6y5BDF78k7RYfm4BhXRaH/Pq8ZYpGZRt0ibft9e9TZrklVPOOdRyj1OHaH/kVFIlh3dqBAs6asxnGwO67KkV7Adf+umICC6k+IFHLme41wxnE4jJf9hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405219; c=relaxed/simple;
-	bh=iFTelZR/fM6F4ON/hFI0VUi+K/9N9/4nqgaalnqwzdU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T1/0X1ctoqcIld4t5bdv05/tqbIJ8REJ7S7iW2QS/MKacBskxbygFZOryuTvG62vGTqwJYzOX2ZCRMef4258RWeBMLDIfO/jeNJ924qS5Pb8CqRbr3/uK8OQ5C3hSjmvs+z9c+uhdKEvWQr499dtDUgdWqluKCFFsAHTAZ6Y77M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TIUYhx1B; arc=none smtp.client-ip=209.85.221.53
+	s=arc-20240116; t=1792405231; c=relaxed/simple;
+	bh=Wtjo2nq6SBTIM531bE9hkp4uSTiLMC+4CM/B7PGT41I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FWQ8EJpRQVQpxyhBo909mkJ5etze3w3ksaN7BXd3Gc4w1ut6lGx5iVGIpGRCK0x40IV3fslGjR3IztRTNHZLpIAeuXcIm8wiyPzOkz3bGmbFa4cr/ddzEHJhCoGppXm1dBwvzS3HbYJGe8skk3UxopjXuqeZvn1VGKFYfi7977w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KEaAQrbc; arc=none smtp.client-ip=74.125.82.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TIUYhx1B"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1056670f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:20:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KEaAQrbc"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15943c9c005so1272513c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:20:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792405216; x=1793010016; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I+VtaEFlyrBkdNO0nsT9Fm1xsP8BTwSkFBjYFN2kHRI=;
-        b=TIUYhx1B8daRM30fGwQIxO51j4GfwD2pnTbJ2J853pQMvwXe/bkKxA4U27vpVm/ucg
-         dCl7SlVUnRiAAQ3TbEadrsg6cBGIejjZSzWBkTWkjOlezeqANrfrypnQtGjSE2SvUj7u
-         iVXKPbIu4Su7izmoXLXCV6EyzF9wdAXT6vHk96IlsOtyvTj+PMjsDdlYr6nwvgUdHtru
-         SYxpkDihZrNAfo6hF2puz2XJnbEU1BQT/X+lOCKBJSnNSo1wAcCusQBiz7qQ7S76TMm4
-         rvhMUE7W0w/E3KY5PhVME3wXyosff0La54Iv4Bu08uhr8BzfnrAbyXrLONB9qNr0KMD6
-         2NOA==
+        d=gmail.com; s=20251104; t=1792405229; x=1793010029; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zL01sBFtwzYNtBLBNOJogTgRcd3XXRxHUdSzNtaNMhk=;
+        b=KEaAQrbcopfeUpJspu/RKANbsa07N75e793fKoWVgS4efy9o7G6J0ZaN4HwY2dEykv
+         h/xjKyryQVaEm+GDK09XWjkKB5zanTr5DbHiVSZK7Z2eYHeXV0Dsy9Ah+FG5hBq5QukY
+         /XjGpjLKwbaVe6E7R/M36nLTWPKMarQcH5o5wVqwyauIlxL21HwTpVoL/UvzIx7hhswV
+         ZHb/9NDwNTks7jAQp5/dijVSIvPnCTbsQDVdWe78x9ThsmaTp8DDJIohtsD+KhhCNSk6
+         ZwDPOaSJIvEYcfd34XwpjALusi8lBEt1zaaafPmWbvW2ERa/pVzqGivQwgfzG6bcuwZb
+         KBxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792405216; x=1793010016;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I+VtaEFlyrBkdNO0nsT9Fm1xsP8BTwSkFBjYFN2kHRI=;
-        b=s56v0BpSWRG040tgwRUE/h4u/MqaWjUi4tHW7gYpTQu+WbedVxrxGqeTC/4qUOeTZH
-         ElHxaMpkwItziY1azf9EpjOMSvkt3IpXlYQU9EteW1OpZNJ9ZgHnE2afxiG9KN66DC6M
-         HPZHbvcl3PxMR42dXl4tuJkzpA/R+Pw05IBrghrsbrW8mcZdnFnLnTOK4sRMuPAJIOtT
-         h296C4jrdBQMS1vvfYPpBb1bt7Y26QoICJkjhrvdn44OKrJzFZD3UNxw0Vg+MqL+E3UH
-         /5sr42id+QDYOtDoStplLlmnAVicPbDgkbrs7BWlsrV7N4q5ExwgbftseSJdlxzG4Jku
-         dGMA==
-X-Gm-Message-State: AFq9FYIFNLRLqrQgqh0QPvrsdx1mRNhf8cnzPPPkCpY7FfjTryXVciOU
-	l0QyBdzGN+8EnsjuwJDWsf1TQKPXHeXD5necfTbriFw4Zr7qY1WutrKg
-X-Gm-Gg: AYBFou0sSrjRIkSXEB0s+Bp/m0AdO3EJVvH+6bRNiGvjCmogL7++O9VayfO7lRzCKCn
-	4Fw3VqMVBn5Q8ynEroLx9VzzkoM2fAMSTthSYXwvuJHmRknzcZai/NLKFaJuRmjysE3XKhxuxKn
-	DkPwrd0smd8VyCT1RSXGXnnOFXrHtpbQGZ2KEv7hfRGLs/vZI/M9FwkbVGVy9qNBTMI95EmscNw
-	cJQt1C+a8L0Hgr8KlO4bxQfLuMyMBR3Ts4K5i09FcEfBeKCNVwGoLbEWMGTGDXQ+FttHZ97RxrQ
-	j4jXOyR5bfiUc4LtiPtJhm1zPmxgcr5blKXBqRj5zmTwd4i4bP9VkejTYKOZTAvW3dnVhtYVg0Q
-	4fO9OCkDCUd5Mv4h0nY1dhmNoRhimsmriPkmCUjMHQ2pOMD1gmvma0fbz4ZlvYItQZCYiG9ABvt
-	n0yfupf4i4GvfipC/maGBQhQxJQI+oLpxgUFy9wHx7w4nFSQBMjEbdpOho/empkj/ArQ4cBkOID
-	mcMMEnE6kYl4onZYpQ=
-X-Received: by 2002:a05:6000:4552:b0:48a:fd58:a7dc with SMTP id ffacd0b85a97d-48e07baf68amr9685152f8f.12.1792405215817;
-        Mon, 19 Oct 2026 03:20:15 -0700 (PDT)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4feb6bsm23931792f8f.41.2026.10.19.03.20.14
+        d=1e100.net; s=20260707; t=1792405229; x=1793010029;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zL01sBFtwzYNtBLBNOJogTgRcd3XXRxHUdSzNtaNMhk=;
+        b=HcEeginXOD3PPfabGE46OZ3x55AYRUo9cCtlsujomzQbYZhyDLxG1Pbz18lmA4974/
+         5FzGVmFGoUkm0tOcHgdug8927L5KHdydN05V2vTDIo4bYbFUElUIZIjc0YYQIF5pY2Ig
+         B+f7bUU4z7cWPJOrLLizW+q1lCNeCHC1Ha+CEYTEMXbvUKcH1DUJFSMtUS88HwP1Nnqn
+         eDsCre85VMkvcl7a0n84ztWWZKYKd3zDwCLihbJvH0DZDXCCBId33f2FSAIlqREsNtzG
+         KXKFlPFz9Lz6QeygK+s7ET8q5HAAi6kifl0L7RvHEN2QqdIgicfs9Fio2AzhnnXr/9oD
+         7/Mg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4ZAs/oeBd+n5PvVVrv25gepJb6ZfBhu/k5IXVuC59rlkh045vdtG/7iywqpT3cMLMMbMWCGWfQfnaiI8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBYRTzjqcDm8ckDYomvQWWuTWV8PKGxYx2cUe/Vxw/diaj0r3z
+	vahhQFv15OwIwE9VW04q1E447euLuoO0VtSYodxS39KVWU5egc31g5ws
+X-Gm-Gg: AYBFou3rrVhRoROSvZbmCYzIw7XIb0PnOufDSU6/cU/Oni3CGwdEYsAH99WrVGVMczx
+	tWJpIiQEJAbDezHcN5VgmFX0+wvmNlMjvSHGzrfCTQN1PO9dIAZI3rJ9xvpsJQo+T1KBzI+ofQ1
+	KSVuCZVsFERmd6ReYQMtt/ifMGe0iB2oa2mh5AQeCps+HIMFIee5Old/u5i3gwuTqmuHlPiJ1Kx
+	0VmUnOGubKvPB6k4xS/2K+DFB1MpIq8bkG5dJ7FQonGHNA6y4+V7f+tH6wKgjmIf8Ie/awWLi5U
+	bqW92KhG9Va/j33CJ9dgw2yi0kmo5LRnSVNcfLX39phojPgbSluyEJysurClVbRHTqIRGFvHxag
+	8RICAxuVbHdp+F9ysAKaL/jQM2Ekr4vO5kb1Cjh7Sp9ceqdpkZZzBOsXPFVYzstLGe0i+vnRmTD
+	rZA/EWbDFNR0CjWFGtlfhGyHl/qidjNuaaw+D7mx6sKMdAtOjIAKI2AG3xZgm9dlrbfNP0odPEB
+	qU=
+X-Received: by 2002:a05:701b:280f:b0:17b:fea8:1425 with SMTP id a92af1059eb24-185138b58e0mr9940511c88.30.1792405228916;
+        Mon, 19 Oct 2026 03:20:28 -0700 (PDT)
+Received: from [127.0.1.1] ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18319d3b880sm26324251c88.10.2026.10.19.03.20.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:20:15 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: [PATCH v3] leds: Add driver for MAX8907 LED cell
-Date: Mon, 19 Oct 2026 13:20:07 +0300
-Message-ID: <20261019102007.131375-1-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Mon, 19 Oct 2026 03:20:26 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+Subject: [PATCH v2 0/3] Add VGA support for Apalis iMX6
+Date: Mon, 19 Oct 2026 07:17:13 -0300
+Message-Id: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACnu1WoC/x3MQQqAIBBA0avErBswMYWuEi2mmmygLBREiO6et
+ HyL/x9IHIUTDM0DkbMkuUKFbhtYdgqeUdZq0ErbTnUGs0a66ZCEchaLHGg+GLMnNL3aeuccGWe
+ h9nfkTcr/Hqf3/QBiOi3/awAAAA==
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, 
+ Leonardo Costa <leonardo.costa@toradex.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792405217; l=2441;
+ i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
+ bh=Wtjo2nq6SBTIM531bE9hkp4uSTiLMC+4CM/B7PGT41I=;
+ b=K/92ccUEyeN+TkExSsHIzTIooOpzahjw6HNCnpCaTctauVPX9ywt82Fnmfxdz7h43b7N6JoQ8
+ agNgWXrR1O0Bd2/w7lhY8SXJ79VsHXNsansU0VxIDNA3yLiaBD/A/Tz
+X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
+ pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
-Add a small driver to control the LED cell provided by the MAX8907 PMIC.
-The LED does not require any specific configuration and is folded into the
-PMIC's node.
+This series adds a device tree overlay that enables the VGA output on Apalis
+iMX6, which is driven from a parallel RGB interface passing through a
+non-programmable video DAC.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
+The video DAC is a simple resistor network gated by an active-low
+data-enable signal. For the bridge to work properly, this series also
+changes the following in the dt-bindings and simple-bridge driver:
+
+- dt-bindings: Add the existing data-enable-active property from
+  video-interfaces.yaml to the simple-bridge binding. The property is
+  read from the bridge's input endpoint. This allows a dumb-vga-dac to
+  specify a data-enable signal polarity.
+
+- simple-bridge: Read the data-enable-active property and fill out the
+  bridge's input bus flags accordingly. The property is ignored if the
+  bridge already has its own timings struct defined, to not interfere
+  with its existing settings.
+
+This change depends on another patch, and should be applied after it:
+
+- https://lore.kernel.org/all/20261002-v1-simple-bridge-atomic-check-v1-1-ef5d8332b078@toradex.com/T/#u
+
+  Adds the atomic_check function to the simple-bridge driver, which
+  allows the data-enable bus flag to be propagated through the DRM
+  pipeline. This is necessary for the VGA to work correctly on the
+  Apalis iMX6.
+
 Changes in v2:
-- rebased so patch is now applicable to linux/next
+  - Introduce the data-enable-active property.
+  - Describe the VGA bridge on the Apalis iMX6 as a dumb-vga-dac using
+    the data-enable-active property to specify the DE signal polarity,
+    instead of using a dedicated compatible.
+  - Link to v1: https://lore.kernel.org/all/as-heYw7PKLPm3yH@SMW015318/T/#u
 
-Changes in v3:
-- added check if led is off for get callback
-- added dedicated MAX8907_REG_WLED_MODE_ON mask
-- switched to devm_led_classdev_register_ext
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 ---
- drivers/leds/Kconfig        |  7 +++
- drivers/leds/Makefile       |  1 +
- drivers/leds/leds-max8907.c | 92 +++++++++++++++++++++++++++++++++++++
- drivers/mfd/max8907.c       |  1 +
- include/linux/mfd/max8907.h |  2 +-
- 5 files changed, 102 insertions(+), 1 deletion(-)
- create mode 100644 drivers/leds/leds-max8907.c
+Leonardo Costa (3):
+      dt-bindings: display: bridge: simple: Add data-enable-active to dumb-vga-dac
+      drm/bridge: simple-bridge: Support data-enable-active endpoint property
+      ARM: dts: imx6q-apalis: Add VGA overlay
 
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index 788e689fe875c..3796c562919fe 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -813,6 +813,13 @@ config LEDS_MAX77705
- 	help
- 	  LED driver for MAX77705 PMIC from Maxim Integrated.
- 
-+config LEDS_MAX8907
-+	tristate "LED support for MAX8907 PMIC"
-+	depends on LEDS_CLASS && MFD_MAX8907
-+	help
-+	  This option enables support for on-chip LED drivers on
-+	  MAXIM MAX8907 PMIC.
-+
- config LEDS_MAX8997
- 	tristate "LED support for MAX8997 PMIC"
- 	depends on LEDS_CLASS && MFD_MAX8997
-diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 3da746279bb81..24efda3fbaa44 100644
---- a/drivers/leds/Makefile
-+++ b/drivers/leds/Makefile
-@@ -67,6 +67,7 @@ obj-$(CONFIG_LEDS_LTC3220)		+= leds-ltc3220.o
- obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
- obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
- obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
-+obj-$(CONFIG_LEDS_MAX8907)		+= leds-max8907.o
- obj-$(CONFIG_LEDS_MAX8997)		+= leds-max8997.o
- obj-$(CONFIG_LEDS_MC13783)		+= leds-mc13783.o
- obj-$(CONFIG_LEDS_MENF21BMC)		+= leds-menf21bmc.o
-diff --git a/drivers/leds/leds-max8907.c b/drivers/leds/leds-max8907.c
-new file mode 100644
-index 0000000000000..c3bd131800a8c
---- /dev/null
-+++ b/drivers/leds/leds-max8907.c
-@@ -0,0 +1,92 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <linux/err.h>
-+#include <linux/leds.h>
-+#include <linux/mfd/max8907.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+
-+#define MAX8907_REG_WLED_MODE_ON	BIT(0)
-+
-+struct max8907_led_data {
-+	struct max8907 *max8907;
-+	struct regmap *regmap;
-+	struct led_classdev cdev;
-+};
-+
-+static enum led_brightness max8907_led_get_brightness(struct led_classdev *cdev)
-+{
-+	struct max8907_led_data *ddata = container_of(cdev, struct max8907_led_data, cdev);
-+	unsigned int brightness_lvl;
-+	int ret;
-+
-+	ret = regmap_read(ddata->regmap, MAX8907_REG_WLED_MODE_CNTL, &brightness_lvl);
-+	if (ret || !(brightness_lvl & MAX8907_REG_WLED_MODE_ON))
-+		return LED_OFF;
-+
-+	ret = regmap_read(ddata->regmap, MAX8907_REG_WLED_CNTL, &brightness_lvl);
-+	if (ret)
-+		return LED_OFF;
-+
-+	return brightness_lvl;
-+}
-+
-+static int max8907_led_set_brightness(struct led_classdev *cdev,
-+				      enum led_brightness brightness)
-+{
-+	struct max8907_led_data *ddata = container_of(cdev, struct max8907_led_data, cdev);
-+	int brightness_lvl, ret;
-+
-+	brightness_lvl = clamp(brightness, LED_OFF, LED_FULL);
-+
-+	if (brightness_lvl) {
-+		ret = regmap_write(ddata->regmap, MAX8907_REG_WLED_CNTL, brightness_lvl);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return regmap_update_bits(ddata->regmap, MAX8907_REG_WLED_MODE_CNTL,
-+				  MAX8907_REG_WLED_MODE_ON,
-+				  brightness_lvl ? MAX8907_REG_WLED_MODE_ON : 0);
-+}
-+
-+static int max8907_led_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct max8907 *max8907 = dev_get_drvdata(dev->parent);
-+	struct led_init_data init_data = { };
-+	struct max8907_led_data *ddata;
-+
-+	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
-+	if (!ddata)
-+		return -ENOMEM;
-+
-+	ddata->max8907 = max8907;
-+	ddata->regmap = max8907->regmap_gen;
-+
-+	platform_set_drvdata(pdev, ddata);
-+
-+	init_data.fwnode = dev_fwnode(dev->parent);
-+	init_data.devicename = dev_name(dev);
-+
-+	ddata->cdev.brightness = LED_OFF;
-+	ddata->cdev.flags = LED_CORE_SUSPENDRESUME;
-+	ddata->cdev.max_brightness = LED_FULL;
-+
-+	ddata->cdev.brightness_get = max8907_led_get_brightness;
-+	ddata->cdev.brightness_set_blocking = max8907_led_set_brightness;
-+
-+	return devm_led_classdev_register_ext(dev, &ddata->cdev, &init_data);
-+}
-+
-+static struct platform_driver max8907_led_driver = {
-+	.driver.name = "max8907-leds",
-+	.probe = max8907_led_probe,
-+};
-+module_platform_driver(max8907_led_driver);
-+
-+MODULE_AUTHOR("Svyatolsav Ryhel <clamor95@gmail.com>");
-+MODULE_DESCRIPTION("MAX8907 LED driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index 6d5e6a1556fd5..9f737ad7eb398 100644
---- a/drivers/mfd/max8907.c
-+++ b/drivers/mfd/max8907.c
-@@ -20,6 +20,7 @@
- #include <linux/slab.h>
- 
- static const struct mfd_cell max8907_cells[] = {
-+	{ .name = "max8907-leds", },
- 	{ .name = "max8907-regulator", },
- 	{ .name = "max8907-rtc", },
- };
-diff --git a/include/linux/mfd/max8907.h b/include/linux/mfd/max8907.h
-index e222250f0cc1e..35b2ede54f856 100644
---- a/include/linux/mfd/max8907.h
-+++ b/include/linux/mfd/max8907.h
-@@ -112,7 +112,7 @@
- #define MAX8907_REG_CHG_IRQ2_MASK	0x81
- #define MAX8907_REG_CHG_STAT		0x82
- #define MAX8907_REG_WLED_MODE_CNTL	0x84
--#define MAX8907_REG_ILED_CNTL		0x84
-+#define MAX8907_REG_WLED_CNTL		0x85
- #define MAX8907_REG_II1RR		0x8E
- #define MAX8907_REG_II2RR		0x8F
- #define MAX8907_REG_LDOCTL20		0x9C
+ .../bindings/display/bridge/simple-bridge.yaml     | 28 +++++++-
+ arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
+ .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
+ drivers/gpu/drm/bridge/simple-bridge.c             | 21 +++++-
+ 4 files changed, 148 insertions(+), 2 deletions(-)
+---
+base-commit: f33c2a109da4a527ed3103acb649a88e88cf368c
+change-id: 20261014-v2-apalis-imx6-enable-vga-450f5777a476
+
+Best regards,
 -- 
-2.53.0
+Leonardo Costa <leonardo.costa@toradex.com>
 
