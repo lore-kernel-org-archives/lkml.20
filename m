@@ -1,141 +1,245 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F87487CC3
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D250C48BD5B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398993; cv=none; b=HvU660PAFFbvtPDpLiMlDrLZxl1xFsCfv5cnIUArp36Aj23483rWcyfXLXa6qyzYIeBaMz6CWyR7b6vrxwt1Cn90KegXq4mXshATi4t+HB2XLiHR6sxX2QnF2gSLYxVtK6xnLnRDtq9ZU2OVLqGogAQvUbSuJTnbMHODgrnCJWw=
+	t=1792398994; cv=none; b=BUCNfTeEFz5FF7EjK/pjR/jxgPCdi5ENFYAAXY+xD8HOsweuLvBFdzF3hUIWLWkRANnHXVMVlkdtQFvTntatkZyYQTiOy1wQD6Zh/wxZqLlVHrNhiYjIeLUl6KaCxawBgEyJYzl3uY+ROiVvNrMSHpmm7vpxsSzqne/gF0cYQaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398993; c=relaxed/simple;
-	bh=jvkufMnCK6+TM5rFnqnL5STcZrtz2K0CE+9TJJWhtBg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=LQ1SVqvX3x6vamQrSFoLYn+J+yfLm8FHvvyGmqOg77Gapex/x/vZxE7pm7s/N57Xr2d+JuCZpWFWfXuUa98cCuc3dzdQZ57IkB7Ve4kBvQp9yEHqlOGxPyYr5JM5l2Vhd4OaukDwls8IY3UtxLmUceIt1kC8wBIXiKCdnKzY8Ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cX7DQ13r; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1792398994; c=relaxed/simple;
+	bh=bPsIjFyp39Z94fBg22xhCS9HmLo6jH1MO8WFti3n2q8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XdJxPPvv0Hc/ryr9V4AbRJgK9HRvfx33J1DDyqbHPa6XuaFi5Am84iq3UtY9i0OI4wIa/kwbpQfT/rekx07+J1P1aR4KrcVTIrGilfJ+JrCYMhRQWxY3ydADRGVE7yKjIYs+kPERNZ6xj0qlZccDKLr+cZHEzN84Wq+ugJWQ4o4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UOZ+P7AZ; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cX7DQ13r"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so18205295e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:36:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UOZ+P7AZ"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so191170866b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:36:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792398990; x=1793003790; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WtSEnTlxA2nqz5Q8OG2vIxpnNZg4DAWIVYR0RBOqUDg=;
-        b=cX7DQ13rXYNXNKuN8ekqSwas+ptQWa64k80/x++MivC0h7t9NjXAQkmJw8+UJL/i9j
-         t9HWPC3trNU/VszmpXjr/3VMGkOD+jRx5pLkTikUwUknfGrzbUCk9/gHKvn+jZFZFssE
-         bQ1xxvqMFOKzmeErG9fSo+gOjEmAupn3y2CSe15E5a1R26Xo8oCL5PMRxWD1/H13L2Ow
-         efKH9vbGNm8A++cTjCdRuH04agRso/MwLuJFOTbKmj/A0BrvgrEWzmWhuGjJc5jUNscs
-         xNhowurVMnrLVCW8R3jt6FUNKCri7pIrJs+FpJXASGNSr97wyDetas6Qzao0cDBXpLZq
-         0IhA==
+        d=gmail.com; s=20251104; t=1792398991; x=1793003791; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7xr7dewXyeCCEIBwxKlgHkjYVFXC1X9oPOY150s4lZ8=;
+        b=UOZ+P7AZw9AJyU/icyEY3XBCluSHAOO479bTlBNz5kFVJYUAnZsHX6zyu4J8fKnQL+
+         ClRHzdY+Uc0uynFOIT62dkit75hgDM+jtGQOvpYxAJ4zK4InJ9YD8D5cxIS44UM5h/5m
+         A7TvpVoCKT1tc9WgRYBOC9bsRsbLOfsh0v/kdnql0J+BtOdh8NqoTh8gDBtCgO3lqjDP
+         U6ycWRGmiVza5HDNzszmc+mdXs2b2BshCc2ZsN/5W33zEM87caERjnQR9GqjFjCtDqz7
+         CAazLs3U6hPy3Xjpm1hTRwmv1U9uqcrWKSXrOQV/hewyGGUzQclrUkoTyXZuqtGLsiJN
+         eAqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792398990; x=1793003790;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WtSEnTlxA2nqz5Q8OG2vIxpnNZg4DAWIVYR0RBOqUDg=;
-        b=WtxQYEybHTTMZaxYjawuOCMHtZSYBHHucuN6TPPeAUPfnJwZysRKvYU98h05NEg2cL
-         0JsLavrZs8L0HhsYqQZ7tpZCHkWfMJ7C07omN9eIsFB2EcI00h3+n6gQBb63/fqBOjLO
-         uKVKRoH7w2HKPncdOvHua/baeY0UyB5azDoV5NJCmZpD+1CaSSowhUwX7bf3AsQJ3xx7
-         0pMnXfzMRAy12Xt71oeIMnWs0XMHT0SD3u6HBtNLlq2lA09Fensy3vATWDiplm4CXskW
-         lkhk7aHJL5UDO9YE+OLqKnA9zxGzGO8ClPgwJdO0TaH5AkRXXz19ej1wuukbf4/sg+J/
-         JsZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwimywGUU/maPSXJPOcUEhH0KdkgJQeRQqMhE4aWhmlNuXCqKNeZPhRLYOeT4JtO78qa0qU8o1Ol79D8nQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCy6pRUaGrkut7H/ysYQ1A7xRTQPP/e85KdfppetUrcPUphrkW
-	cIsXFY13rjt7Dd4tzppZmwo+8ZyIFHfHEZvKHCmZ6KHXWJmujFtCq0LZ8xtj4Otlzr8=
-X-Gm-Gg: AYBFou1W/9IBEXxLmg7uWy+Zbl2KciBwRCMfm9FSAoxjTOEKhctp7YT2vNwqU/19yOy
-	eYIe9D7oG6GtDZFomiU+9HhcqO1wly6aW/nbkyzvzNXvK8YVskB7qGEzZFf8zxbJfMODGj1J/97
-	QC8yHHnxcAJBsrFySMqr2wgZN4oroYLwIE/JVySuIaN16M5z7AmSApex4oh3sWdrw9KXUgQAVNb
-	z/kg5kyzGUrQHJcEMpkjduMJyYe4euJdEeOiKtwqoQx/wVfD/iWqri0eV2pOLdlkXQIrhBrfCCg
-	RrP67K8JbS68rHnU7Gzi3/ew/XxKQR9Z0IRuwM/Hwm7y5Qzl1Ksked5LEAuYljVNK9mNutgz82H
-	Td/2/RLFEmgZhxAud0ViqL54md+9BpjTF6RrC0Hl6DiXDnZ10AiGlFUBn2K2jBWyDBOlae8O1cQ
-	fpkwfv4naa2Bv093FA6w3Ym5oyyRnmMFymwBKwV+XkP4kzMhkWc+1x8zRNrWW4odzRJaK9psUXq
-	yH79uxBlqTHcCT3Ykx6tAUp
-X-Received: by 2002:a05:600c:6994:b0:4a1:e11f:b2ec with SMTP id 5b1f17b1804b1-4a1e11fc152mr98694355e9.3.1792398990053;
+        d=1e100.net; s=20260707; t=1792398991; x=1793003791;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7xr7dewXyeCCEIBwxKlgHkjYVFXC1X9oPOY150s4lZ8=;
+        b=f/kG7qN5Qgq79SvAJ5AoYDtyXWLaxLk65K7xkr0tHRCJ11XAm8yKwGt/IYbHVHpzmr
+         ZtqrNJeJx3VkX3cad6/HkUekuvpHb8drp81R0ptelnjM/ctN8NhXwS8S1LjSJa7jXImK
+         CMM9Bs6qHT7chsoXKlS0FJMC2QGSPOL7EtLpN/4RCJdg4fYKSEBlPx+CnMKOu4uT5xEi
+         0RP4F6K2eT9VOYlAyUGV3ifWg7mKSNGoISK9bvQhejc5on9mKjF+LAV9HEkR30md5zL9
+         gubvYya1TclW11FYQcewQgXr7Y1NvhKnNQ4HFjxUxtCpxNFvnkLs5fYVcAlV6G1BQQ1F
+         Gmrw==
+X-Forwarded-Encrypted: i=1; AKwUvBzO6sIZH0pOIQjIUllYJxsRBbufEG55cMLkOSpPAKyZ10DCWqLMFmdjgXhJ5rCSf/AUyPRxiU319uVO5DE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIARbY4nLKYuyvLtfWkWkhu7DZj4hKuiZXCoJB/gF1trW8ql74N
+	zSOeSokw2L1q9CWejabYYpowaw3VDUgBwvkxP57kIwi4bGV37jh0n0lI
+X-Gm-Gg: AYBFou2ibLsC3Xjjh1J1h6hu2i5ZOyE80bkJIj6Nxo7f98FC11GArA4BKguV5i8G7+Z
+	BUR3FEKmbPyV0lwmJ4h2+X5XTdinLTaPTNGxPqoDfKY37XFp7Pb5f4uaQX72aHexCXo53mP5+dN
+	rlPjKsvErGFzMQoojn5y6htXyfscEpEtt3HifjTYN3wCv4L8aIrwCAxFls6pJDJ/Xn77TC79nvJ
+	F30Zu/2mU4FrWkL2g0SUVuYCbPinGC3Gz4cHu3nAu2/oQk+pEG6fhkO4Tr3Iylz70cvnldeqC8B
+	xATNduo0djw9ebKNEngmEgZS8tM2juPAjeKrtqDPzzKkAaBNlFRtlg/9Xi4ks1injugW+jOgQFT
+	ukxcWNNOzcgrGNChKwfGQ/D+nzYgcuDqoIKHRQiL23iryrA7e/uVPL1IVGWcxZQQinpkhsWuYn1
+	d/36kMPaAngO9T9XkIasZZKgoknrskkw7P9k25obm3xeMOI/cNgTpWpJh9/Wgy5kW/ygPGkWSzm
+	GoRs5dHS1okUR9x5nfNuT2RT/7TvMGpUStAVZEAQPs3+Xfk9Ehyjn8wCck+D1D93b4gQp558Ee4
+	0SiJMkUkGdZT/jDfMZ1k18d1K/g=
+X-Received: by 2002:a17:907:3f1f:b0:c36:a4b4:b1ed with SMTP id a640c23a62f3a-c419e039bd1mr507835266b.11.1792398990921;
         Mon, 19 Oct 2026 01:36:30 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ebeccda5sm29801375e9.3.2026.10.19.01.36.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 01:36:29 -0700 (PDT)
-Message-ID: <a6d14650-b978-4256-9874-61cd1c986411@suse.com>
-Date: Mon, 19 Oct 2026 11:36:28 +0300
+Received: from M-K2012N0113010.localdomain ([88.119.128.229])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dcf98fsm323106966b.13.2026.10.19.01.36.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 01:36:30 -0700 (PDT)
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: [PATCH v5 5/5] iio: pressure: dps310: add Zilltek ZTS8032 support
+Date: Mon, 19 Oct 2026 11:36:20 +0300
+Message-ID: <20261019083620.1285782-6-paulius.zaleckas@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261019083620.1285782-1-paulius.zaleckas@gmail.com>
+References: <20261019083620.1285782-1-paulius.zaleckas@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] Drop unneeded cache flushing
-To: Rick Edgecombe <rick.p.edgecombe@intel.com>, pbonzini@redhat.com,
- dave.hansen@intel.com, seanjc@google.com, x86@kernel.org, kas@kernel.org,
- adrian.hunter@intel.com, yan.y.zhao@intel.com, binbin.wu@intel.com,
- xiaoyao.li@intel.com, chao.gao@intel.com, linux-kernel@vger.kernel.org,
- kvm@vger.kernel.org, yilun.xu@linux.intel.com, tony.lindgren@linux.intel.com
-References: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Content-Language: en-US
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- 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
-In-Reply-To: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+The Zilltek ZTS8032 has the DPS310 register map, scale factors,
+compensation and FIFO, with these differences:
 
+- two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
+  c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
+- TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
+  the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
+  bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
+  25/16 Hz background rate instead of the external sensor.
+- product ID 0x11 instead of 0x10, the driver does not check it
 
-On 15.10.26 г. 22:17 ч., Rick Edgecombe wrote:
-> Hi TDX developers,
-> 
-> Can I get another round of review before we ask Dave and Sean to look at
-> it? I'd like to pick up a few more RB tags.
+Add its chip data, reading 22 coefficient bytes and with TMP_EXT clear,
+a Horner step for each of c40 and c31, and the I2C and OF IDs.
 
-<snip>
+Tested on a ZTS8032 over I2C: in_pressure_input is within 1 Pa of the
+datasheet formula evaluated from the raw and coefficient registers at
+every oversampling rate from 1 to 128, TMP_CFG reads 0x00 after probe,
+and buffered capture through the FIFO returns the same pressure and
+temperature as direct reads.
 
-Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+Assisted-by: LLM
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+---
+ drivers/iio/pressure/Kconfig  |  6 ++++--
+ drivers/iio/pressure/dps310.c | 32 +++++++++++++++++++++++++++++---
+ 2 files changed, 33 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/iio/pressure/Kconfig b/drivers/iio/pressure/Kconfig
+index 9de63908936f..ffd072e4bb8f 100644
+--- a/drivers/iio/pressure/Kconfig
++++ b/drivers/iio/pressure/Kconfig
+@@ -115,8 +115,10 @@ config DPS310
+ 	select IIO_BUFFER
+ 	select IIO_TRIGGERED_BUFFER
+ 	help
+-	  Support for the Infineon DPS310 digital barometric pressure sensor.
+-	  It can be accessed over I2C bus.
++	  Support for the following digital barometric pressure sensors:
++	  - Infineon DPS310
++	  - Zilltek ZTS8032
++	  They can be accessed over I2C bus.
+ 
+ 	  This driver can also be built as a module.  If so, the module will be
+ 	  called dps310.
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index 999ae4ce73f7..a2ac8101ff31 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -5,6 +5,10 @@
+  *
+  * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
+  *
++ * The Zilltek ZTS8032 is register compatible, with two more pressure
++ * calibration coefficients (c31, c40) and temperature calibrated against
++ * the internal sensor.
++ *
+  * Temperature calculation:
+  *   c0 * 0.5 + c1 * T_raw / kT °C
+  */
+@@ -67,8 +71,9 @@
+ #define  DPS310_RESET_MAGIC	0x09
+ #define DPS310_COEF_BASE	0x10
+ #define DPS310_COEF_LEN		18
++#define ZTS8032_COEF_LEN	22
+ 
+-#define MAX_COEF_LEN		18
++#define MAX_COEF_LEN		22
+ 
+ /* Section 4.8: 32 shared entries. Stops when full, so late drains lose data */
+ #define DPS310_FIFO_DEPTH	32
+@@ -109,6 +114,7 @@ struct dps310_chip_info {
+ 	const char *name;
+ 	bool coef_for_ext_sensor;
+ 	u8 coef_len;
++	bool has_c31_c40;
+ };
+ 
+ static const struct dps310_chip_info dps310_chip_info = {
+@@ -117,6 +123,13 @@ static const struct dps310_chip_info dps310_chip_info = {
+ 	.coef_len = DPS310_COEF_LEN,
+ };
+ 
++static const struct dps310_chip_info zts8032_chip_info = {
++	.name = "zts8032",
++	.coef_for_ext_sensor = false,
++	.coef_len = ZTS8032_COEF_LEN,
++	.has_c31_c40 = true,
++};
++
+ struct dps310_data {
+ 	struct i2c_client *client;
+ 	struct regmap *regmap;
+@@ -125,6 +138,7 @@ struct dps310_data {
+ 
+ 	s32 c0, c1;
+ 	s32 c00, c10, c20, c30, c01, c11, c21;
++	s32 c31, c40;
+ 	s32 pressure_raw;
+ 	s32 temp_raw;
+ 	bool timeout_recovery_failed;
+@@ -244,6 +258,11 @@ static int dps310_get_coefs(struct dps310_data *data)
+ 	c30 = (coef[16] << 8) | coef[17];
+ 	data->c30 = sign_extend32(c30, 15);
+ 
++	if (data->info->has_c31_c40) {
++		data->c31 = sign_extend32(get_unaligned_be16(&coef[18]), 15);
++		data->c40 = sign_extend32(get_unaligned_be16(&coef[20]), 15);
++	}
++
+ 	return 0;
+ }
+ 
+@@ -745,10 +764,15 @@ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
+ 	if (rc)
+ 		return rc;
+ 
+-	/* Section 4.9.1 of the DPS310 spec, Horner form to avoid overflow */
+-	if (!dps310_horner_step(&prs, data->c30, p, kp) ||
++	/*
++	 * Section 4.9.1 of the DPS310 spec, Horner form to avoid overflow.
++	 * c40 and c31 are ZTS8032 only and zero on the DPS310.
++	 */
++	if (!dps310_horner_step(&prs, data->c40, p, kp) ||
++	    !dps310_horner_step(&prs, data->c30, p, kp) ||
+ 	    !dps310_horner_step(&prs, data->c20, p, kp) ||
+ 	    !dps310_horner_step(&prs, data->c10, p, kp) ||
++	    !dps310_horner_step(&tmp, data->c31, p, kp) ||
+ 	    !dps310_horner_step(&tmp, data->c21, p, kp) ||
+ 	    !dps310_horner_step(&tmp, data->c11, p, kp) ||
+ 	    !dps310_horner_step(&tmp, data->c01, t, kt))
+@@ -1418,12 +1442,14 @@ static int dps310_probe(struct i2c_client *client)
+ 
+ static const struct i2c_device_id dps310_id[] = {
+ 	{ .name = "dps310", .driver_data = (kernel_ulong_t)&dps310_chip_info },
++	{ .name = "zts8032", .driver_data = (kernel_ulong_t)&zts8032_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, dps310_id);
+ 
+ static const struct of_device_id dps310_of_match[] = {
+ 	{ .compatible = "infineon,dps310", .data = &dps310_chip_info },
++	{ .compatible = "zilltek,zts8032", .data = &zts8032_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, dps310_of_match);
+-- 
+2.55.0
 
