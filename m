@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792445901;
-	b=OvNgnxjrDYdij/vHC5PcnVxS4zWAEyrlYIi3HHrHPLBxq4k6xz1TRiSbqS13YHz+tMgD
-	 lrmSQb4+MbGbIXkU9X5MgXSDUzB43NnkA/0WWu+DzJ9a/IWKzSQC0wbBttu34QqvGqKLY
-	 rMQXTJ30IOQHuGnEbsE32zWdEkAluFKDWuUTE3IrG75Pl6Vono+xRy/iQnWELkJ+Jo1eG
-	 B9oN/yX47UCPeLC3X8F6xmKp3xN5B1MhpBCs4CWsnSS9fl4OWdwBZlTNxVxsZMpcnQi3f
-	 5lNlUgUgsYMvRPIm2awvAvQbxnTKNwt06HwV5BMTVykLqnfcGRszgl6j6z8qsLCuU5Q==
+	t=1792445909;
+	b=uQrkjN8kfvkKEKcQWT6OU5OxoVevIlBBHU0QXNb01yzcvh4NYVN1QnVBtX8CFHg0Ctg7
+	 SaFTsgbeqguKnd3j7LjLCukrpXXBvEBCYBSWdjaMelZMGZBJe6gTJUa5vEtbqo0Gosjfd
+	 QsIVUcAmCmHXaXgwZvVbNEzaw3W9xBD3KuIoclOEPBDky1on84dBYPjlwMmrOyO2MHhh4
+	 8EYD0JyA8yOLCopWsxbJmKANlfudBhZK/aheR2K4Ahecs3cDy+kPVmYKENqze5eSkCKPK
+	 wQum9wjwWkIg0YiFnNFLDLokCdcl917bIUAA7A1xBFmgyJRgBAUj1xFJxlPL/aFc+rQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792445901;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792445909;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
 	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
 	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
@@ -26,57 +26,57 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=EZnxgOpQ1PPF2ln5eJhueqDKQTKOHzbiLp2rVvltEwo=;
-	b=UHIOtiQN7w6UoN+wm93M8dR/xB9lOn7nYR6Iu+u+jhwTgsuQGJnGKWRn+NuLDEwmU1Vk
-	 g0lYv5FqHlnZRj1sixokN6nhVPxvRoErTcALoqy7QgNjYzrVpRaNmUO6tLFwY7K1p/wF2
-	 oqWqZ5JgrRsCO1j/HgqI2vhy09FCHt7iBx0AhVl0wUU5vJyVHfp7YjaxqTclkpulW1UGq
-	 ApQ8vocw6GLb6mRTx2JYtpi5dD/9YrqEmNVHXoGRLr4nnokT5H/QvQ66rced3oVtxs93K
-	 ki1byexyP79gayFBf8fzB98rZpBwIxLdGL6yVjIRSt3t2FCpc6Ue8wDsfRHFVtlSIMA==
+	bh=iPdQquN/MDj28p5SNgtFDVG7f9S7/2aYZY4+lRuFIN4=;
+	b=P83tGIz52UysneVJO2HiaQRYG1wfDZpW+NdlNXogondWoJzN02lNtgvYRf36BgMWKxVv
+	 69qtiahrND6PNEXZyzmPv7Qhr3/DnTa6uhTzd5Wq0lDXmlaakwniXgNa5FSOnG8Zrl43o
+	 4Ih7sMjWH3vn3GYMYAhvcI3GIAnBsywP+Ls93/wjtUNMWo6cDca9bGdpkVuT0IAio/RcD
+	 WJN3bbfpc95HYUY2qPcdfbQ4/wJ8Nrk1gaFSuBrUYq6+PnlA/NfPgolzs9Pv2pN2fAaR1
+	 Kw5dvYfyLBcqWph3FEvnzTYNtorX/OvTnwhG9ZTgth5tx+GKOS0WtM96alCboPq7CPw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ti.com;
 	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=n5ZpbMaJ;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ojIlha7P;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=ZAVfadfe;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=FArrOEAZ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
 Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46797606A326;
-	Mon, 19 Oct 2026 21:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46797606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3592B606A330;
+	Mon, 19 Oct 2026 21:38:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3592B606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=n5ZpbMaJ;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ojIlha7P
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JLGqb2742153;
-	Mon, 19 Oct 2026 16:37:58 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=ZAVfadfe;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=FArrOEAZ
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JLbxXD1358411;
+	Mon, 19 Oct 2026 16:38:07 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=EZnxgOpQ1PPF2ln5eJhueqDKQTKOHzbiLp2rVvltE
-	wo=; b=n5ZpbMaJ8zVUwS79AtL8vtYQ28QGOxv6m+IkTDT/Gfslk498ZRNMrOVdU
-	TXqdCCekzVPbnqeS/LUJaGvJoRAZ0wA7THLq6m24WWnGuBeeDbUuzb2qhKECD9hY
-	xhkIH3EaG5u1eDxzP+c1xG4CHqqEWO6IaLeOI5+mRhWJ7HXcI9KsTM+leyWWYJlO
-	4kuDAQ1RQWE3sgik+55b5lQf5HAAjQno0CTpErr6A3g2NTBtMp5TArjtUKB93+mf
-	QN0ykh5EGyXpSb5Ji3rrEyVozTEgUCwlNoyl9fDPeihLW59tnohYyG1Af0tThd/g
-	fPfvnJIFCTw0r+DUjpV3dHyOBHOZw==
-Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010046.outbound.protection.outlook.com [52.101.46.46])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hdjbkuq9r-1
+	proofpoint-05-2026; bh=iPdQquN/MDj28p5SNgtFDVG7f9S7/2aYZY4+lRuFI
+	N4=; b=ZAVfadfeVY1a3wHjaWMiRcbJFYAq9Ub1fhoVPL4bByiEhnImkEKl+i8N0
+	14eaG4/S6ckQNTihCi5UO/P5xcUKa+FsMma+ywU2Vl92UcMISHsKm6V4qJIZAKSr
+	mtk+v8j0R1aYutrABwtme43DdYi4AKhw5xsdknGmtsktPnBiF34MX7T2GEuYEqGl
+	L151vk7shozwjbXQVnLOwEQdsH0kVT67gBzvPPiIbSegI2jNqdfQEZQZ6YOIHNG/
+	zU5K7at+6GYS79R32SrNUcxI/dbsNVniffkg/ppfhhL1tyrIq+BtzPIa5Syvv4vT
+	+XFLNe7LbQLgYECjiNqXxO+rhVccQ==
+Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012004.outbound.protection.outlook.com [52.101.43.4])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hcrd6156y-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 16:37:58 -0500 (CDT)
+	Mon, 19 Oct 2026 16:38:06 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EUrgrmzzagWZ59xVOF59+im36+HXeB2gxiW/Zs3WxeQB5RLDoHpbI5BsQnoWVZjaPrepo19fYqgnH7qQYiB5rXuECB/qu4ZVbDB6qBwIl1jXbTaAURtx8amFotozZPHDWsRNqoL+CPRgy69JSWwYp9viuR+IuLIEtYSg8x2PIPgn+CRDELxMgHpMb4cgs2jgDUGd4GOf0bAslkWo6U9Yt5BbMli5dxlPI/QlHxA02l+SVKo5dT//6SnKAIcuiMeFnQw9UPNugsIMnDT//QgkfTMTN453fp94xCYmAwkuMnxXHQN6DheNE+irej6xngSQl/Arv4vhXiDGaG7Hb20ZeA==
+ b=JouwCqZ3mxysKDuN2zUA4pimY2nFNpalN+NrXb7l18g3/ZFUbIyaytL8Q+kSuL40moTTrQiy0ua4xkfMz+xIaM1Q9Jnnno7Up9bPmhRhZOvfgXRUg7H3ytOZQgib60G+r+tICov6g0ybA/oQn+Zbz09MOYKEu3XANJiq7vsIQyswcN/DsDVz7CNrAP34UCxG4r25Dn5DQdaze713g5mC2S2SabCqI3EkPmnZIFyZO4E4yLFuBO3uMy6uWk0og1ljFRpjYAw79lRay+3EuFG3+IlUao0wrLdC+Ec2l3sOjRJ8ylI5Taf480XJLAJ8MeA/iGHOE9P1gFuAZ1zzkWmU1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EZnxgOpQ1PPF2ln5eJhueqDKQTKOHzbiLp2rVvltEwo=;
- b=n7umahMjU+MnWRGmo3oVylrqzM7jXpFPNwr9K/h1ZtYVyM9zwSA8yFP2ijusZm80yG9fNB1Xc6MFlzZ+suQDuT1x3uXJsaCNA0JVR9cskPAtUFPrgU4gbPg/ovg7I8dZ/X86AqIbPGitgUv7ojZ+AEXz58UhLl+U7FsvZ4BW6GqKj3rV0dPuE4w+JumtVByUSNc9tQNHUxGXkrmu78PUV40CxKPe8kzxC6FvZr517dE0TZ1EE7W+Qz9QAEZ8F2y8MK+of7uYwYRdLUK1009ElzO05CsBMD2Etye/HlD8Z4yW3ogdXjW8WkapcrUilad8dAB8/vc7U6MYExMMMmmsfw==
+ bh=iPdQquN/MDj28p5SNgtFDVG7f9S7/2aYZY4+lRuFIN4=;
+ b=FgjxasaMmVlDr8rJ2Y9z1+zu4tYLcUyyemQ7OgOiabH58shie9zH4pIrqMM82OIA+JEOTbrXfCr2JQYvtWtVsI/s+8C3uEzEjmXV1LGfywAHFNQj2XLKfNtDUo7MllLAym//AYgTGMz44GpXC+G6shl5EEWBshemptK2KUkvQoVkGXEWE8TmYFRQQ93eJKcQZDb3aUXXxOdGKrivH3VV3y8HDqLAjGpfE2yq7JeG3sbs+Z38btOWNSsmy0/j1MiYgQJXbVQYTYgFB3zViEItw+j6T9b3mO111yWKREEJqWjbCeEVhTIBKiUbImHJEKOccltZLK8375vfKgKYLB4W/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  198.47.23.194) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
  (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
@@ -84,18 +84,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EZnxgOpQ1PPF2ln5eJhueqDKQTKOHzbiLp2rVvltEwo=;
- b=ojIlha7PX7x6/4cts0YDOwiGyrlZbqZtMhY12bP5gb8CoUQxFCj7PxpWrptYNoytuu+kiCv3WjqgOKCKklLug+Rof1wp0zuoX0+rKH+8SoFu3HRbATLR8x3/O49ALCnfnsNmIgV3IZxILWpc/EQWpg7Y5n36r29ACRsGwBuUcHU=
-Received: from BN9P222CA0006.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::11)
- by CY5PR10MB6093.namprd10.prod.outlook.com (2603:10b6:930:3a::15) with
+ bh=iPdQquN/MDj28p5SNgtFDVG7f9S7/2aYZY4+lRuFIN4=;
+ b=FArrOEAZKwVYanV+YRybVLkqGyqD9yvgCAOYtoySR2YNUv6sBj4ka6b53Pu8JSTqgpZOhe8d3Nf/PsEDP9tEYOcMAHCKxR26ZjO7+iue1Vc6DdS13qS6iV3c0Hl7nCtFfSij6lN/IgWh4G78hyICfEg9XjYDlPf4sP26QW/qT0E=
+Received: from BN9P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::15)
+ by DS4PPFD91C619EF.namprd10.prod.outlook.com (2603:10b6:f:fc00::d4e) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Mon, 19 Oct
- 2026 21:37:54 +0000
+ 2026 21:37:59 +0000
 Received: from BN2PEPF0000A7FE.namprd02.prod.outlook.com
- (2603:10b6:408:10c:cafe::2c) by BN9P222CA0006.outlook.office365.com
- (2603:10b6:408:10c::11) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:10c:cafe::e) by BN9P222CA0010.outlook.office365.com
+ (2603:10b6:408:10c::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Mon, 19
- Oct 2026 21:37:53 +0000
+ Oct 2026 21:37:58 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
@@ -105,22 +105,22 @@ Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
 Received: from lewvzet200.ext.ti.com (198.47.23.194) by
  BN2PEPF0000A7FE.mail.protection.outlook.com (10.167.245.165) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 21:37:53 +0000
-Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet200.ext.ti.com
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 21:37:58 +0000
+Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet200.ext.ti.com
  (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:45 -0500
-Received: from DLEE209.ent.ti.com (157.170.170.98) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:37:54 -0500
+Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:44 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:37:54 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 19 Oct 2026 16:37:44 -0500
+ Transport; Mon, 19 Oct 2026 16:37:54 -0500
 Received: from localhost (ti.dhcp.ti.com [10.24.51.125] (may be forged))
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JLbhYe3577051;
-	Mon, 19 Oct 2026 16:37:44 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JLbrk1325996;
+	Mon, 19 Oct 2026 16:37:53 -0500
 From: Devarsh Thakkar <devarsht@ti.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
         Maxime Ripard
@@ -139,9 +139,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
         <devarsht@ti.com>, LiangCheng Wang <zaq14760@gmail.com>
-Subject: [PATCH v3 09/14] drm/solomon: ssd16xx: Expose color mode as plane property
-Date: Tue, 20 Oct 2026 03:07:21 +0530
-Message-ID: <20261019213726.4145532-10-devarsht@ti.com>
+Subject: [PATCH v3 14/14] arm64: dts: ti: [DO_NOT_MERGE] Add AM62L3 EVM overlay for GDEY042T81 e-paper display
+Date: Tue, 20 Oct 2026 03:07:26 +0530
+Message-ID: <20261019213726.4145532-15-devarsht@ti.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20261019213726.4145532-1-devarsht@ti.com>
 References: <20261019213726.4145532-1-devarsht@ti.com>
@@ -158,205 +158,205 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FE:EE_|CY5PR10MB6093:EE_
-X-MS-Office365-Filtering-Correlation-Id: f52e4474-5420-4fc5-e079-08df2e293b8a
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FE:EE_|DS4PPFD91C619EF:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7b1f91b-a861-4dac-1adb-08df2e293e9d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|36860700016|82310400026|921020|260925021311599003|261009223027099003|260925021911599003|260925022911599003|10067099003|56012099006|18002099003|22082099003|6133799003;
+	BCL:0;ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|7416014|18002099003|22082099003|10067099003|3023799007|13003099007|261009223327099003|261009220027099003|261009221227099003|261009223027099003|261009221727099003|921020|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	6iO5He7nzDVUZOO4oAStrd8wcuLlhvogtaxo14XtxYFjDnlTj0JnjA0OUvJhPlmBSRJld0L+fIIRvptHsPhcNedFwc4h2cdY5kTURnyj8HNBY6B8cAGT6BYj6f0XbxttvwSpEATRO8L+ULx5wl+mVI4J4D1jOWYFUQVVlNKU2DfwMgsHNcuxXBTqSJwHWd41E3t1FLNVXcXDbbKZWwTAQsP2wQjobjmH3i2eSKV1Iv2Bxus9nf97TKjytgUo1U77CIuR+FKPwHgxdHlZvHGI7QQkbVVfQHL+sGggY2AUk1YOv6ckbPY/KNZyP7htZMfW7IZ4XFBe0nENymQJp16cam0iOWSzDYXYNloldQce8vfIedTtgW7qWFJf8FFND3jCWrxPoK+kI/F5/nmKv8mSmoVxlvBSP+aZxlXOraMngQ2J7W/LN+6J22NMrKxxWLnqcBsKZOc/Wvt9QqiuV6jUi+0cKG6YEA9xlIUp5PpXqLCLwd7udjlQOixEIdDLIkeLA77NnZAU0xCj2RlCAQxae5GMp44nIvOKb5gaYANmuEDeWI2o9bdGvolGBJcomlvaud77dwlDMky48J31lVtLNrbIiZj+ux8+P+IMVutsGXlcf+80u1VlXo7SuErdz7LAn7FZ4HYnWuvhFTfVxOD7bicB3ZuBRZQjBeP8ZRluRTMjboYMBiwYgayAYDEWTPJ+x6M7EUTjnHTC51ALJxt0tIiHmh5lfnRi1PCumgj93qwKyNu/LMV4qpfQNWT0hjiL
+	lFTFV4MSl0Zljryggk/AuX9si+FuBFkTkp7OIEiBoXkhQ7yPStW7hNUWB0pPLxvwQewx0D44kfpv5q3zwDXAKQ1N27wdwrHPoHrGy73/ysQ/xUGt+UdtWldgGK8vCuMgDp2nBgGM4gGA+7ZwAz+LBVA8yvycs1X3Cz9QqZVC1/T43mfVilLVmMtxzjCYqj88hndELXythdZENKGSI57F6+2Uo3GAVrW3qEODIcNd2ibcHeO8HNiQqeiCgbp4QDmZoY8xtoNL+e6sxoKodu5JQjehZzHxqNhZMWj6ccxVp1I9Np6QvGR+MtSJ087oC/Gea1HaRLGDDjHJch68UB0PiegJBEPL5oB2tEnsBxAAJHQknaS9CEAOhs8GvT8efzerAVaIRLRnMYEkr+Ngwqi4bsNPvh6f5Wo03wBs1cJ20Z/mOmixyYnNAAz6igzIhH9RSccYHacdCxwOvhHLafgTJ6X3U5QZz7afNw7vHS1OXYTkQ3FbOf+xdFhlFuFcWKum/S5dpAyAf5lxNwnl0619FEoCmJ9HqAiwsM2rg0n+Kro4WiMTSaPVDCiv7ZcUSHIzHfmUoY+EPWqh7c2UWkSkUkTQbZt9VwOrV/xM8DIYDrtgKBvgWhk/urdJ0bShQ36s0o7kj4dHWZUMNqlI8524GvbHt6Nj+9fabbhnsiP4plq2rzPwVx6sxvC8t7+QH4ws
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(36860700016)(82310400026)(921020)(260925021311599003)(261009223027099003)(260925021911599003)(260925022911599003)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(7416014)(18002099003)(22082099003)(10067099003)(3023799007)(13003099007)(261009223327099003)(261009220027099003)(261009221227099003)(261009223027099003)(261009221727099003)(921020)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	dS3uOGlUcHjLoTDtdxwGc8H/IMjunaXlHEb5XacE2vhESpsD5U65owgbNwvXocoCsu8eBJ7bOCC2NBKWlnkY8fBWNMG4LvuKGksKEpKRSSme3gkJ6ktSN7YMqqzoe8cvKGO9ea6Fg+WnjC66RIIZfFfkMeXspdVOYtX3cYkeiRAbwcppaxKMXWQpxPV+hXyg3NSzNkWDr37DItmlgbeubPVlawbk/+zjIoVBpMKVaY2QQ8klrpkTSp28Im0/5PUXWePWPAs0J4bg3sAIMljYnGRygW1WIgbnjr1yt4XZ3sfCzIpaQHaaCsiw5Ih4eEF9BkkSGTNj24zG79tJPhKPhAJWgBN7rSuEMtVOG5ItyKlDzzYtAIVrjTi1tCf8Nniy893odNcVamwcCtk9EewPFQ0UsKSq+ej9NCk7WcdM41IsPolapaQcpaLVUYQrKS5z
+	IwFZ/CFYq0q/AfoFOF7fH/JZO16eFntD6kaUUI4+Qv6bEBFbFkSVLtcvQGhve5RfYcSW7/o1fKmSkWPtrO2dKZ6bYRARuJPerMPLKoZEWLumM0q4GtXWLzbaYB3JkV1WaA0TKUDKZSDkqebLUJyHegHD+GAlWHn3N/3D+gbPOTzpbFmfl5PgA5Ldigr7QjfgAN9S9gCAY+oe5t055gwy6WcX017Vd5Z7ZRpwxk8xUpaZo+C3tq6kJxL7npXYu4PnSts6Uhj1Tfy7Vyvd/soCqzQI4VD0aXOClmwqAM7GqhHbRBX+7R5OL9eCEYy9cIu3Zd9YLBOrTz2c3lGs3SO5CCa3mPjxJOGOwkQ8eBlHy3mHwEpvIbfrKcLwrL62KPFrHj43ktpNNxbxmw6x3dBqk7NVr7rNhW29PzPUrR3p2OO83frNm7PbAIAMNQx9Wqym
 X-Exchange-RoutingPolicyChecked:
-	f9bhTllFSrVEvW0g1xmSQA6EsQ3Zr+/fJ8icwIIZlNS+ZF76v285rtTFudFNGbIgShbSZIy1eEQ3hLeZnVzbJQ1eqzRRbs5+ljI5u1b4fEldt9hGd0MK9V7Ln4TlYz3HjBaDrv8XbszADWUEgxQI/H1ZbRteUpFIqWQHrwr4Azh4eA6PjZ+jIaqT2ZreAW6PgfNuogpzfq1tARkanSXYf1DmHUjfZR/QfLl3wr1InFBIQX9pYqe6V5+2GaseXqoUjuCrkdbBLRnCLA+k6BEqQvMKlCLhOrnCf0bXIMadO6efy0i0eydZ9Hh11C5JuwvR6p5j+PFRHljBco4/lxDaew==
+	al6JhiFNdEv1/HCLaOZUsIs9DfWPhu9ZQQyb4rQ4cFBimJv85l/DeDk0cnMaaNa4Lv1l4izUktJzWVw2aDaJMiV1pGL/Vs1kWztyPHUcv4BcyWPYznWTMPELT/j3AIYtg7TiPfokM+/oNopA7uzAHbhiq8gjIcuWJ57lTlH/q5qkiJWp8xLFUbNR5NcBKD9UEMLwDs9ZDkGOcyIrSshSXKNwHxrcx0+og+jHrxcceGrZSVQ7Q/sTW5XFkJ803ekfFYc+FFKnNM5waHqZwYfI2uwQrAooKjFjIEaOR3DDwXqIRtdsfvjev5wiKUYompMdQwa1I78T0kB6VFJzSSFq0g==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:37:53.6285
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:37:58.7789
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f52e4474-5420-4fc5-e079-08df2e293b8a
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7b1f91b-a861-4dac-1adb-08df2e293e9d
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN2PEPF0000A7FE.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR10MB6093
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NSBTYWx0ZWRfX8Y5LvNEsCZ19
- XHiZGrt8qWoML8bP8JIqAia33mw9xepJXwDJvwYyC10EWaKhUVkdHMAbtzyUZ/bE6bKtbey9R5z
- bLCPkdJ8Uu3rspK/6ecoW7aO96JVZ6w3QhejOb90tvWyD/do4/c7uuE4Ke0veLGZa7f88/hgkwJ
- oB6NFMFQxYUsCRYb73UjqK4+OrLUeCqErPvnt1TWzkqAjO5ywnfi1rk3lbhihMh8SC0+5Zn7waN
- OODQ9dC/dqgNUm/sxFEb1k7A1vLnUYjUu5qEpIaMH1QkkJHe0RmWDr446Y+wNUYevi71CNOKlHz
- uZNbgIw2Ud18B8hembYW/ow7Fxp7QflXXP4G8vBbrGeoh2mT6fEv1sxeaigQsyY0myqUSXkTRy/
- tZBftmfObSHG8tnEIBXilacl5I5isATayAg4vp7GLt0z62Slnpuz230On+P+EQTYfFdnGVrcI5B
- Wf0e786dAvXru1/54kQ==
-X-Proofpoint-ORIG-GUID: 9KJqsK0mlUb_ZFfWTwy361nWM3VIdi8e
-X-Proofpoint-GUID: 9KJqsK0mlUb_ZFfWTwy361nWM3VIdi8e
-X-Authority-Analysis: v=2.4 cv=Vsa2kO2n c=1 sm=1 tr=0 ts=6ad68db6 cx=c_pps
- a=BcPl/o76WFXIZ3b3OvynCQ==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFD91C619EF
+X-Proofpoint-ORIG-GUID: YrxJf0wqDa6Aun8Uye9DIzwiqCITciAN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX5T6lbfyJMt7n
+ lwGRsFD1Sf2WNgIdpGg6NZ/nM4QNd6epX2bUfqJwFeKGZT75YzoEdCEqgvRvs4MBJfffmw7A6oE
+ YKlc67UHruGgCoMUmFkW1DzUBgNF7TQsUsuxDo0WkXvZhVp1WEj05GlSOQzg45QI2qPcYXA9Kbb
+ iW37Rde9tPvUamuQIu2ntnsyRCGBm6PufGgzHXf5ylgVUqs1u3HUWoDEZrylfk66uMyqaZSFCtI
+ QWiRTrxygI/wEWtCaFTDR8w2VdMc27Koawl6XZp0dr2MMOP7qCrEDjkAbTggXoDfpml8I4cBPdx
+ p1a+BQm4ZQTg6+d9PnyxrsJEUz42fftRYdOrk/90KUhoNCFIBQ7ED1w7Heya8U7EjrV/eePh5tv
+ sGQ1Zx7k9mq1CBRYBPbwtJXaoMGj7+0RpzM5bz8jNnP1Zz3KFTnpG69ocsSK6Fi1OBlFz51wDwq
+ 5GSFJNcbqx3KiVoQdgw==
+X-Authority-Analysis: v=2.4 cv=ReYFmFtv c=1 sm=1 tr=0 ts=6ad68dbe cx=c_pps
+ a=1mmXF8F6+aLADKsbn3w/2Q==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10
  a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=3IO9RwVF9Dv72MOw_kIA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NSBTYWx0ZWRfX3wan71mzvUb7
- ENtFejdBxTHd9fYhuWLFHJoa/MpJslMh1Z0R3hpciKVLlqBa099xVNOx3Ci3KErBDwEl+0Y6Q05
- Xg9FBrlyDOkx7H4bjg1V85UVn+Ekoqw=
+ a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8 a=zmbZ_4TfkIE7zwaIlw4A:9
+X-Proofpoint-GUID: YrxJf0wqDa6Aun8Uye9DIzwiqCITciAN
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX0tJsTkV7h7tw
+ No2MvX1Ka+2qo1dkaZut+IeIg+CMMo9q1huIRqaPptk3nv15guHYBtq1eOmu8GnApc3cW600vfj
+ 135UhbCeFPJKkkTXzjCynFgpr7fXj60=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_05,2026-10-19_02,2025-10-01_01
+ definitions=2026-10-19_06,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0 spamscore=0
- phishscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 phishscore=0 malwarescore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190085
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190086
 
-Add a DRM plane property "color_mode" for panels that support
-3-color (black/white/red) display modes.
+Add device tree overlay for the Good Display GDEY042T81 4.2" e-paper
+panel connected to the AM62L3 EVM via SPI.
 
-The property allows runtime selection between:
-  - bw (black/white): R1 format represents black (0) and white (1)
-  - 3color: R1 format represents red ink (1) on white background
-
-The property is created on all panels with "black-white" selectable;
-panels with red_supported = true also expose the "3-color" option.
-The default is set from the panel configuration's default_color_mode
-field (typically BW for monochrome panels).
+The overlay configures SPI1 with the SSD1683-based GDEY042T81 panel
+at 2MHz, with reset, busy, and DC GPIOs connected to Main GPIO0 (&gpio0).
 
 Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
 ---
-Changes in v3:
-- Reject 3-color mode together with partial refresh in the plane
-  atomic_check, as partial refresh does not update the red channel
-- Only create the color_mode property on panels with a red plane instead
-  of exposing a property with a single possible value
----
- drivers/gpu/drm/solomon/ssd16xx.c | 51 +++++++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+ arch/arm64/boot/dts/ti/Makefile               |  6 ++
+ .../ti/k3-am62l3-evm-epaper-gdey042t81.dtso   | 96 +++++++++++++++++++
+ 2 files changed, 102 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
 
-diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/ssd16xx.c
-index f53c67ae7d31..6037717635a4 100644
---- a/drivers/gpu/drm/solomon/ssd16xx.c
-+++ b/drivers/gpu/drm/solomon/ssd16xx.c
-@@ -399,6 +399,7 @@ struct ssd16xx_device {
- 	u8  spi_buf[64] ____cacheline_aligned; /* DMA-safe buffer for SPI transfers */
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 795978e962ee..90e7a687ca86 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -82,6 +82,9 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62d2-evm.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62l3-beaglebadge.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm.dtb
  
- 	struct drm_property *refresh_mode_property;
-+	struct drm_property *color_mode_property;
- };
- 
- /* Plane state subclass: refresh_mode lives on the plane, not the connector,
-@@ -407,6 +408,7 @@ struct ssd16xx_device {
- struct ssd16xx_plane_state {
- 	struct drm_shadow_plane_state base;
- 	enum ssd16xx_refresh_mode refresh_mode; /* Pending refresh mode */
-+	enum ssd16xx_color_mode color_mode;     /* Pending color mode */
- };
- 
- #define to_ssd16xx_plane_state(s) \
-@@ -1457,6 +1459,7 @@ static struct drm_plane_state *ssd16xx_plane_atomic_create_state(struct drm_plan
- 
- 	__drm_gem_shadow_plane_state_init(plane, &ssd_state->base);
- 	ssd_state->refresh_mode = device->refresh_mode;
-+	ssd_state->color_mode = device->color_mode;
- 
- 	return &ssd_state->base.base;
- }
-@@ -1499,6 +1502,10 @@ static int ssd16xx_plane_atomic_get_property(struct drm_plane *plane,
- 		*val = ssd_state->refresh_mode;
- 		return 0;
- 	}
-+	if (property == device->color_mode_property) {
-+		*val = ssd_state->color_mode;
-+		return 0;
-+	}
- 	return -EINVAL;
- }
- 
-@@ -1516,6 +1523,18 @@ static int ssd16xx_plane_atomic_set_property(struct drm_plane *plane,
- 		ssd_state->refresh_mode = val;
- 		return 0;
- 	}
-+	if (property == device->color_mode_property) {
-+		if (val > SSD16XX_COLOR_MODE_3COLOR)
-+			return -EINVAL;
-+		if (val == SSD16XX_COLOR_MODE_3COLOR &&
-+		    !device->device_cfg->red_supported) {
-+			drm_dbg(&device->drm,
-+				"3-color not supported by this panel\n");
-+			return -EINVAL;
-+		}
-+		ssd_state->color_mode = val;
-+		return 0;
-+	}
- 	return -EINVAL;
- }
- 
-@@ -1535,11 +1554,20 @@ static int ssd16xx_plane_atomic_check(struct drm_plane *plane,
- {
- 	struct drm_plane_state *new_plane_state =
- 		drm_atomic_get_new_plane_state(state, plane);
-+	struct ssd16xx_plane_state *ssd_state =
-+		to_ssd16xx_plane_state(new_plane_state);
- 	struct drm_crtc_state *crtc_state;
- 
- 	if (!new_plane_state->crtc)
- 		return 0;
- 
-+	if (ssd_state->color_mode == SSD16XX_COLOR_MODE_3COLOR &&
-+	    ssd_state->refresh_mode == SSD16XX_REFRESH_PARTIAL) {
-+		drm_dbg_atomic(plane->dev,
-+			       "3-color mode does not support partial refresh\n");
-+		return -EINVAL;
-+	}
++# Overlays for AM62Lx EVM
++dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm-epaper-gdey042t81.dtbo
 +
- 	crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
- 
- 	return drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
-@@ -1608,6 +1636,7 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
- 	}
- 
- 	device->refresh_mode = new_ssd->refresh_mode;
-+	device->color_mode = new_ssd->color_mode;
- 
- 	/*
- 	 * When refresh_mode_init was set, use the specified mode for this first
-@@ -1855,6 +1884,11 @@ static const struct drm_prop_enum_list ssd16xx_refresh_mode_enum[] = {
- 	{ SSD16XX_REFRESH_FAST,    "fast"    },
- };
- 
-+static const struct drm_prop_enum_list ssd16xx_color_mode_enum[] = {
-+	{ SSD16XX_COLOR_MODE_BW,     "black-white" },
-+	{ SSD16XX_COLOR_MODE_3COLOR, "3-color"     },
+ # Boards with AM62Px SoC
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-sk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-var-som-symphony.dtb
+@@ -319,6 +322,8 @@ k3-am62a7-sk-csi2-ov5640-dtbs := k3-am62a7-sk.dtb \
+ k3-am62a7-sk-csi2-tevi-ov5640-dtbs := k3-am62a7-sk.dtb \
+ 	k3-am62x-sk-csi2-tevi-ov5640.dtbo
+ k3-am62a7-sk-hdmi-audio-dtbs := k3-am62a7-sk.dtb k3-am62x-sk-hdmi-audio.dtbo
++k3-am62l3-evm-epaper-gdey042t81-dtbs := k3-am62l3-evm.dtb \
++	k3-am62l3-evm-epaper-gdey042t81.dtbo
+ k3-am62p5-sk-csi2-imx219-dtbs := k3-am62p5-sk.dtb \
+ 	k3-am62x-sk-csi2-imx219.dtbo
+ k3-am62p5-sk-csi2-ov5640-dtbs := k3-am62p5-sk.dtb \
+@@ -458,6 +463,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am62a7-sk-csi2-imx219.dtb \
+ 	k3-am62a7-sk-csi2-ov5640.dtb \
+ 	k3-am62a7-sk-hdmi-audio.dtb \
++	k3-am62l3-evm-epaper-gdey042t81.dtb \
+ 	k3-am62p5-sk-csi2-imx219.dtb \
+ 	k3-am62p5-sk-csi2-ov5640.dtb \
+ 	k3-am62p5-sk-csi2-tevi-ov5640.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso b/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
+new file mode 100644
+index 000000000000..1ff43fb54df3
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
+@@ -0,0 +1,96 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * DT Overlay for GoodDisplay GDEY042T81 4.2" E-Paper Display on AM62L3 EVM
++ *
++ * The GDEY042T81 is a 400x300 black-and-white e-paper panel driven by a
++ * Solomon SSD1683 controller, connected via SPI1 on the AM62L3 EVM
++ * expansion header.
++ *
++ * Pin mapping (AM62L3 EVM expansion header):
++ * P5  --> BUSY  (GPMC0_CLK.GPIO0_31)
++ * P26 --> RST   (GPMC0_AD1.GPIO0_16)
++ * P27 --> CLK   (GPMC0_AD5.SPI1_CLK)
++ * P28 --> DC    (GPMC0_AD2.GPIO0_17)
++ * P29 --> DAT   (GPMC0_AD3.SPI1_D1 / MOSI)
++ * P30 --> CS    (GPMC0_AD4.SPI1_CS0)
++ *
++ * The GPMC0_AD[0:5] pins are multiplexed for SPI1 and GPIO use; GPMC0 is
++ * already disabled by default in the SoC DTSI.
++ *
++ * Copyright (C) 2025 Texas Instruments Incorporated - https://www.ti.com/
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include "k3-pinctrl.h"
++
++&pmx0 {
++	dc_pins_default: epaper-dc-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x0080, PIN_OUTPUT, 7) /* (K22) GPMC0_AD2.GPIO0_17 */
++		>;
++	};
++
++	rst_pins_default: epaper-rst-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x007c, PIN_OUTPUT, 7) /* (L23) GPMC0_AD1.GPIO0_16 */
++		>;
++	};
++
++	busy_pins_default: epaper-busy-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x00b8, PIN_INPUT, 7) /* (L21) GPMC0_CLK.GPIO0_31 */
++		>;
++	};
++
++	main_spi1_pins_default: main-spi1-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x008c, PIN_OUTPUT, 4) /* (H22) GPMC0_AD5.SPI1_CLK */
++			AM62LX_IOPAD(0x0088, PIN_OUTPUT, 4) /* (K23) GPMC0_AD4.SPI1_CS0 */
++			AM62LX_IOPAD(0x0084, PIN_OUTPUT, 4) /* (J23) GPMC0_AD3.SPI1_D1  */
++		>;
++	};
++
++	fet_sel_pins_default: epaper-fet-sel-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x01a8, PIN_OUTPUT, 7) /* (E13) SPI0_CLK.GPIO0_89 */
++		>;
++	};
 +};
 +
- static int ssd16xx_plane_create_properties(struct ssd16xx_device *device)
- {
- 	struct drm_device *drm = &device->drm;
-@@ -1869,6 +1903,23 @@ static int ssd16xx_plane_create_properties(struct ssd16xx_device *device)
- 	drm_object_attach_property(plane_obj,
- 				   device->refresh_mode_property,
- 				   device->refresh_mode);
++/* Drive GPIO0_89 high to select the SPI1 path on the VOUT0 FET switch */
++&gpio0 {
++	fet-sel-hog {
++		gpio-hog;
++		gpios = <89 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "GPIO_EXP_CONN_FET_SEL";
++	};
++};
 +
-+	/*
-+	 * Color mode: only meaningful on panels with a physical red plane.
-+	 * BW-only panels get no property at all rather than a one-value knob.
-+	 */
-+	if (!device->device_cfg->red_supported)
-+		return 0;
++&gpmc0 {
++	status = "disabled";
++};
 +
-+	device->color_mode_property =
-+		drm_property_create_enum(drm, 0, "color_mode",
-+					 ssd16xx_color_mode_enum,
-+					 ARRAY_SIZE(ssd16xx_color_mode_enum));
-+	if (!device->color_mode_property)
-+		return -ENOMEM;
-+	drm_object_attach_property(plane_obj,
-+				   device->color_mode_property,
-+				   device->color_mode);
- 	return 0;
- }
- 
++&spi1 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&main_spi1_pins_default>, <&fet_sel_pins_default>;
++	status = "okay";
++
++	gdey042t81: display@0 {
++		compatible = "gooddisplay,gdey042t81", "solomon,ssd1683";
++		reg = <0>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&dc_pins_default>,
++			    <&rst_pins_default>,
++			    <&busy_pins_default>;
++		spi-max-frequency = <2000000>;
++		reset-gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
++		dc-gpios    = <&gpio0 17 GPIO_ACTIVE_HIGH>;
++		busy-gpios  = <&gpio0 31 GPIO_ACTIVE_HIGH>;
++	};
++};
 -- 
 2.39.1
 
