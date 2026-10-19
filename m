@@ -1,65 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792422306;
-	b=KhdEQawTXDq1/jr2GxLCOPytCXnP/yimIhgsACoVkMPeQIkXZO0GBqoZnXE8UPXcJkJQ
-	 xs5y25WyEDdYE5dRCHUARLrjvWCcf670LN98ey9hMlL6dcvn47zwKZsTNT25jFQx4qFX9
-	 8ds6DLkTQcFYdE/nAvsE5JllcFa3eXHH65F7dA6JXAIocBECh9k0dvhSQRGiKjjCNyGpL
-	 GPpGx5QdJb7vwxsb51GVmjQX9gRGLX5s0hHVz7Q2O8YeBdVldoETM+2JAHx9JvV3IMPh+
-	 oPq9mSO8ojDt0LQ5dHmmx68pwflCsiSnPUDE2nDBXX2EsGcfTg4NELeTok5mb0m+4Lg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422306;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=FnTa9xUrHpkEZLnF/C/Uhf2QRS6M/PPDbqmx71vQSBI=;
-	b=NqfUrgSz0VquD2LChGZ56DgRUUw2aVYqvjmuHMIN1XR4hAmOo0aSjZnQFKOymKoQoU9S
-	 /K8OSkWCFLEwSLdWRPlaccFXqZAIRbwRp+nO/y+Y4/FMb/mp4/cvoLCQ+2Y4biAEgizBX
-	 zPvzMPsV10eAyux8MrV+tzev7ixV2jV1zGk+MA0ICTJD+w2RwT5+vWbkHDcB8HqU+Tk5V
-	 JaE6E1ioJV9Dvd06syG6YyIBaQuBDKxRg3mcsS46jOofCCFYbeBdEfgEBCI8Djr1yMxnd
-	 PBAomFK/gk23S9O2Cqv0UAvNqb4CTl+Cv8H3ydCYVLUhNGKRfG639i6ncd1yz19zwSw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=OazP6l3+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792422876;
+	b=OZSf+mp8H0KvT0cYWVO4dxmcI6b6mZCTMQniamBsuPOGk5EBD7hAXbXPf4swQi2Ht2c2
+	 vGDawWg2swheuuCmHdWgUqxHUsVVtpU4o2NZp36iGJu/I+HyX5nQ18JQCwds23478Io86
+	 PfjJJhJ00CTjGXOg7TU4OQuOeD9A6d2WzB8e7+lh8/xQo3ly0k3//DyU8tIljmW0CG9a2
+	 7YAE53NAVaLXCvI3WQwZeon36205DdL/Rp0lenMeL4P91LU9jDkDdGNnYoyV0T2Jcf0vy
+	 a/1eZQ/M6ePhMxXCeBgzoWgHAAvrotSUoULlI1g4qBIONEeT09HjILgJS6ivdKDkzFw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422876;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vUJLscG8XSSHQFg2sviQyqrV2fKWzSk1RRNuPFKLxmg=;
+	b=lhfbz2XMw3jcspQEMn9k4mkqJAxmTvwjkzm5nRYzjMuCIKPGfnpziIH4ubm3ImeZiUFy
+	 yYNeqlveHAOKK7arvXlKRBtxs88mmnt0f7NxsvMe4BmJIvvDdl5Q8VLRv49DUjyHGJZiQ
+	 isMki4E5nUi5n1fDSbItA6081zgBQMPmyHF2vdLLD1doZU3uQ1mvjIqHrhbrfye4PoNDe
+	 ol+Vd5AWx0CIiWVgiRFnnmQwc9uKpXaYILgjVGWGK469oSbPqHYMPXaPG+mHuci0EMFNw
+	 LXZiTj3u+jLBt1HCkjTAMXWfxt9iPJlJEnegww3RPnyqf6ex37qbNKT0jgiSf+1DZkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NUBrfE3D;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B4B607F4BB;
-	Mon, 19 Oct 2026 15:05:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46B4B607F4BB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2145609CED3;
+	Mon, 19 Oct 2026 15:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2145609CED3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=OazP6l3+
-ARC-Seal: i=1; a=rsa-sha256; t=1792422221; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OWTvOStEtrydX6runmwaOj72222u12oXwLH748Vd7xkQWzwq8JV1Jjhh4GWVl8diUm91f55aUsvzoF8yR9iGj+pFKeixzAkYnXtZus6rw5ywt56ishZeYuU2XMbsCRDAwdqOW2RqiaRff2ZklD3r7IqZrgr0POFKQx/XTVJwo+o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792422221; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=FnTa9xUrHpkEZLnF/C/Uhf2QRS6M/PPDbqmx71vQSBI=; 
-	b=gnuqSx8srvGv02rdgDybrUGhxhSsCSsGv06aIsJpMyXtEHXWrp+6vk45RiW+k9QaMPsU3U1oEgR47lli5Y0BM1DVXmxAp7cUs1prPm4MDwXECCECdcdtzpr7qfKtTzs5kGsfy5Ufvt78IdFmOS2fl9cfdIYgFuTYMByhc61CSgU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792422221;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=FnTa9xUrHpkEZLnF/C/Uhf2QRS6M/PPDbqmx71vQSBI=;
-	b=OazP6l3+l5WRNO5R7EPj3+A2Lrau6F/20Kb9mBtZORCLr4WN7rmnmypnQovJCeSQ
-	HqlRCQsaTyZGqvcBZH6kSMoOpnPgoft7vz6bfZbS4m3YVLz8fPooZQPcYmrVfB+Y9RF
-	UdAN8FfxFQQ4Y5CNz1BRgxpyatU355ckn134e63todQXl5PjXOr/7QfY7GxPB8QfeJj
-	KR/X0Kg+P6QDbsJdotLo4V3HkxeqzruB/ZpADgCxUVPkJBKUjbJi47nk+gHPazPSYlP
-	fr7ekizoUPP+b62G4rxvAkmQuiKTnTW9Ye3F3XpAwxLEf11D60dj/Zp9qQYIMPOXuRV
-	PT8S7LBtHw==
-Received: by smtp.zohomail.com with SMTPS id 1792422215333737.0129824035191;
-	Mon, 19 Oct 2026 08:03:35 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Mon, 19 Oct 2026 23:02:33 +0800
-Subject: [PATCH v5 11/12] platform/x86: lenovo-wmi-helpers: Adopt new WMI
- API
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NUBrfE3D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792422876; x=1823958876;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=wWYDKmOpaDXM/8DgQbmgTptDV+gFVhwrFPGHfjTFFto=;
+  b=NUBrfE3Dw2iQphMm/jaHZmiBxTjTS5TTF1Sb3FuvqiGF3MPa22RKMONm
+   FY9yCJOtqiElIITNk+V7OB1hVyWBQ7wN+vzhFusvVJD5YgcLrGVnPk0cx
+   hvKDXqvplmvZidfF5KKgrYcW11Ho67OI2iXtOFlIeoojTXEquHjqtz46W
+   x7piycCdei8cMl7WSwj6cqPGN9BRIEY+7dXfKG9fDWeP1O7aInpCNPbji
+   PB3sNpEZGamS0Z4xzN20u70pWfk6FEs43RjVcZ1YLrbkDL/PXiBxY3i3K
+   jN9kl8I3D8yJKP321brVYz6jla5OfPOCtJ2Z+dd4cGlOUrZS8kJxFX58J
+   g==;
+X-CSE-ConnectionGUID: NQYFMmXQTAmASIVp33Pyrw==
+X-CSE-MsgGUID: om0wE/myQziLeefq9s6oCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986909"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="986909"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:34 -0700
+X-CSE-ConnectionGUID: gt2nOSQrRxuQcHt8XBKOlw==
+X-CSE-MsgGUID: XZu2InRrR7SnegWPwfk/vA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2536962"
+Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
+  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:33 -0700
+From: Daniel Byrne <daniel1.byrne@intel.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Kristen Accardi <kristen.c.accardi@intel.com>,
+	dmaengine@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 06/17] dmaengine: idxd: keep the interrupt handle across terminate_all
+Date: Mon, 19 Oct 2026 08:06:19 -0700
+Message-ID: <20261019150630.4026341-7-daniel1.byrne@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,132 +90,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-lwmi-wmi-new-api-v5-11-71557d28d058@rong.moe>
-References: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
-In-Reply-To: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Armin Wolf <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>, 
- Navon John Lukose <navonjohnlukose@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-6be7c
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-The new WMI API supports multiple ACPI types by converting them into a
-unified buffer that satisfies alignment and size requirements.
+idxd_wq_flush_descs(), the device_terminate_all() implementation,
+released the work queue's interrupt handle and cleared its permission
+entry after flushing the pending descriptors. The handle is only
+requested again when the driver rebinds. On a live channel every
+descriptor submitted with a completion interrupt after a terminate
+therefore fails with DSA_COMP_INT_HANDLE_INVAL, and since no
+interrupt is raised for such a descriptor the client never learns of
+it and waits forever. A single dmaengine_terminate_sync() on an error
+path, which the API allows, disabled the channel for good.
 
-Adopt it to make our life easier.
+Flush the pending descriptors only. Releasing the handle and clearing
+the permission entry belong to idxd_wq_free_irq(), which already does
+both when the interrupt is torn down. idxd_wq_flush_descs() is also the
+flush of the FLR halt path, which relied on it to mark the handles
+invalid. The FLR revokes every handle, so that path now marks them
+invalid itself, without a device command, and the teardown after the
+reset skips the release of a handle the reset has already revoked.
 
-Note that the Windows WMI-ACPI driver converts all ACPI objects into a
-common buffer format, so adopting the new API intentionally accepts more
-ACPI types as a followup of commit 465dc9da8ff6 ("platform/x86:
-lenovo-wmi-helpers: Convert returned buffer into u32").
+At this point idxd_flush_pending_descs() still frees the slots of
+in-flight interrupt-armed descriptors while the device may hold them.
+A later patch in this series, "dmaengine: idxd: quarantine
+terminate_all's descriptor slots until the device has drained",
+addresses that.
 
-Suggested-by: Armin Wolf <W_Armin@gmx.de>
-Link: https://lore.kernel.org/r/f1787927-b655-4321-b9d9-bc12353c72db@gmx.de/
-Reviewed-by: Armin Wolf <W_Armin@gmx.de>
-Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Signed-off-by: Rong Zhang <i@rong.moe>
+Fixes: 2a93f5747d0e ("dmaengine: idxd: Flush all pending descriptors")
+Cc: stable@vger.kernel.org # 7.0+
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
 ---
- drivers/platform/x86/lenovo/wmi-helpers.c | 61 ++++++++++++-------------------
- 1 file changed, 23 insertions(+), 38 deletions(-)
+ drivers/dma/idxd/device.c |  7 +------
+ drivers/dma/idxd/irq.c    | 16 +++++++++++++---
+ 2 files changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/platform/x86/lenovo/wmi-helpers.c b/drivers/platform/x86/lenovo/wmi-helpers.c
-index 8f5766c391eb..687caa226263 100644
---- a/drivers/platform/x86/lenovo/wmi-helpers.c
-+++ b/drivers/platform/x86/lenovo/wmi-helpers.c
-@@ -24,9 +24,10 @@
- #include <linux/export.h>
- #include <linux/module.h>
- #include <linux/notifier.h>
--#include <linux/unaligned.h>
- #include <linux/wmi.h>
+diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
+index a83b5da88f8c..a461cae7a409 100644
+--- a/drivers/dma/idxd/device.c
++++ b/drivers/dma/idxd/device.c
+@@ -1336,7 +1336,7 @@ void idxd_wq_free_irq(struct idxd_wq *wq)
+ 	free_irq(ie->vector, ie);
+ 	idxd_flush_pending_descs(ie);
  
-+#include <asm/byteorder.h>
-+
- #include "wmi-helpers.h"
+-	/* The interrupt might have been already released by FLR */
++	/* FLR revokes every handle; the halt path marks them invalid. */
+ 	if (ie->int_handle == INVALID_INT_HANDLE)
+ 		return;
  
- /* Thermal mode notifier chain. */
-@@ -42,49 +43,33 @@ static BLOCKING_NOTIFIER_HEAD(tm_chain_head);
-  * @size: Length of the buffer.
-  * @retval: Pointer for the return value to be assigned.
-  *
-- * Calls wmidev_evaluate_method for Lenovo WMI devices that return an ACPI
-- * integer. Validates the return value type and assigns the value to the
-- * retval pointer.
-+ * Calls the specified WMI method for Lenovo WMI devices that return a WMI
-+ * integer. Validates the return value and assigns it to @retval when it's not
-+ * NULL, otherwise the return value is not validated.
-  *
-  * Return: 0 on success, or an error code.
-  */
- int lwmi_dev_evaluate_int(struct wmi_device *wdev, u8 instance, u32 method_id,
- 			  unsigned char *buf, size_t size, u32 *retval)
+@@ -1351,7 +1351,6 @@ void idxd_wq_free_irq(struct idxd_wq *wq)
+ void idxd_wq_flush_descs(struct idxd_wq *wq)
  {
--	struct acpi_buffer output = { ACPI_ALLOCATE_BUFFER, NULL };
--	struct acpi_buffer input = { size, buf };
--	acpi_status status;
--
--	status = wmidev_evaluate_method(wdev, instance, method_id, &input,
--					&output);
--	if (ACPI_FAILURE(status))
--		return -EIO;
--
--	union acpi_object *ret_obj __free(kfree) = output.pointer;
--
--	if (retval) {
--		if (!ret_obj)
--			return -ENODATA;
--
--		switch (ret_obj->type) {
--		/*
--		 * The ACPI method may simply return a buffer when a u32
--		 * is expected. This is valid on Windows as its WMI-ACPI
--		 * driver converts everything to a common buffer.
--		 */
--		case ACPI_TYPE_BUFFER:
--			if (ret_obj->buffer.length < sizeof(u32))
--				return -ENXIO;
--
--			*retval = get_unaligned_le32(ret_obj->buffer.pointer);
--			return 0;
--		case ACPI_TYPE_INTEGER:
--			*retval = (u32)ret_obj->integer.value;
--			return 0;
--		default:
--			return -ENXIO;
--		}
--	}
-+	struct wmi_buffer input = {
-+		.length = size,
-+		.data = buf,
-+	};
-+	struct wmi_buffer output;
-+	int ret;
-+
-+	if (!retval)
-+		return wmidev_invoke_procedure(wdev, instance, method_id, &input);
-+
-+	ret = wmidev_invoke_method(wdev, instance, method_id, &input,
-+				   &output, sizeof(__le32));
-+	if (ret)
-+		return ret;
-+
-+	__le32 *valp __free(kfree) = output.data;
-+
-+	*retval = le32_to_cpu(*valp);
+ 	struct idxd_irq_entry *ie = &wq->ie;
+-	struct idxd_device *idxd = wq->idxd;
  
- 	return 0;
- };
-
+ 	guard(mutex)(&wq->wq_lock);
+ 
+@@ -1359,10 +1358,6 @@ void idxd_wq_flush_descs(struct idxd_wq *wq)
+ 		return;
+ 
+ 	idxd_flush_pending_descs(ie);
+-	if (idxd->request_int_handles)
+-		idxd_device_release_int_handle(idxd, ie->int_handle, IDXD_IRQ_MSIX);
+-	idxd_device_clear_perm_entry(idxd, ie);
+-	ie->int_handle = INVALID_INT_HANDLE;
+ }
+ 
+ int idxd_wq_request_irq(struct idxd_wq *wq)
+diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
+index 647969920a06..915304ee7099 100644
+--- a/drivers/dma/idxd/irq.c
++++ b/drivers/dma/idxd/irq.c
+@@ -442,13 +442,23 @@ static irqreturn_t idxd_halt(struct idxd_device *idxd)
+ 			INIT_WORK(&idxd->work, idxd_device_reinit);
+ 			queue_work(idxd->wq, &idxd->work);
+ 		} else if (gensts.reset_type == IDXD_DEVICE_RESET_FLR) {
++			int i;
++
+ 			idxd->state = IDXD_DEV_HALTED;
+ 			idxd_mask_error_interrupts(idxd);
+-			/* Flush all pending descriptors, and disable
+-			 * interrupts, they will be re-enabled when FLR
+-			 * concludes.
++			/*
++			 * Flush all pending descriptors. The FLR revokes every
++			 * interrupt handle, so mark them invalid here without a
++			 * device command; they are requested again when a work
++			 * queue is re-enabled after the reset.
+ 			 */
+ 			idxd_wqs_flush_descs(idxd);
++			for (i = 0; i < idxd->max_wqs; i++) {
++				struct idxd_wq *wq = idxd->wqs[i];
++
++				if (wq->type == IDXD_WQT_KERNEL)
++					WRITE_ONCE(wq->ie.int_handle, INVALID_INT_HANDLE);
++			}
+ 			dev_dbg(&idxd->pdev->dev,
+ 				"idxd halted, doing FLR. After FLR, configs are restored\n");
+ 			INIT_WORK(&idxd->work, idxd_device_flr);
 -- 
-2.55.0
+2.43.0
 
