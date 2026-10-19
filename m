@@ -1,138 +1,128 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6AA4078F0
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD044F0525
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792412523; cv=none; b=Ib+k6dMHEzOPs4ixbc9VZqnblxf+8LyjYCzoi/6fEcWWhDonGBJRFkh6fEDQkrzI6/QE2Neyh080jXRJdpw60mtofADS8uSZoHAoYsfl4ewIrz795/fXqmA6h6/0LV3HYOq9QjtRLMsPjb6JaJLU7/jttly6u8H0UPhDTYa5kIs=
+	t=1792412540; cv=none; b=pGmknBBaSMYgI0Ksbv1yIzhTbuBPE58qNAo03pWqg19rAs7druhVJepotHwRr2uV5Z+zS99ntlV0R14QjOwgkRFGcwumf3RyCRqwXzh6Fkch20HJNs4FYUZH4IfWxraDEJeGzhGaKZSZZgM15l2zmaO1IXlCMxoOD+8WKRrNqR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792412523; c=relaxed/simple;
-	bh=sIALCuzmK5MrLm1WN32r3MHvew38w9LvE/9jWk8EGbI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JQCapBEjTayHZr3HKM3CRC6bu6n0Tnr7lhCB6ra2AhfF1kI2KjQNy7cji6bLEOqNFUGTqsCVWqLuWEz3CF+w3y1qB+lMC8Ysm4M9bs/w2Wm6rH6zDV86b15MpKP8MZjKKXe1YQ28Bv6rC7vIaDxHrbvK0m+tZoqvw4Tl68qi3RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JmMZhS7h; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hn2UTZuq; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792412540; c=relaxed/simple;
+	bh=e8XRpkvdD7E4aZpJobAsdPMQqsGQoGh3b+KJgMhv7Ws=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=NvP4SfIafHWqzFKMwuuT2wIW3nHbbwMdSGVxBXDTjQvAqCS3dlDDnxbd2oDSyr9Bd7vZbE4cdOUJyC1J+acePMDObYJEY8izEQAdQXY53s0IDv8dkfAmm4YGHIniWplwL6nn4fadgjZIWb/q8ibTWW+5NX+n9wdTprgqS/9J/kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Mqc1ZbR7; arc=none smtp.client-ip=91.218.175.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JmMZhS7h";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hn2UTZuq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792412519;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HvmVJ/YjUjexXZFkRD2KfE4ivd3D2olHrXzSUsWnuRc=;
-	b=JmMZhS7hZmJBYb1DykQwGhZV7Sf8AZg1sXTM5QOUcaXmdk/kIjX7KJ1GhZepPBNI0DJtlY
-	qJOuRv31DdzRY4g66WRe6nO9nErWPWOzHOiM200rFCO4Jd7GCnyppbh5MJYWywdPx0wQL0
-	wuZvIngm7JEWOqjWAvkXhZtIGcj1zPY=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-507-9te1MOTeMzCGy6CuUjr2NQ-1; Mon, 19 Oct 2026 12:21:58 +0000
-X-MC-Unique: 9te1MOTeMzCGy6CuUjr2NQ-1
-X-Mimecast-MFC-AGG-ID: 9te1MOTeMzCGy6CuUjr2NQ_1792412517
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a027f2e364so15031605e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:21:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792412517; x=1793017317; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HvmVJ/YjUjexXZFkRD2KfE4ivd3D2olHrXzSUsWnuRc=;
-        b=Hn2UTZuqWEZkLdA2pIQ01wivh+pndnJt8zrb9dilGsk4xCcjNxYQJqeZN+3A0aYbKt
-         2XYsGslsm6vlqPtHIXNN73mcHdqzHiH1hqfDSGzMIo/4LhGYUSI5FRU/Gkca053996cx
-         JIDfTb2qm9IS4lrF33QdLjeNiY3tQvEg0E+URHicm2tGcStigJSwU5p0nnmfwjo6v1Vr
-         50M3P06aECYEmcCNJGma7otg6u/lcvvdlMNpNU2lw32dYOL2LW2Zxip+FMzQ177S3HB7
-         FV7jA0Tpu18aPcv811z/b1Pv8QS1GOu7CBJRTduID8xyEJ5jFrfdPWZGjV9oXutBbTYF
-         PmBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792412517; x=1793017317;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HvmVJ/YjUjexXZFkRD2KfE4ivd3D2olHrXzSUsWnuRc=;
-        b=ltOMubgHaXCSsJd7PhyADynxcz3zaqz5MlyvjZNFOIzk5cXnY2e7iaPhaQJVY9PBft
-         3xaNoyDrlDgHaOyARxXikr5PgymkxXD+CdARO+VxT1SmT/fVZ+HHsEUuM3JgYa4oLMWR
-         /ScZuXALOXf1AgxTuJFlEAJjP1+ybP3xNT3hN10WchWCsglkbPHWkaXplHro48MfGpvR
-         zdfkKG4UO5yRrqdvliTA6iSNcdASGGgZXyxfYfjNpGlujZGddWPCzeeVxQO5Ev5n8KQ1
-         Gcs78htv5NqXFfWVhg4K40zIBjOhflwRhzQ+hfNGpr53jvkCa3rdNRZ3aNKb68aF/EUy
-         kRzQ==
-X-Gm-Message-State: AFq9FYL9t0SaK2QPyRqIeCfdlNs/jSv6/7TPCCFwnstM1Rl7aDvbuMPr
-	dX4hgF0QRdrpwHMTa+62hMAnvkdHaRQN0nTFw41BCRVV8RQmfQASwwbClz80p/bedc4b2+Y78zH
-	k5jdkMhsU2a/VXg4s3svmxRuBJrweOAOp+ct2V9NL0ColOD46ziXVofW9OF7pNzxxkA==
-X-Gm-Gg: AYBFou21pVFooGqR2Zt3N2Qc3krOIXNbMh1zzpdY7nFPhqYI4j49droSMVxcGfhoXsE
-	UeeLzMujhB4T44fHl5SFLJ64HD0hNsPRji5fiMyGsowkWn+TsA9SpUn3fF3OCkZah4k8zz44i0x
-	5wKRko47F2K7aPcahPElmDciOKxm8x2aYqrEe5Vph/9V++HPKp+7caZYtWZNVlhRzgWZ1m9XcEK
-	Rxu0pd1hzYi7eN4BPtI/Nj8uR5qg+QQ3lqCeowo8Z3VlYAbBKfXbmyQAJ5rtdVRlOKIZcNWdokk
-	cDTcHnNz7A6OCz6cubkoLslp0oUgvc0PwSHeY1iw8SN9fBdiGYu0netU6/3M4oZc8oPGgg==
-X-Received: by 2002:a05:600c:4e03:b0:49c:fa20:cbfc with SMTP id 5b1f17b1804b1-4a1d75ffbdamr177431485e9.19.1792412517082;
-        Mon, 19 Oct 2026 05:21:57 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e03:b0:49c:fa20:cbfc with SMTP id 5b1f17b1804b1-4a1d75ffbdamr177430755e9.19.1792412516569;
-        Mon, 19 Oct 2026 05:21:56 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a81587sm524058155e9.1.2026.10.19.05.21.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 05:21:55 -0700 (PDT)
-Date: Mon, 19 Oct 2026 08:21:52 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Chris Arges <carges@cloudflare.com>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	Max Krasnyansky <maxk@qualcomm.com>,
-	Rusty Russell <rusty@rustcorp.com.au>
-Subject: Re: [PATCH net v3 0/8] more virtio-net csum hardening
-Message-ID: <20261019081218-mutt-send-email-mst@kernel.org>
-References: <cover.1792411304.git.mst@redhat.com>
- <179241175916.3290.3107334544259481724@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Mqc1ZbR7"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=e8XRpkvdD7E4aZpJobAsdPMQqsGQoGh3b+KJgMhv7Ws=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792412534; v=1; x=1793017334;
+ b=Mqc1ZbR7uzHxNYg+mSnmgKJqkbKQb2o2PS7sor1N6DavgDPd+95AVN19mn4q/WbFQ3sJmqam
+ wmgLMqDi1fo6JuoQwVcMqQXwu4suYpNRyQ2mfTx/9ihiB8aJVA8I9kGHFFlHvSlOjtYRPLL7oMr
+ cMQWtqA7L/sqk/kXz40knANc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3dc76d404e419662;
+	Mon, 19 Oct 2026 12:22:14 +0000
+X-Mizu-Trace-ID: 3dc76d404e419662
+X-Migadu-Flow: FLOW_OUT
+From: Zqiang <qiang.zhang@linux.dev>
+To: paulmck@kernel.org,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	urezki@gmail.com,
+	boqun@kernel.org
+Cc: qiang.zhang@linux.dev,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] rcu-tasks: Avoid alloc_percpu() failure in rcu_tasks_rude_wait_gp()
+Date: Mon, 19 Oct 2026 20:22:08 +0800
+Message-Id: <20261019122209.15604-1-qiang.zhang@linux.dev>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179241175916.3290.3107334544259481724@kernel.org>
 
-On Mon, Oct 19, 2026 at 12:09:19PM +0000, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+The RCU Tasks Rude grace period is implemented by invoking the
+schedule_on_each_cpu() with an empty work function, which forces a context
+switch on every online CPU and guarantees that all RCU Tasks Rude read
+critical sections have completed. However, schedule_on_each_cpu() can
+fail (via alloc_percpu() returning -ENOMEM) and returns immediately, in
+which case those context switches never happen and also not wait for tasks
+to exit the RCU Tasks Rude read critical section, too-short grace period
+happen.
 
-To answer the question, the virtio header is checked at input by
-Eric's patch. I'm not aware of a way to bypass that, but given
-the amount of pain and work this is causing, it seems prudent
-to validate at several levels.
+This commit therefore replace schedule_on_each_cpu() with a statically
+defined per-CPU work_struct, which is allocated at compile time and cannot
+fail in this path. rcu_tasks_rude_wait_gp() now holds CPU-hotplug readlock,
+schedules rcu_tasks_be_rude() on each online CPUs, and flush each work item
+before returning. This preserves the original behavior of the synchronous
+API while removing both the runtime allocation.
 
-Patch 4 is a bugfix - i reproduced it easily but it is not normally
-encountered in the field - the combination is non practical.
+Suggested-by: Bradley Morgan <brads@mainlining.org> 
+Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+---
+ kernel/rcu/tasks.h | 30 +++++++++++++++++++++++++-----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
 
+diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+index fcac7361ec51..a59aa8b6ab05 100644
+--- a/kernel/rcu/tasks.h
++++ b/kernel/rcu/tasks.h
+@@ -1342,11 +1342,17 @@ void exit_tasks_rcu_finish(void) { }
+ ////////////////////////////////////////////////////////////////////////
+ //
+ // "Rude" variant of Tasks RCU, inspired by Steve Rostedt's
+-// trick of passing an empty function to schedule_on_each_cpu().
++// trick of passing an empty function to per-CPUs workqueue.
+ // This approach provides batching of concurrent calls to the synchronous
+-// synchronize_rcu_tasks_rude() API.  This invokes schedule_on_each_cpu()
+-// in order to send IPIs far and wide and induces otherwise unnecessary
+-// context switches on all online CPUs, whether idle or not.
++// synchronize_rcu_tasks_rude() API.  A no-op work item is scheduled on
++// each online CPUs, in order to send IPIs far and wide and induces otherwise
++// unnecessary context switches on all online CPUs, whether idle or not.
++//
++// A statically defined per-CPU work_struct is used instead of a
++// runtime-allocated one, which can fail under memory pressure. Each
++// CPU's work item is scheduled with schedule_work_on() and waited for
++// with flush_work(), under the read side of the CPU-hotplug lock so the
++// set of online CPUs cannot change mid-iteration.
+ //
+ // Callback handling is provided by the rcu_tasks_kthread() function.
+ //
+@@ -1357,11 +1363,25 @@ static void rcu_tasks_be_rude(struct work_struct *work)
+ {
+ }
+ 
++static DEFINE_PER_CPU(struct work_struct, tasks_rude_work);
++
+ // Wait for one rude RCU-tasks grace period.
+ static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+ {
++	int cpu;
++
++	guard(cpus_read_lock)();
+ 	rtp->n_ipis += cpumask_weight(cpu_online_mask);
+-	schedule_on_each_cpu(rcu_tasks_be_rude);
++
++	for_each_online_cpu(cpu) {
++		struct work_struct *work = &per_cpu(tasks_rude_work, cpu);
++
++		INIT_WORK(work, rcu_tasks_be_rude);
++		schedule_work_on(cpu, work);
++	}
++
++	for_each_online_cpu(cpu)
++		flush_work(&per_cpu(tasks_rude_work, cpu));
+ }
+ 
+ static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t func);
 -- 
-MST
+2.17.1
 
