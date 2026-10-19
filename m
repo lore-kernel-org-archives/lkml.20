@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792433689;
-	b=2BtDm80QN0RDLSnhANtx5NtYh0dKbBaswcGg22tf+3Z05fiFJ6gNUggcKSgkcNk25Pi4
-	 97RNLZFWvNdnJ6MfmBquVz5OjC3ME/M6+VTV406K8Le6X2SvtpsAD53LPaZ3sa2cdKNRM
-	 lOrFKiA3t4JzPY4vcn7F5rJb+JY7HA9tOnLqrVQ/07/b6yTtwTP4NIVlI97VHosC+AgU9
-	 Z8EEvOgrceIOnRq6VO4M0diI7FYZ8Bgt1aRCcFiUFDhFnqkeopG+jNGgRxRoDOTKXavH/
-	 eLtfgVX7oaC4m7jcFReOsWw4jctaFlGkOuBwzsKUCg1Ug/dUwYpwZ+QU+nmmXqKrVoQ==
+	t=1792433752;
+	b=weWPEUNB81VzVQU8ibxMU6G3q20mShTLtFLVAx0YOP7ZXdrZFwrpm3wGI2fPrz9ObG/K
+	 6zdxwNATI2KYFI0VELicy8019phRX9xRe4viGJhy9wEsEfCFKvJpr3jLp5fhSJkGw0Qqa
+	 4aa9wZTTFVr6HEvWDKkV7CVNeiAJ6yXxT24yTJqW7/zR1V6ycGVtkJTdxnMu5keepnuh6
+	 QiKaJ6ZJ+MiZfgtKx2u/e8snrfWiwr9gj2L0IqQIAtAAyG2tpbDnWFyqFB+TTG/K3zGmU
+	 g7XTORxk7yt996U3D3YaLDbg0RqRl+AzTp/BMMbpCRZgPH872+cNDHLpsGrkTZdkYCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792433689;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XNapb0FlYNiMzf484coWRZ4BJd0SDLSUVPDu3zsHX/s=;
-	b=0pVnPR7ox4OrYhfhmTAf/KDWTg4e+sPl7twmLnc7H5e2mDtqyoh/kqlmYpcskjhqvpd2
-	 oIXg/kS4y9UFin0jsQt0ESY8Jjf9ZqRv2+pywpcECahusrrpeJFzNzLyJ2ZNsY0uwMD5Y
-	 YFk6dGmROTFFaxXg1a343rMMJSGOoDkgX1YyTYxnkGCsUBYkmJYx2AVAZK3cw8sTq4zU6
-	 VlHaV01POJJrvciVvJK1iHHVb/mr0uV+xVjOZE2IgZe86OanbeIdy+CduH3br/8S4OndV
-	 FyOIY2xe1RjLavmlB+Y8yDQochN9zGTQnFOla9w7BaFQmTeptAHlUO/3JyDEHpv+dzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792433752;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=4w7YFTBtscoIjxgLMpx7cQ62ZcRL/yC92+hTKY2Gc7Q=;
+	b=hUhBCl2bRJB6jkEZOgeuRT4m7TacjvMUDLGOdBW3CK/dP6CxlwfWu7CsHkycPYwXGEaB
+	 klr4cjMppriFUdi6D1+W6+xO5pZhbhIwJlHWZkXrXRBqOTC60kCq7uatyYia1gspbGdh3
+	 N86gIFNdcI/AW4D6fEsje453+exLnkI9Ico0ro1gu0VDI4nLUWXNlSyXKwta19Ps9mR1p
+	 UfHTZwduWbgdE8lUAiMi7Sd0EPy7RnSnzVk+uYgz8qphqmN1jr5byQHkp9Z1wSsLngT1N
+	 nJaCLLTjO5Zs7W4CRCBzRO4cnRBrKNDX89JdEpPMZpbqiQQQW52CKBm8pLMeRatPCxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQDWYFj4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=O8zf9CEj;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28A6606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:14:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205A2606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:15:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 205A2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQDWYFj4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788BC1F000D4
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:14:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792433688;
-	bh=XNapb0FlYNiMzf484coWRZ4BJd0SDLSUVPDu3zsHX/s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NQDWYFj4tlQAKIbvMKzC8saEpDDmYogW6KW98HNxWn3ZxQVGlMuUm3MPDj3Tknw55
-	 0t0rSSfAzUeUr9Q8pbgej8rMCexrZF7DqN8UP7nsAIl/5pjFaxRvg9+8mXyQBDMbLV
-	 mmjzJj1BNaNU6HupMHtInohiSI1yWct8jmjNR5VZrZr8osKz8T1HaHvnVOU2QmHd52
-	 x8rTXR6/NyIPF++bhTKtlvdDW2Kl7bDoJA0v3/doU5PkfQMFHXEMl97dXyFQijXCzf
-	 qeask0Veh5thSBFmVS7YBkNs4EVXwFeOr1GBjqu3Y0u14l4j+6YgJiXm1LpbBnDGyn
-	 1WnVn9QCNfPyw==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ab3dd9667dso10905651fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:14:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy83z0QxBU7TfByp7CRMRxSQh1JwWQ8eEUZ7eAKSFdXmlh2EyIjIr70PoqjkiJkI2ikt+2k1gFOUMjAAWE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmABC6AexFsVHO9r2m/Bo4Cb91N2lIpI6Sk6aMBV+UkJ5W/uwy
-	Fi4xwr9g00eHwpVW0Kyf4AND4wPCbuJ8ahM1aojCU9P/x4FSZMnYTpISlMkrEBnPrCQ/g3EgLGy
-	gwkMSwLWmlXm54L+FFidkdCOwUXybQdk=
-X-Received: by 2002:a05:6512:3050:b0:5ba:3d82:3bbf with SMTP id
- 2adb3069b0e04-5be50a6a8f8mr2852643e87.40.1792433686787; Mon, 19 Oct 2026
- 11:14:46 -0700 (PDT)
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=O8zf9CEj
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5A2FB40E029C;
+	Mon, 19 Oct 2026 18:15:42 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 2vR_LGbI_aXz; Mon, 19 Oct 2026 18:15:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1792433735; bh=4w7YFTBtscoIjxgLMpx7cQ62ZcRL/yC92+hTKY2Gc7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=O8zf9CEjohQ3LUBYJVk4K44Xx8LNvFk/sIF0mu6AePh5AI6eobVCNOs7FEE4r2SbJ
+	 c5UG6JaOdiR19Cnb8odfqiEUnkjOKIf0Ce2khTOpPwLVfv4icKB0811U21/szJttOE
+	 NK3ex/bHxr9XZSKM0kOZBw4HXPBNR1DeD1LpjF4TV6pG03AI+eOvcCrqjFBLJsF1Ep
+	 lNXcllkXMq7HmgiDT56MId8aZ0bRW/ocG+Jg7XuyKlZHcv4p0CTj49XwYAW6B9S42o
+	 MvZOJRWPWlBHLFOd1fb4ouMv4rpNFy7p4ijHpeNujsFh5+tv23evVyenYy0P+rZIPT
+	 fL+ZVZ5SyjQ/ZUsinA4qdHX/pQczzB14+xFlHSdl5KViBiMtztSYrALNuMteJtAJtC
+	 9c58CzcXHZ8SuB2gJULlIn9wMK2A0baYz0O5KD3YEmYmxK09v2uMSJ3Fg5wrcGCYMp
+	 XZWu00EW92jAoqikHBGwLp0MkdDnp5Gaf/v5c9Zgqgu5SAX5Bv+Wpa22/M+FIiG0yU
+	 4sLaBAxm8dWvPdopS5uhadfeGS2Ld9IEAD9sPBpw4pDFQzmdJKD9bDsb5ypE+seeFB
+	 egHsCag6kSSNTqeBb3RD6wVeEXnrhL4o3xHa9Ex7YiwNqtSyIQyS5dyBrx2sjullGb
+	 MvXkaBiVi8hrhbKmjWOVSpok=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4EDAD40E015B;
+	Mon, 19 Oct 2026 18:15:14 +0000 (UTC)
+Date: Mon, 19 Oct 2026 11:15:10 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Nikola Ciprich <nikola.ciprich@linuxbox.cz>,
+	Sean Christopherson <seanjc@google.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, david@kernel.org,
+	Mike Rapoport <rppt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
+	luizcap@redhat.com, pbonzini@redhat.com,
+	Tal Zussman <tz2294@columbia.edu>,
+	Matt Fleming <matt@readmodwrite.com>, gregkh@linuxfoundation.org,
+	sashal@kernel.org
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-ID: <20261019181510.GAatZeLtUmU3Zy9VZt@fat_crate.local>
+References: <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
+ <atI_yuCc4BiweBQP@google.com>
+ <atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
+ <20261018201538.d0957878f378a9821852836f@linux-foundation.org>
+ <atXXma5NXxoSWJO0@pcnci.linuxbox.cz>
+ <atY1vWRBRUwpISKb@pcnci.linuxbox.cz>
+ <20261019083529.a81910ac0976c1a5687d4c6a@linux-foundation.org>
+ <CAO9r8zO41EromgLGhKv8H0aKXjrffH+t4CFGU6cLo59JJ3CEuA@mail.gmail.com>
+ <20261019105844.02d4623b7063fec25ebd34ad@linux-foundation.org>
+ <CAO9r8zN1dTJmULsKCwNrNr_vKyrV+vMfD7wifQ05uAti7E-yDw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,144 +99,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019073930.2352283-1-daniel.lezcano@oss.qualcomm.com>
- <20261019073930.2352283-2-daniel.lezcano@oss.qualcomm.com> <2818716f-3502-aa4b-0b7b-4efc61e46f6c@linux.intel.com>
-In-Reply-To: <2818716f-3502-aa4b-0b7b-4efc61e46f6c@linux.intel.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 19 Oct 2026 20:12:30 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iRDbPEQWL+gXO1zd_7SZtHLmwhwtmF3A-z9r0VXHAcRA@mail.gmail.com>
-X-Gm-Features: AclHuK9h8u8T4xQ7W0VEcO3CuHD6d-ur3g7Fnq_OHExwJkfacOxWTJ5OSEtGnw4
-Message-ID: <CAJZ5v0iRDbPEQWL+gXO1zd_7SZtHLmwhwtmF3A-z9r0VXHAcRA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/5] platform profile: Separate handler locking from
- sysfs lifetime
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, Hans de Goede <hansg@kernel.org>, 
-	Maximilian Luz <luzmaximilian@gmail.com>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
-	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Mario Limonciello (AMD)" <superm1@kernel.org>, 
-	Jack Wu <jackbb_wu@compal.com>, Mario Limonciello <mario.limonciello@amd.com>, 
-	Zhang DM <jixianqiang1540@gmail.com>, linux-acpi@vger.kernel.org, 
-	LKML <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAO9r8zN1dTJmULsKCwNrNr_vKyrV+vMfD7wifQ05uAti7E-yDw@mail.gmail.com>
 
-On Mon, Oct 19, 2026 at 10:51=E2=80=AFAM Ilpo J=C3=A4rvinen
-<ilpo.jarvinen@linux.intel.com> wrote:
->
-> On Mon, 19 Oct 2026, Daniel Lezcano wrote:
->
-> > Registration and removal currently hold profile_lock across
-> > device_unregister() and sysfs_update_group(). These operations can remo=
-ve
-> > sysfs attributes and wait for their active callbacks to finish. The
-> > profile read and write callbacks acquire profile_lock themselves, so a
-> > concurrent access can deadlock:
-> >
-> >   Removal/update path             Active sysfs callback
-> >   -------------------             ---------------------
-> >   acquire profile_lock            hold kernfs active reference
-> >   remove a sysfs attribute         wait for profile_lock
-> >   wait for its active references
-> >
-> > The removal path cannot finish until the callback returns, and the
-> > callback cannot return until the removal path releases profile_lock.
-> > This applies both to per-provider device teardown and to updates of the
-> > legacy aggregate attribute group.
-> >
-> > Commit 041142d7d252 ("ACPI: platform-profile: Fix possible deadlock in
-> > platform_profile_remove()") previously fixed this lock ordering by movi=
-ng
-> > sysfs_remove_group() outside profile_lock. Commit 55b1e68134bf ("ACPI:
-> > platform_profile: Use guard(mutex) for register/unregister") reintroduc=
-ed
-> > the issue by extending the mutex guard over sysfs_remove_group(). Later=
-,
-> > commit 77be5cacb2c2 ("ACPI: platform_profile: Create class for ACPI
-> > platform profile") replaced that teardown with device_unregister() and
-> > sysfs_update_group(), still under the same mutex, extending the problem
-> > to class-device teardown and aggregate attribute updates.
-> >
-> > Simply dropping profile_lock around these operations is insufficient.
-> > Aggregate operations currently discover providers through the class
-> > device list. A provider being unregistered could therefore still be
-> > selected for an aggregate read, write or cycle while its sysfs files ar=
-e
-> > being torn down. Concurrent registrations and removals would also race
-> > when updating aggregate attribute visibility.
-> >
-> > Introduce profile_registration_lock to serialize registration, removal
-> > and aggregate sysfs updates. Sysfs callbacks never acquire this mutex.
-> > Retain profile_lock for profile operations and use it to protect an
-> > explicit list of handlers participating in the aggregate interface.
-> >
-> > Add a handler to that list only after device_register() succeeds. On
-> > removal, unlink it under profile_lock before calling device_unregister(=
-).
-> > Acquiring profile_lock first waits for any aggregate operation already
-> > using the handler to complete; unlinking prevents later aggregate
-> > operations from finding it. Release profile_lock before draining sysfs
-> > callbacks, allowing active per-provider callbacks to complete before th=
-e
-> > device is released. Apply the same unlink-before-unregister ordering to
-> > registration error cleanup.
-> >
-> > Walk this list for aggregate reads, writes and profile cycling, and use
-> > its emptiness to determine aggregate attribute visibility. The class
-> > devices remain the per-provider userspace interface.
-> >
-> > There can now be an interval between removing the last handler from the
-> > list and removing the aggregate attributes. Explicitly reject choices
-> > reads and writes during that interval: the intersection bitmap starts
-> > with every bit set, so an empty traversal must not advertise all profil=
-es
-> > or report a successful write without updating a provider.
-> >
-> > This separates aggregate membership from class device teardown while
-> > preserving the existing class and ACPI sysfs interfaces.
-> >
-> > Fixes: 55b1e68134bf ("ACPI: platform_profile: Use guard(mutex) for regi=
-ster/unregister")
-> > Assisted-by: OpenCode:gpt-6.1-sol
-> > Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> > ---
-> >  drivers/acpi/platform_profile.c | 75 ++++++++++++++++++---------------
-> >  1 file changed, 42 insertions(+), 33 deletions(-)
-> >
-> > diff --git a/drivers/acpi/platform_profile.c b/drivers/acpi/platform_pr=
-ofile.c
-> > index 79d2e92e5c28..f98ce4cda02c 100644
-> > --- a/drivers/acpi/platform_profile.c
-> > +++ b/drivers/acpi/platform_profile.c
-> > @@ -8,6 +8,7 @@
-> >  #include <linux/bits.h>
-> >  #include <linux/cleanup.h>
-> >  #include <linux/init.h>
-> > +#include <linux/list.h>
-> >  #include <linux/mutex.h>
-> >  #include <linux/platform_profile.h>
-> >  #include <linux/sysfs.h>
-> > @@ -15,8 +16,12 @@
-> >  #define to_pprof_handler(d)  (container_of(d, struct platform_profile_=
-handler, dev))
-> >
-> >  static DEFINE_MUTEX(profile_lock);
->
-> Should definitely add comment to this lock as well to explain what it
-> protects.
+On Mon, Oct 19, 2026 at 11:00:00AM -0700, Yosry Ahmed wrote:
+> Right, but this is for new patches that get merged into Linus's tree,
+> what about existing patches? Any way to retrigger that workflow?
 
-+1
+You take your patch, apply it to the stable trees here:
 
-> > +/* Serialize registration and sysfs updates without blocking sysfs cal=
-lbacks. */
-> > +static DEFINE_MUTEX(profile_registration_lock);
-> > +static LIST_HEAD(profile_handlers);
+https://www.kernel.org/category/releases.html
 
-Also, I think that the rest of the series is not going to get into 7.4
-in any shape or form, so my suggestion would be to address the above
-and send a new version of the $subject patch as a separate fix, and
-defer the other patches in the series until 7.4-rc1 is out.
+and send the applied and tested version it to <stable@kernel.org>.
+
+I.e., you backport it yourself. :)
+
+Do git-log on those branches to see how stable backports are annotated. It
+needs to say:
+
+"Commit <sha1> upstream."
+
+at the top.
+
+There's also Documentation/process/stable-kernel-rules.rst
+
+HTH.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
