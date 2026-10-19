@@ -1,233 +1,191 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93AC220459A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4AB306779;
+	Mon, 19 Oct 2026 01:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792372498; cv=none; b=WT3NhzP2gVejbGUU6rGe2G2BMag4hKPxRnLdVmw3DVHCGM2AkGT0kBngSOoN1CcvYLxWYqMUJda+J4aPL1r3dnnvN5bquIOthzMmUzREqzWonnN7/st0sHrAzs6LzNMqfeC/LRa2wJG/iviGYJRwqrbIyE1vqwysJi3alD2NlyE=
+	t=1792372503; cv=none; b=CtOglvu9BrcnqI/KcQoLq8cVk8IXltnknPqs51Oar3pDSzk6AKuB7gRsiuazxwD/viprKgM+Yy6P0nyLTwitIYuONAs0v4dBpXbcHZERWwb/fS96H0bRwERhA+A0rhipULqamc4W0lFULk2vxexzE8IV8umeXYrc4Pohq0Xe4EI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792372498; c=relaxed/simple;
-	bh=fBWRLRNFXx1jULKjcR84Zfp5/L4R5O4BrM1N22Cd79c=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EjSRrCCnReI5xC6FNvW/nH4s4rMpdtqlo7tVPo69/L/+phQrag1VeyQbN3a1z6FjCtPT3aHkjkNlizbynV+foRMAQM4XxnmgiOq4lWuia+uUsecFX6FvjHL21i2CvSk9d5WTra/ZDj9eA5GMHCYvy5Q0K170SAY8hTWQ50+GBIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=TtiyUY+W; arc=none smtp.client-ip=209.85.221.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	s=arc-20240116; t=1792372503; c=relaxed/simple;
+	bh=UztUbO2By+ISyXZ2injbZLT1l45VetfgYZZXX8Cmr+4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FslfSzMF89CXm69OdI2fqzmqScKkgMqs+kJsTcpRKlFH3GbCeLxbB90khS1+9/RtipdEJ7kmhADWMEhOcaf8/jPZsBCnPnlwHeJdqAhU96qQKzDRQS5x9c5BrLbDE0IsMeGIZIr0F1HwtT5JNy3D+dfC3RdQhMIrI+Dyrhe1EVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PvxQRLpw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="TtiyUY+W"
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5d4d307fab6so751922e0c.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:14:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792372495; x=1792977295; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r5Uh0UovwmV8EFz8GLwox5sAAEwyuEzq/FgIh/SpVjc=;
-        b=TtiyUY+W3wKdAl1zxH7RF3/wmZikaG7G3SqMM10WVJqn++e5zRQ+cV6W/VAzLtJez/
-         cYxrDo7k1/fiqUG06SZZKTQ+GTRcas650A8MqFOjxqjaXnT4OCPKTN3QeSvy8WJRgA8T
-         RiCvxZghTE6hgczYvffYnj+h6LotNFwEyO597c4Ep5rlSItA7eKkIa3/aJOcY/vamIM6
-         JtnyONA8lcZpjzG7C9TkbVPl63JCN+QU9vkpjJX3jk2gKgOPj/+RGRluhPj1vLA8bL4g
-         SmvOMwDA2u2QaI9aw7PW/AMDLFTTU0l1ucT+tlPOzDRcHnh9kT9s6TiaYfBg8rkyVbxA
-         r8ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792372495; x=1792977295;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r5Uh0UovwmV8EFz8GLwox5sAAEwyuEzq/FgIh/SpVjc=;
-        b=0wwJadfX/RQVoNr8VwVq1ZC11X0eMnOK8v4I0JwOQS+qUPGNDn/10vSvWrCzI0Tovc
-         yleQIQ1j3YnS1lQ4xPDtlF6tuTW3Gu8Jk0Vg03ugsPqQQE47wzqpmpJzoRiCjwp2M90K
-         Qi7xZk/rgWpqu4jgkr8hJey1crimO2O3P01cTC377WMgJaJl++1xXj6gvjSyxxd1hDuY
-         Dlnj3dlQRMsDwreVVwxgCx1+Q+CVIgQ6md3J4vcf3dxhr5TrtIg+EW9NOmX5ZWb3puui
-         M4UxHua02Thwe/m9cEpw+f+BZu3fyiItvoYXtrtu0QfGjetI66JWGehZkQe1hC++LnwK
-         AewA==
-X-Forwarded-Encrypted: i=1; AKwUvByCO+XbG70wJdwXtl3lX2fAWmL+HBBLYxfRmaPBlwsDpXR/ASQLlKExTGC3ghHXC/6jlIfukkjYEATTaPs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJECZrWbJuD9R5kz4Cbfz1/8mjlQ8AiuxUcRv37IirdRTkUxCjF
-	DMLIg8b0y07Vum0Rj47Thz122zbogOSACAWe97qE9uInXnkvKBvE0is0GlfNqalEHlc=
-X-Gm-Gg: AYBFou2NAB4Rkf2gHobDPTkX19WKBMl83xFQ5hPG6i1G1fnUL1Ple9CoYUo7Np8cVuW
-	bG+PCcjiKHEHv/OhGJg4CeC8cnaLfudwxKPGzcVampV21o1BMUiu8wlCf7s6Bc0ijNpFPzkEKWs
-	Y7GrvpUr86IJodWLGyVSppkDM+HhtE1Mhs4nVPzZQfFTdJqW9vlFl658QF73rx6z7GDh7vAqaqf
-	7BVbgQMWHXSF2qe0d25BYp3uWE6uaffSGeS9nZr56zfEX7rkHx/FblmGsOSdOIYVYIGatGFeykw
-	Dx+0QWyEEiVz12Gt4qFYNCrcyvoHZo+ppz1YanaJRaKkivqgCbSxIeQw3fVpvTGIWrJM5CRIN3c
-	xOCVbKnNly1oWQ7+6UduFJAbvnSk7D3E67oYb5wgWh68ubddbN2TnqU/Mwnl7rpKxH7/FGRtBTU
-	VVtIXOxqZr+GsjkAiWs4C1GpctSlLOy4e5V3iVcpXHI/7XhZWn20Q+ryWnYHWeiZnf9kPAMakeo
-	xaTjWBeRXpilrnVIRx5yE4lvtk+0jnAJzdzGEwHNILlvuRgv2Opv+M5fz/xilCiq0pOZGovhTZ9
-	VJaFtX1zdYdN0xMPaaM=
-X-Received: by 2002:a05:6122:10e7:b0:5e7:e3f9:1322 with SMTP id 71dfb90a1353d-5eaaa4183dbmr1605940e0c.9.1792372495503;
-        Sun, 18 Oct 2026 18:14:55 -0700 (PDT)
-Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b474b2asm8039142e0c.4.2026.10.18.18.14.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 18:14:54 -0700 (PDT)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: kees@kernel.org,
-	rppt@kernel.org,
-	juri.lelli@redhat.com,
-	nik.borisov@suse.com,
-	tglx@kernel.org,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	vincent.guittot@linaro.org,
-	bp@alien8.de,
-	jpoimboe@kernel.org,
-	cgroups@vger.kernel.org,
-	tony.luck@intel.com,
-	david@kernel.org,
-	mingo@redhat.com,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	seanjc@google.com,
-	ljs@kernel.org,
-	zhangguopeng@kylinos.cn,
-	dietmar.eggemann@arm.com,
-	mhocko@suse.com,
-	vinicius.gomes@intel.com,
-	vbabka@kernel.org,
-	linux-kernel@vger.kernel.org,
-	peterz@infradead.org,
-	surenb@google.com,
-	hpa@zytor.com,
-	x86@kernel.org,
-	pasha.tatashin@soleen.com,
-	dmatlack@google.com,
-	tim.c.chen@linux.intel.com,
-	kexec@lists.infradead.org,
-	pratyush@kernel.org,
-	dave.hansen@linux.intel.com,
-	rostedt@goodmis.org,
-	gmonaco@redhat.com,
-	jgross@suse.com,
-	mgorman@suse.de,
-	graf@amazon.com,
-	linux-edac@vger.kernel.org,
-	liam@infradead.org,
-	ridong.chen@linux.dev,
-	blum@kernel.org,
-	longman@redhat.com,
-	bsegall@google.com
-Subject: [PATCH v2 2/8] x86/smp: Remove unnecessary WBINVD from mwait_play_dead()
-Date: Sun, 18 Oct 2026 21:14:40 -0400
-Message-ID: <20261019011446.834487-3-pasha.tatashin@soleen.com>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-In-Reply-To: <20261019011446.834487-1-pasha.tatashin@soleen.com>
-References: <20261019011446.834487-1-pasha.tatashin@soleen.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PvxQRLpw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ADD61F01805;
+	Mon, 19 Oct 2026 01:15:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792372501;
+	bh=VMrPYgQOnHoRCsJRMybAjl9VgrvC68NCuecjpo4tI/0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=PvxQRLpwPW2b59Oixz3o4O2lwA1yYliuXII7Qn6XItBLKGwNSI57q0qrAtTi4lSvN
+	 XWYgk8Yg+HHVfHn/uVwqc2Ez0TfE6WxktzuuhkBYMu65M0Cr1VNLlASYSFNa3RO15L
+	 biBFTjc+KvcTbDFic/glOvduaELxGiX+wxErmo5a98DvdzVEB+zbT4N0Ecyzv7RsJF
+	 lGhfvQRytV9XCWtw36Ka78sH5lcePm+DEy74eCzeW206cAfgaLUYwbGV9USbrXgvfc
+	 6F/mkMeYBXhCS9GQ7sd+LRRViKkxMRjynmKxjl4kFkCDuZScrPOtoy5PXU4CWP93mp
+	 efAgwobsvR09Q==
+Subject: Re: [PATCH net-next] net: octeon: Fix dma_unmap_single() size
+From: netdev-bot+sashiko@kernel.org
+To: fourier.thomas@gmail.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, kory.maincent@bootlin.com,
+ vadim.fedorenko@linux.dev, ddaney@caviumnetworks.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 19 Oct 2026 01:15:00 +0000
+Message-ID: <179237250044.3135.9983843486106038084@kernel.org>
+In-Reply-To: <20261015131336.34801-1-fourier.thomas@gmail.com>
+References: <20261015131336.34801-1-fourier.thomas@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-When a logical CPU goes offline via mwait_play_dead(), it executes
-WBINVD before entering the MWAIT loop. On processors with large shared
-last-level caches (such as Intel Xeon 6985P-C with 504 MB L3 per
-socket), each WBINVD takes ~85-115 ms, flushes and invalidates the
-entire socket's shared caches, and stalls the physical core (including
-any online SMT sibling on that core) for the duration of the flush.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-mwait_play_dead() places the logical processor into an architectural
-MWAIT C-state—the same hardware C-states entered by intel_idle during
-normal idle without executing WBINVD—where C-states deeper than C1/C1E
-flush core-private L1/L2 caches to the coherent LLC on C-state entry
-and maintain cache coherency while the package remains powered.
+Critical: 0 · High: 1 · Medium: 0 (2) · Low: 0
 
-As long as at least one CPU sharing the same LLC on the package remains
-online, system-wide cache flushes (wbinvd_on_all_cpus()), system sleep,
-and kexec will still flush that shared LLC via the online CPU(s).
-However, when the last online CPU in an LLC goes offline, no online CPU
-remains to service wbinvd_on_all_cpus() or flush the package before
-S3/S4 power removal. Similarly, if the target MWAIT state is C1/C1E
-(which does not flush core-private caches) or cache_state_incoherent is
-set (e.g., SME), the CPU must flush its caches before entering MWAIT.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Skip WBINVD in mwait_play_dead() when entering a C-state deeper than
-C1/C1E while another CPU sharing the same package and LLC remains
-online (unless cache_state_incoherent is set).
+- [High] The patch does not fix the size mismatch it claims to fix.
 
-2-socket, 480-CPU Intel Xeon 6985P-C (N=479, mean of 10 runs):
-  Offline:  40.46 s -> 11.42 s (-71.8%)
-  Online:   11.14 s -> 11.08 s (-0.5%)
-  Total:    51.60 s -> 22.50 s (-56.4%)
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but
+  octeon_mgmt_stop()…
+- [Medium] This problem wasn't introduced by this patch, but the RX
+  descriptor `len` field is only 14 bits (max 16383), while the MTU can…
 
-Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
----
- arch/x86/kernel/smpboot.c | 46 +++++++++++++++++++++++++++++++++------
- 1 file changed, 39 insertions(+), 7 deletions(-)
+--
 
-diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
-index ba01a9e919b7..0dccd2f927bb 100644
---- a/arch/x86/kernel/smpboot.c
-+++ b/arch/x86/kernel/smpboot.c
-@@ -1414,10 +1414,28 @@ void play_dead_common(void)
- 	local_irq_disable();
- }
- 
--/*
-- * We need to flush the caches before going to sleep, lest we have
-- * dirty data in our caches when we come back up.
-- */
-+static bool mwait_play_dead_needs_wbinvd(unsigned int eax_hint)
-+{
-+	unsigned int cpu = smp_processor_id();
-+	u32 pkg_id = topology_physical_package_id(cpu);
-+	u32 llc_id = per_cpu_llc_id(cpu);
-+	unsigned int i;
-+
-+	if (cpuhp_tasks_frozen || MWAIT_HINT2CSTATE(eax_hint) < 2 ||
-+	    llc_id == BAD_APICID || this_cpu_read(cache_state_incoherent)) {
-+		return true;
-+	}
-+
-+	for_each_online_cpu(i) {
-+		if (topology_physical_package_id(i) == pkg_id &&
-+		    per_cpu_llc_id(i) == llc_id) {
-+			return false;
-+		}
-+	}
-+
-+	return true;
-+}
-+
- void __noreturn mwait_play_dead(unsigned int eax_hint)
- {
- 	struct mwait_cpu_dead *md = this_cpu_ptr(&mwait_cpu_dead);
-@@ -1426,15 +1444,29 @@ void __noreturn mwait_play_dead(unsigned int eax_hint)
- 	md->status = CPUDEAD_MWAIT_WAIT;
- 	md->control = CPUDEAD_MWAIT_WAIT;
- 
--	wbinvd();
-+	/*
-+	 * Entering MWAIT C-states deeper than C1/C1E/C2 writes back and
-+	 * invalidates core-private L1/L2 caches into the shared LLC before
-+	 * power-gating the core. While the CPU is still in C0 prior to MWAIT,
-+	 * its L1/L2 caches remain coherent and snoop external cache flushes,
-+	 * and once in MWAIT its L1/L2 caches are empty and all dirty lines
-+	 * reside in the shared LLC. Thus, as long as at least one CPU sharing
-+	 * this LLC remains online, any concurrent or subsequent
-+	 * wbinvd_on_all_cpus(), system sleep, or kexec will flush the shared
-+	 * LLC to memory.
-+	 *
-+	 * Only flush here during system sleep (cpuhp_tasks_frozen), when
-+	 * entering C1/C1E/C2, when the last online CPU in the LLC goes
-+	 * offline, or if the CPU's cache state is marked incoherent (e.g. SME).
-+	 */
-+	if (mwait_play_dead_needs_wbinvd(eax_hint))
-+		wbinvd();
- 
- 	while (1) {
- 		/*
- 		 * The CLFLUSH is a workaround for erratum AAI65 for
- 		 * the Xeon 7400 series.  It's not clear it is actually
- 		 * needed, but it should be harmless in either case.
--		 * The WBINVD is insufficient due to the spurious-wakeup
--		 * case where we return around the loop.
- 		 */
- 		mb();
- 		clflush(md);
+net: octeon: Fix dma_unmap_single() size
+
+The commit changes the RX buffer unmap size in
+octeon_mgmt_dequeue_rx_buffer() from ETH_FRAME_LEN +
+OCTEON_MGMT_RX_HEADROOM to re.s.len. The goal is to match the size used
+when the buffer was mapped in octeon_mgmt_rx_fill_ring().
+
+> diff --git a/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c b/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c
+> index 2cf3365b96364..1bb1316f4b919 100644
+> --- a/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c
+> +++ b/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c
+> @@ -380,9 +380,7 @@ static u64 octeon_mgmt_dequeue_rx_buffer(struct octeon_mgmt *p,
+>  	p->rx_current_fill--;
+>  	*pskb = __skb_dequeue(&p->rx_list);
+>  
+> -	dma_unmap_single(p->dev, re.s.addr,
+> -			 ETH_FRAME_LEN + OCTEON_MGMT_RX_HEADROOM,
+> -			 DMA_FROM_DEVICE);
+> +	dma_unmap_single(p->dev, re.s.addr, re.s.len, DMA_FROM_DEVICE);
+
+[Severity: High]
+Does re.s.len still hold the mapped size here?
+
+re.d64 is read from p->rx_ring[] after the MIX engine has written back
+the completed descriptor. The caller treats len as the number of bytes
+received:
+
+octeon_mgmt_receive_one() {
+    re.d64 = octeon_mgmt_dequeue_rx_buffer(p, &skb);
+    if (likely(re.s.code == RING_ENTRY_CODE_DONE)) {
+        /* A good packet, send it up. */
+        skb_put(skb, re.s.len);
+    ...
+}
+
+The RING_ENTRY_CODE_MORE path does the same with re2.s.len. The code
+field also changes from 0 (written by the driver) to DONE, MORE or an
+error value. That suggests the hardware rewrote the whole 64-bit entry.
+
+The buffer was mapped in octeon_mgmt_rx_fill_ring() with:
+
+    size = netdev->mtu + OCTEON_MGMT_RX_HEADROOM + 8 + NET_IP_ALIGN;
+    ...
+    re.s.len = size;
+    re.s.addr = dma_map_single(p->dev, skb->data,
+                               size,
+                               DMA_FROM_DEVICE);
+
+At MTU 1500 the mapping is 1532 bytes. For a minimum-size frame, this
+would unmap only about 60 bytes of it. On error entries the size is
+whatever the hardware reported.
+
+With CONFIG_DMA_API_DEBUG, would check_unmap() report a size mismatch on
+almost every received packet? And with swiotlb=force, would only len
+bytes be bounced back?
+
+The TX side's dma_unmap_single(..., re.s.len, DMA_TO_DEVICE) works
+because TX entries keep the length the driver wrote. RX entries don't.
+
+Recomputing the size from netdev->mtu at dequeue time wouldn't work
+either. The RING_ENTRY_CODE_MORE comment says buffers sized for an older
+MTU can stay in the ring after an MTU change.
+
+The len field is also only 14 bits wide, so even the fill-time value is
+truncated for MTUs of 16352 and above.
+
+Could the mapped length be recorded per ring slot instead? For example,
+octeon_mgmt_rx_fill_ring() could store it in a shadow array indexed by
+ring position.
+
+>  
+>  	return re.d64;
+>  }
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but octeon_mgmt_stop() frees
+the remaining RX and TX buffers without unmapping them:
+
+drivers/net/ethernet/cavium/octeon/octeon_mgmt.c:octeon_mgmt_stop() {
+    ...
+	/* dma_unmap is a nop on Octeon, so just free everything.  */
+	skb_queue_purge(&p->tx_list);
+	skb_queue_purge(&p->rx_list);
+    ...
+}
+
+Are the DMA_FROM_DEVICE mappings from octeon_mgmt_rx_fill_ring() and
+the DMA_TO_DEVICE mappings from octeon_mgmt_xmit() leaked on every
+ifdown? The RX ring is normally kept full, so posted buffers are always
+there at that point.
+
+With the coherent dma-direct setup on Octeon, unmap is close to a no-op.
+However, CONFIG_DMA_API_DEBUG would report the leaked mappings, and
+swiotlb=force would leak bounce slots over repeated ifup/ifdown cycles.
+
+[Severity: Medium]
+This is also a pre-existing issue, not introduced by this patch. Can
+size overflow the 14-bit len field in octeon_mgmt_rx_fill_ring()?
+
+octeon_mgmt_probe() sets:
+
+	netdev->max_mtu = 16383 - OCTEON_MGMT_RX_HEADROOM - VLAN_HLEN;
+
+which is 16383 - 22 - 4 = 16357.
+
+octeon_mgmt_rx_fill_ring() then computes:
+
+	size = netdev->mtu + OCTEON_MGMT_RX_HEADROOM + 8 + NET_IP_ALIGN;
+
+which is mtu + 32, or 16389 at max_mtu.
+
+For MTUs from 16352 to 16357, re.s.len = size wraps modulo 16384 (to 5
+at max_mtu). dma_map_single() still maps the full size.
+
+Wouldn't the hardware then be told the buffer is only a few bytes long?
+Large frames could be split across many MORE entries or dropped as
+errors. The exact effect depends on how the MIX hardware uses the
+length it is given.
+
 -- 
-2.56.0.176.g3575e65682-goog
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015131336.34801-1-fourier.thomas%40gmail.com
