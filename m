@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429932;
-	b=G15BeDNU2D/vA+JJ3h3/5/WO1DhEi3RdvRNDSfY7XUnNltlkpNc5tvBR9cOouGV/hJ2o
-	 Z1IoIt9VYO3mQFeBd4bf7MOQ6kn+ElyEIaD0p5xJeiSZvG81S1Do+nX1mJmch81ts3VHH
-	 uZ7mv+TPaXVLdvEhg/svotWOJ2ZhFQCz1QId7zFu3PqYWuDl2IRGVIVa7yY4DIW0jJLTM
-	 U871+K3j7Ea88NsxgK4tNRcbHYG4Ll+Zv4y31BDK7756zXghKZsXp2FMvJsyHYDOsvKHi
-	 MLdSXuKmtptafDDKdpoFWZuQdCs637k2gvoKxzaGuEMdM0WTl0canB2T0wJbRWy9FOQ==
+	t=1792429938;
+	b=EJ/Xff4zLfwnBWL+0bKPAMlSJNVOFmlbcpIrLRtJhNC1f4ZmBZzgknLm53B4uhPnGH9g
+	 LmwGCANDjs0ry0g2/Fihpn5gosEpSrzK/zmAiUq5WbceAfXj1A3msZGtNZKLEfsfO1lJw
+	 Yv8fpa0uv8DvCaBMZPALT9xgY6qzcU0x2XZqu4+Jua1ozZ0mVcYqBtvgzlO3cE9DorecK
+	 5EcIHqABXfFxwbwhmC84/m/N6WLJyWsxN3pHNzddqMrGenZdjKuHI1vmROK2wxynGsZXR
+	 qRjxhU3ZPbpHOvSSlM+GruKcGUHCC65DGpScqCVUEdhAPDjTZWWlRPQthVq+BCNFhgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429932;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429938;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=T2WxJgHgDzroGnytVGNcEvJQJx/gBKIgnv1e37nYxNU=;
-	b=QrphEWmJg28axUyxwyGjcQaO6m4YkE3ffACottDozOl+1875DtN6qvm6c4haJvYFvgWf
-	 5vCzbqkjatT0D2S5PBCXT7K1i3EM+XjlJmA+de+lH5/DxZOKkwcbdweyYYduCBK14iunc
-	 S2N17jGx6ML4VprUQL+JxGejdGSSeukvKJAhXX0NMHXSz3T9RPWRDLC1xRPvRbhwDRSDe
-	 fZv/kDNTymeZ1IWXJtvw42i3L13/jAAIfy5cKLCeqHIKDRLidVHGU4ipKSjWOg2PKkWWT
-	 qsagoVo/XbNGysBDlmPfoHBvXsdbu3RnZ/+WzgnGGBmXRPulNhL6pcZxFZX8+Jr9Brg==
+	bh=TjpbZTGan3B30P6ZyrSjX5pZ5tCnJRUq6rHSDYdsfAw=;
+	b=sVCJIGehvhVioejhNiJDmD4dOHRE1OlZxU0MOSAbeHHyMMZmfc0lud8h23di9fujTzKl
+	 zsI6YV4fcaIyNEiekpWC/D8cjeA+cG6g5dXQRChXOOZOUb96hMOhCrz5LmF1B/xDQiYXw
+	 VXVCIKiobfJ9+OqpZTfqBdBMxLk+crVhsJBacl0LAiVhtLL3F+otbe7LmJD7dPRbveNKc
+	 v3kQVBzGDCDm1G6n5inHkWdifNYl/uJ2wqS92GYdpzDvmy0QSSKVwPuNTEptW2ikn+SRF
+	 PnRtrlrZVc0MWraFtQO1kCOaC5h6XEtazrxVgjt3ogSEu0cve5g/0fY2OGbIws599CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=d4D8pFak;
-	arc=none smtp.remote-ip=209.85.219.42
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=f+Rj2LlI;
+	arc=none smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7584606A327
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:12:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7584606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80ED360A262A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:12:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80ED360A262A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=d4D8pFak
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-9178d514951so19855286d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:12:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=f+Rj2LlI
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53664b4860bso14070331cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:12:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792429931; x=1793034731; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1792429937; x=1793034737; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=T2WxJgHgDzroGnytVGNcEvJQJx/gBKIgnv1e37nYxNU=;
-        b=d4D8pFak6EEpud9Iqn7WQu1I+pcezu7vCK4cTU5VeXAIWnwFj4A6xeJ3OBE1CjT3wX
-         FFLZ+2IlYaAqj35LkYm/K7veUVslrU+jPkeCfs4ZlKzm/IIKp/BUsSjfuBt9mFG+Lq8J
-         3b0ZAd+QNK2peD3uYe3R9z+TCOupELjG2GeM/xA+xaLzTHaEv2w4MkKgNZD+dRBbeKaj
-         fYquoMvAugP6yUc3phgbX7zFt2O+igQfRyCjN7ET7tifVwfxGT3vmSn5rOmkgcVtFx8G
-         kh+jx5BHN51749Tm/S/XeBN2yuh/cQ7Sb8Wlt11rh26gyOc0NEej1cLBMRavNaNF/Dps
-         JeUg==
+        bh=TjpbZTGan3B30P6ZyrSjX5pZ5tCnJRUq6rHSDYdsfAw=;
+        b=f+Rj2LlIJ7Ib2ZLPAgwPRaMlrkj+ouHwCdgYOI3Dj2nGWcKEnBzJ+N6wckysF3gZl+
+         b9i9opRR5koPDjQmDtBbArg+GiKUO3LbAMOt6WhQ5niQDXBtQkBCDtiRNNXd4lYk1y1F
+         FLY6uCqgS6dgV94vXT3OdrugFx2umS+GCbbykTj9Ufdpi4sRhLk8ijKWSTrw6vuq4pKv
+         WGj0e5o6KNfegrPFxc7RWZBQ3wg+urCWspTTSmMT1rhCMfL9S9JxVPxYRnwtdfpg3EHX
+         xV9zqo5caL49ntO5iYH8C/3PxuylUpKoTCFvHzGyeriycCoN+hnPa0Oow3lwEmbnVRrk
+         kF1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792429931; x=1793034731;
+        d=1e100.net; s=20260707; t=1792429937; x=1793034737;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T2WxJgHgDzroGnytVGNcEvJQJx/gBKIgnv1e37nYxNU=;
-        b=TEcCI/P8YzFWmUgmwMp5gB4ncTckOLUPpyYaDJlg4l1OoCFF3LaG8dhAiKQtr3XEQI
-         JGDJC6LWvZaTz9wl4EkFPIvWe0L5AdgX0/Q48Fwefd7n/fCtuYdkUYZI2R2gIKyHQQ71
-         GDB5GPHLh62Sl8BZxt4GRMEKeZvZpWLC+4JE5+D2AWc2lGXNcMdZZWOFfUKhRazyvSa9
-         tyTPM9G5Sut2gZ7GGw4V+KDIelvXCefqLPZtUEUq1R7kf2EOS+HqBH9Gzs9IexxFjk6K
-         q2G/O/jd0d+JqZNrqqr7SQuZAw/ZYJv3N4iOTzN0WEEIdf3YHMY/cnLfC87F2/ff7Zbo
-         Yy+A==
-X-Forwarded-Encrypted: i=1; AKwUvBwkGE+VIk6V550upnWo3pgoX5PPAfQjMpLRAXNkzPP4L/alpZjDKBY5Xhmo3rlgpUEwTKaUleYLDkJxQJ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1OuabuzGWfbsNSdVcyMQ9je4362IH7HXngtwZjZDXUcb1oLYD
-	YrTiKpERpyVZ89Pd77wHV8pfukL2Gb0OyecjvpgYHsEZFv/9nNsqykY+1hjnYVNInpw=
-X-Gm-Gg: AYBFou3Ixf3osf9O2FJ5u2aLfjLlLR1WxNKyRKC1Ac8RJladVosTl6cC8xPMPBSAB3V
-	FAKnqaVZSd3LLQYcPn0zCPYjkgfJQrnL1y4UOyv0pcEXutVA1eOrZcWUERshmkvuZy3pGVoJFKY
-	iTsoUW9Jq0N/nI3T86/bL4PESqbCSu2jTexMalmP9wJuHtvBxMWA6+mdPfNI6ektscUkv+IEp9l
-	E2HNs3jRZhjM6pG7LApOcSTAIFle/9OTt7AmoEJ36tit1hZ2eXhQgCyvIdGTcqUUVrILp6PRqve
-	EJlO4rHOC+Kfl96XQoJ3rgdYc+xzBjvVBi4q7eEf0UmDaSFZjnaFnnxN4Im2TSLzFIUKRv/yf6u
-	0caqf40vuRGQXunTVzC/Zuj0a8n7JC9y84ivybqjadQ+LfdkrU8a1Nsy3qdRl62bSHzMaGmMu+C
-	yQJAmt5KhvmAsF2rnXYcN2skRf3uE/iZE9LWDRdZ9JKNhWHA/Otvv8B6C53AFFtWi1cIyTD41Bs
-	Fml6pBrIGRQqqhh/sOgB/gVuXP1+IknQKURYZiTTq4xIslPCI3PKYwbov7j
-X-Received: by 2002:a05:6214:53c7:b0:91b:53e5:9263 with SMTP id 6a1803df08f44-91bdf0f40c2mr157703266d6.21.1792429930552;
-        Mon, 19 Oct 2026 10:12:10 -0700 (PDT)
+        bh=TjpbZTGan3B30P6ZyrSjX5pZ5tCnJRUq6rHSDYdsfAw=;
+        b=J3d7sxzEfdXFHYTMW1CDjAfqZhXfHaCtb4bNVt6v/1+qMdVQ5Tzck9yf9Sc3rdGCls
+         II2qvxi/u0PQTIpCuYlohXOxey4zoNgoIQVFVFUqK+J8jMxR4gW9hN4EeVXJB1tXquhg
+         Wfb3gZtEknEL7q1WfDgTMJDnXZLfiN7AqgtZACBbVq+61bFwovlrvGL+3sQNOjLT7OKC
+         CaufLyGFokYJjsDUdxkyl8k1+o2LV17+wuasvbd0Fe8vDlYqTITTWD8j3BD/4qNPrBxa
+         1aMHeVDrOEXfjEVeqe81etNMgWiumMJiO7RnfzJlHUfCJWXLWQNIP/5z07vMUW+3nIa9
+         k2kg==
+X-Forwarded-Encrypted: i=1; AKwUvBx1n1qS4kH5/vbdFENkYmuWIe68klSzkMGfKmFf3vo/LOki0HJR6tEBgELUeL2eHMsWV+qtg0NRTps28Xk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqJlZvCOpUfwfeaeq2LR4UY0Kkc1dxENvbulcL3lpn55XztzDx
+	byG0IxgihbXA8Z73l15PRSBZAeUnQFNhfP282N57Ks3xzE+pV86KIdKgn+VjDLsz8oM=
+X-Gm-Gg: AYBFou0gM9MiazG2ZHQ4rF6On3HQgq3qNSRSZakbNJgzzh8oaXm06qh0q/gG6seFEPw
+	UwHtbb/Xvt2qSEXdvk0gpGoCB8oy53IgrQB7DqDnSPNOxbAeu4f19Wj5/ACf3ykF1B7Gx20/CgQ
+	kiPD6SZGq3vSqrq9opIf0TMvy7Bn8Wndp3jb0lhPPBklAeSYe44wucBgapP3KhsABFQ284H+dd1
+	YjSRQ0HxtioNl3fDb9vyj7XHa1RaUNxW5z2rv6a28MrSK1wyRlqLxpnreosshJJ9FdGqreQbNF6
+	B7MUy1HvA8lRhTrHGW6n0guv1FVec/TO86gvuO3aguODBXFIeq9aeGvCYSy1Ky4m2We74TuLNmv
+	O23D2kOnpjYO+YOYYinsi6iyTVmzR6JACmaBd1mSLjzJdT41/MFrYk5VyYn0BMuJF/AdsOFy9rD
+	eOJDzzNN8CjMq92nqZz7BDwFC5bsmL/x5A0Rjiip7R/agat1cC9nU6J3OFmWpMW7q2xZqNEXzg8
+	cDklh14pTSIaBo3ndTr1/QB/7AFS3KpaeS5rkPpJZnO2sy68HDE6/yB8OWb
+X-Received: by 2002:a05:622a:514e:b0:530:42d4:4c9a with SMTP id d75a77b69052e-5364605937emr117819301cf.44.1792429936970;
+        Mon, 19 Oct 2026 10:12:16 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040d4cedsm723116d6.34.2026.10.19.10.12.09
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040d4cedsm723116d6.34.2026.10.19.10.12.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:12:10 -0700 (PDT)
+        Mon, 19 Oct 2026 10:12:16 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-kselftest@vger.kernel.org
 Cc: linux-mm@kvack.org,
@@ -90,10 +90,11 @@ Cc: linux-mm@kvack.org,
 	rppt@kernel.org,
 	surenb@google.com,
 	mhocko@suse.com,
-	shuah@kernel.org
-Subject: [PATCH v3 1/7] selftests/mm: add MADV_COLD and MADV_PAGEOUT contract tests
-Date: Mon, 19 Oct 2026 13:12:00 -0400
-Message-ID: <20261019171206.3331374-2-gourry@gourry.net>
+	shuah@kernel.org,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: [PATCH v3 5/7] selftests/mm: check MADV_COLD and MADV_PAGEOUT on partly advised THPs
+Date: Mon, 19 Oct 2026 13:12:04 -0400
+Message-ID: <20261019171206.3331374-6-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019171206.3331374-1-gourry@gourry.net>
 References: <20261019171206.3331374-1-gourry@gourry.net>
@@ -108,302 +109,314 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MADV_COLD and MADV_PAGEOUT share a page-table walker covering ordinary
-PTEs, PTE-mapped large folios and huge PMDs. Existing selftests use
-MADV_PAGEOUT mostly to swap memory out for other tests, and check only
-special mappings (PFNMAP, guard regions, droppable memory), not the
-walker's range, folio and permission handling.
+Check that paging out a whole PMD-mapped THP swaps it without corrupting
+it, and that pages outside the range stay mapped after paging out a base
+page or half of a PMD- or PTE-mapped THP.
 
-Add a kselftest harness test for both hints, starting with the most basic
-behavior userspace relies on: neither hint populates a PTE hole or faults
-a swapped page back in, and neither may be applied to a locked VMA.
+Also check that MADV_COLD on half of either THP preserves its contents.
 
-Before running the tests, pin the process to the CPU it starts on,
-so that the LRU batch MADV_COLD and MADV_PAGEOUT drain holds the
-folios a test faulted in.
+Tests skip when PMD-sized THPs cannot be allocated, and the MADV_PAGEOUT
+tests also when MADV_PAGEOUT cannot swap. With /proc/kpageflags the
+PTE-mapped cases also confirm that PTE-mapping left the folio large.
 
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
 ---
-v3: Dropped Sarthak's Reviewed-by from v2 1/8 and 2/8, which are folded
-here, since this patch now adds main() with the CPU pinning and the
-one-time reclaim check, and the swapped-page tests fail rather than skip.
+v3: Kept Sarthak's Reviewed-by; the MADV_PAGEOUT tests now skip only if
+MADV_PAGEOUT cannot swap, and fail if reclaim then does not happen, as he
+suggested for v2 7/8.
 ---
- tools/testing/selftests/mm/Makefile           |   2 +
- .../selftests/mm/ksft_madv_cold_pageout.sh    |   4 +
- .../testing/selftests/mm/madv_cold_pageout.c  | 209 ++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh     |   5 +
- 4 files changed, 220 insertions(+)
- create mode 100755 tools/testing/selftests/mm/ksft_madv_cold_pageout.sh
- create mode 100644 tools/testing/selftests/mm/madv_cold_pageout.c
+ .../testing/selftests/mm/madv_cold_pageout.c  | 238 ++++++++++++++++++
+ 1 file changed, 238 insertions(+)
 
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index beacc0f87304..c7fc20c153b8 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -68,6 +68,7 @@ TEST_GEN_FILES += hugetlb-read-hwpoison
- TEST_GEN_FILES += hugetlb-shm
- TEST_GEN_FILES += hugetlb-soft-offline
- TEST_GEN_FILES += khugepaged
-+TEST_GEN_FILES += madv_cold_pageout
- TEST_GEN_FILES += madv_populate
- TEST_GEN_FILES += map_fixed_noreplace
- TEST_GEN_FILES += map_populate
-@@ -154,6 +155,7 @@ TEST_PROGS += ksft_kmemleak_confirm.sh
- TEST_PROGS += ksft_kmemleak_dedup.sh
- TEST_PROGS += ksft_ksm.sh
- TEST_PROGS += ksft_ksm_numa.sh
-+TEST_PROGS += ksft_madv_cold_pageout.sh
- TEST_PROGS += ksft_madv_guard.sh
- TEST_PROGS += ksft_madv_populate.sh
- TEST_PROGS += ksft_memfd_secret.sh
-diff --git a/tools/testing/selftests/mm/ksft_madv_cold_pageout.sh b/tools/testing/selftests/mm/ksft_madv_cold_pageout.sh
-new file mode 100755
-index 000000000000..502d3fb387aa
---- /dev/null
-+++ b/tools/testing/selftests/mm/ksft_madv_cold_pageout.sh
-@@ -0,0 +1,4 @@
-+#!/bin/sh -e
-+# SPDX-License-Identifier: GPL-2.0
-+
-+./run_vmtests.sh -t madv_cold_pageout
 diff --git a/tools/testing/selftests/mm/madv_cold_pageout.c b/tools/testing/selftests/mm/madv_cold_pageout.c
-new file mode 100644
-index 000000000000..5d451d409937
---- /dev/null
+index 7d92f0ecbd27..b5eec490fb68 100644
+--- a/tools/testing/selftests/mm/madv_cold_pageout.c
 +++ b/tools/testing/selftests/mm/madv_cold_pageout.c
-@@ -0,0 +1,209 @@
-+// SPDX-License-Identifier: GPL-2.0
+@@ -8,6 +8,7 @@
+ #include <sched.h>
+ #include <stdbool.h>
+ #include <stdint.h>
++#include <string.h>
+ #include <sys/ipc.h>
+ #include <sys/mman.h>
+ #include <sys/shm.h>
+@@ -17,10 +18,15 @@
+ #include "kselftest_harness.h"
+ #include "vm_util.h"
+ 
++#ifndef MADV_COLLAPSE
++#define MADV_COLLAPSE 25
++#endif
++
+ /* Reclaim can fail transiently, so retry for up to a second. */
+ #define PAGEOUT_RETRIES 100
+ 
+ static size_t page_size;
++static size_t pmd_size;
+ /* Whether MADV_PAGEOUT can swap out anonymous memory, see main(). */
+ static bool can_swap;
+ 
+@@ -92,6 +98,111 @@ FIXTURE_TEARDOWN(madv_cold_pageout)
+ 	close(self->pagemap_fd);
+ }
+ 
 +/*
-+ * MADV_COLD and MADV_PAGEOUT tests.
++ * Reserve a PMD-aligned range, so that memory mapped over it with MAP_FIXED
++ * can be backed by PMD-mapped THPs.
 + */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <sched.h>
-+#include <stdbool.h>
-+#include <sys/mman.h>
-+#include <unistd.h>
++static char *reserve_aligned(struct __test_metadata *_metadata, size_t size)
++{
++	char *reservation, *aligned;
 +
-+#include "kselftest_harness.h"
-+#include "vm_util.h"
++	reservation = mmap(NULL, size + pmd_size, PROT_NONE,
++			   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	ASSERT_NE(reservation, MAP_FAILED);
 +
-+/* Reclaim can fail transiently, so retry for up to a second. */
-+#define PAGEOUT_RETRIES 100
++	aligned = (char *)(((uintptr_t)reservation + pmd_size - 1) &
++			   ~(pmd_size - 1));
++	if (aligned != reservation)
++		ASSERT_EQ(munmap(reservation, aligned - reservation), 0);
++	ASSERT_EQ(munmap(aligned + size, reservation + pmd_size - aligned), 0);
 +
-+static size_t page_size;
-+/* Whether MADV_PAGEOUT can swap out anonymous memory, see main(). */
-+static bool can_swap;
++	return aligned;
++}
++
++/* Map PMD-aligned anonymous memory filled with 1s. */
++static char *map_aligned_pages(struct __test_metadata *_metadata, size_t size)
++{
++	char *mapping = reserve_aligned(_metadata, size);
++
++	ASSERT_EQ(mmap(mapping, size, PROT_READ | PROT_WRITE,
++		       MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0),
++		  mapping);
++	memset(mapping, 1, size);
++
++	return mapping;
++}
 +
 +/*
-+ * Keep this task on one CPU, so that draining that CPU's LRU batches drains
-+ * the folios this task faulted in.
++ * Collapse a PMD-aligned range into PMD-mapped THPs, and confirm the result
++ * with check_huge(). MADV_COLLAPSE may fail transiently with EAGAIN.
 + */
-+static void pin_to_current_cpu(void)
++static bool collapse(char *mapping, size_t size,
++		     bool (*check_huge)(void *, size_t, int, uint64_t))
 +{
-+	int cpu = sched_getcpu();
-+	cpu_set_t *mask;
-+	size_t size;
-+
-+	if (cpu < 0)
-+		ksft_exit_fail_perror("sched_getcpu");
-+	/* CPU numbers can exceed CPU_SETSIZE, so size the mask to fit. */
-+	mask = CPU_ALLOC(cpu + 1);
-+	if (!mask)
-+		ksft_exit_fail_perror("CPU_ALLOC");
-+	size = CPU_ALLOC_SIZE(cpu + 1);
-+	CPU_ZERO_S(size, mask);
-+	CPU_SET_S(cpu, size, mask);
-+	if (sched_setaffinity(0, size, mask))
-+		ksft_exit_fail_perror("sched_setaffinity");
-+	CPU_FREE(mask);
-+}
-+
-+FIXTURE(madv_cold_pageout)
-+{
-+	int pagemap_fd;
-+};
-+
-+FIXTURE_SETUP(madv_cold_pageout)
-+{
-+	self->pagemap_fd = open("/proc/self/pagemap", O_RDONLY);
-+	ASSERT_GE(self->pagemap_fd, 0);
-+}
-+
-+FIXTURE_TEARDOWN(madv_cold_pageout)
-+{
-+	close(self->pagemap_fd);
-+}
-+
-+/* Page out the range until its first page is swapped, or madvise() fails. */
-+static bool pageout_until_swapped(char *mapping, size_t size, int pagemap_fd)
-+{
++	int nr_hpages = size / pmd_size;
 +	int retry;
 +
-+	for (retry = 0; retry < PAGEOUT_RETRIES; retry++) {
-+		if (madvise(mapping, size, MADV_PAGEOUT))
-+			return false;
-+		if (pagemap_is_swapped(pagemap_fd, mapping))
++	for (retry = 0; retry < 10; retry++) {
++		if (madvise(mapping, size, MADV_COLLAPSE)) {
++			if (errno != EAGAIN)
++				return false;
++		} else if (check_huge(mapping, size, nr_hpages, pmd_size)) {
 +			return true;
++		}
 +		usleep(10000);
 +	}
 +
 +	return false;
 +}
 +
++/* Map a PMD-mapped anonymous THP filled with 1s, or return NULL. */
++static char *map_thp(struct __test_metadata *_metadata)
++{
++	char *mapping;
++
++	if (!pmd_size)
++		return NULL;
++	mapping = map_aligned_pages(_metadata, pmd_size);
++	if (collapse(mapping, pmd_size, check_huge_anon))
++		return mapping;
++	ASSERT_EQ(munmap(mapping, pmd_size), 0);
++	return NULL;
++}
++
 +/*
-+ * Both hints are best effort, so these tests check what userspace can rely
-+ * on: which mappings are accepted, which pages must never be reclaimed, and
-+ * that neither hint changes memory contents or populates the range. main()
-+ * checks once whether reclaim works at all. A test that needs a page to be
-+ * reclaimed skips if it does not, and fails if the page is then not reclaimed.
++ * Changing the protection of one page PTE-maps a THP. When /proc/kpageflags
++ * is readable, also check that the folio is still large.
 + */
-+
-+/* Neither hint may populate a hole between two populated pages. */
-+static void check_skips_pte_hole(struct __test_metadata *_metadata,
-+				 int pagemap_fd, int advice)
++static void pte_map_thp(struct __test_metadata *_metadata, char *mapping,
++			int pagemap_fd, int kpageflags_fd)
 +{
-+	char *mapping;
++	unsigned long pfn;
++	uint64_t flags;
 +
-+	mapping = mmap(NULL, 3 * page_size, PROT_READ | PROT_WRITE,
-+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(mapping, MAP_FAILED);
-+	/*
-+	 * Keep a large folio from covering the hole. Without THP there are no
-+	 * large anonymous folios, and this fails harmlessly.
-+	 */
-+	madvise(mapping, 3 * page_size, MADV_NOHUGEPAGE);
-+	mapping[0] = 1;
-+	mapping[2 * page_size] = 1;
-+	ASSERT_FALSE(pagemap_is_populated(pagemap_fd, mapping + page_size));
++	ASSERT_EQ(mprotect(mapping + page_size, page_size, PROT_READ), 0);
++	ASSERT_EQ(mprotect(mapping + page_size, page_size,
++			   PROT_READ | PROT_WRITE), 0);
++	ASSERT_TRUE(check_huge_anon(mapping, pmd_size, 0, pmd_size));
++	if (kpageflags_fd < 0)
++		return;
 +
-+	ASSERT_EQ(madvise(mapping, 3 * page_size, advice), 0);
-+	ASSERT_FALSE(pagemap_is_populated(pagemap_fd, mapping + page_size));
-+	ASSERT_EQ(mapping[0], 1);
-+	ASSERT_EQ(mapping[2 * page_size], 1);
-+
-+	ASSERT_EQ(munmap(mapping, 3 * page_size), 0);
++	pfn = pagemap_get_pfn(pagemap_fd, mapping);
++	ASSERT_NE(pfn, -1UL);
++	ASSERT_EQ(pageflags_get(pfn, kpageflags_fd, &flags), 0);
++	ASSERT_TRUE(flags & KPF_COMPOUND_HEAD);
 +}
 +
-+TEST_F(madv_cold_pageout, cold_skips_pte_hole)
++static void assert_filled(struct __test_metadata *_metadata,
++			  const char *mapping, size_t size)
 +{
-+	check_skips_pte_hole(_metadata, self->pagemap_fd, MADV_COLD);
++	size_t offset;
++
++	for (offset = 0; offset < size; offset += page_size) {
++		ASSERT_EQ(mapping[offset], 1)
++			TH_LOG("memory changed at offset %zu", offset);
++	}
 +}
 +
-+TEST_F(madv_cold_pageout, pageout_skips_pte_hole)
+ /* Page out the range until its first page is swapped, or madvise() fails. */
+ static bool pageout_until_swapped(char *mapping, size_t size, int pagemap_fd)
+ {
+@@ -124,6 +235,11 @@ static bool pageout_until_unmapped(char *mapping, size_t size, int pagemap_fd)
+ 	return false;
+ }
+ 
++static bool page_is_present(int pagemap_fd, char *addr)
 +{
-+	check_skips_pte_hole(_metadata, self->pagemap_fd, MADV_PAGEOUT);
++	return pagemap_get_entry(pagemap_fd, addr) & PM_PRESENT;
 +}
 +
-+/* Neither hint may be applied to locked memory. */
-+TEST_F(madv_cold_pageout, locked_vma_is_rejected)
-+{
-+	char *mapping;
-+
-+	mapping = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
-+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(mapping, MAP_FAILED);
-+	mapping[0] = 1;
-+	if (mlock(mapping, page_size))
-+		SKIP(return, "could not lock a page");
-+
-+	ASSERT_EQ(madvise(mapping, page_size, MADV_COLD), -1);
-+	ASSERT_EQ(errno, EINVAL);
-+	ASSERT_EQ(madvise(mapping, page_size, MADV_PAGEOUT), -1);
-+	ASSERT_EQ(errno, EINVAL);
-+	ASSERT_EQ(mapping[0], 1);
-+
-+	ASSERT_EQ(munmap(mapping, page_size), 0);
-+}
-+
-+/* Neither hint may fault a swapped page back in. */
-+static void check_skips_swapped_pte(struct __test_metadata *_metadata,
-+				    int pagemap_fd, int advice)
+ /* Create an unlinked, zero-filled temporary file, or return -1. */
+ static int create_temp_file(size_t size)
+ {
+@@ -452,6 +568,127 @@ TEST_F(madv_cold_pageout, pageout_skips_unevictable_page)
+ 	ASSERT_EQ(shmdt(mapping), 0);
+ }
+ 
++/* MADV_PAGEOUT of a whole THP must swap it without corrupting it. */
++TEST_F(madv_cold_pageout, pageout_swaps_thp)
 +{
 +	char *mapping;
 +
 +	if (!can_swap)
 +		SKIP(return, "MADV_PAGEOUT cannot swap");
-+	mapping = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
++	mapping = map_thp(_metadata);
++	if (!mapping)
++		SKIP(return, "could not allocate a PMD-sized THP");
++
++	ASSERT_TRUE(pageout_until_swapped(mapping, pmd_size, self->pagemap_fd));
++	assert_filled(_metadata, mapping, pmd_size);
++
++	ASSERT_EQ(munmap(mapping, pmd_size), 0);
++}
++
++/*
++ * MADV_PAGEOUT must not reclaim pages outside the advised range. kswapd or
++ * page migration could also unmap them, but neither should happen when the
++ * selftests run by themselves.
++ */
++TEST_F(madv_cold_pageout, pageout_stays_within_range)
++{
++	char *mapping;
++
++	if (!can_swap)
++		SKIP(return, "MADV_PAGEOUT cannot swap");
++	mapping = mmap(NULL, 3 * page_size, PROT_READ | PROT_WRITE,
 +		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 +	ASSERT_NE(mapping, MAP_FAILED);
-+	mapping[0] = 1;
-+	ASSERT_TRUE(pageout_until_swapped(mapping, page_size, pagemap_fd));
++	memset(mapping, 1, 3 * page_size);
++	ASSERT_TRUE(pageout_until_swapped(mapping + page_size, page_size,
++					  self->pagemap_fd));
 +
-+	ASSERT_EQ(madvise(mapping, page_size, advice), 0);
-+	ASSERT_TRUE(pagemap_is_swapped(pagemap_fd, mapping));
-+	ASSERT_EQ(mapping[0], 1);
++	ASSERT_TRUE(page_is_present(self->pagemap_fd, mapping));
++	ASSERT_TRUE(page_is_present(self->pagemap_fd, mapping + 2 * page_size));
++	assert_filled(_metadata, mapping, 3 * page_size);
 +
-+	ASSERT_EQ(munmap(mapping, page_size), 0);
++	ASSERT_EQ(munmap(mapping, 3 * page_size), 0);
 +}
 +
-+TEST_F(madv_cold_pageout, cold_skips_swapped_pte)
++/*
++ * MADV_PAGEOUT of half of a THP must split it, and reclaim only the advised
++ * half. See pageout_stays_within_range about other unmapping.
++ */
++static void pageout_half_thp(struct __test_metadata *_metadata, char *mapping,
++			     int pagemap_fd)
 +{
-+	check_skips_swapped_pte(_metadata, self->pagemap_fd, MADV_COLD);
++	size_t offset;
++
++	ASSERT_TRUE(pageout_until_swapped(mapping, pmd_size / 2, pagemap_fd));
++
++	for (offset = pmd_size / 2; offset < pmd_size; offset += page_size) {
++		ASSERT_TRUE(page_is_present(pagemap_fd, mapping + offset))
++			TH_LOG("page at offset %zu was unmapped", offset);
++	}
++	assert_filled(_metadata, mapping, pmd_size);
 +}
 +
-+TEST_F(madv_cold_pageout, pageout_skips_swapped_pte)
++TEST_F(madv_cold_pageout, pageout_stays_within_pmd_mapped_thp)
 +{
-+	check_skips_swapped_pte(_metadata, self->pagemap_fd, MADV_PAGEOUT);
-+}
++	char *mapping;
 +
-+/* Swap out an anonymous page, to see whether swap works at all. */
-+static bool probe_swap(int pagemap_fd)
-+{
-+	bool swapped;
-+	char *page;
-+
-+	page = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
-+		    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (page == MAP_FAILED)
-+		ksft_exit_fail_perror("mmap");
-+	page[0] = 1;
-+	swapped = pageout_until_swapped(page, page_size, pagemap_fd);
-+	munmap(page, page_size);
-+
-+	return swapped;
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	int pagemap_fd;
-+
-+	page_size = getpagesize();
-+	/* The harness forks each test, which inherits this. */
-+	pin_to_current_cpu();
-+
-+	pagemap_fd = open("/proc/self/pagemap", O_RDONLY);
-+	if (pagemap_fd < 0)
-+		ksft_exit_fail_perror("open /proc/self/pagemap");
-+	can_swap = probe_swap(pagemap_fd);
 +	if (!can_swap)
-+		ksft_print_msg("MADV_PAGEOUT cannot swap\n");
-+	close(pagemap_fd);
++		SKIP(return, "MADV_PAGEOUT cannot swap");
++	mapping = map_thp(_metadata);
++	if (!mapping)
++		SKIP(return, "could not allocate a PMD-sized THP");
 +
-+	return test_harness_run(argc, argv);
++	pageout_half_thp(_metadata, mapping, self->pagemap_fd);
++
++	ASSERT_EQ(munmap(mapping, pmd_size), 0);
 +}
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index a1b45a3dedae..782b3ae4b2d2 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -53,6 +53,8 @@ separated by spaces:
- 	test madvise(2) MADV_GUARD_INSTALL and MADV_GUARD_REMOVE options
- - madv_populate
- 	test memadvise(2) MADV_POPULATE_{READ,WRITE} options
-+- madv_cold_pageout
-+	test madvise(2) MADV_COLD and MADV_PAGEOUT
- - memfd_secret
- 	test memfd_secret(2)
- - process_mrelease
-@@ -330,6 +332,9 @@ CATEGORY="madv_guard" run_test ./guard-regions
- # MADV_POPULATE_READ and MADV_POPULATE_WRITE tests
- CATEGORY="madv_populate" run_test ./madv_populate
- 
-+# MADV_COLD and MADV_PAGEOUT tests
-+CATEGORY="madv_cold_pageout" run_test ./madv_cold_pageout
 +
- # PROCESS_MADV test
- CATEGORY="process_madv" run_test ./process_madv
++TEST_F(madv_cold_pageout, pageout_stays_within_pte_mapped_thp)
++{
++	char *mapping;
++
++	if (!can_swap)
++		SKIP(return, "MADV_PAGEOUT cannot swap");
++	mapping = map_thp(_metadata);
++	if (!mapping)
++		SKIP(return, "could not allocate a PMD-sized THP");
++	pte_map_thp(_metadata, mapping, self->pagemap_fd, self->kpageflags_fd);
++
++	pageout_half_thp(_metadata, mapping, self->pagemap_fd);
++
++	ASSERT_EQ(munmap(mapping, pmd_size), 0);
++}
++
++/* MADV_COLD on part of a THP may split it, but must not change it. */
++TEST_F(madv_cold_pageout, cold_preserves_half_of_pmd_mapped_thp)
++{
++	char *mapping;
++
++	mapping = map_thp(_metadata);
++	if (!mapping)
++		SKIP(return, "could not allocate a PMD-sized THP");
++
++	ASSERT_EQ(madvise(mapping, pmd_size / 2, MADV_COLD), 0);
++	assert_filled(_metadata, mapping, pmd_size);
++
++	ASSERT_EQ(munmap(mapping, pmd_size), 0);
++}
++
++TEST_F(madv_cold_pageout, cold_preserves_half_of_pte_mapped_thp)
++{
++	char *mapping;
++
++	mapping = map_thp(_metadata);
++	if (!mapping)
++		SKIP(return, "could not allocate a PMD-sized THP");
++	pte_map_thp(_metadata, mapping, self->pagemap_fd, self->kpageflags_fd);
++
++	ASSERT_EQ(madvise(mapping, pmd_size / 2, MADV_COLD), 0);
++	assert_filled(_metadata, mapping, pmd_size);
++
++	ASSERT_EQ(munmap(mapping, pmd_size), 0);
++}
++
+ /* Swap out an anonymous page, to see whether swap works at all. */
+ static bool probe_swap(int pagemap_fd)
+ {
+@@ -474,6 +711,7 @@ int main(int argc, char **argv)
+ 	int pagemap_fd;
  
+ 	page_size = getpagesize();
++	pmd_size = read_pmd_pagesize();
+ 	/* The harness forks each test, which inherits this. */
+ 	pin_to_current_cpu();
+ 	/* Only root can reserve the page that hugetlb_vma_is_rejected maps. */
 -- 
 2.56.0
 
