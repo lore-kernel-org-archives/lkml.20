@@ -1,149 +1,171 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449DA49B1ED
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBA64A3870
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400718; cv=none; b=KX/+F0nYTAV+16crbCpMcS3yYw2lu0n9tz808YBzPWi/52A/OtDPTgAVx4YIFitViYdsSsGnD8DtCkE6ZbDT0rASMpE/04gO2hm0NoN5BkiUt6lknKKjjSF26bOZzXPSbG9ADL42PfoqLvTbrQC7Y3yAzgJlyLKOWb4+uTqdX5Q=
+	t=1792400728; cv=none; b=OeNg70MJGvgsnavg1CWkI2dXCASTYTwqvrn/Xn+dGxFeMCw6J3TkncdWLgc/4U1p1Md2d6mFnqZf3Gh6dVzTidRNgm9y3N/VfP5xTZFkFdrHdML/xRXmi78z1ioxrH7ny0LMtdrfQTA7h1ApIPiS/oKd4Y/TEJwf663oY3DN9JM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400718; c=relaxed/simple;
-	bh=gmnf5efQ2mINrLxGQXSf6UEgcGI1XJTCl1/2d7HLilM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QWL+59vm5rX8Bf/A+Igsq/SK5UvDflbg7oumVPxicL6SntMTr3qPGM/Q5ANCDzcDJ4nMBhiuuYDhWRNvqA7ioM0cMhhEF6CHHc33Na7Hq8hYuWYUMqviavx7TIznJCD2+EWXnj/sFWWOk3RsYjQL6R2wRHVbPiAxknIS6sqYePg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ftwC1tnE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=nKuifPyC; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792400728; c=relaxed/simple;
+	bh=jzuuBPdye6GTrcgIGVh1N89w7hxFWqGWluT/hN3k5F0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=nkLUv1kXGmDmMS142fPKDiCQOJj11QXy/XqoqncFzjjYUGi5oqLRlwF6UGaLLX/D1rFFpnxFr90u2kD2GqhAwtuMqQGseYpVOaNsnX0eeu/1UMG/NPDr9YVYtaNiBF5X1bnaQlw502+h3dfTLQRtZ+EbCU975H1ZdkGVFLWlQgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NoCYVe1O; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ftwC1tnE";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="nKuifPyC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792400716;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=9io6NcVa485axIU0tMIo8oUR5zvQmfTZbiDmw/REe/0=;
-	b=ftwC1tnEmaTflvLhcBBuQ/dB83a9H4exv9xxtyi/dCWCLHjpk0IUL46CsqXQpsJriFLnZr
-	AEvxr60UYqEDp47Hy5cd9kMkOAPN/CLiuMWUEERboM0HM8JTMXMTyw3PhSbfIg05JhV6nt
-	6kS4YYSPL2QROzAwm/hLkKf1gWgdkyQ=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-321-LY1ZnB2NNhetQPfzLjC-Iw-1; Mon, 19 Oct 2026 09:05:15 +0000
-X-MC-Unique: LY1ZnB2NNhetQPfzLjC-Iw-1
-X-Mimecast-MFC-AGG-ID: LY1ZnB2NNhetQPfzLjC-Iw_1792400714
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e00f3929bso1416692f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:05:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NoCYVe1O"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e8b20a899fso8050505ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:05:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792400714; x=1793005514; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9io6NcVa485axIU0tMIo8oUR5zvQmfTZbiDmw/REe/0=;
-        b=nKuifPyCwRR760ffFYIZmOet8G7WIOqxHEt+kSQgvTbPxTIO3ATUof7g94lFOY3Yis
-         wmmGdWtqEyASdacHCP96OKcDoZqcs7M7EJiPNRFSvuhzD3Rvu3EKl4Pkx47UMb0CwY55
-         rP55r/kbAz5djlujD2igUxINJ5h4bSXzYTa2JhGPD41wO7QH4IfucIeHeqWdwwasAeCS
-         3cvci2tSJne+lYMhqeRbjIDy4H0hW2Hq3hdr3V1U4DwlzJo43bz5FZu9zxRR8RGsYUZs
-         MjTMFTjPBPnR3BODMFkwMMOXuNSvXCjNDevsOcSu0N2OHPLvui7LYAI3OEVACXYSE8RK
-         6luA==
+        d=gmail.com; s=20251104; t=1792400726; x=1793005526; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kvj/M3ZtnK2Eicov9e8cmB6yLpQmkSXQCrllxl7LZ3Y=;
+        b=NoCYVe1Odx7Sl7zurBrtabgkBhzv+B52CvwGa6QDGGAFSKsLyPdX2QWRKs6osw49v+
+         rSCb7tDR5L/BoN9Y5ti5CJyJxrTFuy385jDA38wXBynKtnHystHtTNpV4UhnHBfM8Jlc
+         v5MazGLO+X6YAJ++/QM76B5GoBm9GJmLHNr1sP2GrdElXJHzNKhwg7f7ZwrdkXNwCWBh
+         2HRWTE0BW//gyNF/V/BAjlf4YysCXXfnL62INP2utQdWlS/e6yZLGGHOKbHVRfYmlXnc
+         nblBvGWKqoQQ470i01iFN4dTWGaT4J3eImDfxlwYFi4FO7D9sbGyYucIwdZYHHDrmCcf
+         0tFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792400714; x=1793005514;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9io6NcVa485axIU0tMIo8oUR5zvQmfTZbiDmw/REe/0=;
-        b=QD4QqUOZVtNzx6lIn6jsT6jazTVnUx7eIyUM2Bt9ZPERUPIMwcU89qTUJ1iqz/dMMo
-         BBbZIVHWvpj/5DYe8VxXB5UU0s6e0C0S7cO7c1wGGKcWwShSrLYT6csUy7bGd6+vLBdW
-         uQGepLfMqzedEqUEuWGtnl80dEhN8soFnvL4+m0KS5GWN3M/UCx75W1xof7YaGR+Ize0
-         125q0I56bNeuB3H+bQ2D6Qpm3VDZ3zjKROmUTRjC0tfZjmZ6x4oVi4QVKKnA0CzOf4Gl
-         VUmAftg41m7OhlH941lVYG61SuK/bR9A8kUOs4gWT7UdZCA2+TSyq3KNfqFGBYSIj2sP
-         LMFw==
-X-Forwarded-Encrypted: i=1; AKwUvByoR63pLlQf+tfdpa+/+TitXCF7Zxgq/5KoQKgsYQICHvK+HVtBpj5IWh+2eTKik/Be0ny2nEWIBOzQLdw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdRtgeEJb3JFCJWGYYnArZkNFkOjCsKLcYtlUi14I9GMR05cbm
-	ISUL2UTyGhV8GEC3NPnWYmYGncTL4uuvXH0t0gl7n1EeKCKcsRySB/5VUb0Xz321JoPDrmgwwOz
-	GWSKyzISCmDMRop28Hsro1GXBkp4Gi6I/UwaHKC3OjIcCfMuRdD6mr9ZZfvcMtO0CNg==
-X-Gm-Gg: AYBFou09iRbCgPLyK60dWVJP4MCrlnKi6VAOXwDdUpelWqORMcT2D0KqKSUce11pEax
-	nVWasxuz46njV8QYJCeFSR8qI/1rRf7NQV7neSNMoY9jU3qDx9TCkzdu4vIez1sYsmkHFfv6WHR
-	BI7ZuioqlRbqjlxXeCAIUUVtNSyDkHqbYItnX228zvG2LE+cngxOyP+1/ni9Nw7i0Az8jbedSfG
-	aTB27W71D9sJ5wy2bLA+7xWqqcC6YGaDHsgjz0dfx8cBD+wwAYXQKbus/t32tbqac8GmL78x4qL
-	8byhAMnAzrQ9MUGyT/zYGMe/xAfvGmLwzFKCYgPSpijOdfUHjeWYSuOqSzgYJ2rX/aUz+FnAAMk
-	t0A5EsNDnNfmKjEh5v6kAnMXkbA==
-X-Received: by 2002:adf:ec91:0:b0:48c:54ec:ea3 with SMTP id ffacd0b85a97d-48dfae65b2dmr19629107f8f.13.1792400713425;
-        Mon, 19 Oct 2026 02:05:13 -0700 (PDT)
-X-Received: by 2002:adf:ec91:0:b0:48c:54ec:ea3 with SMTP id ffacd0b85a97d-48dfae65b2dmr19629060f8f.13.1792400712928;
-        Mon, 19 Oct 2026 02:05:12 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.134.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f576asm23527360f8f.32.2026.10.19.02.05.11
+        d=1e100.net; s=20260707; t=1792400726; x=1793005526;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Kvj/M3ZtnK2Eicov9e8cmB6yLpQmkSXQCrllxl7LZ3Y=;
+        b=LTqw/40vbPX9XhXngVtrkPP2J153lzJQ0v7EuNrHandivwGVVBC9R0yDHhNBSm9Xgr
+         x7huOsVsHEu6C0zweg4nmmO+bWlB/zwY4+bA+b67BTp/3aLzmNBeryuX3E5lH+aopfVY
+         d1veTVfDnWFpscxF+BFdiY4Kh8ohMhRMR8Lo0FUz6e0DEcy3l3MIeSslQQZ6TCjchE+7
+         lR4LJrM3GM/IReuUuYdWyv/yS5zZR3bZIdpHINejivkzQDFzDFTf8bheuBGn/xQgp4Ew
+         UC3Rzr1m2hl5Q1GCsUc7s10eQkRA75k26F82lvbBprvknaaeBMG3fX9PrvgCKB+hEvvx
+         f6iQ==
+X-Forwarded-Encrypted: i=1; AKwUvByfb4V8lNuQPsDAu2Gah0RAeboeMzpnOXKU8FqRGIjx3UHIw5KwsjrUss1lkpIW74FPU/ZfPvmzfzh0W8I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLO9swm65MoPiBa2Y8qVeshY3Dob8CZduyuK8icMl1ASAWZiy4u
+	n3CnfsIeVdpT3/u1a5Nvg516ZdJ8LH9gu8Cj3MK4UWQfY1JQCL94zPJs
+X-Gm-Gg: AYBFou2m2fxPuEYWvV+JVt9HzY/XjyaYQZy3WvOomDNgaEaeB3j/2Vpx1GyskQIe8GB
+	r/6uMw4cgm28cfvz4OGTCz+A4p+MTuT5v1jl/spzqEpT8PNXw89n7IMhlAkdElgo4MpW1nGWBcP
+	VAzXY41C8k8s5ItmjhwDH5GI+bNNIAzBo9fPQO+0UvwH6TFGIQl9vBT7OSc5lnBr33vYeRQViiU
+	vOLpHheeeZHa+vGA81oBVd+LIr6demhG9zYvJH2lcN7MtpZkLSBU/9JhYqO8l9Scus7ISkURwdF
+	+niMM/1qX5er3L1l/CHXzrc1ZHh+gJ/Vneoepp3Y25JCBXsIjFsOdWdf/j1u8prJufZkp7eZdHN
+	yIL65vEre+tg0ODqhpJ+h8FV9H+epD2VzYkoL0uxKPDNC92yHrD0h9+tnYf/7qF8iMPuGMd5vSE
+	Hf6BT6p5G7C3wV9zXvvDOcx/gbkGnFFR79h/FExOkwnHnS5JAavxx0vn7V6zyqbjUfoQ==
+X-Received: by 2002:a17:903:244d:b0:2e8:34f9:735f with SMTP id d9443c01a7336-2e9a69eaa4dmr61772565ad.16.1792400726218;
+        Mon, 19 Oct 2026 02:05:26 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8ab443sm35993515ad.65.2026.10.19.02.05.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:05:12 -0700 (PDT)
-Message-ID: <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: John Ogness <john.ogness@linutronix.de>, Alexei Starovoitov
-	 <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Steven Rostedt
-	 <rostedt@goodmis.org>
-Cc: Nam Cao <namcao@linutronix.de>, Wen Yang <wen.yang@linux.dev>, Tobias
- Schaffner <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
-Date: Mon, 19 Oct 2026 11:05:10 +0200
-In-Reply-To: <87ik2zryzo.fsf@jogness.linutronix.de>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
-	 <20261001152042.124445-11-gmonaco@redhat.com>
-	 <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
-	 <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
-	 <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
-	 <878q3xtptq.fsf@jogness.linutronix.de>
-	 <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
-	 <87bj8s8ih9.fsf@jogness.linutronix.de>
-	 <DM78SVMBI2XW.2XHVC67VON48A@gmail.com>
-	 <87v770uuyr.fsf@jogness.linutronix.de>
-	 <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
-	 <87ik2zryzo.fsf@jogness.linutronix.de>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+        Mon, 19 Oct 2026 02:05:25 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: aloop: Keep shared timer callbacks alive through close
+Date: Mon, 19 Oct 2026 17:05:21 +0800
+Message-Id: <pm-pmb-275c4399f517e09d7188-v2-2f64c1328529ef7a8fec@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2026-10-18 at 14:16 +0206, John Ogness wrote:
-> My issue with the /dev/kmsg design is bogus timestamps. But let's just
-> drop my suggestion to allow eBPF programs to call printk(). Since the RV
-> move to eBPF will require new user workflows anyway, the users will need
-> to learn these new packages, tools, and output sources. The important
-> thing (for me) is RV violations can still be used effectively with
-> ftrace/perf, which they can (using globs in bpf_trace:bpf_trace_printk
-> filters).
+The shared sound-timer callback must finish using the selected PCM
+runtimes before a close can detach them. loopback_snd_timer_period_elapsed()
+saves the active substreams under cable->lock, then drops the lock before
+calling snd_pcm_period_elapsed() or snd_pcm_stop_xrun(). The sound-timer
+backend has no per-stream close drain, and free_cable() keeps the timer
+open when the paired endpoint remains attached.
 
-Alright, I'll focus on trace_printk for now. As I said, it's rather trivial=
- to
-add another reactor later.
+With both directions running on a shared sound timer, playback can be
+dropped and closed while a notification is pending. Capture keeps the
+timer alive, allowing this order:
 
-> @gmonaco: There should be clean glob-friendly RV bpf_trace_printk
-> strings so that filters can be easily and reliably set up.
+  Timer callback                       Playback owner
+  --------------                       --------------
+  select playback under cable->lock
+  unlock; delay notification
+                                       DROP; HW_FREE -> OPEN
+                                       close: snd_pcm_drop(); unlock
+                                       free_cable(); peer stays alive
+  snd_pcm_period_elapsed()
+    lock stream; cache runtime
+                                       snd_pcm_detach_substream()
+                                         free runtime and its fasync
+    read runtime->fasync
 
-If I leave the LTL header unmodified, you'd get something like:
+The stream lock taken by snd_pcm_drop() cannot protect a notification
+that starts after it returns, and detach does not take it. The callback
+can therefore read runtime->fasync after the runtime has been freed, and
+an escaped notification can also reach a replacement runtime if the same
+substream slot is reopened before the notification resumes.
 
-  rv: sleep: <comm>[<pid>] violation detected
+Take the existing cable->stop_count reference under cable->lock when
+selecting the targets and release it after the PCM callbacks finish,
+including the XRUN path. free_cable() already removes the closing
+endpoint under that lock and waits for stop_count before returning, so
+runtime detach and slot reuse cannot overtake the notification.
 
-It should be glob-friendly enough, but I'll try it out.
+Fixes: 26c53379f98d ("ALSA: aloop: Support selection of snd_timer instead of jiffies")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Assisted-by: LLM
 
-I wonder if string matching brings additional overhead (trace_printk itself
-does, if I recall correctly), but that's probably rather minor.
+---
 
-Gabriele
-
+diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index 0aaa64b189daef377f080a63665a9be9036e9d9c..39710389f6243ef1fb8018fa4990c22d382a21b0 100644
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -100,7 +100,7 @@ struct loopback_ops {
+ struct loopback_cable {
+ 	spinlock_t lock;
+ 	struct loopback_pcm *streams[2];
+-	/* in-flight peer stops running outside cable->lock */
++	/* in-flight PCM callbacks running outside cable->lock */
+ 	struct snd_refcount stop_count;
+ 	struct snd_pcm_hardware hw;
+ 	/* flags */
+@@ -873,6 +873,8 @@ static void loopback_snd_timer_period_elapsed(struct loopback_cable *cable,
+ 		valid_runtime = (running & (1 << SNDRV_PCM_STREAM_PLAYBACK)) ?
+ 			dpcm_play->substream->runtime :
+ 			dpcm_capt->substream->runtime;
++		/* Keep runtimes alive through the PCM callbacks. */
++		snd_refcount_get(&cable->stop_count);
+ 
+ 		/* resolution is only valid for SNDRV_TIMER_EVENT_TICK events */
+ 		if (event == SNDRV_TIMER_EVENT_TICK) {
+@@ -908,13 +910,16 @@ static void loopback_snd_timer_period_elapsed(struct loopback_cable *cable,
+ 			snd_pcm_stop_xrun(substream_play);
+ 		if (substream_capt)
+ 			snd_pcm_stop_xrun(substream_capt);
+-		return;
++		goto exit;
+ 	}
+ 
+ 	if (substream_play)
+ 		snd_pcm_period_elapsed(substream_play);
+ 	if (substream_capt)
+ 		snd_pcm_period_elapsed(substream_capt);
++
++exit:
++	snd_refcount_put(&cable->stop_count);
+ }
+ 
+ static void loopback_snd_timer_function(struct snd_timer_instance *timeri,
+@@ -1174,7 +1179,7 @@ static void free_cable(struct snd_pcm_substream *substream)
+ 		other_alive = cable->streams[!substream->stream];
+ 	}
+ 
+-	/* Pair with the stop_count increment in loopback_check_format(). */
++	/* Wait for PCM callbacks running outside cable->lock. */
+ 	snd_refcount_sync(&cable->stop_count);
+ 	if (other_alive)
+ 		return;
