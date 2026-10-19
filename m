@@ -1,76 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434402;
-	b=hvERvF0otC5O6WGD38I9i5kfqbZXTtdbZbgD4vjyOqhH6Gz/4mL3bBN2t2WQ0Qmv1xT/
-	 +PFUEXTIj+CXgPxm445UViLXvgLyoKgcUIaJm0k0NwmHbLa//X65+0UZQGDKrRBd8Mhjy
-	 4xUUBj66g22scbkpXdkNP/HIuS3CMnm5a1pSKMzEZKX5iqu8uMod/4IadgfTe6MF9CcKb
-	 FuuqbgHyrTGpG0sDwPOmCIf7ZETzUClJqVMB4IcH1MT/gQx8TuuoIfPh5usHdffAV//OA
-	 2jNxjpWHTEHwEH7pyp/4M+/ncJxUdMHXcqZzIg/XgWOYDEQxeuPtPF1XJPCxrdDSQqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434402;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=D/MJw7b7sqVNUyr2ak0+mfj7+OIXy+ZHEbW1fHkEk2I=;
-	b=Z41DSla+v8cS59ilskkDdq2g7gMdiJgZEeicLxOnw+PWMKhNRHrQywrd10sNZojXIsBE
-	 pI0sIzJA6VO+xnWYBJ3WZe6N0p84k3jeq10grOoJNKD5jZJ7GdJlc5j5fFJSxSQDF0J8/
-	 dN3QYSjp9h0NLBl8jBkqe4lZ1xfCbW/EVv5QUsK5oxBPf2F+OHXU6DAKVNYOMj7Kk64ZN
-	 NcVhvlc9oOqhVYgDF67wD0h4nxrgEwIsiB8/gbthRPejbrw38qg6us1ciY2M417UP0tiC
-	 OyCdgbX2Clsbso2eSsyTAitgo7XQfzLVbgSNU5HiVeoekxFX2lyWiHaGebm6DtKnzTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RgwfnqOK;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.35
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792434387;
+	b=kbNyU9i4NIeVvQc7vVPm8GPv301YEJaTJQBVgPY7CbZZzIKhigWwAMVHT4EQPcwSlKWo
+	 D9DHs5iNiAZ5xuyK5DoOAQH2lEeuoRnM5AYTZH4i2a1AFSzHHNLE04n1uA/DrvRW6UH4Z
+	 GJAR7mhstXNb39jFQDjzQzOk6VQjxX+UNCFsFM3fHaaO1CcbRtdkLt034OSQoMMjCnjQZ
+	 CZQUQtZWo124nBZdIw1RB870tlIsJ06s8r4YNxNmNq0Ymmml3tyo53f63UcbaVhabCQKI
+	 1upohEz0O5iffEePgKxJ7fqSaJBRPGk9DA+xDLVVqChU+VqZaVy0NLnNwWNT7I14wmA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434387;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=EMHQ+eucC1bd+VJfDAFzm/dbmXijFfhu4Dx6dG5i99M=;
+	b=Jvj8eqBZmhm4UYrRrsKYdNkWPJjkpd+1LtN0l7nwU3Bo67mv1ktr7KH5c5Q6anYJLl5C
+	 TnpwKjW71unAUxUd0siQJ/qxsjUPR1eLFz7IHKGsVAYhvCgcbHXU+9kDqE/gvulTOCoD+
+	 1WBKYrf+2i2A4F2mbXyntdUoYcugvKL1zMS4X7GM5QmKA5gT9tYZqEUTUz3abuq1AMb86
+	 4C/gl5ns5KowdmGw3lDlOzAognsJXB4qgiE3FP5qkkJ4sXH/sX63UpLIAeCEWyHErfj/1
+	 EQxJyoFNGwyXVumgZCH6IrJM6aKLEPI+TiYrLac9XO2bgf32JAEFV/HZa1ecdw6Zfiw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LeyGUvl5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.35
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011035.outbound.protection.outlook.com [52.101.65.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21EA2606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:26:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21EA2606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42015606A324;
+	Mon, 19 Oct 2026 18:26:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42015606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RgwfnqOK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792434401; x=1823970401;
-  h=date:from:to:cc:subject:message-id;
-  bh=q08Jkx5hg1UVVLTwRHrnu4D2+3uX28+FnXgXYxpy0kI=;
-  b=RgwfnqOKRSCygb+8AkGjt/xHojKB3TKXvZm9vObmqVewlrIZSrqXNiT+
-   NKUikDQbQU3ggYHV8fdAbmXD0PkGjA8NAHhUOR5k8gif7bmCDhoaEPOtL
-   Qq6DnhknjndXMtgEsOGSAXw23pvXP5/NsxdfCQxAsO9vnz4iUN8AlGIw0
-   Xp3B6xtHLuMnD4/jmrJX2DamSn9xqwL/y3VVdvokwp2lxU89DRu0Z+RNg
-   je7UtrYLQdreoMMYYv0EZQcs1STxIsjnfXj/SHCXY+G5rcCjAjEfmRbsZ
-   FhvDX6s8Q52xWvI6XE6sEbH/dgEm4K52HN5xyfim20Mkd98EkkjeEmh7h
-   Q==;
-X-CSE-ConnectionGUID: z3JtYh3PRdOmsTGsT0K0Aw==
-X-CSE-MsgGUID: zILmnTazTNqFzHVytKET/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1163246"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1163246"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 11:26:40 -0700
-X-CSE-ConnectionGUID: wuVup/EeTSuLT04/hPgl+w==
-X-CSE-MsgGUID: ehh0c5vZTuSYdRBubXHZ3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2607063"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa009.jf.intel.com with ESMTP; 19 Oct 2026 11:26:38 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xIs4C-00000000MCI-1Wpz;
-	Mon, 19 Oct 2026 18:26:36 +0000
-Date: Tue, 20 Oct 2026 02:26:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [paulmck-rcu:dev.2026.10.14a] BUILD SUCCESS
- 1a09530e35bf96053326b1a7b19a466c6238ad6b
-Message-ID: <202610200214.nS542DEr-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LeyGUvl5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V/tIw4rmVoipwwMvtAgsguY1mucxY/ItEwJ7fTMl4OJCLj8ZACkubarld/XvKM0EsPR301451gFq2TieDOP+McD9/U9QCK0GP/paf8dWxWCnavhCyBvgUgBE2heWI/CYPFJvYadE+HpFgtTSGxwetqoxHOZtA3OkK5buLYaaxG8ocRIlbwOWErJXUbw0B/u/949Sof/v6tpZaVYFvGnfU7H2iIe8goS2kCKW3z+voghsdhLx9Lfskx/iC61QQA5t6aZwvl28gvgXYu5PeBW+YresENKQPjD6H6Zz9gkZhjGiEgDtpVUJDTketrr15cQrxkbnLU49arBr3AXkDDIU0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EMHQ+eucC1bd+VJfDAFzm/dbmXijFfhu4Dx6dG5i99M=;
+ b=Yl83HTk8kburdo78AOibYOkZqVpYzk5ArBQX34gmR3ZR9ScmFoejUvo3O/jr2Waa6aIr0GuLrV+Ku+Qb15CGUdp2kuvpMCiXc/E2mmLA1VCgQqUcg6eqkxOm2yR06Bhs/xwSNsGNeyOtTVH3SBBcGyzQqBtjBtfffbs02LvlKmgYv0FqwphSamQpIhCy/rDbCV2GZuFgDmQlKGaRunBuUT5TP1oSFH392/h8+O9v0HP0MqSWgtGnpLkRzV2SbZBmkIe8Os5COuz7Tn7NGM2jDSogHbzb8hRX9QfAC2qLcJA7BNpF7Qz3zXH8u5QrskRnUer4gOj7DqXUw6GQbyrIQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EMHQ+eucC1bd+VJfDAFzm/dbmXijFfhu4Dx6dG5i99M=;
+ b=LeyGUvl5LX4IEs4S8O/capAPAfyv8MG1Whnv9WBTAmHyyBmLeMYcCprkI5mJnhcBt/txQH9m0DSCLvFe0fyOi5rxQnpNglvd0WKKL4Md+P5KTO1NMKDmHgeDKN+oBLMZ1eNbAphhowoAtaeOKs5y4c+a0ZPXUtUsN91oA5UbW/NVmV5dpX5REjzzVRMaxFPyyRAXuy/WtdFGpA4olzoC4EvXfsW1ktx/XuQAwLoUnIOAqINVexghqyo/mVJunIEj2cpNKHr7dCusDZW2aDYvdvJ/FZp46uOzOfk4vdJOtPfmKXiukMplHxYa1oOtcumCpvtSCVEIr4Hnb8bCufaQ4A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DB9PR04MB11557.eurprd04.prod.outlook.com (2603:10a6:10:607::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Mon, 19 Oct
+ 2026 18:26:24 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 18:26:24 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH v2 00/13] ARM: dts: imx: cleanup some CHECK_DTBS warnings
+Date: Mon, 19 Oct 2026 14:26:15 -0400
+Message-Id: <20261019-arm_dts_cleanup2-v2-0-dcdcbe6389c1@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMdg1moC/32NwQ6CMBAFf4Xs2Zq2KiIn/8MQsrRbqZFCWiAY0
+ n+X4t3jJPPmrRDIWwpQZit4mm2wvdtAHjJQLbonMas3BsllLrjIGfqu1mOo1ZvQTYNkZHSRozR
+ 4kRq22eDJ2GVPPqofh6l5kRpTJxmtDWPvP/vnLJL3Jz8LxtkJucLmZvS1ON/dMhxV30EVY/wC9
+ fHlPcAAAAA=
+X-Change-ID: 20261016-arm_dts_cleanup2-efd86a2fa52d
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792434379; l=2366;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=jdDe9Pg0rJ4g236kqJqe5dcYgRY//pbJpgO9u0FB7aU=;
+ b=Ta8XeFwpZETdH3WRy0aZzcdBkRTkC75QLCI622XUdsoVhLTMf+Vq2HCttYp0ihEA6g/q7q6eE
+ PFJ/hOBTF8hB6ZeA/uW3nmYrUr0FE/Rx3AHzukj5h9a6d8TC6Ip6+HS
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: DS7PR03CA0174.namprd03.prod.outlook.com
+ (2603:10b6:5:3b2::29) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,73 +110,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB11557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d38b3e9-1fa4-48f4-dc6b-08df2e0e7aef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|376014|1800799024|7416014|23010399003|18002099003|11063799006|10067099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	naY8nhh2p79m3SSGyDrA5Zt8wpfXXlUuBIxiB+WKXjDryaxqhW5CW3mCLURry676pn64kHYJOLit2LBTZp+RjLkuWheK/gDI4bkWUPTOIUU30YnDTiNExYEPwCA1mSKHGVUzbuzCd1k/nM6WbLXz5+nV2CV/GhdN0Jj5DsicWhLilL0Bt6jH94vf7tXp7duOx6aYSS7FJdI55xjqKRn19QwX9WWEWXMmKdlwB//CPLdCqKLYc9d8Cs7JaYqesKW3dkoBmOqVPkDj7NCc6C6tFNOJ6Jn4gWaciSdovpJVgYQkV9NTQwESVGhUK4AauyMs1FCbOeMcrJZzCvfX60p1GPRqKGu5O4M3cvD6KfTjb1tlTtzOypSyPbRbE37wQIwCMWcP4DWxdiAEK9icrgegz+epGjZhzwQanraOWy3D5fOLbsToZNpzyOedCls4Wl4ovAuJc4wJGiXbDshGPcYmo/fdrDpFfXSH9S/k+UESDSvO4Dzd/SDc+5qSxHlo4VjSqSBPLW9awg6PMMscFjLmFTJvYSQCWKxCy6riyPasSI4bBp2n8wZkbCplWNgoWNrnpXW9EarWqigzxev5FTfcKj4/1P6Jdsafp55SCUxLLGM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(1800799024)(7416014)(23010399003)(18002099003)(11063799006)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S1g4L3pqYmZOcFBoK0V5U0NlWllrb3d0clVRdU1Ib2VZam5JcVJ0YW5zd3Ux?=
+ =?utf-8?B?TzR4dk8vMHhZN1ZSYjVYKzEwdTVJUkNCaVQ2QitxcjVJZmZseWZTc2hpU1p1?=
+ =?utf-8?B?SitFTzlSZ3F1a1hRMFBGb25ucEtwdUl2U1haSUJxTVJFUThPT3k4eVowZWRD?=
+ =?utf-8?B?WWVlbHA2MmJnbmZlVUtXTStwUGZCTnVnSWpSYWEyUWNPQnZ6WE1RVDRwZU15?=
+ =?utf-8?B?YWwxZ2I0ZW9hUWVWK05YMHBxczlxS3N2U1pQT3U0RFFncU40RVFMOTM4MkZW?=
+ =?utf-8?B?a2x4bElvRWFCdGRWM0hPOUlBayt6RlpkVlFUVStNcEZ4bFFSaFpZVHpWSmRu?=
+ =?utf-8?B?ZWFZdXRRWWxlVTBmMGNIei9CZnRzbnBKWHlISHlVV1RvenJjcXdKcEVQSUxK?=
+ =?utf-8?B?citORmVuNHptQ25uWFpIamV6bjNOWlE3aWRMYjA2NGlOQVY4Lzc2ZnJ0dXov?=
+ =?utf-8?B?NkM0N1A0R21nNnA3Z2dDbHlXSW1sSml1VXdMTmVlZGZqdTJod2k4cGRTS3dC?=
+ =?utf-8?B?a0Jvd09YMkV0T0tSeWFlQ0ZBRHRwS1FwdVpFaUNLUi80YTJOaVc3eW4xR1Bx?=
+ =?utf-8?B?OXRDc2NyU3A1UFA0aGd5NzF5K0hqRHIySkNYdnUzVVc0N2ZpWllGSzJCVUJH?=
+ =?utf-8?B?OVRwbFVVN1hQVnVmYlBZcE5jcnplZThBQm5UaGc4WjNmOHNMd0lMdG1vSXlv?=
+ =?utf-8?B?VzlYak5SeERQVzlmclBremtUMEJvYXRZUE9hR28wVnkxMHJFR3JpVGhFQkNv?=
+ =?utf-8?B?d0NuZ0ZLd0RjK3JlbU1EUzVnTE5ZbEczTFV1cGhzTS85UkxYWCtlY2JEbHZu?=
+ =?utf-8?B?clUzTHJyem5idW5WZ2V0eEhoSjRBUHRCb3hsY0VQWi9ZR2QzcHJ5SVdab2xC?=
+ =?utf-8?B?UmhFQitZQkNKM083L1MxdmxoT2UwdGR1TTNXL2xlejFmd3ovT1FYditiQWpE?=
+ =?utf-8?B?ejk4bSs5amZaMlJ6emRtSVQ1Ym9NZHBXbFh6MUxrNDIzdS9pWERKbEQ5dm5s?=
+ =?utf-8?B?L3RBS0tORngwbnhJZ1ArSTRJSUhkNjJhM3N3aEFsNEIvdjUvV3lKNVliTkdZ?=
+ =?utf-8?B?YXgycTBnNURGenNUbWoydVhxUUN2VVk2MW16UDlGbUhHMHFmVjBLSEhDbUpX?=
+ =?utf-8?B?Qy8ycEY4RjlmOVU5MXRoSGF1aDRzSnV5NmdmMHgzR1VWZEtpcDYwT1VoVHJX?=
+ =?utf-8?B?emFlQkJJY1o2L1E1WEUySy9qZkFXUktnUEJPV1pkWWJES0I5aTY5MTlEUi9U?=
+ =?utf-8?B?RFJyQkdiZFJvZlFibkVHTWMrV0RwTk5Dd01GOVF3YkFySFZzZzM0Tk9hb05D?=
+ =?utf-8?B?b0dBTGZKOWlhSDcvK1lRQkZMRHJNUWtqeTlhRktVSy9VeHVWTWxXSEJGRXNv?=
+ =?utf-8?B?MGFWMkN1eE1xNFBwd3ZrMnN2bzViZ0pTb3hDSFo2RzZqYjdKSEtEQlgwV0tU?=
+ =?utf-8?B?cTczSFBmcmhjZVRGdlRHREkyY3Jvc29HZGZJK2c2QnF0VlJoMkJnY0RsVGFp?=
+ =?utf-8?B?NXgvTWRlNHlQQ3Y1TWdQVlNERG1UbTI5QXVlODdWTWVMY3FBSUMvYmVkcDZO?=
+ =?utf-8?B?cjRyQ0hMNXdVaUdIMnY5dVkrTGNTOEUvcXpPOFVDd1A5Rlc2aytuZ0Rhbngr?=
+ =?utf-8?B?V1BpOWFhdXNZVFlNR0NRbXplV0lGUmFndFNDaXBxRE4rYnJXVWFXWFN2eFIr?=
+ =?utf-8?B?ZEwvRWExZUk3R2NBQ0thWnFrU3BMbDRLZUkvLzB6dXgvdHhlQ0RDK1M3dHVl?=
+ =?utf-8?B?UFMvOHAwdDVPL255allDVHZoRVFhRWtjSHNMYkpRQjJUNGxUeEMrbUgwK085?=
+ =?utf-8?B?SHRYRzdWa281NGJ6czh4NWdEcmZ2cnQwUW1lWjB0RHd4cDZibjBhTGptUTFw?=
+ =?utf-8?B?UWpSL3BNb1FiSkRUQ1FaUG4zZTVUNUlaWDdWc3paL2tyOWd0blBOam1GQ0dU?=
+ =?utf-8?B?NHFGMytzZTNtTVlDaE9aS1ZjUFdCRFJtU0JFRXVneXkwdkkyMGhPM0dKUjhz?=
+ =?utf-8?B?bGE3SkhEcWo2Qy94bFZrTmNldTJuS1MvdS85UXo4ZHJ0SXA4Zi9veTdTbUZq?=
+ =?utf-8?B?MTRzQ1JKenZURE1KR0ZmTFdoZGl0WXBtaG5pQk5FS3k3WFFieHl3bXVzRXQ4?=
+ =?utf-8?B?YWNPaVc0Z1Vjc1BxbFZWOW0wd29uTC9PejBoazhKMHlDTzZXNUR5YzV3VEI2?=
+ =?utf-8?B?cWNYbGE3U1p6NGRkdjNTSXV2eExYelFKaFBQTjdrR3ovZkxocDdzR29PRENT?=
+ =?utf-8?B?SXVhRW9JMHFLYUNiZ2xIYmdXZ0ZFbjNqZ1JIOHNsWXhUMFY3ZGdXekFHcFVo?=
+ =?utf-8?B?MHFyWTNxUjBUOWQvWFpocHBDRGxjU3dOZ2UzeHdWWkRMbWp0a2hJMGJPUk1I?=
+ =?utf-8?Q?YRIpM2SKXynXGKHg645y1exm9l5UPsDUpNrzm?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d38b3e9-1fa4-48f4-dc6b-08df2e0e7aef
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 18:26:23.8257
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mzdWSOoZk0tMzOli3TANpjAp3JQrLy5uG0XnYdSI04C7SL283Bzor7YPzLotGWpDDyeF0t+yVH3V0Zl8l3n/jBlA9xJrzQynvTmtkbmVxEniWK+3f1GuYce26RmBWyB1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB11557
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git dev.2026.10.14a
-branch HEAD: 1a09530e35bf96053326b1a7b19a466c6238ad6b  squash! EXP rcu: Print CPU that preempted stalled reader wants to run on
+cleanup more CHECK_DTBS warnings.
+less than 90 line warns left, from 267 line.
 
-elapsed time: 2199m
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v2:
+- drop patch ARM: dts: imx6qdl-apalis: remove disabled node "panel-lvds"
+- use /delete-property/ pinctrl-0; (sashikio)
+- set touchscreen-size-x to 16384 (sashikio)
+- Link to v1: https://patch.msgid.link/20261016-arm_dts_cleanup2-v1-0-3a0cab9fd784@nxp.com
 
-configs tested: 53
-configs skipped: 3
+---
+Frank Li (13):
+      ARM: dts: imx6q-dms-ba16: remove undocumented property fsl,receive-dpll-mode
+      ARM: dts: imx50-amazon-yoshi: remove undocument property min-frequency
+      ARM: dts: imx6dl-b155v2: add touchscreen size properties
+      ARM: dts: imx6q-gw5400-a: fix SPI NOR flash vendor prefix
+      ARM: dts: imx6dl-prtmvt: remove redundant panel compatible fallback
+      ARM: dts: imx53-smd: change compatible string to dlg,da9053-aa
+      ARM: dts: imx6qdl-savageboard: remove undocument avic,tm097tdh02
+      ARM: dts: imx6ul-tx6ul: remove front compatible string karo,imx6ul-tx6ul-sgtl5000
+      ARM: dts: imx6qdl-tx6-mb7: remove redundant pixelclk-active for simple panel
+      ARM: dts: imx6q-h100: rename port to port@0 for mipi_csi
+      ARM: dts: imx6qdl-sabrelite: fix typo vync-active
+      ARM: dts: imx6q-novena: use interrupts replace irq-gpio
+      ARM: dts: imx6sx-sdb-mqs: remove pinctrl-0 and pinctrl-names
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+ arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts   | 1 -
+ arch/arm/boot/dts/nxp/imx/imx53-smd.dts            | 2 +-
+ arch/arm/boot/dts/nxp/imx/imx6dl-b155v2.dts        | 2 ++
+ arch/arm/boot/dts/nxp/imx/imx6dl-prtmvt.dts        | 2 +-
+ arch/arm/boot/dts/nxp/imx/imx6q-dms-ba16.dts       | 1 -
+ arch/arm/boot/dts/nxp/imx/imx6q-gw5400-a.dts       | 2 +-
+ arch/arm/boot/dts/nxp/imx/imx6q-h100.dts           | 4 +++-
+ arch/arm/boot/dts/nxp/imx/imx6q-novena.dts         | 3 ++-
+ arch/arm/boot/dts/nxp/imx/imx6qdl-sabrelite.dtsi   | 2 +-
+ arch/arm/boot/dts/nxp/imx/imx6qdl-savageboard.dtsi | 2 +-
+ arch/arm/boot/dts/nxp/imx/imx6qdl-tx6-mb7.dtsi     | 3 ---
+ arch/arm/boot/dts/nxp/imx/imx6sx-sdb-mqs.dts       | 3 ++-
+ arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi        | 3 +--
+ 13 files changed, 15 insertions(+), 15 deletions(-)
+---
+base-commit: 573f14ce666583abc3a87c855e27cd78252195e7
+change-id: 20261016-arm_dts_cleanup2-efd86a2fa52d
 
-tested configs:
-alpha                     allnoconfig    gcc-16.2.0
-alpha                    allyesconfig    gcc-16.2.0
-arc                      allmodconfig    gcc-16.2.0
-arc                       allnoconfig    gcc-16.2.0
-arc                      allyesconfig    gcc-16.2.0
-arm                       allnoconfig    clang-17
-arm                      allyesconfig    gcc-16.2.0
-arm64                    allmodconfig    clang-24
-arm64                     allnoconfig    gcc-16.2.0
-csky                     allmodconfig    gcc-16.2.0
-csky                      allnoconfig    gcc-16.2.0
-hexagon                  allmodconfig    clang-24
-hexagon                   allnoconfig    clang-24
-i386                     allmodconfig    gcc-14
-i386                      allnoconfig    gcc-14
-loongarch                allmodconfig    clang-19
-loongarch                 allnoconfig    clang-20
-m68k                     allmodconfig    gcc-16.2.0
-m68k                      allnoconfig    gcc-16.2.0
-m68k                     allyesconfig    gcc-16.2.0
-microblaze                allnoconfig    gcc-16.2.0
-microblaze               allyesconfig    gcc-16.2.0
-mips                     allmodconfig    gcc-16.2.0
-mips                      allnoconfig    gcc-16.2.0
-mips                     allyesconfig    gcc-16.2.0
-nios2                    allmodconfig    gcc-11.5.0
-nios2                     allnoconfig    gcc-11.5.0
-openrisc                 allmodconfig    gcc-16.2.0
-openrisc                  allnoconfig    gcc-16.2.0
-parisc                   allmodconfig    gcc-16.2.0
-parisc                    allnoconfig    gcc-16.2.0
-parisc                   allyesconfig    gcc-16.2.0
-powerpc                  allmodconfig    gcc-16.2.0
-powerpc                   allnoconfig    gcc-16.2.0
-powerpc64   randconfig-r2202-20261018    gcc-12.5.0 smatch
-riscv                    allmodconfig    clang-24
-riscv                     allnoconfig    gcc-16.2.0
-riscv                    allyesconfig    clang-24
-s390                     allmodconfig    clang-24
-s390                      allnoconfig    clang-24
-s390                     allyesconfig    gcc-16.2.0
-sh                       allmodconfig    gcc-16.2.0
-sh                        allnoconfig    gcc-16.2.0
-sh                       allyesconfig    gcc-16.2.0
-sparc                     allnoconfig    gcc-16.2.0
-sparc64                  allmodconfig    clang-20
-um                       allmodconfig    clang-17
-um                        allnoconfig    clang-17
-um                       allyesconfig    gcc-14
-x86_64                    allnoconfig    clang-22
-x86_64                  rhel-9.4-rust    clang-22
-xtensa                    allnoconfig    gcc-16.2.0
-xtensa                   allyesconfig    gcc-16.2.0
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
