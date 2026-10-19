@@ -1,63 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792421961;
-	b=opqtDEbha7kPDhYZ4kVv7w2SWL9xg6EGUyPtKPn5d+E9YOl5q4GIelb/IqLxuTb4Uz9l
-	 Y0zgtpwleQkQv3oVEjqMw0ytSVHS4LhyLwZr2I1wSzKVhzUEujXi4Y4szhyMG8PPf2rqD
-	 wkwzBD33vTcymD/9s6YCwV1RUN2VF0bU0y4rifuqB9uodBS1n1LcziAVg/R9pheh8FEwI
-	 1jmIy7PkBbG107louB5DhqwzOUs2BMZAmDXa76mmPkIKbwSV2ZBU0u+5cBaq5WH8UdQQh
-	 YTiJk1B6KZTuFQqM0ZNHo3FDZcZDomRDpJz8txXOVAtDfXmT7DqwbaEeHC7PV5gUHyA==
+	t=1792422306;
+	b=KhdEQawTXDq1/jr2GxLCOPytCXnP/yimIhgsACoVkMPeQIkXZO0GBqoZnXE8UPXcJkJQ
+	 xs5y25WyEDdYE5dRCHUARLrjvWCcf670LN98ey9hMlL6dcvn47zwKZsTNT25jFQx4qFX9
+	 8ds6DLkTQcFYdE/nAvsE5JllcFa3eXHH65F7dA6JXAIocBECh9k0dvhSQRGiKjjCNyGpL
+	 GPpGx5QdJb7vwxsb51GVmjQX9gRGLX5s0hHVz7Q2O8YeBdVldoETM+2JAHx9JvV3IMPh+
+	 oPq9mSO8ojDt0LQ5dHmmx68pwflCsiSnPUDE2nDBXX2EsGcfTg4NELeTok5mb0m+4Lg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421961;
-	h=Received:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=aTLcmve12A0xWHTBVlp1TWGmYbd2AnRfbgViLySS8r0=;
-	b=pM8jyhugcvtvy3ji9B7HpMZ8XRZuN/M6fMgGYOy6eZ0j9mHSNrznRjjTPyB2vaEsJuxA
-	 GzSDC2l0ca6psUxjMRg/7GSyb0oCVXo5vjcEnWcuWpIcM1OBqXHmW1qQWXljX+DDXtl/x
-	 Bk4c3NbgKK8nyp/BS4ut6RnBXTmfePPrrGTM5yeccxQuqUixZaPChTZgQgp1/bGp/MsIG
-	 +u1ILbChlc+s8DdvvV7uFxrj0mAmNlII3HXAPUSRxqM3k+GEEj66ML6XBRfq1tjvTrf1D
-	 G2sL5pW0sMzzg17b8X6c8NFdji8YDC4PdzLU+1ISjaLTiILDRMwZ2F/mTUYlzrWZYpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422306;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=FnTa9xUrHpkEZLnF/C/Uhf2QRS6M/PPDbqmx71vQSBI=;
+	b=NqfUrgSz0VquD2LChGZ56DgRUUw2aVYqvjmuHMIN1XR4hAmOo0aSjZnQFKOymKoQoU9S
+	 /K8OSkWCFLEwSLdWRPlaccFXqZAIRbwRp+nO/y+Y4/FMb/mp4/cvoLCQ+2Y4biAEgizBX
+	 zPvzMPsV10eAyux8MrV+tzev7ixV2jV1zGk+MA0ICTJD+w2RwT5+vWbkHDcB8HqU+Tk5V
+	 JaE6E1ioJV9Dvd06syG6YyIBaQuBDKxRg3mcsS46jOofCCFYbeBdEfgEBCI8Djr1yMxnd
+	 PBAomFK/gk23S9O2Cqv0UAvNqb4CTl+Cv8H3ydCYVLUhNGKRfG639i6ncd1yz19zwSw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=IQzrSwTc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2D0260774F1;
-	Mon, 19 Oct 2026 14:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=IQzrSwTc
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=OazP6l3+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19FA6513C1;
-	Mon, 19 Oct 2026 14:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421960; cv=none; b=g6kGJb7OxSYfKYO4JN0qrIr0yB1rsv2GrUh480rRWLpvMQf/yqvvMS1fu0buNigT4pc5k8LVdS0DrnEdevLLClO9Zsejp8GbjVKdwJ8IrPdyT1H8rnqo0cuuqVFBSXTmO6+hv19KXMwwlZgRkSmYrBlJxBkGE/KhIAJnP3Ix1s4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421960; c=relaxed/simple;
-	bh=Mjj1V8YaPv0BA+ANQpQhqJlAhXDMyEE/QQwGJZP0Hg8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=m3QS5VIIAi/+9QFpgrp0m9s+h6OIBLq9XAXP84c45ZUhzTciSSRUNqlDNthEDzGNWhAm+Zpr/c7wpxb5AglqtSNEfCkQg+S7H5c34pdrmKb9GcbQoH8CVozH8sufuI552EtzNzoqK/Y1RACpsURPTgbp/vnjAKba5oLnWStEANQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQzrSwTc; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 646B0C2BCF4;
-	Mon, 19 Oct 2026 14:59:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792421960;
-	bh=Mjj1V8YaPv0BA+ANQpQhqJlAhXDMyEE/QQwGJZP0Hg8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=IQzrSwTcZJCnKoQLCJr/7j5ncE1FDx0arynzyy8wRTbLZOEudIlPyLGcQq2TakLrn
-	 fUpTBqzQVz3+2LrmRoA5XlY+KH5PwFhv8yT15mYh87kJCTUimUqDVyCzKlNwscdmva
-	 TTHfNcmoEkqh+ETxpkp+ggGUvQaFqH96YX5a/LV/s8woLWVT4nUcKNeUmHh037YItI
-	 pE6GQ+3K379/qMwYBEqWpU2agVQAS9pbX1Jpbc+tlsnykiMuyAL+BJT4vQrAPf0L4J
-	 ocgLiBLfPlLRYm129xFlUQTnuhy6HKQW5MWBkYZAv5EMbeVCzwX8NzBOcP0b1qKi9z
-	 QP44By9exoxXA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F80DCCF2DE;
-	Mon, 19 Oct 2026 14:59:20 +0000 (UTC)
-From: Zhaoyang Li via B4 Relay <devnull+heliolee0118.gmail.com@kernel.org>
-Date: Mon, 19 Oct 2026 22:59:19 +0800
-Subject: [PATCH wireless] wifi: wcn36xx: validate band and frequency in
- survey updates
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B4B607F4BB;
+	Mon, 19 Oct 2026 15:05:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46B4B607F4BB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=OazP6l3+
+ARC-Seal: i=1; a=rsa-sha256; t=1792422221; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=OWTvOStEtrydX6runmwaOj72222u12oXwLH748Vd7xkQWzwq8JV1Jjhh4GWVl8diUm91f55aUsvzoF8yR9iGj+pFKeixzAkYnXtZus6rw5ywt56ishZeYuU2XMbsCRDAwdqOW2RqiaRff2ZklD3r7IqZrgr0POFKQx/XTVJwo+o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792422221; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=FnTa9xUrHpkEZLnF/C/Uhf2QRS6M/PPDbqmx71vQSBI=; 
+	b=gnuqSx8srvGv02rdgDybrUGhxhSsCSsGv06aIsJpMyXtEHXWrp+6vk45RiW+k9QaMPsU3U1oEgR47lli5Y0BM1DVXmxAp7cUs1prPm4MDwXECCECdcdtzpr7qfKtTzs5kGsfy5Ufvt78IdFmOS2fl9cfdIYgFuTYMByhc61CSgU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792422221;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=FnTa9xUrHpkEZLnF/C/Uhf2QRS6M/PPDbqmx71vQSBI=;
+	b=OazP6l3+l5WRNO5R7EPj3+A2Lrau6F/20Kb9mBtZORCLr4WN7rmnmypnQovJCeSQ
+	HqlRCQsaTyZGqvcBZH6kSMoOpnPgoft7vz6bfZbS4m3YVLz8fPooZQPcYmrVfB+Y9RF
+	UdAN8FfxFQQ4Y5CNz1BRgxpyatU355ckn134e63todQXl5PjXOr/7QfY7GxPB8QfeJj
+	KR/X0Kg+P6QDbsJdotLo4V3HkxeqzruB/ZpADgCxUVPkJBKUjbJi47nk+gHPazPSYlP
+	fr7ekizoUPP+b62G4rxvAkmQuiKTnTW9Ye3F3XpAwxLEf11D60dj/Zp9qQYIMPOXuRV
+	PT8S7LBtHw==
+Received: by smtp.zohomail.com with SMTPS id 1792422215333737.0129824035191;
+	Mon, 19 Oct 2026 08:03:35 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Date: Mon, 19 Oct 2026 23:02:33 +0800
+Subject: [PATCH v5 11/12] platform/x86: lenovo-wmi-helpers: Adopt new WMI
+ API
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,107 +71,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-codex-wcn36xx-survey-upstream-v1-1-7c7babc007c1@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEYw1moC/yWMSw6CQBAFr0J6bccZUKJehbgYhgbayEC6+Ywh3
- F3QZb1XqRWUhEnhkawgNLNyH3awpwR860JDyNXOkJo0t8be0PcVRVx8yPIYUSeZ6YPToKOQ69B
- l19xcTFr7u4W9MQjVHH/9AhYWepMqPP+PTuWL/HjkD7d0SliKC749pl644XDuHAfYti/SYmkdq
- QAAAA==
-X-Change-ID: 20261018-codex-wcn36xx-survey-upstream-a3560402fc91
-To: linux-wireless@vger.kernel.org
-Cc: loic.poulain@oss.qualcomm.com, kvalo@kernel.org, 
- bryan.odonoghue@linaro.org, wcn36xx@lists.infradead.org, 
- linux-kernel@vger.kernel.org, heliolee0118@gmail.com
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792421960; l=3270;
- i=heliolee0118@gmail.com; s=20261019; h=from:subject:message-id;
- bh=fjp9lLKvfDuTUpNB3hs+MBg5G86RlOJ8i6sh6ABw66g=;
- b=GxdIcTIQ+TqsO27OKrNCGs1UZcm9sYZkUXE73dACi14oz+4yxNUNXLQ92nQsJFcKUDgI3Rag6
- TUbr0tjbwmMAO4WGvPYbRsF/ubuf2cGgbTUbq1i0mVjOWNg4WBM/tSM
-X-Developer-Key: i=heliolee0118@gmail.com; a=ed25519;
- pk=syMlenivwkqT00HeAmT4htw8EZeZVwsvh6UhTZcqANE=
-X-Endpoint-Received: by B4 Relay for heliolee0118@gmail.com/20261019 with
- auth_id=1241
-X-Original-From: Zhaoyang Li <heliolee0118@gmail.com>
-Reply-To: heliolee0118@gmail.com
+Message-Id: <20261019-lwmi-wmi-new-api-v5-11-71557d28d058@rong.moe>
+References: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
+In-Reply-To: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Armin Wolf <W_Armin@gmx.de>
+Cc: Charles <hanker007@gmail.com>, 
+ Navon John Lukose <navonjohnlukose@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>
+X-Mailer: b4 0.17-dev-6be7c
+X-ZohoMailClient: External
 
-From: Zhaoyang Li <heliolee0118@gmail.com>
+The new WMI API supports multiple ACPI types by converting them into a
+unified buffer that satisfies alignment and size requirements.
 
-WCN3620 only registers the 2.4 GHz band. When scan RX metadata selects
-the 5 GHz band, wcn36xx_update_survey() dereferences a NULL supported
-band pointer while accessing its channels. This can crash the device
-during scanning.
+Adopt it to make our life easier.
 
-Skip survey updates when the selected band is not registered. Also
-return when the frequency does not match any channel in the band,
-otherwise the update overwrites the first survey entry for that band.
+Note that the Windows WMI-ACPI driver converts all ACPI objects into a
+common buffer format, so adopting the new API intentionally accepts more
+ACPI types as a followup of commit 465dc9da8ff6 ("platform/x86:
+lenovo-wmi-helpers: Convert returned buffer into u32").
 
-A retained MSM8916/WCN3620 diagnostic log reports a NULL read at
-wcn36xx_rx_skb+0x178/0x720, consistent with accessing sband->channels.
-The log lacks a runtime module hash and the raw RX descriptor, so the
-exact crash path cannot be independently verified.
-
-Fixes: 29696e0aa413 ("wcn36xx: Track SNR and RSSI for each RX frame")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Zhaoyang Li <heliolee0118@gmail.com>
+Suggested-by: Armin Wolf <W_Armin@gmx.de>
+Link: https://lore.kernel.org/r/f1787927-b655-4321-b9d9-bc12353c72db@gmx.de/
+Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Signed-off-by: Rong Zhang <i@rong.moe>
 ---
-Testing:
-- Built the baseline, this fix, and the two-patch RFC series on
-  wireless/main af32da41b032 with ARM64 GCC 14.2.0 and W=1.
-  The baseline full build had 1067 whole-tree warnings; incremental
-  builds reported none (these counts are not directly comparable).
-- Rebuilt complete WCN36xx driver objects from clean for all three
-  configurations: no warnings or errors; linking and modpost passed.
-- Extracted-source ASan/UBSan tests reproduced the unfixed NULL access
-  and unmatched-frequency overwrite. The fix passed 90 survey cases,
-  256 synthetic scans, and two ordinary RX selections. Kernel APIs
-  were stubbed; full RX and skb lifetimes were not exercised.
-- Downstream 7.2.9-ufi-stable: 99/100 scans succeeded, one timed out,
-  no survey NULL Oops was observed, and 16 pre-existing mac80211
-  invalid-band WARNs remained.
-- No native upstream kernel boot or dual-band hardware test was done.
+ drivers/platform/x86/lenovo/wmi-helpers.c | 61 ++++++++++++-------------------
+ 1 file changed, 23 insertions(+), 38 deletions(-)
 
-Historical crash evidence:
-An MSM8916/WCN3620 6.12.111-ufi-diag log reports a NULL read at
-wcn36xx_rx_skb+0x178/0x720 with x0=0. In the retained diagnostic
-module this is ldr x2, [x0], accessing sband->channels. Symbol spans
-and caller return offsets match. The log lacks a runtime module hash
-and the raw RX descriptor, so those cannot be independently verified.
----
- drivers/net/wireless/ath/wcn36xx/txrx.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/wcn36xx/txrx.c b/drivers/net/wireless/ath/wcn36xx/txrx.c
-index 8826998797d6..fc371963510f 100644
---- a/drivers/net/wireless/ath/wcn36xx/txrx.c
-+++ b/drivers/net/wireless/ath/wcn36xx/txrx.c
-@@ -286,6 +286,9 @@ static void wcn36xx_update_survey(struct wcn36xx *wcn, int rssi, int snr,
- 		idx = wcn->hw->wiphy->bands[NL80211_BAND_2GHZ]->n_channels;
+diff --git a/drivers/platform/x86/lenovo/wmi-helpers.c b/drivers/platform/x86/lenovo/wmi-helpers.c
+index 8f5766c391eb..687caa226263 100644
+--- a/drivers/platform/x86/lenovo/wmi-helpers.c
++++ b/drivers/platform/x86/lenovo/wmi-helpers.c
+@@ -24,9 +24,10 @@
+ #include <linux/export.h>
+ #include <linux/module.h>
+ #include <linux/notifier.h>
+-#include <linux/unaligned.h>
+ #include <linux/wmi.h>
  
- 	sband = wcn->hw->wiphy->bands[band];
-+	if (!sband)
-+		return;
++#include <asm/byteorder.h>
 +
- 	channel = sband->channels;
+ #include "wmi-helpers.h"
  
- 	for (i = 0; i < sband->n_channels; i++, channel++) {
-@@ -295,6 +298,9 @@ static void wcn36xx_update_survey(struct wcn36xx *wcn, int rssi, int snr,
- 		}
- 	}
- 
-+	if (i == sband->n_channels)
-+		return;
+ /* Thermal mode notifier chain. */
+@@ -42,49 +43,33 @@ static BLOCKING_NOTIFIER_HEAD(tm_chain_head);
+  * @size: Length of the buffer.
+  * @retval: Pointer for the return value to be assigned.
+  *
+- * Calls wmidev_evaluate_method for Lenovo WMI devices that return an ACPI
+- * integer. Validates the return value type and assigns the value to the
+- * retval pointer.
++ * Calls the specified WMI method for Lenovo WMI devices that return a WMI
++ * integer. Validates the return value and assigns it to @retval when it's not
++ * NULL, otherwise the return value is not validated.
+  *
+  * Return: 0 on success, or an error code.
+  */
+ int lwmi_dev_evaluate_int(struct wmi_device *wdev, u8 instance, u32 method_id,
+ 			  unsigned char *buf, size_t size, u32 *retval)
+ {
+-	struct acpi_buffer output = { ACPI_ALLOCATE_BUFFER, NULL };
+-	struct acpi_buffer input = { size, buf };
+-	acpi_status status;
+-
+-	status = wmidev_evaluate_method(wdev, instance, method_id, &input,
+-					&output);
+-	if (ACPI_FAILURE(status))
+-		return -EIO;
+-
+-	union acpi_object *ret_obj __free(kfree) = output.pointer;
+-
+-	if (retval) {
+-		if (!ret_obj)
+-			return -ENODATA;
+-
+-		switch (ret_obj->type) {
+-		/*
+-		 * The ACPI method may simply return a buffer when a u32
+-		 * is expected. This is valid on Windows as its WMI-ACPI
+-		 * driver converts everything to a common buffer.
+-		 */
+-		case ACPI_TYPE_BUFFER:
+-			if (ret_obj->buffer.length < sizeof(u32))
+-				return -ENXIO;
+-
+-			*retval = get_unaligned_le32(ret_obj->buffer.pointer);
+-			return 0;
+-		case ACPI_TYPE_INTEGER:
+-			*retval = (u32)ret_obj->integer.value;
+-			return 0;
+-		default:
+-			return -ENXIO;
+-		}
+-	}
++	struct wmi_buffer input = {
++		.length = size,
++		.data = buf,
++	};
++	struct wmi_buffer output;
++	int ret;
 +
- 	spin_lock(&wcn->survey_lock);
- 	wcn->chan_survey[idx].rssi = rssi;
- 	wcn->chan_survey[idx].snr = snr;
++	if (!retval)
++		return wmidev_invoke_procedure(wdev, instance, method_id, &input);
++
++	ret = wmidev_invoke_method(wdev, instance, method_id, &input,
++				   &output, sizeof(__le32));
++	if (ret)
++		return ret;
++
++	__le32 *valp __free(kfree) = output.data;
++
++	*retval = le32_to_cpu(*valp);
+ 
+ 	return 0;
+ };
 
----
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-change-id: 20261018-codex-wcn36xx-survey-upstream-a3560402fc91
-
-Best regards,
---  
-Zhaoyang Li <heliolee0118@gmail.com>
-
+-- 
+2.55.0
 
