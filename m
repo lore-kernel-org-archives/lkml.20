@@ -1,801 +1,120 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B628489894;
-	Mon, 19 Oct 2026 08:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397208; cv=none; b=Kij7FlPyBmHZ1HnMfjMGxnt87LISINmrKqffDIRtPEXvG1ODNILTfg3W5om2cmB70EDKjtQ0BJ4hpvX1bM43ep6+FtgzMcx2GyKk/TVfnFHYkXzuO9mP86w/zO4zKvitGeUT5jgzmJ77TOJhOzzSZuDpcaGawVw0xRvKT5J5op4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397208; c=relaxed/simple;
-	bh=A5JO7gFBOEqtHRpL83mI/SSr8lApy8L5dP2K+G3FJmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gwx1rVSH8OSw4TBTRP2szTB6A+Ac65GrW0NZMeRX90n7SyNXaDAFpseGP1Orri8/qT3/A1STh+gtqJeKDXp04TMfCp7HBbDf4Nwz58SARfkIl56SNFxOs6JxLSEKg9xjrCEqeQpE/kdkFLbb+HqOxrTEYePjxeHu2oqzYpMLKr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=BRKE4g+n; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD603DEAE3
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:07:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792397226; cv=pass; b=a65YwGCcdUJzLCJQzOdDeVqJ9wSxqpp08g9MMkmY3wfofzq3r3wHs5c0Opwv0mvhbhbM5UfwLl9gzc2hxU8spPc7++SU9tze4cCqLKkG9Vf/VUTApI42UrINQNdP/78HII30gq59WSxEdRood6GqGOnjRxfQDVtKbrPyLYn1zsU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792397226; c=relaxed/simple;
+	bh=ojWZsLxBf/E+oTlWaEvpu7l9Gy8FFWSO9+FSkAQyrOA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Unhfafh6+1cJ5dJggK+7CSEMoToGiWJuWJNcvu+a5s1HOI6iIHlfVVPP7wjXYb6JkSUdF3g8hdUo+jtWV186kLynd23IJRQTZzC26MfMMgwCWMNN6QYTG/9swmCBGUJUjQLt2OXAZzlyz0nXSVqA8zddyEZiXq/wO8rKTbtFD1Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TkQOSc2K; arc=pass smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="BRKE4g+n"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=O7uaYzjBLQ9L6Ftx8axWfZwImCdlPLVflG9f3fBlVWs=; b=BRKE4g+nPQMTIlurOfpL3sDwAa
-	czMqDgE7LFL0HRvYwpvtDlJbX/WojTNyiBi4vroab1ClLeI77K5SlAXiiQTAEKJd6/S4vwXzlWU7D
-	C7qaqeVQ3Wg/cLXWiARqFP6tSMS8wBdmuy8f1lu9wj2vAxDOZfqB1PNmlJNh0ASdf8EtwoMWhwC4G
-	Mn0zjaR+psMcD5kTFCR8YbC/5n2ivFVq0VZWA8DOm6QRW1rofWRniGkUaslkV3uSWi3RQdas9lYac
-	SBk4UpvalgOKotXrvB5KkalPAF+oc9qSPjTmFhOa1gKDKw/DS+1gHQJzPpq4MfN62CT6wgDevnXx2
-	php5Q65w==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xIiO2-000DGC-0d;
-	Mon, 19 Oct 2026 10:06:26 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xIiO1-00046E-2d;
-	Mon, 19 Oct 2026 10:06:25 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dong Aisheng <aisheng.dong@nxp.com>
-Cc: Liu Ying <victor.liu@nxp.com>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux@ew.tq-group.com,
-	Alexander Stein <alexander.stein@ew.tq-group.com>
-Subject: [PATCH v3 2/5] arm64: dts: imx8qxp: Add display controller subsystem
-Date: Mon, 19 Oct 2026 10:06:17 +0200
-Message-ID: <20261019080621.194103-3-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019080621.194103-1-alexander.stein@ew.tq-group.com>
-References: <20261019080621.194103-1-alexander.stein@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TkQOSc2K"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8520161fdb9so1062182b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:07:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792397225; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Io+9R4oXbVSgXpdbkKjBbz4dTJNVJkxWCzLsrQRJs1J+jYN/bQq2VyrXMOAuOLpF2j
+         dTM6gsw4fogT+04Xj4AC9Nam0WKzapjie2VA5UjYyqXiE7Dzb3h2yG1dUhUxrprMP5KX
+         Ydezg+9E6tU0zhQHHElSXmZhMVOJEymlP2tUVyPWiul1nj5Aayl8tNN/feJu00VSz4Pg
+         lEMbIwmqvyguuLRCmJbB19CwFdh2XGqStOZL6RkeEURqZ22cXAzdUIlMaxEQkBSl9ifD
+         aIB0PLTMQNYD8wolG1kY6+b4Jkl/0W3qP5gk9gnxnIH4e6wRKLCqL3Tb9sF3q7PjS7a1
+         RTIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OapHBRcO/exbGoTSwjHoSV037nGR79dQye9OkHt9RRs=;
+        fh=Jki8AlGwORgW+8AS2Q7JXsDUBcbUERK/FjWW97vE830=;
+        b=EC9JRylq0tZpksD7WLFiaZyEqcfFPOKHhgGJwXxv8q2J/bFMQMoG8BcdG2qmpB0R4B
+         ZJxQN81eDHs9aIZOFPo/K6rdsmKfhPkbqFsQj3CtpXLp5Erg42gNUFywMS2fadiB3K66
+         +W4QTwsfvHCKipBxMFTbeiumbtvdyG19b67CXLwGyupd54k/kGSat7UGFr6Wo8C8TCwE
+         2usx4IN/33T9qjhkn3Vbq+/8QoKotXURYsT9wPSdQ+pII4owdlvW3foIDkIiC1C4pwWn
+         oZo/JtJnogELWJb8OfJTf+Rkz1Hn56QktozhOfJ4EsPUQsznWCdlNwXuHhO4sNqVt8jG
+         qUMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792397225; x=1793002025; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OapHBRcO/exbGoTSwjHoSV037nGR79dQye9OkHt9RRs=;
+        b=TkQOSc2KalxknOqVU+eistxoosuP7UMGLTMlh/iZ5K0ItpGMd7YJRzim/mcJwb2XPF
+         /hTOtLNK1z3VQCDr9KAqkcofQa6mQ1Vg074rjAHkT/ZsNgxykaDt4xjoRC9N2TdeR8Cx
+         AiHl5wDlHzJDdY3SzlWpZrD6qZUj7oKf5wIG05EO1ax/LM2uv3p5XEt2EZuJWihikIhw
+         4xXiEehxbpV6y1VIO20PmiHGpZ8N9b7bMN8y/Otw+oQQ+B86MW5sW+nBb5WRIbk1Sdeh
+         /A3kH5OX7qB4ghgcBagPE0njtCFzgAvtADwGsUzAkk4EL2u0LUhpS2+pyM/fW3bk6bdE
+         gLoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792397225; x=1793002025;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OapHBRcO/exbGoTSwjHoSV037nGR79dQye9OkHt9RRs=;
+        b=AAnQokbO+jpkKN0RjeEgk33xYuGrFLmLq9ouczXfQ13a2zT0taAE7b0jEW5qRH/cD6
+         U+CYNm65bnco2R/XaHU7EbT+nrboxzcJyng9GJd0uavw5n1/VlNuAyzCIk0AzVo6w15U
+         iI1lRGrH/JOh+LzKyC5wN1ub2UFZiXX6guoJVYDX48Lp6RZAop53VhhMDggXM+/MkYrW
+         9WKeGNjSEPnsFWKiVeBo0VlKaeoE4+bno8EbaFlgcP0+RSm7TT60HYJNLF8Qu1hexYHJ
+         lalH2UH6rpelPTH+1iNSU+AJBGowFpMKyVlrl3rQQcsaET/x5uC8/YM3c1c0zZsyucmC
+         WjFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy29WH8Zea6Ss1swgnrfqxxBEBwVfUxsjg0HFTDtlfyHIi50VHmJh7Vxj7J1IvcOlWtGNVqm6+3/EPRo+o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3DstY3G+M7PGQ8HReowRSNtPy+enyEQ0wzS1j4pPGKc+UURrD
+	ctiUgGJ0pxP9dPC5WtTT/peKC1AMS2WZdGm4wX4BcsWOOeNpSZQGXMpFFkSWStEGbp07QYO5xWc
+	UBBm/7VsB4f+iVUIpP9werkE3lfTh0UA=
+X-Gm-Gg: AYBFou2kd31bRtpLzGoheY5/BRm10Xu5G8bmqoXgFCSDo+Fg7NZkTD0c0N0EGZHXAGs
+	tQ6UW9+skAJKezadhMFC00eH0CFPOKmcdUFzx4FbWpTSCIR1eCXcUiMszaNa/gULgKlR/1sBvK5
+	kBPo6GjmgH0W9n4dxy93tOshk1YQCNpCJz85YmzzNpTOX1vps5TALMWf4LNNPy+EhwGSIJov60M
+	/dpd8MvdfIhdp9qpWhfh9lYQcURuP4ftOfg9o3QBWCKVIMM9BVmUGQ1C8ekxWohtni/oIfYcvgo
+	Lwftty9Hy1WH79rTUE0JqgX+F3x6GcXqtglFofK3ziaqD5/ShWxGUSUtmkKaAVVxoP7JyrboX19
+	ClpTwa7OrMmKmVm26w9deHo76ZXVcdUvPqO1i6WmtryYc/XpNKZ8SBT01DkJ8D07Fz3+AFTixPz
+	+0pM5JPQ==
+X-Received: by 2002:a05:6a00:1f12:b0:880:973d:597a with SMTP id
+ d2e1a72fcca58-8a04d04e513mr5511453b3a.53.1792397224811; Mon, 19 Oct 2026
+ 01:07:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28158/Mon Oct 19 08:26:01 2026)
+References: <20261017140827.290666-1-lukapanio@gmail.com> <20261017140827.290666-6-lukapanio@gmail.com>
+ <20261019-free-groovy-grebe-7e50d3@quoll>
+In-Reply-To: <20261019-free-groovy-grebe-7e50d3@quoll>
+From: Luka Panio <lukapanio@gmail.com>
+Date: Mon, 19 Oct 2026 10:06:53 +0200
+X-Gm-Features: AclHuK9kTiQI2FRvtYDoJKATe8CTCBUQkubjvei0NZuQDDdDmbhaB9xhCb4qNvE
+Message-ID: <CACi=Ov7D503Ug-D2xmKvRP-LceQpEWOrktXTy5Srdc-MZO=02Q@mail.gmail.com>
+Subject: Re: [PATCH 5/7] dt-bindings: input: touchscreen: edt-ft5x06: Add
+ FocalTech FT8722
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Henrik Rydberg <rydberg@bitmath.org>, Douglas Anderson <dianders@chromium.org>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Liu Ying <victor.liu@nxp.com>
+Hi Krzysztof,
 
-Add display controller subsystem in i.MX8qxp SoC.
 
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
-Changes in v3:
-* Sort properties using scripts/dtc/dt-check-style
-* Add blank line before status property
+The FT8722 is a TDDI: a single chip that includes both display AND
+touchscreen controllers.
+But seems like other  cases like this handle it differently:
+focaltech,ft8719 is the touch side, while the display side is
+documented as ebbg,ft8719. I=E2=80=99ll follow that in v2 and use
+focaltech,ft8722 for the touch controller, with the display getting a
+compatible for the panel module including panel manufacturer name, or
+something like that.
 
-Changes in v2:
-* Remove default compatible from irqsteer in generic DC .dtsi
-* Add imx8qxp-specific compatibles in imx8qxp-specific .dtsi
-* Add power-domain to irqsteer
-
- .../arm64/boot/dts/freescale/imx8-ss-dc0.dtsi | 412 ++++++++++++++++++
- .../boot/dts/freescale/imx8qxp-ss-dc.dtsi     | 250 +++++++++++
- arch/arm64/boot/dts/freescale/imx8qxp.dtsi    |   4 +-
- 3 files changed, 665 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi b/arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi
-new file mode 100644
-index 0000000000000..8cd8c27702dda
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi
-@@ -0,0 +1,412 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright 2024 NXP
-+ */
-+
-+#include <dt-bindings/clock/imx8-lpcg.h>
-+#include <dt-bindings/firmware/imx/rsrc.h>
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+dc0_axi_ext_clk: clock-dc0-axi-ext {
-+	compatible = "fixed-clock";
-+	#clock-cells = <0>;
-+	clock-frequency = <800000000>;
-+	clock-output-names = "dc0_axi_ext_clk";
-+};
-+
-+dc0_axi_int_clk: clock-dc0-axi-int {
-+	compatible = "fixed-clock";
-+	#clock-cells = <0>;
-+	clock-frequency = <400000000>;
-+	clock-output-names = "dc0_axi_int_clk";
-+};
-+
-+dc0_cfg_clk: clock-dc0-cfg {
-+	compatible = "fixed-clock";
-+	#clock-cells = <0>;
-+	clock-frequency = <100000000>;
-+	clock-output-names = "dc0_cfg_clk";
-+};
-+
-+dc0_subsys: bus@56000000 {
-+	compatible = "simple-bus";
-+	ranges = <0x56000000 0x0 0x56000000 0x1000000>;
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+
-+	dc0_irqsteer: interrupt-controller@56000000 {
-+		reg = <0x56000000 0x1000>;
-+		interrupt-controller;
-+		interrupt-parent = <&gic>;
-+		#interrupt-cells = <1>;
-+		interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 42 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 44 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 45 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&dc0_lis_lpcg IMX_LPCG_CLK_4>;
-+		clock-names = "ipg";
-+		power-domains = <&pd IMX_SC_R_DC_0>;
-+		fsl,channel = <0>;
-+		fsl,num-irqs = <512>;
-+	};
-+
-+	dc0_disp_lpcg: clock-controller@56010000 {
-+		reg = <0x56010000 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&clk IMX_SC_R_DC_0 IMX_SC_PM_CLK_MISC0>,
-+			 <&clk IMX_SC_R_DC_0 IMX_SC_PM_CLK_MISC1>;
-+		clock-indices = <IMX_LPCG_CLK_0>, <IMX_LPCG_CLK_1>;
-+		clock-output-names = "dc0_disp0_lpcg_clk", "dc0_disp1_lpcg_clk";
-+		power-domains = <&pd IMX_SC_R_DC_0>;
-+	};
-+
-+	dc0_lis_lpcg: clock-controller@56010004 {
-+		reg = <0x56010004 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&dc0_cfg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_4>;
-+		clock-output-names = "dc0_lis_lpcg_ipg_clk";
-+		power-domains = <&pd IMX_SC_R_DC_0>;
-+	};
-+
-+	dc0_disp_ctrl_link_mst0_lpcg: clock-controller@56010008 {
-+		reg = <0x56010008 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&dc0_cfg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_4>;
-+		clock-output-names = "dc0_disp_ctrl_link_mst0_lpcg_msi_clk";
-+		power-domains = <&pd IMX_SC_R_DC_0>;
-+	};
-+
-+	dc0_pixel_combiner_lpcg: clock-controller@56010010 {
-+		reg = <0x56010010 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&dc0_cfg_clk>;
-+		clock-indices = <IMX_LPCG_CLK_4>;
-+		clock-output-names = "dc0_pixel_combiner_lpcg_apb_clk";
-+		power-domains = <&pd IMX_SC_R_DC_0>;
-+	};
-+
-+	dc0_lpcg: clock-controller@56010014 {
-+		reg = <0x56010014 0x4>;
-+		#clock-cells = <1>;
-+		clocks = <&dc0_cfg_clk>, <&dc0_axi_int_clk>;
-+		clock-indices = <IMX_LPCG_CLK_4>, <IMX_LPCG_CLK_5>;
-+		clock-output-names = "dc0_lpcg_cfg_clk",
-+				     "dc0_lpcg_axi_clk";
-+		power-domains = <&pd IMX_SC_R_DC_0>;
-+	};
-+
-+	dc0_pc: pixel-combiner@56020000 {
-+		reg = <0x56020000 0x10000>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		clocks = <&dc0_pixel_combiner_lpcg IMX_LPCG_CLK_4>;
-+		clock-names = "apb";
-+		power-domains = <&pd IMX_SC_R_DC_0>;
-+
-+		status = "disabled";
-+
-+		channel@0 {
-+			reg = <0>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				dc0_pixel_combiner_ch0_dc0_disp0: endpoint {
-+					remote-endpoint = <&dc0_disp0_dc0_pixel_combiner_ch0>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				dc0_pixel_combiner_ch0_dc0_pixel_link0: endpoint {
-+					remote-endpoint = <&dc0_pixel_link0_dc0_pixel_combiner_ch0>;
-+				};
-+			};
-+		};
-+
-+		channel@1 {
-+			reg = <1>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				dc0_pixel_combiner_ch1_dc0_disp1: endpoint {
-+					remote-endpoint = <&dc0_disp1_dc0_pixel_combiner_ch1>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				dc0_pixel_combiner_ch1_dc0_pixel_link1: endpoint {
-+					remote-endpoint = <&dc0_pixel_link1_dc0_pixel_combiner_ch1>;
-+				};
-+			};
-+		};
-+	};
-+
-+	dc0: display-controller@56180000 {
-+		reg = <0x56180000 0x40000>;
-+		ranges;
-+		clocks = <&dc0_lpcg IMX_LPCG_CLK_4>;
-+		power-domains = <&pd IMX_SC_R_DC_0>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		status = "disabled";
-+
-+		dc0_intc: interrupt-controller@56180040 {
-+			reg = <0x56180040 0x60>;
-+			clocks = <&dc0_lpcg IMX_LPCG_CLK_5>;
-+			interrupt-controller;
-+			interrupt-parent = <&dc0_irqsteer>;
-+			#interrupt-cells = <1>;
-+			interrupts = <448>, <449>, <450>,  <64>,
-+				      <65>,  <66>,  <67>,  <68>,
-+				      <69>,  <70>, <193>, <194>,
-+				     <195>, <196>, <197>,  <72>,
-+				      <73>,  <74>,  <75>,  <76>,
-+				      <77>,  <78>,  <79>,  <80>,
-+				      <81>, <199>, <200>, <201>,
-+				     <202>, <203>, <204>, <205>,
-+				     <206>, <207>, <208>,   <5>,
-+				       <0>,   <1>,   <2>,   <3>,
-+				       <4>,  <82>,  <83>,  <84>,
-+				      <85>, <209>, <210>, <211>,
-+				     <212>;
-+			interrupt-names = "store9_shdload",
-+					  "store9_framecomplete",
-+					  "store9_seqcomplete",
-+					  "extdst0_shdload",
-+					  "extdst0_framecomplete",
-+					  "extdst0_seqcomplete",
-+					  "extdst4_shdload",
-+					  "extdst4_framecomplete",
-+					  "extdst4_seqcomplete",
-+					  "extdst1_shdload",
-+					  "extdst1_framecomplete",
-+					  "extdst1_seqcomplete",
-+					  "extdst5_shdload",
-+					  "extdst5_framecomplete",
-+					  "extdst5_seqcomplete",
-+					  "disengcfg_shdload0",
-+					  "disengcfg_framecomplete0",
-+					  "disengcfg_seqcomplete0",
-+					  "framegen0_int0",
-+					  "framegen0_int1",
-+					  "framegen0_int2",
-+					  "framegen0_int3",
-+					  "sig0_shdload",
-+					  "sig0_valid",
-+					  "sig0_error",
-+					  "disengcfg_shdload1",
-+					  "disengcfg_framecomplete1",
-+					  "disengcfg_seqcomplete1",
-+					  "framegen1_int0",
-+					  "framegen1_int1",
-+					  "framegen1_int2",
-+					  "framegen1_int3",
-+					  "sig1_shdload",
-+					  "sig1_valid",
-+					  "sig1_error",
-+					  "reserved",
-+					  "cmdseq_error",
-+					  "comctrl_sw0",
-+					  "comctrl_sw1",
-+					  "comctrl_sw2",
-+					  "comctrl_sw3",
-+					  "framegen0_primsync_on",
-+					  "framegen0_primsync_off",
-+					  "framegen0_secsync_on",
-+					  "framegen0_secsync_off",
-+					  "framegen1_primsync_on",
-+					  "framegen1_primsync_off",
-+					  "framegen1_secsync_on",
-+					  "framegen1_secsync_off";
-+		};
-+
-+		dc0_pixel_engine: pixel-engine@56180800 {
-+			reg = <0x56180800 0xac00>;
-+			ranges;
-+			clocks = <&dc0_lpcg IMX_LPCG_CLK_5>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			dc0_constframe0: constframe@56180960 {
-+				reg = <0x56180960 0xc>, <0x56184400 0x20>;
-+				reg-names = "pec", "cfg";
-+			};
-+
-+			dc0_extdst0: extdst@56180980 {
-+				reg = <0x56180980 0x1c>, <0x56184800 0x28>;
-+				reg-names = "pec", "cfg";
-+				interrupt-parent = <&dc0_intc>;
-+				interrupts = <3>, <4>, <5>;
-+				interrupt-names = "shdload", "framecomplete", "seqcomplete";
-+			};
-+
-+			dc0_constframe4: constframe@561809a0 {
-+				reg = <0x561809a0 0xc>, <0x56184c00 0x20>;
-+				reg-names = "pec", "cfg";
-+			};
-+
-+			dc0_extdst4: extdst@561809c0 {
-+				reg = <0x561809c0 0x1c>, <0x56185000 0x28>;
-+				reg-names = "pec", "cfg";
-+				interrupt-parent = <&dc0_intc>;
-+				interrupts = <6>, <7>, <8>;
-+				interrupt-names = "shdload", "framecomplete", "seqcomplete";
-+			};
-+
-+			dc0_constframe1: constframe@561809e0 {
-+				reg = <0x561809e0 0xc>, <0x56185400 0x20>;
-+				reg-names = "pec", "cfg";
-+			};
-+
-+			dc0_extdst1: extdst@56180a00 {
-+				reg = <0x56180a00 0x1c>, <0x56185800 0x28>;
-+				reg-names = "pec", "cfg";
-+				interrupt-parent = <&dc0_intc>;
-+				interrupts = <9>, <10>, <11>;
-+				interrupt-names = "shdload", "framecomplete", "seqcomplete";
-+			};
-+
-+			dc0_constframe5: constframe@56180a20 {
-+				reg = <0x56180a20 0xc>, <0x56185c00 0x20>;
-+				reg-names = "pec", "cfg";
-+			};
-+
-+			dc0_extdst5: extdst@56180a40 {
-+				reg = <0x56180a40 0x1c>, <0x56186000 0x28>;
-+				reg-names = "pec", "cfg";
-+				interrupt-parent = <&dc0_intc>;
-+				interrupts = <12>, <13>, <14>;
-+				interrupt-names = "shdload", "framecomplete", "seqcomplete";
-+			};
-+
-+			dc0_fetchwarp2: fetchwarp@56180a60 {
-+				reg = <0x56180a60 0x10>, <0x56186400 0x190>;
-+				reg-names = "pec", "cfg";
-+			};
-+
-+			dc0_fetchlayer0: fetchlayer@56180ac0 {
-+				reg = <0x56180ac0 0xc>, <0x56188400 0x404>;
-+				reg-names = "pec", "cfg";
-+			};
-+
-+			dc0_layerblend0: layerblend@56180ba0 {
-+				reg = <0x56180ba0 0x10>, <0x5618a400 0x20>;
-+				reg-names = "pec", "cfg";
-+			};
-+
-+			dc0_layerblend1: layerblend@56180bc0 {
-+				reg = <0x56180bc0 0x10>, <0x5618a800 0x20>;
-+				reg-names = "pec", "cfg";
-+			};
-+
-+			dc0_layerblend2: layerblend@56180be0 {
-+				reg = <0x56180be0 0x10>, <0x5618ac00 0x20>;
-+				reg-names = "pec", "cfg";
-+			};
-+
-+			dc0_layerblend3: layerblend@56180c00 {
-+				reg = <0x56180c00 0x10>, <0x5618b000 0x20>;
-+				reg-names = "pec", "cfg";
-+			};
-+		};
-+
-+		dc0_display_engine0: display-engine@5618b400 {
-+			reg = <0x5618b400 0x14>, <0x5618b800 0x1c00>;
-+			reg-names = "top", "cfg";
-+			ranges;
-+			interrupt-parent = <&dc0_intc>;
-+			interrupts = <15>, <16>, <17>;
-+			interrupt-names = "shdload", "framecomplete", "seqcomplete";
-+			power-domains = <&pd IMX_SC_R_DC_0_PLL_0>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			dc0_framegen0: framegen@5618b800 {
-+				reg = <0x5618b800 0x98>;
-+				clocks = <&dc0_disp_lpcg IMX_LPCG_CLK_0>;
-+				interrupt-parent = <&dc0_intc>;
-+				interrupts = <18>, <19>, <20>, <21>,
-+					     <41>, <42>, <43>, <44>;
-+				interrupt-names = "int0", "int1", "int2", "int3",
-+						  "primsync_on", "primsync_off",
-+						  "secsync_on", "secsync_off";
-+			};
-+
-+			dc0_tcon0: tcon@5618c800 {
-+				reg = <0x5618c800 0x588>;
-+
-+				port {
-+					dc0_disp0_dc0_pixel_combiner_ch0: endpoint {
-+						remote-endpoint = <&dc0_pixel_combiner_ch0_dc0_disp0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		dc0_display_engine1: display-engine@5618b420 {
-+			reg = <0x5618b420 0x14>, <0x5618d400 0x1c00>;
-+			reg-names = "top", "cfg";
-+			ranges;
-+			interrupt-parent = <&dc0_intc>;
-+			interrupts = <25>, <26>, <27>;
-+			interrupt-names = "shdload", "framecomplete", "seqcomplete";
-+			power-domains = <&pd IMX_SC_R_DC_0_PLL_1>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			dc0_framegen1: framegen@5618d400 {
-+				reg = <0x5618d400 0x98>;
-+				clocks = <&dc0_disp_lpcg IMX_LPCG_CLK_1>;
-+				interrupt-parent = <&dc0_intc>;
-+				interrupts = <28>, <29>, <30>, <31>,
-+					     <45>, <46>, <47>, <48>;
-+				interrupt-names = "int0", "int1", "int2", "int3",
-+						  "primsync_on", "primsync_off",
-+						  "secsync_on", "secsync_off";
-+			};
-+
-+			dc0_tcon1: tcon@5618e400 {
-+				reg = <0x5618e400 0x588>;
-+
-+				port {
-+					dc0_disp1_dc0_pixel_combiner_ch1: endpoint {
-+						remote-endpoint = <&dc0_pixel_combiner_ch1_dc0_disp1>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
-+	dc0_pl_msi_bus: bus@56200000 {
-+		reg = <0x56200000 0x100000>;
-+		ranges;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		interrupt-parent = <&dc0_irqsteer>;
-+		interrupts = <320>;
-+		clocks = <&dc0_disp_ctrl_link_mst0_lpcg IMX_LPCG_CLK_4>,
-+			 <&dc0_disp_ctrl_link_mst0_lpcg IMX_LPCG_CLK_4>;
-+		clock-names = "msi", "ahb";
-+		power-domains = <&pd IMX_SC_R_DC_0>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi b/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
-new file mode 100644
-index 0000000000000..f440238b87ad5
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
-@@ -0,0 +1,250 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright 2024 NXP
-+ */
-+
-+&dc0 {
-+	compatible = "fsl,imx8qxp-dc";
-+};
-+
-+&dc0_constframe0 {
-+	compatible = "fsl,imx8qxp-dc-constframe";
-+};
-+
-+&dc0_constframe1 {
-+	compatible = "fsl,imx8qxp-dc-constframe";
-+};
-+
-+&dc0_constframe4 {
-+	compatible = "fsl,imx8qxp-dc-constframe";
-+};
-+
-+&dc0_constframe5 {
-+	compatible = "fsl,imx8qxp-dc-constframe";
-+};
-+
-+&dc0_disp_ctrl_link_mst0_lpcg {
-+	compatible = "fsl,imx8qxp-lpcg";
-+};
-+
-+&dc0_disp_lpcg {
-+	compatible = "fsl,imx8qxp-lpcg";
-+};
-+
-+&dc0_display_engine0 {
-+	compatible = "fsl,imx8qxp-dc-display-engine";
-+};
-+
-+&dc0_display_engine1 {
-+	compatible = "fsl,imx8qxp-dc-display-engine";
-+};
-+
-+&dc0_extdst0 {
-+	compatible = "fsl,imx8qxp-dc-extdst";
-+};
-+
-+&dc0_extdst1 {
-+	compatible = "fsl,imx8qxp-dc-extdst";
-+};
-+
-+&dc0_extdst4 {
-+	compatible = "fsl,imx8qxp-dc-extdst";
-+};
-+
-+&dc0_extdst5 {
-+	compatible = "fsl,imx8qxp-dc-extdst";
-+};
-+
-+&dc0_fetchlayer0 {
-+	compatible = "fsl,imx8qxp-dc-fetchlayer";
-+};
-+
-+&dc0_fetchwarp2 {
-+	compatible = "fsl,imx8qxp-dc-fetchwarp";
-+};
-+
-+&dc0_framegen0 {
-+	compatible = "fsl,imx8qxp-dc-framegen";
-+};
-+
-+&dc0_framegen1 {
-+	compatible = "fsl,imx8qxp-dc-framegen";
-+};
-+
-+&dc0_intc {
-+	compatible = "fsl,imx8qxp-dc-intc";
-+};
-+
-+&dc0_irqsteer {
-+	compatible = "fsl,imx8qxp-irqsteer", "fsl,imx-irqsteer";
-+};
-+
-+&dc0_layerblend0 {
-+	compatible = "fsl,imx8qxp-dc-layerblend";
-+};
-+
-+&dc0_layerblend1 {
-+	compatible = "fsl,imx8qxp-dc-layerblend";
-+};
-+
-+&dc0_layerblend2 {
-+	compatible = "fsl,imx8qxp-dc-layerblend";
-+};
-+
-+&dc0_layerblend3 {
-+	compatible = "fsl,imx8qxp-dc-layerblend";
-+};
-+
-+&dc0_lis_lpcg {
-+	compatible = "fsl,imx8qxp-lpcg";
-+};
-+
-+&dc0_lpcg {
-+	compatible = "fsl,imx8qxp-lpcg";
-+};
-+
-+&dc0_pc {
-+	compatible = "fsl,imx8qxp-pixel-combiner";
-+};
-+
-+&dc0_pixel_combiner_lpcg {
-+	compatible = "fsl,imx8qxp-lpcg";
-+};
-+
-+&dc0_pixel_engine {
-+	compatible = "fsl,imx8qxp-dc-pixel-engine";
-+};
-+
-+&dc0_pl_msi_bus {
-+	compatible = "fsl,imx8qxp-display-pixel-link-msi-bus", "simple-pm-bus";
-+};
-+
-+&dc0_tcon0 {
-+	compatible = "fsl,imx8qxp-dc-tcon";
-+};
-+
-+&dc0_tcon1 {
-+	compatible = "fsl,imx8qxp-dc-tcon";
-+};
-+
-+&scu {
-+	dc0_pixel_link0: dc0-pixel-link0 {
-+		compatible = "fsl,imx8qxp-dc-pixel-link";
-+		fsl,dc-id = /bits/ 8 <0>;
-+		fsl,dc-stream-id = /bits/ 8 <0>;
-+
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			/* from dc0 pixel combiner channel0 */
-+			port@0 {
-+				reg = <0>;
-+
-+				dc0_pixel_link0_dc0_pixel_combiner_ch0: endpoint {
-+					remote-endpoint = <&dc0_pixel_combiner_ch0_dc0_pixel_link0>;
-+				};
-+			};
-+
-+			/* to PXL2DPIs in MIPI/LVDS combo subsystems */
-+			port@1 {
-+				reg = <1>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+
-+				dc0_pixel_link0_mipi_lvds_0_pxl2dpi: endpoint@0 {
-+					reg = <0>;
-+				};
-+
-+				dc0_pixel_link0_mipi_lvds_1_pxl2dpi: endpoint@1 {
-+					reg = <1>;
-+				};
-+			};
-+
-+			/* unused */
-+			port@2 {
-+				reg = <2>;
-+
-+				status = "disabled";
-+			};
-+
-+			/* unused */
-+			port@3 {
-+				reg = <3>;
-+
-+				status = "disabled";
-+			};
-+
-+			/* to imaging subsystem */
-+			port@4 {
-+				reg = <4>;
-+
-+				status = "disabled";
-+			};
-+		};
-+	};
-+
-+	dc0_pixel_link1: dc0-pixel-link1 {
-+		compatible = "fsl,imx8qxp-dc-pixel-link";
-+		fsl,dc-id = /bits/ 8 <0>;
-+		fsl,dc-stream-id = /bits/ 8 <1>;
-+
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			/* from dc0 pixel combiner channel1 */
-+			port@0 {
-+				reg = <0>;
-+
-+				dc0_pixel_link1_dc0_pixel_combiner_ch1: endpoint {
-+					remote-endpoint = <&dc0_pixel_combiner_ch1_dc0_pixel_link1>;
-+				};
-+			};
-+
-+			/* to PXL2DPIs in MIPI/LVDS combo subsystems */
-+			port@1 {
-+				reg = <1>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+
-+				dc0_pixel_link1_mipi_lvds_1_pxl2dpi: endpoint@0 {
-+					reg = <0>;
-+				};
-+
-+				dc0_pixel_link1_mipi_lvds_0_pxl2dpi: endpoint@1 {
-+					reg = <1>;
-+				};
-+			};
-+
-+			/* to parallel display interface in ADMA subsystem */
-+			port@2 {
-+				reg = <2>;
-+
-+				status = "disabled";
-+			};
-+
-+			/* unused */
-+			port@3 {
-+				reg = <3>;
-+
-+				status = "disabled";
-+			};
-+
-+			/* unused */
-+			port@4 {
-+				reg = <4>;
-+
-+				status = "disabled";
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8qxp.dtsi b/arch/arm64/boot/dts/freescale/imx8qxp.dtsi
-index 7c4a50e0ec9e9..eedca1c300d64 100644
---- a/arch/arm64/boot/dts/freescale/imx8qxp.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8qxp.dtsi
-@@ -207,7 +207,7 @@ psci {
- 		method = "smc";
- 	};
- 
--	system-controller {
-+	scu: system-controller {
- 		compatible = "fsl,imx-scu";
- 		mbox-names = "tx0",
- 			     "rx0",
-@@ -339,6 +339,7 @@ map0 {
- 	#include "imx8-ss-security.dtsi"
- 	#include "imx8-ss-cm40.dtsi"
- 	#include "imx8-ss-gpu0.dtsi"
-+	#include "imx8-ss-dc0.dtsi"
- 	#include "imx8-ss-adma.dtsi"
- 	#include "imx8-ss-conn.dtsi"
- 	#include "imx8-ss-ddr.dtsi"
-@@ -349,6 +350,7 @@ map0 {
- #include "imx8qxp-ss-img.dtsi"
- #include "imx8qxp-ss-vpu.dtsi"
- #include "imx8qxp-ss-security.dtsi"
-+#include "imx8qxp-ss-dc.dtsi"
- #include "imx8qxp-ss-adma.dtsi"
- #include "imx8qxp-ss-conn.dtsi"
- #include "imx8qxp-ss-lsio.dtsi"
--- 
-2.55.0
-
+Agreed on the properties as well. The supplies are shared with the
+display and described on the panel node, and there is no wake GPIO, so
+v2 will disallow vcc-supply, iovcc-supply and wake-gpios for the
+FT8722 and keep reset-gpios required.
