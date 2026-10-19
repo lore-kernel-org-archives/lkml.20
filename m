@@ -1,65 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792422207;
-	b=DXa79jSwTcURqIf865eRiO1pvx0LNeonPyI1pgEgxkW+hVw1dwm6ial3TmfL+t5aLk+W
-	 YXeSWAb7gpAKn2jstWxix3P0oJxElVIcVT0BYuzlr3b3P2jAPlQ4X67Jet6rJzmVsJjnd
-	 v/X+uS9cKZI+PXL6NcHWkJHJf9VbNHwpWt0uhnFXoy0m5GQ/GYy2OW2bVgXHxB/mkzRMl
-	 DQI9wLCdEC08x2ihbjKCL3xECCe/42ZmV6GjtHFuwy6UPYJbzTJf1Jacuj1+0ZPwE48lJ
-	 UZkCxIRp1EAiazDK913ue7yQ2bXdi+eatMu2WXuSq8uhFLkmAjNoAjXi4//do5rWV+w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422207;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=0UkI+p2KaBppYji0GomycRUpxyn5jorwQt7/VnBco3Q=;
-	b=cLZl9ftc3dq4F9Xl/EonNInrfuMg4sz7RGlO5S1lsjjq56LbXl8Vl6+O6GP7cFGXIVF1
-	 6H7SXE9vN6QkOrvwFP86Ds1MJENEdtv0APWnIlatFvrkanniKAfGhCgebnhbBfILTVqh5
-	 9Dto1V1o865Fc6z2K/j4FaBbvga9ARJ5iob3hviy8nsdggK+WJ0L56qA/yWQxId98Vq0O
-	 k6eNCBZZIj/z1KPNDrZjt470aC2iXXILtCA7jVGg5iRXFHlFfZycua6xC6PKbMH35TR8D
-	 27nryaZH5NEGp9VZvstPkeV0u0HjMlVZVgWKTlR0hfhk0EqPidtSHftx1fQJUUFmljA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=pJzxqwWk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792422878;
+	b=umPVcKQs95dRzQjOEHoWzSMM41hFTslD20oGyQ4w69T8L16mM+Ms7wYoHBvuvFOXD66i
+	 tBGdjNgE4usCzfu7nu25nT7NPBY0zaCfvfJ3xOVlS4zNQctbYrn0ZI0q+RZ1CzWwa/FCb
+	 Q5H3KYjP93Kc7FqhN31ZYQZOZaKDnAapt3/UNCXjyLnrRpq+YiovtFaQM/K9kNvIMeGsw
+	 DAEiU4UcMO4eq59pWNAC3vrgM1WihC75oswz/wgZaApTlT+fF1c8Ami2S9Jm/gV6zvskz
+	 cY/P5JsV4TQavityW4C1Q8vCuBvH9tsNwRtUjVBzzoA9yZSPT2bayDgblyeSzhtG/TQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422878;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wyMNmoV7LLQCe5NBcl4HLsDDXaPs+fkB0uZvlmUvPpk=;
+	b=5lDqgc6hMpBPjErUHEwp7FRZfiV+SJske6njyALFB+CCJGtE+XSsdijHVotkx9uIFFlt
+	 ZM8QxskjEiE1waWHSynDx4GwVpE2Zx/ehfwJ5zJ8ixafmBw62BtbLGh24nvs7IgzlVsEq
+	 88pX0Sf6rjbCvI4nivG6F9ulvs9xZOvbovziQjojHG86m2NP4OTKN4mX6FQBLYcmWC75Y
+	 ei/z5LlfLVRNAyhkFlgUCLFOtyh2A22HhpVeDNu9RmXdWBuFSNkDta1/GKJlmve5JiMSZ
+	 be5grZ+wsGTFMJfnP+StWGjyKKnHkWK3IhwmsxJlMHWBgOjLHUEig+OSRQTC54qvMeg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rl9D987c;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4C2607D37F;
-	Mon, 19 Oct 2026 15:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E4C2607D37F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C82609CEDD;
+	Mon, 19 Oct 2026 15:14:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C82609CEDD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=pJzxqwWk
-ARC-Seal: i=1; a=rsa-sha256; t=1792422182; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=NTCNK8fAaaUFkJGoktH/bsfTmThkZ0m5WtOpTkkfSe0j3JJTZkLdWCrykEurJKFxbnHgVe5spCP4JLvmQi9Sau0n1lQ7s4NiLYIkYiL4dMVjjSvqpH6EOzp5+stP3GTnpTBhAA3Sl9rXtdIQCOQMBn0cnGAuXOkLRAk3n/nEfoA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792422182; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=0UkI+p2KaBppYji0GomycRUpxyn5jorwQt7/VnBco3Q=; 
-	b=HX8GWlD/NBSM0ikdrZoVF5Pa68kVN1YVaitjnH2F0KhJAIRWLiSbXUtZPK8PaSzwjDRZyIfJf0P7RCwxDGNK9tn9jknLTJ0+bLC7EnLh0ALEtmJYPDQbpo/mxfmO9mhfMQhpXyaOiuxP9TwuaSXZRatWyV28d0UohdTsq5I58WY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792422182;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=0UkI+p2KaBppYji0GomycRUpxyn5jorwQt7/VnBco3Q=;
-	b=pJzxqwWk9HJvgbQW8lNZ5hzLr54im2BVSymDHCth5qaoOBYUH5nHbn94PgVLlBaj
-	XnwWjVTgHN9UQc5typjD//1Cp8GlA3rDIVk8MrDlg3m+bfYn4BS1cflZm250jPSasjK
-	4DW8Lmmkj0u2qb168U+cGVj2YADKlG005JiSnbWlOz8Epozf9K0D2pkX0QVf2cVTgks
-	QJ/qoH4jy4Zpw3u4VA1BlSMJ4O35AriT/6kd/jl6EJ9E9PZJ+8wsuIFGdtHPFo46luI
-	63lhiGLUG7xyERZdMeB4yCAZTVgCGyJDnlhxj4zCDUv/OlWgc3BUOGoIsH1wCcPPHyV
-	pA+6nve6Ww==
-Received: by smtp.zohomail.com with SMTPS id 179242217902539.017621314283474;
-	Mon, 19 Oct 2026 08:02:59 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Mon, 19 Oct 2026 23:02:24 +0800
-Subject: [PATCH v5 02/12] platform/x86: lenovo-wmi-capdata: Do not stop the
- AC notifier chain on error
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rl9D987c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792422878; x=1823958878;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=QgVVF5Nil8kjcN6fX6wTMPSDsxBuQH1tWzFFSyv8gGU=;
+  b=Rl9D987cQLXUlIl6L+kbGyP9YFXcJAIF7UsdkcdlNhsN8C4DxrgXKqSc
+   /vXoNejC8cwe0TGp7bzXJrBJo3SR5EkeNywCh2NyOvlMPPtR0EP3XaKmX
+   dpOAy0ZRFH421XM1ulKtAGSYGX7aUNm8mhtaMXtU6jKGFdp1TTG60/nWH
+   nrilSJrvDHW1JKLze5OJHYQ7fZkVCdhKjM8nuWh2jE8UU1CyJ1ow4ouCi
+   betzTIhNq7D9Uyh0Zx67Et2IVP1XEaQd1YxS1CSs88SJw8atXX6IzC9NR
+   OWs6dIzr65dObfPif81fpmxmK6cUI8/UMg9+UlrbPjEYbV7V/R3xhzey7
+   A==;
+X-CSE-ConnectionGUID: yhvr66Z5Re6Q5pKqsMBoHA==
+X-CSE-MsgGUID: ofFD/Pj0QVW1byhtQMBtYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986918"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="986918"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:34 -0700
+X-CSE-ConnectionGUID: AaLch5cvQiq1SnRJDFgN6Q==
+X-CSE-MsgGUID: XyYt6r+vSMi0J3gzW3jB6Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2536974"
+Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
+  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:34 -0700
+From: Daniel Byrne <daniel1.byrne@intel.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Kristen Accardi <kristen.c.accardi@intel.com>,
+	dmaengine@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 09/17] dmaengine: idxd: quarantine terminate_all's descriptor slots until the device has drained
+Date: Mon, 19 Oct 2026 08:06:22 -0700
+Message-ID: <20261019150630.4026341-10-daniel1.byrne@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,86 +90,309 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-lwmi-wmi-new-api-v5-2-71557d28d058@rong.moe>
-References: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
-In-Reply-To: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Armin Wolf <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>, 
- Navon John Lukose <navonjohnlukose@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-6be7c
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Returning NOTIFY_BAD to the AC notifier chain stops it by preventing
-later notifier blocks from being called, but our error is non-fatal for
-other AC notifier blocks, which should continue to consume the event.
+idxd_dma_terminate_all() flushes the pending descriptors and frees their
+slots while the device still holds them. A late completion record then
+lands on the slot's next owner and completes it with the old
+descriptor's status, and the unmap data the client attached is released
+while the device may still access the memory it maps; with an IOMMU
+another mapping can reuse the released address and take the late
+access.
 
-Return NOTIFY_DONE and add a dev_warn() on error, so that the AC
-notifier chain continues. This also aligns with hp-wmi.
+Keep those slots out of use instead. terminate_all now waits for the
+submitters in flight, so that every descriptor on the lists is in the
+device, and the flush moves the descriptors the device has not finished
+to a per-queue quarantine, with their unmap data, after it has completed
+their cookies. device_synchronize() takes the quarantine, drains the
+queue, which covers everything the device held when the drain was
+issued, and only then frees the slots and the unmap data. A descriptor
+terminated after the take waits for the next synchronize. The halt flush
+frees the quarantine itself, since the halt killed every descriptor the
+device held, and so does the queue disable once its drain and reset
+have completed.
 
-The function documentation was copied from elsewhere and makes no sense
-here, so correct it as well.
-
-Fixes: e1a5fe662b59 ("platform/x86: Add Lenovo Capability Data 01 WMI Driver")
-Cc: stable@vger.kernel.org
-Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Signed-off-by: Rong Zhang <i@rong.moe>
+Fixes: 2a93f5747d0e ("dmaengine: idxd: Flush all pending descriptors")
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
 ---
-Changes in v2:
-- New patch in the series
----
- drivers/platform/x86/lenovo/wmi-capdata.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/dma/idxd/device.c | 117 ++++++++++++++++++++++++++++++++++++--
+ drivers/dma/idxd/dma.c    |  12 +++-
+ drivers/dma/idxd/idxd.h   |  12 +++-
+ drivers/dma/idxd/init.c   |   1 +
+ drivers/dma/idxd/irq.c    |   3 +-
+ 5 files changed, 138 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
-index d5e961566136..58787da959b4 100644
---- a/drivers/platform/x86/lenovo/wmi-capdata.c
-+++ b/drivers/platform/x86/lenovo/wmi-capdata.c
-@@ -774,13 +774,11 @@ static int lwmi_cd_setup(struct lwmi_cd_priv *priv, enum lwmi_cd_type type)
+diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
+index 41223d2e20af..09475f5ea026 100644
+--- a/drivers/dma/idxd/device.c
++++ b/drivers/dma/idxd/device.c
+@@ -118,6 +118,8 @@ int idxd_wq_alloc_resources(struct idxd_wq *wq)
+ 	if (wq->type != IDXD_WQT_KERNEL)
+ 		return 0;
  
- /**
-  * lwmi_cd01_notifier_call() - Call method for cd01 notifier.
-- * block call chain.
-- * @nb: The notifier_block registered to lenovo-wmi-events driver.
-+ * @nb: The cd01 ACPI notifier_block.
-  * @action: Unused.
-  * @data: The ACPI event.
-  *
-- * For LWMI_EVENT_THERMAL_MODE, set current_mode and notify platform_profile
-- * of a change.
-+ * Refresh cached capdata on AC status change.
-  *
-  * Return: notifier_block status.
-  */
-@@ -799,8 +797,16 @@ static int lwmi_cd01_notifier_call(struct notifier_block *nb, unsigned long acti
- 	switch (event->type) {
- 	case ACPI_AC_NOTIFY_STATUS:
- 		ret = lwmi_cd_cache(priv);
--		if (ret)
--			return NOTIFY_BAD;
-+		if (ret) {
-+			dev_warn(&priv->wdev->dev,
-+				 "failed to refresh capdata on AC change: %d\n", ret);
++	/* A fresh pool: nothing outstanding can land in it. */
++	INIT_LIST_HEAD(&wq->quarantine);
+ 	num_descs = wq_dedicated(wq) ? wq->size : wq->threshold;
+ 	wq->num_descs = num_descs;
+ 
+@@ -170,10 +172,18 @@ EXPORT_SYMBOL_NS_GPL(idxd_wq_alloc_resources, "IDXD");
+ void idxd_wq_free_resources(struct idxd_wq *wq)
+ {
+ 	struct device *dev = &wq->idxd->pdev->dev;
++	LIST_HEAD(dead_descs);
+ 
+ 	if (wq->type != IDXD_WQT_KERNEL)
+ 		return;
+ 
++	/*
++	 * The disable frees the pool only after its drain and its reset
++	 * completed, and a failed enable has run nothing, so the device no
++	 * longer reaches what a quarantined descriptor maps.
++	 */
++	idxd_wq_quarantine_take(wq, &dead_descs);
++	idxd_wq_quarantine_free(wq, &dead_descs);
+ 	free_hw_descs(wq);
+ 	free_descs(wq);
+ 	dma_free_coherent(dev, wq->compls_size, wq->compls, wq->compls_addr);
+@@ -1391,11 +1401,14 @@ int idxd_device_load_config(struct idxd_device *idxd)
+ 	return 0;
+ }
+ 
+-static void idxd_flush_pending_descs(struct idxd_irq_entry *ie)
++static void idxd_flush_pending_descs(struct idxd_irq_entry *ie,
++				     bool quarantine)
+ {
++	struct idxd_wq *wq = ie_to_wq(ie);
+ 	struct idxd_desc *desc, *itr;
+ 	struct llist_node *head;
+ 	LIST_HEAD(flist);
++	LIST_HEAD(qlist);
+ 	enum idxd_complete_type ctype;
+ 
+ 	spin_lock(&ie->list_lock);
+@@ -1423,8 +1436,82 @@ static void idxd_flush_pending_descs(struct idxd_irq_entry *ie)
+ 		tx = &desc->txd;
+ 		tx->callback = NULL;
+ 		tx->callback_result = NULL;
++		/*
++		 * A descriptor the device has not finished still has its
++		 * completion record to write. A flush that leaves the
++		 * device running keeps its slot out of use, or the record
++		 * would land on the slot's next owner and complete it with
++		 * this descriptor's status. Its unmap data stays with the
++		 * slot as well, since the device may still access what it
++		 * maps, and an address released now could be mapped again
++		 * for someone else before the late access.
++		 */
++		if (quarantine && ctype == IDXD_COMPLETE_ABORT) {
++			struct dmaengine_unmap_data *unmap = tx->unmap;
 +
-+			/*
-+			 * Our error is non-fatal for others, and we still want
-+			 * the other event consumers to process it.
-+			 */
-+			return NOTIFY_DONE;
++			tx->unmap = NULL;
++			idxd_dma_complete_txd(desc, ctype, false, NULL, NULL);
++			tx->unmap = unmap;
++			list_add_tail(&desc->list, &qlist);
++			continue;
 +		}
+ 		idxd_dma_complete_txd(desc, ctype, true, NULL, NULL);
+ 	}
++
++	if (list_empty(&qlist))
++		return;
++	spin_lock(&ie->list_lock);
++	list_splice_tail(&qlist, &wq->quarantine);
++	spin_unlock(&ie->list_lock);
++}
++
++/*
++ * Take what terminate_all has quarantined so far. A drain covers only
++ * what the device held when it was issued, so a synchronize takes the
++ * quarantine before it drains and frees it if the drain completed. A
++ * descriptor terminated meanwhile waits for the next one. The list lock
++ * serialises this with the flush that adds to the quarantine and with a
++ * halt or a teardown that frees it all.
++ */
++void idxd_wq_quarantine_take(struct idxd_wq *wq, struct list_head *list)
++{
++	spin_lock(&wq->ie.list_lock);
++	list_splice_init(&wq->quarantine, list);
++	spin_unlock(&wq->ie.list_lock);
++}
++
++/*
++ * Nothing the device holds can write their completion records, or reach
++ * the memory their unmap data maps, any more. The unmap data goes before
++ * the slot, which a new owner may take at once.
++ */
++void idxd_wq_quarantine_free(struct idxd_wq *wq, struct list_head *list)
++{
++	struct idxd_desc *desc, *itr;
++
++	list_for_each_entry_safe(desc, itr, list, list) {
++		list_del(&desc->list);
++		dma_descriptor_unmap(&desc->txd);
++		idxd_free_desc(wq, desc);
++	}
++}
++
++/*
++ * A halt killed every descriptor the device held: the quarantined slots
++ * are free. Under wq_lock, since an unbind racing the halt may free the
++ * pool.
++ */
++void idxd_wq_halt_release(struct idxd_wq *wq)
++{
++	LIST_HEAD(dead_descs);
++
++	guard(mutex)(&wq->wq_lock);
++
++	if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL)
++		return;
++
++	idxd_wq_quarantine_take(wq, &dead_descs);
++	idxd_wq_quarantine_free(wq, &dead_descs);
+ }
  
- 		return NOTIFY_OK;
- 	default:
-
+ static void idxd_device_set_perm_entry(struct idxd_device *idxd,
+@@ -1456,7 +1543,7 @@ void idxd_wq_free_irq(struct idxd_wq *wq)
+ 		return;
+ 
+ 	free_irq(ie->vector, ie);
+-	idxd_flush_pending_descs(ie);
++	idxd_flush_pending_descs(ie, false);
+ 
+ 	/* FLR revokes every handle; the halt path marks them invalid. */
+ 	if (ie->int_handle == INVALID_INT_HANDLE)
+@@ -1476,16 +1563,38 @@ void idxd_wq_free_irq(struct idxd_wq *wq)
+ 	ie->pasid = IOMMU_PASID_INVALID;
+ }
+ 
+-void idxd_wq_flush_descs(struct idxd_wq *wq)
++/*
++ * @quarantine: the device keeps running, so the slots of the descriptors
++ * it has not finished stay out of use until a drain covers them. A halt
++ * has killed them and frees their slots at once.
++ */
++void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
+ {
+ 	struct idxd_irq_entry *ie = &wq->ie;
++	bool killed = false;
+ 
+ 	guard(mutex)(&wq->wq_lock);
+ 
+ 	if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL)
+ 		return;
+ 
+-	idxd_flush_pending_descs(ie);
++	/*
++	 * A submitter between its list add and its portal write holds
++	 * wq_active. Waiting for the reference to die puts every listed
++	 * descriptor in the device, where the drain that frees the
++	 * quarantine covers it. A halt flush has done this itself.
++	 */
++	if (quarantine && !percpu_ref_is_dying(&wq->wq_active)) {
++		reinit_completion(&wq->wq_resurrect);
++		percpu_ref_kill(&wq->wq_active);
++		wait_for_completion(&wq->wq_dead);
++		killed = true;
++	}
++	idxd_flush_pending_descs(ie, quarantine);
++	if (killed) {
++		percpu_ref_reinit(&wq->wq_active);
++		complete_all(&wq->wq_resurrect);
++	}
+ }
+ 
+ int idxd_wq_request_irq(struct idxd_wq *wq)
+diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
+index defd1af74c0a..196045cb9ef2 100644
+--- a/drivers/dma/idxd/dma.c
++++ b/drivers/dma/idxd/dma.c
+@@ -199,7 +199,8 @@ static int idxd_dma_terminate_all(struct dma_chan *c)
+ {
+ 	struct idxd_wq *wq = to_idxd_wq(c);
+ 
+-	idxd_wq_flush_descs(wq);
++	/* The device keeps running what the lists held. See synchronize. */
++	idxd_wq_flush_descs(wq, true);
+ 
+ 	return 0;
+ }
+@@ -207,8 +208,17 @@ static int idxd_dma_terminate_all(struct dma_chan *c)
+ static void idxd_dma_synchronize(struct dma_chan *c)
+ {
+ 	struct idxd_wq *wq = to_idxd_wq(c);
++	LIST_HEAD(quarantined);
+ 
++	/*
++	 * dmaengine_synchronize() promises the client that its memory may
++	 * be freed afterwards. The drain keeps that promise, and nothing
++	 * the device held before it is left to write a completion record,
++	 * so the slots terminate_all quarantined are free again.
++	 */
++	idxd_wq_quarantine_take(wq, &quarantined);
+ 	idxd_wq_drain(wq);
++	idxd_wq_quarantine_free(wq, &quarantined);
+ }
+ 
+ int idxd_register_dma_device(struct idxd_device *idxd)
+diff --git a/drivers/dma/idxd/idxd.h b/drivers/dma/idxd/idxd.h
+index 221a7302bb0c..31bc4a506225 100644
+--- a/drivers/dma/idxd/idxd.h
++++ b/drivers/dma/idxd/idxd.h
+@@ -224,6 +224,13 @@ struct idxd_wq {
+ 	struct idxd_desc **descs;
+ 	struct sbitmap_queue sbq;
+ 	struct idxd_dma_chan *idxd_chan;
++	struct list_head quarantine;	/* descriptors a terminate_all took
++					 * off the lists while the device
++					 * still held them. Their slots, with
++					 * their unmap data, are freed once a
++					 * drain that covers them completes or
++					 * the device stops. Under ie.list_lock.
++					 */
+ 	char name[WQ_NAME_SIZE + 1];
+ 	u64 max_xfer_bytes;
+ 	u32 max_batch_size;
+@@ -807,7 +814,10 @@ void idxd_wq_quiesce(struct idxd_wq *wq);
+ int idxd_wq_init_percpu_ref(struct idxd_wq *wq);
+ void idxd_wq_free_irq(struct idxd_wq *wq);
+ int idxd_wq_request_irq(struct idxd_wq *wq);
+-void idxd_wq_flush_descs(struct idxd_wq *wq);
++void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine);
++void idxd_wq_quarantine_take(struct idxd_wq *wq, struct list_head *list);
++void idxd_wq_quarantine_free(struct idxd_wq *wq, struct list_head *list);
++void idxd_wq_halt_release(struct idxd_wq *wq);
+ 
+ /* submission */
+ int idxd_submit_desc(struct idxd_wq *wq, struct idxd_desc *desc);
+diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
+index 9c47a7b9e48e..c4319ac27bfb 100644
+--- a/drivers/dma/idxd/init.c
++++ b/drivers/dma/idxd/init.c
+@@ -213,6 +213,7 @@ static int idxd_setup_wqs(struct idxd_device *idxd)
+ 		init_waitqueue_head(&wq->err_queue);
+ 		init_completion(&wq->wq_dead);
+ 		init_completion(&wq->wq_resurrect);
++		INIT_LIST_HEAD(&wq->quarantine);
+ 		wq->max_xfer_bytes = WQ_DEFAULT_MAX_XFER;
+ 		idxd_wq_set_max_batch_size(idxd->data->type, wq, WQ_DEFAULT_MAX_BATCH);
+ 		idxd_wq_set_init_max_sgl_size(idxd, wq);
+diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
+index acb901e59a00..6f58d33b7297 100644
+--- a/drivers/dma/idxd/irq.c
++++ b/drivers/dma/idxd/irq.c
+@@ -427,7 +427,8 @@ static void idxd_wqs_flush_descs(struct idxd_device *idxd)
+ 	for (i = 0; i < idxd->max_wqs; i++) {
+ 		struct idxd_wq *wq = idxd->wqs[i];
+ 
+-		idxd_wq_flush_descs(wq);
++		idxd_wq_flush_descs(wq, false);
++		idxd_wq_halt_release(wq);
+ 	}
+ }
+ 
 -- 
-2.55.0
+2.43.0
 
