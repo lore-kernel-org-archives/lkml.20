@@ -1,33 +1,52 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D34DD3BC696;
-	Mon, 19 Oct 2026 06:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6EA3DDDDE
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792391124; cv=none; b=bv+Px4/Z2QGJ3JgM7gj++YJ9s8T9ch70R5fX2jYbj+xHwP69QpfGOTucmH6J3XBB+6lByBwIZUfErwGzyLPY3HXCBqPi4qcKivWZnjhEN+MVz93Tf3/VrkdHugnSaTfMMrGY6MoUXknteeegC5qADiNtNhRtU2gf+FWkA528T80=
+	t=1792391165; cv=none; b=iwSsp5ZIf2sNK1aXwIxaeRU4hCBN2iBZK5BSu04yedB2NUgpOs+ar4udoBmnQT0+P1NUEhbx4J65eJoBoRFUwa+hwuvwx3D7NeU5I5TotZyVENfJ62RYs+fZYPiyYfq8oktlg4y2ILyFlDneiAqco9a6plTFeCtuvCwD8pRrdcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792391124; c=relaxed/simple;
-	bh=55RfTNFBQ9bYI0TDGXnU655P/5to3Zf/3l6pm2G36ns=;
+	s=arc-20240116; t=1792391165; c=relaxed/simple;
+	bh=j+TJapDpmYfqZPFHprlVF6+tOgaNaUREk5h7ejkKKV8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WE9xri4Pj+r26c3fhF3NkSyVD/YZXx722cmRV4FYJjc12rdJTEkIFLgeri35h4r15vEQ24ytrRfVgPJuEz+v77wz23JAKPsABCHQpSyxbvovnGqHC0q+lPJthvKXU/13wE5HhMtSm3ec41/c3PmXKYBbc37Erb2Fij6c/842mWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PAjLuW7o; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=ZQC93UGYtny5rHfd0aDogIbMv5ZT8PF87SCInKLbrr006yuPBS6U9sfZgHn8ZeD3Ct7IVAPyZ6w1xsnXrQsBCXXThOrCgazBnJRVV2uatXUWZiQ7473zq2Y/57jaegeXfzcM9BaxUk5dWjR6T9rLD/zPZvdVtJkx2n/o4Uobcd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=1K8b7/wV; arc=none smtp.client-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PAjLuW7o"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7E13A1477;
-	Sun, 18 Oct 2026 23:25:17 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8A8423F673;
-	Sun, 18 Oct 2026 23:25:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792391120; bh=55RfTNFBQ9bYI0TDGXnU655P/5to3Zf/3l6pm2G36ns=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=PAjLuW7oV1dFsO9RUkEDuhzNJVk/QIY1FdzjBlsdfuae1ojCAEHeWbysLZQS33AuL
-	 91afN7as3b2wVL8PgRS7QalzNL3VJmXu5G34VBJSycUtx5kDnNHbQGuFmbHivrXfdR
-	 PWNX8NdAERb2KexXuzG3pP1o8xO/AUzTHsFH5Gv0=
-Message-ID: <d7b1711a-44aa-4169-a250-227a172f4125@arm.com>
-Date: Mon, 19 Oct 2026 11:55:12 +0530
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="1K8b7/wV"
+Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+	by cmsmtp with ESMTPS
+	id IYj7xdVgec3XsIgooxWSjf; Mon, 19 Oct 2026 06:25:58 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id Igonx3gLGouFZIgonxG4TG; Mon, 19 Oct 2026 06:25:57 +0000
+X-Authority-Analysis: v=2.4 cv=Zd4dNtVA c=1 sm=1 tr=0 ts=6ad5b7f5
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=fSA-YJl1BVv2D8DOKtkA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=uaYGuNn0i1tun6haek209KJoUHEVtgzBYNBEkU1rYVI=; b=1K8b7/wV3eAXLi0ln/HsPD0Z+c
+	97A1QFKwNVBwmBRJrwZhli/alyPDtcNKx9mJKSxy1jfAlrlZsDcFlYBaELIpGyWKWevVpif5uILrV
+	cO+LKUZBlI6fGMUxQBUKxDkVXoIC40i4Lzj/wzeGalJjg7Ahe38k6ORTaj5H8rfGAKQOE90EoEG9G
+	Iepu6pyWIlItJRkZo9qzxV4AEPao3Vm32YGgXsdwAcxOqSVgJPcMbQfuJ82akMrZU/fexDhtOzA1W
+	Py4chbE+iBEsg7LJNQWlo13897UfyP+3cTnfyA/MzG4bAsK9nGSr0ZXzTXzDbQCeK0opo4Jrheop/
+	16dAexXw==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:36108 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xIgom-00000002qW0-2L0C;
+	Mon, 19 Oct 2026 00:25:56 -0600
+Message-ID: <efe4ef57-1b48-4532-8d66-3b75980d35e3@w6rz.net>
+Date: Sun, 18 Oct 2026 23:25:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,49 +54,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: keep ksm_tests on small pages
-To: Qiliang Yuan <odys.yuan@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Usama Arif <usamaarif642@gmail.com>, Yu Zhao <yuzhao@google.com>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261018-bug-selftests-mm-ksm-tests-nohugepage-v1-1-55ed54bdad35@gmail.com>
-From: Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: Re: [PATCH 7.2 00/10] 7.2.12-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261017155059.698368299@linuxfoundation.org>
 Content-Language: en-US
-In-Reply-To: <20261018-bug-selftests-mm-ksm-tests-nohugepage-v1-1-55ed54bdad35@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xIgom-00000002qW0-2L0C
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:36108
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfBSTFJ3nH2EsKXXDsLRFOK2ATwK5ire2xVbHmTeQzFEcwCrW7ux/G26swNejbt1Ri35RUeMCbds5Ly3k8xoyIYUPJqBoJkYcgsdj67j5Vd0xLWr5mF6r
+ W65FK0bWUqcAOBVmngPfcuL+7692sB0fzC19Wp1BPHQoNFx/Lmys2XNV953HHO5yyIfYXzmuZilYTNUlGa7H4sARfZ/IKvnZBiI=
 
+On 10/17/26 08:54, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.12 release.
+> There are 10 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.12-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-On 10/18/26 10:23 AM, Qiliang Yuan wrote:
-> ksm_tests fills regions with identical data and checks KSM's counters
-> after merging them. allocate_memory() maps these regions without any
-> THP hint.
-> 
-> With mTHP enabled the regions can be backed by large folios, which KSM
-> splits before merging. Splitting an anonymous folio maps its
-> zero-filled pages to the shared zeropage, so with use_zero_pages=0
-> those pages never become KSM pages and "KSM zero page merging" fails
-> its count. "ksm_tests -Z -p 10 -z 0", 20 runs:
-> 
->   THP setup                     before    after
->   default                         0/20     0/20
->   every mTHP size "always"       20/20     0/20
-> 
-> Map the regions with MADV_NOHUGEPAGE, as ksm_functional_tests does.
-> ksm_merge_hugepages_time() maps its own THP-backed region and is not
-> affected.
-> 
-> Fixes: b1f202060afe ("mm: remap unused subpages to shared zeropage when splitting isolated thp")
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> ---
-Tested the patch by enabling all mTHP sizes as mentioned. Before the
-patch, the test failed and applying the patch fixed it. So:
+Tested-by: Ron Economos <re@w6rz.net>
 
-Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
