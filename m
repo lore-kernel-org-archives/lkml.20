@@ -1,98 +1,74 @@
-Received: from va-2-115.ptr.blmpb.com (va-2-115.ptr.blmpb.com [209.127.231.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1882701B8
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:11:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5370744C4F8;
+	Mon, 19 Oct 2026 07:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393871; cv=none; b=QL80NV5y9TzU+WkYvGoK/vQIScv/fXTivBq+Z7cM6yGSkZ3qOPl8Texhu/uTj1R9G5NPMtsNWEDUYEHQaKpgW/msZlX+GrlrWHdHi2mgg86PdN31VnB6aRCPKZQUkt8tuEXYeDwTnAiDyltcKOy+VSUq1CJUUFl/vL5cEN8wuLc=
+	t=1792394000; cv=none; b=B8GAmkqBd+cEv9aBfQLWsYGpQwHNm2cNtdbUhp9HGDB0s5+q6CKWrA8ncpBE3rjCCtfvnOXxmG/K1zwTl253C68Pfs7DiGmbpZ/NMvWCBcJhFiBSzVnDeSmlhxXEDBXlOCaDEQRzzNTvMHX+8fMtC28vOWigmEfLobws6G3FvnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393871; c=relaxed/simple;
-	bh=oqimCLVgz/o8GpIucRoOPUuoH44Ba2QAp45QgclHUd4=;
-	h=From:Subject:To:Cc:Date:References:Message-Id:Mime-Version:
-	 In-Reply-To:Content-Type; b=GPNsFdfl95LIrrUmuaX46FXBhIj9gbX63hWjZU7tUlnTqlPX2gZdxXaw3d6hT/YojL0Z7ohzuBWgZ9hSwZsrQcr2pf8DWa3P78Vx3CfW+DBvfOW00MjC/zq+vAFv5/iPxyQ7VClHsstAOVgT/fiecwTgNGUc1IdFJfBPQ73ueV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=kYdDaaBI; arc=none smtp.client-ip=209.127.231.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792394000; c=relaxed/simple;
+	bh=AKpmxAsvYkeAH5Z7Xo6ttq5yLJLTWjMLivPGS1JGBDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=No0LOiJgw7KroTCj41DEDBtMBxA2SN/gSzxkIq4SuabaUsqZoMcNagJTGrh+W6YvSMpEKdmdJCycAJHDnH4zd4NXnwIt6qsU8yVEtCFS7oCJlB0lYZDXvRl0//JyZNMeOjiTx+pM11lJ3EMAFctODVhqdS0PdIyGylP5mPBvcro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YyXM5I3h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="kYdDaaBI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792393858; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=nHPmq2WlguBeJi/Zj2mPBIP3oN0WpTMEjCrzt8cxejQ=;
- b=kYdDaaBIfWRuIzxcg9Q27am+d8SfQhR1+Xe5N7UeU1EaXVHXxZUNOkF7LNGv53aB5xbtRV
- eViyCiVMIITcqGOSPEExrLjWvhSAiXXWPYz+Tgp2l0fV5ou8Ck1UaP3WWJTntjEUrzKrfD
- DvRfb4mMf1BV8ki11qC9P874LcVg0Y6FeagbNoqAZ/tGH603z/vZ9BsCZzPBn0Ze1gmTPx
- NSjmt6NsCbIuB1KKat/+c/17oxlKWpsXHmVQUCtJUJK6j9oGUhZr5VyurRqzpW/PYieIQm
- 8NXZWiseRxlbjYXAPSF+dGGdmxB3h1yRbi3Zhdj0kIvv85p0RgwJzhgweSX15A==
-From: "Qi Zheng" <zhengqi.arch@bytedance.com>
-Subject: Re: [PATCH 3/5] mm: hugetlb: track CMA reservations by page order
-Content-Transfer-Encoding: 7bit
-User-Agent: Mozilla Thunderbird
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
-	"Qi Zheng" <qi.zheng@linux.dev>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-Date: Mon, 19 Oct 2026 15:10:40 +0800
-References: <cover.1792136742.git.zhengqi.arch@bytedance.com> <57cd5cac5e2749cba24c502bcd9682ad8b9f2bcd.1792136742.git.zhengqi.arch@bytedance.com> <ac34f212-2e51-4298-a281-9380fb0d073c@gmail.com>
-X-Lms-Return-Path: <lba+26ad5c280+b8a6c3+vger.kernel.org+zhengqi.arch@bytedance.com>
-Message-Id: <61c88ac2-43e9-4e78-98c4-a1879da6f79e@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YyXM5I3h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 786ED1F000C4;
+	Mon, 19 Oct 2026 07:13:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792393999;
+	bh=A/IzZtxeSyXH6wUEv+Aawu99CfdY79PltPRFXDfjJns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YyXM5I3hjvis3mOhM5+Jn1uLqF5RA4nuQ7YxhHz0DRmw2cR/nPHHOZO5jaOVnsMs4
+	 /eAHovRIP4ftD4JHfD1iYWsKy2G8+aUrd5lNBYBm8WqiwngKytIyRHiLVAmSlb8aC8
+	 tI0C0zMb113qfgQmvF+6snPIQO2eSH3AcSAQWFh3MKzUP54oFaiWIC0/mrl9ut6EYa
+	 JmNbyJUqfdMXqtpVDRf1SvNC2HBLI2klESgvXK6+u2GMTkWFcCIIUG7uGuWv/5A51R
+	 guT2XGlRh9o0bNbQM+5AKV68nclcIdf3rex3BsGYVagiVk4Surn1YGYoZSAiyiPAwj
+	 LpiQJ4PQTai5A==
+Date: Mon, 19 Oct 2026 09:13:16 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org, 
+	vkoul@kernel.org, kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, neil.armstrong@linaro.org, mani@kernel.org, 
+	gjorgji.rosikopulos@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com, 
+	jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com, vladimir.zapolskiy@linaro.org, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
+ schema
+Message-ID: <20261019-funky-real-skunk-eda6dc@quoll>
+References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
+ <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
+ <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ac34f212-2e51-4298-a281-9380fb0d073c@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
 
-Hi Jose,
-
-On 10/18/26 2:41 AM, Jose A. Perez de Azpillaga wrote:
-> On 10/16/26 12:07 PM, Qi Zheng wrote:
->> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>
->> Prepare for a separate CMA pool for PMD-sized HugeTLB pages by organizing
->> CMA areas and reservation parameters into pools identified by page order.
->>
->> Select the corresponding pool for allocation, CMA-only checks and
->> boot-time allocation decisions. Release folios through the CMA area that
->> owns their physical memory, including after demotion.
->>
->> Record each pool's successfully reserved capacity. Remove
->> hugetlb_cma_validate_params(), since the per-pool CMA-only check already
->> handles missing or empty pools.
->>
->> Continue accepting only the architecture's existing CMA page size and
->> preserve the default pool's use by all gigantic sizes. PMD-sized pool
->> support will be added in a subsequent patch.
->>
->> Assisted-by: LLM
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+On Sat, Oct 17, 2026 at 11:18:48PM +0530, Nihal Kumar Gupta wrote:
 > 
-> [snip]
 > 
->> +static struct hugetlb_cma_pool hugetlb_cma[HUGE_MAX_HSTATE] __ro_after_init;
->> +static struct hugetlb_cma_config hugetlb_cma_config[HUGE_MAX_HSTATE] __initdata;
->> +static unsigned int hugetlb_cma_nr __ro_after_init;
-> 
-> the commit message prepares for one more pool, the PMD one, and
-> hugetlb_cma_pool() folds every gigantic order into the default pool.
-> would a fixed pair work instead of an order-keyed array?
+> On 17-10-2026 05:24, Anusha Arun Nandi wrote:
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    #include <dt-bindings/media/video-interfaces.h>
+> > +
+> > +    csiphy0: csiphy@ac9c000 {
+> > +        compatible = "qcom,sa8775p-csi2-phy";
+> > +        reg = <0x0ac9c000 0x2000>;
+> > +
+> DTS uses 2-cell reg but binding example uses 1-cell. Please align:
+>   reg = <0x0 0x0ac9c000 0x0 0x2000>;
 
-Do you mean keeping two fixed pools, like this:
+I don't understand what is supposed to be aligned here. The code is
+correct.
 
-enum {
-	HUGETLB_CMA_DEFAULT,
-	HUGETLB_CMA_PMD,
-	HUGETLB_CMA_POOLS,
-};
-
-If so, I agree. That is sufficient for this series and simpler than an
-order-keyed array.
-
-Thanks,
-Qi
+Best regards,
+Krzysztof
 
