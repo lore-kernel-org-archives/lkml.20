@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518AA5649D1;
-	Mon, 19 Oct 2026 13:57:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959F655F624;
+	Mon, 19 Oct 2026 13:57:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418255; cv=none; b=nhNP4Jjr3KYNOdRtg5Xvbn/nZ6vTZlZGEOYIJTqsVsMXQqXU/W2JGLI7lcIk+CSc8/Nh4vM+zOTqMO0YuZKYjBRDLZ07DZxNfKXvi91jHAd7MEtCIcFlqXc2Evvu+tFF8LefrjFHB5EQTZUjzuwwtkUWl0xEwarpYW1pioF41Hc=
+	t=1792418257; cv=none; b=J9moGr1PHWEV/KiyzAzhkEjOauPu3aKAiNum3arFY9uny3veNja/c7mHZ6XKU+i89malDf9tfFhqikw8lhNXJVW7peI0eCUM2m3CZbKpIsTTV8hneAmtuOqxUkTO4jJ6x1xkcvMfvJsM34Z149aFKtqOxY8is85Rsp9aRZm0al8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418255; c=relaxed/simple;
-	bh=g4PTO7lnP6jmMLinerXH5KGJQ1+uOwXMR5HVPq3zdJU=;
+	s=arc-20240116; t=1792418257; c=relaxed/simple;
+	bh=MM+AaQHsp4wpgAhHNkA8vM0Fly5Ksy7GWA4iSSoDAZI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ca3YAQAn/agdbJdjuuVAcP5kbgas1VJIcYngxVVUHfVtJe0Q5oKaqgPT4d5spQa8pDK+A/6F3QBMkn4LW/vEv8gziiFs5+WNpFeP76S8TyuPAZf9eu2OgjJAuVv/yhl6hnOjuARu35FH922/7xniBaLspa0efExYwEVKIPzO8UA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6kVQQSn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=L7xKYS1MOEzJDA6UKiw01gfXgZxdKr6PqwYxZRKGyaAGLIigVkssGgGx7/sae69fSBUub8JNQa+FjyKWKPT3A0N8v7uzxjvTU116EhIgrJgz8DgIGp/DfFl7AdGAN9qpnQGe243ayLbCsFbLsy2qGSIA1JICh/KHnR4MAPUzv1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBQziWuH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6kVQQSn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5331F000C5;
-	Mon, 19 Oct 2026 13:57:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBQziWuH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC6F1F000C4;
+	Mon, 19 Oct 2026 13:57:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418251;
-	bh=i1Qy+90BenJPcLfIAdefa7A1eHguDbzBBjH+pknHFrw=;
+	s=k20260515; t=1792418254;
+	bh=wx9Mb4QsaVFHtSfVFCf4Mf+XgS6xKgB1lDQXb9H3s5w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O6kVQQSnnJ6TXx+oBnL+F+9bkLWT/rY2LPBGa/Aeh4CoLW5cl5NJuSjm5Mc5ywJN2
-	 YgPE9h8gpsTqwjK3Tl+Kd3FURww9RHtkPoTMuE/3A1SKxBR+zasVB97O7VnnsAoEUW
-	 92YoUIVjeZ7qPKDdGkJwMO/or3d0T53kzb+cmEB73QY6tL/ocGlMpkDFzO3Wg3Qb6E
-	 fZZd+bnvrTxQ9gPacvRkiNu+/CHrqZzxrwUvEI/H1rYBweC05Iak50L2/3t0rhnPio
-	 FT50QfgAOb8iHcVEU6DuP2QuvC4Q/U/v47VtRrx4CeaQp453/WgyHd++7oTKr/1dHE
-	 aGXDOu285dzDQ==
+	b=PBQziWuHfr3bfy+ejeY4kT9ZGxeU93eLsOlIzTc7Z26oAf3etFgU2AdHR3RewfIlu
+	 XybQSCmmDu8g/ni5e8H505j90YhvqSgv3Poh/cdRWkVzNRO0OY3gFSa+vCKEDns3Gy
+	 XLlbNg1Kfcw3ueZyoW5dotRStmv/IL71mnWmKqhp8b79vlXw+iZXDa/eWHOge/y7Rn
+	 YA25XYqIZZ6G215LxXCIUyeDs9TtthEAKkw2uHQZr1Zo4YlsFn10WhBI5MLt3UyhGb
+	 4T28hnjHhc3sDWnL0PVym4A6rkwQL5BdP1Bxm0xW8yQjptBBvJEEHeFULZYVmImDBO
+	 o+RXHpz71x++Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Benjamin Marzinski <bmarzins@redhat.com>,
-	Yury Norov <ynorov@nvidia.com>,
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	yury.norov@gmail.com,
-	linux-arch@vger.kernel.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] bitops: make the *_bit_le functions use unsigned long
-Date: Mon, 19 Oct 2026 09:46:51 -0400
-Message-ID: <20261019135441.1420968-120-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] ASoC: codec: max98926: fixup invert setup mask
+Date: Mon, 19 Oct 2026 09:46:53 -0400
+Message-ID: <20261019135441.1420968-122-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -53,486 +55,467 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Benjamin Marzinski <bmarzins@redhat.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-[ Upstream commit 1c61b0a6e5c472737619f74f79c390363ee258df ]
+[ Upstream commit dd0ae9a2e19a24c532c9aa80a44f572b4907bcdf ]
 
-The *_bit_le functions use a signed integer for the bit number.
-However, the *_bit functions can use an unsigned long. This causes
-problems if there is a large bitmap and a bit number > 0x80000000 is
-passed in. Since that is a negative int, it will get sign extended to a
-long when getting passed to the *_bit function, turning it into a huge
-bit number. This usually ends up with the memory address wrapping around
-and the function accessing memory before the start of the bitmap.
+invert might have both WCI/BCI mask, but regmap_update_bits() masks
+BCI only. It needs both mask. Fixup it.
 
-Avoid this by making the *_bit_le functions take an unsigned long.
+	static int max98926_dai_set_fmt(...)
+	{
+		...
+		switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
+		case SND_SOC_DAIFMT_NB_NF:
+			break;
+		case SND_SOC_DAIFMT_NB_IF:
+=>			invert = MAX98926_DAI_WCI_MASK;
+			break;   ^^^^^^^^^^^^^^^^^^^^^
+		case SND_SOC_DAIFMT_IB_NF:
+=>			invert = MAX98926_DAI_BCI_MASK;
+			break;   ^^^^^^^^^^^^^^^^^^^^^
+		case SND_SOC_DAIFMT_IB_IF:
+=>			invert = MAX98926_DAI_BCI_MASK | MAX98926_DAI_WCI_MASK;
+			break;   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+		default:
+			...
+		}
+		...
+		regmap_update_bits(max98926->regmap, MAX98926_FORMAT,
+				MAX98926_DAI_BCI_MASK, invert);
+		...		^^^^^^^^^^^^^^^^^^^^^
+	}
 
-This can be triggered by faking an almost 4TB dm-mirror device, which
-uses bitmaps to track the mirror regions:
-
-$ dmsetup create bigzero --table '0 8589934590 zero'
-$ dmsetup create mymirror --table '0 8589934590 mirror core 2 2 nosync 2 /dev/mapper/bigzero 0 /dev/mapper/bigzero 0'
-
-This will access memory before the start of the sync_bits bitmap, and
-likely hit the guard page of the previously allocated clean_bits bitmap,
-causing a kernel panic with the old code.
-
-I looked and didn't see any crazy code using the signed int to
-intentionally try and access bits before some address within the bitmap.
-
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-Signed-off-by: Yury Norov <ynorov@nvidia.com>
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://patch.msgid.link/87wltomc97.wl-kuninori.morimoto.gx@renesas.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit message forensics
-
-**Step 1.1: Subject line**
-Record: `[bitops] [make] make the *_bit_le helpers take unsigned long
-instead of signed int`
-
-Subsystem is generic bitops. The verb is “make”, but the body is a sign-
-extension / out-of-bounds panic fix, not an API feature.
-
-**Step 1.2: Tags**
-Record:
-- Signed-off-by: Benjamin Marzinski \<bmarzins@redhat.com\> (author)
-- Signed-off-by: Yury Norov \<ynorov@nvidia.com\> (bitmap maintainer,
-  applied the patch)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
-  or Cc: stable (absence of Fixes:/Cc: stable is expected here)
-
-**Step 1.3: Body**
-Record:
-- Bug: `*_bit_le()` takes `int nr` while `*_bit()` takes a wider
-  unsigned/long index. A bit number \> `0x80000000` becomes a negative
-  `int`, then sign-extends to a huge `long`.
-- Symptom: address wrap, access *before* the bitmap, kernel panic (often
-  on the guard page of a prior vmalloc).
-- Reproducer: ~4TB `dm-zero` + `dm-mirror` with region size 2 (`dmsetup
-  create mymirror --table '0 8589934590 mirror core 2 2 nosync ...'`),
-  hitting `sync_bits` before the start of the bitmap.
-- Root cause: signed `int` bit index vs unsigned/long bitops; author
-  found no callers that intentionally used a negative index.
-
-**Step 1.4: Hidden bug fix?**
-Record: Not hidden. It is a type-signature change whose purpose is to
-stop OOB access and a panic. Not cleanup or a new feature.
+This is a **6.12.111** tree (`pending-6.12`, `p-6.12-3-gc504cf0baa3d8`).
+The candidate is `dd0ae9a2e19a2` (“ASoC: codec: max98926: fixup invert
+setup mask”). It is **not** in this checkout; the buggy
+`regmap_update_bits()` mask **is**.
 
 ---
 
-## Phase 2: Diff analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1: Inventory**
-Record:
-- File: `include/asm-generic/bitops/le.h` — 9 insertions, 9 deletions
-  (parameter type only)
-- Functions: `test_bit_le`, `set_bit_le`, `clear_bit_le`,
-  `__set_bit_le`, `__clear_bit_le`, `test_and_set_bit_le`,
-  `test_and_clear_bit_le`, `__test_and_set_bit_le`,
-  `__test_and_clear_bit_le`
-- Scope: single-file surgical type fix
+**Step 1.1: PARSE THE SUBJECT LINE**
+- Subsystem: `ASoC: codec: max98926`
+- Action verb: `fixup`
+- Claimed intent: correct the invert-mode bit mask written to the
+  MAX98926 FORMAT register
 
-**Step 2.2: Flow change**
-Record: Before, each helper took `int nr` and passed `nr ^
-BITOP_LE_SWIZZLE` into `test_bit`/`set_bit`/etc. After, `nr` is
-`unsigned long`. Bodies are unchanged. Normal path only; no new control
-flow.
+Record: **[ASoC/max98926] [fixup] [WCI invert bit never programmed
+because update mask is BCI-only]**
 
-**Step 2.3: Bug mechanism**
-Record: `[Type / integer conversion] [Memory safety / OOB]`
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+- `Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>`
+  (author)
+- `Link: https://patch.msgid.link/87wltomc97.wl-
+  kuninori.morimoto.gx@renesas.com`
+- `Signed-off-by: Mark Brown <broonie@kernel.org>` (ASoC maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, or `Cc: stable` (absence of the last two is expected for this
+  review)
 
-On 64-bit, `unsigned int`/`unsigned long` bit `0x80000000` converted to
-`int` is negative, then sign-extends into `set_bit(long nr)` /
-`_test_bit(unsigned long nr)` as `0xffffffff80000000`. `BIT_WORD(nr)`
-then yields a pointer *before* `addr` (wrap). Confirmed in
-`generic___set_bit()`:
+Record: **Author + ASoC maintainer SOB; lore Link; no user/syzbot
+report**
 
-```28:33:include/asm-generic/bitops/generic-non-atomic.h
-generic___set_bit(unsigned long nr, volatile unsigned long *addr)
-{
-        unsigned long mask = BIT_MASK(nr);
-        unsigned long *p = ((unsigned long *)addr) + BIT_WORD(nr);
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+The body shows `max98926_dai_set_fmt()` building `invert` as:
+- `NB_IF` → `MAX98926_DAI_WCI_MASK`
+- `IB_NF` → `MAX98926_DAI_BCI_MASK`
+- `IB_IF` → `BCI | WCI`
+
+then calling `regmap_update_bits(..., MAX98926_DAI_BCI_MASK, invert)`.
+`regmap_update_bits()` only changes bits in the mask, so WCI is never
+written.
+
+Record: **[Bug: WCI invert bit dropped] [Symptom: inverted frame clock
+not applied] [No version info] [Root cause: BCI-only mask]**
+
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+This is an explicit register-programming bug, not a disguised cleanup.
+
+Record: **Not a hidden fix; it is a real DAI-format bug**
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+**Step 2.1: INVENTORY THE CHANGES**
+- File: `sound/soc/codecs/max98926.c` (`1 insertion, 1 deletion`)
+- Function: `max98926_dai_set_fmt()`
+- Scope: single-file, one-line surgical fix
+
+Record: **[max98926.c +1/-1] [max98926_dai_set_fmt] [surgical]**
+
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Before (this tree, lines 360–363):
+
+```360:364:sound/soc/codecs/max98926.c
+        regmap_write(max98926->regmap,
+                        MAX98926_FORMAT, MAX98926_DAI_DLY_MASK);
+        regmap_update_bits(max98926->regmap, MAX98926_FORMAT,
+                        MAX98926_DAI_BCI_MASK, invert);
+        return 0;
 ```
 
-**Step 2.4: Fix quality**
-Record: Obviously correct and minimal. Widening `int` → `unsigned long`
-matches `find_*_bit_le()` (already `unsigned long` in
-`include/linux/find.h`) and the generic bitops. Negative callers would
-still sign-extend into `unsigned long`; the author grepped and found
-none. Regression risk is very low: inline helpers, no ABI, no locking,
-no new behavior for in-range bits.
+`regmap_write()` sets FORMAT to only `DAI_DLY_MASK` (WCI and BCI
+cleared). Then update_bits can set BCI, but never WCI.
 
-Note: atomic `set_bit()` in this tree takes `long nr` (signed), not
-`unsigned long`. That does not undo the fix: values in `2^31 .. 2^32-1`
-fit in 64-bit `long` after zero-extension. The bug was 32-bit `int` →
-64-bit `long` sign extension.
+After: mask is `MAX98926_DAI_BCI_MASK | MAX98926_DAI_WCI_MASK`, so both
+invert bits can be set.
 
----
+Record: **[BCI-only update → BCI|WCI update on DAI set_fmt path]**
 
-## Phase 3: Git history
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Header bits in this tree:
 
-**Step 3.1: Blame**
-Record: Signed `int nr` dates to `a56560b3b2332` (“asm-generic: change
-little-endian bitops to take any pointer types”, 2011-03-23, contained
-in v2.6.39-rc1). The type was stable for ~15 years. Commit
-`1c61b0a6e5c47` (2026-07-06, applied 2026-07-22) is the change under
-review.
+```525:528:sound/soc/codecs/max98926.h
+#define MAX98926_DAI_WCI_MASK           (1<<3)
+...
+#define MAX98926_DAI_BCI_MASK           (1<<2)
+```
 
-**Step 3.2: Fixes: tag**
-Record: None. Buggy signature is ancient generic bitops, not a recent
-regression.
+This is a logic/correctness bug: wrong `regmap` mask, so advertised
+invert modes do not take effect.
 
-**Step 3.3: File history**
-Record: Recent `le.h` work is old (`6b8ecb84f8f64` moved find_*_le to
-find.h in 2021). No later commits on this file after `1c61b0a6e5c47`.
-Standalone, not patch N/M.
+Record: **[Logic/correctness] [WCI never written for NB_IF/IB_IF]**
 
-**Step 3.4: Author**
-Record: Benjamin Marzinski is a device-mapper contributor (many
-`drivers/md/` commits), not the bitmap maintainer. Yury Norov (BITMAP
-API maintainer) applied it. Related nearby dm-log work: `c20e36b7631d8`
-(region_count overflow, similar ~4TB mirror reproducer) and
-`9743132a41f4d` (bitset_size overflow on 32-bit). Those are separate
-bugs; this patch does not depend on them.
+**Step 2.4: ASSESS THE FIX QUALITY**
+Obviously correct: it matches sibling `max98925.c` (already uses `BCI |
+WCI`). Minimal. No API/locking/refcount change. Regression risk is near
+zero: NB_NF still writes 0 into both bits; IB_NF still sets only BCI.
 
-**Step 3.5: Prerequisites**
-Record: None. Only `include/asm-generic/bitops/le.h`. No new helpers.
-`git merge-base --is-ancestor 1c61b0a6e5c47 HEAD` succeeded (commit is
-already in this checkout).
+Record: **[Obviously correct, 1-line] [Very low regression risk]**
 
 ---
 
-## Phase 4: Mailing list
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 4.1: Original discussion**
-Record:
-- v1: https://lore.kernel.org/linux-
-  arch/20260702194307.1805533-1-bmarzins@redhat.com/
-- v2 (committed): https://lore.kernel.org/linux-
-  arch/20260706202324.1949190-1-bmarzins@redhat.com/
-- v1→v2: commit message only (wrong “unsigned int” wording; missing
-  reproducer commands). Code unchanged.
-- Yury Norov: “Taking the patch in bitmap-for-next.” Asked for a
-  reproducer and whether this is production.
-- Benjamin: explicit `dmsetup` panic reproducer; LVM default region size
-  is 4096 sectors, so default LVM would need ~4PB devices; “I doubt that
-  anyone has hit this on a production system,” but “This will crash the
-  machine without the fix.”
-- No NAKs.
+**Step 3.1: BLAME THE CHANGED LINES**
+`git blame -L 343,363 -- sound/soc/codecs/max98926.c`: the buggy mask is
+from `a2e2876aa0bab` (“ASoC: Add max98926 codec driver”, Anish Kumar,
+2016-01-14). `git describe --contains a2e2876aa0bab` → `v4.6-rc1~...`.
+Present for ~10 years.
 
-**Step 4.2: Recipients (`b4 dig -w`)**
-Record: Yury Norov, Arnd Bergmann, Rasmus Villemoes, linux-arch, linux-
-kernel. Bitmap maintainer was To: and applied the patch.
+Record: **[a2e2876aa0bab, v4.6] [long-standing bug]**
 
-**Step 4.3: Bug report**
-Record: No syzbot/bugzilla. Author-discovered with a concrete panic
-reproducer. Not a theoretical-only issue.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+No `Fixes:` tag. The introducing commit is in this tree (`git merge-base
+--is-ancestor a2e2876aa0bab HEAD` succeeded).
 
-**Step 4.4: Series**
-Record: Standalone v1/v2. Not part of a multi-patch series. Related dm-
-log overflow fixes are independent.
+The **identical** bug in the sibling driver was already treated as
+stable material:
 
-**Step 4.5: Stable list**
-Record: UNVERIFIED. lore.kernel.org returned 403; gnuweeb `/stable/`
-search 404. linux-arch thread had no Cc: stable and no stable-list
-discussion.
+```
+0b51601d4504f4 ASoC: max98925: Fix mask for setting DAI invert mode
+...
+Cc: stable@vger.kernel.org
+```
 
----
+That 2015 fix is in this tree. max98926 (2016) reintroduced the same
+mistake.
 
-## Phase 5: Call graph / impact
+Record: **[No Fixes tag; sibling max98925 fix was Cc: stable]
+[Introducing commit is in this 6.12 tree]**
 
-**Step 5.1: Functions**
-Record: The nine `*_bit_le` inlines listed in 2.1.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Recent `max98926.c` history in this tree is probe/OF/DAI-terminology
+churn, not invert-mask work. No prerequisite refactor. Standalone 1-line
+change.
 
-**Step 5.2: Callers**
-Record (verified via `git grep`):
-- `drivers/md/dm-log.c` — `log_test_bit`/`log_set_bit`/`log_clear_bit`
-  (`unsigned int bit`); this is the documented panic path
-- `drivers/md/md-bitmap.c` — RAID bitmaps
-- `virt/kvm/kvm_main.c` — `set_bit_le(rel_gfn, memslot->dirty_bitmap)`
-  with `unsigned long rel_gfn`
-- Filesystems: ext4/ext2/f2fs/ocfs2/exfat/ntfs3/minix (on-disk LE
-  bitmaps)
-- Also: RDS congestion, NVDIMM labels, some net drivers
+Record: **[No prerequisites] [Standalone]**
 
-dm-log and KVM are the large-index paths. Filesystem group bitmaps are
-typically far below 2^31 bits.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Kuninori Morimoto is a regular ASoC contributor. Nearby work includes
+`alc5623` invert tidyup (different driver, “tidyup” not this bug). This
+patch is a standalone `[PATCH]`, not patch X/Y.
 
-**Step 5.3: Callees**
-Record:
-`test_bit`/`set_bit`/`clear_bit`/`__set_bit`/`__clear_bit`/`test_and_*`
-plus `BITOP_LE_SWIZZLE` (0 on LE; low-bit swap on BE).
+Record: **[Core ASoC contributor] [Standalone invert-mask fix, not a
+series]**
 
-**Step 5.4: Reachability**
-Record: Yes. Privileged `dmsetup` of a large mirror (author’s
-reproducer) panics. KVM dirty logging with `rel_gfn >= 2^31` (memslot ≳
-8TiB at 4K pages) would hit the same conversion. Unprivileged users
-cannot run `dmsetup`; a VM tenant does not set host memslot size.
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+The hunk matches this tree exactly. `git show dd0ae9a2e19a2 | git apply
+--check` → **APPLY_CLEAN**. No new helpers or structs.
 
-**Step 5.5: Similar patterns**
-Record: `find_*_bit_le` already use `unsigned long`. This aligns the
-set/test/clear LE helpers. No other `le.h` copies; arches include the
-generic header (x86, arm64, powerpc, s390, …).
+Record: **[No dependencies] [Applies standalone and cleanly]**
 
 ---
 
-## Phase 6: This checkout
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 6.1: Does the buggy code exist here?**
-Record:
-- Tree: `v7.3-rc4-27-gf0100363d8c37`, `VERSION=7 PATCHLEVEL=3 SUBLEVEL=0
-  EXTRAVERSION=-rc4` (7.3.0-rc4)
-- Live `le.h` already has `unsigned long nr` (this commit is an
-  ancestor, merged via `bitmap-for-7.3`)
-- Pre-fix `int nr` existed in this lineage from v2.6.39 through the
-  parent of `1c61b0a6e5c47`
-- Helpers still exist; the bug class is in this codebase’s history, not
-  a post-branch feature
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+`b4 dig -c dd0ae9a2e19a2` → https://patch.msgid.link/87wltomc97.wl-
+kuninori.morimoto.gx@renesas.com
+`b4 dig -a`: single v1, no later revisions.
+Mbox (2 messages): submission + Mark Brown “Applied to for-7.3”. No NAK,
+no review concerns, no `Cc: stable` request. Included in the “sound
+fixes for 7.3-rc1” pull.
 
-**Step 6.2: Backport difficulty**
-Record: Clean apply to any tree whose `le.h` still has `int nr`. Same
-9-line signature change since 2011. No conflicting local edits.
+Record: **[v1 only] [Applied by ASoC maintainer] [No objections]
+[Treated as a fix in the rc1 pull]**
 
-**Step 6.3: Related fixes already here**
-Record: This exact fix is already in HEAD. Independent dm-log overflow
-fixes (`c20e36b7631d8`, `9743132a41f4d`) do not replace it: they cap
-`region_count` / bitset size; they do not stop sign extension for bits
-in `2^31 .. UINT_MAX-1` (the 8589934590 / region-size-2 case is
-`region_count = 4294967295`).
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+`b4 dig -w` recipients: Jaroslav Kysela, Liam Girdwood, Mark Brown,
+Takashi Iwai, linux-sound@. Maintainer applied it the same day.
 
----
+Record: **[ASoC/ALSA maintainers on To; Mark Brown applied]**
 
-## Phase 7: Subsystem context
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+No `Reported-by` / bugzilla / syzbot. Found by code inspection (same
+class as Axel Lin’s 2015 max98925 fix).
 
-**Step 7.1**
-Record: `[bitops / asm-generic] [CORE]` — used by filesystems, DM, KVM,
-networking.
+Record: **[No user report; bug is visible from the code and sibling
+driver]**
 
-**Step 7.2**
-Record: Bitmap API is actively maintained (bitmap-for-7.3 pull). `le.h`
-itself is mature; this is a long-standing type bug, not churn from a
-rewrite.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Standalone `[PATCH]`. No follow-ups on `all-next` after this commit for
+`max98926.c`.
 
----
+Record: **[Standalone; no later superceding patch]**
 
-## Phase 8: Impact and risk
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Search for this title on lore stable did not find a prior stable
+discussion (unrelated hits only).
 
-**Step 8.1: Who is affected**
-Record: Anyone using `*_bit_le` on a bitmap with index \> `INT_MAX`.
-Concrete: large dm-mirror with tiny region size; theoretically huge KVM
-dirty bitmaps / large md bitmaps. Not universal.
-
-**Step 8.2: Trigger**
-Record: Not every boot. Needs a bitmap \> 256MiB (2^31 bits). Author’s
-case: ~4TB device, region size 2 sectors. LVM default 4096-sector
-regions would need ~4PB. Root/`dmsetup` required. Timing-independent;
-deterministic OOB.
-
-**Step 8.3: Failure mode**
-Record: `[OOB before bitmap → kernel panic] [Severity: CRITICAL if
-triggered, LOW likelihood in default configs]`
-
-**Step 8.4: Risk-benefit**
-Record:
-- Benefit: medium — real panic with a reproducer; production default
-  configs unlikely; still a memory-safety bug in core helpers
-- Risk: very low — 9-line type widen, no logic/locking/API userspace
-  change
-- Ratio: favorable. Cheap, correct panic fix in generic bitops
+Record: **[No stable-list discussion found]**
 
 ---
 
-## Phase 9: Synthesis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 9.1: Evidence**
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: **[`max98926_dai_set_fmt`]**
 
-For:
-- Reproducible kernel panic from OOB before a vmalloc bitmap
-- Mechanism is standard 32→64 sign extension; the diff matches it
-- 9 lines, one header, no new APIs
-- Bitmap maintainer took it; v2 only fixed the commit message
-- Matches `find_*_bit_le` (`unsigned long`)
-- Applies to this tree’s `le.h` with no prerequisites
-- dm-log, md-bitmap, and KVM dirty logging are real callers of large
-  indexes
+**Step 5.2: TRACE CALLERS**
+Wired as `.set_fmt` in `max98926_dai_ops`. ASoC core
+`snd_soc_dai_set_fmt()` in `sound/soc/soc-dai.c` calls
+`dai->driver->ops->set_fmt`. `sound/soc/soc-core.c` applies DAI format
+from the card/DAI link at setup.
 
-Against:
-- Author doubts production hits with LVM defaults
-- Needs a huge device and a tiny region size (or an enormous KVM slot)
-- No syzbot, no Cc: stable, no Fixes:
-- This 7.3-rc4 checkout already contains the commit
+Record: **[Called from ASoC DAI format setup, not a hot IRQ path]**
 
-Unresolved:
-- Stable mailing list (HTTP 403/404)
-- Whether any caller relied on negative `int` indexes (author searched;
-  not independently exhaustively proven)
+**Step 5.3: TRACE CALLEES**
+`regmap_write` / `regmap_update_bits` on `MAX98926_FORMAT`.
 
-**Step 9.2: Stable rules**
-1. Obviously correct and tested? **PASS** — type-only; author reproduced
-   panic; maintainer applied it
-2. Real bug that affects users? **PASS** — panic on a documented dm-
-   mirror table; also reachable from other large LE bitmaps
-3. Important (crash/security/corruption/deadlock)? **PASS** — kernel
-   panic / OOB. Likelihood is low; severity if hit is high
-4. Small and contained? **PASS** — 9 lines, one file
-5. No new features/APIs? **PASS** — same helpers, wider index type only
-6. Can apply to this tree? **PASS** — file and functions exist;
-   identical hunk. (Already applied here; still a clean backport to any
-   tree with `int nr`.)
+Record: **[Register programming only]**
 
-**Step 9.3: Exceptions**
-Record: Not a device-ID/quirk/DT/docs exception. Ordinary memory-safety
-panic fix.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Reachable when a MAX98926 card configures DAI format (DT `dai-format` /
+machine driver). Unprivileged users typically cannot change invert
+flags, but boot/stream setup hits this. `NB_IF` / `IB_IF` are the broken
+cases (`soc-dai.h`: inverted frame).
 
-**Step 9.4: Decision**
+Record: **[Reachable on DAI setup for this codec] [Broken for inverted
+frame clock]**
 
-This is a small, obviously correct fix for a real panic: signed `int`
-bit indexes sign-extend into the generic bitops and walk off the front
-of the bitmap. The helpers live in this tree, there are no missing
-prerequisites, and the change does not add features. Rare default-config
-exposure does not outweigh a zero-logic-change panic fix in core bitops.
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+This tree: only `max98926.c` still uses BCI-only. `max98925.c` already
+uses `BCI | WCI`.
 
-The commit is already in this 7.3-rc4 history; that is not used as a
-reason to reject it. Technical merit supports taking it on this lineage.
+Record: **[Sibling already fixed; this is the remaining copy of the same
+bug]**
 
 ---
 
-## What the commit solves for stable users
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-On 64-bit, `*_bit_le(int nr)` turns bit numbers ≥ 2^31 into a negative
-`int`, which becomes a huge `long` in `test_bit`/`set_bit`. Address
-arithmetic wraps and the kernel reads/writes *before* the bitmap,
-typically panicking (author: dm-mirror `sync_bits` vs `clean_bits` guard
-page).
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Yes. `git merge-base --is-ancestor dd0ae9a2e19a2 HEAD` failed (fix not
+present). Surrounding code in this tree matches the parent of the
+candidate commit. Introduced in v4.6, still here in 6.12.111.
 
-That matters for large dm-mirror logs (tiny region size on multi-TB
-devices) and any other LE bitmap with a high index (e.g. KVM
-dirty_bitmap with `unsigned long rel_gfn`). The fix is only changing
-`int` to `unsigned long` on nine inlines.
+Record: **[Buggy code present at max98926_dai_set_fmt] [Since v4.6]**
 
-## Risk vs benefit
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Context is identical; `git apply --check` is clean.
 
-Benefit is preventing a confirmed panic. Risk is negligible: no control-
-flow, locking, or userspace ABI change; widening is source-compatible
-for non-negative callers. Worst case for a negative caller is the old
-sign-extension behavior, and none were found.
+Record: **[Clean apply]**
 
-## Concerns
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+No invert-mask fix for max98926 in this tree. max98925’s equivalent fix
+**is** already here.
 
-- Trigger is uncommon with LVM’s 4096-sector default.
-- No Fixes:/Cc: stable (not a negative by itself).
-- Stable-list discussion could not be fetched (403/404).
-- Independent dm-log overflow patches are *not* substitutes for this
-  type fix.
+Record: **[No prior max98926 invert fix; sibling fix already present]**
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+`sound/soc/codecs/max98926.c` — Maxim MAX98926 speaker amplifier.
+`CONFIG_SND_SOC_MAX98926` is selected via `SND_SOC_ALL_CODECS` imply; DT
+compatible `maxim,max98926` exists. No in-tree board file found that
+hard-codes this codec.
+
+Record: **[ASoC codec driver] [PERIPHERAL, but real hardware]**
+
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Codec file is mature; little recent functional change.
+
+Record: **[Mature driver; bug is old, not a new-feature regression]**
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Users of MAX98926 whose DAI link requests inverted word/frame clock
+(`NB_IF` or `IB_IF`). Default `NB_NF` is unaffected.
+
+Record: **[Driver-specific; only inverted-frame configurations]**
+
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Triggered at DAI format setup (card bring-up / PCM start). Common I2S is
+`NB_NF` (works). Inverted frame is less common but is a documented,
+handled mode in this function. Not a userspace-triggered security issue.
+
+Record: **[DAI setup] [Uncommon invert modes] [Not unprivileged-
+exploitable]**
+
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+WCI never programmed → LRCLK/frame polarity wrong → swapped channels,
+DAI desync, or unusable playback. Not a panic/UAF/deadlock.
+
+Record: **[Incorrect audio DAI polarity] [Severity: MEDIUM-HIGH for
+affected devices; not CRITICAL crash]**
+
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+- Benefit: makes advertised invert modes actually work; same class of
+  fix max98925 already shipped to stable.
+- Risk: 1-line mask OR, no API/locking change, applies cleanly.
+
+Record: **[Benefit: medium for this hardware] [Risk: very low]
+[Favorable]**
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Step 9.1: COMPILE THE EVIDENCE**
+
+FOR:
+- Real, obvious register bug: WCI invert is computed then discarded
+- One-line, obviously correct; matches max98925
+- Identical max98925 fix (`0b51601d4504f4`) was `Cc: stable`
+- Bug present since v4.6 and in this 6.12 tree
+- Applies cleanly; no dependencies or new APIs
+- Applied by Mark Brown; landed in a sound **fixes** pull
+- User-visible: inverted frame clock does not work
+
+AGAINST:
+- Not a crash, UAF, deadlock, or security issue
+- Peripheral codec; no in-tree machine driver found
+- No `Reported-by` / `Tested-by`
+- Common `NB_NF` path already works
+
+UNRESOLVED:
+- Direct user reports of broken MAX98926 inverted-frame setups were not
+  found
+- lore.kernel.org WebFetch returned 403; discussion recovered via `b4
+  dig -m`
+
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — 1-line mask, sibling
+   precedent, maintainer applied
+2. Fixes a real bug that affects users? **PASS** — advertised invert
+   modes do not program WCI
+3. Important issue? **PASS** — hardware misconfiguration / broken audio
+   for inverted frame (same bar as the 2015 max98925 stable fix), not a
+   panic
+4. Small and contained? **PASS** — 1 line, one function
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — `git apply --check` clean;
+   context matches
+
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Not a device-ID/quirk/DT/build/docs exception. It is a normal small
+driver correctness fix.
+
+**Step 9.4: MAKE YOUR DECISION**
+This belongs in **this** 6.12 tree. The buggy code is here, the fix is
+trivial and already proven on the sibling codec (including an explicit
+stable nomination there), and the only cost is flipping one register
+mask bit that the driver already intended to set.
+
+### What the commit solves for stable users
+On MAX98926, `set_fmt` claims to support word-clock invert (`NB_IF` /
+`IB_IF`) but `regmap_update_bits()` only allows the BCI bit to change,
+so LRCLK invert never reaches the chip. That is broken DAI polarity for
+those boards, not a style change.
+
+### Risk vs benefit
+Very low risk (one OR into an existing mask) versus a real, long-
+standing hardware-config bug that already met the stable bar on
+max98925.
+
+### Concerns
+None for this tree: no prerequisites, no conflict, no follow-up needed.
+Impact is limited to MAX98926 with inverted frame clock.
+
+---
 
 ## Verification
-- [Phase 1] Parsed tags: only author + Yury Norov SOBs; no
-  Fixes:/Reported-by:/Cc: stable
-- [Phase 2] Diff: 9 `int nr` → `unsigned long nr` in `include/asm-
-  generic/bitops/le.h`; bodies unchanged
-- [Phase 2] `generic___set_bit` uses `BIT_WORD(nr)` pointer math — huge
-  nr wraps before `addr`
-- [Phase 2] `set_bit` takes `long nr`; `_test_bit`/`___set_bit` take
-  `unsigned long nr`
-- [Phase 3] `git describe HEAD` / Makefile: 7.3.0-rc4
-  (`v7.3-rc4-27-gf0100363d8c37`)
-- [Phase 3] `git merge-base --is-ancestor 1c61b0a6e5c47 HEAD`: yes
-  (already in this tree)
-- [Phase 3] blame: `int nr` from `a56560b3b2332` (v2.6.39-rc1); fix is
-  `1c61b0a6e5c47`
-- [Phase 3] `git show 1c61b0a6e5c47^:include/asm-generic/bitops/le.h`:
-  confirmed `int nr`
-- [Phase 3] No follow-up commits on `le.h` after this one
-- [Phase 4] `b4 dig -c 1c61b0a6e5c47`: v1 then v2; v2 is what was
-  committed
-- [Phase 4] `b4 dig -a/-w`: linux-arch; Yury, Arnd, Rasmus CC’d
-- [Phase 4] Yury: taking into bitmap-for-next; asked about 256MB bitmaps
-  / production
-- [Phase 4] Author: machine crashes without the fix; production with LVM
-  defaults unlikely
-- [Phase 5] Callers: dm-log, md-bitmap, kvm `mark_page_dirty_in_slot`,
-  ext4 macros, others
-- [Phase 5] dm-log `log_*_bit(..., unsigned int bit)` — values ≥
-  0x80000000 hit the old conversion
-- [Phase 5] Reproducer math: 8589934590 sectors / region 2 →
-  `region_count = 4294967295` (UINT_MAX)
-- [Phase 6] Current tree already has `unsigned long nr`; no other `le.h`
-  copies
-- [Phase 6] Arches include `asm-generic/bitops/le.h` (x86, arm64, etc.)
-- [Phase 8] Failure mode: OOB → panic; trigger needs large bitmap
-- UNVERIFIED: stable@ discussion (lore 403, gnuweeb stable search 404)
-- UNVERIFIED: exhaustive proof no caller passed negative `int` on
-  purpose (author stated they looked)
+- [Phase 1] Parsed tags: author SOB, Mark Brown SOB, lore Link; no
+  Fixes/Reported-by/Cc: stable
+- [Phase 2] Diff: 1 line in `max98926_dai_set_fmt()`; mask `BCI` → `BCI
+  | WCI`
+- [Phase 2] Header verified: WCI is bit 3, BCI is bit 2 in `max98926.h`
+- [Phase 3] `git blame`: buggy line from `a2e2876aa0bab` (2016, v4.6)
+- [Phase 3] `git merge-base --is-ancestor a2e2876aa0bab HEAD`:
+  introducing commit **is** in this tree
+- [Phase 3] Sibling fix `0b51601d4504f4` (“Fix mask for setting DAI
+  invert mode”) had `Cc: stable@vger.kernel.org` and is in this tree
+- [Phase 3] `git log` on `max98926.c`: no invert-mask prerequisite
+- [Phase 4] `b4 dig -c dd0ae9a2e19a2`: lore URL `87wltomc97.wl-
+  kuninori.morimoto.gx@renesas.com`
+- [Phase 4] `b4 dig -a`: v1 only
+- [Phase 4] `b4 dig -w`: Kysela, Girdwood, Brown, Iwai, linux-sound
+- [Phase 4] mbox: Mark Brown applied to for-7.3; no NAKs
+- [Phase 4] WebFetch lore/msgid: 403; discussion taken from b4 mbox
+  instead
+- [Phase 4] Stable lore search: no prior discussion of this patch
+- [Phase 5] Callers: `snd_soc_dai_set_fmt()` → dai ops `.set_fmt`; used
+  from `soc-core.c` DAI setup
+- [Phase 5] `git grep`: only max98926 still has BCI-only invert update
+- [Phase 6] `make kernelversion` / Makefile: **6.12.111**; `git describe
+  HEAD`: `p-6.12-3-gc504cf0baa3d8`
+- [Phase 6] `git merge-base --is-ancestor dd0ae9a2e19a2 HEAD`: fix
+  **not** in this tree
+- [Phase 6] Parent context of candidate matches local `max98926.c` lines
+  360–363
+- [Phase 6] `git apply --check`: APPLY_CLEAN
+- [Phase 7] No in-tree machine driver hard-coding max98926; DT
+  compatible `maxim,max98926` exists
+- [Phase 8] Failure mode: WCI not programmed → wrong frame polarity /
+  broken audio; not a crash
+- UNVERIFIED: specific MAX98926 products using `NB_IF`/`IB_IF` in the
+  field (driver still implements those cases)
 
 **YES**
 
- include/asm-generic/bitops/le.h | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ sound/soc/codecs/max98926.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/asm-generic/bitops/le.h b/include/asm-generic/bitops/le.h
-index d51beff603755..e3b0da9a25f1b 100644
---- a/include/asm-generic/bitops/le.h
-+++ b/include/asm-generic/bitops/le.h
-@@ -16,47 +16,47 @@
- #endif
- 
- 
--static inline int test_bit_le(int nr, const void *addr)
-+static inline int test_bit_le(unsigned long nr, const void *addr)
- {
- 	return test_bit(nr ^ BITOP_LE_SWIZZLE, addr);
+diff --git a/sound/soc/codecs/max98926.c b/sound/soc/codecs/max98926.c
+index ae962bda163eb..8f48f702d5621 100644
+--- a/sound/soc/codecs/max98926.c
++++ b/sound/soc/codecs/max98926.c
+@@ -360,7 +360,7 @@ static int max98926_dai_set_fmt(struct snd_soc_dai *codec_dai,
+ 	regmap_write(max98926->regmap,
+ 			MAX98926_FORMAT, MAX98926_DAI_DLY_MASK);
+ 	regmap_update_bits(max98926->regmap, MAX98926_FORMAT,
+-			MAX98926_DAI_BCI_MASK, invert);
++			MAX98926_DAI_BCI_MASK | MAX98926_DAI_WCI_MASK, invert);
+ 	return 0;
  }
  
--static inline void set_bit_le(int nr, void *addr)
-+static inline void set_bit_le(unsigned long nr, void *addr)
- {
- 	set_bit(nr ^ BITOP_LE_SWIZZLE, addr);
- }
- 
--static inline void clear_bit_le(int nr, void *addr)
-+static inline void clear_bit_le(unsigned long nr, void *addr)
- {
- 	clear_bit(nr ^ BITOP_LE_SWIZZLE, addr);
- }
- 
--static inline void __set_bit_le(int nr, void *addr)
-+static inline void __set_bit_le(unsigned long nr, void *addr)
- {
- 	__set_bit(nr ^ BITOP_LE_SWIZZLE, addr);
- }
- 
--static inline void __clear_bit_le(int nr, void *addr)
-+static inline void __clear_bit_le(unsigned long nr, void *addr)
- {
- 	__clear_bit(nr ^ BITOP_LE_SWIZZLE, addr);
- }
- 
--static inline int test_and_set_bit_le(int nr, void *addr)
-+static inline int test_and_set_bit_le(unsigned long nr, void *addr)
- {
- 	return test_and_set_bit(nr ^ BITOP_LE_SWIZZLE, addr);
- }
- 
--static inline int test_and_clear_bit_le(int nr, void *addr)
-+static inline int test_and_clear_bit_le(unsigned long nr, void *addr)
- {
- 	return test_and_clear_bit(nr ^ BITOP_LE_SWIZZLE, addr);
- }
- 
--static inline int __test_and_set_bit_le(int nr, void *addr)
-+static inline int __test_and_set_bit_le(unsigned long nr, void *addr)
- {
- 	return __test_and_set_bit(nr ^ BITOP_LE_SWIZZLE, addr);
- }
- 
--static inline int __test_and_clear_bit_le(int nr, void *addr)
-+static inline int __test_and_clear_bit_le(unsigned long nr, void *addr)
- {
- 	return __test_and_clear_bit(nr ^ BITOP_LE_SWIZZLE, addr);
- }
 -- 
 2.53.0
 
