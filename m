@@ -1,86 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33BC3DE456
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9193A4DE712
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:13:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408392; cv=none; b=WFlL9SZcZ5Qhx8zFDEGNv1uSMeAnUOlXko+7GfhD3wcQUYLQGv7uZEIAg/XtJg/jpldnnfCNLU0GTKvK1Ut06/5FfVtF8JG/MxZoOzotac0BVhYNEWQNWE7/siaGEjbI5Cmaf8A6yU7ao9hEd118kAl8bW/fwtCrkgrjgFK6qrk=
+	t=1792408395; cv=none; b=qGhIi7ObbaREXt5+2dEiVOgRpikKxu7XHAqcp01ZNjXSh+f1sOthI2kWZdmd9WMwE4ooTNohZHABgQJalLZKCsdLFerlqkd7bT78kKDTxbBdhkkA/9vflPvAIJ8ZKUeDIcdgkHBPs6LrtW0vuEuP+fZMCvcT44ncgQmeo4kNgCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408392; c=relaxed/simple;
-	bh=36eUkGmRXYxap1bERqmr/vE5FGGwQMd9qbYovbe9Irk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Jp7ky+9QzHM3Unq02+uobOlz3q6anRsqgOez3GXFFmu4XEAHQWlQ4OupXbrmzIpFKvDSuv0YB1R/3j7gurwEVy7powMmKV8rqhurGF30l1C06mTWUf1N5eKA9v4zWnSkKdeE/zZ1syCkgUcZ1AN98Nky/b3kYepjG5mnJX2aX8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H2AorjXP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hVzwLqhe; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1792408395; c=relaxed/simple;
+	bh=06IhMOTiJum8Y6ohwifN320Ejt4xYacngIgHBDWIuLU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HUV0IPd7yXkMe5u7s0uZ9zWwuS5NlO/UyL6gHmVMt34QA5xXfHvOfjktb7QSiqk2WS2iSg4VhQewvReezbqSgFKZEfn7epnpGM3wfW5UjS7QYWB7abRDLSBpTky+vznmF0HxRhRRcOl4s1K/6n8F0zKAxzaAfJ4xLNtg3KRVr+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jnxPWWIH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dWsHj49D; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H2AorjXP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hVzwLqhe"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jnxPWWIH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dWsHj49D"
 Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8Ossu723129
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:13:11 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8OuGN723272
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:13:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=TlR52ADOonRtbtSebcO0TM
-	M6uvs5Fomcnb17yypt3k0=; b=H2AorjXPR4i5+V6vjUhVDvfucimDnkCoZ128F8
-	aIT/iViFIK1okOqIM3aHSDRLrMWsq3liL+d5unAby16qYX4a8OsX35tipIZxEF5s
-	liVri0e91/7WYcjZqGZI9K2CjgUyJGGNEfHwMO3u/zwRPbtxot0GNgvdA8jkLEsn
-	gISpNCGAwa7UxkXVyPdPmc/rmDoJ0NrIZaDl/AxtduuBJHhAmRgmcRRlXOOVBJyE
-	YZOi4xKmImJshfesCzpuddC+kC/hm6iaTyZ7b6vsloic9rC7A/+4CyHYvonItnfF
-	vUZ9NkYGROt9No3YmuFdf2bP9/kGZnuatwhgwnXHYHjMskrw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf65grnv-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RyGQCDxBDck5OVKppEOUmr84isvygZQmpxTsjP6cvvU=; b=jnxPWWIHkmn93ms/
+	c5vQ0mEmi0YNCW6F+13cNrRLgc8N6XaVlXNhU/M7fbIs361Wl8IjfdCxss2z1ZHt
+	7CEhHNqVgEkBkmld65P3J6TpC3nGyNK6VI1kzRiJv7lVOCx28pvP0+z7KLgCArMk
+	99nXf/E6dI1C9E3RA70m8jtWNzej6Jr9sLQS+QMznk46PzfNWt7a29+k6BXmC+TX
+	90r8F+8ryvArCXnliikxC3W8MRl2hJv6+FBIq+Bg+du6/vrC+tH180ColJm1tppg
+	QCa69NK7P8Hg2TDrjuZkq2OSsS+4HJnM1ySNSVZWKEZr9JkBloZxL4LhI7b3X9Hr
+	m1bdIQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf65grnx-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:13:10 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f20addba1so377910185a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:13:10 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:13:11 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-936aa34873bso396941385a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:13:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792408390; x=1793013190; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TlR52ADOonRtbtSebcO0TMM6uvs5Fomcnb17yypt3k0=;
-        b=hVzwLqhe4Ar9BdJdyhR5pFh674hpWSoUWveim7iuXOaaKBZJ9NmXlYWIHEwvtOwMKy
-         nfWjcCwUNb4cv9BVdyMBjWJLYqNZRprs5aL72mKfsfkqzFYJWh9+KrTsC6MbiDWOn9dP
-         ip6yFmlJ6Z4NzX4bruaLrlZlbcgiZHGtLoQ85cQenbrCj5v3wsxoadTE7Bjf9ofUr8WL
-         M6OX0IkgsQ5yg09JkcRgW8TPxOmmaF5bUVHvseu4ENmc/AqwUN4PPNiac2M7Vk8wrbrh
-         qvMOXAm8CNyAdhaVvKcDMwnXehEn17W6uDeG7DVoVM6lzC++pZpKNvE1OXb04fs6woMy
-         wO1g==
+        d=oss.qualcomm.com; s=google; t=1792408391; x=1793013191; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RyGQCDxBDck5OVKppEOUmr84isvygZQmpxTsjP6cvvU=;
+        b=dWsHj49D7YlJ80l8mR6Mv18nq4OLzztkTInY3nP0BebZAz+sjkCt6aPE2lse8a4/lf
+         kANFwvL/uB+7eLa1wsLu6ziCyTBzn6FOj6x39bZvpilJXKkP9WpUFKhNReCSXmR03x85
+         wwPv1VisEeUPukP533sCwo2qeUR5XBazmQRVNs9xGMz9kaFTOkjEA0wST7hJjbah2oSy
+         dzX0GYysKB3a2pIxOKYxS+WV8PJXEase6S5matb8V7LT90Onjbzsc1m9MSAQ4IlwjbSI
+         CcJPwNCmfOnsq/Ac5VGb7KxbbCLCvDgAI9Q8wmcnrehTSRn55Aqm3nTZ5mdNiWAD2G/e
+         aZ1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792408390; x=1793013190;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TlR52ADOonRtbtSebcO0TMM6uvs5Fomcnb17yypt3k0=;
-        b=jdKHvToDoNZdGTJTrijfW6NW+C7XwRv+CmU6mp+FYmxQqm0tDXXN0/nbzD/25kjiWc
-         LOE/F1lY98CJcaprt8ivE2uZKkZOpOg5VGjURUvBegc5JXJmQQpJjpKgQdy037wbJulg
-         7BbESPsjII5XRWgo1tT5yh2OpyZVfX8SUJmyPyjau3SFx5Ow1cA1yqbj2lfnfyDloZ36
-         WfHR/d2Uud8ec5Sz9XUVV1tXyR8XwLw6XM1jigBlufm6vGhPgxA7eufTPVldcKpvby/i
-         gg6iaxcF31cXimbGyjmt/hBnGrbZCgKTa5MT0SaKUVA1gcno2HeaYy7aA5qa229Fwh0c
-         k5Zg==
-X-Forwarded-Encrypted: i=1; AKwUvByxR13yS0NyW3rmRIkPe5XP2DrxTuM467S/oWhU1u01+kQCd2Luz4hInMm9zAgdZjbbGHwUJbsO4BBhQAk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9O3MJkw+4WQLhNgvG6iQjaNwrRV856DlRLLmrwbFHHiX+mXv9
-	mtNW7orbU6XDGzHEv+Q7mZdGycYcoqrou4q72HkZ7xHGruK5s9eyLi/TRq7qE8v5vonIZdORlul
-	l5Xw1lOF2zRnkO71QGwL+9w6NZqKW6CdVAMfO1Wtuzb0gBOWukoygdr1xLxvp9lH8ydk=
-X-Gm-Gg: AYBFou2iWZUV24UBPll0iaxq18CN8hV7qePNYQInsettpkFtyiRxkTsYljy6SWXHaJz
-	yNG/YWHz+ALh8ik6mFx32FEtjT3deeuNH0IpoZxczWPLon40HqxfALPpxLiDTbN+1SdDTwcoKBG
-	vr8ayNP4OVEmcf1K2QMGJIIGf4mOJddWTGIBzew+/XTWdhbTBfCkt0DFxKi28MY5P3cpg/O75rj
-	A2CcQW/zHPRXZR87LLx/YclbAZjnczUZXMTMHB5BXbzi9D3rFt3ts2u5B0ADcQAbCsgxOyRCcCY
-	1h/1cZiiFDVMCAhCC36J/vSH86kR1mRZ4mmclTXb4TbRE6vw4jO95f3X3oyYyy/cZDBYG0SuNfc
-	u65atudx6hNauDe8+SAoy/ZMPCCzGqcWKD1QHO4RkoAmg
-X-Received: by 2002:a05:620a:a0cd:20b0:93f:2e7e:c818 with SMTP id af79cd13be357-93f2e7ed0abmr614913785a.59.1792408389781;
-        Mon, 19 Oct 2026 04:13:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:a0cd:20b0:93f:2e7e:c818 with SMTP id af79cd13be357-93f2e7ed0abmr614905785a.59.1792408388516;
-        Mon, 19 Oct 2026 04:13:08 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792408391; x=1793013191;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RyGQCDxBDck5OVKppEOUmr84isvygZQmpxTsjP6cvvU=;
+        b=dDo0GpWX4uFkVvV3j+cZDED/dBwEimoUY5Lriz8hsac8e//272umSp2LIhKSnPe7g7
+         EKHyiIz+HdMrE8Qk69v8145KvrD2VXjO1O6Y+fUWb+3l9HJM8rfChQpFTGTJSg8ZO1W+
+         p2wWNdsaUhsvELCPvcjTNcgjaYdvItn++4UVDDL3q19WGwYIM17xRMaQ+NDartR52RnZ
+         FmSJ2Ct5olJXWTQNvV+rxWtqXzGTZlldtQ6XcoPpkeLofVdll9SjRyBeX2FitglvYgSJ
+         FYVhLUU2Z41yjKxJ/vlnubpAD4rZCJ1bz8+XM82XVaPOMPaxPPdkCcErtyPGL0O1WYwd
+         Jnkg==
+X-Forwarded-Encrypted: i=1; AKwUvByNRHvP5dvMF8wyHtbf+E9xK6ZHUdyvaJ/0Ry9m6K5rqbHMtqM6iJcNMQHQnEOHdx7/nn3ggBDoV5AjEeE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLb/kr4Q04ivt7PX40Sohr5jwYXDNlFkgLKfdE2Axn40+1B6F6w
+	8MtpS7JRIg+YJ0hPqTLxB71/zMO6rcseqj1XzIMMY6gbZI+XQAXJG9M+6V/CMyVYmeLq3ETEo1x
+	LPkXsgvOIl7btpwfV54rZdwC9Vq5r6uFVVXNBHIvCsUBeBnA83z4r7rYdpHVQTefwnu8=
+X-Gm-Gg: AYBFou1vOtkdm7IBVNEDFERC+4KgbEy5J/+5JOiGTHQVHlbF+R0gLQwtuq8EJA1MQpx
+	mPF2dfH8RyCwX/djuRK31aavZnrl2m1KRyDcBBUlpxXmEPcIEquj7uSjdegEVQXwHZSZgV1Mb6x
+	A1V1KDHJAy2mljxuE4QOSjAzhlQUGGcNehts+H0q7hY4+thkSdhyj7JG0aaO5agLBelyiIdLKaS
+	jZu63uU6ikp8jsdIACn9rKeJ6sQ886PxLcvWf9FbLCR1ZiLaz5UZCphNb1qopdmGfyEe637EwN9
+	jCr2pMTf40dQatY5LeYHhMuuu93oqo0BPc/sFJJWLqkR62vTbxbt08VAyO4N53PwRkgtVDKbLuk
+	zhZOKDmxyUTDBoMZuMoSm6bomgDiqOnkQLJABaa1PbSnd
+X-Received: by 2002:a05:620a:bce:b0:93e:94f2:ada9 with SMTP id af79cd13be357-93f29d7fb88mr1267633685a.58.1792408390735;
+        Mon, 19 Oct 2026 04:13:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:bce:b0:93e:94f2:ada9 with SMTP id af79cd13be357-93f29d7fb88mr1267628485a.58.1792408390183;
+        Mon, 19 Oct 2026 04:13:10 -0700 (PDT)
 Received: from [127.0.1.1] (185-164-141-21.cgnat.inetia.pl. [185.164.141.21])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4256c790adsm211472266b.31.2026.10.19.04.13.07
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4256c790adsm211472266b.31.2026.10.19.04.13.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 04:13:07 -0700 (PDT)
+        Mon, 19 Oct 2026 04:13:09 -0700 (PDT)
 From: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
-Subject: [PATCH 0/2] net: qrtr: don't lose name server packets behind the
- HELLO gate
-Date: Mon, 19 Oct 2026 13:12:00 +0200
-Message-Id: <20261019-upstream-qrtr-hello-gate-fix_b4-v1-0-bd420aec171b@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 13:12:01 +0200
+Subject: [PATCH 1/2] net: qrtr: ns: keep going when an announcement cannot
+ be sent
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,10 +91,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNUQrCMBCE4auUfXYhCaVYryIiaZy0K7Wtm1SE0
- rsb9fFj4J+NElSQ6FRtpHhJknkqsIeKwuCnHiy3YnLGNdbYltclZYV/8FOz8oBxnLn3GRzlfe1
- qDg7H4GIdW9NQqSyKsvwezpe/09rdEfI3S/v+ASFANPuDAAAA
-X-Change-ID: 20261019-upstream-qrtr-hello-gate-fix_b4-c2e8c2f4f906
+Message-Id: <20261019-upstream-qrtr-hello-gate-fix_b4-v1-1-bd420aec171b@oss.qualcomm.com>
+References: <20261019-upstream-qrtr-hello-gate-fix_b4-v1-0-bd420aec171b@oss.qualcomm.com>
+In-Reply-To: <20261019-upstream-qrtr-hello-gate-fix_b4-v1-0-bd420aec171b@oss.qualcomm.com>
 To: Manivannan Sadhasivam <mani@kernel.org>,
         "David S. Miller" <davem@davemloft.net>,
         Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
@@ -104,25 +105,25 @@ Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NCBTYWx0ZWRfXyNGxaL/dDII7
- iZwLhFBT7Y+eLVNyGnK/7MWR4TSg0zTjOSP3cw8mOVhpQG344lASXSECD69Aa5ok7ePrWXCyyUl
- M1wfXcobzZfvHbZzzDvNbXf9+yFphyQ=
-X-Proofpoint-ORIG-GUID: Jf7KjuEnzqkS4_jr1Ug7WqquDZM--W65
-X-Authority-Analysis: v=2.4 cv=Y5ptIReN c=1 sm=1 tr=0 ts=6ad5fb46 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=JsdSkJyxCPcZmfxNhm0PvA==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NCBTYWx0ZWRfX+OYVmHkpqFmA
+ +oAQ3Ent+vQHSHe1QFWdfOxVvG6pS4ga4EF87L4fTdyO2Dclr8vTHF4n67HbEhcorDSpnCI12N0
+ VFicc1rcg3JD2xtTQoq+L4mKja3Lvn0=
+X-Proofpoint-ORIG-GUID: uusqM3XFw02Xj7dluzTK2XZxJ6LkYrRv
+X-Authority-Analysis: v=2.4 cv=Y5ptIReN c=1 sm=1 tr=0 ts=6ad5fb47 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=JsdSkJyxCPcZmfxNhm0PvA==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=iOzWpaUfyYFiVLkFVAIA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NCBTYWx0ZWRfX3Q2XC/GlbojY
- SQC88eHdteifpmvecHvAjiYp8YaWzJ7vyfK2xvxvzePzhwjB3MheV99V0MjhO3AxDWiNqA59wvY
- Y2TOjjJjfFQ3aLQblUCOfK3/Agu5TWC/jHpI/RWQ9/t48ag9KxmlL/Bq34zDpz0rQCI/+xAKrvY
- FZDFQQp3ZDmGoMlz0oZI8UiH/9uwiCeaHlXy+EbVpmcQXzU5Ee7OOFLm2SbqxLtRFavtniCLRFB
- ay9/5E0QgjP66uE6sEQIHB4g34pWin8LG+J7HM3PlUhI7BQviPnRTLQjxbd2i8VugZ2fbEF7RDS
- QdXvIGSadlodgJQ8e9mk1IAv4iy+HmTXzJDX7p3B5vAl9VBWYXVu154M6Ek/9idYNUrQ6lWBKsJ
- kuC3xuq+RJwTcP8d2lFdFAI8K3fUMB0ZDt7IkEQcvUNRQGIt5X5aJnF+K/F2INfyFo7KTat+cTh
- 6H6iKJvsE0NMVxons6g==
-X-Proofpoint-GUID: Jf7KjuEnzqkS4_jr1Ug7WqquDZM--W65
+ a=EUspDBNiAAAA:8 a=8ZcYjYkWD9nQVPmNhLsA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NCBTYWx0ZWRfX/xu8D5HvqtKk
+ DqgINpFMLYM15kGdY9lvqgxlFQ2v7LonbU+6pl1rbEdgI9V9gSWzMM1A9tYDZi0lF7CZGzqgn9j
+ xwlHyldN0IN7DscyDybhi38dRyXI8SD57gfQXk7H+i/TmJQBvbU8mR8Q17aEuCqWggb+IBTX8/c
+ Wr0rZVfH8rw+8a4gmIx9QjxXOJ873Mn9RTwcC7lZeDHjsp1kA7WVD1nvj63TkK98/OQ+FSTJrCn
+ rxNXrO63oeTUkP8fUHntaPV5hlBNfDLz4RrDbqAqc4jv9XyITZ3ekNuziXtnBv/NB1F6lAE04L2
+ N+T9CioR3nrg8vZj5CER6KoJAtAHwoVRUgPsEh5y+6C1W1kQNpKA1sXcr7qSODjlBGZ3wlNNa/f
+ NIfByCoYiQfBqVTxLDGsBETjQXFJRj0P5PUqUixl0m6XQwZj3cGUXbFdyI31qPVUpuvimWhfX3o
+ 9nrphRgxd0IBLIMK3EQ==
+X-Proofpoint-GUID: uusqM3XFw02Xj7dluzTK2XZxJ6LkYrRv
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
@@ -132,51 +133,53 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190044
 
-Since commit 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint
-register") the core refuses every non-HELLO packet to a node until the
-HELLO to it has been sent, and retries a HELLO that cannot be sent yet
-100 ms later. A freshly booted remoteproc has no glink rx intents, so
-the first HELLO fails, and the name server's announcements in that
-window (the replies to the remote's HELLO and the NEW_SERVER broadcasts
-of local servers) are dropped for good. The name server then also skips
-the lookup notifications for a server whose broadcast failed.
+announce_servers() answers a HELLO by announcing every local server to
+the new node, and stops at the first send error: the node then never
+learns about the servers after that one. ctrl_cmd_new_server() returns
+before lookup_notify() when the broadcast of a new local server fails,
+so lookups already registered for that service, including the ones of
+remote nodes, are never told the server exists.
 
-On QCM2290 (Arduino UNO Q) this stalls the modem in about one boot in
-five: it waits for the RMTFS service, which rmtfs registers in the same
-instant the modem starts, until its watchdog fires 40 s later; WiFi,
-whose firmware runs on the modem, comes up a minute late.
+A send failure to one node says nothing about the others. Log it and
+carry on in both places.
 
-Patch 1 makes the name server carry on after a failed send (announce
-the remaining servers, notify the pending lookups). Patch 2 holds
-control packets for a node behind its HELLO and sends them right after
-it, instead of dropping them; data packets are still refused before the
-HELLO, so flow control is unchanged.
-
-Initially tested on the Arduino UNO Q (QRB2210) with v7.3-rc6 plus the board
-support it needs: 10 fresh boots and 10 modem stop/start cycles, no
-"failed to announce new service", no modem watchdog, WLAN firmware up
-6.4-8.2 s after boot every time; unpatched, 2/10 boots and 1/18 restarts
-stalled. Built with W=1 on net/main; applies to next-20261016.
-
-I'm not deeply familiar with QRTR; an alternative would be to have the
-core trigger announce_servers() for the node once its HELLO is sent.
-Happy to rework it that way if preferred.
-
-Cc: Chris Lew <christopher.lew@oss.qualcomm.com>
-
+Fixes: 0c2204a4ad71 ("net: qrtr: Migrate nameservice to kernel from userspace")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
 ---
-Igor Opaniuk (2):
-      net: qrtr: ns: keep going when an announcement cannot be sent
-      net: qrtr: hold control packets behind the HELLO gate instead of dropping them
+ net/qrtr/ns.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
- net/qrtr/af_qrtr.c | 59 +++++++++++++++++++++++++++++++++++++++++++++++-------
- net/qrtr/ns.c      | 10 +++++----
- 2 files changed, 58 insertions(+), 11 deletions(-)
----
-base-commit: 07bd391eb9572e74f073c49acef327611234f9bb
-change-id: 20261019-upstream-qrtr-hello-gate-fix_b4-c2e8c2f4f906
+diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
+index bcb090ee79d4..dfc2cdad688f 100644
+--- a/net/qrtr/ns.c
++++ b/net/qrtr/ns.c
+@@ -232,7 +232,7 @@ static int announce_servers(struct sockaddr_qrtr *sq)
+ 				continue;
+ 
+ 			pr_err("failed to announce new service\n");
+-			return ret;
++			/* the remote needs the other servers no less */
+ 		}
+ 	}
+ 	return 0;
+@@ -488,10 +488,12 @@ static int ctrl_cmd_new_server(struct sockaddr_qrtr *from,
+ 
+ 	if (srv->node == qrtr_ns.local_node) {
+ 		ret = service_announce_new(&qrtr_ns.bcast_sq, srv);
+-		if (ret < 0) {
++		/*
++		 * A failed broadcast must not hide the server from the
++		 * lookups already registered for it.
++		 */
++		if (ret < 0)
+ 			pr_err("failed to announce new service\n");
+-			return ret;
+-		}
+ 	}
+ 
+ 	/* Notify any potential lookups about the new server */
 
-Best regards,
---  
-Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
+-- 
+2.53.0
 
