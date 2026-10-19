@@ -1,210 +1,202 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012014.outbound.protection.outlook.com [52.101.53.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7188C4F4CE8
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417806; cv=none; b=d4+CI5cWJFE0wQYmv57WaHq7HWaWUtGKzp+Vs2+RO6hrwigp7SGA7S7NXoKxi6qaOhO3+xT+HJY0JquDW+k+oGmcs0RNLEYxwJYBSuU3k96h9Ost7eLJPKJeyVTtNQq132nAVfTF+Eoni4zRXmuRJHLCZOYmRWbjN6VAcy/tDSY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417806; c=relaxed/simple;
-	bh=mrAS8F2+28qGCNLp50PxVrDYefFqK+LB1R+oI6CY7E4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uY5OGxiBTlXpc48Lx00/ac7DQPNiHXQ+utMjIL4Qcx0NTLFZnz8lirpthxhEIuVMug+KX9dhlLYM43pPnW1u988eciTqfyB2e22o9GPQPNEidRZPDNU0D39FSeIxv41qFcP2kLuIoACnoXHTg8Am04fx9dS+5G8yIEQ7adDahnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YGpCfEDY; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213B74FC8E5;
+	Mon, 19 Oct 2026 13:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792417900; cv=fail; b=tivP/SZOlqgJKxboORP9pUoUXTuOD8XWzixJohUHhfJiRb7P1jz1b1Rqme2Jr0LBvx11GeNY6NyD1EAGcI7QRKVkShqNYme+l/iVwR61neswQq+tmu5BTD0IhMSseo51ljU9vmFGz0R1Iv10cV120+2L2rW5YyPNZntuNMxdV38=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792417900; c=relaxed/simple;
+	bh=iB8pUP/APs1+XjOPnHq/fdd9F8zoXmwOQe5GedyATXM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=u1u8yFJbaq0WItUok+CkYxV5Cwn5PqsQ/ZbZR5D/tY0ThTxqz0yYHdLvUO85Ij/sDfdV7NJv+Z2i0j+xoNfXuEHBnxY2JCz8GNPZmn2Zg/J63y7tSqeltPlFuKuXWzJ0vl9seoTDGs88710ctIS/vPl+Mn53yTJrlinNCadRFOE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=m4kVCcLU; arc=fail smtp.client-ip=52.101.53.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YGpCfEDY"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ab98332238so1704637a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:50:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792417804; x=1793022604; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bDmQIm+N7Da6j83Yqrg/UI5yb0CX5Q6JMZKoKt0rve4=;
-        b=YGpCfEDYNhIUevLk5n7+LoPAfGsmUxKeAjHq0sSn0lSRq5CPc62cqsyV1E3eF4skmJ
-         kuG9ccS6WwIu8WTvrG/gdocucmiE2kR1IuWghZMpoykqbGSNspGBWWC+0JaNFUW++F0Q
-         zRs0+IxRSwvN0LSdBb0tVCPajt78Qi3+lUVacFOQQ4Nenyuy08nHPgk5o0UG4RbQ+NZW
-         43+EzUAb+vdTAPFN9FWgRQYaCdtcll6OUm3sTG+KWPhsg4pSMMibNS4lpqhnNORhJjQr
-         nKNACHGy+FRNjJyLPphc5O8U2vVETC54D8LSSc6Epj1H/YxWcU8X7Vb17Y/KURpTq9RB
-         xIyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792417804; x=1793022604;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bDmQIm+N7Da6j83Yqrg/UI5yb0CX5Q6JMZKoKt0rve4=;
-        b=adRYB5MXKG4dsYlVSt+sG/PHSEBqtV+O4ISlYMPg8kp7jxxyV6c1bc/NtDo+t06dps
-         1fJU8OcR5yXeT+wRZBDcMKZivCW6eVxbL0EMP6rlbExWqyJfL5ndExPTQVBZ4E5s9LhB
-         ANv9UE5VtSocse/rvTQWXlsIVglnFUWZN3mT2f16LYtIEjznprFDEsK5uBZbeuwvEsb4
-         jkzVeJPPBHqZPfj8ZIreK0rTBPQCihmbptm4HxMdCIzLO5EL2q+MkUxGRKCwJNZnZRbB
-         6nv+h4uNB29a86UcyaNRQEF0nv9SVNAbZns6a9YaWf2VRRz1y9XncujH1Vw1Pss0FANQ
-         sHAA==
-X-Forwarded-Encrypted: i=1; AKwUvBziLldyWaisU80JX4As1F+U+Su/Stm2Q5gqK7Bef4VvgmmtxjZdWm+oUClzA00hSw6pE2PBo1uHJUXilnk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJah8/ab/pPHSmxalSioiXbcLbit+yo4n9b6QdEr0AOvevSgLjl
-	KKlva2ZowhUPz9bhLdO1H/gVI13eEW9lVALQcAaOMJZKjYmZ6IGXZBY1
-X-Gm-Gg: AYBFou1sXXzpz1CnjWkrAzlIaDifWzpbar2G9InLgz8bdyaJ1zgCsgJ3bKMK79ErYb/
-	P3UAMl+ErtiN0Ui1yQJOkR0fH8baPzgBWG8LgX72DaftFidhjI6SmIegTLjbUtD40JsZFjbIJ31
-	3nrD285ca33lt8UQ6JaFWqEnln5DXU/ln8JWcmmuDTARWh+yKfArthVIuMC/LalLuZge3TgTCfh
-	6ViouyfKr5STEwEIxHrZO0YWQdqNiGyze9eP64TfMZwHZKYLS8txJViV2Hk/z73QiOgJXor5ffI
-	icgCk4L1avgvfhu9zL4lUmIPf/dnCBlfs2firf/DcVryNPBPuXdaBfW4Llweo5G93RrotvPc1z+
-	rzB82QL5lCutbSKxDksjP/+ZAkutatBwWNNVhUU/W/ElLWIaYBdq6ogs+ToHRyOcHdOXs16qyST
-	3bFY7qlt5Cx8s5C6SjgVa78eQa5SZmRPCYpa3th4JJl2O9nLON0485TxcD+PlMs3/pEw==
-X-Received: by 2002:a17:90b:3892:b0:3a7:250:333e with SMTP id 98e67ed59e1d1-3aceefc176fmr7701283a91.11.1792417803488;
-        Mon, 19 Oct 2026 06:50:03 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad42878d72sm2792278a91.5.2026.10.19.06.50.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 06:50:03 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: Cache the mount context for dentry lock callbacks
-Date: Mon, 19 Oct 2026 21:49:56 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0012-v6-17b58652a3505eeecb0c@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="m4kVCcLU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hVBoi9vN/WztKspO6U2PfStsVVYMDl/A2VqJQDRRHF7FLpTelyirvbizu/LkbzAM0INwvAM4cy3ktvAoIw9b0yEq1sz8yund5T7VsGigO4KBPls8KSstHVIs+MJHCbpgw3MSNCweUs+0kFTvutSwP/TxWW9CS+568onReKaCRQX/dAmaUsIFjgZ7NNzuwW1DEUVhJRVv1TblkNnXaY7ZnFH0kIJcXNnK+3St6deeJc8+yw5WCI/6m/8oPGCTrL4NP906Ggis+xSx8vwRWc/jjPxUg7J8S/8W8oJetOBFTum3m9rn5JKH8SbiVPYxXkWXmgCORZRcbQ/ge5WzB8Eapw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=40hS8oqXDBECKU4SlPBCMNb+mirUXz7NS4TqOnhiIO8=;
+ b=raeqc/VeAwmBcqjROE0JW2nNgnF8fMl3TQr7f1lFD+dD7nlJ4H1aov0kMBkpafCLCLkcRez9Jfz5CeqXVIc9NUrJT499oRZ8ujPBkua3XhVnO02y+4QsBP+9SE0B+dVXa9lyxh8pV0Z5gYTjVUgpAZi6bqcVesYweL1ZopaG08OzpadIaiGO77RjngnHBGjhWjoqsIJXtZPwm4ux1Fht3+m463/momA4pi7LYEtsfNepWfhXYSoRRDKgnY1nUgSvQefP+RGrjHGqlD4dkusT/IMUPCAKQpTSWtSFAFAqH0XPjm8/KV614qDQZcs7Sx6s7VyX/WWi3buz7oRprWO9rA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=40hS8oqXDBECKU4SlPBCMNb+mirUXz7NS4TqOnhiIO8=;
+ b=m4kVCcLU0/6/i2yfSkMGX2S+sdeCZx52mBbN0Lmg40OgsGHnFLQqU9mRzEUGonKiGDUQ2Hf/040KKFxTXrPvcJCnbrFdy1g7F9vFD82h+Th7IKThiq8ruV30K7hJEDs9gp0j2JZmgw/dJt1MG2TMbIl8xxyxkcGgq3w8DtgYqAsMBnPOalNB5FJ4UV1SAlr7BC2fsFFs5o/zrzcAlekxhkOENegrzhXXFewmv64QwYn697821SWZ6JT3D69UOkQGPU2HQfr4nOU3FwLVb134phtMCEGBiYtgPANsDnnKb3BdkxfrXI4PChkvg2BeiCCc4MXvLDtuMkIj0cyi+BtUtg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by DS5PR12MB015052.namprd12.prod.outlook.com (2603:10b6:8:47d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 13:51:35 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 13:51:35 +0000
+Date: Mon, 19 Oct 2026 15:51:26 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Michal Blaszczyk <michalblk@google.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Kuba Piecuch <jpiecuch@google.com>
+Subject: Re: [PATCH 1/2] sched_ext: Reset runnable_at when a task leaves its
+ scheduler
+Message-ID: <atYgXtpPSGsoWmZE@gpd4>
+References: <20261019124146.3582127-1-michalblk@google.com>
+ <20261019124146.3582127-2-michalblk@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019124146.3582127-2-michalblk@google.com>
+X-ClientProxiedBy: ZR2P278CA0087.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:65::12) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DS5PR12MB015052:EE_
+X-MS-Office365-Filtering-Correlation-Id: 833b0dff-a375-4431-ed63-08df2de81705
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|261009223027099003|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	UOqPAOSy0ZlIG6IRALsNgXOoXISQB1KJ+L6R6Y71cdCCeY6zE+OOoefB+mb2ByFv4a3/bcm2pT0HOT2QFdQ+KqRJpDAwFb7VHRVXjrxSKpApGsI8+CfJO15eiAPhQxiHOQY/cdOB/g2dS80AUyA3+084sPwEOjwOSj1oEq/u9hge8jL65rIks0KhCFw1y9oDsPGz9hZYqDb9ih5V7SNeDT2HfGCdrZWWGXlZxDYzDcDvTHeI25eVn/oTgDKCJ1JoLXMxSDHeX0cEdPJfyymSmIJeyTSdEOV8di/1Fg84S/uPIzf9TPfej1hfAmgwFTTO9vQi45DhGjq01GWY61/B+/v7hdlRb8dLwFIBMKT8XxIJDbje4sDFXECT78kihb7kK/+7HQQJLvTnKTQhBtoMIMq35v4kEESz9u3iqjR0ja647AzZKm+aFeN5d9NlapV4BxDyevKJ2xmqluw5duQHgPzWQwzxCOD/bjNKjQsFQKMlaKTw8gUqvDrYEItIU1zAVwnorUtzfGXLkkN8AwUFpCGfepDsL6XmOoS2HnZlPGtAMGh4kPIXBM0t/VTVZxyCgH8vMa+ystsn3K9+qE3x/SEkcRzOXBcix2+4iAGliWSWritzHZPGMpU6oo85Oui6YgBH+lDnLRtKRrCv7dFuEe3yoskgd9TMlLpUJEWp9bM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?yZdOG6Jvdq8mg5z3kwBmTbetFCqgtuh15zBPJvAxHKZtWWlqzIvWzuUeKwwF?=
+ =?us-ascii?Q?a0aq9ht3a9Vi6dBQyjZh7nwAbqt0K+0iF+E6Z8/P95FT6bWh+A83z2sIQwrl?=
+ =?us-ascii?Q?w1YO3lHX7YSQBNmZXEBuGEnqFTVGXMjuB8i9uxOnqY6bqMhN+wmwJ6WU8ObQ?=
+ =?us-ascii?Q?330CeO52SCjR60VJ8SeBa+Xf6+SudpHAFkXJrgUiL76bo5AX+K6MjYiChhji?=
+ =?us-ascii?Q?8kY6CHT/4oMGomk/jzLYRa1BiY3bae1jIB5cQbH9CotB78nmm9CmLxaVoiGv?=
+ =?us-ascii?Q?LO+MaXViik0pmq9mYGUy5fwgG3vkvaFgmq1f+BeS1xfjIoTFIwqkp4A/MjtV?=
+ =?us-ascii?Q?reueiFjRwkcLB/2Y2zc0n6e5/xzicQ0k8TSh8M3at/+g/Q01FR4DsoUsz4G3?=
+ =?us-ascii?Q?g3pjUoC7FMJRWlzdPtf6k6hoH7D6aPIXtJEbSkbQYW9s6LSJcXYmF9Owzq2O?=
+ =?us-ascii?Q?/WtcZS0/35l7oQKuU0+sQg7jIK0ZIsA7OJdvrHbkmppCMilfVvOAc0bXOMv0?=
+ =?us-ascii?Q?Arjwj3klyhA4H+qHUWGjZjL2AbcOWwJ3E3GDZew8ylrdX2ZRKm1hmiuqfa+v?=
+ =?us-ascii?Q?5yGRulPE1XN7t504HM5CtqL51RLPoL/6xEajqb3W6jEUV2fl1WX55L/wLJ1p?=
+ =?us-ascii?Q?rbTAwUGDfS1x/kzMc7EKHgboesnVzkl7XIKnMiRM+C2yJMa9k64DYZC2EnBW?=
+ =?us-ascii?Q?XBfxJBQ5i9f5m4odV5cVaX3JT26sF4jO25FJ8dkRPBjnePVOiJdIufCMLPL2?=
+ =?us-ascii?Q?OnW0IQdOnT2QitlahdvO4qdFPQv35hXxpTcbiE1kvykQpOX+XlKuAnuZMtty?=
+ =?us-ascii?Q?z8MkS5eK5WAYlzBH/frc/4BZokIDacNg+VBqwB2g0+ze1NFm6MDeI3h7vejR?=
+ =?us-ascii?Q?vNKv16NSdZ6Y0jMCtLC3U/VISK9VnBddwcRvfooaT+VC/4D071oSaKYEQZvk?=
+ =?us-ascii?Q?5QVudt023+peXoYEhS5ygHRgpVdZBfvOb3YEGGY98hPOEV6Nq4wWlh06wcxg?=
+ =?us-ascii?Q?iTNFPGiwOMUA4/Zw0cW9CoRzH82kwTNjrKgUSF545N76tZIzb1vmWA0P/eKz?=
+ =?us-ascii?Q?MCLNUsZeFEp8fg9fPwOyxW7njF8/jMpZByyrM1qjNYq5E4v/kBMXFdtCp6nO?=
+ =?us-ascii?Q?0t3pjI+AsS1Nq8J5iqbNOOOMUDwhwFARPWm5sNemD5SDkjukHhk6Jws2V3zL?=
+ =?us-ascii?Q?LAzg/sjmO6q5MoOydwsRq1Ag4YAiFfJq3ZK1cwETc+rgQFvlwliJyyhonYyI?=
+ =?us-ascii?Q?ekcEmC3A6ZLpjl+kuKRXKQAFqZh7IXFzBa3azS+U/80I0yJkJGstXDu/E6iW?=
+ =?us-ascii?Q?KW934Xikbg7FNGvJzsgok7ckRrOmVI1Sjc6pmXEXWfA8aDBq5CBABlzLumIG?=
+ =?us-ascii?Q?sWUcJNJ6UJJYYwl/wc4XnJint7iTrYRPCzwDdW55vDqgoBDCI7V53yILLuGe?=
+ =?us-ascii?Q?gSM6a+sPTNWJpLIt6hTviCF1PWMQxcduA/U1+2l7376jEPo7FUIpNsW2gNCV?=
+ =?us-ascii?Q?uU7Q01pxyt6MAGSHRmIIEOQJJhPSY29eaupDToRmIa41Y/VIUCgP9io7leUl?=
+ =?us-ascii?Q?8BMS4jX+0yMKEf2v+rbzEZUR2+7dt7FWqrskPK7zY2ZvkUMrwUXovt/4LHXV?=
+ =?us-ascii?Q?6fzofld00mqie73Pb62AB+T71MhSu3ru4kbvP4nHIaeAX2hqFztzVwug2Nsr?=
+ =?us-ascii?Q?J4yN9YcHX5lQq6zq6C21TaZRgSGzZM2xMA+zn8uIw2aux0ud?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 833b0dff-a375-4431-ed63-08df2de81705
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 13:51:35.2812
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xG4T0L3a8eHe/VlAoB+s94wyOcOk/lpnmSdkEtYI+/v4eCaLFrS8K/nvtYN4zLfbAt1ymQhWGLw5QK6sXUuJiQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PR12MB015052
 
-ocfs2_drop_dentry_lock() drops the inode reference before releasing the
-DENTRY lock. This lets inode eviction release the local inode and open
-locks before a remote unlink can proceed past the DENTRY lock.
+Hi Michal,
 
-A DLM callback can still arrive before the DENTRY lock has been dropped.
-ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
-which can access a freed inode when the downconvert thread drops the
-last inode reference in its post-unlock callback:
+On Mon, Oct 19, 2026 at 12:41:45PM +0000, Michal Blaszczyk wrote:
+> The watchdog measures how long a task has been waiting from
+> p->scx.runnable_at, which set_task_runnable() resets when the task becomes
+> runnable after it last ran. ops_dequeue() never asks for a reset, as the
+> dequeue of a waiting task is temporary, e.g. for a migration or an
+> attribute change.
+> 
+> Leaving the scheduler isn't temporary. A task which is switched out of
+> SCHED_EXT while it's waiting keeps its runnable_at. When it's switched back
+> and becomes runnable, its wait appears to have started before it left, and
+> the time it spent in another class counts towards the timeout. If the
+> watchdog checks before the task runs, it aborts the scheduler:
+> 
+>   sched_ext: class_switch_stall: runner[418] failed to run for 3.010s
+> 
+> Here, the task waited for a few milliseconds before it was switched to
+> SCHED_OTHER, slept outside of SCHED_EXT for three seconds, and was charged
+> for all of it as soon as it woke up on SCHED_EXT again.
+> 
+> The same happens when scx_sub_enable_workfn() hands a waiting task over to
+> a new sub-scheduler, which can then be blamed for time the task waited
+> under the parent. scx_rehome_task() isn't affected, as it moves the task
+> through SCX_TASK_INIT, which resets runnable_at. The stale runnable_at also
+> skews the default core-sched ordering in scx_prio_less().
+> 
+> Reset runnable_at in scx_disable_task(), when the task leaves the control
+> of its scheduler.
+> 
+> Fixes: 8a010b81b3a5 ("sched_ext: Implement runnable task stall watchdog")
+> Assisted-by: LLM
+> Signed-off-by: Michal Blaszczyk <michalblk@google.com>
 
-  Downconvert thread                     DLM callback thread
-  ------------------                     -------------------
-  ocfs2_process_blocked_lock()
-    ocfs2_dentry_post_unlock()
-      ocfs2_dentry_lock_put()
-        ocfs2_drop_dentry_lock()
-          iput(dl->dl_inode)
-          [inode reclaimed after RCU]
-                                         ocfs2_blocking_ast()
-                                           ocfs2_get_dentry_osb()
-                                             dl->dl_inode->i_sb
-          ocfs2_simple_drop_lockres()
+This makes sense to me and I reproduced the issue (thanks for providing
+a selftest).
 
-Store the mount context in the DENTRY lock resource's l_priv field and
-use the default mount-context lookup. Recover the containing dentry
-lock with container_of(), as already done for refcount locks, and remove
-ocfs2_get_dentry_osb(). ocfs2_dismount_volume() shuts down the DLM before
-freeing the mount context, so callbacks can use it without accessing the
-inode. Preserve the existing iput-before-unlock order to avoid delaying
-local inode and open lock release until after the DENTRY lock is released.
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
-Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-Changes in v2:
-- Preserve the existing iput-before-unlock order and cache the mount context
-  in the lock resource's existing l_priv field instead.
-- Recover the containing dentry lock with container_of() and remove the
-  inode-dependent mount-context lookup.
-- Correct the comment describing the dentry lock's inode reference.
+-Andrea
 
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com
-
- fs/ocfs2/dcache.h  |  5 ++---
- fs/ocfs2/dlmglue.c | 16 ++++------------
- 2 files changed, 6 insertions(+), 15 deletions(-)
-
-diff --git a/fs/ocfs2/dcache.h b/fs/ocfs2/dcache.h
-index 7f246c5692d8..046ab9a80769 100644
---- a/fs/ocfs2/dcache.h
-+++ b/fs/ocfs2/dcache.h
-@@ -17,9 +17,8 @@ struct ocfs2_dentry_lock {
- 	u64			dl_parent_blkno;
- 
- 	/*
--	 * The ocfs2_dentry_lock keeps an inode reference until
--	 * dl_lockres has been destroyed. This is usually done in
--	 * ->d_iput() anyway, so there should be minimal impact.
-+	 * The inode reference is dropped before dl_lockres is unlocked.
-+	 * Callbacks must not use it to find the mount context during teardown.
- 	 */
- 	struct inode		*dl_inode;
- 	struct ocfs2_lock_res	dl_lockres;
-diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-index 6bc4a21cf5f0..d12635c4db95 100644
---- a/fs/ocfs2/dlmglue.c
-+++ b/fs/ocfs2/dlmglue.c
-@@ -57,7 +57,6 @@ struct ocfs2_mask_waiter {
- #endif
- };
- 
--static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_inode_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_file_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_qinfo_osb(struct ocfs2_lock_res *lockres);
-@@ -257,7 +256,6 @@ static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
- };
- 
- static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
--	.get_osb	= ocfs2_get_dentry_osb,
- 	.post_unlock	= ocfs2_dentry_post_unlock,
- 	.downconvert_worker = ocfs2_dentry_convert_worker,
- 	.flags		= 0,
-@@ -308,7 +306,7 @@ static inline struct ocfs2_dentry_lock *ocfs2_lock_res_dl(struct ocfs2_lock_res
- {
- 	BUG_ON(lockres->l_type != OCFS2_LOCK_TYPE_DENTRY);
- 
--	return (struct ocfs2_dentry_lock *)lockres->l_priv;
-+	return container_of(lockres, struct ocfs2_dentry_lock, dl_lockres);
- }
- 
- static inline struct ocfs2_mem_dqinfo *ocfs2_lock_res_qinfo(struct ocfs2_lock_res *lockres)
-@@ -609,13 +607,6 @@ static __u64 ocfs2_get_dentry_lock_ino(struct ocfs2_lock_res *lockres)
- 	return be64_to_cpu(inode_blkno_be);
- }
- 
--static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres)
--{
--	struct ocfs2_dentry_lock *dl = lockres->l_priv;
--
--	return OCFS2_SB(dl->dl_inode->i_sb);
--}
--
- void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 				u64 parent, struct inode *inode)
- {
-@@ -623,6 +614,7 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 	u64 inode_blkno = OCFS2_I(inode)->ip_blkno;
- 	__be64 inode_blkno_be = cpu_to_be64(inode_blkno);
- 	struct ocfs2_lock_res *lockres = &dl->dl_lockres;
-+	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
- 
- 	ocfs2_lock_res_init_once(lockres);
- 
-@@ -651,9 +643,9 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 	memcpy(&lockres->l_name[OCFS2_DENTRY_LOCK_INO_START], &inode_blkno_be,
- 	       sizeof(__be64));
- 
--	ocfs2_lock_res_init_common(OCFS2_SB(inode->i_sb), lockres,
-+	ocfs2_lock_res_init_common(osb, lockres,
- 				   OCFS2_LOCK_TYPE_DENTRY, &ocfs2_dentry_lops,
--				   dl);
-+				   osb);
- }
- 
- static void ocfs2_super_lock_res_init(struct ocfs2_lock_res *res,
--- 
-2.43.0
+> ---
+>  kernel/sched/ext/ext.c | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+> index 07857039aee69..120df09b9e0af 100644
+> --- a/kernel/sched/ext/ext.c
+> +++ b/kernel/sched/ext/ext.c
+> @@ -2424,7 +2424,11 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
+>  	struct scx_sched *sch = scx_task_sched(p);
+>  	unsigned long opss;
+>  
+> -	/* dequeue is always temporary, don't reset runnable_at */
+> +	/*
+> +	 * Don't reset runnable_at. If @p is waiting, the wait continues across
+> +	 * temporary dequeues, e.g. for a migration or an attribute change.
+> +	 * scx_disable_task() ends it if @p leaves its scheduler.
+> +	 */
+>  	clr_task_runnable(p, false);
+>  
+>  retry:
+> @@ -4517,6 +4521,14 @@ static void scx_disable_task(struct scx_sched *sch, struct task_struct *p)
+>  	scx_set_task_slice(p, 0);
+>  	p->scx.reenq_cnt = 0;
+>  
+> +	/*
+> +	 * If @p is runnable but not running, its wait started at runnable_at,
+> +	 * which ops_dequeue() didn't reset. Leaving @sch ends the wait. Reset
+> +	 * runnable_at the next time @p is enqueued on SCX, so that the watchdog
+> +	 * doesn't count the time @p spends elsewhere.
+> +	 */
+> +	p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
+> +
+>  	/*
+>  	 * Verify the task is not in BPF scheduler's custody. If flag
+>  	 * transitions are consistent, the flag should always be clear
+> -- 
+> 2.56.0.176.g3575e65682-goog
+> 
