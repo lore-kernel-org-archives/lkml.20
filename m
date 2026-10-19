@@ -1,65 +1,65 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AEE35AC1E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D11A35E1CE
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792375888; cv=none; b=uFbyBbZ9zLjlopNs1jLZ2l087vYnUsNGFSpNWhGzFs3kWyGtMOScIekGES2v6MPIuaTNWRoDy8ak/yoN8kc3Txm6EnIVobMk45+SvbBhEpttTbjxpimmjwWUmDV4xHTACqyFTGvCu4WWIzUkpIzXN8W6r7K/AVp3URvboUKPpBc=
+	t=1792375890; cv=none; b=pJu5KyBeDIyT1pC/OsKJTZjdDf7Dkg/khNh5xqYH6cc6Rg/p6nG1Q1KzmyhJuCy8ZHrhxIRmFZIFt3ppHSboFjtqKBtBj2fWnO8W7UCjD9rIbQXwaGTvbVs/gUg6Zf1IDb0KuDeFsaaP3CI9i+f+1OTStsqK5wpoYapyPwmbc+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792375888; c=relaxed/simple;
-	bh=6llEtz4c18R9SgByx+0WwEdms6eMF3dZUu1W9SzanR0=;
+	s=arc-20240116; t=1792375890; c=relaxed/simple;
+	bh=rtOkMMPCIFi6fzUI2M5IaMOseZq7THOMtUSKvHJvjP8=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W6SDiK8DwK00B2uf7ULCcUmvT7JjJ5NeXoqfgUNRlCcCL9kfp+LcJlM61oi3F2lDmfR9xcp0cupv7LtUkr9Y3zpvHDHj++d7g55GkT6TVZt8WY4m5lymME7EDxWIEhdKFvghM2bwGl9123PEDAA/FO/mdbdtNXPp7cjn287k+to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=SdSURiFZ; arc=none smtp.client-ip=209.85.221.180
+	 MIME-Version; b=gCobF2SyfX32csNiGNxrx9L3r9jOTfubQT5PEqEQgdGz3e6ltkLVsReURViV+j5VAB1PJSWPEqx4blnRY2ODWz842B3uCNyjFySY73PHgzWLEkpL8xsHkWhpPgvgMLN47EWk9SEdVaNSEI2U8AK989etgR4mYeLmvGJJuP5J78s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=WAB2tqDV; arc=none smtp.client-ip=209.85.221.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="SdSURiFZ"
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5eabf7d5bbeso1086757e0c.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:11:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="WAB2tqDV"
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5e3e525cf4bso1561006e0c.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:11:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792375882; x=1792980682; darn=vger.kernel.org;
+        d=soleen.com; s=google; t=1792375887; x=1792980687; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Puhhw/KYQlkth6JZ8nHBxXQPEXoRo970byZVNnmTOX0=;
-        b=SdSURiFZA8958Js7j/BDXnThZw3hNYYJkvsYpSfqnY/ccBO7urgb2sgk24WpPGpvP+
-         HDgxXFchCQA852sO/ABuphnPzznTklBBCE+quYs3YqhlQwrJO5XUKnwW2niOOKexhGoi
-         1i5l2+clqROId+0/DnCPw+w29YUC/9N7+m8FMMCM5JbNORfGNiNkjVLpyjvTtJtRWWa7
-         RI476AswFpIW16wQkv9/G8rta3YQU/RiaQqU5UC7UoZKrzk3g7dTcZRLG6ra2Iyr6oE9
-         P0nsBeCi35wsROrzU5ncS8oFVYFYOaD/77FPNyTjqs7ypHuVTwoZO4UVGv6EvwS6C9jW
-         h59A==
+        bh=+N9EQwOcSjySxMS4O9eOeYmAxXFE2sVJ9Vy3mk5tWu4=;
+        b=WAB2tqDVv7A+PBfSDIV0EnBqmTIbQdSH8XfctxV+96Hhe9px9cc5kVaxM8vdm/LcKk
+         1D2PKWanxVynzIF1PgK7LxmN9pHAs7T1oNYlZwodrg4BqJiqTqaIgYifLUd/uPpOUGdD
+         nszExN/cUixb/e9Xjwx08pKu5rcKaUJwZPaQ498scLf0r/VXIHZUfqGEOmaQEoq1tBLU
+         iuH7HIZ3+iCp5ScOj3gGs6hk1LeyJV0VGfP5yl4brNYv8T+ShtLdRMMherIt/+zpdHaA
+         +cP5RYBFryRzFEURsQuHvonyO67f5MMS3VoiJX4RilP1OZ2+IiDzfnH5L2R0Y1aVrhRi
+         LQuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792375882; x=1792980682;
+        d=1e100.net; s=20260707; t=1792375887; x=1792980687;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=Puhhw/KYQlkth6JZ8nHBxXQPEXoRo970byZVNnmTOX0=;
-        b=oI+3ttXXI+9sFKtjiiN8FWvHaL7zWOfy3fJtq5DNcwM67xbSn5NYCH1Xygtup21VOT
-         vPCXvYAOj1D+++AjxbIPH1pcyRDkqRmn3JvDqzkI9Mp1NibqLM+YJrjiW2wH6grsHO5o
-         AUNqbmIAmD5xebcy9SXeL4VxRW4UOOPDQxYWoaIZSjfzIODn9BSBIB5Ww+ASpZ270rTf
-         W93MzvaNazL2maIK5LCkY4+gVbBZ1syZnKNW7exdu30Kvuqpa6nJR1lq/QGaB+zE1meO
-         zzSuw0ANN/ECkQ5pMDvGClLy/ez5nrGxkDngi5C0eipqoD1OSg1zwus3H2b1RRvFvvQP
-         8iYg==
-X-Forwarded-Encrypted: i=1; AKwUvByStn6NWkg7aXyzWJOQTdxPj1lmOWgGhQDnT/Z1EsYcBRo1isdpvTmwVul1dBq04eyjZVUoFENbKzeyJpA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiW2m/jm+sFBRJrvb2TgNyGYLt/MttZCT4aEyo7UiLIHXmLtBq
-	KIdx/3c/svDW2RDBlG/qgFLQrhzJyKthOYaCXs70vGCrxtvnopjhLFwcebk9jcrugSY=
-X-Gm-Gg: AYBFou1MVlRnH1ufFKcdDc74Ru4BFogU8f0l819l9WtCb4BTcSLxpF3fEL0RD2nLmtL
-	MZo2n0DKwJCTUvWk2IqksiowmAznNFGjLp8HqbI++jybZvfLwueeT9WEWNy7qNLNgsgfbxxo7WK
-	TJhthq352YMVWCFjgQrjhdt4UymGcmpDKtuJHo7odWzof1cUdjSZq8njUQf9DLyGn8INu3pLDsO
-	saa62mvhxtldqfF9LwV8N8b+PJ5II9wfrHiddipWx8bTDPNRZeF/o8yyoy+B9E2gyrpGq2jPG13
-	+FGSb0aDW2AhQY+L0K8pg6gagHved6uwmz7UHcpZo6quWNwaSQzmqME+kPejICl9qGVhYCWZYQd
-	O7nwnxFQoqneSbCMwyWTUaha4zc5/QN1hVg+22l5g5kgdIhd0MNkPc5WzNf58VyzxHPYTVg1uN6
-	vkPUKdVdwibPSa8NuAgFZWAprMPnVI3x0WqAIZumGLQ21MnyG9RGxtZyBqJ0ORcVCjKs5PWgAH3
-	1/EcThKRkGkH2Ak27zaWA8agxvN9aI1VehnekEiZuPsnl+YuS2K8OMwrYLh8in0zTDt7+HF8Kxr
-	Lf5CwRdHoIVqGdoLhMI=
-X-Received: by 2002:a05:6122:d19:b0:5ea:c90d:d1b2 with SMTP id 71dfb90a1353d-5eac90dd9bfmr480991e0c.13.1792375881262;
-        Sun, 18 Oct 2026 19:11:21 -0700 (PDT)
+        bh=+N9EQwOcSjySxMS4O9eOeYmAxXFE2sVJ9Vy3mk5tWu4=;
+        b=qZ5zft658MRO0tZ/lhx3lpuZuFxDYdp0k66F58fgfLszjmoBPkvxfqHP6cTkkRaZHN
+         hYN5cBevUfLFQnHBnyN1YvNMUj39G1jcRg7GfXClRU/k3YJafboRIUV41bkrJdFKqh5T
+         lynklJ9xJkJMDxo0nEbcVaIq7GbUyjKmIB1thaL87A8zAhDjYK5BbZqhmbKwXeINsqY/
+         YgiKDi0C+83PCIxNb6jPMj/AVJGTDVdylXE6quniuzfdpARFIKqY0bj+1C5XQRU0N/i5
+         UrIbSrtzccDU8xYcwCQqOcC/28WK+DMNkguw+9LixqJ4SI9UcoL5Br23p+N4XK8K0ItI
+         S6VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxAm560mcoxI8mg7rT5Bw1H01iXXRXbfo5S+vLNR03x3RyQ2iuz4EKTnAhZELFRjdS/9qEBOEnxcm96D/M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIB8CrIxw3ea6x8O+6uArFyUBUfS7O9p7B7aPX2xvRrFfX8mYBl
+	7JXGzt+zTZe4gPvDH3hPAKPcpTZq4rj8hYuof55MxMCaQU7Ft3XN1pB+iAtRM/V6ths=
+X-Gm-Gg: AYBFou1OoYc+vx78EbfDeRw05JVAQZSOPui5bKTpWu47rm//QvnoNtTXQOmdNa0TzmC
+	cG9ZYLj2erbAsOduWXGFnuORee4VOpZQXQrAWs/ihgP8NvUS2E7jak1Q2y5KJtHtalP+N7msnnp
+	fy4YUYDFRlNtv8wf2oBZXQSGF7TiVKWNYL+ZLU97IpqCTwYt8sIWZHo606Stg0s7ifAHRyYwCXg
+	WmlxWK3T0JEMTHPf13J7jo60J63ligfzWbC1gEqq8W0fbiaRyXKJLEVQ3/YpjTCSDv8SsqG+a8Q
+	ZX0O+4nvw77By3k2DnvTWwtkui5yNd8MV5mmMc472ejWlClKWOqleuHwrzz/IT7MCcNajCUBnil
+	DU5E8eVDhQtWjIUOq5FgVRKvKVrBEESHR50EpVRwRTiVnhNOg+QFjVNL6jKHv9nv3rrMSdVOoPc
+	jAi/Njs4vK8+nn/6S6PqIWDTKtj8DiyczwXSPTRjz0vaaX/2awORg3aVdFAcQMVsy6j5UaAXvi/
+	CRV8ADRJJvpylNT9mDwQkkvJS+ZwCywgR/HPl7kxxDJHZldSCncgGTaTlccTtMW/Q7WO5Tr8m9z
+	4u/T2JLSXOCMmOeH69k=
+X-Received: by 2002:a05:6122:3115:b0:5ea:a749:d33c with SMTP id 71dfb90a1353d-5eaaa66d4eamr2218681e0c.9.1792375887405;
+        Sun, 18 Oct 2026 19:11:27 -0700 (PDT)
 Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eabbd9ea2bsm4271383e0c.2.2026.10.18.19.11.20
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eabbd9ea2bsm4271383e0c.2.2026.10.18.19.11.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 19:11:20 -0700 (PDT)
+        Sun, 18 Oct 2026 19:11:26 -0700 (PDT)
 From: Pasha Tatashin <pasha.tatashin@soleen.com>
 To: linux-kselftest@vger.kernel.org,
 	rppt@kernel.org,
@@ -88,9 +88,9 @@ To: linux-kselftest@vger.kernel.org,
 	lirongqing@baidu.com,
 	liam@infradead.org,
 	jlayton@kernel.org
-Subject: [PATCH v1 3/8] kho: validate preservation metadata in kho_restore_vmalloc()
-Date: Sun, 18 Oct 2026 22:11:06 -0400
-Message-ID: <20261019021111.990394-4-pasha.tatashin@soleen.com>
+Subject: [PATCH v1 6/8] kho: support read-only KHO mode in kho_block
+Date: Sun, 18 Oct 2026 22:11:09 -0400
+Message-ID: <20261019021111.990394-7-pasha.tatashin@soleen.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
 In-Reply-To: <20261019021111.990394-1-pasha.tatashin@soleen.com>
 References: <20261019021111.990394-1-pasha.tatashin@soleen.com>
@@ -102,126 +102,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kho_restore_vmalloc() currently dereferences preservation before
-checking for NULL, does not reject unknown KHO vmalloc flags in
-kho_flags_to_vmalloc(), and does not validate preservation->first.phys,
-preservation->total_pages, preservation->order, or potential size
-overflow before allocating the pages array and shifting by order.
+In read-only KHO mode, incoming serialized kho_block chains lie outside
+the kernel's direct map and must not be modified or freed back into the
+page allocator.
 
-Introduce kho_vmalloc_validate() in kexec_handover_internal.h to
-validate the struct kho_vmalloc header and convert its flags before
-restoring the vmalloc area.
+Map incoming serialized blocks read-only via kho_ro_map_folio(...,
+PAGE_KERNEL_RO) during cycle detection and restoration, and unmap them
+via kho_ro_unmap() instead of calling kho_restore_free() when destroying
+or shrinking a block set in read-only mode.
 
 Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 ---
- kernel/liveupdate/kexec_handover.c          | 17 ++++++------
- kernel/liveupdate/kexec_handover_internal.h | 30 +++++++++++++++++++++
- 2 files changed, 38 insertions(+), 9 deletions(-)
+ kernel/liveupdate/Makefile    |  5 +--
+ kernel/liveupdate/kho_block.c | 76 ++++++++++++++++++++++++++---------
+ 2 files changed, 60 insertions(+), 21 deletions(-)
 
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index f427cdd9a969..a9c52d998855 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -1384,28 +1384,27 @@ EXPORT_SYMBOL_GPL(kho_unpreserve_vmalloc);
-  */
- void *kho_restore_vmalloc(const struct kho_vmalloc *preservation)
- {
--	struct kho_vmalloc_chunk *chunk = KHOSER_LOAD_PTR(preservation->first);
- 	kasan_vmalloc_flags_t kasan_flags = KASAN_VMALLOC_PROT_NORMAL;
--	unsigned int align, order, shift, vm_flags;
--	unsigned long total_pages, contig_pages;
-+	unsigned long total_pages, contig_pages, align, idx = 0;
-+	unsigned int order, shift, vm_flags;
-+	struct kho_vmalloc_chunk *chunk;
- 	unsigned long addr, size;
- 	struct vm_struct *area;
- 	struct page **pages;
--	unsigned int idx = 0;
- 	int err;
+diff --git a/kernel/liveupdate/Makefile b/kernel/liveupdate/Makefile
+index f8b09e04bea2..d3587048e619 100644
+--- a/kernel/liveupdate/Makefile
++++ b/kernel/liveupdate/Makefile
+@@ -1,14 +1,13 @@
+ # SPDX-License-Identifier: GPL-2.0
  
--	vm_flags = kho_flags_to_vmalloc(preservation->flags);
--	if (vm_flags & ~KHO_VMALLOC_SUPPORTED_FLAGS)
-+	if (!kho_vmalloc_validate(preservation, &vm_flags))
- 		return NULL;
+ luo-y :=								\
+-		kho_block.o						\
+ 		luo_core.o						\
+ 		luo_file.o						\
+ 		luo_flb.o						\
+ 		luo_session.o
  
-+	chunk = KHOSER_LOAD_PTR(preservation->first);
- 	total_pages = preservation->total_pages;
- 	pages = kvmalloc_objs(*pages, total_pages);
- 	if (!pages)
- 		return NULL;
- 	order = preservation->order;
--	contig_pages = (1 << order);
-+	contig_pages = 1UL << order;
- 	shift = PAGE_SHIFT + order;
--	align = 1 << shift;
-+	align = 1UL << shift;
+-obj-$(CONFIG_KEXEC_HANDOVER)		+= kexec_handover.o
+-obj-$(CONFIG_KEXEC_HANDOVER_READONLY)	+= kexec_handover_ro.o
++obj-$(CONFIG_KEXEC_HANDOVER)		+= kexec_handover.o kho_block.o
++obj-$(CONFIG_KEXEC_HANDOVER_READONLY)	+= kexec_handover_ro.o kho_block.o
+ obj-$(CONFIG_KEXEC_HANDOVER_DEBUGFS)	+= kexec_handover_debugfs.o
  
- 	while (chunk) {
- 		struct page *page;
-@@ -1420,7 +1419,7 @@ void *kho_restore_vmalloc(const struct kho_vmalloc *preservation)
- 			if (!page)
- 				goto err_free_pages_array;
- 
--			for (int j = 0; j < contig_pages; j++)
-+			for (unsigned long j = 0; j < contig_pages; j++)
- 				pages[idx++] = page + j;
- 
- 			phys += contig_pages * PAGE_SIZE;
-diff --git a/kernel/liveupdate/kexec_handover_internal.h b/kernel/liveupdate/kexec_handover_internal.h
-index 094b4917a0f1..878e21bd8b00 100644
---- a/kernel/liveupdate/kexec_handover_internal.h
-+++ b/kernel/liveupdate/kexec_handover_internal.h
-@@ -7,6 +7,7 @@
- #include <linux/libfdt.h>
- #include <linux/list.h>
- #include <linux/mm.h>
-+#include <linux/overflow.h>
- #include <linux/printk.h>
- #include <linux/types.h>
- #include <linux/unaligned.h>
-@@ -23,6 +24,9 @@ static inline unsigned int kho_flags_to_vmalloc(unsigned short kho_flags)
- {
- 	unsigned int vm_flags = 0;
- 
-+	if (kho_flags & ~(KHO_VMALLOC_ALLOC | KHO_VMALLOC_HUGE_VMAP))
-+		return ~KHO_VMALLOC_SUPPORTED_FLAGS;
-+
- 	if (kho_flags & KHO_VMALLOC_ALLOC)
- 		vm_flags |= VM_ALLOC;
- 	if (kho_flags & KHO_VMALLOC_HUGE_VMAP)
-@@ -31,6 +35,32 @@ static inline unsigned int kho_flags_to_vmalloc(unsigned short kho_flags)
- 	return vm_flags;
+ obj-$(CONFIG_LIVEUPDATE)		+= luo.o
+diff --git a/kernel/liveupdate/kho_block.c b/kernel/liveupdate/kho_block.c
+index a4e945f28fad..a3cf5b964b26 100644
+--- a/kernel/liveupdate/kho_block.c
++++ b/kernel/liveupdate/kho_block.c
+@@ -60,10 +60,32 @@ static void *kho_block_entry(struct kho_block_set_it *it, u64 index)
+ 	return kho_block_entries(it->block) + (index * it->bs->entry_size);
  }
  
-+static inline bool kho_vmalloc_validate(const struct kho_vmalloc *preservation,
-+					unsigned int *vm_flags)
++static struct kho_block_header_ser *kho_block_map_ser(phys_addr_t pa)
 +{
-+	size_t alloc_size;
++	if (!pa)
++		return NULL;
 +
-+	if (!preservation || !preservation->first.phys ||
-+	    !PAGE_ALIGNED(preservation->first.phys) ||
-+	    !preservation->total_pages)
++	if (kho_is_ro())
++		return kho_ro_map_folio(pa, PAGE_KERNEL_RO);
++
++	return phys_to_virt(pa);
++}
++
++static void kho_block_unmap_ser(struct kho_block_header_ser *ser)
++{
++	if (kho_is_ro())
++		kho_ro_unmap(ser);
++}
++
+ /* Free serialized data */
+ static void kho_block_free_ser(struct kho_block_set *bs,
+ 			       struct kho_block_header_ser *ser)
+ {
++	if (kho_is_ro()) {
++		kho_block_unmap_ser(ser);
++		return;
++	}
++
+ 	if (bs->incoming)
+ 		kho_restore_free(ser);
+ 	else
+@@ -197,6 +219,20 @@ void kho_block_set_shrink(struct kho_block_set *bs, u64 count)
+ 		kho_block_set_shrink_one(bs);
+ }
+ 
++static bool kho_block_step_pa(phys_addr_t pa, phys_addr_t *next_pa)
++{
++	struct kho_block_header_ser *ser;
++
++	ser = kho_block_map_ser(pa);
++	if (!ser)
 +		return false;
 +
-+	if (preservation->order >= BITS_PER_LONG - PAGE_SHIFT ||
-+	    (1UL << preservation->order) > preservation->total_pages ||
-+	    !IS_ALIGNED(preservation->total_pages, 1UL << preservation->order))
-+		return false;
-+
-+	if (check_mul_overflow((size_t)preservation->total_pages, PAGE_SIZE,
-+			       &alloc_size))
-+		return false;
-+
-+	*vm_flags = kho_flags_to_vmalloc(preservation->flags);
-+	if (*vm_flags & ~KHO_VMALLOC_SUPPORTED_FLAGS)
-+		return false;
++	*next_pa = ser->next;
++	kho_block_unmap_ser(ser);
 +
 +	return true;
 +}
 +
- /**
-  * kho_encode_radix_key - Encodes a physical address and order into a radix key.
-  * @phys: The physical address of the page.
+ /*
+  * kho_block_set_is_cyclic - Check for cycles in a linked list of blocks.
+  * Uses Floyd's cycle-finding algorithm to ensure sanity of the incoming list.
+@@ -205,30 +241,26 @@ void kho_block_set_shrink(struct kho_block_set *bs, u64 count)
+  */
+ static bool kho_block_set_is_cyclic(struct kho_block_set *bs)
+ {
+-	struct kho_block_header_ser *fast;
+-	struct kho_block_header_ser *slow;
++	phys_addr_t fast_pa = bs->head_pa;
++	phys_addr_t slow_pa = bs->head_pa;
+ 	int count = 0;
+ 
+-	fast = phys_to_virt(bs->head_pa);
+-	slow = fast;
+-
+-	while (fast) {
++	while (fast_pa) {
+ 		if (count++ >= KHO_MAX_BLOCKS) {
+ 			pr_err("Block set is corrupted\n");
+ 			return true;
+ 		}
+ 
+-		if (!fast->next)
+-			break;
+-
+-		fast = phys_to_virt(fast->next);
+-		if (!fast->next)
++		if (!kho_block_step_pa(fast_pa, &fast_pa))
++			return true;
++		if (!fast_pa)
+ 			break;
+ 
+-		fast = phys_to_virt(fast->next);
+-		slow = phys_to_virt(slow->next);
++		if (!kho_block_step_pa(fast_pa, &fast_pa) ||
++		    !kho_block_step_pa(slow_pa, &slow_pa))
++			return true;
+ 
+-		if (slow == fast) {
++		if (slow_pa == fast_pa) {
+ 			pr_err("Block set is corrupted\n");
+ 			return true;
+ 		}
+@@ -266,16 +298,23 @@ int kho_block_set_restore(struct kho_block_set *bs, u64 head_pa)
+ 	}
+ 
+ 	while (next_pa) {
+-		ser = phys_to_virt(next_pa);
++		ser = kho_block_map_ser(next_pa);
++		if (!ser) {
++			err = -ENOMEM;
++			goto err_destroy;
++		}
+ 		if (!ser->count || ser->count > bs->count_per_block) {
+ 			pr_warn("Block contains invalid entry count: %llu\n",
+ 				ser->count);
++			kho_block_unmap_ser(ser);
+ 			err = -EINVAL;
+ 			goto err_destroy;
+ 		}
+ 		err = kho_block_add(bs, ser);
+-		if (err)
++		if (err) {
++			kho_block_unmap_ser(ser);
+ 			goto err_destroy;
++		}
+ 		next_pa = ser->next;
+ 	}
+ 
+@@ -285,9 +324,10 @@ int kho_block_set_restore(struct kho_block_set *bs, u64 head_pa)
+ 	kho_block_set_destroy(bs);
+ 
+ 	/* Free the remaining un-restored blocks in the physical chain */
+-	while (next_pa) {
+-		struct kho_block_header_ser *next_ser = phys_to_virt(next_pa);
++	while (!kho_is_ro() && next_pa) {
++		struct kho_block_header_ser *next_ser;
+ 
++		next_ser = phys_to_virt(next_pa);
+ 		next_pa = next_ser->next;
+ 		kho_block_free_ser(bs, next_ser);
+ 	}
 -- 
 2.56.0.176.g3575e65682-goog
 
