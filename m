@@ -1,230 +1,125 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC55489885
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61A93ECBDA;
+	Mon, 19 Oct 2026 07:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395011; cv=none; b=lllddXdMU4vEeYzHNtB1fYQlnegjqUiOFy/PejVmgaggb3jVelDpG3sbK3tsM1ocYrj8YmDotWQyAmauOt7aTaqjeA8Z+ZZpnGufJp9PSsw1nzfmuRH5jVqKtQUyfmIANSqY5Gi1B9THrcnjJ19Y76bEeMb2XyV3GFSXtJGzNW8=
+	t=1792395082; cv=none; b=W1wNYnH8CaSbY1bLiyvU5pzSlSGr2z9bFAcfiAbpYBL7B/SuSACTkLJ7Lu9CZMk2aR3Mp3ycs/Q1v8CQz7Ni6eghMvtPV/oPk9HLIVA2CWUWVeFDuNI3qjr2bMVtA+/4mNlWA7iUqDuGCCBdmpH0t+A3+6d//FGDqN8HxgT8Gec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395011; c=relaxed/simple;
-	bh=KSLxsLECDBlglJ5ok09mHe2q8VxULP0ESynDUsj7NjM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ibnmq8V02kVj+EfP4kB/JFRW+/H/D7OC5csLQr7W9chz8CqXijC6wBnGNnk+dt+HXddGkBKuBSsCD6caBM4flIKOsHCewjGInlTvZnFvHjRCLCs2ai6ABxyCN67ETWxZDvm1rbvNRNikYde8UP/qCfsF5qiCdrwssOW2JvWaYio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YEuLeHx+; arc=none smtp.client-ip=74.125.82.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792395082; c=relaxed/simple;
+	bh=udJeHtKFc+AI2kfdvBt/OjQRSFLlHhk/kt6ygA/+jxc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bbZxKnTJL4fNtAPW2Cvm/n2aqEUkbDS8CVp03BhDn+tAcAVlsPZR3nuL0jhqHsuJEJr/1pqB+dARMVQcAq8t6uJ9BVN+n4rilDzOVs0mXeb5E/mVdSqx3suWY2AC9oUiLt+yKVycSrpLh/AhpjWAnVfVXupDm4tq3jGpFEymdfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KvfNtmig; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YEuLeHx+"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-16079d54c17so4274942c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:30:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792395008; x=1792999808; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W7q+tRZEp7x1zsFqvPs4W277M15/fE06QNYP4aD/T7c=;
-        b=YEuLeHx+oIDYF0/1zs0ioFged4Rid3sTaRson+OVR/O/l3fgz5++mImkgtx4AfMjfR
-         SypSb3MxBgv5LzQzRRRicI9LNbRYNloaMkt0jSsddSk+SPG7yUNCj84xwoEredJaJwhd
-         xBhJ+9fxyT7iO8Sgq7v57XxlnXB64E7LHtxBO2IRczqUkoJCM4HaQZgSu+tidQDz6Wzk
-         rUB5pK8SIRpVMem2bX2hXiSOmK08baUt02nCvRgQyGGsNEt1JS3l7WHh8dmtmgjNnrG9
-         opf0F466B7ahWHi4VMDqCZHlRLLmTyd/CSAFK400Q6ixNxmZlCFCxG6iVcGsXyScxpSh
-         ABjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792395008; x=1792999808;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W7q+tRZEp7x1zsFqvPs4W277M15/fE06QNYP4aD/T7c=;
-        b=dQ7chPGwUVjBAuEuQ5TuoqSbiK5fq8ZYgzHFgBy4l6Ozes8cG++/Gb7XKo6pvvLnZ0
-         746GrppJAs9wOsPDsy064JBTh9CZo+v1NUkfezvbCPNJ6s2PfYt580CCAl6v2oIMhfW5
-         FUojzYo2VrBseaKes7dkvQSa24n6kni0kNfnuDqjKjZ/ukdcY2JZB2D4Xt7Ph691ntut
-         qi2+mYgJMPSIZt/WQaHp1t6GpGy2T1CDxwahq5+SSiSLLN+iJq8f7CQurroxpezeC+g8
-         ub0zFqowLu3vjWzSE1OfIFo2VLcu1ukb5onXLC9UwXUFNXSGBw1zFFi719QJwEitaFAV
-         p0FA==
-X-Forwarded-Encrypted: i=1; AKwUvBzPciJEZrlKDe1C1n6hG461M129nro09OGt/WSY7zIh1c7XwvhZ6HvQ9XqUkd0BtuGqr9L8ysFV1fozzJ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKf6qW5GW/KGGbOBgts/8eHUlmNSayYOgSfeNec8I4lknkXgrTo
-	aBufFSgsTI5RWGse2sted5MgyN6u5PJ3/0+g16P69kPDH5wAoeOei58g
-X-Gm-Gg: AYBFou3lT0uChMq/MTfwZoT8+Bm1URzwQ/AenbxpUzvgNBipHcRLjdDD0XwkEe+pUK/
-	704qtEFW3VA/uvT4oGi9cOXEWnx+vE+GkJanYEzcsGdEfO/8oc/1jpkHBk6nY27GcJS5Z7O4gv9
-	8sdJx/oPK1O0kAkWP+ZcQfEcOcYR3dwkUeK8Izv6ZawZhyvbavyeG6TWT3ggbmoh5YUIUtmLfFE
-	ZWVASG4OYsEVUsMabiA01y2Cs5TgcvJdCtMZbMCnQbPR6SZT4zpwNG3BEJjiqcUSP1tCZJKVxRw
-	iS2X9A0Nn+naLuTfY9mMhu8KFL9NEfwQWPz5BJbSjWs5zmgjV4hpSEGuYYJnizsGO/KhlwWr6X0
-	ezOI8R8l4PtqnBQPPEd3PTS7VqJg+U93Q7Fm7nff11+PqjG6SudSYrPnleC7+QcKmYBfFbhtUFW
-	8LO89n+jX5zOQFykHUz0tR6QQXT3i4t/GEeR1ph4X1s/WodptCiav+5pewalx+H9d4Os2SbclmG
-	Lm+29nbT4ckB+j9eekvwXNtBtFex9JqqMnoBTTPY1zJ8jmETUAMSdtIWgLBOJe79oetwDzKSP1d
-	kvHfmw==
-X-Received: by 2002:a05:701a:ca05:b0:17e:6de6:6a1a with SMTP id a92af1059eb24-18511ad9debmr11070852c88.8.1792395007422;
-        Mon, 19 Oct 2026 00:30:07 -0700 (PDT)
-Received: from codespaces-393231.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net ([4.240.39.204])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm35134155c88.16.2026.10.19.00.30.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 00:30:06 -0700 (PDT)
-From: Eklavya Singh <eklavyasingh2106@gmail.com>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Heming Zhao <heming.zhao@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Eklavya Singh <eklavyasingh2106@gmail.com>,
-	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
-Date: Mon, 19 Oct 2026 07:29:35 +0000
-Message-ID: <20261019072936.2279-1-eklavyasingh2106@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
-References: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KvfNtmig"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443D51F000C4;
+	Mon, 19 Oct 2026 07:31:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792395081;
+	bh=uCGtUkkqng5DDwzVzyRNOsFv9259MjO3krkZaoJj3eQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KvfNtmig5fCNWGhuipioroXwY0AvPKlNdMITkMj9ZkKqe7C+O5kX2SnBY121fAqA/
+	 Bph8ibNC+RGUQIxQc40JM1NBRntlrTSsHQ08UiNNdu7FaOkfdNsr3XFHpe9W7M8shZ
+	 MdZiO7MztaOU9iLTjdIflb2diiBr8YsPXMp3Amwkg5n0LuC3n0G+PnimtjpJTlekiB
+	 ov4POiOwi5eDWKlc410o5uP/Yo+o+tm2brI7GAezQEldB7PJ4wlANZ19MMT4eZgulO
+	 VOHzNiTE8Cm7hNtluUfx55gTho5ftjfSesYOy5jOkebVjzstvQseNmqxJXxFF8hNYV
+	 WidbvNl3v9nKw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xIhq3-00000004WLX-0LYn;
+	Mon, 19 Oct 2026 07:31:19 +0000
+Date: Mon, 19 Oct 2026 08:31:18 +0100
+Message-ID: <861p9m1709.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: arm64: Only enable S1PIE and S1POE with the features they imply
+In-Reply-To: <CA+EHjTwHP7h_=e1s-iCDekMNvHGAQA3K1zv5v_4=PXQw9ueiFg@mail.gmail.com>
+References: <20261018080921.3942517-1-fuad.tabba@linux.dev>
+	<8633u229lq.wl-maz@kernel.org>
+	<CA+EHjTwHP7h_=e1s-iCDekMNvHGAQA3K1zv5v_4=PXQw9ueiFg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, broonie@kernel.org, ljs@kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
-is already started, but nothing stops two writers from doing that at
-the same time. configfs only serializes writes through the same open
-file, so two processes that each open the dev attribute can both get
-past the check:
+On Sun, 18 Oct 2026 19:52:35 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> Hi Marc,
+> 
+> On Sun, 18 Oct 2026 18:37:37 +0100, Marc Zyngier <maz@kernel.org> wrote:
+> [...]
+> > I'm afraid that this only addresses part of the problem. Ultimately,
+> > the idregs themselves require some sanitisation because KVM uses this
+> > as the source of truth. I was pointing this in my reply to Broonie,
+> > and this is (probably) what sashiko is blabbing on about.
+> 
+> It seems so. The trap tables were only one of the places that read
+> S1PIE and S1POE. Sashiko found another: PIR_EL2, PIRE0_EL2 and POR_EL2
+> accessed from vEL2 have no FGT bit, so accesses to them reached the
+> hardware registers.
+> 
+> > I hacked something that could be used as the bases for such
+> > sanitisation, although it is quite crude and doesn't cover all of the
+> > possible requirements, see below. I've only boot-tested it in a nested
+> > guest, and I'm not even sure it actually works (my test box doesn't
+> > have these features).
+> 
+> I'll send your patch as v3, rebased on -rc3 with you as the author,
 
-  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
-  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
-  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
-  B: start fails, fput(NULL)
+Please at least add yourself as a co-author.
 
-Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
-so the error paths can free the slot data twice.
+> once I've tested it. I'm dropping v2's trap table changes, since
+> they're redundant once the ID registers are sanitised. I made two
+> changes to your patch. The sanitisation now runs before
+> kvm_init_nv_sysregs(), so the nested RESx masks are computed from the
+> sanitised values.
 
-syzbot hit the fput(NULL) with an unbound loop device, where every
-start fails with -EIO. With four threads doing the same thing on a
-KASAN kernel I get both crashes within a second:
+Isn't that already the case? At least with kvmarm-7.4,
+kvm_vm_finalize_sys_regs() is called before kvm_init_nv_sysregs().
 
-  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
-  BUG: kernel NULL pointer dereference, address: 0000000000000158
+> I dropped the res1 half, which isn't set by anything.
 
-Add a mutex to the region and hold it in dev_store(), in the
-block_bytes, start_block and blocks stores, and in dev_show(), since
-they all look at hr_bdev_file. dev_store() cleans up with goto, so it
-takes the mutex in a small wrapper rather than with guard(). It sleeps
-with the mutex held while it waits for the heartbeat thread. That is
-fine because neither the thread nor the teardown paths take it.
+I'd like to keep this, as it will eventually get used, just like the
+recompute loop is a bit useless for now, but will become useful in the
+future as dependencies get recomputed.
 
-With the patch the same test ran for 10 minutes with lockdep on and
-nothing was reported.
+The way I imagine this to work is that each sanitised field entry will
+point to a subtable containing the encoding of the field and the a
+function that checks for the dependency. That's not required for now,
+as S1P[IO]E is only a boolean, but I expect some features to
+eventually need something more fine-grained.
 
-Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
-Cc: stable@vger.kernel.org
-Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
----
-v2: take the mutex in a wrapper around dev_store() instead of with
-guard(), since dev_store() uses goto for its cleanup. No other changes.
+Thanks,
 
-v1: https://lore.kernel.org/all/20261018163121.128911-1-eklavyasingh2106@gmail.com/
+	M.
 
- fs/ocfs2/cluster/heartbeat.c | 32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-index 1c3def99bb0..003c398366e 100644
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -269,6 +269,8 @@ struct o2hb_region {
- 	struct list_head	hr_handler_list;
- 	/* Serializes timeout arming against failed-start and teardown. */
- 	struct mutex		hr_arming_mutex;
-+	/* Serializes the region's configfs attributes against dev_store(). */
-+	struct mutex		hr_dev_mutex;
- 	bool			hr_stopping;
- 
- 	/* last hb status, 0 for success, other value for error. */
-@@ -1676,6 +1678,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
- 	unsigned long block_bytes;
- 	unsigned int block_bits;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1705,6 +1708,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
- 	char *p = (char *)page;
- 	ssize_t ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1731,6 +1735,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 	char *p = (char *)page;
- 	int ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1748,10 +1753,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 
- static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
- {
-+	struct o2hb_region *reg = to_o2hb_region(item);
- 	unsigned int ret = 0;
- 
--	if (to_o2hb_region(item)->hr_bdev_file)
--		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
-+	guard(mutex)(&reg->hr_dev_mutex);
-+	if (reg->hr_bdev_file)
-+		ret = sprintf(page, "%pg\n", reg_bdev(reg));
- 
- 	return ret;
- }
-@@ -1867,11 +1874,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
-  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
-  * nothing
-  */
--static ssize_t o2hb_region_dev_store(struct config_item *item,
--				     const char *page,
--				     size_t count)
-+static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
-+				       const char *page, size_t count)
- {
--	struct o2hb_region *reg = to_o2hb_region(item);
- 	struct task_struct *hb_task;
- 	long fd;
- 	int sectsize;
-@@ -2032,6 +2037,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	return ret;
- }
- 
-+static ssize_t o2hb_region_dev_store(struct config_item *item,
-+				     const char *page,
-+				     size_t count)
-+{
-+	struct o2hb_region *reg = to_o2hb_region(item);
-+	ssize_t ret;
-+
-+	mutex_lock(&reg->hr_dev_mutex);
-+	ret = __o2hb_region_dev_store(reg, page, count);
-+	mutex_unlock(&reg->hr_dev_mutex);
-+
-+	return ret;
-+}
-+
- static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
- {
- 	struct o2hb_region *reg = to_o2hb_region(item);
-@@ -2156,6 +2175,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
- 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
- 		name, strlen(name));
- 	mutex_init(&reg->hr_arming_mutex);
-+	mutex_init(&reg->hr_dev_mutex);
- 	reg->hr_stopping = true;
- 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
- 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
 -- 
-2.55.0
-
+Without deviation from the norm, progress is not possible.
