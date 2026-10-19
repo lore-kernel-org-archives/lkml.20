@@ -1,125 +1,104 @@
-Received: from server.couthit.com (server.couthit.com [162.240.164.96])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58874CE670;
-	Mon, 19 Oct 2026 10:24:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.240.164.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CD0498922;
+	Mon, 19 Oct 2026 10:25:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405477; cv=none; b=qL+bnYDT9lLnRiDjYbxs4Brlj9Z96vbA0TLPHwU9d1bmh6Ke7MHhfPtM58EWqrakfPLTFJmxi8TcgRIRYDBbLqv3NB58Y2qxouW2328Ql/RiwzNevQOTIHLLxsINSuYVRLzgVQ/Yi9saQ8cB0j6TK4fVqaB3jhYKez9mvYXs0a0=
+	t=1792405509; cv=none; b=lpyw3l7BUWtsrHJh/OYjfwLDgbkw0eEpjcopNUW87CEAKus1kUaBsUr3pmdEHgqMQgdl8enlMzjVhU8jARtvUo4WPJCflaTUT9X6x7OaqlOohnVEThd/303U1c17lLHEIy7M41cisfQSCsM5Y4l+GmnMedwqX+dDOXdmc/VH0I4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405477; c=relaxed/simple;
-	bh=qUkIaaPrmLzSbPHsOly/wLRVtHv+4xiLUlsMwSL+rXA=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=eCKXMg+XvrmUuZ1iWMdj0vV5KEld67R49UWgyT1ZEUirgpB43epIhJ8Cwb/OraooC0U68FMsEp3Q2ZMr8tYEPvlJoEXDQdyOyzAKc+CxqhVcQqIbpvqOLTBmWtncnOPrpPBsDHu5HI8AId/FiOQxq68X7btTYEQoo/BnWzbp/YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com; spf=pass smtp.mailfrom=couthit.com; dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b=sLuOTZk1; arc=none smtp.client-ip=162.240.164.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=couthit.com
+	s=arc-20240116; t=1792405509; c=relaxed/simple;
+	bh=lrvKOD4CrjDosGmOahxy1/uwlMTKm3RDvo0UhHcLKdc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=keUkEgAKZ5YFR+6VCPIfN0WwsaTQ8eS+/lwV0qRa/5XmrbfAwFGEhNMKv5LmENXYV2iaGSktYM73TVsPL+LVlwdIP/jE7VBPmV0PW74/7c/5B3cs6UaBgLq8EGvErgE6Jo5kI5At/lbx8KMhGINb4NbCVzv6nDUqIy8VpdA+uaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l+gCPwl/; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b="sLuOTZk1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=couthit.com
-	; s=default; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:
-	References:In-Reply-To:Message-ID:Cc:To:From:Date:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=DDjf5Zet0LKmhh6LAOeo9wOIpr3u3VhhkFWY0LFMIyU=; b=sLuOTZk1259plTznuAjZZl8qHx
-	O2XpSyfTSS9N+bngz1bNYYv2VEfq7tqHja8V7CTBuXUZbfodn8VHRBd6Ks2mZNRDSTVr0V6zpuBIQ
-	xH7nev8zSTJnPMZ0tMP1ZGqA3vZQfexnkep3Z8ZIMThC/dsFyz40EPe43Z3sef/I9PaV8OvqYgySW
-	g8ImJX65XH5Wv8PRMY2/pnp1R6fAVQ7CNQnQJJsjIjhEbpkKs/YrSDLgMBi1u98OmQNwSrTK/kWqR
-	23ZA+erM83OeOPCgvt9+CGGpZdnW/x7ENxLW904NeY7+b2mWViEWetwi1zl3dULKJuiX0gPJAQB/T
-	TzZP7DcQ==;
-Received: from [115.246.246.98] (port=45272 helo=zimbra.couthit.local)
-	by server.couthit.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <saivarun@couthit.com>)
-	id 1xIkXb-00000000VO5-2pJL;
-	Mon, 19 Oct 2026 06:24:27 -0400
-Received: from localhost (localhost [127.0.0.1])
-	by zimbra.couthit.local (Postfix) with ESMTP id 013371BA02D0;
-	Mon, 19 Oct 2026 15:54:23 +0530 (IST)
-Received: from zimbra.couthit.local ([127.0.0.1])
- by localhost (zimbra.couthit.local [127.0.0.1]) (amavis, port 10032)
- with ESMTP id erd3YtZvu9BY; Mon, 19 Oct 2026 15:54:21 +0530 (IST)
-Received: from localhost (localhost [127.0.0.1])
-	by zimbra.couthit.local (Postfix) with ESMTP id CAD1F1BA0896;
-	Mon, 19 Oct 2026 15:54:21 +0530 (IST)
-X-Virus-Scanned: amavis at couthit.local
-Received: from zimbra.couthit.local ([127.0.0.1])
- by localhost (zimbra.couthit.local [127.0.0.1]) (amavis, port 10026)
- with ESMTP id ShKfL8_7tJT2; Mon, 19 Oct 2026 15:54:21 +0530 (IST)
-Received: from zimbra.couthit.local (zimbra.couthit.local [10.10.10.103])
-	by zimbra.couthit.local (Postfix) with ESMTP id A09201BA02D0;
-	Mon, 19 Oct 2026 15:54:21 +0530 (IST)
-Date: Mon, 19 Oct 2026 15:54:21 +0530 (IST)
-From: Saivarun Mudepally <saivarun@couthit.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: Sai Varun Mudepally <saivarun@couthit.com>, danishanwar@ti.com, 
-	parvathi@couthit.com, rogerq@kernel.org, pmohan@couthit.com, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, afd@ti.com, 
-	basharath@couthit.com, horms@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, pratheesh@ti.com, vigneshr@ti.com, 
-	praneeth@ti.com, srk@ti.com, j-rameshbabu@ti.com, m-malladi@ti.com, 
-	rogerq@ti.com, krishna@couthit.com, mohan@couthit.com
-Message-ID: <493615167.624945.1792405461616.JavaMail.zimbra@couthit.local>
-In-Reply-To: <179214979438.408196.11375100740673315884@kernel.org>
-References: <20261016105206.167094-1-saivarun@couthit.com> <179214979438.408196.11375100740673315884@kernel.org>
-Subject: Re: [PATCH net-next] net: ti: icssm-prueth: use
- dev_close()/dev_open() in icssm_prueth_change_mode()
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l+gCPwl/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792405509; x=1823941509;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lrvKOD4CrjDosGmOahxy1/uwlMTKm3RDvo0UhHcLKdc=;
+  b=l+gCPwl/7/6y/Jv/MOvdz2J+5AMK/jk4z4iLiXQwsmYuYYUTRKFgKNad
+   cd0bbBl5OldsWVMGktg3NuY9aVPcRRwFfGxdzU03J/UwvJNzLfxb5TfML
+   aRhrExkfxb8JOjYcaNurZ9JgDZfJilEVmbsD2UjGnyEO4qcBhyWGKYryh
+   vPo5FZChjUAZVcgEphpWkpfealfxWzGwyXLf6Qpt0CP7xW1Vu3jtwBeVX
+   5UQ4SZgkZy1GERpGiD7Com1TyUhLVcEJ6c3Utsd2uatWW/xanxa/d7MXi
+   Toq5EtPFEB4uBJ/yPF3TPz1nzc4ITqAkp57Hi7TNSHuiDprJ+ggYG86j7
+   Q==;
+X-CSE-ConnectionGUID: he3amK3iRwe79Iz/BVYtfg==
+X-CSE-MsgGUID: RsZcOVD9Ry6My1YAQP36SQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="966194"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="966194"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:25:08 -0700
+X-CSE-ConnectionGUID: KCXlyIDqQZ++O0gwYxrbJQ==
+X-CSE-MsgGUID: sBMJoexSTWe0UrtfCiONzw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="4259176"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:25:05 -0700
+Date: Mon, 19 Oct 2026 13:25:03 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Arnd Bergmann <arnd@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH] [v3] serial: 8250: remove obsolete and broken PORT_RSA
+ support
+Message-ID: <atXv_0ZdC5xalCKh@ashevche-desk.local>
+References: <20261019090017.430425-1-arnd@kernel.org>
+ <2026101952-wham-earthly-c149@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: Zimbra 9.0.0_ZEXTRAS_20240927 (ZimbraWebClient - GC155 (Linux)/9.0.0_ZEXTRAS_20240927)
-Thread-Topic: icssm-prueth: use dev_close()/dev_open() in icssm_prueth_change_mode()
-Thread-Index: Sxdr3LPvc6wuwZudfEjLAZ3i6JSt9Q==
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - server.couthit.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - couthit.com
-X-Get-Message-Sender-Via: server.couthit.com: authenticated_id: smtp@couthit.com
-X-Authenticated-Sender: server.couthit.com: smtp@couthit.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026101952-wham-earthly-c149@gregkh>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Mon, Oct 19, 2026 at 11:39:20AM +0200, Greg Kroah-Hartman wrote:
+> On Mon, Oct 19, 2026 at 10:56:55AM +0200, Arnd Bergmann wrote:
+
+> > For all I can tell, the RSA support in the 8250 driver is not functional
+> > and has not been for a long time.
+> > 
+> > The RSA-DV II/S ISA card[1] was sold by IODATA in the 1990s as a faster
+> > alternative to regular ISA serial ports, and it was discontinued in
+> > 2002. Linux support was added by Kiyokazu SUTO in 2000.
+> > 
+> > The driver defines an I/O port base address of -8 (negative eight),
+> > which should always get refused by request_region on all architectures
+> > for being outside of the valid resource range.
+> > 
+> > Further, it seems that a patch to setserial would be required in order
+> > to set PORT_RSA when not using autoconfiguration.
+> > 
+> > This patch removes all code related to the RSA support, with the exception
+> > of the user-visible PORT_RSA definition.
+> > 
+> > Link: http://translate.google.com/translate?hl=en&sl=ja&u=http://www.iodata.jp/products/network/rsadv2s.htm
+> > Link: https://lore.kernel.org/all/1309211120-2803-6-git-send-email-arnd@arndb.de/
+
+> Any objection for me to sneak this into 7.4-rc1?
+
+This is a good removal change, but I would like to make Link tags neater, if
+Arnd sends a v4 sooner, I will tag it for early v7.4 (which is indeed a good
+candidate to have this).
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Hi,
- 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
-> - How the issue was discovered, e.g. hit in production, hit during
->   development, syzbot report, manual code inspection, LLM or static
->   analysis tool scan.
-> 
-
-Sashiko, the netdev AI review bot, reported it as a preexisting issue,
-while reviewing our ICSSM HSR/PRP offload series
-(https://lore.kernel.org/all/179151741150.434549.7819199497598747618@kernel.org).
-
-> - Whether the issue was actually triggered, or is only theoretical
->   (e.g. found by code inspection). If it was triggered please include
->   the symptoms, like the stack trace or error messages.
-> 
-
-We first confirmed the issue by manual code review. We were also able to
-replicate it on TI AM57xx IDK hardware board.
-
-> - What hardware the change was tested on. For driver fixes please
->   mention the device (and if relevant firmware version) used for
->   testing, or say that the change was not tested on real hardware.
-> 
-
-We tested the fix on TI AM335x ICE / AM437x IDK / AM57xx IDK with the ICSS-M
-PRUETH while changing the protocol from dual-EMAC to RSTP switch mode.
-
-
-Thanks and Regards,
-Sai Varun M.
