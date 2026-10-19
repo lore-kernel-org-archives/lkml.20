@@ -1,136 +1,117 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9D1353A72
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:44:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A52219F121;
+	Mon, 19 Oct 2026 12:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413875; cv=none; b=cx481tPERXKAIWcjRcrrm7KrgxCCfU+eHHqXhVgK2KRkU8POAh1/tc0orFcT3Q8mlVMqMCBQNRRCpHeNv+Q1EUANC60kySBERQziEhmEqSRNW/C8i54mb1ku2+5Zjbqwj8Zk2x6Jh3m6yAolkpVttdBycLNTLHyF+fSmX+Z8J+w=
+	t=1792413879; cv=none; b=P3tzu8Ym0/T4UDa0Pio5VhXmZJ9sFYp7a3J3UVBK4M54y1PX8tDlM0vZWvPA7mjHxaS+0tfiFzeBViuklrJ1Mh5cWZgkeTHiVuycLtTqdLCUbET3x0AkVui7mTlNb7JP4WQ2Ece7vDnqmMq9tflYqjPAKb7hQcvQ59QMg14Edq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413875; c=relaxed/simple;
-	bh=OQ8eav9Ux41+oRFB35TB1JhL91JkSCWggnqYSeogg2k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fSeA8GXcdgW5dDoa2gIT06EPFyZoaGGM/FrXsYif7VPjlVw7FYaA5tRiw0LA3HlLtGD1PZb0AxmEvpxp72HrAwup/S8nBOfkj+JHLjPXQlg6EipktD6TpyoNR/la1jGR71spxs0ApOAP/hfHY/B5HkRPtH5KTblMQ3M5rhvMhPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UwthnpkU; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792413879; c=relaxed/simple;
+	bh=NtAjh1G4ukJUomR9VlnElNvrY3MY7elt+Y6687H1Azg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E/npa3BOtsxjTsvE7ZTwPsFaNgZ5nMg3/d3hQQL2NURdyuAq3VP0WzWP4ZlQyMP6bTI18CH92YHuLWpWKlWnU21KnwPOZ2hXC5McNVxw4jP0+sJ2bvNhcxbY6zomW2/YPsLxWSs9CnMA3P4ZoCQkZI1mlTcg+zDj2M9FsYBO25M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kJLPx6y6; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UwthnpkU"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c445c95d553so97068466b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:44:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792413871; x=1793018671; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kFqTDlj4awkfSbachY987XqpXNk4Iu67BWeqjiuV6NM=;
-        b=UwthnpkUVgoNRi551eX+j85IPrcnZf5L6F6LgkXc8dqv3+O0vTljjjzpgTVMC73xFG
-         Ze9XSkTKuhuGwLBWMfLfAZGS6mMP9IEJrp5sy0PAw+3OlD+Ks3H3jC6P5nkec5/5sgZJ
-         xNuCo2Rv3YQUn7aRkJ/bTs1+5GkjPCuvWBEofBzfCIw6LRJOv3fZpiY8olnNxDuJL5SH
-         y4LUSNg43RHF4RrY0apG+L+vEtAitXRs3QQv1EvIcbVjHW8cRT5SA/n7VbwU2InL/KKd
-         I7Wuw6G8UWpDQOiKLVXCjfOy6VZ8CkswJrpqMI57QBpb+oKaY6n9ssz+L5uhw0G31Mc5
-         08Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792413871; x=1793018671;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kFqTDlj4awkfSbachY987XqpXNk4Iu67BWeqjiuV6NM=;
-        b=kUFT2TqWaNpXiOBbYhXL1f8HkG5/dBDyfAllbSbypBkzGUCQqrC4tKHCWZK2QXdVuX
-         Zhk1QR3mNENDcREEBYtk+PolL1fV+q+UoZI3ctzuaaQeg59/mGRifW1yVIDXK4X74ULa
-         4MUO4KfMDMGsh5aC5+UL4LL9WRKxh9zpwyaMBQOYIkIc+vQn8sFz27/QnH64U4pbhLqd
-         B0wdmDVI6//xVM5iAkWKItvnswWl78BQIzaVYnhBpbsIUmP7XbA2fomDSjMwaCrjn16a
-         aHn5h1fVkhEDnCkegv2+TLS3t6GLoxhpA04nVDyKmG2sLUBkZuysLsyKtARcDISd8y61
-         YrUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwv1rEKmkmOYbVeygcX+PFLCS/lwO8n+Mv8vy3ViW5HApEnGIggNx8JS0ckstlacNS9o27B/+DZpseHG+k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMHo84DHbp0nGSkLy+uR/dN15+7udoBQsv8S8bHuYr0sPdKnMI
-	VVix0VcQtfat/83xu+oTnX/OXZPHmlpH2jay7s7hWZovIYkWGmOWtz52R6a8+shvhoc=
-X-Gm-Gg: AYBFou12Uag3LS+7d92rlBo9fov5PiChfVFF6ip8xrXIPwbiv0SZThnYOVOaafEpgrJ
-	dP0O/BGhZcMzNzaKDGgpLkGmbzBboAVq0ep8N/q4+9U/cjFp5lzSffH+fKu89TLiIzhmP/bs01o
-	zFdCAfrxXLalShRdf3VlSkLY738M+7TcRiIeG6BE6csquJX/F+I5jW+LBzv4+wPxPb/lFrxN8Cr
-	o1Ztj3gZQ1M9eyMIvodz5g/MgNP7xxSDIbdf3ychewPfIA7Bv6q71zCSlzqiD0i4Z+fXza8086m
-	mHjf6RlOPSxSG1aGxTBqhC3A8IAGXn1GxbS2SNn8XvnEG3nFunVwpP8ddOMsWzEpEg58DKPAUq0
-	6PPHqk5yPHJklCOx7P/JU3JLIJAf2MwoFC94PSXPNWVhgitBDK+799y0Yt7vPg+KqxChG7iXbP0
-	3bD5eeVSqla7LmiGYjyZIfQ/2E5Ernvu1BHo83Nxp1HuRWAjdZPNV38t7P5TI1nzQXcfUSEnidU
-	FU=
-X-Received: by 2002:a17:906:9f86:b0:c40:560a:45e with SMTP id a640c23a62f3a-c419f416b79mr534320166b.35.1792413869576;
-        Mon, 19 Oct 2026 05:44:29 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ceffesm362496166b.47.2026.10.19.05.44.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 05:44:28 -0700 (PDT)
-Message-ID: <0aadf786-8c79-46c6-b6e1-d5a6caf30771@linaro.org>
-Date: Mon, 19 Oct 2026 13:44:27 +0100
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kJLPx6y6"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0AFC6593;
+	Mon, 19 Oct 2026 14:42:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792413749;
+	bh=NtAjh1G4ukJUomR9VlnElNvrY3MY7elt+Y6687H1Azg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kJLPx6y6L6U6aoBJWEpcxJ5iwqaFl6fqBuR5Vc9jMPUfDuL+SgZbCRHqWv4YVdcht
+	 YlzLF0KmoD5shqk8EkxKW0ciqM5gJaS0+nMInEOMiYf1Zi/lxxdpPS/hC95u92/1vG
+	 nvutY5tEDTYt6YncJLwCQk3TxIlYzBc8PZu3L3Ow=
+Date: Mon, 19 Oct 2026 15:44:33 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: linux-media@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Tomasz Stanislawski <t.stanislaws@samsung.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] media: synchronize CPU access to imported DMA-BUFs
+Message-ID: <20261019124433.GU595565@killaraus.ideasonboard.com>
+References: <cover.1792392288.git.kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/25] coresight: trbe: Handle an already disabled sink
-To: Leo Yan <leo.yan@arm.com>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
- <20260915-arm_cs_support_aux_sample-v1-13-35cf6f297d20@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-13-35cf6f297d20@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1792392288.git.kmehltretter@gmail.com>
 
-
-
-On 15/09/2026 16:48, Leo Yan wrote:
-> arm_trbe_disable() detaches the trace buffer and clears cpudata->buf. A
-> subsequent disable dereferences this NULL pointer in the buffer consistency
-> check before testing whether the sink is still in perf mode.
+On Mon, Oct 19, 2026 at 09:14:07AM +0200, Karl Mehltretter wrote:
+> UVC and vivid access imported DMA-BUFs with the CPU without cache
+> synchronization. On a Pi 400, captured data remained in the CPU cache
+> while physical RAM was stale.
 > 
-> Check the mode before accessing the buffer and return success when the
-> sink is already disabled. This allows deferred event cleanup to revisit a
-> path that an AUX snapshot has already disabled after a failure.
-> 
-> Assisted-by: Codex:gpt-6
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   drivers/hwtracing/coresight/coresight-trbe.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-> index 8eb625d3fc99db57a18e35ef59ef814dacf20a09..6da89a890712d32e87a15f7c564ff4dc4d197bb1 100644
-> --- a/drivers/hwtracing/coresight/coresight-trbe.c
-> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-> @@ -1098,11 +1098,15 @@ static int arm_trbe_disable(struct coresight_device *csdev)
->   	struct trbe_cpudata *cpudata = dev_get_drvdata(&csdev->dev);
->   	struct trbe_buf *buf = cpudata->buf;
->   
-> +	/* A failed AUX snapshot may have already disabled the sink. */
-> +	if (cpudata->mode == CS_MODE_DISABLED)
-> +		return 0;
-> +	if (cpudata->mode != CS_MODE_PERF)
-> +		return -EINVAL;
-> +
->   	WARN_ON(buf->cpudata != cpudata);
->   	WARN_ON(cpudata->cpu != smp_processor_id());
->   	WARN_ON(cpudata->drvdata != drvdata);
-> -	if (cpudata->mode != CS_MODE_PERF)
-> -		return -EINVAL;
->   
->   	trbe_drain_and_disable_local(cpudata);
->   	buf->cpudata = NULL;
-> 
+> Add an opt-in queue flag to bracket CPU access from buf_prepare() through
+> buf_finish(). The allocator cannot imply CPU use because some vb2-vmalloc
+> drivers pass buffers to hardware. Patch 1 balances finish operations in
+> VIDIOC_REMOVE_BUFS so removing prepared buffers closes this interval.
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+This seems completely wrong.
 
+> This follows the per-queue flag proposed here:
+> https://lists.openwall.net/linux-kernel/2024/06/20/236
+> 
+> Based on Linux 7.3. Tests cover the same code on these earlier bases:
+> 
+> - Pi 400, 7.3-rc4, all four patches: eight 640x480 YUYV frames per run,
+>   imported CMA DMA-BUFs with a DRM device mapping:
+> 
+>   Path                          Runs   Stale frames
+>   UVC, vb2-vmalloc               12        0/96
+>   vivid, vb2-vmalloc             12        0/96
+>   vivid, vb2-dma-contig          12        0/96
+> 
+>   All six lifecycle cases passed with both vivid allocators. Read-only
+>   output USERPTR passed. The test added no warnings or failed CPU-access
+>   callbacks. A control without the DRM mapping found 4/16 stale frames.
+> 
+> - SAM9X75 (ARMv5), 6.18 backport of all four patches: the baseline
+>   PREPARE_BUF/REMOVE_BUFS imbalance was fixed. USERPTR and six lifecycle
+>   cases passed. All 128 vivid and 96 UVC frames matched RAM, with 100/100
+>   begin/end calls. The baseline was already coherent.
+> 
+> - BeagleV Ahead (RISC-V), 7.3-rc7, patches 1, 2 and 4: read-only USERPTR,
+>   six traced lifecycle cases and 60 repeats passed with balanced callbacks
+>   and no kernel diagnostics. A vendor 5.10 backport of patches 2 and 3
+>   captured 96 UVC frames without stale data, with 100/100 begin/end calls.
+>   Its baseline was already coherent.
+> 
+> Karl Mehltretter (4):
+>   media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
+>   media: videobuf2: add opt-in DMA-BUF CPU access
+>   media: uvcvideo: synchronize imported DMA-BUFs for CPU access
+>   media: vivid: synchronize imported DMA-BUFs for CPU access
+> 
+>  .../media/common/videobuf2/videobuf2-core.c   | 96 ++++++++++++++++++-
+>  .../common/videobuf2/videobuf2-dma-contig.c   |  5 +-
+>  .../media/common/videobuf2/videobuf2-dma-sg.c |  5 +-
+>  .../common/videobuf2/videobuf2-vmalloc.c      |  5 +-
+>  drivers/media/test-drivers/vivid/vivid-core.c |  1 +
+>  drivers/media/usb/uvc/uvc_queue.c             |  1 +
+>  include/media/videobuf2-core.h                | 12 ++-
+>  7 files changed, 116 insertions(+), 9 deletions(-)
+> 
+> 
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+
+-- 
+Regards,
+
+Laurent Pinchart
