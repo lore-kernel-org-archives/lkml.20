@@ -1,85 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792430464;
-	b=0pvQ4i1q6WWvamBWRNnbgaSMUgxAqXa+Fuo7a4QqmBG4Vv5pYUYp1ItUvffFnJy0koOi
-	 FjYKYT8MSy+PXXG2xm0PN4GVwgA+YQBBIZ4ej2W10jXlZYZTQYz+kItk4HQO1gbvGjWyC
-	 199Jq1zWErrHu8JMbvrD2tYJ9qeO7bZA8SRKMeD/lAnBcDKTkWPvP0R30e1tDF8AAyl8e
-	 qnFTq/wCMIzB0mOs7UzNkzdXo0CjzsU5hhD9x7DvCqfNuMaO741IHmnzu5tNexsSe5yTD
-	 O+NRre71/yq8jf9yiXwhpSNu5QLJn/FNik8xoWbK1XmkT5Nlo2YqnQFlkN2mNufnZRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792430464;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=1aDSC/6caT0lwDDexiAxkoUQe1Pgm8dLFVDyR39TkOI=;
-	b=kVp8n3rytk//5pIb3/kxCQTb6FJ3fcDb6T1gmYcbETn4iNi/iB6yfJxf+OipcIauWqhp
-	 TBeHF8qYtoo65vFWIhYc1gvLpbWb1VXATh8fteLQRdxXh6hexvqJxF6ynkqQRKjFWIGuE
-	 5TmaCqNMqp7PZ5o8Sd/XY0lZ5/0YxYZIOAVQj1XGO1UdCpXXdNAGL593IzmkIz9NiHl6N
-	 aCNivofx7agbCNpJo6llatZXDLsyXIpqvr5HnpDu+c6QuAI4ln1GYACBVcWwFeNT6SBCk
-	 /xXEdat9os7cd4eezt2/7c+adQsaseuC+FGIYsVsjy1Vxo4Sfnv7F3FahlmRk/H1sKQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U+f6br9j;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.62
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792430499;
+	b=UIWmrF3T6uvAXxIlUswHP8o8fkEUELN3uaMCt9Q4SNEzx/KVuzc39gsRFEoCFIiAFSI6
+	 r8KN4hCkzfkNLsW8X1qRzopBrC4tT8yxWuFqANaNWpAzt6kK/JT7e4P4OcEuu5nQHiCvX
+	 jdJUjwr22FHjgBnsBLSuDtIuayh+mri5xaIwIrQx9pAaCdeTVMGyaDHuXPU97JXYs6xJk
+	 cTxceTbdbqAl7AQhN2V5a6+VyJndOi9BfC09qkSnoETwOT2HYhm6cwAXfbSjDwYyxDZ2p
+	 wygRSJcOcRHoCi7JlvoOhfD6weU7wOu39bghkS429e/GdBh3FvuxjvEkFkaiKz6OPsg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792430499;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=XuUb8J5LVKigwqZiNxBsQvDkdJW9yLGEs+F/xEoaR9k=;
+	b=I7rYdHQgboyJnW895/H2MTYpaf0/O8RD9Ezy95PEOb2gGacNY3GQUX8+6DZZEmI36aBy
+	 qC973atQuU8HTEDUQR6rDzWB7cNIPm35TnTMMMhzpDsdXMQWiCURQE/O5NGI1LvxpZPb3
+	 EkiMCpIueiNweoTBE0z60HcwQfqamTIDcJx566WWs6AWvkwFRMl9DCyGk9Ay0PHgQFxJ9
+	 JHjS+OBtCvhQsDje58waWAztISmM1Nf1LS7r8NoV3yCUTSnL/xrwMAK7gk3AmxY6jQvsC
+	 RvlR5STD46/HUfUrJqlK8io4YQPTq5NcaqJLZ66hf2p2Qr+BlUtVtLKDovJfC88Vv+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jHwmN9js;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.62
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011062.outbound.protection.outlook.com [52.101.57.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9582B606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:21:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9582B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95121606A31A;
+	Mon, 19 Oct 2026 17:21:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95121606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U+f6br9j
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so29640245e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:21:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792430462; x=1793035262; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1aDSC/6caT0lwDDexiAxkoUQe1Pgm8dLFVDyR39TkOI=;
-        b=U+f6br9j7p+n/reMW6xKXKeQ8WlQa7N6T/AqnIK3CcuUbzVY0hC/mKXvvbI41BOELd
-         CJeNHtrkjMtObMeygRu4ulEqWl9d7l4wCir+ghpiZpVvnJynqk4aJh8ppyActBnXiuhh
-         VUvLWgohG/18pUUXC+/rHszUklpl9uxT17vejZNEnb1RH1vxi/Y9yd10ocwRuVs4NcGI
-         IRIOAVIcgcfuvhPuV/taVjAPusKihH6bTm+R45ES48HF2S/mK6OaJNHNCx3/k2AgamiG
-         e8Y0vXleEje+3gPGfoHWEMUP05nyYnoJQdPj7TqbqtuD9XpJIHu9YUOgmNdaY2dm/a7u
-         +LkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792430462; x=1793035262;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1aDSC/6caT0lwDDexiAxkoUQe1Pgm8dLFVDyR39TkOI=;
-        b=zDxmLn4xORaaBQAmqjPUqgm7aJNgUQo5x/zJn203IChova6VkTxe2z4dvJp43ifc6U
-         vhncnxjq+TZ5ossp5xmgdA/tKTNi+TEtSEoiIHKAXGlN1zqZsBSJS3nN/tM6c21ggjNw
-         d62mElibo6Gy+k+gnjzgFc0Pedu3m2JFuxiudKYXBEPmwLwrQ96BtK2ANZOODSpvga/n
-         zLd8sEzTFFcAAhx+pujkW2Crc3OgXcHsa2ALA9I2DBd+bS/zvJ3G+KVj8KQzms/x+R+N
-         Wkd7DcvlCBcPWwG0sc4fUORUCMdvvwo6jJ78xspf59MIv6GI0EQfG8+f8lBaUFsmd47O
-         0bsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwd/Hf6L5U0uu+N31341RyVeX0fILqtJQ0YmHKggFmsIzr6FzdafJzSQQ30VJuZ2LIbGi5YPT4g3ewjGmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhddAaYolDUwNddzU315s0g5rh79+hoJQv04XRqZ4FDnv7V70r
-	9YMTfb9WmqzTcTcFOQV5rkUADtswysryve3zyWrSguqPYTm7l2+Sey5r
-X-Gm-Gg: AYBFou20szTKHk5eCXgIDHmoRLoHJGtkdrU6E9N4A6JcOYUj35jo+tXz2mPbl3dZpTf
-	0o0N4mb9kklE4Mb8dh28r1sQ/1j2f9ZJObQHWB2lPS+8Kd+gVbPBjOs81Ic63rXvuhU1O5Ygj7c
-	RRVYlSUIyNaeAJmwLKOzxUWqQdGfPiXPsuasMDVKAzCaJRIqjPAEQsLI9sbg1WTkONbKQMGzsvG
-	gotfjGDmajT3BYyyoxqyM8GbsEgD1hg/na29GKXHvBdvReMo3nQWaIa/UcpIJRUfIKl1aErzWpC
-	2p5rDMhscApgKP6TBDwH97FQm8kc1zuoHvkRzIKikaM6oCdiMQ8W7tJpQ1qnoxhYK2DjGaq4i1T
-	WNc+XcaY9o0RVsp0uo08MFghzcARsBpNye5ngAPjS0TdCiMaAOXNa85cOQDUefjG+ZABwYhn9sy
-	fFZtktgLHYF5Y0nNhUcPQRh5E1/z0tH5t/Lp0Vojj4LPG7BjC+k95UHEBHw07KsCv8raRgCKgv8
-	fpnTh1YItMvc6aNuAbKH85qetENB3Pk
-X-Received: by 2002:a05:600c:1909:b0:4a1:dbdd:d56b with SMTP id 5b1f17b1804b1-4a1dbddd68emr163879595e9.19.1792430460664;
-        Mon, 19 Oct 2026 10:21:00 -0700 (PDT)
-Received: from [127.0.1.1] (89-65-152-218.dynamic.play.pl. [89.65.152.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2c1e0e6sm9644465e9.0.2026.10.19.10.20.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:20:59 -0700 (PDT)
-From: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
-Date: Mon, 19 Oct 2026 19:20:51 +0200
-Subject: [PATCH v7] riscv: mm: Trace TLB flush requests
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jHwmN9js
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e66NC0gH7aTS4/V4CxrMKs3IT4qpClgbIvorY+eh9o6zy/mpGveSRr67epxIPUgH/+VyZsaWzD3PiPYNfuJ+S108hYKMfuJiaaRHmWTAahTHkfgqSP5/i0ljeoKoJCnON5K98tp3KFZYKgznZiF3/bzcvfM2l8J571R4/nDvQkr2/Emm6T9pfyq+kuYvIQyGOPdSHfAzg8+4xL74M8298K0+g2m/f6/IMZQn0jwxuCk94jdv55h0vDCOhD0Lvpz6DV8a9xZbOgWERT+qDL5AloPlnhw2LDMXKSVLgfFp5xoonWTpI6voC6iQ2UD2540RMPOj2AbF1zNkoZ0M5ldWNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XuUb8J5LVKigwqZiNxBsQvDkdJW9yLGEs+F/xEoaR9k=;
+ b=dSs97m2XbggJts14gOA/uumB71f/tV5rWa+aUGuvAp9kQAmcFVv8L6UFS5k4LOFqa21ZTr8fmUOf7tCSfvu9YF53aAKsIygnchg5GynH1fXteKakb5epGqET0noQJrjVNnbZodXL+V6d0uno3jyr8xhc8/5m+y1VdnbUl8VENhc+kVFm9ybCtHThJKQv0OTLC71KoiAPnwUIAJ1/vaVWRIYWThVOW42bXfJONYpnpwNtnTskvcqCT65UPUuyVRe/gbItmUZ4ca5HjFgzDLiE+LdQthHgax3COx9Q1Zkx51D9hNzTQ20eAxcaW54n0N33tAY/tDWDNsJAQDiVraMO0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XuUb8J5LVKigwqZiNxBsQvDkdJW9yLGEs+F/xEoaR9k=;
+ b=jHwmN9jsXWkFl7A/rKPaXd7kU8ylRxCc2rroq5ks8E/TG0vNxnS96TJBKnoDu7J5NdrvuyIwk9KCDOt6AmhFXTfeauSs3vP9Bpxl1h1/P4e+FKUOOfp1UWBAjFkC8sWxi3NHYkXvPr1V6j7ISjvtU3M6gSaAnJefetu068uEwmM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4283.namprd12.prod.outlook.com (2603:10b6:5:211::21)
+ by SN7PR12MB6887.namprd12.prod.outlook.com (2603:10b6:806:261::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Mon, 19 Oct
+ 2026 17:21:35 +0000
+Received: from DM6PR12MB4283.namprd12.prod.outlook.com
+ ([fe80::9eab:812b:ad20:6087]) by DM6PR12MB4283.namprd12.prod.outlook.com
+ ([fe80::9eab:812b:ad20:6087%6]) with mapi id 15.21.0522.013; Mon, 19 Oct 2026
+ 17:21:35 +0000
+Message-ID: <64c6b4be-4467-4ac9-a7aa-528a9f00b8ee@amd.com>
+Date: Mon, 19 Oct 2026 18:21:23 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2 1/2] sfc: ptp: serialize host and MC
+ synchronization transactions
+To: netdev-bot+sashiko@kernel.org
+Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ richardcochran@gmail.com, alucerop@amd.com,
+ pieter.jansen-van-vuuren@amd.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261015114104.2531624-2-alex.austin@amd.com>
+ <179241111900.3135.15377803717583250573@kernel.org>
+Content-Language: en-GB
+From: "Austin, Alex (DCCG)" <alex.austin@amd.com>
+In-Reply-To: <179241111900.3135.15377803717583250573@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0039.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ac::18) To DM6PR12MB4283.namprd12.prod.outlook.com
+ (2603:10b6:5:211::21)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,359 +101,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-tlb_tracepoint-v7-1-4cc3e99d387a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33PTWrDMBCG4asErasizejPXfUeJRTJGiWCxA6yM
- Q3Bd6+cRXFt2uU38LwwDzZQyTSwt8ODFZrykPuuDvtyYO3ZdyfiOdbNQIARDho+XsLnWHxLtz5
- 3I3dKSaF90KIBVtGtUMpfz+DHse5zHsa+3J/9SS7XP1OT5JLHFD1FsmSVfD9dfb68tv2VLakJV
- hzFjkPlhK1zLaiYdNhy/OFSSL3juHBKWL/BEAxuufqfq8oToPMQokuWtlyvud1xXTlok4LGBr1
- NW27W3O24qVwqZY0C66z4xed5/gZFLFsV5wEAAA==
-X-Change-ID: 20260829-tlb_tracepoint-844105ab5092
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Jisheng Zhang <jszhang@kernel.org>, 
- =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, 
- Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
-X-Mailer: b4 0.14.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4283:EE_|SN7PR12MB6887:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85d1a074-3017-47d8-ba57-08df2e056ce1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|56012099006|11063799006|4143699003|10067099003|261009223027099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	+kwV6+kM05NC7eyxhoonURWiuNimLTZwKIRalsMrl0w9ihvJMIBztbcgbNTo+I7ho3bZ2bLcQlQYbnwk34ol/ZaVNsCIjS5yfvCAqfVWc+xRBPCvh4lntVpqYAvY0pzgi4Rjc6fzSPvbt9gZ+7NpGr7l67gphDX1NiT+j6xqMio06ihPs/ZT4sEYxLOl78IDYQq4BPD70fXWpqmqMyU3/pxzgdpU2yp3lyopU9tTK68YX5kifLTJyWHtE8dyEXjNDcqMlkduHhwa9LLfvEBhRVK86euVw8/SpQ+slo0Dchkt9QmZTqefuifg9CabqIhSnJuxkfuWCj2N71u3zYej5Y3FnVYmBfhLWn0QI2Yu3YMLofPxZuH5MI83q9Ixan26tc2NuB3Gg1ifbXJbcl4YKWLIvoWmlw10n6SWoUxxvRnLFuz5MLeIiBvxxuEppZVuaSeTJ7wpZUF6y7UKfGYf0OGTCdPV4fT6A8+Tqd9SE1kn00/p7smCpUPZsSnfKHAY0mzpekV1EeKP5VYOqQfTnDy5K5tA3Iw1rK9jQP5EMX9cjHQGpoThfL6/vOfC1LVPv+vIj/LMmVEucoCGWfx7eZstKN888kD0r2zOepFyndY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4283.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(56012099006)(11063799006)(4143699003)(10067099003)(261009223027099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K3RDejkwZXJEQURhMytlNUdPdEd6Mnh6YU9FQWVIVUhGa2o5Y3dxUmZZWHYy?=
+ =?utf-8?B?VllOK2ZPWkxMMEpvYXZGYUZOMVhHTC9oSWZYV0o0RlRVQlVtcmVVUHQ4YmVQ?=
+ =?utf-8?B?cnZCbmM0V0hNd2NHUGpreURNc3YzaDNzOHJuNUZnQ1Y1MGhUdG90eUU3QmN5?=
+ =?utf-8?B?VEkza25VWTh1UEhhVWUyWEwrY0p4NGFMY1JNckZwUjRwcW5JSkFrMW5uamQ2?=
+ =?utf-8?B?NTBheWN1Vi83KzNiTmM1YUFlV0lpZHFEY1BjbnZRaENpN0oxU0hiU2l0K04v?=
+ =?utf-8?B?QzZ2MnFlQVhoNWNvVkt3V2p6QlFoazR5N0R4RE5Qa2ZvRlNCeGJocFlzSC9L?=
+ =?utf-8?B?WllmeDA1TnA4WjlIOWx2ZDJhQjlUaDZQRnU2U3dRa1VjNjZwbEhEUys0cUZz?=
+ =?utf-8?B?ZjB5QzAyZ2puL013bThXNkp1UWNTb0ZRUUswYlBjamNHODVrYWw3cmNzc2NN?=
+ =?utf-8?B?VURMWndTVWVFaTB1S0htdTNIRHk5cXVLc3E5TmI3aHBteDdvQzZqcUpQRHVY?=
+ =?utf-8?B?VFZKS3FrSlRZUjYwdjRhSTFSL1liOU9makx3RjNjaHBscnU4eVhWWG90N2Yw?=
+ =?utf-8?B?Znl4blVqcTNKUkphSDdIMVRkZTEvTnk4cDhpSzVVTFFpL1czYy9SbVF2aGVh?=
+ =?utf-8?B?SUJEZlM5dHhhTzVQVDRSNkIxS2p5eXVLaXFuN1RPazNkTXdrbUdRUWpvazh2?=
+ =?utf-8?B?cUovMHZ4cm5WWTB0a2dwRnRqd2I3and2YWtBQ0NuS2tuYWJKTUFIMGhKSHZr?=
+ =?utf-8?B?anIzc3h5ZXN0aDVtdWdrbERVcUliRUkzSDhGOTRFS29EOWNtOEw4UXVScHdw?=
+ =?utf-8?B?RnRxWTY0VFVXeDZFeTZ1a205NkpMbC91RVJ1aFM2Si9lVXlPZGpqaEtTU3ph?=
+ =?utf-8?B?aFBYMXBPYjFtam9xN0ZMMEJwclNzbG8zSnpRQ1R5eGNYZFBkNXNqUXlOKzdu?=
+ =?utf-8?B?QnZaQjVpaWxKVHIwQS8vek1uT0YvS1RhQmVCRlZzdWdlcHBRNXYxU09ZbE0w?=
+ =?utf-8?B?VUs4SEU4eHFodGhUeUtsUFcwc3RrVVh1MWdoL0FsWHRWOVUrWXEyYWRLbUty?=
+ =?utf-8?B?L0dnS2FsbHFDR1V4ZDh4bFhMemFBL0dodTRrdmxvbzhYUGhyR0ZpOEg3eGc2?=
+ =?utf-8?B?eTNBcnI4UXJ2dlArMys0MWxHL1FFQ1I1WnJKS1ZaUjF0ODQ2UGFsV3VGWmhw?=
+ =?utf-8?B?T1RLVDllSForekc5ZmNRVjliTnJ0R1VTSmZ1RTdnM1VvVDRkV3RrQm5YU1NY?=
+ =?utf-8?B?Sks5N3lYNC9kb0UyODdPbUFqUFFmc0RXS1F2VkR0WTNGdUFteVcyK3B4QjV2?=
+ =?utf-8?B?QWhEUFlkMG1CVnZhdmNBQWZYVXRaNHRGcUdWZ3FEd2ZFdm9FQytrSkZRZjNl?=
+ =?utf-8?B?aEpYMkFkWEw3dnNQYXZsMSt0RDdqbjJzRml5Y2E3K25oa3ptUDkwd21ML3Q0?=
+ =?utf-8?B?RXVBZ1pWanVjY0VmemV5ZXFlZmVWUUo5Z2ZOV3dQQmJQU2c2NjFiOFRsYmRv?=
+ =?utf-8?B?SDFBUW1Fbk9IeHlreVh5SzNMNkN2NTBqdHpTS0hPRjVENlJlQktJWDBBcUx4?=
+ =?utf-8?B?SzJEMUt4d3dJM0VwUFMxbWxaZlM4a2hZWDlEczRmZ2tITTZYNklYRG1mVmxm?=
+ =?utf-8?B?ZGNoeXRiWHlxbkkvcU1YbzNtbXBzY3FMTXVGaWZFUnRQM0dTQytyNjhkMHQ2?=
+ =?utf-8?B?YkY4a2JSTUxnQmY0M3dGTnNLblgwbkNQdEdQNldPd3piTmROYTZFV2JiVnFz?=
+ =?utf-8?B?N0xmWncycnBRM0pTSmpmYXN3U3dkZ283NjUvYitKSGZJWHlJTkIxVXBRNTZS?=
+ =?utf-8?B?RldOTEN5M1Jnekk0MWk1QWxoNW04V0tpTGtENjd1YjYzL3ZJK3ZITFVLMlZa?=
+ =?utf-8?B?akIwZEpwdjk1Z3REV1hIaG11WlV1N1dwaFJkNkhEb1FkQktJZWgyV1A4Z0VD?=
+ =?utf-8?B?YUo3WGFHYlRTMHQ1RVlFTHBSRkhPZXExeE9yYitLNHBjWlczVnAzWGd0ZXY1?=
+ =?utf-8?B?TWVxQVZoN2Q2RExjQUtVVGtUNUg5UG9hWENobkdrSW1HcVhScy9nb2hKMDZi?=
+ =?utf-8?B?WFQ1YlA2RC9xZW1sdGgvTEpxOUNETFdaZDFDT3crc3NocnU0VnR5ZDBwTjU1?=
+ =?utf-8?B?YW5NUlA0UWVlWjFvNEN2MmJoWTVxQk5IdVZLUWlBMnE5bnZMeDhwcjNYR0VM?=
+ =?utf-8?B?SXdJdDlTc2NhNk8wdjAwNmNuOEUzY3pWbTBVVTBodlVCU3pBUmhaZGVnWFox?=
+ =?utf-8?B?cWw4YXZ5SGZRMk1wRmFsbUNYaFhOMlk0ek13YzRNQWFYMjZ6VlM2U3NoRWNa?=
+ =?utf-8?Q?WadSlu452uwXKRRmLJ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85d1a074-3017-47d8-ba57-08df2e056ce1
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4283.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 17:21:35.2417
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: luUo0TtBYBmbSr5a7Ojb8ctFOKKok/JlaEqDKmj6xDviqjRnsC56kbdxHmuBR8iXq4hSXcuppzl7I3ApFPemTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6887
 
-Make RISC-V TLB flush requests observable together with the
-architecture-specific context available when the request reaches
-the RISC-V implementation.
 
-The generic tlb:tlb_flush event provides reason and page-count
-information. At the RISC-V implementation level, additional
-context is available, including the invalidation range and stride,
-ASID, target CPU mask, and invalidation scope.
+On 19/10/2026 12:58, netdev-bot+sashiko@kernel.org wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
+>
+> Critical: 0 · High: 0 · Medium: 2 · Low: 2
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [Medium] Incomplete fix: the Siena sibling driver is left with the same
+>   bugs.
+> - [Medium] efx_ptp_start() sends MC_CMD_PTP_OP_ENABLE through
+>   efx_ptp_enable() (line 1460) with no lock held.
+> - [Low] Resolved later in the series (baseline decision: false).
+> - [Low] The new kernel-doc for @phc_lock in struct efx_ptp_data (lines
+>   276-277) says the lock 'Serializes PHC commands and synchronization,…
+>
+> --
+>
+> sfc: ptp: serialize host and MC synchronization transactions
+>
+> This patch adds a phc_lock mutex to struct efx_ptp_data. The lock is held
+> across efx_ptp_synchronize(), the PHC adjfine/adjtime/settime callbacks,
+> and the current_adjfreq reset in efx_ptp_start(). efx_ptp_synchronize()
+> also now bails out when efx_mcdi_rpc_start() fails, instead of finishing
+> an RPC that was never acquired.
 
-This context is useful for debugging and workload analysis. The
-target CPU mask shows the address-space CPU footprint involved in
-an invalidation, while range and stride distinguish requests at
-different mapping granularities. The ASID and scope help correlate
-requests with MM, scheduler, IPI, and firmware activity.
 
-Add riscv_tlb:riscv_tlb_flush_request in flush_tlb_all() and
-__flush_tlb_range(). Record start, size, stride, ASID (or the
-no-ASID sentinel), whether an mm is associated with the request,
-the target CPU mask and its weight, and the derived scope.
+[...]
 
-Record the complete target mask because CPU identity cannot be
-reconstructed from a count. Calculate its weight from the recorded
-bitmap so both fields agree even if mm_cpumask() changes during
-recording.
+>
+>> @@ -1027,11 +1038,14 @@ static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
+>>       MCDI_SET_QWORD(synch_buf, PTP_IN_SYNCHRONIZE_START_ADDR,
+>>                      ptp->start.dma_addr);
+>>
+>> +     mutex_lock(&ptp->phc_lock);
+>> +
+>>       /* Clear flag that signals MC ready */
+>>       WRITE_ONCE(*start, 0);
+>>       rc = efx_mcdi_rpc_start(efx, MC_CMD_PTP, synch_buf,
+>>                               MC_CMD_PTP_IN_SYNCHRONIZE_LEN);
+>> -     EFX_WARN_ON_ONCE_PARANOID(rc);
+>> +     if (rc)
+>> +             goto out;
+> [Severity: Medium]
+> Does drivers/net/ethernet/sfc/siena/ptp.c need the same fix? It has the
+> same code, and every problem fixed here is still present there.
+>
+> In siena, efx_ptp_synchronize() clears the start flag without a lock. If
+> the start fails, it still goes on to efx_siena_mcdi_rpc_finish():
+>
+> drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_synchronize() {
+>     ...
+>         /* Clear flag that signals MC ready */
+>         WRITE_ONCE(*start, 0);
+>         rc = efx_siena_mcdi_rpc_start(efx, MC_CMD_PTP, synch_buf,
+>                                       MC_CMD_PTP_IN_SYNCHRONIZE_LEN);
+>         EFX_WARN_ON_ONCE_PARANOID(rc);
+>     ...
+> }
+>
+> efx_siena_mcdi_rpc_start() can return before efx_mcdi_acquire_sync()
+> through efx_mcdi_check_supported(), mc_bist_for_other_fn or
+> MCDI_MODE_FAIL.
+>
+> The siena driver also has the same two concurrent callers,
+> efx_ptp_pps_worker() and efx_ptp_change_mode(). Its efx_phc_adjfine() and
+> efx_ptp_start() write current_adjfreq without a lock. Its
+> efx_phc_settime() still does gettime and adjtime as two separate steps.
+>
+> The Fixes: tag points at 7c236c43b838 ("sfc: Add support for IEEE-1588
+> PTP"), the original code that siena/ptp.c was forked from. The commit
+> message does not mention Siena. Should there be a companion patch for
+> sfc-siena, or a note on why Siena is not affected?
 
-The event describes an invalidation request before dispatch. It
-does not report whether a remote flush uses SBI RFENCE or Linux
-cross-CPU coordination, since that choice is effectively established
-during initialization rather than made for each request.
 
-The address field (start) may contain kernel virtual addresses
-for flushes involving kernel mappings. Require perf tracepoint
-permissions even for counting-only events, since perf filters
-could otherwise reveal address information through event counts.
+ From inspection, it looks like this issue or similar locking issues do
+exist on Siena. I think we should take care of Siena issues in a
+separate patchset. Additionally, I don't have a Siena NIC handy to test on. 
 
-Tested on QEMU virt with OpenSBI using local and shared-mm
-mprotect()/munmap() workloads, exercising single, range, and
-address-space invalidations. A MADV_PAGEOUT reclaim workload
-exercised global flushes. All four scope values were observed.
+[...]
 
-Confirmed that trace-cmd records the event and that perf can count
-it with sufficient privileges. With perf_event_paranoid=0,
-unprivileged attempts to count the event using perf were denied,
-as intended.
+>> @@ -1446,7 +1462,9 @@ static int efx_ptp_start(struct efx_nic *efx)
+>>               goto fail;
+>>
+>>       ptp->evt_frag_idx = 0;
+>> +     mutex_lock(&ptp->phc_lock);
+>>       ptp->current_adjfreq = 0;
+>> +     mutex_unlock(&ptp->phc_lock);
+> [Severity: Medium]
+> Can a frequency adjustment still be lost here?
+>
+> Just above this, efx_ptp_start() sends MC_CMD_PTP_OP_ENABLE without
+> holding any lock:
+>
+>         rc = efx_ptp_enable(efx);
+>         if (rc != 0)
+>                 goto fail;
+>
+> The firmware enable and the cache reset are therefore not one critical
+> section, and efx_phc_adjfine() can run completely between them:
+>
+> CPU0 (efx_ptp_start)            CPU1 (clock_adjtime ADJ_FREQUENCY)
+> efx_ptp_enable() completes
+>                                 efx_phc_adjfine()
+>                                   mutex_lock(&ptp_data->phc_lock)
+>                                   MCDI ADJUST with FREQ=X
+>                                   current_adjfreq = X
+>                                   mutex_unlock(&ptp_data->phc_lock)
+> mutex_lock(&ptp->phc_lock)
+> current_adjfreq = 0
+> mutex_unlock(&ptp->phc_lock)
+>
+> The next adjtime or settime goes through _efx_phc_adjtime(), which
+> programs the frequency from the cached value:
+>
+>         MCDI_SET_QWORD(inbuf, PTP_IN_ADJUST_FREQ, ptp_data->current_adjfreq);
+>
+> That would put the MC back at frequency 0 and drop a correction that
+> adjfine already reported as applied.
+>
+> The commit message says current_adjfreq "cannot be torn by the reset in
+> efx_ptp_start()". The patch prevents tearing, but the cached value can
+> still get out of sync with the hardware. Would phc_lock need to be held
+> across both efx_ptp_enable() and the reset?
+>
+> Also, efx_ptp_enable() treats -EALREADY as success. In that case the
+> firmware probably did not reset its frequency, but the driver still sets
+> current_adjfreq to 0. Is that intended?
 
-Tested local and shared-mm invalidations with
-CONFIG_UBSAN_ALIGNMENT=y on QEMU virt without tracepoint-related
-alignment warnings.
 
-Built with and without CONFIG_PERF_EVENTS.
+This looks like a real issue. I don't think we need to reset
+current_adjfreq at all - will respin.
 
-Signed-off-by: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
----
-Add a RISC-V tracepoint for observing TLB invalidation requests
-before they are dispatched by the architecture-specific
-implementation.
+>
+> --
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015114104.2531624-1-alex.austin%40amd.com
 
-The generic tlb:tlb_flush event describes TLB flush activity using
-reason and page-count information. The RISC-V event records
-additional context, including the invalidation range and stride,
-ASID, target CPU mask and its weight, and derived request scope.
 
-This context helps correlate TLB invalidation activity with MM,
-scheduler, IPI, and firmware activity. The event describes the
-request rather than the execution backend. SBI RFENCE versus Linux
-cross-CPU coordination is effectively determined at initialization
-rather than selected independently for each request.
-
-The target CPU mask weight is derived from the recorded bitmap to
-keep both fields consistent under concurrent mm_cpumask() updates.
-Since the address field (start) may contain kernel virtual
-addresses, the event requires perf tracepoint permissions even
-for counting-only access.
-
-Tested on QEMU virt with OpenSBI using local and shared-mm
-mprotect()/munmap() workloads. A MADV_PAGEOUT reclaim workload
-on QEMU virt with APLIC+IMSIC exercised global flushes. All four
-scope values -- single, range, address-space, and all -- were
-observed.
-
-Confirmed trace-cmd recording and privileged perf counting.
-With perf_event_paranoid=0, unprivileged attempts to count the
-event using perf were denied, as intended. The kernel was built
-with and without CONFIG_PERF_EVENTS.
-
-Tested local and shared-mm invalidations with
-CONFIG_UBSAN_ALIGNMENT=y on QEMU virt without tracepoint-related
-alignment warnings.
----
-Changes in v7:
-- Rename the tracepoint header to asm/tlb_trace.h to make its
-  purpose explicit, as suggested by Steven Rostedt.
-- Link to v6: https://lore.kernel.org/r/20261018-tlb_tracepoint-v6-1-14476427870f@gmail.com
-
-Changes in v6:
-- Change the scope field from u8 to u32 to ensure the dynamic
-  CPU mask is properly aligned for bitmap operations.
-- Verify local and shared-mm TLB flush tracing with
-  CONFIG_UBSAN_ALIGNMENT=y on QEMU virt.
-- Link to v5: https://lore.kernel.org/r/20261017-tlb_tracepoint-v5-1-256fb5393a7f@gmail.com
-
-Changes in v5:
-- Move the architecture-specific trace event definition under
-  arch/riscv/, as requested by Steven Rostedt.
-- Calculate target_mask_weight from the recorded CPU mask to
-  keep both fields consistent under concurrent updates.
-- Require perf tracepoint permissions for counting-only access,
-  since the event may expose kernel virtual addresses.
-- Link to v4: https://lore.kernel.org/r/20261015-tlb_tracepoint-v4-1-f238a2bd8f7e@gmail.com
-
-Changes in v4:
-- Drop unrelated whitespace-only changes in arch/riscv/mm/tlbflush.c.
-- Link to v3: https://lore.kernel.org/all/20261015-tlb_tracepoint-v3-1-eef305a3bb63@gmail.com/
-
-Changes in v3:
-- Rebase on current RISC-V for-next.
-- Thanks to Jisheng Zhang for pointing out that SBI RFENCE versus Linux
-  cross-CPU coordination is effectively a system-wide choice established
-  during initialization rather than a per-request decision.
-- Drop the local/SBI RFENCE/cross-CPU path field.
-- Rename the event from riscv_tlb_flush_path to
-  riscv_tlb_flush_request and refocus it on the semantic TLB
-  invalidation request.
-- Emit one request event independently of the mechanism subsequently
-  used to perform the invalidation.
-- Address checkpatch.pl --strict alignment issues.
-- Link to v2: https://lore.kernel.org/r/20260830-tlb_tracepoint-v2-1-e3c88c24df5b@gmail.com
-
-Changes in v2:
-- Use trace_call__riscv_tlb_flush_path() after the explicit
-  trace_riscv_tlb_flush_path_enabled() check to avoid a second
-  tracepoint static-key test, as suggested by Steven Rostedt.
-- Link to v1: https://lore.kernel.org/r/20260829-tlb_tracepoint-v1-1-dfdaede7e741@gmail.com
----
- arch/riscv/include/asm/tlb_trace.h | 103 +++++++++++++++++++++++++++++++++++++
- arch/riscv/mm/tlbflush.c           |  45 ++++++++++++++--
- 2 files changed, 144 insertions(+), 4 deletions(-)
-
-diff --git a/arch/riscv/include/asm/tlb_trace.h b/arch/riscv/include/asm/tlb_trace.h
-new file mode 100644
-index 000000000000..60b48eb0d355
---- /dev/null
-+++ b/arch/riscv/include/asm/tlb_trace.h
-@@ -0,0 +1,103 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM riscv_tlb
-+
-+#if !defined(_TRACE_RISCV_TLB_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define _TRACE_RISCV_TLB_TRACE_H
-+
-+#include <linux/cpumask.h>
-+#include <linux/tracepoint.h>
-+#include <linux/perf_event.h>
-+
-+#ifndef _TRACE_RISCV_TLB_ENUMS
-+#define _TRACE_RISCV_TLB_ENUMS
-+
-+enum riscv_tlb_flush_scope {
-+	RISCV_TLB_FLUSH_SCOPE_SINGLE,
-+	RISCV_TLB_FLUSH_SCOPE_RANGE,
-+	RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE,
-+	RISCV_TLB_FLUSH_SCOPE_ALL,
-+};
-+
-+#endif /* _TRACE_RISCV_TLB_ENUMS */
-+
-+TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_SINGLE);
-+TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_RANGE);
-+TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE);
-+TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ALL);
-+
-+#define show_riscv_tlb_flush_scope(scope) \
-+	__print_symbolic(scope, \
-+		{ RISCV_TLB_FLUSH_SCOPE_SINGLE,        "single" }, \
-+		{ RISCV_TLB_FLUSH_SCOPE_RANGE,         "range" }, \
-+		{ RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE, "address-space" }, \
-+		{ RISCV_TLB_FLUSH_SCOPE_ALL,           "all" })
-+
-+/*
-+ * Record the invalidation request received by the RISC-V architecture code
-+ *
-+ * The target CPU mask represents the CPUs Linux intends to cover for the
-+ * request. It can be correlated with per-CPU activity, but does not describe
-+ * which harts ultimately performed an invalidation.
-+ *
-+ * The ASID is hardware-visible and may be reused. It must not be treated as a
-+ * persistent identifier for an mm.
-+ *
-+ * The stride describes the invalidation granularity supplied to the RISC-V
-+ * implementation.
-+ *
-+ * The event records the invalidation request before it is dispatched. It does
-+ * not describe the mechanism used to execute the request.
-+ *
-+ */
-+TRACE_EVENT(riscv_tlb_flush_request,
-+	    TP_PROTO(unsigned long start, unsigned long size,
-+		     unsigned long stride, unsigned long asid, bool has_mm,
-+		     const struct cpumask *cmask,
-+		     enum riscv_tlb_flush_scope scope),
-+
-+	TP_ARGS(start, size, stride, asid, has_mm, cmask, scope),
-+
-+	TP_STRUCT__entry(__field(unsigned long, start)
-+		__field(unsigned long, size)
-+		__field(unsigned long, stride)
-+		__field(unsigned long, asid)
-+		__field(bool, has_mm)
-+		__field(unsigned int, target_mask_weight)
-+		__cpumask(target_cpus)
-+		__field(u32, scope)
-+	),
-+
-+	TP_fast_assign(__entry->start = start;
-+		__entry->size = size;
-+		__entry->stride = stride;
-+		__entry->asid = asid;
-+		__entry->has_mm = has_mm;
-+		__assign_cpumask(target_cpus, cpumask_bits(cmask));
-+		__entry->target_mask_weight = cpumask_weight((const struct cpumask *)
-+						     __get_cpumask(target_cpus));
-+		__entry->scope = scope;
-+	),
-+
-+	TP_printk("start=%#lx size=%#lx stride=%#lx asid=%#lx has_mm=%d target_mask_weight=%u target_cpus=%s scope=%s",
-+		  __entry->start, __entry->size, __entry->stride,
-+		  __entry->asid, __entry->has_mm,
-+		  __entry->target_mask_weight, __get_cpumask(target_cpus),
-+		  show_riscv_tlb_flush_scope(__entry->scope))
-+);
-+
-+#ifdef CONFIG_PERF_EVENTS
-+TRACE_EVENT_PERF_PERM(riscv_tlb_flush_request,
-+		      perf_allow_tracepoint());
-+#endif
-+
-+#endif /* _TRACE_RISCV_TLB_TRACE_H */
-+
-+#undef TRACE_INCLUDE_PATH
-+#undef TRACE_INCLUDE_FILE
-+
-+#define TRACE_INCLUDE_PATH asm
-+#define TRACE_INCLUDE_FILE tlb_trace
-+
-+/* This part must be outside protection. */
-+#include <trace/define_trace.h>
-diff --git a/arch/riscv/mm/tlbflush.c b/arch/riscv/mm/tlbflush.c
-index 962db300a166..9dcb07fb3ac0 100644
---- a/arch/riscv/mm/tlbflush.c
-+++ b/arch/riscv/mm/tlbflush.c
-@@ -9,6 +9,9 @@
- #include <asm/mmu_context.h>
- #include <asm/cpufeature.h>
- 
-+#define CREATE_TRACE_POINTS
-+#include <asm/tlb_trace.h>
-+
- #define has_svinval()	riscv_has_extension_unlikely(RISCV_ISA_EXT_SVINVAL)
- 
- /*
-@@ -63,6 +66,32 @@ void local_flush_tlb_kernel_range(unsigned long start, unsigned long end)
- 	local_flush_tlb_range_asid(start, end - start, PAGE_SIZE, FLUSH_TLB_NO_ASID);
- }
- 
-+static enum riscv_tlb_flush_scope
-+riscv_tlb_get_flush_scope(unsigned long size, unsigned long stride, bool has_mm)
-+{
-+	if (size == FLUSH_TLB_MAX_SIZE)
-+		return has_mm ? RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE :
-+			RISCV_TLB_FLUSH_SCOPE_ALL;
-+
-+	return size <= stride ? RISCV_TLB_FLUSH_SCOPE_SINGLE :
-+		RISCV_TLB_FLUSH_SCOPE_RANGE;
-+}
-+
-+static __always_inline void
-+riscv_tlb_trace_flush_request(const struct cpumask *cmask, unsigned long start,
-+			      unsigned long size, unsigned long stride,
-+			      unsigned long asid, bool has_mm)
-+{
-+	enum riscv_tlb_flush_scope scope;
-+
-+	if (!trace_riscv_tlb_flush_request_enabled())
-+		return;
-+
-+	scope = riscv_tlb_get_flush_scope(size, stride, has_mm);
-+	trace_call__riscv_tlb_flush_request(start, size, stride, asid, has_mm,
-+					    cmask, scope);
-+}
-+
- static void __ipi_flush_tlb_all(void *info)
- {
- 	local_flush_tlb_all();
-@@ -70,12 +99,18 @@ static void __ipi_flush_tlb_all(void *info)
- 
- void flush_tlb_all(void)
- {
--	if (num_online_cpus() < 2)
-+	riscv_tlb_trace_flush_request(cpu_online_mask, 0,
-+				      FLUSH_TLB_MAX_SIZE, 0,
-+				      FLUSH_TLB_NO_ASID, false);
-+
-+	if (num_online_cpus() < 2) {
- 		local_flush_tlb_all();
--	else if (riscv_use_sbi_for_rfence())
--		sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE, FLUSH_TLB_NO_ASID);
--	else
-+	} else if (riscv_use_sbi_for_rfence()) {
-+		sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE,
-+					   FLUSH_TLB_NO_ASID);
-+	} else {
- 		on_each_cpu(__ipi_flush_tlb_all, NULL, 1);
-+	}
- }
- 
- struct flush_tlb_range_data {
-@@ -105,6 +140,8 @@ static void __flush_tlb_range(struct mm_struct *mm,
- 
- 	cpu = get_cpu();
- 
-+	riscv_tlb_trace_flush_request(cmask, start, size, stride, asid, !!mm);
-+
- 	/* Check if the TLB flush needs to be sent to other CPUs. */
- 	if (cpumask_any_but(cmask, cpu) >= nr_cpu_ids) {
- 		local_flush_tlb_range_asid(start, size, stride, asid);
-
----
-base-commit: a5ae1bf65cee84bcc121d659e7e22a767853f5f5
-change-id: 20260829-tlb_tracepoint-844105ab5092
-
-Best regards,
--- 
-Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
+pw-bot: cr
 
