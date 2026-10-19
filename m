@@ -1,63 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792444741;
-	b=N4T4Ilq1xjz+NpV4QvpacmE3PEsIAwd7svy5wwfN8SgR1UZQzQYKuXSAAMDxQ2Y8ROZZ
-	 z9z8q683wMPKjKur0yrMavx7MyueRqAiIrKYPCmuoqg427cm6Knc9psR6zVvDmuFWjkH+
-	 D3zQI6zQ0GoOBiGM0w9ZK3fMHqyDe/umLLKtWJ88g5awZZYij35RA5o6kzr3GGsQYnX8D
-	 WneLYk8IcIxTJNOYHamNXNL+ktyFC8iSl10SouCIUhprBDYXIqWubDZTntdyfPS44ROnJ
-	 oQoyzc760NbTQZvvHeAD528cJ7z9RPDhI/WLLBHu5fQ+05DNmvp35f9WFRMUVJxn9ow==
+	t=1792444751;
+	b=1Wch7PGRPKMVO3xUX6aOwywCTJmjs/2+xYxWj4HWklBdLPo7QfGDaSIWw9tNe97zx2cl
+	 HLfTgScz86+GhSwZwIA10X+6nvBy8PuJ4u4bjtr2knkIIC/T3a+a/D98DPqqRv3jF/bZ3
+	 lfmxr+fVrLzR/X+WOiw7VdKC8+ScSCA20vPdrjlYWNsZmv7IRrr5QdRdPR1TG/5N+LUPP
+	 bjYNcSLuNf0WOPRKNkK0v9pOXQR26VDKkU3HLHtSw1/9vpwfnVtkWxe3PkzaTsuJGqeJQ
+	 LYBUQ0ttc0Upql543grZ67KRbQGzabdJnP2zxozAqtLlV4oV1pFWK4Vlk7StVRU+A4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792444741;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792444751;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=r/4Vz70AHBEzgvP5ZrxXGqOcrtSUda3iU9Kf5mhVU0k=;
-	b=PapBt+vyBbUFAFgy8/PoBTRIvPBDZWAhtNTKnohhvSDTUCOlvHq7HLSRLlKDsnRDpOdP
-	 RdLbWAY84Va6GTXnyDyIDzjIX4Ui3iMus+nITkNRfLficajR3WiQsklL+IqHeGHnGXp10
-	 SdX4Wq3OUNuADNNxfRiF9vYgVLEE6oGr7WjSlDBvHjBK6aBou6AdO1h25VcQOaJQtVE3u
-	 itOY0dyWkl72UdFrNl3xAZxyZyIoOAuleQicALCWwbrk+dBYgY/pM5hJMPwCykQuzXbjB
-	 h0oW+C3Uy1lkrptXtq896QcA3NhUmiKrOldsGuL0JZD96xnq4zNut2+S033FtIa4c5A==
+	bh=A3KySBfkO0wNf//W+vJY7lgKk6K7hXGdO/qW19nptvg=;
+	b=toxWEdhoLO9wUCGNmwZlbBvRF3r/abcihR22x1xPhKrwOoTNq6BeWrEV/h8IXAN3GYt3
+	 FRFDkn4RyWboogtkBQqrxpXVzjN1w7mo/L//eDQdkQZhlCnYCJ9V01F2DbXXetHle6ns5
+	 Tep2DjPT/l7iXjE7dQuH15cLqncbil23fwjwDEOQxpE4kqH2GQcUu7loWSgW3yDWUvg0P
+	 iSUcahZbNhle9mxpxtrBHU4tJ3udYJ5qX3o53x82J/wdtGaUK40RSBqgwWF54PJe129YZ
+	 hd7IHDNBaiZyUENceX1ZA0xXNdjvI6mmstJEHGON+ouLjBvQlG5XhHNoyvuq6nCaR3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ak5L1Hm4;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GZuFzpHx;
 	arc=none smtp.remote-ip=185.246.84.56
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBAD606A31A;
-	Mon, 19 Oct 2026 21:19:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCBAD606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C180A60A2602
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:19:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C180A60A2602
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ak5L1Hm4
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GZuFzpHx
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 889BE1A1246;
-	Mon, 19 Oct 2026 21:18:59 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 7A2A11A1246
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:19:09 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5E4B860582;
-	Mon, 19 Oct 2026 21:18:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 89D9910328D6E;
-	Mon, 19 Oct 2026 23:18:51 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4E68F60582;
+	Mon, 19 Oct 2026 21:19:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9931410328C22;
+	Mon, 19 Oct 2026 23:19:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792444734; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1792444744; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=r/4Vz70AHBEzgvP5ZrxXGqOcrtSUda3iU9Kf5mhVU0k=;
-	b=ak5L1Hm4lGD2qptIEQNq/+a64fhiDtI+N1jhZzEIrQnyx56/opZrJi17bYpcFjTS/O3TWq
-	f0iVhAZ8r9Pys2s7JWao2/gPGbvacSwYNlozCv0XzkCrKyhVoXQc2sUMmojjA5aDOrptNV
-	3VmjVAN4Ygg1aDslWx6pvNsrD6zK+ygNPdNMkX/53duVAwQ4I56pdMMitIE+W/ap6dtvjm
-	98sw9xWlHPdEfc8q9zXkp0T/MQ3EE0KG/KZCpRhpcdBTQsvN73/U7APaxrNZeU2L1sySzy
-	7tmK3qLTcPsiLLyJToX4oV708efSARg4HsCTFzMteNhidxOaQ0vofqu7Dsh4IQ==
+	bh=A3KySBfkO0wNf//W+vJY7lgKk6K7hXGdO/qW19nptvg=;
+	b=GZuFzpHxX2rs6jdzW1UIdzLpwsAHnxWjeI8v2dCVNvlewU/dcTq6nJM2ucRunrbbNpUR2d
+	NCwdqVO/V51Qi1v0SnB/oMAMlPAxOCH+a0nhFBGCRGDogDEt8/XFucAazNZYPEuceRnL7E
+	HFoVOMPo8T7O6Y3Dmh97cJgWiN5mZq+k/jwsxq5lafUBfrFovWC3lpNGBNgKd2X6xJ2xmN
+	xE8DIbaIeG0sL+DFeeFos9DcG8jgGk2eFFZSXtXwEseuLQR9d2rTMSKoBeAK6Z/X3YL+C/
+	AxhsybY6igXL3whReaXa6+yVAIPSMO+o05Ih9fxnNkobDfnWDlidF2zD2QXdlA==
 From: alexandre.belloni@bootlin.com
-To: CL Wang <cl634@andestech.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
 Cc: linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 04/19] rtc: atcrtc100: use guard
-Date: Mon, 19 Oct 2026 23:18:05 +0200
-Message-ID: <20261019211827.126262-4-alexandre.belloni@bootlin.com>
+Subject: [PATCH 06/19] rtc: ds1307: use guard
+Date: Mon, 19 Oct 2026 23:18:07 +0200
+Message-ID: <20261019211827.126262-6-alexandre.belloni@bootlin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019211827.126262-1-alexandre.belloni@bootlin.com>
 References: <20261019211827.126262-1-alexandre.belloni@bootlin.com>
@@ -75,34 +74,52 @@ X-Last-TLS-Session-Version: TLSv1.3
 
 From: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-Use guard() to simplify locking
+Use guard() to simplify error handling
 
 Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 ---
- drivers/rtc/rtc-atcrtc100.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/rtc/rtc-ds1307.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/rtc/rtc-atcrtc100.c b/drivers/rtc/rtc-atcrtc100.c
-index 9808fc2c5a49..2433df386c40 100644
---- a/drivers/rtc/rtc-atcrtc100.c
-+++ b/drivers/rtc/rtc-atcrtc100.c
-@@ -147,7 +147,7 @@ static void atcrtc_alarm_clear(struct work_struct *work)
- 		container_of(work, struct atcrtc_dev, rtc_work);
+diff --git a/drivers/rtc/rtc-ds1307.c b/drivers/rtc/rtc-ds1307.c
+index 522f7eef3b4a..0cf4836b81b1 100644
+--- a/drivers/rtc/rtc-ds1307.c
++++ b/drivers/rtc/rtc-ds1307.c
+@@ -579,28 +579,27 @@ static irqreturn_t rx8130_irq(int irq, void *dev_id)
+ 	u8 ctl[3];
  	int ret;
  
--	rtc_lock(rtc->rtc_dev);
-+	guard(rtc_ops)(rtc->rtc_dev);
+-	rtc_lock(ds1307->rtc);
++	guard(rtc_ops)(ds1307->rtc);
  
- 	if (!rtc->alarm_en) {
- 		ret = atcrtc_check_write_done(rtc);
-@@ -159,7 +159,6 @@ static void atcrtc_alarm_clear(struct work_struct *work)
- 			regmap_update_bits(rtc->regmap, RTC_CR,
- 					   ALARM_WAKEUP | ALARM_INT, 0);
- 	}
--	rtc_unlock(rtc->rtc_dev);
+ 	/* Read control registers. */
+ 	ret = regmap_bulk_read(ds1307->regmap, RX8130_REG_EXTENSION, ctl,
+ 			       sizeof(ctl));
+ 	if (ret < 0)
+-		goto out;
++		return IRQ_HANDLED;
++
+ 	if (!(ctl[1] & RX8130_REG_FLAG_AF))
+-		goto out;
++		return IRQ_HANDLED;
++
+ 	ctl[1] &= ~RX8130_REG_FLAG_AF;
+ 	ctl[2] &= ~RX8130_REG_CONTROL0_AIE;
+ 
+ 	ret = regmap_bulk_write(ds1307->regmap, RX8130_REG_EXTENSION, ctl,
+ 				sizeof(ctl));
+ 	if (ret < 0)
+-		goto out;
++		return IRQ_HANDLED;
+ 
+ 	rtc_update_irq(ds1307->rtc, 1, RTC_AF | RTC_IRQF);
+ 
+-out:
+-	rtc_unlock(ds1307->rtc);
+-
+ 	return IRQ_HANDLED;
  }
  
- static int atcrtc_read_time(struct device *dev, struct rtc_time *tm)
 -- 
 2.56.0
 
