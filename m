@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEDE50841C;
-	Mon, 19 Oct 2026 14:03:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D0C60C138;
+	Mon, 19 Oct 2026 14:03:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418612; cv=none; b=m26y8lKZsuZY2BmqJa2Ly1v/gFSgI7WucL5mH8KtNbTA7So64tbw+G0ltdXbU8LSTYW95HIpesM1yKGIXfaaaau3/dv4f+0W3aZRY+/gJ6zgdXDnUHsMNXS3P4Kv0I9PiRHnC195ZsC7Hty69DXn7c5VLf7oeyXlN54TSfQP+4E=
+	t=1792418615; cv=none; b=j7co9hAhO4OyNuIT0wf0eNhQnO3SYBG/RhyUd7N45QSgumcVs55vI3rZPY1s3xn+j+ZyMvldryb5bDyZftyeqz/VuTh7W65S1hamPeDXKm74bX9n+2lz9JhAG/KuMg5kpmpT+/47Ef44vS8zvE+40DUzU5L67Uo9NC84Ku8tA/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418612; c=relaxed/simple;
-	bh=BcvsgOYZE/XsJ+D+p03Dqf37OQAI3d1cOGaFE1fdTxw=;
+	s=arc-20240116; t=1792418615; c=relaxed/simple;
+	bh=+f7AxBQ/GFqMQOqpSVOnMUjhTseUYo1rSUcfmMZiITw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ohgssXtY0O08pmdRH6kmC0jzLRenVoRASRSkh62JI22BKYv1nePWA7zc1oXzQMAc3cR+aY+U2jKnHZ8vnYzDgfI1a1Golm18Kkq4f0l299k+7Wk3+qXNf/AyyeY39v02aorJCNLGgJSUjahIPfknJ0jZVPxXIiGilQZVqf/u2Og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqpfLuB3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=p6HCz6Lp26M4tuYrtOfplkgMMJPO9TWAnDyrGw1UlGCPHqc/Hj3NVdCuCCSATc2kdvZ1Tl7ACyk62lwTbmnusyY4N1RBAmVyWh0RfqK5BRSFxdm646nMLBuWVp63/J3Gs/ot2d0Inu8xg8Q2TFDFBN+rxfm6pHbbbbyoqwLaQnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDa1qS3A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqpfLuB3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7B81F000C4;
-	Mon, 19 Oct 2026 14:03:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDa1qS3A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70181F000C9;
+	Mon, 19 Oct 2026 14:03:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418609;
-	bh=3XWOh0TlZD3lVy6AJyQ1GhSc9Trgig1dArAlc2AK3/I=;
+	s=k20260515; t=1792418611;
+	bh=O/7nKuZZTTXKrqGgjsu53ErwkFI4GPu3p0+a9Gj7TDs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nqpfLuB3FIE/Z/N+YcpGlDmc2DAVEroXp720IkqOU6/Y2l4079xYoG0Z9j8f9A55v
-	 PkAmO51uL56pg1PyRuK83gfDGL3o7ODxMWdkkH2rcl8waYvvrxCEC5p1+ksRnKE/xG
-	 aKF3Bct7KhGpqSAfFIW9nwtKtnSchbR6kFI1QiLpt0w2RiQawBlvLi00qxxUdSjqo3
-	 tkGlPmaHf64+9dM1Ly7nFpvVIIXnFc/kYLZfx8am7+SjySomJd9K2e5njEvZcqnzva
-	 WpO0uLRf0v1Dl2nabFnFmj7dPI9YDk9kmRtDt4mu9Ihbiq4iz5MVLguBLQPGGaHZEs
-	 hI2dUc9BiJAKg==
+	b=dDa1qS3AnqKoCwvSpaP+OPTgda4UVC5CZEWUKKSlKjnF+YNQC40UwQVSU8lOISzlL
+	 lWl4kyqj8h0/HlIpmSheUR+fDuXQhqVCNJVOpyQx0qxP5m0IGdq89f1D5WAFejubBA
+	 sMAwcLCqY2/lmXF4MkjtvURmlYicnm34Io7nS8TN5f8AXwrJk3/1voGbxuL+/7amLT
+	 fKS0+Fqjldzi4vtgYOuh/o0RWB/8HnGcUUARARwVGvPEZQMf7gWb17IC1d+UZb/1et
+	 wBf6gHzlzBFMdoi3zh32NALmBhtwqut43ulBGlbtDa+rFvTzpV7+Lk9N+RAITQ0GAl
+	 8qX6IKE8FG1BQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
 Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	florian.fainelli@broadcom.com,
-	linux-rtc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	awalls@md.metrocast.net,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] rtc: brcmstb-waketimer: add missing MODULE_DEVICE_TABLE()
-Date: Mon, 19 Oct 2026 09:51:01 -0400
-Message-ID: <20261019135441.1420968-370-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: cx18: stop VBI start-code scan before short tail
+Date: Mon, 19 Oct 2026 09:51:03 -0400
+Message-ID: <20261019135441.1420968-372-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -56,67 +56,70 @@ Content-Transfer-Encoding: 8bit
 
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 402c89d28fecd28652a4bfe997f08f6544836381 ]
+[ Upstream commit bf533acaaa7dee21d49bcaabf8e813ea36bddcd8 ]
 
-The driver has an OF match table wired to .of_match_table, but does
-not export the table with MODULE_DEVICE_TABLE().
+compress_sliced_buf() scans one byte at a time while testing a four-byte
+VBI start code.  The final iterations can read beyond the remaining
+buffer tail.
 
-Add the missing MODULE_DEVICE_TABLE(of, ...) entry so module alias
-information is generated for OF based module autoloading.
-
-This is a source-level fix.  It does not claim dynamic hardware
-reproduction; the evidence is the driver-owned match table, its use by
-the platform driver, and the missing module alias publication.
+Stop the scan once fewer than four bytes remain.
 
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Link: https://patch.msgid.link/20260704121734.54941-1-pengpeng@iscas.ac.cn
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.12.111** (`pending-6.12`). The one-line OF alias
-publication is missing here, the match table is present, and the
-original mailed hunk applies cleanly.
+The local tree is **v7.3-rc4** (mainline `7.3.0-rc4`). The candidate is
+`bf533acaaa7de` (“media: cx18: stop VBI start-code scan before short
+tail”). It is a one-line bounds fix for a four-byte VBI start-code scan
+that can read past `bytesused`.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
 Step 1.1: PARSE THE SUBJECT LINE
-Record: **[rtc / brcmstb-waketimer] [add] [publish missing OF
-MODULE_DEVICE_TABLE so the module can autoload]**
+Record: **[media/cx18] [stop] [stop VBI start-code scan before a short
+4-byte tail]**
+- Subsystem: `media: cx18`
+- Verb: **stop** (prevent incorrect continuation) — a bug-fix verb even
+  without “fix”
+- Intent: do not scan a 4-byte EAV/start code when fewer than 4 bytes
+  remain
 
 Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- **Link:**
-  https://patch.msgid.link/20260704121734.54941-1-pengpeng@iscas.ac.cn
-- **Signed-off-by:** Pengpeng Hou (author)
-- **Signed-off-by:** Alexandre Belloni (RTC maintainer; applied)
-- **No Fixes:** (expected for this review)
-- **No Cc: stable** (expected)
-- **No Reported-by / Tested-by / Reviewed-by / Acked-by / syzbot**
-- Pipeline markers (`[Upstream commit ...]`, Sasha Levin SOB) ignored
-  per instructions
+- **Signed-off-by:** Pengpeng Hou &lt;pengpeng@iscas.ac.cn&gt; (author)
+- **Signed-off-by:** Hans Verkuil &lt;hverkuil+cisco@kernel.org&gt;
+  (media maintainer; applied the patch)
+- **No Fixes:**
+- **No Reported-by / Tested-by / Reviewed-by / Acked-by / Link / Cc:
+  stable**
+- Absence of Fixes/Cc:stable is expected for this pipeline and is not a
+  negative signal
+- Ignored: any Sasha Levin SOB / “[Upstream commit …]” (none in the real
+  commit)
 
 Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- **Bug:** OF match table is wired to `.of_match_table` but not exported
-  with `MODULE_DEVICE_TABLE()`, so modpost never emits
-  `of:N*T*Cbrcm,brcmstb-waketimer` aliases.
-- **Symptom:** When `CONFIG_RTC_DRV_BRCMSTB=m`, udev/kmod cannot
-  autoload `rtc-brcmstb-waketimer.ko` from the DT compatible string. The
-  wake-timer/RTC does not bind unless the module is loaded by hand.
-- **Version info:** none in the message. Driver has been in tree since
-  v4.13.
-- **Root cause (author):** missing module-alias publication, evidenced
-  by the driver-owned table and its use by the platform driver.
-  Explicitly a source-level finding, not a live hardware repro.
+- **Bug:** `compress_sliced_buf()` walks one byte at a time and tests
+  `buf[0]..buf[3]`. The last iterations can read past the remaining
+  tail.
+- **Symptom:** out-of-bounds **read** of 1–3 bytes past `size` (the
+  caller’s `buf->bytesused`).
+- **Failure mode:** memory-safety defect (possible slab/page over-read
+  if `bytesused` equals the allocation; otherwise a logical over-read of
+  DMA payload).
+- **Version info:** none in the message. History shows the loop since
+  2008/2009.
+- **Root cause (author):** loop condition `i < size` does not leave four
+  readable bytes.
 
 Step 1.4: DETECT HIDDEN BUG FIXES
-Record: **Not disguised.** It is a real autoload bug, same class as
-adding/publishing a device ID. Not style-only.
+Record: **Not disguised.** It is an explicit bounds fix. Not
+cleanup/refactor.
 
 ===============================================================
 PHASE 2: DIFF ANALYSIS - LINE BY LINE
@@ -124,42 +127,48 @@ PHASE 2: DIFF ANALYSIS - LINE BY LINE
 
 Step 2.1: INVENTORY THE CHANGES
 Record:
-- **File:** `drivers/rtc/rtc-brcmstb-waketimer.c` (+1 / −0)
-- **Function/site:** after `brcmstb_waketmr_of_match[]` (not inside a
-  function)
-- **Scope:** single-file, one-line surgical change
-- **Upstream SHA (verified):**
-  `402c89d28fecd28652a4bfe997f08f6544836381`
+- **File:** `drivers/media/pci/cx18/cx18-vbi.c` — **1 insertion, 1
+  deletion** (`2 +-`)
+- **Function:** `compress_sliced_buf()`
+- **Scope:** single-file, single-line surgical fix
 
 Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 Record:
-- **Before:** table exists and is assigned to `.of_match_table` via
-  `of_match_ptr()`. Built-in matching still works. Modular autoload does
-  not, because file2alias never sees the table.
-- **After:** `MODULE_DEVICE_TABLE(of, brcmstb_waketmr_of_match)` creates
-  `__mod_of__brcmstb_waketmr_of_match_device_table` as an alias when
-  `MODULE` is set (`include/linux/module.h`). `scripts/mod/file2alias.c`
-  `do_of_entry_multi()` then emits `MODULE_ALIAS("of:N*T*Cbrcm,brcmstb-
-  waketimer")`.
-- **Path affected:** module install / depmod / udev autoload only.
-  Probe, PM, and built-in bind paths are unchanged. When `!MODULE`, the
-  macro is empty.
+- **Before:** `for (i = hdr_size, buf += hdr_size; i < size; i++,
+  buf++)` then `buf[0]..buf[3]`. When `i` is `size-3`, `size-2`, or
+  `size-1`, `buf[3]` is at `size`, `size+1`, or `size+2` — past the
+  valid tail.
+- **After:** `i + 3 < size` so the last readable index is `i+3 <=
+  size-1`.
+- **Path:** sliced-VBI start-code search (not probe init). Only the “no
+  start code until EOF” path actually hits the tail; a successful match
+  `break`s earlier.
 
 Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: **[Hardware enablement / missing device ID publication]**
-- Category (h): OF alias not published, so modular bind fails.
-- Not UAF, leak, race, NULL deref, or crash.
+Record:
+- **Category:** **(d) memory safety** — buffer over-read / out-of-bounds
+- **Mechanism:** 4-byte peek with a 1-byte stride and an exclusive
+  `size` bound.
+- **Fix:** require four remaining bytes (`i + 3 < size`), the same
+  pattern as the sibling ivtv change.
+
+If no start code is found:
+- Old: `i == size`, then `size -= (i - hdr_size)` → remaining `hdr_size`
+  (12)
+- New: `i == size - 3` (when `size` is large enough), remaining
+  `hdr_size + 3` (15)
+Both are still `< line_size` (272/284), so the function still returns 0.
+A 4-byte code cannot sit in the last 3 bytes, so no false negative.
 
 Step 2.4: ASSESS THE FIX QUALITY
 Record:
-- **Quality:** obviously correct; this is the standard pattern (dozens
-  of RTC drivers already have `MODULE_DEVICE_TABLE(of, ...)` in this
-  tree).
-- **Regression risk:** very low. Compile-time alias only.
-  `__maybe_unused` on the table remains valid: built-in + `!CONFIG_OF`
-  still has no C reference; as a module the alias references the table,
-  which is intended.
-- **No API, locking, or data-structure changes.**
+- **Obviously correct.** Classic `need N bytes remaining` bound.
+- **Minimal.** One condition, no API/locking/structure change.
+- **Regression risk: very low.** False match in the old over-read tail
+  still left remaining size ≪ `line_size`. `i` starts at `hdr_size` (12)
+  and only increments; `i + 3 < size` with `u32 size` is safe for
+  realistic DMA sizes.
+- **Red flags:** none.
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
@@ -167,39 +176,39 @@ PHASE 3: GIT HISTORY INVESTIGATION
 
 Step 3.1: BLAME THE CHANGED LINES
 Record:
-- Match table and `.of_match_table` introduced in **`c4f07ecee22ec7`**
-  (“rtc: brcmstb-waketimer: Add Broadcom STB wake-timer”, Brian Norris,
-  2017) — first appears **v4.13-rc1**. Present in this tree (`git merge-
-  base --is-ancestor` succeeded).
-- `__maybe_unused` added in **`ae1247f79ddf8`** (v5.12 era) for
-  `!CONFIG_OF` compile-test. That did not add `MODULE_DEVICE_TABLE`.
-- Bug has been present for the entire life of the driver.
+- Loop introduced in **`1c1e45d17b663d`** (Hans Verkuil, 2008-04-28) —
+  original cx18 driver, `for (i = 0; i < size; i++, buf++)`.
+- Current form (`i = hdr_size, buf += hdr_size; i < size`) from
+  **`4ab9b256b5908a`** (Andy Walls, 2009-03-14) — “Optimize processing
+  of VBI buffers”.
+- Bug present ~17 years. Bound fixed in **`bf533acaaa7de`** (Pengpeng
+  Hou, 2026-06-30; Hans Verkuil commit).
 
 Step 3.2: FOLLOW THE FIXES: TAG
-Record: **No Fixes: tag.** The introducing commit is `c4f07ecee22ec7`,
-which is in this tree. No later intermediate autoload fix on this file.
+Record: **No Fixes: tag.** N/A. Introducer is `4ab9b256b5908a` /
+original `1c1e45d17b663d`, both ancestors of this tree.
 
 Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record (this tree, path-limited):
-- `e005a9b35b464` level alarm_irq
-- `d64906b320ce6` `.remove` → `.remove_new`
-- `24304a87158aa` non-wake alarm
-- None of these publish OF aliases.
-- **Standalone** one-line patch; not “X/Y” of a series that this file
-  depends on. Parent of upstream `402c89d28fec` is a sibling RTC
-  autoload fix (`rtc: s32g`), not a prerequisite for this driver.
+Record:
+- Recent cx18-vbi.c: this fix, email/SPDX/typo/whitespace. No refactor
+  of the scan.
+- **Sibling (same author, same day, same maintainer):** `f373cf17fb8e7`
+  `media: ivtv: stop VBI start-code scan before short tail` — same one-
+  line change in `drivers/media/pci/ivtv/ivtv-vbi.c`.
+- **Standalone.** Not “patch X/Y”. ivtv is a parallel clone, not a
+  prerequisite.
 
 Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Pengpeng Hou is not the RTC maintainer. In this tree the only
-other `drivers/rtc/` commit from that author is unrelated (`rtc: zynqmp:
-Return optional clock lookup errors`). Alexandre Belloni (RTC
-maintainer) applied the patch. Florian Fainelli / Broadcom were on
-To/Cc.
+Record:
+- Pengpeng Hou: several small media correctness patches (ivtv twin, cec,
+  v4l2-ctrls, stm32 resume errors). Not the cx18 maintainer.
+- **Andy Walls** is listed maintainer for CX18; **Hans Verkuil** applied
+  this (media co-maintainer). That is a strong apply-path signal.
 
 Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: **None.** Needs only `MODULE_DEVICE_TABLE` and the existing
-`of_device_id` table, both present since the driver was added. **Can
-apply standalone.**
+Record: **None.** Touches only the for-condition. Parent still has
+`compress_sliced_buf()`, `sliced_vbi_eav_rp[]`, and `i < size`. Applies
+standalone.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
@@ -207,277 +216,286 @@ PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 Record:
-- **b4 dig -c 402c89d28fec:**
-  https://patch.msgid.link/20260704121734.54941-1-pengpeng@iscas.ac.cn
-- **b4 dig -a:** single **v1**, 2026-07-04; no v2/v3.
-- Thread (3 messages): original patch; Sashiko bot “no issues”;
-  Alexandre Belloni **“Applied, thanks!”** pointing at
-  `https://git.kernel.org/abelloni/c/402c89d28fec`.
-- **No NAK, no stable nomination, no reviewer risk flags.** WebFetch to
-  lore returned 403; thread recovered via `b4 mbox`.
+- **b4 dig -c bf533acaaa7de:** match
+  https://patch.msgid.link/2026063007035519.3-ccfa108-0014-media-
+  cx18-stop-VBI-start-c-pengpeng@iscas.ac.cn
+- **b4 dig -a:** **v1 only** (2026-06-30). Applied version is that v1.
+- **b4 dig -m:** mbox is the original submission only — commit body +
+  1-line diff. **No replies, NAK, or on-list review.**
+- lore.kernel.org HTTP: Anubis 403. Discussion beyond the mbox is
+  **UNVERIFIED** via WebFetch.
+- Hans Verkuil’s SOB is the review/apply signal.
 
 Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (b4 dig -w): To/Cc included Alexandre Belloni (RTC maintainer),
-Florian Fainelli, bcm-kernel-feedback-list, linux-rtc, linux-arm-kernel,
-linux-kernel. Maintainer applied it. No human Reviewed-by.
+Record (**b4 dig -w**):
+- To: Andy Walls (CX18 maintainer), Mauro Carvalho Chehab
+- Cc: linux-media, linux-kernel
+- Applied by Hans Verkuil. Right lists/maintainers were CCd.
 
 Step 4.3: SEARCH FOR THE BUG REPORT
-Record: **No user/syzbot/bugzilla report.** Author states it is source-
-level. Severity from reporters: N/A. Users affected: anyone building
-this driver as a module on DT platforms with `brcm,brcmstb-waketimer`.
+Record: **No Reported-by, no syzbot, no bugzilla Link.** Looks like
+static/code inspection, not a user crash. Twin ivtv patch supports that.
 
 Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Wave of the same one-line OF-alias pattern. This 6.12 tree
-already contains:
-- `330fdd1fb7d09` drm/tve200: add OF module alias for autoloading
-- `2260191fbf7c6` crypto: keembay - publish OF module alias for OCS
-  AES/SM4
-Those are the same bug class, already accepted here. This brcmstb patch
-does not depend on them.
+Record: Independent `[PATCH]` plus independent ivtv twin (`…-0015-media-
+ivtv-…`). No hidden series dependency. This commit is self-contained.
 
 Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search via WebFetch returned 403.
-**UNVERIFIED** whether this exact patch was discussed on stable@. No
-local evidence it was rejected.
+Record: **UNVERIFIED** (lore/stable search blocked). Local history has
+no stable-discussion commit for this subject. No evidence it was
+rejected for stable.
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
 Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: **No function body changed.** Site is `brcmstb_waketmr_of_match`
-/ `brcmstb_waketmr_driver`. Related runtime function:
-`brcmstb_waketmr_probe`.
+Record: **`compress_sliced_buf()`** only.
 
 Step 5.2: TRACE CALLERS
-Record: `brcmstb_waketmr_probe` is only referenced as `.probe` on
-`brcmstb_waketmr_driver`, registered via `module_platform_driver()`.
-Called from platform/OF device bind (kernel boot or module load), not
-from a syscall directly. Userspace trigger is: DT node present + module
-autoload (or manual `modprobe`).
+Record (grep, not semcode — semcode MCP not available):
+- `compress_sliced_buf()` ← `_cx18_process_vbi_data()` when **not** raw
+  VBI
+- `_cx18_process_vbi_data()` ← `cx18_process_vbi_data()` per buffer on a
+  VBI MDL
+- `cx18_process_vbi_data()` ← `cx18_fileops.c` on userspace read of VBI,
+  or internal VBI while reading MPEG (`CX18_F_S_INTERNAL_USE`)
+- **Context:** process context, V4L2 read/DQBUF — not IRQ. User-
+  reachable with sliced VBI capture on cx18.
 
 Step 5.3: TRACE CALLEES
-Record: Probe ioremaps, allocates an RTC device, requests IRQs,
-`device_init_wakeup()`. The new line calls nothing at runtime.
+Record: start-code compare; later `v4l2_subdev_call(...,
+decode_vbi_line)` and `memcpy` of 42 bytes. The changed loop only
+searches; it does not decode until a full line is found.
 
 Step 5.4: FOLLOW THE CALL CHAIN
-Record: DT `compatible = "brcm,brcmstb-waketimer"` (in-tree on several
-BMIPS boards, e.g. `arch/mips/boot/dts/brcm/bcm7435.dtsi`) → OF match →
-probe. **Reachable on real STB hardware.** Autoload is the broken hop
-when `=m`.
+Record:
+`VIDIOC_QBUF/read` → `cx18_dequeue` → `cx18_process_vbi_data` →
+`_cx18_process_vbi_data` → `compress_sliced_buf`
+- **Userspace-reachable:** yes, with this card and sliced VBI.
+- Unprivileged: only with access to the V4L device node (typical video
+  group / capture app).
 
 Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Many RTC drivers already export OF tables (`rtc-zynqmp.c`, `rtc-
-mt7622.c`, …). Historical RTC fixes of the same kind: `206e04ec7539e`
-(mxc_v2), `3fc990a5dbfff` (mt7622). Systematic missing-alias class, not
-a one-off.
+Record: Same bug in **ivtv** `compress_sliced_buf()`; already fixed with
+`i + 3 < size`. No other `i + 3 < size` hits under `drivers/media`.
+Systematic cloned-driver bug, both fixed.
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
 Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: **Yes.** `drivers/rtc/rtc-brcmstb-waketimer.c:413-424` has the
-table and `.of_match_table` and **no** `MODULE_DEVICE_TABLE`. `git
-merge-base --is-ancestor 402c89d28fec HEAD` failed (fix not here).
-Introduced v4.13, long before 6.12.
-
-Kconfig in this tree (`drivers/rtc/Kconfig`):
-```
-config RTC_DRV_BRCMSTB
-        tristate "Broadcom STB wake-timer"
-        depends on ARCH_BRCMSTB || BMIPS_GENERIC || COMPILE_TEST
-        default ARCH_BRCMSTB || BMIPS_GENERIC
-```
-Explicitly modular. Default `y` on the SoCs that have the IP, so the
-common defconfig path is built-in; `=m` is still a supported and
-documented config.
+Record:
+- **Tree:** `git describe HEAD` = **v7.3-rc4-27-gf0100363d8c37**; `make
+  kernelversion` = **7.3.0-rc4**
+- Driver and function exist: `drivers/media/pci/cx18/cx18-vbi.c`
+- **This commit is already an ancestor of HEAD** (`git merge-base --is-
+  ancestor bf533acaaa7de HEAD` succeeded)
+- First mainline tag containing it: **`v7.3-rc1`** (`git describe
+  --contains --match 'v*'`)
+- **Buggy bound `i < size` is in the parent** `bf533acaaa7de^`; it is
+  not a post-7.3 invention
+- Introduced **2008/2009**, so every current stable series that still
+  has cx18 has the bug unless this commit was backported
+- Already-in-HEAD on **mainline 7.3-rc4** is expected; it is not
+  “already selected for stable”
 
 Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Clean apply.** Original mailed hunk (3 lines of context
-through `.probe`) — `git apply --check` **rc 0** on this tree. `.remove`
-vs `.remove_new` is later in the struct and is not in the original hunk.
-No rework needed.
+Record: **Clean apply.** Surrounding function is stable since 2009 aside
+from macros/email/SPDX. Stable trees with `i < size` get a 1-line
+conflict-free change.
 
 Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: **No** commit on this file adds `MODULE_DEVICE_TABLE`. Sibling
-OF-alias backports exist for other drivers (tve200, keembay), not a
-substitute for this one.
+Record: This is the fix. No earlier alternate bound check. ivtv twin is
+a different driver.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
 Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: **[drivers/rtc — Broadcom STB wake-timer] [PERIPHERAL]** for
-most 6.12 users; **IMPORTANT** on BCM7xxx set-top boxes (alarm/S2/S3/S5
-wake). Not mm/net/block core.
+Record:
+- **Subsystem:** media / PCI V4L2 — Conexant CX23418 (Hauppauge HVR-1600
+  and similar)
+- **Criticality: PERIPHERAL** — old PCI capture card, not mm/net/VFS
+- `CONFIG_VIDEO_CX18`; maintainer Andy Walls; list linux-media
 
 Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Driver is mature (2017). Recent local commits are PM/IRQ and
-platform-remove conversion, not a rewrite. Low churn around the match
-table.
+Record: **Mature/quiet.** Recent cx18 commits are treewide/API; this is
+one of the few real local bugfixes. Long-lived bug, not churn from a
+rewrite.
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
 Step 8.1: DETERMINE WHO IS AFFECTED
-Record: **Driver-specific / config-specific.** Users of Broadcom STB
-wake-timer with `CONFIG_RTC_DRV_BRCMSTB=m`. In-tree DT nodes are on
-BMIPS boards (`bcm7346/7358/7360/7362/7425/7435`). `ARCH_BRCMSTB` also
-exists on ARM and arm64; this tree’s ARM/arm64 dtsi files do not contain
-the compatible string (vendor DTs may). Built-in (`=y`, the Kconfig
-default on those arches) is unaffected.
+Record: **Driver-specific / config-specific:** `CONFIG_VIDEO_CX18`,
+sliced VBI (not raw). Population is small (HVR-1600-class cards) but
+real.
 
 Step 8.2: DETERMINE THE TRIGGER CONDITIONS
 Record:
-- Trigger: modular driver + OF device present + reliance on autoload
-  (normal distro/udev path).
-- Commonness: uncommon vs default `=y`; real whenever someone chooses
-  `=m` (help text documents that).
-- Unprivileged userspace cannot exploit this; it is bind/enablement, not
-  a crash primitive.
+- Trigger: sliced VBI processing when the 4-byte EAV (`0xff 00 00
+  {0xb0,0xf0}`) is not found before the tail — then the loop runs to EOF
+  and over-reads
+- How common: every sliced-VBI buffer that lacks a match in-range; with
+  valid hardware the match is usually early
+- Unprivileged: only via the V4L node, not a generic syscall primitive
+- Not a race
+
+Default buffer sizing (verified):
+- `stream_buf_size[VBI] = VBI_ACTIVE_SAMPLES * 36` = **1444 × 36 =
+  51984**
+- Sliced MDL: NTSC **9792**, PAL **12496**; `bufs_per_mdl = 1`
+- `buf->buf = kmalloc(s->buf_size)` (51984); DMA/`bytesused` ≈ mdl_size
+  (~10–12K)
+- Default: 1–3 bytes past `bytesused` are **still inside the kmalloc
+  object** (not a KASAN slab redzone hit)
+- If `bytesused == buf_size` (full buffer), it **would** be a true
+  allocation over-read
 
 Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: **[RTC/wake-timer never binds when built as a module] [MEDIUM]**
-- Not oops/deadlock/corruption/CVE.
-- On affected boxes, RTC alarm and suspend wake from this block can fail
-  to be available until a manual `modprobe`.
-- Fits stable-rules “device ID” / “oh, that’s not good” more than
-  “oops”.
+Record:
+- **Failure mode:** 1–3 byte read past valid DMA `bytesused` while
+  matching start codes (result not copied to userspace)
+- Default config: no crash, no leak to userspace, no functional change
+  (tail false-match still leaves size ≪ line_size)
+- Edge: true slab/page OOB / oops if used size equals allocation
+- **Severity: MEDIUM** as memory-safety/correctness; **not CRITICAL**
+  (no demonstrated panic/corruption). Still a real OOB class bug.
 
 Step 8.4: CALCULATE RISK-BENEFIT RATIO
 Record:
-- **Benefit:** medium for modular STB configs (hardware actually gets
-  its driver); low for default `=y` defconfigs.
-- **Risk:** very low (1 line, modpost alias, no runtime behavior change
-  for built-in).
-- **Ratio:** favorable. Same class already merged in this 6.12.y tree.
+- **Benefit:** closes a long-standing OOB read on a live capture path;
+  low user count
+- **Risk: very low** (1 line, loop bound only)
+- **Ratio:** favorable — tiny risk, real bounds bug, same pattern
+  already used on ivtv
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
 ===============================================================
 
 Step 9.1: COMPILE THE EVIDENCE
-**FOR:**
-- Real autoload bug: OF table used, aliases never generated.
-- One line, obviously correct, maintainer-applied.
-- Driver and buggy code exist in 6.12.111 since v4.13.
-- Original patch applies cleanly here.
-- Device-ID / hardware-enablement exception; wake-timer matters for STB
-  suspend/resume.
-- Identical OF-alias one-liners already in this tree (tve200, keembay).
-- Zero runtime regression path for the default built-in config.
+**FOR backporting:**
+- Real 4-byte peek past `size`; classic OOB-read class used in stable
+- One line, obviously correct, no API/feature
+- Code has been in-tree since 2008/2009; no missing prereqs
+- Userspace-reachable sliced VBI on cx18
+- Applied by Hans Verkuil; CX18 maintainer CCd
+- Twin ivtv fix confirms the pattern
+- Regression risk essentially zero
 
 **AGAINST:**
-- Not a crash, UAF, deadlock, or security hole.
-- No user report; source-level scan.
-- Kconfig default is built-in on the SoCs that have the hardware, so
-  many production images never hit autoload.
-- Peripheral driver, not core.
+- No syzbot/user/crash report
+- Peripheral 2008 PCI encoder, small population
+- Default kmalloc (52K) ≫ typical `bytesused` (~10K), so default may not
+  oops
+- No Fixes/Cc:stable (not a veto here)
+- Not core mm/fs/net
 
 **UNRESOLVED:**
-- Whether this SHA was already discussed on stable@ (lore 403).
-- Whether vendor ARM/arm64 brcmstb DTs (not in this tree) also use this
-  compatible.
+- lore/stable threads beyond b4 mbox (Anubis)
+- No sanitizer report found
 
 Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — standard macro; RTC
-   maintainer applied v1 with no objections.
-2. Fixes a real bug that affects users? **PASS** — modular OF autoload
-   does not work; Kconfig allows `=m`.
-3. Important issue? **PASS** (device-ID / hardware-enablement class;
-   functional miss for modular STB RTC/wake). Severity MEDIUM, not
-   CRITICAL.
-4. Small and contained? **PASS** — +1 line, one file.
-5. No new features or APIs? **PASS** — publishes an alias for an
-   existing match table.
-6. Can apply to the local tree? **PASS** — `git apply --check`
-   succeeded; code present; no missing prereqs.
+1. Obviously correct and tested? **PASS** — bound is locally checkable;
+   accepted by media maintainer (no extra Tested-by)
+2. Fixes a real bug that affects users? **PASS** — over-read of the VBI
+   payload bound on a real capture path
+3. Important issue? **PASS** (medium) — memory-safety OOB; crash only if
+   used size equals allocation; still the OOB class stable takes as
+   small driver fixes
+4. Small and contained? **PASS** — 1 line, 1 function
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — already in this 7.3-rc4 tree;
+   parent form applies cleanly wherever `i < size` remains
 
 Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: **Device ID / OF module alias publication for an existing
-driver** (stable-rules: “or just add a device ID”). Closest match to the
-documented ID-addition exception.
+Record: **None** (not ID/quirk/DT/build/doc). Qualifies as a normal
+small bugfix.
 
 Step 9.4: MAKE YOUR DECISION
-Backport. The bug is in this tree, the fix is the usual one-line alias
-export, it applies cleanly, and it matches both the written device-ID
-exception and OF-alias fixes already on 6.12.y. Default-y only reduces
-how often it bites; it does not make the modular path fictional.
+This tree is mainline **7.3-rc4**, which already contains the fix
+(landed in **v7.3-rc1**). The evaluation is technical merit for stable,
+not “re-apply on 7.3”.
+
+The bug is a one-byte-stride scan of a four-byte start code with `i <
+size`, present since 2008/2009. The patch is the standard remaining-
+bytes fix. It does not add features, does not need other commits, and
+will not regress the later line parser.
+
+Default cx18 VBI buffers make a crash unlikely, but it is still a real
+bounds bug on a user-triggerable path, with ~zero backport risk. That is
+enough for YES on this tree’s stable-candidate criteria.
 
 ------------------------------------------------
-What the commit solves for this tree
-The 6.12 `rtc-brcmstb-waketimer` driver matches `brcm,brcmstb-waketimer`
-but never asks modpost to emit that alias. Built as a module, the wake-
-timer will not autoload. Adding `MODULE_DEVICE_TABLE(of, ...)` is the
-complete fix.
+What the commit solves for stable users
+`compress_sliced_buf()` must see `buf[0]..buf[3]`. With `i < size`, the
+last three iterations read past `bytesused`. Stopping at `i + 3 < size`
+prevents that. Users with Hauppauge HVR-1600-class cx18 cards doing
+sliced VBI (or MPEG with inserted VBI) no longer walk off the valid DMA
+tail.
 
-Risk vs benefit
-Benefit is restoring bind on modular STB configs; risk is essentially
-nil. Context around `.remove_new` does not affect the original hunk.
+Stable rules / risk
+Meets the rules: obvious, small, no new API, real OOB. Benefit is modest
+(niche driver, default alloc has slack); risk is negligible. Prefer
+taking a 1-line memory-safety fix over leaving a 17-year over-read.
 
-------------------------------------------------
+Concerns
+None for apply/prereqs. Not a sanitizer/CVE-backed crash. ivtv twin is
+separate. This 7.3-rc4 checkout already has the commit; older stables
+still on `i < size` are the backport targets.
+
 Verification:
-- [Phase 1] Parsed tags: Link to msgid, SOB Pengpeng Hou + Alexandre
-  Belloni; no Fixes/Cc stable/Reported-by
-- [Phase 1] Body: missing OF alias; source-level, no hardware repro
-  claimed
-- [Phase 2] Diff: +1 line `MODULE_DEVICE_TABLE(of,
-  brcmstb_waketmr_of_match)` after the match table
-- [Phase 2] `include/linux/module.h`: macro is alias-for-modpost if
-  `MODULE`, empty otherwise
-- [Phase 2] `scripts/mod/file2alias.c` `do_of_entry_multi()`: emits
-  `of:N*T*C<compatible>`
-- [Phase 3] `git blame`: table from `c4f07ecee22ec7` (v4.13-rc1);
-  `__maybe_unused` from `ae1247f79ddf8`
-- [Phase 3] `git merge-base --is-ancestor c4f07ecee22ec HEAD`: intro
-  commit is in this tree
-- [Phase 3] `git merge-base --is-ancestor 402c89d28fec HEAD`: fix is
-  **not** in this tree
-- [Phase 3] `git show 402c89d28fec`: confirmed same +1 line,
-  author/date/message
-- [Phase 3] `git log --oneline -20 -- drivers/rtc/rtc-brcmstb-
-  waketimer.c`: no prior MODULE_DEVICE_TABLE on this file
-- [Phase 4] `b4 dig -c 402c89d28fec`: lore URL + v1-only series
-- [Phase 4] `b4 dig -a`: only v1, 2026-07-04
-- [Phase 4] `b4 dig -w`: Belloni, Fainelli, bcm-kernel-feedback-list,
-  linux-rtc CC’d
-- [Phase 4] `b4 mbox`: Belloni “Applied, thanks!”; Sashiko no issues; no
-  NAK
-- [Phase 4] WebFetch lore: 403; used b4 instead
-- [Phase 4] UNVERIFIED: stable@ thread for this exact subject
-- [Phase 5] Probe only used as platform `.probe`; DT compatible present
-  in `arch/mips/boot/dts/brcm/*.dtsi`
-- [Phase 6] `make kernelversion` / Makefile: **6.12.111**; `git describe
-  HEAD`: p-6.12-3-gc504cf0baa3d8
-- [Phase 6] Local file lines 413–424: table present, MODULE_DEVICE_TABLE
-  absent
-- [Phase 6] `git apply --check` of original hunk: **success (rc 0)**
-- [Phase 6] Same-class already in tree: `330fdd1fb7d09`, `2260191fbf7c6`
-- [Phase 7] MAINTAINERS: RTC subsystem maintained by Alexandre Belloni
-- [Phase 8] Kconfig tristate + `default y` on ARCH_BRCMSTB/BMIPS_GENERIC
-  verified via blame
-- [Phase 8] Failure mode: missing modular bind, not a crash
+- [Phase 1] Subject/tags: media/cx18 “stop”; SOBs Hou + Verkuil; no
+  Fixes/Reported-by/Link/Cc:stable
+- [Phase 2] Diff: `drivers/media/pci/cx18/cx18-vbi.c`
+  `compress_sliced_buf()` `i < size` → `i + 3 < size` (1/1)
+- [Phase 2] Confirmed `buf[0]..buf[3]` vs exclusive `size`; post-loop
+  `size < line_size` still holds if no match
+- [Phase 3] `git blame`: loop from `1c1e45d17b663d` (2008) /
+  `4ab9b256b5908a` (2009); fix `bf533acaaa7de`
+- [Phase 3] `git show bf533acaaa7de^`: parent still has `i < size`
+- [Phase 3] Sibling `f373cf17fb8e7` ivtv same change; author log shows
+  both
+- [Phase 4] `b4 dig -c`: lore msgid `2026063007035519.3-ccfa108-0014-…`;
+  v1 only; mbox = patch, no replies
+- [Phase 4] `b4 dig -w`: Walls, Chehab, linux-media, linux-kernel
+- [Phase 4] WebFetch/WebSearch lore: **UNVERIFIED** (Anubis 403)
+- [Phase 5] Callers: `_cx18_process_vbi_data` ← `cx18_process_vbi_data`
+  ← `cx18-fileops.c` VBI/MPEG read
+- [Phase 5] `i + 3 < size` only in cx18-vbi.c and ivtv-vbi.c
+- [Phase 6] `git describe HEAD` v7.3-rc4-27; kernel 7.3.0-rc4; `merge-
+  base --is-ancestor bf533acaaa7de HEAD` true; `--contains` v7.3-rc1
+- [Phase 6] File present; apply would be clean on `i < size`
+- [Phase 7] CONFIG_VIDEO_CX18; MAINTAINERS Andy Walls; mature driver
+- [Phase 8] buf_size 1444*36=51984; sliced mdl_size 9792/12496;
+  kmalloc(buf_size) so default over-read stays in-object
+- [Phase 8] Failure: OOB read, severity MEDIUM; risk very low
+- UNVERIFIED: on-list review beyond Hans’s SOB; stable@ discussion;
+  KASAN/syzbot report
 
 **YES**
 
- drivers/rtc/rtc-brcmstb-waketimer.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/pci/cx18/cx18-vbi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/rtc/rtc-brcmstb-waketimer.c b/drivers/rtc/rtc-brcmstb-waketimer.c
-index fb47c32ab5ff4..55c15aad42cff 100644
---- a/drivers/rtc/rtc-brcmstb-waketimer.c
-+++ b/drivers/rtc/rtc-brcmstb-waketimer.c
-@@ -413,6 +413,7 @@ static const __maybe_unused struct of_device_id brcmstb_waketmr_of_match[] = {
- 	{ .compatible = "brcm,brcmstb-waketimer" },
- 	{ /* sentinel */ },
- };
-+MODULE_DEVICE_TABLE(of, brcmstb_waketmr_of_match);
+diff --git a/drivers/media/pci/cx18/cx18-vbi.c b/drivers/media/pci/cx18/cx18-vbi.c
+index 8dc4ce3259353..3a8430f3259eb 100644
+--- a/drivers/media/pci/cx18/cx18-vbi.c
++++ b/drivers/media/pci/cx18/cx18-vbi.c
+@@ -135,7 +135,7 @@ static u32 compress_sliced_buf(struct cx18 *cx, u8 *buf, u32 size,
+ 				    : VBI_HBLANK_SAMPLES_50HZ;
  
- static struct platform_driver brcmstb_waketmr_driver = {
- 	.probe			= brcmstb_waketmr_probe,
+ 	/* find the first valid line */
+-	for (i = hdr_size, buf += hdr_size; i < size; i++, buf++) {
++	for (i = hdr_size, buf += hdr_size; i + 3 < size; i++, buf++) {
+ 		if (buf[0] == 0xff && !buf[1] && !buf[2] &&
+ 		    (buf[3] == sliced_vbi_eav_rp[0] ||
+ 		     buf[3] == sliced_vbi_eav_rp[1]))
 -- 
 2.53.0
 
