@@ -1,194 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6063E13D8BD;
-	Mon, 19 Oct 2026 01:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B076213D8BD;
+	Mon, 19 Oct 2026 01:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792373829; cv=none; b=Hq4yRCj/QsbR1Hnk+W+/2ukHCSF3aA7X6rQjwWNlO7ZQ6kNteqBzB7jv3SbD4Hf+Y1gbCxjK/x9ys5AAAGrAxsCqWp6CO35wr2GVnC8ih7eeJQ5YNM/bPBSEUJU+Elwv0mZcxXIOp7iy0QrrFW/rt8M0JPRSVwCaW17nr/LLemo=
+	t=1792373888; cv=none; b=IrxDCYUBJVOQpRFJMJ34u9rDvovpqfv3rbRcwc5tP/P9t7StP3M6KdpnfMglAuT4jEYNJ4TTRzSW5X0lTcCWti6yTWeYlkDmKxocRUcXBEOdfiO+WxptGm4F9mukUrZ/Fp772E92LnnDoyq++DUq8RnEGldFy4xwlWRZbj9GijU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792373829; c=relaxed/simple;
-	bh=szHP56FjldtD2Uxu4ijUioje532o4OKEHWIlQnqjj0Y=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=JMEh2wwA83yEYme3s/nXdqtDoOengj/JJGI8/h4tUEowch2Jd4GwS9wB9cHHn9TCjYgxsvmrA+bQnJOJDefgI1hUSYNIxeYes24SfUMJ3J6MO+5wA4d/SdzEIYIMKtcHJ0Gc0N65cTEIVMMs6i42gTnEp5n8M9MzabPbFa8Wj7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=qpI4sZ58; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792373888; c=relaxed/simple;
+	bh=ljwi3zkBL0CWPJQETI88XsqWvddOmZlPW//n/XmLJVs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j9TKKtc+wtOyAOVwU7ZbPl600h/1M/plNp8lp/ZbUpCIRSWoRWZuRpqHrs1B3SQGJOPcUflgdDI/kPFNTFaGY1NMHhzqybwzD1U9NW5knKZERUslWP4p1g+F3S9v6/J8nE2QG3BAy1ZEqDOvrN7Ftn6H4Eiv99IHRJFTZ/+nqOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=D2YA+bL2; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="qpI4sZ58"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC371F000C4;
-	Mon, 19 Oct 2026 01:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792373827;
-	bh=Wuq5JSaJ2iBCmQVUdFVG10GyTUf/WKdjmQmYRhFmoAY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=qpI4sZ58Sc+uFSzMeZSX5IXOxgqylXHLPUe31Fd5t6Ti9pTu+V6hhhQ4pATq/UbF6
-	 scC3UloOpvxsLwZlZJilf5BGNw6MsKIgl095PR8Rw7z8Qlo/k7e0IbDwAzNSykEnWj
-	 9MAEvMJqehU18J6SR4KWT4A/469vJRMCsI3xk6Yo=
-Date: Sun, 18 Oct 2026 18:37:07 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: l1za0.sec@gmail.com
-Cc: viro@zeniv.linux.org.uk, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, Jens Axboe
- <axboe@kernel.dk>, Tal Zussman <tz2294@columbia.edu>, Daehyeon Ko
- <4ncienth@gmail.com>, Keith Busch <kbusch@kernel.org>, Christoph Hellwig
- <hch@lst.de>
-Subject: Re: [BUG] KASAN: slab-out-of-bounds Read in
- copy_folio_from_iter_atomic
-Message-Id: <20261018183707.23dba84df0a235e36de1620d@linux-foundation.org>
-In-Reply-To: <20261018081203.2431035-1-l1za0.sec@gmail.com>
-References: <20261018081203.2431035-1-l1za0.sec@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="D2YA+bL2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=dQ
+	Sy07/Z3KzGq8VBZfw5dQqUQm3UjIvOL14CUKMnEnI=; b=D2YA+bL2rdEcBKkilZ
+	v/fbjC7RaJxMPt9X6OBKptvoXApBEoFSHeADD9ybrl9eIuJnpXbhq06hWL7stx2/
+	dc2KwKbG/0cN1Nr5uY+m+SC1h8/76yE84OX0l0BYel3nMPXprVHUTBwVxwq2yJze
+	EcSGfPtUsBgNH6W9lSbIrQwTA=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgAXb0IsdNVqwsjJAg--.21603S2;
+	Mon, 19 Oct 2026 09:36:46 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: sam@mendozajonas.com,
+	fercerpav@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	gwshan@linux.vnet.ibm.com,
+	joel@jms.id.au
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Binbin Deng <18983559317@163.com>
+Subject: [PATCH net v2] net/ncsi: fix use-after-free of ncsi_package in ncsi_remove_package()
+Date: Mon, 19 Oct 2026 09:36:40 +0800
+Message-ID: <20261019013640.449965-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgAXb0IsdNVqwsjJAg--.21603S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWw1rCF47ZFy7AFykuw4DArb_yoWrWF1DpF
+	W3KFy5G3yvyryUWr97uFWruFy5Zr4fur1UK3sagw4Syas8Wry0qryIyayY9Fy5Krs7ua1a
+	vr4UW3yavFWUA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRjQ6LUUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC3w44HGrVdC4rgQAA36
 
-On Sun, 18 Oct 2026 16:12:03 +0800 l1za0.sec@gmail.com wrote:
+ncsi_remove_package() unlinks the package from ndp->packages with
+list_del_rcu() and then frees it with kfree(), after having released
+all of its channels.  The generic netlink package info walkers iterate
+the same list with the list_for_each_entry_rcu() based
+NCSI_FOR_EACH_PACKAGE() and dereference the package in the loop body:
 
-> From: Haocheng Yu <l1za0.sec@gmail.com>
-> 
-> Hi,
-> 
-> We found a KASAN slab-out-of-bounds read in copy_folio_from_iter_atomic() while 
-> fuzzing Linux with a modified version of syzkaller. We couldn't find a report 
-> of the same issue on syzbot. We are investigating the root cause and trying to 
-> develop a fix. Could you let us know whether this issue warrants a fix?
-> 
-> The crash occurs on Linux v7.3.0-rc5. KASAN reports an 8-byte read 8 bytes past 
-> a 144-byte allocation in kmalloc-192.
-> 
-> Relevant stack trace:
-> 
->   iterate_iovec (include/linux/iov_iter.h:49)
->   __copy_from_iter (lib/iov_iter.c:261)
->   copy_folio_from_iter_atomic (lib/iov_iter.c:491)
->   generic_perform_write (mm/filemap.c:4392)
->   ext4_buffered_write_iter (fs/ext4/file.c:354)
->   ext4_file_write_iter (fs/ext4/file.c:794)
->   vfs_writev (fs/read_write.c:1058)
->   do_writev (fs/read_write.c:1104)
-> 
-> The reproducer mounts an ext4 image, opens a file, performs write operations, 
-> and triggers the crash through writev() with a crafted iovec array.
+    rc = nla_put_u32(skb, NCSI_PKG_ATTR_ID, np->id);
 
-tl;dr: bug in bio_iov_iter_get_pages().
+None of the NCSI genl handlers enters an RCU read-side critical
+section: genl doit and dumpit callbacks run under genl_mutex and
+cb_mutex, not under rcu_read_lock(), and ncsi_unregister_dev() takes
+neither.  A reader that is preempted mid-walk -- or one that has
+resolved the device and then sleeps in the genlmsg_new(GFP_KERNEL)
+allocation of ncsi_pkg_info_nl() -- has no protection at all when the
+teardown frees the package under it.
 
+The race needs no real NC-SI hardware and is reachable by an
+unprivileged user, as NCSI_CMD_PKG_INFO has no GENL_ADMIN_PERM:
 
-Thanks.  Boy I burned a lot of tokens on this.
+  writer: rmmod ftgmac100
+            -> ftgmac100_remove() -> ncsi_unregister_dev()
+            -> ncsi_remove_package() -> kfree(np)
+  reader: sendmsg(NETLINK_GENERIC, NCSI_CMD_PKG_INFO)
+            -> ncsi_pkg_info_nl() -> ncsi_write_package_info()
 
-I was able to reproduce this.  I found that Daehyeon's "iov_iter:
-validate extracted segment for bvec alignment" makes the KASAN warnings
-go away.  https://lore.kernel.org/20261015061907.2713943-1-4ncienth@gmail.com
+ftgmac100_remove() calls ncsi_unregister_dev() before
+unregister_netdev(), so the netdev, and with it the genl entry point,
+stays reachable during the whole window.
 
-Daehyeon's patch is presently in mm.git's mm-unstable branch, with
-cc:stable, targeted for upstreaming during the second week of the merge
-window.
+KASAN report (arm multi_v7, QEMU ast2600-evb, KASAN + SLUB + PREEMPT,
+four threads looping PKG_INFO doit/dump while cycling insmod/rmmod):
 
-Daehyeon's patch prevents this reproducer from triggering the bug by
-rejecting the misaligned direct-I/O request before extraction advances
-the iterator.  Without that check, extraction skips the initial empty
-iovec and the following 10-byte segment, then encounters an alignment
-error.  The bio is discarded, but the iterator remains advanced.  iomap
-subsequently restores its byte count without restoring its position,
-leaving 1025 bytes recorded when only 1015 remain.  Buffered-I/O
-fallback then walks beyond the imported iovec array.  So Daehyeon's
-patch avoids the bad path, but doesn't address the underlying failure
-to restore the iterator when rejecting a bio.
+  BUG: KASAN: slab-use-after-free in ncsi_write_package_info+0xe3c/0xf84
+  Read of size 1 at addr c69e2580 by task poc_dump/69
+  The buggy address belongs to the object at c69e2580
+   which belongs to the cache kmalloc-64 of size 64
+  The buggy address is located 0 bytes inside of
+   freed 64-byte region [c69e2580, c69e25c0)
 
-Tal Zussman's atomic-write fixes also change the rejected-bio handling
-in bio_iov_iter_get_pages().  In particular, his partial-pin fix
-rejects an atomic bio rather than allowing a short atomic write to be
-submitted.  That introduces another cleanup path on which the iterator
-may already have advanced.  The rollback should therefore cover that
-path as well, preferably through the common cleanup label in Tal's
-version.  The two fixes address different problems and are
-complementary, but their error handling needs to be reconciled when
-both are merged.
+The read is the u8 np->id feeding the nla_put_u32() above;
+sizeof(struct ncsi_package) is 60 bytes, so it lands in kmalloc-64,
+and with no VLAN churn in this mode the only size-1 read at offset 0
+of that cache on this path is np->id.
 
+Free the package with kfree_rcu() so that it survives the grace
+period, and give struct ncsi_package an rcu_head.
 
-Proposed fix:
+This is the free side of the fix for the package object.  The read
+side -- rcu_read_lock() around the device resolution and the list
+walks of all NCSI genl handlers -- is the companion series "net/ncsi:
+fix use-after-free of ncsi_channel in ncsi_remove_channel()"; the
+parent ncsi_dev_priv is deferred by the companion series "net/ncsi:
+fix use-after-free of ncsi_dev_priv in ncsi_unregister_dev()".  The
+race is closed by the three series together; each one keeps its own
+Fixes: tag so they can be backported independently.
 
+Found by a Coccinelle rule matching kfree() immediately after
+list_del_rcu(); the code inspection and the fix were LLM-assisted,
+and the race was confirmed at runtime with KASAN as above.
 
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: block: restore the iterator when rejecting a misaligned bio
-Date: Sun, 18 Oct 2026 17:30:00 -0700
-
-bio_iov_iter_get_pages() can extract some iovecs before encountering a
-misaligned one.  It releases the pages and rejects the entire bio, but
-leaves the supplied iterator advanced.
-
-An iomap direct-I/O caller may subsequently reexpand the iterator's
-byte count and fall back to buffered I/O.  The reexpanded count then
-includes bytes before the iterator's current segment, potentially
-causing iterate_iovec() to read beyond the imported iovec array.
-
-In a reproducer using an initial empty iovec followed by 10-byte and
-1015-byte segments, writev() returned 1015 instead of 1025 and KASAN
-reported an 8-byte read beyond the nine-element iovec allocation.
-Saving and restoring the iterator on the rejected-bio path makes
-writev() return 1025 and eliminates the KASAN report.
-
-Restore the entire iterator rather than reverting a byte count:
-advancing past an empty segment changes its position without consuming
-any bytes.
-
-Leave successful and partially accepted bio paths unchanged.
-
-Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Haocheng Yu <l1za0.sec@gmail.com>
-Closes: https://lore.kernel.org/20261018081203.2431035-1-l1za0.sec@gmail.com
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Keith Busch <kbusch@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Tal Zussman <tz2294@columbia.edu>
-Cc: Daehyeon Ko <4ncienth@gmail.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 2d283bdd079c ("net/ncsi: Resource management")
+Signed-off-by: Binbin Deng <18983559317@163.com>
 ---
-Testing on x86-64 QEMU/KVM with generic KASAN:
-- Before: the ext4 writev() reproducer returned 1015 instead of 1025
-  and triggered an 8-byte slab out-of-bounds read.
-- After: 100 consecutive reproducer runs returned 1025 without KASAN;
-  60-second buffered and direct ext4 fio runs passed.
-- Daehyeon's alignment patch independently avoids the reproducer.
+ net/ncsi/internal.h    | 1 +
+ net/ncsi/ncsi-manage.c | 3 ++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-Tal Zussman's pending atomic-write changes introduce another rejected-bio
-cleanup path. If both patches are combined, restore the iterator there too.
-
-
----
-
- block/bio.c |    3 +++
- 1 file changed, 3 insertions(+)
-
---- a/block/bio.c~bio-iov-iter-rollback
-+++ a/block/bio.c
-@@ -1285,6 +1285,7 @@ int bio_iov_iter_get_pages(struct bio *b
- 			   unsigned mem_align_mask, unsigned len_align_mask)
- {
- 	iov_iter_extraction_t flags = 0;
-+	struct iov_iter saved_iter;
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index adee6dc..cb41953 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -253,6 +253,7 @@ struct ncsi_package {
+ 	bool                 multi_channel; /* Enable multiple channels  */
+ 	u32                  channel_whitelist; /* Channels to configure */
+ 	struct ncsi_channel  *preferred_channel; /* Primary channel      */
++	struct rcu_head         rcu;
+ };
  
- 	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
- 		return -EIO;
-@@ -1303,6 +1304,7 @@ int bio_iov_iter_get_pages(struct bio *b
- 	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
- 		flags |= ITER_ALLOW_P2PDMA;
+ struct ncsi_request {
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index 54d0df0..237e041 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -326,7 +326,8 @@ void ncsi_remove_package(struct ncsi_package *np)
+ 	ndp->package_num--;
+ 	spin_unlock_irqrestore(&ndp->lock, flags);
  
-+	saved_iter = *iter;
- 	do {
- 		ssize_t ret;
+-	kfree(np);
++	/* Netlink walkers may still hold the package */
++	kfree_rcu(np, rcu);
+ }
  
-@@ -1320,6 +1322,7 @@ int bio_iov_iter_get_pages(struct bio *b
- 				bio_release_pages(bio, false);
- 				bio_clear_flag(bio, BIO_PAGE_PINNED);
- 				bio->bi_vcnt = 0;
-+				*iter = saved_iter;
- 			}
- 			if (!bio->bi_vcnt)
- 				return ret;
-_
+ void ncsi_find_package_and_channel(struct ncsi_dev_priv *ndp,
+-- 
+2.43.0
 
