@@ -1,51 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435891;
-	b=b7mWptX2U/4FDqjQS0s4Sq+qmuO1NxTa81B+tWIKawkQzgiUlhVUTEEmaVEdSbeNB5ax
-	 ggX23Yg+sl643nUbIlsIAP135+EGG+czfac0nlsaKktLMzX/KSGjigFj5ApArtWlKB2it
-	 rLulxxI+W23gQpNM4qVAoRE9dh8nDo6/RAgjLw716lAUzTtxk6rNiXHo5vazFjx5+wfs7
-	 2BtNEGZRqXt0UvECT6VYrQN0OJX/uOWSQUOsP6Vz46N8RKuO+AN5gW2vhJPO6O7PWgBrn
-	 vGJ3EWm/TuKo2t2lRjveNSwh5L1b2F/lIc6vcqORJ+CbMPQz7z6IeYjQCUCw+/Q3Wlw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435891;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Z99wMaMNn5HsBWTHhvt8IeIQ7zA88qwFOi5fw1JQS00=;
-	b=zeaKn1DG7SrlV+x0kPkB5wmXJd4zFysQyLQT3S0JznQfe/jBFGf757UzZjG7Z9nhZK5n
-	 838t7weC+IgMsxtLdJ0Y822L8oTs8Ibbh+eSkG0hBEWGdq+iJcio9DPIHMy+kcxynB8XZ
-	 w2nvssxXnoFOmNpm1wR+zgHEWsW0dCHc/8m/InmpiPDr3gUjWj8txcopC0Oz9/E67vF9r
-	 Yw7moefzrralk+MEQ/fHS1rSKGOlB++vXl2NeioWXOazaZ1IV+xupVue12YyOqaP0qMZ8
-	 /QH5PDNYstf5r6aVAHgBklQ9VngYvB5F1ND/5v/yjCjsGfKYTo2FsKXlsM9e+YcxJSQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792435992;
+	b=Ko6hY1+Eu0GYBBy+75HZ8SJM9BXym2aj4/tHvpiRddmi5t7+uaREMQJbSUCJyv/vWAIj
+	 DrgjJVV0ZruRDNZv1zogMiP3C3B+5pKRH8/Cvi6rG2m8bAmEC4bvHZBq2P8vyjxFxVZzm
+	 B1QDQv04ZqH+ezpHYCY5QgD7UXK26CDXBDKH8zFRoqw2ayP7xbsGyy0W9cHVxM62A61aQ
+	 9qh0j0pK9Wetb0Mnfx5YXJC2vF8EKgI5InW2GWDUcpc+RME1gp6f/hG+5y/cUscaQXziR
+	 W75lWIMPvnrMuG/Dl5QY9KupapN6sKCYehKiXQAxDp6y/MEEwiDGZ4+DdIhG7/qAFWg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435992;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=U0OPXpDCVqLBQpzhnWrzkRzYhRBBjTJwu5vXYqV+PdU=;
+	b=cBxcmWnjhMQ1hB6+F+Aa1i1hYqStRzYXJQ5/XYnJn2IUm62dYF2rM2sRNjMKn6mO+9io
+	 n3vunnwaKBe7qQg8ica3O6i7OYXbqKltbBtpvvfD5UIdL9ZCvI2OZp0DF344MBAyZb/bv
+	 TSrK14Piw8Gi045+ty+ugLxh5Hxz2DXzcM2QezLN2amxDJvOio/HYH85rkNJtyz3jnu8N
+	 dXcPws/Xe7O8QVrlqFNGlC5xINavvnwAVuo8CyoRGo+H/Fg6f6E0JqRixaL/dLy+i0Auw
+	 CiARF7dYkYQw+zPFUghI7C/XoOkmry2ZgYrIvPcd3tTs3NCWS3C1/WyzUhs2yHdq8lQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DOsT1NNS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DA0606A31D;
-	Mon, 19 Oct 2026 18:51:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5DA0606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xIsSA-00Bx9b-V4;
-	Mon, 19 Oct 2026 14:51:22 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v2] driver core: Don't take the device lock in waiting_for_supplier_show()
-Date: Mon, 19 Oct 2026 14:51:22 -0400
-Message-ID: <20261019185122.805265-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BABB606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:53:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BABB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DOsT1NNS
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso1478275a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:53:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792435992; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aROko6iZxA0va46VZFjC/SPmUki5EiWR1CuZ1QJpQ30+hr26oBWcLZewwEVub9Beps
+         IHHMzLcdjFD48BWcHmmy4gJbQ43gp+LASC4b1zUoEJUipf1xb5LyN/wo0xqrTu/+3Ka2
+         Jif4h01SYswVWwV3xiAQ3CbdX9X28zFS+71+QffXJK2b5FkS/G5AtCsBAfDlRoq+umx1
+         5TXjHHX7RWg5vH/ssCmAl/uvoM64QbrqL75z12gx5Ybitmw/8dLWWdEDYwi6GUmFQlPb
+         cy6esWsGQzh4TCYZPUgZ9NXJQQC0zrJMZlT/mSEujTZTnhHDfhxA+3+5NosapAigftrH
+         R7yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=U0OPXpDCVqLBQpzhnWrzkRzYhRBBjTJwu5vXYqV+PdU=;
+        fh=Hzr00tPq0bTM+lgpt2shNv2+/qmLrsTBGD7PrYDItfg=;
+        b=Gz0m1jERgCloBCbH5P303GvV8w4gPVe6AcLnFaWxpSzBif7ySA9x4wb5+V4LKVY5YC
+         9SDgJHN58YL1OQ8ELcM2uOgwQjQqYw6tNpSXdqsxykPrUDBj84bSmBUAwpY9JX460a2a
+         fdYx+IyeGNDAkRPvm9jf0Vc1T3jStmiG/lAY5ayvHFUMRZbQgs4IugAdtt+ssh/yGOcR
+         KW2101l8Wm19rpCHBLBumltgaoA+sIb9O+Wsi0GiEVangrDxWX6/1HkPDnfLcYnWzbEY
+         CqBXGxd9gQSX6vT09HqyLTqL2523q9CUAHlW7xex1ovfRF4MpISU7bGgVQ9ZIDzulct7
+         8KQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792435992; x=1793040792; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U0OPXpDCVqLBQpzhnWrzkRzYhRBBjTJwu5vXYqV+PdU=;
+        b=DOsT1NNSJKlA/uY2lImfOMWlM2PpdpUfyChND1lpSPqVsgMsk1pqU/rY8ral8PHrbW
+         lofgdd2YHUQfG3pK/1GbMc6xWMLdGiT+Bt7mK5shbNnRna/Ot8SuE95csawvabM/Czut
+         e8Zn79YeiiCo6l3bpwSdnKuX0YSzzvx4Q7m9HpxpqTKUO7H8jRFbBzrAeT1bfqwQKRM5
+         HKLVX8lUh91v+Xulae5VuAr9lMgBw1a/jM+II6bU9LeLbqfWStJtvu7tmQKdoJfeJQin
+         CIumq+YZKWqjbjgj9DtSYzuThRhcvpe/v84fLWXI034/2pDO2py143GDXS9JFnZxzlya
+         VPSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792435992; x=1793040792;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U0OPXpDCVqLBQpzhnWrzkRzYhRBBjTJwu5vXYqV+PdU=;
+        b=FRqHkmIRsu2PzDPAYFtim/ITvMKQRbfSRroIRxXSrrqKGLx/ipgFj9JQse5JXqECeM
+         NJrTQQvWoftxxsb53S0G1oE6F7oKn3HXaM1WthHRW2mM+b/7xoYZVOpC7XwbaexqL8Sr
+         QfUINk0hmlVQtnIYJSr23BUlZ6ITmGP/H3w8LoWHKS9HiZD4KOpLR1K9t/EJSsCPHTYs
+         X14pQDc+x54jcqFmIh/zmCrvSPQSrc8+5NJJ0DSIzt0IYPJx1b+b4nHauT70ScJ+2O87
+         ODCeE6pyc8gUBw2RJAkY5/4jFScTxiCqWm68SOP43yEoXxKotiKYhYjlUKiILhHA0Bqu
+         LBNA==
+X-Forwarded-Encrypted: i=1; AKwUvBxagMcF1zkKdyUdIskJwisMK4y/D1CvlLnUw7jiRxjoKaZkZWQbjkPlErlfxAYbhk3hdk4GBQHVo2dXyRY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcxQ3gvm8Cg6VOxlPErrv57+aeAE8Z2QlAy16Lr/nQsah0PFVM
+	8Av0QtpRFUrGG38oAvDAmnaxSceQqmh/xm8VVAnfXcJg6MfR8aHlyAAivhasLEXHsgwWvMk4RQr
+	Ynpykfsxd4jx5vObi8tZXHmLKjhIIgDA=
+X-Gm-Gg: AYBFou2tpiAJUkzEs7Z8Hmpb2/w5isd4KzCAvZ6hpoh6NOKZwNVs3a4gxfbzP61Wf0X
+	84SAwiCS+crUQiHiWKgEWFe4CjqzpbQd6hCA9OvmKNFR9xi31qVnZnZqUmcl469MbX8jYMCy5sT
+	TkhBLeHJSlhe6oR0PI2orOmI3AES977ysdjLiowS1AAJyGzxMAsiUtNrNnHNBuKr2tmtPOKIxtw
+	mmhPGd6WhHyxeXqP/c+gdC0oQmjVmD7oTj9t6KqukT2RL7xoEx58buo2KNw+B6xBMgmwFbx3F4A
+	Dbb8bB9qSvzxoEgnXUZWrPRyrJcrdpx8zZYamQul6u3uQDGcDM6j+Rypc7X7kbp9zlphSV7fv+f
+	KdEKNVFp6mqHTap+8R8SfGfPIgE4inavdz0KUBGTThNIMh4NNDhCn
+X-Received: by 2002:a17:90b:4fc5:b0:3a4:a592:4cfa with SMTP id
+ 98e67ed59e1d1-3acef3d957bmr7542638a91.45.1792435991820; Mon, 19 Oct 2026
+ 11:53:11 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,120 +104,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261019080709.477548-1-18983559317@163.com> <atX2FsqHIkOvhrLy@redhat.com>
+ <CAEf4BzbX7vmpd2da4eKphX1r8=QXGey_1m32-KP=-8FOkFk15Q@mail.gmail.com> <atZFvTrDIyBtzWbo@redhat.com>
+In-Reply-To: <atZFvTrDIyBtzWbo@redhat.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Mon, 19 Oct 2026 11:52:59 -0700
+X-Gm-Features: AclHuK_kIpsNmMuQwgIok0RUwcZKJw_O92TtNFcUdNT_GKShwZ_47p0XZYU5R4M
+Message-ID: <CAEf4BzaxGie0JYKRLrEYHA5DdHjEFOERHU8_o3n4mxM+kN1x+w@mail.gmail.com>
+Subject: Re: [PATCH v1] uprobe: Assign session ID before publishing consumer
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Binbin Deng <18983559317@163.com>, mhiramat@kernel.org, peterz@infradead.org, 
+	mingo@redhat.com, acme@kernel.org, namhyung@kernel.org, mark.rutland@arm.com, 
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, 
+	adrian.hunter@intel.com, james.clark@linaro.org, andrii@kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reading a device's waiting_for_supplier attribute while the device is
-being probed hangs the reader and the probing task for good if the probe
-succeeds: driver_bound() removes the file under the device lock,
-kernfs_drain() waits for the reader's active reference, and the reader
-waits in device_lock(). The file is world readable and exists for every
-unbound device with a firmware node under the default fw_devlink=on, so
-any sysfs walk during a probe (udev, a plain cat) can wedge a module
-load and everything that takes that device's lock afterwards.
+On Mon, Oct 19, 2026 at 9:31=E2=80=AFAM Oleg Nesterov <oleg@redhat.com> wro=
+te:
+>
+> On 10/19, Andrii Nakryiko wrote:
+> >
+> > On Mon, Oct 19, 2026 at 3:51=E2=80=AFAM Oleg Nesterov <oleg@redhat.com>=
+ wrote:
+> > >
+> > > On 10/19, Binbin Deng wrote:
+> > > >
+> > > > consumer_add() publishes a consumer on uprobe->consumers
+> > > > before assigning its session ID.  handler_chain() traverses the con=
+sumer
+> > > > list under the trace RCU read-side critical section and can therefo=
+re
+> > > > observe the new consumer while uc->id still contains its initial va=
+lue.
+> > > >
+> > > > The race is reachable when an uprobe at the same inode:offset is al=
+ready
+> > > > active and a task hits its entry breakpoint while another CPU regis=
+ters a
+> > > > second session consumer.  handler_chain() may store the stale ID in=
+ the
+> > > > return_instance consumer array.  By the time the function returns,
+> > > > uc->id has been assigned a nonzero value, so return_consumer_find()=
+ fails
+> > > > to match the saved ID and the session ret_handler is incorrectly sk=
+ipped.
+> > >
+> > > I guess we don't really care, this doesn't differ from the case when
+> > > consumer_add() is called right after list_for_each_entry_rcu() in
+> > > handler_chain().
+> >
+> > that uc->id is important for "uprobe session" semantics,
+>
+> Yes, but
+>
+> > which seems a
+> > bit different situation compared to barely missing consumer_add() in
+> > handler_chain(),
+>
+> I must have missed something... If handler_chain() misses consumer_add()
+> then push_consumer(uc->id) won't be called.  This means that then later
+> handle_uretprobe_chain() -> return_consumer_find(uc->id) will equally fai=
+l?
 
-The device lock is not needed: fwnode_links_check_suppliers() reads the
-supplier list under fwnode_link_lock, which every writer holds, and the
-active reference keeps the device alive during the callback. Drop it.
+yes, you are right, and we are in violent agreement :)
 
-Reproduced on x86_64 under QEMU with sym53c8xx as a module, whose probe
-waits for the SCSI settle delay: a read of the PCI device's
-waiting_for_supplier file during the load hangs before the change and
-returns 0 after it.
-
-Fixes: da6d647598a6 ("driver core: Add waiting_for_supplier sysfs file for devices")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
-
-Notes:
-    Changes in v2:
-      - Cc: stable (Greg's patch bot: the Fixes commit is in a released
-        kernel)
-      - shorter commit message
-    v1: https://lore.kernel.org/all/20261018001837.797946-1-nickolai@csail.mit.edu/
-    
-    Lockdep does not report the hang: dev->mutex is lockdep-novalidate.
-    
-    Every writer of the fwnode supplier list (fwnode_link_add(), the purge
-    helpers, __fwnode_links_move_consumers() via
-    fw_devlink_pickup_dangling_consumers(), and the cycle/link code under
-    fw_devlink_link_device()) holds fwnode_link_lock, so the walk in
-    fwnode_links_check_suppliers() needs nothing more.
-    
-    Reproducer (x86_64 defconfig + CONFIG_SCSI_SYM53C8XX_2=m + CONFIG_DETECT_HUNG_TASK,
-    QEMU with -device lsi53c895a,id=scsi0 -device scsi-hd,drive=d0,bus=scsi0.0; the
-    PCI device has an ACPI companion, so it owns a waiting_for_supplier file until a
-    driver binds; sym2_probe() resets the SCSI bus and the synchronous scan waits for
-    the settle delay, so the probe takes "settle" seconds). Busybox /init, with
-    sym53c8xx.ko in the initramfs:
-    
-    #!/bin/sh
-    mount -t proc proc /proc
-    mount -t sysfs sysfs /sys
-    mount -t devtmpfs devtmpfs /dev
-    for d in /sys/bus/pci/devices/*; do
-    	read v < $d/vendor; read i < $d/device
-    	[ "$v $i" = "0x1000 0x0012" ] && dev=${d##*/}
-    done
-    (insmod /sym53c8xx.ko settle=8 && echo "init: module load done") &
-    sleep 1
-    (echo "init: read returned $(cat /sys/bus/pci/devices/$dev/waiting_for_supplier), attribute access done") &
-    sleep 30
-    echo "init: after 30 s:"
-    ps | grep -E 'insmod|cat /sys'
-    echo w > /proc/sysrq-trigger
-    
-    qemu-system-x86_64 -cpu max -smp 2 -m 512M -nographic -no-reboot -kernel bzImage \
-        -initrd initramfs.cpio -drive file=disk.img,if=none,id=d0,format=raw \
-        -device lsi53c895a,id=scsi0 -device scsi-hd,drive=d0,bus=scsi0.0 \
-        -append "console=ttyS0 panic=-1 rdinit=/init loglevel=7"
-    
-    Before:
-      INFO: task insmod:72 blocked for more than 10 seconds.
-       kernfs_drain+0xf6/0x170
-       __kernfs_remove+0x188/0x250
-       kernfs_remove_by_name_ns+0x78/0xd0
-       device_links_driver_bound+0xd4/0x350
-       driver_bound+0x46/0x180
-       really_probe+0x1b1/0x360
-       __driver_attach+0xfc/0x1d0
-       bus_add_driver+0x15c/0x270
-       init_module+0xc9/0xff0 [sym53c8xx]
-      INFO: task cat:79 blocked for more than 10 seconds.
-       __mutex_lock+0x395/0xa00
-       waiting_for_supplier_show+0x1f/0xa0
-       dev_attr_show+0x17/0x60
-      INFO: task cat:79 is blocked on a mutex likely owned by task insmod:72.
-      init: after 30 s:
-         72 0        {insmod} /bin/sh /init
-         79 0        cat /sys/bus/pci/devices/0000:00:04.0/waiting_for_supplier
-      (a power-off afterwards hangs too: device_shutdown() takes the same lock)
-    After:
-      init: read returned 0, attribute access done
-      sd 2:0:0:0: [sda] Attached SCSI disk
-      init: module load done
-
- drivers/base/core.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 4c0c373998a1..a3a28d83d339 100644
---- a/drivers/base/core.c
-+++ b/drivers/base/core.c
-@@ -1317,10 +1317,8 @@ static ssize_t waiting_for_supplier_show(struct device *dev,
- {
- 	bool val;
- 
--	device_lock(dev);
- 	scoped_guard(mutex, &fwnode_link_lock)
- 		val = !!fwnode_links_check_suppliers(dev->fwnode);
--	device_unlock(dev);
- 	return sysfs_emit(buf, "%u\n", val);
- }
- static const DEVICE_ATTR_RO(waiting_for_supplier);
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.53.0
-
+>
+> > but regardless, the fix looks good, we should apply it
+> >
+> > Acked-by: Andrii Nakryiko <andrii@kernel.org>
+>
+> Agreed, I have acked it too.
+>
+> Oleg.
+>
