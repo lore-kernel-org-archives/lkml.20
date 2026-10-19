@@ -1,70 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=104.207.68.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792447819;
-	b=RxrrmEkoD5HdK6XVUfkW5fnyBd864BG6gMIUUE00T0PMkNPM7fGdPGFPmS8P+EAYJ3ik
-	 4z9MhimwSJJ3Kkuol6t6OEqifoc8M3ldTN6I1xkMBnS/B/nxU4FeuJg13ApLyEfQvBr0N
-	 hLfyhzshM6I8otODSi0mZ5/DV7eMV6ZQ5AbqBUy5BFeAMolUHLy85ROmJe+Opv8C2aPpi
-	 wv4xkA9SxzNGwTpSraZIGpPJd4gthgnAwzIo5Nt/PcsUqLMxy/0hWL1x8D2BskQsqwPEv
-	 ppr9zCq1AdXMzOmCOcZfmg8J/kpAsLsYF1s4s7R4ituZmnwRJSAF0EwUBzxJks9dV3g==
+	t=1792447927;
+	b=YkLLpup2dOAH1avWjIPzN9FAB42+wA3mSyhn2+ds/1gkpd9KgfFHjElgx4MOx78aRzph
+	 r+uDbClUphY9T1aEhyhDvIpSmuq4cqIHSA5WCPC3AszIlYXlc1TeyEK8R983cSQUzlVSt
+	 Xgw9sP4iWWL9VpPN2zzIl2282saNAwuUCaOLq2Gs2sDmo1Y9bh6bxruPtfWHIz5YQxWDm
+	 jK8cST6PMUUDCsId+XCmtHHvejuzaYMnb1/QslMPW2Eev9VFeCJXRBOnJcJYace2V9Wj4
+	 SeVwCiuUz8g8kUyxqq/fB6g3hLleC+XuC0nIMMdupR64iB6LmIiUmZQl5QnYhjlYmFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792447819;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Envelope-From;
-	bh=A9M+eQGTgrKJjVISHFIRHuM3Rvm+gb3HgdVuKPjSkV0=;
-	b=21T0wdiu8gQGfKcntXaKj2zMq1MlC7k5hbcTUr3FWMzbrJjjUX0xeXXtMoGQCMhHY7Ir
-	 Q0e5B04poaIZ6nQMI19OA2XTcuExTragMo/OlHFezWYFicODDmzK/uly6afWtUZLaFmqQ
-	 1wIAFGcvwRyK5owUhAm8O2L9bIOv/NMeC+KOGyNkyVeGRr44HzugdoNfdwUQD9CkAKbBN
-	 NV7GL00PVNOFMs1Aw3Ch/bNmHvqfv9EoS/xz5z1pR7Q8iaz6D98un+JtmpxeQ+b+AvmWh
-	 u+O/gdyEoc9LvecZSAD7Qm35wIMH8Hkl7W6bVHU3OgDhbH9pinVy7wwg4HJyVd/V5Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792447927;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qOgEM347UA2oUXrlePKVhdOzVwXTFnw/rujmP6OQ7Og=;
+	b=1UV4Innbzk32O2q9OC7hFV/gXAUgvEtOFBW3PFDT05Cl4UMzb0KTVTLpf/B0jZIJKFjC
+	 /m25+U06S3KJUgWdsjK92xKffShtZM3S1G8rwsYlZh6nEfkAVUnuirrBPckhJafqmm4el
+	 N33/kL9lFZcYFre9bdYgp/eIF0rk5xWWiBpENorCXyGLw9dtPaFXgOFVdXVR3X3Dvs5rk
+	 VZoZrs2zDHlh3I19ZUqb4wk9i9TgGnzRIdm2RxxUdUfYmDlYx92QJom3Cud8WlA/7IfHe
+	 iXBANHZthMPPnikg8ywjasX3l6R5YO5agtW/zhP+y2ZBLTgOos/9JjFstGONsCDTHBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=r-sc.ca;
-	spf=pass smtp.mailfrom=r-sc.ca;
-	dkim=pass header.d=r-sc.ca header.i=@r-sc.ca header.a=rsa-sha256 header.s=spacemail header.b=PZdai8wY;
-	arc=none smtp.remote-ip=104.207.68.28
-Received: from out-93wp-a28.jellyfish.systems (out-93wp-a28.jellyfish.systems [104.207.68.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FhAzmzFg;
+	arc=none smtp.remote-ip=91.218.175.50
+Received: from mta0.migadu.com (out-50.mta0.migadu.com [91.218.175.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0681606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0681606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA67606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:12:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BA67606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=r-sc.ca header.i=@r-sc.ca header.a=rsa-sha256 header.s=spacemail header.b=PZdai8wY
-Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j7qV854FLz6tkL;
-	Mon, 19 Oct 2026 22:10:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
-	s=spacemail; t=1792447809;
-	bh=A9M+eQGTgrKJjVISHFIRHuM3Rvm+gb3HgdVuKPjSkV0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=PZdai8wYQayJZfOy5O+qN3ZhLQejDrw8jwduUTMX+f5P1pD0FIuj8ny1NC1YqVX8l
-	 9KlchquCstkf6woO0H0stvGHQQ6DYQNSEEemH+k5jL7XcN3QAE9kvzC34nzjYAoSbu
-	 KX4HBHkCHudILQoC1WNNAgebFNp71twgBm0HkHQ1WvUQ3HihbyzM8VdIs2URBVghjd
-	 ny4+c5PKDR/Yuf8nP6phY22X5M2fTfOtpBbBTB0YuSxwWriyn+JoG5r7wQ0rYcyeeH
-	 +Tyy98Qm6GmXJhhZU+SND8etd08NhFTR+3mlp28zSGprcBrYDjBMq+gvvgIhOsuU92
-	 COIDyZ+JgFLAQ==
-From: Ross Cawston <ross@r-sc.ca>
-To: netdev@vger.kernel.org
-Cc: kory.maincent@bootlin.com,
-	github@szelinsky.de,
-	o.rempel@pengutronix.de,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	Ross Cawston <ross@r-sc.ca>
-Subject: [PATCH net v2] net: pse-pd: don't enable a PI again while disabling it
-Date: Mon, 19 Oct 2026 15:08:34 -0700
-Message-ID: <20261019220835.613-1-ross@r-sc.ca>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FhAzmzFg
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DikdP9xMiFcD79eHzl2Rx85QAWRmN2Gb3vUT8s7Ubxs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792447924; v=1; x=1793052724;
+ b=FhAzmzFgLT58AZzAGSVbJ21vLRvLIp41QnyctBylJnPV/rp43SqizB+agP1IhsoNxpAvxzhC
+ VYtC8/wPdXg6BaHu5EexnR5xGd5k98M8glcnW69JdR+BxVQMQi0azR/dQyVPVLt749iRxr59eDa
+ XY9uITxiN8GfAsHDeEmg+BS4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1c70924cc703aeac;
+	Mon, 19 Oct 2026 22:12:04 +0000
+X-Mizu-Trace-ID: 1c70924cc703aeac
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d27c2b12-8968-4eec-b925-d5345ba1821e@linux.dev>
+Date: Tue, 20 Oct 2026 00:12:03 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,111 +58,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: ross@r-sc.ca
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: asus-nb-wmi: Ignore spurious 0xe5 events on
+ GU605MY
+To: Evgeny Volferts <eugene.wolferz@gmail.com>,
+ Corentin Chary <corentin.chary@gmail.com>, "Luke D . Jones" <luke@ljones.dev>
+Cc: Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015163029.107250-1-eugene.wolferz@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261015163029.107250-1-eugene.wolferz@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-With software power control, _pse_pi_disable() frees the power budget
-of the PI and then retries the power delivery of the PIs waiting for
-power in its power domain: those that are admin enabled, have a PD
-detected, and are not enabled in hardware. On an admin disable or a
-disconnection, the PI being disabled is one of them, as its admin state
-or PD detection is only cleared after _pse_pi_disable() returns, so it
-is enabled again right away:
 
-- an admin disable of a port with a PD keeps the port powered, and the
-  next admin enable allocates its budget a second time
-- a disconnection enables the now empty port again, with a new budget
-  allocation that is never freed: when the port reports the
-  disconnection again, its PD detection is already cleared
+On 10/15/26 18:30, Evgeny Volferts wrote:
+> The ASUS ROG Zephyrus G16 GU605MY periodically emits an
+> unrecognized WMI event (0xe5), approximately every 12 seconds.
+>
+> The event is reported as KEY_UNKNOWN through the Asus WMI hotkeys
+> input device. When the session is locked, it causes both the
+> internal display and an external monitor connected through a
+> Thunderbolt dock to wake up repeatedly.
+>
+> Add a DMI-specific quirk to suppress this event on the GU605MY
+> without affecting other ASUS notebook models.
+>
+> Ignoring the event was first verified on a 7.2.7-based OGC kernel.
+> The DMI-specific quirk was subsequently built against 7.2.8-ogc5
+> and tested on 7.2.9-ogc2 and 7.2.9-ogc4. On both 7.2.9 variants,
+> the DMI match was confirmed and the unknown 0xe5 event messages
+> disappeared.
 
-Move the retry out of _pse_pi_disable() into its callers:
-pse_pi_disable() and the disconnection handling of pse_set_config_isr()
-retry after they clear the admin state or the PD detection, and
-pse_disable_pi_pol() retries as before.
+Hi Evgeny,
 
-The problem was found while testing the budget on a switch with two
-Realtek RTL8239 PSE controllers, whose driver (not in mainline yet) uses
-the static budget strategy like the TPS23881. Before this change,
-"ethtool --set-pse <port> c33-pse-admin-control disable" left a port
-with a PD powered, and the budget allocated in the power domain grew
-with every disable and every unplug. With it, the port stays off, and
-the allocated budget is back to 0 after a disable and after an unplug.
-Tested on that switch with OpenWrt's 6.18 kernel; the change for
-mainline is the same apart from context and is build-tested.
+Thank you for your work!
 
-Fixes: ffef61d6d273 ("net: pse-pd: Add support for budget evaluation strategies")
-Signed-off-by: Ross Cawston <ross@r-sc.ca>
----
-Changes in v2:
-- Move the retry of the power domain out of _pse_pi_disable() into its
-  callers, instead of splitting out a __pse_pi_disable() without it
-  (Kory)
-- Keep the retry after pse_disable_pi_pol(): without it, PIs turned off
-  for a PI of higher priority stay off even when their budget wasn't
-  needed (Sashiko). That the retry powers such a PI again right away is
-  left for a separate patch.
+I am thinking that a quirk with e5 in the name is a bit overly specific...
 
-v1: https://lore.kernel.org/netdev/20261018182005.1193-1-ross@r-sc.ca/
+That code has never been handled and is just the EC repeating some settings.
 
- drivers/net/pse-pd/pse_core.c | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
+I am thinking that perhaps the best thing to do is just create a case 0xE5 that
+simply does the ignore with no quirks check and a nice comment outlining
+why it is done.
 
-diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-index a5e6d7b26b9..c71acfd5337 100644
---- a/drivers/net/pse-pd/pse_core.c
-+++ b/drivers/net/pse-pd/pse_core.c
-@@ -469,9 +469,6 @@ static int _pse_pi_disable(struct pse_controller_dev *pcdev, int id)
- 
- 	pse_pi_deallocate_pw_budget(&pcdev->pi[id]);
- 
--	if (pse_pw_d_is_sw_pw_control(pcdev, pcdev->pi[id].pw_d))
--		pse_pw_d_retry_power_delivery(pcdev, pcdev->pi[id].pw_d);
--
- 	return 0;
- }
- 
-@@ -493,6 +490,8 @@ static int pse_disable_pi_pol(struct pse_controller_dev *pcdev, int id)
- 	ret = _pse_pi_disable(pcdev, id);
- 	if (ret)
- 		notifs |= ETHTOOL_PSE_EVENT_SW_PW_CONTROL_ERROR;
-+	else if (pse_pw_d_is_sw_pw_control(pcdev, pcdev->pi[id].pw_d))
-+		pse_pw_d_retry_power_delivery(pcdev, pcdev->pi[id].pw_d);
- 
- 	ntf.notifs = notifs;
- 	ntf.id = id;
-@@ -709,8 +708,11 @@ static int pse_pi_disable(struct regulator_dev *rdev)
- 	pi = &pcdev->pi[id];
- 	mutex_lock(&pcdev->lock);
- 	ret = _pse_pi_disable(pcdev, id);
--	if (!ret)
-+	if (!ret) {
- 		pi->admin_state_enabled = 0;
-+		if (pse_pw_d_is_sw_pw_control(pcdev, pi->pw_d))
-+			pse_pw_d_retry_power_delivery(pcdev, pi->pw_d);
-+	}
- 
- 	mutex_unlock(&pcdev->lock);
- 	return 0;
-@@ -1229,10 +1231,16 @@ static int pse_set_config_isr(struct pse_controller_dev *pcdev, int id,
- 				ret = 0;
- 		}
- 	} else if (notifs & ETHTOOL_C33_PSE_EVENT_DISCONNECTION) {
--		if (pcdev->pi[id].admin_state_enabled &&
--		    pcdev->pi[id].isr_pd_detected)
-+		struct pse_pi *pi = &pcdev->pi[id];
-+		bool disable = pi->admin_state_enabled && pi->isr_pd_detected;
-+
-+		/* Cleared first, so that the retry doesn't enable it again */
-+		pi->isr_pd_detected = false;
-+		if (disable) {
- 			ret = _pse_pi_disable(pcdev, id);
--		pcdev->pi[id].isr_pd_detected = false;
-+			if (!ret)
-+				pse_pw_d_retry_power_delivery(pcdev, pi->pw_d);
-+		}
- 	}
- 
- 	return ret;
--- 
-2.55.0.windows.5
+I don't see asus repurposing that for something else honestly so it should
+be future-proof enough and will potentially avoid this to other models as
+well.
 
+On the other end it would be cool to know what that really is telling us...
+
+If you don't come up with an answer I would defer to Ilpo whether preferring
+reducing quirks or keeping the symmetry within that key_filter function.
+
+I am fine either way.
+
+Best regards,
+Denis Benato
+
+> Signed-off-by: Evgeny Volferts <eugene.wolferz@gmail.com>
+> ---
+>  drivers/platform/x86/asus-nb-wmi.c | 17 +++++++++++++++++
+>  drivers/platform/x86/asus-wmi.h    |  1 +
+>  2 files changed, 18 insertions(+)
+>
+> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
+> index aeb461b1644d..8d69231d25a0 100644
+> --- a/drivers/platform/x86/asus-nb-wmi.c
+> +++ b/drivers/platform/x86/asus-nb-wmi.c
+> @@ -150,6 +150,10 @@ static struct quirk_entry quirk_asus_zenbook_duo_kbd = {
+>  	.key_wlan_event = ASUS_WMI_KEY_IGNORE,
+>  };
+>  
+> +static struct quirk_entry quirk_asus_gu605my = {
+> +	.ignore_e5_wmi_event = true,
+> +};
+> +
+>  static struct quirk_entry quirk_asus_z13 = {
+>  	.key_wlan_event = ASUS_WMI_KEY_ARMOURY,
+>  	.tablet_switch_mode = asus_wmi_kbd_dock_devid,
+> @@ -562,6 +566,15 @@ static const struct dmi_system_id asus_quirks[] = {
+>  		},
+>  		.driver_data = &quirk_asus_z13,
+>  	},
+> +	{
+> +		.callback = dmi_matched,
+> +		.ident = "ASUS ROG Zephyrus G16 GU605MY",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "ROG Zephyrus G16 GU605MY_GU605MY"),
+> +		},
+> +		.driver_data = &quirk_asus_gu605my,
+> +	},
+>  	{},
+>  };
+>  
+> @@ -690,6 +703,10 @@ static void asus_nb_wmi_key_filter(struct asus_wmi_driver *asus_wmi, int *code,
+>  		if (quirks->key_wlan_event)
+>  			*code = quirks->key_wlan_event;
+>  		break;
+> +	case 0xE5:
+> +		if (quirks->ignore_e5_wmi_event)
+> +			*code = ASUS_WMI_KEY_IGNORE;
+> +		break;
+>  	}
+>  }
+>  
+> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
+> index 5cd4392b964e..e7772397cd10 100644
+> --- a/drivers/platform/x86/asus-wmi.h
+> +++ b/drivers/platform/x86/asus-wmi.h
+> @@ -41,6 +41,7 @@ struct quirk_entry {
+>  	bool wmi_force_als_set;
+>  	bool wmi_ignore_fan;
+>  	bool filter_i8042_e1_extended_codes;
+> +	bool ignore_e5_wmi_event;
+>  	int key_wlan_event;
+>  	enum asus_wmi_tablet_switch_mode tablet_switch_mode;
+>  	int wapf;
