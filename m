@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792448160;
-	b=vh7NIsl1XIcaOOhGe9mGG9X3G7rcy3XgSaApeYKXG+mrC5qy6TkchX8rt/249WHQB6FP
-	 8lDdPSLPwHwgqJMemrf7noje94+7BLJFlSOYdiPqFqzau2nQ+d/WEpFrZx1gvdW8MMAo0
-	 No9dbPv1bbVJwL2Fuu7VmlWY86r0rqNj4qNbUS5zXxVpL3l35HnaUpGdypEbmJfxxT51/
-	 zTMIhRiOI/C8lOn01WTrbRLgWO0ed+6DiSBh/bKJMm8njCw0PjwUpM4W78mxMoqvsP6I+
-	 dg8RpUQ2O5jcThTQNysPPD7GGXRfj6AMQyhCLegn8vo9bD5c0oBwKIdqwhuwNF9qytg==
+	t=1792448154;
+	b=MoLHVuJ4lcJdZW1pIeU7+5AgfbqoJvC1cq3cyzeK1vJAYQrrbHj7E9CJ00J453jGFL1M
+	 Xhgxhr/DIkm03jEL+G5C8M+hmVUmhbHrjuQtp/HXDJgRi6sU1e+thOvge26thYCqnna3I
+	 JjGEwcs0VFj4NBQb7DBlW67gM2xqzsl7nCcDt2GeLgjSaP8ZFPryYDUVxblrnbhbuf8Ow
+	 RI6l4NGMlr9cfSGOe6F7uIjF0PSPM8eRim1tPv77bPxpuI3Rkew0P6DEhj9rdPuSldzpx
+	 URZuTFsvmYekTs71n72mFejeHEgiZW2AbV7/cdfhDmU0bxDDscosHAoiGaxvJJqW+4g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448160;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=rdyNMiM+XBlxdbJkKkHd/PYJIa4td4GcgNTCZeLOXak=;
-	b=bhjpw/HZzTuaNwKUHBEbHrwRjQy68SKE7mkGRa+aKBnbVZWQA2r64UG9I5T+LiFYxWV0
-	 hFX451HwvyhLvke5UnF/Ei/OUJUQ1t/HJoMfTC2CGeOPao5IxMLsZNLchLRcmvGMlXRrL
-	 3cYVj0vT7EZXKB2IaBsbJ258rhuPMAXw4sCUcdGKGi2Ib/ua1WlTBajO7YjX91SJd3WX+
-	 1MumKPUJjCrOJrsyqbLOj1pffRTnPNRxftSwaLyUL3JypLWWxwBBuOhtgCDapnycqeD8c
-	 QMP+pf64S75CRjXeJqDQRB/9ASyF8PKdOTOY1rWg5a/o5T1dOnZUl9QDXY7uWOWngHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448154;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bTFd8OGkOEJ8Ouap3vp9tt8/FXePakiOpC2goVYeBYo=;
+	b=KWROpPZudEf3VbOO0S20Ci046lxdVJekvd7vdoadAsb+00gwJYC/clH24EyV2b7UPc5C
+	 tkxqGMoE8y7/OoOtW4H7Wb4FOBHLwET016DxtDKM+3UJItKdaXwFBHw82l229iG9US1sA
+	 v/Cp2Mf4oOuAU7BdItei1Expqi8w9+EvS1Ha26ypiU52ehNO/1GVQI5KnmWr0SL/4tBfh
+	 gPCipLKybERAuu0fDOTjxmmQ5bP6zqRb59XvUX2VntZTc7skwK7sf1emrfvm/cGSfC3KR
+	 ABH8Bh0OXC9Xek64QPYdGloWHxyeJD4wZCQhm6Y1GTH7o0SM3QUdaw7V7eqImMcCuZA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Z+jFQGuM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IeZGE/RS";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B594B60A2603;
+	Mon, 19 Oct 2026 22:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IeZGE/RS
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792448153;
+	b=C/os7R1O1QOHUOittRwqpIRFDtPZ9b+xHk/arb9WsXNIXAuaPo34RjK4xnVf0RvJB/RL
+	 xSF6euapACzjCxc7QkTHclx+lVJyvd1rx1sO8lXiyb39HjCX29pMWyiLy2JaL4WxcV8sl
+	 7njEKYp8LH4qF+Tf9ipewfkhJd1xSrTGOjgQbL7FOsNbR3yeUZeu+X7+UA4DRgc+btJ39
+	 KnXnZTuOp/SqQqmqURhNhoitlr7ikzFjYUXtcZwo1vZbvPzRYzIy/sPTLStuZ6q8aQei2
+	 rEg5Q17TUcnSKzp63Kq1EC7dwnfHA9Ax4b4Q/9X9Ah95bzJ7SAw3fxAD5INRx0FkXdg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792448153;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bTFd8OGkOEJ8Ouap3vp9tt8/FXePakiOpC2goVYeBYo=;
+	b=BhY4u0YWW3C1Z182Ja4iWx2X2eIGzJiMFflNZHA6VwWvsbOazNWVKhrKGc/eSO7agseK
+	 SDnqY8aVCkl3XB5w8v+X7KGKn+MmvbRgW70eQD9mTrmhLYkwp2T6FwvX13/R20KFzfOfh
+	 PRgx3bTWr5cb//xh+T0fkg4QQN7nnFmvpHfrk7574Y0XXrxo+EAJbPz8PZqbCNb3w3Flz
+	 0UH+hcSkCumGGenfP6ZZuHu6ufTnhDAZpLZUt1Akcih2ezzWhOE+qeIy9p6V5bPMlm1y4
+	 JeR1JOxa6mGwppUMHLrALfr5dUSvcuM5abQffYiWafJBe8piVYw2XjO1E6kyufNLOXQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C9560A3815
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:15:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4C9560A3815
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Z+jFQGuM
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-18cdcfc05ffso1193801c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:15:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792448159; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rIctuR9VPcw3yd86j51nd7RssJP+wvpBAIANVonjpt8OHmT92xEhrI4APdlUgO3SKa
-         s6soleTsoeSFCA+W1TLSzG8epmRhrRLbOTPaS7iaJLURypmehEzEEOF3szIfPAbvwre4
-         yS7hGUf0GLnumxeXAaHpTFehK2PiMgSFLWfGhfUbi0ELMSWn3iZC8HiicnWs2UNvx30T
-         YrWw891HoEN5bUkmL0tJZgiXjnIzAdcT6FpG0oiN1uuuYjmkpz+j6B0szbqD9oefgFg3
-         09EvQDghBpkl6W+2KLE8V7WBmDr7sk547O8sBQEe+s6vG5OoYyRQATPnjbqjkeYAwh71
-         mVvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=rdyNMiM+XBlxdbJkKkHd/PYJIa4td4GcgNTCZeLOXak=;
-        fh=ByWzewDRK1dyZL777P51Unue/RMy5MY65oJh++in2Gs=;
-        b=LKhNE3hyQSWp5v/BpZb5ByokDMuDxGTLLlpJ3weZv0z6SG+Fl6Qy1m8UuAU2tE+5CC
-         3OT7fu5kxTY5yIGoP9bD0LxC3dGAlzv0m9oEuo+p2n8FL9M9PvoxmoAMPsEcVOD/U1tV
-         OoCDlWk+M95SmmQhkYHBu8Z8OLBeiQERENtycSQIr6Ceq0kJ6MW5ZZ6PCl8uzqYwzFnt
-         xT55ULKwlFoB2e7JPVpgr9qVq6gfh12qeFgG2G0uyIjat0wEx2PRGb1X6lF2T3YHri4y
-         7beNv64niwEJkMz4IFQiQ6+mHjMnwO0/PVPtG+4JP/g5y4YcUNFuRzwC567RnYc/gqlt
-         Ep2g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792448159; x=1793052959; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rdyNMiM+XBlxdbJkKkHd/PYJIa4td4GcgNTCZeLOXak=;
-        b=Z+jFQGuM+R8S6JsKAZwv6LyJH/Y9IcZLAIfMG9qO65yJSvvkJip1WU0/fePsvMvrdM
-         yYvyExnOZ/UDbo7f5/ZNZaPmFvXELK/csgabOGxEJuKLv3eMRHi0j8pbMorAeDeWXPy6
-         if+FoWjEM68ZMFBEzCawUsBFbTdl1flplJBqveirwOvMyeYZfPexKkwMexScRX+ZMfIr
-         Ox3ItrAbZ0kYTh5IhPqoMCvUaY/xYlw4WvIn+vC4GqdKa9wnrVccc6+xEDQgnJXnzfr7
-         XOxauoWlOliEqhaFDaUzCO1Lwi3uB1phcKCIy2wQzogQzIQowzJ6dIzbRPaDUO00JOoX
-         JcKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792448159; x=1793052959;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rdyNMiM+XBlxdbJkKkHd/PYJIa4td4GcgNTCZeLOXak=;
-        b=WcBSkeGRPSeGhYnPrsIzBT1OJV3ioOr59kpxwTukUMy4ukaUTXnuVu6/jFY2X4TtCd
-         yO59kjpv31UVr2o9vZdCY4oyyaekFy0yAWd+CKEmwNP2UY9hreCrgcAEhMEd+LdS2NoO
-         QPFXm3BNUgBTIzzJHVh5jhT6eys1zH8GQlL0pIL6eQjA8w/Hcmx1ynZakqvCBk3x0qFe
-         LnPjHNZ1s3upfmKqoBwUjQ6kttO8n0cL8bfdM2YvAc+3Sf2YWtdKF0YkxGk4yITX0Wcv
-         ZvJftl/rs4aK9EmaYjlG0Nm/Vzt2AGtPtn5WbCjsusz9iOKuXxeCqbUS+q09xWRnWmBU
-         9k7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBygWgFiFwpTZ+V0ch/vOBLb2A0hdrQ13Q2zlkMK5+gXIhvyiGXJXkqiaJNM+ag98D9GFuleBWAKT21wvcg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7keF17ngWIrpHUxFdZXGZ4kWvNBnjYBmHcoiP2/+W/rbW/f7w
-	2INKIVgU8uOTK8ZRkz9KQea6D6EtRmMJh0nuBOQlbW2f+SeYKnshBNs21IIOntF+3RKKwKgIvbc
-	b8V1OhmmbwNGKgLRwwVDxAL4Ug7S6nP/RZwkjwQxy
-X-Gm-Gg: AYBFou3vCA8K1Q8J7soxUv5WB/aSAkng3JXZB1Ech1K+8Jpi/raQZLmbUD8dplDF07O
-	9uofJHj0kV7vj6kQH/akkRRQct1OnFxoS0j7WgpzIe1u0t0W/NVTIa8Unp/0h0AbOAu7QGRGgyV
-	VSycHBET9guLQy3f2A2/K1JJdtRxS4vhdkJyedAklOf09jqcpGj1jUc8g3BGYOhJAoJP+dCBhLb
-	Gitf/YkAeRpaPmEYT/xyQYiSgAGrbMbsU5G3+6Bi9u5sNVAuhMpv8Oal/wLHifFRNOpMj7l8JpC
-	TriEbMuPNmT8FRlLT9U4lfXKXY0NG3uDDiRcht6g3zDFbhesADoe5pFZLFYunO23YEvOHQgK2NQ
-	F3q1eMvQZOqI=
-X-Received: by 2002:a05:7022:7e8d:b0:151:2e62:fe8a with SMTP id
- a92af1059eb24-18514256ee0mr13912895c88.40.1792448157775; Mon, 19 Oct 2026
- 15:15:57 -0700 (PDT)
+	by smtp.kernel.org (Postfix) with ESMTPS id E1FC01F000CA;
+	Mon, 19 Oct 2026 22:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792448153;
+	bh=bTFd8OGkOEJ8Ouap3vp9tt8/FXePakiOpC2goVYeBYo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=IeZGE/RSXUNVYeLP/mgrgh/YRNmiqZDU5Ozx/gOnro2V1lJ360Zywh0YorhegMfgA
+	 wSWl8HUCmBwwxwe1vXhVvdRWxYk0QLldovKDo0HniiYjza5YpFiI+bm1pL/bjS2fmf
+	 ZXpR16/AjaTYs6TcWZSXvlwlKOEgHhiMVNwV/cVoGGqetnkOpVherDkPNi0aP8XGBE
+	 l8BkRXYD77l2stKrTjjJg6Fo/e9W4SfGdklPjlW4dTdbO1QlAorFbIlAmXG3ZFFhkK
+	 8oCBb1jJhRQjMw4jgbTIhv7BfCUiBDIIVJqy3MebAe1JYB4gZu5CC58rmv87eENmQQ
+	 K7SWXoqDRu8Iw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3BCA94066C;
+	Mon, 19 Oct 2026 22:15:49 +0000 (UTC)
+From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
+Date: Mon, 19 Oct 2026 17:15:51 -0500
+Subject: [PATCH v15 06/11] scsi: ibmvfc: add FPIN extended flag and async
+ sub-CRQ queue handle
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,79 +83,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261003214516.128573-1-zoone.rupert@gmail.com>
- <asIRkK-uUz4FKQBN@ashevche-desk.local> <20261019004509.68409863@jic23-hlaptop>
-In-Reply-To: <20261019004509.68409863@jic23-hlaptop>
-From: Marco Elver <elver@google.com>
-Date: Tue, 20 Oct 2026 00:15:20 +0200
-X-Gm-Features: AclHuK_a0n-l-qngv8FVuS94ECxKd9nndQfPACOvwyf1hlN0WIx1_aiPJEfhYO8
-Message-ID: <CANpmjNOY2=M_G4uaRe+QENQRaet342UZDfXVkh3=gLaVBwW+Wg@mail.gmail.com>
-Subject: Re: [PATCH] iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on
- mutex helpers
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Rupesh Majhi <zoone.rupert@gmail.com>, 
-	Andy Shevchenko <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bart Van Assche <bvanassche@acm.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261019-ibmvfc-fpin-support-v15-6-a858726e178a@linux.ibm.com>
+References: <20261019-ibmvfc-fpin-support-v15-0-a858726e178a@linux.ibm.com>
+In-Reply-To: <20261019-ibmvfc-fpin-support-v15-0-a858726e178a@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Tyrel Datwyler <tyreld@linux.ibm.com>
+Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org, Dave Marquardt <davemarq@linux.ibm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792448148; l=1878;
+ i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
+ bh=eFM+z2bDgARR/YdCRp/MotZZJpzrNpdp7FfM06XduFI=;
+ b=SZJ4UlQWT8AEwZ5OZpKKZwBZhlX0lUtVsMLYKWg1FoT0G5NuNyz2/1usJzey+bGKPZPps/17y
+ CZbNwcYgu+ADRUlOkFAiCm366mDEzUm275hfNQ1auHEPSl/FQOqXaR5
+X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
+ pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
+X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
+ auth_id=689
+X-Original-From: Dave Marquardt <davemarq@linux.ibm.com>
+Reply-To: davemarq@linux.ibm.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, 19 Oct 2026 at 01:45, Jonathan Cameron <jic23@kernel.org> wrote:
->
-> On Sun, 4 Oct 2026 11:42:56 +0300
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
->
-> > On Sun, Oct 04, 2026 at 12:45:16AM +0300, Rupesh Majhi wrote:
-> > > The __acquires() and __releases() on adc5_gen3_mutex_lock() and
-> > > adc5_gen3_mutex_unlock() name adc, a local declared in the body. With
-> > > context analysis enabled for this file, the build fails:
-> > >
-> > >   error: use of undeclared identifier 'adc'
-> > >
-> > > The lock and unlock are split across these two helpers for the ADC_TM
-> > > driver, so mark them __context_unsafe() instead.
-> >
-> > Doesn't sound right to me. The __acquires() and __releases() IIRC are sparse
-> > annotations. If clang has something special, it needs to be addressed in
-> > the compiler-clang.h, no?
-> >
-> It's in compiler-context-analysis.h and for now I believe is clang
-> only.  Reuses the older sparse definitions. I think the intent is to avoid
-> churn.
->
-> I currently have no idea if this is the right fix. The only users
-> today are places where a lock is intentionally skipped.
->
-> +CC Marco and Bart and putting back the patch content for context.
->
-> > diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> > index c68c6c5f6aca..6a3cabedf4e8 100644
-> > --- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> > +++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> > @@ -663,7 +663,7 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc)
-> >  }
-> >
-> >  void adc5_gen3_mutex_lock(struct device *dev)
-> > -     __acquires(&adc->lock)
-> > +     __context_unsafe(/* returns with adc->lock held */)
-> >  {
-> >       struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
-> >       struct adc5_chip *adc = iio_priv(indio_dev);
-> > @@ -673,7 +673,7 @@ void adc5_gen3_mutex_lock(struct device *dev)
-> >  EXPORT_SYMBOL_NS_GPL(adc5_gen3_mutex_lock, "QCOM_SPMI_ADC5_GEN3");
-> >
-> >  void adc5_gen3_mutex_unlock(struct device *dev)
-> > -     __releases(&adc->lock)
-> > +     __context_unsafe(/* releases adc->lock */)
-> >  {
-> >       struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
-> >       struct adc5_chip *adc = iio_priv(indio_dev);
+From: Dave Marquardt <davemarq@linux.ibm.com>
 
-You could probably stick the whole
-iio_priv(dev_get_drvdata(dev->parent)) expression into a helper
-get_adc5_chip(...), and then
-__acquires/__releases(&get_adc5_chip(dev)->lock) should work. But
-that's only worth it if the declarations get the annotations, because
-if only the definitions have the annotation, any calls outside this
-particular TU ignore the annotations anyway, so __context_unsafe is
-reasonable if you don't want to do a larger change.
+Add IBMVFC_ASYNC_IS_FPIN_EXT flag bit (0x02) to ibmvfc_async_sub_crq.flags
+to distinguish extended FPIN events from standard ones.
+
+Add async_scrqs field of type ibmvfc_channels to ibmvfc_host to hold the
+channel set for the asynchronous sub-CRQ, alongside the existing scsi_scrqs
+and nvme_scrqs channels. This uses the same ibmvfc_channels infrastructure
+as the SCSI and NVMe channel queues.
+
+Add IBMVFC_ASYNC_SUB_CRQ_FMT to enum ibmvfc_msg_fmt and a corresponding
+async_scrq pointer to union ibmvfc_msgs to support the new async sub-CRQ
+message format.
+
+Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
+Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
+---
+ drivers/scsi/ibmvscsi/ibmvfc.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/scsi/ibmvscsi/ibmvfc.h b/drivers/scsi/ibmvscsi/ibmvfc.h
+index 3fffd2db8ef5..2ecd60138d58 100644
+--- a/drivers/scsi/ibmvscsi/ibmvfc.h
++++ b/drivers/scsi/ibmvscsi/ibmvfc.h
+@@ -773,6 +773,7 @@ struct ibmvfc_async_sub_crq {
+ 	volatile u8 valid;
+ 	u8 flags;
+ #define IBMVFC_ASYNC_ID_IS_ASSOC_ID	0x01
++#define IBMVFC_ASYNC_IS_FPIN_EXT	0x02
+ 	u8 link_state;
+ 	u8 fpin_status;
+ 	__be16 event;
+@@ -893,6 +894,7 @@ enum ibmvfc_msg_fmt {
+ 	IBMVFC_CRQ_FMT = 0,
+ 	IBMVFC_ASYNC_FMT,
+ 	IBMVFC_SUB_CRQ_FMT,
++	IBMVFC_ASYNC_SUB_CRQ_FMT,
+ };
+ 
+ union ibmvfc_msgs {
+@@ -900,6 +902,7 @@ union ibmvfc_msgs {
+ 	struct ibmvfc_crq *crq;
+ 	struct ibmvfc_async_crq *async;
+ 	struct ibmvfc_sub_crq *scrq;
++	struct ibmvfc_async_sub_crq *async_scrq;
+ };
+ 
+ struct ibmvfc_queue {
+@@ -992,6 +995,7 @@ struct ibmvfc_host {
+ 	struct ibmvfc_queue async_crq;
+ 	struct ibmvfc_channels scsi_scrqs;
+ 	struct ibmvfc_channels nvme_scrqs;
++	struct ibmvfc_channels async_scrqs;
+ 	struct ibmvfc_npiv_login login_info;
+ 	union ibmvfc_npiv_login_data *login_buf;
+ 	dma_addr_t login_buf_dma;
+
+-- 
+2.56.0
+
+
