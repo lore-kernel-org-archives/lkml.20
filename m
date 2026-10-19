@@ -1,165 +1,221 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from prod-mta-13.swg-srv.net (prod-mta-13.swg-srv.net [185.255.28.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686A849D589
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867E44A68A3
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.255.28.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400781; cv=none; b=Pp7MWoso+0YvNLZc51d3DLf6BYb778Q203ps8U6o38l3VrzOR7vi1m4S/bjFMMwAA99DuMUSUozM6eUitWr/pU8yZQElS9BLvoZ9yFjkHmJrmJZFBcjJGQopnQjPYzT/04PpjuP7L87FT6d3P0z8VBoQApiMSVeg/QnpElEzgDo=
+	t=1792400810; cv=none; b=Erb20RC4g7ze/gJPndA1ksTGumttA0yM2DIM5qZ55B1nR/sKQlu/EfiKtGyhji2Od69jdI4N2pfcQq2w3YqSgZ+K7HkcdYTQhZx70CKoQV/fGJFUukVTg9P3U9WBWVY2hwqqPe8hC0RfhluBRERCaAJsWuyXdLfH6r9UdXTNCvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400781; c=relaxed/simple;
-	bh=+U4teF8i6Fb0geqZH054kb1FyRUedOBn7YjhBWvOJy0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=kg9uEDOEnk6g5l5b56m2DbxToi8xoGSlUmwqpPcXtqE7QSDz96simkPRJxzgkBDQHhDHlWXMRaKbfX+yJDH6o5MhmgeUIszUvpYTo6SLtwUCWnUMFylS4mI53l/5t/fOkPXTz6YgUbzIdtk+pqBF4P6mohC5HSL1UWeEFQLshBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ba2DlKii; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792400810; c=relaxed/simple;
+	bh=S9rlU3fumzPMwHOSR+1Y+kPQ1ZexeMRkIPsVGMEgYuk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MJEQpcwCvSbP7IsGOVDgwCRXdBxyNU2uxbImlk1urhi901yFla4LBTeftV8LiAT+zKTGIu97wiZsFcHclYU97dQI+XbZ4EMHyg3cvFnI4c69sRXEsMYarQWpNrSQ3zc+JhBJ21QLzK1naBT7FxxoA380qhFT+BFinFk1x7aeCLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vates.tech; spf=pass smtp.mailfrom=swg.vates.tech; dkim=pass (2048-bit key) header.d=vates.tech header.i=@vates.tech header.b=NTOulvxS; arc=none smtp.client-ip=185.255.28.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=vates.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swg.vates.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ba2DlKii"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-89f85edd210so799957b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:06:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792400780; x=1793005580; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ASZDQ6ya5uuN/oTp7B0NgsyhAiw0FV3QWvD7LJrp4wQ=;
-        b=ba2DlKiiF18qrRrme1DwA2YXTK5eDRBBLfu0EB37HxFRJKeNMl5zfpV5vwLmcjodtz
-         xfTmh2nPF6rdRtcbjsX9+WGgL8V1o0GvUD5cValFbmxxYtOOu2NaOj2bTKMnNdNzWGUB
-         HqlaAHl8tNs/DSLZ1rkWEybOFfCsT1fVs2ZLkURWC4PKiI40w7cixjra3td6KlMRUUwG
-         x0Aksd9tJ/ATYGsdDCh99oIh4vnZtmE6f9VlKMDUqgXH6Jfkfw4CCLEcPEf05yeuHqVI
-         /4kBQXkHgldC1YZuNYddBmkWoFij+z0+FIuPPyr8Ck02WzuNvO0fEKwh10l7Ig5fLpPo
-         HPZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792400780; x=1793005580;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ASZDQ6ya5uuN/oTp7B0NgsyhAiw0FV3QWvD7LJrp4wQ=;
-        b=NcSUZj4mlCRJQ3vpRA5Gr7/4fq8XPm8MD4qshDxdP5jnfararU5Sd6xD7nOAjdeJDp
-         AiSzM8HQ3zz1wRwgqbH5NdLFp5i56y6d8eg80NC8zy9YnhnH1n0XhNCM5UZBJD6pCcmb
-         WSkOlyOjmTG1iT8heG82GzpSI18hTza79yMhyYcyCpsyD3r86lT3NaCHpvW5JvDVdomY
-         db4f7vE6JVWSAqUL6Vk0bwAf/A2kwWvsANaLn5aPgIL9/e5XZtMjQmgn7gPRbJ/3ww7S
-         0wOGW4dno411UhiLlmOkgluQVei696IkK1y0YmyYtJszMhIdyoUcPySLhtem4McYKiMB
-         l8bg==
-X-Forwarded-Encrypted: i=1; AKwUvBwl5LvS4gmgEuEiJsgodm4EV4sKt5yU7p9Njg5BfhKqpbxaG7bINOXBPUIIG8Iz1uceaXwQ6NCzgnDBEJA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKO5Eqkp0fHL1yuPQafi/0vESJ3AyXIbVHZEUEiCCDALVgVnAGn
-	CdLyVYU9z0XSrtgiUon0KZWpuiUn4dMlyyfoKE6+QKvyFKHV3w4IP4or
-X-Gm-Gg: AYBFou0t42QtSAxAn4wW0qir8mWC38gEEOz0goIHMeHtJKMLmL9IO57oywrzLRj7er0
-	yNyKorbtvNVazSaKRoYXXQ5TCuk7A8K3uINyAf82PKmsLW1m6V27D/LTviL1kiBDjFEosdNyDiF
-	MoCbo2EVkDNd6DeR1QOq/2n9MyE3/cjInGYih3povaYB0rIM0wlFpzwEzfOcekgodd48mN8htpF
-	4ThiFv7jiNTuvlBpoXFlC0vXbopmBcKpd0hCgCsH7v59dAZUFcjEoNWCk2oa4vb3rCDjYyThTbc
-	2Y78tRKmfyscxpkZj6ZnSq9gcvpMC0rz4pzttwoJxSaiIj8gJSATgyhno92SG3DCyZEwldbUc0r
-	3IDSvWUNhgMLSwK91W+kpHj+2+ClBJX9HHHLZt+ZeMhaYftnPxO+ruRFOZiIqElMXdBLjbGwCMt
-	L+czJZxjU8ESqEYtEtOYoKuAMyeoCpveELD3bzi0cabObDBD/1n/MC15EoFv1lakgOCpw=
-X-Received: by 2002:a05:6a00:1492:b0:873:e3b4:5d4 with SMTP id d2e1a72fcca58-8a04a44baa4mr5431635b3a.2.1792400779717;
-        Mon, 19 Oct 2026 02:06:19 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a056f3f2absm1797581b3a.25.2026.10.19.02.06.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:06:19 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ALSA: aloop: Keep the timer source alive until card release
-Date: Mon, 19 Oct 2026 17:06:13 +0800
-Message-Id: <pm-pmb-71a33a26d68356e3ade7-v1-108d86919c5c92fe1ea8@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=vates.tech header.i=@vates.tech header.b="NTOulvxS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=S9rlU3fumzPMwHOSR+1Y+kPQ1ZexeMRkIPsVGMEgYuk=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=NTOulvxSiSPrStgCiQlK4aAeuJVoYrLAKYL59o8sn4gTcZvQ69cfhDrfbVrRJcoh3QLWbKs3B
+ MgGdUWBhq/Gf2KpyRVLG+sWNc0ZTqheplKCxpB7OJX8f/3WJeZApdX9OYW6pZO1GrBxINGGwSMJ
+ 1UVQtPd/2w8uX9aL5TfM7GZkAnXYEBraC5fXArFXRPeDiOZ0mJY1bMKkYccF5qJuNWq/RYbzT0g
+ jQN6FWyM9D2qFZdttmfCzsjCdnovLrlQe8IPoIFh42G/9n7jtUndPcGukfYHHk1FqAniNsSPZLZ
+ LRi2/YIio1t9qCwWMb1JgYKlwfa0OMWopR3ZyPe2VCYQ==
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender: 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id 1a1536999750008425.009
+ for <linux-kernel@vger.kernel.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Mon, 19 Oct 2026 09:06:31 +0000
+X-Zone-Loop: 3cfbd52c607f63cc18051e291b749737a5117f2ce6cb
+x-campaign-type: default
+x-transaction-id: 60070b06-a0a4-4c27-a9f2-9210e05f645a
+x-swg-uid: 01-a5fc6352-9387-497e-8348-b1c041fdde66
+X-Mailer: Sweego
+Message-ID:
+ <1792400791.8631fc262581453bbf619ec5b2062170.1a1536999750008425@vates.tech>
+x-swg-bid: 1792400791.8631fc262581453bbf619ec5b2062170.1a1536999750008425
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+Received: from [192.168.1.18] (88-188-240-210.subs.proxad.net [88.188.240.210])
+	(Authenticated sender: teddy.astie)
+	by mail2.vates.fr (Postfix) with ESMTPSA id 1345D80A47;
+	Mon, 19 Oct 2026 11:06:31 +0200 (CEST)
+Date: Mon, 19 Oct 2026 11:06:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/8] x86/xen/pv: Don't setup runstate area too early
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ David Woodhouse <dwmw2@infradead.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+References: <1792170295.8631fc262581453bbf619ec5b2062170.1a145ac82530008425@vates.tech>
+ <1792170392.8631fc262581453bbf619ec5b2062170.1a145adfbff0008425@vates.tech>
+ <b2c02327-4d77-4ab3-855c-26b5d357f348@citrix.com>
+ <e934ac9c-cf59-446a-9b1f-ddca4c43d1c5@citrix.com>
+Content-Language: en-US
+From: Teddy Astie <teddy.astie@vates.tech>
+Autocrypt: addr=teddy.astie@vates.tech; keydata=
+ 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
+ x9fhaZEsniw8/bYgC3igkk5YJiOa
+In-Reply-To: <e934ac9c-cf59-446a-9b1f-ddca4c43d1c5@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------R0HTcQ4F0G50aXHnJOfKLM7X"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1792400791261
 
-The timer_source string must remain valid while PCM opens can select
-and parse it. loopback_set_timer_source() allocates the string with
-parent-device devres, which can release it while the card is still
-registered.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------R0HTcQ4F0G50aXHnJOfKLM7X
+Content-Type: multipart/mixed; boundary="------------7yW0Wscd23IA2rw5ayHl3NGg";
+ protected-headers="v1"; hp="clear"
+Message-ID: <f15bd0d3-8310-4622-9852-c4cd8adce71e@vates.tech>
+Date: Mon, 19 Oct 2026 11:06:30 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/8] x86/xen/pv: Don't setup runstate area too early
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ David Woodhouse <dwmw2@infradead.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+References: <1792170295.8631fc262581453bbf619ec5b2062170.1a145ac82530008425@vates.tech>
+ <1792170392.8631fc262581453bbf619ec5b2062170.1a145adfbff0008425@vates.tech>
+ <b2c02327-4d77-4ab3-855c-26b5d357f348@citrix.com>
+ <e934ac9c-cf59-446a-9b1f-ddca4c43d1c5@citrix.com>
+Content-Language: en-US
+From: Teddy Astie <teddy.astie@vates.tech>
+Autocrypt: addr=teddy.astie@vates.tech; keydata=
+ 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
+ x9fhaZEsniw8/bYgC3igkk5YJiOa
+In-Reply-To: <e934ac9c-cf59-446a-9b1f-ddca4c43d1c5@citrix.com>
 
-A successful nonempty proc replacement after snd_card_register() adds
-the string allocation after trigger_card_free. Unbinding the platform
-device while snd_aloop remains loaded releases devres in reverse order.
-An open for an unused cable can run after the string is freed and before
-the card-free action disconnects the card:
+--------------7yW0Wscd23IA2rw5ayHl3NGg
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-  Device unbind                      PCM open
-  devres_release_all()
-    free replacement string
-                                     snd_pcm_open()
-                                       snd_card_file_add()
-                                       loopback_open()
-                                         loopback_snd_timer_open()
-                                           loopback_parse_timer_id()
-    trigger_card_free()
-      snd_card_free()
-        snd_card_disconnect()
+TGUgMTYvMTAvMjAyNiDDoCAyMDowNCwgQW5kcmV3IENvb3BlciBhIMOpY3JpdMKgOg0KPiBP
+biAxNi8xMC8yMDI2IDY6MzMgcG0sIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+PiBPbiAxNi8x
+MC8yMDI2IDY6MDYgcG0sIFRlZGR5IEFzdGllIHdyb3RlOg0KPj4+IFRoaXMgaXMgbm8gbG9u
+Z2VyIHJlcXVpcmVkIHNpbmNlIFsxXS4NCj4+Pg0KPj4+IEF0IHRoaXMgbW9tZW50IG9mIGJv
+b3QsIHBlcl9jcHUgYXJlYXMgYXJlIG5vdCBpbml0aWFsaXplZCwgd2hpY2ggcHJldmVudHMN
+Cj4+PiB1c2luZyBWQ1BVT1BfcmVnaXN0ZXJfcnVuc3RhdGVfcGh5c19hcmVhIGFzIHBlcl9j
+cHVfcHRyX3RvX3BoeXMoKSB3b3VsZA0KPj4+IG1pc2JlaGF2ZSBpbiB0aGlzIGNhc2UuDQo+
+PiBUaGlzIGlzbid0IHJlYWxseSBjb3JyZWN0Lg0KPj4NCj4+IFRoZSBwZXItY3B1IGFyZWEg
+Zm9yIHRoZSBCU1AgaXMgd2l0aGluIHRoZSBtYWluIGltYWdlLCB3aGljaCBpcyB3aHkgdGhl
+DQo+PiBsb2dpYyBmdW5jdGlvbnMgdG9kYXkuwqAgV2hhdCdzIG1pc3NpbmcgaXMgdGhlIGNh
+bGwgdG8NCj4+IHBjcHVfc2V0dXBfZmlyc3RfY2h1bmsoKSB3aGljaCB0ZWxscyBwZXJfY3B1
+X3B0cl90b19waHlzKCkgYWJvdXQgd2hlcmUNCj4+IHRoZSBCU1AgZGF0YSBpcy4NCj4+DQo+
+PiBJIHRoaW5rIHlvdSB3YW50IHRvIHNheToNCj4+DQo+PiAiQSBmdXR1cmUgY2hhbmdlIHdh
+bnRzIHRvIHVzZSBwZXJfY3B1X3B0cl90b19waHlzKCkgaW4NCj4+IHhlbl9zZXR1cF9ydW5z
+dGF0ZV9pbmZvKCksIGJ1dCB0aGlzIGNhbGwgaXMgdG9vIGVhcmx5LsKgIEl0IHR1cm5zIG91
+dCB0bw0KPj4gYmUgbm8gbG9uZ2VyIHJlcXVpcmVkIHNpbmNlIC4uLiINCj4+DQo+Pj4gWzFd
+IDhhMjJiOTk5NmIwMCAoInhlbjogZHJvcCB4ZW5fc2NoZWRfY2xvY2sgaW4gZmF2b3VyIG9m
+IHVzaW5nIHBsYWluIHdhbGxjbG9jayB0aW1lIikNCj4+PiAtLS0NCj4+IE1pc3NpbmcgU29C
+Lg0KPj4NCj4+IH5BbmRyZXcNCj4gDQo+IEJ1dCB0aGlzIGRvZXMgcG9zZSBhbm90aGVyIHF1
+ZXN0aW9uLi4uwqAgwqBMaW51eCBvbmx5IGV2ZXIgcmVnaXN0ZXJzIHRpbWUNCj4gcmVmZXJl
+bmNpbmcgdkNQVSAwLsKgIFdoeSBhcmUgdGhlIHRhcmdldHMgb2YgdGhlIHJlZ2lzdHJhdGlv
+biBpbiB0aGUNCj4gcGVyLWNwdSBhcmVhP8KgIFRoYXQncyBwcmVzdW1hYmx5IHdhc3RlZCBz
+cGFjZSBvbiBhbGwgQVBzLg0KPiANCg0KWWVzIGJ1dCBvbmx5IGZvciB0aGlzIGVhcmx5IFBW
+IGNhc2UsIHRoZXJlIGFyZSBvdGhlciBwbGFjZXMgd2hlcmUgDQp4ZW5fc2V0dXBfcnVuc3Rh
+dGVfaW5mbygpIGlzIGNhbGxlZCBmb3Igb3RoZXIgQVBzLg0KDQpCdXQgbG9va2luZyBhdCBp
+dCwgdGhlcmUgbWF5IGJlIHJlZHVuZGFudCBjYWxscyBvZiANCnhlbl9zZXR1cF9ydW5zdGF0
+ZV9pbmZvKCkuDQoNCj4gfkFuZHJldw0KDQpUZWRkeQ0K
 
-The parser can then read freed memory. KASAN has reported a one-byte
-use-after-free read in strchr() from loopback_snd_timer_open(). The
-cable_lock mutex serializes explicit replacements with opens, but
-implicit devres release does not take it. The card and module references
-held by PCM open do not retain this separate devres allocation.
+--------------7yW0Wscd23IA2rw5ayHl3NGg--
 
-Use kstrdup() and release the current string from card->private_free.
-PCM admission already retains the card until each file is removed, and
-card disconnect drains proc callbacks before final card release. This
-keeps the string alive across admitted PCM opens and preserves the
-cable_lock serialization of replacements. Install the callback before
-the initial allocation so probe failures also release the string.
+--------------R0HTcQ4F0G50aXHnJOfKLM7X
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-Fixes: b072e65aadd6 ("ALSA: aloop: Allocate resources with device-managed APIs")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
+-----BEGIN PGP SIGNATURE-----
 
----
+wsD5BAABCAAjFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmrV3ZYFAwAAAAAACgkQZg+p0QLLz9B3
+KAv/VqZr1kmFNF9miMXIqBNL4H8gEOUgZ9d6YuJj9V5lkFqkFFhKFejHwSfyxc3FJWMCre3Ycwvd
+bThooiv++8jlpo19iQgIaZQOb1M2eXgeug+meXUkgccjx9f5S8xWKT1B4bQOzf0mV07SCyjlKmj5
+EyACl7hvph8PHM0fFiPmw5OOy3EDKvgkw8YSXZMNnHMh3SZ0LRkMg/oK2DzypFlBWpPGdPVZtzFS
+XDEw21CutjknFF1u1JdJniELqMXmhcmua6Qx8F1GiQEJnn6eDR871vJI+nGvykLNn/9mBxQu4w+n
+BjzGXliVJY3Qz5YzUXnFj/aPaXyRlGRnAW5agEqelqvKquWW+0i7gM/+V7LaZPnzzpb628NOuUMI
+SBFmERSE0kWyCtUeExwdyUqasQOOZ7n4Teqzf0la1S1WMneZbeH2t+eZisFRrd/srtlLEAMjdKbu
+k/vOMEZfpGPgPxFq6r5jzm8Fzh/ohF7+emnGiQh1a9l12Do2TNlUOfhslSzy
+=pfB0
+-----END PGP SIGNATURE-----
 
-diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
-index 0aaa64b189daef377f080a63665a9be9036e9d9c..aeb8a57684bd2176449bbfa2abe3383a3420ea0b 100644
---- a/sound/drivers/aloop.c
-+++ b/sound/drivers/aloop.c
-@@ -1897,13 +1897,10 @@ static int loopback_cable_proc_new(struct loopback *loopback, int cidx)
- static void loopback_set_timer_source(struct loopback *loopback,
- 				      const char *value)
- {
--	if (loopback->timer_source) {
--		devm_kfree(loopback->card->dev, loopback->timer_source);
--		loopback->timer_source = NULL;
--	}
-+	kfree(loopback->timer_source);
-+	loopback->timer_source = NULL;
- 	if (value && *value)
--		loopback->timer_source = devm_kstrdup(loopback->card->dev,
--						      value, GFP_KERNEL);
-+		loopback->timer_source = kstrdup(value, GFP_KERNEL);
- }
- 
- static void print_timer_source_info(struct snd_info_entry *entry,
-@@ -1934,6 +1931,13 @@ static int loopback_timer_source_proc_new(struct loopback *loopback)
- 				    change_timer_source_info);
- }
- 
-+static void loopback_private_free(struct snd_card *card)
-+{
-+	struct loopback *loopback = card->private_data;
-+
-+	kfree(loopback->timer_source);
-+}
-+
- static int loopback_probe(struct platform_device *devptr)
- {
- 	struct snd_card *card;
-@@ -1959,6 +1963,7 @@ static int loopback_probe(struct platform_device *devptr)
- 		pcm_substreams[dev] = MAX_PCM_SUBSTREAMS;
- 	
- 	loopback->card = card;
-+	card->private_free = loopback_private_free;
- 	loopback_set_timer_source(loopback, timer_source[dev]);
- 
- 	mutex_init(&loopback->cable_lock);
+--------------R0HTcQ4F0G50aXHnJOfKLM7X--
