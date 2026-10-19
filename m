@@ -1,67 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443438;
-	b=NXqsRpP2j/+qmDDFWXvEsLDmgEl4CZx2/0BkfdVKSt9P5l+bZPS/Giwdmuh0O/GgRvrw
-	 bmxNwVFgvQBxQ3L8kKPtMDMpS2R/HPKwX/OkCe0/ocPj+NHIWNQqMK9CpUPxpX6zpDfo5
-	 o3I4kNreoiVadoisWHzuNcuRZEYc3NbWKoqmsNBRquEReqOIDFo5riVnTEhCuKTcivkmj
-	 qfKq9StmkePsoJY4prz4I9wotPxhak7Y1e66LnBeA/VTx6TI8nnbt1TpG6sy0VK3MyOBs
-	 qeShn9Re5sT4pf7jgPNI253w+fg41VC2O/xocS7ibyiJ/6Cm2T69F5rXqCJvecWsKLQ==
+	t=1792443503;
+	b=BmR4A+kxhmJhcR4X2JNYaDXltE/GyA+SLQuiqT2UcQArVbh+f4Am1xr07wsiYbEJ2/BS
+	 8bg6eDv5IrNqJSeYIqzaCWzpJxZmxEwt8dNzBao8TAcQfX2tpE9k3unq9WzmcPOYN82Bz
+	 +b/kdQ+acw8g6TMTq6msDUThxVHV42VPgbW5FXP1CV/hK57bTOLrzjlhtExoLrAMgZPta
+	 qFx1qsrziXoLFe92eJFfnrU3ssCs/D99K/fnOzZViLx1wjfI7kS5OFc98TP47cYImaM47
+	 q2gPkkqDsX+JFVgQ6RimBZb8wKugt4s6TDoVG2/boYEcs0e1Rnfi+k8iUcAggLpQlOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443438;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=iUxDgCC6thNE6bahIcLevwQy6B6nWx+XvwiMIDf3yFM=;
-	b=ZfUUvPxh13UGmBjPhCs6AtgjDlH7AdZm7DOI5qfv4aEKlHQKsQp8vaZylWd9fuxAt0dE
-	 N1eDd7LRCP9eSm8gut93R6ugIdiIkYTxXZKAliD30Dr+H4uQkBSS5bY4sjkI5dFJyn2V3
-	 JXq0IzRka/lXejqUm4NTXQojrOVgkd0j7fPAiasMiyDeqGcflq8KlbrgK5HQdjMjpISMQ
-	 IIU/jnJH55SveRJKdUuUuWQ3BBzObHzZnkSHmWfnC6I/wHbisoarU7HkgahwcyYaOTz2Z
-	 TMJz8y9klPyDYwE6889yoaqJNEhpCYxxe7Pms9VK+czHnlyPII4myl84CIgU+OYyEjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443503;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=etQvNscIjqvkrWpefPH+Ohc94n3wsi43ZWyZPkQfApQ=;
+	b=EFf6OBBHKSlnsXU1eXnLPB0f0+UREOKH5grNMT48r8DvbvsmtKuONmwhW+sa372sInuv
+	 wPmH509OizHJ8o/SK1PA3B0W9qo45znZvCA/K8TTIDGMx6tUD1D3hHO3wXXbs3XZStQBf
+	 VA/wH54SzCxURqzBMMV3qukr0NfYBf90KrVIf7dhqUSFvhwyESN5JQchYP4o49vnYkiSh
+	 JLQSh/7fBjCRGj4r8suyEwqbF8sk4Q2BdeIgXPNm8zpUVf/CzTJ4w8yTA0QAy440GJyKU
+	 VG7yuqGfs+GaNnZfhzDSumBQfWSso+XpffPebcRdfsLe7dvI4G6jJEOgjwmZD3SuNPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BC4FPXUY;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="MQJP/Zeq";
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06A4606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:57:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B06A4606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2D6606A31C;
+	Mon, 19 Oct 2026 20:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD2D6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BC4FPXUY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792443436;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iUxDgCC6thNE6bahIcLevwQy6B6nWx+XvwiMIDf3yFM=;
-	b=BC4FPXUYwGlAwRy2Bcm46Pxrdui4G35dVRmhcqGFR5ApV70K0wq6py2NmYcmcd/5+PWt0w
-	zcokoxeayEe2auwK6mI7rFbnVzl0vsD+fvJoCOQ7LtdqmKoXOhRgCMe/bNnhMEJ3OGdfxC
-	EFbMM5sJmtJz/eOfqhP8BSQPgF9EJOs=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-180-VXEkOMxNPdyM2fxjJV-9zg-1; Mon,
- 19 Oct 2026 20:57:14 +0000
-X-MC-Unique: VXEkOMxNPdyM2fxjJV-9zg-1
-X-Mimecast-MFC-AGG-ID: VXEkOMxNPdyM2fxjJV-9zg_1792443432
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B67881800654;
-	Mon, 19 Oct 2026 20:57:11 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 43CBE410;
-	Mon, 19 Oct 2026 20:57:08 +0000 (UTC)
-Message-ID: <3531bfe0-d5a3-4a38-af5b-68ce5406c591@redhat.com>
-Date: Mon, 19 Oct 2026 16:57:07 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MQJP/Zeq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792443503; x=1823979503;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LjZKwGBbVcACOcsPvYU618VBeMr1LoG3ldjZ3OGSp3Q=;
+  b=MQJP/ZeqaCS9Hl76Rfka6j/Fyty9PVAXaYJuFhaL+ujI1YEvAoTgtqbi
+   xYeK4Qe+kVYy8C9eAIBUuld7ggPEqP4uQeYCSt9CAogVx6ZT8vPGwylx0
+   ZXYdXSaHaO1zoxSw6me+mPJOEexthNvdGh95al4OM8hxedUa9CZ9W/rvK
+   9a0cdgx+58RLW9rxlHlUhSF6VHq6uUCWS/dYOMWsXwx9ZpOKOVHbT1Pn1
+   ZpfSg/AGa5vpwSy2ZRKBKWyrnyvYRIF4vQuR2QIbSDDuFz3KGD1Eg6wlO
+   OxiqNQlaNICcZL4BMYycn6v16HTfEXYmbqSkyAL/Aoz7AL0BUON9jCFwR
+   Q==;
+X-CSE-ConnectionGUID: fB5ojh34QqOsDsNQj9VOTg==
+X-CSE-MsgGUID: 1vi/ZCdZQUK/7AR80u5JQw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1240717"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1240717"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:58:22 -0700
+X-CSE-ConnectionGUID: l4uSqfeCQheS9pa1UzaC7Q==
+X-CSE-MsgGUID: pxRj+kMZRlaHxvrp1glKuQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2943062"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 19 Oct 2026 13:58:18 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xIuQx-00000000MO2-3Cks;
+	Mon, 19 Oct 2026 20:58:15 +0000
+Date: Tue, 20 Oct 2026 04:57:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: David Laight <david.laight.linux@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Petr Mladek <pmladek@suse.com>, Kees Cook <kees@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	bpf@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v2 next 03/15] kallsyms: Improve selftest
+ test_perf_kallsyms_lookup_name() output
+Message-ID: <202610200434.qSHPOyDo-lkp@intel.com>
+References: <20261018155206.132411-4-david.laight.linux@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,54 +91,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v4 0/9] cgroup/cpuset: Fix various housekeeping check
- problems
-To: Tejun Heo <tj@kernel.org>
-Cc: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
- <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Randy Dunlap <rdunlap@infradead.org>, cgroups@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>,
- Guopeng Zhang <guopeng.zhang@linux.dev>
-References: <20261019181020.1069325-1-longman@redhat.com>
- <ataCxJxYwg_uhS-j@slm.duckdns.org>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <ataCxJxYwg_uhS-j@slm.duckdns.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018155206.132411-4-david.laight.linux@gmail.com>
+
+Hi David,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on akpm-mm/mm-everything]
+[also build test WARNING on linus/master v7.3]
+[cannot apply to next-20261016 next-20261016]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/David-Laight/kallsyms-scripts-kallsyms-c-Avoid-overrunning-on-stack-buffer/20261018-165152
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261018155206.132411-4-david.laight.linux%40gmail.com
+patch subject: [PATCH v2 next 03/15] kallsyms: Improve selftest test_perf_kallsyms_lookup_name() output
+config: arm64-randconfig-1000-20261019 (https://download.01.org/0day-ci/archive/20261020/202610200434.qSHPOyDo-lkp@intel.com/config)
+compiler: clang version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261020/202610200434.qSHPOyDo-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610200434.qSHPOyDo-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> kernel/kallsyms_selftest.c:82:12: warning: unused variable 'The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_shoes_and_ships_and_sealing_wax_Of_cabbages_and_kings_And_why_the_sea_is_boiling_hot_And_whether_pigs_have_wings_O_Oysters_said_the_Carpenter_Youve_had_a_pleasant_run_Shall_we_be_trotting_home_again_But_answer_came_there_none_And_this_was_scarcely_odd_because_Theyd_eaten_every_one_The_moon_was_shining_sulkily_Because_she_thought_the_sun_Had_got_no_business_to_be_there_After_the_day_was_done_Its_very_rude_of_him_she_said_To_come_and_spoil_the_fun' [-Wunused-variable]
+      82 | static int kallsyms_very_long_name = 1;
+         |            ^~~~~~~~~~~~~~~~~~~~~~~
+   kernel/kallsyms_selftest.c:69:33: note: expanded from macro 'kallsyms_very_long_name'
+      69 | #define kallsyms_very_long_name \
+         |                                 ^
+   1 warning generated.
 
 
-On 10/19/26 4:51 PM, Tejun Heo wrote:
-> On Mon, Oct 19, 2026 at 02:10:11PM -0400, Waiman Long wrote:
->>   v4:
->>    - Adjust a number of patches to fix issues reported by Sashiko and
->>      Guopeng Zhang.
->>    - Add more test cases to test_cpuset_prs.sh to improve test coverage.
->>
->>   v3:
->>    - https://lore.kernel.org/lkml/20261014140548.575122-1-longman@redhat.com
->>    - Further revise the code based on feedback from sashiko and
->>      reviewers.
->>    - Add a new fix patch which fixes a bug found during the testing process.
->>    - Add a patch to impose a new restriction that creating a child root
->>      partition under an isolated parent partition is not allowed.
->>
->>   v2:
->>    - Update patches 2 and 3 to address bugs reported by sashiko.
->>    - Add a new test_cpuset_prs.sh patch to skip the test if some of the
->>      required CPUs are offline.
-> Can you ping me after -rc1 drops?
+vim +/The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_shoes_and_ships_and_sealing_wax_Of_cabbages_and_kings_And_why_the_sea_is_boiling_hot_And_whether_pigs_have_wings_O_Oysters_said_the_Carpenter_Youve_had_a_pleasant_run_Shall_we_be_trotting_home_again_But_answer_came_there_none_And_this_was_scarcely_odd_because_Theyd_eaten_every_one_The_moon_was_shining_sulkily_Because_she_thought_the_sun_Had_got_no_business_to_be_there_After_the_day_was_done_Its_very_rude_of_him_she_said_To_come_and_spoil_the_fun +82 kernel/kallsyms_selftest.c
 
-Yes, I will.
+    81	
+  > 82	static int kallsyms_very_long_name = 1;
+    83	
 
-Cheers,
-Longman
-
->
-> Thanks.
->
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
