@@ -1,66 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792442016;
-	b=V7XykbKZJS4QrSTvihdVOFm4DEO62Cjfcsp+FXl8ZntDMhGpTRQFdvC+qT3Bx7YAMOVY
-	 Hn1NmEejtd0Ye617k7S9CrtFAjTbcpQSMMpPhEkQgcuHw1V78wgW4RHQs/HPfEAYpFDud
-	 QnqPX08/qc1PN/SGNsbpZ3S2lCCPNvQs6S269D+ApH4lXJpHCKGlkX0V/z0Xde2HLJrYa
-	 UcSs4AnFw+Xh0q7sSrYAxMlSpgy/aQwQU+3mR3oEwMRXL5RQ74cxTlA2r+K1xorHIxT9a
-	 lIjY3m7EOxoGpJ4WIe8yDZqdOJ/FvUiaQMrLsYQtVY8FSsEDPIyUgdXLKWbzdYwleDw==
+	b=V4lGrnatUpLZWHKUwAhnQ6pQCdlH6p6HPWaBIk0DFImmFSO3exrHKyIeNyHAwOWQqidx
+	 a0557N3btwujD/1e3scWDRmHDdjP2JAyQO3qXK0cr2hBmtlsweMb4cHdRtKCSplMfqwk7
+	 3OeVCLDGyq1D5uHsOXaVRVfx8D+HszTdzHOAjKtAaJgWf7VQ0auOjFbr268oujwinjiPT
+	 kwmtUtu78BX9NcILvg7e0X6Nt4OGxqHrL9BDIRzQCmt0lwKQ2yAaY6bmahlNQHAfey4ZQ
+	 NGid0rm7WcwqXLZYJUIpLimxPNF+YWanywbryPy//1Z9sga9FpLb5mgsy5s5DmhDuuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792442016;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ZqoytXf5ITNo48qVxQ8B8oufJFRCfKTNHeMZXX0L3jA=;
-	b=lJP+4MuWdpLrd9ktCN3RL/6EimDYY2dbeEGc4GCvCtuI+mymhT/QyN9ol0ElcakM+wbs
-	 3i5zIk7aTa1XLbZ4c8y2bwqvKnioRBRukWQxd+bdQ/ptj5EAddoPsQ1SdSdcsTp+zhRxw
-	 YL4Qyew45CQic/YsR8OVMxEqW6FmrkVwAOEWIW1qU9qCBORXH/zSfuSNNuOYfcZlJWw8R
-	 c4i9pAcRReo8UwwZlAVBIM57RQVVCzt12HbEo1ET+jUCEBADMfFj/X/b05itNixn6HRvj
-	 55YkJfd9h6p2XwTODkvD6vE6SIPwe+OoR8KmAkuFNqjjKT9JH3ZdZfwoAMW8U3Wm8gQ==
+	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type;
+	bh=MBUi8rlfbbq2lbt95v37BFVzzpxuMUQ2XKcAjzcn8dk=;
+	b=xtiyRdvjTJ9pnQ0nZfLShKWztSTJqc47Xy7DD0Zt056vHVlJI1mo1xPtUw0hskDDT191
+	 0J7tBNDjslVWuyPnPb+Kj+z8AvM0T64Wf/OUPgpkiWvEPrhybTsG9tQC+AZDTFL1A0NNA
+	 2z3hxKMLdjwcXppzGKOHoRA8hS4FVY/+1/k+YBhOYmKTVXEyM7KzqPTuHroBlq3UdafA3
+	 nduoTj+iE1xh2XGi2O5apvj8NdHlS5OQ4uH9xgEYqFekOTPPZOqzEsUzCuIuQHu4pdSDw
+	 G9aotxgbQ6zBH1FabcjytLdzT+KlsNa0cgVyrMIaMqewW9tYCrHyK93Il9IAPhj6hsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Qi+fcTNn;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dmarc=pass header.from=toke.dk;
+	spf=pass smtp.mailfrom=toke.dk;
+	arc=none smtp.remote-ip=45.145.95.4
+Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5883F606A31C;
-	Mon, 19 Oct 2026 20:33:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5883F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Qi+fcTNn
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j7nLl5dr8z1XM4Tn;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C477E606A319;
 	Mon, 19 Oct 2026 20:33:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792442012; x=1795034013; bh=ZqoytXf5ITNo48qVxQ8B8ouf
-	JFRCfKTNHeMZXX0L3jA=; b=Qi+fcTNnDhW7cf5w9SHuU+qUyUA5byaq0TVPUT7j
-	Alt6hePI0FRosAOEIaMwMRKQY5AANGKwqXn1EX/PD33YhEzKUyktpccPl+KJq5jk
-	swQNMiyCJ5R2YDU85EX7qygQInVhOSEmOoUsDCz+J6kxN48f2jWP3hbx4/DooIEo
-	iLOIWUGcaZY4/56wp4tlR2d2S6uJBAtfP+eWT7B4QGrHlcxN7lI81+R+pab/Yq1Q
-	0JwL31thmCPfH8HxdAI0rcglFhHHhro/igB3QOcDCmtqJs7BDOr6BZyR0gUbK7Mt
-	WDiKWFS8y2FhqcRDZQakSgqaJ8uC3X6wWKH0J9ZsvOsJSQ==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 1iO_oSIpXFxk; Mon, 19 Oct 2026 20:33:32 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:80ed:7b96:75c0:6989] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j7nLg5kNVz1XM4Tl;
-	Mon, 19 Oct 2026 20:33:31 +0000 (UTC)
-Message-ID: <035f0183-a748-4eaa-a6a6-a358944535fa@acm.org>
-Date: Mon, 19 Oct 2026 13:33:30 -0700
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C477E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
+Authentication-Results: mail.toke.dk; dkim=none
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+To: Tomas Tonhauser <t.tonhauser@pobox.sk>, linux-wireless@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>, linux-kernel@vger.kernel.org, Tomas
+ Tonhauser <t.tonhauser@pobox.sk>
+Subject: Re: [RFC PATCH] wifi: ath9k: clear destination mask for
+ non-aggregate frames
+In-Reply-To: <20261003192957.761090-1-t.tonhauser@pobox.sk>
+References: <20261003192957.761090-1-t.tonhauser@pobox.sk>
+Date: Mon, 19 Oct 2026 22:33:33 +0200
+X-Clacks-Overhead: GNU Terry Pratchett
+Message-ID: <87mrs9v3aa.fsf@toke.dk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,45 +50,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] scsi: sr: release CDDA request before copying to
- userspace
-To: Wang Yingjie <x-professor@outlook.com>,
- "James.Bottomley@HansenPartnership.com"
- <James.Bottomley@HansenPartnership.com>, "mkp@kernel.org" <mkp@kernel.org>
-Cc: "yangxiuwei@kylinos.cn" <yangxiuwei@kylinos.cn>,
- "axboe@kernel.dk" <axboe@kernel.dk>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <cover.1792237341.git.x-professor@outlook.com>
- <94d7bdf7391f208b74ba98988c2a52c939d689e6.1792237341.git.x-professor@outlook.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <94d7bdf7391f208b74ba98988c2a52c939d689e6.1792237341.git.x-professor@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 10/18/26 8:41 AM, Wang Yingjie wrote:
-> diff --git a/drivers/scsi/sr.c b/drivers/scsi/sr.c
-> index c36c54ecd354..de43d6e56479 100644
-> --- a/drivers/scsi/sr.c
-> +++ b/drivers/scsi/sr.c
-> @@ -968,8 +968,11 @@ static int sr_read_cdda_bpc(struct cdrom_device_info *cdi, void __user *ubuf,
->   		ret = -EIO;
->   	}
->   
-> +	blk_mq_free_request(rq);
->   	if (blk_rq_unmap_user(bio))
->   		ret = -EFAULT;
-> +	return ret;
-> +
->   out_put_request:
->   	blk_mq_free_request(rq);
->   	return ret;
+Tomas Tonhauser <t.tonhauser@pobox.sk> writes:
 
-This change triggers a use-after-free because blk_mq_free_request() 
-calls bio_put(), isn't it?
+> Frames to stations without an A-MPDU session (e.g. non-WMM/non-HT
+> clients) use the non-aggregate path. If the hardware returns such a
+> frame with ATH9K_TXERR_FILT, ath_tx_complete_buf() reports it to
+> mac80211 as IEEE80211_TX_STAT_TX_FILTERED. For a station that is not
+> in powersave, ieee80211_handle_filtered_frame() retries it once and
+> drops it if it is filtered again.
+>
+> The aggregate path re-queues filtered subframes on tid->retry_q and
+> sets tid->clear_ps_filter, so they are retransmitted until they get
+> through.
+>
+> The result is downlink loss to awake non-WMM stations, while WMM/HT
+> stations on the same radio are unaffected. On a QCA9563 AP with
+> ESP8266 clients this caused 20-45% ping loss, with two TXERR_FILT
+> completions per lost frame and no XRETRY failures.
+>
+> Set CLRDMASK on every non-aggregate frame. This restores the
+> behaviour from before commit 5519541d5a5f ("ath9k: fix powersave
+> frame filtering/buffering in AP mode") for the non-aggregate path
+> only. The trade-off is that non-aggregate frames already queued in
+> hardware when a station enters powersave may be sent to the sleeping
+> station instead of being filtered.
+>
+> Assisted-by: LLM
+> Signed-off-by: Tomas Tonhauser <t.tonhauser@pobox.sk>
+> ---
+> RFC: is this direction acceptable, or is one of the alternatives
+> below preferred?
 
-Bart.
+Hmm, no, I don't think unconditionally clearing the filter is the right
+thing to do. See below.
+
+> Setup: TP-Link EAP225 v3 (QCA9563, 2.4 GHz), OpenWrt 25.12.5,
+> backports 6.18.26. Clients: ESP8266 running Tasmota, modem sleep
+> disabled, associated without WMM (legacy rates).
+>
+> Ping from the AP to one client, 30 packets, 14 lost:
+>
+>   station "tx failed":             +14
+>   station "tx retries":            +2
+>   ath9k/xmit BE "TXERR Filtered":  +27
+>   ath9k/xmit BE "MPDUs XRetried":  +0
+>
+> A second run: 12 lost, Filtered +28, XRetried +0.
+>
+> Ruled out:
+>  - Client powersave: PS_STA never set in debugfs station flags, and a
+>    monitor capture showed no client frames with the PM bit set.
+>  - airtime_flags=0, aql_enable=0, nohwcrypt=1: no change.
+>  - RF: signal -50..-64 dBm; a WMM/HT client on the same radio has
+>    0 tx failed out of ~10k frames; the same ESP8266 hardware behind
+>    an ath10k AP has no loss.
+>
+> With the patch: 500 pings to each of five ESP8266 clients, 0 lost.
+>
+> Open question: what sets the destination mask for stations that are
+> awake and never hit XRETRY? 5519541d5a5f removed an unconditional
+> CLRDMASK commented "needed for crypto errors", so the hardware may
+> set it in other cases too.
+
+This is a good question. Maybe Felix knows?
+
+Regardless, of your alternatives:
+
+> Alternatives:
+>  1. Set CLRDMASK only when the station is not sleeping.
+>  2. Re-queue filtered non-aggregate frames in ath9k for awake
+>     stations, like the aggregate path does.
+>  3. Allow more than one software retry in
+>     ieee80211_handle_filtered_frame() for awake stations.
+
+I think 2. makes the most sense. In fact, AFAICT, there is currently
+*no* software retry logic for non-aggregated frames in ath9k? So you hit
+it due to this weird filtering issue, but presumably random interference
+can also just lead to losses if they exhaust the hardware retry chain.
+But maybe this is not something that's noticeable because the hardware
+retry chain is usually enough? Do you notice any errors/retries in your
+AP stats after applying the fix (in normal usage, not just with a ping
+test)?
+
+Anyway, I don't think it's unreasonable to add the same retry logic to
+non-aggregated frames that we have for aggregated ones, and the retry_q
+seems like the simplest way to do that.
+
+-Toke
