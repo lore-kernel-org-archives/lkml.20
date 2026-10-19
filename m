@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792423990;
-	b=EeBbLRCL7IWBbZEdIEV0Hb3dZMfa44L8YyrFrAKeOhNUIonMLGnY6P8CrcDh+ZkKvGk0
-	 PA4zSrZKZxgdszdiyMIH/4IhrVNrBYcP/iwX7t/QdqVYixlox/eqTRF/dehwk63yzcJoo
-	 1Fyf3F7ulpj6x/Rgj4w4NR0+SPblaA989C8dPhef7fZj2DhYyBkRHyt+/waoKywiKwkun
-	 5Tzk1GMyvfYjWyDPKhctC2n0HoIGHHX3S/MpOLaiabOhEHYYxOcA63FofgNYy+ca7UjV6
-	 pvHyOaexlE/0z7ZbZwRRO3DVJ8ly7NWsepJi5GfRUAqIjGDDiKMw9kx6tfZyVld405A==
+	t=1792423985;
+	b=nihLMF5exXLthd9TdSWQ6LNXbFQs8JSFpVxf7h4XwG4ygxYk89cTsh5EcDsW8dyRDdFL
+	 6LcLurDLb9DP9OM2JMPy7wK6bjnXfD94rwaaRCZexJ4Hcf6mtBzUa115AMlIax1l9fmWs
+	 TrMcDnUrVT8vWtJclA8UXePiHPKhYtXp4qqNy9K0MgX8FMOlMIGCk/A541WH0H/3aCHqc
+	 r8cD2SY3Y0gTJ6vGbzD0ObGlOtYxLCE3phMc1bjx7u5RCt/esS9CInwjeF26DlgdTBt+3
+	 yeW/LWPVWh9hbuQdHLSypNmzCoyqnu+pvD7QwFamJpzhWdM2s6GDzs8yA4M2TqSwgGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792423985;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=BwvEsrwytKYnczWN73dPkfnDgfTOzBu/1wqCOjQUI1Q=;
-	b=Xt9M9TFVUCQ3FEhh3ztS9IOUVx/xlp0wiqJMFA+TGIoX92OV2nrR/9q6+hzCxvA8q+1Q
-	 aAQv0bGuucHSkPmOkcOfebAN9N2JbDEPbGRXspzxVwEzDRY7kdfl16jWasHvYiXYonv/D
-	 XvoWLBSocdvBpQ/Ay1572v2OwkYG96g1c2EJuicvf0XbBUcks2ytfgAVDTi9kyWc/+Iq+
-	 ktGK+NNU7d5cM1iF80Yr1WC1y3uhqZ1zZcwv9/8t6zTdQ5byaacJzcT/DRLwDn/xfeaIP
-	 /64noihg7ercD0nyCgNsPJmKZRllFcyJ+2zetHCT6gqmrJ1JaiO9DZC+T4ZXE/A0hFA==
+	bh=RTU0GqXO0v09/wvq3q/okf4+AOCgqZ21ovd0A51lLqA=;
+	b=Jq+VzHhhE68t/PFd2dqNNz+lLDQEPpN3X1TGZYb5sM0WTIOHcu0i/dlgIxPsQrDAB8mP
+	 XOmXauNrF6cQCW5XcUZgyH/2mrFzjY0zCFn/h/Ch8opDkPsH74vFYl0QUdBnqjRe1a3xR
+	 t/rRCPE1ytCnNJZqeLNuuKSCy/u8vUX5rMSXVa+p6vSMPOF3ii26jAe6MJiwEFRsK+sp1
+	 3hXyuTPxcJSKVRBgqanfu2Fb6zDaCI/pGJKN+cqspC7K/DCKYFc7rlXPra9+tNLNOcUYt
+	 3E39t9zqSBXHwi1TlsjPbwdGu8IgCuFtbeclwmpOMVhY9TTOVtQvSbEAWr1EGHjd0xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lenRNYJA;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rKiBaLiH;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0B3606C93F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:33:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A0B3606C93F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E03B606C908
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:33:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E03B606C908
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lenRNYJA
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd6324caa0dso121107a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:33:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rKiBaLiH
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd6324caa0dso121095a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:33:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792423989; x=1793028789; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792423984; x=1793028784; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BwvEsrwytKYnczWN73dPkfnDgfTOzBu/1wqCOjQUI1Q=;
-        b=lenRNYJA1b7r4MRAtOWAg4/qpU68Gcm5za8RbKRmeR5r8YTm3kL2/4kIU/FXXJ0Gyz
-         VYtJkxOuQmGbGKAIlgyfG8f5awDHKuJj35Qn77SdNbdB1eLKsTTMnBXushRIbGRH8L7O
-         4kRZKigWnXEYXjK8MdD9/Ty4UMiVxjMQR/JePaMaDsWSwxDP4wpslv3Ah3JlOmjhtTbB
-         /ist0AlDLuZzqOmV6G7sYXAH38eUEkuox5ZF3JNdLMW1htyIGfQNp860yOb6TxLTbFNe
-         FI3jett30wj3mEzkunCmHuaSBExhQlJfDF9IOGbA3Is6zWVNQtsEhAYM/dYu3+guReFO
-         QPow==
+        bh=RTU0GqXO0v09/wvq3q/okf4+AOCgqZ21ovd0A51lLqA=;
+        b=rKiBaLiHA+wAj+IDHNi51Xs9grM09WoPm+Jryti86x78iXrYmwZHGurSps/Ezf9PLa
+         rht/nC+yCW9W4lyFiHWeRTlkKkmTbEytKscB+/TT/XVoIyJVP658YmxRhCdlGHIIMKe8
+         gJBSi2JDs+cDjFlbwf8anbdTuSxgxZZWQAnXlqZAbvkoIdpzNQQwAMXmCHVgRhl9NPTk
+         KrKIwz9JwKqlbhcb2Fmh+ocA/wFBsTpjtOtiZjocNGt1ME6zY1TMBSUJFOLtWFEFCBGT
+         +N8FGdT0XhQVHUoVOMVS021IZ3RNDbI4iHuxC+XuSmLo5OhIklT+2w4pb64aO6SvsdnL
+         OoyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792423989; x=1793028789;
+        d=1e100.net; s=20260707; t=1792423984; x=1793028784;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BwvEsrwytKYnczWN73dPkfnDgfTOzBu/1wqCOjQUI1Q=;
-        b=VeUvLwS848KTD9Je40R0ClnAzIp+jYCgvdaBjPCCXma86ywNsV6wU1imLvCjB2Mz5k
-         YdJCUj0T/Ov9a1CdN8r/zqpNQp/4D9Uc23lbd424tOQzoyn7CosfaXDRcfdAPy95WJ7g
-         JIp7c5cyxGSsKFvTV3rQdDqD8ZxdglF7wnYUa005Xde69MutgZhL0nstfi1SLR0Z+Fc7
-         fmNPlpoixwqvE8RAKvaa3oHG3+/YjZ1WGbxBfJ/HAzEoCmAa304KBGNJdcRsoYkTcCuG
-         vRxfkNmGr1X/0xPCUqeUCl1sRwhc5iST60xf1oCyrrrSL3F7IKrUgxUZWqVaAPu18sTD
-         0evQ==
-X-Forwarded-Encrypted: i=1; AKwUvByxeoMNK/Ha0KiTdpbVnOncHBg8i+V67ZTDj+R/DViEJwQvwAf9sQ5t6avbkr/Ixp1Cd8G4go04bJVDTsE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmFkZ+hvFaZc31neqNytt4kyd6nl7pVojlR+2HSGc2q51bWiP4
-	7wruuDuHKYSF72EqIaC06x0qO4UoFWGZ1OvCGPmbGl0RDuckVWMaU8pTl3IOLh2c
-X-Gm-Gg: AYBFou1B/vRZrMx9QSfBgoPyO8F6l7ofFOsbPIFpI8g16w7TAYXLHdmzPtMakOQ1VK8
-	W90/5MRQEqWaO6vr7tMaWniNAcby0mfpDLBCo7Ja74hznCXJQA4kfVbaGaPO+AGRLNLQqe2NfMO
-	UyFJhWeCvfPZu9FP33FM1slkaMczMZYxBy5k2Pwq8UvI+Z6RKWmKWF881DWtUpyXJzASg+IX/IM
-	Nq/w46V82d9jxAsPwwx0y4Aq9Kc96tuJ6GYGcSy1JZ1q1uh0PD1wxWKDM0bgXoXnVK1Se+sYO3j
-	pKeyCje6nLxp/lDx4EQIVNQBacZtODsSCi/7i60ka1Dzq7pwYls166RfFHqW8DnhrbRx7ahndHe
-	canPjPaM+jp54SsXn3GDlfILgcPv9gC1aBpa296dr36z8T/x8Zw7kFD1D67CBA1u5T0XCnhWxLv
-	AeRW03Gz4LoLQ2Vz5SSuIYaImOhl7l56gkFubcnDPkDJ0mIlz9KnmwpMHk07rMElPwQrIPPAW30
-	kp7aOX1POixA6U1KdcJ9DjSjP3CAsiE/M7uhOSpjZNo5ZyIJMTauxjRVb7ybHCY4cY=
-X-Received: by 2002:a05:6a21:8285:b0:3e2:19c3:48a4 with SMTP id adf61e73a8af0-3e225ec8d14mr13488749637.1.1792423988640;
-        Mon, 19 Oct 2026 08:33:08 -0700 (PDT)
+        bh=RTU0GqXO0v09/wvq3q/okf4+AOCgqZ21ovd0A51lLqA=;
+        b=eWQywllRiuytYTcHr+RWUa31Ydr/MvKjoStbS/EJFvBSDHUYrjU6PvgrKLc7YC9LNS
+         kA1srsOGQ1TnZ16t4qvHoiT2vwDsP1WReVltsW2KCJ4/H8IpCGKPKRMkpvZiGuV04RWS
+         cUd7G3RX5qVRzl724wd27MT8CHSd3WeC9x7QH7guTOFzNuTEWnDxMedC2C8GMcNxKNJU
+         ylwyae38bLKUR6n7XWudUAF01KYQz79hLo2fri9Bcq32n4ZBIUc4vSezlhs/jxVTK0fn
+         awYfj4uv1jn3QC+dg/Jfmy08VGGFsW5QyNv9h4JWQmzxdMv6FbpfqBNX/DkCKrvmSMWg
+         /Xjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxUdukd8D/roqECJrdWRDDST7tphwnMpaKvPU1IazN8wV//ANCZnM8E34Wu+Yd0++f6318xJi/Q3QhFynU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPe46Bv0kiKgKGEV89CDQ6C+uDcHmvXlVUO0IlS8jzT+uNoGtN
+	IzQeCLCAEi4RnOrvEBsEKpvdc3piwb8cfiyxJQ9++R5H6Q0/oSu8Xl5z
+X-Gm-Gg: AYBFou1tgJb7zUmkq33kVy2ooqBwcLoNINa9gkTfCXtJsZhH979d4KiOjXCnPMNh9Ux
+	4rAIwSGCoLeXWtg1nxWgGZd2gOZ4oB0SpKd+LX294L1bqZX3bbwECYvW2/zJRXKXo6uW1tK2bll
+	uYUXIGKLdDGv/i02xU1BTQrN1noTP3CHGoLq+qYp33uComg0JMzFjYvRk312uPyll03mhdUWAX8
+	prUWjCOSWrPYazKkW6hTVccN+L6jw5ZRHtsX0CJ7BMuh9h/nYLWKVixCPl20Kez94ylBjURb8kx
+	kKaPiwfLPiqpiAyLcMcIx7yjj83HOvxjdBTPYJKMVq+Ec6TETUH0gQwPOSnskKmzUn0G+Q30WYp
+	yn+zkwbHQgSbrXgy+h+qx4ysE3Z1MHNBbHnwnyOLbYzl1nmOCM1h2/7/t/BUAL74XxOlJlixLeH
+	cj20l++NqwubsQpfS/omEsEnUfe5bU9VGNL5+n78VdRLgpGAe1JnGznO9nXFQjXzFF+hj4ny6QO
+	PiIGlD4wzmDCqgFAjZ1okg2Gv9zDUOLhTq6JMa/N3+wj76ud46xuN7UcBiT+RMFdblhpvjgry+z
+	aQ==
+X-Received: by 2002:a05:6a00:4786:b0:8a0:1269:651e with SMTP id d2e1a72fcca58-8a04be68eeamr6694821b3a.3.1792423983578;
+        Mon, 19 Oct 2026 08:33:03 -0700 (PDT)
 Received: from localhost.localdomain ([183.42.136.236])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57452b16sm4017801b3a.29.2026.10.19.08.33.03
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57452b16sm4017801b3a.29.2026.10.19.08.32.58
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 08:33:08 -0700 (PDT)
+        Mon, 19 Oct 2026 08:33:03 -0700 (PDT)
 From: Qihang <q.h.hack.winter@gmail.com>
 To: netdev@vger.kernel.org
 Cc: steffen.klassert@secunet.com,
@@ -90,9 +91,9 @@ Cc: steffen.klassert@secunet.com,
 	dsahern@kernel.org,
 	idosch@nvidia.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v5 2/3] xfrm: set the address family before the early invalid-state drop
-Date: Mon, 19 Oct 2026 23:32:46 +0800
-Message-ID: <20261019153247.89957-3-q.h.hack.winter@gmail.com>
+Subject: [PATCH net v5 1/3] xfrm: run the receive callback before dropping the skb->dev reference
+Date: Mon, 19 Oct 2026 23:32:45 +0800
+Message-ID: <20261019153247.89957-2-q.h.hack.winter@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261019153247.89957-1-q.h.hack.winter@gmail.com>
 References: <20261019153247.89957-1-q.h.hack.winter@gmail.com>
@@ -107,44 +108,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The early drop in xfrm_input() for a state that is no longer valid runs
-while family is still AF_UNSPEC, so xfrm_rcv_cb() cannot find the
-afinfo and the receive callback is never invoked for such a packet.
-Set the family from the state before the check so that the drop path
-dispatches the callback like every other drop does.
+The drop path in xfrm_input() releases the skb->dev reference that is
+held across an async resumption before it runs the receive callbacks.
+The callbacks may still dereference skb->dev, xfrmi_rcv_cb() reads
+skb->dev->ifindex, so they can race a concurrent teardown of the
+device.  Run the callbacks first and drop the reference afterwards,
+like the success path does.
 
-This is also a prerequisite for releasing the tunnel device reference
-on that drop path in the next patch: without a family, the release
-cannot tell an ip_tunnel from an ip6_tnl.
+The early drop for a state that is no longer valid releases the
+reference on its own; let the drop label handle that reference too.
 
-Fixes: 4ce3dbe397d7 ("xfrm: Fix xfrm_input() to verify state is valid when (encap_type < 0)")
+Fixes: 1c428b038400 ("xfrm: hold dev ref until after transport_finish NF_HOOK")
 Cc: stable@vger.kernel.org
 Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
- net/xfrm/xfrm_input.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ net/xfrm/xfrm_input.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 94de4f698c33..517369ba9efe 100644
+index 5ed87d51392a..94de4f698c33 100644
 --- a/net/xfrm/xfrm_input.c
 +++ b/net/xfrm/xfrm_input.c
-@@ -487,6 +487,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 				      encap_type == UDP_ENCAP_ESPINUDP))) {
- 		x = xfrm_input_state(skb);
- 		xfrm_proto = x->type ? x->type->proto : nexthdr;
-+		family = x->props.family;
+@@ -496,7 +496,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 					       LINUX_MIB_XFRMINSTATEINVALID);
  
- 		if (unlikely(x->km.state != XFRM_STATE_VALID)) {
- 			if (x->km.state == XFRM_STATE_ACQ)
-@@ -500,8 +501,6 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 			if (encap_type == -1)
+-				dev_put(dev);
++				async = 1;
  			goto drop;
  		}
  
--		family = x->props.family;
--
- 		/* An encap_type of -2 indicates reconstructed inner packet */
- 		if (encap_type == -2)
- 			goto resume_decapped;
+@@ -779,9 +779,9 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ drop_unlock:
+ 	spin_unlock(&x->lock);
+ drop:
++	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
+ 	if (async)
+ 		dev_put(dev);
+-	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
+ 	kfree_skb(skb);
+ 	return 0;
+ }
 -- 
 2.54.0 (Apple Git-157)
 
