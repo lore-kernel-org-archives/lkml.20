@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792430636;
-	b=kuAcmSg+EWpEdPFDE6lFuclLpOXsi/JC/eo8rP900D4NL4nY7tR7Inu5J9IeMYHnhp20
-	 ARVce/29Q4XJhl+GwvqegoP3Eq9Hv/AEO6rLPmF4ojJxUI/V36rVJRFVE5weL9hfWzt0K
-	 2AQOkxvKX26S2dYW7FRFqII5TSMip+OD+F83hgTXoyJQWaQPCqOTdyjj+XyHtyvfsXBrU
-	 FtKqZ61LvJEs+gj223BHuhUNlgIPb3Y/Yc5PRPf2QyFMQgFBQi7Ys0ozx7QU0/XupGsjo
-	 ynkMxmEu/puW7fej8/sV5+COEbRdL2U/sEat8jPcggf1SrMVZsdRKoNIJDWAeISFNyA==
+	t=1792430639;
+	b=D1BTam5oe31M5Oq59MTIm9w6hcnNsPvnDTLtaZPptzx6U5+m3egBc8qfF/LNgmU3YuS1
+	 SxfEOVn2m5pnJaRt/7jA+PsogvinPGHWjyy0fudLcAeDCFliXhCjVfAAB0rRY8E69Gavz
+	 2PdC3TB1h0mvkO+/HYG9eOD7HYPx1gI17qb9pTFFE3LoW92sl8fhJWkKg0+8ImohcoQTj
+	 st7mdyZ8/h3WNLSkA7yYo6jFFPLZ/kTd9DJJRVb6abWesKsNbkPvipJA5vhmrtEehsaLe
+	 7SDgf6GZYJSvQnmW3YjVezkMyhHoQXsvQaUuO4Tf4KNbJtm0ogZkHhJfmU48+C+778Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792430636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792430639;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=f1NZpg4bEcv0tM4rCujJL7YKJxmpUNmsXISBuFDoLRI=;
-	b=v9y/0pFTlNFsz6afEhtT6F0ou/fzpMLCoqr6QYYOmicC39Zc936bQ8yUXK3us2lcHJiQ
-	 HKj7ptOGoj/bH+CnWuor6pWV2+gzOZk76lEA+hlmxgvrUVFmgmFwl9d5a1kMrzdrRa5cf
-	 eL7Fo6Y5JxiOPF2B3GWPN8m/LMvJtoyHh/l8fiFiKAaetL3QUQV3UrZoR2F2tvXSdF/iv
-	 LIBaF0REB3KRl7mCLrAkoHeFNg7hFe3XjVMHPLaNchNmuIm93OA4d0lJBjpv2dU0LssaF
-	 8DJhGELMGD4yT6SaotCt1AXtr0O42J/nu3QYJom2HJuIjxpfUqnwEbJSpOIIOdFGfbg==
+	bh=cayAcl4iw+jItAg5iPx/bsdxEdOf5W6Rz7FTZGlHvQ4=;
+	b=14cO/94rlaR8yD3v1QVHU8MugOEwUAceOqGN42TuyECBM6KvUI+qUtYWYwojH85EyO6p
+	 cfsrtMPcbsJdr9GEIcCKXS9pX9YZEw9khM3ITJCMJVfnNyNEEqPb4rbPLQ2b5mnDsCM+1
+	 1sYjOHFr9nZ3X+dAUQ0nWz50OhaSAUnZf9M1tfMRUiMMPh6SDZ3M/Cqnkz6vNYLza7LZQ
+	 c5mwakbRC73L5ogW6U8JU67cSIk6FsQnukbwPlhxe9avhcmZEJT3gwBmiGysg9fAlasId
+	 iZ42j1Adz8YvIeC1cN5vhXvGurZKK5TEKliSCLPSDBQG48IMaU8G78OdiwmRX77Snwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=aY4PmRCH;
-	arc=none smtp.remote-ip=209.85.222.176
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EKPwfQd9;
+	arc=none smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F62560A260A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:23:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F62560A260A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8F660A261F
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:23:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A8F660A261F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=aY4PmRCH
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93f30660e69so135379985a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:23:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EKPwfQd9
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5366463571cso14369841cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:23:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792430635; x=1793035435; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1792430638; x=1793035438; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f1NZpg4bEcv0tM4rCujJL7YKJxmpUNmsXISBuFDoLRI=;
-        b=aY4PmRCHZqOFbLDAAhXf5bs3kVeRD0sBh2eRbT75yQacrKL3ATMIUXsCLDs6zY/C5H
-         10RRF2saObEjf49wCUEaKka1eAnDcTjO8G0qaDMyrTAs8rH+dRqhCe4xKkeQdbUhQgYG
-         20Z9kuZtGc6qnT1F55FtE0vabZCj82TXpqtkDFR7sK6Oh9j/OktkTN8L9oH61iYF3k8Q
-         JgnqN2A0p8tiFZYedUDv3AhkLnyFBVELuNG2StRGLSsVosy4t7sCnItvp3ff9V28pwCg
-         bzjcz8sGA6245K/NXl/wAH/W81bQasgqaviN+yE528hc9HsSgi9VL7nLU2Di1mjJUiIa
-         OX5g==
+        bh=cayAcl4iw+jItAg5iPx/bsdxEdOf5W6Rz7FTZGlHvQ4=;
+        b=EKPwfQd9pAhY7OObaKd/t/kqhBeCzJPYyo5VhltFiKZEWE1qwvj3Syny3KlfLejZpy
+         MQtvBVKKv44Xj4qlYKXUUo6BJB8fR2XnzurPWj2VA5i3j2Y/lKopFNoVESi+bmVNGbR6
+         zoctzZSSXKrn2GOFCfWPyyXAFGMT5IBAhutYVUGwRwqc7+q2Lz2e/FvqXzMIc0sRFYQ9
+         hHbtmBA7Z/sM8C23LsRN4D+ScsbW/rUEG8gTqvtJv0tk15sSnis5b4rFlpAH4yu9BAmi
+         mRPWrmIw4iG9o4UDwt6HpIEOMjs368mjoJzW9aK6n/2v7m8bNqlJdy4Qjjwdk6sr9iYd
+         51Gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792430635; x=1793035435;
+        d=1e100.net; s=20260707; t=1792430638; x=1793035438;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f1NZpg4bEcv0tM4rCujJL7YKJxmpUNmsXISBuFDoLRI=;
-        b=w55qo4CuUt5nhG+Qt5/JdDrSkVGD7t9G0S/MxaqQvlLAKpGKKBu7p1ySW93sxnDLpk
-         z+Ex8Osl50LM8KwRTxgUOdYlD/WA2v9BhvN+/ipI5XdJGSAD+Anf20NQ3uNsDXWckJ6H
-         nIDkue+PRDZmJb9I3faHgFSyYsrALcnmEYdwsmHUv6IKrDiuhe+FP28vNbU1K7JsQM42
-         iahh3848KXXnN3qrhWat3CZctRKahMu8NOejoVSJ3iWgjLr+LXNJ5MfoztvNjgkAGJHM
-         eBKkKKyyhlKfA9LeF72k03cUcWbyZsQ7zfYIvxNGWzA0uxrPPcQkBEmkUVqz1slpA1iv
-         REWA==
-X-Gm-Message-State: AFq9FYIc65Y3j+FxivZo1luLDavSVQrCsVXG4TDQm5R95hKfbnoierom
-	0L+DrXBLf4u16eWAXc/bNlekm07k8NjDKqj1X4SRwFLCYgSgnO3OwL+Wtz2/EBWLcgA=
-X-Gm-Gg: AYBFou0h9BWaNF2jn6CFWJDqVB3HfJPh+AL8RRPSYbpum7rQeojnpns6FSe5Xw+gD9F
-	FoWgylQSczuYZAhgTasEcMugzOsASFqISysHE7d8CHgeZrty0pdl7xFVcEQkGmzPn7jpzQpZnjA
-	6jzsdvy7oU3Ie44LBmF0VY+Mj7+8ewhC+1TYu4nhA71jFEzmV4BUaDYpO/MMhBhvEZYjcPBVlUc
-	lPA3/qZiK4nnQYQfxYHP17WCqvq5KtUmZPtLsuqVsVrXRasZ2W8bRdZ2kiGDGpaYq9HIVpmyv75
-	riFbgim6v0gICprTZQiA0RsizIuWU3deLQDDzjzAGc2tDThc0nxYR011FDov2kaagiHGYRXE9MN
-	dUISy+nW72oboNBCcjSN6RS7UZRhO+On7jWeenRAjIbwuIkf20nnBH0XRVuzTdPRcB5TogkM6si
-	xdCgXK/isZBES/h5V95kUPECrNwRc/uyo8dSFXPBTHQlDG3xH23t4XWDTUaaJZMW72fPt2+TrRe
-	ESScZ62nbUWowuf/cLF/b8tXXThAHETucokZBw/oTp7uD/JxDw+F5uiVCH/
-X-Received: by 2002:a05:620a:3711:b0:939:733d:cbe0 with SMTP id af79cd13be357-93f29b48f16mr1396488385a.3.1792430634536;
-        Mon, 19 Oct 2026 10:23:54 -0700 (PDT)
+        bh=cayAcl4iw+jItAg5iPx/bsdxEdOf5W6Rz7FTZGlHvQ4=;
+        b=HJBffageYuTqvvzeoJ4S4RMx4gA/p1qNb1WhOciM2IZHsk9+0DCRdgTH54CBh0Dpfm
+         RUNtzOrTB1j+LIogSB37BxVsCgMxwY3I611o81kXJZncO0mhFXWP1IT8EZO0RxIiWHVJ
+         K6YiDQL4gVaXKlOYiffb1+GSGPTLJdwLBVbMc39ATpwRfopwi+SPMjoiBBwrTY6swGhw
+         oscHIHomAZUyCrobvwGdNI2UQKHyY2nvl3Id4tWhPjfr+tLa1gRINcbawxiw9ynftOUL
+         47B56XJcyNaykZgRZrXDQpt9oNEXMqVbPXJWKYQ+kuGk1g1cYYi5fO34ITY8njdXZ8Or
+         LysA==
+X-Gm-Message-State: AFq9FYJ3PhsvDCaxmD5WEAz8zKbFWS0eZzn5MnYPAk6xbLqkYT6ii0ZD
+	vPGZ+vkW0AqKhObmxnvQL0+gOEfCLUU660t7Dp7Y+yZxu/N8uYzxRizzrzY3wNutfOo=
+X-Gm-Gg: AYBFou0rmvPCXkSfp3ICQ/5KcPMLdyPUsl306Ym1/TiQt/si+FCy55BkTTSyAYD7Q06
+	y2QzsVYfqvy7YqS05wC3ZU9B/CJ8QvS8zBFdFkU7pmGLz8fut717dyeKyL/WJkgEC7lknxe5ijF
+	HfsuL+YnqMPyI2bRueVEch3DH56C2Cw0g9fM25yGXBGPURdzBJn+AwmD/vnudO2YwkzP/nvyVtZ
+	Vqzuqud+RAJ8hUDXntHih6GyeGFvFFi00SvAdsQPeKWwQ1y4yzXjq9lDaazc7FF+RNot6HqgML9
+	q4W+CuWE9AlHQPJdWl14vxWv0hG16CckWeflO6ACofPDmQ8//zMPschZvXSUJQhuzmiKrI7G4FU
+	4tjsxZnwUkQFtVjIbL5RgXOS6XwfEr6r6Ggg+Ot+cdghd56c/IIKnltW0BgSEC9ogwOOq0/f6Zz
+	gmpIJLEh66THsKMRWz2ZF7U/BQ3P4jjwYP89gSBdxCGVgpybpf8Etfyb6gw4DwqqlsqoHL2vRe2
+	mPTHHBlvgN3TEIy7GAxIYqK4izP5U58w5V5OxeVIuen1S3zoSgp4JRD4/lv
+X-Received: by 2002:a05:620a:3710:b0:93f:43a4:a479 with SMTP id af79cd13be357-93f43a4a615mr343361385a.66.1792430638159;
+        Mon, 19 Oct 2026 10:23:58 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4adb28c2sm14615385a.0.2026.10.19.10.23.53
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4adb28c2sm14615385a.0.2026.10.19.10.23.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:23:53 -0700 (PDT)
+        Mon, 19 Oct 2026 10:23:57 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -95,9 +95,9 @@ Cc: linux-kernel@vger.kernel.org,
 	jiang.liu@huawei.com,
 	Bessel.Wang@huawei.com,
 	stable@vger.kernel.org
-Subject: [PATCH v2 3/5] mm/page_alloc: snapshot the preferred zone against shrink rebuilds
-Date: Mon, 19 Oct 2026 13:23:43 -0400
-Message-ID: <20261019172346.3344005-4-gourry@gourry.net>
+Subject: [PATCH v2 5/5] mm/mmzone: read each zoneref slot once when filtering by nodemask
+Date: Mon, 19 Oct 2026 13:23:45 -0400
+Message-ID: <20261019172346.3344005-6-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019172346.3344005-1-gourry@gourry.net>
 References: <20261019172346.3344005-1-gourry@gourry.net>
@@ -112,147 +112,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-get_page_from_freelist() and alloc_pages_bulk_noprof() reread
-ac->preferred_zoneref->zone at every use. Offlining a zone's last block
-rebuilds the zonelists in place, and the shrunk list's NULL terminator
-can land on the preferred slot mid-walk:
+__next_zones_zonelist() tests a slot's zone for NULL, then reads the slot
+again to look up the zone's node. Offlining a zone's last block rebuilds
+the zonelists in place, so the second read can return the terminator:
 
   CPU 0                             CPU 1
-  get_page_from_freelist(GFP_KERNEL | __GFP_THISNODE)
-    zone = NORMAL (slot 1)
+  __next_zones_zonelist(nodemask)
+    zonelist_zone(slot 1) = NORMAL
                                     offline_pages()
                                       build_all_zonelists()
                                         [MOVABLE, NORMAL, NULL]
                                         -> [NORMAL, NULL]
-    rmqueue(zonelist_zone(slot 1), zone)
-      zone_statistics(NULL, zone)
+    zref_in_nodemask(slot 1)
+      zone_to_nid(NULL)
+
+Current GCC and clang merge the two reads, but nothing requires it. With
+mm/mmzone.o built with -fno-inline -fno-ipa-sra, holding a nodemask
+allocation between the reads while the node's last movable block goes
+offline oopses every time:
 
   BUG: kernel NULL pointer dereference, address: 0000000000000060
-  RIP: 0010:get_page_from_freelist+0x6a5/0x15f0
+  RIP: 0010:zone_to_nid+0x0/0x10
   Call Trace:
-   __alloc_frozen_pages_noprof+0x125/0x330
+   zref_in_nodemask+0x9/0x20
+   __next_zones_zonelist+0x23/0x70
+   prepare_alloc_pages.constprop.0+0x16c/0x190
+   __alloc_frozen_pages_noprof+0xaf/0x330
 
-Read the slot once. Zones are never freed, so a stale zone is safe, and
-a NULL slot fails the same way as walking off the end.
+Read the slot once and test that zone. A NULL zone still ends the walk.
 
-Fixes: c33d6c06f60f7 ("mm, page_alloc: avoid looking up the first zone in a zonelist twice")
+Fixes: 11cd8638c37f6 ("mm, page_alloc: remove stop_machine from build_all_zonelists")
 Cc: stable@vger.kernel.org
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- mm/page_alloc.c | 31 +++++++++++++++++++++++--------
- 1 file changed, 23 insertions(+), 8 deletions(-)
+ mm/mmzone.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index aa3cd44fdaa5b..75a440ebcead6 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -3807,12 +3807,21 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
+diff --git a/mm/mmzone.c b/mm/mmzone.c
+index 9cc9ef588580d..009f1dd75dde8 100644
+--- a/mm/mmzone.c
++++ b/mm/mmzone.c
+@@ -43,13 +43,14 @@ struct zone *next_zone(struct zone *zone)
+ 	return zone;
+ }
+ 
+-static inline int zref_in_nodemask(struct zoneref *zref,
+-				   const nodemask_t *nodes)
++/* A NULL zone terminates the zonelist, so it ends the search. */
++static inline bool zone_in_nodemask(const struct zone *zone,
++				    const nodemask_t *nodes)
  {
- 	struct zoneref *z;
- 	struct zone *zone;
-+	struct zone *preferred_zone;
- 	struct pglist_data *last_pgdat = NULL;
- 	bool last_pgdat_dirty_ok = false;
- 	bool no_fallback;
- 	bool skip_kswapd_nodes = nr_online_nodes > 1;
- 	bool skipped_kswapd_nodes = false;
+ #ifdef CONFIG_NUMA
+-	return node_isset(zonelist_node_idx(zref), *nodes);
++	return !zone || node_isset(zone_to_nid(zone), *nodes);
+ #else
+-	return 1;
++	return true;
+ #endif /* CONFIG_NUMA */
+ }
  
-+	/*
-+	 * A concurrent zonelist rebuild can NULL or replace this slot. Zones
-+	 * are never freed, so reading it once keeps a usable zone.
-+	 */
-+	preferred_zone = READ_ONCE(ac->preferred_zoneref->zone);
-+	if (!preferred_zone)
-+		return NULL;
-+
- retry:
- 	/*
- 	 * Scan zonelist, looking for a zone with enough free.
-@@ -3862,7 +3871,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 		}
+@@ -67,7 +68,7 @@ struct zoneref *__next_zones_zonelist(struct zoneref *z,
+ 			z++;
+ 	else
+ 		while (zonelist_zone_idx(z) > highest_zoneidx ||
+-				(zonelist_zone(z) && !zref_in_nodemask(z, nodes)))
++		       !zone_in_nodemask(READ_ONCE(z->zone), nodes))
+ 			z++;
  
- 		if (no_fallback && !defrag_mode && nr_online_nodes > 1 &&
--		    zone != zonelist_zone(ac->preferred_zoneref)) {
-+		    zone != preferred_zone) {
- 			int local_nid;
- 
- 			/*
-@@ -3870,7 +3879,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 			 * fragmenting fallbacks. Locality is more important
- 			 * than fragmentation avoidance.
- 			 */
--			local_nid = zonelist_node_idx(ac->preferred_zoneref);
-+			local_nid = zone_to_nid(preferred_zone);
- 			if (zone_to_nid(zone) != local_nid) {
- 				alloc_flags &= ~ALLOC_NOFRAGMENT;
- 				goto retry;
-@@ -3932,7 +3941,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 				goto try_this_zone;
- 
- 			if (!node_reclaim_enabled() ||
--			    !zone_allows_reclaim(zonelist_zone(ac->preferred_zoneref), zone))
-+			    !zone_allows_reclaim(preferred_zone, zone))
- 				continue;
- 
- 			if (!node_reclaim(zone->zone_pgdat, gfp_mask, order))
-@@ -3945,7 +3954,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 		}
- 
- try_this_zone:
--		page = rmqueue(zonelist_zone(ac->preferred_zoneref), zone, order,
-+		page = rmqueue(preferred_zone, zone, order,
- 				gfp_mask, alloc_flags, ac->migratetype);
- 		if (page) {
- 			prep_new_page(page, order, gfp_mask, alloc_flags);
-@@ -5199,6 +5208,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- {
- 	struct page *page;
- 	struct zone *zone;
-+	struct zone *preferred_zone;
- 	struct zoneref *z;
- 	struct per_cpu_pages *pcp;
- 	struct list_head *pcp_list;
-@@ -5247,6 +5257,11 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
- 		goto out;
- 
-+	/* Read once; see get_page_from_freelist(). */
-+	preferred_zone = READ_ONCE(ac.preferred_zoneref->zone);
-+	if (!preferred_zone)
-+		goto failed;
-+
- 	/* Find an allowed local zone that meets the low watermark. */
- 	z = ac.preferred_zoneref;
- 	for_next_zone_zonelist_nodemask(zone, z, ac.highest_zoneidx, ac.nodemask) {
-@@ -5260,8 +5275,8 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 			continue;
- 		}
- 
--		if (nr_online_nodes > 1 && zone != zonelist_zone(ac.preferred_zoneref) &&
--		    zone_to_nid(zone) != zonelist_node_idx(ac.preferred_zoneref)) {
-+		if (nr_online_nodes > 1 && zone != preferred_zone &&
-+		    zone_to_nid(zone) != zone_to_nid(preferred_zone)) {
- 			goto failed;
- 		}
- 
-@@ -5269,7 +5284,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- retry_this_zone:
- 		mark = wmark_pages(zone, alloc_flags & ALLOC_WMARK_MASK) + nr_pages - nr_populated;
- 		if (zone_watermark_fast(zone, 0,  mark,
--				zonelist_zone_idx(ac.preferred_zoneref),
-+				zone_idx(preferred_zone),
- 				alloc_flags, gfp)) {
- 			break;
- 		}
-@@ -5328,7 +5343,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 	pcp_spin_unlock(pcp);
- 
- 	__count_zid_vm_events(PGALLOC, zone_idx(zone), nr_account);
--	zone_statistics(zonelist_zone(ac.preferred_zoneref), zone, nr_account);
-+	zone_statistics(preferred_zone, zone, nr_account);
- 
- out:
- 	return nr_populated;
+ 	return z;
 -- 
 2.53.0-Meta
 
