@@ -1,64 +1,64 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DB44B9201
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:57:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3549E4BEE5A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403851; cv=none; b=ga3qZWObGEBHCHF5c3NqzrCNmED65HRROTB6OLIj+4IRQ3NDGh4GxAEGRwByAJ92tNwtCZp40rEL7K7gIljpwDcSCyKUinG41gntOkW6mjctVvtOFy2CH+/cjY+VyLyAylM9lR0PShkda+wRoRx0fp8vuAemMUNFU+zC0lwuAv4=
+	t=1792403854; cv=none; b=mKH+TCOo2HU+aVCQ/InW03ICbCxZe2o+n6vRjfHdXKdJO8dNTMZJZGZVX06zS9i0C66odd1G9JEcJbQHCFaVx6h+iqTpdAR2Srkcd/DsyyJAWht0B8OH+ZqP6hc4Hv9N+h3r6c7DImd3YOsjEuUBhKxmvmhg0Q265CZ3NckNOP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403851; c=relaxed/simple;
-	bh=gqHFQkDqt01PNe3dmhsrva6agIu6Wotd2DKXwpYNp60=;
+	s=arc-20240116; t=1792403854; c=relaxed/simple;
+	bh=DoVzbYZhKg/nfi+sdH5pzhfcQzW780wRFKK6MhQOPZc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hs1a8yAzzqp6nP46AjLD8iN8nDL8hL3Ibr9L7OKEbuEtOkg3m1yDqqAGEvn2hLywGozaZNe06Os81CcOlaCvV5hKljF4nZBgPS3Yl+ghBCmT/zIkgOPcOdW1ehlvLTenz41gzcCh9XV9Kd8cAM0qtowwSoBsV9HWZze5UIPGLig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TPYIuYDz; arc=none smtp.client-ip=209.85.221.45
+	 MIME-Version; b=cQ9dAaBurDeFQcw5JxJGNm2tHeGKzNonsmQ144uZ6hUI645DncESFmpbBzuuxrokvd0RyF7XyKDxEj1kQe0mhC49VZrvpfkVfwuf02c8+UdKcwB8UrrxKk1VnzuXAy6bgMDhOqVeB+sRPi6wqdP+M9O/4kcuhNeQ9ZEwPVxwiqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DnpRyPUI; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TPYIuYDz"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4be28b82so1434722f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:57:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DnpRyPUI"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e0d1da913so1286850f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:57:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792403847; x=1793008647; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792403850; x=1793008650; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KXz6d61M5KD13QHimY2yBAnDg5P4a0+gl+DKibpYues=;
-        b=TPYIuYDzCdBqBPa4E5p68F1gRXoaF8O77/6zZGBw4PLV+l6mS4oP4/nU+5Rruz0CFn
-         8ZaU6GybbnAAX18KKxLk7GR84VVdK/w71SU9ZBtyuMF8nMq8LMhqSdcRTLPm+LmkB9Ma
-         vgkFxOIU7XqwgXMIlsLqjDbLhZX5q/VUR0xvCrc8ED3NkgxnSj6HMCpBYYcYZlL5QONh
-         jRu/S4K74Xu27Nk7xviZMKxq+xvrMxCfUtZ+mae1ms0tYyLGxHJ6N3slHboxAEPKzxG7
-         tul7jJkPvrNfsbP128wQWuGg4Mmarah5uC24uGKzol2j2TC+0mlZ3dI1m/ttFI/GFuH0
-         L89g==
+        bh=pBTLKDknRyoiYDKLKvNdQPQPMYptAQUNMVhu1Fol0ak=;
+        b=DnpRyPUIcWJr/ly+ATJVLsqXmZJdI2/ci6KiGeF9gduvMTgmIpAF3f7aypnWFrLMVw
+         HPaZLaT3Hg2Tlx4nqHkfDQlV3b5W2Ljsu43yZGUYvDq+piQqO4MW8L8DeVB8frFXu36y
+         E9XwbJy9xpvCLPYqa0mFle2jzFeGmfex8pJsSyYgw3fDPKzdGK22VOw6KBHwz/4q4ZMF
+         VqY/tbjI/bNIf8Pveo2U3MoJWEVCbNzkNjanVtgIA8vGiA5tlfjWrwu4CfB+RoM9bbvB
+         ygjSeDmRbDmuvOjv8h8nTgGkIBrSYmW6Y3+UfqEKUf11w4kTdBT/kqCpZp0isxyklOPs
+         FPcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792403847; x=1793008647;
+        d=1e100.net; s=20260707; t=1792403850; x=1793008650;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KXz6d61M5KD13QHimY2yBAnDg5P4a0+gl+DKibpYues=;
-        b=agpDJQpGanxgbgL5IyTxdTXkmjgcB+fU03fAMGuzlya4gUBXm5+o5O+DNv0g6OBV6y
-         pAJOMGljlq6x0Wm5ktMGofyEYw+oNWXZ1SS85MdZwWb9HGuVWJzrkXsgMm8mh+AKfOyu
-         dHCnGMRar1WlP0CNuKb0ZyS4EHGPhXqP7eanhp0f3jMPWx+3E4Y2hTGmxATZKU4QjJmD
-         AQzq4Heg94Nf7Xfo6jUGj9cVW/RzMOTYbgeItKA88BOSfA420LciNyZDYjiJB1OoYKuF
-         yr2pGkah4Uhwa6144tVh4vQSA4e4rmmi9sBbZUQlSHekQFMcImbpTBLK8UiZ5UOqrddY
-         AIlA==
-X-Forwarded-Encrypted: i=1; AKwUvBzyt/qpyCPUZEunVbRKSoXK9WtTV7FxY3xhVCWDic0raVR88ncYAutk0d9fAt1NyCpEdM5EQn17DFMx6No=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXUjoyray/x+VU9+b269JkiDrQedmXbiEton2i2f6FJpV2Vhab
-	4gPAjfnq+DGYSw/8P9CyPDs78YY1lKXQ6e7DNRDZvFcsltDJ1UW5X9J6
-X-Gm-Gg: AYBFou2nJKJ4XrfT0d7Fu1eC3PBTXy/3L/X8ix4i9NEyuj6TgmW6ZxM5ItyeXYhN2eo
-	0wKhNCi/pGfD+Uzd1ulZTK7bRleop8EDfRtxv9TexQRUFBiW9TDaGhm1DYC1qWEdI9/OyU0m7GD
-	WF7cnN160HIP7O9rT+kSAxjpDLXj86z3skSwUpF2mvTrvMPYEidN3Nk1UU3fuQhGIWLGGYGutdk
-	t8D5HoWKGsYtCMdB13XrDZoW2EpvL6HT8cY0ZID8lQT4Y2tcwK35lrx6as62rYZ93iSN4gsvBbN
-	Zd16WBpHwfCQx+ydc3LtnN2SETntNn0z2bxekME5YbH/2ULXLRW8WLvgTqqmru0wRYEb0Sh8znd
-	MVwJXRvq3MOEfAqJrBumbui4Z6zwJAZPd3slZtJfamFd+1wa0A+BxKgbc1cBCjkzaykEzm0Q1KX
-	IxFmEFxGELwicGR7+2Lbqoljk5h9zeo2+O1wanhEqPh1ASUqTg37uxU5X1kM1xNJuG1Rw2SVfzP
-	ST63CvWvbFFVYHUpqo=
-X-Received: by 2002:a05:6000:22ca:b0:48e:d57:9bad with SMTP id ffacd0b85a97d-48e1afe328bmr362780f8f.3.1792403847147;
-        Mon, 19 Oct 2026 02:57:27 -0700 (PDT)
+        bh=pBTLKDknRyoiYDKLKvNdQPQPMYptAQUNMVhu1Fol0ak=;
+        b=F9x9sfUbtQDYweuJrT6HXp52525dbIFUjBaNhe4eCLgmbpr8PpFSu1Gaxmggf+MUF9
+         p21ypLwLmGgEvLauDgIhV7DpqoKBpLe3FEfXeqvFQEtjKTRPDAbPZR+O3ZSElOG8rzoI
+         jLdRYzpgx+a3rftjONoH4AtGUiR3oGU/L3OWhrWzrnswN+6NEImyS+AQEkaREzIuc2nH
+         36j50FmI949Zlxd6aNxB4iahSE4AmkCD5UaYCq/gSUyDAMIOiTjMV5AaGDYrWhSUIr5L
+         grNZShhL53RorqXbHuwE3Isu3+ncrrKexl7u58wQnn44GoivEvGXFZkZMdAz2nRp7KeH
+         kkZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzdznkIWfy0/L36mJA2MaGvj3oXIK5zjj6sS5ouoKetawK1ojBle+dKJiQXFLhcFAJ5orS1fgOxSYUi6Rc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZoX6nmZqRgEefj//u2aPbMFunmyIMEHlPHKKwtO/VI6ZByBs2
+	8rssbj0rTdNGPUopXO7hACJK8O4bvMRq29ghmAsTgoVPBozuC3X/DWgg
+X-Gm-Gg: AYBFou18nTs6Ikv9P/MgrxrD907pfZGqiX6AWWBSfCWDjFnsQKLpntKvlkcnwt0tGAU
+	o7GaOl5Wn59Q+kvWjEPK25TswGnrUXVTet9opKv7RXTqYrCMHa77xYL5DavV7VSELXOCmgn7dgC
+	lqyUJMUB6JrOHtgmKYfEkDofP6/ybPE7OOlG00qGgj50VtGFPwwm9GIuxT/iq1eNzCSC7PUnjju
+	LyEUl5UojFvr/IwVvDYx6UFeIjfdSlMB84kmt1UjcOwhj0s8JXfoe8sI17JD7zG1ZiqPBVVpKjz
+	IjjLC/l4ufMFBbD8Q0FPMRLVx7Wkbua2dN7wdsnE/u5ceC6NRYKAR5nstGxyoM2ZpaEHZjv9u0Q
+	dcMhqdKmY6tS4EbEpSWPeqKBXPDLJkd/AGOdaraajNuRALbGzVRNAdmv/8VWgpA7utCS4SgneWG
+	xcoWjLrOwXSpkKOEvMzN9kWP3GKPf8+TMbx4fxbpJ6rLJ622REakzZMgaC3K5nXZpml8ykAeDTs
+	w+2LvxlzGO+wSjqzm4=
+X-Received: by 2002:a05:6000:468d:b0:48e:eb:56c5 with SMTP id ffacd0b85a97d-48e07bab949mr9616378f8f.8.1792403850324;
+        Mon, 19 Oct 2026 02:57:30 -0700 (PDT)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm21740089f8f.42.2026.10.19.02.57.25
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm21740089f8f.42.2026.10.19.02.57.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:57:26 -0700 (PDT)
+        Mon, 19 Oct 2026 02:57:28 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -78,9 +78,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v3 2/7] drm/tegra: rgb: Parameterize configuration based on bus flags
-Date: Mon, 19 Oct 2026 12:57:00 +0300
-Message-ID: <20261019095705.91062-3-clamor95@gmail.com>
+Subject: [PATCH v3 3/7] dt-bindings: display: tegra: Document 8-bit CPU parallel interface
+Date: Mon, 19 Oct 2026 12:57:01 +0300
+Message-ID: <20261019095705.91062-4-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019095705.91062-1-clamor95@gmail.com>
 References: <20261019095705.91062-1-clamor95@gmail.com>
@@ -92,89 +92,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Parameterize configuration based on bus flags passed from the bridge or
-panel. The list of supported flags includes now pixel clock polarity,
-display enable (DE) polarity, and data alignment.
+Document 8-bit CPU parallel MIPI DBI Type B interface provided by
+Tegra20/30 SoCs display controller.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/gpu/drm/tegra/rgb.c | 41 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 36 insertions(+), 5 deletions(-)
+ .../display/tegra/nvidia,tegra-dbi.yaml       | 138 ++++++++++++++++++
+ .../display/tegra/nvidia,tegra20-dc.yaml      |  15 ++
+ 2 files changed, 153 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.yaml
 
-diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
-index b6d09a8d8e5ea..da9e37fe36689 100644
---- a/drivers/gpu/drm/tegra/rgb.c
-+++ b/drivers/gpu/drm/tegra/rgb.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/clk.h>
-+#include <linux/media-bus-format.h>
- #include <linux/of.h>
- 
- #include <drm/drm_atomic_helper.h>
-@@ -104,14 +105,24 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder)
- 	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
- 	struct tegra_output *output = encoder_to_output(encoder);
- 	struct tegra_rgb *rgb = to_rgb(output);
--	u32 value;
-+	struct drm_bridge_state *bridge_state;
-+	u32 bus_flags, value;
+diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.yaml
+new file mode 100644
+index 0000000000000..ada7b35778933
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.yaml
+@@ -0,0 +1,138 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-dbi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	/* Get but flags from the bridge state. */
-+	bridge_state = drm_bridge_get_current_state(output->bridge);
-+	if (bridge_state)
-+		bus_flags = bridge_state->input_bus_cfg.flags;
-+	else
-+		bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
-+			    DRM_BUS_FLAG_DE_HIGH |
-+			    DRM_BUS_FLAG_DATA_MSB_TO_LSB;
- 
- 	tegra_dc_write_regs(rgb->dc, rgb_enable, ARRAY_SIZE(rgb_enable));
- 
- 	value = DE_SELECT_ACTIVE | DE_CONTROL_NORMAL;
- 	tegra_dc_writel(rgb->dc, value, DC_DISP_DATA_ENABLE_OPTIONS);
- 
--	/* configure H- and V-sync signal polarities */
-+	/* configure H- and V-sync and pixel clock signal polarities */
- 	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(1));
- 
- 	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
-@@ -124,11 +135,31 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder)
- 	else
- 		value &= ~LVS_OUTPUT_POLARITY_LOW;
- 
-+	if (bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
-+		value &= ~LSC0_OUTPUT_POLARITY_LOW;
-+	else
-+		value |= LSC0_OUTPUT_POLARITY_LOW;
++title: Nvidia Tegra DC based MIPI DBI Type B interface
 +
- 	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(1));
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++description: The display controller in Tegra20/30 SoCs features an
++  8-bit SPI interface that closely resembles the MIPI DBI Type B
++  protocol and is referred to as '8-bit CPU'. Each display controller
++  provides two such interfaces, which can be used to send MIPI DCS
++  commands to initialize and control the panel while image data is
++  transmitted via 16/18/24-line RGB.
++
++properties:
++  dc-gpios:
++    description: Data/command selection pin.
++    maxItems: 1
++
++  rw-gpios:
++    description: Read/write pin.
++    maxItems: 1
++
++  cs-gpios:
++    description: Chip select pin.
++    maxItems: 1
++
++  data-gpios:
++    description: Specifies a set of 8 gpio pins used to transfer data.
++    minItems: 8
++    maxItems: 8
++
++  nvidia,init-sequence:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    description:
++      Device specific set of values used in DC DISP_SPI_INIT_SEQ registers.
++    minItems: 4
++    maxItems: 4
++
++  panel:
++    type: object
++    description: Node of supported panel driven by the bridge.
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: Video port for RGB input.
++
++        properties:
++          endpoint:
++            $ref: /schemas/graph.yaml#/$defs/endpoint-base
++            unevaluatedProperties: false
++
++            properties:
++              bus-width:
++                enum: [ 16, 18, 24 ]
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for DBI output (panel or connector).
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - dc-gpios
++  - rw-gpios
++  - cs-gpios
++  - data-gpios
++  - panel
++  - ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dbi {
++        dc-gpios = <&gpio 110 GPIO_ACTIVE_HIGH>;
++        rw-gpios = <&gpio 11 GPIO_ACTIVE_HIGH>;
++        cs-gpios = <&gpio 108 GPIO_ACTIVE_HIGH>;
++
++        data-gpios = <&gpio 32 GPIO_ACTIVE_HIGH>, <&gpio 33 GPIO_ACTIVE_HIGH>,
++                     <&gpio 34 GPIO_ACTIVE_HIGH>, <&gpio 35 GPIO_ACTIVE_HIGH>,
++                     <&gpio 36 GPIO_ACTIVE_HIGH>, <&gpio 37 GPIO_ACTIVE_HIGH>,
++                     <&gpio 38 GPIO_ACTIVE_HIGH>, <&gpio 39 GPIO_ACTIVE_HIGH>;
++
++        nvidia,init-sequence = <0x0000002c 0x0 0x0 0x00005000>;
++
++        panel {
++            compatible = "hit,tx10d07vm0baa";
++
++            reset-gpios = <&gpio 175 GPIO_ACTIVE_LOW>;
++
++            avci-supply = <&vcc_2v8_lcd>;
++            iovcc-supply = <&iovcc_1v8_lcd>;
++
++            backlight = <&backlight>;
++
++            port {
++                panel_input: endpoint {
++                    remote-endpoint = <&bridge_output>;
++                };
++            };
++        };
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                bridge_input: endpoint {
++                    remote-endpoint = <&dpi_output>;
++                    bus-width = <24>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                bridge_output: endpoint {
++                    remote-endpoint = <&panel_input>;
++                };
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
+index 69be95afd5627..a2b7279a17930 100644
+--- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
++++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
+@@ -76,6 +76,9 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     description: A list of phandles of outputs that this display controller can drive.
  
--	/* XXX: parameterize? */
--	value = DISP_DATA_FORMAT_DF1P1C | DISP_ALIGNMENT_MSB |
--		DISP_ORDER_RED_BLUE;
-+	/* configure DE signal polarities */
-+	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(3));
++  dbi:
++    $ref: /schemas/display/tegra/nvidia,tegra-dbi.yaml#
 +
-+	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
-+		value |= LSPI_OUTPUT_POLARITY_LOW;
-+	else
-+		value &= ~LSPI_OUTPUT_POLARITY_LOW;
-+
-+	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(3));
-+
-+	/* configure DATA order and alignment */
-+	value = DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
-+
-+	if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
-+		value |= DISP_ALIGNMENT_LSB;
-+	else
-+		value &= ~DISP_ALIGNMENT_LSB;
-+
- 	tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONTROL);
+   rgb:
+     type: object
  
- 	tegra_dc_commit(rgb->dc);
+@@ -155,6 +158,18 @@ allOf:
+             - const: wind
+             - const: wint
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - nvidia,tegra114-dc
++              - nvidia,tegra124-dc
++              - nvidia,tegra210-dc
++    then:
++      properties:
++        dbi: false
++
+ additionalProperties: false
+ 
+ required:
 -- 
 2.53.0
 
