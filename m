@@ -1,184 +1,139 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F1C0454836D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DEC556FCD
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419282; cv=none; b=P1Ci8sQH26I0Sx9/805b6U5TiM1xup1RQGPpMIBOhAnAjYs2s9eHhmWVk23Dh3MrCWIkjUi5h7yIju5GTlump8/jFp9RvYOUHIAVCmha9FzxvtnDV+9axhxE6Iftv9TmaNufElKlLXJUq5Ex7fLvlapXEUYcum64H6loEJMLDoc=
+	t=1792419283; cv=none; b=MnICH/j/4lKHF9UE+fN5ACbNmj6suqfakFqgYqy0UYwoBxCKIRvUP6ezB00lhvM5v06nY9z0JNiZkhUgwuRg1tEBnREIfI66ne/tMY39Gse7fzyIKj3vnSGk9IPXyw92QqTYROWIoNtQtQaNw4rwARTkSZVh+GIQMKpcKxVwT+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419282; c=relaxed/simple;
-	bh=acYj46bAxdWbuEbOhneF5ckxlobjJs/JJVp9hxOcfo4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=b/IbPtdBWuX2vGAQ9NpdY0K+MJ78rdMC10mboDmiNVsv/9Gw1vWpAlRLMJMimtoZgMiEYLXY/do5jyPY3+iVhxQId1o+UCsfNPYyQGO00Iu+WCihPFkGcLeyYxza5cMdht8xK2AK3HvHibUwKRAepnJbaKINUHJUN+X1MjGc1+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=j5RdBllv; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792419283; c=relaxed/simple;
+	bh=YjfefJJvAYRwzQCu02KQ/kD9JBVwvA3WGC1yZzhSfYE=;
+	h=Content-Type:Subject:Message-Id:To:From:Cc:Mime-Version:Date; b=Ty25qv7UxIC+KPvL5J8IVcwYlcwMKAlBFUFSmZ0PW+6h8LI0lLGXq3sESR0thAG7aCf5tojoGKwNZxQ0/3w2FmgV9PEd7JQ6B0iqp4abbzpO3iyNePl2Malr8hvv3iqYSMJtHTrx1DYcmjYwZCbEL1Jt5KlwaUY+lTJw6Jgj/t8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=dFvUhypR; arc=none smtp.client-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="j5RdBllv"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 36D301682;
-	Mon, 19 Oct 2026 07:14:36 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B23B13F871;
-	Mon, 19 Oct 2026 07:14:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792419279; bh=acYj46bAxdWbuEbOhneF5ckxlobjJs/JJVp9hxOcfo4=;
-	h=From:Subject:Date:To:Cc:From;
-	b=j5RdBllvhFGZfX6lQGSnPcns4MMpNcHTbQhwiUAOkQG3/GcXt+2wxDGnyCpt+MZWY
-	 3EFzwkYaIagQoAgDRm2WyxkWe+PzYhkp+VOFz4aNeuuZWdu45/bXcYoYi26Wv6qyHU
-	 xORYVLZ9o88+2nWVbOR1rN1ELy2Y+rDuw6SXyDjc=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Subject: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
- host attestation
-Date: Mon, 19 Oct 2026 15:14:32 +0100
-Message-Id: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="dFvUhypR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792419273; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=NEJJZ34u4qlgZ0S11fm90eLB3kl92LQqge8z3SZGpCM=;
+ b=dFvUhypRzf1ummP5/JL1m6szKVH6GqQcOUAX+b/BfVsuiGUsaKMGpHsvJIiqn6jLg6c2TZ
+ g/GFZyYo4GZ7IcKXQd7tfuMMwxW8ObwK9f1jmKHRvHK5eUpQn/DXHqYlDvDwCwhrPk57cK
+ RqXABqFE7yJcTFEhxbg3lyfTEAtkbqyZ5GXeCiMY88nlNi5ipWuwDJqmMi0eV8WamR0KGZ
+ 4Q0w4SqC1t5mw4QR/C3we4KTNfbh6J6JNkSgOYJgfrFBpuAcCn87VytS4qbQ2uDly3f1oE
+ CVHvk0wp5vnzhaY55FKNG4SoAyojsVUs7p9Md4bJjJX4lki8xN6KdkKvZiuB2w==
+Content-Type: text/plain; charset=UTF-8
+Subject: [RFC 0/2] mm: add source selectors to memory.reclaim
+Message-Id: <20261019141401.11927-1-lizhe.67@bytedance.com>
+X-Mailer: git-send-email 2.45.2
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+To: <akpm@linux-foundation.org>, <david@kernel.org>, <gourry@gourry.net>, 
+	<ziy@nvidia.com>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>, 
+	<ying.huang@linux.alibaba.com>, <ljs@kernel.org>, <mhocko@suse.com>, 
+	<muchun.song@linux.dev>, <roman.gushchin@linux.dev>, 
+	<shakeel.butt@linux.dev>, <weixugc@google.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26ad625c7+e7ed1e+vger.kernel.org+lizhe.67@bytedance.com>
+Cc: <cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	"Li Zhe" <lizhe.67@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMgl1moC/22NwQrCMBBEf6Xs2UgS28Z4EgQ/wKsUCXFj95BUN
- qUopf9uyNnjm2HerJCRCTOcmhUYF8o0pQJq14AfXXqhoGdh0FL30mgrAnHEB6UZOTiPwnS96n3
- bOS0PUFZvxkCfarzD7XqBoYQj5Xnib31ZVK2q0P4RLkpIYc0RQ2i196jPjuPeTxGGbdt+IluBn
- LEAAAA=
-To: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Suzuki Poulose <suzuki.poulose@arm.com>, 
- Steven Price <steven.price@arm.com>, Sami Mujawar <sami.mujawar@arm.com>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Jiri Pirko <jiri@resnulli.us>, 
- GONG Ruiqi <gongruiqi1@huawei.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4888; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=acYj46bAxdWbuEbOhneF5ckxlobjJs/JJVp9hxOcfo4=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq1iXLCXbKAMZvRl/irKlXnYVtSLBN/LtDnUB/w
- c498eQFNF+JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCatYlywAKCRBt1cPRWsUx
- M6oJDAC9lDUAB6f+L01DAIp7rWxMexvCisf52P2617kAUk0ZoyHr13GVoL4UsDUHQlmpof9pVPM
- VcG1lZOifb4InJAj1AcD/uczITyrpeEGJASp3+qUkIPDERiPyj/MZQ+YywmzKY+HoZs9ZVyHmat
- 6OCAcKlpZOSiTfLb2J59Q8p4nXCEYVhQNXYXMVFYb+0+XzhHAxqXj9UNGoblgtRyf8Xy9ZlmyQ/
- PqJ3rTUuRXgG+8DKfM8GmmObWmLFn9oSbSUMfatVbWmGL4Fb3xUEamP0v8b9FIvxG+XfCSOzmNp
- VXb9bnGD9pQ+ujSbfxe5QgfO7Kz9tVS3g6XN5HZclTgEdL0FDbwFiFEvKEvxLlytz8bzeSF+5mw
- mk/i2ciSd/12hKqi/7AXf0wEjcIbxE7YskWYvZmMUTC3Ao/hcAAm6sEaQRvqAptkE0CWLgo3eIZ
- 8gXGZZ6fTtNtICcUkE6nQ7xx0Iyc0tERVTa+raIuXObn0udy8f4c7bNrcaz7fg47k22Co=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+Mime-Version: 1.0
+Date: Mon, 19 Oct 2026 22:13:59 +0800
 
-The Arm Confidential Compute Architecture (CCA) introduces the
-Realm Management Extension (FEAT_RME), which enables the creation and
-management of dynamically allocated, attestable trusted execution
-environments known as Realms.
+memory.reclaim is a useful proactive reclaim interface for memcgs, but
+tiered memory makes "reclaim N bytes from this memcg" underspecified for
+userspace controllers that manage memory placement across tiers. The
+kernel's reclaim policy is aging-based, and on tiered systems aging may
+demote folios before they are eventually evicted. Without a way to
+declare where reclaim pressure should start, userspace can only reclaim
+from the memcg as a whole and observe one aggregate progress value.
 
-Realm management relies on EL3 firmware to provide services for Realm
-construction, resource allocation and isolation, and attestation of
-the initial Realm state.
+There is prior history here [1]. The old nodes= proposal tried to let
+memory.reclaim scan selected NUMA nodes, but the discussion left several
+ABI questions unresolved:
 
-The Firmware Interface for Realm Management Extensions (FIRME) [0]
-specification defines standard interfaces through which EL3 firmware
-provides these services. FIRME defines the following service groups:
+- nodes= did not clearly say whether the mask was a source selector, a
+  reclaim domain, or a demotion-target constraint.
+- The implementation did not apply the mask to the whole reclaim path,
+  so demotion could allocate outside the mask. If userspace interpreted
+  the mask as a domain or target constraint, the ABI did not provide
+  that.
+- Selecting top-tier nodes could become an implicit way to request
+  demotion without uncharge. That would make userspace depend on a
+  particular reclaim policy and could make future policy changes hard.
+- The separate completion-accounting question remained: demotion can
+  count as reclaim progress even though memory.current is not reduced.
 
-  - Granule Protection Table (GPT) management
-  - IDE key management for PCIe and CXL Root Ports
-  - Memory Encryption Context management
-  - Attestation Token management
-  - Integrated Device management
+This series takes a narrower approach. It adds a typed source= key which
+declares only the source on which the existing memory.reclaim aging
+pipeline should be applied. It is not a demotion target selector, not a
+demotion-only goal, not an eviction-only goal, and not a change to the
+existing completion accounting. Leaving source unspecified preserves the
+existing memory.reclaim behavior.
 
-FIRME also defines a Base service that provides common functionality,
-including service discovery and feature discovery.
+In that sense, this series extends node-scoped reclaim pressure to the
+memcg memory.reclaim interface. The existing node memory_reclaim
+interface can apply pressure to a node, but it is not scoped to a
+particular memcg. This series lets userspace apply the same kind of
+source-scoped pressure to a cgroup's resident memory on selected nodes
+or tiers, while still using the normal memcg reclaim path.
 
-Although FIRME primarily supports Arm CCA, its interfaces can also be used
-on systems without FEAT_RME to provide firmware-based attestation and
-other security services.
+The main benefit of this series is to give userspace a steering knob
+for per-node and per-tier memory placement control. A tiering controller
+can observe the resident memory distribution across nodes or memory
+tiers, and then apply reclaim pressure to the source that should be
+relieved. For example, it can apply pressure to top-tier nodes so that,
+under the existing tiering policy, cold folios can be aged and usually
+demoted to lower tiers, or reclaim from a terminal tier when it needs
+actual charge reduction.
 
-This RFC patch series introduces the arm_firme driver, which provides
-the common infrastructure for discovering and accessing FIRME services.
-The initial implementation supports:
+The existing memory.reclaim interface cannot express this. It applies
+pressure to the memcg as a whole, so on a multi-tier system the kernel
+may make progress in a tier different from the one userspace is trying
+to control. That makes feedback control of tier ratios ineffective: the
+controller can observe that a specific tier is over its desired resident
+footprint, but it cannot direct the next reclaim request to that tier.
 
-  1. FIRME Base service:
-      Provides service discovery and feature discovery.
+Patch 1 adds source=nodes:<nodelist>, which is the basic source
+selector. Patch 2 adds source=tier:<N>, where N is the memory_tierN id
+exposed by /sys/devices/virtual/memory_tiering/. The tier selector is
+only a convenience layer over the same source semantics: it resolves the
+current tier nodelist at write time and then uses the same source-scoped
+reclaim path as source=nodes:<nodelist>.
 
-  2. FIRME Attestation Token service:
-      Provides access to firmware-generated platform attestation token
-      used to attest host firmware.
+The remaining issues from the old discussion are intentionally left out
+of this series. If userspace needs to control demotion targets, that
+should be a separate target/demotion-policy ABI rather than folded into
+source=. If userspace needs a strict "bytes actually uncharged"
+completion mode, that should be discussed as a separate accounting or
+goal extension because it would change the observable meaning of
+memory.reclaim progress. This series only adds source selection for the
+existing reclaim policy.
 
-The Attestation Token service is integrated with the Linux Trusted
-Security Module (TSM) subsystem, enabling userspace applications to
-retrieve platform attestation tokens through the existing TSM interface.
+References:
+[1] https://lore.kernel.org/all/Y5bsmpCyeryu3Zz1@dhcp22.suse.cz/
 
-The objective of this series is to establish the foundational FIRME
-infrastructure in the Linux kernel and enable host platform attestation
-using the standard TSM interface.
+Li Zhe (2):
+  mm: add source selector to memory.reclaim
+  mm: add tier source selector to memory.reclaim
 
-NOTE:
-  This implementation is based on version 1.0-ALP4 of the FIRME specification
-  and for-next/smccc-bus branch in arm64 tree.
+ Documentation/admin-guide/cgroup-v2.rst | 29 +++++++++++
+ include/linux/memory-tiers.h            |  6 +++
+ mm/internal.h                           |  3 +-
+ mm/memcontrol-v1.c                      |  6 ++-
+ mm/memcontrol.c                         | 11 +++--
+ mm/memory-tiers.c                       | 24 ++++++++++
+ mm/vmscan.c                             | 64 +++++++++++++++++++++++--
+ 7 files changed, 133 insertions(+), 10 deletions(-)
 
-RFC and ongoing TSM infrastructure discussions
-==============================================
-
-There are ongoing discussions regarding changes to the Linux TSM
-infrastructure [1]. This series is being submitted as an RFC to gather
-early feedback on the FIRME driver architecture and its integration with
-the Linux TSM subsystem.
-
-The intent is not to pre-empt or undermine the ongoing work to evolve
-the Linux TSM infrastructure. Rather, this RFC aims to highlight an
-additional use case that the evolving TSM infrastructure will need to
-accommodate, namely host platform attestation through
-the FIRME Attestation Token service.
-
-While the current implementation uses the existing TSM interfaces,
-we recognise that changes may be required to align with the proposed
-TSM infrastructure.
-
-We hope this RFC will help inform those discussions and ensure that
-the requirements of FIRME-based host attestation are considered
-as part of the ongoing TSM development.
-
-We welcome feedback on the proposed FIRME driver architecture,
-the integration with the TSM subsystem, and how best to align this work
-with the planned TSM infrastructure changes.
-
-To: linux-kernel@vger.kernel.org
-To: linux-arm-kernel@lists.infradead.org
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Suzuki Poulose <suzuki.poulose@arm.com>
-Cc: Steven Price <steven.price@arm.com>
-Cc: Sami Mujawar <sami.mujawar@arm.com>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Cc: GONG Ruiqi <gongruiqi1@huawei.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-
-Link: [0] https://support.arm.com/documentation/den0149/latest
-Link: [1] https://lore.kernel.org/all/arzr32ZDComnfmny@FV6GYCPJ69/
----
-Yeoreum Yun (3):
-      firmware: arm_firme: introduce arm_firme driver
-      firmware: arm-smccc: add FIRME device
-      firmware: arm-firme: TSM_REPORT support using FIRME
-
- drivers/firmware/Kconfig            |   1 +
- drivers/firmware/Makefile           |   1 +
- drivers/firmware/arm_firme/Kconfig  |  42 +++++++
- drivers/firmware/arm_firme/Makefile |   6 +
- drivers/firmware/arm_firme/attest.c | 172 ++++++++++++++++++++++++++
- drivers/firmware/arm_firme/base.c   | 145 ++++++++++++++++++++++
- drivers/firmware/arm_firme/driver.c | 139 +++++++++++++++++++++
- drivers/firmware/arm_firme/firme.h  |  53 ++++++++
- drivers/firmware/arm_firme/report.c |  88 ++++++++++++++
- drivers/firmware/smccc/smccc.c      |   6 +
- include/linux/arm-smccc.h           |   1 +
- include/linux/arm_firme.h           | 234 ++++++++++++++++++++++++++++++++++++
- 12 files changed, 888 insertions(+)
----
-base-commit: c83237edf0adb8f8cbd9859841bbca5acc00fc11
-change-id: 20260729-firme_interface-75616c45a203
-
-Best regards,
 -- 
-Sincerely,
-Yeoreum Yun
-
+2.20.1
