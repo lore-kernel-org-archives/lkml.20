@@ -1,87 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792439451;
-	b=Olcl9Y4TX7n4BnHaKSIjRcr7Vu25qddjmjyJRNt25KYyHWZyFjtCQ+AZ1PlYTUBVl3Nq
-	 U8JnPMz7bMiQ5Od4W2VFUjaMAExx77XmMT2fDpjaqwnGhdVgyvijjdFV9IurSkjr7Oxtl
-	 lKVGN8mC8rpvd+sa1Yla5fG0XijJF6Z3KfMtj3zCHAy31H47xm8+1RLPZnxA3tMDYnJzD
-	 MDe8Wbt5ksTVacHr5G61PY8z0JO8S9V7SL6NDY4SyuLk0pBmRZ1MAZm9iQZCQ7bFnx0Km
-	 +tu9R7aU2RTBBwbROcLKJC+VOR7wxWSuScS+aWuKwjUpGjnshigkKmQE8UuhiHdRndQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792439451;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=iQIL6cRyZtwVIh/NjWyixGeu8fpj0ROdrbRqFiXL/B8=;
-	b=i+RLWtoVppdScHSmALRcS+q1U0JDs/pVrUC2kfYCUygKvm2Xb/cEsYYZt5KczwURZH4W
-	 LZ7w4W5J2gafK35kPzSngo75VUDJn01sl1Eaoap6sHeGMLDq2zlQMe5b/NSJ/bzG/EEhZ
-	 QvtYeFMhfezoDPUtKRBI6/fAIaTw0NfvF8Mn7kiOC1HTufqeBzAo9oXogs65n9Nq8DDlr
-	 q7w9VcQI68LRbjJNTRKcrVdp0QBtbObNtihKiMY3yeDXQmG0gw0eTwTJOFPHA4dDYWWjd
-	 h4Yoo5Xbq5201sNuBHw+BPjBbzmLzok7GkTu/Jhc54GsQvUvlxDgc97NFUPrWMcu+Fw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="GR7/1Z75";
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792439456;
+	b=hWjCCBhlCCCp/5jsjeoHosnJ9k7QLZvNIbOoWq7LR2Zx0LyA1Q2v8//vTh07/dZ9Ia8Y
+	 +VM3kEX1SnKXqhMR/DYDISiea2CeWNHPK3EAyax0qb3iD/PN1un9fMa37CfhPwRojobdz
+	 /3BAUqA77ycvavKbgDSnbmKD7mOb20fHKKNLLMz1wsJzwQuMzZZImLNqPzmYt0PA0kmpi
+	 tElg/cN3LznP+7kccKRbyZ3M6Cjyc9ap2Q30V+pMnPrht+3LG0K7OeEWrc7HEXKeXjZ8w
+	 tkeheZV7FReprlq0Il49hGT7v1UeDHjwi+A/m0eJYA7wt3SNpKCW5vNNWH6Lqea0OsA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792439456;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GapZnKoLYCZAPBX9r8CJxKt7GR+kj2w1VAzfY1vZNrk=;
+	b=snXCKdOJO4lExuaRxVAXvA9d+VWS03W+iiu32h85D1i1/94uG+6muAj8wCASyuVZDvhG
+	 ZmhFNpHDQuqnBXZkzxTTNciQMEl/2g1/RWhzTSgQVs0l2/tDCCc35NlYczxMTigukKm7L
+	 8DSwd8lXgeb+6lhxb4fhWbNQ7yf1PDeSQdGUC+ywzY4eHCBPuszPjej17dQsiq45EyYE2
+	 kuaGjgTEIIT7ODT1+m8jHGK+cOgvVU5cP/dwgySBhiSOJ9mmM3tZImFvuO45LT/5eaU9E
+	 TImxl3gh5/n9MuYMpImkETsArwH5elODOpLp9PdjYJIxs0lAWOOUV2NaJJUSTS4DORA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="UmRH/SIo";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.16
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013016.outbound.protection.outlook.com [52.101.72.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB0B606A31D;
-	Mon, 19 Oct 2026 19:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFB0B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689BF606A320;
+	Mon, 19 Oct 2026 19:50:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 689BF606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GR7/1Z75
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792439451; x=1823975451;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DENo3LTyk9RmB9EFH3XG6IgFZAo7Ve/NCjoyjKnjphI=;
-  b=GR7/1Z75vYIgmtT0nTKTqec78O5KskeHj4HmRKxPdP9adnPufJ9DKN9Z
-   34bo7K13VuNZCNtjd3HW86QRrhEXxypWIB7rcaS455Ci/MrLkic7VeYGb
-   7ARRht+Hmt2DYDczTfE3eb1avMt9RrtK6wHuUJ9EloN/LHVtGKYCpf6Jf
-   Ufotlowih0SIUzytzvaraQF3yUT7tKw9327lBr61QD0+Wq/yXR3km4Zt8
-   6S9qrJbrFdQmRnU73JLfYa5PfWcBKDW6R9CxdeWAGW6kmgCllhS+bo3E1
-   pMWlNxALwuVIMtW3af2LFlnIzvRfUTRRUAKOMHl4y5f7Tq5yQyizEp4Sp
-   g==;
-X-CSE-ConnectionGUID: h+Q1OmaMQ9+cCqexK0Dn8g==
-X-CSE-MsgGUID: QuuXKy8YQmSk5drsTe1C7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1234499"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1234499"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:50:50 -0700
-X-CSE-ConnectionGUID: 81WQDgsmQzmzWnzIVBPqJQ==
-X-CSE-MsgGUID: bLLG/m5ATGO0TVoWyQJysw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2620934"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa009.jf.intel.com with ESMTP; 19 Oct 2026 12:50:47 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xItNc-00000000MJ8-1uPF;
-	Mon, 19 Oct 2026 19:50:44 +0000
-Date: Tue, 20 Oct 2026 03:50:35 +0800
-From: kernel test robot <lkp@intel.com>
-To: David Laight <david.laight.linux@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>, Kees Cook <kees@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
-	bpf@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>,
-	Lorenzo Stoakes <ljs@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH 14/15] kallsyms: scripts/kallsyms: Reduce the output file
- size
-Message-ID: <202610200336.6v4SE96n-lkp@intel.com>
-References: <20261018155206.132411-15-david.laight.linux@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=UmRH/SIo
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ot4iY7VcVsnPgXGTmgQDDGohMMA2TAbtnjEDBff0+wbQAtajIFPc+jDQIqU1jd5CXm07D8WF/PbuKQbkXJMJtIJ8gtW1MllOMKEe55iL252duobhThfm1lf/xKsRt0LMX9ICyrNGZCnW6doDILWRK0Tufob+6+GfzPKcxvegC7xJ+rqbEvzAUuA9ygzeHCOaGGqNLmZ4hvloUrsUwRoVCIApHLkcN7c9bjQ6EX+ADPRcjRWn6TR6aliaSrEwL3J+UWn3/xo+n8U50lVTQNPNnk85rfsHSzfI5nWqLfgGOiKWi08cip7qPh8P+4K8G7a+jBW2jAIwt8QZyRLL+ayFzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GapZnKoLYCZAPBX9r8CJxKt7GR+kj2w1VAzfY1vZNrk=;
+ b=chNQNyPUCc2eTSZ62Dj3UYzrJqZCy7qhCaAAkqiFmmBwADAQvi7wd40GTSE/urXH8+8cfvT9CP2NQTUhoK3SEz08UdU8kd71y1g2zMY7pec7PanApkVpvbASHxTC9uerYe8LtzB2jsZ7vDkrQN0dEOY7t44UxBpfddMtw7DNOj07kUYjHS8U/3taJWbljZiHPH3x4d8S4b6/ZmjDeW/WPgpGoZvbtuzTmoD/42X0Qenens+pdAGBWkWmv3luPggNLDfuSz2zteEmqQZAbEBO7tfkejkjXxfQsPU49lEpVq4pLpOtmsP6R9tLzHpI3XHslkWwWFoLFTI1Kn9cstj78A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GapZnKoLYCZAPBX9r8CJxKt7GR+kj2w1VAzfY1vZNrk=;
+ b=UmRH/SIoOb9Usnzb2KeCdRokAOr50t4cTuKlFtMW+FO2arlCH4RqPXLDITPBvFSHiSXC8WNWYc5wMnDj+F2llJ5UuTM0DdZ2DiM4OpAf/Fxb0H976BZjPyqsnxqIu57Pte5uANM4O7gIrgW8w7FBC8rSc7P1Si09Ve0bSK4csTORWXgf7bU4koxOVFYXEBXStaJl+ajO65OW5zv6md6nPWUfa7pD9EDAvBcwIt3n1IBFeMuAldSDDYMFMAWwjulzotQFWQAOS341yFkJ8SpAQE2ReDA0Gt85Xy9/WKzPZsSCD0IC2IJcCV7h6q0PsmlEb58Pf25QICxM0tBi3jwC3g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI1PR04MB9761.eurprd04.prod.outlook.com (2603:10a6:800:1df::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 19 Oct
+ 2026 19:50:50 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 19:50:50 +0000
+Date: Mon, 19 Oct 2026 14:50:36 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 2/3] drm/bridge: simple-bridge: Support
+ data-enable-active endpoint property
+Message-ID: <atZ0jECm5BDeROSI@SMW015318>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+X-ClientProxiedBy: PH1PEPF00013303.namprd07.prod.outlook.com
+ (2603:10b6:518:1::12) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,280 +115,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018155206.132411-15-david.laight.linux@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB9761:EE_
+X-MS-Office365-Filtering-Correlation-Id: a71b93f7-ea9b-4300-441f-08df2e1a46b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|19092799006|366016|376014|1800799024|18002099003|261009223027099003|11063799006|22082099003|260925021311599003|10067099003|56012099006|260925021911599003|260925022911599003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	7juGyMbZMHovwZfxrFF9brTzi1OUT8pK33VqSQkVcB7tKCfXcmV9jL6h8EG0wFPu1AR5jHoHbbClXeFgUiqkHw5guk3xSrbVSxvFSFQY+FFPgy0nLINGzbb+ahAcicYkMEc/5NNGZE2N4TfNrhQqTnQWWGrln8IBmbB257Dian9kwNJdKkyPrQ4Fobb9J0w2hRWuQAMdI2KV3LtrhERSJd9hiGKEx7k/97BEajaq4duACXfJYXXsBK+D2v9hLPBbryhJ/af/AGvT2FcVn6hODjOqliXdu4OfMP8/p2Wg8OXB8tgC/JIP9VbEvWErBEB+ExLMzwUNrAPEOt9oKGkJ966fgOlleqcLHI0oPvpJ8rEXe1H7LEP2DzO8zfs/dLwQq84IKuBEk4d/YPr3SKVF6svwYgNpf4YLp/24sV2SKyt87EsIPHgNmotczYZ5o53Jpu/36NAtcXzoFdSKPHhpcOQE/MpzdXHN+v9IqsGv/fyfb3ORXiVTF+rR4HIDa1piBzhwKRrFglr/l3okDxgrcopNMdKlljajl/707P65A7KaXnLGfHiJsP/fmtFESOWyKAMnM+xx9/TtwmiUwxJ+IOcsSVl91nLaG8qwbll4Vx5ehVH8RUXA9KkKEj7BpPbBIkRuIMmcfzpvhpW63W9wTXPvzK6liGxvVGmTIm7zTP0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(19092799006)(366016)(376014)(1800799024)(18002099003)(261009223027099003)(11063799006)(22082099003)(260925021311599003)(10067099003)(56012099006)(260925021911599003)(260925022911599003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+pCGY4s1vyYjAH86wKARZJvHj5iapYfM8MCAFaQE6nihK9zIVjZGZ8UaqA8x?=
+ =?us-ascii?Q?TLmhSm5i00Tq9m673a8Snu7E1fTBwSk78CLIFMn696jqOJjFvPrhvBBNhBZa?=
+ =?us-ascii?Q?sD99DFun7yrEeXul4CLpGrGxB5nNXv0u3B3FXNmskSKQmBSrHbISDyROj1IJ?=
+ =?us-ascii?Q?24POst1hlg5zIz1wxaFBEfWhs98OH6hmANbBC8j8QBwdmHJ/LowkKvElgtNX?=
+ =?us-ascii?Q?77Yy5+o+Lv3Md5VB3EKNQK3htelOV7J0zShIUGqwvYuXrvV7UicRQZT+Lkj3?=
+ =?us-ascii?Q?gIQwll2DaJa3V5UO10QKDGvPl9zWgps5GXpS50RUaFtbEb0HHyUEoQThH7JD?=
+ =?us-ascii?Q?Y15j1DyqldpZQxI9GDMSugwPjY3zj+ibsbY/uWA92PhUk8QacqjE6960oas3?=
+ =?us-ascii?Q?vlA8qpB1GjbuHzWiY3IX8hucVVd7sJej+WTtdI3bI2ixsZbnyXigBJRT4vDJ?=
+ =?us-ascii?Q?xv8uPjmRsJDCZjys+glr6jhoQtzhUMW3ENsbY7VW4zKdfbaaQEV+IxOO4KZC?=
+ =?us-ascii?Q?vnwJWQuNZZfA019v32OTylLq+yksedxRqOmAAGqr3MX14/dH2wL+KRjcR4j5?=
+ =?us-ascii?Q?8SMUsYIvujXtXlayzdHDgx+Frw5OlxLtFs4O51Ci4zx6qnlkQn0uRm87dBRr?=
+ =?us-ascii?Q?g/Rlg34EY6Fry0fsKUuNL3EGHt3+tFiwiJZo7d68/1nuJF/3xFfu+B5Hsbcc?=
+ =?us-ascii?Q?zaTpl0dLiKtBkzdXCwXFaixR6EbqRktnUWm6SBtF+32Bj7DpJKzii0ObPME6?=
+ =?us-ascii?Q?y9HPkh4TCGa9CnA0jNAoKNKQYoA32DO+zBgUQsNQsBGEKc2lKxJQg9G3vRDb?=
+ =?us-ascii?Q?DjOY1syipr0oxCKHlg6sSH4sNc9sy2m2TDYHS8aatTb/4RWCeSL8CPuSyrG3?=
+ =?us-ascii?Q?uP4XQDp7NSXYF1K6MatKMONgU2dBH8Pvhl7IrWPGblccLV2k7x70bflRufpO?=
+ =?us-ascii?Q?t1SiqH9jHjP16Ytre9/y4ZEON3xUg0O3A43YzJ/QZ4M40GlTTdKYmLnNywfO?=
+ =?us-ascii?Q?nEa2ZzMw1a5JrYpWn0wCxgdctCq0Y5eCZryQpRsqD71JUIz68qpNGL2lJvUG?=
+ =?us-ascii?Q?DTpcw410OnhIC2lzc5DzZUh7vTprcKvbBCK8SxjIDxtsqVtvkUKUu3Gm8bds?=
+ =?us-ascii?Q?EV7dk0KXrS4UBW+Q4/LGr2HorLae7DbnIbiXvamfYk9Ug2HPVfQGhQkuUTqX?=
+ =?us-ascii?Q?JsHZsg1ngnxaDLnAdvo7pUy6Sw+b1jo6QdadLraGOLgmZXpgTwZ/rzzXPWCS?=
+ =?us-ascii?Q?0eHdbtW7Tsy9VedfmXJalMqnfPVjZ9+9EM2IDyQ9VF22RRg11MtpXcviwqcG?=
+ =?us-ascii?Q?Z0SmeJ/8M8CZfir0y+kdpidLudHG+/+Eg9TfPMEQDijxnbxmjC1IWmTxlJy0?=
+ =?us-ascii?Q?ZCly+vqIlhWdM6yJUfVKkpK68B4ZuRsokkS7M65CIb5bR5UwYwhzCNCdkJpU?=
+ =?us-ascii?Q?VB3wsJ6KLAuo8JpOPIhKKTiPQavlLMzIbs9DE7hSTYUUg4AXQzyC/U0LQgEz?=
+ =?us-ascii?Q?t1KGnHy/+sd7kUjiJxDfSlFSVbkvm3eRSKau2NBtNlH+39Vk2FgjjWPKp24X?=
+ =?us-ascii?Q?KAU3JgewUd0pZUjiYCsgilTjXWkBkjQ8zDDVyq6m4C40/KyFptIOcytG6PVf?=
+ =?us-ascii?Q?Z3j3HGDBhVnZMrmA9SeoX5Yvdomx4qSBA6ZCQ5hutp6DIvrSYQtrBQJx7S1T?=
+ =?us-ascii?Q?PYBYWQWotPc5A/J3cq1CjAYLZSuabkuWjfSb0CLX3FALWWLQLFDBnMG7IQ5+?=
+ =?us-ascii?Q?z01XqwAFUMFO/bNys4tteKGjkdwGvgK866EcdqF2g7copP9latJ8?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a71b93f7-ea9b-4300-441f-08df2e1a46b0
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:50:50.1923
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lC3aEI3St7mBtjKLaH18EM8gNHrp9Lsi7E3AP9YFdnvOP8YAr4QhzFMe0yVlHc1eEwduP5Md4Y62F50iG7OAQhJ+NJ4yLzhAC8GtPl7z85m6lJnoujCqYq+RlyKU1Pmx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB9761
 
-Hi David,
+On Mon, Oct 19, 2026 at 07:17:15AM -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
+>
+> Some simple bridges, such as a resistor ladder DAC, may include a
+> data-enable input that must be driven at a specific polarity.
+>
+> Read the data-enable-active property from the input endpoint and fill
+> the bridge's input bus flags accordingly, so the upstream encoder drives
+> DE with the required polarity. The property is applied only if the
+> bridge doesn't provide its own timings struct.
+>
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> ---
 
-kernel test robot noticed the following build warnings:
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-[auto build test WARNING on akpm-mm/mm-everything]
-[also build test WARNING on linus/master v7.3]
-[cannot apply to next-20261016 next-20261016]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/David-Laight/kallsyms-scripts-kallsyms-c-Avoid-overrunning-on-stack-buffer/20261018-165152
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20261018155206.132411-15-david.laight.linux%40gmail.com
-patch subject: [PATCH 14/15] kallsyms: scripts/kallsyms: Reduce the output file size
-config: um-allmodconfig (https://download.01.org/0day-ci/archive/20261020/202610200336.6v4SE96n-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261020/202610200336.6v4SE96n-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610200336.6v4SE96n-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> scripts/kallsyms.c:371:26: warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
-     371 |                         printf("\n\t.short\t" + !i);
-         |                                ~~~~~~~~~~~~~~~^~~~
-   scripts/kallsyms.c:371:26: note: use array indexing to silence this warning
-     371 |                         printf("\n\t.short\t" + !i);
-         |                                               ^   
-         |                                &              [   ]
->> scripts/kallsyms.c:371:11: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
-     371 |                         printf("\n\t.short\t" + !i);
-         |                                ^~~~~~~~~~~~~~~~~~~
-   scripts/kallsyms.c:371:11: note: treat the string as an argument to avoid this
-     371 |                         printf("\n\t.short\t" + !i);
-         |                                ^
-         |                                "%s", 
-   scripts/kallsyms.c:428:25: warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
-     428 |                         printf("\n\t.long\t" + !k);
-         |                                ~~~~~~~~~~~~~~^~~~
-   scripts/kallsyms.c:428:25: note: use array indexing to silence this warning
-     428 |                         printf("\n\t.long\t" + !k);
-         |                                              ^   
-         |                                &             [   ]
-   scripts/kallsyms.c:428:11: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
-     428 |                         printf("\n\t.long\t" + !k);
-         |                                ^~~~~~~~~~~~~~~~~~
-   scripts/kallsyms.c:428:11: note: treat the string as an argument to avoid this
-     428 |                         printf("\n\t.long\t" + !k);
-         |                                ^
-         |                                "%s", 
-   4 warnings generated.
---
->> scripts/kallsyms.c:371:26: warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
-     371 |                         printf("\n\t.short\t" + !i);
-         |                                ~~~~~~~~~~~~~~~^~~~
-   scripts/kallsyms.c:371:26: note: use array indexing to silence this warning
-     371 |                         printf("\n\t.short\t" + !i);
-         |                                               ^   
-         |                                &              [   ]
->> scripts/kallsyms.c:371:11: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
-     371 |                         printf("\n\t.short\t" + !i);
-         |                                ^~~~~~~~~~~~~~~~~~~
-   scripts/kallsyms.c:371:11: note: treat the string as an argument to avoid this
-     371 |                         printf("\n\t.short\t" + !i);
-         |                                ^
-         |                                "%s", 
-   scripts/kallsyms.c:428:25: warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
-     428 |                         printf("\n\t.long\t" + !k);
-         |                                ~~~~~~~~~~~~~~^~~~
-   scripts/kallsyms.c:428:25: note: use array indexing to silence this warning
-     428 |                         printf("\n\t.long\t" + !k);
-         |                                              ^   
-         |                                &             [   ]
-   scripts/kallsyms.c:428:11: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
-     428 |                         printf("\n\t.long\t" + !k);
-         |                                ^~~~~~~~~~~~~~~~~~
-   scripts/kallsyms.c:428:11: note: treat the string as an argument to avoid this
-     428 |                         printf("\n\t.long\t" + !k);
-         |                                ^
-         |                                "%s", 
-   4 warnings generated.
-   In file included from kernel/sched/rq-offsets.c:5:
-   In file included from kernel/sched/sched.h:28:
-   In file included from include/linux/cgroup_api.h:1:
-   In file included from include/linux/cgroup.h:27:
-   In file included from include/linux/kernel_stat.h:8:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:24:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:12:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
-   1 warning generated.
-   In file included from rust/helpers/helpers.c:48:
-   In file included from rust/helpers/blk.c:3:
-   In file included from include/linux/blk-mq.h:5:
-   In file included from include/linux/blkdev.h:9:
-   In file included from include/linux/blk_types.h:10:
-   In file included from include/linux/bvec.h:10:
-   In file included from include/linux/highmem.h:12:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:24:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:12:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
-   clang diag: include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-   clang diag: include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-   clang diag: include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-   1 warning generated.
-
-
-vim +/int +371 scripts/kallsyms.c
-
-   344	
-   345	static void write_src(void)
-   346	{
-   347		unsigned int i, k, off, off_size, table_size;
-   348		unsigned int best_idx[256];
-   349		char buf[1 + KSYM_NAME_LEN];
-   350		struct sym_entry *se;
-   351	
-   352		printf("\t.section .rodata, \"a\"\n");
-   353		printf("\n");
-   354	
-   355		output_label("kallsyms_token_table");
-   356		off = 0;
-   357		for (i = 0; i < 256; i++) {
-   358			best_idx[i] = off;
-   359			off += token_table[i].len + 1;
-   360			printf("\t.asciz\t\"%s\"\t/* %u: %u */\n",
-   361			       token_table[i].str, i, token_table[i].refs);
-   362		}
-   363		printf(".size kallsyms_token_table, . - kallsyms_token_table\n");
-   364		printf("\n");
-   365	
-   366		output_label("kallsyms_token_index");
-   367		for (i = 0; i < 256; i++) {
-   368			if (i & 15)
-   369				printf(",");
-   370			else
- > 371				printf("\n\t.short\t" + !i);
-   372			printf("%u", best_idx[i]);
-   373		}
-   374		printf("\n");
-   375		printf(".size kallsyms_token_index, . - kallsyms_token_index\n");
-   376		printf("\n");
-   377	
-   378		output_value("kallsyms_num_syms", symbol_cnt);
-   379	
-   380		output_label("kallsyms_names");
-   381		off = 0;
-   382		for (i = 0; i < symbol_cnt; i++) {
-   383			se = symbol[i];
-   384			se->seq = off;
-   385	
-   386			/* The length must be less than that of the original symbol. */
-   387			if (!se->len || se->len > KSYM_NAME_LEN)
-   388				errx(1, "symbol %d has corrupt compressed length %d\n",
-   389				     i, se->len);
-   390	
-   391			/*
-   392			 * Output the number that identifies the symbol at the start
-   393			 * of the line so that they line up nicely.
-   394			 */
-   395			printf("\t/* n:%u */\t.byte\t", off);
-   396	
-   397			/* Encode length with ULEB128. */
-   398			if (se->len <= 0x7F) {
-   399				/* Most symbols use a single byte for the length. */
-   400				printf("%u", se->len);
-   401				off += se->len + 1;
-   402			} else {
-   403				/* "Big" symbols use two bytes. */
-   404				printf("%u,%u", (se->len & 0x7F) | 0x80, (se->len >> 7) & 0x7F);
-   405				off += se->len + 2;
-   406			}
-   407			for (k = 0; k < se->len; k++)
-   408				printf(",%u", se->sym[k]);
-   409			printf("\n");
-   410	
-   411			/*
-   412			 * Now that we wrote out the compressed symbol name, restore the
-   413			 * original name.
-   414			 */
-   415			se->len = expand_symbol(se->sym, se->len, buf);
-   416			memcpy(se->sym, buf, se->len + 1);
-   417		}
-   418		table_size = off;
-   419		printf(".size kallsyms_names, . - kallsyms_names\n");
-   420		printf("\n");
-   421	
-   422		output_value("kallsyms_marker_shift", marker_shift);
-   423		output_label("kallsyms_markers");
-   424		for (i = 0, k = 0; i < symbol_cnt; i += 1u << marker_shift, k++) {
-   425			if (k & 7)
-   426				printf(",");
-   427			else
-   428				printf("\n\t.long\t" + !k);
-   429			printf("%u", symbol[i]->seq);
-   430		}
-   431		printf("\n");
-   432		printf(".size kallsyms_markers, . - kallsyms_markers\n");
-   433		printf("\n");
-   434	
-   435		output_label("kallsyms_offsets");
-   436	
-   437		for (i = 0; i < symbol_cnt; i++) {
-   438			se = symbol[i];
-   439			if (pc_relative) {
-   440				long long offset = se->addr - _text;
-   441	
-   442				if (offset < INT_MIN || offset > INT_MAX)
-   443					errx(1, "relative symbol %s value %#llx out of range\n",
-   444						se->sym + 1, se->addr);
-   445				printf("\t.long\t_text-.+%d\t/* n:%u %c %s */\n",
-   446				       (int)offset, se->seq, se->sym[0], se->sym + 1);
-   447			} else {
-   448				printf("\t.long\t%#x\t/* n:%u %c %s */\n",
-   449				       (unsigned int)se->addr, se->seq, se->sym[0], se->sym + 1);
-   450			}
-   451		}
-   452		printf(".size kallsyms_offsets, . - kallsyms_offsets\n");
-   453		printf("\n");
-   454	
-   455		sort_symbols_by_name();
-   456		off_size = table_size < (1u << 23) ? 24 : 32;
-   457		output_value("kallsyms_off_size", off_size);
-   458		output_label(off_size == 24 ? "kallsyms_off_24_of_names" : "kallsyms_off_32_of_names");
-   459		for (i = 0; i < symbol_cnt; i++) {
-   460			se = symbol[i];
-   461			off = se->seq << 1;
-   462			if (i && symbol[i - 1]->len == se->len &&
-   463			    !memcmp(symbol[i - 1]->sym + 1, se->sym + 1, se->len - 1))
-   464				/* Mark that this is a duplicate of the previous symbol */
-   465				off |= 1;
-   466			if (off_size == 24) {
-   467	#ifdef CONFIG_CPU_BIG_ENDIAN
-   468				off = __builtin_bswap32(off) >> 8;
-   469	#endif
-   470				/* The three spaces before the tab line up the comments */
-   471				printf("\t.byte\t%u,%u,%u   \t/* n:%u */\n",
-   472					off & 0xff, (off >> 8) & 0xff, off >> 16, se->seq);
-   473			} else {
-   474				printf("\t.long\t%#04x\t/* n:%u */\n", off, se->seq);
-   475			}
-   476		}
-   477		/* Terminator without the 'duplicate' flag. */
-   478		if (off_size == 24)
-   479			printf("\t.byte\t0,0,0\n");
-   480		else
-   481			printf("\t.long\t0\n");
-   482		printf(".size kallsyms_off_%d_of_names, . - kallsyms_off_%d_of_names\n", off_size, off_size);
-   483	
-   484		fflush(stdout);
-   485		if (ferror(stdout))
-   486			errx(1, "error writing to output file");
-   487	}
-   488	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>  drivers/gpu/drm/bridge/simple-bridge.c | 21 ++++++++++++++++++++-
+>  1 file changed, 20 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+> index 848c2df2a276..c5301295658a 100644
+> --- a/drivers/gpu/drm/bridge/simple-bridge.c
+> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
+> @@ -183,6 +183,9 @@ static int simple_bridge_probe(struct platform_device *pdev)
+>  {
+>  	struct simple_bridge *sbridge;
+>  	struct device_node *remote;
+> +	struct device_node *ep;
+> +	bool de_present;
+> +	u32 de;
+>
+>  	sbridge = devm_drm_bridge_alloc(&pdev->dev, struct simple_bridge,
+>  					bridge, &simple_bridge_bridge_funcs);
+> @@ -220,10 +223,26 @@ static int simple_bridge_probe(struct platform_device *pdev)
+>  		return dev_err_probe(&pdev->dev, PTR_ERR(sbridge->enable),
+>  				     "Unable to retrieve enable GPIO\n");
+>
+> -	/* Register the bridge. */
+>  	sbridge->bridge.of_node = pdev->dev.of_node;
+>  	sbridge->bridge.timings = sbridge->info->timings;
+>
+> +	ep = of_graph_get_endpoint_by_regs(pdev->dev.of_node, 0, -1);
+> +	de_present = !of_property_read_u32(ep, "data-enable-active", &de);
+> +	of_node_put(ep);
+> +
+> +	if (de_present && !sbridge->bridge.timings) {
+> +		struct drm_bridge_timings *timings;
+> +
+> +		timings = devm_kzalloc(&pdev->dev, sizeof(*timings), GFP_KERNEL);
+> +		if (!timings)
+> +			return -ENOMEM;
+> +
+> +		timings->input_bus_flags = de ? DRM_BUS_FLAG_DE_HIGH :
+> +						DRM_BUS_FLAG_DE_LOW;
+> +		sbridge->bridge.timings = timings;
+> +	}
+> +
+> +	/* Register the bridge. */
+>  	return devm_drm_bridge_add(&pdev->dev, &sbridge->bridge);
+>  }
+>
+>
+> --
+> 2.43.0
+>
+>
