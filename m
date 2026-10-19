@@ -1,82 +1,176 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59483B38AD;
-	Mon, 19 Oct 2026 04:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D153B42DC
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792383567; cv=none; b=SRfUSCk5jJbJMqOpGnhsgKx01uHL1s3eWgjhBTC+3NtIlxz8BZKKt6knv6nDv9CzhhV4yKON0gcLENtjYb1rKMDmfp6QOba4WHNgkli2pmoyJG7/9M/2y9aEpZ4H1YR8cRjVD+MmLLnqAEMXGAW2o/UXqobN92dFVFrf7xm/Qj0=
+	t=1792383579; cv=none; b=geGP3BLQ/Qf0GRIEvSpYmZsx1xRczAKR93E6HWnJfYiDSr1Ll/u+Y3Fe/PpntajE10fenWLK51zT5AEhL5s+8mmovoB3QoUH2lTYOEwDwfDuKBSYEWwl5nOPFGV61ijD2Iq7fFVG1diSb41GZxhdIY8jPzOg3GuXsVSLAOP29g4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792383567; c=relaxed/simple;
-	bh=Hniv5Rxo4Srf/AQP3ouchkZsDzCPDxDuv4EWUbI2HuY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RiYd+e77StT7B4RTyEsKaxIWZSaog+if53mfxkVS29zXm1f0IiarxxYWAuCrHJMqkVndfCJ7T6XaJQ42j0UIwTLT+0yWFcFiew+NYEJocaF9m29AAYdzHaF5zQMn1uyQO+0RP5mOcvWQvPpW9icksBf/5XLiTn9tGw0LTkUi4Xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=HsQcTih0; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="HsQcTih0"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id AD69340E02A8;
-	Mon, 19 Oct 2026 04:19:22 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id xbL_rZk8CS-o; Mon, 19 Oct 2026 04:19:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792383559; bh=m4C6NDAdLfTLYUdsWad3uh+TsP43kSzO0JJ54T+8QwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HsQcTih0LnyYEIQVxNe/gnMNQrSpTpB7nzTAlePZAVEj7hCxsipn6tlLuMrfalsl2
-	 7eiU3QcXeCJ9dF7n3wJq7vInGY2wO/fSD44OMgnKiEIuFHEztuTTfGw/SRVZ/eohjs
-	 v5qDpB5F0dV/C/MDrI28axozW1kDtOzwSr9Gh1CNH3feF0uajtZgt1teyDkQhswGjj
-	 /3QpHO+smvC0DBQ+BaTodkqhfdry9poWt/W4LVzkntYECAQP7xUo7OiOL6TE8ZM+7C
-	 PUYbspn1DVsaTYVSEEENGHD8KO8GDRCj1YBM5iO+KCEMAo9yaghlTUhMi74wfYuylJ
-	 /FWS9bePFKGbgIb91k6hsSrFromh6S9iDieKfFGQzGwghLsP/COrvmIzhfd930n7Us
-	 wwJiQjh2HI/apvEeomPQL+S+PIQzKP0XxVXDEMNSCE78ssx4eWyWsuZcjn4tzkmWmZ
-	 u1KzechXTvuil4bsDrkELsQGUcFTNs1I6f/ufXeWTLo+YotOBFJXiL5mnQD/tyJFpg
-	 jEsNc5/nb+R/4a0gDxabbl4FEv7de7GXvaQk9o68NnoEZL+ohheXs40ksO7Yne+HJw
-	 xQQgpik7JiC2TSsPOIoW7CjB8KTuJgA4ubIWlbSku1Yf9WFpsDQPg0kzDogboIycSj
-	 vc0HHYT/oHROSSAqJvIFT3bc=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2703F40E021A;
-	Mon, 19 Oct 2026 04:19:12 +0000 (UTC)
-Date: Sun, 18 Oct 2026 21:19:09 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Guixiong Wei <weiguixiong@bytedance.com>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>, Tony Luck <tony.luck@intel.com>,
-	Muralidhara M K <muralidhara.mk@amd.com>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
-Message-ID: <20261019041909.GDatWaPatyL2pHDLKo@fat_crate.local>
-References: <20261009020447.90758-2-weiguixiong@bytedance.com>
- <20261012140330.GC15198@yaz-khff2.amd.com>
- <20261017195145.GAatPR0dQVZGEMHglh@fat_crate.local>
- <20261018223431.GA3236@yaz-khff2.amd.com>
- <451788d5e97cba38274e663d2b7952c593e959be.461d4034.890c.4720.915c.a7839a9cc59e@bytedance.com>
+	s=arc-20240116; t=1792383579; c=relaxed/simple;
+	bh=rRVr7SqY4aYBU8eWtubbZiH7FbDsY/A2wV5s15LEf30=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=pa0dM/pq7CcJB4m95zOA3dBzaBRrb5Ttb2aSO93WK7yveKOxI3mxLYesYk1JjXLZyalmnelibF3givMww7coHi0doVj2dluRU/7QKBk0HWzdCUDe0Ghdex7olIenoSLZG3W0O7D5b7UTR8GYuV8lA1syQckoHBqDO/Wui8M9iuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6f8edf0c859so3448493eaf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:19:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792383575; x=1792988375;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gKlBBKRXtPxCd4xX1MhFyP3fgh/Oxz3wsitSIBI6Yw8=;
+        b=U0tzY82LPyDmfsKovs9gfcOAXW6OyHuMMXyN6R+qWNQ3B6dRW7TJIMR3YeTMeh14rd
+         YHUKvo8+grj5UQWklTfjsG3sfMTA4RaSwryW5S982Dd46M97osT+D4y2HcPW/oR9OXd4
+         MRRyGRnmdrL8YGK/rqSxpEMojPLYu/2kaK5tFa7SCbUVHbVjsosEItJbGWN6zzMA1Hnd
+         DA9xYzIKr7uIUpP+TdloxYvWLN8ysp0zruHxibubWXQ6gVkdWLXF+xfsyZU27zwbLSV7
+         iCqVKlcaZpD8BX8V2eDykPSi2uQgjMK7kSz11X8UvxcS86QH4q6AMPDCezmNUpqrKYm8
+         Ugmg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4NeN1OYpOhrR1wq3GUY6GGradE1dFZbk2pl6IwMKNROmTesxqpH6VH2r6M2xaRjMwCO1GD74ePQtejk8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/93/AGj9mPAvUTBU61evXoKfY4YAPxF6U/NLNKgxY9jbDN9aB
+	A48f2tChxWanl+gs1LU1DvR0OUIlKjEIT/DZV24/RvgZFWbACzZ/eJWOvE2tWsrGEEPfGfsS3gQ
+	i1xJozXqOGtlDUUSZmi0kslToUSWAi21oQbDl84RD1NeMR2EYWxReInyuh5I=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <451788d5e97cba38274e663d2b7952c593e959be.461d4034.890c.4720.915c.a7839a9cc59e@bytedance.com>
+X-Received: by 2002:a05:6820:1517:b0:6d3:abd1:9b98 with SMTP id
+ 006d021491bc7-70117627040mr6008277eaf.62.1792383574902; Sun, 18 Oct 2026
+ 21:19:34 -0700 (PDT)
+Date: Sun, 18 Oct 2026 21:19:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad59a56.6814cce4.34c49f.0150.GAE@google.com>
+Subject: [syzbot] [fs?] BUG: unable to handle kernel paging request in read_seqbegin
+From: syzbot <syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com>
+To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 19, 2026 at 10:16:32AM +0800, Guixiong Wei wrote:
-> Regarding Boris's earlier comment, I agree that the Cc: stable tag
-> was not justified here and will drop it.
+Hello,
 
-You don't have to resend - I'll fix it up.
+syzbot found the following issue on:
 
--- 
-Regards/Gruss,
-    Boris.
+HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=16514121580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=26d6221a572842ac
+dashboard link: https://syzkaller.appspot.com/bug?extid=975ace299d6ba2eb1cea
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: arm64
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16003da9580000
 
-https://people.kernel.org/tglx/notes-about-netiquette
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
+
+Unable to handle kernel paging request at virtual address dfff800000000002
+KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+Mem abort info:
+  ESR = 0x0000000096000005
+  EC = 0x25: DABT (current EL), IL = 32 bits
+  SET = 0, FnV = 0
+  EA = 0, S1PTW = 0
+  FSC = 0x05: level 1 translation fault
+Data abort info:
+  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
+  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+  GCS = 0, Overlay = 0, DirtyBit = 0
+[dfff800000000002] address between user and kernel address ranges
+Internal error: Oops: 0000000096000005 [#1]  SMP
+Modules linked in:
+CPU: 1 UID: 0 PID: 5047 Comm: syz-executor213 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+pstate: 834000c5 (Nzcv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210
+lr : __kasan_check_byte+0x20/0x54 mm/kasan/common.c:584
+sp : ffff80009b3a6c20
+x29: ffff80009b3a6c20 x28: ffff80008979a000 x27: ffff0000d7079d80
+x26: a4ec800080d875c8 x25: 0000000000000000 x24: 0000000000000001
+x23: 0000000000000002 x22: 0000000000000010 x21: 0000000000000010
+x20: 0000000000000000 x19: ffff800080d875c8 x18: ffff80011b89c000
+x17: ffff0001a4ff9e07 x16: ffff0000d7079d94 x15: ffff800080302e5c
+x14: 0000000000494166 x13: 0000000000000009 x12: 0000000000000009
+x11: ffff800080155740 x10: 0000000000000003 x9 : dfff800000000000
+x8 : 0000000000000002 x7 : 0000000000000000 x6 : ffff800080d86228
+x5 : 0000000000000000 x4 : 0000000000000001 x3 : 0000000000000002
+x2 : 0000000000000000 x1 : ffff800080d875c8 x0 : 0000000000000010
+Call trace:
+ kasan_mem_to_shadow include/linux/kasan.h:65 [inline] (P)
+ kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210 (P)
+ kasan_check_byte include/linux/kasan.h:402 [inline]
+ lock_acquire+0xa4/0x320 kernel/locking/lockdep.c:5916
+ seqcount_lockdep_reader_access include/linux/seqlock.h:73 [inline]
+ read_seqbegin+0x6c/0x144 include/linux/seqlock.h:838
+ get_fs_root_rcu fs/d_path.c:244 [inline]
+ d_path+0x224/0x4dc fs/d_path.c:287
+ audit_log_d_path+0xdc/0x19c kernel/audit.c:2221
+ audit_log_lsm_data+0xe0/0x12d0 security/lsm_audit.c:199
+ dump_common_audit_data security/lsm_audit.c:421 [inline]
+ common_lsm_audit+0x1d0/0x290 security/lsm_audit.c:451
+ smack_log+0x1f4/0x264 security/smack/smack_access.c:400
+ smk_tskacc+0x210/0x2ac security/smack/smack_access.c:255
+ smack_file_open+0x1d0/0x230 security/smack/smack_lsm.c:2078
+ security_file_open+0xec/0x258 security/security.c:2739
+ do_dentry_open+0x2a8/0xfbc fs/open.c:973
+ vfs_open+0x44/0x2dc fs/open.c:1101
+ dentry_open+0x74/0xc0 fs/open.c:1124
+ ima_calc_file_hash+0x120/0x5cc security/integrity/ima/ima_crypto.c:269
+ ima_collect_measurement+0x420/0x874 security/integrity/ima/ima_api.c:300
+ ima_update_xattr+0x160/0x230 security/integrity/ima/ima_appraise.c:617
+ ima_check_last_writer security/integrity/ima/ima_main.c:227 [inline]
+ ima_file_free+0x40c/0x528 security/integrity/ima/ima_main.c:251
+ security_file_release+0x84/0x148 security/security.c:2424
+ __fput+0x2c4/0x74c fs/file_table.c:506
+ ____fput+0x20/0x30 fs/file_table.c:541
+ task_work_run+0x1cc/0x25c kernel/task_work.c:233
+ exit_task_work include/linux/task_work.h:40 [inline]
+ do_exit+0x58c/0x1a74 kernel/exit.c:986
+ do_group_exit+0x198/0x238 kernel/exit.c:1129
+ __do_sys_exit_group kernel/exit.c:1140 [inline]
+ __se_sys_exit_group kernel/exit.c:1138 [inline]
+ pid_child_should_wake+0x0/0x104 kernel/exit.c:1138
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0x19c/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+Code: 17ffffec d343fc08 d2d00009 f2fbffe9 (38696908) 
+---[ end trace 0000000000000000 ]---
+----------------
+Code disassembly (best guess):
+   0:	17ffffec 	b	0xffffffffffffffb0
+   4:	d343fc08 	lsr	x8, x0, #3
+   8:	d2d00009 	mov	x9, #0x800000000000        	// #140737488355328
+   c:	f2fbffe9 	movk	x9, #0xdfff, lsl #48
+* 10:	38696908 	ldrb	w8, [x8, x9] <-- trapping instruction
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
