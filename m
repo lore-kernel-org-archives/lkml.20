@@ -1,287 +1,265 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477134AA3F4
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FF0472F87
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411097; cv=none; b=Pn3uRjakOba4zB02XDCRPk0gh5bURg0B3F6spd/EGS6URsYAjAWHTIUed/owgmFxnoqaig2FpehiB2KeW1y3Ka7epzASbGweyt6pQixGRz1WekuB6y8AipteFLAmCI3VGukaykejerNccGSBNW7ooe4B9lRWhzNTBIAlrFVA3mc=
+	t=1792411106; cv=none; b=sR/qSoejjZNREGSjPfCK8SiYt60K6aXne+Y6Elni8kfGEM7ahpo5V9QNTuduCtSpy4Qq2q1huCRl61LyVaVpSWDivKwY1OIXyIV1+PEOglSmdlgKS/8egx2Jr3xNMbNsnWkxHeI19HCEZjkNUVjY7c2Sln+CmVZ5NB3ozoctIE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411097; c=relaxed/simple;
-	bh=DzwW5JyASFKO5o0HYimeD4i5nfEK9kd3dgoVoMIc3V8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=W/bWE0vNwGOeyXaeB4kfdGyiTwRCEib8A8DlSJRViyr/yn13KxEH6OriOm7Yelc0iZbPhd5MuqW/w+hKfxbR9mHvinNymFY0p7K1Y06q0XO6+r5swD7eqbbsx8eYxSJ/cmrLyd2Nqdp4XDA80cOumT5BJGLQpwNfrq7Q51eBlC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GsLgADLX; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gCKMBkHx; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792411106; c=relaxed/simple;
+	bh=WOjoLetUPrsEDIaTsvQUV8RiNS5IfqyjMqsKyKst0VI=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version; b=rVcQBPGgcYuUt3vplFTA4t5yozwPemNNLkXm6IsJvoUYUGBTbsOgrlnbMlvB3cdnJKn11izJ3ngDZXlpFPsL/+RQYymkTiwJS5NpaG2J29e/0FQwol4yZ1gGVGvJvN+NuqATwSvxnD8oUP3i+NYxOhPE6K+FHLYcDH62z/UDlRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=gxcYnUsY; arc=none smtp.client-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GsLgADLX";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gCKMBkHx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792411094;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=0soTP8rwGVA/Y+n9XNjYC2vUcIBsp5X9RMWteJuwrj0=;
-	b=GsLgADLXPdeGV67IEdfOkqOhUk16ATlN/asXPYMrpq8vq5rMT9MXqiB5a5oXG3lZehOqwY
-	26DbhxDNB5GTrV2xFyLAXWKkMi67/P2DuaDgsZJnk+Eh+/3Gvz39moqBbv7vCibjFGZyjO
-	oaNtaoqm4nI+B5SLiOBQ2Ygk+04Vzck=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-488-NLpD4pVJODOXEMhHSA55zg-1; Mon, 19 Oct 2026 11:58:13 +0000
-X-MC-Unique: NLpD4pVJODOXEMhHSA55zg-1
-X-Mimecast-MFC-AGG-ID: NLpD4pVJODOXEMhHSA55zg_1792411092
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a01d1fb07bso23260415e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:58:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792411092; x=1793015892; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0soTP8rwGVA/Y+n9XNjYC2vUcIBsp5X9RMWteJuwrj0=;
-        b=gCKMBkHxbI1Jm0tVjPVO1MeAaJ+fmRBanxPAuZ+owXXmLt1mO9qgNJ2ChwdmPLVD4T
-         f9qp/RoJ4ZW16RVd4K1gu9C2t4GYyeQC+yDbSbw2tsIc9E+koId2eblN3Sw2C7OZL3lu
-         Bg5T+En+nWd3BjoQGsMclQcCr+uaduizKd69G2C6wsDFTOm0WAsiaXfFbqf0APpmzySh
-         e1ENvmhT6XuDTKu9RYAx7qI1e9MC7H5/PrRlHUC7atAmoLmreYsOocLuOwUQjszvSA5v
-         BVmL2nqQkHqWt/2Udk7bu2p3kRQgZuDIAVMUqVdUFD8wlKF/g3qTXqO5x9f8hYPaNfMB
-         z6NQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792411092; x=1793015892;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0soTP8rwGVA/Y+n9XNjYC2vUcIBsp5X9RMWteJuwrj0=;
-        b=Fbf5yBIhrRInqe4Sc+5mH1Pp/pjpE2AsBFh9hSv2JaTC+zZEeHiarsvVL/DPjlq2yR
-         zVep4ilCrTc+Pu2SXlBSjM09GJx074lIf533nEze1zH3HHamqJ71NMJ9llqNASCMQUn3
-         4cSljDlBWjhBMg2udV+yaWN5dBpSP9W5XnJ6ldO/KfP0C/f4Fi3jJrpiwgVvBE+MnD3f
-         HIodp9URkLGjUdPAufqcDaI5/Wwqhay+rzejPk8NeE3oBbKnVG7Wu3f5Ah3aPhJPVuu3
-         nnMgjTE/H8BOxZkMezhznAGJi+ZrMymiZFjD4v973gCNwfAXnO+O/cuVNwJFgPsZavzo
-         Ed+w==
-X-Gm-Message-State: AFq9FYKbnzheTGlfThhqSzhB2PwIQM9uDYi8KmEOZ7cUu/EqlE6/BDF6
-	YHTxUC88IbK01711lrejgcmHz9c/5wM5a7XQcTemGgVT7fEL0xu0EURPt8i/nCpKMHIRzNAECbb
-	EJIOib95hFe8s0pnGljlXxnnMWKVbQ0Jr6LaUj3Ar+D7beFjQqEq6gRVmz8VRlPZv0LuHA1v5ID
-	yKow6/+KW70yV/uh5s21mtrV7LZBH+T+kJKvmGC836Pm8=
-X-Gm-Gg: AYBFou3qumotxvsd4CVIbL8SjITZLnMdr3WqFl8GopqmciohAEdoYuqBgWhb9haOhS3
-	3bniabpCnmWWa3+2a6Uoss8kWTu6iVZsK+mPTCoFKUztAAQH3Em4uaSl/3GS/Qlw+GLgHvp5nze
-	+PcKlibnik8L7CMhQpo9BdAuHJu9UP73kBGfRH1Mh1Zy6quLluwB/VwQA2s+Xaf5oCpz9Wtdjtq
-	MZf6Lzy+M4ZkAJPclfMhM+phoRvvcASvRrSXrGBKJfRC3bOAYE3TeOATOKXXA41gyqOdIzoV5DH
-	zrcFfl80AE2Xk+xyQ9zXGqklPCQ+qGS2UbwAargEPM8/Mv5bt8uIiE4slnLrlWcT8TvsEg==
-X-Received: by 2002:a05:600c:870b:b0:4a1:d0e4:2bc7 with SMTP id 5b1f17b1804b1-4a1d7608614mr145113505e9.15.1792411091614;
-        Mon, 19 Oct 2026 04:58:11 -0700 (PDT)
-X-Received: by 2002:a05:600c:870b:b0:4a1:d0e4:2bc7 with SMTP id 5b1f17b1804b1-4a1d7608614mr145112855e9.15.1792411090867;
-        Mon, 19 Oct 2026 04:58:10 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cc642573sm222037295e9.2.2026.10.19.04.58.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 04:58:10 -0700 (PDT)
-Date: Mon, 19 Oct 2026 07:58:08 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Willem de Bruijn <willemb@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Max Krasnyansky <maxk@qualcomm.com>, netdev@vger.kernel.org
-Subject: [PATCH net v2] net: gso: validate transport header before computing
- segment length
-Message-ID: <a53dbcdf068b3813689cf2359949578f627f9edd.1792410745.git.mst@redhat.com>
+	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="gxcYnUsY"
+Received: from [192.168.16.44] (port=61408 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1xIly5-000000002xB-0quh;
+	Mon, 19 Oct 2026 13:55:53 +0200
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1792410953; h=from:subject:to:date:message-id;
+	bh=WOjoLetUPrsEDIaTsvQUV8RiNS5IfqyjMqsKyKst0VI=;
+	b=gxcYnUsYOn8WqiJzSyxSfQhTpQKaVtRRlYXoS5Sy8+zbUoU90Wg3rHFx4kwX50el1pDAht4LAiV
+	DVeXGnjv5fZjYSvHdU8/mUFgjpRaHw0ToHCWp+h2EOsLhW+ATpkXL2ToQDjqeQZJyCoLsPtKHHWXi
+	qhdSk84TaBZuHmrSaJU=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Mon, 19 Oct 2026 13:55:52 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <linux-bluetooth@vger.kernel.org>
+CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
+	<linux-kernel@vger.kernel.org>, Valentin Kindschi
+	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
+Subject: [PATCH v6 2/2] Bluetooth: hci_sync: pause advertising for the scan address update
+Date: Mon, 19 Oct 2026 13:55:38 +0200
+Message-ID: <20261019115538.45115-2-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019115538.45115-1-valentin.kindschi@fiveco.ch>
+References: <20261019115538.45115-1-valentin.kindschi@fiveco.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
-X-Mutt-Fcc: =sent
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.10.19.112719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 8%
+X-SASI-Hits: BODY_SIZE_8000_8999 0.000000, CTE_8BIT 0.000000,
+ DKIM_ALIGNS 0.000000, DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000,
+ HTML_00_10 0.050000, IN_REP_TO 0.000000, MULTIPLE_RCPTS 0.100000,
+ NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000, NO_URI_HTTPS 0.000000,
+ OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000, REFERENCES 0.000000,
+ SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000,
+ WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
+ __BULK_NEGATE 0.000000, __CC_NAME 0.000000, __CC_NAME_DIFF_FROM_ACC 0.000000,
+ __CC_REAL_NAMES 0.000000, __CT 0.000000, __CTE 0.000000,
+ __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000, __DKIM_ALIGNS_2 0.000000,
+ __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000, __DQ_NEG_IP 0.000000,
+ __FRAUD_CONTACT_ADDY 0.000000, __FUR_RDNS_SOPHOS 0.000000,
+ __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000, __HAS_MSGID 0.000000,
+ __HAS_REFERENCES 0.000000, __HAS_XOIP 0.000000, __HAS_X_MAILER 0.000000,
+ __IN_REP_TO 0.000000, __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000,
+ __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
+ __MSGID_DOMAIN_IN_REFERENCES 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
+ __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
+ __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
+ __PHISH_SPEAR_SUBJ_PREDICATE 0.000000, __RCVD_CTE 0.000000,
+ __RCVD_EXIM_4_96_AES_128 0.000000, __RCVD_FROM_HOMEUSER 0.000000,
+ __REFERENCES 0.000000, __SANE_MSGID 0.000000, __SHIPPING_ACTION 0.000000,
+ __SL_HEAVY 0.000000, __SL_LIGHT 0.000000, __SUBJ_ALPHA_END 0.000000,
+ __SUBJ_ALPHA_NEGATE 0.000000, __SUBJ_STARTS_S_BRACKETS 0.000000,
+ __TO_MALFORMED_2 0.000000, __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000,
+ __URI_NO_WWW 0.000000, __URI_NS 0.000000
 
-If a TSO packet is processed in the stack before a transport
-header was ever established, the TCP data offset is read through the
-unset header offset, far outside the packet.
+hci_active_scan_sync() programs a non-resolvable private address with LE
+Set Random Address on every active scan start.
 
-This was demonstrated by syzkaller, back when the input path did not
-dissect such packets: a virtio net header supplying a malformed
-network header was enough.  Qdisc length estimation has carried a
-guard against exactly this since a0dce8752193 ("net: Skip GSO
-length estimation if transport header is not set"); the GSO length
-validators never got one.
+BLUETOOTH CORE SPECIFICATION Vol 4, Part E, 7.8.4 says the controller
+shall return Command Disallowed (0x0C) for that command while legacy
+advertising or scanning is enabled. hci_pause_addr_resolution(), called
+just above, only stops advertising when LL privacy is in use, so on a
+controller without it the command is issued while advertising is still
+on:
 
-We used to, but we no longer allow such packets in: since 44378d02c5aa
-("net: always dissect GSO packets in __virtio_net_hdr_to_skb()") the
-virtio net input path dissects all GSO packets.
+  Bluetooth: hci0: Opcode 0x2005 failed: -16
 
-But as a defence in depth measure, let's also check before we read: if
-the TCP header is unset or outside the linear data, drop it.
+It does not converge either. hdev->random_addr is only set on a
+successful command complete, so it stays BDADDR_ANY, and the deferral
+added by commit c2994b008492 ("Bluetooth: hci_sync: Fix not setting
+Random Address when required") requires it to be set. Unlike the
+resolvable address a few lines above, which is reused while rpa_valid(),
+the non-resolvable one is regenerated and rewritten on every call, so a
+controller that refuses the write is asked again at the scan restart
+period of about 10 s, for as long as discovery keeps restarting.
+Observed on a BCM43455, which has no LL privacy and no extended
+advertising, 190 rejections in one capture, every one retrying the same
+address:
 
-Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-Cc: Willem de Bruijn <willemb@google.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+  < LE Set Random Address  Address: 02:16:91:90:F1:D4 (Non-Resolvable)
+  > Command Complete       LE Set Random Address, Command Disallowed
+  < LE Set Random Address  Address: 26:90:57:96:9A:3E (Non-Resolvable)
+  > Command Complete       LE Set Random Address, Command Disallowed
+
+Pause advertising for the address update, and resume it once the update
+is done and before the scan is started. The pause does not outlive the
+function: it is taken only when nothing else holds it, and released on
+every exit. A failed pause returns before marking anything paused, so
+the error path is a no-op.
+
+The resume in the error path is no longer guarded by ll_privacy_capable().
+That guard matched a pause taken only under LL privacy; the pause added
+here is unconditional, and hci_resume_advertising_sync() returns early
+when nothing was paused.
+
+One caveat this widens, raised on the previous posting. When
+HCI_ADVERTISING is set, hci_pause_advertising_sync() also clears
+HCI_DISCOVERABLE and HCI_LIMITED_DISCOVERABLE and zeroes discov_timeout,
+and hci_resume_advertising_sync() restores only HCI_ADVERTISING, so the
+discoverable state is lost. It reproduces today on an LL privacy
+controller through hci_pause_addr_resolution(); the unconditional pause
+makes it reachable without LL privacy as well. hci_suspend_sync() also
+pauses unconditionally, so a device that suspends loses the same state
+on any controller today. That asymmetry is pre-existing and is left
+alone here rather than folded into a scan path fix.
+
+Legacy controllers have one random address register, shared by the
+scanner and the advertiser. Restoring the advertiser here can reprogram
+it when the advertiser is non-connectable, so the scan then uses that
+address rather than the one generated for it. Both are non-resolvable
+and neither is linkable to the identity address. With privacy enabled
+both roles already share one resolvable address the same way.
+
+With the patch, on the same hardware:
+
+  < LE Set Advertising Enable    Enable: 0x00              Success
+  < LE Set Random Address                                  Success
+  < LE Set Advertising Parameters                          Success
+  < LE Set Advertising Enable    Enable: 0x01              Success
+  < LE Set Scan Parameters                                 Success
+  < LE Set Scan Enable           Enable: 0x01              Success
+
+The address write is accepted, and advertising is restored before the
+scan is started.
+
+Over 119369 btmon records and about 12 minutes of the normal workload of
+that device, alternating active and passive scanning with ten outgoing
+connection attempts, every LE Set Random Address succeeded and there were
+no Command Disallowed responses of any opcode, against one per scan
+restart before.
+
+Patch 1 is required: without it the resume added here returns -EPERM on
+the controllers this fixes and leaves advertising disabled.
+
+Fixes: 3c44a431d62b ("Bluetooth: hci_sync: Resume adv with no RPA when active scan")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5.5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
 ---
-changes from v1:
-- address Willem's comments, in particular, teach skb_gso_network_seglen
-  to return a negative error, and propagate through callers.
+Changes in v6:
+- Drop the comment from the Cc: stable trailer; it exceeded the line length
+  gitlint enforces. The dependency on patch 1 is stated in the commit message.
 
- include/linux/skbuff.h |  5 +++
- net/core/gso.c         | 82 ++++++++++++++++++++++++++++++++++++------
- 2 files changed, 77 insertions(+), 10 deletions(-)
+Changes in v5:
+- Split into two patches. v4's resume was reached through
+  hci_schedule_adv_instance_sync(), which refuses HCI_ADVERTISING on a
+  controller without extended advertising, so advertising was never
+  re-enabled. Patch 1 fixes that and is a prerequisite for this one.
+- Do not resume on the success path. hci_resume_advertising_sync()
+  reaches hci_update_random_address_sync(), which for a non-connectable
+  advertiser programs a fresh address, and doing that with the scan
+  already enabled is refused the same way. Resume before the scan is
+  started instead.
+- Take the pause only when nothing else holds it and release it on every
+  exit, so it cannot be released by another user of
+  hdev->advertising_paused.
+- v4 claimed the resume commands in the capture were issued with the scan
+  already running and succeeded. That capture came from a build whose
+  resume ran elsewhere; the claim is dropped. The capture above is from
+  this version, on the device, under its normal workload.
+- Fixes: now points at 3c44a431d62b, where the pause became conditional
+  on LL privacy, rather than at the introduction of the scan function.
 
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index a3ff380d43f0..aa5bc608de06 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -3041,6 +3041,11 @@ static inline bool skb_inner_network_header_was_set(const struct sk_buff *skb)
- 	return skb->inner_network_header > 0;
- }
+Changes in v4:
+- Report the HCI_DISCOVERABLE asymmetry raised in review rather than fix
+  it, with a reproducer in the commit message.
+- Keep the explicit return on the success path, so the resume runs there
+  and the function no longer falls through into failed:.
+- Shorten the added comments to one line each.
+
+Changes in v3:
+- Resend, no code change; v2 had no reply. Rechecked that it still applies
+  to bluetooth-next.
+- Added the second capture described above, taken with the two patches from
+  the "endless adv params retry" series applied, since in bluetooth-next,
+  confirming the fix holds with cancelled outgoing connections in the mix.
+
+Changes in v2:
+- Rebased onto bluetooth-next: mainline renamed use_ll_privacy() to
+  ll_privacy_capable(). No functional change.
+
+ net/bluetooth/hci_sync.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index d215432db..e9b2d28ff 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -6339,6 +6339,7 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 	u8 filter_policy = 0x00;
+ 	/* Default is to enable duplicates filter */
+ 	u8 filter_dup = LE_SCAN_FILTER_DUP_ENABLE;
++	bool paused;
+ 	int err;
  
-+static inline bool skb_inner_transport_header_was_set(const struct sk_buff *skb)
-+{
-+	return skb->inner_transport_header > 0;
-+}
-+
- static inline unsigned char *skb_inner_mac_header(const struct sk_buff *skb)
- {
- 	return skb->head + skb->inner_mac_header;
-diff --git a/net/core/gso.c b/net/core/gso.c
-index e96ef6350064..874e4c8b1f1b 100644
---- a/net/core/gso.c
-+++ b/net/core/gso.c
-@@ -131,6 +131,35 @@ struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
- }
- EXPORT_SYMBOL(__skb_gso_segment);
+ 	bt_dev_dbg(hdev, "");
+@@ -6362,6 +6363,12 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 	if (err)
+ 		goto failed;
  
-+/*
-+ * TSO processing (but not UDP/SCTP GSO, which uses fixed header
-+ * sizes) reads the TCP header as specified by
-+ * skb->transport_header/inner_transport_header.  Make sure it is
-+ * there to read.
-+ */
-+static bool skb_gso_transport_header_ok(const struct sk_buff *skb)
-+{
-+	const struct skb_shared_info *shinfo = skb_shinfo(skb);
-+	int thoff;
++	/* LE Set Random Address is disallowed while advertising is enabled. */
++	paused = !hdev->advertising_paused;
++	err = hci_pause_advertising_sync(hdev);
++	if (err)
++		goto failed;
 +
-+	if (unlikely(!(shinfo->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))))
-+		return true;
-+
-+	if (skb->encapsulation) {
-+		if (!skb_inner_transport_header_was_set(skb))
-+			return false;
-+
-+		thoff = skb_inner_transport_offset(skb);
-+	} else {
-+		if (!skb_transport_header_was_set(skb))
-+			return false;
-+
-+		thoff = skb_transport_offset(skb);
-+	}
-+
-+	return thoff >= 0 && thoff + sizeof(struct tcphdr) <= skb_headlen(skb);
-+}
-+
- /**
-  * skb_gso_transport_seglen - Return length of individual segments of a gso packet
-  *
-@@ -140,12 +169,18 @@ EXPORT_SYMBOL(__skb_gso_segment);
-  * individual segments, including Layer4 headers (TCP/UDP).
-  *
-  * The MAC/L2 or network (IP, IPv6) headers are not accounted for.
-+ *
-+ * Return: the length, or a negative errno if the TCP header is not
-+ * there to read.
-  */
--static unsigned int skb_gso_transport_seglen(const struct sk_buff *skb)
-+static int skb_gso_transport_seglen(const struct sk_buff *skb)
- {
- 	const struct skb_shared_info *shinfo = skb_shinfo(skb);
- 	unsigned int thlen = 0;
+ 	/* All active scans will be done with either a resolvable private
+ 	 * address (when privacy feature has been enabled) or non-resolvable
+ 	 * private address.
+@@ -6371,6 +6378,9 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 	if (err < 0)
+ 		own_addr_type = ADDR_LE_DEV_PUBLIC;
  
-+	if (unlikely(!skb_gso_transport_header_ok(skb)))
-+		return -EINVAL;
++	if (paused)
++		hci_resume_advertising_sync(hdev);
 +
- 	if (skb->encapsulation) {
- 		thlen = skb_inner_transport_header(skb) -
- 			skb_transport_header(skb);
-@@ -175,13 +210,21 @@ static unsigned int skb_gso_transport_seglen(const struct sk_buff *skb)
-  * individual segments, including Layer3 (IP, IPv6) and L4 headers (TCP/UDP).
-  *
-  * The MAC/L2 header is not accounted for.
-+ *
-+ * Return: the length, or a negative errno if the TCP header is not
-+ * there to read.
-  */
--static unsigned int skb_gso_network_seglen(const struct sk_buff *skb)
-+static int skb_gso_network_seglen(const struct sk_buff *skb)
- {
--	unsigned int hdr_len = skb_transport_header(skb) -
--			       skb_network_header(skb);
-+	unsigned int hdr_len;
-+	int tlen = skb_gso_transport_seglen(skb);
+ 	if (hci_is_adv_monitoring(hdev) ||
+ 	    (hci_test_quirk(hdev, HCI_QUIRK_STRICT_DUPLICATE_FILTER) &&
+ 	    hdev->discovery.result_filtering)) {
+@@ -6394,9 +6404,8 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 		return err;
  
--	return hdr_len + skb_gso_transport_seglen(skb);
-+	if (tlen < 0)
-+		return tlen;
-+
-+	hdr_len = skb_transport_header(skb) - skb_network_header(skb);
-+
-+	return hdr_len + tlen;
- }
+ failed:
+-	/* Resume advertising if it was paused */
+-	if (ll_privacy_capable(hdev))
+-		hci_resume_advertising_sync(hdev);
++	/* No-op when advertising was not paused. */
++	hci_resume_advertising_sync(hdev);
  
- /**
-@@ -192,12 +235,21 @@ static unsigned int skb_gso_network_seglen(const struct sk_buff *skb)
-  * skb_gso_mac_seglen is used to determine the real size of the
-  * individual segments, including MAC/L2, Layer3 (IP, IPv6) and L4
-  * headers (TCP/UDP).
-+ *
-+ * Return: the length, or a negative errno if the TCP header is not
-+ * there to read.
-  */
--static unsigned int skb_gso_mac_seglen(const struct sk_buff *skb)
-+static int skb_gso_mac_seglen(const struct sk_buff *skb)
- {
--	unsigned int hdr_len = skb_transport_header(skb) - skb_mac_header(skb);
-+	unsigned int hdr_len;
-+	int tlen = skb_gso_transport_seglen(skb);
- 
--	return hdr_len + skb_gso_transport_seglen(skb);
-+	if (tlen < 0)
-+		return tlen;
-+
-+	hdr_len = skb_transport_header(skb) - skb_mac_header(skb);
-+
-+	return hdr_len + tlen;
- }
- 
- /**
-@@ -253,7 +305,12 @@ static inline bool skb_gso_size_check(const struct sk_buff *skb,
-  */
- bool skb_gso_validate_network_len(const struct sk_buff *skb, unsigned int mtu)
- {
--	return skb_gso_size_check(skb, skb_gso_network_seglen(skb), mtu);
-+	int seg_len = skb_gso_network_seglen(skb);
-+
-+	if (seg_len < 0)
-+		return false;
-+
-+	return skb_gso_size_check(skb, seg_len, mtu);
- }
- EXPORT_SYMBOL_GPL(skb_gso_validate_network_len);
- 
-@@ -268,7 +325,12 @@ EXPORT_SYMBOL_GPL(skb_gso_validate_network_len);
-  */
- bool skb_gso_validate_mac_len(const struct sk_buff *skb, unsigned int len)
- {
--	return skb_gso_size_check(skb, skb_gso_mac_seglen(skb), len);
-+	int seg_len = skb_gso_mac_seglen(skb);
-+
-+	if (seg_len < 0)
-+		return false;
-+
-+	return skb_gso_size_check(skb, seg_len, len);
- }
- EXPORT_SYMBOL_GPL(skb_gso_validate_mac_len);
- 
+ 	/* Resume passive scanning */
+ 	hci_update_passive_scan_sync(hdev);
 -- 
-MST
+2.34.1
 
