@@ -1,65 +1,54 @@
-Received: from mta1.migadu.com (out-95.mta1.migadu.com [95.215.58.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0BB17A2E8
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2760F3515D6;
+	Mon, 19 Oct 2026 03:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792381549; cv=none; b=SZv2wcNkQnNA6IENXJFzcv/bPhavYt1gDXF3LNYUydI8PFLrhutshx88rwcH08oCHXtvH2grcO+tyV5fLaU0ooiy0p20LNeEq9NqBgLkgy1SRQld/9RMN+f7TyyFa4nAQagP+a6XRNcjrATXOnp88ohHhC+VeEga+U7rkQukwEs=
+	t=1792381725; cv=none; b=l1N7uCn4RkUEM1gsL1sBLcxd6ImzfCFnqAyEgcXCHSIvGfz4UyNDtNyVrCDfXZJZR/GeLLxRmrl3Eg9VRbOsXBzd3gnLmPNI9A5lHqnymKk6O8Pe3XbHyP/hcITdgcK2khMziJXgWM7fyEChzE/MWA2CNxKul8bwjnPFa1xerno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792381549; c=relaxed/simple;
-	bh=GVmvFdM+XNAIwjgACYtP3IWMZfKPh9cvSBz2M6fBa94=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e5q/vY1Gtrw9nzNWYXuKAzHS4vmkpgDLSU6TT2zO0g2N2J7a1M9B5/B98n/EErbSdi/oHaLA29x8XjouzXp+YDtrjJipzWwsW0+8KBFqFmJBMzzg95Jk9Ha4ryn7omiOVGNytaWfL7vjSpRQ5rH2BO8K5QUoJ0pXFlytFbnZCKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZpR3aEjO; arc=none smtp.client-ip=95.215.58.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792381725; c=relaxed/simple;
+	bh=F8r7RJb2HkqTNVJUBwMV9xUh0wueKrB6HbmUUOqrOaU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=UIkQdPxVWsZHwjwNUs3H8aW9MM+3jMbNW6nNyUpZJKPyY4zgt4yJ6ItVTJp16c80H7GwjpSR2afZvNMrAP1yexGzUObek6OQIqZnlRJ9dDyeNcNDAyCcjbc2Olv7CR2g8e2xG3UrCv4qJorGcrNuFzqHAJcEiZ0uyjCK7n1KOBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=XQ0aVcD9; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZpR3aEjO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GVmvFdM+XNAIwjgACYtP3IWMZfKPh9cvSBz2M6fBa94=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792381544; v=1; x=1792986344;
- b=ZpR3aEjOfsVXgDki7RQvm55pc+bhVSFtt9iPrfFyfF/idDY8TvsLYU2gAV8vAdX8HGJWRyFm
- PbmAg/h7i5S7VQR8M4MWs81LU1kceXOXv2O17BKxQD5UlubU8PjLrk1AnPeg4MOt7j3wziJFtAo
- nQZBKG6OA+SAS8Q8HW4Cg3dU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d6fb5d35c48fecbe;
-	Mon, 19 Oct 2026 03:45:38 +0000
-X-Mizu-Trace-ID: d6fb5d35c48fecbe
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Dave Chinner <david@fromorbit.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH v4 0/9] mm/vmscan: move tracepoints to mm/ and add MGLRU tracepoints
-Date: Mon, 19 Oct 2026 11:44:17 +0800
-Message-Id: <20261019034426.2354049-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="XQ0aVcD9"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=6y9ZCsegJinoqGedyx0155yMaMPNRTZAec0JZJWx9CA=;
+	b=XQ0aVcD9MkXVJyZ4cbAJCDveAMQlw2j9U1doXBgQoQtMK/I8zDh3SovBQxAQ+sazdGTgIQjjH
+	skxA/vMJZU+4WmmVrkiQuthO2cpawqChKBFlmiNR0qw8rpOmx8cADrv1yiDi7tETlt1xw+nm/ZC
+	MtThAbvZH+J8WrDtM2b66bU=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j7M342hd6z12LFX;
+	Mon, 19 Oct 2026 11:48:32 +0800 (CST)
+Received: from kwepemf100013.china.huawei.com (unknown [7.202.181.12])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7426340561;
+	Mon, 19 Oct 2026 11:48:32 +0800 (CST)
+Received: from DESKTOP-62GVMTR.china.huawei.com (10.174.189.38) by
+ kwepemf100013.china.huawei.com (7.202.181.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 19 Oct 2026 11:48:31 +0800
+From: Fan Gong <gongfan1@huawei.com>
+To: Fan Gong <gongfan1@huawei.com>, Wu Di <wudi234@huawei.com>, Teng Peisen
+	<tengpeisen@huawei.com>, <netdev@vger.kernel.org>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, Ioana Ciornei
+	<ioana.ciornei@nxp.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>, Dimitri Daskalakis
+	<dimitri.daskalakis1@gmail.com>, Harshitha Ramamurthy
+	<hramamurthy@google.com>, Larysa Zaremba <larysa.zaremba@intel.com>, Vadim
+ Fedorenko <vadim.fedorenko@linux.dev>
+CC: <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>, Zhou Shuai
+	<zhoushuai28@huawei.com>, Wu Like <wulike1@huawei.com>
+Subject: [PATCH net-next v17 0/2] net: hinic3: Support ethtool ops
+Date: Mon, 19 Oct 2026 11:45:36 +0800
+Message-ID: <cover.1792378301.git.gongfan1@huawei.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,162 +56,290 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemf100013.china.huawei.com (7.202.181.12)
 
-From: Ridong Chen <chenridong@xiaomi.com>
+This is [3/3] part of hinic3 Ethernet driver second submission.
+With this patch hinic3 becomes a complete Ethernet driver.
 
-Background
-==========
+These patch-set will include all ethtool interfaces for hinic3. To facilitate
+review, this interfaces will be Split into multiple submissions, with each
+commit limited to approximately 1000 lines of code.
 
-MGLRU currently has no tracepoints of its own. The scan and evict paths
-reuse the classic-LRU tracepoints (trace_mm_vmscan_lru_isolate() and
-trace_mm_vmscan_lru_shrink_inactive()), which predate MGLRU and carry no
-generation, sequence or memcg context. A trace of a running system
-therefore cannot tell which memcg a given scan belongs to, how far
-reclaim has progressed through the generations, or when a new generation
-is created.
+Add:
+    .get_strings
+    .get_sset_count
+    .get_ethtool_stats
+    .get_eth_phy_stats
+    .get_eth_mac_stats
+    .get_eth_ctrl_stats
+    .get_rmon_stats
+    .get_pause_stats
 
-While reviewing an earlier version that added two MGLRU tracepoints,
-Steven suggested moving include/trace/events/vmscan.h to
-mm/trace_vmscan.h [1], as several other subsystems already do. Once the
-header lives under mm/, struct scan_control can be moved there too,
-letting the trace events access its fields directly instead of having
-each callsite copy the scalars out by hand. This version merges the two
-efforts into one series: the restructuring first, then the two new
-tracepoints built on top of it.
+Changes:
 
-Implementation
-==============
+PATCH 03 V01: https://lore.kernel.org/netdev/cover.1773387649.git.zhuyikai1@h-partners.com/
+* Add rmon/pause/phy/mac/ctrl stats (Ioana Ciornei)
 
-Part 1, restructuring (patches 1-7):
+PATCH 03 V02: https://lore.kernel.org/netdev/cover.1774684571.git.zhuyikai1@h-partners.com/
+* Remove OutOfRangeLengthField, FrameToolong and InRangeLengthErrors (Ioana Ciornei)
+* Remove redundant mtu commit (Maxime Chevallier)
+* Modify "return -EINVAL" intension problem (AI Review)
+* Use le16_to_cpu for rss_indir pair.out->buf (AI Review)
+* Use u32 instead of int in coalesce_limits to avoid overflow (AI Review)
+* Remove redundant u64_stats_update_begin/end when reading stats without
+  concurrent reader (AI Review)
+* Modify nic_dev->stats.syncp logic (AI Review)
+* Complete rxq/txq stats stats fileds in hinic3_rx/txq_get_stats (AI Review)
+* Remove statistics values in rtnl_link_stats64 from ethtool statistics
+  values (AI Review)
+* Add channel_cfg_lock & channel_res_lock to protect resources access (AI Review)
 
-  1) drop the unused vmscan trace include from memcontrol.c;
-  2) move include/trace/events/vmscan.h to mm/trace_vmscan.h, setting
-     TRACE_INCLUDE_PATH to "." and adding -I$(src) for vmscan.o;
-  3) move struct scan_control into a dedicated mm/vmscan.h with an
-     ordinary include guard, which trace_vmscan.h pulls in;
-  4-7) pass scan_control to the vmscan tracepoints and pick the fields
-     out in TP_fast_assign, one group at a time: the reclaim-begin
-     events, the LRU isolate/shrink events, mm_vmscan_reclaim_pages and
-     mm_vmscan_balance_pgdat_end.
+PATCH 03 V03: https://lore.kernel.org/netdev/cover.1774940117.git.zhuyikai1@h-partners.com/
+* Change unnedd to unneeded (AI Review)
+* Remove packets,bytes,errors and dropped in hinic3_rx/tx_queue_stats (AI Review)
+* Remove duplicated entried in hinic3_port_stats[] (AI Review)
+* change stats_info.head.status to ps->head.status (AI Review)
 
-Part 2, MGLRU tracepoints (patches 8-9):
+PATCH 03 V04: https://lore.kernel.org/netdev/cover.1775618797.git.zhuyikai1@h-partners.com/
+* Use old_q_param to store old config and use it in error handling (Mohsin Bashir)
+* Add netdev_info to inform the user that depth is trimmed (Mohsin Bashir)
+* Remove const in hinic3_get_qp_stats_strings parameters (Mohsin Bashir)
+* Change EOPNOTSUPP to ERANGE in is_coalesce_exceed_limit (Mohsin Bashir)
+* Update nic_dev->rss_type after hinic3_set_rss_type (Mohsin Bashir)
+* Modify MGMT_STATUS_CMD_UNSUPPORTED to EOPNOTSUPP for complying with the
+  error code specifications (Mohsin Bashir)
+* Remove restore_drop_sge in hinic3_rx_queue_stats (AI Review)
+* Remove hinic3_nic_stats (AI Review)
 
-  8) add mm_mglru_scan_folios on the scan path, next to the classic
-     mm_vmscan_lru_isolate, reporting the same counters plus nr_sorted
-     and the nid, memcg id, max_seq, tier and min_seq of the lruvec;
-  9) add mm_mglru_inc_max_seq on the aging path, reporting the nid,
-     memcg id, the new max_seq, the anon/file min_seq and the
-     per-generation page counts of both types.
+PATCH 03 V05: https://lore.kernel.org/netdev/cover.1775711066.git.zhuyikai1@h-partners.com/
+* As tx and rx share interrupts, we only use ETHTOOL_COALESCE_RX_USECS for
+  user setting to avoid user misunderstanding. So we do not add
+  ETHTOOL_COALESCE_TX_USECS. (Mohsin Bashir & AI Review)
+* Clear HINIC3_CHANGE_RES_INVALID bit in error handling (AI Review)
+* Use low >= high to avoid low=high in is_coalesce_legal (AI Review)
 
-Both new events only take pointers (lruvec, sc) plus the local counters,
-and derive everything else in TP_fast_assign(), so the reclaim paths do
-no extra work when they are disabled.
+PATCH 03 V06: https://lore.kernel.org/netdev/cover.1779867397.git.zhuyikai1@h-partners.com/
+* Remove redundant rx_jumbo_pending and rx_mini_pending judgement (Jakub Kicinski)
+* Remove redundant max tx_pending judgement when .get_ringparam already got the
+   max value (Jakub Kicinski)
+* Use extack instead of netdev_err/netdev_info/netdev_warning (Jakub Kicinski)
+* Remove HINIC3_CHANNEL_RES_VALID and only use HINIC3_CHANGE_RES_INVALID
+  bit (Jakub Kicinski)
+* Deference freed pointers in hinic3_change_channel_settings error
+  handling (Jakub Kicinski)
+* Modify hinic3_open_channel (Jakub Kicinski)
 
-Effect
-======
+PATCH 03 V07: https://lore.kernel.org/netdev/cover.1779940072.git.zhuyikai1@h-partners.com/
+* Remove the trailing '\n' in NL_SET_ERR_MSG* (Jakub Kicinski)
 
-Part 1 moves the loads of the tracepoint arguments out of the reclaim
-paths and into the trace event callbacks, which only run when the event
-is enabled. On x86_64 with gcc 11.4, the callers in mm/vmscan.o shrink
-accordingly (bytes), e.g.:
+PATCH 03 V08: https://lore.kernel.org/netdev/cover.1780907605.git.wudi234@huawei.com/
+* Update patch commit to be more accurate for change information (AI Review)
+* Modify <net/devlink.h> to <linux/netlink.h> (AI Review)
+* Use sq/rq_depth instead of rx/txqs[0].q_depth (AI Review)
+* hinic3_change_channel_settings() runs under change_res_mutex
+  to protect dynamic channel updates (AI Review)
+* hinic3_close() serializes close and channel reconfiguration paths (AI Review)
+* Remove useless u64_stats_init in hinic3_get_drv_queue_stats() (AI Review)
+* hinic3_get_drv_queue_stats() fills rxq stats at correct idx
+  when txq is null (AI Review)
+* Remove unnecessary semicolons after the closing bracket of
+  static inline functions (AI Review)
+* Disable preemption in hinic3_rx_fill_buffers() (AI Review)
+* Add spinlock to protect per-queue coalesce parameters from
+  concurrent access (AI Review)
+* Reject static coalesce config when adaptive RX coalesce is
+  enabled (AI Review)
+* Validate interface state and queue ID before modifying coalesce
+  parameters (AI Review)
+* Differentiate get_coalesce output for adaptive/static modes and
+  zero-fill the struct (AI Review)
+* Return -ERANGE for invalid coalesce frame limits and simplify
+  error message (AI Review)
+* Remove unused watchdog timeout definition and assignment (AI Review)
+* Return -EOPNOTSUPP when RSS type query is unsupported by firmware (AI Review)
+* Reject L4 hash bits for pure L3 flow types (AI Review)
+* Split RSS type conversion to correctly handle L3-only flows (AI Review)
+* Reprogram RSS indir table and HW parameters after channel count
+  changes (AI Review)
+* Propagate exact error code from channel parameter validation (AI Review)
+* Update SW RSS indir copy only after HW programming succeeds (AI Review)
+* Program RSS hash type to HW before updating SW state to prevent
+  inconsistency (AI Review)
 
-  isolate_lru_folios    4060 -> 3896 (-164)
-  __node_reclaim        2407 -> 2225 (-182)
-  isolate_folios        8706 -> 8577 (-129)
-  shrink_active_list    3674 -> 3549 (-125)
-  evict_folios          4858 -> 4769  (-89)
+PATCH 03 V09: https://lore.kernel.org/netdev/cover.1781062575.git.wudi234@huawei.com/
+* Remove useless messages in hinic3_set_ringparam() (Jakub Kicinski)
+* Solve the big-endian and little-endian issue (Jakub Kicinski)
 
-There is no functional change in part 1. TP_STRUCT__entry and TP_printk
-of the existing events are untouched, so their tracefs format is
-identical. This was confirmed by diffing the tracefs format files before
-and after, and by capturing the direct/memcg/node reclaim-begin events
-under load in a QEMU guest (order, gfp_flags and memcg_id all match).
-BPF programs attached via raw_tp/tp_btf do see the new TP_PROTO and need
-to be adjusted; tracepoints are not a stable ABI (see
-Documentation/bpf/bpf_design_QA.rst).
+PATCH 03 V10: https://lore.kernel.org/netdev/cover.1782718232.git.wudi234@huawei.com/
+* Unify 3 mutex in struct hinic3_nic_dev: port_state_mutex, change_res_mutex,
+  coal_lock.(Simon Horman)
+* Use rxq->q_mask instead of rxq->q_depth - 1 in hinic3_configure_rxqs()
+  (Dimitri Daskalakis)
+* Implement dedicated get_rx_ring_count ethtool operation (Dimitri Daskalakis)
+* Correct copy-paste error in hinic3_get_ringparam() (AI Review and
+  Harshitha Ramamurthy)
+* Clarify extack error message in hinic3_check_ringparam_valid()
+  (Harshitha Ramamurthy)
+* Use rounddown_pow_of_two() instead of 1U << ilog2() in hinic3_set_ringparam()
+  for readability. (Harshitha Ramamurthy)
+* hinic3_set_interrupt_moder() now compare q_id and num_qps inside mutex lock
+  (AI Review)
+* Error branches in hinic3_link_status_change() goto unlock mutex before return
+  (AI Review)
+* In hinic3_change_channel_settings(), hinic3_config_num_qps() and
+  hinic3_alloc_channel_resources() now run inside mutex lock. (AI Review)
+* Call hinic3_free_qp_ctxts() in error paths of hinic3_open_channel(),
+  thus hinic3_change_channel_settings() don't call it in error path (AI Review)
+* Unset HINIC3_INTF_UP during close and reopen in hinic3_change_channel_settings
+* hinic3_change_channel_settings() restore previous resources before freeing
+  new_qp_params (AI Review)
+* Delete unused macro HINIC3_LRO_PKT_HDR_LEN (AI Review)
+* Drop packets when skb_checksum_help() return error (AI Review)
+* Protect interrupt coalesce parameter reads with state_lock to prevent data
+  races(AI Review)
+* Restore previous coalesce parameters on HW configuration failure (AI Review)
+* Always report all coalesce parameters regardless of adaptive mode (AI Review)
+* Safely stop DIM work when disabling adaptive RX coalescing (AI Review)
+* Change coalesce disabled message from extack error to info log (AI Review)
+* Pass new RSS hash type to HW instead of the old one (AI Review)
+* Initialize default RSS indirection table before HW programming when not
+  user-configured(AI Review)
+* Revert queue count on RSS reprogramming failure (AI Review)
+* Use sizeof for RSS indirection table copy to prevent size mismatch (AI Review)
 
-highest_zoneidx and nr_reclaimed stay separate arguments: the former is
-a balance_pgdat() parameter (sc.reclaim_idx may differ from it by the
-time the end event fires), and the latter is the return value of
-shrink_folio_list(), which does not update sc->nr_reclaimed.
+PATCH 03 V11: https://lore.kernel.org/all/cover.1784538912.git.root@localhost.localdomain/
+* Remove state_lock in hinic3_set_interrupt_moder() and
+  hinic3_link_status_change() (Andrew Lunn and AI Review)
+* In hinic3_change_channel_settings(), cur_trxq_params is read after taking lock,
+  and get symmetrically restored when alloc resources failed. (AI Review)
+* Remove preempt_disable()/preempt_enable() pairs in hinic3_rx_fill_buffers().
+  (AI Review)
+* Add a comment about csum_err, and rewrite its judgement in hinic3_rx_csum().
+  (AI Review)
+* Rollback hash function type to previous state if setting RSS indirection
+  table or key fails (AI Review)
+* Allow users to disable L3 hashing for IPV4/IPV6 flows by properly handling
+  empty hash tuple in ethtool (AI Review)
+* Update software queue coalesce state only after successful hardware
+  configuration to avoid manual rollback (AI Review)
+* Use READ_ONCE and WRITE_ONCE for adaptive_rx_coal to ensure safe
+  concurrent memory access (AI Review)
+* Reset RX queue DIM state to DIM_START_MEASURE when canceling
+  adaptive RX coalescing work (AI Review)
+* Remove unnecessary state_lock mutexes when reading queue coalesce
+  parameters in IRQ and update paths (AI Review)
+* Rename is_coalesce_legal to hinic3_validate_coalesce for better code
+  readability and naming consistency (AI Review)
 
-Part 2 makes the full aging-to-eviction window observable per memcg:
-aging advances max_seq (the leading edge), scanning consumes the oldest
-generations, and the min_seq/max_seq pair on each event shows how the
-generation window moves over time. A sample trace, with the classic-LRU
-tracepoints left enabled to show how they interleave:
+PATCH 03 V12: https://lore.kernel.org/all/cover.1785120952.git.root@localhost.localdomain/
+* Remove get_val_of_ptr() which is unnecessary (Dimitri Daskalakis)
+* Split the monolithic patch into multiple patches (Mohsin Bashir)
+* Fix MSI-X leak and defer q_params publication and add error-path
+  rollback to prevent regressions (AI Review)
+* Rfactor hinic3_update_hash_func_type() (AI Review)
+* Guard irq_cfg traversal with INTF_UP check to prevent NULL dereference
+  and fully reinitialize DIM state on adaptive re-enable (AI Review)
+* Snapshot per-queue coalesce configs before applying and rollback via
+  backup array on partial failure to ensure atomic set_coalesce (AI Review)
 
-  mm_vmscan_lru_isolate: classzone=4 order=0 nr_requested=4 nr_scanned=1 nr_skipped=0 nr_taken=1 lru=inactive_file
-  mm_mglru_scan_folios: nid=0 memcg_id=1833 classzone=4 order=0 nr_requested=4 nr_scanned=1 nr_sorted=0 nr_skipped=0 nr_taken=1 lru=inactive_file max_seq=3 tier=3 min_seq=0
-  mm_vmscan_lru_shrink_inactive: nid=0 nr_scanned=1 nr_reclaimed=1 nr_dirty=0 nr_writeback=0 nr_congested=0 nr_immediate=0 nr_activate_anon=0 nr_activate_file=0 nr_ref_keep=0 nr_unmap_fail=0 priority=2 flags=RECLAIM_WB_FILE|RECLAIM_WB_ASYNC
-  mm_mglru_inc_max_seq: nid=0 memcg_id=1833 max_seq=4 anon_min_seq=1 file_min_seq=1 nr_anon={0x0,0x0,0x0,0x0} nr_file={0x0,0x12,0x0,0x0}
-  mm_vmscan_lru_isolate: classzone=4 order=0 nr_requested=3 nr_scanned=3 nr_skipped=0 nr_taken=3 lru=inactive_file
-  mm_mglru_scan_folios: nid=0 memcg_id=1833 classzone=4 order=0 nr_requested=3 nr_scanned=3 nr_sorted=0 nr_skipped=0 nr_taken=3 lru=inactive_file max_seq=4 tier=3 min_seq=1
-  mm_vmscan_lru_shrink_inactive: nid=0 nr_scanned=3 nr_reclaimed=3 nr_dirty=0 nr_writeback=0 nr_congested=0 nr_immediate=0 nr_activate_anon=0 nr_activate_file=0 nr_ref_keep=0 nr_unmap_fail=0 priority=2 flags=RECLAIM_WB_FILE|RECLAIM_WB_ASYNC
+PATCH 03 V13: https://lore.kernel.org/netdev/cover.1786774752.git.tengpeisen@huawei.com/
+* Split previous version into 3 parts. The first 2 patches were sent to
+  net tree, patch #5, #6 and #8 stayes in this series, and others will be sent
+  in the future. (Larysa Zaremba and Jakub Kicinski)
+* Remove dead size field from struct hinic3_stats and add
+  HINIC3_STAT_SIZE_CHECK() with BUILD_BUG_ON_ZERO to enforce
+  per-entry compile-time verification that all stats members are u64. (AI Review)
+* Remove never-incremented frag_len_overflow and frag_size_err from
+  hinic3_txq_stats, hinic3_txq_clean_stats(), hinic3_txq_get_stats()
+  and the hinic3_tx_queue_stats ethtool table. (AI Review)
+* Add missing txq_stats.busy increment in hinic3_send_one_skb() when
+  returning NETDEV_TX_BUSY due to insufficient WQEBBs. (AI Review)
+* Add missing txq_stats.offload_cow_skb_err increment when offload
+  type is invalid in hinic3_send_one_skb(). (AI Review)
+* Remove mac_tx_good_oct_num and mac_rx_good_oct_num from the
+  hinic3_port_stats private table as they are already reported through
+  the get_eth_mac_stats standard interface. (AI Review)
+* Fix OctetsTransmittedOK/ReceivedOK mapping in
+  hinic3_get_eth_mac_stats() to use mac_tx/rx_good_oct_num instead
+  of mac_tx/rx_total_oct_num per RFC 2863 (error-free frames only). (AI Review)
+* Add HINIC3_IS_VF guard to hinic3_get_eth_phy_stats() to prevent
+  VF from reading physical port stats, consistent with the ethtool
+  -S path which already gates hinic3_port_stats on PF-only. (AI Review)
+* Use u64_stats_update_begin_irqsave/end_irqrestore in
+  hinic3_rx_fill_buffers() where the function can be called from
+  preemptible process context via hinic3_configure_rxqs(), avoiding
+  seqcount deadlock on 32-bit systems. (AI Review)
+* Expand state_lock protection scope in hinic3_get_coalesce() and
+  hinic3_set_coalesce() to cover intr_coalesce array accesses. (AI Review)
+* Use standard net_dim_work_cancel() in hinic3_set_coalesce() to cancel
+  DIM work instead of manually clearing struct fields, ensuring safe DIM
+  state reset and simplifying error rollback. (AI Review)
 
-The mm_mglru_scan_folios lines carry the node, memcg id and the
-generation window (max_seq/min_seq) that the bare mm_vmscan_lru_isolate
-lines above them cannot - those cannot even say which memcg they came
-from. The mm_mglru_inc_max_seq line then shows a new generation being
-created (max_seq 3 -> 4) with the per-generation page counts for both
-types, and the following scan already reports the moved window
-(max_seq=4 min_seq=1).
+PATCH 03 V14: https://lore.kernel.org/netdev/cover.1791858167.git.gongfan1@huawei.com/
+* Remove if (!nic_dev->txqs) & if (!nic_dev->rxqs). (Vadim Fedorenko)
+* All comments regarding this submission have been documented and will be
+  addressed incrementally in subsequent patch-set.
 
-[1]: https://lore.kernel.org/linux-mm/20260916095122.50cbb620@robin/
+PATCH 03 V15: https://lore.kernel.org/netdev/cover.1792053295.git.gongfan1@huawei.com/
+* Break get_ethtool_stats into the standard statistic groups.
+  Only retain the counters which are not part of standard groups.
+  (Andrew Lunn and AI Review)
+* Netdev netlink qstats (struct netdev_stat_ops) does not be implemented
+  by hinic3, it will be implemented in future. So the per-queue stats of
+  rxq%d_csum_errors etc. will be retained in ethtool -S.(AI Review)
+* Change netdev_err to netdev_err_once and dev_err to dev_err_once.
+  (AI Review)
+* The stall of hinic3_rx_fill_buffers() and LRO in extreme condition will
+  go in a separate patch.(AI Review)
+* Use the same algorithms for calculating the number of bytes and packets
+  in the TSO and LRO statistics.(AI Review)
+* Replace skb_inner_transport_header() with skb_inner_tcp_all_headers()
+  will go in a separate patch.(AI Review)
+* Drops taken in hinic3_xmit_frame() are counted.(AI Review)
+* u64_stats_update_begin() in hinic3_rxq_clean_stats() and
+  hinic3_txq_clean_stats() will go in a separate patch.(AI Review)
+* get_pauseparam callback will go in a separate patch.(AI Review)
 
----
-Changes in v4:
-  - Merge the MGLRU tracepoint series [2] into this one, on top of the
-    restructuring, and drop the RFC tag.
-  - Patch 2: use TRACE_INCLUDE_PATH "." with CFLAGS_vmscan.o += -I$(src)
-    instead of a relative path (Steven).
-  - Patches 8-9: pass lruvec/sc and compute the fields in
-    TP_fast_assign() instead of at the call site (Steven).
-  - Patches 8-9: add nid, derived from the lruvec (Baoquan).
-  - Patch 8: group the int fields at the end of the entry to avoid
-    padding on 64-bit (Steven).
-  - Drop "mm/mglru: factor out lru_gen_seq_nr_pages()" from [2]: the
-    per-generation page count is now summed inside TP_fast_assign(), so
-    the helper has no user. The Reviewed-by tags given to [2] are not
-    carried over, as patches 8-9 changed substantially.
-  - Link to RFC v3: https://lore.kernel.org/all/20261013131309.2790253-1-ridong.chen@linux.dev/
+PATCH 03 V16: https://lore.kernel.org/netdev/cover.1792149958.git.gongfan1@huawei.com/
+* Change lro_packets = 1 to lro_packets++.(Mohsin Bashir)
+* Init txq at the correct place.(Mohsin Bashir)
+* Statistics in hinic3_function_stats and rtnl_link_stats64 originate from
+  different sources: the chip records the former, while the driver records
+  the latter. Chip statistics are readable via ethtool -S, and driver
+  statistics are returned via rtnl_link_stats64.(AI Review)
+* Change u64 to __le64 in l2nic_vport_stats and mag_cmd_port_stats.(AI Review)
+* Reset lro_packets and gso_packets.(AI Review)
 
-Changes in RFC v3:
-  - Use "Assisted-by: LLM" (Muchun).
-  - Note the BPF raw_tp/tp_btf impact in the changelogs (Sashiko).
-  - Changelog wording fixes and minor indentation fixes.
-  - Link to RFC v2: https://lore.kernel.org/all/20260928114625.3609130-1-ridong.chen@linux.dev/
+PATCH 03 V17:
+* Use ethtool_puts().(Dimitri Daskalakis)
+* Remove the casting of char *p = (char *)data.(Dimitri Daskalakis)
+* It was clarified in the last patch that tx_unicast_pkts_vport and
+  per-queue metrics are not standard statistics.(AI Review)
+* Use le64_to_cpu() to handle variables definded as __le64.(AI Review)
+* Optimize the txq initialization position to prevent out-of-bounds
+  memory access.(Mohsin Bashir & AI Review)
+* The coexistence of hinic3_get_stats64() and hinic3_get_pkt_stats()
+  will go in the separate patch.(AI Review)
 
-Changes in RFC v2:
-  - Convert the remaining vmscan tracepoints too.
-  - Move struct scan_control to mm/vmscan.h (Baoquan).
+Fan Gong (2):
+  hinic3: Add ethtool statistic ops part1
+  hinic3: Add ethtool statistic ops part2
 
-[2]: https://lore.kernel.org/all/20260911102939.2485750-1-ridong.chen@linux.dev/
-
-Ridong Chen (9):
-  mm/memcontrol: drop unused vmscan tracepoint include
-  mm/vmscan: move vmscan tracepoints to a local header
-  mm/vmscan: move struct scan_control to a dedicated header
-  mm/vmscan: pass scan_control to the reclaim-begin tracepoints
-  mm/vmscan: pass scan_control to the LRU isolate/shrink tracepoints
-  mm/vmscan: pass scan_control to mm_vmscan_reclaim_pages
-  mm/vmscan: pass scan_control to mm_vmscan_balance_pgdat_end
-  mm/mglru: add tracepoint for scan_folios()
-  mm/mglru: add tracepoint for inc_max_seq()
-
- MAINTAINERS                                   |   4 +
- mm/Makefile                                   |   1 +
- mm/memcontrol.c                               |   2 -
- mm/shrinker.c                                 |   2 +-
- .../events/vmscan.h => mm/trace_vmscan.h      | 193 ++++++++++++++----
- mm/vmscan.c                                   | 140 ++-----------
- mm/vmscan.h                                   | 118 +++++++++++
- 7 files changed, 296 insertions(+), 164 deletions(-)
- rename include/trace/events/vmscan.h => mm/trace_vmscan.h (76%)
- create mode 100644 mm/vmscan.h
+ .../ethernet/huawei/hinic3/hinic3_ethtool.c   | 492 ++++++++++++++++++
+ .../ethernet/huawei/hinic3/hinic3_hw_intf.h   |  11 +
+ .../huawei/hinic3/hinic3_mgmt_interface.h     |  37 ++
+ .../ethernet/huawei/hinic3/hinic3_nic_cfg.c   |  64 +++
+ .../ethernet/huawei/hinic3/hinic3_nic_cfg.h   | 108 ++++
+ .../net/ethernet/huawei/hinic3/hinic3_rx.c    |  64 ++-
+ .../net/ethernet/huawei/hinic3/hinic3_rx.h    |   8 +-
+ .../net/ethernet/huawei/hinic3/hinic3_tx.c    |  79 ++-
+ .../net/ethernet/huawei/hinic3/hinic3_tx.h    |   5 +-
+ 9 files changed, 852 insertions(+), 16 deletions(-)
 
 
-base-commit: 48fe11c8d0f1e4e59426a3606f20ac1130b6d8dc
---
-2.34.1
+base-commit: 73022f605c447f31610b94ed4a983d2b4bf2c721
+-- 
+2.43.0
 
