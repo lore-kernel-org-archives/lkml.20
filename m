@@ -1,166 +1,254 @@
-Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A5D4E01E5
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:58:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423514DA9D6;
+	Mon, 19 Oct 2026 11:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411109; cv=none; b=N6shZGljpGxoiYlKPqprpAPZMhxemf+QKph8bs7hmOk39apnn9kc2QGjq4vV7azmdZtNDx2TPJlhMpv9ex1UlrPssOkq6iayS7uMM6M6k+gLoSML0BXD7uFfo1LQpIslFRrIjunEVC8l+R39Ibw8d0kLRTPNC6TMVFoXYJRVPC0=
+	t=1792411121; cv=none; b=FPHxJ6eVVyKfokKKwjJ+m2bJO5NwvYF4Ui6R+P0Ho++pqmsnVPAjphf8KO2z34PSTdd47Yd1pOFb6RYhuY6fOQ0Ix/QHE2DaTDy/4nIjiPRG4GoQuHWKj5LjiyhRPIC5BFBS0ecmiCST2D4aRZycX6XvtXmQedAFDWJS1cRyHOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411109; c=relaxed/simple;
-	bh=FYx53TYVkBsd/sCWj2+zcUIj1usEdwFWXY81aK60Xlo=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=ekaMahr1ZRNe9I8Cq7wd7bHSwDjlDMrgvfg5AXRsky57yxPVygxjR/irk+KWSeuHQDdC4Dvf0gW04Un7qx24e2zL+SnJt/Tmc8fwtKNvMxgUUusjqD12/vKPqMcEE+TvBVBdc6qyrM6SIkMCafymvnNAX1RTivtzhiOWLedvF3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=HlX91qDT; arc=none smtp.client-ip=46.14.118.250
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
+	s=arc-20240116; t=1792411121; c=relaxed/simple;
+	bh=K1VB74abNbOAck37keRrgF/0OegSsDtCEmgWOWcH2b4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mUrx41YQllki09xgfBCVlPFPxWLRTYbBVp8R1b7twNqVq33iAZXBTPsnKaka4mW+I20LxM6R+73Gu3l+leZ/XVPeqOkJiz5X/BIplQHQgDqo52ggLD431GVKTQ14+Ry/gmxSgouGQ/TG8gc3obfw6mnd7IddxyD4s1v5eWN99bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BF3e5hpk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="HlX91qDT"
-Received: from [192.168.16.44] (port=61408 helo=remote.fiveco.ch)
-	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.96)
-	(envelope-from <valentin.kindschi@fiveco.ch>)
-	id 1xIly5-000000002xB-0SE2;
-	Mon, 19 Oct 2026 13:55:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BF3e5hpk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B4A01F000C4;
+	Mon, 19 Oct 2026 11:58:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792411120;
+	bh=aP+CfqviOKAMqwEpGVXJ4KmWQVovOfynC/UxbrqF8yY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BF3e5hpkqdKjSiRjcGGbdZthnQgjLe9wP28qXkd5/oRCtBXJPnWMvyQSOI6xX0Lh9
+	 yxTfCCfOH0ASy9NDmFThUdajot6ykmLVrlu5tpzOylgz6yLVxkcsjopxuzvyNq9uvg
+	 BnXqvQb8LoH9OLyymawsnt6nngvv/GoS9XBmOu7RnX99KuTUryq98Yaa9HnGGxKQXP
+	 npaYOaYyZatZuGu+ME293IWHQjm/5I+37aJelI8xb84w0K1zO8ZxDxxZbRfExcgNWP
+	 pE7T4TOUlBafRfOT8DeHw6Wn8DNNUkYbf6L3LdKCuSRQ3Bvi7Eg/eSJLSVh06dAIso
+	 XdQlds1rkD/jA==
+Subject: Re: [PATCH net v2 1/2] sfc: ptp: serialize host and MC
+ synchronization transactions
+From: netdev-bot+sashiko@kernel.org
+To: alex.austin@amd.com
+Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ richardcochran@gmail.com, alucerop@amd.com, pieter.jansen-van-vuuren@amd.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 19 Oct 2026 11:58:39 +0000
+Message-ID: <179241111900.3135.15377803717583250573@kernel.org>
+In-Reply-To: <20261015114104.2531624-2-alex.austin@amd.com>
+References: <20261015114104.2531624-2-alex.austin@amd.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
-	t=1792410952; h=from:subject:to:date:message-id;
-	bh=FYx53TYVkBsd/sCWj2+zcUIj1usEdwFWXY81aK60Xlo=;
-	b=HlX91qDT3pkkxgx+A9f4fPUF1brQ76i7AMgxhJ6YR2dBBDgyPVW4ev05SQqmXeD0DZn8CF6QxEQ
-	I40ae2wNZeQfum6C5T2ESr4I5rtXndFwzRHykTyKK2XwIKJ56hRYBmz/jPlbKg9PrJWIjNiCbykiN
-	12r62GGRFTZdP4v9MYw=
-Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
- FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Mon, 19 Oct 2026 13:55:52 +0200
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-To: <linux-bluetooth@vger.kernel.org>
-CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
-	<linux-kernel@vger.kernel.org>, Valentin Kindschi
-	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
-Subject: [PATCH v6 1/2] Bluetooth: hci_sync: re-enable legacy advertising on resume
-Date: Mon, 19 Oct 2026 13:55:37 +0200
-Message-ID: <20261019115538.45115-1-valentin.kindschi@fiveco.ch>
-X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
- FIVECO-MX01.fiveco.local (192.168.16.44)
-X-Sophos-OBS: success
-X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.10.19.112719
-X-SASI-RCODE: 200
-X-SASI-SpamProbability: 8%
-X-SASI-Hits: BODY_SIZE_3000_3999 0.000000, BODY_SIZE_5000_LESS 0.000000,
- BODY_SIZE_7000_LESS 0.000000, CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000,
- DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000, HTML_00_10 0.050000,
- MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000,
- NO_URI_HTTPS 0.000000, OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000,
- SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000,
- WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
- __BODY_VOICEMAIL 0.000000, __BULK_NEGATE 0.000000, __CC_NAME 0.000000,
- __CC_NAME_DIFF_FROM_ACC 0.000000, __CC_REAL_NAMES 0.000000, __CT 0.000000,
- __CTE 0.000000, __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000,
- __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000,
- __DQ_NEG_IP 0.000000, __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000,
- __HAS_FROM 0.000000, __HAS_MSGID 0.000000, __HAS_XOIP 0.000000,
- __HAS_X_MAILER 0.000000, __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000,
- __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
- __MULTIPLE_RCPTS_CC_X2 0.000000, __NO_HTML_TAG_RAW 0.000000,
- __OUTBOUND_SOPHOS_FUR 0.000000, __OUTBOUND_SOPHOS_FUR_IP 0.000000,
- __OUTBOUND_SOPHOS_FUR_RDNS 0.000000, __RCVD_CTE 0.000000,
- __RCVD_EXIM_4_96_AES_128 0.000000, __RCVD_FROM_HOMEUSER 0.000000,
- __SANE_MSGID 0.000000, __SL_HEAVY 0.000000, __SL_LIGHT 0.000000,
- __SUBJ_ALPHA_END 0.000000, __SUBJ_STARTS_S_BRACKETS 0.000000,
- __TO_MALFORMED_2 0.000000, __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000,
- __URI_NO_WWW 0.000000, __URI_NS 0.000000
 
-hci_resume_advertising_sync() never re-enables advertising on a
-controller without extended advertising.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-It restores HCI_ADVERTISING from advertising_old_state, then calls
-hci_schedule_adv_instance_sync(), which starts with:
+Critical: 0 · High: 0 · Medium: 2 · Low: 2
 
-  if (hci_dev_test_flag(hdev, HCI_ADVERTISING) && !ext_adv_capable(hdev))
-          return -EPERM;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The flag it tests was set a few lines earlier by the resume itself, so
-the call returns -EPERM without sending anything. The return value is
-discarded by every caller, so the failure is silent: advertising_paused
-is cleared, HCI_ADVERTISING is set, and the controller is not
-advertising.
+- [Medium] Incomplete fix: the Siena sibling driver is left with the same
+  bugs.
+- [Medium] efx_ptp_start() sends MC_CMD_PTP_OP_ENABLE through
+  efx_ptp_enable() (line 1460) with no lock held.
+- [Low] Resolved later in the series (baseline decision: false).
+- [Low] The new kernel-doc for @phc_lock in struct efx_ptp_data (lines
+  276-277) says the lock 'Serializes PHC commands and synchronization,…
 
-Observed on a BCM43455 (no extended advertising) after an active scan:
-btmon shows the pause disabling advertising and no re-enable in the ten
-seconds that follow, the device does not appear in another controller's
-scan, and btmgmt info still reports "advertising" in current settings.
+--
 
-Enable instance 0x00 directly in that case, the way reenable_adv_sync()
-already does for the same situation. Instances continue to go through
-hci_schedule_adv_instance_sync() so the software rotation loop is
-rearmed.
+sfc: ptp: serialize host and MC synchronization transactions
 
-This affects every caller of hci_resume_advertising_sync(), not only the
-scan path: address resolution changes, accept list updates, discovery
-stop, suspend/resume and the end of an LE connection attempt all leave
-advertising disabled on such a controller today.
+This patch adds a phc_lock mutex to struct efx_ptp_data. The lock is held
+across efx_ptp_synchronize(), the PHC adjfine/adjtime/settime callbacks,
+and the current_adjfreq reset in efx_ptp_start(). efx_ptp_synchronize()
+also now bails out when efx_mcdi_rpc_start() fails, instead of finishing
+an RPC that was never acquired.
 
-err is initialised because the extended branch leaves it unset when
-adv_instances is empty and HCI_LE_ADV_0 is clear.
+> diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
+> index 6ca9a75af01d8..c2f8b94592718 100644
+> --- a/drivers/net/ethernet/sfc/ptp.c
+> +++ b/drivers/net/ethernet/sfc/ptp.c
 
-Fixes: ad383c2c65a5 ("Bluetooth: hci_sync: Enable advertising when LL privacy is enabled")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5.5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
----
-Changes in v6:
-- No change; resent as part of the series.
+[ ... ]
 
-Changes in v5:
-- New patch. v4 of the scan fix resumed advertising through
-  hci_schedule_adv_instance_sync(), which refuses HCI_ADVERTISING on a
-  controller without extended advertising, so the resume never sent
-  anything. Patch 2 depends on this.
+> @@ -272,6 +273,8 @@ struct efx_ptp_rxfilter {
+>   * frequency adjustment into a fixed point fractional nanosecond format.
+>   * @current_adjfreq: Current ppb adjustment.
+>   * @phc_clock: Pointer to registered phc device (if primary function)
+> + * @phc_lock: Serializes PHC commands and synchronization, and protects
+> + *	      @current_adjfreq
 
- net/bluetooth/hci_sync.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+[Severity: Low]
+Does this description cover more than the code does?
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 7ac26daba..d215432db 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -2733,7 +2733,7 @@ static int hci_pause_advertising_sync(struct hci_dev *hdev)
- static int hci_resume_advertising_sync(struct hci_dev *hdev)
- {
- 	struct adv_info *adv, *tmp;
--	int err;
-+	int err = 0;
- 
- 	/* If advertising has not been paused there is nothing  to do. */
- 	if (!hdev->advertising_paused)
-@@ -2766,13 +2766,18 @@ static int hci_resume_advertising_sync(struct hci_dev *hdev)
- 		 */
- 		if (hci_dev_test_and_clear_flag(hdev, HCI_LE_ADV_0))
- 			err = hci_enable_ext_advertising_sync(hdev, 0x00);
--	} else {
-+	} else if (hdev->cur_adv_instance) {
- 		/* Schedule for most recent instance to be restarted and begin
- 		 * the software rotation loop
- 		 */
- 		err = hci_schedule_adv_instance_sync(hdev,
- 						     hdev->cur_adv_instance,
- 						     true);
-+	} else {
-+		/* hci_schedule_adv_instance_sync() rejects instance 0x00 while
-+		 * HCI_ADVERTISING is set, so enable it directly.
-+		 */
-+		err = hci_start_adv_sync(hdev, 0x00);
- 	}
- 
- 	hdev->advertising_paused = false;
+efx_phc_adjfine(), efx_phc_adjtime() and efx_phc_settime() take
+phc_lock. efx_phc_gettime(), which is the gettime64 callback, still sends
+MC_CMD_PTP_OP_READ_NIC_TIME without it when the PTP core calls it
+directly:
+
+drivers/net/ethernet/sfc/ptp.c:efx_phc_gettime() {
+    ...
+	rc = efx_mcdi_rpc(efx, MC_CMD_PTP, inbuf, sizeof(inbuf),
+			  outbuf, sizeof(outbuf), NULL);
+    ...
+}
+
+efx_phc_enable() also updates its state without the lock:
+
+	ptp_data->nic_ts_enabled = !!enable;
+
+Could the comment be limited to the operations that actually take
+phc_lock?
+
+[ ... ]
+
+> @@ -1027,11 +1038,14 @@ static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
+>  	MCDI_SET_QWORD(synch_buf, PTP_IN_SYNCHRONIZE_START_ADDR,
+>  		       ptp->start.dma_addr);
+>  
+> +	mutex_lock(&ptp->phc_lock);
+> +
+>  	/* Clear flag that signals MC ready */
+>  	WRITE_ONCE(*start, 0);
+>  	rc = efx_mcdi_rpc_start(efx, MC_CMD_PTP, synch_buf,
+>  				MC_CMD_PTP_IN_SYNCHRONIZE_LEN);
+> -	EFX_WARN_ON_ONCE_PARANOID(rc);
+> +	if (rc)
+> +		goto out;
+
+[Severity: Medium]
+Does drivers/net/ethernet/sfc/siena/ptp.c need the same fix? It has the
+same code, and every problem fixed here is still present there.
+
+In siena, efx_ptp_synchronize() clears the start flag without a lock. If
+the start fails, it still goes on to efx_siena_mcdi_rpc_finish():
+
+drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_synchronize() {
+    ...
+	/* Clear flag that signals MC ready */
+	WRITE_ONCE(*start, 0);
+	rc = efx_siena_mcdi_rpc_start(efx, MC_CMD_PTP, synch_buf,
+				      MC_CMD_PTP_IN_SYNCHRONIZE_LEN);
+	EFX_WARN_ON_ONCE_PARANOID(rc);
+    ...
+}
+
+efx_siena_mcdi_rpc_start() can return before efx_mcdi_acquire_sync()
+through efx_mcdi_check_supported(), mc_bist_for_other_fn or
+MCDI_MODE_FAIL.
+
+The siena driver also has the same two concurrent callers,
+efx_ptp_pps_worker() and efx_ptp_change_mode(). Its efx_phc_adjfine() and
+efx_ptp_start() write current_adjfreq without a lock. Its
+efx_phc_settime() still does gettime and adjtime as two separate steps.
+
+The Fixes: tag points at 7c236c43b838 ("sfc: Add support for IEEE-1588
+PTP"), the original code that siena/ptp.c was forked from. The commit
+message does not mention Siena. Should there be a companion patch for
+sfc-siena, or a note on why Siena is not affected?
+
+> @@ -1062,11 +1076,13 @@ static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
+>  			++ptp->no_time_syncs;
+>  	}
+>  
+> +out:
+>  	/* Increment the bad syncs counter if the synchronize fails, whatever
+>  	 * the reason.
+>  	 */
+>  	if (rc != 0)
+>  		++ptp->bad_syncs;
+> +	mutex_unlock(&ptp->phc_lock);
+>  
+>  	return rc;
+>  }
+
+[Severity: Low]
+After this unlock, efx_ptp_pps_worker() reads the shared synchronization
+result without holding phc_lock:
+
+drivers/net/ethernet/sfc/ptp.c:efx_ptp_pps_worker() {
+    ...
+	ptp_evt.type = PTP_CLOCK_PPSUSR;
+	ptp_evt.pps_times = ptp->host_time_pps;
+	ptp_clock_event(ptp->phc_clock, &ptp_evt);
+}
+
+Can a concurrent efx_ptp_change_mode()->efx_ptp_synchronize() rewrite
+ptp->host_time_pps in efx_ptp_process_times() during that read?
+
+	ptp->host_time_pps = *last_time;
+	pps_sub_ts(&ptp->host_time_pps, delta);
+
+If so, ptp_clock_event() would get a torn or foreign timestamp.
+
+The next patch in the series, "sfc: ptp: avoid racing PPS timestamp
+updates", removes host_time_pps. It copies the result into a stack-local
+pps_event_time under phc_lock, so the unlocked read is gone by the end of
+the series.
+
+[ ... ]
+
+> @@ -1446,7 +1462,9 @@ static int efx_ptp_start(struct efx_nic *efx)
+>  		goto fail;
+>  
+>  	ptp->evt_frag_idx = 0;
+> +	mutex_lock(&ptp->phc_lock);
+>  	ptp->current_adjfreq = 0;
+> +	mutex_unlock(&ptp->phc_lock);
+
+[Severity: Medium]
+Can a frequency adjustment still be lost here?
+
+Just above this, efx_ptp_start() sends MC_CMD_PTP_OP_ENABLE without
+holding any lock:
+
+	rc = efx_ptp_enable(efx);
+	if (rc != 0)
+		goto fail;
+
+The firmware enable and the cache reset are therefore not one critical
+section, and efx_phc_adjfine() can run completely between them:
+
+CPU0 (efx_ptp_start)            CPU1 (clock_adjtime ADJ_FREQUENCY)
+efx_ptp_enable() completes
+                                efx_phc_adjfine()
+                                  mutex_lock(&ptp_data->phc_lock)
+                                  MCDI ADJUST with FREQ=X
+                                  current_adjfreq = X
+                                  mutex_unlock(&ptp_data->phc_lock)
+mutex_lock(&ptp->phc_lock)
+current_adjfreq = 0
+mutex_unlock(&ptp->phc_lock)
+
+The next adjtime or settime goes through _efx_phc_adjtime(), which
+programs the frequency from the cached value:
+
+	MCDI_SET_QWORD(inbuf, PTP_IN_ADJUST_FREQ, ptp_data->current_adjfreq);
+
+That would put the MC back at frequency 0 and drop a correction that
+adjfine already reported as applied.
+
+The commit message says current_adjfreq "cannot be torn by the reset in
+efx_ptp_start()". The patch prevents tearing, but the cached value can
+still get out of sync with the hardware. Would phc_lock need to be held
+across both efx_ptp_enable() and the reset?
+
+Also, efx_ptp_enable() treats -EALREADY as success. In that case the
+firmware probably did not reset its frequency, but the driver still sets
+current_adjfreq to 0. Is that intended?
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015114104.2531624-1-alex.austin%40amd.com
