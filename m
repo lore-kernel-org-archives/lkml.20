@@ -1,139 +1,100 @@
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DEC556FCD
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2CDDC556FF1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:14:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419283; cv=none; b=MnICH/j/4lKHF9UE+fN5ACbNmj6suqfakFqgYqy0UYwoBxCKIRvUP6ezB00lhvM5v06nY9z0JNiZkhUgwuRg1tEBnREIfI66ne/tMY39Gse7fzyIKj3vnSGk9IPXyw92QqTYROWIoNtQtQaNw4rwARTkSZVh+GIQMKpcKxVwT+c=
+	t=1792419285; cv=none; b=UTWoOaBk/n+6ztvrPPmoVcvRxCG3oUWdzkzUd1jEKC/ZeGShnynppooAeR8H8o+M6zZDxP+YF1+fFKz9jM51WkXNmWvYIDmZ6r/C1Y5HB3op+Er/JymjSOo9w1OekHqK3V/3u/F3f2fhHPA/BXQWlbP53AwAWlWDTke4NKF9LLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419283; c=relaxed/simple;
-	bh=YjfefJJvAYRwzQCu02KQ/kD9JBVwvA3WGC1yZzhSfYE=;
-	h=Content-Type:Subject:Message-Id:To:From:Cc:Mime-Version:Date; b=Ty25qv7UxIC+KPvL5J8IVcwYlcwMKAlBFUFSmZ0PW+6h8LI0lLGXq3sESR0thAG7aCf5tojoGKwNZxQ0/3w2FmgV9PEd7JQ6B0iqp4abbzpO3iyNePl2Malr8hvv3iqYSMJtHTrx1DYcmjYwZCbEL1Jt5KlwaUY+lTJw6Jgj/t8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=dFvUhypR; arc=none smtp.client-ip=209.127.230.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792419285; c=relaxed/simple;
+	bh=miXpFvzDWp1rgsrIkIJfHSpb/+AkGB7/fFGMtDBCe3w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VKJAflCLEBkAkJcY393THdHDWfXuSyNtjzFbtScQgR4wKvsMZO6XButld3xGE2k3XLXJKsfv4yLFunnMgloSuik8BY/kagR5TW7WFec7ufhdqAL3yKuDUO7L6IVCTgwpJH0LrE9jYPFQ96IJ1KKcc+Wg/8dInlPJ5xnAY/1IdeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=l9dXBqAR; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="dFvUhypR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792419273; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=NEJJZ34u4qlgZ0S11fm90eLB3kl92LQqge8z3SZGpCM=;
- b=dFvUhypRzf1ummP5/JL1m6szKVH6GqQcOUAX+b/BfVsuiGUsaKMGpHsvJIiqn6jLg6c2TZ
- g/GFZyYo4GZ7IcKXQd7tfuMMwxW8ObwK9f1jmKHRvHK5eUpQn/DXHqYlDvDwCwhrPk57cK
- RqXABqFE7yJcTFEhxbg3lyfTEAtkbqyZ5GXeCiMY88nlNi5ipWuwDJqmMi0eV8WamR0KGZ
- 4Q0w4SqC1t5mw4QR/C3we4KTNfbh6J6JNkSgOYJgfrFBpuAcCn87VytS4qbQ2uDly3f1oE
- CVHvk0wp5vnzhaY55FKNG4SoAyojsVUs7p9Md4bJjJX4lki8xN6KdkKvZiuB2w==
-Content-Type: text/plain; charset=UTF-8
-Subject: [RFC 0/2] mm: add source selectors to memory.reclaim
-Message-Id: <20261019141401.11927-1-lizhe.67@bytedance.com>
-X-Mailer: git-send-email 2.45.2
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-To: <akpm@linux-foundation.org>, <david@kernel.org>, <gourry@gourry.net>, 
-	<ziy@nvidia.com>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>, 
-	<ying.huang@linux.alibaba.com>, <ljs@kernel.org>, <mhocko@suse.com>, 
-	<muchun.song@linux.dev>, <roman.gushchin@linux.dev>, 
-	<shakeel.butt@linux.dev>, <weixugc@google.com>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26ad625c7+e7ed1e+vger.kernel.org+lizhe.67@bytedance.com>
-Cc: <cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
-	"Li Zhe" <lizhe.67@bytedance.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="l9dXBqAR"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 60DED1D70;
+	Mon, 19 Oct 2026 07:14:40 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E262E3F673;
+	Mon, 19 Oct 2026 07:14:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792419283; bh=miXpFvzDWp1rgsrIkIJfHSpb/+AkGB7/fFGMtDBCe3w=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=l9dXBqARznxrSaps1Az6u/BW5Xm0jOtXZVumEkspEArMqdZgkPfQYABcb1KFyhhOj
+	 7U3xhKItwpjISLLGlM6dESb8ktfUiJMea9+SLU+88yIwD1zMY5Ve/nvtcH7e5ncUN0
+	 HEREipB6KnRWOa0MGj8pz/omxa1XHRQvCr9PUjXo=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Mon, 19 Oct 2026 15:14:34 +0100
+Subject: [PATCH RFC 2/3] firmware: arm-smccc: add FIRME device
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Date: Mon, 19 Oct 2026 22:13:59 +0800
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-firme_interface-v1-2-27895c9cebaa@arm.com>
+References: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
+In-Reply-To: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
+To: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Suzuki Poulose <suzuki.poulose@arm.com>, 
+ Steven Price <steven.price@arm.com>, Sami Mujawar <sami.mujawar@arm.com>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Jiri Pirko <jiri@resnulli.us>, 
+ GONG Ruiqi <gongruiqi1@huawei.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=968; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=miXpFvzDWp1rgsrIkIJfHSpb/+AkGB7/fFGMtDBCe3w=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq1iXMjM/voiX2Ms0h8f57FQMSvqR80WL6OssPU
+ ovmmDE4zOuJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCatYlzAAKCRBt1cPRWsUx
+ MwpfDACtswE5QJhiFVWWeE0ASCXR0zcB4pqB7yJMiKcm4fBw0OSzWam1ux1itTZ2+fhhLu3FmvM
+ RT4s7OaMx/MuMk8e8Y8zbOVo3pu6fcHzWGwWBt2yzA2+jPUZqwnNSo1XKAnBy3cMSwy4AnUjeKE
+ 44jUK6UK+i1B8TtakqUoVWw0LSkm741TJm68YkcAJOoHsyAHDYnQvzWpXZLsddJfzXI/kEPVNAo
+ 32PK0kh3dWRMybl1djyzZNfvXpYUW5qApM5Ttijy4Z9jq89lSK+dCmHz213DyDv13Itbgshhpuh
+ vos2uj0qY5xd4q+qix9xMnoPGUtpS9QMVynspeAt4hgFGWcps/3JGFMITfuRBBVQqo8hQznORk3
+ crqRHaYsFDNmu265dlmzR665lf7DaZP/39oindQ8Djn/aWXcDZKZW2mBwOpm7Xdnw3VwDDywkX0
+ qL+Hyu/jF0Gtd190Fwoh/KiPzooZHrRRlR3Gc+RN96S2jVuD1PUPRUQysC6F41HN3yHs0=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-memory.reclaim is a useful proactive reclaim interface for memcgs, but
-tiered memory makes "reclaim N bytes from this memcg" underspecified for
-userspace controllers that manage memory placement across tiers. The
-kernel's reclaim policy is aging-based, and on tiered systems aging may
-demote folios before they are eventually evicted. Without a way to
-declare where reclaim pressure should start, userspace can only reclaim
-from the memcg as a whole and observe one aggregate progress value.
+add FIRME device into arm-smccc bus to use FIRME service.
 
-There is prior history here [1]. The old nodes= proposal tried to let
-memory.reclaim scan selected NUMA nodes, but the discussion left several
-ABI questions unresolved:
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+---
+ drivers/firmware/smccc/smccc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-- nodes= did not clearly say whether the mask was a source selector, a
-  reclaim domain, or a demotion-target constraint.
-- The implementation did not apply the mask to the whole reclaim path,
-  so demotion could allocate outside the mask. If userspace interpreted
-  the mask as a domain or target constraint, the ABI did not provide
-  that.
-- Selecting top-tier nodes could become an implicit way to request
-  demotion without uncharge. That would make userspace depend on a
-  particular reclaim policy and could make future policy changes hard.
-- The separate completion-accounting question remained: demotion can
-  count as reclaim progress even though memory.current is not reduced.
-
-This series takes a narrower approach. It adds a typed source= key which
-declares only the source on which the existing memory.reclaim aging
-pipeline should be applied. It is not a demotion target selector, not a
-demotion-only goal, not an eviction-only goal, and not a change to the
-existing completion accounting. Leaving source unspecified preserves the
-existing memory.reclaim behavior.
-
-In that sense, this series extends node-scoped reclaim pressure to the
-memcg memory.reclaim interface. The existing node memory_reclaim
-interface can apply pressure to a node, but it is not scoped to a
-particular memcg. This series lets userspace apply the same kind of
-source-scoped pressure to a cgroup's resident memory on selected nodes
-or tiers, while still using the normal memcg reclaim path.
-
-The main benefit of this series is to give userspace a steering knob
-for per-node and per-tier memory placement control. A tiering controller
-can observe the resident memory distribution across nodes or memory
-tiers, and then apply reclaim pressure to the source that should be
-relieved. For example, it can apply pressure to top-tier nodes so that,
-under the existing tiering policy, cold folios can be aged and usually
-demoted to lower tiers, or reclaim from a terminal tier when it needs
-actual charge reduction.
-
-The existing memory.reclaim interface cannot express this. It applies
-pressure to the memcg as a whole, so on a multi-tier system the kernel
-may make progress in a tier different from the one userspace is trying
-to control. That makes feedback control of tier ratios ineffective: the
-controller can observe that a specific tier is over its desired resident
-footprint, but it cannot direct the next reclaim request to that tier.
-
-Patch 1 adds source=nodes:<nodelist>, which is the basic source
-selector. Patch 2 adds source=tier:<N>, where N is the memory_tierN id
-exposed by /sys/devices/virtual/memory_tiering/. The tier selector is
-only a convenience layer over the same source semantics: it resolves the
-current tier nodelist at write time and then uses the same source-scoped
-reclaim path as source=nodes:<nodelist>.
-
-The remaining issues from the old discussion are intentionally left out
-of this series. If userspace needs to control demotion targets, that
-should be a separate target/demotion-policy ABI rather than folded into
-source=. If userspace needs a strict "bytes actually uncharged"
-completion mode, that should be discussed as a separate accounting or
-goal extension because it would change the observable meaning of
-memory.reclaim progress. This series only adds source selection for the
-existing reclaim policy.
-
-References:
-[1] https://lore.kernel.org/all/Y5bsmpCyeryu3Zz1@dhcp22.suse.cz/
-
-Li Zhe (2):
-  mm: add source selector to memory.reclaim
-  mm: add tier source selector to memory.reclaim
-
- Documentation/admin-guide/cgroup-v2.rst | 29 +++++++++++
- include/linux/memory-tiers.h            |  6 +++
- mm/internal.h                           |  3 +-
- mm/memcontrol-v1.c                      |  6 ++-
- mm/memcontrol.c                         | 11 +++--
- mm/memory-tiers.c                       | 24 ++++++++++
- mm/vmscan.c                             | 64 +++++++++++++++++++++++--
- 7 files changed, 133 insertions(+), 10 deletions(-)
+diff --git a/drivers/firmware/smccc/smccc.c b/drivers/firmware/smccc/smccc.c
+index 5dc768ac4143..8398a77a2ec0 100644
+--- a/drivers/firmware/smccc/smccc.c
++++ b/drivers/firmware/smccc/smccc.c
+@@ -11,6 +11,7 @@
+ #include <linux/kernel.h>
+ #include <linux/arm-smccc-bus.h>
+ #include <linux/arm-smccc-rsi.h>
++#include <linux/arm_firme.h>
+ 
+ #include <asm/archrandom.h>
+ 
+@@ -100,6 +101,11 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
+ 		.requires_smc   = true,
+ 		.device_name    = "arm-rsi",
+ 	},
++	{
++		.func_id        = FIRME_SERVICE_VERSION,
++		.requires_smc   = true,
++		.device_name    = FIRME_DEV_NAME,
++	},
+ };
+ 
+ static bool __init smccc_probe_smccc_device(const struct smccc_device_info *smccc_dev)
 
 -- 
-2.20.1
+2.43.0
+
