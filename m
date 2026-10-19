@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424410;
-	b=ACi6Wbx4xUSzdoN5e31eHMvAAEQonZKkgmd/xgWCk6o/JRZPj9UlcpEDG1//lGDBl8yM
-	 YXn/Xqd2jqaoI/QoizOdrzF1/tPJ9RgB2DQ25zSKiTEXXFwR/3EUP2VCBgArXdrE537DR
-	 KMX9Y8E5VWwTLj4AG56phmmF+7XcnRDxSDLp0fCptHvskj0WMgWyDKbYZY8tt2azZn9A1
-	 y2MKUyY0ZZjvscNVFH/SVGP49iXgSX7I1U448u8IoZX7ZWyXK2z4VU9DwLPYuSZNh7g7H
-	 Uo9/bJ0fkFYIU3zRpStCvHn66+Z1mccQG14jYG2NRLMy6iMY+zQ/bpqDWNwgGel+T/A==
+	t=1792424416;
+	b=xJ0izDEUAjWrx5S2oWSkTaV56m7TdCx6eNu3X3TUlDVDTdEImczZyjLwl/h1ST59RxIZ
+	 YdCp7U/4J7/ol/4IeYJHGjSUGojaR/aLyAoVbfJpNbzehkDPNTPfkkftliapCs1MaJZVk
+	 uYx/YS290/3K5QOmzY36eApMVH2+0z4cSWXZzhjvnBM0O/WozEs8gfXJk5YPq0F2PDz2B
+	 vtROpJyIBjoMKfYBOcWoy5HCn12oSSczikqghmG1oEZ5uhywfmqO9knQ9lNeelJxqYel2
+	 Go2auOxcpOewrrsj3JeKQy3mpHxR46azZeiN0IPEm1Gl7Kc+rkD01H7abBNRevzXTvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424416;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=qwGM5xmeEPX+GaVpTSduBVTgYgRIBuVMbExrrgClW+Y=;
-	b=CVnNNskRHkAFYORf6jG+sm+cY7UZBYwreEvf6wG0YAgqrkkTTTH0Na56CpsT1r46M8hL
-	 k0GOpAHixwOJf0fjAvx/teUostUDsC4rNhyN2mDOF8O+4QgOgQpY83h9v2rOMM5FzxEa6
-	 r2ZJXcJykLUz/lVNzWZ46M4SWoT776a0E8LlUwMAM78AF4NxgOQUrwR41D+8LByGa3lgQ
-	 aJuZzJwpqmjCxFwlGT6WcdMIOKhjmG/hZVIT0DNfhu8ZF7PfpxaSuc2O0VnqfjNjXmQq+
-	 HrrxIoFZohn7bEShQv/voET/qmRWe3g7wOah/P/iEaKSu4S1R7XosUOUT49PbuUYXdA==
+	bh=SXHZ+e1cGJsvyptNENWdo+6tGuBkN7AAyV9j8F1Mqck=;
+	b=i6ShpHjlN6VhWBJOTQE4VLK2OU2R9AUm73s/OpZIaENi1OxB4SxOd4N+ONoGttcCT7kH
+	 KyDsygB4hJTNf9gj6EXa6ahvG03VO9VFxToY1+UIYMFlGN/DcpETICLfYzfPTP2XphO+Z
+	 ZVBO5vfS3JqXApIRbTaKjw0i1Volu5g07UjO5p3LAZTTCWaHD8Il2qiDGEkYWKptDPkBB
+	 xoSHuJmZUoZ0weP7W+hqJSyP0nIHa6pusAriHzQ4v+eUcjcEEO+OJn8WfFW7cQdzO/JOv
+	 kmTBSjghjt/tTcqk5I8sg5T1RM6mZK+75/T0+PaQIU5c0+e8hOtMsZ9AFirARfcH2mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="crLbjQ2/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSsXXuLo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D612260774E8
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:40:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89126083425
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:40:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=crLbjQ2/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800BD1F000C4;
-	Mon, 19 Oct 2026 15:40:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSsXXuLo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DD871F000C4;
+	Mon, 19 Oct 2026 15:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792424409;
-	bh=qwGM5xmeEPX+GaVpTSduBVTgYgRIBuVMbExrrgClW+Y=;
+	s=k20260515; t=1792424415;
+	bh=SXHZ+e1cGJsvyptNENWdo+6tGuBkN7AAyV9j8F1Mqck=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=crLbjQ2/0i1E5J+f61nXdnmUhYI8V+mKmbI5ryzsA2PSbcoe+DE5+maPSO6oIdxZo
-	 0ZtO+0eub6zceTLEA23QkoGnB4Slk9+YAwkieK3vhRn0Ur6AmZE2vLGy6TgJoFgX59
-	 J73Rur9/1ohJaEsTuvkAmWSgpJNY0m2IDfyMChloo6mM/KpzsRM7umMNAwI5t4JMhW
-	 adFYTv6l6g1pcxSPNoJRKYSvM7iiA1eDvu3vbAL/wtOfER6Hn1FjcjifmtAivX9o4T
-	 70UzRrureUYhoERZCLNmzpPPVFl2arRRyThOTEsSF7G1CbCBIxCNso13EqpbNAhewX
-	 hSjxdRn9a5r1w==
+	b=nSsXXuLo+A1IjoOvSDFOH9lDpkDUfQ1pUe9P0eWRXH4bzMNHBftbOlTF87MzbLbkv
+	 R7PpgjU1dcPUMuCz38ATdb14eTF6WJ2Vq6vC+5LTbCskADo37Z8d6qoR5RZT1UQbUE
+	 qL71xu2vtNyMnZOh8W+VbdaaOVmJoLJSNOwRTYQHCNKEVYAPEXVownXCuboM6K/V3E
+	 qnqq1R8B8bZEJkf7c3vUZv8zXDJPg2u4o6PPHUz4KeQDUc5Lv62aAgogwM23e9iZrt
+	 NnIidhwr1LuhFantAuNjTrRcohouXlCOxZao/Zm8T7BFnvG0lIDVS7ijzlRQIxM3cG
+	 +lhjxD6o/x0TA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773963811A71;
-	Mon, 19 Oct 2026 15:40:09 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773143811A71;
+	Mon, 19 Oct 2026 15:40:15 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,41 +54,51 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH 1/2] f2fs: flush SIT journal during filesystem
- resize
+Subject: Re: [f2fs-dev] [PATCH] f2fs: zone: fix to don't fail to grab GC
+ target
+ block on zoned device
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <179242440802.2714099.4838078075531499701.git-patchwork-notify@kernel.org>
-Date: Mon, 19 Oct 2026 15:40:08 +0000
-References: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
-In-Reply-To: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
-To: Wenjie Qi <qwjhust@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, daehojeong@google.com,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- qiwenjie@xiaomi.com, sunqiuyang@huawei.com
+ <179242441406.2714099.11346194792931754269.git-patchwork-notify@kernel.org>
+Date: Mon, 19 Oct 2026 15:40:14 +0000
+References: <20261019090032.1170825-1-chao@kernel.org>
+In-Reply-To: <20261019090032.1170825-1-chao@kernel.org>
+To: Chao Yu <chao@kernel.org>
+Cc: jaegeuk@kernel.org, stable@kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net
 
 Hello:
 
-This series was applied to jaegeuk/f2fs.git (dev)
+This patch was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Fri, 28 Aug 2026 22:12:39 +0800 you wrote:
-> During a filesystem resize, SBI_IS_RESIZEFS prevents new SIT entries
-> from being added to the journal and forces existing entries to the SIT
-> area. However, f2fs_flush_sit_entries() returns early when there are no
-> new dirty sentries, leaving existing journal entries behind.
+On Mon, 19 Oct 2026 09:00:32 +0000 you wrote:
+> From: Chao Yu <chao@kernel.org>
 > 
-> After the main area shrinks, a later checkpoint can access a journal
-> entry whose segment number is outside the new geometry and trigger
-> f2fs_bug_on().
+> With out-of-memory fault injection (inject_type=0x0080800f) on a zoned
+> device, f2fs stopped checkpoint during GC:
+> 
+>  F2FS-fs (dm-0): inject kmalloc in f2fs_kmalloc of move_data_block+0xc0b/0x12b0
+>  Workqueue: dm-1_zwplugs blk_zone_wplug_bio_work
+>  Call Trace:
+>   <TASK>
+>   dump_stack_lvl+0x4d/0x70
+>   f2fs_stop_checkpoint+0x1df/0x5d0
+>   f2fs_write_end_bio+0xdbb/0x1320
+>   blk_zone_wplug_bio_work+0x2aa/0x7d0
+>   process_one_work+0x5c6/0xde0
+>   worker_thread+0x403/0xb70
+>   kthread+0x235/0x2e0
+>   ret_from_fork+0x2f/0x70
+>   ret_from_fork_asm+0x1a/0x30
+>   </TASK>
+>  F2FS-fs (dm-0): Stopped filesystem due to reason: 3
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev,1/2] f2fs: flush SIT journal during filesystem resize
-    https://git.kernel.org/jaegeuk/f2fs/c/a6ede4054551
-  - [f2fs-dev,2/2] f2fs: refresh pinned allocation boundary after resize
-    (no matching commit)
+  - [f2fs-dev] f2fs: zone: fix to don't fail to grab GC target block on zoned device
+    https://git.kernel.org/jaegeuk/f2fs/c/14f329117d10
 
 You are awesome, thank you!
 -- 
