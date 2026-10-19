@@ -1,291 +1,433 @@
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592955A876A;
-	Mon, 19 Oct 2026 13:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5609A5A874C;
+	Mon, 19 Oct 2026 13:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418398; cv=none; b=ikOLDRIyzmzebiKSwHHAXqvFbxxHj4PtxZhuDB7VsndFoIR2yIH+ZLtajqAH9kVwhJu/6r8hiN/jzQtHgk4m769xQlWaRxYxXOGRsrb6purN7ODkNNQiVx8c/YQI3YCaCYhJhp+uqp/XLkpWq2ZndkYQCCzUwrSW3pXNvE2VdoM=
+	t=1792418396; cv=none; b=cKmFoIIYi6b/xlzTVN9ImbYSZR+Ol3UKwffnka1kcL/jKG5kTBVhOSC5GETkDGogWcN3sxaPTcXzPbtMflKXcOBM9NeVCrcoRuZXv2colutKKJlLpbzMWkyT98G64vkeQz50qRe3l21OKI2Wk+FX2uGUWegwKdp3XeS+HhmWMi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418398; c=relaxed/simple;
-	bh=yWnIN9sT/XPjg2/Jr9Aa6xK/8FyeWawOaeqkf8NOXbc=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
-	 Content-Type; b=Hv45vf2cK2EkW0DRAcOL1mPlZaarSTlaQ5w2KlSwbv1zQrYug5WZVMVoATJO/fghVoYMxvmOiSOG6r8ZkmYiseiVj6+RDym49aUhX1bl0WWlsc/E28uErdLxWRpTNItm52t3ATK3fo68K3tfICsMc4Rrs5VMAtlpFw+i9qmvD44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=NFpbY/kr; arc=none smtp.client-ip=212.27.42.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1792418396; c=relaxed/simple;
+	bh=IUHvC2eVWuoAKR3ZpmygdGMK18/wVIpi8H0NEynEIg4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RskB6tV1zCU43ap5nA+b+wWnV9ppwD0nlP6aMwxie+30TP06p8cAjwWws0w1NxiacAJDb8lW9X6bSTG/duvYkoUHg3nSFcexeGrIUnJUKWToeemucTJnVbuHzWIDBe9ZA/ITBMJyVjd1f7PqkHGsUL4wmy/yNK1loV+P7eItxG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Igd5f8lE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="NFpbY/kr"
-Received: from zimbra65-e11.priv.proxad.net (unknown [172.20.243.215])
-	by smtp4-g21.free.fr (Postfix) with ESMTP id DE25C19F5AF;
-	Mon, 19 Oct 2026 15:59:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1792418387;
-	bh=yWnIN9sT/XPjg2/Jr9Aa6xK/8FyeWawOaeqkf8NOXbc=;
-	h=Date:From:To:Cc:In-Reply-To:Subject:From;
-	b=NFpbY/krvvfad8GhdJ5i0Up8Q8lQRFlNx5eJ6tt030EbfKALsyuwgVhC1Z5MFIBhB
-	 mtpxd3m0bL0wpTg7koIsaajbueeYIVQMVfjQ6Fs416DS/+gnG882tC5aoLS0uIbqQ/
-	 N3DxhjO5GFY9lraQDv46SiH+/yUq3o1VQRVrhBRzaEO5L0cZMfOsOdUe+zyj31CmLC
-	 lKwdldNUf+5IIEZQ5zpP073hZ/dUogGWnkl0bRQ2qDPkKvK1R6RUGPytGa56VszcW3
-	 EJurp51sL/eid4NpMbpGlX19NAV9cxwHN9rjursV6+KN3tD8ohaWEuUx9bAySpofds
-	 XEhEqFwZRHzoA==
-Date: Mon, 19 Oct 2026 15:59:47 +0200 (CEST)
-From: =?utf-8?Q?St=C3=A9phane?= Grosjean <stephane.grosjean@free.fr>
-To: netdev-bot+sashiko@kernel.org
-Cc: mkl@pengutronix.de, mailhol@kernel.org, error27@gmail.com, wg@grandegger.com, 
-	s grosjean <s.grosjean@peak-system.fr>, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kuba@kernel.org
-Message-ID: <1570958385.1202784252.1792418387819.JavaMail.root@zimbra65-e11.priv.proxad.net>
-In-Reply-To: <179169441005.1406898.14224990493927376539@kernel.org>
-Subject: Re: [PATCH v2 5/5] can: peak_usb: harden PCAN-USB message
- validation
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Igd5f8lE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F24A1F000C7;
+	Mon, 19 Oct 2026 13:59:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792418394;
+	bh=63KAFSVioMvmPAu9MJRGj2FZ+H5J2Cg2KBDtQ3FryQ8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Igd5f8lEIQX7bw8KBMQCBhdf4/QuqUNrX2HEDADmWvp1zd19obyNMdqhvtkq5Zak2
+	 Vtc3qJCkSUp/zZRaDqlq0wWNSApwTpnD/LzKO7P51hOfk10QQflL7AffK4CfomP7jc
+	 ElQmBsz8rB0hce2InUOSFmCjGV3LJHf+nNJERRpugaEg9dw0VvOw1LW6bdlJJ6M6UR
+	 zDDDcvPBHCUVl2BuitDlg/mhJOTMVbLu5T1dv/TiG9RdrkFXAIDgHHRxUcGiy+dJVz
+	 vKm71WuugP2XD4MR1BMQQ60le4GULM+S5VgMglMdw5cXa7wI/xP5NsySRANTlR34gW
+	 w80Pesm8nyAxg==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Li Qiang <liqiang01@kylinos.cn>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] Bluetooth: hci_bcsp: validate received packet lengths
+Date: Mon, 19 Oct 2026 09:48:29 -0400
+Message-ID: <20261019135441.1420968-218-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
+References: <20261019135441.1420968-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - GC154 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: stephane.grosjean@free.fr
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.57
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: Li Qiang <liqiang01@kylinos.cn>
 
+[ Upstream commit ceea75ad8925425ee6520ead964b55888fe871ec ]
 
------ Mail original -----
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->=20
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 (2) =C2=B7 Low: 0
->=20
-> If you believe none of the issues are legitimate, please reply to
-> each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let
-> patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your
-> reply
-> (one such reply per series is enough).
->=20
-> - [High] The patch says it rejects PCAN-USB messages that would cause
->   reads outside the received USB data, but one path is still
->   unchecked:=E2=80=A6
->=20
-> Pre-existing issues:
-> - [Medium] This problem wasn't introduced by this patch, but the
-> encoder
->   and decoder disagree on the wire layout for RTR frames with SRR
->   set.
-> - [Medium] This problem wasn't introduced by this patch, but when the
->   decoder rejects a message, the diagnostic dump prints the whole rx=E2=
-=80=A6
->=20
-> --
->=20
-> can: peak_usb: harden PCAN-USB message validation
->=20
-> This patch adds bounds checks to the PCAN-USB rx decoder. The
-> status_len
-> byte at the start of each record and the SRR private-id byte after a
-> data
-> frame are now consumed only if they fit inside the received USB
-> buffer.
-> Malformed messages are rejected with -EINVAL.
->=20
-> > diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c
-> > b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> > index 169c00d93463c..56ddd134bae0f 100644
-> > --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-> > +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> > @@ -696,8 +696,11 @@ static int pcan_usb_decode_data(struct
-> > pcan_usb_msg_context *mc, u8 status_len)
-> >  =09=09mc->ptr +=3D rec_len;
-> > =20
-> >  =09=09/* Ignore next byte (client private id) if SRR bit is set */
-> > -=09=09if (can_id_flags & PCAN_USB_TX_SRR)
-> > +=09=09if (can_id_flags & PCAN_USB_TX_SRR) {
-> > +=09=09=09if ((mc->ptr + 1) > mc->end)
-> > +=09=09=09=09goto decode_failed;
-> >  =09=09=09mc->ptr++;
-> > +=09=09}
->=20
-> [Severity: Medium]
-> This is a pre-existing issue, but is the private-id byte also present
-> for
-> RTR frames?
->=20
-> In pcan_usb_decode_data(), this skip and the new check exist only in
-> the
-> non-RTR branch:
->=20
-> =09if (status_len & PCAN_USB_STATUSLEN_RTR) {
-> =09=09cf->can_id |=3D CAN_RTR_FLAG;
-> =09} else {
-> =09=09...
-> =09=09if (can_id_flags & PCAN_USB_TX_SRR) {
->=20
-> But pcan_usb_encode_msg() appends the writer id for RTR frames as
-> well:
->=20
-> =09/* can data */
-> =09if (!(cf->can_id & CAN_RTR_FLAG)) {
-> =09=09memcpy(pc, cf->data, cf->len);
-> =09=09pc +=3D cf->len;
-> =09}
->=20
-> =09/* SRR bit needs a writer id (useless here) */
-> =09if (can_id_flags & PCAN_USB_TX_SRR)
-> =09=09*pc++ =3D 0x80;
->=20
-> SRR is set whenever CAN_CTRLMODE_LOOPBACK is enabled. Suppose the
-> firmware's
-> loopback echo of an RTR frame includes that byte. Then mc->ptr is
-> left
-> pointing at it, and pcan_usb_decode_msg() reads 0x80 as the next
-> status_len
-> byte.
->=20
-> PCAN_USB_STATUSLEN_INTERNAL is clear in 0x80, so the byte would be
-> decoded
-> as a bogus standard-ID data frame. Every later record in the URB
-> would then
-> be parsed out of phase. That gives phantom frames, or an early
-> -EINVAL that
-> drops the rest of the URB.
->=20
-> The real RTR echo format can't be confirmed from the source. Both the
-> encoder and decoder lines came from the same commit 3a7939495ce8, so
-> the
-> difference may be intentional. The later reads are bounds-checked, so
-> no
-> out-of-bounds access results.
->=20
-> Could the firmware behaviour be checked either way?
->=20
-> > @@ -733,14 +736,19 @@ static int pcan_usb_decode_msg(struct
-> > peak_usb_device *dev, u8 *ibuf, u32 lbuf)
-> >  =09int err;
-> > =20
-> >  =09for (err =3D 0; mc.rec_idx < mc.rec_cnt && !err; mc.rec_idx++) {
-> > -=09=09u8 sl =3D *mc.ptr++;
-> > -
-> > -=09=09/* handle status and error frames here */
-> > -=09=09if (sl & PCAN_USB_STATUSLEN_INTERNAL) {
-> > -=09=09=09err =3D pcan_usb_decode_status(&mc, sl);
-> > -=09=09/* handle normal can frames here */
-> > +=09=09/* check if status_len byte can be read next */
-> > +=09=09if (mc.ptr >=3D mc.end) {
-> > +=09=09=09err =3D -EINVAL;
->=20
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but this new -EINVAL path
-> (and
-> the truncated SRR one above) leads to the diagnostic dump in
-> peak_usb_read_bulk_callback():
->=20
-> =09err =3D dev->adapter->dev_decode_buf(dev, urb);
-> =09if (err)
-> =09=09pcan_dump_mem("received usb message",
-> =09=09=09      urb->transfer_buffer,
-> =09=09=09      urb->transfer_buffer_length);
->=20
-> Doesn't this dump the full rx_buffer_size allocation instead of only
-> the
-> urb->actual_length bytes the device sent?
->=20
-> The rx buffers come from kmalloc() in peak_usb_start() and are not
-> zeroed.
-> After a short malformed transfer such as [00 01 00] (truncated CAN
-> id), the
-> bytes past the received data are uninitialized slab contents.
->=20
-> pcan_dump_mem() prints them at KERN_INFO with print_hex_dump(), with
-> no rate
-> limit and no debug-only guard. Earlier decode failures could already
-> reach
-> this dump.
->=20
-> Would it make sense to pass urb->actual_length here instead?
->=20
-> >  =09=09} else {
-> > -=09=09=09err =3D pcan_usb_decode_data(&mc, sl);
-> > +=09=09=09u8 sl =3D *mc.ptr++;
-> > +
-> > +=09=09=09/* handle status and error frames here */
-> > +=09=09=09if (sl & PCAN_USB_STATUSLEN_INTERNAL) {
-> > +=09=09=09=09err =3D pcan_usb_decode_status(&mc, sl);
->=20
-> [Severity: High]
-> Can a truncated bus event record still cause an out-of-bounds read
-> here?
->=20
-> pcan_usb_decode_status() only checks that the function and number
-> bytes
-> fit, and then advances past them:
->=20
-> =09if ((mc->ptr + 2) > mc->end)
-> =09=09return -EINVAL;
->=20
-> =09f =3D mc->ptr[PCAN_USB_CMD_FUNC];
-> =09n =3D mc->ptr[PCAN_USB_CMD_NUM];
-> =09mc->ptr +=3D PCAN_USB_CMD_ARGS;
->=20
-> At this point mc->ptr can equal mc->end. Suppose the timestamp bit is
-> clear,
-> f is PCAN_USB_REC_BUSEVT, and n is PCAN_USB_ERR_CNT_DEC or
-> PCAN_USB_ERR_CNT_INC. Then the call goes straight to
-> pcan_usb_handle_bus_evt():
->=20
-> =09=09pdev->bec.rxerr =3D mc->ptr[1];
-> =09=09pdev->bec.txerr =3D mc->ptr[2];
->=20
-> These read mc->end + 1 and mc->end + 2 with no check. The later
-> (mc->ptr + rec_len) > mc->end check in pcan_usb_decode_status() runs
-> only
-> after these reads. rec_len also comes from the device and can be 0.
->=20
-> For example, the 5 byte transfer [00 01 40 05 00] passes the new
-> status_len
-> check. It then reads ibuf[6] and ibuf[7], past actual_length, and is
-> reported as successfully decoded.
->=20
-> Now take a full 64 byte transfer whose last record is a bus event
-> header
-> ending at the last byte. The reads land on ibuf[65] and ibuf[66],
-> which are
-> outside the kmalloc-64 rx buffer allocated in peak_usb_start().
->=20
-> Those bytes are stored in pdev->bec. Userspace can read them through
-> pcan_usb_get_berr_counter() (IFLA_CAN_BERR_COUNTER) and in the CAN
-> error
-> frames built by pcan_usb_decode_error().
->=20
-> The commit message says the patch rejects buffers "whose contents
-> would
-> otherwise lead to accesses outside the received USB data area".
-> Should
-> pcan_usb_handle_bus_evt() check something like (mc->ptr + 3) >
-> mc->end
-> before reading these bytes, rather than relying on rec_len from the
-> device?
->=20
-> >  =09=09=09/* handle normal can frames here */
-> > +=09=09=09} else {
-> > +=09=09=09=09err =3D pcan_usb_decode_data(&mc, sl);
-> > +=09=09=09}
-> >  =09=09}
-> >  =09}
->=20
-> [ ... ]
->=20
-> --
-> Sashiko AI review =C2=B7
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009-canfd_check_=
-channel_idx-v2-0-f7b772929791%40peak-system.fr
->=20
+The BCSP transmit path reads an HCI command header when an extension
+packet has only been tested for a nonzero length. Its LE configuration
+packet handler also indexes bytes through offset seven without a length
+check.
 
-Thanks for the review. All the issues reported here are addressed in v3,
-which also adds fixes for related issues in the PCAN-USB Pro driver and
-in the core probe/RX paths.
+Validate the complete command and LE configuration packet headers
+before accessing their fields.
 
-pw-bot: cr
+Signed-off-by: Li Qiang <liqiang01@kylinos.cn>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+
+LLM Generated explanations, may be completely bogus:
+
+The local tree is **6.12.111** (`p-6.12-3-g710455e2077bb`). The buggy
+BCSP length handling is in this checkout; the candidate is not. The
+verdict is for this tree only.
+
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
+
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: `[Bluetooth / hci_bcsp] [validate] [check command and LE-config
+packet lengths before field access]`
+
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+Record:
+- `Signed-off-by: Li Qiang <liqiang01@kylinos.cn>` (author)
+- `Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>`
+  (Bluetooth maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, `Link:`, or `Cc: stable@vger.kernel.org`
+- Ignore pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
+  markers
+- Absence of `Fixes:`/`Cc: stable` is expected for this review and is
+  **not** a negative signal
+
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+Record:
+- **Bug:** BCSP TX reads an HCI command header without a full-header
+  length check; LE config RX indexes through offset 7 without a length
+  check.
+- **Symptom:** Out-of-bounds read of skb/payload bytes on truncated
+  packets (cover letter: “out-of-bounds accesses … when data is
+  truncated”).
+- **Version info:** none in the commit; code dates to git origin (2005).
+- **Root cause (author):** fields are used before the complete header is
+  known to be present.
+
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not a disguised cleanup. It is a bounds-check / OOB fix, even
+though the series is titled “harden packet and transport parsing.”
+
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
+
+**Step 2.1: INVENTORY THE CHANGES**
+Record:
+- File: `drivers/bluetooth/hci_bcsp.c` only (`+4 / -1`)
+- Functions: `bcsp_prepare_pkt()`, `bcsp_handle_le_pkt()`
+- Scope: single-file surgical fix
+
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Record:
+- **Hunk 1 (`bcsp_prepare_pkt`):** before: if `hciextn && chan == 5`,
+  always read `hci_command_hdr.opcode` and `data[HCI_COMMAND_HDR_SIZE]`.
+  after: only if `len > HCI_COMMAND_HDR_SIZE` (3). Short commands skip
+  vendor-extension rewrite and are slipped as-is.
+- **Hunk 2 (`bcsp_handle_le_pkt`):** before: `data[1]`, `data[2]`,
+  `memcmp(&data[4], …, 4)` with no `skb->len` check. after: return if
+  `rx_skb->len < 8`.
+
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Record: **Memory safety / out-of-bounds read (category d).**
+- TX: `HCI_COMMAND_HDR_SIZE` is 3. Userspace HCI sockets accept `len >=
+  4` (1 type byte + 3-byte command). After `skb_pull(1)`, `skb->len` can
+  be **exactly 3**. For vendor OGF `0x3f`, the driver then does `*(data
+  + 3)` — one byte past `skb->len`.
+- If that byte has high nibble `0xc0`, `len -= 4` makes `len == -1`, and
+  the BCSP header is built with a bogus length (`hdr[1]/hdr[2]` from a
+  signed `-1`).
+- RX: `memcmp` of bytes 4–7 with no `len` check. The receive state
+  machine normally makes that path in-bounds when the header length
+  field is 4; the extra check is defensive.
+
+**Step 2.4: ASSESS THE FIX QUALITY**
+Record: Obviously correct and minimal. Skipping extension parsing on
+short packets is the safe default. Early-return on short LE frames does
+not drop valid conf/sync packets (those are 4-byte hdr + 4-byte payload
+= 8). Regression risk is very low. No API/data-structure change.
+
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
+
+**Step 3.1: BLAME THE CHANGED LINES**
+Record: Buggy TX/RX logic is from `1da177e4c3f41` (Linux-2.6.12-rc2,
+2005), with later style/API churn only (`c5ec514016d1a6`,
+`8083ad1cf910dc`, `59ae1d127ac0ae`). Present for the entire life of this
+driver, including 6.12.
+
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. Not applicable.
+
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: Recent 6.12 BCSP work includes `b420a4c7f915f` (syzbot NULL
+deref in `bcsp_recv`), timer/kfree fixes. No prior length check. This
+commit is **standalone** (series 3/5; other patches touch `bfusb.c`,
+`btmrvl_main.c`, `hci_ldisc.c`, `hci_qca.c`).
+
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Li Qiang has no other `drivers/bluetooth/` commits in this 6.12
+tree. Luiz von Dentz is a listed Bluetooth driver maintainer and applied
+the series to bluetooth-next (`a4c72c8c7cef`).
+
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: None. Uses existing `HCI_COMMAND_HDR_SIZE` and `rx_skb->len`. A
+surgical patch against this file applied cleanly (`git apply --check`
+exit 0).
+
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+Record:
+- `b4 dig -c a4c72c8c7cef` → https://patch.msgid.link/6fb9de3e499424f798
+  0a158798ea02b040b73b8f.1784191283.git.liqiang01@kylinos.cn
+- Cover: `[PATCH 0/5] Bluetooth: harden packet and transport parsing`
+  (2026-07-16)
+- `b4 dig -a`: **v1 only** (no v2/v3)
+- Applied 2026-07-20 by Luiz to bluetooth-next as `a4c72c8c7cef`
+- No NAK on patch 3/5. BlueZ CI failed **patch 5/5** (`hci_qca.c`
+  context), not this file.
+- Patch 2/5 (`btmrvl`) later caused a Chromebook regression (Marek
+  Szyprowski). That is a **different** patch; not this one.
+
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record (`b4 dig -w`): To/Cc `linux-bluetooth@vger.kernel.org`, Marcel
+Holtmann, Luiz von Dentz, LKML. Maintainer applied it. No extra
+Reviewed-by on 3/5.
+
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No syzbot/bugzilla report for this specific OOB. Cover letter
+describes truncated-header OOB as the failure mode. Trigger
+reconstructed from this tree’s `hci_sock_sendmsg` + `bcsp_prepare_pkt`.
+
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: Series of five independent driver/transport bounds checks. 3/5
+does not depend on 1/2/4/5. Do not pull the others as prerequisites.
+
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: lore.kernel.org WebFetch returned 403. No stable-thread hit via
+`b4`/openwall for this subject. UNVERIFIED whether anyone already asked
+stable@ for this SHA.
+
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
+Record: `bcsp_prepare_pkt`, `bcsp_handle_le_pkt`
+
+**Step 5.2: TRACE CALLERS**
+Record:
+- `bcsp_prepare_pkt`: `bcsp_dequeue()` (unrel, rel, and ACK). Dequeue is
+  `hci_uart_proto.dequeue` → `hci_uart_tx_wakeup` / TTY write worker.
+- `bcsp_handle_le_pkt`: `bcsp_complete_rx_pkt()` when BCSP channel 1,
+  unreliable → `bcsp_recv()` → `hci_uart_tty_receive`. Syzbot has
+  already reached `bcsp_recv` via TTY (`TIOCSTI`) in this tree.
+
+**Step 5.3: TRACE CALLEES**
+Record: TX reads `hci_opcode_ogf` / raw `data[]`, then `alloc_skb` +
+SLIP. RX uses `memcmp`, `alloc_skb`, `skb_queue_head`,
+`hci_uart_tx_wakeup`.
+
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: TX is reachable from userspace `sendmsg` on an HCI RAW/USER
+socket bound to a BCSP UART device. RAW vendor OGF 0x3f needs
+`CAP_NET_RAW` (`ogf > HCI_SFLT_MAX_OGF`); USER channel bind needs
+`CAP_NET_ADMIN`. Not unprivileged, but a real kernel OOB on a live HCI
+UART. RX is reachable from the UART/TTY receive path (including
+fuzzing).
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: Same series adds analogous header-length checks in
+bfusb/btmrvl/qca. H5 (`hci_h5.c`) does not implement this vendor-
+extension rewrite. No duplicate BCSP fix in this tree.
+
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: Yes.
+- `drivers/bluetooth/hci_bcsp.c:197` `if (hciextn && chan == 5)` with no
+  length check
+- `drivers/bluetooth/hci_bcsp.c:405-406` LE handler indexes `data[4]`
+  without `len < 8`
+- Bug introduced in 2.6.12-era origin; not post-6.12
+
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: **Clean apply** for the actual edits (`git apply --check`
+succeeded). Nearby mainline context uses `timer_delete`; 6.12 still has
+`del_timer` in `bcsp_pkt_cull`. That is unused context for a tight hunk.
+No semantic rework needed.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: `git log --grep='validate received'` on this file: empty. No
+earlier equivalent check.
+
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: Bluetooth HCI UART BCSP (`CONFIG_BT_HCIUART_BCSP`) — CSR
+BlueCore UART. **IMPORTANT** for those devices, not core mm/VFS. Still a
+production protocol path, and this file is actively fuzzed.
+
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Bluetooth in this tree is active (many btusb/btintel/hci_bcsp
+stable fixes). BCSP itself is mature; this is an old bug, not a new-
+feature fallout.
+
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: Config-specific (`BT_HCIUART_BCSP`) + HCI UART BCSP hardware. TX
+trigger also needs an HCI socket send of a short vendor command.
+
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record:
+- TX: HCI command packet, `hciextn` (default true), `len == 3` after
+  type byte, OGF 0x3f. Constructible from userspace with
+  `CAP_NET_RAW`/`CAP_NET_ADMIN`.
+- RX: truncated LE frame; `memcmp` path is likely already in-bounds if
+  the state machine honors the header length field.
+- Not a hot every-packet path for well-formed kernel-generated commands
+  (`hci_cmd_sync_alloc` always includes the 3-byte header).
+
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: One-byte (or more, if `data` is short) read past `skb->len` on
+TX; possible wrong BCSP channel/length if the spilled byte looks like an
+HCI extension. May stay inside skb tailroom (not always a KASAN crash).
+**Severity: HIGH** (memory safety / OOB), not a guaranteed panic.
+
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Record: Benefit medium-high (closes a long-standing OOB in a fuzzed UART
+protocol). Risk very low (4 lines, skip-on-short-packet). Ratio favors
+backport.
+
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
+
+**Step 9.1: COMPILE THE EVIDENCE**
+
+FOR:
+- Real OOB read in `bcsp_prepare_pkt` when a 3-byte vendor HCI command
+  is sent on BCSP
+- RX handler indexes through byte 7 with no length guard
+- 4 insertions / 1 deletion, obviously correct
+- Code present in this 6.12 tree since origin
+- No prerequisites; applies here
+- Bluetooth maintainer applied it to bluetooth-next
+- Same class as other packet-length checks already landing in this tree
+
+AGAINST:
+- No syzbot/user crash report for this exact bug
+- TX trigger is privileged
+- RX `len < 8` check is likely redundant given the BCSP RX state machine
+- Sister patch 2/5 in the same series had a regression (different
+  driver)
+- Framed as “hardening”
+
+UNRESOLVED:
+- lore.kernel.org WebFetch 403; no confirmed stable@ discussion
+- Whether skb tailroom would make the 1-byte TX OOB a KASAN hit on this
+  kernel’s allocator
+
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — maintainer-applied; logic is
+   local and readable
+2. Fixes a real bug that affects users? **PASS** — OOB on truncated
+   vendor commands over BCSP UART
+3. Important issue (crash, security, corruption, deadlock)? **PASS** —
+   OOB / memory-safety (HIGH, not proven panic)
+4. Small and contained? **PASS** — one file, five lines
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — buggy code present; surgical
+   apply succeeded
+
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: Not a device-ID/quirk/DT/docs exception. Ordinary small memory-
+safety fix.
+
+**Step 9.4: MAKE YOUR DECISION**
+This belongs on 6.12. The TX length check closes a real out-of-bounds
+field access on a path that HCI sockets can hit; the RX check is cheap
+and harmless. Scope, risk, and local applicability all fit stable rules.
+
+===============================================================
+Verification
+===============================================================
+- [Phase 1] Parsed subject/body/tags: author Li Qiang, SOB Luiz von
+  Dentz; no Fixes/syzbot/Cc-stable
+- [Phase 2] Diff: `hci_bcsp.c` +4/-1 in `bcsp_prepare_pkt` and
+  `bcsp_handle_le_pkt`
+- [Phase 2] `HCI_COMMAND_HDR_SIZE` is 3 in `include/net/bluetooth/hci.h`
+- [Phase 2] `hciextn` defaults to true (`module_param`)
+- [Phase 3] `git blame`: lines from `1da177e4c3f41` (2.6.12-rc2)
+- [Phase 3] `git merge-base --is-ancestor a4c72c8c7cef HEAD` → not in
+  this tree (exit 1); object exists as a commit
+- [Phase 3] `git log --grep='validate received' --
+  drivers/bluetooth/hci_bcsp.c` → empty
+- [Phase 4] `b4 dig -c a4c72c8c7cef`: lore msgid 6fb9de3e…; v1-only
+  series; applied to bluetooth-next
+- [Phase 4] `b4 dig -w`: linux-bluetooth, Holtmann, von Dentz
+- [Phase 4] mbox: no NAK on 3/5; CI fail was qca 5/5; btmrvl 2/5 later
+  regressed Chromebooks
+- [Phase 4] UNVERIFIED: stable@ mailing list (lore WebFetch 403)
+- [Phase 5] Callers: `bcsp_dequeue` → UART TX; `bcsp_complete_rx_pkt` →
+  `bcsp_recv`
+- [Phase 5] `hci_sock_sendmsg`: `len < 4` rejected; after type pull,
+  `skb->len` can be 3; OGF 0x3f on RAW needs `CAP_NET_RAW`
+- [Phase 6] `git describe HEAD` / Makefile: 6.12.111; buggy `if (hciextn
+  && chan == 5)` still present
+- [Phase 6] `git apply --check` of the two hunks: success
+- [Phase 8] Failure mode: OOB read past `skb->len` on TX vendor-
+  extension parse; severity HIGH
+- UNVERIFIED: whether this 1-byte read is always inside skb tailroom vs
+  KASAN-poisoned
+
+The TX path can read past a 3-byte HCI command; the fix is four lines
+and applies to this 6.12 tree without extra commits.
+
+**YES**
+
+ drivers/bluetooth/hci_bcsp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/bluetooth/hci_bcsp.c b/drivers/bluetooth/hci_bcsp.c
+index 591abe6d63ddb..6461492cf653b 100644
+--- a/drivers/bluetooth/hci_bcsp.c
++++ b/drivers/bluetooth/hci_bcsp.c
+@@ -194,7 +194,7 @@ static struct sk_buff *bcsp_prepare_pkt(struct bcsp_struct *bcsp, u8 *data,
+ 		return NULL;
+ 	}
+ 
+-	if (hciextn && chan == 5) {
++	if (hciextn && chan == 5 && len > HCI_COMMAND_HDR_SIZE) {
+ 		__le16 opcode = ((struct hci_command_hdr *)data)->opcode;
+ 
+ 		/* Vendor specific commands */
+@@ -402,6 +402,9 @@ static void bcsp_handle_le_pkt(struct hci_uart *hu)
+ 	u8 sync_pkt[4]     = { 0xda, 0xdc, 0xed, 0xed };
+ 
+ 	/* spot "conf" pkts and reply with a "conf rsp" pkt */
++	if (bcsp->rx_skb->len < 8)
++		return;
++
+ 	if (bcsp->rx_skb->data[1] >> 4 == 4 && bcsp->rx_skb->data[2] == 0 &&
+ 	    !memcmp(&bcsp->rx_skb->data[4], conf_pkt, 4)) {
+ 		struct sk_buff *nskb = alloc_skb(4, GFP_ATOMIC);
+-- 
+2.53.0
+
