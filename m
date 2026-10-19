@@ -1,118 +1,143 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E90B493D4F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:09:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397349; cv=none; b=LLSL5pyM1pddJlo9MIpYu4R+lLODy/btuCa4Zp2nm7HkDd3nE23IHd7i8oLcYk5X/1CkjtQFcS9S+2KJWKWdvRNj1QrkSGUhHbLN90ipnGlLIDZKh8AzET1++3WIZZ4++Hb+g+5a8CbRQ/Xs+X9+jxxglGepEKkaf14L89zgUgw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397349; c=relaxed/simple;
-	bh=dtESdVNm5Uyq+WsB5q7A+flDEcFfp0XndOYr6KOo+Nw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=gNAN+XeKZyfEUWns0dhp0u1lLsexmHPrqxpQlKtQwzikmXDWPlcMfqsyxEyAl2onPjaCtLxSnRFc2hQSs+aitxn+NzkvL1qrl5lokQQicCJF5cFPGnXiJ4z8K0H3NccU2JRJYC5iHb+XrMpggItSKsduE01+ZEjxfvEoGTMP6/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IOgMhH3E; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19D748DB3A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792397376; cv=pass; b=g8gAMhGgB6lE448UDmBgyj5Jl5lIm2QB22+eVoCAw9NmefBgQRCjSjmSwjs4EV5LKzKQih1AH/dzGFPDIMzHpHYU+0RpiDDVyVdkHlABMaINgoyqryTA8EU7wy/eOhjSYWWtcLtQGTQybtU8USIQOgymrbWCgseMJiYUxOjDUBg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792397376; c=relaxed/simple;
+	bh=9D5TqnkicT2U7tRgx/dr8Iw0EFKZV2iKPc6zOXL2J2s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QCREJyMserS2DW7FswyAm+6UyxE1TJsBaw2IlyX2LWJjDrqtvIeDSf4l/tRFP2Aw/9M/tsDMSWsrE+32ba6vx7h0wX6dJHt2z4UI0ujDXrX+rbmB0a21UfCyY7SwSIm1OJ+2f64tIqh5KpE7+lHhfE1xrVfpq2Iq9W311lPRrEs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=w3gwgMSs; arc=pass smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IOgMhH3E"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e946155442so14523075ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:09:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="w3gwgMSs"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c423b145922so140800166b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:09:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792397372; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DmDrQacOJW8i0ro9ousNmSgVf4qJycbmrnSkpznHekCG4hcoRPTG6ikwsS+oxXL5sT
+         E3KZI5ro1wQ36mQYf4I5P+wppVv68RAd3vUDhgCV9FxhS52w0OR6Tooo02OKsbMWeLh7
+         zJ2GJ9gNy7vcH1LCcUqTRtoRC9+WKQUjl61PKvdzxtpB8LdeLeZdoYNR+G0bCHD7+xki
+         vBCAhqwv2wJuCRPrQiWBlcxr5zZvNwRTNW166+UQhahhk9ZVQysBbEJGs7ql6zDw2kMS
+         SbRn5jYOA935SzyRIGPj28SkCroJwXbQa90/1ypl+n5rALwd6QlD9pcxRpSJnhr3tcVM
+         iTfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mKp2lGowX8peLqRZk7J7Wle27OZPi0eWO/3k4N8FozY=;
+        fh=S0qGclqm1J3SCKzendCLKv/pP1AqdgZGvcfaF6tTxSs=;
+        b=hxJEne4kuf4hFeuVzxWUJhc9RnCuvlRthozX37VrDpVEiW8fmc3AbblsieXcbj0v3f
+         WXPQAzV3NFW0+IvWPauJSnOuKsh9FRJOmKwbM1W7VJ+hNivbrFFbE+B7y/3Ib+X2R800
+         dw32Tbnq/XuyK/zY6Ua/HE6629HqjYVMJvr7AIOKJrlEzAoF+BQ4eXZ7z1HzvMjH1ffd
+         tA1Gw3iARLmeyfPlqEn5hDij/NhjQ4iNdYHD8QEoMIY7s2pUBwbgjJLLjiXXul45+DeM
+         RMqcS02iiKDRoGTVrJLAanJkilOS23jfn5rJJqt/t4UzyUE6lE1BbViZpiGKBmHK2fCN
+         +kEA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792397348; x=1793002148; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VGbRH8whTW1xe91pmC1KbquILe+PEXcyh5kpYwROQW0=;
-        b=IOgMhH3EfLXdWxcQQJIFZ8NM90N3VshgbCyEgrwaEhGWyRD9TQjljb0tDqVdq+YccC
-         p63fvhb9ypUkmot45JO0QjatKdEoUfEa7ddZPIL3q+klSRG39Hz082zIcmxPmOypSzyd
-         gHisylMloMXHa7XAT4a1y93Pqw+lbghZ6C3jflzurHFaSA5Jt7Alv2JYPc/xEt0DFW/b
-         IJTxf71FsQ4kh228sJ4JB/ivh/fbZrayzSOBpyauNiZWvOEaVfXBTDJA2eDYF0wYeuVU
-         FDNXeuPqMQVQHrecREF2GJckOi5Zvl0VlEjGnSPRXA0xX0JLNdqT9pA9K74WUc8PjvfR
-         tdUw==
+        d=futuring-girl.com; s=google; t=1792397372; x=1793002172; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mKp2lGowX8peLqRZk7J7Wle27OZPi0eWO/3k4N8FozY=;
+        b=w3gwgMSsj2oO7WQIuCObip/gnS/PHQTlQNHnZVxOh5PenQSOtasjQhzXs2VHhaPY7L
+         dkkfgURsTAnCbJ8+aa4Zhih9RiuMOSs2ePs8Ek31S6s5b1WDfneqV+YroxPFtH4rWtMB
+         PLuRGx/hTDEqSc3/ndmBgYr2OylDpWiM1SpNyjKX1R6J2YnBAvtcpGMHhNqDjvZy1SF9
+         KgUOy5ED/IJ5z0BtvKwkldp53FtZr5v9Cj8o936eBtoH44rksJ3V38L71yQpMJMo8m/S
+         xZWR+x2aOTCja6WiwTIksxMM047i1FYyyiCLuV86G0GXekKDlt6BqxxYgV5deApwlMbU
+         6p2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792397348; x=1793002148;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792397372; x=1793002172;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VGbRH8whTW1xe91pmC1KbquILe+PEXcyh5kpYwROQW0=;
-        b=K13jWAmJlFsEyRVgimgNGgrwB1GUsS/8c0H+joZ5WBNAv8b8zmuiKXnKjrzlZXfT/x
-         upyLOB4eDHxLJEpGJ9yizeFxKKJlHWtLQHiphuIiI93OVw7f7NX3mQMH43SJqcSGfYo/
-         nm5kHK2xaRhMKRg4znE4OQL1ODnhPAeUVDl8dY/SRjNfB6uRPOgsAudhtRVuNx/5hk69
-         B3RvWxY0rUtuInaR1nFP7yCOs8okOur1d5mAQVFK7BKKoPntiOJN6ezxl9+jMKZmN48X
-         oyMPIE5IUKWJR0DZ7lTW0Qrj0FVK4dl5C1jn6zgfCnoaCLDGqjr5EYaLwmlaAOkbcwQo
-         jnsw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQWxWmOGF7MNZJOF4L+r0yXLVMscudKVkvjxVkYMxRE/rMxoAzm63MDrVFfeT/VnA4MxodeojnR0fTaAA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEZ+sU6dZKC2FHqTRTZ6GQpGYmN878CyB3EWGVbKj0NtJEdcmN
-	iITPKfEza+IurKaJzb+b9UNlQtCXAL9D5NEE2IVFb6cbxNXGr44CAw+xU62rJvkG
-X-Gm-Gg: AYBFou2SPF7OydsaelI4i0gmdwMlD9RqPlErdvyAY1Pis/gG3NTKGHRC2aETO+XY/C6
-	cq1a/Jqgq6ioZW4C3CKpa02vgcMfbVSzn2DGIyGpCfsM/bAH2DWbG5zrSrTZbdfaJtUHdKf6PSK
-	k0IhPBvOFKvHNXSI0JvVGXtgFA2g+rhlGT3pZbFYvAuZbuv9sq6npyP0p0tFMlihzhJRsjzU+bD
-	ovb4REMNsl6HGRTIEwv0OGh8FKhDMGOAAxm+F1yvnqnG9+IKqpDHGzuYiJDRfa1zwHFnBzw6nrs
-	+e7MEd6tanLO5UNSwpXg98U9B4CXAGkVwBNGj8x4J4w76Z1d6mkaug1CPoiFDscvTWnVafbV40p
-	QRzQsF+CgnpOGaDEkHa2qkXdga8ccG3LvNmzwT97MhSLagReqiuwi3XPm+bbzV9hxbq/661NQGh
-	imYt9KQFRg6rbhuc3Oo2KRl0GDaMR9huN0Y6oq2yUkwdKFLimGQ/ueGATe/wIrkWD1JSVV+ZMTg
-	BJ8QIZTtYO1rWkHDeouUAi7lTTMPcyd8MY8PdCdizvAXsQ5tbq3nEUo8TE3lguWTwUtVyDOGQ0W
-	mxATwt1MX+jcL5NXVTmPBptRBfyA9P75+wQzMTKbrpuSJqXV
-X-Received: by 2002:a17:902:d4c9:b0:2e9:66c4:1717 with SMTP id d9443c01a7336-2e9a735f740mr54440775ad.61.1792397347649;
-        Mon, 19 Oct 2026 01:09:07 -0700 (PDT)
-Received: from localhost ([2601:644:8000:7a86::d63])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e833f1asm35236695ad.43.2026.10.19.01.09.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 01:09:07 -0700 (PDT)
+        bh=mKp2lGowX8peLqRZk7J7Wle27OZPi0eWO/3k4N8FozY=;
+        b=YdLIvYsqfjYn9PXvwDaTUB6q3S2fvQQY0BsQBMliR26WHhcYp5fr4dVMDm0f4KP/u9
+         vej2bEOynj/5SKc00rVvzktAH7YhEgIRcRRab49QD/i5/XPpZVaONOa5MRJSWIz0BM9z
+         LQNLAOx3InFm9QYaBYskWA3PNc3/zdPr/k46sH751N4c4bRVqOUglEEj97L0IGTRN1Cf
+         548aQNZp7ZTV8icDsaQR2OA28qz8xTtCodCxgH+F80/8he76ik8IWddjlucHCbNmI4cs
+         D34wtxB9jN1Eqm+n/LE9aX+9UrWJx+owfVULgpDPm+owUQQL4mHGokxFGECgPcLZDYkZ
+         tpVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxq4BdGG6B3KV1J6hPDGlKWWs5NaEQ66yOK6g+nLKKBzk/uupqT2J4P3w40tao2raRQK+L4SVsPi5T0vZs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKo1egDPJqlwsjvsEO9jorV9Scpkbvsa4ze2YacMe1yp85276F/
+	GG3rkXXt5cXMILG/Ho6pE7z1wvAKqMNmRd0Esz3Fn7ZSYJddWlPt+zk3Leqd0DQvgZAIxbbuEkS
+	nIFeglKSOGoBlgX+4GfzQRQcqSZ2U8H/3JqylLZ23kw==
+X-Gm-Gg: AYBFou23JQMh04CN0gN534lVZqV7mG9P5H4vGv34earxCHEu1lxvERb6S9OlzQMeg/+
+	8JuCWo547AS5d3XC8GEsncyL5M7J/ydPKAO3yRsHNmmhpMIgXa5ALcbL99vlWhNqnJ8FTEMeasP
+	bMPu3hZzKgF+ix/aK+Nwz6m/dLWNYWbvMVJuzhnUgjPDaDhtDHLmo9kjg7qHir3t64B8hdZ+D3/
+	3nTuw5O7rMzjYUBcyZBZvcxUJpl5CR3LVAkYIAfVNdrGG3Cytq978yzgZ6yVzfcDhIJnO8GfylJ
+	JmBhzrhUFNK/yTBxQpzAnsaNeubcqCACGPmzgOeN8Vv8hv1L/Ivc8cIdaRGlY3EebplpizNHvLi
+	BbULshATAprTwsPZ3NygCp88=
+X-Received: by 2002:a17:906:ba89:b0:c34:1ed:54d9 with SMTP id
+ a640c23a62f3a-c41999720a9mr416234266b.4.1792397371695; Mon, 19 Oct 2026
+ 01:09:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20261017155059.698368299@linuxfoundation.org>
+In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Mon, 19 Oct 2026 17:09:12 +0900
+X-Gm-Features: AclHuK8Huz6jdrYWmKBBEhptdxroSHGbHzeJx-piV8U8UsZA0jaDmMp3LdQ65vM
+Message-ID: <CAKL4bV54AZWUbd0w4YvkbJt3VMEN6VmOz3HZAPHRZ6S3CWA_Vg@mail.gmail.com>
+Subject: Re: [PATCH 7.2 00/10] 7.2.12-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 01:09:05 -0700
-Message-Id: <DM8NTXCWM1GK.AA1YGD7D8E60@gmail.com>
-To: "Bartosz Golaszewski" <brgl@kernel.org>, "Rosen Penev"
- <rosenp@gmail.com>
-Cc: "Linus Walleij" <linusw@kernel.org>, "Thomas Petazzoni"
- <thomas.petazzoni@free-electrons.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "open list" <linux-kernel@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH v4] gpio: mvebu: fix Armada XP per-CPU mask register
- save/restore
-From: "Rosen Penev" <rosenp@gmail.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261018230117.23497-1-rosenp@gmail.com>
- <CAMRc=MeUt=dwZUybCx=JUvDs9ZWa8Zyg6DzJy_bxwzn_k=RgFA@mail.gmail.com>
-In-Reply-To: <CAMRc=MeUt=dwZUybCx=JUvDs9ZWa8Zyg6DzJy_bxwzn_k=RgFA@mail.gmail.com>
 
-On Mon Oct 19, 2026 at 12:59 AM PDT, Bartosz Golaszewski wrote:
-> On Mon, 19 Oct 2026 01:01:17 +0200, Rosen Penev <rosenp@gmail.com> said:
->> The Armada XP variant keeps the per-CPU edge/level mask registers in a
->> second I/O window (percpu_regs) rather than in the main GPIO window.
->> The suspend and resume paths however read and wrote them through
->> mvchip->regs with the per-CPU offsets, which hits the global
->> GPIO_EDGE_MASK / GPIO_LEVEL_MASK registers instead. Per-CPU mask state
->> was therefore lost across suspend/resume, so a level line could end up
->> unmasked behind genirq's back and trigger an interrupt storm once
->> interrupts are re-enabled.
->>
->> Use mvchip->percpu_regs for the Armada XP per-CPU mask registers in
->> both the suspend save and the resume restore paths, matching the
->> mask/unmask handlers and the probe-time masking.
->>
->> Fixes: b5b7b487431b ("gpio: mvebu: add suspend/resume support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Rosen Penev <rosenp@gmail.com>
->> ---
->>  v4: rebase again
->>  v3: rebase again
->>  v2: rebase
+Hi Greg
+
+On Sun, Oct 18, 2026 at 12:54=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
 >
-> Are you rebasing it on top of the gpio/for-next branch of the GPIO git tr=
-ee
-> as indicated in MAINTAINERS? Because this still fails to apply. :(
-I cloned it, yes.
+> This is the start of the stable review cycle for the 7.2.12 release.
+> There are 10 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 >
-> Bart
+> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.2.12-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
+Linux version 7.2.12-rc1 tested.
 
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
+
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+
+[    0.000000] Linux version 7.2.12-rc1rv-g590446e5a2fe
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Mon Oct 19 16:42:14 JST 2026
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
