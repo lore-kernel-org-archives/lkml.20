@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E4E3E5EE7;
-	Mon, 19 Oct 2026 06:01:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA5D3E0C4C;
+	Mon, 19 Oct 2026 06:03:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389711; cv=none; b=XGr6sy3Mn2rhPVTAFl7kZBCbEjsWsQrt0XbIVT+o1+0OJbYNcqyJQ5ta0WkoWc+LcCN+Caa66sRDKO7ij4nsiumnm9Xmrw1/9L8NF8yuR243j9dfZdEWoMjeDz2QmWjuOROrvzADFPB5NjiLeOlcBGBdhka5QuY2mkaHFmA0MGQ=
+	t=1792389798; cv=none; b=D8XnZHrQWTXfOo1GJhes/G7BaSLX+WOUtTEkG/3hYjTSuBLv0FJKU0+4MjDqtbXHK03kZUss2hqg2mR8fOFYLW36jYelBI5y5SXhg2LaAmm8dcMPbgbCgPsd3+IUrzMIoHv/ZqCKT/1xfMXAj1NJcBx9XkhavZluWjq1jT+kT5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389711; c=relaxed/simple;
-	bh=SfevGECX3atyQdwN8SmBVPw0REzDgaWVYDpS8d+k4dQ=;
+	s=arc-20240116; t=1792389798; c=relaxed/simple;
+	bh=AY/24NOLhUTvFBHtpi5VV0KVnYXZvSb3VvoL6yfq7e8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d0wdEbnFGGuVQ4kiY1YW1XVl77XnJfdw4I0v1D6Tctj8eTrATZefE4bSPRoPRKGwMkT3U+aCxj3XeVOE+zT1s6xu0o/V0JwydRBJlWFpmthE8A1aoEewnNoKLWLrv/5u162RNzC5umUr3cRBQ06vkVUcDKBv36yLjf4H30fJpTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOVrdr7S; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=XsywHbZ3K5WRNkSRPmhAMdwtxT06eHZQ3nnmn+rghEI4vU/jtZJt8tlEwMBE8/Znnq0b6WYEbTX0RjEkX525xb57VPApZExhdYU9/xNTaTrdOwWpjNCeClVYBbjOUJ/wn9fZiO0VLJ1RBkDM1USijuEhRL697NW3PQa42ScgXMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cPs3QdC2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOVrdr7S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5341B1F000C4;
-	Mon, 19 Oct 2026 06:01:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cPs3QdC2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1761F000C4;
+	Mon, 19 Oct 2026 06:03:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792389710;
-	bh=guAxLVnBrzbtbLtxdX+Xt+/dnElaoi1SWUVPVVVeGrc=;
+	s=k20260515; t=1792389797;
+	bh=DtQpzuYLEMqPbHSIuKdJh7tfZ0hWiMw9JCfp1F7Y7bU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BOVrdr7S1kpxFlTBlvGTTGpb/xCPqoF8qa5rcp1V4dPrSCpGrFYUWC5weE+cI72Mf
-	 dyQAbG1Z9Y2+qOU0AKfuNn9jpG+AiYpQ6nrpKjZJRwaOgrDyHW5/4jz66Y8/CL1Gi+
-	 NzfBG9uWXuIW2eaRpS8DJaejOTDhmjWZeus+l6niUdUND6QuJRAKZnd4t/WHBSAjOa
-	 g9T1e4QRVgtIMaVlVcdI64exDExwfiFgMRDWpN8BNDWX3o72D49wFr2mDvPYXhK3iG
-	 woW8YeTF8tJuVcFwbpQTjlBr9Xpx+d4dxe9m8CPXEZ431o3jlQmau7SQXnPqli2Hx0
-	 18a9pqexMSGHw==
-Message-ID: <2f656848-5f03-40c6-88fa-d1fdae10a03c@kernel.org>
-Date: Mon, 19 Oct 2026 08:01:43 +0200
+	b=cPs3QdC226kT2GPCOPF9HOf9EsT81L2ZdKxYJiZ4x5ldq5uvdS1z3srfB5aJso2Wp
+	 dDXUJqg3HKGeaqCkwamtz+gHUSxzUmRQ8xLa3PbOUci7C9zNEFjxFpMDwjKP8cnsKd
+	 um9OV6BpGsymbUsx4Y6d+lG4fohRO+mPiC75KE0rHEMfHCTwmuqMXGNvqOClLGVFgM
+	 Iz52WcOO3FWOD0sE2ifDrZ+T6rKYuosunA/It1BUcTJrUOr4l8ri8ynYyCy6mR/T3g
+	 vnss0ALzfAlG/KI+rqIQHsll1O/J8F0NnL79RsCKRkyR7Xy/xCAEuFRlraurTPeGWr
+	 epertD/DLZLOA==
+Message-ID: <366fba16-a479-4e4b-b6b2-7d0dc6ae4fd4@kernel.org>
+Date: Mon, 19 Oct 2026 08:03:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,23 +35,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: i3c: Add Amlogic A9 I3C controller
-To: junyi.zhao@amlogic.com, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
- linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
- Kelvin.Zhang@amlogic.com
-References: <20261019-a9_i3c-v1-0-329d819d621f@amlogic.com>
- <20261019-a9_i3c-v1-2-329d819d621f@amlogic.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
+To: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
+ German Pablo Lindo <germanpapulindez@gmail.com>,
+ Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261018-ov13858-x1e-v2-0-cd35434cfcfe@gmail.com>
+ <20261018-ov13858-x1e-v2-1-cd35434cfcfe@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -97,24 +92,29 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261019-a9_i3c-v1-2-329d819d621f@amlogic.com>
+In-Reply-To: <20261018-ov13858-x1e-v2-1-cd35434cfcfe@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19/10/2026 07:34, Junyi Zhao via B4 Relay wrote:
-> +    i3c@3a7000 {
-> +        compatible = "amlogic,i3c-a9";
-> +        reg = <0x3a7000 0x10000>;
-> +        interrupts = <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>;
-> +        #address-cells = <3>;
-> +        #size-cells = <0>;
-> +        clocks = <&clkc 15>,
-> +                 <&clkc 16>;
-> +        clock-names = "pclk", "fast_clk";
-> +        status = "disabled";
+On 18/10/2026 23:10, George Neacsu via B4 Relay wrote:
+> From: George Neacsu <geocausa@gmail.com>
+> 
+> The OV13858 is a 13 megapixel sensor with a four-lane MIPI CSI-2 D-PHY
+> output. So far its driver has only been probed through ACPI. The
+> Microsoft Surface Pro 11 with a Snapdragon X Elite uses it as the rear
+> camera and describes it in the device tree.
+> 
+> Describe the sensor input clock, three supplies, reset GPIO and
+> four-lane CSI-2 endpoint.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Tested-by: Sergey Lebedev <lsa.uz@pm.me> # Surface Pro 11 (Intel)
 
+Did not happen.
 
-Drop, your binding was not actually tested.
+Add only applicable tags. Otherwise please explain how this code was
+executed and tested.
+
 
 Best regards,
 Krzysztof
