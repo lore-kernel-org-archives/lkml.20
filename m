@@ -1,111 +1,182 @@
-Received: from d.mail.sonic.net (d.mail.sonic.net [64.142.111.50])
+Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EA7363C73;
-	Mon, 19 Oct 2026 02:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.142.111.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9192E266C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792377923; cv=none; b=XqeGAUGcENnl434iHnjTi+ZB0qb6EL1PrfKZKcIU1cevqk6oWosDeVWte2vp3Bp4qETWPNXB7cT3nxeuZarLprEDGDAUtC4ZfhvPY+raZ0GmvhBxUP1EZduntfkijkHht1II3rrQDhWQGqZG3jjm2o3+bs+HbpPvq3G/1QR09l4=
+	t=1792378099; cv=none; b=BzzcrmAgfy+97STWc/lTN0Ob5BY8b3bck/gsNjr/5GBo2QlyUsaQZF0B1TWKX3sY+bwSTqsmGHyJ7fRUvhviELLoJSAped23Y/PO4dJiA5j6egPUXEnf7GA2/Zy9VaxQNB6t58A179QaSW5JuWBCLiCYxi+LE74YW+83hoeeiSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792377923; c=relaxed/simple;
-	bh=+QevNQc2XjSyp2Px1Mfr/fXMXEunlC/FL37MnyaKstk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mh0Pn/YSDikEbJJjOYYX79fcrYxpooTzGz3Y6G5TMmFU/64aqErPhTHcfb8phLZTxybMjC48Uo5NGHGWtQFApQSksdCEkPY7s7pJBsPx+XeT9sHNdN6whAfv3ixQYF6Lae7m5IuvQ9UIQlzfewhEft2ynCIngitKkbtEmL5pmbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com; spf=pass smtp.mailfrom=murgatroid.com; arc=none smtp.client-ip=64.142.111.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murgatroid.com
-Received: from fred.murgatroid.com ([70.134.61.105])
-	(authenticated bits=0)
-	by d.mail.sonic.net (8.16.1/8.16.1) with ESMTPSA id 69J2YKTK024951
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Sun, 18 Oct 2026 19:34:21 -0700
-Received: from murgatroid.com (unknown [10.0.1.185])
-	by fred.murgatroid.com (Postfix) with SMTP id A64A72A604C6;
-	Sun, 18 Oct 2026 19:34:20 -0700 (PDT)
-Received: (nullmailer pid 83998 invoked by uid 1000);
-	Mon, 19 Oct 2026 02:34:20 -0000
-From: Christopher Hoover <ch@murgatroid.com>
-To: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>,
-        Benjamin Tissoires <bentiss@kernel.org>,
-        Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: Lixu Zhang <lixu.zhang@intel.com>,
-        Joshua Crofts <joshua.crofts1@gmail.com>,
-        David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-        linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Christopher Hoover <ch@murgatroid.com>, stable@vger.kernel.org
-Subject: [PATCH v3 1/3] HID: hid-sensor-hub: Synchronize callback removal with raw events
-Date: Sun, 18 Oct 2026 19:34:18 -0700
-Message-ID: <20261019023420.83976-2-ch@murgatroid.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019023420.83976-1-ch@murgatroid.com>
-References: <20261019023420.83976-1-ch@murgatroid.com>
+	s=arc-20240116; t=1792378099; c=relaxed/simple;
+	bh=uJd85rqKa3hx2YcUCQnwN6zrGg8MtC8mCup4hf7dmx0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GwyOVAMCh7r2dNHlDb93ex4GEH07/VKt8XUKNr9JjU2XZ8lwoa6YH06oXTk+Lh07GiBZDmKxlMNRGs0icvsk5jItR3AbU+dQJ87fRTaPDTHDGbNJv4bMytqK4IU8+zwayOkLcS+hQyhVcTMtbHXlkqKndVOes8QLf5czFDmpkhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DpsqdlHq; arc=none smtp.client-ip=95.215.58.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DpsqdlHq"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=uJd85rqKa3hx2YcUCQnwN6zrGg8MtC8mCup4hf7dmx0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792378094; v=1; x=1792982894;
+ b=DpsqdlHqh57TOQVudIzSXAdrXDkcT/txgvanrBVID2zfgCU4OWXnyxk1y3aNrelR/Wrvmsrt
+ YXipXfJW1yjA6HnuJrTeFY2F7ODIBeX51BsDaXpt3frFu7HM+oF+FZzA6AN6MubNUJSCjtHNVXG
+ hSnaGDRs5SLRcBpOu+0R2tH0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b000c8b95270aa37;
+	Mon, 19 Oct 2026 02:48:13 +0000
+X-Mizu-Trace-ID: b000c8b95270aa37
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ff8c13d1-371d-4da6-95fc-9fd13adddb56@linux.dev>
+Date: Mon, 19 Oct 2026 10:48:05 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Sonic-CAuth: UmFuZG9tSVZK6/MTUZCX/g0qVrLt1G4E/lwde0b3q5NYLf8lKThdWJAeqW7sp9ZhB9qMI6RJ+Uxd+MEdd7iMtTYV6h7Gh7fmSfFN+wxu99w=
-X-Sonic-ID: C;EtnWlmXL8RGmtrCPAMRQ2g== M;7Mf5lmXL8RGmtrCPAMRQ2g==
-X-Spam-Flag: Unknown
-X-Sonic-Spam-Details: not scanned (too big) by cerberusd
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v3 2/7] mm/vmscan: move vmscan tracepoints to a local
+ header
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
+ <david@fromorbit.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <linux-mm@kvack.org>,
+ "open list:BPF [MISC] :Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261013131309.2790253-1-ridong.chen@linux.dev>
+ <20261013131309.2790253-3-ridong.chen@linux.dev>
+ <20261014124914.21c21559@gandalf.local.home>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20261014124914.21c21559@gandalf.local.home>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-sensor_hub_raw_event() holds pdata->lock while it looks a callback up
-in dyn_callback_list and calls its capture_sample() and send_event().
-sensor_hub_remove_callback() takes only dyn_callback_lock, so it can
-unlink a callback and return while another CPU is between the lookup
-and the call.  The sensor drivers remove their callback in .remove()
-and keep the struct hid_sensor_hub_callbacks in memory that devres
-frees right after, so a report racing an unbind can call through
-freed function pointers.
 
-Take pdata->lock in sensor_hub_remove_callback() too, outside
-dyn_callback_lock as in sensor_hub_raw_event(), so the removal waits
-for a report in flight.  pdata->lock is otherwise only taken in
-sensor_hub_raw_event(), and callbacks are removed from process
-context.
 
-Fixes: 401ca24fb34a ("HID: sensors: introduce sensor framework")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christopher Hoover <ch@murgatroid.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
- drivers/hid/hid-sensor-hub.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+On 10/15/2026 12:49 AM, Steven Rostedt wrote:
+> On Tue, 13 Oct 2026 21:13:04 +0800
+> Ridong Chen <ridong.chen@linux.dev> wrote:
+> 
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> Move include/trace/events/vmscan.h to mm/trace_vmscan.h so that the
+>> tracepoints can be extended to reference vmscan-internal structures such
+>> as struct scan_control, which is not visible outside mm/.  This mirrors
+>> what several other subsystems already do with their trace headers (e.g.
+>> arch/x86/kvm/trace.h, drivers/gpu/drm/drm_trace.h, net/xfrm/trace_iptfs.h).
+>> As they do, use a relative TRACE_INCLUDE_PATH so that no Makefile change
+>> is needed.
+>>
+>> No functional change.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+>>   MAINTAINERS                                        | 2 ++
+>>   mm/shrinker.c                                      | 2 +-
+>>   include/trace/events/vmscan.h => mm/trace_vmscan.h | 4 ++++
+>>   mm/vmscan.c                                        | 2 +-
+>>   4 files changed, 8 insertions(+), 2 deletions(-)
+>>   rename include/trace/events/vmscan.h => mm/trace_vmscan.h (99%)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index c5519d67b6f4..80d2a9dd0525 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -17575,6 +17575,7 @@ F:	Documentation/admin-guide/mm/multigen_lru.rst
+>>   F:	Documentation/mm/multigen_lru.rst
+>>   F:	include/linux/mm_inline.h
+>>   F:	include/linux/mmzone.h
+>> +F:	mm/trace_vmscan.h
+>>   F:	mm/vmscan.c
+>>   F:	mm/workingset.c
+>>   
+>> @@ -17722,6 +17723,7 @@ R:	Shakeel Butt <shakeel.butt@linux.dev>
+>>   R:	Lorenzo Stoakes <ljs@kernel.org>
+>>   L:	linux-mm@kvack.org
+>>   S:	Maintained
+>> +F:	mm/trace_vmscan.h
+>>   F:	mm/vmscan.c
+>>   F:	mm/workingset.c
+>>   
+>> diff --git a/mm/shrinker.c b/mm/shrinker.c
+>> index 7ec2a9704f6f..3c3e87c4b61c 100644
+>> --- a/mm/shrinker.c
+>> +++ b/mm/shrinker.c
+>> @@ -3,7 +3,7 @@
+>>   #include <linux/rwsem.h>
+>>   #include <linux/shrinker.h>
+>>   #include <linux/rculist.h>
+>> -#include <trace/events/vmscan.h>
+>> +#include "trace_vmscan.h"
+>>   
+>>   #include "internal.h"
+>>   
+>> diff --git a/include/trace/events/vmscan.h b/mm/trace_vmscan.h
+>> similarity index 99%
+>> rename from include/trace/events/vmscan.h
+>> rename to mm/trace_vmscan.h
+>> index 8a872990b4be..c5d824fef554 100644
+>> --- a/include/trace/events/vmscan.h
+>> +++ b/mm/trace_vmscan.h
+>> @@ -648,4 +648,8 @@ TRACE_EVENT(mm_vmscan_kswapd_clear_hopeless,
+>>   #endif /* _TRACE_VMSCAN_H */
+>>   
+>>   /* This part must be outside protection */
+>> +#undef TRACE_INCLUDE_FILE
+>> +#undef TRACE_INCLUDE_PATH
+>> +#define TRACE_INCLUDE_PATH ../../mm
+> 
+> The proper way to do this is to have:
+> 
+> #define TRACE_INCLUDE_PATH .
+> 
+> And update the Makefile with:
+> 
+> CFLAGS_vmscan.o := -I$(src)
+> 
+> -- Steve
+> 
 
-diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-hub.c
-index 6470a290ebfc..7cf9f398592e 100644
---- a/drivers/hid/hid-sensor-hub.c
-+++ b/drivers/hid/hid-sensor-hub.c
-@@ -173,7 +173,14 @@ int sensor_hub_remove_callback(struct hid_sensor_hub_device *hsdev,
- 	struct sensor_hub_data *pdata = hid_get_drvdata(hsdev->hdev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&pdata->dyn_callback_lock, flags);
-+	/*
-+	 * sensor_hub_raw_event() holds pdata->lock while it looks up a
-+	 * callback and calls it.  Taking it here too means no report is
-+	 * still using the callback once it is unlinked, so its owner may
-+	 * free it as soon as this returns.
-+	 */
-+	spin_lock_irqsave(&pdata->lock, flags);
-+	spin_lock(&pdata->dyn_callback_lock);
- 	list_for_each_entry(callback, &pdata->dyn_callback_list, list)
- 		if (callback->usage_id == usage_id &&
- 						callback->hsdev == hsdev) {
-@@ -181,7 +188,8 @@ int sensor_hub_remove_callback(struct hid_sensor_hub_device *hsdev,
- 			kfree(callback);
- 			break;
- 		}
--	spin_unlock_irqrestore(&pdata->dyn_callback_lock, flags);
-+	spin_unlock(&pdata->dyn_callback_lock);
-+	spin_unlock_irqrestore(&pdata->lock, flags);
- 
- 	return 0;
- }
+Thank you. Will update.
+
+> 
+> 
+>> +#define TRACE_INCLUDE_FILE trace_vmscan
+>>   #include <trace/define_trace.h>
+>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+>> index 29b31446fc11..6207dad9e644 100644
+>> --- a/mm/vmscan.c
+>> +++ b/mm/vmscan.c
+>> @@ -71,7 +71,7 @@
+>>   #include "swap.h"
+>>   
+>>   #define CREATE_TRACE_POINTS
+>> -#include <trace/events/vmscan.h>
+>> +#include "trace_vmscan.h"
+>>   
+>>   struct scan_control {
+>>   	/* How many pages shrink_list() should reclaim */
+> 
+
 -- 
-2.53.0
+Best regards
+Ridong
 
