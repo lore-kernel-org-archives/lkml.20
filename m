@@ -1,202 +1,155 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022136.outbound.protection.outlook.com [52.101.96.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465AF48E0D4;
-	Mon, 19 Oct 2026 11:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408152; cv=none; b=G2eHVzGUzahhN1p53on9a2GpbkzcAqMSL4QgrMHa8TkiaIh875HePAygSfixsSj19fBVRfeiIvs7WB5lq3i1fzWS5GQuEGxOv52yB1/Xhg7Ed6eSOyYIIV4+uyi7rww0IwzyU9sKpRJQeVVnhHmlg0YEX7U+uTSDnS2Hiq3fy4Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2DD4A2A56;
+	Mon, 19 Oct 2026 11:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.136
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792408152; cv=fail; b=EIiUeliDCI0cPWaNnF/yCUyF/McoXBIrlgn0Yj4S1EhAbcjq7zWdCI+DNUhWVGvU+JvmfR1grPQL5k1YKKPHed5BgOM3+s6akLhnnssdu0axvriF0dPuLx439qhUiPClFVsUbMbBW8boKId5PPhwkl5EOERnDxGHmc7nyiVFpmI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792408152; c=relaxed/simple;
-	bh=YKS1uBvejftmHFx6jUhtuLNG/o/oax5eGbeAyHS/iF0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cRuv8tN1/OGGOcX6iM1R2WvXhv4/rVme0eluz0vKpsKfNpMxECtPog3gORyyZPzAlYtFu2ZN4hIGb6bpLA0rmEp8EGEoFCQoDPiXh4GmEQgJQme5YjbMg9z2J4+u3PGJMgXRR4zfEFKjAZ7EJTgh7bocoVN3wA/aW2TL1E3HNIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=uBSHOhtp; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=kCVNaaB7; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=CXRSV57l; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=68FWpfje; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	bh=Y2ZVvuEIiaDJwmZTLO0D0ZzX0GXo29JVWfBEv4VRoxk=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=kzBwbvQUv4a1V70Wvxhoxuly5w+Uqrbx48ZpdfPEd5sag42glEhvy3dqgcRq8p9VlRzJOm4P/T4BjW1HhlVmTqu+YIxBgvUn86Z99l5BTnOpeVDtFxwFTbuEOwG5y9SteNXJjXEfILhR2OEV3wpQeLNVOEOwyAmhoD4SWpzxKaQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=TX/TAwY1; arc=fail smtp.client-ip=52.101.96.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="uBSHOhtp";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="kCVNaaB7";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="CXRSV57l";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="68FWpfje"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 28DDA21C92;
-	Mon, 19 Oct 2026 11:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792408149; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=11z2qWpi42Rwu8TO6o4vcVqXgXps69LtjAEf/dfd4gs=;
-	b=uBSHOhtp3N7zzu3OgYJq++zleXKxOfWKjoAcx+1adMUV32u8cf/syk7A1pQTgWe/RqbXJw
-	OsY5yJUHMKn3ovxDw2CQ8zSCZahYL3r3P6P1uOVxmFT179ii8QAbJsj7bolDLMjSNbfKnd
-	7p5Nnx6jV2pBSCAk0gSg289OTex6NTw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792408149;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=11z2qWpi42Rwu8TO6o4vcVqXgXps69LtjAEf/dfd4gs=;
-	b=kCVNaaB7xxJF1vWsrl2M4Xd5XpSBb6HmwIA34PJkN7xKQLC0udKbkUcAsIMQ2Ss9y7deQu
-	AAo70dVcO77nlQCA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=CXRSV57l;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=68FWpfje
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792408148; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=11z2qWpi42Rwu8TO6o4vcVqXgXps69LtjAEf/dfd4gs=;
-	b=CXRSV57lKvfRhATV4ut3Akmw4hB9UONE1lZXC5L9sfHFMzUY0V6Ii7C/var7jbJhNeV6QI
-	3a1v7F5tuBMRw78zrxJFdWJklOTDZa2gL/exbjmNLfYO+KJxfOKSMszq5gDD3JwBkoH0H8
-	x8YJemM+a+0RM7ofEavbbSLJMMFlBNE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792408148;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=11z2qWpi42Rwu8TO6o4vcVqXgXps69LtjAEf/dfd4gs=;
-	b=68FWpfjeq6UcQMaP3zVS3ajhrCp2oNgj+QGpTbM8zPio3CAqV0Fyr+x5Q33EL1eLvxbRfz
-	PsvkCEiXB086MSBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F1E7F134B3;
-	Mon, 19 Oct 2026 11:09:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id O4YyM1P61WrlFAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 11:09:07 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 8311CA1413; Mon, 19 Oct 2026 13:09:03 +0200 (CEST)
-Date: Mon, 19 Oct 2026 13:09:03 +0200
-From: Jan Kara <jack@suse.cz>
-To: Nikolaos Karaolidis <nick@karaolidis.com>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Zhihao Cheng <chengzhihao1@huawei.com>, 
-	Mateusz Guzik <mjguzik@gmail.com>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fs: rotate inodes whose page cache could not be dropped
-Message-ID: <n6urwkuqd2vr6ednnp64y2a7tbgobbdwmog5i3plxtidb2goq3@ph52n25jnu7y>
-References: <20261016102515.111285-1-nick@karaolidis.com>
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="TX/TAwY1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sWLCHsQLP8sYXokjou5CBnZVD3SfmWYci4KujnmtyXs6GFew4/+M/Z+GHE5j3bcYtLZz2uaeBonjsRsr3iuATvkCZgS9crFcq6tytZz7rcDKXjI20/dvkGfx7LwFrtf9LqtBZbOuX5l2Aqq7JJ+J9QJJyBr0jSiiZpdzLPPGua5qNL8Jhtgb1roWjcP99c48eH3+KUFIgX+QlKLZU1H7RGvaVR+nLz05ROE0kRIjhh7q7bQ2mEb9AZtY6QIjP3zCUwI+BnkuNXYRX1cmy51LN4YjabTTzfaNokMl2woxjDiiXXG+qLP1RPZ5/yuDLaDi/Tc7nbvR4gbCl67PXxXBrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v3ngGOeMj1tvRxCNqntnyBFh/99aUHmc6KAji8Np2v4=;
+ b=W0RtG/vwLA7EUf8sYYfRLgk6RwV3qkt1k6Bw+YqHxmcPbJE66lH6ORugLZBT+kXObm9UePjBRtpDiWsjXNFntlFS0WHQKWdGsdY1GUndiycDAyjyiztQ7FLC8No5qPg65GJRj7mNBvqb6YSMF/UokjmLjsXlQC15BlPFsjdNr7CQz41NS3nozoljraI9UnpwzNlPPFtZvlLrxFOtT3vTrybROOZhXP1Wl+n2IlQaDI94AQ443W/oZjgSi0teopSlt2lbZpCGcCRXCtSIbtJNM2HJOh/KDmcdChCtvyJJp4I/26MdUSnflnEEOY2fxun41oCjk1lmWTtWCohyNj40hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v3ngGOeMj1tvRxCNqntnyBFh/99aUHmc6KAji8Np2v4=;
+ b=TX/TAwY1yQ3Oppp+hyrCXlvT924qXHf92nCVQUdjm4IFfUNp9q1U6S9GV4DSpGJgx6JK4P4oLjYmw4yIBjB7UVBUJDlebGeAQ0cltQY2dfMVpz9Eeo81fGNU+shwkONePDqV45IGNfmVkE5Y8V24/NqwNWu+1bnkn1ADu1ek/00=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO4P265MB5979.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:29c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 11:09:07 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 11:09:07 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 19 Oct 2026 12:09:06 +0100
+Message-Id: <DM8RNR7GWJ9J.3UBAJZ0CDNWPL@garyguo.net>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] rust: num: Add inline annotation to Bounded methods
+From: "Gary Guo" <gary@garyguo.net>
+To: "Link Mauve" <linkmauve@linkmauve.fr>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Yury Norov" <yury.norov@gmail.com>,
+ <rust-for-linux@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20261019105744.2943249-1-linkmauve@linkmauve.fr>
+In-Reply-To: <20261019105744.2943249-1-linkmauve@linkmauve.fr>
+X-ClientProxiedBy: LO4P265CA0172.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:312::15) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016102515.111285-1-nick@karaolidis.com>
-X-Rspamd-Action: no action
-X-Spam-Score: -4.01
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,zeniv.linux.org.uk,suse.cz,huawei.com,gmail.com,vger.kernel.org,kvack.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,karaolidis.com:email,suse.cz:email,suse.cz:dkim,suse.com:email];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 28DDA21C92
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB5979:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4b44865-66c0-4b75-4b1a-08df2dd164dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|10070799003|6133799003|18002099003|22082099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	wi0Ht2mrC0HKP/tmWJJQnn12mKe3cHkUTeZ7a7tOhOR3GtPOGjtl76cpJmA2X5nlKk/59ePDzB6DInPGIydUv9zdacHkZZ/gbHjYq8g0lky/eiWcByOFQ/S2trkyQJ+8TTQkCyObaK7CKtWWB1RO2v0A8o0FrOHKuoRAnoW+ZTomVljk2QkGnsxjy+DsAfCkplEIQqEvVwxf1iLeYdNoKI2idv157P2qHWSIH5iy9JwZIs1uPJZDXJSqHs9VePZh8z1Kt27pnWayqZf2ge245b3ABeK7utZ7wQTXkByfRODt+5yfdsQ2mKznSHQgFaUcsr/kWqlMNpB1pgeR8glJeacR8Na1F24es5gdmUAKVc9/mkkhlhYbsPLQNl98RTWE5Zui5qrMw10Kw9f+tjzUqZEymVnv50pcZYwQpCkS1wT/icUZYVnfvbXdjkKQ02YR8Hmg4v4Om2iEbyQ1eceCZHF1Yclc1gCZWQG0ahQpZwDn6e64DrzAnRr9WlwNuIC0K3jRDoWU0YyeGsRdwdmZA5Hs0JSU6VKuBN64GQkl57ifh2Cfy4yKzMUakK8j5fgkoLzJMriWk2T7hWzIDniZZnqT4g97KONoEbywIAMOAyXc0c+y+JI/46Pc99VXxZiF+P8fYXeiR2D571ZIze+LUWKVB0pTNGA8MbgAaDISISE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(10070799003)(6133799003)(18002099003)(22082099003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eXFDb1lJTG14cEE3ZCtKNXhHeXAzeGRZRTZjMkorUVBWMXpQZnNZZ0czL3Rt?=
+ =?utf-8?B?Z2FnMEFIbnhoNHEvNkVlT0htcWxqV29MMDBuWFRJNEZ6UFlPVjFqbFEwRzJG?=
+ =?utf-8?B?QTV5bDJBZ3JScTIyWUQ3cmlES2o2SW82L1BaZEZWRUVFWDBYK3JSdUhtVjVQ?=
+ =?utf-8?B?ZUwwaVI5b2FuN3lIUStXVE1HU3E3ckJ6RVlWTXNkTE5aTTkwbmpyVjkyUTRG?=
+ =?utf-8?B?L0FYUmhCS3hkTWlxQ2hJenlaRmNjaXI0VkZpMWs5UTdtWS9nYkxMekR1c3RT?=
+ =?utf-8?B?VHJEWENzU1UrUzU3OUpWMTdwRmMzVSsyLy9qSW1yeVhobFBPVzFMcm5JTngz?=
+ =?utf-8?B?NXRwVVEzV0VYNGdhVWdRUG9zbHdMQ2EremJQMTFtRWprU1dERzlGb0JXakcz?=
+ =?utf-8?B?MHpmZmFpUlVlME5lN3lOSUFGTTlCRnhZUm9hckhZYW1CWkhXaDFlNDlCNDVr?=
+ =?utf-8?B?UGRqcUZYTnI5MGI5MkVteDNUSlJ5UFJYM2oyZTk2eTFxbXMycEpUejd1YmYw?=
+ =?utf-8?B?eUZvQkNML0loZ1MrR3RuVlpWU0N1V1h5QkttT2FzelhDdkJMTXJZL3ZOVGR2?=
+ =?utf-8?B?djJINm8xS3Y2T1NyK1NlOTBSZk42YTRGTHM2RmRzdHhhc1FBMGJWUy9vOFl6?=
+ =?utf-8?B?a2JwaDBoK2hUOUE0YVExUHptUFRzb2Zjc2dDNmZsY1FMM2lxZGF1QldiNnk0?=
+ =?utf-8?B?TndSNWxBbnFTVVhSVVFzYkZMY2tYbFVGSEloR25hc1VXaEYzZHhEMjFhRnUv?=
+ =?utf-8?B?WnNJSS9JVG51cGtzSWtsbW5CVjJzbTFOdllWMUd2RDN0Njh2TjB6Z2EyTk1z?=
+ =?utf-8?B?ZW9Cek1IYWR4ZUtrMmVOaTg1QStRc09WODFMMDZkY3BoMHdKSVV3aFI2OGsv?=
+ =?utf-8?B?UlhpUGt3bnlsZHF4eUtkRjNMNUpkbjk1UncvZUtJSTNEL0FYK05SQlZnSU84?=
+ =?utf-8?B?QWptc3lFaFFqQjJxQit5czVGZXdhRDg3WVdiKy84V3ZZalVXeDJMWEN3M29n?=
+ =?utf-8?B?VDVIWFJ3UWlKWVh3SS9IYmRWL1h2WnNwSlJpZHB1MzYrSENVNHBJNnZBZVht?=
+ =?utf-8?B?a01FYlJyVjk0c01iVXM1N2tsQjBlSTBoNEl4NThsN0FETGhpMHRCMTJ5Njdv?=
+ =?utf-8?B?aDUxT0JZZGUwQ3ZzOHF3TWtFaHZvUlpsdUlpY2JTZDl0RVZzNysrUTFGejV1?=
+ =?utf-8?B?aFdTMXQ3d3pqZGlqZFcxcDlVdXpIR1Z6bDBwL3RBZklxR2lSKzlRMThXYXJ0?=
+ =?utf-8?B?NzQ5QWN5Tzh6d3hjWnlHZStLMHpKNVFBV3NQNTJVZEN5aHh0VGxnOVh3U2hU?=
+ =?utf-8?B?TmRWb1Q3MW9IRHoyMHhOSExFVERHYnM5bkVaalFRcDdGSmNsVVFIVjN6TWRF?=
+ =?utf-8?B?dGFXMFNQRWNMQkU5cFQvMElNZnRKN1FuZnZSUjV3MzBmWXM2MllKcGs0T1Bw?=
+ =?utf-8?B?NDNXNDM4MTRkL0Y3TURxS09QVG1qVFpBUHlNRElhSmZTWTB2SlNxL3JCbmM3?=
+ =?utf-8?B?Wk5zbGovanZpRWNRMUJjY2NLN0U3QnhWWmZOdktON09NR0padndtOE9ZdEEr?=
+ =?utf-8?B?M3p5Uy9yRVQrcjJrU0pieURLQ29BTUFRNUtKNUFJUHBIWGJKK3F5WGlPNU1m?=
+ =?utf-8?B?K1ZUZXE0M1BHMTJBK2hUOXVXK090cTI0MFJyMnZieU1pR3podmNaTkJPSG1R?=
+ =?utf-8?B?ZWloenlzUXRHNWdMNUI4WjhWREFuR1BwenVTL01XYnpqWThNbUdWaGhNa0tR?=
+ =?utf-8?B?d1hTeTFWN1Y0a2FrZXozZzBybUpxamU1dFpjT1dJL3FZdElHTllKaVkwQlBz?=
+ =?utf-8?B?dEcxMEJaeHhPL2RGcktUUm1SemZmOStZYjh1cnJxd28rZitkL2tIZG9ieGxR?=
+ =?utf-8?B?aWl0eXVwQkRmb1dQZnM2NVJVaFV0eno1TTFCOEVjZ2lvVCtXa2FJLzc4aWN6?=
+ =?utf-8?B?cXNlNWRDZFI1TFM3aFdwa1JUOUZWNDdmbUlRL3N1a3FoZUxTV2hLYlRQTTF0?=
+ =?utf-8?B?T1BHZjZCeXRlZUlaUmNlc2RIZHI3RUt0UVNtMytHRXZ3QTVaTGNqNmhxRkZ0?=
+ =?utf-8?B?NXMzTjBLOEw2TjBrZDhWS3NTMWRhL3l6RmhyS1R0M3ZjYVlGR09ROHc2N2RV?=
+ =?utf-8?B?SzBKekxxQVZSWFFrSldIRkxZZ1VGbmdDQ3psWEJpRlorbzN4TU1HSUtuUHlS?=
+ =?utf-8?B?LyswUlBINkV6RWdBTk1GRU1Xd1MvTFZvUGUvenAvbnhpdkR1RHNEakpWT3lX?=
+ =?utf-8?B?TFZvS2FQKzU1b3U5K0p4czc5R01rdjgrR2Y2VjN0ZWpNL0xrZnRhalBqOTZO?=
+ =?utf-8?B?QlRIeHVnSjhkL2VIcU81SG9jbWk2bzZ5Sm9tV3QrZGZ3clVkbG5IQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4b44865-66c0-4b75-4b1a-08df2dd164dc
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 11:09:07.4707
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KdrWDSuRYogM0bm81fZK6RocJ7XYsE3yJHij5winrV82tQxZ9oEAm4ai1hX9hxlfHFKOwiVAg/111+O6QtviQQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB5979
 
-On Fri 16-10-26 10:25:15, Nikolaos Karaolidis wrote:
-> When inode_lru_isolate() drops the page cache of an unused inode, it
-> has to unlock the list, so it returns LRU_RETRY and the walk restarts
-> at the head of the list, where the inode still is. If
-> invalidate_mapping_pages() could not empty the mapping, the restarted
-> walk strips the same inode again, and so on until nr_to_walk runs out.
-> Every walk of that list then ends on this inode, and nothing behind it
-> is reclaimed for as long as its cache stays.
-> 
-> Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
-> traversing context") the walker pinned the inode with a reference, and
-> dropping it in iput_final() set I_REFERENCED, so the restarted walk
-> rotated the inode to the tail. Set I_REFERENCED again when the mapping
-> is still populated after the invalidation, in the same i_lock section
-> that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
-> i_lock to be held, like inode_pin_lru_isolating().
-> 
-> On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
-> is left behind if it is locked, under writeback, spliced into a pipe,
-> or still in another CPU's LRU-add batch after being read. Without
-> HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
-> mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
-> never removes.
-> 
-> Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+On Mon Oct 19, 2026 at 11:57 AM BST, Link Mauve wrote:
+> It was previously generating a ton of very short functions, such as
+> <<kernel::num::bounded::Bounded<u32, 32>>::shr::<17, 15>> or
+> <<kernel::num::bounded::Bounded<u16, 16>>::new::<16384>> on use.
+>=20
+> These are obviously better inlined, although I wasn=E2=80=99t completely =
+sure
+> between #[inline] and #[inline(always)], but the former worked fine in
+> my setup so I went for it, we can always adjust it later.
+>=20
+> Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
 
-Looks sensible. Feel free to add:
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> ---
+>  rust/kernel/num/bounded.rs | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 
-								Honza
-
-
-> diff --git a/fs/inode.c b/fs/inode.c
-> index a9d37be390a1..1614a97ce953 100644
-> --- a/fs/inode.c
-> +++ b/fs/inode.c
-> @@ -593,12 +593,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
->  
->  static void inode_unpin_lru_isolating(struct inode *inode)
->  {
-> -	spin_lock(&inode->i_lock);
-> +	lockdep_assert_held(&inode->i_lock);
->  	WARN_ON(!(inode_state_read(inode) & I_LRU_ISOLATING));
->  	inode_state_clear(inode, I_LRU_ISOLATING);
->  	/* Called with inode->i_lock which ensures memory ordering. */
->  	inode_wake_up_bit(inode, __I_LRU_ISOLATING);
-> -	spin_unlock(&inode->i_lock);
->  }
->  
->  static void inode_wait_for_lru_isolating(struct inode *inode)
-> @@ -981,7 +980,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
->  		else
->  			__count_vm_events(PGINODESTEAL, reap);
->  		mm_account_reclaimed_pages(reap);
-> +
-> +		spin_lock(&inode->i_lock);
-> +		/* The walk restarts here: don't retry leftovers right away */
-> +		if (!mapping_empty(&inode->i_data))
-> +			inode_state_set(inode, I_REFERENCED);
->  		inode_unpin_lru_isolating(inode);
-> +		spin_unlock(&inode->i_lock);
->  		return LRU_RETRY;
->  	}
->  
-> 
-> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-> -- 
-> 2.55.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
