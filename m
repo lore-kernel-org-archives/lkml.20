@@ -1,94 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427285;
-	b=SfALV81BgTaENwzBBQUcoI/8DupWYTjON5/k8ErsEqq0SMxwEZ+4cD9OamkNSseifH+D
-	 rE2umsmU6X/nDylMEolcvUQ6Vmy03F03lEDqQCLEN8ARe0sp2uw/dW9hdTt9GhjEn5WlQ
-	 +HgUNmpLxdq9J88G1kEq3rqhuaLGh/td0lUt/ssK/ov5Gv/YcEM6OQ78TIjr7vfyC1pFm
-	 OHhQBQwbtw/QFfDAVsdZAED4B0JzXlhkFiyDPc04DTeUZusWsPYBmYiffrt9QJ8as+W1U
-	 foaLCv0wA2kfxFySuXRF86lFl1a5L1O6AQkumD0KDbZMTarnguqdb3nud8VUHOwUzbA==
+	t=1792427291;
+	b=rafynIe1qkU9fQSPUZvV9FBabK8JdYPnwTG8m7vvb462VP4tPRsada3+fXJTwTgGz4QD
+	 bfkp6aeeK2+EJRNtcBYdfEN52cOMuLqABHbd98tTqf9HSnS3Tsr3QaI34lNxu4qy/NXIS
+	 JtyfIa1uHMIfXk38MmOx1LZ6Rxc+4TO1yUYX+trJUg3KqZorhEzPsl8eRcqrQR/rOBdrp
+	 3NKxMbwAvMOAw+8JQM/TZ01s+Ga/Qk3KJWmWJkgfXs/IhHKK+MDcBcq3+7/gmcMAT/RH5
+	 fXcAIYm0puvUS8mTYUtfzKhfhtFf8QTdau1qQFG81GbGBIwxSyaa7hIgiBBgif6J5vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427285;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MPCaT6OOOqUW7TTHp3t+eRxmMncThW2Jrb7agn7Vd5c=;
-	b=UmjiTKipa5zozwd61e0Ofw7B1fK/80QkNqrF/2T4/bAI8hwVf2CNHVnxsnRI8fR+YZfp
-	 jvvNAI98tRaBTWbDfGyhSi27mFVdDQD+NG8cdyKd+RSeDFILy3eU/YYcH9PmjL+YQprlJ
-	 /sX2Srrvahd8JrYlx9RfLHIqr40VtUfYB+RdvQPo4jf3Hz8LmNocfZudTYa+XuoFu7FN8
-	 W8sshsTcesccMZpwCAUhX9+gxun4McYfnuFHWkcgwcw7wGRGoBE7rF29yek1H6TanpPZF
-	 pZVLgaWoLc/5GGUdVuHh4FlN+KUpUeSprZUhOl0QwFYnfdY+kidxckOAPXNQugEmclw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427291;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=OYAxXAHChzwq19ITazfAmMFxiBIOg+xvz2L0B67usYo=;
+	b=QP532DCGxTJJvYbVm1+Jw7TCAGEWr1hhBy//X03bunuP4ayFvzEvp6WyTJQpk5zW0A2e
+	 MFcRsjtCIyeTzw+yp83r/Do24G10kuTg8CkVpwdw5Xi0jcnPw77D+DjRPNckcj/ppBiRR
+	 6XQGuu6aujqTK68ttHL+/X4aSP1ppIHv9Pj76Zf59j9igqgo8LOxXQgbJErMkIYT3yixx
+	 i3BUfSY8ovxSkRtSVdtgI8mOf/YORv5mIoRFPUPO1lQ5D9DH4oqRvRUiKUQgqbcS8XVAH
+	 pdR2KlEP42fltFfu1m499md+i0mZu7D0/jCE6Ol8Xc1yY3SqS2KihMMmaa5dSC2iJww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jXrJcCcm;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=kZPyCDII;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=DITrwfJV;
+	arc=none smtp.remote-ip=202.12.124.159
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478D1606AAF0
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:28:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 478D1606AAF0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680AE606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:28:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 680AE606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jXrJcCcm
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6d7e06dbcccso1454278eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:28:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792427284; x=1793032084; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MPCaT6OOOqUW7TTHp3t+eRxmMncThW2Jrb7agn7Vd5c=;
-        b=jXrJcCcmfFkxiK6oKu/AGu+KLGqH999drbfxqKfQ6foU5qyR4IbbzQiCb6aXlmEV0J
-         m4kFRtpNZu7jbyegn5zZRgdv626naB0Qt53b2AJapUCcdMIs8oHaXasw/XF3LAtHEdr0
-         Wy1VmnJkFNqEA6XB+MyMjai2hD/WJgNQU5NziaJwHJmUq9VKBfB22GPZ0sY2SgXM5dxZ
-         PBLeW/azKrMJ86Jh9E/oNFVLDHqWy8C7I1bxOHw0LEaC53IrBF58LPsPt8BlznyZ9MLJ
-         rdgh5S8zERjA6I14AYdkplWLf9uCRjQbITXF3fhdXuaJsZN6VBVcvuW/Ckmq1NoP+6AS
-         tRuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792427284; x=1793032084;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MPCaT6OOOqUW7TTHp3t+eRxmMncThW2Jrb7agn7Vd5c=;
-        b=CckEhD4GDvQIcjY0icAPaYMxXgDSVHYVit9QWTuhIDIENC8rlLivNrryRFEO2Di804
-         Ig0LMur3WTHefYvaJR+Yx6cv7pCrf6SwADWwNPV0fkI5YCWil1tSpjJRRi8ecCzbm6Qd
-         3jm8HOapC4LUVqthYg2AuzC+B040XMPxL3WcS7UJ2TQw6gZsikW5yCJ8PoyYe0sAJpR8
-         Hl2fC8j3XItC/YZZtGCM21DVE6twieKDgwhorejMki/NgqfCc2cgXr8fZfeQXzyeeXLo
-         ISM/3M+HOeM/SQ4AUI1Aw2wCcyVgbCf7IgixBT5ZHeaNrBxOYrAFH1PH+MSriL6IXpQn
-         a7Jw==
-X-Forwarded-Encrypted: i=1; AKwUvBxBuQtQz2+BuxFWEMXLp1cktB2lEoQGz/xoC+60TIeYJrWOJk94FrPGpfxoQ/LMcfsjzhEf0koawwERKxg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKl6ODMbns2UlBNZLySagIiuJP3HK3WUjv4Q+ryARCNGMbgVrsS
-	IP8mrRT6UnKQPZ96QejbRnKyYG0qsSMLgPzTPPbb9bu+uyLkETGRYxrr
-X-Gm-Gg: AYBFou2ou+YIfiSp1m1SSF25yLRAYhqdNGyPhpLEkPtrX6H7sYq7CBU0SnvxNe1q15V
-	L7ZL5OuB/rS7mjgQHo/q+Yw/HCramiUF6D2T3QIRoEO2vUVC4zS05eWFj/rLlGj9jsbO7y2jaCp
-	TcqV7zxTrE0n82fBDyEfcOoQqicjvp5phE2BPIEh+YFTr+9pObVCMy7BDUEWEuzaVGXV0r54ET7
-	tjWDvPmxHIXewMgdprFnb2xXr9yCkGXLusMcSaQLFHjEoEmC4/H7ZL9FPaQZn8W4X8Sf7sAAwJk
-	rfufmPX+8HO6i205AeXr99pxSxwKEoQ4Wen4GzAIjJHIEZbn0+/JMPHcLY1h6sVYWbq+vELEVV1
-	bGzhz/juFuEPYyp65zYDaiWBBPXYTCj9rxfwe3BMl7++GncVyZyJzlUvG2C8ALkIXxFWNBReSb1
-	LDLcDH0IVHkoEqezU07jS8g87EGZa2o2E5si+qgkkGhC9d/URmnn4BfzWnEyOXVA5nH4C19AQKs
-	Fwt8+X0YwPrKBKsAm2iQuQvUw==
-X-Received: by 2002:a05:6820:560b:b0:6c9:80d8:a201 with SMTP id 006d021491bc7-70357496035mr3645829eaf.62.1792427284118;
-        Mon, 19 Oct 2026 09:28:04 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-849859184easm2998661a34.23.2026.10.19.09.28.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 09:28:03 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Harry Yoo <harry@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH] mm/percpu: clean up callers of pcpu_obj_full_size()
-Date: Mon, 19 Oct 2026 09:28:02 -0700
-Message-ID: <20261019162803.281810-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=kZPyCDII;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=DITrwfJV
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 468667A00F7
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:28:09 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 12:28:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792427281;
+	 x=1792513681; bh=OYAxXAHChzwq19ITazfAmMFxiBIOg+xvz2L0B67usYo=; b=
+	kZPyCDIIdECQML6lFbFipcRH8teV1la78Y/HkjyvFsR0rsg/u7YB1UbKvM4DxWU3
+	0XJ9UzVhHE9X68/v8ncGhBBX3LPz1bFC3FvzszZeHkDYW+sh6d2Taa6ZtcHS5Qtp
+	FabXHQkjZBKcTpbTn8ul2QkC5Otk5hnIh9XKH1RRAf5DLdk3wd96JqDEPMg9+s6V
+	X7iOL00uDt41oEwVYFQJkQVREIJFHMJh74vje/W5wGyfjNrUrSUlvTdN0WyHB1qg
+	H7AIp2Po2XvtH7nDl1OK1uHiDYpq6WFdWgcWQDrBRkQ6jvlOTvvIZJFu72kVQbIc
+	WBnRuogKGkZ0uCttX5d1xQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792427281; x=
+	1792513681; bh=OYAxXAHChzwq19ITazfAmMFxiBIOg+xvz2L0B67usYo=; b=D
+	ITrwfJVlUayYXzz+Oao+xKiHZsWAWPldpAZd96qV+83WKt0eAJyrBPUMvQNxZfBt
+	uaTD5k6sCjTMWAs8OdTcQXoWnja4gAMc8h5Q8tsGpFpR8k5sC4BEQmB98ZSiyjXR
+	h3tAcheHyb6gp+F4wyJsudXknilGw/OnabZfAi2m2TAA2YH1fzQrYOjxUk3MOLtW
+	CZUCf268LPCk80VGDVbPDVbBQENNjXW1MUmtSTUTyA0OOpzGLVTxO30lvsQFfGAn
+	VIamW8wB8lcAcSvlkecIGV9Pg7+rWTVXECgGQltqOtmYQEmdvAi5mM5blSIaAbQI
+	w6IHp+pjhomm7ybgK+6AQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792427281; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:RSLJ0ZOJdd4nRDqI+ZozeCDzEW99JAWyl04E4gFVqPOlgvA
+	oJPE2tBqAn93vUL9X8J/QscliVPegBMReW6639VmpBStobZviEHkQaP6EPNm/KY9
+	FYgVwwdo40wCUUnnP826x7CfPh6XFctLrh1/ehUp28HrPoEnRpuz+XYKWau4G9cn
+	skO3B/H1EPhhzmty/ahY+9VHXxXPjnZ0On24uOFLGEbI6SUIAB+TarAsQ7XMRjhC
+	67PjAQz0H+1/c0eL2s6+TfAby7bYpLf70VZMs1jwKLRp/sVi1uUYNj3qfO8gVuDy
+	VckfheDlNJYmPrCYSs/lggtkv/kiFdPmSmdJ/vA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:34GFDjvLArtfnWADUoaPQgZloLxHcy5Bflv6ev+9YW0=:ERfMJBiyhEUww2VEyu1sCCuWFpBa50FfIjjt/TQZjoA=;
+X-ME-Sender: <xms:C0XWapxCjJR7-qkt0O5ia1U_OBEc9uHr5YYgbxGkuDLkdZNPC80gJw>
+    <xme:C0XWakFY786LCZdas_dMnEw79LVu9RMLit0Ui09_LLvDXijeXi_nu8WvtcwGROK6B
+    B6HVECruX8XkyKjCuQWGX3Lu0-eCKrV0JtsM9L0vFfuHrB1JAtg1rU>
+X-ME-Proxy-Cause: dmFkZTEkXql2T2q+abWKOc0+2Ts0d7b576TXuycA4uElhpzutlWZFZdLpqSCxKDDHxNEqG
+    V6G7D9WClWGaRl3eMdeQxvIkI2giK1eRSKBN3VBeWjey27rjNtXdOCJMj8mr6Wxllm+Mnt
+    21e0tn3osIl8zISpbWHjLTPhM9Me0IRspLYeSU1bSafjUPCLAlAXJ7jjqf3yT00pG9ocBO
+    WX9Y7mnaiYUwJ2ZwxBkqzdpXC/vJROPJffutNBlu0u0kuif2kOdUcXJdkwSDI2ao4jDXZL
+    GE0Vs8X9yRfoXB91I9n4TEdZwD3IqM4Fy9do6bbog9n1fYzUIhj+83iKvdLS/dgqmbmil2
+    ATbjs3l4OWpL4I72rhRbR5uEm2jXedWSIjV45SpIj9fZNcftB7fjdkyp+9Uwu2RGBi+q18
+    +oeflP7Q5Q8A9Qv9/5EiZMsqM7AwPzMYVXSGJuIw0/279bYRjGSjHG7pY2I295agU8RTeS
+    JtZKWSDT6nQiB0FOQ5DD75OscbI+qLlsCKpKFWuvf/RfKtswQNZjxYc0qQvEpAv/kMVM7x
+    iwxSGSYXnYr+6umdFTiNNwzpHk5dDdv9cqyo2eK3MMof9Llfpx65Pivi3UB9cjZwYaO4qf
+    Yi8ZelW/zfwXWLIeU4rNcP1CznyvATTAyvrQxUZ4JPAWoMLQmdEtLzBfdGFw
+X-ME-Proxy: <xmx:DUXWapqJOlsYMK7afX0ZIiZ7xiFVCq44axjWsavH9ptT1bA66RcXGA>
+    <xmx:DUXWajPCFiymPvztQ8qtcmdbCw19D9eqEfFsR39oUg0cVX7gu4vUuQ>
+    <xmx:DUXWal2M2ZOXOLknpXeCIrvrVKXaTsTg6SfajUWP5HUC2RvRGkwAKA>
+    <xmx:DUXWahqxKyeM58KvWhnAjXkEX6WlF-uP_iEiIATRgWajkPWWm8IQBQ>
+    <xmx:EUXWaqYkffSOKslEfP3flvdK3zyCWS33I9Rbm6XyrhQ9ZdsTMPusgady>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 199E532A0098; Mon, 19 Oct 2026 12:27:55 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,167 +115,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AICZ2hJ9SF6o
+Date: Mon, 19 Oct 2026 18:27:24 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Ian Rogers" <irogers@google.com>,
+ "Marc Kleine-Budde" <mkl@pengutronix.de>
+Cc: "Thomas Gleixner" <tglx@linutronix.de>,
+ "Stefan Kerkmann" <s.kerkmann@pengutronix.de>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Helge Deller" <deller@gmx.de>, "Andy Lutomirski" <luto@kernel.org>,
+ "Vincenzo Frascino" <vincenzo.frascino@arm.com>,
+ "Arnaldo Carvalho de Melo" <acme@redhat.com>, linux-parisc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Eric Biggers" <ebiggers@google.com>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christophe Leroy" <christophe.leroy@csgroup.eu>,
+ "Jason A . Donenfeld" <Jason@zx2c4.com>
+Message-Id: <18c92ae1-deaa-4c09-adca-157819cf005b@app.fastmail.com>
+In-Reply-To: 
+ <CAP-5=fUwDOv9k1Ptz22h9kKYFJowg9UPa+LzWnnswJ72ptF8tA@mail.gmail.com>
+References: <20251016205126.2882625-1-irogers@google.com>
+ <20251016205126.2882625-3-irogers@google.com>
+ <47f8c30b-e326-4ff0-a2bc-5683209a9e2d@pengutronix.de>
+ <20261006-dynamic-succinct-woodpecker-a36c7f-mkl@pengutronix.de>
+ <2f6094ff-f585-4b8b-8c25-20c11d1bfc7d@app.fastmail.com>
+ <CAP-5=fVt81pYz_EXj+QNG+hFGomb-xcpm-6=ZNzNm+c2sbP6UA@mail.gmail.com>
+ <b2a50293-d6f7-41eb-854c-c43bc9874ffa@app.fastmail.com>
+ <CAP-5=fW25k8uOeamGRhwbFUUZ8D0D1n5YK-NFF7_2JMJcGOsiw@mail.gmail.com>
+ <20261019-rapid-loutish-porpoise-ac4efb-mkl@pengutronix.de>
+ <CAP-5=fUwDOv9k1Ptz22h9kKYFJowg9UPa+LzWnnswJ72ptF8tA@mail.gmail.com>
+Subject: Re: [Regression] [PATCH v5 2/4] vdso: Switch get/put unaligned from packed
+ struct to memcpy
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The size of a pcpu allocation can be interpreted in two ways:
-1. The size of the allocation attributable to a single CPU.
-2. The total size of the allocation across all CPUs, including the
-   allocation overhead (for obj_cgroup membership).
+On Mon, Oct 19, 2026, at 17:10, Ian Rogers wrote:
+> On Mon, Oct 19, 2026 at 5:37=E2=80=AFAM Marc Kleine-Budde <mkl@pengutr=
+onix.de> wrote:
+>> On 10.10.2026 08:04:42, Ian Rogers wrote:
+>
+> It is a little more manual than automagic :-) When perf builds there
+> is a script that complains if the tools' version of files is
+> out-of-sync with the kernel's:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tre=
+e/tools/perf/check-headers.sh#n28
+> It doesn't break the perf build, it just adds noise to it.
 
-In most accounting paths for percpu memory, we need the second
-definition (total size). Make this more obvious by coalescing the
-callers of pcpu_obj_full_size().
+I see that the include/linux/unaligned.h and tools/include/linux/unalign=
+ed.h
+headers have not been in sync for a long time, so maybe it's just not
+a big deal there.
 
-No functional changes intended.
+> My understanding, biased by my opinions, is that the preferred option
+> is to add a config variable controlling whether to use memcpy or a
+> packed struct. My preference, to avoid undefined behavior, is to
+> default to memcpy but set it to use packed structs for ARMv5. I will
+> vibe code this up, and apologize in advance for any offense such a
+> patch series may cause (ie I'm sure someone on LKML will want to
+> complain at me for using memcpy at all and give me a lecture about
+> strict aliasing being nonsense, etc.). Arnd or someone else may have a
+> different preferred solution, to which I'm more than happy to defer.
 
-Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
----
- mm/percpu.c | 39 +++++++++++++++++++--------------------
- 1 file changed, 19 insertions(+), 20 deletions(-)
+As I wrote, we need the packed struct version at least on mips32,
+mips64, openrisc, riscv32, riscv64, sh4, sparc32, and sparc64 to avoid
+the external library calls the same as on armv5, but I would prefer
+to just always use that in the kernel. My guess is that this list
+is actually the same as the architectures that lack unaligned word
+access instructions in hardware, and armv5 is certainly not
+a special case.
 
-diff --git a/mm/percpu.c b/mm/percpu.c
-index d7883507dc151..76848e096caee 100644
---- a/mm/percpu.c
-+++ b/mm/percpu.c
-@@ -1623,7 +1623,7 @@ static bool pcpu_memcg_pre_alloc_hook(size_t size, gfp_t gfp,
- 	if (!objcg || obj_cgroup_is_root(objcg))
- 		return true;
- 
--	if (obj_cgroup_charge(objcg, gfp, pcpu_obj_full_size(size)))
-+	if (obj_cgroup_charge(objcg, gfp, size))
- 		return false;
- 
- 	*objcgp = objcg;
-@@ -1642,11 +1642,10 @@ static void pcpu_memcg_post_alloc_hook(struct obj_cgroup *objcg,
- 		chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].cgroup = objcg;
- 
- 		rcu_read_lock();
--		mod_memcg_state(obj_cgroup_memcg(objcg), MEMCG_PERCPU_B,
--				pcpu_obj_full_size(size));
-+		mod_memcg_state(obj_cgroup_memcg(objcg), MEMCG_PERCPU_B, size);
- 		rcu_read_unlock();
- 	} else {
--		obj_cgroup_uncharge(objcg, pcpu_obj_full_size(size));
-+		obj_cgroup_uncharge(objcg, size);
- 	}
- }
- 
-@@ -1662,11 +1661,10 @@ static void pcpu_memcg_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
- 		return;
- 	chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].cgroup = NULL;
- 
--	obj_cgroup_uncharge(objcg, pcpu_obj_full_size(size));
-+	obj_cgroup_uncharge(objcg, size);
- 
- 	rcu_read_lock();
--	mod_memcg_state(obj_cgroup_memcg(objcg), MEMCG_PERCPU_B,
--			-pcpu_obj_full_size(size));
-+	mod_memcg_state(obj_cgroup_memcg(objcg), MEMCG_PERCPU_B, -size);
- 	rcu_read_unlock();
- 
- 	obj_cgroup_put(objcg);
-@@ -1696,15 +1694,14 @@ static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
- {
- 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
- 		alloc_tag_add(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
--			      current->alloc_tag, pcpu_obj_full_size(size));
-+			      current->alloc_tag, size);
- 	}
- }
- 
- static void pcpu_alloc_tag_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
- {
- 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts))
--		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
--			      pcpu_obj_full_size(size));
-+		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag, size);
- }
- #else
- static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
-@@ -1744,7 +1741,7 @@ void __percpu *pcpu_alloc_noprof(size_t size, size_t align, bool reserved,
- 	int slot, off, cpu, ret;
- 	unsigned long flags;
- 	void __percpu *ptr;
--	size_t bits, bit_align;
-+	size_t bits, bit_align, full_size;
- 
- 	gfp = current_gfp_context(gfp);
- 	/*
-@@ -1773,6 +1770,7 @@ void __percpu *pcpu_alloc_noprof(size_t size, size_t align, bool reserved,
- 	size = ALIGN(size, PCPU_MIN_ALLOC_SIZE);
- 	bits = size >> PCPU_MIN_ALLOC_SHIFT;
- 	bit_align = align >> PCPU_MIN_ALLOC_SHIFT;
-+	full_size = pcpu_obj_full_size(size);
- 
- 	if (unlikely(!size || size > PCPU_MIN_UNIT_SIZE || align > PAGE_SIZE ||
- 		     !is_power_of_2(align))) {
-@@ -1781,7 +1779,7 @@ void __percpu *pcpu_alloc_noprof(size_t size, size_t align, bool reserved,
- 		return NULL;
- 	}
- 
--	if (unlikely(!pcpu_memcg_pre_alloc_hook(size, gfp, &objcg)))
-+	if (unlikely(!pcpu_memcg_pre_alloc_hook(full_size, gfp, &objcg)))
- 		return NULL;
- 
- 	if (!is_atomic) {
-@@ -1793,7 +1791,7 @@ void __percpu *pcpu_alloc_noprof(size_t size, size_t align, bool reserved,
- 		if (gfp & __GFP_NOFAIL) {
- 			mutex_lock(&pcpu_alloc_mutex);
- 		} else if (mutex_lock_killable(&pcpu_alloc_mutex)) {
--			pcpu_memcg_post_alloc_hook(objcg, NULL, 0, size);
-+			pcpu_memcg_post_alloc_hook(objcg, NULL, 0, full_size);
- 			return NULL;
- 		}
- 	}
-@@ -1903,12 +1901,11 @@ void __percpu *pcpu_alloc_noprof(size_t size, size_t align, bool reserved,
- 	kmemleak_alloc_percpu(ptr, size, gfp);
- 
- 	trace_percpu_alloc_percpu(_RET_IP_, reserved, is_atomic, size, align,
--				  chunk->base_addr, off, ptr,
--				  pcpu_obj_full_size(size), gfp);
-+				  chunk->base_addr, off, ptr, full_size, gfp);
- 
--	pcpu_memcg_post_alloc_hook(objcg, chunk, off, size);
-+	pcpu_memcg_post_alloc_hook(objcg, chunk, off, full_size);
- 
--	pcpu_alloc_tag_alloc_hook(chunk, off, size);
-+	pcpu_alloc_tag_alloc_hook(chunk, off, full_size);
- 
- 	return ptr;
- 
-@@ -1938,7 +1935,7 @@ void __percpu *pcpu_alloc_noprof(size_t size, size_t align, bool reserved,
- 		mutex_unlock(&pcpu_alloc_mutex);
- 	}
- 
--	pcpu_memcg_post_alloc_hook(objcg, NULL, 0, size);
-+	pcpu_memcg_post_alloc_hook(objcg, NULL, 0, full_size);
- 
- 	return NULL;
- }
-@@ -2242,6 +2239,7 @@ void free_percpu(void __percpu *ptr)
- 	struct pcpu_chunk *chunk;
- 	unsigned long flags;
- 	int size, off;
-+	size_t full_size;
- 	bool need_balance = false;
- 
- 	if (!ptr)
-@@ -2262,10 +2260,11 @@ void free_percpu(void __percpu *ptr)
- 		WARN_ON_ONCE(1);
- 		return;
- 	}
-+	full_size = pcpu_obj_full_size(size);
- 
--	pcpu_alloc_tag_free_hook(chunk, off, size);
-+	pcpu_alloc_tag_free_hook(chunk, off, full_size);
- 
--	pcpu_memcg_free_hook(chunk, off, size);
-+	pcpu_memcg_free_hook(chunk, off, full_size);
- 
- 	/*
- 	 * If there are more than one fully free chunks, wake up grim reaper.
+For 7.4 (and stable kernels) reverting the in-kernel header seems
+best to me, and then we can think about what to use for the tools.
 
-base-commit: 2887e63d2e8e0cf55402612d8996ce955a2c3e55
--- 
-2.53.0-Meta
+Looking at the uses of get_unaligned() in the tools directory,
+I notice that at least some of them should just not exist, e.g.
+struct debug_entry in tools/perf/util/jitdump.h is just
+needs a __packed attribute to correctly describe what it does,
+and tools/testing/cxl/test/mem.c does not need the unaligned
+helpers at all because the structs are all packed already.
 
+I'm also a bit suspicious of the usage in=20
+tools/testing/selftests/bpf/test_kmods/bpf_testmod.c, which
+looks like it may run into a corner case:
+
+__bpf_kfunc int bpf_kfunc_test_uninit_alias(int *out__uninit, const int =
+*in)
+{
+        int value =3D get_unaligned(in);
+        put_unaligned(42, out__uninit);
+        return value;
+}
+
+The current version of get_unaligned() turns into __builtin_memcpy(),
+and the function prototype defines both arguments as pointers
+to naturally aligned objects. Do you see anything that would
+stop the compiler from replacing the __builtin_memcpy() with
+ an invalid pointer dereference? This bit is probably fine
+because of the way gcc handles __builtin_memcpy() optimization,
+but I'm not sure if that's an implementation detail or required
+by the C standard, especially if strict aliasing rules say
+that the int* argument cannot overlap a misaligned int*.
+
+       Arnd
