@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1284D55CE9D;
-	Mon, 19 Oct 2026 13:57:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F715187E4;
+	Mon, 19 Oct 2026 13:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418242; cv=none; b=kaAakElWnOs4zyvD7t3hcEWQvxTgU9A4pTqmj2ihGKed/8R5b7aoYbvIWmvB7xbAv+JVMKpp6SEb0wVOfg4f6goO0deKMAOPEnxnvyhUbDeb1KX+JLi+9r9QwLeDo1DCPpHr/4IT0G6ja34Cl9gXju49dbSdIkihObcn5j8KXJg=
+	t=1792418244; cv=none; b=J6kduHkXEzq1qLgvSZSvtz/lFc46BfQlH98otL8BUSs/XU5j5CUZRJVvtV5+xH9bRPvwDHdFhP3gFmFcMbpdNZMtB+Lr77yxxpko6ZrkAGr7pLl5e43yrbOHvtBAGIuV9nHTS4fnBxmwQ4+8G/j9C9nIxIIlOK94HaOk6Cf7R7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418242; c=relaxed/simple;
-	bh=65ka5NLj7qBmHR1Dul7+BXrN2LLuMDb/js34FK9iAaM=;
+	s=arc-20240116; t=1792418244; c=relaxed/simple;
+	bh=jUztPm7uRIP0iS8KOShw58cKzKvgh4GCAlFQpSpBT2Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KhDbfDyH2gBe5J0M6bPl7ahZm9N+szdB5Rek8MLxNSHveU2urklnUndv4Z6B3YMnvWvHiCYdXIE9Kt/91RhPgJpln7UZcd1LOHqHfV7rqQ6nLkFCn0g/i0HnOgtl6XPBbwYiY2e0RA45vf8K8NNCMcz37MxsfsHh1MPuZIa27hI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZyiSWVLx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=kCdlkGSf8AkALHrLiB2C+dGCeES47b/1t+8UrtPs2Pdb1uEiiRBKKJ7bUhm1Ceyjr1YrEKnCNeaCErY+u/qQlFjy3a51N/c/kCphf7SQ3OItG3kyHMP1FTudPijcEnKeXaK5QFocDdRgyqxXYReApKSyoJj0aXF3CzZ7hAYs3/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DkzAPO9o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZyiSWVLx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04371F000C5;
-	Mon, 19 Oct 2026 13:57:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DkzAPO9o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE5D1F000C6;
+	Mon, 19 Oct 2026 13:57:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418238;
-	bh=trz5SfYV5vm9P02Or0GRkh4Zt0T/Tk7EYMHq2iQnOv4=;
+	s=k20260515; t=1792418242;
+	bh=3niE0IEl9FIKpMw7hfLbJ8+0tI0fo/18nEVzpD2/Y60=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZyiSWVLxuXa0ezjmXsoqxRVguwV22SM7mGSFwLQQBwelLJ5/aBONW9TsMRSu+1eHV
-	 hiCKZAN0XFHO+lN5lFl/WtyG78/foG9FSLEI5cLfZ4mobV3nJ7He1uYoDUsTp7Vbcf
-	 JFOOPJ9GW0rkUXRjkmVjUb0VvIY/6dRruvRboTfVYFUP99cl7TLvhR5MtcOfcM94gm
-	 gnRNvGruJ3444CWraGXDasfwnSVzQYTOjM/1kUkb9Ij00iAD2DncA5ZQ19U4+E3/mi
-	 Za6haZvOhry4qayj94Fgu8lB01AWdC0JKSRLpcBQ/gp96jQ4kRIRPjW0mNDD5BzFTw
-	 YFi1oaYHGsA+g==
+	b=DkzAPO9ov196v2n7rWlFpw+TCtUx8Lp76oV2WK7GPYnEwFR2JbJ+DW/gfeonlC9ME
+	 M7tun86WKiyZl0/nXSBDzg+0cYixHFDo2MhdQe3gpBpymuwhm8gQrfeJjQWSbZ/A+H
+	 9+Ozqg53jrguvmSbfmoNAyS9d7SB2PhDWxykeV6B3Ha/Z6YtOBYe3ECoom7/Rucm4p
+	 qdHW62od5aU4CHtX7FSQwhPxKWlUcnj+pvkAifJP3+qQslSZgNT0+Zx4T2O4oI3yhz
+	 VGyVgMpmWysGS2SB0W20C+9lMkjQMGsA7taGmP7y0Ef+nGQ8qMHyOQclMdUw/2hB0L
+	 YUYuhQZGec24g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yousef Alhouseen <alhouseenyousef@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Andrew Onyshchuk <andryk.rv@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	bwarrum@linux.ibm.com,
-	rituagar@linux.ibm.com,
+	derekjohn.clark@gmail.com,
+	hmh@hmh.eng.br,
+	hansg@kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	ibm-acpi-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] misc: ibmvmc: reject oversized inbound messages
-Date: Mon, 19 Oct 2026 09:46:42 -0400
-Message-ID: <20261019135441.1420968-111-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] platform/x86: thinkpad_acpi: Fix fan speed reporting on Edge E330
+Date: Mon, 19 Oct 2026 09:46:44 -0400
+Message-ID: <20261019135441.1420968-113-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -47,452 +51,435 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.57
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+From: Andrew Onyshchuk <andryk.rv@gmail.com>
 
-[ Upstream commit 18189e5d84aa0b3bc89189cba13b9105634cb6fb ]
+[ Upstream commit 8d840dad456f88374d8a3b03851452a280d6ee50 ]
 
-ibmvmc_recv_msg() trusts the message length from the CRQ.
+The ThinkPad Edge E330 with H3 firmware uses the non-standard EC fan
+register block. Without a matching quirk, thinkpad_acpi reads the legacy
+tachometer registers and reports 0 RPM.
 
-It passes that length directly to h_copy_rdma().
+Add the H3 BIOS family to TPACPI_FAN_NS so the driver reads the fan
+period from EC register 0x95 using the existing non-standard reporting
+path.
 
-The destination buffer is only max_mtu bytes.
+Tested on a ThinkPad Edge E330 with BIOS H3ET77WW and EC H3EC35WW.
 
-A larger length can overrun it before userspace reads the message.
-
-Validate the CRQ length before issuing the RDMA copy.
-
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Link: https://patch.msgid.link/20260624175139.7981-1-alhouseenyousef@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Andrew Onyshchuk <andryk.rv@gmail.com>
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Link: https://patch.msgid.link/20260806154417.618575-1-andryk.rv@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **v7.3-rc4**. The change is a 7-line inbound length
-check in `ibmvmc_recv_msg()` against a hypervisor-supplied CRQ size used
-as an RDMA copy length.
+## Local tree
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+This checkout is **pending-6.12** (`p-6.12-3-gc504cf0baa3d8`), kernel
+**6.12.111**. The verdict is only for this tree.
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: **[misc/ibmvmc] [reject] [drop inbound CRQ messages whose length
-exceeds the receive buffer]**
-- Subsystem: `misc: ibmvmc`
-- Verb: **reject** — a defensive check, not a feature add
-- Intent: stop oversized hypervisor messages from being RDMA-copied into
-  a fixed buffer
+The driver is still `drivers/platform/x86/thinkpad_acpi.c` (not yet
+moved to `drivers/platform/x86/lenovo/`). The H3 `TPACPI_FAN_NS` quirk
+is **not** present. The non-standard fan path that the quirk selects
+**is** present.
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: **[platform/x86 thinkpad_acpi] [Fix] [fan speed reporting on
+ThinkPad Edge E330]**
+
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- **Signed-off-by:** Yousef Alhouseen \<alhouseenyousef@gmail.com\>
-  (author)
-- **Link:** https://patch.msgid.link/20260624175139.7981-1-
-  alhouseenyousef@gmail.com
-- **Signed-off-by:** Greg Kroah-Hartman \<gregkh@linuxfoundation.org\>
-  (char-misc maintainer; applied the patch)
-- **Fixes:** absent (expected for this review pipeline)
-- **Cc: stable:** absent (expected; not a negative)
-- **Reported-by / Tested-by / Reviewed-by / Acked-by:** none
-- No syzbot, bugzilla, or CVE tags
-- No “Upstream commit” / Sasha Levin tags in the provided message
-  (ignored even if present)
+- `Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>` (Lenovo
+  thinkpad_acpi reviewer)
+- `Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>`
+  (platform/x86 maintainer)
+- `Signed-off-by: Andrew Onyshchuk <andryk.rv@gmail.com>` (author)
+- `Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>`
+  (maintainer)
+- `Link:
+  https://patch.msgid.link/20260806154417.618575-1-andryk.rv@gmail.com`
+- No `Fixes:` tag (expected)
+- No `Reported-by:` / `Tested-by:` tags (testing is described in the
+  body instead)
+- Ignore pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
+  if present
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- **Bug:** `ibmvmc_recv_msg()` takes `msg_len` from the CRQ and passes
-  it straight to `h_copy_rdma()`.
-- **Symptom:** destination buffer is only `max_mtu` / `buffer->size`
-  bytes; a larger length can overrun it before userspace `read()`.
-- **Root cause:** untrusted CRQ length used as copy size into a kernel
-  DMA/heap buffer.
-- **Version info:** none in the message. Driver itself dates to v4.18.
-- **Failure mode:** kernel buffer overrun (memory corruption), not a
-  userspace-visible errno.
+- **Bug:** Edge E330 with H3 firmware uses the non-standard EC fan
+  register block.
+- **Symptom:** without a quirk, the driver reads the legacy tachometer
+  registers and reports **0 RPM**.
+- **Root cause:** missing BIOS-family match in `fan_quirk_table`.
+- **Fix:** add `TPACPI_Q_LNV('H', '3', TPACPI_FAN_NS)` so the existing
+  NS path reads period from EC **0x95**.
+- **Version info:** tested on BIOS **H3ET77WW**, EC **H3EC35WW**. No
+  kernel-version range given.
+- **Failure mode:** wrong hwmon/procfs fan speed (always 0), not a
+  crash.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: **Not disguised.** The subject and body describe a bounds check.
-This is an explicit memory-safety fix, not cleanup.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not a disguised cleanup. It is an explicit hardware-quirk bug
+fix.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+---
 
-Step 2.1: INVENTORY THE CHANGES
+## PHASE 2: DIFF ANALYSIS
+
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- **File:** `drivers/misc/ibmvmc.c` — **+7 / −0**
-- **Function:** `ibmvmc_recv_msg()`
-- **Scope:** single-file, surgical, one conditional on the inbound path
-- Commit: `18189e5d84aa0b3bc89189cba13b9105634cb6fb`
+- One file: `drivers/platform/x86/lenovo/thinkpad_acpi.c` in the
+  submitted patch; local equivalent is
+  `drivers/platform/x86/thinkpad_acpi.c`.
+- **+1 line**, 0 removed.
+- Function/data: `fan_quirk_table[]`.
+- Scope: **single-file surgical hardware quirk**.
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- **Before:** after validating HMC state and buffer ownership,
-  immediately `h_copy_rdma(msg_len, …, buffer->dma_addr_local)` with CRQ
-  `msg_len`.
-- **After:** if `msg_len > buffer->size`, log, drop the HMC lock, return
-  `-1`. No RDMA, no `buffer->msg_len` update, no ownership transfer.
-- **Path:** hypervisor inbound SIGNAL/CRQ handling (tasklet), not
-  probe/init and not the userspace write path.
+- **Before:** `tpacpi_check_quirks(fan_quirk_table)` does not match BIOS
+  family `H3`. `fan_init()` uses `TPACPI_FAN_RD_TPEC` and reads
+  `fan_rpm_offset` **0x84/0x85**. On this EC those registers are unused,
+  so speed is 0.
+- **After:** BIOS `H3` matches `TPACPI_FAN_NS`. `fan_init()` sets
+  `fan_with_ns_addr`, selects `TPACPI_FAN_RD_TPEC_NS`, and
+  `fan_get_speed()` reads `fan_rpm_status_ns` (**0x95**) and converts
+  period to RPM via `FAN_RPM_CAL_CONST / lo`.
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
+Verified in this tree:
+
+```8156:8162:drivers/platform/x86/thinkpad_acpi.c
+        case TPACPI_FAN_RD_TPEC_NS:
+                if (!acpi_ec_read(fan_rpm_status_ns, &lo))
+                        return -EIO;
+
+                if (speed)
+                        *speed = lo ? FAN_RPM_CAL_CONST / lo : 0;
+                break;
+```
+
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Record: **(h) Hardware workaround** — quirk-table entry enabling an
+existing EC register path. Same class as the X120e TPR and L13/X13 Yoga
+NS fan quirks already in this file.
+
+**Step 2.4: ASSESS THE FIX QUALITY**
 Record:
-- **Category:** **(d) memory safety — buffer overflow / out-of-bounds
-  DMA copy**
-- **Mechanism:** CRQ `var3.msg_len` is a hypervisor-supplied `__be32`.
-  Buffers are `kzalloc(ibmvmc.max_mtu)` and `buffer->size =
-  ibmvmc.max_mtu` in `ibmvmc_add_buffer()`. Using `msg_len` as the
-  `H_COPY_RDMA` length can write past that object.
-- **Asymmetry verified:** `ibmvmc_write()` already rejects `count >
-  ibmvmc.max_mtu` and copies with `min_t(..., vmc_buffer->size)`. Only
-  the inbound HV path was unchecked.
+- Obviously correct: one table entry, existing matcher, existing NS
+  reader.
+- BIOS matching is right: `H3ET77WW` is the 8-char `xxyTkkWW` form, so
+  `tpacpi_parse_fw_id()` stores `TPID('H','3')`, which is exactly what
+  `TPACPI_Q_LNV('H','3', ...)` matches (`ec = TPACPI_MATCH_ANY`).
+- Minimal; no API/data-structure change.
+- Regression risk is limited to H3-family machines. FAN_NS also marks
+  host fan control as undefined (`fan_ctrl_status_undef = 1`) and uses
+  NS status register 0x93. That is the same behavior already used for
+  L13/X13 Yoga, L380/L390, 11e Gen5. Mark Pearson noted the platform is
+  ~14 years old and he could not independently confirm; the author
+  tested it. Overmatch of unrelated H3 BIOS families is possible in
+  theory but H3ET is the E330/E335 firmware family.
 
-Step 2.4: ASSESS THE FIX QUALITY
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+**Step 3.1: BLAME THE CHANGED LINES**
+Record: The insertion sits among NS quirks added by:
+- `66e92e23a7276` (2023-12-14) Vishnu Sankar — introduced
+  `TPACPI_FAN_NS` (L13 Yoga Gen 2, X13 Yoga Gen 2)
+- `a6dcd3f1725e0` (2024-02-29) Vishnu Sankar — more NS models (L380,
+  L390, 11e Gen5, …)
+
+Both **are ancestors of this HEAD**. The E330 bug is the missing table
+row, not a newly introduced regression. This machine has been mis-
+reported for as long as the default 0x84/0x85 path has been used.
+
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. Not applicable.
+
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: Related fan quirks already in this 6.12 tree:
+- `f92324135f09e` — X120e TPR fan-speed quirk (stable-style backport
+  already here)
+- `1be765b292577` — L480 `TPACPI_FAN_DECRPM` incorrect RPM
+- `a6dcd3f1725e0` / `66e92e23a7276` — NS fan register path
+- `48792ab445529` — T495/E560 ACPI fan quirk
+
+Standalone one-line table add; not patch X/Y.
+
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: `git log --author='Onyshchuk'` on `drivers/platform/x86/` in
+this tree is empty. Author is an outside contributor with Lenovo +
+maintainer review, not the subsystem maintainer.
+
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: Depends only on `TPACPI_FAN_NS` / `fan_rpm_status_ns` /
+`TPACPI_Q_LNV`, all present here. Can apply standalone (path tweak
+only).
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- **Quality:** obviously correct. Compare untrusted length to the actual
-  buffer size, same pattern as other error returns in this function
-  (unlock + `return -1`).
-- **Minimal:** 7 lines, no API/struct/lock-order changes.
-- **Regression risk:** very low. Oversize messages are dropped instead
-  of copied. No CRQ error reply is sent; that matches the existing
-  invalid-state / wrong-owner paths. A buggy HV might stall that buffer;
-  that is better than heap corruption.
-- **Red flags:** none in the diff. No public `Reviewed-by`/`Acked-by`
-  from the listed ibmvmc maintainers (they were CC’d; thread had no
-  replies).
+- `b4 dig -c 051292bf7697e72a760401b6883c55a98beecc5b` failed: SHA is
+  not in this tree (`Not a valid commit name`).
+- `b4 mbox` for msgid `20260806154417.618575-1-andryk.rv@gmail.com`
+  returned 404.
+- lore.kernel.org fetches returned 403.
+- Recovered the thread from Patchew and LKML mirrors:
+  - https://patchew.org/linux/20260806154417.618575-1-
+    andryk.rv@gmail.com/
+  - https://lkml.iu.edu/2608.0/11369.html
+- Single `[PATCH]`, not a series. Applied by Ilpo as
+  `051292bf7697e72a760401b6883c55a98beecc5b`.
+- No NAK. Ilpo noted Linus’s policy that even fixes usually go via for-
+  next unless they are current-cycle regressions — that is merge-window
+  routing, not a stable NAK.
+- No reviewer asked for `Cc: stable`.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record: Mark Pearson (Lenovo) Reviewed-by; Ilpo Järvinen applied it.
+Recipients from Openwall copy: platform-driver-x86, ibm-acpi-devel,
+linux-kernel, plus Pearson / Clark / Holschuh / Hans.
 
-Step 3.1: BLAME THE CHANGED LINES
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No syzbot/bugzilla. Evidence is the author’s hardware test
+(H3ET77WW / H3EC35WW). Mark Pearson: platform is ~14 years old; he could
+not confirm but was glad the author figured it out.
+
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: Standalone. Same pattern as earlier NS fan quirk additions.
+E330/E335 share the H3ET BIOS family; the 2-char `H3` match is the
+driver’s normal family match.
+
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: lore.kernel.org/stable search returned 403. No evidence this was
+already requested or rejected on stable. UNVERIFIED beyond that.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+semcode MCP is not available; used grep/read.
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: No function body change. Touches `fan_quirk_table`, consumed by
+`fan_init()`. Downstream: `fan_get_speed()`, `fan_get_status()`,
+`fan_read()`, sysfs `fan1_input`.
+
+**Step 5.2: TRACE CALLERS**
 Record:
-- Unchecked `msg_len` → `h_copy_rdma()` is from **`0eca353e7ae75`**
-  (“misc: IBM Virtual Management Channel Driver (VMC)”, Bryant G. Ly,
-  2018).
-- First appeared: **`v4.18-rc1`** (`git describe --contains
-  0eca353e7ae75`).
-- The hole is as old as the driver, not recent churn.
+- `fan_get_speed()` → `fan_fan1_input_show()` (hwmon `fan1_input`) and
+  `fan_read()` (`/proc/acpi/ibm/fan`).
+- Userspace: lm-sensors, thinkfan, TLP, etc., on ThinkPads with
+  `CONFIG_THINKPAD_ACPI`.
+- Init-time quirk match only; no IRQ path.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: **No Fixes: tag.** Introducer is the original driver commit
-above. That commit **is** an ancestor of HEAD (`git merge-base --is-
-ancestor 0eca353e7ae75 HEAD`).
+**Step 5.3: TRACE CALLEES**
+Record: Existing `acpi_ec_read(0x95)` and RPM conversion. No new
+allocation/locking.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Reachable from userspace sysfs/proc reads on E330 with
+thinkpad_acpi loaded. Unprivileged read of hwmon is typical. Not a
+syscall crash path.
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: Nine existing `TPACPI_FAN_NS` rows in the same table; this is
+the tenth. Thermal NS table for the Yoga/11e set is **not** extended
+here (E330 was not claimed to need thermal NS).
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: Yes. `fan_quirk_table` in `drivers/platform/x86/thinkpad_acpi.c`
+(lines 8805–8837) has NS entries through 11e Gen5 and then jumps to
+`TPACPI_FAN_NOFAN`. No `'H','3'` row. Default TPEC RPM path is used → 0
+RPM on E330. Infrastructure needed for the fix is here since
+`66e92e23a7276`.
+
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: **Minor path adjustment only.** Surrounding context in this tree
+matches the hunk exactly (same 11e Gen5 / X1 Tablet / L480 / x120e
+neighbors). File move to `lenovo/` happened after 6.12. Expected apply:
+change path, otherwise clean.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: NS path and other model quirks are here. This specific H3/E330
+line is not. `git merge-base --is-ancestor 051292bf7697… HEAD` fails
+because that SHA is not in this object store.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: **platform/x86 thinkpad_acpi** — **PERIPHERAL/IMPORTANT for
+ThinkPad users**. Fan sysfs is widely used; not core mm/fs/net.
+
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Actively maintained; recent 6.12 backports already include other
+thinkpad_acpi fan quirks (X120e TPR, T495 NOACPI). Mature driver, long-
+lived quirk table.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: **Driver-specific / DMI-specific.** Only Lenovo machines whose
+BIOS parses as family `H3` (E330 H3ET; likely E335 siblings). Everyone
+else is unchanged.
+
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Every read of `fan1_input` or `/proc/acpi/ibm/fan` on those
+machines. Common for anyone monitoring fans. Unprivileged sysfs read.
+Not a race.
+
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: Incorrect fan RPM (always 0). **MEDIUM** for affected users
+(broken monitoring; thinkfan/sensors may treat the fan as stopped). Not
+panic, UAF, or corruption. Still a real hardware bug with a standard
+quirk fix.
+
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- `fd62c1f591372` (“release send buffer on write errors”) — same author,
-  same day, **outbound** leak; independent of this inbound check.
-- `a503587751651` — named `vio_device_id` initializers; unrelated.
-- This patch is **standalone** (b4: single `[PATCH]`, not `X/Y`).
+- **Benefit:** Makes fan tachometer work on E330 (and H3-family
+  siblings) on 6.12 LTS. Same class of fix already accepted in this tree
+  for X120e/L480/Yoga.
+- **Risk:** Very low — one line, model-gated, existing code path.
+- **Ratio:** Favorable.
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record:
-- Author is **not** the ibmvmc maintainer (MAINTAINERS: Brad Warrum,
-  Ritu Agarwal).
-- Same author has a cluster of similar validation patches (`hpilo`,
-  `bcm-vk`, `xilinx_sdfec`, `genwqe`). That is a “static-analysis / LLM
-  sweep” pattern, not a field report.
-- Greg Kroah-Hartman still applied this one to char-misc.
+---
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: **None.** Uses existing `msg_len`, `buffer->size`,
-`adapter->dev`, `hmc->lock`. Applies on the original 2018 function
-shape. **Standalone.**
+## PHASE 9: FINAL SYNTHESIS
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 9.1: COMPILE THE EVIDENCE**
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- `b4 dig -c 18189e5d84aa0`: **https://patch.msgid.link/20260624175139.7
-  981-1-alhouseenyousef@gmail.com**
-- `b4 dig -a`: **v1 only** (2026-06-24). Applied version is that v1.
-- `b4 mbox`: **1 message in the thread**. No public review, NAK, or “Cc:
-  stable” on-list.
-- Direct lore HTTP fetches returned **403**; thread content recovered
-  via `b4 mbox`. Body matches the git commit.
+FOR:
+- Real, tested hardware bug: E330 reports 0 RPM.
+- Classic stable-eligible **hardware quirk** (one `TPACPI_Q_LNV` row).
+- Existing NS path already in 6.12; no new feature/API.
+- 1-line, obviously correct; Lenovo + pdx86 review.
+- Analogous fan quirks already live in this tree.
+- Applies here with a trivial path change.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`):
-- To: Brad Warrum, Ritu Agarwal (ibmvmc maintainers)
-- Cc: Arnd Bergmann, Greg Kroah-Hartman, linux-kernel
-- **No on-list reply.** Vetting is Greg’s apply (commit date Fri Jul 17
-  2026) plus later presence in this tree.
+AGAINST:
+- Not crash/security/corruption.
+- Old niche laptop; small population.
+- Maintainer sent it via for-next, not as a current-cycle regression.
+- Author-only test; Pearson could not independently verify.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: **No external bug report.** No syzbot/bugzilla. Trigger is a CRQ
-from the PowerVM hypervisor, not a syscall fuzzer. Web search did not
-find a stable@ thread for this subject.
+UNRESOLVED:
+- Stable-list discussion (lore 403).
+- Whether every H3 BIOS SKU (e.g. E335) truly uses 0x95; family-level
+  match is the driver’s normal pattern.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Sibling `fd62c1f591372` is a **different** write-path leak. This
-inbound check does not depend on it.
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — 1-line quirk; tested on E330
+   H3ET77WW; two Reviewed-by.
+2. Fixes a real bug that affects users? **PASS** — fan speed stuck at 0.
+3. Important issue? **PASS** under the hardware-quirk exception;
+   severity MEDIUM, not CRITICAL.
+4. Small and contained? **PASS** — +1 line, one table.
+5. No new features or APIs? **PASS** — enables existing NS path for one
+   BIOS family.
+6. Can apply to the local tree? **PASS** — NS path present; path rename
+   only.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search via WebFetch **403**.
-**UNVERIFIED** whether stable@ already discussed this. Not used as a
-YES/NO driver.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: **Hardware quirk/workaround** — qualifies even though it adds a
+table row.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 9.4: DECISION**
+This is the same kind of thinkpad_acpi fan quirk this 6.12 tree already
+carries. The bug exists here, the fix is surgical, and the risk is
+confined to H3-family ThinkPads.
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: **`ibmvmc_recv_msg()`** only. (semcode MCP not available; taken
-from the hunk.)
+---
 
-Step 5.2: TRACE CALLERS
-Record (grep):
-- `ibmvmc_recv_msg()` ← `ibmvmc_crq_process()` on `VMC_MSG_SIGNAL` after
-  `ibmvmc_validate_hmc_session()`
-- `ibmvmc_crq_process()` ← `ibmvmc_handle_crq()` for CRQ `valid == 0x80`
-- `ibmvmc_handle_crq()` ← `ibmvmc_task()` tasklet
-- Tasklet runs on VIO/CRQ interrupt from the hypervisor
-- **One inbound path.** Not a syscall, not process context from
-  userspace.
+### What the commit solves for this tree
 
-Step 5.3: TRACE CALLEES
-Record:
-- `h_copy_rdma()` → `plpar_hcall_norets(H_COPY_RDMA, length, …)` —
-  hypervisor copies `length` bytes into the local LIOBN at
-  `buffer->dma_addr_local`
-- `alloc_dma_buffer()` (setup): `kzalloc(size, GFP_ATOMIC)` +
-  `dma_map_single(..., size, DMA_BIDIRECTIONAL)`
-- On success the old code also sets `buffer->msg_len`, wakes
-  `ibmvmc_read()`
+On ThinkPad Edge E330 (BIOS family H3), thinkpad_acpi reads the standard
+EC tachometer at 0x84/0x85 and always reports 0 RPM. Adding
+`TPACPI_FAN_NS` for `H3` switches that model onto the existing 0x95
+period reader so hwmon/`/proc/acpi/ibm/fan` show a real speed. 6.12
+already has that reader; it is only missing this DMI row.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record:
-- Reachable when CONFIG_IBMVMC and a `ibm,vmc` VIO device (PowerVM
-  management LPAR).
-- **Not** triggerable by unprivileged userspace. Userspace `read()`
-  already caps `nbytes` at `ibmvmc.max_mtu` before `copy_to_user`.
-- The overrun is the **kernel RDMA copy in**, not the later
-  `copy_to_user`.
+### Risk vs benefit
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record:
-- Outbound `ibmvmc_write()` already validates size.
-- `ibmvmc_send_open()` RDMA uses trusted `buffer->size`.
-- `ibmvmc_process_capabilities()` sets `ibmvmc.max_mtu =
-  min(ibmvmc_max_mtu, HV max_mtu)` **without** re-clamping to `MIN_MTU`
-  (4096). A small negotiated MTU makes `kzalloc` objects smaller than a
-  page, which makes an oversized `H_COPY_RDMA` more dangerous inside a
-  page-granular TCE map.
+Benefit is correct fan monitoring on those laptops. Risk is a one-line,
+model-gated change. Backport needs only retargeting the path from
+`lenovo/thinkpad_acpi.c` to `drivers/platform/x86/thinkpad_acpi.c`.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+---
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record:
-- `git describe HEAD` → **v7.3-rc4-27-gf0100363d8c37**
-- `make kernelversion` → **7.3.0-rc4**
-- Driver present: `drivers/misc/ibmvmc.c`, `CONFIG_IBMVMC` depends on
-  `PPC_PSERIES`
-- Pre-fix body confirmed via `git show
-  18189e5d84aa0^:drivers/misc/ibmvmc.c`
-- Bug present since **v4.18**; this checkout already contains the fix
-  (`git merge-base --is-ancestor 18189e5d84aa0 HEAD`)
-- Current `ibmvmc_recv_msg()` at lines 1662–1667 already has the check
-
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Clean apply.** Surrounding `ibmvmc_recv_msg()` control flow is
-unchanged since 2018 (hmc_index/buffer_id/state/owner checks, then
-RDMA). No refactor of this function in this tree.
-
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: This **is** the length-check fix; no earlier variant.
-`fd62c1f591372` is a different write-path issue.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record:
-- **Subsystem:** `drivers/misc` — IBM Power Virtual Management Channel
-- **Criticality:** **PERIPHERAL / IMPORTANT for PowerVM management
-  LPARs** — not core mm/fs, but it is the HV management channel
-  (`/dev/ibmvmc`) on those systems
-- Status in MAINTAINERS: **Supported**
-
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Low churn. Functional ibmvmc changes in this file are sparse
-(driver 2018, GFP_ATOMIC fix, strncpy, then these 2026 checks).
-**Mature, long-lived code.**
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: **Config/platform-specific:** `CONFIG_IBMVMC` on `PPC_PSERIES`
-with a VMC adapter. Typical users: PowerVM management partitions (IBM
-Power servers), including LTS distros that ship this driver.
-
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record:
-- Trigger: hypervisor CRQ `VMC_MSG_SIGNAL` with `msg_len > buffer->size`
-- Not a hot syscall path; not an unprivileged attack
-- Realistic sources: firmware/PHYP bug, nested/mis-emulated VMC, or a
-  compromised HV
-- **UNVERIFIED:** whether production PHYP ever emits an oversized length
-
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record:
-- **Failure mode:** `H_COPY_RDMA` of untrusted length into a
-  `kzalloc`/`dma_map_single` buffer of `buffer->size`
-- If the copy proceeds past the object: **kernel heap / DMA overwrite →
-  HIGH/CRITICAL**
-- If the IOMMU rejects the extra range: hcall fails; old code still
-  stamps `buffer->msg_len` / owner before checking `rc` (pre-existing).
-  The new check also avoids that for the oversized case.
-- **Severity: HIGH** (memory corruption if the copy is honored;
-  important even as defense-in-depth against firmware)
-- **Note:** IOMMU/TCE page rounding can still allow overflow **within
-  the mapped page** when `buffer->size` is smaller than PAGE_SIZE
-  (possible after capability negotiation).
-
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- **Benefit:** HIGH for ibmvmc users — prevents a kernel-side overrun on
-  a message the driver already treats as data into a sized buffer.
-  Cheap, local check.
-- **Risk:** VERY LOW — 7 lines, error-path only, no locking/API change,
-  matches existing reject style.
-- **Ratio:** strongly favors taking the patch.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-Step 9.1: COMPILE THE EVIDENCE
-
-**FOR backporting:**
-- Real bounds bug: untrusted CRQ length used as RDMA copy size into a
-  max_mtu-sized kernel buffer
-- Driver and bug exist since v4.18; this tree has that code
-- 7-line, obviously correct check; no new API/feature
-- Applied by the char-misc maintainer
-- Outbound path already validated; this closes the inbound hole
-- Failure mode is memory corruption, which stable is meant to take
-- Applies cleanly; no prerequisites
-
-**AGAINST backporting:**
-- No user/syzbot report; author looks like a validation sweep
-- No maintainer Ack; mailing list was a single unreplied patch
-- Trigger is the hypervisor, not unprivileged userspace
-- ibmvmc is PowerVM-management-specific, not universal
-- IOMMU may already fail some oversize copies (does not make the missing
-  check correct)
-
-**UNRESOLVED:**
-- Exact PHYP `H_COPY_RDMA` behavior past TCE bounds
-- Whether stable@ already discussed this (lore HTTP 403)
-
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — check is locally verifiable;
-   merged by Greg KH. No extra Tested-by.
-2. Fixes a real bug that affects users? **PASS** — missing length check
-   on inbound HV messages into a sized kernel buffer. Affects
-   ibmvmc/PowerVM management guests.
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   buffer/DMA overrun → memory corruption. Severity HIGH.
-4. Small and contained? **PASS** — +7 lines, one function.
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — context matches; already the
-   same code shape since 2018.
-
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: **Not an ID/quirk/DT/build/docs exception.** It is a normal
-small memory-safety fix.
-
-Step 9.4: MAKE YOUR DECISION
-This tree is **v7.3-rc4**. The buggy `ibmvmc_recv_msg()` path exists in
-this lineage and the 7-line check is the right fix. It meets stable
-rules: real overrun, small, no features, clean apply, very low
-regression risk. Niche hardware and lack of a field report do not
-outweigh a kernel buffer overrun check.
-
-**What it solves for stable users:** PowerVM management guests no longer
-DMA-copy an attacker- or firmware-chosen length into a max_mtu heap
-buffer.
-
-**Risk vs benefit:** near-zero risk, meaningful corruption prevention.
-
-**Concerns:** none that block backport (no deps, no rework). Maintainer
-silence and missing Fixes/stable tags are not reasons to drop it.
-
-Verification:
-- [Phase 1] Parsed tags: author SOB, Greg KH SOB, lore Link; no
-  Fixes/Reported-by/Cc:stable/syzbot
-- [Phase 1] Body: CRQ length → `h_copy_rdma()` into max_mtu buffer
-- [Phase 2] Diff: +7 lines in `ibmvmc_recv_msg()`; `if (msg_len >
-  buffer->size)` then unlock/return
-- [Phase 2] Confirmed `ibmvmc_add_buffer()` sets `buffer->size =
-  ibmvmc.max_mtu` and `alloc_dma_buffer()` is `kzalloc(size)` +
-  `dma_map_single(..., size)`
-- [Phase 2] Confirmed `ibmvmc_write()` already rejects `count >
-  ibmvmc.max_mtu`
-- [Phase 3] `git blame` on pre-fix file: lines from `0eca353e7ae75`
-  (v4.18-rc1)
-- [Phase 3] `git merge-base --is-ancestor 0eca353e7ae75 HEAD` → yes
-- [Phase 3] `git merge-base --is-ancestor 18189e5d84aa0 HEAD` → yes (fix
-  is in this checkout)
-- [Phase 3] `git log --oneline -20 -- drivers/misc/ibmvmc.c`: sibling
-  write-path leak fix is independent
-- [Phase 4] `b4 dig -c 18189e5d84aa0`: lore msgid 20260624175139.7981-1;
-  v1 only
-- [Phase 4] `b4 dig -w`: maintainers + Greg + lkml CC’d
-- [Phase 4] `b4 mbox`: 1-message thread, no NAK/review replies
-- [Phase 4] lore WebFetch/curl: 403 — discussion beyond b4 cache
-  UNVERIFIED
-- [Phase 5] grep callers: SIGNAL CRQ → tasklet; not userspace
-- [Phase 5] `ibmvmc_read()` caps `nbytes` at `max_mtu` before
-  `copy_to_user` — overflow is the RDMA in, not the read out
-- [Phase 6] `git describe HEAD`: v7.3-rc4-27-gf0100363d8c37; `make
-  kernelversion`: 7.3.0-rc4
-- [Phase 6] Current file lines 1662–1667 contain the check
-- [Phase 7] Kconfig `IBMVMC` depends on `PPC_PSERIES`; MAINTAINERS
-  Supported
-- [Phase 8] Trigger: HV CRQ; users: PowerVM management; severity HIGH if
-  copy overruns kzalloc object
-- UNVERIFIED: firmware H_COPY_RDMA vs TCE overlength; stable@ history
+### Verification
+- [Phase 1] Parsed subject/tags/body from the provided commit message;
+  Link msgid `20260806154417.618575-1-andryk.rv@gmail.com`.
+- [Phase 2] Diff is +1 `TPACPI_Q_LNV('H','3', TPACPI_FAN_NS)` in
+  `fan_quirk_table`.
+- [Phase 2] Read `fan_get_speed()` NS case (0x95) and `fan_init()` NS
+  setup in this tree.
+- [Phase 2] Read `tpacpi_parse_fw_id()`: `H3ET77WW` → `TPID('H','3')`,
+  matches `TPACPI_Q_LNV`.
+- [Phase 3] `git blame -L 8822,8837`: NS rows from `66e92e23a7276` and
+  `a6dcd3f1725e0`.
+- [Phase 3] `git merge-base --is-ancestor 66e92e23a7276 HEAD` and
+  `a6dcd3f1725e0 HEAD`: both in tree.
+- [Phase 3] `git log --author=Onyshchuk` on platform/x86: no local
+  commits.
+- [Phase 4] `b4 dig`/`b4 mbox`/lore.kernel.org failed (missing SHA / 404
+  / 403). Thread recovered from Patchew + lkml.iu.edu + Openwall:
+  Pearson Reviewed-by, Ilpo applied as `051292bf7697`.
+- [Phase 4] Web search: H3ET is E330/E335 BIOS family; author tested
+  H3ET77WW.
+- [Phase 5] semcode unavailable; `grep fan_get_speed` → sysfs
+  `fan1_input` and `fan_read()`.
+- [Phase 6] `git describe HEAD` → `p-6.12-3-gc504cf0baa3d8`; `make
+  kernelversion` → 6.12.111.
+- [Phase 6] Grep: no `'H', '3'` / Edge E330 in local file; NS table ends
+  at 11e Gen5.
+- [Phase 6] File exists only at `drivers/platform/x86/thinkpad_acpi.c`.
+- [Phase 6] `051292bf7697` is not a valid object in this repo.
+- [Phase 7] `CONFIG_THINKPAD_ACPI` in `drivers/platform/x86/Kconfig`.
+- [Phase 8] Failure mode: 0 RPM reporting, not oops.
+- UNVERIFIED: stable@ lore discussion (HTTP 403); independent
+  confirmation on E335.
 
 **YES**
 
- drivers/misc/ibmvmc.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/platform/x86/lenovo/thinkpad_acpi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/misc/ibmvmc.c b/drivers/misc/ibmvmc.c
-index af84e94ec5f0e..b26ee0d3626f5 100644
---- a/drivers/misc/ibmvmc.c
-+++ b/drivers/misc/ibmvmc.c
-@@ -1659,6 +1659,13 @@ static int ibmvmc_recv_msg(struct crq_server_adapter *adapter,
- 		return -1;
- 	}
- 
-+	if (msg_len > buffer->size) {
-+		dev_err(adapter->dev, "Recv_msg: msg_len 0x%lx exceeds buffer size 0x%x\n",
-+			msg_len, buffer->size);
-+		spin_unlock_irqrestore(&hmc->lock, flags);
-+		return -1;
-+	}
-+
- 	/* RDMA the data into the partition. */
- 	rc = h_copy_rdma(msg_len,
- 			 adapter->riobn,
+diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+index 075543cd0e77e..f3b2e3c794571 100644
+--- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
++++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+@@ -8854,6 +8854,7 @@ static const struct tpacpi_quirk fan_quirk_table[] __initconst = {
+ 	TPACPI_Q_LNV3('R', '0', 'T', TPACPI_FAN_NS),	/* 11e Gen5 GL */
+ 	TPACPI_Q_LNV3('R', '1', 'D', TPACPI_FAN_NS),	/* 11e Gen5 GL-R */
+ 	TPACPI_Q_LNV3('R', '0', 'V', TPACPI_FAN_NS),	/* 11e Gen5 KL-Y */
++	TPACPI_Q_LNV('H', '3', TPACPI_FAN_NS),		/* Edge E330 */
+ 	TPACPI_Q_LNV3('N', '1', 'O', TPACPI_FAN_NOFAN),	/* X1 Tablet (2nd gen) */
+ 	TPACPI_Q_LNV3('R', '0', 'Q', TPACPI_FAN_DECRPM),/* L480 */
+ 	TPACPI_Q_LNV('8', 'F', TPACPI_FAN_TPR),		/* ThinkPad x120e */
 -- 
 2.53.0
 
