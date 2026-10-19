@@ -1,106 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792440439;
-	b=EGFWeeEINXZNvtvHuIw99ULO5bu8wSeGsGffxjrbAoyxQz88ck/j3QLEHqcvC/nRyt3o
-	 NvNpc9zNLwaU0IHW+CA14y25yoyI3JxBWYdLmwvUwwZ9VSycbyY/g+w54nl+RkKCKCnYM
-	 6Q7Ug09gsrluCgMu3yHWg28G9Qdym9pMcVYJAf19AVph1HImDb1HytthuuH9KQ85ZvFJ9
-	 IrIZB1E2ElSVAKaVKeyqOqK6pmyXJZQ7jjXGjDqXEa6L+Ajl98vrFYWVjNC6UG1agCnFL
-	 y/3GLWvw7WpwRJEg+7f5aPIwmfM/Lry6mQs8AgVq/B2+C0214Z1TnNOCZ4hSDklYhCg==
+	t=1792440630;
+	b=q3mBNnaoKS6c3li6hIPFINOTzyjJ82r821qt8upibNXIT3BqSsEjMg740xZYz/sKaPps
+	 h/O3TIgsgFMyc92hPYj0lMLY7EdkTc1dt/Mhz+HJZI6wwXdzJAOIv+EUiGL1pHSZPiZ7p
+	 YIcPHYuhqcJz42vyPOttofSGXoq602D09wwW4uYReXXKDvuWm4iVYon3Z5qlKss+fHQJ/
+	 eI5QPP49/Id6USnPpDUF/rUDmosh93GMPXby23X2ZpkNwNpB4xQmtn5qf6au/zxdFxBqT
+	 rw6tYPOsf2wu3LUjrvZgV55yFuKRB5qCK2TjWWNMYUu5JWCECJD4NGo4jnbxc4JrrAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792440439;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YPV1ND+Y5cr1ZRV7QTF9T5CIKQmib3RaWdAMyy6frHc=;
-	b=n1cQ53gAW6UT2wwTbd87mbKO800xhrGvujXU4I8159JLgPHRgve7XydXpdHANfjzWuN5
-	 g38qauhYPkPzctcY4k11bBrQeCvVDAL8hri4uT9JH/L+iW2E1iTj1yFCC0Alha0AWMpAu
-	 j88M6jwI29VZe+gqMyn5cw9jLT1ZspZNvdDSwJGp+uyiG2cHSBiezVekY0QiJXYlBGNgM
-	 Xk/sEKpOJyKtXFhIottMLlgm6h19LbJgU8tnHPt5uFxLlsmslIxYKm4vUiYodGixjcuZw
-	 ScWp1MEQUwR5TxDyjC1AgeZE/HnqZwolcsGth+WVpBYLeoiEE0oWpwKaZ4s5Eu8ZWMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792440630;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=BVwu0zGEH0/TN5lnCQrb8LUaYg21LYYId0LnB698nU8=;
+	b=xfL13KsOzs0Qy9O6J+w5q+1PkW2/RbBzDcfV2EP0Wx3aMMzULvCxuva8Vi8iMlRnaA8J
+	 LTspKv1zbpivw8M2ldqD78Iiu5mfKYQfZOn29OxUj1KOenWI76OHmRMmRTHmLjt9ZSzjc
+	 ojIPBDziJpakwHOL2T2ruM4kWCoGnnv0/9Oc2yErGwXjDAkKd3MCYaZSSwW8QGf1+PzXZ
+	 6nRBUR3BHnb5CgwL0WTftd5Q/HGzRwNJ5uu3qi+82bghRjtmYq4BS9UBE9SVtohTPxVo7
+	 z9+XQwdwRfWMAUEbJbfwZpfNSK4hGQrriSrFKUNHXABgMx9/WIl8HuqRWaZvULa056w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l69kuM9n;
-	arc=none smtp.remote-ip=209.85.221.177
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EXMRCviC;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5D5606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:07:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D5D5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4FE606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F4FE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l69kuM9n
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5e519c39196so797305e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:07:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792440438; x=1793045238; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YPV1ND+Y5cr1ZRV7QTF9T5CIKQmib3RaWdAMyy6frHc=;
-        b=l69kuM9nBsR+l0ZfD1qjwGocl2TfXqkwPRTz9QKrnRXYHyEZEaUQB9/V81hETBJtTy
-         qELQXTDhgpHVOiISHZ2PVXDIQRTw81JGSlXOIVsuMspQX00wJKUe+YOL0slnZdSnuInZ
-         m4dUeryDiyUV5vu5zV83G79vFU3kAG9iMq0gpiQdXinEf+gV0T1zL1Xthi4IZ8wWH9G+
-         ZHGcU3TQFPp0rkjpcKCUiNeSwMjTzG0uSbVVFM91nSVbuX/2wmK9L296XET3BfitHEGx
-         INGY13UsZ1Zo6h2wy2kqU3D4axkdLslMai/yZ1G4bYuxDyYZm7Wn6C6wnEW5ZUAc0bV5
-         8Ujw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792440438; x=1793045238;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YPV1ND+Y5cr1ZRV7QTF9T5CIKQmib3RaWdAMyy6frHc=;
-        b=mG6syh9zNOdAjLzjFhITes2h+JWZS3+hldVrwzLUM6nq7SMR2ZMmQv9eZmZ1dyBivo
-         43EIExgG3LWJFUhsV4zUlKpPHa20ug/xxVRv2W7LdfNbC0AySS2C8V2iMz8Tq8g9PgNO
-         w7uPmVvu/W/OJrD21sl7VAGaQ4rm8MVvfFLwufOehNiiycMOKu3U4bXTCZ3+dWML+FvO
-         SYHp2AGnWgLOsZkb+/40W7pbdRit5LzaV3vMN6PP5tAs+eYDf20Y+lyVMbUVUszlOqUr
-         rbXSbJ0KqkZ5QZlIsAo4Bw9EMeogxAQtSSyDJ9BRAQHans5Z1O1VgyAn8OPavTg4tu5z
-         g8gQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCBKZZUgoOMkQ43IpSMPaCVPjpQEJzzzqh04iyCcyGYqSvj0tcyymQaiy9jBADdZbufccwOJje0ZqhbTk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcL8uyFtqqU8I+L/aZyGNzRzsivFBaQUsewGac3aAuI9APuHkE
-	wPPmqblJ7sXZ3m0q+lJNm0LzEK8AO0eGh4Y9j2NiVy/iVKTv2DrOAngO
-X-Gm-Gg: AYBFou3GK/06rnNSw8liWyzsHq03HoN9RV5gv8isRALc96u6c1wO3+otQujvQpSSseM
-	Xgh0iM8pohOIWaOzaPU3ezjvainIDKhL91tBqXdUca7oRaqAfJYR+q5hSE1CT6pIGGZc8h8yVJL
-	S+Kg/FZyIhXHbBuDFLgFCG2vOBQczNAiqJAFSk9WEuCv52EquSekUq/RxKEGbN7IWKeENxtyhPs
-	Iw8lcxpbMW1j5cxwZ4LDnmkkAAMWtfm3fv4hDAbcej60oU0y48SI/RT5LzSy6vR1mMu6Ixdd8yN
-	J5Z2cVx7TivXBJ1jnAftgySUmoglvOZbSyKm0du9OE0fHWqZ3Emv+EnX7x0aT+VOJJTnOlenNjv
-	LEQVL0LMfLN8Ujqrsu/NRinxFyR1CBmEVQVfwK0rpIXCk/gSHlEBoQt9Hk0ORT2jFEwTdlYGUv9
-	1DcU1YfvEQKqFRpIGu2JClaRWb9kR5SwMrZvx7siVrvuBEvK4JEOMAUV3GYkPHsDtmmyN9ZgxgZ
-	tISiXW+loBCZlAq2za1Vwd1jjVzi0DGLOKemCZkguE/5LVswI8WU1/+O3led+e5N3RrouToAFCz
-	Iq3oRkRKCbymTCV4Vg==
-X-Received: by 2002:a05:6123:12d:b0:5ea:c214:b5cf with SMTP id 71dfb90a1353d-5eac214b927mr1447944e0c.1.1792440438123;
-        Mon, 19 Oct 2026 13:07:18 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.244.163])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b4776b5sm10451611e0c.3.2026.10.19.13.07.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 13:07:16 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: linux-serial@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andriy.shevchenko@linux.intel.com,
-	ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>
-Subject: [PATCH v2 4/4] serial: 8250_dw: Add Allwinner A733 UART
-Date: Mon, 19 Oct 2026 17:06:13 -0300
-Message-ID: <a3505ad8e74a08faa270881f0efbfe0d0d82d6e0.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EXMRCviC
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 9C58DC5CD5C;
+	Mon, 19 Oct 2026 20:11:23 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4B20160582;
+	Mon, 19 Oct 2026 20:10:25 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5F72C10328C22;
+	Mon, 19 Oct 2026 22:10:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792440624; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=BVwu0zGEH0/TN5lnCQrb8LUaYg21LYYId0LnB698nU8=;
+	b=EXMRCviCklnOjnqoZRCVUMZXw5pVoRsryS6ybXaQiO9uSmEUhsW6+j3LG2OPiuUnGVDyn/
+	HwTKQUtsqdGjGrj0VPFehQ9dWp4/jpTYnWoqPH6g9FlXhrtpYRhMSqvekHGXq8imvaNYzw
+	CuCgauxmavb2G9sCg8NmdT4TCN07HxM6cFO7maDY4/Z6HNrmLNaBfVKwslOcIMNWoh3pPi
+	Je+gLyBTyFj5h6KrNX8Afxr8Ay1gEbB9nbDhIhsMb8Pk0WSI8pngmV23vs0vfWNxNm3Z4l
+	UQrAqES0kjpIIby8A8mKCEi68br1S3m+ePXDdZ/0c3cXkQ3IqVB6l1YrGd53wQ==
+Date: Mon, 19 Oct 2026 22:10:21 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: linux-rtc@vger.kernel.org, Gregory Price <gourry@gourry.net>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, rui.zhang@intel.com
+Subject: Re: [RESEND PATCH 0/2] rtc: cmos: Fix ACPI RTC alarm handling
+Message-ID: <179244056610.104236.1471257559903305892.b4-ty@b4>
+References: <20261015173029.3091872-1-gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,32 +66,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015173029.3091872-1-gourry@gourry.net>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On the A733, dw8250_set_termios() stops the UART clock around
-clk_set_rate() on every termios change that reaches the driver. If TX is
-active at that moment, the character being shifted out is corrupted.
+On Thu, 15 Oct 2026 13:30:27 -0400, Gregory Price wrote:
+> Resend of the series first posted on September 9.
+> https://lore.kernel.org/linux-rtc/20260909225132.1392883-1-gourry@gourry.net/
+> 
+> RTC update interrupt emulation can stop delivering events when rtc-cmos
+> uses the ACPI RTC fixed event. On an affected system, a test that waits
+> for five one-second update events completed only 40 of 50 runs. The ACPI
+> ff_rt_clk counter stopped at 218, exactly matching the number of events
+> delivered to userspace, with the event status set but delivery disabled.
+> 
+> [...]
 
-No baud rate change is required to trigger the problem. Toggling only
-CLOCAL or CSTOPB 300 times during continuous console output corrupted
-bytes in every run without the quirk and in none with it.
+Applied, thanks!
 
-Use the existing SKIP_SET_RATE quirk, as the JH7100 and SG2044 UARTs do.
+[1/2] rtc: cmos: Disable ACPI RTC event before handling it
+      https://git.kernel.org/abelloni/c/3f67038df8b5
+[2/2] rtc: cmos: Honor explicit use_acpi_alarm parameter value
+      https://git.kernel.org/abelloni/c/3c7acb209e1d
 
-Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
----
- drivers/tty/serial/8250/8250_dw.c | 1 +
- 1 file changed, 1 insertion(+)
+Best regards,
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index 4c86aaf9c121..718ec44135e4 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -906,6 +906,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
- 
- static const struct of_device_id dw8250_of_match[] = {
- 	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
-+	{ .compatible = "allwinner,sun60i-a733-uart", .data = &dw8250_skip_set_rate_data },
- 	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
- 	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
- 	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
