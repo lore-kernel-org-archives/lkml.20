@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792447681;
-	b=LjcNSIU2GqK5xd6sn0YXk2sj1Q4GEB7ZKMdpGe0Y4qwayHoOP3t8u3K75qh5bbfWhFj/
-	 G8goFWQKjZH42abz/7nBxWwC8bPrEtLz39IS4PtpjhB5L9T+Lq61Zpu9w/PNVGHs12S6r
-	 nkNx5pMZONwGZAElLGLKKqP5o3cXxpbb8hynY9BSWNbuu0oUFc1FpFxoAI94hFS5efSVF
-	 tOyYerX/S4CIwoXElY0CiSghCconfiCnhUnY4b3H/WWxf8hAyFGGY3XovZ4sIllQHCnxB
-	 hCYisFGlKXtLjTa48iRt3DZjk4Dn8Lr3OH1epWdMifstVIYPF2usWaKd66yZJyExi9w==
+	t=1792447683;
+	b=vyJZUKyddGCuNki6uL5GrBMZQoxdQ4o2WJay6M7lKMFhZfSyyevTrmQKKlT91KZXNmlh
+	 o2Mbf4Fa8Ij1JGhRB+fyDxVzgv/PWrXqlDtHjgsnGMskgUF4w+RKJ+Xm9xBKD0Tk2ce6o
+	 AJD/Swgz0QKOE0aG856nUhWaRRAjk5+uEHD2Vm9TjIpC1gbdctkpDjt+Sl4Yrlnc1rYkD
+	 OExPPnt8UdCwEZTjo7zs/MLcqrER4k3wUTmtEYsAHnJ1bbFV+uS54JFFzrj3l+YnF6WHN
+	 xyCGKWxsCNU71yaSgFgM7KFWsfFfPL5vR2aQ80MViedFZqxp1y+qP3gZ/Jpx3raS68Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792447681;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792447683;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=uMh63T5YwfVNuBDByuzphHs8PVFbK99F0ZI38rcR9bE=;
-	b=umkVEAg6KW+v5Lp4l0jlFcOkpDWBzvT6DSd5Irdll53jbR4GqoKNiee3oETIkvwYWoTH
-	 m+6H/eY7H2G2NB2EtaiLrFi9BvWfJwEdMz+H0WdoN8v+AGRkeQ8wtecKC7pMH+i4XBy/X
-	 ILUAtBItOWzBa2JcqJ2NSFVKpj4+8vvceCgckLtSai1wrYJXOsxUYRHH+xcLv22/ujzOO
-	 i7A8ZnPdAr21lak6kuJGQ5LmBRSm7gIQ2CMon81Ii/8Wxagf835fIRA+rsaN43OnnMGtF
-	 4hNphy1cuItD/SpEmMR3YBW00DpLC2krwxrTlScQDjIVhSmtNSh2Z9N1EIdMJfn871g==
+	bh=YeZNYunybcxy/NfWb6jCfz+TaK9LyyfOatz74eHc0KM=;
+	b=w9ZE3rxDk8S9L27yJ6+Wc2fWDGo2VM9S9xIP8XV9hVRbGMchjQciqfEJx5alD86KGXCy
+	 3K4N9N7L75871LgzPmPLmiMHS7JQ9FvZZq18bf6jeUyLreMeCVdoqx0vK7I1/jyvwlKtb
+	 /nzvsSPRM5XybsuX2+1A2oXYRmH9rEOpa227SHxeS/ByYHvoNNRzdOK7AeJNflnffqmvb
+	 FKKCFSM0wSW+0ilCStP7/zMiRqnwEq9TTrca8aK6G43bvd8+uw14bGP2h2LFiXwJ4VPfX
+	 GjR4hrjlyy+Lm3xpPHUkd4Qse0DephLt/q/XyS0GEVJJtQzN7pGOGHl2DEiXPWK5FNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RvGK4d3Y;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ns9WH8e+;
 	arc=none smtp.remote-ip=192.198.163.17
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20741606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:07:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20741606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DF360A2606
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:08:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7DF360A2606
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RvGK4d3Y
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ns9WH8e+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792447680; x=1823983680;
+  t=1792447682; x=1823983682;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=A/4iI36wx+KlAM4dI0iaxXZnnncEDWki1Hc3YEPdd3Y=;
-  b=RvGK4d3YzpSkVyIxO2MWcMgYxbcFS4Fq3Syb3eMMBMP6Tkm0/bmxd2ik
-   U8XO0+vKx/k3bEgcThoWZRxks7y2l/UtN19CSTsuVaEej6K1I9KbWenxA
-   5kcjmYQikGzrdg0otnPwYzYyzb1RQTurYBF5ke9YJmF2J5h/HrNCA+NX7
-   Atgg2Y3kt/cUNmySIi2pn4vvvrrjqwvT4LRndl9SZ3lGsI/ILjHxeOtUK
-   YPXfG+RGKO8juFexvjrR4HYO7pSt9Ps4x7nZL34y/lEZW3BReaiKHj+vd
-   fJRU1LJuDniOUzFE4OjvzhCyh4bWp/icmMF/Q4viWedlB0wph3SyCR6YY
+  bh=9RK0cTSErpvZvdFlmTLHSVOodu/G/WUGFbYDPDtGi7Y=;
+  b=Ns9WH8e+DW9yrnHkeKinqelToZMBCeRCMELnReiVFr51DsE/I5ArPdK9
+   bxRrK/CylQXGghSc+HrPMbbjpM3dnQgZgQr9pSDcjGabCUOMF+x5cqcP6
+   dQK1wv87dUpNjLYtUh/dtJM/K2tFyRDgoF0Nnhxu/y8WS4axe3sEffPwm
+   3gw5sBJyPsIxZSkbEAFOf7kjahEN6vAA5LrcthLROj/L+MIaN7Nd1dM6o
+   ZbW8bUtLLOHnKOCcZjduKaiGzGGdl2P0q7cTDDpui/rj1VxY5Q94GgDh4
+   uRh6Od0zSHPcJPUo8fdvpZAGiqtlZKopB+P7PlslM+mCrob5XG9Qceb4g
    w==;
-X-CSE-ConnectionGUID: iTOgFytWTGmnYHGCsLxboQ==
-X-CSE-MsgGUID: R+PlFMROTl+PiXdwVZ18kw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1144181"
+X-CSE-ConnectionGUID: waoR8kG5Q5+oaKy5CPVZ5A==
+X-CSE-MsgGUID: +xYrlyUpTZ+F+vrTZF2hAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1144217"
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1144181"
+   d="scan'208";a="1144217"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:07:58 -0700
-X-CSE-ConnectionGUID: w1bfUud+RPubKmRNHnRaFg==
-X-CSE-MsgGUID: W6aN0PCAQqe5Sh2hmIkKzw==
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:08:00 -0700
+X-CSE-ConnectionGUID: Jy1DBh7uTJOEd+iqTAl12Q==
+X-CSE-MsgGUID: QVEI9MElQH+S/ejUvlxmHQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2708330"
+   d="scan'208";a="2708346"
 Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:07:57 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:07:59 -0700
 From: Reinette Chatre <reinette.chatre@intel.com>
 To: ben.horgan@arm.com,
 	james.morse@arm.com,
@@ -74,9 +74,9 @@ Cc: tony.luck@intel.com,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	reinette.chatre@intel.com
-Subject: [RFC PATCH v2 02/10] arm_mpam: resctrl: Rename ctrl_comp in mpam_resctrl_alloc_domain()
-Date: Mon, 19 Oct 2026 15:07:36 -0700
-Message-ID: <adeb2b33540572b5da5edb79d2ddacc9fc098e01.1792443633.git.reinette.chatre@intel.com>
+Subject: [RFC PATCH v2 07/10] arm_mpam: resctrl: Warn when no monitoring component is found for a CPU
+Date: Mon, 19 Oct 2026 15:07:41 -0700
+Message-ID: <1c68a6ae981095ec93250cf0e394bb4df15c7e66.1792443633.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1792443633.git.reinette.chatre@intel.com>
 References: <cover.1792443633.git.reinette.chatre@intel.com>
@@ -91,66 +91,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mpam_resctrl_alloc_domain() looks up the component of the resource's
-class that contains the CPU and fails the domain allocation if there is
-none. The component is held in a local variable named ctrl_comp and, when
-the resource supports allocation, it also backs the control domain.
+Setting up a monitoring domain fails if no monitoring class has a
+component that contains the CPU. This is not expected to happen: a
+resource only supports monitoring when at least one monitoring class
+was picked, and only classes that cover all possible CPUs are picked
+for monitoring.
 
-The lookup and its check apply to every resource, including one that
-supports only monitoring. For such a resource the component does not
-back a control domain, so the name ctrl_comp is misleading. The name also
-makes a comment in the same function ambiguous. The comment notes that
-there may be no ctrl_comp for the L3, which is true of the control
-domain's component but contradicts the local variable, which always
-refers to a component once the lookup succeeds.
+The failure path calls WARN_ON_ONCE(0), which never warns. The
+unexpected failure is thus silent and the CPU is left without a
+monitoring domain with nothing reporting why.
 
-Rename the local variable to comp. Keep the ctrl_comp name for the
-control domain's reference to its component because it only ever refers
-to the component that backs the control domain. Leave the comment
-unchanged since it now unambiguously refers to that component.
-
-No functional change.
+Warn when no monitoring component is found for the CPU, as is already
+done when setting up a control domain finds no component in the
+resource's class.
 
 Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 ---
- drivers/resctrl/mpam_resctrl.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/resctrl/mpam_resctrl.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 3d5f90f9f1f3..b07e5dd895dd 100644
+index 022920be1862..63c5bf45856d 100644
 --- a/drivers/resctrl/mpam_resctrl.c
 +++ b/drivers/resctrl/mpam_resctrl.c
-@@ -1623,14 +1623,14 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
- 	struct rdt_l3_mon_domain *mon_d;
- 	struct rdt_ctrl_domain *ctrl_d;
- 	struct mpam_class *class = res->class;
--	struct mpam_component *ctrl_comp;
-+	struct mpam_component *comp;
- 	struct rdt_resource *r = &res->resctrl_res;
+@@ -1665,10 +1665,8 @@ static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
+ 		if (mon_comp)
+ 			any_mon_comp = mon_comp;
+ 	}
+-	if (!any_mon_comp) {
+-		WARN_ON_ONCE(0);
++	if (WARN_ON_ONCE(!any_mon_comp))
+ 		return -EFAULT;
+-	}
  
- 	lockdep_assert_held(&domain_list_lock);
- 
--	ctrl_comp = find_component(class, cpu);
-+	comp = find_component(class, cpu);
- 	/* class has no component for this CPU */
--	if (WARN_ON_ONCE(!ctrl_comp))
-+	if (WARN_ON_ONCE(!comp))
- 		return ERR_PTR(-EINVAL);
- 
- 	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, cpu_to_node(cpu));
-@@ -1638,10 +1638,10 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
- 		return ERR_PTR(-ENOMEM);
- 
- 	if (r->alloc_capable) {
--		dom->ctrl_comp = ctrl_comp;
-+		dom->ctrl_comp = comp;
- 
- 		ctrl_d = &dom->resctrl_ctrl_dom;
--		mpam_resctrl_domain_hdr_init(cpu, ctrl_comp, r->rid, &ctrl_d->hdr);
-+		mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);
- 		ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
- 		err = resctrl_online_ctrl_domain(r, ctrl_d);
- 		if (err)
+ 	mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->hdr);
+ 	mon_d->hdr.type = RESCTRL_MON_DOMAIN;
 -- 
 2.55.0
 
