@@ -1,132 +1,127 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB4E4A4EE4
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536904A5C29
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400483; cv=none; b=OEPtiKtNZ9CwpPUqf1tOlKpltq9gqhdaYJavgvvJYw7gSduuScGvncRfbVu3FaDIpJrRzZ8umGDR7iD47ahvoBtLZsx/m/Kejujd2yNOs3prCGLFwsv7HxdpZ6SdJtQRcec36f8BaDx/yXp4rlj8GgKU6BNJFNlA6tozRNYTCYQ=
+	t=1792400487; cv=none; b=o90mvw3dFDL2wo9cPd+kpQ+lmNLs18W2yAPKLdVevvLsYlrByNUWhX6L4AeySzEmY63QFprtc6uBrvamSntm/0ZejXNIg4cX1w8aTYKOQbR75wvCLd69bi8dSchXqMlnQqjPH8kAdv+7ZMUGPpxUC3wEABf8oPBqWOAwMNcS4Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400483; c=relaxed/simple;
-	bh=WLWwWzeZBOSKp0C0wY8LsKsrti3WYaCx6yssolyVc20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aGHOJY+QErJuyePjm+c1F+OAYnaRLmuuQ7jPRzbPnXbuLKbKtg8xFKwQNMh4wJuY4sTwiUWxX39aTFXnQmT1BM8mM7w1E2Hp3tvlF5xF7qluOinm86qIEkW1oTqppUrddaISKfAfurW0/q90nQxUFFE0uD795bmRwx5SHkz6F34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UL+ENG4D; arc=none smtp.client-ip=209.85.216.47
+	s=arc-20240116; t=1792400487; c=relaxed/simple;
+	bh=ISGLybjkKHk4ZABVfkFT1ydPZlLsqwmBvVyFe1NRoTY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nV5Nn30t5f2H5GtJ4SLYips23rMu/i7MGYkk0g5JFybK2zVF+W+K0r0rJGTn/RCRGm3VlPXYhmf22dxRj4hmqyPIZ0plKFB2RRZ7/G4nac7B3/7VAnvnbkyDS+mKw4X2ITCrns8RszFqvM3Q2ZtbCb+wdCafrXA5PDh2qc9bQCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f2YiBJr8; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UL+ENG4D"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso874458a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:01:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f2YiBJr8"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso12941565e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:01:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792400481; x=1793005281; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vybmS5BYak1w5heTo7DTlFP7z60krqMLtPatgKuV1rE=;
-        b=UL+ENG4DQGJypialzcokFBbH2hNcqkiklUgduMttVl/6uw8zMl7mHACrAXIXHTR5OO
-         vcirIIG84nBTUYsTaXAR8AjlRRSWg7LPm9TGemx6R0+KtBrW/JW2pCAUMi1+QzsGcXrR
-         VeTxqHMoeSKx6L5/POgD5MevOXAei04SgH+xa0FsbAIi2NOlJ7UDpyeSt72InRIzXPIQ
-         6WKZ29nlT9f3xae/YNrfefeFary1xpB2WKr6KCgKJD0sbi0pVzkw3hx9SZ1Y8PVLuLP1
-         a6cuPxIxkca399ANA9Oi2gOguTwPbOMA9nSTGtmS2gnrgV2YJE/m1qREufbd5RxdWggX
-         Gxvg==
+        d=gmail.com; s=20251104; t=1792400484; x=1793005284; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rCjG1qUBFd8Lkeu0pATJzv+SvPg5QuT3Ybijv+USoe4=;
+        b=f2YiBJr8YWgHCQ7dX3QK/a0ghLQO3tpp9SdQQWc22u0ytMEowXtccfe2dd5VECyMgg
+         vFMJ28IZhKycKJlA3WkIJaHi2Qg2Bo05HrnKn7S5KYAcQRq5rE3Qqa8IAIXlGF1JCc4q
+         82ZqSJ3Iir4o2u5vYFws5JgX9/U+pdyD9H2Uvp7KPRxia+TYPPL1cz2Rz1KgXuEf6mJF
+         FH3NeK87d20ZLWJM509G2/ER2ApgzzT9S3mWfC2bBScqqX715tOXE2ltXQ8oeUxHNyno
+         iOAKFQaLOZty1OSsVIxXJg9Hs+65FNVyU/2rTZdgmWLwPIRDo4Z9TAw3g7Ma1QlbDBNc
+         aUVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792400481; x=1793005281;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vybmS5BYak1w5heTo7DTlFP7z60krqMLtPatgKuV1rE=;
-        b=1uNbjqehqLSyiCYMoGVMEC8C8uGJcOorU5WOB+PhuIvowUClh4I6hzZcVnU4LJGvjS
-         BBfJ+KlGHX8HqGpg/4rTFT0j4TCMaiUKXn4+uFRqQwJe0wqlTMobLvNxlLbZ/H4Rgtg+
-         DSlOyEHiQL4YqiFzd3OK/Q9931jUalbQHRYypKuMCxn35txr9YLUQhhErZzpOPuavZSB
-         i8Dpm9lmV5bcQmHkKV0E3fLmO2sAL3rzyfoy8R8kqmDnRbC+D4RFnR1ivyqN9M7Fo22a
-         5ulrOYXB7x4Xf0npMQL73O8n6TUd94a81DRRj+OQJ9Dl8jOtazjuVCG9y7+JZbCFeKtA
-         mE0A==
-X-Forwarded-Encrypted: i=1; AKwUvBye0oQhwE1fdCdehu2rsdpwTnE4V8RHA7lyq+Z5iC9/MYdask5mOCrZFbvRvG/O1ehyJjgqkPYImbIw22M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWNycndj4Pj+AgPnmrokO7n69+Df7kWYkVMzsM+bR145aBkgv7
-	Encf5Zb02i81BV+kJE7KV1deUxTkI1tv+SQcT0casX/7Yq4V6XPYozCa
-X-Gm-Gg: AYBFou0UYkFJT3TKf2S7U70bg5rHdEAX/SWBEElwLFoVIVOr3JtBnVhANLJx4ZrxRnO
-	4WQTKq5bPkyFH5iGc+WAmMrne0lrrYaM22hJXIz4XXAv23LjKq64mRJ3WTF9Ohz5EBcVXIvCJB/
-	GO9X/wi8EksYT2CjpDSCn5LFoOYhVRBYjNKkAXE5NaJuXgQ1IKm7y56V3DQ1n1I5kqpMmSDbbad
-	7teOE+ZslKxFxprR5FJH0GANJzHgm3bmtToh7fMCRP7tRGly5easqrPq+0Tg48SVhou7qEVl6BM
-	3YHm6czrShaEe5Yx8RVY7qjZx3f45/9MVfM2iyeFoQhcV6nQUppi5lboh1TbMQzfnJpnzTBOPjK
-	mO/WBTDekZ/3ujBC8ZTOtBnSY60XN9utx1ctdxDEdZns4oApCI4zPKiNKGG4SfNEYOPsaZhWVYr
-	GtEnNIYoCj0y/cR4mmEflHG38YqdW3aJkz1Y0IZxgE7mRRip8eVCurixa+9MBzkU2L6FWXhrojU
-	6bh2TURYWtTkLquTb0=
-X-Received: by 2002:a17:90b:1a87:b0:3a2:bb45:d37b with SMTP id 98e67ed59e1d1-3aceec26e88mr5914108a91.25.1792400481075;
-        Mon, 19 Oct 2026 02:01:21 -0700 (PDT)
-Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9d266d6sm7618163a91.1.2026.10.19.02.00.32
+        d=1e100.net; s=20260707; t=1792400484; x=1793005284;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rCjG1qUBFd8Lkeu0pATJzv+SvPg5QuT3Ybijv+USoe4=;
+        b=FFUBCyla+Xvs2DpsruVcNrtQ9qsaj6EZZH8d/w1LwvyDXQ94HXaz4KD6u3wx0C4Xv0
+         K+VDqFcdWFv6QJzLv9kOTUW6gbALhwrUYOQBbW0edeS+A5NP2gr4H/U114mErnI1Aj1x
+         xw03n+24foasdLVEuLh5y4zCskAcKzeAJKh3rUz+kcfetnKJFJIqlkqK2Dpgh+hqAap1
+         SjOUvV6dikMluvg6Cq5kM6d/mSxoRQzcNUEcJnEZ4Mfd+fvGPYfQN8bydhBKaJe2j62N
+         Bjen2O7ftX/bFPjCaVAuWfNqlMO1uPEG8GekBdczyJ6uAdpd9C1gyP6Qai958FlZPDLm
+         nTlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDafUYGTNvLVWjnRRgqz6pOg8gHcAQqw2rU3a488j6QRS2CCzXo4vee7wRk03wFPKPoFlEbRAbi+NrlGk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcBSL+KSck9Iwwpjk+rLoaoMpOtEn5DUF1YPnNRE9+lX+zrs50
+	ifeJNvYug3YYoQ8P9uLL8N5859OC6284g457Kmmn+1qBAz5iAWS1xPXL
+X-Gm-Gg: AYBFou2YGHxoa2joQlIl0n07W0UPGb7RwT36cvog7vyKhAIzxTJBbCe2pvLF0YDJ9Yd
+	vB9RcILUjRgNYiYhHKJRPVz0njhBe3qMwPD/xjdiNRzbOY5ZbXiT7cQSv4qXr22kPHL0pXtMFP5
+	zH301oDohGpXQ+ECRrJNMASh9Gb1VknDl87nEMklWE0e6rHqoBDZRgoMSaU86FmSUOl/A67Yxa8
+	KzzdJr1AcmwrRTwdO2jP2G/QBZzMAiHdhSEQmvNmssJUHPNCNEf2/XU+8R2MbiB2AHew0/ULz8J
+	c6v5l9puuUIeTG+tMm7HCZEW7grCmwQpfoQeXZaWmKotVUPCzH4jUHNNMDEh8JA7SMBxv3ZU4I2
+	Asy+43h2pr9OEGKJL7sWWgHh8Qyj2DwxZd6Pok0qhGfNiYDm8oWd3Wbq/rlG3qkp/xN4CgOGI0O
+	rkyBlQrljUxVPkJEAJ8JImjod2tKSY3eHqAjXruUG3WCMaXVs3Yys2xSeGUO/tRwFmo5ENe9nOY
+	KHj
+X-Received: by 2002:a05:600c:4684:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a1d76001e9mr141175875e9.16.1792400484365;
+        Mon, 19 Oct 2026 02:01:24 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca30aa4sm118260635e9.2.2026.10.19.02.00.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:00:55 -0700 (PDT)
-Date: Mon, 19 Oct 2026 17:00:13 +0800
-From: Kent Gibson <warthog618@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] gpiolib: let the character device free its IRQs
- first on chip removal
-Message-ID: <20261019090013.GA29798@rigel>
-References: <20261016-gpiolib-chip-removal-v2-0-aambrozewicz@nvidia.com>
- <20261016-gpiolib-chip-removal-v2-6-aambrozewicz@nvidia.com>
- <20261016134003.GA155960@rigel>
- <atXXi_EA6iROhK0C@ashevche-desk.local>
+        Mon, 19 Oct 2026 02:01:06 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Neill Kapron <nkapron@google.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Wayne Chang <waynec@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Felipe Balbi <balbi@ti.com>,
+	Felipe Balbi <balbi@kernel.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: [PATCH v2 0/2] usb: gadget: u_serial: flush_buffer, and keep the port for its tty
+Date: Mon, 19 Oct 2026 10:58:53 +0200
+Message-ID: <20261019085855.3259716-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atXXi_EA6iROhK0C@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 11:40:43AM +0300, Andy Shevchenko wrote:
-> On Fri, Oct 16, 2026 at 09:40:03PM +0800, Kent Gibson wrote:
-> > On Fri, Oct 16, 2026 at 12:23:38PM +0300, Adrian Ambrozewicz wrote:
-> 
-> ...
-> 
-> > > +	/* Called with gdev->chip already NULL, so gpiod_to_irq() can't be used. */
-> > > +	if (gc->to_irq)
-> > > +		irq = gc->to_irq(gc, gpiod_hwgpio(desc));
-> > > +	else
-> > > +		irq = 0;
-> > > +	if (irq <= 0)
-> > > +		return;
-> > 
-> > Perhaps I'm channelling Andy here, but how about:
-> 
-> It was in the previous version and I suggested to move it to the above. Seems
-> like we have an opposite comments. Can you provide a rationale behind your choice?
-> 
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-Ha, so it was, though your suggestion was not quite the above - it
-didn't allow for gc->to_irq() returning 0 and it set the irq to a
-negative error code.
+On a gadget whose host side does not read the port, the last close of
+/dev/ttyGS* waits GS_CLOSE_TIMEOUT (15 s) for the write buffer to drain,
+and tcflush(TCOFLUSH) cannot avoid that because u_serial has no
+flush_buffer operation. v1 added it.
 
-> > 	if (!gc->to_irq)
-> >         return;
-> > 	irq = gc->to_irq(gc, gpiod_hwgpio(desc));
-> > 	if (irq <= 0)
-> > 		return;
-> 
+Sashiko pointed out that the hangup gserial_disconnect() schedules can
+then call flush_buffer after gserial_free_line() has freed the port.
+That window is older than the new callback: the tty core already reads
+the freed port there, KASAN reports it in check_tty_count() with a
+delay added to gs_close(). Patch 1 makes the port live as long as its
+tty, with a tty_port reference taken in install and dropped in cleanup
+as cdc-acm does, and carries Fixes and Cc stable. Patch 2 is v1.
 
-This way is clearer given gc->to_irq() can return 0 - the <= condition
-there is purely because of its possible return values.
-Setting irq to either 0 or an negative error code, rather than just returning
-on the spot, are both more confusing and pointless.
+Changes in v2:
+- new patch 1, the port lifetime fix
+- patch 2 unchanged
 
-This is my preferred form, and I obviously expected that you would prefer the
-shorter form as well, but apparently not.
+v1: https://lore.kernel.org/linux-usb/20261015162732.3170938-1-mehmet.fide@gmail.com/
 
-Cheers,
-Kent.
+Tested on a Verdin AM62 with KASAN and lockdep, 6.12.113 plus both
+patches: with a 3 s delay in gs_close() the hangup after
+gserial_free_line() no longer reports a use-after-free and the port is
+freed after the tty; four function teardowns, two with the port open,
+free four ports without leaks or warnings; close after tcflush returns
+at once with the host not reading and the data written after the flush
+arrives; 47850 flushes against a concurrent writer; NCM torn down
+under iperf traffic. The same two patches run in our i.MX8MP and VF50
+product images on CI rigs, gadget replug included. On usb-next both
+patches build with W=1 and sparse without new warnings, each on its own.
+
+Mehmet Fide (2):
+  usb: gadget: u_serial: keep the port until its tty is released
+  usb: gadget: u_serial: implement flush_buffer
+
+ drivers/usb/gadget/function/u_serial.c | 59 +++++++++++++++++++++++++-
+ 1 file changed, 57 insertions(+), 2 deletions(-)
+
+
+base-commit: 04ac7b445880b0878c83e6e89d961455cbea0427
+-- 
+2.55.0
 
