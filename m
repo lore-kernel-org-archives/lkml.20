@@ -1,93 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.117
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424270;
-	b=BZVWoD/ZuN5MK/7c+ShogFlYHJSlhL7GANmM1pPEwnlqqVyeoGUaEJXgUOOIz5Zt+W/R
-	 +PaE/wJbfNzYmWgiBBHEmZqj28ZLI657UyKtsWhycrmDpW418ergTds6oT8mvakg2+zcJ
-	 oANpgHVfCgNpS349fe24fPr1YVN5s80O+DPkDiDhNzM61lU9eqo43bgJ6mIJZoBPWtVhi
-	 8gxmK91NyReROHo7/7NJJHxqsyMt/B5gB9moMCfkFS+j0TzsV6Jb7bhcBsk11txM614r7
-	 2twP0efUBGhWQ7ZU/N4sB6MuirXEdb8i2fSU3DyuoyqLo0TWUFls20nXhUVsT0lurBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424270;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9GDFV35RrSVf5yP47jS+7rs1H7n+XBgiZq3zykV+XtQ=;
-	b=zm8DSVGzaitMX0RjMmqIClieI8NaaLcoFSxOrgfh6Zchz7O/21rgiFT9oSe0h4AUYFOC
-	 gNXDp4j/Xz4CNuuO/2Br9qtTHLY4SFivNbLHgXwL23WNpusUr51mdo6DgHJ1T0s9OCM3r
-	 B05f0k8H/G0mrUqaD5MuDc+aGpcJ3utO5W3zDjcOtjUNyG9DTQfR6CaYlwIU6mgqBdfLb
-	 saFFbYBNUwkmiyyX5+jJtq8qDT2eL6z26i4pI7BdPSHOaML+ZhZjMdGwJA7dhPpbI2uL3
-	 tzDQW2E+zmwtyQctB8mkUUoBQrZjG863jh6Zau9bMr/zUH5in40+4UCc4aFvwlnIbMQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=abJudIif;
-	arc=none smtp.remote-ip=95.215.58.117
-Received: from mta1.migadu.com (out-117.mta1.migadu.com [95.215.58.117])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E9D60774E8
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:37:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67E9D60774E8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792421711;
+	b=FJN6lX1l1Ks60EyJMfW7bK1PbE1P4295lGDKh1wY66kP8mYjibnAzEO2fr9LTnjSs16m
+	 7vIQfp3FtSitcQbCUSOBqdY9+29ZDtDCc7XLB5oo/wVy6S0Ngz//ZPSaS69GEY5vIoozV
+	 ZWTXrXjpNqinevj0qvWsnLRo460XX5/tGHCvTgnshUMuvIw3RduytsJS03seVht/6DqV1
+	 9dx+Cu/h5H55WZpbWop0tQQkzwZiXqZ2lNPFIAfdsOZubA3Hv79n9ZgfeLC1FXQalPs4t
+	 gV4uky7CD+PePTgSqpNGAyyq4TlxZ33yi3a700LKSjYWc0yh199V0XHgtj68jtjO3+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421711;
+	h=Received:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=S4hxhJmvPn7AcnQ/ZWKG7QsPda8INusHl4ZJ/PDgaQU=;
+	b=leJazWCODmRRMIYBOs4IPE/2hNbVJZtrtmhU74jBK6euknkjAhUoRvW+9ZwEbxJQyyYE
+	 rq/r5KYqWwmURzr9iongc0scMaH4te32u7ArftlzcDLacr/SZKjDCdPTbPPTKr1XGTrtF
+	 MDr1rMe4Glu3CwpdERFkYeELw7BbSbdYJ8o6ra6OBqGgzblXEkwEhFd1qRTDwafHrfx3c
+	 yF1cLlgDmDEaSyqOuzL6EtSlK7WPIC6B27zbiCQEeIIR8k/XnWCT75IxyDOI1h12QuCKN
+	 N99V4ygovYJUzVuyh2QiO98oYTZwPg7KSe+65YkH6A90mzn0RqFeR3T+Ip9E+OBucaQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dquZ0zsb;
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D7AF9606EFEC;
+	Mon, 19 Oct 2026 14:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=abJudIif
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qDoOdKi6oKQdzWjw9ttiqe9bR4kfbpGeSoHF507AHt0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792424267; v=1; x=1793029067;
- b=abJudIifdqiqorxkeCIJGPWF9qW+47bZo8UjVm19X+kdltm2ERiOdbyqJJkmHL3XGS+UZJ4P
- Yv9WOL6WBvtu7aHiLM+a1o0sVwMXxNrJS5gruurlyOd4cr3ozjtmkFA88sV7QZWI3irFQvCcJcH
- 2/cCAj57uOASLTx7sM6w52yM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6d9efb940e6379e3;
-	Mon, 19 Oct 2026 15:37:47 +0000
-X-Mizu-Trace-ID: 6d9efb940e6379e3
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	Masashi Honma <masashi.honma@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Leon Hwang <leon.hwang@linux.dev>
-Subject: [PATCH bpf-next v2 6/6] selftests/bpf: Add tests to verify link_create logs
-Date: Mon, 19 Oct 2026 23:36:28 +0800
-Message-ID: <20261019153628.15912-7-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019153628.15912-1-leon.hwang@linux.dev>
-References: <20261019153628.15912-1-leon.hwang@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dquZ0zsb
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46D543451CE;
+	Mon, 19 Oct 2026 14:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421710; cv=none; b=J9/QY/7TJyZJSbVqisQHHL+7FLACYr9i7VJrXd9savBK7QFvIpwYYNbtkuENSDfCT9XTosviZlnmUI2THjYAMxan42uoAARVLB7FtMLKd32mLBDEFe4EuA9uhCGIDoz+wErkkb1JbmnVXy0YTrniB5E1PD9BkPC/Kpplm9bsl14=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421710; c=relaxed/simple;
+	bh=JePCMnx8/su8AAS/ZVIThUJhxAH7QCVSw2VlUvAcrQc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TApFiCU0fnVHU1aidQZRfZZpe1EsI5dXVVMqwlQjGBh1p63mWlbCoM9lRZLXM/WKPdyxl64ZlXb1+eNhpA5rhHn49FaaZTuP77B5FnyTHniY5aWELNVKS8K5+mxwVzw3DD253nVwAEu/wdKQiaFkMNARy1hdyv3GJWGEM4TEepY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dquZ0zsb; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 268E01D34;
+	Mon, 19 Oct 2026 07:55:03 -0700 (PDT)
+Received: from [10.164.19.55] (unknown [10.164.19.55])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 637A23F673;
+	Mon, 19 Oct 2026 07:55:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792421706; bh=JePCMnx8/su8AAS/ZVIThUJhxAH7QCVSw2VlUvAcrQc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dquZ0zsb8TUxQqrVKFHzKecjJPxmFn9BPWmSPeUt4pp2uBPq8APeVyzMisLgssh1v
+	 TZU/WEC3H5pP58oL4cP/OjMccLrvXkUY+5HU52USqCNbPlN+hEGwvXf1yR7AkaGpR7
+	 gskM7Oy6PccGDnhdnyilm74wYQa3HEvySaszSEwE=
+Message-ID: <45c5ebc9-a4d2-44e6-a08f-79676ecb0579@arm.com>
+Date: Mon, 19 Oct 2026 20:24:57 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,125 +64,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] mm/kmsan: undo the shadow mapping when the origin
+ mapping fails
+To: Hao Ge <hao.ge@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
+ Uladzislau Rezki <urezki@gmail.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, stable@vger.kernel.org
+References: <20261019054531.87652-1-hao.ge@linux.dev>
+ <20261019054531.87652-2-hao.ge@linux.dev>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261019054531.87652-2-hao.ge@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add tests to verify the new logs in link_create and xdp link_create,
-including a log reported via extack when fail to create an xdp link.
 
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
----
- .../selftests/bpf/prog_tests/xdp_link.c       | 101 ++++++++++++++++++
- 1 file changed, 101 insertions(+)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/xdp_link.c b/tools/testing/selftests/bpf/prog_tests/xdp_link.c
-index e7e9f3c22edf..18c1f1039d4e 100644
---- a/tools/testing/selftests/bpf/prog_tests/xdp_link.c
-+++ b/tools/testing/selftests/bpf/prog_tests/xdp_link.c
-@@ -150,3 +150,104 @@ void serial_test_xdp_link(void)
- 	test_xdp_link__destroy(skel1);
- 	test_xdp_link__destroy(skel2);
- }
-+
-+static void test_link_create(int prog_fd, int ifindex, enum bpf_attach_type attach_type,
-+			     struct bpf_link_create_opts *opts, int exp_err, const char *msg)
-+{
-+	char log_buf[128] = {};
-+	int fd;
-+	LIBBPF_OPTS(bpf_log_opts, log_opts,
-+		    .buf = log_buf,
-+		    .size = sizeof(log_buf),
-+		    .level = 1,
-+	);
-+
-+	fd = bpf_link_create_log(prog_fd, ifindex, attach_type, opts, &log_opts);
-+	if (!ASSERT_LT(fd, 0, "bpf_link_create_log")) {
-+		close(fd);
-+		return;
-+	}
-+
-+	ASSERT_EQ(fd, exp_err, "fd");
-+	ASSERT_STREQ(log_buf, msg, "log_buf");
-+	ASSERT_EQ(log_opts.true_size, strlen(msg) + 1, "log_size");
-+}
-+
-+static void test_link_create_invalid_prog_fd(void)
-+{
-+	const char *msg = "Invalid prog_fd.\n";
-+
-+	test_link_create(-1, IFINDEX_LO, BPF_XDP, NULL, -EBADF, msg);
-+}
-+
-+static void test_link_create_invalid_prog_type(void)
-+{
-+	const struct bpf_insn insns[] = {
-+		BPF_MOV64_IMM(BPF_REG_0, 0),
-+		BPF_EXIT_INSN(),
-+	};
-+	const char *msg = "Invalid prog type.\n";
-+	int prog_fd;
-+
-+	prog_fd = bpf_prog_load(BPF_PROG_TYPE_LIRC_MODE2, NULL, "GPL", insns,
-+				ARRAY_SIZE(insns), NULL);
-+	if (!ASSERT_GE(prog_fd, 0, "bpf_prog_load"))
-+		return;
-+
-+	test_link_create(prog_fd, 0, BPF_LIRC_MODE2, NULL, -EINVAL, msg);
-+
-+	close(prog_fd);
-+}
-+
-+static void test_link_create_attach(int ifindex, enum bpf_attach_type attach_type,
-+				    struct bpf_link_create_opts *opts, const char *msg)
-+{
-+	struct test_xdp_link *skel;
-+
-+	skel = test_xdp_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_xdp_link__open_and_load"))
-+		return;
-+
-+	test_link_create(bpf_program__fd(skel->progs.xdp_handler), ifindex, attach_type, opts,
-+			 -EINVAL, msg);
-+
-+	test_xdp_link__destroy(skel);
-+}
-+
-+static void test_link_create_invalid_attach_type(void)
-+{
-+	const char *msg = "Invalid attach_type.\n";
-+
-+	test_link_create_attach(IFINDEX_LO, BPF_CGROUP_INET_INGRESS, NULL, msg);
-+}
-+
-+static void test_link_create_xdp_invalid_target_ifindex(void)
-+{
-+	const char *msg = "Invalid target_ifindex.\n";
-+
-+	test_link_create_attach(0, BPF_XDP, NULL, msg);
-+}
-+
-+static void test_link_create_xdp_extack(void)
-+{
-+	const char *msg = "Invalid XDP flags for BPF link attachment\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = XDP_FLAGS_REPLACE,
-+	);
-+
-+	test_link_create_attach(IFINDEX_LO, BPF_XDP, &opts, msg);
-+}
-+
-+void test_link_create_log(void)
-+{
-+	if (test__start_subtest("invalid_prog_fd"))
-+		test_link_create_invalid_prog_fd();
-+	if (test__start_subtest("invalid_prog_type"))
-+		test_link_create_invalid_prog_type();
-+	if (test__start_subtest("invalid_attach_type"))
-+		test_link_create_invalid_attach_type();
-+	if (test__start_subtest("xdp/invalid_target_ifindex"))
-+		test_link_create_xdp_invalid_target_ifindex();
-+	if (test__start_subtest("xdp/extack"))
-+		test_link_create_xdp_extack();
-+}
--- 
-2.55.0
+On 19/10/26 11:15 am, Hao Ge wrote:
+> kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
+> the origin pages. If the second mapping fails, the first one is left
+> mapped, and the callers do not roll it back. The next vmap of the
+> same metadata range hits the stale PTEs again and BUG()s on the huge
+> mapping path, or gets -EBUSY with a WARN_ON() on the small page one.
+> 
+> Undo the shadow mapping on that error path, the same way
+> kmsan_ioremap_page_range() cleans up after a partial failure.
+> __vunmap_range_noflush() only clears the PTEs; nothing has touched
+> the shadow mapping, so no TLB flush is needed.
+> 
+> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> ---
+
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+
+
+>  mm/kmsan/shadow.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
+> index 0c88d89bf0d6..2166086d3dc3 100644
+> --- a/mm/kmsan/shadow.c
+> +++ b/mm/kmsan/shadow.c
+> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
+>  					    o_pages, page_shift);
+>  	kmsan_leave_runtime();
+>  	if (mapped) {
+> +		/* Undo the shadow mapping set up above. */
+> +		kmsan_enter_runtime();
+> +		__vunmap_range_noflush(shadow_start, shadow_end);
+> +		kmsan_leave_runtime();
+>  		err = mapped;
+>  		goto ret;
+>  	}
 
