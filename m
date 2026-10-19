@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429938;
-	b=EJ/Xff4zLfwnBWL+0bKPAMlSJNVOFmlbcpIrLRtJhNC1f4ZmBZzgknLm53B4uhPnGH9g
-	 LmwGCANDjs0ry0g2/Fihpn5gosEpSrzK/zmAiUq5WbceAfXj1A3msZGtNZKLEfsfO1lJw
-	 Yv8fpa0uv8DvCaBMZPALT9xgY6qzcU0x2XZqu4+Jua1ozZ0mVcYqBtvgzlO3cE9DorecK
-	 5EcIHqABXfFxwbwhmC84/m/N6WLJyWsxN3pHNzddqMrGenZdjKuHI1vmROK2wxynGsZXR
-	 qRjxhU3ZPbpHOvSSlM+GruKcGUHCC65DGpScqCVUEdhAPDjTZWWlRPQthVq+BCNFhgw==
+	t=1792429940;
+	b=d54wEWA5y0VY65BYuRiMWyyu4HcQnWwbIpw/yKiUUvQvgaVVqhSooZsGRWqDmrsDbyFU
+	 Tt0PvY8yXjvmGgdDWpoP4JFVa3vNfCpEGD8d6j16vbhNZVdpTHJIUKJEGhkIozPuFKsQ1
+	 hGvaIWJ2N/iw7byffWVg7KOipoKGOiTLMpifr1iOrFWT6Hhpf+dJYnXyCCnRlKFEh+LKK
+	 Ph8Wf+WxxDIDfybO1t2tkchRaqZkINNgfayWLdn2Mru8o+HdkzYYs0/tqeSDKvoecu+21
+	 +/KhoBqzJ7/1mupue85IPcfEkCldkve/UQ9JUilJamR8M5Bl66Bb9gCVPOjUxb0j3Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429938;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429940;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TjpbZTGan3B30P6ZyrSjX5pZ5tCnJRUq6rHSDYdsfAw=;
-	b=sVCJIGehvhVioejhNiJDmD4dOHRE1OlZxU0MOSAbeHHyMMZmfc0lud8h23di9fujTzKl
-	 zsI6YV4fcaIyNEiekpWC/D8cjeA+cG6g5dXQRChXOOZOUb96hMOhCrz5LmF1B/xDQiYXw
-	 VXVCIKiobfJ9+OqpZTfqBdBMxLk+crVhsJBacl0LAiVhtLL3F+otbe7LmJD7dPRbveNKc
-	 v3kQVBzGDCDm1G6n5inHkWdifNYl/uJ2wqS92GYdpzDvmy0QSSKVwPuNTEptW2ikn+SRF
-	 PnRtrlrZVc0MWraFtQO1kCOaC5h6XEtazrxVgjt3ogSEu0cve5g/0fY2OGbIws599CQ==
+	bh=u0HBvVezVTtBJY8hj2GhlVDWYrJlySjFH5I8pUaDGQ8=;
+	b=K4hr+dghHly0Zz4iw24H1S9w2XtuS/OcSNFnVYZxavsoMttdk9Q3MXM8b4biwbFEI6Z6
+	 n2wlqKAc10fQVbPFWs0U2mtdUvbyWvjB2KusGOE3zx/G5+Sl87ctKDsKJY8xkGlvH8PT3
+	 2qVlfYIZWWvkPgkRn1BKKbqY3InXrOl80dqcgThjwK4xiPEXzQCmBCou23U6emSVZ5scp
+	 lmvks2gsqIkM/9RgDFzrxIOb4+zIwIrC+Nt5dxCfwPOchzLAk59ZqCtnVlE4VQZa2gEwB
+	 UhC5lOEwHKC5Ncql4epHMWYbJ1XA8B3H3htvjZbqCSFt227hZB3iiV262+G3SCpk7Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=f+Rj2LlI;
-	arc=none smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=FxIyPJA0;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80ED360A262A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:12:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80ED360A262A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C5760A2633
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:12:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C5760A2633
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=f+Rj2LlI
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53664b4860bso14070331cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:12:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=FxIyPJA0
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-9196d8543cbso22649326d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:12:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792429937; x=1793034737; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1792429938; x=1793034738; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TjpbZTGan3B30P6ZyrSjX5pZ5tCnJRUq6rHSDYdsfAw=;
-        b=f+Rj2LlIJ7Ib2ZLPAgwPRaMlrkj+ouHwCdgYOI3Dj2nGWcKEnBzJ+N6wckysF3gZl+
-         b9i9opRR5koPDjQmDtBbArg+GiKUO3LbAMOt6WhQ5niQDXBtQkBCDtiRNNXd4lYk1y1F
-         FLY6uCqgS6dgV94vXT3OdrugFx2umS+GCbbykTj9Ufdpi4sRhLk8ijKWSTrw6vuq4pKv
-         WGj0e5o6KNfegrPFxc7RWZBQ3wg+urCWspTTSmMT1rhCMfL9S9JxVPxYRnwtdfpg3EHX
-         xV9zqo5caL49ntO5iYH8C/3PxuylUpKoTCFvHzGyeriycCoN+hnPa0Oow3lwEmbnVRrk
-         kF1A==
+        bh=u0HBvVezVTtBJY8hj2GhlVDWYrJlySjFH5I8pUaDGQ8=;
+        b=FxIyPJA0078FuGlP/gl6CyTd+Jnq2uzEL3hK2Zqln36aBIHSfwtiQ03nB415emON/J
+         e58NnJUSDVcprjOAnKSIw3/UQEhFyksBAz0piIpR6SFmq/G7QcltpPhOgEfE5F87ldsp
+         +yAHe/NkrhcdrTdaB6mGfYlSLQqovLBAF8IUFadhKnWryTSWGkyr0Y2TMrOPKzmXgDnG
+         /ypBmWuVp5dWUg5sn4cYdKy+hDyiHHKMxt7P1PCZsi1Kjnz0R+Vpxk5AdMOG2/wlL2Tg
+         unVz90/hEYcEFUliGhHaX5c7BWe0e4pCyOBkw6IiggZv+mCjPgMeEM3U4HPD60tbkul0
+         5ofw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792429937; x=1793034737;
+        d=1e100.net; s=20260707; t=1792429938; x=1793034738;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TjpbZTGan3B30P6ZyrSjX5pZ5tCnJRUq6rHSDYdsfAw=;
-        b=J3d7sxzEfdXFHYTMW1CDjAfqZhXfHaCtb4bNVt6v/1+qMdVQ5Tzck9yf9Sc3rdGCls
-         II2qvxi/u0PQTIpCuYlohXOxey4zoNgoIQVFVFUqK+J8jMxR4gW9hN4EeVXJB1tXquhg
-         Wfb3gZtEknEL7q1WfDgTMJDnXZLfiN7AqgtZACBbVq+61bFwovlrvGL+3sQNOjLT7OKC
-         CaufLyGFokYJjsDUdxkyl8k1+o2LV17+wuasvbd0Fe8vDlYqTITTWD8j3BD/4qNPrBxa
-         1aMHeVDrOEXfjEVeqe81etNMgWiumMJiO7RnfzJlHUfCJWXLWQNIP/5z07vMUW+3nIa9
-         k2kg==
-X-Forwarded-Encrypted: i=1; AKwUvBx1n1qS4kH5/vbdFENkYmuWIe68klSzkMGfKmFf3vo/LOki0HJR6tEBgELUeL2eHMsWV+qtg0NRTps28Xk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqJlZvCOpUfwfeaeq2LR4UY0Kkc1dxENvbulcL3lpn55XztzDx
-	byG0IxgihbXA8Z73l15PRSBZAeUnQFNhfP282N57Ks3xzE+pV86KIdKgn+VjDLsz8oM=
-X-Gm-Gg: AYBFou0gM9MiazG2ZHQ4rF6On3HQgq3qNSRSZakbNJgzzh8oaXm06qh0q/gG6seFEPw
-	UwHtbb/Xvt2qSEXdvk0gpGoCB8oy53IgrQB7DqDnSPNOxbAeu4f19Wj5/ACf3ykF1B7Gx20/CgQ
-	kiPD6SZGq3vSqrq9opIf0TMvy7Bn8Wndp3jb0lhPPBklAeSYe44wucBgapP3KhsABFQ284H+dd1
-	YjSRQ0HxtioNl3fDb9vyj7XHa1RaUNxW5z2rv6a28MrSK1wyRlqLxpnreosshJJ9FdGqreQbNF6
-	B7MUy1HvA8lRhTrHGW6n0guv1FVec/TO86gvuO3aguODBXFIeq9aeGvCYSy1Ky4m2We74TuLNmv
-	O23D2kOnpjYO+YOYYinsi6iyTVmzR6JACmaBd1mSLjzJdT41/MFrYk5VyYn0BMuJF/AdsOFy9rD
-	eOJDzzNN8CjMq92nqZz7BDwFC5bsmL/x5A0Rjiip7R/agat1cC9nU6J3OFmWpMW7q2xZqNEXzg8
-	cDklh14pTSIaBo3ndTr1/QB/7AFS3KpaeS5rkPpJZnO2sy68HDE6/yB8OWb
-X-Received: by 2002:a05:622a:514e:b0:530:42d4:4c9a with SMTP id d75a77b69052e-5364605937emr117819301cf.44.1792429936970;
-        Mon, 19 Oct 2026 10:12:16 -0700 (PDT)
+        bh=u0HBvVezVTtBJY8hj2GhlVDWYrJlySjFH5I8pUaDGQ8=;
+        b=pD3vkIRsNGjxOS+8G/QBAJcL3mV6Bk3K4XXaua2Qnp0qgzPP4R5lCCK7Dc4IAJZ0SR
+         jZmvNGbK07AXUcQW9ncgvqYHy6qDuHqeavw0cI2OotSMSnvmi8BUTYHaPuDs4RlHVSGU
+         zcQIJZ7jjQpNnf7+D6Bu5Zm+iLBPejeXFh4XgMnX60EtnSISVQ3nZbzwP9No0ayVOH35
+         3sfm31zBMMU0v/FV/cbl4PTfqx38eZFlIcJzdx1+iyN6MA+9+S0Sd97YNiObVwK6GkHm
+         Fpy/K37Cm21lGUEgod5FSklAsAS3rtTz3zCuUKAsFpaxhozivNc6gTT8q8YKVe3dlR3/
+         Jnhw==
+X-Forwarded-Encrypted: i=1; AKwUvBwo9+KiMvjkltXaDrgGj2bvXCEi4J4lDqkhIEXgXI0Z9QtC7DHiNyR2fQXwFPfXZokqBrEpxeQ0k8imGj4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhcIf/OEcD3rA9wtY4edBue+LsDqnaF5U8621QecD+sPCkvSLC
+	0AwcXsT42SkXDZFDcj/z9H0s68E48HQyYbkE9fmgGosWlFlKFvo/t7ashqmoiNvrbb+Di9wTzKz
+	lYRx+ooM=
+X-Gm-Gg: AYBFou1yrb50Nz31qix6R8OVZdzFx2ckodUYakcjxoVM2fptYxBD9oIlddSt4Ovw0DF
+	66Q5Ub6FGoc3bKRkJNNfdS3liQ2LQuE7wlj6DNmq838VfnZlMUs/deqz6NUJ8nCQiMQ5Xl7wC56
+	se013NCkTxL/EDMDoN3HJIkvtswFwQOUAABU3V3n76MxPnJnjizfceR59AVShcERSSatdGpHeiK
+	Rxn5zqwXof+P35MU2Yk1A3xcjYrSIu2ROHZ328UbLsZMyaUmUHi/iL2XdFic4mwL3NrZ0GfOHAv
+	+m9qWDtgUBYUSfehe8Luw47Q4e285pAW5V131OZ/uZ2eg3IQwnrIqxISQJxQgClBLLVWiMgu9HJ
+	1l0H1RrV/ujdBO62xRpuLiOV2Uy3hzcpnqvGu65nq3MzhlKDgNht6fdbKNeiN9Xz9RDuO9I1WWS
+	jYg2gs6A7xkpDAWcUrwSJi399qc4ct/xZTZrB7w/rclEocyBr7LCNq7nhvr0phmB0z57liWdiOi
+	4wmNRMwW+AwmeICb1ExiJ1QqTuzedR7N8UHuTlxRvle+34byOmJOKLDrM1z
+X-Received: by 2002:a05:6214:3285:b0:91b:5d3a:f127 with SMTP id 6a1803df08f44-91bdf2dd132mr149004556d6.50.1792429938570;
+        Mon, 19 Oct 2026 10:12:18 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040d4cedsm723116d6.34.2026.10.19.10.12.15
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040d4cedsm723116d6.34.2026.10.19.10.12.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:12:16 -0700 (PDT)
+        Mon, 19 Oct 2026 10:12:18 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-kselftest@vger.kernel.org
 Cc: linux-mm@kvack.org,
@@ -90,11 +91,10 @@ Cc: linux-mm@kvack.org,
 	rppt@kernel.org,
 	surenb@google.com,
 	mhocko@suse.com,
-	shuah@kernel.org,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: [PATCH v3 5/7] selftests/mm: check MADV_COLD and MADV_PAGEOUT on partly advised THPs
-Date: Mon, 19 Oct 2026 13:12:04 -0400
-Message-ID: <20261019171206.3331374-6-gourry@gourry.net>
+	shuah@kernel.org
+Subject: [PATCH v3 6/7] selftests/mm: check MADV_PAGEOUT file permissions
+Date: Mon, 19 Oct 2026 13:12:05 -0400
+Message-ID: <20261019171206.3331374-7-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019171206.3331374-1-gourry@gourry.net>
 References: <20261019171206.3331374-1-gourry@gourry.net>
@@ -109,314 +109,203 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Check that paging out a whole PMD-mapped THP swaps it without corrupting
-it, and that pages outside the range stay mapped after paging out a base
-page or half of a PMD- or PTE-mapped THP.
+MADV_PAGEOUT only pages out file pages for a caller that owns the file or
+could open it for writing, per can_do_file_pageout(). Any other caller
+gets nothing from a shared file mapping, and only the anonymous COW pages
+from a private one.
 
-Also check that MADV_COLD on half of either THP preserves its contents.
+main() now also checks once whether MADV_PAGEOUT can unmap a clean page
+of a file in /tmp, where the tests make their files. The tests below skip
+if it cannot, since none of them would show anything.
 
-Tests skip when PMD-sized THPs cannot be allocated, and the MADV_PAGEOUT
-tests also when MADV_PAGEOUT cannot swap. With /proc/kpageflags the
-PTE-mapped cases also confirm that PTE-mapping left the folio large.
+Check that the owner of a read-only file can page out a clean page of
+it. When started as root, the test hands the file to nobody and drops
+privileges, so that capabilities cannot stand in for ownership and
+nobody need not be able to write to /tmp.
+
+Also check that an unauthorized caller leaves a shared file page mapped,
+and that it pages out the COW page of a private mapping but not the file
+page next to it. These need root to change credentials, and skip if that
+fails. The private mapping check also skips if MADV_PAGEOUT cannot swap.
 
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
 ---
-v3: Kept Sarthak's Reviewed-by; the MADV_PAGEOUT tests now skip only if
-MADV_PAGEOUT cannot swap, and fail if reclaim then does not happen, as he
-suggested for v2 7/8.
----
- .../testing/selftests/mm/madv_cold_pageout.c  | 238 ++++++++++++++++++
- 1 file changed, 238 insertions(+)
+ .../testing/selftests/mm/madv_cold_pageout.c  | 127 ++++++++++++++++++
+ 1 file changed, 127 insertions(+)
 
 diff --git a/tools/testing/selftests/mm/madv_cold_pageout.c b/tools/testing/selftests/mm/madv_cold_pageout.c
-index 7d92f0ecbd27..b5eec490fb68 100644
+index b5eec490fb68..f5a81d7bd08b 100644
 --- a/tools/testing/selftests/mm/madv_cold_pageout.c
 +++ b/tools/testing/selftests/mm/madv_cold_pageout.c
-@@ -8,6 +8,7 @@
+@@ -5,6 +5,7 @@
+ #define _GNU_SOURCE
+ #include <errno.h>
+ #include <fcntl.h>
++#include <grp.h>
  #include <sched.h>
  #include <stdbool.h>
  #include <stdint.h>
-+#include <string.h>
- #include <sys/ipc.h>
- #include <sys/mman.h>
- #include <sys/shm.h>
-@@ -17,10 +18,15 @@
- #include "kselftest_harness.h"
- #include "vm_util.h"
- 
-+#ifndef MADV_COLLAPSE
-+#define MADV_COLLAPSE 25
-+#endif
-+
- /* Reclaim can fail transiently, so retry for up to a second. */
- #define PAGEOUT_RETRIES 100
- 
- static size_t page_size;
-+static size_t pmd_size;
+@@ -29,6 +30,8 @@ static size_t page_size;
+ static size_t pmd_size;
  /* Whether MADV_PAGEOUT can swap out anonymous memory, see main(). */
  static bool can_swap;
++/* Whether MADV_PAGEOUT can unmap clean file pages in /tmp, see main(). */
++static bool can_unmap_file;
  
-@@ -92,6 +98,111 @@ FIXTURE_TEARDOWN(madv_cold_pageout)
- 	close(self->pagemap_fd);
+ /*
+  * Keep this task on one CPU, so that draining that CPU's LRU batches drains
+@@ -276,6 +279,15 @@ static char *map_temp_file(struct __test_metadata *_metadata, size_t size,
+ 	return mapping;
+ }
+ 
++/* The uid and gid of nobody. */
++#define NOBODY 65534
++
++/* Become nobody, an unprivileged user without capabilities. */
++static bool drop_privileges(void)
++{
++	return !setgroups(0, NULL) && !setgid(NOBODY) && !setuid(NOBODY);
++}
++
+ /*
+  * Both hints are best effort, so these tests check what userspace can rely
+  * on: which mappings are accepted, which pages must never be reclaimed, and
+@@ -689,6 +701,97 @@ TEST_F(madv_cold_pageout, cold_preserves_half_of_pte_mapped_thp)
+ 	ASSERT_EQ(munmap(mapping, pmd_size), 0);
  }
  
 +/*
-+ * Reserve a PMD-aligned range, so that memory mapped over it with MAP_FIXED
-+ * can be backed by PMD-mapped THPs.
++ * The owner of a file may page out its clean page-cache pages. Run as an
++ * unprivileged owner, so that capabilities cannot stand in for ownership.
 + */
-+static char *reserve_aligned(struct __test_metadata *_metadata, size_t size)
++TEST_F(madv_cold_pageout, pageout_unmaps_owned_file_page)
 +{
-+	char *reservation, *aligned;
++	char *mapping;
++	int fd;
 +
-+	reservation = mmap(NULL, size + pmd_size, PROT_NONE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(reservation, MAP_FAILED);
-+
-+	aligned = (char *)(((uintptr_t)reservation + pmd_size - 1) &
-+			   ~(pmd_size - 1));
-+	if (aligned != reservation)
-+		ASSERT_EQ(munmap(reservation, aligned - reservation), 0);
-+	ASSERT_EQ(munmap(aligned + size, reservation + pmd_size - aligned), 0);
-+
-+	return aligned;
-+}
-+
-+/* Map PMD-aligned anonymous memory filled with 1s. */
-+static char *map_aligned_pages(struct __test_metadata *_metadata, size_t size)
-+{
-+	char *mapping = reserve_aligned(_metadata, size);
-+
-+	ASSERT_EQ(mmap(mapping, size, PROT_READ | PROT_WRITE,
-+		       MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0),
-+		  mapping);
-+	memset(mapping, 1, size);
-+
-+	return mapping;
-+}
-+
-+/*
-+ * Collapse a PMD-aligned range into PMD-mapped THPs, and confirm the result
-+ * with check_huge(). MADV_COLLAPSE may fail transiently with EAGAIN.
-+ */
-+static bool collapse(char *mapping, size_t size,
-+		     bool (*check_huge)(void *, size_t, int, uint64_t))
-+{
-+	int nr_hpages = size / pmd_size;
-+	int retry;
-+
-+	for (retry = 0; retry < 10; retry++) {
-+		if (madvise(mapping, size, MADV_COLLAPSE)) {
-+			if (errno != EAGAIN)
-+				return false;
-+		} else if (check_huge(mapping, size, nr_hpages, pmd_size)) {
-+			return true;
-+		}
-+		usleep(10000);
++	if (!can_unmap_file)
++		SKIP(return, "MADV_PAGEOUT cannot unmap file pages");
++	fd = create_temp_file(page_size);
++	ASSERT_GE(fd, 0);
++	ASSERT_EQ(fchmod(fd, 0400), 0);
++	/* Hand the file over first, as nobody may not be able to write /tmp. */
++	if (!geteuid()) {
++		ASSERT_EQ(fchown(fd, NOBODY, NOBODY), 0);
++		if (!drop_privileges())
++			SKIP(return, "could not drop privileges");
 +	}
-+
-+	return false;
-+}
-+
-+/* Map a PMD-mapped anonymous THP filled with 1s, or return NULL. */
-+static char *map_thp(struct __test_metadata *_metadata)
-+{
-+	char *mapping;
-+
-+	if (!pmd_size)
-+		return NULL;
-+	mapping = map_aligned_pages(_metadata, pmd_size);
-+	if (collapse(mapping, pmd_size, check_huge_anon))
-+		return mapping;
-+	ASSERT_EQ(munmap(mapping, pmd_size), 0);
-+	return NULL;
-+}
-+
-+/*
-+ * Changing the protection of one page PTE-maps a THP. When /proc/kpageflags
-+ * is readable, also check that the folio is still large.
-+ */
-+static void pte_map_thp(struct __test_metadata *_metadata, char *mapping,
-+			int pagemap_fd, int kpageflags_fd)
-+{
-+	unsigned long pfn;
-+	uint64_t flags;
-+
-+	ASSERT_EQ(mprotect(mapping + page_size, page_size, PROT_READ), 0);
-+	ASSERT_EQ(mprotect(mapping + page_size, page_size,
-+			   PROT_READ | PROT_WRITE), 0);
-+	ASSERT_TRUE(check_huge_anon(mapping, pmd_size, 0, pmd_size));
-+	if (kpageflags_fd < 0)
-+		return;
-+
-+	pfn = pagemap_get_pfn(pagemap_fd, mapping);
-+	ASSERT_NE(pfn, -1UL);
-+	ASSERT_EQ(pageflags_get(pfn, kpageflags_fd, &flags), 0);
-+	ASSERT_TRUE(flags & KPF_COMPOUND_HEAD);
-+}
-+
-+static void assert_filled(struct __test_metadata *_metadata,
-+			  const char *mapping, size_t size)
-+{
-+	size_t offset;
-+
-+	for (offset = 0; offset < size; offset += page_size) {
-+		ASSERT_EQ(mapping[offset], 1)
-+			TH_LOG("memory changed at offset %zu", offset);
-+	}
-+}
-+
- /* Page out the range until its first page is swapped, or madvise() fails. */
- static bool pageout_until_swapped(char *mapping, size_t size, int pagemap_fd)
- {
-@@ -124,6 +235,11 @@ static bool pageout_until_unmapped(char *mapping, size_t size, int pagemap_fd)
- 	return false;
- }
- 
-+static bool page_is_present(int pagemap_fd, char *addr)
-+{
-+	return pagemap_get_entry(pagemap_fd, addr) & PM_PRESENT;
-+}
-+
- /* Create an unlinked, zero-filled temporary file, or return -1. */
- static int create_temp_file(size_t size)
- {
-@@ -452,6 +568,127 @@ TEST_F(madv_cold_pageout, pageout_skips_unevictable_page)
- 	ASSERT_EQ(shmdt(mapping), 0);
- }
- 
-+/* MADV_PAGEOUT of a whole THP must swap it without corrupting it. */
-+TEST_F(madv_cold_pageout, pageout_swaps_thp)
-+{
-+	char *mapping;
-+
-+	if (!can_swap)
-+		SKIP(return, "MADV_PAGEOUT cannot swap");
-+	mapping = map_thp(_metadata);
-+	if (!mapping)
-+		SKIP(return, "could not allocate a PMD-sized THP");
-+
-+	ASSERT_TRUE(pageout_until_swapped(mapping, pmd_size, self->pagemap_fd));
-+	assert_filled(_metadata, mapping, pmd_size);
-+
-+	ASSERT_EQ(munmap(mapping, pmd_size), 0);
-+}
-+
-+/*
-+ * MADV_PAGEOUT must not reclaim pages outside the advised range. kswapd or
-+ * page migration could also unmap them, but neither should happen when the
-+ * selftests run by themselves.
-+ */
-+TEST_F(madv_cold_pageout, pageout_stays_within_range)
-+{
-+	char *mapping;
-+
-+	if (!can_swap)
-+		SKIP(return, "MADV_PAGEOUT cannot swap");
-+	mapping = mmap(NULL, 3 * page_size, PROT_READ | PROT_WRITE,
-+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	mapping = mmap(NULL, page_size, PROT_READ | PROT_WRITE, MAP_PRIVATE,
++		       fd, 0);
 +	ASSERT_NE(mapping, MAP_FAILED);
-+	memset(mapping, 1, 3 * page_size);
-+	ASSERT_TRUE(pageout_until_swapped(mapping + page_size, page_size,
-+					  self->pagemap_fd));
++	close(fd);
 +
-+	ASSERT_TRUE(page_is_present(self->pagemap_fd, mapping));
-+	ASSERT_TRUE(page_is_present(self->pagemap_fd, mapping + 2 * page_size));
-+	assert_filled(_metadata, mapping, 3 * page_size);
++	ASSERT_EQ(mapping[0], 0);
++	ASSERT_TRUE(pageout_until_unmapped(mapping, page_size,
++					   self->pagemap_fd));
++	ASSERT_EQ(mapping[0], 0);
 +
-+	ASSERT_EQ(munmap(mapping, 3 * page_size), 0);
++	ASSERT_EQ(munmap(mapping, page_size), 0);
 +}
 +
 +/*
-+ * MADV_PAGEOUT of half of a THP must split it, and reclaim only the advised
-+ * half. See pageout_stays_within_range about other unmapping.
++ * A caller that neither owns nor may write a file must not page out its
++ * shared mappings. MADV_PAGEOUT succeeds but leaves the page mapped.
 + */
-+static void pageout_half_thp(struct __test_metadata *_metadata, char *mapping,
-+			     int pagemap_fd)
-+{
-+	size_t offset;
-+
-+	ASSERT_TRUE(pageout_until_swapped(mapping, pmd_size / 2, pagemap_fd));
-+
-+	for (offset = pmd_size / 2; offset < pmd_size; offset += page_size) {
-+		ASSERT_TRUE(page_is_present(pagemap_fd, mapping + offset))
-+			TH_LOG("page at offset %zu was unmapped", offset);
-+	}
-+	assert_filled(_metadata, mapping, pmd_size);
-+}
-+
-+TEST_F(madv_cold_pageout, pageout_stays_within_pmd_mapped_thp)
++TEST_F(madv_cold_pageout, pageout_skips_unauthorized_shared_file)
 +{
 +	char *mapping;
 +
-+	if (!can_swap)
-+		SKIP(return, "MADV_PAGEOUT cannot swap");
-+	mapping = map_thp(_metadata);
-+	if (!mapping)
-+		SKIP(return, "could not allocate a PMD-sized THP");
++	/* Otherwise the page would stay mapped regardless. */
++	if (!can_unmap_file)
++		SKIP(return, "MADV_PAGEOUT cannot unmap file pages");
++	if (geteuid())
++		SKIP(return, "requires root to change credentials");
++	mapping = map_temp_file(_metadata, page_size, MAP_SHARED, 0400);
++	if (!drop_privileges())
++		SKIP(return, "could not drop privileges");
 +
-+	pageout_half_thp(_metadata, mapping, self->pagemap_fd);
++	ASSERT_EQ(mapping[0], 0);
++	ASSERT_TRUE(pagemap_is_populated(self->pagemap_fd, mapping));
++	ASSERT_EQ(madvise(mapping, page_size, MADV_PAGEOUT), 0);
++	ASSERT_TRUE(pagemap_is_populated(self->pagemap_fd, mapping));
++	ASSERT_EQ(mapping[0], 0);
 +
-+	ASSERT_EQ(munmap(mapping, pmd_size), 0);
++	ASSERT_EQ(munmap(mapping, page_size), 0);
 +}
 +
-+TEST_F(madv_cold_pageout, pageout_stays_within_pte_mapped_thp)
++/*
++ * A caller that neither owns nor may write a file may page out the anonymous
++ * COW pages of a private mapping of it, but must leave the file pages
++ * mapped.
++ */
++TEST_F(madv_cold_pageout, pageout_private_file_reclaims_only_cow)
 +{
 +	char *mapping;
 +
-+	if (!can_swap)
-+		SKIP(return, "MADV_PAGEOUT cannot swap");
-+	mapping = map_thp(_metadata);
-+	if (!mapping)
-+		SKIP(return, "could not allocate a PMD-sized THP");
-+	pte_map_thp(_metadata, mapping, self->pagemap_fd, self->kpageflags_fd);
++	if (!can_swap || !can_unmap_file)
++		SKIP(return, "MADV_PAGEOUT cannot swap or unmap file pages");
++	if (geteuid())
++		SKIP(return, "requires root to change credentials");
++	mapping = map_temp_file(_metadata, 2 * page_size, MAP_PRIVATE,
++				0400);
++	if (!drop_privileges())
++		SKIP(return, "could not drop privileges");
 +
-+	pageout_half_thp(_metadata, mapping, self->pagemap_fd);
++	ASSERT_EQ(mapping[0], 0);
++	ASSERT_EQ(mapping[page_size], 0);
++	mapping[0] = 1;
 +
-+	ASSERT_EQ(munmap(mapping, pmd_size), 0);
-+}
++	ASSERT_TRUE(pageout_until_swapped(mapping, 2 * page_size,
++					  self->pagemap_fd));
++	ASSERT_TRUE(pagemap_is_populated(self->pagemap_fd,
++					 mapping + page_size));
++	ASSERT_EQ(mapping[0], 1);
++	ASSERT_EQ(mapping[page_size], 0);
 +
-+/* MADV_COLD on part of a THP may split it, but must not change it. */
-+TEST_F(madv_cold_pageout, cold_preserves_half_of_pmd_mapped_thp)
-+{
-+	char *mapping;
-+
-+	mapping = map_thp(_metadata);
-+	if (!mapping)
-+		SKIP(return, "could not allocate a PMD-sized THP");
-+
-+	ASSERT_EQ(madvise(mapping, pmd_size / 2, MADV_COLD), 0);
-+	assert_filled(_metadata, mapping, pmd_size);
-+
-+	ASSERT_EQ(munmap(mapping, pmd_size), 0);
-+}
-+
-+TEST_F(madv_cold_pageout, cold_preserves_half_of_pte_mapped_thp)
-+{
-+	char *mapping;
-+
-+	mapping = map_thp(_metadata);
-+	if (!mapping)
-+		SKIP(return, "could not allocate a PMD-sized THP");
-+	pte_map_thp(_metadata, mapping, self->pagemap_fd, self->kpageflags_fd);
-+
-+	ASSERT_EQ(madvise(mapping, pmd_size / 2, MADV_COLD), 0);
-+	assert_filled(_metadata, mapping, pmd_size);
-+
-+	ASSERT_EQ(munmap(mapping, pmd_size), 0);
++	ASSERT_EQ(munmap(mapping, 2 * page_size), 0);
 +}
 +
  /* Swap out an anonymous page, to see whether swap works at all. */
  static bool probe_swap(int pagemap_fd)
  {
-@@ -474,6 +711,7 @@ int main(int argc, char **argv)
- 	int pagemap_fd;
+@@ -706,6 +809,27 @@ static bool probe_swap(int pagemap_fd)
+ 	return swapped;
+ }
  
- 	page_size = getpagesize();
-+	pmd_size = read_pmd_pagesize();
- 	/* The harness forks each test, which inherits this. */
- 	pin_to_current_cpu();
- 	/* Only root can reserve the page that hugetlb_vma_is_rejected maps. */
++/* Unmap a clean page of a file in /tmp, where the tests make their files. */
++static bool probe_file_unmap(int pagemap_fd)
++{
++	bool unmapped;
++	char *page;
++	int fd;
++
++	fd = create_temp_file(page_size);
++	if (fd < 0)
++		ksft_exit_fail_perror("create_temp_file");
++	page = mmap(NULL, page_size, PROT_READ, MAP_PRIVATE, fd, 0);
++	if (page == MAP_FAILED)
++		ksft_exit_fail_perror("mmap");
++	close(fd);
++	FORCE_READ(page[0]);
++	unmapped = pageout_until_unmapped(page, page_size, pagemap_fd);
++	munmap(page, page_size);
++
++	return unmapped;
++}
++
+ int main(int argc, char **argv)
+ {
+ 	int pagemap_fd;
+@@ -724,6 +848,9 @@ int main(int argc, char **argv)
+ 	can_swap = probe_swap(pagemap_fd);
+ 	if (!can_swap)
+ 		ksft_print_msg("MADV_PAGEOUT cannot swap\n");
++	can_unmap_file = probe_file_unmap(pagemap_fd);
++	if (!can_unmap_file)
++		ksft_print_msg("MADV_PAGEOUT cannot unmap file pages\n");
+ 	close(pagemap_fd);
+ 
+ 	return test_harness_run(argc, argv);
 -- 
 2.56.0
 
