@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792448928;
-	b=m3++/zolauYlTjaNKywz1q0mEvAmKb0GpUuXNwQeK0c4eruHHV4Y5OGBiaRftMJdnqEG
-	 ZkKJaFkXxdi/RiysBwe3w1l1P/sKzyAPACIsF7ugiiZwUNc7VysoBFc8VV/GhUqa5e2dR
-	 gS3xjhjw7DLHB57xGGlaq8mHbKjgbEmd9ybBIc6Zdk1mI+1Vv+2GpqPtyEE09az8SIz0U
-	 HQWE1R4T9rUM3u11lyyLJLN7kYhfU8idqTXi+LVTYUefPfzGowt4rrR0YBrrHpUJc8KLs
-	 OJbTFeRYRnf8RH3pPt72ao+MjQqa5V6pwAQPVG+Uwp0dsQuMkxO1M+LcRXo4JmnKIPQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448928;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792448945;
+	b=IZ77nLUNZZq5lGYSXWSPI8VULi31evrQt5x7GxPOe9XgfU4efLos5OWS99O4ECfL5IkJ
+	 N7e0FHkRKKd5FmovwvP+gkFxM727i+V2r4BWmJiEvUiOKTe9M+xFF0YnQygxF9SmiJa3b
+	 cpdigXA0FJoiEhNFdoZqLfmSMr+MaM4Jl94aWN4Z+GrLvnq93bBKOT/NVFjxQ3+yPHSlI
+	 eQPsPSRZRqHhHv5tpYPd6+rCBKXWO8karmQPKc6MHhytjgRa+Xe5maCk9TgMKbD1u7ID9
+	 Q+hIo4DEAp5dKu3TzFj8/adVW9KENjfSmUm/kll95deQtvwiWhBS6BThOWa6UrxlHKg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448945;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MqScAEBcEdrO9olOPv0aI3RfvOhn0celPkhFlZwz1+0=;
-	b=vaw/1IfzRmY4cFmIv+IHz8XyusElk01g4wOVP4yO+/tEIO5IILnfTlNAk1QkB62y2Z1P
-	 OTct3tw5Jc2UHNMlKvtEp2WM+QJyaErTCy33iIkxCveStnIevWfQJgKPJEy13B0lI5wcf
-	 0RItoA5TTmHd1okHEFJN2XLc/+2TRZhSMbQZMgtITpj8+mTB3QKAwdcOWDKv/7SP+F7r3
-	 mk2zdbRmryMW84HwS5/CohLndobRSmyKfFwNUFHD0+1u0qxob9txgEkJUq9pYtI0xoW4Q
-	 ghuUy6+xkhzwADFfIXd335e9fQ/Vk0gYNKbxPZczeyHfAxwLBEcLoE6KOuAUsrv1htA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=grPMzPcjuw5NknkchPGY17WHY+uOk9YxlvMRLz3jlQ8=;
+	b=E1BqrKF2XP04Ek84YS1gkHqtHTSkhbMruAT+a3XEjEt/9QapIo9WLeLCLQLDHsnx3s+G
+	 4a0MurSy8q5vIInp0bAMRG8r5/I7y7aCx4rNCjQ5equLpuDlOXo569z40KLnhz6zJSLE5
+	 4JJ9+QNzQmFF3RcsuvrsQMyei/gcFl6hdSpovVE7EYngsYOzP6AldbLaNK8q56+849xsa
+	 8aEer7IvyAUmvQCGJ9OCg9S//ye1kjbUC+/NjeM1bJZSJvlr1nIPqxKnecP62OZuZetO1
+	 s9npMGd7x9jfI5dyFJxvkCCfvLJtPMMOL3hikpKc65HgzwLtknkyfv1tKB38zV4JIaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bLsLfPea;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.177
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pXYlgfS1;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAEA606A327
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:28:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBAEA606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7183F606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7183F606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bLsLfPea
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93e6eb77f0bso246081885a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:28:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792448926; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b2UVoJNZnrqIpLxevcFIz34zNmOievfg+9o/WaImsClwdkAk4goZ+WJLo3qdHN1t7d
-         lp0lpnGyMEHgFNjhIrSmeAXHpNWC8jpWcIDq+a6cPERf3KvM2DWc2PDEkxkOut1gqUX7
-         20I197+viS8eYzZh0rHGbFNJPK8mdt3C/uL8jCzkf1w7sOKoqvhWktmczBAzBZfH3MSV
-         KgM/FKR4QuhZFUkKGjkqnIsaW0+kUcaAtLLddXfubzuhtxObbW3pCgpuGthNofMeePj8
-         xaW98U+L5HjNVhyBhoPezTKbEyiv6IpAX/5QNT8Mw8qf0iOqgUACzla352b2glCy9YFg
-         SoDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MqScAEBcEdrO9olOPv0aI3RfvOhn0celPkhFlZwz1+0=;
-        fh=hVpuY7Rwf+jornAfYG7TeF74lDMxlTba4PGeqPOhz4g=;
-        b=YUkn2D4lQ5vnrx6vkmSAmtcI4e1weKjGRMGzsd4GQUtbeK8eyeh5xhQ6LiOiIaWoKU
-         LeubOmJwE/u/mjXLW5R6K7EhN1qwxpUV39xuIXYpTDhLvRQ9cnFRKY9FmGkTY0VxsqOz
-         hBTrqWJ9QlkmfFd53BdVd8OyGNArvjG+CG0B8yK3NIPbSvu7u3mRkQCK8IQ8+s3y1PHp
-         6318NITPiF+HoOhw+6wPSQNiMUEganUAV0FwkcMjPfsne0tJrPYWWN7PNHhi7Di0qsTb
-         n6iA4aRYGAZQYX0kgOoXq0o6P5FGllPbNox3Dh8KEWwnncGyhobT/AZiZNR+csSuLJlO
-         rFdg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pXYlgfS1
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso1545180f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:29:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792448926; x=1793053726; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MqScAEBcEdrO9olOPv0aI3RfvOhn0celPkhFlZwz1+0=;
-        b=bLsLfPead1YBpugKDncXbMsrTLn9dTtmjSo0xos0itd/nJBGk+LlloqOFHZeTetczU
-         5GyBxW6/jpwTRxjJsR+uPGRgGdEPDHJSMPQmEtMG9nWPNjl2zpa/t1/bWdZ2oHllRWOP
-         47mvAv9cC5IVhF5Sn8dKV/wqOKKROHpKx6JeUgCTbxFuIynK7XH5bNv5i9jWDJX9xOqq
-         P6IzLL5ugvUrxWhrap66iKvGni7m1GwsxvhoXhenz5cI3hnmc2cl1dyNurDNCxDgIq8H
-         uGiwKZWYnJISWuGDwYCIxVI1qoVCXTTR6nbl7a5v9WjeNlcG5Ims9HU6kirZTMPV+hjH
-         agBQ==
+        d=gmail.com; s=20251104; t=1792448943; x=1793053743; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=grPMzPcjuw5NknkchPGY17WHY+uOk9YxlvMRLz3jlQ8=;
+        b=pXYlgfS1gr29AG2ETT3tGp8vnAw3OYUwF9u9S1+h14H4z8PaaXwUwYa/x+kMzWr+iq
+         L/6gWmUy8KCi6Xf1AeD7LCF7dYBG1BbslumTqj3delnhMmtqach4KBDHoin5bnHKDenD
+         tKG8smktnJakoKQnD85begvJwgg4l9Kx+viAPm39Wj13vCiiOWelwE8wqJE9+snWNzSn
+         dZ/uiQhXk+8Ng2j3TzBlZ3Cou8gBYsMp09SGwSmu2UBnVr9RSKR2kRHUf01wfisrRNYf
+         xJjUuUUi68b0sPiUu2uHFedcSG3zdHG8yq6r2bD6tzeMqf7uOz+g+VJbUgwiQ7pHxlB1
+         yMSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792448926; x=1793053726;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MqScAEBcEdrO9olOPv0aI3RfvOhn0celPkhFlZwz1+0=;
-        b=gAoJ7aQYo4NNlR8Vgq3CeQ6Ri2JGelX7I6x+uK80WMQFk4407hYx+USBc1pNhoLDk0
-         46YHHDoYiLpwQzNCihmlz8hUDFXs8b6/fytFCQdN85SpKJCpT9ii7muHj1u1PKweQ1FH
-         iddzTon9XC/oknKOYuqBZceExtGcSxWw3mROguOEKgro01ux8HYzQuJpbI0yZVKwGdky
-         zpx7GLjVMcNlCe79+gid1o0vNfm3xoewS3MzeJSe7/CUWMYUYfSQLCvcfVvBnn0txnfz
-         7s2kSkWRsQoZfe0kNLQv2u7m8chNC+dHX5bS5aQgrYExv/FiXM3sGQiQevTIjG+twl5c
-         o+Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBzsZdz8YbGu6uf9brUH+gg8Sd39VeJjNe1+Q1uGYSRpdcDpu3ykZVKgRDWjiVe4l+EVXfjPAoEsCh50obI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnl4nMe0Oeg/zfYQ5ckRM1pOk8Ie1pFbuEGrGQD+C8a8hycK6J
-	M5AUjebTju1fv9bVvBJ7CRsrsnP1hS1uFl19EKn2RcHtInuavHOO7YRmhGJ2FQL1mwxPWKR5fzH
-	VydHSkSkJZk926k+YDETgYE1XfKgHACtmRDo9SwUX4Pwq
-X-Gm-Gg: AYBFou2g08m/JL+lW86fEmhSKtQ+G6YaqxtzVI2h9EubZgxRL5JO6HLry3JSZIKBNga
-	jQwV9ONpdqbk4qhMrRkE3F+9oxI52eRk1LnIeK/5eZWstPUH0Zy7v5I0CUJZ2C72A6OeEnQbRyO
-	uQBD+VWYMJgcFu+tuoIdx18qB3dKqt0msIMoN2zRiImi3znWQEbWXMe6d2pT3DrCnhD9DGgUQD/
-	u3YXZzmI7HNTUd6wuqRN5i83wFXxhrjBmVPp7e/S+YBuvH2H3/VWluN8aRJbGr/wMHnO3OaWh9o
-	1uBCJQwSXnQZ3vtI1MY6ftgLw9ivTjZN3AeJrOZBh346BWlBHlCwPw==
-X-Received: by 2002:a05:620a:2846:b0:93e:c06a:7313 with SMTP id
- af79cd13be357-93f29ceed11mr1539830885a.13.1792448925708; Mon, 19 Oct 2026
- 15:28:45 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792448943; x=1793053743;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=grPMzPcjuw5NknkchPGY17WHY+uOk9YxlvMRLz3jlQ8=;
+        b=nIaEfg+ODB6Xh4sqLJrgBV4SRmyLSEoGD+jYgZ4p172mrAGomniuLo33F4KUhBPNMJ
+         KB3NgUnATYmx6vLyJAHjQ/zeQAKqT/WKczTLZ27zZnJrzIo9ctDTYTerff510V1vHpCb
+         Fe4ltRBAopeWEC3rwrta/IQ+zMeeII46jw95ZTOOdE0Qf3ItbuV2HW3TSBshimtdzQw1
+         8PbSPBfz9Wm2wcSjqPeQkEMS4FiBPycR2Mugq7pDvd+9Qkl80e0eDJcWfaJgqN+7hSK6
+         i1JaRGfyJI6d8LA0LLhnlJgoEznakHOtYyXcCtfjC+z5IY9v5k1rxfNkF2G7w3vuq0MR
+         EGXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDrQdhwU16b5TBYudNCX6mm3rX5tEkk2+XIGhVPAgFyErNgqnH2fOeJ3oM8iHZb8khZ7a8mQ5uoA1bDMo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQAjAiJQa4WEJzkk+Ul8Pw+KxLmamBO6GhfpKLMqHlo64t3NlZ
+	HNVF1Xz7xRwTcuZdk0XI23xGJSH2WmXcoqDsQphqWxAYcQdUCN7qAwWq
+X-Gm-Gg: AYBFou0+RD997AtrUl9YLQmn8MmX6sF+MsHUYjW8IG5fKkOSF9cMyZhJbl1SixV/+eW
+	enlO6msWqQupv2XPh4c1ZwnsXkH3eeovhz9iJlfyTXQ8foY8Eei1beATowAbFiKKKzQICRrELcd
+	q8frQTHHFUrzijfsKBFjriScSHpxl9cKlDBCaAH3SslSOUPG6cGA/6p78PdNQ3TogGTA/aSlDa1
+	ePaMFXeW+MvxDEZjhL19Yzbw6ymoJtedZkZLNUlcuKTOIcPMaG/T3P9FMFDhcN8LhFeOjLucoYC
+	1chTOSPrZdhWd7s8dZQDkgmGZtShVSCbZtzThZVTduAODkdginwOS6C8udenuXd7Au8Bk9O7Apc
+	g+iiz9T5XRkAlgkCpgPQFpKbGIKtPZN2nrs4g2k9PwaRp90pzQj1WRTdfk/P1TwUs4dCsn+m5qs
+	LE+VRsR3CxNtHMYFhrYP54zMtonr2fc8EkeoLi7mVDAD1UKdmyNC9NufNAlCQi5uup/o61h5rhL
+	K095DcyNzaGgOL09CUgGiHiZnDVoUn8fm/EoPgYJ0NuWAq7MYU=
+X-Received: by 2002:a5d:6b4c:0:b0:487:baa:aa6b with SMTP id ffacd0b85a97d-48e07fb1f63mr12709378f8f.43.1792448942577;
+        Mon, 19 Oct 2026 15:29:02 -0700 (PDT)
+Received: from DESKTOP-IR7J1S9.localdomain ([105.102.223.146])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818d61sm1666544f8f.31.2026.10.19.15.29.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 15:29:02 -0700 (PDT)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org
+Cc: jack@suse.cz,
+	linux-security-module@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com,
+	neganhat@gmail.com,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Subject: [PATCH] lsm: don't call d_path() when current->fs is NULL
+Date: Mon, 19 Oct 2026 23:28:58 +0100
+Message-ID: <20261019222858.1766-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,181 +102,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015163029.107250-1-eugene.wolferz@gmail.com> <d27c2b12-8968-4eec-b925-d5345ba1821e@linux.dev>
-In-Reply-To: <d27c2b12-8968-4eec-b925-d5345ba1821e@linux.dev>
-From: =?UTF-8?B?0JXQstCz0LXQvdC40Lkg0JLQvtC70YzRhNC10YDRhg==?= <eugene.wolferz@gmail.com>
-Date: Tue, 20 Oct 2026 01:28:29 +0300
-X-Gm-Features: AclHuK_Vge_qaXUbzdgGb83bqvr1qwk6GiBd2kqk00kHix-vmz9M_8oqYQVn-io
-Message-ID: <CADQe2ZeEJEgE3AoXCtPNAvrggjJmG4WJh=O6++GS+ipRXaVgWQ@mail.gmail.com>
-Subject: Re: [PATCH] platform/x86: asus-nb-wmi: Ignore spurious 0xe5 events on GU605MY
-To: Denis Benato <denis.benato@linux.dev>
-Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D . Jones" <luke@ljones.dev>, 
-	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026, Denis Benato wrote:
+When the last reference to a file is put from exit_task_work(), the task
+has already run exit_fs(), so current->fs is NULL.
 
-> I am thinking that a quirk with e5 in the name is a bit overly specific..=
-.
->
-> I am thinking that perhaps the best thing to do is just create a case 0xE=
-5 that
-> simply does the ignore with no quirks check and a nice comment outlining
-> why it is done.
+syzbot reported:
 
-Hi Denis,
+Unable to handle kernel paging request at virtual address dfff800000000002
+KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
 
-Thank you for the review!
+Call trace:
+ kasan_mem_to_shadow include/linux/kasan.h:65 [inline] (P)
+ kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210 (P)
+ kasan_check_byte include/linux/kasan.h:402 [inline]
+ lock_acquire+0xa4/0x320 kernel/locking/lockdep.c:5916
+ seqcount_lockdep_reader_access include/linux/seqlock.h:73 [inline]
+ read_seqbegin+0x6c/0x144 include/linux/seqlock.h:838
+ get_fs_root_rcu fs/d_path.c:244 [inline]
+ d_path+0x224/0x4dc fs/d_path.c:287
+ audit_log_d_path+0xdc/0x19c kernel/audit.c:2221
+ audit_log_lsm_data+0xe0/0x12d0 security/lsm_audit.c:199
+ dump_common_audit_data security/lsm_audit.c:421 [inline]
+ common_lsm_audit+0x1d0/0x290 security/lsm_audit.c:451
+ smack_log+0x1f4/0x264 security/smack/smack_access.c:400
+ smk_tskacc+0x210/0x2ac security/smack/smack_access.c:255
+ smack_file_open+0x1d0/0x230 security/smack/smack_lsm.c:2078
+ security_file_open+0xec/0x258 security/security.c:2739
+ do_dentry_open+0x2a8/0xfbc fs/open.c:973
+ vfs_open+0x44/0x2dc fs/open.c:1101
+ dentry_open+0x74/0xc0 fs/open.c:1124
+ ima_calc_file_hash+0x120/0x5cc security/integrity/ima/ima_crypto.c:269
+ ima_collect_measurement+0x420/0x874 security/integrity/ima/ima_api.c:300
+ ima_update_xattr+0x160/0x230 security/integrity/ima/ima_appraise.c:617
+ ima_check_last_writer security/integrity/ima/ima_main.c:227 [inline]
+ ima_file_free+0x40c/0x528 security/integrity/ima/ima_main.c:251
+ security_file_release+0x84/0x148 security/security.c:2424
+ __fput+0x2c4/0x74c fs/file_table.c:506
+ ____fput+0x20/0x30 fs/file_table.c:541
+ task_work_run+0x1cc/0x25c kernel/task_work.c:233
+ exit_task_work include/linux/task_work.h:40 [inline]
+ do_exit+0x58c/0x1a74 kernel/exit.c:986
+ do_group_exit+0x198/0x238 kernel/exit.c:1129
+ __do_sys_exit_group kernel/exit.c:1140 [inline]
+ __se_sys_exit_group kernel/exit.c:1138 [inline]
+ pid_child_should_wake+0x0/0x104 kernel/exit.c:1138
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0x19c/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
 
-I agree that a DMI-specific quirk is probably unnecessary here,
-especially since the same event has been observed on other ASUS
-models.
+d_path() renders a path relative to current->fs->root.  After exit_fs()
+there is no such root, and no substitute root is meaningful: the
+record's pid/comm describe a task that can no longer name the file, and
+the file may have been opened by a different task entirely.  Falling
+back to another root would produce a well-formed but misleading path,
+so report the field as unknown instead, as exe=(null) and name=(null)
+already do.
 
-I initially tested a global KE_IGNORE entry for 0xE5 on my GU605MY
-with a 7.2.7-based kernel, and it successfully stopped the repeated
-display wakeups.
+Handle this in audit_log_lsm_data(), where the meaning of the field is
+known, for LSM_AUDIT_DATA_PATH (Smack file_open), LSM_AUDIT_DATA_FILE
+(SELinux file_open), LSM_AUDIT_DATA_IOCTL_OP and the AF_UNIX path in
+LSM_AUDIT_DATA_NET.
 
-I also noticed the related patch series from Seyed Mohammad Mahdi
-Hosseini, which proposes the same global KE_IGNORE approach:
+Alternative: omit " path=" as it is done for inode in audit_log_lsm_data.
 
-https://lore.kernel.org/platform-driver-x86/cover.1791672579.git.i@smmh.dev=
-/
+Fixes: 4a9d4b024a31 ("switch fput to task_work_add")
+Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=975ace299d6ba2eb1cea
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+---
+ security/lsm_audit.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-Since my patch was submitted first, I would be happy to prepare a v2
-using the global KE_IGNORE approach, incorporating your feedback.
+diff --git a/security/lsm_audit.c b/security/lsm_audit.c
+index 955b2e7b2c8e..5ed505d781bb 100644
+--- a/security/lsm_audit.c
++++ b/security/lsm_audit.c
+@@ -169,6 +169,15 @@ static inline void print_ipv4_addr(struct audit_buffer *ab, __be32 addr,
+ 		audit_log_format(ab, " %s=%d", name2, ntohs(port));
+ }
+ 
++static inline void audit_log_lsm_path(struct audit_buffer *ab,
++									const struct path *path)
++{
++	if (current->fs)
++		audit_log_d_path(ab, " path=", path);
++	else
++		audit_log_format(ab, " path=(null)");
++}
++
+ /**
+  * audit_log_lsm_data - helper to log common LSM audit data
+  * @ab : the audit buffer
+@@ -196,7 +205,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+ 	case LSM_AUDIT_DATA_PATH: {
+ 		struct inode *inode;
+ 
+-		audit_log_d_path(ab, " path=", &a->u.path);
++		audit_log_lsm_path(ab, &a->u.path);
+ 
+ 		inode = d_backing_inode(a->u.path.dentry);
+ 		if (inode) {
+@@ -209,7 +218,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+ 	case LSM_AUDIT_DATA_FILE: {
+ 		struct inode *inode;
+ 
+-		audit_log_d_path(ab, " path=", &a->u.file->f_path);
++		audit_log_lsm_path(ab, &a->u.file->f_path);
+ 
+ 		inode = file_inode(a->u.file);
+ 		if (inode) {
+@@ -222,7 +231,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+ 	case LSM_AUDIT_DATA_IOCTL_OP: {
+ 		struct inode *inode;
+ 
+-		audit_log_d_path(ab, " path=", &a->u.op->path);
++		audit_log_lsm_path(ab, &a->u.op->path);
+ 
+ 		inode = a->u.op->path.dentry->d_inode;
+ 		if (inode) {
+@@ -321,7 +330,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+ 				if (!addr)
+ 					break;
+ 				if (u->path.dentry) {
+-					audit_log_d_path(ab, " path=", &u->path);
++					audit_log_lsm_path(ab, &u->path);
+ 					break;
+ 				}
+ 				len = addr->len-sizeof(short);
+-- 
+2.43.0
 
-Would you prefer that I submit a v2, or should we wait for Ilpo's
-opinion on how to handle the overlapping submissions?
-
-Best regards,
-Evgeny
-
-
-=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC, =D0=95=D0=B2=
-=D0=B3=D0=B5=D0=BD=D0=B8=D0=B9.
-+7 (926) 607-70-19
-https://t.me/mreugene
-
-
-On Tue, 20 Oct 2026 at 01:12, Denis Benato <denis.benato@linux.dev> wrote:
->
->
-> On 10/15/26 18:30, Evgeny Volferts wrote:
-> > The ASUS ROG Zephyrus G16 GU605MY periodically emits an
-> > unrecognized WMI event (0xe5), approximately every 12 seconds.
-> >
-> > The event is reported as KEY_UNKNOWN through the Asus WMI hotkeys
-> > input device. When the session is locked, it causes both the
-> > internal display and an external monitor connected through a
-> > Thunderbolt dock to wake up repeatedly.
-> >
-> > Add a DMI-specific quirk to suppress this event on the GU605MY
-> > without affecting other ASUS notebook models.
-> >
-> > Ignoring the event was first verified on a 7.2.7-based OGC kernel.
-> > The DMI-specific quirk was subsequently built against 7.2.8-ogc5
-> > and tested on 7.2.9-ogc2 and 7.2.9-ogc4. On both 7.2.9 variants,
-> > the DMI match was confirmed and the unknown 0xe5 event messages
-> > disappeared.
->
-> Hi Evgeny,
->
-> Thank you for your work!
->
-> I am thinking that a quirk with e5 in the name is a bit overly specific..=
-.
->
-> That code has never been handled and is just the EC repeating some settin=
-gs.
->
-> I am thinking that perhaps the best thing to do is just create a case 0xE=
-5 that
-> simply does the ignore with no quirks check and a nice comment outlining
-> why it is done.
->
-> I don't see asus repurposing that for something else honestly so it shoul=
-d
-> be future-proof enough and will potentially avoid this to other models as
-> well.
->
-> On the other end it would be cool to know what that really is telling us.=
-..
->
-> If you don't come up with an answer I would defer to Ilpo whether preferr=
-ing
-> reducing quirks or keeping the symmetry within that key_filter function.
->
-> I am fine either way.
->
-> Best regards,
-> Denis Benato
->
-> > Signed-off-by: Evgeny Volferts <eugene.wolferz@gmail.com>
-> > ---
-> >  drivers/platform/x86/asus-nb-wmi.c | 17 +++++++++++++++++
-> >  drivers/platform/x86/asus-wmi.h    |  1 +
-> >  2 files changed, 18 insertions(+)
-> >
-> > diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/=
-asus-nb-wmi.c
-> > index aeb461b1644d..8d69231d25a0 100644
-> > --- a/drivers/platform/x86/asus-nb-wmi.c
-> > +++ b/drivers/platform/x86/asus-nb-wmi.c
-> > @@ -150,6 +150,10 @@ static struct quirk_entry quirk_asus_zenbook_duo_k=
-bd =3D {
-> >       .key_wlan_event =3D ASUS_WMI_KEY_IGNORE,
-> >  };
-> >
-> > +static struct quirk_entry quirk_asus_gu605my =3D {
-> > +     .ignore_e5_wmi_event =3D true,
-> > +};
-> > +
-> >  static struct quirk_entry quirk_asus_z13 =3D {
-> >       .key_wlan_event =3D ASUS_WMI_KEY_ARMOURY,
-> >       .tablet_switch_mode =3D asus_wmi_kbd_dock_devid,
-> > @@ -562,6 +566,15 @@ static const struct dmi_system_id asus_quirks[] =
-=3D {
-> >               },
-> >               .driver_data =3D &quirk_asus_z13,
-> >       },
-> > +     {
-> > +             .callback =3D dmi_matched,
-> > +             .ident =3D "ASUS ROG Zephyrus G16 GU605MY",
-> > +             .matches =3D {
-> > +                     DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."=
-),
-> > +                     DMI_MATCH(DMI_PRODUCT_NAME, "ROG Zephyrus G16 GU6=
-05MY_GU605MY"),
-> > +             },
-> > +             .driver_data =3D &quirk_asus_gu605my,
-> > +     },
-> >       {},
-> >  };
-> >
-> > @@ -690,6 +703,10 @@ static void asus_nb_wmi_key_filter(struct asus_wmi=
-_driver *asus_wmi, int *code,
-> >               if (quirks->key_wlan_event)
-> >                       *code =3D quirks->key_wlan_event;
-> >               break;
-> > +     case 0xE5:
-> > +             if (quirks->ignore_e5_wmi_event)
-> > +                     *code =3D ASUS_WMI_KEY_IGNORE;
-> > +             break;
-> >       }
-> >  }
-> >
-> > diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asu=
-s-wmi.h
-> > index 5cd4392b964e..e7772397cd10 100644
-> > --- a/drivers/platform/x86/asus-wmi.h
-> > +++ b/drivers/platform/x86/asus-wmi.h
-> > @@ -41,6 +41,7 @@ struct quirk_entry {
-> >       bool wmi_force_als_set;
-> >       bool wmi_ignore_fan;
-> >       bool filter_i8042_e1_extended_codes;
-> > +     bool ignore_e5_wmi_event;
-> >       int key_wlan_event;
-> >       enum asus_wmi_tablet_switch_mode tablet_switch_mode;
-> >       int wapf;
