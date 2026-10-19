@@ -1,109 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792423421;
-	b=dC6Yj7KOKyqaAMZJW2SPj9RxjPFZbp3Y5NNa6fdgWZxjmu3f/l0B1sQm87eyIIJU/jA0
-	 o3dhXcHcqO7MxpiYsT6A1vOj/9kWV0WC8lfln8gu3MIx2n5WP5IDDup/iSaJ00cV3ZlHf
-	 eZZlxCT+F1fSpwAl2cfqzHETBzdcZo9+QvttUesUCzfpxibiYXv8xz/ios1V12tSDVGuH
-	 PlYQn6UlMeo4/IamzyhsdDqBC63bMJvDovKRauADCB7iMGosVnomU5+LOS/Yz3dfrqghX
-	 E5NhRb50zUN9zcKzuqjEQm6FN/edK6WTBcIIgxqxk/rWwXJOm+A9llcq39tMtRq03tA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423421;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TB5WC1uvayakjtGRBbN56iOi71cVu/uajHIAhyzork8=;
-	b=NDCTG8/joWeLbpfjLBhgEmRcTHz/qnoSEAtXE111NRT4xjPtzNG91U6Eco14XOMnnJbf
-	 ot3ZBMBorssUtmBllyhB3aMLUw4RS+iHAKxtHruU5hh2ewApcJWa6zmfxOFhfFTNwCSD5
-	 MZQQJlziVjAbbP5kkM0BAokc4m1l/j146XH3dCvckDKTlLeLggi1g+UgXNOHMmy6LjkBR
-	 Wh5pJz4wiwCf7ARVwRwK+dm/W3J9gvp59c4ZWCK2n2/850A1PIw2UP599vufW/gXvygNz
-	 /hiFsROOOYYRQ8PrqMWI3dCi3SyhOOdJj0I1kuytAFloSlvsGjDEPfe3fqiQF3uBtsw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=amID5UL4;
-	arc=none smtp.remote-ip=209.85.222.42
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792422285;
+	b=NCkz3hrJRTqBqr7QpjKnzVrE0mnn9GN7/x9NzXMv/h01dmkUWIOl6BwN55f4rWVxdrkc
+	 UQKaJhWxMUcRTWAqvC8Rr/nu2hRx1Gk7j7aD3cjrKlkEb1+XkMiV+sdceP2G11UyntBOp
+	 fzm873NP6u3/1fd8PZ5j6RQvENeMg6PtBr15WyAKal8mQzhVP83qlnHTCsYXCNdZfdFSc
+	 9VE0vLOBhyaSi/Dvs1FmoGm+RNg+YHye/wZ0UQNgoYraq/r1TSuTXvYGvg75pB2nhbH8u
+	 CZBUaF8d73FskFQyHzqcslHkzdEMIqH/Ig1Nt/jWsa45rNkv5eQyc7CRcU8uIhUzq+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422285;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=kLKrJjfCzoHcACnO33I+JPBo3vVugR5O9pIj/Gs+qHE=;
+	b=IcI/3PEd2QdvDxRfg0b+WyforDdetyHZCIo1Zi6n/xGGnaHbtiTMw8tIpZ11AWv3fACt
+	 y9pEcyIOEPU0+GqZNeN3K0RVWU0NDCME30iNaaf/nIMYUz6YMZkARSrP2h6z9v8udX6y9
+	 uZ0iFeDPFTHmAqNvdwaWHyh3ZCc18eFJAyyZpZfJYh3LEEBEvcTTcjUh9doPo+589REtB
+	 d7PbZhCt2ZNr63QbZmfKhvlz5kykEx4OFouTvjUiOZqRn8Y9LePSshLWJRuS7yfN2Fgx+
+	 UftYMqT4jjQXKCmXR3k+TfsG4O3QvUMDAK3ZIqrB0VOUh804q0ALE3YzpWDTsyZ0/pw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=DarmpvQP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECE060ACCEB
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:23:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ECE060ACCEB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC18D607F4A4;
+	Mon, 19 Oct 2026 15:04:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC18D607F4A4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=amID5UL4
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-97ccbba8e86so440320241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:23:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792423420; x=1793028220; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TB5WC1uvayakjtGRBbN56iOi71cVu/uajHIAhyzork8=;
-        b=amID5UL4oXgN2w3QpNshWz8S3hujZxJ9MR4VBu06GHjgko5FygdPkAxZwfXKgMCwry
-         YuVILTkEunVHZWkCmzaRtv3M5bxJOVERp674cByKUZUjQev9Esvej04i0K1nE1BugUPr
-         6qsfWeztU62IUCEUcL03iAJdtK7I33wfsCljb/0uP4CmorynANmX4lapU3I5ta2vUPjU
-         G9DVnlIyhbMjhqo9kiIzUr34HINGxpkKHa5Sat/rlADIkx9bWeDlzft+MrnKNEZaitVK
-         Sg5x916X45FNuCxnpG7KBxtwzWrT5bN9NWpXH+tVT8pMgVz0n+BZ9Vj3C3H8FXUuQzDj
-         s5PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792423420; x=1793028220;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TB5WC1uvayakjtGRBbN56iOi71cVu/uajHIAhyzork8=;
-        b=ihuRi0S40Fhsq4n3FN0DfboTcilKjlJgOwJgAe3NK9efw16T7Wr1HSwCRwjHduhYzH
-         3LigOw49zR8ShohgtST6nFYHgcXmqzaQv3s2atNGGuqpb+Rv9BYQRgV0QgU5YqI5B4ZV
-         NgpCs/y61q1rE8+4pSgVk7xLAXO/Hhr0aAMXDA999p8xD9uSbT/ybe9iGhDaRWrmJiE9
-         M3NBhq4/a9nOWXbnNq5uNqVc/PpwOLqXahof1I+7DGQqNJ5jp5xqCnYoQUwdXuyFRcJQ
-         wFf2YD2fjvPJFejeEPI+P3i5V1UPRipereC9LHJ73QOXLzU37mziPp/uOvm0jBBh/ycl
-         ZBiw==
-X-Forwarded-Encrypted: i=1; AKwUvBye9y0eArWaGOYR3xdtVzTJdTxHkXGRhYA1v9cE9+0QjnYy+dGF529LwJY0JFUGuokUa56VPnPW1FuxXWY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIb9T7oKEWnuDb+pVPngtvr6Zhh1Pw6HTtksMf5YLSP+jhjT2Q
-	sqXD5uz8id9EsN7WPqvqJPkgWjPPwfdVoxlVU+T3Gn4rQa4SmBA9kyY=
-X-Gm-Gg: AYBFou3Egah140s3C3j5/6HHEnccCV7PQXgQMR2QVswtK7xrkE5PPx80Sd6hDdVnBog
-	XV/pL7B4IHdkqdPglpH5CpjbdoKBq6FDml/jgWIDr3vTDg4iHvtT8tK4nrmlANLNslpHK4XNdg0
-	+W8p2eGBGA/JlvxafAeBJUBMlR8bsDlS/Hmq+bkjKIrdaWsMQXp96+n+F8E2i0hYJK+FCCS+vXR
-	+p4m5Ye+fdQpAN2dwkZ8/QfSC01fh+4OHWaAvj9n/2uRJVPgcfasazRXeI3Y25OCJQrnVh/d2EB
-	T0gsWhY35kI0dRg1nrtDkWao5HrmqLwezQYdo7RfmJmBmgpjhPaILxx3AYQ1F6LFzveGPvD+EqQ
-	UTrqsJ7ZiE+wEQnRHFXcEKmgZPbxZE7NKyHFXU5snmqxikTPlv0fVfFwOi13QwaAerhebpDzdCr
-	xfmKRA27evOiFVEWqw27pbwLxy6CJIDNGyviFu3nqKUaCJt5wVyICVYY07pMpiqKnFrw5u/8q+j
-	Vdn7OAckd7PnO+tmWCahN7mP9vKkGJhfSNV2CpZlqPh890jJg==
-X-Received: by 2002:a05:6102:5127:b0:7c0:1d48:b2a2 with SMTP id ada2fe7eead31-7cc36aed490mr1758525137.31.1792423419903;
-        Mon, 19 Oct 2026 08:23:39 -0700 (PDT)
-Received: from localhost.localdomain ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc77198ec5sm453357137.4.2026.10.19.08.23.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 08:23:38 -0700 (PDT)
-From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
-To: Igor Korotin <igor.korotin@linux.dev>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Benno Lossin <lossin@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Gary Guo <gary@garyguo.net>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH] rust: i2c: remove TryFrom<&Device> implementation for &I2cClient
-Date: Mon, 19 Oct 2026 12:23:15 -0300
-Message-ID: <20261019152329.620610-1-nico.antinori.7@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=DarmpvQP
+ARC-Seal: i=1; a=rsa-sha256; t=1792422211; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=cSn4m9sUI5TdPRQapCJSWOZ6urEVHJe3MIt7osRi99I0YloRW7Y1l4ZOXjiQtZ+HXUYDpU148zdSSFuD12v13R6dsed//3SD5D7rrcbUAAixfxZ5rbPJboYPdolx8nA3K9P0GQfvuJV3eG56D1y9FEUpuO1GfRoGDNW8d7DLPmI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792422211; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=kLKrJjfCzoHcACnO33I+JPBo3vVugR5O9pIj/Gs+qHE=; 
+	b=n8OSVZ5x1sNJXGBrEs0VKOD9HHMVoeR3Xd0m3qUU3B+u5j2kLtIQyKkRaWkCUO0itYdyJW9J9/4Mc9I9jhjQdqQZqrDSQFgrqlYuMEsA+t0JE6/vCu2AhF0awZyvn5/HFNvnlgh6JUz4V/VJp4SDcBiINZpyUGueBqW4y/USCb4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792422211;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=kLKrJjfCzoHcACnO33I+JPBo3vVugR5O9pIj/Gs+qHE=;
+	b=DarmpvQP3yXyxhBhyYqsBCWHF+wM6d8JE88p1CcHJ7HZmXHrDf6SJHvRCxyIdJi4
+	3ynAhy2JQuI31xjxi6RjW/Y52XEETKWK7K6RLFiFld74kNAu8yndSss3Pqoh/i0iK5L
+	oXcorugdipfiSP8JIjxrudCKcowVW7KsDzaMoQJQyhbu89s3z93g6aMlUafG/xUenxK
+	EZ6aAVIOqdFZKYfuPTKelKBWF3XWNw2cqV8wsKLnchjNu7j59WU+w5d0OTW0+09Snrc
+	E3hGQBgYIYk+SbpNc2MkDIraHlVjdPv2W8JRsALUx/hkQXd6d3WpGbTNdXGDJ8tMnrS
+	sFz86Hw/4A==
+Received: by smtp.zohomail.com with SMTPS id 1792422206249245.80756612073742;
+	Mon, 19 Oct 2026 08:03:26 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Date: Mon, 19 Oct 2026 23:02:31 +0800
+Subject: [PATCH v5 09/12] platform/x86: lenovo-wmi-capdata: Detect stubbed
+ capdata device
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,71 +69,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261019-lwmi-wmi-new-api-v5-9-71557d28d058@rong.moe>
+References: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
+In-Reply-To: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Armin Wolf <W_Armin@gmx.de>
+Cc: Charles <hanker007@gmail.com>, 
+ Navon John Lukose <navonjohnlukose@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>
+X-Mailer: b4 0.17-dev-6be7c
+X-ZohoMailClient: External
 
-Remove the `TryFrom<&device::Device<Ctx>>` implementation for
-`&I2cClient<Ctx>` since it has had no users since its introduction.
+Some devices may stub the capdata device's WMI query method because it
+doesn't support the relevant interfaces at all. For example, most
+ThinkBook devices doesn't support GameZone or Other Mode thermal tuning,
+so capdata 01 is useless and stubbed.
 
-Fixes: 57c5bd9aee94 ("rust: i2c: add basic I2C device and driver abstractions")
-Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Closes: https://github.com/Rust-for-Linux/linux/issues/1264
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+Keeping the capability data list with empty data is meaningless and
+causes lenovo-wmi-other to call lwmi_cd*_get_data() to retrieve
+nonexistent capdata in vain.
+
+Therefore, stub the device and release (or skip allocating) needless
+resources, e.g., the capability data list and the debugfs directory.
+
+Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Signed-off-by: Rong Zhang <i@rong.moe>
 ---
-To make sure that there were no remaining users, I checked for usages of
-the `try_from` method and the `I2cClient` struct using rust analyzer,
-activated the modules that were using `I2cClient`, removed the
-implementation and compiled the kernel (did not trust entirely in rust
-analyzer because it does not find usages that depend on this
-implementation like the `try_into()` automatic implementation).
+Changes in v2:
+- Replace the term "poison" with "stub" (thanks Ilpo Järvinen)
+---
+ drivers/platform/x86/lenovo/wmi-capdata.c | 33 +++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-I also checked for usages in all major versions in most recent versions
-until the introduction of the trait implementation (from 7.3-rc7 to
-6.19), rust-next and linux-next to find the last usage and mark the
-commit in the `Fixes:` tag.
-
- rust/kernel/i2c.rs | 21 ---------------------
- 1 file changed, 21 deletions(-)
-
-diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
-index 0487bae811fb..b4ff25c830fc 100644
---- a/rust/kernel/i2c.rs
-+++ b/rust/kernel/i2c.rs
-@@ -5,7 +5,6 @@
- // I2C Driver abstractions.
- use crate::{
-     acpi,
--    container_of,
-     device,
-     device_id::{
-         RawDeviceId,
-@@ -517,26 +516,6 @@ fn as_ref(&self) -> &device::Device<Ctx> {
-     }
+diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
+index 7310b72e8c2f..b86bc7a57a04 100644
+--- a/drivers/platform/x86/lenovo/wmi-capdata.c
++++ b/drivers/platform/x86/lenovo/wmi-capdata.c
+@@ -691,6 +691,7 @@ static int lwmi_cd_stub(struct lwmi_cd_priv *priv, int err)
+  */
+ static int __lwmi_cd_cache(struct lwmi_cd_priv *priv)
+ {
++	bool got_data = false;
+ 	size_t size;
+ 	int idx;
+ 	void *p;
+@@ -725,8 +726,31 @@ static int __lwmi_cd_cache(struct lwmi_cd_priv *priv)
+ 		struct capdata00 *capdata __free(kfree) = wbuf.data;
+ 
+ 		memcpy(p, capdata, size);
++
++		/*
++		 * A valid attribute always has a non-zero id. IOW, a zero id
++		 * implies a stubbed item (or the query method being stubbed).
++		 *
++		 * The stubbed item is still copied to the cache slot anyway, in
++		 * case the firmware dynamically stubs the capdata item after
++		 * switching Game Zone mode. In this manner, the previously
++		 * exposed capdata can be void.
++		 */
++		if (capdata->id)
++			got_data = true;
+ 	}
+ 
++	/*
++	 * Some devices may stub the query method because it doesn't support the
++	 * relevant interfaces at all. For example, most ThinkBook devices
++	 * doesn't support Game Zone or Other Mode thermal tuning, so capdata 01
++	 * is useless and stubbed.
++	 *
++	 * Stub the device and release needless resources.
++	 */
++	if (!got_data)
++		return lwmi_cd_stub(priv, -ENODATA);
++
+ 	return 0;
  }
+ 
+@@ -772,6 +796,7 @@ struct lwmi_cd_fan_block {
+ static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv)
+ {
+ 	struct wmi_buffer wbuf;
++	bool got_data = false;
+ 	struct cd_list *list;
+ 	int ret, idx;
+ 	u32 count;
+@@ -808,13 +833,21 @@ static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv)
+ 	priv->list = list;
+ 
+ 	for (idx = 0; idx < count; idx++) {
++		if (!block->data[idx]) /* Ignore stub. */
++			continue;
++
+ 		list->cd_fan[idx] = (struct capdata_fan) {
+ 			.id      = block->data[idx],
+ 			.max_rpm = block->data[idx + count],
+ 			.min_rpm = block->data[idx + (2 * count)],
+ 		};
++
++		got_data = true;
+ 	}
+ 
++	if (!got_data)
++		return lwmi_cd_stub(priv, -ENODATA);
++
+ 	return 0;
+ }
+ 
 
--impl<Ctx: device::DeviceContext> TryFrom<&device::Device<Ctx>> for &I2cClient<Ctx> {
--    type Error = kernel::error::Error;
--
--    fn try_from(dev: &device::Device<Ctx>) -> Result<Self, Self::Error> {
--        // SAFETY: By the type invariant of `Device`, `dev.as_raw()` is a valid pointer to a
--        // `struct device`.
--        if unsafe { bindings::i2c_verify_client(dev.as_raw()).is_null() } {
--            return Err(EINVAL);
--        }
--
--        // SAFETY: We've just verified that the type of `dev` equals to
--        // `bindings::i2c_client_type`, hence `dev` must be embedded in a valid
--        // `struct i2c_client` as guaranteed by the corresponding C code.
--        let idev = unsafe { container_of!(dev.as_raw(), bindings::i2c_client, dev) };
--
--        // SAFETY: `idev` is a valid pointer to a `struct i2c_client`.
--        Ok(unsafe { &*idev.cast() })
--    }
--}
--
- // SAFETY: A `I2cClient` is always reference-counted and can be released from any thread.
- unsafe impl Send for I2cClient {}
-
---
-2.47.3
+-- 
+2.55.0
 
