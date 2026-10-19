@@ -1,69 +1,69 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3314F5DEB
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6854F6462
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792416167; cv=none; b=JZmP96Y5zFwnwlcGBc1k66z5+0bSxf4Gucvv8hsozWoL4t37QGIZI1dhNZboO6Ia+5zFdMkf/12+U1qFTYfYpd+NUtIyjt8R+zBZ/H+mW8DQ89Y7MNA0eqciDSnNZdfhxcGt2a4dGNoz2geZ+jyCZFBxov8ufqbF17M6uq/tOyg=
+	t=1792416178; cv=none; b=W9c5RljWCaLbwELm8jsVoWs5X467MdK6tL3+TyfrNMliUZlsSPKMPQWhFJfJvlmMEgdkunAw+dy7WJRobICH9JMudgSNIVip62uo1bgDKqRuThyKxrBy0CPsQEXrYUdgPB8/YfIj8fZy4hquWx8T/p3OcYC78ntk9JwC5xMCBGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792416167; c=relaxed/simple;
-	bh=msKvYvR54L5v+xpFEQnqbETY7La5nljKFpMylDn9Am0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Qpj2qRN980O8OZ5mW85+WRW7FxHk/ABsdiF3A6JPUG9wizw+42Pa4zVPKQPgbwPTfCnZpGMbq6gLtQU6Vjqhg5w2ju/MXevRoG6iS+b72QYz8sfoE/Z6qxJ0pLUlUa2bLMPIzdJOQxOF4Za5U90IEn7i2TdsRfwM/MUbts6fcBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WkXgFSAf; arc=none smtp.client-ip=209.85.214.181
+	s=arc-20240116; t=1792416178; c=relaxed/simple;
+	bh=V6JuOESdlo11Gl/2S3nP4z8xwaqD9faUnTleg+RxuGo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=K5DN6GdYj+4Za0pz1k5mkvfHShmqDbeHQPrnOdaFdQ7Q7+hRnRt31pEVQYodKsyXZitgYoomFFgqVnNmKhpuTENJxkgK0wdVlvK+vahozymMTmKBh44BmXKl9Ne3PtjU3ApSgeKINtjwas1GC+4+aG+GlDmUCEeAJqC/Z0LZe3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RAok/XHe; arc=none smtp.client-ip=209.85.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WkXgFSAf"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e985106c0cso13852385ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:22:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RAok/XHe"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso10760925ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:22:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792416165; x=1793020965; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792416176; x=1793020976; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MT6gv6W3rD17CuhmPPas4mfHdPdygOfvNmWG3PSK5s8=;
-        b=WkXgFSAfONReF38m+B8848R92y7Qk+ULbJ11hQU2//a2Uv65UDOOwsMFuqXwE8nuV5
-         H3FVo0mrX4mBdC8fqLeK8v9JD6NOqhyG4m1iP/cz65la8s6k4VS/9teBooZgi556CpRn
-         A9vrvyHyN1amVJ8XKHUMlllKvtf65EGFUj938UwYgrqH2Lk5cEhjsg1GoVdjOTGSIP+i
-         8bFe9Gfq4qD/ecXQARH/7TspxRWM4ibv6qusYPloO2ZwHJb4CKPP1rDBstYVjpIAyLGj
-         cnsscBiEUEZkrwvWQR/MlPzrUNFv+Krlo4gcY9f4GJ/CV6gKie9sn/92Rtx9XrgtLCVC
-         ny3A==
+        bh=9uMVfxmGmbk7TOx82CukxIKkrbkQu+OEaYbQ6wWfobw=;
+        b=RAok/XHeWd8QZ7TQbUoLtndOTpw02UQoA4LOySKblW3ClVvs0IzMKd7OUNv0SK+nh0
+         FZNVR7A6FJVqdmRkUphe1t7XRUPv4umyWUxC0IiwdGP8F1BZ6aOfqzyLSRbdmjSBWSoK
+         VOAgy9g5Ls8iE7728M9quF4AgITBeZMgtKVWCzUdNsefQQ+SSiXrRQz8SQZ9mZx5WWFz
+         fWLGqvcxS1InbJJpSYlAwzG4Z2oG/izp+pDsT6WkET9Ca3NRyk3HDfuuSWgjBDfxPwnR
+         CCKZLhg9yclgdtUBJVMZBSIUD0YrcmxrHCqiTss4jsjyAtDfb/O0mTRJnK+20vyUJgoo
+         FjlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792416165; x=1793020965;
+        d=1e100.net; s=20260707; t=1792416176; x=1793020976;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MT6gv6W3rD17CuhmPPas4mfHdPdygOfvNmWG3PSK5s8=;
-        b=sUqO7b0OU1pRz8+XuZbVxp2By83+gmO0Uk5omJDyR9qFLL+yEJ5yq3Gmb5lP8eUWuk
-         BRfO2fkd1Q8fHg66q3wm29VkXu8EtB04Hi1O8Pl5Lnnv/ySwuRNujBgqSzs4iC9JT4HJ
-         ktWIeTmRORz1q3UujLmFiXqrJMbvbkvlxHW/dvW4LCGkrQnAf9KbRbUCQCDokG0fUzf3
-         fsC4ZFzEQu6lxYzf81Tsc19mAU4LNqJr+NqCe7QXPhuGD6qJAHxE/JVT696NAd7BzI+Q
-         VSR8x9J6LcqwUBCCYji84G/MAJyahA8tVU4mDF1C9+N+sw05ygI39eDX9/jL3ho26Vm4
-         UHnw==
-X-Forwarded-Encrypted: i=1; AKwUvByzqV5AP8D+nwzonOMpJJrZTtvfeLywnGcrE12ZhHne1yPLkWRgnWf5ScoIW9bR0y/JH14HZJIQriVyzUM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjK9jmXqcMkLPNncVPnzocBlMn0aK4y9X/pRkM548wakVt1pkX
-	EvfTKi6ylYRpo1qT/py8prBEC2LKI2O0gndOT0HRBSzl2EmqBsLgmKXaeXsB19GGD3c=
-X-Gm-Gg: AYBFou3sEy2sarW5b6hoKQBzfZWSqFTQia/w9yjVTDFpbjKlcdPvGRMAymcDMbwVoBY
-	qDfp6/j99L+uJC8crWRO3eOuy0fodYNWOXNUoVZJZmdA7yGBRhl91flX5nHtR54U/hqRwCVQdus
-	JZEcVCD7KVuLNTR9qxpVXoJO8PIHdiPmr7BnFYthPynhR7PpKZDiZXgX3kwDHGF1zDUg9kHtf6E
-	bn4Xs8e6KTIxCOkDaGAH7aIc1/iZozg8cSQc7dXB/S1k3KPJmS/wP+b2kBONlqcgjxfG1yWhkBM
-	C1WCyeIEi5YNeKuRvvauFofM/8D1i6X3ZjBmiNoGFtj6x00k9yrF5YKt6i+2fRuqioI5/gWAvYr
-	SwlfgAHAYs8+3tQJpVa1iWThhZAdmAUURrneDttLUt27Xvz1mhRtizd//TdC5d994/W4gtA5Pg/
-	bsb19PCAgVRIqVbIDhRIaSVbSAZ0i3x7FgG0pvuEyQgTyrkmZjqPxQNBxWRZkh18xmxJqVmhB8K
-	hi7Ew==
-X-Received: by 2002:a17:902:e547:b0:2d9:4358:73ab with SMTP id d9443c01a7336-2e9a6d1d13fmr68305325ad.19.1792416165567;
-        Mon, 19 Oct 2026 06:22:45 -0700 (PDT)
+        bh=9uMVfxmGmbk7TOx82CukxIKkrbkQu+OEaYbQ6wWfobw=;
+        b=JWTmqHzKqmyjFZOIyzAOjOIr9Y5ja2iFjOGXuzVhHf3ptxfLXM92Clk7rdC0YWGgvV
+         trypjGztJKbZzsFIZixzRpP7r5xMmGBsKYK5RINP9NpcfvjN+W84b6FSNc/DhzG/QSZ2
+         LwkT1GFNWzGPxfZUzEjuVdI8FhGsROA8/h6/iIQ5vTKRcsNKN3Jih0nHtOQwZYboNNsM
+         bKS5KhJRvQVkV6McBhFYiMWUGVRsDNM4vNwaPVG7FShfg+9pFZNy3Sc7mASNb/qp13ml
+         CErigmndB+eWPqT7kPP+4tdbUgdadA0nCjkoL1LOLh6DTTn8B+Y4OuDjbY8crDc0+ZvH
+         qcyg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2nW+CxjLniOLsKnsbqZYmiInRr1GYEHUQtkdZHUYKxv26wIXfX0ehS0esqpDrQ/Mp/vUWwoUA7h+UVtI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6oZngvG2+vW6VdII6Yx5VuA0Iqj2Rmq8m/9d7G9ydSewaXlY3
+	RFKLwX4BKcX/vhdiYhUQLneGFjVk0pdLbZ69hpvCwJeIVxLCx/4H2RhF
+X-Gm-Gg: AYBFou0glfYmI28TjAHngaX2KjBNOi5u6PO4j1n1X0EXoA2yNsJf5C3VvBludRx+70I
+	V/o8ahDngnAEYJy76zKfrHof6V3saczTgzn3VfrD/dU57APFPhZ9mL02t8wAic9IJnVOkAKdlor
+	hOa2xP8OpqjL9yt9hF8gvukscSxewYxoIEKoMWUnNTFdSlq9sA6RFcX1WJ7s0Kv8gnLOTLS/jw5
+	dZdeDvOO4podT/8E+7gc9zM6M6pVjDHzmNbXX2NZTKO8QPwamZ4Mypz6njflhZzELnoMRY19FIN
+	EWozQ+PEszJaC7jFvCXNZ3RFmxOeJiz8tHQp7hsGi6XQSpJnTPyXLFlqpN48LL2ralIT0NrEtBR
+	MOTtzDm5KUn3rvyaWibCocH3ScCMfeNvS9U1sy0W/gWw5761NzODzp0G9ilGGVqZASN6aMiV6Vr
+	Pi88+n6Cv6zEARaXedzWUE41bYt1ZFDMf0RY5ZWKKZjRQnIWrNYlqbk9wxTVaHuMErbRPPk5phX
+	IJZHQ==
+X-Received: by 2002:a17:90b:568b:b0:3ac:a7ee:6761 with SMTP id 98e67ed59e1d1-3aceefc6182mr6486080a91.21.1792416175787;
+        Mon, 19 Oct 2026 06:22:55 -0700 (PDT)
 Received: from [58.206.202.11] ([104.28.215.70])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea1501e25bsm661025ad.45.2026.10.19.06.22.43
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a2ab4csm3834933a12.28.2026.10.19.06.22.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 06:22:45 -0700 (PDT)
+        Mon, 19 Oct 2026 06:22:55 -0700 (PDT)
 From: Haoran Wang <haoranwangsec@gmail.com>
-To: Jian Shen <shenjian15@huawei.com>, Jijie Shao <shaojijie@huawei.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, haoranwangsec@gmail.com
-Subject: [PATCH] net: hns3: bound debugfs queue-name sprintf with scnprintf
-Date: Mon, 19 Oct 2026 21:22:43 +0800
-Message-ID: <179241616311.5916.9868151766207198451@whr>
+To: =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>
+Cc: Dell.Client.Kernel@dell.com, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, haoranwangsec@gmail.com
+Subject: [PATCH] tools/wmi: dell-smbios-example: fix 1-byte stack overflow in find_token()
+Date: Mon, 19 Oct 2026 21:22:50 +0800
+Message-ID: <179241617018.5916.3033533776160790448@whr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,44 +73,48 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-hns3_dbg_bd_file_init() builds one debugfs file name per queue with an
-unbounded sprintf into a stack buffer.
+find_token() builds sysfs paths for Dell SMBIOS token files with sprintf
+into stack buffers that are sized to the formatted string length but miss
+the NUL terminator.
 
-    char name[HNS3_DBG_FILE_NAME_LEN];
-    sprintf(name, "%s%u", hns3_dbg_cmd[cmd].name, i);
+    char value_sysfs[57];
+    sprintf(value_sysfs, "%s/%04x_value", token_sysfs, token);
+    char location_sysfs[60];
+    sprintf(location_sysfs, "%s/%04x_location", token_sysfs, token);
 
-The only two table entries that reach this sprintf use the 11-char prefixes
-"tx_bd_queue" and "rx_bd_queue".  i is a u16 loop index bounded by
-max_queue_num = hns3_get_max_available_channels(handle), a
-firmware-reported u16 with no kernel-side clamp on either the PF path
-(le16 tqp_num, ext_tqp_num, pf_rss_size_max from the hclge config
-command) or the VF mailbox path.  When firmware reports >= 10000
-queues, i reaches five decimal digits and the write becomes
+token_sysfs is the 46-char static const literal
+"/sys/bus/platform/devices/dell-smbios.0/tokens" and token is a __u16
+(always exactly four hex digits via %04x), so the formatted strings are
 
-    11 (prefix) + 5 (digits) + 1 (NUL) = 17 > 16
+    46 + 1 + 4 + 6 = 57 chars  (".../XXXX_value")
+    46 + 1 + 4 + 9 = 60 chars  (".../XXXX_location")
 
-so the NUL terminator lands one byte past the 16-byte stack buffer.
+plus the NUL that sprintf writes one byte past each buffer
+(value_sysfs[57] / location_sysfs[60]).  Callers pass only the fixed u16
+constants CAPSULE_EN_TOKEN / CAPSULE_DIS_TOKEN, so this 1-byte stack OOB
+is deterministic on every invocation (the sprintf runs before the fopen,
+so it fires regardless of whether the sysfs file exists).
 
-Replace sprintf with scnprintf(name, sizeof(name), ...) so the write is
-bounded, guarding against a potential overflow.  Queue counts below
-10000 are unaffected (no truncation); in the firmware-misreport case
-the name is truncated instead of corrupting the stack.
+token_sysfs and token are compile-time-bounded, so sizing each buffer to
+hold the terminator (57 to 58, 60 to 61) fully removes the OOB.
 
 Signed-off-by: Haoran Wang <haoranwangsec@gmail.com>
 ---
- drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/wmi/dell-smbios-example.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c b/drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c
-index 1347edac7..e186ec940 100644
---- a/drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c
-+++ b/drivers/net/ethernet/hisilicon/hns3/hns3_debugfs.c
-@@ -860,7 +860,7 @@ static int hns3_dbg_bd_file_init(struct hnae3_handle *handle, u32 cmd)
- 		data[i].handle = handle;
- 		data[i].cmd = hns3_dbg_cmd[cmd].cmd;
- 		data[i].qid = i;
--		sprintf(name, "%s%u", hns3_dbg_cmd[cmd].name, i);
-+		scnprintf(name, sizeof(name), "%s%u", hns3_dbg_cmd[cmd].name, i);
- 		debugfs_create_file(name, 0400, entry_dir, &data[i],
- 				    &hns3_dbg_bd_info_fops);
- 	}
+diff --git a/tools/wmi/dell-smbios-example.c b/tools/wmi/dell-smbios-example.c
+index 1f3e7ab14..214071f6f 100644
+--- a/tools/wmi/dell-smbios-example.c
++++ b/tools/wmi/dell-smbios-example.c
+@@ -52,8 +52,8 @@ static int run_wmi_smbios_cmd(struct dell_wmi_smbios_buffer *buffer)
+ 
+ static int find_token(__u16 token, __u16 *location, __u16 *value)
+ {
+-	char location_sysfs[60];
+-	char value_sysfs[57];
++	char location_sysfs[61];
++	char value_sysfs[58];
+ 	char buf[4096];
+ 	FILE *f;
+ 	int ret;
