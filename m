@@ -1,202 +1,146 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010048.outbound.protection.outlook.com [40.93.198.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAC24369A;
-	Mon, 19 Oct 2026 03:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792380580; cv=fail; b=Y63Mawa7ZDKgzhv3FbIFJ3BG4Du7QXVjlQMv2tEFKd5OLMBjp84qYEHUobaSQBCgsz8lp3VaaKiL1YOQXzV7JBvXQINTKCZPhY1uYaUVngGKmnLeQE/BJEuGqUDXWBVGdJvKPNtzCK+lHl7+JIz7JWrT45ZjMmaYQ+0FtZAbCGI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792380580; c=relaxed/simple;
-	bh=W/dQhfYuyj3eL/kwoYdEtUU3nGb019zkiQHGN+sCX5M=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=NJvnNR3ybRQgibr85Og2G2H2JYNC5a1Td8tk0uLMcrl89+j5kmXjv1QWW+JUHFPvqlvJOA9T1wkDhBNulokdnWhGs3Dj+igkdGua50wk0VdcQBoH1GfCGLm0WA0GwQOyUss4O5YGjh3a8JAm5iRTUYKZMhIRjkIRXFX6b03QTlg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=VYkjGLt6; arc=fail smtp.client-ip=40.93.198.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63734028D9
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:31:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792380682; cv=none; b=mvA5XLK9HefZcWabjYj8YPl8dyZIWqVyo+YEug6EhmYsxvteNu5FvVr7dVqoVPL01UviCPxJahjqS6+y6kXXdTOJyRf+ysj1Maktu292XE300yAhDvHmKKUX0o+eNQ68HOtlpDXaiYZ6qGMJ6vHng2EXEVWjrz+/J3JpDUc8bjw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792380682; c=relaxed/simple;
+	bh=WFXDw7md9ui1Ib9gfrWTU3ajOZNeKpSi6VkFxyR9T94=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RYjG3NivFetfbaZ4NxmQAXCLhmzJHpFbpmqvRlvMzVK94aN4M6BtXYfj6b0D5zZHLmW+bEB8283Gv7asqMQG91/iN0DOiGuvYzEBnIeT5NZQVZClOpk1fHHBJalO7lthoDh1yM5TXcxsp8Wrfl987FdVl7s83Spjwi5YkkW68Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=crL4GUM0; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="VYkjGLt6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pqMMh/SNwJEGN6dxwmrz7TREUqcJiCHBnk9KAriZa7mqtH3JhAnBBzhaEhDZqIRQaaG2G68jUaUE3XCMWrPNgIePkqdGhH9uLTCU5NyplePquZmtWMZUbuiFQeZ8pnNm9akp89F7i+fJnOGFQ5bRUVWje+bFTm2Iw/DHKZbL/rkgWQiNC6ZtnaITCiuvSOse5FgBwNifmuOr2R7lDyTHqJyrWcFpy3ydodyfnK7z9R6PPWpNfCMDH/weNttkcDymXhSZjqJGdUz9lCd50mZJgF072Vn719Fg2HTkur/oD+w1o8DY4Acxp22moPkvDnf7J5fb2r4TKjRN9S7/8Wu6Xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sAEK86fsVoZyLDI8AN8z2yiNxWcHs1bUxrooCfbFvPQ=;
- b=TTlRdik4o74lBh8uPBgzhodW46XaY6WWlm5POj3BC4L7spDqKdSvMOrKN426fON2SmAcU7BQMZG/gwvTX3Ft2kuy2nPvsFhArIGmSQ/OAujJwusn3A6aG0dxgBR9MRozDwqSBYiaQqNZU68N+R1E08CDxvDmctgdvK9UVQkX14GFdCx7XmosjKPdJycZJDi3+Mg4fwVtdFxNRpb1W65TZfu2tudFr+akeI/kUF7VRJamv2pAO35qZatbKAENRIx4QLzHdkCGuWCMtD9l1FeRW/RRbsR0vqRkQFQGWgmzmaDSJFFSog0CEp1uRi/sU93/T2kSwlej7seULLwKVzom/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sAEK86fsVoZyLDI8AN8z2yiNxWcHs1bUxrooCfbFvPQ=;
- b=VYkjGLt6ojhooYpHOG470VHrn3jYVl4sgOKBrdVy7sssLSwF5WtCJ3+S3nlDwHHy8I7TGL2QknegBxDqOAOF5P/6qi/Va/HDxT7dDAsFMrmsB0rvCNNY8u1GUrdECqdqux7PGRR4fZn1JMCf/mbW+BUv45rUArWcObIMAklWvGU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
- IA0PR12MB8205.namprd12.prod.outlook.com (2603:10b6:208:400::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 03:29:36 +0000
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5%4]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 03:29:36 +0000
-Message-ID: <20026d8f-6856-4172-a8c1-674e442aada3@amd.com>
-Date: Mon, 19 Oct 2026 09:01:31 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 10/10] soundwire: amd: fix IRQ thread dropping
- STATUS_0TO7 on simultaneous wake
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, vkoul@kernel.org
-Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
- yung-chuan.liao@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
- Syed.SabaKareem@amd.com, Mario.Limonciello@amd.com, Richard.Gong@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261013085111.2009061-1-Vijendar.Mukunda@amd.com>
- <20261013085111.2009061-11-Vijendar.Mukunda@amd.com>
- <62eefadc-b0c2-41ca-8a33-af330e78932f@linux.dev>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <62eefadc-b0c2-41ca-8a33-af330e78932f@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0123.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b2::6) To DS2PR12MB9567.namprd12.prod.outlook.com
- (2603:10b6:8:27c::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="crL4GUM0"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35c76e9614aso3151986eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:31:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792380680; x=1792985480; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nrG60oAIFb6S52FKE/772lcTbr1UCldAoRmJ7HVPI6Q=;
+        b=crL4GUM0Z5td/KYqaE2A1Tm+fJ/+dolB6IJbO7h82YnNHRe0HQ0ek6awmO20HZUH0I
+         KPO+B1LIoIH2i0i0/UPG1QjC2nRAFMLIckIHKVwz28iL63LCbJ41OboybGdbT1cg78vv
+         HKsz5TbqzjmqHzGYhwjxSq00PPH/3+En0bzgHntFW/CW4XWPHnxYxMT/tfmt5V1AuClk
+         1Q+4+LxiY4017h+6Xi/myhtr6wL21AncHvTrbisMTK5+NodE26gUlzBL+j6NaIjKVOQ4
+         jJtKZqxNilhPbaQ4C49wk5CXP3Pejx0GHu4SpltNecUzHPWb1oTWWOl0tCj0FkoAz+Tl
+         mNKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792380680; x=1792985480;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nrG60oAIFb6S52FKE/772lcTbr1UCldAoRmJ7HVPI6Q=;
+        b=cnCiJwVqNnumks4oxalCr8cHqWUe5C8+goZrnirnxd/aeEGW8Z7+eJIxNbw3SkhG9p
+         xwnS+NhIP/Dk1qkdJrWNbap9kVKuW1pt2czv5A3dQcogVg6Nj4IYHNUlIHcqKpT5lqXC
+         y8QULQkfo9Mbw0KM8j80kZtzIMEoyQrvvB/i72RTjQxnf00gIp0NUC6+lUnZsNnZa+0X
+         5sA+7FYJb9oTAMVxMQvNuTrczO7mT78qCCr5D1chZFhMZySd+IJwPMVdfpLX4wpwftSt
+         bz08JeNyE2VqftGSxYJdpURFMrx45lwKoY6Lb87/K/4RIwlgW23cvoXkxWT6FiM0BY2A
+         Vp1A==
+X-Forwarded-Encrypted: i=1; AKwUvBy/OBQFaYRcju2ALSIX9SkumwjwgRp/bqaeIaZ2jicO9WmXGaobS2l+VMKvXkkgFTnYfeiRHoNjm/iwFog=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNE3rqT0VYADGfA8Hujm6WrAsu/ZTIBrMPJPKpZvgp7X1gFYkE
+	jI2Zw36ufRItNnCmZATNmNcLnUIrS6MV0AYx5yEHY1tzRUVh5MqUHvDu
+X-Gm-Gg: AYBFou0+mlzC6w9S4QlnRIpDgEpPvJP3smaiXO9eTY4UxfIZZmvHzHTIyQQTuW77Zlb
+	zqNTfqiMe/wYwXoGeTda9OoWFvJ+RQ3ozu4ZIR16ult/cur0kBuzhVC1Zb9bjIitnllvkT3i4kP
+	4D67hNw755JmIuDILniWMEQp+Vhsn57cLykN6HSluzQmAkcMZRM7ixGSWAJj6I8HQlX4Ef1CHr2
+	yKPnxB402T+hwq7VjDCiaOx3+TcRQ5h/tghoV/IACwtHBrc+DiL9yaEsGSiEeG4I2s7R5YVzDm8
+	w4oagtmtd6qarJfXHt7z606QX5Jm2caZGZCOZxbaf2XQBpAHL/KPZTcTwF5uYrCLwvEFdlPnAT/
+	P/DBBzZPGw2qc32Uzr9cmIr7db1RHO3nSJcPzqsQGbbXY+5kB1oJXJHQKjeYU02ZvU+YaNyqMQ0
+	1if7LSEnc1+2mt3lh84oL9GZCR+Qd8aa1MRMRuUBfxzo7zwRRMkWVFGnURc4Qjrscx9A==
+X-Received: by 2002:a05:7022:ea9c:b0:148:bc4a:8356 with SMTP id a92af1059eb24-185134de95bmr9264716c88.28.1792380679628;
+        Sun, 18 Oct 2026 20:31:19 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa7bbsm24066888c88.5.2026.10.18.20.31.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 20:31:19 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Subject: [PATCH net-next v2 0/3] net: make moving a device to another netns
+ cheaper
+Date: Mon, 19 Oct 2026 11:31:14 +0800
+Message-Id: <20261019-bug-net-netns-move-rcu-barrier-v2-0-b6eb7780c492@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|IA0PR12MB8205:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f085491-2ebc-4479-20cb-08df2d913308
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|11063799006|4143699003|56012099006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	zK7SOxEIvEXBuMZuvucL1fyfB6tHJC7NK8B5KfTTJan+ADDhcke9s8frO0CKMGqGd+z5GniBTAx2QcuKoUWWvkulhgaZq8aOE6JQ69Qrb2RmaRAbhY2oUSTzgd/roFkwObnN2TS6OvyoaE9haOKGP02MX0nDJS64DQ7b3nuN2vCakAedPw7StBff8mh4CU8MCojjkpjd2cMAHpAElnOOt+TU3GgV1d7Jonzhj8XsKzAGy8g/EV68XlSX65GGTzk3yBNX9IxbGwDjalvfuNs1fwCLonuKSojMwkMG1kFY8ioQ/N5xrCLu5UMzt/V2YvqHhGAe+3V3i5lv4BA3Y0jriIBZBqOi7ydW0aZ6WJMNIKRf7ZLFYwVeSNHVYy30kXMZXEZ0C58xmIeT3dFIHZ1LIMKgQ0FnY2ZxyS+Ews+AnbM1Jc3lUzidbTd0MzPOA7nM9i6zIKDU67mLPgRpMZ4ARC4R7MyDBBfbMNLWY0I4bGkUTR3nH1HSHpOub2CTdIZIX/lRCoEWtCTvwBLIfU0+Wct1ipWTNz261yCUF7au1TYcMLy3I0sLNVpuEcZVPX5LCc1TaEjy0JBmGVDXf579FBPchUPRjVVEOBMp9ukuDxWml6oc2onbQ77P5xhbaVyzFXNQls5EpkZyq17h5ICAs47yb3Sg3jDr7lzYduhkuYo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YzBvSHpEV29ZclplaFQ2K3Rub1RqRzBLa016VE1ZYmw2SDJ3ODlRT3JZb1Vw?=
- =?utf-8?B?bFlTb291Si8rZ3laV1hmTWdqU2F5ckx6SWlFNlZUN3p0VkV2S1FhRmpVeTVT?=
- =?utf-8?B?K083bWxQdnVZM2plck83NnI3TVJSWTZqTDJmUVh2WkxNc1EvM2Q4cEFoYzMx?=
- =?utf-8?B?eXg1a2F1ZmtuYkF1eWROayt5UkNxM3JMMHp5U0x1U0VVSDg0cm5GODJuVDRD?=
- =?utf-8?B?RXhISlU0WjZRWEUzd1hlazAzdVFqMktLaXEvRDlKVFlhbHEzUVgvWXJIRDdo?=
- =?utf-8?B?alNUQzJxeXpKREV2S3ZRK0Rzd2FPdFdncElKRWN2UlRIUmxpQzR6dVJmenda?=
- =?utf-8?B?NzF6dy93S2w0L3dVdW1pdDBOUkpiMFhZcnFKZWZ3Q09MTEwrLzYzRUhDeHQ0?=
- =?utf-8?B?amliK0J5L3Yvcm4xaWxqeDFUZDhiN3hrYUN3L3ZtUkQ3Z1djM0p6aXU0SFdt?=
- =?utf-8?B?MVZNNDM3VWVIUkgzVHhFYU5FVFpOaWRhOGdEZXVOTFgrN0ErR2pLb1VycTY2?=
- =?utf-8?B?ZmU0a0RneEdDd2E3Q2h1bjQ3dFFkRFE3TmRtVDIxU3NNUzNvbXlUa3R2eG1K?=
- =?utf-8?B?ZmRacjJodW5hSGc3YUxRZi9yVERZTDEzNk9rWkRtcUcvRzVqRUpiTGdnckRR?=
- =?utf-8?B?MUY2Ymw5UnNFMzVJOTR3cUVjZkc0MEw0Q0IxRCtMSDluZE1LVS8zdU5rd3V6?=
- =?utf-8?B?eG8wbmY4TFlOWHV2ZmRYU2RpdmpEalQvMGw5Tzh2dFRqRTZodmdRakVjQ2cw?=
- =?utf-8?B?a3JLcDVhVXFOeVhTWnBZTGJZR2syRXVmWm5vYStCSWorU0RjWC9wQ0VSaDR3?=
- =?utf-8?B?R0Jxc2ZuMEN0ZVJYT2o0ejV1MnhtZFE4R1RYQTREZkRzb3FtNkRhcTMyVTBP?=
- =?utf-8?B?dFZ5bmhpUGMzRHN3S2o4NXpkUjc3UmZDWnZwKzhKSkliaGo3VXh1U2JPZmZt?=
- =?utf-8?B?TjlDcUl3ZE9rVXdDaFZ1SDFUVlJMcTdwZ01BK0p0ZnJoUUNmR3ZKbENOdHVR?=
- =?utf-8?B?QUtSQ25ZTEFOTWl2RnpYTXlPMDJaMWxDV3VWSVJ3by9GM1pHb0g3czZLUHNt?=
- =?utf-8?B?dmY4UFdOZ0puVmlIOTMvcE52Q3FCQ1VzS0owakYrbHhLWnkrelNTTC9HdmZ3?=
- =?utf-8?B?UHZNcWxIaUhjSUxWQ1YzUjh6dzBxSFZtMUIzK1Q2QTJYcWRXNEpVeGd2bU9M?=
- =?utf-8?B?T2ljeUxwSERhK3NaWkNQNUlJall2b0o5QzFVanZTNUNjNTF6NG1BUWxTOXVR?=
- =?utf-8?B?UVJXbzd4UnoveHpabDhrWEUxRjZ1eUZBT2txNWtYNmtjWkJ6T3VVZmlFQ3lp?=
- =?utf-8?B?cjhyM25mTFo5WUZrQ1IxczZabUVoS0ZGck85YUNZMm5pOCt5ZUJPS1lDd0U3?=
- =?utf-8?B?UEU2My9lWmJPVWJiYk1EOEhic0pqYWczOGZnYlFBWlE4eVg1aHg4WkpvK0Uy?=
- =?utf-8?B?VDdOQk9nNFBDNjdWL01VS09WcDZlWW1Xa0E4Yi8rc0Z6RjA3c1VMUXM4R0Rn?=
- =?utf-8?B?czZSLzlmOTU2N2pHU0tmRUs1NkFUMlRGTFlxc3NSMXdNM0dYTnpUV1ZZN3Qw?=
- =?utf-8?B?N0tNak9jZzJ5MHJBbjNOTEJSSHB3bmFpRHdDbUozYWxwY3oyMU9aKzRGR2kr?=
- =?utf-8?B?TUZsY2tFd1JYN1FlS2ZPSTA3SXZYWjAyeCtCb1VPdnFZTi8vMUVHVGZJS3dQ?=
- =?utf-8?B?ZkZFRkRQZkVrVnd0NXR6QTZyb3V0OHBjcExOZHdBWXJ6bE1DV1BGeWJNOGh4?=
- =?utf-8?B?SmhKQVdTdTZOZnBrcUhEZFJEUFo5bmtWYmpSUWxsQVVRTklZcU1IS0V6L0R2?=
- =?utf-8?B?d1VIcFBwYk1Xb1N0alYvNEJHaUFDcEhvckhLK0lWc0NCYzRJMzJKeUpPNWgr?=
- =?utf-8?B?SjlHWUFydkhySUFKSmExdjFwbFlWRkdMVHl6bFZzTkRna29acFhnZWtNRjU1?=
- =?utf-8?B?QjhsckdjN3Y5QmpvOFBwWEJmcUlHTVB0ekdTZG52Z0V0WUdPR1B0cWVXOEF2?=
- =?utf-8?B?WEZFbitWMUpsSStuMjNPeHRDalpNbWdYbi9aQzk3OVRMa0pOTGVpVFlPUlJW?=
- =?utf-8?B?eUtZWEFmNEJJUXdBZTVYa3h2NUp4RW9NSFRhKzkwNDIxSGFjbUYxa3Q5dTRT?=
- =?utf-8?B?ZDJBa0prbjJLU2NYTXBGQmFmQXkxd3dlU1pNR2N3R3NOWVVFYUloSTFUZ3kr?=
- =?utf-8?B?c2FucGx1dlI0RExkeE5ZWEJsN1pNNnVzME41MHQ0YnhNVHdpMU5pOHBUTnVL?=
- =?utf-8?B?bmdwVlRuamxvNHBhdmlGWFBJZ0xNL2swdlU4cWEwQ0tLS25qSWtLTEJiRWVw?=
- =?utf-8?B?aUhlbUZHRXZ4clNGaEozZlgvazNBbk8rZEpodjdObmcrQWJJa2VxUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f085491-2ebc-4479-20cb-08df2d913308
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 03:29:36.2948
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2anp+ivCuw9FLCmiW0t3LE6/4qY0V6Wn0JUgvvS8Yzv2Gizm1lDOFFFg3Vm5p4ye4bJXkMowk6wsr68e8AXMZw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8205
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAKP1WoC/42NQQ6DIBREr2L+ur8BrQhd9R6NC0VUkgrmo8TGe
+ PdSe4EuZvEymXk7BEPWBLhnO5CJNljvEuSXDPTYuMGg7RJDznLBGRfYrgM6s3zjAk4+GiS9Ytt
+ Q+iHslJJaFKqUBYN0MpPp7XYKnvDbbQvUqRltWDy9T3PkZ/+vJHJkeONl1VVKilL2j2Fq7Ouq/
+ QT1cRwfm5qPItYAAAA=
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-On 18/10/26 22:19, Pierre-Louis Bossart wrote:
-> On 10/13/26 10:49, Vijendar Mukunda wrote:
->> When the wake bit and a device-state change arrive at the same time,
->> the IRQ thread returned early after handling wake, silently discarding
->> STATUS_0TO7. If the manager is already at D0, pm_request_resume() is
->> a no-op so the dropped ATTACHED event is never recovered and jack
->> detection stops working.
-> this wording is very very hard to follow. Please consider rewording to
-> describe the race condition in better ways...
-I will reword it in the next version to clearly separate the dropped STATUS_0TO7
-event
-from the STATUS_8TO11 double-clear race.
->
->> Remove the early return on wake: call amd_sdw_process_wake_event(),
->> strip the wake bit from the local STATUS_8TO11 copy, and continue to
->> the normal slave-status processing path. Remove the STATUS_8TO11 clear
->> from amd_sdw_process_wake_event() so the single tail clear in
->> amd_sdw_irq_thread() is the only write to the register per invocation,
->> eliminating the double-clear race where a new event arriving between
->> two successive clears would be wiped before being read.
->>
->> Fixes: 66c878838f37 ("soundwire: amd: handle SoundWire wake enable interrupt")
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->> ---
->>  drivers/soundwire/amd_manager.c | 8 +++++---
->>  1 file changed, 5 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
->> index 1a252a81269a..beb982b17fa9 100644
->> --- a/drivers/soundwire/amd_manager.c
->> +++ b/drivers/soundwire/amd_manager.c
->> @@ -1006,7 +1006,6 @@ static void amd_sdw_process_wake_event(struct amd_sdw_manager *amd_manager)
->>  	dev_dbg(amd_manager->dev, "SoundWire Wake event reported\n");
->>  	pm_request_resume(amd_manager->dev);
-> ... specifically why this would be a no-op and ...
-When SoundWire manager is already in D0 state and if Wake STS interrupt 
-is asserted in this case, it would be no-op. In this case the dropped STATUS_0TO7
-event cannot be recovered through amd_resume_runtime().
-Will clarify this in commit message.
->
->>  	writel(0x00, amd_manager->acp_mmio + ACP_SW_WAKE_EN(amd_manager->instance));
->> -	writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_8TO11);
->>  }
->>  
->>  static void amd_sdw_irq_thread(struct work_struct *work)
->> @@ -1023,8 +1022,11 @@ static void amd_sdw_irq_thread(struct work_struct *work)
->>  
->>  	dev_dbg(amd_manager->dev, "[SDW%d] SDW INT: 0to7=0x%x, 8to11=0x%x\n",
->>  		amd_manager->instance, status_change_0to7, status_change_8to11);
->> -	if (status_change_8to11 & AMD_SDW_WAKE_STAT_MASK)
->> -		return amd_sdw_process_wake_event(amd_manager);
->> +
->> +	if (status_change_8to11 & AMD_SDW_WAKE_STAT_MASK) {
->> +		amd_sdw_process_wake_event(amd_manager);
->> +		status_change_8to11 &= ~AMD_SDW_WAKE_STAT_MASK;
-> ... why adding this mask solves the race
-The AMD_SDW_WAKE_STAT_MASK masking does not fix the race itself. 
-The race is addressed by removing the STATUS_8TO11 clear from
-amd_sdw_process_wake_event(), leaving a single clear in
-amd_sdw_irq_thread(). The mask only removes the already-handled wake
-indication from the local status value before processing the remaining
-interrupt status.
->> +	}
->>  
->>  	if (status_change_8to11 & AMD_SDW_PREQ_INTR_STAT) {
->>  		amd_sdw_read_and_process_ping_status(amd_manager);
+Moving a device to another netns waits in rcu_barrier() with RTNL held.
+Container and sandbox managers move one end of a veth pair for every
+new network namespace, so this barrier limits how fast such namespaces
+can be created on the whole system, to about 75 per second in a 16
+vCPU guest no matter how many threads create them.
+
+The barrier was added for NETDEV_UNREGISTER_FINAL, which is long gone,
+but it still keeps cached IPv4 routes through the moved device from
+being accepted in the old netns. Routes through nexthop objects are not
+covered by it: their cached dst entries are released by an RCU callback
+queued from another RCU callback, so a socket in the old netns can still
+send through a device that now belongs to another netns whenever the
+route generation numbers of the two netns happen to match.
+
+Patches 1 and 2 draw the IPv4 rt_genid and the IPv6 fib6_sernum bumps
+from sequences shared by all netns, so a cached route no longer matches
+another netns. This fixes that leak for nexthop objects and leaves
+nothing that relies on the barrier. Patch 3 removes it. Patches 1 and 2
+fix bugs that exist today and can go to net on their own if preferred.
+
+Creating 400 netns, each with a veth pair whose host end is moved back
+to the initial netns, a tap device, addresses and routes, median of 5
+runs:
+
+                   before      after
+  1 thread        68 /s      385 /s
+  4 threads       74 /s      368 /s
+  16 threads      76 /s      263 /s
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+V1 -> V2:
+- 2/3: keep the initial fib6_sernum of each netns and never hand it out
+  from the shared sequence, instead of drawing a value at netns creation
+  (Eric Dumazet); 1/3: do the same for rt_genid
+- 2/3: note that fib6_sernum is no longer monotonic per netns (Eric
+  Dumazet); 1/3: likewise for rt_genid
+- Drop Kuniyuki's Reviewed-by from 1/3 and 2/3, which changed
+- Rebase onto net-next and remeasure
+
+v1: https://lore.kernel.org/r/20261016-bug-net-netns-move-rcu-barrier-v1-0-4157d798658f@gmail.com
+
+---
+Qiliang Yuan (3):
+      ipv4: draw rt_genid from a sequence shared by all netns
+      ipv6: take fib6_sernum from a sequence shared by all netns
+      net: remove rcu_barrier() from __dev_change_net_namespace()
+
+ include/net/net_namespace.h |  5 +----
+ net/core/dev.c              |  1 -
+ net/ipv4/route.c            | 20 ++++++++++++++++++++
+ net/ipv6/ip6_fib.c          | 15 ++++++++++++---
+ 4 files changed, 33 insertions(+), 8 deletions(-)
+---
+base-commit: 98c2ad4f5d805dbc1ea436a334ee59311806a48c
+change-id: 20261016-bug-net-netns-move-rcu-barrier-d998c6395830
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
 
