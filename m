@@ -1,50 +1,59 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504404908AE
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BAD493D26
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:43:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399403; cv=none; b=NbFrqA3A3kDvqI1I3izF2ACwCrwIJAzrS9+KOW0o5dU6dwaIOYIAJHegjYizgFbjsyrieXTWeQpGzXqipx/Fb90mwqWn9SoZ3b+4VfN1B3PKfrJH7/Eytv7Cz1GOK7TatI17prls8Y83tfcQOujTXdBqMxrlvqEjl8WeqBgOWBs=
+	t=1792399418; cv=none; b=W/XWo/af8dZdoWridIzmDEyWzNaAth0mZlznaZtu70kKkgz9GRzGWPiXehWDMEp1KmKCaw9xENQGMdvfklajYu2dsmxHG+WmMjPMXyTs7EEQ5wqXRhVNlyonukLR0oY8Rdw1fdc1qbnCLZ2azq/2xdPsnZDByZ4olNvlAQNi8zs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399403; c=relaxed/simple;
-	bh=gzWLeCzefFkwWIhxR3fEpyM/vKrfUpCJyJKJMfvlbVM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Mh3dB7gpIS7bOqkDeqgRwEyHM9+BPOqKbHsRKIxumjIJSRIBeGbtshr4dQ/GAvvXtekTW8pNmfbIay0Ig94ipUxZVSOOWKFOyRPhxGTRylDQpocOmZlMXrJi+MIhM94J6wBe18FH6ryLCvGa9ATvtDZfsDKJAfqI9A2G1onU90g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mHcNn0J8; arc=none smtp.client-ip=117.135.210.5
+	s=arc-20240116; t=1792399418; c=relaxed/simple;
+	bh=wXweUhgcBOLBorS8EuIE1GKRjd1xEwrZr0imlei1aiQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kytELMiwnDmD3XsR/lyQlArTkov1RW4yq7FnXQKXUc8Mn16gXvyy72Dn5kpczE4d0++1DuMAqGnsa/bFjawatl5usTaVzmbz+WJlOOQdB9AHPkHs7LocKoBj0pvxcLL5CnONQwxqBtAvpyJtPwd5LrnWjaG0cQVWgcoRDJLcVhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AzdtfAe5; arc=none smtp.client-ip=220.197.31.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mHcNn0J8"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AzdtfAe5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Nu
-	0yQN7bhLhr8bDqdr0q6HH12zA2QVcA+U6iZqh2KIw=; b=mHcNn0J8DjY6J6LhIo
-	J/CAkIMpmbvADsjUthx34hFLFsqQIS542R07Puek3+nFCpuOJDRWROA4Xpr4W8Ez
-	0tldTLOTTFuCC7giXI+aFGdhVPlurkGLSWbPqYZkGZt1taEYkvhc15jrj6/zBSm0
-	ybbfQ9pbV53YR0Xepr/QotIEc=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ig
+	E/kEh0g7gFKv5PAwWV/CKHlROUnBFZYW4mh6vr2N4=; b=AzdtfAe5zCDyzRWfoy
+	A8T89jA2HQr8wbyEZdpPqe/doMfmtb9xr4UUbuMykAvVfcCXOEvfuLObr+ILhobp
+	Zk9lujS6CP6KKg9YJeEC9+/DkFLfwCNo35LZ4C+rU2LMSgHi93QP73mb3EnU+Q0I
+	PChWPOT8P+Ax5fzR8RSis8rNA=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnt9ng19VqcQOlAw--.9091S8;
-	Mon, 19 Oct 2026 16:42:19 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnt9ng19VqcQOlAw--.9091S2;
+	Mon, 19 Oct 2026 16:42:10 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Zack Rusin <zack.rusin@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
-	Ben Skeggs <bskeggs@redhat.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
 	Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ben Skeggs <bskeggs@redhat.com>,
+	David Rheinsberg <david@readahead.eu>,
 	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org,
+	nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
 Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 6/6] drm/vmwgfx: reject empty VRAM ranges
-Date: Mon, 19 Oct 2026 16:41:38 +0800
-Message-Id: <20261019084138.1821477-7-yaojiale02@163.com>
+Subject: [PATCH 0/6] drm: reject empty TTM range manager sizes
+Date: Mon, 19 Oct 2026 16:41:32 +0800
+Message-Id: <20261019084138.1821477-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019084138.1821477-1-yaojiale02@163.com>
-References: <20261019084138.1821477-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,38 +61,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnt9ng19VqcQOlAw--.9091S8
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKrW8Xr1kuw4DArWxKw1xKrg_yoWDKFg_ua
-	y0yrn7XF4UuFn8u3ZFk34fZFyaya1kuFs5Zw4fta45t3ZrtryxWryjgr97X348Gw13Ca4k
-	ur45Gw4ftFsrujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRi9YFtUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wtAemrV1+s3GQAA3z
+X-CM-TRANSID:_____wDnt9ng19VqcQOlAw--.9091S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7GrWkAFWUGFW8GFyfAw4rGrg_yoWkArb_u3
+	40vas7Wr1UGrnxXF4Iyr47Ar12ka1UuayDZwnFv3y3Ary3Xr1UX348Gr93Ww18C3Z8KFn0
+	krnYqw1YyrnIkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRt9a97UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wM+eGrV1+M2UQAA3G
 
-A VRAM size smaller than a page becomes a zero-page TTM range and
-causes drm_mm_init() to hit its zero-range BUG check. Reject such a
-range before creating the VRAM manager.
+drm_mm_init() rejects a zero-length allocation range with a BUG check.
+Several DRM TTM users can derive a zero page count from device-provided
+VRAM metadata and pass it to the range manager.
 
-Fixes: 37205891d84f ("drm/ttm: make ttm_range_man_init/takedown take type + args")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 4 ++++
- 1 file changed, 4 insertions(+)
+This series rejects empty ranges at the affected callers and adds a
+defensive check in the common range manager. Patches 1 through 4 and
+6 validate the individual driver inputs. Patch 5 protects the shared
+range-manager API against any remaining zero-page caller.
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 0f101aedb49a..33284a776fa6 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -692,6 +692,10 @@ static int vmw_dma_masks(struct vmw_private *dev_priv)
- static int vmw_vram_manager_init(struct vmw_private *dev_priv)
- {
- 	int ret;
-+
-+	if (dev_priv->vram_size < PAGE_SIZE)
-+		return -EINVAL;
-+
- 	ret = ttm_range_man_init(&dev_priv->bdev, TTM_PL_VRAM, false,
- 				 dev_priv->vram_size >> PAGE_SHIFT);
- 	ttm_resource_manager_set_used(ttm_manager_type(&dev_priv->bdev, TTM_PL_VRAM), false);
+The series was checked with scripts/checkpatch.pl for every code patch.
+
+Jiale Yao (6):
+  drm/vram-helper: reject empty VRAM ranges
+  drm/nouveau: reject empty VRAM ranges
+  drm/qxl: reject empty TTM memory ranges
+  drm/radeon: reject empty VRAM ranges
+  drm/ttm: reject empty range manager sizes
+  drm/vmwgfx: reject empty VRAM ranges
+
+ drivers/gpu/drm/drm_gem_vram_helper.c   | 3 +++
+ drivers/gpu/drm/nouveau/nouveau_ttm.c   | 3 +++
+ drivers/gpu/drm/qxl/qxl_ttm.c           | 3 +++
+ drivers/gpu/drm/radeon/radeon_ttm.c     | 3 +++
+ drivers/gpu/drm/ttm/ttm_range_manager.c | 3 +++
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     | 4 ++++
+ 6 files changed, 19 insertions(+)
+
 -- 
 2.34.1
 
