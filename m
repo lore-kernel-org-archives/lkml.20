@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792452898;
-	b=rC6BGz+oe/MQTRNPh4kXRZPOPzGnaTx85xoSnravnOBUUP0MAUdfYiUXVtFCRUBz5ssZ
-	 WA2eY+jeUechxMCdMSEl4aezzRGMVaV0dfrUCSeCILcJV2NcOduYxXf16I4uZnyGqdHlz
-	 3lenBML+3liDP04OcpNb7+heft4jgaBlU0oktEGzjWFMJXIFgKdHQVtUBAz71obej1IsT
-	 vpE/3lt0V2nIPtx1hOVt2ptBTyLHlFY55XvvVhAK18zmQeZ0ZF10MyVdxrNBCunYVRMtb
-	 YmrT310dl5zRh1fnBfmFHgzjna1t1NNDWmlkzWRdYwefCA18tv1VVAHgaFWzYc4FORA==
+	t=1792452892;
+	b=C8q5RWPGudz8DkCgbfQ9496NL3/Cboyxav1UccU9iqPXHplAK/UR1RnDVTbOfCdeDa0o
+	 XbUD1IUFeAmDju0W7heT5M5Ho9ZjZI1cquZRYDkb5Yzv7TtcUmHY+7NGH39qqpOVTN1l5
+	 nyzD22wqJDcZya6uJFM5qwbyrWZI18CGPVPM8jxsj7YNpMUKgjJfOgr5ShaQCk7+bT1qb
+	 1PzZ3PN9xSg3cuDHFNP8Q14FafCbJiL53+ZaS1N080L5kj576MvM10cslvJjLfxCDQPlx
+	 QQpor3kZ15bO8sSkVCzQEQdskOEofxrpdfEj4TT+2iijAISWBV/93su/7EVrYj1UpUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792452898;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792452892;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
 	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=jGwB2YpKzTsLsCyUbVgXall2WPAD+FiuQOyllj3FCWM=;
-	b=203yEf9b1hCfBmL3/WdIYUPToLJlYrD0rr1D3MGdnxdS3yz9fEB5KY/WEd0YCd1qwS+6
-	 K+CKgA9ZjdboWG7GYV7ZeqZAX1LWPUpyJmyj7jPN2NUI21mY3VAuSViD9fiJnW6bAf+6a
-	 lnBDEjgj3R2FDFaY4kyT+qI5AzfuGGhNO4c7+qxXQVUyFdSsUudTRjBloP4L/6EwmACH5
-	 jzX/a4upzrCbSMqVOre3P9tbH9FJzUPzj77VhzFbJIbWaOw6V0+zdT8DER81137KHRp3L
-	 LOh1v/HombuPcHJMGXbA6ZG0aY5wSdFYPCzjmU6/SzFq9fOmsoLleL+ausmkobZMojA==
+	bh=yYgGBwtoModPOWWXIECz8dwnr/MeNeZyXwpagOjeJf4=;
+	b=dbGPkXLpq79vZwFuSxCcXzHvCOr89Wgib5zVLH7vFS8u/OBXNkl8xS7FI1jNbJVTeE9w
+	 AHAAt06PaG2MZZom+Byf3xka9zcUavvwAhp1E3rhDL3ybjfoNPG467UkTSLqHdeF0zipv
+	 uNs9YkvtmP9YtRp397fpHso2vKHPOb9pSgEcJXVJRWBoctyhkPqsUmZF0+r7yyBAiXW4m
+	 igBTKPG4yOrIrz7q4X2onKYwQX1nsiB30ghJpIutFX6lhbQr80PKP1zOKzkMw3K7SCqwV
+	 7W1AWnFci2BtyT5Zse2VHwZWJwWZh3iMBu6zgcvDjONkBGimABIoihbDnUCuR6rgmuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--samitolvanen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FHFRpOka;
-	arc=none smtp.remote-ip=74.125.82.72
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QTPIdIow;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD330606A32C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:34:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD330606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5C9606A32E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C5C9606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--samitolvanen.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FHFRpOka
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-151ba226e1bso4327311c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:34:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QTPIdIow
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30bcb065bfdso5091736eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:34:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792452892; x=1793057692; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792452890; x=1793057690; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jGwB2YpKzTsLsCyUbVgXall2WPAD+FiuQOyllj3FCWM=;
-        b=FHFRpOkaIICGRNcFLtRzeNK5rhYzA6+DvfeSZOTUBL2Boxb4Z2M/YZFBgtoxP3+v6c
-         aSLh0ic4LtDI4r7zSVkDMH0KZOxrnLd+PZKk1Z20Lsa94z+STTaFR5H6PJBPR+W9hHzi
-         0P3wi1hXX/3qjlqvaoaNTv3TUfeM1NjcIrIT9rMr8u48R2EPto1DajKVJrkF80bt7VJl
-         e2pejN+r4YG3KsXeIkLIzn5F3Wu8igfOhZAxCvarxfu4fKzc0C4oMMPS0pguBY2bG39a
-         vwYM5ijphT3TbE6NFfXgs2zKs5R7qm4j0H0RK4QwFj8YH3b5ZPC66zjg7SSXttpGarLQ
-         0NvA==
+        bh=yYgGBwtoModPOWWXIECz8dwnr/MeNeZyXwpagOjeJf4=;
+        b=QTPIdIowpXQnzvD8GbDaYnYvCPJIbbKCLQuaTHe0vY6Ba07DHG/K++i/RA+gdyeBX4
+         N9XNPeJvtzqQBa/THtfMFQKuRf5IfUR5Z3mVC2MCmQrWPM2BQ/p4IouiDV7Um2C0tD+E
+         tWBXf3RPhP9cg7SYKcS5o9O7EviqoLMObDIsnp7aLEtdrxYewBoi3bq1MgOgl6br3/60
+         wwIy+LaHKMebn8eCStvKdDOV1hoUYh44NG+IB3Wwss96CoUgEBAuFJ4JX2ASwpmw6/ui
+         pXwYXufqH+DdCpbZPzBPK4g4cta6JBU3Vkc/Mr0SmF85cb+YeDiNHdGf+LnnlJELvX8n
+         xrJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792452892; x=1793057692;
+        d=1e100.net; s=20260707; t=1792452890; x=1793057690;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jGwB2YpKzTsLsCyUbVgXall2WPAD+FiuQOyllj3FCWM=;
-        b=U900QMjfIfJiKEml5vNRowsfbirGYHfLEjltND54QHTpKYGWbFpQoRqLsBs2C1jY8a
-         pI7GB6JXxJ37Zh0wy0ARvo6989tzgG3o6gV2OS5f5m/Un27p1dX+NVutqJb9b/pobRZJ
-         qLvlbrKNjRByCI62ggS0Z6iYYH6Ib3xuEv5w65BuL27DHrnFgURgQ/gGe1G0OEUNBQDZ
-         Mptb+D+XLgV5R8y6inPKNhGMbR5VJP8JPHeCvEK7TwyG0d5pYYX54iGJtwTum6vmQrWH
-         I60RSRthzu5SKF3hsKNbUnsrRESh14spjLlKH8hIZpM6xEa3PwDaIUfW4/Ho4u+ot4La
-         +eWg==
-X-Forwarded-Encrypted: i=1; AKwUvByqTo1YNUAjUqfYBGHGBz+sjYvmSnz75e09eojCLVSzxF4Mg0+eJVK1LMtxhUTadpFK6Ux+5EHj7l/gvA8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIP38orkS88YzGiqn8aVTkqTihDhM7VcGYPktdgYVyLBTkUoLXU
-	sQQAS2uSEwTuqnDBBrPTdUwen8jHLwWw0cRu5DtaiWWsqLgqu0QRsrHHdLvyHqq7JqIF+Q2tKc+
-	qRxI/N70EDm1w2ZHrOTvPudGmYl/R3g==
-X-Received: from dloo9.prod.google.com ([2002:a05:7023:a49:b0:165:ba5:ba2b])
+        bh=yYgGBwtoModPOWWXIECz8dwnr/MeNeZyXwpagOjeJf4=;
+        b=W1HthV7U+CtvtM2vIjoJduDWQvnwI7WYkjNIu6bX8aTq/ZBWHAmHTc9DKoIywkNOyy
+         FDrqjLUsX8yTKKhbnrpBZKykxu8RWHagW95aVXdI6F0NBRtl+wERPukGuYuAbjaQv105
+         8fTG8hMLvX78+oT/onyq/gnBPJldfUfYtIHYW10NnLqX5z4Vgiw5BB+3SXFv+hLwfqaB
+         qPvt6qyBZ0bXqmhiV4eAGc+BcRWPFAOLzBG0pJ0+wleMUjVFj9VX/nwTvr9DoDkSMBLV
+         P2CI9MkriZSSPvZ96x44IQTUUtF7hPfoBQTS34nWnlLPEn+LpNzL0lEPc+byDqzs4o+y
+         GytQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwrPUiaSAcdjW9a5pkSIPkTKZk0L058H+OuM+5qoup7b30DMv8vHiUQerkJvBYvMCxZf+FmZ4Aii8uUueQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcrTNA7ucrg7mytvTGIiuDt/YJu5UQ7PZXQy1ZOP4h+NvGnqYc
+	JYq07U0W3lhVHBWP+MsKecUmcwxK2ukFp+3r+j2i+Ev1wqZPRrtuKLJIJGpkcay/UH52aPf2C36
+	/VU9ssV6LJWRAlia5ZrBJt37ZGYr++Q==
+X-Received: from dyru33.prod.google.com ([2002:a05:7300:4fa1:b0:35b:4bd1:e0fb])
  (user=samitolvanen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:4189:b0:181:5cac:8f27 with SMTP id a92af1059eb24-1876658f64amr14367338c88.35.1792452891323;
- Mon, 19 Oct 2026 16:34:51 -0700 (PDT)
-Date: Mon, 19 Oct 2026 23:34:38 +0000
+ 2002:a05:7300:7aa3:b0:35d:74f7:3b9 with SMTP id 5a478bee46e88-361a224ccf0mr11856161eec.33.1792452889848;
+ Mon, 19 Oct 2026 16:34:49 -0700 (PDT)
+Date: Mon, 19 Oct 2026 23:34:37 +0000
 In-Reply-To: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,14 +81,14 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
 X-Developer-Key: i=samitolvanen@google.com; a=openpgp; fpr=35CCFB63B283D6D3AEB783944CB5F6848BBC56EE
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2115; i=samitolvanen@google.com;
- h=from:subject:message-id; bh=p5U1adkcwaI6ibDBmAfxywKhSDWSVuWmXkCqpHz9YZ8=;
- b=owGbwMvMwCUWxa662nLh8irG02pJDFnXVoqtTc4Xnx1kdd/zrVinptqVnxlVkydJTO1Y59rBa
- P6JyedNRykLgxgXg6yYIkvL19Vbd393Sn31uUgCZg4rE8gQBi5OAZjIpFOMDA9UV7cLd7ZeCZg4
- 947UWbsd1R1/hHqTVfas7DnLZiSucIbhr+RTjbzXCSlWskZPvlzj7Wf/Hsu18+jczVN37z3y7r9 lGwcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4533; i=samitolvanen@google.com;
+ h=from:subject:message-id; bh=uXHdbixwLcNi6iBpIxcP3Mxix2cxByC1MLC5WD58JuQ=;
+ b=kA0DAAoWWgclqzmhp3oByyZiAGrWqRaiZJeszthblBaAnEB9HD3z7C0uIlr+EVlzkAOL4TKoB
+ oh1BAAWCgAdFiEEhPWrtbv3QmXq83IYWgclqzmhp3oFAmrWqRYACgkQWgclqzmhp3ofpAEAvbBx
+ TqUhXZQDkt25mUO+xCmdfAuf4hD++/eCuHyQR6gBAIH2CiYt/Ce4sMAG3QhYfARKs7grPvSLM9v IY6W2fhMK
 X-Mailer: b4 0.14.3
-Message-ID: <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
-Subject: [PATCH 2/3] rust: hrtimer: declare cfi_encoding for hrtimer_restart
+Message-ID: <20261019-rust-cfi-fixes-v1-1-9503472ba738@google.com>
+Subject: [PATCH 1/3] rust: irq: declare cfi_encoding for irqreturn
 From: Sami Tolvanen <samitolvanen@google.com>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
 	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
@@ -105,57 +105,117 @@ Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
 	driver-core@lists.linux.dev, Sami Tolvanen <samitolvanen@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-The hrtimer callbacks return bindings::hrtimer_restart, which bindgen
-generates as c_uint. C calls them through hrtimer->function, which
-returns enum hrtimer_restart. kCFI encodes enum types by name even with
+The IRQ callbacks return c_uint. C calls them through irq_handler_t,
+which returns enum irqreturn. kCFI encodes enum types by name even with
 integer normalization, so the type ids never match and every call fails
 the CFI check.
 
-Generate hrtimer_restart as a newtype with a cfi_encoding, as is done
-for lru_status, and adapt HrTimerRestart to the newtype.
+Generate irqreturn as a newtype with a cfi_encoding, as is done for
+lru_status, and return bindings::irqreturn_t from the callbacks.
 
-Fixes: 8a8afe9349fb ("rust: hrtimer: introduce hrtimer support")
+Fixes: 0851d34a8cc3 ("rust: irq: add support for non-threaded IRQs and handlers")
+Fixes: 135d40523244 ("rust: irq: add support for threaded IRQs and handlers")
 Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 ---
- rust/bindgen_parameters     | 2 ++
- rust/kernel/time/hrtimer.rs | 6 +++---
- 2 files changed, 5 insertions(+), 3 deletions(-)
+ rust/bindgen_parameters    |  2 ++
+ rust/kernel/irq/request.rs | 28 +++++++++++++++++-----------
+ 2 files changed, 19 insertions(+), 11 deletions(-)
 
 diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-index 5059cc74cb3c..6003d5127676 100644
+index 8402b0c93545..5059cc74cb3c 100644
 --- a/rust/bindgen_parameters
 +++ b/rust/bindgen_parameters
 @@ -27,6 +27,8 @@
  --opaque-type spinlock
  
  # enums that appear in indirect function calls should specify a cfi type
-+--newtype-enum hrtimer_restart
-+--with-attribute-custom-enum=hrtimer_restart='#[cfi_encoding="15hrtimer_restart"]'
- --newtype-enum irqreturn
- --with-attribute-custom-enum=irqreturn='#[cfi_encoding="9irqreturn"]'
++--newtype-enum irqreturn
++--with-attribute-custom-enum=irqreturn='#[cfi_encoding="9irqreturn"]'
  --newtype-enum lru_status
-diff --git a/rust/kernel/time/hrtimer.rs b/rust/kernel/time/hrtimer.rs
-index 2d7f1131a813..07344ed5fbd5 100644
---- a/rust/kernel/time/hrtimer.rs
-+++ b/rust/kernel/time/hrtimer.rs
-@@ -834,14 +834,14 @@ unsafe fn start(this: *const Self, expires: <Self::TimerMode as HrTimerMode>::Ex
+ --with-attribute-custom-enum=lru_status='#[cfi_encoding="10lru_status"]'
+ 
+diff --git a/rust/kernel/irq/request.rs b/rust/kernel/irq/request.rs
+index c1c6525a676a..1afa9fcaad1f 100644
+--- a/rust/kernel/irq/request.rs
++++ b/rust/kernel/irq/request.rs
+@@ -25,10 +25,10 @@
  #[repr(u32)]
- pub enum HrTimerRestart {
-     /// Timer should not be restarted.
--    NoRestart = bindings::hrtimer_restart_HRTIMER_NORESTART,
-+    NoRestart = bindings::hrtimer_restart::HRTIMER_NORESTART.0,
-     /// Timer should be restarted.
--    Restart = bindings::hrtimer_restart_HRTIMER_RESTART,
-+    Restart = bindings::hrtimer_restart::HRTIMER_RESTART.0,
+ pub enum IrqReturn {
+     /// The interrupt was not from this device or was not handled.
+-    None = bindings::irqreturn_IRQ_NONE,
++    None = bindings::irqreturn::IRQ_NONE.0,
+ 
+     /// The interrupt was handled by this device.
+-    Handled = bindings::irqreturn_IRQ_HANDLED,
++    Handled = bindings::irqreturn::IRQ_HANDLED.0,
  }
  
- impl HrTimerRestart {
-     fn into_c(self) -> bindings::hrtimer_restart {
--        self as bindings::hrtimer_restart
-+        bindings::hrtimer_restart(self as c_uint)
-     }
+ /// Callbacks for an IRQ handler.
+@@ -240,25 +240,28 @@ fn drop(self: Pin<&mut Self>) {
+ /// # Safety
+ ///
+ /// This function should be only used as the callback in `request_irq`.
+-unsafe extern "C" fn handle_irq_callback<T: Handler>(_irq: i32, ptr: *mut c_void) -> c_uint {
++unsafe extern "C" fn handle_irq_callback<T: Handler>(
++    _irq: i32,
++    ptr: *mut c_void,
++) -> bindings::irqreturn_t {
+     let ptr = ptr.cast_const().cast::<Registration<'_, T>>();
+     // SAFETY: `ptr` is a pointer to `Registration<'_, T>` set in `Registration::new()`.
+     let registration = unsafe { &*ptr };
+ 
+-    T::handle(&registration.handler) as c_uint
++    bindings::irqreturn_t(T::handle(&registration.handler) as c_uint)
  }
  
+ /// The value that can be returned from [`ThreadedHandler::handle`].
+ #[repr(u32)]
+ pub enum ThreadedIrqReturn {
+     /// The interrupt was not from this device or was not handled.
+-    None = bindings::irqreturn_IRQ_NONE,
++    None = bindings::irqreturn::IRQ_NONE.0,
+ 
+     /// The interrupt was handled by this device.
+-    Handled = bindings::irqreturn_IRQ_HANDLED,
++    Handled = bindings::irqreturn::IRQ_HANDLED.0,
+ 
+     /// The handler wants the handler thread to wake up.
+-    WakeThread = bindings::irqreturn_IRQ_WAKE_THREAD,
++    WakeThread = bindings::irqreturn::IRQ_WAKE_THREAD.0,
+ }
+ 
+ /// Callbacks for a threaded IRQ handler.
+@@ -461,23 +464,26 @@ fn drop(self: Pin<&mut Self>) {
+ unsafe extern "C" fn handle_threaded_irq_callback<T: ThreadedHandler>(
+     _irq: i32,
+     ptr: *mut c_void,
+-) -> c_uint {
++) -> bindings::irqreturn_t {
+     let ptr = ptr.cast_const().cast::<ThreadedRegistration<'_, T>>();
+     // SAFETY: `ptr` is a pointer to `ThreadedRegistration<'_, T>` set in
+     // `ThreadedRegistration::new()`.
+     let registration = unsafe { &*ptr };
+ 
+-    T::handle(&registration.handler) as c_uint
++    bindings::irqreturn_t(T::handle(&registration.handler) as c_uint)
+ }
+ 
+ /// # Safety
+ ///
+ /// This function should be only used as the callback in `request_threaded_irq`.
+-unsafe extern "C" fn thread_fn_callback<T: ThreadedHandler>(_irq: i32, ptr: *mut c_void) -> c_uint {
++unsafe extern "C" fn thread_fn_callback<T: ThreadedHandler>(
++    _irq: i32,
++    ptr: *mut c_void,
++) -> bindings::irqreturn_t {
+     let ptr = ptr.cast_const().cast::<ThreadedRegistration<'_, T>>();
+     // SAFETY: `ptr` is a pointer to `ThreadedRegistration<'_, T>` set in
+     // `ThreadedRegistration::new()`.
+     let registration = unsafe { &*ptr };
+ 
+-    T::handle_threaded(&registration.handler) as c_uint
++    bindings::irqreturn_t(T::handle_threaded(&registration.handler) as c_uint)
+ }
 
 -- 
 2.56.0.212.g129ede20d9-goog
