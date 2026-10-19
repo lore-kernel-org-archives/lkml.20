@@ -1,162 +1,340 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580CB4DA9C5
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:48:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9E440BCBB
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792406892; cv=none; b=u+0fwkdTBXytD1K2JPHC/BgYn+gcGcAegjPh7erWyFuCmRAdZT0JoYYgQMIkDkBR2uYzRBUwNuBBH8ecXd8oN+SXtjVign9+th+Fm+sxTmPSAVH8ZQFE7TO5EnwAzn6AWVZF4Ini/ZQRAZzfcPj7Y5kTCHtprn5sFrTWEfGA02I=
+	t=1792406894; cv=none; b=aMAFQwSfrB93JY4LZMP9SFphS3Iyljix2Lc8n2FQgLBf/HYE3T+0tILocESxvtMHZhN+zm3LC5JgBszYEcAorb0i6yC8U5UBcfxOdRaSV0z4aB6MBbt97JOqKA6rC5qylAMl/H1Iz9SuhSAEmuXkn7RCs0H1y7f7eHMN7MPVmcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792406892; c=relaxed/simple;
-	bh=aZBen/HPpNzUGM60bhACqHAzMZBSSHSkr37vTjV9TWY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kaj5YI3oMAldjg8SnjfABSoqzkhJ5hqCU1MaaXgY5S12K2syk3lbM0Vj7PjgTn3teI6eO3mwN6Vn3S2CdF4NTr38l55fzD80ePZiZwvTKtPaBrSXTE7RCDRVFRkN2ieIpWsUPibQa6KUmd9knm2sSiDpZJnNE+FLWuDUOhjHo4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fqcSzHmP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aeNsLbww; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792406894; c=relaxed/simple;
+	bh=EHRsBuc14/lIkrBEemRCG/3MCGJQgCbWeCkTS8QBP0A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=B71NfxVtu8Hl4PGKNP/bvEE3l+1ivL7eNntTdgFOy8FM5XIfZmTiYADSZaOuG67yT2xaQ0SeJHIRR2rsjAut3tttyKj5Gr3M1JBNafa6ZRcZeljiZLDYgoybYY9pR32YGJV11zTWSwFxrbGaU7BH1l7ZSzLAS0AttwON7/jEZMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mvs4+ofh; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fqcSzHmP";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aeNsLbww"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792406889;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=aZBen/HPpNzUGM60bhACqHAzMZBSSHSkr37vTjV9TWY=;
-	b=fqcSzHmPAOCNYJJhw1/urLI/e8NXVydu9VGYMMXtTooVlUDD6Ccs48a6Zl8fbTEsj4qggr
-	rPUSmypBQPrKjVi1gybqJEy2AkChM0LR+UGjWJBwKXFt6/mRzXzAlvayLzxM9WAHN+YZxP
-	jRxwG02D4YIfvv8AoevxlE/LX0OSOEk=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-45-Hs7Wr2-pMFOqSbXd5PX8vQ-1; Mon, 19 Oct 2026 10:48:05 +0000
-X-MC-Unique: Hs7Wr2-pMFOqSbXd5PX8vQ-1
-X-Mimecast-MFC-AGG-ID: Hs7Wr2-pMFOqSbXd5PX8vQ_1792406885
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a0284121c6so14821505e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:48:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792406884; x=1793011684; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aZBen/HPpNzUGM60bhACqHAzMZBSSHSkr37vTjV9TWY=;
-        b=aeNsLbwwBoIeDLvd1OeyWBae1aNbApaz7t2h62qfJkCSmaUC7mE7CVQCc5G87Bn6ep
-         NsVCP6jy5Xe8v595/YeuyuMCbEvh/CS4s/wVRiXVE8XwhOv/Aw1YdkwxVqU9vlf0IS0K
-         n8huoKWE+9kqTMseW9/zX4eRGbpOYVX1AwMgSOaPdI3eHzZO7E7dbDAsiG1vw75MJ/jH
-         ABI+sgJkvDXYE6kWU+foCmAp5K3+GJf9scsgbRBxcBMzBa4g6UJrX61seHLhOG6wPy77
-         OBE0poLvKhQmCA1k1ycbEAoxSkGze7TOq7q4uDxzetDq2jZuo0pLMv19rkLEzOZrfSfy
-         ezBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792406884; x=1793011684;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aZBen/HPpNzUGM60bhACqHAzMZBSSHSkr37vTjV9TWY=;
-        b=RsHxq1RI+wZhFOf9teapwJBTWIIsVPkI75Vd/AtrRiykfFFSFJnQ9Wiukkhn/LZROx
-         vpkcxtPxHjmoETLqFEmpcSnfRSgwCsN8jhbD7TRt//YWUCQgozxPq9EgJW0HgEudVcpP
-         WMEsgMYfMkSSfXjNpfKMWdtT0hb1eA+TtJGl+IZuz8BiTyPFRN/O0cO3B7WHw18h7SQ/
-         xO+9MxhA+MUBxPhw2MO0eeymHrrUp8ezJKoXx5SQ58/tgHTAorYoA7X+01F0HerHH7VT
-         vs/6nauNrnLnCxT8eddJL4cxlJyUD4ItbuwXhaBm/wJRBYrFwlTx5vN1YZZxhrL560bE
-         z9WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzCFVP1qSPLeGsn15ntXDZMuKKP8hKMwQImcxjiTxNQKojWyimdlANvxq8YoEIcWg3fqV9SnDvcLH0hDsI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTX3Pxxup/17NDPcBodumk4mQDxQvwD/kbBJA/eJNrhKAkGU3v
-	ujpiL37scf/Q7gbZUpFcLdAfvJBUQvHPK0chXNpNuxwO5doAKdve1EoU/a7qI1MDiVEyQ3xy5sp
-	6SE2wldaNCFEfO56HmlEtmpS1pVnnVGgr/PGv7eQwx66tX+CcdyOzdxDF2l9ZlFN1NA==
-X-Gm-Gg: AYBFou1JlZYk7pjLRocMUvlyVU0JXUgDXRLQQZAxj7Ys6oYd6oeBT+n71BkzXmzf0Kf
-	v8Hs0Fyy7PuK+SqBqTPVVdXeY3ruAFpfiV+RK4bokFxo6wdO2Zwu3G3zFxGa69LabKQLcyDD9QO
-	ZWMNqCPWmRMo7XdnTEGGAz4/5m2Y114w7vRITB3AIbK2iQ63ztd5Aff+yqdoeBEiCQn9EYDfNQy
-	OyF+IU1t5KOJZNu93EIRE0jXEje0KJqUqi5UKXut6u7tb57pS24cVdSnFhVZ5Fq0Spk40s3XnWP
-	HYhJdAVxKxSf/8PjzchLBIgDsrCcmnOyyfLyVhFQultBhmvTj0go1AxY0FAYpx1Qrt17gOiDTze
-	62+TgAOPnt1w/HJCF2v5YUPG59A==
-X-Received: by 2002:a05:600c:1f86:b0:4a1:93fd:8f8 with SMTP id 5b1f17b1804b1-4a1d75ab363mr162834415e9.4.1792406884483;
-        Mon, 19 Oct 2026 03:48:04 -0700 (PDT)
-X-Received: by 2002:a05:600c:1f86:b0:4a1:93fd:8f8 with SMTP id 5b1f17b1804b1-4a1d75ab363mr162834105e9.4.1792406884163;
-        Mon, 19 Oct 2026 03:48:04 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.134.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b8b5fsm397495935e9.9.2026.10.19.03.48.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:48:03 -0700 (PDT)
-Message-ID: <d13e57e312e24b389cb366ede5b3c535ef8f7071.camel@redhat.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: John Ogness <john.ogness@linutronix.de>, Alexei Starovoitov
-	 <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Steven Rostedt
-	 <rostedt@goodmis.org>
-Cc: Nam Cao <namcao@linutronix.de>, Wen Yang <wen.yang@linux.dev>, Tobias
- Schaffner <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
-Date: Mon, 19 Oct 2026 12:48:02 +0200
-In-Reply-To: <871p9mqcn2.fsf@jogness.linutronix.de>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
-	 <20261001152042.124445-11-gmonaco@redhat.com>
-	 <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
-	 <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
-	 <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
-	 <878q3xtptq.fsf@jogness.linutronix.de>
-	 <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
-	 <87bj8s8ih9.fsf@jogness.linutronix.de>
-	 <b76dfd3e5a118e30ab25910f243db1cbcedc1c00.camel@redhat.com>
-	 <871p9mqcn2.fsf@jogness.linutronix.de>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mvs4+ofh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=bC
+	Xl7cve3CAIbrfRCz01nACwtiYINjYCSZOPwpBbyKI=; b=mvs4+ofh08/HLvK9hu
+	RpdXneXK6ddQnbDv6n3MFg66hpFF8PfQMF524vBLdXfTdLwk7xv3rgaplJ5o9mv2
+	WMQEdjjUAs34axFvC1lLcERU7BFqviox6dKZaj1hZZiiCZIK+zV9MOdlMOmjJU5q
+	mQl1d8uSyJ6weTW3VQSegPBgQ=
+Received: from localhost (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgAHnyUm9dVqQncjAw--.31350S2;
+	Mon, 19 Oct 2026 18:47:03 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: hannes@cmpxchg.org,
+	surenb@google.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	sh_def@163.com
+Subject: [PATCH 2/2] sched/psi: Deliver pending RT poll events after polling expires
+Date: Mon, 19 Oct 2026 19:46:59 +0900
+Message-ID: <20261019104700.3296133-3-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261019104700.3296133-1-sh_def@163.com>
+References: <20261019104700.3296133-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgAHnyUm9dVqQncjAw--.31350S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtF4xZFW3uFyrJF48Gr45KFg_yoWfZr18pa
+	98Cry7Gr48Jry2vFZ5W3WFvryFqwn7J39rtrWxAw1kG3WaqryrtFyYyr15t3y3CFW3CF10
+	yFs0y3srKr47tF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piWrW5UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QeW9WrV9SffmgAA3l
 
-On Mon, 2026-10-19 at 11:16 +0206, John Ogness wrote:
-> On 2026-10-19, Gabriele Monaco <gmonaco@redhat.com> wrote:
-> > > > We are missing stack traces (which I'd optionally add only on error=
-s)
-> > > > and perhaps other events (e.g. the -e in either tool if you aren't
-> > > > only interested in errors/events of the monitor).
-> > >=20
-> > > I don't see the point of reinventing tools that already do the job
-> > > well. I do not mind if developers want to create their own tools that
-> > > provide some small subset of existing features. But I am concerned
-> > > about removing the in-kernel RV support for ftrace and perf.
-> >=20
-> > That's valid too. We'd need at least the rv tool to start/stop
-> > monitors in addition to ftrace/perf. Kind of what you already do now
-> > with sysfs.
->=20
-> I do not expect the rv tool to start/stop ftrace/perf. Nor would I
-> consider that useful. When I am using ftrace/perf, I am interested in
-> additionally related events. The rv tool can not know what what else I
-> need and I do not want the rv tool to become a wrapper for ftrace/perf.
+A PSI real-time trigger can defer a threshold notification until its
+rate-limit window ends. If pressure stops or the polling window expires
+before then, the rtpoll worker can become idle without delivering it.
 
-Yeah of course, I meant more that you need to call both tools (start the mo=
-nitor
-/and/ the tracing).
+Compute pending deadlines from the trigger list when reinitializing or
+scheduling passive polling. This avoids a duplicate group-level cache while
+preserving pending trigger windows without reprocessing consumed samples.
+Return to idle once the pending notification is delivered and no pressure
+remains.
 
-At most I'd have a -e flag in rv (just like rtla has, mirroring trace-cmd
-functionality).
-But you're right, it's best if the other tools can do that first.
+Fixes: e6df4ead85d9 ("psi: fix possible trigger missing in the window")
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ kernel/sched/psi.c | 176 ++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 136 insertions(+), 40 deletions(-)
 
->=20
-> I would use the rv tool only to start the monitor. It would be enough if
-> the tool would report the bpf_trace:bpf_trace_printk globs that are
-> needed for the various possible violations. Then, with the monitor
-> started, I would start ftrace/perf for my own investigations (also
-> capturing any violation events).
->=20
-
-That's an interesting idea actually.
-
-Thanks,
-Gabriele
+diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
+index 733ecacc2adb4..27b5473122f15 100644
+--- a/kernel/sched/psi.c
++++ b/kernel/sched/psi.c
+@@ -461,13 +461,14 @@ static u64 window_update(struct psi_window *win, u64 now, u64 value)
+ 	return growth;
+ }
+ 
+-static void update_triggers(struct psi_group *group, u64 now,
+-						   enum psi_aggregators aggregator)
++static u64 update_triggers(struct psi_group *group, u64 now,
++			   enum psi_aggregators aggregator)
+ {
+ 	struct psi_trigger *t;
+ 	u64 *total = group->total[aggregator];
+ 	struct list_head *triggers;
+ 	u64 *aggregator_total;
++	u64 pending_deadline = ULLONG_MAX;
+ 
+ 	if (aggregator == PSI_AVGS) {
+ 		triggers = &group->avg_triggers;
+@@ -507,8 +508,10 @@ static void update_triggers(struct psi_group *group, u64 now,
+ 			}
+ 		}
+ 		/* Limit event signaling to once per window */
+-		if (now < t->last_event_time + t->win.size)
++		if (now < t->last_event_time + t->win.size) {
++			pending_deadline = min(pending_deadline, t->last_event_time + t->win.size);
+ 			continue;
++		}
+ 
+ 		/* Generate an event */
+ 		if (cmpxchg(&t->event, 0, 1) == 0) {
+@@ -521,6 +524,21 @@ static void update_triggers(struct psi_group *group, u64 now,
+ 		/* Reset threshold breach flag once event got generated */
+ 		t->pending_event = false;
+ 	}
++
++	return pending_deadline;
++}
++
++static u64 psi_next_pending_rtpoll_deadline(struct psi_group *group)
++{
++	struct psi_trigger *t;
++	u64 deadline = ULLONG_MAX;
++
++	list_for_each_entry(t, &group->rtpoll_triggers, node) {
++		if (t->pending_event)
++			deadline = min(deadline, t->last_event_time + t->win.size);
++	}
++
++	return deadline;
+ }
+ 
+ static u64 update_averages(struct psi_group *group, u64 now)
+@@ -623,6 +641,28 @@ static void init_rtpoll_triggers(struct psi_group *group, u64 now)
+ 	group->rtpoll_next_update = now + group->rtpoll_min_period;
+ }
+ 
++static void psi_rtpoll_reinit_triggers(struct psi_group *group, u64 now)
++{
++	struct psi_trigger *t;
++
++	if (psi_next_pending_rtpoll_deadline(group) == ULLONG_MAX) {
++		init_rtpoll_triggers(group, now);
++		return;
++	}
++
++	/* Rebase expired windows without consuming the current sample. */
++	list_for_each_entry(t, &group->rtpoll_triggers, node) {
++		if (t->pending_event || now - t->win.start_time <= t->win.size)
++			continue;
++
++		/* Preserve the sample without rewinding a newer registration baseline. */
++		window_reset(&t->win, now,
++			     max(t->win.start_value,
++				 group->rtpoll_total[t->state]), 0);
++	}
++	group->rtpoll_next_update = now;
++}
++
+ /* Schedule rtpolling if it's not already scheduled or forced. */
+ static void psi_schedule_rtpoll_work(struct psi_group *group, unsigned long delay,
+ 				   bool force)
+@@ -646,46 +686,77 @@ static void psi_schedule_rtpoll_work(struct psi_group *group, unsigned long dela
+ 		atomic_set(&group->rtpoll_scheduled, 0);
+ }
+ 
++static bool psi_rtpoll_has_active_states(struct psi_group *group)
++{
++	int cpu;
++
++	for_each_possible_cpu(cpu) {
++		struct psi_group_cpu *groupc = per_cpu_ptr(group->pcpu, cpu);
++		unsigned int seq;
++		u32 state_mask;
++
++		do {
++			seq = psi_read_begin(cpu);
++			state_mask = groupc->state_mask;
++		} while (psi_read_retry(cpu, seq));
++
++		if (state_mask & group->rtpoll_states)
++			return true;
++	}
++
++	return false;
++}
++
++static void psi_schedule_rtpoll_passive(struct psi_group *group, u64 deadline,
++					u64 now)
++{
++	u32 changed_states;
++	unsigned long delay;
++
++	group->rtpoll_until = now;
++	group->rtpoll_next_update = deadline;
++	delay = deadline > now ? nsecs_to_jiffies(deadline - now) + 1 : 1;
++	psi_schedule_rtpoll_work(group, delay, true);
++	/* Let a new state change replace this timer with an immediate poll. */
++	atomic_set(&group->rtpoll_scheduled, 0);
++	/* Pair with task-side atomic_xchg() before sampling per-CPU state. */
++	smp_mb();
++
++	/* Pair with state changes that raced the transition to the deadline timer. */
++	collect_percpu_times(group, PSI_POLL, &changed_states);
++	if (!(changed_states & group->rtpoll_states) &&
++	    !psi_rtpoll_has_active_states(group))
++		return;
++
++	now = sched_clock();
++	psi_rtpoll_reinit_triggers(group, now);
++	group->rtpoll_until = now + group->rtpoll_min_period * UPDATES_PER_WINDOW;
++	psi_schedule_rtpoll_work(group,
++				 nsecs_to_jiffies(group->rtpoll_min_period) + 1,
++				 false);
++}
++
+ static void psi_rtpoll_work(struct psi_group *group)
+ {
+ 	bool force_reschedule = false;
++	bool rtpoll_expired;
+ 	u32 changed_states, sampled_states;
+-	u64 now;
++	u64 now, pending_deadline;
+ 
+ 	mutex_lock(&group->rtpoll_trigger_lock);
+ 
+ 	now = sched_clock();
++	rtpoll_expired = now > group->rtpoll_until;
+ 
+-	if (now > group->rtpoll_until) {
++	if (rtpoll_expired) {
+ 		/*
+-		 * We are either about to start or might stop rtpolling if no
+-		 * state change was recorded. Resetting rtpoll_scheduled leaves
+-		 * a small window for psi_group_change to sneak in and schedule
+-		 * an immediate rtpoll_work before we get to rescheduling. One
+-		 * potential extra wakeup at the end of the rtpolling window
+-		 * should be negligible and rtpoll_next_update still keeps
+-		 * updates correctly on schedule.
++		 * Resetting rtpoll_scheduled leaves a small window for a task
++		 * change to race with this worker. The barrier pairs with the
++		 * atomic_xchg() in psi_schedule_rtpoll_work(): either this worker
++		 * observes the state change, or the task change schedules the worker.
+ 		 */
+ 		atomic_set(&group->rtpoll_scheduled, 0);
+-		/*
+-		 * A task change can race with the rtpoll worker that is supposed to
+-		 * report on it. To avoid missing events, ensure ordering between
+-		 * rtpoll_scheduled and the task state accesses, such that if the
+-		 * rtpoll worker misses the state update, the task change is
+-		 * guaranteed to reschedule the rtpoll worker:
+-		 *
+-		 * rtpoll worker:
+-		 *   atomic_set(rtpoll_scheduled, 0)
+-		 *   smp_mb()
+-		 *   LOAD states
+-		 *
+-		 * task change:
+-		 *   STORE states
+-		 *   if atomic_xchg(rtpoll_scheduled, 1) == 0:
+-		 *     schedule rtpoll worker
+-		 *
+-		 * The atomic_xchg() implies a full barrier.
+-		 */
++		/* Pair with task-side atomic_xchg() before sampling per-CPU state. */
+ 		smp_mb();
+ 	} else {
+ 		/* The rtpolling window is not over, keep rescheduling */
+@@ -699,9 +770,8 @@ static void psi_rtpoll_work(struct psi_group *group)
+ 	changed_states |= sampled_states;
+ 
+ 	if (changed_states & group->rtpoll_states) {
+-		/* Initialize trigger windows when entering rtpolling mode */
+-		if (now > group->rtpoll_until)
+-			init_rtpoll_triggers(group, now);
++		if (rtpoll_expired)
++			psi_rtpoll_reinit_triggers(group, now);
+ 
+ 		/*
+ 		 * Keep the monitor active for at least the duration of the
+@@ -712,17 +782,42 @@ static void psi_rtpoll_work(struct psi_group *group)
+ 			group->rtpoll_min_period * UPDATES_PER_WINDOW;
+ 	}
+ 
+-	if (now > group->rtpoll_until) {
+-		group->rtpoll_next_update = ULLONG_MAX;
+-		goto out;
+-	}
+-
+ 	if (now >= group->rtpoll_next_update) {
+-		update_triggers(group, now, PSI_POLL);
++		pending_deadline = update_triggers(group, now, PSI_POLL);
+ 		memcpy(group->rtpoll_total, group->total[PSI_POLL], sizeof(group->rtpoll_total));
++
++		if (pending_deadline != ULLONG_MAX &&
++		    !(changed_states & group->rtpoll_states)) {
++			psi_schedule_rtpoll_passive(group, pending_deadline, now);
++			goto out;
++		}
++
+ 		group->rtpoll_next_update = now + group->rtpoll_min_period;
+ 	}
+ 
++	if (now > group->rtpoll_until) {
++		pending_deadline = psi_next_pending_rtpoll_deadline(group);
++		if (pending_deadline != ULLONG_MAX) {
++			psi_schedule_rtpoll_passive(group,
++						    pending_deadline, now);
++			goto out;
++		}
++
++		if (psi_rtpoll_has_active_states(group)) {
++			now = sched_clock();
++			init_rtpoll_triggers(group, now);
++			group->rtpoll_until = now +
++				group->rtpoll_min_period * UPDATES_PER_WINDOW;
++			psi_schedule_rtpoll_work(group,
++						 nsecs_to_jiffies(group->rtpoll_min_period) + 1,
++				 false);
++			goto out;
++		}
++
++		group->rtpoll_next_update = ULLONG_MAX;
++		goto out;
++	}
++
+ 	psi_schedule_rtpoll_work(group,
+ 		nsecs_to_jiffies(group->rtpoll_next_update - now) + 1,
+ 		force_reschedule);
+@@ -1482,6 +1577,7 @@ void psi_trigger_destroy(struct psi_trigger *t)
+ 			/* Destroy rtpoll_task when the last trigger is destroyed */
+ 			if (group->rtpoll_states == 0) {
+ 				group->rtpoll_until = 0;
++				group->rtpoll_next_update = ULLONG_MAX;
+ 				group->rtpoll_pending_states = 0;
+ 				task_to_destroy = rcu_dereference_protected(
+ 						group->rtpoll_task,
+-- 
+2.55.0
 
