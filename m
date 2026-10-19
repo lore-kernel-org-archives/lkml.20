@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427301;
-	b=3J4OWG4xVTISm4cY+QSeJTSlEIUJfb+wrOLglsW4+smhnI4DjzJ2+F/1rnYP1ws3mu0a
-	 kvsMG8mkfxL0+Uv5ryMFUH20wp/VTLbSRN4A4iR+22LGVJohD70Gj74WIncCnmiIdkiOB
-	 d6b8XtJ8eaBptRfqIAUPEqQLwgsLO6yvCpwcyvFNNZ3ioIZrconfsCUNaSfABp12C7bV+
-	 tsIMvAdxRfPsZ56povwHULweQyulDxQUkFKH3hgZVK216f6x1PpaUKVE9ihBPTEDR24z6
-	 jxMwpU6bsYmvP/XxY4eImKkEknWBg0BZwqCfx2YimNI44Uqtwl1FCH4th8JaSYeWQoA==
+	t=1792427442;
+	b=n7/mgvwvzryn0q19WArdAXfyMmPmsYwwR/MN8Vi+UvTvH0ZsCGwcWm/LZeVKggUkOu++
+	 d0iwnlzN2pX6onif5ahNWak9Ox7mgkQRJYeHypCQxVZ61pdAjdZRjOr5s2K9kuw+KeOvg
+	 xJZfZ6T1CrJIc4gMnYR4V+Ywb0RS0ib4EVyGuPTpxQ83jBpzUmOf74u322aciLK6zz6ar
+	 PBem0FGTQZFbm4y1LtacScdnL+trplns3NlmUATqmG37IhH2Vzvhj6zO/Zy9U0T298lGb
+	 /NEbja2plkb7XU9XgItXNLtYBBtA0okjgvoxBeirKs88hj2W1eFujxN8A1ZjtBLJ1wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427301;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=AUPj41ctOhJ+cZQoXn73t6Z/v6D9oxg5RLDX2zwJVW8=;
-	b=mKwi7uaMdkxfAWYZlT7o+khDU17k+e4nQZf0ZrhPwXU8otccBXq3bUlCKDYCrX00fUrj
-	 SBBMIngwvlY+sDcNtwZZuYax1q7yVBfZtx5jUb6fUkRQOuTHC78p8hyMl/QjA2+zW/7LE
-	 IK5DgHp/2YPyzh5u+o+MJnCH3GOG6HnO3xdtBbLLyMYmHNdVRXdvMQTZCUmBmaAlC/wOs
-	 sVUveZNwjENEWeWJNtrRma4Q1hvcaFAHcJyLpKNFovoq4nAtJHV6xOYTL+9uP7EO7Yo01
-	 j2Ta5f9TW1xYv8rJFZYkswEen6fbdE2QAr9GLOydkzUexpANecCAy/2irNMq9UJky7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427442;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1oUq59+j9dxvzrhFzYz9RKs+wIal5piSXczl/es8C48=;
+	b=blD0qEfzpIzn6yvfkTcStAyQzBgOGxe1V4VUPON+Ay7XAmFw6TzQoloZ+lvH2QUPHPCB
+	 tfP9OhIQqZakzyPZrTISp2c4Jom04w47De1Dm+M1LaNUH0zLMMmanNsWGprZ2Y3Gz3Fnc
+	 v24bOyIhv81oo5yTSGw8j7jTrLt7ku+M+bBdD4Ltikt5aHNsK4QVn2QpMAmHbNG+i0l9F
+	 cWNtoTT55c539wUZ9/c9rhMkrDQpaHMwEzO6k1AuBdOyhMhVAhUiQNZquJQyCYFdRbNv6
+	 kUHKwwUpMNYfSpBshyr2kadMdIvSMvXrFK9jsK/hdsYspreB8+KCX+7f0AskQUKAfNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KcLAl94c;
-	arc=none smtp.remote-ip=109.224.244.123
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ViSkXeAV;
+	arc=none smtp.remote-ip=209.85.160.43
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9146560A2610;
-	Mon, 19 Oct 2026 16:28:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9146560A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79FE606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C79FE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KcLAl94c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792427298; x=1792686498;
-	bh=AUPj41ctOhJ+cZQoXn73t6Z/v6D9oxg5RLDX2zwJVW8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=KcLAl94cRsDTYQoCxS7MvJ7DzPoHXMGqTUQRdhP8PCnAipBJiIcRzUk0fwFT0Z972
-	 gNBgBwe6eeVPECVdMlSaJ4X2WX0qer5nqk13QSi5FP07b3zXNs4Igegd18acaVZ80S
-	 Kgg103gN6/1cQEo37eMprstfbCZ1KMQX2LNs1IWxvUrHU4xU03eoKh/KRATVf9gJth
-	 LUJOj0A/KzIFn3KBMPZnjjdZOTgpE7QwazJP2oECTrdKweTETNz+tN5RVLzXWJCa1s
-	 wpCTHTpJlkLtyDmQFmd/C93skYSoJbCmAy+tcCsKodVwHwwfMMhlskZAG3VIse9NXi
-	 SnNV1l05/YiBA==
-Date: Mon, 19 Oct 2026 16:28:11 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] media: ipu-bridge: Add the Surface Pro 11 infrared illuminator
-Message-ID: <20261019162722.25587-5-lsa.uz@pm.me>
-In-Reply-To: <20261019162722.25587-1-lsa.uz@pm.me>
-References: <20261019162722.25587-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 48126862a596524f46a1020032fa9283563189d3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ViSkXeAV
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4a71d0c4233so1030909fac.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:30:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792427441; x=1793032241; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1oUq59+j9dxvzrhFzYz9RKs+wIal5piSXczl/es8C48=;
+        b=ViSkXeAVGTHXPtrWwXNkE0uXkwY+um/P55h64Qo/ErumAC6V0rOD5hDyZjZJzN7X8V
+         1vfNGSi8/flgnogRtl+pmSeMV8YadeIwGfSsCzMlY2fk/JUXPdvQ6q09RbQMP/XPV8DO
+         JrdaMEa5QXCkbZEXQcnJHufKnGK41jijpcGAv5MNQdsLsrTAT9QCdLsXa7nh/j1UrBz0
+         g0P4dUsHQfWxVR8XhHH1dziqz9sG5DZN7TAJZriXW/cV8gmzNzsSeuoIK/+jzyEE91Q4
+         xThrV5O6VHKS8KxTHwKxe63rh06+1m+Em70MxYtbU7J6uAsYCcQ+cDGDsDvdGDrIFFKx
+         ninA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792427441; x=1793032241;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1oUq59+j9dxvzrhFzYz9RKs+wIal5piSXczl/es8C48=;
+        b=r/pABr8iM1q+pNS8UqKgkY3kMX4ZwLoYqnWNFWoo7ZMQdt+YpZ8xnGk564hSD+Uz5z
+         Kq6FSk3jX/ifvnG6pA4hVeLb9zWiN1OEcGfGUJOfcyPm2e+zxukNO/4HsZs1aekxbl7M
+         JVChDWnu1M6dM861zp9jkLolhdE24gHVIsGtmGhsVGRUUQrYNxX4zTkcw5/SJsSSb1SO
+         ebJUMbomxhr4QrtEOwII60GtORfX3fST+nDa6RKphrTGPZRhWmJI88qZn2NN83beAUfE
+         l/EEScMxun5oY3BEQ8cGYfdpfntjzNa8ke68xHwVYv0EwaXgzCwRxGnVGZoTfPjMB+DR
+         etMg==
+X-Forwarded-Encrypted: i=1; AKwUvBz1f00bWzVsHci96wM2NW7tJzdYKoAJIu7B7Javawqzmh7WiGg+/QCyobzgKJ8YEXOKZJWSfO0TG4t5r34=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5GGq5fgPiq+h4IkKmzGaIwC5gydlneIPPKZfkI+H27pRyiLSI
+	1OMSuOOHbclMh27XWkRLWOHoRtN8Nb7BKRn+f7q0aUa6ib+So1O8tK1AVyBU+w==
+X-Gm-Gg: AYBFou1oJqtu/7m07PNaE5vUZ/LMdbO+MmraLYqnmZZPPfuRBdS5UncN37YxvE6OiiU
+	h9dyLwsmuqf4QayGrK+9TY24ZkfXCKFsbC4J9SK+Ai7Sl6kARHYLocnjy3beFegxeAU2wif1pEZ
+	PpZkaQ2ek0ZBQXo1MjcNcYbBEStXmyg2JrylaXlq9drm+zM4rNiq/tnt34VftShMjgUUZj/GzjF
+	c7FjPB6M3J1Rtpbptss7Lwbn3yq9B21lNCH6MJePwoNP+tvPkR6Fb2HSQ+rb5tMc2Vg/N0OP10Z
+	BTaJdLfRJSU530mf69FO5UtlM8MG5Ny6esHDlFGqvPXeQhvNaJlqqXG5TwE5AfExVtAVWdCygdo
+	V2C7CFdYr280cG9sdqz5f2/ztYFaFxcyPV1fyji/EIucTa5xkfg55hxqh5OH0niwC4YTAyO522v
+	xQTNJ7NVFTZgbnCwTPLZrjCVyu1M2paKvkGkI2gzAvOXHOBw4P2EpgKieXnBEHj9ovgj2Lo6waz
+	HOH7gJTfVRdHOXDkqPieNZY4nPmoHQ4pQBMzjO6hBpTtRj67ANXa5FDzrTk967cLXMZZjBUJSMl
+	b/kd/9Rpl1yecXBt7K80hipltdYRjbaO
+X-Received: by 2002:a05:6870:b3ca:b0:494:7c40:ed7c with SMTP id 586e51a60fabf-4a757a6ae5dmr6289171fac.29.1792427440574;
+        Mon, 19 Oct 2026 09:30:40 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:18::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a73b5b4278sm8210010fac.6.2026.10.19.09.30.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 09:30:39 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Harry Yoo <harry@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH] mm/percpu: clean up callers of pcpu_obj_full_size()
+Date: Mon, 19 Oct 2026 09:30:38 -0700
+Message-ID: <20261019163038.321273-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019162803.281810-1-joshua.hahnjy@gmail.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,138 +103,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On the Surface Pro 11 with Intel the infrared illuminator is driven by the
-VD55G0's GPIO 1, which strobes it during the exposure. The ACPI tables do
-not describe it, so the sensor driver finds no st,leds and offers no
-V4L2_CID_FLASH_LED_MODE.
+On Mon, 19 Oct 2026 09:28:02 -0700 Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
 
-Give the sensor's software node st,leds from a DMI match, as the
-upside-down quirk gives a rotation. dev_properties gains an entry for it,
-as a sensor can also have a lens-focus reference.
+> The size of a pcpu allocation can be interpreted in two ways:
+> 1. The size of the allocation attributable to a single CPU.
+> 2. The total size of the allocation across all CPUs, including the
+>    allocation overhead (for obj_cgroup membership).
+> 
+> In most accounting paths for percpu memory, we need the second
+> definition (total size). Make this more obvious by coalescing the
+> callers of pcpu_obj_full_size().
+> 
+> No functional changes intended.
+> 
+> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
 
-Assisted-by: Claude:claude-opus-5-5 sparse
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 60 +++++++++++++++++++++++++++-
- include/media/ipu-bridge.h           |  2 +-
- 2 files changed, 59 insertions(+), 3 deletions(-)
+This is a follow-up to Harry's fix [1] and is intended for the next
+cycle. Sorry that I did not make this clear in the original patch!
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index cb1d1582fa1..05aa6d92bbf 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -283,6 +283,39 @@ static const struct dmi_system_id upside_down_sensor_d=
-mi_ids[] =3D {
- =09{} /* Terminating entry */
- };
-=20
-+/*
-+ * Sensor GPIOs that drive an illuminator, for machines whose ACPI tables =
-do
-+ * not say which. They reach the sensor driver as its own leds property.
-+ */
-+struct ipu_sensor_leds {
-+=09const char *hid;
-+=09const char *property;
-+=09const u32 *gpios;
-+=09unsigned int nr_gpios;
-+};
-+
-+/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
-+static const u32 surface_pro_11_ir_gpios[] =3D { 1 };
-+
-+static const struct ipu_sensor_leds surface_pro_11_ir_leds =3D {
-+=09.hid =3D "SMO55F0",
-+=09.property =3D "st,leds",
-+=09.gpios =3D surface_pro_11_ir_gpios,
-+=09.nr_gpios =3D ARRAY_SIZE(surface_pro_11_ir_gpios),
-+};
-+
-+static const struct dmi_system_id sensor_leds_dmi_ids[] =3D {
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-+=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&surface_pro_11_ir_leds,
-+=09},
-+=09{} /* Terminating entry */
-+};
-+
- static const struct ipu_property_names prop_names =3D {
- =09.clock_frequency =3D "clock-frequency",
- =09.rotation =3D "rotation",
-@@ -563,6 +596,22 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, st=
-ruct ipu_sensor *sensor)
- }
- EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
-=20
-+static const struct ipu_sensor_leds *
-+ipu_bridge_get_leds(const struct ipu_sensor_config *cfg)
-+{
-+=09const struct dmi_system_id *dmi_id;
-+=09const struct ipu_sensor_leds *leds;
-+
-+=09for (dmi_id =3D dmi_first_match(sensor_leds_dmi_ids); dmi_id;
-+=09     dmi_id =3D dmi_first_match(dmi_id + 1)) {
-+=09=09leds =3D dmi_id->driver_data;
-+=09=09if (!strcmp(cfg->hid, leds->hid))
-+=09=09=09return leds;
-+=09}
-+
-+=09return NULL;
-+}
-+
- static void ipu_bridge_create_fwnode_properties(
- =09struct ipu_sensor *sensor,
- =09struct ipu_bridge *bridge,
-@@ -570,7 +619,8 @@ static void ipu_bridge_create_fwnode_properties(
- {
- =09struct ipu_property_names *names =3D &sensor->prop_names;
- =09struct software_node *nodes =3D sensor->swnodes;
--=09unsigned int i =3D 0;
-+=09const struct ipu_sensor_leds *leds;
-+=09unsigned int i =3D 0, d =3D 3;
-=20
- =09sensor->prop_names =3D prop_names;
-=20
-@@ -624,10 +674,16 @@ static void ipu_bridge_create_fwnode_properties(
- =09if (sensor->vcm_type) {
- =09=09sensor->vcm_ref[0] =3D
- =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
--=09=09sensor->dev_properties[3] =3D
-+=09=09sensor->dev_properties[d++] =3D
- =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
- =09}
-=20
-+=09leds =3D ipu_bridge_get_leds(cfg);
-+=09if (leds)
-+=09=09sensor->dev_properties[d++] =3D
-+=09=09=09PROPERTY_ENTRY_U32_ARRAY_LEN(leds->property, leds->gpios,
-+=09=09=09=09=09=09     leds->nr_gpios);
-+
- =09sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =3D
- =09=09PROPERTY_ENTRY_U32(names->bus_type,
- =09=09=09=09   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2b767..f56ac1c4e96 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -179,7 +179,7 @@ struct ipu_sensor {
-=20
- =09struct ipu_property_names prop_names;
- =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
--=09struct property_entry dev_properties[5];
-+=09struct property_entry dev_properties[6];
- =09struct property_entry ipu_properties[3];
- =09struct property_entry ivsc_properties[1];
- =09struct property_entry ivsc_sensor_ep_properties[4];
---=20
-2.54.0
-
-
+[1] https://lore.kernel.org/linux-mm/20261013-fix-alloc-percpu-accounting-v1-1-03e788a1e41f@kernel.org/
