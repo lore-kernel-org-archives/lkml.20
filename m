@@ -1,139 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06ECA472F87
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2454E50C3;
+	Mon, 19 Oct 2026 12:19:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792412332; cv=none; b=mNh/zUqW2lko81s9zW6KNvGXnes7JEa3tkJvV4ThEzy33EngUi6iX25Di21vXExSj81p6MPZuLcn6Z8GQ7r0C2FG+fzshiF0Cyv+JSrBj1fkmJF/u5hIM4u9NbQPUidurEm5FMlNQX3ZhHUFODNzKix88ssJNX4xtEMlWQEOeWo=
+	t=1792412347; cv=none; b=gWfZ13iXVc2PfWsF6PBg5rOA/szwrree5LOMCKPON/XmvKCk9SBp+nJUo826OXzuUqzdig1KzE0e39ltJD64iNn6UKLjxDntD/gJnqTwVjur+6R5VqXIjkzd0Z1t8AauEf287F9jWWEEZ+XHKbVLbfvtXxNJAJ12hGeouUNekNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792412332; c=relaxed/simple;
-	bh=8XYz6JvVxvGOfYch9mnM99v0BtGkYb4LfNopepeACV0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h8KXBlOK6yELt6DpwB84/c9B5/xBXkoJVOxRiOpzTEMdZAgzM8VZjR/PhcqeXoW1kA7XCfZsO7AixncgIX1zOkuPObeF7GApJxdC8wRYbGkrmtQx0rD88RjVzrX5Tm+2xdj1sUwp3VEhmx8giC7erdDvPm9+HUGVfRID8hMORmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6xAxbdm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792412347; c=relaxed/simple;
+	bh=84quNg8mXXkbdil51vXlYmCbd/0n54eUNpAWmZRajqQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qNWAlaZLfXLgHE1A7C0rGj972cSeNootTIGsVCB9604oAQRVAiH6OtfDEYqN7nWSm4vIUrcyajzfF09SK4XjgHLUZ4bQkJs9XIS2JkYbayXPrCVMoNv2WRzRI2yR+ORgEm5fQp16vgbtgjc+trnHBGzbzoF3zakafdfaW+/eroY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ISoZLXeC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6xAxbdm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D680A1F000C5;
-	Mon, 19 Oct 2026 12:18:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ISoZLXeC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7F51F000C7;
+	Mon, 19 Oct 2026 12:19:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792412331;
-	bh=3u1HT8y1funuQIDNMJr/wgEzzPt99e6m6N2aOvfKG08=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h6xAxbdmmRscN8KquCBh3c6cUyJOHdsi8Scc3e+32LcZ05UCJIk2rlprgoWJs+2m7
-	 0bbmfCu5AuKSybaZ3pZIZNfRwqMOMm+pfFnLgQ5fhPk/SMq7iKYjSH0ozmDGbVEbEC
-	 3Jc6qBcykfLGMYyQtIITtGNZRD1LB5w0ozsLXW/TAYlDQpFo984i6TsNwmwYo9khM5
-	 Xd19hB3d3tevBat6VxnYCj4kXV8+r/jWVpRzk5311pcb7U7EJXXYkwyuRpAZpgeXpj
-	 uYEzNQj2Au+AhzmpWu9N6g6dLdV3K3nybdiJXsp/Bivh19oRFo3Lnlh4xYgbvz+LQX
-	 ihR6T1abdhYRA==
-Message-ID: <1eff2f1a-b7bc-4541-82f0-9836d0a5db5c@kernel.org>
-Date: Mon, 19 Oct 2026 14:18:47 +0200
+	s=k20260515; t=1792412346;
+	bh=K2l3W+RSBSemTKgTx0z9m564dZ/QRwgka3TAmxYxCyA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ISoZLXeCc68LLd4NSrzP8a/g4Uh0wt2wr5m8W1QAC/pJMe57OovUEf8lwAildTm3K
+	 c3lPb+6iNr8tI/XjhscA1+FwBN4SvlGqtqfKF+c68zG1LNeaRQRgshUnKf8B/yWSr3
+	 QDK0vWki8FlkIv3WBUjpQsbc+syLELGLDUHFKEu0zZguhgkoUS4J5tTxQx0NSlr5NM
+	 oA5Dlfg5f33WGYg7kiTBacqj3bfnV89c6+IuSTp08R940rA5C26a/CZPl15jzT53vv
+	 qiZYOtC3bKd7PUEECDR7PD457iu7E4FuM1RhYvUHT5EyJPjGCO4c53TUJ9qXy7z6AD
+	 BYLFzoQtabNFA==
+Date: Mon, 19 Oct 2026 09:19:02 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: James Clark <james.clark@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alice Rogers <alice.mei.rogers@gmail.com>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] perf timechart/treport: Fix mypy errors
+Message-ID: <atYKtkBbuZzaIYni@x2>
+References: <20261006-james-perf-timechart-mypy-v1-0-e2c7edf4dd31@linaro.org>
+ <CAP-5=fVypGeXuKw1vJMaqGhpUtF3vqPcdKpo+Q61qZHGKSj2Ew@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] mm: hugetlb: add CMA support for PMD-sized page
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Muchun Song <muchun.song@linux.dev>
-Cc: Qi Zheng <zhengqi.arch@bytedance.com>, Qi Zheng <qi.zheng@linux.dev>,
- osalvador@suse.de, akpm@linux-foundation.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <cover.1792136742.git.zhengqi.arch@bytedance.com>
- <FA455F0C-0A46-4B5B-AB50-E9968001D2C9@linux.dev>
- <4a7ad39d-fee6-4390-beff-d40ecf49cbdc@bytedance.com>
- <BEADD50D-94AA-4B05-B9AD-136E37247FDD@linux.dev>
- <988249c7-abf0-4f4f-9386-27e835a4d2de@gmail.com>
- <EE02C2AF-E4BD-4854-B235-928842456253@linux.dev>
- <1385f5a1-b842-45e6-8986-fec4123037f1@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <1385f5a1-b842-45e6-8986-fec4123037f1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fVypGeXuKw1vJMaqGhpUtF3vqPcdKpo+Q61qZHGKSj2Ew@mail.gmail.com>
 
-On 10/19/26 11:17, Jose A. Perez de Azpillaga wrote:
-> On 10/19/26 10:43 AM, Muchun Song wrote:
->>
->>
->>>
->>>
->>> wouldn't a shared pool still be sized and aligned for 1G? then the 2M
->>> headroom stays a multiple of 1G and the 1G-aligned reservation can still
->>> fail, which is what the series is trying to avoid.
->>
->> If we decide to use a shared pool, I think the current alignment strategy
->> should be adapted as well, it should be changed to align with the minimal
->> acquirement, like 2M.
->>
->> For example, if a user reserves 1G+2M through hugetlb_cma, then the memory
->> reserved by the pool is also 1G+2M, except that the starting address needs
->> to be aligned to the largest gigantic page (1G). Therefore, this pool is
->> suitable for both 1GB and 2MB allocation. The only problem I see with a
->> shared pool is that it may not support mixed-use scenarios very well.
->>
->> What do you think?
+On Tue, Oct 13, 2026 at 09:21:12PM -0700, Ian Rogers wrote:
+> On Tue, Oct 6, 2026 at 6:03 AM James Clark <james.clark@linaro.org> wrote:
+> >
+> > Two small adjustments to silence Mypy static checks.
+> >
+> > Signed-off-by: James Clark <james.clark@linaro.org>
 > 
-> makes sense to me. existing hugetlb_cma= users with WM pages would get
-> mixed use without asking for it though.
+> Reviewed-by: Ian Rogers <irogers@google.com>
 
-Yeah, my intuition tells me that having 1 allocation size per CMA area might be
-cleaner.
+Thanks, applied to perf-tools-next, for v7.4.
 
-Assume you allocate 512 2 MiB hugetlb folios. You'd think that you would then be
-able to allocate 1 GiB hugetlb folio less. But that's not guaranteed, as CMA
-might just fallback to other areas fairly easily.
-
-If someone wants to convert from 1 GiB to 512 x 2MiB, I think the demotion
-interface allows for that.
-
--- 
-Cheers,
-
-David
+- Arnaldo
