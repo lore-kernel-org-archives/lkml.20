@@ -1,163 +1,61 @@
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9214AA1DD
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699E84AA024
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:43:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403031; cv=none; b=WgoIdgDFp35WClcliqWKLzRLi1w1/0iLDtuQEs6z7I8iOX03WFNFsPgfhrQ9DPeRCtGT7Z5T45NqXVRNKaXrLzrwBOwaC0mo9sHiof0iS8et8o3+ns4juYo+0Las1K/EwQUnL2/ZPR8VLc8a2R0Cl9CBm9CCNP2cnGzwAl4NfmY=
+	t=1792403034; cv=none; b=FmjtqiMq6aIIBJxxQYVCsv4wj54cH5Uds13XeEWHdmzIbhgbRloj3RWBCBwhv3TSl89VMzKxHOi1D6l5GvVj+A99Fl6463NfcrpF7y/nBJJZS7F2NLRIoCXhnPAMelvHime9rRjfMIiBxv0gZriH+zBxq+YnJjFAhCRvVirpnhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403031; c=relaxed/simple;
-	bh=xFgk0mJKcQyQYp2XJYOl2hd1I9aMMN7ZqbRdpp25/zc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CBEOtVXTtt+jPXtqfj0HBpzbrgTXdIRMddIMBWAF6bzyn8Pl214DSECqjb1g5CHzFt0GHs7TtUD670s3/Si4j3F9+muAxRvz2HlM5bQa9k96ZSJ8cIXnSxj0bnYPqtnA118QOTcBcavDrHfWRF2CNDCTZPQr/BI8f7+GfL+LPb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SmZ0YXgU; arc=none smtp.client-ip=74.125.229.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SmZ0YXgU"
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35dc2af1f2fso1214476eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:43:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792403029; x=1793007829; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IHd99zSc7XuTxtPtex7CCdBAnhkgrWqdaJDnZa0vj8o=;
-        b=SmZ0YXgUwhZhzMzKAQZz9Kh6o9jAq9ZuKLDDd7AjCDODMQGR2V5l4Ma6ILlIOFTPtN
-         3uoDf1guZqmSL/IQM1Ft5dmU6gbeTdKLkXGzrgqgvJo0UsoplnN1Vj2Sv3iq7OgELdS7
-         p+q4dy7xuac9UDhSeM/bqsKVEx8JMmafB2B6hjk3J1gnmVhw5KwkNb376+roi4T0Qyso
-         opvXrTsNMxHiA55HSQzqhNeRO8LKCsopOPJix972kjMOMKWHPK/AbolhAP45eZrg8pQe
-         uf8n2G/2rNGZY9AteoVv5SxRNZdxB48HlwRhSgCepsL5oWOgqMIVmCltSGjxUBDJqaVN
-         NgGQ==
+	s=arc-20240116; t=1792403034; c=relaxed/simple;
+	bh=DRNQRv1aQeJ1OZRIfE/SZBxPfNo7xycwpHCTcuWpjfw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Ki62xcMoEaQPhuQzbpf4SznrrP6DjKHtl/O6nenkWpdpL9ISHsb9aqQBzaT7d716YU8Agr2oR4zh1oevKyh1rdbKYGkQS8OueZ6HYUzk5o3xV6Jcs2v7M1lHMZkpnSvwEr8FgSemVk0E7MSGtoWAGCClbC/rhcG/GT52xLsJjaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-846cc4c0e44so1630062a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:43:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792403029; x=1793007829;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IHd99zSc7XuTxtPtex7CCdBAnhkgrWqdaJDnZa0vj8o=;
-        b=uKyV3tSfzqcX6lKpmBP4r2wgbNCc0RLg9E54w0MQ67YFghIku1vR2QQn6pl0z/+Jkr
-         Y+jWXmiLIStTKJ5fq8xBcrGUMyq6ZVMm4kWtN9P0PWtILiVrp+3pxoCp1Qneo9L3L5Cc
-         v0A7JXDok5P4kbCt7Bj0U3WJHE8Qd2ACYa6hfNGAuAWGCBOwxmeEO4a8gtscDv7KPHN/
-         iuh9QghaFiNNU3Xq1P5dqdfsh4zt7NxxZjqJaojDSoAtWR8kGGxYxDWPntg2BXee1eg/
-         LZEFA6B/xV7x7t8ZQvFw4MHa1FypLMiu0YDMd3B//lcZ1yUhb+k/6tkI9bFhUoOCvLL7
-         Ve4A==
-X-Forwarded-Encrypted: i=1; AKwUvBxIp0ZTkETL1ZEWImn9Obt5AY3ESQoB3989fXeY9y7Z+nNj5g//ed4ndFRImxIWnzsQNrxi1J6tkzd7lNU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNl4A589A/ErcqKVNATcYeOwf8QaYd+bNfz+b+dBpXBvdV1dmW
-	4h4cY9Sslu4gjcTTWjM3x3ZuFmc9rJ4xdI743hd/+12T61f31d49kanV
-X-Gm-Gg: AYBFou0aHzZAkpG4NSgzmziGJ0cvrYk70pP0cO0neAoJX3heliyC5uFhj+9Oogokvj+
-	mt+xI/onlzKjgLX8wnSeohLdpopc/g5f7kcVpt9KkPEN14zUQdXZZf++U0GbwjwU+uLyA4Fhu1F
-	2n4get8ZiNTlauyaMbkgegXUIMsqPwu03Lk8Fy75xqQskDleeTNo2G+5XOVX2B1Zo7pz9umu2Er
-	zKzEchXYlSp8cWGZeyNbOoMxH3K8v7CMVk1vX8IUiZFlR+taNTJNKYrm6sbWwR5Pwd/4NZDK0UY
-	A7MIy68sCC0DCCjBuzVO7LQEZrSYCxPCwMWeRVSQYV+Vc5sueFmffXfHaRVkjXLWD43TnvKtcB8
-	kY1QbEy6IwiFXyQoaFs4AlaPJOZrlU64GGuIuxYO2qqCJ42EOCmb1Oix2NNMmunWahUDTWCWfrB
-	gkpMA2DAiXI0mzGRGvrx6YtSgdM1pD8v6BttBBosLjJUTDbTRzk/sGm5ur1Svd72XnSlj7SJbkt
-	7qD7CE3fVRywwmckwrGb7SrWKaUdrRqgzr2
-X-Received: by 2002:a05:7300:ea0b:b0:35d:8c39:b31f with SMTP id 5a478bee46e88-361a2a3e8f4mr10129688eec.35.1792403029024;
-        Mon, 19 Oct 2026 02:43:49 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607bc950f9sm34370074eec.0.2026.10.19.02.43.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:43:48 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yaoyiqi3@huawei.com,
-	Yao Yiqi <yyaqia@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 1/3] fbcon: Include font geometry in the rotated font cache
-Date: Mon, 19 Oct 2026 17:43:29 +0800
-Message-ID: <20261019094331.1128871-2-yyaqia@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019094331.1128871-1-yyaqia@gmail.com>
-References: <20261019094331.1128871-1-yyaqia@gmail.com>
+        d=1e100.net; s=20260707; t=1792403032; x=1793007832;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DRNQRv1aQeJ1OZRIfE/SZBxPfNo7xycwpHCTcuWpjfw=;
+        b=TeudLMOCUqRa/jvGOiio1YzN5yLyU7SpskxdAuzO0uKfjEpbfS0eFuWw4PhUVQpxYe
+         ToJjAuRN70Tw1AdTfzWXtswMTna1WtZmYo9644vt/6uumuytGylQjD87/vSFM4E6/NAu
+         Go6NB9FPDuQr5HfB9FR4h9O65rtNS+ypYZze6qUedvl5YAkWYrVXBTcuvDIKxsx2OKvz
+         S3Nc4lWeObVAM0cCBffPYv28AapGZRGmqBTx6UZjVt5Zm+ETv9ivXTO0yPnRa9e3diqc
+         15zXTHAhy14rkbul/ZqYae3b3897NrlgSyzj0mlgk+z3cjMixJmkL9tBpXouW2GRwGm8
+         4i0w==
+X-Gm-Message-State: AFq9FYJ50kRefad04B/YJT7QAQyXp2EFbGqHKrkn9CoKkAeaQF2P7Ivh
+	scCiYCGeDVsCOJ0nMTef9Bj6L6unatDf9+b09ai2M726IeGtiaDh8KzujZvCIjMeWFKHK9WADNJ
+	FkvJ5yrVopAKk1ww3nQzM5n8Q37PHmeGs6neqICPBH4b3/QyT8kVctiQGyhs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:1354:b0:6be:137b:3f96 with SMTP id
+ 006d021491bc7-701124af0ecmr6563667eaf.20.1792403032276; Mon, 19 Oct 2026
+ 02:43:52 -0700 (PDT)
+Date: Mon, 19 Oct 2026 02:43:52 -0700
+In-Reply-To: <6ad59a56.6814cce4.34c49f.0150.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad5e658.7f4e89eb.3d59aa.00c0.GAE@google.com>
+Subject: Forwarded: fs/d_path: Prevent NULL pointer dereference in get_fs_root_rcu()
+From: syzbot <syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-fbcon_rotate_font() caches a rotated copy of the console font and
-skips the rebuild when the fontdata pointer and the rotation match.
-Raw font data carries no geometry, though: width, height and
-charcount live in vc->vc_font. fbcon_set_font() deduplicates uploads
-by byte equality, so the same bytes re-uploaded with different
-dimensions keep the fontdata pointer while the geometry changes, and
-the early-out skips the rebuild.
+***
 
-The rotated cell size depends on the geometry (rotation swaps width
-and height), so the stale buffer is indexed with the new cell size.
-Re-uploading a 4x16 font as 16x8 on a CW-rotated console, for
-example, doubles the rotated cell size and reads past the end of the
-old buffer.
+Subject: fs/d_path: Prevent NULL pointer dereference in get_fs_root_rcu()
+Author: neganhat@gmail.com
 
-Record the geometry the buffer was built from and compare it in the
-early-out. The pointer-only key used to be backed by an explicit
-width check in the deduplication, which commit 1e3c49aa03fb
-("lib/fonts: Compare font data for equality with font_data_is_equal()")
-dropped.
-
-Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
- drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
- drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
- 2 files changed, 14 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 407d207b14f1..bfbd70f8b1cd 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -89,10 +89,13 @@ struct fbcon_par {
- 	char  *cursor_data;
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
- 	struct {
--		font_data_t *fontdata;  /* source font */
--		u8 *buf;                /* rotated glyphs */
-+		font_data_t *fontdata;       /* source font */
-+		u8 *buf;                     /* rotated glyphs */
- 		size_t bufsize;
--		int buf_rotate;         /* rotation of buf */
-+		int buf_rotate;              /* rotation of buf */
-+		unsigned int buf_width;      /* geometry of source font */
-+		unsigned int buf_height;
-+		unsigned int buf_charcount;
- 	} rotated;
- #endif
- 	u8    *cursor_src;
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 6cdbc96eeca6..660a3fa81bae 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -21,11 +21,18 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 	unsigned char *buf;
- 	int ret;
- 
--	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
-+	if (par->p->fontdata == par->rotated.fontdata &&
-+	    par->rotate == par->rotated.buf_rotate &&
-+	    vc->vc_font.width == par->rotated.buf_width &&
-+	    vc->vc_font.height == par->rotated.buf_height &&
-+	    vc->vc_font.charcount == par->rotated.buf_charcount)
- 		return 0;
- 
- 	par->rotated.fontdata = par->p->fontdata;
- 	par->rotated.buf_rotate = par->rotate;
-+	par->rotated.buf_width = vc->vc_font.width;
-+	par->rotated.buf_height = vc->vc_font.height;
-+	par->rotated.buf_charcount = vc->vc_font.charcount;
- 
- 	if (info->fbops->fb_sync)
- 		info->fbops->fb_sync(info);
--- 
-2.56.0
-
+#syz test: upstream 7a19f0cc94ad
