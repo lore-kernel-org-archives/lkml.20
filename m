@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611C05BA3CB;
-	Mon, 19 Oct 2026 14:00:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4075BB51D;
+	Mon, 19 Oct 2026 14:00:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418455; cv=none; b=qC07lHUFsIgyZmD10B+O8TxYQ5+CjlLVCIEASCmTnfltxgD8xWU7MMYk8WR2oNjCiiVk87A5wgkJqHd0BKJRjlievsmcEhkFhDz+O7k1OFJIbtS5WpeGhLffYvFKn+6eWp6831X3Ab7H7z3+CibRgVjOBumppqFgxdoPy7188pw=
+	t=1792418457; cv=none; b=UXyjA+KPJLIZrwSSsxbhwYPYNR6x59csvIYZvtvrMM6kNBCQxT4tXJZVevwe3nwwispXta1MWYj1c8eCJeT8Oc8/2PaFreZFozBIm8YhkFXcip+GUV8rHSpnmHl8Jhc7vqWtdGQ/IOPTZBb4Nf7h0uMFsoZBsKcayftkk3B/uuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418455; c=relaxed/simple;
-	bh=r0zsBFHATJcVfG4CZqubPjoA1F7bzzSDI9zIRslLnXQ=;
+	s=arc-20240116; t=1792418457; c=relaxed/simple;
+	bh=WxNPLJPDOBprheBWeMRcp9aK5//+9PUV06ZtROZL5q8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lkTkERMv7KsYFaYiODOsMXipqkasO/zcE70s+RuyLN80CdpHkI6j1eLyopbiodvs/+GFivqP0aC0ftxlFgVZo5u89v+E6MDPa9jtc7FiKju9v3JJYNi8n34Cb0B+zpa7YJ903Wxtybq+nIsjffngTrqYn1tLXTObSRmEJX1Xpoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FK/oHWpV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=edE+dVaM4l9b35J+NFlO5NdXJQtRLmJrVphCja/+ZRc/NQjlldK9BN//EpaQuJm2od0DOtERKxwP0YWlWiu1JzGU05V80op5+XZaSL/G5q5xG61xgvEdmMiGk7miaA+etsEUaGtFEWs/wLkDrzf/I0qYnjcCJe2rdN5hws2IUBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZVXfKoyn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FK/oHWpV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C381F000CB;
-	Mon, 19 Oct 2026 14:00:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZVXfKoyn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2C991F000C6;
+	Mon, 19 Oct 2026 14:00:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418453;
-	bh=6rgQydcwj3fnLt9d7NChznuTHnqmnYcDevtU01Fxjjg=;
+	s=k20260515; t=1792418455;
+	bh=gLYo+ZptyWNcradEon9AJ0IpeIgAlajqjarb/KKBy24=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FK/oHWpVhQQgXfumIe1uM8UDXZPeUpJkS7Cw78IXFLbh5Q5FrYQfFX4F4pnh1eWVW
-	 glTcFwqdqbIf0/Nd5D559AC2sZaXzz4c29VXXEh7g/QVk2inszqJ+x0RcARNhFHiZn
-	 NwJoxW7oH0OTxEYIdlyXOl2M5Rinsjz3vt8CJjWhd0R6eDEC3A62jevst+FjYVPpYA
-	 WTGTSRHxsA0EXeywYdnpsEr+C21WWaMb5nmQ+pBmjHx4qseayBG8TooJPrxpjv/bqk
-	 nZ4U2MWaG60foR2iP2FWx6Jr2Yqb5SqWtZAezUM+3AquiSsLJH+BUWTJF1NBbPkLIU
-	 6mhH1sAy4bHAA==
+	b=ZVXfKoynGsSBSCci1s47Hqt9AsA7/FPmvAlvfegWqaMDDQWQmf2FaaqaRHwUAV0Co
+	 2pfI565fcPLh/taJKlcU357IgK1B6jRUHN+AKGYyyv1Wdw7POvJOOSwatw6LoJ8cJN
+	 kV2zzW45pQBHZAr9aFEJrX8zVdQWoBGoWxzDbg+klEQDohPPy0FqyNcXWholvmvx/5
+	 B0DPXhjCOKu5RwxU9VEN4kmyGZvBKe4ruu553psDFEopoVv4xFV3G39E8Fia6eaDX+
+	 xvtcrK66X4CU6vlrE3+5zGQJ7AEcEdMSLWpCfdcNmOqDIheo2kwn+nn+AjRfSZjFdp
+	 utHNjAZGKfJgA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: "Ewan D. Milne" <emilne@redhat.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	adrian.hunter@intel.com,
-	ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	linux-mmc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	James.Bottomley@HansenPartnership.com,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] mmc: sdhci-of-ma35d1: add missing MODULE_DEVICE_TABLE()
-Date: Mon, 19 Oct 2026 09:49:10 -0400
-Message-ID: <20261019135441.1420968-259-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] scsi: devinfo: Add BLIST_SKIP_IO_HINTS for EMC Symmetrix
+Date: Mon, 19 Oct 2026 09:49:12 -0400
+Message-ID: <20261019135441.1420968-261-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -56,397 +53,358 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: "Ewan D. Milne" <emilne@redhat.com>
 
-[ Upstream commit 9b3732cce41d177acac731e0b8024d72f0dfde38 ]
+[ Upstream commit f06a44e235ef188689ba23ffc72e9e89b10951a9 ]
 
-The driver has an OF match table wired to .of_match_table, but does
-not export the table with MODULE_DEVICE_TABLE().
+EMC Symmetrix returns an error on MODE SENSE for page 0Ah subpage 05h
+because it does not implement the SBC-5 I/O hints.  These commands began to
+be sent as a result of commit 4f53138fffc2 ("scsi: sd: Translate data
+lifetime information").  Add BLIST_SKIP_IO_HINTS to avoid sending these
+commands because in large configurations the failed commands are displacing
+other useful information in internal error logs.
 
-Add the missing MODULE_DEVICE_TABLE(of, ...) entry so module alias
-information is generated for OF based module autoloading.
-
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Signed-off-by: Ewan D. Milne <emilne@redhat.com>
+Link: https://patch.msgid.link/20260915173800.39117-1-emilne@redhat.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable backport analysis: `mmc: sdhci-of-ma35d1: add missing
-MODULE_DEVICE_TABLE()`
+## Local tree
 
-Local tree: **v7.3-rc4** (`7.3.0-rc4`, `VERSION=7 PATCHLEVEL=3
-SUBLEVEL=0 EXTRAVERSION=-rc4`).
-Candidate: `9b3732cce41d177acac731e0b8024d72f0dfde38`.
-The driver and the missing-alias bug exist in this tree; the one-line
-fix is already present here as a mainline commit.
+This checkout is **6.18.y** (`v6.18.57-155-gcdf239ca885b2`, `VERSION=6`
+/ `PATCHLEVEL=18` / `SUBLEVEL=57`). The verdict is only for this tree.
+
+The I/O-hints path and `BLIST_SKIP_IO_HINTS` are already here. At
+`v6.18`, the EMC `SYMMETRIX` blacklist entry does **not** skip those
+queries, so the bug exists.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[mmc / sdhci-of-ma35d1] [add] [export OF match table via
-MODULE_DEVICE_TABLE so the module can autoload]**
+**Step 1.1: Subject**
+- Record: **[scsi/devinfo] [Add] hardware blacklist flag
+  `BLIST_SKIP_IO_HINTS` for EMC Symmetrix**
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-Record:
-- **Fixes:** none (expected)
-- **Reported-by / Tested-by / Reviewed-by / Acked-by:** none
-- **Link:** none in the committed message
-- **Cc: stable:** none (expected)
-- **Signed-off-by:** Pengpeng Hou (author); Ulf Hansson (MMC maintainer,
-  applied it)
-- Ignore any pipeline SOBs
+**Step 1.2: Tags**
+- Record:
+  - `Signed-off-by: Ewan D. Milne <emilne@redhat.com>` (author, Red Hat
+    SCSI)
+  - `Link:
+    https://patch.msgid.link/20260915173800.39117-1-emilne@redhat.com`
+  - `Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>` (SCSI
+    maintainer)
+  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc: stable` (absence is
+    expected)
+  - Pipeline `Signed-off-by: Sasha Levin` and `[Upstream commit …]`
+    ignored
 
-Notable: maintainer SOB; no user report; no syzbot.
+**Step 1.3: Body**
+- Record: **Bug:** EMC Symmetrix does not implement SBC-5 I/O hints, so
+  `MODE SENSE` page `0Ah` subpage `05h` fails. Those commands started
+  after `4f53138fffc2` ("scsi: sd: Translate data lifetime
+  information").
+- **Symptom:** In large configs, failed commands fill the array’s
+  internal error logs and displace useful entries.
+- **Root cause:** Kernel probes a mode page the device does not
+  implement.
+- **Version info:** The probing started with `4f53138fffc2`
+  (`v6.9-rc1`); that commit is an ancestor of this tree.
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- **Bug:** OF match table is wired to `.of_match_table` but not exported
-  with `MODULE_DEVICE_TABLE(of, ...)`.
-- **Symptom:** `depmod`/`modinfo` get no `of:` aliases, so udev/kmod
-  will not autoload `sdhci-ma35` when DT has `compatible =
-  "nuvoton,ma35d1-sdhci"`. Built-in (`=y`) matching still works.
-- **Version info:** none in the message. Driver introduced in v6.12-rc1.
-- **Root cause:** missing `MODULE_DEVICE_TABLE` so `file2alias.c` never
-  publishes the table.
-
-Original mailing-list body (stripped before commit) said this is a
-source-level fix with no hardware reproduction; evidence is the table
-itself.
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: **Not hidden.** It is an explicit autoload/alias fix. Same class
-as “add a device ID”: the ID exists; userspace was never told.
+**Step 1.4: Hidden bug fix?**
+- Record: **No disguise.** This is an explicit hardware quirk. It is not
+  cleanup/refactor.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-**Step 2.1: INVENTORY THE CHANGES**
-Record:
-- File: `drivers/mmc/host/sdhci-of-ma35d1.c` — **+1 / −0**
-- Function: none; one statement after `sdhci_ma35_dt_ids[]`
-- Scope: **single-file, one-line surgical fix**
+**Step 2.1: Inventory**
+- Record: **1 file**, `drivers/scsi/scsi_devinfo.c`, **+1 / -1**, one
+  table entry.
+- Function: static `scsi_dev_info_list` initializer (EMC `SYMMETRIX`
+  row).
+- Scope: **single-file surgical quirk**.
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- **Before:** `sdhci_ma35_dt_ids` is only used as `.of_match_table` (in-
-  kernel match when the module is already loaded or built-in).
-- **After:** same, plus `MODULE_DEVICE_TABLE(of, sdhci_ma35_dt_ids)` so
-  modpost emits `MODULE_ALIAS("of:N*T*Cnuvoton,ma35d1-sdhci")`.
-- Path: **module build / autoload**, not probe/error/init runtime logic.
+**Step 2.2: Code flow**
+- Record: **Before:** flags `BLIST_SPARSELUN | BLIST_LARGELUN |
+  BLIST_REPORTLUN2 | BLIST_RETRY_ITF`.
+- **After:** same plus `BLIST_SKIP_IO_HINTS`.
+- Affected path: `sd_read_io_hints()` during `sd_revalidate_disk()`
+  (probe, open/revalidate, rescan). With the flag set it returns
+  immediately and does not send `MODE SENSE 0x0A/0x05`.
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **[Hardware enablement / missing module alias]** — category
-**(h) plus logic for autoload**. Not UAF, leak, race, or crash. Without
-the macro, a modular build never gets OF aliases. Confirmed by
-`include/linux/module.h`: `MODULE_DEVICE_TABLE` creates a `used` alias
-so `scripts/mod/file2alias.c` can find the table.
+**Step 2.3: Bug mechanism**
+- Record: **[Hardware workaround]** Device-specific skip of an
+  unsupported SCSI mode page. Same pattern as USB storage and the Iomega
+  ZIP `BLIST_SKIP_IO_HINTS` entries already in this tree.
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- **Quality:** obviously correct; this is the documented way to export
-  OF IDs.
-- **Regression risk:** negligible. Macro only adds a static alias
-  symbol; no locking, no API, no runtime path change except autoload
-  starts working.
-- **Red flags:** none on the diff. Author is doing a wide
-  `MODULE_DEVICE_TABLE` sweep (rtc, vdpa, gpio, iio, …); that does not
-  make *this* line wrong. MMC maintainer applied it after trimming the
-  disclaimer.
+**Step 2.4: Fix quality**
+- Record: **Obviously correct.** One flag bit on an existing
+  vendor/product match. Regression risk is **very low**: only EMC
+  `SYMMETRIX` skips a feature it does not implement. No API, locking, or
+  allocation changes.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## PHASE 3: GIT HISTORY
 
-**Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- Table and driver: `addc9ecb9ddb3` (“Add Nuvoton MA35D1 SDHCI driver”),
-  Shan-Chun Hung, 2024-07-16, committed 2024-08-26.
-- First appeared: **v6.12-rc1** (`git describe --contains addc9ecb9ddb3`
-  → `v6.12-rc1~158^2~42`).
-- Original driver had the match table and `.of_match_table` and **no**
-  `MODULE_DEVICE_TABLE` from day one.
-- Bug age: ~v6.12 through this July 2026 fix.
+**Step 3.1: Blame**
+- Record: EMC `SYMMETRIX` row is old (`3441afc672bc` / `29cfc2ab71d96`
+  for `BLIST_RETRY_ITF`, 2018). The **new** failure is not that row; it
+  is `sd_read_io_hints()` from `4f53138fffc2` (**v6.9-rc1**,
+  2024-02-26).
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: **No Fixes: tag.** Buggy commit is the original driver add,
-verified by blame and by `git show addc9ecb9ddb3` (tail of the file has
-the table without the macro). That commit **is** an ancestor of this
-tree.
+**Step 3.2: Fixes: tag**
+- Record: **None.** The message names `4f53138fffc2`. `git merge-base
+  --is-ancestor 4f53138fffc2 HEAD` → **yes**. `git describe --contains
+  4f53138fffc2` → `v6.9-rc1~12^2~8`.
 
-**Step 3.3: CHECK FILE HISTORY**
-Record (this file only):
-- `addc9ecb9ddb3` — add driver
-- `078e548af9c3a` — `remove_new` → `remove`
-- `01bc623f9a5c2` — drop `sdhci_pltfm_free()`
-- `995832b2cebe6` — include-header churn
-- `9b3732cce41d1` — this fix
+**Step 3.3: File history**
+- Record: Related: `74b25178943fe` ("scsi: devinfo: Add
+  BLIST_SKIP_IO_HINTS for Iomega ZIP") — same quirk class, already in
+  this 6.18 tree. `633aeefafc9c2` introduced the flag (**v6.10-rc5**),
+  also an ancestor. **Standalone**, not patch X/Y.
 
-No prerequisite refactor for this one line. **Standalone.**
+**Step 3.4: Author**
+- Record: Ewan D. Milne is a long-time SCSI contributor (Red Hat).
+  Applied by SCSI maintainer Martin K. Petersen. Related flag work by
+  Bart Van Assche (`BLIST_SKIP_IO_HINTS` intro, `Cc: stable` there).
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Pengpeng Hou is not the MMC maintainer; many similar “add
-missing MODULE_DEVICE_TABLE()” commits across subsystems. Ulf Hansson
-applied this one. Related MMC precedent by others: `6e540da4c1db7`
-(“mmc: sdhci-of-aspeed: fix module autoloading”) is the same one-line
-change **and had `Fixes:` + `Cc: stable@vger.kernel.org`**.
-
-**Step 3.5: DEPENDENT/PREREQUISITE COMMITS**
-Record: **None.** Only needs `sdhci_ma35_dt_ids` and `module.h` (already
-included). Can apply standalone on any tree that has this driver.
+**Step 3.5: Prerequisites**
+- Record: Needs `BLIST_SKIP_IO_HINTS` and `sd_read_io_hints()` skip
+  check. Both exist in `v6.18` (`include/scsi/scsi_devinfo.h:73`,
+  `drivers/scsi/sd.c:3235`). **Applies standalone.**
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## PHASE 4: MAILING LIST / EXTERNAL
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- `b4 dig -c 9b3732cce41d1` →
-  https://patch.msgid.link/20260704124115.2874-1-pengpeng@iscas.ac.cn
-- `b4 dig -a`: **v1 only** (2026-07-04). Applied version is that v1
-  (commit message cleaned).
-- Thread (mbox): Ulf Hansson, 2026-07-06: **“Applied for next (by
-  cleanup of the commit message a bit), thanks!”**
-- No NAK, no reviewer-requested `Cc: stable`, no risk discussion.
-- lore.kernel.org HTTP fetch returned 403 (Anubis); thread recovered via
-  `b4 dig -m`.
+**Step 4.1: Original discussion**
+- Record: `b4 dig -c f06a44e235ef` →
+  https://patch.msgid.link/20260915173800.39117-1-emilne@redhat.com
+- **v1 only** (`b4 dig -a`). No NAKs. Laurence Oberman: “Looks good” +
+  `Reviewed-by`. Martin Petersen: applied to **7.3/scsi-fixes**
+  (`https://git.kernel.org/mkp/scsi/c/f06a44e235ef`). No `Cc: stable` in
+  review.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc included Ulf Hansson (MMC), Adrian Hunter
-(SDHCI), Nuvoton (Jacky Huang, Shan-Chun Hung), `linux-mmc`, `linux-arm-
-kernel`. Right people. Only maintainer reply was “applied”.
+**Step 4.2: Recipients (`b4 dig -w`)**
+- Record: Author + `linux-scsi@vger.kernel.org`. SCSI list was CCed;
+  maintainer applied it.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: **No user/syzbot/bugzilla report.** Author stated it was
-inferred from source. The failure mode is still deterministic for `=m`
-builds.
+**Step 4.3: Bug report**
+- Record: No syzbot/bugzilla. Description is operational: array error-
+  log overflow in large configs. That is a real enterprise SAN issue,
+  not a theoretical one.
 
-**Step 4.4: RELATED PATCHES AND SERIES**
-Record: **Standalone 1/1.** Same-week author activity is a tree-wide
-missing-alias sweep, not a multi-patch MMC series.
+**Step 4.4: Series**
+- Record: **Standalone 1/1.** ZIP quirk is a sibling pattern, not a
+  dependency.
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: **UNVERIFIED** via lore.kernel.org/stable (Anubis 403). No `Cc:
-stable` on this patch. Closest analogue in-tree (`sdhci-of-aspeed`
-autoload) *was* explicitly nominated for stable.
+**Step 4.5: Stable list**
+- Record: No lore.kernel.org/stable hit for this subject. WebFetch to
+  lore returned 403; stable search via WebSearch found nothing relevant.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: KEY FUNCTIONS**
-Record: **No function body changed.** Touches `sdhci_ma35_dt_ids` and
-the `sdhci_ma35_driver` registration site.
+**Step 5.1: Functions**
+- Record: No function body change. Table consumed via
+  `sdev->sdev_bflags`. Consumer: `sd_read_io_hints()`.
 
-**Step 5.2: TRACE CALLERS**
-Record:
-- `.probe = ma35_probe` — driver-core platform probe.
-- `.of_match_table = sdhci_ma35_dt_ids` — OF matching when the driver is
-  present.
-- `MODULE_DEVICE_TABLE` is not a runtime caller; it feeds **modpost**.
-- Impact surface: modular `CONFIG_MMC_SDHCI_OF_MA35D1=m` on
-  `nuvoton,ma35d1-sdhci` DT.
+**Step 5.2: Callers**
+- Record: `sd_read_io_hints()` is called only from
+  `sd_revalidate_disk()` (`drivers/scsi/sd.c:3773`).
+- `sd_revalidate_disk()` is called from:
+  - `sd_probe()` (disk attach)
+  - `sd_open()` if `sd_need_revalidate()`
+  - `sd_rescan()`
+  - sysfs cache-type store path
+- **Process context**, SCSI disk attach/revalidate. In a large Symmetrix
+  config this runs once per LUN (often thousands).
 
-**Step 5.3: TRACE CALLEES**
-Record: Unchanged. `ma35_probe` still does `sdhci_pltfm_init` / host
-setup. Macro expands to a static alias (verified in
-`include/linux/module.h`).
+**Step 5.3: Callees**
+- Record: Without the flag, `scsi_mode_sense(..., modepage=0x0a,
+  subpage=0x05, ...)`. On failure (`res < 0`) it already returns; the
+  kernel does not oops. Harm is the failed command on the array.
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: DT node `compatible = "nuvoton,ma35d1-sdhci"` → kmod alias
-lookup → load `sdhci-ma35` → `ma35_probe`. Reachable on MA35D1 boot if
-the driver is a module. Not a syscall/UAF path. **Userspace-visible:**
-missing MMC/SD host until manual `modprobe`.
+**Step 5.4: Reachability**
+- Record: **Yes.** Any EMC Symmetrix LUN probed as `sd` hits this. Not
+  an obscure config path.
 
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Other `sdhci-of-*.c` drivers already have
-`MODULE_DEVICE_TABLE(of, ...)`. Historical MMC autoload fixes: aspeed,
-am654, at91, mediatek. This driver was the outlier.
-
-Kconfig: `MMC_SDHCI_OF_MA35D1` is **tristate** (`depends on ARCH_MA35 ||
-COMPILE_TEST`), so `=m` is a supported config. Help text: “say Y or M
-here.”
+**Step 5.5: Similar patterns**
+- Record: USB storage/`uas` set `BLIST_SKIP_IO_HINTS` because some
+  devices **reset** on that page. Iomega ZIP uses it because the query
+  makes the drive unusable. Same skip, milder Symmetrix symptom (error-
+  log flood).
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+## PHASE 6: LOCAL TREE CROSS-REFERENCE
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: **Yes.** File exists; table and `.of_match_table` exist; the
-missing alias was the original 6.12 code. This checkout already contains
-the fix line at `drivers/mmc/host/sdhci-of-ma35d1.c:293`. `git merge-
-base --is-ancestor addc9ecb9ddb3 HEAD` and `9b3732cce41d1 HEAD` both
-succeed. Bug introduced **v6.12**, not after this tree.
+**Step 6.1: Buggy code in this tree?**
+- Record: **Yes.** `v6.18` has `sd_read_io_hints()` and the flag check,
+  and the EMC row **without** `BLIST_SKIP_IO_HINTS`. Bug since
+  `4f53138fffc2` (v6.9), so it is in 6.18.
 
-**Step 6.2: BACKPORT COMPLICATIONS**
-Record: **Clean apply.** One added line next to a table that has been
-there since the driver was added. Later churn (`remove`,
-`sdhci_pltfm_free`, includes) does not conflict with this hunk.
+**Step 6.2: Backport difficulty**
+- Record: **Clean apply.** Parent of the candidate still has the same
+  two-line EMC entry as `v6.18`. No refactor of that table.
 
-**Step 6.3: RELATED FIXES ALREADY HERE**
-Record: This *is* the fix. No earlier equivalent. Sibling OF SDHCI
-drivers already export their tables.
+**Step 6.3: Related fixes already here?**
+- Record: Flag infrastructure and ZIP/USB skips are present. **No**
+  existing skip for EMC Symmetrix at `v6.18`.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.1: SUBSYSTEM AND CRITICALITY**
-Record: **MMC host / SDHCI platform driver.** Criticality:
-**PERIPHERAL** (Nuvoton MA35D1 only), but it is the SD/MMC host for that
-SoC — root-on-SD/eMMC is a realistic layout.
+**Step 7.1**
+- Record: **[SCSI disk / scsi_devinfo] [IMPORTANT]** — not core mm/VFS,
+  but enterprise block storage. EMC/Dell Symmetrix (VMAX/PowerMax
+  lineage) is still used on LTS kernels.
 
-**Step 7.2: SUBSYSTEM ACTIVITY**
-Record: `drivers/mmc/host/` is active (many recent fixes). This
-particular file is low-churn (five commits total).
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: WHO IS AFFECTED**
-Record: **Platform-specific / config-specific:** `ARCH_MA35` +
-`CONFIG_MMC_SDHCI_OF_MA35D1=m`. Built-in (`=y`) is unaffected. Distro-
-style modular kernels are the users who benefit.
-
-**Step 8.2: TRIGGER CONDITIONS**
-Record: Every boot/enumeration of `nuvoton,ma35d1-sdhci` when the driver
-is a module. Not a race. Unprivileged users do not trigger it;
-**boot/udev does**. Common *on that hardware* if distros ship the driver
-as `=m`.
-
-**Step 8.3: FAILURE MODE SEVERITY**
-Record: **Missing driver autoload → SD/MMC host never probes → no
-card/root disk until manual load.** Not oops/UAF. Severity **MEDIUM**,
-**HIGH** if root is on that host and the module is not in the initramfs
-by name. Same user-visible class as a missing device ID.
-
-**Step 8.4: RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** medium for MA35D1 modular builds (storage may not
-  appear).
-- **Risk:** **very low** (1 line, alias-only).
-- **Ratio:** favorable. Same pattern already taken for stable on other
-  SDHCI OF drivers.
+**Step 7.2**
+- Record: SCSI is actively maintained; this file is a mature quirk
+  table, not a new subsystem.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## PHASE 8: IMPACT AND RISK
 
-**Step 9.1: EVIDENCE**
+**Step 8.1: Who is affected**
+- Record: **Driver/hardware-specific:** hosts with `INQUIRY` vendor
+  `EMC` / product `SYMMETRIX`. Typical: datacenter SAN on 6.18 LTS.
 
-**For backporting:**
-- Real, deterministic autoload bug when `MMC_SDHCI_OF_MA35D1=m`.
-- One-line, obviously correct, no new API.
-- Driver has been in this lineage since v6.12; table was never exported.
-- MMC maintainer applied it; SDHCI/Nuvoton were on Cc; no NAK.
-- Same change as `mmc: sdhci-of-aspeed: fix module autoloading`, which
-  carried `Cc: stable`.
-- Matches the stable-rules “device ID” / hardware-enablement exception
-  in spirit: publish an ID the driver already matches.
-- Applies cleanly; no prerequisites.
+**Step 8.2: Trigger**
+- Record: **Every disk revalidate** (probe, rescan, some opens). Common
+  on boot and device discovery. Unprivileged users do not trigger it
+  directly; udev/scan does. Not a race.
 
-**Against:**
-- No `Reported-by` / no hardware reproduction (author said so).
-- Peripheral SoC, not a core path.
-- Not a crash, UAF, or corruption.
-- No `Cc: stable` on this specific patch (Ulf took it for *next*, not as
-  an urgent fix).
-- Author is running a tree-wide alias sweep (quality of *this* hunk is
-  still fine).
+**Step 8.3: Failure mode**
+- Record: **Not a kernel oops.** Failed `MODE SENSE` is ignored in
+  `sd_read_io_hints()`. User-visible issue is **array error-log
+  pollution** in large LUN counts, hiding real faults. Severity
+  **MEDIUM** for the kernel, **HIGH** operationally on big arrays.
+  USB/ZIP cases of the same flag were crash/unusable-device; this is the
+  same class of quirk.
 
-**Unresolved:**
-- Whether linux-stable already discussed this (lore.kernel.org/stable
-  blocked).
-- How many shipping MA35D1 kernels use `=m` vs `=y` (unverified).
-
-**Step 9.2: STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — standard macro; maintainer
-   applied. “Tested” is source-level, not lab hardware.
-2. Fixes a real bug that affects users? **PASS** — modular autoload is
-   broken; Kconfig allows `=m`.
-3. Important issue? **PASS** (as device-ID / hardware-enablement, not as
-   a crash). Storage host may never appear on boot.
-4. Small and contained? **PASS** — +1 line, one file.
-5. No new features or APIs? **PASS** — only module aliases for an
-   existing compatible string.
-6. Can apply to the local tree? **PASS** — driver present; hunk is the
-   existing table site.
-
-**Step 9.3: EXCEPTION CATEGORIES**
-Record: **Device ID / module alias publication for an existing driver**
-(same practical class as adding PCI/USB/OF IDs). Not a new driver.
-
-**Step 9.4: DECISION**
-This tree has the MA35D1 SDHCI driver and had the missing alias from
-introduction until this commit. The patch is a one-line, zero-runtime-
-risk fix that makes the already-supported compatible string autoload
-when the driver is a module. That is stable-appropriate hardware
-enablement, not a feature or refactor.
+**Step 8.4: Risk/benefit**
+- Record: **Benefit: high for Symmetrix users, zero for others. Risk:
+  very low (1 flag bit, existing match).** Ratio favors backport.
 
 ---
 
-## What the commit solves for stable users
+## PHASE 9: SYNTHESIS
 
-On Nuvoton MA35D1, `sdhci-of-ma35d1` already matches
-`nuvoton,ma35d1-sdhci` **if loaded**. Without `MODULE_DEVICE_TABLE`, a
-modular kernel never generates the OF alias, so the MMC/SD controller is
-silent until someone runs `modprobe`. Backporting restores autoload.
-Risk is essentially zero.
+**Step 9.1: Evidence**
+
+For:
+- Real hardware incompatibility with a command 6.18 already sends
+- Enterprise arrays, large LUN counts, error-log displacement
+- 1-line quirk; `BLIST_SKIP_IO_HINTS` already in this tree
+- Same class as USB/ZIP skips; ZIP already on 6.18
+- Reviewed and applied to scsi-fixes by the SCSI maintainer
+- Applies cleanly to `v6.18`
+
+Against:
+- Not a kernel crash, UAF, deadlock, or data corruption
+- No `Cc: stable` / `Fixes:`
+- Affects only one vendor/product
+
+Unresolved:
+- Lore HTTP 403; thread recovered via `b4 dig -m`. No public
+  syzbot/bugzilla count of affected arrays.
+
+**Step 9.2: Stable rules**
+1. Obviously correct and tested? **PASS** — 1-bit flag; maintainer
+   applied; `Reviewed-by: Laurence Oberman`
+2. Real bug affecting users? **PASS** — unsupported `MODE SENSE` on
+   production arrays
+3. Important issue? **PASS** as a hardware quirk (array log overflow in
+   large configs). Not a kernel panic.
+4. Small and contained? **PASS** — +1/-1, one table row
+5. No new features/APIs? **PASS** — uses existing flag
+6. Can apply to this tree? **PASS** — flag, consumer, and EMC row all
+   present at `v6.18`
+
+**Step 9.3: Exception**
+- Record: **Hardware quirk/workaround** (scsi_devinfo blacklist),
+  analogous to USB/PCI quirks. That class is accepted for stable.
+
+**Step 9.4: Decision**
+This is a one-line device quirk for hardware this 6.18 tree already
+probes with I/O-hints `MODE SENSE`. The skip flag and call site exist;
+the EMC row does not skip yet. Risk is negligible; benefit is real for
+Symmetrix/VMAX deployments. **YES for this tree.**
+
+---
+
+## What this solves for 6.18 users
+
+Since v6.9, `sd_revalidate_disk()` calls `sd_read_io_hints()`, which
+issues `MODE SENSE` page 0x0A subpage 0x05. EMC Symmetrix does not
+implement that SBC-5 page and returns an error. The kernel already
+swallows the error; on arrays with many LUNs those failures fill the
+controller’s error logs. Adding `BLIST_SKIP_IO_HINTS` stops the query
+for that INQUIRY match only.
+
+It meets stable rules: small, obviously correct, no new API, applies
+cleanly, and is a standard scsi_devinfo hardware quirk.
 
 ---
 
 ## Verification
-- [Phase 1] Parsed commit `9b3732cce41d1`: no Fixes/Reported-
-  by/Cc:stable; SOBs Pengpeng Hou + Ulf Hansson
-- [Phase 2] Diff: +1 line `MODULE_DEVICE_TABLE(of, sdhci_ma35_dt_ids)`
-  in `sdhci-of-ma35d1.c`
-- [Phase 2] `MODULE_DEVICE_TABLE` expansion verified in
-  `include/linux/module.h:255-257`
-- [Phase 3] `git blame`: table from `addc9ecb9ddb3` (v6.12-rc1), no
-  MODULE_DEVICE_TABLE until this commit
-- [Phase 3] `git show addc9ecb9ddb3`: original driver had
-  `.of_match_table` only
-- [Phase 3] `git merge-base --is-ancestor addc9ecb9ddb3 HEAD` and
-  `9b3732cce41d1 HEAD`: both true
-- [Phase 3] File log: 5 commits; no extra prereqs for this line
-- [Phase 3] Precedent `6e540da4c1db7` (aspeed autoload): same one-liner,
-  had `Cc: stable`
-- [Phase 4] `b4 dig -c/-a/-w/-m`: v1-only; lore msgid
-  `20260704124115.2874-1-pengpeng@iscas.ac.cn`; Ulf “Applied for next”
-- [Phase 4] WebFetch lore/patch.msgid.link: 403; thread read from mbox
-  instead
-- [Phase 5] Kconfig: `MMC_SDHCI_OF_MA35D1` is tristate, `depends on
-  ARCH_MA35 || COMPILE_TEST`
-- [Phase 5] Other `sdhci-of-*.c` already have `MODULE_DEVICE_TABLE`
-- [Phase 6] `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
-  kernelversion` = `7.3.0-rc4`
-- [Phase 6] Current file line 293 already has the macro
-- [Phase 8] Failure mode: module not autoloaded; no oops
-- UNVERIFIED: linux-stable list discussion (Anubis); how common `=m` is
-  on MA35D1 distro kernels
+- **[Phase 1]** Parsed tags: author SOB Ewan Milne, Link to msgid,
+  maintainer SOB Martin Petersen; no Fixes/Reported-by/Cc:stable
+- **[Phase 2]** Diff: 1 line in `scsi_devinfo.c` EMC SYMMETRIX flags;
+  adds `BLIST_SKIP_IO_HINTS`
+- **[Phase 3]** `git describe HEAD` / `make kernelversion`: **6.18.57**
+- **[Phase 3]** `git merge-base --is-ancestor 4f53138fffc2 HEAD`: yes;
+  `git describe --contains`: v6.9-rc1
+- **[Phase 3]** `git merge-base --is-ancestor 633aeefafc9c2 HEAD`: yes
+  (flag intro, v6.10-rc5)
+- **[Phase 3]** `git blame` EMC row: `29cfc2ab71d96` added
+  `BLIST_RETRY_ITF` (2018); skip flag is new
+- **[Phase 3]** `git show v6.18:drivers/scsi/scsi_devinfo.c`: SYMMETRIX
+  **without** `BLIST_SKIP_IO_HINTS`
+- **[Phase 3]** `git grep BLIST_SKIP_IO_HINTS v6.18`: flag and `sd.c`
+  check present
+- **[Phase 4]** `b4 dig -c f06a44e235ef`: lore URL; v1 only; Reviewed-by
+  Laurence Oberman; applied to 7.3/scsi-fixes
+- **[Phase 4]** `b4 dig -m`: full thread, no NAK, no stable nomination
+- **[Phase 4]** WebFetch lore/msgid: **403**; used b4 mbox instead
+- **[Phase 5]** Callers: `sd_read_io_hints` ← `sd_revalidate_disk` ←
+  `sd_probe` / `sd_open` / `sd_rescan`
+- **[Phase 6]** Parent of candidate matches `v6.18` EMC lines → clean
+  apply
+- **[Phase 8]** Failure: array error-log flood, not kernel oops;
+  severity MEDIUM kernel / HIGH operational
+- **UNVERIFIED:** Exact customer ticket / number of arrays (not in the
+  thread)
 
 **YES**
 
- drivers/mmc/host/sdhci-of-ma35d1.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/scsi/scsi_devinfo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mmc/host/sdhci-of-ma35d1.c b/drivers/mmc/host/sdhci-of-ma35d1.c
-index 287026422616c..73f772db04148 100644
---- a/drivers/mmc/host/sdhci-of-ma35d1.c
-+++ b/drivers/mmc/host/sdhci-of-ma35d1.c
-@@ -291,6 +291,7 @@ static const struct of_device_id sdhci_ma35_dt_ids[] = {
- 	{ .compatible = "nuvoton,ma35d1-sdhci" },
- 	{}
- };
-+MODULE_DEVICE_TABLE(of, sdhci_ma35_dt_ids);
- 
- static struct platform_driver sdhci_ma35_driver = {
- 	.driver	= {
+diff --git a/drivers/scsi/scsi_devinfo.c b/drivers/scsi/scsi_devinfo.c
+index c51146882a1fa..a438e510f2cae 100644
+--- a/drivers/scsi/scsi_devinfo.c
++++ b/drivers/scsi/scsi_devinfo.c
+@@ -161,7 +161,7 @@ static struct {
+ 	{"DGC", "DISK", NULL, BLIST_SPARSELUN},	/* EMC CLARiiON, no storage on LUN 0 */
+ 	{"EMC",  "Invista", "*", BLIST_SPARSELUN | BLIST_LARGELUN},
+ 	{"EMC", "SYMMETRIX", NULL, BLIST_SPARSELUN | BLIST_LARGELUN |
+-	 BLIST_REPORTLUN2 | BLIST_RETRY_ITF},
++	 BLIST_REPORTLUN2 | BLIST_RETRY_ITF | BLIST_SKIP_IO_HINTS},
+ 	{"EMULEX", "MD21/S2     ESDI", NULL, BLIST_SINGLELUN},
+ 	{"easyRAID", "16P", NULL, BLIST_NOREPORTLUN},
+ 	{"easyRAID", "X6P", NULL, BLIST_NOREPORTLUN},
 -- 
 2.53.0
 
