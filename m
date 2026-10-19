@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792423220;
-	b=tJvCggHeK5lTJOJXLpqh4QYwqWFjfdfieJy4h5o2qVIU9fLgJg2HyZ32hC3DfDDPNwwZ
-	 fX5juKm5E6gMgvOJMbRGCfPhjJerzWLM6VglQvvmVWR8beHticqlHg32vJI5jgLn5Ra27
-	 HVB30A6cHvmD/fMy1/JUNP1iGstBj3lTcC4wmRE8foetrelN5PaKtJ3+Fq6Tq6tsyxZu8
-	 sh9ktdD++2DegBXUr5H28atUWNVVoTCziW1qkoXsaoqMkBK0SQspPxa+8PyI+UYOpipG4
-	 /0knYVIn5oDCiCO7q9PPb/JTFyLQuw5XTsTSPnmyNmR8IEqDiWS8IK5zFUILw220oZQ==
+	t=1792421961;
+	b=opqtDEbha7kPDhYZ4kVv7w2SWL9xg6EGUyPtKPn5d+E9YOl5q4GIelb/IqLxuTb4Uz9l
+	 Y0zgtpwleQkQv3oVEjqMw0ytSVHS4LhyLwZr2I1wSzKVhzUEujXi4Y4szhyMG8PPf2rqD
+	 wkwzBD33vTcymD/9s6YCwV1RUN2VF0bU0y4rifuqB9uodBS1n1LcziAVg/R9pheh8FEwI
+	 1jmIy7PkBbG107louB5DhqwzOUs2BMZAmDXa76mmPkIKbwSV2ZBU0u+5cBaq5WH8UdQQh
+	 YTiJk1B6KZTuFQqM0ZNHo3FDZcZDomRDpJz8txXOVAtDfXmT7DqwbaEeHC7PV5gUHyA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423220;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=mWjkGewxAcRXbaVfdvgorur7bESLlKy5C/veEUL3TVg=;
-	b=GiSfH0LbtTlFQLwqqIcnMiQB2/xlxO/ZHh5X8L4+Cw/vfOOEjALuHKJ2V0NIgGBVseRq
-	 jfVHhKadZCwf9IPpaVXSS2v2hHjD5VzjaO+jhs0ncnHERi7ORDh5RFHNy4aiRtXHaGRCu
-	 yIgOEreueCbNA8Z8vk7JiKTPlcmBCjeaknSuPNWvT1beOA1lBHqUdr5D0Eb85Qt7yFO/x
-	 KB0NF8vKGkU1ynbr+ZVBzWAFRRw9vBHZikmiuCvFHhWqqgGEyod4jy1la+PhL9Djk0hFT
-	 rC74ZYDsET9gWnrNZwrQPfPXd9f24Wh7jk7fp7lZaVfg5DIYmUVRNA25udvLP/W2w5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421961;
+	h=Received:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=aTLcmve12A0xWHTBVlp1TWGmYbd2AnRfbgViLySS8r0=;
+	b=pM8jyhugcvtvy3ji9B7HpMZ8XRZuN/M6fMgGYOy6eZ0j9mHSNrznRjjTPyB2vaEsJuxA
+	 GzSDC2l0ca6psUxjMRg/7GSyb0oCVXo5vjcEnWcuWpIcM1OBqXHmW1qQWXljX+DDXtl/x
+	 Bk4c3NbgKK8nyp/BS4ut6RnBXTmfePPrrGTM5yeccxQuqUixZaPChTZgQgp1/bGp/MsIG
+	 +u1ILbChlc+s8DdvvV7uFxrj0mAmNlII3HXAPUSRxqM3k+GEEj66ML6XBRfq1tjvTrf1D
+	 G2sL5pW0sMzzg17b8X6c8NFdji8YDC4PdzLU+1ISjaLTiILDRMwZ2F/mTUYlzrWZYpQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rCMUPJ51;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09DC60A6F71
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:20:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D09DC60A6F71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=IQzrSwTc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2D0260774F1;
+	Mon, 19 Oct 2026 14:59:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rCMUPJ51
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so4742220eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:20:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792423219; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T1HzhQIEDcEFIs6kgsUQkao1mfdui2sZBjTmhs6k7/dx6VyEF50vXDfZg/uuKB/czq
-         9CwqS97Oa3zAJsN8FERn5eZh8g7yVxCq4NNXJdIHkOTAHvYSLXKa34XSrkFP5zdAshUH
-         O7DnHvTvsL3d9jEMv+g3lutvk6MFkuVdPRtqetYHmB4353YgB4zIMfoWq/6WAV/YMgQu
-         7EgnB6wsOhp4VslXuDCHh+tfpnU4IycrQaaVhRa7rh0xdHNZs0tnlhS6FF5Tg/0P4GCj
-         /sJoM57jlKmgm9qFDKJTO84N+1wva62RGUDtoGHFC4mwnIa8UgbS+snMXlKQq2YmYT0W
-         G3wA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=mWjkGewxAcRXbaVfdvgorur7bESLlKy5C/veEUL3TVg=;
-        fh=cKtqhC/fGjXvp91bO+YFqY/oQbSSgmrKQjVljwsmYHc=;
-        b=iauGzi2vH6/E8JeFrUvA5uyITwrgHH/k3XUqHRyPTShovT0posRmYnvCeNNd+odObc
-         xlBTEbKXMWigVFS0H6qOjnZF8sa5goCPjm/Vb9rgBcGkQePcWVlPCbcErmVVsHM8S0FC
-         aGCyw8rli8ezjlazXALj7fB3oWQuJ3tgmIcY8qWspyoMtUQ6A2OJphQ4v2FWkJ1VR4E3
-         2KBg0N/QygK2+yC2xwue6x97zFmy6YjHbKSqBDwwd7GyDzbPflcKwKGmhlNDYOdQaYRC
-         qy42IFXcAne2CfSVlsCHYSnWlivRcQZYTRi2L9ulp8F4FSp8KRnKwrAemiIwtNdtXgUI
-         3+bg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792423219; x=1793028019; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mWjkGewxAcRXbaVfdvgorur7bESLlKy5C/veEUL3TVg=;
-        b=rCMUPJ518Q/g4MafTGXS2YOV4ONjKUAugqtcCJ9mL/BGHWbfl65Ba+qC2dfbMP5Uwr
-         DPJtRI2RSuri5YNZubUMACeh7jlMAmEx4faToEqDJ5NBF9JAicYv19vtWtrxJ412uCp3
-         ZyOxZkWEjIdk0dZ6H8Ngl6AMzPjoyEDw2MlKrleENalkbWx7X9iFWhSFAP/8Q468zWeY
-         VP0IeK6hgcQFGVDMIeRVeF/ACPgiVRGgZOqqOeZVOZFU1H/sUwtZkRDWtRO6TFRe2PMZ
-         d9FcCu8VzUoB6pwUb0rZ5/vIqc+zzwAym8vGTGMm7Hs/jS2UofdnYjJqk9WJcbaXskPM
-         1u7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792423219; x=1793028019;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mWjkGewxAcRXbaVfdvgorur7bESLlKy5C/veEUL3TVg=;
-        b=vWifN8RgNcjSMs14X3IzzP0Uo7/Av8LbPVPmLHgQcO6LB9hY6jjb2hHnzf+6pnZXm/
-         21c1FeDirEOcKcIJHZzXiuBA4JD8p7Q4OpyVQNRbJesBYO9IWbDKHD2UQOQkr+SQWFMO
-         ujoLl/tmoRS6m3EKQ+qK9DAJ9EihbUj7FjkX15jcvHBa3oe3VibpfMTPak7/1X/TK6ru
-         WgS2yKUWW8KrMBFs4JIOCkX5W4iklJXBYe70f3TFaaGWBNiU0iZG0B9FCbVYbGteWELJ
-         b/OHbYY/eTEmSRtC8uLEqrOcMxOiKNLjlCrggoCpkTetZciKF5M/6XgCiNRbptkqyf/s
-         n5nw==
-X-Forwarded-Encrypted: i=1; AKwUvBwj7Xznyick0DsVEPHD1COYnxoY6piiAMYvr/nV7tChQheyPH0IqLUwZzy8MfFp6umygva9bsbfXKSUQtI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcph2PKo1hZD6J/x/+U/T++paxZSoDDpkfxAeNlmXIePvV5EF9
-	SZkx/7KhIlDaxZIHoPYzJz2qsShSBxaFMShAeyGRzwhnA1HM2znJnXUdK/B5rVeDz5KuifgdgYb
-	axl2jRrvRr3bgMVabCLdjGPltJ+zrtNAWW3KOwwk=
-X-Gm-Gg: AYBFou2UGhSDirexDm9h4QgFOfDQ/bAysT/2wNC3W7K6B9gb5To7RYHROJpX/pNSVOA
-	11NG34vcoPZS5Lm9JIWfFogKFMkdcDK82mqWvkM8LxcaG8MPywmFgmUr+NQqucqr1QyCSBTmHiV
-	yPzErRqC7tAVe8dQrH3/AtBrt8aN+/20npBZQ2WwOTbQAMMF8josoF6NYaRsZy+7S8knYROUdLx
-	nz281xL0POay5l/UgnNDFd3F2Z5NQBlA1aYGedZ9evfjlEVxSj7ECgw/TKMSy3ihhh3B3hs1iZ1
-	Cm2mvwihNDL2WyzKVgQkSzkTGRkWeyvlge5JtxqZ2oVFAvAIIpfr9FsVg3bk2Mdz/bpII6m2mXe
-	lFNKAX52vBPnOHQ1ewmILT5XmDW975UtqE1LbnIxI5dgM4GgmG8EA5Yvm4Ni08CENqmFEOsbHlq
-	1WpaEZ76jC39hPOazw
-X-Received: by 2002:a05:7022:f51b:b0:14a:a6dc:9ca6 with SMTP id
- a92af1059eb24-1850d087d4fmr11645084c88.3.1792423218217; Mon, 19 Oct 2026
- 08:20:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=IQzrSwTc
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19FA6513C1;
+	Mon, 19 Oct 2026 14:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421960; cv=none; b=g6kGJb7OxSYfKYO4JN0qrIr0yB1rsv2GrUh480rRWLpvMQf/yqvvMS1fu0buNigT4pc5k8LVdS0DrnEdevLLClO9Zsejp8GbjVKdwJ8IrPdyT1H8rnqo0cuuqVFBSXTmO6+hv19KXMwwlZgRkSmYrBlJxBkGE/KhIAJnP3Ix1s4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421960; c=relaxed/simple;
+	bh=Mjj1V8YaPv0BA+ANQpQhqJlAhXDMyEE/QQwGJZP0Hg8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=m3QS5VIIAi/+9QFpgrp0m9s+h6OIBLq9XAXP84c45ZUhzTciSSRUNqlDNthEDzGNWhAm+Zpr/c7wpxb5AglqtSNEfCkQg+S7H5c34pdrmKb9GcbQoH8CVozH8sufuI552EtzNzoqK/Y1RACpsURPTgbp/vnjAKba5oLnWStEANQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQzrSwTc; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 646B0C2BCF4;
+	Mon, 19 Oct 2026 14:59:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792421960;
+	bh=Mjj1V8YaPv0BA+ANQpQhqJlAhXDMyEE/QQwGJZP0Hg8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=IQzrSwTcZJCnKoQLCJr/7j5ncE1FDx0arynzyy8wRTbLZOEudIlPyLGcQq2TakLrn
+	 fUpTBqzQVz3+2LrmRoA5XlY+KH5PwFhv8yT15mYh87kJCTUimUqDVyCzKlNwscdmva
+	 TTHfNcmoEkqh+ETxpkp+ggGUvQaFqH96YX5a/LV/s8woLWVT4nUcKNeUmHh037YItI
+	 pE6GQ+3K379/qMwYBEqWpU2agVQAS9pbX1Jpbc+tlsnykiMuyAL+BJT4vQrAPf0L4J
+	 ocgLiBLfPlLRYm129xFlUQTnuhy6HKQW5MWBkYZAv5EMbeVCzwX8NzBOcP0b1qKi9z
+	 QP44By9exoxXA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F80DCCF2DE;
+	Mon, 19 Oct 2026 14:59:20 +0000 (UTC)
+From: Zhaoyang Li via B4 Relay <devnull+heliolee0118.gmail.com@kernel.org>
+Date: Mon, 19 Oct 2026 22:59:19 +0800
+Subject: [PATCH wireless] wifi: wcn36xx: validate band and frequency in
+ survey updates
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,128 +67,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019-sv105c-retry-set-interface-v1-1-ab2f08bc3fcb@gmail.com>
- <20261019111712.GP595565@killaraus.ideasonboard.com> <449eb143-37a8-4044-a071-63fe495c0213@kernel.org>
- <20261019112726.GR595565@killaraus.ideasonboard.com> <CAAquLuDc==WsbOYTfuKV2tspTSQAvB7kg2r2aqbE2rs3tYx2LA@mail.gmail.com>
- <d2d5e53a-ba8b-4b66-8e15-0c45e08e0f3f@kernel.org> <20261019123803.GA855235@killaraus.ideasonboard.com>
-In-Reply-To: <20261019123803.GA855235@killaraus.ideasonboard.com>
-From: Ostashow Constantine <ostashow@gmail.com>
-Date: Mon, 19 Oct 2026 15:20:04 +0300
-X-Gm-Features: AclHuK9PK_erQka1AjpHe9yUHPuX_p02w73ldR6AFrXTpE4OCE3wcIh6ni5FniM
-Message-ID: <CAAquLuBW3MaBZgxQt_Kr7L2jGQf6mXarRtKi729-44DqwC=CnA@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE for
- SVBONY SV105C
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-codex-wcn36xx-survey-upstream-v1-1-7c7babc007c1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEYw1moC/yWMSw6CQBAFr0J6bccZUKJehbgYhgbayEC6+Ywh3
+ F3QZb1XqRWUhEnhkawgNLNyH3awpwR860JDyNXOkJo0t8be0PcVRVx8yPIYUSeZ6YPToKOQ69B
+ l19xcTFr7u4W9MQjVHH/9AhYWepMqPP+PTuWL/HjkD7d0SliKC749pl644XDuHAfYti/SYmkdq
+ QAAAA==
+X-Change-ID: 20261018-codex-wcn36xx-survey-upstream-a3560402fc91
+To: linux-wireless@vger.kernel.org
+Cc: loic.poulain@oss.qualcomm.com, kvalo@kernel.org, 
+ bryan.odonoghue@linaro.org, wcn36xx@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, heliolee0118@gmail.com
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792421960; l=3270;
+ i=heliolee0118@gmail.com; s=20261019; h=from:subject:message-id;
+ bh=fjp9lLKvfDuTUpNB3hs+MBg5G86RlOJ8i6sh6ABw66g=;
+ b=GxdIcTIQ+TqsO27OKrNCGs1UZcm9sYZkUXE73dACi14oz+4yxNUNXLQ92nQsJFcKUDgI3Rag6
+ TUbr0tjbwmMAO4WGvPYbRsF/ubuf2cGgbTUbq1i0mVjOWNg4WBM/tSM
+X-Developer-Key: i=heliolee0118@gmail.com; a=ed25519;
+ pk=syMlenivwkqT00HeAmT4htw8EZeZVwsvh6UhTZcqANE=
+X-Endpoint-Received: by B4 Relay for heliolee0118@gmail.com/20261019 with
+ auth_id=1241
+X-Original-From: Zhaoyang Li <heliolee0118@gmail.com>
+Reply-To: heliolee0118@gmail.com
 
-To: Hans de Goede <hansg@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro
-Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
-linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE
-for SVBONY SV105C
-In-Reply-To: <20261019123803.GA855235@killaraus.ideasonboard.com>
+From: Zhaoyang Li <heliolee0118@gmail.com>
 
-Hi Hans, Laurent,
+WCN3620 only registers the 2.4 GHz band. When scan RX metadata selects
+the 5 GHz band, wcn36xx_update_survey() dereferences a NULL supported
+band pointer while accessing its channels. This can crash the device
+during scanning.
 
-On Mon, Oct 19, 2026 at 02:33:11PM +0200, Hans de Goede wrote:
-> When you say "then queurs the control transfer", you mean the control
-> transfer for the SET_INTERFACE, right ?
+Skip survey updates when the selected band is not registered. Also
+return when the frequency does not match any channel in the band,
+otherwise the update overwrites the first survey entry for that band.
 
-Yes. On Windows the order is: COMMIT completes, Configure Endpoint
-command (about 3 ms), then the SET_INTERFACE control transfer.
+A retained MSM8916/WCN3620 diagnostic log reports a NULL read at
+wcn36xx_rx_skb+0x178/0x720, consistent with accessing sband->channels.
+The log lacks a runtime module hash and the raw RX descriptor, so the
+exact crash path cannot be independently verified.
 
-> I wonder if the problem is that Linux is missing this Configure Endpoint
-> command ?
+Fixes: 29696e0aa413 ("wcn36xx: Track SNR and RSSI for each RX frame")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Zhaoyang Li <heliolee0118@gmail.com>
+---
+Testing:
+- Built the baseline, this fix, and the two-patch RFC series on
+  wireless/main af32da41b032 with ARM64 GCC 14.2.0 and W=1.
+  The baseline full build had 1067 whole-tree warnings; incremental
+  builds reported none (these counts are not directly comparable).
+- Rebuilt complete WCN36xx driver objects from clean for all three
+  configurations: no warnings or errors; linking and modpost passed.
+- Extracted-source ASan/UBSan tests reproduced the unfixed NULL access
+  and unmatched-frequency overwrite. The fix passed 90 survey cases,
+  256 synthetic scans, and two ordinary RX selections. Kernel APIs
+  were stubbed; full RX and skb lifetimes were not exercised.
+- Downstream 7.2.9-ufi-stable: 99/100 scans succeeded, one timed out,
+  no survey NULL Oops was observed, and 16 pre-existing mac80211
+  invalid-band WARNs remained.
+- No native upstream kernel boot or dual-band hardware test was done.
 
-It isn't. I traced the xhci-hcd events on the Pi for 20 stream starts
-(MJPEG 1920x1080, auto exposure). Linux does the same thing in the same
-order, because usb_set_interface() calls usb_hcd_alloc_bandwidth()
-before it sends the request:
+Historical crash evidence:
+An MSM8916/WCN3620 6.12.111-ufi-diag log reports a NULL read at
+wcn36xx_rx_skb+0x178/0x720 with x0=0. In the retained diagnostic
+module this is ldr x2, [x0], accessing sband->channels. Symbol spans
+and caller return offsets match. The log lacks a runtime module hash
+and the raw RX descriptor, so those cannot be independently verified.
+---
+ drivers/net/wireless/ath/wcn36xx/txrx.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-  COMMIT status stage           Success
-  +0.07-0.46 ms  Configure Endpoint (Add: slot 1in, Isoc IN, maxp 1024,
-                 burst 2, ESIT 3072)   0.23-0.26 ms, Success
-  +0.06-0.11 ms  SET_INTERFACE alt 6 queued, doorbell
-  +0.9 ms        Transfer Event 'USB Transaction Error' on the Status
-                 Stage TRB
-                 Reset Endpoint, Set TR Dequeue, Configure Endpoint
-                 (Drop 1in), Configure Endpoint (Add 1in)
-  retry          SET_INTERFACE alt 6, Success after 259-295 ms
+diff --git a/drivers/net/wireless/ath/wcn36xx/txrx.c b/drivers/net/wireless/ath/wcn36xx/txrx.c
+index 8826998797d6..fc371963510f 100644
+--- a/drivers/net/wireless/ath/wcn36xx/txrx.c
++++ b/drivers/net/wireless/ath/wcn36xx/txrx.c
+@@ -286,6 +286,9 @@ static void wcn36xx_update_survey(struct wcn36xx *wcn, int rssi, int snr,
+ 		idx = wcn->hw->wiphy->bands[NL80211_BAND_2GHZ]->n_channels;
+ 
+ 	sband = wcn->hw->wiphy->bands[band];
++	if (!sband)
++		return;
++
+ 	channel = sband->channels;
+ 
+ 	for (i = 0; i < sband->n_channels; i++, channel++) {
+@@ -295,6 +298,9 @@ static void wcn36xx_update_survey(struct wcn36xx *wcn, int rssi, int snr,
+ 		}
+ 	}
+ 
++	if (i == sband->n_channels)
++		return;
++
+ 	spin_lock(&wcn->survey_lock);
+ 	wcn->chan_survey[idx].rssi = rssi;
+ 	wcn->chan_survey[idx].snr = snr;
 
-The first SET_INTERFACE failed in 17 of the 20 starts, more often than
-the roughly 15% I see without tracing, and the retry succeeded every
-time. When the first attempt succeeds, it takes
-260-262 ms. The error event always points at the Status Stage TRB, so
-the Setup stage was accepted and the transaction error happens in the
-status stage. That fits the guess in my previous mail.
+---
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+change-id: 20261018-codex-wcn36xx-survey-upstream-a3560402fc91
 
-Configure Endpoint itself is faster on the VL805: about 0.25 ms, against
-2.7-3 ms on the AMD controller (see below, the same under Linux and
-Windows). I don't think the timing explains the failure, though. The
-fsleep() test in my previous mail put 1 to 300 ms between COMMIT and
-SET_INTERFACE and did not help. On the AMD controller under Linux, the
-gap between Configure Endpoint completion and the SETUP is even
-shorter than on the Pi (0.02 ms), and nothing fails there.
+Best regards,
+--  
+Zhaoyang Li <heliolee0118@gmail.com>
 
-On Mon, Oct 19, 2026 at 03:38:03PM +0300, Laurent Pinchart wrote:
-> > Have you tried reproducing this on a different XHCI controller then
-> > the one found in the Raspberry Pi 4 ?
->
-> In particular the same one as the system running windows.
 
-Yes, now. I booted Ubuntu 26.04 (kernel 7.0.0-30-generic, stock
-uvcvideo, no patch) from a live USB stick on the Windows PC. The camera
-was on the same AMD chipset xHCI (1022:43ee), behind the onboard GL850G
-USB 2.0 hub (see below). The test was MJPEG 1920x1080 with auto exposure
-and v4l2-ctl --stream-mmap:
-
-- 50 stream starts without tracing: 0 failures.
-- 30 stream starts with xhci-hcd trace events: 0 failures. Every
-  SET_INTERFACE alt 6 completed with Success on the first attempt, in
-  261-262 ms. There was no Transaction Error and no Reset Endpoint on
-  the camera's EP0 during stream start.
-- The order is the same as on the Pi: COMMIT, Configure Endpoint,
-  SET_INTERFACE. Configure Endpoint takes 2.73-2.94 ms here, much like
-  the ~3 ms under Windows. The SETUP is queued 0.02 ms after it
-  completes.
-
-(The only EP0 errors in the trace were two STALLs of
-CLEAR_FEATURE(DEVICE_REMOTE_WAKEUP) when the camera resumed from
-autosuspend. They are not related to stream start.)
-
-So the same Linux code works on the AMD controller, with or without a
-USB 2.0 hub in between. The failure looks specific to the Raspberry Pi
-4's VL805 xHCI (or its internal hub): the status stage of this
-particular request ends in a transaction error there, while the AMD
-controller simply waits about 260 ms for the device to complete it.
-
-> > Likewise have you tried reproducing this under Windows with an USB2.0
-> > hub in between ?
-
-Yes, now. Same PC, same AMD xHCI (chipset controller 1022:43ee). The
-camera sat behind the board's onboard Genesys GL850G USB 2.0 hub
-(05e3:0608), the same kind of topology as on the Pi, where the camera
-is behind the VL805's internal hub. 120 starts with ffmpeg/DirectShow,
-MJPEG 1920x1080, with an ETW trace of USBXHCI/UCX:
-
-- 0 failures out of 120.
-- Exactly 10 control transfers on the camera's EP0 per start, as on
-  the root port. No retries.
-- No Reset Endpoint command at all. Every xHCI command completed with
-  Success: 240 Configure Endpoint (alt 6 and alt 0 per start); the
-  only other commands were Stop Endpoint and Set TR Dequeue.
-- SET_INTERFACE alt 6 takes 262-263 ms, measured to the first isoch
-  transfer, the same as on the root port.
-
-So on Windows a USB 2.0 hub in between doesn't make the camera fail.
-
-Given that, how would you like v2? I can keep the retry as a UVC quirk
-for this camera, or try to describe the VL805 behaviour to the xHCI
-maintainers if you think it belongs there. The Pi 4 is a common host
-for these astronomy cameras, so the quirk would help users either way.
-
-Regards,
-Constantine
