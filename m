@@ -1,84 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422879;
-	b=nmA4tCEqKGsottnGWh6DWPu/Drw/ld1TNBkdkS8iOgSAKLxZlitouRtnGKaLZgK8yqra
-	 Eg2fmqMV/yQRTivDw90QjjM1Q+l0s9amGkgK+tCPvFLdjkXQTm5NPccfe+JmirUbEByvO
-	 lV1WXbQ2ol0dpvqvZODqAauawIcfo5quwDryUFHXTBrusu7/nGa6+UTdzboufU2utOYel
-	 n7m73DG/R713mFm2xMose7KYB5g6Te0ES2gFyrWUr5TkflSETrt/hhSM5ROI6vf+dE5K2
-	 7h8vtW79kxWJUXMl+KsHZBWZewUDi4aayPNvYb0EWqjRjUn8FFXiQTIFPT6uSVBDG7A==
+	t=1792423041;
+	b=cnqZmizg0gyaiMnc3zzA8Z9V8ZsCFdBGy+ahXAi/LeA7+ml/L2SBdquUqp4HZAYJLlfs
+	 eslcd0l2XxdJMIPcsqtal05G4aXtBS1/+ISv474LajnSnNfNeTGIGSrj8HJg+SKqXKfO2
+	 3WcdO85XfN1Afj+YIDhpVHrx0hWQ1r8vRSbThxZt4vqXPvai2pnezKiIF2BI6C2GqNmvO
+	 ZKbaw89cYdrqG+7d90WV5fcVoSdEmyVtKov+r8k5jep9up5urqvs0m3TWwmHeh4o5R7C0
+	 cQpoiSBGBP04MqhBeul2Z6DrbhjBH3zdWNh350Kig6AK7vNnTPa9YOc60PdDWeEs4ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422879;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=z2W4QtM//rkXfqjHQ7/TEqFOqtfnpjSrxUFW4r4yHmY=;
-	b=HWTDg/SjW/YVOuSSQhm4hgDO1Z339sow/SmhSp0Z6rtxQXfBw+AdexrpZEwlN/qvj2ba
-	 lXv6CHxarVQvHAbYffgA/m+jq2Cd1qDtcjKAblSoBde/iq28jlwxaoeKyOO2ipnbzjJgT
-	 XwxnLhkefNuzrTduf008+pHjqhRp8WJwa2MXCgC0lcSsI/1QWyyysHooZQXc/huYun6RT
-	 CEpZDWiS8lEso6aGbsdpaY4gc+1DkZDAkAmcpYgJId0V75y0t/Pt+5a4Ovqbl0JYpLtvg
-	 TUP5VJ81gTcbn5D9M6KRkSeuSte/m0Ok8fWzPorKEcq9eCVvAAoJ94Cp4SJFnRrrbsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792423041;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xy4l8wG3rG513QI4qabh/2kPl1xY6iKJl/GLujmE8Wk=;
+	b=k8GTtLEsFalHLKpZJSdexWfVntLxvXLXZrvlgd7ba0ZfnxL2GQ4tYGvguyt9xOtbnbhB
+	 2nymzCvY7HP8c0H4aWCO5z2+7Z6tBfn8Wp1dl+e5yuwzZrSc5axUS3NJH/r5u/Q3e3/a4
+	 UqWXe6z/8jNFYkKwqNMHX7/EdTW39ZRAfNM94DD5mbuA4AY5HWAno5+iu+NWg+1GzDB8W
+	 vjB9XoMMv2DaEOTtZ2G7+tAJ9AT9MKwWgOjyY08M0aUS6U6qrDSidDEFbO6L1pWj4DaKE
+	 AqVt3AwRK7W4Xk9KUnn+9wOPRdPh83XI7Uic7mprhSzW5u0wv4fSHaCk5N3I+EinS7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YeAeR60b;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czZpKznS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04407609CECF;
-	Mon, 19 Oct 2026 15:14:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04407609CECF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 307A360A2600;
+	Mon, 19 Oct 2026 15:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YeAeR60b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422879; x=1823958879;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=4TTqTt9wzLanOmqx5tRJYgHRoGJHQa7XuL3mClvOZ3Q=;
-  b=YeAeR60b1PLTk6v3Er/fE2/Yxw06x1WKSBhBPop7cnQyMxXSMuuQMcY0
-   XqyzbMejcDzrEZTdVxepmlmhWjd/U6lBojPaG7EtObfsXOigpW0pm1+/v
-   Z1nqYQHEYPn2RaphLa0NOlGbRLgmwlsebHWRXOTdRiFVp4/DQSF6POMoN
-   FUU8JaXagVfDGGN75HzQEikYUELzaSF2Nm7YJQjO4rpS3KaYo05WMR2xU
-   pbtxKBpWFlg5Wq0gjtuTrTtK40HMOezrNkvKFQXslsTO1Htd1Hg3njIb5
-   0MvJff4K9sDZcxADaTLHEDIsfAg1hldZA9kVg8QhZscKD1XAY3cQ8vu+x
-   w==;
-X-CSE-ConnectionGUID: FWbVHQqkQZ+924jaflNnvQ==
-X-CSE-MsgGUID: ZbO0D9CeTNeMo/jMaOKOug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="992135"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="992135"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:36 -0700
-X-CSE-ConnectionGUID: Es0OG1AjQvONz3CixRLctA==
-X-CSE-MsgGUID: jLfSd1UcT+SHn92uwWKARg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2636147"
-Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by fmviesa005.fm.intel.com with ESMTP; 19 Oct 2026 08:14:36 -0700
-From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>
-Cc: Fenghua Yu <fenghua.yu@intel.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Ludovic Desroches <ludovic.desroches@microchip.com>,
-	dmaengine@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] dmaengine: drop DMA_COMPLETION_NO_ORDER and DMA_OUT_OF_ORDER
-Date: Mon, 19 Oct 2026 08:06:32 -0700
-Message-ID: <20261019150632.4026424-4-daniel1.byrne@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019150632.4026424-1-daniel1.byrne@intel.com>
-References: <20261019150632.4026424-1-daniel1.byrne@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czZpKznS
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 42F3C1F000C4;
+	Mon, 19 Oct 2026 15:17:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792423040;
+	bh=xy4l8wG3rG513QI4qabh/2kPl1xY6iKJl/GLujmE8Wk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=czZpKznSwxC4JDW4LuOEXxP3atqG0WXomfog1EIFOe6ohBndM72v8oBEI3kCwCKWQ
+	 ohbwyNEq67JmhvMH0EfV/lR71Ejb3dG/O+1bA9WGy5v8G89BWDaSnSRFJUb+OYHtVY
+	 abTxH+lRFVa215Zczz4sVzZPTGx8oyJrbi9x/ZxjOHLcHNzIDz7rZ+qqpy70OlJeFV
+	 UkEiS7o4GtsmkR6JTacv8jB1Yq/q3ZyAhOglB6Mye8d0fjqWP4oBu+7JprqmOX6hP5
+	 DESY0hGR6L6fdwXjStQjG5hUYPT4TNJBQgg5K3o1DD7xPFvXY6udMnMsrX68VKrhiq
+	 aeHCLHrm8U/CA==
+Date: Mon, 19 Oct 2026 18:17:17 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
+	serge@hallyn.com, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH v2] keys: Protect the read method check against type
+ removal
+Message-ID: <atY0fRZ_s5UQk8Fk@kernel.org>
+References: <pm-key-management-objects-candidate-0010-v7-fc85721ff5cfb9e33ac6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,151 +59,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <pm-key-management-objects-candidate-0010-v7-fc85721ff5cfb9e33ac6@gmail.com>
 
-DMA_COMPLETION_NO_ORDER (commit 47ec7f09bc10 ("dmaengine: cookie bypass
-for out of order completion")) flagged devices whose completions can
-overtake submission order. On DSA this happens when a work queue (one
-dmaengine channel) belongs to a group that contains several engines.
-Per-channel cookie tracking gives wrong answers in this case, since
-dma_cookie_complete() moves the completed-cookie watermark past
-still-in-flight earlier descriptors, so cookie-order status can report
-DMA_COMPLETE for a running transfer. Clients were told to use
-callbacks only, dmatest refused polled mode, and DMA_OUT_OF_ORDER
-existed as the tx_status answer for such devices.
+On Mon, Oct 19, 2026 at 10:57:21PM +0800, Cen Zhang wrote:
+> keyctl_read_key() checks key->type->read without holding key->sem.
+> A reference keeps the key alive, but does not pin the module containing
+> its type. A surviving RxRPC key can therefore be read while AF_RXRPC
+> is being unloaded:
+> 
+>   KEYCTL_READ task                    Module unload and key GC
+>   ----------------                   ------------------------
+>   lookup_user_key()
+>   permission / possession checks
+>   load key->type
+>                                      af_rxrpc_exit()
+>                                        unregister_key_type()
+>                                          GC: down_write(key->sem)
+>                                          GC: retype to key_type_dead
+>                                          GC: up_write(key->sem)
+>                                        unregister_key_type() returns
+>                                      free_module()
+>   read saved type's read member
+> 
+> The final access can read freed module storage. The read invocation in
+> __keyctl_read_key() is already protected by key->sem, but the earlier
+> method check is outside that critical section.
+> 
+> Move the method check into __keyctl_read_key(), after key_validate() and
+> under its existing read hold on key->sem. The check and invocation then
+> use the same protected type for length queries and every read retry.
+> The GC cannot retype the key until the semaphore is released, and type
+> unregistration waits for that GC pass before the module can be freed.
+> 
+> Return -EOPNOTSUPP when validation succeeds and the type has no read
+> method. A temporary buffer may now be allocated before this result;
+> allocation and copying to userspace remain outside the semaphore.
+> 
+> Suggested-by: Jarkko Sakkinen <jarkko@kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-idxd, the only in-tree setter, now answers
-dmaengine_async_is_tx_complete() from per-descriptor generation
-numbers, exactly within the limits that helper's kernel-doc states: for
-a transaction submitted without DMA_PREP_INTERRUPT, on the first query
-that reports it finished. Polling an out-of-order device is therefore
-safe and neither the capability nor the status code has any remaining
-meaning. Drop them.
+I literally described the fix to the reported bug instead of reviewing a
+bug fix. That means by practical means that you only reported a bug.
+This cannot happen again and if it does, next time I'll just do the
+right fix myself and commit to the Git because that matches the reality
+the best.
 
-Whether reordering occurs at all is group configuration rather than a
-device property. A group with a single engine completes its work
-queues' descriptors in order. However, the driver cannot assume how
-the administrator grouped engines, and the all-engines-in-one-group
-layout is the device's throughput configuration.
 
-Assisted-by: Claude:claude-opus-5-5
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
----
- .../driver-api/dmaengine/provider.rst         | 19 -------------------
- drivers/dma/dmatest.c                         | 11 +----------
- drivers/dma/idxd/dma.c                        |  1 -
- include/linux/dmaengine.h                     |  5 +----
- 4 files changed, 2 insertions(+), 34 deletions(-)
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-diff --git a/Documentation/driver-api/dmaengine/provider.rst b/Documentation/driver-api/dmaengine/provider.rst
-index ef342886af96..435ccd3bedac 100644
---- a/Documentation/driver-api/dmaengine/provider.rst
-+++ b/Documentation/driver-api/dmaengine/provider.rst
-@@ -260,22 +260,6 @@ Currently, the types available are:
-     want to transfer a portion of uncompressed data directly to the
-     display to print it
- 
--- DMA_COMPLETION_NO_ORDER
--
--  - The device does not support in order completion.
--
--  - The driver should return DMA_OUT_OF_ORDER for device_tx_status if
--    the device is setting this capability.
--
--  - All cookie tracking and checking API should be treated as invalid if
--    the device exports this capability.
--
--  - At this point, this is incompatible with polling option for dmatest.
--
--  - If this cap is set, the user is recommended to provide an unique
--    identifier for each descriptor sent to the DMA device in order to
--    properly track the completion.
--
- - DMA_REPEAT
- 
-   - The device supports repeated transfers. A repeated transfer, indicated by
-@@ -468,9 +452,6 @@ supported.
-   - In the case of a cyclic transfer, it should only take into
-     account the total size of the cyclic buffer.
- 
--  - Should return DMA_OUT_OF_ORDER if the device does not support in order
--    completion and is completing the operation out of order.
--
-   - This function can be called in an interrupt context.
- 
- - device_config
-diff --git a/drivers/dma/dmatest.c b/drivers/dma/dmatest.c
-index 3d0d54a97add..fbfa2f1d6f29 100644
---- a/drivers/dma/dmatest.c
-+++ b/drivers/dma/dmatest.c
-@@ -854,10 +854,7 @@ static int dmatest_func(void *data)
- 			result("test timed out", total_tests, src->off, dst->off,
- 			       len, 0);
- 			goto error_unmap_continue;
--		} else if (status != DMA_COMPLETE &&
--			   !(dma_has_cap(DMA_COMPLETION_NO_ORDER,
--					 dev->cap_mask) &&
--			     status == DMA_OUT_OF_ORDER)) {
-+		} else if (status != DMA_COMPLETE) {
- 			result(status == DMA_ERROR ?
- 			       "completion error status" :
- 			       "completion busy status", total_tests, src->off,
-@@ -1035,12 +1032,6 @@ static int dmatest_add_channel(struct dmatest_info *info,
- 	dtc->chan = chan;
- 	INIT_LIST_HEAD(&dtc->threads);
- 
--	if (dma_has_cap(DMA_COMPLETION_NO_ORDER, dma_dev->cap_mask) &&
--	    info->params.polled) {
--		info->params.polled = false;
--		pr_warn("DMA_COMPLETION_NO_ORDER, polled disabled\n");
--	}
--
- 	if (dma_has_cap(DMA_MEMCPY, dma_dev->cap_mask)) {
- 		if (dmatest == 0) {
- 			cnt = dmatest_add_threads(info, dtc, DMA_MEMCPY);
-diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
-index dd5a9d9274ce..19340c7ae2d3 100644
---- a/drivers/dma/idxd/dma.c
-+++ b/drivers/dma/idxd/dma.c
-@@ -417,7 +417,6 @@ int idxd_register_dma_device(struct idxd_device *idxd)
- 
- 	dma_cap_set(DMA_INTERRUPT, dma->cap_mask);
- 	dma_cap_set(DMA_PRIVATE, dma->cap_mask);
--	dma_cap_set(DMA_COMPLETION_NO_ORDER, dma->cap_mask);
- 	dma->device_release = idxd_dma_release;
- 
- 	dma->device_prep_dma_interrupt = idxd_dma_prep_interrupt;
-diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
-index 83bef7a70b99..9f73470759bb 100644
---- a/include/linux/dmaengine.h
-+++ b/include/linux/dmaengine.h
-@@ -39,7 +39,6 @@ enum dma_status {
- 	DMA_IN_PROGRESS,
- 	DMA_PAUSED,
- 	DMA_ERROR,
--	DMA_OUT_OF_ORDER,
- };
- 
- /**
-@@ -62,7 +61,6 @@ enum dma_transaction_type {
- 	DMA_SLAVE,
- 	DMA_CYCLIC,
- 	DMA_INTERLEAVE,
--	DMA_COMPLETION_NO_ORDER,
- 	DMA_REPEAT,
- 	DMA_LOAD_EOT,
- /* last transaction type for creation of the capabilities mask */
-@@ -1632,8 +1630,7 @@ static inline enum dma_status dma_async_is_tx_complete(struct dma_chan *chan,
-  * has finished. Once the first terminal answer has retired the
-  * descriptor, a later query for the same cookie reads DMA_COMPLETE.
-  *
-- * Return: DMA_COMPLETE, DMA_IN_PROGRESS, DMA_PAUSED, DMA_ERROR or
-- * DMA_OUT_OF_ORDER.
-+ * Return: DMA_COMPLETE, DMA_IN_PROGRESS, DMA_PAUSED or DMA_ERROR.
-  */
- static inline enum dma_status dmaengine_async_is_tx_complete(struct dma_chan *chan,
- 	dma_cookie_t cookie)
--- 
-2.43.0
+> 
+> ---
+> Changes in v2:
+> - Move the method check into __keyctl_read_key() under its existing read
+>   hold on key->sem and remove the outer check.
+> - Perform key validation before checking and invoking the read method.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-key-management-objects-candidate-0010-v5-c6b7ca2813c6913e500a@gmail.com
+> 
+>  security/keys/keyctl.c | 13 ++++++-------
+>  1 file changed, 6 insertions(+), 7 deletions(-)
+> 
+> diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+> index 5a5efa26ed0e..36ffba0ebba6 100644
+> --- a/security/keys/keyctl.c
+> +++ b/security/keys/keyctl.c
+> @@ -808,8 +808,12 @@ static long __keyctl_read_key(struct key *key, char *buffer, size_t buflen)
+>  
+>  	down_read(&key->sem);
+>  	ret = key_validate(key);
+> -	if (ret == 0)
+> -		ret = key->type->read(key, buffer, buflen);
+> +	if (ret == 0) {
+> +		if (key->type->read)
+> +			ret = key->type->read(key, buffer, buflen);
+> +		else
+> +			ret = -EOPNOTSUPP;
+> +	}
+>  	up_read(&key->sem);
+>  	return ret;
+>  }
+> @@ -863,11 +867,6 @@ long keyctl_read_key(key_serial_t keyid, char __user *buffer, size_t buflen)
+>  
+>  	/* the key is probably readable - now try to read it */
+>  can_read_key:
+> -	if (!key->type->read) {
+> -		ret = -EOPNOTSUPP;
+> -		goto key_put_out;
+> -	}
+> -
+>  	if (!buffer || !buflen) {
+>  		/* Get the key length from the read method */
+>  		ret = __keyctl_read_key(key, NULL, 0);
+> 
+> base-commit: 89f5f41d296889f3b896c3ca67fcdf7d42bbdf10
+> -- 
+> 2.43.0
 
+Br, Jarkko
