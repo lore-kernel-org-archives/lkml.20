@@ -1,64 +1,64 @@
 Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA19515E5BB
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:02:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51B94A5C32
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:02:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400544; cv=none; b=Iw3paMyOZfwRcpHuX8GU4cM9c+dsbpR4Ww3GOW/5ACMdZFAnsFn4myAN65J8U/FxT31o6ECB96Y4Kq7tlOh8dfElXwclVNjps+JIJR1A15vygnJLqmX13WiDS+kHehuG9Xy8F4mvYAGe9Qzc61n/cVInvdfVuCcDahdwG/7mlnI=
+	t=1792400548; cv=none; b=Uv1BPfhsqunOR7eGQSr2VjkCqiqSTSvOFtMTTozCts4IaaS0Kff+d+kuO7/VWEPNkHfA2HnsSh+z64mVlTlBVmngWwvC7ZMoucM920c5hDBNvaGYgjhBbrssqa6LVUnsw2ZCM3L9yVgcITVSEij81s66kj/ZOnoXi4hDKZB6NmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400544; c=relaxed/simple;
-	bh=xFgk0mJKcQyQYp2XJYOl2hd1I9aMMN7ZqbRdpp25/zc=;
+	s=arc-20240116; t=1792400548; c=relaxed/simple;
+	bh=hNwXCb0QCjeV6UqX+rBd6PPJAB3Kr8dXWIoXog/ZgyE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VP2RitCDNFx5l1CnyTlqq0Q8a31+1PiCqqd2CiZo+eVjS67gJ5HPQxWZUEmI7NehbW/QAXXV9uWTfd1az3ZIQq/2umAyd/7USjtSIcKKTnXbrDDjJwwUC6vh7BWua0NKOonhQ3WzhxmaM+yEXRi2pH0oxDgfpaOni+9N7RvlNyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bhjOpC3D; arc=none smtp.client-ip=74.125.229.137
+	 MIME-Version; b=PMdv2hP6zTTdi2Rzuri09Mc94BvnoSVv/6o7IeD6l9rBnbqFRHM6cXBzdU5h1g1AKgkPTSORNEzzIKRqtlXaH0bkB8Fsi6cUDfBzkawbhetGNH62bNUNk6XXUgaBWwJeLsgoUpvfNowUgmcQa+y2qbGr84zO9cW8/i81DVzDG4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CkHDTD7a; arc=none smtp.client-ip=74.125.229.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bhjOpC3D"
-Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-143255db95bso293141c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:02:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CkHDTD7a"
+Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-164f08a9e84so280667c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:02:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792400542; x=1793005342; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792400546; x=1793005346; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IHd99zSc7XuTxtPtex7CCdBAnhkgrWqdaJDnZa0vj8o=;
-        b=bhjOpC3DZcZWt1M2rCWyUyJSSJ2FB3JvhYW7k6uUWca2z4wJHyG4MnTPUMUxwgepRz
-         l7VZVgvdiIeTJhBq2kzpsEfm1/wOc0xGfvn9DqS36NkZJkL712CqI0S60E6cnMOl8fbc
-         lzeyL9Ir2uTBMRrlL3J1fEEQl9z+UXzgW8nzQL3eTK69BXhgv73djqQvJPFQ4tOiCH3f
-         OTFwLEXynvLz5jnEHSp/LJsrgbKwgstms2IegCPuccCh5AZmuZzqAyFanl6siKLl/Gbd
-         4lp+v2WvlW/H8shbypHocM4WNxLXilQ6YFgnMLAGnXX8tVXMBtAlTO88LppJGgPzRZ0b
-         rtTw==
+        bh=w2RQ5WGjn2LIf6pS+EL+gZuJjI5Zbzl0HNqA1FRv6fM=;
+        b=CkHDTD7aV2ERCYXvf70hYwvxAOfEz7sBlqCLeavSztpilwx2fOLwpQt0rRM/7kRDNW
+         z74mCnpTecR5o7auPds7TRz/NUQmnCuGk0kar5sl3aE3U0Gf0oz/5q8yFrJwi1kYoyCl
+         LfFB2EoFXHKK2o9s4B9eKRiAMtU5aP2yIQ7zN19YD1t6BVthb2lpKMfXWz4HpYSnvzWE
+         zJEfAQo+XuHmenAmpFbCVB8oxEq5brcLCdE4o2EHtRijXtCwMxhXmMIRYCJ62jL7YQso
+         07x/ctg1t18eDZwyDFEl3x7W8B0yKmp9FrQLyd6jJHqIigN/GS7cHZ2e/0igLzzMkDD0
+         Libg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792400542; x=1793005342;
+        d=1e100.net; s=20260707; t=1792400546; x=1793005346;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IHd99zSc7XuTxtPtex7CCdBAnhkgrWqdaJDnZa0vj8o=;
-        b=t0ETX4Bb9J9RYKWS3vIWbo5ztiBoQ/K/FF0NJSoagLG8uixpW6Oi1ka8uzqmoEJGhz
-         cZR/tR4wbcgZErsFLKubGGOMpp785JIBelqJyyIJSE/R+0+r6+C1LqIxKrKmIVSDu1lI
-         1GXBlbpj4rzxPVZKiuKBfRtBN7sAIFpaP6itAInErLnzwud1NLCmhDQymKQxqJI2zsgX
-         ABx8as6GRI2ZA7YoqT2v/t2Icl+gbqW8ONI1tnzTRsE3E+x6P+fi1w9OEgaoiGyhFL6n
-         m0UNwRvydJG1UO0Bp+hFLXd1IZuSc5C7DdApg4ZfFITNJufS4sv34SxhKI7djzi5yokn
-         X/QA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlbHGnmWY9na7/j/cdNRMCou7M3JAS8WhT6z3i5sz3YNZA3c4pohEIIzUVkv+r8/Zekk4Lb5+asxbhY+M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIye3O3dLPnte1uwb5J/5A6ONH8leG3IiiMB19OlaQLU0sbNTuZ
-	nCjN6Awz80XWoDqIuAl4+RRRRQxfQ+e9OgPIDYzshCirM+v5nnolLaHq
-X-Gm-Gg: AYBFou3u5EFzf7+LpRA03xW0KlTF3lvMcIBxfEXjkf/zcHrc6PWV+BDHWhHtsg32xil
-	wP9ZIPfG54/duwo2fw0+/fCrKCwnk8SXVBeBGeXsU4cHskHYRruMUq5m3Ls3Q03ztGL/1k8vFDE
-	AUHtYoW9x0gaI9oXC/cwYaFBTH1fJoXfSBPAG4J+E5k5d1AsUcfxLc009JD+wQ4uk+5Ex+1XG5p
-	0RWaAzVAZkPD3M/nIkIhU0eH/hQla1J5ohbHWJAcEXGSn+vWPG5O5oF7e9v01zswvJIqalGX9sL
-	pKt2n4LBUpD+++2gpu+ojK/AHRUErBfxkBT+WmLWtGtAnTmFtRjOC82P3bSz3sBAAK4/VKQwjsG
-	dHS29gLKK0GLCgy0rvkh7sF9wgz298wECp0vsUlrzEdKUiqTAEB8hz0WMbqKJ5OJ+u+h4IZC1od
-	kLLyLhRRn6Q5l2DtnuFppRpJwNzFwUA0x89aFE7mHFn5a6NMjSIEAVhNDkTFhgAxW6ze6syjnVH
-	RtxEr0QkHpdAFJfHpowNJySRTwW0lpzh/A=
-X-Received: by 2002:a05:701b:2601:b0:151:f0c5:7a09 with SMTP id a92af1059eb24-18513b99fd0mr12384383c88.43.1792400541807;
-        Mon, 19 Oct 2026 02:02:21 -0700 (PDT)
+        bh=w2RQ5WGjn2LIf6pS+EL+gZuJjI5Zbzl0HNqA1FRv6fM=;
+        b=t63tSdbk+//gmdzoFwN+EjeyKwox/vfBG6wAXt9zSxU/LlFpcG8gr/UMyZQUwpKVLP
+         pKnbJp8XiV1LkTxP46IJCTh9Qyf9mwqOm4+VPDUu3/hHCOtX3BOrQscEUtdo+Z5kPph9
+         MEJo/9Sp/QheqATGBwhnL3DKydn9CbFY8WRoQzuR4gR6kdS1ZyBPdYaBS0u9gd1xayQ3
+         ElhvGz6gBvAkHcwVc/0WkKSnCoLDUfDrWDlcuea9bGoWDM5XwjBgmh0MFOsyomVKyasV
+         VCpxKizTPycSl93/UjZaBSS3BDy46M5kdU7kL//p6Rvf88GhY759eDiaJq93HuElpY+E
+         HDMg==
+X-Forwarded-Encrypted: i=1; AKwUvBzsNpCe5iCdkuOEBXt8RY8p9eG39vSDI/ZbeNLLVPi+0NaoL9VfdfJdixKSdvqteaZ1p5x/5Hlc+amM/lw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL47xkhvuyGJGlR73aPqyA32X10kc6UYPJwgGzLPQBtZLlUPJAS
+	6grBhydWhHJL47K/nHkxSW0xA7DjD4cBuZqZPA51CK0VKFN+rqPQ92rE
+X-Gm-Gg: AYBFou38mYbxy1+HZtN48pJqzjGxgbej3fKsOqLdmsjeKBaD/EYzT6eQxVU7N9yyngu
+	LI6mZATNzEdV9WjfU7lTIoYRd0tiH7b6xGIguf5gvEtpiE9qGG9etNZHjtRK+QW2pRFFJ3tCTT2
+	1k8bmKOAHBUbABdGno3FHPJ18gdo0oC0TBKzwJV3SybrRLwqIDG+6mD1mSRq+C+FaxNCpPwFrHt
+	fn1YLX9sXdHif4+WisSMGIyva6oXBY2LrH8qS+IC8uyMm0Q1q3mJNL+bafIgv8xX7pyG4LFSQqT
+	pwTCbNeYMStZg1cexa4wDUWaSqjUynfM40QsDCRKjzdV5MCsRJ6rpLsyeYcccKa9DMi4UeZSMxt
+	/z05rN6hQy+V2Ng64WnIYTABYl91aNOw9tqKtzAeefH1xQ+qlDilnnDJf+64jotJVD1aKqOykvZ
+	f5AMP88+b8lpdq2tlZ9sGAr3x4ESSFek9LE9gZQAUJzejCwHT9E5lluDoHCmW50KU7aZBrYi+MW
+	EFjHH1z5naP9wP095lTYsNUDNPScfkvoUQ=
+X-Received: by 2002:a05:7022:5f04:b0:149:1feb:6dae with SMTP id a92af1059eb24-18513b9ac38mr8670710c88.39.1792400545600;
+        Mon, 19 Oct 2026 02:02:25 -0700 (PDT)
 Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831ba424a6sm27085064c88.17.2026.10.19.02.02.18
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831ba424a6sm27085064c88.17.2026.10.19.02.02.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:02:20 -0700 (PDT)
+        Mon, 19 Oct 2026 02:02:24 -0700 (PDT)
 From: Yao Yiqi <yyaqia@gmail.com>
 To: deller@gmx.de,
 	tzimmermann@suse.de,
@@ -69,9 +69,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	yaoyiqi3@huawei.com,
 	Yao Yiqi <yyaqia@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 1/3] fbcon: Include font geometry in the rotated font cache
-Date: Mon, 19 Oct 2026 17:02:04 +0800
-Message-ID: <20261019090206.1094958-2-yyaqia@gmail.com>
+Subject: [PATCH v4 2/3] fbcon: Rebuild rotated font buffer on font change
+Date: Mon, 19 Oct 2026 17:02:05 +0800
+Message-ID: <20261019090206.1094958-3-yyaqia@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019090206.1094958-1-yyaqia@gmail.com>
 References: <20261019090206.1094958-1-yyaqia@gmail.com>
@@ -85,79 +85,143 @@ Content-Transfer-Encoding: 8bit
 
 From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-fbcon_rotate_font() caches a rotated copy of the console font and
-skips the rebuild when the fontdata pointer and the rotation match.
-Raw font data carries no geometry, though: width, height and
-charcount live in vc->vc_font. fbcon_set_font() deduplicates uploads
-by byte equality, so the same bytes re-uploaded with different
-dimensions keep the fontdata pointer while the geometry changes, and
-the early-out skips the rebuild.
+fbcon_rotate_font() caches a rotated copy of the console font in
+par->rotated.buf. The buffer is sized from the font's width, height
+and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
+fbcon_modechanged(), but not in fbcon_do_set_font().
 
-The rotated cell size depends on the geometry (rotation swaps width
-and height), so the stale buffer is indexed with the new cell size.
-Re-uploading a 4x16 font as 16x8 on a CW-rotated console, for
-example, doubles the rotated cell size and reads past the end of the
-old buffer.
+When the font is changed through KDFONTOP, the new geometry is
+installed and vc_resize() redraws before the buffer is rebuilt. The
+rotated putcs/cursor ops then index the old buffer with the new cell
+size; KASAN reports a slab-out-of-bounds read in soft_cursor().
 
-Record the geometry the buffer was built from and compare it in the
-early-out. The pointer-only key used to be backed by an explicit
-width check in the deduplication, which commit 1e3c49aa03fb
-("lib/fonts: Compare font data for equality with font_data_is_equal()")
-dropped.
+Rebuild the buffer for the visible console before the redraw, as the
+other callers do: select the console's blitting state with
+set_blitting_type() (which also uploads the new font's map on
+tile-blitting hardware), then rebuild. Background consoles keep
+their rebuild at fbcon_switch() time, as the buffer is shared per
+framebuffer and must not be updated for a console that is not being
+displayed.
+
+Keep the old buffer out of the rebuild so that it can be restored if
+vc_resize() fails: clear par->rotated.buf before calling
+rotate_font(), which then allocates a fresh buffer. On failure,
+err_out puts the old buffer back and re-selects the blitting state
+so tile-blitting hardware gets the restored font's map; the font
+change fails as a whole, and the error path never runs rotate_font()
+again. The retry added by the next patch still covers
+fbcon_switch() and fbcon_modechanged(), which cannot roll back.
+
+Unlike the other callers, this one does not fall back to unrotated
+rendering on failure: their "par->rotate = FB_ROTATE_UR;
+set_blitting_type(vc, info);" pattern is ineffective, because
+set_blitting_type() re-derives par->rotate from par->p->con_rotate.
+Repairing that fallback is left to separate work.
 
 Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
 ---
- drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
- drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
- 2 files changed, 14 insertions(+), 4 deletions(-)
+Changes in v4:
 
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 407d207b14f1..bfbd70f8b1cd 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -89,10 +89,13 @@ struct fbcon_par {
- 	char  *cursor_data;
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
- 	struct {
--		font_data_t *fontdata;  /* source font */
--		u8 *buf;                /* rotated glyphs */
-+		font_data_t *fontdata;       /* source font */
-+		u8 *buf;                     /* rotated glyphs */
- 		size_t bufsize;
--		int buf_rotate;         /* rotation of buf */
-+		int buf_rotate;              /* rotation of buf */
-+		unsigned int buf_width;      /* geometry of source font */
-+		unsigned int buf_height;
-+		unsigned int buf_charcount;
- 	} rotated;
- #endif
- 	u8    *cursor_src;
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 6cdbc96eeca6..660a3fa81bae 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -21,11 +21,18 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 	unsigned char *buf;
- 	int ret;
+- Restore the saved rotated buffer on failure instead of re-running
+  rotate_font(), so that a second allocation failure cannot leave the
+  console in a third state.
+- Keep the old buffer out of the rebuild by allocating a fresh one.
+- Abort the font change when the rebuild fails.
+- Guard the rotated state with CONFIG_FRAMEBUFFER_CONSOLE_ROTATION.
+---
+ drivers/video/fbdev/core/fbcon.c | 50 ++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
+
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 01715873ea49..7605e4237ca5 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2414,6 +2414,11 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	font_data_t *old_fontdata = p->fontdata;
+ 	const u8 *old_data = vc->vc_font.data;
+ 	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	u8 *saved_rotated_buf = NULL;
++	size_t saved_rotated_bufsize = 0;
++	bool rotated_saved = false;
++#endif
  
--	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
-+	if (par->p->fontdata == par->rotated.fontdata &&
-+	    par->rotate == par->rotated.buf_rotate &&
-+	    vc->vc_font.width == par->rotated.buf_width &&
-+	    vc->vc_font.height == par->rotated.buf_height &&
-+	    vc->vc_font.charcount == par->rotated.buf_charcount)
- 		return 0;
+ 	font_data_get(data);
  
- 	par->rotated.fontdata = par->p->fontdata;
- 	par->rotated.buf_rotate = par->rotate;
-+	par->rotated.buf_width = vc->vc_font.width;
-+	par->rotated.buf_height = vc->vc_font.height;
-+	par->rotated.buf_charcount = vc->vc_font.charcount;
+@@ -2432,6 +2437,29 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!vc->vc_hi_font_mask && charcount == 512)
+ 		set_vc_hi_font(vc, true);
  
- 	if (info->fbops->fb_sync)
- 		info->fbops->fb_sync(info);
++	/*
++	 * Select the console's blitting state and update par->rotated to
++	 * match the new font, so that the rendering below does not use a
++	 * cache that was built for the old font. Clear the buffer so the
++	 * rebuild allocates a fresh one; the old buffer is kept until the
++	 * font change can no longer fail.
++	 */
++	if (con_is_visible(vc)) {
++		set_blitting_type(vc, info);
++		if (par->bitops->rotate_font) {
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++			saved_rotated_buf = par->rotated.buf;
++			saved_rotated_bufsize = par->rotated.bufsize;
++			par->rotated.buf = NULL;
++			par->rotated.bufsize = 0;
++			rotated_saved = true;
++#endif
++			ret = par->bitops->rotate_font(info, vc);
++			if (ret)
++				goto err_out;
++		}
++	}
++
+ 	if (resize) {
+ 		int cols, rows;
+ 
+@@ -2448,12 +2476,27 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 		update_screen(vc);
+ 	}
+ 
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	if (rotated_saved)
++		kfree(saved_rotated_buf);
++#endif
+ 	if (old_fontdata)
+ 		font_data_put(old_fontdata);
+ 
+ 	return 0;
+ 
+ err_out:
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	/*
++	 * Drop the buffer built for the new font and restore the saved
++	 * one.
++	 */
++	if (rotated_saved) {
++		kfree(par->rotated.buf);
++		par->rotated.buf = saved_rotated_buf;
++		par->rotated.bufsize = saved_rotated_bufsize;
++	}
++#endif
+ 	p->fontdata = old_fontdata;
+ 	vc->vc_font.data = old_data;
+ 	vc->vc_font.width = old_width;
+@@ -2466,6 +2509,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
+ 		set_vc_hi_font(vc, false);
+ 
++	/*
++	 * Re-select the blitting type, which re-uploads the font map on
++	 * tile-blitting hardware.
++	 */
++	if (con_is_visible(vc))
++		set_blitting_type(vc, info);
++
+ 	font_data_put(data);
+ 
+ 	return ret;
 -- 
 2.56.0
 
