@@ -1,51 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427490;
-	b=ZQzdlicqZN5k0zRpHlduplxjGpEbEi5MNJy/uiVO19mAbyEZ3SF9/ReIcNCwbZgifbYv
-	 N8O7OZmJOA4uMoPKVcOlcZYai7SP9Tq44ZGThNVCCJ7tqdzNMgork1C9PzcxunuxOtRCI
-	 BOqa/04edfPwkfTfx/aIzbPh8liTeM8WLsByp8rt9SLoo5oU+CubOcurSbN0sOTpuUHPy
-	 WeQ5xy6bneWKeVMV9KgjTxCVkJXu2Vb4KX/nr3rSWw1Y7Tw9hNoKXr7EZkCYvnCzwRhNE
-	 d30++q4FUPAR+/+RwTdNWXPVkjNvjTUgHzcOxrBkOlI+h3c5xgovBiZiGjQ9VWFgLWg==
+	t=1792427493;
+	b=a/uzToLGgNXXqSJGC0yc4xTTbn8vurSFvZWhYuOveCs97ECH9rlp8gPOZycbww/UzoOo
+	 G7KsLN7YmcFaA2sCBtlu1FWdHtgLBTnBq+m2HptK9UAn2DhO6BvAvgWgsYPPVP0R/UKCG
+	 LesB3wlv0cdmuIKmkhl+ED3Yl16io8+iVNkpfPyv8Ib2qU+XCPzg7q1RD9RfQneQbINYw
+	 41AdXFWdfC8yZoLZnJkl3Tbz+/doTi3grrTMb9B0eCVwtltqhlOdexG1cqbxxE9Z2I183
+	 Rg/fMPr+HTNZF1hv+TJ7mYseCdyYpsP+DqdzDHG5X+m+o9KNDr4RQiwZVFY1lzBHVRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427490;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject;
-	bh=BQkPCxRYiTAiL9B7JuC/MlADAPxMOkFS/2yakF4ZChw=;
-	b=GI2Btkjb8vIqj/t0WajZ8mQuE79BdPy7U1u8ucNAJpbcJQY//KrihnLQi/lp16Z4O+y7
-	 K9VOCuyml4cxn9MpaTLE4KD2wdZP4tqGLZSCrMTpkuOu98yS0iATbwoR9NMY4xwCqqgDs
-	 +hDgLIs7j0YMEh42KP6+VjIw/GF4Lqty7V2hHCdYmVHWvkNihfOWIsDe5srWZVs3xa2VP
-	 Lr7WbSxhJaxHY+g7vPjxE7eh46bPg9GekZwBZO6jqRvbRDAlUptrGQOrmz6m7t52agPE3
-	 a1gfbLRMQYXgXKqfKMWhYOVF0bt/3bk0+VIDIIG7ZJveKUTIYPyq3mM3iS7v9trts5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427493;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Rspamd-Action:X-Spam-Level:X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
+	bh=B7yKnfAHa1v9LGP7+XQTfNitsFqTEJMzZVT63Vgda8I=;
+	b=wV257H3tslWmWYW2vIrusqE686qA12Ortwuw3aHCfmbHlzL9j77aBHVSWIjIzOAn18EJ
+	 C4W2F2U+mAQWLNheCIWcm0ph4E469o6vRuNQ/b0JfvXbihYe9olOGOXlDPTmA8Vs1t+KX
+	 ywUtRX4dJcXoz97VrqWv50P4hAqh0tzdiixFIZwMlTVRc813vLXaLuePaGBXScrOLlfS+
+	 hguaKd3VCgXFJtDchZvURVzDgjNNcFsWKoMaQJFxIkUFcKMVGY+VabKKBtQ9PYMZjSE+I
+	 vR6iAoe0DAwG7yK+bN7PKI5hEgSb4Skjs9bj4aPsNDWGSF/PljkPzQb6GuDNcoTieQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ic3lOEBK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=B1N4q3FF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sXlFMUUu;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="wadop/V8";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9eStKV0R;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3339D606A31B;
-	Mon, 19 Oct 2026 16:31:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1B6606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:31:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D1B6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ic3lOEBK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BDF1F000C4;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=B1N4q3FF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sXlFMUUu;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wadop/V8;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9eStKV0R
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1543121CFC;
 	Mon, 19 Oct 2026 16:31:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792427489;
-	bh=BQkPCxRYiTAiL9B7JuC/MlADAPxMOkFS/2yakF4ZChw=;
-	h=Date:From:To:Cc:Subject;
-	b=ic3lOEBKFW8+8x9aXXtK2W8QGxpo8anNSSF6YEir9Q0JYW6txe0XRw+cwYf5l4S4E
-	 84WB0LafN1mPVRCVntKvIzFBdlpPHqkqYRaouxvIUoqlHSl/SVJHEO0C+RMv5iSkCr
-	 fSFChdvaB+QkNcWcyxsr21XLYNQRpRcfHw2ppmivyqA1nonyMoVTy/5z5KnoPHiBJR
-	 cQ2UiMSJ/QU5cgQT1PyG6d5WLOGNPUbeFfmh2wMImxGmTNFvz0e77wXXg+tHpac5O5
-	 PH4cFCkWEow+4ZM4GKTOgVPQWtwluIWi4tCpt8o1Jq2IJDfWxc6ncDojwJWvbA8mDo
-	 HJmMDnVy2Nf4Q==
-Date: Mon, 19 Oct 2026 06:31:28 -1000
-Message-ID: <410cdfd35a22cb6eb13ea6324bad7eda@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Koutny <mkoutny@suse.com>,
- Waiman Long <longman@redhat.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [GIT PULL] cgroup: Changes for v7.4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792427490; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B7yKnfAHa1v9LGP7+XQTfNitsFqTEJMzZVT63Vgda8I=;
+	b=B1N4q3FFEN0cEUnHjO+0x3zR1YFaSlQRfUWYn2hl9qTJWTtJEh6bdQsesJ2Lfsq3/OzT3C
+	T6E8Ia3/WGcmBJ5M+nwUODy1TpNe23xZm274bNnx8TAJ3wsNcdWXhDWYbpWlbm7z0SZEve
+	6NKOqZ8CpFGLuNnYCHFhg60U5gwOZvA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792427490;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B7yKnfAHa1v9LGP7+XQTfNitsFqTEJMzZVT63Vgda8I=;
+	b=sXlFMUUudGaLkEYbFgVW9Nd0ZiwsOgQo8cvBnuHrczvPUcl6oAe7EUBsmLuwqUGKXV40GB
+	mO55j/aYCXUpq9BQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="wadop/V8";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9eStKV0R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792427489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B7yKnfAHa1v9LGP7+XQTfNitsFqTEJMzZVT63Vgda8I=;
+	b=wadop/V8PdksECiRJ+ZxP7GN88pWMCJL4pz9dPw1SdHI3jnfbzSlJnmF94bE5mOEw4wSjs
+	QKIXMUBT8v5OUyGoM9xLXs48TvToI84+PA6p15PnVN+Atp+fugNALmp5ALHVdRc82xU9+Y
+	J/gK2YksN2ysps/1QSedrocn4FVIVww=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792427489;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B7yKnfAHa1v9LGP7+XQTfNitsFqTEJMzZVT63Vgda8I=;
+	b=9eStKV0RTfFgYdA3saGtZpHWCvtdltoZtfLwgLva3zfn9Jv0SFkQ50LBiseKNe4QD9ZEQg
+	ZlLoOH+PznFSr0CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DA5B2136CC;
+	Mon, 19 Oct 2026 16:31:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id dicoL+BF1mquawAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Mon, 19 Oct 2026 16:31:28 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,128 +104,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 05/18] nvmet: Send an AEN on CCR completion
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Justin Tee <justin.tee@broadcom.com>, 
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+ Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260920182936.2317916-6-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-6-mkhalfella@purestorage.com>
+Date: Mon, 19 Oct 2026 18:31:14 +0200
+Message-Id: <179242747494.3619480.8696467521098938874.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 1543121CFC
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org,suse.de];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[purestorage.com:email,grimberg.me:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
-Hello,
+> When an impacted controller that is the target of pending CCRs is torn
+> down, send an AEN to each source controller that issued a CCR against
+> it. The notification points to the CCR log page that the source
+> controller can read to check which CCR operation completed.
+> 
+> Split nvmet_add_async_event() into a locked helper so the AEN can be
+> queued while ctrl->lock is already held.
+> 
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> Reviewed-by: Hannes Reinecke <hare@suse.de>
+> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 
-The following changes since commit b8eb5fd5bdb4c03758b056c70e5e1d962ca89757:
-
-  cgroup/cpuset: Call is_in_v2_mode() after acquiring cpuset_mutex in cpuset_handle_hotplug() (2026-10-06 06:36:51 -1000)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup.git tags/cgroup-for-7.4
-
-for you to fetch changes up to 1850c669516cb8568150937497a9a16a7bfa1582:
-
-  selftests/cgroup: test pids.events notification (2026-10-16 09:52:06 -1000)
-
-----------------------------------------------------------------
-cgroup: Changes for v7.4
-
-- A write to cgroup.subtree_control or cgroup.type could hang in D state for
-  as long as a task pinning a dying controller took to exit, as syzbot
-  reported. The wait is now interruptible.
-
-- cpuset: the deadline bandwidth check ran on cpusets that weren't valid
-  partition roots, failing cpuset writes with -EBUSY while deadline tasks
-  existed. The CPU count the fair class takes from cpuset assumed a shared
-  hierarchy that cgroup1 may not have.
-
-- Finding a cgroup's effective controller state no longer walks up the
-  hierarchy, for per-I/O users such as nvmet. io.stat reads of cgroups
-  without block devices skip the stat flush.
-
-- cpuset v1-only code moved to the v1 file and the exclusive flag dropped
-  from v2, with documentation corrections for partition roots and
-  boot-isolated CPUs.
-
-- Dead cgroups fail writes with -ENODEV consistently, plus small cleanups.
-
-- Selftest fixes, most visibly for tests that skipped on machines with many
-  mounts, and a new pids.events notification test.
-
-----------------------------------------------------------------
-Guopeng Zhang (3):
-      cgroup/cpuset: Remove redundant sched domain rebuild from update_prstate()
-      docs: cgroup-v2: Describe boot-isolated CPUs in cpuset.cpus.isolated
-      docs: cgroup-v2: Describe effective CPUs of partition roots
-
-Karl Mehltretter (1):
-      cgroup/dmem: Fix eviction helper reference in dmem_cgroup_try_charge()
-
-Konstantin Khorenko (2):
-      selftests: cgroup: skip test_memcg_sock under cgroup.memory=nosocket
-      selftests: cgroup: make test_memcg_sock check flushed sock stats
-
-Peng Fan (1):
-      cgroup: use assign_bit() where applicable
-
-Peng Yu (1):
-      cgroup: Track the effective css in each cgroup
-
-Ren Tamura (2):
-      selftests: cgroup: Enable the cpu controller in test_cpu
-      selftests: cgroup: Preserve command arguments in with_stress.sh
-
-Ridong Chen (1):
-      cgroup/cpuset: Move cpuset_update_flag() to cpuset-v1.c
-
-Sahaj Chaudhari (1):
-      selftests/cgroup: test pids.events notification
-
-Sasha Levin (2):
-      selftests: memcg: Don't close an uninitialized fd
-      selftests/cgroup: Free the paths returned by cg_control()
-
-Sebastian Andrzej Siewior (2):
-      cgroup: Move cgrp_dead_ task+iwork into its own struct
-      cgroup: Use %p for pointer formatting
-
-Shaojie Sun (3):
-      cgroup: namespace: Drop BUG_ON() in copy_cgroup_ns()
-      selftests/cgroup: read the entire file in read_text()
-      selftests/cgroup: don't crash on a truncated mount entry in cg_find_root()
-
-Tejun Heo (4):
-      cgroup: Return -ENODEV consistently for a dead cgroup
-      cgroup: Return ERR_PTR from cgroup_kn_lock_live()
-      cgroup: Make the offline drain interruptible
-      cgroup: Merge branch 'for-7.3-fixes' into for-7.4
-
-Usama Arif (1):
-      blk-cgroup: skip rstat flush for cgroups without blkgs
-
-Vishal Chourasia (1):
-      selftests/cgroup: add settings file with a longer timeout
-
-Waiman Long (3):
-      cgroup/cpuset: Run SCHED_DEADLINE shrink test on valid partition root only
-      cgroup/cpuset: Remove CS_CPU_EXCLUSIVE handling code from v2
-      cgroup/cpuset: Use cpuset_v2() in cpuset_num_cpus()
-
- Documentation/admin-guide/cgroup-v2.rst            |  62 +++++--
- block/blk-cgroup.c                                 |  11 +-
- include/linux/cgroup-defs.h                        |   8 +
- kernel/cgroup/cgroup-internal.h                    |   2 +-
- kernel/cgroup/cgroup-v1.c                          |  26 ++-
- kernel/cgroup/cgroup.c                             | 181 +++++++++++++--------
- kernel/cgroup/cpuset-internal.h                    |   8 +-
- kernel/cgroup/cpuset-v1.c                          |  59 ++++++-
- kernel/cgroup/cpuset.c                             | 145 ++---------------
- kernel/cgroup/debug.c                              |  18 +-
- kernel/cgroup/dmem.c                               |   4 +-
- kernel/cgroup/freezer.c                            |   5 +-
- kernel/cgroup/namespace.c                          |   2 -
- tools/testing/selftests/cgroup/lib/cgroup_util.c   |  58 ++++++-
- .../selftests/cgroup/lib/include/cgroup_util.h     |   3 +
- tools/testing/selftests/cgroup/settings            |   1 +
- tools/testing/selftests/cgroup/test_cpu.c          |   5 +-
- tools/testing/selftests/cgroup/test_kmem.c         |   2 +-
- tools/testing/selftests/cgroup/test_memcontrol.c   |  81 ++++++---
- tools/testing/selftests/cgroup/test_pids.c         |  73 +++++++++
- tools/testing/selftests/cgroup/with_stress.sh      |   2 +-
- 21 files changed, 471 insertions(+), 285 deletions(-)
- create mode 100644 tools/testing/selftests/cgroup/settings
+Reviewed-by: Daniel Wagner <dwagner@suse.de>
 
 -- 
-tejun
+Daniel Wagner <wagi@kernel.org>
