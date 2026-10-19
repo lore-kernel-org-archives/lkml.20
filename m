@@ -1,272 +1,107 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116A23A8756;
-	Mon, 19 Oct 2026 04:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 883433AB496
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792384356; cv=none; b=fiTr1hjlE3ps8H+ulnpP4fAXP+ylI+ukCABlO6ktB1IMmWFU6DvihnYd4I4/ldZ2tWuVF4PWznu3AzTYIl+jPd/VuhpRvh8r/xg+1zcTSzDS23vcGTQX8cFOTz0riQKxT5IymF4DTJu09+hhfW/smhWNVztnfy/iKBdZWWvYflY=
+	t=1792384486; cv=none; b=QKfVOAOOpaLy6nQuScpcEVe6ugvtRsZLSC9f3XQlkou/wc2hgWSqzyl7WVKNxOp5MK7Ng2EFt9bqetlxbRdXvItt9AlPdQZNeeaZvReYk20d8WiZR0yc/rry01NUv/AVa7Y9lRzrFK0lqCKszgNE1oSfpmTAFK1DfB6mNRGPypw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792384356; c=relaxed/simple;
-	bh=tCbT8qZv3KnB9a27lq/xJligLMw7fgL2mpBzU7PgkrU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z/NAyv0szHiRdPwqfv1o2a8QhBRIsrpSGctUeAfuYBqbfQKMMi2xQDF4dubiDkOGBx0/8pwD212ZDs3/z13apAxJxNvutMcNetTeolKK69NviU34L0PfeRoPFnwm+sFkx0BM87z12vjit3C/8A+Whb42O28KR+/JVR5NYSQByhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=o+bRu9DI; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792384486; c=relaxed/simple;
+	bh=mHhqrgsAoLJr5sWC8AoEBXHRf3BoJJXAUS79JWBs8AU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EWu6+unMX/aKakBU6KwDuicv2VbBzb/Szw8r699NPskbWyxF+lD5dier/Yo5/Gpduu+a2V/u1jIIDqgf7jLc9Ja2T7jVxLxFSkh8wlF/PsCs9wE7ERQ9O7lcqKCXeIgnapIwggF5/wTVzkgjL/BzDsMnDTyNlDbmV90AB21cZNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jZT2KO2d; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="o+bRu9DI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=5o
-	h545sb/eMSgu56KNqxAk9hRVcUgeao4mc8tHKFbhw=; b=o+bRu9DIJK5SQCIBml
-	DXbwF2qVNo9xgFzNTWiGnFxfHBP8aGkJdYcBoaSf3Jha+JgbzJFCULhvI+faWXI3
-	JCWH5l0guFeBFM4FhYtMFopEaBv8bqbqMcW9CgW4243FYq/6r1qIOhIRSmMbPldX
-	2gXwVhhx6i+to886I8BomFODs=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3H19HndVqZpt1BA--.1993S2;
-	Mon, 19 Oct 2026 12:32:07 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: zyjzyj2000@gmail.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH v3] RDMA/rxe: Fix use-after-free of the per-net tunnel socket
-Date: Mon, 19 Oct 2026 12:32:04 +0800
-Message-ID: <20261019043205.466134-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jZT2KO2d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792384481; x=1823920481;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mHhqrgsAoLJr5sWC8AoEBXHRf3BoJJXAUS79JWBs8AU=;
+  b=jZT2KO2dqqbaVNlg9ocCNhBYW/bnvzwCzOq7kn1u7w7KHdbOTzae+fxT
+   MfkT3oK9mMQedp2JPWPUzacCKWVZH3s0PVY/TzqYJljqMyHlJReR8A8Wk
+   tXC4rqFVVj3ptWEE1Je4T2CvIeVTw7bnetBM4dWdFkVZMnvTi9TiYv1VB
+   3ToHK6otcHCaB2H5sVIx5O6w7YvlkJV+jH+DFSzrvCBkEVmLisqCMVSKn
+   /pKCGfZxqWAGz+gzX5QkoZeo1NsGBJcs9z/2Yk68/GO2LisRQuX81V9ru
+   Xyq274GRlax0s5RQDecQM/hIDo/NMQk4Q6r5LN3Ff1asJr/EsK0cuFZzQ
+   Q==;
+X-CSE-ConnectionGUID: /+zs7boQQXC9DwAILRRqvA==
+X-CSE-MsgGUID: zmQF4JN2REmo8ERsjmfmfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1069594"
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="1069594"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 21:34:40 -0700
+X-CSE-ConnectionGUID: ODvNpmOmSFG17sEOfufQRw==
+X-CSE-MsgGUID: Sp7PrqLKSo+Eoxq4ZN4GFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="2495021"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa006.jf.intel.com with ESMTP; 18 Oct 2026 21:34:39 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 4375C99; Mon, 19 Oct 2026 06:34:37 +0200 (CEST)
+Date: Mon, 19 Oct 2026 06:34:37 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Navon John Lukose <navonjohnlukose@gmail.com>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] mfd: intel-lpss: Set d3hot_delay to 0
+Message-ID: <20261019043437.GY176164@black.igk.intel.com>
+References: <20261016114347.23633-1-navonjohnlukose@gmail.com>
+ <atIjpJn1Y0GPmQbP@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H19HndVqZpt1BA--.1993S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Jw1xJF13CF1DZrWDKF1xXwb_yoW3Zr47pr
-	WrKayYyrsrJr42vr43AF4jvr1Fv3Z3tFy3Gas7Kwnavan8uw43Xa47tryj9Fn5CrW8CF4U
-	XF1kJF1vkw4rZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UwVysUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC+weIbGrVnUcUywAA3i
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <atIjpJn1Y0GPmQbP@ashevche-desk.local>
 
-KASAN reported a slab-use-after-free in ip6_route_output_flags()
-reached from rxe_find_route(): a user with CAP_NET_ADMIN can remove
-an RXE device with "rdma link del rxe0" while RoCE v2 over IPv6
-traffic keeps using the per-net tunnel socket for route lookups.
+Hi,
 
-BUG: KASAN: slab-use-after-free in ip6_route_output_flags+0x300/0x360
-Read of size 4 at addr ffff888115ddd794 by task kworker/u32:6/309
-Call Trace:
- <TASK>
- dump_stack_lvl+0x53/0x70
- print_report+0xd0/0x630
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? ip6_route_output_flags+0x300/0x360
- kasan_report+0xce/0x100
- ? ip6_route_output_flags+0x300/0x360
- ip6_route_output_flags+0x300/0x360
- ip6_dst_lookup_tail.constprop.0+0x76c/0xcc0
- ? ct_nmi_exit+0xc3/0xf0
- ip6_dst_lookup_flow+0xf5/0x1e0
- ? __pfx_ip6_dst_lookup_flow+0x10/0x10
- rxe_find_route+0x426/0xa30
- ? __kasan_slab_alloc+0x6e/0x70
- ? __pfx_rxe_find_route+0x10/0x10
- ? kmem_cache_alloc_node_noprof+0x141/0x370
- ? kmalloc_reserve+0x103/0x2b0
- ? rxe_icrc_generate+0x229/0x330
- ? __pfx___alloc_skb+0x10/0x10
- rxe_prepare+0x9e8/0x18b0
- ? rxe_init_packet+0x3c7/0x4f0
- rxe_requester+0x1a0f/0x51f0
- ? rxe_completer+0x1de9/0x38c0
- ? __pfx_rxe_completer+0x10/0x10
- ? __queue_work+0x43e/0x11f0
- ? __pfx_rxe_requester+0x10/0x10
- ? irqentry_exit+0xd2/0x640
- ? _raw_spin_lock_irqsave+0x85/0xe0
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? __pfx_rxe_sender+0x10/0x10
- rxe_sender+0xe/0x30
- do_work+0x144/0x470
- process_one_work+0x633/0x1030
- ? assign_work+0x11d/0x370
- worker_thread+0x45b/0xd10
- ? __pfx_worker_thread+0x10/0x10
- kthread+0x2c6/0x3b0
- ? recalc_sigpending+0x15c/0x1e0
- ? __pfx_kthread+0x10/0x10
- ret_from_fork+0x36e/0x5a0
- ? __pfx_ret_from_fork+0x10/0x10
- ? __switch_to+0x572/0xdd0
- ? __pfx_kthread+0x10/0x10
- ret_from_fork_asm+0x1a/0x30
- </TASK>
+On Fri, Oct 16, 2026 at 04:16:20PM +0300, Andy Shevchenko wrote:
+> On Fri, Oct 16, 2026 at 05:13:47PM +0530, Navon John Lukose wrote:
+> > intel-lpss-pci already clears d3cold_delay, but every runtime resume of an
+> > LPSS controller still sleeps the default 10 ms d3hot_delay in
+> > pci_power_up().
+> > 
+> > On Arrow Lake-H (Lenovo Yoga Pro 7 14IAH10) the delay costs 8-16 ms per
+> > resume of the touchpad's I2C controller, which lands on the first
+> > touchpad report after each 1 s autosuspend. With d3hot_delay set to 0 the
+> > power-up takes 64-256 us and the I2C transfers that follow complete
+> > without errors.
+> 
+> So, do you state that this patch fixes some bad touchpad behaviour? If so,
+> please, provide some logs.
+> 
+> > Commit 815b4448198f ("i3c: mipi-i3c-hci-pci: Set d3hot_delay to 0 for Intel
+> > controllers") does the same for the Intel I3C controllers.
+> 
+> Okay, it means they were tested.
+> 
+> ...
+> 
+> > Notes:
+> >     RFC because I could only test Arrow Lake-H, and this applies to every LPSS
+> >     generation the driver handles, back to Sunrise Point. Andy, do any of the
+> >     older ones need the D3hot->D0 delay? If so I can limit it to newer IDs
+> >     through the driver data.
+> 
+> AFAIK 10 ms for D3hot delay is in accordance with PCI specification.
+> Yes, we use quirk_remove_d3hot_delay() for very old Intel Atom SoCs,
+> but I have no idea about Skylake line of products.
+> 
+> Mika, Ilpo, do you have any ideas or comments on this?
 
-Allocated by task 146020:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- __kasan_slab_alloc+0x6e/0x70
- kmem_cache_alloc_noprof+0x130/0x360
- sk_prot_alloc+0x56/0x210
-
-rxe_net_del() releases the tunnel socket before the device is torn
-down: nldev_dellink() calls .dellink before unregistering the
-device, and the NETDEV_UNREGISTER notifier calls rxe_net_del() right
-after queueing the unregistration, so the rxe_sender() workqueue can
-still perform route lookups while the socket is released.
-
-Two gaps in the tunnel socket lifetime allow the use-after-free:
-
-1. rxe_sock_put() released the socket with rxe_release_udp_tunnel()
-   before the per-net pointer was cleared, so route lookups could
-   fetch a socket that was already freed.
-
-2. rxe_ns_pernet_sk4/6() return the raw socket pointer after
-   rcu_read_unlock(), without taking a reference.  Readers like
-   rxe_find_route6() dereference the pointer outside the RCU
-   read-side critical section, so the synchronize_rcu() in
-   rxe_ns_pernet_set_sk4/6() cannot protect a reader that already
-   fetched the pointer, and ip6_route_output_flags() or
-   xfrm_lookup_with_ifid() can still be using the socket while it
-   is freed.
-
-Fix both gaps:
-
-- rxe_sock_put() clears the per-net pointer before it releases the
-  socket, so no new lookup can fetch a socket that is being
-  released;
-
-- rxe_ns_pernet_sk4/6() take a reference on the socket with
-  refcount_inc_not_zero() under rcu_read_lock(), and the callers
-  sock_put() it after use.  The reference that rxe_net_ipv4/6_init()
-  keeps now comes from the getter instead of an open-coded
-  sock_hold() on the raw pointer, and rxe_sock_put() drops the
-  getter's reference after the tunnel is released.  Since the
-  reference is taken inside the RCU read-side critical section, the
-  synchronize_rcu() after the pointer is cleared guarantees that
-  every reader has finished taking its reference before the last
-  reference is dropped, so the count never reaches zero while a
-  reader still holds the pointer.
-
-The remaining races on the tunnel socket lifetime (serialization of
-rxe_net_init() against rxe_net_del(), a second rxe_net_del() of one
-device from the NETDEV_UNREGISTER notifier, and the per-device
-reference accounting of shared sockets) already exist in the code
-this fixes and are left for a follow-up series.
-
-Fixes: f1327abd6abe ("RDMA/rxe: Support RDMA link creation and destruction per net namespace")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- drivers/infiniband/sw/rxe/rxe_net.c | 29 ++++++++++++++++++++---------
- drivers/infiniband/sw/rxe/rxe_ns.c  | 10 ++++++++++
- 2 files changed, 30 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_net.c b/drivers/infiniband/sw/rxe/rxe_net.c
-index 53daaf4c1eb2..ec98133a6005 100644
---- a/drivers/infiniband/sw/rxe/rxe_net.c
-+++ b/drivers/infiniband/sw/rxe/rxe_net.c
-@@ -135,13 +135,20 @@ static struct dst_entry *rxe_find_route6(struct rxe_qp *qp,
- {
- 	struct dst_entry *ndst;
- 	struct flowi6 fl6 = {};
-+	struct sock *sk;
- 
- 	fl6.flowi6_oif = ndev->ifindex;
- 	memcpy(&fl6.saddr, saddr, sizeof(*saddr));
- 	memcpy(&fl6.daddr, daddr, sizeof(*daddr));
- 	fl6.flowi6_proto = IPPROTO_UDP;
- 
--	ndst = ip6_dst_lookup_flow(net, rxe_ns_pernet_sk6(net), &fl6, NULL);
-+	/* keep the socket pinned while it is passed to the IPv6 routing
-+	 * code which dereferences it outside of rcu_read_lock()
-+	 */
-+	sk = rxe_ns_pernet_sk6(net);
-+	ndst = ip6_dst_lookup_flow(net, sk, &fl6, NULL);
-+	if (sk)
-+		sock_put(sk);
- 	if (IS_ERR(ndst)) {
- 		rxe_dbg_qp(qp, "no route to %pI6\n", daddr);
- 		return NULL;
-@@ -638,9 +645,15 @@ static void rxe_sock_put(struct sock *sk,
- 	if (refcount_read(&sk->sk_refcnt) > SK_REF_FOR_TUNNEL) {
- 		__sock_put(sk);
- 	} else {
-+		/*
-+		 * Clear the per-net pointer before the socket is released:
-+		 * rxe_ns_pernet_sk4/6() take a reference on the socket, but
-+		 * new lookups must not find it once it is being released.
-+		 */
-+		set_sk(net, NULL);
- 		rxe_release_udp_tunnel(sk);
--		sk = NULL;
--		set_sk(net, sk);
-+		/* drop the reference from rxe_ns_pernet_sk4/6() */
-+		sock_put(sk);
- 	}
- }
- 
-@@ -758,11 +771,10 @@ static int rxe_net_ipv4_init(struct net *net)
- 	struct sock *sk;
- 	struct socket *sock;
- 
-+	/* returns with a reference held for this device */
- 	sk = rxe_ns_pernet_sk4(net);
--	if (sk) {
--		sock_hold(sk);
-+	if (sk)
- 		return 0;
--	}
- 
- 	sock = rxe_setup_udp_tunnel(net, htons(ROCE_V2_UDP_DPORT), false);
- 	if (IS_ERR(sock)) {
-@@ -780,11 +792,10 @@ static int rxe_net_ipv6_init(struct net *net)
- 	struct sock *sk;
- 	struct socket *sock;
- 
-+	/* returns with a reference held for this device */
- 	sk = rxe_ns_pernet_sk6(net);
--	if (sk) {
--		sock_hold(sk);
-+	if (sk)
- 		return 0;
--	}
- 
- 	sock = rxe_setup_udp_tunnel(net, htons(ROCE_V2_UDP_DPORT), true);
- 	if (PTR_ERR(sock) == -EAFNOSUPPORT) {
-diff --git a/drivers/infiniband/sw/rxe/rxe_ns.c b/drivers/infiniband/sw/rxe/rxe_ns.c
-index 64621c89f8bf..0a7d409c0f98 100644
---- a/drivers/infiniband/sw/rxe/rxe_ns.c
-+++ b/drivers/infiniband/sw/rxe/rxe_ns.c
-@@ -71,6 +71,12 @@ static struct pernet_operations rxe_net_ops = {
- 	.size = sizeof(struct rxe_ns_sock),
- };
- 
-+/*
-+ * Return the per-net tunnel socket with a reference taken, or NULL if
-+ * the namespace has no tunnel socket.  The reference is taken under
-+ * rcu_read_lock() so the socket cannot be freed while the pointer is
-+ * still published; the caller must sock_put() it.
-+ */
- struct sock *rxe_ns_pernet_sk4(struct net *net)
- {
- 	struct rxe_ns_sock *ns_sk = net_generic(net, rxe_pernet_id);
-@@ -78,6 +84,8 @@ struct sock *rxe_ns_pernet_sk4(struct net *net)
- 
- 	rcu_read_lock();
- 	sk = rcu_dereference(ns_sk->rxe_sk4);
-+	if (sk && !refcount_inc_not_zero(&sk->sk_refcnt))
-+		sk = NULL;
- 	rcu_read_unlock();
- 
- 	return sk;
-@@ -99,6 +107,8 @@ struct sock *rxe_ns_pernet_sk6(struct net *net)
- 
- 	rcu_read_lock();
- 	sk = rcu_dereference(ns_sk->rxe_sk6);
-+	if (sk && !refcount_inc_not_zero(&sk->sk_refcnt))
-+		sk = NULL;
- 	rcu_read_unlock();
- 
- 	return sk;
-
+Like you say it's requirement of the PCI spec. However, since these are
+really not PCI connected devices the delay likely is not needed as seen
+here. No objections from my side.
