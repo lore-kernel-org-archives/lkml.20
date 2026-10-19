@@ -1,96 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.94
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792432387;
-	b=hz2L+AG5AfGF5BToamCUuuGvYGpngNjTo9kQWCiQsQaQSv80rRzkWCbEkr5m9btvxTYN
-	 rKrcXYpbkLwQtQ5UoA2TMZSCxhgXGJDErqopUlRluoJT02elFzY+8M7B64WEHHHnGNBlo
-	 ZOg0qaRCyzIBN3wVKPqmrAbrMgGiy21ysFNgXiOw2D3q7Zx//hAdSozzKT3AzzpvKwWPh
-	 VhKQQCniUn2lCnmeAPVz3L9R4NGFmFosGkywI1Pp14DX1OPuv60BK1v6t8gaTDRxpojY4
-	 I4BjPgBa6drVaaxINHngkJii6Jco0cMSM/MBR/HWD2fricf0IdNYsxTaewX41LiWcEg==
+	t=1792432417;
+	b=vXdp/niV7J3g0O49K645krq+RhQ6WRFxs+UeKDJ9U8RpArGVFcQBaxBHJw4e69E/DyCp
+	 T8jOeMocR29PMRXgclhbWT6nh3GXUg6nq5niR1D35u0plLvlK2zBeIUmd+5GfnQQ5B7nu
+	 TH3h2246q6E74lQzNeL4nQ/W1bs03gGWG1QgJzLOO06vWvTQGmBiC/iI2X402RwbE3+rO
+	 jn8jSKci6E0SRVzNzO/8/nn4UIibXUMN5Qh1i72Qpb85iEST1U/cv3msuISDYeScLaDI3
+	 /QJUShchrjEeFSu8XYX08VRnCTy731yvsGRocv4HzPo6LWrYDBLF4hOMniHuV4xU2qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792432387;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Q5JRI55ksfduTv8VbwlW8NqcdrRxT6u30r5b/RP/P9k=;
-	b=qpEfzIyBlzITvzLx2EoMcpNas/LDE1+5NpzzKi7wRaqluHH3bZBoZ3SD5HIFHpgr2SOo
-	 J/CAfejIgfiY8uDf5hsJwqHO0+NE1jaLory7hDTpzQNJKw28Tmr6/I7B9grD3r61w9A+t
-	 dTzKJldhwLCUqwcn2tO9X4SnDgM3LzQ1pcmzTbz4mF/99OAVGyJhezpzE+461GlHQIXyz
-	 prI8f1aIZ1/YKHq45gjnzIsXQQj1AOUT6u3hdXvdI2WDhCRdQmXqD4Kqsl4W3jEUSLFTe
-	 Mb4Cdind/X8HXx7PX3ocgZ2szE8liWT9jKMyHJnCS3uK27D9p6WBWp305Q0lFwQeePA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792432417;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vGcQptXdlM4hwvNCPfFEa1fOO8xQP2wP1II9AEpPcBo=;
+	b=xqWUAQA/ybzLx3uPAR7lyPLTiTPq/jTNCTnahELGCYga2qi2zzhdpdE21xYwS4AY6Jjx
+	 AYqdIEH9ZMNHNp49dm0iGmlRjCTIhCf8lV86EKQ2yp2g9jslYnWSl1X4Azmxhv64xwp7a
+	 KSBUtZq5ues4+lMpRAqv+bgPpENZeyfO78m15BzdtPdQQbGkYK/Y5jtlltAU5V/xkwv84
+	 pawdP9QyHwmr0o2h1JJzWbGzk2hSLmkLLBXZOQSKDexPcrmkSTPuJxboWkkUd8yj9mKIj
+	 VhYTZ5bBNGovltg6YY7R7O3hUhVhiNU+Pp9XUGVhiZqr5pD51viqlRvmZRhoLRJ+MaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=osandov.com;
-	spf=none smtp.mailfrom=osandov.com;
-	dkim=pass header.d=osandov-com.20251104.gappssmtp.com header.i=@osandov-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="vUL8E/8C";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SvVwcrYz;
+	arc=none smtp.remote-ip=95.215.58.94
+Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622AF606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:53:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 622AF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=osandov.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=osandov.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B28606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:53:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08B28606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=osandov-com.20251104.gappssmtp.com header.i=@osandov-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=vUL8E/8C
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab2cb02816so350027a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:53:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=osandov-com.20251104.gappssmtp.com; s=20251104; t=1792432382; x=1793037182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q5JRI55ksfduTv8VbwlW8NqcdrRxT6u30r5b/RP/P9k=;
-        b=vUL8E/8Cg7eTwsGAZbgTM1D09VB3zHOryjAMBlfY+Ht5oFZhuGz+EDUhzZbHl1Av6d
-         yMasxPw6AuVVrneR5D59LFJwjq8b13NTtwYfRcOT8s2zWjrUBAFnklgYdrIxtcay+f2r
-         i0pRZMonz2FHCZ3j1fO4A08WfgX6IpaXvja1Jk9+vtUcIdUOtBhy/E+B3R9mFtRAuxSU
-         4aK42LFvHxpneij/e2uQ/PvR1fOY5DodgsyqXnRk0ju4qXR7VvsMjf5G07xSQP5og+LZ
-         Vvpx8aFZLXVTg3TPzOw/8QGFxPsxQ+T8qeZB+hiVI8/vBEutXDZPSwMPoKpyC+x8fs+q
-         sUQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792432382; x=1793037182;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q5JRI55ksfduTv8VbwlW8NqcdrRxT6u30r5b/RP/P9k=;
-        b=ZvYASZ9DBanDvbx22rs9SKJreMRSlPix53FfIACSeBq5/7V8az4NJIgcV4jr6UFLN9
-         XxJYGIqCiUe9/n3Vkgf1XOZOsWsS+R+IZ6H+SMypUkEuRrvfppLUi2hNFAFUrOuvUKw8
-         aF1Rk4MVoHqxkbze9SsmC32oEBTBlZkMPfAhCr9l/IcXq1RdCYpaIjQHknfe5YxLN2zd
-         +MITx1YxcOwW5NBC4IHBn+KG0U6sByBRA+BUwAwOMWId7e0qPoplFiy4CZKpbia353wC
-         w5wDH9v0dL67EN2KBjJxumUVRcPWNZ8BcyRTM5PaGcnvIqQDdZCjJeT7r47Xpn+NDXpC
-         SRzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxnNCrFaWiN0Ku4svtqJBPYFi/zJPuKil97Lk4PH3Zbhig8Nq6PuZJH05m3f82UAjrNWIvTvuuLIN6ARR4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxRsNvdWF1NdKzobWnLpKmun7HfA/NKqHhw+2f0GqUZJLiGLZL
-	lltGNM6B3dinS9xTIkWnEGP31B6WZzCc3c87mY2kPkDwsKwwA0psG6RB/+cDfTadbJc=
-X-Gm-Gg: AYBFou3TwdYB4umSh5RoseZmkwA7HAQicP5RzYzdVB5rg7l4BokRr440G65pQE6ObAH
-	Ig+adNC++Y/54PfPQeezHsA/XhWWUd24P5Ft27Fv028UVpOtsrP6lXRtSjCED0y63ra1DNEi3VX
-	vVtyO/f1Rr4Jg7DSieesImtZavp7BuMClMEW25EH/OgTQK2a5RfENlG9I+6uqza/AOversjyXT9
-	kRYbqFE2xkFJmdoIgbhTBDkilNcjfO4jHUGh0TviD2FXES6QsviT2Ruo2Opr9a9zsG4NlAsW93P
-	GaP4u6n5HzHjZR3ByQVUN/l8x5vlXJJcTO25Q8lFRfJonP5q2sD/BVNZeekVGrNLR4NoSnwxVva
-	WC397rFY/+th5JZ2aw3mmliJZ4I8cgxwlkBhIojQDk/gf7ZWJZgLA1HabmuhfL6mHFyZXS3esa7
-	uNbJeb8xZIyKqy4p2DVvghqr2QUh0ig68R0Z17MclG40WHi5uzXKBFU5F9QVXJywNXLFTd9zeTY
-	FirewX1kyqRl5byaJMimbcxk+SqVG6Ni2FltFrFuMN31kBD5hqkG7TbRvreP6byArNxq0xCfHKv
-X-Received: by 2002:a17:90b:1a87:b0:3a6:e1d1:e511 with SMTP id 98e67ed59e1d1-3aceec3d0c4mr12674532a91.4.1792432381641;
-        Mon, 19 Oct 2026 10:53:01 -0700 (PDT)
-Received: from os-N5J97HY9XQ.tail2dda0.ts.net ([208.184.142.138])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5da2d6aasm452560a91.13.2026.10.19.10.53.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:53:01 -0700 (PDT)
-Date: Mon, 19 Oct 2026 10:53:00 -0700
-From: Omar Sandoval <osandov@osandov.com>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Stephen Rothwell <sfr@canb.auug.org.au>,
-	Baoquan He <baoquan.he@linux.dev>, linux-debuggers@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] proc/kcore: advance the vmalloc retry by the last
- copy, not the total
-Message-ID: <atZXrXkNm1Do1V1_@os-N5J97HY9XQ.tail2dda0.ts.net>
-References: <20261017034739.793431-1-nickolai@csail.mit.edu>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SvVwcrYz
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Hwg6biItus18+ExsHyZoGl+eRbDPQibV1nO/VDxM+ic=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792432414; v=1; x=1793037214;
+ b=SvVwcrYzTRJ/mhgaFb6IbXipqQE3HwDonWTBIswaWZaH+bCZSoXXTWLMmNej2NVWgowgHPzW
+ haVRyZ0C0meg/6VBxBKu5ZZvhtBOh5+GnoCWgrAPnpCUwgqfmjgiGP39gqSz+rS7j+nwSfGW3TZ
+ HyM0K8nv6tWchu8I1k68jd8g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9c83749833c3a8eb;
+	Mon, 19 Oct 2026 17:53:33 +0000
+X-Mizu-Trace-ID: 9c83749833c3a8eb
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4c1a8b04-d873-4395-badb-2762e6c40f59@linux.dev>
+Date: Mon, 19 Oct 2026 10:53:29 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,65 +58,333 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017034739.793431-1-nickolai@csail.mit.edu>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] ASoC: tas2783-sdw: keep the volume settings across
+ resets
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, broonie@kernel.org
+Cc: Lee Mann <leepaulmann@gmail.com>, Shenghao Ding <shenghao-ding@ti.com>,
+ Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+ Sen Wang <sen@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Andrey Golovko <andrey.golovko@gmail.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261018200009.1493438-1-matthew.schwartz@linux.dev>
+ <20261018200009.1493438-2-matthew.schwartz@linux.dev>
+ <bdc967fd-c056-492d-b970-db5630f21b95@linux.dev>
+Content-Language: en-US
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+In-Reply-To: <bdc967fd-c056-492d-b970-db5630f21b95@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 11:47:39PM -0400, Nickolai Zeldovich wrote:
-> A readv() or preadv() of /proc/kcore fails with EFAULT, although every
-> byte of the destination is writable, when the page of a later iovec is
-> not present at the moment the copy of a KCORE_VMALLOC chunk is retried:
-> swapped out, migrated by compaction or NUMA balancing, write-protected
-> by KSM, or unmapped by MADV_DONTNEED from another thread. Only root can
-> read /proc/kcore, and the read must use more than one iovec. On an
-> x86_64 defconfig kernel (v7.3-rc7) a preadv() of one vmalloc page into
-> two 2 KiB iovecs on separate pages, with a second thread repeatedly
-> unmapping the second page, failed 77701 of 200000 calls with EFAULT;
-> with the fix all 200000 succeed. Affected since v6.4.
+On 10/19/26 8:56 AM, Pierre-Louis Bossart wrote:
+> On 10/18/26 22:00, Matthew Schwartz wrote:
+>> The register cache is dropped when the amp attaches uninitialized and
+>> again after the firmware download, so the Amp Volume and Speaker Volume
+>> registers are not cached while the amp is runtime suspended, and every
+>> read or write of those controls fails with -EBUSY. On a platform that
+>> powers the SoundWire link off when idle, such as the ASUS ROG Xbox Ally
+>> X20, the amp is also reset and initialized again on every wake, so a
+>> volume set while it was awake is lost the next time the link idles.
+>>
+>> Keep both settings in the driver, as the cache has to be dropped
+>> whenever the reset and the firmware download change registers behind
+>> it. Reads return the kept value, a write reaches the device only while
+>> it is runtime active and initialized, and the settings are programmed
+>> again after every init and resume. Until userspace sets a control, the
+>> value the firmware leaves after each init is adopted instead, so its
+>> tuning stays in effect. Waking the amp for a control access would
+>> instead cost a full init of both X20 amps, about 0.2 s each.
+>>
+>> Fixes: b627da430357 ("ASoC: tas2783-sdw: drop stale regcache on uninitialized re-attach")
 > 
-> read_kcore_iter() copies a KCORE_VMALLOC chunk with vread_iter(), which
-> writes to the user buffer with page faults disabled and stops at the
-> first iovec whose page is absent, after the earlier iovecs were
-> written; the loop then faults the rest of the buffer in and calls
-> vread_iter() again for what is left. It keeps the running total in
-> `read` and advances the source address and the remaining length by that
-> total:
+> Erm, not sure what to think about this fix of a fix.
 > 
-> 	read += vread_iter(iter, src, left);
-> 	if (read == tsz)
-> 		break;
-> 	src += read;
-> 	left -= read;
+> This commit b627da430357 introduced the regcache_drop_region() for all
+> kinds of reasons, and now this new patch introduces a manual management
+> of the volume registers - but why limit this management to volume
+> settings only? Shouldn't other features such as e.g. bass boost or EQ
+> also be restored?
 > 
-> In the reproducer the first call copies the 2048 bytes of the first
-> iovec and stops at the second: read is 2048, and src and left move by
-> 2048, which is right. The page that fault_in_iov_iter_writeable() then
-> faults in is unmapped again before the second call, which copies 0
-> bytes: read is still 2048, but src moves by another 2048 to the end of
-> the chunk and left drops to 0. The third call has nothing to copy, src
-> moves by 2048 once more, left wraps around, and
-> fault_in_iov_iter_writeable() fails on that length, so the read returns
-> -EFAULT. When both short copies are non-zero (three or more iovecs) the
-> extra call also copies bytes from the wrong offset of the page into the
-> buffer before the failure. A single iovec is not affected: its nofault
-> copy is all or nothing, so a short copy is always empty and the advance
-> by the total is still the advance by the last copy.
-> 
-> Keep the return value of each vread_iter() call and advance src and
-> left by that; `read` stays the running total compared with tsz.
-> 
-> Found while formally verifying vread_iter() against the kernel binary.
-> 
-> Fixes: 4c91c07c93bb ("mm: vmalloc: convert vread() to vread_iter()")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-> ---
+> It really feels like the problem is that the regmap is not properly
+> restored...at the end of the day, this driver is missing a
+> regcache_sync(), no?
 
-Thanks for the fix!
+The driver only has the two volume controls, there's no bass boost or
+EQ control. The rest of the tuning comes from the firmware, which
+tas_io_init() writes again on every init, apart from a retained PRAM.
 
-Reviewed-by: Omar Sandoval <osandov@osandov.com>
+A regcache_sync() can't restore these two because the firmware
+download writes registers with sdw_nwrite_no_pm(), behind the cache,
+and that includes AMP_LEVEL. Of the 72 TAS2783 files in linux-firmware,
+44 set it to something other than the 0x28 in tas2783_reg_default[],
+mostly levels 9 to 16, and two set DVC to 0x04 instead of 0x00.
+Syncing the default values would replace that per-platform tuning with
+full gain. So the driver has to know whether userspace set a value,
+which needs restoring, or left it alone, in which case the firmware's
+value should stay, and regmap doesn't track that per register.
 
-Christian, do you mind taking this through the VFS tree?
+The volume was also lost before b627da430357, since the sync ran
+before the reset wiped it. The Fixes tag is for the -EBUSY that commit
+added when reading an uncached volume register while the amp is
+runtime suspended.
 
-Thanks,
-Omar
+Certainly open to suggestions for improvement here if there's a simpler
+way to fix this.
+
+> 
+>> Reported-by: Lee Mann <leepaulmann@gmail.com>
+>> Link: https://lore.kernel.org/r/20261016102846.22908-1-leepaulmann@gmail.com
+>> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+>> ---
+>>  sound/soc/codecs/tas2783-sdw.c | 159 +++++++++++++++++++++++++++++++--
+>>  1 file changed, 151 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/sound/soc/codecs/tas2783-sdw.c b/sound/soc/codecs/tas2783-sdw.c
+>> index a57230e01f75..ebb52efc1edf 100644
+>> --- a/sound/soc/codecs/tas2783-sdw.c
+>> +++ b/sound/soc/codecs/tas2783-sdw.c
+>> @@ -12,6 +12,7 @@
+>>  // Author: Baojun Xu <baojun.xu@ti.com>
+>>  // Author: Kevin Lu <kevin-lu@ti.com>
+>>  
+>> +#include <linux/bitfield.h>
+>>  #include <linux/cleanup.h>
+>>  #include <linux/unaligned.h>
+>>  #include <linux/crc32.h>
+>> @@ -89,6 +90,15 @@ struct tas2783_prv {
+>>  	struct mutex calib_lock;
+>>  	/* pde and firmware download */
+>>  	struct mutex pde_lock;
+>> +	/* volume settings, kept across resets */
+>> +	struct mutex vol_lock;
+>> +	unsigned int amp_level;
+>> +	unsigned int dvc_level;
+>> +	/* set by userspace, so program it instead of adopting it */
+>> +	bool amp_set;
+>> +	bool dvc_set;
+>> +	/* runtime active, so volume writes reach the device */
+>> +	bool vol_live;
+>>  	struct regmap *regmap;
+>>  	struct device *dev;
+>>  	struct class *class;
+>> @@ -530,36 +540,151 @@ static const struct regmap_sdw_mbq_cfg tas2783_mbq_cfg = {
+>>  	.mbq_size = tas2783_sdca_mbq_size,
+>>  };
+>>  
+>> +#define TAS2783_AMP_LEVEL_MAX	20
+>> +#define TAS2783_DVC_LVL_MAX	200
+>> +
+>> +/* forced, as a failed write leaves the new value in the cache */
+>> +static s32 tas2783_write_amp_level(struct tas2783_prv *tas_dev,
+>> +				   unsigned int level)
+>> +{
+>> +	return regmap_write_bits(tas_dev->regmap, TAS2783_AMP_LEVEL,
+>> +				 TAS2783_AMP_LEVEL_MASK,
+>> +				 FIELD_PREP(TAS2783_AMP_LEVEL_MASK, level));
+>> +}
+>> +
+>> +static s32 tas2783_write_dvc_level(struct tas2783_prv *tas_dev,
+>> +				   unsigned int level)
+>> +{
+>> +	return regmap_write(tas_dev->regmap, TAS2783_DVC_LVL,
+>> +			    TAS2783_DVC_LVL_MAX - level);
+>> +}
+>> +
+>> +/* program the volume settings userspace set, adopt the firmware ones */
+>> +static s32 tas2783_sync_volume(struct tas2783_prv *tas_dev)
+>> +{
+>> +	unsigned int val;
+>> +	s32 ret;
+>> +
+>> +	lockdep_assert_held(&tas_dev->vol_lock);
+>> +
+>> +	if (tas_dev->amp_set) {
+>> +		ret = tas2783_write_amp_level(tas_dev, tas_dev->amp_level);
+>> +	} else {
+>> +		ret = regmap_read(tas_dev->regmap, TAS2783_AMP_LEVEL, &val);
+>> +		if (!ret) {
+>> +			val = FIELD_GET(TAS2783_AMP_LEVEL_MASK, val);
+>> +			tas_dev->amp_level = umin(val, TAS2783_AMP_LEVEL_MAX);
+>> +		}
+>> +	}
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if (tas_dev->dvc_set)
+>> +		return tas2783_write_dvc_level(tas_dev, tas_dev->dvc_level);
+>> +
+>> +	ret = regmap_read(tas_dev->regmap, TAS2783_DVC_LVL, &val);
+>> +	if (!ret)
+>> +		tas_dev->dvc_level = TAS2783_DVC_LVL_MAX -
+>> +				     umin(val, TAS2783_DVC_LVL_MAX);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static bool tas2783_vol_valid(struct snd_kcontrol *kcontrol, long val)
+>> +{
+>> +	struct soc_mixer_control *mc =
+>> +		(struct soc_mixer_control *)kcontrol->private_value;
+>> +
+>> +	if (mc->platform_max && val > mc->platform_max)
+>> +		return false;
+>> +
+>> +	return val >= 0 && val <= mc->max;
+>> +}
+>> +
+>>  static s32 tas2783_digital_getvol(struct snd_kcontrol *kcontrol,
+>>  				  struct snd_ctl_elem_value *ucontrol)
+>>  {
+>> -	return snd_soc_get_volsw(kcontrol, ucontrol);
+>> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+>> +	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
+>> +
+>> +	guard(mutex)(&tas_dev->vol_lock);
+>> +	ucontrol->value.integer.value[0] = tas_dev->dvc_level;
+>> +
+>> +	return 0;
+>>  }
+>>  
+>>  static s32 tas2783_digital_putvol(struct snd_kcontrol *kcontrol,
+>>  				  struct snd_ctl_elem_value *ucontrol)
+>>  {
+>> -	return snd_soc_put_volsw(kcontrol, ucontrol);
+>> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+>> +	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
+>> +	long val = ucontrol->value.integer.value[0];
+>> +	s32 ret;
+>> +
+>> +	if (!tas2783_vol_valid(kcontrol, val))
+>> +		return -EINVAL;
+>> +
+>> +	guard(mutex)(&tas_dev->vol_lock);
+>> +	if (tas_dev->vol_live && tas_dev->hw_init) {
+>> +		ret = tas2783_write_dvc_level(tas_dev, val);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	tas_dev->dvc_set = true;
+>> +	if (val == tas_dev->dvc_level)
+>> +		return 0;
+>> +
+>> +	tas_dev->dvc_level = val;
+>> +
+>> +	return 1;
+>>  }
+>>  
+>>  static s32 tas2783_amp_getvol(struct snd_kcontrol *kcontrol,
+>>  			      struct snd_ctl_elem_value *ucontrol)
+>>  {
+>> -	return snd_soc_get_volsw(kcontrol, ucontrol);
+>> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+>> +	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
+>> +
+>> +	guard(mutex)(&tas_dev->vol_lock);
+>> +	ucontrol->value.integer.value[0] = tas_dev->amp_level;
+>> +
+>> +	return 0;
+>>  }
+>>  
+>>  static s32 tas2783_amp_putvol(struct snd_kcontrol *kcontrol,
+>>  			      struct snd_ctl_elem_value *ucontrol)
+>>  {
+>> -	return snd_soc_put_volsw(kcontrol, ucontrol);
+>> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+>> +	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
+>> +	long val = ucontrol->value.integer.value[0];
+>> +	s32 ret;
+>> +
+>> +	if (!tas2783_vol_valid(kcontrol, val))
+>> +		return -EINVAL;
+>> +
+>> +	guard(mutex)(&tas_dev->vol_lock);
+>> +	if (tas_dev->vol_live && tas_dev->hw_init) {
+>> +		ret = tas2783_write_amp_level(tas_dev, val);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	tas_dev->amp_set = true;
+>> +	if (val == tas_dev->amp_level)
+>> +		return 0;
+>> +
+>> +	tas_dev->amp_level = val;
+>> +
+>> +	return 1;
+>>  }
+>>  
+>>  static const struct snd_kcontrol_new tas2783_snd_controls[] = {
+>>  	SOC_SINGLE_RANGE_EXT_TLV("Amp Volume", TAS2783_AMP_LEVEL,
+>> -				 1, 0, 20, 0, tas2783_amp_getvol,
+>> +				 1, 0, TAS2783_AMP_LEVEL_MAX, 0, tas2783_amp_getvol,
+>>  				 tas2783_amp_putvol, tas2781_amp_tlv),
+>>  	SOC_SINGLE_RANGE_EXT_TLV("Speaker Volume", TAS2783_DVC_LVL,
+>> -				 0, 0, 200, 1, tas2783_digital_getvol,
+>> +				 0, 0, TAS2783_DVC_LVL_MAX, 1, tas2783_digital_getvol,
+>>  				 tas2783_digital_putvol, tas2781_dvc_tlv),
+>>  };
+>>  
+>> @@ -1116,6 +1241,9 @@ static s32 tas2783_sdca_dev_suspend(struct device *dev)
+>>  {
+>>  	struct tas2783_prv *tas_dev = dev_get_drvdata(dev);
+>>  
+>> +	scoped_guard(mutex, &tas_dev->vol_lock)
+>> +		tas_dev->vol_live = false;
+>> +
+>>  	if (!tas_dev->hw_init)
+>>  		return 0;
+>>  
+>> @@ -1148,6 +1276,14 @@ static s32 tas2783_sdca_dev_resume(struct device *dev)
+>>  		return ret;
+>>  	}
+>>  
+>> +	guard(mutex)(&tas_dev->vol_lock);
+>> +	if (tas_dev->hw_init) {
+>> +		ret = tas2783_sync_volume(tas_dev);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +	tas_dev->vol_live = true;
+>> +
+>>  	return 0;
+>>  }
+>>  
+>> @@ -1245,11 +1381,14 @@ static s32 tas_io_init(struct device *dev, struct sdw_slave *slave)
+>>  
+>>  		/* Re-active AMP after resume. */
+>>  		regmap_write(tas_dev->regmap, TASDEV_REG_SDW(0, 0, 2), 0);
+>> +		if (!ret) {
+>> +			guard(mutex)(&tas_dev->vol_lock);
+>> +			ret = tas2783_sync_volume(tas_dev);
+>> +			tas_dev->hw_init = !ret;
+>> +		}
+>>  		if (ret)
+>>  			dev_err(tas_dev->dev,
+>>  				"init writes failed, err=%d", ret);
+>> -		else
+>> -			tas_dev->hw_init = true;
+>>  	}
+>>  
+>>  	return ret;
+>> @@ -1427,6 +1566,9 @@ static s32 tas_sdw_probe(struct sdw_slave *peripheral,
+>>  	tas_dev->fw_version = 0;
+>>  	mutex_init(&tas_dev->calib_lock);
+>>  	mutex_init(&tas_dev->pde_lock);
+>> +	mutex_init(&tas_dev->vol_lock);
+>> +	tas_dev->amp_level = TAS2783_AMP_LEVEL_MAX;
+>> +	tas_dev->dvc_level = TAS2783_DVC_LVL_MAX;
+>>  
+>>  	init_waitqueue_head(&tas_dev->fw_wait);
+>>  	dev_set_drvdata(dev, tas_dev);
+>> @@ -1452,6 +1594,7 @@ static void tas_sdw_remove(struct sdw_slave *peripheral)
+>>  	tas_remove(tas_dev);
+>>  	mutex_destroy(&tas_dev->calib_lock);
+>>  	mutex_destroy(&tas_dev->pde_lock);
+>> +	mutex_destroy(&tas_dev->vol_lock);
+>>  	dev_set_drvdata(&peripheral->dev, NULL);
+>>  }
+>>  
+> 
+
