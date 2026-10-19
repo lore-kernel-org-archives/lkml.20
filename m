@@ -1,63 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.33.45.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443012;
-	b=cyLt/x2nwtOBour6gUtVOIZRe8hv+H6Np48tFMrNzjwJ/65f0tCz+Lboj8athLX0e3Qb
-	 Fk2UGGErmj08O26r9R0BM2662AODRuP4blPDWhS+pvzc+z+INDzRZYzbf+MZFEN6thSzS
-	 hD6f5UZQd3RESiRrf05fKPS51yf1r1UZLg6o0MfZA46vsTlR7lB4KdiDukvxEOvGh6DLs
-	 QYnQjzmBtna95BE19sAZxCRYRnhgmV1xRUtOd4RMbSYb/ZvBhE2JpbJrWPFogbwOyWQo/
-	 9Zs0Bec3PjEXaxDGvqUFEsDnxDN44i4mZci+64jqHBfhBeP7JILdZt4G2TWJmOyzbuQ==
+	t=1792443021;
+	b=tskMbWl10Z1e8i3s072tMMUuouWCxQ3+SksVF39QRsUpv+1cBNGp0OIpWen1U6twBC+V
+	 gIGVQai260P/LIsaR3cWPeYVn5YZPby5Q0vLtX4oJjM07YqF8uxdifrCpGtZdWNHFGBnB
+	 n/8YehJEPJBU5m++WfqAQNy9Zm9u/XkbqNQ971O276RUXI8CxUNFdaLMTKDf8rzAeDCTz
+	 HO+bsz8mWJUuiXJ7t5hULsRwvlDjSn1/dZphRvKsoRaMQXzdKPa3CZ1PU20Rp9KvHey1p
+	 3WCeI03Kpg9wJFsfTyNZu4WktEEYMa1vgpMh545YSJ0Uge2sXtNNy9qlDJdNCDfT+WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443012;
-	h=DMARC-Filter:Received:Received:Received:X-OVh-ClientIp:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:x-ovh-tracer-id:X-VR-SPAMSTATE:
-	 X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=4fn63uVBYvxfQtH2ReBw1SF76TfWdRjqEc3mmjrw420=;
-	b=3MoqgM4KKqKaZxUcVDZYp+ASVl+0cqThsvs2i7iTkNy3HpzhTeDO/DS3ukNiD9ej87Eq
-	 V2JuzHZxUEZ9PwlqJ7papNIeufhbgEkN3kEav9v1V6oHzHB/uvNRC7uJxa+G/8pFsTCcO
-	 IzGjVVvBFcFF/XjjWtESThAZzXuviPg80tODGwYB0YyY4ic9ENTleng7g2vto8EbyZ3PK
-	 jTB7aJ/YdVsWrZtwaaosa2bDXPbSYW6DPwmhZzdinQnKhK/u5oJ9/U5w5s2WS6My4ZIcf
-	 xRMBvsKS6k8AxzF+5pf2fC/iIKuoKE3GkXsQDDTHOtkwEV7NXvp84JxAoH34uASh4FQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443021;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=OCP6FBVbnzCPqRIrU0U84NczO5QojCNnRh7oxcvyJVc=;
+	b=vLsJgg3fG57cUrKeQtFj10k55LPNcwcjJWRnr680Z3/LnevgYCrUUNyZWl63QKe87v0k
+	 +5aQT9QO8H5v0ionzNaM2CKhcsPqcirMuTqgsUmLHORkad6FN5nh7iR9F2aoP6R3Ym0Vt
+	 agv5Vk1qoe7wJ4mnNY2UzdY7ewEiwfadVMQVNyCBpDQ7czPNyx7vsNNMEquIgvFAZpm70
+	 OMfFT/GySWbAUQz7Z4iWX2tn8zOoPFHuLXomea8MLwovjyAG0lWJ8wL9iiE4nd/+A5dcQ
+	 lAxLEUDGHVCn3zJVg2+n8ouYyFD65wgJfBVylGGsUlSmJ90OJ2DlmFhnuSPth4vreSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fortytwo.fr;
-	spf=pass smtp.mailfrom=fortytwo.fr;
-	dkim=pass header.d=fortytwo.fr header.i=@fortytwo.fr header.a=rsa-sha256 header.s=ovhmo5104297-selector1 header.b=U1XPlwa6;
-	arc=none smtp.remote-ip=178.33.45.107
-Received: from 5.mo550.mail-out.ovh.net (5.mo550.mail-out.ovh.net [178.33.45.107])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=D2qI8ybo;
+	arc=none smtp.remote-ip=209.85.167.179
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 595D3606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:50:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 595D3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fortytwo.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fortytwo.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC4E606A32E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:50:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CC4E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fortytwo.fr header.i=@fortytwo.fr header.a=rsa-sha256 header.s=ovhmo5104297-selector1 header.b=U1XPlwa6
-Received: from director2.ghost.mail-out.ovh.net (unknown [10.110.58.120])
-	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4j7njj08P2z5wkQ
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:50:01 +0000 (UTC)
-Received: from ghost-submission-7ccd8bbbb6-fkvks (unknown [10.108.54.44])
-	by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5324EC0504;
-	Mon, 19 Oct 2026 20:50:00 +0000 (UTC)
-Received: from fortytwo.fr ([37.59.142.109])
-	by ghost-submission-7ccd8bbbb6-fkvks with ESMTPSA
-	id VEu4BniC1mqXTQgAMqfShQ
-	(envelope-from <thomas.nemer@fortytwo.fr>); Mon, 19 Oct 2026 20:50:00 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-109S003aced7fa9-8cdd-47b0-9b08-e2ff1db65e06,
-                    4B164670A4970DC4CA3EEE43615753EBC6495375) smtp.auth=thomas.nemer@fortytwo.fr
-X-OVh-ClientIp:95.173.222.53
-From: Thomas Nemer <thomas.nemer@fortytwo.fr>
-To: tiwai@suse.com,
-	perex@perex.cz
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Nemer <thomas.nemer@fortytwo.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: usb-audio: Skip sample-rate read-back on PreSonus AudioBox USB
-Date: Mon, 19 Oct 2026 22:49:44 +0200
-Message-ID: <20261019204944.28302-1-thomas.nemer@fortytwo.fr>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=D2qI8ybo
+Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-4b1fcd3b1a9so790922b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:50:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792443019; x=1793047819; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OCP6FBVbnzCPqRIrU0U84NczO5QojCNnRh7oxcvyJVc=;
+        b=D2qI8ybojJaYnKrA4OFIxtEcVB3pWIt4dCIyUVr5sblRAQ3c+gyI+n5e7cCuoQOmMV
+         5Qt1xJdb5+ZCjFNyXmSf7Fkv86rA32zHk14hov8mZmlQCFz5G3Bs1KKis8+/VxXJDOFf
+         gLJnRytXa7VjK62P6U2/LHUd/RQ+bwomWsygAN4ZDXrCi9fFB9Guni6NaBiTVjk2Hyzq
+         F2rmoW4E7u4OflDaVKvfuTCTKky8ZMs8naDLs23J11TysPlGDtHa98qy8u6QltP2qU37
+         H/0bSTkAIHfpSZnj1tmERaUr0jNO5Xg+4o7cdXvRFUAAFbtWQimySJferJVJnEyzTcZA
+         Pi9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792443019; x=1793047819;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OCP6FBVbnzCPqRIrU0U84NczO5QojCNnRh7oxcvyJVc=;
+        b=qQf1CLD5Re9AawIhtEVLjXjw8uQ5wZVcwW+bs1VcomAT0NqZTkU11Mm49OMTY+tSaR
+         m5j0Klq0uPzo8RChKxp+1W7zzstWMCV0QRqJKqHlv0O45l5t8vR+vgNzmJB20MAS1L/a
+         G9fKkFCvjcGE4rrB31VlunVD8YYoUfyrDVrDkMgSBUv/yW4fFHPW51kGp/N5Ku5bLSNj
+         3WNQpT7xaGflrID2Zu0YkN7+/6eE1qELXRxNrEKI+Ayo/oeQt9OGk4eZGoeJ0nPmbQC9
+         9b8qsgWnQCflH+ueM/ww/RXTUjqJVkpZE8GbcDnsTO0XmDn6eIwmzkyeXG3M4aEo10jr
+         f5sg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHodN7ADTsfXwx6q2ANShAxpmwICoR41XCq6AQ6Q1iGe6zHkGG3P2hFauVRkc1LjZNEl6tDMTSnTPMl0U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcz4dRRLk+MvSBv8SyLEubJtCCryFobQqob9KXpsjMW+gaLmws
+	HgDh/j+PNopFNEF7jmheYjt3Leinhf1DI7P/t9lAGXr2DVYL9dvo/LYhdHRpdNE0go0=
+X-Gm-Gg: AYBFou0L9hlzFYB8SeB/KYETFF2JVK4xNFyWdkzl36/u2W+MM7khXMjGhOvujHgtzAz
+	6kB2I8pSlfmU51pS25SAmqdv0eK6EmP7ybtuH9iSFCJ5E/UlPABX1zEiI8a5YEfz4H592pOoZ1g
+	uECLzH0vxewQXesP9KgyglcdatP+LCni/dv73g/3gilNvDoF71bizXDyj52zwDUQavjz2yDAoSf
+	MIsR9WF5IBR1dHDI98nbGG8oJq+qbGxXbeIg5eoKlAJMHtHeNOeQU9lW4H9hoLRDvsEP0m66290
+	d+7R4yEAhY4iwjYYYqQ149lGhXjgsoKDKgMmCTgbwaAnNN9s36r9TeRGVpcTL7wQB4IguoFSdkv
+	nEwmLJhtVF2Tu4Mp11rp7I4P8UFhBASQIXOXohNA2KaMvy7YVxT22FDBIjSL42krGg4Ph7A+3S5
+	0uKdjg5dRIE+vu7LrCM9egQKJbc2CBWbdeM54Q8dA76uaGJBOs1NhxlfPWYvg64bLHq6AK+CfNk
+	FsPrBGK/nn8PTH2uFAC84ZpOLVXqMivzEVJo+UdHIZgbeytbMgph/E=
+X-Received: by 2002:a05:6808:181b:b0:4c2:5ac:7f9e with SMTP id 5614622812f47-53cd120291bmr6982795b6e.43.1792443019392;
+        Mon, 19 Oct 2026 13:50:19 -0700 (PDT)
+Received: from [192.168.2.38] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5388f6ed365sm8270131b6e.16.2026.10.19.13.50.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 13:50:18 -0700 (PDT)
+Message-ID: <ae73d8b4-c2b9-4a9c-adca-8c995ac92975@kernel.dk>
+Date: Mon, 19 Oct 2026 14:50:16 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,52 +91,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 9401264225134745115
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: dmFkZTGjmAQVrci1F2f6mTion83iRRK4PKiNe4RxseAtO0YmJpR62k+BVtY6bj7OVCpQDxG4KbOFuqEuCDUBmwuy5yBn98wiYaRPmv7AkF7/9Otq+k/JIhoOeZofohq9Bk3fuGHzDO/S2xRf9ohivivlfQ0gFsr34TOH8V5kECRz/gqUGPDjqLM4UaJ54fEFjLguWGCKNh1YUNhkFYYl+3tsLnP5jImdwFYVRzitJFPcsYHJIlGruamiN0JeKm4l0qu99+GedDWL2af0QiuhvLZccO7fOPV5S7hXa+mMHQVJnjzlAcn+gw2S4tBzUdGbft1Dmrro8hgtdyx3uQfB/sgxCi98U+Pjghv+v255MowExZ2Gjm22b8QcJGlMwnst+PYPPc3vMNh6BY1R/dvb0IFSlMVQJ1ae8Qdc4a/wj7A1evKfcG9of5lcxZllP5KiIkuAhtYZW6mxLb+2vilyM7H401IVFbhXe/daJP9wEUPfUHomEe4kq2uHtdSngny2vPGJimniTotrSj4eWnqaPMcLarkk3T/FOWTmBl8DzxcbB/b9ya4koVTEUekSK1fesfHLd7R7DN8eRt4Wk96fDBDDim5TXg8JVc6gQVXmjuEnImnUuKUf24goJxHtt4jwXsNE0p+f/jwMhTqGAfgNFfV0XAILBSK5rsRGLmJnwlxlGM3tbA
-DKIM-Signature: a=rsa-sha256; bh=4fn63uVBYvxfQtH2ReBw1SF76TfWdRjqEc3mmjrw420=;
- c=relaxed/relaxed; d=fortytwo.fr; h=From; s=ovhmo5104297-selector1;
- t=1792443001; v=1;
- b=U1XPlwa6UgLvGOZaHEt7oEl4v2CsZMW6PgstShf6PzjsHZw0a3XXRKnyCyO1UZ924IZmEdK3
- Z0+amFpNzYUSFVZQq+WBhs0tbSX4xn+5BL1+RTGMJTB4QuK8mefc9ScznhM4lAMqvuA0JcoHm6G
- GzmwMvJ54YIegbFmv3wyVr98DIGZUX5JdNNicwg6VqXRb00o62jw88ENICV5rmXdXTqvE4nz4ao
- pKU3lPRZBk1dnibRr6G/TOH1gfN5RlFwhKiNwEritcpp5XVUC53L2rO/by2Pbk3GZ+0EE/TgA+F
- koZC4v+OEnbimfOv0vYU9SCi95wCqSh0zrCpHgDYgFy1g==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring: clear IO_RING_F_DRAIN_ACTIVE on drain
+ completion flush
+To: Wei Gao <wegao@suse.com>, Pavel Begunkov <asml.silence@gmail.com>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261018070154.16944-1-wegao@suse.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261018070154.16944-1-wegao@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The AudioBox USB stalls the UAC1 GET_CUR SAMPLING_FREQ request on both
-streaming endpoints. After the sample rate is set, the read-back
-verification in set_sample_rate_v1() fails and logs
+On 10/18/26 1:01 AM, Wei Gao wrote:
+> Fix:
+> Make io_queue_deferred() return a bool indicating whether any drain
+> request was active or deferred. In __io_submit_flush_completions(), track
+> whether any completing request had REQ_F_IO_DRAIN. Clear
+> IO_RING_F_DRAIN_ACTIVE only when a drained request has completed
+> (has_drain), no drain was active or deferred (!drain_dispatched), and
+> ctx->defer_list is empty. This prevents premature clearance if an
+> unrelated completion flushes while a drain request is still executing
+> in io-wq.
 
-  usb 1-3.1.2: 2:1: cannot get freq at ep 0x1
-  usb 1-3.1.2: 3:1: cannot get freq at ep 0x82
+Didn't quite feel right to me, below is with some LLM assistance
+to try and get to the bottom of it.
 
-on each endpoint configuration until the sample_rate_read_error counter
-gives up. Set QUIRK_FLAG_GET_SAMPLE_RATE to skip the read-back on this
-device.
+Thanks for digging into this. I don't think it's just a race with a
+slow io-wq free, though. DRAIN_ACTIVE is still set when the next request gets initialized, so it's forced async and goes through the defer list
+every time, even if the drain request is freed in time.een read.
 
-Fixes: 1869c47e5d59 ("ALSA: usb-audio: Fix missing sample-rate control for PreSonus AudioBox USB")
+Basing the clear off any REQ_F_IO_DRAIN request in the flush is not
+enough:
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Thomas Nemer <thomas.nemer@fortytwo.fr>
----
- sound/usb/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+- A drain request marked REQ_F_REISSUE counts as has_drain, but
+  io_free_batch_list() punts it back to io-wq in that same flush. With
+  an empty defer list, we clear DRAIN_ACTIVE while the drain is still
+  pending.
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 4ac4aef47d..43eea72477 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2731,6 +2731,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_ITF_USB_DSD_DAC | QUIRK_FLAG_CTL_MSG_DELAY),
- 	DEVICE_FLG(0x1901, 0x0191, /* GE B850V3 CP2114 audio interface */
- 		   QUIRK_FLAG_GET_SAMPLE_RATE),
-+	DEVICE_FLG(0x194f, 0x0301, /* PreSonus AudioBox USB */
-+		   QUIRK_FLAG_GET_SAMPLE_RATE),
- 	DEVICE_FLG(0x19f7, 0x0003, /* RODE NT-USB */
- 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
- 	DEVICE_FLG(0x19f7, 0x0035, /* RODE NT-USB+ */
+- A second IOSQE_IO_DRAIN request that fails init after io_init_drain()
+  has run gets completed via io_req_defer_failed() right away. If that
+  happens while an earlier drain is still running in io-wq, we end the
+  drain, and the next request is issued before the earlier drain
+  completes.
+
+It also only works if the drain request completes through the flush.
+Without DEFER_TASKRUN, io-wq posts the CQE directly from
+io_req_complete_post(), so the application can see the CQE and submit
+before anything clears the flag.
+
+A drain request dispatched from the defer list always runs alone, so
+we can just remember which one it is and end the drain when its CQE is
+flushed, and have io-wq complete drain requests via task_work so that
+happens under ->uring_lock. Something like the below. Can you give it
+a spin with your reproducer?
+
+diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
+index 7c5d99a8f75d..2e5a786f2a2a 100644
+--- a/include/linux/io_uring_types.h
++++ b/include/linux/io_uring_types.h
+@@ -524,6 +524,8 @@ struct io_ring_ctx {
+ 	atomic_t			poll_wq_rcu_pending;
+ 	struct list_head		defer_list;
+ 	unsigned			nr_drained;
++	/* drain request dispatched from ->defer_list, until it completes */
++	struct io_kiocb			*drain_req;
+ 
+ 	/* protected by ->completion_lock */
+ 	unsigned			nr_req_allocated;
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index e6569c204917..8ffe0c9a4e29 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -480,6 +480,9 @@ static __cold noinline void io_queue_deferred(struct io_ring_ctx *ctx)
+ 
+ 	lockdep_assert_held(&ctx->uring_lock);
+ 	__io_req_caches_free(ctx);
++	/* nothing outside of ->defer_list is alive */
++	if (ctx->nr_req_allocated == ctx->nr_drained)
++		ctx->drain_req = NULL;
+ 
+ 	while (!list_empty(&ctx->defer_list)) {
+ 		struct io_defer_entry *de = list_first_entry(&ctx->defer_list,
+@@ -491,6 +494,9 @@ static __cold noinline void io_queue_deferred(struct io_ring_ctx *ctx)
+ 
+ 		list_del_init(&de->list);
+ 		ctx->nr_drained -= io_linked_nr(de->req);
++		/* it runs alone, track its completion unless it's a link */
++		if ((de->req->flags & REQ_F_IO_DRAIN) && !de->req->link)
++			ctx->drain_req = de->req;
+ 		io_req_task_queue(de->req);
+ 		kfree(de);
+ 		first = false;
+@@ -980,9 +986,11 @@ static void io_req_complete_post(struct io_kiocb *req, unsigned issue_flags)
+ 
+ 	/*
+ 	 * Handle special CQ sync cases via task_work. DEFER_TASKRUN requires
+-	 * the submitter task context, IOPOLL protects with uring_lock.
++	 * the submitter task context, IOPOLL protects with uring_lock. A drain
++	 * request ends the drain under uring_lock as its CQE is posted.
+ 	 */
+-	if ((ctx->int_flags & IO_RING_F_LOCKLESS_CQ) || (req->flags & REQ_F_REISSUE)) {
++	if ((ctx->int_flags & IO_RING_F_LOCKLESS_CQ) ||
++	    (req->flags & (REQ_F_REISSUE | REQ_F_IO_DRAIN))) {
+ defer_complete:
+ 		req->io_task_work.func = io_req_task_complete;
+ 		io_req_task_work_add(req);
+@@ -1185,11 +1193,33 @@ static void io_free_batch_list(struct io_ring_ctx *ctx,
+ 	} while (node);
+ }
+ 
++/*
++ * The dispatched drain request ran alone, and anything submitted after it was
++ * deferred. Once it completed, new requests may run if nothing is waiting.
++ */
++static __cold bool io_drain_req_completed(struct io_ring_ctx *ctx)
++{
++	struct io_wq_work_node *node;
++
++	__wq_list_for_each(node, &ctx->submit_state.compl_reqs) {
++		struct io_kiocb *req = container_of(node, struct io_kiocb,
++					    comp_list);
++
++		/* a requeued request hasn't completed */
++		if (req == ctx->drain_req && !(req->flags & REQ_F_REISSUE)) {
++			ctx->drain_req = NULL;
++			return true;
++		}
++	}
++	return false;
++}
++
+ void __io_submit_flush_completions(struct io_ring_ctx *ctx)
+ 	__must_hold(&ctx->uring_lock)
+ {
+ 	struct io_submit_state *state = &ctx->submit_state;
+ 	struct io_wq_work_node *node;
++	bool drain_done = false;
+ 
+ 	/*
+ 	 * Drop the files before the CQEs are posted, so they're released by
+@@ -1224,13 +1254,19 @@ void __io_submit_flush_completions(struct io_ring_ctx *ctx)
+ 	}
+ 	__io_cq_unlock_post(ctx);
+ 
++	if (unlikely(ctx->int_flags & IO_RING_F_DRAIN_ACTIVE) && ctx->drain_req)
++		drain_done = io_drain_req_completed(ctx);
++
+ 	if (!wq_list_empty(&state->compl_reqs)) {
+ 		io_free_batch_list(ctx, state->compl_reqs.first);
+ 		INIT_WQ_LIST(&state->compl_reqs);
+ 	}
+ 
+-	if (unlikely(ctx->int_flags & IO_RING_F_DRAIN_ACTIVE))
++	if (unlikely(ctx->int_flags & IO_RING_F_DRAIN_ACTIVE)) {
+ 		io_queue_deferred(ctx);
++		if (drain_done && list_empty(&ctx->defer_list))
++			ctx->int_flags &= ~IO_RING_F_DRAIN_ACTIVE;
++	}
+ 
+ 	ctx->submit_state.cq_flush = false;
+ }
+
 -- 
-2.56.0
-
+Jens Axboe
