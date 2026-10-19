@@ -1,86 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422880;
-	b=N9x3lp9tPHHXul/VtV0/YwESsmk9YvbHjnVEEw1fJLuSGre+/Guw1aDFPvndKVacsLxQ
-	 OtUGNvF6aVfvK5HYq3jzikwQc5YCVchbGc8GLeKB7uVVl2egOVGBaupgHG9kKWz0HaUQk
-	 g0qd27L7AKxwIbp/IOT+ZQaETM7B4zockUIBgF/U1bpb2FE/NgC3mNh4JCU0YgLu6MmLm
-	 GzfXog02/44L887QtRzcInFQJwrq74I+xTQKKo09f44JZCe5lJIcsNevFlVxyn8Y8AnsK
-	 8bOvNeYmhje6YyQNb6cl4wVbs9rdQ4ydmoQbay9YWSVnFaRyBGYdMtKBam23eP0tpyw==
+	t=1792421861;
+	b=fbBaSA4hWZ2zyIIPGEFU59zYDxUJ+zgkeC3ZZGJOiOFkMiso7OaBNjlnNogT+8TUywDp
+	 9kJXdDhEm+cVunAO/XUqZ90L7i+piosiyVShYxnFauH6mQolSBRVW55j2bMoE1xsdM8a/
+	 +WCwH+zFum9R7SEPKRrYrbHN5O08mX1Zlxqh2C/3rg5ffqfg1Dp75gnhwlxhgmfMLNmA8
+	 ARLUmIaPVbuJjantD8MUQJfZtHq4PLKKnRh5Cxdjz6g6e845zaqtiwKr9j12jQmtJHPJ+
+	 82CLztwnmTA11QZHsshNXas7R+CbAQpejocWSR5aHFmDPcOoh1YXaESlshveXfcXnCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422880;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421861;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=/sR/qr3wNghQPSbmzJH0FRDpYdJ4IAbfFL35MswEGf4=;
-	b=SeeTENQ0S7hcEDnkVc2+wgvHJT8S1vxFS41tetsw65lUTeysH6uIunG1Sv1zA5KxNpHh
-	 Bw1WlfiM8457lPODF6ijo/obD4hhIQq+EOPAIFke7TohAlJXRIR2VM5OkvMwiJTOZpJR+
-	 2GT4wA1LgiC+cEVsicntsEX48fCufeZJpWKXbTGqZ6eftNL9sefanrwkNeTiLqC/oU5H5
-	 2u4uc9xigeUQjXvaMA2yP1ApVvwXnUDuR0cjZhk0OSozD4qiERz7K6CBiPWQvgRJCuM1v
-	 SDRPx5i3lpEODa+A0WlCz3FeTaJRYszai4O0ltKUpeu5lMhHKZT0O6u+QrWvR2sgMtQ==
+	bh=jb1csYS041OQkRUmll6dd69CLnrWmFEl4dVYrmHtRAU=;
+	b=qS8WGsZHJgNZ2Isnxg/lP4AxJVdGsCAoblID7kYMKtCVYhHuwNcRIccf2aReiwctFZsB
+	 9sO+pgTbz1UhSnZZ3oQ9OkiNJSaLc7jzgM6U8lp3xO2f++tTGAqDMXw0AJCoJpE2qx40U
+	 y6Vr7Pxk6ujjZT2fJxbJ0wCUTztj5q7zf1qPiB0qu1vUtXCgSkWM27OaKHhzDQAvUW3zz
+	 w1OUC9i6TD/S+7brJNFHK3ZYYCSzu7jGmWUM90Hzm8Vvi+8Nr212ESm0EUn9zWWyU40bG
+	 eLyqfZ+902tcsEZjBf+25Cahb1iRgBwslrtgAjaEpX7N8FByq0QpLeiZv665OX5xVsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nr5smz6G;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0997609CEE3;
-	Mon, 19 Oct 2026 15:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0997609CEE3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gKgqD6z5;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EDA6160740BA;
+	Mon, 19 Oct 2026 14:57:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA6160740BA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nr5smz6G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422880; x=1823958880;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=kjIEKWxyEWzOKHNbrUmC0TVqwNqMYsVDZrB3bHb4Gwo=;
-  b=Nr5smz6G9/YWzXdfbsiLYK/ouitQdMsaxXA4MiavpAVR3vNwlESjg0MH
-   BhJIXM1ZtWYuTf90/vetBDIJZCzJOzdkw+5AIyZLHpunc3jeaEEKP25Kf
-   gdW9oU5QucRUjtLkYMEJxNOk2rAtEjY8ufw080V1RA83ouc2V+H0VD9yl
-   K7Ta7n1C9ytXyCKNbgqY3utYp3whcYHGU4PwY8vy9RRm5zolezDLgkkg6
-   mS2SGvUf5O6qkKtZ7aYwPtsWF3IDsU+eu5cs4I5mAkR2Y3mN99MlUsDe2
-   zFfRrZz4JTTIWWLxIy5YKZY8/l783baFL7IU0DySPescxhThFBWNwK8jF
-   A==;
-X-CSE-ConnectionGUID: Rgn+1VJvS7KwB0uUfe0HGA==
-X-CSE-MsgGUID: gezt2/4lSZiF00uOZ6jmdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986933"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986933"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:35 -0700
-X-CSE-ConnectionGUID: kDVV5SLWQ1iTz/Yx4vPcwA==
-X-CSE-MsgGUID: EpqCT2+qQ52AFPfq1+MEag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2536995"
-Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:34 -0700
-From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>
-Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gKgqD6z5
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D434E1EA6;
+	Mon, 19 Oct 2026 07:57:29 -0700 (PDT)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.131])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 239C93F673;
+	Mon, 19 Oct 2026 07:57:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792421853; bh=rFQ3QLuKff7vtlNW+Ur6AcpokK+E1Tl4p+PypJsyh/k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=gKgqD6z5TyPQLzUtRIFI01FrJpTwkRcyF+muszFRAoPszG94P+njdbUoMt9YNeckJ
+	 OFKy6SWNcoYvVHsuuyWT3yoqSutdQqsTJ1HEjbqr3kjyx6ELSG1AnQpHPTBZGRoAVg
+	 PnDsG4BkJan0/3EQZ20xOSQyBiOun5+QFpm+ZclU=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Breno Leitao <leitao@debian.org>,
 	Dan Williams <djbw@kernel.org>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Kristen Accardi <kristen.c.accardi@intel.com>,
-	dmaengine@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 14/17] dmaengine: idxd: complete an iaa_crypto descriptor through its own driver on abort and flush
-Date: Mon, 19 Oct 2026 08:06:27 -0700
-Message-ID: <20261019150630.4026341-15-daniel1.byrne@intel.com>
+	Terry Bowman <terry.bowman@amd.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Morduan Zang <zhangdandan@uniontech.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH 4/6] cper: add helpers to handle Memory Error Section 2
+Date: Mon, 19 Oct 2026 16:56:11 +0200
+Message-ID: <20261019145643.1877246-5-pierre.gondois@arm.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
-References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+In-Reply-To: <20261019145643.1877246-1-pierre.gondois@arm.com>
+References: <20261019145643.1877246-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,139 +84,163 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The teardown flush and the submit abort complete every descriptor as a
-dmaengine transaction, whichever driver owns the queue. An iaa_crypto
-queue is a kernel queue as well, and its interrupt-armed descriptors
-carry the crypto request where a dmaengine descriptor has its txd, so
-completing one of them as a transaction takes the request pointer for
-a cookie and a DMA address for the channel, and either hits the cookie
-BUG_ON() or stores through that address. A single iaa_crypto client
-reaches this without a halt or a shared channel: in the teardown flush
-after a drain that failed or after free_irq() lost a completion
-interrupt, and in a guest on every failed interrupt-armed submission to
-a shared queue that other guests keep full.
+Add separate location and printing helpers for Memory Error
+Section 2:
+- cper_mem_err2_location()
+- cper_dimm_err2_location()
+- cper_print_mem2()
 
-Complete such a descriptor through the completion of the driver that
-owns the queue, as the interrupt thread does, and mark one the device
-never finished as aborted first so that the driver fails its request.
-The txd handling, the callback strip and the quarantine stay with
-dmaengine queues. A failed submission of another driver's descriptor is
-left entirely to its submitter, which learns of it from the return
-value.
+Similar functions/logic exists for Memory Error Section (1),
+but require a compact version of the record. To avoid relying
+and propagating a non-standard record format, the new functions
+diretly rely on struct cper_sec_mem_err2.
 
-The teardown flush frees each descriptor it completes only when that
-completion returns, and iaa_crypto's verify allocates from inside one.
-A blocking allocation therefore fails at once on a queue whose
-wq_active is dead with no revive to come, rather than wait for a slot
-only the flush could free. Every submission there fails anyway.
-
-Fixes: 09646c98d0bf ("crypto: iaa - Add irq support for the crypto async interface")
-Cc: stable@vger.kernel.org # 6.8+
-Assisted-by: Claude:claude-opus-5
-Assisted-by: Claude:claude-opus-5-5
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
 ---
- drivers/dma/idxd/device.c | 23 +++++++++++++++++++----
- drivers/dma/idxd/idxd.h   | 10 ++++++++++
- drivers/dma/idxd/submit.c | 22 +++++++++++++++++++++-
- 3 files changed, 50 insertions(+), 5 deletions(-)
+ drivers/firmware/efi/cper.c | 108 ++++++++++++++++++++++++++++++++++++
+ include/linux/cper.h        |   3 +
+ 2 files changed, 111 insertions(+)
 
-diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
-index 222c201669bd..a33c4309f5d4 100644
---- a/drivers/dma/idxd/device.c
-+++ b/drivers/dma/idxd/device.c
-@@ -1534,10 +1534,25 @@ static void idxd_flush_pending_descs(struct idxd_irq_entry *ie,
- 		list_del(&desc->list);
- 		ctype = desc->completion->status ? IDXD_COMPLETE_NORMAL : IDXD_COMPLETE_ABORT;
- 		/*
--		 * wq is being disabled. Any remaining descriptors are
--		 * likely to be stuck and can be dropped. callback could
--		 * point to code that is no longer accessible, for example
--		 * if dmatest module has been unloaded.
-+		 * Another driver's descriptor carries that driver's request
-+		 * in place of a txd, and a client may still wait for it, so it
-+		 * goes back through that driver's completion. The completion
-+		 * reads the outcome from the record, which the device never
-+		 * wrote for an unfinished descriptor. Only a dmaengine channel
-+		 * terminates, so nothing of such a queue is quarantined.
-+		 */
-+		if (!idxd_wq_has_txd(wq)) {
-+			if (ctype == IDXD_COMPLETE_ABORT)
-+				desc->completion->status = IDXD_COMP_DESC_ABORT;
-+			idxd_desc_complete(desc, ctype, true);
-+			continue;
-+		}
-+		/*
-+		 * wq is being disabled or terminated. Any remaining
-+		 * descriptors are likely to be stuck and can be dropped.
-+		 * With no client left the callback could point to code that
-+		 * is no longer accessible (dmatest unloaded), and a client's
-+		 * own terminate must not get it, so it is stripped.
- 		 */
- 		tx = &desc->txd;
- 		tx->callback = NULL;
-diff --git a/drivers/dma/idxd/idxd.h b/drivers/dma/idxd/idxd.h
-index 9d88b0d82fee..3caf9fc00f83 100644
---- a/drivers/dma/idxd/idxd.h
-+++ b/drivers/dma/idxd/idxd.h
-@@ -755,6 +755,16 @@ void idxd_dma_complete_txd(struct idxd_desc *desc,
- 			   enum idxd_complete_type comp_type,
- 			   bool free_desc, void *ctx, u32 *status);
+diff --git a/drivers/firmware/efi/cper.c b/drivers/firmware/efi/cper.c
+index 06b4fdb59917..5c9b832b67a1 100644
+--- a/drivers/firmware/efi/cper.c
++++ b/drivers/firmware/efi/cper.c
+@@ -445,6 +445,106 @@ static void cper_print_mem(const char *pfx, const struct cper_sec_mem_err *mem,
+ 		printk("%s%s\n", pfx, rcd_decode_str);
+ }
  
-+/*
-+ * Whether the queue's descriptors are dmaengine transactions. Another
-+ * driver, such as iaa_crypto, keeps its own context where they keep
-+ * their txd.
-+ */
-+static inline bool idxd_wq_has_txd(struct idxd_wq *wq)
++int cper_mem_err2_location(const struct cper_sec_mem_err2 *mem, char *msg)
 +{
-+	return wq_to_idxd_drv(wq)->desc_complete == idxd_dma_complete_txd;
++	u32 len, n;
++
++	if (!msg)
++		return 0;
++
++	n = 0;
++	len = CPER_REC_LEN;
++	if (mem->validation_bits & CPER_MEM2_VALID_NODE)
++		n += scnprintf(msg + n, len - n, "node:%d ", mem->node);
++	if (mem->validation_bits & CPER_MEM2_VALID_CARD)
++		n += scnprintf(msg + n, len - n, "card:%d ", mem->card);
++	if (mem->validation_bits & CPER_MEM2_VALID_MODULE)
++		n += scnprintf(msg + n, len - n, "module:%d ", mem->module);
++	if (mem->validation_bits & CPER_MEM2_VALID_RANK_NUMBER)
++		n += scnprintf(msg + n, len - n, "rank:%u ", mem->rank);
++	if (mem->validation_bits & CPER_MEM2_VALID_BANK)
++		n += scnprintf(msg + n, len - n, "bank:%d ", mem->bank);
++	if (mem->validation_bits & CPER_MEM2_VALID_BANK_GROUP)
++		n += scnprintf(msg + n, len - n, "bank_group:%d ",
++			       mem->bank >> CPER_MEM_BANK_GROUP_SHIFT);
++	if (mem->validation_bits & CPER_MEM2_VALID_BANK_ADDRESS)
++		n += scnprintf(msg + n, len - n, "bank_address:%d ",
++			       mem->bank & CPER_MEM_BANK_ADDRESS_MASK);
++	if (mem->validation_bits & CPER_MEM2_VALID_DEVICE)
++		n += scnprintf(msg + n, len - n, "device:%u ", mem->device);
++	if (mem->validation_bits & CPER_MEM2_VALID_ROW)
++		n += scnprintf(msg + n, len - n, "row:%u ", mem->row);
++	if (mem->validation_bits & CPER_MEM2_VALID_COLUMN)
++		n += scnprintf(msg + n, len - n, "column:%u ", mem->column);
++	if (mem->validation_bits & CPER_MEM2_VALID_BIT_POSITION)
++		n += scnprintf(msg + n, len - n, "bit_position:%u ",
++			       mem->bit_pos);
++	if (mem->validation_bits & CPER_MEM2_VALID_REQUESTOR_ID)
++		n += scnprintf(msg + n, len - n, "requestor_id:0x%016llx ",
++			       mem->requestor_id);
++	if (mem->validation_bits & CPER_MEM2_VALID_RESPONDER_ID)
++		n += scnprintf(msg + n, len - n, "responder_id:0x%016llx ",
++			       mem->responder_id);
++	if (mem->validation_bits & CPER_MEM2_VALID_TARGET_ID)
++		n += scnprintf(msg + n, len - n, "target_id:0x%016llx ",
++			       mem->target_id);
++	if (mem->validation_bits & CPER_MEM2_VALID_CHIP_ID)
++		n += scnprintf(msg + n, len - n, "chip_id:%d ",
++			       mem->chip_id);
++
++	return n;
++}
++EXPORT_SYMBOL_GPL(cper_mem_err2_location);
++
++int cper_dimm_err2_location(const struct cper_sec_mem_err2 *mem, char *msg)
++{
++	u32 len, n;
++	const char *bank = NULL, *device = NULL;
++
++	if (!msg || !(mem->validation_bits & CPER_MEM2_VALID_MODULE_HANDLE))
++		return 0;
++
++	len = CPER_REC_LEN;
++	/* SMBIOS handles are 16 bits; never truncate a Section 2 handle. */
++	if (mem->mem_dev_handle <= U16_MAX)
++		dmi_memdev_name(mem->mem_dev_handle, &bank, &device);
++	else
++		pr_warn(FW_WARN "Memory Error Section 2 module handle 0x%x exceeds SMBIOS range\n",
++			mem->mem_dev_handle);
++	if (bank && device)
++		n = snprintf(msg, len, "DIMM location: %s %s ", bank, device);
++	else
++		n = snprintf(msg, len,
++			     "DIMM location: not present. DMI handle: 0x%.8x ",
++			     mem->mem_dev_handle);
++
++	return n;
++}
++EXPORT_SYMBOL_GPL(cper_dimm_err2_location);
++
++static void cper_print_mem2(const char *pfx, const struct cper_sec_mem_err2 *mem)
++{
++	char rcd_decode_str[CPER_REC_LEN];
++
++	if (mem->validation_bits & CPER_MEM2_VALID_ERROR_STATUS)
++		printk("%serror_status: %s (0x%016llx)\n", pfx,
++		       cper_mem_err_status_str(mem->error_status), mem->error_status);
++	if (mem->validation_bits & CPER_MEM2_VALID_PA)
++		printk("%sphysical_address: 0x%016llx\n", pfx, mem->physical_addr);
++	if (mem->validation_bits & CPER_MEM2_VALID_PA_MASK)
++		printk("%sphysical_address_mask: 0x%016llx\n", pfx,
++		       mem->physical_addr_mask);
++	if (cper_mem_err2_location(mem, rcd_decode_str))
++		printk("%s%s\n", pfx, rcd_decode_str);
++	if (mem->validation_bits & CPER_MEM2_VALID_ERROR_TYPE)
++		printk("%serror_type: %u, %s\n", pfx, mem->error_type,
++		       cper_mem_err_type_str(mem->error_type));
++	if (mem->validation_bits & CPER_MEM2_VALID_STATUS)
++		printk("%sstatus: 0x%02x\n", pfx, mem->status);
++	if (cper_dimm_err2_location(mem, rcd_decode_str))
++		printk("%s%s\n", pfx, rcd_decode_str);
 +}
 +
- static inline void idxd_desc_complete(struct idxd_desc *desc,
- 				      enum idxd_complete_type comp_type,
- 				      bool free_desc)
-diff --git a/drivers/dma/idxd/submit.c b/drivers/dma/idxd/submit.c
-index 5806b1b74a2f..fab3e0176cba 100644
---- a/drivers/dma/idxd/submit.c
-+++ b/drivers/dma/idxd/submit.c
-@@ -52,6 +52,21 @@ struct idxd_desc *idxd_alloc_desc(struct idxd_wq *wq, enum idxd_op_type optype)
- 		return __get_desc(wq, idx, cpu);
- 	}
- 
-+	/*
-+	 * A dying reference whose resurrect has completed belongs to a
-+	 * queue quiesced for good: no kill in progress will revive it, and
-+	 * every submission fails. Waiting for a slot there gains nothing
-+	 * and may never end. The teardown flush and the interrupt thread
-+	 * free the slot of each descriptor they complete only when its
-+	 * completion returns, and iaa_crypto's verify of a compression
-+	 * allocates from inside one. The two reads are not atomic, so an
-+	 * allocation that races a revive can fail like a request the kill
-+	 * caught.
-+	 */
-+	if (data_race(percpu_ref_is_dying(&wq->wq_active)) &&
-+	    completion_done(&wq->wq_resurrect))
-+		return ERR_PTR(-ENXIO);
+ static const char * const pcie_port_type_strs[] = {
+ 	"PCIe end point",
+ 	"legacy PCI end point",
+@@ -650,6 +750,14 @@ cper_estatus_print_section(const char *pfx, struct acpi_hest_generic_data *gdata
+ 				       gdata->error_data_length);
+ 		else
+ 			goto err_section_too_small;
++	} else if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM2)) {
++		struct cper_sec_mem_err2 *mem_err = acpi_hest_get_payload(gdata);
 +
- 	ws = &sbq->ws[0];
- 	for (;;) {
- 		sbitmap_prepare_to_wait(sbq, ws, &wait, TASK_INTERRUPTIBLE);
-@@ -149,7 +164,12 @@ static void llist_abort_desc(struct idxd_wq *wq, struct idxd_irq_entry *ie,
- 	 * complete and free it, and the caller frees it as well.
- 	 */
- 	WARN_ON_ONCE(!found);
--	if (found)
-+	/*
-+	 * Another driver's submitter cleans up all of its own: it learns
-+	 * of the failure from the return value and its descriptor carries
-+	 * its request where a dmaengine descriptor has its txd.
-+	 */
-+	if (found && idxd_wq_has_txd(wq))
- 		idxd_dma_complete_txd(desc, IDXD_COMPLETE_ABORT, false,
- 				      NULL, NULL);
- }
++		printk("%ssection_type: memory error 2\n", newpfx);
++		if (gdata->error_data_length >= sizeof(*mem_err))
++			cper_print_mem2(newpfx, mem_err);
++		else
++			goto err_section_too_small;
+ 	} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+ 		struct cper_sec_pcie *pcie = acpi_hest_get_payload(gdata);
+ 
+diff --git a/include/linux/cper.h b/include/linux/cper.h
+index ed355b240685..a466cba4fd61 100644
+--- a/include/linux/cper.h
++++ b/include/linux/cper.h
+@@ -656,6 +656,9 @@ void cper_print_proc_ia(const char *pfx,
+ int cper_mem_err_location(struct cper_mem_err_compact *mem, char *msg);
+ int cper_dimm_err_location(struct cper_mem_err_compact *mem, char *msg);
+ 
++int cper_mem_err2_location(const struct cper_sec_mem_err2 *mem, char *msg);
++int cper_dimm_err2_location(const struct cper_sec_mem_err2 *mem, char *msg);
++
+ struct acpi_hest_generic_status;
+ void cper_estatus_print(const char *pfx,
+ 			const struct acpi_hest_generic_status *estatus);
 -- 
 2.43.0
 
