@@ -1,100 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792450999;
-	b=Eun7a1CSdvAUjBDLomWB1UCrWsXFJWjxO0+R3Sh4kdsZersU2+G7aAP4e/sn8kkYWjmU
-	 Ce0LHNPyT9+Jp5sB7GskErIQoaWJCJwbLOPwDDRkqpPFOnoDSC4iu2OeCgekDkfJ0Twxl
-	 mYSAByFFAGpo6naxRq1tXNRNCrF4LGOxTv5YUFjry22/6pCwCv92eqK7rNana8ieqG8rH
-	 IxQlFBASa33Zv04CHxgam0IfAZRzyxy1fwzsfmGWaETD4GxEPgtJLxP/4O/oBFf+HdafP
-	 OqXvbntpZ/tvXfMIs+XCz2k5RBEEuNwYhIVlPmoFSo+LqWqQDr6mU6ScHpZyj7aN19A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792450999;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XDtlaSExnYWqsMEa8VGfF5QYBt400ktE3qpWjPuxFnM=;
-	b=uKPZcQKChKHf4KihGqkKq8dbz+Zri/R8/MS8Z46zr4j6049hVAKhlNcIXOBxypMY9wTS
-	 fHVZgealDdk1tU0VspPZ3bL5mFHQ2TxjPFqLmiQxiwXCQmicksoamsdstLCZ0maFqTwJX
-	 +ppBYG+8izO8nqfWYVFDFc5TpD3/hzj8G72+SdBHxW9658GkC6OinBLIyVjcrmIlDCN7i
-	 fuRJk9HiBIUTx7svtTbwaHBVWfxgR8TfuPm5F+/0mBYDc8OJez8XXeVdIeHFPYoEIr/rg
-	 jgAoqcoH2HUJCl6BG0Yl0efZQTU5iaryB8VIpOI3z8h3e/zetQdJr2bn4WOa8/+U5oQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzzBROxD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792451011;
+	b=b1e18k7pmeHlvTuBK3YX2Q8vGNY0e4t8YEIwQ8xZhXoT+azbne+X2wpVOBoSZ07PHqN+
+	 jl6dcj0PRKzqkAaxQ5I2ubfF8ahINulwpMXETMFUPoNGl+UQ/Lv7HRRzdcR43+OGIddKN
+	 drSz/SVcnK38iga5XkQa5ntsMOsPYzs5kauzju7PlGJqVp/3kOYEJjICNk8ziMLpEEMn7
+	 pJeuFxY4zaqG3gIde2O1DW75LmnGR5nM9pVPBe1wVKTdlprSGOcLwuLGa3RW92vKOdQ9A
+	 ZGipDB/Dkj8GiVnP++rKC/tR48Q0SmhmGSrN/zhs6eEpIMvjtyyTP901VqxjUvdAmWQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792451011;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=96qZrlKa0nMa4mVz4JEu16eJHxjAVrKtxFSmlRDsfC8=;
+	b=CY18cfk9nG6gmLXgycRTJqMSjeKjUr/6PYrtQNfu0N9HvfFdUrdzP2dNRhazYAlVO6oR
+	 REaZRkC7W3R6lMBiGOWsR+cdJjn7qrJ+JAc3TKeqC9TQqmHdKRfwS80w14MONA1WK2n/C
+	 4DGiRAk4j4Ihvhe8mbB31nf7srKkz/0Xtzrneg04z2valLn5F360KRTYFqbm9h5WctPks
+	 gIEk3EEtceY0E1OdA/R3LpTTdoT1Je0SOR2UiMycwjy8HztketvxY4B6/df5afgvD1FzY
+	 mdC+yGnkGKevVs39J9We2d3LtI1w4+zZhhaoaoZtT/ggkm+ubNM04WVqHa4SJp458aw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BIh5E1lF;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58951606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:03:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58951606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FE6606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:03:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77FE6606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzzBROxD
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c315869241fso296453766b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:03:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792450998; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LCsMXSIAy36vRMHF0qEEWkb4UYRdKlFjX8LQwb4BNwv5cUXVR1eDqh+PsAgf/Jb2v8
-         vuy0hauZ0HGx/uQl2oQ8Na5/QXbZKQ9sh438fqC1RfKzR6AYZ4zyGePxhqkb4oBY6O7/
-         xau4zePtxW28gvCZtqywbDlGxiq+rwghrP1ZVrnTKVQGKMNFhv+YIXxJfgrQx4L56NFx
-         d7agabjBr5HjkomVi22dCYnh9hKCun7nEoqDqumJkXs3TRl4bO0lOhYLWf1+s7h8a81E
-         AurslmoIyzqMYlzefI8aLUq9TIaqA1ri8NHU4z6o+3YOKFLGOJGbne1TcBxoOgo+D9wp
-         otBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XDtlaSExnYWqsMEa8VGfF5QYBt400ktE3qpWjPuxFnM=;
-        fh=llU6eFrYsDWgrpYbi4uoR4oGz17RXPq31hI1iK0aKUA=;
-        b=E1Obw3VlW48vtGhMlZh13rDoviQ9Ksko6t0ihna75O7slzPwHmygN7do4NE6zmTsc+
-         eZHLZknyIpji0xsQ4p+caARAloyxFgUt1ebHVyW2dqXCz32AfKMRAX9CwcN5bNcd7OnJ
-         D5tU6K07ujl3ys74yprCGY8v8qXV8r8wgiZDKLjq5fW7nKSNZBbI8pSIHRGg4pJSlxx2
-         kWZiiTvxfh+1H9fe/5oeXWlM17WXD51sfpUOSKc3v2fXOsXTJELKVwR8bRBP4zzamwIF
-         iKu56BY/su4eWnIIIVntcyGwa5F89L4Ua908pgWd3NpThK4MhYrlULFxEbMhPxhYpbKO
-         cCEg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792450998; x=1793055798; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XDtlaSExnYWqsMEa8VGfF5QYBt400ktE3qpWjPuxFnM=;
-        b=XzzBROxD32IdPg7PQj7Aj7TxdQnBcaRSj9035mBKfquTQx0kSnzkZMS1VhWweBSMB0
-         Sfh2J+MBxVbQK73iQuJ+L1ZmHVS8+3aMnan493N9WGr8rLM8keCy5k68bvczfivpbs2E
-         d24bsKReA/QrVBny9x68brCZh2uT/pj05oiV1qHcg9yELvChGFq6wcndflpIJ/fO23WT
-         E0uVQPyCryvPMrfKPYXecICvOblfMvqSZ13fElkWkrqo/+azdNVCNASt6xEYaglEVCqL
-         MZMXj/0At/h/fbycqLgYfcyffnLxBgrjuJV8XpQGLweVC8IFVekAu+tDbBL0V1C36tvA
-         x0Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792450998; x=1793055798;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XDtlaSExnYWqsMEa8VGfF5QYBt400ktE3qpWjPuxFnM=;
-        b=bJOACXAQtGcjPzYDGOfoMLlereG6GIZLYbhBnOR7V/AggpU7+LNc2uPGvC8IdkA/K9
-         dnxAGr4ZRobsclLPVKxgGq/sjibx4JfuoKs71OJU2ZzNRwqY9kyMmKvgiEJ86mo7wAmq
-         jRL51cxPs5qtAibwKaXla9KX1+WyeYF8YGyI+llTg12iMCb+Wm//B/0a+PNbSLoXhCkD
-         /zKhjgK17waq1QDmY26cB/r+NRDr36QJCVif5R0KjJT2BKx06w+6Fjii0/3keDCJVfqj
-         NcuqYYsOclOuozTlnnrqT3Ybgb/fbEBFA7O3NnXsmkXwIFG/6a3YDkpy3wWqjwkwUcBf
-         ++pQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwsXvkw/yrxFqGOCLjkNRuAFFYlekDp/FKBiDTvdlPZzrmkS2sMP+DAvyJybLAF7dbmREwOsMKJkrYNdu4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXCAVY/Spwz713WlvOEHMkgQgu2iW8l5b+E9W8ujAvpWeLrSRz
-	YYUmwD+N7tq3g0BCMGnemkIeRP2II5+5XKa4A+gwEdWtMVZc7nZRsiG2xMLTa0OF+fdIaLTzHzG
-	tP9/cm0esFDMp0aeKJJb60mla2QxCPw==
-X-Gm-Gg: AYBFou0ZYFy0BPjlbr0das8Bl0zylpiFJnja87kmdGTYKE6TrbG/ytAyadZCsjukqRY
-	5i1sgrLoGt2hTpn4qEHi8OnDN8G/q3GkpL7K8Q8HGDYxbbUdJ1igLCQ33wsIOjFgw4+43nvl9GJ
-	eEhEa362f1nUgicmzP48sQkDHu35J69PM1ws04eRbpWx+2FCkhzjBljSlcQTp4ut3tLqxwpELaS
-	5x8KMXyoB0PSuYYtNGwZ6OVQkPSwDm46vNK9k18ZsCiSmxB/Ty20QqFm6wk/7UV2mQ+hZrFHcto
-	gxL0YxXm7Fr/X/jqbmcDVSrzeqDnlpVhtC1sF0E9eRTjgAhMymalM/bSisrwsITlBTtr6/8PSYJ
-	PNKZ2VE+ejJq1MyEts5bzTsE0cTARBKOGuWoHMRfmNw0h6vJLqLO8/db/ei8qMZzLiefB
-X-Received: by 2002:a17:907:2da9:b0:c45:b99:f282 with SMTP id
- a640c23a62f3a-c450b99f2famr243449866b.7.1792450997629; Mon, 19 Oct 2026
- 16:03:17 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BIh5E1lF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792451009;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=96qZrlKa0nMa4mVz4JEu16eJHxjAVrKtxFSmlRDsfC8=;
+	b=BIh5E1lFXwNHYAjwqiTCR5fm72PcrnIGAPBqkwXfpFjbxU9gKmz5zt/Wrv7zBfK/kt/NMB
+	5h+nbLjC7bdBTLTT8fBRaDLApTi30g7f6/uz+DIV2RipWYHgg4wZEtrHlI+mJOrgeUxxIb
+	3ROznh4vrk/3avDU7spqdBT1yt4uxFI=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-636-PQOrDeJhOQamjiMghr3uvg-1; Mon,
+ 19 Oct 2026 23:03:27 +0000
+X-MC-Unique: PQOrDeJhOQamjiMghr3uvg-1
+X-Mimecast-MFC-AGG-ID: PQOrDeJhOQamjiMghr3uvg_1792451006
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6E00C18052C1;
+	Mon, 19 Oct 2026 23:03:26 +0000 (UTC)
+Received: from snishika-thinkpadp16vgen1.tokyo.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1B42718005B7;
+	Mon, 19 Oct 2026 23:03:23 +0000 (UTC)
+From: Seiji Nishikawa <snishika@redhat.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Amir Goldstein <amir73il@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com,
+	Seiji Nishikawa <snishika@redhat.com>
+Subject: [PATCH] inotify: do not expose a zero mask while replacing a watch
+Date: Tue, 20 Oct 2026 08:03:20 +0900
+Message-ID: <20261019230320.1855016-1-snishika@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,126 +77,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CGME20261018035132eucas1p2ccd8f0233fd196fd8801506c1c213b39@eucas1p2.samsung.com>
- <179229547105.3971562.9800339494753406560.s5p-cec@gmail.com> <6c07141b-e2d7-49b2-8493-394d727c3a15@samsung.com>
-In-Reply-To: <6c07141b-e2d7-49b2-8493-394d727c3a15@samsung.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 19 Oct 2026 19:03:03 -0400
-X-Gm-Features: AclHuK-b8j1-fi2uZSAQdYkd1yB7zxeS2EFL02Kkr6JbCillyjdAs-mauMrGRkc
-Message-ID: <CAGEsz8G1k9O2CpA23vKmUFghfN-HTFhVUtx693A0whq-mSbxYA@mail.gmail.com>
-Subject: Re: [PATCH] media: s5p_cec: release IRQ before deleting the adapter
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-samsung-soc@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Hi Marek,
+When inotify_add_watch() is called on an existing watch without
+IN_MASK_ADD, inotify_update_existing_watch() first sets mark->mask to 0
+and clears the inotify mark flags, and then sets the new bits. This is
+done under mark->lock, but event delivery reads mask and flags without
+that lock, in send_to_group(), fsnotify_iter_select_report_types(),
+fsnotify_ignore_mask(), fsnotify_handle_inode_event() and
+inotify_handle_inode_event().
 
-Agreed. I'll switch to request_threaded_irq() and free_irq() in v2.
+So if an event comes in the middle of the update, a lockless reader of
+mark->mask can see 0 and drop the event, even when both the old mask
+and the new mask include the bit for that event. KCSAN reports this as
+a data race:
 
-Thanks for the review.
+==================================================================
+BUG: KCSAN: data-race in __se_sys_inotify_add_watch / fsnotify_handle_inode_event
 
-Best regards,
-Myeonghun
+write to 0xffff88811afe9be0 of 4 bytes by task 3651 on cpu 0:
+ inotify_update_existing_watch fs/notify/inotify/inotify_user.c:558 [inline]
+ inotify_update_watch fs/notify/inotify/inotify_user.c:632 [inline]
+ __do_sys_inotify_add_watch fs/notify/inotify/inotify_user.c:769 [inline]
+ __se_sys_inotify_add_watch+0x2ea/0x720 fs/notify/inotify/inotify_user.c:717
+ __x64_sys_inotify_add_watch+0x43/0x50 fs/notify/inotify/inotify_user.c:717
+ x64_sys_call+0xa19/0x2550 arch/x86/include/generated/asm/syscalls_64.h:255
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-2026=EB=85=84 10=EC=9B=94 19=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 2:54, =
-Marek Szyprowski <m.szyprowski@samsung.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
-=84=B1:
->
-> On 18.10.2026 05:51, Myeonghun Pak wrote:
-> > The threaded IRQ handler reports transmit and receive events through
-> > cec->adap. Adapter unregistration masks the hardware interrupts but doe=
-s
-> > not wait for this handler. With no open device-node references, it can
-> > free the adapter while an already queued IRQ thread still uses it.
-> > Devres also unmaps the registers before releasing the IRQ, since the
-> > mapping was acquired after the IRQ.
-> >
-> > Free the managed IRQ before unregistering the adapter and disabling
-> > runtime PM. Request it only after the register mapping and adapter have
-> > been initialized, and free it on adapter registration failure before
-> > deleting the adapter. This also makes IRQ release precede MMIO release
-> > on probe unwind.
-> >
-> > This issue was identified as part of our ongoing research while
-> > reviewing kernel code.
-> >
-> > Fixes: 1bcbf6f4b6b0 ("[media] cec: s5p-cec: Add s5p-cec driver")
-> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> >
-> > ---
-> > Compile-tested with Clang, W=3D1. No hardware runtime testing.
-> >
-> > Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
-> >
-> > diff --git a/drivers/media/cec/platform/s5p/s5p_cec.c b/drivers/media/c=
-ec/platform/s5p/s5p_cec.c
-> > index 4a92d32..e83705f 100644
-> > --- a/drivers/media/cec/platform/s5p/s5p_cec.c
-> > +++ b/drivers/media/cec/platform/s5p/s5p_cec.c
-> > @@ -199,11 +199,6 @@ static int s5p_cec_probe(struct platform_device *p=
-dev)
-> >       if (cec->irq < 0)
-> >               return cec->irq;
-> >
-> > -     ret =3D devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_hand=
-ler,
-> > -             s5p_cec_irq_handler_thread, 0, pdev->name, cec);
-> > -     if (ret)
-> > -             return ret;
-> > -
-> >       cec->clk =3D devm_clk_get(dev, "hdmicec");
-> >       if (IS_ERR(cec->clk))
-> >               return PTR_ERR(cec->clk);
-> > @@ -231,16 +226,24 @@ static int s5p_cec_probe(struct platform_device *=
-pdev)
-> >               goto err_delete_adapter;
-> >       }
-> >
-> > -     ret =3D cec_register_adapter(cec->adap, &pdev->dev);
-> > +     ret =3D devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_hand=
-ler,
-> > +                                     s5p_cec_irq_handler_thread, 0, pd=
-ev->name, cec);
-> >       if (ret)
-> >               goto err_notifier;
-> >
-> > +     ret =3D cec_register_adapter(cec->adap, &pdev->dev);
-> > +     if (ret)
-> > +             goto err_free_irq;
-> > +
-> >       platform_set_drvdata(pdev, cec);
-> >       pm_runtime_enable(dev);
-> >
-> >       dev_dbg(dev, "successfully probed\n");
-> >       return 0;
-> >
-> > +err_free_irq:
-> > +     devm_free_irq(dev, cec->irq, cec);
-> There is no point in using devm_* API if one needs to manually free the
-> resource for whatever reason.
->
->
-> > +
-> >  err_notifier:
-> >       cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
-> >
-> > @@ -253,6 +256,7 @@ static void s5p_cec_remove(struct platform_device *=
-pdev)
-> >  {
-> >       struct s5p_cec_dev *cec =3D platform_get_drvdata(pdev);
-> >
-> > +     devm_free_irq(&pdev->dev, cec->irq, cec);
-> >       cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
-> >       cec_unregister_adapter(cec->adap);
-> >       pm_runtime_disable(&pdev->dev);
-> >
-> Best regards
-> --
-> Marek Szyprowski, PhD
-> Samsung R&D Institute Poland
->
+read to 0xffff88811afe9be0 of 4 bytes by task 3653 on cpu 1:
+ fsnotify_handle_inode_event+0x18a/0x230 fs/notify/fsnotify.c:272
+ fsnotify_handle_event fs/notify/fsnotify.c:330 [inline]
+ send_to_group fs/notify/fsnotify.c:378 [inline]
+ fsnotify+0x16ae/0x1860 fs/notify/fsnotify.c:597
+ __fsnotify_parent+0x2f8/0x3a0 fs/notify/fsnotify.c:241
+ fsnotify_parent include/linux/fsnotify.h:96 [inline]
+ fsnotify_path include/linux/fsnotify.h:113 [inline]
+ fsnotify_file include/linux/fsnotify.h:127 [inline]
+ fsnotify_close include/linux/fsnotify.h:461 [inline]
+ __fput+0x1e2/0x630 fs/file_table.c:498
+ fput_close_sync+0xad/0x190 fs/file_table.c:617
+ __do_sys_close fs/open.c:1560 [inline]
+ __se_sys_close fs/open.c:1545 [inline]
+ __x64_sys_close+0x55/0xf0 fs/open.c:1545
+ x64_sys_call+0x812/0x2550 arch/x86/include/generated/asm/syscalls_64.h:4
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+value changed: 0x00002018 -> 0x00000000
+
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 1 UID: 0 PID: 3653 Comm: syz-executor126 Not tainted syzkaller #0 PREEMPT(lazy)
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+==================================================================
+
+The old value 0x00002018 in the report is FS_UNMOUNT |
+FS_CLOSE_NOWRITE | FS_CLOSE_WRITE. The syzbot reproducer has one thread
+that calls inotify_add_watch() on a regular file in a loop, always with
+IN_CLOSE_WRITE | IN_CLOSE_NOWRITE and without IN_MASK_ADD, and another
+thread that opens and closes the same file. Calling inotify_add_watch()
+again on a watched file with the same mask is allowed, and it returns
+the same watch descriptor. But each such call still sets the mask to 0
+first, as described above, so the mask changes from 0x2018 to 0 and
+then back to 0x2018. The report shows the first thread (task 3651, in
+inotify_add_watch()) setting the mask to 0 while the second thread
+(task 3653, in close()) was reading it.
+
+The same problem can happen to the IN_EXCL_UNLINK and IN_ONESHOT bits
+in mark->flags.
+
+To check that events are really dropped, the dropped events were
+counted with bpftrace while the syzbot reproducer was running. The
+kernel is v7.3-rc7 built with the syzbot config plus CONFIG_KPROBES and
+CONFIG_KPROBE_EVENTS. The script counts the calls of
+fsnotify_handle_inode_event() that return without calling
+inotify_handle_inode_event(), that is, the events dropped there:
+
+kprobe:fsnotify_handle_inode_event
+/comm == "repro" || comm == "repro_add"/
+{
+	@calls = count();
+	@pending[tid] = 1;
+}
+
+kprobe:inotify_handle_inode_event
+/@pending[tid] == 1/
+{
+	@passed = count();
+	@pending[tid] = 0;
+}
+
+kretprobe:fsnotify_handle_inode_event
+/@pending[tid] == 1/
+{
+	@dropped = count();
+	@pending[tid] = 0;
+}
+
+With the reproducer built as "repro", 1551 of 213431 events were
+dropped in 5 seconds:
+
+@calls: 213431
+@dropped: 1551
+@passed: 211880
+
+With IN_MASK_ADD added to the inotify_add_watch() call in the
+reproducer, built as "repro_add", no events were dropped:
+
+@calls: 195658
+@dropped: 0
+@passed: 195658
+
+With this patch, no events were dropped with "repro", even without
+IN_MASK_ADD:
+
+@calls: 337082
+@dropped: 0
+@passed: 337082
+
+Commit 38035c04f586 ("inotify: move control flags from mask to mark
+flags") changed the call without IN_MASK_ADD to first clear the mask and
+the inotify flags, and then OR in the new bits with the same code as the
+IN_MASK_ADD case. The mask is cleared and set again under mark->lock,
+but the lockless readers do not take that lock, so they can see the
+zero mask after it is cleared and before the new bits are set, and
+drop events.
+
+Write the new mask and flags to the mark with one WRITE_ONCE() each, so
+a lockless reader sees either the old value or the new value, never a
+zero mask in between. Also use READ_ONCE() in the lockless readers on
+the event delivery path, to pair with the WRITE_ONCE() and mark these
+reads as intentionally lockless.
+
+Fixes: 38035c04f586 ("inotify: move control flags from mask to mark flags")
+Reported-by: syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=181b8b439f5207144b16
+Cc: stable@vger.kernel.org
+Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
+---
+ fs/notify/fsnotify.c                 | 10 +++++-----
+ fs/notify/inotify/inotify_fsnotify.c |  2 +-
+ fs/notify/inotify/inotify_user.c     | 17 +++++++++++++----
+ include/linux/fsnotify_backend.h     |  4 ++--
+ 4 files changed, 21 insertions(+), 12 deletions(-)
+
+diff --git a/fs/notify/fsnotify.c b/fs/notify/fsnotify.c
+index 7e2f330fd283..4687ba54da01 100644
+--- a/fs/notify/fsnotify.c
++++ b/fs/notify/fsnotify.c
+@@ -264,12 +264,12 @@ static int fsnotify_handle_inode_event(struct fsnotify_group *group,
+ 	if (WARN_ON_ONCE(!inode && !dir))
+ 		return 0;
+ 
+-	if ((inode_mark->flags & FSNOTIFY_MARK_FLAG_EXCL_UNLINK) &&
++	if ((READ_ONCE(inode_mark->flags) & FSNOTIFY_MARK_FLAG_EXCL_UNLINK) &&
+ 	    path && d_unlinked(path->dentry))
+ 		return 0;
+ 
+ 	/* Check interest of this mark in case event was sent with two marks */
+-	if (!(mask & inode_mark->mask & ALL_FSNOTIFY_EVENTS))
++	if (!(mask & READ_ONCE(inode_mark->mask) & ALL_FSNOTIFY_EVENTS))
+ 		return 0;
+ 
+ 	return ops->handle_inode_event(inode_mark, mask, inode, dir, name, cookie);
+@@ -349,7 +349,7 @@ static int send_to_group(__u32 mask, const void *data, int data_type,
+ 	/* clear ignored on inode modification */
+ 	if (mask & FS_MODIFY) {
+ 		fsnotify_foreach_iter_mark_type(iter_info, mark, type) {
+-			if (!(mark->flags &
++			if (!(READ_ONCE(mark->flags) &
+ 			      FSNOTIFY_MARK_FLAG_IGNORED_SURV_MODIFY))
+ 				mark->ignore_mask = 0;
+ 		}
+@@ -358,7 +358,7 @@ static int send_to_group(__u32 mask, const void *data, int data_type,
+ 	/* Are any of the group marks interested in this event? */
+ 	fsnotify_foreach_iter_mark_type(iter_info, mark, type) {
+ 		group = mark->group;
+-		marks_mask |= mark->mask;
++		marks_mask |= READ_ONCE(mark->mask);
+ 		marks_ignore_mask |=
+ 			fsnotify_effective_ignore_mask(mark, is_dir, type);
+ 	}
+@@ -439,7 +439,7 @@ static bool fsnotify_iter_select_report_types(
+ 			 * But is *this mark* watching children?
+ 			 */
+ 			if (type == FSNOTIFY_ITER_TYPE_PARENT &&
+-			    !(mark->mask & FS_EVENT_ON_CHILD) &&
++			    !(READ_ONCE(mark->mask) & FS_EVENT_ON_CHILD) &&
+ 			    !(fsnotify_ignore_mask(mark) & FS_EVENT_ON_CHILD))
+ 				continue;
+ 
+diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/inotify_fsnotify.c
+index 7c326ec2e8a8..da506ef03a25 100644
+--- a/fs/notify/inotify/inotify_fsnotify.c
++++ b/fs/notify/inotify/inotify_fsnotify.c
+@@ -129,7 +129,7 @@ int inotify_handle_inode_event(struct fsnotify_mark *inode_mark, u32 mask,
+ 		fsnotify_destroy_event(group, fsn_event);
+ 	}
+ 
+-	if (inode_mark->flags & FSNOTIFY_MARK_FLAG_IN_ONESHOT)
++	if (READ_ONCE(inode_mark->flags) & FSNOTIFY_MARK_FLAG_IN_ONESHOT)
+ 		fsnotify_destroy_mark(inode_mark, group);
+ 
+ 	return 0;
+diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
+index 5f19c24ec187..98a13699ee66 100644
+--- a/fs/notify/inotify/inotify_user.c
++++ b/fs/notify/inotify/inotify_user.c
+@@ -554,12 +554,21 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
+ 	i_mark = container_of(fsn_mark, struct inotify_inode_mark, fsn_mark);
+ 
+ 	spin_lock(&fsn_mark->lock);
++	/*
++	 * Event delivery reads mask and flags without mark->lock, so update
++	 * each of them with a single store and never expose a partial value.
++	 */
+ 	if (replace) {
+-		fsn_mark->mask = 0;
+-		fsn_mark->flags &= ~INOTIFY_MARK_FLAGS;
++		WRITE_ONCE(fsn_mark->mask, inotify_arg_to_mask(inode, arg));
++		WRITE_ONCE(fsn_mark->flags,
++			   (fsn_mark->flags & ~INOTIFY_MARK_FLAGS) |
++			   inotify_arg_to_flags(arg));
++	} else {
++		WRITE_ONCE(fsn_mark->mask,
++			   fsn_mark->mask | inotify_arg_to_mask(inode, arg));
++		WRITE_ONCE(fsn_mark->flags,
++			   fsn_mark->flags | inotify_arg_to_flags(arg));
+ 	}
+-	fsn_mark->mask |= inotify_arg_to_mask(inode, arg);
+-	fsn_mark->flags |= inotify_arg_to_flags(arg);
+ 	spin_unlock(&fsn_mark->lock);
+ 
+ 	fsnotify_recalc_mask(fsn_mark->connector);
+diff --git a/include/linux/fsnotify_backend.h b/include/linux/fsnotify_backend.h
+index a6d5c1a89cff..5f0b94bfde8e 100644
+--- a/include/linux/fsnotify_backend.h
++++ b/include/linux/fsnotify_backend.h
+@@ -802,7 +802,7 @@ static inline __u32 fsnotify_ignore_mask(struct fsnotify_mark *mark)
+ 	__u32 ignore_mask = mark->ignore_mask;
+ 
+ 	/* The event flags in ignore mask take effect */
+-	if (mark->flags & FSNOTIFY_MARK_FLAG_HAS_IGNORE_FLAGS)
++	if (READ_ONCE(mark->flags) & FSNOTIFY_MARK_FLAG_HAS_IGNORE_FLAGS)
+ 		return ignore_mask;
+ 
+ 	/*
+@@ -812,7 +812,7 @@ static inline __u32 fsnotify_ignore_mask(struct fsnotify_mark *mark)
+ 	 */
+ 	ignore_mask |= FS_ISDIR;
+ 	ignore_mask &= ~FS_EVENT_ON_CHILD;
+-	ignore_mask |= mark->mask & FS_EVENT_ON_CHILD;
++	ignore_mask |= READ_ONCE(mark->mask) & FS_EVENT_ON_CHILD;
+ 
+ 	return ignore_mask;
+ }
+-- 
+2.55.0
+
