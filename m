@@ -1,56 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792423376;
-	b=TBMb8lZrhGl8IMZk2QFwt/ULnebFS9GUoV+JQXL43RME30Sqf7fDr+7doN/nLMItc98m
-	 WWnulLlP/SHqIoXJSznhexGQjpUvZXY1mlDgi2eX53fZsf2mVEAk2r9iaeSNn/8dcBRf2
-	 cJ+uHn5PDULknG1/QBzAmVj0Z7LaYXoHsOQhOV8LI42TaG3m/nlt6DjpNeaCscq1iKs0e
-	 +UtYI/oayROssTnkDpRwVW21gNdCTNn/yTnf2+h29FpN5nRfhVah39cc/mloqK/Sttz+q
-	 0S6FBrVbvWJCXTCZROJIcbaoidiIGGqE2rFbL7wLclBWeMHI/iu1CovJ5T1JmVFMqaQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423376;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uxRefdjC1faigZCaIh564uvlWoAmDrfhs0/GDX8ugQU=;
-	b=q7wG+bYUMDetTbSvPteqtB928cdf65iqD4Rw1J4N6TbrXJSTAnMRB2B2cAl1K1E8e49M
-	 8Gr5OOm73xxnjlhcv6YQSB+HpoD9UQP6+eUGDwHEWfic9k9DBJFDyL18Op0F4AdFkCnsI
-	 fvAWmzwrPk/JbxGfuCH3tnA9GrKTxbSaJ2XJLO5WwxSOIVYmFsvUQuhNAa2/G4Mlbdc7/
-	 UnFK/ovC82khqHFQrGc1vLOpx0Z85OOJyQMufQ/skvTnS7bVBkdUmuIdzt3+OBC0GxQnW
-	 bzKenTQ8i1OnzGjVlmf4J4e5y2kW1GJD4uh0ncYmWqKgdGsvQywYiHGyUHKscWpmYew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cq0aRrSR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F2B60AB716;
-	Mon, 19 Oct 2026 15:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792421822;
+	b=3h8O/vJfHQXGTCeeHPlPRvkjFI3Ex/3dq/zkVGT3PSvWPf1Yo66/qiHkG0/mVF3C8iRy
+	 xTYxFv+OihtZ5lt5TXbl293NAZTtkWAcMi3BOEAUhgXzhVdz5l7BknwkXrpP8FobztID+
+	 YKjmAtKm43jKNjq00jzihUub325/xNeZ7ZTSWiQ2M/qDTTrDhdSCI+Cd7bbHc+6QR6EiE
+	 c25r+EHznO0TGdfOsGrYrpDRWskrzIsQWKZsOOfJp7NN6/Nl44DBNePdMrx8GNaSlsv5P
+	 A0EbR4m6Je0GaDYljLmePcdYTOPzVSl4dgYzpDSZtydUBxOzCRnckceB5wmoyV5UViw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421822;
+	h=Received:Received:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=XFFhmkzN3gCpAVV9wNJFrGK2My1XuAXj1fxImpVBK8k=;
+	b=4AVQ1SVnb9tknW/NcPFM76rUu4xxRDJEE4hx7Mzrm+UsqKYADnvg8S/EJPgVQPoluNQa
+	 lJMAL8bWUGhqSsDZHINq+EVsBfVB2hsOof6Q6dCgiqCD9wVBoJZmVjDj1RFXIhCQEdd9y
+	 h71aS5wLPEryC/r7i0q6nTBdYD6tcjoWVYZmwXQtwIiv0sbuWSV632r8ijNnKuv6Y0IRS
+	 bdtvBowRFDi7JmWQ3rcfyiQbdLs3PUmVwX/GsrN+TTrT6V59DJWfAMdHMcdAh+eYMq9Id
+	 rzGYAsi/0J8o8XOCXO23qUfuct3eLMXGQmQHy1T+bo/IVVUIU019I2vlqUYsNNnBUJQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PV9btGXP;
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40D16607408B;
+	Mon, 19 Oct 2026 14:57:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cq0aRrSR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3551F000C4;
-	Mon, 19 Oct 2026 15:22:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792423375;
-	bh=uxRefdjC1faigZCaIh564uvlWoAmDrfhs0/GDX8ugQU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Cq0aRrSRpfPM5TAQt1gVN+YP0fbg03Bf7RDBH/rXvJzbhjERKN8uYWwmxVLaM4jJV
-	 hSSlDV9KH5YCZflnN9H5K8MnuJIcToLzl8JV8PVqOIT009D5t+Rg5X6RmU3v+nwy38
-	 aQN9Vw6sjxv+zUJIQ+F5gTDkCjmlRmI6hEummff9BodnYlrTB2GSDEIGZLvgO7Miuk
-	 K27Yq8LcFkKd7QNK1AdaI8dBCm9Vo9BHBtOq5PYTvgUArjheYUvS6uCorYLj6FSSwe
-	 JTyHyVJUOVxmq7f9omLaaPgBdNvJYa4EppQAU92MIUmoLu9F0E/pH4PQAqhYc4f4qD
-	 IGyvRQBRlPQwQ==
-Date: Mon, 19 Oct 2026 15:22:52 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v4 3/6] watchdog: w83627hf_wdt: Convert to platform
- driver model
-Message-ID: <atY1zCt9YWcaxeAo@google.com>
-References: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com>
- <20261013-w83627hf_wdt-improvements-v4-3-b6f6b60a9566@bootlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PV9btGXP
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 329803451CE;
+	Mon, 19 Oct 2026 14:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421822; cv=none; b=tLJI0XFjgrbHSfVKqAiiYrsl1UcoDkeIkhMCg8grs7QA33twm/P6Hn6S/6j3rISmwPauAuctmFqFxCb/iUFZXqLArvnVSiX7yG9olhHuGWaPA/7HVI4aMi5lnHTeeEvnigkl5isymNvtg364Np0mibO97O0zd53ZgY3J5+Sg5Io=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421822; c=relaxed/simple;
+	bh=wstiMUuPit29XB21u72+Sm9cipTaJpB6vDxcGcOze1Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P371awcMjGWSiA2es/VRMNTvVHWcJIX51AaZW+sOQ7+IfhavU1M6riri+M5YAS1hg22vqfApo7T9r0opy36IeLzwpwnmClnfvAuz6VGIssg+zrvVaFnvUqBZxflM6P3t61jiDZzaRkJWQVwynSzkA0m/o+pchkPjiJ5UX+rGHMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PV9btGXP; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2CEB31682;
+	Mon, 19 Oct 2026 07:56:56 -0700 (PDT)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.131])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7C98F3F673;
+	Mon, 19 Oct 2026 07:56:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792421819; bh=wstiMUuPit29XB21u72+Sm9cipTaJpB6vDxcGcOze1Y=;
+	h=From:To:Cc:Subject:Date:From;
+	b=PV9btGXPW0TQosrp57rBn61aSnEngvPMA1lmEZ+6U2btLHX4uWQIxUZu+zPNw+d0L
+	 BiMzgeElPDm7ulf/S1KMvYNrhX1bzSLNQ/4bJtdB7oKylU2tpBI2R1BmPbiEECRQAj
+	 2Yj3fv/A9UJz4KDiQCT9PrO8wcl4O29jAZGa+yEM=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Dan Williams <djbw@kernel.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Morduan Zang <zhangdandan@uniontech.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH 0/6] CPER: Add Memory Error Section 2 support
+Date: Mon, 19 Oct 2026 16:56:07 +0200
+Message-ID: <20261019145643.1877246-1-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,18 +89,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013-w83627hf_wdt-improvements-v4-3-b6f6b60a9566@bootlin.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 03:58:47PM +0200, Paul Louvel wrote:
-> +static int wdt_probe(struct platform_device *pdev)
-> +{
-...
-> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return dev_err_probe(dev, -ENOMEM, "failed to allocate memory\n");
+The support is mostly duplicated from Memory Error Section handling.
+Other than differences coming from the content of  Memory Error
+Section 1 and 2, differences in the support are:
 
-dev_err_probe() doesn't print anything on -ENOMEM [1].
+- v2 do not rely on a compact "struct cper_mem_err_compact" struct.
+This structure was used to support older versions of the Memory
+Error Section (1). This is not needed for the new structure.
 
-[1] https://elixir.bootlin.com/linux/v7.2/source/drivers/base/core.c#L5097
+- The compact version is also used by the tracing framework.
+To avoid relying and propagating a non-standard record format,
+through trace event (cf. extlog_mem event) the new trace event
+prints each field individually.
+
+The last patch of the serie was only build-tested due to the
+absence of relevant hardware. apei_mce_report_mem_error() and
+arch_apei_report_mem_error() implementations were also removed since
+last version.
+
+It will also require a proper handling from the rasdaemon. Applying
+this last patch without rasdaemon support will silent the reports of
+Memory Error Section 2 error, cf. ras_userspace_consumers() check.
+
+RFC: https://lore.kernel.org/all/20260929074659.2587216-1-pierre.gondois@arm.com/#t
+
+Pierre Gondois (6):
+  ACPI: extlog: fix extlog_mem_event build issue
+  cper: add Memory Error Section 2 structures
+  cper: use BIT_ULL() for processor and memory validation bits
+  cper: add helpers to handle Memory Error Section 2
+  ACPI: APEI: add separate Memory Error Section 2 handlers
+  ACPI: extlog: add Memory Error Section 2 trace event
+
+ drivers/acpi/acpi_extlog.c  |  30 +++++++-
+ drivers/acpi/apei/ghes.c    |  49 +++++++++++-
+ drivers/edac/ghes_edac.c    | 150 ++++++++++++++++++++++++++++++++++++
+ drivers/firmware/efi/cper.c | 108 ++++++++++++++++++++++++++
+ drivers/ras/ras.c           |   1 +
+ include/acpi/ghes.h         |   2 +
+ include/linux/cper.h        | 129 ++++++++++++++++++++++---------
+ include/ras/ras_event.h     | 102 ++++++++++++++++++++++++
+ 8 files changed, 532 insertions(+), 39 deletions(-)
+
+--
+2.43.0
