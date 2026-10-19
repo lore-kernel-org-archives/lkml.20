@@ -1,205 +1,406 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694451A5B9E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7DF18C933
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792368509; cv=none; b=OGnnuqpfWImqOnygmR4hI7OkrjzBUPQYtUy3J3DTLYg9EfkWYID+o2uH8+DmoWVFVROwwQLTRRkmOlzqhGDC3Si8h0P5eYAP73YsVJdAksADcABC0wCX6cFp1xqP5iVWhju7ladUx3jGzdrONRJien1GOeDqbBZnyb2qM3zTiJU=
+	t=1792368514; cv=none; b=T5JInx1vmFoAxDBI59Eu6+Fm1/8xvJhcUeEPImW0y0NrdPLTIkzVJpTSAyANRDAiounWI5VuL+Oo+ymeEoJGAjTiSqhUtmpYMc6TfnKAvrQ4oAxY2VJyYDbbF0fNLqFVEA0wZqkSW7GKG2u3mJhaO1DWFZYZBJHrcEPNoAB2co0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792368509; c=relaxed/simple;
-	bh=/FVPCvLu/Bseqi9fPAvsX2gRV0t1daG5mjpc0J6y8iY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oxczBb/t8bV87Dk/qHN0M3ZHXsQbsCyNlMQ8Ro/m/F0Z66Ec1M1rg/18RCY8onKGB5u6Y5fO0Q3H42uuhKjyl5iEA1l++wBXRBEO5wFAvKyqb4l7f0R42RA6TtFoHkK/JU6ZWLDkGRvomR3Fs/GH0LbhL0Wf8VvLFxpe1rpybeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=owlMCLhX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HMV9MlvX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792368514; c=relaxed/simple;
+	bh=TTEgmToFZNll/tOEpL/Fkztg0eRVicudDp8FkYnfp20=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gR+q+GpK7B/W3iLUmG8bO5BC7IaLsa9gj+oVx0cYEWLPN93VWLIzCHlgehw0WABJCAHJNvG8E/HzofspiQAvqkncTsdkjxPhA4gELbdUPcDS1/Vsr0SNTxbWGmTDfJLwH30FgZ6Q+Lyd1VkyExnSIVdoRJRZUKhz3SITE1NJFHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=Vb0lKs1K; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Xf/A64iT; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="owlMCLhX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HMV9MlvX"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ILj26u1902196
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:08:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=8250laV7NoHPv1ek4oGHhuKA
-	b0fpGnJ3DhEPzSMYYSY=; b=owlMCLhXn1S3fR1fNukDBp8dTHHT2qBp9oKM0Od7
-	BEDWcyqoU5lilYaK/XhCbIi7R2GX6TTlNtPTTfjeLxWvbVU+3QnGf/SRQx2flv7A
-	EaI1rFtwCJTpEZGUnTBnmUaUPkaPYXWURffDvB5VJkbQOBJUSwbUYKdAZTkzsgnh
-	lecdb/VRlmdBErGRK3vH2+Tuibyyk/eqwIwV5yJr/Qt02IEN0NWE9giheS0k04Ea
-	t2LpsnxAV63+i75uvzUe/ul+WU951vuBfu8DBB5oysFq3qRwSDO4xTJn+7ZKwVFy
-	jnstVfH7ctSH56T+IKPNE42XT2jmnCI6apPoSM6Ce/QA/Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbyys4afm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:08:27 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a082c014aso396487785a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:08:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792368506; x=1792973306; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8250laV7NoHPv1ek4oGHhuKAb0fpGnJ3DhEPzSMYYSY=;
-        b=HMV9MlvX5Dw7FleuRZYNac4WTtbxDV92SiF2WY+FAlChIo3G3BxaJtX8IPtfYO7An6
-         18i8VV/cuRc5BIp2Fs8JXqs8B8k5sVMsXTaE29cCaMSQqjZ94a6KHH6VrUJomG4ZvuoF
-         VGUBVAtACOBm2LEzOtnlkCh6k8EamseL23POC4znvlEjWzYZWqCowgEiDGeTZcLZ8nXE
-         Hgp7CSxEzPKloazsZSJdCCT7p6LAw8ACcizg6EB1E09zhUD4uBYVIrRTVM+2+0cfIIsT
-         bZ3aLVKIcRpZC/JD2L0upw+pq1G7Z2TAeV4kmhT7YXPLSNqMH/gCohjU1sYcubGPdbXS
-         h/Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792368506; x=1792973306;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8250laV7NoHPv1ek4oGHhuKAb0fpGnJ3DhEPzSMYYSY=;
-        b=FSxdoOOhmoWgLgDWZdRPuXuuLivKhbITl0OZk3i0laTtMI2eG5SHxHqxmWqXLrmzOk
-         oL6nU/8l0ZVNOenSM1sQvsWftxvGd+weRC/GVyXlv6fihG5244RcRBzW8f2ybfjEaGC9
-         n2ofchxZdZ0XKsDf0JyjCV+JWQE96pjTJ5RXfEGPHaJPTBwxO5zV1I4E9aeFXm4ZFasF
-         TBcDyL6yai/cIFwVTaxgabtFsh+2zpjqBBQFWwezFkVTFru6WGuP4FTLd9xKCi42aoRF
-         ccmBkIOjm0cROuPedstXdG4DkKaeuqdKmvr6J9q9F1DR+fD8EulxNI5FOK2EOpvLHAOU
-         yQ3g==
-X-Forwarded-Encrypted: i=1; AKwUvBz5yPWq58U7yECre6akWNj2HqvG3KYbT6i+x09nmlGv8tHNw8VGZqN7MTXimx4sy2okxBs7MaNvAC+uTyE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhlkzpFN0neXuDZmhdzE1JQzTe0sKWLCo+izg5uvpWa7ZkEA6C
-	vnsBhicTKqHli17EFZRqQHc68xE2Rm1+wL5QBffGMX6bXnyximd0+03NZcriCjnhmDmMjBd1xhT
-	o8sVZq5953ucQLsh+UQIvwmpLIHCPZ6Uj3jebN0e5aesJxHH8n89Uo9qlk7UvF7oM0Lk=
-X-Gm-Gg: AYBFou2WVMU64oAv6gNAzFUZMe1UW6on/sew3XWjmIG9jtvlJoxrHkt06lRRvbCQDkX
-	FQWPz3lIOOFsw4T6PhopSkCdiN2VQ+8+QY4+RBatyeaQuHk0Ta1FhbIy6yic6+odgOHGRy2SQB9
-	IRBAMl49eDqg0HpGSySFyHdBdnrqPX6kaU1avrXGJQ9WkLvc0fOR45A8kAa+fKt5csKd0Auuwcg
-	sVjCBKmWdqzkJ8+Jz3dk5Bj+hhsYBwRHRZJX2r6tKR99NL2DD+K0C/q+ujRSIelfpaALs6lJuC5
-	PDJ+3StomBcj1+sVjN0Fo5FZyJZFM87HDYQmz9pHRKBvDS6N/byEg3GH4ars/3hJQKo6nN9o4WO
-	jH75C6kn/fEEXb6agUUnuEcn4wBLSK3SHgfdYBZMIOFiSd1EzDqdKs/BLTjET8t22irQ2t3vbgJ
-	TdF2qrrHogmdVU
-X-Received: by 2002:a05:620a:284b:b0:93c:7861:675 with SMTP id af79cd13be357-93f17d67161mr1577008785a.1.1792368506514;
-        Sun, 18 Oct 2026 17:08:26 -0700 (PDT)
-X-Received: by 2002:a05:620a:284b:b0:93c:7861:675 with SMTP id af79cd13be357-93f17d67161mr1577005585a.1.1792368505984;
-        Sun, 18 Oct 2026 17:08:25 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a644621sm1653149e87.84.2026.10.18.17.08.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 17:08:24 -0700 (PDT)
-Date: Mon, 19 Oct 2026 03:08:21 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Robin Snyders <robin@snyders.xyz>
-Cc: Casey Connolly <casey.connolly@linaro.org>,
-        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Joel Selvaraj <foss@joelselvaraj.com>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] power: supply: qcom_smbx: add SMB5 support
-Message-ID: <nbdom5guixhijbbcrsj4jolk4bemh4ccbcqkrhe5ka2hf7naad@lxxiwac6g5on>
-References: <20260813-submit-qcom-smbx-send-v1-v3-0-27be0091d7c7@snyders.xyz>
- <20260813-submit-qcom-smbx-send-v1-v3-2-27be0091d7c7@snyders.xyz>
- <hryxv7fl3alrhnekb7bqn5zgexdyv3p6ndug7kp3uqxsiiwmsv@wtvg3za3qspu>
- <7e5c96b8-e1ae-4819-874f-db818061be58@mail.infomaniak.com>
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="Vb0lKs1K";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Xf/A64iT"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3C0641D0014E
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:08:30 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Sun, 18 Oct 2026 20:08:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:reply-to:subject:subject:to:to; s=fm2; t=1792368509;
+	 x=1792454909; bh=BzgyxQsb9OHYweqBKSCj+6W3w2OpoVBllI28GIVISfw=; b=
+	Vb0lKs1KgIGD+LhvGz6qhbb2QUjEHyanPCQcBUb0lta9BCagxFGRNTmjphASVsq1
+	UvP5gRaN+2sfVZisA5cH5cr25Cp2zNFfs6WNV8AuKQWAB75IbD5jCF8dHg6ykOdy
+	K1ylUQdNSJQjt6T2Yyqkh+EZfbnbeV42GmzVPQc0+bWNtIC0RM+9nSfnypnwahjk
+	F84zEUbq4sA/YaPFSV/1mvetCue/Q+yXfVqxZ8go5pGlnej4rGQ5c/axLgOLih4T
+	AsZVjA0/Zj2Qb+ou5FS6ET/Xj3S88HqM+RwW1w+jqkgEW5bf01VAaeKRU5xiOGK2
+	KMqFJicMJEhG+gMFXTGZuw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1792368509; x=1792454909; bh=B
+	zgyxQsb9OHYweqBKSCj+6W3w2OpoVBllI28GIVISfw=; b=Xf/A64iTdoA3tzSSI
+	kqpcY4xv5mcPGB8htw8JSSyHhUk9vLjX+H5UZ7NDruzzIaEahbPJmpW0vvdF1V2H
+	WNvHbOxqex/6gxC6Oqe4gE1vK7JJHnOdg1HxcgNALrNJRlMkVsjXkLlm4gH2pMml
+	pOtQthc7JtqDqASRMgnOPkie7LE12HZ45eDs/6C8kWC1oTGIMQrgAC+WTkurpvli
+	ucuNKvHpOu+cG8n4JGBGhNc7JhiIPxsURYUMf2xOKeB0bZ3fpZm4Z2txxUfaCZBA
+	qx4EeBpoellLhdnyp2K5ipd9BpeqeLaw8rLGAgNClNfDgfSvnC7tI+Y6AKfeuIkS
+	lRz8Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792368509; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:LdxGowJ3hFmyZUjcox9gItGM3PHzV8Exd5lO52QoqIJEkYQ
+	I8icNHIx3n1QSaDxBWOngkQ1M5X7cRDMBPq/2B5Abn0H12I5gs3a+ycE1dOP0Az+
+	S0XaV2CiwhFtoXHHknib2hbHU8vudyAqipQVKgI49qRdffTfI5DarGWV1XcAvkjY
+	N+Wcgk7hLPDqj54eijv09sXLo66vldvPzJoJnhqQ+s/42IfLBoUI4T694FReikgq
+	8K5cexsB+r3Tdj4mfqoT39+riKw14zwYf0Ha9Itlf55wF+83KPjfvXUh57AwZO7/
+	6DtVHhsKiaEb90LdoqvrIGB1UIeLm+2nj6eVRcA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,reply-to,subject,
+	to;
+Message-Instance: m=1; h=sha256:OLg1wLXFnF6vc5ps0sAnvtWPiggyKnlO+5nJqaBiGK8=:TTEgmToFZNll/tOEpL/Fkztg0eRVicudDp8FkYnfp20=;
+X-ME-Sender: <xms:fV_VaswlBWlclAuwHUCB3BVqMnpGhuKphBmyGj5EFztMFmZh19G71w>
+    <xme:fV_Vai1A6knhT_Cp9QekRbPVAyp573cOwsSa6e5dkPR-suddkxbZaw-LLwcgGu_YR
+    qZfG3vo4PGOcRjPe2-EPfjItgJSOLifeJdOuMKi5yURbgmLI28>
+X-ME-Received: <xmr:fV_Vah-W_6Txy94hgrBxy4mQIMay032g5fdBzpRl_qZXD_VZEuPbOLvbKDcrhekGw0tYPEJ-DhmCL2YyTl8S07HPujnKZRM>
+X-ME-Proxy-Cause: dmFkZTFs2i+5K0BYLeXMC0R006lxiATWY/pyyLHbxrZd5n676ixdWE8+6DS+wr2JnmZrE+
+    XEDc9MiJU3LySWAtA5xXuB1qBwkZKM71WRxiNhPbAD79Ahrpi/ew7ryYTZhtYZgMRITqn5
+    YRsCpjzWHB/LWfIl1uU5cN6J1CKRGuqVVWLAS2Ukrboe64/3/fwvOhXkINgxDg6k+Hmy1A
+    McozUfzJ7vrTCvZ8+oJ56I8WJuFRAKSeox22j7QCwUCT+aqgatVwuTg4Mo88b8S+D+awZv
+    J/iyl28Vfztd3b1k2Z3Q2unfkJg1S1uC86rtU/tzP5X3vDr0eVz2xU0OxvoPKm9KBzgbMb
+    JhGpTXiOthaqfbvoJVsNk3EUSXWVm+2s+HT6+y5Vb7t+sh/dYn0+NKdRbRYiZDu9wYP/gB
+    M1aymU7U2VmQ6r9Mytw4Jl83ZjTzA6ZvSDJaEbpOvavm+EBrKewJ4eLLs5tr4A16fCqs3n
+    hb6CUX3gLgN6kSm5TMlddi6u3/tOTQZ1udbjIgSkOXjE31lJeZt2ZufwxlfBDpuioSqyXG
+    jaCLGdrBr178/qXI2gqQl1RfoSntCrqokjk75nhSoUC93UaTPPCl/1rSUNeJmyWgL2ULbh
+    DtGusvqjIveZmQxZm7gchO0iTHi6VRhGuvaoRZPS5+WLPQnDR0m6RpflA6vg
+X-ME-Proxy: <xmx:fV_Vaqp60zVzvNLsiaWq7DLqQ-PFjX93T2D4dNQcAPEAZdFQo6B6PQ>
+    <xmx:fV_VajQmeO0IHAH00z5180qulc2q4PGhlmmBodBOm-o80893UNQKag>
+    <xmx:fV_ValOyDHDl1yceBP4JURIfe2kVe6xwksXFXXcSUjqOHSjlKb7pVA>
+    <xmx:fV_Vaph7KUWC5LaBl15hrVVH5MHyJQv6fF8e0H5yWOdmf2cSGKp0HA>
+    <xmx:fV_VajBCBxglXLILY1AsTs2y5G2bdSe1mceZHoCWQxkDbMzPeRVsI7FR>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 18 Oct 2026 20:08:27 -0400 (EDT)
+From: NeilBrown <neilb@ownmail.net>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Amir Goldstein <amir73il@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Kent <raven@themaw.net>,
+	Jake Edge <jake@lwn.net>
+Subject: [PATCH v4 1/5] VFS: don't count references through ->d_parent
+Date: Mon, 19 Oct 2026 11:00:39 +1100
+Message-ID: <20261019000810.1837917-2-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+In-Reply-To: <20261019000810.1837917-1-neilb@ownmail.net>
+References: <20261019000810.1837917-1-neilb@ownmail.net>
+Reply-To: NeilBrown <neil@brown.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7e5c96b8-e1ae-4819-874f-db818061be58@mail.infomaniak.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAwMCBTYWx0ZWRfX2Uu886Wx/siz
- TiG9lgmgKrcBYMfmbQ5iLMlF+m3i2BBNjAJxrQ5EIoj8FViOabBzb/HXWTmWiVhWnq0sdpDHMIJ
- wuRp76pVoL+p8vRVna+znUJJPzPN4ddI1X1MLdfPKnmXQzcBm/+Gakb/ml7Xd0Q9jKnL3rea1we
- O5OB4XC2zY4ML2wrstULjGiizz7UWqcRFug5lJ04O6AjDl9DHtfZzfXtyEVz1CGrTRSqlMQ+5Fl
- v58WXQVQcJfww/+5F0rYMAyXgY7Ck829Wk7NfpB0QmeHIJXr7IMXEha8fi2Jx0QR3XQZ6h78moX
- hpTVqKGSFwzJXu761VHnNspbvrZWzd+WwGgSJiUrMZyg6bb2JwsjqKUiUwaa5kRLBoTr8itR02N
- i4yslnJ7QcPo5HVCFYOdwMUAzTEOEfxbO8/wa20wdE8piq5KT+3AuIhxNuH8ybk4Gciqif9sGxM
- joxCERD2PZUPcHs5pqA==
-X-Authority-Analysis: v=2.4 cv=W4WtxhWk c=1 sm=1 tr=0 ts=6ad55f7b cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=fC8HO9TX6ddmVSSzZu8A:9
- a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: 71i6ugbkZ41e7y2WFc9WIs8ErItgE3wd
-X-Proofpoint-GUID: 71i6ugbkZ41e7y2WFc9WIs8ErItgE3wd
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAwMCBTYWx0ZWRfX2YjkrGF3HK5I
- 78KxqNhkW5pWzGlzj6Htv901+OMWkqg/Aa2/uk7PDVvlDif66jJWn02CawDRybmZZsPP/0eev2S
- qg1SA4yviQsACTOxw/rQYzyMB7/NDAc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-18_05,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 malwarescore=0 phishscore=0 adultscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190000
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 08:44:59PM +0200, Robin Snyders wrote:
-> Hi Dmitry,
-> 
-> Sorry for the long delay in getting back to you on this.
-> 
-> On Thu, Aug 13, 2026 at 06:52:24PM +0300, Dmitry Baryshkov wrote:
-> > I remember that in SMB2 case the TCPM and charger drivers were
-> > programming the registers from the same block. Is there no such conflict
-> > on the SMB5 platforms?
-> 
-> On PM8150B the register sets are disjoint. The charger node sits at
-> 0x1000, the dedicated Type-C port at 0x1500 and the PD PHY at 0x1700.
-> With SMB5, qcom_smbx only writes the charger core (0x1042, 0x1061,
-> 0x1070), DCDC (0x1108, 0x110b), USB input / BC1.2 (0x1340-0x1380) and
-> the watchdog/AICL timer (0x1651-0x1661) blocks. qcom_pmic_typec writes
-> are all in 0x1544-0x1560, and the PD PHY stays in its 0x1700 block.
-> 
-> The one name that looks like an overlap is TYPE_C_CFG, but on SMB5
-> that is offset 0x358, i.e. 0x1358 in the USB input peripheral, and not
-> the Type-C port register at 0x1544. The driver only clears
-> APSD_START_ON_CC_BIT there, so that BC1.2 detection is not started
-> directly from CC state while TCPM owns the port.
-> 
-> By design, the SMB5 path also leaves Type-C power role and VBUS control
-> to TCPM and the qcom_usb_vbus regulator. It does not touch OTG/VBUS
-> boost, and it only clears the HVDCP modes so stale firmware settings
-> cannot raise VBUS.
+From: NeilBrown <neil@brown.name>
 
-This sounds good, but also a bit strange. As far as I remember, most of
-the QuickCharge protocols require extra control during negotiation.
-Basically, I'm afraid, that this way we can get the basic charging to
-work, but not any of the quicker charging protocols.
+The number of negative child dentries that a given dentry can have is
+effectively unbounded, so counting the references through ->d_parent can
+overflow ->d_lockref.count.
 
-> 
-> > Have you tested that this doesn't break the USB-C
-> > dongles being connected to the device?
-> 
-> - Powered dock: the phone became data host and power sink (USB PD,
->   usb_vbus disabled). The USB 2/3 hubs, an RTL8153 Ethernet adapter
->   and a mass storage device enumerated, and a 64 MiB read gave the
->   same hash every time. The charger stayed online, health Good.
+We only use this count so that we can know when there are no remaining
+references including from children.  However most children appear on the
+->d_children list and the few remaining children (inactive
+DCACHE_DENTRY_CURSORs) only exist in a context were a separate reference
+is held on the parent.
 
-Could you please check in the debugfs in TCPM log that you can actually
-see USB-C negotiation happening over the wire? The same applies to the
-next testing point, the unpowered dock.
+So if we count whether d_children is nonempty (i.e.  dget() when it
+becomes non-empty, dput() when it comes empty) and require children not
+on ->d_children to have a reference on the parent some other way (which
+they already do), then ->d_lockref.count will not overflow and we can
+still know exactly when all references, including through ->d_parent,
+are gone.
 
-> 
-> - The same dock with its external power removed: the phone stayed
->   data host and switched to power source, with usb_vbus enabled. The
->   hubs, Ethernet adapter and storage re-enumerated and worked, and
->   the storage hash matched. The SMB5 charger correctly reported
->   offline/discharging.
-> 
-> - Then back to a PC cable without rebooting: device/sink roles
->   returned, usb_vbus was disabled, USB gadget networking and SSH
->   worked again, and the charger resumed charging at its 500 mA
->   limit.
-> 
-> None of these transitions produced an oops, lockdep splat, UVLO, OCP
-> or OVP event. Ethernet traffic (no cable at hand) and visual
-> DisplayPort output were not part of that run.
-> 
-> I'll repeat this on the exact v5 tree before sending it, and summarize
-> the register ownership and these results in the v5 changelog.
-> 
-> Thanks,
-> Robin
+__d_move() allows that dentries might not be on any d_children list as
+is the case for IS_ROOT() dentries.  Rather than track when this is the
+case we dget() either parent if they have an empty d_children before
+children are moved around, then dput() if they turn out to be empty
+afterwards.  This will increment dentry if it IS_ROOT(), and then
+decrement it afterwards, and will decrement the refcount on old_parent
+if its ->d_children becomes empty.
 
+To help with this, dput_dlock() is added which warns rather than
+decrementing to zero (which should never happen).
+
+When a DCACHE_CURSOR dentry is added to d_children, it is only ever
+added "before" or "behind" an existing child, so it will never be the
+first child added, and so never needs to adjust the refcount on the
+parent.  If it remains on the list until dput() it could be the last
+child to be removed, in which case normal handling applies in
+dentry_unlist() (where it has been moved from dentry_kill().  When a
+cursor is deliberately removed from the d_children list the refcount
+must be decremented if that leaves the list empty.
+
+hlist_move_behind() and hlist_move_before() are added to simplify moving
+a cursor within the d_children list.  This results in some duplicate code
+as they share a common prefix with d_detach_cursor() (hlist_del)
+which is currently factored out.  We can expect the compiler to optimise
+this away and don't need to clutter the C code with it.
+
+Signed-off-by: NeilBrown <neil@brown.name>
+---
+ fs/dcache.c            | 40 +++++++++++++++++++++++++++++++++-------
+ fs/internal.h          | 10 ++++++++++
+ fs/libfs.c             | 14 +++++++-------
+ include/linux/dcache.h | 17 ++++++++++++++++-
+ include/linux/list.h   | 30 ++++++++++++++++++++++++++++++
+ 5 files changed, 96 insertions(+), 15 deletions(-)
+
+diff --git a/fs/dcache.c b/fs/dcache.c
+index f44c7b39c3b3..3a4d0a025447 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -670,6 +670,8 @@ static inline void dentry_unlist(struct dentry *dentry)
+ 		return;
+ 	}
+ 	__hlist_del(&dentry->d_sib);
++	if (hlist_empty(&dentry->d_parent->d_children))
++		dentry->d_parent->d_lockref.count--;
+ 	/*
+ 	 * Cursors can move around the list of children.  While we'd been
+ 	 * a normal list member, it didn't matter - ->d_sib.next would've
+@@ -843,7 +845,7 @@ static struct dentry *dentry_kill(struct dentry *dentry)
+ 	spin_unlock(&dentry->d_lock);
+ 	if (likely(can_free))
+ 		dentry_free(dentry);
+-	if (parent && --parent->d_lockref.count) {
++	if (parent && parent->d_lockref.count) {
+ 		spin_unlock(&parent->d_lock);
+ 		return NULL;
+ 	}
+@@ -1997,7 +1999,9 @@ struct dentry *d_alloc(struct dentry * parent, const struct qstr *name)
+ 	 * don't need child lock because it is not subject
+ 	 * to concurrency here
+ 	 */
+-	dentry->d_parent = dget_dlock(parent);
++	dentry->d_parent = parent;
++	if (hlist_empty(&parent->d_children))
++		dget_dlock(parent);
+ 	hlist_add_head(&dentry->d_sib, &parent->d_children);
+ 	spin_unlock(&parent->d_lock);
+ 
+@@ -2016,7 +2020,7 @@ struct dentry *d_alloc_cursor(struct dentry * parent)
+ 	struct dentry *dentry = d_alloc_anon(parent->d_sb);
+ 	if (dentry) {
+ 		dentry->d_flags |= DCACHE_DENTRY_CURSOR | DCACHE_NORCU;
+-		dentry->d_parent = dget(parent);
++		dentry->d_parent = parent;
+ 	}
+ 	return dentry;
+ }
+@@ -2778,7 +2782,9 @@ struct dentry *d_alloc_parallel(struct dentry *parent,
+ 
+ 	new->d_flags |= DCACHE_PAR_LOOKUP;
+ 	spin_lock(&parent->d_lock);
+-	new->d_parent = dget_dlock(parent);
++	new->d_parent = parent;
++	if (hlist_empty(&parent->d_children))
++		dget_dlock(parent);
+ 	hlist_add_head(&new->d_sib, &parent->d_children);
+ 	if (parent->d_flags & DCACHE_DISCONNECTED)
+ 		new->d_flags |= DCACHE_DISCONNECTED;
+@@ -3106,12 +3112,21 @@ static void __d_move(struct dentry *dentry, struct dentry *target,
+ 
+ 	/* ... and switch them in the tree */
+ 	dentry->d_parent = target->d_parent;
++
++	/*
++	 * Ensure ref count on parents reflect d_children being non-empty,
++	 * which they almost certainly are.  If either end up being empty,
++	 * this is handled below after the moves.
++	 */
++	if (hlist_empty(&old_parent->d_children))
++		dget_dlock(old_parent);
++	if (dentry->d_parent != old_parent &&
++	    hlist_empty(&dentry->d_parent->d_children))
++		dget_dlock(dentry->d_parent);
++
+ 	if (!exchange) {
+ 		copy_name(dentry, target);
+ 		target->d_hash.pprev = NULL;
+-		dentry->d_parent->d_lockref.count++;
+-		if (dentry != old_parent) /* wasn't IS_ROOT */
+-			WARN_ON(!--old_parent->d_lockref.count);
+ 	} else {
+ 		target->d_parent = old_parent;
+ 		swap_names(dentry, target);
+@@ -3124,6 +3139,17 @@ static void __d_move(struct dentry *dentry, struct dentry *target,
+ 	if (!hlist_unhashed(&dentry->d_sib))
+ 		__hlist_del(&dentry->d_sib);
+ 	hlist_add_head(&dentry->d_sib, &dentry->d_parent->d_children);
++
++	/*
++	 * Adjust parent refcounts if either d_children ended up empty.
++	 * This should only ever be old_parent.
++	 */
++	if (hlist_empty(&old_parent->d_children))
++		dput_dlock(old_parent);
++	if (dentry->d_parent != old_parent &&
++	    hlist_empty(&dentry->d_parent->d_children))
++		dput_dlock(dentry->d_parent);
++
+ 	__d_rehash(dentry);
+ 	fsnotify_update_flags(dentry);
+ 	fscrypt_handle_d_move(dentry);
+diff --git a/fs/internal.h b/fs/internal.h
+index c658c8a5ebd5..59b2b8030b6c 100644
+--- a/fs/internal.h
++++ b/fs/internal.h
+@@ -235,6 +235,16 @@ extern struct dentry *__d_lookup(const struct dentry *, const struct qstr *);
+ extern struct dentry *__d_lookup_rcu(const struct dentry *parent,
+ 				const struct qstr *name, unsigned *seq);
+ 
++static inline void d_detach_cursor(struct dentry *cursor)
++{
++	if (hlist_unhashed(&cursor->d_sib))
++		return;
++	hlist_del_init(&cursor->d_sib);
++	if (hlist_empty(&cursor->d_parent->d_children))
++		/* That was the last child, must drop implied reference */
++		dput_dlock(cursor->d_parent);
++}
++
+ /*
+  * pipe.c
+  */
+diff --git a/fs/libfs.c b/fs/libfs.c
+index 27d7dc16fcb0..60586fe65895 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -128,9 +128,7 @@ static struct dentry *scan_positives(struct dentry *cursor,
+ 			count = 1;
+ 		}
+ 		if (need_resched()) {
+-			if (!hlist_unhashed(&cursor->d_sib))
+-				__hlist_del(&cursor->d_sib);
+-			hlist_add_behind(&cursor->d_sib, &d->d_sib);
++			hlist_move_behind(&cursor->d_sib, &d->d_sib);
+ 			p = &cursor->d_sib.next;
+ 			spin_unlock(&dentry->d_lock);
+ 			cond_resched();
+@@ -166,9 +164,10 @@ loff_t dcache_dir_lseek(struct file *file, loff_t offset, int whence)
+ 			to = scan_positives(cursor, &dentry->d_children.first,
+ 					    offset - 2, NULL);
+ 		spin_lock(&dentry->d_lock);
+-		hlist_del_init(&cursor->d_sib);
+ 		if (to)
+-			hlist_add_behind(&cursor->d_sib, &to->d_sib);
++			hlist_move_behind(&cursor->d_sib, &to->d_sib);
++		else
++			d_detach_cursor(cursor);
+ 		spin_unlock(&dentry->d_lock);
+ 		dput(to);
+ 
+@@ -210,9 +209,10 @@ int dcache_readdir(struct file *file, struct dir_context *ctx)
+ 		p = &next->d_sib.next;
+ 	}
+ 	spin_lock(&dentry->d_lock);
+-	hlist_del_init(&cursor->d_sib);
+ 	if (next)
+-		hlist_add_before(&cursor->d_sib, &next->d_sib);
++		hlist_move_before(&cursor->d_sib, &next->d_sib);
++	else
++		d_detach_cursor(cursor);
+ 	spin_unlock(&dentry->d_lock);
+ 	dput(next);
+ 
+diff --git a/include/linux/dcache.h b/include/linux/dcache.h
+index 4b1ff99608e0..3b595adff7b4 100644
+--- a/include/linux/dcache.h
++++ b/include/linux/dcache.h
+@@ -324,7 +324,7 @@ extern char *dentry_path(const struct dentry *, char *, int);
+ /* Allocation counts.. */
+ 
+ /**
+- * dget_dlock -	get a reference to a dentry
++ * dget_dlock -	get a reference to a dentry while locked
+  * @dentry: dentry to get a reference to
+  *
+  * Given a live dentry, increment the reference count and return the dentry.
+@@ -339,6 +339,21 @@ static inline struct dentry *dget_dlock(struct dentry *dentry)
+ 	return dentry;
+ }
+ 
++/**
++ * dput_dlock -	put a reference to a dentry while locked
++ * @dentry: dentry to get a reference to
++ *
++ * Given a live dentry, decrement the reference count and return the dentry.
++ * Caller must hold @dentry->d_lock.  The dentry must still have
++ * a reference after the decrement.  This can be used when two
++ * references are held and one must be dropped.
++ */
++static inline struct dentry *dput_dlock(struct dentry *dentry)
++{
++	if (!WARN_ON(dentry->d_lockref.count <= 1))
++		dentry->d_lockref.count--;
++	return dentry;
++}
+ 
+ /**
+  * dget - get a reference to a dentry
+diff --git a/include/linux/list.h b/include/linux/list.h
+index 77fb62f79928..a94eec20275f 100644
+--- a/include/linux/list.h
++++ b/include/linux/list.h
+@@ -1123,6 +1123,36 @@ static inline void hlist_add_behind(struct hlist_node *n,
+ 		WRITE_ONCE(n->next->pprev, &n->next);
+ }
+ 
++/**
++ * hlist_move_behind - move an hlist node to a new location in list
++ * @n: hlist node to be moved
++ * @prev: hlist node after which @n should be added.
++ *
++ * @n may be on the list or unhashed but must not be @prev.
++ * It is removed if necessary and re-added after @prev.
++ */
++static inline void hlist_move_behind(struct hlist_node *n,
++				     struct hlist_node *prev)
++{
++	hlist_del_init(n);
++	hlist_add_behind(n, prev);
++}
++
++/**
++ * hlist_move_before - move an hlist node to a new location in list
++ * @n: hlist node to be moved
++ * @next: hlist node before which @n should be added.
++ *
++ * @n may be on the list or unhashed but must not be @next.
++ * It is removed if necessary and re-added before @next.
++ */
++static inline void hlist_move_before(struct hlist_node *n,
++				     struct hlist_node *next)
++{
++	hlist_del_init(n);
++	hlist_add_before(n, next);
++}
++
+ /**
+  * hlist_add_fake - create a fake hlist consisting of a single headless node
+  * @n: Node to make a fake list out of
+
+base-commit: f909e534f5e34feb2ea2701d54df63e21aa506fc
 -- 
-With best wishes
-Dmitry
+2.50.0.107.gf914562f5916.dirty
+
