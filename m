@@ -1,171 +1,123 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA8E736B913;
-	Mon, 19 Oct 2026 06:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533993C1D70;
+	Mon, 19 Oct 2026 06:44:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392284; cv=none; b=dW0ywi3kzWZ2ChPuAfhpGnMgqI1AMLn/HHd8qD/DU8zPgTOCqrbkw6cDs08y/Okv/Lf4xIYjECchjRWPp1akpYGV9EbR34urfQ+D5HNQRySImRRzOAzW7iJKfObwbJ6hFcEiMH9sSjj5D96ey/ODfavVK83WVZ+LkwwqN0YuD/U=
+	t=1792392290; cv=none; b=DXqFDaVjPYoOl74S2/YLV+uqS2N8NSs5vXYZZtOubHoQueHFtooNsWOBr0kGwnt2w/uM++bgHsmW+cvJRrhnt48KjY6BL23VdBhg1NcxEIdSKUpbuYF8LGzrovba5zOE33hSRxzj6yVKLs7IRPq2pCyzL7Dgx7oYplbtLIFJLa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392284; c=relaxed/simple;
-	bh=TaxUYCazpzjqvEXq1Wn1UVrlD7Nftpov0ZTJAH6790k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k+30jsGZN6bIBL9L8haq/J/FkG1X7tIRzQPsXiPQrK6qsUKedXg/QQRj+NrxQHXlZMv6DShif0fDnQ3axIyTPRqqZT+vxvehvvIqsIPhrU75d1BNbHcsQjNnLJxfhxpnsufRox/C5WGogkngHhNE0YF2b/NesP9Tw3Vn8Myh/+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=NgUBhXNE; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1792392290; c=relaxed/simple;
+	bh=brmz6Ugg4+Wssx/Cd5pn3XoUG5aERwRrLt35+dX+2+s=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Tbqm78YT3eizOimRPI2huRzidWkctUzBLON/CU/9LxLtcClMfTt2ROxarMU5aXCTJo+eSle0KLsPCE962qT6DX1plmCS8nJE+LhVObakeau8P/pbyFQjwnNWG87n5SRSQLO2uh/N3/yVUHYfuYcFU1V3kpx8XxWhiyWiFbVmy0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=njh60DzA; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="NgUBhXNE"
-Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.17])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 7C72320B7168;
-	Sun, 18 Oct 2026 23:44:32 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7C72320B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792392275;
-	bh=2DFMNxT5EAxE+zkNjVZeNr8HwIMDEtuggVJLWaMvr2Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=NgUBhXNEskg+Kitot3pNbm0DXRI7kLB5TKAysCy3gYO5WJHpWyZ95Dm+X20a1dfi5
-	 3EGWHYcVFej4i3PT5Km2+czyAsE52woC6Yo/Rn7ib0URfAzhgT+cBxQ08/pWDW48ap
-	 stwwGHGotaFO/1k4ZoaFX6RbJ2cxk1K0exFJ+/yw=
-From: Naman Jain <namjain@linux.microsoft.com>
-To: changfengnan@bytedance.com
-Cc: lrizzo@google.com,
-	hch@infradead.org,
-	tglx@linutronix.de,
-	maz@kernel.org,
-	rizzo.unipi@gmail.com,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	bhelgaas@google.com,
-	netdev@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	guzebing@bytedance.com,
-	kbusch@kernel.org
-Subject: Re: [PATCH v5 0/7] Global Software Interrupt Moderation (GSIM)
-Date: Mon, 19 Oct 2026 06:44:29 +0000
-Message-ID: <20261019064429.362555-1-namjain@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <8e816cdc-a714-49d8-943f-677617682352@bytedance.com>
-References: <878q5f5tlt.ffs@fw13> <aqD7FDvDhiEF_u0N@infradead.org> <CAMOZA0Lt99A1H45Hp0Snq4aSEw-Xr_Mh4xA--Cx0Qh_6vsQvOQ@mail.gmail.com> <8e816cdc-a714-49d8-943f-677617682352@bytedance.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="njh60DzA"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69J6iVrC51650305, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1792392271; bh=q6toGPiAhl8lDOX+lhOHl14TFZGbmZsm49q0x+8+nLg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=njh60DzAekDUzBK+GACdM51ajV+ugDA+4nyS0AYILHp2PnqW8LpA2u4amEDLWOqvr
+	 +mo2ODTs1e1HF1RU8b04UtI+hkYEh98cVj6IbdJwNUmNZr3tjMYV97GOHfqL/0eN1A
+	 hg1uXNeoJ69HQ9OSKWOrDKTr0WqT+AyfJeYrPr/Y27/WcQSwA3Eza49vqNp/Y3Ug4W
+	 eW+XVl1ir4g5Ptu3/qSnF/HfM5wA05QT+49IYqkUJ/Mcl/sfOvEoWFdkqP8iqYYAin
+	 hjeI26tfghl++xxE8uqnyV6yh3pPvVQjr5agZHH9EIq7TeqmvZJouiWcRel/M6oQSX
+	 xD5ARN+VliSCA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69J6iVrC51650305
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 19 Oct 2026 14:44:31 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 14:44:32 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 14:44:32 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Mon, 19 Oct 2026 14:44:32 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Bin Yu <byu@xidian.edu.cn>, Cheng Wen
+	<wencheng@xidian.edu.cn>
+Subject: RE: [PATCH v2] wifi: rtw88: usb: drop RX frames received before the
+ device is started
+Thread-Topic: [PATCH v2] wifi: rtw88: usb: drop RX frames received before the
+ device is started
+Thread-Index: AQHdX5TFSpeU6nUm5Ei39SmkeDvplrcEa1HQ
+Date: Mon, 19 Oct 2026 06:44:31 +0000
+Message-ID: <128f18dd67cf4848bb22209f290e33c8@realtek.com>
+References: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
+ <20261019064000.5167-1-25031212351@stu.xidian.edu.cn>
+In-Reply-To: <20261019064000.5167-1-25031212351@stu.xidian.edu.cn>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 04:52:27PM +0800, Fengnan wrote:
-> 在 2026/9/9 16:06, Luigi Rizzo 写道:
-> > On Wed, Sep 9, 2026 at 8:25 AM Christoph Hellwig <hch@infradead.org> wrote:
-> >> On Sat, Sep 05, 2026 at 10:30:22PM +0200, Thomas Gleixner wrote:
-> >>>> it appears that GSIM is only effective in scenarios where multi disks at very high
-> >>>> IOPS; in some cases, there was a noticeable performance regression.
-> >>>> If there’s something wrong with my configuration, please correct me.
-> >>> So we have a NVME specific mechanism to tackle the same problem and a
-> >>> more generic version which is subsystem "independent".
-> >> I'm not sure they tackle the entirely same problem, although they are
-> >> very related.
-> > There is overlap but it is accidental.
-> > The difference between the two mechanism is the following:
-> >
-> > - GSIM addresses hardware limitations (SoCs that create huge PCIe
-> >    backpressure on each MSIx interrupt, eventually reducing the available
-> >    bandwidth too much, regardless of how many CPUs can process interrupts).
-> >    The goal here is to throttle the total MSIx rate, blocking them at
-> >    the source (PCIe device) rather than later in the interrupt controller.
-> >
-> > - the NVME mechanism (and NAPI) aim to amortize interrupt processing
-> >    overhead. It does so by recreating some fine grained single-source
-> >    interrupt moderation (something that NICs do in hardware, but NVME
-> >    does not, with 100us being way too coarse for modern SSDs) and an
-> >    adaptive scheme to adjust the delay and decide when to kick in.
-> That's a great summary.
->
-> As for generic solutions, I've tried several approaches before, but none
-> of them
-> could achieve the same or close results as NVMe adaptive interrupt polling.
-> I'm still experimenting with different options.
->
->
-> >
-> > I think there is a reason for both.
-> >
-> > GSIM because it is more general and addresses an issue the others cannot handle
-> > the subsystem-specific scheme because they can be more efficient
-> > (eg they can hook into existing helpers like the threaded irq handler,
-> > call directly the handler without going through the full irq chain,
-> > use more targeted heuristics to decide when to kick in).
-> >
-> > cheers
-> > luigi
+YuanZhe Liu <25031212351@stu.xidian.edu.cn> wrote:
+> rtw_usb_probe() submits the bulk-in RX URBs at the end of probe, right
+> after rtw_register_hw(). A device can already have data queued on that
+> endpoint, so rtw_usb_read_port_complete() runs and queues the frame on
+> rtwusb->rx_queue before any interface has been brought up. Submitting
+> the URBs late does not close that window: the frame can arrive as soon
+> as they are submitted, which is still before the device is started.
+>=20
+> rtw_usb_rx_handler() hands every non-C2H frame to mac80211 without
+> checking whether the device is running, so ieee80211_rx_irqsafe() runs
+> while local->started is still false. mac80211 treats that as a driver
+> bug and warns in ieee80211_rx_list():
+>=20
+>   WARNING: net/mac80211/rx.c:5601 at ieee80211_rx_list
+>    Call Trace:
+>     <IRQ>
+>     ieee80211_rx_napi
+>     ieee80211_rx
+>     ieee80211_handle_queued_frames
+>     <TASK>
+>     rtw_usb_rx_resubmit
+>     rtw_usb_setup_rx
+>     rtw_usb_probe
+>=20
+> The frame is dropped by mac80211 anyway, and because the URB is
+> resubmitted from its completion handler, every further frame repeats the
+> warning, which floods the log until an interface is actually started.
+>=20
+> rtw_ops_tx() already drops frames outside of start/stop by checking
+> RTW_FLAG_RUNNING, which mirrors local->started: it is set at the end of
+> rtw_core_start() and cleared at the beginning of rtw_core_stop(). Use
+> the same check in the RX path and free the frame while the device is not
+> running. This also covers the opposite ordering, where a frame that is
+> still queued in rtwusb->rx_queue is handed over after the device has
+> been stopped again.
+>=20
+> C2H packets are left untouched: they go to the firmware event queue
+> handled by rtw_fw_c2h_cmd_rx_irqsafe() and are never passed to mac80211.
+>=20
+> Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-Sharing the test results with GSIM and other NVME specific approaches
-here as well. Previously discussed in
-https://lore.kernel.org/all/1d12109d-2f47-4ca5-af7b-66c032a379a7@linux.microsoft.com/
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-There are couple of implementations posted on NVME list, including mine,
-to solve nvme issues. Below data also suggests that while GSIM may bring
-generic improvements in certain cases, we may still need some NVME
-specific changes to address hardirq workload problems.
 
-Background: I was debugging soft lockup issues where sufficiently high FIO
-workload can lockup the CPU cores on which high number of NVME PCI MSI
-interrupts are affined.
 
-System: 128 ARM64 vCPUs, two NUMA nodes (CPUs 0-63 / 64-127),
-There are four data NVMe controllers, each with 14 interrupt-driven I/O 
-queues. Corresponding queue vectors from the four controllers are routed
-to the same CPU. Therefore:
-
-   vectors per affected CPU:       4
-   affected interrupt CPUs:       14
-   total data-NVMe I/O vectors:   56
-
-The affected CPUs are:
-   0, 10, 19, 28, 37, 46, 55,
-   64, 74, 83, 92, 101, 110, 119
-The reproduced soft lockups happen on exactly those 14 CPUs.
-
-The production fio command is equivalent to:
-   --filename=dev1:dev2:dev3:dev4
-   --numjobs=128
-   --iodepth=256
-   --group_reporting
-
-so the potential total is:
-   128 x 256 = 32,768 requests
-
-The NVMe hardware queue depth is 1,024, with 1,023 usable entries.
-
-Default GSIM changes could not prevent soft lockup. Luigi suggested
-a timer push change in addition to GSIM changes, which prevents the
-lockups, but has an impact on latency and throughput. These are marked as
-"push" in below tables.
-
-NVMe fallback: changes I proposed in NVME, here:
-https://lore.kernel.org/all/20261009050556.2817978-1-namjain@linux.microsoft.com/
-threaded NVMe IRQs: Default kernel with nvme.use_threaded_interrupts=1
-
-High-load results are medians of three runs, you can find complete 
-minimum-to-maximum range:
-
-                               IOPS median       complete range
-   NVMe fallback                 5.004M          5.002-5.004M
-   threaded NVMe IRQs            3.140M          3.100-3.169M
-   GSIM fixed 10 us + push       1.962M          1.935-2.025M
-   GSIM fixed 30 us + push       1.790M          1.775-1.822M
-   GSIM fixed 50 us + push       1.744M          1.736-1.746M
-
-Completion latency:
-                               mean        p99          p99.9
-   NVMe fallback              6.533 ms    14.352 ms     16.908 ms
-   threaded NVMe IRQs        10.421 ms    22.151 ms     24.510 ms
-   GSIM fixed 10 us + push   16.570 ms    38.011 ms    270.533 ms
-   GSIM fixed 30 us + push   18.283 ms    40.108 ms    492.831 ms
-   GSIM fixed 50 us + push   18.743 ms    40.632 ms    541.065 ms
-
-More details and numbers in my RFC series.
-
-Regards,
-Naman
