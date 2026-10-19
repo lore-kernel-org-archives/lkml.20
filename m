@@ -1,50 +1,50 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5414D3C73D9
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F063B6BFD
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:18:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792383496; cv=none; b=XMaGYLj+7iEMC+qEixMs8gKXI7Yu2OQ9XK3eCjpMTXvnSYkaUghVDZcNJMckMy14aSd2TFf6fgZOIXCgexyhqJajTVgWTnnX8zrxycX0sCyc42q+Z7MJO0CpOqKk7fGs/ffIPkcX87x/80Sivg6I2z4LnUp1y36ItOQ6JNLkF1E=
+	t=1792383508; cv=none; b=kSWpfT7HPXu2u7zJ1UD8MOIzDzEuJf/au6nZFbn1OaaWiDnBsm1Z9Ted8dta4Q6sw3JQWQi8VeXWTSSuKcwKdjdBrNWYZuglTGep+vPSXtfFCWsr0e90p9FtoCprQfDYMZwKCYgzfn6StvLSlKB2Tz09ZTfTyc98Z9q6qTYCyj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792383496; c=relaxed/simple;
-	bh=b0UAT97NXAxwz21kLVV4XHxJILxpwxqR2EOMHpkyYHw=;
+	s=arc-20240116; t=1792383508; c=relaxed/simple;
+	bh=F1AW1mRUyOZdF1vbpqf0uKCHPTv+6Xa4tR7D27ZwYlo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AacvA3hEsStm2FiuP91/vKB9tUxBOkB5Xgs80FQmjDQtcn0+D9HSXInAQTJq+ulJEo5SN2oC5DooJY5BGsxhTuSKHSk13W+tq36i7MsgYNZkz6clCyLEL5HxeLVSJkKsNQHH7wvQnXCMzN7GlaycWbAf55lgldCwoLZXlR0kO40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=H1mpMYmOdIGKWejxrxMtJPNNWMKM9vywKpAUAYfhqRUzWmExn+aPoy+83W4IYyNRWB8WC5FC8uzjBlXNlNygb3p7LpGqykkAetK05R+6Xhdfp+MzX0R0r79QU6bLUyiQKhqwpOR7B7l2nQbxf1POn+9jz9zFGcXpvMRrKg3lFHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1e03e8004so423135e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:18:08 -0700 (PDT)
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1e6c19ee7so691475e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:18:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792383486; x=1792988286;
+        d=1e100.net; s=20260707; t=1792383503; x=1792988303;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=svrOeLcmoSW/ALss6o23uyTODb8VaLj+9fVNFUupJ1k=;
-        b=2OztnpgabbTJ38PQDtjZcewWTsfdPGZ6MfGrx/d5LwvLwjLDqbiSmem83GAnAoke+H
-         MfpfsAdN8x3rxysMy9CLuMiB1wqxyGWvdQQBzj/T+Gfw9gbm3m+3H2v9Jn6lBKwlH7oC
-         nhmM98zpMUmemjRgdNz+to6zhExJcXCkFwtE7ur2VhaBv6CyQmj8GHrE7XgRaaX86qub
-         h9x5JQrMIJvIS7b2ClmnI1uPv/hK3am4t2zAlRFhqqtm0XB/qKqLUKKIrByggrxGcAec
-         QJZTdHy1y8vPguejh27qqQ+IUg109WbI2MMdXyVycd9pAEBtkTbDmbMgqMjswX3K2lsu
-         a/BA==
-X-Forwarded-Encrypted: i=1; AKwUvBwi3G6jj36A+fNliYKOq2lq9r2GNNHTFi0PKmLPN/SZkyXhvq0F5385ykNbn8cJJE4tkCuf86jy302KYxc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYEYHXQW5u5/4x0fQgqhVdCZa8GguLMo7qdVXPKmktUIoBnWDI
-	wDzNXaQmE/trnkiVNs4I9qZ/tsL8liIAWFTYUFXex8e8u0FmpQsPBZ1eOjedpS2+8zg=
-X-Gm-Gg: AYBFou19wY0EKJazSQBwWRYuCnp8HodZe3Xsxo72HLBKQ37twZmolwkaKo3FwOwjpYd
-	h5bCBWNsNBYhmK/5D7B0s7CIEMUrt5kimBWZQLqfPoKX2zlUbV8JUaVf/gP8unzIv856zLCNYuf
-	tBLeDxS0iygmt4sYGonvZbzOVVZLRGTg36OBn28+aONoYORQqa3EhCZfywoS4JmWED5xMMAdinY
-	DdKPqjUVrwtnFvrDAjuEBSzeoq76qBrgXxNB6LXAT9Vln08yzmTrTnQL6n21nqCEl+smYn0YTv2
-	h9sy0q2j0A5ukbXu7bi/19I8Sn4QY4bp6L5doEogB3skLPo1DmzLk8TMa4E4fhfR7yWFg+Sx+Jk
-	HS09z/LkQZSNh5V5NLwRSRJZDAy4Jr6JDvYdyVCcdtgMEzNrHsIuecv/lptkAerHQe0/ara6xzd
-	YqpNLuZVBSW0KzX60E1hxV1MiCGrnYEVvIIxasaDTmsylPIBssPMmZV3Dju2KkZ73U0NMjr0Gqj
-	vlVSOcXLBrwSovDFHT/IpjcgABOHf6UpTLF
-X-Received: by 2002:a05:600c:4e11:b0:4a0:13d8:cd0c with SMTP id 5b1f17b1804b1-4a1d75e6f90mr130654255e9.2.1792383486067;
-        Sun, 18 Oct 2026 21:18:06 -0700 (PDT)
+        bh=DWumRZ8fIVOXBqGubhtnofhszNvy7WgOk6sWlgkkbEM=;
+        b=S4sg4iE4D1AOOyKt4qWdpzbNXbfNcYA1gqi49f16BeR0ofIBXfQOtVK9Aw0m9MV4O5
+         f/wG75TPerR1aETz6PISAGQdbKJDTo87T8peMzFlTX03m5EjMkWrEEsOV+3EtcEUSbB8
+         7s0wNOW1PVTfjBPEr+SLqx0PsQlmgtdIvE4bhiwZNDBKOOGmaxhKny99aKwx43HlSX3k
+         TA3Qy2nklBq4X/8fdvNTJg+OTqZkKKUwHipPqPhvVtMub8aYZma3xxqvPNtBf9p5Xci9
+         GVJA3w5XtQBgYNNzipiXitZlWzzhnF56VkCoDuzuS1Jw4wHJlv38MNMYfyaF3MXH5fS6
+         +uVg==
+X-Forwarded-Encrypted: i=1; AKwUvByrV/EE+lABOnHB8ltJpOo6nwLpH5oKEDLpzPs518LTjayzQ60IU+wJk0aaMfQP4H0LLwFGUrG+/0yeXLw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfdfotONWfXZ8/FCsqO5ELaJ5dkxzfZWLOCiI3pOmpQY89VKWH
+	JUUP+I9SkS6OsFAwaA/eB2VJqsMF+qDGge4ijmbX9K3K9gkOyfmuy/bO
+X-Gm-Gg: AYBFou0HFQewqOZ0hLNuiQtlnfEd1k4hFpvTfLI6fCnZ6hPaycA48IF8u0+t+R6w5jX
+	8xQrOmYAXZeC5F9xL3N9fbs7QRGq4dum365xnm9ekE+BYYcORSyejFBAWR97obxuzgDF7uuIac9
+	owj6P9sl8h7LFdfU2wk64uWGLOrFIQi7qRBEFAlToFMT3yGeaFAkrc5JbzNEQrARBdKtbSkTs+3
+	3yedch9MO8sHJEV6gqRAUs9lvClRd7B/ft8FIYypEklaG8ZtETmDGm+qwi5U4F3O69f1POr/OGy
+	AgkNA6c/NzCXCLVh2WvsZh1+dV8AcVNT7sgcOJkkUAmTvYk9FBWrpVK2ed1PdgA0FXaelXK40X5
+	lDlDPJZ3fV6+m1mytKMwlpFsDuPDaQ8v1PUrn+c3VzmnNwr3NaasSuqOzb14aomAG3vX+wvbmIh
+	N8YlIZDgLeJsRqVeuW6HxbYhuT+iHPZud2M9pr7b6IG4R1AIN0tkiuR2eR3afjMf4UlU+HgJhjB
+	JFGdcdCWEplJaI+G9HIlPkZpzqKQxcG84LN
+X-Received: by 2002:a05:6000:470c:b0:48a:f41d:83c with SMTP id ffacd0b85a97d-48e07926cf9mr12567213f8f.0.1792383502713;
+        Sun, 18 Oct 2026 21:18:22 -0700 (PDT)
 Received: from spartian.home ([2a01:cb1c:76:ed00:602f:c5f4:d108:b925])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm20090449f8f.42.2026.10.18.21.18.03
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm20090449f8f.42.2026.10.18.21.18.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 21:18:04 -0700 (PDT)
+        Sun, 18 Oct 2026 21:18:21 -0700 (PDT)
 From: Aurelien DESBRIERES <aurelien@hackers.camp>
 To: Aurelien DESBRIERES <aurelien@hackers.camp>,
 	Jonathan Corbet <corbet@lwn.net>,
@@ -58,9 +58,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	linux-doc@vger.kernel.org,
 	aurelien.desbrieres@gmail.com,
 	linux-api@vger.kernel.org
-Subject: [RFC PATCH 11/18] beamfs: inline data path 1/4, block map
-Date: Mon, 19 Oct 2026 06:17:21 +0200
-Message-ID: <20261019041728.327785-12-aurelien@hackers.camp>
+Subject: [RFC PATCH 17/18] beamfs: add Kconfig and Makefile
+Date: Mon, 19 Oct 2026 06:17:27 +0200
+Message-ID: <20261019041728.327785-18-aurelien@hackers.camp>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261019041728.327785-1-aurelien@hackers.camp>
 References: <20261019041728.327785-1-aurelien@hackers.camp>
@@ -72,858 +72,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-file_inline.c is the data path of the UNIVERSAL_INLINE protection
-scheme (scheme 2), the one mkfs.beamfs formats. Each 4096-byte data
-block holds sixteen RS(255,239) codewords, 3824 coded bytes and 256
-bytes of parity, followed by a 16-byte tail; every read decodes the
-block.
+Hook beamfs into fs/Kconfig, among the miscellaneous filesystems, and
+into fs/Makefile.
 
-The file is 4875 lines, too large for one message to the list, so it
-is split across four patches along function boundaries. It builds only
-as a whole, once the Kconfig and Makefile patch is applied.
+Besides BEAMFS_FS there are two debugging options: BEAMFS_DEBUG_TREE
+enables the tree checker, and BEAMFS_ORDERED_META writes metadata
+blocks synchronously in dependency order, an experiment kept to
+measure ordering questions. Both default to off.
 
-This part: forward declarations, the check of intermediate (indirect)
-blocks, the lookup of a logical block through the indirect tree, and
-the helpers that lay out and seal a data block before it is written.
+The Makefile adds the warnings the module is developed with; whether
+they stop the build is left to CONFIG_WERROR.
 
 Assisted-by: LLM
 Signed-off-by: Aurelien DESBRIERES <aurelien@hackers.camp>
 ---
- fs/beamfs/file_inline.c | 825 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 825 insertions(+)
- create mode 100644 fs/beamfs/file_inline.c
+ fs/Kconfig         |  1 +
+ fs/Makefile        |  1 +
+ fs/beamfs/Kconfig  | 64 ++++++++++++++++++++++++++++++++++++++++++++++
+ fs/beamfs/Makefile | 21 +++++++++++++++
+ 4 files changed, 87 insertions(+)
+ create mode 100644 fs/beamfs/Kconfig
+ create mode 100644 fs/beamfs/Makefile
 
-diff --git a/fs/beamfs/file_inline.c b/fs/beamfs/file_inline.c
+diff --git a/fs/Kconfig b/fs/Kconfig
+index 46313f65ee54..7c864b9549d4 100644
+--- a/fs/Kconfig
++++ b/fs/Kconfig
+@@ -313,6 +313,7 @@ source "fs/affs/Kconfig"
+ source "fs/ecryptfs/Kconfig"
+ source "fs/hfs/Kconfig"
+ source "fs/hfsplus/Kconfig"
++source "fs/beamfs/Kconfig"
+ source "fs/befs/Kconfig"
+ source "fs/jffs2/Kconfig"
+ # UBIFS File system configuration
+diff --git a/fs/Makefile b/fs/Makefile
+index 16f1108b64e1..632c15c85254 100644
+--- a/fs/Makefile
++++ b/fs/Makefile
+@@ -110,6 +110,7 @@ obj-$(CONFIG_XFS_FS)		+= xfs/
+ obj-$(CONFIG_9P_FS)		+= 9p/
+ obj-$(CONFIG_AFS_FS)		+= afs/
+ obj-$(CONFIG_NILFS2_FS)		+= nilfs2/
++obj-$(CONFIG_BEAMFS_FS)		+= beamfs/
+ obj-$(CONFIG_BEFS_FS)		+= befs/
+ obj-y				+= hostfs/
+ obj-$(CONFIG_CACHEFILES)	+= cachefiles/
+diff --git a/fs/beamfs/Kconfig b/fs/beamfs/Kconfig
 new file mode 100644
-index 000000000000..6c071d623fcb
+index 000000000000..56be9beeb588
 --- /dev/null
-+++ b/fs/beamfs/file_inline.c
-@@ -0,0 +1,825 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * beamfs - File operations for BEAMFS_DATA_PROTECTION_UNIVERSAL_INLINE
-+ *
-+ * Per-block Reed-Solomon FEC on user data: each 4096-byte disk block
-+ * carries 16 shortened RS(255,239) codewords, in one of two layouts.
-+ *
-+ * With BEAMFS_FEATURE_INCOMPAT_RS_INTERLEAVE (the capsule), 3808 data
-+ * bytes, an 8-byte checksum and an 8-byte self-identity make 3824 coded
-+ * bytes, interleaved across the 16 codewords. 256 parity bytes follow,
-+ * 16 per codeword, then 16 bytes outside the codewords: an 8-byte
-+ * generation and 8 reserved bytes.
-+ *
-+ * Without it (alternating), each codeword is 239 data bytes followed by
-+ * its 16 parity bytes, 16 x 255 = 4080 bytes, and the last 16 bytes of
-+ * the block, outside every codeword, hold the checksum and the
-+ * self-identity.
-+ *
-+ * This file implements the data path for scheme=2 (UNIVERSAL_INLINE).
-+ * The legacy iomap-based path in file.c is preserved for scheme=5
-+ * (INODE_UNIVERSAL); the dispatch happens in inode.c / namei.c when
-+ * setting i_fop and a_ops based on sbi->s_scheme.
-+ *
-+ * Each codeword corrects up to 8 corrupted bytes, so a block survives up
-+ * to 128 when they fall 8 to a codeword. Interleaving puts consecutive
-+ * coded bytes in different codewords, so a burst within the coded bytes
-+ * is shared among the 16 codewords instead of landing in one.
-+ *
-+ * Author: Aurelien DESBRIERES <aurelien@hackers.camp>
-+ */
-+#include <linux/fs.h>
-+#include <linux/mm.h>
-+#include <linux/pagemap.h>
-+#include <linux/buffer_head.h>
-+#include <linux/bio.h>
-+#include <linux/mempool.h>
-+#include <linux/slab.h>
-+#include <linux/uio.h>
-+#include <linux/writeback.h>
-+#include <linux/crc32.h>
-+#include <linux/unaligned.h>
-+#include "beamfs.h"
-+#include "beamfs_trace.h"
-+#include <linux/iomap.h>
-+#include <linux/refcount.h>
++++ b/fs/beamfs/Kconfig
+@@ -0,0 +1,64 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# beamfs filesystem configuration
++#
 +
-+/* ------------------------------------------------------------------------- */
-+/* Forward declarations                                                      */
-+/* ------------------------------------------------------------------------- */
++config BEAMFS_FS
++	tristate "beamfs filesystem support"
++	depends on BLOCK
++	select BUFFER_HEAD
++	select FS_IOMAP
++	select CRC32
++	select REED_SOLOMON
++	select REED_SOLOMON_ENC8
++	select REED_SOLOMON_DEC8
++	help
++	  beamfs is a block-device filesystem that corrects corrupted bytes
++	  in place, on a single device, without a second copy to repair
++	  from. Data and directory blocks carry Reed-Solomon RS(255,239)
++	  parity over GF(2^8) inside the block, indirect blocks carry it in
++	  a region of their own, and every read decodes.
 +
-+static int     beamfs_inline_read_folio(struct file *file,
-+					struct folio *folio);
-+static int     beamfs_inline_writepages(struct address_space *mapping,
-+					struct writeback_control *wbc);
-+static ssize_t beamfs_inline_file_write_iter(struct kiocb *iocb,
-+					     struct iov_iter *from);
-+static int     beamfs_inline_setattr(const struct mnt_idmap *idmap,
-+				     struct dentry *dentry,
-+				    struct iattr *attr);
-+static void    beamfs_inline_free_blocks_from(struct inode *inode,
-+					      u64 b_first_freed);
-+static void    beamfs_inline_stamp_tail_pad(struct beamfs_sb_info *sbi,
-+					    u8 *block, const u8 *payload,
-+					    u64 ino, u64 iblock);
-+static int     beamfs_inline_zero_tail_block(struct inode *inode,
-+					     u64 b, u32 zero_offset);
-+static int     beamfs_check_intermediate_block(struct super_block *sb,
-+					       u64 block, ino_t ino,
-+					       u64 iblock_logical,
-+					       const char *label);
++	  Up to eight corrupted bytes per 255-byte codeword are corrected.
++	  A codeword the decoder reports as uncorrectable fails the read
++	  with -EIO. Nothing is guaranteed beyond eight bytes per codeword.
 +
-+/* ------------------------------------------------------------------------- */
-+/* Block-mapping helpers                                                     */
-+/*                                                                           */
-+/* These mirror the layout used by beamfs_iomap_begin() in file.c (legacy    */
-+/* iomap path, scheme=5 INODE_UNIVERSAL): direct blocks 0..11 in             */
-+/* fi->i_direct[], single indirect via fi->i_indirect (512 entries) for      */
-+/* iblocks 12..523. Beyond those, fi->i_dindirect and fi->i_tindirect map    */
-+/* double and triple indirect trees, up to BEAMFS_MAX_IBLOCK_TINDIRECT.      */
-+/*                                                                           */
-+/* Pure lookup, no allocation. Used by the read paths, by iomap_begin for    */
-+/* anything but a write, by the scrubber, and by writeback and               */
-+/* zero_tail_block to log a pointer the allocating variant changed. The      */
-+/* allocating variant lives below.                                           */
-+/*                                                                           */
-+/* Returns:                                                                  */
-+/*   0  + *phys_out = block number  (mapped)                                 */
-+/*   0  + *phys_out = 0             (HOLE: not allocated yet)                */
-+/*   <0 on error                    (-EIO indirect read fail,                */
-+/*                                   -EUCLEAN corrupted or unallocated       */
-+/*                                    pointer, or indirect parity failure,   */
-+/*                                   -EOPNOTSUPP beyond triple indirect,     */
-+/*                                   -EINVAL on null phys_out)               */
-+/* ------------------------------------------------------------------------- */
-+/*
-+ * beamfs_check_intermediate_block -- bounds and allocation check for a
-+ * pointer-to-pointers block (indirect, dindirect, tindirect and their L1/L2
-+ * levels) before it is read as 512 raw __le64 entries.
-+ *
-+ * beamfs_inline_lookup_phys checks every terminal pointer -- the one that
-+ * addresses a leaf data block -- against both the
-+ * [s_data_start, s_data_start + s_nblocks) range and the allocation bitmap.
-+ * The blocks that hold indirection pointers need the same two checks: a
-+ * bit flip on fi->i_indirect (or i_dindirect, i_tindirect, or an L1/L2
-+ * entry) reaching a value inside the valid range but pointing at an
-+ * unrelated or unallocated block would otherwise be read via sb_bread and
-+ * its raw bytes reinterpreted as 512 pointers, with no signal. Fail closed
-+ * before the read rather than trust whatever the corrupted pointer happens
-+ * to reach, as DATA_SELFID and beamfs_block_is_allocated do for file data
-+ * and terminal pointers.
-+ */
-+static int beamfs_check_intermediate_block(struct super_block *sb,
-+					   u64 block, ino_t ino,
-+					   u64 iblock_logical,
-+					   const char *label)
-+{
-+	struct beamfs_sb_info *sbi = BEAMFS_SB(sb);
++	  It is meant for storage that takes bit flips the device does not
++	  correct itself, such as single-event upsets. See
++	  Documentation/filesystems/beamfs.rst.
 +
-+	if (block < sbi->s_data_start ||
-+	    block >= sbi->s_data_start + sbi->s_nblocks) {
-+		pr_err_ratelimited("beamfs/inline: corrupted %s block ino=%llu iblock=%llu phys=%llu (out of [%lu, %lu))\n",
-+				   label, (unsigned long long)ino,
-+				   (unsigned long long)iblock_logical,
-+				   (unsigned long long)block,
-+				   sbi->s_data_start,
-+				   sbi->s_data_start + sbi->s_nblocks);
-+		beamfs_log_rs_event_flagged(sb, block, NULL, 0,
-+					    BEAMFS_SUBBLOCK_DATA, 0);
-+		return -EUCLEAN;
-+	}
-+	if (!beamfs_block_is_allocated(sb, block)) {
-+		/*
-+		 * Journal it as uncorrectable, same as the DATA_CSUM and
-+		 * DATA_SELFID fail-closed paths. An indirection pointer
-+		 * corrupted beyond the RS correction radius is exactly what
-+		 * the forensic journal exists to record; without an entry
-+		 * the run reads as an unexplained failure, since dmesg
-+		 * carries the pr_err but DMESG_UNCORRECTABLE stays 0. That
-+		 * is how the 2026-08-27 multifs run scored RS_FAILED rather
-+		 * than RS_FAIL_CLOSED. positions == NULL with
-+		 * n_positions == 0 is the uncorrectable call shape; the flag
-+		 * is reserved and set by beamfs_log_rs_event_flagged itself;
-+		 * passing it in extra_flags would trip the reserved-mask
-+		 * guard.
-+		 */
-+		beamfs_log_rs_event_flagged(sb, block, NULL, 0,
-+					    BEAMFS_SUBBLOCK_DATA, 0);
-+		pr_err_ratelimited("beamfs/inline: unallocated %s block ino=%llu iblock=%llu phys=%llu\n",
-+				   label, (unsigned long long)ino,
-+				   (unsigned long long)iblock_logical,
-+				   (unsigned long long)block);
-+		return -EUCLEAN;
-+	}
-+	return 0;
-+}
++	  To compile this file system support as a module, choose M here:
++	  the module will be called beamfs.
 +
-+/*
-+ * Count a block of pointers and what it points to, @depth levels down:
-+ * 1 for a block of pointers to data, 2 and 3 for the double and triple
-+ * trees. The pointers are copied out under the buffer lock, as the
-+ * allocator installs them under it, and the children walked after.
-+ */
-+static int beamfs_count_tree(struct inode *inode, u64 blk,
-+			     unsigned int depth, u64 *count)
-+{
-+	struct super_block *sb = inode->i_sb;
-+	struct buffer_head *bh;
-+	__le64 *ptrs;
-+	u64 *kids = NULL;
-+	unsigned int i, n = 0;
-+	int ret;
++	  If unsure, say N.
 +
-+	ret = beamfs_check_intermediate_block(sb, blk, inode->i_ino, 0,
-+					      "indirect");
-+	if (ret)
-+		return ret;
-+	bh = sb_bread(sb, blk);
-+	if (!bh)
-+		return -EIO;
-+	if (beamfs_ind_parity_verify(sb, bh)) {
-+		brelse(bh);
-+		return -EUCLEAN;
-+	}
-+	if (depth > 1) {
-+		kids = kmalloc_array(BEAMFS_INDIRECT_PTRS, sizeof(*kids),
-+				     GFP_NOFS);
-+		if (!kids) {
-+			brelse(bh);
-+			return -ENOMEM;
-+		}
-+	}
++config BEAMFS_DEBUG_TREE
++	bool "beamfs: check the indirect tree invariant at every store"
++	depends on BEAMFS_FS
++	help
++	  Record every pointer installed in an indirect block and check
++	  each later store to the same slot against that record. A slot
++	  that held a live pointer and reads back as zero is reported
++	  with a stack trace at the instant it happens, instead of being
++	  counted by fsck long after.
 +
-+	(*count)++;
-+	lock_buffer(bh);
-+	ptrs = (__le64 *)bh->b_data;
-+	for (i = 0; i < BEAMFS_INDIRECT_PTRS; i++) {
-+		u64 p = le64_to_cpu(ptrs[i]);
++	  Costs one hash lookup and sixteen bytes per live pointer. Say
++	  N for production.
 +
-+		if (!p)
-+			continue;
-+		if (kids)
-+			kids[n++] = p;
-+		else
-+			(*count)++;
-+	}
-+	unlock_buffer(bh);
-+	brelse(bh);
++config BEAMFS_ORDERED_META
++	bool "Write metadata in dependency order (slow, experimental)"
++	depends on BEAMFS_FS
++	default n
++	help
++	  Write every metadata block to the medium before anything names
++	  it: one synchronous write per level of indirection, up to four
++	  for a block reached through the triple indirect.
 +
-+	for (i = 0; i < n && !ret; i++)
-+		ret = beamfs_count_tree(inode, kids[i], depth - 1, count);
-+	kfree(kids);
-+	return ret;
-+}
++	  This exists to answer a question, not to be enabled. beamfs
++	  relies on mark_buffer_dirty for ordering and mark_buffer_dirty
++	  gives none, and this forces the safe order at whatever cost in
++	  speed so that the hypothesis can be measured rather than
++	  argued. A journal is how the same property is had for one
++	  sequential write instead.
 +
-+/*
-+ * beamfs_count_blocks -- the blocks @inode holds on the medium, data and
-+ * indirect alike, read from its tree. The inode does not store the
-+ * count; beamfs_getattr takes it from here once. A short symlink target
-+ * lives in i_direct[] as bytes, not pointers, and a long one is a block.
-+ *
-+ * Returns 0, or the error of a block of pointers that failed its check;
-+ * *count then holds what was counted before it.
-+ */
-+int beamfs_count_blocks(struct inode *inode, u64 *count)
-+{
-+	struct beamfs_inode_info *fi = BEAMFS_I(inode);
-+	u64 roots[3];
-+	unsigned int i;
-+	int ret = 0;
++	  Say N.
+diff --git a/fs/beamfs/Makefile b/fs/beamfs/Makefile
+new file mode 100644
+index 000000000000..d01ad86a0c14
+--- /dev/null
++++ b/fs/beamfs/Makefile
+@@ -0,0 +1,21 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Makefile for the beamfs filesystem.
++#
 +
-+	*count = 0;
-+	if (S_ISLNK(inode->i_mode)) {
-+		if (i_size_read(inode) >= (loff_t)sizeof(fi->i_direct) &&
-+		    fi->i_direct[0])
-+			*count = 1;
-+		return 0;
-+	}
-+	if (!S_ISREG(inode->i_mode) && !S_ISDIR(inode->i_mode))
-+		return 0;
++obj-$(CONFIG_BEAMFS_FS) += beamfs.o
 +
-+	for (i = 0; i < BEAMFS_DIRECT_BLOCKS; i++) {
-+		if (fi->i_direct[i])
-+			(*count)++;
-+	}
-+	roots[0] = le64_to_cpu(fi->i_indirect);
-+	roots[1] = le64_to_cpu(fi->i_dindirect);
-+	roots[2] = le64_to_cpu(fi->i_tindirect);
-+	for (i = 0; i < ARRAY_SIZE(roots) && !ret; i++) {
-+		if (roots[i])
-+			ret = beamfs_count_tree(inode, roots[i], i + 1, count);
-+	}
-+	return ret;
-+}
++beamfs-y := treecheck.o super.o inode.o dir.o dirent.o file.o \
++	    file_inline.o scrub.o indparity.o rsbench.o budget.o clock.o \
++	    alert.o edac.o alloc.o namei.o
 +
-+int beamfs_inline_lookup_phys(struct inode *inode, u64 iblock_logical,
-+			      u64 *phys_out)
-+{
-+	struct beamfs_inode_info *fi = BEAMFS_I(inode);
-+	struct super_block       *sb = inode->i_sb;
-+	struct buffer_head *ibh = NULL;
-+	__le64                   *ptrs;
-+	u64                       indirect_blk;
-+	u64                       indirect_slot;
-+	u64                       phys;
-+	int                       ret;
++# define_trace.h includes beamfs_trace.h by name, from super.c.
++CFLAGS_super.o += -I$(src)
 +
-+	if (!phys_out)
-+		return -EINVAL;
-+
-+	*phys_out = 0;
-+
-+	if (iblock_logical < BEAMFS_DIRECT_BLOCKS) {
-+		u64 dphys = le64_to_cpu(fi->i_direct[iblock_logical]);
-+
-+		if (dphys != 0) {
-+			struct beamfs_sb_info *sbi = BEAMFS_SB(sb);
-+
-+			if (dphys < sbi->s_data_start ||
-+			    dphys >= sbi->s_data_start + sbi->s_nblocks) {
-+				pr_err_ratelimited("beamfs/inline: corrupted direct pointer ino=%llu iblock=%llu phys=%llu (out of [%lu, %lu))\n",
-+						   (unsigned long long)inode->i_ino,
-+						   (unsigned long long)iblock_logical,
-+						   (unsigned long long)dphys,
-+						   sbi->s_data_start,
-+						   sbi->s_data_start + sbi->s_nblocks);
-+				return -EUCLEAN;
-+			}
-+			/*
-+			 * A direct pointer into a freed block fails closed
-+			 * here, as the same case on an indirect pointer does
-+			 * in beamfs_check_intermediate_block.
-+			 */
-+			if (!beamfs_block_is_allocated(sb, dphys)) {
-+				pr_err_ratelimited("beamfs/inline: unallocated direct pointer ino=%llu iblock=%llu phys=%llu\n",
-+						   (unsigned long long)inode->i_ino,
-+						   (unsigned long long)iblock_logical,
-+						   (unsigned long long)dphys);
-+				return -EUCLEAN;
-+			}
-+		}
-+		*phys_out = dphys;
-+		return 0;
-+	}
-+
-+	if (iblock_logical < BEAMFS_DIRECT_BLOCKS + BEAMFS_INDIRECT_PTRS) {
-+		indirect_slot = iblock_logical - BEAMFS_DIRECT_BLOCKS;
-+		indirect_blk  = le64_to_cpu(fi->i_indirect);
-+
-+		if (!indirect_blk)
-+			return 0; /* HOLE: indirect block not yet allocated */
-+
-+		ret = beamfs_check_intermediate_block(sb, indirect_blk,
-+						      (unsigned long long)inode->i_ino,
-+						      iblock_logical,
-+						      "indirect");
-+		if (ret)
-+			return ret;
-+
-+		{
-+			int fresh = 0;
-+
-+			if (!ibh) {
-+				/*
-+				 * find_get_block, not sb_getblk: the
-+				 * question is whether the cache already
-+				 * holds this block, and sb_getblk would
-+				 * answer it by creating one. A probe that
-+				 * changes what it measures is worse than
-+				 * no probe -- generic/464 passed with one
-+				 * and the result could not be read.
-+				 */
-+				struct buffer_head *probe =
-+					sb_find_get_block(sb, indirect_blk);
-+
-+				fresh = !probe;
-+				if (probe)
-+					brelse(probe);
-+				ibh = sb_bread(sb, indirect_blk);
-+			}
-+			if (!ibh) {
-+				pr_err_ratelimited("beamfs/inline: failed to read indirect block %llu\n",
-+						   (unsigned long long)indirect_blk);
-+				return -EIO;
-+			}
-+			trace_beamfs_ind_read(inode->i_sb->s_dev, inode->i_ino, indirect_blk,
-+					      (unsigned int)indirect_slot,
-+				le64_to_cpu(((__le64 *)ibh->b_data)[indirect_slot]),
-+				buffer_uptodate(ibh), fresh);
-+		}
-+		/*
-+		 * Verify before trusting the pointers. Under CRC this turns a
-+		 * flipped pointer that lands in range and on an allocated block
-+		 * -- the residual left open by the bounds check above -- into a
-+		 * clean failure instead of someone else's data. Under RS a copy
-+		 * is decoded and what it corrects is journalled, but the
-+		 * pointers are read as the medium holds them: a correctable
-+		 * flip is reported, not repaired.
-+		 */
-+		if (beamfs_ind_parity_verify(sb, ibh)) {
-+			brelse(ibh);
-+			return -EUCLEAN;
-+		}
-+		ptrs = (__le64 *)ibh->b_data;
-+		/*
-+		 * Read under the buffer lock, as the writer installs
-+		 * under it.
-+		 *
-+		 * lookup_phys took no lock at all while
-+		 * lookup_or_alloc_phys installs a pointer holding
-+		 * both i_alloc_mutex and lock_buffer, so a reader
-+		 * could see a slot mid-install: treecheck reported
-+		 * one that held 18806 and read as 0, in the same
-+		 * function for the same inode, with the write order
-+		 * forced -- so the block was on the medium and the
-+		 * read was simply early.
-+		 */
-+		lock_buffer(ibh);
-+		phys = le64_to_cpu(ptrs[indirect_slot]);
-+		unlock_buffer(ibh);
-+		brelse(ibh);
-+
-+		if (phys != 0) {
-+			struct beamfs_sb_info *sbi = BEAMFS_SB(sb);
-+
-+			if (phys < sbi->s_data_start ||
-+			    phys >= sbi->s_data_start + sbi->s_nblocks) {
-+				pr_err_ratelimited("beamfs/inline: corrupted indirect pointer ino=%llu iblock=%llu slot=%llu phys=%llu (out of [%lu, %lu))\n",
-+						   (unsigned long long)inode->i_ino,
-+						   (unsigned long long)iblock_logical,
-+						   (unsigned long long)indirect_slot,
-+						   (unsigned long long)phys,
-+						   sbi->s_data_start,
-+						   sbi->s_data_start + sbi->s_nblocks);
-+				return -EUCLEAN;
-+			}
-+			if (!beamfs_block_is_allocated(sb, phys)) {
-+				pr_err_ratelimited("beamfs/inline: unallocated indirect pointer ino=%llu iblock=%llu phys=%llu\n",
-+						   (unsigned long long)inode->i_ino,
-+						   (unsigned long long)iblock_logical,
-+						   (unsigned long long)phys);
-+				return -EUCLEAN;
-+			}
-+		}
-+		*phys_out = phys;
-+		return 0;
-+	}
-+
-+	if (iblock_logical < BEAMFS_MAX_IBLOCK_DINDIRECT) {
-+		/*
-+		 * Double-indirect lookup. Map iblock to (level-1 slot,
-+		 * level-2 slot) where level-1 is an indirect block of
-+		 * pointers to indirect blocks, and level-2 is the leaf
-+		 * indirect block whose entries point to user data blocks.
-+		 * Coverage: 12 + 512 + 512*512 = 262668 iblocks ~= 1 GiB.
-+		 */
-+		u64 didx, l1_slot, l2_slot, dindirect_blk, l1_blk;
-+		struct buffer_head *l1bh = NULL;
-+
-+		didx = iblock_logical - BEAMFS_MAX_IBLOCK_INDIRECT;
-+		l1_slot = didx / BEAMFS_INDIRECT_PTRS;
-+		l2_slot = didx % BEAMFS_INDIRECT_PTRS;
-+
-+		dindirect_blk = le64_to_cpu(fi->i_dindirect);
-+		if (!dindirect_blk)
-+			return 0; /* HOLE: dindirect block not yet allocated */
-+
-+		ret = beamfs_check_intermediate_block(sb, dindirect_blk,
-+						      (unsigned long long)inode->i_ino,
-+						      iblock_logical,
-+						      "dindirect");
-+		if (ret)
-+			return ret;
-+
-+		ibh = sb_bread(sb, dindirect_blk);
-+		if (!ibh) {
-+			pr_err_ratelimited("beamfs/inline: failed to read dindirect block %llu\n",
-+					   (unsigned long long)dindirect_blk);
-+			return -EIO;
-+		}
-+		/*
-+		 * Verify before trusting the pointers. Under CRC this turns a
-+		 * flipped pointer that lands in range and on an allocated block
-+		 * -- the residual left open by the bounds check above -- into a
-+		 * clean failure instead of someone else's data. Under RS a copy
-+		 * is decoded and what it corrects is journalled, but the
-+		 * pointers are read as the medium holds them: a correctable
-+		 * flip is reported, not repaired.
-+		 */
-+		if (beamfs_ind_parity_verify(sb, ibh)) {
-+			brelse(ibh);
-+			return -EUCLEAN;
-+		}
-+		ptrs = (__le64 *)ibh->b_data;
-+		/*
-+		 * Read under the buffer lock, as the writer installs
-+		 * under it. See the single-indirect case above.
-+		 */
-+		lock_buffer(ibh);
-+		l1_blk = le64_to_cpu(ptrs[l1_slot]);
-+		unlock_buffer(ibh);
-+		brelse(ibh);
-+
-+		if (!l1_blk)
-+			return 0; /* HOLE: level-1 indirect not allocated */
-+
-+		ret = beamfs_check_intermediate_block(sb, l1_blk,
-+						      (unsigned long long)inode->i_ino,
-+						      iblock_logical,
-+						      "dindirect L1");
-+		if (ret)
-+			return ret;
-+
-+		if (!l1bh)
-+			l1bh = sb_bread(sb, l1_blk);
-+		if (!l1bh) {
-+			pr_err_ratelimited("beamfs/inline: failed to read dindirect L1 block %llu\n",
-+					   (unsigned long long)l1_blk);
-+			return -EIO;
-+		}
-+		/*
-+		 * Verify before trusting the pointers. Under CRC this turns a
-+		 * flipped pointer that lands in range and on an allocated block
-+		 * -- the residual left open by the bounds check above -- into a
-+		 * clean failure instead of someone else's data. Under RS a copy
-+		 * is decoded and what it corrects is journalled, but the
-+		 * pointers are read as the medium holds them: a correctable
-+		 * flip is reported, not repaired.
-+		 */
-+		if (beamfs_ind_parity_verify(sb, l1bh)) {
-+			brelse(l1bh);
-+			return -EUCLEAN;
-+		}
-+		ptrs = (__le64 *)l1bh->b_data;
-+		/*
-+		 * Read under the buffer lock, as the writer installs
-+		 * under it.
-+		 *
-+		 * lookup_phys took no lock at all while
-+		 * lookup_or_alloc_phys installs a pointer holding
-+		 * both i_alloc_mutex and lock_buffer, so a reader
-+		 * could see a slot mid-install: treecheck reported
-+		 * one that held 18806 and read as 0, in the same
-+		 * function for the same inode, with the write order
-+		 * forced -- so the block was on the medium and the
-+		 * read was simply early.
-+		 */
-+		lock_buffer(l1bh);
-+		phys = le64_to_cpu(ptrs[l2_slot]);
-+		unlock_buffer(l1bh);
-+		brelse(l1bh);
-+
-+		if (phys != 0) {
-+			struct beamfs_sb_info *sbi = BEAMFS_SB(sb);
-+
-+			if (phys < sbi->s_data_start ||
-+			    phys >= sbi->s_data_start + sbi->s_nblocks) {
-+				pr_err_ratelimited("beamfs/inline: corrupted dindirect pointer ino=%llu iblock=%llu phys=%llu (out of [%lu, %lu))\n",
-+						   (unsigned long long)inode->i_ino,
-+						   (unsigned long long)iblock_logical,
-+						   (unsigned long long)phys,
-+						   sbi->s_data_start,
-+						   sbi->s_data_start + sbi->s_nblocks);
-+				return -EUCLEAN;
-+			}
-+			if (!beamfs_block_is_allocated(sb, phys)) {
-+				pr_err_ratelimited("beamfs/inline: unallocated dindirect pointer ino=%llu iblock=%llu phys=%llu\n",
-+						   (unsigned long long)inode->i_ino,
-+						   (unsigned long long)iblock_logical,
-+						   (unsigned long long)phys);
-+				return -EUCLEAN;
-+			}
-+		}
-+		*phys_out = phys;
-+		return 0;
-+	}
-+
-+	if (iblock_logical < BEAMFS_MAX_IBLOCK_TINDIRECT) {
-+		/*
-+		 * Triple-indirect lookup. Map iblock to (level-1, level-2,
-+		 * level-3) where level-1 is an indirect block of pointers to
-+		 * dindirect blocks, level-2 is an indirect block of pointers
-+		 * to indirect blocks, and level-3 is the leaf indirect block
-+		 * whose entries point to user data blocks.
-+		 * Coverage: 12 + 512 + 512^2 + 512^3 = 134480396 iblocks
-+		 * ~= 478 GiB at 3824 user bytes/block.
-+		 */
-+		u64 tidx, l1_slot, l2_slot, l3_slot;
-+		u64 tindirect_blk, l1_blk, l2_blk;
-+		struct buffer_head *l1bh = NULL, *l2bh = NULL;
-+
-+		tidx = iblock_logical - BEAMFS_MAX_IBLOCK_DINDIRECT;
-+		l1_slot = tidx / (BEAMFS_INDIRECT_PTRS * BEAMFS_INDIRECT_PTRS);
-+		l2_slot = (tidx / BEAMFS_INDIRECT_PTRS) % BEAMFS_INDIRECT_PTRS;
-+		l3_slot = tidx % BEAMFS_INDIRECT_PTRS;
-+
-+		tindirect_blk = le64_to_cpu(fi->i_tindirect);
-+		if (!tindirect_blk)
-+			return 0; /* HOLE: tindirect block not yet allocated */
-+
-+		ret = beamfs_check_intermediate_block(sb, tindirect_blk,
-+						      (unsigned long long)inode->i_ino,
-+						      iblock_logical,
-+						      "tindirect");
-+		if (ret)
-+			return ret;
-+
-+		ibh = sb_bread(sb, tindirect_blk);
-+		if (!ibh) {
-+			pr_err_ratelimited("beamfs/inline: failed to read tindirect block %llu\n",
-+					   (unsigned long long)tindirect_blk);
-+			return -EIO;
-+		}
-+		/*
-+		 * Verify before trusting the pointers. Under CRC this turns a
-+		 * flipped pointer that lands in range and on an allocated block
-+		 * -- the residual left open by the bounds check above -- into a
-+		 * clean failure instead of someone else's data. Under RS a copy
-+		 * is decoded and what it corrects is journalled, but the
-+		 * pointers are read as the medium holds them: a correctable
-+		 * flip is reported, not repaired.
-+		 */
-+		if (beamfs_ind_parity_verify(sb, ibh)) {
-+			brelse(ibh);
-+			return -EUCLEAN;
-+		}
-+		ptrs = (__le64 *)ibh->b_data;
-+		/*
-+		 * Read under the buffer lock, as the writer installs
-+		 * under it. See the single-indirect case above.
-+		 */
-+		lock_buffer(ibh);
-+		l1_blk = le64_to_cpu(ptrs[l1_slot]);
-+		unlock_buffer(ibh);
-+		brelse(ibh);
-+
-+		if (!l1_blk)
-+			return 0; /* HOLE: level-1 not allocated */
-+
-+		ret = beamfs_check_intermediate_block(sb, l1_blk,
-+						      (unsigned long long)inode->i_ino,
-+						      iblock_logical,
-+						      "tindirect L1");
-+		if (ret)
-+			return ret;
-+
-+		if (!l1bh)
-+			l1bh = sb_bread(sb, l1_blk);
-+		if (!l1bh) {
-+			pr_err_ratelimited("beamfs/inline: failed to read tindirect L1 block %llu\n",
-+					   (unsigned long long)l1_blk);
-+			return -EIO;
-+		}
-+		/*
-+		 * Verify before trusting the pointers. Under CRC this turns a
-+		 * flipped pointer that lands in range and on an allocated block
-+		 * -- the residual left open by the bounds check above -- into a
-+		 * clean failure instead of someone else's data. Under RS a copy
-+		 * is decoded and what it corrects is journalled, but the
-+		 * pointers are read as the medium holds them: a correctable
-+		 * flip is reported, not repaired.
-+		 */
-+		if (beamfs_ind_parity_verify(sb, l1bh)) {
-+			brelse(l1bh);
-+			return -EUCLEAN;
-+		}
-+		ptrs = (__le64 *)l1bh->b_data;
-+		/*
-+		 * Read under the buffer lock, as the writer installs
-+		 * under it. See the single-indirect case above.
-+		 */
-+		lock_buffer(l1bh);
-+		l2_blk = le64_to_cpu(ptrs[l2_slot]);
-+		unlock_buffer(l1bh);
-+		brelse(l1bh);
-+
-+		if (!l2_blk)
-+			return 0; /* HOLE: level-2 not allocated */
-+
-+		ret = beamfs_check_intermediate_block(sb, l2_blk,
-+						      (unsigned long long)inode->i_ino,
-+						      iblock_logical,
-+						      "tindirect L2");
-+		if (ret)
-+			return ret;
-+
-+		if (!l2bh)
-+			l2bh = sb_bread(sb, l2_blk);
-+		if (!l2bh) {
-+			pr_err_ratelimited("beamfs/inline: failed to read tindirect L2 block %llu\n",
-+					   (unsigned long long)l2_blk);
-+			return -EIO;
-+		}
-+		/*
-+		 * Verify before trusting the pointers. Under CRC this turns a
-+		 * flipped pointer that lands in range and on an allocated block
-+		 * -- the residual left open by the bounds check above -- into a
-+		 * clean failure instead of someone else's data. Under RS a copy
-+		 * is decoded and what it corrects is journalled, but the
-+		 * pointers are read as the medium holds them: a correctable
-+		 * flip is reported, not repaired.
-+		 */
-+		if (beamfs_ind_parity_verify(sb, l2bh)) {
-+			brelse(l2bh);
-+			return -EUCLEAN;
-+		}
-+		ptrs = (__le64 *)l2bh->b_data;
-+		/*
-+		 * Read under the buffer lock, as the writer installs
-+		 * under it. See the single-indirect case above.
-+		 */
-+		lock_buffer(l2bh);
-+		phys = le64_to_cpu(ptrs[l3_slot]);
-+		unlock_buffer(l2bh);
-+		brelse(l2bh);
-+
-+		if (phys != 0) {
-+			struct beamfs_sb_info *sbi = BEAMFS_SB(sb);
-+
-+			if (phys < sbi->s_data_start ||
-+			    phys >= sbi->s_data_start + sbi->s_nblocks) {
-+				pr_err_ratelimited("beamfs/inline: corrupted tindirect pointer ino=%llu iblock=%llu phys=%llu (out of [%lu, %lu))\n",
-+						   (unsigned long long)inode->i_ino,
-+						   (unsigned long long)iblock_logical,
-+						   (unsigned long long)phys,
-+						   sbi->s_data_start,
-+						   sbi->s_data_start + sbi->s_nblocks);
-+				return -EUCLEAN;
-+			}
-+			if (!beamfs_block_is_allocated(sb, phys)) {
-+				pr_err_ratelimited("beamfs/inline: unallocated tindirect pointer ino=%llu iblock=%llu phys=%llu\n",
-+						   (unsigned long long)inode->i_ino,
-+						   (unsigned long long)iblock_logical,
-+						   (unsigned long long)phys);
-+				return -EUCLEAN;
-+			}
-+		}
-+		*phys_out = phys;
-+		return 0;
-+	}
-+
-+	pr_err_ratelimited("beamfs/inline: iblock %llu beyond tindirect capacity\n",
-+			   (unsigned long long)iblock_logical);
-+	return -EOPNOTSUPP;
-+}
-+
-+/* ------------------------------------------------------------------------- */
-+/* Allocating block-mapping (write path)                                     */
-+/*                                                                           */
-+/* Variant of beamfs_inline_lookup_phys() that allocates on demand. Used by  */
-+/* iomap_begin for a write, by writeback_range and by zero_tail_block to     */
-+/* map a logical iblock to a physical block, allocating direct, indirect,    */
-+/* double and triple indirect and data blocks as needed. A freshly           */
-+/* allocated data block is zeroed, stamped and RS-encoded at once, so a      */
-+/* subsequent read finds a valid block of zeros rather than whatever the     */
-+/* medium held.                                                              */
-+/*                                                                           */
-+/* Allocates:                                                                */
-+/*   - Direct: writes phys into fi->i_direct[iblock] + mark_inode_dirty.     */
-+/*   - Indirect levels: allocates each missing level first (zero-init),      */
-+/*     then the data block, and writes phys into the leaf ptrs[slot].        */
-+/*                                                                           */
-+/* The freshly allocated data block is built via sb_getblk + memset, NOT     */
-+/* via sb_bread, because there is no on-disk content to read (the block      */
-+/* was unallocated). The buffer is marked uptodate + dirty, so a partial     */
-+/* write at writeback finds it in the buffer cache instead of reading the    */
-+/* device.                                                                   */
-+/*                                                                           */
-+/* Returns:                                                                  */
-+/*   0  + *phys_out = block number (mapped or freshly allocated)             */
-+/*   <0 on error (-ENOSPC if alloc fails, -EIO on indirect read fail, on     */
-+/*                a failed volume or an inode being evicted, -EUCLEAN on     */
-+/*                indirect parity failure, -EOPNOTSUPP beyond triple         */
-+/*                indirect, -EINVAL on null phys_out)                        */
-+/* ------------------------------------------------------------------------- */
-+/*
-+ * Is this a block a file may point at?
-+ *
-+ * Everything below s_data_start is metadata: the superblock, the inode
-+ * table, the bitmap, the indirect parity region. A file's data never
-+ * lives there, and a pointer naming it is wrong whatever produced it.
-+ *
-+ * generic/075 found two blocks of the inode table holding fsx's fill
-+ * bytes, seven inodes in them beyond correction and 40437 pointers
-+ * naming blocks past the end of the device -- and the first thing to
-+ * notice was fsck, three minutes and one unmount later, by which time
-+ * the path that did it was gone.
-+ *
-+ * Refused here instead, with the block and the inode named, while the
-+ * stack that produced it is still on the stack.
-+ */
-+static bool beamfs_phys_is_sane(struct super_block *sb, struct inode *inode,
-+				u64 phys, const char *where)
-+{
-+	struct beamfs_sb_info *sbi = BEAMFS_SB(sb);
-+	u64 last = (u64)sbi->s_data_start + sbi->s_nblocks;
-+
-+	if (phys == 0)
-+		return true;			/* a hole, not an address */
-+
-+	if (phys < sbi->s_data_start || phys >= last) {
-+		/*
-+		 * The inode number in its own variable: a ternary between
-+		 * i_ino and a literal is promoted, and %lu given the
-+		 * result compiles clean where the promotion happens to
-+		 * land on unsigned long and breaks where it does not.
-+		 */
-+		unsigned long ino = inode ? inode->i_ino : 0;
-+
-+		pr_err_ratelimited("beamfs: %s: inode %lu names block %llu, outside %llu..%llu\n",
-+				   where, ino,
-+				   (unsigned long long)phys,
-+				   (unsigned long long)sbi->s_data_start,
-+				   (unsigned long long)last - 1);
-+		beamfs_fail(sb, where, -EUCLEAN);
-+		return false;
-+	}
-+	return true;
-+}
-+
-+#ifdef CONFIG_BEAMFS_ORDERED_META
-+/*
-+ * Put a metadata block on the medium before anything names it.
-+ *
-+ * The safe order for a tree is pointee before pointer, always, and
-+ * nothing in beamfs establishes it: mark_buffer_dirty hands the buffer
-+ * to writeback, which sorts by age and by position.
-+ *
-+ * This is the brute form -- one synchronous write per level, up to
-+ * four for a block reached through triple indirection -- and it is
-+ * meant to answer one question: is the missing order the reason nine
-+ * xfstests fail? A journal is how a filesystem gets the same property
-+ * without paying this.
-+ */
-+static void beamfs_order_before_pointer(struct buffer_head *bh)
-+{
-+	if (!bh)
-+		return;
-+	/*
-+	 * write_dirty_buffer submits and returns; the wait is what makes
-+	 * this an ordering and not a hint.
-+	 */
-+	write_dirty_buffer(bh, REQ_SYNC);
-+	wait_on_buffer(bh);
-+}
-+#else
-+static inline void beamfs_order_before_pointer(struct buffer_head *bh)
-+{
-+	(void)bh;
-+}
-+#endif
-+
-+/*
-+ * Did this call allocate, or did it find what was already there?
-+ *
-+ * iomap needs the answer. A write shorter than the mapping it was
-+ * given leaves the rest of that mapping allocated, and only the blocks
-+ * this call created may be given back -- a block that was already
-+ * there belongs to the file whether or not this write reached it.
-+ *
-+ * generic/013 leaves 28 consecutive blocks allocated and never
-+ * written, the length of one write, and nothing can tell them from
-+ * blocks the file already owned.
-+ *
-+ * @allocated may be NULL for callers that do not care.
-+ */
++# The warnings the module is developed with. Whether they stop the
++# build is left to CONFIG_WERROR.
++ccflags-y += -Wall -Wextra -Wformat=2 -Werror=format
++ccflags-y += -Wmissing-prototypes -Wmissing-declarations
++ccflags-y += -Wundef -Wstrict-prototypes
++# The VFS passes handlers more arguments than most of them use.
++ccflags-y += -Wno-unused-parameter
 -- 
 2.55.0
 
