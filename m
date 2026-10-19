@@ -1,86 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792451280;
-	b=gVYZHtZJAqJkFTPqZF0hGDbaX+R12SMAeKRFXZbIrSMMB8RN6slUwZ7f717GBMOF/ohq
-	 30EBasV2dGR0G3r2vaO2B2KKOTZqoZCcugdlg6iZfNqVv+cdydN7ojG/2//Kk4+29ML5O
-	 mylaOLg37yoBQCN4jVotaaCjlJzjrby04tPVwcdAvaXv2Q6LrZmzBdotvat5WrxHkG+qK
-	 T/GF/f7mOW7YGiLD0cEynzShBZgeLJeR3H9oPWvCOnxcns1NIiCyzXCUtQgYVPUSqiGjA
-	 cdQnejzpu8f19bbZqr4S5QYiDLy/kVP/VUJBRP9RUY13ugnMeDRSAWDyXSCyvZ86bDg==
+	t=1792451296;
+	b=2ATfeHeMbePrGjizwvns1ucttGJhP9MtOXnFXPqDcJghjDZYZBa04zzTK/a9+jBlvZVb
+	 0B6eD7MAKH4fk3YxfWOsKSSy9vs4NeyUN0H/XB3FtyAM1xAKpi7++NVY+SSs7ECW53b3b
+	 pWWeTpsPZriKuZ0Bt2tWmSzyTpLzm6/fSnAdV1oX6Zo+FFVazZDAWcBSAGQpW9rLCwUtf
+	 HpE8WxS7F2GI3BCamFCJlWa0sfIjHpZm51MuY1SYrkogodvg3f14PM4IAX1Fe2UlImoGx
+	 4jrCUHXZzqpYsMoM7bYSUqWQkKxY/wq7Nf4V9Mk3wm/qKLPvWBBQHlAB/WLV0FzPb+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792451280;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792451296;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=/15IrbGrSqzjrFkWTCPOJpVsfqAYXsYamlcuLjCS3GU=;
-	b=eeFmSx9ad/gjkJJKL9g7EvcxdUQtx/WMAuyEssDix+JFb1gHIqxZ21P+ybPwDTXmYu5V
-	 L9xWhmupi6oQ0H8N7OnoZcSJ5smbZ6qXSIHOUZEUMuzrJ8r4BhEfcUjYjCrHG2lgi//Kq
-	 58a1hpxyG/Jp+KpC+ViYz4cq+HI53/ttROWnJp/LqmaDYExjOTiAO5UbB7dozwFE0Durb
-	 BrjCjI256jp/dfcQS16qyPjeABk1llFJ117u9yL7WQ8airVnwMkVZX9pajgNP3YFSGB1H
-	 dFlRA36+BwMXsWYFDmjiCm19XL6aSUBYfYuIxIuTIVdvU/+/QKNaaEIkH/u+csgH/ew==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+PtAsIRbau25qBKYDkRQgKy/IsvMiPdbk5+WMW7RL5M=;
+	b=ei4UBryU92RR0e4PlQmf2JX69xVa/EMnxVuWLwrNSu+vgcNpZS4yXkowcOs/SfpRWurE
+	 59v+v6H763Ea54XtX9RPEekTsqCmYL6BS2i5qv9VhkaZC3wRHJr9ZugerYkRQ+WZVN3W3
+	 zhk/nDwHc/HstvRsIzYm9lT5RLzKp+3F4X0v9Kxhei4ICVLgoie8h5inYbkXLrdiJ8kNN
+	 w77NPab1FAtz02AAAEe261RoO3h9r0xNIyvUQPqMUb3fRY5HGVBWDHFF40gc62SHJI8dE
+	 SBXvMzjrA1kuoCmxNVzgRHSMRj1HwMACGKHq+x7YnKcvjuSZdv5rgTwvCDyJigul3xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZRqGf34y;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--joshdon.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=CHsdIqTf;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF15606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:07:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AF15606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE68A606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:08:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE68A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--joshdon.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZRqGf34y
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso27633995e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:07:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=CHsdIqTf
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3552883bd19so7236064eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:08:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792451278; x=1793056078; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/15IrbGrSqzjrFkWTCPOJpVsfqAYXsYamlcuLjCS3GU=;
-        b=ZRqGf34y0L2eaTOSXNXcCgx4ey13Hi7lSgKxcZ0hiG25fHhTSQI1FthwlV2MaYeOb5
-         glKUEdq7peqUf4MIHsxgmepWpSL62cxxCalMyUNXAIXpm4/OHELNEWv4/RcRn756OiSX
-         3/LVXdjrH1J961z8ZMv2m4VX3z3u+a4HsRcUfXfRnu+wWiSYJMxwy+woiMmcYh/SDi68
-         jZNeAy2zgEbYvvqax8+ubrDyE2idFkQRf79iV/w4mC9+K+sV+S7ers84/XK+ayYPU2FR
-         QEerbhnp9XwEwm4uolQzzkFRik5aEi7Bk5lVrJo4s/XLChGWFWgoHMlUnu7Yv+aRxfb2
-         +EUg==
+        d=google.com; s=20251104; t=1792451295; x=1793056095; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+PtAsIRbau25qBKYDkRQgKy/IsvMiPdbk5+WMW7RL5M=;
+        b=CHsdIqTfH9k2/oPDg2BvKrKDQRc5i9Sw21tVz1mW9yNtzIKEJ4/uDLs/HOKIexcUS2
+         6LPHoEjjfJIZjCCHdrK+v2/vIC/Ys8dVPhZZTz677a2bLk850+eBUcxcBFBUby2mRdvK
+         Z7TujMxJUTRs8conMmmlQYokjWSjYw+KA7hC0yjYobBPccV4XDAVT2YKfUg5m3kWDglv
+         rJWu7i4RuLLYxneA/KxlwJ+UsZ+s5AUhUiBNBKOHu7nE0PUZPW9lk8X5QzID9Duxv7nF
+         U0h3k55bE34Fejwb7b6IvsQf+s3mMDzTbiIwsY0xTtswHhomn6x4hy+m5KMlOm02NKIy
+         UfzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792451278; x=1793056078;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/15IrbGrSqzjrFkWTCPOJpVsfqAYXsYamlcuLjCS3GU=;
-        b=LOBrBc/MbtawqvxOZTWpKO0KMJ6UcccCwKkfxuOzcS7NtxWEsF1rWZ776Qf8Q/uuJk
-         tiMixTMCwDa/Exz7TTWIkIvSP+bGRhcXHg0crcULuUFxhGubSQXWf0tSx+2mnV94dLrp
-         Or/zL9afIkWShjrc5aT0OxPgjJGP3pGIzUoR4ode7VMJJRbvhzHLovEMZdUdjGsZWCUn
-         RT9SAxJuVRJ2MDVRuhecoxpdMYDjQ0CBcZk31w0a/A94lrdnC92eZpYY4wPJ2ijNGzR2
-         31npgzcHz6KoX9xG1Pcz7Dqr05Vsg4yKji7Eq5TQ2F4OR7xxNq6uskc83hMPfI7rVs8+
-         ympg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQCP1adk5s8m1VMOXZ+0HPh9FYcBweQEBQ3zq5Yg0UrHyXEZxdbn29B+g7taVbSM+WyUvIT0yq6qfae4I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVkGncLyorfdnBitNzZ2KXFK2JmChx77lv6Ni4T9UGNwHdkDyu
-	K9OFf9N7t4Z/AX80f3056C/YOjocChaJrQj4ty4dBBgRPgpLukle1Fw8gOJqi+VN0RO5a2o38wK
-	XRYK8huk=
-X-Gm-Gg: AYBFou3amx+FoxEyRaVJGjU8C3NH+LuLogl2hE9EpZWFoHr14MJDUzDs2tjPwrWOzVv
-	EExmcwcaZ0A1NT/aAK/rNEj0X3d1L8OLTNXObZVo1AmkwfGL4EBbhZ46m+ZXQ37Ztj2N0VbbApI
-	bN1mZySVFwRfJw/fMAF6GktUK720KsLihRdPB15jlOkZfoNc6WdHVNDqIE4GW9bFot2C95zwJWp
-	YZWJ/y0Q/9PKM6NGVjOuTLeNl9sSGc1Pl816XiKHWp+rztNE2ZhlIN6WzhMpfgKd8BxNmRAh/Nj
-	aDuEjcdTHdrZPlJ+hh0SgFDg885ywWGGYCiGnCazkrWWx0dsKC5Q2z1v9xL9QT2jfM4RVWyebBa
-	J5OUCdkFTdl2UAnPXzwfPcSsMfYqHrwnFC2B7LzuVtf76fIrVYoKQ19n9MhkZNnWAt927aqzKaH
-	yd89F5ycF/ziuwJ2OxChl9DtQGp1pdUPKwCTjcNZ0KsK9yO7kNL0tjvnKNtihcWrTLKmbQQGPvP
-	C2M0V8yPFMjj/05ES0S4hOwLPOuYxENvfnL0V59F9VnJ5bY2setw54jBwmn3Q==
-X-Received: by 2002:a05:600c:5494:b0:4a1:e0e3:7fe0 with SMTP id 5b1f17b1804b1-4a1e0e3802emr144230465e9.12.1792451278361;
-        Mon, 19 Oct 2026 16:07:58 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f6631abfsm4083445e9.1.2026.10.19.16.07.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 16:07:57 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Tue, 20 Oct 2026 00:07:54 +0100
-Subject: [PATCH] thermal/drivers/samsung/acpm-tmu: fix platform_driver name
+        d=1e100.net; s=20260707; t=1792451295; x=1793056095;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+PtAsIRbau25qBKYDkRQgKy/IsvMiPdbk5+WMW7RL5M=;
+        b=b40VnmhEA8e2tHW4kpJdVdDS9+lpSP42UpFYxNz27LrjBHPyPUMSnoULFdkOB0ymSP
+         A3iDCr8dYDcP6Rd3bTefozhp60s1xHt1lWdWVzzCFLPg8vSqUsPoxEE9ybMKk9PJSkLe
+         wEuxYsk3IdDQ1W3cNXEnmMeNg2OAZCSw5aZ9I0ozGile7uPG4mGPwILOAThLoJ4YCid8
+         RkacclNjCrHkHux/dKG2bckGh+ePgEHnawhTDFQUTtidt4e8fvKgGfm+JstrhRKG02iq
+         71IMrYl5t+9bgBk/u4S+vcdDb+8XvVIDAgSqfkeM9JsZceqcapfEMTJn9B5toCGvtq8x
+         H9ow==
+X-Forwarded-Encrypted: i=1; AKwUvBxvvUcRUegSwFoGbIsXEo/dpaKoHt/3lF9chJqyTrfnonWIx5VSBoLUU9hK4Wb9dSEUHTPNcCx72HAOx48=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxgB/ZjgG1pLf4GuOKICk2K3+GcCezFFowzitZZfI3dbwPFT71
+	qjD9bb9WgJvqfPy20RHry+zxpnyap8mbemGaqP0u4Rabu3BPp8jyF6nyRF2i79U03MtoVm1GbDJ
+	0SGPNV/rpNQ==
+X-Received: from dybmw16.prod.google.com ([2002:a05:7300:cd90:b0:358:1869:85c7])
+ (user=joshdon job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:fd82:b0:35f:f0:8edf
+ with SMTP id 5a478bee46e88-361a126b111mr12745955eec.13.1792451294318; Mon, 19
+ Oct 2026 16:08:14 -0700 (PDT)
+Date: Mon, 19 Oct 2026 23:07:58 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,53 +75,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-acpm-thermal-drv-name-fix-v1-1-71f72280583b@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAMmi1moC/x2MSQqAMAwAvyI5G7AF16+Ih1ijBmyVVEQQ/27xO
- AMzD0RW4Qhd9oDyJVH2kMDkGbiVwsIoU2Kwha1MYVokd3g8V1ZPG056YSDPOMuNXLuG5tLVY2k
- h9Ydy0v+7H973AwXwlsNrAAAA
-X-Change-ID: 20261019-acpm-thermal-drv-name-fix-e7c8af5c7b52
-To: Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>, linux-kernel@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org
-X-Mailer: b4 0.14.3
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261019230758.2960779-1-joshdon@google.com>
+Subject: [PATCH] udp: Add noinline_for_tracing annotation for udp{,_v6}_send_skb()
+From: Josh Don <joshdon@google.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Josh Don <joshdon@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The platform driver name is set to "gs-tmu", likely a leftover from
-the downstream implementation. Update it to "acpm-tmu" to match the
-module and driver file name.
+We hook udp_send_skb() and udp_v6_send_skb() using BPF fentry programs
+to monitor UDP transmits. Both functions are static and have two
+callers: udp{,v6}_sendmsg() and udp{,_v6}_push_pending_frames().
 
-Fixes: 50a2c5d4062a ("thermal/drivers/samsung: Add Exynos ACPM TMU driver GS101")
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+After an FDO profile update, udp_v6_send_skb() is now inlined into
+udpv6_sendmsg(), while an out-of-line copy remains for
+udp_v6_push_pending_frames(). The fentry program still attaches
+successfully, but it is silently bypassed for all uncorked sends.
+
+To address this, make both functions noinline explicitly for tracing,
+as was done for tcp_drop_reason() in commit dbd5e2e79ed8 ("net: tcp:
+Add noinline_for_tracing annotation for tcp_drop_reason()").
+
+Assisted-by: LLM
+Signed-off-by: Josh Don <joshdon@google.com>
 ---
- drivers/thermal/samsung/acpm-tmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/ipv4/udp.c | 4 ++--
+ net/ipv6/udp.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/thermal/samsung/acpm-tmu.c b/drivers/thermal/samsung/acpm-tmu.c
-index f9802080acd7..4b89a2cfaaea 100644
---- a/drivers/thermal/samsung/acpm-tmu.c
-+++ b/drivers/thermal/samsung/acpm-tmu.c
-@@ -637,7 +637,7 @@ static const struct dev_pm_ops acpm_tmu_pm_ops = {
+diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
+index b090bd1f59e86..487c8cc8ab206 100644
+--- a/net/ipv4/udp.c
++++ b/net/ipv4/udp.c
+@@ -1110,8 +1110,8 @@ void udp_set_csum(bool nocheck, struct sk_buff *skb,
+ }
+ EXPORT_SYMBOL(udp_set_csum);
  
- static struct platform_driver acpm_tmu_driver = {
- 	.driver = {
--		.name   = "gs-tmu",
-+		.name   = "acpm-tmu",
- 		.pm     = pm_ptr(&acpm_tmu_pm_ops),
- 		.of_match_table = acpm_tmu_match,
- 	},
-
----
-base-commit: 3d229ce89862b8e82d71a9e11d6f840ca272a6d6
-change-id: 20261019-acpm-thermal-drv-name-fix-e7c8af5c7b52
-
-Best regards,
+-static int udp_send_skb(struct sk_buff *skb, struct flowi4 *fl4,
+-			struct inet_cork *cork)
++noinline_for_tracing static int
++udp_send_skb(struct sk_buff *skb, struct flowi4 *fl4, struct inet_cork *cork)
+ {
+ 	struct sock *sk = skb->sk;
+ 	int offset, len, datalen;
+diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
+index 93478d1ad5769..fe92538835176 100644
+--- a/net/ipv6/udp.c
++++ b/net/ipv6/udp.c
+@@ -1366,8 +1366,8 @@ static void udp6_hwcsum_outgoing(struct sock *sk, struct sk_buff *skb,
+  *	Sending
+  */
+ 
+-static int udp_v6_send_skb(struct sk_buff *skb, struct flowi6 *fl6,
+-			   struct inet_cork *cork)
++noinline_for_tracing static int
++udp_v6_send_skb(struct sk_buff *skb, struct flowi6 *fl6, struct inet_cork *cork)
+ {
+ 	struct sock *sk = skb->sk;
+ 	int offset, len, datalen;
 -- 
-Alexey Klimov <alexey.klimov@linaro.org>
+2.56.0.212.g129ede20d9-goog
 
