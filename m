@@ -1,191 +1,112 @@
-Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6C9491B23
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A9F491B2F;
+	Mon, 19 Oct 2026 14:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792420891; cv=none; b=bOdzETnReAdf4leejKh84zBWURGlw2QyLEK6Pa2q5tkdkQ3vKNCwUGfGIvox+E4bo45RTyBPI4aL3sxD+43Qud06MNMR8sHWY+XeACgKMFXgvJDy8I7Ke2VjCj+Sz2Vj8ua5Mfd0jF92EVHKqUBPgzycDlestKT+qVGL6ES1VHM=
+	t=1792420894; cv=none; b=HFhOGtgETGEbV4WkpK4V5UAxBfmrAqzLS9i0aZ+PWKG4tcsGVLcMkrLOP+4zp/HICr/V2QbzrDHt7/aHoUWgeI7zpU60GOzxjIrQwbnlP+GzB+cpBqWE+moePMsNGao/CbDT27qYRWRtHcnR+za7gVMyajKDQxWkrI86+aPNFqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792420891; c=relaxed/simple;
-	bh=HwE2plcjFNclb9HwtwKDo6zr2B1gdPL2a6p1mdIeSyU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LNjdohnV75Qw/EykwpEqaiCV5duIfeIPpR9XPXtsFq4pLZx38TS3CE5J0jh54A+ZA3MsgqXmzPfOH8n+UMplM5JT0D9UkWMjBO5n6Y5Fz4aCtr2wty86OJHxyqU8nEadMAQd0CPdNx8C3yLRaiS2AEwomXORb9GOs01cW8nTME8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d+6BuBab; arc=none smtp.client-ip=91.218.175.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792420894; c=relaxed/simple;
+	bh=6kpynfd1XwdzrYVYTdeaXZTq3IwSFC6OGWqTXpdz3k8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cM6rMZhnyhvljzZhQjz4pb75G2Fr1eDdblVTWFGWkXCkaV5VGDZdb19iT4xNTeOYkpuDaxLkqXl3VTaB47KEdUt4QSezaDmLe/h2qcB4W42OotF7L7D8hocPjCrNTqtIu7qacrgidElcE4iD93qTeeRnpkYU5FrHerOlHphy30A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WJE0Q9G7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d+6BuBab"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HwE2plcjFNclb9HwtwKDo6zr2B1gdPL2a6p1mdIeSyU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792420887; v=1; x=1793025687;
- b=d+6BuBabhD1ZdY8NeF7Ot2Jm16a39EPZNn1G5n1mNMhKmdi+mX+6Qon1A49I/y/CISLbdZXn
- WGhfN6ws709zzS7si8qffSU92nnVUUR52ZGgla6XtBgpVAORphi+kgowB/eeR1RWghh7otM6oKV
- Bu+i453MfyuqJ5EQTzvA3ae4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id df66da58367c8def;
-	Mon, 19 Oct 2026 14:41:27 +0000
-X-Mizu-Trace-ID: df66da58367c8def
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <19fcff1a-75be-4522-8413-047efc2612e5@linux.dev>
-Date: Mon, 19 Oct 2026 22:41:20 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WJE0Q9G7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BF0F8C2BCF4;
+	Mon, 19 Oct 2026 14:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792420893;
+	bh=6kpynfd1XwdzrYVYTdeaXZTq3IwSFC6OGWqTXpdz3k8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=WJE0Q9G7w0hMWGQMzJxsiKROTcEEHWRcgf4S66ndzj1SeF5AM5VIxFCCUMNzJ9EFy
+	 NP+uyr/JBoI8yHHY21K76GcCUjI2gYIBU3DmNRjmcKPTXp8FtlVVlIbXSXaRXhPvs6
+	 18IEK9Xr3OHzn6iGJsbRE/J1nPfb2BW6ySWbShiKu4habCh2q7169xIeP6ILN+HmZd
+	 GKbrINwag3FBWe0+05NzRtUB7QZaFAL8tWtVDKwvYobSVYaImtNZrzDyXpQJqfqGw9
+	 th+CHQsXwkW6H3XJ39Uvy2J544P9fHGrduS1OO3Mvqmfd1h51K/4kCb5T2tU0ozA75
+	 ETiXGI9aeCjBw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD694CCF2DE;
+	Mon, 19 Oct 2026 14:41:33 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Subject: [PATCH 0/3] Introduce Exynos5515 pinctrl support
+Date: Mon, 19 Oct 2026 15:41:29 +0100
+Message-Id: <20261019-for-next-lucky7-pinctrl-v1-0-0f77e94c70bc@member.fsf.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH mm-next] mm/swap: free swap cache folios the zap path gave
- up on
-To: Kairui Song <ryncsn@gmail.com>
-Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
-References: <20261014090821.227366-1-jiayuan.chen@linux.dev>
- <CAMgjq7CT4srpTcAkStOV6zN8X2v4mPN7cRzA9B_eevFB4azvtg@mail.gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <CAMgjq7CT4srpTcAkStOV6zN8X2v4mPN7cRzA9B_eevFB4azvtg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABks1moC/yXMQQqDMBBA0avIrB0wwVj1KuKixkk7VaJMYrGId
+ 29sl2/x/wGBhClAmx0g9ObAi09QeQb2efcPQh6TQRe6UoVq0C2CnvaI82anzw1X9jbKjFU5OFO
+ aum60gVSvQo7337nr/w7b8CIbrx2c5xcZmt0LewAAAA==
+X-Change-ID: 20261019-for-next-lucky7-pinctrl-64bf54588925
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Tomasz Figa <tomasz.figa@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1181;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=6kpynfd1XwdzrYVYTdeaXZTq3IwSFC6OGWqTXpdz3k8=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq1iwavoG8bk1Ptimk9zQV0SQe2ytajaJBH/G2P
+ ibOACjdA/uJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCatYsGhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+th1w//Ro7tCNpouTquWY0eo4khNMPeKlmjBWX
+ djR4Lt+9Dn8nepSQFtyeoVeBJ0kAjaLVllt11cXsPGXGBrJx0UAGorrlLiAKv1bkNtE0gJqQch4
+ StnVw/3eGkjKyWKJy+LW3UgaRwV8xJdVt27559IR/mlPYzZRfE6BElnM5fEyrGIrTECGHstNsL7
+ Cs2PVzUqdtDuhFdLvLICJcXLV6CHXMd3JC67yb4POh28LXxs5cfhFe13ILHTh4NKVg7Kh71kZe5
+ I4Wzqm6u0RzgEEZjcv0w9vSoPVLbp6st05ywdTW1XtLNHpUSNwF3EEScUV3eLjipEN7dY5GwM7x
+ LEiAV4aLFX2r7s2oSfOrpO0cwztGE4c56tCs+pXmbzFkRsHMb3dztSY9flHd3K++3KMwUy8ypl6
+ 3jEzMLyygJJqxSIA1r88GUyXccavN98fW3rsz9XZnZxLF6jmamsOula2mc3vxcm8BxHLaS6xzXc
+ P7y4utUQYbsgJ7VpfVEQiMgJxTeK9UmC0mUd6lHpSKppGd3XZpqDrbcoJSQwHyiJv1jgW9CFgwq
+ u4KwJsl8Mh9KdQHrfPFQQJFH7txOKN7QLqpGy1UGf5FKRAR5NchpyWl4Rr37qE0GJu4veBTwBUY
+ MRV+CZxH5BDYCYZFSV8RzXiKoUKEXQ8TrcMgPeegQhJ8BQIkQaFM=
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
 
+Hi there,
 
-On 10/17/26 2:17 AM, Kairui Song wrote:
-> On Wed, Oct 14, 2026 at 5:10 PM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+This patchset introduces pinctrl support for the Exynos5515 SoC.
 
+It is very similar to the other Exynos SoCs, therefore we reuse the driver
+and for the most part the pinctrl bank macros. A couple
+Exynos5515-specific macros are also added.
 
-[...]
+Kind regards,
+- Aiden Isik
 
->> --- a/mm/swap_state.c
->> +++ b/mm/swap_state.c
->> @@ -598,16 +598,13 @@ void swap_writeback_dropbehind_folio(struct folio *folio)
->>    *
->>    * Its ok to check the swapcache flag without the folio lock
->>    * here because we are going to recheck again inside
->> - * folio_free_swap() _with_ the lock.
->> + * __try_to_reclaim_swap() _with_ the lock.
->>    *                                     - Marcelo
->>    */
->>   void free_swap_cache(struct folio *folio)
->>   {
->> -       if (folio_test_swapcache(folio) && !folio_mapped(folio) &&
->> -           folio_trylock(folio)) {
->> -               folio_free_swap(folio);
->> -               folio_unlock(folio);
->> -       }
->> +       if (folio_test_swapcache(folio) && !folio_mapped(folio))
->> +               swap_reclaim_entry(folio->swap);
-> One problem here, if folio is not locked, you might read garbage from
-> folio->swap.
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+---
+Aiden Isik (3):
+      dt-bindings: pinctrl: samsung: Add compatible for Exynos5515
+      dt-bindings: pinctrl: samsung: add exynos5515-wakeup-eint compatible
+      pinctrl: samsung: Add Exynos5515 pinctrl configuration
 
+ .../pinctrl/samsung,pinctrl-wakeup-interrupt.yaml  |   1 +
+ .../bindings/pinctrl/samsung,pinctrl.yaml          |   1 +
+ drivers/pinctrl/samsung/pinctrl-exynos-arm64.c     | 123 +++++++++++++++++++++
+ drivers/pinctrl/samsung/pinctrl-exynos.h           |  20 ++++
+ drivers/pinctrl/samsung/pinctrl-samsung.c          |   2 +
+ drivers/pinctrl/samsung/pinctrl-samsung.h          |   1 +
+ 6 files changed, 148 insertions(+)
+---
+base-commit: 993e1bec85faedf90c5d27480793084e54357c09
+change-id: 20261019-for-next-lucky7-pinctrl-64bf54588925
 
+Best regards,
+--  
+Aiden Isik <aidenisik@member.fsf.org>
 
-Right, keep the trylock in free_swap_cache() and only read folio->swap 
-under it.
-
-
->
->>   }
->>
->>   /*
->> diff --git a/mm/swapfile.c b/mm/swapfile.c
->> index c3288910b3e3..ee29085152fe 100644
->> --- a/mm/swapfile.c
->> +++ b/mm/swapfile.c
->> @@ -172,6 +172,8 @@ static long swap_usage_in_pages(struct swap_info_struct *si)
->>   #define TTRS_UNMAPPED          0x2
->>   /* Reclaim the swap entry if swap is getting full */
->>   #define TTRS_FULL              0x4
->> +/* May sleep: wait for the folio lock and for writeback instead of giving up */
->> +#define TTRS_WAIT              0x8
->>
->>   static bool swap_only_has_cache(struct swap_cluster_info *ci,
->>                                  unsigned long offset, int nr_pages)
->> @@ -217,9 +219,19 @@ static int __try_to_reclaim_swap(struct swap_info_struct *si,
->>           * avoiding deadlock. This is a special case and you should
->>           * use folio_free_swap() with explicit folio_lock() in usual
->>           * operations.
->> +        *
->> +        * The zap path (TTRS_UNMAPPED) is the one caller for which giving
->> +        * up means the slot is never looked at again: it stays allocated
->> +        * with count 0 and an unmapped folio pinned in the swap cache. Let
->> +        * the sweep worker, which can wait, come back for it.
->>           */
->> -       if (!folio_trylock(folio))
->> +       if (flags & TTRS_WAIT) {
->> +               folio_lock(folio);
->> +       } else if (!folio_trylock(folio)) {
->> +               if (flags & TTRS_UNMAPPED)
->> +                       schedule_work(&si->sweep_work);
->>                  goto out;
->> +       }
->>
->>          /*
->>           * Offset could point to the middle of a large folio, or folio
->> @@ -232,11 +244,20 @@ static int __try_to_reclaim_swap(struct swap_info_struct *si,
->>          }
->>          offset = swp_offset(folio->swap);
->>
->> +       if (flags & TTRS_WAIT)
->> +               folio_wait_writeback(folio);
-> You may merge this into the TTRS_WAIT check above?
-
-Right !
-
-
->> +
->>          need_reclaim = ((flags & TTRS_ANYWAY) ||
->>                          ((flags & TTRS_UNMAPPED) && !folio_mapped(folio)) ||
->>                          ((flags & TTRS_FULL) && mem_cgroup_swap_full(folio)));
->> -       if (!need_reclaim || !folio_swapcache_freeable(folio))
->> +       if (!need_reclaim)
->> +               goto out_unlock;
->> +       if (!folio_swapcache_freeable(folio)) {
->> +               /* Same for a folio the zap caught under writeback. */
->> +               if ((flags & TTRS_UNMAPPED) && folio_test_writeback(folio))
->> +                       schedule_work(&si->sweep_work);
->>                  goto out_unlock;
->> +       }
->>
->>          /*
->>           * It's safe to delete the folio from swap cache only if the folio
->> @@ -1099,6 +1120,80 @@ static void swap_reclaim_work(struct work_struct *work)
->>          swap_reclaim_full_clusters(si, true);
->>   }
->>
->> +/*
->> + * Free the slots a zap could not take back: swap cache only, count 0, folio
->> + * not mapped. The zap runs under the PTL, so when the folio was locked (a
->> + * readahead or an asynchronous swap-in still reading into it) or under
->> + * writeback, __try_to_reclaim_swap() had to give up and scheduled us. Such
->> + * a slot is reachable by nobody but LRU reclaim: no page table holds its
->> + * entry, and the allocator skips it until swap is half full. Here we can
->> + * wait for the lock and the writeback.
->> + */
->> +static void swap_sweep_work(struct work_struct *work)
->> +{
->> +       struct swap_info_struct *si;
->> +       struct swap_cluster_info *ci;
->> +       unsigned long offset, end, swp_tb;
->> +       unsigned long nr_clusters;
->> +       int nr_reclaim;
->> +
->> +       si = container_of(work, struct swap_info_struct, sweep_work);
->> +       nr_clusters = DIV_ROUND_UP(si->max, SWAPFILE_CLUSTER);
->> +
->> +       for (unsigned long i = 0; i < nr_clusters; i++) {
->> +               ci = si->cluster_info + i;
->> +               offset = i * SWAPFILE_CLUSTER;
->> +               end = min(si->max, offset + SWAPFILE_CLUSTER);
-> IIUC scanning the whole device for one pending folio reclaim doesnt' look good..
-
-
-Agreed. What I'd really like is a mark on the cluster itself, so the
-worker only walks the clusters that need it (mentioned in commit message).
-That needs more thought though, especially with Andrew's point about
-backporting in mind, so I want to be careful there.
 
