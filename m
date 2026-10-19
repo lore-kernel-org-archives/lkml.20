@@ -1,165 +1,417 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DF1488239
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:52:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792396331; cv=pass; b=BggrtxXD2OhT2obSiA+KP/cP523OaHWwm/S3JcgW3fRFXHo2KrmLZh9L06WqjCd7rriRnHPpntF0qPo8qYnYkxauHFrQH4qdW5Jdqjk1P8PcNB6N4LDZnrDbeYp54dybBOmNUMmUFw2IWumapWDxkb3M2zGCTEcwQ+XHJRe7sZQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792396331; c=relaxed/simple;
-	bh=kNfL/Hla6UKgQQwI6Gv8t1MIM+Kmznse6S3d1b1fzrc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HeMAn25DJb8k0kmprV9EXWR1v2tSusu5bGtLwNL8MGnlX0JH1QtBGZhx0B6StML4sKGg+rx+PhRymioYXCPmGnADPL6dCiromATyiw11JxltAWDNWS2ZUzTiO8/c8mbTp+x8Sfifh1mN5olnKEoDYS9QAMtrK6l4tLlfBjY5ttE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=slNSKdhz; arc=pass smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295BB3DA5AA;
+	Mon, 19 Oct 2026 07:53:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792396406; cv=none; b=b3XzUPP2UVHsP0t/PIosm/e2jWbipehqPCiLykWr5uW3UszKTjKLTN9Xb0bMmczQhrq8tXw8pzeuGZsL2//PcvJpUyGWL79be5abzqryaEkxTCRjMgynX2dNeMWcI7aWNh1YzhePGqK/v7K9HGEq+OpoLGO3qqY8OpdXTTjBkd0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792396406; c=relaxed/simple;
+	bh=WtYSDHeQWJNHhUiaNltIgksUR8hn0YxMiGpLg+V2auY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ig88ZHgWwyQPJ5SPFjNbWff9T8WMM0COeyXh/VcU8A1p7AdkQu6FPmKFiZqyLfHnDnIyotHAgDI0yHW0MbCIFAW+4TdbobR3EkjPA1HLFkGyQXTdgktGuakUge7EukV/x1djHwhWUOuzolOAClR5HNiraXvEBVrP31E1Yda+jRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZhOYCqLf; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="slNSKdhz"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-677d35fd1d2so1752714d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:52:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792396329; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bFZupYPhbX9y2H0riDh33/Ja3SPlSndRSVulmpbNNotdR8wR67ADh/kd36SUltp+Sp
-         JghC4r5XcKPpCmMCXm4lkdHWeLCrPMlO/tw976eWaVvoPTm85y7gyupZ9cKlrenHmoNo
-         Qvdnxf4ZAPOFH/HTu7X67b15WGbMVKhe9IdNBkYSi8C/BxR3FWT1aSSTZFSOgAlUW0pG
-         9dgsnBJlPzeRwM2qe2ui9Kre28wPDzayOKRwpp6OZgJZOc/+1x3g8Ur1m2CF7z7NrFCL
-         z+WjyLs6d3Q6FGDS8s0PurxduJOzZDa8tx9HuLPc39GKSmpitBSKpIOKmYZ9yy0FQllS
-         /xiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6Hu/C8DuVAfrXVfEdGESTNZFy9FgHIiZtc7UqY19xf0=;
-        fh=YEmBbx/a8zzm3QA2J5yoOw2T+DR1uVxC+JdPqJaWAjA=;
-        b=E6jaqOPJgwZxGI2VgPr4xfQJlObsKMQuAjuCkVH6SPRFXyN8ETBmcrOchXyaqLeS+i
-         fQdid/boK9UNsw0sBaHdvM1C+YRH9rTD7dfRhqIFqDkHf/Ky6aN01YxEA7gRMABVMK30
-         JVEFWcrH4HvH5l9UX1yDPRM0iRotWwuEwuM7M3eHCaCzaCLbXbQPNB03kYjnA2Vz/ET9
-         o/B9Wr/DCspSxUSBKN0Du9NkolcNNW0F0s31kzjmN6Z8QzosgRVYf76lFRxiNTp3DZfb
-         NT4gM7pvRJcuS611CYRea4O7ON55UU3odViEpUBB2s9ppgGT0er2tFO8Ij6XZYQi1YLZ
-         Oyqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792396329; x=1793001129; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6Hu/C8DuVAfrXVfEdGESTNZFy9FgHIiZtc7UqY19xf0=;
-        b=slNSKdhzQDufNI/CyemCuLFkbABnOforDaBTNQIcdaxAv+mxfH28l5VPAToHuJOMMk
-         RpQ+aWioG4md3ZFfkeWgnCBx0TlHwrM/kVh1CfaTqXWDlDpQTHPdra4NflzVqS9YtnEw
-         eM/N3W4Ci3CrGgQj9RltcSNe6UI5Zct7+a57xSNQdmE0vxqtjuSVWec2qncPFa1UCWXH
-         K8Xr+DnZQyqpRpr0WBdboItoqpJLaiJbifWCB0iTPTtgyuqAKxXX6QjcZdpKA2tLlhPL
-         B6KPw5idkZqLk/XooROxf1J4fuvvVsqFEk/aT3axrz70RosIljgrqdFQmbLHI3TE/KGg
-         EOXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792396329; x=1793001129;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6Hu/C8DuVAfrXVfEdGESTNZFy9FgHIiZtc7UqY19xf0=;
-        b=WLLgpFm+fXBKphbWrgap2vuk4Au9O58jzkbMlBc8i/+BGuNNtMhIgS3CtaHEVUPZQn
-         SI2bZYnRto+TtnfvQDQ+t/1SKWcxh68eZ22yONSiGL6jbBsqSbXEMTKMvlY2dsB47vQV
-         2wEyjwM+PcbynZ0YroFtqv5mzCXJVlzuSPrChqIyeSfgVA3TM8KolSTxCNfWrFV2j/sY
-         znPlyvTXV10int37DWB075ZSgfsEfBDTwXjckgmz4tn19kIrly+35+vAjkVJ2XGsemp6
-         Z/Na0O5DArwUODaGdBmkrvZyqV6udLeSuu2fyfaGbNDnEiiGyuGlV25PD/lWxFYZ7PB2
-         zCvA==
-X-Forwarded-Encrypted: i=1; AKwUvByOJrv6zNWUaKUeyl8+1NHx/E1LJmsGvRi3tdJ/J93IUJBlcM9pyRwAlhpgFW15afiLl+Z/v6UKpkp0nSY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLI32oql8H4MxTTUmF0avL2HjEdHrK+f2n7bFozP1yiRexyGLDR
-	i/dQDhZ7KD9y+VWMnIZUEQJHffA5JLFhK5cFc3zFZ/P9TzBuzIdMfFWEeY3+jUrePoRazJY6vGq
-	XC8YEl+m18t8khii5vjxt8AnKguM9D8D0j8CrYzyziUG+
-X-Gm-Gg: AYBFou152yQzUnrKoaBSLpcLKbUgIQXwlN7iMNranOkLu9dX1S4vtaGcJxTZR6NxRju
-	3QFOFPYcJbBT4v81bTvQu2nQRCdbLBOvzBaaVxLFCU+shxSBzpe8W5I1YtOYXhztq5j4JtkhegU
-	oBMb2JGXysmiZR4xPOHWAB59aHocVLA2irEhPbdu6m/GwKXvkMKIhBl/mxO1rVoGT0/dd8KgjFD
-	DorC+lHcpYoDFKzWNJK+7MytBAVBM5OlyXfiXUEGstlfyA219tIVxba2SJp7SRSVxL/3RiNIzGa
-	adRCWwzzkgd01fAoQHvLCFOai/BNKRcteW9Wz3n96r3SG/TfSjHNL6hAlsRDyWwsqJGWuf+jjUD
-	MrsQDA6rYR/2SIUPak/UKrhcmA7gXsuq8O3CiT+bpLOyeL/0zOn8E6sjx7788unE54Yx6JOAcDe
-	WHO4iInw==
-X-Received: by 2002:a05:690e:12c4:b0:677:cccf:445f with SMTP id
- 956f58d0204a3-679ca7ca9e3mr2034762d50.46.1792396328411; Mon, 19 Oct 2026
- 00:52:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZhOYCqLf"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id CA69FC5CD45;
+	Mon, 19 Oct 2026 07:54:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C22E960582;
+	Mon, 19 Oct 2026 07:53:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 273A410328429;
+	Mon, 19 Oct 2026 09:52:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792396390; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=XdtJHOQga8yZintzw2L/x8WOKIlE3a7c6yHsYsvBWSo=;
+	b=ZhOYCqLfY0uqKfnFsc7IaeJv/xjMPmvrjEhsq6qUY/OnQxd90wxSGRTZlE5YbnJivQjrLs
+	H0+eN6D72FZKrmGiYewBm9LgeouitI9fTmxrvwxXlgFjDeIge0JdTmsT8bsZ2QNLZOwfqN
+	O+p34paK3Akp4O9RTpAD2jaRMut6JzAGO9AL7uaO2o9O1IR4Zsk0MbMdvvbNLBscn/5omL
+	ZSz4ixluYb3uCw6mrSMv2NNXYp1pmH8AtQbZAJYS2fFGGSmKNcgRfHJo2UTfCRh5nI+ema
+	PJMzOQDR08v5AAwPHr8770QYwnNktt7ajaw+WB6MHrhGHkn+eEI45868UdufxQ==
+Message-ID: <3d0b17c6-3b94-4e36-b7bc-700211c83273@bootlin.com>
+Date: Mon, 19 Oct 2026 09:52:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016162912.64581-1-lukapanio@gmail.com> <20261016162912.64581-2-lukapanio@gmail.com>
- <20261019-yak-of-subtle-protection-8ed0da@quoll>
-In-Reply-To: <20261019-yak-of-subtle-protection-8ed0da@quoll>
-From: Luka Panio <lukapanio@gmail.com>
-Date: Mon, 19 Oct 2026 09:51:57 +0200
-X-Gm-Features: AclHuK_A1TQjZsCV3MVlGkJ8tdfOzXTmuHWmMEHG7bKSsC6HnztuOLMJSgs52SY
-Message-ID: <CACi=Ov5C9xuFvaYTcPapc=DzCFqrKng-V53voFHGWptvvs8c1A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: Add Awinic AW99703 backlight
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com, pavel@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, deller@gmx.de, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 5/5] net: stmmac: support the TC9564 SoC
+To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: Daniel Thompson <daniel@riscstar.com>, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ richardcochran@gmail.com, p.zabel@pengutronix.de, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261019030129.1470307-1-elder@riscstar.com>
+ <20261019030129.1470307-6-elder@riscstar.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261019030129.1470307-6-elder@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Krzysztof,
+Hi Alex,
 
-On Mon, Oct 19, 2026 at 9:02=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On Fri, Oct 16, 2026 at 06:29:11PM +0200, Luka Panio wrote:
-> > +  awinic,iled-max-microamp:
-> > +    description:
-> > +      Full-scale current of each LED string, reached at the maximum
-> > +      brightness code (and 100% PWM duty cycle if PWM dimming is used)=
-.
-> > +    minimum: 4800
-> > +    maximum: 29600
-> > +    multipleOf: 800
-> > +    default: 20000
-> > +
-> > +  awinic,ramp-on-time-us:
-> > +    description: Current sink ramp-up time when leaving standby.
-> > +    enum: [512, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000,
-> > +           256000, 512000, 1024000, 2048000, 4096000, 8192000, 1638400=
-0]
-> > +    default: 8000
-> > +
-> > +  awinic,ramp-off-time-us:
-> > +    description: Current sink ramp-down time when entering standby.
-> > +    enum: [512, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000,
-> > +           256000, 512000, 1024000, 2048000, 4096000, 8192000, 1638400=
-0]
-> > +    default: 8000
-> > +
-> > +  awinic,pwm-trans-time-ms:
-> > +    description:
-> > +      Transition time between brightness levels set by the PWM input,
-> > +      for a change over the full duty cycle range.
-> > +    enum: [2, 4, 8, 16, 32, 64, 128, 256]
-> > +    default: 2
->
-> Feels like you are re-implementing triggers. Several properties actually
-> feel duplicating standard LED ones.
->
-Thanks for the review. Agreed, the ramp/transition timings and the
-mapping mode are not really hardware descriptions. In v2
-I'll drop them and leave the chip defaults, and switch to the standard
-led-sources and led-max-microamp properties instead of
-awinic,led-strings and awinic,iled-max-microamp.
+On 10/19/26 05:01, Alex Elder wrote:
+> From: Daniel Thompson <daniel@riscstar.com>
+> 
+> Add support for the Ethernet XGMAC functionality present in the
+> Toshiba TC9564 SoC.
+> 
+> The TC9564 is a fairly complex chip that attaches to a host via
+> the upstream port of a PCIe switch it implements.  That switch
+> has three downstream ports, and one of those has an embedded PCI
+> endpoint.  The PCI endpoint implements two PCI functions, and a
+> 10 Gbps-capable XGMAC interface is attached to each.
+> 
+> The TC9564 implements additional peripherals, and access to them
+> is provided by a PCI endpoint bus associated with BAR 4 of the
+> first PCI function.  A PCI driver sets up the PCI function for
+> use, and peripherals using the bus use platform drivers, matched
+> by compatible string.
+> 
+> We use the pci-ep-bus approach for the stmmac driver as well, with
+> each PCI function exposing access to its BAR 4 via an endpoint bus.
+> The XGMAC device is defined within a pci-ep-bus node, and is bound
+> to the platform driver based on its compatible string.
+> 
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Co-developed-by: Alex Elder <elder@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+>  MAINTAINERS                                   |   1 +
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
+>  drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+>  .../ethernet/stmicro/stmmac/dwmac-tc9564.c    | 590 ++++++++++++++++++
+>  4 files changed, 603 insertions(+)
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-tc9564.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 972c9faead5b3..69f301aa26eb9 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -28313,6 +28313,7 @@ M:	Alex Elder <elder@kernel.org>
+>  M:	Daniel Thompson <danielt@kernel.org>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
+> +F:	drivers/net/ethernet/stmicro/stmmac/dwmac-tc9564.c
+>  
+>  TOSHIBA WMI HOTKEYS DRIVER
+>  M:	Azael Avalos <coproscefalo@gmail.com>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index ab3c4cf964239..5613921188df4 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -363,6 +363,17 @@ config DWMAC_LOONGSON1
+>  	  device driver. This driver is used for Loongson1-based boards
+>  	  like Loongson LS1B/LS1C.
+>  
+> +config DWMAC_TC9564
+> +	tristate "Toshiba TC9564 DWMAC support"
+> +	depends on OF && COMMON_CLK && TC9564_PCI
+> +	default TC9564_PCI
+> +	help
+> +	  Support for the Ethernet controllers on the Toshiba TC9564.
+> +
+> +	  This enables glue layer support in the stmmac driver support
+> +	  for the Toshiba TC9564.  This chip implements two embedded
+> +	  PCIe functions, each of which has an XGMAC interface.
+> +
+>  config DWMAC_TEGRA
+>  	tristate "NVIDIA Tegra MGBE support"
+>  	depends on ARCH_TEGRA || COMPILE_TEST
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> index b16a456b730ec..c4de25db93715 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> @@ -52,4 +52,5 @@ obj-$(CONFIG_STMMAC_PCI)	+= stmmac-pci.o
+>  obj-$(CONFIG_DWMAC_INTEL)	+= dwmac-intel.o
+>  obj-$(CONFIG_DWMAC_LOONGSON)	+= dwmac-loongson.o
+>  obj-$(CONFIG_DWMAC_MOTORCOMM)	+= dwmac-motorcomm.o
+> +obj-$(CONFIG_DWMAC_TC9564)	+= dwmac-tc9564.o
+>  stmmac-pci-objs:= stmmac_pci.o
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tc9564.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-tc9564.c
+> new file mode 100644
+> index 0000000000000..21098f91e3bbf
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tc9564.c
+> @@ -0,0 +1,590 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +/*
+> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
+> + *
+> + * Derived from code having the following copyrights:
+> + * Copyright (C) 2011-2012  Vayavya Labs Pvt Ltd
+> + * Copyright (C) 2025 Toshiba Electronic Devices & Storage Corporation
+> + */
+> +
+> +#include <linux/bitops.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/irqdomain.h>
+> +#include <linux/irqchip/chained_irq.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/pcs/pcs-xpcs-regmap.h>
+> +#include <linux/pcs/pcs-xpcs.h>
+> +#include <linux/phy.h>
+> +#include <linux/regmap.h>
+> +#include <linux/stmmac.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+> +
+> +#include "common.h"
+> +#include "dwxgmac2.h"
+> +#include "stmmac.h"
+> +#include "stmmac_platform.h"
+> +
+> +#define DRIVER_NAME			"dwmac-tc9564"
+> +
+> +/* Start of range representing PCI space on the TC9564 internal bus */
+> +#define TC9564_SLV00_SRC_ADDR		0x0000001000000000ULL
+> +
+> +#define TC9564_PTP_CLOCK_RATE		(250 * HZ_PER_MHZ)
+> +
+> +#define TC9564_RX_FIFO_SIZE		(46 * SZ_1K)
+> +#define TC9564_TX_FIFO_SIZE		(46 * SZ_1K)
+> +
+> +/* Fields and values for the EMACTL registers */
+> +#define EMAC_SP_SEL_MASK		GENMASK(3, 0)
+> +#define SP_SEL_2500BASEX		4
+> +#define SP_SEL_SGMII_1000M		5
+> +#define SP_SEL_SGMII_100M		6
+> +#define SP_SEL_SGMII_10M		7
+> +#define EMAC_PHY_INF_SEL_MASK		GENMASK(5, 4)
+> +#define PCS_CLK_PHY			1	/* Clock from PHY */
+> +#define EMAC_INV_SGM_SIG_DET		BIT(6)	/* 1 = polarity inverted */
+> +#define EMAC_LPIHWCLKEN			BIT(8)	/* 1 = low power mode */
+> +#define EMAC_INIT_DONE			BIT(21)
+> +
+> +/* Offset to the XPCS memory block, relative to the EMAC address range */
+> +#define DWMAC_XPCS_OFFSET		0x3a00
+> +
+> +/* Offset to the PMATOP memory block, relative to the EMAC address range */
+> +#define DWMAC_PMATOP_OFFSET			0x4000
+> +
+> +#define PMA_CML_GL_PM_CFG0			0x01b8
+> +
+> +/*
+> + * Five sets three registers must be configured for PMA.  The HWT_REFCLK
+> + * registers are each separated by 0x14 bytes.  The Common0 configuration
+> + * registers are separated by 0x8 bytes.
+> + */
+> +#define PMA_REG_COUNT				5
+> +
+> +#define PMA_HWT_REFCK_R_EN			0x1080
+> +#define PMA_HWT_REFCK_TERM_EN			0x1090
+> +#define PMA_HWT_REFCK_STRIDE			0x0014
+> +
+> +#define PMA_COMM_CFG_0_1			0x1888
+> +#define PMA_COMM_CFG_0_1_STRIDE			0x0008
+> +
+> +/* PMA_COMM_CFG_0_1 fields (WRITE_MASK is a field name) */
+> +#define COMM_CFG_WRITE_MASK_MASK		GENMASK(16, 9)
+> +#define WRITE_MASK_VALUE			0xf7	/* Power-on value */
+> +#define COMM_CFG_ENABLE				BIT(8)
+> +#define COMM_CFG_WRITE_DATA_MASK		GENMASK(7, 0)
+> +#define WRITE_DATA_VALUE			0x04	/* Power-on value */
+> +
+> +enum {
+> +	RESET_ID_MAC,
+> +	RESET_ID_XPCS,
+> +	RESET_ID_PMA,
+> +};
+> +
+> +static const char * const tc9564_reset_names[] = {
+> +	[RESET_ID_MAC] = "mac",
+> +	[RESET_ID_XPCS] = "xpcs",
+> +	[RESET_ID_PMA] = "pma",
+> +};
+> +
+> +/**
+> + * struct tc9564_data - Toshiba-specific platform data
+> + * @dev:		Device pointer
+> + * @ioaddr:		Pointer to mapped eMAC memory
+> + * @plat:		Pointer to our stmmac platform data
+> + * @resets:		Reset controller bulk array
+> + * @clocks:		Clock controller bulk array
+> + * @clock_count:	Number of valid elements in the clock array
+> + * @config_regmap:	Regmap used to access eMAC configuration registers
+> + * @emac_ctl_offset:	Offset of the eMAC control register within the regmap
+> + * @res:		Structure passed to stmmac_dvr_probe()
+> + * @desc:		DMA descriptor data used by mac_device_info
+> + * @dma:		DMA operations data used by mac_device_info
+> + */
+> +struct tc9564_data {
+> +	struct device *dev;
+> +	void __iomem *ioaddr;
+> +	struct plat_stmmacenet_data *plat;
+> +	struct reset_control_bulk_data resets[ARRAY_SIZE(tc9564_reset_names)];
+> +	struct clk_bulk_data *clocks;
+> +	u32 clock_count;
+> +
+> +	struct regmap *config_regmap;
+> +	u32 emac_ctl_offset;
+> +
+> +	/* This field is data passed to stmmac_dvr_probe() */
+> +	struct stmmac_resources res;
+> +
+> +	/* These two fields are used by the mac_device_info structure */
+> +	struct stmmac_desc_ops desc;
+> +	struct stmmac_dma_ops dma;
+> +};
+> +
+> +struct tc9564_mac_speed {
+> +	phy_interface_t phy_interface;
+> +	int speed;
+> +	u32 sp_sel;
+> +};
+> +
+> +static struct tc9564_mac_speed mac_speed[] = {
+> +	{ PHY_INTERFACE_MODE_2500BASEX,	SPEED_2500,  SP_SEL_2500BASEX },
+> +	{ PHY_INTERFACE_MODE_SGMII,	SPEED_1000,  SP_SEL_SGMII_1000M },
+> +	{ PHY_INTERFACE_MODE_SGMII,	SPEED_100,   SP_SEL_SGMII_100M },
+> +	{ PHY_INTERFACE_MODE_SGMII,	SPEED_10,    SP_SEL_SGMII_10M },
+> +};
+> +
+> +/* TC9564 uses indirect addressing so this need only describe a 1KiB range */
+> +static const struct regmap_config xpcs_regmap_config = {
+> +	.reg_bits	= 32,
+> +	.val_bits	= 32,
+> +	.reg_base	= 0x00,		/* Minimum XPCS reg offset */
+> +	.max_register	= 0xff,		/* Register DW_VR_CSR_VIEWPORT */
+> +	.reg_shift	= REGMAP_UPSHIFT(2),
+> +};
+> +
+> +/**
+> + * tc9564_pma_init() - Initialize PMA
+> + * @td:	bsp_priv pointer
+> + *
+> + * Initialize (or re-initialize) the PMA, configure the clocks and wait for the
+> + * eMAC to be ready.
+> + */
+> +static void tc9564_pma_init(struct tc9564_data *td)
+> +{
+> +	struct reset_control *rstc = td->resets[RESET_ID_PMA].rstc;
+> +	struct regmap *regmap = td->config_regmap;
+> +	void __iomem *pmatop;
+> +	u32 val;
+> +	int ret;
+> +	u32 i;
+> +
+> +	/*
+> +	 * When we re-initialize the PMA then the reset will already have
+> +	 * been deasserted. We must make sure the PMA reset is asserted
+> +	 * before we change the clock settings.
+> +	 */
+> +	WARN_ON(reset_control_assert(rstc));
+> +
+> +	pmatop = td->res.addr + DWMAC_PMATOP_OFFSET;
+> +
+> +	/* Power on CML buffer (0 = normal mode, 1 = power down) */
+> +	writel(0, pmatop + PMA_CML_GL_PM_CFG0);
+> +
+> +	/* This value switches clock from C0_REFCK to CLK_REF_I */
+> +	val = u32_encode_bits(WRITE_MASK_VALUE, COMM_CFG_WRITE_MASK_MASK);
+> +	val |= COMM_CFG_ENABLE;
+> +	val |= u32_encode_bits(WRITE_DATA_VALUE, COMM_CFG_WRITE_DATA_MASK);
+> +
+> +	for (i = 0; i < PMA_REG_COUNT; i++) {
+> +		u32 offset =  i * PMA_HWT_REFCK_STRIDE;
+> +
+> +		/* Disable C0_REFCK and 100 ohm termination */
+> +		writel(0, pmatop + PMA_HWT_REFCK_R_EN + offset);
+> +		writel(0, pmatop + PMA_HWT_REFCK_TERM_EN + offset);
+> +
+> +		/* Switch clock from C0_REFCK to CLK_REF_I */
+> +		offset =  i * PMA_COMM_CFG_0_1_STRIDE;
+> +		writel(val, pmatop + PMA_COMM_CFG_0_1 + offset);
+> +	}
+> +
+> +	WARN_ON(reset_control_deassert(rstc));
+> +
+> +	ret = regmap_read_poll_timeout(regmap, td->emac_ctl_offset,
+> +				       val, val & EMAC_INIT_DONE, 50, 1000000);
+> +	WARN(ret, "timeout waiting for MAC init done\n");
 
-> > +
-> > +  awinic,i2c-trans-time-ms:
-> > +    description:
-> > +      Fixed transition time between brightness levels set over I2C,
-> > +      independent of the size of the change. When absent the brightnes=
-s
-> > +      ramps with a fixed slope of 1 us per brightness code instead.
-> > +    enum: [128, 192, 256, 320, 384, 448, 512, 576, 640, 768, 1024, 128=
-0,
-> > +           1536, 2560, 4096]
->
-> Best regards,
-> Krzysztof
->
-Thanks,
-Luka
+This is too many WARN_ON / WARN, there's 3 just in this function. At least use
+WARN_ON_ONCE, or maybe better 	print a log with pr_warn / dev_warn ?
+
+> +}
+> +
+> +static int tc9564_mac_speed_select(struct tc9564_data *td,
+> +				   phy_interface_t interface, int speed)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(mac_speed); i++) {
+> +		if (mac_speed[i].phy_interface != interface)
+> +			continue;
+> +
+> +		if (speed == mac_speed[i].speed || speed == SPEED_UNKNOWN)
+> +			return mac_speed[i].sp_sel;
+> +	}
+> +	dev_err(td->dev, "%s/%d unsupported\n", phy_modes(interface), speed);
+
+Is that "mac_speed" lookup table actually needed ? maybe a simpler switch/case
+based on the speed alone would be enough, or do we really need to validate
+the phy_interface_t each time ?
+
+> +
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +static void tc9564_mac_configure(struct tc9564_data *td,
+> +				 phy_interface_t interface, int speed)
+> +{
+> +	struct regmap *regmap = td->config_regmap;
+> +	u32 offset = td->emac_ctl_offset;
+> +	int sp_sel;
+> +	u32 val;
+> +
+> +	sp_sel = tc9564_mac_speed_select(td, interface, speed);
+> +	if (sp_sel < 0)
+> +		return;
+> +
+> +	/* No error checking needed for MMIO regmap */
+> +	regmap_read(regmap, offset, &val);
+> +	val |= EMAC_LPIHWCLKEN;
+> +	val &= ~EMAC_INV_SGM_SIG_DET;
+> +	val = u32_replace_bits(val, PCS_CLK_PHY, EMAC_PHY_INF_SEL_MASK);
+> +	val = u32_replace_bits(val, sp_sel, EMAC_SP_SEL_MASK);
+> +	regmap_write(regmap, offset, val);
+> +}
+> +
+> +static void tc9564_mac_enable(struct tc9564_data *td)
+> +{
+> +	WARN_ON(clk_bulk_prepare_enable(td->clock_count, td->clocks));
+> +
+> +	WARN_ON(reset_control_deassert(td->resets[RESET_ID_MAC].rstc));
+> +
+> +	tc9564_mac_configure(td, td->plat->phy_interface, SPEED_UNKNOWN);
+> +	tc9564_pma_init(td);
+> +
+> +	WARN_ON(reset_control_deassert(td->resets[RESET_ID_XPCS].rstc));
+
+Too many warns :)
+
+> +}
+> +
+> +static void tc9564_mac_disable(struct tc9564_data *td)
+> +{
+> +	WARN_ON(reset_control_bulk_assert(ARRAY_SIZE(td->resets), td->resets));
+
+same
+
+Maxime
