@@ -1,43 +1,82 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9EC340A7F;
-	Mon, 19 Oct 2026 01:32:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BB0285CAA
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:33:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792373571; cv=none; b=VrZbLrdIGuBEsIcjCGXWwdaJYoDVQ/sWzEQDW0CyFNK66leK4G7F9XDUXoRI8ZU1Ur14SKUI5mr+Kli1tjejljY9l7/cwN5Sx5w2l47ewEZ3/FyRih8wxPwda44dnAMgDggmTCBimEEzp48WlufQsLiYKG4+ct9Z6XKbM0lTOsk=
+	t=1792373593; cv=none; b=SrTRLWT4NyYFGlIPECUGzzPEyUrsb4ZXhNhE12yyI9uUI2pDDyuv8sq5yEzeFvKtr9bRYIp+W+0spr3LakwvcSb2vfO0dBhYT1Y0orryYkSt1OPgwK4gx3zFLfweTBRTUAxAtwajFk7qR5sAY7ViRrISABEL8JRmNAScbe7COck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792373571; c=relaxed/simple;
-	bh=B8X1he2DFceeSbMn0r4UVQQET3xXXGrrY5D6tulfmRw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RnnX+84rQs673/HQkgq7T/N/lQ9QMeXi1m4t72Y45NtIDTviZWevkBklLlJSBkRtGIUwhD8eJsGiJ1JB6dtRODQweo4PVksSJV8rv1ZpXGeZJEQKuDT2myaAoHtAJt0RQgbi3nDbZUob0j1HAVbwWuvqoWq3sFZUAtujP2XovEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=M60pe/VF; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792373593; c=relaxed/simple;
+	bh=9Kc6q9rTpzhwVJQBrjDXbF+l2p6vieI5c5NZJWnYEqo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SlogAplfZWsY9rCjlWJNM1MuqkR4P/kFlYfXU6ki3YWoHzcDoPPzhHzl7H3nVNgUFu2toVa+gzItyY0/e2AWqZZlYH59HlgzIhVJEn3sczdhFVD4G/6jI8Glc8iv+VbDna3qYoBJY17RAJ0WafDZ85tRG04I8X5Hrb6MxuyOJk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=T5LrC3a8; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="M60pe/VF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=XS
-	pRY0TbqAVNgur9Ad6ZwZu/FMFS6D8VxJNRGkZYXmc=; b=M60pe/VFRA6r+F4sXX
-	H7w4qQGxzefgIpOMKRv3qV6pld3P5uElcHnSUJZSLsRBy3lnPefkHG2otOgMOz2Z
-	s7UaY9kVZf8y2pSXia/8FvAAPX1BPjtxIScnSN9/DVLwCnr/+eJutVOmJWZiuvIL
-	3rBBWlao4rMVJjnNIQv2CH6Ls=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgB3sQgpc9VqLZuVAg--.15458S4;
-	Mon, 19 Oct 2026 09:32:30 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Bob Copeland <me@bobcopeland.com>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	Kalle Valo <kalle.valo@nokia.com>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="T5LrC3a8"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so11081665e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:33:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1792373590; x=1792978390; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9Kc6q9rTpzhwVJQBrjDXbF+l2p6vieI5c5NZJWnYEqo=;
+        b=T5LrC3a880ioyxH/Bon90h87LXrfZPcBFzTJtzDwKCZj/44vlkclIDk+IwGhnQRKw3
+         1tDqJXA82to0IoFMANb942HhE679CcKnfgV6ZC7Y+nzOnsvypQns2loTUmfODTfnQ3aC
+         xSHrqurXtZcVFAjmmUIR4olKxG1yXmwXPd2YyHXz8XolbA+Y5yjrx6uBgzZpEVcWosPa
+         VcgGVXxumOClC9d2qlI0M44FE2xO6Xdni/RrkeERQ88XrzUlN0ATHax11jglH0gwLyaY
+         15zXiHo/dImLIwF16MvJKUeaVswgekU9VgLtAZ0JaKYY7hrd2rzBscNjrQWjp2MYoAew
+         GKFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792373590; x=1792978390;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9Kc6q9rTpzhwVJQBrjDXbF+l2p6vieI5c5NZJWnYEqo=;
+        b=S5EfsuLEuYA5dt5uG7CrAFea6LEolQTbaFuXpRHmq8QYcLeI2axsUJBLEnuIDre3qy
+         AH57Hsip+krYn07di21uM4BFc6gzcggAu17fBI3y3NFC+eyugXEMVgexy8ftudfKF5nJ
+         3xseOs7PNqhMuYD8Bp9GHERgbHPxA7DATcKuS8bAxAwLI8VlaCmMBXaiaFNvx+r4ksLt
+         1MAzUIH5ZFS6ykZAL7emffLo/1uzFsAK2KbtBygksc7ONbawyvHu1w+MKhuLyNXyP5e6
+         lkuSWLopRvOFZb6vlDAFND6epU2o4inWwuTJRuYweHVQAy9jwTWygjGkZNdDN9Ec/F9C
+         M8Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBxKGaJ9QfJTKfrcSYnVWz6jhMvAaRtVYKIlM9Z+f+OE/d7nYJxgl5yCCb0zDmSZcRjY+zl7g2VahPrdIro=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPLf9ni5ZMti1KW+Ch/OU8mtRF95/xx4/3MDhhaJ88kl8bicdD
+	yCLkdqepfQIrnOLWI7B5qu7WrazZ8OBT8Oc8yP4HBmyq8gmOn1BfA6ZCqJNu7kWHyaA=
+X-Gm-Gg: AYBFou1p904gOE2A5CPEMS2rHNW1UIJBlz3aLUeDGiC0iJRaXF1wR6xznxq/zPcsoej
+	ntb2jNahNc9vVYCi7NymslI2Fz1ImnXZ9v9f/3MSimbwiSb/fnNe7JBnIOk8gyJfsOo0oOlYjzM
+	AycijxXTD5nr2KVfzC0fPCEuEdnZfeEQrt4A7XxCWw7aEGS/l2ed4CAq6eg1/RwZl849met82JV
+	SL/ZrRl+BqnQQhVwnSZzXQ6kw+z0WL4xlhCYt0urHer9AplUq/+Hm1KH8zIL4VzH/5nWSMGC+gV
+	0dfI4ZLTusX967ff8/2DZOiIZBdiOC+b7a93Y39kVmQR5ILRInllI0pkETh24TXw1DHP7+MkY85
+	abqoBVx+Kei3/V2oNT2Xr5oWwX+uJR3T9b3x/o+A+QwITaJCQoGItANEHMDNcpsTAXm/EFdogwe
+	ZbNpEKP62fZXy1l3+Fs9UL2IxzKyjwdkGZh7RUGC1fQEcEvh7iUQ==
+X-Received: by 2002:a05:600c:1c0f:b0:4a1:e489:f89f with SMTP id 5b1f17b1804b1-4a1e489fa4bmr64348945e9.14.1792373589447;
+        Sun, 18 Oct 2026 18:33:09 -0700 (PDT)
+Received: from remote-01 ([84.17.55.226])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b303csm321116015e9.8.2026.10.18.18.33.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 18:33:09 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Lucien Jheng <lucienzx159@gmail.com>,
+	Albert-AL Lee <albert-al.lee@airoha.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	netdev@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Woudstra <ericwouds@gmail.com>,
 	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 2/2] wifi: wlcore: unwind failed interface additions
-Date: Mon, 19 Oct 2026 09:32:24 +0800
-Message-Id: <20261019013224.1489500-3-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019013224.1489500-1-yaojiale02@163.com>
-References: <20261019013224.1489500-1-yaojiale02@163.com>
+Subject: Re: [PATCH net-next] net: phy: air_en8811h: use firmware loaded by the bootloader
+Date: Mon, 19 Oct 2026 04:33:04 +0300
+Message-ID: <20261019013304.1612468-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2d6df47b-2cc3-4003-85db-f72b878427d9@lunn.ch>
+References: <2d6df47b-2cc3-4003-85db-f72b878427d9@lunn.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,167 +84,20 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgB3sQgpc9VqLZuVAg--.15458S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtr4rZw4kCry8CF4DKF15urg_yoW7AF15pF
-	4UKFWYyF1DtF4UCFW5JFnrX3sYkay8C3yjkFykC34jy3Z0k340gF1IyrZrZFW8CFWkJFWa
-	93WqqF45GFy7K37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR1xRgUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQ73MmrVcy4BZAAA3B
 
-wl12xx_init_vif_data() allocates per-interface host resources before
-firmware setup. Later failures return without releasing those resources,
-and failures after role enablement also leave the firmware role active
-because mac80211 does not call remove_interface.
+On Sun, Oct 18, 2026 at 09:13:46PM +0200, Andrew Lunn wrote:
+> Is it possible to figure out from the firmware blob what version it
+> is?
 
-Factor the per-vif resource release into a helper, use it from removal
-and add failure paths, and disable an enabled role when subsequent
-initialization fails.
+Not reliably, as far as I can tell. The version the driver prints is
+written into DM by the running MCU; the file holds zeros at that
+address. In the DSP blob the halves 0x2506 and 0x2302 sit eight bytes
+apart, which looks like the code that builds the word, but that is a
+guess at an offset in vendor code.
 
-Fixes: 2f01a1f58889 ("wl12xx: add driver")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/net/wireless/ti/wlcore/main.c | 66 +++++++++++++++++----------
- 1 file changed, 42 insertions(+), 24 deletions(-)
+Lucien, Albert, does Airoha guarantee any field in EthMD32.dm.bin or
+EthMD32.DSP.bin as the firmware version, at a fixed place that will not
+move in later releases? Without such a guarantee I would rather not
+compare versions in the driver.
 
-diff --git a/drivers/net/wireless/ti/wlcore/main.c b/drivers/net/wireless/ti/wlcore/main.c
-index 26aabf4ea127..9a0350b9d280 100644
---- a/drivers/net/wireless/ti/wlcore/main.c
-+++ b/drivers/net/wireless/ti/wlcore/main.c
-@@ -2374,6 +2374,30 @@ static int wl12xx_init_vif_data(struct wl1271 *wl, struct ieee80211_vif *vif)
- 	return 0;
- }
- 
-+static void wl12xx_deinit_vif_data(struct wl1271 *wl,
-+				   struct wl12xx_vif *wlvif)
-+{
-+	int i;
-+
-+	if (wlvif->bss_type == BSS_TYPE_STA_BSS ||
-+	    wlvif->bss_type == BSS_TYPE_IBSS) {
-+		wlvif->sta.hlid = WL12XX_INVALID_LINK_ID;
-+		wl12xx_free_rate_policy(wl, &wlvif->sta.basic_rate_idx);
-+		wl12xx_free_rate_policy(wl, &wlvif->sta.ap_rate_idx);
-+		wl12xx_free_rate_policy(wl, &wlvif->sta.p2p_rate_idx);
-+		wlcore_free_klv_template(wl, &wlvif->sta.klv_template_id);
-+	} else {
-+		wlvif->ap.bcast_hlid = WL12XX_INVALID_LINK_ID;
-+		wlvif->ap.global_hlid = WL12XX_INVALID_LINK_ID;
-+		wl12xx_free_rate_policy(wl, &wlvif->ap.mgmt_rate_idx);
-+		wl12xx_free_rate_policy(wl, &wlvif->ap.bcast_rate_idx);
-+		for (i = 0; i < CONF_TX_MAX_AC_COUNT; i++)
-+			wl12xx_free_rate_policy(wl,
-+						&wlvif->ap.ucast_rate_idx[i]);
-+		wl1271_free_ap_keys(wl, wlvif);
-+	}
-+}
-+
- static int wl12xx_init_fw(struct wl1271 *wl)
- {
- 	struct wlcore_platdev_data *pdev_data = dev_get_platdata(&wl->pdev->dev);
-@@ -2633,12 +2657,12 @@ static int wl1271_op_add_interface(struct ieee80211_hw *hw,
- 	role_type = wl12xx_get_role_type(wl, wlvif);
- 	if (role_type == WL12XX_INVALID_ROLE_TYPE) {
- 		ret = -EINVAL;
--		goto out_unlock;
-+		goto out_deinit;
- 	}
- 
- 	ret = wlcore_allocate_hw_queue_base(wl, wlvif);
- 	if (ret < 0)
--		goto out_unlock;
-+		goto out_deinit;
- 
- 	/*
- 	 * TODO: after the nvs issue will be solved, move this block
-@@ -2653,7 +2677,7 @@ static int wl1271_op_add_interface(struct ieee80211_hw *hw,
- 
- 		ret = wl12xx_init_fw(wl);
- 		if (ret < 0)
--			goto out_unlock;
-+			goto out_deinit;
- 	}
- 
- 	/*
-@@ -2662,7 +2686,7 @@ static int wl1271_op_add_interface(struct ieee80211_hw *hw,
- 	 */
- 	ret = pm_runtime_resume_and_get(wl->dev);
- 	if (ret < 0)
--		goto out_unlock;
-+		goto out_deinit;
- 
- 	if (wl12xx_need_fw_change(wl, vif_count, true)) {
- 		wl12xx_force_active_psm(wl);
-@@ -2680,7 +2704,7 @@ static int wl1271_op_add_interface(struct ieee80211_hw *hw,
- 
- 		ret = wl1271_init_vif_specific(wl, vif);
- 		if (ret < 0)
--			goto out;
-+			goto out_disable_role;
- 
- 	} else {
- 		ret = wl12xx_cmd_role_enable(wl, vif->addr, WL1271_ROLE_DEVICE,
-@@ -2691,7 +2715,7 @@ static int wl1271_op_add_interface(struct ieee80211_hw *hw,
- 		/* needed mainly for configuring rate policies */
- 		ret = wl1271_sta_hw_init(wl, wlvif);
- 		if (ret < 0)
--			goto out;
-+			goto out_disable_role;
- 	}
- 
- 	list_add(&wlvif->list, &wl->wlvif_list);
-@@ -2701,8 +2725,18 @@ static int wl1271_op_add_interface(struct ieee80211_hw *hw,
- 		wl->ap_count++;
- 	else
- 		wl->sta_count++;
-+	goto out;
-+
-+out_disable_role:
-+	if (!wlcore_is_p2p_mgmt(wlvif))
-+		wl12xx_cmd_role_disable(wl, &wlvif->role_id);
-+	else
-+		wl12xx_cmd_role_disable(wl, &wlvif->dev_role_id);
- out:
- 	pm_runtime_put_autosuspend(wl->dev);
-+out_deinit:
-+	if (ret)
-+		wl12xx_deinit_vif_data(wl, wlvif);
- out_unlock:
- 	mutex_unlock(&wl->mutex);
- 
-@@ -2714,7 +2748,7 @@ static void __wl1271_op_remove_interface(struct wl1271 *wl,
- 					 bool reset_tx_queues)
- {
- 	struct wl12xx_vif *wlvif = wl12xx_vif_to_data(vif);
--	int i, ret;
-+	int ret;
- 	bool is_ap = (wlvif->bss_type == BSS_TYPE_AP_BSS);
- 
- 	wl1271_debug(DEBUG_MAC80211, "mac80211 remove interface");
-@@ -2789,23 +2823,7 @@ static void __wl1271_op_remove_interface(struct wl1271 *wl,
- 	/* clear all hlids (except system_hlid) */
- 	wlvif->dev_hlid = WL12XX_INVALID_LINK_ID;
- 
--	if (wlvif->bss_type == BSS_TYPE_STA_BSS ||
--	    wlvif->bss_type == BSS_TYPE_IBSS) {
--		wlvif->sta.hlid = WL12XX_INVALID_LINK_ID;
--		wl12xx_free_rate_policy(wl, &wlvif->sta.basic_rate_idx);
--		wl12xx_free_rate_policy(wl, &wlvif->sta.ap_rate_idx);
--		wl12xx_free_rate_policy(wl, &wlvif->sta.p2p_rate_idx);
--		wlcore_free_klv_template(wl, &wlvif->sta.klv_template_id);
--	} else {
--		wlvif->ap.bcast_hlid = WL12XX_INVALID_LINK_ID;
--		wlvif->ap.global_hlid = WL12XX_INVALID_LINK_ID;
--		wl12xx_free_rate_policy(wl, &wlvif->ap.mgmt_rate_idx);
--		wl12xx_free_rate_policy(wl, &wlvif->ap.bcast_rate_idx);
--		for (i = 0; i < CONF_TX_MAX_AC_COUNT; i++)
--			wl12xx_free_rate_policy(wl,
--						&wlvif->ap.ucast_rate_idx[i]);
--		wl1271_free_ap_keys(wl, wlvif);
--	}
-+	wl12xx_deinit_vif_data(wl, wlvif);
- 
- 	dev_kfree_skb(wlvif->probereq);
- 	wlvif->probereq = NULL;
--- 
-2.34.1
-
+Aleksei
