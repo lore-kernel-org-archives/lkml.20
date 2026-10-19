@@ -1,112 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792428521;
-	b=4SSV9IeiJim3VA2FrxZQBtpO1Q/LhH1hWjgGS6+y7QeBwOr+Ntk2S4cr95FVA9bOYcfk
-	 yuHYkvMsQ/a2r9pjXDSjszub4OvzClxJk/ZZ0CElH3v1j9m4ZlmflFWN1L/yTuk4QnfHY
-	 mExhETj1VdxXVt+SrIRztV44LuW5arKSODq4N0RNgFVoVs7JOVf0d6Cu0RB4ZMIbXT2/O
-	 WfnU7w/0Y0x1pDZ/TKm3+L5JLu/PzO391dGAR3YTw8BcDMgXITiOrUsMxtbUdCj8o08I3
-	 tuz0PZqShKEuRrqSs9+Mz+GfHWWlu8TBmrvuQHI3ZoHkyq4I1CPXnPTh3mBYK8TLmRA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428521;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zcfekY3WGh4o9LfxFjdF+Vj3CeqhpCqtpH9DngobLUo=;
-	b=rX+4epPGggyOSdC/difyMOOPqg9rNCA7ArTI7BKK7CNUuU6TBZIqzfDkkvIQDNqhEqWg
-	 dVUChtLg7xJSQvAdF+cHUScaQJg7/PCBEw2Wj8sJ0Vg9dS3vCfKsWQdyJIN5xwRHQDuQz
-	 00kg8gv/Xajv+7+QF7SLqgUuknjthd+poe9CI1Fl37eSUXtrerniEWkts9issBNQOEh4L
-	 f7C6AgZE3sH1YA/uJ27LDVXwDb9caQmH7HWs3jdCCCkUD54bIw1x8qlDRymuGIPcdQg8Y
-	 4yZnyEow6j7xuOEq6p42NgkTKsGHUV9r5I4dnIirG+yi2zpfO+QD5lw0aizs2ah9qMQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="fjo/Gw7J";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.23
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011023.outbound.protection.outlook.com [52.101.62.23])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792428606;
+	b=ao9cOJLcrk/XjnKs0BuPyQVJ4IhQrW4NrUSx1sndZKtCiVtiyaHbk683euADmDBTTy8t
+	 uqphltPBKNgFkzNJIzQDG/17rxPKkrzdOW+azmkuqvCGPo7OmQRrGptVUd97nw2MTXK65
+	 FTg0QKNfRj8XRNnCbPEhcWXUQn4cXpDe2aGNJ87OHTfySLv+3Rmn5o/w/nAijE64iVxp/
+	 ZQ3Rm7G1jszxqphw81LQ+ng9vDZ3XkkC4nklVDCw5X5sGckuOj6ElkvHoIzlpupQnGEQf
+	 BM+t7NJkQ42YLpN9m1ryd8OZkNcYKM6Gz3eiz5XTQ4tPz4YSXvN9I+6wNKDmBm1Cxvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428606;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=Uxw38r8wB/IQJnVPPwaZxC07zUgL/ICYp4/1chpBGhc=;
+	b=i29pDZP250iiXy18UPpmaFtJxdrl39uGDbv1ligyZbKW85Y71UDGww+1SG/WepeRsXTz
+	 3gTE76+ZVwldkiUSyMBHw1y+9uu6i0AQvvCEQ0MLOjW5LpkS9/A+CU+PWLLF3P8YJaExd
+	 CEs3CEy/EvAMh8iWrVER/kOHSArMhHhqie3fVfA+VEsVVIndEsKeqg0UFfn1T/Tu7iBYm
+	 ojrGZLbL8KAG6tH5Wh8Aoi+RHBDY8GUJUsgNNzWigS1goUegid27tkeNaYxOylEbM4v5x
+	 lVgs/VecUaTBnTQLgOJJWonsvRbsG7zLFiEqRTc7Fqn9yH9/ZlDCimU5XQY4djK4IPA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dcRMvGrR;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=eDiGZkgg;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1E8606AEDF
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:48:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA1E8606AEDF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C14606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:50:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50C14606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fjo/Gw7J
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ri1busj5h1yesG+CTqHn6QEwY8lRkzUbJzyqTzHhYQLS0jHg/QfPpDrq62frXFITBf+hv+ckwzu+JmQuXhJh2GS++psVUWTgGBEU+gu/DFG8cPwjVyqD7OeJJEgVAqwbamF3w4ZXILAm2GWGH9NQLh2fQa7y4Pn0kBSutNmGdrvYPMTtGTbchDblj8Y07cWYQBhdPYt676YhRcNS3aHXUXY0YLTmJZhYWmjTYg3LWuNlHr2AS4a5EzZZ8tYDcgyZgHK2em5K8nwTiIU069lZlfadS4/a2CqdPxGuAE+3N2FcOLKaSjrYN/V7qkSAd+yXAZ7exBeNcY59/1ax+AV37A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zcfekY3WGh4o9LfxFjdF+Vj3CeqhpCqtpH9DngobLUo=;
- b=PgqBxyHJ23Jln6dXl2wAxXud8r/9EuLeMbEomhfXT/jQ6aRMUtiyl05wo0EXMgSuhi2gNw/2phkA1f6BAf11HVTo/xHccWyEyTV/xlscBLUdusdtWA09FHfppb9YWRfqQU+MymZlLt9RdRHV6r0Zy8CUi4ZVzZdSQjnCOQimD04EL89e1wXmGHyaljThHeO9XG41XN787EbzNKh7zwhii6ulVz1LO3ORKkDLUbETfjxRjmE6qRach9w0FNTRYNTUqr6K5lIPbriT7wHt58XxWd/uHM3h5UT8fxB23scfF2cAbv6kFRg+XDgog25noe44wMqIlswaz3+kDxzofQ6O0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zcfekY3WGh4o9LfxFjdF+Vj3CeqhpCqtpH9DngobLUo=;
- b=fjo/Gw7JV99nj7fKmq7PL0iQjxmJ/jFPBiCjr0Z5FLdjgQRd/YMR7rk04g3vsNAkms6d1G21bwvRAKkUff/gXSkUPVr0k+hieI3i8GKIBSD6IND/aef8vQEN9WjPUDJtCSf97j5639RqCKAzhwuxwPL9aQQSiG2tldhxbPOxK2c=
-Received: from CH2PR18CA0060.namprd18.prod.outlook.com (2603:10b6:610:55::40)
- by MW9PR12MB999210.namprd12.prod.outlook.com (2603:10b6:303:301::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 16:47:59 +0000
-Received: from DS4PEPF000001C3.namprd21.prod.outlook.com
- (2603:10b6:610:55:cafe::8a) by CH2PR18CA0060.outlook.office365.com
- (2603:10b6:610:55::40) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
- 19 Oct 2026 16:47:59 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS4PEPF000001C3.mail.protection.outlook.com (10.167.23.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.0 via Frontend Transport; Mon, 19 Oct 2026 16:47:59 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
- 2026 11:47:51 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
- 2026 11:47:51 -0500
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 19 Oct 2026 11:47:50 -0500
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
-	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>, Wendy Liang <wendy.liang@amd.com>
-Subject: [PATCH V5 11/19] accel/amdxdna: Decouple AIE4 doorbell and MSI-X notify transport hooks
-Date: Mon, 19 Oct 2026 09:47:38 -0700
-Message-ID: <20261019164746.827277-12-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019164746.827277-1-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261019164746.827277-1-yidong.zhang@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dcRMvGrR;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=eDiGZkgg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792428605;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Uxw38r8wB/IQJnVPPwaZxC07zUgL/ICYp4/1chpBGhc=;
+	b=dcRMvGrRYE65JobqEJDpqLlcG2AUFd2X9z6vY7tccthbk8ulGh9fHfHP5R5uhUSZtTnIas
+	FnLOYQmG7x7LW9KPi/Lfp2k6zXZ2g4+tpwruPPHPKCxrVxMck1gzPDY+pM0XTYr0vmBCs8
+	pEv+LnN8Mpfp8HHCjJYUbcFtGdqup0U=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-82-YcEeJWfFM7uNXwGk3Vrdrw-1; Mon, 19 Oct 2026 16:50:03 +0000
+X-MC-Unique: YcEeJWfFM7uNXwGk3Vrdrw-1
+X-Mimecast-MFC-AGG-ID: YcEeJWfFM7uNXwGk3Vrdrw_1792428603
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-939c30aa9a0so258824285a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:50:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792428603; x=1793033403; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Uxw38r8wB/IQJnVPPwaZxC07zUgL/ICYp4/1chpBGhc=;
+        b=eDiGZkggUvGmkPK8PjiQVX2k3YcgL59lqvZLJAlQnPsJHHX2GIzOJ8FzKkEfD3StbL
+         pKVLwkvgjzSu3unmR/AQqh5lVn6itXI37kYmdpgk35fjOJrtmsXnE/lKnGb31zeg5I5L
+         eIzYi2kamp3D0512lhUHo5/IhxLbLhJBPGUiNY3Zp7IV+csJabwiuu+L/vZffmpWCVh5
+         VX83DpyuaJn7167VE/A5+XS9WN9c9pExbD08Yn086L+ChBLs0dpBG+TVOeL+tav6FAGO
+         +erMoD5MGoaHwf5zuqUj7VO2QkwUn2dR8YjEgv+xeSSLjKNIiQLa5hWw1YtQV58oewYF
+         Sy6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792428603; x=1793033403;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Uxw38r8wB/IQJnVPPwaZxC07zUgL/ICYp4/1chpBGhc=;
+        b=0rkQMZF1p3WvNEzeQcsd+9Tolf5wr4vgqMB2XMNFkOMpqZXDX3QHvNj38ghpzPTSKk
+         9L5nskpWenSPaU6g0q5DUm8HeF4XngSgKp6PqVkmivixo1Y78tftOE6kJobnpYJZoHAd
+         de14Wt5fMxT++41cLcIsFPcdY/6HvLHmuV493ChThR2EwvyR2p0veNgn7RcDR15gOdqE
+         nPUW6RxjvEVYEQLUidt+A/5KLygeDobhxZ6JiEQFPRmV2s/YJT4QWg/rdE4GTmnMIr8W
+         /Ru732MV4qoNSmV5oPnNaafLr/lKWN8OYgy+XslbFCImio0gjUEHwzPyVBcKF91cLHKG
+         qqRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxBBZ+JDEl/FQCdPquC9MVyF9ibwVaKP9k0VdYZejTu9f2/5yuKgynuVCqiaKaFLQANgkvSqyBZyAqVr08=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK57ptZ+oyMmbcHWMPa8D7OZXoPG/HmtfVZqq2/DO+7O+/BAlzK
+	3Ub7QrQfbOUBWgQ6QbmBAVO+fXFf/AKJY5zGy7zJ17u8iW5OufRCAEGv2zYffAYCX60Xpek4BaA
+	YQflPHoaXRZgR+Kh35YJVCHacxBPR89CVip45YmVZpum+nV6P7XASXGGCpAONFRmCUg==
+X-Gm-Gg: AYBFou15CpR/+GPG4w6gfVUNTIrXeR6iTHQSihhYvVFgovfsoo6/87BD8zCisITsQPK
+	oxN/R3vIzdSCeS+pZ6WenB4Yb/m62HtzxmagvdfG2SnAVFLAOlZIyuMn5sMGUA13Bu6aYTBUrUn
+	Mrq9dZ1axQXgpHutBq5sA/cgZnfeODWAHIQ2tWJDdJ5RAyyF+DJNzKXX81pC507zmfxrXctOmf3
+	5DxeS4197zaxiO6AoOY9fQN0MoI0z4BpIMMnODPALeNRDNc+xFme9BwGuzAWErQH4VNmyJNz4xO
+	BOzYn+v8DBvmgjJD0iDwY9m/9LN/C5bBL/TggoUe2C0RofL26/OIN0EZYvoHZhmKj+KV5og=
+X-Received: by 2002:a05:620a:2954:b0:93e:48fc:aa88 with SMTP id af79cd13be357-93f29d492c0mr1355987785a.44.1792428603036;
+        Mon, 19 Oct 2026 09:50:03 -0700 (PDT)
+X-Received: by 2002:a05:620a:2954:b0:93e:48fc:aa88 with SMTP id af79cd13be357-93f29d492c0mr1355980285a.44.1792428602323;
+        Mon, 19 Oct 2026 09:50:02 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4af42903sm3989085a.5.2026.10.19.09.50.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 09:50:01 -0700 (PDT)
+Message-ID: <c0e0a34aa136104c9644e007032b98cf0d56417a.camel@redhat.com>
+Subject: Re: [PATCH] docs: remove Assisted-by reference
+From: lyude@redhat.com
+To: Jori Koolstra <jkoolstra@xs4all.nl>, Laurent Pinchart
+	 <laurent.pinchart@ideasonboard.com>, Lorenzo Stoakes <ljs@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, Sasha
+ Levin <sashal@kernel.org>, corbet@lwn.net, skhan@linuxfoundation.org,
+ federico.vaga@vaga.pv.it, 	apw@canonical.com, joe@perches.com,
+ workflows@vger.kernel.org, 	linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 19 Oct 2026 12:50:00 -0400
+In-Reply-To: <28216768.791900.1791897606751@kpc.webmail.kpnmail.nl>
+References: <20261009083137.3-1-sashal@kernel.org>
+	 <202610122124.08E058768D@keescook>
+	 <ea3ff257-70e2-43e4-aba7-140e84994872@infradead.org>
+	 <202610130120.E43D236E@keescook> <as4gLo_6acb_zZu0@daedalus>
+	 <20261013125559.GG4214@killaraus.ideasonboard.com>
+	 <158571150.788122.1791896588591@kpc.webmail.kpnmail.nl>
+	 <20261013131056.GI4214@killaraus.ideasonboard.com>
+	 <28216768.791900.1791897606751@kpc.webmail.kpnmail.nl>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,301 +130,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PEPF000001C3:EE_|MW9PR12MB999210:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4472483f-8b81-4b04-993f-08df2e00bbbd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|6133799003|18002099003|10067099003|22082099003|4143699003|261009223027099003|5023799004|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	5lTqn/BTjibhpfYEv0Vi2H3oVUjaYvqqjPnDhfjigAY1G65stGn7L+WVPZrqu6KQIx5GwJo/GsTrp5nJ3t4dWhgoGGds7xipEi0ULHOInxl3VA25g6kl48NPYkbN3jv+5eDMDeB3eiE18TFn1bf6LkR9B2hkoGGb63K0Jssww0QYPKcn9duAu4lfZ/y4KvS8dbWGok0Z9UwUmFYxuBYUjBugCKyhnLVEOIRWY8wtvUSFhiPLcOaxF0F7w7tURYOW+DCr6pReKwTTA3WklOCMuGWkonEV547UgPhIyl1/Hd8HP/fVnys17JySBYaT5ty1fSldh+JJNZ+1xF8Bm5iT1gwpfag2DAyrbsqRsg7uXt2nHjCBNKBjlyoXlkI052LL5VE9znEpcTTe3leA0ziC0c/NvxRls+Bv9aqucVujsZeT+xng07vbz0lIWSVf1RQ7361b0k5KgoHx60zXNfiZnyTGKMuPPj86DA58z4LZyX1yN3VmDdviCYY6q1JLqS/C90TX6BJ0jA4n0+QIkaExthoxjHd6SxzdaBYzMZ4umF3vRgp4jVmrFB4l+xpiU+ontI3cFI6APemZc8Crx/lstQr60G1+WxHEYVCwLsLzoYtFci6PxYdbw8bWg4vEhdL/e/2O4ybT+4ZL/BlkqQRXrreFbs5E7yHrC9PqRFCj4+Q=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(6133799003)(18002099003)(10067099003)(22082099003)(4143699003)(261009223027099003)(5023799004)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	D75Fo5bhLXT5xXUlaRAMMVLbapH3pZ3naysenzP9LlfND/xi1Hz6qd7UYctBknz93CIoW5dzgqh6w7j+Hw3LI5mhrJWRnTJN+dkOFD0RfeGxLs+lq8y3kW/nFahZlvYsYlwTnoj/+nakIWOw+wnPOTScL6k3GDNwIYGpJ0gTPJ2vGnRB3/I0LwIpuoEFktsGGXL+NZskJth4oAqyrmqGXegAjIsiPV3XIrsTXnoSnjRCz3+fT4dCowz5eNDUGPvlKZRqS+D3s28p4tcMQspD5k0OaKgsiYfHVemvmayIswhVWpCat/9hl5zmzRgYo7cuzw8ejrRLWnFLVgklThke6cS0RAVz16A5AI6wL7B6OoT7NdARl+rPPbd4Jl/m2saSRxq7Erf3ta3/idDZ7Rz3sPzivM3bWeh8pjqNx+dN12xaXnwCNLcePaINxmEzEQqF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:47:59.3738
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4472483f-8b81-4b04-993f-08df2e00bbbd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS4PEPF000001C3.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW9PR12MB999210
 
-Separate PCI-specific doorbell and interrupt notification handling from
-the transport-neutral context code.
+On Tue, 2026-10-13 at 15:20 +0200, Jori Koolstra wrote:
+>=20
+> > Op 13-10-2026 15:10 CEST schreef Laurent Pinchart <laurent.pinchart@ide=
+asonboard.com>:
+> >=20
+> > =C2=A0
+> > On Tue, Oct 13, 2026 at 03:03:08PM +0200, Jori Koolstra wrote:
+> > > > Op 13-10-2026 14:55 CEST schreef Laurent Pinchart:
+> > > > On Tue, Oct 13, 2026 at 02:28:43PM +0200, Jori Koolstra wrote:
+> > > > > On Tue, Oct 13, 2026 at 01:25:59AM -0700, Kees Cook wrote:
+> > > > > > On Mon, Oct 12, 2026 at 10:56:59PM -0700, Randy Dunlap wrote:
+> > > > > > > On 10/12/26 9:24 PM, Kees Cook wrote:
+> > > > > > > > On Fri, Oct 09, 2026 at 04:31:37AM -0400, Sasha Levin wrote=
+:
+> > > > > > > > > The Maintainers Summit reached consensus to deprecate the=
+ Assisted-by
+> > > > > > > > > tag. Remove the documentation requiring it.
+> > > > > > > > >=20
+> > > > > > > > > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > > > > > > >=20
+> > > > > > > > Yup, it has become as redundant as specifying what editor I=
+ use. ;)
+> > > > > > > >=20
+> > > > > > > > Reviewed-by: Kees Cook <kees@kernel.org>
+> > > > > > >=20
+> > > > > > > and for those of us who don't know details about the discussi=
+on,
+> > > > > > > how is it redundant?
+> > > > > >=20
+> > > > > > No, I mean I use an LLM constantly for almost all aspects of my
+> > > > > > development work, in multiple dimensions, so if the old tag req=
+uirement
+> > > > > > held, my email body template would just put "Assisted-by: LLM" =
+in there
+> > > > > > because at the very least, it drove the build and test stage. I=
+t was
+> > > > > > redundant in the sense of "yeah, of course I used an LLM at som=
+e point
+> > > > > > for this patch". ("This tag means nothing *from* me")
+> > > > > >=20
+> > > > > > > Do you assume that everyone now uses it (LLM), just as everyo=
+ne
+> > > > > > > uses an editor?
+> > > > > >=20
+> > > > > > I don't make that assumption, but I always held the position th=
+at the
+> > > > > > tag was meaningless because it's the human wielding it that mat=
+ters:
+> > > > > > they either sent a good patch or a bad patch, and if it was man=
+gled by
+> > > > > > gmail or an LLM, it doesn't really matter. ("This tag means not=
+hing *to*
+> > > > > > me")
+> > > > >=20
+> > > > > I think the tag did have a genuine purpose for a while. Now we ha=
+ve just
+> > > > > decided to implicitly attach it to every new submitter (because
+> > > > > basically that is the case.) The point was that a patch that was
+> > > > > obviously LLM generated could be rejected for not carrying the ta=
+g, and
+> > > > > a patch that carried the tag could be asked to explain further (i=
+f they
+> > > > > had not done so.) Or at least, that is how I felt and have unders=
+tood
+> > > > > Greg, for instance :)
+> > > > >=20
+> > > > > Essentially, the way I read it, is that Linus said we don't need =
+this
+> > > > > roundabout way because we can just reject effortless LLM generate=
+d
+> > > > > patches outright. This is good and an improvement.
+> > > >=20
+> > > > The absence of the tag on a suspicious series offered a low-effort =
+way
+> > > > for maintainers to push back. What's the proposed low-effort replac=
+ement
+> > > > ?
+> > >=20
+> > > To ignore it, really. Even less effort :)
+> >=20
+> > Are you saying that we should ignore series when we have even a slight
+> > suspicion they're not perfect ? If not, I don't understand what you're
+> > proposing exactly.
+> >=20
+>=20
+> I am saying it is up to the maintainer. The word is out and we are allowe=
+d to
+> ignore poor contributions, in particular if they are LLM generated. The w=
+hole point
+> is that in the past poor contributions were still a signal someone was tr=
+ying and
+> it might be worthwhile to help them to grow. It is not that signal anymor=
+e per se.
 
-The new transport functions are wired in later patches in this series.
-Doorbell ringing is not invoked until full context setup and BAR
-validation are done, so no NULL dereference or BAR boundary bypass can
-occur.
+I consistently see new contributors getting involved in the kernel who
+are not using LLM tooling. This is still very much a thing, and I would
+advise against missing the forest for the trees because the new
+contributors with LLM tooling are so much louder then the ones without
+because only one of those two groups can send patch bombs at a moment's
+notice that require going through in order to know whether or not to
+ignore it.
 
-Co-developed-by: Wendy Liang <wendy.liang@amd.com>
-Signed-off-by: Wendy Liang <wendy.liang@amd.com>
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/aie4_ctx.c    | 38 ++++++-----------
- drivers/accel/amdxdna/aie4_pci.c    | 66 +++++++++++++++++++++++++++++
- drivers/accel/amdxdna/aie4_pci.h    | 14 ++++++
- drivers/accel/amdxdna/amdxdna_ctx.h |  2 +
- 4 files changed, 96 insertions(+), 24 deletions(-)
+> We need other avenues to identify talent. The kernel mentorship program i=
+s one of
+> those, as is showing up in person at conferences.
 
-diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
-index 5eb918e1d58c..20b725de6ab7 100644
---- a/drivers/accel/amdxdna/aie4_ctx.c
-+++ b/drivers/accel/amdxdna/aie4_ctx.c
-@@ -22,63 +22,52 @@
- #include "amdxdna_mailbox_helper.h"
- #include "amdxdna_pci_drv.h"
- 
--static irqreturn_t cert_comp_isr(int irq, void *p)
--{
--	struct cert_comp *cert_comp = p;
--
--	wake_up_all(&cert_comp->waitq);
--	return IRQ_HANDLED;
--}
--
- static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32 msix_idx)
- {
- 	struct amdxdna_dev *xdna = ndev->aie.xdna;
--	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
- 	struct cert_comp *cert_comp;
- 	int ret;
- 
--	guard(mutex)(&ndev->cert_comp_lock);
--
-+	mutex_lock(&ndev->cert_comp_lock);
- 	cert_comp = xa_load(&ndev->cert_comp_xa, msix_idx);
- 	if (cert_comp) {
- 		kref_get(&cert_comp->kref);
-+		mutex_unlock(&ndev->cert_comp_lock);
- 		return cert_comp;
- 	}
- 
- 	cert_comp = kzalloc_obj(*cert_comp);
- 	if (!cert_comp)
--		return NULL;
-+		goto unlock;
- 
- 	cert_comp->ndev = ndev;
- 	cert_comp->msix_idx = msix_idx;
-+	cert_comp->irq = -ENOENT;
- 	init_waitqueue_head(&cert_comp->waitq);
- 	kref_init(&cert_comp->kref);
- 
--	ret = pci_irq_vector(pdev, cert_comp->msix_idx);
--	if (ret < 0) {
--		XDNA_ERR(xdna, "MSI-X idx %u is invalid, ret:%d", msix_idx, ret);
--		goto free_cert_comp;
--	}
--	cert_comp->irq = ret;
--
--	ret = request_irq(cert_comp->irq, cert_comp_isr, 0, "xdna_hsa", cert_comp);
-+	/* Transport-specific: PCI wires an MSI-X irq, platform an IPI callback. */
-+	ret = aie4_request_notification(cert_comp);
- 	if (ret) {
--		XDNA_ERR(xdna, "request irq %d failed %d", cert_comp->irq, ret);
-+		XDNA_ERR(xdna, "request notification for msix idx %u failed %d", msix_idx, ret);
- 		goto free_cert_comp;
- 	}
- 
- 	ret = xa_err(xa_store(&ndev->cert_comp_xa, msix_idx, cert_comp, GFP_KERNEL));
- 	if (ret) {
--		XDNA_ERR(xdna, "store cert_comp for msix idx %d failed %d", msix_idx, ret);
-+		XDNA_ERR(xdna, "store cert_comp for msix idx %u failed %d", msix_idx, ret);
- 		goto free_irq;
- 	}
-+	mutex_unlock(&ndev->cert_comp_lock);
- 
- 	return cert_comp;
- 
- free_irq:
--	free_irq(cert_comp->irq, cert_comp);
-+	aie4_free_notification(cert_comp);
- free_cert_comp:
- 	kfree(cert_comp);
-+unlock:
-+	mutex_unlock(&ndev->cert_comp_lock);
- 	return NULL;
- }
- 
-@@ -90,7 +79,7 @@ static void cert_comp_release(struct kref *kref)
- 	drm_WARN_ON(&ndev->aie.xdna->ddev, !mutex_is_locked(&ndev->cert_comp_lock));
- 
- 	xa_erase(&ndev->cert_comp_xa, cert_comp->msix_idx);
--	free_irq(cert_comp->irq, cert_comp);
-+	aie4_free_notification(cert_comp);
- 	kfree(cert_comp);
- }
- 
-@@ -100,6 +89,7 @@ static void aie4_put_cert_comp(struct cert_comp *cert_comp)
- 
- 	ndev = cert_comp->ndev;
- 	guard(mutex)(&ndev->cert_comp_lock);
-+
- 	kref_put(&cert_comp->kref, cert_comp_release);
- }
- 
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index 544a7d6a02eb..10645b193b40 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -15,6 +15,7 @@
- #include "aie.h"
- #include "aie4_msg_priv.h"
- #include "aie4_pci.h"
-+#include "amdxdna_ctx.h"
- #include "amdxdna_error.h"
- #include "amdxdna_mailbox.h"
- #include "amdxdna_mailbox_helper.h"
-@@ -111,6 +112,69 @@ static void aie4_mailbox_fini(struct amdxdna_dev_hdl *ndev)
- 	ndev->mbox = NULL;
- }
- 
-+static irqreturn_t cert_comp_isr(int irq, void *p)
-+{
-+	struct cert_comp *cert_comp = p;
-+
-+	wake_up_all(&cert_comp->waitq);
-+	return IRQ_HANDLED;
-+}
-+
-+/* Wire per-cert completion notification interrupt. */
-+int aie4_request_notification(struct cert_comp *comp)
-+{
-+	struct pci_dev *pdev = to_pci_dev(comp->ndev->aie.xdna->ddev.dev);
-+	int ret;
-+
-+	ret = pci_irq_vector(pdev, comp->msix_idx);
-+	if (ret < 0)
-+		return ret;
-+	comp->irq = ret;
-+
-+	ret = request_irq(comp->irq, cert_comp_isr, 0, "xdna_hsa", comp);
-+	if (ret) {
-+		comp->irq = -ENOENT;
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/* Tear down per-cert completion notification interrupt. */
-+void aie4_free_notification(struct cert_comp *comp)
-+{
-+	if (comp->irq >= 0)
-+		free_irq(comp->irq, comp);
-+}
-+
-+/* Validate and configure hardware context doorbell target. */
-+int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
-+			const struct aie4_msg_create_hw_context_resp *resp)
-+{
-+	struct amdxdna_dev *xdna = hwctx->client->xdna;
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-+	struct amdxdna_hwctx_priv *priv = hwctx->priv;
-+	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-+	u64 db_off = (u64)ndev->priv->doorbell_off + resp->doorbell_offset;
-+
-+	/* Validate doorbell offset against mapped BAR bounds. */
-+	if (db_off + sizeof(u32) >
-+	    pci_resource_len(pdev, xdna->dev_info->doorbell_bar)) {
-+		XDNA_ERR(xdna, "doorbell offset 0x%llx out of BAR", db_off);
-+		return -EINVAL;
-+	}
-+
-+	priv->doorbell_addr = ndev->doorbell_base + ndev->priv->doorbell_off +
-+			      resp->doorbell_offset;
-+	return 0;
-+}
-+
-+/* Ring context doorbell to notify CERT. */
-+void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx)
-+{
-+	writel(0, hwctx->priv->doorbell_addr);
-+}
-+
- static int aie4_irq_init(struct amdxdna_dev *xdna)
- {
- 	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-@@ -629,6 +693,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 		set_bit(SMU_REG_BAR(ndev, i), &bars);
- 	set_bit(xdna->dev_info->mbox_bar, &bars);
- 	set_bit(xdna->dev_info->sram_bar, &bars);
-+	set_bit(xdna->dev_info->doorbell_bar, &bars);
- 
- 	for (i = 0; i < PCI_NUM_RESOURCES; i++) {
- 		if (!test_bit(i, &bars))
-@@ -642,6 +707,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 
- 	ndev->mbox_base = tbl[xdna->dev_info->mbox_bar];
- 	ndev->rbuf_base = tbl[xdna->dev_info->sram_bar];
-+	ndev->doorbell_base = tbl[xdna->dev_info->doorbell_bar];
- 
- 	pci_set_master(pdev);
- 
-diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index 959ef3695813..9fcdfcc5a15f 100644
---- a/drivers/accel/amdxdna/aie4_pci.h
-+++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -32,6 +32,8 @@ struct amdxdna_hwctx_priv {
- 
- 	struct cert_comp                *cert_comp;
- 	u32                             hw_ctx_id;
-+
-+	void                    __iomem *doorbell_addr;
- };
- 
- struct amdxdna_dev_priv {
-@@ -54,6 +56,7 @@ struct amdxdna_dev_hdl {
- 	const struct amdxdna_dev_priv	*priv;
- 	void			__iomem *mbox_base;
- 	void			__iomem *rbuf_base;
-+	void			__iomem *doorbell_base;
- 
- 	struct mailbox			*mbox;
- 	u32				partition_id;
-@@ -111,6 +114,17 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
- /* aie4_pci.c */
- int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
- 
-+/*
-+ * Transport hooks implemented by PCI backend. Doorbell hooks are wired during
-+ * kernel queue creation and command submission in later patches in the series.
-+ */
-+struct aie4_msg_create_hw_context_resp;
-+int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
-+			const struct aie4_msg_create_hw_context_resp *resp);
-+void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx);
-+int aie4_request_notification(struct cert_comp *comp);
-+void aie4_free_notification(struct cert_comp *comp);
-+
- /* aie4_sriov.c */
- #if IS_ENABLED(CONFIG_PCI_IOV)
- int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-index 6e78bab8a02c..9bbc3db4ebde 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.h
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-@@ -6,6 +6,8 @@
- #ifndef _AMDXDNA_CTX_H_
- #define _AMDXDNA_CTX_H_
- 
-+#include <drm/amdxdna_accel.h>
-+#include <drm/gpu_scheduler.h>
- #include <linux/bitfield.h>
- 
- #include "amdxdna_gem.h"
--- 
-2.34.1
+This is an open source project, submitting work - even for people using
+LLMs - should be one of the ways that people can get involved. It has
+far less barriers to attending a conference in person, and not all
+contributors can or want to be at an in-person event just to contribute
+to a project.
+
+Also - I've been a kernel maintainer and I've never been at LPC. I know
+plenty of people who have never been to LPC, it is more then just
+financial constraints. If an LPC is so truly representative of
+maintainers at large here, then why are there maintainers responding
+here with objections? What challenge would there be to actually opening
+this discussion up to all of the other maintainers who were not there?
+
+>=20
+> The tag helped some maintainers to push back (like Lorenzo). The tag isn'=
+t needed
+> anymore, because the push back isn't needed. I think that's an improvemen=
+t, and at
+> any rate was inevitable.
+
+It is, though. I want people who actually took the time to learn how to
+contribute to a codebase I maintain to actually have some kind of
+priority over new contributors using LLMs, because we still attract new
+contributors and talent who don't want anything to do with LLMs.
+Projects like Asahi I've pretty much only started getting involved in
+because of their no LLM policy.
+
+Have you considered that maybe this is a self-fulfilling prophecy that
+is partly the result of a lack of maintainers and the difficulty
+imposed on new contributors getting involved because of policies like
+"just ignore work and don't respond if it looks like slop"? The person
+who could contribute and decides it's not welcoming, or there's not
+much chance of their work getting reviewed, etc. is not typically the
+person that says so on a mailing list, or as I've started seeing - just
+simply doesn't want to look at the project because they are not
+enthusiastic about working with LLMs in their spare time or ever. More
+likely, they just leave and don't contribute.
+
+Has the rest of the kernel really gotten so bad at attracting new
+contributors outside of LLM spheres you just, don't get these people
+anymore?
+
+>=20
+> Best,
+> Jori.
 
