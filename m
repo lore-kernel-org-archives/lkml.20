@@ -1,75 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792452894;
-	b=rv+vhirjP0ouJQErCsbgYL88dKlnpZ947WNk/GYX3NSNkJoJoPp/qdHIS5OLPOOx5Z7/
-	 aErmrmlW0HOBisRbRskhVlfFbLJro5wll+Y5Eue6sLMBYHJX2Ijoj03+K/ZI+fRPD/pFm
-	 b2thIUyREA3bEKhmo2yBqAGUr5tZHZQdkysh6F5VAxTMOqj0P5JpGWHc4OiYMxWx4o6nR
-	 tAKYZQyPVO5TX17FVnKn7Nw/kIJ1yuGTmbKJFZfehI54J7ZdbdHB67TDPAyHnvjbj2I93
-	 uHzSgLJHg6SpAYxP76QMYJGu8IpCFWGe5fIMmdkOou2y7iB+76jiWf33LNdR1uC6ZJg==
+	t=1792452890;
+	b=zPlzEBr3c5aZFSmDV/eTQWKEtBFG/AWMGxfe5iGm8hdmrk1AOe3ovLPE/9TU2gdJz4Uo
+	 r7nQpmAInCH25DeMYgGmVgZnPCD45LFqYaDf2rOrr9K+mHVxMBRTXyfQQQr+q2HAgPYFV
+	 SfGMm4Z//6XDFZ7GL2ZkRE1tgSFmxWRqQbAI8Z3I180vWMwOkvwMmO5cH5fh4QGnzltQN
+	 kJM+jqIrDAoi39ZMiTL6ak2ZiVSTTg1RgzUAOTv4V/g8+s8K6dWZPB4fdNSLwHoQ9qLmF
+	 Swx5gZ0aXD3SqzkN8+hSmluyC913F8kiwKdbRPtg62nKIzVAXMJh4I3QmuysdInChzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792452894;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792452890;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-B4-Tracking:X-Change-Id:X-Developer-Key:X-Developer-Signature:
 	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=hL9z3sxmqPHu6DZpQKLBUOtEfTvn2OY05fH87pUmBmw=;
-	b=cfunbvFT2VEGE/g0kbKaCSk+3BMaGY+LCR6HRkZRj3HzW98N2CWWhAG/Yyku2qZA+JsL
-	 TvCm8JmuyzBGTe5jFTZpyhIThCon+YSBkeMpbfYz8+/6w6sngUBOg5Pn55QMyFQzUrFQP
-	 DwtD09YWliid3mGCYSe8uO2jL15tu0w/cDeafoRkxgb8oW/ElhNPRqZCp7taLMXr/yZed
-	 5uJHXwVL7zBopWMSzh3wKi2HJRB3FH5rQ4Hs10x8/nRKmzEAhYQSWOW1yBnHONGDPmTUB
-	 8GCT2LN8gOMUO7KfOG7jKTKWIhzOLfKbyEyoMN5cGxAERR3TohZdATkeDRunxzw8iDQ==
+	bh=hXRBmypsfSbOoyyjwjH80x+T5tVVukih5UNKVVGaJDg=;
+	b=odmKXouFJU/EBE1ksaC6J3btchr47tlMEtwSonVVXRsjGzuibFQt+3+QcZWHgJ3eD6Am
+	 u3ZaRBIVdob5miTN+COpgN/oElPYEauAZEgj2auZspM5EDewQ1gAAUxXcowa2/CVsChAj
+	 aWJV2DFWoO2eoioUWwqNOCKX7KB9445ZebfyyosqOmGuYiRZ27m48mg/ApNR0FD01ylaP
+	 QEbmY/DjwyZkcUE9Dytd5NkoekWRutqbCEqP+TOMFUqheidCzcb0FYlY1UAiCQBdsYcfH
+	 punhMAB+jPGq0M40QQVYIUb89ljvQYMg7MS1+nuazgUstJmzP+ptsYXg9Gl9GMkGp7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--samitolvanen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=orLK+din;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=I4xQTTO+;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D954D606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:34:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D954D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F1B606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:34:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8F1B606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--samitolvanen.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=orLK+din
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35c3c370b17so5235527eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:34:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=I4xQTTO+
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1665200f4c2so3747753c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:34:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792452893; x=1793057693; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hL9z3sxmqPHu6DZpQKLBUOtEfTvn2OY05fH87pUmBmw=;
-        b=orLK+dindxJMUSaNtTwwlimiW4FxCTJdbtJDVOcpZq1tCufIfWB9RKuUSVzqvYJh5x
-         5uuPOSlvknCExmqKXQwaU7piZjcWpSl7QnP4rfQuZFixxWAIZmX1S6U/CDq3UQsQ8/yA
-         WzzAf8XmCj5CjjqoqAZDkKKDftDusldDduaia85ngyHKi4vGrloaAjcPfH5MtTX153WM
-         p+xQl9/5UsvPQiooH+ExmAY3p8sOpE0+yZTh4T53t4hJ+1QjYg1xFes3BYHTMoPCm12F
-         r7F5k5LjZxXbPZPgdxvVDyw+PQlgudcKg66I/HHhUK5LVxRc+/gZvBPUUYNMYpstGk1y
-         Fi5w==
+        d=google.com; s=20251104; t=1792452889; x=1793057689; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hXRBmypsfSbOoyyjwjH80x+T5tVVukih5UNKVVGaJDg=;
+        b=I4xQTTO+ipoDQptdVEVI96EQ9yhDdfzpc/kVpUvIAGDe86tih6dugo+/28mjuKU1Fh
+         D2HZ6UJnKk+awUBrL5HsXrxjEdkL2e3LXWabFpJlf5xdcxsMU8l0IsqH+Jd0pvr3HK1Q
+         tRIwT0EV2+LZrjPznJwaP4PFaytfVf99S4ELf1zr1rjXmEzCP8zu5+OB82OKFwmg/iJy
+         Hp8ghWALQMrxcPkxrMhDGfb7O0cvjkIkDLxpmGCTEkxwaWAKJ+/TMB7wBMxdGl2bCuxX
+         GL1yt4Gr4sRi1r8QrrUs38vQmnniOME4KLgUsWHxiXhpAkU8kNEz5boFXKzW9Cbin08w
+         hi5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792452893; x=1793057693;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hL9z3sxmqPHu6DZpQKLBUOtEfTvn2OY05fH87pUmBmw=;
-        b=IrYLBW2WiJv3ASdr1wQd517nxztFFscj4q7VkuwBfdq9KcAu6vDrOemsZv6IIP/rSq
-         UbyhHx8h3nvv8FyX9WkSIrV4hU/rRu7oFLHf81kKPQOv4Y8vVYOtDU52H9Q4IR8TVulp
-         2RMzQ3I2/PF7zlJy7ryqGuwM4+Yo1iR9nrI9PceIOYbxFVyWgI2gtIMnuISTxDwJN50a
-         c+Q2//aA9PoyaANQkWb6Ye3ur/etVBFGKbsFSOYv2uH6xXPQfy5SIf/356q4CRglugxU
-         DyJLqniEJlyy9b6uEOE+b5H3wRJO9ZYpytU8fQlF5piB58I9mca7qSlfrbKTOxqg5JTu
-         zheQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzf0rEdP9V+muiRDv+7Y59uVis/JzAaB3ZAk4iaAw9mPQoM5T+qiHqy7jLYO4C9IyeD+O5OxmVOY6dY4Wc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpuLvrxwO+wzV8EymSegweDOzuKqkblzcqOEGJhLe1WsE2T069
-	/azxIWF5P0joOaavl7zRX6o7oWbwgfp36Y/YPTMoiFsW8+gry46JlW/35TtpNuq8jeKP9bw3CXL
-	sgDEhrnL+1/feYmw2v56vklWIMjx4Ig==
-X-Received: from dldyq17-n2.prod.google.com ([2002:a05:701b:4551:20b0:14e:8121:6eda])
+        d=1e100.net; s=20260707; t=1792452889; x=1793057689;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hXRBmypsfSbOoyyjwjH80x+T5tVVukih5UNKVVGaJDg=;
+        b=nEaizwZC0Dq3vFmFg1s4awBDytU6q0BO5nAX7BWEcczWhT+/6hOn+27wz02TUGtHWj
+         T0Jd5Q+AKEgEfoKQ+wQ6zejRIEjm+MRL/vmkDJKuWKV1zvB9ZAb1qy0uU8V4nv4M48OI
+         9RATs9JJWzTVvk8II6PC6ktM9rrL4xlASIxmDGhc2ErlXQmY8Vx3ZsowXzY6ftuzelfF
+         uc4v86zaFu2xifUFbrQangGqWdjh9WwBN5+hFX9Z9tSrhl1yMPHkRhO+TWIxp8lK1p1q
+         WcPKzGpjOVzbKx2Yd6K821qeM1LoI65A4rVtNillAMZivsAI0DNiRj2Bfln/rgWpyEKx
+         ZVxw==
+X-Forwarded-Encrypted: i=1; AKwUvBxbQA+LJrh96FkvOzbFNoAsOVQbvyRlCiPjFscYcxk1XmEXuhERD4vEvdzhtT5c3zONQcuMgKSBVQFol6s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwCeFFDjf60INMs8xHf+AQJpliuTReKwiToxHPjWGyvRJ0nC2l
+	XOyILLrJ/hjvw9MDRoHOHnqLWrfSN6K7/00c9toS/jR/n4j5LtsZEGQ7y1GHisg0+NnmhrXMESd
+	kntvnf/G1g+h/Bbi5rsY0SB+s1VPS5w==
+X-Received: from dlbur21-n2.prod.google.com ([2002:a05:7022:ea55:20b0:184:b43a:63ac])
  (user=samitolvanen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:2414:b0:18d:2a:370b with SMTP id a92af1059eb24-18d002a3854mr1805095c88.9.1792452892724;
- Mon, 19 Oct 2026 16:34:52 -0700 (PDT)
-Date: Mon, 19 Oct 2026 23:34:39 +0000
-In-Reply-To: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
+ 2002:a05:701b:241b:b0:16d:dd5c:4261 with SMTP id a92af1059eb24-18514449a5emr10311455c88.46.1792452888497;
+ Mon, 19 Oct 2026 16:34:48 -0700 (PDT)
+Date: Mon, 19 Oct 2026 23:34:36 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,16 +77,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
+X-B4-Tracking: v=1; b=H4sIAA2p1moC/x3LMQqAMAxA0atIZgOmglivIg5qU81SpVERSu9uc
+ Xx8fgLlKKwwVAkiP6JyhAKqK1j3OWyM4orBNKajhizGWy9cvaCXlxUX19u+teQ8OSjTGfkP5Rm nnD9WpKuuYAAAAA==
+X-Change-Id: 20261019-rust-cfi-fixes-bd898391df1d
 X-Developer-Key: i=samitolvanen@google.com; a=openpgp; fpr=35CCFB63B283D6D3AEB783944CB5F6848BBC56EE
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4650; i=samitolvanen@google.com;
- h=from:subject:message-id; bh=JwJNlGuBiQ8g6xhZrLGYDfrsZ7obgLAdDp/5rBj/R3w=;
- b=owGbwMvMwCUWxa662nLh8irG02pJDFnXVoqpNN3YtdNaKtPpfNf8v2pbOA2L7kS4XOWS+3y+6
- ca3TNYrHaUsDGJcDLJiiiwtX1dv3f3dKfXV5yIJmDmsTCBDGLg4BWAit1cy/Pdz9JgoqsF//5WP
- /8kXnHIfMktTw3VL/ul8bz6xSPPHTEaG/+UPS0RPqF6LKwmKPy5dsOvXipQri4xiTrnO33daUuX 8Sl4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=352; i=samitolvanen@google.com;
+ h=from:subject:message-id; bh=hXRBmypsfSbOoyyjwjH80x+T5tVVukih5UNKVVGaJDg=;
+ b=owGbwMvMwCUWxa662nLh8irG02pJDFnXVop2PJE5k9Su8bg1QKXcrvTT0qTrs5695d7DtDXpp
+ 9qpAFb2jlIWBjEuBlkxRZaWr6u37v7ulPrqc5EEzBxWJpAhDFycAjARQUtGhtMdGSfnX824833a
+ 6TMc/aHvprb5+IgybNz9dFXQy6tbMgMZfrMc/VxyLsN9rd1/i/K8vQrWs3uc1y0sF3A9pc7U9zL ChBcA
 X-Mailer: b4 0.14.3
-Message-ID: <20261019-rust-cfi-fixes-v1-3-9503472ba738@google.com>
-Subject: [PATCH 3/3] rust: dma: declare cfi_encoding for dma_data_direction
+Message-ID: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
+Subject: [PATCH 0/3] rust: Fix CFI type mismatches
 From: Sami Tolvanen <samitolvanen@google.com>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
 	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
@@ -105,97 +105,14 @@ Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
 	driver-core@lists.linux.dev, Sami Tolvanen <samitolvanen@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-bindgen generates bindings::dma_data_direction as an integer by default,
-while C callback tables such as dma_buf_ops declare the parameter as
-enum dma_data_direction. kCFI encodes enum types by name even with
-integer normalization, so the type ids would not match when C calls into
-a Rust callback taking bindings::dma_data_direction.
+This series fixes a few CONFIG_CFI indirect call type mismatches that
+I've run into while working on Tyr. If we're going to run into a lot
+of these in future, perhaps we need a better solution than addressing
+them one at a time?
 
-Generate dma_data_direction as a newtype with a cfi_encoding, as is done
-for lru_status, and convert DataDirection through the newtype's
-constants.
+Sami
 
-Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 ---
- rust/bindgen_parameters |  2 ++
- rust/kernel/dma.rs      | 21 +++++++++++----------
- 2 files changed, 13 insertions(+), 10 deletions(-)
-
-diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-index 6003d5127676..8577e7663e02 100644
---- a/rust/bindgen_parameters
-+++ b/rust/bindgen_parameters
-@@ -27,6 +27,8 @@
- --opaque-type spinlock
- 
- # enums that appear in indirect function calls should specify a cfi type
-+--newtype-enum dma_data_direction
-+--with-attribute-custom-enum=dma_data_direction='#[cfi_encoding="18dma_data_direction"]'
- --newtype-enum hrtimer_restart
- --with-attribute-custom-enum=hrtimer_restart='#[cfi_encoding="15hrtimer_restart"]'
- --newtype-enum irqreturn
-diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-index 2ce09f8e90c6..2ec5fe7d56bc 100644
---- a/rust/kernel/dma.rs
-+++ b/rust/kernel/dma.rs
-@@ -310,25 +310,25 @@ pub enum DataDirection {
-     ///
-     /// This is used when the buffer can be both read from and written to by the device.
-     /// The cache for the corresponding memory region is both flushed and invalidated.
--    Bidirectional = Self::const_cast(bindings::dma_data_direction_DMA_BIDIRECTIONAL),
-+    Bidirectional = Self::const_cast(bindings::dma_data_direction::DMA_BIDIRECTIONAL),
- 
-     /// The DMA mapping is for data transfer from memory to the device (write).
-     ///
-     /// The CPU has prepared data in the buffer, and the device will read it.
-     /// The cache for the corresponding memory region is flushed before device access.
--    ToDevice = Self::const_cast(bindings::dma_data_direction_DMA_TO_DEVICE),
-+    ToDevice = Self::const_cast(bindings::dma_data_direction::DMA_TO_DEVICE),
- 
-     /// The DMA mapping is for data transfer from the device to memory (read).
-     ///
-     /// The device will write data into the buffer for the CPU to read.
-     /// The cache for the corresponding memory region is invalidated before CPU access.
--    FromDevice = Self::const_cast(bindings::dma_data_direction_DMA_FROM_DEVICE),
-+    FromDevice = Self::const_cast(bindings::dma_data_direction::DMA_FROM_DEVICE),
- 
-     /// The DMA mapping is not for data transfer.
-     ///
-     /// This is primarily for debugging purposes. With this direction, the DMA mapping API
-     /// will not perform any cache coherency operations.
--    None = Self::const_cast(bindings::dma_data_direction_DMA_NONE),
-+    None = Self::const_cast(bindings::dma_data_direction::DMA_NONE),
- }
- 
- impl DataDirection {
-@@ -340,7 +340,7 @@ const fn const_cast(val: bindings::dma_data_direction) -> u32 {
-         // CAST: The C standard allows compilers to choose different integer types for enums.
-         // To safely check the value, we cast it to a wide signed integer type (`i128`)
-         // which can hold any standard C integer enum type without truncation.
--        let wide_val = val as i128;
-+        let wide_val = val.0 as i128;
- 
-         // Check if the value is outside the valid range for the target type `u32`.
-         // CAST: `u32::MAX` is cast to `i128` to match the type of `wide_val` for the comparison.
-@@ -358,11 +358,12 @@ const fn const_cast(val: bindings::dma_data_direction) -> u32 {
- impl From<DataDirection> for bindings::dma_data_direction {
-     /// Returns the raw representation of [`enum dma_data_direction`].
-     fn from(direction: DataDirection) -> Self {
--        // CAST: `direction as u32` gets the underlying representation of our `#[repr(u32)]` enum.
--        // The subsequent cast to `Self` (the bindgen type) assumes the C enum is compatible
--        // with the enum variants of `DataDirection`, which is a valid assumption given our
--        // compile-time checks.
--        direction as u32 as Self
-+        match direction {
-+            DataDirection::Bidirectional => Self::DMA_BIDIRECTIONAL,
-+            DataDirection::ToDevice => Self::DMA_TO_DEVICE,
-+            DataDirection::FromDevice => Self::DMA_FROM_DEVICE,
-+            DataDirection::None => Self::DMA_NONE,
-+        }
-     }
- }
- 
-
--- 
-2.56.0.212.g129ede20d9-goog
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261019-rust-cfi-fixes-bd898391df1d
 
