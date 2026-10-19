@@ -1,339 +1,159 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2B6339395;
-	Mon, 19 Oct 2026 06:05:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A122480DED
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:05:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389917; cv=none; b=c4vlBcxW+FY2fSSWT11br4niEO0HbJ4n+VKSjqKchRJUWj/suL4RDvy9MEF87S5cePS095ZDryAYb0ZIiFi8cWLVRPUcDQ0tkEmGDijUcFCFcppfkR+2ErWoZu78xpZY07r05RBFPv5Xp5zERqOhjsPLw0NMmUnighcZCjAeE2w=
+	t=1792389922; cv=none; b=VvjWE9PROjE1xahYtEInUQykFpMDxUuV979lrwh5MvxzWbJuP+4NmPOAU6PDMsv/dLOkqipuwuRItJOn9xMqUbhUrw7V9M4TavpJuGkqeMFTDHmCCOkukgxPXa74MFeynkj6lfceju8sVKxstC7JzhCRIMWS5rghU8HGkgtkmd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389917; c=relaxed/simple;
-	bh=SOq3UNsFXxn2x4tDWqNMsKMuBE2O5h0ff5SziW/mVKQ=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=KLBVXPBhJN1FXtkhwzM3y8foSkSDoaFpgjWmEoORqSK246nvzIGLM3SFztRWdYuo1bcjo8/IhfBtU1puFT+/EbVhKFvreNYsZLlEcXTFJzKM5VI+wtBWp9uzPHd55Rt01Km3TPgjlXKoIrzUL7xuSn7x+NZwVb0Wx/WkVCMltkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lLvzXntZ; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792389922; c=relaxed/simple;
+	bh=eVz2kOkeYGqtTtls5Y5pxyYcXl8r5yMKB0Xmf7FiKNU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BdD0VN+sNJ7Ax6qJlLwpBU+/Kg80l1rwqCT9ILGC3HwNEs1SwOB9N8a+METaWZFjZdAKJAPxoVWxniEbA436U+lIXiEVbC3rHwd0A7dRTpqb/t7f7R8N2ks7IvPYxdK8ozqSiWe/8xuaJ1wmWL8wH3ZhjG1MdyBidrrdX2zPOgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MRn2PdRK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gU3nyp2O; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lLvzXntZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792389916; x=1823925916;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=SOq3UNsFXxn2x4tDWqNMsKMuBE2O5h0ff5SziW/mVKQ=;
-  b=lLvzXntZBcPAjCfoHJKs5gMoKm5fKZzfO/1xjfkWs+K+Bz+a1yJCGMhl
-   IsXj3H/msZB8KQBODNdQwAZh83xwHOYOb+2Pdr+ySD4y958b0b/8g5QN8
-   n5PKjB23yp4x0PXmSkhhQMWaAA5hTf4BQXBr18ur5lgwd8dGD+eGW6jza
-   y82UBJ1XdMmlLp583V1CIh9I0jdyPN2o595nUUeD+H8jZpFKK544oEMIW
-   8DSy+xv2qZTvI1QaxYSv0lWrf8r1qb1kQjQQGe2HucnFOt5vhbEqgAtd3
-   0GCdCezqYUh1sfRzzsbsACo2zpBcFzFPTZc4FiaBLBLFLIz2b4IZ08G+5
-   Q==;
-X-CSE-ConnectionGUID: henXPy1XRLi3EKtLIiNR2Q==
-X-CSE-MsgGUID: aeHg/Mf1SJWq4JafU1KQRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1058806"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1058806"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 23:05:15 -0700
-X-CSE-ConnectionGUID: 0p2wf0BUTcSKi4rdjzULxw==
-X-CSE-MsgGUID: N2G/KtMBQQWJKogC3+D8vw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2533065"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 23:05:12 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 19 Oct 2026 09:05:07 +0300 (EEST)
-To: Zane <git@turtledev.nz>
-cc: Corentin Chary <corentin.chary@gmail.com>, 
-    "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
-    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    =?ISO-8859-15?Q?Jos=E9_Guilherme_de_Castro_Rodrigues?= <jose.guilherme.cr.bh@gmail.com>, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] platform/x86: asus-wmi: fix camera key LED on Zenbook
- S14
-In-Reply-To: <20261017-asus-wmi-camera-led-v3-1-845a82373997@turtledev.nz>
-Message-ID: <cd44cbf7-6a4a-c993-fe96-7cc913bd0608@linux.intel.com>
-References: <20261017-asus-wmi-camera-led-v3-1-845a82373997@turtledev.nz>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MRn2PdRK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gU3nyp2O"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J4j34Z1702763
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:05:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=tB06UDpEriWVFySp15EJ7VgU
+	Kt47g1OZ4M7wqg9CBMc=; b=MRn2PdRKSHF+PI/DJ8Vuoytz4ofplgtn766QFQ4V
+	mMipqI1bIovjH5aX8IdO/is0fLqADjKaiMVkTmaL3Yv8kA7jCf31qNaUpzkO3LuH
+	tG8h3W9BnayOuCpSwI9nkhtIMpp/bQW3XaHnEL8iT6iZ1XeaLb3PVo3OxZ7MIwdZ
+	ARC6hxvNllK0ATcpMWjz4usXc7Mf63R2DPt9nAXPXdeoORBg8WtTODhsTifSDqbS
+	5a2FruVl+611AQpBStzo1vquAxt0lyVz2eywYBVukCybhC4NETeFgBsTdVTNoAMQ
+	HV5Rjxhrd4OqYdx6yLkWA7UuTNUtP94lbFIRRtvSY/cimg==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5w197f0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:05:19 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso3592093eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:05:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792389919; x=1792994719; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tB06UDpEriWVFySp15EJ7VgUKt47g1OZ4M7wqg9CBMc=;
+        b=gU3nyp2Oi3EYabVUfE3iYKrCCMxH7m34Fbt0OSjUk6/1LPc0VQAGdhqUKQRuAvvYr6
+         YXj9Vc/dN37M6u3d7XB8ek06NHFj+IjrDiQIjp0hg0IBP5h7XRZQrTSAN7OlCV0KMY+q
+         6EIe/8AFeM1QiKIus/2JxFBm5SvaSfssyNmaoo06niDYnVc+w4Szq5j+Mt1nJCEX/uYX
+         MDI7oAhK7v0h+k9Y+uaDi8qT7kFBGGiaY+aGo8sN/KXlHnFbtPgo3cjc/lWMwFHya4Bj
+         FuQvU5JEe27PejW89jrU6AA5X8w8fZQcw8rpBVJp9BXmwdkDJeG6OwhvbDSe8kKAKAgo
+         64hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792389919; x=1792994719;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tB06UDpEriWVFySp15EJ7VgUKt47g1OZ4M7wqg9CBMc=;
+        b=gDH94nh5FRaFHSMnkGuiICrFoy1yec5+z/VpxF9SDKa8Ur1EhtKHCqnnJNoNqJcv84
+         q02Bd3y8VCLjRMVYMvLZM2F0xwW1FdpuLfpv2CGFoWEnIDORCzQMo2SfcIO4DaUMTwiK
+         h/6iLYbKd6t/H59SPntWPPoNvticngIVe11ujvosDbZ7D2jLMgJhcMAH9jt6JVWRlFk5
+         KmY7dw0pNYIXutWh6XeTNTm9MBdx2WRLoFLWX5RNPFQiEu9XXRjmPWWy4uYNawqG0wdO
+         IS5o0hkEWRQy8MVEi4upgfr5qyguaKRkNvFyteik+r0XMWayIMaPuVDG/zKJJaK/oZwn
+         gt2w==
+X-Forwarded-Encrypted: i=1; AKwUvBzODLt1HYgN1MC6B2L00N0lr90nIJI3HcqL5Xw+OJ2LJiQsja324bYRuOLgxYy5wi2G48Qf9WYgUtL/qUU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvmGPA580HUAPBGJR/NEO8dXqYfw8axz4C4VW+cRjJ4b+mTRWg
+	V7hQ1ctfbKpW2jvTF2weUvLDzMxf/7fnLJTiP4cPfd2ibIzaJAZZlVMEuNd7kQsh58KZDdxCNoG
+	wwp0qQ73zi8Dz2Py5LfPEWB1x+qb3PixH4XK/ap+FnNxFBhTtTfheg5m5fToGv5cog/A=
+X-Gm-Gg: AYBFou3YiPB4IcEjjGEPRqZyugycbj5rPchQhh0vT261ktrnvaYdbATPSGXR1zzdp76
+	owntAWGjJpDTKGahx9heYWhuj8Cbq0PcgUTzqMfPjXpRCdHQDwSa1I5ATZEUh2Q0D4EArUqDpxh
+	kPOY8Ay+siHz4iKSdAp89VotyN2WCJDDd7Q0jojPIXsJi+D6u2WjY/cI5iBRhIL+e9rUDcAZRdY
+	/q4rrpt28dL4Q+2YLipevtm6NThJ8BAYKQG7+h99yZFrei0WEjCMPWE0KHc2bwxnO6tS5MLelyK
+	Sye7qbWHafDzFeEcrKpS/PAexkol4YtvgiPgBqGrCn7TT34SdU3lh2j5/uFHUKi19vObG5MpaC7
+	o2y7gLP0xMeLowuDFxU8VtyBIMlLk/277FtMHE2u3BQ==
+X-Received: by 2002:a05:693c:8353:b0:35e:fd8:3201 with SMTP id 5a478bee46e88-361a136eb6fmr8863445eec.14.1792389918678;
+        Sun, 18 Oct 2026 23:05:18 -0700 (PDT)
+X-Received: by 2002:a05:693c:8353:b0:35e:fd8:3201 with SMTP id 5a478bee46e88-361a136eb6fmr8863359eec.14.1792389917130;
+        Sun, 18 Oct 2026 23:05:17 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360820a79c7sm28638345eec.18.2026.10.18.23.05.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 23:05:16 -0700 (PDT)
+Date: Mon, 19 Oct 2026 14:05:10 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+        Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+        Andy Shevchenko <andy@kernel.org>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>, Dan Carpenter <error27@gmail.com>,
+        Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: qcom-spmi-adc5-gen3: Allocate unique ADC_TM
+ aux device IDs
+Message-ID: <atWzFlOgRICAGM-R@QCOM-aGQu4IUr3Y>
+References: <20261008031154.3440632-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-624579715-1792389907=:1469"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008031154.3440632-1-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAyNCBTYWx0ZWRfX+gxVhHKkQP+Z
+ K1awLGUf+WfnQ5LlFMYW9ptIJAlb9ldS+bjma/ziHWVze9/L5hOshvxURTCdzXNDT+kXPE2fio6
+ 3s7Agrov6FdM77DDk3zTPUtIphUgASo=
+X-Authority-Analysis: v=2.4 cv=KuPYSmWN c=1 sm=1 tr=0 ts=6ad5b31f cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=sqrxk8c0NW8lVwhiI0QA:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAyNCBTYWx0ZWRfX/xscq+NcoLB6
+ TamOvR58HS75u/pjpKwgZBQQ8SUpVJQSxFLgHId+1Za3a+JSRV1uT3MCXZvJUPEyuG2jZLpX7tr
+ Y3iKXcXucAzgIoOiaMq4uqIiu1HV4EXbj3/8JCVGAdMtuBK22QaPayBUIHcNrzC3Z6hprkck8QS
+ E5GF/W+dKAYDqy6V1j/tgpsyKCDb1yzHXdiPcFZ4aLARdzrKtxbGM+OlFrBhuBUZ8vd5F7MsCn7
+ XTEgpC609Ubi2npkttK80I45VknYbu9NmDGU6kofz1k5TYpPBbdR7N+nZJwicuoF77orj/mWLg9
+ 4qiIy7k0kuptugjWYvAUosC7mgxQP39fzg9EDl/XWCQAX+eVYsUhoe69waDuYp3r1R5xqbM0HAs
+ fiBUx8uxWirZq7LA1ZW4OgXPRVJjo48LDuxd6Z5Sl2lDar79RDXItiPCoez6bp+/W//1oW/GLaO
+ LVFsRnQBTk2khfWbZdQ==
+X-Proofpoint-ORIG-GUID: qmS0wM4O9eiC4o6oBME__CYP_Gjyr6hH
+X-Proofpoint-GUID: qmS0wM4O9eiC4o6oBME__CYP_Gjyr6hH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_02,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ spamscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190024
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, Oct 08, 2026 at 11:11:54AM +0800, Shawn Guo wrote:
+> adc5_gen3_add_aux_tm_device() never sets the auxiliary device id, so
+> every ADC5 Gen3 instance with at least one qcom,adc-tm channel tries
+> to register the same device name. With ADC_TM channels on more than
+> one PMIC, the second instance to probe fails:
+> 
+>   sysfs: cannot create duplicate filename '/bus/auxiliary/devices/qcom_spmi_adc5_gen3.adc5_tm_gen3.0'
+>   ...
+>   auxiliary qcom_spmi_adc5_gen3.adc5_tm_gen3.0: adding auxiliary device failed!: -17
+>   qcom-spmi-adc5-gen3 c400000.spmi:pmic@8:adc@7200: error -EEXIST: Failed to add auxiliary TM device
+> 
+> The ADC probe then fails as a whole, so that PMIC loses both its IIO
+> channels and its thermal zones. This shows up on Nord, which has
+> thermistor channels on two PMAU0102 PMICs.
+> 
+> Allocate the id from a driver-wide IDA and release it from the
+> auxiliary device release callback. The ADC_TM driver matches on the
+> device name only, so the instance number does not affect binding.
+> 
 
---8323328-624579715-1792389907=:1469
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Fixes: baff45179e90 ("iio: adc: Add support for QCOM PMIC5 Gen3 ADC")
 
-On Sat, 17 Oct 2026, Zane via B4 Relay wrote:
-
-> From: Zane <git@turtledev.nz>
->=20
-> On some newer Zenbooks (Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) the
-> camera key turns the camera off in firmware, but the LED on the key never
-> lights up under Linux. These machines don't have
-> ASUS_WMI_DEVID_CAMERA_LED, so asus-wmi never registers asus::camera. The
-> firmware exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG instead.
->=20
-> Reading CAMERA_LED_NEG is what drives the LED: the DSTS handler reads the
-> camera state from the EC and writes it to the LED GPIO before returning
-> it. The set side can't be used, the firmware only accepts DEVS on this
-> device once per boot.
->=20
-> So read it at probe, which fixes the LED being dark after a cold boot
-> with the camera disabled, and after every camera key event. Also
-> register a read-only asus::camera LED on these machines so userspace can
-> see the camera state and gets a brightness_hw_changed event on each key
-> press.
->=20
-> This builds on Jos=C3=A9 Guilherme de Castro Rodrigues' v2, which added t=
-he
-> read after the camera key event.
-
-You should retain his Signed-off-by tag if that's the case + add=20
-Co-developed-by tag.
-
-> Link: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221752
-> Assisted-by: Claude:claude-opus-5-5 iasl
-> Signed-off-by: Zane <git@turtledev.nz>
-
-Please see what is required when you're signing off something:
-
-Documentation/process/submitting-patches.rst
-
-Also, you need to use your real name, not some nickname (basically what=20
-you'd use to sign a paper document/contract/etc.
-
-> ---
-> Jos=C3=A9, this is a respin of your v2 since it had stalled, I hope that'=
-s ok.
-> Happy to drop it if you'd rather send v3 yourself, or to add your
-> Co-developed-by/Signed-off-by if you want them on it.
->=20
-> Changes in v3:
-> - Rebased on pdx86 for-next
-> - Also read CAMERA_LED_NEG at probe, so the LED is right after a cold boo=
-t
-> - Register a read-only asus::camera LED when only CAMERA_LED_NEG exists,
->   with brightness_hw_changed on key presses (Ilpo's suggestion on v2)
-> - Comment on why the read is what updates the LED (also from v2 review)
->=20
-> Tested on a Zenbook S 14 UX5406SA, BIOS 309, on the Fedora 7.2.9 kernel
-> with the same change applied to its asus-wmi:
-> - Key presses: the LED, asus::camera and the camera output (live picture
->   vs. the firmware's grey "camera disabled" frame) switch together every
->   time, and brightness_hw_changed follows.
-> - Cold boot with the camera disabled: the LED is lit and asus::camera
->   reads 1 before anything is pressed. Without the patch the LED stays dar=
-k
->   until the next key press.
-> - Suspend/resume: the LEDs come back correctly, but that's the firmware
->   restoring them, it does the same without the patch. So nothing is done
->   on resume.
->=20
-> A Zenbook S 16 UM5606WA owner reported on the bug that reading
-> CAMERA_LED_NEG after the key event (WMI code 0x85 there) fixes it on that
-> machine too. The DSDT details are in the bugzilla entry.
->=20
-> I used Claude (Anthropic's AI assistant) while working on this. It helped
-> me read through the DSDT, drafted the changes on top of v2 and wrote the
-> test scripts. I went through the patch myself and ran the tests on my
-> laptop.
->=20
-> v2: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
-> ---
->  drivers/platform/x86/asus-wmi.c            | 72 ++++++++++++++++++++++++=
-++++++
->  include/linux/platform_data/x86/asus-wmi.h |  2 +-
->  2 files changed, 73 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-=
-wmi.c
-> index fb1d4a0..fd2ba8c 100644
-> --- a/drivers/platform/x86/asus-wmi.c
-> +++ b/drivers/platform/x86/asus-wmi.c
-> @@ -72,6 +72,8 @@ module_param(fnlock_default, bool, 0444);
->  #define NOTIFY_KBD_TTP=09=09=090xae
->  #define NOTIFY_LID_FLIP=09=09=090xfa
->  #define NOTIFY_LID_FLIP_ROG=09=090xbd
-> +#define NOTIFY_CAMERA_TOGGLE_1=09=090x82
-> +#define NOTIFY_CAMERA_TOGGLE_2=09=090x85
->  #define NOTIFY_KEYSTONE=09=09=090xb4
-> =20
->  #define ASUS_WMI_FNLOCK_BIOS_DISABLED=09BIT(0)
-> @@ -312,6 +314,7 @@ struct asus_wmi {
->  =09u32 kbd_rgb_dev;
->  =09bool kbd_rgb_state_available;
->  =09bool oobe_state_available;
-> +=09bool camera_neg_led_available;
-> =20
->  =09u8 throttle_thermal_policy_mode;
->  =09u32 throttle_thermal_policy_dev;
-> @@ -2096,6 +2099,53 @@ static int camera_led_set(struct led_classdev *led=
-_cdev,
->  =09return err < 0 ? err : 0;
->  }
-> =20
-> +static bool is_camera_toggle(int code)
-> +{
-> +=09return code =3D=3D NOTIFY_CAMERA_TOGGLE_1 || code =3D=3D NOTIFY_CAMER=
-A_TOGGLE_2;
-> +}
-> +
-> +/*
-> + * Some models (e.g. Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) have =
-no
-> + * ASUS_WMI_DEVID_CAMERA_LED. The firmware handles the camera key itself=
- and
-> + * only exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG, and rea=
-ding
-> + * that has a side effect: the firmware copies the state to the LED GPIO=
-=2E
-> + * Nothing else updates the LED, so read it at probe and after every cam=
-era
-> + * key event. Setting it is no use, the firmware accepts DEVS on this de=
-vice
-> + * only once per boot.
-> + *
-> + * Returns 1 if the camera is disabled (LED lit), 0 if enabled, or -errn=
-o.
-> + */
-> +static int camera_neg_led_sync(struct asus_wmi *asus)
-> +{
-> +=09u32 result;
-> +=09int err;
-> +
-> +=09err =3D asus_wmi_get_devstate(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG, &r=
-esult);
-> +=09if (err)
-> +=09=09return err;
-> +
-> +=09return !(result & ASUS_WMI_DSTS_STATUS_BIT);
-> +}
-> +
-> +static enum led_brightness camera_neg_led_get(struct led_classdev *led_c=
-dev)
-> +{
-> +=09struct asus_wmi *asus =3D container_of(led_cdev, struct asus_wmi, cam=
-era_led);
-
-Missing include (pre-existing problem but lets finally fix it).
-
-> +=09int state =3D camera_neg_led_sync(asus);
-> +
-> +=09return state < 0 ? LED_OFF : state;
-> +}
-> +
-> +/* The firmware owns this LED; a write just resyncs it with the camera s=
-tate. */
-> +static int camera_neg_led_set(struct led_classdev *led_cdev,
-> +=09=09=09      enum led_brightness brightness)
-> +{
-> +=09struct asus_wmi *asus =3D container_of(led_cdev, struct asus_wmi, cam=
-era_led);
-> +
-> +=09if (!(led_cdev->flags & LED_UNREGISTERING))
-> +=09=09camera_neg_led_sync(asus);
-> +=09return 0;
-> +}
-> +
->  static void asus_wmi_led_exit(struct asus_wmi *asus)
->  {
->  =09scoped_guard(spinlock_irqsave, &asus_ref.lock)
-> @@ -2233,6 +2283,17 @@ static int asus_wmi_led_init(struct asus_wmi *asus=
-)
->  =09=09asus->camera_led.brightness_get =3D camera_led_get;
->  =09=09asus->camera_led.brightness_set_blocking =3D camera_led_set;
-> =20
-> +=09=09rv =3D led_classdev_register(&asus->platform_device->dev,
-> +=09=09=09=09=09=09&asus->camera_led);
-> +=09=09if (rv)
-> +=09=09=09goto error;
-> +=09} else if (asus->camera_neg_led_available) {
-> +=09=09asus->camera_led.name =3D "asus::camera";
-> +=09=09asus->camera_led.max_brightness =3D 1;
-> +=09=09asus->camera_led.flags =3D LED_BRIGHT_HW_CHANGED;
-> +=09=09asus->camera_led.brightness_get =3D camera_neg_led_get;
-> +=09=09asus->camera_led.brightness_set_blocking =3D camera_neg_led_set;
-> +
->  =09=09rv =3D led_classdev_register(&asus->platform_device->dev,
->  =09=09=09=09=09=09&asus->camera_led);
-
-This duplicates code so you should mostly reuse the existing block, and=20
-only branch where you really need something different (the handlers +=20
-flags).
-
->  =09=09if (rv)
-> @@ -4733,6 +4794,13 @@ static void asus_wmi_handle_event_code(int code, s=
-truct asus_wmi *asus)
->  =09if (is_display_toggle(code) && asus->driver->quirks->no_display_toggl=
-e)
->  =09=09return;
-> =20
-> +=09if (is_camera_toggle(code) && asus->camera_neg_led_available) {
-> +=09=09int state =3D camera_neg_led_sync(asus);
-> +
-> +=09=09if (state >=3D 0 && (asus->camera_led.flags & LED_BRIGHT_HW_CHANGE=
-D))
-
-And why is the second condition necessary??
-
-> +=09=09=09led_classdev_notify_brightness_hw_changed(&asus->camera_led, st=
-ate);
-> +=09}
-> +
->  =09if (!sparse_keymap_report_event(asus->inputdev, code,
->  =09=09=09=09=09key_value, autorelease))
->  =09=09pr_info("Unknown key code 0x%x\n", code);
-> @@ -5210,6 +5278,10 @@ static int asus_wmi_add(struct platform_device *pd=
-ev)
->  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
-> =20
->  =09asus->oobe_state_available =3D asus_wmi_dev_is_present(asus, ASUS_WMI=
-_DEVID_OOBE);
-> +=09asus->camera_neg_led_available =3D
-> +=09=09asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG);
-> +=09if (asus->camera_neg_led_available)
-> +=09=09camera_neg_led_sync(asus);
-> =20
->  =09if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POL=
-ICY))
->  =09=09asus->throttle_thermal_policy_dev =3D ASUS_WMI_DEVID_THROTTLE_THER=
-MAL_POLICY;
-> diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/p=
-latform_data/x86/asus-wmi.h
-> index 4ea1ccc..5964063 100644
-> --- a/include/linux/platform_data/x86/asus-wmi.h
-> +++ b/include/linux/platform_data/x86/asus-wmi.h
-> @@ -57,7 +57,7 @@
->  #define ASUS_WMI_DEVID_MUTE_LED=090x0004001C
-> =20
->  /* Disable Camera LED */
-> -#define ASUS_WMI_DEVID_CAMERA_LED_NEG=090x00060078 /* 0 =3D on (unused) =
-*/
-> +#define ASUS_WMI_DEVID_CAMERA_LED_NEG=090x00060078 /* 0 =3D on */
->  #define ASUS_WMI_DEVID_CAMERA_LED=090x00060079 /* 1 =3D on */
-> =20
->  /* Backlight and Brightness */
->=20
-> ---
-> base-commit: ea40f1e9f07aab937b9a217633be7a1f66260394
-> change-id: 20261017-asus-wmi-camera-led-06a6e05f01e2
->=20
-> Best regards,
-> -- =20
-> Zane <git@turtledev.nz>
->=20
->=20
-
---=20
- i.
-
---8323328-624579715-1792389907=:1469--
+> Assisted-by: LLM
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
