@@ -1,528 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0734F30F0;
-	Mon, 19 Oct 2026 13:00:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030793644DB
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414849; cv=none; b=QuQzIPHGqByvvhVUIygET/fmO6KHy31O3pzfj+CqM0AmDcPKk3DCUVnX/Rn1i2fJCtyEUKjmDkpHY2I1cwKE6j+aqO+cZbD6e7OHpuWSgSuTrKd1NMfEWRsmIFmB0XEyTkk/+T5DTOiYMRbmMXtU8blCtz1PZw8tfa9y4kXJ2t0=
+	t=1792414866; cv=none; b=muP18UCzI6FAt/210RB+JlwmKV4xqhw9ZQtpfewVhVEqeSW+MOJWL30qgIcROa/BMMz2YhquRL4uDzprgq1fBWCPG5EYq//cvMNl/pwYjsH0bIBUXOPHMs1LzxhoYqo/2Am4BERc+Jmm4Koony/3yAPcwC54b1rU84/hfvVLRHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414849; c=relaxed/simple;
-	bh=ov+9JUCAqR0HqGDn7Jnmpa7nIYC+IiOUIOQpf19KUUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XgvY9lE8zSvQIyCMDBvsBKreirrurTOx3X4YzdiE/o8ggmbqM/9Y78KPJLdMVU0yg11LhOTg/tr+XKmfveMNkhX4LhhBQAwwzpJIZVzEox1ws4ZciILCEo7wRicqDPvkyJW4QH3GyPl4dbOHTg0Tz/vXL0Bxaaxow/DWORvXEzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RFidDKT1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792414866; c=relaxed/simple;
+	bh=Aax4s15Wmtzs7eX7pK0pP/ihq72/I4GA+KRdZN86pwo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=l1Wc7ler5mKLIfOUgj37nyQux/136riGjeDeC10TzqNic93FKiySBIFzXNIZZx05MuPUE9kj+Ka0Zem+IPzbJU4f24K+Q9QQfXXsLfnd8n48MmdIbztNG1nQS3INLipHxm4A/MVPjzSTavgB9SE3NuUZ7Mvs98X1te5wYeTGMF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HFA7e9Vv; arc=none smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RFidDKT1"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CE3791F000C4;
-	Mon, 19 Oct 2026 13:00:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792414847;
-	bh=JgW3f19xZf1cjDH7lmGAelb3QRZ/yFz4ENBbRiXFDKE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RFidDKT1gPkHTMQayiw/uJod1KlXWNYibcrJYZdzxZeszV+Y5F21mae/Y6a3iVbkQ
-	 Kl+DFR2qOO1MtHr6tNygPqna7yc6dm+TIySGQr8OQCAxMmNanIIIh5Ps+xduotV7OA
-	 9nlvl5iH3LEvLzS5nuvXSi8JqFkN9RVxrGjTT+rTlqX9zGuT40g3Hrh7THAb+w4Aax
-	 7VvHJNIs7DDSR4mIrAkvHx0kB146h5Lv6eey7lHLxk+CYtfBTR5U1uxcWIhHgWAYd/
-	 +Czmo6glJMyp3rSCE4QC6HRLptq+2E0T2osApB+qG+C4QdL5eeBerue4wpGvWyJS9T
-	 hdG1P0hDM1fFQ==
-Date: Mon, 19 Oct 2026 16:00:43 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-	Jens Wiklander <jenswi@kernel.org>,
-	Sumit Garg <sumit.garg@kernel.org>, Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-arm-msm@vger.kernel.org,
-	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
-	linux-integrity@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] tpm: Introduce Qualcomm TPM driver
-Message-ID: <atYUe69HDF47DNVg@kernel.org>
-References: <20261019-tpm_qcom_driver-v4-0-6889b9804ba7@oss.qualcomm.com>
- <20261019-tpm_qcom_driver-v4-2-6889b9804ba7@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HFA7e9Vv"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso6056796eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:01:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792414864; x=1793019664; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uF0K/ISANlcRJVgbX3KWpFeOAEFaBPifEi/Tk1Z5Lrk=;
+        b=HFA7e9Vv0b5Lfv137OoMI9NgIJBQwk0yrY4zFA5brnSEVItWvhKPF8rOjZw/JLsz0R
+         UM2ELFed26I2Keoj2VhmJwhnUXJbHxkTIij0JTst2Hj2OdkAGEhcv9LefmNIjeMURhTZ
+         yM2vDvHtf7WhGPEiu0VlPBBg0JREZzhhPpLD2pHtQcDQ6upsYs4oepq6RS1XQyKlvw/I
+         ozP8e0rJK3ZZEFZTnzewlKcq/zUDhoD89kcAJhk2yGVLnVNh9larUdmwGwW3og3mr402
+         iRbLqUh2ZExqY88RwCbPpP0UerjzQTIfaoAMOlRlG4gZzmt2kW2TsILIhTdRro4FAmOF
+         +VJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792414864; x=1793019664;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uF0K/ISANlcRJVgbX3KWpFeOAEFaBPifEi/Tk1Z5Lrk=;
+        b=S7oNuQEbD6JwGa6Xc9VTQYSCLRXIf7a4N9J5j01xVq8+6UhYxe4kDhVkimEjn0NRue
+         I0ntW821y3Blr0TR3PRdYX01AUm3PE+Gryaz2NN0Wk5q35CU/07R3pYwQTVpVuYY+N3E
+         Gi5RfU2ZzT/3ejJicy0xlTlTBcmHa1j4GwQrNyCOoCJr2Lc4p5K5t6onCKMxkVb9DFJO
+         hVuZez2jhZhM4vpJxmh3mwrhv32VFYe64RlOuMF4RCAwshZdV522m9bGaRAdsSBu7t/h
+         Ik+wNsWmCdkmEhlMbaniVt4ertQqyeCXAiGCnd2xofWqseor+PWJDPe+j281JvChc5nX
+         oYjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByn2QSjHJBSd0k4/XKMYQx5RnqcpUBpaad7HaNqSi8dz4zKTOe2/JxcEq/rLwIrjXxQPhKXY6/TiUIE1qk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIN6XxH250Dt66CqYC33TSfrAbHHIzW6f31sFQsJcWk4U0jSz5L
+	jqRJU+azKYDgOxzHKRHTr9A6oFy88zXJEJolzz9nJQSzud+mbizSb0PD
+X-Gm-Gg: AYBFou1wYGHXX8dN2WXeZJh2V6UPg6fQxxuGho7XAw6KcvZkhTdn9JQrr5nFAPY1ORR
+	JOl5q3V15/FoVFwDGUgjsZMxDr1duOgdcZSUkFObbwnP8RIxCQz761WW2WjCqHaQVklPXHwH2I4
+	kvZeTasIwc2DKVRYvvhsYVEWj7U9AMJ618191hQAbs8zozmHbcG8MSHLU+gdM8MaT4WXHTmeSze
+	rCA3c4gZ6yOtObkcDPK4VQoCNGxfA2DFYYl/qZBjuccIH7UpZLdiet3yuzdwU1E9N4v7YU0uxRY
+	N5HBkdu8pI819g6tpXmw79Eh+TGz63YqvfGjx1gAKPhNInShKuwtkgRHqQIZtllkGkwfjfAnXYH
+	o/KYeZjX86KoeWRY+b7yH/fci8dKGTqkbYuUz211BFwrhiuTS/FNsYtcyyr/8EQ8rbx7fa9awTh
+	0GlwgKbSKGVEvZmiJvJZC/6hJRmIUV76Fzw+f2K4Q9EToTfU7LvtC+oCjOsUtpW8NNnRn9HSb+y
+	RP3ssUsEgkUXIJT8hQDcSYGEZkFjooeY6I=
+X-Received: by 2002:a05:7300:ce16:b0:351:45a4:7dd8 with SMTP id 5a478bee46e88-361a2843701mr10814906eec.34.1792414863570;
+        Mon, 19 Oct 2026 06:01:03 -0700 (PDT)
+Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b684dsm32263303eec.10.2026.10.19.06.01.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 06:01:02 -0700 (PDT)
+From: Kaixuan Li <kaixuanli0131@gmail.com>
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@kernel.org
+Subject: [PATCH v2] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
+Date: Mon, 19 Oct 2026 20:59:22 +0800
+Message-Id: <20261019125922.2568859-1-kaixuanli0131@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260919130925.1899994-1-kaixuanli0131@gmail.com>
+References: <20260919130925.1899994-1-kaixuanli0131@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-tpm_qcom_driver-v4-2-6889b9804ba7@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 02:51:47PM +0530, Kuldeep Singh wrote:
-> Add a TPM chip driver for platforms where a TPM 2.0 instance is
-> implemented by a Trusted Application (TA) running in Qualcomm's Trusted
-> Execution Environment (QTEE), reachable over the QCOMTEE object-IPC
-> transport.
-> 
-> The driver discovers the qcom.tz.tpm TEE-bus device, opens a session
-> with the TPM TA, and register with tpm interface. This exposes the TA
-> through the standard /dev/tpm interface and the existing tpm2 command
-> layer. OS need not be aware underlying TPM instance is dTPM or fTPM.
-> 
-> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-> ---
->  drivers/char/tpm/Kconfig    |   9 +
->  drivers/char/tpm/Makefile   |   1 +
->  drivers/char/tpm/tpm_qcom.c | 414 ++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 424 insertions(+)
-> 
-> diff --git a/drivers/char/tpm/Kconfig b/drivers/char/tpm/Kconfig
-> index 5f672f2c01b0..05d704ed3632 100644
-> --- a/drivers/char/tpm/Kconfig
-> +++ b/drivers/char/tpm/Kconfig
-> @@ -243,6 +243,15 @@ config TCG_FTPM_TEE
->  	help
->  	  This driver proxies for firmware TPM running in TEE.
->  
-> +config TCG_QCOM
-> +	tristate "Qualcomm TEE based TPM Interface"
-> +	depends on QCOMTEE
-> +	help
-> +	  This driver provides interface to run TPM instances with Trustzone
-> +	  having Qualcomm TPM TA running in Qualcomm TEE.
-> +	  The mechanism uses the object-IPC based transport provided by
-> +	  QCOMTEE.
-> +
->  config TCG_SVSM
->  	tristate "SNP SVSM vTPM interface"
->  	depends on AMD_MEM_ENCRYPT
-> diff --git a/drivers/char/tpm/Makefile b/drivers/char/tpm/Makefile
-> index 5b5cdc0d32e4..471cbf49afd2 100644
-> --- a/drivers/char/tpm/Makefile
-> +++ b/drivers/char/tpm/Makefile
-> @@ -45,5 +45,6 @@ obj-$(CONFIG_TCG_CRB) += tpm_crb.o
->  obj-$(CONFIG_TCG_ARM_CRB_FFA) += tpm_crb_ffa.o
->  obj-$(CONFIG_TCG_VTPM_PROXY) += tpm_vtpm_proxy.o
->  obj-$(CONFIG_TCG_FTPM_TEE) += tpm_ftpm_tee.o
-> +obj-$(CONFIG_TCG_QCOM) += tpm_qcom.o
->  obj-$(CONFIG_TCG_SVSM) += tpm_svsm.o
->  obj-$(CONFIG_TCG_LOONGSON) += tpm_loongson.o
-> diff --git a/drivers/char/tpm/tpm_qcom.c b/drivers/char/tpm/tpm_qcom.c
-> new file mode 100644
-> index 000000000000..e9e4746f0004
-> --- /dev/null
-> +++ b/drivers/char/tpm/tpm_qcom.c
-> @@ -0,0 +1,414 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/mm.h>
-> +#include <linux/slab.h>
-> +#include <linux/tee.h>
-> +#include <linux/tee_drv.h>
-> +#include <linux/tpm.h>
-> +#include <linux/uuid.h>
-> +
-> +#include "tpm.h"
-> +
-> +#define QCOMTEE_ROOT_OP_REG_WITH_CREDENTIALS	5
-> +#define QCOMTEE_OP_CLIENT_ENV_OPEN		0
-> +#define QCOMTEE_MSG_OBJECT_OP_MASK		GENMASK(15, 0)
-> +#define QCOMTEE_MSG_OBJECT_OP_RELEASE		(QCOMTEE_MSG_OBJECT_OP_MASK - 0)
-> +
-> +#define QCOMTEE_TPM_OP_SEND_COMMAND	0
-> +
-> +/* UID of the "qcom.tz.tpm" service */
-> +#define QCOMTEE_TPM_UID			81
-> +
-> +/* Max buffer size supported by TPM TA */
-> +#define TPM_QCOM_MAX_COMMAND_SIZE	SZ_4K
-> +#define TPM_QCOM_MAX_RESPONSE_SIZE	SZ_4K
-> +
-> +#define QCOMTEE_TPM_GET_TA_VERSION_ID	0x0001000
-> +#define QCOMTEE_TPM_TA_VERSION_MAJOR	GENMASK(31, 16)
-> +#define QCOMTEE_TPM_TA_VERSION_MINOR	GENMASK(15, 0)
-> +
-> +struct tpm_qcom_ta_version_req {
-> +	u32 command_id;
-> +} __packed;
-> +
-> +struct tpm_qcom_ta_version_resp {
-> +	u32 status;
-> +	u32 command_id;
-> +	u32 version_num;
-> +} __packed;
-> +
-> +#define QCOMTEE_TPM_TYPE_ID		0x0080000
-> +#define QCOMTEE_TPM_TYPE_DTPM		0x6454504dU
-> +#define QCOMTEE_TPM_TYPE_FTPM		0x6654504dU
-> +#define QCOMTEE_TPM_TYPE_NONE		0x4e6f6e65U
-> +
-> +struct tpm_qcom_type_req {
-> +	u32 command_id;
-> +} __packed;
-> +
-> +struct tpm_qcom_type_resp {
-> +	u32 command_id;
-> +	u32 status;
-> +	u32 tpm_type;
-> +} __packed;
-> +
-> +/*
-> + * dTPM SPI transfer optimization:
-> + * TRANSFER_START before a burst of commands, TRANSFER_END once done.
-> + */
-> +#define QCOMTEE_TPM_TRANSFER_ID		0x0000002
-> +#define QCOMTEE_TPM_TRANSFER_END	0
-> +#define QCOMTEE_TPM_TRANSFER_START	1
-> +
-> +struct tpm_qcom_transfer_req {
-> +	u32 command_id;
-> +	u32 transfer_state;
-> +} __packed;
-> +
-> +struct tpm_qcom_transfer_resp {
-> +	u32 command_id;
-> +	u32 status;
-> +} __packed;
-> +
-> +struct tpm_qcom_private {
-> +	struct tpm_chip *chip;
-> +	struct device *dev;
-> +	struct tee_context *ctx;
-> +	struct tee_param_objref tpm_svc_obj;
-> +	bool is_dtpm;
-> +};
-> +
-> +/* UUID of the QTEE-bus device representing the TPM TA. */
-> +static const uuid_t tpm_qcom_uuid =
-> +	UUID_INIT(0xaabcb593, 0x7083, 0x5536,
-> +		  0xac, 0x27, 0x3d, 0x2d, 0x89, 0x41, 0x9d, 0xdb);
-> +
-> +static void tpm_qcom_release_object(struct tee_context *ctx,
-> +				    struct tee_param_objref object)
-> +{
-> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
-> +
-> +	inv_arg.id = object.id;
-> +	inv_arg.op = QCOMTEE_MSG_OBJECT_OP_RELEASE;
-> +	inv_arg.num_params = 0;
-> +
-> +	tee_client_object_invoke_func(ctx, &inv_arg, NULL);
-> +}
-> +
-> +static int tpm_qcom_get_client_env_obj(struct device *dev,
-> +				       struct tee_context *ctx,
-> +				       struct tee_param_objref *client_env_obj)
-> +{
-> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
-> +	struct tee_param param[2] = {};
-> +	int ret;
-> +
-> +	inv_arg.id = TEE_OBJREF_NULL;
-> +	inv_arg.op = QCOMTEE_ROOT_OP_REG_WITH_CREDENTIALS;
-> +	inv_arg.num_params = 2;
-> +
-> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_INPUT;
-> +	param[0].u.objref.id = TEE_OBJREF_NULL;
-> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT;
-> +
-> +	ret = tee_client_object_invoke_func(ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(dev, "get client env obj failed: ret=%d, invoke_ret=0x%x\n",
-> +			ret, inv_arg.ret);
-> +		return -EINVAL;
-> +	}
-> +
-> +	*client_env_obj = param[1].u.objref;
-> +	return 0;
-> +}
-> +
-> +static int tpm_qcom_get_svc_obj(struct device *dev,
-> +				struct tee_context *ctx,
-> +				struct tee_param_objref client_env_obj,
-> +				struct tee_param_objref *tpm_svc_obj)
-> +{
-> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
-> +	struct tee_param param[2] = {};
-> +	u32 tpm_uid = QCOMTEE_TPM_UID;
-> +	int ret;
-> +
-> +	inv_arg.id = client_env_obj.id;
-> +	inv_arg.op = QCOMTEE_OP_CLIENT_ENV_OPEN;
-> +	inv_arg.num_params = 2;
-> +
-> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
-> +	param[0].u.ubuf = (struct tee_param_ubuf){ .addr = &tpm_uid,
-> +						    .size = sizeof(tpm_uid) };
-> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT;
-> +
-> +	ret = tee_client_object_invoke_func(ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(dev, "get TPM service obj failed: ret=%d, invoke_ret=0x%x\n",
-> +			ret, inv_arg.ret);
-> +		return -EINVAL;
-> +	}
-> +
-> +	*tpm_svc_obj = param[1].u.objref;
-> +	return 0;
-> +}
-> +
-> +static int tpm_qcom_send_command(struct tpm_qcom_private *pvt_data,
-> +				 void *req, size_t req_len, void *resp,
-> +				 size_t *resp_len)
-> +{
-> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
-> +	struct tee_param param[3] = {};
-> +	u8 locality_arg = 0;
-> +	int ret;
-> +
-> +	inv_arg.id = pvt_data->tpm_svc_obj.id;
-> +	inv_arg.op = QCOMTEE_TPM_OP_SEND_COMMAND;
-> +	inv_arg.num_params = 3;
-> +
-> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
-> +	param[0].u.ubuf = (struct tee_param_ubuf){ .addr = &locality_arg,
-> +						   .size = sizeof(locality_arg) };
-> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
-> +	param[1].u.ubuf = (struct tee_param_ubuf){ .addr = req, .size = req_len };
-> +	param[2].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_OUTPUT;
-> +	param[2].u.ubuf = (struct tee_param_ubuf){ .addr = resp, .size = *resp_len };
-> +
-> +	ret = tee_client_object_invoke_func(pvt_data->ctx, &inv_arg, param);
-> +	if (ret < 0 || inv_arg.ret != 0) {
-> +		dev_err(pvt_data->dev,
-> +			"send_command invoke ret: %d, err: 0x%x\n",
-> +			ret, inv_arg.ret);
-> +		return ret ?: -EINVAL;
-> +	}
-> +
-> +	*resp_len = param[2].u.ubuf.size;
-> +
-> +	return 0;
-> +}
-> +
-> +static int tpm_qcom_get_ta_details(struct tpm_qcom_private *pvt_data)
-> +{
-> +	struct tpm_qcom_ta_version_req ver_req = {
-> +		.command_id = QCOMTEE_TPM_GET_TA_VERSION_ID,
-> +	};
-> +	struct tpm_qcom_ta_version_resp ver_resp;
-> +	size_t resp_len = sizeof(ver_resp);
-> +	struct tpm_qcom_type_req type_req = {
-> +		.command_id = QCOMTEE_TPM_TYPE_ID,
-> +	};
-> +	struct tpm_qcom_type_resp type_resp;
-> +	int ret;
-> +
-> +	ret = tpm_qcom_send_command(pvt_data, &ver_req, sizeof(ver_req),
-> +				    &ver_resp, &resp_len);
-> +	if (ret < 0 || resp_len < sizeof(ver_resp) || ver_resp.status != 0)
-> +		return ret ?: -EIO;
-> +
-> +	dev_info(pvt_data->dev, "TPM TA version %u.%u\n",
-> +		 FIELD_GET(QCOMTEE_TPM_TA_VERSION_MAJOR, ver_resp.version_num),
-> +		 FIELD_GET(QCOMTEE_TPM_TA_VERSION_MINOR, ver_resp.version_num));
-> +
-> +	resp_len = sizeof(type_resp);
-> +	ret = tpm_qcom_send_command(pvt_data, &type_req, sizeof(type_req),
-> +				    &type_resp, &resp_len);
-> +	if (ret < 0 || resp_len < sizeof(type_resp) || type_resp.status != 0)
-> +		return ret ?: -EIO;
-> +
-> +	switch (type_resp.tpm_type) {
-> +	case QCOMTEE_TPM_TYPE_FTPM:
-> +		dev_info(pvt_data->dev, "TPM type: fTPM\n");
-> +		pvt_data->is_dtpm = false;
-> +		break;
-> +	case QCOMTEE_TPM_TYPE_DTPM:
-> +		dev_info(pvt_data->dev, "TPM type: dTPM\n");
-> +		pvt_data->is_dtpm = true;
-> +		break;
-> +	default:
-> +		dev_err(pvt_data->dev, "unsupported TPM type: 0x%08x\n",
-> +			type_resp.tpm_type);
-> +		return -EIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/* fTPM does not implement this command and to be invoked via dtpm only. */
-> +static void tpm_qcom_transfer(struct tpm_qcom_private *pvt_data,
-> +			      u32 transfer_state)
-> +{
-> +	struct tpm_qcom_transfer_req req = {
-> +		.command_id = QCOMTEE_TPM_TRANSFER_ID,
-> +		.transfer_state = transfer_state,
-> +	};
-> +	struct tpm_qcom_transfer_resp resp;
-> +	size_t resp_len = sizeof(resp);
-> +
-> +	tpm_qcom_send_command(pvt_data, &req, sizeof(req), &resp, &resp_len);
-> +}
-> +
-> +static int tpm_qcom_cmd_ready(struct tpm_chip *chip)
-> +{
-> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
-> +
-> +	if (pvt_data->is_dtpm)
-> +		tpm_qcom_transfer(pvt_data, QCOMTEE_TPM_TRANSFER_START);
-> +
-> +	return 0;
-> +}
-> +
-> +static int tpm_qcom_go_idle(struct tpm_chip *chip)
-> +{
-> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
-> +
-> +	if (pvt_data->is_dtpm)
-> +		tpm_qcom_transfer(pvt_data, QCOMTEE_TPM_TRANSFER_END);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * The raw TPM2 command in @buf is sent directly as send_command's UBUF-in
-> + * param and the raw TPM2 response is read back from its UBUF-out param.
-> + */
-> +static int tpm_qcom_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz,
-> +			 size_t cmd_len)
-> +{
-> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
-> +	struct tpm_header *header = (struct tpm_header *)buf;
-> +	size_t resp_len = PAGE_ALIGN(TPM_QCOM_MAX_RESPONSE_SIZE);
-> +	size_t copy_len;
-> +	int ret;
-> +
-> +	if (cmd_len > TPM_QCOM_MAX_COMMAND_SIZE) {
-> +		dev_err(&chip->dev, "len=%zd exceeds TPM_QCOM_MAX_COMMAND_SIZE\n",
-> +			cmd_len);
-> +		return -EIO;
-> +	}
-> +
-> +	u8 *response __free(kfree) = kzalloc(resp_len, GFP_KERNEL);
-> +	if (!response)
-> +		return -ENOMEM;
-> +
-> +	ret = tpm_qcom_send_command(pvt_data, buf, cmd_len, response, &resp_len);
-> +	if (ret < 0) {
-> +		dev_err(&chip->dev, "TPM command failed: cmd_len=%zu, tpm_cc=0x%08x, ret:%d\n",
-> +			cmd_len, be32_to_cpu(header->ordinal), ret);
-> +		return ret;
-> +	}
-> +
-> +	copy_len = min_t(size_t, bufsiz, resp_len);
-> +	memcpy(buf, response, copy_len);
-> +
-> +	return copy_len;
-> +}
-> +
-> +static const struct tpm_class_ops tpm_qcom_ops = {
-> +	.flags = TPM_OPS_AUTO_STARTUP,
-> +	.send = tpm_qcom_send,
-> +	.cmd_ready = tpm_qcom_cmd_ready,
-> +	.go_idle = tpm_qcom_go_idle,
-> +};
-> +
-> +static int tpm_qcom_ctx_match(struct tee_ioctl_version_data *ver,
-> +			      const void *data)
-> +{
-> +	return (ver->impl_id == TEE_IMPL_ID_QTEE);
-> +}
-> +
-> +static int tpm_qcom_probe(struct tee_client_device *tee_dev)
-> +{
-> +	struct device *dev = &tee_dev->dev;
-> +	struct tpm_qcom_private *pvt_data;
-> +	struct tee_param_objref client_env_obj;
-> +	struct tee_param_objref tpm_svc_obj;
-> +	struct tpm_chip *chip;
-> +	int err;
-> +
-> +	pvt_data = devm_kzalloc(dev, sizeof(*pvt_data), GFP_KERNEL);
-> +	if (!pvt_data)
-> +		return -ENOMEM;
-> +
-> +	dev_set_drvdata(dev, pvt_data);
-> +
-> +	pvt_data->ctx = tee_client_open_context(NULL, tpm_qcom_ctx_match, NULL, NULL);
-> +	if (IS_ERR(pvt_data->ctx))
-> +		return -ENODEV;
-> +
-> +	err = tpm_qcom_get_client_env_obj(dev, pvt_data->ctx, &client_env_obj);
-> +	if (err)
-> +		goto out_ctx;
-> +
-> +	err = tpm_qcom_get_svc_obj(dev, pvt_data->ctx, client_env_obj, &tpm_svc_obj);
-> +	/* Release client_env object irrespective of service obj return status */
-> +	tpm_qcom_release_object(pvt_data->ctx, client_env_obj);
-> +	if (err)
-> +		goto out_ctx;
-> +
-> +	pvt_data->tpm_svc_obj = tpm_svc_obj;
-> +	pvt_data->dev = dev;
-> +
-> +	err = tpm_qcom_get_ta_details(pvt_data);
-> +	if (err)
-> +		goto out_svc_obj;
-> +
-> +	chip = tpmm_chip_alloc(dev, &tpm_qcom_ops);
-> +	if (IS_ERR(chip)) {
-> +		dev_err(dev, "tpmm_chip_alloc failed\n");
-> +		err = PTR_ERR(chip);
-> +		goto out_svc_obj;
-> +	}
-> +
-> +	pvt_data->chip = chip;
-> +	dev_set_drvdata(dev, pvt_data);
-> +	pvt_data->chip->flags |= TPM_CHIP_FLAG_TPM2 | TPM_CHIP_FLAG_SYNC;
-> +
-> +	err = tpm_chip_register(pvt_data->chip);
-> +	if (err) {
-> +		dev_err(dev, "tpm_chip_register failed with rc=%d\n", err);
-> +		goto out_svc_obj;
-> +	}
-> +
-> +	return 0;
-> +
-> +out_svc_obj:
-> +	tpm_qcom_release_object(pvt_data->ctx, tpm_svc_obj);
-> +
-> +out_ctx:
-> +	tee_client_close_context(pvt_data->ctx);
-> +	return err;
-> +}
-> +
-> +static void tpm_qcom_remove(struct tee_client_device *tee_dev)
-> +{
-> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(&tee_dev->dev);
-> +
-> +	tpm_chip_unregister(pvt_data->chip);
-> +	tpm_qcom_release_object(pvt_data->ctx, pvt_data->tpm_svc_obj);
-> +	tee_client_close_context(pvt_data->ctx);
-> +}
-> +
-> +static const struct tee_client_device_id tpm_qcom_id_table[] = {
-> +	{ tpm_qcom_uuid },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(tee, tpm_qcom_id_table);
-> +
-> +static struct tee_client_driver tpm_qcom_driver = {
-> +	.id_table	= tpm_qcom_id_table,
-> +	.probe		= tpm_qcom_probe,
-> +	.remove		= tpm_qcom_remove,
-> +	.driver		= {
-> +		.name	= "tpm_qcom",
-> +	},
-> +};
-> +
-> +module_tee_client_driver(tpm_qcom_driver);
-> +
-> +MODULE_DESCRIPTION("TPM driver for Qualcomm TPM TA");
-> +MODULE_AUTHOR("Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>");
-> +MODULE_LICENSE("GPL");
-> 
-> -- 
-> 2.34.1
-> 
+sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
+lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
+and nothing compares either length against that allocation.
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
+added them after a crafted image overran build_sit_info(). That check ties
+each length to a segment count; it never compares either against the
+allocation, which is the half this adds.
 
-Br, Jarkko
+Mounting over-reads in build_sit_info() and build_node_manager(), and the
+first checkpoint writes the same lengths back through the same pointers,
+so the over-read's contents reach the on-disk checkpoint. An unmount is
+enough; the filesystem does not have to be used.
+
+Bound both ends the way __bitmap_ptr() lays them out. The three branches
+differ, so a single sum of the two lengths would still admit a small
+overflow when cp_payload is non-zero.
+
+Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
+Cc: stable@kernel.org
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+---
+v2: Fixes now points at 39a53e0ce0df; nothing bounded the two lengths
+    against the allocation before c77ec61ca0a4 either (Chao Yu). Cc
+    stable. Add Chao's Reviewed-by. No code change.
+
+v1: https://lore.kernel.org/linux-f2fs-devel/20260919130925.1899994-1-kaixuanli0131@gmail.com/
+
+Reproduced on v7.2.4 x86_64 with CONFIG_KASAN=y. Two crafted images from a
+plain mkfs.f2fs 512G volume, with segments taken off the SSA area so
+main_blkaddr does not move:
+
+	cp_payload 0, segment_count_sit 20 -> 220
+		sbi->ckpt 4096 bytes, SIT bitmap at +192 for 7040, NAT at
+		+7232 for 3200, ending 6336 past the allocation
+	cp_payload 2, segment_count_sit 20 -> 520
+		sbi->ckpt 12288 bytes, SIT bitmap at +4096 for 16640,
+		ending 8448 past
+
+	case                    kernel    result
+	crafted cp_payload=2    stock     mounts and unmounts
+	crafted cp_payload=0    stock     mounts and unmounts
+	pristine mkfs.f2fs      stock     mounts
+	crafted cp_payload=2    patched   rejected
+	crafted cp_payload=0    patched   rejected
+	pristine mkfs.f2fs      patched   mounts
+
+with the patched kernel naming the numbers:
+
+	Bitmaps do not fit the checkpoint pack: sit ends at 20736, nat at 3392, pack is 12288 bytes
+	Bitmaps do not fit the checkpoint pack: sit ends at 7232, nat at 10432, pack is 4096 bytes
+
+Setting sit_ver_bitmap_bytesize to 7040 while leaving segment_count_sit at
+20 gives "Wrong bitmap size: sit: 7040, nat:3200" and the mount fails, so
+the field is read and the only thing checked against it is the segment
+count.
+
+KASAN does not flag the copy: with cp_payload 0 the allocation requests
+exactly 4096, so there is no in-object redzone, and at 12288 it went
+unreported too. What the cp_payload 2 image does produce, on one of three
+runs with a freshly built image each time, is the corruption landing at
+unmount:
+
+	BUG: KASAN: slab-use-after-free in kthread_stop+0x23/0x390
+	Write of size 4 at addr ffff88800a329fa8 by task init/1
+	Call Trace:
+	 kasan_check_range+0x39/0x1c0
+	 kthread_stop+0x23/0x390
+	 f2fs_destroy_segment_manager+0x176/0x9b0
+	 f2fs_put_super+0x635/0x10e0
+	 generic_shutdown_super+0x13e/0x440
+	 kill_f2fs_super+0x24e/0x500
+
+Which neighbour it lands on varies.
+
+Mounting a crafted image is not a Linux kernel vulnerability
+(Documentation/process/threat-model.rst), and I am not reporting it as
+one.
+---
+ fs/f2fs/super.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4180,8 +4180,9 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 	block_t user_block_count, valid_user_blocks;
+ 	block_t avail_node_count, valid_node_count;
+ 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
+ 	unsigned int sit_blk_cnt;
++	unsigned long long ckpt_size, sit_end, nat_end;
+ 	int i, j;
+ 
+ 	total = le32_to_cpu(raw_super->segment_count);
+ 	fsmeta = le32_to_cpu(raw_super->segment_count_ckpt);
+@@ -4308,8 +4309,31 @@ skip_cross:
+ 			 cp_pack_start_sum);
+ 		return 1;
+ 	}
+ 
++	/*
++	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
++	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
++	 * lays them out.
++	 */
++	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE;
++	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
++		sit_end = nat_end + sit_bitmap_size;
++	} else if (cp_payload > 0) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
++		sit_end = F2FS_BLKSIZE + sit_bitmap_size;
++	} else {
++		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
++		nat_end = sit_end + nat_bitmap_size;
++	}
++
++	if (sit_end > ckpt_size || nat_end > ckpt_size) {
++		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
++			 sit_end, nat_end, ckpt_size);
++		return 1;
++	}
++
+ 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
+ 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
+ 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
+ 			  "please run fsck v1.13.0 or higher to repair, chksum_offset: %u, "
