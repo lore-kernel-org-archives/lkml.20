@@ -1,116 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792438604;
-	b=3gE1o86AJMewc8VKREhi80RQapC6AVvmmcUC/A9y0L93KtvC2R9gBLaIqo0Q1wD4LHDm
-	 b1Ta/U/oAIRXuh0mTqTTm+8g35m2gtZCQQNfpQ3DgK4X8AeuhVRflkK2A6X67fRFk/bpl
-	 OJMJX8Fck/+8mDslcx9ri+nH8SUPpUvWSwXOHhuCY9ZUpKtOPa9CUMK5TnMKGtwhDLwjO
-	 5ckzzRl1Y+8WeRIYFXyvLm5ZYn5ciFXrlXQYDCgXdG5GfzebDiIEJtkKs91p77Ir63TTf
-	 JLM2/dmS2lhtVMXg//wnqwQ17NL022DPW0xm4dDLKCzokRehdoIeqiTeg0qb3KrKj5g==
+	t=1792438625;
+	b=Wd5s6qLewyHXgVtOGpDURhCYepiMkYdIZW8w789v7CRHvVr/BopfvOes+TRfzwwWZv04
+	 xa0/iMJS5QTlCzTAcID55LpdqDdGLiDOKRbl3ZiKlQhjOfz1sXN5Xma1Dz9g/XVXreiNc
+	 lOzrewYEKiHw5HgJoyctW/+75XlQDR4T4IqI3ahkn7XiDcT5qebqhCQy/8lxsruVudnOr
+	 1ei/28o/b0PXnVGdKL/ovPM9HzUMPrIbMIS0ga+MvXFzmxeP+7AHKaEiW5W7JdCRL8rzI
+	 27h27UdDzsehpRWqzn+u3cKxm16oEHtEarWZJ5OXytLPJrdzPMj1+Xy2rVtWoC8hZAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792438604;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=CJRwlTAZRK6IR44h4h3xiSuIwWh6F244P54SZtp/WgA=;
-	b=ltD9PoIWljruwRVe3/jClkHyqbHV0od56xy2iduiV2TBsMZFYZIXLMtA4nCcACa6xm0F
-	 2Ej+acmqIwgUqYVVHHqyf/T0thBQIY1RuvH8lOrye8F18Clw1oLBgrGQOy8x7S3crZyU9
-	 3jnzFlVaWJnB1D0niOeFtWDY5CAuORds/7LWWagdtRunD4XogxEx1Btj1XCUPTMZoE8Qi
-	 2OkYIaF+POkBi+/eSQLPmCzGqMzhZSrZpuwcCDouIBWV10WHG9p5zdknpI8DfftF+fpG9
-	 bCfnyPcfBK3GFF9XnEad/KnsxW9/K+jP1/ctsBbp7YmmxNXo/t6dzF2rcaIS0ITMMEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792438625;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FvmBdp1Dmbv2yJxDADj49tSTGQ/TMgCg8VxwxHkXYlo=;
+	b=nNSCi9TCxwdXVLg3mpxzCgwUOMYkb3kFq5Y5TPBIb/E4jIl0qkv6qCOELsvm0MPsrkvE
+	 7ihqSEhbsMLQqXn09pvglBNwpOQEa2AEqGPtlm1WrNfIqxLOZE2ZP4msPH4WU7gWIhjvH
+	 SwmAjpCEgYGz89mQPuWSbixEhfZXCex1dMihtS0diA5rs7C5jFiMts0WB2cqAr7ZwNLa+
+	 6gKqmdyIcg8v1zm6sY7F/40HkKU2EXUHcVYeb9aFzx1SvjYVe7GscCHq78wsx4mblyUmn
+	 ch7g+F27DbM4m+Rt+aeiJ/JBjgmaL1RE+zcym5J8cL5ytjWbmVAaswisdAs0XquKTQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=ZTbAz8V1;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="remC/Jfh";
-	arc=none smtp.remote-ip=103.168.172.152
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jw5RywPK;
+	arc=none smtp.remote-ip=209.85.217.42
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50543606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:36:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50543606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3D0606A32E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:37:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA3D0606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=ZTbAz8V1;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=remC/Jfh
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 7348A14000B0
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:36:42 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Mon, 19 Oct 2026 15:36:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792438602;
-	 x=1792525002; bh=CJRwlTAZRK6IR44h4h3xiSuIwWh6F244P54SZtp/WgA=; b=
-	ZTbAz8V1d2CgXJiS3201367dPrR1PVGK88ecznuEdNCtwyGEtRvFzxOpoXHf6a5k
-	YI5cZMaRHRNXt+zvU29vlOZ1tyZWya+WDyOndyou91oyRHEw6LxkHy/YgeFD9u8W
-	MnoAxjfTyRQBfl+OigMm+0vctoLe1/3K4W410xcKKMI7g5tRzYmJD2NQ580GhITe
-	5vibdBr82bGq9GdXmMbJPdtaRbXHbN340M6+HwvmHewFbdRLA2NMed+mtmzjvc75
-	xVkuagdGuEyOQhbH6GSjrsu03O/fw4ecjHFwFNQ/rfri/rK7OIOn50laasr3P97V
-	pTbQo4gbRHiJVwiFOBO9aw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792438602; x=
-	1792525002; bh=CJRwlTAZRK6IR44h4h3xiSuIwWh6F244P54SZtp/WgA=; b=r
-	emC/JfhcvEwhLWlm3kSI1PGGFMtgUOqE2piRYdEpatCOvZAP9cRIhp/wDXzTLnMR
-	npOn/Jy8P6npP4cLboO9FPMOv9HaqSiYZ6FK9Z2ylb0YfvkC99Tocb1VDQgqzt6E
-	t94y1iTYdGb3w7mf6MvNe3tNh4fjzPtba25RWLOhCDJqeZoGUFjWi+7atK1AYwwl
-	xfwSRH53n8tf7wAHn3zN+QmDkfSv5q8ayROBHb4aZSlQDroE6VQdDxQcn8JPES3a
-	Ga2yY25XOKPZn91d+mx80NslsTzetqXF6iDlSoPjhr0CRWyw42FaR2r1flMgQLOm
-	72r60Jm4DL9qGe4FADk9w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792438602; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:nNkXE0Itkuo+QQt/xzLA+DmpIiFcgR5azqpaEPlODDQsC7f
-	cWROiTM0FG8hRSvlhXHAgL8gNvTGwryXfk8vjOwvgrQmU4Cc/uHpPlg6hoXbhnRB
-	uYihaAaYQOyvGInUynNKmYs2zpwOQSE3a7tT5HQWbA8Sz7KPpbcFHtcuU6+3Opm1
-	6/3XqkM8sxDdqT9NZrBMWjF+JA8O8Jw9cD+3u4YEuHvDmXHaQMj0IFIlPFM/SXgJ
-	/Sl4S8UPS+OwoWubhnu3XzMjn3taVX8rBbWyNmlQv/tmEAYJepzuiVUWrevRG/I4
-	/O8ZumFr7q7XPvu19zq2adUKSwApsySls3MTFDw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:+CdioG894q7djeKnStrt/hDdzhBQAhgfjWVJ9VTIbws=:wUoB+tzmdXUGwcnXHotnd1pd1WPvQakQefF128fOukA=;
-X-ME-Sender: <xms:SnHWahD26REa1m7-Zo2Hp-v8TvwSk801w601j6e3PE230tq3vcEVxw>
-    <xme:SnHWasNwGpgcWvhHVggWrh7qPd8wPuqs18aHXlxpd1qxzCLsNYlfRukrqWqRAFLEd
-    oT7FYfsf0zugcRrEl44xLqtVJo2WUH82TTX09Htr8pHB5oV4I7AZ06w>
-X-ME-Received: <xmr:SnHWagcYQwwJEypaDyctZ83opnig39-u2N-NHS26cFKilwrJ986tUYdI8YHcUUujCIfclLXsJnLosM5gTM014czIjGP8okY>
-X-ME-Proxy-Cause: dmFkZTEmBQwo+sf/j1ocKwc2/RsLqnHk33Sx/VCjkHynw/c/caELFOiXGalx/mofXmjPnL
-    wm+KKOhmvwpj5rVueT42yNXbD5vQKy4cgduUgU3N5hgVFpyQGcqUyfn+XWe0Qez0wARhd9
-    J+uV5sHaLIZEa+WsGRYXGsjXjHEHd+4axWXR5FmzONYIBUSInuSF4nSBLTDsmDjDV+hlcY
-    bJgeQCs0NPbBjuuC4044qPHRbczAJXvNb+umMO+yXtWH3/B4nWGn7WyYrseYv983I+eT59
-    3yqfjlVzMtGd7Yk0/rb/Ct8Xzf6bUKGFQLeCY8mVVP6lI9Ll0Hls25nqi0n3NaKV9xv5XZ
-    RRVInhxShhIKk0hEZpbNLoftaXK2KNKoPtr4/U3cpF8HP69aszufdFyslarloOKJu+8DNB
-    Et+mSIuBk+k0wlDdukF80eDYif+bsFnzlQOXJSidzT+ndOvaCPohXMQVDbp43itbvC5ugp
-    p5wTDsP+7rc61YOuKOUwZkOHVmRcOno/sKa9ug3iccq6tQFnQX7icvJ8SCTgs9oxcNRU7L
-    U4Gy2f0/3tSkjxYLuTIKjcR0x3hq1JYkzLWENcRsbI3WM++cb5WTYulJnseATTjI1XGZpb
-    seG5CdPDZM0KVwnklwN9eSydDYCX/KTI3swqoUELUSASfRAmllCA+w8hEiqw
-X-ME-Proxy: <xmx:SnHWal54YVbXxpsZQgKCTy71d-xbr-61ORM-l4Vi9PPrHt66dyxwog>
-    <xmx:SnHWaqIBxJsv1i5GjdCpAlx5OFFgL4oSM14ZUqIPqwcglT6AdKa0tg>
-    <xmx:SnHWanWFxJmOLu2oYvA4KF5NzIHO7oGJjwyEgHGp9tT_MHsk4CmrXg>
-    <xmx:SnHWauF42qWM3r7xvOu1G4CsGMH23zyiZlfgoULnhgMeF4HYSJe0AQ>
-    <xmx:SnHWahMba98wblzcKP_wteNvZMhl9m8XxeL3LhdAJYR9FfD4O14gBzIm>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 15:36:41 -0400 (EDT)
-From: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Date: Mon, 19 Oct 2026 21:35:40 +0200
-Subject: [PATCH 2/4] media: rcar-isp: ispcore: Update image data flush
- settings
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jw5RywPK
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7cc3df7eb05so66698137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:37:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792438624; x=1793043424; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FvmBdp1Dmbv2yJxDADj49tSTGQ/TMgCg8VxwxHkXYlo=;
+        b=jw5RywPKPKu5GRuRcgskbWzYFCcD0g5ucpK/qpfpLuQnp1pSH1ynMYoeytWy48VM4k
+         suzFSX1RFLmCUJgW99Iynkwr4NE5nZtOuGbuBZ1GGdBE/QAsaWm4C8v1WVfTMeTEISFf
+         xqlXdHqwHYInPfjieQqVTCq2gdk4mlEqNuEiPo8oZLqmvY3sZiumaBaqNK3ZbeEPDeAa
+         vgVsgV4hVrmK4EL2oE64PxVWLGFXBTNcSNiLsQjX8OrL5PhKfpOKbzS93DG/nlvJx1RQ
+         UQ7E841Ph1Nv377dSka7PzCTVAM1Ib3FDg6lUs1St2SkzifXXjNFjEVEf4emzEtnEino
+         F2bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792438624; x=1793043424;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FvmBdp1Dmbv2yJxDADj49tSTGQ/TMgCg8VxwxHkXYlo=;
+        b=IiE+YsM32OY2TsyD7danEqdbUoAMRQxEZOysFMZquveYK7o639q9Ag2UGw8gizX2AG
+         0FXyAblcXeXR0dRZRR9zVKtYgKJD8G2g0IyIL0LiMEghoDpnyGU7O1z4OzcPCT+ZwuYb
+         AlA6Rqr4DI3VlGRODKp0BH2/+Bo2j6w3SsftjY6z52dOzuZ1F03eodtOp0Erwe+XR7vf
+         Y4+p7Xdt1Jc+TO+kqarlBOXSjtHHwKN75Kpcxt7nsNglvFd9lgmiD0OnnBuEgoKvSpAm
+         Wo1IzKj9j6mexYCUe/E9PT8zpnNGjgOh/MMHY7Xi8/5zkTuc1Gj4wFNZwm/GzuZRsqR0
+         vzDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxHgUhFthRqTCPUN8F8zTfkaPB4b9Or6JpqsEJWR/PPQsZTgqo58Kr2wJc/8iG/BIpg+QIdZCCKwY4tKzE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuI0i7bNphZcIoSSv0Oz3v5B/olk4Zw8gchZJNsUhcML/CIc83
+	CAnZ6+CsO+3Xoru+NoaMBK84694qnPF72jwM/XI6AxUp+p4yty50HI4wEtOViQDG0Io=
+X-Gm-Gg: AYBFou3F1V/OCUddGpuvebPKh11fQIuoz9z1Mp/l8UnxOp+sxmHsfzg9Bco6EMpRG2z
+	B5D/U0sAd2ZKFvPS2xaHNYBltL8lP800pGp6xaNpQaHY71ELdppPXpZXyWDHKqqAxO+uvwbx0w0
+	/NTJuUputjRAOgONEodMhLJ78VFZFjMVCi6JhsbcCMHY07bS3DT41ap7IxRiw3Nd+aLhVGr1v33
+	nbu90afYE6FfK99iTpYwoW6DGp/4Q5cl8GTWDJCudkWnnqiktQE/tTxcKFY1IMrFJAVbA8MugKw
+	OscjlFudSvMDaqt//FcxRiXKVKCL53QPBTA8ogOAre8EiWKmKcmep8SlXUXjA3ORpCF7JXC0nUJ
+	zt2evIRPPXVhpk02yRJPRWcURuJc4J1EuaOPbAFqDaGQl9IjGwen9j0VJ/hhxilaxEYIHz0KIvU
+	v+fNvENTPTbmLQpBD3xSm6PliT/7VX5Ub634YDDwGJ2QQ9Lae4O+602WqCzVNV7ql+gE5gau4EN
+	/2mUQRLxH2Is5IFLcSck99ohXazmtYl7JVGBqaGfYSurupk2vC6Y4gAkwS7c/nuy6RIXjypeCU4
+	aBtaz5fMX8qRZ8MJ1IY=
+X-Received: by 2002:a05:6102:1624:b0:7c3:99a3:314e with SMTP id ada2fe7eead31-7cc364a294amr1425709137.0.1792438623550;
+        Mon, 19 Oct 2026 12:37:03 -0700 (PDT)
+Received: from localhost.localdomain ([132.170.205.109])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb335be9sm1057850241.3.2026.10.19.12.37.02
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 19 Oct 2026 12:37:03 -0700 (PDT)
+From: Sanan Hasanov <sanan.hasanou@gmail.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+0b672810a475890d3636@syzkaller.appspotmail.com,
+	Sanan Hasanov <sanan.hasanov@ucf.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH] md: don't allow changing the personality of a failed array
+Date: Mon, 19 Oct 2026 15:36:59 -0400
+Message-ID: <20261019193659.31381-1-sanan.hasanou@gmail.com>
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,120 +100,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261019-v4l2-add-nv12-v1-2-4a84736803b6@ragnatech.se>
-References: <20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se>
-In-Reply-To: <20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se>
-To: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, 
- Jai Luthra <jai.luthra+renesas@ideasonboard.com>, 
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- =?utf-8?q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>, 
- Yusuke Goda <yusuke.goda.sx@renesas.com>, 
- Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, 
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3542;
- i=niklas.soderlund+renesas@ragnatech.se; h=from:subject:message-id;
- bh=wUoB+tzmdXUGwcnXHotnd1pd1WPvQakQefF128fOukA=;
- b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBq1nFBuubdHR/iCNmFwq+/RQJS47EmBY/3cGsgC
- AYL9iQbS9uJAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCatZxQQAKCRAJtP95BPlN
- JPREEACC+OT3Y9S+qOMjpuDZRagALg+zGvLOn7ESG3JHDW9+m8XGMgCg8RBu9Rob9GBnDMA4XT8
- n80JY+D5oK1jv3wGtKbWgVVaODYACl0clSa6LWcND55iOVdF39C7Jej4UZDCk98bluLMAeEyXzT
- h0e6GMI5zoJNWLyv3O16mB+1LRRe5u4rhhbzjj0lX2+rvsPJnCXvX/CNqiPV//P34+jqwA+i+5W
- AZ/uvJB5KdxUXmIIOru2JcbGYbQrDtUk4Hz8tHLN6VlD+Prd3+U2zF1GLZCoSXUsbZYQt1q8clN
- 63f62NIEAvJ7JI07IgiUHfm8hMKehF3zLuYbMWpJlVOJthywIlViWZh7vGIe6C4KZSHmLiGN0AR
- +U4PheiPYchfKlZBbqBEtthO1c2l1gif8VoNjURHnnsHWnNJr3kesVYGNrLHysZyjcmTDyIEHq+
- ImNWCwIkaYv43srOT7yplBUFyJMnkpR9Hyu6jPEd6oLxfEiDE2opF5uexwjOFzRq9EJPfdzfPEJ
- IfARkPVwxetheTDEeZY+RWidSOxmAwLNaTbo23zMuACuiEKlXQvNIIYMs+yddx0DapuxWmBdfc1
- 9Y21na+5JtJUvwq/cWJk2CFQjAUeFGA6pUlk6HIpSV1PIgnoKz+ykAr8n6pLyArzYM+cSJgeXnJ
- Ln5F8h6AqBORQUw==
-X-Developer-Key: i=niklas.soderlund+renesas@ragnatech.se; a=openpgp;
- fpr=9976695FE98693307BF360A2F1591ABD9588DA5F
 
-Later versions of the datasheet have an updated chapter on how the image
-out flush settings depends on proper stride settings. Update the bytes
-per line calculation and flush out settings to match the datasheet
-clarification.
+From: Sanan Hasanov <sanan.hasanov@ucf.edu>
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+level_store() lets userspace switch a running array to another
+personality through the takeover path, and then ignores the return value
+of pers->run(). Takeover is expected to always produce something the new
+personality can run, but that no longer holds for an array that has
+already failed: since commit 57668f0a4cc4 ("raid5: introduce MD_BROKEN"),
+has_failed() treats MD_BROKEN as fatal, so raid5_run() refuses such an
+array. It then frees the new conf and clears mddev->private, while
+level_store() has already installed the raid5 personality and freed the
+old one. The array is left with mddev->pers == &raid5_personality and
+mddev->private == NULL, and the next operation that reaches the
+personality dereferences NULL:
+
+  md/raid0md0: Disk failure on loop0 detected, failing array.
+  md/raid:md0: not enough operational devices (1/3 failed)
+  md/raid:md0: failed to run raid set.
+  KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+  RIP: 0010:kasan_byte_accessible+0x12/0x30 mm/kasan/generic.c:210
+  Call Trace:
+   spin_lock_irq include/linux/spinlock_rt.h:96 [inline]
+   lock_all_device_hash_locks_irq drivers/md/raid5.c:107 [inline]
+   raid5_quiesce+0xc2/0x8a0 drivers/md/raid5.c
+   __md_stop_writes+0xeb/0x4b0 drivers/md/md.c:7038
+   md_set_readonly+0x330/0x560 drivers/md/md.c:7138
+   array_state_store+0x584/0xe90 drivers/md/md.c:4720
+
+syzbot gets there by failing a member of a raid0 array, which sets
+MD_BROKEN, then writing "raid5" to md/level and "readonly" to
+md/array_state. The same applies to a two-disk raid1 array whose last
+working device has failed: raid1_error() sets MD_BROKEN but leaves
+degraded at 1, so raid5_takeover_raid1() still accepts it.
+
+MD_BROKEN is never cleared while the array is running, and a failed
+array can't be turned into a working one by changing its level. Refuse
+the change up front with -EBUSY, which is also what state_store()
+returns when failing a device leaves the array broken.
+
+Fixes: 57668f0a4cc4 ("raid5: introduce MD_BROKEN")
+Reported-by: syzbot+0b672810a475890d3636@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0b672810a475890d3636
+Cc: stable@vger.kernel.org
+Signed-off-by: Sanan Hasanov <sanan.hasanov@ucf.edu>
 ---
- drivers/media/platform/renesas/rcar-isp/core-io.c | 28 ++++++++++++++++++++---
- drivers/media/platform/renesas/rcar-isp/core.c    |  2 +-
- 2 files changed, 26 insertions(+), 4 deletions(-)
+ drivers/md/md.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
-index badde72352c1..48db37bad69c 100644
---- a/drivers/media/platform/renesas/rcar-isp/core-io.c
-+++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
-@@ -733,6 +733,28 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
- 	},
- };
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63c..367b183f1e 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -4088,6 +4088,12 @@ level_store(struct mddev *mddev, const char *buf, size_t len)
+ 	    mddev->sysfs_active)
+ 		goto out_unlock;
  
-+static unsigned int risp_io_calture_bytesperline(unsigned int width, unsigned int bpp)
-+{
-+	/*
-+	 * The datasheet specifies strict alignment and padding rules to be able
-+	 * to flush out all the pixels. Each line must be 256 byte aligned and
-+	 * at the end of the frame at least one extra line of space must be
-+	 * available.
-+	 *
-+	 * As we can't extend the buffer with one extra line we need to work
-+	 * with stride setting to satisfy both constraints. Fortunately the
-+	 * datasheet gives us a calculation for this.
-+	 *
-+	 *   FLUSH[pixels] = ALIGN(WIDTH[pixels], 256)
-+	 *
-+	 *   PADDING[bytes] = ALIGN(BPP[bytes] * WIDTH[pixels], 256) - BPP[bytes] * WIDTH[pixels] + BPP[bytes] * FLUSH[pixels]
-+	 */
-+	unsigned int data = bpp * width;
-+	unsigned int padding = ALIGN(data, 256) - data + bpp * ALIGN(width, 256);
++	if (test_bit(MD_BROKEN, &mddev->flags)) {
++		pr_warn("md: %s: cannot change personality of a failed array\n",
++			mdname(mddev));
++		goto out_unlock;
++	}
 +
-+	return data + padding;
-+}
-+
- static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
- 				       struct v4l2_pix_format_mplane *pix)
- {
-@@ -749,16 +771,16 @@ static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
- 	case V4L2_PIX_FMT_NV16M:
- 		pix->quantization = V4L2_QUANTIZATION_LIM_RANGE;
- 		pix->num_planes = 2;
--		pix->plane_fmt[0].bytesperline = ALIGN(pix->width, 256);
-+		pix->plane_fmt[0].bytesperline = risp_io_calture_bytesperline(pix->width, 1);
- 		pix->plane_fmt[0].sizeimage = pix->plane_fmt[0].bytesperline * pix->height;
--		pix->plane_fmt[1].bytesperline = ALIGN(pix->width, 256);
-+		pix->plane_fmt[1].bytesperline = pix->plane_fmt[0].bytesperline;
- 		pix->plane_fmt[1].sizeimage = pix->plane_fmt[1].bytesperline * pix->height;
- 		break;
- 	default:
- 		pix->pixelformat = V4L2_PIX_FMT_XBGR32;
- 		pix->quantization = V4L2_QUANTIZATION_FULL_RANGE;
- 		pix->num_planes = 1;
--		pix->plane_fmt[0].bytesperline = ALIGN(pix->width * 4, 256);
-+		pix->plane_fmt[0].bytesperline = risp_io_calture_bytesperline(pix->width, 4);
- 		pix->plane_fmt[0].sizeimage = pix->plane_fmt[0].bytesperline * pix->height;
- 		break;
- 	}
-diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
-index b5861d0cd0e8..3e135e84b75b 100644
---- a/drivers/media/platform/renesas/rcar-isp/core.c
-+++ b/drivers/media/platform/renesas/rcar-isp/core.c
-@@ -398,7 +398,7 @@ static int risp_core_config_output(struct rcar_isp_core *core,
- 
- 	/* Set image out flush EOF. */
- 	risp_core_write(core, ISPCORE_DMA_IMAGE_FLUSH_OUT_REG(index),
--			pix->plane_fmt[0].bytesperline <<
-+			ALIGN(pix->width, 256) <<
- 			ISPCORE_DMA_IMAGE_FLUSH_OUT_PADDING_PIXEL_EOF_SHIFT);
- 
- 	/* Enable DMA and set burst length. */
-
+ 	rv = -EINVAL;
+ 	if (!mddev->pers->quiesce) {
+ 		pr_warn("md: %s: %s does not support online personality change\n",
 -- 
-2.55.0
+2.34.1
 
