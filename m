@@ -1,458 +1,157 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E594B3CA5
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1404B4058
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403225; cv=none; b=k1hMF/vKpiM3jE5JlXkr8EBIOMWzyVWcfjznVBS3n51nXzPA9UJsAXdw6WSuYYKb4TImmJry7CLfoiy6r0n5WK+KxTVEGzKZFhlHYiWM6b6sShK+4ch8wEKIc7VnVKxvwNZv0FzBF64qcCa3ZC6iGzWGO8FWQwWBetplHofXi5w=
+	t=1792403234; cv=none; b=OeHh6ec0HLZLx1IKgNavvdN4E0PVY39iNSLfPadrC6dYLJCQU+8CpZ2Zb0X+P1dM7G6KB2B/TZcE4+Dq0F+aN9v7O3UPthLWhz+NRy9VT357ox/jRVHiX4s7yw1uWkFGNNLff+3DV/532vfD22/Q6F9b1p9JEdgQ7DA3WCL18FA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403225; c=relaxed/simple;
-	bh=MGaUD4AfIA/R0Plg/HeiWoaivfDyABtRnU/+mzhVwhc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z663TsqUBFaOeA7voZJyFMzaVy1iSDUQEydq1ND0/ccO61WETIW8YBg1u3xh5ysVG8o1ylSLtdCk6b2T7fHaqfr+23fuE6FHop/zDWjSN9x/TU0ng80ioab8SMPkGcL6rxKllvkTgtpZE9vnihifTaXnTIEMRUK9u6RBNIKhnPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sb4eOw9h; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792403234; c=relaxed/simple;
+	bh=w4UHhObpYApuoYUrGBdsgMQGLO/WGyYDONI7l3vgqfk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oYvjqpZJenbx++QfY8QruNEm9EbdYU+VylWINRnrVN2WjUx9PwT4s8CYXVj/7U75EIuaNQVkzsvwBQrADO/SkrCXAQ8vzwbIefX6gkv4QyXcknhKPZ3oafbH+mvHqAtZJxFk8/wBBmoTfowWIc64D9IHQrGTZex2KKq/E7owG3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OFqLrsI/; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sb4eOw9h"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8iMWm3451052;
-	Mon, 19 Oct 2026 09:46:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=wnf1Rf
-	7FRKXzjsj/SvI8Euz6pjCJ+tLErOXZgzPSuhE=; b=sb4eOw9hxidjXN8N/FKG5W
-	MS0xQoQOHNJdleyp/LAzF+mhYC05cV5PxS1lSaE6vPnbVgjIUWHM/ZowQdL7eJ5O
-	10Qwwbr4ET1sQsYBJI1hZOLfkoHl4pZ0FG44g33CnQVKfplRmKAboDPVmn4o6x2R
-	jvoVBc2J/B6Nao/1512wNxPCTINC4LMgbUMWnjy6350QDEuMW0qiMoBkJ1aaNps5
-	27MkVbHZfqxi/fnulRrrvLvDMZoNKL7304mY4r1PQPZAAOBOHgvgv3eOnqEJ/54v
-	TJUm72O1xmJrwF+q0rT+K8ufITcBJMSFZ90UmJcBZ25XFgSoQ9BEelL+CK1iFCwA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0h5aea5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 09:46:33 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8YuYe2651399;
-	Mon, 19 Oct 2026 09:46:33 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hcnjgvxbv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 09:46:32 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69J9kSuj50856284
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 19 Oct 2026 09:46:28 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 75E6D20040;
-	Mon, 19 Oct 2026 09:46:28 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 307C82004B;
-	Mon, 19 Oct 2026 09:46:25 +0000 (GMT)
-Received: from [9.124.217.62] (unknown [9.124.217.62])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 19 Oct 2026 09:46:24 +0000 (GMT)
-Message-ID: <c2a7f29b-1357-454a-bc8c-8d19657472d9@linux.ibm.com>
-Date: Mon, 19 Oct 2026 15:16:24 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OFqLrsI/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792403233; x=1823939233;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=w4UHhObpYApuoYUrGBdsgMQGLO/WGyYDONI7l3vgqfk=;
+  b=OFqLrsI/Y8lqAqFKbGrNvRfdbR0B13i1qFiE+bGdGn7FZkv3IAU9nKqZ
+   D3EUOZwZlyZRFYQR/AqNQGuntSnBuAsARsrfl41bKbgRCcXSfm7JvO+Zh
+   L4e03Q7UYtDXmVd/comSFI3GVRsSDETYAUsxb+cFAGs7NclVbedZ5MmN/
+   IRuNasnmp6klIQW5B/0uLNIsy2TGK4YW/IbGtB7j2gozM2WHs3HrjCHu3
+   T8cIll4tJurl5RL0Qy6fCOeljmgyh225RZINzX+MjmqM5rgTFIUfmfq8v
+   UVJB94z1OmPc/xoZkORMe3slcO9T2UpfvrWOS4623Tvw3txpJ96RnfcU9
+   w==;
+X-CSE-ConnectionGUID: 0KwMWSKNQVCyqWohd0pvuQ==
+X-CSE-MsgGUID: l8ApaA/sTtyqTZa1Ko5M7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="983656"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="983656"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:45:11 -0700
+X-CSE-ConnectionGUID: PJQrtk4pTXW/F4y7qXJNDw==
+X-CSE-MsgGUID: 4Ld0QSQnS6WRwwsnxgvfjg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="4252753"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:45:09 -0700
+Date: Mon, 19 Oct 2026 12:45:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Sam Agazaryan <samagazaryan@google.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	linux-i3c@lists.infradead.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
+	Vitor Soares <vitor.soares@toradex.com>,
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
+Message-ID: <atXmovzepBLP8Mqo@ashevche-desk.local>
+References: <20260921230603.2518652-1-samagazaryan@google.com>
+ <arY6DfVf_9tZ_TCu@black.igk.intel.com>
+ <arZTphXbVF5wagy2@shikoro>
+ <CAHreonFzhYk6fDswn7OVZfL3ybUHU15G3_q9+1sDhe8h670r3A@mail.gmail.com>
+ <as487H8-0Gc77mXI@ashevche-desk.local>
+ <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/5] powerpc/pseries/eeh: Add RTAS error validation
- helpers
-To: Sourabh Jain <sourabhjain@linux.ibm.com>, mahesh@linux.ibm.com,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
-        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
-        alex@shazbot.org
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-        sbhat@linux.ibm.com, harshpb@linux.ibm.com
-References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
- <20260831065441.48654-4-nnmlinux@linux.ibm.com>
- <89e3286d-4995-4180-976c-285ba8a99785@linux.ibm.com>
-Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <89e3286d-4995-4180-976c-285ba8a99785@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAzOCBTYWx0ZWRfXzerLSGUrgrOi
- yo7tw2sZf2qQCvHgbKb7k6IejAMZaJ89MA2leE5QlFEH7Uv4OleIJHofdGS7ImVANj4ChVX9DDI
- f0Oubh+gX3dgrQoyqnPqD6yqVPxg6cg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAzOCBTYWx0ZWRfX9t2z1IGp+GZZ
- irEpetyUKpfawJbjrWFE9dBiHjGoP7eIZtzqH6btFAHm6N43dj7vO8gTz7/OFkWRiIYminhOuhr
- gV+u4Ekeotk9qh3g/f67O8DuhVPjAfHz4cEL2lPIgwxXL8rLpH2FioV0fjkVQBLrJQCcD9sSJ63
- rdukIbBFk7LBVzyABJOzMthHaH/XiEG+z2/WJg+J0hx29nV89wkx/X5hkK3erYMAQQitcavaPhu
- wCAiEADtDybfTQOvM5xO7iL9oqUhks6st919YFiaOszS6fKfRpawW4XpM/KzLKa6rg1hpOQfUVG
- Gg8bppzPRpGwzJ3Xo4CCD4rGY1eTmlDVb37RchV6E14mBB+N8nqnZg+twbK/BWW0yQ/brnUr8mh
- uAYoKwHmmsdjozp9JhoKs8WaCcuyHJy3O/hP4IpLBHl+MHDzQhkwvYDhCSEtP60Vb4ctTs1bBez
- KCB5qjKAFr+y34m+4WA==
-X-Proofpoint-ORIG-GUID: dFzEFcn44jn4uK-zmrsIN0R6OWyvLC79
-X-Proofpoint-GUID: qR6eJNbjW--4Z6CiGFZbAQbhhXwDa-e9
-X-Authority-Analysis: v=2.4 cv=KujYSmWN c=1 sm=1 tr=0 ts=6ad5e6fa cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=QyXUC8HyAAAA:8 a=VnNF1IyMAAAA:8 a=HyaG-9bC87c7v6hrdZUA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 lowpriorityscore=0 spamscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190038
+In-Reply-To: <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Sourabh,
+On Sun, Oct 18, 2026 at 01:28:44PM -0700, Sam Agazaryan wrote:
+> > Yes and more as this bus (i3c) is still non-discoverable (am I mistaken?).
+> 
+> I3C is a dynamically discoverable bus. During DAA each I3C target reports a
+> Provisioned ID (PID), Bus Characteristic Register (BCR), and Device
+> Characteristic Register (DCR), and is assigned a dynamic address by the
+> controller.
 
-On 23/09/26 5:46 PM, Sourabh Jain wrote:
-> 
-> On 31/08/26 12:24, Narayana Murty N wrote:
->> Add pseries-specific infrastructure for RTAS-based EEH error injection.
->>
->> Define pr_fmt unconditionally at the top of eeh_pseries.c so all
->> pr_*() calls carry the "EEH: " prefix:
->>
->>    #define pr_fmt(fmt) "EEH: " fmt
-> 
-> Could you please describe the overall goal of the helpers introduced by
-> this patch first, before discussing pr_fmt and the other macros?
-> 
-Agreed. I reworked the commit message in v5 to start with the purpose of 
-the helpers: mapping the generic EEH types, validating the injection 
-arguments and target address, and constructing the PAPR ibm,errinjct 
-parameter buffer.
+Did I miss this in the initial explanation? If not, please add it next time.
 
-The implementation details such as pr_fmt and the RTAS constants follow 
-that description.
+> > This makes even less usefulness in my eyes. Immediate Q: if 4 already have the
+> > proper driver in the kernel, what's wrong to make it for the fifth one?
+> 
+> 1. The original use case was hardware bring-up, silicon validation, and debug
+> (i3ctransfer): Just like spidev, engineers need a debug interface
+> to issue ad-hoc SDR/HDR transfers during bring-up or hardware validation before
+> a driver exists.
 
->>
->> Define RTAS firmware error-type encodings as file-local constants.
->> Only the two IOA bus-error types are supported; other PAPR encodings
->> are not reachable through the generic EEH_ERR_TYPE_* UAPI:
->>
->>    RTAS_ERR_TYPE_IOA_BUS_ERROR     0x07
->>    RTAS_ERR_TYPE_IOA_BUS_ERROR_64  0x0f
->>
->> Add RTAS_ERRINJCT_BUF_SIZE for the ibm,errinjct work buffer size.
->>
->> Add pseries_eeh_type_to_rtas() to translate the two generic EEH error
->> types (EEH_ERR_TYPE_32, EEH_ERR_TYPE_64) into the corresponding RTAS
->> ibm,errinjct encodings.
->>
->> Add validate_addr_mask_in_pe() to verify that a caller-provided address
->> falls within a BAR of some device in the PE.  RTAS IOA bus-error
->> injection requires a PCI/IOA bus address; validate_addr_mask_in_pe()
->> accepts only PCI bus addresses.  VFIO userspace resource addresses are
->> normalized to PCI bus addresses in vfio_iommu_spapr_tce.c before
->> reaching this backend; no resource-address fallback is added here.
->> Use pcibios_resource_to_bus() to convert each BAR resource to PCI bus
->> address space before validating the address.  Returns -EINVAL (Linux
->> errno) rather than a raw RTAS status.
->>
->> Add validate_errinjct_args() as a top-level validation wrapper that
->> checks the PE pointer, maps the generic type, and validates the function
->> range.  Address/mask validation against BARs is done in the buffer
->> preparation step.
->>
->> Add prepare_errinjct_buffer() which:
->>    - guards against NULL buf/pe/pe->phb
->>    - zeroes the buffer unconditionally with memset()
->>    - checks 32-bit truncation for the IOA_BUS_ERROR case
->>    - calls validate_addr_mask_in_pe() for address validation
->>    - supports only the IOA bus-error types (unreachable non-IOA
->>      RTAS cases removed)
->> The caller provides an exclusive per-call RTAS work-area buffer.
->> Firmware session serialization is left to the caller.
->>
->> pseries_eeh_err_inject() retains the existing MMIO injection body
->> unchanged in this patch.  It is replaced by the full RTAS session
->> implementation in the next patch.  This keeps the patch bisectable:
->> each commit builds and functions correctly independently.
->>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202512101130.EYUo0oZx- 
->> lkp@intel.com/
->> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
->> ---
->>   arch/powerpc/platforms/pseries/eeh_pseries.c | 215 +++++++++++++++++++
->>   1 file changed, 215 insertions(+)
->>
->> diff --git a/arch/powerpc/platforms/pseries/eeh_pseries.c b/arch/ 
->> powerpc/platforms/pseries/eeh_pseries.c
->> index b12ef382fec7..fafe0004e738 100644
->> --- a/arch/powerpc/platforms/pseries/eeh_pseries.c
->> +++ b/arch/powerpc/platforms/pseries/eeh_pseries.c
->> @@ -12,6 +12,8 @@
->>    * Copyright Linas Vepstas 2005, 2006
->>    */
->> +#define pr_fmt(fmt) "EEH: " fmt
->> +
->>   #include <linux/atomic.h>
->>   #include <linux/delay.h>
->>   #include <linux/export.h>
->> @@ -786,6 +788,219 @@ static int pseries_notify_resume(struct eeh_dev 
->> *edev)
->>   }
->>   #endif
->> +/*
->> + * RTAS firmware error-type encodings (PAPR).  These are pseries- 
->> private;
->> + * user-space sees only the generic EEH_ERR_TYPE_* values from eeh.h.
->> + * Only IOA bus-error types are supported; other PAPR encodings are not
->> + * reachable through the generic EEH_ERR_TYPE_* UAPI.
->> + */
->> +#define RTAS_ERR_TYPE_IOA_BUS_ERROR        0x07
->> +#define RTAS_ERR_TYPE_IOA_BUS_ERROR_64        0x0f
->> +
->> +/* Size of the ibm,errinjct work buffer as defined by PAPR */
->> +#define RTAS_ERRINJCT_BUF_SIZE            SZ_1K
->> +
->> +/**
->> + * pseries_eeh_type_to_rtas - Map generic EEH error type to RTAS 
->> encoding
->> + * @type: generic EEH error type (EEH_ERR_TYPE_32, EEH_ERR_TYPE_64)
->> + *
->> + * Translates the generic VFIO/EEH error type passed from userspace into
->> + * the RTAS-specific ibm,errinjct error type encoding defined by PAPR.
->> + *
->> + * Return: RTAS error type on success, -EINVAL for unknown types.
->> + */
->> +static int pseries_eeh_type_to_rtas(int type)
->> +{
->> +    switch (type) {
->> +    case EEH_ERR_TYPE_32:
->> +        return RTAS_ERR_TYPE_IOA_BUS_ERROR;
->> +    case EEH_ERR_TYPE_64:
->> +        return RTAS_ERR_TYPE_IOA_BUS_ERROR_64;
->> +    default:
->> +        return -EINVAL;
->> +    }
->> +}
->> +
->> +/**
->> + * validate_addr_mask_in_pe - Validate addr against PCI bus BAR 
->> addresses in PE
->> + * @pe:   EEH PE containing one or more PCI devices
->> + * @addr: PCI bus address to validate
->> + * @mask: address mask (passed to firmware unchanged)
->> + *
->> + * RTAS IOA bus-error injection uses PCI bus addresses.  Linux PCI 
->> resources
->> + * are CPU/resource addresses and may differ on pseries due to PHB 
->> window
->> + * translation.  Convert each BAR resource to PCI bus address space 
->> before
->> + * validating @addr.
->> + *
->> + * Zero addr and mask are accepted without BAR lookup (no-address 
->> injection).
->> + *
->> + * Return: 0 if valid, -EINVAL on invalid input.
->> + */
->> +static int validate_addr_mask_in_pe(struct eeh_pe *pe, unsigned long 
->> addr,
->> +                    unsigned long mask)
->> +{
->> +    struct pci_bus_region region;
->> +    struct eeh_dev *edev, *tmp;
->> +    struct pci_dev *pdev;
->> +    struct resource *res;
->> +    resource_size_t bus_start;
->> +    resource_size_t bus_len;
->> +    int bar;
->> +
->> +    if (!addr && !mask)
->> +        return 0;
->> +
->> +    if (!pe)
->> +        return -EINVAL;
->> +
->> +    /*
->> +     * RTAS IOA bus-error injection uses PCI bus addresses. Linux PCI
->> +     * resources are CPU/resource addresses and may differ on pseries 
->> due
->> +     * to PHB window translation. Convert each BAR resource to PCI bus
->> +     * address space before validating @addr.
->> +     */
->> +    eeh_pe_for_each_dev(pe, edev, tmp) {
->> +        pdev = eeh_dev_to_pci_dev(edev);
->> +        if (!pdev)
->> +            continue;
->> +
->> +        for (bar = 0; bar < PCI_STD_NUM_BARS; bar++) {
->> +            res = &pdev->resource[bar];
->> +
->> +            if (!resource_size(res))
->> +                continue;
->> +
->> +            if (!(res->flags & (IORESOURCE_MEM | IORESOURCE_IO)))
->> +                continue;
->> +
->> +            pcibios_resource_to_bus(pdev->bus, &region, res);
->> +
->> +            bus_start = region.start;
->> +            bus_len = resource_size(res);
->> +
->> +            if ((resource_size_t)addr >= bus_start &&
->> +                ((resource_size_t)addr - bus_start) < bus_len) {
->> +                pr_debug("addr=0x%lx mask=0x%lx validated in PCI bus 
->> BAR[%d] of %s: bus range 0x%llx-0x%llx\n",
->> +                     addr, mask, bar, pci_name(pdev),
->> +                     (unsigned long long)region.start,
->> +                     (unsigned long long)region.end);
->> +                return 0;
->> +            }
->> +        }
->> +    }
->> +
->> +    pr_err("addr=0x%lx mask=0x%lx not within any PCI bus BAR of any 
->> device in PE\n",
->> +           addr, mask);
->> +    return -EINVAL;
->> +}
->> +
->> +/**
->> + * validate_errinjct_args - Top-level validation for RTAS error 
->> injection arguments
->> + * @pe:   EEH PE for the target device
->> + * @type: generic EEH error type
->> + * @func: error function selector
->> + * @addr: address argument (type-dependent, may be zero)
->> + * @mask: mask argument (type-dependent, may be zero)
->> + *
->> + * Validates all parameters before opening an RTAS injection session.
->> + * Returns Linux errno values; does not return raw RTAS status codes.
->> + *
->> + * Return: 0 if all parameters are valid, negative errno otherwise.
->> + */
->> +static int validate_errinjct_args(struct eeh_pe *pe, int type, int func,
->> +                  unsigned long addr, unsigned long mask)
->> +{
->> +    if (!pe || !pe->phb)
->> +        return -EINVAL;
->> +
->> +    if (pseries_eeh_type_to_rtas(type) < 0)
->> +        return -EINVAL;
->> +
->> +    if (func < EEH_ERR_FUNC_MIN || func > EEH_ERR_FUNC_MAX)
->> +        return -EINVAL;
->> +
->> +    return 0;
->> +}
->> +
->> +/**
->> + * prepare_errinjct_buffer() - Build ibm,errinjct work buffer
->> + * @buf: RTAS error-injection work buffer
->> + * @pe: EEH PE associated with the injection target
->> + * @rtas_type: RTAS firmware error-injection type
-> 
-> rtas_type is confusing to me. How about err_type?
-Agreed on making the distinction clearer. In v5 I renamed it to 
-rtas_err_type, since this value is specifically the RTAS/PAPR 
-error-injection type after mapping from the generic EEH type.
-> 
->> + * @func: Error function selector
->> + * @addr: Target PCI bus address
->> + * @mask: Address mask passed to firmware
->> + *
->> + * Zeroes @buf and populates it according to the PAPR layout for the
->> + * selected IOA bus-error injection type.
->> + *
->> + * The caller provides an exclusive per-call RTAS work-area buffer.
->> + * Firmware session serialization is handled by 
->> pseries_eeh_err_inject().
->> + *
->> + * Return: 0 on success or a negative errno on invalid input.
->> + */
->> +static int prepare_errinjct_buffer(void *buf, struct eeh_pe *pe,
->> +                   int rtas_type, int func,
->> +                   unsigned long addr, unsigned long mask)
->> +{
->> +    __be64 *buf64 = (__be64 *)buf;
->> +    __be32 *buf32 = (__be32 *)buf;
->> +    int rc;
->> +
->> +    if (!buf || !pe || !pe->phb)
->> +        return -EINVAL;
->> +
->> +    memset(buf, 0, RTAS_ERRINJCT_BUF_SIZE);
->> +
->> +    switch (rtas_type) {
->> +    case RTAS_ERR_TYPE_IOA_BUS_ERROR:
->> +        if (func < EEH_ERR_FUNC_MIN || func > EEH_ERR_FUNC_MAX)
->> +            return -EINVAL;
-> 
-> This condition is common for both cases, so let take it out of switch.
-> And lets move the func check before memset.
-Agreed.
+Totally debug feature to me. Once you expose something in /dev (imply IOCTL),
+it will become an ABI. And I'm fully against this.
 
-In v5 the function-range check is moved out of the type-specific switch 
-and is owned by validate_errinjct_args(), which runs before 
-prepare_errinjct_buffer().
+> 2. Userspace firmware recovery / update tools (OCP Secure Firmware
+> Recovery, Caliptra RoT):
+> The recovery protocol is purely a polled request/response transport
+> (no IBIs allowed per spec) used by userspace update tooling (fwupd / BMC
+> recovery daemons) to parse signed firmware manifests, stream recovery image
+> chunks to INDIRECT_FIFO_DATA, and poll RECOVERY_STATUS—similar to how
+> userspace firmware updaters operate over spidev, hidraw, or USB/NVMe ioctls
+> rather than putting firmware image parsing and update policy inside the
+> kernel. In my response to Wolfram above I discussed this some more.
 
-prepare_errinjct_buffer() therefore no longer duplicates the function 
-validation and can zero/build the buffer after the common arguments have 
-already been validated.
+Do we have such use cases IRL? Do we have tooling support (at least pending)
+somewhere? Why does it require user space interaction in _this_ way (meaning
+IOCTL and /dev node)?
 
-Thanks,
-Narayana
+> > What if the device needs more? Or if this is a multi-functional device that
+> > may have driver for only one part?
 > 
->> +
->> +        if (upper_32_bits(addr) || upper_32_bits(mask)) {
->> +            pr_err("32-bit IOA injection cannot encode addr=%#lx 
->> mask=%#lx\n",
->> +                   addr, mask);
->> +            return -EINVAL;
->> +        }
->> +
->> +        rc = validate_addr_mask_in_pe(pe, addr, mask);
->> +        if (rc)
->> +            return rc;
->> +
->> +        buf32[0] = cpu_to_be32((u32)addr);
->> +        buf32[1] = cpu_to_be32((u32)mask);
->> +        buf32[2] = cpu_to_be32(pe->addr);
->> +        buf32[3] = cpu_to_be32(BUID_HI(pe->phb->buid));
->> +        buf32[4] = cpu_to_be32(BUID_LO(pe->phb->buid));
->> +        buf32[5] = cpu_to_be32(func);
->> +        break;
->> +
->> +    case RTAS_ERR_TYPE_IOA_BUS_ERROR_64:
->> +        if (func < EEH_ERR_FUNC_MIN || func > EEH_ERR_FUNC_MAX)
->> +            return -EINVAL;
->> +
->> +        rc = validate_addr_mask_in_pe(pe, addr, mask);
->> +        if (rc)
->> +            return rc;
->> +
->> +        buf64[0] = cpu_to_be64(addr);
->> +        buf64[1] = cpu_to_be64(mask);
->> +        buf32[4] = cpu_to_be32(pe->addr);
->> +        buf32[5] = cpu_to_be32(BUID_HI(pe->phb->buid));
->> +        buf32[6] = cpu_to_be32(BUID_LO(pe->phb->buid));
->> +        buf32[7] = cpu_to_be32(func);
->> +        break;
->> +
->> +    default:
->> +        pr_err("unsupported RTAS error injection type 0x%x\n", 
->> rtas_type);
->> +        return -EINVAL;
->> +    }
->> +
->> +    pr_debug("errinjct buffer ready: rtas_type=0x%x func=%d 
->> addr=0x%lx mask=0x%lx\n",
->> +         rtas_type, func, addr, mask);
->> +    return 0;
->> +}
->> +
->>   /**
->>    * pseries_eeh_err_inject - Inject specified error to the indicated PE
->>    * @pe: the indicated PE
+> If a device needs more than basic transfers (such as IBIs,
+> hot-join handling, or integration with a subsystem like hwmon/iio/mctp),
+> it should use a dedicated kernel driver.
 > 
+> For multi-function devices, if the functions are exposed as MIPI I3C
+> Targets (e.g. a device exposing both an mctp-i3c interface and
+> an OCP recovery interface), each virtual target is assigned its own
+> dynamic address and DCR during ENTDAA and is enumerated as a distinct
+> i3c_device instance on the bus. Conversely, if multiple functions share
+> a single I3C target address and register map, i3cdev intentionally does
+> not allow userspace to access a target while a kernel driver is bound
+> to it (avoiding the I2C_SLAVE_FORCE problem where userspace can race
+> with a bound driver), so that case should be handled by an in-kernel
+> MFD driver - but that is not the use case being targeted here with OCP
+> recovery.
+
+So, imagine that someone submits a kernel driver for a simple device, while
+another person already uses the driver for multi-functional device where the
+former one is driving only part of it. Strictly speaking the kernel driver
+submission becomes a user space regression. Which effectively means that whenever
+you open i3cdev, no other kernel drivers may appear. Yes, I understand that
+a poor victim of such an unlikely course of events may recompile the kernel,
+disable driver, et cetera, but this still raises the same question, why do
+we do that to the mere users?
+
+> > What to do with the i2c devices connected to i3c bus in the compatible mode?
+> 
+> I3C master controllers register an i2c adapter for i2c devices running on an
+> i3c mixed mode bus - they are identified as i2c_bus_type, not i3c.
+
+P.S> Still not convinced, that this has to be an ABI. For debugfs and something
+like this, no objections, but ABI.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
