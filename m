@@ -1,88 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434301;
-	b=XNtkd1AzxEyMo/wOnY3WAAK3MeYiE3rymaNmwAm9xNCbImrH1yWJelmfNjln2gU4iCYa
-	 cL+l3CjLs/pBc6sw9C0k8KG+wxpd34varfChaz82WhP7QUOC28cyf3VZfJ3FP3Aj4dOFI
-	 cumFHQIhL26uq79mZygaswZ2sBKBsmp0uRLyOT06WFqL5OElsa6bQ/tQzihPhPPa/xPLK
-	 7kYDQTryKtXhzDbjAx8Ulvxfe9HN4ogm0W5Hdg0Cu6cyv4D0UqaXO1Gazr4o/+kDRYCKi
-	 lwyXJ11TjJZT/l7PRUUMOOOcw3qAt09UqBcWVaxUlOVs8GRSUJSwCXDX0hXWcIPfWIA==
+	t=1792434373;
+	b=Uknt22gZO7wS6AtUe9fRvZNl5pbobnX9kXotKGL3TlOP7NH8rS87ZVCMSlGrpODWLqCo
+	 foxSZWhVHpuGhbBYzBVrOKBsLm33gcKtg9Wl7YnMkAj5WPM5uwtG/sFMHbFA99NHlC/uf
+	 ou2h4MAlNlbJ381egWUKpPBytjpyLoPnla1oLFXHB4CdyM/JiL+iqqEqiEDFXKOsCJNld
+	 a5i7mEyHlr7L7aqZm49iiWX3Cv0bHsVVtnKSJBfhhj6XvXCpF0k5539dAhrIE6A947FB/
+	 /r9Rv2MPIlPxFhbkNSx9F8E2i3Tm9UCMPMhFGYBX1OqCJVJcAr2er0fCHnVKIrtYEOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434301;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jtPccQqJ2uVD863ndD5Pql7lUKykf7N9xt+2EMl4boQ=;
-	b=1L7RlkmnlKk1Qn1BdRQFLDRx8n1B3U3d58AIub5/fHbVU7jPjTC47eVoXobzItj0D/ET
-	 qu1LKXkS1DEU/eCj0BPaVl6hPuGNdYqth2WogZFNjKtABcRdq4hrK1yWPgm6sdQHudOSW
-	 0dMPNDuqJ3JmqABFDmrvjLfVB6DneV52lmH78U+He5s3snzBMlgPLeOn7vMG2Bb+ukyt8
-	 RQSEmG+0RLCFnQCfh+1tqKvvUfRiZzzzv1tUY2d7kKKVJdy4ay0nXL9biGc35c9pCcs2h
-	 OmTgsjCCM4Q0uj26FRHseYFSWS0VjYJxgJ209tBYJ/crc1/z+HdEYnIJtu4nTk/HHXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434373;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=MNLSyHfX8hU1gnhPS2X0MNpbE4i+8mSLX9/0n4UgOwM=;
+	b=BzH5DT3ET4w2wlThXkweuZzArDYvTzhv5lIZ3eRVWrbWFjPOZPE/B1DSmoW2u7dDQc0Y
+	 E2K2hbJchiPFEOe9WMEcSaVLj+It+g2kDT/+hGy2nGHpZZyj6vdrqHRUTJzfT2o5sS/7M
+	 3ZRATGxjH+x+rbynCrUztkiks4WozmZ8d8Tp59F5GlgQ+CIRrx5t9jHj8w8u4xJ/Zt6HL
+	 8Il2ORrD5TFOOqSYRT/QlyrfgQ5c5uC0yCWUY9UM1c0FeZoel8xEdSChKIJRdG6uaVO/v
+	 5jUBjW0w9hqpBk+7DYgbYmYirWMoJLRwlYQetDfaU4TYxcrbVqUpvnSqVo+3xBnw7cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=okonski.org;
-	spf=none smtp.mailfrom=okonski.org;
-	dkim=pass header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=X4UC2tzT;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Didf/ez5";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D4D606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:25:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22D4D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=okonski.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=okonski.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77231606A31C;
+	Mon, 19 Oct 2026 18:26:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=X4UC2tzT
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c247f6687dcso181435966b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:25:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=okonski-org.20251104.gappssmtp.com; s=20251104; t=1792434299; x=1793039099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jtPccQqJ2uVD863ndD5Pql7lUKykf7N9xt+2EMl4boQ=;
-        b=X4UC2tzTUDZMrZcRbRquqMSyNAEOAKxUZtciQ+klss0scatPZpmv25j24B9UxdZEd/
-         xE62JUeiUGNFiVcWffAloXMa0JMZr+o8SsYSLbmCAVGPl8DFTqvqeUbompo6CKj2nMEd
-         oVgiaPNxN27Sjag2nS8ZbA8JGhC+/GdREmTUpnpubIMCtnx7EiDY0aeTRjl0mc1Gyc0d
-         GfpPgSxGEPBQatqNabT0jsPj7Myzvg1n7aECT4hFEmF1PHdrj1jxPY0i/HsngGe1exd3
-         8NemxlzCAzGve5Olrt3xFbOQtq9/jyuRFJUcKqGvCRtwq6juCC1lfQ5/Ea78iNT+4cSj
-         48/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792434299; x=1793039099;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jtPccQqJ2uVD863ndD5Pql7lUKykf7N9xt+2EMl4boQ=;
-        b=AL/r/G+OMgP/l9q/16xGtLTgpnz7VmeMMemcX2MDHx4+CT9V4p+Hm/vaz6orVYYsPC
-         Q4oV1+we5yLGu9uiVK8Hi8H453TxQkBxt7PRDme2z3xeS3ybovxnCqaaUnE9j9Mw3Sp1
-         DD35Ssy4Y/lIJUKTdBa8jFs7bwZRLYy2DTGvCJ1AT9pOzDFhoWQHu/ALa8DKADoXI7G5
-         HdHmJR5gAQtE6mP2YMp7dChTzzft+zBTavgkWnjV++9KVQRW8Ox1YxHbibTtnVJcYuke
-         jjjCU5YknHdZDKXarPVcx0ID8NWl2VILuDYWK32F6Jicf54vYfDy4pBO2y6cIFA9+0aG
-         R+XA==
-X-Forwarded-Encrypted: i=1; AKwUvBzk9lZxjofrT0FDcr9DjDsqMdOGzbwuljjtWssZPWg/23Ce2pV/P2Oqq7JSXGazuKk9r0Nk4o/0Ob+bHKU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLS9jflca3lPbMkuNeYOgS6w+938k1AmSFkGUCVt53YB1xNQEhU
-	paajTBOqxyDQph9B/dCr2nWEYEf5+l+DK0TOLr5krLiofinczSoH5zzfe/qDgfpHrHI=
-X-Gm-Gg: AYBFou19U5V9O0yPPKIe+ShUJpBs5wTrFI3ktnXNtxs1DCLATaS6R3w625aTrIzDRAy
-	9FXLRy3ZN0oGBvRJMAovriyefpjWIfZiU8MVpC/+/4mM+aQr8JZSDvcHtwMU9+FPCNQ1ml0p5nw
-	PyC/vxAaOAhvmwDNV+9PVQzR5VO61oYjDF1Foisc0o9FNpoKKL2Bpw3T3w4WEbA/kTR86qiuddH
-	H+vuQcgTNcF/5yHOzajK0mD6LiKFql/Qft+E4ucbarveK4iYEjX1cj1xa2kUlkKvCu4k+DtkMzy
-	IKNiiGdayMB8qOsR4+s2RAGDrbWWo0m9jPbErnZvajoACBW+NpSLRS51kHwCUkzl3s97BoN4Wxj
-	eKel2DbQCVzE6wVhDGYZOEw5O37QR7pX+RnSpjEK+yceQJiR3DDMMX8JvzhfdlS7fiIbMY2oz5y
-	+Pqwx2s2XQk3oqbzLEOFm6tDhFWKDbSZErsvNMoR9yTRKZuIInT5oELV1JSBOWeQcImCcduVfGp
-	MYORQ6NTgw3N0Hi8+byFNTOTlE0g3gnUP1EiTrPmTXmbEo8aNmEyq0qU630zGyjd87wmbIHEq7g
-	Tbay7Mv4B47HOXq8fkq4SIAFV7TxcPopZ2r4KUrcQHY=
-X-Received: by 2002:a17:907:b046:20b0:c42:102f:15d7 with SMTP id a640c23a62f3a-c42102f36d2mr336567366b.10.1792434299287;
-        Mon, 19 Oct 2026 11:24:59 -0700 (PDT)
-Received: from ?IPV6:2a02:21a0:10:748:1::2? ([2a02:21a0:10:748:1::2])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bc147sm388919966b.50.2026.10.19.11.24.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 11:24:58 -0700 (PDT)
-Message-ID: <01e25832-955c-4f39-a902-6cc253a2791c@okonski.org>
-Date: Mon, 19 Oct 2026 20:24:57 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Didf/ez5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69151F000C4;
+	Mon, 19 Oct 2026 18:26:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792434373;
+	bh=MNLSyHfX8hU1gnhPS2X0MNpbE4i+8mSLX9/0n4UgOwM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Didf/ez5tGVqLDlLgBJ+6lGchkGMD4zmL0qzWOQRU47kkbBF4Jlm67b595dkdQXi8
+	 zmvqzHOQWoDvQ8F+ukDTZuEmEVQvSUBz8m1j2KXSeS+IkgpJCDPh5pFI3tK2ygv+so
+	 9QMUwxdDXagDl+ho93lz2PsLZ1Q01b+NH02LG8oiTM5lDp8EmwWpY1aRYUvXW7XHyl
+	 JX2eEqgSgR+74oN0JvhsxFu7IREabG9oUpbUD/l86n54E4QyCHWi5HxIzuLKMpGQDl
+	 liODi4pLZex8HOSmIq6de0NAxztl/7XsQk6Ef7oAmM9B6KaOe5ob9zJiyM3WRdUR7R
+	 q6vaLOx5a87Aw==
+Subject: Re: [PATCH net-next v3 1/2] net: phy: aquantia: restore EEE discovery
+ in get_features callbacks
+From: netdev-bot+sashiko@kernel.org
+To: hongmei.xu@oss.qualcomm.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 19 Oct 2026 18:26:12 +0000
+Message-ID: <179243437219.3135.15283018855918388042@kernel.org>
+In-Reply-To: =?utf-8?q?=3C20261016-net-phy-aqr113c-fix-pma-capability-v3-1-0?=
+ =?utf-8?q?bbb1b84035d=40oss=2Equalcomm=2Ecom=3E?=
+References: =?utf-8?q?=3C20261016-net-phy-aqr113c-fix-pma-capability-v3-1-0b?=
+ =?utf-8?q?bb1b84035d=40oss=2Equalcomm=2Ecom=3E?=
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,39 +65,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Mike Galbraith <efault@gmx.de>, Peter Zijlstra <peterz@infradead.org>,
- mingo@kernel.org, longman@redhat.com, chenridong@huaweicloud.com,
- juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, tj@kernel.org,
- hannes@cmpxchg.org, mkoutny@suse.com, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, jstultz@google.com, kprateek.nayak@amd.com,
- qyousef@layalina.io
-References: <20260605105513.354837583@infradead.org>
- <20260605124052.227463677@infradead.org>
- <58dc8e8a-7260-43ce-aebb-8d9c29a6afc9@okonski.org>
- <b1002150c3e4f877d04790cd8e85d2149d17722f.camel@gmx.de>
- <atZM6uF0CqCNh__I@vingu-cube>
- <f1d0fc39-6939-4fb3-a422-273cd5c347c4@okonski.org>
- <CAKfTPtB_gMM7axqM167_Tb=WiChskGPXFDgQ4YjVz4Bj+ZiJ0g@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub@okonski.org>
-In-Reply-To: <CAKfTPtB_gMM7axqM167_Tb=WiChskGPXFDgQ4YjVz4Bj+ZiJ0g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 10/19/26 20:04, Vincent Guittot wrote:
-> On Mon, 19 Oct 2026 at 19:36, Jakub Okoński <jakub@okonski.org> wrote:
->>
->> top of 7.3.0, it still regresses from 7.2.9 if you test with a nice 19
->> spinner in the same cgroup. I think it's incomplete.
-> 
-> This patch only aims to fix the sched_idle task group case. I will
-> have a closer look at the nice 19 case. Have you checked the different
-> cgroup_mode with nice 19 ?
-> 
-> Vincent
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Same result in my nice 19 test for all of up/smp/concur/max/tasks.
+Critical: 0 · High: 1 · Medium: 2 · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] This patch makes aqr115c_get_features()
+  (drivers/net/phy/aquantia/aquantia_main.c:1072) take phydev->supported…
+- [Medium] The commit message misdescribes the hardware and understates
+  the impact.
+- [Medium] genphy_c45_read_eee_abilities() runs at the end of
+  genphy_c45_pma_read_abilities().
+- [Low] The patch fixes a user-visible regression (EEE not reported or
+  configurable through ethtool on…
+
+--
+
+net: phy: aquantia: restore EEE discovery in get_features callbacks
+
+This patch changes aqr115c_get_features() to build phydev->supported with
+genphy_c45_pma_read_abilities() and then set the 2.5G bit. Previously it
+used phy_gbit_features plus 2.5G. The aim is to fill
+phydev->supported_eee so ethtool can show and configure EEE.
+aqr111_get_features() now also returns the error from
+aqr115c_get_features().
+
+> As a result, phy_probe() never populates supported_eee for AQR111,
+> AQR114C and AQR115C. The kernel then clears advertising_eee:
+
+[ ... ]
+
+> Fix this by following the pattern used in aqr105_get_features(): call
+> genphy_c45_pma_read_abilities() as the base, then set the 2.5G bit
+> explicitly since the PHY does not report it correctly in PMA registers.
+
+[Severity: Medium]
+Is this description of the hardware accurate? aqr105_get_features() is
+for a PHY that fails to report 2.5G and 5G:
+
+    /* The AQR105 PHY misses to indicate the 2.5G and 5G modes, so add them
+     * here
+     */
+
+Earlier commits for this PHY family describe the opposite problem. Commit
+17cbfcdd85f6 ("net: phy: aquantia: AQR115c fix up PMA capabilities") says:
+
+    AQR115c reports incorrect PMA capabilities which includes 10G/5G and
+    also incorrectly disables capabilities like autoneg and 10Mbps support.
+
+Commit 0974f1f03b07 says AQCS109 reports 10G and 5G but doesn't support
+them. Commit 8f61d73306c6 removed an aqr111_config_init() comment saying
+AQR111 reports speeds up to 10G but only supports up to 5G.
+
+That history is the reason for the "PMA capabilities are not useful"
+comments. The patch removes them without saying why the PMA registers can
+now be trusted.
+
+The list of affected parts also looks incomplete. In aqr_driver[],
+AQCS109, AQR111B0 and AQR115 use these same callbacks.
+
+The message describes an EEE-only change, but the supported and
+advertised link modes change too. 10G/5G may be added, and Autoneg,
+10baseT, 1000baseT_Half and TP may be lost. Should the commit message
+say so?
+
+> Signed-off-by: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+
+[Severity: Low]
+Should this patch have a Fixes: tag? The missing EEE discovery seems to
+come from 17cbfcdd85f6 ("net: phy: aquantia: AQR115c fix up PMA
+capabilities") and 8f61d73306c6 ("net: phy: aquantia: remove usage of
+phy_set_max_speed"). Those commits added ->get_features callbacks that
+skip genphy_c45_pma_read_abilities().
+
+phy_probe() only reads EEE abilities on the static ->features path:
+
+	if (phydrv->features) {
+		linkmode_copy(phydev->supported, phydrv->features);
+		genphy_c45_read_eee_abilities(phydev);
+	}
+	else if (phydrv->get_features)
+		err = phydrv->get_features(phydev);
+
+Before 8f61d73306c6, AQR111, AQR114C and AQCS109 had no get_features
+callback. They used the default genphy_c45_pma_read_abilities() path,
+which does read the EEE abilities.
+
+> diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
+> index e95d391a6dc23..ed5631f2956ee 100644
+> --- a/drivers/net/phy/aquantia/aquantia_main.c
+> +++ b/drivers/net/phy/aquantia/aquantia_main.c
+> @@ -1071,23 +1071,25 @@ static int aqr_gen1_resume(struct phy_device *phydev)
+>  
+>  static int aqr115c_get_features(struct phy_device *phydev)
+>  {
+> -	unsigned long *supported = phydev->supported;
+> +	int ret;
+>  
+> -	/* PHY supports speeds up to 2.5G with autoneg. PMA capabilities
+> -	 * are not useful.
+> -	 */
+> -	linkmode_or(supported, supported, phy_gbit_features);
+> -	linkmode_set_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT, supported);
+> +	ret = genphy_c45_pma_read_abilities(phydev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Does this bring back the wrong speed capabilities that 17cbfcdd85f6,
+0974f1f03b07 and 8f61d73306c6 fixed?
+
+AQCS109, AQR115 and AQR115C use this callback. aqr111_get_features()
+calls it too, so AQR111, AQR111B0 and AQR114C are also affected.
+
+genphy_c45_pma_read_ext_abilities() sets 10000baseT_Full from
+MDIO_PMA_EXTABLE_10GBT and 5000baseT_Full from MDIO_PMA_NG_EXTABLE_5GBT.
+The new code only sets bits after that and never clears any. As a
+result:
+
+  - the 2.5G parts (AQCS109, AQR115, AQR115C) would report 5G and 10G
+    again
+  - the 5G parts (AQR111, AQR111B0, AQR114C) would report 10G again
+
+The modes that phy_gbit_features used to supply (Autoneg, 10baseT,
+1000baseT_Half, TP) are also no longer forced on.
+genphy_c45_pma_read_abilities() starts with:
+
+	linkmode_clear_bit(ETHTOOL_LINK_MODE_Autoneg_BIT, phydev->supported);
+
+It sets the bit again only if AN STAT1 reports ABLE. 17cbfcdd85f6 says
+AQR115C misreports this. If it does, phy_probe() runs:
+
+	if (!linkmode_test_bit(ETHTOOL_LINK_MODE_Autoneg_BIT,
+			       phydev->supported))
+		phydev->autoneg = 0;
+
+aqr_config_aneg() then calls genphy_c45_pma_setup_forced(), and
+2.5GBASE-T can't link without autoneg.
+
+If autoneg stays enabled, phy_advertise_supported() copies the false
+10G/5G modes into advertising. aqr_config_aneg() then advertises them to
+the link partner through genphy_c45_an_config_aneg().
+
+The next patch in this series, "net: phy: aquantia: add get_features()
+for AQR113C", builds on aqr111_get_features() and doesn't fix this.
+
+Could the hard-coded speed mask stay, with a call to
+genphy_c45_read_eee_abilities(phydev) after it is built? phy_probe()
+already does this for drivers with static ->features.
+
+> +
+> +	linkmode_set_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT, phydev->supported);
+
+[Severity: Medium]
+Can supported_eee still be missing the 2.5G and 5G EEE modes?
+genphy_c45_read_eee_abilities() runs at the end of
+genphy_c45_pma_read_abilities(). That happens before this line sets
+2500baseT_Full, and before aqr111_get_features() sets 5000baseT_Full.
+
+It reads the EEE capability 2 register (2.5G/5G EEE) only in this case:
+
+	if (linkmode_intersects(phydev->supported, PHY_EEE_CAP2_FEATURES)) {
+		val = genphy_c45_read_eee_cap2(phydev);
+
+PHY_EEE_CAP2_FEATURES contains only 2500baseT_Full and 5000baseT_Full.
+
+The commit message says the PHY doesn't report 2.5G in the PMA
+registers. If MDIO_PMA_NG_EXTABLE reports neither 2.5G nor 5G, cap2 is
+never read. phy_probe() then drops these modes from advertising_eee, and
+ethtool --set-eee can't enable EEE at 2.5G or 5G.
+
+Would calling genphy_c45_read_eee_abilities() after the final supported
+mask is built avoid this?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-net-phy-aqr113c-fix-pma-capability-v3-0-0bbb1b84035d%40oss.qualcomm.com
