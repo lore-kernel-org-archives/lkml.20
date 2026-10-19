@@ -1,37 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-88.mta0.migadu.com [91.218.175.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89D22F363F;
-	Mon, 19 Oct 2026 00:40:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E071C2BE02C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:41:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.88
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792370443; cv=none; b=tvzNuPrJeACp+doZely+Jad9HHHAmlgLgdKE3qiQsVzROxNNpXND8/FjYqqJ+raVVYvpw0Hu+e6y79Flbwpx6F689BLsTTbGCz1PUk6k7QQe3yHcPClLlRMK8vop2LWV64k6OtLwwz+SSydQerzNWL376+fLr2geyDa9DFnRQ+Y=
+	t=1792370477; cv=none; b=suoskCRVmAriWDQgWWS+YhGY6THI1ci+HYa1fPOyJi0X7jdZtwVln5Y/QZq4fL8HEvkvIYN5E6MPzbp55TC9M47gUkZuvcEFfpAhkw5hJz6IWV8jQOd0iGRGwt9KliCrYG4j2XDt0reH1X37MwgWW9ug8aroC0fwVG22LzbvUoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792370443; c=relaxed/simple;
-	bh=2biNqTgx6GKcm2ZuGZkX3oe3+Xu7ZjTG2TOGNp+Rkio=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l/lYXlbB0sJhyK/xY574eWdSS1QrFmcIo69cv0bfVLL3TKLI9YAaHg1GYEpEbPt+UpmoSnIOlubLk5/BtTF3vqeaECgw0VC5cVkeZ/dGcaLX9RUxf8056bQpmS7a2B+NHOwXpcdyAYFV3NqtR58boO+Z2NtcKI0xjyjl4v1+P9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vsb/wMbg; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792370477; c=relaxed/simple;
+	bh=4a7jDpLRIzJQzbG52iX9YlVOvUlhIfeawAGaFNLFtRs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cE8rcPYSmQFtWRYzm42vTIPTvNkW0P5Wgz/70nw706njFCNj7QTRuiDuzS0l165ErsQje0BMaj59kC8bAtAG3d90aatxlpjae5a87yHs1ypZeapf4rTmwxWZOHeVzETwLh6v3UsKBOYjubfD6JbI7EQZbk5Q5XBDT4cZ40ONj6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=r+Ik6rjW; arc=none smtp.client-ip=91.218.175.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vsb/wMbg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9532DC4AF18;
-	Mon, 19 Oct 2026 00:40:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792370443;
-	bh=2biNqTgx6GKcm2ZuGZkX3oe3+Xu7ZjTG2TOGNp+Rkio=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Vsb/wMbgcFl5kyhKosVTvyuIJqJMhavV71+mT9N12komtV6Pdgzatp3clo77EcVPg
-	 li0CwGuJwsPkE6HvSw0UBi80nMul9e9wPep6nb3chAu7HSrKoMxbQ06h4nYVjALEcl
-	 9bUaGS/kY8GmSGZGMxRfrYVs6R+aXvT42WPH6ykv8sKik2s5vSZYsYvw8aKcJYqTfo
-	 xUslbBXvYkl470bRZdX4PKeL/WAL8YnEcS0SDlfGr3s/xnBDtWArxcT8cLcSxJz++Z
-	 UssXuNWXlFj+ao/RF80YgjX0comefLNGB3WczMdyWW8dqr5PlOkhma3uzNsCWGqQyd
-	 xADby74x4FB2g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DB8ECCF2D8;
-	Mon, 19 Oct 2026 00:40:43 +0000 (UTC)
-From: Ben Grisdale via B4 Relay <devnull+bengris32.protonmail.ch@kernel.org>
-Date: Mon, 19 Oct 2026 01:40:03 +0100
-Subject: [PATCH 7/8] arm64: dts: mediatek: Add basic support for MT8163 SoC
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="r+Ik6rjW"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4a7jDpLRIzJQzbG52iX9YlVOvUlhIfeawAGaFNLFtRs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792370473; v=1; x=1792975273;
+ b=r+Ik6rjW2Ht2vyRqJyaW8r4tNL+QjWVG2sXg8tXfmyywRNp8DWcmKYM8qFefANm7Ob2YRXkY
+ +HrAYTjN7j/2khlEQ7jmVYRSaB3PfoeqRcY4JymjX+YPQE/ehbVMnaguSllbt/ViaFLBU0G9u8T
+ lcU4tMgWf6rnQUD0nYKgBhGw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 9132aad3da785e02;
+	Mon, 19 Oct 2026 00:41:13 +0000
+X-Mizu-Trace-ID: 9132aad3da785e02
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Date: Mon, 19 Oct 2026 08:41:03 +0800
+Subject: [PATCH net-next v2] selftests: net: exit with test failure status
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,297 +39,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-7-f2462b2d2437@protonmail.ch>
-References: <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-0-f2462b2d2437@protonmail.ch>
-In-Reply-To: <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-0-f2462b2d2437@protonmail.ch>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sean Wang <sean.wang@mediatek.com>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-serial@vger.kernel.org, linux-watchdog@vger.kernel.org, 
- Ben Grisdale <bengris32@protonmail.ch>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792370441; l=6537;
- i=bengris32@protonmail.ch; s=20261018; h=from:subject:message-id;
- bh=14rHWBooScrYpq6ceUihMici2wAk5TROgmMtstlnlWA=;
- b=O/LvnHeIwaBISkVpf3b2vuHO9KT7c+PAwIFrHTDsGNzferf+r+Bb9ZE2A8EzOVZuV1Sahwk32
- xXAMJwZJnB1BZ1/7nQ3ojNRvPF6m/MgxkQfo3c0RoYDZ+qq0zXox+Nb
-X-Developer-Key: i=bengris32@protonmail.ch; a=ed25519;
- pk=4ewFRC2yNph/tXokHVzIDlgOA9Hxecf1AlBuD4eOnaU=
-X-Endpoint-Received: by B4 Relay for bengris32@protonmail.ch/20261018 with
- auth_id=1233
-X-Original-From: Ben Grisdale <bengris32@protonmail.ch>
-Reply-To: bengris32@protonmail.ch
+Message-Id: <20261019-self_ret-v2-1-43d1d11bc9a3@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNywrCMBBFf6XM2kgeNqgr/0OKJHViB0tSklBaS
+ v7dkK3Lw7mce0DCSJjg3h0QcaVEwVeQpw7GyfgPMnpXBsmlFlxcWMLZvSJmdlWWK+6UtEZBnS8
+ RHW0t9QRfBx63DEM1E6Uc4t4+VtH8f24VTDBte3PrralOP777TD6k8+hhKKX8AALNiN6rAAAA
+X-Change-ID: 20261014-self_ret-83b030f32ba3
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>, David Ahern <dsahern@kernel.org>, 
+ Ido Schimmel <idosch@nvidia.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.16.0
 
-From: Ben Grisdale <bengris32@protonmail.ch>
+From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-Add a basic dtsi for the MediaTek MT8163 SoC, describing the CPUs and
-caches, PSCI, interrupt controllers, timers, PMU, watchdog and UARTs.
+The changed four tests can print [FAIL] subtests while still exiting with
+status 0. Their log_test(), aka log_test_expected() in lib.sh, helpers
+record a failure in ret, but the scripts never propagate ret to the exit
+code, so a kselftest runner treats the run as a pass.
 
-Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
+Initialize ret and exit with it at the end of each script so failed
+subtests are reflected in the exit status.
+
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
 ---
- arch/arm64/boot/dts/mediatek/mt8163.dtsi | 243 +++++++++++++++++++++++++++++++
- 1 file changed, 243 insertions(+)
+The patch doesn't fix a regression, nothing is failing (or passing when it
+shouldn't) because of it. So target the patch to net-next.
+---
+Changes in v2:
+- Also update fib_nexthop_multiprefix.sh (Ido Schimmel)
+- Link to v1: https://lore.kernel.org/r/20261014-self_ret-v1-1-6b5a95ba6106@kylinos.cn
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8163.dtsi b/arch/arm64/boot/dts/mediatek/mt8163.dtsi
-new file mode 100644
-index 000000000000..645f4e15587b
---- /dev/null
-+++ b/arch/arm64/boot/dts/mediatek/mt8163.dtsi
-@@ -0,0 +1,243 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) 2026 Ben Grisdale <bengris32@protonmail.ch>
-+ */
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+/ {
-+	compatible = "mediatek,mt8163";
-+	interrupt-parent = <&sysirq>;
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	clk32k: clock-32768 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+		clock-output-names = "clk32k";
-+	};
-+
-+	clk13m: clock-13000000 {
-+		compatible = "fixed-factor-clock";
-+		#clock-cells = <0>;
-+		clocks = <&clk26m>;
-+		clock-div = <2>;
-+		clock-mult = <1>;
-+		clock-output-names = "clk13m";
-+	};
-+
-+	clk26m: clock-26000000 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <26000000>;
-+		clock-output-names = "clk26m";
-+	};
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x0>;
-+			enable-method = "psci";
-+			i-cache-size = <32768>;
-+			i-cache-line-size = <64>;
-+			i-cache-sets = <256>;
-+			d-cache-size = <32768>;
-+			d-cache-line-size = <64>;
-+			d-cache-sets = <128>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu1: cpu@1 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x1>;
-+			enable-method = "psci";
-+			i-cache-size = <32768>;
-+			i-cache-line-size = <64>;
-+			i-cache-sets = <256>;
-+			d-cache-size = <32768>;
-+			d-cache-line-size = <64>;
-+			d-cache-sets = <128>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu2: cpu@2 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x2>;
-+			enable-method = "psci";
-+			i-cache-size = <32768>;
-+			i-cache-line-size = <64>;
-+			i-cache-sets = <256>;
-+			d-cache-size = <32768>;
-+			d-cache-line-size = <64>;
-+			d-cache-sets = <128>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu3: cpu@3 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x3>;
-+			enable-method = "psci";
-+			i-cache-size = <32768>;
-+			i-cache-line-size = <64>;
-+			i-cache-sets = <256>;
-+			d-cache-size = <32768>;
-+			d-cache-line-size = <64>;
-+			d-cache-sets = <128>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu-map {
-+			cluster0 {
-+				core0 {
-+					cpu = <&cpu0>;
-+				};
-+
-+				core1 {
-+					cpu = <&cpu1>;
-+				};
-+
-+				core2 {
-+					cpu = <&cpu2>;
-+				};
-+
-+				core3 {
-+					cpu = <&cpu3>;
-+				};
-+			};
-+		};
-+
-+		l2: l2-cache {
-+			compatible = "cache";
-+			cache-level = <2>;
-+			cache-size = <524288>;
-+			cache-line-size = <64>;
-+			cache-sets = <512>;
-+			cache-unified;
-+		};
-+	};
-+
-+	pmu {
-+		compatible = "arm,cortex-a53-pmu";
-+		interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_SPI 9 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_SPI 10 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_SPI 11 IRQ_TYPE_LEVEL_LOW>;
-+		interrupt-affinity = <&cpu0>, <&cpu1>, <&cpu2>, <&cpu3>;
-+	};
-+
-+	psci {
-+		compatible = "arm,psci-1.0";
-+		method = "smc";
-+	};
-+
-+	soc {
-+		compatible = "simple-bus";
-+		ranges;
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+
-+		watchdog: watchdog@10007000 {
-+			compatible = "mediatek,mt8163-wdt";
-+			reg = <0 0x10007000 0 0x1000>;
-+			interrupts = <GIC_SPI 128 IRQ_TYPE_EDGE_FALLING>;
-+			#reset-cells = <1>;
-+		};
-+
-+		timer: timer@10008000 {
-+			compatible = "mediatek,mt8163-timer",
-+				     "mediatek,mt6577-timer";
-+			reg = <0 0x10008000 0 0x1000>;
-+			interrupts = <GIC_SPI 152 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk13m>, <&clk32k>;
-+			clock-names = "system-clk", "rtc-clk";
-+		};
-+
-+		sysirq: interrupt-controller@10200620 {
-+			compatible = "mediatek,mt8163-sysirq",
-+				     "mediatek,mt6577-sysirq";
-+			reg = <0 0x10200620 0 0x20>;
-+			#interrupt-cells = <3>;
-+			interrupt-parent = <&gic>;
-+			interrupt-controller;
-+		};
-+
-+		gic: interrupt-controller@10221000 {
-+			compatible = "arm,gic-400";
-+			reg = <0 0x10221000 0 0x1000>,
-+			      <0 0x10222000 0 0x2000>,
-+			      <0 0x10224000 0 0x2000>,
-+			      <0 0x10226000 0 0x2000>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+			interrupt-parent = <&gic>;
-+			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(4) |
-+				      IRQ_TYPE_LEVEL_HIGH)>;
-+		};
-+
-+		uart0: serial@11002000 {
-+			compatible = "mediatek,mt8163-uart",
-+				     "mediatek,mt6577-uart";
-+			reg = <0 0x11002000 0 0x400>;
-+			interrupts = <GIC_SPI 91 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk26m>, <&clk26m>;
-+			clock-names = "baud", "bus";
-+
-+			status = "disabled";
-+		};
-+
-+		uart1: serial@11003000 {
-+			compatible = "mediatek,mt8163-uart",
-+				     "mediatek,mt6577-uart";
-+			reg = <0 0x11003000 0 0x400>;
-+			interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk26m>, <&clk26m>;
-+			clock-names = "baud", "bus";
-+
-+			status = "disabled";
-+		};
-+
-+		uart2: serial@11004000 {
-+			compatible = "mediatek,mt8163-uart",
-+				     "mediatek,mt6577-uart";
-+			reg = <0 0x11004000 0 0x400>;
-+			interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk26m>, <&clk26m>;
-+			clock-names = "baud", "bus";
-+
-+			status = "disabled";
-+		};
-+
-+		uart3: serial@11005000 {
-+			compatible = "mediatek,mt8163-uart",
-+				     "mediatek,mt6577-uart";
-+			reg = <0 0x11005000 0 0x400>;
-+			interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&clk26m>, <&clk26m>;
-+			clock-names = "baud", "bus";
-+
-+			status = "disabled";
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv8-timer";
-+		interrupt-parent = <&gic>;
-+		interrupts = <GIC_PPI 13
-+			      (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14
-+			      (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11
-+			      (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10
-+			      (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-+		arm,no-tick-in-suspend;
-+	};
-+};
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Simon Horman <horms@kernel.org>
+To: Shuah Khan <shuah@kernel.org>
+To: David Ahern <dsahern@kernel.org>
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: netdev@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ tools/testing/selftests/net/fdb_flush.sh               | 3 +++
+ tools/testing/selftests/net/fib-onlink-tests.sh        | 3 +++
+ tools/testing/selftests/net/fib_nexthop_multiprefix.sh | 1 +
+ tools/testing/selftests/net/l2tp.sh                    | 3 +++
+ 4 files changed, 10 insertions(+)
 
--- 
-2.56.0
+diff --git a/tools/testing/selftests/net/fdb_flush.sh b/tools/testing/selftests/net/fdb_flush.sh
+index 4965e52d5ef5..0827fdd60f8c 100755
+--- a/tools/testing/selftests/net/fdb_flush.sh
++++ b/tools/testing/selftests/net/fdb_flush.sh
+@@ -6,6 +6,7 @@
+ # some combinations of arguments.
+ 
+ source lib.sh
++ret=0
+ 
+ FLUSH_BY_STATE_TESTS="
+ 	vxlan_test_flush_by_permanent
+@@ -778,3 +779,5 @@ for t in $TESTS
+ do
+ 	setup; $t; cleanup;
+ done
++
++exit $ret
+diff --git a/tools/testing/selftests/net/fib-onlink-tests.sh b/tools/testing/selftests/net/fib-onlink-tests.sh
+index a26075abf7d2..325da693c918 100755
+--- a/tools/testing/selftests/net/fib-onlink-tests.sh
++++ b/tools/testing/selftests/net/fib-onlink-tests.sh
+@@ -6,6 +6,7 @@
+ source lib.sh
+ PAUSE_ON_FAIL=${PAUSE_ON_FAIL:=no}
+ VERBOSE=0
++ret=0
+ 
+ # Network interfaces
+ # - odd in current namespace; even in peer ns
+@@ -473,3 +474,5 @@ if [ "$TESTS" != "none" ]; then
+ 	printf "\nTests passed: %3d\n" ${nsuccess}
+ 	printf "Tests failed: %3d\n"   ${nfail}
+ fi
++
++exit $ret
+diff --git a/tools/testing/selftests/net/fib_nexthop_multiprefix.sh b/tools/testing/selftests/net/fib_nexthop_multiprefix.sh
+index bd0b8a053ea1..2671cff270e5 100755
+--- a/tools/testing/selftests/net/fib_nexthop_multiprefix.sh
++++ b/tools/testing/selftests/net/fib_nexthop_multiprefix.sh
+@@ -269,3 +269,4 @@ if [ $ret -eq 0 ]; then
+ fi
+ 
+ cleanup
++exit $ret
+diff --git a/tools/testing/selftests/net/l2tp.sh b/tools/testing/selftests/net/l2tp.sh
+index 41e8b19d1bd3..de4b5da2da1b 100755
+--- a/tools/testing/selftests/net/l2tp.sh
++++ b/tools/testing/selftests/net/l2tp.sh
+@@ -16,6 +16,7 @@
+ source lib.sh
+ VERBOSE=0
+ PAUSE_ON_FAIL=no
++ret=0
+ 
+ which ping6 > /dev/null 2>&1 && ping6=$(which ping6) || ping6=$(which ping)
+ 
+@@ -357,3 +358,5 @@ cleanup
+ 
+ printf "\nTests passed: %3d\n" ${nsuccess}
+ printf "Tests failed: %3d\n"   ${nfail}
++
++exit $ret
 
+---
+base-commit: 98c2ad4f5d805dbc1ea436a334ee59311806a48c
+change-id: 20261014-self_ret-83b030f32ba3
+
+Best regards,
+--  
+Hangbin Liu <liuhangbin@kylinos.cn>
 
