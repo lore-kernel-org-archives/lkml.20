@@ -1,129 +1,97 @@
-Received: from r3-11.sinamail.sina.com.cn (r3-11.sinamail.sina.com.cn [202.108.3.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9017240D578
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D91489894
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397124; cv=none; b=f2IcrpXgvjSnlH3h9TAcgwaY8aRNeGbqiobXqJUIjbY3tAmQ+X2OiFr+MYzZJ5/ZV8HfcJf/oR9cWMTORD55ZkGoYYmoyGj3CsZ051dXVoQkyOuzsZNoiGANfyMwibWlTMEaDIuqu6kDXxOxc+8D6HvDLAtZMCe9tQLwa3kYAUk=
+	t=1792397133; cv=none; b=s8LMU+vnqkIou4OcYP+BKhdDE9CLAF7UYhumtGFjbTbqLq57Gy6UEN/Y05n+VqQoWJQR37XE0iK9USH8rInbWg2iCAPQ9IFBKKvMpSMFGZZyIXPOddN6QsvijOt3EtMA2VkkTGLqQoxJhWrP1oMHnEd4RsowGrklG2dAmfCqmM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397124; c=relaxed/simple;
-	bh=UxHA2ViBUPJPs8QAFjW2TFHRP+YettFPLFr2WtSuAtc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=au93sI+1QASpU9otZNek0oRYVT9Jnw34xCsCht3YJXncaE2hjXuAPFpja1hAaSEzlhqE02V0z+jnMTMaSDioVpwY1H8iklRlorX1g33qTMz1kTFXdgHE191c08XEMFS9mtdZNZUynvGieglCwhL6cKvb512HTSLvziWEDfsa7ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=jbJg/yE9; arc=none smtp.client-ip=202.108.3.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1792397133; c=relaxed/simple;
+	bh=MNn9EReI0H6EENStGI7aE0ualMsLo14gdkGY09N5E3U=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MtK7KK/5AlxAfuKdND66GhoBuRd9PBJsw9G3Ido4JFan7a+nZZ80VhrOQAWzviZURHMwDMrX0zbgyxpLJ7rQ3po8COBTk6tkBTIMpQFxLQBbLRUWkOUf2e5bo/4GIkQLQLfIkbUO3wiQDt511T2r5tVhOUbp1fuYqJgIyX2W0Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eaawz8Nk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="jbJg/yE9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792397120;
-	bh=KKDk1Wod3l98b/0ehATI1KJdre+hP3j/8BEJ8KuHDg4=;
-	h=From:Subject:Date:Message-ID;
-	b=jbJg/yE99/G/4DkX1YVoWL+6+nPbvZX5d/2u2L8FC8u3hs2ss9xda+WdjqHPUPhMA
-	 zIzep6DwmhiY7gTtpi3duVjZc04FNLBbKhNfrcH2lMdIHl7RfZ2+62NQ8O+VBIfIR+
-	 SXaM1GKV97L7c37o4yZ3+doHCEfks4Z8WTerSGuM=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.254.0.154])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AD5CF3400004501; Mon, 19 Oct 2026 16:05:11 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 2706276292179
-X-SMAIL-UIID: 3F4600DD094242C69B357DF942873D81-20261019-160511-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [rdma?] possible deadlock in rds_trans_get_preferred
-Date: Mon, 19 Oct 2026 16:04:57 +0800
-Message-ID: <20261019080458.821-1-hdanton@sina.com>
-In-Reply-To: <6ad51a9c.a6d1a155.34a93f.00bb.GAE@google.com>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eaawz8Nk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C861F000CB
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792397131;
+	bh=Opn2C+E92xKwQsN6h5E9V9ZrB1GQ2MnOKeEbuvT5O7g=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Eaawz8NkGmmc/B2+oRKDloMx4jvuCIPwPI/PzNc+TS9pajKYIumZL5T6DZPNr1i2C
+	 9qXOHdOaqpdGV+NSavPcoVW8EhCz97Rl6Wx/wRldqi9qufbDgC1IBG0pN5G6SmE/mh
+	 BGBTmjb3xIji3BNE14L0492XU6GB7eXQNOLSEZMCMAt7YL83V/LcIy5GGgpMCQbNtT
+	 ZIYZMGc2nAVPXC9zkEE/2obrZD/pdsRPNMDzPQG1WlSz3VkVwq3jv71934V9EK4BP0
+	 PaxurzGH7cDkDQ2K0H1jasollcTYOKWb2wEvzypDNJVIvsocTAFuAb2Ol91CHISCzn
+	 UtX5nB8GesGFQ==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab35e31f6dso9803581fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:05:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByJKuZrd+Y/af2Pl0XReDgkvY6uYzKYr3heO4vMEVfikcLolffQyokl4KwYxXV/ViBMio76abhIuqJ0Wnc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJAC3KwQ5wPFA8h4jYroKhYEqkEWUms20rAY0ldCetk9ICxX7o
+	Tay/k9PCjeDQdbaqjOIAVp2bCSRCoFTywbpGCIfD4qIccVNeNAHe2Cpe7h5seuFGRxBNZ2JzKlE
+	k7vXfkL+514uXOGOMGHz4nBDXqAA5F0fh1CUho1Hh7w==
+X-Received: by 2002:a2e:be9f:0:b0:3ab:39c4:55a5 with SMTP id
+ 38308e7fff4ca-3ab39c4607amr6913691fa.17.1792397130541; Mon, 19 Oct 2026
+ 01:05:30 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 19 Oct 2026 10:05:29 +0200
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 19 Oct 2026 10:05:29 +0200
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261016-upstream-tda54-gpio-v2-1-5c4f8b10cdbc@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261016-upstream-tda54-gpio-v2-0-5c4f8b10cdbc@ti.com> <20261016-upstream-tda54-gpio-v2-1-5c4f8b10cdbc@ti.com>
+Date: Mon, 19 Oct 2026 10:05:29 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MdXhgtFKXvb9ZwCKya9uHR79AA=Je_pUKe-aL4JGGiTXQ@mail.gmail.com>
+X-Gm-Features: AclHuK-KhikiLJw6im0dPRghw6fj_ecjB_InLYFf-XUgpvNM-jDdSNh_Mm6cFZo
+Message-ID: <CAMRc=MdXhgtFKXvb9ZwCKya9uHR79AA=Je_pUKe-aL4JGGiTXQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: gpio: gpio-davinci: Add the tda54 support
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: vigneshr@ti.com, u-kumar1@ti.com, nm@ti.com, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Keerthy <j-keerthy@ti.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-> Date: Sun, 18 Oct 2026 12:14:36 -0700	[thread overview]
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    70dd4ee72eb2 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1271a69c580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=44ac479246d4559b
-> dashboard link: https://syzkaller.appspot.com/bug?extid=ccdb5058c3df2d94811c
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> userspace arch: i386
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15b9618e580000
+On Fri, 16 Oct 2026 06:30:36 +0200, Aniket Limaye <a-limaye@ti.com> said:
+> New version of GPIO IP used in TDA54 SoCs adds support for level-triggered
+> interrupts via extended registers.
+> Add the device binding for ti,tda54-gpio.
+>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+> ---
+>  Documentation/devicetree/bindings/gpio/gpio-davinci.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml b/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml
+> index 1434d08f8b741..02b6b9a436a68 100644
+> --- a/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml
+> @@ -18,6 +18,7 @@ properties:
+>                - ti,am654-gpio
+>                - ti,j721e-gpio
+>                - ti,am64-gpio
+> +              - ti,tda54-gpio
+>            - const: ti,keystone-gpio
+>
+>        - items:
+>
+> --
+> 2.53.0
+>
+>
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 70dd4ee72eb2
+Just a nit: you don't "add support" in dt-bindings. That's done in driver code.
+Here, you "document" new hardware so please next time try to use a different
+wording in commit messages.
 
---- x/include/rdma/rdma_cm.h
-+++ y/include/rdma/rdma_cm.h
-@@ -167,6 +167,7 @@ struct rdma_cm_id *rdma_create_user_id(r
-   * asynchronous operations associated with the id.
-   */
- void rdma_destroy_id(struct rdma_cm_id *id);
-+void rdma_destroy_id_wq(struct rdma_cm_id *id);
- 
- /**
-  * rdma_restrict_node_type - Restrict an RDMA identifier to specific
---- x/net/rds/ib.c
-+++ y/net/rds/ib.c
-@@ -486,7 +486,7 @@ static int rds_ib_laddr_check_cm(struct
- 		 cm_id->device ? cm_id->device->node_type : -1);
- 
- out:
--	rdma_destroy_id(cm_id);
-+	rdma_destroy_id_wq(cm_id);
- 
- 	return ret;
- }
---- x/drivers/infiniband/core/cma_priv.h
-+++ y/drivers/infiniband/core/cma_priv.h
-@@ -110,6 +110,7 @@ struct rdma_id_private {
- 	 */
- 	struct rdma_restrack_entry     res;
- 	struct rdma_ucm_ece ece;
-+	struct work_struct destroy_work;
- };
- 
- #if IS_ENABLED(CONFIG_INFINIBAND_ADDR_TRANS_CONFIGFS)
---- x/drivers/infiniband/core/cma.c
-+++ y/drivers/infiniband/core/cma.c
-@@ -2126,6 +2126,25 @@ void rdma_destroy_id(struct rdma_cm_id *
- }
- EXPORT_SYMBOL(rdma_destroy_id);
- 
-+static void destroy_id_work(struct work_struct *work)
-+{
-+	struct rdma_id_private *id_priv =
-+		container_of(work, struct rdma_id_private, destroy_work);
-+
-+	mutex_lock(&id_priv->handler_mutex);
-+	destroy_id_handler_unlock(id_priv);
-+}
-+
-+void rdma_destroy_id_wq(struct rdma_cm_id *id)
-+{
-+	struct rdma_id_private *id_priv =
-+		container_of(id, struct rdma_id_private, id);
-+
-+	INIT_WORK(&id_priv->destroy_work, destroy_id_work);
-+	queue_work(cma_wq, &id_priv->destroy_work);
-+}
-+EXPORT_SYMBOL(rdma_destroy_id_wq);
-+
- static int cma_rep_recv(struct rdma_id_private *id_priv)
- {
- 	int ret;
---
+Bart
