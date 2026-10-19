@@ -1,140 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3D147DD44;
-	Mon, 19 Oct 2026 08:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2D749B5C1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400390; cv=none; b=OM9FDR5TaTVDO3F8oVZ8LAt7lRzsRGEqKqU4yzG69uQBop2DlUpKF84DP4t1CJTChYOcgAjsV7RQVJBfsBJ9nCKUL41SHGaLDCIrPWJjaywqekcF9lNGKW2LZQRFOUSGszQPOq2Wz1jDcvhAbqUvO8G0bkMlznaV9WlSpixDWqg=
+	t=1792400416; cv=none; b=iAnAuK7nBJGoZfIE8h87XmI5xSGFRpYqtOAYdlB1qwvfTAOrAn9BQ2NAgc5ZnDFu1UWyFSwl/eReuFQfYAvMYgsLK9uqnZxqu1pJj+ic09HH5XTw5KKgJyCc8yc0YqlMfn+qs2UsE2Nx33U5izWd9/A7VwckLaas+dDLrYpj3Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400390; c=relaxed/simple;
-	bh=rragoc2iVoGG0i1tEl209EOPicm3/CjMFj/7auF/VPM=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=NCUllthzm5JcDgpfnRptyGsR/DKrFppWRqtRzOIfBZA7O8dyGtrxdJykQNq6SENHFfmN51SMfS6nGUQDlhefPWV6DoKSkeoi+onaOvyCswFyXeok/sx3gpU1FYbrXlsmoh5lV0D4ru505oW19NEvIwnYhZZExC4kmg5YQ8e4YAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EeQu4m7M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792400416; c=relaxed/simple;
+	bh=gpJsPC1bgzRrB21bbmuJR8Rh6on/+2rqdpt3atueTZQ=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=aURlGVRbO6Gg3fnBnfTvBoiueXi3ApzMtroyfBFWSkEF2INZIIMezYXeTQ0KRyNXjZODXXgILySLs3oa5pwyynDPNycHg5LiBPVNfKPuO0vACKM6yY1YMPp7Yv4NrmjIdbiLAP0oyH8Z8x3SSUDHWpB37HV4XHx3LmGtNU4iGlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fN+BNRMy; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EeQu4m7M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D54B1F000C4;
-	Mon, 19 Oct 2026 08:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792400389;
-	bh=sCVL4RVHLYpuCYuxj//ChNXUdT91AceghX66I3VsNi0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=EeQu4m7M+rJLArRDfjnc0TYAbstjwDqvpihjZ7BzpYQL2mj5qSY+WyoCtI3hwd1TF
-	 LZjv9bPsfKrPnypcZPmZ40aEwV+wJUBzlqraa8bBS5oJNr1scba76D46Mj+m70FAgV
-	 N6FGWuTHOZt3DVdFIg07G4gRZXXTEgy89DiMWPVLX5in8KCWesbjg3/QZud518uSvD
-	 Flmq5a7v+rMGURY3Bq2vq5ALlr5RmqCbPxavQwxeIrRmZxsDjDM90HQLljtamqJdQT
-	 aVIFFP7qHDkYDk9JrkwwbSG9KMHDbDhCW2dbvi81I8vj0mNZQLyKUuha7eaUEVgdkP
-	 t0u4EyM1UIlFQ==
-Content-Type: multipart/mixed; boundary="===============6491243909759321778=="
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fN+BNRMy"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b001cd92bso957635f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:00:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792400411; x=1793005211; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iKwgkkYty1GRm5iOvnB2r7jBXi8LeJAk2XCbdMUEAe4=;
+        b=fN+BNRMy3yaJF/FdwdHvNcegyohj+tYdKq5C4xm0HASyVhvPDbU1EDEr8KYGb9eStL
+         35KPdGIvCgw+ZmsdoT4ANr4M5YnMI/RYdhTvWavBKGcUPAMlqZkK/mca28btjllzL7MF
+         kNnhvzXQr9JsFvK4yDIp76rKTUCgVVzcrutf7dCBh61cCI6EZ4AOrBLMvv7JQiaKaQNB
+         NzfLhoI3WkpTkIBZ4sysnvKQLJ/6XzSiVWvtsjJqXW/n4NvPyh9qt0E8RwvCUBTMXNvn
+         NSNnbyGFqo2U7j3rVgi4VCbHRaxnVYUPXDXRLFW+XljQvVdSzasK/0i/2/EJc3M7lfk/
+         lJSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792400411; x=1793005211;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iKwgkkYty1GRm5iOvnB2r7jBXi8LeJAk2XCbdMUEAe4=;
+        b=fJ8vzjIkaTgSjlOXQF09zOUEadRNZpS765kjoZjgtEkHGxcqXugxs8rmogEfcZwNgI
+         7aJKNcDfxHLXKTSmzH6mpyMhIxoYQWpl+tf/xSLeSWBvLirLFmG9YCujFxzhjGWzvQgI
+         31OBCw10gge27kiWqmOPTeWDL5YsqHvwegc9RRICjiPt0fQ/8UvjGnk6oe6Ah5RjLG1Y
+         7D87+bVxD1Br6iSvZjghJzY0K1ye1pWaiqvdFFUW2Xezlt/HrAks6zQ3fLZUKTCXfT/u
+         glw7xJZQuxnuHufqFtyivRlr7FSUlncZ3SfhFTDC6zJ5mW/Z8xEI4pufmNVXj00pZ1Tt
+         8cVw==
+X-Forwarded-Encrypted: i=1; AKwUvBwUr6Sf++4aVqh0ggAlNiNLYN0XB7E4x1QCHLmOwGRTcgV+Y3EV3qoxxJ0XnOv6s3grg+7GVVptQS9SXnk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzSLkc6j+yOD4YOIQJsAbXf12AQf8H/LIuKdhhtDVIjFolo4RO
+	ibtrreOVXgR0TdVHbzwYFqByMvHw0PrhOD2hI9vmsDvwjWZGAT+rP8qOo7I0homML7A=
+X-Gm-Gg: AYBFou2ZCp0nv0PFPCLuudYtACyQbNm/Z/T2CuWfuc/gkjElLhO3amuJDpA3YFBFb0I
+	kuFUktMjbBetH/udkRwor8ZYYmqoLMzjS0YNeCkXITwrvgdTzBZD5rkdN6TZysUSrmMEaEXvD5U
+	BaqHM5PLWCCit4ps734uktpiA0impWso2V8xgDry9L+ILsS2aDYyqRyD0SIfV37Qu84zvy6kgvN
+	VHJh2VYldSVO68fpHCDVXDdeb6CUfggssKc4kRnl5SAxjS+uLyz2LtkVBYW4mwWImEQJYsf+yMX
+	TES6MDSlC4m9Vxx/WtqCmu6ZL6XnFfDhN88b6mW8La95RqhCMal3MK5/cr4l8+StYzvAoTJvyXk
+	ofCiuvQGUPbB1E5DOkYdBelyR1p/BmhJwLi+te4VuE1JhFs5F9v9jg4CYeEgir5d0NhiRi0Uiev
+	YH3a2uU8v9yaU67YV3fNjY1ny8mmZsYzKmVyAkuX2q3oRr/AWKbfkeQPP1OKx3uRH+1H52kYAim
+	oJ2BqaYqEvjMLWA1edbjFAtDgZj
+X-Received: by 2002:a05:6000:240d:b0:48e:eb5:4976 with SMTP id ffacd0b85a97d-48e0eb54a52mr9171721f8f.53.1792400411273;
+        Mon, 19 Oct 2026 02:00:11 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd510201sm22649658f8f.55.2026.10.19.02.00.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 02:00:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <222cfd632a97f75821b9f4671671253934825dfe1f1abee532816b26a0b47f33@mail.kernel.org>
-In-Reply-To: <20261019-xsk-zc-rx-double-free-v1-1-2aa19f6628fb@vecima.com>
-References: <20261019-xsk-zc-rx-double-free-v1-1-2aa19f6628fb@vecima.com>
-Subject: Re: [PATCH bpf] xsk: Do not free ZC Rx buffer when the Rx ring is full
-From: bot+bpf-ci@kernel.org
-To: marcin.knap@vecima.com,anthony.l.nguyen@intel.com,przemyslaw.kitszel@intel.com,andrew+netdev@lunn.ch,davem@davemloft.net,edumazet@kernel.org,kuba@kernel.org,pabeni@redhat.com,magnus.karlsson@intel.com,maciej.fijalkowski@intel.com,sdf@fomichev.me,horms@kernel.org,ast@kernel.org,daniel@iogearbox.net,hawk@kernel.org,john.fastabend@gmail.com,jtollet@cisco.com
-Cc: intel-wired-lan@lists.osuosl.org,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,marcin.knap@vecima.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Mon, 19 Oct 2026 08:59:49 +0000 (UTC)
-
---===============6491243909759321778==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v1] clk: Free the parent map only in __clk_release()
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261016164050.790594-1-nickolai@csail.mit.edu>
+References: <20261016164050.790594-1-nickolai@csail.mit.edu>
+Date: Mon, 19 Oct 2026 10:59:59 +0200
+Message-Id: <179240039974.859276.7525896118303728782.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3516; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=gpJsPC1bgzRrB21bbmuJR8Rh6on/+2rqdpt3atueTZQ=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlX7wgbXi0WaJ2yJfaFwjrpOZo/D0zR4y0pffvhgon9R
+ FWlDX8aOkpZGMS4GGTFFFlquKvF30lqfZk1Xec2zBxWJpAhDFycAjCR89MZGbpbZv963i7fPFn8
+ 3eGbJXwP9xxm/Bl/8U9N3MfMJdMsSrYy/Pdd+2B2c+WOiBmHDrnV3BF4fKdqcbLkk5olyzv4Y4V
+ uTuMGAA==
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-> xsk: Do not free ZC Rx buffer when the Rx ring is full
+> clk_core_populate_parent_map() can fail in two ways, and since
+> __clk_register() answers every failure with kref_put(&core->ref,
+> __clk_release), both end in clk_core_free_parent_map() walking a parent
+> map that is not there to walk:
+> 
+>  - If the allocation of the map fails, core->parents is NULL while
+>    core->num_parents was already set from init->num_parents.
+>    clk_core_free_parent_map() only tests num_parents, so it reads
+>    core->parents[i].name through a NULL pointer: an oops.
+> 
+>  - If a later kstrdup_const() of a parent name fails, the function
+>    frees the names it copied so far and the map itself, but leaves
+>    core->parents pointing at the freed memory. __clk_release() then
+>    frees the same names and the same map a second time: a double free
+>    on top of a use-after-free read.
+> 
+> Both arms are the -ENOMEM path of clk_register(), clk_hw_register() and
+> of_clk_hw_register(), so of every clock provider in the tree with
+> num_parents > 0. A user sees it when a clock provider's probe hits a
+> memory allocation failure (in practice under fault injection, as these
+> allocations are small): instead of the probe failing with -ENOMEM and
+> "failed to register clk", the kernel oopses in __clk_release() called
+> from __clk_register(), or, for the second arm, corrupts the slab
+> allocator and reports a double free.
+> 
+> clk_core_populate_parent_map() has cleaned up after itself since commit
+> fc0c209c147f ("clk: Allow parents to be specified without string names"),
+> when __clk_register()'s fail_parents label skipped
+> clk_core_free_parent_map() and only the later fail_create_clk label
+> freed the map. Commit 9d05ae531c2c ("clk: Initialize struct clk_core
+> kref earlier") moved the freeing of everything into __clk_release() and
+> pointed all failure labels at kref_put(), so the map is now freed by
+> __clk_release() on this path too.
+> 
+> Make clk_core_populate_parent_map() leave the map to __clk_release():
+> return the error without freeing anything (the map is zero-allocated and
+> kfree_const(NULL) is a no-op, so the partially filled map is freed
+> correctly by clk_core_free_parent_map()), and have
+> clk_core_free_parent_map() return when there is no map rather than when
+> num_parents is zero, which is what clk_core_get_parent_by_index()
+> already does for the same state.
+> 
+> Found by formal verification of __clk_register() against the kernel
+> binary. Reproduced on riscv64 under QEMU by re-running a fixed-factor
+> clock provider's probe through its sysfs bind file with failslab aimed
+> at the parent map allocation: the unpatched kernel oopses with a NULL
+> pointer dereference in __clk_release() (clk_core_free_parent_map() is
+> inlined there), the patched kernel fails the bind write with -ENOMEM
+> and logs "failed to register clk". A userspace transcription of the
+> four functions reproduces both arms under AddressSanitizer before the
+> change and is clean after it. The clk KUnit suites pass before and
+> after on x86_64 and riscv64.
+> 
+> Fixes: 9d05ae531c2c ("clk: Initialize struct clk_core kref earlier")
+> Assisted-by: LLM
+> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 
-TL;DR: Since xsk_rcv_zc() no longer frees the buffer on a full Rx ring, gve
-DQO zero-copy Rx may leak one UMEM frame per dropped packet and eventually
-stall AF_XDP Rx; it likely needs xsk_buff_free().
+Fix looks good to me. Thanks for this
 
-> diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-> index 33475b180ea6..0edc160c660f 100644
-> --- a/net/xdp/xsk.c
-> +++ b/net/xdp/xsk.c
+The description is a touch verbose for just few lines fix, which is usual
+for LLM generated content. If for some reason another version, it would
+be nice you could summarize it.
 
-[ ... ]
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
 
-> @@ -252,9 +246,6 @@ static int xsk_rcv_zc(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
->  	}
->
->  	return 0;
-> -err:
-> -	xsk_buff_free(xdp);
-> -	return err;
->  }
->
->  static void *xsk_copy_xdp_start(struct xdp_buff *from)
+-- 
+Jerome
 
-Can this leak the UMEM frame in the gve DQO zero-copy Rx path?
-
-With this change xsk_rcv_zc() no longer frees the buffer when the Rx ring
-is full and it returns -ENOBUFS, so every zero-copy driver has to free or
-keep the buffer itself when xdp_do_redirect() fails.  i40e and ice are
-updated here, but gve DQO also relied on the core free:
-
-drivers/net/ethernet/google/gve/gve_rx_dqo.c:gve_xsk_done_dqo() {
-    ...
-	case XDP_REDIRECT:
-		if (unlikely(xdp_do_redirect(priv->dev, xdp, xprog)))
-			goto err;
-		break;
-    ...
-err:
-	u64_stats_update_begin(&rx->statss);
-	...
-	if (xdp_act == XDP_REDIRECT)
-		rx->xdp_redirect_errors++;
-	u64_stats_update_end(&rx->statss);
-}
-
-The err: path only updates stats and never calls xsk_buff_free(xdp).
-
-The caller, gve_rx_xsk_dqo(), then calls gve_free_buf_state(rx, buf_state),
-which puts the buf_state back on the free list.  gve_alloc_buf_state() later
-sets buf_state->xsk_buff = NULL without freeing it, and the ring-stop cleanup
-only frees xsk buffers attached to allocated buf_states, so nothing calls
-xp_free() on this buffer.
-
-The path that gets there is:
-
-gve_rx_dqo()
-  gve_rx_xsk_dqo()
-    gve_xsk_done_dqo()
-      xdp_do_redirect()
-        __xdp_do_redirect_xsk()
-          __xsk_map_redirect()
-            xsk_rcv()
-              xsk_rcv_zc()
-                __xsk_rcv_zc()
-                  xskq_prod_reserve_desc() returns -ENOBUFS
-
-Before this patch the err: label in xsk_rcv_zc() freed the buffer in exactly
-this case, which is the scenario the commit targets (user space not keeping
-up with the Rx ring).  After this patch gve DQO leaks one UMEM frame for
-each packet dropped because the ring is full.  The frame never returns to
-the pool free list or to user space, so under sustained overload
-xsk_buff_alloc() starts failing in gve_alloc_buffer() and AF_XDP Rx on that
-queue stalls until the socket is torn down.
-
-The commit message says "A failed xdp_do_redirect() leaves the buffer owned
-by the caller, and drivers rely on that" and names only i40e and ice as
-relying on the core free.  Does gve_xsk_done_dqo() need an xsk_buff_free(xdp)
-on the XDP_REDIRECT failure path as part of this change?
-
-The other zero-copy drivers that were checked (ixgbe, igb, igc, libeth/idpf,
-gve GQI, mlx5, tsnep, fec, dpaa2, nfp, stmmac, icssg and virtio_net) already
-free, recycle or keep the buffer on redirect failure.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39223384647
---===============6491243909759321778==--
