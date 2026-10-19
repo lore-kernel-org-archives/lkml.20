@@ -1,127 +1,212 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536904A5C29
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:01:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF9A49A3AB;
+	Mon, 19 Oct 2026 09:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400487; cv=none; b=o90mvw3dFDL2wo9cPd+kpQ+lmNLs18W2yAPKLdVevvLsYlrByNUWhX6L4AeySzEmY63QFprtc6uBrvamSntm/0ZejXNIg4cX1w8aTYKOQbR75wvCLd69bi8dSchXqMlnQqjPH8kAdv+7ZMUGPpxUC3wEABf8oPBqWOAwMNcS4Zg=
+	t=1792400520; cv=none; b=lrbaflQuOjikRYmnouNbfQ5o6hlKv4TL2mzk/IF6zupRW6V52yT16J921czhMdunvX3Q/Es4ua9+bzgltt5Fq+9IHT0GOOuUiTCa0WNAW0XuznAU6GvqMyfwHKIkPXj3IrpjuhJGruTOADUDcIf1EUb9JgFtw8mFwEDYePzjaOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400487; c=relaxed/simple;
-	bh=ISGLybjkKHk4ZABVfkFT1ydPZlLsqwmBvVyFe1NRoTY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nV5Nn30t5f2H5GtJ4SLYips23rMu/i7MGYkk0g5JFybK2zVF+W+K0r0rJGTn/RCRGm3VlPXYhmf22dxRj4hmqyPIZ0plKFB2RRZ7/G4nac7B3/7VAnvnbkyDS+mKw4X2ITCrns8RszFqvM3Q2ZtbCb+wdCafrXA5PDh2qc9bQCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f2YiBJr8; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792400520; c=relaxed/simple;
+	bh=9YWx8WAm34xanNpLhpaS8oLDCPXamViXVVUfEYDnJg0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eO8kbEIZcemv5k8Z2hgOtQyFKx5ebI0ZuXu09oXFbZysGpuxiTbKtr7a2LI8SefLC/zYjbEc6bRIq/xXtRlZW2O32yBNZYZKApajBKoV2PoQ/puHUHHVwzQyx0xbAQBpnyN9LEh+ztvv+j6ECcD1RJwqZp1nRO+Jc8dbyxN31dM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TaXJcFkG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CJMfatPT; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TaXJcFkG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CJMfatPT; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f2YiBJr8"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso12941565e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:01:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792400484; x=1793005284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rCjG1qUBFd8Lkeu0pATJzv+SvPg5QuT3Ybijv+USoe4=;
-        b=f2YiBJr8YWgHCQ7dX3QK/a0ghLQO3tpp9SdQQWc22u0ytMEowXtccfe2dd5VECyMgg
-         vFMJ28IZhKycKJlA3WkIJaHi2Qg2Bo05HrnKn7S5KYAcQRq5rE3Qqa8IAIXlGF1JCc4q
-         82ZqSJ3Iir4o2u5vYFws5JgX9/U+pdyD9H2Uvp7KPRxia+TYPPL1cz2Rz1KgXuEf6mJF
-         FH3NeK87d20ZLWJM509G2/ER2ApgzzT9S3mWfC2bBScqqX715tOXE2ltXQ8oeUxHNyno
-         iOAKFQaLOZty1OSsVIxXJg9Hs+65FNVyU/2rTZdgmWLwPIRDo4Z9TAw3g7Ma1QlbDBNc
-         aUVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792400484; x=1793005284;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rCjG1qUBFd8Lkeu0pATJzv+SvPg5QuT3Ybijv+USoe4=;
-        b=FFUBCyla+Xvs2DpsruVcNrtQ9qsaj6EZZH8d/w1LwvyDXQ94HXaz4KD6u3wx0C4Xv0
-         K+VDqFcdWFv6QJzLv9kOTUW6gbALhwrUYOQBbW0edeS+A5NP2gr4H/U114mErnI1Aj1x
-         xw03n+24foasdLVEuLh5y4zCskAcKzeAJKh3rUz+kcfetnKJFJIqlkqK2Dpgh+hqAap1
-         SjOUvV6dikMluvg6Cq5kM6d/mSxoRQzcNUEcJnEZ4Mfd+fvGPYfQN8bydhBKaJe2j62N
-         Bjen2O7ftX/bFPjCaVAuWfNqlMO1uPEG8GekBdczyJ6uAdpd9C1gyP6Qai958FlZPDLm
-         nTlg==
-X-Forwarded-Encrypted: i=1; AKwUvBwDafUYGTNvLVWjnRRgqz6pOg8gHcAQqw2rU3a488j6QRS2CCzXo4vee7wRk03wFPKPoFlEbRAbi+NrlGk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcBSL+KSck9Iwwpjk+rLoaoMpOtEn5DUF1YPnNRE9+lX+zrs50
-	ifeJNvYug3YYoQ8P9uLL8N5859OC6284g457Kmmn+1qBAz5iAWS1xPXL
-X-Gm-Gg: AYBFou2YGHxoa2joQlIl0n07W0UPGb7RwT36cvog7vyKhAIzxTJBbCe2pvLF0YDJ9Yd
-	vB9RcILUjRgNYiYhHKJRPVz0njhBe3qMwPD/xjdiNRzbOY5ZbXiT7cQSv4qXr22kPHL0pXtMFP5
-	zH301oDohGpXQ+ECRrJNMASh9Gb1VknDl87nEMklWE0e6rHqoBDZRgoMSaU86FmSUOl/A67Yxa8
-	KzzdJr1AcmwrRTwdO2jP2G/QBZzMAiHdhSEQmvNmssJUHPNCNEf2/XU+8R2MbiB2AHew0/ULz8J
-	c6v5l9puuUIeTG+tMm7HCZEW7grCmwQpfoQeXZaWmKotVUPCzH4jUHNNMDEh8JA7SMBxv3ZU4I2
-	Asy+43h2pr9OEGKJL7sWWgHh8Qyj2DwxZd6Pok0qhGfNiYDm8oWd3Wbq/rlG3qkp/xN4CgOGI0O
-	rkyBlQrljUxVPkJEAJ8JImjod2tKSY3eHqAjXruUG3WCMaXVs3Yys2xSeGUO/tRwFmo5ENe9nOY
-	KHj
-X-Received: by 2002:a05:600c:4684:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a1d76001e9mr141175875e9.16.1792400484365;
-        Mon, 19 Oct 2026 02:01:24 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca30aa4sm118260635e9.2.2026.10.19.02.00.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:01:06 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Neill Kapron <nkapron@google.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Wayne Chang <waynec@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Felipe Balbi <balbi@ti.com>,
-	Felipe Balbi <balbi@kernel.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH v2 0/2] usb: gadget: u_serial: flush_buffer, and keep the port for its tty
-Date: Mon, 19 Oct 2026 10:58:53 +0200
-Message-ID: <20261019085855.3259716-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TaXJcFkG";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CJMfatPT";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TaXJcFkG";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CJMfatPT"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A995321BFC;
+	Mon, 19 Oct 2026 09:01:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792400516; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rNnRDA0okT2U1jOeZ0ajx9DmL7Ea6AXQTcY6hG5C1uY=;
+	b=TaXJcFkGDZ0EXREic6WoGSbFVHAEWbnzq3aanYZa87tbaKEl63euyfpdosy417TMOk4I4N
+	zwi0p5xH0rDGjKf6GegBqyWcF16QG4MIESqw3e3cFdU6tfNdNqo3MLhUAmau4CWe2zbOHv
+	EurflAFdGYV3iScwvHqPI6/qzWqLcIY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792400516;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rNnRDA0okT2U1jOeZ0ajx9DmL7Ea6AXQTcY6hG5C1uY=;
+	b=CJMfatPTMzus+53MyicnGmxneKM91UGC8BPS7bR6wPyRe+czFqKiA5IS5AuljRBlWOpQE1
+	0Ku/DYD0ePTpxWAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792400516; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rNnRDA0okT2U1jOeZ0ajx9DmL7Ea6AXQTcY6hG5C1uY=;
+	b=TaXJcFkGDZ0EXREic6WoGSbFVHAEWbnzq3aanYZa87tbaKEl63euyfpdosy417TMOk4I4N
+	zwi0p5xH0rDGjKf6GegBqyWcF16QG4MIESqw3e3cFdU6tfNdNqo3MLhUAmau4CWe2zbOHv
+	EurflAFdGYV3iScwvHqPI6/qzWqLcIY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792400516;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rNnRDA0okT2U1jOeZ0ajx9DmL7Ea6AXQTcY6hG5C1uY=;
+	b=CJMfatPTMzus+53MyicnGmxneKM91UGC8BPS7bR6wPyRe+czFqKiA5IS5AuljRBlWOpQE1
+	0Ku/DYD0ePTpxWAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3B8401373D;
+	Mon, 19 Oct 2026 09:01:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id swPSAITc1Wo5BgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 09:01:56 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 9B42AA1418; Mon, 19 Oct 2026 11:01:47 +0200 (CEST)
+Date: Mon, 19 Oct 2026 11:01:47 +0200
+From: Jan Kara <jack@suse.cz>
+To: Jiaming Zhang <r772577952@gmail.com>
+Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
+	jack@suse.cz, libaokun@linux.alibaba.com, linux-kernel@vger.kernel.org, 
+	ojaswin@linux.ibm.com, ritesh.list@gmail.com, syzkaller@googlegroups.com, 
+	yi.zhang@huawei.com, stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: clear in-inode xattr space before adding the first
+ xattr
+Message-ID: <rmorrps3y6t366v4kfno7bcitpic5saoqomt2muaipcif67lzr@jum5r5zposvr>
+References: <CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com>
+ <20260916084723.877552-1-r772577952@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916084723.877552-1-r772577952@gmail.com>
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,mit.edu,dilger.ca,suse.cz,linux.alibaba.com,linux.ibm.com,gmail.com,googlegroups.com,huawei.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On Wed 16-09-26 16:47:23, Jiaming Zhang wrote:
+> An inode can hold extended attributes in the space that follows its extra
+> fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
+> ext4_iget_extra_inode() validates that space only if it starts with the
+> xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
+> space is treated as empty and is not checked.
+> 
+> ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
+> or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
+> there to find min_offs, the lowest value offset.  That offset decides
+> whether the new value fits and where the value is copied:
+> 
+> 	free = min_offs - ((void *)last - s->base) - sizeof(__u32);
+> 	...
+> 	void *val = s->base + min_offs - new_size;
+> 
+> A crafted image can leave non-zero bytes in that space without the magic
+> where ext4 looks for it, for example by shrinking i_extra_isize.  Those
+> bytes are parsed as entries, and an entry that claims an in-inode value at
+> offset 0 sets min_offs to 0.  Because free is a size_t, the subtraction
+> then wraps around to a huge value, and the free space check passes although
+> the value does not fit.  The value is copied new_size bytes before the
+> start of the space, over the inode's own fields and, for a large value, the
+> memory in front of the inode.
+> 
+> On a kernel without KASAN, the copy corrupts memory: it overwrites the
+> inode's own fields and, for a large value, also the memory in front of the
+> inode.  The bytes and their length are decided by the setxattr() caller.
+> Nothing is freed and reused here, so the use-after-free in the report only
+> reflects where the write happened to land.
+> 
+> Triggering this issue requires mounting a crafted image, which needs
+> CAP_SYS_ADMIN or automounting of removable media; after that, any
+> setxattr() on the file reaches this path.  The issue was found by fuzzing
+> and has not been seen in production; a reproducer is available in the
+> linked report.
+> 
+> Clear the space in ext4_xattr_ibody_set() before calling
+> ext4_xattr_set_entry() when EXT4_STATE_XATTR is not set, so that the walk
+> starts from the empty entry list.
+> 
+> Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
+> Closes: https://lore.kernel.org/lkml/CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude Code:claude-opus-5
+> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
 
-On a gadget whose host side does not read the port, the last close of
-/dev/ttyGS* waits GS_CLOSE_TIMEOUT (15 s) for the write buffer to drain,
-and tcflush(TCOFLUSH) cannot avoid that because u_serial has no
-flush_buffer operation. v1 added it.
+Thanks for the fix! One nit below:
 
-Sashiko pointed out that the hangup gserial_disconnect() schedules can
-then call flush_buffer after gserial_free_line() has freed the port.
-That window is older than the new callback: the tty core already reads
-the freed port there, KASAN reports it in check_tty_count() with a
-delay added to gs_close(). Patch 1 makes the port live as long as its
-tty, with a tty_port reference taken in install and dropped in cleanup
-as cdc-acm does, and carries Fixes and Cc stable. Patch 2 is v1.
+> diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
+> index 5c310747b965..2e5f39b710bd 100644
+> --- a/fs/ext4/xattr.c
+> +++ b/fs/ext4/xattr.c
+> @@ -2274,6 +2274,10 @@ int ext4_xattr_ibody_set(handle_t *handle, struct inode *inode,
+>  		if (IS_ERR(ea_inode))
+>  			return PTR_ERR(ea_inode);
+>  	}
+> +
+> +	if (!ext4_test_inode_state(inode, EXT4_STATE_XATTR))
+> +		memset(s->first, 0, s->end - (void *)s->first);
+> +
 
-Changes in v2:
-- new patch 1, the port lifetime fix
-- patch 2 unchanged
+So this looks correct but AFAICS it should be enough to zero just the first
+u32 of the xattr space? I.e.:
+		*(__u32 *)s->first = 0;
 
-v1: https://lore.kernel.org/linux-usb/20261015162732.3170938-1-mehmet.fide@gmail.com/
+That way IS_LAST_ENTRY() returns true for s->first and the whole space is
+treated as empty. For larger inodes memsetting the whole space could be
+unnecessarily expensive and inode without EXT4_STATE_XATTR is actually a
+common thing (inode without any extented attributes will be such as well).
+Also please add a comment before the check like:
 
-Tested on a Verdin AM62 with KASAN and lockdep, 6.12.113 plus both
-patches: with a 3 s delay in gs_close() the hangup after
-gserial_free_line() no longer reports a use-after-free and the port is
-freed after the tty; four function teardowns, two with the port open,
-free four ports without leaks or warnings; close after tcflush returns
-at once with the host not reading and the data written after the flush
-arrives; 47850 flushes against a concurrent writer; NCM torn down
-under iperf traffic. The same two patches run in our i.MX8MP and VF50
-product images on CI rigs, gadget replug included. On usb-next both
-patches build with W=1 and sparse without new warnings, each on its own.
+	/*
+	 * Make sure xattr space is properly initialized so that
+	 * IS_LAST_ENTRY() returns true for it's first entry
+	 */
 
-Mehmet Fide (2):
-  usb: gadget: u_serial: keep the port until its tty is released
-  usb: gadget: u_serial: implement flush_buffer
+Thanks.
 
- drivers/usb/gadget/function/u_serial.c | 59 +++++++++++++++++++++++++-
- 1 file changed, 57 insertions(+), 2 deletions(-)
+								Honza
 
-
-base-commit: 04ac7b445880b0878c83e6e89d961455cbea0427
+>  	error = ext4_xattr_set_entry(i, s, handle, inode, ea_inode,
+>  				     false /* is_block */);
+>  	if (error) {
+> -- 
+> 2.43.0
+> 
 -- 
-2.55.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
