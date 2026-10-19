@@ -1,53 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792452439;
-	b=BNDtDrugwnzlPTq3juV+EEjaN6sWWZDIGq2Fuq7pHecras2qy98FB3WWlG6AqDPcH9Ur
-	 LBezbfuJUu4kOXbCqeQPdJUjrYRRYlJmUGw2w/6Mt4Yv0bd5X0WGqm/scNRI2BbwaR3f5
-	 hE0H5dHr4qdJ4qxFjSgb9hFUh/dSEpDQaskhD2czscmg5ooRnYGHlZP/KR/bZq5cdSOSK
-	 NuqHQA6qHW3UtS9PA0zxdgQhf1fZPam0c+/nmcCH0304e1quOWMMKsDS0DVrTjLx7tS1d
-	 +Mw4FhTNMD0BbknpY6pWDme1IyqsyvefECdcY1lBFTC+q6VfwAqPkSmd3N/WFPDKlPA==
+	t=1792452498;
+	b=ypcDA2SkGJfh+p5Z+AZCDvNu/p+OrUhDLGAudoKMM2FvzglKTjsOr6ahclpmpJR6ufcI
+	 3gClvMQi3Wsl/R/s4j3tig8r3J/kGiJWkkyoWLEFqpKwFln1m4ngOkeEi1NZ7ZlaEetoe
+	 mbP4G0H6SuLntT7Tans/hftjWdT2T54FlqFUOGKWrxQfgTYXQXcbVsmS/nAP3gQsSVpUL
+	 qmyRs+/4uqcNzpIdEbrhCI4A/wY2zJJNATH0NvGgoiBSHehRN7x5Gl9vAGT5RqCCcnHAL
+	 cZHIFQgwfGGVw2v5oPDo5pdW7Pog1Fd0grIFA1UGUiLWunqYUaWrO7NmMC4x/yEAYGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792452439;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792452498;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=iAg170E4FUgZR0p10N0VN8bstzxCfYw47fKh6j7QY1M=;
-	b=YgwWCrsWyL71r9k7mcng+4srTUF9ezoMDIlP+uEnVdbjwFg/dJJXcPq2HEZfjP3WdJlj
-	 1TZNm8NaNrHpD030+/03XSL002ktBSLC66/6pMHyvgJSkga4hAckgmmaYlYYZrfnYeExT
-	 gBIp7OoBWprh3azE+yajyrZG/tYzg3ayPRPrpNIm7+Eji0e3X+kTiKvrzMP+rbvh62CFR
-	 hHtkNM6NulW+fFVCYTxq312OwYiw/RIrg/3Kz1lMuU5mWv8nkV6+hT9+ospiNuw5bGvwu
-	 HZV2NEeF4J2ZmIiIzOBu+SuIgh2gh9eWnZtNn76fF4GXobOnKc/w8A5FlygLRkXtKiA==
+	bh=doDQWejrullsVYFGySwnbyd1nx0Kc8hjk3Zuvv2FYpw=;
+	b=qOkiE1pZKvFlfsuD0uI4TklOcpoa7IfB2udz2LDLwvlVgewaLXPQvQv0Jb6kXomUROfW
+	 yHVMcCtMDqCeENgHBgGtLq6rHXnogmi3oarh8+BYlxcS20MGEh2/0NxbcBWICffWogVPI
+	 72DrCD2qFJXB+iwN2ZieQfPa15dUYoG3Jj/Vy9uIwtT4++4aPHjEys1wGd7MwOCDaZc7L
+	 meWpEZ68qorkLxSFQXXXSyphU2fNL5OU069KQoiTIY2mD0YQCQBFNKJ2d7fYrq2j4hz61
+	 9xf+t54BfFWuHKOoI/uaC8EIiM/+B+P0LjqYlm4akPpDykuJTIoTiL7prOleSCMPPlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQNGLnS3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAPaJ5PO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0712F606A319;
-	Mon, 19 Oct 2026 23:27:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C99C606A31A;
+	Mon, 19 Oct 2026 23:28:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQNGLnS3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697A51F000C4;
-	Mon, 19 Oct 2026 23:27:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAPaJ5PO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C193B1F000C4;
+	Mon, 19 Oct 2026 23:28:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792452438;
-	bh=iAg170E4FUgZR0p10N0VN8bstzxCfYw47fKh6j7QY1M=;
+	s=k20260515; t=1792452498;
+	bh=doDQWejrullsVYFGySwnbyd1nx0Kc8hjk3Zuvv2FYpw=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UQNGLnS33Ibj2Oq+eiHjXJphzg2CFaF3SbhAX4DdT47Qkgb6IGnYUnKj24tIYfTuT
-	 p7dDUq9aGjGISMAEZtvoH6Ei5aQZ7ol+Pw9ETiWr0kv+4aU9/vcFCHqdQxOLDnmF+S
-	 rTH1OO77aKSHhzFAvOT6T1Qra3S+riOmlgIf/nq/V8TcXzDWoU3FXGPns6BKXwI3vE
-	 aIFWn2vtmHjT3Gvbqk8u7EatdxS3efJgoPCG2UdwRQ8fOGQ30nU/4JfzLRKTHloc66
-	 JiNiWwWeNzvgWai8HQTn2QmeS82/TGvOsXXPc4BuOg2vU0/NfMO/LbIzDF4FIkHJzV
-	 eEY4z7fKTNKxg==
-Date: Mon, 19 Oct 2026 13:27:17 -1000
-Message-ID: <6cfe7cba3720e25400118d43643e55a6@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, Serge Hallyn <serge@hallyn.com>, Shakeel Butt <shakeel.butt@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, Christian Brauner <brauner@kernel.org>, Shuah Khan <shuah@kernel.org>, "Eric W. Biederman" <ebiederm@xmission.com>, Oleg Nesterov <oleg@redhat.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 0/2] cgroup: fix cgroup.kill for exited thread group leader
-In-Reply-To: <20261018-cgroup-kill-exited-leader-v1-0-c71ad94c20cc@gmail.com>
-References: <20261018-cgroup-kill-exited-leader-v1-0-c71ad94c20cc@gmail.com>
+	b=dAPaJ5POG1VgZU8faTBA7Ni69Z/b8FSlKSb+HDaEXIND4cC5HaSc4hKk6LKG4d2mm
+	 3kNp5amrhQ9TAKBQBMPn0k730XzprLWDdCUCPsqRn9CBcQr6Le+JHciD9TWBtTOqG0
+	 hJQSz3QKKfz4Ykhq00WqP6uj9sji0fvhzPJJeoYVagVvgqlI8RjcKKfwftE/wWsOfM
+	 lHlHqRRXjwk30R2JM7gaYEA+Es9+ApMJatJ8T9CdneMgTGsEuDEWE9AlwjVlHYloxn
+	 9MWlQHTPj94694HkG4ON+/Dk3Uvlp3hfDQJPhVmE2ObHYxxqp966b6vzE0J2rMV4TX
+	 hiv2ij/oGZq8A==
+Date: Mon, 19 Oct 2026 16:28:17 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Omar Ramadan <omar@blockcast.net>
+Cc: Taehee Yoo <ap420073@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Shuah Khan
+ <shuah@kernel.org>, Simon Horman <horms@kernel.org>,
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 00/13] amt: add an IPv6 outer transport
+Message-ID: <20261019162817.0855e1bb@kernel.org>
+In-Reply-To: <20261009122426.551178-1-omar@blockcast.net>
+References: <20261009122426.551178-1-omar@blockcast.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,19 +62,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-> Kir Kolyshkin (2):
->       cgroup: fix cgroup.kill for exited thread group leader
->       selftests/cgroup: test cgroup.kill with an exited thread group leader
+On Fri,  9 Oct 2026 12:24:13 +0000 Omar Ramadan wrote:
+> The amt driver runs AMT (RFC 7450) only over IPv4. The relay and the
+> gateway bind one AF_INET UDP socket, and every message is routed and
+> sent with the IPv4 helpers. RFC 7450 defines the protocol over both IP
+> versions, with an IPv6 form of the Relay Advertisement. A gateway on an
+> IPv6-only access network cannot reach an amt relay today.
 
-Applied 1-2 to cgroup/for-7.4-fixes with the following tags added to patch 1:
+Plenty of AI feedback here.
 
-    Cc: stable@vger.kernel.org # v5.14+
-    Acked-by: Oleg Nesterov <oleg@redhat.com>
-
-Thanks.
-
---
-tejun
+When you repost the v2 (and not that net-next is closed, so you should
+wait with that: https://netdev.bots.linux.dev/net-next.html )
+Could you explain if you are currently using AMT and what is your use
+case? I'm curious if you have experience using the existing AMT code
+because from the patch stream alone it seems a bit buggy.
