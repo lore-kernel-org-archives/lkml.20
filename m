@@ -1,141 +1,137 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+Received: from mail-yx2-f1.google.com (mail-yx2-f1.google.com [74.125.224.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFED3466B58
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E3D45C706
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792384009; cv=none; b=NuBiKYseZjqzjHQuCDpafZv9d1mUYzgf9ABayFXyASw5HFuURhc4s3BK4oOOpmU9wPXjenElUIVSTnoJno2HRNUkSEWt0sP8Vs1LawFPkMGsxKVa6mapco8ume4FeJtQPgH+AqSnxVr+FAQxUU9fn2b0/NR4KsJPX13DlNKi+D8=
+	t=1792384115; cv=none; b=sJeAq8oJRBl+oHgasjPl76aLyVKJPQPHCF4Xe+/ST81Kp+ys84RY57OVUh5EyYH4Jwao/6wVKjidRRE4t6Ja4MbUtfUgRFU10nG/LFqKNLYqWuWK9Jd1FeSqgCsf1m5zLGAwIvNjzXzCm3bk7cCPux+NBfzMl3MkWPuMWVJ8hG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792384009; c=relaxed/simple;
-	bh=wWxNX5aBIk1DzM7QX6OS0Fz4jWbzbM41ORw6D9EFpUY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=c2bqN5gNxQsSL7bHPCwSPVpVmiCf4LKgG+/3MMKQ8fpMbVmTS/x1YwzOlp/Ol0js7GFjhGIFO+BaAXzFc4V8VyHfBcrKIgvrxvP+I70fW6ZeUu3aFz2RuksAjegm2etuqSpnQno98n4dujGBJ2g57qmSMxZtRNoT1+JimwawTnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EpKxxBes; arc=none smtp.client-ip=74.125.82.178
+	s=arc-20240116; t=1792384115; c=relaxed/simple;
+	bh=nFRq5O2deBLCzLOM35tdkBF3irBTwZmIV/qWpwGNN0s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KbCw/g/B7Lt1MBVuW5hZ4AxcTGRRGOYQ9IkvzhFwJmLWZFRddXrcMxC/q7XmHnUolAjIF/EdUUG5q5fG1AxWCCrGyS5VVzHTPnkc4A1asuk3iJxZQwHmk5wLW3Dnm3Hwa2Xb2JH0+N9Ip3YQ5mqolPiW0V1C4Z4b+4njtmBK6pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mIasCYfw; arc=none smtp.client-ip=74.125.224.129
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EpKxxBes"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3550c917fd3so1930964eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:26:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mIasCYfw"
+Received: by mail-yx2-f1.google.com with SMTP id 956f58d0204a3-679f050b6feso39494d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:28:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792383999; x=1792988799; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=roSFG50KdVzZVyQ42TsjlKxifeyCNK7WeP72SJwZy4w=;
-        b=EpKxxBes1/VF3EyutQem9bfFzyNmQXljxAr0f5BJ41nbN/IDkAw9UZDoRdjgSgk++E
-         a4KGGf0ikTPJS5AkMH3TrgW6hnkr1sFbLGv0ym3YKUM1HXVVoRFPwl7OWuLgqBPRpZGG
-         9y0tAHtljaugeVmHL/kdv5JDeCP/rP0OZ4/oPVozr86zub4c1Yuwf3xno9SMGCY28BSi
-         6cSDhvxlFI0LHH9uQQVl8Pzl4RbpjJSJzF2Q1aqCinwtra0EgFWWzSEK8yGYHsW7jneZ
-         5diYYQ/PjD1WAZuz4HmxV/153EgMZGvAGnxCnJp3k1+LfL84EBu7+1x3rUaMM9qSLB6c
-         5Aew==
+        d=gmail.com; s=20251104; t=1792384104; x=1792988904; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KPEnziyqohgCiyllOGpLsBcdgNJdfasBLYSYKWDG7f0=;
+        b=mIasCYfwfoRd5gN1fRI9ZgS/fymG5O9kuH358sdui+gRHJnJOCpNXkATD6gDb9Rl4l
+         DacRr1Rdof7xQi9SsPmsutXWed8I5FgjtIGZvEjEzBFNzZA15Kx2H4gVU+w3c+WOHvMS
+         ftZQjTdQ2MkFVSN48gpu5HrsdpeRdQ+gwR4U0lYuxHZrb/szcnS2Ro3KSdF9Zs8poLHa
+         dGWm6jsqLbY1soYExAt/2NyGo4uY16lDyo+jN6s43A1k0maCVel5CzDQQClCtscgR/mH
+         tjvcaLJJSAwJ/Qr1/LFl7DUuupKM0ndZF3XMlK0xkliM2Qm0bLhfhMnArDfIna0nHJbF
+         Vhxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792383999; x=1792988799;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=roSFG50KdVzZVyQ42TsjlKxifeyCNK7WeP72SJwZy4w=;
-        b=wfqjLwGzhJ236URiRHS7XQnXWX8mbIW28EyyIDryctea8LL5+n+TDqB/44Mj4Wntyo
-         vHDiQtEJZ+1VMq/BokxvihbB7qvBwyV6kQKB9Ki4mzzdc1qryub8Y6xvBqIEVhlRCPOM
-         7HvOabH8G6bh7Kg6lfxUhLD4zaoKeeBlZnugf7JS00bpbdTRVp+xEOE3oIfNBLD0srir
-         XbjnqX8gVlnhDKpCDKvRjw/+N9QVfZ3xhzUT4IpVRkq/TgkE2ayARJfc2TTiGg2JvdDg
-         D4hsjJQM/kZQ3OCU5Cjrh1BQXUuJ1ic+tujyMZT0GMMHSiJz8f9VfY+JDngjKg2mCf2X
-         1ulw==
-X-Forwarded-Encrypted: i=1; AKwUvByTahJN8QteGhoCdRVQQiiqvBDpVFrY1UOfx6q1VXYP17WQ6QaeSd3Gq5OW9QoGbi2jHtsYpvj2qZH2OPA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmj/Fb5hF19G4hM7KyDKo0AbtrGQfr/tXF4LUfbQ4FBhk9AoHO
-	RPpmnbr8r51F5JbdTFSeLgfijKD+Ce0QtjOMlag+S9tNnVD/hIZk+QCH
-X-Gm-Gg: AYBFou2SSSLLQ75eoB63lj0hwb7pbF9OI/YIAvX3HFrCHHJvYqmmQsvsJqQLx29HynW
-	pKXQr+FEs2VHgvylMhCXpYQf7aleTLyJTgP3I10XQfTUQFH01OQQHwXSC/BurRauU9v3f1veJqa
-	WY6PIy5OfMWmsknq5cXjNgCKuqNRdURuBdjcZU+LaGLHlRGSjOZ7ETDLUq4zSonNVRyfcGSx4Tw
-	JnE1AAW/yAA62xPgCMY89gHcwjzeTMgxWxGndplfVkm4am57WgWX1QaOAgI8+g0TN+fU0a5gNBr
-	UiCe4fwxmJm4+BWOgtPo/I7SiQhmlHYzRP7YZpa9zr1nUbYhCo8phU160E1cDeospVtrwMl2p27
-	ULvMiiRgKyBUIl8Bq7iN9YcTr8jPcMV7hi8EAN/oAW+lhJWY+V3wDUTkJXMdmsh37k9TUqxnlj0
-	4Bw4jQdv98mLbrEHeiynY8r8DIt8Sj3ANc3LoHf3umay1VwJi8sTRxF043qUInUi8LOEq6qc+TC
-	2Gy5ZfaQ8VxEDs=
-X-Received: by 2002:a05:7300:7a9e:b0:361:1dd6:531b with SMTP id 5a478bee46e88-361a2052bebmr8842130eec.26.1792383999414;
-        Sun, 18 Oct 2026 21:26:39 -0700 (PDT)
-Received: from tresc054937.tre-sc.gov.br ([187.65.210.13])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36083283478sm27203851eec.29.2026.10.18.21.26.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 21:26:38 -0700 (PDT)
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date: Mon, 19 Oct 2026 01:26:27 -0300
-Subject: [PATCH net-next] net: dsa: realtek: use <module>-y in Makefile
+        d=1e100.net; s=20260707; t=1792384104; x=1792988904;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KPEnziyqohgCiyllOGpLsBcdgNJdfasBLYSYKWDG7f0=;
+        b=kYUoQleUlT/pwIDgsOqytjSja2MhIj8fXZ5f+1yYi2Gmfscozt1jaHRGQe3Nio9Re9
+         PFkHQEIAYmstwfkv97PXtfb+bPrdJiuz9pyR+tNnonEDyFlGVldIwoDYyy9ui5rAV3ag
+         ONjD4yjhDAkHyqn0lCHLaiRqtNQ+bAdEDTsOf+r7jRJgQXbJdxybyEnE1w0844/5O58R
+         tqV4l5nIRQxMWt+BoLkc7957ezq0+GNrBDN/gz9y4L54lWr2SH85H4W3Z+X0BSeIfrVu
+         lRjwdn+5Q8/IBoWXJi5+X2Xp+RsM33gosv2wGM9Bn2ucPjD0LQqoxNODapGhd4jPQJAJ
+         jeCA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/mzsS/YXRKgcnnYTNAmhvyfvM9g/B1uwIcqbbIatGl5rbTIxq635Fci6n7WMS162213zJsW/yIIAAxNk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEcEspF8ujZdmE/hgJf4KvMdrr04TfcDR8YUvJtUp0xorQqxcV
+	vDXjp1t0emI8MyBV3z1/3IoQ1uEZy8GYaAf1IJZBbacxZzIwKCwIPe0=
+X-Gm-Gg: AYBFou3LZ1khTGI5OK76cX3UvskkSL6yEhC1YI6lWgWf1sG71tlEVFkGZjbPy+Zo6Xm
+	u3SwsYhO6uEl0hBtS5Oi7U0I45LMWgf92lzZXW+I/5OYHUwj/HW81OWJMf6ts1oRjXNIuMcnqdW
+	9mTMTbuz7DRot0bks3y5jsxt1oU6zqa4WSlVsd2bvm+hKdYYZO4ioBoVpT6WcBn+dw4m9fL37MN
+	08wxah51omm3Kt/ZBUsBp/RmjqMNKTLm1vdzOSEYJtwV5MZdIk1pYil0ZE+pTv7ctA/6KcWgeGA
+	+O67EtHmyRVEKdENr7PZ6z4HzTSiM0gS10aDS0L7Ai9p2JRoc02vPYkP73Q/R+1gelWpqvQ3938
+	AO2NaBRBSBuIbGGds2gVu83kHNuyGBQhjUxz0Mep06kfG4tn4Wf3gADCPXSJnvj5TQ1+121Gi/M
+	K+e66wNxnbF2d2sm2OBhz4X7IYqwvxUa/gFSN5L1DJj+MzgSfbNZ+SEM/Zyk60+uZX60CkhtFab
+	a0thFqYxa37aEJAAEYw4NsJMkNA1Zx0omjSI+KUwzkGNq5z/RxOHr6BQu/3pkm1HdxYy6A/7QPS
+	K2CWrFi6MqSSoeLNcg==
+X-Received: by 2002:a05:690c:4346:b0:8a8:8f62:eb3 with SMTP id 00721157ae682-8b0f21d7fc0mr14428137b3.62.1792384103712;
+        Sun, 18 Oct 2026 21:28:23 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:4577:1050:ec89:21db:40a3:896])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e591c51bsm35347307b3.34.2026.10.18.21.28.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 18 Oct 2026 21:28:22 -0700 (PDT)
+From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
+To: aethernet65535@gmail.com
+Cc: ravis.opensrc@gmail.com,
+	ajayjoshi@micron.com,
+	akinobu.mita@gmail.com,
+	akpm@linux-foundation.org,
+	bijan311@gmail.com,
+	corbet@lwn.net,
+	damon@lists.linux.dev,
+	gourry@gourry.net,
+	honggyu.kim@sk.com,
+	jic23@kernel.org,
+	kunwu.chan@linux.dev,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	rientjes@google.com,
+	sj@kernel.org,
+	weixugc@google.com,
+	yunjeong.mun@sk.com
+Subject: Re: [RFC PATCH v4 0/9] mm/damon: hardware-sampled access reports
+Date: Sun, 18 Oct 2026 21:28:19 -0700
+Message-ID: <20261019042819.1937-1-ravis.opensrc@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261017211613.16456-2-aethernet65535@gmail.com>
+References: <20261017211613.16456-2-aethernet65535@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-realtek_mkf-v1-1-3246a77d5782@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAPKb1WoC/yWM0QqCMBhGX0W+6wabglqvEiHqPu3PWrLNEMR3b
- +Xl4XDOhkAvDLhkGzw/EuTtEphThv7eupFKbGLkOi+NNmfl2T4jp+Y1DaqotS2rqqg7Y5GK2XO
- Q9X+7wjEqxzXidpiwdA/28TfDvn8BXZ3PrHkAAAA=
-X-Change-ID: 20261019-realtek_mkf-380d67738b1d
-To: Linus Walleij <linusw@kernel.org>, 
- =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Luiz Angelo Daros de Luca <luizluca@gmail.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-Switch from <module>-objs to <module>-y to eliminate ifdefs and simplify
-conditional object list construction. Drop the obsolete trailing
-comment.
+Hi Rui Yan,
 
-Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
----
- drivers/net/dsa/realtek/Makefile | 28 ++++++++++------------------
- 1 file changed, 10 insertions(+), 18 deletions(-)
+On Sun, 18 Oct 2026 05:16:13 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> On Sat, 17 Oct 2026 15:11:18 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+[...]
+> > Later, I noticed that about 10 minutes after starting DAMON, the 'seen'
+> > stopped increasing:
+[...]
+> I found that if I enable the kernel NMI watchdog, this issue can be
+> fixed.  So I think this is not issue of this patch.  What do you think?
 
-diff --git a/drivers/net/dsa/realtek/Makefile b/drivers/net/dsa/realtek/Makefile
-index 72bb42e80c95..0a94a619b2c1 100644
---- a/drivers/net/dsa/realtek/Makefile
-+++ b/drivers/net/dsa/realtek/Makefile
-@@ -1,23 +1,15 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_NET_DSA_REALTEK)		+= realtek_dsa.o
--realtek_dsa-objs			:= rtl83xx.o
--
--ifdef CONFIG_NET_DSA_REALTEK_MDIO
--realtek_dsa-objs += realtek-mdio.o
--endif
--
--ifdef CONFIG_NET_DSA_REALTEK_SMI
--realtek_dsa-objs += realtek-smi.o
--endif
-+realtek_dsa-y				:= rtl83xx.o
-+realtek_dsa-$(CONFIG_NET_DSA_REALTEK_MDIO)	+= realtek-mdio.o
-+realtek_dsa-$(CONFIG_NET_DSA_REALTEK_SMI)	+= realtek-smi.o
- 
- obj-$(CONFIG_NET_DSA_REALTEK_RTL8366RB) += rtl8366.o
--rtl8366-objs 				:= rtl8366-core.o rtl8366rb.o
--ifdef CONFIG_NET_DSA_REALTEK_RTL8366RB_LEDS
--rtl8366-objs 				+= rtl8366rb-leds.o
--endif
-+rtl8366-y				:= rtl8366-core.o rtl8366rb.o
-+rtl8366-$(CONFIG_NET_DSA_REALTEK_RTL8366RB_LEDS) += rtl8366rb-leds.o
-+
- obj-$(CONFIG_NET_DSA_REALTEK_RTL8365MB) += rtl8365mb.o
--rtl8365mb-objs := rtl8365mb_main.o \
--		  rtl8365mb_table.o \
--		  rtl8365mb_vlan.o \
--		  rtl8365mb_l2.o \
--# end of rtl8365mb-objs
-+rtl8365mb-y				:= rtl8365mb_main.o \
-+					   rtl8365mb_table.o \
-+					   rtl8365mb_vlan.o \
-+					   rtl8365mb_l2.o
+Thanks for testing the series!
 
----
-base-commit: 98c2ad4f5d805dbc1ea436a334ee59311806a48c
-change-id: 20261019-realtek_mkf-380d67738b1d
+Agreed, this is an AMD IBS / x86 NMI quirk rather than an issue in this
+patchset.
 
-Best regards,
---  
-Luiz Angelo Daros de Luca <luizluca@gmail.com>
+On AMD IBS, when a counter overflows it sets IbsOpVal in
+MSR_AMD64_IBSOPCTL, stops counting, and sends a single edge-triggered
+NMI.  If that NMI edge is lost (e.g., across C-state transitions),
+IbsOpVal stays set and the counter remains frozen on that CPU until
+perf_ibs_handle_irq() clears it and re-arms the MSR.  That also explains
+why the sample count in your graph stepped down gradually over time
+(100k -> 36k -> 18k -> 4k -> 0), as individual CPUs got stuck one by
+one.  When the NMI watchdog is enabled, its periodic NMI walks all
+NMI_LOCAL handlers (including perf_ibs_nmi_handler()), which spots the
+pending IbsOpVal bit and re-arms IBS.
 
+For ibs_op, a larger period such as sample_period=262144 (as used in the
+cover letter) or setting config=0x80000 (cnt_ctl=1, dispatched micro-ops
+instead of clock cycles) also helps reduce the NMI rate on the CPU.
+
+Also, if it helps for testing, the damo branch in the cover letter [1]
+already has sysfs read/write support for the perf_event prep attributes
+(commit 1178ccb) and tools/damon_tier_gen.py for generating IBS/PEBS
+configs.  Your probe_hits_wsum support in 'damo report access' on your
+branch is a nice addition as well.
+
+[1] https://github.com/ravis-opensrc/damo/tree/damo/auto-tier-bw-2026-10-04
+
+Thanks,
+Ravi
