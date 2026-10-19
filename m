@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57722501F2C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:10:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35547502779
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:10:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415443; cv=none; b=FOP0274k9YNKQr6/DdtUc+rnUk1qELvONF6xCtrDiwNoC6w8ucszgV+CMvQZb4BOfBauoLMSI9xkGzlOR4OtcdclzdglyccO1oE/mrktZChRjefMMC+9IqSmuMgTH9NQoo8UFfCaJLWpre/8epFtja4jp3kcQ1qsSl46FttmJDA=
+	t=1792415445; cv=none; b=lkA0c6wIfXDz02JoYl02p6XOd/hEhkTdzyi+sgIGUQkdj2xoIw5IzPL2OJnGHKCQr4FMekRSejRovPob5OF0vnC9e2WP5GPdUoqe4SMlBsvk38PuSB8cp5l98eODktGzpbG7vRAW2mHHJ+TMSbwrDkV0MN4KJyjCXBlL3vuMtQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415443; c=relaxed/simple;
-	bh=wlxy2j05KCotJozRwRouPM2Igi9mXCXuwiQ8vGfzCT8=;
+	s=arc-20240116; t=1792415445; c=relaxed/simple;
+	bh=rmnyhpCmegsBLxHCidiQLi7Y82sto3WFbEp7dsHHi9U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T5KOWr5pk09T20NyKacB75u19BqM/Yqa+n0/GAoPzWCmd3KBAlNrbJwef6YWjLlqdUrqXgEw32gNwFeNzAw1+bqjBEFa8AMq59ZyaUbT+dfI+36yIONttp2jewjwpnHUEQHyPXmKrm7UpcbcHwMgUDAwGHLTvpZzwKHSsrDmQb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ApXkVETF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VYmZS19lAsSXL9xarvM1Az9ezGuAkd3W2A7zN2gr4/rjCKwQLHoObeGEHmTxk4ZLtM2pNbOWsS0mMG0yjhmA1cnNuunmxgOOWrmh/7VleEUww3Mbx2m40vxk7pdbykW2+suEws6QE67UQMyJ2HSy4u2SWODfmFOO8/KehFUm60A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9fuv/js; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ApXkVETF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093691F000C4;
-	Mon, 19 Oct 2026 13:10:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9fuv/js"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35AB21F000C5;
+	Mon, 19 Oct 2026 13:10:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792415440;
-	bh=O/cND9DK761g7Od/EFbbufGMF0NPniq3RLhpe77Yjxw=;
+	s=k20260515; t=1792415443;
+	bh=7ODb1dWP8rGg5ULadQFlCk+VziuG97Xhu5lJD6rqNDI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ApXkVETFl7JaWshAVImeu+NLrNbgbpjtVP0iuKOro5OWf8eUjHSwThMzxOumKHkPE
-	 frdDeAzPLG1OVIn8ZTvm5nAl/XjetpnOOP3n4eRstEAUSvRSJQb+enQoTCfcQAndEQ
-	 McWbFpxebAIjw7Myy5Gex8ZMwltmtEFjW118FwEXf5HDcdOBtyElCKwDBQERl119FM
-	 I6kDVJEw/zGQrZOIQPn2YVZNDvVqYwVll4letJexbBMFL9ZO6XMCmx6DS+sA7j+F5P
-	 kUJHECJYHRA1Mhz2GXou3jMpRbAMRIA88wzA+/MWU9xaiWHeMn5PZGHxBSQtLXUaiy
-	 Y2G/lpbYWzWKg==
+	b=h9fuv/jsyFVXpZxEXFm0TlW3vXsCqNJdPKRvhVzvT31yqqVnXN2fkYJYryxnvMZB3
+	 Lyf7LALOY/m+B7wBf7Geu2C7oPRFt4q6sUeBU5c8YLlGnykoNre+WaitvqJvt2BzWD
+	 OcwK2MLWxIz9XxI8S795kPagAJY8gJg+K0++Lb908JEIWpJTRhM/3S1TAVVKLSguzx
+	 FmGL1og0wcieK6NT6XdixEGSg1C3wZ94IsFoJZ8YIrqOI9eOy09uiutVbkLSrr0riA
+	 bpSBeFtkNNJ0RA/A8brn+HnxYiXFn3NtxxAoWnV0dxJvBQlNMZbT3IRbppdbxFS2Cx
+	 IjCz/DbuipCOA==
 From: Frederic Weisbecker <frederic@kernel.org>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
 	Daniel Lezcano <daniel.lezcano@kernel.org>,
 	Marco Crivellari <marco.crivellari@suse.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Phil Auld <pauld@redhat.com>,
 	Thomas Gleixner <tglx@kernel.org>,
-	Waiman Long <longman@redhat.com>
-Subject: [RFC PATCH 34/49] clocksource/drivers/rtl-otto: Move CPUHP_AP_REALTEK_TIMER_STARTING post stop_machine()
-Date: Mon, 19 Oct 2026 15:08:41 +0200
-Message-ID: <20261019130856.49711-35-frederic@kernel.org>
+	Waiman Long <longman@redhat.com>,
+	linux-riscv@lists.infradead.org
+Subject: [RFC PATCH 35/49] clocksource/drivers/timer-riscv: Move CPUHP_AP_RISCV_TIMER_STARTING post stop_machine()
+Date: Mon, 19 Oct 2026 15:08:42 +0200
+Message-ID: <20261019130856.49711-36-frederic@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019130856.49711-1-frederic@kernel.org>
 References: <20261019130856.49711-1-frederic@kernel.org>
@@ -59,7 +64,8 @@ a new stop machine post function has been introduced to be executed
 after the main one with IRQs still disabled while other CPUs can exit
 stop_machine().
 
-The state here has no teardown callback.
+The teardown callback here simply performs timer and IRQ disablement,
+both of which can run concurrently with other CPUs.
 
 Move it to post stop_machine() accordingly.
 
@@ -69,15 +75,15 @@ Signed-off-by: Frederic Weisbecker <frederic@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/cpu.c b/kernel/cpu.c
-index 75f4cae8971e..374e7599baae 100644
+index 374e7599baae..c2f25b6f72a4 100644
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
 @@ -1275,7 +1275,7 @@ void clear_tasks_mm_cpumask(int cpu)
  static int take_cpu_down(void *_param)
  {
  	struct cpuhp_cpu_state *st = this_cpu_ptr(&cpuhp_state);
--	enum cpuhp_state target = max((int)st->target, CPUHP_AP_ARC_TIMER_STARTING);
-+	enum cpuhp_state target = max((int)st->target, CPUHP_AP_REALTEK_TIMER_STARTING);
+-	enum cpuhp_state target = max((int)st->target, CPUHP_AP_REALTEK_TIMER_STARTING);
++	enum cpuhp_state target = max((int)st->target, CPUHP_AP_RISCV_TIMER_STARTING);
  	int err, cpu = smp_processor_id();
  
  	/* Ensure this CPU doesn't handle any more interrupts. */
@@ -85,8 +91,8 @@ index 75f4cae8971e..374e7599baae 100644
  	enum cpuhp_state target = max((int)st->target, CPUHP_AP_OFFLINE);
  	int cpu = smp_processor_id();
  
--	WARN_ON(st->state != CPUHP_AP_ARC_TIMER_STARTING);
-+	WARN_ON(st->state != CPUHP_AP_REALTEK_TIMER_STARTING);
+-	WARN_ON(st->state != CPUHP_AP_REALTEK_TIMER_STARTING);
++	WARN_ON(st->state != CPUHP_AP_RISCV_TIMER_STARTING);
  	/*
  	 * Invoke the former CPU_DYING callbacks. DYING must not fail!
  	 */
