@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.6
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792429161;
-	b=EMhwnYIjMdBwOHqabVc7EkmT6ZXyd4unIQ2Y1yp5cBcWaqtYBXAF8Xr3rSNZ3/Wa/vfZ
-	 MB/hseGS2r+eEoq2HWDhIptJsIO5d/DZjImlacZETB9GshLtumD7jtZNQo27AAMvoqmMr
-	 /z4M2+gumz4dL+PxHXmIE+Cs/Ud50y9CEU/K4DJhLPahbhzD353uDhepmc82MFab0BqfZ
-	 JhejqPMMduxwSV4PW82eK1qWMOzWeBEaWeAFVOeUBEm/7HzyuNwyUQMBkAx9e9hFYn2MS
-	 Uli46Sj62wOCeDI2vzdivTdgyesx1ktFsZRu537QFilcDS66cSEhegUY/0eIeuIjafA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429161;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Q4aYhkB2itPdq3Ct70W2y+9Taz2ofJkTpwrucY+7bQY=;
-	b=HC+OznxFWgXb7KBdCO8i8GWSHl/svadbQLQkxDMFFL0Ub+MaDwJg7PeQTvTvzWMKjdhr
-	 R4tm1uNx9Dr/N8uByLrj86o2eWtz/BWdoYQh11fFu+jiqqClmHJxIQWh4TbS9anQyC16P
-	 ovC7C6OGzSHXUBKksYljLOOScvwu3OsZn/i1S5TRwgcci1LoljMFMKLerOZNSRf6+6a6F
-	 B9NHW84W8CuA1QOzCP5jw0evwx/2Z+q6wPkrCm4v98Ad2MYYu35XbvJBo3gEoo+t7DATl
-	 Aq/fRhhw4eczPdXBN2QBWI4lv8jUwlxEc3KOJyxUIk0NdBYTYz+xBU5OZC+9TU3TWJg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="drSwN5/a";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.6
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010006.outbound.protection.outlook.com [52.101.193.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792429296;
+	b=WbVZqH8HmmafuEx1zDazXrbZzDxyqKTuCs9y5bgqbodkMWRtPMZII+mav5oml3Z/Aor6
+	 cK8WCi+jDoglInfEuzSfTmi6VhNDNLaEcNiYj+1alLOFu+syqdvRt9iBgTssgB5i9R7uN
+	 W5zd5Xq+QgOD8sz0G+msruTvuANu9Qvi7vslP3bqTitdlGrmftMjQ4wyhWWkNiz8gIRlf
+	 MVFUGtIN3qURJjeDLvByhvlK/J00DI7Y7HWB2d/TqMg1CrYLQGhcD8RWsFnuWUhuHC7/v
+	 d/kxJHHC9O4QDsu4Gp21jj2o04xiV8HFejPYj3cJ7rIPJ6pVWjA/9hiqduRCXdZyiWg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429296;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=vsZoKkf/63QUUV+/hh6ioJr032KhsZj9uAMNX2Dlcog=;
+	b=epcB5X7IYGTZtpTiJB7V+bSaQyy1IP4KR8VoAwbZb/EI+qHAA7H+YE2KCUzPlrq6y4cS
+	 Dd+d6Rt14pbwun0FN9UR1qlg9vpuOFJNuDYKEZKPKsMEuNTsJkiRu+JAgWHZPQSul/UzL
+	 7fx+5Wvy5d7Lu16fABN5dS2kBJJYwyu7fAIw/BXGApNNdOaarDptfHhJF3RJ4nYEUrNjO
+	 zwct5y649EJjHoINF5jiuPnTNKaA4rP/RQP+6FFxHWh5NwN+AU+gGM1JYqxxTb8x21ZUT
+	 ymLDZyXtryps4Kr+7EtekTewItKFe8cLIWuqii3gd1SZmcYSUcQe8GDdyeoQfE7iV+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Wn246gnT;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCF1606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:59:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BCF1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D866E606A325
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:01:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D866E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=drSwN5/a
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VZWFarqAAJp3ncSBcsMdfdzoxBDEwoYltA5qjiQx7b2bUR0F+eu10v9ORQPp2koymNJXHxpZUVE7fsVg5okCmVWbPs/u+/exr7h1DpBmV8pbEFpjO4OwosBM+vqjz/NGnW5G+JOG78YlaXheokm1DrAWixeuwswfJmPopP8ff/UJNNDm3DGE44sPSx4c9AO7xYGEFea0IROGkVyu7bGhI5xzlZRk6quw736kcfohy8IVwpkx0VYb/xye2hyNevfixS08EXMULl/d8qQ3EC1GXPmunfEfH0tJLXeN5ZWRUfWiW7L4iBcos6n2prVzmfqTP0DsH9eBvnQz5G7NrF/UhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q4aYhkB2itPdq3Ct70W2y+9Taz2ofJkTpwrucY+7bQY=;
- b=jTFqJaNGvH56WAAnzH+w1xd/MwvM1JFpMVtwr0trW7pkvJKaY74NLy0sFC5xkqn2zTbD8FDP9ZYRRpMbAJ1zot0phBMy5b7DNeA+xhBCJQTUE6uL+XgDVJM4fEjB3he4ukljGKIIaXAFhqJFb3Mo9yzh3rjuKDOUzAMIOT33zhcuTS8MOC5Jm1VkeBcOXv8giSHYg6mYEon8+t76QLWLBA/z+EXg5vsMLSD6dNRpSZXOeJtJFRNVWVDnEA27yn8JGZJTgnYiQfJi/zfqgYK7ds1kX67t7tP2a1o3iWuEN0pfHvOWwm8mkYtS2RIkRhdSkoUTgBqo2FlakYDWroxJ4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q4aYhkB2itPdq3Ct70W2y+9Taz2ofJkTpwrucY+7bQY=;
- b=drSwN5/aG6yLdcg63HFx3uF2U9gKC4yVSOLJ8QZQHndJTUJFUEyyWdC/P6Y4NrxRtsLZGcn+qAN5U8FwC5NpubpLv/tWx8zZBcYtvWxF6apqeQauvoOzG37Nb8bKsK1dTVdHR2o9dWsJhWiimD3ppN2qaV6lY/MtcHQik5tRSjI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by LV8PR12MB9358.namprd12.prod.outlook.com (2603:10b6:408:201::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Mon, 19 Oct
- 2026 16:59:17 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 16:59:17 +0000
-Message-ID: <99d50810-b040-4162-bf7c-e782beeaac8f@amd.com>
-Date: Mon, 19 Oct 2026 22:28:58 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 13/24] iommu/amd: Program IOMMU DTE with the private
- IPA domain
-To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
- jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
- jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com, chrisl@kernel.org,
- wvw@google.com, wnliu@google.com, dantuluris@google.com, kpsingh@google.com,
- alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com,
- guanghuifeng@linux.alibaba.com
-References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
- <20260930092344.5616-14-suravee.suthikulpanit@amd.com>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20260930092344.5616-14-suravee.suthikulpanit@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0106.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:af::16) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Wn246gnT
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1e2957d7eso14336325e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:01:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792429293; x=1793034093; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vsZoKkf/63QUUV+/hh6ioJr032KhsZj9uAMNX2Dlcog=;
+        b=Wn246gnTwfh2TzC8k33ec+ij+UvPi+cTRt5+AC3iJocK8F2YsNsSoalaPrwxIWl7+c
+         P8FtEVVqwU2EKgkNs8INNsUw0+/Xj2JYXt1pviLzzUyN6iS9ImdhMcq0BNrDWcwX0if1
+         nQMMg3nntIZX0aFnXPrl8Cruo/T6Kgzb/3iWlTE32oNYyoncov5Ci5AOVi686osgJ0y6
+         rGc2eVoyXxOxyNBWjVgCcMEabE+/ioleKncMq23zM1uQjoe88+mqTbfxCMdY9xjeVOCl
+         3AUpb0DjMw8CgNHzZz4r4Ydd+GHl2ysV9n2Dr4C9O2DSDzx2fEcVCmqiQtjEOPOnUMDz
+         W16Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792429293; x=1793034093;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vsZoKkf/63QUUV+/hh6ioJr032KhsZj9uAMNX2Dlcog=;
+        b=GGzz2aVOMg2KdjRuSc0hpkkYnoiKoUnD2uvEBZ0dCDEC2UpRbUXbjae4sRNRoZscKx
+         tQ2WPtUI2EXInRyrKCOY0BF1vm5DOsJB64XZbuocEoDZV4Lwu7lRnb7q3BuA2lePqQCA
+         /SJhBfhloA2yRIaRkAEsRAkWDA+QMaqrSwjOow/L1Do2lkdgiEzfWTfPH9VJ8lIeDSgh
+         /2mC84hHd5ndmgp/N2cxBOS8z4qDtDXKmbltODvThva46HR8vCg6qa3oxpjNJ40yhyDO
+         hdDGWT1+vFuEr8YWPKQBmJtVHhFVxpbmLct3b5Z7BQfffGxLeDWFxwfp5ew/u6S8R8gY
+         v/3A==
+X-Forwarded-Encrypted: i=1; AKwUvByGLwhtKSXX2JtfvteeG1Iwr4UkLoJF/yN3qGd77SBpQkzK7fkD4/8ntsK3xoq4fdBcPLkF1+U/HQm88HE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEvLt7JSkQ4rpU2b67GszhCknzPQgsktfO2jSYYgI+S5+bAYMx
+	y8LkUEs3ETFbmHbyFH5FQ7+mfyMDnmTWbt6xR3axnhfGMk3WCziVzrsk4TSU75kV46A=
+X-Gm-Gg: AYBFou3zuKPl15alf4JksMe7ngVMboKef+Lwia6cT5ygY10ZGGcpdQ5m7+u5JwlU+z7
+	Ejw3j37PoCZ0qV7+ea7uapveldIZBQ11GPynoyr2SBJYUkCd+ilBOy/fmVdNGs03plXH98eMO5+
+	t2E+w3Y5hyDS6D5b8A+9hiCHgeU+Oc6TOCg+MOFp6yArDjHGi8h8SA0pMCsg9igHpBNB1aPCY5g
+	Jk8sF77FPQd24x+O2SBweyC1b37Z5t772o+9qE8UBr+Ol/dsHGuqX18VZB8E8QJ2Ggv6VgweCde
+	Mc5m1ZAfLGV0ejvDdb5WOKCUlYo55oFE/MaDcRhYrxFzX+QRj5nmoGrj+Q+yc2OfScnuibhZ3Op
+	9IzpiEiKA+vAggKh2sneQCFp4R7x3eegIKuGXhgUg3dCknkR9DdRbAqe9j0cQ3HsmN9Owsda6a9
+	rRRliF9Xwo/SDVx6S8aWP6NQkYjB0PUxk1j6yDAoMYTF/hos4VPwNgutwHqve3ZfDTFIHrnpBa/
+	CLjtpJuXbPF9Bypo/E=
+X-Received: by 2002:a05:600c:4e8a:b0:49f:ffd0:4039 with SMTP id 5b1f17b1804b1-4a1d763ca4amr165614635e9.32.1792429292723;
+        Mon, 19 Oct 2026 10:01:32 -0700 (PDT)
+Received: from vingu-cube ([2a01:e0a:11f4:3020:aea:8007:d7bd:c2c7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce325107sm241842155e9.3.2026.10.19.10.01.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 10:01:31 -0700 (PDT)
+Date: Mon, 19 Oct 2026 19:01:30 +0200
+From: Vincent Guittot <vincent.guittot@linaro.org>
+To: Mike Galbraith <efault@gmx.de>,
+	Jakub =?utf-8?Q?Oko=C5=84ski?= <jakub@okonski.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org,
+	longman@redhat.com, chenridong@huaweicloud.com,
+	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jstultz@google.com,
+	kprateek.nayak@amd.com, qyousef@layalina.io
+Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
+Message-ID: <atZM6uF0CqCNh__I@vingu-cube>
+References: <20260605105513.354837583@infradead.org>
+ <20260605124052.227463677@infradead.org>
+ <58dc8e8a-7260-43ce-aebb-8d9c29a6afc9@okonski.org>
+ <b1002150c3e4f877d04790cd8e85d2149d17722f.camel@gmx.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,161 +106,224 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|LV8PR12MB9358:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5ad33c4-383c-466a-95e2-08df2e024ed6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|11063799006|10067099003|4143699003|56012099006|18002099003|22082099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	QT173y2sQlPZUAQFB1J3GC57DK5RzoS2mEG9KhaoUoz4X9Ip1GsaRbjCpbNe2VZBmyYVNa8GtXROvb3HtjEa1GaBFsy5wjWprPQ7ueZFqz4vDXwR8HSiOBKHGn3vHC0Ba9KXNr5UN8gXcSKWnaq7L6gJyus9yG+SI5ZE6M9y+TLnH4FRQ4Yg8yey4HxoaE+upX8WudI9cFRivSnRAsjuuWRS2yl8e36Cz11uVjvL0nO78AubsJpJ+1lJLQ303LRm7PQ/VXfaqcqg9sbqGx+UM3Yajxueokcrp5HO6bdnmGbaxTFobGQYtY4dq172CPCH4q4IohHmOjVuqcpC3oJh2I27hAQD/pfwfarmY63005z3ttEmZPJBYwff1m3cg3xktfMups00EbHuz8/lyoC18H+xxShgsArch5Ra+SuqtxePwHwzUcD2PixfsJOE2+H0A2YdJwKvt3cT/E5zJVVI01nGwqg3p6LF0hlBAQ5070WW9Q/I4OkwoALoHZz9EK18cQyaXZy1XZ6TEagEumZZk1EBJfGAAMfrCR4qIgZ17Z2nUFvFc4pkBHnrsiQCmJ0/zn6xMAQ5v6mi24N3dtB8TY/vZa21PMAsDTqtl0jNMcrrd/S63lp8Grmx7E28jDtM8jUsfmDwnlvAXa/Hae5RS+Mog+/KM2Rx6Hvlra5lKp4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(11063799006)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RnZvdHBkRThpU0lqbGllL3ZRcnd4YnNDcWo2eGxNNGhZS0tFejBOemlRZlVZ?=
- =?utf-8?B?NGpkbndBKzdBeWF3UUczK3FTMmdOZHRYUmlubE94cjNZcGJEVmJMWTczRmxG?=
- =?utf-8?B?S01aeW5NR3NxVVdjbFk2dDQ5MXNObWh1TEhuM3I2N1l0aVV2elpwYzNGa0w1?=
- =?utf-8?B?UmZUQ25VYUc4R244ZXBrTW9YYllubmNUVHYvVyszaEQ0ZDEzbFpsbktSZFNG?=
- =?utf-8?B?S3o0UmZxVkpZN0s0azdrVXkrSVllbm54Q2gveXl5emxTZFN0K21qaE03Ujdv?=
- =?utf-8?B?cjh6Zkt4OGgydzZlTURldC9zK243V1o2N084ckJTYlZBcmRKYkdlc2ZMekhF?=
- =?utf-8?B?amRCWm9zS3ZLbjd3RzZiWW1SR3A0NXhPMFVrc0VUNXJ5Y3NKZ0krbllpK2g4?=
- =?utf-8?B?ZnBCRjVpdHZEUXdSUGFxck5UQjJORXpOYVRnYkVXRlB1bFRBc1NhQkhxdVVF?=
- =?utf-8?B?L21vdXVZLzhlbmFyMkx6SWNJZkVudHNmNmx2VERTM2VKWnBkTjduR2t3Sjhy?=
- =?utf-8?B?UEdTd3kxdVRwTEdzQnpQWUs5TjQ3ZjRFNlF2UG5jcUFXa1FTa0paTWpPUE00?=
- =?utf-8?B?b0dQRWFwZklqUFVLSzlVUzJ5Zk4zaUQ5dk1MdU9iQ0Y0ZmVwUmRJK0VreGh2?=
- =?utf-8?B?eklLS2c5ZTdIS1IvMTRQWGErNlU1V1ZBWXhMYmFndXFCNVB4dVRzcEhKcmhE?=
- =?utf-8?B?RmRwQ05EY3Z0Y2txRlNLalh0RFAzMldxK2lkc1pWRHUvc0dVRFZwWUNMOEJt?=
- =?utf-8?B?M0p2YnlRK2ZvZGZwSnQ2MFM4bDJBNnE0Y2MycnlCZExnVk0vbnR0UDh5a2wv?=
- =?utf-8?B?UzNZbmticUtFNzVBRHllY1ljRlZURVNLK1BXNmNtSW5paS9XQk9kbUJMd0g2?=
- =?utf-8?B?SFlrV3F4YTdiSHpOcXlIVmxpelRURHBsblUzVEhpODZaZzkvTGpxdXU2ZFJk?=
- =?utf-8?B?M2Q3emJqV1FTemRQWXRMY0ZBbGdub2o1eW5qbHUvRlRLMUpOWGVLcW5zdG1p?=
- =?utf-8?B?Ym1EWmM1QWMxZkV6cWJYb01kekdsaEhtUEswdFBaQmhHemd3b3oyd2xiMUxv?=
- =?utf-8?B?dDJZWW81V2xlNkIvZ01NQXVNU2pNWUhCc0JKS00wNE9sTXBGNXduQ1Q2QjRo?=
- =?utf-8?B?TytKS1l3VDRZS0Jza3BWSWFwaFJqbzNybXRPWFVicjRCaFFwbW5POWxuZFdy?=
- =?utf-8?B?a2E2SGZwUXowbFNRdDUyWCtRQjVSaWJKdDlhMjMxSUtPVDV6RTlmRk51MnJW?=
- =?utf-8?B?RmhQclh0c1dhbkpvMitKVHl1d29rOExXSjVBRWlBTy91eDZOWEJ3Q2lkS2s3?=
- =?utf-8?B?VCtNaDZyQndld2wzMm9kK1NnWW92TU1xbW1sckRZaXc0dkVXRVMvbE5YMU5i?=
- =?utf-8?B?TmdudVpZQy9RRUJraWhYeDVSUVVBYU5vVERWcW80OVVCSjh5R1dIRGl6MlA5?=
- =?utf-8?B?UlVIN1EvK2RaNmxmRVBNVU84aXlPV1FhcVUrVkZNRUdJWE1zaXRhMkFyVHNQ?=
- =?utf-8?B?b1piUGRnV053YTBjbjFrMWNkbDJTbE15L0RTQ1hyK1B4dk5GbGtFZUkzY2Vj?=
- =?utf-8?B?LzgyT1RNUDllZlF0YjV1V0M2TW43NmgwS09nRC8yNGFjek1QS09jUnlXaFpy?=
- =?utf-8?B?MmtPUHpPd09RRFJTTllpb0tqajBjc3BKSEw0aU1naWRKMnp4a2VvZEVrdXhW?=
- =?utf-8?B?WGRENk1hMVdQSllmWHBreVBta3ZzbnAxQVNHTW5CRWdEcEJ6NlJFeW45MGNw?=
- =?utf-8?B?U0hzZFA1WjJZYkFWdFE5aHRGa2ZZRElwbmZ2VHl2Z1ZOaVFKUU9pa1luc0Y3?=
- =?utf-8?B?dmNycTB4MTZPS2U1dDJ4NjRzWSs3T1ZjdkZndDZMUzF0R2VtbjVXNEluYlhP?=
- =?utf-8?B?WE1pY0pyb25NV3RFTGhFYjluMzg5ZE9PTm0xNFZhZmFFTnZRUUpFNGZiWXdO?=
- =?utf-8?B?S1lLbjRMTThWWlhicW9SSTRNNFdCMGg2TGVaSW9mcEgrMngxNUlFVllIVmJm?=
- =?utf-8?B?cmRYTnE4OGR1L1orS1QzSytEZFY3eDNvMWhIZ2dKTHp1bTJhemx6NVZtZVdz?=
- =?utf-8?B?MTVaVjcxZis3Z2M1b3NzVVI5VnUrZmFSMHZKR2pHU3pRbVpZblU0RCswc0JL?=
- =?utf-8?B?ak50RUx6YlFxVTNqb0FDM09ENHVuN3V1WVRYWFh2ZVUyWmR3aTFKQzdCY2da?=
- =?utf-8?B?NHZGNWo1ZGorQ21vVXdLQUN2MW95cVZEaC9JNzI5TWdOVmtTamxHbEZyMW9o?=
- =?utf-8?B?cVRwNjBMYkJNaHh1Y2t3aWJEZTdSTW9MQkpNVGZRYVBNQjRuM0dsYWVVQ1hH?=
- =?utf-8?B?MXltV1ViYWF5VmxIUWo1QVYyR3BpSnZIZE1tbmFKdnZGWkptRmZRdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5ad33c4-383c-466a-95e2-08df2e024ed6
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:59:16.5844
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /+d6fLw/lHRjCtIPfBy6gpSS6lWW2UoA/0jCpSTZcSwcQQV/Hi/e/CJVjUAz+ZLZrZaDr2MmWYWFADVn1kgx6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9358
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b1002150c3e4f877d04790cd8e85d2149d17722f.camel@gmx.de>
 
-
-
-On 9/30/2026 2:53 PM, Suravee Suthikulpanit wrote:
-> The IOMMU PCI function does not go through the normal device attach
-> path, so it has no iommu_dev_data. Add amd_iommu_alloc_dev_data()
-> and amd_iommu_free_dev_data() for a synthetic object that is not
-> interned in pci_seg->dev_data_xa. Program that DTE with the private
-> IPA domain's v1 page table so the IOMMU can DMA to its own vIOMMU
-> backing store.
+Le dimanche 18 oct. 2026 à 08:49:29 (+0200), Mike Galbraith a écrit :
+> Greetings!
 > 
-> Leave the synthetic DTE off pdom->dev_list and with no struct
-> device so clone_aliases() is skipped; it is only iommu->devid.
-> Rewrite it from amd_iommu_change_top() when the IPA table grows
-> so later high maps remain reachable.
+> On Fri, 2026-10-16 at 15:18 +0200, Jakub Okoński wrote:
+> > Hi Peter,
+> > 
+> > On 6/5/26 14:40, Peter Zijlstra wrote:
+> > 
+> > > Change fair/cgroup to a single runqueue.
+> > > 
+> > > [...]
+> > > 
+> > > --- a/kernel/sched/fair.c
+> > > +++ b/kernel/sched/fair.c
+> > > @@ -9916,7 +9837,6 @@ static void wakeup_preempt_fair(struct r
+> > >  	if (!sched_feat(WAKEUP_PREEMPTION))
+> > >  		return;
+> > >  
+> > > -	find_matching_se(&se, &pse);
+> > >  	WARN_ON_ONCE(!pse);
+> > >  
+> > >  	cse_is_idle = se_is_idle(se);
+> > 
+> > I think this changes how cpu.idle affects wakeup preemption.
 > 
-> Do this after viommu_private_space_init() so viommu_pdom exists.
-> On teardown, clear the DTE only while CONTROL_CMDBUF_EN is set,
-> then free the object. After disable_iommus() the INV_DTE flush
-> would time out, so skip it and still free the object. Failed
-> self DTE allocation unwinds through amd_viommu_uninit().
+> My box claims this to be unrelated to the jitter you're seeing, as it
+> is present in 7.2.11, with and without the sched-flat set applied.
+
+Yes, we don't take into account whether the task group is sched_idle
+
+Jakub, Mike,
+Could you try the patch below ? It solves the problem on my setup
+
+---
+ kernel/sched/fair.c | 80 ++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 68 insertions(+), 12 deletions(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 0f2364479f9d..d17e88ad12a5 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -433,6 +433,38 @@ static inline struct sched_entity *parent_entity(const struct sched_entity *se)
+ 	return se->parent;
+ }
+ 
++static void
++find_matching_se(struct sched_entity **se, struct sched_entity **pse)
++{
++	int se_depth, pse_depth;
++
++	/*
++	 * preemption test can be made between sibling entities who are in the
++	 * same cfs_rq i.e who have a common parent. Walk up the hierarchy of
++	 * both tasks until we find their ancestors who are siblings of common
++	 * parent.
++	 */
++
++	/* First walk up until both entities are at same depth */
++	se_depth = (*se)->depth;
++	pse_depth = (*pse)->depth;
++
++	while (se_depth > pse_depth) {
++		se_depth--;
++		*se = parent_entity(*se);
++	}
++
++	while (pse_depth > se_depth) {
++		pse_depth--;
++		*pse = parent_entity(*pse);
++	}
++
++	while (!is_same_group(*se, *pse)) {
++		*se = parent_entity(*se);
++		*pse = parent_entity(*pse);
++	}
++}
++
+ static int tg_is_idle(struct task_group *tg)
+ {
+ 	return tg->idle > 0;
+@@ -476,6 +508,11 @@ static inline struct sched_entity *parent_entity(struct sched_entity *se)
+ 	return NULL;
+ }
+ 
++static inline void
++find_matching_se(struct sched_entity **se, struct sched_entity **pse)
++{
++}
++
+ static inline int tg_is_idle(struct task_group *tg)
+ {
+ 	return 0;
+@@ -10129,7 +10166,34 @@ preempt_sync(struct rq *rq, int wake_flags,
+ }
+ 
+ /*
+- * Preempt the current task with a newly woken task if needed:
++ * Preempt an idle entity in favor of a non-idle entity (and don't preempt
++ * in the inverse case).
++ */
++static bool wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
++{
++	int cse_is_idle, pse_is_idle;
++
++	find_matching_se(&cse, &pse);
++	WARN_ON_ONCE(!pse);
++
++	cse_is_idle = se_is_idle(cse);
++	pse_is_idle = se_is_idle(pse);
++
++	/*
++	 * Preempt an idle entity in favor of a non-idle entity (and don't preempt
++	 * in the inverse case).
++	 */
++	if (cse_is_idle && !pse_is_idle)
++		return PREEMPT_WAKEUP_RESCHED;
++
++	if (cse_is_idle != pse_is_idle)
++		return PREEMPT_WAKEUP_NONE;
++
++	return PREEMPT_WAKEUP_PICK;
++}
++
++/*
++ * Preempt the current task with a newly woken task if needed.
+  */
+ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_flags)
+ {
+@@ -10174,22 +10238,14 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
+ 	if (!sched_feat(WAKEUP_PREEMPTION))
+ 		return;
+ 
+-	WARN_ON_ONCE(!pse);
+-
+-	cse_is_idle = se_is_idle(se);
+-	pse_is_idle = se_is_idle(pse);
++	preempt_action = wakeup_preempt_sched_idle(se, pse);
+ 
+-	nse = se;
+-	/*
+-	 * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+-	 * in the inverse case).
+-	 */
+-	if (cse_is_idle && !pse_is_idle)
++	if (preempt_action == PREEMPT_WAKEUP_RESCHED)
+ 		goto preempt;
+ 
+ 	update_curr_fair(rq);
+ 
+-	if (cse_is_idle != pse_is_idle)
++	if (preempt_action == PREEMPT_WAKEUP_NONE)
+ 		goto update;
+ 
+ 	/*
+-- 
+2.53.0
+
+
 > 
-> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-> ---
->  drivers/iommu/amd/amd_iommu.h       |   4 ++
->  drivers/iommu/amd/amd_iommu_types.h |   2 +
->  drivers/iommu/amd/init.c            |   7 +-
->  drivers/iommu/amd/iommu.c           | 102 +++++++++++++++++++++++++---
->  drivers/iommu/amd/viommu.c          |  57 ++++++++++++++++
->  5 files changed, 161 insertions(+), 11 deletions(-)
+> > With the single runqueue, find_matching_se() is gone and se_is_idle()
+> > reduces to task_has_idle_policy(). Wouldn't this mean that SCHED_NORMAL
+> > tasks in a cpu.idle cgroup are no longer treated as idle for
+> > wakeup_preempt_fair()?
+> >
+> > 
+> > I tested my existing 7.2.9 desktop against 7.3-rc6 with the setup below.
+> > cyclictest doesn't reproduce it because it just sleeps and wakes, no CPU
+> > burn and therefore its accrued EEVDF lag keeps the latency low?
+> > 
+> > cc -O2 -o wakelat wakelat.c
+> > systemd-run --user --collect --unit=spin -p AllowedCPUs=7 -p CPUWeight=idle sh -c 'while :; do :; done'
+> > systemd-run --user --collect --wait --pipe --same-dir -p AllowedCPUs=7 ./wakelat 1000 15 200 |
+> >   mlr --inidx --ifs space --opprint --barred --right label lat \
+> >     then stats1 -a count,p50,p90,p99,max -f lat then rename -r '^lat_,' \
+> >     then put -q 'emit mapsum({"kernel": system("uname -r")}, $*)'
+> > systemctl --user stop spin
+> > 
+> > wakelat wakes on a fixed 1 ms schedule, records how late each wakeup
+> > was, then busy-loops for 200 micros (wall clock).
+> > 
+> > +-----------+-------+-----+-----+------+------+
+> > >    kernel | count | p50 | p90 |  p99 |  max |
+> > +-----------+-------+-----+-----+------+------+
+> > >     7.2.9 | 14998 |  11 |  11 |   12 | 1869 |
+> > > 7.3.0-rc6 | 13853 |  11 |  12 | 2029 | 2116 |
+> > +-----------+-------+-----+-----+------+------+
+> > 
+> > count is out of 15000 periods. rc6 had 1147 wakeups delayed by over 1 ms.
 > 
-
-
-.../...
-
-> +
-> +static bool viommu_cmdbuf_enabled(struct amd_iommu *iommu);
-> +
-> +static void viommu_free_self_dev_data(struct amd_iommu *iommu)
-> +{
-> +	struct iommu_dev_data *dev_data = iommu->viommu_dev_data;
-> +	struct dev_table_entry new = {};
-> +
-> +	if (!dev_data)
-> +		return;
-> +
-> +	/*
-> +	 * INV_DTE needs the command buffer. Skip it after
-> +	 * disable_iommus() clears CONTROL_CMDBUF_EN. The init
-> +	 * unwind still flushes while the buffer is enabled.
-> +	 */
-> +	if (viommu_cmdbuf_enabled(iommu)) {
-
-As mentioned in previous patch, do we really need this check?
-
-> +		amd_iommu_make_clear_dte(iommu, dev_data->devid, &new);
-> +		amd_iommu_update_dte(iommu, dev_data, &new);
-> +	}
-> +	amd_iommu_free_dev_data(iommu, dev_data);
-> +	iommu->viommu_dev_data = NULL;
-> +}
-> +
-> +static int viommu_alloc_self_dev_data(struct amd_iommu *iommu)
-> +{
-> +	struct protection_domain *pdom = iommu->viommu_pdom;
-> +	struct pt_iommu_amdv1_hw_info pt_info;
-> +	struct iommu_dev_data *dev_data;
-> +	struct dev_table_entry new = {};
-> +
-> +	dev_data = amd_iommu_alloc_dev_data(iommu->devid);
-
-I am not getting why we can't call allc_dev_data? So that we can track these
-devid (including translation devid) in dev_data_xa. So that we can catch
-duplicate allocations?
-
-
-
-> +	if (!dev_data) {
-> +		pr_err("%s: Failed to allocate dev_data\n", __func__);
-> +		return -ENOMEM;
-> +	}
-> +	/*
-> +	 * Synthetic DTE for iommu->devid only: no struct device, so
-> +	 * amd_iommu_update_dte() skips clone_aliases(), and not on
-> +	 * pdom->dev_list (not an IOMMU-API attach).
-> +	 */
-> +	dev_data->dev = NULL;
-
-I am not able to figureout why we cannot track iommu device structure here. Does
-it mess up anything? if we hook this to pdom->dev_list then we don't need
-special update_viommu_self_dte().
-
-
--Vasant
-
+> Thanks a bunch for the proggy. I've been looking for a clear signal
+> with various loads, and stuffing wakelat+awk into one of my scripts
+> provided a perfectly clear signal, which I bisected and confirmed.
+> 
+> Note: below is box pointing it's little silicon finger at the source of
+> aforementioned jitter, not necessarily at breakage.
+> 
+> Reverting the fingered commit removed the jitter from 7.2.11, and force
+> reverting 68e37487810a + 333238da9a19 removed it from master as well.
+> 
+> 333238da9a193ffc58792995f3e951e4cb87bfd2 is the first 'bad' commit
+> commit 333238da9a193ffc58792995f3e951e4cb87bfd2
+> Author: Vincent Guittot <vincent.guittot@linaro.org>
+> Date:   Fri Aug 14 15:52:41 2026 +0200
+> 
+>     sched: Update time before requeueing delayed entities
+>     
+>     In order to compute the right lag, it is required to update time to 'now'.
+>     Without this, the delayed entity might appear younger than it really is and
+>     receive less compensation for having waited.
+>     
+>     Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+>     Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> 
+>  kernel/sched/fair.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
