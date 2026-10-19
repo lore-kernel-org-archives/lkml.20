@@ -1,50 +1,50 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D403ACEF3
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F5F3AC0ED
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792383462; cv=none; b=ZaO2PZahrEY3vYBmqVSx7wIl8k1pB7Rc5VDuuLMsOOu41OrOmna9PUDSaE+zg9cU23cjscZsNKL8CxOt6fQonqZQ2I0U8ek4/CfUf+04GhADLOmBFD0VJ34Z21K9evic0UscXFfp2vomlpp1xAiQb3ilZlr6DILuWlriol12hv4=
+	t=1792383468; cv=none; b=nPS1PAhFyO/ykfGJOK2wpFpMrDDHJgnlh8hgrHa5BeAr/zZoSqXcw5E0zvlkSRhqBsy5GpMAJLxRmlrDWc3dkBRii5FKyMb10k6EPlCl1I6d/4nhx61KxChVMfSGp7pTJwTaaMPrMYRvUF98z765XfmuweT21Go2nCCn760xKxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792383462; c=relaxed/simple;
-	bh=BLXDbOTk4/pz7I0KM0cjqp2WV0HQgeEMuyZ6RVZAXC8=;
+	s=arc-20240116; t=1792383468; c=relaxed/simple;
+	bh=6UQH4pjDLJJcHG+9dqNMXnzrLS5UHtXkIQtIAQbwMkQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FlLpzJ9jFbKCR4HEhk6Jyfk4Le5UAXI0dH5Wbokl5co0pE9ulriNIC2ktcZavup8T7cDCFqWopUynmbKlkMTj182FcW7y44IQOd/iZ1E5aIZ4zdh5vKzrP5gqGeEwRaj+XFSsErbOSwXX6xrux7z6FH3jtuPjzwHMBAdnMXYg08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=ejJ00uCSJoJbkgGEwd2DO5//xHydZOpAe2Q0tDN0Aw8gs0kl8Yn4H1Hg1JYYxghMf+3dBUjyjwxoapGeaqZBIZ13bUJVgc2ocbLH4tzQuwc2K19AFFkHYWgzCt8gK+c2dUp5ryIgPGkPMmAscLNvg0rnPXLwBwTu4f/uBYIWaDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1bc97805eso1015305e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:17:37 -0700 (PDT)
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a16d39964bso1432085e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:17:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792383456; x=1792988256;
+        d=1e100.net; s=20260707; t=1792383463; x=1792988263;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yLoKg0ZcYa1/2cV9cSGuZHG6cp2PhsvOjB0FtOfNm+o=;
-        b=H6cHDGL/OegylIAjx8GTRw45SxK8MmJ5IMOAEst8lqu332LEI4wn6xzAPQODetvHH0
-         Iu/YVC5AnzyH4lAdrdOn2bLo/Kis/xOwbOAaB0ai5EWe5F6os3d8rug7pUTA7ATa50w2
-         0BXS+5I7sOXEEcfbaKl5tGMgAjqr8jxDqPAl5gLcPrfVvGKf/pTP7zsYhKj2KXChQDzp
-         QyyQuiwyzCeO/Xkvql5i2oR+pXJARXC662KsqPizPaAunxuoL6WACw3IKtD+aCmCVRN5
-         Kja4sTDbYUgc67dKkEUOXRShhtzLE6c4kF6jzJnY1f4JtPp+feU2JCw4zXV+AsCOvrqC
-         JPFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxgX6fHsVN8Mi2aDobO90WurXfBh0M709V4q4ViKcMlQfH4/E4n1EWJ2SGZMJD4qovH5r3mfOLqi/Se+RA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9CoixPsIhBtj1RA9bEljukl5ZMoXEGum5G7Ae6FXHumbL27OP
-	Psu0rwpHk5fuphjZTq6qY9WbXMSELEJuFfabxuaeNI3064MkQVbokEoo
-X-Gm-Gg: AYBFou3JXcaW6yWT+4qRVTBxu3dEPjYgyfM38iYwMr14Ne9uHeR3bBNlJCwlm7spxbQ
-	RXM0Ym5raEJhi9QFtDrFW1phv3Q8UnihllveS5MKwwZ+2vIgdi+uUhaOUoRugjZRPwBGghKw34H
-	Lfwaob+3F8l6QXIl9C9YZUQWGAl86+XJ8Z6Vnhmki1pVi3EGNLN+GMqGzg8Hh3lu5aYNUvbIKVg
-	YbQvjnvtYLeTrRW7eTbkcwg1raqpVdQRgDdDb1H6oq9CrzqYtbUo8E8zUUc6R0GM6AIVNee0AnP
-	dFoetTIyf7IeC6JVIgGqUaPpsHEdyUVCGZfOakvINeg0whksSwrBK0Dfk6YUjJd8cDq/3KbRtAg
-	+WrFH25TL6gE7/Ltx6n/KmbfAeQzlhh78/nPca/z0AsYncFJswEaiV/8kQZSzx9fZ6bpagig9Qe
-	aeLS8ccZ9var7dxhMsb9aRyqgAlVGfU4PdEJYCHtwbBnlQzlDHxEILuQ6P7cpSp7qH6Ca3leB0r
-	1Ku299LwJJO9ImtmpHiZCLcLlDOcYKR6CeD
-X-Received: by 2002:a05:6000:18a9:b0:48d:f99c:2e01 with SMTP id ffacd0b85a97d-48e07fa03ebmr12195712f8f.3.1792383455469;
-        Sun, 18 Oct 2026 21:17:35 -0700 (PDT)
+        bh=qOMCTjC64dDCmvXRNrHhbEr83M4dRxjQ0wqq08TklHU=;
+        b=f1T8sMmlv9DWQ9EBy2xgS2B6DGUGCnRcXmC32DyoHumIw8AN+gkBUWMHfK97zXXpD7
+         UWhQGijiUCm5FSf2MxcBqJgK5dv6F0l1J1hSdKJ4KdVrk6fnqIRtbYC4YPCOV6DvggcB
+         MoJeemUVdExU6uG63V7D8qwiu5IMs6af4MumwAtd5YlNoC1Jxr/Ga4pkPp/2ZDUPAak6
+         i/+E1gJkRapIe6bnYCwNsR8/dZCLKIojbSIn7BAicyKsj05HKRoSC36A99K4dYIWTcKa
+         jxo9WmjEX7+lME14dy4/YmM53Z25ug6Qrhe9dckh1bGkA8mflLgPDipFHgG4e9/vkStN
+         i0GA==
+X-Forwarded-Encrypted: i=1; AKwUvBz0IglJCSFhRAILTgiE3GlyCuj2QYIxgB5/4i9iXz0Vnf2pJpxbU+/zww4PBETismJQkJuQcd5E77GByGs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUA7/54qhZK5fewJxn35Wqv5ZzalrH+aWdg3PDH0zyIVQN7AK0
+	1ZfgngPugpPMQxUHs9Kbazk2ID8nxC+zb+Kt8FaPCejZ48nOyDZZsEoP
+X-Gm-Gg: AYBFou3onSb060vPVzf/YTLvR2TF/0cTWffrcZk2do1JrnwYs/iS/t/q8jPujNmGbsZ
+	qEHWNUP1rRUASRTNnO3xvTdmlQMl/lnEFI2bpWegNlSOrUyBOFIVD3+MJruSHhz1j1TQOfmWqwF
+	jFlYgyWuE/XkfZN70TKYrDVRnXueOI6YB7DEwC9304PofgFCVaXp1e9vj7I7vXCwb4xkw8dhnMh
+	LLFQ+SbzX+TAvBcatE4DWKDFG4V1MPx9Co/RJV6oDEGpfL6jL9Sxqopj77Nn/4nBUjhs2pP2zPp
+	n2E7NIMXE2JCg0O1QJAOqrKCy+eP0KYnLfz73pwviis/eRx6upZPV1bG8DbCrSQBRodjHVRprK0
+	pQG3H+po5BeMiEAmiM0njQArW0cKeN51gpfBH4MfrbzH9JgSfdDN/KxgAfl0YaOMDpBcUUMr3ic
+	K1HtoVxRef0+yGp7KSxxmMh5GuFdvGUx+FTEmnZ7/6mkPBi8ceymUF1D17KLHDXkI7rb/KpT4Mz
+	5myO+dcgR5xTvQUVZbCeEGBEjmu/XuWJChvyIyP04h8GU0=
+X-Received: by 2002:a05:600c:c168:b0:4a1:e725:27be with SMTP id 5b1f17b1804b1-4a1e72527f3mr32847965e9.2.1792383463106;
+        Sun, 18 Oct 2026 21:17:43 -0700 (PDT)
 Received: from spartian.home ([2a01:cb1c:76:ed00:602f:c5f4:d108:b925])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm20090449f8f.42.2026.10.18.21.17.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm20090449f8f.42.2026.10.18.21.17.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 21:17:33 -0700 (PDT)
+        Sun, 18 Oct 2026 21:17:41 -0700 (PDT)
 From: Aurelien DESBRIERES <aurelien@hackers.camp>
 To: Aurelien DESBRIERES <aurelien@hackers.camp>,
 	Jonathan Corbet <corbet@lwn.net>,
@@ -58,9 +58,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	linux-doc@vger.kernel.org,
 	aurelien.desbrieres@gmail.com,
 	linux-api@vger.kernel.org
-Subject: [RFC PATCH 01/18] beamfs: add on-disk format definitions
-Date: Mon, 19 Oct 2026 06:17:11 +0200
-Message-ID: <20261019041728.327785-2-aurelien@hackers.camp>
+Subject: [RFC PATCH 03/18] beamfs: add CRC32 and Reed-Solomon layer
+Date: Mon, 19 Oct 2026 06:17:13 +0200
+Message-ID: <20261019041728.327785-4-aurelien@hackers.camp>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261019041728.327785-1-aurelien@hackers.camp>
 References: <20261019041728.327785-1-aurelien@hackers.camp>
@@ -72,1229 +72,815 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-beamfs is a block-device filesystem that keeps Reed-Solomon parity
-with the blocks it protects and decodes on every read, so corrupted
-bytes are corrected in place on a single device, with no second copy
-to repair from.
+CRC32 and Reed-Solomon FEC built on lib/reed_solomon: RS(255,239) over
+GF(2^8), primitive polynomial 0x187, sixteen parity symbols for each
+239-byte subblock, so up to eight corrupted symbols per codeword are
+corrected.
 
-This header holds every structure and constant that describes bytes
-on the medium, and nothing else. It uses no kernel-only types, so
-mkfs.beamfs and fsck.beamfs include it directly instead of keeping
-copies that drift from the kernel's.
-
-Nothing is built until the Kconfig and Makefile patch near the end of
-the series.
+The decoder keeps its scratch buffers in struct rs_control, so one
+rs_control shared by concurrent callers corrupts their intermediate
+state and reports spurious uncorrectable codewords. beamfs allocates
+one rs_control per possible CPU. rslib.h does not state this contract;
+a patch documenting it was posted to linux-kernel on 2026-05-13.
 
 Assisted-by: LLM
 Signed-off-by: Aurelien DESBRIERES <aurelien@hackers.camp>
 ---
- fs/beamfs/beamfs_format.h | 1197 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 1197 insertions(+)
- create mode 100644 fs/beamfs/beamfs_format.h
+ fs/beamfs/edac.c | 785 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 785 insertions(+)
+ create mode 100644 fs/beamfs/edac.c
 
-diff --git a/fs/beamfs/beamfs_format.h b/fs/beamfs/beamfs_format.h
+diff --git a/fs/beamfs/edac.c b/fs/beamfs/edac.c
 new file mode 100644
-index 000000000000..b5543b73ff3c
+index 000000000000..1c823bb29611
 --- /dev/null
-+++ b/fs/beamfs/beamfs_format.h
-@@ -0,0 +1,1197 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
++++ b/fs/beamfs/edac.c
+@@ -0,0 +1,785 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * beamfs -- on-disk format
-+ *
++ * beamfs - EDAC layer: CRC32 + Reed-Solomon FEC
 + * Author: Aurelien DESBRIERES <aurelien@hackers.camp>
 + *
-+ * Every structure and constant that describes bytes on the medium,
-+ * and nothing else. No kernel types, so mkfs.beamfs and fsck.beamfs
-+ * include this file directly rather than keeping their own copies.
++ * Reed-Solomon encoding/decoding uses the kernel's lib/reed_solomon
++ * library (RS(255,239) over GF(2^8), primitive polynomial 0x187)
++ * rather than a private codec: the library is already in the kernel,
++ * well tested, and used by NAND MTD drivers, the RAM oops logger and
++ * dm-verity FEC.
 + *
-+ * They used to. Three defects in a single day came from the copies
-+ * drifting: fsck rejected the reserved inodes' pointers, mkfs marked
-+ * the canary block with an index it computed differently, and fsck's
-+ * superblock struct lagged the kernel's by sixteen bytes so every
-+ * offset past them was wrong. The format is one thing; it should be
-+ * written down once.
-+ *
-+ * ext4 and xfs split their headers the same way, for the same reason.
++ * RS parameters, as passed to init_rs():
++ *   symsize = 8                  (GF(2^8))
++ *   fcr     = 0                  (first consecutive root)
++ *   prim    = 1                  (primitive element)
++ *   nroots  = BEAMFS_RS_PARITY = 16 (parity symbols)
++ *   data per subblock: BEAMFS_SUBBLOCK_DATA = 239 bytes
++ *   codeword length:   255 bytes (BEAMFS_SUBBLOCK_TOTAL)
 + */
 +
-+#ifndef _BEAMFS_FORMAT_H
-+#define _BEAMFS_FORMAT_H
-+
-+#ifdef __KERNEL__
-+#include <linux/types.h>
-+#else
-+/*
-+ * Userspace build: the __leNN types are kernel spellings of plain
-+ * fixed-width integers. beamfs stores little-endian on disk and every
-+ * access goes through le*_to_cpu, so the userspace tools -- which run
-+ * on little-endian hosts and on the same little-endian targets --
-+ * read them directly.
-+ */
-+#include <stdint.h>
-+#include <stdbool.h>
++#include <linux/kernel.h>
++#include <linux/crc32.h>
++#include <linux/slab.h>
++#include <linux/rslib.h>
++#include "beamfs.h"
 +
 +/*
-+ * BIT and BIT_ULL come from linux/bits.h, which userspace does not get.
-+ * mkfs.beamfs and fsck.beamfs include this file directly rather than
-+ * keeping their own copies -- that is the point of it -- so the macros
-+ * are defined here for them.
++ * RS codec handles -- ONE PER POSSIBLE CPU.
++ *
++ * lib/reed_solomon/decode_rs.c uses scratch buffers (lambda, syn, b,
++ * t, omega, root, reg, loc) stored inside rs_control->buffers[]. A
++ * shared rs_control across concurrent callers races on those buffers,
++ * producing spurious 'uncorrectable' results under parallel decode
++ * load (reproduced May 2026: 8 parallel sha256sum on a beamfs RO
++ * mount -> 160+ uncorrectable per batch).
++ *
++ * This is the library's documented contract: rslib.h describes
++ * rs_control as per instance, and decode_rs8()'s kernel-doc says the
++ * caller has to ensure that decoder invocations are serialized.
++ *
++ * Per-CPU allocation gives each CPU its own rs_control + buffers[].
++ * Combined with preempt-disable via get_cpu_ptr/put_cpu_ptr, this
++ * eliminates the race without locks.
 + */
-+#ifndef BIT
-+#define BIT(n)      (1U << (n))
-+#endif
-+#ifndef BIT_ULL
-+#define BIT_ULL(n)  (1ULL << (n))
-+#endif
-+#include <stddef.h>
-+#include <linux/types.h>   /* __le16/__le32/__le64/__uNN, as the kernel spells them */
-+
-+typedef uint64_t u64;
-+typedef uint32_t u32;
++static struct rs_control * __percpu *beamfs_rs_ctrl_pcpu;
 +
 +/*
-+ * beamfs stores little-endian. The tools run on little-endian hosts
-+ * and targets, so the conversions are identities here; they stay
-+ * written out so the access sites read the same in both builds.
++ * A codeword's worth of scratch, per cpu.
++ *
++ * Interleaving means a codeword's symbols are not contiguous, and
++ * encode_rs8 takes a contiguous buffer: lib/reed_solomon has no notion
++ * of a stride and is not ours to change. So the symbols are gathered
++ * into this and handed over.
++ *
++ * Per cpu rather than on the stack: 239 bytes is a quarter of a
++ * kernel frame, and this sits under iomap and writeback, where the
++ * frame is already deep. Per cpu rather than from the scratch pool:
++ * this file has no super_block and should not need one -- it is the
++ * codec, not the filesystem.
++ *
++ * Taken with get_cpu_ptr, which disables preemption for the length of
++ * one codeword: 239 bytes of Galois arithmetic, microseconds.
 + */
-+#define le16_to_cpu(x) ((uint16_t)(x))
-+#define le32_to_cpu(x) ((uint32_t)(x))
-+#define le64_to_cpu(x) ((uint64_t)(x))
-+#define cpu_to_le16(x) ((__le16)(x))
-+#define cpu_to_le32(x) ((__le32)(x))
-+#define cpu_to_le64(x) ((__le64)(x))
++static u8 * __percpu *beamfs_rs_scratch_pcpu;
 +
 +/*
-+ * Userspace has no compiler.h, so __packed is defined here. Spelt in
-+ * two halves because checkpatch pattern-matches the joined form and
-+ * suggests replacing it with __packed -- which is what this line
-+ * defines.
++ * beamfs_rs_init_tables - initialize the RS codec
++ * Called once from beamfs_init() before any mount.
++ *
++ * Returns 0, or -ENOMEM when the per-CPU codecs cannot be set up.
++ * A CPU left without a scratch buffer is not an error.
 + */
-+#ifndef __packed
-+#define BEAMFS_PACK_ATTR __attribute__
-+#define __packed BEAMFS_PACK_ATTR((__packed__))
-+#endif
-+#endif
-+
-+/* inode_state_read_once returns inode_state_flags in kernel 7.0 */
-+#define beamfs_inode_is_new(inode) \
-+	(inode_state_read_once(inode) & I_NEW)
-+
-+/* Magic number: 0x4245414D, ASCII "BEAM" */
-+#define BEAMFS_MAGIC         0x4245414D
-+
-+/* Block size: 4096 bytes */
-+#define BEAMFS_BLOCK_SIZE    4096
-+#define BEAMFS_BLOCK_SHIFT   12
-+
-+/* RS FEC: 16 parity bytes per 239-byte subblock (RS(255,239)) */
-+#define BEAMFS_RS_PARITY     16
-+#define BEAMFS_INODE_RS_DATA offsetof(struct beamfs_inode, i_reserved)  /* 172 bytes */
-+#define BEAMFS_INODE_RS_PAR  16  /* parity bytes stored in i_reserved[0..15] */
-+
-+/*
-+ * Inode checksum coverage.
-+ *
-+ * i_crc32 sits at offset 48 and the block pointers begin at 52, so a
-+ * checksum over [0, offsetof(i_crc32)) alone would cover none of them:
-+ * a hundred and twenty bytes of i_direct, i_indirect, i_dindirect and
-+ * i_tindirect with nothing watching. Reed-Solomon does protect them --
-+ * its range is [0, 172) -- but the decode is only entered when the CRC
-+ * disagrees, so a flipped pointer bit would be neither corrected nor
-+ * reported.
-+ *
-+ * That is the wrong thing to leave unguarded here. A corrupted pointer
-+ * does not damage the file that owns it; it aims that file at somebody
-+ * else's blocks, which is how one upset becomes two damaged files.
-+ *
-+ * Coverage is therefore the head [0, 48) and the tail [52, 172), the
-+ * same shape the superblock uses: beamfs_crc32_sb leaves out s_crc32
-+ * alone, so its checksum spans everything its parity spans. The inode
-+ * matches.
-+ *
-+ * Volumes whose checksum covers the head alone cannot be told apart by
-+ * inspection, so the wider coverage is gated on
-+ * BEAMFS_FEATURE_INCOMPAT_INODE_CRC_FULL: an older kernel refuses a
-+ * new volume rather than reading every inode as damaged, and this
-+ * kernel refuses a volume without the flag.
-+ */
-+#define BEAMFS_INODE_CRC_HEAD_LEN  offsetof(struct beamfs_inode, i_crc32)
-+#define BEAMFS_INODE_CRC_TAIL_OFF  (offsetof(struct beamfs_inode, i_crc32) \
-+				    + sizeof(__le32))
-+#define BEAMFS_INODE_CRC_TAIL_LEN  (BEAMFS_INODE_RS_DATA \
-+				    - BEAMFS_INODE_CRC_TAIL_OFF)
-+#define BEAMFS_INODE_CRC_BYTES     (BEAMFS_INODE_CRC_HEAD_LEN \
-+				    + BEAMFS_INODE_CRC_TAIL_LEN)
-+
-+#define BEAMFS_SUBBLOCK_DATA 239
-+#define BEAMFS_SUBBLOCK_TOTAL (BEAMFS_SUBBLOCK_DATA + BEAMFS_RS_PARITY)
-+
-+/* On-disk bitmap block layout (RS FEC protected) */
-+#define BEAMFS_BITMAP_SUBBLOCKS  16   /* subblocks per bitmap block */
-+#define BEAMFS_BITMAP_DATA_BYTES (BEAMFS_BITMAP_SUBBLOCKS * BEAMFS_SUBBLOCK_DATA) /* 3824 */
-+/* Bits of free-data-block bitmap held by a single on-disk bitmap block. */
-+#define BEAMFS_BITS_PER_BITMAP_BLOCK (BEAMFS_BITMAP_DATA_BYTES * 8) /* 30592 */
-+
-+/*
-+ * Encoding of s_flags (on-disk).
-+ *
-+ * Bits 0..15 = bitmap_blocks_count (zero -> legacy 1, max 65535).
-+ * Bits 16..31 = volume state, BEAMFS_SB_FLAG_* below; the bits not
-+ *               defined there are reserved (must be zero).
-+ *
-+ * s_flags is __le32, inside the CRC32 coverage (region A 0..63).
-+ * Volumes formatted by pre-multi-bitmap mkfs have s_flags=0, which
-+ * matches the legacy single-block layout via the fallback below.
-+ */
-+#define BEAMFS_SB_FLAGS_BITMAP_BLOCKS_MASK  0x0000FFFFu
-+/*
-+ * ext2's s_state, in the upper half of s_flags. MOUNTED is set by a
-+ * read-write mount and cleared by a clean unmount: found set at mount,
-+ * the volume was not unmounted cleanly. ERRORS is set by the kernel
-+ * when it records an uncorrectable event, and cleared by fsck.beamfs
-+ * --repair after a clean run. Older kernels mask the low sixteen bits
-+ * and ignore these.
-+ */
-+#define BEAMFS_SB_FLAG_MOUNTED              0x00010000u
-+#define BEAMFS_SB_FLAG_ERRORS               0x00020000u
-+
-+/*
-+ * On-disk data block layout under BEAMFS_DATA_PROTECTION_UNIVERSAL_INLINE,
-+ * without BEAMFS_FEATURE_INCOMPAT_RS_INTERLEAVE: the alternating layout.
-+ *
-+ * Each user data block (4096 bytes on disk) holds 16 RS(255,239) shortened
-+ * subblocks, identical layout to bitmap blocks. Per subblock: 239 data bytes
-+ * followed by 16 parity bytes (sb total = 255). The 16 subblocks together
-+ * occupy 16 * 255 = 4080 bytes; the last 16 bytes of the block hold the
-+ * DATA_CSUM and DATA_SELFID descriptor below, zero when neither is active.
-+ *
-+ * Logical capacity per disk block: 16 * 239 = 3824 bytes.
-+ * Correction capacity per disk block: 16 * (16/2) = 128 byte symbols,
-+ * at most 8 in any one subblock.
-+ *
-+ * file_size_logical = N user-visible bytes
-+ * disk_blocks_used  = ceil(N / BEAMFS_DATA_INLINE_BYTES)
-+ */
-+#define BEAMFS_DATA_INLINE_SUBBLOCKS  16
-+/* 16 x 239 = 3824 payload bytes, 16 x 255 = 4080 coded, 16 of tail */
-+#define BEAMFS_DATA_INLINE_BYTES      (BEAMFS_DATA_INLINE_SUBBLOCKS * BEAMFS_SUBBLOCK_DATA)
-+#define BEAMFS_DATA_INLINE_TOTAL      (BEAMFS_DATA_INLINE_SUBBLOCKS * BEAMFS_SUBBLOCK_TOTAL)
-+#define BEAMFS_DATA_INLINE_PAD        (BEAMFS_BLOCK_SIZE - BEAMFS_DATA_INLINE_TOTAL)
-+
-+/*
-+ * The capsule layout, under BEAMFS_FEATURE_INCOMPAT_RS_INTERLEAVE.
-+ *
-+ * Alternating, a codeword owns 239 consecutive bytes and a nine-byte
-+ * burst lands entirely in it: eight is all one corrects, so the
-+ * subblock is lost. In a capsule the 3824 coded bytes are contiguous
-+ * and the symbols of one codeword are spread across them -- symbol i
-+ * of codeword j at byte i*16 + j -- so the same burst puts at most
-+ * one symbol in any codeword, and 129 consecutive coded bytes are
-+ * needed to lose one.
-+ *
-+ *   0 .. 3807    user data   | the 3824 coded bytes, interleaved
-+ *   3808 .. 3815 csum        | across the sixteen codewords
-+ *   3816 .. 3823 selfid      |
-+ *   3824 .. 4079 parity, 16 bytes per codeword, one after another
-+ *   4080 .. 4095 generation, reserved
-+ *
-+ * The parity is not interleaved: nine bad bytes among one codeword's
-+ * sixteen parity bytes still lose that codeword.
-+ *
-+ * The descriptor sits inside the coded area. In the alternating
-+ * layout the csum that says whether a block is sound and the selfid
-+ * that says whether it is the right one sit in the tail pad, outside
-+ * every codeword: a nine-byte burst there condemns a block the rest
-+ * of which would have survived intact. A capsule that cannot protect
-+ * its own header is not a unit of survival.
-+ *
-+ * It costs sixteen bytes of capacity per block -- 3808 rather than
-+ * 3824, 0.42%, four megabytes on a gigabyte -- and buys the header the
-+ * same 129-byte burst resistance as the data.
-+ *
-+ * The last sixteen bytes are set aside for an 8-byte generation and 8
-+ * reserved bytes. The kernel writes them as zero and does not read
-+ * them.
-+ */
-+#define BEAMFS_CAPSULE_DATA_OFF       0
-+#define BEAMFS_CAPSULE_DATA_BYTES     3808
-+#define BEAMFS_CAPSULE_CSUM_OFF       3808   /* u8 type, 3 rsvd, __le32 crc */
-+#define BEAMFS_CAPSULE_SELFID_OFF     3816   /* __le64 digest(ino, iblock)  */
-+#define BEAMFS_CAPSULE_CODED_BYTES    3824   /* data + csum + selfid        */
-+#define BEAMFS_CAPSULE_PARITY_OFF     3824
-+#define BEAMFS_CAPSULE_PARITY_LEN     (BEAMFS_DATA_INLINE_SUBBLOCKS * BEAMFS_RS_PARITY)
-+#define BEAMFS_CAPSULE_GEN_OFF        4080   /* __le64 generation           */
-+#define BEAMFS_CAPSULE_GEN_BYTES      8
-+#define BEAMFS_CAPSULE_FREE_OFF       4088   /* 8 bytes, zero, reserved     */
-+
-+/*
-+ * The same interleaved geometry with all 3824 coded bytes counted as
-+ * payload and no descriptor: data at 0, 256 bytes of parity at 3824,
-+ * 4080 bytes in all. beamfs_rs_encode_block, beamfs_rs_decode_block,
-+ * beamfs_block_read and beamfs_block_write in edac.c use these names.
-+ */
-+#define BEAMFS_DATA_WOVEN_OFF         0
-+#define BEAMFS_DATA_WOVEN_BYTES       BEAMFS_DATA_INLINE_BYTES          /* 3824 */
-+#define BEAMFS_DATA_WOVEN_PARITY_OFF  BEAMFS_DATA_INLINE_BYTES          /* 3824 */
-+#define BEAMFS_DATA_WOVEN_PARITY_LEN  (BEAMFS_DATA_INLINE_SUBBLOCKS * BEAMFS_RS_PARITY) /* 256 */
-+#define BEAMFS_DATA_WOVEN_TOTAL       (BEAMFS_DATA_WOVEN_BYTES + BEAMFS_DATA_WOVEN_PARITY_LEN)
-+
-+/*
-+ * DATA_CSUM descriptor layout in the alternating layout: the 16-byte
-+ * block tail pad [BEAMFS_DATA_INLINE_TOTAL .. BEAMFS_BLOCK_SIZE), not
-+ * part of any RS codeword. A capsule holds the same descriptor at
-+ * BEAMFS_CAPSULE_CSUM_OFF, inside the coded area. The csum takes the
-+ * first 8 bytes of the tail; DATA_SELFID below takes the other 8.
-+ */
-+#define BEAMFS_DATA_CSUM_TYPE_OFF     (BEAMFS_DATA_INLINE_TOTAL + 0)  /* 4080 u8      */
-+#define BEAMFS_DATA_CSUM_VALUE_OFF    (BEAMFS_DATA_INLINE_TOTAL + 4)  /* 4084 __le32  */
-+#define BEAMFS_DATA_CSUM_DESC_BYTES   8                               /* type+rsvd+csum */
-+/*
-+ * DATA_SELFID: block self-identification, in the second half of the tail
-+ * pad (at BEAMFS_CAPSULE_SELFID_OFF in a capsule). DATA_CSUM proves a
-+ * block's contents are intact; it cannot prove the
-+ * block is the right one. A corrupted block pointer that still lands inside
-+ * the data area addresses a different, perfectly valid block, whose own
-+ * descriptor verifies. Measured 2026-08-19 at a 128-flip budget: an inode's
-+ * direct pointer went from physical 471 to 503, the read returned that
-+ * block's contents (15245 wrong bits) with cat exiting 0 and no kernel
-+ * signal, because every integrity check passed on a block that simply was
-+ * not the one asked for. The existing bounds check only rejects pointers
-+ * outside [s_data_start, s_data_start + s_nblocks).
-+ *
-+ * The field holds beamfs_data_selfid(ino, iblock), so a read that lands on
-+ * the wrong block fails closed. A 64-bit digest rather than the raw pair
-+ * keeps the field within the 8 reserved bytes without capping inode numbers
-+ * or file size, which matters for the datacenter workloads this filesystem
-+ * targets as much as for embedded ones.
-+ */
-+#define BEAMFS_DATA_SELFID_OFF        (BEAMFS_DATA_INLINE_TOTAL + 8)  /* 4088 __le64  */
-+#define BEAMFS_DATA_SELFID_BYTES      8
-+
-+/*
-+ * Conformance fixture (canary block).
-+ *
-+ * Under BEAMFS_DATA_PROTECTION_UNIVERSAL_INLINE, mkfs.beamfs writes a
-+ * deterministic canary block immediately after the root directory
-+ * block. The canary block is RS-encoded like a regular data block and
-+ * contains a fixed 64-byte ASCII header followed by a deterministic
-+ * 3760-byte payload. The byte layout is reproducible across mkfs
-+ * invocations, so its sha256 is a constant.
-+ *
-+ * Purpose: validate the on-disk RS encode chain end-to-end without
-+ * relying on user-written content. The inode that maps it,
-+ * BEAMFS_RESERVED_INO_CANARY, is reserved below.
-+ */
-+#define BEAMFS_CANARY_HEADER_LEN      64
-+/* 3760 bytes of payload after the header, 3824 in all */
-+#define BEAMFS_CANARY_PAYLOAD_LEN     (BEAMFS_DATA_INLINE_BYTES - BEAMFS_CANARY_HEADER_LEN)
-+#define BEAMFS_CANARY_USER_BYTES      BEAMFS_DATA_INLINE_BYTES
-+#define BEAMFS_CANARY_HEADER_STR      "BEAMFS-CANARY-v4 RS(255,239)x16 SHA256-fixed\n"
-+
-+/*
-+ * Reserved inode numbers.
-+ *
-+ * Inodes [0 .. BEAMFS_FIRST_USER_INO) are reserved for FS-internal
-+ * fixtures (root directory, canary block alias). User-visible inode
-+ * allocation starts at BEAMFS_FIRST_USER_INO.
-+ *
-+ * Operations that would free a reserved inode, or modify one other
-+ * than the root, are rejected by defense-in-depth: VFS layer
-+ * (S_IMMUTABLE, set on every reserved inode but the root) and
-+ * allocator layer (range check in beamfs_free_block /
-+ * beamfs_free_inode_num).
-+ */
-+#define BEAMFS_RESERVED_INO_ROOT      1
-+#define BEAMFS_RESERVED_INO_CANARY    2
-+#define BEAMFS_FIRST_USER_INO         3
-+
-+static inline bool beamfs_ino_is_reserved(u64 ino)
++int beamfs_rs_init_tables(void)
 +{
-+	return ino < BEAMFS_FIRST_USER_INO;
-+}
++	unsigned int cpu, missing = 0;
++	struct rs_control *ctrl;
 +
-+/*
-+ * Translation helpers for BEAMFS_DATA_PROTECTION_UNIVERSAL_INLINE.
-+ *
-+ * The user-visible file_offset (in bytes) maps to a logical block index
-+ * iblock_logical = file_offset / BEAMFS_DATA_INLINE_BYTES (= /3824).
-+ * Each logical block backs exactly one physical disk block of
-+ * BEAMFS_BLOCK_SIZE (4096) bytes, holding 3824 user bytes interleaved
-+ * with 16*16=256 RS parity bytes plus 16 bytes of pad.
-+ *
-+ * For schemes other than UNIVERSAL_INLINE, translation is the legacy
-+ * 1:1 with BEAMFS_BLOCK_SIZE granularity; callers must guard on
-+ * sbi->s_scheme before invoking these helpers.
-+ */
-+static inline u64 beamfs_inline_logical_to_iblock(u64 file_offset)
-+{
-+	return file_offset / BEAMFS_DATA_INLINE_BYTES;
-+}
-+
-+static inline u32 beamfs_inline_offset_in_logical(u64 file_offset)
-+{
-+	return (u32)(file_offset % BEAMFS_DATA_INLINE_BYTES);
-+}
-+
-+static inline u64 beamfs_inline_size_to_blocks(u64 size)
-+{
-+	return (size + BEAMFS_DATA_INLINE_BYTES - 1) / BEAMFS_DATA_INLINE_BYTES;
-+}
-+
-+/*
-+ * Superblock RS layout.
-+ *
-+ * The superblock CRC32 covers two non-contiguous regions:
-+ *   region A  [0, 64)        = 64 bytes (header + counters + version + flags)
-+ *   region B  [68, 2769)     = 2701 bytes (uuid + label + RS journal +
-+ *                              bitmap_blk + features + protection scheme
-+ *                              + indirection parity + error budget +
-+ *                              clock anchor)
-+ *   total                   = 2765 logical bytes
-+ *   excluded: s_crc32 itself in [64, 68).
-+ *
-+ * RS protection covers exactly the same 2765 logical bytes. The two
-+ * regions are serialized into a contiguous 2769-byte staging buffer
-+ * (4 bytes of zero pad to round up to 13 shortened subblocks of 213
-+ * data bytes each). RS(255,239) shortened with data_len=213 is the
-+ * standard lib/reed_solomon usage; padding is implicit.
-+ *
-+ * Each of the 13 subblocks tolerates up to 8 symbol errors
-+ * independently (RS_PARITY/2 = 16/2 = 8). Total correction capacity
-+ * across the superblock: 104 symbol errors when distributed across
-+ * subblocks.
-+ *
-+ * The 208 bytes of parity (13 * 16) live at sb->s_pad[1119..1326],
-+ * which corresponds to disk offset 2769 + 1119 = 3888 -- the last
-+ * 208 bytes of the 4096-byte superblock. This trailing position is
-+ * stable against format evolution: new fields are taken out of s_pad
-+ * ahead of the parity zone.
-+ *
-+ * The BUILD_BUG_ONs in beamfs_sb_to_rs_staging fail the build when
-+ * the covered region no longer matches BEAMFS_SB_RS_COVERAGE_BYTES or
-+ * outgrows the staging buffer. The subblock geometry below is not
-+ * checked: a field added to the covered region means recomputing
-+ * BEAMFS_SB_RS_STAGING_BYTES and BEAMFS_SB_RS_DATA_LEN by hand.
-+ */
-+#define BEAMFS_SB_RS_COVERAGE_BYTES  2765   /* logical bytes (CRC32 range) */
-+#define BEAMFS_SB_RS_STAGING_BYTES   2769   /* 13 * BEAMFS_SB_RS_DATA_LEN   */
-+#define BEAMFS_SB_RS_DATA_LEN        213    /* per shortened subblock      */
-+#define BEAMFS_SB_RS_SUBBLOCKS       13     /* total subblocks             */
-+#define BEAMFS_SB_RS_PARITY_BYTES    208    /* 13 * BEAMFS_RS_PARITY        */
-+#define BEAMFS_SB_RS_PARITY_OFFSET   3888   /* end - parity bytes          */
-+#define BEAMFS_SB_RS_S_PAD_INDEX     (BEAMFS_SB_RS_PARITY_OFFSET - 2769)
-+					  /* index in s_pad[]: 1119     */
-+#define BEAMFS_BITMAP_MAX_BLOCKS (BEAMFS_BITMAP_DATA_BYTES * 8) /* 30592 */
-+
-+/* Filesystem limits */
-+#define BEAMFS_MAX_FILENAME  255
-+#define BEAMFS_DIRECT_BLOCKS 12
-+#define BEAMFS_INDIRECT_BLOCKS 1
-+#define BEAMFS_DINDIRECT_BLOCKS 1
-+
-+/*
-+ * BEAMFS_INDIRECT_PTRS: number of block pointers per indirect block.
-+ * Each pointer is a u64 (8 bytes), so 4096 / 8 = 512 entries.
-+ * Single indirect capacity: 512 blocks = 2 MiB.
-+ *
-+ * Shared between the legacy iomap path (file.c, scheme=5) and the
-+ * v2 INLINE block-mapping helpers (file_inline.c, scheme=2).
-+ */
-+#define BEAMFS_INDIRECT_PTRS (BEAMFS_BLOCK_SIZE / sizeof(__le64))
-+
-+/*
-+ * Multi-level indirect capacity.
-+ *
-+ * BEAMFS_DINDIRECT_PTRS: total user blocks reachable via the double
-+ *   indirect pointer = 512 single-indirect blocks x 512 ptrs each.
-+ * BEAMFS_TINDIRECT_PTRS: total user blocks reachable via the triple
-+ *   indirect pointer = 512 dindirect blocks x 512 single-indirect each
-+ *                      x 512 ptrs each.
-+ *
-+ * Maximum mapped iblock per indirection level:
-+ *   direct      :                                  BEAMFS_DIRECT_BLOCKS (12)
-+ *   + indirect  :                              524 (12 + 512)
-+ *   + dindirect :                          262 668 (524 + 512^2)
-+ *   + tindirect :                      134 480 396 (262 668 + 512^3)
-+ *
-+ * Logical user capacity per file (user bytes per block = 3824 under
-+ * scheme=2 UNIVERSAL_INLINE with 16 x RS(255,239) sub-blocks):
-+ *   direct      :    45 888 B  (~45 KiB)
-+ *   + indirect  : 2 003 776 B  (~1.91 MiB)
-+ *   + dindirect : ~ 958 MiB    (~1 GiB)
-+ *   + tindirect : ~ 479 GiB    -- current ceiling
-+ */
-+#define BEAMFS_DINDIRECT_PTRS  (BEAMFS_INDIRECT_PTRS * BEAMFS_INDIRECT_PTRS)
-+#define BEAMFS_TINDIRECT_PTRS  (BEAMFS_INDIRECT_PTRS * BEAMFS_INDIRECT_PTRS * BEAMFS_INDIRECT_PTRS)
-+
-+#define BEAMFS_MAX_IBLOCK_DIRECT     ((u64)BEAMFS_DIRECT_BLOCKS)
-+#define BEAMFS_MAX_IBLOCK_INDIRECT   (BEAMFS_MAX_IBLOCK_DIRECT   + (u64)BEAMFS_INDIRECT_PTRS)
-+#define BEAMFS_MAX_IBLOCK_DINDIRECT  (BEAMFS_MAX_IBLOCK_INDIRECT + (u64)BEAMFS_DINDIRECT_PTRS)
-+#define BEAMFS_MAX_IBLOCK_TINDIRECT  (BEAMFS_MAX_IBLOCK_DINDIRECT + (u64)BEAMFS_TINDIRECT_PTRS)
-+
-+/*
-+ * The largest file the indirection can address, in bytes.
-+ *
-+ * Derived rather than stated, so it follows the geometry instead of
-+ * having to be remembered when the geometry changes. Roughly 479 GiB at
-+ * the current shape: twelve direct blocks, then 512 pointers per level
-+ * over three levels, 3824 usable bytes each.
-+ *
-+ * s_maxbytes has to be this and not MAX_LFS_FILESIZE. Claiming 2^63
-+ * meant the VFS accepted a truncate to eight exabytes and only found
-+ * out at the read, which came back EIO because the logical block was
-+ * past the tree -- generic/466 reports it as "Discrepancy @ blocksize
-+ * 4096". A filesystem that overstates its reach turns a clean EFBIG at
-+ * the point of asking into an I/O error somewhere later.
-+ */
-+#define BEAMFS_MAX_FILE_SIZE \
-+	(BEAMFS_MAX_IBLOCK_TINDIRECT * (u64)BEAMFS_DATA_INLINE_BYTES)
-+
-+/*
-+ * Electromagnetic Resilience Journal entry -- 40 bytes.
-+ *
-+ * Records each RS FEC correction event persistently in the superblock.
-+ * 64 entries give operators a map of physical degradation over time.
-+ *
-+ * re_entropy_q16_16 carries a per-event Shannon entropy estimate over
-+ * the corrected positions, the forensic discriminator between Family A
-+ * (Poisson background SEU) and Family B (correlated burst). The
-+ * estimator is beamfs_rs_compute_entropy_q16_16() in edac.c.
-+ *
-+ * Layout invariants:
-+ *   - 40 bytes, packed, no implicit padding (BUILD_BUG_ON in super.c)
-+ *   - re_reserved and re_pad MUST be zero on write; non-zero values
-+ *     act as structural sentinels. re_reserved lies inside re_crc32's
-+ *     coverage, so a non-zero value there also fails the CRC; re_pad
-+ *     lies outside it
-+ *   - re_crc32 covers bytes [0..32), i.e. all fields except itself
-+ *     and the trailing alignment pad
-+ */
-+struct beamfs_rs_event {
 +	/*
-+	 * The block the correction hit. A block, not a block and a
-+	 * subblock folded together: the subblock index lives in re_flags
-+	 * (BEAMFS_RS_EVENT_SUBBLOCK_*). A superblock correction is the
-+	 * exception and carries BEAMFS_RS_BLOCK_NO_SB_MARKER instead.
++	 * init_rs(symsize=8, gfpoly=0x187, fcr=0, prim=1, nroots=16)
++	 *   -> GF(2^8), primitive poly x^8+x^7+x^2+x+1, 16 parity symbols
++	 *      (corrects up to 8 errors per shortened RS(255,239) subblock).
++	 *
++	 * Per-CPU: alloc the per-CPU pointer slot, then init_rs once per
++	 * possible CPU. Each rs_control carries its own scratch buffers[].
 +	 */
-+	__le64  re_block_no;          /*  0..7                              */
-+	__le64  re_timestamp;         /*  8..15  ktime_get_ns() at recovery */
-+	__le32  re_symbol_count;      /* 16..19  symbols corrected           */
-+	__le32  re_entropy_q16_16;    /* 20..23  Shannon H, Q16.16, [0,3*65536) */
-+	__le32  re_flags;             /* 24..27  see BEAMFS_RS_EVENT_FLAG_*  */
-+	__le32  re_reserved;          /* 28..31  zero, structural sentinel   */
-+	__le32  re_crc32;             /* 32..35  CRC32 over bytes [0..32)    */
-+	__le32  re_pad;               /* 36..39  zero, alignment + sentinel  */
-+} __packed;                       /* 40 bytes */
++	beamfs_rs_scratch_pcpu = alloc_percpu(u8 *);
++	if (!beamfs_rs_scratch_pcpu) {
++		/*
++		 * Not fatal: the contiguous paths never touch it and the
++		 * interleaved ones check before use, so a volume that
++		 * needs interleaving refuses rather than the module.
++		 */
++		pr_err("beamfs: no per-CPU RS scratch; interleaved blocks will be refused\n");
++	}
 +
-+#define BEAMFS_RS_JOURNAL_SIZE  64   /* entries in the EM resilience journal   */
++	beamfs_rs_ctrl_pcpu = alloc_percpu(struct rs_control *);
++	if (!beamfs_rs_ctrl_pcpu) {
++		free_percpu(beamfs_rs_scratch_pcpu);
++		beamfs_rs_scratch_pcpu = NULL;
++		pr_err("beamfs: failed to alloc per-CPU RS ctrl array\n");
++		return -ENOMEM;
++	}
 +
-+/*
-+ * Flags for beamfs_rs_event::re_flags.
-+ *
-+ * ENTROPY_VALID -- the re_entropy_q16_16 field carries a meaningful
-+ *                  Shannon estimate. Cleared by zero-init (mkfs);
-+ *                  set by beamfs_log_rs_event() when entropy is computed
-+ *                  from the position list returned by RS decode.
-+ *
-+ * UNCORRECTABLE -- the data could not be recovered: a codeword
-+ *                  exceeded the RS correction radius (more than
-+ *                  BEAMFS_RS_PARITY/2 = 8 symbols in error within a
-+ *                  single subblock), or a fail-closed integrity
-+ *                  check rejected the block. When this flag is set,
-+ *                  re_symbol_count MUST be zero and ENTROPY_VALID
-+ *                  MUST be cleared. The flag is orthogonal to
-+ *                  Family A / Family B classification: an
-+ *                  uncorrectable event may originate from either
-+ *                  family; discrimination is performed post-process
-+ *                  by clustering analysis on re_block_no and
-+ *                  re_timestamp, not in-kernel.
-+ *
-+ * RMW_NEUTRALISED -- the correction was performed during a
-+ *                  read-modify-write transit (write path) rather
-+ *                  than on a user-initiated read. The decoded
-+ *                  data is about to be overwritten by the encode
-+ *                  step that follows in the same RMW cycle, so
-+ *                  the flip is *silently neutralised* before any
-+ *                  consumer observes it. This event would have
-+ *                  caused a read-side correction (or worse, an
-+ *                  uncorrectable) had the same disk-block been
-+ *                  read in isolation. Discriminating this flag
-+ *                  from the bare correctable event is what makes
-+ *                  neutralisation and correction separately
-+ *                  measurable from the RS journal alone.
-+ *                  Orthogonal to ENTROPY_VALID:
-+ *                  an RMW_NEUTRALISED event with >= 2 corrected
-+ *                  symbols still carries a valid Shannon entropy
-+ *                  estimate over the position list.
-+ *
-+ * BIT(3) is INODE, below, and bits 8..15 hold the subblock index
-+ * (BEAMFS_RS_EVENT_SUBBLOCK_*). Bits 4..7 and 16..31 are reserved and
-+ * MUST be zero on write.
-+ */
-+#define BEAMFS_RS_EVENT_FLAG_ENTROPY_VALID  BIT(0)
-+#define BEAMFS_RS_EVENT_FLAG_UNCORRECTABLE  BIT(1)
-+#define BEAMFS_RS_EVENT_FLAG_RMW_NEUTRALISED BIT(2)
++	for_each_possible_cpu(cpu) {
++		ctrl = init_rs(8, 0x187, 0, 1, BEAMFS_RS_PARITY);
++		if (!ctrl) {
++			pr_err("beamfs: failed to init RS codec for CPU %u\n",
++			       cpu);
++			beamfs_rs_exit_tables();
++			return -ENOMEM;
++		}
++		*per_cpu_ptr(beamfs_rs_ctrl_pcpu, cpu) = ctrl;
++		/*
++		 * Not fatal either way: the contiguous paths do not use
++		 * the scratch, and the interleaved ones check for it.
++		 * Without the per-CPU array there is nowhere to keep one.
++		 */
++		if (beamfs_rs_scratch_pcpu) {
++			u8 *scratch = kmalloc(BEAMFS_SUBBLOCK_DATA, GFP_KERNEL);
 +
-+/*
-+ * INODE -- re_block_no is the inode table block that was being read,
-+ *          not a data or metadata block of a file. The correction
-+ *          landed inside an inode; which inode is not recorded,
-+ *          because clustering analysis asks where on the medium the
-+ *          damage was, and the table block is that answer.
-+ */
-+#define BEAMFS_RS_EVENT_FLAG_INODE          BIT(3)
++			if (!scratch)
++				missing++;
++			*per_cpu_ptr(beamfs_rs_scratch_pcpu, cpu) = scratch;
++		}
++	}
 +
-+/*
-+ * Subblock index, in bits 8..15, stored as index + 1 so that zero
-+ * keeps meaning "not applicable" -- a superblock or inode correction
-+ * has no subblock in the sense the data path uses.
-+ *
-+ * It lives here rather than in re_reserved because that field is a
-+ * structural sentinel: a non-zero value in it means the entry is
-+ * corrupt, and that is worth more than four bytes. re_flags had
-+ * twenty-nine bits spare.
-+ *
-+ * Before this, callers folded the subblock into re_block_no as
-+ * block * SUBBLOCKS + subblock, with SUBBLOCKS being sixteen in the
-+ * data path, BEAMFS_BITMAP_SUBBLOCKS in the allocator and thirteen in
-+ * the superblock. A reader had no way to know which divisor applied,
-+ * so the field documented as a block number was not one.
-+ */
-+#define BEAMFS_RS_EVENT_SUBBLOCK_SHIFT      8
-+#define BEAMFS_RS_EVENT_SUBBLOCK_MASK       (0xFFU << BEAMFS_RS_EVENT_SUBBLOCK_SHIFT)
++	if (missing)
++		pr_warn("beamfs: no RS scratch on %u CPU(s); interleaved blocks will be refused there\n",
++			missing);
 +
-+static inline __u32 beamfs_rs_event_subblock_bits(unsigned int sub)
-+{
-+	return ((sub + 1) << BEAMFS_RS_EVENT_SUBBLOCK_SHIFT)
-+		& BEAMFS_RS_EVENT_SUBBLOCK_MASK;
-+}
-+
-+/* Returns the subblock index, or -1 when the event has none. */
-+static inline int beamfs_rs_event_subblock(__u32 flags)
-+{
-+	unsigned int v = (flags & BEAMFS_RS_EVENT_SUBBLOCK_MASK)
-+			 >> BEAMFS_RS_EVENT_SUBBLOCK_SHIFT;
-+
-+	return v ? (int)(v - 1) : -1;
++	pr_debug("beamfs: RS codec initialized per-CPU (RS(%d,%d), %u CPUs)\n",
++		 BEAMFS_SUBBLOCK_TOTAL, BEAMFS_SUBBLOCK_DATA,
++		 num_possible_cpus());
++	return 0;
 +}
 +
 +/*
-+ * Shannon entropy parameters for the RS journal forensic estimator.
-+ *
-+ * BINS    -- number of histogram bins over the codeword position range.
-+ *            Power of 2 chosen so that bin_index = pos * BINS / code_len
-+ *            fits in u32 arithmetic without overflow for any beamfs
-+ *            codeword length (max 239 bytes).
-+ * Q       -- fractional bits in the Q-format LUT (Q16.16 = 16 frac bits).
-+ *
-+ * The full entropy LUT is defined in edac.c, with the formula its
-+ * entries are computed from.
++ * beamfs_rs_exit_tables - release the RS codec, at module exit or after
++ * a failed beamfs_rs_init_tables
 + */
-+#define BEAMFS_RS_ENTROPY_BINS              8
-+#define BEAMFS_RS_ENTROPY_Q                 16
++void beamfs_rs_exit_tables(void)
++{
++	unsigned int cpu;
++	struct rs_control *ctrl;
++
++	if (!beamfs_rs_ctrl_pcpu)
++		return;
++
++	for_each_possible_cpu(cpu) {
++		ctrl = *per_cpu_ptr(beamfs_rs_ctrl_pcpu, cpu);
++		if (ctrl) {
++			free_rs(ctrl);
++			*per_cpu_ptr(beamfs_rs_ctrl_pcpu, cpu) = NULL;
++		}
++	}
++
++	if (beamfs_rs_scratch_pcpu) {
++		unsigned int cpu2;
++
++		for_each_possible_cpu(cpu2)
++			kfree(*per_cpu_ptr(beamfs_rs_scratch_pcpu, cpu2));
++		free_percpu(beamfs_rs_scratch_pcpu);
++		beamfs_rs_scratch_pcpu = NULL;
++	}
++
++	free_percpu(beamfs_rs_ctrl_pcpu);
++	beamfs_rs_ctrl_pcpu = NULL;
++}
 +
 +/*
-+ * Sentinel block number for journal entries that record a SUPERBLOCK
-+ * RS recovery rather than a data/metadata block recovery. The low 12
-+ * bits encode the SB sub-block index (0..12, < BEAMFS_SB_RS_SUBBLOCKS).
++ * Shannon entropy term LUT in Q16.16 fixed point.
 + *
-+ * Forensic decoder: if (re_block_no & BEAMFS_RS_BLOCK_NO_SB_MASK) ==
-+ *                       BEAMFS_RS_BLOCK_NO_SB_MARKER, the entry refers
-+ * to SB sub-block (re_block_no & BEAMFS_RS_BLOCK_NO_SB_IDX_MASK).
++ * LUT[N][k] = round(-(k/N) * log2(k/N) * 2^16) for N in [1,8],
++ *           = 0 for k == 0 (or N == 0, unused).
 + *
-+ * The marker is chosen at the top of the u64 range, well above any
-+ * realistic block number on a filesystem (2^64 blocks * 4 KiB =
-+ * 2^76 bytes = 64 ZiB, unreachable by current and foreseeable storage).
++ * N is the number of corrected positions in a codeword, at most
++ * BEAMFS_RS_PARITY / 2, and k how many of them fall in one bin. The
++ * entries are generated from the formula above, not typed: a change
++ * to BEAMFS_RS_PARITY means regenerating the table, not editing it.
 + */
-+#define BEAMFS_RS_BLOCK_NO_SB_MARKER    0xFFFFFFFFFFFFF000ULL
-+#define BEAMFS_RS_BLOCK_NO_SB_MASK      0xFFFFFFFFFFFFF000ULL
-+#define BEAMFS_RS_BLOCK_NO_SB_IDX_MASK  0x0000000000000FFFULL
-+
-+/*
-+ * On-disk format versions.
-+ *
-+ * Mount policy: strict equality with BEAMFS_VERSION_CURRENT. Version 1
-+ * images are not mountable and have to be reformatted. Dual-format
-+ * in-kernel parsing is intentionally avoided (doubles audit surface for
-+ * KASAN / syzkaller for no operational benefit on a niche FS).
-+ *
-+ * Format extensions within version 5 are carried by the feature flags
-+ * below.
-+ */
-+#define BEAMFS_VERSION_V1        1
-+#define BEAMFS_VERSION_V5        5
-+#define BEAMFS_VERSION_CURRENT   BEAMFS_VERSION_V5
-+
-+/*
-+ * Data protection scheme values for s_data_protection_scheme.
-+ *
-+ * NONE              -- no FEC on data blocks (legacy behaviour, deprecated).
-+ * INODE_OPT_IN      -- RS FEC enabled per-inode via BEAMFS_INODE_FL_RS_ENABLED.
-+ *                     This is the v0.1.0 baseline behaviour. Deprecated by
-+ *                     threat model 6.3 (see Documentation/threat-model.md).
-+ * UNIVERSAL_INLINE  -- RS parity bytes embedded inline within each data block.
-+ *                     Reserved for stage 4 of the staged plan.
-+ * UNIVERSAL_SHADOW  -- RS parity stored in a dedicated out-of-band region.
-+ *                     Reserved for stage 4 of the staged plan.
-+ * UNIVERSAL_EXTENT  -- RS parity attached as an extent-based filesystem
-+ *                     attribute. Reserved for stage 4 of the staged plan.
-+ *
-+ * The kernel range-checks this field at mount and refuses values above
-+ * BEAMFS_DATA_PROTECTION_MAX. Three unused upper bytes of the __le32 act
-+ * as a structural sentinel: any single-byte corruption in the high-order
-+ * bytes produces a value outside the valid range and is rejected.
-+ */
-+#define BEAMFS_DATA_PROTECTION_NONE              0
-+#define BEAMFS_DATA_PROTECTION_INODE_OPT_IN      1
-+#define BEAMFS_DATA_PROTECTION_UNIVERSAL_INLINE  2
-+#define BEAMFS_DATA_PROTECTION_UNIVERSAL_SHADOW  3
-+#define BEAMFS_DATA_PROTECTION_UNIVERSAL_EXTENT  4
-+
-+/*
-+ * Per-data-block integrity field type (DATA_CSUM feature), stored in
-+ * the block descriptor: the tail pad in the alternating layout,
-+ * BEAMFS_CAPSULE_CSUM_OFF in a capsule. CRC32 reuses beamfs_crc32
-+ * (crc32_le), the primitive backing i_crc32 and s_crc32. Values 2..255
-+ * reserved for keyed integrity (Family B).
-+ */
-+#define BEAMFS_CSUM_NONE   0   /* no integrity field present            */
-+#define BEAMFS_CSUM_CRC32  1   /* beamfs_crc32 over decoded user payload */
-+#define BEAMFS_DATA_PROTECTION_INODE_UNIVERSAL   5
-+#define BEAMFS_DATA_PROTECTION_MAX               BEAMFS_DATA_PROTECTION_INODE_UNIVERSAL
-+
-+/*
-+ * Feature flag masks.
-+ *
-+ * s_feat_compat     -- informational flags. Unknown bits are logged but
-+ *                     do not prevent mount.
-+ * s_feat_incompat   -- structural format extensions. Unknown bits cause
-+ *                     mount to be refused (read or write).
-+ * s_feat_ro_compat  -- features that prevent safe write. Unknown bits cause
-+ *                     mount to be forced read-only with a warning.
-+ *
-+ * The bit positions below are fixed on disk. Only the bits in the
-+ * BEAMFS_FEAT_*_SUPP masks further down are implemented by this
-+ * kernel; the others are declared to reserve their positions and are
-+ * treated as unknown, per the rules above.
-+ */
-+
-+/* COMPAT features (informational, mount continues if unknown) */
-+#define BEAMFS_FEATURE_COMPAT_RS_JOURNAL_VERBOSE  BIT_ULL(0)
-+#define BEAMFS_FEATURE_COMPAT_LABEL_LONG          BIT_ULL(1)
-+#define BEAMFS_FEATURE_COMPAT_DIR_INDEX           BIT_ULL(2)
-+
-+/* RO_COMPAT features (force RO mount if unknown) */
-+#define BEAMFS_FEATURE_RO_COMPAT_LARGE_FILE       BIT_ULL(0)
-+#define BEAMFS_FEATURE_RO_COMPAT_HUGE_FILE        BIT_ULL(1)
-+#define BEAMFS_FEATURE_RO_COMPAT_EXTRA_ISIZE      BIT_ULL(2)
-+#define BEAMFS_FEATURE_RO_COMPAT_BTREE_DIR        BIT_ULL(3)
-+/* Per-data-block csum and selfid, see BEAMFS_DATA_CSUM_* above */
-+#define BEAMFS_FEATURE_RO_COMPAT_DATA_CSUM        BIT_ULL(4)
-+#define BEAMFS_FEATURE_RO_COMPAT_DATA_SELFID      BIT_ULL(5)
-+
-+/* INCOMPAT features (refuse mount if unknown) */
-+#define BEAMFS_FEATURE_INCOMPAT_EXTENTS           BIT_ULL(0)
-+#define BEAMFS_FEATURE_INCOMPAT_64BIT             BIT_ULL(1)
-+#define BEAMFS_FEATURE_INCOMPAT_BIGALLOC          BIT_ULL(2)
-+#define BEAMFS_FEATURE_INCOMPAT_BLOCK_GROUPS      BIT_ULL(3)
-+#define BEAMFS_FEATURE_INCOMPAT_BTREE_ALLOC       BIT_ULL(4)
-+#define BEAMFS_FEATURE_INCOMPAT_JOURNAL           BIT_ULL(5)
-+#define BEAMFS_FEATURE_INCOMPAT_DAX               BIT_ULL(6)
-+#define BEAMFS_FEATURE_INCOMPAT_RS_HEAVY          BIT_ULL(7)
-+#define BEAMFS_FEATURE_INCOMPAT_PER_INODE_RS      BIT_ULL(8)
-+#define BEAMFS_FEATURE_INCOMPAT_BG_RS_PARITY      BIT_ULL(9)
-+#define BEAMFS_FEATURE_INCOMPAT_LARGE_BLOCK       BIT_ULL(10)
-+#define BEAMFS_FEATURE_INCOMPAT_SHADOW_PARITY     BIT_ULL(11)
-+/*
-+ * BEAMFS_FEATURE_INCOMPAT_ENCRYPT: reserved for a future at-rest
-+ * encryption layer, not yet implemented. Declared now, alongside
-+ * SHADOW_PARITY and LARGE_BLOCK above, so an on-disk bit position is
-+ * fixed before any volume exists that could claim it by accident.
-+ *
-+ * Composition order, should this be implemented: encrypt -> RS encode
-+ * -> DATA_CSUM / DATA_SELFID, mirrored in reverse on read (RS decode
-+ * -> verify -> decrypt). Two consequences follow from that order:
-+ *
-+ *   - DATA_CSUM and DATA_SELFID would cover ciphertext, not plaintext.
-+ *     A corrupted block still fails closed (the RS-decoded bytes no
-+ *     longer match the stored digest), but decryption happening after
-+ *     the check means garbage plaintext is never produced from a block
-+ *     that already failed integrity, which keeps the read path
-+ *     fail-closed.
-+ *
-+ *   - Encrypting before RS means a single ciphertext bit flip can
-+ *     alter more plaintext bits than the corresponding cleartext flip
-+ *     would (block-cipher diffusion), which the RS correction budget
-+ *     was not sized against. This is a design question for whoever
-+ *     implements the bit, not an implementation detail to silently
-+ *     inherit from the current cleartext path.
-+ */
-+#define BEAMFS_FEATURE_INCOMPAT_ENCRYPT           BIT_ULL(12)
-+/*
-+ * INDIRECT_PARITY -- RS parity for indirection blocks, held out of band.
-+ *
-+ * An indirect block is 512 raw __le64 pointers filling the whole 4096
-+ * bytes, with no room for a checksum. The pointer checks on the read
-+ * path close the dominant failure mode -- a pointer landing outside the
-+ * data range or on a block the bitmap says is free -- and leave one
-+ * open: a flipped pointer that happens to land on a block that is both
-+ * in range and allocated passes every check there is.
-+ *
-+ * The asymmetry is what makes this worth closing. A data block has
-+ * eight correctable symbols per 255-byte subblock. A double-indirect
-+ * pointer has none, and losing it costs 262144 blocks.
-+ *
-+ * Parity lives in a region of its own rather than in the block, so
-+ * BEAMFS_INDIRECT_PTRS stays 512, no BEAMFS_MAX_IBLOCK_* moves and the
-+ * format of the indirect block does not change. The region is sized
-+ * for the worst case, every data block being indirect, because a table
-+ * mapping blocks to parity slots would itself be metadata needing
-+ * protection. What it costs depends on the mode, below; the slot is
-+ * computed directly from the block number.
-+ *
-+ * INCOMPAT rather than RO_COMPAT: a kernel that does not know about the
-+ * region would allocate indirect blocks without writing their parity,
-+ * leaving the volume looking protected while it is not.
-+ */
-+#define BEAMFS_FEATURE_INCOMPAT_INDIRECT_PARITY   BIT_ULL(13)
-+
-+/*
-+ * How much an indirect block costs to protect, chosen at mkfs time.
-+ *
-+ * The right answer depends on the deployment, which is why it is a
-+ * choice rather than a constant. A CubeSat with 8 GiB of MRAM at
-+ * several hundred euro per gigabyte will not spend 7% of it; a server
-+ * with spare terabytes will, and gets the stronger code for the price.
-+ *
-+ * NONE  no protection. The residual above stands: a flipped
-+ *       pointer landing in range and on an allocated block is
-+ *       indistinguishable from a valid one.
-+ *
-+ * CRC   one CRC32 per subblock, 64 bytes per block, ~1.7% of the
-+ *       volume with the region's own FEC. Detects without correcting,
-+ *       which turns the residual from silent corruption into a clean
-+ *       fail-closed error -- the contract beamfs states everywhere
-+ *       else.
-+ *
-+ * RS    full RS(255,239), 256 bytes per block, ~7% of the volume with
-+ *       the region's own FEC. Decodes up to 8 symbols per subblock;
-+ *       a verify decodes a copy, journals what it found and leaves
-+ *       the block as it is, so a hit pointer is reported rather than
-+ *       repaired.
-+ *
-+ * The region is sized for the worst case in every mode: any data block
-+ * can become an indirect block, and a table mapping blocks to slots
-+ * would itself be metadata needing protection.
-+ */
-+/*
-+ * Slots one region block holds.
-+ *
-+ * A region block is RS-encoded in the alternating layout, sixteen
-+ * subblocks of 239 data bytes each followed by its parity, so its 4096
-+ * bytes carry BEAMFS_DATA_INLINE_BYTES of payload.
-+ * Slots live in the payload and never straddle it.
-+ *
-+ * Before the region carried its own FEC, slots sat in the raw 4096
-+ * bytes and one flipped bit took out every indirect block that region
-+ * block covered. Under RS the region is now a seventh longer --
-+ * fourteen slots per region block rather than sixteen -- and that is
-+ * what the last layer being as well defended as the rest costs.
-+ */
-+#define BEAMFS_IND_PARITY_RS_SLOTS \
-+	(BEAMFS_DATA_INLINE_BYTES / BEAMFS_IND_PARITY_RS_BYTES)
-+#define BEAMFS_IND_PARITY_CRC_SLOTS \
-+	(BEAMFS_DATA_INLINE_BYTES / BEAMFS_IND_PARITY_CRC_BYTES)
-+
-+/*
-+ * Set when the parity region carries its own RS FEC. Without it the
-+ * region is raw bytes with a different slot geometry, so reading one
-+ * with this arithmetic addresses the wrong slots: the kernel refuses
-+ * the mount rather than returning another block's parity.
-+ */
-+#define BEAMFS_FEATURE_INCOMPAT_IND_PARITY_FEC  BIT(17)
-+
-+/*
-+ * Set when a block's RS symbols are interleaved across its codewords.
-+ *
-+ * Without it, codeword j owns bytes [j*255, (j+1)*255) of the block,
-+ * its 239 data bytes followed by its parity. Damage that reaches
-+ * several neighbouring bytes at once puts a nine-byte burst entirely
-+ * in one codeword and takes it past correction.
-+ *
-+ * With it, symbol i of codeword j sits at byte i*16 + j of the coded
-+ * bytes. The same burst puts at most one symbol in any codeword, and it
-+ * takes 129 consecutive coded bytes to lose one -- sixteen times the
-+ * burst resistance for not one byte of extra parity. The parity that
-+ * follows is not interleaved, and nine bad bytes within one codeword's
-+ * parity still lose it. debugfs beamfs/rs_bench reports the burst each
-+ * layout survives over the coded bytes.
-+ *
-+ * Incompatible: reading an interleaved block with the contiguous
-+ * arithmetic gathers the wrong symbols and decodes to noise, so a
-+ * kernel without this refuses the mount rather than returning it.
-+ *
-+ * CCSDS provides for interleaving its Reed-Solomon code for the same
-+ * reason.
-+ */
-+#define BEAMFS_FEATURE_INCOMPAT_RS_INTERLEAVE  BIT(18)
-+
-+enum beamfs_ind_parity_mode {
-+	BEAMFS_IND_PARITY_NONE = 0,
-+	BEAMFS_IND_PARITY_CRC  = 1,
-+	BEAMFS_IND_PARITY_RS   = 2,
-+	BEAMFS_IND_PARITY__MAX
++static const __u32 beamfs_rs_entropy_term_q16_16[9][9] = {
++	[0] = { 0, },	/* [0] unused */
++	[1] = {     0,     0,     0,     0,     0,     0,     0,     0,     0 },
++	[2] = {     0, 32768,     0,     0,     0,     0,     0,     0,     0 },
++	[3] = {     0, 34624, 25557,     0,     0,     0,     0,     0,     0 },
++	[4] = {     0, 32768, 32768, 20400,     0,     0,     0,     0,     0 },
++	[5] = {     0, 30434, 34654, 28979, 16878,     0,     0,     0,     0 },
++	[6] = {     0, 28235, 34624, 32768, 25557, 14365,     0,     0,     0 },
++	[7] = {     0, 26283, 33842, 34333, 30235, 22724, 12493,     0,     0 },
++	[8] = {     0, 24576, 32768, 34776, 32768, 27774, 20400, 11047,     0 },
 +};
 +
-+/* Bytes of parity per indirect block, by mode. */
-+#define BEAMFS_IND_PARITY_CRC_BYTES  (BEAMFS_DATA_INLINE_SUBBLOCKS * sizeof(__le32))
-+#define BEAMFS_IND_PARITY_RS_BYTES   (BEAMFS_DATA_INLINE_SUBBLOCKS * BEAMFS_RS_PARITY)
-+
 +/*
-+ * ERROR_BUDGET -- per-block record of how close a block has come to
-+ * saturation.
++ * beamfs_rs_compute_entropy_q16_16 -- Shannon entropy estimator over the
++ * spatial distribution of corrected byte positions in an RS codeword.
 + *
-+ * The RS journal keeps the last 64 events, which answers "what
-+ * happened recently" and nothing about the state of the volume. A
-+ * block that has quietly accumulated seven of its eight correctable
-+ * symbols reads back perfectly and is one upset from unrecoverable,
-+ * and there is no way to know until it is too late.
++ * @positions:      byte positions corrected (output of beamfs_rs_decode)
++ * @n_positions:    number of valid entries; MUST be in [1, BEAMFS_RS_PARITY/2]
++ * @code_len_bytes: data length of the codeword, in [n_positions, 239]
 + *
-+ * One byte per data block holds the worst subblock's corrected-symbol
-+ * count, saturating at BEAMFS_RS_PARITY/2. An operator can then ask
-+ * how much correction capacity a volume has left rather than how many
-+ * corrections it has done -- the difference between a fuel gauge and
-+ * an odometer.
++ * Returns Shannon H = sum_{bin} LUT[N][k_bin] in Q16.16 fixed point,
++ * range [0, 3*65536). Deterministic, no FPU; one u32 division per
++ * position for bin index computation.
 + *
-+ * Nothing else does this. btrfs and ZFS count corrections; neither
-+ * reports remaining margin, because with redundancy elsewhere there is
-+ * no margin to report. On a single device there is, and it is finite.
++ * Pre: positions != NULL, 1 <= n_positions <= BEAMFS_RS_PARITY/2,
++ *      code_len_bytes >= n_positions
 + *
-+ * One byte per block is 0.025% of the volume: 244 MiB on 931 GiB. The
-+ * slot is computed from the block number the same way the indirection
-+ * parity region does it, for the same reason -- a lookup table would
-+ * be metadata needing its own protection.
++ * Caller decides whether to set BEAMFS_RS_EVENT_FLAG_ENTROPY_VALID:
++ * a single sample (n_positions == 1) yields H = 0 mathematically
++ * but is forensically non-significant; beamfs_log_rs_event_flagged
++ * does not call this for one and leaves the flag clear.
 + */
-+#define BEAMFS_FEATURE_INCOMPAT_ERROR_BUDGET      BIT_ULL(14)
-+
-+/*
-+ * BEAMFS_FEATURE_INCOMPAT_DIR_RS: directory blocks carry parity, and
-+ * their entries are variable length.
-+ *
-+ * ## Why parity
-+ *
-+ * Every other structure on this volume is covered. Data blocks carry
-+ * sixteen RS codewords, inodes carry CRC32 with RS behind it, indirect
-+ * blocks carry their own parity, the superblock and the bitmap are both
-+ * encoded. Directory blocks were written with memset and
-+ * mark_buffer_dirty and nothing else -- 4096 raw bytes, no checksum, no
-+ * correction.
-+ *
-+ * An upset in a directory block was therefore silent and permanent: a
-+ * flipped inode number points a name at the wrong file, a flipped
-+ * length walks the parser off the end of an entry, and neither is
-+ * detectable let alone correctable. In a filesystem whose reason for
-+ * existing is surviving upsets, that was the one hole left in the
-+ * chain.
-+ *
-+ * ## Why variable length in the same change
-+ *
-+ * A protected directory block has 3824 usable bytes instead of 4096, so
-+ * the layout moves either way. Doing both at once costs one format
-+ * migration rather than two.
-+ *
-+ * Entries were a fixed 268 bytes -- twelve of header and 256 for the
-+ * name, whatever the name's length. That is fourteen entries per block
-+ * and a hard ceiling of 7336 per directory, since a directory reaches
-+ * twelve direct blocks plus 512 through one indirect. d_rec_len existed
-+ * in the on-disk entry and was written correctly by both mkfs and the
-+ * kernel; nothing ever read it, because every walk stepped by
-+ * sizeof(struct beamfs_dir_entry).
-+ *
-+ * With the field finally used, a name of eleven characters occupies 24
-+ * bytes: 159 entries per protected block, and a ceiling above 83000.
-+ * Eleven times the density, eleven times fewer blocks to read on a
-+ * lookup, and eleven times less metadata exposed to upsets for the same
-+ * directory -- the resilience argument and the performance argument
-+ * point the same way.
-+ *
-+ * ## Why entries avoid straddling subblocks
-+ *
-+ * Each of the sixteen subblocks is an independent codeword: one is
-+ * correctable, or not, on its own. An entry spanning two of them turns
-+ * a single uncorrectable subblock into a parse failure for the entry
-+ * after it as well, and from there for the rest of the block.
-+ *
-+ * So an entry is placed within one subblock whenever it fits. That
-+ * costs a few bytes of padding at each boundary -- about 3% -- and
-+ * keeps damage where it landed.
-+ *
-+ * A name of 255 characters, which NAME_MAX allows and xfstests
-+ * exercises, needs 268 bytes and cannot fit in 239. Such an entry is
-+ * allowed to span, because the alternative is refusing a filename every
-+ * other Linux filesystem accepts. The threshold is 224 characters, a
-+ * 236-byte entry: anything longer cannot fit in one subblock, spans
-+ * two, and an uncorrectable one costs both.
-+ *
-+ * The property is kept where it can be and dropped only where the
-+ * format would otherwise have to lie about what it supports.
-+ */
-+#define BEAMFS_FEATURE_INCOMPAT_DIR_RS            BIT_ULL(15)
-+
-+/*
-+ * BEAMFS_FEATURE_INCOMPAT_INODE_CRC_FULL: i_crc32 covers the block
-+ * pointers as well as the head of the inode. See the coverage macros
-+ * above. Incompatible rather than read-only compatible: a kernel
-+ * without it computes a different checksum and would read every inode
-+ * on the volume as damaged.
-+ */
-+#define BEAMFS_FEATURE_INCOMPAT_INODE_CRC_FULL    BIT_ULL(16)
-+
-+/*
-+ * A directory entry, on disk, under DIR_RS.
-+ *
-+ * d_rec_len is the distance to the next entry and includes the header.
-+ * The name follows immediately and is not terminated: d_name_len says
-+ * how long it is. Entries are aligned so the next one starts on a
-+ * four-byte boundary, and a record length below BEAMFS_DIRENT_MIN_LEN,
-+ * zero included, ends the walk of the block.
-+ */
-+#define BEAMFS_DIRENT_HDR_LEN   12
-+#define BEAMFS_DIRENT_ALIGN     4
-+#define BEAMFS_DIRENT_MIN_LEN   (BEAMFS_DIRENT_HDR_LEN + BEAMFS_DIRENT_ALIGN)
-+
-+/* Round a name length up to a whole record. */
-+#define BEAMFS_DIRENT_LEN(namelen)                                     \
-+	((((BEAMFS_DIRENT_HDR_LEN) + (namelen) +                       \
-+	   (BEAMFS_DIRENT_ALIGN) - 1) / (BEAMFS_DIRENT_ALIGN)) *       \
-+	 (BEAMFS_DIRENT_ALIGN))
-+
-+/*
-+ * The longest entry that still fits inside one subblock. Anything
-+ * longer is placed across a boundary rather than refused.
-+ */
-+#define BEAMFS_DIRENT_INLINE_MAX  BEAMFS_SUBBLOCK_DATA
-+#define BEAMFS_DIRENT_FITS_SUB(len)  ((len) <= BEAMFS_DIRENT_INLINE_MAX)
-+
-+/* Returned by the placement helpers when a block cannot take an entry. */
-+#define BEAMFS_DIRENT_NOSPACE   ((u32)~0U)
-+
-+/*
-+ * What the wall clock was worth when the anchor was taken.
-+ *
-+ * Not a measurement of the clock, a statement about it: the kernel
-+ * knows whether NTP considers itself synchronised, and nothing more.
-+ * A reader converting an entry to a date should carry this alongside
-+ * the date rather than dropping it.
-+ */
-+enum beamfs_clock_quality {
-+	/* No basis for the wall clock: no RTC, no sync. Dates from this
-+	 * anchor are ordering information wearing a timestamp's clothes.
-+	 */
-+	BEAMFS_CLOCK_UNKNOWN = 0,
-+	/* An RTC was read but nothing disciplines it. Seconds, maybe. */
-+	BEAMFS_CLOCK_RTC = 1,
-+	/* NTP reports itself synchronised. Milliseconds, typically. */
-+	BEAMFS_CLOCK_NTP = 2,
-+	/* A hardware-timestamped source: PTP, GPS. Microseconds or
-+	 * better, and the only case where fine dating is defensible.
-+	 */
-+	BEAMFS_CLOCK_HARDWARE = 3,
-+};
-+
-+/* Symbols correctable per subblock; the budget saturates here. */
-+#define BEAMFS_ERROR_BUDGET_MAX   (BEAMFS_RS_PARITY / 2)
-+
-+/*
-+ * One RS(255,239) codeword's parity, 16 bytes. Not the per-block cost,
-+ * which is BEAMFS_IND_PARITY_RS_BYTES or BEAMFS_IND_PARITY_CRC_BYTES.
-+ */
-+#define BEAMFS_IND_PARITY_BYTES   BEAMFS_RS_PARITY
-+/*
-+ * An indirect block is 4096 bytes, past the 255-byte RS codeword, so it
-+ * is split like a data block: 16 subblocks of 239 data bytes, with one
-+ * 16-byte parity set per subblock. That is 256 parity bytes per block,
-+ * over bytes [0, 3824): pointers 478..511 lie past the last subblock
-+ * and neither mode covers them.
-+ */
-+#define BEAMFS_IND_PARITY_PER_BLOCK  (BEAMFS_DATA_INLINE_SUBBLOCKS * BEAMFS_RS_PARITY)
-+/*
-+ * Slots in a raw 4096-byte region block, the geometry before
-+ * IND_PARITY_FEC. The kernel sizes slots with BEAMFS_IND_PARITY_RS_SLOTS
-+ * and BEAMFS_IND_PARITY_CRC_SLOTS.
-+ */
-+#define BEAMFS_IND_PARITY_PER_REGION_BLOCK  (BEAMFS_BLOCK_SIZE / BEAMFS_IND_PARITY_PER_BLOCK)
-+
-+/* Flags supported by this kernel module.
-+ * PER_INODE_RS: per-inode RS(255,239) parity protection. The kernel
-+ * write path has always computed the parity on every inode write
-+ * (namei.c::beamfs_write_inode_raw); enabling this bit in SUPP
-+ * unlocks the read-side decoder under any s_data_protection_scheme.
-+ */
-+#define BEAMFS_FEAT_COMPAT_SUPP    0ULL
-+#define BEAMFS_FEAT_RO_COMPAT_SUPP (BEAMFS_FEATURE_RO_COMPAT_DATA_CSUM | \
-+				    BEAMFS_FEATURE_RO_COMPAT_DATA_SELFID)
-+#define BEAMFS_FEAT_INCOMPAT_SUPP  (BEAMFS_FEATURE_INCOMPAT_PER_INODE_RS | \
-+				    BEAMFS_FEATURE_INCOMPAT_INDIRECT_PARITY | \
-+				    BEAMFS_FEATURE_INCOMPAT_ERROR_BUDGET | \
-+				    BEAMFS_FEATURE_INCOMPAT_DIR_RS | \
-+				    BEAMFS_FEATURE_INCOMPAT_INODE_CRC_FULL | \
-+				    BEAMFS_FEATURE_INCOMPAT_IND_PARITY_FEC | \
-+				    BEAMFS_FEATURE_INCOMPAT_RS_INTERLEAVE)
-+
-+/*
-+ * On-disk superblock - block 0
-+ * Total size: fits in one 4096-byte block
-+ */
-+struct beamfs_super_block;
-+
-+/*
-+ * beamfs_bitmap_blocks_count_from_flags -- number of on-disk bitmap blocks.
-+ *
-+ * Decoded from s_flags bits 0..15. 0 in the field means the volume was
-+ * formatted before multi-block bitmap support; treat as legacy single
-+ * bitmap block.
-+ */
-+static inline u32 beamfs_bitmap_blocks_count_from_flags(__le32 s_flags_le)
++__u32 beamfs_rs_compute_entropy_q16_16(const u8 *positions,
++				       unsigned int n_positions,
++				      size_t code_len_bytes)
 +{
-+	u32 v = le32_to_cpu(s_flags_le) & BEAMFS_SB_FLAGS_BITMAP_BLOCKS_MASK;
++	unsigned int bin_count[BEAMFS_RS_ENTROPY_BINS];
++	__u32 h = 0;
++	unsigned int i, b;
 +
-+	return v ? v : 1;
++	if (WARN_ON_ONCE(!positions))
++		return 0;
++	if (WARN_ON_ONCE(n_positions == 0 ||
++			 n_positions > BEAMFS_RS_PARITY / 2))
++		return 0;
++	if (WARN_ON_ONCE(code_len_bytes < n_positions ||
++			 code_len_bytes > BEAMFS_SUBBLOCK_DATA))
++		return 0;
++
++	memset(bin_count, 0, sizeof(bin_count));
++
++	for (i = 0; i < n_positions; i++) {
++		/* bin = pos * BINS / code_len. u32 product fits since
++		 * pos < 239 and BINS = 8, max product = 238 * 8 = 1904.
++		 */
++		unsigned int idx = (unsigned int)positions[i];
++		unsigned int bin;
++
++		if (WARN_ON_ONCE(idx >= code_len_bytes))
++			return 0;
++		bin = (idx * BEAMFS_RS_ENTROPY_BINS) /
++		      (unsigned int)code_len_bytes;
++		if (WARN_ON_ONCE(bin >= BEAMFS_RS_ENTROPY_BINS))
++			return 0;
++		bin_count[bin]++;
++	}
++
++	/* H = sum over bins of LUT[N][k_bin]. Bins with k=0 contribute 0
++	 * by LUT convention. Total guaranteed < 3 * 65536.
++	 */
++	for (b = 0; b < BEAMFS_RS_ENTROPY_BINS; b++)
++		h += beamfs_rs_entropy_term_q16_16[n_positions][bin_count[b]];
++
++	return h;
 +}
 +
-+struct beamfs_super_block {
-+	__le32  s_magic;            /* BEAMFS_MAGIC */
-+	__le32  s_block_size;       /* Block size in bytes */
-+	__le64  s_block_count;      /* Total blocks */
-+	__le64  s_free_blocks;      /* Free blocks */
-+	__le64  s_inode_count;      /* Total inodes */
-+	__le64  s_free_inodes;      /* Free inodes */
-+	__le64  s_inode_table_blk;  /* Block where inode table starts */
-+	__le64  s_data_start_blk;   /* First data block */
-+	__le32  s_version;          /* Filesystem version */
-+	__le32  s_flags;            /* Flags */
-+	__le32  s_crc32;            /* CRC32 of this superblock */
-+	__u8    s_uuid[16];         /* UUID */
-+	__u8    s_label[32];        /* Volume label */
-+	struct beamfs_rs_event s_rs_journal[BEAMFS_RS_JOURNAL_SIZE]; /* 2560 bytes */
-+	__u8    s_rs_journal_head;  /* next write index (ring buffer) */
-+	__le64  s_bitmap_blk;       /* On-disk block bitmap block number */
-+	__le64  s_feat_compat;      /* Compatible feature flags (informational) */
-+	__le64  s_feat_incompat;    /* Incompatible features: refuse mount if unknown bit set */
-+	__le64  s_feat_ro_compat;   /* RO-compat features: force RO mount if unknown bit set */
-+	__le32  s_data_protection_scheme; /* enum BEAMFS_DATA_PROTECTION_* */
-+	/*
-+	 * Indirection parity region, valid when INCOMPAT_INDIRECT_PARITY
-+	 * is set. Zero on volumes without the feature.
-+	 *
-+	 * Placed before the superblock's own parity zone, as the comment
-+	 * on the superblock RS layout requires: new fields are taken out
-+	 * of s_pad ahead of it.
-+	 */
-+	__le64  s_ind_parity_blk;   /* first block of the parity region */
-+	__le32  s_ind_parity_len;   /* length of the region, in blocks */
-+	__le32  s_ind_parity_mode;  /* enum beamfs_ind_parity_mode */
-+	/*
-+	 * Error budget region, valid when INCOMPAT_ERROR_BUDGET is set.
-+	 * Zero on volumes formatted without it.
-+	 */
-+	__le64  s_budget_blk;       /* first block of the budget region */
-+	__le32  s_budget_len;       /* length of the region, in blocks */
-+	__le32  s_budget_pad;       /* zero */
++/*
++ * beamfs_rs_encode - encode @len data bytes, produce BEAMFS_RS_PARITY parity
++ * @data:   input data (@len bytes, must be <= BEAMFS_SUBBLOCK_DATA)
++ * @len:    number of data bytes (BEAMFS_SUBBLOCK_DATA for the bitmap path,
++ *          BEAMFS_INODE_RS_DATA for inodes, etc.)
++ * @parity: output parity (BEAMFS_RS_PARITY bytes)
++ *
++ * lib/reed_solomon supports shortened RS codes natively: passing a
++ * length less than BEAMFS_SUBBLOCK_DATA produces a valid codeword,
++ * mathematically equivalent to padding the data with zeros up to the
++ * full subblock length. The same length must be passed to the matching
++ * beamfs_rs_decode call.
++ *
++ * encode_rs8() takes the data as bytes and returns the parity in a u16
++ * buffer, one symbol in the low byte of each entry.
++ */
++int beamfs_rs_encode(u8 *data, size_t len, u8 *parity)
++{
++	u16 par[BEAMFS_RS_PARITY];
++	struct rs_control **ctrl_p;
++	struct rs_control *ctrl;
++	int i;
 +
-+	/*
-+	 * Clock anchor: what the two clocks read at the same instant.
-+	 *
-+	 * re_timestamp in a journal entry is ktime_get_ns() -- monotonic
-+	 * since boot, which orders events exactly and dates none of them.
-+	 * That is the right clock for the entry: it cannot jump, so the
-+	 * interval between two corrections is trustworthy to the timer's
-+	 * resolution, and a burst of forty upsets in three milliseconds
-+	 * reads as exactly that.
-+	 *
-+	 * What it cannot say is when. The anchor supplies the missing
-+	 * half: at the instant s_anchor_mono was sampled, the wall clock
-+	 * read s_anchor_real. Any entry converts to a date by adding the
-+	 * difference, and the conversion is only as good as the wall
-+	 * clock was -- which is why s_anchor_quality records what that
-+	 * clock was worth.
-+	 *
-+	 * Declaring the uncertainty rather than implying a precision is
-+	 * the point. A journal that claims nanosecond dating on an NTP
-+	 * machine is claiming something it cannot support, and an auditor
-+	 * who notices has reason to doubt the rest of it. Instrumentation
-+	 * practice is to state the source and its error; this follows it.
-+	 *
-+	 * Refreshed periodically by the scrubber, so drift is bounded by
-+	 * the refresh interval rather than accumulating from mount. A
-+	 * volume mounted for six months is otherwise dated by a clock
-+	 * reading six months stale.
-+	 */
-+	__le64  s_anchor_mono;      /* ktime_get_ns() at the anchor */
-+	__le64  s_anchor_real;      /* ktime_get_real_ns() at the same instant */
-+	__le32  s_anchor_quality;   /* enum beamfs_clock_quality */
-+	__le32  s_anchor_pad;       /* zero */
-+	__u8    s_pad[1327];        /* Padding; RS parity in its last 208 bytes */
-+} __packed;
++	if (!beamfs_rs_ctrl_pcpu)
++		return -EINVAL;
++	if (len > BEAMFS_SUBBLOCK_DATA)
++		return -EINVAL;
++
++	memset(par, 0, sizeof(par));
++	ctrl_p = get_cpu_ptr(beamfs_rs_ctrl_pcpu);
++	ctrl = *ctrl_p;
++	if (!ctrl) {
++		put_cpu_ptr(beamfs_rs_ctrl_pcpu);
++		return -EINVAL;
++	}
++	encode_rs8(ctrl, data, len, par, 0);
++	put_cpu_ptr(beamfs_rs_ctrl_pcpu);
++
++	for (i = 0; i < BEAMFS_RS_PARITY; i++)
++		parity[i] = (u8)par[i];
++
++	return 0;
++}
 +
 +/*
-+ * On-disk inode
-+ * Size: 256 bytes
++ * beamfs_rs_decode -- decode and correct a shortened RS codeword in place,
++ *                    optionally exposing the list of corrected byte
++ *                    positions for forensic entropy logging.
 + *
-+ * Addressing capacity:
-+ *   direct  (12)  =              48 KiB
-+ *   indirect (1)  =               2 MiB
-+ *   dindirect (1) =               1 GiB
-+ *   tindirect (1) =             512 GiB
++ * @data:          data bytes (@len bytes), corrected in place on success
++ * @len:           number of data bytes (must match the length passed to encode)
++ * @parity:        parity bytes (BEAMFS_RS_PARITY); read, never rewritten
++ * @positions:     optional output, up to @max_positions entries; on a
++ *                 positive return holds the corrected DATA byte positions
++ *                 in [0, len), ascending. May be NULL if no entropy
++ *                 logging is needed.
++ * @max_positions: capacity of @positions; ignored if @positions is NULL.
 + *
-+ * uid/gid: __le32 to support uid > 65535 (standard kernel convention)
-+ * timestamps: __le64 nanoseconds (required for space mission precision)
++ * Returns:
++ *   < 0  uncorrectable (-EBADMSG) or invalid input (-EINVAL)
++ *   = 0  no errors detected
++ *   > 0  with @positions: the number of DATA bytes corrected, which is
++ *        the number of entries written to @positions; without it, the
++ *        number of symbols corrected, parity included.
++ *
++ * decode_rs8() either applies its corrections or reports them (see
++ * lib/reed_solomon/decode_rs.c: with eras_pos and corr it stores each
++ * correction's position and pattern and touches nothing). Asked to
++ * report, we apply the data corrections ourselves and leave the
++ * parity alone: the 239-byte snapshot this function used to take, to
++ * find the corrected bytes by diff, is gone from the stack. A parity
++ * symbol decode_rs8 would have corrected is not counted when the
++ * caller wants positions, so that the count it gets is the count of
++ * entries it may read: alloc.c and the others hand that count on to
++ * the journal.
 + */
-+struct beamfs_inode {
-+	__le16  i_mode;             /* File mode */
-+	__le16  i_nlink;            /* Hard link count */
-+	__le32  i_uid;              /* Owner UID */
-+	__le32  i_gid;              /* Owner GID */
-+	__le64  i_size;             /* File size in bytes (64-bit, future-proof) */
-+	__le64  i_atime;            /* Access time (ns) */
-+	__le64  i_mtime;            /* Modification time (ns) */
-+	__le64  i_ctime;            /* Change time (ns) */
-+	__le32  i_flags;            /* Inode flags */
-+	__le32  i_crc32;            /* CRC32 over [0, 48) and [52, 172) */
-+	__le64  i_direct[BEAMFS_DIRECT_BLOCKS];    /* Direct block pointers */
-+	__le64  i_indirect;         /* Single indirect (~2 MiB) */
-+	__le64  i_dindirect;        /* Double indirect (~1 GiB) */
-+	__le64  i_tindirect;        /* Triple indirect (~512 GiB) */
-+	__u8    i_reserved[84];     /* RS parity in [0, 16), then padding */
-+} __packed;
++int beamfs_rs_decode(u8 *data, size_t len, u8 *parity,
++		     u8 *positions, unsigned int max_positions,
++		    const char *who)
++{
++	u16 par[BEAMFS_RS_PARITY];
++	u16 corr[BEAMFS_RS_PARITY];
++	int pos[BEAMFS_RS_PARITY];
++	int i, j, nerr;
++	unsigned int n_data = 0;
++
++	if (!beamfs_rs_ctrl_pcpu)
++		return -EINVAL;
++	if (len > BEAMFS_SUBBLOCK_DATA)
++		return -EINVAL;
++	if (positions && max_positions == 0)
++		return -EINVAL;
++
++	for (i = 0; i < BEAMFS_RS_PARITY; i++)
++		par[i] = parity[i];
++
++	/*
++	 * Per-CPU: get_cpu_ptr disables preemption while decode runs in
++	 * the CPU-local rs_control. decode_rs8 is pure computation, no
++	 * allocs, no sleeps -- preempt-disable is safe.
++	 */
++	{
++		struct rs_control **ctrl_p = get_cpu_ptr(beamfs_rs_ctrl_pcpu);
++		struct rs_control *ctrl = *ctrl_p;
++
++		if (!ctrl) {
++			put_cpu_ptr(beamfs_rs_ctrl_pcpu);
++			return -EINVAL;
++		}
++		nerr = decode_rs8(ctrl, data, par, len,
++				  NULL, 0, pos, 0, corr);
++		put_cpu_ptr(beamfs_rs_ctrl_pcpu);
++	}
++
++	if (nerr < 0) {
++		/*
++		 * Silent here, on purpose.
++		 *
++		 * This function knows a length and nothing else -- not the
++		 * block, not which of the sixteen subblocks, not what owns
++		 * it. Every caller has results[] and its own context, and
++		 * reports from there.
++		 */
++		return -EBADMSG;
++	}
++	if (nerr > BEAMFS_RS_PARITY)
++		return -EBADMSG;
++
++	/*
++	 * Positions come out in locator order; the journal and its
++	 * entropy estimate were written for ascending ones.
++	 */
++	for (i = 1; i < nerr; i++) {
++		int p = pos[i];
++		u16 c = corr[i];
++
++		for (j = i - 1; j >= 0 && pos[j] > p; j--) {
++			pos[j + 1] = pos[j];
++			corr[j + 1] = corr[j];
++		}
++		pos[j + 1] = p;
++		corr[j + 1] = c;
++	}
++
++	for (i = 0; i < nerr; i++) {
++		if (pos[i] < 0 || pos[i] >= (int)len)
++			continue;	/* a parity symbol: the copy is dropped */
++		data[pos[i]] ^= (u8)corr[i];
++		if (positions && n_data < max_positions)
++			positions[n_data] = (u8)pos[i];
++		n_data++;
++	}
++
++	if (positions)
++		return (int)min(n_data, max_positions);
++	return nerr;
++}
 +
 +/*
-+ * Inode flags.
++ * Where symbol @i of codeword @sub lives once interleaved.
 + *
-+ * BEAMFS_INODE_FL_RS_ENABLED: deprecated as of stage 3 (v0.3.0+).
-+ *   Was the per-inode opt-in for RS FEC under the
-+ *   BEAMFS_DATA_PROTECTION_INODE_OPT_IN scheme. Stage 3 replaces
-+ *   that scheme with BEAMFS_DATA_PROTECTION_INODE_UNIVERSAL, where
-+ *   all inodes are RS-protected unconditionally. The flag is
-+ *   preserved in the bit definition so v0.1.0/v0.2.0 images that
-+ *   set it remain mountable; new images do not set it.
-+ *   See Documentation/threat-model.md section 6.1 and 6.3.
++ * Contiguous, codeword j owns bytes [j*239, (j+1)*239): a nine-byte
++ * burst lands entirely in it and takes it past correction.
++ *
++ * Interleaved, the same burst puts at most one symbol in any codeword.
++ * 129 consecutive bytes are needed to lose one, for not a byte of
++ * extra parity.
++ *
++ * The parity stays with its codeword, sixteen bytes in a row: nine bad
++ * bytes among them still lose that codeword. Spreading the parity as
++ * well would take a different on-disk layout.
 + */
-+#define BEAMFS_INODE_FL_RS_ENABLED   0x0001  /* deprecated, see comment */
-+#define BEAMFS_INODE_FL_VERIFIED     0x0002  /* Integrity verified */
++static inline size_t rs_woven_off(unsigned int sub, size_t i,
++				  unsigned int n_subblocks)
++{
++	return i * n_subblocks + sub;
++}
 +
 +/*
-+ * On-disk directory entry
++ * Gather one codeword out of an interleaved block.
++ *
++ * @scratch must hold @data_len bytes. The caller owns it: this runs on
++ * the writeback path and an allocation here would be one more thing to
++ * fail under the memory pressure that writeback is trying to relieve.
 + */
-+struct beamfs_dir_entry {
-+	__le64  d_ino;              /* Inode number */
-+	__le16  d_rec_len;          /* Record length */
-+	__u8    d_name_len;         /* Name length */
-+	__u8    d_file_type;        /* File type */
-+	char    d_name[BEAMFS_MAX_FILENAME + 1]; /* Filename */
-+} __packed;
++static void rs_gather(const u8 *blk, unsigned int sub, size_t data_len,
++		      unsigned int n_subblocks, u8 *scratch)
++{
++	size_t i;
 +
-+#endif /* _BEAMFS_FORMAT_H */
++	for (i = 0; i < data_len; i++)
++		scratch[i] = blk[rs_woven_off(sub, i, n_subblocks)];
++}
++
++static void rs_scatter(u8 *blk, unsigned int sub, size_t data_len,
++		       unsigned int n_subblocks, const u8 *scratch)
++{
++	size_t i;
++
++	for (i = 0; i < data_len; i++)
++		blk[rs_woven_off(sub, i, n_subblocks)] = scratch[i];
++}
++
++/*
++ * beamfs_rs_encode_woven -- encode a block whose symbols are interleaved.
++ *
++ * @data_buf:      the interleaved data area, @data_len * @n_subblocks bytes
++ * @parity_buf:    where the parity goes, @n_subblocks codewords of it
++ * @parity_stride: bytes from one codeword's parity to the next
++ *
++ * Same contract as beamfs_rs_encode_region, same return values. The
++ * difference is where the symbols of a codeword are read from.
++ */
++int beamfs_rs_encode_woven(u8 *data_buf, u8 *parity_buf, size_t parity_stride,
++			   size_t data_len, unsigned int n_subblocks)
++{
++	unsigned int i;
++	int ret = 0;
++	u8 **sp, *scratch;
++
++	if (!data_buf || !parity_buf || !beamfs_rs_scratch_pcpu)
++		return -EINVAL;
++	if (data_len > BEAMFS_SUBBLOCK_DATA)
++		return -EINVAL;
++
++	/*
++	 * Preemption off for the whole block rather than per codeword:
++	 * sixteen encodes of 239 bytes, and taking the pointer sixteen
++	 * times costs more than holding it once.
++	 */
++	sp = get_cpu_ptr(beamfs_rs_scratch_pcpu);
++	scratch = *sp;
++	if (!scratch) {
++		put_cpu_ptr(beamfs_rs_scratch_pcpu);
++		return -ENOMEM;
++	}
++
++	for (i = 0; i < n_subblocks; i++) {
++		rs_gather(data_buf, i, data_len, n_subblocks, scratch);
++		ret = beamfs_rs_encode(scratch, data_len,
++				       parity_buf + (size_t)i * parity_stride);
++		if (ret < 0)
++			break;
++	}
++
++	put_cpu_ptr(beamfs_rs_scratch_pcpu);
++	return ret < 0 ? ret : 0;
++}
++
++/*
++ * beamfs_rs_decode_woven -- decode one, correcting in place.
++ *
++ * A codeword that decodes is written back into the block; one that
++ * does not is left as it was, so a caller that ignores the result
++ * reads what the medium gave rather than a half-corrected mixture.
++ */
++int beamfs_rs_decode_woven(u8 *data_buf, u8 *parity_buf, size_t parity_stride,
++			   size_t data_len, unsigned int n_subblocks,
++			   int *results, const char *who)
++{
++	unsigned int i;
++	int worst = 0;
++	u8 **sp, *scratch;
++
++	if (!data_buf || !parity_buf || !beamfs_rs_scratch_pcpu)
++		return -EINVAL;
++	if (data_len > BEAMFS_SUBBLOCK_DATA)
++		return -EINVAL;
++
++	sp = get_cpu_ptr(beamfs_rs_scratch_pcpu);
++	scratch = *sp;
++	if (!scratch) {
++		put_cpu_ptr(beamfs_rs_scratch_pcpu);
++		return -ENOMEM;
++	}
++
++	for (i = 0; i < n_subblocks; i++) {
++		int rc;
++
++		rs_gather(data_buf, i, data_len, n_subblocks, scratch);
++		rc = beamfs_rs_decode(scratch, data_len,
++				      parity_buf + (size_t)i * parity_stride,
++				      NULL, 0, who);
++		if (results)
++			results[i] = rc;
++		if (rc < 0) {
++			worst = rc;
++			continue;
++		}
++		rs_scatter(data_buf, i, data_len, n_subblocks, scratch);
++		if (rc > worst)
++			worst = rc;
++	}
++
++	put_cpu_ptr(beamfs_rs_scratch_pcpu);
++	return worst;
++}
++
++/*
++ * Encode a 4096-byte block in the grouped layout.
++ *
++ * The block is its own argument rather than a data pointer and a
++ * parity pointer: the two are at fixed offsets within it and passing
++ * them apart invites the mismatch that cost an afternoon -- woven
++ * functions expecting a compact area, callers handing them an
++ * alternating one.
++ *
++ * Returns 0, or the first encode failure.
++ */
++int beamfs_rs_encode_block(u8 *block)
++{
++	if (!block)
++		return -EINVAL;
++
++	return beamfs_rs_encode_woven(block + BEAMFS_DATA_WOVEN_OFF,
++				      block + BEAMFS_DATA_WOVEN_PARITY_OFF,
++				      BEAMFS_RS_PARITY,
++				      BEAMFS_SUBBLOCK_DATA,
++				      BEAMFS_DATA_INLINE_SUBBLOCKS);
++}
++
++/*
++ * Decode one, correcting in place.
++ *
++ * @results, when given, holds one entry per codeword: the number of
++ * symbols corrected, or negative for one that would not decode.
++ *
++ * Returns the worst of those, so a caller that wants only "is this
++ * block sound" can test the return and a caller that wants to log
++ * which codewords suffered has the array.
++ */
++int beamfs_rs_decode_block(u8 *block, int *results, const char *who)
++{
++	if (!block)
++		return -EINVAL;
++
++	return beamfs_rs_decode_woven(block + BEAMFS_DATA_WOVEN_OFF,
++				      block + BEAMFS_DATA_WOVEN_PARITY_OFF,
++				      BEAMFS_RS_PARITY,
++				      BEAMFS_SUBBLOCK_DATA,
++				      BEAMFS_DATA_INLINE_SUBBLOCKS,
++				      results, who);
++}
++
++/*
++ * Read @len bytes of user data at @off out of a block.
++ *
++ * Grouped, the data is contiguous but the symbols of a codeword are
++ * not: byte @off of the user's data is at @off within the data area,
++ * because interleaving moves symbols within a codeword and not the
++ * bytes the user sees. The two are the same array read two ways.
++ *
++ * This exists so nothing outside edac has to know that.
++ */
++void beamfs_block_read(const u8 *block, size_t off, size_t len, u8 *out)
++{
++	memcpy(out, block + BEAMFS_DATA_WOVEN_OFF + off, len);
++}
++
++void beamfs_block_write(u8 *block, size_t off, size_t len, const u8 *in)
++{
++	memcpy(block + BEAMFS_DATA_WOVEN_OFF + off, in, len);
++}
++
++/*
++ * beamfs_rs_encode_region -- encode N RS(255,239) shortened subblocks
++ * across a region.
++ *
++ * @data_buf:      base pointer of the data region
++ * @data_stride:   distance in bytes between the start of two
++ *                 consecutive data subblocks (e.g.
++ *                 BEAMFS_SUBBLOCK_TOTAL=255 for the bitmap)
++ * @parity_buf:    base pointer of the parity region (may equal
++ *                 data_buf + data_len when data and parity alternate)
++ * @parity_stride: distance between the start of two consecutive
++ *                 parity blobs (e.g. BEAMFS_SUBBLOCK_TOTAL=255 for
++ *                 the bitmap, BEAMFS_RS_PARITY=16 for contiguous
++ *                 parity placement)
++ * @data_len:      number of data bytes per subblock (e.g.
++ *                 BEAMFS_SUBBLOCK_DATA=239 for a full subblock)
++ * @n_subblocks:   number of subblocks to encode
++ *
++ * Returns 0 on success, negative on the first encode failure.
++ * On failure the buffer is in an indeterminate state.
++ */
++int beamfs_rs_encode_region(u8 *data_buf, size_t data_stride,
++			    u8 *parity_buf, size_t parity_stride,
++			   size_t data_len, unsigned int n_subblocks)
++{
++	unsigned int i;
++
++	if (!data_buf || !parity_buf)
++		return -EINVAL;
++
++	/*
++	 * Contiguous only: codeword i is @data_len bytes at
++	 * data_buf + i * data_stride, its parity at
++	 * parity_buf + i * parity_stride. Nothing here interleaves.
++	 *
++	 * A data block on a volume with BEAMFS_FEATURE_INCOMPAT_RS_INTERLEAVE
++	 * goes to beamfs_rs_encode_woven instead; beamfs_seal_data_block
++	 * makes that choice. Data blocks on other volumes, directory blocks,
++	 * parity region blocks and the bitmap come here with a stride of
++	 * BEAMFS_SUBBLOCK_TOTAL, data and parity alternating every 255
++	 * bytes. The superblock, the indirect-block slots and rsbench pass
++	 * other strides.
++	 */
++
++	for (i = 0; i < n_subblocks; i++) {
++		u8 *d = data_buf   + (size_t)i * data_stride;
++		u8 *p = parity_buf + (size_t)i * parity_stride;
++		int rc = beamfs_rs_encode(d, data_len, p);
++
++		if (rc < 0)
++			return rc;
++	}
++	return 0;
++}
++
++/*
++ * beamfs_rs_decode_region -- decode N RS(255,239) shortened subblocks
++ * across a region. Symmetric to beamfs_rs_encode_region.
++ *
++ * @results:          optional, n_subblocks entries. On exit each
++ *                    entry holds the return value of beamfs_rs_decode
++ *                    for the corresponding subblock: < 0 uncorrectable,
++ *                    = 0 no errors, > 0 number of corrected symbols.
++ *                    Pass NULL to skip per-subblock reporting.
++ * @positions_buf:    optional, flat array of n_subblocks * positions_stride
++ *                    int entries. On a positive results[i], the first
++ *                    results[i] entries of positions_buf[i*stride ..] hold
++ *                    the corrected DATA positions for subblock i. May be
++ *                    NULL (then positions_stride must be 0).
++ * @positions_stride: slot count per subblock in positions_buf; should be
++ *                    >= BEAMFS_RS_PARITY/2. Ignored if positions_buf NULL.
++ *
++ * Returns 0 if every subblock decoded successfully, the first
++ * negative error otherwise. Decoding does not stop on error: all
++ * subblocks are processed, results[] reflects the per-subblock
++ * outcome, and the first negative error is the one returned.
++ */
++int beamfs_rs_decode_region(u8 *data_buf, size_t data_stride,
++			    u8 *parity_buf, size_t parity_stride,
++			   size_t data_len, unsigned int n_subblocks,
++			   int *results,
++			   u8 *positions_buf,
++			   unsigned int positions_stride,
++			   const char *who)
++{
++	unsigned int i;
++	int worst = 0;
++
++	if (!data_buf || !parity_buf)
++		return -EINVAL;
++	if (positions_buf && positions_stride == 0)
++		return -EINVAL;
++	if (!positions_buf && positions_stride != 0)
++		return -EINVAL;
++
++	for (i = 0; i < n_subblocks; i++) {
++		u8 *d = data_buf   + (size_t)i * data_stride;
++		u8 *p = parity_buf + (size_t)i * parity_stride;
++		u8 *pos = positions_buf
++			? positions_buf + (size_t)i * positions_stride
++			: NULL;
++		int rc = beamfs_rs_decode(d, data_len, p,
++					 pos, positions_stride, who);
++
++		if (results)
++			results[i] = rc;
++		if (rc < 0 && worst >= 0)
++			worst = rc;
++	}
++	return worst;
++}
++
++/*
++ * beamfs_crc32 - compute CRC32 checksum
++ * @buf: data buffer
++ * @len: length in bytes
++ *
++ * Uses the kernel's hardware-accelerated crc32_le (same as ext4/btrfs).
++ * Seed 0xFFFFFFFF, final XOR 0xFFFFFFFF (standard CRC-32/ISO-HDLC).
++ */
++__u32 beamfs_crc32(const void *buf, size_t len)
++{
++	return crc32_le(0xFFFFFFFF, buf, len) ^ 0xFFFFFFFF;
++}
++
++/*
++ * beamfs_crc32_sb -- compute CRC32 over the meaningful regions of the
++ *                   superblock, excluding s_crc32 itself and s_pad.
++ *
++ * Coverage (computed at compile time from struct layout):
++ *   region A: [0, offsetof(s_crc32))         -- magic, counters,
++ *                                               version, flags
++ *   region B: [offsetof(s_uuid), offsetof(s_pad)) -- uuid, label,
++ *                                               RS journal,
++ *                                               bitmap_blk, features,
++ *                                               protection scheme
++ * Total coverage: BEAMFS_SB_RS_COVERAGE_BYTES, asserted at build time
++ * by BUILD_BUG_ON below.
++ *
++ * Chained via crc32_le without intermediate XOR. Must match the
++ * userspace mkfs.beamfs::crc32_sb() byte-for-byte so that superblocks
++ * formatted by mkfs validate at mount time.
++ *
++ * On-disk format compatibility: a superblock written by an mkfs whose
++ * struct layout differs from this kernel's fails this CRC. Images of
++ * an older on-disk version do not get this far: fill_super refuses
++ * them on s_version first.
++ */
++__u32 beamfs_crc32_sb(const struct beamfs_super_block *fsb)
++{
++	const u8 *base = (const u8 *)fsb;
++	const size_t off_crc32 = offsetof(struct beamfs_super_block, s_crc32);
++	const size_t off_uuid  = offsetof(struct beamfs_super_block, s_uuid);
++	const size_t off_pad   = offsetof(struct beamfs_super_block, s_pad);
++	u32 c;
++
++	BUILD_BUG_ON(sizeof_field(struct beamfs_super_block, s_crc32) != 4);
++	BUILD_BUG_ON(off_uuid != off_crc32 + 4);
++	BUILD_BUG_ON(off_crc32 + (off_pad - off_uuid) !=
++		     BEAMFS_SB_RS_COVERAGE_BYTES);
++
++	c = crc32_le(0xFFFFFFFF, base, off_crc32);
++	c = crc32_le(c, base + off_uuid, off_pad - off_uuid);
++	return c ^ 0xFFFFFFFF;
++}
 -- 
 2.55.0
 
