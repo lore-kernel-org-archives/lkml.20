@@ -1,73 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792425059;
-	b=arvN3Ibybs2S8fHl3vsqGYZPWF4G9oWu+jGMfFStWHu9dTKwJkQOSQZn9GZEsPpwS2Nr
-	 k8vGGnDENNuC5KOUOKl7Yt2kyMlrPrA+T8oujBOBHTqdcqBzRUEmN36zT/gBUGuZY8yQx
-	 PM9Hx+hzvyhXp18LSrOGohJXkkFWVhdaFGR8vgzet0ABdJIz3BCBaZm1HwPdb1GSfKve7
-	 EiaDoOeMJTmMy4BcAQua4bErnqOO4RaRnna+0VtCIDrujjdqARMGeNqIA9z0w9NtZxudK
-	 dLz0XrofOexqbV2kKYkkPmnZtAI1XV+kVBUJ2QqDZZ5Z1AuhVfhBYjLVpdqW4JqUSbA==
+	t=1792425070;
+	b=dP17+Y6gXAyewgJ7brDAGTlcd7HZRVPXSuuyd+znS2I3mtaKk+PSCVSd8bkQ2pBJkDby
+	 /9IuB7HU8Y3zBKezgPMhXlj6u5ofsk3XLJM3NmTvxYdKefPI2TY/trH6dMZ1VTnmB2CaN
+	 N4jgcwwaqBINSj09AMlspvQxNWCXlbY4D+UcXdJQdu2w9Es//KPf89Nd4cN/cNY0z0m4+
+	 iNiKib7EfujMlpkGS+8QTYTwKdZcPNYWmHz5t/DM9br/cpwCShxFRsFtZMUFjvJFK/faI
+	 a9Dy7/ECAalmC1R+cP1dQ3obA2v1sV5RNHoc/05gAk3qxPipMjx/lvPA19rKpIs9JZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425070;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=aHFgwB1QQdeguUBHh1LZeUKmP2EVveCA6ywncN+4824=;
-	b=Sk/VzCdv+3aw5R3k3/73PBwCnUtZy+PDR7pHDj8Ce+o7dGVkKDBrSeVaN2U5pAv8rr3r
-	 BEgqmpBj0kFnySnSlYXki9DlSY2kLua7yuq7SWUA73CRp9ERTY8ikNjfX9E0iPFnX+8h5
-	 TvImJ99XSQF+mSoGyXhZcEH8Sf8XMHItdtiJxcS3Dd8Tw1IgSaoR6weoFYVoud9J+md0B
-	 9D94I5Kag3VwrKoieLvVhzMWwKJKb5OdAB/ZYMYn4k2AA1h7SfsIDHQ7ILYo5LQMrYs+Q
-	 XCKWxWShPZpnvnnmlGRKetCoiHgaWWAjLxfRLjYiCmyDRBkUuBqKpsql8XMquaIzn/w==
+	bh=nzf5AOZecE/pgMusAub/Smm2ReUG3xW+PWHZuYHUyt4=;
+	b=ePBeMUiMdfcu9Vvjd98YkXuIPZ/V4eo4HX+cKJTBsBWeGxj+ZNsG43uXyaM/NYagDuDK
+	 /yluGBQZi0DrwVU+LrQp3QDlqIrFkdZLa0sC0hWQ3p+o5F7e/ts+OASJj905Yp+h9p5Vs
+	 nSnxIUrKl1lU4IfR5wGBH+ZfU68W8yiNRH5x7uaAS931H+8PV9rWBoZx/RQDHNOmvdXxE
+	 dl6YK1naPV2TuSc7ty32gSXo326LhQ/jBb8wD9h+uXFFwZ6dfxOGXR2+qVTLtk87rSq6t
+	 seGD5nZqLK4uiFBESZfTHq/Dv6V30gKIOnUW2/l2o7NIaI847MBGo7GxtM2+Mjg8IrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jp4vxbWn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P76XqEwv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE48606AAE8;
-	Mon, 19 Oct 2026 15:50:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FE5606C911
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:51:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jp4vxbWn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2211F000C5;
-	Mon, 19 Oct 2026 15:50:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P76XqEwv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78451F000CF;
+	Mon, 19 Oct 2026 15:51:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792425059;
-	bh=aHFgwB1QQdeguUBHh1LZeUKmP2EVveCA6ywncN+4824=;
+	s=k20260515; t=1792425070;
+	bh=nzf5AOZecE/pgMusAub/Smm2ReUG3xW+PWHZuYHUyt4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jp4vxbWn/yUn9LtCGVPYeakTPX4tsFvUU8YEjhzMI69M/pjH6/p8DSxtcx1C4St4U
-	 RXbBFZuCtQB4RFNmOQZsv0T73MCepho+ltYc6dNsTSFubutrPYmOtMw93qvE6HNQ0q
-	 ZQpcKYr7r0OTsf46NJoCBJEbReflGrlaQaGiI0pVPQApA3LIDyFISlFYY07coARWX9
-	 8XEXEh/T3YNljIgALCohedAoA6sFnRZc3GDGTGXdBXqFh0MmScqYgA/dbCx8Hq/7np
-	 1KUPsn7FfTMikCHOF+xskyIhBmuuw89MOgRDsUHBJFLB0r7TY75tTL2/PqNKq6iFNk
-	 fzQtVF/R7DBqQ==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 9D590198003A;
-	Mon, 19 Oct 2026 11:50:49 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Mon, 19 Oct 2026 11:50:53 -0400
-X-ME-Sender: <xms:WTzWankDtQBpbX8-A7KeHpUkJjxA23ulY2hVup8-Qb1LuawvvpvDOw>
-    <xme:WTzWagFEmsa7ABjv5spb4NJ4aLEvtMHnJrl6zn9-JUUj1AhTJeu4K-CVWTEI6NctE
-    f3N-Rt5Z6KotvmEcPzJtcu9xtRJPKan50NVFzOpFUKwgcat-nG8PNkt>
-X-ME-Received: <xmr:WTzWagQqANz65r9kGtUpU6Yt2nXXnsNcnUxFtQRBDwO4obnWVffcojBgET0>
-X-ME-Proxy-Cause: dmFkZTEPqwHCv5IVDOfp+gppQpoSvl4iKuiR2RK5Y+mCZyyWO88dcIgYD60QXY0H8fSG9y
-    +i/Fi66FpUhP2Ikf7ONks1QGsKRJt/NoxWDxl5HXxNylv75I6mtGV03osn/+lvccKEBd4W
-    KnTaLXmzxvblXRRW+RSShg/hHxynElJxqWehmOFUYq4U1x7ifoitgX+ne3vp8F3h8AQ/N0
-    /m2r4CY1m8XbTmLiUOTFaC6q0oQJ3XXcpirfEfr7IPSxVFCOUTfbQW2d5jjoyFzJhvq7h+
-    uIBkQwMZCXw2y5U40pZhX7XPPqGR7Z3fiyae5UDORfmXvndjR9BDrzyAINzfPzRUg9LHlX
-    k0IkKTk9iNht3cIGRTIZ2lUZssI02DI2+r4CLzf9ALJvkCYS2731J2VpdbOY6W6ssdpZaq
-    q61aKe5jdOQRiHmCzGbTuNUnnXQMa1s1MYT7kWNp2XXUjLgPn0z5+PtISNXTEW1SsTC/56
-    +/AywSZLo+AmKJldqc/DJBr3AuzCUlzce5s0eOrs/wPTX9AWPQRJ2MMmZjPzhLopP1eoxw
-    0j3F+Ye0cf+APkDpVznsTTVhYZQ/Y+ausVHhYcDlznuhBSu6aojjhGD6qDJ/85Df8I+5JH
-    JS6uR59Nu8GhniM7xqxNRP1zUGEDjgGFmqzlorj6gQzkBYvu0Z9eOmDJZvKw
-X-ME-Proxy: <xmx:WTzWavSXSMe8mjKSzEv9M4YKuLHRTpBFS2_rZQEn9KcEbkpE86Z-qg>
-    <xmx:WTzWamd5dnT_wLS9RyyG-aJ8l_6aCHDceWsgY9CBv4X1i-uzXVTmXw>
-    <xmx:WTzWamBN0Ym3A7UqT0MT-OzVeZYdxtAF_PNglcqQceTWkA7aoY637A>
-    <xmx:WTzWas1ropU3sQtK5b2EIVmByal3_RmrXIW-sCzaLxFIM3sDKoUD1g>
-    <xmx:WTzWauRZ2YzWDO3s7IXVJyAWhpnG6gU3u4bnavYuv9vCkdlKPAhC1ASH>
+	b=P76XqEwvYvtRiChGcMWUkKRntAV/ce5/WAbDoQUHDxuyq/aB6KdTUrY78u0cXtIP6
+	 epFp7w4oJ6TMIyqBYj5OwvupZvIxx0sVNv4byNU0buBm+RiKpLfEHmKJSfAOG/Wvm8
+	 dWNlpOHY9hcSDqH8t/aAoNR9F+d1gHDYB1HIylmtVlV/y+P+pwexEONeAlTgLhIeqX
+	 n44jzEdIsOgrDlvXmwtwKaCZp3TblM1Qe2Ptl0PKcvwZQFDv5pQyvSvCvTHuLzqDMN
+	 yJOUDq31Ztf8n9aWV5p9MFOraPQhZN/taiRlQxrki7CSdHLaBr9ku45PVpfKHgQLOD
+	 mT9xN3yE6tpsA==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 9F85D198003A;
+	Mon, 19 Oct 2026 11:51:03 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Mon, 19 Oct 2026 11:51:07 -0400
+X-ME-Sender: <xms:ZzzWagvnHzpi2QV3TgoGU420L-mLrWpe4ZeZ3YsBGoAYKAOlKwHuPA>
+    <xme:ZzzWakaRmRX07FGWx-lFgXP_y55PfBey5tiqcPlbsYljwRnVNudZgeGeuMi9oI-MP
+    l3nFIYQPYr3VDIZDhdI-wKfeNfkILHkWdqsvKtI1CvawJgwDAqx_xo>
+X-ME-Received: <xmr:ZzzWag7bNo07-OVAYs9B8KdVDMf0PsYoWGshMCbKlaITt0nmYvXi_P-P5p4>
+X-ME-Proxy-Cause: dmFkZTESqR4vElUNfwe4Wb1kabMg9MdYUtHyNIvlHi5jfGRsEd0tjiYfzpqh5FemuLlMuA
+    +QzWL/iolJzzDzQk8vzuoT2/u2xyL/YZG/CihU2eaSQe3uAw7YKu/Z/hQfgMIJpEQrBQkK
+    hH3KJVpCmjg+gNXnnOIkdBMKpJa1pvTLqzuojrt68Uovke10kpOzVhZrNEf3d58NDgoR+6
+    GBwzdAiHoLFFDGJo3/r+XBHeUTBbw+IeFaYdgC0j5JEQlKAOMB5I7tBUfVMuw5hMfUnXf2
+    vE1DwOk7N/x2FbtU++Y3QX/1ODQhD5sTVGp3EMvK4jUTItTZrn4RBPsK+PhnbeHfl8JcpJ
+    c2LUHcVVlnTmrxA40olgviWRl9T+26cUEoz3aZJIdT1EfpFsU+0thKqzxFC9q6r9alkT7P
+    UjijYajoIbQcUwCvES00HGkFx6tcOfQlzfxTtLaIAWuifAZVmXruOnjSB2KfmIGd1Tp9h8
+    pT7XR7J6tU0+2PVC3G7YK2c6UKb8RdB87PPzk5qtMsP2YH1aNuaOcR9AoL/bstgEKQzsbg
+    t6Ubf6j8Uiwe5o955Rjad4bmK7153G+aKl6kgw9QxprBMlsBHQpSij80iErZkMlHPp5FCS
+    lHriB7oqc0/oTiW+ZSU9MPqkYvzaUVlCHKrJhXKPuBMUw+OJ0rG24eS8p+yg
+X-ME-Proxy: <xmx:ZzzWanlnKjOnpqouLmcZBHTvvQZAhOmIx28gpgaFrGTPuBZ4WXkrpQ>
+    <xmx:ZzzWagrX6Xgxxskve5xmxtyfDhrB1FnQjMlC3CRer3mcBjheEo2dGA>
+    <xmx:ZzzWai_Fe8OhMS5ikxCMThpHx3RGb5NTGTJgIUNrfuKyzoKEY0ZniQ>
+    <xmx:ZzzWap50Crsvkz0DJ5oSQ2M8pG2fFH-AZ9Ga4gWMwCxQvkjGLJdxxQ>
+    <xmx:ZzzWasaRQDbFeEJeYYHn_EpIsUNRWZjO0GImBaEDkaeVCkMQ5avkpNes>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 11:50:48 -0400 (EDT)
+ 19 Oct 2026 11:51:02 -0400 (EDT)
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
@@ -79,7 +79,8 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	Hugh Dickins <hughd@google.com>,
 	Christian Brauner <brauner@kernel.org>,
 	Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Miklos Szeredi <miklos@szeredi.hu>,
 	Miaohe Lin <linmiaohe@huawei.com>,
 	Naoya Horiguchi <nao.horiguchi@gmail.com>,
 	Oscar Salvador <osalvador@suse.de>,
@@ -114,11 +115,10 @@ Cc: Miklos Szeredi <miklos@szeredi.hu>,
 	linux-kernel@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	fuse-devel@lists.linux.dev,
-	kernel-team@meta.com,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [RFC PATCH 14/18] mm/filemap: read from the page cache without folio references
-Date: Mon, 19 Oct 2026 16:49:07 +0100
-Message-ID: <20261019154913.1765974-15-kas@kernel.org>
+	kernel-team@meta.com
+Subject: [RFC PATCH 16/18] mm/shmem: count accesses to a folio the way filemap_read() does
+Date: Mon, 19 Oct 2026 16:49:09 +0100
+Message-ID: <20261019154913.1765974-17-kas@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261019154913.1765974-1-kas@kernel.org>
 References: <20261019154913.1765974-1-kas@kernel.org>
@@ -133,237 +133,114 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+shmem_file_read_iter() marks a folio accessed only when a read starts at
+the beginning of the folio.  Small reads that start anywhere else never
+count, so a folio that is read over and over at one offset ages as if it
+were never read.
 
-Small reads of one file from many CPUs all take and drop a reference on
-the same folio, and its refcount bounces between the CPUs.
+Count accesses with filemap_read_accessed(), as filemap_read() does: a
+read marks the folio accessed unless it goes on in the folio that the
+previous read through the file ended in.  Reading the same bytes again
+through one open file counts once, as for other files, where it used to
+count each time it started at the beginning of the folio.  The end of
+the previous read is kept in f_ra.prev_pos, as for other files.
 
-Before taking a reference, copy what can be copied under rcu_read_lock()
-from folios with PG_rcu_free, with page faults disabled.  A flagged
-folio is not reused before rcu_read_unlock(), so a folio still in its
-slot after the flag test is this file's page until then.  A folio that
-leaves the page cache during the copy reads as the file did when it
-left.  Read i_size between the flag and the second look at the slot: a
-write that extends the file fills the slot before it moves i_size.
-
-Leave to the slow path a folio that is not uptodate, needs readahead or
-dropbehind, is not hot, or has a poisoned page.  Leave large folios
-there too: looking one up for every page is slower than one reference
-for all of its pages.  Copy at most 512 KiB per rcu_read_lock()
-section, and skip files that never had a folio flagged or that are
-writably mapped where flush_dcache_folio() is needed.
+This also sets PG_rcu_free on the tmpfs folios that reads keep coming
+back to.  On a shmem folio the PG_readahead bit is PG_reclaim, and shmem
+does no readahead, so do not let that bit keep the flag off.  A write
+marks a tmpfs folio accessed too, so a folio written in several pieces
+can get the flag on its first read.
 
 Assisted-by: LLM
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-[kas: i_size before the second look at the slot, poisoned folio check,
- large folios left to the slow path, 512 KiB sections, shorter comments
- and changelog]
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- mm/filemap.c | 169 +++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 169 insertions(+)
+ mm/filemap.c  |  9 +++++----
+ mm/internal.h |  1 +
+ mm/shmem.c    | 11 ++++++-----
+ 3 files changed, 12 insertions(+), 9 deletions(-)
 
 diff --git a/mm/filemap.c b/mm/filemap.c
-index 960d53b61d4b..55fc471c0489 100644
+index ace6b1fd6b9e..4b5b7ba78f39 100644
 --- a/mm/filemap.c
 +++ b/mm/filemap.c
-@@ -2827,6 +2827,165 @@ static void filemap_end_dropbehind_read(struct folio *folio)
+@@ -2778,8 +2778,10 @@ static void filemap_mark_hot(struct folio *folio)
+ 	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE))
+ 		return;
+ 	if (folio_test_rcu_free(folio) || !folio_test_uptodate(folio) ||
+-	    folio_test_readahead(folio) || folio_test_dropbehind(folio) ||
+-	    folio_test_unevictable(folio))
++	    folio_test_dropbehind(folio) || folio_test_unevictable(folio))
++		return;
++	/* shmem does no readahead: there the bit is PG_reclaim */
++	if (folio_test_readahead(folio) && !folio_test_swapbacked(folio))
+ 		return;
+ 	if (folio_test_set_rcu_free(folio))
+ 		return;
+@@ -2802,8 +2804,7 @@ static void filemap_mark_hot(struct folio *folio)
+  * LRU records, or when this open file goes back to data that it has just
+  * read.
+  */
+-static void filemap_read_accessed(struct folio *folio, loff_t pos,
+-				  loff_t last_pos)
++void filemap_read_accessed(struct folio *folio, loff_t pos, loff_t last_pos)
+ {
+ 	bool hot;
+ 
+diff --git a/mm/internal.h b/mm/internal.h
+index 38b1165212c9..18391dc50418 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1248,6 +1248,7 @@ struct migration_target_control {
+  */
+ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
+ 			      struct folio *folio, loff_t fpos, size_t size);
++void filemap_read_accessed(struct folio *folio, loff_t pos, loff_t last_pos);
+ 
+ static inline bool vma_is_single_threaded_private(struct vm_area_struct *vma)
+ {
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 848316eaa7f4..43ddb50974a5 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -3309,6 +3309,7 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 	struct file *file = iocb->ki_filp;
+ 	struct inode *inode = file_inode(file);
+ 	struct address_space *mapping = inode->i_mapping;
++	loff_t last_pos = file->f_ra.prev_pos;
+ 	pgoff_t index;
+ 	unsigned long offset;
+ 	int error = 0;
+@@ -3378,11 +3379,7 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 					flush_dcache_page(page);
+ 			}
+ 
+-			/*
+-			 * Mark the folio accessed if we read the beginning.
+-			 */
+-			if (!offset)
+-				folio_mark_accessed(folio);
++			filemap_read_accessed(folio, iocb->ki_pos, last_pos);
+ 			/*
+ 			 * Ok, we have the page, and it's up-to-date, so
+ 			 * now we can copy it to user space...
+@@ -3410,6 +3407,7 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 
+ 		retval += ret;
+ 		iocb->ki_pos += ret;
++		last_pos = iocb->ki_pos;
+ 
+ 		if (!iov_iter_count(to))
+ 			break;
+@@ -3421,6 +3419,9 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
  	}
+ 
+ 	file_accessed(file);
++	/* Readers sharing the file would bounce the line for nothing */
++	if (file->f_ra.prev_pos != last_pos)
++		file->f_ra.prev_pos = last_pos;
+ 	return retval ? retval : error;
  }
  
-+/*
-+ * Whether filemap_read_rcu_batch() can copy from @folio, or has to leave it
-+ * to the slow path, which holds a reference for readahead, dropbehind and
-+ * folio_mark_accessed(), and deals with poisoned pages.  @last_index is the
-+ * page the previous copy ended in.
-+ */
-+static bool filemap_read_rcu_can_copy(struct folio *folio, pgoff_t index,
-+				      pgoff_t last_index)
-+{
-+	if (!folio_test_uptodate(folio))
-+		return false;
-+	if (folio_test_readahead(folio) || folio_test_dropbehind(folio))
-+		return false;
-+	/* memory_failure() waits only for readers that got past this */
-+	if (folio_contain_hwpoisoned_page(folio))
-+		return false;
-+	/* One reference covers all of a large folio's pages */
-+	if (folio_test_large(folio))
-+		return false;
-+
-+	/*
-+	 * The slow path does not call folio_mark_accessed() on the folio that
-+	 * the previous read ended in, so copying from it skips nothing.  The
-+	 * folio's size can change without a reference: compare pages instead.
-+	 */
-+	if (index == last_index)
-+		return true;
-+
-+	/* Otherwise only if folio_mark_accessed() would leave it as it is */
-+	if (lru_gen_enabled()) {
-+		unsigned long all = LRU_REFS_FLAGS | BIT(PG_workingset);
-+
-+		return folio_test_unevictable(folio) ||
-+		       (READ_ONCE(folio->flags.f) & all) == all;
-+	}
-+	return folio_test_referenced(folio) && !folio_test_idle(folio) &&
-+	       (folio_test_active(folio) || folio_test_unevictable(folio));
-+}
-+
-+/*
-+ * Return the folio at @pos if it is this file's page until rcu_read_unlock(),
-+ * and read i_size into @isize.  A folio with PG_rcu_free is freed only after
-+ * an RCU grace period.  Without a reference, the folio that xas_load()
-+ * returned can be freed and its memory reused as another folio before the
-+ * flag is tested, so look at the slot again after the flag.
-+ */
-+static struct folio *filemap_read_rcu_lookup(struct xa_state *xas,
-+		struct inode *inode, loff_t pos, loff_t *isize)
-+{
-+	struct folio *folio;
-+
-+	xas_set(xas, pos >> PAGE_SHIFT);
-+	folio = xas_load(xas);
-+	if (xas_retry(xas, folio) || !folio || xa_is_value(folio))
-+		return NULL;
-+
-+	/* Not folio_test_rcu_free(): it may not be a folio any more */
-+	if (!(READ_ONCE(folio->flags.f) & __PG_RCU_FREE))
-+		return NULL;
-+	/* Read i_size and slot after the flag: it implies uptodate */
-+	smp_rmb();
-+	*isize = i_size_read(inode);
-+	if (pos >= *isize)
-+		return NULL;
-+	/* i_size_read() is an acquire; a write fills the slot first */
-+	if (xas_reload(xas) != folio)
-+		return NULL;
-+	/* Read the rest of the folio only once the slot holds it */
-+	smp_rmb();
-+	return folio;
-+}
-+
-+/* Bytes one RCU read section copies at most: it holds up grace periods */
-+#define FILEMAP_RCU_READ_MAX	SZ_512K
-+
-+/*
-+ * Copy from folios with PG_rcu_free without taking references, at most
-+ * FILEMAP_RCU_READ_MAX bytes under one rcu_read_lock().  Return true if that
-+ * much was copied and the read is not done.  *last_index is the page the
-+ * previous copy ended in, set as the slow path sets last_pos.
-+ */
-+static bool filemap_read_rcu_batch(struct kiocb *iocb, struct iov_iter *iter,
-+		pgoff_t *last_index, size_t *copied)
-+{
-+	struct address_space *mapping = iocb->ki_filp->f_mapping;
-+	struct inode *inode = mapping->host;
-+	XA_STATE(xas, &mapping->i_pages, 0);
-+	size_t budget = FILEMAP_RCU_READ_MAX;
-+	bool more = false;
-+
-+	/* flush_dcache_folio() is not known to be safe without a reference */
-+	if (ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE &&
-+	    mapping_writably_mapped(mapping))
-+		return false;
-+
-+	/* A user fault cannot sleep in the RCU read section: it ends the copy */
-+	rcu_read_lock();
-+	pagefault_disable();
-+	while (iov_iter_count(iter)) {
-+		loff_t pos = iocb->ki_pos;
-+		pgoff_t index = pos >> PAGE_SHIFT;
-+		size_t offset = offset_in_page(pos);
-+		struct folio *folio;
-+		size_t bytes, n;
-+		loff_t isize;
-+
-+		if (!budget) {
-+			more = true;
-+			break;
-+		}
-+		folio = filemap_read_rcu_lookup(&xas, inode, pos, &isize);
-+		if (!folio)
-+			break;
-+		if (!filemap_read_rcu_can_copy(folio, index, *last_index))
-+			break;
-+
-+		bytes = min_t(loff_t, isize - pos, iov_iter_count(iter));
-+		bytes = min3(bytes, budget, PAGE_SIZE - offset);
-+		/* Not _nofault(): its usercopy check reads the folio's order */
-+		n = copy_page_to_iter(folio_page(folio, index - folio->index),
-+				      offset, bytes, iter);
-+		*copied += n;
-+		iocb->ki_pos += n;
-+		budget -= n;
-+		if (n)
-+			*last_index = (pos + n - 1) >> PAGE_SHIFT;
-+		if (n < bytes)
-+			break;
-+	}
-+	pagefault_enable();
-+	rcu_read_unlock();
-+
-+	return more;
-+}
-+
-+/*
-+ * Copy from the page cache without folio references, in batches, and
-+ * return how much was copied.  The slow path reads the rest.
-+ */
-+static size_t filemap_read_rcu(struct kiocb *iocb, struct iov_iter *iter,
-+		loff_t last_pos)
-+{
-+	/* The page the previous read ended in; ULONG_MAX if none */
-+	pgoff_t last_index = (last_pos - 1) >> PAGE_SHIFT;
-+	size_t copied = 0;
-+
-+	/* Not on an inode that never had a folio flagged */
-+	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE) ||
-+	    !mapping_rcu_read(iocb->ki_filp->f_mapping))
-+		return 0;
-+
-+	while (filemap_read_rcu_batch(iocb, iter, &last_index, &copied)) {
-+		if (fatal_signal_pending(current))
-+			break;
-+		cond_resched();
-+	}
-+	return copied;
-+}
-+
- /**
-  * filemap_read - Read data from the page cache.
-  * @iocb: The iocb to read.
-@@ -2852,6 +3011,7 @@ ssize_t filemap_read(struct kiocb *iocb, struct iov_iter *iter,
- 	bool writably_mapped;
- 	loff_t isize, end_offset;
- 	loff_t last_pos = ra->prev_pos;
-+	size_t fast_read;
- 
- 	if (unlikely(iocb->ki_pos < 0))
- 		return -EINVAL;
-@@ -2863,6 +3023,14 @@ ssize_t filemap_read(struct kiocb *iocb, struct iov_iter *iter,
- 	iov_iter_truncate(iter, inode->i_sb->s_maxbytes - iocb->ki_pos);
- 	folio_batch_init(&fbatch);
- 
-+	fast_read = filemap_read_rcu(iocb, iter, last_pos);
-+	if (fast_read) {
-+		already_read += fast_read;
-+		last_pos = iocb->ki_pos;
-+		if (!iov_iter_count(iter))
-+			goto out;
-+	}
-+
- 	do {
- 		cond_resched();
- 
-@@ -2940,6 +3108,7 @@ ssize_t filemap_read(struct kiocb *iocb, struct iov_iter *iter,
- 		folio_batch_init(&fbatch);
- 	} while (iov_iter_count(iter) && iocb->ki_pos < isize && !error);
- 
-+out:
- 	file_accessed(filp);
- 	/* Readers sharing the file would bounce the line for nothing */
- 	if (ra->prev_pos != last_pos)
 -- 
 2.54.0
 
