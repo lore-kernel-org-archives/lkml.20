@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AFC639ACE;
-	Mon, 19 Oct 2026 14:05:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB9E638AEE;
+	Mon, 19 Oct 2026 14:05:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418756; cv=none; b=DZWnWYKgQGEXMMSVvcwPhgW0BH4y0xYbAb4+heT5eCzIPIxYZjm+Flg/gbARUNwYGYN/LDoPFV90pL8qxYbgrsWzXjSfktT7Z/ROMJKpBxkes6PDUxVqr5aIq8Wn3wrhgJ/LXMhb2rf1kNRmolDTq6WJrX3KbxFRtym/Ji8sCtA=
+	t=1792418754; cv=none; b=stATRH+jArRZwb3+rEjFmUk5gSKRYJ8J/kQLGz8gudqp6T9mdi+1pv+REQtS4ohXliwz/npdsEz0Eaeq51SU19wj8XB48rjX1AxkwAG2+CGTMOUrehWS1ZDyXi/e1anJEz44DggTcrR0dP2M/Nc2EIS8Y1LAjFFNbmSMglldpo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418756; c=relaxed/simple;
-	bh=Yf5Zi1ZG1Pr0N7N3RptiN5ozHM77ve8Zfc3vUT3O4Tg=;
+	s=arc-20240116; t=1792418754; c=relaxed/simple;
+	bh=CsUbPH3jTacXCVO8MlogOfaQDmir9kkrSVKFVFzIRPw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Yo5dYWxisJWSEOUB0rWOhya4A14C/H+Eq2L6kydUIPv9VLpVHed0x7vi6+vdpatW1JFhe5vInK50CG129T30F4S3FewhoFQBViJqTLQvsF5/2MYsLLJaY4idnnK+tB5ETbYSXwNCgm8oPJusAk667mDjClk2GKK3BJXjzUgTFTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5vsjQ+c; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=il6wu4hTDIeNIy2RrkuszsM2pe+gMNDJwbN77kBOUTyJBb7m7GFGcNlMFDB0YKnMprrg/tV957VyBlELgj7qxx0a1awkFCK1q7rnzNUA0th5aQYy48R2h1QxEYPiWxfeQwIQ+WEi1gU42vuzSUe8gD8nBLD9RObhB2Dd35gaNXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oDvnWbov; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5vsjQ+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43F211F000C4;
-	Mon, 19 Oct 2026 14:05:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oDvnWbov"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A24291F000C9;
+	Mon, 19 Oct 2026 14:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418754;
-	bh=gnaWpt4R9lUhHBkyiNEc2cDWssTbHpo6CPzBNunzywA=;
+	s=k20260515; t=1792418751;
+	bh=IJ6/zTLwp21/j+Ltkgr4uo8k0Js/leTHH4yBKPlXV08=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T5vsjQ+co875Pmgk80Cvjjec3f9BYTI/8uXyWJljfNO4dttTLNVu6WLMgfB5zxPfQ
-	 tkQ8BgYbdS0OhylSy1j6jvy4qxXIotenJKk8Sv/rgTIms2BBg+RW0wa42eNE++0TjM
-	 eOj9rN/XgoCG0QrSK6CxOO2FanvOFrkOaP5wsjPWSHXDpw+9mvPPvy1ekA5eJcyrtw
-	 p4xHht3l1VDsU7zNDfPJw1cHjyLX9mcjaZzc0zI/hnmSglYcQ1OaZ6b4WhwBKL8Zk0
-	 jwebYxXgl+PVzuOk5cyd8bJp4FgoUV+UrmCRO1zByd34Eoi2p/7JSw4Ql4+3IR0Ani
-	 FpIDTfnYs21Qg==
+	b=oDvnWbovA1SsJpGApMt1M/fyz1gE7tXtAOXu3Jlt/MURAIdtVkgN/ZF1svdq36MjM
+	 ZKUBgs2eY6dKuj59rkIs/6hUDn098wqHEreRfWzim/BTEhsKFrL9TN90CdTok+CS4d
+	 daq5ySCHeRnpPIuzRuiozVbFQBGByDiT1Q25XQQFmHaRbuHDAMlsw2eRozxMlhUok0
+	 jdRAtu9mNSbEDdaefj1m1gKa2zlsasya8ZtQhh8LbZGz0I2CX7SdFLAZ+HDrZvyP6f
+	 t9FtEOyvKqjWWkqDqs10OJQJrOjvN7lOHy7rGH9ZDyKRymd0CCdH429bgJ3KtBr6jH
+	 zlJEKzFIA2zug==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Oleg Proshkin <oleg.pro171@gmail.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Lee Jones <lee@kernel.org>,
+Cc: Stefan Hansson <newbyte@postmarketos.org>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	mfd@lists.linux.dev,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] mfd: axp20x: Preserve other control bits when powering off
-Date: Mon, 19 Oct 2026 09:52:43 -0400
-Message-ID: <20261019135441.1420968-472-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] wifi: rsi: Fix types to appease CFI
+Date: Mon, 19 Oct 2026 09:52:41 -0400
+Message-ID: <20261019135441.1420968-470-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -53,338 +52,506 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Oleg Proshkin <oleg.pro171@gmail.com>
+From: Stefan Hansson <newbyte@postmarketos.org>
 
-[ Upstream commit 3756bf05c963563f1325af105356541882dd5899 ]
+[ Upstream commit da308f6e471252ae5e8009dcea16bc5e9c9dc5dd ]
 
-axp20x_power_off() triggers shutdown by writing AXP20X_OFF (BIT(7)) to
-the power-off control register with regmap_write(), which rewrites the
-whole register and clears other control bits in it.
+Avoids errors like:
 
-On the AXP221/AXP223 (and the register-compatible AXP228) - that
-register also holds the CHGLED auto-control bit.
-Clearing it during an orderly shutdown disables the hardware charge
-indicator, so the charge LED stays dark while the board is powered off
-and charging. Other variants keep unrelated configuration in the same
-register too.
+    CFI failure at kthread+0x124/0x1cc (target: rsi_coex_scheduler_thread+0x0/0x1b4 [redpine_91x]; expected type: 0x89fb613d)
 
-Set only the power-off bit with regmap_set_bits() and leave the rest of
-the register untouched. The shutdown register is readable on every
-variant, so the read-modify-write should be safe.
+As seen in the aforementioned error this was tested using the downstream
+redpine_91x driver found in the Librem 5's downstream source tree.
+However, it appears that this driver is a modified version of the rsi
+driver found in mainline Linux and as such I decided to port the changes
+here too.
 
-Tested on a ClockworkPi uConsole (Raspberry Pi Compute Module 4, AXP228,
-which enumerates as AXP221): register AXP20X_OFF_CTRL reads 0x08 at
-runtime, so the old code left it 0x80 whereas setting only BIT(7)
-leaves 0x88. Writing 0x88 at power-off enables the charge LED
-while still powering off the PMIC.
-
-Signed-off-by: Oleg Proshkin <oleg.pro171@gmail.com>
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-Link: https://patch.msgid.link/20260611154629.76607-1-oleg.pro171@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Stefan Hansson <newbyte@postmarketos.org>
+Link: https://patch.msgid.link/20260804-rsi-cfi-fix-v2-1-59679a520240@postmarketos.org
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 1)...
-Retry attempt 1...
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 2)...
-Retry attempt 2...
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 3)...
-Retry attempt 3...
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 4)...
-Retry attempt 4...
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 5)...
-Retry attempt 5...
-This is a 6.1.y tree (Makefile 6.1.188, `pending-6.1`, `git describe`
-`p-6.1-9-g27ef8181b8a64`). The candidate is not an ancestor of HEAD. The
-buggy full-register write is present in this tree’s
-`axp20x_power_off()`.
+I have enough to decide: this is a 6.12 tree, the mismatched kthread
+types are present, and a CFI failure here is a default kernel BUG.
 
-## Phase 1: Commit message forensics
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.1 — Subject**
-Record: **[mfd/axp20x] [Preserve] Keep other bits in the PMIC shutdown
-register when setting the power-off bit**
+Step 1.1: PARSE THE SUBJECT LINE
+Record: [wifi: rsi] [Fix] [Correct kthread callback types so Clang CFI
+accepts them]
 
-**Step 1.2 — Tags**
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- Reviewed-by: Chen-Yu Tsai `<wens@kernel.org>` (Allwinner/sunXi
-  maintainer)
-- Link: `https://patch.msgid.link/20260611154629.76607-1-
-  oleg.pro171@gmail.com`
-- Signed-off-by: Oleg Proshkin (author); Lee Jones (MFD maintainer)
-- No Fixes:, Reported-by, Tested-by, Cc: stable, or syzbot tags (absence
-  is expected)
+- Signed-off-by: Stefan Hansson &lt;newbyte@postmarketos.org&gt;
+  (author)
+- Link: https://patch.msgid.link/20260804-rsi-cfi-
+  fix-v2-1-59679a520240@postmarketos.org
+- Signed-off-by: Johannes Berg &lt;johannes.berg@intel.com&gt; (linux-
+  wireless maintainer)
+- No Fixes: tag (expected)
+- No Cc: stable (expected)
+- No Reported-by / Tested-by / Reviewed-by / Acked-by on the committed
+  message
+- Ignore any pipeline “Upstream commit” / “Signed-off-by: Sasha Levin”
+  markers (none present in the provided message)
 
-**Step 1.3 — Body**
+Notable: maintainer SOB; author is from postmarketOS; testing mentioned
+in the body, not as Tested-by.
+
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- Bug: `axp20x_power_off()` uses `regmap_write(..., AXP20X_OFF)` (BIT(7)
-  only), which zeros every other bit in the shutdown/CHGLED control
-  register.
-- Symptom: On AXP221/AXP223/AXP228, CHGLED auto-control is cleared, so
-  the charge LED stays dark while the board is powered off and charging.
-  Author notes other variants store unrelated config in the same
-  register.
-- Root cause: whole-register write instead of set-bit RMW.
-- Evidence: ClockworkPi uConsole (CM4 + AXP228 as AXP221); runtime
-  `AXP20X_OFF_CTRL` is 0x08; old write produces 0x80, bit-set produces
-  0x88 and the LED works.
-- Author states the register is readable on every variant, so RMW is
-  safe.
+- Bug: CFI type mismatch when kthread starts
+  `rsi_coex_scheduler_thread`.
+- Symptom: `CFI failure at kthread+0x124/0x1cc (target:
+  rsi_coex_scheduler_thread+0x0/0x1b4 [redpine_91x]; expected type:
+  0x89fb613d)`
+- Version info: none. Tested on Librem 5 downstream `redpine_91x`,
+  described as a modified rsi driver; author ported the same type fix to
+  mainline rsi.
+- Root cause (from message + code): thread helpers are not `int (*)(void
+  *)` as `kthread_run()` requires; `rsi_create_kthread()` takes `void
+  *func_ptr`, so the compiler cannot catch it.
 
-**Step 1.4 — Hidden bug fix?**
-Record: Not hidden. Explicit hardware-correctness fix (register clobber
-at shutdown).
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not a disguised cleanup. The subject says “Fix types”; it is a
+real CFI/runtime type-check failure, not style-only.
 
-## Phase 2: Diff analysis
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-**Step 2.1 — Inventory**
-Record: `drivers/mfd/axp20x.c` only; 1 insertion, 1 deletion. Function:
-`axp20x_power_off`. Surgical single-file change.
+Step 2.1: INVENTORY THE CHANGES
+Record:
+- `drivers/net/wireless/rsi/rsi_91x_coex.c` —
+  `rsi_coex_scheduler_thread`
+- `drivers/net/wireless/rsi/rsi_91x_main.c` — `rsi_tx_scheduler_thread`
+- `drivers/net/wireless/rsi/rsi_91x_sdio_ops.c` — `rsi_sdio_rx_thread`
+- `drivers/net/wireless/rsi/rsi_91x_usb_ops.c` — `rsi_usb_rx_thread`
+- `drivers/net/wireless/rsi/rsi_common.h` — `rsi_create_kthread`
+- `drivers/net/wireless/rsi/rsi_sdio.h` / `rsi_usb.h` — prototypes
+- Scope: 7 files, 15 insertions / 11 deletions. Single-driver surgical
+  type fix.
 
-**Step 2.2 — Code flow**
-Record: Before: write 0x80 to the shutdown register, clearing bits 6–0.
-After: `regmap_set_bits()` ORs BIT(7) and leaves the rest. Shutdown path
-only (orderly power-off).
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record:
+- Before: thread functions are `void foo(struct rsi_common *common)` and
+  are passed through `void *func_ptr` into `kthread_run()`.
+- After: they are `int foo(void *data)` with `struct rsi_common *common
+  = data;`. `rsi_create_kthread()` takes `int (*func_ptr)(void *data)`.
+- Bodies are unchanged. They still end in
+  `kthread_complete_and_exit(...)`, which is `__noreturn`.
+- Path: kthread creation at driver init / coex attach, not an error-only
+  path.
 
-**Step 2.3 — Bug mechanism**
-Record: **Logic/correctness + hardware control-register clobber.**
-`regmap_write` of a single bit value wipes CHGLED/battery-detect/N_OE-
-related fields in REG 0x32. Fix is RMW via `regmap_set_bits`.
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record: [Type / CFI mismatch]
+- `kthread()` does `ret = threadfn(data)` with type `int (*)(void *)`
+  (`kernel/kthread.c`).
+- Clang CFI hashes that type. `void (*)(struct rsi_common *)` has a
+  different hash → CFI failure.
+- Default `CONFIG_CFI_CLANG` (non-permissive) treats that as
+  `BUG_TRAP_TYPE_BUG` (`kernel/cfi.c`).
+- Fix: match the kthread callback ABI so the type hash matches.
 
-**Step 2.4 — Fix quality**
-Record: Obviously correct one-line change. `regmap_set_bits` in this
-tree is `regmap_update_bits_base(map, reg, bits, bits, ...)`. Regression
-risk is low: one extra cached RMW at shutdown. 0x32 is not in axp22x
-volatile ranges (0x04–0x4c is writeable; 0x32 is not volatile), so RMW
-can use the cache. Mainline context (`sys_off_data`, AXP313 switch) is
-not in 6.1, so the raw patch does not apply; the equivalent change is
-still one write→set_bits.
+Step 2.4: ASSESS THE FIX QUALITY
+Record:
+- Obviously correct: this is the documented kthread callback type.
+- Minimal: signatures + one local cast; no locking/API/behavior change.
+- Regression risk: very low. `kthread_complete_and_exit` is
+  `__noreturn`, so no missing `return 0`. Johannes initially worried
+  about “control reaches end of non-void function”; that does not apply.
+- Red flags: none.
 
-## Phase 3: Git history
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-**Step 3.1 — Blame**
-Record: The full-register write is from **cfb61a419630a8** (“mfd:
-AXP20x: Add mfd driver for AXP20x PMIC”, Carlo Caione, 2014-05-01, first
-appeared **v3.16-rc1**). Present for the entire 6.1 lifetime. AXP288
-skip is af7e9069543aab (2014). Delay is 179dc63d06c51 (2016);
-`msleep`→`mdelay` is 3bcc06c5fd484 (already in this tree).
+Step 3.1: BLAME THE CHANGED LINES
+Record:
+- `rsi_tx_scheduler_thread` / `rsi_create_kthread`: `dad0d04fa7ba41`
+  (“rsi: Add RS9113 wireless driver”, 2014-03-17) — present since the
+  driver was added.
+- `rsi_coex_scheduler_thread`: `2108df3c4b1856` (“rsi: add coex
+  support”, 2018-03-13).
+- Long-lived bug, not recent churn.
 
-**Step 3.2 — Fixes: tag**
-Record: None. Introducer is cfb61a419630a8, which **is** an ancestor of
-HEAD.
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. Buggy pattern is original driver code, not a
+later regression.
 
-**Step 3.3 — File history**
-Record: Recent 6.1 file history is unrelated (GPIO cells, AXP288 ranges,
-`mdelay` in power-off). No prior CHGLED/bit-preserve fix. Standalone,
-not patch x/y.
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record:
+- Related in-tree: `16d9f674c6198` “wifi: rsi: fix kthread lifetime race
+  between self-exit and external-stop” (already in this tree). That
+  changes stop/wait, not signatures. No prerequisite conflict.
+- This CFI fix is not in the tree (`git log --grep` on
+  `drivers/net/wireless/rsi` found nothing).
+- Standalone; v2 only added kernel-doc, not extra code deps.
 
-**Step 3.4 — Author**
-Record: Oleg Proshkin has no other `drivers/mfd/` commits in this tree.
-Reviewer Chen-Yu Tsai is ARM/Allwinner sunXi maintainer; Lee Jones is
-MFD maintainer.
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Stefan Hansson is not the rsi maintainer; patch is from
+postmarketOS/Librem 5. Applied by Johannes Berg. No other rsi CFI
+commits by this author in this tree.
 
-**Step 3.5 — Dependencies**
-Record: Mainline uses `sys_off_data` (v6.3) and AXP313a register select
-(v6.5). Those are **not** required for the fix. 6.1 already has
-`regmap_set_bits` and `AXP20X_OFF_CTRL`. Standalone with a 1-line
-context adaptation.
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: None. Uses existing `kthread_run` / `kthread_complete_and_exit`.
+Can apply standalone.
 
-## Phase 4: Mailing list / external
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
-**Step 4.1 — Original discussion**
-Record: `b4 dig -c 3756bf05c96356` →
-https://patch.msgid.link/20260611154629.76607-1-oleg.pro171@gmail.com
-`b4 dig -a`: single **v1**, no later revisions.
-Chen-Yu Tsai: “Makes sense.” + Reviewed-by (openwall 2026-06-12).
-Lee Jones applied 2026-06-18 (lkml.iu.edu); no NAK, no stable-risk
-comments. lore.kernel.org fetches returned 403; discussion recovered via
-b4 and mirrors.
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+- `b4 dig -c &lt;sha&gt;` not usable (candidate SHA not in this
+  checkout).
+- `b4 mbox` on msgid `20260804-rsi-cfi-
+  fix-v2-1-59679a520240@postmarketos.org`: v2, 1-message thread.
+- v1: https://patch.msgid.link/20260802-rsi-cfi-
+  fix-v1-1-5821d2cb54ee@postmarketos.org
+- v2 vs v1: kernel-doc only (`@common` → `@data`, `Return: 0`).
+- Reviewers: Jeff Johnson (kernel-doc / From: vs SOB mismatch; said he
+  was going to R-B after fixing many Android CFI type bugs). Johannes
+  Berg first complained about nipa kernel-doc, then confirmed it builds,
+  then applied v2. No NAK. No Cc: stable in review.
 
-**Step 4.2 — Recipients (`b4 dig -w`)**
-Record: Oleg Proshkin, Chen-Yu Tsai, Lee Jones, linux-kernel@. Right
-maintainers were on the patch.
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record: Recipients: linux-wireless, linux-kernel, phone-devel,
+postmarketos/upstreaming. Maintainer Johannes Berg applied it. Jeff
+Johnson (Qualcomm/ath) reviewed v1.
 
-**Step 4.3 — Bug report**
-Record: No syzbot/bugzilla. Hardware test is in the commit (ClockworkPi
-uConsole, measured 0x08 vs 0x80 vs 0x88).
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No syzbot/bugzilla. Concrete CFI log from Librem 5 downstream
+`redpine_91x`. Same mismatch exists in mainline rsi (verified in this
+tree).
 
-**Step 4.4 — Series**
-Record: Standalone 1/1. No dependents.
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Single patch, v1→v2 kernel-doc only. Not a multi-patch series.
 
-**Step 4.5 — Stable list**
-Record: lore.kernel.org/stable returned 403. No evidence this was
-rejected for stable. UNVERIFIED: no stable-ML thread found.
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: lore.kernel.org/stable search returned 403. Web search found no
+stable-list discussion of this CFI fix. No evidence it was rejected for
+stable.
 
-## Phase 5: Semantic / call graph
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
-**Step 5.1 — Functions**
-Record: `axp20x_power_off` only.
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: `rsi_coex_scheduler_thread`, `rsi_tx_scheduler_thread`,
+`rsi_sdio_rx_thread`, `rsi_usb_rx_thread`, `rsi_create_kthread`.
 
-**Step 5.2 — Callers (this tree)**
-Record: Probe sets `pm_power_off = axp20x_power_off` when unset. Invoked
-from the kernel power-off path (`kernel_power_off` /
-`do_kernel_power_off`). Not IRQ, not a hot path. AXP288 returns
-immediately (same as mainline skipping that variant).
+Step 5.2: TRACE CALLERS
+Record:
+- `rsi_create_kthread()` → `kthread_run(func_ptr, common, ...)`
+- Callers: `rsi_91x_init` (Tx-Thread), `rsi_coex_attach` (Coex-Tx-
+  Thread), SDIO probe (`rsi_sdio_rx_thread`), USB init
+  (`rsi_usb_rx_thread`).
+- Context: process context at probe/init, not IRQ.
 
-**Step 5.3 — Callees**
-Record: `regmap_write` today; `regmap_set_bits` after the fix;
-`mdelay(500)`.
+Step 5.3: TRACE CALLEES
+Record: `rsi_wait_event` / `rsi_reset_event`, TX/RX processing, then
+`kthread_complete_and_exit`. No alloc/lock changes.
 
-**Step 5.4 — Reachability**
-Record: Yes — `shutdown`/`poweroff` from userspace. Affects
-AXP221/223/202/209/803/809/813/806/152 boards that register this
-handler. AXP221 is a first-class compatible in `axp20x-i2c.c`.
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: Userspace-reachable via loading the rsi USB/SDIO module and
+bringing the interface up. With CFI, failure is at kthread start
+(`threadfn(data)` in `kthread()`), i.e. as soon as the driver creates
+its threads.
 
-**Step 5.5 — Similar patterns**
-Record: Power-supply code in this tree does not program
-`AXP20X_OFF_CTRL`; CHGLED bits come from hardware/boot default (0x08
-matches bit 3). No sibling fix already present.
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: All four rsi kthread entry points had the same wrong type; this
+patch fixes all of them. Precedent in-tree: `e1ea6db35fc3b` “wifi:
+brcmsmac: avoid function pointer casts” (KCFI / clang-16). Jeff Johnson
+noted many similar Android CFI callback-type fixes.
 
-## Phase 6: This tree
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
-**Step 6.1 — Buggy code present?**
-Record: **Yes.** HEAD:
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record: Yes. Local tree is **6.12.111** (`git describe`:
+`p-6.12-2-gd38d58a4e0359`). Current signatures are still `void
+foo(struct rsi_common *)` and `void *func_ptr`. Introduced 2014/2018;
+both are ancestors of HEAD. CFI exists here: `CONFIG_CFI_CLANG` in
+`arch/Kconfig`; arm64/x86_64/arm select `ARCH_SUPPORTS_CFI_CLANG`.
 
-```
-regmap_write(axp20x_pm_power_off->regmap, AXP20X_OFF_CTRL, AXP20X_OFF);
-```
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Context matches the patch hunks. Expected apply: **clean**.
+Nearby `16d9f674c6198` does not touch these signatures.
 
-AXP221/AXP223 match and `x-powers,axp221` compatible exist. Bug since
-v3.16.
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: Kthread lifetime UAF fix is here; this CFI type fix is not. No
+alternate CFI workaround in rsi.
 
-**Step 6.2 — Backport difficulty**
-Record: **Minor conflicts / trivial rework.** `git apply --check` of the
-mainline hunk fails (`shutdown_reg` / `sys_off_data` not in 6.1).
-Equivalent backport:
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
-```
-- regmap_write(axp20x_pm_power_off->regmap, AXP20X_OFF_CTRL,
-- AXP20X_OFF);
-+       regmap_set_bits(axp20x_pm_power_off->regmap, AXP20X_OFF_CTRL,
-+                       AXP20X_OFF);
-```
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: [wifi rsi / `drivers/net/wireless/rsi`] [PERIPHERAL] —
+Redpine/Silabs RS911x USB/SDIO. Used on some phones/SBCs (Librem 5). Not
+core mm/net. No dedicated MAINTAINERS entry; linux-wireless (Johannes
+Berg) applied it.
 
-**Step 6.3 — Related fixes already here?**
-Record: No. Only power-off history is the 500ms delay and `mdelay`
-conversion.
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Mature, low-churn driver with occasional stable-worthy fixes
+(OOB, kthread UAF). Bug is old, not from recent refactor.
 
-## Phase 7: Subsystem context
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
 
-**Step 7.1**
-Record: **MFD / X-Powers AXP20x PMIC.** Criticality **IMPORTANT** for
-Allwinner/ARM boards (Pine64, many SBCs, ClockworkPi). Not core mm/fs,
-not staging.
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: Driver-specific + config-specific: `CONFIG_RSI_91X` and
+`CONFIG_CFI_CLANG`. Default CFI is not permissive. CFI is common on
+Android GKI and hardened/mobile builds; not in this tree’s arch
+defconfigs.
 
-**Step 7.2**
-Record: Mature driver (2014). 6.1 file log is slow-moving; this is an
-old bug, not churn from new code.
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: Driver probe / thread create. Common if you have the hardware
+and CFI. Unprivileged users do not set this up; loading the driver
+(boot/hotplug) is enough. Not a race.
 
-## Phase 8: Impact and risk
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: Non-permissive CFI → `BUG_TRAP_TYPE_BUG` → kernel oops/panic
+when the thread starts. WiFi (and coex BT) does not come up. Severity:
+**HIGH** for CFI+rsi; **none** without CFI (wrong types happen to work
+on normal ABIs).
 
-**Step 8.1 — Who**
-Record: Driver-specific: AXP20x/22x users on orderly shutdown,
-especially AXP221/223/228 with a charge LED. Config:
-`CONFIG_MFD_AXP20X`.
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record:
+- Benefit: prevents CFI panics on rsi probe; restores WiFi on CFI
+  kernels.
+- Risk: very low (~15 lines, type-only, no behavior change without CFI).
+- Ratio: favorable. Small correctness fix, real crash for the configs
+  that hit it.
 
-**Step 8.2 — Trigger**
-Record: Every orderly power-off on those PMICs. Unprivileged users can
-typically run shutdown if policy allows; not a remote exploit path.
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
-**Step 8.3 — Failure mode**
-Record: PMIC REG 0x32 clobbered at power-off. User-visible: charge LED
-off while charging with SoC down. Other bits in the same register
-(battery detect / CHGLED mode / related config) are also cleared.
-**Severity: MEDIUM** (hardware misprogramming, not
-oops/corruption/deadlock).
+Step 9.1: COMPILE THE EVIDENCE
+FOR:
+- Real CFI failure log; default CFI is a kernel BUG.
+- Buggy signatures are in this 6.12 tree and date to 2014/2018.
+- Tiny, obviously correct ABI match to `kthread_run`.
+- Applies cleanly; no deps.
+- Johannes Berg applied v2; Jeff Johnson reviewed v1.
+- Same class as other KCFI function-type fixes (e.g. brcmsmac).
+- Real hardware path (Librem 5 / postmarketOS).
 
-**Step 8.4 — Risk/benefit**
-Record: Benefit medium for battery AXP boards (indicator and leftover
-PMIC config). Risk **very low** (1-line RMW, cached register,
-maintainer-reviewed, hardware-tested). Ratio favors backport.
+AGAINST:
+- Only crashes with `CONFIG_CFI_CLANG`; most generic 6.12 distro configs
+  leave CFI off.
+- Niche driver; tested on downstream `redpine_91x`, not a mainline rsi
+  repro (mainline still has the same types).
+- No Fixes:/Cc: stable (not a negative by itself).
+- No syzbot.
 
-## Phase 9: Synthesis
+UNRESOLVED:
+- Could not `b4 dig -c` a mainline SHA (commit not in this checkout).
+- lore.kernel.org fetches returned 403; reviews recovered from
+  openwall/lkml.iu.edu/spinics.
+- No stable-list discussion found.
 
-**For:** Real, tested hardware bug; 1-line obviously correct RMW;
-AXP221/223 exist in 6.1; bug since 2014; Chen-Yu Tsai + Lee Jones;
-`regmap_set_bits` already here; shutdown path only.
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — types match kthread API; CFI
+   failure observed; maintainer applied v2.
+2. Fixes a real bug that affects users? **PASS** — CFI kernels panic at
+   rsi thread start.
+3. Important issue? **PASS** — kernel BUG/panic (HIGH for CFI+rsi).
+4. Small and contained? **PASS** — 7 files, ~26 lines, one driver.
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — 6.12.111 has the buggy code;
+   context matches.
 
-**Against:** Not a crash/security/corruption bug; mainline hunk needs a
-trivial context adapt; no Fixes:/Cc: stable (not a negative).
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: Not a device-ID/quirk/DT/docs exception. Closest: type-
+correctness / CFI crash fix (normal stable bugfix).
 
-**Unresolved:** lore.kernel.org 403; no stable-ML thread retrieved.
+Step 9.4: MAKE YOUR DECISION
+This is a real, user-visible panic on CFI-enabled 6.12 systems that use
+rsi, not a compiler-warning cleanup. The local tree has CFI and the
+mismatched callbacks. The change is a surgical signature fix with
+negligible regression risk. That meets the stable bar for this tree.
 
-**Stable rules**
-1. Obviously correct and tested? **PASS** — RMW vs full write; tested
-   0x08→0x88; Reviewed-by maintainer.
-2. Real user-facing bug? **PASS** — charge LED dead after shutdown while
-   charging.
-3. Important (crash/security/corruption/deadlock)? **PASS** (borderline)
-   — PMIC control register clobber at power-off; LED is the reported
-   symptom, not a panic. Small enough that this still belongs in LTS.
-4. Small and contained? **PASS** — one call site.
-5. No new features/APIs? **PASS**
-6. Can apply to this tree? **PASS** with a one-line backport (raw
-   mainline patch fails `git apply --check`).
+===============================================================
+What the commit solves (for this tree)
+===============================================================
 
-**Exception:** Not a new ID/DT/build fix. Closest category is hardware-
-correctness/quirk-class behavior.
-
-This tree should get the fix: the buggy write is here, AXP221 is
-supported, and the adapted change is a single `regmap_set_bits` on
-`AXP20X_OFF_CTRL`.
+On 6.12, `kthread()` indirectly calls the thread function as `int
+(*)(void *)`. rsi hid `void (*)(struct rsi_common *)` behind `void
+*func_ptr`. With `CONFIG_CFI_CLANG`, that is a type-hash mismatch and a
+kernel BUG as soon as Tx/Rx/coex threads start. The patch makes the
+callbacks match the kthread ABI. Without CFI the mismatch is latent;
+with CFI it is a crash. Benefit vs risk is strongly in favor of
+backporting.
 
 Verification:
-- [Phase 1] Tags: Reviewed-by Chen-Yu Tsai, Link msgid, SOBs Oleg/Lee;
-  no Fixes/syzbot
-- [Phase 2] Diff: `regmap_write` → `regmap_set_bits` in
-  `axp20x_power_off`
-- [Phase 3] `git blame HEAD -L 835,848`: write from cfb61a419630a8
-  (v3.16-rc1); `git merge-base --is-ancestor cfb61a419630a HEAD`
-  succeeded
-- [Phase 3] `git merge-base --is-ancestor 3756bf05c96356 HEAD` failed
-  (candidate not in 6.1)
-- [Phase 4] `b4 dig -c 3756bf05c96356`: lore msgid; `-a` v1 only; `-w`
-  wens+lee+lkml
-- [Phase 4] Chen-Yu “Makes sense.”; Lee Jones applied; lore.kernel.org
-  HTTP 403
-- [Phase 5] HEAD probe assigns `pm_power_off = axp20x_power_off`; AXP221
-  compatible in `axp20x-i2c.c`
-- [Phase 6] HEAD Makefile 6.1.188; describe `p-6.1-9-g27ef8181b8a64`;
-  branch `pending-6.1`
-- [Phase 6] HEAD still has `regmap_write(..., AXP20X_OFF_CTRL,
-  AXP20X_OFF)`; `git apply --check` of the mainline hunk fails
-- [Phase 6] `regmap_set_bits` exists; 0x32 in axp22x writeable 0x04–0x4c
-  and not volatile
-- [Phase 8] Failure: CHGLED/other bits cleared at power-off; severity
-  MEDIUM
-- UNVERIFIED: stable@ mailing list (lore/stable 403)
+- [Phase 1] Parsed subject/tags/body: CFI failure log; SOB Hansson +
+  Johannes Berg; Link to v2 msgid; no Fixes/Cc:stable/Reported-by
+- [Phase 2] Diff: four thread fns `void (struct rsi_common *)` → `int
+  (void *)`; `rsi_create_kthread` `void *` → `int (*)(void *)`; ~15/+11
+  lines
+- [Phase 2] `include/linux/kthread.h`: `kthread_run` /
+  `kthread_create_on_node` take `int (*threadfn)(void *data)`
+- [Phase 2] `kernel/kthread.c:389`: `ret = threadfn(data);` — CFI-
+  checked indirect call
+- [Phase 2] `kernel/cfi.c`: default non-permissive path returns
+  `BUG_TRAP_TYPE_BUG`; `CFI_PERMISSIVE` is warn-only
+- [Phase 2] `kthread_complete_and_exit` is `__noreturn` in
+  `include/linux/kthread.h:101`
+- [Phase 3] blame: `dad0d04fa7ba41` (2014) and `2108df3c4b1856` (2018);
+  both ancestors of HEAD
+- [Phase 3] `git log --grep='wifi: rsi: Fix types to appease CFI' --
+  drivers/net/wireless/rsi`: not in this tree
+- [Phase 3] Related `16d9f674c6198` kthread lifetime fix is already
+  here; no signature overlap
+- [Phase 4] `b4 mbox` msgid: v2 saved; v2 changelog = kernel-doc only;
+  v1 Link in changelog
+- [Phase 4] Jeff Johnson v1 review (openwall): kernel-doc; would R-B;
+  Android CFI type-fix experience
+- [Phase 4] Johannes Berg (lkml.iu.edu): nipa kernel-doc confusion, then
+  confirmed build, applied
+- [Phase 4] lore.kernel.org WebFetch: 403; stable-list discussion
+  UNVERIFIED via lore
+- [Phase 5] Callers: `rsi_91x_init`, `rsi_coex_attach`, SDIO probe, USB
+  init — all `rsi_create_kthread`
+- [Phase 6] `git describe HEAD` = `p-6.12-2-gd38d58a4e0359`; `make
+  kernelversion` = 6.12.111
+- [Phase 6] Current rsi files still have the old signatures; patch
+  context matches
+- [Phase 6] `CONFIG_CFI_CLANG` present; arm64/x86_64/arm support CFI
+- [Phase 7] rsi has no MAINTAINERS stanza; linux-wireless took the patch
+- [Phase 8] Failure mode: CFI BUG at kthread start, HIGH for CFI+rsi
+- UNVERIFIED: mainline SHA (not in this checkout); whether Android GKI
+  6.12 enables rsi; live mainline rsi CFI repro (same types verified
+  here)
 
 **YES**
 
- drivers/mfd/axp20x.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/wireless/rsi/rsi_91x_coex.c     | 3 ++-
+ drivers/net/wireless/rsi/rsi_91x_main.c     | 7 ++++---
+ drivers/net/wireless/rsi/rsi_91x_sdio_ops.c | 3 ++-
+ drivers/net/wireless/rsi/rsi_91x_usb_ops.c  | 7 ++++---
+ drivers/net/wireless/rsi/rsi_common.h       | 2 +-
+ drivers/net/wireless/rsi/rsi_sdio.h         | 2 +-
+ drivers/net/wireless/rsi/rsi_usb.h          | 2 +-
+ 7 files changed, 15 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-index c5f0ebae327f5..85506813f089c 100644
---- a/drivers/mfd/axp20x.c
-+++ b/drivers/mfd/axp20x.c
-@@ -1250,7 +1250,7 @@ static int axp20x_power_off(struct sys_off_data *data)
- 		break;
- 	}
+diff --git a/drivers/net/wireless/rsi/rsi_91x_coex.c b/drivers/net/wireless/rsi/rsi_91x_coex.c
+index 372eaaa2b9efc..05525d5e2edb1 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_coex.c
++++ b/drivers/net/wireless/rsi/rsi_91x_coex.c
+@@ -50,8 +50,9 @@ static void rsi_coex_sched_tx_pkts(struct rsi_coex_ctrl_block *coex_cb)
+ 	} while (coex_q != RSI_COEX_Q_INVALID);
+ }
  
--	regmap_write(axp20x->regmap, shutdown_reg, AXP20X_OFF);
-+	regmap_set_bits(axp20x->regmap, shutdown_reg, AXP20X_OFF);
+-static void rsi_coex_scheduler_thread(struct rsi_common *common)
++static int rsi_coex_scheduler_thread(void *data)
+ {
++	struct rsi_common *common = data;
+ 	struct rsi_coex_ctrl_block *coex_cb = common->coex_cb;
+ 	u32 timeout = EVENT_WAIT_FOREVER;
  
- 	/* Give capacitors etc. time to drain to avoid kernel panic msg. */
- 	mdelay(500);
+diff --git a/drivers/net/wireless/rsi/rsi_91x_main.c b/drivers/net/wireless/rsi/rsi_91x_main.c
+index 2112d8d277a99..0b4d691580054 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_main.c
++++ b/drivers/net/wireless/rsi/rsi_91x_main.c
+@@ -246,12 +246,13 @@ EXPORT_SYMBOL_GPL(rsi_read_pkt);
+ /**
+  * rsi_tx_scheduler_thread() - This function is a kernel thread to send the
+  *			       packets to the device.
+- * @common: Pointer to the driver private structure.
++ * @data: Pointer to the driver private structure.
+  *
+- * Return: None.
++ * Return: 0.
+  */
+-static void rsi_tx_scheduler_thread(struct rsi_common *common)
++static int rsi_tx_scheduler_thread(void *data)
+ {
++	struct rsi_common *common = data;
+ 	struct rsi_hw *adapter = common->priv;
+ 	u32 timeout = EVENT_WAIT_FOREVER;
+ 
+diff --git a/drivers/net/wireless/rsi/rsi_91x_sdio_ops.c b/drivers/net/wireless/rsi/rsi_91x_sdio_ops.c
+index 597b238e22949..18a28aa974460 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_sdio_ops.c
++++ b/drivers/net/wireless/rsi/rsi_91x_sdio_ops.c
+@@ -62,8 +62,9 @@ int rsi_sdio_master_access_msword(struct rsi_hw *adapter, u16 ms_word)
+ 
+ static void rsi_rx_handler(struct rsi_hw *adapter);
+ 
+-void rsi_sdio_rx_thread(struct rsi_common *common)
++int rsi_sdio_rx_thread(void *data)
+ {
++	struct rsi_common *common = data;
+ 	struct rsi_hw *adapter = common->priv;
+ 	struct rsi_91x_sdiodev *sdev = adapter->rsi_dev;
+ 
+diff --git a/drivers/net/wireless/rsi/rsi_91x_usb_ops.c b/drivers/net/wireless/rsi/rsi_91x_usb_ops.c
+index 25c2b232394a6..e899631b9aed2 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_usb_ops.c
++++ b/drivers/net/wireless/rsi/rsi_91x_usb_ops.c
+@@ -21,12 +21,13 @@
+ /**
+  * rsi_usb_rx_thread() - This is a kernel thread to receive the packets from
+  *			 the USB device.
+- * @common: Pointer to the driver private structure.
++ * @data: Pointer to the driver private structure.
+  *
+- * Return: None.
++ * Return: 0.
+  */
+-void rsi_usb_rx_thread(struct rsi_common *common)
++int rsi_usb_rx_thread(void *data)
+ {
++	struct rsi_common *common = data;
+ 	struct rsi_hw *adapter = common->priv;
+ 	struct rsi_91x_usbdev *dev = adapter->rsi_dev;
+ 	int status;
+diff --git a/drivers/net/wireless/rsi/rsi_common.h b/drivers/net/wireless/rsi/rsi_common.h
+index c40f8101febcb..4f6738ba72be2 100644
+--- a/drivers/net/wireless/rsi/rsi_common.h
++++ b/drivers/net/wireless/rsi/rsi_common.h
+@@ -58,7 +58,7 @@ static inline void rsi_reset_event(struct rsi_event *event)
+ 
+ static inline int rsi_create_kthread(struct rsi_common *common,
+ 				     struct rsi_thread *thread,
+-				     void *func_ptr,
++				     int (*func_ptr)(void *data),
+ 				     u8 *name)
+ {
+ 	init_completion(&thread->completion);
+diff --git a/drivers/net/wireless/rsi/rsi_sdio.h b/drivers/net/wireless/rsi/rsi_sdio.h
+index 7c91b126b350f..eb2b7f36a7e4c 100644
+--- a/drivers/net/wireless/rsi/rsi_sdio.h
++++ b/drivers/net/wireless/rsi/rsi_sdio.h
+@@ -134,5 +134,5 @@ int rsi_sdio_master_access_msword(struct rsi_hw *adapter, u16 ms_word);
+ void rsi_sdio_ack_intr(struct rsi_hw *adapter, u8 int_bit);
+ int rsi_sdio_determine_event_timeout(struct rsi_hw *adapter);
+ int rsi_sdio_check_buffer_status(struct rsi_hw *adapter, u8 q_num);
+-void rsi_sdio_rx_thread(struct rsi_common *common);
++int rsi_sdio_rx_thread(void *data);
+ #endif
+diff --git a/drivers/net/wireless/rsi/rsi_usb.h b/drivers/net/wireless/rsi/rsi_usb.h
+index 961851748bc4c..78067eaffe8b1 100644
+--- a/drivers/net/wireless/rsi/rsi_usb.h
++++ b/drivers/net/wireless/rsi/rsi_usb.h
+@@ -81,5 +81,5 @@ static inline int rsi_usb_event_timeout(struct rsi_hw *adapter)
+ 	return EVENT_WAIT_FOREVER;
+ }
+ 
+-void rsi_usb_rx_thread(struct rsi_common *common);
++int rsi_usb_rx_thread(void *data);
+ #endif
 -- 
 2.53.0
 
