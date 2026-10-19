@@ -1,140 +1,158 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012009.outbound.protection.outlook.com [52.101.66.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321BB46F4A4;
-	Mon, 19 Oct 2026 07:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792396168; cv=fail; b=TTT3v3wdk65h+91/DaqA7L7DUbRWXc1SUBhCooOn8AOEDtr5NQavhQY1VZfTT6Oajf6nX6ohmQUE4364e7wdV/tDvWxqHmyJQdzzTnpsELCQRnhGgrHO+YoU9NBewbFZaLU6iMnA45rPucBgxXCk28PVauLxkgn2WILy7P07mQg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792396168; c=relaxed/simple;
-	bh=gshe/0ztyemx3BYmj7FJaCxVN1t6bRNxb0J3fyu+Klk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ru7k0y62P4bmcW6rh4refrVv64dJ3gGRZP7IzjXXXoO+bSA3PTY4pOe63J6mCHpyMLfYEDPAVaeS02OcAkvxdDs4EORgHJrqkz23kGwDedzyFehaQf++N2Z+ccDCM+Zbq3hepKjdQJz5jQR/vx0TYALwyDIbmSrqGy0NtC3OXm4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=oeDdUaSh; arc=fail smtp.client-ip=52.101.66.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="oeDdUaSh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=urjyv+UB1IB+thoHVa9EI9l2UyzzHLim+SKXl+rvyACMJXTvyW2URVx/NW3aiCPgwXt+Rp11+5g85pyzC6iAxFuppp4Vcr7nbbExeKBRn4nSUdhsVydVHvKJwCKP6VEAPwudc4e+4FT+bcCUnduRA1whygp8CM6CnOk/UfChhUJzHU+GAqYCd3BbAAikccMrr+nmoH/m16OilH+cniUenz3BoVVuIz4x5WwZp3A2ylqoshs1iB2enCWCQkedva1A3CvttYw66kypgDUOBpXkZq10BmJpLa6J+Zl4NhBvUEws63enm7IhdiNkm4YcnPKTSLzbTJuhJ0UxJERcnsVwcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ld+zTAOHD/rbwuWaPwGxU5r8NwC8vHbt7mPYvDpN+GE=;
- b=vH4IWhg5RSTm84MndlqvPWlDnSkiHN1R3pHFMTTgWt58jS21pUeBhjciwr2CuC8x5ZndZvhFEyqyAAJinFi39WQ1VGgW2uORLSTEB2wsHf/bPuDmAXnN7PFcWJOtSYa8RrCcdaQtl+tSdMte2gWPUUrHmzmoMa7UUxJie3LD7hZK1GrkLE2eguU7843rCulZQUS67EdcsIR3ISg1xQGuM5lTuN0ZxQzYl+4NUCDBitrPneD2P0iyE0qLG2qWyUJSfF+ZNYbn547E3/RomF0uCx9yDD97I0qklxRVLO9CtmdydycsWjoDhWoqxPjDbryZKY9AbW1yXFCGMOu9yBEvGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ld+zTAOHD/rbwuWaPwGxU5r8NwC8vHbt7mPYvDpN+GE=;
- b=oeDdUaShxPqOGpz2znsCIPnKEJ2cOoqidsrIb12bTYzshwEGapWKXnA8Aa5yBc4+/jDy83rCEvUiSCKLieOo7uu/4WXlI2H4xPG0BYxg5dfOUXT8ll9CCaMfuEmnxb9+LepXr8T+DnYsWC8Oa+tO6pHKxj6umJJZ6uZc4VmYxy+iPyJLQ4k9doQ9h9Py1ktyhvsOh0Lgs3qVJXiOy1YieLhsmJFxYw4tuxza2HzAtzOieIomTQ9QdIpdtlJfDsROf4TLxSas9prWT1uhRy0gfOU9BP9EX1XAQK6JveYWofUdDyukoaZtbQLpRpxiTyNR5M7aWzKXdresDAz9HW6/Vg==
-Received: from PAZP264CA0040.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fc::22)
- by MMZPR10MB979095.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:190:4e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 07:49:23 +0000
-Received: from ZR1PEPF0000E6B3.eurprd05.prod.outlook.com
- (2603:10a6:102:1fc:cafe::19) by PAZP264CA0040.outlook.office365.com
- (2603:10a6:102:1fc::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
- 19 Oct 2026 07:49:23 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- ZR1PEPF0000E6B3.mail.protection.outlook.com (10.167.241.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 07:49:23 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 19 Oct
- 2026 09:49:40 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 19 Oct
- 2026 09:49:22 +0200
-Message-ID: <7247f5b5-5eba-4afe-8287-19731e71d4b9@foss.st.com>
-Date: Mon, 19 Oct 2026 09:49:42 +0200
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ACDB848EC86;
+	Mon, 19 Oct 2026 07:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792396174; cv=none; b=Hae84Dm+XUeIDv4sLg8AiCLnayS2YEJWrqUEEolrn2/uQqVL0ae/MUtZ8uNa6avaB4a1YkDOpAYlQDFqFSKneuMuvQuy6sUuR9GAem4+HnK3P35EXL4bimdbap/2y105uhQX96LA9A/qfyTZO0N0mbjxUkOGsPvJUwSsCvW2vGI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792396174; c=relaxed/simple;
+	bh=9m8ND55bE6LAT0sYf5FjzlMSmT/c2rxHNWt6aZRTktA=;
+	h=Subject:From:To:Cc:References:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=eAr4WgQBsb0jq0kq1hMGdhT6n58UO7MZ9ugjAzRRV6aLdqKdlvAOz3Edvf7fCFFFk5dBYw9KOw4LqME2NxkdRAfKveAx+klXBVTukO33ksglSsMarIwScuhurObkD+BtRwfoKdo6kIM2rhYPNdVdNJ1ayq/tKnNI0M+6Fb12evg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8CxutGFy9VqVzcXAA--.2204S3;
+	Mon, 19 Oct 2026 15:49:25 +0800 (CST)
+Received: from [127.0.0.1] (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJDxg8yEy9VqmO8tAA--.3247S2;
+	Mon, 19 Oct 2026 15:49:25 +0800 (CST)
+Subject: Re: [PATCH bpf-next v2] selftests/bpf: Use snake_case for subtest
+ descriptions in jit_insns_arena.c
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Daniel Borkmann <daniel@iogearbox.net>,
+ Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261019040106.27309-1-yangtiezhu@loongson.cn>
+ <d13c66a3-0519-48c1-88fe-55bc755b79a2@iogearbox.net>
+ <84434f7a-1c38-03ea-3062-8e8cf364fd4e@loongson.cn>
+Message-ID: <f875feab-1f3d-002f-6b9b-52c375753bcd@loongson.cn>
+Date: Mon, 19 Oct 2026 15:49:24 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: i2c: vd55g1: Register as a sensor sub-device
-To: George Neacsu <geocausa@gmail.com>
-CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>, <linux-media@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261016-vd55g1-async-sensor-v1-1-cd72f6d68ea4@gmail.com>
- <073e5fa2-313d-4d7b-ac10-3a74c57d3c62@foss.st.com>
- <20261016145542.37322-1-geocausa@gmail.com>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20261016145542.37322-1-geocausa@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <84434f7a-1c38-03ea-3062-8e8cf364fd4e@loongson.cn>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZR1PEPF0000E6B3:EE_|MMZPR10MB979095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8829114a-5088-4114-aaac-08df2db57dc4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|376014|36860700016|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	XUYRM2T7ZIjWsdu+fWtwPWazfTU+IbwabtqxIbDMg8RtNdphSrWfj7ZBFS406D+dDGfrnupujUB/Cgtmwm5Pmqc0Ik3ka0wBVjRut/1N92hrFtkblFSs3pN0knwA4MHfHuO4ETCA1MN5dH0ENoVlyDwK7w8Q4FfrWKodVukSxz7Q2c2TViZSVj8oo24LrPNGf6imC6pt4dSJTx8gNHkbm+uIZwVxdTM5I+SzmadBf5NtD5aTXQIax+yo8aRNQZRn/hl5Ll+hlMA6Kz38kmivc5LmdW2BD2+GzWT5kS2xe94XUyL9fNVM3SaHIe/MDp7BZVb1hYQyzpPdXLqGBlva2JA0N0KBqu8wByuldj4Qc5fLzt77cqmIgio9NVjqZG0eLvdFGAM/HAyc4LQLlUq6bRqCPAUKvOKSHyCwS97ZEAz99VFwWBH/YWqU4edXSbI9lqcQzcPphSRSdhVjx4mcrEdkosWzaYIsPVsXjIsGTNrnmT7UmoAYdgeqrS7voxxnXAoxsQXWS4wOhUBeFSR5LeAIaxHOVuVG5AUbT/lHdnoZWUad/vrRs7Tf5f3/rBD1hgsnn8it5W9hotMpvW18OrDSIlg2IewlVcd1SYS39BvRBj4BnrlYdWSIPnuLQ5Rcvdu2XCkeMBXdG+JIEMg4etoyJDsWcWko9PEnc4eZoMSMvRc4f4MjoI2/nPvXbKadDwlFEk35QsUCYxR7g23Ylg==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(376014)(36860700016)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	zVXIDPf3EX7EyO+6ov3LiKQsp0UXFh9qdthUibKpt2osnj6pg49+dhZP5BHMsWH6FdnKCCkg8Glg3ijM85KPXdZmKJGBxkT+rAgcX2JGg/cmvNCy0UNqwWt3yDVxEHTfsa6TkGzZY/J1IVWrDlrkG7+AS/gDV4gU2lBsoIWWCakAE+Py7i9fy9rHbRxCkJFeaxKSpPEROzDnq4Gm4642cl25Idqv2idN35//hZIEa5z6sWr+Aw/EwW9AD32N8ZjkGc8NcSAzrlavndq1ZEY/SD+iAmL8i/DpKa9ZOWEUsPIGa77f7UfDQLu1r3WQKV9hdvkVxlA/CnvRcgUZ9OZ/Q4JmavcnwUShp2EDXMGd2hEVKl49rNM1LPuqG21KLd13dgQBZVQzCQELRpuw21TTmgQlZR4DM14VA8on2gVf6Q7x3VPX0GeNSlZSzEB2rVj/
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 07:49:23.1632
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8829114a-5088-4114-aaac-08df2db57dc4
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	ZR1PEPF0000E6B3.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR10MB979095
+X-CM-TRANSID:qMiowJDxg8yEy9VqmO8tAA--.3247S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxZFyUXFWDArykXr4xtw1rXwc_yoW5uF4fpF
+	Wkta1xtrWxJ3WSvw4kZw18W3WF9Fn5JFn8Gr1rXrW5urs8JF1aqryxKF1YkF90grWxZr1Y
+	ka12yrZFgF17CrcCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9ab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE
+	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
+	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E
+	14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4
+	CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1x
+	MIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF
+	4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsG
+	vfC2KfnxnUUI43ZEXa7IU8PCzJUUUUU==
 
-Hi George,
-
-Le 16/10/2026 à 16:55, George Neacsu a écrit :
-> Hi Benjamin,
+On 2026/10/19 下午3:18, Tiezhu Yang wrote:
+> On 2026/10/19 下午2:47, Daniel Borkmann wrote:
+>> On 10/19/26 6:01 AM, Tiezhu Yang wrote:
+>>> Normalize two inline assembly test descriptions in jit_insns_arena.c
+>>> from space-separated strings to snake_case.
+>>>
+>>> It is done for consistency with other neighboring subtests registered
+>>> in test_jit_insns() (such as alu_imm, alu_reg, etc.). This also makes
+>>> it convenient to execute these subtests directly from the command line
+>>> without being forced to use shell quoting.
+>>>
+>>> Otherwise, unquoted shell word-splitting causes test_progs to reject
+>>> the extra arguments before the filter code runs:
+>>>
+>>> $ sudo ./test_progs -t jit_insns/arena access with zero offset
+>>> Usage: test_progs [OPTION...]
+>>> Try `test_progs --help' or `test_progs --usage' for more information.
+>>>
+>>> $ sudo ./test_progs -t jit_insns/cast to a user address
+>>> Usage: test_progs [OPTION...]
+>>> Try `test_progs --help' or `test_progs --usage' for more information.
+>>>
+>>> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+>> Do these not work already?
+>>
+>>    ./test_progs -t jit_insns/arena_zero_off
+>>    ./test_progs -t jit_insns/cast_to_user
 > 
-> On 16/10/2026 12:04, Benjamin Mugnier wrote:
->> Signed-off-by: Benjamin Mugnier <benjamin.mgunier@foss.st.com>
+> Yes, they work.
 > 
-> Thank you for looking at it. Did you mean Reviewed-by or Acked-by here?
-> The address in the tag also reads "mgunier" rather than "mugnier", so
-> the tools would pick it up as written.
-
-Of course, I apologise. Here is the correct tag :
-
-Reviewed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-
-I think you'll need to manually remove the wrong tag for your tool.
-
+> I misunderstood that the name is "cast to a user address" in the output
+> rather than "cast_to_user" before, there is difference between the
+> description and the name.
 > 
-> Thanks,
-> George
+> Something like this:
+> 
+> $ sudo ./test_progs -t jit_insns/cast_to_user
+> #191/2   jit_insns/cast to a user address:OK
+> #191     jit_insns:OK
+> #192     jit_insns_blinded:OK
+> Summary: 2/1 PASSED, 0 SKIPPED, 0/0 FAILED
+> 
+> Anyway, if this patch is not necessary, please ignore it.
 
--- 
-Regards,
-Benjamin
+By the way, IMO, it is better to remove the __description strings,
+so that the test output style matches the actual program names like
+other neighboring subtests. This prevents developers from being
+misled into copying space-separated strings from the standard output.
+
+What do you think about something like this?
+
+diff --git a/tools/testing/selftests/bpf/progs/jit_insns_arena.c 
+b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
+index b396d5aefb5a..95736eae2a58 100644
+--- a/tools/testing/selftests/bpf/progs/jit_insns_arena.c
++++ b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
+@@ -34,7 +34,6 @@ struct {
+
+  #if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+  SEC("syscall")
+-__description("arena access with zero offset")
+  __success __retval(0)
+  int arena_zero_off(void *ctx)
+  {
+@@ -82,7 +81,6 @@ int arena_zero_off(void *ctx)
+  }
+
+  SEC("syscall")
+-__description("cast to a user address")
+  __success __retval(0)
+  int cast_to_user(void *ctx)
+  {
+
+The output is something like this:
+
+$ sudo ./test_progs -t jit_insns/arena_zero_off | tail -3
+#191/1   jit_insns/arena_zero_off:FAIL
+#191     jit_insns:FAIL
+Summary: 1/0 PASSED, 0 SKIPPED, 1/1 FAILED
+
+$ sudo ./test_progs -t jit_insns/cast_to_user
+#191/2   jit_insns/cast_to_user:OK
+#191     jit_insns:OK
+#192     jit_insns_blinded:OK
+Summary: 2/1 PASSED, 0 SKIPPED, 0/0 FAILED
+
+The main goal here is that if a test fails, developers can immediately
+recognize the exact, actionable test name from the standard output and
+rerun it without any confusion.
+
+Thanks,
+Tiezhu
 
