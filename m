@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443908;
-	b=egDF1u5qqCtT6VQTNlE5tvTc6OhITfLpIRomZyE1fwat6bf0KcCB2/V6ER3nVHunyd7f
-	 CMJR0EFc3ZBkTBv3ZyUNYRIhywRP0axFNhcXMT9XcILy+Bhdp7p2FYg6OEte0oyymCWY+
-	 ET10tcO2FaCIFXGcs2/qV8Fv95eZ4mnOoKZd79UXE3VHhshkgaQFhx94/1iPTd9g5JJz7
-	 5GDHAAxDSN4zxe2p/+a6GoKxTXQcjdqdP9oF6YJTxzueS7YT+OI0wpBrA6XHxN6cUzGEE
-	 lBImWdnLdmzTroShCyil9RiOUFGyc6eHZTbSq0cXYOn4X6eYHFBUD3m6CXeWu/GD/iA==
+	t=1792443971;
+	b=NNXWn0dNyclmoTHZrnMCBx1jG0GSIHSh+JZ9t12Ek9nsqifm/NdtCGSyLYe+i2S09JhP
+	 VvWhH23d/95TaeRJGlziNnOp34EqlMPK2ZRWgN6WqlwYaKFEIW/x4PcftVofuCQVFqudc
+	 qSez/ZE6RvjtJd5QmlSPx7+DgwVMlggOZ/LR/JaaITUUS4T2gP2bOxYG9FnTfIRlLpW86
+	 ZfB0SDwdrmD2zyvZjVNDuBMkvRjsGxB+zYk3cd1j7X84MUguqvHToiRd3xqdfpUjgbwKp
+	 D9mg0TerFLuEn/hCXoTt8WeHB3IAq2VqFQMeXobWnNzf8sF62PxKDCgn2mmQCdsg8ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443908;
-	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type;
-	bh=MAMTZ+go6zLwdnQjqi8PpY4WA7VuyI13uOFhcQaRL5I=;
-	b=y1RhHkyKvc4fKRxwPfFgpzHQ+PVW8XW+XTqfuGWsNiH/kiJ3dP5MHBswHDWI/m+cDfSi
-	 JvYJPwb50ogDxx9pKJtvlNC+MfLEGckrrIHam7Yf/MB3QpBa21znnC47LyE3SQinbZ5Za
-	 XioFmvtUIwbWYqyPHa3S/igw1b7UdYaF3riLUXpWsiGe0IdvBDnwt15/8CYfJ9kkXsCIR
-	 xPyV299DUfIfKqqrKG7F9fLuUYhlrTLNvvHCqsND2wBZhIdNooyYaUxODcOJIj/uaKOoX
-	 OSS4okc1fxrWaRntRt073Mzpvdp5T5LYSmL7YQdaSLJ5B/vPYeEIcJyMce8Nsu3jKTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443971;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=9MAmvIn08RerEdZ3pqVcuDHmjNgJDApJ50B7PsC0yxA=;
+	b=hLQVvoSS10MNtp7orK5XnnjULP2A8O3kf2UZy9hAPngtUjPSwPwivwJpWbE88i8DvcIS
+	 jHsHW/qoTL9PtNDVj9PaoEumHI/6AHDnJ6Bk6Fe7qwtQ6vMs+Gtm7WUHbWCrpkSm2nMwD
+	 k/qSVvpqFSvypwNtqtldtidw/9jWe94NLSpjt7rTsZMQGBda/EyMItWSdUXfR0wfljkg8
+	 eP85yjA2TIqCnLjElFmNHQ18aOKLZK5HZDF+MsnGFI9OPUbk8ZtAfjzgNthT9PuFW+Nm/
+	 ynH3oEqcy6FLVcuPFoOL/oLXtSgjLj6ijKvGY96O/CKL5VhKZXxPGfv+tpxPLigtEJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toke.dk;
-	spf=pass smtp.mailfrom=toke.dk;
-	arc=none smtp.remote-ip=45.145.95.4
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aVHZ9bvT;
+	arc=none smtp.remote-ip=209.85.208.71
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A3E606A31B;
-	Mon, 19 Oct 2026 21:05:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41A3E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Evan Severson <eseverson@gmail.com>, Johannes Berg
- <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: ath9k: track PS-Poll responses in the BlockAck
- window
-In-Reply-To: <20261014025734.2288693-1-eseverson@gmail.com>
-References: <20261014025734.2288693-1-eseverson@gmail.com>
-Date: Mon, 19 Oct 2026 23:05:04 +0200
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87ecdlv1tr.fsf@toke.dk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE62606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:06:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFE62606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aVHZ9bvT
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6afa6850207so3286548a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:06:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792443969; x=1793048769; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9MAmvIn08RerEdZ3pqVcuDHmjNgJDApJ50B7PsC0yxA=;
+        b=aVHZ9bvT+GAk2MN8y6KUiGpMemjJ3Sqzfu1NGkwM1zMiY7e/fRsvy0CG/t2b/7448H
+         WcYyR74Rne/rwQSVZSFVV3jIw2Y2iElBCeuqMxCYQrbHUKDasUuQUWW7D1f1FBZ5EpAf
+         x9XgVKvIkNSOKoac4yrZldcfcqAZSXe17lCpot5uxtLRJNWUX7kY+J44ssawbw3VR8Ry
+         IQle1kXpcra9tUJmsTmiJTkBu9TK618H1Y72e8G5Sxauw+vXHqkVlqV0mekur5XgUKcJ
+         jWOl3hgWktw3TE4vKIEpwu0jO4hJRRY9gIOkvVilzTRCZ3ifndJKeW8BRu8aUeNgfUR+
+         O/yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792443969; x=1793048769;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9MAmvIn08RerEdZ3pqVcuDHmjNgJDApJ50B7PsC0yxA=;
+        b=g1zKZVixE+udO9am27ZmlLlSjEoqXHJDNNLKGRii+obLQQHdkurCpTJIJ0Qp38kxuS
+         NaOPxdsAgC7NnwYv6ffFU71qMwGHTJr2NzBr3F0TPcISBW1CibOXdalQBPkDdO7WiOCr
+         YvgiOKXmLDzz2hz0ZfPGM27gnQ/HHzY8yIleScet1fxOls7Tq88ATBYRsX9aoppVgTWK
+         wiWtSa+wrUQRfFuAbnPTToPZAc8PEMQ8mu9vzdb88I2B40ShVVMfMXCFtvYQrCwRZuN/
+         zBYOKE2HgAqyXv9ekDqhlE4l7NYY2954weSk1Xc7F058LqLgmdHsULQM/5VJ+AleUSQH
+         ITXg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5FceQFaw6mEnuiN9GgT6bReuE9P2wGNhEwlP/vgyYQ5CN0K81Z9rsMABf0o2/2yy+LFVoGo/RHS4ib70=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLB/2AaXjWLMfxSc34X5wWSSVdcG+AjQdi1kIfwty6kNBbsKHLI
+	8MBWK3Hp9u9SLbQ5H1+MAk3W5TLNdpyC639cKKyqGdguiFmdoukJtta5PwzQYOa8flsMujfkQrr
+	/MJXH4w==
+X-Received: from edvi20.prod.google.com ([2002:aa7:dd14:0:b0:6ae:14cc:13c4])
+ (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:354f:b0:6aa:f14f:5571
+ with SMTP id 4fb4d7f45d1cf-6b3a81f6f9amr5851038a12.45.1792443968890; Mon, 19
+ Oct 2026 14:06:08 -0700 (PDT)
+Date: Mon, 19 Oct 2026 21:06:02 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,57 +75,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261019210604.2433620-1-lrizzo@google.com>
+Subject: [PATCH iwl-next v2 0/2] libeth, idpf: use GFP_KERNEL for the initial
+ Rx ring fill
+From: Luigi Rizzo <lrizzo@google.com>
+To: intel-wired-lan@lists.osuosl.org
+Cc: netdev@vger.kernel.org, Tony Nguyen <anthony.l.nguyen@intel.com>, 
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Alexander Lobakin <aleksander.lobakin@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Luigi Rizzo <rizzo.unipi@gmail.com>, Brian Vazquez <brianvv@google.com>, 
+	Joshua Hay <joshua.a.hay@intel.com>, Larysa Zaremba <larysa.zaremba@intel.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	linux-kernel@vger.kernel.org, Luigi Rizzo <lrizzo@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Evan Severson <eseverson@gmail.com> writes:
+libeth_rx_alloc() always allocates with GFP_ATOMIC, including when a
+driver fills its Rx rings at open or on queue reconfiguration. That
+fill runs in process context, right after page_pool_create() and before
+the queues' NAPI is enabled, so it may sleep, and GFP_ATOMIC is
+needlessly restrictive there: it can neither reclaim nor compact, while
+the initial fill can allocate tens of thousands of buffers across all
+queues.
 
-> ath_tx_setup_buffer() takes a sequence number from the TID for every
-> QoS data frame, but a frame only enters the BlockAck window when it
-> carries IEEE80211_TX_CTL_AMPDU. Since commit 592234e941f1 ("wifi:
-> mac80211: Fix iTXQ AMPDU fragmentation handling"), mac80211 sets that
-> flag only when dequeuing from a TXQ. Frames that reach ath_tx_start()
-> directly while a session is running, such as PS-Poll responses for a
-> dozing station, now use up session sequence numbers without being
-> tracked.
->
-> Once seq_next is more than baw_size ahead of seq_start, every frame
-> the TXQ hands out is outside the window. ath_tx_get_tid_subframe()
-> puts it back on the retry queue and returns -EINPROGRESS on every
-> attempt, nothing ever moves the window, and the AP stops sending
-> unicast data to the station until the session is torn down or the
-> station reassociates.
->
-> Seen on a QCA9563 AP (OpenWrt) with a station that stayed in power
-> save for several seconds under downlink load: the window was empty
-> and seq_next was about 2170 ahead of seq_start. With this change, a
-> 90 minute run saw a run of more than 3800 such frames and no stall.
->
-> Flag unfragmented QoS data frames of an active session as A-MPDU where
-> the sequence number is assigned, so they are tracked like any other
-> session frame. Fragments stay unflagged, as mac80211 intends. A frame
-> from ath_tx_start() cannot wait for the window, so if it is already
-> outside it, send it untracked as before rather than set a bit beyond
-> the window.
->
-> A PS-Poll response is sent on the UAPSD queue, and ath_tx_start() held
-> that queue's lock while it took the TID's sequence number. The sequence
-> counter and the window belong to the lock of the TID's own queue, which
-> the TXQ path holds when it adds to or advances the window, so take that
-> lock for the TID work and the UAPSD queue's lock only to hand the frame
-> to the hardware, as ath9k_release_buffered_frames() already does.
->
-> Fixes: 592234e941f1 ("wifi: mac80211: Fix iTXQ AMPDU fragmentation handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Evan Severson <eseverson@gmail.com>
-> ---
->
-> Notes:
->     An alternative would be to restore IEEE80211_TX_CTL_AMPDU on
->     non-fragmented PS-Poll responses in mac80211, which would also cover
->     other drivers that track the BA window in software. Happy to rework it
->     that way if that's preferred.
+Patch 1 adds libeth_rx_alloc_gfp() taking a gfp_t parameter and turns
+libeth_rx_alloc() into its GFP_ATOMIC wrapper.
+Patch 2 switches idpf's initial Rx ring fill (both splitq and singleq)
+to GFP_KERNEL.
 
-Johannes, WDYT?
+v2:
+  - split into two patches (libeth helper and idpf consumer)
+v1: https://lore.kernel.org/r/20261016151835.2500807-1-lrizzo@google.com/
 
--Toke
+Luigi Rizzo (2):
+  libeth: add libeth_rx_alloc_gfp() to specify allocation flags
+  idpf: use GFP_KERNEL for the initial Rx ring fill
+
+ .../ethernet/intel/idpf/idpf_singleq_txrx.c   |  7 +++---
+ drivers/net/ethernet/intel/idpf/idpf_txrx.c   |  9 +++++---
+ drivers/net/ethernet/intel/idpf/idpf_txrx.h   |  2 +-
+ include/net/libeth/rx.h                       | 23 +++++++++++++++----
+ 4 files changed, 30 insertions(+), 11 deletions(-)
+
+-- 
+2.56.0.212.g129ede20d9-goog
+
