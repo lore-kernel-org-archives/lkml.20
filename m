@@ -1,140 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22734E780F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:03:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D77C4F4729
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:03:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414988; cv=none; b=k/krO7H7grzyHiGQnM8d8TiN3fFuQKLM+U9zq4yLLtkdHKT1wWFGoREMDY9lyE4lHLR3H1tzv2QhdpPkowUXT+HT+xVa+MGrJJuzLaEqAlcU/e6QrsfQ+H15tsXJH4w5d1Dfw/3uRdwlruEem3J9UrceRFBnS28sGge/h2Csnyw=
+	t=1792415006; cv=none; b=a6yW0MzfHuWtt1GgdnB+di9dlgftkqhi/x02VB58JrmNHw0xzqkGIkq+tvbZm+CqaQLLf91eiG4uU3ko0bjSn2tnIbU70ECjB/9R4783A6Wy5OqIbxL1WsdYkPRAYW3Fofsoj3dL6G+uQ8jmrA04NIA3gtaqp1Jk154QD0mMoZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414988; c=relaxed/simple;
-	bh=AxHaZknLmHw2c4oUtLvoTM/Sy3ITwXsf/3WpjcpHKCQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bKnR9qbeMdMZaPwvBzSwXIIa8cfTiaIRB/FoCh2504GuvqD5X9p2ELirbnQYtenJ9M1lnX4oQCnojzcmi3r07CB/0uBf8il+7tHz18FNYRPD6kZngXxOvV/mXetL69fLjVoGy9iz31+vAquSSJDPMwFlKeO/6y6SNZZB7b6ZzHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMZB5Nqc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792415006; c=relaxed/simple;
+	bh=QNrIDKsvgeRp/5paQVQcPIJk7NtUHcicaHd6IPX9Vh0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pS87oSRnQoEii6nWC84joxFkUc/my9FlL2KD1LS1qcB8a6nXAWOIvtR749h8pMqk2OSc3/wVV3tnXmBq8EUaOlyjDAS4OaPpJ4ssvVR9wHKmEWiCWQjgfzjz0MF6/UBVMACPGk3htBkCFed7kYbC5HJUS5nRdWIGuZIMja4R0Eo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BDC2cjrH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QSQbeXMZ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMZB5Nqc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8C841F000CE
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:03:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792414987;
-	bh=a7bxq443au8bQdE7gaA78lFXj0+dw95FX0dHaWtaB9c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aMZB5NqcghmwWC+OZSYyUzAHEuBLMhw5H8NjlJFl5SgcdRBOuVXYOWb0O4Ds7yben
-	 50Vpvo/zc0jcIOqZz1hRrgKSvajBnZICbKnQP9921c721wHHkXIfjaYtGA9z5u6jQO
-	 NyxQikFuahGLTYm/Vo5h8rblmh13XG0hRVbydNkeyotHnQC+Iisc+M5mw17qRnDnhe
-	 d96wY1Au0Oc47FDSwODCcX9XzZbLxIvTZMo7jxbum8fPpaonno3YFSNbyrH3sN5CaF
-	 S5uReJGH6p5jJHXTEZFSo2uVkEgsI8+sDrtfcyWAVCzxHVX4cgPk9Dt85DRwxCLwtZ
-	 gbSLnCfPrPNfg==
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6aa9164072cso2727937a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:03:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzKPMojtYtE7dI7N1LAEONvocqavpL5kyZclvfLs1Dkp5OlEtsGVmrZPNBf690C7338qFhcRhKMD46OAhw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBIyMPXwsNjHT9QS/GEGom0IFIEGcdHEZwRvsaJYxed5jxo7hS
-	V3DhoMMAVYHOqhD0u8Kq8Mozb6GzAstFCZM7jrL/K0hFyjL49rIPEj/ZUuyZMvdD3Q1fXSnKfYx
-	B4l6XnAm5Q86mV42USC/msGlheE7ndx4=
-X-Received: by 2002:a17:906:8e15:b0:c2e:893:7010 with SMTP id
- a640c23a62f3a-c419f906220mr466260266b.37.1792414986239; Mon, 19 Oct 2026
- 06:03:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BDC2cjrH";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QSQbeXMZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792415004;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QNrIDKsvgeRp/5paQVQcPIJk7NtUHcicaHd6IPX9Vh0=;
+	b=BDC2cjrHwdzrEqh9gPz9NK1mDPDe0ddeXpmWFZxyEBDCOTi7t3/lRcwMdgjQx2F54adDsK
+	kxJHOG9P5NP+kJhSoDbOedJUJKS1t777A5qX1cTwRzdYMKt6wxy56xbBKSltOv6MGlKzbk
+	E/Aib8GPr8MdUWA4wSHJF4hjLgVu7ks=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-621-gOPOgsBzP0irGZJIYI_L9Q-1; Mon, 19 Oct 2026 13:03:22 +0000
+X-MC-Unique: gOPOgsBzP0irGZJIYI_L9Q-1
+X-Mimecast-MFC-AGG-ID: gOPOgsBzP0irGZJIYI_L9Q_1792415001
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48b00febba3so1901412f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:03:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792415001; x=1793019801; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QNrIDKsvgeRp/5paQVQcPIJk7NtUHcicaHd6IPX9Vh0=;
+        b=QSQbeXMZOL5183Y+WAlt+m6vDI+s5P8c5s8XI5GaZR8dl1YROpEQJg+li1FdU9DUy5
+         HD2cRk4QGkbulVlcEZmkCnJSYhDxJ5GDHXMU9OkXpDywfy6vVPQnelB48i2cb6BssC1n
+         vILt6WEjhqeNXG1m4f6acOQORifl5LddQhfCoB+VkwrHUOAso9zWKX9ihl0hnnyKmqO0
+         xNtjj+4w1+0Q+kcW8m6/GDE6GDtKwhdr1xOcF2bwxvtzAwKZstx7PrKRM25Q7ENZTCCb
+         AD3G3q/5x6cvsS8CNJNPZQqJ2O7TNJAuMfqxV1n3RacaWZ47o7vqKcE4i46LFkKiu4bS
+         wLGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792415001; x=1793019801;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QNrIDKsvgeRp/5paQVQcPIJk7NtUHcicaHd6IPX9Vh0=;
+        b=JtUrZV04R3kW58i8wntiKv9b17zRYcqJa2ZV3fXpdtdC57AHLduAVigjlyAaLxBlDW
+         dbNFSQkSHNvDB2/lgNH4hC+C/hJZdJq5nykOFaaMtx2bO2ty/+mVKMMdgaib0bUSxgRJ
+         0nKnD1HtSA8udAdXDu5auZfpK06qKCf9o+rG6zyOzPvRPcKsDcVXEHtHGxU4BFw5Z38T
+         Poys+tJkJLeBGi8bykxqut4z2mPn+2fC37k9yTTZ9B+OO3rvmSmSKU1KzGY0xLCV/yl+
+         EOp2ApSeITlL8RkFEhGWruyVwy6N+f1C/V4waD6XAKmO/U3TQWk5gx7wumN1GdCuQEyL
+         Tsig==
+X-Forwarded-Encrypted: i=1; AKwUvBx7FNjkWzKl+J7LUQHCowaufX+Yfq2DXKuYk+IWBCWKDQoP5ofheAAnkWMhYPl7PITfid0sp9CoZRV/n6A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVlkNs81bHNKPBr7+yX8Q590aPx31OWejeUFspxGsvfaCEsLLt
+	nrtghDamP0JWajcHo5PyR+oE1VYRubZs/m76zYNli+afGx22YPZOH3yitYKt1ZPM3AqAe1JaAzo
+	VNEH6HAnwQk/zIN/qLQZU2H7DDpHKWJPzMYtB1T1UcIE4HBeG2oK58SE0FzFM0K/LNw==
+X-Gm-Gg: AYBFou0DwebESfkoDXx1RUIF/Vdxw6286mWfIfxibEH6qYWeTYJUWkgg6E1NRbq4cWR
+	AnJ6gNiMo72zUStlqTfrf4PFRGLG3BzK2l+fenb6PA0Kp2xe68oHkeJHsnMFvy9PrU+wXyTlO6i
+	Ab3holFwsaJOO3fEQLtrdRuIhHVizx3BBgS9lXmKPcylm65P/Sogt5qDQBRzui1kTXZJy+ufyrN
+	Rm7cfC6qArh1aCHcBT4k84R2SstEbNtcWcmJ+MMYfsw1O0T/DdzV2SAwi4aFLCYykVmTmiafb2S
+	ZfSJ7OZXwX8B6ITkiFjltk1Vpn2P5UcOUPfW0HHPrxlcl1Zi+TcCneBSgjdhaIdui9NmcfpcS2/
+	toRrF1OxYETRYBByXSMqI9sH1YWvzbuvyJiovbWr/npfe4rWe/GJTqLPtCZNRujzQWqdqK58c9g
+	==
+X-Received: by 2002:a05:6000:290f:b0:48e:740:c945 with SMTP id ffacd0b85a97d-48e07f9eb4bmr15189627f8f.32.1792415001221;
+        Mon, 19 Oct 2026 06:03:21 -0700 (PDT)
+X-Received: by 2002:a05:6000:290f:b0:48e:740:c945 with SMTP id ffacd0b85a97d-48e07f9eb4bmr15189570f8f.32.1792415000735;
+        Mon, 19 Oct 2026 06:03:20 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfdc4eecasm22733073f8f.13.2026.10.19.06.03.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 06:03:18 -0700 (PDT)
+Message-ID: <5f01c934-990a-4fac-92e7-17d1e4949aec@redhat.com>
+Date: Mon, 19 Oct 2026 15:03:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1792345559.git.jan.koester@gmx.net> <CAKYAXd_2AUVQFZWcmk55fBU2Rk-REb-onj38whT=kNCuZ=COew@mail.gmail.com>
- <0cadbdcf-6074-449c-98f9-3aeda3756160@samba.org>
-In-Reply-To: <0cadbdcf-6074-449c-98f9-3aeda3756160@samba.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 19 Oct 2026 22:02:53 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8-QCawP+oEXDtubc62-QuAWGQk_zn4ZfGk+iKic_j2rA@mail.gmail.com>
-X-Gm-Features: AclHuK8Kvkxp7NShd7TUCYnc22_xbq0PEFp6g_negDd21xABx3Nu3gk3ghWdAqs
-Message-ID: <CAKYAXd8-QCawP+oEXDtubc62-QuAWGQk_zn4ZfGk+iKic_j2rA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] ksmbd: NTLM pass-through to a domain controller
-To: Stefan Metzmacher <metze@samba.org>
-Cc: Jan Koester <jan.koester@gmx.net>, linux-cifs@vger.kernel.org, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, samba-technical@lists.samba.org, 
-	linux-kernel@vger.kernel.org, Tom Talpey <tom@talpey.com>, 
-	Wang Zhaolong <wangzhaolong@fygo.io>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
-	wang zhaolong <wangzhaolong@fnnas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: korina: fix dma_unmap_single() length in
+ korina_rx()
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: stable@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261013132319.22253-2-fourier.thomas@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261013132319.22253-2-fourier.thomas@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 7:43=E2=80=AFPM Stefan Metzmacher <metze@samba.org>=
- wrote:
->
-> Hi Jan,
->
-> >> a ksmbd server joined to an Active Directory domain can authenticate
-> >> domain users with Kerberos, but not with NTLM: it has no password hash
-> >> for them, so the NTLMv2 response can't be checked locally. Clients tha=
-t
-> >> fall back to NTLM (access by IP address, machines outside the domain,
-> >> mount.cifs with user name and password) are refused.
-> >>
-> >> Samba solves this by forwarding the response to a domain controller
-> >> over NETLOGON (NetrLogonSamLogonEx on a schannel connection). These tw=
-o
-> >> patches give ksmbd the kernel half of that, and leave the NETLOGON cli=
-ent
-> >> to user space, like the rest of ksmbd's user handling:
-> >>
-> >> 1/2 adds a KSMBD_USER_FLAG_PASSTHROUGH login flag. For such a user,
-> >>      ksmbd_decode_ntlmssp_auth_blob() doesn't compute the response fro=
-m a
-> >>      local hash. It sends the server challenge, the user, domain and
-> >>      workstation names and the NT/LM responses to user space in a new
-> >>      KSMBD_EVENT_NTLM_AUTHEN_REQUEST event, then takes the session bas=
-e
-> >>      key from KSMBD_EVENT_NTLM_AUTHEN_RESPONSE and goes on with the
-> >>      existing key exchange. Both events have a strict netlink policy a=
-nd
-> >>      are checked in ipc_validate_msg().
-> >>
-> >> 2/2 puts the workgroup, not the netbios name, into MsvAvNbDomainName a=
-nd
-> >>      MsvAvDnsDomainName of the challenge's target info. A domain
-> >>      controller checks these when it verifies the NTLMv2 response (Sam=
-ba
-> >>      in NTLMv2_RESPONSE_verify_workstation()), so without this patch
-> >>      every pass-through login fails with NT_STATUS_LOGON_FAILURE. The
-> >>      patch also checks that the challenge blob fits the response buffe=
-r,
-> >>      since the workgroup can be longer than the netbios name.
-> >>
-> >> Logins of users without the new flag are checked as before. The only
-> >> change they see is the domain names in the challenge's target info
-> >> (patch 2/2). ksmbd-tools doesn't set the flag yet. The user space side
-> >> we tested with is sharedd/adconnect from FenrirOS: it marks domain use=
-rs
-> >> without a local hash as pass-through, and it answers the event through
-> >> a NETLOGON schannel client, tested against a Samba 4.22 AD DC.
-> >>
-> >> I can send the matching ksmbd-tools change if the interface looks
-> >> acceptable.
-> > Okay, Please send a PR to ksmbd-tools. Wang is also currently
-> > implementing AD/DC features in ksmbd and might be interested, so I'm
-> > adding him to CC.
->
-> why making this NTLM specific, I think it would be good to the whole sess=
-ion setup
-> blob exchange to userspace, so that authentication is not used in kernel =
-at all?
-> And it will also help when IAKERB and other things will be implemented la=
-ter.
-> It would also be good to have the infrastructure working with winbindd be=
-ing
-> the bridge to the domain.
-I prefer keeping the current patch's approach for now. I'd like to
-stick to minimal changes rather than making a drastic refactoring. As
-for IAKERB, we can revisit and discuss any necessary structural
-changes when we actually reach the point of implementing it.
+On 10/13/26 15:23, Thomas Fourier wrote:
+> dma_map_single() is called with size KORINA_RBSIZE and
+> dma_unmap_single() is called with size pkt_len which might be smaller.
+> Therefore, parts of the buffer may stay mapped after dma_unmap_single()
+> is called, which leaks a resource and might leave exposed mapped memory
+> that might be eventually freed.
 
->
-> What exactly is "sharedd/adconnect from FenrirOS"?
->
-> And Wang, what are the AD/DC features?
-Active Directory Domain Controller Support.
->
-> metze
-> > Thanks for the patches!
->
+Sashiko noted this is actually a cleanup and not a fix:
+
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013132319.22253-2-fourier.thomas@gmail.com
+
+and IMHO with very little value.
+
+Dropping this patch.
+
+/P
+
