@@ -1,173 +1,100 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E76A3FE65F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D254AB1A8
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407080; cv=none; b=Jstro7g/ndJE7GGKYYkfJHzOmWfhCI/SVdskXQY5cVkAhTAsuBqq5aN2phiXq2+A6S2c+xcYl9onWt3yWJnSYOrLshgt/dzOUsM4TCARfp2La79AHjV9MIxK1QA0dUasFCjfB90Tvu0Uuwj91YzQkQ26/OBIN7zHylStopkQSQI=
+	t=1792407084; cv=none; b=q+EEKcbuMzPK+mRXDUxWT2TI9zdo/DTswYMirF+pJeIfM7zuxTYLdGLbhp/YxFt6tVAm6ydOHv51oksMFAPzhbGSSN5x95O7nWYpYfsoMISopcMJaFBR9iyCo6qBdsOoFGgTZImKA3rTCifA8dHITCc1az2ITwYM254XzyqY+6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407080; c=relaxed/simple;
-	bh=mUZ3a4L9u8hGML0HGfu6/nfxzUPptIdNHJ1NPKl85No=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hk6PqxJFhHCCShL7TVqoBQobHEeA7O7ckl3PNmLomyVe9+sL6W/xurTCEBTkZHFRLo3QwW/rojTD4noUBhObMexjRs1scsnrXgkny1I4/yFUnokyHV3b4OD6v2PPUvpOnOslNDLqWQUlO2rDdswefCiHQ9ByF2DI+y3EVB3xYBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I9mFI+SJ; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792407084; c=relaxed/simple;
+	bh=J4nB9Al3uidABUjksxa6XMBj/oy8WmJTTsqBQu++jtI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sDgOLZrV+A84wjqzbf2S+67GCgZDtv0ZCocP8ekZyykeIOOnw5Qvlb6nD+fCTCRQDYH/QupQ3rw1GTyrRiZe7J4jkq0hEfHtLtDOV++PSClF4VDWt81JjPJLB3m7rQaDDOxWel6Y9vIyh9JPc9NFTkaa6zyl/sXcDf0HD7TgBwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Pqz3ra9k; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I9mFI+SJ"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso14993085e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:51:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792407077; x=1793011877; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mUZ3a4L9u8hGML0HGfu6/nfxzUPptIdNHJ1NPKl85No=;
-        b=I9mFI+SJqjq0XcHwJFkb3M80ErIbN+HqMhWDoNhhyZG97HoZQSqIslgGV3mxXdU3mg
-         ysuq1Idipa8p89Gfi+fqm6HebGeSkM7mwbMTmiXTpvVqwuKZIbqX5bET9zmMa5VIVqeI
-         crwGAaApdGXW53OPqzRc/lIw1KLNcxkw3j51bw1Lp8e3xvob8PimwM4t2hklKAIrxLBn
-         ujeXY6x95chtJKlmd5c7UqONWnlXQ2HADmH7xOmN47AtDIuYyKGTbyS6tUkPD/Ewm8E5
-         PhycfHm9ps+TdPUbU44KIjg1DYe2SgvEFIXnhDL4dsbdN5mYS2flLtOQ5e1mfo7MEHqv
-         J+Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792407077; x=1793011877;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mUZ3a4L9u8hGML0HGfu6/nfxzUPptIdNHJ1NPKl85No=;
-        b=fLhWxXovbY29rh0rNKCbS1FcSBJ5M1Y2va7aNPc4/Lf9oTZNXtZSaZY8psLkyK5PnU
-         Y9VIlsUOp/4wtnPUz1znMMMSngt2c7w4OwbAc2nK5H7lH/Y8k9GmmBsrUxh0RySx+HOM
-         df7vO3mpOIEO/8A/QUe9RBq07CDhSatgCaPxyZtM6/O13umhLK0IuoonaN+l2jgmfyrA
-         SmC/Ad9YlXXlb8/ALmtL/jBpXpcgdJRmzd8QD92KXlNDIjBLDsdPpx2G6EgQp0uKDmcU
-         WGjtOyk2s5mG8eu2e3I12T7UQvsANeOL2HsLhSvbCx8itHYplrYhN2+t8nV2h4ibntoL
-         b4xg==
-X-Forwarded-Encrypted: i=1; AKwUvByI2ofJLWZBpzeLKGtk7MSom2M/R3cyGYQVZj31kNKBmlPrOkkFUwGbq5gsxG8xWpWs258pae8cup3Ex0M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/BWDyrKnuULNrAoxbT2hr1ESTDWMq7daFlnNuEjpP9uEajwwi
-	++aH5UwpblgBf4eYpM1QV8VJrakNqpaDjKGwweeolHWCbCuJtatYegFb/64INwWQ
-X-Gm-Gg: AYBFou0VEpjN65llx28hROsEwwULKY6ERJwspxba3wiOueURAw8IJQK8YoMx0nOYyiz
-	xaegn4gDAPGU9RRtn+/6nkr5qdSN+TX4tYnZUXyBTPeqG9jz8eFSf6NrDDI+a43hDd3wdpYp95d
-	iA+6Dvg+pwnR8CWEszXrdLIbDnNAMMQr4dr3uiJaiGDvFsqQZ6I5GVNIzNKmqj1zgrH+RTOOsH/
-	KJJM5Xn6SDhuG52a7EgGmoZKbvIhOiiIhcAtPBoy+QL/D8Lfv5tEwVc7tBfF23kRwXH3eGWf8T/
-	wzQxFMiEALza4cmvfyqNHV/zJNyAEB5ZdycxCYNtU3UyrCcY2ZizFvmEUnpv4gQ+xtOKW0tBGa/
-	xkK+ZMl9RheCU8I1O0E/linOJKdZmXRR9iVBBgpN2VVsJViuZeXSkS9D8nxN/qnQdvynrHbB7LD
-	MboJdO7WoQN0k4JkvCClQnBPdR2rmDbh3c8VQIKVqfwj6v2uV09ba3+Y4dfirXn4LQdlPDAtxwI
-	DSW/YO5OckFrHFDgqgo
-X-Received: by 2002:a05:600c:8b6f:b0:4a1:ce33:1536 with SMTP id 5b1f17b1804b1-4a1d75e37ecmr129613605e9.9.1792407076395;
-        Mon, 19 Oct 2026 03:51:16 -0700 (PDT)
-Received: from VivoBook-ASUS-X712UA-M712UA.lan ([2a00:f44:cd2:abb8:f65f:be3d:fed3:d2aa])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a1fsm19081835f8f.3.2026.10.19.03.51.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:51:15 -0700 (PDT)
-From: Stanislaw Pal <kuncy7@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: dsa: qca8k: report port statistics from the MIB
-Date: Mon, 19 Oct 2026 12:51:11 +0200
-Message-ID: <20261019105111.210567-1-kuncy7@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ad54060.58e5e2d3.9d5ca.ba8b@mx.google.com>
-References: <6ad54060.58e5e2d3.9d5ca.ba8b@mx.google.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Pqz3ra9k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792407079;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=izaJnKxTe0eZ1TUwO9IVgWRI/sGQVVqPLpbyYjGGUVA=;
+	b=Pqz3ra9kAEmRpzAYNfc4nHIpadUh5y5eUtSvJJWB4wgDo8QSL0t2EP1Z+i+gi/nuXE1GqM
+	q/vxeTJISmJ2oOUdL8P2Y5KTo8D+9rVbpSXhaJOj332+o6eChDE+RY2DQ6qZQJbR8qdIuk
+	rv6Ib6pMwF9yzfWVEqM0vq5AUiwMT9A=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-691-02ITIMlBOMmX2oHJJzxmSw-1; Mon,
+ 19 Oct 2026 10:51:16 +0000
+X-MC-Unique: 02ITIMlBOMmX2oHJJzxmSw-1
+X-Mimecast-MFC-AGG-ID: 02ITIMlBOMmX2oHJJzxmSw_1792407074
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CEE9C195BDF5;
+	Mon, 19 Oct 2026 10:51:07 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 8FF5741B;
+	Mon, 19 Oct 2026 10:51:03 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Mon, 19 Oct 2026 12:51:07 +0200 (CEST)
+Date: Mon, 19 Oct 2026 12:51:02 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Binbin Deng <18983559317@163.com>
+Cc: mhiramat@kernel.org, peterz@infradead.org, mingo@redhat.com,
+	acme@kernel.org, namhyung@kernel.org, mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+	irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org,
+	andrii@kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] uprobe: Assign session ID before publishing consumer
+Message-ID: <atX2FsqHIkOvhrLy@redhat.com>
+References: <20261019080709.477548-1-18983559317@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019080709.477548-1-18983559317@163.com>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Sun, Oct 18, 2026 at 11:55:42PM +0200, Christian Marangi wrote:
-> If we really want we can reset after each read but that is problematic for
-> the ethtool OPs unless we also update that function to store local u64 MIB
-> for everything.
+On 10/19, Binbin Deng wrote:
 >
-> Up to you... I would start with keeping and updating all the below things
-> and then evaluate the needed changes to reset at every read.
-
-Agreed. v2 keeps QCA8K_MIB_CPU_KEEP and adds only the differences, so
-ethtool -S stays as it is.
-
-> This really seems a task for the MIB from mgmt frame... May I ask why those
-> are not used here?
-
-Only because of where I tested. On my GL-B3000 the switch runs with a
-tag_8021q based tagger from the OpenWrt tree I work on (the conduit is
-offloaded to the SoC's NSS engine there), so mgmt_conduit is never set
-and register reads over MDIO were all I had. That is no reason for
-mainline.
-
-v2 will request one autocast per interval when mgmt_conduit is set and
-take every port from that one burst, and fall back to register reads
-otherwise (another tagger, CPU port 6, conduit down). To get all ports
-from one request, the autocast handler gets a mode that fills a buffer
-per port instead of dropping the ports that were not asked for.
-
-> I would like to see define in the header file, not in the middle of
-> functions and declaration.
-
-Will move it.
-
-> Why STATS and not MIB? Also I would like to have all these register
-> converted to define if really needed and update the ar8327_mib struct.
+> consumer_add() publishes a consumer on uprobe->consumers
+> before assigning its session ID.  handler_chain() traverses the consumer
+> list under the trace RCU read-side critical section and can therefore
+> observe the new consumer while uc->id still contains its initial value.
 >
-> Also Also why not use that directly?
+> The race is reachable when an uprobe at the same inode:offset is already
+> active and a task hits its entry breakpoint while another CPU registers a
+> second session consumer.  handler_chain() may store the stale ID in the
+> return_instance consumer array.  By the time the function returns,
+> uc->id has been assigned a nonzero value, so return_consumer_find() fails
+> to match the saved ID and the session ret_handler is incorrectly skipped.
 
-Right, the second table is not needed. v2 drops it: an enum of indices
-into ar8327_mib[] (the table turned into designated initializers, so
-the two cannot drift apart), the counters read by the code that
-get_ethtool_stats uses, split out into a helper, and get_stats64 built
-from that array.
+I guess we don't really care, this doesn't differ from the case when
+consumer_add() is called right after list_for_each_entry_rcu() in
+handler_chain().
 
-> Why this? For 64 bit?
+But the patch looks "obviously good" to me anyway, so
 
-Yes, RxGoodByte and TxByte are the two 64-bit counters. With the shared
-helper and ar8327_mib[].size they go away.
-
-> Maybe generalize the logic in get_ethtool_stats?
-
-Yes, as above: one helper for both.
-
-> As said MDIO here is extra slow especially for MIB every x seconds...
+> @@ -1032,8 +1032,8 @@ static void consumer_add(struct uprobe *uprobe, struct uprobe_consumer *uc)
+>  	static atomic64_t id;
 >
-> Autocast MIB is a MUCH BETTER WAY.
+>  	down_write(&uprobe->consumer_rwsem);
+> -	list_add_rcu(&uc->cons_node, &uprobe->consumers);
+>  	uc->id = (__u64) atomic64_inc_return(&id);
+> +	list_add_rcu(&uc->cons_node, &uprobe->consumers);
+>  	up_write(&uprobe->consumer_rwsem);
+>  }
 
-Agreed, register reads stay only as the fallback.
+Acked-by: Oleg Nesterov <oleg@redhat.com>
 
-> Is it correct to give window_errors to TX late collision?
-
-I went by include/uapi/linux/if_link.h: "@tx_window_errors: Number of
-frame transmission errors due to late collisions (for Ethernet - after
-the first 64B of transmission)". The same file says tx_errors must
-include them, which the patch does.
-
-> No reason to scan for a port that is disabled or not connected...
-
-Ports disabled in DT are not user ports, so the loop already skips
-them. In the register-read fallback v2 also skips ports without link
-(a bit set in mac_link_up and cleared in mac_link_down). Since the
-counters keep their value, nothing is lost: the next read picks up the
-difference. With autocast the switch sends every port anyway.
-
-> Considering everything is run under the same delayed work, does it make
-> sense to have a spinlock for each port?
->
-> Either have a delayed work for each port or a global spinlock for the task.
-
-One spinlock for the whole cache in v2.
-
-v2 is written and tested on the B3000, both paths. Over three 15 s
-uploads on the WAN port each, the wan netdev's TX bytes matched the
-MIB's TxByte within 0.002% with the qca tagger, where every read was an
-autocast, and within 0.01% with register reads. I will send it
-tomorrow, so there is time to object to the approach first.
-
-Thanks for the review.
-
-Stanislaw
