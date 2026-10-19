@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792430671;
-	b=DefasP3apGVqIy/87C5wRJ+0U8E1Pu0GPiTtKUEdWocxuPaPw5cUWKu1jMurfVQHGQ+r
-	 8x3kaZCLp+tQ3+rSYiDOPvmecYi04+t548QgwDDj8dtksmSZBn/UqTyrqoQKsw5vLOTCS
-	 Ura3lOEktJY+CC4ItT4ty0uULVvE/tS19EVIK5yY/USezs+BV9k2dRwpF5qkXqBdis6vS
-	 KqIubV9eDevGpBXXkF8uF3RQSW3FTpjkchkUpbfixbdo9KdAnJco/vR6vJkSc/coiHqHf
-	 2PCtFITwkoodj6PGOsmxvNcJM7X3JdEKSBlfi2WxNYtuktY9PEELfyYQWwnyOWsVqyQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792430671;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=v94IzSlD8GtecAHwnUus+qXwzP2P3DMytwGnQox52CE=;
-	b=K83O13Lyq2oySv1VwL3DkxB3ZQteEKh2KME+nBI+naxYBLWOdnQpquKvCo3a0XsojeGb
-	 rLajwM3G0pTXuMT2SgdxgClUoZe6DKgn18dDS1lMfpP8Sn+C+wR4CduNKAC2IrPLMZQap
-	 zulFzgf/BZrBdw0K0Y0p4MFX6Ob6hepRbfiJvo/gIS3tCzbU01b7iP9Fuht6ZUmYbtmKW
-	 LDaFqFHtrvYpskFmIGv9KMb0WOjrZsx8nkrqTQ4Ki+m3OZAqrX40sIq34RrMGXMccB5gU
-	 lWro2ZO6Gb5RXe620j1DNHQim5aBW9la9emWKFBpht8YXl+J9R4+4R3ycM6mO0IFz+A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q7QUxSOG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792430674;
+	b=KojGZ0Gpn31TZLqkCNaUy7Bk+FV6lkc8daGNd+ylkmPPWjlJIfgkdJhyvIU5ljXv5Dqd
+	 /Xqrt9K5AsI9AFhNa1iL4TejRzlVgTSKumlvTz6O/EXWp3bs1nJg4vlmw5w61YTjsF/xx
+	 9xW+DxXs7pnDyv1zrMvq3CSO7x2GLCD7+H+NjXlq4hoigPilB/Dnv+XnvY+E8eec+8K28
+	 XyCqkoTqVJNXpgbdzT/3XK+wE2IIjvYs+BRm+YNU1l65lXXN1WUOfAQ9yss6WOaqap0Fb
+	 yNn+LhrPiX7KUy4o67L3PtebKlbmXjle4CeJzBn9F/9DvgwW5MYnO5dL5AQzJhutNRg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792430674;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VbQFUmpVnS2uBP54GsmECYZ69JwncdeB9sR1ssSj0uY=;
+	b=g7jZNu9pNPpR2PvaIrQzs7XSo252Wqd4Nhlw8HvE5kUeIaGzESeAU/27lKNaYp5nZTWv
+	 k7eWOXKtJaz3buu0DuxwHVX74WmMJHx/CXWuS5gSvpsacd8TPYUC0eT9P0m22n6kF0LYP
+	 yUIO2dS8LeZ5oZvuntJdI1Mnqx4Tuw5tbWJcLDLvTEb+DGWe+IgjW7q+FDhAsm70U0iKW
+	 Hikg6mgIvThHGkoNk6/T3Z0d9uaGn9j9HM2agIjPcxA6HkEYKFecBbF9RsPoHDzqdR7DK
+	 5XO8HuWzEbhYZEQ4EZOI+2yrGOdS+kyZIR2PaR8+3SgKfqL9m3AHy373WzrQJFk+WCA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfB1FRPp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C270A606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:24:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C270A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E65606A32D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:24:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q7QUxSOG
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67990a45e02so2100955d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:24:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792430670; cv=none;
-        d=google.com; s=arc-20260327;
-        b=C3jDJ612drOeSKkhOsaRPJ2085TqSn7buAwQiwktB1zh89N4LBKfzI0oI6+thuh4Ob
-         WZ8NdJIg/NtsqEHYE4uhBCk6LTny+M0RLKiZo8HVZQLTh1RsvdnRknALF/X4/UlPqvZd
-         28lf7CLpfhf6kApg05a0v3ucMuQtBJWZVPqIAVuWPbMk+qRpEkZfbjG1j6Z2Irq2ihZj
-         DJQ5wQ1Y/DnNC3AOBIsAwaNrE9vgOBCrf7oIH4qhl1fBesMqm6EwU1Tt3+lSXreXv0TG
-         oATxV+xAL30FdTPgqlKr9ImZNFmXxqPIfr2IUMme016A+RKkIp8FahsWcYllPSuiI6UA
-         mAzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v94IzSlD8GtecAHwnUus+qXwzP2P3DMytwGnQox52CE=;
-        fh=9ZReeyupXSiTo/PguXFIcraIEgiKHodj6aFWQNwZy/g=;
-        b=RZHuoQ81s4U2LcmpoTL7qetlrigIg9K9zruGLHKeZoD41OnFGR5YOjdnIByeZUyCJ7
-         cozRc8qDTLCr8KPBTwGTHgRGGl0mJ1bt7U4pybZutPJCTxenccucSldv2W3CHG6tTC/E
-         FhPX9zxHjo6x8aLPAkTkRkV26BbET110YG4Q/8KDY6z/glXlLKK1jBoVjxyLp7pFT+4L
-         KpNPkzXIHfmmxQmT8IJ4n0G21b4bluDQIRtQdJmcWBgfeMOS6FAUTjiPalMyFDmtyXXG
-         vrk2PahCjRmBnaBuKwvULOUe+9AxVell21aE/j43J7VwXGcn7HJfno3nvbwoY58Arsri
-         h/9A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792430670; x=1793035470; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v94IzSlD8GtecAHwnUus+qXwzP2P3DMytwGnQox52CE=;
-        b=q7QUxSOGk3KIF+Y6kBslawVtumMNsC4pSF5LlDTN+V7wpDO7X1mj5JfqcXPG0hsUA7
-         htPG3egyEVa8LufE1Gx8YNN0faCBN72X9mdCdE7d+tJQOBk48D8w4KZEcFRZrPc4e2Oi
-         FBah7xNi52jzD59CbdW8BcG8MxNAj/shn8rNs9NIYnQqUomyFTGqIwuKG8mit6lw1xru
-         gm1m8+Z3YmXBwpS3iaFE8aWCb9Ssq9M3JiaGMlxJCzfHGyQpgwLTrTyfL6JV886s8W2Z
-         au0+W21aMCqWW9VL+TeoTFPa4XuG3tOMtIUlp0MppSJtTCRnBYw7ad+tJvbcn2D4/4vw
-         QnOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792430670; x=1793035470;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v94IzSlD8GtecAHwnUus+qXwzP2P3DMytwGnQox52CE=;
-        b=mePrIi1Xi5Hnmzjqew0WT5ndeUmSRDrixm/wEZnyfVlg+W4yNxr2srSO+v3vpj9Iyu
-         tg48NuMZtLlE8mV/iGWa9UQoIpmL95NuYKSx+edSO5QQlqUn1FhfkBZcBvsXLANFUdgG
-         pR6Qc+blqP0gpaKDL9scyFNbfLGV4rmJWgv+kU1IoDwurh709isHTAAMUSF7UGtOfW6l
-         /RCrKW4j0N2YXUzc6AKOKaBtYNp65TC82exmgpyIkDhtU77m8bDA29cTNFYwazseFC1G
-         5lWyU4JAQ9GHbPdUBDxHMHVc/1ElTjmD/yelrgtGEzJ9a0sC42diosgoA010KkcKKQWa
-         lmcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxNBBz4S0ONT62k20ug9ITBSr3mptf/yJuuNWVNtXDXT60Wf5QGw72qpvMV9TB0uo4Chl/EKK+nogi/o0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLASK/oAl7CvV6+0cVCUUQQhNVXUIy19rpqO/w4d2L6RCV09MwX
-	kmtZXLLWjfFHqSZR9RJAnITEoO+aLW/Hic8yL7WwsEWl2khRdc/9fFhaHK9HR/ARFnFQlnKNpM4
-	QRVqxpSlFQN+igimvWPt9jFTwdGDE5Ak=
-X-Gm-Gg: AYBFou1e0vyFDHAH6MCDV7E9Rc2zVzjtxmY9dsf5thCke1l9RTW4lp7JgHRJ6MRJbOf
-	IHddm58lhuoiKXRerl+o6dbOjilWS92Di2N2ObHnpgSA4OTpQ8bO9jyUleSFWG6GQdKww1o1epA
-	GmSwYsetMvfRtM9kh+mgh3CNE5sIvAUKgeJeydkRjycF5ECcT4aXH09DTuS2XaFslOolYkg6a15
-	OxQwd2Pxm36y5MGXdKbg3wRQPxV1qKBWv7XOcZr1Mch8BoXplP/N/fedKJbqqEP6uAEPaTB6c70
-	9ZXcOgklcS5VW2k0haAwbb6hCNUftccX3L2YTFjlKXPerXilRsxlpXH81SHNddMloQ==
-X-Received: by 2002:a05:690e:d58:b0:676:863f:8ed2 with SMTP id
- 956f58d0204a3-679ca83508fmr2653476d50.58.1792430669722; Mon, 19 Oct 2026
- 10:24:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfB1FRPp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8479D1F000C4
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:24:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792430672;
+	bh=VbQFUmpVnS2uBP54GsmECYZ69JwncdeB9sR1ssSj0uY=;
+	h=From:Date:Subject:To:Cc;
+	b=dfB1FRPpnxUJAt98M1HewsdEkq9qSLBUbtGMiK9MKIBUtauuKAfXTJ/ojG1MMYdCm
+	 6Ntahcsdla+x6i7DwLSCIfhPNkvRcJafuI1m54F0KSRNqp4xCbRyBPlVPL9+PWxz0t
+	 CQuTKghnPtsfJ0fa6yf0hJqatFQyLW9Jq4B4JYxvOIYYuUiS4nek0gUt+gGGCbSbjW
+	 nzJF1tdO/6lodCOJf6H9JqIXUj5WLYjS9aAMABZiozkQVnHciAMOUSdq0cP4QJHmWs
+	 YDRXkob9IM6tDsEamOkrniSjJIVSHDxOAF2uMjaIDKxn1cjBIpmtgaM7DChu4nvuDI
+	 UuCczTfCHTzrg==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so1917247e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:24:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx9DPbyzAIQZlI1a4DgyBjCvKPbWd7lYYuEbSHKt4UlMq7nVzQeiOtewE3sUEy7nu6jGZ0R5uUeMHJBrNo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQgsaOhngOqj3ks5H6GvYcdq0LZ61yuQ3SJKpthKs9ewyD3TZU
+	kMOWFp8bbuUsuY1xg2Qbgh+vbYfro03pHFaihRdJb0iaVcuB5xp3Em9i5nGnRUAUv28b58Uqvhw
+	1sGbfNYTRE2ugeQAIYpa1k3/ciMxCPPs=
+X-Received: by 2002:a05:6512:b8e:b0:5b8:99a2:9f2d with SMTP id
+ 2adb3069b0e04-5be50a6c238mr2508131e87.17.1792430670925; Mon, 19 Oct 2026
+ 10:24:30 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,171 +59,309 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-tlb_tracepoint-v6-1-14476427870f@gmail.com> <20261019100029.32a09f71@gandalf.local.home>
-In-Reply-To: <20261019100029.32a09f71@gandalf.local.home>
-From: Roman Storozhenko <romeusmeister@gmail.com>
-Date: Mon, 19 Oct 2026 19:24:17 +0200
-X-Gm-Features: AclHuK_oGHvZP8ZsUmOuB3mE6AE11B0H-Atozg5trQ0bWx9omrbaU2HKmEywW-o
-Message-ID: <CALsPMBOKENath9-6pUoPrrSRbuudg0V9tc76bLcxsnkQJJkvgQ@mail.gmail.com>
-Subject: Re: [PATCH v6] riscv: mm: Trace TLB flush requests
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jisheng Zhang <jszhang@kernel.org>, =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 19 Oct 2026 19:22:14 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hEkwqD4znFgQBtXskpiXXo52gNp=KbzbeqOW9g=ZGpuw@mail.gmail.com>
+X-Gm-Features: AclHuK-hjvdOv5ET-k1v1tBSwNWdfBk7MUhJOylL6EX5mT0pXoyicdLFn4TInr4
+Message-ID: <CAJZ5v0hEkwqD4znFgQBtXskpiXXo52gNp=KbzbeqOW9g=ZGpuw@mail.gmail.com>
+Subject: [GIT PULL] Thermal control updates for 7.4-rc1
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux PM <linux-pm@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Lukasz Luba <lukasz.luba@arm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 19, 2026 at 4:00=E2=80=AFPM Steven Rostedt <rostedt@goodmis.org=
-> wrote:
->
-> On Sun, 18 Oct 2026 13:14:59 +0200
-> Roman 'Hedin' Storozhenko <romeusmeister@gmail.com> wrote:
->
-> >  arch/riscv/include/asm/riscv_tlb.h | 103 +++++++++++++++++++++++++++++=
-++++++++
-> >  arch/riscv/mm/tlbflush.c           |  45 ++++++++++++++--
-> >  2 files changed, 144 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/arch/riscv/include/asm/riscv_tlb.h b/arch/riscv/include/as=
-m/riscv_tlb.h
-> > new file mode 100644
-> > index 000000000000..4d5f48112941
-> > --- /dev/null
-> > +++ b/arch/riscv/include/asm/riscv_tlb.h
->
-> Normal convention would be to have "trace" in the name. riscv_trace.h ?
->
-> As riscv_tlb.h looks to be specific about tlb and not tracing.
->
-> -- Steve
->
+Hi Linus,
 
-Hi Steve,
+Please pull from the tag
 
-Thanks for the suggestion.
+ git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
+ thermal-7.4-rc1
 
-I've renamed the header to arch/riscv/include/asm/tlb_trace.h
-in v7. I prefer this over riscv_trace.h because the latter
-sounds too generic for a header dedicated to TLB tracing.
+with top-most commit 503bb6e70bbf6304b8113373d09dfffcc4aa9183
 
-Did you have a broader use in mind, such as including other
-RISC-V tracepoints in this header?
+ Merge branch 'thermal-drivers'
 
-If you still prefer riscv_trace.h, I'm happy to reconsider.
+on top of commit ec0d89150a9381d591344a9f6f5428655c227a7f
 
-The updated patch is available here:
+ thermal: gov_step_wise: Fix stale mitigation vote with non-zero lower boun=
+ds
 
-https://lore.kernel.org/linux-riscv/20261019-tlb_tracepoint-v7-1-4cc3e99d38=
-7a@gmail.com/
+to receive thermal control updates for 7.4-rc1.
 
->
-> > @@ -0,0 +1,103 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +#undef TRACE_SYSTEM
-> > +#define TRACE_SYSTEM riscv_tlb
-> > +
-> > +#if !defined(_TRACE_RISCV_TLB_H) || defined(TRACE_HEADER_MULTI_READ)
-> > +#define _TRACE_RISCV_TLB_H
-> > +
-> > +#include <linux/cpumask.h>
-> > +#include <linux/tracepoint.h>
-> > +#include <linux/perf_event.h>
-> > +
-> > +#ifndef _TRACE_RISCV_TLB_ENUMS
-> > +#define _TRACE_RISCV_TLB_ENUMS
-> > +
-> > +enum riscv_tlb_flush_scope {
-> > +     RISCV_TLB_FLUSH_SCOPE_SINGLE,
-> > +     RISCV_TLB_FLUSH_SCOPE_RANGE,
-> > +     RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE,
-> > +     RISCV_TLB_FLUSH_SCOPE_ALL,
-> > +};
-> > +
-> > +#endif /* _TRACE_RISCV_TLB_ENUMS */
-> > +
-> > +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_SINGLE);
-> > +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_RANGE);
-> > +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE);
-> > +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ALL);
-> > +
-> > +#define show_riscv_tlb_flush_scope(scope) \
-> > +     __print_symbolic(scope, \
-> > +             { RISCV_TLB_FLUSH_SCOPE_SINGLE,        "single" }, \
-> > +             { RISCV_TLB_FLUSH_SCOPE_RANGE,         "range" }, \
-> > +             { RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE, "address-space" },=
- \
-> > +             { RISCV_TLB_FLUSH_SCOPE_ALL,           "all" })
-> > +
-> > +/*
-> > + * Record the invalidation request received by the RISC-V architecture=
- code
-> > + *
-> > + * The target CPU mask represents the CPUs Linux intends to cover for =
-the
-> > + * request. It can be correlated with per-CPU activity, but does not d=
-escribe
-> > + * which harts ultimately performed an invalidation.
-> > + *
-> > + * The ASID is hardware-visible and may be reused. It must not be trea=
-ted as a
-> > + * persistent identifier for an mm.
-> > + *
-> > + * The stride describes the invalidation granularity supplied to the R=
-ISC-V
-> > + * implementation.
-> > + *
-> > + * The event records the invalidation request before it is dispatched.=
- It does
-> > + * not describe the mechanism used to execute the request.
-> > + *
-> > + */
-> > +TRACE_EVENT(riscv_tlb_flush_request,
-> > +         TP_PROTO(unsigned long start, unsigned long size,
-> > +                  unsigned long stride, unsigned long asid, bool has_m=
-m,
-> > +                  const struct cpumask *cmask,
-> > +                  enum riscv_tlb_flush_scope scope),
-> > +
-> > +     TP_ARGS(start, size, stride, asid, has_mm, cmask, scope),
-> > +
-> > +     TP_STRUCT__entry(__field(unsigned long, start)
-> > +             __field(unsigned long, size)
-> > +             __field(unsigned long, stride)
-> > +             __field(unsigned long, asid)
-> > +             __field(bool, has_mm)
-> > +             __field(unsigned int, target_mask_weight)
-> > +             __cpumask(target_cpus)
-> > +             __field(u32, scope)
-> > +     ),
-> > +
-> > +     TP_fast_assign(__entry->start =3D start;
-> > +             __entry->size =3D size;
-> > +             __entry->stride =3D stride;
-> > +             __entry->asid =3D asid;
-> > +             __entry->has_mm =3D has_mm;
-> > +             __assign_cpumask(target_cpus, cpumask_bits(cmask));
-> > +             __entry->target_mask_weight =3D cpumask_weight((const str=
-uct cpumask *)
-> > +                                                  __get_cpumask(target=
-_cpus));
-> > +             __entry->scope =3D scope;
-> > +     ),
-> > +
-> > +     TP_printk("start=3D%#lx size=3D%#lx stride=3D%#lx asid=3D%#lx has=
-_mm=3D%d target_mask_weight=3D%u target_cpus=3D%s scope=3D%s",
-> > +               __entry->start, __entry->size, __entry->stride,
-> > +               __entry->asid, __entry->has_mm,
-> > +               __entry->target_mask_weight, __get_cpumask(target_cpus)=
-,
-> > +               show_riscv_tlb_flush_scope(__entry->scope))
-> > +);
-> > +
+These are mostly updates of thermal drivers including a new Exynos ACPM
+thermal driver for Google GS101, new Renesas RZ/G3L thermal sensor support,
+new Qualcomm MSM8952 TSENS support, new Qualcomm PMAU0102 Master BandGap
+temperature monitor support in DT bindings, and new rugged Panther Lake
+support in intel_tcc_cooling.  Moreover, the AN7583 driver is extended
+to register separate thermal zones for bandgap, GbE and CPU (its DT
+bindings are updated accordingly).
+
+There are also multiple fixes and assorted cleanups, as usual.
+
+Specifics:
+
+ - Make the Intel powerclamp thermal driver reject invalid window_size
+   values, drop redundant clamp() from duration_set() in it, and
+   simplify 4 functions in it (Thorsten Blum)
+
+ - Add rugged Panther Lake support to the intel_tcc_cooling thermal
+   driver (Srinivas Pandruvada)
+
+ - Fix temperature selection around 0 C in the int340x thermal driver,
+   drop redundant else from proc_thermal_add() in it, and simplify
+   slider_def_*_set() in it (Thorsten Blum)
+
+ - Drop unbalanced paren from cpu-idle-cooling.rst (Manuel Ebner)
+
+ - Use %pe to print error pointers symbolically in the thermal control
+   code and fix assorted typos in comments in it (Sumeet Pawnikar and
+   Hemanth Selam)
+
+ - Add the Exynos ACPM thermal driver for Google GS101, along with
+   DT bindings and a MAINTAINERS entry (Tudor Ambarus)
+
+ - Add Renesas RZ/G3L thermal sensor support and DT bindings, and move
+   default calibration values to per-SoC match data (Biju Das)
+
+ - Add Qualcomm MSM8952 TSENS support and the corresponding DT binding
+   compatible (Muzaffer Kadir)
+
+ - Document the Qualcomm PMAU0102 Master BandGap temperature monitor
+   compatible in the DT bindings (Dhruvin Rajpura)
+
+ - Extend the QCom TSENS v2 trip temperature limits to the hardware
+   range of -204=C2=B0C to +204=C2=B0C to prevent interrupt storms when ope=
+rating
+   beyond the previous software limits (Priyansh Jain)
+
+ - Fix temperature threshold map indexing in the QCom SPMI temperature
+   alarm driver to prevent out-of-bounds reads (Georgi Djakov)
+
+ - Describe the additional bus clock required by the Amlogic T7 thermal
+   sensor and switch the driver to the clk_bulk API to manage multiple
+   clocks (Ronald Claveau)
+
+ - Request the Airoha EN7581 IRQ after thermal zone registration to
+   prevent the interrupt handler from accessing an unregistered or
+   already freed thermal zone (Vitaliy Sochnev)
+
+ - Fix the Airoha AN7583 ADC mux field mapping, serialize access to the
+   shared ADC, and verify mux selection to avoid invalid temperature
+   readings and spurious critical shutdowns (Vitaliy Sochnev)
+
+ - Register separate thermal zones for the AN7583 bandgap, GbE and CPU
+   sensors, and update the DT bindings to use one thermal sensor cell
+   to select the sensor (Vitaliy Sochnev)
+
+ - Fix signed integer overflow in the Renesas RZ/G3E temperature-to-code
+   conversion, preserve compare interrupt state across runtime PM,
+   and prevent overlapping temperature conversions (Ovidiu Panait)
+
+ - Remove redundant trip window validation and runtime PM
+   pm_runtime_mark_last_busy() calls from the Renesas RZ/G3E driver
+   (Ovidiu Panait)
+
+ - Propagate reset assertion failures from Renesas RZ/G3E suspend and
+   attempt to restore power if the sensor was active (Pengpeng Hou)
+
+ - Stop the TI bandgap alert IRQ before removing sensor interfaces and
+   cancel pending alert work to prevent use-after-free on driver removal
+   (Weigang He)
+
+ - Validate Spreadtrum sensor IDs read from the device tree before using
+   them for register offsets and array indexing (Weigang He)
+
+ - Convert the TI OMAP bandgap DT bindings to schema and document the
+   DRA752 compatible and thermal sensor cells (Bhargav Joshi)
+
+ - Use DT property helpers matching the signed temperature and unsigned
+   hysteresis types defined by the thermal zone bindings (Rob Herring)
+
+ - Reuse common error handling code in the power allocator governor
+   bind callback (Markus Elfring)
+
+ - Constify the thermal zone device operations in the i.MX9 driver
+   (Christophe JAILLET)
+
+ - Fix kernel-doc parameter names and firmware node references in the
+   cooling device registration helpers (Aryan Sinha)
+
+ - Correct the documented return value of ti_bandgap_get_sensor_data()
+   to describe validation errors and potentially NULL stored data
+   (Karl Mehltretter)
+
+ - Ensure NUL-termination when copying the cooling device command-line
+   argument in tmon and fix the associated string truncation warning
+   (Florian Fainelli)
+
+ - Fix undefined behavior caused by a signed shift in the tmon thermal
+   zone binding display (Liu Jing)
+
+ - Fix wording in tmon comments (Hemanth Selam)
+
+ - Simplify cpufreq_set_cur_state() in the cpufreq_cooling thermal
+   control driver (Thorsten Blum)
+
+Thanks!
 
 
+---------------
 
---=20
-Kind regards,
-Roman 'Hedin' Storozhenko
+Aryan Sinha (1):
+      thermal/fw: Fix kernel-doc parameter names
+
+Bhargav Joshi (1):
+      dt-bindings: thermal: ti,omap-bandgap: Convert to DT schema
+
+Biju Das (3):
+      dt-bindings: thermal: r9a08g045-tsu: Document RZ/G3L TSU
+      thermal/drivers/renesas/rzg3s: Convert calibration defaults to
+per-SoC match data
+      thermal/drivers/renesas/rzg3s: Add RZ/G3L TSU support
+
+Christophe JAILLET (1):
+      thermal/drivers/imx9: Constify struct thermal_zone_device_ops
+
+Dhruvin Rajpura (1):
+      dt-bindings: thermal: qcom,pm8775-mbg-tm: Document PMAU0102
+
+Florian Fainelli (1):
+      tools/thermal/tmon: Fix string truncation warning in optarg copy
+
+Georgi Djakov (1):
+      thermal/drivers/qcom-spmi-temp-alarm: Fix temp_map indexing
+
+Hemanth Selam (2):
+      tools/thermal: Fix typo "binded" in comments
+      thermal: fix assorted typos in comments
+
+Karl Mehltretter (1):
+      thermal: ti-soc-thermal: Fix the return value in
+ti_bandgap_get_sensor_data() kernel-doc
+
+Liu Jing (1):
+      tools/thermal/tmon: Fix signed shift UB in binding display
+
+Manuel Ebner (1):
+      thermal: docs: cpu-idle-cooling.rst: Drop unbalanced paren
+
+Markus Elfring (1):
+      thermal: gov_power_allocator: Use common error handling code in
+power_allocator_bind()
+
+Muzaffer Kadir (2):
+      dt-bindings: thermal: tsens: Add MSM8952
+      thermal/qcom/tsens: Add support for MSM8952 tsens
+
+Ovidiu Panait (5):
+      drivers/thermal/renesas/rzg3e: Fix signed integer overflow in
+temp_to_code()
+      thermal/drivers/renesas/rzg3e: Fix runtime PM handling of compare irq
+      thermal/drivers/renesas/rzg3e: Fix race between set_trips() and get_t=
+emp()
+      thermal/drivers/renesas/rzg3e: Remove unneeded low/high check in
+set_trips()
+      thermal/drivers/renesas/rzg3e: Remove redundant
+pm_runtime_mark_last_busy() calls
+
+Pengpeng Hou (1):
+      thermal/drivers/rzg3e: Propagate reset assertion failure from suspend
+
+Priyansh Jain (1):
+      thermal/drivers/qcom/tsens: Widen temperature limits to match
+hardware range
+
+Rob Herring (Arm) (2):
+      thermal: of: Match trip property helper types
+      thermal: of: Match trip property helper types
+
+Ronald Claveau (2):
+      dt-bindings: thermal: amlogic: describe bus clock for t7-thermal
+      thermal/drivers/amlogic: Switch to clk_bulk API to support multiple c=
+locks
+
+Srinivas Pandruvada (1):
+      thermal: intel: intel_tcc_cooling: Add rugged Panther Lake support
+
+Sumeet Pawnikar (2):
+      thermal: gov_power_allocator: Fix NULL pointer dereference in update_=
+tz()
+      thermal: Use %pe to print error pointers symbolically
+
+Thorsten Blum (10):
+      thermal: intel: powerclamp: Reject invalid window_size values
+      thermal: intel: int340x: Drop redundant else in proc_thermal_add()
+      thermal: intel: powerclamp: Drop redundant clamp() in duration_set()
+      thermal: intel: powerclamp: Simplify check_invalid()
+      thermal: intel: int340x: Fix temperature selection around 0 C
+      thermal: intel: powerclamp: Simplify idle_inject_update()
+      thermal: intel: powerclamp: Simplify duration_get()
+      thermal: intel: powerclamp: Simplify max_idle_set()
+      thermal: intel: int340x: soc_slider: Simplify slider_def_*_set()
+      thermal/cpufreq_cooling: Simplify cpufreq_set_cur_state()
+
+Tudor Ambarus (3):
+      dt-bindings: thermal: Add Google GS101 TMU
+      thermal/drivers/samsung: Add Exynos ACPM TMU driver GS101
+      MAINTAINERS: Add entry for Samsung Exynos ACPM thermal driver
+
+Vitaliy Sochnev (5):
+      thermal/drivers/airoha: Request the EN7581 IRQ after zone registratio=
+n
+      thermal/drivers/airoha: Fix AN7583 ADC mux field mapping
+      thermal/drivers/airoha: Serialise access to the shared ADC
+      dt-bindings: arm: airoha: Use one thermal sensor cell for AN7583
+      thermal/drivers/airoha: Register a thermal zone per AN7583 sensor
+
+Weigang He (2):
+      thermal/drivers/ti-soc-thermal: Cancel pending alert work on remove
+      thermal/drivers/sprd: validate the sensor id from the device tree
+
+---------------
+
+ .../bindings/arm/airoha,en7581-chip-scu.yaml       |   3 +-
+ .../bindings/thermal/amlogic,thermal.yaml          |  29 +-
+ .../bindings/thermal/google,gs101-tmu-top.yaml     |  69 +++
+ .../bindings/thermal/qcom,pm8775-mbg-tm.yaml       |   7 +-
+ .../devicetree/bindings/thermal/qcom-tsens.yaml    |   1 +
+ .../bindings/thermal/renesas,r9a08g045-tsu.yaml    |   4 +-
+ .../bindings/thermal/ti,omap-bandgap.yaml          | 177 ++++++
+ .../devicetree/bindings/thermal/ti_soc_thermal.txt |  88 ---
+ .../driver-api/thermal/cpu-idle-cooling.rst        |   2 +-
+ MAINTAINERS                                        |   8 +
+ drivers/thermal/airoha_thermal.c                   | 179 ++++--
+ drivers/thermal/amlogic_thermal.c                  |  14 +-
+ drivers/thermal/cpufreq_cooling.c                  |  14 +-
+ drivers/thermal/devfreq_cooling.c                  |   4 +-
+ drivers/thermal/gov_power_allocator.c              |  18 +-
+ drivers/thermal/imx91_thermal.c                    |   2 +-
+ .../int340x_thermal/processor_thermal_device.c     |  14 +-
+ .../int340x_thermal/processor_thermal_soc_slider.c |  28 +-
+ drivers/thermal/intel/intel_powerclamp.c           |  64 +-
+ drivers/thermal/intel/intel_tcc_cooling.c          |   1 +
+ drivers/thermal/qcom/qcom-spmi-adc-tm5.c           |   4 +-
+ drivers/thermal/qcom/qcom-spmi-temp-alarm.c        |   8 +-
+ drivers/thermal/qcom/tsens-v1.c                    |  41 ++
+ drivers/thermal/qcom/tsens-v2.c                    |   4 +-
+ drivers/thermal/qcom/tsens.c                       |   3 +
+ drivers/thermal/qcom/tsens.h                       |   2 +-
+ drivers/thermal/renesas/rzg3e_thermal.c            |  45 +-
+ drivers/thermal/renesas/rzg3s_thermal.c            |  38 +-
+ drivers/thermal/samsung/Kconfig                    |  19 +
+ drivers/thermal/samsung/Makefile                   |   2 +
+ drivers/thermal/samsung/acpm-tmu.c                 | 651 +++++++++++++++++=
+++++
+ drivers/thermal/sprd_thermal.c                     |   6 +
+ drivers/thermal/thermal_core.c                     |   2 +-
+ drivers/thermal/thermal_fw.c                       |   8 +-
+ drivers/thermal/thermal_of.c                       |  15 +-
+ drivers/thermal/ti-soc-thermal/ti-bandgap.c        |  22 +-
+ drivers/thermal/ti-soc-thermal/ti-thermal-common.c |   4 +
+ include/uapi/linux/thermal.h                       |   8 +-
+ tools/thermal/tmon/sysfs.c                         |   2 +-
+ tools/thermal/tmon/tmon.c                          |   4 +-
+ tools/thermal/tmon/tmon.h                          |   2 +-
+ tools/thermal/tmon/tui.c                           |   2 +-
+ 42 files changed, 1331 insertions(+), 287 deletions(-)
