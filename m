@@ -1,64 +1,66 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD82A3DDB0D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:14:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D09C485514
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394064; cv=none; b=pqZTSqr+DiINadXILJwlOu7XkLfh3RIami0MEb8CvASGGCFvr2SS+uRbEGDG/Dhghnt4OR2YBGwCTnKCiwnn9WHvlORcrozyKBylGyOgMXgBSUG9hpXBqlW5D9Tjs/pQO7AvP6wkfrYRvw0wF6Z4qfzYa4FK6d3iDCYy/lKfD+k=
+	t=1792394065; cv=none; b=Lw5WiLTjFWJ9Kc5mxfXdy9F+iNOFnCgJ2wLRE06wrcHs8Hr3di2dgCmefLtFlkBB3qahhuroTDG9v4PK1KiEwQt6vyPshVK8CPG3KHCaI1zOCaRm98Ieu/PwOz39mD0Wy/cNxKqh25kCJJnO320q9KRWw4ia5VXBH4GPbzQRi+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394064; c=relaxed/simple;
-	bh=1IOBSbtm8blMjj4jz8ccFmyuAa7PBcQB3s4HZOXp5KA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JUPDS04q7D28eLMsGVqcEYv2PpuRHs1ftjhajILCzLMsfawV8isbUWALaVAOQEmGh81E+Ll2wAOE+Ut6bbSzVyjvU8oJKurQy9LlNQtOxKJPQq4fWqbkIP1ANr37WROeRjoL+J6wEYXTIf4ZGQj46yeybvsteF5n8vf7oF+wBn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m2Fc3Yy+; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1792394065; c=relaxed/simple;
+	bh=FNU42YhptCFvQFCc+00g64enrO+LxrGZvwpZ6quqXps=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=F5WBErgYr0/pF4lnc89OwKuIHSo1+7yoICSJIqmVSfdwjFhPzd51F2YOeok1oWi15dpsjz97HkxWWDYRFMvl1LtId8JRbIvv/ZhxZsqKOgFOQz2AnE2+cXvim6ceIGh66zJ/ke4FbYTYp1MwghjArIPYy8Fa+nw75lHbLZT7q5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dECw3kAk; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m2Fc3Yy+"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so12825725e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:14:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dECw3kAk"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso787485f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:14:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792394061; x=1792998861; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jADCjLU3MoUpjv4xpRKfYAlD1L0XyJcyjm1DBlO63j8=;
-        b=m2Fc3Yy+VwfF59S7lVKWlq9ER1Gp3mrzAFacy8q4GQP9ejt+uKzwhF+pQC4Wpp/1Ab
-         mEdlobbAy9FbBOgq/YVJYw4sN31PPomEeCT6qpxuuUWqzmcBs1G9BZIAEWojo4ko9PZn
-         VV17NRIjG0PioYHXR+vU/+FY9xK3ok9S0KyJBgbQqS5tSH514jlZ9ygGDeb0ZpvpdPve
-         rsy5LMl0lu1ee1AIO4n02EnW7+E1jKmVO5uRPJWNDyHXw0xxp+M72IKqDqSR6XEZOK15
-         NQHM0hH2CvTx9VxAl2fSDldsGrn3knD6+3j0k6aPIDazeyECklDyFU59klCZKQeGlD32
-         ndsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792394061; x=1792998861;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792394062; x=1792998862; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jADCjLU3MoUpjv4xpRKfYAlD1L0XyJcyjm1DBlO63j8=;
-        b=KljtU6crdd6WSbMpCvfO5pFEz+YmfFNHUZ5TV9UGWPScje2XWaHCbsLi/6eBR5w3pb
-         /+8rtpreNJ3HPVV/W1e5nFCahvNlda0shqBIcyaSCsfo+Lf0KXeEEJWNUTx0W4OnWgVO
-         zNR7opmQzH1URC9MUt7F9UVnnSsGnHDx/0D6ZywPERqQyx7V2XSA35R38Nkpp4A2MrrW
-         9eC3/TYtFyuFg9yWmdGdXJuGHjlsmIrxEqj9PW0HCvTkz+aqlG0INJYUxya3IfpfqI97
-         rlqVJ9H/h6Ay0DYx5hcyzPidGk5AGuo+mQR/OjL/Vj+23n1UusxMlFyYvLbP8qIc4eBy
-         WQdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw20UJ3OtkuDO2ac8T2NSMLj0ag2imb8cYjRIUc6RmGOvUmMIZ+mOfc8QabpcjKluNYkEbXM+eyNKU+VsU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgzxLAsxOPwgHSh8RKhK/e1zlpofwSgBmuE9olAn/R5udjmLms
-	VnbsY4mxU3Gr9SXkz3lv4+krHRascMnv8AhGQuuwOidY4ag780+Ydrj5
-X-Gm-Gg: AYBFou27MF1v05MsXaCAkj72hjW7nYyDrJgzzQQTk8xI0byNqlm60OmtxamrtaYNh/7
-	aNKYKex0e2ftSCGSM0SY9guQbsa1Ar1x2571ZHbAKWwHmg/FOe6T/BvwOnTx4449NqsKvNZ0TTV
-	ofpC5Ly5hVg7GhVveHqH6JAffe1+r8JhTeBAuNCsbCJ9hgRc4VLYiCTp2WfUjkcnJjJq6+8G2lX
-	46BlruEvANxrdQ6dL+pL9UW9BAHCitUATK5rRgBiZRucms1cCiK/Sb3+K1hJYErwjjFldvC0PH7
-	NXLM0bX5e9+E5wXfAKCnrV7P3jp5qE3TUZLlRKEud0+9lmeHVmccIlIs1UkUvYCMh9UcCjoIIO8
-	n2WtXR+4WpvggSJCjjZuAC8pzTsgMKGZ6Eipl6uy9zMaQ1Qzer1BtVGfX0+r6AH17nx0LC163xf
-	ffZEPe5GUpVlh/USigJpdaMk4NVMNf27BiOfaoc59v+Al5n8RO5pIS3wohHdiNO7jP4jmIxVfcl
-	ald6PtoYzaClc6qYU5kLPiyjHUk6P5vgcAyW8GKvu6GpkiPCW+UJhnvnFAXTvEoeYyHD4+EHEpv
-	ulcWDoLklkbugV2SEuS1UKJTalCnazLIHOByYpwLL4lvrEaTC72YTcJ31ZXRhCFae7t1pmvu0vM
-	0
-X-Received: by 2002:a05:600c:3513:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4a1d760e58fmr141500925e9.27.1792394060636;
-        Mon, 19 Oct 2026 00:14:20 -0700 (PDT)
+        bh=ZvdzAe+ZkLnBBtbCTReTMkAoyI9rj6E82u0uZ+VglJ8=;
+        b=dECw3kAkvUQJlAOmBSc5AnwqAGCopbwEiZBk9r5ZqORyBXU2VtjzV+wMXgZJTYEVWx
+         QKYG7+sUBCPkpXecvgE4y13xSocsccvYVn8s6giajTB4xheFxeW9dW1qFZHr8yfUUr/l
+         LTJJ8KCIKBfXMECRWp6ZChn3cU7G4LbjS4g3O63CKrbcyDkiL0kFMzsZKFRONw3UqvPO
+         40Z1TQWkLsFdhOR+5d9Ooyw7Gwfz/w/9/l8ESN9Uf+DrmIIzlZ0u6AHL3f9uVmjieEsj
+         8BkdW94XMO1lUhgF5+yesq6OBlASQYIoG2+HrLfa5aN3uhqbafoXcx9Vb1FgGXxnZfI0
+         ON1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792394062; x=1792998862;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZvdzAe+ZkLnBBtbCTReTMkAoyI9rj6E82u0uZ+VglJ8=;
+        b=yE5F3RV0L9XzmBehgCphpi6mBvv5vGL0UtiuzWlHUSeYhMmy+L8aqIYQtZ2XpbpBQo
+         J1knKn3d+cNp2PqBFrHi3vePhPY8Jx1nbbcIDzozfjjL7Zvi2PWxBpTYnz2BfjVmxQ1E
+         S/mIa42w7TCE35u3ZBobOmh3uKCWZgA806pqOZzOlJopfoa4Z8eunZttJcgDh8UfMDNs
+         YP0wxYBEoXArA+gxWP/AwiijQbTOzgbTtJno+QbcPM/QZlH+me/us4W5/NHRwomXw8Lt
+         LiCnw5No6I/h8ibiEkjPe1MYwVp4FUT0Ah6t0D4VFJnCCeF5sR4A/JCTz9oAiyXNpDi/
+         Idqg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4BhVMDsBRadJqG6zZ4QIRZ79qIniGHRn0YALQdngDL0Jaip0vzDU/bNXQwIktJlI4tLwqfgiWvN30PUs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3Y4bfg8k+Kz9nfoRZf+z/XMLySgfiklmeoriH2ANpXORarXd/
+	ngRKUrgA0f8ZxVVf/rEtg+CW3bl+0N1mfDBIW7OoYb8Kh4fx6CUSB79Z
+X-Gm-Gg: AYBFou2JcUE3f2q9iFk36Kxb2TCrixcA4h5DJ/rQNpWQsYJyvdFzCg9wBbJ6oilbpp1
+	dRsrEWRe4X6TiaW0kkEBnzcBNgzuKJVPTnwXbGTdIhErj0WRg4PrEJii6rX92KZZAXoFYdawuh2
+	HxiBZXfdNnuYS/cRXOngnKmdMlGx+x/OhKCqnZS7S40iMTnh/iHwFORRihKRiRfNh+DGwdG8KI+
+	7ogAHmZb4jWm59UWv5SarcvCHzHqvkKAKBWrXfF2qHK5Y5nV/xEMr6K6kKIm8w71j4va4PkHSOJ
+	5/ezXn7hkl8HFo6DiRJzoXlAkWhrBQpVLY5i+M1h2CxFW1JC7027v3SBceQivQ6LUJnQ6FM8Gnn
+	8OD9VVfyK/sxckgCkCxyDP5hDpRVQOA93xhLSk9D7xjTKOVT1nBuXh7Ss8a4aOt4N3GYl4qfi40
+	/NVF13ypguGflmFL3mAxnimVfDvfooZWN+XHVpb+f8U3T+hBz/KJoo3e4IB4xWfLoTUcftBXh8S
+	Yuopo1NvG3D7OjzRo5meu/7UMVJP+dcvEKAYuZk+spS4KCcJcVyDLT/DBX+FtwI3xaEKSS+3fyX
+	ZAB79rMvaUJJZUE5+Ei1vlOarVZr4rq+m26dJzoa+UiCgE1lRmOPlxNCi2nsBgNGqo2hoUAB4+s
+	e
+X-Received: by 2002:adf:e28f:0:b0:48d:f7f0:327d with SMTP id ffacd0b85a97d-48e07fc3ac2mr9376404f8f.29.1792394062160;
+        Mon, 19 Oct 2026 00:14:22 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-a4e0-4601-c43a-536a-04a3-af7d.310.pool.telefonica.de. [2a02:3100:a4e0:4601:c43a:536a:4a3:af7d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm21559338f8f.2.2026.10.19.00.14.19
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm21559338f8f.2.2026.10.19.00.14.20
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 00:14:20 -0700 (PDT)
+        Mon, 19 Oct 2026 00:14:21 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Tomasz Figa <tfiga@chromium.org>,
@@ -75,10 +77,12 @@ Cc: Tomasz Figa <tfiga@chromium.org>,
 	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org,
 	Karl Mehltretter <kmehltretter@gmail.com>
-Subject: [PATCH 0/4] media: synchronize CPU access to imported DMA-BUFs
-Date: Mon, 19 Oct 2026 09:14:07 +0200
-Message-Id: <cover.1792392288.git.kmehltretter@gmail.com>
+Subject: [PATCH 1/4] media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
+Date: Mon, 19 Oct 2026 09:14:08 +0200
+Message-Id: <f2258d73562e0ebf2efd793b646706ba0dacb2c7.1792392288.git.kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <cover.1792392288.git.kmehltretter@gmail.com>
+References: <cover.1792392288.git.kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,60 +91,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-UVC and vivid access imported DMA-BUFs with the CPU without cache
-synchronization. On a Pi 400, captured data remained in the CPU cache
-while physical RAM was stale.
+VIDIOC_PREPARE_BUF leaves a buffer DEQUEUED after calling buf_prepare()
+and the prepare() memory operation. VIDIOC_REMOVE_BUFS accepts that state
+but frees the buffer without calling the matching finish operations.
 
-Add an opt-in queue flag to bracket CPU access from buf_prepare() through
-buf_finish(). The allocator cannot imply CPU use because some vb2-vmalloc
-drivers pass buffers to hardware. Patch 1 balances finish operations in
-VIDIOC_REMOVE_BUFS so removing prepared buffers closes this interval.
+With VIDEO_ADV_DEBUG, vivid reports:
 
-This follows the per-queue flag proposed here:
-https://lists.openwall.net/linux-kernel/2024/06/20/236
+  unbalanced counters for queue 000000009fa716f8, buffer 0:
+       buf_prepare: 1 buf_finish: 0
+       prepare: 1 finish: 0
 
-Based on Linux 7.3. Tests cover the same code on these earlier bases:
+Finish prepared buffers before freeing them, as queue cancellation does.
 
-- Pi 400, 7.3-rc4, all four patches: eight 640x480 YUYV frames per run,
-  imported CMA DMA-BUFs with a DRM device mapping:
+Fixes: a3293a85381e ("media: v4l2: Add REMOVE_BUFS ioctl")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/media/common/videobuf2/videobuf2-core.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-  Path                          Runs   Stale frames
-  UVC, vb2-vmalloc               12        0/96
-  vivid, vb2-vmalloc             12        0/96
-  vivid, vb2-dma-contig          12        0/96
-
-  All six lifecycle cases passed with both vivid allocators. Read-only
-  output USERPTR passed. The test added no warnings or failed CPU-access
-  callbacks. A control without the DRM mapping found 4/16 stale frames.
-
-- SAM9X75 (ARMv5), 6.18 backport of all four patches: the baseline
-  PREPARE_BUF/REMOVE_BUFS imbalance was fixed. USERPTR and six lifecycle
-  cases passed. All 128 vivid and 96 UVC frames matched RAM, with 100/100
-  begin/end calls. The baseline was already coherent.
-
-- BeagleV Ahead (RISC-V), 7.3-rc7, patches 1, 2 and 4: read-only USERPTR,
-  six traced lifecycle cases and 60 repeats passed with balanced callbacks
-  and no kernel diagnostics. A vendor 5.10 backport of patches 2 and 3
-  captured 96 UVC frames without stale data, with 100/100 begin/end calls.
-  Its baseline was already coherent.
-
-Karl Mehltretter (4):
-  media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
-  media: videobuf2: add opt-in DMA-BUF CPU access
-  media: uvcvideo: synchronize imported DMA-BUFs for CPU access
-  media: vivid: synchronize imported DMA-BUFs for CPU access
-
- .../media/common/videobuf2/videobuf2-core.c   | 96 ++++++++++++++++++-
- .../common/videobuf2/videobuf2-dma-contig.c   |  5 +-
- .../media/common/videobuf2/videobuf2-dma-sg.c |  5 +-
- .../common/videobuf2/videobuf2-vmalloc.c      |  5 +-
- drivers/media/test-drivers/vivid/vivid-core.c |  1 +
- drivers/media/usb/uvc/uvc_queue.c             |  1 +
- include/media/videobuf2-core.h                | 12 ++-
- 7 files changed, 116 insertions(+), 9 deletions(-)
-
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+index b0a6084f17573..460eaf4e82f78 100644
+--- a/drivers/media/common/videobuf2/videobuf2-core.c
++++ b/drivers/media/common/videobuf2/videobuf2-core.c
+@@ -1746,6 +1746,19 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int c
+ 			goto unlock;
+ 		}
+ 	}
++
++	/* A buffer can be prepared without being queued. Finish it first. */
++	for (i = start; i < start + count; i++) {
++		struct vb2_buffer *vb = vb2_get_buffer(q, i);
++
++		if (!vb->prepared)
++			continue;
++
++		__vb2_buf_mem_finish(vb);
++		call_void_vb_qop(vb, buf_finish, vb);
++		vb->prepared = 0;
++	}
++
+ 	__vb2_queue_free(q, start, count);
+ 	dprintk(q, 2, "%u buffers removed\n", count);
+ 
 -- 
 2.47.3
 
