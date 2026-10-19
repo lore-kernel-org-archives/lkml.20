@@ -1,80 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792436643;
-	b=YVzw2eeCthL4RZ1plAwvMPqYbcid0zy4qPOlYTIZ3IsrcK07p52Vw8rMNQvw08ygvAPA
-	 7RNG3K/YlrdmC7KHgeozOTMDyG7pFPRHxs9AeHPl7W4xTQEyhlGPtArGgbRZMnV9NJQMb
-	 gCNmbFzC2+kJDcbS2pK62QvnrPVjpohblqZWLlz+JdF3IYQcTayofHqXX4kh0LgVIySv2
-	 7o0vjE51QUTrnGU9c9Ox4ZA4fRCC7peQOFqCPU5pBe2f0lgIgL/PlwLhT3noSfhDZW/w6
-	 wJj8nPHBVI6pZBeLJ8e3UeUGG6OXMQGGUs5wtzz51/Nv+os5ZvZGEpLSajZ18w/IhhA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436643;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=dL8ZGUobikYXfeavA/hCoH0m0XNsNI0h4JXi+H04Ge4=;
-	b=w1byPiLT3QicaMDc74213dnBVHuBU1VcGZv0Xh7+zfv77Z2sCKWhcC8Pm15yPThdv50J
-	 XAyrLAgGAoxIUPhgXHXgrchOYicDb/vaIu5sCRSQuC1KH4MhXjHOWA9td7LHzTywQI7Go
-	 erxwMg+nP68KeCSeszZNSCfM97abVDF/EaZLhTj6AVbAe9R/NbaSU87vA0swTpnkt0NBP
-	 UXT29YuZ4MvjyFSJeU4uuAVbZ5aGYe02vmKmexaRjbZsnf2z0bnIO4lnyZbZU0ENX/FUC
-	 ICQxWY98KZEwpM/FC7dW5uAsO2ec6ILDbxJfpo7JNPLDIZyFldwAoGjPFVD8ty7k7Bg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Liz8OJdp;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.1
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792436696;
+	b=jkNgXEZdxHbTm0+0WGVWw5DgofLgQ+/PBsoRPIvIzW9f3tQQ8q9h5ETzhaaXsxcA0sYF
+	 /wLAztmRsPKDvrXCbFloLHy4Mn1fcudoNQNtQdLjy3xRA2Okt+KO4zEygG8BUcwOFF480
+	 x5ZHlWugrisorRro77QUcNl2t0qITFGWGRAaaVq9emS43AnCNnANmaUhcXG1kRHuCxDri
+	 oFIOUf5oUrKgzadq/a1Yaf3f2oz69fP2Pj/XWJBz1UjMQ37vcEQKbyEoCBTDUkEQoHcMR
+	 vyyMf9ukTUCQlB1bY1u9EolcgMPcfglC+PZpImJhxy6poI8FV6J1JGT4ws/oD0lZjBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436696;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:From:
+	 Subject:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OwXkYju8Q6RlcwZxR6BWht000Jd6fsJD01BPXoy4dqQ=;
+	b=BFrf8IZTW5EhEgxNB+b3LT9loJnjm4xuHA7Sfx7rBONmOFPcPXcARLpA6NiD/o068T4q
+	 xwKh5v6pUAYq9K11DqS4ASuABTZT2rJ8Jek5590/nloDQdwyiGERLEzX10BRpRmFMIYlx
+	 HdGTqRSjRMrIrNvoYkg80rXA7CUxDULt5IGeLs3Xjyj6PzI7V7l3H3R+2QURDX2jKqbB3
+	 FRcpb/nlnZT6yAQcFiW1J+TibR7nlIeOKSWWCx02pjug5vmxuKbGQFBioweooPm2j6AS8
+	 FlR9FTm5QAJLhLjFcCLKEuiCvc3E34kylLXEzQPZ//AmuVySiLIdhjgXm0dguknnX7g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=poMulWY5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.1
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011001.outbound.protection.outlook.com [52.101.52.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2CC606A320;
-	Mon, 19 Oct 2026 19:04:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E2CC606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAC4606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:04:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AAC4606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Liz8OJdp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792436643; x=1823972643;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=J+FWQwTwrvLkVXTmczbs/r9eIiKcg2wlsFRu0rFmGOA=;
-  b=Liz8OJdpPD1tPYnlcOdsa4gqlBAjMM4horDj7xNL+hOFsMrcoNUhNXZ0
-   7AApGgM8Ou0I34oq81pnjdErnp5OXAlJqmWuSLCotbqMWuazFY7JVitvP
-   Pl+v1dD/WX2esAn/r2U8uex4hhMtlNDQokpQQTVce1EqswKiAZUA3dGY7
-   9eEBOn8GVzR9vsrWmlgrKU83GEO7HyehXGuF/mPgMveKjsfHvO6lf35ws
-   GyCG7dsfg4HYA/WR3ySSDcIe7YEHWzrUzj3ufWkDcxK7uCLyz8QR6GIe1
-   RmByG85g4e5V+6dsacuU4zQYPrwVj+1YAkXc/G90ABYqx5XIE0cSpnz6U
-   g==;
-X-CSE-ConnectionGUID: 3RVBW4zQSDyFC9pdrhh/oA==
-X-CSE-MsgGUID: uayJRRENQMeTfRYoCMFnJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1009432"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1009432"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:03:45 -0700
-X-CSE-ConnectionGUID: DaLQB0JGQtiDRU5HnhCXig==
-X-CSE-MsgGUID: Ty9MtHA9QCqcz04CqgeBSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2619666"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:03:42 -0700
-Date: Mon, 19 Oct 2026 22:03:40 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: amiratefabdallah1122@gmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] staging: iio: frequency: ad9834: use guard(mutex)
-Message-ID: <atZpjGgTBcdVMtQJ@ashevche-desk.local>
-References: <179241934543.347.7026859519510388428.20261019-ad9834-guard-mutex-v3@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=poMulWY5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Quki4Pm/YOkNehuQnX19D1guCzjsXuIxs610kQXmro8JDecGTT5oUreB8qAtHgbZ4IZGeShQVtsAFO4N/pfmYHWW5q6PIE96cY5sMSSDr6mnpu0iYBJm7IjqHMQ/6iA0DGMp+/jVPVT7HVCMw0M+kKynPcuMGQvDW5cVkY4LnwMKkE46wMybO1JfOl9ulsZFvIMWvj99/kxmLFgVBbHQ81UNieTG2xCKxZPGwzFTo7cE/wqtYNrRhC2bRJsYtkDDdnjL/KBVcM4i3TiVWQvMgEKAm3LusJS/2Vl+MIiNT08u0IWr2SHl9e0qjpZH+9treiLJOUHfC8pYEk2k8SnX9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OwXkYju8Q6RlcwZxR6BWht000Jd6fsJD01BPXoy4dqQ=;
+ b=DxH7Nvv921GaDyjCHn1lUTeWolUdqDxMgaTTvuYqq7NW5SgzfdBSL1BaMrQLUAP8UlCSh8ICfcb2vX+xQxToO/2I5dHlVN/hc9SlgcC7pSCfbcfT5dVk9u/Kc5kaTiF190JwKxMHgtzVq8L0Hq0SJZFHOva2eM4FOaiZCAMAdwamgu4wfVIZJIvIkzRPoSF4HQJxuU4O9aMua8PfMsLPyra4P1wzYNbTo+jkw9tsa2dLnl0VtWrfyVLSVCm9V5ub+O0kK2zA5PYAuJgSgR9+GrdyCmNJ+q8xznH0SLLYgutO3TDdiUvu0ktRqj1Mv/8EsxaAPbpTD4qia4mY0Ku5vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OwXkYju8Q6RlcwZxR6BWht000Jd6fsJD01BPXoy4dqQ=;
+ b=poMulWY5fEGJrY0y0o/Yt79h0ISl2ly0Kr16G3LnUtWrk7jOrORMrs7IIgDPW1oppzLzBuQrOzO9HPJNsDKM1Rog8aWymrnkfVvdhFHf+FLg3EMmudx3g7rI5t0tNJGMnWaAFIuRMxw8oYBd56dZH3Dm31Ga+xvcRLuFojbX4ot+lONn/AbeyIbcVL21qqT/u6LIvAiISDTLK1hIkkHIQADhZ0BE84Iy3yDu0y9C/F3z3JbCT83/IMBOx3NtIQAHZEkBVNjII7xAy7HIotL4Lcua738LxldzoYYV4frza3kLtbiMngWNksmLWYwF4mBL6rnMHsyzA6a5U5zcIuxzwQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH1PPFF9270C127.namprd12.prod.outlook.com (2603:10b6:61f:fc00::62b) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 19:04:46 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 19:04:46 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 19 Oct 2026 15:04:45 -0400
+Message-Id: <DM91RXTJ5EFF.2YQARRB6TXQIK@nvidia.com>
+To: "Gregory Price (Meta)" <gourry@gourry.net>, <linux-mm@kvack.org>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH] mm/memory-tiers: reset demotion targets of nodes
+ without memory
+Cc: <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>,
+ <akpm@linux-foundation.org>, <david@kernel.org>, <joshua.hahnjy@gmail.com>,
+ <rakie.kim@sk.com>, <ying.huang@linux.alibaba.com>, <weixugc@google.com>,
+ <aneesh.kumar@linux.ibm.com>
+X-Mailer: aerc 0.22.0
+References: <20261019184712.3422641-1-gourry@gourry.net>
+In-Reply-To: <20261019184712.3422641-1-gourry@gourry.net>
+X-ClientProxiedBy: BLAP220CA0030.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:32c::35) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,38 +99,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179241934543.347.7026859519510388428.20261019-ad9834-guard-mutex-v3@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH1PPFF9270C127:EE_
+X-MS-Office365-Filtering-Correlation-Id: 283a8e5e-87b2-4bb5-a1a5-08df2e13d77f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|7416014|22082099003|18002099003|10067099003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	NZA/zSO05nJ31oB6SUl3n2b+myK+1n/9tIIDN1+4EIfzxW9OT6cnvfKpfyRr19KJzxbU7x9PaD82PoyCQxeS4fSspC07ht53s7EgSHO94YF6J3h8yrznfKZzHQyPnRXrPgImJo+j/1tcA16PGPw4ggtROde7YHw5Eo56vFvH1AoQDtaSZUpGgU3k5GUvdKC86V4BQ28w9VT+ioKfWDfgjSX4KJ2yNK9G8D7Y0Y8ArfSIYCGgXaqnuQyfzyLrOYEhEBp8VJ9bpOehUcsM3MUPOL1icpGrow6NM+yhk972GIpgeP5z0LbjHikA22zqlT1dV12zwcsOiF0ULRX1ktzpMVmc0dIF1fuDN+3kBf+PsJUa2M8vmvaGRVK6YnJQP78ZghGR5r9lkX4Dpq2DoR712yWfLylPFcYtOA5004fivaaL3W3xdnFPHTfVnd7Yk4TBBbctjNykNXobOq0xJWM3zpQ1IsxphrDC8FlleUZYIhUMZ6tzDxXTjU6tIQphdt7wFIR6Tpk4A4v9Xe0MiDCg1S9Rizo9uNc59jrT0qavk+AqXPaQOuesp++9h5XjIN0zAUCNct6TtABHSf35QuafjarHuDyD9/nqLc8RNeRCESTSbjq/USTmM2v6vO/qx6Ks8jliN09HP2wSRlelLr92L/posLLX5QUzwt57A9+3ZJg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(7416014)(22082099003)(18002099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?blBzOS9rZEhZWmp5RFhaSjlHQ25LNCsxTWlMb2lwZ1hUSGt0dWR0YSs1K1N5?=
+ =?utf-8?B?NDNTemsrR3hLS0l3dkRoNS9OL2RvOXlrU0FmL0d6all6bVE2Kytyd2dySnNV?=
+ =?utf-8?B?T2hRUUpSYmN0dEZwZTdsdkw5cUp2TVlNRTFBbEhOWldkTWZrNVpzNnV3Y2hH?=
+ =?utf-8?B?V0JjWXlZT0RoUTBOaSs1b20yakZNUHVVMzhQQkd0L1dTb1hZejFSaFEyTEhx?=
+ =?utf-8?B?bVoxWGtJRWFON3ZQZUV1RGdhbnp6UEJCZi9IdDBCTFQ0SllnRnVOK2kwdi9S?=
+ =?utf-8?B?OHpmTmZMMlRwOXVOT1VVazhMdGgyRUVZa0ZvKzhrQ3BPbkJtYVFFeHM4MW9H?=
+ =?utf-8?B?NDNxZStOR051b3VvaWx5ZjErWXRqYkdCa2FZblp1eS9nZ3pKa3VqTkIzallP?=
+ =?utf-8?B?TC9hZlpGdHM5bFRDcmpZYWY5RXZvMVZ1Z0lYaDZpYkVSMnNMQU9VbmZKc2Zx?=
+ =?utf-8?B?SHE5WGpTVHVGSVBPcjBCMXB5UDFpVjJMUWcyMndSMnQ4anV2WVJEdDdYSm5t?=
+ =?utf-8?B?M1NlS1BGSHBMR3drdHQ4WC9NOHRKVDAyQTBwRWZ5RjlyK01jODFqcEFlRDdW?=
+ =?utf-8?B?MCswY0dINmt4a2YrQVB6SW1pcmhHZzdNYWVSYWVMTmRDcTdQbFFMenNtSGFO?=
+ =?utf-8?B?eWJpQktzR3IwS0xBSnR6cXkyN3FUQ1pNeVk1d1ZrQTE3V3JRU2ZGbVdwMWxl?=
+ =?utf-8?B?OGUrZG5aOVZvSldZS0JmMDlBNk90RDg2NldwWnZacEhIMzJhSllMclRFWWJ0?=
+ =?utf-8?B?cXVhbUdOa1dtOCtyZmxJZUFpcHI4aGxtZy8rUlNOeWtycTlVVmRHb2VnaVNv?=
+ =?utf-8?B?Zmk5Wk1pMkd3OUJEZW5yandHeXRWbThjS0loKzlzeGJqUm02dXh6WDRSenh3?=
+ =?utf-8?B?Yyt6aXZoNXVrMzBKM290NHpiVURiRW4zQVBUak5Ua3NZUm5veVFHOEE3b3pE?=
+ =?utf-8?B?ekZ3dWVWUkR3d0hoYk92UHEyL3pSN3dGbzVjaG93K1JXSy9zYkt1cUpYbCtD?=
+ =?utf-8?B?QndodWZUbm9CNGJ5WlRzZFRLTk1HU2k2Qys4V0lxU2NEWi9LL3YrSkpSdUxm?=
+ =?utf-8?B?bzBMSGVmcFVlc0tFWDcyRGNwZlRac21aU2pZZnNpaTZNR2k2OVhPOGNNK0Va?=
+ =?utf-8?B?Z3VQU2RlYU5weVF6MFFDWmxLLzVONnBKcStKV2NBcHlZdTUxS0Rld3VsUFNh?=
+ =?utf-8?B?M29jSHZsZ3BJOEpKQ1pqYXFqYXpoMXhjSnRSenRWQUNiYkVSQ0F6d0d5Ull4?=
+ =?utf-8?B?L2U1VVFrKzIyOFRsL25acncyTklBQzlrOGhHS0lSNmc5OEJkWnJSSWxpWW1x?=
+ =?utf-8?B?cGEycnh1UTkrQVdTTVZkYno0aThmZENROXVIQkVsbXhXaWNEWnNBUVR3VVNs?=
+ =?utf-8?B?TjhHVTZwNnRleXJlS0NGSllKdWpnSCtMOUtqd1F4T2VYYVpIcXBwRXNoVFBD?=
+ =?utf-8?B?ZEFTZVpHKzhkZkJReU80SitVTnhmOXBGN0lGWTdFS0Uxcy9YMFJKOGdKUzZW?=
+ =?utf-8?B?NGsxM3VxY2Z0Nm52V3psSjRManYrN0UrR0E2bytnaVFjODI0RXpDZkdtRG1n?=
+ =?utf-8?B?dnV6NjJKeTRlK3Jwbm1yQU4zajdDNUZBbGVyMGc0RWtnOXVUQmlSSHZrV2V6?=
+ =?utf-8?B?K3NiWHlXNUovdXQ4cEluT09GU3lXRmVtOUREQ0FocnhRVWhubDJ3bFVCVXhS?=
+ =?utf-8?B?dlpOcWg3NkZRNHQwb01zcTJwNEEveTNIZit0Zm1PN3ZtSm41SnJvSjVGdno3?=
+ =?utf-8?B?S0FBVnZRM2V6ZWl1NnlrTVhDWS9jbnJTWXNwNWZIZEJtU2E0Q1VKRllyZFd6?=
+ =?utf-8?B?bnBPZUNkS3U5QXJ3TVIvNnFUR2dscmZHRjZCbXg0ZHZQMGxnbjZrL29SQ21Q?=
+ =?utf-8?B?bDZaUUNydzMvcTUwaWVGbHBmTHBqSGE2Z2xtZDAySXNWaERtMHQ3S3Z1ak01?=
+ =?utf-8?B?UHl0T2dXRWFVeDFUeFBuN1lOYWNQVW5ha0x3TzVmOXFYeWRrMnFubnlQNk9S?=
+ =?utf-8?B?WVhETS8vYkpja09uWDFTRGNZVHJQRHJrelovVTlsdVZJdXc3cXBLSTRmN3ZZ?=
+ =?utf-8?B?TWVUUzQ3YWE1cmxCM3FmOEQvWiswb1BRZVo4Mjk3VTFqRmE2bkxLWURiTnQ4?=
+ =?utf-8?B?VmpXbzBoTlE2L2pZcnhnRlRmeFRORHdoR0s3TmVZeUpLQjM0RWJKQzJoeU1P?=
+ =?utf-8?B?aU9QdWpqUE1sb0ZBQXhJdFFTK1g5d2M1aXJvRGVuQ2Y3VzdXdlVQS0N6eFNR?=
+ =?utf-8?B?cHNORGNhQ2J2aHlrSmQ1Y3NySEpuMnlrR1lKWVpHTlFOUy9GOVR2L3cvUlJm?=
+ =?utf-8?Q?5yuoHU5ufxo/Vsk5E0?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 283a8e5e-87b2-4bb5-a1a5-08df2e13d77f
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:04:46.6382
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aZfMHTX/vJ9dwHINNjbE46Aeq4rQ0K4X9G1Rxxp5Em3mO4aTJlMTXfc/gwg1uMIL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFF9270C127
 
-On Mon, Oct 19, 2026 at 05:15:45PM +0300, Amir Atef via B4 Relay wrote:
+On Mon Oct 19, 2026 at 2:47 PM EDT, Gregory Price (Meta) wrote:
+> When a node loses its last memory, offline_pages() clears N_MEMORY
+> before the memory-tier callback rebuilds the demotion targets.
+> disable_all_demotion_targets() resets only N_MEMORY nodes, so the node
+> keeps its old node_demotion[] entry while it has no memory. Before
+> 6c542ab75714, the reset covered every online node.
 
-> Use guard(mutex) to manage the state lock in ad9834_write() and
-> ad9834_store_wavetype(). This simplifies error handling by allowing
-> early returns instead of setting the return code and breaking out of the
-> switch statement to manually unlock the mutex.
+establish_demotion_targets() uses for_each_node_state(node, N_MEMORY),
+because the to-be-online node is already added into N_MEMORY?
 
-If you want to continue improving the code, you can research the use of
-sysfs_match_string() and rather use it as an outer check.
+>
+> A reclaimer reads the stale entry only between the node regaining memory
+> and its targets being rebuilt, and it filters the entry against the
+> current allowed targets, so there is no user-visible effect. To see it,
+> online and then offline a node's only DIMM: a debugger still finds the
+> lower-tier node in node_demotion[nid].preferred.
+>
+> Reset the targets of every node.
+>
+> Fixes: 6c542ab75714 ("mm/demotion: build demotion targets based on explic=
+it memory tiers")
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/memory-tiers.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
+> index 25e121851b586..7197f1a67a340 100644
+> --- a/mm/memory-tiers.c
+> +++ b/mm/memory-tiers.c
+> @@ -378,7 +378,7 @@ static void disable_all_demotion_targets(void)
+>  	struct memory_tier *memtier;
+>  	int node;
+> =20
+> -	for_each_node_state(node, N_MEMORY) {
+> +	for_each_node(node) {
 
-static const char * const wavetypes[] = { "sine", "triangle", "square" };
+I think the above code deserves a comment explaining why for_each_node()
+is needed instead of for_each_node_state(N_MEMORY), because when a node
+is added or removed during memory hotadd or hotremove matters here.
 
-	int wavetype;
-	...
-	wavetype = sysfs_match_string(wavetypes);
-	if (wavetype < 0)
-		return wavetype;
+>  		node_demotion[node].preferred =3D NODE_MASK_NONE;
+>  		/*
+>  		 * We are holding memory_tier_lock, it is safe
 
-but it might be actually worse than existing. Again, it needs a research to be
-conducted.
 
-As for this change, it's good enough.
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+--=20
+Best Regards,
+Yan, Zi
 
