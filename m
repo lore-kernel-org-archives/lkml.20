@@ -1,183 +1,261 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0423D5244;
-	Mon, 19 Oct 2026 11:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792409385; cv=fail; b=Fby2fiFQZrObINsBizV7LYZB19wI8pTRxRN/IvOD52WJd4LLt+oVY0WoSfvESaEwSuzP2ufSEQgugERUITvNyns13S4rdsM4idOABpUqTMvJQIAfceEDsdNvu2qvppLJ0/AVdXAZOFscp82+UiF6pAuhGFTZc0YWfhuwSw13t+U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792409385; c=relaxed/simple;
-	bh=68XQl+cOdDL0ChLqvB8HN81dLFZcIa5/0JhoKXxQZhk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ShgcvnpFM9SnN7I5+gz/6Q6NmcO1ZZ5y8wMMIvspIeCrFnDeW4a+3QRHrq8WihJm1ahqjh3+BTEGdyYOjdsbU/4jxoX2mrXzReqpHxHvkXWNY4n8UNIgfS2mEawwl9U8QsKJ14yM716YLNVTNnycrboiP8w/BL0SmkMPZX61kyI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JH7LPUh9; arc=fail smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD2A3DC4C8;
+	Mon, 19 Oct 2026 11:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792409448; cv=none; b=s09fwliMmaXz4VpImNieCKHRT399mE37dQ9HOMwJZvJ23So8OPY2WWsI11y096Pk8xlfpsUH5Bch9wiR3WMCKmv/XhAgOa9JNPj1U765RERAjnKizp0v5WjDHUD3XqTWtlCHU7tQW2o1g8Fs/2o2zBKsXgGp+LWM+CcjFX37Hg4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792409448; c=relaxed/simple;
+	bh=HslpktidHJ8ffLNJ3jl2Oo/mPmgry/UzkboytPQDsD8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cKWPdlLR4otSn+rneQZ1kP3Aw7+utMCQ3jZJ3gORRvRP/5lzHZHIeXfpSXJIbc3J2AIiRXt1sdbNNsEPOJbkXYTExQuS1vNaf2Uzi9NPYIzeRKf9rloYOm/9dNHQa40Y7BtKgqrnRACbKutn8wJucK++2+VVNOyimBcaebKyvYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=L6O2T2x9; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=H3OGq6vW; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=L6O2T2x9; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=H3OGq6vW; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JH7LPUh9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792409385; x=1823945385;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=68XQl+cOdDL0ChLqvB8HN81dLFZcIa5/0JhoKXxQZhk=;
-  b=JH7LPUh9ygUn6dbDh5T/7ZCEFFI/RmuaCV3i1zE+C8kOzOk9Zjsqszgs
-   fwwlXNs70rMlPcWmUZkRglAgyochAsOThBwbMW81+nrt0r2VVg5nXlild
-   OYjrJabhvoiEBEr1b9j/0v82hpsyOV0vzZsILG3BIWC/PzhV+Zp1SkUAy
-   wsBcx5mL+K+E4nk60upq1VfBODP98xSdgOiwLlv5FgPf+iG6eM8oBqEKf
-   lOqmnxB6woFf7hXDWbaFtLWxzmDL0oyaC7eIjEYZqjrQTFcof/3KCgDHR
-   iI69HOUy+jnMWtzVhXIUVU9w4bUGrP5vAv2SSVnfAp2aCOBpvlEedU0b6
-   Q==;
-X-CSE-ConnectionGUID: TkSx8ksmThqVg863wcBttQ==
-X-CSE-MsgGUID: D7Nm0E4QRTCnhpRZDDRVTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1082786"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1082786"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:29:39 -0700
-X-CSE-ConnectionGUID: 9pZffdTtTHquV8ngR9ozIA==
-X-CSE-MsgGUID: 0dI/3wKtRh69dllFpSj0Eg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2490060"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:29:39 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 04:29:37 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 04:29:37 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.43) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 04:29:37 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tHo4lQdWptUAaC5xCMeba76fz0nzIZxdZwtIubwadNbXbtJB7WvjdZIxnAbgcuCF0n5KIUddo72nOqkWDGlea+ft4Qo3gkws2j4tiKD1PGuBaOCezuB73Sx6iTlY7QRRmAAi1G7B646Zts+jFnn0ZljD7DKGo7BSVVQPR9lzZjSpci80vI1vQMoZBTmAhd8gvtOqbEXPOEKnmHkw6c8ok6xn+/3771HehnOde7igYLPyNXvv0RBGSqOwq3i5LnEgBaEp7FVplKJW9G4OFWO0WkILaqWY5WLeok4LrGpJThi2QO8BJfCtIL6aPm0koK2BU/oN2x7dAeZGDsIEzcHh0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=68XQl+cOdDL0ChLqvB8HN81dLFZcIa5/0JhoKXxQZhk=;
- b=S4TxRJ8d4CtnvTbTEnNr9kr8U3JQbxrFujoi66k7Uh8NmQB+5KeuzhZrfT+ypYbMKcfySBI1hBk326uvdQfQkJBjRPsZ59FgrWNVE9VDtTcbKSOxalwE1kp+/v9uB6W3u8rYKmja6BxKm69RR/Qvp5/+1WqIKSCSKpYtSBpCUTScII5deazpk4FDPjHt181CWR/E3YWMwSLahIUbptnflvBsXVLrWnRXS2pPTlvEHm3evdkqkN9JFXjLB8Tkmb/svaJQqRNwF6SEVEfuE1R+3D1102FLpj9/JAcBIR5Mv/MahOPD+RUP/N7IvR5Va3OPdAiWbFoHScQ6qnlgAK3GIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from MW4PR11MB6864.namprd11.prod.outlook.com (2603:10b6:303:21b::16)
- by IA0PR11MB7813.namprd11.prod.outlook.com (2603:10b6:208:402::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 11:29:34 +0000
-Received: from MW4PR11MB6864.namprd11.prod.outlook.com
- ([fe80::3cb9:afc2:1be5:5d7b]) by MW4PR11MB6864.namprd11.prod.outlook.com
- ([fe80::3cb9:afc2:1be5:5d7b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 11:29:34 +0000
-From: "Temerkhanov, Sergey" <sergey.temerkhanov@intel.com>
-To: Aaron Ma <aaron.ma@canonical.com>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Lobakin,
- Aleksander" <aleksander.lobakin@intel.com>, Richard Cochran
-	<richardcochran@gmail.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-CC: Dan Nowlin <dan.nowlin@intel.com>, Brett Creeley
-	<brett.creeley@intel.com>, "Keller, Jacob E" <jacob.e.keller@intel.com>,
-	"moderated list:INTEL ETHERNET DRIVERS" <intel-wired-lan@lists.osuosl.org>
-Subject: RE: [PATCH 2/5] ice: retain the adapter throughout hardware
- initialization and teardown
-Thread-Topic: [PATCH 2/5] ice: retain the adapter throughout hardware
- initialization and teardown
-Thread-Index: AQHdX7gHJ9yRCkWVu0yYztFAVRZWvLcEupmA
-Date: Mon, 19 Oct 2026 11:29:34 +0000
-Message-ID: <MW4PR11MB68649F1F90A9B483B463F67D80982@MW4PR11MB6864.namprd11.prod.outlook.com>
-References: <20261019105155.3793063-1-aaron.ma@canonical.com>
- <20261019105155.3793063-3-aaron.ma@canonical.com>
-In-Reply-To: <20261019105155.3793063-3-aaron.ma@canonical.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR11MB6864:EE_|IA0PR11MB7813:EE_
-x-ms-office365-filtering-correlation-id: c69862f3-d1bd-4a10-3687-08df2dd4402d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|10067099003|56012099006|6133799003|21046099003|22082099003|18002099003|11063799006|4143699003|38070700021|921020;
-x-microsoft-antispam-message-info: Z6CNKH8/U7ERCCSIxyRRqxQ44YLp3XuY+R4Wyx0NrrIWjRHBBB0mCwb66kLGl223hXB3ZQnG3CnP1mQKQIrOi92SgUEp5aR1CJpL1RtJWoqTTAeZ4a0mQEOVbV5Z4xBE0fRArOGxefwZlHMs5SonRkQ//hhnYvZkmlQBNGDxuG0l7tkRAPH71nQbM1pD7+2lfQ16o/hZ1v+bXhM5VLbjbeJG+HDclejl6LnoVSwm+XEo1CwT9LME0zrks2hTz7j+utmsDOOCPHiryGwrrpbKLMR9lqyJnJcPJyIvZvdf1rxH+VxNvVLrvidpkJ0w7G7gdK35u4qAF8+GKAcZA2pi5p7lXt7Karqz5YwLeDqTIuMqb36f3tl1snkN98VIWWz3EpElG6csAB5O/D+NTsh2/2uHe2GZi92WACKEDPxLsAzoTaRYdVm9WIy5h9I7waqNh3fQwd+fYacQbzv+MziVU3kCMz1PToyFLjuh+gWBRoVyh9kloWtQMJlBbel/Nf79u/RIYJRHgUk/YnVl0PGjoHEYM847uetUPYZpxq9oEnpaHfZpk3XmkftI/SScKYmq1lps3BeTz5JXs+VuFjOa63dQtEuyodnAPLTp7tzWD3e01BZwMJTz7JvoKUZfnivOS6jAuwJ5G4xiLG703P4j0ZgYmMKtAuZKxuBGrfqbFzYNriHc44sezMJnKq7itY6oxMnuR8t3jaj72+T6V1ygqZneyJo4yduwUvWkMqjeCI2HHolX8lNiS0GKy9sTQ0RT
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR11MB6864.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(6133799003)(21046099003)(22082099003)(18002099003)(11063799006)(4143699003)(38070700021)(921020);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?J+o7Xa7PPS03XC7oaN7Ci4Em/jZW5YlN0C+sZYLSO3uwCRW6pPUanQJUzbnw?=
- =?us-ascii?Q?/AolJbu8D092G+yWHJJ2aXWESaNRjiQ4h35+RJDtyQHS2valrSzsDpFu8xI3?=
- =?us-ascii?Q?vsTgqBmqxgxWKXSK/vGGsQogkBZZ1c/XExkf0HHqnl7OSE4gVGp4SXr4fv/u?=
- =?us-ascii?Q?epcp9YPC0HdgibkRo6tHQo8AI2k3moFfRveqJ6C24+MvWFMTvvPMTH8DMfUx?=
- =?us-ascii?Q?qYL8PAX2wcUsvQahwdPcvI9GbYsxPmUqmHgEVLeo94AOsKgRsKcksRbIN6SH?=
- =?us-ascii?Q?ie2+Vzdtue0AL3TuPxmpnnkrShtEsx0gt8ve4QQ0jfRK5MB20o3n237BdzGY?=
- =?us-ascii?Q?+SiFxRRoop6q+UayQGo3k5i8LuAL8grkktnXy828ogQJRUncDzkxH6B5mc/d?=
- =?us-ascii?Q?CaFoRR25sOPQqEHGvN0O2kOJAngySzovXp60kP6E5WH+BqSCTQyFQO60eR7g?=
- =?us-ascii?Q?72nxkeV4Abqr+MvFIVX+WJHMEfajYZVK87ywu2QS6djgj48xKLmuE5DzC5ik?=
- =?us-ascii?Q?JpfGKerxU95xtiUkXH3Syj9YKkyb2toq96EMCWbzOeQBaVmMz/dewHF1MAH8?=
- =?us-ascii?Q?c3SGnOga2KsEJK0+J8WgaomFLsLOZw0qCHC49ZypPo/DuseCV484kXg8iG0V?=
- =?us-ascii?Q?3dk+boOUvia7w3uh72STaWUFNbAjQ7nhHwXam11xe1MRPE7je6bTYnTbYvSZ?=
- =?us-ascii?Q?pS4Ur6W+Ros20eM0klA4gC25+GFrg9+H7AVxHyY/ZnD7ygcOdPcT2c6AXF2V?=
- =?us-ascii?Q?r+vlZTYOsPqgtIUkQIW21bADCRK2lo03r8gWfq+YnVkZygofiT8qaJtuG+++?=
- =?us-ascii?Q?nE/nj5IP/F5VUiF723qXopA5V3fFzrCuXqJMm+4BFha6zSxGhkXDY0Y2DD68?=
- =?us-ascii?Q?7veIfuDFH/k5mT0bYti7J7FKsk0OYlE47KLoozbfpwPe6lJG4vnj2deaJl3n?=
- =?us-ascii?Q?DEuMtyB3m+RqEL6PCwVwt1r1AJS0GM1pi31/YYuE+vUgQPKk1sdEtJ7pmOOc?=
- =?us-ascii?Q?oRzZBnQA8BwJIMYDUnrdS+qpulXl5bD69tLZwiPX0jOwp+SPPNgQGPUNu5Py?=
- =?us-ascii?Q?AQ51qTjIBqSw2Pa9jYwU/DGHDeVLF291kJZ05yRwm8emDe5ZMQ6J2ZrQS/82?=
- =?us-ascii?Q?/QAKtiTQLiDXIOUksCDvJal/j67BT8dMMvt7Lo8qhxYyCq3z3E/bmg0OCdxR?=
- =?us-ascii?Q?sWwKVQF8nCbrcx8DRazY1nesmuwrcJOM+8kIpiPjMoslMc/iO9xHCG8fO48M?=
- =?us-ascii?Q?4RM+f0pc7W3C8p+nKGMEeif/H4RSezmiCLGPRovIkb2/3WzLwVKq5aJCsPSR?=
- =?us-ascii?Q?B4pQQ9p/hx6ToMNJ0cOBLAo1D0rD9hDoEV3HeJxyX3M1VfIdHDz33ALAQMbA?=
- =?us-ascii?Q?lsotImuJuTNdu2RScWPiyVWeqYPJaLpqGOPMC7bH0xsvFZccc1x+pXcCu87n?=
- =?us-ascii?Q?6B7IgQ2AomOBzFV8z8SWe5UyUu4jOkdNclFabZZDY5baXZg42W4MOP+46rBh?=
- =?us-ascii?Q?CdqqBlBARXXt2FbbcvawOOU5/4OkJ0FK9vdmgvZZLz1hGqPZb+dcGdTVP4K7?=
- =?us-ascii?Q?DMPYikOJGcfr8HToTIwiJ3O4Bip1QLP2zUgmA/lRgIT7yEuuC5WyrICt/Z/r?=
- =?us-ascii?Q?l8cpb1ZhBXcG5wkR31+7YyQ1Vm3tSOrcdo8qNZXcdUWelzK/Gggsjh0GrII5?=
- =?us-ascii?Q?AZYknfYjSGwk8XVyxQTjtOy8AnpzV1MMexYKRmmS4duBGrv74SaNJnnW7NB5?=
- =?us-ascii?Q?jsngyUESmQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="L6O2T2x9";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="H3OGq6vW";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="L6O2T2x9";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="H3OGq6vW"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 73CAB21C5D;
+	Mon, 19 Oct 2026 11:30:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792409444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gWeSLpyc5O1IcgR6SkOdVi69vnfzBIqmPx/MkGbdVCU=;
+	b=L6O2T2x9pSLXoAEQlsmjHrrlsPwnlVdfuIgN0qbTfEVWTSnrY/yP3H1h67Rrav/3ml7vgr
+	sYMquu3X0n2E0sMKEUYRRxoLXN/Fe+iFiwhrNTtrijGZZgPKPhw2o6UQ1Iocq+dLrXcQCE
+	rsRI1icyDY9oGLpqyZw2dBBw6l+GJcc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792409444;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gWeSLpyc5O1IcgR6SkOdVi69vnfzBIqmPx/MkGbdVCU=;
+	b=H3OGq6vW1LSBbUwIQtir4GTqkGn4jFhwdkH2E4CLsHm/tdwz/hhMmQ+qR4wSWu0bBXSuWt
+	Gtx1HIIQndRXOtAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792409444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gWeSLpyc5O1IcgR6SkOdVi69vnfzBIqmPx/MkGbdVCU=;
+	b=L6O2T2x9pSLXoAEQlsmjHrrlsPwnlVdfuIgN0qbTfEVWTSnrY/yP3H1h67Rrav/3ml7vgr
+	sYMquu3X0n2E0sMKEUYRRxoLXN/Fe+iFiwhrNTtrijGZZgPKPhw2o6UQ1Iocq+dLrXcQCE
+	rsRI1icyDY9oGLpqyZw2dBBw6l+GJcc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792409444;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gWeSLpyc5O1IcgR6SkOdVi69vnfzBIqmPx/MkGbdVCU=;
+	b=H3OGq6vW1LSBbUwIQtir4GTqkGn4jFhwdkH2E4CLsHm/tdwz/hhMmQ+qR4wSWu0bBXSuWt
+	Gtx1HIIQndRXOtAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4A9A7134B3;
+	Mon, 19 Oct 2026 11:30:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 4JMqCmT/1WooLAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 11:30:44 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id CE575A1413; Mon, 19 Oct 2026 13:30:39 +0200 (CEST)
+Date: Mon, 19 Oct 2026 13:30:39 +0200
+From: Jan Kara <jack@suse.cz>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, Brian Foster <bfoster@redhat.com>, Theodore Ts'o <tytso@mit.edu>, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] mm/truncate: fix the zeroing end of
+ pagecache_isize_extended()
+Message-ID: <uolyy5wn2oc7iiu3e3vlsp5m6yjlsakwcjtsuzklbe3mk72ruu@qlrdp3q35igz>
+References: <20261016222721.791785-1-nickolai@csail.mit.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: wZR9zU26pSsAJuTjdWNyWUaaG1tpdfQyr31yntfFnoJgL8119gE/9Y2PB8+LPsv1VW9VoLUeKMLo7aalIVM/bup47zB279Q7YRp5Uiry1zP/hXv44dL28wMlXt7mRvwdqGsWoAr7CBvVN3kafEftnhns9bz/ZiBZyF09XuX/+OD82QtG0zWJ35vT4hYPr4z4UJP6Ra3YGvMUUIXNdQC02ytk3Ao/9pRGk9JzY4X18aOI3K/AFnnLzBbRiYteziN6L5oYlTmY5nWd8bwHXyORjdPn4CjCuRR9cKJCHy7py0WbgXpjAUaZTLF66QvRp4lMfHL6I6jwYn1D/bJ3P8IEYw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6864.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c69862f3-d1bd-4a10-3687-08df2dd4402d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2026 11:29:34.2108
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kxqP+mBbfa64x2nc7xcN3k2Ib06MC6s1mBH/VQ8fLh24MKPCtb56z8gI54F/MXutb6VFXkmInhrAvZgMbGTXN4TaPE5g9NIZsMh65zJgtN0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7813
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016222721.791785-1-nickolai@csail.mit.edu>
+X-Spam-Flag: NO
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
 
-> -----Original Message-----
-> From: Aaron Ma <aaron.ma@canonical.com>
-> Sent: Monday, October 19, 2026 12:52 PM
-> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
-> <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
-> David S. Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@kernel.org>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; Lobakin, Aleksander <aleksander.lobakin@intel.com>;
-> Richard Cochran <richardcochran@gmail.com>; netdev@vger.kernel.org;
-> linux-kernel@vger.kernel.org
-> Cc: Dan Nowlin <dan.nowlin@intel.com>; Brett Creeley
-> <brett.creeley@intel.com>; Keller, Jacob E <jacob.e.keller@intel.com>;
-> moderated list:INTEL ETHERNET DRIVERS <intel-wired-lan@lists.osuosl.org>
-> Subject: [PATCH 2/5] ice: retain the adapter throughout hardware initiali=
-zation
-> and teardown
+On Fri 16-10-26 18:27:21, Nickolai Zeldovich wrote:
+> A process that extends a file by 4 GiB or more past a dirty folio, on a
+> file system whose block size is smaller than the page size (ext4 with 1k
+> blocks), reads back the bytes it wrote through a shared mapping beyond
+> the old end of file instead of zeroes, and a later write into that block
+> carries them to the disk. With the example of commit 52aecaee1c26 ("mm:
+> zero range of eof folio exposed by inode size extension") and the
+> truncate taken 4 GiB further (pwrite 2k at 0, mmap the first page and
+> write 'X' over [2k, 4k), truncate(2) to 4 GiB + 2k), the read of
+> [2k, 4k) returns the 2048 'X' bytes, and a pwrite of 16 bytes at 3k
+> followed by fsync() and a remount leaves 1008 'X' bytes on the disk in
+> [3k+16, 4k). No privilege is needed, and every size extension of 4 GiB
+> or more reaches it: truncate(2)/ftruncate(2) through truncate_setsize(),
+> writes beyond the end of file through generic_write_end(), ext4, iomap,
+> btrfs, exfat, ntfs, afs and orangefs. Affected since v6.13.
 
-Reviewed-by: Sergey Temerkhanov <sergey.temerkhanov@intel.com>
+Frankly, I find this paragraph useless. Everything is said below in a more
+understandable way. I'd just drop it.
+
+> pagecache_isize_extended() zeroes the part of the dirty folio straddling
+> the old end of file that the size extension exposes, from the old size
+> to the new size or the end of the folio, whichever comes first:
+> 
+> 	end = min_t(unsigned int, to - folio_pos(folio), folio_size(folio));
+> 
+> min_t() converts both operands to unsigned int before comparing, so the
+> loff_t difference to - folio_pos(folio) is reduced modulo 2^32 first.
+> When the file grows by 4 GiB or more past the folio, end is that residue
+> instead of folio_size(folio): below offset nothing is zeroed, above it
+> only [offset, end) is. The bytes beyond the old end of file stay in the
+> dirty folio and, now inside i_size, are file data.
+> 
+> Compare in loff_t; the result is at most folio_size(folio) and fits end.
+> 
+> Found while formally verifying pagecache_isize_extended() against the
+> kernel binary.
+> 
+> Fixes: 52aecaee1c26 ("mm: zero range of eof folio exposed by inode size extension")
+> Assisted-by: LLM
+> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+
+The fix looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+> 
+> Notes:
+>     Tested on a 64 MiB ext4 image made with mkfs.ext4 -b 1024 and mounted in
+>     a QEMU guest, with the program below followed by umount, mount and a
+>     read of [3k+16, 4k). Unpatched 70dd4ee72eb2 (x86_64 and riscv64
+>     defconfig): 2048 of 2048 bytes non-zero ('X') after the truncate and
+>     1008 of 1008 'X' bytes on the disk after the remount. Patched: 0 and 0.
+>     The same sequence with a truncate to 8k reads zeroes on both kernels,
+>     which is the case commit 52aecaee1c26 fixed.
+>     
+>     The 32-bit conversion is visible in the riscv64 binary as a subw on the
+>     loff_t difference before the compare; with the patch it is a sub.
+>     
+>     Reproducer (ext4 with 1k blocks, mkfs.ext4 -b 1024):
+>     
+>     truncate -s 64M img && mkfs.ext4 -q -F -b 1024 img && mount -o loop img /mnt
+>     gcc -O2 -o isize_extended isize_extended.c
+>     ./isize_extended /mnt/f    # exit 1 and a non-zero count on an unpatched kernel
+>     
+>     /*
+>      * Stale post-EOF data after a size extension of 4 GiB or more on a file
+>      * system with a block size below the page size (ext4 -b 1024): [2k, 4k)
+>      * must read as zeroes after the truncate.  Exit status 1 when it does not.
+>      */
+>     #include <fcntl.h>
+>     #include <stdio.h>
+>     #include <string.h>
+>     #include <sys/mman.h>
+>     #include <unistd.h>
+>     
+>     int main(int argc, char **argv)
+>     {
+>     	const char *path = argc > 1 ? argv[1] : "/mnt/f";
+>     	unsigned char buf[4096];
+>     	unsigned int i, nz = 0;
+>     	char *map;
+>     	int fd;
+>     
+>     	fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0644);
+>     	memset(buf, 'A', 2048);
+>     	if (fd < 0 || pwrite(fd, buf, 2048, 0) != 2048) {
+>     		perror("open/pwrite");
+>     		return 2;
+>     	}
+>     	/* 'X' beyond EOF, inside the first page; the folio stays dirty */
+>     	map = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+>     	if (map == MAP_FAILED) {
+>     		perror("mmap");
+>     		return 2;
+>     	}
+>     	memset(map + 2048, 'X', 2048);
+>     	munmap(map, 4096);
+>     	/* 4 GiB or more past the folio: to - folio_pos(folio) >= 2^32 */
+>     	if (ftruncate(fd, 4294967296LL + 2048)) {
+>     		perror("ftruncate");
+>     		return 2;
+>     	}
+>     	if (pread(fd, buf, 2048, 2048) != 2048) {
+>     		perror("pread");
+>     		return 2;
+>     	}
+>     	for (i = 0; i < 2048; i++)
+>     		nz += buf[i] != 0;
+>     	printf("[2k,4k) after truncate to 4 GiB + 2k: %u non-zero bytes of 2048\n", nz);
+>     	/* allocate block [3k, 4k): [3k+16, 4k) shows what reaches the disk */
+>     	memset(buf, 'B', 16);
+>     	if (pwrite(fd, buf, 16, 3072) != 16 || fsync(fd)) {
+>     		perror("pwrite/fsync");
+>     		return 2;
+>     	}
+>     	return nz ? 1 : 0;
+>     }
+> 
+>  mm/truncate.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/mm/truncate.c b/mm/truncate.c
+> index b58ba940be47..5c444812f37a 100644
+> --- a/mm/truncate.c
+> +++ b/mm/truncate.c
+> @@ -878,8 +878,7 @@ void pagecache_isize_extended(struct inode *inode, loff_t from, loff_t to)
+>  		unsigned int offset, end;
+>  
+>  		offset = from - folio_pos(folio);
+> -		end = min_t(unsigned int, to - folio_pos(folio),
+> -			    folio_size(folio));
+> +		end = min_t(loff_t, to - folio_pos(folio), folio_size(folio));
+>  		folio_zero_segment(folio, offset, end);
+>  	}
+>  
+> 
+> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
