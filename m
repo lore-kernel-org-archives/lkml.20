@@ -1,247 +1,110 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A7547FB03
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0AE377A9E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395929; cv=none; b=SP8RldzlZguwuw3WHiN3u1x2ooPbQDWiq8ESd93tuXfJbXU7Dk5Mx5lUltVnmaRVHIVZmaobZb+3wvGYB4c/+VzlMSI18/f7fox7WpDCIedmrpxdFKFIBPB6Fc9GIlS6PDOgo/zV7mbTZMVDSbi5oIBfybTN5Xueh7SN0NBIJ/4=
+	t=1792395936; cv=none; b=SSh+LONs6aFMHDIMcdWRGq5A9sEt9hpwpCtRAUrtWhsLmtIGaTFd7KaP6bVdXBc7txWcL5v0EooBU/Q6Dk257QaIDoNCOjsWU42yeg2V/IqSgEuuX3OopF3J3YTUvck/5KIlwNzO3SCeUu9Eu85ptbsyDyV9fsO7P7d9ltRVM6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395929; c=relaxed/simple;
-	bh=Jm6wHTp24pHEYDVe48f0SsepESMacNqy1Ng0sn2uiGg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qQjD5uSDoy9cfKBUM+qHkvbUm3iGQqIUcPwmBf7SlcKyLySVoqCIp8ZHyjrUdz2nuuktyL7r7HKKmL2y7zWIRTXuzzNybF3O+5I9y8Ukwso+2Q0gIejI887YrHzDs3jRmLk/5BMigfh0Ru6EkYdYZz5zuqWYZgXI7k1x7y7DA2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=MC7Lz2ZZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=k/IKbehK; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=MC7Lz2ZZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=k/IKbehK; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792395936; c=relaxed/simple;
+	bh=YlRidHLZxLVQQkYv/73Bcq/10xLHfZWapZAMD6FOpb4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tdmZNP0ZnWsBJcDcqNv0JVZgu0PToJMNia58ib5WS19NjDTj6C2QUg670tH1aK3wqEvovGqTpVyeFzXdhdzcmBlQ9QJKueNDJ+CGVcY38y5lvhvTliZZo06G9xy/SM44eK2r9o0DyRpNa+KpUtPVEiEeEZiS08fzQhk/sxLF9E0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=iH0soMx/; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MC7Lz2ZZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="k/IKbehK";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MC7Lz2ZZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="k/IKbehK"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5BCEF1F7E9;
-	Mon, 19 Oct 2026 07:45:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792395925; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=easGoBZSXnUfEEQ5s2Lw5lSXXtrn96heP55j8/0IsLs=;
-	b=MC7Lz2ZZo5VyQSkcjVoSUOnop9TEq0qhdHOtAy4l7/0fQn4o9XdPews2gEyysnxTHiKd+L
-	KCKjACmM8XbzBngaPlTcjvhhsZVLqupmb34Yyv0Ohi3qPZDGijpZe3UKddhW9eIAnuqd30
-	MvlsgbPRUu1aDaFjNC6DZJRYEasfO1Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792395925;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=easGoBZSXnUfEEQ5s2Lw5lSXXtrn96heP55j8/0IsLs=;
-	b=k/IKbehKvZ0fEUmWXAhwwRe8fYo06s2Uw3rfPIlDRdtV1zfSgjh1Re2G3DdHrllnwawHaf
-	6Q7OjsJEZQu+K6Aw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792395925; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=easGoBZSXnUfEEQ5s2Lw5lSXXtrn96heP55j8/0IsLs=;
-	b=MC7Lz2ZZo5VyQSkcjVoSUOnop9TEq0qhdHOtAy4l7/0fQn4o9XdPews2gEyysnxTHiKd+L
-	KCKjACmM8XbzBngaPlTcjvhhsZVLqupmb34Yyv0Ohi3qPZDGijpZe3UKddhW9eIAnuqd30
-	MvlsgbPRUu1aDaFjNC6DZJRYEasfO1Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792395925;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=easGoBZSXnUfEEQ5s2Lw5lSXXtrn96heP55j8/0IsLs=;
-	b=k/IKbehKvZ0fEUmWXAhwwRe8fYo06s2Uw3rfPIlDRdtV1zfSgjh1Re2G3DdHrllnwawHaf
-	6Q7OjsJEZQu+K6Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A0541373D;
-	Mon, 19 Oct 2026 07:45:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2CIxOpTK1WqrNAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Mon, 19 Oct 2026 07:45:25 +0000
-Message-ID: <23f0313d-8aba-43b9-80c4-678b970f8541@suse.de>
-Date: Mon, 19 Oct 2026 09:45:24 +0200
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="iH0soMx/"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-89d6bd67045so694198b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:45:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792395933; x=1793000733; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/ul6H+GadvFiEjmBn8Klfdhq6vLjdD2yBpTer/wEL68=;
+        b=iH0soMx/+nd1CSKDU8UbkKXG/CZ0rFXiKN+7v7S+WRPxAIMZILwsU9XtsJrAwL6Osd
+         SmW8wMSWYtC6OESx5Q2MGZsbkmaInWXrotddTXt+kME8U2w1rca3fYdiro8eG1zX4Ai7
+         LviQTK4XqfXQL6ZPQoNxu4HDwqdsIBAgf9pnHA9Z9iE70GcTqkGDJhn8Ykvs92d0KHIr
+         Dg0Uwkp2Ka73UNP8s2a1J+tOoTmTFI9vJLAmr/90kufjEVlBh6jL75w/AWnmHLuCOQ/K
+         O0qqwhc+4SNzfMbKjqBYJY160DnFVnjzN2MxL4Jg+hayFs+4MmyF8d1N0+sbJp/H5iC4
+         7K5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792395933; x=1793000733;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/ul6H+GadvFiEjmBn8Klfdhq6vLjdD2yBpTer/wEL68=;
+        b=OsqMRMICYF4DyDMMsOMIhks48pUG+rTyw3yv01icwsGtXB54nxdKaOl9Z/L02VULOt
+         85YTSty2vBOFeflfmieWhtPmqLJX48E3EvCiV2k9efD5/C6FUjBruYoOtuG6kyovqJDS
+         /Vp3oPgJFjXJ+w14F7MqzyumlEMcbxdb+WcC1e36U/rzG+nmXoiqavzLFnr7lfvzhm9d
+         7CTkC8zA8qBXGRBG9L5kL0f7rbgldzH3fKXuWuUnQPSDLqaoAsqTeOtYsHaqVHQLTm1X
+         GT3R+YVnYl8jNFX80CLNfQhAtPSH6EUQTK07ooRF6WDtr7X39EzVHUGRHDxqNVKxs6Ma
+         bjtA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUNgj8k3PA2omqzFRY53nG536Rat+1jTL2GwKZ+ykCTy2fhrFsrI8wqKNjG5EXR8pDss6FBIYSo8sBtGo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6TPy2ZStDnjHmFxIGpGsdcpKT1L2pYAo6DJrkHSV6rc6Ia3Mm
+	C8A7D+44BSxdoGWKmcHVCg1QmidJ+HGT58VOlDSVDuH0tNWQOQiv7lSQfF6Incv2lUM=
+X-Gm-Gg: AYBFou2YD5m2UdCHpaBFz5bibL5oTTOs4zfpMbb3mHUWJnM0ySG6bw4GX8MCtSQ+S1R
+	M6VrbIpGVE/cdvj9z6IUJP7e7ppCMFuknDTaC3fVUoaUdT9X2MpBhW4sMaLqXeTCkVh7F6QaEGt
+	RM0QpCAYEjXzw9vkgsx6MOsMfmSxsBhmrVcxp2A4QHErfe+B5X9Jj/c8WSkp0jBIctPAfjCAzyX
+	ACQ37FuFjyePvyi1XmpkaX6RlcYtKgk8jVsFCWLhz70T6GDGaU8YUbgoHwSnZHG5IgVVg91qeNq
+	tJVta6Dpd3F/oHn4U834Ir+mRHm6ut7I/x3WK/QY2KXImV4owDwciR9XP+vhhXNGyESUjZaRUkX
+	jk5XxZrHr424XHiKipo9LCa0U95D66wIzRcaJBRaFLDoGIBYckzBB32dvL4BuE+ahc4ORXHIenM
+	Xg3MNOd/Vg2dEVa3iOI7QY+NJv0En9PfuyNtlxYaSHaVacMEkYT+fhsOt7REJMFDp+Rv5b6gHwE
+	E9e+g==
+X-Received: by 2002:a05:6a00:3d0a:b0:8a0:550f:bb43 with SMTP id d2e1a72fcca58-8a0550fbc34mr3271497b3a.34.1792395933010;
+        Mon, 19 Oct 2026 00:45:33 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f58017244sm3494351b3a.47.2026.10.19.00.45.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 00:45:32 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: njavali@marvell.com,
+	mrangankar@marvell.com,
+	mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com
+Cc: yhlee@isslab.korea.ac.kr,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 0/2] scsi: bnx2i: bound the payload lengths the chip reports
+Date: Mon, 19 Oct 2026 16:45:19 +0900
+Message-ID: <20261019074521.658170-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/format-helper: Add XRGB8888 to UYVY conversion
-To: Jie Feng <hjf3108@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-References: <20261012170857.199561-1-hjf3108@gmail.com>
- <64707239-eac7-4259-a8ff-7ec43d13860e@suse.de>
- <CABOQOSXgG2kBzs2sBEE69mmPcO0cKVgjyk_6DG5RST_4uL2+sg@mail.gmail.com>
- <c9460a8d-3fdf-439f-9655-82b60617b85c@suse.de>
- <CABOQOSUE17pQQYydLxCLHg1Jg90dwCEvMZYyo6TzYHMn9RAL2Q@mail.gmail.com>
- <fdc5b911-407f-437f-ab05-33d1287e20da@suse.de>
- <CABOQOSWf1Yqt2E+hXC5bPxJhjKNJ_W3AMX30k-stNZzQG32F9g@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CABOQOSWf1Yqt2E+hXC5bPxJhjKNJ_W3AMX30k-stNZzQG32F9g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -4.29
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.29 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:email]
 
-Hi
+Three handlers in bnx2i take a payload length out of a completion queue
+entry and use it without comparing it against the buffer it is read from or
+the one it is written to.  All three fields are u32 and none of them is
+masked.
 
-Am 14.10.26 um 18:19 schrieb Jie Feng:
-> On Wed, 14 Oct 2026 at 17:03, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>>>>> ...
->>>>>>> +             v = drm_pixel_rgb2_to_v_bt601(r, g, b);
->>>>>>> +             u = drm_pixel_rgb2_to_u_bt601(r, g, b);
->>>>>>> +
->>>>>>> +             transfer_buffer[dst_offset++] = u;
->>>>>>> +             transfer_buffer[dst_offset++] = y1;
->>>>>>> +             transfer_buffer[dst_offset++] = v;
->>>>>>> +             transfer_buffer[dst_offset++] = y2;
->>>>>> Rather that writing bytes individually, use put_unaligned_le32() or a
->>>>>> similar helper.  Byte order within a pixel is little endian, although
->>>>>> I'm not sure what this means for UYVY.
->>>>> This is meant to be sent over a usb transfer, so byte order needs to be
->>>>> the same on both little and big endian systems.
->>>> DRM formats always refer to little endian. As it is implemented now,
->>>> it's not clear what the endianess of your output is. Please duplicate
->>>> the other helpers' logic. They all pack the output with appropriate
->>>> helpers. If the USB device requires BE, you have to write a separate
->>>> conversion helper for that.
->>>>
->>>> BTW, you have an OOB access if the line width is not a multiple of 2.
->>> How should I handle this? Rounding it within the helper doesn't seem
->>> to make sense and the function return is a void, so it can't return -EINVAL.
->> It's the callers responsibility to pass in enough pixels. You'll have to
->> take care of it in the driver by rounding the damage area accordingly.
->> It's not optimal but it's not a big deal either.
->>
->> In the line-conversion helper, simply round down to the nearest multiple
->> of 2.
-> Yes, that is already done in my driver.
->
->>> Other helpers ignore the -ENOMEM error when drm_format_conv_state_reserve
->>> fails, so should it follow this convention?
->> Do you have a specific example?
-> The call chain goes like this:
-> drm_fb_xrgb8888_to_rgb888
-> drm_fb_xfrm
-> __drm_fb_xfrm:
->          stmp = drm_format_conv_state_reserve(state, sbuf_len, GFP_KERNEL);
->          if (!stmp)
->              return -ENOMEM;
->
-> Since drm_fb_xrgb8888_to_rgb888 is a void, it calls drm_fb_xfrm without
-> checking for the return value. Similarly for other drm_fb_xrgb8888_to*
-> functions. For the uyvy helper it could just return without
-> doing any work if it is not a multiple of 2, like in the -ENOMEM case.
+The first patch covers the receive queue path, where bnx2i_get_rq_buf()
+copies out of a single BNX2I_RQ_WQE_SIZE entry and the Reject handler asks
+it for as much as the chip claims.  The second covers the login and text
+response handlers, which put a write pointer at resp_buf + length and then
+pad from there.
 
-Ok, that's what you mean.  We run these conversion functions in 
-atomic_update, when it's too late to do anything with the return value. 
-So we drop the return value.
+What makes these look like oversights rather than a decision to trust the
+chip is that bnx2i_process_scsi_cmd_resp() caps the same field against both
+of the sizes involved, with a separate error message for each, and has done
+so since the driver was added in 2009.
 
-You should rather not return an error if the width is not a multiple of 
-2. Even then, there's some data available for output to the user.
+I have no NetXtreme II hardware, so patch 1 is backed by a KUnit harness
+that drives the real copy helper with the RQ ring and conn->data swapped
+for kmalloc() of the same sizes so that KASAN can see them, and patch 2
+rests on the sizes in the source.  Neither patch changes what is delivered
+for a payload that fits in the buffer it was given.
 
-Errors and problems need to be detected by atomic_check, prepare_fb or a 
-similar callback that runs before atomic_update.
+Yehyeong Lee (2):
+  scsi: bnx2i: bound the RQ payload length reported by the chip
+  scsi: bnx2i: bound the login and text response payload length
 
-Best regards
-Thomas
-
-
->
->>> Alternatively, drm_fb_xfrm can be exported, and let the driver define
->>> the rgb->yuv coefficients? But I think it is fine since _to_gray8 also
->>> cites BT.601.
->> The current constants seem fine. With the 2-pixel alignment, there
->> shouldn't be any other cases required.
->>
->> Best regards
->> Thomas
->>
->>
->>
->> --
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
->>
->>
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+ drivers/scsi/bnx2i/bnx2i.h     |  2 +-
+ drivers/scsi/bnx2i/bnx2i_hwi.c | 29 ++++++++++++++++++++---------
+ 2 files changed, 21 insertions(+), 10 deletions(-)
