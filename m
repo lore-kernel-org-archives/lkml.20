@@ -1,49 +1,49 @@
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C7C377A9E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6415E48BD29
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:46:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395988; cv=none; b=kv2x2xAkxdrWnve385CXLhRyprBdBDeavPrRbdkyfIcnl8jAfLA8WsyihZ4XHCe9L+C5SigK0AZA2Dv+Yu3/vPgPBO2a9hTdU9UPVOyadJpWsJPG78YIKP5VIF6kB87hWyHQXZB/24mM/a7ckypoOzWsZRFfg2wMPMaNUSZO5Vk=
+	t=1792395991; cv=none; b=JuHAdKYPRuNuwW/VJgdoGAUJmTYjItUTqkOekMlf+drdZOR8gKFGqFUh/4smJ/7w0nqHGRxB0WnU/2sysH6Sq+zwgZ2aL0YpoOfU8AzrjE4K4BwDS5fZpMiFlJzusZM12OjjmV+WRo4UgmuAlggfHEA7ey8yXNxZq47pZPUxyXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395988; c=relaxed/simple;
-	bh=pxkGMts6LRvUCdhClSpl8oIap14/o85wXc3/CiHeLmA=;
+	s=arc-20240116; t=1792395991; c=relaxed/simple;
+	bh=eay8gnYxylfBonE7S8gH48nN9Px0Hua3lAMMYc+YQBU=;
 	h=Message-ID:From:To:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=onHXbkkLQxAgHnYEyVaaW5B4ly+XGcjMImixEFufDgHhPAlQgCI4t4hBDp+sWpyCtd3o4hEECzF5hOnhk0st1EDJbtTin2Se9GasgIG4p5Aro8L1wpP1PHagSG9rt6V3W4NjLXLnEVGp5ELsHuM/VGD2uy8eAL0LiFwsbyiN0BM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=LkQqgj6z; arc=none smtp.client-ip=162.62.57.87
+	 MIME-Version:Content-Type; b=Vrt2YnbuR+vAbjlJR4s4oowqKTC9wB5nPWz50MkGRJB0uZTPf9MHUWF/jrkibZEgpqQAlRxGVYPTirSXX+abuYJQ+MCuTcPuDPsT18XMfXToTD1pD9a/cMIQmM33zXsewTJ+U3EmmPGMcj6T81JLpWKnZzXaXcVVHl/NeFLsjIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=yzQojXLb; arc=none smtp.client-ip=162.62.57.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="LkQqgj6z"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="yzQojXLb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792395981; bh=elyb0iXyNG854hyA71P6HS0H3VLpLTmDjbgy/oHwJgM=;
+	t=1792395984; bh=AJgkqBw1wQEDjp9glnT1bYlBKBn3lD5ftfv8JSncj94=;
 	h=From:To:Subject:Date:In-Reply-To:References;
-	b=LkQqgj6ziF8KiPhF77kTxBh3D48dPy/k+NSFwJY6EpoShcNmyD8vCVkijfijByJdo
-	 x4W34fYBNVuPYAi31Pdx3R3n+ag3LnWp25YNNwsE4PG4r4iFsT4OL6VhFV5P0tOfIj
-	 KOXveb/cqjRreon7uj+7+msJ/+1UftlcjjwlOguE=
+	b=yzQojXLbn2ZIGuwaCEfb61VdGosqUbi2ye32CdqCLulV0G/S2k/Fs6sC9ikabUtkx
+	 uXnKeE0f2wioYf/ANErDO3+TQn94uwhZVHidQoTXt8tUPbdN9sBYSKRSSEtXPa/ZjY
+	 0NfeszHalkAu9fUHgIH0g/+Y63CbmGokOmIaqKFI=
 Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
 	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
 	id B90B5685; Mon, 19 Oct 2026 15:46:16 +0800
-X-QQ-mid: xmsmtpt1792395978tih297940
-Message-ID: <tencent_8B0A4E9AF24412E2F6ADAC94C84CC231FA06@qq.com>
-X-QQ-XMAILINFO: MMwjR1C73eIs4KTQ8RkQn90iYnRB9s7G4sQdBtgGgwyRacmzA3DgSMmk0XQQUe
-	 WChpIS3szaRowCXqDItPWblCLY3I5V9A4xm7mYgfLtKml4LWPPm0uRhtnOUQtw0mC7b5wQH8DMZE
-	 0a8w5LQi6NjiIDIqOASNxKBHNe/JKwjA4g/gn3iAizX2KOuvy2qMWDI5gcFsLjFyuW9CZ5m51N+u
-	 FJyHTkrEjLqtU2mrbm/wO2+WHQUsfl5rliZnm59QtkucpvhBfgQ7qFNlvSj48rgNXS//mizBspX4
-	 zCuOJTyTQfxo3LlKyp5iPuBC6+Idl4fuTMqVqA9UBOumCyMhntBkh69h0nwmD/HrrC0Zwc6JrrSg
-	 zGcuUPSIqoSsOr2d0kXHkpmi7AFwjK4yN7vT6Z4yzUIgT26s3P+JKSprJs0RF6NTV06owrnxaks8
-	 j04akQQeHECUmx2xTsdwCIeze6g6zujmA7SkV5i0A5QG5KXS5XNQOCXV9ipL1ltve5lRT1qPxFL/
-	 77z3I5m1iL+6CrM8zu3wxE+HJ1MsZ3g6JbM1cq5jRwj+pj9JnW2Xv7LdXV6aeJISwjgU4P1QHiOr
-	 LVg3u6TrLEEEJ3Ki6kEB9X1qs90QmA8XfKm216id1oerck5rihbjBc7a1ChZJsFQWBZGN+4yygML
-	 r7snXXaQ2VRxsPvB4U93TtnWShRbR0PbTKuKUbneiTh7CgYVxV8K6ra7HjrAUp+zwYCXwpcn7O5O
-	 F+frT6FFaXm7E0I/fa097QIM/TDBtaEeoetKARzupj6sAOWy2QRsVSI7aOS+yTSIWHx3Ph2sj8eh
-	 eG1/tRBcaFBeaIhq9umws1ufy7+7TmLPv9HS9Q8N+2T7OJphqujCWXWMkkn7YDW3HEpkxJ52icmu
-	 wO+Iaekm6xjfX25YcJOf3zuD6thIXpXAhV/jGVnMlAhrsOhLye+oslN9ffq8H7T2EG2w+Mly0iXI
-	 C4m3b0UVvrQgPg1NAEQF+S9T2mhc66A2ZSptK/1vwSWsC7lx3tww9olLqiTMVm4pMKKQ+Hwkak8u
-	 F5Nx9K1FNjosEsw1zIUROk0QF1F7kSMqx4zumA4AH22tOaH8QOWxtiXMioMhlyHAsv6sa6FLqEdo
-	 6e99yMnJwz0zOb7kY=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-mid: xmsmtpt1792395980t7shakoq5
+Message-ID: <tencent_EA9D15E9B49E0967C4C3DB3A29BB19D5E307@qq.com>
+X-QQ-XMAILINFO: OYTBn1rNHH7tWa23yUbdU2QDuJIypRREzVP6XZ4NCH7os2dKhAcBsZyGQIwPN6
+	 KT+dD4Hfevum5NOtz380zeUa1FZW3RWg83Y8uHhuH9D9feL9A39d8Xsm9rkwcVuu3Hq5vt6Tjasu
+	 OXq/512Gq9dv/Haav8J5A22cqHEFSwPjqgon/qhtTPaK1Mv5W0BmhvbJ9YnAei22aeenFNzbns0B
+	 424flkDS6ycRKYG9FKumRKfNDI3u3WzTMvGLmQA//k3kXu3ahAPhoxSpOB7ByR3TuZG2SM9dT3BU
+	 OnUDW6HpQ1LDVkdLO30h+8NBlYfe707G8dWOxr38wCmCPkmPlFcseshxBT+AIvx5WfLMZMXAEUsa
+	 NEdQFk4uutYP6SYh4UYgnIO/94k9cys4W6Us6aTXkdjBjqlbKgNqqoJC1mM4R/oEiPq515kiagUh
+	 RaquArjk0+YhETX9hW0ewkrJQG+uSfw4Dtd4hihjKRbgOHY3kSXSy5rcBs+Vb7/bB013mdslBbTN
+	 qN5CBNqvCPhnfmqCCPok0F2/P3eOoy/dfGtGSCSu14cD9M7YBml5LnZhoJ7XnT0Gu42Tzwvpr+D/
+	 xpgqNdGADVKuadxfI6GRTUWezFgH5Ui0aCMKx2sPM1KfUSSMYxyYqq3jqBpJGOANXn5FMz6h/NrE
+	 O6+OUel8+J+tvXsdI6flBJq3nzf44/AX0KqGbYE2LXHU6ggqs+BVew08+l+l9V1JEDgC/BhxAS9s
+	 Z4gHIOZFsXKyJK5lYHjeGBD0jPqtA/ZV9o5CleZ/PbgJKQKxkgYuk5UCPWregoLsj5fg8VdKsU6y
+	 RKS1zDlPDkl6Gwzwwl9ceR/++SZ/eFO+EbeC8UfSSoMpgLTH8APEte2UlJ/Nle0eQKEa8P0bfce/
+	 XWWrzrkB7OtnmL20v+yWg/TF5CpaX6Dl3DThckHVmYrsgv+b2wykk5FD959i22grBn9rQzc9ip8k
+	 8GJ49WQ0tTlwrE5tIYYUCHrUXHOJcSxpL/4ZDiJcOdeIQPzhY26w4gQjG8Jl4Rq56ZvznABL1fab
+	 vy7HAdXxFUvePC4ly2Lr75gctjgHY+eYS5PmBGClm35ExjLeQlzWDgHWmLdh0AeUD14Xn6jf5tka
+	 5RNDjIdZ9jWI4sKo2Rrr/cCfLccMt0qcPp7+lx
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
 From: Jinjie Ruan <2118537295@qq.com>
 To: babu.moger@amd.com,
 	ben.horgan@arm.com,
@@ -65,9 +65,9 @@ To: babu.moger@amd.com,
 	zengheng4@huawei.com,
 	x86@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 14/15] arm_mpam: Use the request PARTIDs beyond the internal range
-Date: Mon, 19 Oct 2026 15:46:07 +0800
-X-OQ-MSGID: <20261019074609.2144405-2-2118537295@qq.com>
+Subject: [PATCH v10 15/15] arm_mpam: resctrl: Add kunit tests for narrow PARTID helpers
+Date: Mon, 19 Oct 2026 15:46:08 +0800
+X-OQ-MSGID: <20261019074609.2144405-3-2118537295@qq.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261019074609.2144405-1-2118537295@qq.com>
 References: <20261019074609.2144405-1-2118537295@qq.com>
@@ -77,228 +77,524 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 
-A class that implements PARTID narrowing maps several request PARTIDs
-onto one internal PARTID. The internal PARTIDs hold its controls, and
-the request PARTIDs can each be a monitoring group. This gives one
-control group more monitoring groups than the PMG count alone allows.
+Cover the RMID to request PARTID/PMG encoding, the request PARTID to
+intPARTID modulo mapping, CLOSID membership checks across legacy, CDP,
+narrowing and CDP+narrowing modes, and the (CLOSID, RMID) translation
+helper.
 
-The extra request PARTIDs can only be used when no class would lose a
-non-aliasing control: its value can not be written to every PARTID of a
-control group, whereas an aliasing control's value can. Every class is
-considered, including the ones resctrl does not use, so that an unknown
-class can still gain a resctrl schema later. This is decided once,
-before resctrl_init(), and there is no user interface for it.
+The tests poke the partid map through mpam_partid_map_init() so they
+do not depend on resctrl having been set up.
 
-The driver stops reducing msc->partid_max, so the full request PARTID
-range is available, and the resctrl glue code starts handing out the
-extra ones. A control group's configuration is written to every request
-PARTID that maps onto it.
+Enabled with CONFIG_MPAM_KUNIT_TEST; run with:
+  kunit.py run --arch=arm64 --kunitconfig=drivers/resctrl
 
-Cc: James Morse <james.morse@arm.com>
-Cc: Ben Horgan <ben.horgan@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Fenghua Yu <fenghuay@nvidia.com>
-Suggested-by: James Morse <james.morse@arm.com>
+Assisted-by: GLM:5.3
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
-v9->v10:
- - Wrap the intpartid mapping into the internal PARTID range when resctrl
-   is not managing the mapping
----
- drivers/resctrl/mpam_devices.c  | 25 +++++++++++-
- drivers/resctrl/mpam_internal.h |  2 +
- drivers/resctrl/mpam_resctrl.c  | 72 ++++++++++++++++++++++++++++++++-
- 3 files changed, 96 insertions(+), 3 deletions(-)
+ drivers/resctrl/.kunitconfig        |   4 +
+ drivers/resctrl/test_mpam_resctrl.c | 466 ++++++++++++++++++++++++++++
+ 2 files changed, 470 insertions(+)
+ create mode 100644 drivers/resctrl/.kunitconfig
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index f81a2df11428..79bc3339a762 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -74,6 +74,18 @@ static DEFINE_SPINLOCK(partid_max_lock);
- static u32 mpam_num_closid;
- static u32 mpam_num_partid;
- 
-+void mpam_partid_map_init(u32 num_partid, u32 num_closid)
-+{
-+	mpam_num_partid = num_partid;
-+	mpam_num_closid = num_closid;
-+}
-+
-+void mpam_partid_map_exit(void)
-+{
-+	mpam_num_closid = 0;
-+	mpam_num_partid = 0;
-+}
-+
- /*
-  * Map a request PARTID onto its owning control group using modulo
-  * interleaving. Without resctrl active, every PARTID maps 1:1 onto itself.
-@@ -959,6 +971,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
- 	 * A RIS that implements PARTID narrowing has one configuration per
- 	 * internal PARTID, and several request PARTIDs share it. Record both
- 	 * limits in the resource properties.
-+	 * Keep msc->partid_max at the full request PARTID range. The resctrl
-+	 * glue code will broadcast a control group's configuration to every
-+	 * request PARTID that maps onto that group's internal PARTID.
- 	 */
- 	props->partid_max = msc->partid_max;
- 	props->intpartid_max = msc->partid_max;
-@@ -969,7 +984,6 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
- 
- 		mpam_set_feature(mpam_feat_partid_nrw, props);
- 		props->intpartid_max = min(props->intpartid_max, intpartid_max);
--		msc->partid_max = min(msc->partid_max, intpartid_max);
- 	}
- }
- 
-@@ -1581,6 +1595,15 @@ static void mpam_reprogram_ris_partid(struct mpam_msc_ris *ris, u16 partid,
- 		/* Update the intpartid mapping */
- 		u16 intpartid = mpam_partid_to_intpartid(partid);
- 
-+		/*
-+		 * Without resctrl managing the mapping, the fallback maps
-+		 * every PARTID 1:1, which can exceed the internal PARTID
-+		 * range. Wrap onto an internal PARTID, like the narrowing
-+		 * mapping resctrl programs.
-+		 */
-+		if (intpartid > rprops->intpartid_max)
-+			intpartid %= (u32)rprops->intpartid_max + 1;
-+
- 		mpam_write_partsel_reg(msc, INTPARTID,
- 				       MPAMCFG_INTPARTID_INTERNAL | intpartid);
- 
-diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-index a4f2fdf7ac95..b62a0ecdd69f 100644
---- a/drivers/resctrl/mpam_internal.h
-+++ b/drivers/resctrl/mpam_internal.h
-@@ -478,6 +478,8 @@ extern u16 mpam_partid_max;
- extern u8 mpam_pmg_max;
- 
- u16 mpam_partid_to_intpartid(u16 partid);
-+void mpam_partid_map_init(u32 num_partid, u32 num_closid);
-+void mpam_partid_map_exit(void);
- 
- /* Scheduled work callback to enable mpam once all MSC have been probed */
- void mpam_enable(struct work_struct *work);
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index d60dea846486..fb997b9d41d6 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -62,6 +62,9 @@ static DEFINE_MUTEX(domain_list_lock);
-  */
- static bool cdp_enabled;
- 
-+static u32 resctrl_num_closid = 1;
-+static u32 resctrl_num_mon_partid = 1;
-+
- /* If resctrl is leveraging extra request PARTIDs for monitoring. */
- static bool resctrl_using_extra_partids;
- 
-@@ -269,12 +272,12 @@ static bool mpam_resctrl_hide_cdp(enum resctrl_res_level rid)
-  */
- u32 resctrl_arch_get_num_closid(struct rdt_resource *ignored)
- {
--	return mpam_partid_max + 1;
-+	return resctrl_num_closid;
- }
- 
- u32 resctrl_arch_system_num_rmid_idx(void)
- {
--	return (mpam_pmg_max + 1) * (mpam_partid_max + 1);
-+	return (mpam_pmg_max + 1) * resctrl_num_mon_partid;
- }
- 
- /* The request PARTID and PMG a resctrl RMID maps onto. */
-@@ -1931,6 +1934,65 @@ void mpam_resctrl_offline_cpu(unsigned int cpu)
- 	}
+diff --git a/drivers/resctrl/.kunitconfig b/drivers/resctrl/.kunitconfig
+new file mode 100644
+index 000000000000..0cc78c0f7474
+--- /dev/null
++++ b/drivers/resctrl/.kunitconfig
+@@ -0,0 +1,4 @@
++CONFIG_KUNIT=y
++CONFIG_ARM64_MPAM=y
++CONFIG_RESCTRL_FS=y
++CONFIG_MPAM_KUNIT_TEST=y
+diff --git a/drivers/resctrl/test_mpam_resctrl.c b/drivers/resctrl/test_mpam_resctrl.c
+index b93d6ad87e43..f6620ea6f873 100644
+--- a/drivers/resctrl/test_mpam_resctrl.c
++++ b/drivers/resctrl/test_mpam_resctrl.c
+@@ -296,6 +296,462 @@ static void test_percent_to_max_rounding(struct kunit *test)
+ 	KUNIT_EXPECT_LE(test, 4 * num_rounded_up, 3 * total);
  }
  
 +/*
-+ * Decide how the PARTID space is presented to resctrl. This runs once the
-+ * classes are known, and before resctrl_init() advertises any limits to
-+ * user-space.
-+ *
-+ * The extra request PARTIDs on a class that implements narrowing can be used
-+ * as monitoring groups. That is only safe when no class would lose a
-+ * non-aliasing control: its value can not be written to each PARTID of a
-+ * control group, whereas an aliasing control's value can. A class that
-+ * implements narrowing doesn't have the problem, as its PARTIDs are already
-+ * configured as one.
-+ *
-+ * Every class is considered, including the ones resctrl doesn't use. An
-+ * unknown class may gain a resctrl schema later, and using the extra PARTIDs
-+ * would prevent that.
++ * Test cases for CDP and PARTID narrowing compatibility
 + */
-+static void mpam_resctrl_configure_partids(void)
++
++struct cdp_narrowing_test_case {
++	bool cdp_enabled;
++	bool narrowing_enabled;
++	u32 closid;
++	u32 rmid;
++	u8 pmg_max;
++	u32 expected_partid_d;
++	u32 expected_partid_i;
++	u8 expected_pmg_d;
++	u8 expected_pmg_i;
++	const char *desc;
++};
++
++static const struct cdp_narrowing_test_case cdp_narrowing_cases[] = {
++	{
++		.cdp_enabled = false,
++		.narrowing_enabled = false,
++		.closid = 5,
++		.rmid = 3,
++		.pmg_max = 127,
++		.expected_partid_d = 5,
++		.expected_partid_i = 5,
++		.expected_pmg_d = 3,
++		.expected_pmg_i = 3,
++		.desc = "CDP=0, narrow=0: basic mapping"
++	},
++	{
++		.cdp_enabled = false,
++		.narrowing_enabled = true,
++		.closid = 5,
++		.rmid = 258,
++		.pmg_max = 127,
++		.expected_partid_d = 2,
++		.expected_partid_i = 2,
++		.expected_pmg_d = 2,
++		.expected_pmg_i = 2,
++		.desc = "CDP=0, narrow=1: extract reqPARTID from rmid"
++	},
++	{
++		.cdp_enabled = true,
++		.narrowing_enabled = false,
++		.closid = 5,
++		.rmid = 3,
++		.pmg_max = 127,
++		.expected_partid_d = 10,
++		.expected_partid_i = 11,
++		.expected_pmg_d = 3,
++		.expected_pmg_i = 3,
++		.desc = "CDP=1, narrow=0: CDP DATA/CODE split"
++	},
++	{
++		.cdp_enabled = true,
++		.narrowing_enabled = true,
++		.closid = 5,
++		.rmid = 258,
++		.pmg_max = 127,
++		.expected_partid_d = 4,
++		.expected_partid_i = 5,
++		.expected_pmg_d = 2,
++		.expected_pmg_i = 2,
++		.desc = "CDP=1, narrow=1: both features combined"
++	},
++	{
++		.cdp_enabled = false,
++		.narrowing_enabled = false,
++		.closid = 65535,
++		.rmid = 0,
++		.pmg_max = 127,
++		.expected_partid_d = 65535,
++		.expected_partid_i = 65535,
++		.expected_pmg_d = 0,
++		.expected_pmg_i = 0,
++		.desc = "Boundary: max closid"
++	},
++	{
++		.cdp_enabled = false,
++		.narrowing_enabled = false,
++		.closid = 0,
++		.rmid = 127,
++		.pmg_max = 127,
++		.expected_partid_d = 0,
++		.expected_partid_i = 0,
++		.expected_pmg_d = 127,
++		.expected_pmg_i = 127,
++		.desc = "Boundary: max pmg"
++	},
++	{
++		.cdp_enabled = false,
++		.narrowing_enabled = true,
++		.closid = 0,
++		.rmid = 639,
++		.pmg_max = 159,
++		.expected_partid_d = 3,
++		.expected_partid_i = 3,
++		.expected_pmg_d = 159,
++		.expected_pmg_i = 159,
++		.desc = "Narrowing with pmg_max=159"
++	},
++	{
++		.cdp_enabled = true,
++		.narrowing_enabled = true,
++		.closid = 10,
++		.rmid = 1280,
++		.pmg_max = 127,
++		.expected_partid_d = 20,
++		.expected_partid_i = 21,
++		.expected_pmg_d = 0,
++		.expected_pmg_i = 0,
++		.desc = "CDP + narrowing with reqPARTID=10"
++	},
++};
++
++static void cdp_narrowing_test_desc(const struct cdp_narrowing_test_case *param,
++				    char *desc)
 +{
-+	u32 num_closid = (u32)mpam_partid_max + 1;
-+	bool can_expand = false, blocked = false;
-+	struct mpam_class *class;
++	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s", param->desc);
++}
 +
-+	guard(srcu)(&mpam_srcu);
-+	list_for_each_entry_srcu(class, &mpam_classes, classes_list,
-+				 srcu_read_lock_held(&mpam_srcu)) {
-+		struct mpam_props *cprops = &class->props;
++KUNIT_ARRAY_PARAM(cdp_narrowing, cdp_narrowing_cases, cdp_narrowing_test_desc);
 +
-+		num_closid = min(num_closid, (u32)cprops->intpartid_max + 1);
++static void test_cdp_narrowing_mapping(struct kunit *test)
++{
++	const struct cdp_narrowing_test_case *param = test->param_value;
++	bool saved_cdp, saved_narrowing;
++	u32 partid_d, partid_i;
++	u8 saved_pmg_max;
++	u8 pmg_d, pmg_i;
 +
-+		if (mpam_has_feature(mpam_feat_partid_nrw, cprops)) {
-+			if (cprops->intpartid_max < cprops->partid_max)
-+				can_expand = true;
-+		} else if (mpam_props_has_non_aliasing_controls(cprops)) {
-+			pr_debug("class %u has non-aliasing controls without narrowing\n",
-+				 class->level);
-+			blocked = true;
++	saved_pmg_max = mpam_pmg_max;
++	saved_cdp = cdp_enabled;
++	saved_narrowing = resctrl_using_extra_partids;
++
++	mpam_pmg_max = param->pmg_max;
++	cdp_enabled = param->cdp_enabled;
++	resctrl_using_extra_partids = param->narrowing_enabled;
++
++	resctrl_closid_rmid_to_partid_pmg(param->closid, param->rmid,
++					  &partid_d, &partid_i,
++					  &pmg_d, &pmg_i);
++
++	KUNIT_EXPECT_EQ(test, partid_d, param->expected_partid_d);
++	KUNIT_EXPECT_EQ(test, partid_i, param->expected_partid_i);
++	KUNIT_EXPECT_EQ(test, pmg_d, param->expected_pmg_d);
++	KUNIT_EXPECT_EQ(test, pmg_i, param->expected_pmg_i);
++
++	mpam_pmg_max = saved_pmg_max;
++	cdp_enabled = saved_cdp;
++	resctrl_using_extra_partids = saved_narrowing;
++}
++
++static void test_cdp_narrowing_consistency(struct kunit *test)
++{
++	u32 partid_d1, partid_i1, partid_d2, partid_i2;
++	u8 pmg_d1, pmg_i1, pmg_d2, pmg_i2;
++	bool saved_cdp, saved_narrowing;
++	u8 saved_pmg_max;
++
++	saved_pmg_max = mpam_pmg_max;
++	saved_cdp = cdp_enabled;
++	saved_narrowing = resctrl_using_extra_partids;
++
++	mpam_pmg_max = 127;
++
++	cdp_enabled = true;
++	resctrl_using_extra_partids = false;
++	resctrl_closid_rmid_to_partid_pmg(10, 5, &partid_d1, &partid_i1,
++					  &pmg_d1, &pmg_i1);
++
++	cdp_enabled = true;
++	resctrl_using_extra_partids = false;
++	resctrl_closid_rmid_to_partid_pmg(10, 7, &partid_d2, &partid_i2,
++					  &pmg_d2, &pmg_i2);
++
++	KUNIT_EXPECT_EQ(test, partid_d1, partid_d2);
++	KUNIT_EXPECT_EQ(test, partid_i1, partid_i2);
++	KUNIT_EXPECT_EQ(test, partid_i1, partid_d1 + 1);
++
++	mpam_pmg_max = saved_pmg_max;
++	cdp_enabled = saved_cdp;
++	resctrl_using_extra_partids = saved_narrowing;
++}
++
++static void test_narrowing_rmid_encode_decode(struct kunit *test)
++{
++	bool saved_narrowing;
++	u8 pmg, decoded_pmg;
++	u8 saved_pmg_max;
++	u16 partid;
++	u32 rmid;
++
++	saved_pmg_max = mpam_pmg_max;
++	saved_narrowing = resctrl_using_extra_partids;
++
++	mpam_pmg_max = 127;
++	resctrl_using_extra_partids = true;
++
++	for (partid = 0; partid < 100; partid++) {
++		for (pmg = 0; pmg <= mpam_pmg_max; pmg += 10) {
++			rmid = partid * (mpam_pmg_max + 1) + pmg;
++
++			KUNIT_EXPECT_EQ(test, resctrl_rmid_to_partid(rmid), partid);
++			decoded_pmg = resctrl_rmid_to_pmg(rmid);
++			KUNIT_EXPECT_EQ(test, decoded_pmg, pmg);
 +		}
 +	}
 +
-+	if (!num_closid)
-+		num_closid = 1;
-+
-+	resctrl_num_closid = num_closid;
-+	if (can_expand && !blocked) {
-+		resctrl_using_extra_partids = true;
-+		resctrl_num_mon_partid = (u32)mpam_partid_max + 1;
-+	} else {
-+		resctrl_using_extra_partids = false;
-+		resctrl_num_mon_partid = num_closid;
-+	}
-+
-+	/* Tell the driver how the request PARTIDs map onto control groups. */
-+	mpam_partid_map_init(resctrl_num_mon_partid, resctrl_num_closid);
-+
-+	pr_debug("PARTIDs: monitor=%u closid=%u extra=%u\n",
-+		 resctrl_num_mon_partid, resctrl_num_closid,
-+		 resctrl_using_extra_partids);
++	mpam_pmg_max = saved_pmg_max;
++	resctrl_using_extra_partids = saved_narrowing;
 +}
 +
- int mpam_resctrl_setup(void)
- {
- 	int err = 0;
-@@ -1952,6 +2014,9 @@ int mpam_resctrl_setup(void)
- 	mpam_resctrl_pick_caches();
- 	mpam_resctrl_pick_mba();
- 
-+	/* Decide how the request PARTIDs map onto the control groups */
-+	mpam_resctrl_configure_partids();
++static void test_narrowing_rmid_idx_encode(struct kunit *test)
++{
++	u32 closid, rmid, idx;
++	bool saved_narrowing;
++	u8 saved_pmg_max;
 +
- 	/* Initialise the resctrl structures from the classes */
- 	for_each_mpam_resctrl_control(res, rid) {
- 		if (!res->class)
-@@ -2007,6 +2072,9 @@ void mpam_resctrl_exit(void)
- 
- 	WRITE_ONCE(resctrl_enabled, false);
- 	resctrl_exit();
++	saved_pmg_max = mpam_pmg_max;
++	saved_narrowing = resctrl_using_extra_partids;
 +
-+	/* resctrl is gone: forget how the PARTIDs were grouped. */
-+	mpam_partid_map_exit();
- }
++	mpam_pmg_max = 127;
++
++	resctrl_using_extra_partids = false;
++	for (closid = 0; closid < 10; closid++) {
++		for (rmid = 0; rmid < 10; rmid++) {
++			idx = resctrl_arch_rmid_idx_encode(closid, rmid);
++			KUNIT_EXPECT_EQ(test, idx, closid * 128 + rmid);
++		}
++	}
++
++	resctrl_using_extra_partids = true;
++	for (closid = 0; closid < 10; closid++) {
++		for (rmid = 0; rmid < 1000; rmid += 100) {
++			idx = resctrl_arch_rmid_idx_encode(closid, rmid);
++			KUNIT_EXPECT_EQ(test, idx, rmid);
++		}
++	}
++
++	mpam_pmg_max = saved_pmg_max;
++	resctrl_using_extra_partids = saved_narrowing;
++}
++
++static void test_narrowing_rmid_idx_decode(struct kunit *test)
++{
++	u32 decoded_closid, decoded_rmid;
++	u32 idx, closid, rmid;
++	bool saved_narrowing;
++	u8 saved_pmg_max;
++
++	saved_pmg_max = mpam_pmg_max;
++	saved_narrowing = resctrl_using_extra_partids;
++
++	mpam_pmg_max = 127;
++
++	resctrl_using_extra_partids = false;
++	for (closid = 0; closid < 10; closid++) {
++		for (rmid = 0; rmid < 10; rmid++) {
++			idx = closid * 128 + rmid;
++			resctrl_arch_rmid_idx_decode(idx, &decoded_closid, &decoded_rmid);
++			KUNIT_EXPECT_EQ(test, decoded_closid, closid);
++			KUNIT_EXPECT_EQ(test, decoded_rmid, rmid);
++		}
++	}
++
++	resctrl_using_extra_partids = true;
++	mpam_partid_map_init(64, 32);
++	for (idx = 0; idx < 5000; idx += 500) {
++		u16 partid = resctrl_rmid_to_partid(idx);
++		u16 intpartid = mpam_partid_to_intpartid(partid);
++
++		resctrl_arch_rmid_idx_decode(idx, &decoded_closid, &decoded_rmid);
++		KUNIT_EXPECT_EQ(test, decoded_closid, intpartid);
++		KUNIT_EXPECT_EQ(test, decoded_rmid, idx);
++	}
++	mpam_partid_map_init(0, 0);
++
++	mpam_pmg_max = saved_pmg_max;
++	resctrl_using_extra_partids = saved_narrowing;
++}
++
++struct partid_mapping_case {
++	u16 partid;
++	u16 num_partid;
++	u16 num_closid;
++	u16 expected_intpartid;
++	const char *desc;
++};
++
++static const struct partid_mapping_case partid_mapping_cases[] = {
++	{ 0, 128, 32, 0, "First PARTID maps to first intPARTID" },
++	{ 31, 128, 32, 31, "Last intPARTID maps 1:1" },
++	{ 32, 128, 32, 0, "First extra PARTID wraps to intPARTID 0" },
++	{ 33, 128, 32, 1, "Second extra PARTID wraps to intPARTID 1" },
++	{ 63, 128, 32, 31, "PARTID 63 wraps to intPARTID 31" },
++	{ 64, 128, 32, 0, "PARTID 64 wraps to intPARTID 0" },
++	{ 127, 128, 32, 31, "Max PARTID wraps to intPARTID 31" },
++	{ 15, 64, 16, 15, "Small config: PARTID 15 → intPARTID 15" },
++	{ 16, 64, 16, 0, "Small config: PARTID 16 wraps to 0" },
++	{ 63, 64, 16, 15, "Small config: max PARTID wraps to 15" },
++};
++
++static void partid_mapping_desc(const struct partid_mapping_case *param,
++				char *desc)
++{
++	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s", param->desc);
++}
++
++KUNIT_ARRAY_PARAM(partid_mapping, partid_mapping_cases, partid_mapping_desc);
++
++static void test_narrowing_partid_mapping(struct kunit *test)
++{
++	const struct partid_mapping_case *param = test->param_value;
++	u16 result;
++
++	mpam_partid_map_init(param->num_partid, param->num_closid);
++
++	result = mpam_partid_to_intpartid(param->partid);
++	KUNIT_EXPECT_EQ(test, result, param->expected_intpartid);
++
++	mpam_partid_map_init(0, 0);
++}
++
++struct partid_in_closid_case {
++	u16 partid;
++	u32 closid;
++	bool cdp_enabled;
++	bool narrowing_enabled;
++	u16 num_closid;
++	bool expected;
++	const char *desc;
++};
++
++static const struct partid_in_closid_case partid_in_closid_cases[] = {
++	{ 10, 10, false, false, 32, true, "Legacy: exact match" },
++	{ 10, 11, false, false, 32, false, "Legacy: no match" },
++	{ 20, 10, true, false, 32, true, "CDP: even PARTID for closid 10" },
++	{ 21, 10, true, false, 32, true, "CDP: odd PARTID for closid 10" },
++	{ 22, 10, true, false, 32, false, "CDP: PARTID 22 not in closid 10" },
++	{ 10, 10, false, true, 32, true, "Narrowing: PARTID 10 -> intPARTID 10" },
++	{ 42, 10, false, true, 32, true, "Narrowing: PARTID 42 wraps to intPARTID 10" },
++	{ 74, 10, false, true, 32, true, "Narrowing: PARTID 74 wraps to intPARTID 10" },
++	{ 43, 10, false, true, 32, false, "Narrowing: PARTID 43 -> intPARTID 11" },
++	{ 20, 10, true, true, 32, true, "CDP+narrow: even PARTID 20 -> intPARTID 10" },
++	{ 21, 10, true, true, 32, true, "CDP+narrow: odd PARTID 21 -> intPARTID 10" },
++	{ 84, 10, true, true, 32, true, "CDP+narrow: PARTID 84 wraps to intPARTID 10" },
++	{ 86, 10, true, true, 32, false, "CDP+narrow: PARTID 86 -> intPARTID 11" },
++};
++
++static void partid_in_closid_desc(const struct partid_in_closid_case *param,
++				  char *desc)
++{
++	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s", param->desc);
++}
++
++KUNIT_ARRAY_PARAM(partid_in_closid, partid_in_closid_cases,
++		  partid_in_closid_desc);
++
++static void test_narrowing_partid_in_closid(struct kunit *test)
++{
++	const struct partid_in_closid_case *param = test->param_value;
++	bool saved_cdp, saved_narrowing;
++	bool result;
++
++	saved_cdp = cdp_enabled;
++	saved_narrowing = resctrl_using_extra_partids;
++
++	cdp_enabled = param->cdp_enabled;
++	resctrl_using_extra_partids = param->narrowing_enabled;
++	mpam_partid_map_init(128, param->num_closid);
++
++	result = resctrl_partid_in_closid(param->partid, param->closid);
++	KUNIT_EXPECT_EQ(test, result, param->expected);
++
++	mpam_partid_map_init(0, 0);
++	cdp_enabled = saved_cdp;
++	resctrl_using_extra_partids = saved_narrowing;
++}
++
++static void test_narrowing_boundary_conditions(struct kunit *test)
++{
++	bool saved_narrowing;
++	u8 saved_pmg_max;
++	u32 rmid, idx;
++	u16 partid;
++	u8 pmg;
++
++	saved_pmg_max = mpam_pmg_max;
++	saved_narrowing = resctrl_using_extra_partids;
++
++	resctrl_using_extra_partids = true;
++
++	mpam_pmg_max = 255;
++	rmid = 255 * 256 + 255;
++	partid = resctrl_rmid_to_partid(rmid);
++	pmg = resctrl_rmid_to_pmg(rmid);
++	KUNIT_EXPECT_EQ(test, partid, 255);
++	KUNIT_EXPECT_EQ(test, pmg, 255);
++
++	mpam_pmg_max = 127;
++	rmid = 100 * 128 + 127;
++	partid = resctrl_rmid_to_partid(rmid);
++	pmg = resctrl_rmid_to_pmg(rmid);
++	KUNIT_EXPECT_EQ(test, partid, 100);
++	KUNIT_EXPECT_EQ(test, pmg, 127);
++
++	mpam_pmg_max = 0;
++	rmid = 50;
++	partid = resctrl_rmid_to_partid(rmid);
++	pmg = resctrl_rmid_to_pmg(rmid);
++	KUNIT_EXPECT_EQ(test, partid, 50);
++	KUNIT_EXPECT_EQ(test, pmg, 0);
++
++	mpam_pmg_max = 15;
++	idx = resctrl_arch_rmid_idx_encode(0, 1000);
++	KUNIT_EXPECT_EQ(test, idx, 1000);
++
++	mpam_pmg_max = saved_pmg_max;
++	resctrl_using_extra_partids = saved_narrowing;
++}
++
++static void test_narrowing_full_range_mapping(struct kunit *test)
++{
++	u16 partid, intpartid;
++	bool saved_narrowing;
++	u8 saved_pmg_max;
++	int count = 0;
++	u32 rmid;
++
++	saved_pmg_max = mpam_pmg_max;
++	saved_narrowing = resctrl_using_extra_partids;
++
++	mpam_pmg_max = 31;
++	resctrl_using_extra_partids = true;
++	mpam_partid_map_init(64, 16);
++
++	for (rmid = 0; rmid < 2048; rmid += 32) {
++		partid = resctrl_rmid_to_partid(rmid);
++		intpartid = mpam_partid_to_intpartid(partid);
++
++		KUNIT_EXPECT_LT(test, partid, 64);
++		KUNIT_EXPECT_LT(test, intpartid, 16);
++		KUNIT_EXPECT_EQ(test, intpartid, partid % 16);
++
++		count++;
++	}
++
++	KUNIT_EXPECT_GT(test, count, 0);
++
++	mpam_partid_map_init(0, 0);
++	mpam_pmg_max = saved_pmg_max;
++	resctrl_using_extra_partids = saved_narrowing;
++}
++
+ static struct kunit_case mpam_resctrl_test_cases[] = {
+ 	KUNIT_CASE(test_get_mba_granularity),
+ 	KUNIT_CASE_PARAM(test_mbw_max_to_percent, test_percent_value_gen_params),
+@@ -304,6 +760,16 @@ static struct kunit_case mpam_resctrl_test_cases[] = {
+ 	KUNIT_CASE(test_percent_to_max_rounding),
+ 	KUNIT_CASE_PARAM(test_percent_max_roundtrip_stability,
+ 			 test_all_bwa_wd_gen_params),
++	KUNIT_CASE_PARAM(test_cdp_narrowing_mapping, cdp_narrowing_gen_params),
++	KUNIT_CASE(test_cdp_narrowing_consistency),
++	KUNIT_CASE(test_narrowing_rmid_encode_decode),
++	KUNIT_CASE(test_narrowing_rmid_idx_encode),
++	KUNIT_CASE(test_narrowing_rmid_idx_decode),
++	KUNIT_CASE_PARAM(test_narrowing_partid_mapping, partid_mapping_gen_params),
++	KUNIT_CASE_PARAM(test_narrowing_partid_in_closid,
++			 partid_in_closid_gen_params),
++	KUNIT_CASE(test_narrowing_boundary_conditions),
++	KUNIT_CASE(test_narrowing_full_range_mapping),
+ 	{}
+ };
  
- static void mpam_resctrl_teardown_mon(struct mpam_resctrl_mon *mon, struct mpam_class *class)
 -- 
 2.43.0
 
