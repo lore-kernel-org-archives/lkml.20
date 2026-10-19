@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.65
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.56
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792428484;
-	b=ytjGgGPeddQgcYWFtabPhn6g2j37DEUcyT1bWpXL2ofWDPXwI/l0TSz8B9QyMp8rhAyO
-	 dpCvSMIbtF4klSEz7CuPZCyvNA3tLVCRPMuAQrjNfPqQfunBobRb4bd5AS2o+mTl032C4
-	 gVQDjv1X1qcFJKYFvnkqgPHB0BtBnvfz+syl7+U1/fdK3YDRx5/4Tu2oFk9TLU9aqy0Lx
-	 5un/CdjL9tsZKbtGTSZlkeI5rmbsRth/ZbzAg0xML9UtYmnFWf1qOKcdWzfVIsqcVOekS
-	 ZesTZDYECgLHZ98VS8XD43xIlLtNiQmvybDRQ6L3FEAguFqgO2AuYR+uKBsN3RYHKng==
+	t=1792428481;
+	b=Tv+T67OI8UcMvppGo/d8lnKi1mDkTq1kBmjTsSwP2/ddMw2CSiKvZo38yq48txaGCMI3
+	 O9r/eweZ8uKYrYZOfNXcgi2+Q5AzM6eqrQDPl5DkDG00uxnSko4nTELa405Bu+rDAIcbq
+	 x7l/CxMrUva6DIV2Wf280d13P4VEOS7E+GiYBT55i92tl7aBCIuL8IQqnE0E6A37IrUyH
+	 8jUA3NhQQIKR0oAQNA2E0eiG6iXZYGVNO34RWBFcK3xFlDT0VmACO+kspdWYvkwj5OeGk
+	 dSD+6X5dfLCsUCrRpUu3LqJrG4iEJpgFaztwf06ytbFrKdDjuEsIfNBnVGP79lBVyrw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428484;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428481;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=QtVjqCTVUQ4kz6F3x3pqOOxNEzFQJmQlAeiv1gujuyM=;
-	b=yeazIvni2sjhagW2vHMd/AwiCrfw6iYXSDYtVvVrkB1bUURF2NVp+GiVA01iy0Zep8e/
-	 sl90yjiAR0Wg2ZyaEzH96HpJDvBL5Qnwl8kRhqUxth0UIdgdmWZnNaVVOcUy+rdugGE+v
-	 3MloB80MOLfKib0r7253pY3F6XkXylNGCzswKv7lTNDp6xlqB14XJDynvE2CgUv789x70
-	 b2AD8Cq1pAZGd9Zi71upOrf7eXNpHZTgWTNZAqyEpcpAXPhWVvBfJRV1asZuRkI/ZUlrN
-	 U4ZOfWzCgbc69zm4f42qarfN4Lgk3ACI6fCRMxiixyQaR5doIsafIBm3n+HrbAfz1Vw==
+	bh=UFdWuo441SZ0y7Ho6jIGKbs/DjKbr037W1nyJmZ7Wj8=;
+	b=N4ipvzjKsUtGA1NIuUohQ5i4JnnUiWKwsjbfE8kfis3m+nNZ2v/wm4uqRy/hV91LjDLK
+	 02soFJyNCz3/YJxRlrDZawLyrQIaw5qSOZx3ooF73p6URH+PkaA1sbSf2Ysra2Q1QgAMS
+	 pkZMLRRLLBkzfXrLscW0CibIn8aMT/6QRg5yfg0GBkLKk+TKGPzAdMWcMUgcgciBVIoBM
+	 QAMIPG0o0tIe8N1aDTc3Gdl0qi/QQ5/QpbboVbNpQajish2wbdaY661d25wiyW9h93ac6
+	 zXgphB2RRZka4PUxBfc3bvt1AVh+9HGJUEyrzyOQZ10oLpI4FKl+WzoH6kFiYG8AumA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Dmzyeor+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.65
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013065.outbound.protection.outlook.com [40.93.201.65])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=R3wFkk6O;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.56
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010056.outbound.protection.outlook.com [40.93.198.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8093860A2613
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:48:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8093860A2613
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945CF606A328
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:48:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 945CF606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Dmzyeor+
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=R3wFkk6O
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eQPGrq4dvALTajXrZBQDX2PC3pd160zMY5yl4+PH8LihPHv+gjN6QK76xNiEjpcITldvVTqCVwq8EajBSodBOakcHR0V150Qp0sTuIIzArKW3MyJMCO3+FUTda8RABkXkRO8MaylytxUHuNTyYyIyOJORrkJaoIxMbnDrY/GVTTbgb0bApePuZ2471THbE+Lk8pTEtxDQJSzdwzY0ZldhQ2USc03+kxYmReGye7dMeFreOmTy3dWbmqbr7nGIBunPTwb8cUPhMOn3bfG+k71VOpx53LYGadfrfHe2iYd+4lOUqFg+6M5H5eZqPfo9Jlzs+5UrUEdfUjtFdXwl7CKKw==
+ b=kZKFURtjYCI09Co1iGeqDxyeCL6oHGNzSicyyaP1MVBlE49ciG+quPtVtglZHZgMAHlCOCfI1CwZm0ba0KCBPvIT2KwaoKOXdKAmLvR4ibNN8NcbVT3BP4LkNM21vnpFeEfNIxjfgCJfhzqtviuTCsOh8p07wTWckinH4Ae0fCYdzZgQcLdgrUvATVj9Sf2kIucIaKWgj2fO63i88AyMb1hWlGzIMIjpe99NsHkn5HY9sY4ufNdT3eGsTyqV+n3t+n0+Ysgkrngv4UswpuUdHQD5VeYE3DWLHKaKcFfLwlBkN4UPWHiPGP8Wh0+Wo5EHWmaZ0LAPxPatBc3H4xYRKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QtVjqCTVUQ4kz6F3x3pqOOxNEzFQJmQlAeiv1gujuyM=;
- b=U8SuYzaGNbzVxILzHWh+wc0RRtmt4CXpxwACdbmXLFw+jZJXMd8+4PMMchqESViT4TWLoUjj8LT0lBPI24WyoA48y7ySKun8wEntnyWup+V72ALVpS2qSkRnDF8A6JCfXCRC4ifvmVq/WD/bLSPeQUZ7zRmTIe1mL05nESSEcBYxw1nV4sJipRxax16ZH8/6EVzSdNW/enu6FUmzS8GnlJMzCnL/q5b07iqDgoeu3FrLe7CijNj2SprQyHccGcFEsSqE/1eLbgzoDEdfRfoYAUXmac0O/NIV+5zz6qmrBpgtGw2vuHjPKxVT32FhnMMzQ1cfFyN3UdBACritep/vOg==
+ bh=UFdWuo441SZ0y7Ho6jIGKbs/DjKbr037W1nyJmZ7Wj8=;
+ b=LCrYuZfOsg04H439mOSztlLDSkKGhhDuERvEfCLxoJirR3EdYJN+YIcEwqjbxy86xm8hT3l7Hm14MV4xff9rl3yeXo/9vj3ivM23ZKOvVE7k3TTri//x/d3bCNcFtuF9AKxdqn24MFPFwriTjrMoXetzfDk+gO3T/CxjkBNoHdoIgfZUp4NiYMo8TkeZTiorc6V6cwsC1CDw1wAc+C9gQetOZqqDLXt8fmI03/uNStIzMyiopR3KU/kqT4DIBj58sow+lyYB4nd9RoZaJw4+DMVLduBx5Y95ZGnIV9g9D7u7PVItZ4Nz3AFoVehY8qwNQeEdCTw9KRlU3vBDoU/NNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QtVjqCTVUQ4kz6F3x3pqOOxNEzFQJmQlAeiv1gujuyM=;
- b=Dmzyeor+hScEzZdSgIhoEbW0o2HQHpZK6QUgVDyN7nLnGp3TlKigCtPZ0uUHMM32k0s/iSjUIbA7yNktoCgBKY7AIqTZLsQ2PN/jjvhaCwplKGuzSyeFPrT/Tg19gsePdf6bNGCOvKDnYe1AEYZoj9rsaRWJZc/IWvNxHgz140o=
-Received: from PH8P220CA0019.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::10)
- by IA1PR12MB8309.namprd12.prod.outlook.com (2603:10b6:208:3fe::8) with
+ bh=UFdWuo441SZ0y7Ho6jIGKbs/DjKbr037W1nyJmZ7Wj8=;
+ b=R3wFkk6O70Uydiio1nx/dSvDJVZJsyHT4bUVQN0AQNIC8HfHSznTn8cH9H1kr+JaIXn1qRbYTz2YeWg8vAnGowBaZZChdIxAuh7tUpOxUg6Ei8IHP7Ir8wI2fttbhFE10W87U4HbxFI22c/rUJN/tGrMru1N85TijA2MgOPOnrQ=
+Received: from PH8P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::14)
+ by PH7PR12MB8039.namprd12.prod.outlook.com (2603:10b6:510:26a::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 16:47:57 +0000
+ 2026 16:47:52 +0000
 Received: from PH1PEPF00062F2A.namprd02.prod.outlook.com
- (2603:10b6:510:345:cafe::97) by PH8P220CA0019.outlook.office365.com
- (2603:10b6:510:345::10) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:510:345:cafe::5c) by PH8P220CA0008.outlook.office365.com
+ (2603:10b6:510:345::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 19
- Oct 2026 16:47:57 +0000
+ Oct 2026 16:47:50 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -82,27 +82,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  PH1PEPF00062F2A.mail.protection.outlook.com (10.167.243.59) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 16:47:57 +0000
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 16:47:50 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
- 2026 11:47:47 -0500
+ 2026 11:47:42 -0500
 Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 19 Oct 2026 11:47:46 -0500
+ Transport; Mon, 19 Oct 2026 11:47:41 -0500
 From: David Zhang <yidong.zhang@amd.com>
 To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
 	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
 	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>, Hayden Laccabue <hayden.laccabue@amd.com>
-Subject: [PATCH V5 06/19] accel/amdxdna: Add AIE version query to aie4_get_info
-Date: Mon, 19 Oct 2026 09:47:33 -0700
-Message-ID: <20261019164746.827277-7-yidong.zhang@amd.com>
+	<mario.limonciello@amd.com>
+Subject: [PATCH V5 00/19] accel/amdxdna: Kernel submission and PM for AIE4
+Date: Mon, 19 Oct 2026 09:47:27 -0700
+Message-ID: <20261019164746.827277-1-yidong.zhang@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019164746.827277-1-yidong.zhang@amd.com>
+In-Reply-To: <yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
- <20261019164746.827277-1-yidong.zhang@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,151 +115,190 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH1PEPF00062F2A:EE_|IA1PR12MB8309:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d8fee0b-24dd-49c8-bbb8-08df2e00ba85
+X-MS-TrafficTypeDiagnostic: PH1PEPF00062F2A:EE_|PH7PR12MB8039:EE_
+X-MS-Office365-Filtering-Correlation-Id: f61f9fa2-e0b9-4cf3-9846-08df2e00b64d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|56012099006|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	hQ0lsvzeqdCowDJ6LGMhU7N1ODjhfEMqdVCTf15sqaEGdB4BQonkhC0lggRWQlliP2OVdiVWSBzfOl1S5ZWAkZWia12lJpJ2UsremcC32lgy2FSkVIA2rKOjjndoZb6jWob7Q1xo64e4QYFMkvwl+7fWVcayLywo2Qowq4o4JUA22I4wn59pOQE/vwBSxwad4rbFNZWbvgMlKkgxVn3XHdTcKisEWpu6z11GgnhwLUBUTUtd1EpkKIiRveLWXJ40fYSYZI1WYa8WNAK6Hwim5ZqmitRb3ECEKVe/KY6+jr7r0zgHzRXRDQQ1hkQBo2lL179vZW9s0BKKe0N0FRMcrho6d0mnJaUJV9dBJNMsppDG4+QcYnsZ5fOHCrJ4X+kuznCaSTd3a80L0tZ/RVjrQx2f2XbidRY2csrX5AX3hLDMzNPGrLuV0ALMzBstQ6hXcXySK++igi2ZZwDiu3bmbUJ1elHgadvC6LNxGyn4tdFO4FbZknqDPgBufGl2IucmXcua5I8udSNGUwLSOWpHAsOiYvQFVOM2rpABmU9XezFkBqqwimMhO617wMiwoU+hji8CA+1L+Z0k01l4OmsPGsT9jBuqbWiXoICijzRARAm8sec6mS1ZiHwyHw6fLPJgSvvTS1RUTgy3bcdqqW3xEBzjU9ppEwIexlf9YayatVa3o2BUBbI64Ns1Y2c8V2cPBd01Xw7/Z4j0gpquksyRSg==
+	jCDgQoMnW999QkC+odPwEOKECaLresqMIl8h2JnBWXLe4FDRJTCeMqNS8wfmvj6ckbR4LDDqkHlpvxejU33+3FBodNNZDJhJlYjREv8pPn4c5FbhgAH4DMmR1riUBkHXeKRlEQSNj1ye4WffJWC/0ybRLQG1viWMxJxZMib6BBTWmLGYbXFGZxg0fuKKajZvXCxo694AcASFR6iKYlywUUZ6ndTkP9uGHtz/DAw/agTjWMotFUruyka2YyTt3p1xKm+Iqa9owHyrBFgRPQq2CaNQOZ8gglhcPOV7cltna373qOECcxikqiNHRKm3GISfOOscU2MBkShnOz9Q/UAawO8JgaAYhwJiQkJ55Ot65OYaXhhGolCvv6ugwiCRekLs1QEc+OwZz0EQ82mq+AaGVSrYgZfI8zclUvpW3Qkj1dMMazZbin/7Z7TrVRkp13Idnvv5GktbXRZuvBboTMte5+uac39SqQp7Hr4OKjV2dvfX1v3hH+XTgmsa2TQQ5VtOwszTali2sk2muFMRoUMLkV1wS2aYPmTRlDelKmXOkADk4DG4PuhKTxbl5CuxJ8qpzJGyY48CggCLYnx4q2NH06gqNu1np0HI/wWq0SvtvHSDG6qxEUsHscq/OjzQCvIncXO3laquFm+X3IN9OeXtYXn2IioisV8IfrBVfQz/TAeiy6Scyd9L8YBgMqOW2M+m0+uIJ08LAj6xMVWxtEhFFw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	z/TWPMB37+lOXPSlIFmKgzhilPCvFoI1wJNySXmOZ3A10olGIx5EMdy5GqkTrNOU+lhpr7Ly7gLy2w4OTD5f+5KC8OnrRCtCx1rcomoXFUG5/1dSiLpFbuLLJ5fjnYqWexVvlmv1Lh0xKjrIel+UeW+sD1mBpZXSA/8EIIKaOK+ef4puq/dRIimuEr/5s0eu1SPl1ukGuRK2ahwf7caQoZ1ebpbz5HexHpuy/7oQjU0+IoAalAs55kT9t+32PNYB9nb7shznjs0IfU9wmuoG5jZZ7FKl4wfJh3wpxCxgsDocsnXS0r1OZBFDLJrD9QuT8ueDbg8/arFCJhAR0xU/S9Rnhgzlgg6BSUIVj7pOjrF3LoTOIwi+NR3eAo8hJUD4hn3mq1ScwzGHOTgjMEI6pBHp5q5xNAzI9UsBh1wtjk/Vvy4lSgWu+2N591KhQmYC
+	ibJg6FPtmK0QU59iPinhGtZ8b7K5Q7+TtwLrmwCXpvi6MV09E2EQdOu6rhkQfzUHscpQBuItUGjLoAoZSzRadqklZRhMt5MkTYCEml8fqrxY3D2+tiCKtRX5dYqcREXzyuV+86fEYCxuebqRw0K41XbbCUwHgvOVCi8cAIAlPJXn4+wjPgQ+QhOLgRC+0YXqSWBpZP7Dqx7ejeBZBXeVHwvBXwtt9707HlVYgoEth4LHJZOLTkPbGyCXoaum5Rf8UKSfuBjizZqQCBnbvufkENHRkuBvRMWhKyBlERZKARcJnFFHJRixaOtOw1CtHbs/7Sdp5dUPhoIV5c+07vNG7b3JdhvVJPh6SssZ0Ija2Zq4UV6/RHznOVSzZ/nrI/Loenjpur2afKjG+JKuMpiZjB6DdoBoBBd+3hqDVlSrHC90+6zDMBs4ST8SWViFUOKx
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:47:57.2991
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:47:50.2601
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d8fee0b-24dd-49c8-bbb8-08df2e00ba85
+X-MS-Exchange-CrossTenant-Network-Message-Id: f61f9fa2-e0b9-4cf3-9846-08df2e00b64d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	PH1PEPF00062F2A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8309
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8039
 
-Add AIE version query via DRM_AMDXDNA_GET_INFO. The NPU firmware
-version query already existed internally; it is now also exposed
-through this ioctl alongside the new AIE version query.
+This patch series extends the amdxdna accelerator driver to support
+AMD AIE4 (NPU3) platforms, including classic and PF/VF for SR-IOV with
+kernel-mode command submission (KMQ), system power management, and
+runtime power management for the classic device.
 
-These versions are mandatory once released, the firmware management
-interfaces must support those queries in their stable version.
-Propagating any failure to abort device initialization is intentional.
+Changes in v5:
+- Rebase on the uninterruptible HMM invalidate wait fix, and move
+  aie2_hmm_invalidate() into common GEM code for AIE2 and AIE4.
+- Rebase on the umap range fault serialization fix, and move
+  aie2_populate_range() into common GEM code for AIE2 and AIE4.
+- Move runtime PM reference calls to the last patch, so each patch is
+  bisectable on its own.
 
-Co-developed-by: Hayden Laccabue <hayden.laccabue@amd.com>
-Signed-off-by: Hayden Laccabue <hayden.laccabue@amd.com>
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/aie4_message.c  | 20 ++++++++++++++++++++
- drivers/accel/amdxdna/aie4_msg_priv.h | 11 +++++++++++
- drivers/accel/amdxdna/aie4_pci.c      | 10 ++++++++++
- drivers/accel/amdxdna/aie4_pci.h      |  2 ++
- 4 files changed, 43 insertions(+)
+Changes in v4:
+- Return -ENODEV instead of -EAGAIN from aie4_cmd_wait() when the
+  context is in error, so waiters fail after a failed resume instead
+  of retrying forever.
+- Take a runtime PM reference in aie4_hwctx_init() so context creation
+  does not send mailbox messages to a suspended device.
+- Make the HMM invalidate wait uninterruptible, so a pending signal
+  does not let pages be freed while the NPU may still access them.
+- Record whether a command wait ended on completion or disconnect,
+  so a context unlinked and relinked during the wait cannot report
+  a false completion, and a torn read_index cannot stop the worker.
+- Resume the device in the wait ioctl when the context is suspended
+  by power management instead of returning -EAGAIN, and return 0
+  for commands completed before suspend.
+- Add a job timeout that stops the hardware context when a job does not
+  complete, so job fences published to dma_resv are always signaled in
+  finite time.
 
-diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-index f67aa8ba943c..c83f81a0e65b 100644
---- a/drivers/accel/amdxdna/aie4_message.c
-+++ b/drivers/accel/amdxdna/aie4_message.c
-@@ -75,6 +75,26 @@ int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
- 	return 0;
- }
- 
-+int aie4_query_aie_version(struct amdxdna_dev_hdl *ndev,
-+			   struct amdxdna_drm_query_aie_version *version)
-+{
-+	DECLARE_AIE_MSG(aie4_msg_aie4_version_info, AIE4_MSG_OP_AIE_VERSION_INFO);
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	int ret;
-+
-+	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-+	if (ret)
-+		return ret;
-+
-+	XDNA_DBG(xdna, "Query AIE version - major: %u minor: %u",
-+		 resp.major, resp.minor);
-+
-+	version->major = resp.major;
-+	version->minor = resp.minor;
-+
-+	return 0;
-+}
-+
- int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
- 				    struct amdxdna_drm_query_firmware_version *fw_version)
- {
-diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-index b9f7c61f36e3..81842fa1d6ce 100644
---- a/drivers/accel/amdxdna/aie4_msg_priv.h
-+++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-@@ -22,6 +22,7 @@ enum aie4_msg_opcode {
- 	AIE4_MSG_OP_CREATE_HW_CONTEXT                = 0x30003,
- 	AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
- 	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
-+	AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
- 
- 	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
- };
-@@ -160,6 +161,16 @@ struct aie4_msg_aie4_tile_info_resp {
- 	struct aie4_tile_info info;
- } __packed;
- 
-+struct aie4_msg_aie4_version_info_req {
-+	__u32 resvd;
-+} __packed;
-+
-+struct aie4_msg_aie4_version_info_resp {
-+	enum aie4_msg_status status;
-+	__u16 major;
-+	__u16 minor;
-+} __packed;
-+
- struct aie4_msg_query_cert_firmware_version_req {
- 	__u32 resvd;
- } __packed;
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index 1eeb1cb73b27..1cbd1665a28f 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -289,6 +289,10 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		return ret;
- 
-+	ret = aie4_query_aie_version(ndev, &ndev->aie.version);
-+	if (ret)
-+		return ret;
-+
- 	ret = aie4_query_aie_metadata(ndev, &ndev->aie.metadata);
- 	if (ret)
- 		return ret;
-@@ -595,6 +599,12 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
- 	case DRM_AMDXDNA_QUERY_AIE_METADATA:
- 		ret = amdxdna_get_metadata(&ndev->aie, client, args);
- 		break;
-+	case DRM_AMDXDNA_QUERY_AIE_VERSION:
-+		ret = amdxdna_get_aie_version(client, args, &ndev->aie.version);
-+		break;
-+	case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
-+		ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
-+		break;
- 	default:
- 		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
- 		ret = -EOPNOTSUPP;
-diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index 940e67347d74..5ae5e8427a3b 100644
---- a/drivers/accel/amdxdna/aie4_pci.h
-+++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -69,6 +69,8 @@ enum aie4_fw_feature {
- /* aie4_message.c */
- int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
- 			    struct amdxdna_drm_query_aie_metadata *metadata);
-+int aie4_query_aie_version(struct amdxdna_dev_hdl *ndev,
-+			   struct amdxdna_drm_query_aie_version *version);
- int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev);
- int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev);
- int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
+Changes in v3 (addresses v2 review comments):
+- Lock, check and fence chained sub-command BOs with the job BOs,
+  since the NPU writes completion to command BO headers.
+- Use the validated payload pointer in submit_one_cmd() to fix a
+  TOCTOU on the user-writable command header.
+- Drop the last_read_index cache; get_read_index() returns 0 when
+  read_index is still invalid after a re-sample, so callers treat the
+  command as incomplete and keep waiting.
+- Align the runtime config message buffer to 4 bytes.
+- Move the HMM invalidate wait and populate_range into common GEM
+  code, and repopulate invalidated user mappings in AIE4 command
+  submission instead of failing the submit.
+- Drop the patch that finalized runtime PM before taking dev_lock on
+  removal; the PCI core keeps the device active during remove, so
+  there is no deadlock.
+- Use a stateless PF/VF device link, folded into the suspend and
+  resume patch, so it survives VF driver rebind such as vfio-pci.
+- Return -EBUSY from runtime suspend when a device has no
+  runtime_suspend callback, so the PM core keeps it active.
+
+Changes in v2:
+- Drop the redundant cert_feature_table configuration.
+- Call aie4_partition_fini() when aie4_restore_power_mode() fails, so
+  the partition is not leaked on hardware start failure.
+- Return -ETIME from best-effort firmware configuration steps, so a
+  mailbox timeout fails the probe instead of letting it succeed with
+  unresponsive firmware.
+- Fix a synchronize_srcu() deadlock in context teardown by stopping
+  the hardware context and waking all waiters before destroying it.
+- Use READ_ONCE() for read_index and for fields read from user-shared
+  command buffers, so checked values cannot change after validation.
+- Check that cert_comp is still linked in all command wait paths, so
+  -EAGAIN is only returned on a real disconnect.
+- Check that trace buffer addresses fit within 48 bits, as required by
+  the current CERT design, instead of silently truncating them.
+- Hold references to chained sub-command BOs until job release, so
+  userspace cannot free a BO while hardware may still access it.
+- Document that job fences are signaled when submission fails or the
+  hardware context is stopped, destroyed or suspended, and that job
+  timeout detection and recovery (TDR) will follow in a separate
+  change to guarantee the fence signaling in finite time.
+- Address use-after-free comments on fence dev_name().
+- Abort hardware contexts when resume fails to start the hardware,
+  so submitters waiting for a context to reconnect fail instead of
+  blocking forever.
+- Document that VF driver rebind requires re-enabling SR-IOV via
+  sriov_numvfs, which recreates the PF/VF PM device links.
+- Add pm_ptr() wrapper to fix the build with CONFIG_PM=n.
+- Remove hwctx_config for AIE4; use-after-free cases in the debug
+  buffer handling need more work.
+- Detect VF passthrough by comparing against the PF driver instead of
+  the module owner, which is NULL for built-in drivers.
+
+Changes in v1:
+- Firmware version 6.0: return IOMMU_PASID_INVALID from aie4_msg_pasid().
+- Power mode: consolidate cached power mode override restoration on
+  hardware start directly into the power mode introduction patch, and
+  respect user buffer size.
+- Transport hooks: fix header include to use <drm/amdxdna_accel.h>.
+- Command submission & fencing: fold fence timeline naming and unique
+  timeline context allocation into the command submission patch.
+
+Series structure:
+The patch layout is the same as v0 except for the v3 and v4 changes above;
+see the v0 cover letter for a per-patch overview.
+
+Testing:
+- Tested on AMD AIE4/NPU3 hardware in both classic and SR-IOV (PF/VF)
+  modes.
+- Verified kernel-mode command submission with direct and indirect
+  execution packets under concurrent workloads.
+- Verified system suspend/resume (S2idle/S3) during idle and active
+  command submission, and runtime autosuspend on the classic device.
+- Verified SR-IOV VF binding and execution.
+- Confirmed no regression on existing AIE2 devices (NPU1/NPU4).
+
+
+David Zhang (19):
+  accel/amdxdna: Rename NPU3 firmware files
+  accel/amdxdna: Remove mmap for doorbell
+  accel/amdxdna: Add CERT firmware version support
+  accel/amdxdna: Support firmware 6.0
+  accel/amdxdna: Add NPU3 classic device support
+  accel/amdxdna: Add AIE version query to aie4_get_info
+  accel/amdxdna: Add get and set power_mode for AIE4
+  accel/amdxdna: Add clock, DPM frequency, and resource info queries for
+    AIE4
+  accel/amdxdna: Add context switch hysteresis with debugfs control
+  accel/amdxdna: Refactor AIE4 hardware initialization sequence
+  accel/amdxdna: Decouple AIE4 doorbell and MSI-X notify transport hooks
+  accel/amdxdna: Implement AIE4 kernel queue lifecycle and memory layout
+  accel/amdxdna: Prepare for AIE4 command submission
+  accel/amdxdna: Move HMM invalidate wait into common GEM code
+  accel/amdxdna: Make populate_range common for AIE2 and AIE4
+  accel/amdxdna: Implement AIE4 command packet building and submission
+  accel/amdxdna: Enable AIE4 firmware logging to DRAM
+  accel/amdxdna: Implement AIE4 suspend and resume
+  accel/amdxdna: Implement runtime suspend and resume support
+
+ drivers/accel/amdxdna/aie.c             |   33 +-
+ drivers/accel/amdxdna/aie.h             |   47 +-
+ drivers/accel/amdxdna/aie2_ctx.c        |   91 +-
+ drivers/accel/amdxdna/aie2_message.c    |    4 +-
+ drivers/accel/amdxdna/aie2_pci.c        |   67 +-
+ drivers/accel/amdxdna/aie2_pci.h        |   40 +-
+ drivers/accel/amdxdna/aie2_pm.c         |   10 +-
+ drivers/accel/amdxdna/aie4_ctx.c        | 1129 +++++++++++++++++++++--
+ drivers/accel/amdxdna/aie4_host_queue.h |   72 +-
+ drivers/accel/amdxdna/aie4_message.c    |  245 +++++
+ drivers/accel/amdxdna/aie4_msg_priv.h   |  149 ++-
+ drivers/accel/amdxdna/aie4_pci.c        |  818 +++++++++++++++-
+ drivers/accel/amdxdna/aie4_pci.h        |  117 ++-
+ drivers/accel/amdxdna/aie4_sriov.c      |   66 +-
+ drivers/accel/amdxdna/amdxdna_ctx.c     |   72 +-
+ drivers/accel/amdxdna/amdxdna_ctx.h     |   28 +-
+ drivers/accel/amdxdna/amdxdna_debugfs.c |    3 +
+ drivers/accel/amdxdna/amdxdna_gem.c     |   87 +-
+ drivers/accel/amdxdna/amdxdna_gem.h     |    1 +
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |   46 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |   20 +-
+ drivers/accel/amdxdna/amdxdna_pm.c      |   26 +
+ drivers/accel/amdxdna/amdxdna_pm.h      |    2 +
+ drivers/accel/amdxdna/amdxdna_sysfs.c   |    2 +-
+ drivers/accel/amdxdna/npu1_regs.c       |   19 +-
+ drivers/accel/amdxdna/npu3_regs.c       |  105 ++-
+ drivers/accel/amdxdna/npu4_regs.c       |   30 +-
+ 27 files changed, 2922 insertions(+), 407 deletions(-)
+
 -- 
 2.34.1
 
