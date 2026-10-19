@@ -1,99 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.60
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792430071;
-	b=BC2RLhrSSw8lBxydjSJ7OdwgFXxmmeMzcj6DFf43CzT/EiSneUiCB5z1XjcJ7R/dLztO
-	 ZxJVALKNzpbnTV4+Sly1nG3acUBqvL3uNpzEWJCtZygg9antjyo0FYF4dFbDxpzuue7pE
-	 SpzZ7dhji+3rWJOoA2uA3+mh9gV5Mz2foEGKAIw8HuX/LDg2YHPa/9uQ0WEwD3i6pXTUz
-	 ePcRsz6V4MBJRqJRIEhzto9jpw2EEF+RrZL4APwgW7lEmeTqzCyscizlAhgeccGz4SXt8
-	 UoXDZoS3SjjygKOO3YE4V4L98rSY55+znMsOweDrtM2qIm8NXHZ4Sr3zAXLr1EUFWfA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792430071;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=u3ommDCL7KSppLkLUZySIYaoIUEPjNA6oi141WGTX2g=;
-	b=Eb2mkivHkma18sO4pIKUoUsEFBdyDgdiatwbp28mxDo7adjq4jqkht47AvrA/L6f45iL
-	 sFfxMGecVDaAu8sHxo1YPLjnxE1R8pgCPpxyFHnDViTw5QMuSGKgC2Z6RPwK0b3iCtWOQ
-	 p9Pqs6oivGHozb3XhcQ6KkGHExX9xeH/x0d5D6TrXNY/rrKDtk1Sg+L1Wsx8NbTTox56z
-	 x3eIKSdK51Uwbhqj6LanIrVJryJyOpdPuYe5RLWgvLGHv/Wjs2/aoikzC0zN01/n3dto2
-	 MI/d3oB6fKhouPRBQjZmJAmISK+6YuJWGuBn/nUtLOxiIu5KgQk5U0V5Iu3tjptzpEQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2IXd7Fr6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.60
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011060.outbound.protection.outlook.com [40.107.208.60])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792430103;
+	b=xH48lTDm/ZFlgSdjTaIZwONWBl9m98uaCFlwgWXZnSH509ay7Opg8RrnerqTeCqpBmSl
+	 FGX8SoYz/nZ40Ajm83ICs0SQZCOMwPNLgvOhoC8G4XdbUMOzNvqhddYZu6eEwyWDd8j50
+	 7QGDf0aw7Ht+NJdKG62ybyqrIPnWKlHxPTBIHKiVkAvWfl7p3OtT/8jGT+ZTlVh0AJwys
+	 QS6HuQX6CtPXlHdZPgYkkiruXP/ep/jOoD7e17iwjgEkX9FHWcKPSsuH8nInlOKVFgzdw
+	 mADQtND7iuzTAaFCgNdadPj2eiDSQJhpuYzszEvDNEJL41IUQXSqN7ZYhlPvIS7bgBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792430103;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=u80h7r29Ghnr+vYGuleV7rteVTs1uqS7VM0+MTj++3g=;
+	b=G6GLrKi0HhTsxSw04/rt3vlIG6vVM4EEhJ/7xKHXRqy9/pVGo/916BqcxsdXLQj0UOyc
+	 W6CvWgaYvUuXgQRN1KAlUfjCv4IZc9EGD5Rrvm89uS/Kr3BevwJtwNI56ncFevjTI5ZGY
+	 ur2tgqtpCwFGwyrIsKA0T4Sjdw9cmV0P4S3L6ZaDSMV3RSQsMMYm82/XdvQ6ewT4S0kRa
+	 7Sk8dDozfudoscWjNK64K45G7xl0SF3IKSSXlArOG6VRXP+VSogF/1LKwjWFXJLXgC034
+	 fQl6w0e2qNIFaAQuw3QvsK0WYo/vy2a6U/du+d+C1pPBjdNWumWsBEAuqyA2hKelclg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EbSKHF4F;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1799F606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:14:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1799F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220FE606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:15:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 220FE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2IXd7Fr6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DrWh8BeMIit0gtoef9pJMXflIGyCjM7xReXaYzekNecBNBMQAswRoWaBy14xUbKzKkHK/8e3uRuYX+wibhq+DMquLnY3ocUPuHjUxZX2f1fP3lYhNvWGczhY/uvKDEIQE3qc/am220J2kLWT1ZPtEl1fPN2PLC23whtiu0ES628IECcufYCc61GpNfKZHaD5B1ruNqpEqriADeXGCuT1L0a8bQHBKe8OslaM09dFgYc1vgMxT5ZTjYBZ0GjW7KDMOJ6+2EwoEWZ5tXIRN/CbVhcuJZ+tdxCo338IVlkixtb6YHgdpa3oB0jzzS1lAYC629iI0NB5yL7YxkxotYZa7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u3ommDCL7KSppLkLUZySIYaoIUEPjNA6oi141WGTX2g=;
- b=UTQSkamCpQNf992PQSPgdsiClNaHm8YgipvRljfHrm+s/IyLMybiE6y2f4s/sMvg8ilH1Gf1spUqx6IodppsKHOs1qLsdkghrdgmcNe3MNFl/dLnq4+blgxjMqcycjiJJIuLij3ZqYuOEzQPXTW1mabFXqx3mwlKk56KM8HWfIgNXLZa537dScF/NGGL/sYS+JidxxFBZ8WFV79h1wIc+P2tFulhf8w26GrbvIB1ZMDEpHzUGEchO3rFI5BPxJ3GLsm0T3YMIaWPNCci91EWSDpDiaru7SQQFC9NdppojLNkcqjn/SD/TopHpnlKMGrXpb56bgjEm+4cAo2QW54IdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u3ommDCL7KSppLkLUZySIYaoIUEPjNA6oi141WGTX2g=;
- b=2IXd7Fr6iAPmYpnQ1vuDl0YMQWIqBd0GgbMIg40FB3in9ikwbKnNp+c5erkUC5c5flnp7RDwUGSshHxLcXxlo2MMO5rjF23OKm+Wa+DLO0YCdrAN4BsThv9JBpuWDH6fA130cPKaRP6GoL5NunRJDFJ+V+A+GIExK3nXbCJow3M=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by CH0PR12MB8530.namprd12.prod.outlook.com (2603:10b6:610:188::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Mon, 19 Oct
- 2026 17:14:27 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 17:14:27 +0000
-Message-ID: <9eb8ccad-3919-4676-a3f7-6f7b2479d2ea@amd.com>
-Date: Mon, 19 Oct 2026 22:44:08 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 10/24] iommu/amd: Pass iommu to device_flush_dte()
-To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
- jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
- jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com, chrisl@kernel.org,
- wvw@google.com, wnliu@google.com, dantuluris@google.com, kpsingh@google.com,
- alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com,
- guanghuifeng@linux.alibaba.com
-References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
- <20260930092344.5616-11-suravee.suthikulpanit@amd.com>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20260930092344.5616-11-suravee.suthikulpanit@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0310.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:21a::9) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EbSKHF4F
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ccca948203aso861535a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:15:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792430102; x=1793034902; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u80h7r29Ghnr+vYGuleV7rteVTs1uqS7VM0+MTj++3g=;
+        b=EbSKHF4FBi6Gw+HdwmCL9x60cXnlqyYitVKN4L3pyMtprMmREDDBIzBG66tMtCwYqp
+         4UWLpM2JD4dQ1FMWGSXIdwqpgL/FUlAHYQsLGIVq1pqQziVAA/ZI2m10KDdiaCc8LqJk
+         +OVM0KKpNMxy2FK7jibs7HzP7jivBBwgaxhGRKFb84H/YrC0iM2u4bXeWYkzuh3uPnR9
+         ot38svkI9O/siFVxmp3V321s42UPEQCUqUHkf6I/kIGrZeRlifFKsBkCk7c8kLU5bsCj
+         vDNMthUAa6UA5DryUOuiJjRwigqu5xiYDx6PHZc7uSxKLQ6/4pq+9fdUZ2Or28YB9gmy
+         90XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792430102; x=1793034902;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u80h7r29Ghnr+vYGuleV7rteVTs1uqS7VM0+MTj++3g=;
+        b=CzeDxWPrsLvPRBOnjDOeCDHV8zV9LDe9DZPmYe5hQyaUMP1gDF8mrEn76cdebocE8D
+         0ShwAZvL/SSBONDd3yXQsebLFsJ7aaaq6t5Ki+HKAnp4w4x0r9ygskAc5eP3lDk8LF4c
+         sKzOJS+aIC+C+SV30LJamXGfi3I1tXwQdfBEhMwLCa5vP0MhJGy0siFp1EI/HSYWMIOT
+         52UFRQwsCe66pn5dLm09eiLjAFr5sNvQdbOSdkrnoyCF6AffgzH+z9lqL54rJy+1EdVI
+         5h5MJR2+XxKJrjZlVvqai4uCwFQJpL9kRHpjlip2E5P3YKwMltD4RxU1qnaFDeJkk9K/
+         bkOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzFMXkaBBHgUhM9fwaua6l1VbbeRQ8M/bLG7gzkutHAEfcO8ifSfQEDrL6HHntrK8u0YIZw7vVD3bb+p0c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtwQ6pSPE3zbKtimC4pZiYvFLjgbd6iG+4M0N94GtkQmq2LvpQ
+	FU/tTZ503wsDcESGAAzx4Gi3E5nXyX1CXMooJohdBx3kbt70NiRPwR5kj/FjJnLsp2k=
+X-Gm-Gg: AYBFou1HvfGAzJE/oX/tw7mvftb2xUY/onfK4UeHtlmNBJ+3baZScy/7f/CjB3Cfbl0
+	KhQ7Of8SGOA/eVRqIatdqoxvEamFsN+hs8pM1HxgeZvhJCl+T5RZuKaduRC1Q2XJnb7OArWFL2T
+	BAuDjVAamsPeeGmPZs/QD23x1tyqRSq7LxYR3S0aQprNdxo+95ncND0KhchELPdvGFz2iQT/5Y+
+	GpJZcLflOdZLHRolLFHlIGW8cBBUDmptK3VYYaAas7h+OYH9GYSvyAhsUm3usXx2x2li2tFbuEY
+	JYHl6xfS3webJxFSnYoyte8vfKImvxvXJL1JmFvOVaaubyC67gA9GtuPF59WT3CFVxPfVPOB7CK
+	D04Nz3MqFQJ4+mDBWiICmBxKTqmlz0GZUnTspnvhaaRFaSQi+pZOJxMT4TWCXwV+ep5eHsD+hGt
+	6n4yM8jkqii7ZG+DiniHuLhfqNuivdUA51veovHavKpccnKTqg/0F6YWoQSRSMZn0uPjKG06Q=
+X-Received: by 2002:a17:90b:2c90:b0:3ac:a521:953 with SMTP id 98e67ed59e1d1-3acef0ff0cdmr7098929a91.46.1792430102161;
+        Mon, 19 Oct 2026 10:15:02 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:76fe:654:667:da52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9e47588sm9453824a91.1.2026.10.19.10.15.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 10:15:01 -0700 (PDT)
+Date: Mon, 19 Oct 2026 11:14:58 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Yonghao Zhang <hyz3367@gmail.com>, arnaud.pouliquen@foss.st.com
+Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] remoteproc: core: Roll a failed attach back with
+ detach() when available
+Message-ID: <atZQEuXMwMpvmoBz@p14s>
+References: <20260929075453.2324597-1-hyz3367@gmail.com>
+ <20260929075453.2324597-4-hyz3367@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,125 +96,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|CH0PR12MB8530:EE_
-X-MS-Office365-Filtering-Correlation-Id: 345da1ed-8b71-41ed-8b61-08df2e046e0a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	nHLG8+e3oL2DRuo7hmDmBJieXpbcs72i8WhiwcASpTEE4iIFvQTp7xqu8NdxjyALgOA6gDwoaFEWysHsxkkl7oTre2MnU0mWyDhqHeP5ME3oJnOTYNT9J5o37DH7NQl8HF3EXzx1sbT3OR4wjMFAFM5im6LsCYCkD6n61i+j9+zBQxdeFmh84uSvIiLto7eeE9Bz1IvJvP5PO52SQZdrUPYis4OyhmgUdMrFHC3SP58W7DJJg0kTIgrSKozcQD8QQq6iGjXtvYoUo+u6KLpGDFI2tCItzLdXcQhdadF6IlGEJcZ+I+6ntdOUvzUSbDiQI26wS9Wb4cgIxaEPKWOK9xz0PYAHJSrY1q54a8621pYYRMTxjMCPOM9+MM3qkSoXTAn352U6WH+xW1BmDXJ9hTKlQZSvXe6xx3kYdn/y9gfpz5LfrDUQ12AfoIFLYipUUZrKj7Q/NDKcl36mNwYKV+9q5ed4G+PltCSkp46QWu/w4pl4HSi/k9ePJ0+rrysluFrqh0u2IiTRA//S77A75krZsyRiurn2mqqJ/yKc5MfQB8PJR6U4ptzV4DQ0x/ARyk8D7A0PQ8bpZiM/sLMpGnj0OeKcUrD+FcaJQh2Zke5xfmpVN2pIOwbQI8R2wzzWStKTDXsCz0QHCzWr4vVNve8wcQoCa+JmaZxxrQJFRWE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TTNRY2I2VlY1N0NOUlF3SnF5RGNsV1AwVlJxZER2T05pbEcrVyt3VkZ4eFhG?=
- =?utf-8?B?dUxjMkZ2dEgvcGUySjRNemp4VUZLYURTeEpYVUlSNzBvK3hUUjlDQ0hoSXdL?=
- =?utf-8?B?KzQ4MmxzM2hjT291UVVscldpdWIxOVU4YUU4VXpqQWV0WGFXNmlpeTcyMGVV?=
- =?utf-8?B?VlJXamZCNEFBRU9TejN3ZjFHQXpoSDBlKzJjNWN6RjZURWwzMmc4WUFyL0lC?=
- =?utf-8?B?N1haK0xibkhCQjlEUTZSRndnTW9wWjJGWDgyam02QmxwK3ptTDNqSUVHR2pZ?=
- =?utf-8?B?SE5YNFcwNFgzZXM5eE5HeWFsMk1YVXppYmNqZ0xialA3bENmWDNaZTNSRkVH?=
- =?utf-8?B?eThPa0ZiTmVPekpyMzh0Z1VmU1Z3bjduM2RHejYwMXRvemVZaVFZazlPbjJN?=
- =?utf-8?B?T2FoN0RIc3hISzIxTmxTcnFHbmE2VFFLQmdSQXV4TEZtQUpjZUh1eTFtekZV?=
- =?utf-8?B?WnNJb3lvek90TkM5d3ZxMHZmSVhQNThiTUxMSU8wRzFLQ2gwa2dELy9kTC83?=
- =?utf-8?B?ZUNkUitvS2NONkZ0SWYrK09haStaa3VhN242SWgzaGdYOXJEdVZ0WUx4QnNh?=
- =?utf-8?B?T05xQzlPWW0yZTdrR2ROUlNkMDd3bEVZU0ZlcWRHdmxWbFI3c053MEk4c3gz?=
- =?utf-8?B?NGlFZG8vczVwZjVYU0krNHRsTGs0U0FhTW1iSkMrVndvMm9ZNDBJODZjZWJU?=
- =?utf-8?B?RlNxUUJaY1A3VWNlVERiZm56VWpuR2dpbERWcVM3L29KMS9iNGd5bHNjTDc4?=
- =?utf-8?B?Sm5LV21NWDVqRVIvR0hBVllJcFFvZnlCMTBrQUtwNCtFTEFWTVFFZE15QUll?=
- =?utf-8?B?TFFXV0s0dWQrRlYzUjRva2dKYjluRjVISFh6NE8xWFJ1cE40Wnl4RFJDQzdw?=
- =?utf-8?B?K2xpS0R6MG80Z1l1UFdmRUhVRkpYOVEwbk5FNU1yVVpCKytueTFZcHdpbVZN?=
- =?utf-8?B?VyticFlmSkFHaDl3amlDUHNpczAvN0hIMkQxK01BQmFleUg2SXpVckRRa2Z0?=
- =?utf-8?B?T3ljRjZrbVVydmlkczVWM1lPcnFPTk05REdMQ0VLTHFXWGFmTVRMMlBlMVJ1?=
- =?utf-8?B?T1dUZktReUZ6dGkwaTNrU0pKK0lyUy9qZ1ZPMXBZbDc5NElzeTJOcDBRc0hn?=
- =?utf-8?B?ZmJXVXp2c2NEOVBjTmZTZGlNN0FkYlpLdE5mMFJxWXRNYlpwVnNlUnlXYUI0?=
- =?utf-8?B?WGVDUlhTQjgvNnFJWWNuSytsNGNFU29JeExVcm5CRmlQVVJQd0E3Y1h2aE9H?=
- =?utf-8?B?RzJjbDd0bkJnSFVCSSs4b1lxemtxUU04R3lUKzVwOUZ5c1VwYTBvSFZpS2VQ?=
- =?utf-8?B?K1FLWlZ6ajUrUVRjeXV0Nzhoc2htWmhMU2Q5ZXRQN21JRjFXOEI5S3lXZFRT?=
- =?utf-8?B?V2pRQ0MzL3drd0NCdEs3OWZ1RitOaGtKV1VIYnRsQUdLN0RwcmdGWE53Ulpu?=
- =?utf-8?B?aVZzS0w0cWpjRU9PYWVkVmFOL3ZqYzJ1OEU4K2FPYzFZallkV04xRks4a2pt?=
- =?utf-8?B?Um5ZUTgwS0hHQ1NwbnJLdnkxS3g0NGw5bDVkMUdKekhCY2w2WVA5VGd0NVg1?=
- =?utf-8?B?dHJiWE9yWTl5Y2h4Z0s3azN6RkwwMkRaeVYzUjg4M1RiL2o4OGVYOUs0RzMr?=
- =?utf-8?B?WlB1WmJZdUd1ZEQ4eEpoOVRxV3JFR083RDhLNUFUVXpYRjNjQjQ4Z1QzOXl6?=
- =?utf-8?B?ZmxIbUxlcEhBNGRLY3NmMkxvM3JiM0xQbSs1MFlNV0xhUDlqSVZkckFSclBs?=
- =?utf-8?B?TkNvOXJUbWlTdTlnQldIcElEekM0Q0d2czhuN2xWWHdxOS8rNjUra3ZCNG9s?=
- =?utf-8?B?MDdwQXhMeEdDQVV4WUtDZzNhT0VOODVTWGpMbS9ScnphWlhIc3ZyWEFTS2Ny?=
- =?utf-8?B?a253ZFNKQWNEQmhCc0pIQkk1U1B1c2NZcVM3eVArVk5TUFRseFFtaWRlMnJs?=
- =?utf-8?B?UFpYam8xU05Mem90aTVnZU8wdXdoVVpXbFprL0lnK1NFVSsxK1JOUUR4Tloz?=
- =?utf-8?B?bERkdWFmTS85akFyK1owc2o5MGVKZTlMWWMyTkdDbE1CaHdINGl4R3B4emVO?=
- =?utf-8?B?WmxETThJVXlWaGNzMExUN1pWUEVKWkwrSUZkeWx5UXV4aXl4VzNNejlydkpW?=
- =?utf-8?B?VVhxZEtmUmFEZndNV0dNUStXU21FUm9SallZRFNsVHRRcHEwbDZFVnVMenFH?=
- =?utf-8?B?bzJpQi9sTmxuK2U5Y2ZvR0E0UzJYajUvVlNhdldXbkowcGVPaWRlanJHN0Jm?=
- =?utf-8?B?WHk5c3NxY2h0VFNpa1p3N2xIS1MrS2tKWGFLREVJR0hUNkFtOTVHNmxITWxx?=
- =?utf-8?B?Y3FWQ0I4WEZERExUcXpQRmpqS1ZGem5wVXh3SWY5UTdnbklsdG83dz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 345da1ed-8b71-41ed-8b61-08df2e046e0a
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 17:14:27.3149
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qKq+L2tNi9vO2wn+LWSdAfbZY16DfRaIeEAbMGcdMDEWmddUcLfi3sZqyzdecfofEgANsIuyoDvy4DeCZhBMVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8530
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929075453.2324597-4-hyz3367@gmail.com>
 
+@Arnaud Pouliquen - please review this patch to make sure it doesn't break
+STM32.
 
+On Tue, Sep 29, 2026 at 03:54:52PM +0800, Yonghao Zhang wrote:
+> When the subdevice registration that follows ops->attach() fails,
+> __rproc_attach() rolls back with an unconditional ops->stop() call.
+> That is wrong on three counts.
+>
 
-On 9/30/2026 2:53 PM, Suravee Suthikulpanit wrote:
-> Take struct amd_iommu explicitly so DTE invalidation is issued on the
-> same IOMMU instance used to program the DTE. Also, flush each device in
-> amd_iommu_change_top() immediately after updating its DTE.
+It isn't wrong, simply implemented during a time where any kind of fault in the
+attach()/detach() scenario called for a stop().  I would certainly appreciate a
+less reproachful tone.
+
+ 
+> An attach-only implementation, one without stop() such as
+> commit 1168af40b1ad ("remoteproc: k3-r5: Add support for IPC-only
+> mode for all R5Fs"), dereferences NULL right there.  A processor that
+> is being attached to was started by another entity and is not ours to
+> power off: detach() is the matching undo of attach(), and stop()
+> should only be used as a last resort, when there is no detach() or
+> it fails.  This is reachable today: when the re-attach of an
+> RPROC_FEAT_ATTACH_ON_RECOVERY processor fails (imx_rproc and
+> xlnx_r5 use the feature), the unwind stops a processor which,
+> per the feature's own contract, "does not need help from Linux to
+> recover... Linux just needs to attach".  And the unwind leaves
+> the accounting inconsistent -- no resource table bookkeeping
+> is done, unlike on the rproc_stop() and __rproc_detach() paths,
+> and a processor powered off through the fallback keeps its
+> RPROC_DETACHED state, so the next rproc_boot() tries to attach to a
+> core that is no longer running.
 > 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+
+Remove the above paragraph.
+
+> Roll the attach back with detach() first, along with the same
+> rproc_reset_rsc_table_on_detach() bookkeeping __rproc_detach() does,
+> and fall back to stop() only when detach() is unavailable or failed.
+> A failed resource table reset does not abort the unwind: this is an
+> error path, and detaching from the remote processor, or powering it
+> off as the last resort, takes precedence over the bookkeeping.  A
+> successful fallback moves the processor to RPROC_OFFLINE so the next
+> boot reloads firmware instead of attaching to a dead core;
+> implementations with neither handler keep the processor running and
+> untouched, which is all an attach-only core needs.  The rollback is
+> factored into rproc_unwind_attach().
+> 
+> The unwind runs the same resource table resets as the detach and
+> stop paths, which free clean_table and leave a cached copy of the
+> installed table in rproc->cached_table.  Make rproc_attach()'s error
+> cleanup, which runs right after, null clean_table after freeing it
+> and release that copy along with table_ptr, or a failed attach
+> double-frees clean_table and leaks the copy.
+> 
+> Fixes: d848a4819d85 ("remoteproc: Introducing function rproc_attach()")
+> Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
 > ---
->  drivers/iommu/amd/iommu.c | 13 +++++--------
->  1 file changed, 5 insertions(+), 8 deletions(-)
+>  drivers/remoteproc/remoteproc_core.c | 65 ++++++++++++++++++++++++++--
+>  1 file changed, 62 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-> index dfb9268f3c4e..a45044e1d423 100644
-> --- a/drivers/iommu/amd/iommu.c
-> +++ b/drivers/iommu/amd/iommu.c
-> @@ -76,7 +76,7 @@ static void set_dte_entry(struct amd_iommu *iommu,
->  			  struct iommu_dev_data *dev_data,
->  			  phys_addr_t top_paddr, unsigned int top_level);
->  
-> -static int device_flush_dte(struct iommu_dev_data *dev_data);
-> +static int device_flush_dte(struct amd_iommu *iommu, struct iommu_dev_data *dev_data);
->  
->  static void amd_iommu_change_top(struct pt_iommu *iommu_table,
->  				 phys_addr_t top_paddr, unsigned int top_level);
-> @@ -218,7 +218,7 @@ void amd_iommu_update_dte(struct amd_iommu *iommu,
->  {
->  	update_dte256(iommu, dev_data, new);
->  	clone_aliases(iommu, dev_data->dev);
-> -	device_flush_dte(dev_data);
-> +	device_flush_dte(iommu, dev_data);
->  	iommu_completion_wait(iommu);
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index 19e0ea3e7240..c52212a1d180 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -1348,6 +1348,59 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+>  	return ret;
 >  }
 >  
-> @@ -1824,9 +1824,8 @@ static int device_flush_dte_alias(struct pci_dev *pdev, u16 alias, void *data)
->  /*
->   * Command send function for invalidating a device table entry
->   */
-> -static int device_flush_dte(struct iommu_dev_data *dev_data)
-> +static int device_flush_dte(struct amd_iommu *iommu, struct iommu_dev_data *dev_data)
+> +static int rproc_reset_rsc_table_on_detach(struct rproc *rproc);
+> +static int rproc_reset_rsc_table_on_stop(struct rproc *rproc);
+> +
+> +/*
+> + * Undo an attach whose subdevice registration failed.  The remote
+> + * processor was started by another entity and is not ours to power
+> + * off, so roll back with detach() when available and fall back to
+> + * stop() when there is no detach() or when it failed.  stop() is
+> + * the only rollback that does not rely on the remote side.  A
+> + * processor powered off through the fallback is marked RPROC_OFFLINE,
+> + * so the next boot reloads firmware instead of attaching to a dead
+> + * core; with neither handler there is nothing to roll back with and
+> + * the processor is left running.
+> + *
+> + * The resource table resets are best-effort: when one fails, the
+> + * unwind carries on with detach()/stop() anyway.  Unlike
+> + * __rproc_detach() and rproc_stop(), which bail out before touching
+> + * the processor when their reset fails, this is already an error
+> + * path, and detaching the remote processor -- or, failing that,
+> + * powering it off -- is the minimum it must still deliver.
+> + */
+> +static void rproc_unwind_attach(struct rproc *rproc)
+> +{
+> +	struct device *dev = &rproc->dev;
+> +	int ret;
+> +
+> +	if (rproc->ops->detach) {
+> +		ret = rproc_reset_rsc_table_on_detach(rproc);
+> +		if (ret)
+> +			dev_err(dev, "can't reset rsc table on detach: %d\n",
+> +				ret);
+> +
+> +		ret = rproc->ops->detach(rproc);
+> +		if (!ret)
+> +			return;
+> +
+> +		dev_err(dev, "can't detach from rproc %s: %d\n",
+> +			rproc->name, ret);
+> +	}
+> +
+> +	if (rproc->ops->stop) {
+> +		ret = rproc_reset_rsc_table_on_stop(rproc);
+> +		if (ret)
+> +			dev_err(dev, "can't reset rsc table on stop: %d\n",
+> +				ret);
+> +
+> +		if (rproc->ops->stop(rproc))
+> +			dev_err(dev, "can't stop rproc %s\n", rproc->name);
+> +		else
+> +			rproc->state = RPROC_OFFLINE;
+> +	}
+> +}
+
+
+Please remove all the dev_err() above.  An error messages are already generate
+in __rproc_attach() when something goes wrong.
+
+> +
+>  static int __rproc_attach(struct rproc *rproc)
 >  {
-> -	struct amd_iommu *iommu = get_amd_iommu_from_dev_data(dev_data);
->  	struct pci_dev *pdev = NULL;
->  	struct amd_iommu_pci_seg *pci_seg;
->  	u16 alias;
-> @@ -2795,11 +2794,9 @@ static void amd_iommu_change_top(struct pt_iommu *iommu_table,
->  		/* Update the HW references with the new level and top ptr */
->  		set_dte_entry(iommu, dev_data, top_paddr, top_level);
->  		clone_aliases(iommu, dev_data->dev);
-> +		device_flush_dte(iommu, dev_data);
+>  	struct device *dev = &rproc->dev;
+> @@ -1373,7 +1426,7 @@ static int __rproc_attach(struct rproc *rproc)
+>  	if (ret) {
+>  		dev_err(dev, "failed to probe subdevices for %s: %d\n",
+>  			rproc->name, ret);
+> -		goto stop_rproc;
+> +		goto unwind_attach;
+>  	}
+>  
+>  	rproc->state = RPROC_ATTACHED;
+> @@ -1382,8 +1435,8 @@ static int __rproc_attach(struct rproc *rproc)
+>  
+>  	return 0;
+>  
+> -stop_rproc:
+> -	rproc->ops->stop(rproc);
+> +unwind_attach:
+> +	rproc_unwind_attach(rproc);
+>  unprepare_subdevices:
+>  	rproc_unprepare_subdevices(rproc);
+>  out:
+> @@ -1562,6 +1615,7 @@ static int rproc_reset_rsc_table_on_detach(struct rproc *rproc)
+>  	 * rproc_set_rsc_table().
+>  	 */
+>  	kfree(rproc->clean_table);
+> +	rproc->clean_table = NULL;
 
-May be an existing issue.
+This change is not needed.
 
-set_dte_entry -> amd_iommu_update_dte() already handles clone_aliases and dte_flush.
+>  
+>  	return 0;
+>  }
+> @@ -1597,6 +1651,7 @@ static int rproc_reset_rsc_table_on_stop(struct rproc *rproc)
+>  	 * won't be needed.  Allocated in rproc_set_rsc_table().
+>  	 */
+>  	kfree(rproc->clean_table);
+> +	rproc->clean_table = NULL;
 
--Vasant
 
+This change is not needed.
+
+>  
+>  out:
+>  	/*
+> @@ -1675,6 +1730,10 @@ static int rproc_attach(struct rproc *rproc)
+>  	/* release HW resources if needed */
+>  	rproc_unprepare_device(rproc);
+>  	kfree(rproc->clean_table);
+> +	rproc->clean_table = NULL;
+> +	kfree(rproc->cached_table);
+> +	rproc->cached_table = NULL;
+> +	rproc->table_ptr = NULL;
+
+->table_ptr doesn't need to be set to NULL.
+
+Thanks,
+Mathieu
+
+>  disable_iommu:
+>  	rproc_disable_iommu(rproc);
+>  	return ret;
+> -- 
+> 2.34.1
+> 
