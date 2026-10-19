@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792447685;
-	b=LlaF6wpreA+A85gDgJ8V5+BgJw6tC53B3iCCXfa6c00b5HrGjuEEwXFOLT6VJJJqvr0T
-	 hVYHd2d81SsYu8SUdAp5FabZVtEMOaWUj+0jnbFicbLYzDq6ZxNtwvKZVLj0/ghzwF6is
-	 XdsAHHo0t4NgEmLsSUzrWCI1bbCrfh0k0Vvt+1MTsNrgIwEU8my+gHW5hILmhFU7YM2QV
-	 xJXFchSPbVd9uaMcpuzl9for1k+2SQUpJPdNb7F2w4QzNe61T/Fys5D2uQNdZ99CzQAuP
-	 tKEszsrR0j1oAkXCLHu+fEQ/+GIfahR1nNvEE0443uWFbPdfvMbV0kq/ddTbzRyo6gg==
+	t=1792447681;
+	b=MA3GjiFy+EtonJhCKlQ/asnEd1xxnXRULBKAvw0QZgj2tWQowPlwgoinSH+zuuyWdvLM
+	 OXBufnfZUV2tQ5V+Gqmay3ilxhBTFkF5T3VNz5Ytoyq0sckrb4237OBX+C9JHOyhZ2khG
+	 zZqO7LP0Gp8rJO4ihF45OxLleKUVddqjzDwXsama9/9DjlZ7CYJ/Hdnh8DugxmtQ9oLZs
+	 ekmbwa/4dbRbQWoPn8enU9VjzTZ9tk0n8/E5ejlD7+QZIWZkAvB7mDCY16/H/jPcTF7hN
+	 zm7vwGRuvcQLYJDHPuy9FNKbQ9whEIEmg3xqxI2lL5DmksvhG28ZBnkEQTEXzBkNJcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792447685;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792447681;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=/FPJ2/D1pxAq4Poeoujsv1hkt1afRQIoxiL4Q5tPTKs=;
-	b=LU8+QM5FwHMEj4gSUjrVgR6SH7hJImuY2TPfgTuyO1i4P4UqRXBbSE635b/wngCXa2o8
-	 ZpuGdOpTItNQH9BdPXBtpQ5FSFRHKyb3kaYb2Mi2bWmOnszI9ZUWUEW0ScN3pRvusvJCZ
-	 fGYFaym/rLFtMlUNowUvILF+rKq61gyp+rH8eTM7fWHmRsWmpbx+GPPbxBDvPuefJxP5M
-	 /V+7QlxnK8cgUwqmkbXWVAfx8M7LH6FLMrqlLCqPJC4xP2I3OOBnzuufiWdx9Spxq8LGp
-	 GAKh/3uUbiADivQLiHsq71wGuSOQkNEWzckwyhpJ8zIAGw/VHGeMLabBZf+2OU0dIjw==
+	bh=uHo4I+MUXofQLQo3/uT363PT9y5PVIvUGs1uTiA5dqg=;
+	b=L1wXASrL+dMj3odgTFvF9S4cdr7kPp48ATtwkslWAwtyckJxsCTKqPPoXtDbSpNX0CVD
+	 liZq7CvZhfYxfcBkx+3B2+1vRLg8a8YQ0Qu/AV9GeIgO7TSql0s7g5SdlofQrOnvDSPxw
+	 EQQB1VcRlmBJa4MAPtZqdWhMBbPUWUXdpni7TSq0N2cUUvOlJQu3Hsn4PF1G5MCJ3g1jk
+	 z0ZoNM/uc5fTakm/XUqlpI1VWi9OzQiAfJFVer4OwsluyhkL644Idrl00KAmn8Zl+iEpG
+	 8Z+gvc0BuK3+8OXIWuTeuzJmtiseTAyIQXAP1t/q+DsHN4gI1ZhyoCSdAnYTAtAbtvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LqTbp15M;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=R8ux8uYN;
 	arc=none smtp.remote-ip=192.198.163.17
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8778C60A261B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:08:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8778C60A261B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76E8606A327
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:07:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E76E8606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LqTbp15M
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=R8ux8uYN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792447684; x=1823983684;
+  t=1792447680; x=1823983680;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=KvuwGj3mCzkgntkJ/PO10vy/kUzqNCehZSltuxALbMQ=;
-  b=LqTbp15MHpEOURPIclEyjYvAsUsabI2r0y/xsUcmLLXUdOabsSMg1bwf
-   AJr6deVUBTRsBO6Ur7aMQCF9Col0lU9CMJfkr5KTtR/tmIQl4pTJ9jghG
-   TOfH+98jvpZkEs3vuohtwDSzMzO6GdC5/6823DEq5vkiwrKY+0sEbcgYc
-   FGLiALUimlYz+8Ab/9mBY4LJshcWnMjhL+Ow5lIoRJTVAveZer68lDwpo
-   244fxkojIux4csXhv2KUEV/Dw0ge3p3BaOWaZ/Jb1uJG8X6bHA9R3eCwh
-   c3UftxRl/S4wsYYGGKvwYBsl3Sm9aBsd6QYHWF+BQcrV8lp70xaqfFwA9
+  bh=16nP6v8K6/vVLmLOs/khHzw7RIYPqiEzSUyZ6NNHkcM=;
+  b=R8ux8uYNNTmDpfcCeY6kli0hqNoxHicCGUtp8zw3pWx7osFdjFh1F4+E
+   2Yeg4NgvXBl92/dEb+d1kqbQFxCdGCTiYmEnT5Ymn13ITimlmoJ0ZJ2fx
+   Y8KAf9j/Rj+Qt6i0MguypL+do8mNW0GV2MmGoXxw0/qqsZfnpXnonn4fa
+   6d7DdLLqlHhEwzeAMpcwDn7nHpgKSAMQCCvBn3FhEknXgd8JPDRIC5nXo
+   jH+G1b0+G7VDz3wUI+dhBMfj7lg2HehZz1Z6aNm58omQleHBKT7HXohzA
+   Shqtdzi9Xl1TyloARAuY5WBNkOBPw8SsdZFQjMRP6HdGD8VSwcJElxnkW
    w==;
-X-CSE-ConnectionGUID: 20MKcOKoQGGbVXHBdxZYSA==
-X-CSE-MsgGUID: uGrykT6KRkSz9JhgJYr87Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1144232"
+X-CSE-ConnectionGUID: ScaXUdiaQmCc/u9DANJyrA==
+X-CSE-MsgGUID: +qKQX6LtQ82Vdgr84MU44Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1144189"
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1144232"
+   d="scan'208";a="1144189"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:08:00 -0700
-X-CSE-ConnectionGUID: 2HgFPwesQ3mnqgPk7B8PGg==
-X-CSE-MsgGUID: 0pmN44VhS1WMVZx5J3l3qQ==
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:07:59 -0700
+X-CSE-ConnectionGUID: lEAxAciYR1yZ7dGGn0RUog==
+X-CSE-MsgGUID: /JFtXlvpSBSk6kmLW6KfqQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2708352"
+   d="scan'208";a="2708333"
 Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:07:59 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:07:58 -0700
 From: Reinette Chatre <reinette.chatre@intel.com>
 To: ben.horgan@arm.com,
 	james.morse@arm.com,
@@ -74,9 +74,9 @@ Cc: tony.luck@intel.com,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	reinette.chatre@intel.com
-Subject: [RFC PATCH v2 09/10] arm_mpam: resctrl: Require monitoring components to cover the same CPUs
-Date: Mon, 19 Oct 2026 15:07:43 -0700
-Message-ID: <a5509d45ef186a273dfc07fdcaae82998a5a4ce6.1792443633.git.reinette.chatre@intel.com>
+Subject: [RFC PATCH v2 03/10] arm_mpam: resctrl: Do not fail CPU online when domain setup fails
+Date: Mon, 19 Oct 2026 15:07:37 -0700
+Message-ID: <660ffee2c7d069aed25c2757c51e12b28318bbc7.1792443633.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1792443633.git.reinette.chatre@intel.com>
 References: <cover.1792443633.git.reinette.chatre@intel.com>
@@ -91,44 +91,182 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A monitoring domain records the component that backs each of its
-monitoring events and takes its ID from one of these components. The
-domain represents the CPUs of one L3 cache, while each event's counters
-are read from the event's own component.
+When a CPU comes online, mpam_resctrl_online_cpu() adds it to the resctrl
+domains of each resource in use, and sets up a new domain when the CPU
+is the first of its domain to come online. A failure to set up a domain
+is returned as the failure of MPAM's CPU hotplug startup callback.
 
-If the components of a monitoring domain covered different CPUs, the
-counts of an event would not belong to the CPUs that the domain
-represents. This is not expected to happen: every class picked for
-monitoring covers all CPUs and has components that correspond to the
-L3 caches.
+The CPU hotplug core does not run the teardown callback for a CPU whose
+startup callback failed, so everything done for the CPU before the
+failure stays in place: the CPU remains in the domains of the resources
+that were handled before the failing one, and MPAM's per-MSC state for
+the CPU is not undone. If the failure happens when MPAM installs its
+CPU hotplug callbacks during enabling, the hotplug core discards the
+callbacks, leaving MPAM enabled and resctrl initialized but MPAM no
+longer notified of CPU hotplug. If it happens when a CPU comes online
+later, the CPU fails to come online.
 
-Fail setting up the monitoring domain, with a warning, if the components
-backing its events do not all cover the same CPUs. Compare each
-component with the one found before it, instead of naming the events,
-so that the check applies to any monitoring event.
+Setting up a domain only fails if a memory allocation fails or if a
+class unexpectedly has no component for the CPU. For such rare failures
+losing a resctrl domain is a smaller cost than failing CPU online or
+leaving MPAM in an inconsistent state.
+
+Do not report domain setup failures from mpam_resctrl_online_cpu() and
+leave the CPU without a domain for that resource. Make
+mpam_resctrl_alloc_domain() return nothing since its failures are no
+longer reported. Keep adding the CPU to resctrl's default group even
+when a domain could not be set up, since the CPU is online and runs
+tasks regardless, and resctrl expects every online CPU to belong to a
+resource group. Drop the warning when a CPU going offline has no domain,
+since a missing domain is now expected.
+
+Only domains that were set up are exposed through resctrl and torn down
+when their CPUs go offline. When another CPU of the same domain comes
+online, it sets up the domain again, and if that succeeds the domain
+does not include the CPU for which setup failed.
 
 Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 ---
- drivers/resctrl/mpam_resctrl.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/resctrl/mpam_devices.c  |  2 +-
+ drivers/resctrl/mpam_internal.h |  4 ++--
+ drivers/resctrl/mpam_resctrl.c  | 31 +++++++++++++++----------------
+ 3 files changed, 18 insertions(+), 19 deletions(-)
 
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index 48adc49b833c..d17d7a72dba1 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -2249,7 +2249,7 @@ static int mpam_cpu_online(unsigned int cpu)
+ 	}
+ 
+ 	if (mpam_resctrl_enabled)
+-		return mpam_resctrl_online_cpu(cpu);
++		mpam_resctrl_online_cpu(cpu);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+index 1f86cc158100..84c7adbb1a40 100644
+--- a/drivers/resctrl/mpam_internal.h
++++ b/drivers/resctrl/mpam_internal.h
+@@ -525,13 +525,13 @@ int mpam_get_cpumask_from_cache_id(unsigned long cache_id, u32 cache_level,
+ #ifdef CONFIG_RESCTRL_FS
+ int mpam_resctrl_setup(void);
+ void mpam_resctrl_exit(void);
+-int mpam_resctrl_online_cpu(unsigned int cpu);
++void mpam_resctrl_online_cpu(unsigned int cpu);
+ void mpam_resctrl_offline_cpu(unsigned int cpu);
+ void mpam_resctrl_teardown_class(struct mpam_class *class);
+ #else
+ static inline int mpam_resctrl_setup(void) { return 0; }
+ static inline void mpam_resctrl_exit(void) { }
+-static inline int mpam_resctrl_online_cpu(unsigned int cpu) { return 0; }
++static inline void mpam_resctrl_online_cpu(unsigned int cpu) { }
+ static inline void mpam_resctrl_offline_cpu(unsigned int cpu) { }
+ static inline void mpam_resctrl_teardown_class(struct mpam_class *class) { }
+ #endif /* CONFIG_RESCTRL_FS */
 diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 36a924734484..c3ea61a40bb2 100644
+index b07e5dd895dd..dc442851fd7e 100644
 --- a/drivers/resctrl/mpam_resctrl.c
 +++ b/drivers/resctrl/mpam_resctrl.c
-@@ -1664,6 +1664,12 @@ static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
- 		if (WARN_ON_ONCE(!mon_comp))
- 			return -EFAULT;
+@@ -1615,8 +1615,8 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
+ 	return NULL;
+ }
  
-+		/* All components of a monitoring domain cover the same CPUs */
-+		if (WARN_ON_ONCE(any_mon_comp &&
-+				 !cpumask_equal(&any_mon_comp->affinity,
-+						&mon_comp->affinity)))
-+			return -EFAULT;
-+
- 		dom->mon_comp[eventid] = mon_comp;
- 		any_mon_comp = mon_comp;
+-static struct mpam_resctrl_dom *
+-mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
++static void mpam_resctrl_alloc_domain(unsigned int cpu,
++				      struct mpam_resctrl_res *res)
+ {
+ 	int err;
+ 	struct mpam_resctrl_dom *dom;
+@@ -1631,11 +1631,11 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 	comp = find_component(class, cpu);
+ 	/* class has no component for this CPU */
+ 	if (WARN_ON_ONCE(!comp))
+-		return ERR_PTR(-EINVAL);
++		return;
+ 
+ 	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, cpu_to_node(cpu));
+ 	if (!dom)
+-		return ERR_PTR(-ENOMEM);
++		return;
+ 
+ 	if (r->alloc_capable) {
+ 		dom->ctrl_comp = comp;
+@@ -1678,7 +1678,6 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 		}
+ 		if (!any_mon_comp) {
+ 			WARN_ON_ONCE(0);
+-			err = -EFAULT;
+ 			goto offline_ctrl_domain;
+ 		}
+ 
+@@ -1694,7 +1693,7 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 		pr_debug("Skipped monitor domain online - no monitors\n");
  	}
+ 
+-	return dom;
++	return;
+ 
+ offline_ctrl_domain:
+ 	if (r->alloc_capable) {
+@@ -1703,9 +1702,6 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 	}
+ free_domain:
+ 	kfree(dom);
+-	dom = ERR_PTR(err);
+-
+-	return dom;
+ }
+ 
+ /*
+@@ -1757,7 +1753,7 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
+ 	return mpam_resctrl_get_mon_domain_from_cpu(cpu);
+ }
+ 
+-int mpam_resctrl_online_cpu(unsigned int cpu)
++void mpam_resctrl_online_cpu(unsigned int cpu)
+ {
+ 	struct mpam_resctrl_res *res;
+ 	enum resctrl_res_level rid;
+@@ -1772,9 +1768,13 @@ int mpam_resctrl_online_cpu(unsigned int cpu)
+ 
+ 		dom = mpam_resctrl_get_domain_from_cpu(cpu, res);
+ 		if (!dom) {
+-			dom = mpam_resctrl_alloc_domain(cpu, res);
+-			if (IS_ERR(dom))
+-				return PTR_ERR(dom);
++			/*
++			 * On failure the CPU is left without a domain for this
++			 * resource, which mpam_resctrl_offline_cpu() tolerates.
++			 * resctrl_online_cpu() still adds the CPU to the default
++			 * group because the CPU is online and runs tasks.
++			 */
++			mpam_resctrl_alloc_domain(cpu, res);
+ 		} else {
+ 			if (r->alloc_capable) {
+ 				struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
+@@ -1790,8 +1790,6 @@ int mpam_resctrl_online_cpu(unsigned int cpu)
+ 	}
+ 
+ 	resctrl_online_cpu(cpu);
+-
+-	return 0;
+ }
+ 
+ void mpam_resctrl_offline_cpu(unsigned int cpu)
+@@ -1812,8 +1810,9 @@ void mpam_resctrl_offline_cpu(unsigned int cpu)
+ 		if (!res->class)
+ 			continue;	// dummy resource
+ 
++		/* The domain may be missing if its setup failed. */
+ 		dom = mpam_resctrl_get_domain_from_cpu(cpu, res);
+-		if (WARN_ON_ONCE(!dom))
++		if (!dom)
+ 			continue;
+ 
+ 		if (r->alloc_capable) {
 -- 
 2.55.0
 
