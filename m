@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6C756F591;
-	Mon, 19 Oct 2026 13:58:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79E856F596;
+	Mon, 19 Oct 2026 13:58:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418290; cv=none; b=LlzCq65K7MwQkj9lyhsnCWVQo4KL4GA+PrSrvHKq7YEtzoFiZrLN3QwSc/hUjs80KJOvdSIPVAE35r3ujP40df6+/cvUwHCnTqDlV8pB/DxJXkXjP0fwO+HwSxdRQJbYbfGwdW15pyoZ28qFKeqPmrxeGDZW66/GzHOOn3JzUuU=
+	t=1792418292; cv=none; b=RpOllWfsCC6VsdWr4LZ3lAJQ6JniksUBLDOqqvNbhpfNtCvuprk66BwzQq302eGV8IfrhrPURKJrL4fnxl5DXszzqJck5nGUy19YAh/nmh9jd0ALrH43WQbDgx6guKzWHOn1AbWOAqw3BrrRLY07Ngrzs/rRuWhEuEkT2Hr5FhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418290; c=relaxed/simple;
-	bh=iBg+oZBMe0ZVl4r9/ARDaUlsxqYdZf1/rQ9ZuV04FJA=;
+	s=arc-20240116; t=1792418292; c=relaxed/simple;
+	bh=YpOkIw5PdAs/6BqswdxjKokAVxgcEM9k62TOVOhU4YQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=o0ffyQkXTnG4NxCUPIuDm34f7C7h60UwbNKOFNUPivde4iMrbeC94a3TLiNyATdCLT5mtQRGhI9rgGyw1+pwDi7CVVbTkl/n5rSrugcjGIAr3v1jG5f0G0g7BCwnZoB+R/Zb0l4bkgS7dAB52DIaktJ2Jh607Kggq6QIfnwJMM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h0GO22ur; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=nRhgq0bLmamgrWxJvJPDljJpBYwKxJvg2y5dNTwKzIzlf9A842kcnW0UG0lEtzdjQgtKSbWg5TN5YKiIHmSbMmVGmIkhmhadcyrplDQwtlWNs5g3mvCLXUODOkI7H2qB+U/ILw2aUS2RXiAo0Ag5J85ek8pMgPmJy91dQg6kb4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IdsDWIpE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h0GO22ur"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFFE01F000C8;
-	Mon, 19 Oct 2026 13:58:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IdsDWIpE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4C9F1F000C4;
+	Mon, 19 Oct 2026 13:58:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418287;
-	bh=Ff21cRgZ8MvA5CDC/2+VpN0VjGBg1z2VwpeEj2orLlU=;
+	s=k20260515; t=1792418289;
+	bh=g4t47SO9W2O0FAJkfkLRuHHaB72xfpzSs9Rvl8v0L8U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h0GO22urMcdHOGNafsxfp1ycROIVdVoinJlMg17ucDY07dF+RZBGQ/tEmKrTWCQsu
-	 EpkXE/mq0PGGDEAfXRdUJgOWmtKKuu2Znbx7PCK/k1NUqvvTpgWukgRGkq/xEqM0e7
-	 OihqhirPT3mprGCS2VQSq3vngaUsUiLlj61DkUu9s2hy7LmhU73DNlAZyooDEU1DTk
-	 iiCDXLPs6aLVM9yRzl1zmHOV0eT8nWtw5khI8GarroHXbr+01erpADYIRqZZuiDJgE
-	 kdCrUxDjIS7dgJ8wq76E0xQGr8Gv/+wUSwiDTPhfuarQ5dveVR2pDDJEU+SaHHYw+n
-	 bPNRwHW5be4cw==
+	b=IdsDWIpE6/zvamRRqNIIjmMNHSyHcm3+rlDTpchawC+QqejzjlTc/QkWs1OC6g/eX
+	 dPhndyD6HAzfJ1wJXSbJcjwJmh/eW8bYen+HvCYDZi6iugYT4wm6Bd5hsYplXkfD/5
+	 z2apziAt8r9JgXT0kyqU0u14Ml+VNGwoAIuQr3i69ovRTQGGkq+9yEzu5wx3aNVlEG
+	 /lEF6AzquW5aYpk0FdWrhxTh4CFjkRWm58GZnLKzZG3KMgTzDvwczWcDWBL/kAP0/q
+	 Mjso0AMC9Ri0m1CF+LBLq356Dy3WXsp3FEVSCuxtpDW7LuxDa+m2CEEm3qdb4Dayv2
+	 caj1r9jSUPHqQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Mikko Perttunen <mperttunen@nvidia.com>,
-	Thierry Reding <treding@nvidia.com>,
+Cc: Chin-Yen Lee <timlee@realtek.com>,
+	Ping-Ke Shih <pkshih@realtek.com>,
 	Sasha Levin <sashal@kernel.org>,
-	thierry.reding@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
-	linux-tegra@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] gpu: host1x: Wait for timeout worker completion on channel free
-Date: Mon, 19 Oct 2026 09:47:11 -0400
-Message-ID: <20261019135441.1420968-140-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] wifi: rtw89: wow: add QoS control field to WoWLAN ARP response for MLO
+Date: Mon, 19 Oct 2026 09:47:13 -0400
+Message-ID: <20261019135441.1420968-142-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -56,484 +52,464 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mikko Perttunen <mperttunen@nvidia.com>
+From: Chin-Yen Lee <timlee@realtek.com>
 
-[ Upstream commit 7a39b9856acccc8e9b05845ca2bf62494fcd3dfa ]
+[ Upstream commit 03a963f4aeda538acad50806e94ef25d95b78743 ]
 
-cdma_timeout_destroy() used cancel_delayed_work() to cancel pending
-timeout work when destroying the CDMA. Usually this is fine, but
-there is a narrow race condition where the timeout handler has started
-execution but has not taken cdma->lock; the channel is freed causing
-cdma_stop to take cdma->lock and flush the channel; host1x_cdma_deinit
-then proceeds with deinitializing cdma while the handler is waiting to
-take cdma->lock.
+Some MLO APs expect WoWLAN ARP response frames to be transmitted as
+QoS data frames and may discard frames that do not contain a QoS
+Control field.
 
-Therefore change cdma_timeout_destroy to use cancel_delayed_work_sync
-instead to ensure any pending timeout work completes before proceeding.
+Add a QoS Control field and use the QoS Data subtype when generating
+WoWLAN ARP responses for MLD vifs. Keep the existing frame format
+unchanged for non-MLO connections.
 
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Link: https://patch.msgid.link/20260609-b4-host1x-small-fixes-a-v1-1-7c1131c0b3ad@nvidia.com
+This allows WoWLAN ARP responses to be accepted by MLO APs while
+preserving compatibility with legacy APs.
+
+Signed-off-by: Chin-Yen Lee <timlee@realtek.com>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260625061545.44808-10-pkshih@realtek.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **v7.3-rc4** (`7.3.0-rc4`). The host1x CDMA timeout
-path is present, and this is a one-line `cancel_delayed_work` →
-`cancel_delayed_work_sync` race/UAF fix that is standalone and meets
-stable criteria.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1: Subject line**
+Record: **[wifi: rtw89: wow:] [add] [QoS Control field on WoWLAN ARP
+responses for MLO]**
+Subsystem is Realtek rtw89 WoWLAN. The verb is “add”, but the body is
+interoperability: MLO APs drop ARP frames that are not QoS Data.
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[gpu/host1x] [Wait / ensure completion] [Wait for timeout
-worker completion on channel free]**
-Subsystem prefix `gpu: host1x:`. The verb is “Wait … on channel free”,
-i.e. synchronize teardown with a running work item. That is a teardown-
-race fix, not a feature.
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+**Step 1.2: Tags**
 Record:
-- **Fixes:** none (expected for this review path)
-- **Reported-by:** none
-- **Tested-by:** none
-- **Reviewed-by:** none on the commit itself
-- **Acked-by:** none
-- **Link:** `https://patch.msgid.link/20260609-b4-host1x-small-fixes-
-  a-v1-1-7c1131c0b3ad@nvidia.com`
-- **Cc: stable:** none (expected)
-- **Signed-off-by:** Mikko Perttunen `<mperttunen@nvidia.com>` (author);
-  Thierry Reding `<treding@nvidia.com>` (Tegra/host1x maintainer).
-  Ignored any Sasha Levin SOB (none on this commit).
-- Series marker in the msgid: **patch 1/6** of `host1x-small-fixes-a`.
+- Signed-off-by: Chin-Yen Lee \<timlee@realtek.com\> (author)
+- Signed-off-by: Ping-Ke Shih \<pkshih@realtek.com\> (rtw89 maintainer)
+- Link:
+  https://patch.msgid.link/20260625061545.44808-10-pkshih@realtek.com
+  (msgid `…44808-10…` → patch 09/10 of a 10-patch `rtw-next` series;
+  1-based msgid index)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+  stable (absence is expected here)
+- Ignore pipeline SOBs such as Sasha Levin (none on the real commit)
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+**Step 1.3: Body**
 Record:
-- **Bug:** `cdma_timeout_destroy()` used `cancel_delayed_work()`, which
-  does not wait if the timeout work is already running.
-- **Mechanism:** timeout handler has started but has not yet taken
-  `cdma->lock`; channel free runs `cdma_stop` (takes the lock, flushes),
-  then `host1x_cdma_deinit()` tears CDMA down while the handler is still
-  waiting for that lock.
-- **Symptom/failure mode:** use-after-free / use of a destroyed mutex
-  and CDMA state from the timeout worker. That is a kernel crash /
-  memory-safety bug, not a cosmetic issue.
-- **Version info:** none in the message. The call has existed since
-  host1x channel support.
-- **Author’s root cause:** async cancel vs running work vs lock/deinit
-  order.
+- **Bug:** Some MLO APs require WoWLAN ARP responses as QoS Data and
+  discard frames without a QoS Control field.
+- **Symptom:** ARP keep-alive / ARP offload during WoWLAN is ignored →
+  AP can drop the STA while suspend/WoWLAN is active.
+- **Root cause:** `rtw89_arp_response_get()` always built a non-QoS Data
+  3-address frame.
+- **Fix:** For MLD vifs, set `IEEE80211_STYPE_QOS_DATA` and insert a
+  2-byte QoS Control field; leave non-MLO frames unchanged.
+- **Versions:** none named in the message.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not hidden. It is an explicit race/UAF fix. Cover letter (see
-Phase 4) calls patches 1–4 “logic issues that are unlikely to happen but
-technically possible.” Unlikely trigger does not make a UAF inapplicable
-to stable.
+**Step 1.4: Hidden bug fix?**
+Record: Yes. “Add QoS control field” is a protocol-format fix for an
+existing WoWLAN ARP template, not a new userspace API. Cover letter
+language (“support WoWLAN with MLO AP”) is feature-ish, but the driver
+already had MLO WoWLAN and ARP offload/keep-alive; this corrects the
+template those paths upload.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+---
 
-**Step 2.1: INVENTORY THE CHANGES**
+## Phase 2: Diff analysis
+
+**Step 2.1: Inventory**
 Record:
-- File: `drivers/gpu/host1x/hw/cdma_hw.c` — **1 insertion, 1 deletion**
-- Function: `cdma_timeout_destroy()`
-- Scope: **single-file surgical fix** (one call-site change)
+- File: `drivers/net/wireless/realtek/rtw89/fw.c` (+24 / −7; `git show
+  --stat` matches)
+- Function: `rtw89_arp_response_get()` only
+- Scope: single-file, single-function, surgical
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+**Step 2.2: Control flow**
+Record (before → after):
+- Allocate skb sized for 3-addr header + security header + ARP body →
+  also reserve 2 bytes when `ieee80211_vif_is_mld(vif)`.
+- Frame control: Data+ToDS (+Protected if PTK) → same, plus QoS Data
+  subtype for MLO, Data subtype for legacy.
+- Always `skb_put_zero(sec_hdr_len)` → insert QoS Control (zeros) before
+  IV if MLO; skip security bytes when `sec_hdr_len == 0` (equivalent to
+  `skb_put_zero(0)`).
+- Debug print via `str_yes_no(with_qos)`.
+
+802.11 order is correct: 3-addr MAC header, QoS Control, IV, LLC+ARP.
+QoS Control of 0 is TID 0 / normal ACK, which is appropriate for ARP.
+
+**Step 2.3: Bug mechanism**
+Record: **Logic / protocol correctness + hardware interoperability.**
+MLO (802.11be) APs expect QoS Data; non-QoS keep-alive/offload templates
+are discarded. Not UAF, leak, race, or NULL deref.
+
+**Step 2.4: Fix quality**
+Record: Obviously correct and minimal. Non-MLO path is unchanged in
+substance (`IEEE80211_STYPE_DATA` is 0). Regression risk is low and
+confined to MLO WoWLAN ARP: a wrong QoS field could still be dropped,
+but zeroed QoS Control is the standard default. No public API or struct
+layout change.
+
+---
+
+## Phase 3: Git history
+
+**Step 3.1: Blame**
 Record:
-- **Before:** if `cdma->timeout.initialized`,
-  `cancel_delayed_work(&cdma->timeout.wq)` then `initialized = false`.
-  Pending work is cancelled; **running** work is not waited for.
-- **After:** `cancel_delayed_work_sync()` — cancel pending work **and
-  wait** if the handler is executing.
-- **Path:** channel teardown / CDMA destroy, not the submit hot path.
+- Function introduced in `58ed86e1666b3` (“wifi: rtw89: wow: add ARP
+  offload feature”, 2024-05-02) — contained in `v6.11-rc1` era (`git
+  describe --contains` → `x86_boot_for_v6.11_rc1~…`).
+- Link-aware `rtwvif_link` args: `2f7dae17c48cd1` (2024-09).
+- Security header: `0065199f4303bc` (2024-06).
+- Keep-alive uses this template: `dcf5c7262bffa` (2026-05-25, in
+  **v7.2-rc1**).
+- MLD MAC in ARP: parent `76edcedda6437` (same series 08/10).
+- This commit: `03a963f4aeda5`, **contained in v7.3-rc1**.
 
-Verified teardown order in this tree:
+**Step 3.2: Fixes: tag**
+Record: None. Buggy behavior is the original ARP template never emitting
+QoS Data for MLD vifs after MLO WoWLAN existed.
 
-```102:113:drivers/gpu/host1x/channel.c
-static void release_channel(struct kref *kref)
-{
-        ...
-        host1x_hw_cdma_stop(host, &channel->cdma);
-        host1x_cdma_deinit(&channel->cdma);
-        clear_bit(channel->id, chlist->allocated_channels);
-}
-```
+**Step 3.3: Related file history**
+Record: Same-day series (msgid `20260625061545.44808-*`):
+1. MAC finish active TX
+2. pass chip version to FW
+3. lower UDM1 debug level
+4. drop pkt offload on H2C failure
+5. disable sniffer RX filter (Wi-Fi 7)
+6. PCI phy error / refclk
+7. LPS MLO link ID fix
+8. **MLD address in WoWLAN ARP** (parent)
+9. **this patch**
+10. RF init only on Wi-Fi 6 in WoW
 
-```528:541:drivers/gpu/host1x/cdma.c
-int host1x_cdma_deinit(struct host1x_cdma *cdma)
-{
-        ...
-        host1x_pushbuffer_destroy(pb);
-        host1x_hw_cdma_timeout_destroy(host1x, cdma);
-        return 0;
-}
-```
+This patch does not call or require patches 1–8/10. 08/10 only changes
+ARP hw addresses; 09/10 only changes frame control + QoS bytes.
+Standalone at the code level.
 
-`cdma_stop()` takes `cdma->lock`, may wait for an empty sync queue, then
-unlocks. `host1x_cdma_deinit()` then runs **without** `cdma->lock`. That
-matches the commit’s race: stop can finish and deinit can proceed while
-`cdma_timeout_handler()` is between start and `mutex_lock(&cdma->lock)`.
+**Step 3.4: Author**
+Record: Chin-Yen Lee (Realtek); maintainer Ping-Ke Shih signed off and
+applied the whole series to `rtw-next`. Nearby author work is other
+rtw89 WoWLAN/MLO fixes.
 
-The window is larger than “a few instructions.” The handler dumps debug
-state **before** taking the lock:
+**Step 3.5: Prerequisites in this tree**
+Record: Present here:
+- `rtwvif_to_vif()` in `core.h`
+- `ieee80211_vif_is_mld()` in `include/net/mac80211.h`
+- `str_yes_no()` in `include/linux/string_choices.h`
+- ARP offload + keep-alive both call `rtw89_fw_h2c_add_general_pkt(…,
+  RTW89_PKT_OFLD_TYPE_ARP_RSP, …)`
+Can apply standalone on this tree.
 
-```291:305:drivers/gpu/host1x/hw/cdma_hw.c
-static void cdma_timeout_handler(struct work_struct *work)
-{
-        ...
-        host1x_debug_dump(cdma_to_host1x(cdma));
-        mutex_lock(&cdma->lock);
-```
+---
 
-`host1x_debug_dump()` walks every channel and dumps FIFOs
-(`show_all(..., true)`). A GPU timeout is also when userspace/driver
-often closes the channel. That is a realistic overlap, not only a one-
-instruction race.
+## Phase 4: Mailing list / external
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
+**Step 4.1: b4 dig**
 Record:
-- **Category:** race + use-after-free / use of destroyed CDMA (mutex,
-  push buffer, channel).
-- **Mechanism:** non-synchronous delayed-work cancel on destroy. Fix is
-  the standard `cancel_*_sync` teardown pattern.
-- **Not** a leak, NULL check, or new API.
+- Lore/msgid:
+  https://patch.msgid.link/20260625061545.44808-10-pkshih@realtek.com
+- Subject: `[PATCH rtw-next 09/10] wifi: rtw89: wow: add QoS control
+  field to WoWLAN ARP response for MLO`
+- Series: v1 only (`b4 dig -a`); no v2/v3.
+- Cover letter (`00/10`): “update some MAC, FW and WoWLAN settings”;
+  “The last three patches are related to WoWLAN, and the first two are
+  to support WoWLAN with MLO AP that uses MLD address.”
+- Only reply in the saved mbox: Ping-Ke applying all 10 to `rtw-next`
+  (no NAK, no reviewer comments on 09/10).
+- No Cc: stable in the thread.
 
-Related code that correctly stays **non-sync** (would deadlock if
-changed, because it runs under `cdma->lock`, which the handler also
-takes):
+**Step 4.2: Recipients (`b4 dig -w`)**
+Record: Ping-Ke Shih, linux-wireless, gary.chang@realtek.com,
+timlee@realtek.com, dian_syuan0116@realtek.com, kevin_yang@realtek.com.
+Maintainer was To/Cc and applied it. No external review tags.
 
-```293:297:drivers/gpu/host1x/cdma.c
-static void stop_cdma_timer_locked(struct host1x_cdma *cdma)
-{
-        cancel_delayed_work(&cdma->timeout.wq);
-        cdma->timeout.client = NULL;
-}
-```
+**Step 4.3: Bug report**
+Record: No Reported-by, bugzilla, or syzbot. Vendor-described AP
+behavior only. Specific AP models for *this* QoS issue are not named
+(keep-alive predecessor named TP-Link Archer BE800).
 
-**Step 2.4: ASSESS THE FIX QUALITY**
+**Step 4.4: Series**
+Record: Mixed MAC/FW/WoW settings. 09/10 is self-contained; 08/10 is a
+related but independent MLO ARP address fix.
+
+**Step 4.5: stable@**
+Record: **UNVERIFIED** (lore.kernel.org/stable blocked by Anubis).
+Thread mbox has no stable discussion.
+
+WebFetch of lore/msgid also returned 403; discussion was recovered via
+`b4 dig -m`.
+
+---
+
+## Phase 5: Semantic / call graph
+
+**Step 5.1: Functions**
+Record: `rtw89_arp_response_get()` only.
+
+**Step 5.2: Callers**
 Record:
-- **Quality:** obviously correct for the stated race.
-  `cancel_delayed_work_sync()` is the documented way to wait for delayed
-  work before freeing the object that work touches.
-- **Minimal:** one identifier change.
-- **Regression risk:**
-  - `_sync` can sleep. Callers of `host1x_channel_put()` →
-    `release_channel()` are process-context (DRM ioctls/file close,
-    client `exit`/unbind, debugfs). Sleeping is valid there.
-  - `_sync` is **not** called while holding `cdma->lock` (`cdma_stop`
-    drops it first). No lock-vs-work deadlock on the free path described
-    in the commit.
-  - Residual risk: if the timeout handler’s `host1x_debug_dump()` →
-    `host1x_channel_put()` dropped the **last** channel ref,
-    `release_channel()` would run on the same work and `_sync` could
-    wait on itself. That path was already unsafe with async cancel (UAF
-    after dump returns). No mailing-list NAK of this patch; maintainer
-    applied it.
+- `rtw89_fw_h2c_add_general_pkt()` → `RTW89_PKT_OFLD_TYPE_ARP_RSP`
+- `rtw89_fw_h2c_keep_alive()` (WoW keep-alive enable)
+- `rtw89_fw_h2c_arp_offload()` (WoW ARP offload enable)
+- `rtw89_wow_fw_start()` in `wow.c` enables both when the interface is
+  linked
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+Path is WoWLAN firmware start on suspend (`CONFIG_PM`), not a syscall
+hot path.
 
-**Step 3.1: BLAME THE CHANGED LINES**
+**Step 5.3: Callees**
+Record: `rtwvif_to_vif`, `ieee80211_vif_is_mld`,
+`rtw89_wow_get_sec_hdr_len`, `dev_alloc_skb`, `skb_put_zero`,
+`cpu_to_le16`, `ether_addr_copy`, `str_yes_no` (debug only).
+
+**Step 5.4: Reachability**
+Record: Userspace-reachable via suspend with WoWLAN on an rtw89 STA
+associated as an MLD. Not unprivileged kernel-memory corruption; it is a
+normal power-management / offload path.
+
+**Step 5.5: Similar patterns**
+Record: `rtw89_sa_query_get()` still builds a non-QoS mgmt action frame
+(correct for SA Query). No sibling ARP builders. Keep-alive commit
+`dcf5c7262bffa` is the same interoperability class (APs ignoring Null
+keep-alives).
+
+---
+
+## Phase 6: This checkout
+
+**Step 6.1: Local tree and whether the bug exists**
 Record:
-- Buggy `cancel_delayed_work()` in `cdma_timeout_destroy()` comes from
-  **`6579324a41cc41`** (“gpu: host1x: Add channel support”, Terje
-  Bergstrom, 2013-03-22).
-- First contained in **`v3.10-rc1`**. This is old, long-lived driver
-  code, not a last-month addition.
+- `git describe HEAD`: **v7.3-rc4-27-gf0100363d8c37**
+- `make kernelversion`: **7.3.0-rc4**
+- `rtw89_arp_response_get()` exists; MLO (`ieee80211_vif_is_mld`), WoW
+  keep-alive, and ARP offload all exist.
+- Without this change, MLO ARP templates are non-QoS Data. That is the
+  bug this tree’s rtw89 WoW+MLO users hit.
+- Commit `03a963f4aeda5` is an ancestor of HEAD (`git merge-base --is-
+  ancestor` → yes) because it landed in **v7.3-rc1**. That is not used
+  as “already selected for stable”; it only confirms the code and
+  helpers are in this series.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. The introducing commit is identified by blame,
-not by the message. `git merge-base --is-ancestor 6579324a41cc41 HEAD`
-succeeds — the introducing commit is in this checkout.
+**Step 6.2: Backport difficulty**
+Record: Clean apply on this tree (hunk matches current `fw.c`). No
+refactor blocking it.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record (recent `drivers/gpu/host1x/hw/cdma_hw.c`):
-- `7a39b9856accc` — this fix
-- `60bca008dd789` — Tegra264 support (does not revert the `_sync`
-  change; current file still has `cancel_delayed_work_sync`)
-No prerequisite refactor. Standalone.
+**Step 6.3: Other fixes here**
+Record: No later follow-up rewriting this QoS logic (`git log` after the
+commit on this function is unrelated fw/coex/scan work). Parent MLD-
+address fix is already here and independent.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Mikko Perttunen is a regular NVIDIA host1x contributor (UAF,
-refcount, iommu, MLOCK, etc.). Same-series follow-ups are independent
-(double `device_add`, trace offset, debug stack over-read, `pin_job`
-return type, syncpoint wrap annotation). This patch does not depend on
-them.
+---
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: None. It only needs `cdma_timeout_destroy()` +
-`cancel_delayed_work()` / `_sync`, present since 2013. **Can apply
-standalone.**
+## Phase 7: Subsystem context
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 7.1**
+Record: **drivers/net/wireless/realtek/rtw89** — important (common Wi-Fi
+6/7 laptops), not core mm/fs. WoWLAN is `CONFIG_PM`.
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+**Step 7.2**
+Record: Very active (frequent coex/MLO/WoW commits). This is a late
+correction to existing MLO WoW, not a brand-new subsystem.
+
+---
+
+## Phase 8: Impact and risk
+
+**Step 8.1: Who**
+Record: Driver-specific + config-specific: rtw89, MLO association,
+WoWLAN/suspend. Not universal.
+
+**Step 8.2: Trigger**
+Record: Suspend with WoWLAN while associated to an MLO AP that rejects
+non-QoS Data. Common for Wi-Fi 7 + lid-close. Unprivileged in the sense
+of normal laptop suspend, not an exploit primitive.
+
+**Step 8.3: Failure mode**
+Record: AP discards keep-alive and/or ARP offload → association can drop
+in suspend. **Severity: MEDIUM** (connectivity / suspend Wi-Fi, not
+oops/corruption). Matches stable-rules “hardware quirk” / “oh, that’s
+not good”, not crash/UAF.
+
+**Step 8.4: Risk–benefit**
 Record:
-- `b4 dig -c 7a39b9856accc` matched **v1 only** (no v2/v3).
-- Lore: https://patch.msgid.link/20260609-b4-host1x-small-fixes-
-  a-v1-1-7c1131c0b3ad@nvidia.com
-- Cover letter: https://patch.msgid.link/20260609-b4-host1x-small-fixes-
-  a-v1-0-7c1131c0b3ad@nvidia.com — “Miscellaneous fixes”; patches 1–4
-  “unlikely to happen but technically possible.”
-- Thierry Reding, 2026-07-16: **“Applied to drm-misc-next, thanks.”** No
-  NAK, no stable discussion, no request for a different approach.
-- `sashiko-bot` replied with **pre-existing** issues (`update_work` not
-  cancelled in deinit; non-sync cancel in `stop_cdma_timer_locked()`).
-  It did **not** reject this change. Those are separate bugs, not
-  regressions of this one-liner.
+- Benefit: MLO WoWLAN keep-alive and ARP offload actually accepted;
+  avoids silent disconnect on suspend for Wi-Fi 7 rtw89.
+- Risk: ~24 lines, MLO-only, no locking/API. Low.
+- Ratio: favorable for this tree, which already has MLO WoW + ARP
+  templates.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc included Thierry Reding, David Airlie,
-Simona Vetter, `dri-devel`, `linux-tegra`, `linux-kernel`. Subsystem
-maintainer applied the series. No extra Reviewed-by on the commit.
+---
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No syzbot, bugzilla, or user crash report. Author-found race
-from code inspection. Severity still UAF if it hits.
+## Phase 9: Synthesis
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Series is 6 independent small fixes. This is patch 1/6 and does
-not need 2–6.
+**Step 9.1: Evidence**
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: WebFetch to `lore.kernel.org/stable/` returned 403.
-**UNVERIFIED** whether stable@ already discussed this specific commit.
-No `Cc: stable` on the patch.
+For:
+- Real interoperability bug on an existing path (WoW ARP template), not
+  a new driver or API.
+- This 7.3 tree has MLO, `rtw89_arp_response_get()`, keep-alive, and ARP
+  offload.
+- Small, obviously correct, non-MLO behavior preserved.
+- Maintainer SOB + applied to rtw.git.
+- Official stable rules allow hardware quirks and “oh, that’s not good”
+  issues; this is AP-side discard of malformed/non-QoS MLO data.
+- Suspend/WoWLAN disconnect is user-visible on shipping Realtek Wi-Fi 7
+  hardware.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+Against:
+- Not oops/deadlock/corruption/security.
+- `rtw-next` series titled “update some MAC, FW and WoWLAN settings”;
+  cover letter says “support WoWLAN with MLO AP”.
+- No external reporters, Tested-by, or Fixes: tag.
+- Affects only MLO + WoWLAN.
 
-**Step 5.1: KEY FUNCTIONS**
-Record: `cdma_timeout_destroy` (changed). Related:
-`cdma_timeout_handler`, `cdma_timeout_init`, `host1x_cdma_deinit`,
-`release_channel`, `cdma_stop`.
+Unresolved:
+- Stable-list history (lore bot wall).
+- Which exact APs need QoS (commit says “some MLO APs”).
 
-**Step 5.2: TRACE CALLERS**
-Record:
-- `cdma_timeout_destroy` via `host1x_cdma_ops.timeout_destroy` →
-  `host1x_hw_cdma_timeout_destroy()` → **`host1x_cdma_deinit()`** only.
-- `host1x_cdma_deinit()` from **`release_channel()`** (last
-  `host1x_channel_put()`).
-- `host1x_channel_put()` call sites (all process context):
-  - `drivers/gpu/drm/tegra/uapi.c` — channel close / ioctl error
-  - `drm/tegra` gr2d/gr3d/vic/nvdec — client exit / context close
-  - `drivers/crypto/tegra/tegra-se-main.c` — SE driver
-  - `drivers/gpu/host1x/debug.c` — debugfs dump
+**Step 9.2: Stable rules checklist** (`Documentation/process/stable-
+kernel-rules.rst`)
+1. Obviously correct and tested? **PASS** — vendor + maintainer, tiny,
+   protocol order verified in tree.
+2. Real bug that bothers users? **PASS** — WoWLAN ARP ignored, possible
+   disconnect in suspend on MLO.
+3. Important (crash/security/corruption/deadlock **or** quirk / “oh
+   that’s not good”)? **PASS** — quirk / connectivity, not CRITICAL
+   crash.
+4. Small and contained? **PASS** — one function, well under 100 lines.
+5. No new features/APIs? **PASS** — frame format fix for existing
+   offload, no new uAPI.
+6. Applies to this tree? **PASS** — helpers and callers exist; hunk
+   matches `fw.c`.
 
-**Step 5.3: TRACE CALLEES**
-Record: `cancel_delayed_work_sync()` only. Can sleep; flushes the
-delayed work.
+**Step 9.3: Exception category**
+Record: Hardware/protocol quirk (MLO APs dropping non-QoS WoW ARP),
+analogous to other driver workarounds. Not a device-ID one-liner, but
+the same class.
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace on Tegra DRM can trigger it: submit a job with a
-timeout → timeout work queued → close channel (`DRM_TEGRA` channel close
-/ process exit) while the handler runs. Unprivileged on devices that
-expose tegra DRM. **Reachable from userspace.**
+**Step 9.4: Decision**
+This tree is **7.3.0-rc4**. rtw89 already implements MLO WoWLAN and
+uploads ARP templates for keep-alive and ARP offload. Sending those as
+non-QoS Data is wrong for MLO APs and can drop the link in suspend. The
+patch is a small, MLO-only frame-format fix with low regression risk and
+no extra series dependencies. That is appropriate to have in this tree’s
+stable line.
 
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: `stop_cdma_timer_locked()` still uses unsynchronized cancel
-**under the lock** (correct). `cdma->update_work` is still not cancelled
-in deinit (pre-existing, called out by sashiko-bot; **not** this patch).
+### What it solves for users of this tree
+WoWLAN keep-alive and ARP offload on rtw89 MLD vifs were built as
+ordinary Data frames. Some MLO APs drop those, so the AP may age out the
+STA during suspend. Adding QoS Control + QoS Data subtype makes those
+firmware-transmitted frames acceptable while leaving legacy associations
+unchanged.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record:
-- `git describe HEAD` = **v7.3-rc4-27-gf0100363d8c37**; `make
-  kernelversion` = **7.3.0-rc4**.
-- Commit **`7a39b9856acccc8e9b05845ca2bf62494fcd3dfa` is already an
-  ancestor of HEAD** (`git merge-base --is-ancestor` succeeded). Current
-  `cdma_timeout_destroy()` already calls `cancel_delayed_work_sync()`.
-- The **bug** existed here until that commit: same function, same
-  `cancel_delayed_work()`, since **v3.10**. This is mainline, so the fix
-  is already applied; the question is whether the same change belongs on
-  this tree’s stable-style policy given the code is the host1x driver
-  this tree ships.
-- Introducing commit **is** in this tree. This is not “bug added after
-  this tree branched.”
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: **Clean apply.** Surrounding function is still the 2013
-structure plus later whitespace. One-line identifier swap; no data-
-structure or API change.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: This exact fix is already in HEAD (mainline). No alternate fix,
-no revert. No other commit on this file addresses the same cancel-vs-
-running-work race.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-**Step 7.1: SUBSYSTEM AND CRITICALITY**
-Record: **drivers/gpu/host1x** (NVIDIA Tegra host1x DMA/sync engine).
-**IMPORTANT** for Tegra (Android, Jetson, embedded), **PERIPHERAL** for
-generic x86. `CONFIG_TEGRA_HOST1X` depends on `ARCH_TEGRA ||
-COMPILE_TEST`.
-
-**Step 7.2: SUBSYSTEM ACTIVITY**
-Record: Actively maintained (Tegra264, context devices, multiple 2026
-fixes). Author is a core contributor; Thierry Reding applied the series.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-**Step 8.1: WHO IS AFFECTED**
-Record: **Driver-specific / platform-specific** — Tegra SoCs using
-host1x (DRM 2D/3D/VIC/NVDEC, Tegra SE crypto). Not universal mm/net.
-
-**Step 8.2: TRIGGER CONDITIONS**
-Record:
-- Job timeout work is running (or sitting in `host1x_debug_dump` before
-  the lock).
-- Concurrent last `host1x_channel_put()` (channel close, client unbind,
-  process exit).
-- Timing-dependent. Author: “narrow” / cover letter “unlikely” — but
-  timeout + channel teardown is a real recovery path.
-- Unprivileged userspace on Tegra DRM can close a channel; timeout is a
-  driver-internal delayed work.
-
-**Step 8.3: FAILURE MODE SEVERITY**
-Record: Timeout handler runs against CDMA/channel that
-`host1x_cdma_deinit()` already tore down: destroyed mutex, freed push
-buffer, stale channel. **UAF / kernel oops.** Severity: **HIGH** (crash;
-possible memory-safety issue). Not a log-only bug.
-
-**Step 8.4: RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** High for Tegra users — prevents UAF on channel free vs
-  timeout. Low for everyone else (config-gated).
-- **Risk:** Very low — 1 line, standard API, no lock held, process
-  context.
-- **Ratio:** Benefit outweighs risk for any tree that still has the
-  unsynchronized cancel.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-**FOR backporting:**
-- Real race: running timeout work vs CDMA/channel destroy.
-- Failure mode is UAF / oops, not style.
-- One-line, obviously correct `cancel_delayed_work_sync`.
-- Bug in code since **v3.10**; no missing helpers.
-- Standalone; series mates not required.
-- Maintainer (Thierry Reding) applied v1 with no objections.
-- Teardown is reachable from userspace channel close on Tegra.
-- `debug_dump` before the lock makes the window practical during GPU
-  timeout recovery.
-
-**AGAINST:**
-- No `Reported-by` / syzbot / production stack trace.
-- Author called it unlikely.
-- Tegra-only.
-- Cover letter grouped it with “miscellaneous” logic issues.
-- sashiko-bot noted other incomplete teardown (`update_work`); this
-  patch does not fix that (and does not need to).
-- This checkout already contains the commit (it is mainline 7.3-rc4).
-  That is not a reason the **fix** is wrong for trees that still have
-  async cancel.
-
-**UNRESOLVED:**
-- Stable@ archive search via WebFetch: 403.
-- No empirical reproduction here.
-- Self-flush if last kref is dropped from inside `debug_dump`: analyzed
-  from code, not discussed on list.
-
-**Step 9.2: STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — standard workqueue teardown;
-   maintainer applied; in mainline since 2026-07.
-2. Fixes a real bug that affects users? **PASS** — UAF on channel free
-   vs timeout handler.
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   UAF/oops; **HIGH**.
-4. Small and contained? **PASS** — 1 line, one function.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — host1x CDMA timeout code is
-   here; the change is trivial. (HEAD already has the post-image because
-   this is the originating mainline tree.)
-
-**Step 9.3: EXCEPTION CATEGORIES**
-Record: None (not a device ID, quirk, DT, build, or docs exception). It
-qualifies as a normal small crash-class fix.
-
-**Step 9.4: DECISION**
-This tree has host1x and the historical bug. The fix is a textbook
-cancel-vs-running-work UAF close, one line, no prerequisites, no new
-API. Stable rules are satisfied. Unlikely trigger does not outweigh an
-oops/UAF on a path userspace can hit after a GPU timeout.
-
-### What the commit solves
-`cdma_timeout_destroy()` cancelled timeout work asynchronously. If
-`cdma_timeout_handler()` was already running (especially in
-`host1x_debug_dump()` before `cdma->lock`), `release_channel()` could
-`cdma_stop` + `host1x_cdma_deinit()` and free CDMA while the handler
-still used it. `cancel_delayed_work_sync()` waits for that worker first.
-
-### Stable rules / risk
-Meets all six stable criteria. Risk is a possible extra wait on channel
-free (correct). Benefit is avoiding a kernel UAF on Tegra host1x.
+### Risk vs benefit
+Benefit is restoring Wi-Fi 7 WoWLAN connectivity on Realtek rtw89. Risk
+is a 2-byte header on the MLO path only. Non-MLO frame control stays
+Data+ToDS.
 
 ### Concerns
-No user report; Tegra-only; leftover `update_work` teardown is a
-separate bug. None of those block this one-liner.
+Cover letter frames this as MLO WoW “support” in a mixed `rtw-next`
+series, and there is no public reproducer. On this 7.3 tree those
+features already exist, so this is a contained correctness fix, not a
+new subsystem.
 
-### Verification
-- **[Phase 1]** Parsed subject/tags/body from `git log -1` + `git show
-  7a39b9856accc`; no Fixes/Reported-by/Cc-stable; Link msgid present.
-- **[Phase 2]** Diff is one token in `cdma_timeout_destroy`; read
-  handler, `cdma_stop`, `host1x_cdma_deinit`, `release_channel`.
-- **[Phase 2]** Confirmed handler calls `host1x_debug_dump()` before
-  `mutex_lock`; dump uses `show_all(..., true)`.
-- **[Phase 3]** `git blame` on parent: `6579324a41cc41` (2013); `git
-  describe --contains` → `v3.10-rc1`.
-- **[Phase 3]** `git merge-base --is-ancestor 6579324a41cc41 HEAD` and
-  `7a39b9856accc HEAD` both true.
-- **[Phase 3]** `git log --oneline` on `drivers/gpu/host1x/` for author
-  and series; patch is standalone.
-- **[Phase 4]** `b4 dig -c/-a/-w/-m`: v1 only; recipients include
-  Thierry; mbox cover letter + “Applied to drm-misc-next”.
-- **[Phase 4]** WebFetch lore/stable: 403 — listed UNVERIFIED.
-- **[Phase 5]** `git grep host1x_channel_put` — DRM/crypto/debugfs,
-  process context.
-- **[Phase 6]** `git describe HEAD` / `make kernelversion` → v7.3-rc4;
-  current file already has `_sync`.
-- **[Phase 7]** `drivers/gpu/host1x/Kconfig` → `CONFIG_TEGRA_HOST1X`.
-- **[Phase 8]** Failure mode from code: handler vs deinit = UAF; trigger
-  = timeout work + last channel put.
+---
+
+Verification:
+- [Phase 1] Parsed subject/tags/body from `git log -1 --format=fuller
+  03a963f4aeda5`; msgid is 09/10 of `20260625061545.44808`.
+- [Phase 2] Diff vs current `fw.c` `rtw89_arp_response_get()`; +24/−7 in
+  one function; QoS inserted after 3-addr header, before IV.
+- [Phase 3] `git merge-base --is-ancestor 03a963f4aeda5 HEAD` → yes;
+  `git describe --contains` → `v7.3-rc1~…`; blame shows intro
+  `58ed86e1666b3`; parent `76edcedda6437` is address-only.
+- [Phase 3] `git log --oneline --grep=20260625061545.44808 --
+  drivers/net/wireless/realtek/rtw89/` listed all 10 series commits.
+- [Phase 4] `b4 dig -c/-a/-w/-m`: v1 `rtw-next` 10-patch series; applied
+  by Ping-Ke; no NAK; no stable Cc. WebFetch lore 403; curl stable list
+  Anubis-blocked.
+- [Phase 5] Grep: ARP_RSP used from keep-alive and ARP offload;
+  `rtw89_wow_fw_start()` enables both.
+- [Phase 6] `git describe HEAD` = v7.3-rc4-27-g…; `VERSION/PATCHLEVEL`
+  7.3.0-rc4; MLO/WoW/ARP code present.
+- [Phase 7] rtw89 Wi-Fi 6/7 driver, active history on `fw.c`.
+- [Phase 8] Failure mode: AP drops WoW ARP → disconnect in suspend; not
+  a kernel oops.
+- [Phase 9] Checked `Documentation/process/stable-kernel-rules.rst`
+  (quirk / “oh that’s not good”, ≤100 lines).
+- UNVERIFIED: lore.kernel.org/stable archives (bot challenge).
+- UNVERIFIED: exact AP models for the QoS requirement (not named in
+  commit or mbox).
 
 **YES**
 
- drivers/gpu/host1x/hw/cdma_hw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/wireless/realtek/rtw89/fw.c | 31 +++++++++++++++++++------
+ 1 file changed, 24 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/host1x/hw/cdma_hw.c b/drivers/gpu/host1x/hw/cdma_hw.c
-index 3f3f0018eee0d..ab714d221120c 100644
---- a/drivers/gpu/host1x/hw/cdma_hw.c
-+++ b/drivers/gpu/host1x/hw/cdma_hw.c
-@@ -355,7 +355,7 @@ static int cdma_timeout_init(struct host1x_cdma *cdma)
- static void cdma_timeout_destroy(struct host1x_cdma *cdma)
+diff --git a/drivers/net/wireless/realtek/rtw89/fw.c b/drivers/net/wireless/realtek/rtw89/fw.c
+index c6533a085c7fe..299526220380f 100644
+--- a/drivers/net/wireless/realtek/rtw89/fw.c
++++ b/drivers/net/wireless/realtek/rtw89/fw.c
+@@ -2701,6 +2701,7 @@ static struct sk_buff *rtw89_sa_query_get(struct rtw89_dev *rtwdev,
+ static struct sk_buff *rtw89_arp_response_get(struct rtw89_dev *rtwdev,
+ 					      struct rtw89_vif_link *rtwvif_link)
  {
- 	if (cdma->timeout.initialized)
--		cancel_delayed_work(&cdma->timeout.wq);
-+		cancel_delayed_work_sync(&cdma->timeout.wq);
++	struct ieee80211_vif *vif = rtwvif_to_vif(rtwvif_link->rtwvif);
+ 	struct rtw89_vif *rtwvif = rtwvif_link->rtwvif;
+ 	u8 sec_hdr_len = rtw89_wow_get_sec_hdr_len(rtwdev);
+ 	struct rtw89_wow_param *rtw_wow = &rtwdev->wow;
+@@ -2708,26 +2709,42 @@ static struct sk_buff *rtw89_arp_response_get(struct rtw89_dev *rtwdev,
+ 	struct rtw89_arp_rsp *arp_skb;
+ 	struct arphdr *arp_hdr;
+ 	struct sk_buff *skb;
+-	__le16 fc;
++	bool with_qos;
++	u16 fc;
  
- 	cdma->timeout.initialized = false;
- }
+-	skb = dev_alloc_skb(sizeof(*hdr) + sec_hdr_len + sizeof(*arp_skb));
++	with_qos = ieee80211_vif_is_mld(vif);
++
++	rtw89_debug(rtwdev, RTW89_DBG_WOW, "[arp_reply] with qos field: %s\n",
++		    str_yes_no(with_qos));
++
++	skb = dev_alloc_skb(sizeof(*hdr) + sec_hdr_len + sizeof(*arp_skb) +
++			    (with_qos ? 2 : 0));
+ 	if (!skb)
+ 		return NULL;
+ 
+ 	hdr = skb_put_zero(skb, sizeof(*hdr));
+ 
++	fc = IEEE80211_FTYPE_DATA | IEEE80211_FCTL_TODS;
++
+ 	if (rtw_wow->ptk_alg)
+-		fc = cpu_to_le16(IEEE80211_FTYPE_DATA | IEEE80211_FCTL_TODS |
+-				 IEEE80211_FCTL_PROTECTED);
++		fc |= IEEE80211_FCTL_PROTECTED;
++
++	if (with_qos)
++		fc |= IEEE80211_STYPE_QOS_DATA;
+ 	else
+-		fc = cpu_to_le16(IEEE80211_FTYPE_DATA | IEEE80211_FCTL_TODS);
++		fc |= IEEE80211_STYPE_DATA;
++
++	hdr->frame_control = cpu_to_le16(fc);
+ 
+-	hdr->frame_control = fc;
+ 	ether_addr_copy(hdr->addr1, rtwvif_link->bssid);
+ 	ether_addr_copy(hdr->addr2, rtwvif_link->mac_addr);
+ 	ether_addr_copy(hdr->addr3, rtwvif_link->bssid);
+ 
+-	skb_put_zero(skb, sec_hdr_len);
++	if (with_qos)
++		skb_put_zero(skb, sizeof(__le16));
++
++	if (sec_hdr_len)
++		skb_put_zero(skb, sec_hdr_len);
+ 
+ 	arp_skb = skb_put_zero(skb, sizeof(*arp_skb));
+ 	memcpy(arp_skb->llc_hdr, rfc1042_header, sizeof(rfc1042_header));
 -- 
 2.53.0
 
