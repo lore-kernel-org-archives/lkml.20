@@ -1,119 +1,168 @@
-Received: from mta0.migadu.com (out-152.mta0.migadu.com [91.218.175.152])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41E239099C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.152
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407826; cv=none; b=FgfU8Ia6hUrYS9fExT1w6jdjVHvUE7HKjppG9i5xP22YaHEn+GznrhPiVLD8CGcvqzOLnDV7ETbt9YSAEqNOWlcWuZGC1a0aB+50z7KJtoEHmVecrB06bAjP1jw2K41rTOw9WOnQUIuliAg4vkgnnRqyI6gViS85F5VN20ZUBRI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407826; c=relaxed/simple;
-	bh=8dpq3mDpomcA8zFagoSGMCdVIAudwCqw7fzKBya/kFk=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=cfT3WU2pncEMj2PqLurXe3JLPzLzoAxfbEFjBgZ1JMiF3H+TGc+ah4dncXHs9j7VKLMa0gsUbLkbnSfFBoP09vmNmYF/nfTzPC1GdPnxEeWhT/uXkmksomIlgzrnD/IW6ZLHm28sFItFXCB7KS0V0QK3jktrJDcgxcTq08gwalI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uIYLcXTB; arc=none smtp.client-ip=91.218.175.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012E94A689A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792407852; cv=pass; b=BbCt4/iPakx+C3p5fpYONBOLXsNR9ccy9s2h4iLjz6UPtY8m+tvipcQR99kqoSwdOT+C9QEhNZHhTet0FfWtUrtk8G3bC2lDoqiXS+6b8Xld2jnJhFSb0OPTj3NSduDT1dk0J9bmI2hQlY9IaeeAq0Q8FC/JXHnuKtZZz/SUKXI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792407852; c=relaxed/simple;
+	bh=bfHt9VJUjw2jpaKsvRmu5N8bb4qZt+FbJS5wdGnbVME=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dGrATr82rgzrYDnxrUdc2Fp0Le2TaCgoWwySe/MPPkvGEEsf1d5Psd+jndWfTDESQu6m2lC66Sfg7w/1GWlMYUQSnCcQl+sPJxIEajbn69C2vhVx1L9uBgMIw/pgmETbxSNeKC/AJMdEIJKtScLE5p07XNBwB0o3hDvK4UwMJh8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hkE25WF3; arc=pass smtp.client-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uIYLcXTB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8dpq3mDpomcA8zFagoSGMCdVIAudwCqw7fzKBya/kFk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792407821; v=1; x=1793012621;
- b=uIYLcXTB7di/4p6Q536aPLcC+0oyqPQW/O7KWjR0jBHEEiNQT0euZ9gHrkHEdNKcFgg3iT+e
- 2vYN4QF7NwuNyyHUQdiZYA+g2ngdqjWF1SX12LFM8/rMLHoC3PAlscjFXfNbAge0PYogTQ4XnVM
- 0vUA6pie7DavmseQXt3Pk1b4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6234f7fefbe68d3c;
-	Mon, 19 Oct 2026 11:03:41 +0000
-X-Mizu-Trace-ID: 6234f7fefbe68d3c
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 19 Oct 2026 13:03:34 +0200
-From: Denis Benato <denis.benato@linux.dev>
-To: =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Luke Jones <luke@ljones.dev>,
-	Joshua Leivenzon <hacker1024@users.sourceforge.net>,
-	Ivan Levchenko <me@livan.pro>, Nathan Chancellor <nathan@kernel.org>,
-	Paolo Pisati <p.pisati@gmail.com>
-Message-ID: <07076668-3291-4eb6-888b-0e6c518ef21b@linux.dev>
-In-Reply-To: <20261019061209.415930-1-rebecca.mara@posteo.de>
-References: <23dcbde2-26c3-4288-aa71-3bb3107e3f45@linux.dev> <20261019061209.415930-1-rebecca.mara@posteo.de>
-Subject: Re: [PATCH v3 7/7] HID: asus: Re-send the Zenbook Duo keyboard
- handshake after probe
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hkE25WF3"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-843b6f8e2c7so1648166a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:04:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792407850; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KcHIPjQYDsbi8K+nmYgaBvSLSFTU/x2pOopKYhzYaIAnz3UNhOGCsk3hKo+ayIHg9I
+         E1EhJ/jQmDGr1PEU74LcQV57EgzRnM6WGNR6+Y9hhk83C2UXytYkWFYwetKF7c2o0w1m
+         UUg/icNQB3ARCfEkKFe9zEz+LN0o5Ypg2tVkqteBVe7Gt0Jjl3IeL/9npOpHY3/WA8jI
+         H4vPYvFvzsnlr64YaLs8vMpANKNFtj4nIR9nndSPyraD5XziOBWyEMzsHWAOIzi8EaJa
+         Lw94+KFUB93PfPYyYoET1DlpmHl0tmc46SzPl67YKN84nYGR88hF8UBAmxnxDTY0WD4S
+         LdzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2RjmAJkJaRfKW8CM604T3xdOE/8FYHsXLHXgCKfQYGM=;
+        fh=SUaacRKGUBNFqLKpSkQ0ii4J98zYGwBl+QCUSqmScpM=;
+        b=aYD89fCkrWzWZ1FaNoDXNLTeDwH3B/g5lm/7QpEG6+Io5elzKeLBFeRMZ0oNFihaT3
+         9ZsE2O3/b0Z8lOZakH5jQ0r7vB7TeVwBWIRAcP5C6W4uQTgRhN9C4/V/6uwj29h8XBFI
+         KgSjrLD7NBSThcgXW5rIA38O2pqsyHY+TC3PDNm7RV4qp9SSVDErOCj9nbOiHeOReZSe
+         qFWA2uF98DdQZoTImrG456SSoKyv8jTEn55N1ItHZshvCdV8Ek9g5rJPykAPWW3i6Vme
+         PyMRR10M1592RoL3azEk+Fvu4NVYtzDak+gf/wR7g37bJnuBcydIxNCtmdGvtffoUvNT
+         3P2A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792407850; x=1793012650; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2RjmAJkJaRfKW8CM604T3xdOE/8FYHsXLHXgCKfQYGM=;
+        b=hkE25WF3TS5GmwX5rJIjm82r6l8ivurb5IXDVfJwUrMsU5PL2R2qw0QLzZY3D9tmIJ
+         K3flmfB5VEVE1d/YIXwoibHUETJeJtOd43MmhTGeG+g8NKFgYrqRnttLtB722NsOu2m5
+         dLbEM8JhoOUn3lpLAvd8PAl8Exn5J2ioRqnDfiM5UMmpoxgyuC1/xyjtDnk1suZbGUQx
+         zfjYQZzMN2A3LhfSmySpIvtusTR8Ej4jkGZ5pdcKoWnND0YkcLrPFZ2lbQKxHfDFa8J1
+         5zTNyMPiPKbY9f+DcepKc8q6UdSfAOBvj49wYV5DUKgP53niPT4gSGzGApQfsZImqIf4
+         Y9TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792407850; x=1793012650;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2RjmAJkJaRfKW8CM604T3xdOE/8FYHsXLHXgCKfQYGM=;
+        b=2oDE95nyBLWaWDdIdb02dRXZrT5WJSaxzh7dT+vw4JAZY3GZ65aSr7i1SdOmAq8pVg
+         QdmwSXp8vd4ymyxLyl6kx9PYnVjcWrt6SSLykPp2WztWf7zHQ63Cg1Va4WdEATsdcMlP
+         JF07JeUm2QMo4WTaIsATtYSRJrOFLJJDxgpc+Akn0IMiWN/e5GdSy00TkbDUhCtKFpxx
+         fBjPgaa/CS+2gGZOkvgQFJJ/Jv2t8tZT/INYc5sQwPhKb5qOVv3IaBZXbRBagfweBixZ
+         dsrUpyas+QmI6jranLwFyINxRm3HG7TAUHvlFPeGPzXXtHleVZwDP6snVd72pvwTOhAl
+         CAGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEaWVOvdVTCofnQ6fEiSghSw6vCamoT1nEz/esr3BQ+ifpljl0IucIQeTdUkLCzROlVk8QaAxTxwacN/U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQkQdQbs+zQ5TjClSITJ8Ri2hgvoovcq2jNK0SXRANwktcO9bm
+	6GZLEMLvHL0tiQoLR8sQTkwxdmLabrVFX3bQbSwoUgWfMP8VbXOCWJbu7GDtnjUk3BxhCIcsxHS
+	bqG8WTBN9NWR+jbM6JRc/+iC50fvAEmc=
+X-Gm-Gg: AYBFou1W/fLWbcUW3erhdqlEmXXGUmq8a9brti6lmwRcq/dGejrKjLSs1GiR72SEXF7
+	MXneiznXoLgta1ruUmBk9e0hOATSFL1pXhdsjiNuFHVtNGgVTJgWbVwrufmGCqaW1t/bOZvkVAl
+	nHPiTx3eKymzg2zd3srL7i1rkPMqgq2I96/GVLRa2abhfHny94DPwpCP2HD+zKq1DHv4GqJX8fe
+	trQxj6B0o32GRA+4jo8ctneXFXl1BXBQY2sBzHYG0kd/kKSizzCdI8BzZirqe9m84Qagdaqaxok
+	iP1p8oo+5DWprynGJ5bWu4fZ5PWhfQXSWAORl/riuqggg6ZcKln4r7/b8H+CKgsu3kusTMP1CB4
+	oKpXI5n2jo93zdIR/Tfjy+czGDJqayL5RphUqKdR2
+X-Received: by 2002:a05:6808:3509:b0:53a:6769:c35b with SMTP id
+ 5614622812f47-53ccaf1f442mr5332468b6e.12.1792407849778; Mon, 19 Oct 2026
+ 04:04:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com> <atXp2NSPKZUPj8sq@ashevche-desk.local>
+In-Reply-To: <atXp2NSPKZUPj8sq@ashevche-desk.local>
+From: Michael Anderson <mwwa919@gmail.com>
+Date: Mon, 19 Oct 2026 07:03:57 -0400
+X-Gm-Features: AclHuK8biEMfZ_1GVer949iI38PfSha8JvD86j9Plx2_choI2YB3QRBY5aZp0yo
+Message-ID: <CAL-Wm=O-Gr3CuvCn8iSQceQMhu=LGFz0SPhmWeFL=RiVnoprdw@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI sequences
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	intel-gfx@lists.freedesktop.org, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Hans de Goede <hansg@kernel.org>, 
+	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <07076668-3291-4eb6-888b-0e6c518ef21b@linux.dev>
 
-19 ott 2026 08:12:47 Rebecca Mara M=C3=BCller <rebecca.mara@posteo.de>:
+Thanks for looking at this. I'd like to make sure I understand before
+doing a v2.
 
-> On Sun, Oct 18, 2026 at 09:48:21PM +0200, Denis Benato wrote:
->> Well you know how this things go... Only who does nothing can claim
->> to have made no mistakes.
+Here both users of pin 10 are i915 itself: intel_dsi_vbt_gpio_init()
+takes it as the "backlight" enable GPIO (soc_panel_gpio_table,
+PPS_BLC_SOC), and the VBT MIPI sequences on this tablet then toggle the
+same pin as the panel reset (low in ASSERT_RESET, high-low-high in
+DEASSERT_RESET). Do you mean describing pin 10 with a software-node
+"reset-gpios" reference and having both paths go through
+reset_control_*(), or something else?
+
+One concern: the VBT drives explicit pulses on the pin, and shared reset
+controls are refcounted, so a pulse from one path wouldn't reach the line
+while the other holds it deasserted. Would an exclusive reset obtained
+once by i915 and used by both paths work instead, or am I missing how
+reset-gpio handles this?
+
+Thanks,
+Mike
+
+
+On Mon, Oct 19, 2026 at 5:58=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
 >
-> Thank you, Denis, that was kind.
+> On Sun, Oct 18, 2026 at 04:12:40PM -0400, Mike Anderson via B4 Relay wrot=
+e:
 >
->> So I am concerned that hardware isn't entering s2idle properly...
->> Are you sure it is?
+> > On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
+> > backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
+> > itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
+> > GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
+> > sequences also request their pin through gpiolib, so when a sequence
+> > toggles one of these two pins the request fails and the toggle is
+> > dropped:
+> >
+> >   i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY=
+)
+> >
+> > Before that commit the pad registers were written directly, so the
+> > sequences could still drive the pins i915 owned.
+> >
+> > The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
+> > panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
+> > MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
+> > failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
+> > during takeover and stays black, even though the backlight PWM and both
+> > enable GPIOs read back as on. The tablet only has a usable display
+> > with nomodeset.
+> >
+> > When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
+> > corresponding descriptor, set it through that descriptor instead of
+> > requesting the pin a second time.
 >
-> I checked it this morning on the UX8407AA (Panther Lake), keyboard
-> docked, with 30 s of s2idle via rtcwake -m freeze -s 30, reading
-> /sys/power/suspend_stats/last_hw_sleep and
-> /sys/devices/system/cpu/cpuidle/low_power_idle_system_residency_us:
+> Ah, nice, this should be solved via using reset-gpio, which is exactly fi=
+xed
+> for the reset shared lines case.
 >
-> =C2=A0 without hid-asus (hid-generic):=C2=A0 27.6 s hardware sleep, S0ix =
-+27.6 s
-> =C2=A0 with v3 loaded:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 28.6 s hardware sleep, =
-S0ix +28.6 s
+> --
+> With Best Regards,
+> Andy Shevchenko
 >
-> So it does reach S0ix, with and without the series. With v3 loaded and
-> the backlight set to level 3 before suspending, the keyboard backlight
-> stayed on unchanged for the whole time, no change in brightness or
-> pattern. So I guess it is the second case you mention: nothing tells
-> the keyboard to switch the backlight off on suspend.
 >
 
-Very good to see it sleeps just fine. So yeah a command is missing... On to=
-p of my mind there are a few possibilities:
 
-- is has a tuf leds power devid in asus-wmi (please check in /sys/class/pla=
-tform/asus* what's available
-- as the previous one, but firmware is bugged and the query of the capabili=
-ty returns not supported while the write goes through (there is at least an=
-other model doing that)
-- it supports ROG-style power controls of zones and asusctl is lacking supp=
-ort
-- it has some other devid for that
-
-First thing I would do is to follow instructions in gitlab.com/asus-linux/r=
-everse-engineering to grab the acpi and search for devid that does things (=
-I suggest an llm to quickly find unmapped/missing IDS) and if that fails I =
-would head to windows to see what the asus software sends over USB... On wh=
-at I deal with (ROGs mainly) the application is armoury crate, but perhaps =
-on zenbooks and other line-ups it's not available and you only have myasus.
-
-If that fails, and windows gets leds off, with "fails" meaning there is no =
-command to tell the firmware what to do on s2idle.... Fire up a windows VM,=
- pass the hid device to it, setup the vm for s2idle and run a capture with =
-wireshark on linux.... That should tell you if an explicit command is neede=
-d.
-
-If that's the case setup userspace to turn leds off, don't do it in kernel =
-or TUFs will break lighting while in s2idle.
-
-> And if you ever need something tested, on this machine or anything
-> else, feel free to ping me. I enjoyed this and learned a lot, and I
-> would like to keep learning.
->
-> Thanks,
-> Rebecca
-
+--=20
+Michael Anderson
