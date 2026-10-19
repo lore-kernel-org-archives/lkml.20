@@ -1,155 +1,289 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022136.outbound.protection.outlook.com [52.101.96.136])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013026.outbound.protection.outlook.com [52.101.83.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2DD4A2A56;
-	Mon, 19 Oct 2026 11:09:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A9C4A2A56;
+	Mon, 19 Oct 2026 11:09:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408152; cv=fail; b=EIiUeliDCI0cPWaNnF/yCUyF/McoXBIrlgn0Yj4S1EhAbcjq7zWdCI+DNUhWVGvU+JvmfR1grPQL5k1YKKPHed5BgOM3+s6akLhnnssdu0axvriF0dPuLx439qhUiPClFVsUbMbBW8boKId5PPhwkl5EOERnDxGHmc7nyiVFpmI=
+	t=1792408166; cv=fail; b=PgnDZ4Wi9/RbB0UtZLsu0VJHx9muvc03+iVttoYFpE2wzr2sbfXWyF4q7oVnbIV60aKvxDtoRTNu/2Nu1rZGmBMCIK9WrAWe13XehihjHehUzUl8blWr+EfaLhxCqYdmowR5tsGDXV/VWQtZKNCmCjakc82k4qVF/66OgKd6+G8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408152; c=relaxed/simple;
-	bh=Y2ZVvuEIiaDJwmZTLO0D0ZzX0GXo29JVWfBEv4VRoxk=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=kzBwbvQUv4a1V70Wvxhoxuly5w+Uqrbx48ZpdfPEd5sag42glEhvy3dqgcRq8p9VlRzJOm4P/T4BjW1HhlVmTqu+YIxBgvUn86Z99l5BTnOpeVDtFxwFTbuEOwG5y9SteNXJjXEfILhR2OEV3wpQeLNVOEOwyAmhoD4SWpzxKaQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=TX/TAwY1; arc=fail smtp.client-ip=52.101.96.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	s=arc-20240116; t=1792408166; c=relaxed/simple;
+	bh=zgGcXhYzUxzTyLJwjyYvM/R0koGVVU4D+7xpOo6YYRU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=U/9YiLQ0FWtAAI7Dtsd+lXc9W87xF1YRBWb3eUIYmjrXduMCqZYCJkUb5GNHqXrU1wO8cIJb0zU/b5ydwO80LUVjRg5I5EcOZjUACS7zwtd4xERRhU94bRo0/Gbp/doCNGtphtuSYFJkHevqwOldStJ6n3GaQt85DdfhmZmlceI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=ElN6AsCI; arc=fail smtp.client-ip=52.101.83.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="TX/TAwY1"
+	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="ElN6AsCI"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sWLCHsQLP8sYXokjou5CBnZVD3SfmWYci4KujnmtyXs6GFew4/+M/Z+GHE5j3bcYtLZz2uaeBonjsRsr3iuATvkCZgS9crFcq6tytZz7rcDKXjI20/dvkGfx7LwFrtf9LqtBZbOuX5l2Aqq7JJ+J9QJJyBr0jSiiZpdzLPPGua5qNL8Jhtgb1roWjcP99c48eH3+KUFIgX+QlKLZU1H7RGvaVR+nLz05ROE0kRIjhh7q7bQ2mEb9AZtY6QIjP3zCUwI+BnkuNXYRX1cmy51LN4YjabTTzfaNokMl2woxjDiiXXG+qLP1RPZ5/yuDLaDi/Tc7nbvR4gbCl67PXxXBrQ==
+ b=oZzgpO4pJLL6A72xbsrXn4ZiDQzo/pnj/XU2Mtjzv3WXeX3lYYwDd/XtTx5u6sLQP2AaMm8skj73XUFhAl0FAGCpfjsuO6ATYgzQkcreGH0g8qlLMxEPBFF9VRrGni/e2DR+1LMPxsWDQ5T3OGDI/IUsCBTtQEDSq6EGEj9qNC+4cGCAdY5Elb0Eac+ooNwQHx6jOronZkmN9fSehg2OWw2X9+rg8immflHkYJJOSYoYsNfIs/zmdb06ImgWwqzrmU1FErCZre9WTJlBsv3MWutp/Q2Ou4UMbXi+9tFzDuZee/iB9L73gZmp8zCm18HJKwFiiGn7LrjuI3iiYhC+HQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v3ngGOeMj1tvRxCNqntnyBFh/99aUHmc6KAji8Np2v4=;
- b=W0RtG/vwLA7EUf8sYYfRLgk6RwV3qkt1k6Bw+YqHxmcPbJE66lH6ORugLZBT+kXObm9UePjBRtpDiWsjXNFntlFS0WHQKWdGsdY1GUndiycDAyjyiztQ7FLC8No5qPg65GJRj7mNBvqb6YSMF/UokjmLjsXlQC15BlPFsjdNr7CQz41NS3nozoljraI9UnpwzNlPPFtZvlLrxFOtT3vTrybROOZhXP1Wl+n2IlQaDI94AQ443W/oZjgSi0teopSlt2lbZpCGcCRXCtSIbtJNM2HJOh/KDmcdChCtvyJJp4I/26MdUSnflnEEOY2fxun41oCjk1lmWTtWCohyNj40hg==
+ bh=UNsvO1PSWSVpOjDqpFzJuZCnPeAAXRGwdSg407GIzAU=;
+ b=mcz4KlmmU6z9c1robQI32kVMX+D0uSNzjTt1hYp1R1TbEgFWdkTkUWXq7aLzP24AgsA0QXh0E4x+XSuaTlv1t19IyEdlkKGMnXMH0xzOjZVM9h8b3CstyBu51XGf8jvXctaxxNakGy6tTc2jI0T6KLo3MyuQCS01wi6tGNWregZqfK/9oz/vbiu+Q1bm8iLFHm7JeaoHIgvaL/MffXRpCfU5ctSmSXNqYuDjfy2NHp4Q4uEH0zmtcNxU2TlRHZEKGvSA3TAkJnLIVkDbdKXQeuq4sr1oBdogrAiKYR9y5O/kJbRiMAmkXPGTiK+9hBw2ZipF0BxlEcbUEOcdpR0klA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
+ dkim=pass header.d=est.tech; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v3ngGOeMj1tvRxCNqntnyBFh/99aUHmc6KAji8Np2v4=;
- b=TX/TAwY1yQ3Oppp+hyrCXlvT924qXHf92nCVQUdjm4IFfUNp9q1U6S9GV4DSpGJgx6JK4P4oLjYmw4yIBjB7UVBUJDlebGeAQ0cltQY2dfMVpz9Eeo81fGNU+shwkONePDqV45IGNfmVkE5Y8V24/NqwNWu+1bnkn1ADu1ek/00=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO4P265MB5979.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:29c::7) with
+ bh=UNsvO1PSWSVpOjDqpFzJuZCnPeAAXRGwdSg407GIzAU=;
+ b=ElN6AsCIgMNJqtVZ1wQ3w3A4TUXLIYSPtgMStoDdLP6PwTzs3gb9KEHk+VDGUU3zn0TAK0l7qX2TpbPxoUN9ly6olhpZ5mRO8sl+jQgpELndBy+A+6Uw8tRdjTrw90hXAAYCbf5XPaWgMzWk8iWbrEsm3q9DynTP9cERARAeXhyiFdz7h7hH4cdAISE+iTwarRXGud6zv+NjwCYt96074Oark0AM/KOjc53bBbq5telEE0+85FBfEDEdv5q+ca8zS8m9DzMwusSsui2yxsX9SsodoaeaWP2cpq0GSZOBnL0hqAjnX09XAjrppmlFV1PbYZKFEO6LKGriWrpz+4+BSQ==
+Received: from AM7P189MB1137.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:17e::23)
+ by DU0P189MB2066.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:3bd::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 11:09:07 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 11:09:07 +0000
+ 2026 11:09:20 +0000
+Received: from AM7P189MB1137.EURP189.PROD.OUTLOOK.COM
+ ([fe80::86f0:8ce1:a437:b2d5]) by AM7P189MB1137.EURP189.PROD.OUTLOOK.COM
+ ([fe80::86f0:8ce1:a437:b2d5%4]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 11:09:19 +0000
+From: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"tipc-discussion@lists.sourceforge.net"
+	<tipc-discussion@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, Jon Maloy <jmaloy@redhat.com>, "David S . Miller"
+	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Eric Dumazet
+	<edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>
+Subject: RE: [PATCH net v3] tipc: fix broadcast sender hang on last acker
+ departure
+Thread-Topic: [PATCH net v3] tipc: fix broadcast sender hang on last acker
+ departure
+Thread-Index: AQHdXEvE5nd+AJgSt0W5S4RmB3gvoLcEurJA
+Date: Mon, 19 Oct 2026 11:09:19 +0000
+Message-ID:
+ <AM7P189MB113757F05921D6EAE994B0BEC6982@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
+References:
+ <AM7P189MB11376F05ED2439EDBC2AEE65C69D2@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
+ <20261015022023.1894729-1-bsdhenrymartin@gmail.com>
+In-Reply-To: <20261015022023.1894729-1-bsdhenrymartin@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=est.tech;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM7P189MB1137:EE_|DU0P189MB2066:EE_
+x-ms-office365-filtering-correlation-id: a96577d9-6da3-4f8c-da29-08df2dd16c41
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|6133799003|18002099003|22082099003|38070700021|5023799004|4143699003|11063799006|10067099003|261009223027099003|56012099006;
+x-microsoft-antispam-message-info:
+ NK9iRViajHCs2pztalhvbi5TeAbz8XPA5Im337UMWeOS3hIS6BWPmalQreaScHXcp2YZD9Bra8BhYRWSFeYigJLN5yM7JlfBCpsa/PjLw9ZzX87Wu4vwDzxnKCNB3tv7lGNHHnsfntNGr5LZQJSPIZ1T3AA9ObELG37KNJf3mvH32QVck8SjA0fcJusIfZPfI0kLAQVyX0k0fxtKaMQSbid/WeQ781HySnCgjdbicXeP2N/Y4wj6AFHVlAELN4t1z642ZCpwfxxFHF4+9Pohg4PmuE6yWV1s8jd82dj4ffCr/ghQ8dNYU/H+Y9sdPktCxKODOlPtsyviA86Fn8FyjUvycl2t6VSrQ9lfCZmIAH+3nCFVFx6aRjdDT3gLcGXFknVORZwxOCdvTsYI62KQ/KbLvz77tOn9ZKJGWfWs7PIKryOLY9EPS24iOhnEsrAsLy8nlOXL0/FFvMWKPfsfw8fna+Soxt/PFITS3o/YwsL/GQcFmek8NGD/d0iWr295ka+4UfHyHVV9dJxBATp/9s9yxcVIp5wF4Yqbl0HXEpPfiLTBy9kabrl4EETvo2nDtPjPrcHXNyefjPeRf+7K/8XWdHzS9Ah+wu/yPDvX+A7pQd716QJUAlDpq7wEU+e1QimW6zI2OooWatNaZRMtzr/tpp+LZ4e5lXjs+LIHCPaA9U5YKlGsab13AtL0deCCyvPA+dYEOjL2f2Tqv/QnaRrchK2GC5fTCi7/zTfO2XE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7P189MB1137.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(6133799003)(18002099003)(22082099003)(38070700021)(5023799004)(4143699003)(11063799006)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?ICBXKbDCpdaVH4n02VG5HksS4i7KI7h9Sk4wd2uPz8RFebbsveaJ2AVAmh4l?=
+ =?us-ascii?Q?qvbJUmLPEvXqIAsTOdM7un34ErPUe2ueO6R24gC1OPQOHWa8OIwKeRSJE0Xv?=
+ =?us-ascii?Q?BOGtvAsIia/D23Y0WhmxyxgURAtwN8X4fic7ubrW1Ng/LHyjF+a6aKhI1Kr+?=
+ =?us-ascii?Q?2ZgpYd6k1ZRIsVx4PyiV7+Lc88ZkORSakovZUSSKEjAJT6fQGOpwA/cLaVtI?=
+ =?us-ascii?Q?dKJB2Z9d8GfndXehNfSUmxfh/rUp7bBSeQGRJ9CdSrmGXk13GzyTgWUeF6NP?=
+ =?us-ascii?Q?rcVIM0ev8UzYUBLythFcKtnkHfZJSram8m7F03B8KfAXtDRhMLHZbGuuehnC?=
+ =?us-ascii?Q?+ZcMwZRxHcdi7j3PLo5bIuZ1krQyJXNRJUVM7JuqqkHTlQMWNsnEXLkGSpR/?=
+ =?us-ascii?Q?O59N5N/bi4prEIKceI+5LTKiUU2zSvXTPvGSrZ0FrRhH1/u1Boi7ipdNYfPm?=
+ =?us-ascii?Q?/lnFo/HKF4X7TYQx/4xYLfLX9ZBB0e8Ic+IrIcUTwHaf0E+n2TNYsYAmkwNY?=
+ =?us-ascii?Q?nF8g0l50USHfnJkfj54fDag4ZgFGUbgp7+UbbYS2wlcCSigtcartOQ0mXL4m?=
+ =?us-ascii?Q?j+6rFJPtEmkZ9SU1FpIYmI7mmWat5Hw+ftXRuS+oAhMmGk9XR3QTlW8w7dkh?=
+ =?us-ascii?Q?zw4xEyIxWGE3apVAkrhNWhqiog8wMmndz2US4/DX6Bjtjh7Rf/xOrV42Svvp?=
+ =?us-ascii?Q?wu9fUb9XqSwhkMD24pOy5i/O7yDN0xKhV+nPcfsYG3kR0kWaQu/l5glpMj6p?=
+ =?us-ascii?Q?q5b4R1L9tiZwDPfucxfzykOfsPWhJZ+jfJzG/YaDN7I6nr28SGECJI0T03P2?=
+ =?us-ascii?Q?iMxySjqH2rhzrDK6FdL/b3YBKjyyuR7ml9JWhNIO1FcEtw/xiydFU8vb3b3j?=
+ =?us-ascii?Q?lWp+fwyADreoHqvUJik8craest0lgjf0WumXn3FzpNer8lZDuZ6wSfX00Gqr?=
+ =?us-ascii?Q?D6rvr7gV+4XP3iW9fsG2Bj0sbGa03PNS98H8UT2z4ISyCRwpn/KdUJLz3a/B?=
+ =?us-ascii?Q?5K828Q/ILKU9Zmg2yVF6rIYRorSM7qQ04407lZdjWjWO66Yk0kuZWylQqbxS?=
+ =?us-ascii?Q?m8CpaG+YCmFmLDaGQmV/KU5Q4k8GmISBz9iIUO7VghMKQHDJQ9Z9Q3HOD/or?=
+ =?us-ascii?Q?2yq1+qt7hbA+rj2GH0lsB5ZaOAQZkCSpnDohKuyx9SWT6Gs4aUK+OCPsUBx3?=
+ =?us-ascii?Q?dOhrCWELgWR/rUJgJxl+Xr8EhGaIkKAKwHvQCjQgF2butS9x3s8B2ZNS0ukK?=
+ =?us-ascii?Q?v+W9QhHve0t9Q99X9/Zxzp9QfH9De6hz+kzyOG0G+2eSA65jmBPMOVeJ4Kr0?=
+ =?us-ascii?Q?vEeO5zA/HpPnEUouxs15cEcVbJY3l0My+haUBRNR5ytqV8zmAkYCEBvC3yPs?=
+ =?us-ascii?Q?MXeQACnh0vHhhpTjj/wM6f66z/FBUttK3a9WCI7F4VjCp8ijxhkQ/IjWRV9G?=
+ =?us-ascii?Q?entNLUbjX6XprX7bN+3EeTORFnGBC7Qq+DFdk/M30n32Iw2XVCghzZWh59yO?=
+ =?us-ascii?Q?GjsBiRR0MhTySykQL5gPqpFURQ5eyETuW5MbZeoZrIkNp/T5FLh/C+AUsnvJ?=
+ =?us-ascii?Q?GPQiDiYysQ8kOQA1BCNpqjRfSV+lP4Rh7S6FS428WEDYd6AwsKSaM6mKK2gS?=
+ =?us-ascii?Q?ZZxAuVZH9ophM+WORVqOb/CuhRdiiQjBqODl4YNoZ9/Bn9ErIl2RRYBIhGnj?=
+ =?us-ascii?Q?wNX1SAF0OWG2XQMIRi/Vt234nxpbHuoA9QeKAT0w6Et8zrjnx6Xyjg0B7LH7?=
+ =?us-ascii?Q?EXg+nDAL+Q=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 12:09:06 +0100
-Message-Id: <DM8RNR7GWJ9J.3UBAJZ0CDNWPL@garyguo.net>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust: num: Add inline annotation to Bounded methods
-From: "Gary Guo" <gary@garyguo.net>
-To: "Link Mauve" <linkmauve@linkmauve.fr>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Yury Norov" <yury.norov@gmail.com>,
- <rust-for-linux@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261019105744.2943249-1-linkmauve@linkmauve.fr>
-In-Reply-To: <20261019105744.2943249-1-linkmauve@linkmauve.fr>
-X-ClientProxiedBy: LO4P265CA0172.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:312::15) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB5979:EE_
-X-MS-Office365-Filtering-Correlation-Id: a4b44865-66c0-4b75-4b1a-08df2dd164dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|10070799003|6133799003|18002099003|22082099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	wi0Ht2mrC0HKP/tmWJJQnn12mKe3cHkUTeZ7a7tOhOR3GtPOGjtl76cpJmA2X5nlKk/59ePDzB6DInPGIydUv9zdacHkZZ/gbHjYq8g0lky/eiWcByOFQ/S2trkyQJ+8TTQkCyObaK7CKtWWB1RO2v0A8o0FrOHKuoRAnoW+ZTomVljk2QkGnsxjy+DsAfCkplEIQqEvVwxf1iLeYdNoKI2idv157P2qHWSIH5iy9JwZIs1uPJZDXJSqHs9VePZh8z1Kt27pnWayqZf2ge245b3ABeK7utZ7wQTXkByfRODt+5yfdsQ2mKznSHQgFaUcsr/kWqlMNpB1pgeR8glJeacR8Na1F24es5gdmUAKVc9/mkkhlhYbsPLQNl98RTWE5Zui5qrMw10Kw9f+tjzUqZEymVnv50pcZYwQpCkS1wT/icUZYVnfvbXdjkKQ02YR8Hmg4v4Om2iEbyQ1eceCZHF1Yclc1gCZWQG0ahQpZwDn6e64DrzAnRr9WlwNuIC0K3jRDoWU0YyeGsRdwdmZA5Hs0JSU6VKuBN64GQkl57ifh2Cfy4yKzMUakK8j5fgkoLzJMriWk2T7hWzIDniZZnqT4g97KONoEbywIAMOAyXc0c+y+JI/46Pc99VXxZiF+P8fYXeiR2D571ZIze+LUWKVB0pTNGA8MbgAaDISISE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(10070799003)(6133799003)(18002099003)(22082099003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eXFDb1lJTG14cEE3ZCtKNXhHeXAzeGRZRTZjMkorUVBWMXpQZnNZZ0czL3Rt?=
- =?utf-8?B?Z2FnMEFIbnhoNHEvNkVlT0htcWxqV29MMDBuWFRJNEZ6UFlPVjFqbFEwRzJG?=
- =?utf-8?B?QTV5bDJBZ3JScTIyWUQ3cmlES2o2SW82L1BaZEZWRUVFWDBYK3JSdUhtVjVQ?=
- =?utf-8?B?ZUwwaVI5b2FuN3lIUStXVE1HU3E3ckJ6RVlWTXNkTE5aTTkwbmpyVjkyUTRG?=
- =?utf-8?B?L0FYUmhCS3hkTWlxQ2hJenlaRmNjaXI0VkZpMWs5UTdtWS9nYkxMekR1c3RT?=
- =?utf-8?B?VHJEWENzU1UrUzU3OUpWMTdwRmMzVSsyLy9qSW1yeVhobFBPVzFMcm5JTngz?=
- =?utf-8?B?NXRwVVEzV0VYNGdhVWdRUG9zbHdMQ2EremJQMTFtRWprU1dERzlGb0JXakcz?=
- =?utf-8?B?MHpmZmFpUlVlME5lN3lOSUFGTTlCRnhZUm9hckhZYW1CWkhXaDFlNDlCNDVr?=
- =?utf-8?B?UGRqcUZYTnI5MGI5MkVteDNUSlJ5UFJYM2oyZTk2eTFxbXMycEpUejd1YmYw?=
- =?utf-8?B?eUZvQkNML0loZ1MrR3RuVlpWU0N1V1h5QkttT2FzelhDdkJMTXJZL3ZOVGR2?=
- =?utf-8?B?djJINm8xS3Y2T1NyK1NlOTBSZk42YTRGTHM2RmRzdHhhc1FBMGJWUy9vOFl6?=
- =?utf-8?B?a2JwaDBoK2hUOUE0YVExUHptUFRzb2Zjc2dDNmZsY1FMM2lxZGF1QldiNnk0?=
- =?utf-8?B?TndSNWxBbnFTVVhSVVFzYkZMY2tYbFVGSEloR25hc1VXaEYzZHhEMjFhRnUv?=
- =?utf-8?B?WnNJSS9JVG51cGtzSWtsbW5CVjJzbTFOdllWMUd2RDN0Njh2TjB6Z2EyTk1z?=
- =?utf-8?B?ZW9Cek1IYWR4ZUtrMmVOaTg1QStRc09WODFMMDZkY3BoMHdKSVV3aFI2OGsv?=
- =?utf-8?B?UlhpUGt3bnlsZHF4eUtkRjNMNUpkbjk1UncvZUtJSTNEL0FYK05SQlZnSU84?=
- =?utf-8?B?QWptc3lFaFFqQjJxQit5czVGZXdhRDg3WVdiKy84V3ZZalVXeDJMWEN3M29n?=
- =?utf-8?B?VDVIWFJ3UWlKWVh3SS9IYmRWL1h2WnNwSlJpZHB1MzYrSENVNHBJNnZBZVht?=
- =?utf-8?B?a01FYlJyVjk0c01iVXM1N2tsQjBlSTBoNEl4NThsN0FETGhpMHRCMTJ5Njdv?=
- =?utf-8?B?aDUxT0JZZGUwQ3ZzOHF3TWtFaHZvUlpsdUlpY2JTZDl0RVZzNysrUTFGejV1?=
- =?utf-8?B?aFdTMXQ3d3pqZGlqZFcxcDlVdXpIR1Z6bDBwL3RBZklxR2lSKzlRMThXYXJ0?=
- =?utf-8?B?NzQ5QWN5Tzh6d3hjWnlHZStLMHpKNVFBV3NQNTJVZEN5aHh0VGxnOVh3U2hU?=
- =?utf-8?B?TmRWb1Q3MW9IRHoyMHhOSExFVERHYnM5bkVaalFRcDdGSmNsVVFIVjN6TWRF?=
- =?utf-8?B?dGFXMFNQRWNMQkU5cFQvMElNZnRKN1FuZnZSUjV3MzBmWXM2MllKcGs0T1Bw?=
- =?utf-8?B?NDNXNDM4MTRkL0Y3TURxS09QVG1qVFpBUHlNRElhSmZTWTB2SlNxL3JCbmM3?=
- =?utf-8?B?Wk5zbGovanZpRWNRMUJjY2NLN0U3QnhWWmZOdktON09NR0padndtOE9ZdEEr?=
- =?utf-8?B?M3p5Uy9yRVQrcjJrU0pieURLQ29BTUFRNUtKNUFJUHBIWGJKK3F5WGlPNU1m?=
- =?utf-8?B?K1ZUZXE0M1BHMTJBK2hUOXVXK090cTI0MFJyMnZieU1pR3podmNaTkJPSG1R?=
- =?utf-8?B?ZWloenlzUXRHNWdMNUI4WjhWREFuR1BwenVTL01XYnpqWThNbUdWaGhNa0tR?=
- =?utf-8?B?d1hTeTFWN1Y0a2FrZXozZzBybUpxamU1dFpjT1dJL3FZdElHTllKaVkwQlBz?=
- =?utf-8?B?dEcxMEJaeHhPL2RGcktUUm1SemZmOStZYjh1cnJxd28rZitkL2tIZG9ieGxR?=
- =?utf-8?B?aWl0eXVwQkRmb1dQZnM2NVJVaFV0eno1TTFCOEVjZ2lvVCtXa2FJLzc4aWN6?=
- =?utf-8?B?cXNlNWRDZFI1TFM3aFdwa1JUOUZWNDdmbUlRL3N1a3FoZUxTV2hLYlRQTTF0?=
- =?utf-8?B?T1BHZjZCeXRlZUlaUmNlc2RIZHI3RUt0UVNtMytHRXZ3QTVaTGNqNmhxRkZ0?=
- =?utf-8?B?NXMzTjBLOEw2TjBrZDhWS3NTMWRhL3l6RmhyS1R0M3ZjYVlGR09ROHc2N2RV?=
- =?utf-8?B?SzBKekxxQVZSWFFrSldIRkxZZ1VGbmdDQ3psWEJpRlorbzN4TU1HSUtuUHlS?=
- =?utf-8?B?LyswUlBINkV6RWdBTk1GRU1Xd1MvTFZvUGUvenAvbnhpdkR1RHNEakpWT3lX?=
- =?utf-8?B?TFZvS2FQKzU1b3U5K0p4czc5R01rdjgrR2Y2VjN0ZWpNL0xrZnRhalBqOTZO?=
- =?utf-8?B?QlRIeHVnSjhkL2VIcU81SG9jbWk2bzZ5Sm9tV3QrZGZ3clVkbG5IQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4b44865-66c0-4b75-4b1a-08df2dd164dc
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-OriginatorOrg: est.tech
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 11:09:07.4707
+X-MS-Exchange-CrossTenant-AuthSource: AM7P189MB1137.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: a96577d9-6da3-4f8c-da29-08df2dd16c41
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2026 11:09:19.7305
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KdrWDSuRYogM0bm81fZK6RocJ7XYsE3yJHij5winrV82tQxZ9oEAm4ai1hX9hxlfHFKOwiVAg/111+O6QtviQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB5979
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YFhoy40AauqxBScqsmGe++A/32eF4lN4C0wRuflR/lsnAEOCkCWWdNdaai3gUyqusQWb9a/74PL9YNdIWhlU7CMBIUoGoizSFI+aDTXnBjA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0P189MB2066
 
-On Mon Oct 19, 2026 at 11:57 AM BST, Link Mauve wrote:
-> It was previously generating a ton of very short functions, such as
-> <<kernel::num::bounded::Bounded<u32, 32>>::shr::<17, 15>> or
-> <<kernel::num::bounded::Bounded<u16, 16>>::new::<16384>> on use.
->=20
-> These are obviously better inlined, although I wasn=E2=80=99t completely =
-sure
-> between #[inline] and #[inline(always)], but the former worked fine in
-> my setup so I went for it, we can always adjust it later.
->=20
-> Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
+>Subject: [PATCH net v3] tipc: fix broadcast sender hang on last acker depa=
+rture
+>
+>TIPC group broadcast senders are blocked while a replicast still has outst=
+anding
+>member acks: tipc_group_bc_cong() returns true as long as
+>grp->bc_ackers is non-zero, and clears *grp->open, which is what
+>tipc_poll() uses to report EPOLLOUT (via tsk->group_is_open).
+>
+>When the last outstanding acker departs before acking,
+>tipc_group_delete_member() decrements grp->bc_ackers to zero but never
+>restores *grp->open.  As a result poll(EPOLLOUT) never fires again.  A wri=
+ter
+>blocked in sendmsg() is only released if some other wakeup happens after t=
+he
+>deletion: with TIPC_GROUP_MEMBER_EVTS the leave event delivery calls
+>sk_data_ready() and wakes it, but without member events nothing does and i=
+t
+>sleeps indefinitely, since the default send timeout is
+>MAX_SCHEDULE_TIMEOUT.
+>
+>Commit 99cc2a62e07a ("tipc: reject invalid and unexpected GRP_ACK_MSG to
+>prevent bc_ackers underflow") already calls this out in its changelog as a=
+ pre-
+>existing issue.
+>
+>Restore the open state exactly on the 1->0 transition in the delete path,
+>mirroring the GRP_ACK_MSG completion path, and invoke
+>sk->sk_write_space() from tipc_sk_filter_rcv() when the group just
+>became writable again.
+>
+>Also make the ack accounting precise.  The delete path used to test less(m=
+-
+>>bc_acked, grp->bc_snd_nxt - 1), which also matches members that were
+>never counted for the current replicast (JOINING/LEAVING members keep a
+>stale bc_acked), and the GRP_ACK_MSG handler accepted an ack from any
+>member whose bc_acked differed from the expected value.  Either could zero
+>bc_ackers on behalf of a member that owes nothing and silently void an ack
+>still owed by a real acker.  Track whether a member owes an ack for the cu=
+rrent
+>replicast in a new per-member bc_pending flag, set when the member is
+>counted and cleared when its ack arrives, and use it both to accept an ack=
+ and
+>to decide on deletion.  bc_acked has no remaining user and is removed.
+>Suggested by Tung Quang Nguyen.
+>
+>This issue was discovered by Tencent CodeBuddy Security.
+>
+>Cc: stable@vger.kernel.org
+>Fixes: 2f487712b893 ("tipc: guarantee that group broadcast doesn't bypass
+>group unicast")
+>Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+>---
+>
+>v3: Correct the changelog: tipc_group_bc_cong() only writes *grp->open,
+>    and a blocked sendmsg() hangs only when nothing wakes it after the
+>    deletion (e.g. member events disabled); also require bc_pending
+>    in the GRP_ACK_MSG handler so an uncounted member cannot decrement
+>    bc_ackers, and drop the now unused bc_acked field.
+>
+>v2: Subject no longer claims a leak; add the reproduction; the delete
+>    path now discriminates members that were actually counted for the
+>    current replicast via a new per-member bc_pending flag instead
+>    of comparing a possibly stale bc_acked (Tung Quang Nguyen).
+>
+>Reproduction (two QEMU guests, TIPC over UDP bearer, groups joined without
+>member events; the acking peer withheld GRP_ACK_MSG via a test-only knob
+>to emulate the lossy peer, the sender's kernel ran unmodified TIPC):
+>
+>    UNPATCHED (#88/#90, fix absent):
+>      sender:  NO POLLOUT for 30s after member departed -> STALL
+>      sender2: R2 NEVER returned in 32s (blocked writer not woken)
+>    PATCHED (#89, v1 of this patch):
+>      sender:  POLLOUT at t=3D18.5s, when the leave event was delivered
+>      sender2: R2 returned at t=3D18.6s, EHOSTUNREACH on now-empty group
+>
+> net/tipc/group.c  | 20 +++++++++++---------  net/tipc/socket.c | 12
+>+++++++++++-
+> 2 files changed, 22 insertions(+), 10 deletions(-)
+>
+>diff --git a/net/tipc/group.c b/net/tipc/group.c index
+>74f6d3dac0784..b76edd5001ffa 100644
+>--- a/net/tipc/group.c
+>+++ b/net/tipc/group.c
+>@@ -74,7 +74,7 @@ struct tipc_member {
+> 	u16 window;
+> 	u16 bc_rcv_nxt;
+> 	u16 bc_syncpt;
+>-	u16 bc_acked;
+>+	bool bc_pending;
+> };
+>
+> struct tipc_group {
+>@@ -316,7 +316,6 @@ static struct tipc_member
+>*tipc_group_create_member(struct tipc_group *grp,
+> 	m->node =3D node;
+> 	m->port =3D port;
+> 	m->instance =3D instance;
+>-	m->bc_acked =3D grp->bc_snd_nxt - 1;
+> 	ret =3D tipc_group_add_to_tree(grp, m);
+> 	if (ret < 0) {
+> 		kfree(m);
+>@@ -340,9 +339,12 @@ static void tipc_group_delete_member(struct
+>tipc_group *grp,
+> 	rb_erase(&m->tree_node, &grp->members);
+> 	grp->member_cnt--;
+>
+>-	/* Check if we were waiting for replicast ack from this member */
+>-	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
+>-		grp->bc_ackers--;
+>+	/* If this member owed an ack for the current replicast and it
+>+	 * was the last one, restore the open state so blocked broadcast
+>+	 * senders can proceed.
+>+	 */
+>+	if (grp->bc_ackers && m->bc_pending && !--grp->bc_ackers)
+>+		*grp->open =3D true;
+>
+> 	list_del_init(&m->list);
+> 	list_del_init(&m->small_win);
+>@@ -394,7 +396,6 @@ void tipc_group_update_member(struct tipc_member
+>*m, int len)
+>
+> void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool a=
+ck)
+>{
+>-	u16 prev =3D grp->bc_snd_nxt - 1;
+> 	struct tipc_member *m;
+> 	struct rb_node *n;
+> 	u16 ackers =3D 0;
+>@@ -403,9 +404,10 @@ void tipc_group_update_bc_members(struct
+>tipc_group *grp, int len, bool ack)
+> 		m =3D container_of(n, struct tipc_member, tree_node);
+> 		if (tipc_group_is_receiver(m)) {
+> 			tipc_group_update_member(m, len);
+>-			m->bc_acked =3D prev;
+> 			ackers++;
+> 		}
+>+		if (ack)
+>+			m->bc_pending =3D tipc_group_is_receiver(m);
+> 	}
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+Not sure if you read my comment for your v2:
+" This needs to be done in a simple way:
 
-> ---
->  rust/kernel/num/bounded.rs | 9 +++++++++
->  1 file changed, 9 insertions(+)
+@ -405,6 +405,7 @@ void tipc_group_update_bc_members(struct tipc_group *grp=
+, int len, bool ack)
+                        tipc_group_update_member(m, len);
+                        m->bc_acked =3D prev;
+                        ackers++;
++                       m->bc_pending =3D ack;
+                }
+        }
+>
+"
 
+--
+pw-bot: cr
