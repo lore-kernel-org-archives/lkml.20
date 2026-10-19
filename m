@@ -1,80 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.150.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792448658;
-	b=n8QGS7OatpF4NnmeMRg4+5uUcd2PG09qA1XNj3lczi3gA/qrPUrV6RktnQFiWr/d/1/C
-	 r5HnRX3NyvnbtGYFa6j4zpIoxPRGIw99eeaghCyseWY3mJr3SK8CW1DbK6SE9kVTKi9uQ
-	 4+dWDGdjvnFr/4lMGNuYHeZjusjFb+Pk00oWF2H3KRpaH5pLRDHC0fE0nbGamrqKLNWTP
-	 hsNX7xrnsDp2sOMti/7HRI1kaKEFrZc8mzTgEPl0TS0acJaDGHyGQuDzm7gBSa8TrsXeK
-	 dwOucOi4KSTet1zGVGUxrjt+m7Y+2c+q8E4E7dWQtt96RJF1lYS2NIlcWQo8risGqAA==
+	t=1792448745;
+	b=d0fB9PXq+MKJ+sIcRw+5YJFQDZd+tz6diE+The7wQyRS6V/cK8QrHmL9cugespO5+FDg
+	 ewcX82+5jpPk86hLEYrnvvwjgVAP+No2TNIMS7YMKcd2WTypIzDx4eLOyEEMzNEUHr3tD
+	 kuNQui/z7+uiwv/UZz/Fj72ZNLjuCbBYcetfu/SPg5bhv8nQnmOHmn5ehzeIheIpcI1vO
+	 2TY40EsfvZGZViLWF4dMkCypCPu62Z0YXpw4Zw708IviYgqfdQZzWEk1zaxTfHEakkHS6
+	 96xNzc2bhnFYJfG9wR6sRwlGy+bx89EzJaAEluV9EuP2dfblAZXQBHNeFFyW1y/PCMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448658;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=onPvjPRqQVZnDMviAeqzCOS3WIpD/+3wg/ABjaKSJFA=;
-	b=Y7UKzHFgt+CK5KekCewePbeaXhtIgAbIG+xQSxLMg7RUFmic6i7/IvYTEbzu6xwz/sx+
-	 HB4aKgQrLAMdlwwtpcXUxpUznSYsfafewAsWBc6bGMymdyEOeL3LGJVq/uzmW6I/FOB1h
-	 aaoh1xt3Rm3QdRABEi0PF6Ilwu6MUy7s47epNi9oMQwWzbDT0OTaHnNg89EFIj9e3kOd3
-	 fPqIGuHcT+jdUplJsqBPrKvnB49T1MiQm/DNMDR4b8dnoOcojw5PGlHX7s5r7p3q2owph
-	 FtxG+wHc5gRYmuZlfDAezy9Vd9fCeKlv5jffAc6PWy99Lij5Btna+FsJYcMVtsHGUcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448745;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Orig-IP:X-Proofpoint-Spam-Details;
+	bh=NnuswPbu+Jp2bjPIKsOTDcJ/wnKhhsaCrp4KnzCmYag=;
+	b=1Al09vN4FnY08k2lB0avvNvs1OvhEv+RphPWs9Sv3dO2/07PqieKDN8h9o0ycUBAYMiR
+	 G99p/ym/kaX0bWyHgfnR7ceNffxWtmWYwyE+Jphm2TWKvd9v4wiAI1g2SpI+bYOIV/t6k
+	 GUWBw698WjXseDK2lKT5JbvAEoycDgfGufryUN5mp3s4HmB8B+xPVuVjr2MtZChXq6EE6
+	 Cm3yeVGwyNH8hPk1UcdyHIfKlRXUFU5ynoO39x0ictz9z1wLdEA9Rvk0dh0PuxLMWmbS+
+	 +9ydUpxnWiF5ZF7zfFw8LlQLfqiJAMDJDCLTm2C2Idg27bgy4HtY7oIhmiD5Fo4ZUnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=bQa37Apa;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=nyu.edu;
+	spf=pass smtp.mailfrom=nyu.edu;
+	dkim=pass header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=20180315 header.b=y+QFTAU7;
+	dkim=pass header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=nyu-googleapps1 header.b=H3ZTe2Zu;
+	arc=none smtp.remote-ip=148.163.150.240
+Received: from mx0b-00256a01.pphosted.com (mx0a-00256a01.pphosted.com [148.163.150.240])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8005606A319;
-	Mon, 19 Oct 2026 22:24:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8005606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69192606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:25:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69192606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nyu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=bQa37Apa
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 138214B0;
-	Tue, 20 Oct 2026 00:22:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792448529;
-	bh=WNeWnMyzEEWtGttKeBP65gkCdPp6pYJORJeLpSXSXCc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bQa37ApaE/sqXRb4EvmGJeQsSdF1UBnWYAHgLb0o39h/B4tE89v923371ZnK372KC
-	 dFNk8yIQfs3Q9c6hgGNoSM/JWGKB6hGYwqL6k/RnNoGxKddRFJhHuyz0NXCCHlsoQq
-	 IMoZCxRnVjy8IF+INZyAlHOIOl8ivMNLq87Sp48M=
-Date: Tue, 20 Oct 2026 01:24:13 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Theodore Tso <tytso@mit.edu>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
-	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH] docs: remove Assisted-by references
-Message-ID: <20261019222413.GB15441@killaraus.ideasonboard.com>
-References: <20261009083137.3-1-sashal@kernel.org>
- <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
- <asz9AeFe3CutP73z@gremlin>
- <20261013123132.GC4214@killaraus.ideasonboard.com>
- <as4pAEnLd4H68W4W@gremlin>
- <20261013131243.GM56180@killaraus.ideasonboard.com>
- <as4xMnT8a75pIw9v@gremlin>
- <as7uqZn9rQ52USwy@mit.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=20180315 header.b=y+QFTAU7;
+	dkim=pass (2048-bit key, unprotected) header.d=nyu.edu header.i=@nyu.edu header.a=rsa-sha256 header.s=nyu-googleapps1 header.b=H3ZTe2Zu
+Received: from pps.filterd (m0094546.ppops.net [127.0.0.1])
+	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JL8SMS3294154
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:25:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyu.edu; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=20180315; bh=NnuswPbu+Jp2bjPIKsOTDcJ/wnKhhsaCrp4K
+	nzCmYag=; b=y+QFTAU77Tn8ATA2i+mTXvVjb1amkAsQrsHGuLSJX+lmuDwbigSg
+	bfsdv1O0rZVoChfwfz5urvEcu8TckVfXX/5hcU/7NYp/cl4WUOipeJcm9HcAz4Xg
+	+G5ALKvw/+YHC9/8HQqgR4O50CehHZaO+YPluDhKJme00q5NODrIUHTl5dAHr9fI
+	rwe+72Y9fcK2jxbfSJmAWcrD9dfzLQq+TWiinTrVXtkwP1isSNS50/o+EhmmMtxL
+	EMOL2Kpi8T92iQ1fwUy9vuLJ7Fm7hWAs+3N3e0EP1FhIlUdtCwZhOZLYI+SoNbDP
+	ZZUrB55/q5Kjg8pVBZZgsuER6P4vyWjcmg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4hdttc90ua-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:25:36 -0400 (EDT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f13c143c8so496305385a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:25:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nyu.edu; s=nyu-googleapps1; t=1792448736; x=1793053536; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NnuswPbu+Jp2bjPIKsOTDcJ/wnKhhsaCrp4KnzCmYag=;
+        b=H3ZTe2ZuXlKQDzJRe2SAUWxM2592O/pn/x+OWe7ZUgqSWwdAQK8R3+jtzHhU7MvAmC
+         pDEmk8393ISa2njkew2PHY8tswIOkGTm+2dPxRsbNqWv7GGBK9ntLznSyHTKL/iuHinf
+         L6Q8mqREp3ziZXgiWaHTiEhkJx23Sn72hZGEgB92N1NiKp0/PXvxY5VdELYuk/m9ekcn
+         evOXAIxOtbtzyQfP00FMutgUjVdN3SEybLUN+CR7vTldpchCoup+cIHoALLzv4szaUz4
+         muig3Nblg3/O6FNIAAOU2/HPzW4E3Z/e01OtbQ+DAlGgO4TUp3CMHi+nMKWMK494KccP
+         xMag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792448736; x=1793053536;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NnuswPbu+Jp2bjPIKsOTDcJ/wnKhhsaCrp4KnzCmYag=;
+        b=EeRT7ciGJ2Jsv/bLs/dkOotkAlkG9lmwXSc5SVIFozvpuMpE7YRxTBxL7nON8HiXNf
+         y2x8jt+XAtl6H0X06AEovz4LSPp6zgv+ybpOkMN4XevHMZE4SOeIfdnarI9fmhGlBcF6
+         EjAI0vqyCwBDp/iyYC16wDupdXGfleyxORJuXfbx57QsAxCiWGa/uYgcP5+64yMLQItg
+         I29Ivgr9emOttjGe6/EhcMdssh2OL5jekkASIk6lV0dCqQlluortHWtwk/ZX31CW/uw9
+         e+MT/WU/BDphX8BHqf+3zNv9Huu4VI1JdA8vn80Dg9RlWj8AdeGpCmwBEIq2S2q7zQvx
+         bePA==
+X-Forwarded-Encrypted: i=1; AKwUvByQNtudw3UGe8DYI7aItjubaMEc+uC+pv++Du89/L1B9SIL+7/Qayy9omul2AaH1r4M7ZVPkGtj6MwHXj4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWqdiJIJYRamykh8Da3Jf0eAwgPq/ElwDvZcyGJrRpTGuv372J
+	Sio9/MHSkG74w4t4b6WfQ/Ohd3lcOQ2AFm/L5k1kCREcvxCW6LTMXgKnlDWf3sbbYdqgEpTThCi
+	rgdwpGVRgafMW95+UpwB24mmOY9Vo1TFlSACwHRss75Ubq338EoykWPNrmkF3fR8=
+X-Gm-Gg: AYBFou2Ow8BQlFlpJ3iJwSa6J9BBDmAxM+9i58ZIigawzmN86qgbgJLCobzSECUoYUJ
+	NLdvpDM6esosSnJmU4tFdjAKBOq0bcdneXOw99cMc/c2tOKFKYz+IQvyXgWVMPDebdptpYEN7Qv
+	s1WUD/PAq3I99TiITHynaHg4toeJ4H01Dh8VheoU2lKig0BaoRcA2sFJ0rJQCjWmxcwnutXv5Wv
+	RPQkHhZ+FtT3yqYYblS75Db+jh8+pMumMWq38Kmljmfz9fSj8CJ+lQx9Ydpm3PllA/MQ7FatdYC
+	1gC4LS30GqIXbG0S+BG+OehRhz0mwWg3h3/oBsYc/hXVNafkn/qQCAjLpZPpqTfhwNimbJ+Bmsc
+	DWqe8zurkspzTdRHoHyJaiHdxTbBM/yGVij+Z
+X-Received: by 2002:a05:620a:3949:b0:93f:175a:f4ce with SMTP id af79cd13be357-93f29dd7b2bmr1657517385a.80.1792448735820;
+        Mon, 19 Oct 2026 15:25:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:3949:b0:93f:175a:f4ce with SMTP id af79cd13be357-93f29dd7b2bmr1657514985a.80.1792448735368;
+        Mon, 19 Oct 2026 15:25:35 -0700 (PDT)
+Received: from jerrythepro.nyu.edu (216-165-95-167.natpool.nyu.edu. [216.165.95.167])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c06e9c82bsm1643376d6.24.2026.10.19.15.25.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 15:25:34 -0700 (PDT)
+From: Kaho Jiang <kj2864@nyu.edu>
+To: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+        kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+        edumazet@google.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        co+71b6509cb791e531@bugs.sh, Kaho Jiang <kj2864@nyu.edu>,
+        stable@vger.kernel.org
+Subject: [PATCH net v5] net: ipv4: add zero check for snd_cwnd_clamp
+Date: Mon, 19 Oct 2026 18:25:31 -0400
+Message-ID: <20261019222531.1073-1-kj2864@nyu.edu>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,85 +118,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <as7uqZn9rQ52USwy@mit.edu>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: qr91vNzD-FUrXBTgufkH-M_9ggMFBynS
+X-Proofpoint-GUID: qr91vNzD-FUrXBTgufkH-M_9ggMFBynS
+X-Authority-Analysis: v=2.4 cv=Qu3LTlyd c=1 sm=1 tr=0 ts=6ad698e0 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=yOGPcoH5O6SU1yo2J2Kppw==:17
+ a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=S0S_EcBMpFAA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Se5WoFf3ZZRiLcel0nel:22 a=T67y4n-0JBmO_r8OIWtK:22
+ a=VwQbUJbxAAAA:8 a=qtVHbROC6xTCA7o1MbIA:9 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4OSBTYWx0ZWRfX7iz0EMOFAQtP
+ cNz4Lp81mG0GEKM5dxNTf5JEEYCAvvj7jxz1Vx0lZzvN+jHOg9lnSgzhHv+hvWslxBceItHcgdb
+ fh/PqD2Zd9AfqJ4VERWH0gRA6Yjn/4opzElRCRFU/QZ5QFpdHXg7wFMMUHQ1/8WZ0HCsRG+h+11
+ JxTQ2bcItmOr3sDeVz2fPngYDjfagqQZhBq3zZ7k7pQiqUu7zSlexNcQPzkWuifD9Qd8BQQndZ5
+ BczNqSR6Kbm5Mf8O5qjqgwHqkDnw2tKUftpg+9ANXAnjZL4iG8rD6x3z4C6LKS5/JfWn3zV4xFH
+ 9hCZ1kypLa0Ui3HEnlg/p94gzFDqUVtT5AkR3O0lsvZ2CN7euT0QAecY0HA3HufQvz+ijdmss2M
+ hOuSDTFNqWeKaOYTYsNRoJtxh2uwFwI+ZhCGN/OdpsFfyDGbQOTuSR3wrKPMgbAsRCCQj3JfNSV
+ LIw9k1EaWYFs2Vpu8fw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4OSBTYWx0ZWRfX/SoYqPdLBj9l
+ TkF4/m0eMsw8CEcvV6O1KxgJClhly+GcSxMRiqHpiiTUuYIsgik5S14GiEGz8efaqihzhdhCIw2
+ FY2TafFMYuWND4EE4pZhqR3GtNwLfaw=
+X-Orig-IP: 209.85.222.198
+X-Proofpoint-Spam-Details: rule=outbound_bp_notspam policy=outbound_bp score=0
+ priorityscore=1501 phishscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ adultscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190089
 
-On Tue, Oct 13, 2026 at 11:23:53PM -0400, Theodore Tso wrote:
-> On Tue, Oct 13, 2026 at 02:29:08PM -0500, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Oct 13, 2026 at 03:12:43PM +0200, Laurent Pinchart wrote:
-> > > On Tue, Oct 13, 2026 at 01:59:33PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > Ignoring is the only workable long-term solution.
-> > > How do you decide which patches to ignore ?
-> > Anything that looks schloppy. ATM it's very easy to tell.
-> 
-> I think we're going about this the wrong way.  What we want is high
-> quality contributions.  If they are high quality, who cares if they
-> are AI-generated or not?
+User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
+This could lead to division of zero error if not checked properly.
 
-I do.
+Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+Call Trace:
+ <IRQ>
+ tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
+ tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tcp_input.c:4440)
+ tcp_rcv_established (net/ipv4/tcp_input.c:6685)
+ tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
+ tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
+ ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
+ ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
+ ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter.h:319 net/ipv4/ip_input.c:262)
+ ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./include/li)
+ __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
+ __netif_receive_skb (net/core/dev.c:6410)
+ process_backlog (net/core/dev.c:6761)
+ __napi_poll.constprop.0 (net/core/dev.c:7830)
+ net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
+ handle_softirqs (kernel/softirq.c:645)
+ __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
+ irq_exit_rcu (kernel/softirq.c:775)
+ sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
 
-Nobody disagrees that quality of patches is important, and I also hardly
-see anyone seriously saying that the fact that a patch is human-written
-or LLM-generated is by itself a good measure of quality. If all you care
-is that the code performs as described, we can probably stop this
-conversation.
+Fix by checking if user pass in zero as parameter,
+if so reject the value zero.
 
-What I think makes the value of the Linux kernel is its contributors. I
-want passionate developers who will grow in the community and drive the
-kernel forward. I want them to understand what they're doing to
-contribute meaningfully to the project, and I want to encourage them to
-become reviewers and maintainers. I've long believed that it's the
-people who make Linux.
+Fixes: 814d488c6126 ("tcp: fix the timid additive increase on stretch ACKs")
+Cc: stable@vger.kernel.org
+Reported-by: co+71b6509cb791e531@bugs.sh
+Assisted-by: LLM
+Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+---
+ include/net/tcp.h  | 2 +-
+ net/ipv4/metrics.c | 4 ++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-This is ultimately why this discussion saddens me. There is a small
-number of very vocal long term maintainers who all of a sudden appear
-like they've never really cared about the people making the kernel. That
-some show a very strong enthousiasm for LLMs doesn't surprise me. What
-does is hearing sudden proposals about AI-assisted reputation ranking
-where contributors are called "collateral damage". It's borderline
-sickening.
-
-> If we get a contribution which is sloppy, it could be because the
-> contributor doesn't know how to drive the LLM, or they are using an
-> insufficiently powerful or badly chosen LLM --- or both.
-> 
-> This isn't actually a new problem.  In the pre-AI era, we would
-> sometimes get marginal patches, and there is always a question of
-> whether it is the maintainer's time to try to engage with a new
-> contributor who might turn into the next valued senior contributor and
-> reviewer --- or who might be resistant to education and/or who might
-> disappear very shortly.  AI makes the problem worse in that there are
-> many more newcomers with new contributions, but it's really not a new
-> problem.
-> 
-> If AI is making the review problem more challenging, the good news is
-> that there are ways that AI can help.  For example Sashiko can help
-> with the early AI review.  And if a newcomer sends 7 versions of the
-> patch set in resposee to Sashiko reviews, I will generally not bother
-> looking at it personally until a couple of days go past before I waste
-> my limited human review bandwidth.  So it's not a case of permanently
-> ignoring a patch --- but I may very well down-prioritize when I do pay
-> attention.
-
-What else are you expecting the newcomer to do when maintainers tell
-they won't look at the patches before sashiko is happy ?
-
-> I also suspect it should be possible to use something like Jev or some
-> other System One LLM to help with an initial prioritization for the
-> patch, and then have that prioritization be set in patchwork.  Each
-> subsystem might have their own criteria which they could encode in
-> their prioritization prompt.  For example, if the bug requires root
-> privileges and/or a maliciously fuzzed file system, for ext4 it will
-> automatically get down-priotized to low priority.
-> 
-> Using AI-assited priotization may have some collateral damange because
-> it might not get the prioritization correct.  But ultimately, if we
-> get a flood of patches from newcomers, the choices is either to (a)
-> load-shed, or (b) burn out.  And of the two, (a) is the better of two
-> bad choices.
-
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 4416cdf9bf30..9f605d9ecb35 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -1522,7 +1522,7 @@ static inline u32 tcp_snd_cwnd(const struct tcp_sock *tp)
+ static inline void tcp_snd_cwnd_set(struct tcp_sock *tp, u32 val)
+ {
+ 	WARN_ON_ONCE((int)val <= 0);
+-	WRITE_ONCE(tp->snd_cwnd, val);
++	WRITE_ONCE(tp->snd_cwnd, max(val, 1U));
+ }
+ 
+ static inline bool tcp_in_slow_start(const struct tcp_sock *tp)
+diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+index ad40762a8b38..cb36686973e5 100644
+--- a/net/ipv4/metrics.c
++++ b/net/ipv4/metrics.c
+@@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+ 			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+ 			return -EINVAL;
+ 		}
++		if (type == RTAX_CWND && !val) {
++			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
++			return -EINVAL;
++		}
+ 		metrics[type - 1] = val;
+ 	}
+ 
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
