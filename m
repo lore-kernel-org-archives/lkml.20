@@ -1,138 +1,201 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A01CA20E6E2;
-	Mon, 19 Oct 2026 01:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792373630; cv=none; b=Aznl0+nDMGkCnGrcc3LLlu8537hsZRCGZEVzTJcvFwmGf75nIPAvTc78IOurzvlIYvNpighWctMKqUvb9mC/6cXWxTBmULRqyQfvVxRMgWt6I/EFRsK2a49TVWPqphP25ntBXQPb1v0Y2XL+AiJ3aV8Nbk38FoHi2H+Zc6gyYXU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792373630; c=relaxed/simple;
-	bh=CLPXxO8YwoqCRp2ZUTaY8ylfbE+V5chVr1TGEeyRt38=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b+88PAPPlH7Mc1R51XWBanNYy2MV5aepvD9ajMcsLbV9fkngWI3sydPiAOoSmKGUntKBNhbGCuoX893P5iG6R6+LLpPPH9uISFfkVXSHhhMIxLIGRxg5W7vL/8kPi8PqMdiF3BGTtvYWo1dzCxUUW5ImxABis44+abbIZvuqD2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8Bxn9Fyc9VqDSQXAA--.1256S3;
-	Mon, 19 Oct 2026 09:33:38 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJDxTs9wc9VqFtctAA--.30913S2;
-	Mon, 19 Oct 2026 09:33:36 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Huacai Chen <chenhuacai@kernel.org>,
-	Hengqi Chen <hengqi.chen@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: loongarch@lists.linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] LoongArch: BPF: Fix stack arguments for indirect trampolines
-Date: Mon, 19 Oct 2026 09:33:35 +0800
-Message-ID: <20261019013335.13512-1-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42EA2E7635
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792373717; cv=pass; b=UxO+aPCPg20i7BJFnKesQ+ZnHJVC0oTUHj1URVAPGDrkktU3Esi6SwKyFuPMxpsXBckM7c5/j+e95nOgYBckibBELXTbKpv4dRoclaKZ3rd+mFLbrQ8aYalu/8ua263Pt46YkLql9Wd9S2XMXyqXIvknU03qYkzyVYxL+Jmhd1I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792373717; c=relaxed/simple;
+	bh=fgreZAMX8MnAOZ25NX2h7jfgiwNikIoWWf8fFdIykMc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kwo3my74gKr602vaRGsDEtAiKEu9lCnkX4Vdob1lv5Re5o5yJTOE6aV49d5EG/HxYoE4dlPauPBoHTDffq79T8e5tSF8HTFHAZP9gJHP3EpRD9jLgVnKEqARkuS66LpeDG7Rcb8xrq0sGUTrBtaD9q4qo7PMnoXefQaYZCXMw7E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FKXroTej; arc=pass smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FKXroTej"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5ba36cc21cdso1428003e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:35:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792373714; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HuJ7hl39zUAXX7brggZS1TCZdFk88SpOvDGc9qrd1zeyOrqV9+zfLEPP6jJf706Chd
+         NB8bCdnFduo+I8McPQMj7h/W0JFspWlJplFbINDbQsu4tsGKg4USsx/cqd6Vx9NBjY10
+         2QAon48RVTWEo8xs6EhAGkQWFCiDU/i9j/rHPO0n+eL/UweVEzjoVimgLN8++MAnRoRX
+         eJfj7hCwECe0R+f5BOz5tHZFMfZD4OhZ49IR3buN3EvxOd+0+U1w1xHEFpSvuyKmyeqE
+         OIN5/us0qJNAZm+0EQB3/NggdGOZbRmaYH5cYRE0L1nGrHg2OVku9mGVpAlKKAqwb0sc
+         zQLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Nff/2Dooakw/NTwEm9AsfcojNM4c7HTexv035G2HWNQ=;
+        fh=cPoxomeIvABL9EJYSgIC1MJGOapXX2akS0Vh+Muz+to=;
+        b=YoilSA3lXEHWyP7pZie+JnA6ct3saXHuMu7LGqUQRmTLkhsTCjrPqUxCFAUnBzKAuH
+         yFrmzjmufiyDDfm499Od+0ScAxwERvoLz+X9lRiYHIDnzJZ7TQjs+XxPY4v1Thi4ZaNf
+         yEbg+++u/ipDOWcDW2FGFtWssB4g5GqBFH+ONJmrXQOnJxLbhdA383vS+yu1QRTw2Ca4
+         zvLE5q7E0Aj4Qee2rpaZAJP4KUzaMhNEW9V6Xmam1YGHe8yK3b1h0ZPgVY1dw9Zjrk6T
+         IGhd/X9D5PLGHUx7EX9Yvx/vOYrf2VnBKl14VxJ+EleqLI2S9Z2HDPEpIE+VHCe8kVUw
+         U0hA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792373714; x=1792978514; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Nff/2Dooakw/NTwEm9AsfcojNM4c7HTexv035G2HWNQ=;
+        b=FKXroTejjVQoQdCyPAiikjFkN1ZUcN9V9urWiTZGFxwb/qU5zXCf2YrrkRNOOXqe9p
+         /BGXENwMqZVhbedYrerjIk6rqUGdrGbgZOZ5hJTzFiL1C+911H2zUtbUpqj0N/UyvgxE
+         a+hlnyjqf8mJ88LiY8F/gaw313Nye8qsI++6doBoRUw+z7lA1fa8sXvyQSeb7jyrdbRJ
+         jhg0Deb+Lkl5MAjoKYGrTMLtDUA4aquS5bSetnsasvpdtRiEVqlo6hXuSFNcKLnzbXqF
+         s5kvq9SnM39HXXw37FPBmUQvUJmqbeBj9QamHvuP2GfkULuqkTStfdFZtkcTIGY4ndK4
+         a+Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792373714; x=1792978514;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nff/2Dooakw/NTwEm9AsfcojNM4c7HTexv035G2HWNQ=;
+        b=ZHswiFOtgBu9O1MygTlJU6z4kSWozDGHLdNXrLDN5K0QvYVFeXau5tD37WnC+ZIZcq
+         54lm4vWoO7TzV3fn9oscVfwuA3fbn/rToJpWBEVMaLuvBCBpPS5Qk8/qR1j1OHqw6Lxj
+         0G6yjhisS91Uyc67B8KTe0J5lpoJUMzO8ZIVww7MGDAYb6vZiyoUfOgl5GvBDfSNoza2
+         VtYwXMsSGEC0KiIk8Xxyq1ehf2/1r37B8ibKOdqC4tbTYCh5LTBx8Y3J16927BzfztHX
+         15IRh392h606WHuM/2oss8p5KMjGjBgIRH86h70TEb20D8jwNMt5HGu/V8qqobbn7lBy
+         J4Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBzWqFj0sKT1OAuCCaX9siOXsdKMj4jgjpmDKA20t7z9JJ6Dn1/LDX8a04W2JkvYrydosUUV1XEVHG9BwyM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0eRsfzTA8erBylhfy0K9AQvGCBsRaTkccjaCE2eCkVpTiVGl5
+	arib5YPCdyGrwVjWjb3RNWQNyxj6GQ2NXWMUwpvlYF1xzRYbhWWBd9xWnTvPXlayszxCwKiliJI
+	lqTACJ/ZSqlxcMLQOBuPQzGZJ576rCo4=
+X-Gm-Gg: AYBFou3F5kaTlNAX5bIz+fZWITG8wP/z6HALuD96LY9Vlb2PD833K9j/GF0TFNODCP+
+	03JsdF5iNVVCVGHyUgnWG5NT9kt0nz9OkK0j1x18MKzs6ZlXd1AvPPCwt7/yxs3n+Kczb2dMzQ2
+	yaLCq4IihJVIkAuzLJF70XAM3KKLCM+lPp525qRvJlAucGQXw+TxupE/4vAMN4clXVkj51tNfkk
+	kZRCkP531IL3tcZV03HFcvt9y3Q/UP/syU30tsFcsgQROs8tLPM+5vRIjJfgNaR+w8TT3gi/2he
+	z1MZrruqtlq1AMV3i30ptmlYIAsQvceNFUOejhyWlYKom4La2YCtmBM6kJctSDI1/w==
+X-Received: by 2002:a05:6512:691:b0:5be:540f:ce48 with SMTP id
+ 2adb3069b0e04-5be540fcf96mr1950051e87.18.1792373713661; Sun, 18 Oct 2026
+ 18:35:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxTs9wc9VqFtctAA--.30913S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxGF4DXF1xGr4rZw1kCr18Xrc_yoW5tFWkpF
-	n8CFsxGF40qr4xt3Z7GayUZrya9Fs3Zw43Wr4DJay0ya15ury8XF1rK3ZI9F98GrnYv340
-	vrs0vwn09FWDA3gCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
-	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
-	0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUsqXUUUUU=
+References: <CAO9r8zN5n=9v4K+OtEEODg=e0kcFW99PreUcZm09q9CUMQc+ew@mail.gmail.com>
+ <CACpmpofdoeVbbw7izCDeJ7eS+XpWj+3sp3teKEQWywyRB75jYQ@mail.gmail.com>
+ <CAO9r8zMaaUsBaS0TJumochRKt2ShV7nRaLnYPWv3=S-wUFgitw@mail.gmail.com>
+ <CACpmpoecz4tjr-qvFRy22CGuF+4NBWbE7HVjdTGFqQOheK3CLg@mail.gmail.com>
+ <CAO9r8zOAcf4=TscCXjMYvowUx-_u9qLGqY2-p7cK-z5CUU_x8w@mail.gmail.com>
+ <CACpmpofYXDMviE6FS-BZdVntmQFvS+_xvfmOnJ2caZFerz6vyg@mail.gmail.com>
+ <atGqPIpUfX0LDokV@gondor.apana.org.au> <CACpmpofyLW5z1DYEY2YAty0VOAhRR+Leic8O-B0N9hrzdW_=Ew@mail.gmail.com>
+ <atL1ok1YkHbA4AaI@gondor.apana.org.au> <CACpmpoe_RXcJM42sTVwk_Qvt3zjAOZhzYZNsRD4xz_1HxDmadg@mail.gmail.com>
+ <atMCfhB63koot230@gondor.apana.org.au>
+In-Reply-To: <atMCfhB63koot230@gondor.apana.org.au>
+From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Date: Sun, 18 Oct 2026 18:35:01 -0700
+X-Gm-Features: AclHuK-sa0bPZwSQVwxADRhzmdY4PA3aAYNaQTZ1DmSolcYDHA8wcYiAtLkFuj0
+Message-ID: <CACpmpocZGHpTTOq+xa2bTnS-=gdUa8+E_KKJm41H_dSfbGikYQ@mail.gmail.com>
+Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Yosry Ahmed <yosry@kernel.org>, hannes@cmpxchg.org, nphamcs@gmail.com, 
+	chengming.zhou@linux.dev, akpm@linux-foundation.org, linux-mm@kvack.org, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
+	senozhatsky@chromium.org, 
+	"Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+On Fri, Oct 16, 2026 at 10:07=E2=80=AFPM Herbert Xu <herbert@gondor.apana.o=
+rg.au> wrote:
+>
+> On Fri, Oct 16, 2026 at 10:02:13PM -0700, Kanchana P. Sridhar wrote:
+> [ .. ]
+>
+> That isn't quite right though.  We need to ensure that it really
+> is a singleton before taking the short-cut.  So you need at
+> least one conditional:
+>
+>         if (likely(req->unit_size =3D=3D req->slen))
+>                 take short-cut
 
-LoongArch passes arguments beyond a0-a7 at the caller stack pointer. The
-trampoline store_args() helper always reads those arguments at FP + 16,
-which is correct for a regular fentry trampoline: its prologue leaves FP
-16 bytes below the stack pointer at trampoline entry to hold the saved
-RA/FP frame record of the parent function.
+I added the check for the singleton req [2]. I hope this looks Ok.
 
-A struct_ops indirect trampoline is entered through a function pointer and
-only saves its own RA and FP before setting FP to the entry stack pointer.
-Its stack arguments therefore start at FP, not FP + 16. As a result, every
-stack-passed struct_ops argument is currently read two slots late.
+With the latest crypto_acomp_compress(), the batch compress latency
+improves considerably:
 
-Select the source offset based on whether the trampoline is indirect. This
-also prepares the stack-passed arena argument path to consume the actual
-pointer slot.
+usemem 10 iterations average throughput:
 
-With this patch, the BPF selftest "./test_progs -t struct_ops_multi_args"
-passed on LoongArch.
+   patch 6 (store batching only): 19,119 KB/s
+patch 8 (+ compress batching): 24,076 KB/s (+25.93%)
 
-Fixes: c9ebe2016de9 ("LoongArch: BPF: Support up to 12 function arguments for trampoline")
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
-v3:
-  - Reword the log and comment to clarify that the 16-byte frame record
-    is saved for the parent function, not the traced function. (bot+bpf-ci)
-  - Remove a stray blank line after the opening brace of store_args(). (bot+bpf-ci)
-  - Reorder the comment sentences to match the true/false branches of
-    is_struct_ops for better readability.
+bpftrace measurement of zswap compress latency per-page:
 
-Here is the original link:
-https://lore.kernel.org/bpf/20260821233516.3426127-8-memxor@gmail.com/
+Sequential_zswap_compress  nr_samples     p25     p50      p75
+p95       p99
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+zswap_compress_ns_per_page  1,722,489  43,947  57,791   88,489
+130,165   323,961
 
-This version is based on the series:
-https://lore.kernel.org/loongarch/20261016081006.26069-1-yangtiezhu@loongson.cn/
+Batched_zswap_compress     nr_samples     p25     p50      p75
+p95       p99
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+zswap_compress_ns_per_page    665,267  41,511  54,915   77,707
+124,648   213,962
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+ Latency saving (ns)                   -2,435  -2,876  -10,782
+-5,517  -109,999
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
 
- arch/loongarch/net/bpf_jit.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+Please let me know if [2] looks good and I can include this in v2, thanks!
 
-diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-index 1a7c8effc37b..c6784602f029 100644
---- a/arch/loongarch/net/bpf_jit.c
-+++ b/arch/loongarch/net/bpf_jit.c
-@@ -1725,17 +1725,22 @@ int bpf_arch_text_invalidate(void *dst, size_t len)
- 	return ret;
- }
- 
--static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_off)
-+static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_off, bool is_struct_ops)
- {
-+	/*
-+	 * Indirect struct_ops trampolines place incoming stack arguments directly at FP.
-+	 * Regular fentry trampolines need to skip the 16-byte RA/FP frame record saved
-+	 * for the parent function.
-+	 */
-+	int stack_args_off = is_struct_ops ? 0 : 16;
- 	int i;
- 
- 	for (i = 0; i < nr_arg_slots; i++) {
- 		if (i < LOONGARCH_MAX_REG_ARGS)
- 			emit_insn(ctx, std, LOONGARCH_GPR_A0 + i, LOONGARCH_GPR_FP, -args_off);
- 		else {
--			/* Skip slots for T0 and FP of traced function */
- 			emit_insn(ctx, ldd, LOONGARCH_GPR_T1, LOONGARCH_GPR_FP,
--				  16 + (i - LOONGARCH_MAX_REG_ARGS) * 8);
-+				  stack_args_off + (i - LOONGARCH_MAX_REG_ARGS) * 8);
- 			emit_insn(ctx, std, LOONGARCH_GPR_T1, LOONGARCH_GPR_FP, -args_off);
- 		}
- 		args_off -= 8;
-@@ -2068,7 +2073,7 @@ static int __arch_prepare_bpf_trampoline(struct jit_ctx *ctx, struct bpf_tramp_i
- 	func_meta = nr_arg_slots;
- 	emit_store_stack_imm64(ctx, LOONGARCH_GPR_T1, -func_meta_off, func_meta);
- 
--	store_args(ctx, nr_arg_slots, args_off);
-+	store_args(ctx, nr_arg_slots, args_off, is_struct_ops);
- 
- 	if (bpf_fsession_cnt(tnodes)) {
- 		/* clear all session cookies' value */
--- 
-2.42.0
+[2]:
 
+int crypto_acomp_compress(struct acomp_req *req)
+{
+struct crypto_acomp *tfm =3D crypto_acomp_reqtfm(req);
+
+if (unlikely(acomp_req_on_stack(req) && acomp_is_async(tfm)))
+return -EAGAIN;
+
+if (likely(req->unit_size && acomp_request_issg(req))) {
+if (likely(!crypto_acomp_req_seg(tfm))) {
+if (likely(req->unit_size =3D=3D req->slen)) {
+int err =3D tfm->compress(req);
+
+req->dst->length =3D unlikely(err) ? err : req->dlen;
+return err;
+} else {
+return acomp_do_req_chain(req, true);
+}
+}
+
+return tfm->compress(req);
+}
+
+if (crypto_acomp_req_virt(tfm) || acomp_request_issg(req))
+return tfm->compress(req);
+
+return acomp_do_req_chain(req, true);
+}
+
+
+>
+> Cheers,
+> --
+> Email: Herbert Xu <herbert@gondor.apana.org.au>
+> Home Page: http://gondor.apana.org.au/~herbert/
+> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
