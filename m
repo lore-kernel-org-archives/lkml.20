@@ -1,123 +1,90 @@
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+Received: from mta1.migadu.com (out-233.mta1.migadu.com [95.215.58.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2146B4AA031
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D424A5C3C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403041; cv=none; b=ZCIVMl1KrtcNlKzCdDYqiEfOb+nStEPRGmI2Bmm9/OQmpB2LRC9XWTBqmEAIB87WnOFP9hw3gz3KDBlaUVdwwmnsz18/xzu91HGYgYbj9XGbk6JWO4IKS8Gc4wRo/EreKwhZZC5w0RuovZwYQdcpDnzPTl1ZRNMsUNvUnOOuVKM=
+	t=1792403064; cv=none; b=rNWEay08nCc2wkPDO4B8/V9uI09wn/ZQ35dxXbic46aLtp46WpcnG3pSOzi6gzA6NfM7liRsjVWAR0jmrMtJdiEXctzRF/13vDqoT0DeTCjkrBOMPz65zCDSpUxAqSdbYddaqEeP/RO6YmuO9zGVsNThFgXLXXo+94aHEgPBbl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403041; c=relaxed/simple;
-	bh=eF9ybIO73BvXJx/tfM15TxxY0Adrd/pDfCRrQG6zpJs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BrYMZEJNzGPU0BZykg9j8swT3Qr3lRN3A1ruk8pZdTTht2gBm0rGm41YCNMalwhPmD29hnKzgxkVfOW1o+OJEem9ZMPRGGYoidm04m46X+7GJTMX9xO1fNnbHC8wZf9PB98cs9L87ZEcH1MGyfl8CVHUsw8bnVRNX4lPI9u6y2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZLHAr+5; arc=none smtp.client-ip=74.125.229.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792403064; c=relaxed/simple;
+	bh=e0QRKXqseSbnwv/jNw0BZs0Ci0ks6UPUvoTzc0mkA6U=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=YC245YGm2tOpibmBdqmzS86FBUhC/o7bLM3wndLidLdtagBTz3MXRyBFgCVJkYfvSQQAR/p3nTitgiXstu4iqKkh8f4Q8qp8p1sKzt39uC2J6gDoXH+GltAcEHja6+Zy38apD9okH1bjMRsr29m51LDtf6GOKJTre/pxdDsjGbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BMaBccpM; arc=none smtp.client-ip=95.215.58.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZLHAr+5"
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-3535a54c09bso1862535eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:44:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792403039; x=1793007839; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SS9kJ1jH1xG6CLAUi3XRMYbxFYxyeHVEus5/yx1itww=;
-        b=CZLHAr+5SX+9O1+UKYUHozqaxF2RfMchhttSCgzxcKinJil1RdzUOe07aDVb89Dfsi
-         ONyShNKWZhj4smiq1Cm8hyyN5E2sRgdpHp0mln5BucMZtPhbmILte6x1yK9sLQQvIIe7
-         Q8IRR+fb+Gqe2GB9lwtoYS4DpAbIDF5dlOH6iUKoNfS0JWxeqYlCTCjE06kH8lcAZl8O
-         r1BOSBW5oqmyA67DDa/5yX5gkDGmdj4sqAKc4CmCNycam4OvLSudgfllbg3LiEnjhWIS
-         XqIJOI3m2k6YEPrQYQ2mZVbp7tuchL7XHn1XavSIEX7Qq5mUgic/Dz19Mq1OtiyHvFTM
-         9Rew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792403039; x=1793007839;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SS9kJ1jH1xG6CLAUi3XRMYbxFYxyeHVEus5/yx1itww=;
-        b=TqDPvuy0BFcxVGHw1Wo1xVxgfFqZKhUE/tyiOHntf18rHLeXUHXJ3CQILxwOCkC9av
-         2nMmUvZAcddDc8qVEN2rxiRW3slPNpXrf/JtaO466Eq303bGKwpRGqq59GO4OeVJBIhM
-         b7ZjH2+pNzaV0ybxcsA5SGTRvpj4Bl+XizaDh9GED/osNiQjpLhFdzbNkb1vaeYTB2sb
-         +2sT1nBH7SO4PE0yw0T03cbPnP4rQcB9tTy8tryQQxUGT5h4mexSQ2un60TQaI5XjCM9
-         FLLvjmQzkSMf8+cJaNLabu1P6LumFw8qcCoqyka/AksJTlir52XGNx3JaPwbDO5ygtkA
-         XxZQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFpVQOqytKAdYGe7uvL2zN9bdALTiWSC3SmnqYdWaq7DD63YKWFWi7k70QEPobMor93CoUUTdUBsgl0do=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkkwmY7ko5fcRgJGRSHvH6Au7J1jAbmcojYv31aSge+2LA6zrT
-	IL25GZiIJrDKU3DNDEwwtxOweS/eNuwLbmBhaGvmysEq64D7dRQxiaS7
-X-Gm-Gg: AYBFou3ScTIehk/sxsrgbt5JwvqfSwCL4OZV36KgHNftfuC7obw8JeyFf0DGxD+mle1
-	/do60Y+2LhBt1pUUpyKdvtqeM7sazshLoeFxZstBG+uTQXGSHd6fSNwcTALAKADZDebWaPIvTze
-	1jp/+oBO5Zf1H5L3ncBboo7J+R8hMll7rm3e3a5+h1dsJxPzu52N84eAJU0k9g3QWft3gVBUQ/a
-	cPDqvBwU98xdnZDvaeMySOSOYpfU4lCuhVKYieMvCgRf7M2pl0+Tu3rYlmoOKZkBoESB/VOdT7Y
-	54/qcMYEJZSnm7ao8e1U8NtMi03Pe9IYuCIkgUuh6p4QRgWfMoTRls1XHqbwHwWFRzrnJgt9ZGC
-	/aAWZ9i618FSYZmL60qUv0O7lssRHOenkynFIzul7yoZcQejQwTcLaQjeyVyxTbByD4R6+CO91H
-	cfAtsOGejLvKVjEwnuYNFebRMNuL7Y2gU/ISAB79zADfDbHAMEt0jhTWkjKNcw0oCLusSjLTNdE
-	z5DbqHd/Pb9qXbWgiDY+qWSRfyTzc66TGk=
-X-Received: by 2002:a05:7301:6404:b0:360:f13a:ff0e with SMTP id 5a478bee46e88-361a1b539f1mr10748987eec.23.1792403039178;
-        Mon, 19 Oct 2026 02:43:59 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607bc950f9sm34370074eec.0.2026.10.19.02.43.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:43:58 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yaoyiqi3@huawei.com,
-	Yao Yiqi <yyaqia@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 3/3] fbcon: Retry rotated font allocation after failure
-Date: Mon, 19 Oct 2026 17:43:31 +0800
-Message-ID: <20261019094331.1128871-4-yyaqia@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019094331.1128871-1-yyaqia@gmail.com>
-References: <20261019094331.1128871-1-yyaqia@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BMaBccpM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=e0QRKXqseSbnwv/jNw0BZs0Ci0ks6UPUvoTzc0mkA6U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792403060; v=1; x=1793007860;
+ b=BMaBccpMv3NMSDT1Bd0lgqkLZ9Hcw/VNr3PvN7xr/D9ixiZf51Ma/Yu9HoJmC/dNLPaqTC0n
+ hQDkxRFL1nMlfQuW0pXCk2oH2Mw7jP5U1GRu1G6aKNVcn9wtPl2clD1vIu6ESSEw8BkSg7ndplj
+ fSgChnF961fWYeln4MxeG+Ec=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 51b1cea30dcf2afa;
+	Mon, 19 Oct 2026 09:44:20 +0000
+X-Mizu-Trace-ID: 51b1cea30dcf2afa
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8f67b745-d63f-4d3f-9672-7bad7ce0e436@linux.dev>
+Date: Mon, 19 Oct 2026 17:44:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
+ cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
+ linux-kselftest@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>,
+ ameryhung@gmail.com, alexei.starovoitov@gmail.com
+Subject: Re: [RFC PATCH v10 3/4] blk-iocost: add iocost_ioc_tick tracepoint
+ for per-period device summary
+To: Tejun Heo <tj@kernel.org>
+References: <20261003124045.1289305-1-cui.tao@linux.dev>
+ <20261003124045.1289305-4-cui.tao@linux.dev>
+ <b76b821edba101b68f085f03e8613d7c@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <b76b821edba101b68f085f03e8613d7c@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+Hello Tejun,
 
-fbcon_rotate_font() records the font, its geometry and the rotation in
-par->rotated before calling font_data_rotate(). If the allocation
-fails, the error path clears par->rotated.buf, but the recorded key
-already looks up to date, so the next call takes the early-out and
-never retries. The rotated putcs/cursor ops keep returning early on
-the NULL buffer, and the console stays blank even after memory is
-available again.
+在 2026/10/17 01:49, Tejun Heo 写道:
+> Hello, Tao.
+> 
+> On Sat, 03 Oct 2026 20:40:44 +0800, Tao Cui wrote:
+>> + * Periodic per-device summary, emitted once per period from the tail of
+>> + * ioc_timer_fn().  Unlike the state-change events above, this fires every
+> 
+> The event is emitted before the vrate adjustment and the period
+> transition, not from the tail.
+> 
+Updated both the commit message and the comment to say that the event
+is emitted before the vrate adjustment and the period transition.
 
-Also test par->rotated.buf in the early-out, so a failed allocation
-is retried on the next call: at the next fbcon_switch(),
-fbcon_modechanged() or font change.
+>> +		/* whether the controller still has active iocgs */
+>> +		__field(int, running)
+> 
+> nr_active counts every entry on ioc->active_iocgs, and ioc->lock is held
+> from the count to the emit point, so running always equals active != 0.
+> Maybe drop the field?
+> 
+Dropped, along with the printk column and the corresponding commit
+message paragraph. With the lock held across the count and the
+tracepoint emission, it always equals active != 0, so it carries no
+additional information.
 
-Fixes: e4ef723d8975 ("fbcon: Avoid OOB font access if console rotation fails")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
- drivers/video/fbdev/core/fbcon_rotate.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Thanks,
+Tao
 
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 660a3fa81bae..7afd63dcee7b 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -25,7 +25,8 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 	    par->rotate == par->rotated.buf_rotate &&
- 	    vc->vc_font.width == par->rotated.buf_width &&
- 	    vc->vc_font.height == par->rotated.buf_height &&
--	    vc->vc_font.charcount == par->rotated.buf_charcount)
-+	    vc->vc_font.charcount == par->rotated.buf_charcount &&
-+	    par->rotated.buf)
- 		return 0;
- 
- 	par->rotated.fontdata = par->p->fontdata;
--- 
-2.56.0
+> Thanks.
+> 
 
