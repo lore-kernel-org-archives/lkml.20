@@ -1,75 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BD8304BB3;
-	Mon, 19 Oct 2026 02:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0435304BB3
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:36:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792377304; cv=none; b=dweLtjSZN6/kYWPPJeGJj2sOey2Kz/lvG7TCkO5IKuN4nOzC6SEpnNc5qPP79rClQapWtKsSf/BU0d6W6gcMHWxnTNprq1eVIPI+gdyUBPsupOkV+XsfiaBkdWQ9SVM9VWkz/t3lM7k2Y+2lzSL2I5X8GjdJoRIwYRNlrrFHESU=
+	t=1792377377; cv=none; b=oKk2ZDdo3gXD0P/+t7grBLFOjnU3Sc4sKhgAm94oibkXwsnPkvh2BFrH7/NS4M51aNz0CMn55Xl++Yi/86Cq1MoWXHm7dwYX0Udl92h/oL/NTVUAKAXiYJ2sk1lIENnhs/MkaLRwvD1H+Wicb51dr/ejm00wVOVIUkH7hRUvHp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792377304; c=relaxed/simple;
-	bh=PtLsAFIbzhXPEzoAZGQ1BkiLSRrh0SAf+OswsfDD1JQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=fbNkUIA1bt+IMODT60N9X3Y/eFnaEhzcfxN5+FdCsJJudoUyVSGBgK9wD86m9C9FzoFAO2hAvMq82y0wvRMmfxZGnLp2HvP/azBp5y3E5KjzbjPy7Jt4zB5/WARxRBuc5+uH9XczyYtNuwjLLL56dVuktmxmsdiUx2I8ZzkbezY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYqXsM7+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792377377; c=relaxed/simple;
+	bh=iNt0kPYsw7dxBfWIAxR3gPDhzaBRX1UrKHotWnU2Dwg=;
+	h=Date:Message-Id:Subject:References:To:Cc:From:Mime-Version:
+	 Content-Type:In-Reply-To; b=k9STO7OBJtNVi7dHX8qXhIujuR331U0wqX76zLgHxVF9RCzPwjpocjZpBdz/ddLWLlIo+Y+xQNqosvJrg261wIX6+Fa0f17Vl7h/KdkXSnB3e+t3ZXu47qYZnTVxQvGt40GjatziaTd3RE0OvzguSHbadzEqXnWAGpZVrW+AvCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jFsG5Apj; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYqXsM7+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3116E1F000C4;
-	Mon, 19 Oct 2026 02:35:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792377303;
-	bh=nrGPZw+YS9GgLAct5o3md99BWmYfrWJMf0gQeeDtUrM=;
-	h=Date:From:To:Cc:Subject;
-	b=JYqXsM7+yoUQZLmmpofUjYnDYa8TzIVno0ipmuVAuiKRbWGAfl593Fc5A9SOpF5WZ
-	 vaIUo2dFtHCs+XLR6k7bDiSrOys4HLG4NHx7LY3X2RfSwB5YPAMH+Ov+WgUN+Ea+Mo
-	 J/SDRaXYkDdxP+EPJCIiAIxuTbc9NAYo/nCulUwQycWXBj0K2vbhh3Qh4ChEu03grz
-	 +wDwUyyHk/KzocfzEE1xS900NYJQ9pewJ5kUwQONbbGUWCvPx9B2jV5Fv+WRQtLaUs
-	 3zFuZ9aa5I6vNWVvCTOdrhObShbUFQAuDV1dm2J7rT9G+L8swSbLsAevnqEg0a/tsI
-	 ZKmWIRPqUWwMw==
-Date: Sun, 18 Oct 2026 19:35:01 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-fscrypt@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
-	Jaegeuk Kim <jaegeuk@kernel.org>
-Subject: [GIT PULL] fscrypt updates for 7.4
-Message-ID: <20261019023501.GB3270@sol>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jFsG5Apj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792377362; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=PHriPCstg+i0z+ONxMg+lO4AK2AiTlrmJeaS1ABljFU=;
+ b=jFsG5ApjPDMjlMerIak1gTsjH8Eh7KCWxr9n74b75FE1A0K75zzGnmoWz0MichRc0kzFrT
+ YTp0OAZS3y+bEHYdukgizOWqgMVZx0FY2XQrFeHWeUXilW0IWyRBncXp58wrGdF4Q4597k
+ x6llivluwdsjC+EqdUoTLIxmx+yGMhIWGBxHb5SVC/g/b6PfyeAyu0vJAYl3i1LA6wb9lw
+ gzNYMG1IzxokfaOiZBXlpvL7jpA4S+r6gtwNFfU1m4+1L310TDVzOLqNn6UoQ5cwgLc2sK
+ dJTmW5mVYMp3yn+u6vaYtKMTXfAZ5UfLkTgLEpOoqZCvhWWwG8Ta4mOaws+ZdA==
+Date: Mon, 19 Oct 2026 10:35:44 +0800
+Message-Id: <b80c0fd0-498b-4c6c-93df-acee59d2be85@bytedance.com>
+X-Lms-Return-Path: <lba+26ad58210+1d7611+vger.kernel.org+zhaogongyi@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: ptrace: don't warn on missing siginfo in a group-stop
+References: <20261016024536.18938-1-zhaogongyi@bytedance.com> <atHHttWKtnKHJnVQ@redhat.com>
+To: "Oleg Nesterov" <oleg@redhat.com>
+Cc: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>, 
+	<ruanjinjie@huawei.com>, <linux-arm-kernel@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <atHHttWKtnKHJnVQ@redhat.com>
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
 
-The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
+On 10/16/26 2:44 PM, Oleg Nesterov wrote:
+> On 10/16, Zhao Gongyi wrote:
+>>
+>> --- a/arch/arm64/kernel/ptrace.c
+>> +++ b/arch/arm64/kernel/ptrace.c
+>> @@ -573,9 +573,11 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
+>>   	if (regs->syscallno == NO_SYSCALL)
+>>   		return;
+>>   
+>> -	/* We should only be called when target is in a ptrace stop */
+>> -	if (WARN_ON_ONCE(!info))
+>> +	/* Only non-seized group-stops lack siginfo (see do_jobctl_trap()). */
+>> +	if (!info) {
+>> +		WARN_ON_ONCE(target->ptrace & PT_SEIZED);
+>>   		return;
+>> +	}
+> 
+> Perhaps we can simply remove this WARN_ON_ONCE?
+> 
+> Oleg.
+> 
+> --- x/arch/arm64/kernel/ptrace.c
+> +++ x/arch/arm64/kernel/ptrace.c
+> @@ -573,10 +573,6 @@ static void update_syscall_orig_x0_after
+>   	if (regs->syscallno == NO_SYSCALL)
+>   		return;
+>   
+> -	/* We should only be called when target is in a ptrace stop */
+> -	if (WARN_ON_ONCE(!info))
+> -		return;
+> -
+>   	/*
+>   	 * For compat tasks, orig_r0 is provided directly through GPR index
+>   	 * 17.
+> @@ -588,7 +584,7 @@ static void update_syscall_orig_x0_after
+>   	 * Don't update orig_x0 for a syscall-exit-stop, as x0 now contains the
+>   	 * return value of the system call.
+>   	 */
+> -	if ((info->si_code & ~0x80) == SIGTRAP &&
+> +	if (info && info->si_code == (SIGTRAP | 0x80) &&
+>   	    target->ptrace_message == PTRACE_EVENTMSG_SYSCALL_EXIT) {
+>   		return;
+>   	}
 
-  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
+Hi Oleg,
 
-are available in the Git repository at:
+Thanks. I agree that we can remove WARN_ON_ONCE() and allow the
+orig_x0 update when last_siginfo is NULL.
 
-  https://git.kernel.org/pub/scm/fs/fscrypt/linux.git tags/fscrypt-for-linus
+I tested syscall-exit-stops on an arm64 7.3.0-rc6-syz kernel with and
+without PTRACE_O_TRACESYSGOOD. In both cases, ptrace_message was
+PTRACE_EVENTMSG_SYSCALL_EXIT, and an NT_PRSTATUS write succeeded.
+The observed si_code values were:
 
-for you to fetch changes up to a63883d2c3d47ce6d41918c2453a4513b921eaaa:
+   without PTRACE_O_TRACESYSGOOD: SIGTRAP        (5)
+   with    PTRACE_O_TRACESYSGOOD: SIGTRAP | 0x80 (133)
 
-  MAINTAINERS: List the fscrypt branches (2026-09-25 13:40:21 -0700)
+There were no kernel warnings. With the proposed equality check, the
+syscall-exit-stop without PTRACE_O_TRACESYSGOOD would fall through and
+update orig_x0 from x0, which contains the syscall return value at
+that stop.
 
-----------------------------------------------------------------
+I think we should retain the check for both si_code values, while
+guarding the dereference:
 
-A few minor cleanups for fs/crypto/.
+         if (info && (info->si_code & ~0x80) == SIGTRAP &&
+             target->ptrace_message == PTRACE_EVENTMSG_SYSCALL_EXIT)
+                 return;
 
-----------------------------------------------------------------
-Eric Biggers (3):
-      fscrypt: Use aes_ecb_encrypt() for v1 key derivation
-      fscrypt: Move several items from fscrypt_private.h to .c files
-      MAINTAINERS: List the fscrypt branches
+I'll send a revised patch with the warning removed and this condition.
 
- MAINTAINERS                 |  3 ++-
- fs/crypto/Kconfig           |  2 +-
- fs/crypto/crypto.c          |  5 +++++
- fs/crypto/fscrypt_private.h | 27 ---------------------------
- fs/crypto/hooks.c           |  9 +++++++++
- fs/crypto/keyring.c         | 13 +++++++++++++
- fs/crypto/keysetup_v1.c     |  5 ++---
- 7 files changed, 32 insertions(+), 32 deletions(-)
+Thanks,
+Gongyi
