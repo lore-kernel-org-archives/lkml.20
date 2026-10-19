@@ -1,170 +1,173 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB564AD7FA;
-	Mon, 19 Oct 2026 09:58:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133704B8273
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403902; cv=none; b=Ub8DBeiVqtF1Lh0dt5Q+k7F4j3DAjX27XqDrsqiy6TbOiuRT1rCeJQmbtgBjbZNIC4oQDv9XbmJinOV0oieTxvhxu1BC3eVorFv/JEiJEgY0lQC07SihyrgkeiLhuhq2OPnQ7HJXbyP7cTFubdf5NMuCNZ8qpOW3kSdylonR26E=
+	t=1792403910; cv=none; b=dhCtkAa0E7emS0qbd0oJ3mdPuMrPDUpt/SwFwMBB9NfuUzLcNcAZc7uA3weWdIb1UdCr/jHQGs1V9m8TLbe3voXn94QNKC05QCAdkMH/6CRA/Yl7izf1xcAY0W5BL6qCtoZd1hjExNOjpxNY9bFSNgkcSA1UIHUXSBUCap+xnxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403902; c=relaxed/simple;
-	bh=ZMWYvtNBqX3sK4rMewAJOYsR6Edetbdl7u7iNcPOyoo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fpRJaDeve3kaWaiChKyy64G0QzfvCrhwAVC8QIA2VCnDFQgCCHJDxHoBjv68oo5d7P8+8RAgnTzPNU25N63fX4MwJaXIjkELxztHr7he54tCOYYBBJ/OYlWL25HHOqmybzWQFbl9K5ChtsF76vydiWwsJh2pkLQVWsQ54gGy2HQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=MfgXCsHQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=glrSYx/F; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=MfgXCsHQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=glrSYx/F; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1792403910; c=relaxed/simple;
+	bh=eGAF2rlwQq8vrlYsNjNO5wZQgv0NDo73dHPMv/EUZMA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FDsIsmicvBABsX0pSBMuvR8gnoX3jUQM5JRSz11zJKRkPmwAHT7+/Gsb19UTTPUSxfmKj+WbmL2x324FVWPzZpx7dpJ2UFq+4ChjK4vDC4gpsbJFzAT/YHEXsiuD/wT0uOdC9Tr4WqWYaikUDG0r9tZAYKjZfp+BqATl+J3ar40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=ESeQ7N44; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MfgXCsHQ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="glrSYx/F";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MfgXCsHQ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="glrSYx/F"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id F395F21BBF;
-	Mon, 19 Oct 2026 09:58:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792403898; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5yt5dSW0F7NM0MAAicExNOVH+ycgQuyjXq4u5nVYNKE=;
-	b=MfgXCsHQnDY5AvZn/ibiPn3cyADOxR4QCIfp7d0+2/bKOJMKHBv0vV5hOrczLUIeuzlokr
-	fzb+HVpmRr14w2/0pzNScto0MBHX+4l5c5dyDc1rL36gircsPxFWwujDJX6ATTBQwPaAT+
-	5/A5MrIQ3KPxZ0OU6KfOBH3ysPWMypU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792403898;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5yt5dSW0F7NM0MAAicExNOVH+ycgQuyjXq4u5nVYNKE=;
-	b=glrSYx/FLaEm46Gg4hoomrP3DVB8p/lOY7dARts4AuKDGaCs6DfjmWvDQtcW+vuvZGe4rQ
-	+mUQqqoNiQOi0CBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792403898; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5yt5dSW0F7NM0MAAicExNOVH+ycgQuyjXq4u5nVYNKE=;
-	b=MfgXCsHQnDY5AvZn/ibiPn3cyADOxR4QCIfp7d0+2/bKOJMKHBv0vV5hOrczLUIeuzlokr
-	fzb+HVpmRr14w2/0pzNScto0MBHX+4l5c5dyDc1rL36gircsPxFWwujDJX6ATTBQwPaAT+
-	5/A5MrIQ3KPxZ0OU6KfOBH3ysPWMypU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792403898;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5yt5dSW0F7NM0MAAicExNOVH+ycgQuyjXq4u5nVYNKE=;
-	b=glrSYx/FLaEm46Gg4hoomrP3DVB8p/lOY7dARts4AuKDGaCs6DfjmWvDQtcW+vuvZGe4rQ
-	+mUQqqoNiQOi0CBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C89761375D;
-	Mon, 19 Oct 2026 09:58:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id B1M3Krnp1WpoQAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 09:58:17 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 605BBA1413; Mon, 19 Oct 2026 11:58:17 +0200 (CEST)
-Date: Mon, 19 Oct 2026 11:58:17 +0200
-From: Jan Kara <jack@suse.cz>
-To: guolingxing <guolingxing@tju.edu.cn>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: report unwritten extent conversion failures as
- writeback errors
-Message-ID: <sclc7h74z7nwfwnx2r62svytfaxquxws5chnopgryh2lpwqqd2@twxuiugbudw2>
-References: <20261015102943.74632-1-guolingxing@tju.edu.cn>
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="ESeQ7N44"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso15175645e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:58:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1792403906; x=1793008706; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fFxY6AoLFrbUivYUuQNWjKVo2lafGDyB/yJV4/e5rAo=;
+        b=ESeQ7N44rAVadcdww7HKi34BCvlPvJ/WBrGpGgngLuTG42gBx+5SPVgNliJCBwVa4O
+         89pbHujG+82jsPLRW7e6r5be8yk46hvYDk0tv1axYFUA1ZZY+BApLEC48R9folA95uyD
+         p4wQk7ELbE6xscICda7ygBfuARyOq2F9qA9BYJF6BiBYhHDZMXGOdb0kTu7GG7vA1aQP
+         xgB+LlgcxdDTyfWqcGIvoYBxbvy3tNrcuEuYIPJXlzvXQNt5ESBkbfzAeuuJvINFNO6L
+         oHzHLx8+PNECXfQpuyaHL6zgnSdnKq5axW9zGDie8Cs5UqIzV8e0F3M0ab5pySmr/nVE
+         WiDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792403906; x=1793008706;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fFxY6AoLFrbUivYUuQNWjKVo2lafGDyB/yJV4/e5rAo=;
+        b=InCUoraqGY4YdoMmBXiGroGdjMlwuc5OVaOHZ5oIjhxPCuVD9s1qqjwNKmlI8V2RUU
+         pxCuauf01FK3iBEFPjC3CpNW2fYAZxMTdPieMDS4wr3i8s6eBNx3/h6i5Lf/SO61GefI
+         ALutZL8jblcHLTy8903sDKUf+AUO6IQc1lU+VJU65RBi0so4jrKdjfuiQh7/9xaC1n3T
+         RJqhfj3D9I1iZDuu/EB6HE8WkGmyngJ4cQ3647cn2ZFMlDh/XvZznBMS28HtGmFW5yzg
+         NlafkDRdZxngDNAvUwScITZ6OzfGs5g8iQIji8S+/NLDB4oDCdn7jtMOrWLPli4mhl03
+         vxTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwmWYQixQ0RFbBtL3fwLWdUFXdlKnlyMWDgB5VCbt4vGW4nK/cVzKv+3OER9YLtDp4cIrbCfr2e+NyARL4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJuaOALEtro9jiIOSPjKeLJWObPrn5jC1A3g02tcsHNqXFKzIpg
+	Bd98AujxHXrcXc0MStSL1K82EkSEwBK4tL5SQI1o+2TXOx4p0TloA9mSXyCi7T8+Bey6IEzZjg2
+	bF9rv
+X-Gm-Gg: AYBFou2RtrJf/YrI/SyIWxSeLM5ofCF/yP3BGqa00D3/PqXcmUhGvOgQEzwpFYwzCvu
+	XgqHIeQoPKeWnfq+BnmpZINndZspkWPXokgKppwiZSqYpBK3l/GAhOGRegf5xaQ6NNwCWnfUlBM
+	XuWFoW4bAvafEMsdplgO1l+T0SUqCqVLbu7xWU4JX1FjnYI8r76vMRdt1z9S8vv4MQSGwVbg2RR
+	8YfJV/Rsv3T6gtesSJbMi5OuUPCs2TDuUyOopQzjG86sV39JnEtoH8mi+POCDmp2ESBRAOPJoJ9
+	lcLSenwFMaPdldpAUJcFzCwjT/Bwl+aejQSFzQjthD0eiv3uE/twiojU64fSMslw2sC3LAD/YgG
+	pd0kcaAfCYAs/vxX5iyAH4GjmL1diYLMBfg0devdFoBuUZoO0Ol1we1PkDw4jL7/RgPvcPBLQnc
+	YmGIWQ6TFYOes/WCRASCubT2uypk358YnRi8dZdiHsSdrGj7nvioL0MQefLciqgURuEksomaCy1
+	xh0HKc=
+X-Received: by 2002:a05:600c:540f:b0:4a1:97c6:d2e8 with SMTP id 5b1f17b1804b1-4a1d7633b35mr152802705e9.32.1792403906248;
+        Mon, 19 Oct 2026 02:58:26 -0700 (PDT)
+Received: from [192.168.50.4] ([82.78.167.221])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cdf2f0d1sm156663265e9.2.2026.10.19.02.58.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 02:58:25 -0700 (PDT)
+Message-ID: <4a9e32a8-8a2e-4b70-8057-2d51e6d38b98@tuxon.dev>
+Date: Mon, 19 Oct 2026 12:58:24 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015102943.74632-1-guolingxing@tju.edu.cn>
-X-Spam-Flag: NO
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	URIBL_BLOCKED(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email,tju.edu.cn:email];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email,imap1.dmz-prg2.suse.org:helo]
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
+ sourced from fck
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+ biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com,
+ linux-can@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
+ <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
+ <69826962-0c21-4616-9cd8-6eb0478a422b@tuxon.dev>
+ <20261017-weightless-poetic-mayfly-bbdf75-mkl@pengutronix.de>
+Content-Language: en-US
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <20261017-weightless-poetic-mayfly-bbdf75-mkl@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu 15-10-26 10:29:43, guolingxing wrote:
-> When a data writeback bio completes successfully but the subsequent
-> unwritten extent conversion fails, ext4_end_io_end() does not record
-> the error in the inode's mapping writeback error state.
-> 
-> Bio failures are already recorded by ext4_end_bio(), but conversion
-> failures are not. When the conversion is processed asynchronously,
-> its return value is not propagated to userspace, so fsync() may
-> return success despite the failed conversion.
-> 
-> Record conversion errors with mapping_set_error() before
-> ext4_release_io_end() ends folio writeback and wakes waiters. This
-> allows fsync() to observe the failure.
-> 
-> Fixes: b82e384c7bb9 ("ext4: optimize locking for end_io extent conversion")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+Hi, Mark,
 
-I don't think the Fixes tag is correct. Even before b82e384c7bb9 we seem to
-have been dropping the error on the floor. But otherwise feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  fs/ext4/page-io.c | 2 ++
->  1 file changed, 2 insertions(+)
+On 10/17/26 23:01, Marc Kleine-Budde wrote:
+>>>>    /* Helper functions */
+>>>> @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platform_device *pdev)
+>>>>    	 */
+>>>>    	gpriv->can_clk = devm_clk_get(dev, "can_clk");
+>>>>    	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
+>>>               ^^^^^^^^^^^^^^^^^^^^^
+>>>
+>>> As sashiko.dev [1] pointed out here's no check for -EPROBE_DEFER.
+>> This looks to me a pre-existing issue.
+>>
+>> The newly added support does:
+>>
+>> fcan_freq = clk_get_rate(gpriv->clkp);
+>>
+>> At the time this is executed the clkp was already checked against any errors
+>                                     ^^^^
+>> (above) including -EPROBE_DEFER.
+> It's not about "clkp".
 > 
-> diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
-> index 0236b6b9785a..2afa4c096156 100644
-> --- a/fs/ext4/page-io.c
-> +++ b/fs/ext4/page-io.c
-> @@ -189,6 +189,8 @@ static int ext4_end_io_end(ext4_io_end_t *io_end)
->  			jbd2_journal_abort(EXT4_SB(sb)->s_journal, ret);
->  	} else {
->  		ret = ext4_convert_unwritten_io_end_vec(handle, io_end);
-> +		if (ret < 0)
-> +			mapping_set_error(inode->i_mapping, ret);
->  	}
->  	if (ret < 0 && !ext4_emergency_state(sb) &&
->  	    io_end->flag & EXT4_IO_END_UNWRITTEN) {
-> -- 
-> 2.34.1
+> What's missing is, that "gpriv->can_clk" is checked against IS_ERR():
 > 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>>>>    	gpriv->can_clk = devm_clk_get(dev, "can_clk");
+>>>>    	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
+> but if it's a -EPROBE_DEFER, IS_ERR() returns true. I think in this case
+> you want to return with dev_err_probe().
+> 
+> There's also a difference between "can_clk" not found (e.g. not
+> configured in DT), and there was a problem with "can_clk". I don't know
+> if this is important for this driver, but if you want to distinguish
+> between those, you can use devm_clk_get_optional(). I will return NULL
+> if the clock is not found, -EPROBE_DEFER if not available yet, the clock
+> or, in case of an error -errno.
+> 
+> Thinking about it: if "can_clk" is not available, I would consider it
+> intentional, so the driver should use the other clock. If the clock has
+> an error, the driver should not fallback to a probably untested clock
+> configuration.
+
+         /* fCAN clock: Pick External clock. If not available fallback to
+          * CANFD clock
+          */
+         gpriv->can_clk = devm_clk_get(dev, "can_clk");
+         if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
+
+Based on the comment on this code "If not available fallback to CANFD clock"
+I think the intention with IS_ERR() is to allow probing go forward, falling back 
+to CANFD clock, in case of any error of devm_clk_get().
+
+The device trees that I've checked sets the can_clk to a fixed clock with rate = 
+0 or have the clock provided directly by the SoC clock provider. I think the 
+intention with IS_ERR() was not only for -ENOENT but for any other kind of 
+errors. We can return in case of -EPROBE_DEFER, to ensure the expected clock is 
+used, when it's available and sane.
+
+I'll switch to something like:
+
+  gpriv->can_clk = devm_clk_get(&pdev->dev, "can_clk");
++if (ERR_PTR(gpriv->can_clk) == -EPROBE_DEFER)
++	return dev_err_ptr(dev, ...);
+
+The devm_clk_get_optional() would involve changing more lines:
+
+-       gpriv->can_clk = devm_clk_get(dev, "can_clk");
+-       if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
++       gpriv->can_clk = devm_clk_get_optional(dev, "can_clk");
++       if (ERR_PTR(gpriv->can_clk) == -EPROBE_DEFER)
++               return dev_err_probe(dev, -EPROBE_DEFER, "cannot get can_clk");
++
++       if (IS_ERR_OR_NULL(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
+                 gpriv->can_clk = devm_clk_get(dev, "canfd");
+                 if (IS_ERR(gpriv->can_clk))
+                         return dev_err_probe(dev, PTR_ERR(gpriv->can_clk),
+
+Please let me know otherwise.
+
+Thank you,
+Claudiu
