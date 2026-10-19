@@ -1,191 +1,342 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F09334EF0D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:05:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6D94DDB40;
+	Mon, 19 Oct 2026 11:05:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407918; cv=pass; b=ueGMbRYNMvEjp5g0fsO8QnaZMdw3UKVdt269OvFKnvib2bkVucbKNcpzRz+dbA12wYPF3VLIPFj+/zLa3oDUy+SEHW1xYJV699SH8ArmC4HMns2jlFZAe7sov8z72wpJt1H0xYqag/0ztDzO4QVyVOTxPQAuEOou/aFFrsGWESw=
+	t=1792407921; cv=fail; b=pjWcSezoChyhDeBVgdRwDilxnUp3wxeZvGkI3PUIgVqEhdsEvFCuM8P0ylafxsLhkiQkeE2YHf4uPD/nO0bS5cLO5VD0UUqKr3kVbKl9zN15/6/fcYAsI7a6jWgplLah8Lhf5r2jxg1fitTpAH0K6ydhpb3LMxR1PEZK1jWCC0k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407918; c=relaxed/simple;
-	bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OQcXrn1qnURFct5p7++AXrDEZpDPuS1Ow9wClP+dU+/jHL5URg8EK0vcj64pIRMz3YRHc5zEP3BNT+34I3SlUQ9q2CdaZDKva5tif1PuOyDisiA4HWG65wR78bksR/0IkRFCk7kzFwiGTAGjhxZreU4KQYqK8N38RK7flDhKaAM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FNjPQxbO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=geRI3HiD; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792407921; c=relaxed/simple;
+	bh=akGKjU8Zj6IEFySpM52wqWvNxxxupPi/5liwSvCUXdk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KhyneCmZzec5r6mLVyYdYGFJC8L7SzCRMiYxZoiJlTw25w/g3lZfkfe5Pf85GYp547OGmkQoltlUoK73iYtZ0WHPY7lCPmHl8pbEEUqxyLzCIZebGRl9mN1xSR1dCBm02M59OWEY4Pp/gj8EEEkrjqZT2FLlrZczMgdDSZpnOeA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QvY+v5qM; arc=fail smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FNjPQxbO";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="geRI3HiD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792407916;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
-	b=FNjPQxbObIEiNNgDb7Fvpowbq5FC7pHoy/zaOCYee0MZle3Gd5/ZK/9qqz4Rt0EK3icg5v
-	QcHKeGNnQd2uF2yXFHOiCTuH+y3SSVq+5aCR/OUW0GrR4YgD1cpwSN42UTJgVIaeO18DaR
-	3fifRQ/GPrxiTEI4MlpeBvXWhUFOwbA=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-438-UZtPHrZNPSud10s8vu2MKA-1; Mon, 19 Oct 2026 11:05:14 +0000
-X-MC-Unique: UZtPHrZNPSud10s8vu2MKA-1
-X-Mimecast-MFC-AGG-ID: UZtPHrZNPSud10s8vu2MKA_1792407914
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c2942fa0995so201649766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:05:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792407913; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sPythCqJHrwQU7MCLabNIPCitmt2DxtlpNakv9oAIv2PHOp79yJY1U0f6DNVL6PtLz
-         WdWNcYxQIB1SX5OvFqgy75G9er7SuP/W66o1w3gvlHmOIO4bPeRMZf5y95ZEBDvZbDLu
-         8ibly+GulLr3U/o4n3p8hx9p57gg1iWUx1VgeWMuZKgqC5nABY9Mkcp/ENVd0vhRPdYZ
-         gV/wpUTU9XOm6qiiTldaN3Jk36/Lg7uwPAsbv4upTBHVLryFsIH/bW6xASq6chjPns4b
-         PnQvw4pD0u/k0lAmzfO/rQyOupCznjgBqpAXOoRJknNw6gjAztFSrdnFiuVY0hRnIUhO
-         jf+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
-        fh=ppQqlwkeQpuO/HzxpSGYZyFJQWc6DQYr6fgCMvGWYaQ=;
-        b=NUzmu6+a4+RDmXHX3yMX4606LFuDx+9D8NSM6ATIzdvNPccq1ypc2hSwynsiuuZxCN
-         Civ7DyQtz5kapJbMMWM6oDP1ywwblXyO7ulHPn+X4ILeEKmbi13zg/i10GymMOAvYf/R
-         4rXBFQgyyq+gDbSrQjKHUtun3sVsRILktmK726S7Iiu1ts+L/LjKfEblRIUWx0clSol9
-         iySO+Qx16DsIvyHG8u00iWS3QqDuOKwToyvyrHj2PDO1TbQVQ3Tw3dD7ocQza19TuZpN
-         6xr7x0exDKj5pIjf3sx9MFrr4Pguw9fgqC6DEsONaDb6tr+MvJCqJXhhfDYtQ3LXi/qw
-         Fjnw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792407913; x=1793012713; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
-        b=geRI3HiDu8eTv4KC5DstoODWBQ49w+VMd4t/i3oQgixi/IYesvGY3BPCMw7N2NeLYL
-         RILSQvce52d5fvzD560ObcbnvARiW4O4UOvUpTos+ya2NwxcnIOGh061WypWWMDHKFbC
-         s02mpac0xvPaIIL6FMFAe2KLYEcvfGKUHIUER1JnxTyxG0iX52pkFku+weTLH3xBBe2m
-         tGRaNIjmfMpklxofrvAKXx92VuJRDRx7DkpDgaFiYF20t2Py0cIOQmwZLqfhKEKZQNgs
-         CVMYgBew3kpig1MBBDNXAlI9VIgDo5AXgM+wszv5t17nnLFWD60FfpU++ZeJezw8+3Y0
-         sJZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792407913; x=1793012713;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
-        b=UnZbitntd+MOfOZpYG5gNqbI40DNOHjTHK87ozkDxsficn7JnhhgNLFRq6f3sp859Q
-         uHYjbZgO8HZcjHSiXJAH2P/aIsLzqrAkO6aaNcZ41rjHqrG9uAaCUeVok64wgvtDtz9j
-         1droU5TlvVP8jWg+GpuGbfEFTdHAj/sAJEyJJITD1yZOqY46kKvZBkZViAlgVrEwe3SY
-         latOzyXPQZLnP0MPJYnn/kcqyUe4kfQyI4eYo0KdcaBdMghWyITpkJLn415MzDRdwJZp
-         Bxdy6f8jw/BKcTtlObRsoFN5HazinIjpskr4iDBah7235pNZOnPnj0TzYz9iJogalgu5
-         6qZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwe5zsyASRbHFLEy1faDMBqUgrZyfOuMxGHmPd/OJcsg4EbPkwzT1CssA1ReDEjKIv5J9MrSPO5wz6H0cU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIx1y2psiI4JUuaQWtr2DTxbSSqN5vJyTdzBmfZnEKX0Glsriw5
-	FZ5IfmaIekihzEz/eEugUdXIp5eVyx3TN87X3S4Ttbh5y4IcZOsAR/cjAnBxC8OVPyltqgvBVIw
-	G4gWZSYdChncVzkNraMovakOi8m/Rwj9awbefiPAl/h0b8zy3uXFgpQs03UwlLEgJ78BPH8i5v+
-	zb9ftFo9nkoK7BNxES23oasLMw3CKbgNKBbqyPOAtF
-X-Gm-Gg: AYBFou08icj/IsJzyoC6yigZsnhBH0wZGjrafndX5DHf3g48Fk0dIRuem61mbMJ04Ks
-	fevHSAXYRI8fNOjqvTpv5ndYZj0r9W0DiHNE8mk+EqLVySb8OKq4wc1BT4sImq+uRM1Unq/ZOyQ
-	j6dRWGvq08DPW1tmG92RMiM5sEnp6dDXGCM3xzfoe536jTQqBZiiG3HjtQAxzCZ0qAMoay+dLNK
-	6NlyQMnMW2oqIg=
-X-Received: by 2002:a17:906:9f86:b0:c19:45e3:2f57 with SMTP id a640c23a62f3a-c419d83af46mr514031266b.9.1792407913530;
-        Mon, 19 Oct 2026 04:05:13 -0700 (PDT)
-X-Received: by 2002:a17:906:9f86:b0:c19:45e3:2f57 with SMTP id
- a640c23a62f3a-c419d83af46mr514028266b.9.1792407913081; Mon, 19 Oct 2026
- 04:05:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QvY+v5qM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792407919; x=1823943919;
+  h=date:from:to:cc:subject:message-id:reply-to:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=akGKjU8Zj6IEFySpM52wqWvNxxxupPi/5liwSvCUXdk=;
+  b=QvY+v5qMoI2DMzof+dd7hg1QtrtvW6FSkk2GP6YtrERuHdBKG/De/zpi
+   J1Z1olg28OOsXQbq2QdNUPq1XiC0TMzcAikwoDC3MN00W1eMOuDQSjhzj
+   TQgFJ7kQU6V6AeXGUjeD2K0DtiLVwXUKBT+2UXDr47/kGGAX+sgXdqTlS
+   GmADGwAwkDcE2u04yjgVfZenYlro/bCUT/MU6o8ht+cM+PBDutW3SQxUD
+   TmdaI6lRzltciVDoZeboZcGJ2GbMkb64mPqMLmCdZjuta+eT+7LwM6ai9
+   gwtPmtUtIvLyaI4TCYkn/nxQl1+KY30M+iszo+YKWSsyKQrVUkpC8dub/
+   g==;
+X-CSE-ConnectionGUID: qEkcrYirRcuG6H7qjgDtWQ==
+X-CSE-MsgGUID: ojMEzOavSS+I6lW7NG93lQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1121468"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1121468"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:05:13 -0700
+X-CSE-ConnectionGUID: KzEVkCVRTw+573wfGkRchg==
+X-CSE-MsgGUID: P97SmXrYSsqAaZkstRHTcg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2486544"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:05:12 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 04:05:11 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 04:05:11 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.6) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 04:05:10 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KaFM0sYoHq5LoqYo9FeAtuQdEeZ0cUV2+iWi1dz/C4E0x+g29Z8drP+suWqmaml9VnAkVB04Ovjb5WBA+w56ddvQiOly+5Vm9K1Me5ESfHEJNRkauFEiApttn5L2JhJGq8JH2HeGU5yL36qWRGSt4r8SrjIDcwq3zdbSaHtXBT59C82OtBmIZLPkGIXvMIZSN+cF7n03Rpu1YxD6AwUgZEZ5+U6LmtzfK10bFMDDqZRBVgfvyrmDkbnKNxlwib684j09xf7Xag55pZBw3yLShKVHn7oZ6in38FqZHmC8BQoH654XC2z+NTJgBm1goRDc4UH7n1D1GsqVBxVCVFRBHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R2wBgoCKHeVAl/vhSVhtWQfLCtbdBNYvqbqalA+p7d4=;
+ b=IYiwAvxaSKWnOIHSmeToMLvznB3mzUL+Oaq5P3//3ON1uqI+UbzbgvIgb8755VTt8lAm/mw1FUQOE2xMP3KZzxqX/jGpvAoWmXonI4AC8XcLjZ6I2U8R+sPe+x3q8/6WKU3Mgxwlu6gaaMyYgJnE2e5nRW/a2w8KGN5GMjRFmrGQHzxriHM1RI0vgT68dRfA0qDJypKhjNJcjoPBW9UQ1B2LE3kfLiJpn2t8M9LZAuLDDKYEoJcGWYx3FnIMrmsREzeqplaYPZJeFH+dbmkNl+ApoWN0PwFTry4/YQRCiZcg7E4FN+M0gk465l920yvn3dUDtvo28Bo+hcnrxUfHEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL0PR11MB3236.namprd11.prod.outlook.com (2603:10b6:208:60::18)
+ by PHXPR11MB9688.namprd11.prod.outlook.com (2603:10b6:510:3ca::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Mon, 19 Oct
+ 2026 11:05:03 +0000
+Received: from BL0PR11MB3236.namprd11.prod.outlook.com
+ ([fe80::b026:a3ba:5162:beb2]) by BL0PR11MB3236.namprd11.prod.outlook.com
+ ([fe80::b026:a3ba:5162:beb2%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 11:05:03 +0000
+Date: Mon, 19 Oct 2026 19:04:06 +0800
+From: Yan Zhao <yan.y.zhao@intel.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+CC: "Du, Fan" <fan.du@intel.com>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+	"Huang, Kai" <kai.huang@intel.com>, "kvm@vger.kernel.org"
+	<kvm@vger.kernel.org>, "Hansen, Dave" <dave.hansen@intel.com>,
+	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "vbabka@suse.cz"
+	<vbabka@suse.cz>, "tabba@google.com" <tabba@google.com>, "david@kernel.org"
+	<david@kernel.org>, "kas@kernel.org" <kas@kernel.org>, "seanjc@google.com"
+	<seanjc@google.com>, "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>, "Peng, Chao P"
+	<chao.p.peng@intel.com>, "ackerleytng@google.com" <ackerleytng@google.com>,
+	"michael.roth@amd.com" <michael.roth@amd.com>, "nik.borisov@suse.com"
+	<nik.borisov@suse.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "sagis@google.com" <sagis@google.com>,
+	"Annapurve, Vishal" <vannapurve@google.com>, "Chen, Farrah"
+	<farrah.chen@intel.com>, "Gao, Chao" <chao.gao@intel.com>,
+	"francescolavra.fl@gmail.com" <francescolavra.fl@gmail.com>, "Miao, Jun"
+	<jun.miao@intel.com>, "jgross@suse.com" <jgross@suse.com>,
+	"pgonda@google.com" <pgonda@google.com>, "x86@kernel.org" <x86@kernel.org>
+Subject: Re: [PATCH v4 02/17] x86/virt/tdx: Add a SEAMCALL wrapper to demote
+ a 2MB huge page
+Message-ID: <atX5JpdqDJIrue4v@yzhao56-desk.sh.intel.com>
+Reply-To: Yan Zhao <yan.y.zhao@intel.com>
+References: <20260928090831.15502-1-yan.y.zhao@intel.com>
+ <9016c06a883bde489957ffdf7933cbbf6b8e6b03.camel@intel.com>
+ <asyo+Pr7aCje1AZ6@yzhao56-desk.sh.intel.com>
+ <94e930e88046fca1f53d2234d581aae593367d95.camel@intel.com>
+ <as9OHnM4mceEre/2@yzhao56-desk.sh.intel.com>
+ <a0936473c0ac5a2ca0cfb30bc61c9d5c374c712b.camel@intel.com>
+ <atBupzmYqvnB0Qcu@yzhao56-desk.sh.intel.com>
+ <atCcvJoCwQyP1z9e@yzhao56-desk.sh.intel.com>
+ <atChtNfitK1PJCqJ@yzhao56-desk.sh.intel.com>
+ <ce6a1dde0089b0d357b11e58d2771596943c1239.camel@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ce6a1dde0089b0d357b11e58d2771596943c1239.camel@intel.com>
+X-ClientProxiedBy: SI1PR02CA0021.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::14) To BL0PR11MB3236.namprd11.prod.outlook.com
+ (2603:10b6:208:60::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001152042.124445-1-gmonaco@redhat.com> <20261001152042.124445-11-gmonaco@redhat.com>
- <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com> <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
- <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com> <878q3xtptq.fsf@jogness.linutronix.de>
- <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com> <87bj8s8ih9.fsf@jogness.linutronix.de>
- <DM78SVMBI2XW.2XHVC67VON48A@gmail.com> <87v770uuyr.fsf@jogness.linutronix.de>
- <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com> <87ik2zryzo.fsf@jogness.linutronix.de>
- <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
- <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com> <8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
-In-Reply-To: <8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
-From: Tomas Glozar <tglozar@redhat.com>
-Date: Mon, 19 Oct 2026 13:05:01 +0200
-X-Gm-Features: AclHuK-0PstQ9qMVKUz4cfYOyqNQzLRuAx_unL8aytY_f_PVK-zyS2FFzXAzARk
-Message-ID: <CAP4=nvTc297yQHz8aumZFAQ3+JK=5Z_=416WdosT0S6nHEeNfQ@mail.gmail.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: John Ogness <john.ogness@linutronix.de>, 
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	Steven Rostedt <rostedt@goodmis.org>, Nam Cao <namcao@linutronix.de>, 
-	Wen Yang <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>, 
-	Viktor Malik <vmalik@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR11MB3236:EE_|PHXPR11MB9688:EE_
+X-MS-Office365-Filtering-Correlation-Id: a20d6185-84d5-41b5-39f2-08df2dd0d354
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|10067099003|22082099003|18002099003|4143699003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: PaKrF0oVyyq5e4OJ+5RWoOZbCJ342KOX0rx7OM9imtLX6WOJ0GW1hzdY2wPlb+I62AUp8lHasNNCc2gAHM0AnrJiJe9Sn3UK/002Z3KuP3LV7APmyj9nd9IhggfDnPwL+wIMYZ0AwF435F1i16qG7jqaCCug9uq/99SPrpFWJXex/jKS9yNbUzetooP2Ctwp5hTurC73woSrK5sV2fhPo1H23DqBocQPbIaLSt2rOOmteECoUmokRMAZnxhiPq7DwG2LHpkqFHOjO/CtpZdFFB7mcuTeVhJEVhnOOTx5S3FucJ5eJiqD2OiwbLDwkqoKNAuYSgi9+EhfaFW40HbRxlL0n8cPoOS22P526Zcu5i2Jy1K2fOgPH+BE2KMZW5gim91dh/SNAb5Yc7WLbfP+/I37wASDQDSUJVKe8EGHZEV6BqmKyi7udGy5HIzMO/C1OYBRJMTodFNWsEgPJGd8IotatvcAfQEPwQXxNtz7T6uwqiuOre4kmHp4/KHcDnNppT0kXk5TKFYZLvso67yOy0rtCtJVifHpmbMtoZxSGrYZVlTwCjzyl3lVf6TLDIdAFH/zMWt36lgX25FtfQEGx0GeLy+Sg9xqdGYnCR9c2lfJ0ZHqcUz94NlE8+OpORpV
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR11MB3236.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?Mdizw9F21xbX9tgEXa5g3FIirTS+5ZCYYI3Shh68HICAZRsZPOZV9xnKdQ?=
+ =?iso-8859-1?Q?FoX95Rf2yXjzIoBcMf6br8VOn0GNdHKU/5hpfi3yAyf5mq/JE8Lj3zcEOe?=
+ =?iso-8859-1?Q?Nhu2nGn6ub/FKR3qknxOENRy5EGTfBKHXy7NUQsyfTkWPZmPQQsmfDTDJF?=
+ =?iso-8859-1?Q?xENFYeLNIQN/BrmcATQG1b8OH+letvkvSl7yMTsvBdHh00SPviYAF2dtBB?=
+ =?iso-8859-1?Q?VDNXyGpCL8Lie7F4vSRxQwiJ1gFqfC4S8jjstqx5KsyVQQUqSAgrMjRQ84?=
+ =?iso-8859-1?Q?u4o0M+ij9/aDNO3+uTsgpMszGwBFkDY2x9CFc88dQSP+Gy8uHh5+YjkYJy?=
+ =?iso-8859-1?Q?0DzFNOtZie77MhBNXKuU8ImkkbRfn+8lxdkGOfzTwfG78wumKgvxQ2VV0M?=
+ =?iso-8859-1?Q?AgRhZly/ZdzBG0hF7tHCDuCkCnNecwnxaTiZacwVjVkjIuD4v3sWRm0npg?=
+ =?iso-8859-1?Q?O7Qgqw3H414N+EepOmnlfhdHSCYgVMZE13kvdV7rWTHwSxjCjr9Lo42q2z?=
+ =?iso-8859-1?Q?dCX4YEBYSXe7WORNbOB3keFCA41cohVbnIPiM2c09mLadgb/LAWklzkxPR?=
+ =?iso-8859-1?Q?E3aKJ1W7olvCn9aOhz9xcy1rvC6FNEpAmbPnR6XBPRzDUF0BcUaW7AWQ0N?=
+ =?iso-8859-1?Q?EybI3F+/m3y2JvlFOqYsRmOIkHA2/bPnbfuXlkVz0CAyRt0PYtkx1mKF0W?=
+ =?iso-8859-1?Q?eykP2SaUxP/+L9dk5slqWOhpr3i/T74SFqBU6Uu3CKncHhuOh7GRWlwjO3?=
+ =?iso-8859-1?Q?SFwBXd81zHgUe/DnnxRZJq7eKG7hsy6kDyp/hI+JhzLcST96e2RSHISy2E?=
+ =?iso-8859-1?Q?IFJ2Xu7VIc7NyDnGTa8GzMczlILUDWnyhOQYqP+XpLjPDxeneAAd15IDor?=
+ =?iso-8859-1?Q?aIUUevtDZNoq8IJomFKvAyNaJehXPKO0Z2Rt1K8Vc50EeJAL+FwlWUU7i8?=
+ =?iso-8859-1?Q?JK4KKkrGYxw1lvXUhUIRsGh+Lxbwp07gmFvTpx7SHO9ldsY+gpo47t0ta7?=
+ =?iso-8859-1?Q?nFsBQ7GOdkFN7yHWnNT8DKo4wM9ouGxe5wLrm8KabwOzyZdEAUvzR9qVaa?=
+ =?iso-8859-1?Q?SsfC9ikRGnmaOtKR+1OrFAOIJH7TzsFB3hFNUhimfZr23gG2xMtZOa/SJT?=
+ =?iso-8859-1?Q?kMvQGXPjj5QantZVm6G6OgTkvd5frKhEPm/H04aZLlpoPyCK6JG6ELQx+Y?=
+ =?iso-8859-1?Q?kZ38tQQO2uF2WWjvWcrFihtKWmae5HWN+xJcE/elnfA7iETGuOx+Ih2wLs?=
+ =?iso-8859-1?Q?sdk/DfU5/BoeTcpDRPYCbxs5AG+KJ+JBnQ6gI0okJogHN4IftucQcjt/Uh?=
+ =?iso-8859-1?Q?bqln+ULyzLNbDJJJiql8uESPXIOfQqmK6AgdIuuiSve3065mbr+Lv8EtSJ?=
+ =?iso-8859-1?Q?9KzUMdkmwtRA71p6X6wV43/1V68+zH2rWk0qMp6vwF8nydXrA73d6HMKfo?=
+ =?iso-8859-1?Q?g5IICxaQFQsR+3PP9LHD5Gw1ZRcxV8H05fYR/255UkJp/90wMCCCLjBA9b?=
+ =?iso-8859-1?Q?UuyIKvZfxDdKGHT4AmERFmhjol8wK4zIWACqGF+gI4E4Uho/aJlCWdggwk?=
+ =?iso-8859-1?Q?ZmXX9iOGZ1pCOJBcySr8Bp94cfVfIhXuxt7WVRpgKdnqYnZUHHEC8l2l3u?=
+ =?iso-8859-1?Q?MW+TzQfJBGC+b2YeXfVUdaL4Xw8Ids9VHVJ/yUV727RUWr10A9Ej+EZDM5?=
+ =?iso-8859-1?Q?l7+GzBnl4cRaDxlL7yQardHDOYjILMjJX/WGVmanOioqkDSEMymLhhBqYG?=
+ =?iso-8859-1?Q?ajeJ/+AYHE+vj8ND/F40oWLY00KIriPMOEUu1IhloTD6U5nEKMLXi1Rmxh?=
+ =?iso-8859-1?Q?GAkQWsfzXQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: g8BJpXoRhhxqpJxoqJrotQQA/iOKIz7tDWWEvZ59PfLCkmAMvDu11AT2jSKh+yROz90JoUYL0i/NqGGrmYyw0ETQFRR7cUrHhGgySMkwSS09kA/qcda4o4QZ6FnBOf+UNH4u9Txm2O3E1l78UBdhU/owURsh7XU3llzadbdYDjdw06uzo/OlT23zatEQ/fo0kt4A5ed9WeCh97ATVcs+8+MTUhj+M4cCT+BWkMlDan2zgTauLcj5t1uqzsAn7Y0hV92dYVyg6YnL79PTXTdTliYaRXPnkv9g1uOaKwHGuIgBRmN047hgGzv8Q+ZF2LquwtY1shTSPmerlkyoS/raJQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: a20d6185-84d5-41b5-39f2-08df2dd0d354
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR11MB3236.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 11:05:03.4255
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PZ/2xaXgi4o+pT4FuxC7R7KepFVDmIKtJrvoFXXA52Lyz28+3qvV66CII45+A7VAaw5GGaMuDRRAJmA3OMC5DA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR11MB9688
+X-OriginatorOrg: intel.com
 
-On Mon, Oct 19, 2026 at 12:43=E2=80=AFPM Gabriele Monaco <gmonaco@redhat.co=
-m> wrote:
->
-> > One disadvantage of using bpf_trace_printk() for RV violation
-> > reporting is that the event will be caught by every instance that
-> > enables bpf_trace_printk() and does not explicitly filter rv out.
->
-> Yes, that should somewhat be mitigated by the glob filter, though events =
-are
-> still generated.
->
+On Fri, Oct 16, 2026 at 02:30:49AM +0800, Edgecombe, Rick P wrote:
+> On Thu, 2026-10-15 at 17:49 +0800, Yan Zhao wrote:
+> > > u64 tdh_mem_page_demote_2mb(struct tdx_td *td, u64 gpa, kvm_pfn_t pfn,
+> > > struct page *new_sept_pt,
+> > >                              struct tdx_pamt_cache *pamt_cache, u64
+> > > *ext_err1, u64 *ext_err2)
+> > > {
+> > >          struct tdx_module_args args = {
+> > >                  .rcx = gpa | pg_level_to_tdx_sept_level(PG_LEVEL_2M),
+> > >                  .rdx = tdx_tdr_pa(td),
+> > >                  .r8 = page_to_phys(new_sept_pt),
+> > >          };
+> > >          struct page *dpamt_pages[TDX_DPAMT_ENTRY_PAGE_CNT];
+> > >          atomic_t *dpamt_refcount;
+> > >          u64 ret;
+> > > 
+> > >          *ext_err1 = 0;
+> > >          *ext_err2 = 0;
+> > > 
+> > >          if (WARN_ON_ONCE(!tdx_supports_dynamic_pamt(&tdx_sysinfo)))
+> > >                  return TDX_SW_ERROR;
+> 
+> Why did it change back? Based on the "mirror the other code for error handling
+> level", I guess there could be an argument for conditional.
+> 
+> Hmm, the other checks are about making the code work transparently work whether
+> PAMT is enabled or not. But this one is about handling code calling the function
+> incorrectly (since we don't support huge pages without dpamt). So I think I'd
+> still recommend what I suggested last time of no conditional return. With a
+> comment like you had. I also don't see anything blowing up too badly if the
+> warning is triggered.
+My concern is that without bailing out when DPAMT is not enabled, invoking
+tdx_find_dpamt_refcount() would cause a NULL pointer dereference.
 
-Do I understand it correctly that the idea is to modify existing
-tracefs instances when enabling an RV monitor to filter our RV-related
-bpf_trace_printk events?
+Or could I re-introduce the "dpamt" bool? This would allow huge pages to be
+supported even when DPAMT is not enabled (with no other places needing to
+change). The only downside is that it would introduce 3 additional 'if'
+comparisons:
 
-> > I can imagine an RV-specific trace event for that, however, it would
-> > require a separate kfunc to generate it, and ideally also distinct
-> > labeling of a BPF program eligible to call that kfunc. The "rv"
-> > userspace tool could then iterate over these labels so the user knows
-> > which violation events can be expected to occur on the system.
->
-> That'd work too. It's what I initially envisioned but I'm not sure a kfun=
-c
-> producing a tracepoint is something BPF folks would really like (and tech=
-nically
-> any other unrelated BPF program could call that, unless there's some acce=
-ss
-> control mechanism I'm not aware of).
->
-> Not sure how much it matters in practice against the glob filter, it prob=
-ably
-> really depends on the other bpf_printk users (and a mildly better usabili=
-ty).
->
+u64 tdh_mem_page_demote_2mb(struct tdx_td *td, u64 gpa, kvm_pfn_t pfn, struct page *new_sept_pt,
+                            struct tdx_pamt_cache *pamt_cache, u64 *ext_err1, u64 *ext_err2)
+{
+        struct tdx_module_args args = {
+                .rcx = gpa | pg_level_to_tdx_sept_level(PG_LEVEL_2M),
+                .rdx = tdx_tdr_pa(td),
+                .r8 = page_to_phys(new_sept_pt),
+        };
+        bool dpamt = tdx_supports_dynamic_pamt(&tdx_sysinfo);
+        struct page *dpamt_pages[TDX_DPAMT_ENTRY_PAGE_CNT];
+        atomic_t *dpamt_refcount;
+        u64 ret;
 
-bpf_trace_printk is already a BPF helper producing a tracepoint, this
-would be equivalent. Of course, that does not mean we want it, but it
-is something we already have in at least one instance. I know of at
-least one quirk: you can have a BPF program attached to a tracepoint
-that will call bpf_trace_printk(), and a tracefs instance tracing both
-bpf_trace_printk() and the original tracepoint. That leads to a new
-tracepoint triggering while another tracepoint is already in progress.
-I don't know how it is currently handled; from what I recall when
-testing RTLA's BPF actions, the bpf_trace_printk() event might get
-dropped by the tracefs instance, so I had to use a different way to
-signal to userspace in BPF actions test.
+        *ext_err1 = 0;
+        *ext_err2 = 0;
 
-As I said, to prevent unrelated BPF programs from calling the new
-tracepoint, you'd need to recognize and track RV BPF programs as a
-special type of program, similarly to what your original RFC did. I'm
-not sure if that's what we want, but I see some advantages. In
-addition to better filtering of reactor events, you could separate
-reactors from the monitors entirely: you could trigger the tracepoint
-unconditionally, and attach reactors as tracepoint triggers to the new
-tracepoint.
+        if (dpamt) {
+                dpamt_refcount = tdx_find_dpamt_refcount(pfn);
 
-All of that adds complexity, though, and requires separate discussion,
-so it's probably not something relevant for the initial
-implementation. I just wanted to mention it so that it doesn't get
-lost.
+                ret = alloc_pamt_array(dpamt_pages, pamt_cache);
+                if (ret)
+                        return TDX_SW_ERROR;
 
-Tomas
+                args.r12 = page_to_phys(dpamt_pages[0]);
+                args.r13 = page_to_phys(dpamt_pages[1]);
 
+                /*
+                 * The dpamt_lock is used to avoid contention between the
+                 * TDH_MEM_PAGE_DEMOTE and TDH_PHYMEM_PAMT_{ADD/REMOVE} SEAMCALLs.
+                 */
+                spin_lock(&dpamt_lock);
+
+                WARN_ON_ONCE(atomic_read(dpamt_refcount));
+        }
+
+	ret = seamcall_saved_ret(TDH_MEM_PAGE_DEMOTE, &args);
+
+        *ext_err1 = args.rcx;
+        *ext_err2 = args.rdx;
+
+        if (WARN_ON_ONCE(ret != TDX_SUCCESS))
+                goto out_free;
+
+        if (dpamt) {
+                atomic_set(dpamt_refcount, PTRS_PER_PMD);
+                spin_unlock(&dpamt_lock);
+        }
+
+        return TDX_SUCCESS;
+
+out_free:
+        if (dpamt) {
+                spin_unlock(&dpamt_lock);
+                free_pamt_array(pamt_cache, dpamt_pages);
+        }
+        return ret;
+}
+EXPORT_SYMBOL_FOR_KVM(tdh_mem_page_demote_2mb);
+
+What do you think?
+
+> > >          dpamt_refcount = tdx_find_dpamt_refcount(pfn);
+> > Can move this line after alloc_pamt_array() to mirror the sequence in
+> > tdx_pamt_get().
+> 
+> The less that stands out as having to think about, the better.
+> 
+> > 
+> > >          ret = alloc_pamt_array(dpamt_pages, pamt_cache);
+> > >          if (ret)
+Does the justification for WARN_ON_ONCE() on alloc_pamt_array() failure that I
+provided in https://lore.kernel.org/all/atBupzmYqvnB0Qcu@yzhao56-desk.sh.intel.com
+look good to you?
+
+Could you share your thoughts on it?
+
+> > >                  return TDX_SW_ERROR;
+> > 		  return ret;
+> > > 
+> > >          args.r12 = page_to_phys(dpamt_pages[0]),
+> > >          args.r13 = page_to_phys(dpamt_pages[1]),
+> > > 
+> > >          /*
+> > >           * The dpamt_lock is used to avoid contention between the
+> > >           * TDH_MEM_PAGE_DEMOTE and TDH_PHYMEM_PAMT_{ADD/REMOVE} SEAMCALLs.
+> > >           */
+> > >          spin_lock(&dpamt_lock);
+> > > 
+> > >          WARN_ON_ONCE(atomic_read(dpamt_refcount));
+> > > 
+> > >          ret = seamcall_saved_ret(TDH_MEM_PAGE_DEMOTE, &args);
+> > > 
+> > >          *ext_err1 = args.rcx;
+> > >          *ext_err2 = args.rdx;
+> > > 
+> > >          if (WARN_ON_ONCE(ret != TDX_SUCCESS))
+> > >                  goto out_free;
+> > > 
+> > >          atomic_set(dpamt_refcount, PTRS_PER_PMD);
+> > >          spin_unlock(&dpamt_lock);
+> > > 
+> > >          return TDX_SUCCESS;
+> > > 
+> > > out_free:
+> > >          spin_unlock(&dpamt_lock);
+> > >          reinsert_pamt_array(pamt_cache, dpamt_pages);
+> 
+> Is "reinsert" the right name here? It is just adding them to the cache and
+> resetting them. So why not just adjust free_pamt_array() to take a cache arg
+> instead of adding another function? In tdx_pamt_put() pass NULL so the pages go
+> back to the page allocator. Might need a prep patch. Would have to test.
+Will do.
+
+> This patch will end up getting stripped down the minimum we need for this
+> series. Any new functions or extra code will get scrutiny.
+I agree!
+(my only concern is the risk of NULL pointer dereference).
+
+> > >          return ret;
+> > > }
+> > > EXPORT_SYMBOL_FOR_KVM(tdh_mem_page_demote_2mb);
+> 
+> Otherwise looks better to me.
+Thanks!
