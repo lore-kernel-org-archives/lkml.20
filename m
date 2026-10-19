@@ -1,96 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792426744;
-	b=BOqfiRUDY7FFAEyf4r91/xpNizEEab58Qw2OUR4+CRtFKsmUW8DpFisVcCCwl5aVNAMB
-	 THrIc505ugNNje6tGiX52L2iQzBBQFJsyTy79r6RHS35mKiwGm2DFwVgHTic6905f9MVQ
-	 ftBv/BggrYlt6lG1nw4OY6YzijRFNeuiUKLCq5B8FuC6Z/VCPmK0R8vMWjJSGpRjo47vA
-	 0KSCDphMwUYtZ4E2fSJTVt1psTwDcAMtOlkIoTg3SaFX0eFgX40zeJ8uGvVFuisgJFjLM
-	 4bW/4EisRcRURUkuU+Y+Z9rWL0qRTIc8ulyCvrOpwNCjyMpEixCAsZvHaQ0gl24CpFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792426744;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=j9Tb0vIxGUTYeQFZpnnr31SkLxL+7bR6Ze3b3cjJEa0=;
-	b=DvVPC7fDvn23CtIRBafLKV6XQaeSylFFIlneIn5f7AaEjsPIOmBiSgH1hKQpS6JoGWvw
-	 8Rza61pM2yX3Pv7SEsDsjRubAgsPwLs/DJ4PQB5ND1U6BtVS6oBhuRcvJqi++liek+vn0
-	 hcWMACkeFJeZUKOoSFvZHeE9wDOBjwPiAuByqWLMeS30Ek4AImSGXPnaG15oKqNGf1pII
-	 X+bBdBELCki6nqKH7kJ514WuzikTz2s70RKpVyJ7rifZ5/ub7FfAYbK8iawhb6haQxokM
-	 dGUdUQaLQIh4eijuC8TlKoPQZJZS/1/rpwLPIzdWKmDMQ3O62j+AXvmv+eLCYYwXiWQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h4r7A4ZH;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792426755;
+	b=cRMYa86ygCWL4ORmG9xXiafKLKEZoj4ZhEg6rO9x82f/SCZtGI0Bmzg40dZMN6nsCx+p
+	 aK+e0h+xvbKQAnBK94wyrHMW9RnzClYSup+dA9PoVp7dc7gvQry3qu6Yji+ZYeilSX+AK
+	 6NJU2niyMBc3/oSzoHnB5oe7bCZ0jXDhOle4RRHEpQM6auKNzZ3F0yA/d51kdHNiT8lP9
+	 Y5V7yrNvEvLFBQcfI6mXplbmHy/bTvvBIdosEcRyr/PA3QeOOBDUCyPIBmDmEeRDpEBgA
+	 2OrGNtKQ2cTOC+b/GTBncjFQNteR8/g3FSIo8YzVfZYlwH8XIiL/ADBOD5/zbjeHhAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792426755;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=6k04JviBV6gL95y2dhAlxRcvrNJM2JuAiOhwCy0gPmY=;
+	b=josHSSjmcohpQbBK5akcqXDw4qfXPQ6510ni5hNJ7L8csFMenoDgyrR/iovpBklIzv27
+	 u1aK/Or5DOjTRkVaI/kecwGpHtGEsB5X5+pgoWguwDUzMwdouHTFUIKT6/eTX7HAHX+2W
+	 2WZnjXR1tBZc+vTZ0rURcs+VEUq/nxlUfgzckqZyoH4C/DrL8BJjtA3fv5pRe9ka1I/Xd
+	 IuttC4cmmromQCOTTth3t4W+nHyuul70/lFLSscfZ/CiKQxpRm0cCblPBoTgJd3RWZdJm
+	 6MK5F9dlwHwnzATOmSeceCsa6G6PFg+i6h5f2Nmlr/6AtIRa3Jd3BnUwwTLn/Ebbp6g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="fAz/+wiw";
+	arc=fail smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D8E606A338
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:19:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83D8E606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CFC606A320;
+	Mon, 19 Oct 2026 16:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08CFC606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h4r7A4ZH
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b042c0728so639451f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:19:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792426742; x=1793031542; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j9Tb0vIxGUTYeQFZpnnr31SkLxL+7bR6Ze3b3cjJEa0=;
-        b=h4r7A4ZH1fRI3Yb6rNse2FMtzC4DFj8ykC2kkudhwFmfv187b4+ypkU8VnUI7SBNC/
-         6zdHnKxAG6hlkZ5yoh3Gqr+h6eM2ZjqoJd5MPfMakNCvipfK9XoQ7mGu5UVqQzcFEzxA
-         J+Kf3CIyP60+jbmpIB214iYDRcAKjZfQK6OWPhi8st1vC1DFE1Jiw5VjJPI57BV3FRJ5
-         BBcLfpgqVyGWmAfOmUQmDVwrgy1mLBfmm9rpkDFKJsHhDUrbm1GofEQA+oWtAO/mys8j
-         UlPkI5P9+/+xYs37hpsU9majwWsNvjtXyOBneQM6kuE+1ysBvk0ckv1bepztBE6WeEa6
-         S32g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792426742; x=1793031542;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j9Tb0vIxGUTYeQFZpnnr31SkLxL+7bR6Ze3b3cjJEa0=;
-        b=i+2HohI8yRMRDUExA/Al3u7iMjIZVqYUnU94D24nvyGtDzKuv30vnMtRYxx8wZ9imU
-         tnPCeuGUcenZqPqbBoPzuudjAU+LhGxVxF31NQFrmAx3yM5bH5jJdfIs859GoEiu5Kb/
-         oUgZyZjcxsVyKZ80+Ivu9aNDZ/TkUnt1a7/8mRdDUsE0eW1le/igBtinyAFtIMLAhtEd
-         MhbaBtfU0rLDBjVkjwbubGp5CKd6VrJOpVMqvt5Hu4sjqq7qp4vOh6OGZEGhPyjf+vs1
-         ZgnnSHH1BCXdUjoQmR8Ng45p6hoa3dUpuXjUQCUoAlBwLsQCupDWyuQPUDxymBja8y6B
-         tgZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzzl9aCumGxHrma/kTui0EVdKItwkTvIdQjBUrbsefC/f8b5Y6znIBWtP3PgCqVhN58jQVowTomXGuhXMA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJpqixpPyXL2BChCLJgxn181Dkh9IHqMWNem/BcgXC6YZziHqw
-	+am3eMSZZDP7Go74sz5vNOJI74cBhECXJbAVJWS32oON6VKOlb7oBmPL
-X-Gm-Gg: AYBFou2L+4olXtg68S1Z/ldoD+cro1grUw1ZSx6/JzJOojYi/75ukjp6i4CAie5kLlv
-	GTcQ8m6gkLvIXkHmJ+6DAB6dBO0BZYV7eOKWcrB5/NlUGG0wHQhyBAGOm8lifkd/Pp9hJmE2yVZ
-	mHT/aBXbCyftwtCmAW8iUhl6HQP8CEGV9Y5JGI9WJ14YC+5HsIvG4L6PMDAA+OBe8Eq14Xej/PV
-	Jgm6hfCrCDOkQ5IhI5O2plZPpdsmBwp9yZ+jhTvwKzCRf0t537P6xp+qmwqGU1fdGOyjKMN0R7D
-	w65sCEXrfNGsQq35yorLsfRSYyKoD9oqcJGLH1p7emhskreJiqoetMMIK9MJLNAoFvJqLppvn+I
-	GSm87HAFyqJy+CWs4GK+jYkPdyAkXGSUL2WEgf50K2kDv9wkDYLS3mjvavciWj6CtfqgUcAlv6C
-	+JztiX3mLAPCLDRYg5y8wbo/pESk5/Gp319lmF1nVmLkjAKLeqQ4hw1wd0ya030umf/1MaCMajq
-	IJ635A8NjQeWhLZv9e+2IkN7zAfDzKkZH+QEHeL+7xaYv7A3VCm6Q==
-X-Received: by 2002:a05:6000:260a:b0:486:f9ea:796f with SMTP id ffacd0b85a97d-48e07fa67d5mr16626694f8f.41.1792426741547;
-        Mon, 19 Oct 2026 09:19:01 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([151.76.51.95])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a72sm25961466f8f.4.2026.10.19.09.19.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 09:19:01 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Bradley Morgan <brads@mainlining.org>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	rcu@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC -rcu/dev] hazptr: Record per-CPU slot owner after claiming the slot
-Date: Mon, 19 Oct 2026 18:18:48 +0200
-Message-ID: <20261019161852.12783-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fAz/+wiw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792426754; x=1823962754;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=BxdO4D0mnNuAhKZi4/JHWHh6LlN8TrdAY2f+Yb808gM=;
+  b=fAz/+wiwwJKIwDYIhQM8LlDdTeJs03xTxOqIMEHu6fO5TW5ShZFOFXni
+   boI3ji28Ver1l58GUz8MTWgrQ9dkn78XvNvUfKkGJJLvYlFucdC2gypdC
+   QGLIOj0PlVieNolZpCe/lCdpct/IbM3+co2O++vibj9MjU/r+7tFcg06r
+   iqivV7Y4kxi2NQ+2XQ9AJEVqKgbrfzxSpHfkTaEnsG1XsOaLdT4T5dryJ
+   WolJJnsxhiqdf9LJTVR/UsDj9gHSOM3TGrhArciClIBGerbgtujaP4e4E
+   NvtUZnKrGJ6Ka8XjURBwVLOsA+6ljlyTbB77nbUzMNqQQvUgdSQ4y5HjU
+   Q==;
+X-CSE-ConnectionGUID: djpbJniLQFqEOEtxH40JIQ==
+X-CSE-MsgGUID: h3tMEEJQTTaBUSWGPW3xww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1127476"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1127476"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 09:19:14 -0700
+X-CSE-ConnectionGUID: 5NF3tEpuRB+9GfW1LOXK/w==
+X-CSE-MsgGUID: KyWE3HBFR42DrPlo9WOUSA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2646645"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 09:19:13 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 09:19:12 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 09:19:12 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.23)
+ by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 09:19:12 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ToibVk+/c+ckkurlcbU08mm/3+5XlYiuFWkH9ldLiX9tChEaRtYm++0J+0eHP8841DvtOyNHUzyfzKuqKErlRskZMlgEE/xW10ZIKTCUsMKXhT8bm+7hW0qZHu75Alse7MCuhxTvxfKezkg/yi5b8TXD4Lg1diLgoRCKeopRC2mkaIFpLY124ZiYBysZqjrHiZGe1yIv5umpxLIZmxK5H49BCBa/qos7bF4jE0ak01iclMVwFrxrJPCaTCbgRI2Jozr73FWtNX4hNv2LqA1W3h5d1mrz/dO29S69uLb5AxAamt13XRe8aO9yUUoYzYrrgr65icpdoR5e0bcR2ABFog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6k04JviBV6gL95y2dhAlxRcvrNJM2JuAiOhwCy0gPmY=;
+ b=oDyzMlImgCZgwQgVS7dW2UCly6fdvn+bNU72lWd4dNU9R1RlcpIO2tvjVSXYmY5mVNBAgU4K7YXY30hTZ0LJDPUrw1AF1NfFD8/QgCRfqCi65/V6Db1vj4lh8SAeg7EPbXmEjqjtrjKEyd+0AQmyxZ4v4iN/+qVQxOTR7XgftsiCSuUdiOCfx5kabDflKuuR6xSZTz+wfxMqvKoBVgkluUyXMTQqTjSHnNFFAew0hAlES06cPXzB1/w96aTRKsWD8Q4opbNH1bCat4AqauMTZX94u+RI3ooNJ3MtkW3gJqmMq/noovmP/MW+WPH7n1a7Cm8TEB/YesILzXpYVdJKBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by BY1PR11MB7984.namprd11.prod.outlook.com (2603:10b6:a03:531::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 16:19:10 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 16:19:09 +0000
+Message-ID: <e9d9e870-18e8-4e6d-bf24-dd782837a11d@intel.com>
+Date: Mon, 19 Oct 2026 09:19:05 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 07/18] fs/resctrl: Introduce
+ resctrl_set_kmode_support() to register supported modes
+To: "Moger, Babu" <bmoger@amd.com>, Babu Moger <babu.moger@amd.com>,
+	<tony.luck@intel.com>, <bp@alien8.de>, <ben.horgan@arm.com>
+CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<x86@kernel.org>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <fenghuay@nvidia.com>, <kas@kernel.org>,
+	<rick.p.edgecombe@intel.com>, <akpm@linux-foundation.org>, <rppt@kernel.org>,
+	<dapeng1.mi@linux.intel.com>, <elver@google.com>, <enelsonmoore@gmail.com>,
+	<jlayton@kernel.org>, <kuba@kernel.org>, <ebiggers@kernel.org>,
+	<seanjc@google.com>, <ewanhai-oc@zhaoxin.com>, <binbin.wu@linux.intel.com>,
+	<peterz@infradead.org>, <ashish.kalra@amd.com>, <superm1@kernel.org>,
+	<chang.seok.bae@intel.com>, <prathyushi.nangia@amd.com>,
+	<kim.phillips@amd.com>, <ackerleytng@google.com>,
+	<elena.reshetova@intel.com>, <naveen@kernel.org>, <darwi@linutronix.de>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-coco@lists.linux.dev>, <kvm@vger.kernel.org>, <eranian@google.com>,
+	<peternewman@google.com>
+References: <cover.1790867441.git.babu.moger@amd.com>
+ <50333925a56037a0ea82c49f25e76be6271d299a.1790867441.git.babu.moger@amd.com>
+ <0b633c57-2938-42c9-a6ed-863d88d2be63@intel.com>
+ <e2bff854-eda3-46c1-9ecc-c1aab1e7b33e@amd.com>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <e2bff854-eda3-46c1-9ecc-c1aab1e7b33e@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0353.namprd03.prod.outlook.com
+ (2603:10b6:303:dc::28) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,148 +152,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|BY1PR11MB7984:EE_
+X-MS-Office365-Filtering-Correlation-Id: 116e58e2-50f3-4c97-a585-08df2dfcb4b3
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|6133799003|18002099003|10067099003|22082099003|4143699003|261009223027099003|5023799004|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: p/DjuSN136iZfBVXCkQktlqbRGzxLo8Os1KT4tPmKhFlMytapCcKo7/QBhp+YP2P/38O0IclbgMqMJ7vi5UsWrlVLCGX4nQwsWYWakyizDICPjOpAFfCwFAlz4VZbjhI0qs4F1vWRSpregeD3g6xKuTcNdUR+D9S+a7ia/ojw9nvf5qEo6cEgvWjexw11m6EAt3nIfH0F/UmiylzM4R8V4l0Q9c4rt7QrKEl/ggTBMhFYO9epsvxK0Z6a8hSXIXOYKBHj7J9loT8HNwJOTEt/CIvdspfPDDY4C0aW26yV54+rbAAZeX8S/pm8e55Hg+dL24GjfupVrOSD0xYGNkG+Aot6r8ZwNanoT8Hdz3z+SQs+rLzGIHYSKrzUFRh0kdKKzVI7EV+0zd8MG32aKnGiKtlSDcIIsLfOlTFHAxW6IvtwjAYxWD3o0VqIXzAIaxa5G7pM61f6hD6AGJUJ6luk0dEKvHSSbiNXBt0/GNl4srGj00cvwNP0HPiI/zgA6qhV+hLkakHgaKFEGiGq5qHcGg047zOtoNkNKXCv+YttuGXon79nS6rocIAmFNRMm+bIr60DeNUp/v9SYN0/TE/YBR3PoJAfCOEFgjYXgKsoszKI5eExl8hNvdLAVDqKNbNClw+LlF1HgpYpUIngU6wEbPJpjib0QqNBOAVpFSF4oM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(6133799003)(18002099003)(10067099003)(22082099003)(4143699003)(261009223027099003)(5023799004)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VXg1ZFcrZzJDaGl2R1ZjaWY2SE5xY2VXbFNJV2QxUXo2bUZ1SDArOGdOVFF5?=
+ =?utf-8?B?UHlkZVQ3VHVhajhJUGJ4L2NHUW1KZlRHV2ZaYnRmSm9TeEczSUpLbmdCa0pF?=
+ =?utf-8?B?R3FNUHZ2WExBbkNsOTBIbEI1RkE5ajk4akR5WUE5Z3dpYjhWQTJNdHd3NmVl?=
+ =?utf-8?B?cGgzdmt2UWxodGlFVFZackszL2pYUGRXbGRSeEtHbmVPVk5USlFOeFUyeC9T?=
+ =?utf-8?B?bFZBRGFZKzJZTW80MDU2QWxyb09LaWdJL3Qvd3J0ejV3TG5ZRWV0MmVJOGRl?=
+ =?utf-8?B?Z3FqTkp4K29UekhtZ0FFYkZaMEZ5cVQzRUtNVTVUNjc3c1IzU2p0VDFLcktC?=
+ =?utf-8?B?bWdtQmQrS1ZmNUtvL3lucjZGYjQ3UnJmR2ZUcjdiR0V2RGNUdlgrS1dNMHQ1?=
+ =?utf-8?B?akNHZDQwWEV5MkE1MjNyMnVpZmJWeXU1WG9DSGYyY3Y4TW94MkRYL3JDZUhx?=
+ =?utf-8?B?Q1l0WnJOUDNVZW1yZEtiTnJrTEtheXNFUnVDbmRjSE1sZnBXWjVUbHRUY1FF?=
+ =?utf-8?B?Rk5qaTVHWnNndFFuQ2VRbWswWGdreVhCVFBlUlpRYXFVVFRBS3hZSHZxYmJH?=
+ =?utf-8?B?MDJtL2s1cUgyT3ZpRkNsODA4cURoYUp6YVFvK2ZiNHhrY080SmViWlJCV1hQ?=
+ =?utf-8?B?U2ZLOUk1UHZ1R0xWWFBrSUlhQnoyRWNnV3Fld0w2NlJXM0p0T3ZIRTVKVVhz?=
+ =?utf-8?B?dWROSUwzZ2o1M0p0RjcxbnR4NnR1V3R1WFRvWmN1SUR2K25xaS9FNCt5Znk5?=
+ =?utf-8?B?RnJaQyt5UjFNWnRZRy8ycGtQLzBoaHhTSDlnZkhFeEVTcmFUM1N6Mmp6MTdL?=
+ =?utf-8?B?WEpOZ2pmMjF0dkhldmNyNGtadXFqSDZsODY3QVBWUzFqcDh4RitXaGtLL05I?=
+ =?utf-8?B?YzBJa1IrTVVVSVBCdDlueitCcnNmejlnd1FzMVRtNmNSSi9QdGdkbjUxU2h4?=
+ =?utf-8?B?dDcrTTFLMVBub0UxL25ydzBRbkRIWHVZQ09sajRZa2VCR3pMWkFERmJtOXhr?=
+ =?utf-8?B?bURQcit1NThIMmNFR204UkRqaWpyKy9FK3Jaa0E4cWg3L3A3clhtTmVwa3ll?=
+ =?utf-8?B?M2ZkSkNDUkZsc1JDZkFmYWV5TU0rYksvdjZHT0J0OWxNSlJpR3E2ckpBSDlE?=
+ =?utf-8?B?VDE5RW1ZaVBuMktRUUpFckt5bHNRWjJEdkRqb1B4MUlZc2wzVkUvN25HVUoz?=
+ =?utf-8?B?VXpmOE1RakR3L0pRQzRsNXdjRFVxMXN3ZnM2bHVIcFpEY1Z4b2YrcElQYlFG?=
+ =?utf-8?B?WUJyckNjRVFpOENqTG1Gd1VYTlBKNWtyQk00NVhHWHArQXdSbmQwT0gzL2ov?=
+ =?utf-8?B?eDd3VGZsd242M3IxVHh0cHp5SVJPbTgxeFFpeTljQVVTK1JkODdjZzVRMzhQ?=
+ =?utf-8?B?bW5yMFVDT2cyWnlLQzdtK2ZPRk1EUHZFM3FVSDFtVjVvNW1BUFFTcHNhclk3?=
+ =?utf-8?B?ekpEM21WL2RpRTQvZzd1QW5yUG9nakNCYmpodHpyTWs3N21vRnUrd1pzMWxx?=
+ =?utf-8?B?SXJXbytYWjk2V0lPRVZaVFppQTZYYTdLSEcyYWlQWGI3TTM4amV1ZmRoUjZK?=
+ =?utf-8?B?M20xbXlzWDlRVjJJV1BSRjlmUHlubzZ3ZFBSdHBzcnhuV0xYTG1wam9JOWhr?=
+ =?utf-8?B?Z1pXTFNubkhGMVZ4bE1hemxsMEdUWTVBNDE0bmd5QXZtQmVJRDE4M0YwU0Nt?=
+ =?utf-8?B?a3VBZGE4QnJVM3g1U0NrMExheEQ4cVg3Nlk5OFJiWXlnOTJ4R3hXcE1oS0NX?=
+ =?utf-8?B?SWNhVmtzdmh6QWNzazdKQUYwZHpnYjNMWlhoZDBDR1hZTGJsNDZOelFjR2th?=
+ =?utf-8?B?VW9ITnVoM2U5dnIzZUcwZk81RHRDQTgyYXJUbnhxSmJkN1FTYWpGR0FoMUZI?=
+ =?utf-8?B?UVFiaW9kZXNmM1BlTXZWVnVDZ29uU1VYQ3NUWk5GRHBpTjZxK3FRU1Z2OFJY?=
+ =?utf-8?B?OVVtc3JYUHkzb05WQjBxN3lDbE9kYjRtV3A1WG9sUGsvUTZLOVdkd3BMVmpr?=
+ =?utf-8?B?SnE4ZDRaL2NRMWZ1V21qSnVxdk9zTGZPTXNXZWtXUkpwbmdRaGQ3YmJDajlS?=
+ =?utf-8?B?WDNrT2s3RVY4dUFQbkFySG40d3poOTBOQzFhTFlPQlFKejFmR2t3Vy9SeFpY?=
+ =?utf-8?B?OEpNcmYxbUFtVU5Oa3NpR1o5VmFsdU9lNUtHOGJJWXN0MjZHTUc5STJDL0RN?=
+ =?utf-8?B?anJtVkN3RFJxUnFvcUdYbHZZQ2RSM2djR1NnY0Rla3gvTzYwQ2tWcS9RUit4?=
+ =?utf-8?B?VllHSGx2WHROSjA5dnFMTVNEYktSTHIzK0dwbHhTYTNGbGJ4SGhsKzU0Zzky?=
+ =?utf-8?B?YXJjU0hVdUhXTGNSZVAzNGJ0d0RWZEdWd1IzNU1ldVJZTitzellmME1MZita?=
+ =?utf-8?Q?GdkI+yrwqAp3CsOI=3D?=
+X-Exchange-RoutingPolicyChecked: SUZNFZHBfTABkM0/6fElk7LcWjKQsVt+i/cKdLJq3uH+TNsMNKc0jo844aW6GRHla98lkSDX6rMx7Z2kY/21NXBu8PMwxCvUTbvyWOhQXdMpfs5s3kJ14YLTooAYrWZ9EGatbyfTfM6BT3BfuETEhSe0OcSYgWZWQsnU8VuA+HroVdNHMvxpJw89EWVqvFrgv2aFVjiZg7YGxfgkxzwNOOKsTPdBEqgAwsE0tpQ090KdkHi7EK5hbumck/HIdL17Anfa32FD+lyPaQe14LOadrQmJ2DWJ/ufCZN3zJzrDZxd7ttbDap6ubslBJTPkQyahBJFny4MgjwbHqH5gB1sYw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 116e58e2-50f3-4c97-a585-08df2dfcb4b3
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:19:09.8156
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1GZR6JwKSvSak+Zp1Xog4jv5pmwvK+N9CDg4vK8Th1ZiNP/4bYIxDNNW+9++5HBwDcbGSSHisbMts+qWk5nBhNVQaieF2UgRT3Jztz+RArU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR11MB7984
+X-OriginatorOrg: intel.com
 
-An interrupt that uses a hazard pointer while the interrupted task is
-in the acquire slow path can leave its own context recorded as the
-owner of the per-CPU slot the task then publishes into.  The next
-context switch promotes the task's pointer with the interrupt's
-context.
+Hi Babu,
 
-hazptr_get_free_percpu_slot() records the owner when it picks an empty
-slot, but only Store B in __hazptr_try_acquire() claims the slot.  An
-interrupt in between picks the same slot, as the lowest free one:
+On 10/16/26 8:27 AM, Moger, Babu wrote:
+> Hi Reinette,
+> 
+> On 10/15/2026 9:40 AM, Reinette Chatre wrote:
+>> Hi Babu,
+>>
+>> On 10/1/26 8:10 AM, Babu Moger wrote:
+>>> The resctrl subsystem tracks kernel mode configuration. Architectures need
+>>
+>> resctrl tracks nothing at this point. This is preparatory work to enable resctrl
+>> to do so.
+> 
+> Yes. That is correct. Hope this looks ok.
+> 
+> Architectures may support different kernel modes that need to be
+> exposed to resctrl.
 
-  Task on CPU 0                        IRQ on CPU 0
-  -------------                        ------------
-  hazptr_acquire(ctx)
-    fast path fails
-    __hazptr_acquire(ctx)
-      picks item k (empty)
-      item k->ctx.ctx = ctx
-                                       hazptr_acquire(irq_ctx)
-                                         claims item k
-                                         item k->ctx.ctx = irq_ctx
-                                       hazptr_release(irq_ctx)
-                                         clears slot k
-      __hazptr_try_acquire()
-        Store B into slot k
-      (item k still names irq_ctx)
-  sleeps holding the pointer
-  hazptr_note_context_switch()
-    promotes item k with irq_ctx
+nit: "need to be exposed to user space via resctrl filesystem."?
 
-The task gets there with k > 0 when it already holds an outer hazard
-pointer in slot 0; no other task can, as its slot is promoted when it
-is switched out.
+> 
+> Add resctrl_set_kmode_support() to allow an architecture to register
+> its supported kernel modes. This is preparatory infrastructure for
+> future kernel mode support in resctrl.
+> 
 
-The task gets there with k == 0 when the fast path leaves slot 0
-empty: either its ptr_eq() check fails because an updater changed the
-pointer, or the pointer is NULL and an updater publishes a non-NULL one
-before the slow path loads it.
+Looks good, thank you.
 
-The promotion moves the task's pointer into irq_ctx's backup slot,
-which nothing unchains, so hazptr_synchronize() on that pointer never
-returns.  The task's ctx->slot still names slot k, so its
-hazptr_release() clears whatever another reader on that CPU has since
-published there.
+Reinette
 
-If the interrupt detaches instead, as hazptr_torture_acquire() does,
-the promotion chains irq_ctx's backup slot a second time while it is
-still linked.  The overflow list then loops on that node, or follows
-LIST_POISON1 once hazptr_unchain_backup_slot() removes it.
-
-Record the owner after __hazptr_try_acquire() succeeds, as the fast
-path in hazptr_acquire() does.  This should be safe because an
-interrupt that used the slot has released or detached it by the time
-the task resumes, and only hazptr_note_context_switch() reads the
-owner, which cannot run before the task enables preemption.
-
-Fixes: 50b568234163 ("hazptr: Implement Hazard Pointers")
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
-
-Notes:
-    With this patch, hazptrtorture's NOPREEMPT scenario passes a 30-minute
-    run on x86_64 with 8 CPUs.  PREEMPT runs clean for 30 minutes but can
-    hang at shutdown, in hazptrtorture's release of deferred hazard
-    pointers; that hang does not involve this patch, and is addressed by
-    "hazptrtorture: Release all deferred hazard pointers before stopping",
-    posted separately.
-    
-    With that fix also applied, 30-minute runs pass for PREEMPT, for
-    NOPREEMPT with torture_type=hazptr, for PREEMPT with
-    torture_type=hazptr-stack, and for PREEMPT with CONFIG_HAZPTR_DEBUG=n.
-    
-    PREEMPT and NOPREEMPT also pass without this patch: their readers hold
-    one hazard pointer each, so they reach the slow path only when the
-    ptr_eq() check fails or the pointer is NULL, which happens only before
-    the writer publishes its first element and after it stops.
-    
-    A KUnit reproducer, with a test-only hook in __hazptr_try_acquire()
-    between the free-slot check and Store B, fails on 940793b926aa and
-    passes with this patch.  I can post it if useful.
-
- kernel/hazptr.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
-
-diff --git a/kernel/hazptr.c b/kernel/hazptr.c
-index 3ca73b56a5c25..b15b84ebd4ceb 100644
---- a/kernel/hazptr.c
-+++ b/kernel/hazptr.c
-@@ -54,19 +54,16 @@ unsigned int flip_list_phase(unsigned int phase)
- }
  
- static
--struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
-+struct hazptr_slot_item *hazptr_get_free_percpu_slot_item(void)
- {
- 	struct hazptr_percpu_slots *percpu_slots = this_cpu_ptr(&hazptr_percpu_slots);
- 	unsigned int idx;
- 
- 	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
- 		struct hazptr_slot_item *item = &percpu_slots->items[idx];
--		struct hazptr_slot *slot = &item->slot;
- 
--		if (!slot->addr) {
--			item->ctx.ctx = ctx;
--			return slot;
--		}
-+		if (!item->slot.addr)
-+			return item;
- 	}
- 	/* All slots are in use. */
- 	return NULL;
-@@ -78,6 +75,7 @@ struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
-  */
- void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
- {
-+	struct hazptr_slot_item *item;
- 	struct hazptr_slot *slot;
- 	void *addr;
- 
-@@ -85,10 +83,17 @@ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
- 	 * In case we are called due to nested use of hazard pointers,
- 	 * try a slot protection with per-CPU slots.
- 	 */
--	slot = hazptr_get_free_percpu_slot(ctx);
--	if (likely(slot)) {
-+	item = hazptr_get_free_percpu_slot_item();
-+	if (likely(item)) {
-+		slot = &item->slot;
- 		addr = __hazptr_try_acquire(ctx, addr_p, slot);
- 		if (addr) {
-+			/*
-+			 * Record the owner only once Store B has claimed the
-+			 * slot, as hazptr_acquire() does: an interrupt may
-+			 * have used this slot since it was chosen.
-+			 */
-+			item->ctx.ctx = ctx;
- 			ctx->slot = slot;
- 			return addr;
- 		}
-
--- 
-2.53.0
 
