@@ -1,188 +1,124 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58601486639
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85B641835B;
+	Mon, 19 Oct 2026 07:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393532; cv=none; b=N1leVRObUzvPFzFrIRTZuR1P0qcJUiRAjHPAJwbWRkQHUIzjV6gzxXSxERWMj9NyqaNZklOfWvGnNasNGfwhY5a5Krl3Gz1nSafTiUK7Rq3Rqdig9u0mAraipJzSiwbNnWoTA3zZfltgNbjzmDQU9YtINBCV1vWKqz5UaU0Kj6E=
+	t=1792393599; cv=none; b=js14KnZM1Fo7OG3uuvVGxcEoBpPdDbHr+EMaXoUtJoinm+dfr6DclgM43fu7RGdAA2od1piY+KM+mQuA8P2Vz8MaIFFD5ofb8Aw7faqtI5bB0/6vEwewSSc07pCrYRTyBD9917LuGStC3aOxWOcx0nhrhJnzrdQvdeJr8WwLc1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393532; c=relaxed/simple;
-	bh=6ogOn43xB8QEwAvUWQg0xVPQaDZ6JnXonLhaZHN86jQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TrIgIMMqxVpmH3TmjhIIQXQKpcGtyDCAlAM9vIWz9Iur+sV30tacgnBxUD8lcmzhqoDAtQa0GNNU48kXQikdhucxYZChRIkkS3AW6eiQz35QGv3qxCwp7gWFxNekb+W5cmNz0fhibX8qkEpew5U+DPsWX4fyAbbc/qXjBzRnNwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/dkocMZ; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792393599; c=relaxed/simple;
+	bh=MuMKCIV47Q+d7gX6Zrh3i+Uw/cNBScHMVaTMYH22XO0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gm1JLmuI9deQnJUBiZIz6MxrQkjypsAp5N1asimbP/P3eN1Bk6u12EbuChPgyVJaOQgkoVaOsZre+48h4n2PFXPykk6J5IQ08I8yPM9hFl2Ox76fXZVgsdEM+ekfTbgjk+srCQ9lkZVB6MQJ9RhbaGtE5R+orzvHnrRbL6W5ZSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbEOhqpo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/dkocMZ"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so1866125a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:05:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792393528; x=1792998328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pExZzNoAihKMpA7rpnKJk+qrxFW572fEhtbrS1SyvK4=;
-        b=E/dkocMZRqnuTtHSEQwne23qnuss54S2SzHDPm/2au2NIf0lZygeOdzCKtAg/Q1pVf
-         WtOoUzbOZk3ssqLxlZCB0svpDtTwgWNDJdO0F7gyw4S59/iijqGPWEe51FZLbLXsv1BQ
-         bfRJwEAgk4WIuhE6AZIa50YUTwrwuy0/+Dva1uMtSsVUhMqVrwnc9qJ5X+KIozCQjCje
-         GfkXz8geEgtzc5XVVTjT8FQO7gryjZ68iEkfQZaUOtAbPZfOcnP9j4qx6u+jxztsDruq
-         vUcp9HUQPko6E5EDST6r9uURGHk3sqCYpnBPZ28C20BO8B9Dt9e5mpjWn+lQcVMnj+dU
-         Birw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792393528; x=1792998328;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pExZzNoAihKMpA7rpnKJk+qrxFW572fEhtbrS1SyvK4=;
-        b=XwGvq9EsqP0zjKiInPwDMlf1bgeXoWOjCG/mDLkdmrDt4BXIm+jGLA7zv5kd6FAlAE
-         aPSgicZEgom93j6LetfpUEMklbTKOFCIWCfU3nn3qbZCiBdrhDcezFQNyEESP/UMntrp
-         XvrxiMNHnuNbvGhZN3SUJiwOlzsxJotEXgb4EkQ6pwAXW0zrs8eDrcpwAL/fXDMwPkPo
-         AwxSl/Xe/J3OVJsX2NBpEJGRM4sWpF4JbVfKkNGDHsbBjDwzuKu8g+5DfQWjN8UW+Yvz
-         L8by8LDhdV9zFjngfbSDttfKZac00xWrsecmkOG6poZwZyG50gRhFOjxYjRJKmgV8xZw
-         xiMA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoxIKob12RHMi+Tu7i7Z79Zt9tfbiXIilAMLK2d1ZJ7jwHr3pPTLG2FJQtqBCD8KafURxHBiL/ov6Y/jc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxzXWlLC9sFKBwQWktPPPc3fBXOjYQAcivR97/lTKkSrAi1NBG
-	ko1VqTx6IwLyDPJ6pqABB9HHaOiTNWt+wYetxUC3Bzu5nl3ka2wg4rOK
-X-Gm-Gg: AYBFou0PVzd1eXQVLyVfQvfHNor9F7tV0jFS/rM2GIJE01ASe7wxnv6j1F0EElI7Aw5
-	rXfs+IiCW39S4X2FaEIfqkKxDa618Q6++f7qpPHmHeT3KaExYsNWxHShYCbr2SAArQ4R9f/409u
-	MgCtFnJNFbOMOh26PXsbXnXHiPj8SJvP/cQjCKerArziJabEs5eBudoMcbzUjKH0vCh6dS6Td43
-	HK8HFVUxn796/twCfjm2Aam16+ykhtQKgWfdZOmbwLqal0DBQk6r4lr5FWGbny+Js3QLFpZ23FH
-	r00/x892wI3z1OzOrORvujLG204SPjLZcc5S6VL/Ol8DuqHtyqVUbtAtH131GZu0ukMo2dO5aR4
-	d7RsnkiH99M+mat29LD3JdCm3dbml3/TU+PGYJmrxy7y6yXyEssp6fEu9V+5irsX2+YGQ3XsV9L
-	CtGXkUMp8+P7kmZOl8iw8dWwhHlmta7E2imQmHccpl5oP6nDPfEcWXEn/OVw8BfSc8/cepeDujD
-	/e7CQsQROE=
-X-Received: by 2002:a17:90b:50c4:b0:3ac:9ad9:6afe with SMTP id 98e67ed59e1d1-3acef59e230mr4320583a91.39.1792393527520;
-        Mon, 19 Oct 2026 00:05:27 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f19d9sm14384249a91.11.2026.10.19.00.05.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 00:05:26 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>
-Cc: Naman Jain <namjain@linux.microsoft.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] mshv_vtl: reject poll files with multiple waitqueues
-Date: Mon, 19 Oct 2026 16:04:38 +0900
-Message-ID: <20261019070438.3732624-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <b88b0341-a732-41e1-87df-4f0503df39cc@linux.microsoft.com>
-References: <b88b0341-a732-41e1-87df-4f0503df39cc@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbEOhqpo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072531F000C4;
+	Mon, 19 Oct 2026 07:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792393598;
+	bh=RBG5N+FfEFIehrCqR4e6P+vf/JRBTRr9M3vIsyWq9gA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PbEOhqpo3axFdDlnmaH2aTonn5RGDJRgHrjGwsbQLTYa+aASv0CA/MES1FVCtag5T
+	 DyPdpRa3TNuGmmUuWTvxijZkpkOCdwhozJUSAg8Fqu4XwJkvl8k6zckeIeuJ2QnWJ1
+	 JQiQko1Ykyi1fpHbPvREIvGSNF/JRmgeMVvjvXd30qjk3l5CkX0kEfAylhrqd5Op2d
+	 W/FQ9Gn9ljkyQ085N5hQqVhWWmK4kHDraXSvcMaPsB/yKw/LxT0hx41U+qb8EXZYgA
+	 vSUYDArtuPoZMpr2rjcfV43lz6ATWI6AbElUEa5nLNzrbt4v9gKlPfGkDxBY1FtfTe
+	 TtIYQhAiDhSWQ==
+Message-ID: <cd5bd24e-2dce-45da-a3cd-19d04f10167c@kernel.org>
+Date: Mon, 19 Oct 2026 09:06:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] dt-bindings: mediatek: hdmi-phy: Add compatible for
+ mt8167
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Chen-Yu Tsai <wenst@chromium.org>, Fabien Parent <fparent@baylibre.com>,
+ CK Hu <ck.hu@mediatek.com>, chunhui dai <chunhui.dai@mediatek.com>,
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20261010115539.9237-1-l.scorcia@gmail.com>
+ <20261010115539.9237-2-l.scorcia@gmail.com>
+ <20261012-quirky-emu-of-renovation-c217dc@quoll>
+ <CAORyz2KgX-7=gfax06+Pb5SFq4dVTtcTY2pbH+FDCRNZ+AVXOA@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAORyz2KgX-7=gfax06+Pb5SFq4dVTtcTY2pbH+FDCRNZ+AVXOA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-MSHV_SET_POLL_FILE invokes a file descriptor poll callback with a poll
-table backed by a single embedded wait entry. A poll callback may,
-however, register the table with more than one waitqueue. pipe_poll()
-does this naturally for an O_RDWR FIFO.
+On 12/10/2026 19:43, Luca Leonardo Scorcia wrote:
+>> Why do you have flexible clocks?
+> 
+> Hi, I'm sorry but I need a little help in understanding your comment.
+> If you meant "Why isn't there a constraint on the clocks' names", it
+> is already provided by the existing conditional block [1].
 
-The second registration currently warns but then inserts the same list
-node into another list. The new insertion overwrites the entry links while
-the first waitqueue still points at it, corrupting the first waitqueue and
-causing an invalid callback traversal when that queue wakes.
+Ack
 
-Reject a second distinct waitqueue, remove the first registration, and
-return -EINVAL from the ioctl. Repeated registration of the same waitqueue
-is treated as a no-op. A rejected replacement leaves the CPU slot
-unregistered, consistent with the existing remove-before-register ordering.
-Single-waitqueue users such as the OpenHCL io_uring poll file keep their
-existing behavior.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-An LLM-assisted source audit was used to find the issue and develop and
-test this fix.
-
-Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
-Changes in v2:
-- Replace the no-longer-supported Assisted-by trailer with changelog prose.
-- No code changes.
-- Link to v1: https://lore.kernel.org/r/20261016061114.1686153-1-4ncienth@gmail.com
-
- drivers/hv/mshv_vtl_main.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
-index 6e3c11c681717..158409b67a046 100644
---- a/drivers/hv/mshv_vtl_main.c
-+++ b/drivers/hv/mshv_vtl_main.c
-@@ -72,6 +72,7 @@ struct mshv_vtl_poll_file {
- 	wait_queue_entry_t wait;
- 	wait_queue_head_t *wqh;
- 	poll_table pt;
-+	int error;
- 	int cpu;
- };
- 
-@@ -458,7 +459,19 @@ static void mshv_vtl_ptable_queue_proc(struct file *file, wait_queue_head_t *wqh
- {
- 	struct mshv_vtl_poll_file *poll_file = container_of(pt, struct mshv_vtl_poll_file, pt);
- 
--	WARN_ON(poll_file->wqh);
-+	if (poll_file->error)
-+		return;
-+
-+	if (poll_file->wqh) {
-+		if (poll_file->wqh == wqh)
-+			return;
-+
-+		remove_wait_queue(poll_file->wqh, &poll_file->wait);
-+		poll_file->wqh = NULL;
-+		poll_file->error = -EINVAL;
-+		return;
-+	}
-+
- 	poll_file->wqh = wqh;
- 	add_wait_queue(wqh, &poll_file->wait);
- }
-@@ -468,6 +481,7 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
- 	struct file *file, *old_file;
- 	struct mshv_vtl_poll_file *poll_file;
- 	struct mshv_vtl_set_poll_file input;
-+	int ret;
- 
- 	if (copy_from_user(&input, user_input, sizeof(input)))
- 		return -EFAULT;
-@@ -496,6 +510,7 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
- 
- 	old_file = poll_file->file;
- 	poll_file->file = file;
-+	poll_file->error = 0;
- 	poll_file->cpu = input.cpu;
- 
- 	if (file) {
-@@ -503,13 +518,18 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
- 		init_poll_funcptr(&poll_file->pt, mshv_vtl_ptable_queue_proc);
- 		vfs_poll(file, &poll_file->pt);
- 	}
-+	ret = poll_file->error;
-+	if (ret)
-+		poll_file->file = NULL;
- 
- 	mutex_unlock(&mshv_vtl_poll_file_lock);
- 
- 	if (old_file)
- 		fput(old_file);
-+	if (ret)
-+		fput(file);
- 
--	return 0;
-+	return ret;
- }
- 
- /* Static table mapping register names to their corresponding actions */
--- 
-2.55.0
-
+Best regards,
+Krzysztof
