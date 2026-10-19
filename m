@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE43D5083FE;
-	Mon, 19 Oct 2026 14:03:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F30260C107;
+	Mon, 19 Oct 2026 14:03:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418611; cv=none; b=VVpm++Qva9zFVsr9H7YzlT0LSen6AisNX5WmWD09MWMKGxf5FwOrGQUGKDCNn73ZxkUos5vQVuYPAhhv6DkntzD7eh/fyxDE1c539hPwwfPBPrggG3g6kBcbAEbr2DSYkrmr3W9x5sfP3RlfkSP1RZ7jEfiZBWm4mm5XhYcfUdY=
+	t=1792418613; cv=none; b=X6xAOdoCSpZfcniutZrD/c4hQP/rLwrfgA5+vXDXbSkzE06u4PiiHXb031yPK6ytHvciRS5WnUdGME3kZoG9i2VdH31M9lJcJRqlipxiY7g8bApuDM5RHKVXWUAnyk3o2FZZWhqn+xiPvxwDdtMZ5ZI50K81br182TYwGgVpL5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418611; c=relaxed/simple;
-	bh=fd/bxe7wJdzTg1O/9SJP3qKvIIqctdYH8nMkYq3bv4M=;
+	s=arc-20240116; t=1792418613; c=relaxed/simple;
+	bh=36HdIlOFHdL/vVYmiZs7Q2F+j2DiREH0OCTVOMHKEsM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sYHCEArFWiKLUNEs1VDcwkpSK5cfr3YYhCE1G4cr3K4g5kVqJ5xndTZWQNdwCCsoMy/RbeAJ6GaqvbzbM+SqpRPqYzLgM6kzgPpc1P30wb8R+2f9z99GNs8t40+tNa5XGWXdW6A9nC12elFWwb5kQOVYVnLVCCnNaasZ4xx8U4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YhyzRa7O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=LaGhtc0xkw/O1zJs0WXJjQB12ER8S3QiBoQVQ/aWKQS95cpwXmOSDFdRpskkbkUM6KhA2JXPTG+D4LOgJ6XISTpoJ/7rWWbrVY8kH/BK+SvT7ppF1mJC/22xGW0INmz67wgrO3y10vkvn1DajHXa0IghmWZE6NDOdn7pO08oJg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D5FfhMgv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YhyzRa7O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E34511F000C6;
-	Mon, 19 Oct 2026 14:03:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D5FfhMgv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755C31F000C8;
+	Mon, 19 Oct 2026 14:03:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418607;
-	bh=Do2LNX96jLUZh2wnCuc2oBWreyYBE+BtVT124PVt374=;
+	s=k20260515; t=1792418610;
+	bh=4udapwcgqT1eSwUZFlUCJ5E9O4cf3E3CyLCU8wLYjFw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YhyzRa7OsUmjYdbxClRnPcF/bRtDziOxJ0CNuhTLgw7awzrpFRjP9GmNNHgTMDYdg
-	 ywa1m7KJfls53sP7VOSrpywSBBCq1YFo/pSKundjcx/GGTHX3j/GTZZ0FsKd9rXtPU
-	 SpL6sKdCpDUhkUm8B+7AraR1l4Nd/fqoRqxhAf8Xxq5nklud1lOPrw1ZFZo2NowCnx
-	 zVvdN4exS+PwLlvd5/9RtGBW3TcjZbttRPvHgWViPR6LCrdS0Bup+ayJ/ItoTJseJq
-	 c8JC9nSkBEyxymd0ZRRF0Id9Unu7/VWknsVLPMpgiPsDrkk/C2JaNtHHJKx2MVOuGS
-	 EP0rtF0bSEn+Q==
+	b=D5FfhMgvavQ8vJ53GE0NKIjPzio7zAyrdlbk8M691ofc2CW6u+opHiSffy6C4o8r3
+	 6aIe32Wallkjc6NKnFUc0UyPCJXgblvFYe1j81NKAx4DSUgI+J7ELIeQpTgZad8FKV
+	 Ro5Rb1QTFNAR2M8Tqv7D1XhxxsvHMvDNP53wKWxZqFs9g8xUHkIKOjaTAJ78A9i8P9
+	 Uh7rhCmydfU9ig8ubNTRlg77bd54l3aTK/wHKxlo9FlgYFPFFzbdyZ4N/OEkg2koWb
+	 TUrKpbbKVY+WlGGDAYLcLcc9Ji+FkPlNJnK+54uMRB6FFbMIUSZIJaLnGYR760b5lV
+	 7/9MsBmLb78vg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Linus Walleij <linusw@kernel.org>,
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-gpio@vger.kernel.org,
+	peterhuewe@gmx.de,
+	linux-integrity@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] pinctrl: sx150x: add missing MODULE_DEVICE_TABLE()
-Date: Mon, 19 Oct 2026 09:51:00 -0400
-Message-ID: <20261019135441.1420968-369-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] tpm: atmel: depend on X86
+Date: Mon, 19 Oct 2026 09:51:02 -0400
+Message-ID: <20261019135441.1420968-371-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -52,473 +53,336 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-[ Upstream commit 5fe4b12c087db3e565f53b87f1dafdf2f0d1ee0f ]
+[ Upstream commit 4bfacee94f309346bef0b598ea091088b9150af9 ]
 
-The driver has a match table for the i2c bus wired into its driver
-structure, but the table is not exported with MODULE_DEVICE_TABLE().
+tpm_atmel probes for the chip at fixed x86 Super-I/O ports (0x4e) with
+inb()/outb(), so it only works on x86. TCG_ATMEL nevertheless depends
+only on HAS_IOPORT_MAP/HAS_IOPORT, which arm and arm64 also satisfy.
+There the probe is useless, and on platforms whose unbacked I/O access
+faults it oopses in init_atmel() at boot (e.g. arm/versatile):
 
-Add the missing MODULE_DEVICE_TABLE() entry so module alias information
-is generated for automatic module loading.
+  Unable to handle kernel paging request at virtual address fee0004e
+  PC is at init_atmel+0x34/0x244
 
-This is a source-level fix.  It does not claim dynamic hardware
-reproduction; the evidence is the driver-owned match table, its use by
-the driver registration structure, and the missing module alias
-publication.
+TCG_NSC and TCG_TIS already "depends on X86" (commit 2f592f2a7d74 ("TPM:
+NSC and TIS drivers X86 dependency fix")); TCG_ATMEL was missed. Add the
+same dependency.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20260712183234.23125-1-kmehltretter@gmail.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough to judge this: a one-line I2C alias export on a driver
-that is modular in this tree, with OF autoload already working.
+## Phase 1: Commit message forensics
 
----
+**Step 1.1 — Subject**
+Record: `[tpm / TCG_ATMEL]` `[depend]` Restrict the Atmel TPM driver to
+x86 because it probes Super-I/O ports.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1: PARSE THE SUBJECT LINE**
-
-Record: **[pinctrl/sx150x] [add] [export the existing I2C match table
-via MODULE_DEVICE_TABLE() so module aliases are generated]**
-
-- Subsystem prefix: `pinctrl: sx150x:`
-- Action verb: **add**
-- Claimed intent: publish missing I2C module aliases for automatic
-  loading
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-
-Commit: `5fe4b12c087db3e565f53b87f1dafdf2f0d1ee0f`
-
+**Step 1.2 — Tags**
 Record:
-- **Fixes:** none (expected)
-- **Reported-by:** none
-- **Tested-by:** none
-- **Reviewed-by:** none
-- **Acked-by:** none
-- **Link:** none in the git commit (lore exists; see Phase 4)
-- **Cc: stable:** none (expected)
-- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>` (author);
-  Linus Walleij `<linusw@kernel.org>` (pinctrl maintainer)
-- Ignored pipeline markers: none present on this commit
+- `Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>` (TPM maintainer)
+- `Link: https://lore.kernel.org/r/20260712183234.23125-1-
+  kmehltretter@gmail.com`
+- `Signed-off-by: Karl Mehltretter` (author)
+- `Signed-off-by: Jarkko Sakkinen` (maintainer)
+- No `Fixes:`, no `Reported-by:`, no `Cc: stable` (absence is expected
+  for this review)
+- Ignore any pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit
+  …]` markers
 
-Notable pattern: no user/syzbot report; maintainer SOB only.
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
+**Step 1.3 — Body**
 Record:
-- **Bug:** `sx150x_id[]` is wired as `sx150x_driver.id_table` but not
-  exported with `MODULE_DEVICE_TABLE(i2c, ...)`.
-- **Symptom:** depmod/udev never get `i2c:sx1501q` … `i2c:sx1509q`
-  aliases, so the module does not autoload for I2C-name instantiation.
-- **Version info:** none in the message.
-- **Root cause (author):** match table is used at registration but not
-  published for `file2alias` / modules.alias.
-- Author states this is a **source-level** finding with **no hardware
-  reproduction**.
+- Bug: `tpm_atmel` probes Super-I/O at `0x4e` with `inb()`/`outb()`.
+  Kconfig only required `HAS_IOPORT_MAP`/`HAS_IOPORT`, which ARM/arm64
+  also satisfy.
+- Symptom: boot oops, `Unable to handle kernel paging request at virtual
+  address fee0004e`, `PC is at init_atmel+0x34/0x244` (example:
+  arm/versatile).
+- Root cause: unbacked PCI I/O window access on non-x86.
+- Same class of fix as `2f592f2a7d74` (`TCG_NSC` / `TCG_TIS` `depends on
+  X86`); `TCG_ATMEL` was missed.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
+**Step 1.4 — Hidden bug fix?**
+Record: Not hidden. Explicit crash fix via Kconfig dependency. Not
+cleanup or a new feature.
 
-Record: **Not a disguised cleanup.** It is an explicit autoload/metadata
-fix. The “source-level” wording means the author inferred the bug from
-the missing macro, not from a crash.
+## Phase 2: Diff analysis
 
----
+**Step 2.1 — Inventory**
+Record: One file, `drivers/char/tpm/Kconfig`. `TCG_ATMEL`: replace
+`depends on HAS_IOPORT_MAP` + `depends on HAS_IOPORT` with `depends on
+X86`. Scope: single-file, two-line Kconfig change.
 
-## PHASE 2: DIFF ANALYSIS
+**Step 2.2 — Code flow**
+Record: Before: any arch with I/O-port mapping can build/enable
+`tpm_atmel`; `init_atmel()` always probes `0x4e`. After: the driver is
+not built on non-x86. Affected path: module/builtin init, not a hot
+path.
 
-**Step 2.1: INVENTORY THE CHANGES**
+**Step 2.3 — Bug mechanism**
+Record: Kconfig/hardware-scope bug that produces a NULL/unmapped I/O
+dereference. On ARM, `inb(0x4e)` becomes a load at
+`PCI_IO_VIRT_BASE+0x4e` (`0xfee0004e`). If that page is not mapped, the
+kernel oopses.
 
-Record:
-- File: `drivers/pinctrl/pinctrl-sx150x.c` — **+1 / −0**
-- Function/data: none; one statement after `sx150x_id[]`
-- Scope: **single-file surgical fix**
+**Step 2.4 — Fix quality**
+Record: Obviously correct for the Super-I/O probe. Minimal. No runtime
+locking/API change. Regression risk is only over-restricting platforms
+that still have a working non-x86 path. That matters on **this** tree
+(see Phase 6): PPC64 OF support is still present, so the backport must
+be `depends on X86 || PPC64`, not bare `depends on X86`.
 
-```850:856:drivers/pinctrl/pinctrl-sx150x.c
-        { .name = "sx1509q", .driver_data =
-(kernel_ulong_t)&sx1509q_device_data },
-        { }
-};
-MODULE_DEVICE_TABLE(i2c, sx150x_id);
+## Phase 3: Git history
+
+**Step 3.1 — Blame**
+Record: `TCG_ATMEL` dates to `1da177e4c3f41` (Linux 2.6.12-rc2). Local
+depends lines:
+- `depends on PPC64 || HAS_IOPORT_MAP` — `ce816fa88cca0` (2014; rename
+  of `HAS_IOPORT` → `HAS_IOPORT_MAP`)
+- `depends on HAS_IOPORT` — `6155153601183` (“char: tpm: handle
+  HAS_IOPORT dependencies”, 2024; **in this tree**)
+
+The Super-I/O probe in `tpm_atmel.h` (`#else` of `CONFIG_PPC64`) has
+been there for the life of the driver.
+
+**Step 3.2 — Fixes: tag**
+Record: None. Related historical commit `2f592f2a7d74` (2011, **in this
+tree**) added `depends on X86` for NSC/TIS after PPC oopses; Atmel was
+not included.
+
+**Step 3.3 — Related file history**
+Record: `5578b4347bb5d` (“tpm: atmel: Drop PPC64 specific MMIO setup”,
+2024-11-22) is **not** an ancestor of this checkout (`git merge-base
+--is-ancestor` exit 1). It is an ancestor of the candidate. That commit
+changed Kconfig to `depends on HAS_IOPORT_MAP` only; the candidate then
+changed that to `depends on X86`.
+
+**Step 3.4 — Author**
+Record: Karl Mehltretter — this is the only Atmel TPM commit from that
+author on `origin/master`. Jarkko Sakkinen (TPM maintainer) reviewed and
+applied it.
+
+**Step 3.5 — Prerequisites**
+Record: The **verbatim** diff assumes PPC64 was already dropped. That
+drop is not in 6.12. The **semantic** fix does not need that drop: this
+tree can use `depends on X86 || PPC64` and keep the existing OF path.
+Standalone with that one-line adaptation. Do not pull in `5578b4347bb5d`
+(feature removal, ~140 lines).
+
+## Phase 4: Mailing list / external
+
+**Step 4.1 — Original discussion**
+Record: `b4 dig -c 4bfacee94f309` →
+https://patch.msgid.link/20260712183234.23125-1-kmehltretter@gmail.com
+`b4 dig -a`: single revision (v1 only).
+Thread (mbox): author patch + Jarkko `Reviewed-by`. No NAK, no stable
+debate, no risk flags.
+
+**Step 4.2 — Recipients** (`b4 dig -w`)
+Record: Jarkko Sakkinen, Peter Huewe, Jason Gunthorpe, `linux-
+integrity`, `linux-kernel`. Right maintainers/list.
+
+**Step 4.3 — Bug report**
+Record: No syzbot/bugzilla. Concrete oops in the commit message; PC and
+fault address match ARM `inb(0x4e)`.
+
+**Step 4.4 — Series**
+Record: Standalone, not patch x/y.
+
+**Step 4.5 — Stable list**
+Record: No stable-specific thread found. lore.kernel.org HTTP fetch
+returned 403; discussion recovered via `b4 dig -m`. UNVERIFIED: whether
+anyone later nominated it on `stable@`.
+
+## Phase 5: Semantic / call surface
+
+**Step 5.1 — Functions**
+Record: No C functions changed. Runtime path gated: `init_atmel()` →
+`atmel_get_base_addr()` → `atmel_verify_tpm11()` → `tpm_read_index()` →
+`outb`/`inb` at `TPM_ADDR` (`0x4E` in `drivers/char/tpm/tpm.h`).
+
+**Step 5.2 — Callers**
+Record: `module_init(init_atmel)` — builtin boot or `modprobe
+tpm_atmel`.
+
+**Step 5.3 — Callees**
+Record: Super-I/O index/data ports; no allocation/locking in the
+faulting probe.
+
+**Step 5.4 — Reachability**
+Record: Yes, if `CONFIG_TCG_ATMEL=y/m`. Not a syscall. User/config must
+enable an x86 Super-I/O TPM driver.
+`arch/parisc/configs/generic-64bit_defconfig` sets `CONFIG_TCG_ATMEL=m`.
+ARM `allyesconfig`/custom configs can set it `=y` and oops at boot.
+
+**Step 5.5 — Similar patterns**
+Record: `TCG_NSC` already `depends on X86` in this tree. `TCG_TIS` is
+`depends on X86 || OF` here (OF added later; not Super-I/O).
+
+## Phase 6: This checkout (6.12.y)
+
+**Step 6.1 — Does the buggy code exist?**
+Record: Yes.
+- Tree: `git describe` → `p-6.12-3-gc504cf0baa3d8`, `make kernelversion`
+  → **6.12.111**
+- Candidate `4bfacee94f309` is **not** in HEAD
+- Local Kconfig:
+
+```164:171:drivers/char/tpm/Kconfig
+config TCG_ATMEL
+        tristate "Atmel TPM Interface"
+        depends on PPC64 || HAS_IOPORT_MAP
+        depends on HAS_IOPORT
 ```
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+- Non-PPC64 `tpm_atmel.h` still does Super-I/O `inb`/`outb` at
+  `TPM_ADDR`.
+- `arch/arm/Kconfig` `select HAS_IOPORT`. `HAS_IOPORT_MAP` defaults y
+  unless `NO_IOPORT_MAP`. `ARCH_VERSATILE` does **not** select
+  `NO_IOPORT_MAP`.
+- ARM `PCI_IO_VIRT_BASE` is `0xfee00000`; `inb(0x4e)` → `0xfee0004e`,
+  matching the oops.
 
+**Step 6.2 — Backport difficulty**
+Record: Exact hunk will not apply (this tree still has `PPC64 ||
+HAS_IOPORT_MAP`). Trivial adaptation:
+
+```
+depends on X86 || PPC64
+```
+
+Do **not** apply bare `depends on X86`; that would disable the still-
+present PPC64 OF path (`CONFIG_PPC64` in `tpm_atmel.h`).
+
+**Step 6.3 — Related fixes already here?**
+Record: No other Atmel X86-dependency fix. `2f592f2a7d74` only covered
+NSC/TIS.
+
+## Phase 7: Subsystem context
+
+**Step 7.1**
+Record: `drivers/char/tpm` — TPM. Criticality: **IMPORTANT** for TPM
+users; Atmel Super-I/O is a legacy path. Still a driver that can be
+built into generic/distro kernels.
+
+**Step 7.2**
+Record: TPM core is active (HMAC, new backends). `tpm_atmel` itself is
+mature/legacy.
+
+## Phase 8: Impact and risk
+
+**Step 8.1 — Who is affected**
+Record: Config-specific: `CONFIG_TCG_ATMEL` on non-x86 (ARM/arm64 with
+PCI I/O, parisc defconfig, etc.). Not all 6.12 users.
+
+**Step 8.2 — Trigger**
+Record: Boot if builtin; module load if `=m`. Unprivileged users cannot
+trigger unless the module is loaded. Commonness: low on production ARM,
+high on `allyesconfig` / mistaken enablement. Author hit it on
+versatile.
+
+**Step 8.3 — Failure mode**
+Record: Kernel paging-request oops in `init_atmel`. Severity:
+**CRITICAL** when the driver is enabled (boot crash if `=y`).
+
+**Step 8.4 — Risk/benefit**
 Record:
-- **Before:** OF table already had `MODULE_DEVICE_TABLE(of,
-  sx150x_of_match)`. I2C table was registered via `.id_table` but not
-  aliased.
-- **After:** `scripts/mod/file2alias.c` `do_i2c_entry()` emits
-  `i2c:<name>` aliases (`I2C_MODULE_PREFIX` is `"i2c:"`).
-- Path affected: **module build / depmod / udev autoload**, not
-  probe/runtime logic.
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-
-Record:
-- **Category:** hardware enablement / module autoload (same family as
-  device-ID publication)
-- **Mechanism:** without `MODULE_DEVICE_TABLE(i2c, sx150x_id)`,
-  `file2alias` never sees the I2C table. DT devices still autoload via
-  OF aliases (`i2c_device_uevent()` prefers
-  `of_device_uevent_modalias()`). Non-DT instantiation (`new_device`,
-  i2c-USB, board info) emits `MODALIAS=i2c:<name>` and would fail to
-  autoload.
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-
-Record:
-- Obviously correct: matches `Documentation/i2c/writing-clients.rst`.
-- Minimal: one line, no API/locking/data-structure change.
-- Regression risk: **very low** (modinfo aliases only; no runtime path
-  change).
-- Red flags: none.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: BLAME THE CHANGED LINES**
-
-Record:
-- `sx150x_id[]` introduced in `9e80f9064e73f` (**2016**, v4.10-era):
-  “pinctrl: Add SX150X GPIO Extender Pinctrl Driver”. That commit
-  **removed** `MODULE_DEVICE_TABLE` because the driver was `bool`
-  (citing gpio-sx150x `module.h` cleanup).
-- I2C `MODULE_DEVICE_TABLE` added only by this commit (`5fe4b12c087db`,
-  2026-07-10).
-- Modularization: `fe2e8f17a56fe` (2025-08-19) made `PINCTRL_SX150X`
-  **tristate** and added **only** `MODULE_DEVICE_TABLE(of, ...)`.
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-
-Record: **No Fixes: tag.** Buggy omission is from `fe2e8f17a56fe`
-(incomplete modularization), not from a tagged regression.
-`fe2e8f17a56fe` is an ancestor of this HEAD.
-
-**Step 3.3: CHECK FILE HISTORY**
-
-Record:
-- Related: `fe2e8f17a56fe` (tristate + OF aliases); `dbbb19b8e412f`
-  (allow `depends on I2C` so it can be `=m` when I2C is a module, landed
-  later in 7.3).
-- Standalone one-liner; not patch X/Y.
-- Prerequisite for *meaning*: driver must be buildable as a module
-  (`fe2e8f17a56fe`). That is in this tree.
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record: Pengpeng Hou is **not** the pinctrl maintainer. Large sweep of
-“add missing MODULE_DEVICE_TABLE()” across
-rtc/vdpa/watchdog/clk/soc/etc. This is a systematic metadata sweep,
-applied here by Linus Walleij.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-
-Record: No new helpers. Applies anywhere `sx150x_id[]` exists (since
-2016). Standalone. User-visible only when `PINCTRL_SX150X=m`.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
-Record:
-- **Lore:**
-  https://patch.msgid.link/20260704152230.51188-1-pengpeng@iscas.ac.cn
-- **Revisions:** v1 only (`b4 dig -a`)
-- Thread (mbox via `b4 dig -m`): submission + Linus Walleij **“Patch
-  applied!”**
-- No NAK, no review changes, **no Cc: stable** from author or maintainer
-- WebFetch of lore.kernel.org returned **403**; discussion read from the
-  saved mbox instead
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-
-Record (`b4 dig -w`): To Linus Walleij; Cc linux-gpio, linux-kernel.
-Maintainer applied it. No other reviewers.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-
-Record: **No bugzilla/syzbot/user report.** Author: source-level only.
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: Standalone v1. Same author has many sibling MODULE_DEVICE_TABLE
-patches; none are prerequisites for this hunk.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-
-Record: **UNVERIFIED** on lore.kernel.org/stable (HTTP 403). No `Cc:
-stable` in commit or mbox.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: KEY FUNCTIONS**
-
-Record: No functions changed. Touches `sx150x_id[]` publication.
-Related: `sx150x_driver`, `sx150x_init()` → `i2c_add_driver()`.
-
-**Step 5.2: TRACE CALLERS**
-
-Record:
-- `sx150x_init()` is `subsys_initcall` / module init; only caller of
-  `i2c_add_driver(&sx150x_driver)`.
-- `sx150x_probe()` is the I2C probe (line 1123). Bound via OF match or
-  `id_table`.
-- Not IRQ/hot-path; device enumeration / module autoload.
-
-**Step 5.3: TRACE CALLEES**
-
-Record: `MODULE_DEVICE_TABLE` is a build-time alias for `file2alias`. No
-allocations, locks, or I/O.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record:
-- DT boards (qcs615-ride, imx8mp-aristainetos3, kirkwood-l-50,
-  vf610-zii, at91-natte, …): uevent uses **OF** modalias; already
-  covered.
-- Non-DT: `i2c_device_uevent()` falls through to
-  `MODALIAS=i2c:<client->name>`. Original 2016 commit tested **x86_64
-  I2C-USB** as well as BeagleBone DT — that path needs I2C aliases.
-- Userspace `new_device` can also trigger it.
-- Reachable: yes, from device enumeration / sysfs, not a syscall crash
-  path.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-
-Record: Same missing-macro pattern across many drivers in this cycle. OF
-table in this file already had the macro; I2C table was the gap.
-
-semcode MCP: **not available**; used git/grep/read.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-
-Record:
-- Local tree: **`v7.3-rc4-27-gf0100363d8c37`**, `make kernelversion` =
-  **7.3.0-rc4**, detached HEAD on mainline.
-- Driver file present; Kconfig is `tristate`; both MODULE_DEVICE_TABLE
-  lines present **because this commit is already in HEAD**.
-- Bug existed in this lineage from `fe2e8f17a56fe` (in v6.18) until
-  `5fe4b12c087db` (first in **v7.3-rc1**).
-- `git merge-base --is-ancestor 5fe4b12c087db HEAD` → **yes**.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-
-Record: **Clean apply.** Single line after `sx150x_id[]`. Pre-fix parent
-still has the table and OF `MODULE_DEVICE_TABLE`. Context around named
-initializers (`84c0fe4a2085f`) does not affect the added line.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-
-Record: OF aliases already added by `fe2e8f17a56fe`. No other I2C alias
-fix. This is the remaining hole, not a duplicate.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1: SUBSYSTEM AND CRITICALITY**
-
-Record: **pinctrl / I2C GPIO expander driver**
-(`drivers/pinctrl/pinctrl-sx150x.c`). Criticality: **PERIPHERAL**
-(specific Semtech SX150x chips on a handful of boards). Not mm/fs/net
-core.
-
-**Step 7.2: SUBSYSTEM ACTIVITY**
-
-Record: pinctrl is actively developed (frequent 7.3 merges). This driver
-is mature (2016); the modularization is recent (6.18).
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: WHO IS AFFECTED**
-
-Record: **Driver-specific / config-specific:**
-`CONFIG_PINCTRL_SX150X=m`, and instantiation **without** a working OF
-(or ACPI) modalias — I2C name match. DT users already autoload via OF.
-
-**Step 8.2: TRIGGER CONDITIONS**
-
-Record:
-- Trigger: module not loaded; I2C client named `sx1501q`…`sx1509q`
-  appears (sysfs `new_device`, non-DT board, I2C-USB).
-- Commonness: **low** on in-tree DT boards; **real** for the non-OF path
-  the driver was written to support.
-- Unprivileged trigger: no (needs device creation / root sysfs).
-
-**Step 8.3: FAILURE MODE SEVERITY**
-
-Record:
-- Failure: GPIO/pinctrl expander **does not bind** until manual
-  `modprobe`. No oops, deadlock, or corruption.
-- Severity: **MEDIUM** for affected modular non-DT users; **LOW** for
-  typical DT boards.
-- Not CRITICAL.
-
-**Step 8.4: RISK-BENEFIT RATIO**
-
-Record:
-- **Benefit:** modest — restores I2C autoload for a modular driver that
-  documents non-OF use.
-- **Risk:** very low — one compile-time alias line.
-- **Ratio:** favorable. Same class as publishing device IDs.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-**FOR backporting:**
-- Real autoload bug once the driver is a module (this tree: tristate).
-- One line, obviously correct, maintainer-applied.
-- Zero runtime regression risk.
-- Same user-visible class as device-ID additions (module aliases).
-- I2C `id_table` is actually used (`.id_table = sx150x_id`); OF aliases
-  do not cover the i2c: modalias path.
-- Original driver was tested on non-OF x86 I2C-USB.
-
-**AGAINST:**
-- Not a crash/UAF/security/corruption/deadlock issue.
-- No user report; author says source-level only.
-- DT autoload already works via OF `MODULE_DEVICE_TABLE`.
-- Peripheral expander, small user set.
-- Automated MODULE_DEVICE_TABLE sweep, not a targeted production
-  incident.
-
-**UNRESOLVED:**
-- Whether stable@ already discussed this (lore 403).
-- How many distros set `PINCTRL_SX150X=m` vs `=y`.
-
-**Step 9.2: STABLE RULES CHECKLIST**
-
-1. Obviously correct and tested? **PASS** — correct by construction;
-   maintainer applied. Hardware test not claimed.
-2. Fixes a real bug that affects users? **PASS** — missing I2C aliases
-   prevent autoload for non-DT / `i2c:` modalias.
-3. Important issue? **PASS** (as device-ID / enablement, not as crash).
-   User-visible: device never probes until manual modprobe. Stable text
-   allows “add a device ID”; this publishes existing IDs.
-4. Small and contained? **PASS** — +1 line, one file.
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — applies cleanly; this
-   checkout already contains the equivalent change.
-
-**Step 9.3: EXCEPTION CATEGORIES**
-
-Record: **Device ID / module alias publication** (not a new driver).
-Closest exception: adding/exporting IDs on an existing driver so
-hardware binds automatically.
-
-**Step 9.4: DECISION**
-
-This tree is **7.3-rc4 mainline**, where `PINCTRL_SX150X` is tristate
-and the I2C table is live. The patch does not change runtime logic; it
-only emits the aliases `file2alias` needs for `i2c:sx150*q`. That is a
-real, contained autoload fix with essentially no regression risk. DT
-boards already worked; the I2C table still matters for the non-OF path
-this driver has supported since 2016.
-
-It meets stable rules as a small, obviously correct hardware-binding
-fix, not as a crash fix.
-
----
-
-### What the commit solves (for this tree)
-
-When built as a module, udev/modprobe cannot match
-`MODALIAS=i2c:sx1509q` (and siblings) because those aliases were never
-generated. Probe itself was fine if the module was loaded by hand or via
-OF. The one-line `MODULE_DEVICE_TABLE(i2c, sx150x_id)` closes that gap.
-
-### Risk vs benefit
-
-Benefit is autoload for modular, non-DT (or sysfs-instantiated) SX150x
-users. Risk is negligible. That trade-off is acceptable for stable.
-
-### Concerns
-
-No `Fixes:`/`Cc: stable` (not a negative by itself). Impact is not a
-panic. Prerequisite modularization is already in this lineage. No
-backport rework needed.
-
----
-
-### Verification
-
-- **[Phase 1]** Parsed `5fe4b12c087db`: subject/body/SOBs; no
-  Fixes/Reported-by/stable Cc
-- **[Phase 2]** Diff: +1 `MODULE_DEVICE_TABLE(i2c, sx150x_id)` in
-  `pinctrl-sx150x.c`
-- **[Phase 2]** Confirmed OF table already has `MODULE_DEVICE_TABLE(of,
-  sx150x_of_match)` (line 870)
-- **[Phase 2]** Confirmed `.id_table = sx150x_id` (line 1281)
-- **[Phase 3]** `git blame`: table from `9e80f9064e73f` (2016); OF macro
-  from `fe2e8f17a56fe`; I2C macro from this commit
-- **[Phase 3]** `git show fe2e8f17a56fe`: tristate + OF
-  MODULE_DEVICE_TABLE + MODULE_LICENSE; I2C table omitted
-- **[Phase 3]** `git log --author=Pengpeng Hou`: many sibling
-  MODULE_DEVICE_TABLE commits
-- **[Phase 4]** `b4 dig -c 5fe4b12c087db`: lore msgid
-  `20260704152230.51188-1-pengpeng@iscas.ac.cn`
-- **[Phase 4]** `b4 dig -a`: v1 only
-- **[Phase 4]** `b4 dig -w`: Linus Walleij + linux-gpio
-- **[Phase 4]** mbox: “Patch applied!”; no NAK; no stable nomination
-- **[Phase 4]** WebFetch lore/stable: **403 UNVERIFIED**
-- **[Phase 5]** `i2c_device_uevent`: OF, then ACPI, then `i2c:` name
-  (`drivers/i2c/i2c-core-base.c:163-176`)
-- **[Phase 5]** `do_i2c_entry` emits `i2c:%s`
-  (`scripts/mod/file2alias.c:855-860`)
-- **[Phase 5]** In-tree DTS uses `semtech,sx150xq` compatibles
-- **[Phase 5]** No ACPI table in this driver
-- **[Phase 6]** `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`;
-  `kernelversion` 7.3.0-rc4
-- **[Phase 6]** `git merge-base --is-ancestor 5fe4b12c087db HEAD` → yes
-- **[Phase 6]** Tags: fix first in v7.3-rc1; tristate in v6.18; missing
-  in v7.2
-- **[Phase 6]** Kconfig in this tree: `tristate` `depends on I2C`
-- **[Phase 8]** Failure mode: module not autoloaded; severity
-  MEDIUM/LOW, not crash
-- **UNVERIFIED:** stable@ archive discussion; distro `=m` vs `=y`
-  prevalence
-- **UNVERIFIED:** semcode MCP not present
-
-The fix is small, surgical, and meets stable criteria as module-alias /
-device-ID enablement.
+- Benefit: stops a real oops; Kconfig-only.
+- Risk: very low if PPC64 is preserved; **high if applied verbatim**
+  (would hide `tpm_atmel` on PPC64 while the OF code remains).
+- Ratio: favorable **with** `X86 || PPC64`.
+
+## Phase 9: Synthesis
+
+**Evidence FOR**
+- Documented boot oops; fault address verified against ARM `inb()`.
+- Same bug class already fixed for NSC/TIS in this tree.
+- One-file Kconfig change; TPM maintainer Reviewed-by.
+- Buggy probe is in this 6.12 tree.
+- Fits “build/Kconfig dependency” stable exception; prevents a crash,
+  adds no API.
+
+**Evidence AGAINST**
+- Verbatim patch does not apply; depends on PPC64-drop `5578b4347bb5d`
+  which is **not** in 6.12.
+- `TCG_ATMEL` is not in ARM defconfigs; impact is config-selected.
+- Bare `depends on X86` would be a PPC64 regression on this tree.
+
+**Unresolved**
+- UNVERIFIED: whether any live PPC64 machine still uses AT97SC3201 via
+  OF (Rob Herring later found no in-tree powerpc configs; that drop is
+  still not in 6.12, so this backport should keep PPC64).
+- UNVERIFIED: stable@ discussion (lore HTTP 403).
+
+**Stable rules**
+1. Obviously correct and tested? **PASS** (Kconfig restrict + maintainer
+   review; oops matches code).
+2. Real user-visible bug? **PASS** (boot oops).
+3. Important (crash)? **PASS** when the option is enabled.
+4. Small and contained? **PASS** (1–2 Kconfig lines).
+5. No new features/APIs? **PASS**.
+6. Apply to this tree? **PASS with backport** (`depends on X86 ||
+   PPC64`); **FAIL** if taken verbatim.
+
+**Exception category:** Kconfig/build dependency fix that prevents a
+crash.
+
+The 6.12 bug is real: `TCG_ATMEL` can still be enabled on
+ARM/arm64/parisc, and `init_atmel()` will touch `0x4e` and oops on
+unbacked I/O. Restricting the symbol is the right stable fix. Use
+`depends on X86 || PPC64` so the still-present PowerPC OF path is not
+dropped.
+
+Verification:
+- [Phase 1] Tags: Reviewed-by Jarkko; lore Link; no Fixes/Cc:stable
+- [Phase 2] Diff: Kconfig only, `HAS_IOPORT*` → `X86`
+- [Phase 3] `git describe` / `make kernelversion`: 6.12.111
+- [Phase 3] `git merge-base --is-ancestor 4bfacee94f309 HEAD`: not in
+  tree
+- [Phase 3] `git merge-base --is-ancestor 5578b4347bb5d HEAD`: PPC64
+  drop not in tree
+- [Phase 3] `git merge-base --is-ancestor 2f592f2a7d74 HEAD`: NSC/TIS
+  X86 dep is in tree
+- [Phase 3] `git blame drivers/char/tpm/Kconfig`: HAS_IOPORT added by
+  `6155153601183`
+- [Phase 4] `b4 dig -c 4bfacee94f309`: v1 only; Jarkko Reviewed-by; no
+  NAK
+- [Phase 4] lore WebFetch: 403; thread read from `b4 dig -m`
+- [Phase 5] `init_atmel` → `atmel_verify_tpm11` →
+  `tpm_read_index(TPM_ADDR=0x4E)`
+- [Phase 6] Local Kconfig still `PPC64 || HAS_IOPORT_MAP`; ARM
+  `PCI_IO_VIRT_BASE=0xfee00000` matches oops
+- [Phase 6] `ARCH_VERSATILE` does not select `NO_IOPORT_MAP`;
+  `HAS_IOPORT` selected by ARM
+- [Phase 8] parisc `generic-64bit_defconfig` has `CONFIG_TCG_ATMEL=m`
+- UNVERIFIED: live PPC64 Atmel hardware; stable@ thread beyond b4 mbox
 
 **YES**
 
- drivers/pinctrl/pinctrl-sx150x.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/char/tpm/Kconfig | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-sx150x.c b/drivers/pinctrl/pinctrl-sx150x.c
-index 1d6760ffe809a..f1647d9114e3b 100644
---- a/drivers/pinctrl/pinctrl-sx150x.c
-+++ b/drivers/pinctrl/pinctrl-sx150x.c
-@@ -850,6 +850,7 @@ static const struct i2c_device_id sx150x_id[] = {
- 	{"sx1509q", (kernel_ulong_t) &sx1509q_device_data },
- 	{}
- };
-+MODULE_DEVICE_TABLE(i2c, sx150x_id);
+diff --git a/drivers/char/tpm/Kconfig b/drivers/char/tpm/Kconfig
+index 8a8f692b60880..5f672f2c01b04 100644
+--- a/drivers/char/tpm/Kconfig
++++ b/drivers/char/tpm/Kconfig
+@@ -163,8 +163,7 @@ config TCG_NSC
  
- static const struct of_device_id sx150x_of_match[] = {
- 	{ .compatible = "semtech,sx1501q", .data = &sx1501q_device_data },
+ config TCG_ATMEL
+ 	tristate "Atmel TPM Interface"
+-	depends on HAS_IOPORT_MAP
+-	depends on HAS_IOPORT
++	depends on X86
+ 	help
+ 	  If you have a TPM security chip from Atmel say Yes and it 
+ 	  will be accessible from within Linux.  To compile this driver 
 -- 
 2.53.0
 
