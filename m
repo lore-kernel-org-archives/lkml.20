@@ -1,477 +1,422 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010008.outbound.protection.outlook.com [40.93.198.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BA6546443;
-	Mon, 19 Oct 2026 14:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418823; cv=none; b=Mbh0jE7iec2v/soAfjl/zyXwB5h4maBY0jlphYAIELuo18XNhY0lNSyA526ZJmWJBdhWBYReT76dcjO66u/A4US8upBTURJRfj+fTaq6LzI9bV9uHjTB1v7CBCbRwmjZ7UwgE4KiI8HXbxmZE8iZVI4Y1PoLE2/5lGWIkjAzeRI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418823; c=relaxed/simple;
-	bh=SEXOvpv4tjRY8TmdjmlMaarnyXmkYcb0LWl4CaXOQ2U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZPiONGYPVCTIQMsk209F07hFMfP89qR8kptw8hpLolZjSlrqouJG/JsYjeomeMKp+bKw1wMRcJ4+PQRZim412twMZ+4I4hWrTfsrqVdTrjcNFwE8+WwvtIEjGSRr2M0Nv2YO/H2BIMwJlKobsgQC6hm138mzGcujnYSxO7hoiJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nR16xfd7; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBFA64C3E9
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792418822; cv=fail; b=HcnWbpciXAkud6x44pP+IRFbCvNPJ6VnnGIOCq5M0Er+9PMSLUmn3NXHKc2Oa9phPmCyEpQyRvkp1gozhLhOPEdpXj3bOilbYUyKD+xWa5Dq55GJoXfgF5JnJKKBGjOJbsvKkWwIIeLz+zg78aCki/0YqunsMB6+EbphRGuIQ/I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792418822; c=relaxed/simple;
+	bh=1V4JjxKwfRyyJREemNKLd1nc5hOESKUtnAcsm9gyey4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=WiGVJ/3NyOOd0OwgBnkAMuADL0iBEmfYIL/inDTdABVDEe/C37TZt3Q5faX5BOSRTVfopGG/n7ZT+2htibEVXvUj16jtM9uQj5x1d934GQ26OiIGXWDCSfpjZ2E00NqJ7cIKazM3qRsZrs6Y2961atd4BBkP5jmQtCB0GyUPeUQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=NBJ1Nfcg; arc=fail smtp.client-ip=40.93.198.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nR16xfd7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3848D1F000C8;
-	Mon, 19 Oct 2026 14:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418810;
-	bh=Txqof9Akvi325cjYNjB/ahec7ok75H6zc/VAzTFmsdQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nR16xfd7PL6OfpL/nylqaHlqJd9RM1CUt1kt3khds2ngQrBRB3APxsqXAI5vaknAC
-	 u38rssmoBIu/o/vbq7wVjL8LN/cueEumJlZcrB3/oSJf+8Bhu6QUM6mK/SaDuO8+O+
-	 PVuc06GIKYPOlfpqNp5Rp9mLxTynm6/xeaJHNzWeZhU/EkPhQdwl1Rz53iTcVmorhD
-	 OukgXhly3tHlFDtMIhnIDXjm9/Z3Kle+hgQCmRYmLqGko9GGamNjKbjTsASGz4QXlK
-	 qpoJiNoKuTqITaJMtKcjX/eAfwsSABfNc5z+QFGWNy3OFaXBN+zzwVRw5jp6VSHLLd
-	 3FvT19IaXo5+A==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] ksmbd: enable TCP keepalive for accepted connections
-Date: Mon, 19 Oct 2026 09:53:24 -0400
-Message-ID: <20261019135441.1420968-513-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
-References: <20261019135441.1420968-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="NBJ1Nfcg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tTz/YlsXwChHIbwvRd0enxxKnWH96cl/35uZRNtp5rYVb0/8jRFYbcJNL++60BWJy63Cnxxq98lRk+ru6ylQIumFkucddRsBWdWsHcG1cJplxnDZZCf7Su168Q32bJjZEKlx5q9vpx+b0gMyURT2E/Zr9D343b64c5Kxv1bBZSvItuzfHyi5vzFQky6ywSlDYU8y7zViBDaXyc+zFo/P2DwIOVGWP5Vy+TPBZ/02pXRr95tmNXBTVYr7tHD6SQjMnW4EbXS6otnTMUBa19LxeLPRX/id5GbogI8t/1Ia6rCsksFlEuhZyjDxocmjYLLekKAwA28u3BqZF7+uY/6lcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0eoDnC2atBcu4KECPbOSglscfk7+x3ie9YeAXth+GcQ=;
+ b=yP8h5wz+gS/3jWKAi0n0shn3n0A8akT7O/78MU1aQxj8xtlrrIVjDo3kwRXkRRNllvb5BvcGNl+i5e2ZLPPPls71zUcilY2xTv2WmdBsi3AbRQklX+9f5IN8BuGdDRm+xY+gv/MCnJqmwd9hM2++5jW8336tnz2DirzShVeHXaJxGN5avhrPW9PgEPYVSQm3TZBSvqB8+sev3c01YyUq3YpQOIn2iEhmboy47MIqNyC4EETpb4f6frblgMryoBJ4lPDrZ2iLT1b9qGft8k/J9PBrQX5M7Ex4Tv4PeLr9wo6Hb4IoB4yHFzI6PpVz23+ZMm+vpgZV5S+GdOsX7/DNtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0eoDnC2atBcu4KECPbOSglscfk7+x3ie9YeAXth+GcQ=;
+ b=NBJ1NfcgOV9C4g2ZKIzKJQAbDubc44OlYgaEx+5Ew71vCXiXwgxmNEbqnAawdzlciFqtOxYdq+Nye958UYMMBEBbmv+j/7XmsLLxOZrSqhfZPeJWveau3Qz/oRQeRgpDL/ow32cIm/+OaEh9FESWyWCkK+iKpbSnOFFFaem1CdU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by SA5PPFDC35F96D4.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Mon, 19 Oct
+ 2026 14:06:49 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 14:06:49 +0000
+Message-ID: <f725d1d7-2147-4155-a3cf-f8348b56dca8@amd.com>
+Date: Mon, 19 Oct 2026 19:36:31 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 09/24] iommu/amd: Introduce and map vIOMMU private IPA
+ region
+To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
+ jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com, chrisl@kernel.org,
+ wvw@google.com, wnliu@google.com, dantuluris@google.com, kpsingh@google.com,
+ alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com,
+ guanghuifeng@linux.alibaba.com
+References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
+ <20260930092344.5616-10-suravee.suthikulpanit@amd.com>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20260930092344.5616-10-suravee.suthikulpanit@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0118.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d0::11) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.57
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Namjae Jeon <linkinjeon@kernel.org>
-
-[ Upstream commit 56549c18a4f75309161ca780feaa4d17904e3ee9 ]
-
-A client that disappears without sending a FIN or RST can leave its
-ksmbd connection in ESTABLISHED indefinitely. ksmbd sets a socket
-receive timeout, but the connection receive loop retries timeout errors
-without a limit, so the connection remains in conn_list and consumes the
-per-IP connection quota.
-
-Enable SO_KEEPALIVE on accepted TCP sockets so the TCP stack can detect a
-silent peer failure. The keepalive idle time, interval, and probe count
-remain controlled by the existing TCP sysctl settings.
-
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-The local tree is **6.12.111** (`pending-6.12`). The buggy
-accept/receive path is present, and this is a small, real connection-
-leak fix that belongs here.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[ksmbd]** **[enable]** Enable TCP keepalive on accepted ksmbd
-sockets so a silent peer does not leave the connection ESTABLISHED
-forever.
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-Record:
-- **Signed-off-by:** Namjae Jeon `<linkinjeon@kernel.org>` (ksmbd
-  maintainer)
-- No **Fixes:**, **Reported-by:**, **Tested-by:**, **Reviewed-by:**,
-  **Acked-by:**, **Link:**, or **Cc: stable** on this commit (absence
-  expected for this review)
-- Companion later commit `80b6367ec37f` has `Link:
-  https://github.com/openwrt/openwrt/issues/24744` (different bug: FIN-
-  WAIT-1 orphans)
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- **Bug:** Client vanishes without FIN/RST; ksmbd connection stays
-  ESTABLISHED.
-- **Mechanism:** `sk_rcvtimeo` is set, but the receive loop retries
-  timeout/`-EAGAIN` with no limit, so the conn stays in `conn_list` and
-  consumes the per-IP quota.
-- **Fix:** `sock_set_keepalive()` on the accepted socket;
-  idle/interval/probes stay on existing TCP sysctls.
-- **Symptom:** leaked kthreads/sockets and eventual refusal of new
-  clients from that IP.
-- **Version info:** none in the message. Code path has been in-tree
-  since the 2023 unlimited-retry change.
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not disguised. It is explicitly a leak/stuck-connection fix that
-uses an existing socket option. Not a new userspace API.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1: INVENTORY THE CHANGES**
-Record:
-- File: `fs/smb/server/transport_tcp.c` (**+6 / -0**)
-- Function: `ksmbd_kthread_fn()` (accept path)
-- Scope: single-file surgical fix (one call + comment)
-
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- **Before:** After accept, set `sk_rcvtimeo` / `sk_sndtimeo`, then
-  `ksmbd_tcp_new_connection()`.
-- **After:** Same, plus `sock_set_keepalive(client_sk->sk)` so TCP
-  probes a silent peer.
-- Path: normal accept of a new SMB TCP connection.
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record:
-- **Category:** resource leak / stuck connection (logic/correctness),
-  mitigated by a standard TCP keepalive workaround.
-- **Broken behavior:** `ksmbd_conn_handler_loop()` reads the RFC1002
-  header with `max_retries = -1`. `ksmbd_tcp_readv()` treats negative
-  `max_retries` as unlimited `-EAGAIN` retries. `KSMBD_TCP_RECV_TIMEOUT`
-  is `7 * HZ`, so a dead peer yields `-EAGAIN` forever.
-- `ksmbd_conn_alive()` only drops idle conns when `deadtime > 0` **and**
-  `open_files_count == 0`. A crashed client with open files stays alive
-  forever.
-- **Fix:** `sock_set_keepalive()` → `tcp_set_keepalive()` → keepalive
-  timer. Failed probes produce RST/`tcp_write_err()`, `kernel_recvmsg()`
-  returns 0/error, handler exits, conn leaves `conn_list`.
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- Obviously correct: same helper NFS/RPC and RDS already use
-  (`sock_set_keepalive` since 2020).
-- Minimal; comment-only extra.
-- Regression risk **low**: default keepalive is 2 hours + 9 probes ×
-  75s. Healthy SMB clients send traffic/echoes. No new sysctl/API. Does
-  not change the unlimited-retry policy for truly idle-but-alive
-  sessions.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- Timeout assignment: present since original cifsd/ksmbd
-  (`0626e6641f6b`, 2021).
-- Unlimited retry: **`be6f42fad5f5fd`** “ksmbd: don't terminate inactive
-  sessions after a few seconds” (**v6.3-rc4**, 2023-03-22). That commit
-  is in this tree and was itself `Cc: stable`. Keepalive was never added
-  then.
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. Conceptual introducer is `be6f42fad5f5fd`,
-present here.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record:
-- Recent `transport_tcp.c` work: per-IP limits, `sock_create_kern`,
-  `active_num_conn` leaks.
-- Same-day companion: **`80b6367ec37f`** “keep TCP timers alive for
-  kernel sockets” (`sk_net_refcnt_upgrade` on the **listen** socket).
-  That is a **different** bug (FIN-WAIT-1 orphans after `tcp_close()`
-  clears timers on kernel sockets). Not required for keepalive on a
-  still-held ESTABLISHED socket.
-- Standalone for the ESTABLISHED leak.
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Namjae Jeon is the ksmbd maintainer; many recent ksmbd fixes in
-this tree.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record:
-- Needs `sock_set_keepalive()` — in this tree (`ce3d9544cecac`, 2020),
-  `EXPORT_SYMBOL`.
-- `connection.h` already includes `<net/sock.h>`.
-- Companion `sk_net_refcnt_upgrade` is **not** a prerequisite for this
-  ESTABLISHED-path fix.
-- Can apply standalone.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- Upstream SHA: **`56549c18a4f75309161ca780feaa4d17904e3ee9`**
-- Lore:
-  https://patch.msgid.link/20260820135420.5634-1-linkinjeon@kernel.org
-- Submitted 2026-08-20 as `[PATCH]` (with the timer patch as `-2`);
-  merged in ksmbd 7.3-rc1 pull (“Improve TCP connection reliability…”)
-- `b4 dig -a`: v1 keepalive + v2 timer companion, same day. No later
-  unapplied revision.
-- Mbox: author-only; no NAK, no extra review comments (maintainer tree).
-- WebFetch of lore URLs returned 403; thread recovered via `b4`.
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): linux-cifs@vger.kernel.org, Sergey Senozhatsky,
-Tom Talpey, Atte Heikkilä, ChenXiaoSong. No NAK found.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record:
-- Direct Reported-by: none on this commit.
-- Real-world match: [cifsd-team/ksmbd#627](https://github.com/cifsd-
-  team/ksmbd/issues/627) — Windows 11, stale ESTABLISHED sockets,
-  connection limit exhausted (default ~32), only restart helps. Kernel
-  6.19.9 in that report; **same receive-loop logic is in 6.12**.
-- Related: namjaejeon/ksmbd#517 (ESTABLISHED after client power-off;
-  `deadtime = 10` did not help — consistent with open files skipping
-  deadtime).
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Two-patch reliability pair. Patch 1 = this (keepalive). Patch 2
-= listen-socket netns upgrade for post-close timers. This patch is
-useful alone.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search 403. No evidence this was already
-rejected for 6.12. Not in this tree (`git merge-base --is-ancestor
-56549c18… HEAD` failed).
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: modified `ksmbd_kthread_fn`; callees `sock_set_keepalive` /
-`tcp_set_keepalive`; related `ksmbd_tcp_readv`,
-`ksmbd_conn_handler_loop`, `ksmbd_conn_alive`.
-
-**Step 5.2: TRACE CALLERS**
-Record:
-- `ksmbd_kthread_fn` ← `kthread_run` in `ksmbd_tcp_run_kthread` (listen
-  on 445).
-- Header read: `ksmbd_conn_handler_loop` → `t->ops->read(..., -1)` →
-  `ksmbd_tcp_read` → `ksmbd_tcp_readv`.
-- Process context, one kthread per connection. Userspace-reachable: any
-  SMB client connect.
-
-**Step 5.3: TRACE CALLEES**
-Record: `sock_set_keepalive` locks the sock, calls
-`sk->sk_prot->keepalive(sk, true)` (`tcp_set_keepalive` for TCP), sets
-`SOCK_KEEPOPEN`. `tcp_set_keepalive` arms
-`inet_csk_reset_keepalive_timer`. Failed probes: `tcp_send_active_reset`
-+ `tcp_write_err`.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: SMB connect to 445 → accept → keepalive enabled → handler recv
-loop. Unprivileged network clients can leave zombie conns (especially
-after crash/VPN drop). **Reachable.**
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: `net/sunrpc/xprtsock.c` and `net/rds/tcp_listen.c` already call
-`sock_set_keepalive`. ksmbd was the outlier.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: **Yes.**
-- Tree: **pending-6.12 / 6.12.111** (`p-6.12-3-gc504cf0baa3d8`)
-- Accept path at `ksmbd_kthread_fn` (~L325–329): timeouts set, **no**
-  keepalive.
-- Unlimited retry in `ksmbd_tcp_readv` (L409–423) and `max_retries = -1`
-  (connection.c L444).
-- Introduced v6.3 (`be6f42fad5f5fd`); present for the whole 6.12
-  lifetime.
-- Keepalive commit is **not** an ancestor of HEAD.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: **Clean apply.** Insertion point matches this file exactly
-(`sk_sndtimeo` then `ksmbd_tcp_new_connection`). `sock_set_keepalive`
-already exported.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No keepalive on ksmbd sockets. `deadtime` is optional userspace
-config and skipped when files are open. Not a substitute.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **fs/smb/server (ksmbd)**. **IMPORTANT** (in-kernel SMB3 server:
-NAS, OpenWrt, appliances). Not core mm/VFS, but production file service.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Active (connection-limit, sock_create_kern, leak fixes). Mature
-enough that this long-standing hole matters.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: **Driver/config-specific:** `CONFIG_SMB_SERVER`. Typical stable
-users: NAS, routers, embedded SMB.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record:
-- Trigger: client crash, sleep, VPN drop, power-off without FIN/RST.
-- Common on laptops/Wi‑Fi/VPN.
-- Unprivileged remote clients can fill the per-IP quota
-  (`max_ip_connections` is in this tree).
-- Timing: default first probe after **2 hours**, then ~11 minutes of
-  probes. Slow but **finite**, vs never.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record:
-- Failure: kthread + socket + `conn_list` entry leak; per-IP/global
-  connection quota exhaustion; new mounts fail until ksmbd restart.
-- **Severity: HIGH** (service outage / resource leak). Not a panic, but
-  a real production hang of the SMB service.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- **Benefit: HIGH** for ksmbd users (closes zombies, restores quota).
-- **Risk: VERY LOW** (6 lines, existing helper, sysctl-controlled,
-  conservative defaults).
-- Ratio strongly favors backport.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-**FOR:**
-- Real stuck-connection / quota DoS, not style.
-- Unlimited `-EAGAIN` retry (`be6f42fad5f5fd`, in this tree, previously
-  sent to stable) without keepalive is the hole.
-- `deadtime` does not cover open-file + silent peer.
-- User reports of ESTABLISHED pile-up (#627).
-- 6-line, obviously correct, existing API.
-- Applies cleanly to 6.12.111.
-- Maintainer-authored; same pattern as sunrpc/RDS.
-
-**AGAINST:**
-- Looks like “enable a feature,” but it only turns on SO_KEEPALIVE.
-- Default 2-hour idle before probes (slow, still a fix).
-- No Fixes:/Cc: stable on this commit (not a negative per review rules).
-- Companion timer patch is separate (do not block this on it).
-
-**UNRESOLVED:**
-- lore.kernel.org HTTP 403 (thread recovered via b4).
-- No on-list Reviewed-by (maintainer submission).
-
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — one well-known helper; in
-   mainline 7.3.
-2. Fixes a real bug that affects users? **PASS** — leaked ESTABLISHED
-   conns / quota; #627.
-3. Important issue? **PASS** — service DoS / resource leak on a file
-   server (HIGH).
-4. Small and contained? **PASS** — +6 lines, one function.
-5. No new features or APIs? **PASS** — existing SO_KEEPALIVE / sysctls
-   only.
-6. Can apply to the local tree? **PASS** — code and helper exist; clean
-   insert.
-
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not a device-ID/DT/build/docs exception. Fits “hardware/protocol
-workaround”: enable kernel TCP keepalive so dead peers are detected.
-
-**Step 9.4: MAKE YOUR DECISION**
-This tree has the unlimited recv-timeout retry and no keepalive. The
-patch is the missing counterpart to the 2023 stable change that stopped
-tearing down idle sessions. Benefit is real for ksmbd; risk is
-negligible.
-
----
-
-### What it solves for stable users
-A client that disappears without FIN/RST leaves ksmbd in ESTABLISHED:
-the handler retries receive timeouts forever, holding a kthread and a
-`conn_list` slot (and the per-IP quota). That matches field reports of
-Windows clients filling the connection limit until ksmbd is restarted.
-Keepalive lets TCP fail the socket so the handler can tear the conn
-down.
-
-### Risk vs benefit
-Benefit: prevents unbounded connection growth and SMB accept failures.
-Risk: one `sock_set_keepalive()` with default 2-hour keepalive — will
-not drop healthy sessions on a short idle.
-
-### Concerns
-None that block 6.12. The later `sk_net_refcnt_upgrade` patch is a
-separate FIN-WAIT-1 orphan fix, not required for this ESTABLISHED-path
-change.
-
----
-
-### Verification
-- **[Phase 1]** Parsed message: enable keepalive; SOB Namjae Jeon; no
-  Fixes/Reported-by.
-- **[Phase 2]** Diff: +6 in `ksmbd_kthread_fn`;
-  `sock_set_keepalive(client_sk->sk)` after timeouts.
-- **[Phase 2]** Confirmed `ksmbd_tcp_readv` unlimited retry when
-  `max_retries < 0`; handler uses `-1` for header read.
-- **[Phase 2]** Confirmed `ksmbd_conn_alive()` returns true if
-  `open_files_count > 0`, ignoring deadtime.
-- **[Phase 2]** Confirmed `sock_set_keepalive` → `tcp_set_keepalive`
-  (`net/core/sock.c`, `net/ipv4/tcp_timer.c`).
-- **[Phase 3]** `git describe HEAD` / `make kernelversion`: **p-6.12-3 /
-  6.12.111**.
-- **[Phase 3]** Blame: unlimited retry from `be6f42fad5f5fd` (v6.3);
-  `git merge-base --is-ancestor be6f42fad5f5f HEAD` succeeded.
-- **[Phase 3]** `git merge-base --is-ancestor
-  56549c18a4f75309161ca780feaa4d17904e3ee9 HEAD` failed (not in this
-  tree).
-- **[Phase 3]** `sock_set_keepalive` introduced `ce3d9544cecac` (2020);
-  present here.
-- **[Phase 4]** `b4 dig -c 56549c18…`: lore `20260820135420.5634-1`;
-  series with timer patch `-2`.
-- **[Phase 4]** `b4 dig -w`: linux-cifs, Senozhatsky, Talpey, et al.
-- **[Phase 4]** `b4 dig -a`: v1 keepalive + companion timer patch; no
-  later unapplied rev.
-- **[Phase 4]** GitHub ksmbd#627: stale ESTABLISHED / quota exhaustion.
-- **[Phase 4]** Companion `80b6367ec37f`: listen-socket
-  `sk_net_refcnt_upgrade` for post-close timers — different bug.
-- **[Phase 5]** Call chain: accept kthread → `ksmbd_tcp_new_connection`
-  → `ksmbd_conn_handler_loop` → unlimited `read(..., -1)`.
-- **[Phase 5]** Same helper in sunrpc/RDS.
-- **[Phase 6]** Local accept path L325–329 has no keepalive; context
-  matches the patch.
-- **[Phase 6]** `connection.h` includes `<net/sock.h>`.
-- **[Phase 8]** Defaults: `TCP_KEEPALIVE_TIME` 2h, `PROBES` 9, `INTVL`
-  75s (`include/net/tcp.h`).
-- **UNVERIFIED:** HTTP fetch of lore.kernel.org (403); recovered via b4.
-  Whether every distro sets `deadtime` (irrelevant: deadtime skipped
-  with open files).
-
-**YES**
-
- fs/smb/server/transport_tcp.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/smb/server/transport_tcp.c b/fs/smb/server/transport_tcp.c
-index 472d387098767..ede54bb049532 100644
---- a/fs/smb/server/transport_tcp.c
-+++ b/fs/smb/server/transport_tcp.c
-@@ -312,6 +312,12 @@ static int ksmbd_kthread_fn(void *p)
- 		ksmbd_debug(CONN, "connect success: accepted new connection\n");
- 		client_sk->sk->sk_rcvtimeo = KSMBD_TCP_RECV_TIMEOUT;
- 		client_sk->sk->sk_sndtimeo = KSMBD_TCP_SEND_TIMEOUT;
-+		/*
-+		 * Detect peers that disappear without sending a FIN or RST.
-+		 * Otherwise the connection handler can retry receive timeouts
-+		 * indefinitely and keep the connection in conn_list.
-+		 */
-+		sock_set_keepalive(client_sk->sk);
- 
- 		ksmbd_tcp_new_connection(client_sk);
- 	}
--- 
-2.53.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|SA5PPFDC35F96D4:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92fe6902-27bc-4587-4874-08df2dea377a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|23010399003|261009223027099003|18002099003|22082099003|10067099003|11063799006|5023799004|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	+Epm+lUavSciUcpuvPgunvruwP55/WAJOLYhM4P5EUNCEW9mw5wvbeWwMGK9CQAHr0BUKuc4W7KpQVVKjAT735Za/9IFqge1TYUnYKVsnGEwSJZDXQizHxj2udWmarpf1ad02WDwD4jBYdYoB1aeco0o+DnFSOjS6trHDIAZSGuI4PejXTsHWywmmwCQGAgQDe6lfpYc5Rx9sAUI5zYPFNPfDaSgqWUlgRtj2kNmhbFiuxSOj5mqgv9y3VVORy63w1NsaOkMcAip8r7b2JdL83QBaXc75a35Si8WRt5ROMnp6TJeVXhi19z0qlrny3dGNPD/euYRAZcxY5TBrrohrTJTsDkalIty68os8AoNu3twOIQMlphDBDUy4LlUk60omQD3b1Uu5F6MaP9dCviMn/RZrWr+BSwth3VKiT4SaDeOgni7UMICxJxawdCGD07jCX9XNXGynwc45B3VYONaBfSUOX+nKy7rDr1gTcU7RkJvUNdkWH8pfgJgzChV8LDNy5x7fT7ngaVzAb0Lhk88D/JjmUtAXmPdKbZH+A9Ss9voA10q0usPPfA06RO3011lgkEg+cMM7HRN1JF+TnCilLMJ8OLyIPCSQVCPig4/yHf4f+Y2c5jS8MqblsM2TKkETIVZa0WJiWVVnrFYH0/5L/4Ak9Zd4VXni6hZHyOQZJ8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(261009223027099003)(18002099003)(22082099003)(10067099003)(11063799006)(5023799004)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bGppQ1Bzcjc2dTBpUjVxKy9UZm05V2Y1dS9qUUIzTGp2WWd2eWh2cUxBM2Rj?=
+ =?utf-8?B?UmNOcE8yL0dRLzI1OHQvMDZvY0VxNWxkZ3I3emU2WHdpeHB1WTUweDRLc2Vs?=
+ =?utf-8?B?bkhLZStEdGJ4ZUh4aGxURjhhckVKQVFWS3RYdFZZM0NpNkkybWUxb1dYVDNK?=
+ =?utf-8?B?dlc5UlluNnVPZGViTnQzc2pxNFNyZ3dEaUltSHhwbWN4VVpmZFZQM3M4UGQ3?=
+ =?utf-8?B?ME9PWEtaSnRMZldIdTBScldFQ2RhM2FxUm91aU9vN0JrTUY4ZDJQM3pVMGhy?=
+ =?utf-8?B?bHdhQ1AxQWwyMjYvbFBzUE96NUp6TjFxQlU4d1UvWnQ1MmFXeXl5RlRtbzFh?=
+ =?utf-8?B?T2ZWbG9IMkdtSHN4QW9sOVFGSUpQKytwRFAyZHNINmZqcWZ6VUJtQnhyTCtW?=
+ =?utf-8?B?QXc4RnVpb0hCMyt2VkFFSXZsandTZW1CemgxSXRtVFlweElCeS9tejl5dVNE?=
+ =?utf-8?B?WGM5NlBOR2lNcUg1Wi8wTTZma0ZBNzhVTk5KbzZ3SmNyeThhUEpjbXgydzUr?=
+ =?utf-8?B?dm1ZSW5CUnE0YWlwYVh4NS9ldzQySDNDRGdJNmlGbUxtYlE4T0hHWkFVb2Ru?=
+ =?utf-8?B?MkhJemt2VFlkb1IzSERwbVY0UFlFTTIzUDE2SFpjcjB6NitXdERheGdiRkJV?=
+ =?utf-8?B?UEF2K2F3VDErL1VTTHN4aEJjOWdmenhWTlVNcTVlM29hL1JoN2wwYzViTmdF?=
+ =?utf-8?B?V0FUd2NPR3BSbmlINXBGL1ZPQU9VSXFDUVVjYWdxa3RDNU94Z29KdHBTYy9u?=
+ =?utf-8?B?d1lMSVNtRlM2R1Nvck1DcUkvWEsyblhlWmxWdldoQ0p5citXa2NLenJuZXNq?=
+ =?utf-8?B?anpTRlh5VVFrNnBYWk9RVElzTHZ2OU0wNzl6MTdCMXo3a2M4KzlBR2tURVRv?=
+ =?utf-8?B?VVh1ZWtOK1FTeE5wbXlEbW5GRkthTXYxUVJ1TVFwR0dxTWF4dlFaL3YzVEhC?=
+ =?utf-8?B?Rk5aVEZLcEdNaTJyQUZMUHo5QmFXRGNkVytQeUVBM0J1Vmt2aGxPRjlkekxl?=
+ =?utf-8?B?cXEyaXhQdHd6VXJIMEZhWFNqOGRoL0Z3ZlA0ZExtL3VDbjlZTmY0d0pGZlhK?=
+ =?utf-8?B?dXlkamZzNFVMQStSYXkwOXlndXpTMVh1OE5rcjNTOUhTT3BwNFZLTlZzaVU4?=
+ =?utf-8?B?VG9sOVl2aG9NTjQyODhNbE1iS3BDczBvaUtWelpkZnlieVp0cW1aNXRqVjNJ?=
+ =?utf-8?B?ZytXYXNoSHV6SUhlT3pPMWtNT1dKVnFERU5vajhXNWRwUnJxOU9BTFdwN0JI?=
+ =?utf-8?B?ZmRQaFRYd2JueDdhL3pUbTRXcmhQcW9ZbGZPZkhOYy81bkExQklvQTJCemhy?=
+ =?utf-8?B?YTdqWWJIbGNJOGt5T3dRb1E4TkF1c1pGeTVnYVRRbVlZQjVUUlE1VWs2SVBx?=
+ =?utf-8?B?bVJSUUN1MG9VOUxTK1IxR2FRZ09MNG5aUFlJd05nejRXdk9iVUw3cjBUd0l5?=
+ =?utf-8?B?Y2lZTDJ3QWdFTWZzak9RT2t6WEo5L01EZDREWXhjSFRCNDQyaUh4OUR3TnhN?=
+ =?utf-8?B?aHhRQkJ4TkJNSG56NUVlV3d0THJnVkUvQ2JNUFBadjdValBNNUJ0WW13ZS9x?=
+ =?utf-8?B?eEdWVDdMTGhESzhRbFdhK29Fb25JSUg3YnhNYXlSSGdtYlp2cnVjS1BWUlpi?=
+ =?utf-8?B?cVNQU0IzTjgwZlZzd2o2dWpFODZ5MURqUWVBcG5naXhQNHpaQWtMaHpGYlkx?=
+ =?utf-8?B?eUpCeTBMMDBjN01Qb0ozdXpwM25MNHJhaGFRK09kaXJSVlpsNTQrK05vTVRY?=
+ =?utf-8?B?RmxCMWh0VmJDTmtxNGF6eXdqVzNGaDY2eWZFRG16MTNEUkVjYmlLSHVwWTdk?=
+ =?utf-8?B?czhEMkhSOUZxUkE4eEdhVHZtbGlZK3ovV21DMEtBd0hBZmFkelp3b0ZVZmpm?=
+ =?utf-8?B?STlKZ2RUVFV3MmRMa3lMRnE5MFA5MVNHNVk1OVlyYUkya09nSzV5aklpTzNa?=
+ =?utf-8?B?L1J5ekEvbG0zSG1sWklFVmN0ZC81UVJSQ0RSL0piTUViRU9KbzFCVkRWaGsw?=
+ =?utf-8?B?bkxDUU9UVk9VZ21OQ2N4K1NPY3ZNbjAxdFpPYkIva0IzT1ZoQis5dEtGRFd1?=
+ =?utf-8?B?UUozcW5Yd1lFYWxZbjlITUZJSVZsS1VMMmZkb0c5S3lGVXZkT3NTc2F3eXAz?=
+ =?utf-8?B?azdqZUR6TUZtY0o2T2tTTHhUU1JOYzVtTXBXZU1meHNNQlJVZGRUeFJaTWlI?=
+ =?utf-8?B?RUhVeExhWXJOUmE2RHQ3d0tXUjBIUDhCdlBmdDJWVDR0M0tjYS9xeXlXQlkv?=
+ =?utf-8?B?TmZpcWU5aTczZm0wNFNvVkpGK0lQWktKc1JPZk8xQ01Xa1ZUU2Y1ZWF2L3dl?=
+ =?utf-8?Q?wGIHrnX7bSEkDHk1CF?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92fe6902-27bc-4587-4874-08df2dea377a
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 14:06:48.8134
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AKk+OOAH8mQYvKQZ7zt31njENPW/GwcZ72+dxUzVEPerd2f+ZS2hYafkhyOhD7lHunkAOuGoTux2TyjotVn1rg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFDC35F96D4
+
+
+
+On 9/30/2026 2:53 PM, Suravee Suthikulpanit wrote:
+> AMD vIOMMU introduces the IOMMU Private Address (IPA) region for
+> guest-side IOMMU virtualization data structures.
+> 
+> Introduce a per-IOMMU v1 paging domain in viommu_pdom, allocate
+> 8MB of backing memory as four 2MB subregions, map them into the
+> domain, and add viommu_private_space_init() /
+> viommu_private_space_uninit() as a matched pair.
+> 
+> Register the owning IOMMU in viommu_pdom->iommu_array via
+> amd_iommu_pdom_bind_iommu() so unmap uses the standard
+> domain_flush_pages_v1() IOTLB invalidation path. On bare metal
+> iommu_map() does not flush (amd_iommu_iotlb_sync_map() returns
+> early unless amd_iommu_np_cache is set).
+> 
+> Call viommu_private_space_uninit() from amd_viommu_uninit() so
+> boot failure and free_iommu_one() release the 8MB IPA mapping.
+> Failed amd_viommu_init() after VF mapping goes through uninit.
+> 
+> viommu_priv_alloc_map() takes a gfp for backing pages and
+> iommu_map() page tables. Boot uses GFP_KERNEL.
+> iommu_alloc_pages_node_sz() zeros them. On set_memory_uc()
+> or iommu_map() failure, restore WB or leak rather than returning
+> UC-mapped memory to the allocator. iommu_map() already unmaps
+> any partial IOVA.
+> 
+> Skip IOTLB invalidation when CONTROL_CMDBUF_EN is clear so boot
+> failure after disable_iommus() does not wait on a dead command
+> buffer.
+> 
+> set_memory_uc() on each 2MB-aligned subregion splits the x86
+> direct map to 4KB PTEs. set_memory_wb() on free does not
+> re-coalesce them, so the direct map stays fragmented (8MB per
+> vIOMMU-capable IOMMU) for the life of the machine.
+> 
+> The private IPA domain skips iommu_domain_init(), so set
+> IOMMU_DOMAIN_UNMANAGED. set_dte_entry() only programs a v1 table
+> when type has __IOMMU_DOMAIN_PAGING; type 0 would WARN and install
+> a cleared DTE when increase_top() rewrites the self DTE.
+> > For more info, see section vIOMMU Private Address Space of the
+> IOMMU specification [1].
+> 
+> [1] https://docs.amd.com/v/u/en-US/48882_3.10_PUB
+> 
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+> ---
+>  drivers/iommu/amd/amd_iommu.h       |   5 +
+>  drivers/iommu/amd/amd_iommu_types.h |  11 ++
+>  drivers/iommu/amd/init.c            |   7 +-
+>  drivers/iommu/amd/iommu.c           |  13 +-
+>  drivers/iommu/amd/viommu.c          | 192 ++++++++++++++++++++++++++++
+>  5 files changed, 225 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
+> index 8c298e090889..a0d5d7e34020 100644
+> --- a/drivers/iommu/amd/amd_iommu.h
+> +++ b/drivers/iommu/amd/amd_iommu.h
+> @@ -53,6 +53,8 @@ extern bool amd_iommu_hatdis;
+>  /* Protection domain ops */
+>  void amd_iommu_init_identity_domain(void);
+>  struct protection_domain *protection_domain_alloc(void);
+> +struct iommu_domain *amd_iommu_domain_alloc_paging_v1(struct device *dev,
+> +						      u32 flags);
+>  struct iommu_domain *amd_iommu_domain_alloc_sva(struct device *dev,
+>  						struct mm_struct *mm);
+>  void amd_iommu_domain_free(struct iommu_domain *dom);
+> @@ -94,6 +96,9 @@ void amd_iommu_domain_flush_pages(struct protection_domain *domain,
+>  void amd_iommu_dev_flush_pasid_pages(struct iommu_dev_data *dev_data,
+>  				     ioasid_t pasid, u64 address, u64 last);
+>  
+> +int amd_iommu_pdom_bind_iommu(struct amd_iommu *iommu, struct protection_domain *pdom);
+> +void amd_iommu_pdom_unbind_iommu(struct amd_iommu *iommu, struct protection_domain *pdom);
+> +
+>  #ifdef CONFIG_IRQ_REMAP
+>  int amd_iommu_create_irq_domain(struct amd_iommu *iommu);
+>  #else
+> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
+> index 9eb9a0c190de..9a90b8fe0fe3 100644
+> --- a/drivers/iommu/amd/amd_iommu_types.h
+> +++ b/drivers/iommu/amd/amd_iommu_types.h
+> @@ -417,6 +417,13 @@
+>  /* Guest ID bits 0-14; bit 15 is reserved for secure vIOMMU. */
+>  #define VIOMMU_MAX_GID		0x7FFF
+>  
+> +/*
+> + * Total IOMMU private region is 8MB (4 x 2MB-subregion)
+> + */
+> +#define VIOMMU_PRIV_REGION_BASE		(0)
+> +#define VIOMMU_PRIV_SUBREGION_CNT	(4)
+> +#define VIOMMU_PRIV_SUBREGION_SIZE	(0x200000)  /* 2MB */
+> +
+>  /* Timeout stuff */
+>  #define LOOP_TIMEOUT		100000
+>  #define MMIO_STATUS_TIMEOUT	2000000
+> @@ -804,6 +811,10 @@ struct amd_iommu {
+>  	unsigned char iopfq_name[32];
+>  
+>  	struct ida gid_ida;		 /* guest IDs for this IOMMU */
+> +
+> +	/* HW vIOMMU support */
+> +	struct protection_domain *viommu_pdom;
+> +	void *viommu_priv_region[VIOMMU_PRIV_SUBREGION_CNT];
+>  };
+>  
+>  static inline struct amd_iommu *dev_to_amd_iommu(struct device *dev)
+> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+> index 5be422591bac..d34f991dee24 100644
+> --- a/drivers/iommu/amd/init.c
+> +++ b/drivers/iommu/amd/init.c
+> @@ -1805,7 +1805,12 @@ static void __init free_sysfs(struct amd_iommu *iommu)
+>  static void __init free_iommu_one(struct amd_iommu *iommu)
+>  {
+>  	free_sysfs(iommu);
+> -	/* Tear down vIOMMU before IOMMU buffers and MMIO are released. */
+> +	/*
+> +	 * Tear down vIOMMU before buffers and MMIO are released.
+> +	 * IOTLB invalidation runs only while CONTROL_CMDBUF_EN is
+> +	 * set (amd_viommu_init() unwind). disable_iommus() clears
+> +	 * that bit first on the boot-failure path.
+> +	 */
+>  	amd_viommu_uninit(iommu);
+>  	free_iommu_buffers(iommu);
+>  	amd_iommu_free_ppr_log(iommu);
+> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+> index ae44050fe86a..dfb9268f3c4e 100644
+> --- a/drivers/iommu/amd/iommu.c
+> +++ b/drivers/iommu/amd/iommu.c
+> @@ -2509,6 +2509,16 @@ static void pdom_detach_iommu(struct amd_iommu *iommu,
+>  	spin_unlock_irqrestore(&pdom->lock, flags);
+>  }
+>  
+> +int amd_iommu_pdom_bind_iommu(struct amd_iommu *iommu, struct protection_domain *pdom)
+
+Why not just rename pdom_attach_iommu / pdom_detach_iommu ?
+
+> +{
+> +	return pdom_attach_iommu(iommu, pdom);
+> +}
+> +
+> +void amd_iommu_pdom_unbind_iommu(struct amd_iommu *iommu, struct protection_domain *pdom)
+> +{
+> +	pdom_detach_iommu(iommu, pdom);
+> +}
+> +
+>  /*
+>   * If a device is not yet associated with a domain, this function makes the
+>   * device visible in the domain
+> @@ -2858,8 +2868,7 @@ static const struct iommu_dirty_ops amdv1_dirty_ops = {
+>  	.set_dirty_tracking = amd_iommu_set_dirty_tracking,
+>  };
+>  
+> -static struct iommu_domain *amd_iommu_domain_alloc_paging_v1(struct device *dev,
+> -							     u32 flags)
+> +struct iommu_domain *amd_iommu_domain_alloc_paging_v1(struct device *dev, u32 flags)
+>  {
+>  	struct pt_iommu_amdv1_cfg cfg = {};
+>  	struct protection_domain *domain;
+> diff --git a/drivers/iommu/amd/viommu.c b/drivers/iommu/amd/viommu.c
+> index c9207ed47fb6..89d6dc520b2c 100644
+> --- a/drivers/iommu/amd/viommu.c
+> +++ b/drivers/iommu/amd/viommu.c
+> @@ -17,6 +17,7 @@
+>  #include "amd_iommu.h"
+>  #include "amd_iommu_types.h"
+>  #include "amd_viommu.h"
+> +#include "../iommu-pages.h"
+>  
+>  static void __init amd_viommu_vf_vfcntl_unmap(struct amd_iommu *iommu)
+>  {
+> @@ -39,9 +40,12 @@ static void __init amd_viommu_vf_vfcntl_unmap(struct amd_iommu *iommu)
+>  	}
+>  }
+>  
+> +static void viommu_private_space_uninit(struct amd_iommu *iommu);
+> +
+>  void __init amd_viommu_uninit(struct amd_iommu *iommu)
+>  {
+>  	iommu->flags &= ~AMD_IOMMU_FLAG_VIOMMU_EN;
+> +	viommu_private_space_uninit(iommu);
+>  	amd_viommu_vf_vfcntl_unmap(iommu);
+>  }
+>  
+> @@ -110,6 +114,187 @@ static int __init viommu_vf_vfcntl_init(struct amd_iommu *iommu)
+>  	return -ENOMEM;
+>  }
+>  
+> +/*
+> + * Restore WB and free @va. If WB restore fails, leak the pages so
+> + * UC-MINUS direct-map PTEs and the PAT memtype reservation are not
+> + * returned to the buddy allocator.
+> + */
+> +static void viommu_priv_wb_free(void *va, size_t size)
+
+Better viommu_priv_free() so that it matches the alloc function?
+
+
+> +{
+> +	if (WARN_ON_ONCE(set_memory_wb((unsigned long)va,
+> +				       size >> PAGE_SHIFT)))
+> +		return;
+> +	iommu_free_pages(va);
+> +}
+> +
+> +/*
+> + * Allocate backing pages, mark UC, and map at @iova in viommu_pdom.
+> + * *@out_va is NULL on any failure. @gfp is used for the backing
+> + * folio and iommu_map() page tables.
+> + */
+> +static int viommu_priv_alloc_map(struct amd_iommu *iommu, u64 iova, size_t size,
+> +				 gfp_t gfp, void **out_va)
+> +{
+> +	int ret;
+> +	void *va;
+> +	int nid = iommu && iommu->dev ? dev_to_node(&iommu->dev->dev) : NUMA_NO_NODE;
+> +
+> +	*out_va = NULL;
+> +
+> +	if (!iommu || !iommu->viommu_pdom)
+> +		return -EINVAL;
+
+Redundant check as its static function and know we it gets called only if iommu
+and viommu_pdom is valid.
+
+> +
+> +	va = iommu_alloc_pages_node_sz(nid, gfp, size);
+> +	if (!va)
+> +		return -ENOMEM;
+> +
+> +	/*
+> +	 * IOMMU spec: backing storage must be UC. set_memory_uc()
+> +	 * splits covering 2MB direct-map pages to 4K; set_memory_wb()
+> +	 * does not re-coalesce them.
+> +	 */
+> +	ret = set_memory_uc((unsigned long)va, size >> PAGE_SHIFT);
+> +	if (ret)
+> +		goto err_uc;
+> +
+> +	ret = iommu_map(&iommu->viommu_pdom->domain, iova,
+> +			iommu_virt_to_phys(va), size,
+> +			IOMMU_READ | IOMMU_WRITE, gfp);
+> +	if (ret)
+> +		goto err_uc;
+> +
+> +	*out_va = va;
+> +	return 0;
+> +
+> +err_uc:
+> +	viommu_priv_wb_free(va, size);
+> +	return ret;
+> +}
+> +
+> +static bool viommu_cmdbuf_enabled(struct amd_iommu *iommu)
+> +{
+> +	if (!iommu->mmio_base)
+> +		return false;
+> +	return readq(iommu->mmio_base + MMIO_CONTROL_OFFSET) &
+> +	       BIT_ULL(CONTROL_CMDBUF_EN);
+> +}
+> +
+> +/*
+> + * Unmap @iova if the command buffer is still enabled, restore WB, and
+> + * free @cpu_va. Skip IOTLB invalidation after disable_iommus().
+> + */
+> +static void viommu_priv_unmap_free(struct amd_iommu *iommu, u64 iova, size_t size,
+> +				   void *cpu_va)
+> +{
+> +	size_t unmapped;
+> +
+> +	if (!cpu_va)
+> +		return;
+> +	if (!iommu || !iommu->viommu_pdom)
+> +		return;
+> +
+> +	if (viommu_cmdbuf_enabled(iommu)) {
+
+Hmmm. Why do we need this check?  We already have AMD_IOMMU_FLAG_VIOMMU_EN to
+track whether vIOMMU is enabled or not. So in amd_viommu_uninit() path, if
+required we can check that flag so that we are sure command buffer was enabled.
+
+
+-Vasant
 
