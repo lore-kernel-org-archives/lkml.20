@@ -1,164 +1,168 @@
-Received: from mta0.migadu.com (out-211.mta0.migadu.com [91.218.175.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37E046A612
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24FA277026;
+	Mon, 19 Oct 2026 06:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792390915; cv=none; b=trB4AuArhd3ooyY+Rwj7XKO4UBVsH6ChuerLL8mnhVaSlSEDu48b+5Rt0krJFsyWC6BsTEvjstFlRWDDnnP0J7PBKKIJpCOmpYMILk5Xf9U6jEGW5VhAiHfyXSlvDJ/cbJbt8GZje1v/OKd5Hu0isNrOm7fENQrDzryk7IOxduw=
+	t=1792390986; cv=none; b=dNvcjMARq1cpEFjnkl8C9wnRFZFyjaz7W02Mxsmr6nZ3jElM7VS+RaU8baj67XU+SLV2+nbO2Q5u1k2ZEwodmUaERvedRcRZ9+n0lsneaTKKtxthk+l4dvv/rBQm0hyU20GX/rOCw8nn/VghZD5R7z/u7Jgi+rTEiaS5Er7m5GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792390915; c=relaxed/simple;
-	bh=I4MPMNFIXchxrDocrBAZUC2FdxNIMi1x4SFGsuGksro=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PwInCka5EeLGQ/UrFkfL3OOTNQ4WE7lXSca6p7Jmhv3n/iHmmDDqKqR2uEOb0/Gs6ehPdwsmTGOeNvaP+J7rSCwLCW088tZ3cYYmm/fLG5wVgLJK3fuKbYEuyFJkmwdvB3B/DY6rmAjIj2PLiphvJqWSlP7xzp3gsZkxqq11X64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PZeCpItu; arc=none smtp.client-ip=91.218.175.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792390986; c=relaxed/simple;
+	bh=jok0pH1kBDXxoD4Ns1By6b6+o9P9TjnkBuZkqo+jr40=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=oE7e7ANGezizMnttDLWoqF6K/N9OZnE7M7Yzo4nhfRcDjPtwJ2e56us5bU9YCqAzO9m4VpKaptpZVlBlzkrSkcDgdZ7Wp7mLp+m5qyvMbN/trtuMjR/7ipZrJqJWSVxqGHnvINmGn1/BwKNYFDkgu/WkXqHMoo6XjEGaHEFs0/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SFcTdA4j; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PZeCpItu"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=I4MPMNFIXchxrDocrBAZUC2FdxNIMi1x4SFGsuGksro=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792390910; v=1; x=1792995710;
- b=PZeCpItuM79ocVG/ZTKd6RwQdP6Tps/2lRzSJ7JAm/RXajDfEmBbX5mBR0tlLaddhCmUpcII
- OaeqLlQjikHo8sJ5ktuQokskT7UgL5xw6Bf3VsI72r63+AKezog8THBAEXn1lyAJCziDW3pdtwC
- JFs3wFclqUiEoZAFKlmzI0mc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ab907ebe85d37efd;
-	Mon, 19 Oct 2026 06:21:50 +0000
-X-Mizu-Trace-ID: ab907ebe85d37efd
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8ed89bac-d9f0-4dba-b733-7d678a4b47ac@linux.dev>
-Date: Mon, 19 Oct 2026 14:21:39 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SFcTdA4j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792390984; x=1823926984;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=jok0pH1kBDXxoD4Ns1By6b6+o9P9TjnkBuZkqo+jr40=;
+  b=SFcTdA4jQYBMhCAikpR6xg1UHmqmDrD9irkV7njBolM0QF5zG6cUKBrB
+   lrX6YH5ETVJRvLWmjcoGlCDCDUOMt2Am6AnCMAZYyTSH37u3kISXgvd9b
+   jjcblTcH4PM2YqxBMUo8mZLzKqcJ/7y3hsYYR0V147OcgLced0IemuuGI
+   lTihnVyfw7zf4gG9zkVKUGbXIJbuuj7U/uUf75pR0DEgcrH6vssZfeBOn
+   +qZ++k2ileKYY2H+RiPIzapsOx3QI1GdAbBa5DeRegs3yIuKmfwkElzBz
+   KXe6J+3AongXx2AtTTNecFNnnQvlN+sJlEVGjWBMe7wgbeQT7SSYF4hlN
+   A==;
+X-CSE-ConnectionGUID: epv+dglaRQSXDr/r7qnaiA==
+X-CSE-MsgGUID: oBOHk8wwR7ioEqhtHQC0ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1080453"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1080453"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 23:23:04 -0700
+X-CSE-ConnectionGUID: ZTqwcc46RBGam4S3f5Ur2w==
+X-CSE-MsgGUID: INukVwBaTbCDDQ9Z1O8Xsw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2507134"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 23:23:02 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 19 Oct 2026 09:22:59 +0300 (EEST)
+To: Krishna Chomal <krishna.chomal108@gmail.com>
+cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, 
+    Lorenzo Collevecchio <lorenzocollevecchio17@gmail.com>
+Subject: Re: [PATCH] platform/x86: hp-wmi: Disable hwmon attributes when no
+ fans are usable
+In-Reply-To: <20261017132421.279522-1-krishna.chomal108@gmail.com>
+Message-ID: <650e9c05-6631-8870-44ba-5a7532cb500b@linux.intel.com>
+References: <20261017132421.279522-1-krishna.chomal108@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] mm/mglru: add tracepoints for scan and aging paths
-To: Steven Rostedt <rostedt@goodmis.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Baoquan He <baoquan.he@linux.dev>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- Ridong Chen <chenridong@xiaomi.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Masami Hiramatsu <mhiramat@kernel.org>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260911102939.2485750-1-ridong.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
+On Sat, 17 Oct 2026, Krishna Chomal wrote:
 
+> Currently, hp_wmi_hwmon_is_visible() checks whether fan RPM queries
+> succeed before exposing fan1_input and fan2_input, but pwm1_enable
+> remains visible always, even when fan support is unavailable. 
 
-On 9/11/2026 6:29 PM, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
+Why does it yield different result from is_visible?
+
+...Somehow I find starting with this more confusing than helpful.
+
+> On some
+> devices, such as certain Omnibook models, the firmware does not provide
+> functional WMI fan methods. Exposing pwm1_enable on these devices can
+> mislead userspace and cause fan mode changes to fail.
 > 
-> Background
-> ==========
+> Additionally, some firmware implementations provide stub methods
+> that return an all-zero buffer instead of an error. In this case,
+> hp_wmi_get_active_fan_speed() and hp_wmi_get_fan_speed() can report 0
+> RPM even when the fan is physically spinning.
 > 
-> MGLRU currently has no tracepoints of its own. The scan and evict paths
-> reuse the classic-LRU tracepoints (trace_mm_vmscan_lru_isolate() and
-> trace_mm_vmscan_lru_shrink_inactive()), which predate MGLRU and carry no
-> generation, sequence, memcg or swappiness context. A trace of a running
-> system therefore cannot tell which memcg a given scan belongs to, how far
-> reclaim has progressed through the generations, or when a new generation
-> is created - so how MGLRU actually operates is effectively invisible.
+> Use the result of fan count query (fetched from firmware once in
+> hp_wmi_setup_fan_settings(), and cached in hwmon private data) to
+> determine whether fan related attributes should be exposed.
 > 
-> Implementation
-> ==============
+> The fan count query can have the following outcomes:
+> * Negative: The WMI query failed. Other fan-related queries are also
+>   expected to fail, so disable fan support.
+> * Zero (stub firmware): The methods return zero-filled responses without
+>   providing functional fan support, so disable fan support.
+> * Zero (genuine firmware): No fans are exposed through WMI, so disable
+>   fan support.
+> * Positive (1 or 2): Firmware reports one or more fans, so allow fan
+>   support. Per-channel RPM queries continue to determine which
+>   individual fan input attributes are exposed.
 > 
-> Patch 1 is a cleanup that factors the per-generation page-count
-> summation into a helper, lru_gen_seq_nr_pages(), reused by patch 3.
+> When fan support is unavailable, hide the fan and PWM attributes and
+> skip applying the initial fan settings.
 > 
-> Patch 2 adds mm_mglru_scan_folios on the scan path, and patch 3 adds
-> mm_mglru_inc_max_seq on the aging path. Both carry the memcg id and the
-> generation window (min_seq/max_seq), live at MGLRU-specific layers with
-> no classic-LRU counterpart, and are guarded so the hot paths stay
-> zero-cost when disabled.
+> Tested on: HP OmniBook 5 Laptop 16-ag1xxx (board: 8DF4)
 > 
-> Effect
-> ======
-> 
-> Paired, the two tracepoints make the full aging-to-eviction window
-> observable per memcg: aging advances max_seq (the leading edge), scanning
-> consumes the oldest generations, and the min_seq/max_seq pair on each
-> event shows how the generation window moves over time.
-> 
-> A sample trace, with the classic-LRU tracepoints left enabled to show
-> how they interleave:
-> 
->    mm_vmscan_lru_isolate: classzone=4 order=0 nr_requested=36 nr_scanned=31 nr_skipped=0 nr_taken=29 lru=inactive_file
->    mm_mglru_scan_folios: memcg_id=73 classzone=4 order=0 nr_requested=36 nr_scanned=31 nr_sorted=2 nr_skipped=0 nr_taken=29 lru=inactive_file max_seq=3 tier=3 min_seq=0
->    mm_vmscan_lru_shrink_inactive: nid=0 nr_scanned=31 nr_reclaimed=29 nr_dirty=0 nr_writeback=0 nr_congested=0 nr_immediate=0 nr_activate_anon=0 nr_activate_file=0 nr_ref_keep=0 nr_unmap_fail=0 priority=5 flags=RECLAIM_WB_FILE|RECLAIM_WB_ASYNC
->    mm_mglru_inc_max_seq: memcg_id=73 max_seq=4 anon_min_seq=1 file_min_seq=1 nr_anon={0x0,0x0,0x1,0x0} nr_file={0x0,0x427,0x6,0x4a}
->    mm_vmscan_lru_isolate: classzone=4 order=0 nr_requested=5 nr_scanned=5 nr_skipped=0 nr_taken=1 lru=inactive_file
->    mm_mglru_scan_folios: memcg_id=73 classzone=4 order=0 nr_requested=5 nr_scanned=5 nr_sorted=4 nr_skipped=0 nr_taken=1 lru=inactive_file max_seq=4 tier=3 min_seq=1
->    mm_vmscan_lru_shrink_inactive: nid=0 nr_scanned=5 nr_reclaimed=1 nr_dirty=0 nr_writeback=0 nr_congested=0 nr_immediate=0 nr_activate_anon=0 nr_activate_file=0 nr_ref_keep=0 nr_unmap_fail=0 priority=5 flags=RECLAIM_WB_FILE|RECLAIM_WB_ASYNC
-> 
-> The mm_mglru_scan_folios lines carry the memcg id and the generation
-> window (max_seq/min_seq) that the bare mm_vmscan_lru_isolate lines above
-> them cannot - those cannot even say which memcg they came from. The
-> mm_mglru_inc_max_seq line then shows a new generation being created
-> (max_seq 3 -> 4) with the per-generation page counts for both types.
-> 
+> Tested-by: Lorenzo Collevecchio <lorenzocollevecchio17@gmail.com>
+> Reported-by: Lorenzo Collevecchio <lorenzocollevecchio17@gmail.com>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222138
+> Signed-off-by: Krishna Chomal <krishna.chomal108@gmail.com>
 > ---
-> v2: address Sashiko AI review [1] - pass struct lruvec * into the tracepoints
->      and do the memcg lookup inside TP_fast_assign.
+>  drivers/platform/x86/hp/hp-wmi.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 > 
-> [1] https://sashiko.dev/#/patchset/20260911072848.2346073-1-ridong.chen@linux.dev?part=2
+> diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+> index 0eac5e1d9cdb..52077833ac89 100644
+> --- a/drivers/platform/x86/hp/hp-wmi.c
+> +++ b/drivers/platform/x86/hp/hp-wmi.c
+> @@ -651,6 +651,7 @@ enum pwm_modes {
+>  
+>  struct hp_wmi_hwmon_priv {
+>  	struct mutex lock;	/* protects mode, pwm */
+> +	int fan_count;
+>  	u8 min_rpm;
+>  	u8 max_rpm;
+>  	u8 mode;
+> @@ -2950,12 +2951,18 @@ static umode_t hp_wmi_hwmon_is_visible(const void *data,
+>  				       enum hwmon_sensor_types type,
+>  				       u32 attr, int channel)
+>  {
+> +	const struct hp_wmi_hwmon_priv *priv = data;
+> +
+>  	switch (type) {
+>  	case hwmon_pwm:
+> +		if (priv->fan_count <= 0)
+> +			return 0;
+>  		if (attr == hwmon_pwm_input && !hp_wmi_fan_control_supported())
+>  			return 0;
+>  		return 0644;
+>  	case hwmon_fan:
+> +		if (priv->fan_count <= 0)
+> +			return 0;
+>  		if (hp_wmi_fan_control_supported()) {
+>  			if (hp_wmi_get_active_fan_speed(channel) >= 0)
+>  				return 0444;
+> @@ -3124,6 +3131,7 @@ static int hp_wmi_setup_fan_settings(struct hp_wmi_hwmon_priv *priv)
+>  
+>  	/* Default behaviour on hwmon init is automatic mode */
+>  	priv->mode = PWM_MODE_AUTO;
+> +	priv->fan_count = hp_wmi_get_fan_count_userdefine_trigger();
+>  
+>  	/* Bypass devices without fan control support. */
+>  	if (!hp_wmi_fan_table_supported())
+> @@ -3208,6 +3216,11 @@ static int hp_wmi_hwmon_init(void)
+>  		return PTR_ERR(hwmon);
+>  	}
+>  
+> +	if (priv->fan_count <= 0) {
+> +		dev_info(dev, "No usable fans reported by WMI, disabling fan support\n");
+> +		return 0;
+> +	}
+> +
+>  	ret = hp_wmi_apply_fan_settings(priv);
+>  	if (ret)
+>  		dev_warn(dev, "Failed to apply initial fan settings: %d\n", ret);
 > 
-> Ridong Chen (3):
->    mm/mglru: factor out lru_gen_seq_nr_pages()
->    mm/mglru: add tracepoint for scan_folios()
->    mm/mglru: add tracepoint for inc_max_seq()
-> 
->   include/trace/events/vmscan.h | 101 ++++++++++++++++++++++++++++++++++
->   mm/vmscan.c                   |  53 +++++++++++++++---
->   2 files changed, 146 insertions(+), 8 deletions(-)
-> 
-
-Hi Steven, Baolin and Baoquan,
-
-Thanks again for reviewing v2.
-
-Following Steven's suggestion in this thread, I first moved the vmscan
-trace header under mm/ and exposed struct scan_control to it in a
-separate RFC series. Patches [2/3] and [3/3] of v2 have now been
-reworked on top of that and posted together with it as one series:
-
-   [PATCH v4 0/9] mm/vmscan: move tracepoints to mm/ and add MGLRU
-   tracepoints
-   https://lore.kernel.org/all/20261019034426.2354049-1-ridong.chen@linux.dev/
-
-The two MGLRU tracepoints are [8/9] and [9/9] there. Compared with v2:
-
-- Both events now take only lruvec/sc plus the local counters, and
-   derive everything else (memcg id, order, reclaim_idx, lru, max_seq,
-   min_seq and the per-generation page counts) in TP_fast_assign()
-   (Steven).
-- Add nid, derived from lruvec_pgdat(lruvec) (Baoquan).
-- Group the int fields at the end of the entry to avoid padding on
-   64-bit (Steven).
-- Drop v2 [1/3] "mm/mglru: factor out lru_gen_seq_nr_pages()": the
-   per-generation page count is now summed inside TP_fast_assign(), so
-   the helper has no user left.
-
-Since [8/9] and [9/9] changed substantially, I did not carry over your
-Reviewed-by tags. I would really appreciate it if you could take
-another look at v4.
 
 -- 
-Best regards
-Ridong
+ i.
 
