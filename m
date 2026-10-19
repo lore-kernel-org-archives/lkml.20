@@ -1,134 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792428959;
-	b=ytj3CVaVJ7ATYCFzkLH5qRZ+EtVBoE0nT7tVZRTg2L6HwTEWkbaJ72ee5c/99PSR7hGH
-	 U8VxGYQQSe0UHOgx80IgPIyrcx7aAOA/VbX+LE70gZhdjz0/uwvq7D9OIg29JPE9gz2/h
-	 7Q+4DzJMBOcdPpSlO1VCmKgoxrBfTq6oZrHKmX+2LfG+nD+cg+zsxWN+eZf4QhsKs1isC
-	 es+QhHBdWGHc7OpJ03outleY6qaRtMqQ0l+D7tDfw6bPw49s2BzVABf6QqAEED6a729fl
-	 DBUfNGJ+bqGcSEp5LurdvHJM+tpORi6OFrL/4aC3U0H0b8CotY153mQ1ZEedlmPXr4g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428959;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=Lq4tL2q3ry6aj1VAed0YhMF/CkeGnnGiAyVLLYHctSA=;
-	b=A0MMlG7i4axYwoRNw4s8TAjBFKwl5Qy3WjBJt7/en0jpgWtSdsVX4nd4+/ZmtSj5YCAq
-	 quYcgLmicEqNCsnQG8fUoBoCwYXlPVfUAbX7oRzh0VZNkfHvp1elCFanBboBjtdP4+a4a
-	 eM3gTrQx6r1rcNpEY97TU7o/C4T+ig+sps6X9Kgwl699br7s9ssiWJ5oMWMa70GhHq+jj
-	 XCendc1QsvOcRLiC/eSzUETFxxdtflFLMyEskbJnqUgNUvE4yCSllkmNvZpUtsEbJ1e/U
-	 Q5jN9GT/UbBwR8i+aZRav8nru+cMzs0ynbWqqajYCjivhi7awjKrF4+SngYxs/sWI7A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MZSWZNNQ;
-	arc=fail smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792428969;
+	b=KogjH784ci4qBvPOpm9uNrcYuno7/PrBQDp8jJPP+7ErRGw+Rd82XQBEpd3T/dxRw7+l
+	 qB+NVNwsvNHu6KON+vbOO4HZeC/v1s1Adx8rdznUW9CeRoQnhA3W6IHI6qCDmK2nus3+l
+	 58F/fOW6hBzQB5HJbjdX03hNJlcfKdJytKBQJrkPARu2rtBzClrYca3u91lIk2gzEPl9z
+	 tBLsuvNxT17f1lOaM4OiOIxtDjQDW8E51Rb4jBZfAoFl7ffaNbAox92I5WiSyItyiLuq1
+	 diYhO9v8G+J+TvYtAT04Ovr0Mybcqu006Ys3Ehf9TZHfmkq4ex84FFTbynqIdjcTiQA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428969;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Spamd-Result;
+	bh=1HvB4Y2zBxs7WYLMe29I4Dl34Va5y8vlRI+QEd8b7R4=;
+	b=228vSmnYXZ9LBbYCxejARAvARJQ1LQ/KBE2TQjEY4uJxTO7XChKVutuJy0QLuEPJhyv6
+	 QNx4O+PezryhxlwxlhQ6BmZ1DKbU2ofJarJodSxL8/CipNdhjNOsVFDbNDTZy+xCbHTrw
+	 jeNgZDaBHnhVu1NgIx8qbK+zmQi4cWlTl5L+BKw+3/xibPduILi1UxkqimVFj+FNXOfLZ
+	 0alQh/pBBJx5LiUnnNrQl8Qv0c0Pp8/h/Nb5kpv8ptw1cMkHWmKn1NHcn6AfiKSKIGABU
+	 Ru4fgGgQEnkdAXyy9o0JqByLryWXnZ/v2PfAbn0Za/OuqwUEdvaaC1BvfTlC45ZVCMA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mGj3SyMj;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZQJR8Txv;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mGj3SyMj;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZQJR8Txv;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D077606A325;
-	Mon, 19 Oct 2026 16:55:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D077606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0F160A2613
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:56:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D0F160A2613
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MZSWZNNQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792428958; x=1823964958;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=ouMNOflgKTvYjcl2Rb6AygeZS+LQZsIxL9yKxxoBuV4=;
-  b=MZSWZNNQ8smxltju0aL58iCqdq596/5LKQuGnomHIFEfiY2MKqFZIt2I
-   SCWhQRAvCxW/89ZkgATArbWLVYSqbWToEmCtcjo3/o2YFvmEVic96AgSv
-   eG6A7UHC/xyShFHIlf8hjYwil48hqqNWZAa7OXS8MabAp3XnMvVeVcIdU
-   QSRubleTMai7+diWx+V5hcPWLbaUd6IlkIz2/CbqkvXu7X5k9s/qKISvF
-   aA8kX8lS8YRfloAR8kNM4dJJkF9VGfJWZXGvwG4fkn/cPatQaoXGVbaBJ
-   nL7VrcMtBUI9bcy1QN5YYy4708NeSilS6BO2aSx2jjTdov9jX5fE3Cmbp
-   w==;
-X-CSE-ConnectionGUID: ynu0n4gVS1Gntt0HVz0kdw==
-X-CSE-MsgGUID: Af0VGePYQnaD1DJb7uoUKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1003401"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1003401"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 09:55:57 -0700
-X-CSE-ConnectionGUID: Wi23obOpR8WrS0k/xyNmFg==
-X-CSE-MsgGUID: tPdjfiaPR6qd+dUZTUCLDw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2581616"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 09:55:57 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 09:55:56 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 09:55:56 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.23) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 09:55:55 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k65Qa3PyIHwn4OYAhD5Wiq/p1/502wSSe4Xurc8bs2yliRSIrLQ7p0Nfy574/VEAQ+bo+rhOd6BvggycaTybZrfQf4BOFYMdrPDbRzFRDKekd6eeW6ks44a0qzLs2pJYzU2HC4dUbX/MnhAyP/w0TORNZHKDIPFoDD2hdfl8uYJgLr4j4txBPlBIkXLRp5af4uBLzwWv9J9/4xAXBj6tm9fy1QfZobzCyupYRHhRmvn7wPXQiJJ1xKSyDHwyJ0PDDQDq3ezA26IRwOVi30uDpLU9YCEJI/3n1cXkQhC07BAKTWmHKYJKpMLZFyXVuBHmrc67pqbACIDgx/dBWNuUfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lq4tL2q3ry6aj1VAed0YhMF/CkeGnnGiAyVLLYHctSA=;
- b=ptHqA6cESqPjUxg5NB6Gnprfc5CU9aWynhx9SxLLx5PStbb4FogjwONdZZ1T7DK/phDSl67cHucTSP9hus/+8C+QMGZ0vPL0Atz1Sx95F/gWYoeBRS3OMle0Q2z1P+1cfGMF9Cr5j81qL6rZAjqjilK8gS7jWy0t/PYASYepWt3iH32k43zRCavPItsyTFCsmtrryroi192UUDyI1SUdwOgiklTPr+5JpwVXOC4Z3W8VqwvQbdv3C2YnSygbgVDArPuzNbPwMdu7WwVpjsyXeNlOOQYYynZkPAo0+tVfg+xUK2hLVdbxQfTOqG+z86qSzuX/tHVtUmIoPt/MOwnKQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by DSVPR11MB9892.namprd11.prod.outlook.com (2603:10b6:8:45c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 16:55:47 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 16:55:47 +0000
-Date: Mon, 19 Oct 2026 09:55:42 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: <jianyungao89@gmail.com>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Jan Kara
-	<jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>, Alexander Viro
-	<viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, "Dan
- Williams" <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, "Andrew
- Morton" <akpm@linux-foundation.org>, Shiyang Ruan <ruansy.fnst@fujitsu.com>,
-	"open list:FILESYSTEMS (VFS and infrastructure)"
-	<linux-fsdevel@vger.kernel.org>, "open list:FILESYSTEM DIRECT ACCESS (DAX)"
-	<nvdimm@lists.linux.dev>
-Subject: Re: [PATCH v3] dax: fix wrong error code returned from
- dax_dedupe_file_range_compare()
-Message-ID: <atZLjjje9Ao_pErh@aschofie-mobl2.lan>
-References: <20261015143426.17620-1-jianyungao89@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261015143426.17620-1-jianyungao89@gmail.com>
-X-ClientProxiedBy: MW4PR03CA0105.namprd03.prod.outlook.com
- (2603:10b6:303:b7::20) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mGj3SyMj;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZQJR8Txv;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mGj3SyMj;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZQJR8Txv
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 69ADC1F45B;
+	Mon, 19 Oct 2026 16:56:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792428967; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1HvB4Y2zBxs7WYLMe29I4Dl34Va5y8vlRI+QEd8b7R4=;
+	b=mGj3SyMjP0fAAairHpxyFpnOyTkxAYPb/HIetE9Op738WMLug2ldCUW6QZwtfgKWybbn03
+	sK8D2bhRafWC7O8olV+LWbM9UMVHJskbHs23qVfw9oYm/MOB6c31rQrvDZ3E2IWHtkd9H/
+	5GNIWzDYyzNL7DSqPLXhCVnOqxJKWQQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792428967;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1HvB4Y2zBxs7WYLMe29I4Dl34Va5y8vlRI+QEd8b7R4=;
+	b=ZQJR8Txv95QmdQn0ETZILeVvPfyy2CaO86qJdLQVDU+SLahzBeBxa2UnCDhhrsYQuL2J/A
+	RJB15J0hhItbLiDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792428967; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1HvB4Y2zBxs7WYLMe29I4Dl34Va5y8vlRI+QEd8b7R4=;
+	b=mGj3SyMjP0fAAairHpxyFpnOyTkxAYPb/HIetE9Op738WMLug2ldCUW6QZwtfgKWybbn03
+	sK8D2bhRafWC7O8olV+LWbM9UMVHJskbHs23qVfw9oYm/MOB6c31rQrvDZ3E2IWHtkd9H/
+	5GNIWzDYyzNL7DSqPLXhCVnOqxJKWQQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792428967;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1HvB4Y2zBxs7WYLMe29I4Dl34Va5y8vlRI+QEd8b7R4=;
+	b=ZQJR8Txv95QmdQn0ETZILeVvPfyy2CaO86qJdLQVDU+SLahzBeBxa2UnCDhhrsYQuL2J/A
+	RJB15J0hhItbLiDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2F7D0136CC;
+	Mon, 19 Oct 2026 16:56:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /IV6MqZL1mpbBgAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Mon, 19 Oct 2026 16:56:07 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,75 +104,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|DSVPR11MB9892:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c818dc4-7cb4-4aa2-d489-08df2e01d24b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|261009223027099003|10067099003|56012099006|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: Wc7zVQxLEHWzcITW96tpKYZoEXn5nOktFfQwbXdLxeY6LjxRolBCMCPWvNWP1wklAjP/NrQgI6mBb3Ne3YJMNSVKjDt7Cbs+9s71Vtp4oDRACFgnPfPsucQAFE30eihRjOp3QEF7cwJ+Q3zo+4oFRJqVyRo+3Lejf3IFqn1YTuOzzsHcdjb0VANTbud6uxjJlLDXM3xtC8hgvow2OXfoCwvGV5c4WWv28FEhYiNOpBV/sv1oD3PvM55XUKCwX+mzt96+Nnyw1fEobZABh3oYFKHo0TyTl1onSddwNGVm2Z8iJM4PtS7pdi8Wqn3qC4tzDXPFB7Iee9OHQdJ5YTBHlbsT0ry3tNhCHojdhFdmF51zsnFkLVlhIjHpSzrcqgp/j5tWJgCzixUNwiTbS6qu/JdF03HXrDkAUtUyRu5RWd4eXcEv9TsF6YC6LX6baJg0eKMbmtLbS44/oB+uKEt7KVreK3EUWKktJQdg17PSoSpCq+LtcjVH++Dse4K4si/Xzh9H+wLvNyiN1LH7zv79RaRoxg1dEInTEgnmZVDEWgvmsBrfwpPwMPxuzBWycX7Pn72KhnNFLfK6qOwgQF/HiHYLKs4Xcs4DV0LW1MRhdLFrf9ulgyy3Mq8PJD7rEzHu
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?a7AAEjXxP4GYfwiFK5VdVH9NE//4bh1n6LrTd3JyWTM9NO2fxpXWXchpYa0v?=
- =?us-ascii?Q?zPY5e5t1rUlGpNSPTa1GP3U+P9vGtRPj91TLaHAe8v6So+MoFI1mJD1BpbxU?=
- =?us-ascii?Q?GNqrWY7cK3SlIl9o/Cz7O5eokoCFWeqJ2SEw11eTYUNedWK4FyVHOsoc4qhd?=
- =?us-ascii?Q?wvTmOaUbj1UYFZ+8OccuvIbfgvIT7odio3VG4dX5PwsjR95eKCIJzcglkxUq?=
- =?us-ascii?Q?RGR4NqFPRKKqoUb2DHQca5myJoDd4sKQUfaBHxQOIQW2lmbmKzODWSguLE1H?=
- =?us-ascii?Q?G1Z3FU8/XwSJl7SN6HmJYossiYwq5R1tye4a305Pr2KTf9VGm0a/M0GPdMQI?=
- =?us-ascii?Q?unIm9W2NHQo2i1bCA7Lp0M7at9ofwgHjEfBOl82oqhgO5VIn8oVB2DIvrmPt?=
- =?us-ascii?Q?OanuJN2iTXeVbmvdggUA1m99DEMiwUU5o/T6nESJFrbQlcflsrEeUpM5UyXV?=
- =?us-ascii?Q?/zALF0ttTFLbKZcb7UJKvJdtS3pednC0ePJGblx+vmaeaK7mDwA6Y/47DXsf?=
- =?us-ascii?Q?Ea56UfM1jMgDAc0AXYzJzE8k+ZXBe9Vuz6xMeKDz1n0dqDY0CZ+huyZarVjF?=
- =?us-ascii?Q?w3VvyxeTk6Ie0Trko9bJWzL6172hrUSCIxqQC9tqTFXB6lmf8CtjqI8Qe1jQ?=
- =?us-ascii?Q?1RR7zRstpEegBe4+tQVtUeHad9WnBwS9ORVfmW7fTdFP3hlth+1PGhjr6oUJ?=
- =?us-ascii?Q?1rVSvtluKSePqiupoL8xACuKnphNyI5ZUtbC/OxkDEcz3ntwRLkVJlADavGA?=
- =?us-ascii?Q?SKLLxsGzkEITJY43phPorXyBZ45wnxnGdVBKbvEvhptxdpkQ7YaXYiVk/jfX?=
- =?us-ascii?Q?Qi8fMkIVCO6m7PvfgmLlwjHS1YTYEfOpYRRGSmqvLAJ2gnhl/2DytRRTq1/k?=
- =?us-ascii?Q?xOKBVMnRSj2dVExcS6j/ntpHUt0CRnRFOxE/EMzUWir4StWHleaeXSRfIDFK?=
- =?us-ascii?Q?RblYgldu9/GjrZwjGbqOH9Qvhb7G71cFB+xKFM6e8iHmK1rTgDZ+ck3rWKwP?=
- =?us-ascii?Q?8+TVghmBfKNCs6pEd+SHmf3P24XTLbuibo1gSpONUR+yNctXEhLDzRCWR9Bm?=
- =?us-ascii?Q?LOVIu0flXk5Mku8/7/4AcyCHJayB3aONe1zB2jcp4XRdIWz94mBqmf2urTfW?=
- =?us-ascii?Q?/3CzPtvT6JorpHrqZL5MVOhYYl+YPr5upinNvKecVR0Q1HfglGzHZExf3Wnd?=
- =?us-ascii?Q?0R+TZddHHicPeLsy/b37gveOk7WzJjMGoF55Wj0JhioB+pnE30g9+A+JsJEv?=
- =?us-ascii?Q?NnZggMy+Ys/hiYzAxB+x0jN0DFPOeX7UYqdRIJmIUiXXfxMs95JphwRJuGJG?=
- =?us-ascii?Q?+scrLxBaFtWGa9+Udzxo7ziFjlQ6+lmLZOrO72uc5CXREbDu396zzFnxEHXN?=
- =?us-ascii?Q?GinVXFB2x9YJFDDlmZ1skNAPiXqfTrhwByLHlUznOFdzWxjXjw+EPbsNbcGC?=
- =?us-ascii?Q?3v++30iy8zulXZ6ab8lKxTyNxso/kHRtNuHL3bCA/xeF2odGD+n4jv4ZQfIk?=
- =?us-ascii?Q?hBTS/V4GpFb9eHpWcoM16QnezW/t8KT2lax3WqagwQ7nZFhcHUwskw/cTl6Q?=
- =?us-ascii?Q?OqD8ROfZuHLhE39odb9s/SD7d9GaAlIOy1uM3KetzkrKSdS7NmBIUduwGx/g?=
- =?us-ascii?Q?OY7qLWq0xSjCjgKp3W0leBWvtx2cQ+eHid4MgbJs4Nj49G1cTUa9ZIMt6SXA?=
- =?us-ascii?Q?MqNYRVnKpDQ/cCIRf5FwK0OAT7PwKKy2zRmJXt3Ews2CTlByAPztI9kavk70?=
- =?us-ascii?Q?skeqtAkvJKPqurHpGp0dw9m55J08SZA=3D?=
-X-Exchange-RoutingPolicyChecked: g+reueLvLfR2jXWiuSiYxbrPBzWRJs8GZ0Se3rlsyiQ2LzChIOZRdO/LxfKSKTeJ0hQ9wnHOJMVA8qk5HLNEID6VS5oX3naDHD6ZZsrU/lV8pcy/IE1Ni9R/e/0QfEa2i/pQhxeGr8WepqL4MYuvhx++C4csSaUNoXGPcPDJDmnWRz7Z+NB/rU1WW0CVPuiFKl8PNfZvD3qlBMVvwOc6Ej6sfHKZwGtTO95shmpy7nNTrNHxWbL3mLc25MSEN4IuSfjnNfFrgKWOWDtQP4d+QhhTmHy8OseivG2QCl60hrYiQySDUsQpIld53k45Nj6MdZUCgnH3IVcnGG9KOGlZJg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c818dc4-7cb4-4aa2-d489-08df2e01d24b
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:55:46.9921
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ASe2cEfA+zggEiRoDaWYQBik9VdiF7vcBhSyvG0EFlvi6IuL6M7T1rY3ZQYv8rL3yHWajfMlvkEEyzKC3tgo5D5zQXLMsxAQQ8X5W/heMp8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR11MB9892
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 06/18] nvme: Rapid Path Failure Recovery read
+ controller identify fields
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Justin Tee <justin.tee@broadcom.com>, 
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+ Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260920182936.2317916-7-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-7-mkhalfella@purestorage.com>
+Date: Mon, 19 Oct 2026 18:56:04 +0200
+Message-Id: <179242896496.3619480.12975259904515722687.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Spam-Flag: NO
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org,suse.de];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-On Thu, Oct 15, 2026 at 10:34:25PM +0800, jianyungao89@gmail.com wrote:
-> From: Jianyun Gao <jianyungao89@gmail.com>
-> 
-> When dax_range_compare_iter() returns a negative error code (e.g. -EIO),
-> dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds the
-> positive return value from iomap_iter() indicating more iterations remain.
-> This positive value leaks to the caller, where vfs_dedupe_file_range()
-> interprets it as success (bytes_deduped = len), causing userspace to
-> incorrectly believe deduplication completed.
-> 
-> Return 'status' instead to propagate the actual error code.
-> 
-> Fixes: 0e79e3736d54 ("fsdax: dedupe: iter two files at the same time")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+> TP8028 Rapid Path Failure added new fields to controller identify
+> response. Read CIU (Controller Instance Uniquifier), CIRN (Controller
+> Instance Random Number), and CCRL (Cross-Controller Reset Limit) from
+> controller identify response. Expose CIU and CIRN as sysfs attributes
+> so the values can be used directly by user if needed.
 
-Applied to libnvdimm-for-next:
-https://git.kernel.org/nvdimm/nvdimm/c/9b036546a02c
+What's the use case for it? This is an public/stable interface,
+it needs a justification and documentation
+
+> Also add the nvme_fence_timeout_ms() helper that derives a fencing
+> timeout from the controller keep-alive timeout (kato).
+
+There is no user in this patch, introduce it when you use it.
+
+-- 
+Daniel Wagner <wagi@kernel.org>
