@@ -1,49 +1,49 @@
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A7B48F003
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:35:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A662E48F033
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395321; cv=none; b=dd+OnwFWXTYJEzgF4dzQSc5QeJep7+w8QAQwA1Ex4b6w7p/aCTz7LHkXQ/aL14QuZVjErPC0XX1eFYPZz1RjuKDrYDBdjPXLmiwnuBp8IKAx28y5hhZdGUcNgMZZpbJf6fmvbLGdWvzML3UGhFHlAG/80h0gsY0P6fXMkq4vO60=
+	t=1792395321; cv=none; b=SeQs7hFk0Sr5WGKBn736TN600yJvwxLdXTr0bYh2p3IpEQIbxOrRtHCydLxcZ/V0SBle+9vG3ikKgXArCABlCbWqXZu2Ql/I3zHtblntc+/70zw+Uqshfmnf8Sv4vPSKD9OF9UW3hGtvLOsGnPxuJ61rXptqJig0HL3NfPehaOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792395321; c=relaxed/simple;
-	bh=x8LEyfUNNjYVk0qmBHhBYMlxYVzf1DdyPySSnAX/yYY=;
+	bh=uhG673gQIHESA0ckKx5/i36fXjVE0uH1+OliZ8qACm4=;
 	h=Message-ID:From:To:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=n8dtd6ZO3NuCfKGeZ6LzDLD7MHqWa6TaEe8GqXXF8CehUWSzDIyDQthLSu4BhBzuQA8TzseOtra8VFqwFJtE58vT00a0/mK2ySBIRFG0gvIfIxJR+rTJ7qcX6Ts9DzMzFif37gIcfYBBe1pJZ0vj36FuDclGN4t5nsP6dpko3nU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=drrKxccq; arc=none smtp.client-ip=162.62.57.210
+	 MIME-Version; b=Qg25PPP5tOIGhegv4nkEVH7HvZvWR0eUvXskThQpNDe5mqYjOXDX0vvydNXfjjdMCC32YM6xZMBBhhGbOimt3V30fuWGFuC3XHU9X7odRMtZWEmwSJx1N49e9fH4V4yTSHx1LUO/WIJHCfEqk7PghxfqGN7xUX8k/ns8SqGNAGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=I+n5R8hy; arc=none smtp.client-ip=162.62.57.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="drrKxccq"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="I+n5R8hy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792395309; bh=sqLE7EMTs/Gy1swDex8mLgyvhnomKDF+BGCjrVjjvkA=;
+	t=1792395315; bh=Nw8/oC/7idO9zmtgTLOz1UYdwCR1fHrYtwW7P/QOEO8=;
 	h=From:To:Subject:Date:In-Reply-To:References;
-	b=drrKxccqmwx2inetdTSpaYykOyH7GSblb2PbBcCJLoIzluo7AdBBKGSVLIuEb+y5n
-	 Pj5niwL9hyS0jU9mlLSaCnkoJWOavBI5YZkLyjS5lu9eT8q36QJ7GYHb83GTJlnOqc
-	 9YmHAeCCHWfK/uUA+q/GHoAhwKmYVVLaVdbL0K8c=
+	b=I+n5R8hyXxsNgA2V6SbylrUGQXLhCMUEgigzJYbD3b2qV03S+lEW6rweS4qbcif4l
+	 7yNIGC+F4EDqm7Cl8taeAxvQiiRHwhk2tHTqWDoVoxurKOw+O+vYrYunGOnvNUmmAi
+	 2j/7a3PDlHDZ8OzC7e5hSCduidayKewm7dMJWV5c=
 Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
 	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
 	id 8B707E35; Mon, 19 Oct 2026 15:34:55 +0800
-X-QQ-mid: xmsmtpt1792395305t2r8c1m9z
-Message-ID: <tencent_E020A2DEC64A55CD801C9BAC30A4E94CF80A@qq.com>
-X-QQ-XMAILINFO: N/tkE0oBJLbntSt2pA5cYJjIvdj1i8pYa4ABJYX7d5zidqHes4knGnIvWyiFkH
-	 2PgcrSYqH2+bmsaH91fiCnryiBSYtEEulYM9fmPa9skaSZ5KOVpiW+PcOTmDrIb8fa7mXsXQiDPD
-	 rnytRHeQmujPFf+R/UOnYCBvNghIFQliRE0/M1YqtXj4C+yLx+2yPE4v4m1/6AQc8cXqgCWdhmnY
-	 Dagmv0AYFT34XVnW7rdSCDNP82Ypm65cUF/5KErf8yuBoJjCS8Oe7HT7wSzadGj3TCzQTHiVkYh3
-	 GP2lYthOWpjXthrvMtXsrH9ZNn/un+8E8jFEhVdXqCAe07WIPx+HZKSYY6rtjX5BEYe8yzZE1KWB
-	 9vUSul/Sp9gL4rqElOjQz6SVhuyfIi63FTbE5fJyfJmIMQCXXr+RrEIYVUVt1o9A2SHZKURJ/1lN
-	 J9R58XCeBRKfxbdLGZXnIaKAWd+2O9c2nYvn0T9b3mXr0sRh8Iu582obfVPdagIwy3NO8NZIX/RP
-	 zUOcArjuKbkfDGq/wPxHxzi8tRecQ0GFhTYADJkRVESv7Esvb7SZCt8UBl7grr2TAeLXvTLi7hRt
-	 TzKiKFeXEG+epvCcv/D10TupQrKaPHHngUFzu+vzn3n3T3xh5MzIcoHbkpv3+MBOcOsOnKoosGgs
-	 rW3pYGG4nVBBSr0AS0rNSutiRXsqPuL+Wp5Db3pUtLeY+yi6oshqQHBdH1WQBDBCcEbi3frRY7De
-	 zsw9DB5SgyTq2L21JoZF1JDHCt8f/i+Vj/ELVXV1tYdz9NsWg3pu9azCIETBp3lh0NHSRoIYju1R
-	 GiIPqU+Xh+da9nITi6yP6ezg6GzJCO+ASo7sRJIyg2IVFliALxYX+dG/+EI6dO5H2kKIsZmWLkYD
-	 pRAQNITKc/TRumXqcB3SnxT9tmr1wPGWAL6Ll9RBTfJAf4PB7poiJwmXkIP5dyVqpQbiRtyfJ6GV
-	 MYdfGDJiDAl7SPYGWxdCzbgTPiysq2F8L0RXgffrwAmp0YRJl5wdDP39gfwYVcOqrWkQCBx7s+BH
-	 SYfD3Gn19EOkyONkLNPzh1o7GDPdJUOYcTtc77P3YhnKeLY1sW3EwbTU01jqQxghz2ZU6Nyq2Ciq
-	 tvq9Bi
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-mid: xmsmtpt1792395312tg94m5cu6
+Message-ID: <tencent_A4124915CEC41FEBAD28A5294F8423BEDC0A@qq.com>
+X-QQ-XMAILINFO: NGZp1yYNf7Y+MFINV0qEIf5qH7pCV78X2lll11eA/qj7zSC8pxTX83SqODEjU8
+	 knuwQLGCeu8Azn0gyRLWU+ptdob+plNqx3XLlvJtNO88ShxfWTw/tV5LQgeHd2j0F1uR/jI/PM5l
+	 S6ofYLaTjgaCfFdkJgmRIl9mCwTj3N+IV6LtHeaDHfa0QjGZz7kupAMAvZqRQtuazvu6r2bIYkWA
+	 Baw1R5iOHB/IhpORnHHrwQNSjcCz8tB4prEuSK4UD8nJ05tH/bcR4EGrHt6GvybHvSugYkKyjKxC
+	 TyMebLqo2FM/VuTatRn6uvkomyN5K9jlffhW/YMJvf9CqQ7FD8ID3ZkQiSgV4hBAbWBDwTz2MER2
+	 QDpVbIb7Sffg1RUWtentr7cC4v5eVCRWOVPgqtjl24ebmeFhnXmRHXyvPVfHEM1G+ugOZJhcUyhr
+	 c6okTabQsOEMxdIM9kedgXBda5mqXK7GPgabUo7Ia3aC4DSJGnR1trUJBZf155s8kCEQsRC8MWwc
+	 fNhhtAipPRnFdJUuzlvH3tn2i7yxmniYLfgvyhAA7pjePYCiQvm7J01sxRBME71xTFa5RNWZuI/J
+	 MK0GYahpalWoss7QIxXRqN6xjRnCkv7PnucdyHehh2G9V+odOiGpMAGnifLgCRrVeVKVk/HKIVoc
+	 Li88ixhASxINbAim+jAgFwlHlUrs4YpmL57q+BIdsJKsGc7XYE4UV1m5AMcy/2Y3EPnnb0o8aXQf
+	 /6fkc068qVGaXOsWrf1VwEiV76u3J8ccuVn2BtmgKyquCM40UdzFZ0gW340uMLZSLpB6eq03gbA1
+	 cCcdhZdjcAK7qVQTn7AawGRl9QkYHynkTgnD6To4p+y5urRcXGU6K1TapgLwprJHKTIGkf2lXwb0
+	 xh4wG81pinoUQxeW++4aOHRz83/eSvVI4OR/c5PNVXZ2UTYs/09X1jjmHzyR9JIhs/uilLZOqyRb
+	 8Qj1NWTRXnt5vkx3S36f8X+RVkJItMEE3qdAw6tblsUV1s2Qj+ryJWPZrhTCPVpemgQDNoXWmj9j
+	 TeX2v1AvYg/rTwg1mBmCq1R+b3Je29ddWYXO/pS3iLvNC0EuuIVKYQ0UR0bAuW5iMcxnzV3EIGON
+	 YfbtId
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
 From: Jinjie Ruan <2118537295@qq.com>
 To: babu.moger@amd.com,
 	ben.horgan@arm.com,
@@ -65,9 +65,9 @@ To: babu.moger@amd.com,
 	zengheng4@huawei.com,
 	x86@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 06/15] fs/resctrl: Unmount resctrl with the CDP state it was mounted with
-Date: Mon, 19 Oct 2026 15:33:32 +0800
-X-OQ-MSGID: <20261019073453.2142856-7-2118537295@qq.com>
+Subject: [PATCH v10 10/15] arm_mpam: Track the PARTID and internal PARTID limits per class
+Date: Mon, 19 Oct 2026 15:33:36 +0800
+X-OQ-MSGID: <20261019073453.2142856-11-2118537295@qq.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261019073453.2142856-1-2118537295@qq.com>
 References: <20261019073453.2142856-1-2118537295@qq.com>
@@ -79,106 +79,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zeng Heng <zengheng4@huawei.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
 
-resctrl disables CDP before the control and monitor groups are torn down
-on unmount. The architecture translates between CLOSID and PARTID using
-the CDP state, so the RMIDs freed by rmdir_all_sub() and
-resctrl_fs_teardown() are parsed with the wrong mapping. On arm64 the
-RMID limbo handler can still be running, and a CLOSID left in the limbo
-list is re-interpreted with the CDP state of the next mount. Enabling
-CDP doubles the CLOSID on arm64, which can push the stale value out of
-range and take an MPAM error interrupt.
+The number of PARTIDs and PMGs a resource supports is global, and the
+number of internal PARTIDs is not tracked at all. Tracking this per
+class lets the resctrl glue code find the limits of the classes it will
+use, and pick the number of control groups before it is initialised.
 
-Disable CDP after the groups have been torn down, so every CLOSID freed
-on unmount is parsed with the CDP state it was allocated under. Return
-the RMIDs still in limbo to the free list and stop the worker, so
-nothing carries over to the next mount.
+Resources that implement PARTID narrowing reduce msc->partid_max,
+because they don't have one configuration per PARTID. Record the
+internal PARTID limit alongside partid_max in struct mpam_props, and
+take the smaller of the values a class's RIS advertise.
 
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Dave Martin <Dave.Martin@arm.com>
 Cc: James Morse <james.morse@arm.com>
-Cc: Babu Moger <babu.moger@amd.com>
-Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+Cc: Ben Horgan <ben.horgan@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Fenghua Yu <fenghuay@nvidia.com>
+Suggested-by: James Morse <james.morse@arm.com>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
 v9->v10:
- - Use cancel_delayed_work_sync() with proper mutex handling
- - Add comment explaining the lock pattern
+ - Copy partid_max/intpartid_max on the first aliasing merge into a
+   zero-initialized parent instead of clamping to zero
 ---
- fs/resctrl/rdtgroup.c | 46 +++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 44 insertions(+), 2 deletions(-)
+ drivers/resctrl/mpam_devices.c  | 34 ++++++++++++++++++++++++---------
+ drivers/resctrl/mpam_internal.h |  2 ++
+ 2 files changed, 27 insertions(+), 9 deletions(-)
 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 5dcbb0a964e8..40821cf07649 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -3145,6 +3145,41 @@ static void resctrl_fs_teardown(void)
- 	rdtgroup_destroy_root();
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index a44d66a5733d..7f88a0170c05 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -793,7 +793,6 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 	struct mpam_msc *msc = ris->vmsc->msc;
+ 	struct device *dev = &msc->pdev->dev;
+ 	struct mpam_props *props = &ris->props;
+-	struct mpam_class *class = ris->vmsc->comp->class;
+ 
+ 	lockdep_assert_held(&msc->probe_lock);
+ 	lockdep_assert_held(&msc->part_sel_lock);
+@@ -938,18 +937,20 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+ 	}
+ 
+ 	/*
+-	 * RIS with PARTID narrowing don't have enough storage for one
+-	 * configuration per PARTID. If these are in a class we could use,
+-	 * reduce the supported partid_max to match the number of intpartid.
+-	 * If the class is unknown, just ignore it.
++	 * A RIS that implements PARTID narrowing has one configuration per
++	 * internal PARTID, and several request PARTIDs share it. Record both
++	 * limits in the resource properties.
+ 	 */
+-	if (FIELD_GET(MPAMF_IDR_HAS_PARTID_NRW, ris->idr) &&
+-	    class->type != MPAM_CLASS_UNKNOWN) {
++	props->partid_max = msc->partid_max;
++	props->intpartid_max = msc->partid_max;
++
++	if (FIELD_GET(MPAMF_IDR_HAS_PARTID_NRW, ris->idr)) {
+ 		u32 nrwidr = mpam_read_partsel_reg(msc, PARTID_NRW_IDR);
+-		u16 partid_max = FIELD_GET(MPAMF_PARTID_NRW_IDR_INTPARTID_MAX, nrwidr);
++		u16 intpartid_max = FIELD_GET(MPAMF_PARTID_NRW_IDR_INTPARTID_MAX, nrwidr);
+ 
+ 		mpam_set_feature(mpam_feat_partid_nrw, props);
+-		msc->partid_max = min(msc->partid_max, partid_max);
++		props->intpartid_max = min(props->intpartid_max, intpartid_max);
++		msc->partid_max = min(msc->partid_max, intpartid_max);
+ 	}
  }
  
-+/*
-+ * The RMID limbo handler keeps running after unmount. Any CLOSID still in
-+ * limbo would be re-interpreted with the CDP state of the next mount. MPAM
-+ * doubles CLOSID when CDP is enabled, which can push the stale value out of
-+ * range. Force the limbo list back to the free list before the CLOSID state
-+ * is torn down.
-+ */
-+static void rdt_flush_limbo(void)
-+{
-+	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
-+	struct rdt_l3_mon_domain *d;
-+
-+	if (!IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID))
-+		return;
-+
-+	if (!resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID))
-+		return;
-+
-+	list_for_each_entry(d, &r->mon_domains, hdr.list) {
-+		if (!has_busy_rmid(d))
-+			continue;
-+
-+		/*
-+		 * The limbo handler acquires rdtgroup_mutex. Release it
-+		 * here to allow the handler to complete, then reacquire
-+		 * to maintain lock ordering for __check_limbo().
-+		 * This matches the pattern used in resctrl_offline_cpu().
-+		 */
-+		mutex_unlock(&rdtgroup_mutex);
-+		cancel_delayed_work_sync(&d->cqm_limbo);
-+		mutex_lock(&rdtgroup_mutex);
-+		__check_limbo(d, true);
-+	}
-+}
-+
- static void resctrl_unmount(void)
- {
- 	struct rdt_resource *r;
-@@ -3152,13 +3187,20 @@ static void resctrl_unmount(void)
- 	cpus_read_lock();
- 	mutex_lock(&rdtgroup_mutex);
+@@ -2270,6 +2271,21 @@ static void __props_mismatch(struct mpam_props *parent,
+ 					   child->num_mbwu_mon);
+ 	}
  
--	rdt_disable_ctx();
--
- 	/* Put everything back to default values. */
- 	for_each_alloc_capable_rdt_resource(r)
- 		resctrl_arch_reset_all_ctrls(r);
- 
- 	resctrl_fs_teardown();
-+	rdt_flush_limbo();
-+
 +	/*
-+	 * Clear the CDP state last. free_rmid() translates between CLOSID and
-+	 * PARTID using the CDP state; clearing it first would make the
-+	 * translation inconsistent for the RMIDs being torn down.
++	 * Take the smallest, so the result is safe for every RIS in the class.
++	 * The first aliasing merge into a zero-initialized parent must copy
++	 * the child's value, otherwise min() would clamp the limit to zero.
 +	 */
-+	rdt_disable_ctx();
++	if (alias && !parent->partid_max)
++		parent->partid_max = child->partid_max;
++	else
++		parent->partid_max = min(parent->partid_max, child->partid_max);
 +
- 	if (resctrl_arch_alloc_capable())
- 		resctrl_arch_disable_alloc();
- 	if (resctrl_arch_mon_capable())
++	if (alias && !parent->intpartid_max)
++		parent->intpartid_max = child->intpartid_max;
++	else
++		parent->intpartid_max = min(parent->intpartid_max, child->intpartid_max);
++
+ 	if (CAN_MERGE_FEAT(parent, child, mpam_feat_intpri_part, alias)) {
+ 		parent->intpri_wd = child->intpri_wd;
+ 	} else if (MISMATCHED_FEAT(parent, child, mpam_feat_intpri_part,
+diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+index def0e3a65c23..0a2177241615 100644
+--- a/drivers/resctrl/mpam_internal.h
++++ b/drivers/resctrl/mpam_internal.h
+@@ -203,6 +203,8 @@ struct mpam_props {
+ 	u16			dspri_wd;
+ 	u16			num_csu_mon;
+ 	u16			num_mbwu_mon;
++	u16			partid_max;
++	u16			intpartid_max;
+ 
+ /*
+  * Kunit tests use memset() to set up feature combinations that should be
 -- 
 2.43.0
 
