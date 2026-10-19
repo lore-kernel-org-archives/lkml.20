@@ -1,103 +1,197 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7653264F9;
-	Mon, 19 Oct 2026 01:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BEC31194C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:17:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792372550; cv=none; b=N4RDo0NAQDc+LvJoKcV6m8JMMUnSk+94m3NA8u7hPWx5nJbLzB9Ntj/Y5SRUjV7O8tXzldEUcqR09OOA+3p7/z1Wkp17EptgAHRo9dEqIj1T7DE8r+lLDJKTgi4h68UHWB9q64H+PT/9oQPq96fIoU42i8ZI6Cwb7Wig+MKKYNE=
+	t=1792372633; cv=none; b=dN/JZsSd/+8+5EczChHNh+YnCORE+AEc6eyfj/IXSEM/6W6ITEq1tHciCTAx1Vxah5tVAscqOLSWAHB7T7ft3s/8OYd9qg7TNC/lER9QUTpY5fO4CU/ytQsXUss/7WTWeEWmC3O8J+F9167+qqds9n4Lirzpp/KNRa0aOhpBwcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792372550; c=relaxed/simple;
-	bh=sOVBp+DcbI5xWQzbjbK1Mmn/uO63rqpVfwoXlg6wHxI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OAc6/Qsrgw4ftuBP6YEafDDQYkRotMCUoO2zxOPozQflyVHjPXvik+IURmqhwjqFeRnpQUb2OJD4FngbWn25zX5Q0z9MKZ7JhhPqBjZ1YOGnI2z7ivgUouAgR25euyfBNH56iL6iM3ZgzUAqijDGy1ZVbgF4WIVcHuS9ARdsn9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j7HdT1sk4zYQtw7;
-	Mon, 19 Oct 2026 09:14:37 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 0F8034056E;
-	Mon, 19 Oct 2026 09:15:38 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgBXkO85b9VqI9LoAw--.23742S4;
-	Mon, 19 Oct 2026 09:15:37 +0800 (CST)
-From: Zizhi Wo <wozizhi@huaweicloud.com>
-To: song@kernel.org,
-	yukuai@fygo.io,
-	magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	yangerkun@huawei.com,
-	chengzhihao1@huawei.com,
-	wozizhi@huawei.com
-Subject: [PATCH V2 0/6] md: fix takeover failure handling and raid0 size calculation
-Date: Mon, 19 Oct 2026 09:08:21 +0800
-Message-ID: <20261019010827.2922617-1-wozizhi@huaweicloud.com>
-X-Mailer: git-send-email 2.52.0
+	s=arc-20240116; t=1792372633; c=relaxed/simple;
+	bh=lHZqNYYXwhP6kUYddjnLkScGt2Qj0fv+ATQPgasBkTM=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=Pe043yvdc6X6kR0LUVoofSYJG9kr0KrB2j59jcdPD79cMwilfo6ZscKIe4TsFoZRXAeR7B/SjsDGPtTyjiWaMBt5fGCblpV2e/8BJgXIGOf/Ki0jh5umQFxACeH7takiG331yfj3B62FgudPv1+Skcr0LP7W5ur7fPYuJRvMAjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MuIFT9o2; arc=none smtp.client-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MuIFT9o2"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-17bc533fda3so1714590c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:17:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792372629; x=1792977429; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GYcC1zpNIexSJ7Tb92Jn1IVQJ53RYnQjIQBtHmGKTjk=;
+        b=MuIFT9o2xzQmtsPkAnK4pZuWyF13ir2Zz43lEYKp5iDRN2Ss+NknUBtFv87TNLMrmT
+         0zdFUYxl1Ph6H29bnHzAy3q84wKGsc22nGNivfNIoLTfY7Orvnf8ugbNfNJT0cK8EDYG
+         U2pg+kEAzyD8bI96KV2ZuwNP4Wtvy/awhajoCfuLnwzIYB9w4SpqwVTiIZc+n4v/5Ufb
+         nARqyTNIwtqhuzW++qfpERVbWcKaVdAhz2P+6OT8RS2VWhveNVEL0ppkvJ+lHw8jdlQD
+         fzGWIdKaXrXK+YENW8s4KobLpxmnzVUqPBjhatktUSfc349gFmgpoa+UjN0ORBdyW9dS
+         7vew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792372629; x=1792977429;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GYcC1zpNIexSJ7Tb92Jn1IVQJ53RYnQjIQBtHmGKTjk=;
+        b=RV3U9ScODtp0szxDiET0GGfhilosSC3iqa8UrBGi7RahQA6uhZVlRhZAyHqDu8Ledo
+         vFv76hdDWat70iq7TR9lj0JEscztLX5/wHVkVIPFJoJKwxNRPSNyPZKICIrBw0F6bISv
+         SF+pZupg9M2FHdNxcT+i7mjxlpYJJNdVSmmQ/VUpiS9dHeC9amjiEsNTB2ziTHwo+t3Q
+         YmNTh7Q8WjmkgohBd3vM3mQaOFlY7HPHSPmX/v2ZpJIHGJNtT1kI3Q4W4cyvmZgJsWEJ
+         ta7AhM3BKtU5xoBjTwgguLnjueGENEvz0StWZzevXJWxgbmhhF2Ka1A0QQmXzqqc84PM
+         7lxA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFIvcrg0TfBT913iVIxQrpXoSGbKk+KwQ2Tt6mQw/srPMAQEahquV6nF3isRmcvRr9py7l5zevlxU4ecQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZaicDw4GjDo0rj0D7CBzgxph8GygV/RptNQ8NIkZlu+29d5he
+	PgCalF5CxClv7p29PYhXt9hoT2qPy2UWgDn6CplAoyWkQ166DOrE1/hG
+X-Gm-Gg: AYBFou2M8TyTzULtl1RznvfW/WgeAyBGDoOAqFbkBzQfZ3liBV5CFAxHR4uJG1v7mrf
+	qXUVYOGZ5tLEFeTe358Dwqvo4vfQYO+7kf2u03KO1PlwdxjTSI7Zq5BiTjw/F2Hyn/k2rsNduHw
+	bWpyNu9VDx3qxgrsA+FM1xNeFiQiEjdBa+Cxlj3X9WUHuGXvx5I2kzMiOkAOewoz8VH6PazX12d
+	elj1MSaRjwTlX9R9Fa1nti4SnxEBo57WHOnH83D5JJU/V10vljrGFRq+3PDTd0ogVsI/KOB1wQF
+	PM2U2ArVQ2PWuhW7Yf4mw97Dmx5LSC170Ehal0RbK5D89jaYEbtvCBpY4FKCymGXjlmYeW7YlUw
+	Eva+CsdXROv4nzpkEKXXfHbqQHZ/lD7yMcSa5kWlkZBkK8pH998XGjVyi9Nqr7160yrl/KodPxC
+	9GQeaCZRKqL9qvDub1h2PMAy7Xdvboa059HGF3NS5VuVlM5PZhigWiDfhyIN7CyO0npmb1ep5uB
+	n9/D4IGene+4oSDG1ejaAfee61ZWEAP7f+taUUmkEPZqXqcF01oTZ3K0yrQqopxEniI
+X-Received: by 2002:a05:7022:b043:20b0:189:d6bf:7ec7 with SMTP id a92af1059eb24-189d6bf8278mr2830707c88.19.1792372629290;
+        Sun, 18 Oct 2026 18:17:09 -0700 (PDT)
+Received: from ehlo.thunderbird.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c2e7bf4sm21803582c88.20.2026.10.18.18.17.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 18:17:09 -0700 (PDT)
+Date: Sun, 18 Oct 2026 18:17:09 -0700
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+To: Rong Zhang <i@rong.moe>, Ike Panhc <ikepanhc@gmail.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>, Hans de Goede <hansg@kernel.org>,
+ =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+CC: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_0/2=5D_platform/x86=3A_ideapad-lap?=
+ =?US-ASCII?Q?top=3A_Fix_unexpected_charge=5Ftypes_on_probe?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <e7e6423eb2a358faa0d2a26fddd0f992e3d03448.camel@rong.moe>
+References: <20261018-ideapad-fix-charge-types-v1-0-db52e3bb061a@rong.moe> <DB59F3C0-040F-4663-9750-C387963DCFE3@gmail.com> <e7e6423eb2a358faa0d2a26fddd0f992e3d03448.camel@rong.moe>
+Message-ID: <C49666E5-E76A-42E9-8CEA-6195D066A02B@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgBXkO85b9VqI9LoAw--.23742S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFyrZF17Wr17AF4UWr47XFb_yoW8GrWkpa
-	nxt3W5Zw4rG34fZwnIk34UAayrtw18G3WUtF9xJw4rWF9rZFy8CrWDGrW5GayDX3sYqa4Y
-	qw1DXrnYkF4DK37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUk0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6x
-	kF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAq
-	x4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6x
-	CaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28I
-	cxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2
-	IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI
-	42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42
-	IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280
-	aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUrsqXDUUUU
-X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Zizhi Wo <wozizhi@huawei.com>
+On October 18, 2026 7:19:33 AM PDT, Rong Zhang <i@rong=2Emoe> wrote:
+>Hi Derek,
+>
+>Thanks for you information=2E
+>
+>On Sat, 2026-10-17 at 22:30 -0700, Derek J=2E Clark wrote:
+>> On October 17, 2026 4:16:17 PM PDT, Rong Zhang <i@rong=2Emoe> wrote:
+>> > It was reported [1] that some unfortunate combinations of BIOS and
+>> > Lenovo utilities (e=2Eg=2E, Legion Go 2 + Legion Space) may enable Ra=
+pid
+>> > Charge and Conservation Mode at the same time, which is very out of
+>> > sepc=2E
+>> >=20
+>> > If both are enabled during a previous Windows boot, ideapad-laptop wi=
+ll
+>> > see both bits set and correctly shout "unexpected charge_types"=2E
+>> >=20
+>> > A planned BIOS update will address this=2E Before that, if unexpected
+>> > charge_types are encountered on probe, enforce [Long_Life] to prevent
+>> > the device from operating in an out-of-spec state=2E On check or fix
+>> > failure, skip registering the battery hook and the conservation_mode
+>> > attribute=2E
+>> >=20
+>> > Note: the switches never enable themselves autonomously, so there is =
+no
+>> > need to fix it during runtime=2E
+>> >=20
+>>=20
+>> Hi Rong,
+>>=20
+>> Note that this isn't strictly true=2E A known bug in multiple Lenovo de=
+vices is that querying the EC too quickly can cause it to reset into an inv=
+alid state=2E I=2Ee=2E some games run under wine for check the state of the=
+ AC adapter multiple times a second=2E In such a case they can reset and th=
+en report both modes on=2E=C2=A0
+>>=20
+>
+>Could you confirm if it's a completely different issue compared to
+>https://msgid=2Elink/58586fa666f09c209f9d7fe8c692a8bdda6d4410=2Ecamel@ron=
+g=2Emoe
+>(i=2Ee=2E, an ACPI mutex ABBA deadlock cause the GBMD method to return
+>garbage data)?
+>
 
-Patches 1-3 fix the inconsistent mddev state left behind when a takeover
-fails.
+I believe it is=2E The invalid state survives a power cycle and is precede=
+d by a process hanging for a few seconds before the EC resets=2E It can be =
+reproduced repeatedly by a simple bash loop that reads the state multiple t=
+imes a second=2E
 
-Patch 4 rejects a raid0 takeover whose zones cannot cover the capacity the
-gendisk advertises, fixing a syzbot BUG() in find_zone().
-
-Patch 5 factors out the member-size rounding. Patch 6 uses it in
-raid0_size(), where the power-of-2 mask is not a round down for a
-non-power-of-2 chunk.
-
-Changes since v1:
- - Added 3 patches fixing the inconsistent mddev state left behind by a
-   failed takeover in raid0, raid10 and raid5.
- - Patch 4: expanded the commit message with a paragraph addressing the
-   issue previously reported by Sashiko.
-
-v1:
-https://lore.kernel.org/all/20261017005802.2212102-1-wozizhi@huaweicloud.com/
-
-Zizhi Wo (6):
-  md/raid0: don't leave mddev in an inconsistent state when takeover
-    fails
-  md/raid10: don't leave mddev in an inconsistent state when takeover
-    fails
-  md/raid5: don't leave mddev in an inconsistent state when takeover
-    fails
-  md/raid0: reject a takeover whose zones cannot cover the array
-  md/raid0: factor out raid0_member_sectors()
-  md/raid0: round member size in raid0_size() with sector_div()
-
- drivers/md/raid0.c  | 84 +++++++++++++++++++++++++++++++++++----------
- drivers/md/raid10.c | 11 ++++--
- drivers/md/raid5.c  | 13 ++++---
- 3 files changed, 84 insertions(+), 24 deletions(-)
-
--- 
-2.52.0
+- Derek=20
+>> I don't believe the device re-enumerates in this case=2E This is docume=
+nted in the driver [1]=2E
+>
+>The comments and the relevant fix was added in a patch of mine=2E They ar=
+e
+>about yet another different issue, in which querying the EC with an
+>interval < 50 *us* causes the EC to shut down the platform=2E
+>
+>Then the user must press the power button to power on the platform again=
+=2E
+>It's a cold boot=2E All kernel drivers are loaded from scratch, so the
+>probe-time fix here takes effects=2E
+>
+>That being said, as far as I can recall, running into the issue doesn't
+>set both modes to enabled=2E Besides, userspace checking the state of the
+>AC adapter multiple times a second must have an interval much larger than
+>50 us, so I don't think the issue you described is the same as the issue
+>described in the comments either=2E
+>
+>>=20
+>> Lenovo ha mentioned to me a BIOS fix for this issue will be coming for =
+the Go S and Go 2 at some point as well, but this isn't exclusive to Go mod=
+els=2E It may be prudent to fix any time an invalid state is detected=2E
+>
+>I am OK with the fix-whenever-seen approach, but in this manner it'd be
+>better to wait until
+>https://msgid=2Elink/20261018122348=2E679126-1-aliamemis@disroot=2Eorg is
+>applied to solve the ABBA deadlock issue, so that false positives during
+>runtime are reduced=2E
+>
+>Thanks,
+>Rong
+>
+>>=20
+>> Thanks,
+>> - Derek
+>>=20
+>> [1] https://github=2Ecom/torvalds/linux/blob/32c52ec87d6245ee2d12ed5dd5=
+09e40062939b50/drivers/platform/x86/lenovo/ideapad-laptop=2Ec#L286-L296
+>>=20
+>> > Fixes: 90430ea98f55 ("platform/x86: ideapad-laptop: Add charge_types:=
+Fast (Rapid Charge)")
+>> > Closes: https://github=2Ecom/ValveSoftware/SteamOS/issues/2876 [1]
+>> > Signed-off-by: Rong Zhang <i@rong=2Emoe>
+>> > ---
+>> > Rong Zhang (2):
+>> >      platform/x86: ideapad-laptop: Factor out charge_types methods fo=
+r internal use
+>> >      platform/x86: ideapad-laptop: Fix unexpected charge_types on pro=
+be
+>> >=20
+>> > drivers/platform/x86/lenovo/ideapad-laptop=2Ec | 113 ++++++++++++++++=
+++++-------
+>> > 1 file changed, 84 insertions(+), 29 deletions(-)
+>> > ---
+>> > base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+>> > change-id: ef28eda4-ideapad-fix-charge-types-067d46d08945
+>> >=20
+>> > Thanks,
+>> > Rong
+>> >=20
 
