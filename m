@@ -1,80 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.160.32.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792437806;
-	b=Cn5sWAA7oPokfmZNlxrpYA/bFohF58mF8Vyg45Kb+fS0hrIph/FLclEostSil7L1OyD+
-	 H4TgfQvGsZNNN4GUiJib7U5sxGmqjpl6iqAXlx6aDIsfzaD48OwO5/O+8IpzaSwiRwdXr
-	 ACXOWxKt215eLecaZThQS253wTxA/rNS4N6Z8H9b9sQtGrenHAfdaSCcoIgEZ++YaHoy3
-	 ThG5TokaZddyY/Fdd4AXiGYa04tbffnHXCXyLSINPj3jIjMDdrw2egXAD+9Q2pW6oqEoT
-	 GxnVp4e7Bu7O/J6UtbAiqHImpAlpZSFcf90ZMeG8QJT+7XVitQTIkJru3HGYmM4CYpA==
+	t=1792437814;
+	b=KLnS7nZBEmSJrY0rQ/17MCIhUPmlUfTYnVwlV8B9NUL9rnfbiFM+mot9FAnDX0SytwcB
+	 xXxLUaDI4srz334/5vXpSF+zvn9GVOoschTbRm/A61zmej8SA4BSZiSqHyyQ3yb3OAGZh
+	 +4NWiWX6KBkGdYazFL4dASyIo6F6f8KxEX4Hd3zoaScybpeMo9J28TWrFf1bsEhPXbYuV
+	 JYwbdEKluFy/PRIZHZ7i3BE/77Ff0Wm1Q1GNq1rgZsct9jJtNlK9cekGHJ9N83U3E8zhL
+	 6q0GKn5vt5LgMNOhPj0u3DvFJ6T6GIZwiLOxvgsaWztTpKiZq9gB6KYM/JZlMeutHdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792437806;
-	h=DMARC-Filter:Received:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Spam-Status:Received:Received:DKIM-Signature:Received-SPF:From:To:
-	 Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-PPP-Vhost;
-	bh=6y4bY/nWKsQ0dtsbCN7wJWBo0nm0F/zcZorgUH+8wwE=;
-	b=efYq2aqfeauRnuwOzHMpk0oVjDak6VECvaDTdE0TIVOYSSoBJPxzMLOIrnL5SnVCKAfj
-	 lRcmH2qOGKtYwwraKRFq5Qyz5GfsBiUozkUAQQ6+QejnPwP/+UM/3pfdiUyVv5pPVA06+
-	 a8Y1Gl5sLfFXZ4Xla5L5W6dZXQ0heQ0xI8MR2okb1vGbeg3RUMPPCPc/X4WO8pFC1BseO
-	 3PMTvoHmkqW5XmYwqBk96PNh33jTw/ArOxf+K/ATu1VUlzI1Pg0Ne6EkhvshEHaUD+T+b
-	 ZMHqYI5OjwBkoEwPSQCTeSy2hFB2o/cM593Mp3rdBZNlgSuKLn44T4kiC2FVPfVfDgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792437814;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Syyh9as21Eq1SGsHwieN5MqC5jTlcLjU/4/08M/9bU4=;
+	b=PbSSdU5+9xfb/nvq+3RGI7qrsIb2A1n+S1nci9EpPcGsPTkhxa9Dxw6y+/AGO4EEs7Xi
+	 /923e0YtLE0cwfOdg7R/ehTqCLHcwHkwoeNvJXdwtnVLpsiP331mW5s5dH4p8xHMRL6Bw
+	 vsVPFAhRFbTbmvZ0OW2Xn2X36lCsJ9sw07DhAUsuBvJ4QYwGJslmsXxzua+S4iXq8KXEt
+	 /hagQsmdCVgCNl47wZrfychroBS6UJj3AP5C9DBQujeFbdepVOKwNFNHW99+vAvIOM2XW
+	 0gEuQ94ppkwLuiVspIZV8OPIgH3F3ETZGWMPCkdpfTId1U4Oh0nznh5/uVkVwoo1gtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gluon.es;
-	spf=pass smtp.mailfrom=gluon.es;
-	dkim=pass header.d=gluon.es header.i=@gluon.es header.a=rsa-sha256 header.s=default header.b=imJ+2XdX;
-	arc=none smtp.remote-ip=217.160.32.16
-Received: from nimiomail.com (nimiomail.com [217.160.32.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgRRD7Rg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B81606A31A;
-	Mon, 19 Oct 2026 19:23:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8B81606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gluon.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gluon.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28735606A326;
+	Mon, 19 Oct 2026 19:23:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gluon.es header.i=@gluon.es header.a=rsa-sha256 header.s=default header.b=imJ+2XdX
-Received: from nimiomail.com (localhost.localdomain [127.0.0.1])
-	by nimiomail.com (Postfix) with ESMTP id 7BD5D81E92;
-	Mon, 19 Oct 2026 21:23:07 +0200 (CEST)
-X-Spam-Flag: NO
-X-Spam-Score: -3.101
-X-Spam-Level:
-Authentication-Results: nimiomail.com (amavis) (amavisd-new);
-	dkim=pass (2048-bit key) header.d=gluon.es
-Received: from nimiomail.com ([127.0.0.1])
-	by nimiomail.com (nimiomail.com [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id QNRt1Oecl74P; Mon, 19 Oct 2026 21:23:01 +0200 (CEST)
-Received: from DESKTOP-2QFDG0H.tail76f4b.ts.net (21.red-2-139-241.staticip.rima-tde.net [2.139.241.21])
-	by nimiomail.com (Postfix) with ESMTPSA id C5E4480709;
-	Mon, 19 Oct 2026 21:23:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gluon.es; s=default;
-	t=1792437781; bh=6y4bY/nWKsQ0dtsbCN7wJWBo0nm0F/zcZorgUH+8wwE=;
-	h=From:To:Subject;
-	b=imJ+2XdXhn0VS2WDx9HTbQrvF9s9vLdmSHICMY9UBHFRsfxRUFl3is6TQZOrLeSp4
-	 boSvYr2/YnsU9kXbZD5m6sYIt9iEqY/fc/Iu14+7MPPg+BgGND6W6fP0efV36xZDCi
-	 N1UqX79wvhq04drJ9cFJv6uaQJtEZyHZWQeKOkXiYGqe7zgc1xN0H83UaWhErrfZBa
-	 hyquBUhwYGn99RQGQpYKdh4d2aNQ3HvICvv5pBlXsD/oFUiPy+lfpamfmxuzDNIyLq
-	 votil1L+QVBQPxk26c6sliKTVZqcn979IOip1LggJD4fDKEJvEzHE2OaVeOD0TQVBB
-	 L6Z71IEsougrA==
-Authentication-Results: nimiomail.com;
-	spf=pass (sender IP is 2.139.241.21) smtp.mailfrom=info@gluon.es smtp.helo=DESKTOP-2QFDG0H.tail76f4b.ts.net
-Received-SPF: pass (nimiomail.com: connection is authenticated)
-From: Miguel Jesus Seron Gonzalez <info@gluon.es>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dongjin Kim <tobetter@gmail.com>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: rockchip: odroid-m1: use rgmii-id for gmac0
-Date: Mon, 19 Oct 2026 21:22:54 +0200
-Message-ID: <20261019192254.6933-1-info@gluon.es>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgRRD7Rg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66D3D1F000C4;
+	Mon, 19 Oct 2026 19:23:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792437813;
+	bh=Syyh9as21Eq1SGsHwieN5MqC5jTlcLjU/4/08M/9bU4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QgRRD7Rg+wnRcwhnQlvBnqZDd/ZJNA3MnrFxqnD2Doh7dkfunNI4w7uUaW5ZjZt18
+	 B2w3Ovhq76e1oiSDVdKBmkdbM4omsU0RYY+SU1ccSwIbFoqTzgb3IkNyXJIK+Vjs2E
+	 CFxCOlLQ/TBnlbKgVyDPz9yI82pOod5JZtn0CkK1H6f6Nu1n1uHj9bFMhekC+uCoH9
+	 v6g0k/MCdB3ScZz/YgqLxxiOwiqTKs5IPit2MES7rFfsxoDysJHu7sYBatNdC9qSwk
+	 wTmo+dR/fK9098pxjEUlHzIjaruEbVdZK9qS2mzqjtd1kjJKcd8Dmlo36cwpWPj11r
+	 K/6AYmMf74g/g==
+Date: Mon, 19 Oct 2026 12:23:32 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Andrew Morton <akpm@osdl.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 3/6] KEYS: Prevent overflow of user->{qnkeys,qnbytes}
+ in key_alloc()
+Message-ID: <20261019192332.GC65095@quark>
+References: <20261019181732.449591-1-jarkko@kernel.org>
+ <20261019181732.449591-4-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,73 +62,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179243778132.1150629.14231437258711705057@nimiomail.com>
-X-PPP-Vhost: gluon.es
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019181732.449591-4-jarkko@kernel.org>
 
-The gmac0 node uses phy-mode "rgmii" with the MAC delays
-tx_delay = <0x4f> and rx_delay = <0x2d>. On some boards this TX delay
-does not work at 1000 Mbit/s. Dongjin Kim reported iperf3 throughput
-below 200 Mbit/s on REV 1.0 20220613 boards. On a REV 1.0 20211112
-board, TX from the board stalls completely in iperf3 and ping loss
-grows with frame size (5% at 56 bytes, 20% at 1472 bytes), while RX is
-unaffected. Other boards work with the current value, so it seems to
-be marginal rather than wrong everywhere.
+On Mon, Oct 19, 2026 at 09:17:23PM +0300, Jarkko Sakkinen wrote:
+> Add the missing overflow checks for user->qnkeys and user->qnbytes
+> in order keep calculations within INT_MAX range, which is the
+> absolute maximum quota.
+> 
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Fixes: 7e047ef5fe2d ("[PATCH] keys: sort out key quota system")
+> Reviewed-by: David Howells <dhowells@redhat.com>
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Instead of tuning the MAC TX delay again, switch to phy-mode
-"rgmii-id", so that the RTL8211F PHY adds both RGMII delays, and drop
-the MAC delay properties, as suggested by Chukun Pan. Dongjin
-confirmed in the same thread that rgmii-id works.
+Don't keyctl_chown_key() and key_payload_reserve() need similar fixes?
 
-With this change, on the REV 1.0 20211112 board at 1000 Mbit/s full
-duplex, there were 3 retransmitted TCP segments out of 24929 (0.012%)
-over almost four hours, no RX/TX errors and no ping loss.
-
-Fixes: fd3583267703 ("arm64: dts: rockchip: Add Hardkernel ODROID-M1 board")
-Link: https://lore.kernel.org/r/20250819075522.2238643-1-tobetter@gmail.com
-Suggested-by: Chukun Pan <amadeus@jmu.edu.cn>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Miguel Jesus Seron Gonzalez <info@gluon.es>
----
-
-Notes:
-    Sent as a standalone patch because Home Assistant OS needs an upstream
-    reference for the same change. Dongjin confirmed in the v2 thread that
-    rgmii-id works. Dongjin, if you would rather send your own version,
-    I'll withdraw this one.
-    
-    The debugging, the changelog and the patch were prepared with the help
-    of Claude (Anthropic). I reviewed all of it, and the test results above
-    are from my own board.
-
- arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts b/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
-index 442a2bc43..a3cd21aa0 100644
---- a/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts
-@@ -200,7 +200,7 @@ &gmac0 {
- 	assigned-clock-rates = <0>, <125000000>;
- 	clock_in_out = "output";
- 	phy-handle = <&rgmii_phy0>;
--	phy-mode = "rgmii";
-+	phy-mode = "rgmii-id";
- 	phy-supply = <&vcc3v3_sys>;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&gmac0_miim
-@@ -209,9 +209,6 @@ &gmac0_rx_bus2
- 		     &gmac0_rgmii_clk
- 		     &gmac0_rgmii_bus>;
- 	status = "okay";
--
--	tx_delay = <0x4f>;
--	rx_delay = <0x2d>;
- };
- 
- &gpu {
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.53.0
-
+- Eric
