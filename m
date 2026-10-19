@@ -1,480 +1,257 @@
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A5A4FD284
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:48:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5684E50A2;
+	Mon, 19 Oct 2026 13:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417719; cv=none; b=X00qHc1Bdq4THkQ9FFKxiKrGqXDWBPItSeV3qvgUvR8pI7BHvFttttp4KXP0a21tK3Cig1pmowzHqAK/SnZCl3Nxte9fMi1S2QtRb3TJ/yaz2g3B7BRqNgs6l/37qQLA9U1gDYqdwGhV5rhj2QYBH2S5S2ntxW1ZY4stuhLkCrk=
+	t=1792417743; cv=none; b=l5SPxUBzBjR4leeGI0BE0Ck3pWFFYylvRjWYSFbAPG1pkcYd7tOOUXPVn0nYXpMHWhjH4ZT7YMU1NmW0FFyaQm+BamsJGaambJFbuZ7L0Ccch02Jef78GS8bJ1Pn9xjsk6xVbtp8lv3GHv/sNjgNiU7RypBTSgY7ZiXDP6Fq6fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417719; c=relaxed/simple;
-	bh=jTgLVoYgJB5Rr/aBCuc9XxYCXTMB50N4p2UciCYQyMM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UZ4uiwc4SIKRYOTNBlgZi1Lgorfy0k4aE+eLa6Bp3VU43b6G+6acT4InAosRsIyOSwoVcktP/FMKR6ceERgOfg0N9vCScihVN22BQ8NnyVGaWdaL01kJrKlMmCrXZr6w5bjxkBS/gr8pLHDCwN/xWvqlvLBezoHRGj+GYw/5Kpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ydp+QDx5; arc=none smtp.client-ip=209.85.167.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792417743; c=relaxed/simple;
+	bh=cqdLXFhuww1KgOoAVAg2e9HLgfbhCysFELTyzFav+qk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OI19f16/Gk0DoXuZY5kjAu0jAdNcLxRuRGNY1YKyOpZCcNwrPO3cIcLBnOFNxS/gs/THnsrcgyWB5JrsGgn2v8Ha9SXIj9RLIuCjYdrkHhLi30jOBUqZf/U8HJLJD8nRoXYO2FnO/jJCyZwMEbmEzlie65mhR4CHwL8fdede8mQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ksuXrVuC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ydp+QDx5"
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-53ec2cc397aso1313807b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:48:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792417711; x=1793022511; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lGFKPMBI0cFzXOaE9xouF7yYgFU777Lk0lEcUaMraZQ=;
-        b=Ydp+QDx5YGN6iUO9xUAn/pcY3TfZWUdK4c6DzI0V8Dpj7GGlpdTNwKedLOzbiR/SH8
-         Zn23jiZAWxVqBtSFi476YMRNSE4NYANJSoW6P6n3Cic9rPYu87J1vojRCxHn1bQatsI4
-         8ajnvpJhmeS9L+MsNW6dgvPuDxC0pPevL6TcK7fO2gSzDi0mV9PVJG68wA6hBHLDUcdk
-         BobqVQYcmTHv2R9YXxzF1g66x0LFisBv2NVZZs1mKForyitrdb7amR9RnRqoaWx3GmsL
-         Wf4DugSAB0+ePqg/CXLJ/s/EUXr1Fll+CY2jR1zaevnhhR0R5Zl7LoUKgNBZjcd8Bf4a
-         tThg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792417711; x=1793022511;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lGFKPMBI0cFzXOaE9xouF7yYgFU777Lk0lEcUaMraZQ=;
-        b=Z+djYWmYVNatvZgVR5mkAJz/d8ttHVXNgd7L2vuNWvpDT2gaPqQGCimrGVCs285fc2
-         M+zd/SRj+q4aFmGJbFARWeEetZadX4kiacwfNpxGxpTfv9mqDlzGj2jWZ56xYrjzaWbc
-         L20Q/VylwYv5bDM4zGfQEVCx7gH7kymjT7vJik7l+MS1ygmdzlvJwhJgjReFxgcM2LVa
-         yu3tBb3aBkqCf4S1w0eL2qGnst3fY7dqfVgfNUcIZ8fjMVwMmrePXkCdW4KHsHU5QMfU
-         quuCLC7eaXXiGKUuoVoJNt42ILC6l0mJBem+X/WJPnuM4VCjJz24XYcAdGoYS/6YbV/q
-         xxQQ==
-X-Gm-Message-State: AFq9FYLXC/4S7uZt87nQSCSAwM0oYAakpwHMxBulDgAHAvyn9iyG69DB
-	YINjj/4oK/cStoevEaJEIBxUpEQuUBH69sIINB036C44Ig1MyxAXu7F5
-X-Gm-Gg: AYBFou3QpOHMOJaBSgi7zmRLVVX8KeP3AoIeJj8RrLU0JJokRHhcG8gc4o0C8hq449W
-	4vC2v2UWoP99TOXRFf60du8s94vmJ7CYETXUzxoOFGiefnTtYsThJR7uhtLbk+2Tuj5cc87EIue
-	D5hAh/TTFmZu7J3yYGwwBo5RJWV8SntCPw+F4H7pJUNv+zBS3fGvODOnmQJG23X4TcQpAkmbeXz
-	MyHphJAEHOpvsiPCYQR6anMzdnHGLoDyyWF9hQTBkoe9YayekYavhYP3T/GsVfiwIDTbcSKZo82
-	3W1rGsYZOlO/uL46YzD79CWxuA9NxYWOLTMQH+TP+IWr5dW3nDwFt0xhw6oNrDSsGlpKT1pv7Na
-	rm62BUjgUQ2Gbm0aQg0ULD33Af1pjESCpqkjMElHcrsnporKGHs5Yf+imdS/khcWSigyV0gK8NI
-	so4vegcRYHk27/lJUBtaAVM8WB1k9ZVJthuxiAXP6/Icguvc/KBs2dQ4622HdAOvTcG5bkHkdhh
-	6uWQWDHgSSB3bN7cHTwG+ts2QKCg3yiyuvEqhgetA==
-X-Received: by 2002:a05:6808:3514:b0:503:589a:ade7 with SMTP id 5614622812f47-53cc24cd5e3mr7151467b6e.2.1792417711251;
-        Mon, 19 Oct 2026 06:48:31 -0700 (PDT)
-Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5388d8ab165sm6843737b6e.11.2026.10.19.06.48.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 06:48:29 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andy Whitcroft <apw@canonical.com>,
-	Joe Perches <joe@perches.com>,
-	Dwaipayan Ray <dwaipayanray1@gmail.com>,
-	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [PATCH v2] scripts: checkstack: Convert to Python
-Date: Mon, 19 Oct 2026 10:48:21 -0300
-Message-ID: <20261019134821.5708-1-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ksuXrVuC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172AA1F000C4;
+	Mon, 19 Oct 2026 13:49:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792417741;
+	bh=DzzazkH/k9ZrkwaSK0aEoU+TFDj8776wgSCTlVdweNI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ksuXrVuCbzOg7V4QIHbQy/H1nHB5IJaVc+t0G+APxBA/AK/Z/YWVx636it68foAf6
+	 s6tOtJl7GN6ooIVqedSW2hmTTP4VIjPokFvGfFy80KUhBHpfbkVVgZxwS/LkrELarV
+	 wlVJqfcywAvgSmaO1p2JI8uTKhsudt9YzbEiKkfioVtPYKaNPcZ1aNGRxdhlDIxKV5
+	 F+UUecD83Mcxlv9lICQwM7A/apVPK+FKmu3DkYlGvUvqY3vu68DvNgI/4w7Vx0r+3s
+	 lqV25y7Bl+LymUVPW1wW+ax7+5G5EGsc7xMXuyhf1efG3/dtahdyfrJqyaR9nMtMh5
+	 Z50HTkMBzKcvw==
+Subject: Re: [PATCH net-next] net: gso: validate transport header before
+ computing segment length
+From: netdev-bot+sashiko@kernel.org
+To: mst@redhat.com
+Cc: linux-kernel@vger.kernel.org, willemb@google.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org
+Date: Mon, 19 Oct 2026 13:49:00 +0000
+Message-ID: <179241774059.3135.1824255217664274444@kernel.org>
+In-Reply-To:
+ <b714fa38ab650b313ca3121cd4cb3ee847d06a0d.1792327180.git.mst@redhat.com>
+References:
+ <b714fa38ab650b313ca3121cd4cb3ee847d06a0d.1792327180.git.mst@redhat.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Convert checkstack.pl to Python to unify kernel tooling in a single
-language. This reduces the maintenance burden of dealing with two
-different sets of idioms for the same class of scripts.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-The conversion introduces a robust parse_size helper to handle dynamic
-stack adjustments (e.g., sub %eax, %esp). In Perl, hex() silently
-evaluates non-numeric strings to 0; Python's int() raises a ValueError.
-The new helper ensures 1:1 behavioral parity without crashing on valid
-objdump output.
+Critical: 0 · High: 0 · Medium: 2 · Low: 2
 
-Tested by comparing the output of checkstack.pl and checkstack.py
-against a full objdump of /bin/bash on x86_64; the outputs were identical.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Assisted-by: DeepSeek
-Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
----
- scripts/checkstack.pl | 208 ------------------------------------------
- scripts/checkstack.py | 155 +++++++++++++++++++++++++++++++
- 2 files changed, 155 insertions(+), 208 deletions(-)
- delete mode 100755 scripts/checkstack.pl
- create mode 100755 scripts/checkstack.py
+- [Medium] The commit message says that when the TCP header is unset or
+  outside the linear data, the patch will "drop it".
+- [Medium] The bound check in skb_gso_transport_header_ok()
+  (net/core/gso.c:165), `thoff + sizeof(struct tcphdr) <=…
+- [Low] The kernel-doc for skb_gso_validate_network_len() ("Will a split
+  GSO skb fit into a given MTU?", gso.c:279-286) and…
+- [Low] Concern: skb_inner_transport_header_was_set()
+  (`inner_transport_header > 0`, skbuff.h:3050-3053) is an unreliable…
 
-diff --git a/scripts/checkstack.pl b/scripts/checkstack.pl
-deleted file mode 100755
-index 14ce31f73..000000000
---- a/scripts/checkstack.pl
-+++ /dev/null
-@@ -1,208 +0,0 @@
--#!/usr/bin/env perl
--# SPDX-License-Identifier: GPL-2.0
--
--#	Check the stack usage of functions
--#
--#	Copyright Joern Engel <joern@lazybastard.org>
--#	Inspired by Linus Torvalds
--#	Original idea maybe from Keith Owens
--#	s390 port and big speedup by Arnd Bergmann <arnd@bergmann-dalldorf.de>
--#	Mips port by Juan Quintela <quintela@mandrakesoft.com>
--#	Arm port by Holger Schurig
--#	Random bits by Matt Mackall <mpm@selenic.com>
--#	M68k port by Geert Uytterhoeven and Andreas Schwab
--#	AArch64, PARISC ports by Kyle McMartin
--#	sparc port by Martin Habets <errandir_news@mph.eclipse.co.uk>
--#	ppc64le port by Breno Leitao <leitao@debian.org>
--#	riscv port by Wadim Mueller <wafgo01@gmail.com>
--#	loongarch port by Youling Tang <tangyouling@kylinos.cn>
--#
--#	Usage:
--#	objdump -d vmlinux | scripts/checkstack.pl [arch] [min_stack]
--#
--#	TODO :	Port to all architectures (one regex per arch)
--
--use strict;
--
--# check for arch
--#
--# $re is used for two matches:
--# $& (whole re) matches the complete objdump line with the stack growth
--# $1 (first bracket) matches the size of the stack growth
--#
--# $dre is similar, but for dynamic stack redutions:
--# $& (whole re) matches the complete objdump line with the stack growth
--# $1 (first bracket) matches the dynamic amount of the stack growth
--#
--# $sub: subroutine for special handling to check stack usage.
--#
--# use anything else and feel the pain ;)
--my (@stack, $re, $dre, $sub, $x, $xs, $funcre, $min_stack);
--{
--	my $arch = shift;
--	if ($arch eq "") {
--		$arch = `uname -m`;
--		chomp($arch);
--	}
--
--	$min_stack = shift;
--	if ($min_stack eq "" || $min_stack !~ /^\d+$/) {
--		$min_stack = 512;
--	}
--
--	$x	= "[0-9a-f]";	# hex character
--	$xs	= "[0-9a-f ]";	# hex character or space
--	$funcre = qr/^$x* <(.*)>:$/;
--	if ($arch =~ '^(aarch|arm)64$') {
--		#ffffffc0006325cc:       a9bb7bfd        stp     x29, x30, [sp, #-80]!
--		#a110:       d11643ff        sub     sp, sp, #0x590
--		$re = qr/^.*stp.*sp, ?\#-([0-9]{1,8})\]\!/o;
--		$dre = qr/^.*sub.*sp, sp, #(0x$x{1,8})/o;
--	} elsif ($arch eq 'arm') {
--		#c0008ffc:	e24dd064	sub	sp, sp, #100	; 0x64
--		$re = qr/.*sub.*sp, sp, #([0-9]{1,4})/o;
--		$sub = \&arm_push_handling;
--	} elsif ($arch =~ /^x86(_64)?$/ || $arch =~ /^i[3456]86$/) {
--		#c0105234:       81 ec ac 05 00 00       sub    $0x5ac,%esp
--		# or
--		#    2f60:    48 81 ec e8 05 00 00       sub    $0x5e8,%rsp
--		$re = qr/^.*[as][du][db]    \$(0x$x{1,8}),\%(e|r)sp$/o;
--		$dre = qr/^.*[as][du][db]    (%.*),\%(e|r)sp$/o;
--	} elsif ($arch eq 'm68k') {
--		#    2b6c:       4e56 fb70       linkw %fp,#-1168
--		#  1df770:       defc ffe4       addaw #-28,%sp
--		$re = qr/.*(?:linkw %fp,|addaw )#-([0-9]{1,4})(?:,%sp)?$/o;
--	} elsif ($arch eq 'mips64') {
--		#8800402c:       67bdfff0        daddiu  sp,sp,-16
--		$re = qr/.*daddiu.*sp,sp,-([0-9]{1,8})/o;
--	} elsif ($arch eq 'mips') {
--		#88003254:       27bdffe0        addiu   sp,sp,-32
--		$re = qr/.*addiu.*sp,sp,-([0-9]{1,8})/o;
--	} elsif ($arch eq 'nios2') {
--		#25a8:	defffb04 	addi	sp,sp,-20
--		$re = qr/.*addi.*sp,sp,-([0-9]{1,8})/o;
--	} elsif ($arch eq 'openrisc') {
--		# c000043c:       9c 21 fe f0     l.addi r1,r1,-272
--		$re = qr/.*l\.addi.*r1,r1,-([0-9]{1,8})/o;
--	} elsif ($arch eq 'parisc' || $arch eq 'parisc64') {
--		$re = qr/.*ldo ($x{1,8})\(sp\),sp/o;
--	} elsif ($arch eq 'powerpc' || $arch =~ /^ppc(64)?(le)?$/ ) {
--		# powerpc    : 94 21 ff 30     stwu    r1,-208(r1)
--		# ppc64(le)  : 81 ff 21 f8     stdu    r1,-128(r1)
--		$re = qr/.*st[dw]u.*r1,-($x{1,8})\(r1\)/o;
--	} elsif ($arch =~ /^s390x?$/) {
--		#   11160:       a7 fb ff 60             aghi   %r15,-160
--		# or
--		#  100092:	 e3 f0 ff c8 ff 71	 lay	 %r15,-56(%r15)
--		$re = qr/.*(?:lay|ag?hi).*\%r15,-([0-9]+)(?:\(\%r15\))?$/o;
--	} elsif ($arch eq 'sparc' || $arch eq 'sparc64') {
--		# f0019d10:       9d e3 bf 90     save  %sp, -112, %sp
--		$re = qr/.*save.*%sp, -([0-9]{1,8}), %sp/o;
--	} elsif ($arch =~ /^riscv(64)?$/) {
--		#ffffffff8036e868:	c2010113          	addi	sp,sp,-992
--		$re = qr/.*addi.*sp,sp,-([0-9]{1,8})/o;
--	} elsif ($arch =~ /^loongarch(32|64)?$/) {
--		#9000000000224708:	02ff4063		addi.d  $sp, $sp, -48(0xfd0)
--		$re = qr/.*addi\..*sp, .*sp, -([0-9]{1,8}).*/o;
--	} else {
--		print("wrong or unknown architecture \"$arch\"\n");
--		exit
--	}
--}
--
--#
--# To count stack usage of push {*, fp, ip, lr, pc} instruction in ARM,
--# if FRAME POINTER is enabled.
--# e.g. c01f0d48: e92ddff0 push {r4, r5, r6, r7, r8, r9, sl, fp, ip, lr, pc}
--#
--sub arm_push_handling {
--	my $regex = qr/.*push.*fp, ip, lr, pc}/o;
--	my $size = 0;
--	my $line_arg = shift;
--
--	if ($line_arg =~ m/$regex/) {
--		$size = $line_arg =~ tr/,//;
--		$size = ($size + 1) * 4;
--	}
--
--	return $size;
--}
--
--#
--# main()
--#
--my ($func, $file, $lastslash, $total_size, $addr, $intro);
--
--$total_size = 0;
--
--while (my $line = <STDIN>) {
--	if ($line =~ m/$funcre/) {
--		$func = $1;
--		next if $line !~ m/^($x*)/;
--		if ($total_size > $min_stack) {
--			push @stack, "$intro$total_size\n";
--		}
--		$addr = "0x$1";
--		$intro = "$addr $func [$file]:";
--		my $padlen = 56 - length($intro);
--		while ($padlen > 0) {
--			$intro .= '	';
--			$padlen -= 8;
--		}
--
--		$total_size = 0;
--	}
--	elsif ($line =~ m/(.*):\s*file format/) {
--		$file = $1;
--		$file =~ s/\.ko//;
--		$lastslash = rindex($file, "/");
--		if ($lastslash != -1) {
--			$file = substr($file, $lastslash + 1);
--		}
--	}
--	elsif ($line =~ m/$re/) {
--		my $size = $1;
--		$size = hex($size) if ($size =~ /^0x/);
--
--		if ($size > 0xf0000000) {
--			$size = - $size;
--			$size += 0x80000000;
--			$size += 0x80000000;
--		}
--		next if ($size > 0x10000000);
--
--		$total_size += $size;
--	}
--	elsif (defined $dre && $line =~ m/$dre/) {
--		my $size = $1;
--
--		$size = hex($size) if ($size =~ /^0x/);
--		$total_size += $size;
--	}
--	elsif (defined $sub) {
--		my $size = &$sub($line);
--
--		$total_size += $size;
--	}
--}
--if ($total_size > $min_stack) {
--	push @stack, "$intro$total_size\n";
--}
--
--# Sort output by size (last field) and function name if size is the same
--sub sort_lines {
--	my ($a, $b) = @_;
--
--	my $num_a = $1 if $a =~ /:\t*(\d+)$/;
--	my $num_b = $1 if $b =~ /:\t*(\d+)$/;
--	my $func_a = $1 if $a =~ / (.*):/;
--	my $func_b = $1 if $b =~ / (.*):/;
--
--	if ($num_a != $num_b) {
--		return $num_b <=> $num_a;
--	} else {
--		return $func_a cmp $func_b;
--	}
--}
--
--print sort { sort_lines($a, $b) } @stack;
-diff --git a/scripts/checkstack.py b/scripts/checkstack.py
-new file mode 100755
-index 000000000..c3821c860
---- /dev/null
-+++ b/scripts/checkstack.py
-@@ -0,0 +1,155 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Check the stack usage of functions.
-+# Usage: objdump -d vmlinux | checkstack.py [arch] [min_stack]
-+
-+import platform
-+import re
-+import sys
-+
-+X = '[0-9a-f]'
-+RE_FUNC = re.compile(rf'^({X}*) <(.*)>:$')
-+RE_FILE = re.compile(r'(.*):\s*file format')
-+
-+
-+def arm_push_handler(line):
-+    if re.search(r'.*push.*fp, ip, lr, pc}', line):
-+        return (line.count(',') + 1) * 4
-+    return 0
-+
-+
-+def config_for(arch):
-+    """Return (main_re, dynamic_re, sub_fn)."""
-+    if re.match(r'^(?:aarch|arm)64$', arch):
-+        return (
-+            re.compile(rf'^.*stp.*sp, ?#-([0-9]{{1,8}})\]!'),
-+            re.compile(rf'^.*sub.*sp, sp, #(0x{X}{{1,8}})'),
-+            None)
-+    if arch == 'arm':
-+        return (re.compile(r'.*sub.*sp, sp, #([0-9]{1,4})'), None,
-+                arm_push_handler)
-+    if re.match(r'^x86(?:_64)?$', arch) or re.match(r'^i[3456]86$', arch):
-+        return (
-+            re.compile(rf'^.*[as][du][db]    \$(0x{X}{{1,8}}),%(?:e|r)sp$'),
-+            re.compile(r'^.*[as][du][db]    (%.*),%(?:e|r)sp$'),
-+            None)
-+    if arch == 'm68k':
-+        return (re.compile(r'.*(?:linkw %fp,|addaw )#-([0-9]{1,4})'
-+                           r'(?:,%sp)?$'), None, None)
-+    if arch == 'mips64':
-+        return (re.compile(r'.*daddiu.*sp,sp,-([0-9]{1,8})'), None, None)
-+    if arch == 'mips':
-+        return (re.compile(r'.*addiu.*sp,sp,-([0-9]{1,8})'), None, None)
-+    if arch == 'nios2':
-+        return (re.compile(r'.*addi.*sp,sp,-([0-9]{1,8})'), None, None)
-+    if arch == 'openrisc':
-+        return (re.compile(r'.*l\.addi.*r1,r1,-([0-9]{1,8})'), None, None)
-+    if arch in ('parisc', 'parisc64'):
-+        return (re.compile(rf'.*ldo ({X}{{1,8}})\(sp\),sp'), None, None)
-+    if arch == 'powerpc' or re.match(r'^ppc(?:64)?(?:le)?$', arch):
-+        return (re.compile(rf'.*st[dw]u.*r1,-({X}{{1,8}})\(r1\)'),
-+                None, None)
-+    if re.match(r'^s390x?$', arch):
-+        return (re.compile(r'.*(?:lay|ag?hi).*\%r15,-([0-9]+)'
-+                           r'(?:\(\%r15\))?$'), None, None)
-+    if arch in ('sparc', 'sparc64'):
-+        return (re.compile(r'.*save.*%sp, -([0-9]{1,8}), %sp'), None, None)
-+    if re.match(r'^riscv(?:64)?$', arch):
-+        return (re.compile(r'.*addi.*sp,sp,-([0-9]{1,8})'), None, None)
-+    if re.match(r'^loongarch(?:32|64)?$', arch):
-+        return (re.compile(r'.*addi\..*sp, .*sp, -([0-9]{1,8}).*'),
-+                None, None)
-+    print(f'wrong or unknown architecture "{arch}"')
-+    sys.exit(1)
-+
-+
-+def parse_size(s):
-+    """
-+    Mimics Perl's implicit numeric conversion.
-+    In Perl, hex("%eax") silently evaluates to 0.
-+    In Python, int("%eax") raises ValueError, so we catch it
-+    to maintain 1:1 parity and prevent script crashes.
-+    """
-+    if not s:
-+        return 0
-+    try:
-+        return int(s, 16) if s.startswith('0x') else int(s)
-+    except ValueError:
-+        return 0
-+
-+
-+def main(argv):
-+    arch = argv[0] if argv else platform.machine()
-+    min_stack = int(argv[1]) if len(argv) > 1 and argv[1].isdigit() else 512
-+
-+    main_re, dyn_re, sub_fn = config_for(arch)
-+
-+    stack = []
-+    func = None
-+    file = ''
-+    intro = ''
-+    total = 0
-+
-+    for raw in sys.stdin:
-+        # Fix: Use rstrip('\r\n') to handle Windows-formatted objdump files safely
-+        line = raw.rstrip('\r\n')
-+
-+        m = RE_FUNC.match(line)
-+        if m:
-+            func = m.group(2)
-+            if total > min_stack:
-+                stack.append(f'{intro}{total}\n')
-+            addr = m.group(1)
-+            intro = f'0x{addr} {func} [{file}]:'
-+            pad = 56 - len(intro)
-+            while pad > 0:
-+                intro += '\t'
-+                pad -= 8
-+            total = 0
-+            continue
-+
-+        m = RE_FILE.match(line)
-+        if m:
-+            file = m.group(1).replace('.ko', '')
-+            idx = file.rfind('/')
-+            if idx != -1:
-+                file = file[idx + 1:]
-+            continue
-+
-+        m = main_re.search(line)
-+        if m:
-+            size = parse_size(m.group(1))
-+            if size > 0xf0000000:
-+                size = -size + 0x80000000 + 0x80000000
-+            if size > 0x10000000:
-+                continue
-+            total += size
-+            continue
-+
-+        if dyn_re is not None:
-+            m = dyn_re.search(line)
-+            if m:
-+                total += parse_size(m.group(1))
-+                continue
-+
-+        if sub_fn is not None:
-+            total += sub_fn(line)
-+
-+    if total > min_stack:
-+        stack.append(f'{intro}{total}\n')
-+
-+    def key(entry):
-+        m = re.search(r':\t*(\d+)$', entry)
-+        size = int(m.group(1)) if m else 0
-+        m = re.search(r' (.*):', entry)
-+        fname = m.group(1) if m else ''
-+        return (-size, fname)
-+
-+    for entry in sorted(stack, key=key):
-+        sys.stdout.write(entry)
-+    return 0
-+
-+
-+if __name__ == '__main__':
-+    sys.exit(main(sys.argv[1:]))
-\ No newline at end of file
+--
+
+net: gso: validate transport header before computing segment length
+
+This commit adds skb_gso_transport_header_ok(). It checks that the TCP
+(or inner TCP) header of a TCP GSO skb is set and lies within the linear
+data, and makes skb_gso_validate_network_len() and
+skb_gso_validate_mac_len() return false when that check fails. A new
+skb_inner_transport_header_was_set() helper is added to skbuff.h.
+
+> But as a defence in depth measure, let's also check before we read: if
+> the TCP header is unset or outside the linear data, drop it.
+
+[Severity: Medium]
+Is "drop it" an accurate description of what happens here?
+
+skb_gso_transport_header_ok() only makes the two validators return false.
+Nothing frees the skb, and every caller reads false as "the segments are
+too big", so the outcome depends on the caller.
+
+ip_finish_output_gso() and ip6_finish_output_gso() take the software
+segmentation slowpath through skb_gso_segment(). inet_gso_segment() then
+resets the transport header, so the malformed packet gets segmented and
+transmitted.
+
+ip_forward()->ip_exceeds_mtu() bumps FRAGFAILS and sends ICMP_FRAG_NEEDED
+with the route MTU, even when the segments would fit.
+
+tcf_police_mtu_check() applies the policer's exceed action.
+
+__bpf_skb_check_mtu() returns BPF_MTU_CHK_RET_SEGS_TOOBIG to the program.
+
+The skb_headlen() requirement does not seem to penalise valid packets
+from the stack's own GSO producers. On egress, qdisc_pkt_len_segs_init()
+already does pskb_may_pull() of the TCP header into the linear area.
+
+Could the commit message describe these outcomes, or is the intent for
+the malformed case to really be dropped?
+
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index af1cbc2799b77..8417096323ea6 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -3047,6 +3047,11 @@ static inline bool skb_inner_network_header_was_set(const struct sk_buff *skb)
+>  	return skb->inner_network_header > 0;
+>  }
+>  
+> +static inline bool skb_inner_transport_header_was_set(const struct sk_buff *skb)
+> +{
+> +	return skb->inner_transport_header > 0;
+> +}
+
+[Severity: Low]
+How reliable is a zero inner_transport_header as the unset marker?
+
+skb_reset_inner_headers() can copy the outer 0xffff sentinel into it:
+
+	skb->inner_transport_header = skb->transport_header;
+
+skb_headers_offset_update() also adjusts it unconditionally, which can
+turn a zero marker into a nonzero value:
+
+	skb->inner_transport_header += off;
+
+In both cases the range check in skb_gso_transport_header_ok() still keeps
+the read inside the linear data on 64-bit. The > 0 convention also matches
+skb_inner_network_header_was_set(). No runtime path to either state was
+found, so this may be fine as is.
+
+> diff --git a/net/core/gso.c b/net/core/gso.c
+> index b5bd269e56e4e..60cb28964c1c4 100644
+> --- a/net/core/gso.c
+> +++ b/net/core/gso.c
+
+[ ... ]
+
+> +static bool skb_gso_transport_header_ok(const struct sk_buff *skb)
+> +{
+> +	const struct skb_shared_info *shinfo = skb_shinfo(skb);
+> +	unsigned int thoff;
+> +
+> +	if (likely(!(shinfo->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))))
+> +		return true;
+> +
+> +	if (skb->encapsulation) {
+> +		if (!skb_inner_transport_header_was_set(skb))
+> +			return false;
+> +
+> +		thoff = skb_inner_transport_offset(skb);
+> +	} else {
+> +		if (!skb_transport_header_was_set(skb))
+> +			return false;
+> +
+> +		thoff = skb_transport_offset(skb);
+> +	}
+> +
+> +	/* A negative offset converts to a huge value and fails. */
+> +	return thoff + sizeof(struct tcphdr) <= skb_headlen(skb);
+
+[Severity: Medium]
+Does this comment hold on 32-bit kernels?
+
+thoff is an unsigned int, and on ILP32 size_t is also 32 bits, so the
+addition wraps. A transport offset of -k, for k in [1, 20], gives 20 - k.
+That passes for any skb with that much linear data. On 64-bit the sum is
+computed as a 64-bit size_t and the check fails as the comment says.
+
+A negative transport offset on a TCP GSO skb looks reachable from a
+privileged tc BPF program through a MAC-mode shrink:
+
+bpf_skb_adjust_room(BPF_ADJ_ROOM_MAC, shrink)
+  bpf_skb_net_shrink()
+    bpf_skb_net_hdr_pop()
+
+net/core/filter.c:bpf_skb_net_hdr_pop() {
+    ...
+	ret = bpf_skb_generic_pop(skb, off, len);
+	if (likely(!ret)) {
+		skb->mac_header += len;
+		skb->network_header += len;
+		if (trans_same)
+			skb->transport_header = skb->network_header;
+	}
+    ...
+}
+
+This leaves a distinct transport_header unchanged. For Ethernet/IPv4 TCP
+GSO with a transport offset of 34, a shrink of 50 bytes leaves the offset
+at -16.
+
+If bpf_skb_check_mtu(BPF_MTU_CHK_SEGS), act_police or tbf then calls
+skb_gso_validate_*_len(), the guard passes. skb_gso_transport_seglen()
+then reads tcp_hdrlen() from stale headroom bytes.
+
+The read stays inside the head allocation, because transport_header is a
+u16 offset from skb->head. The computed segment length and the resulting
+verdict are still wrong.
+
+Would a signed thoff with an explicit thoff < 0 check, or widening the sum
+to u64, close this?
+
+> +}
+
+[ ... ]
+
+> @@ -257,6 +287,9 @@ static inline bool skb_gso_size_check(const struct sk_buff *skb,
+>   */
+>  bool skb_gso_validate_network_len(const struct sk_buff *skb, unsigned int mtu)
+>  {
+> +	if (unlikely(!skb_gso_transport_header_ok(skb)))
+> +		return false;
+> +
+>  	return skb_gso_size_check(skb, skb_gso_network_seglen(skb), mtu);
+>  }
+>  EXPORT_SYMBOL_GPL(skb_gso_validate_network_len);
+
+[Severity: Low]
+The kernel-doc above this function, and the one above
+skb_gso_validate_mac_len(), still describe a pure size check:
+
+ * skb_gso_validate_network_len - Will a split GSO skb fit into a given MTU?
+
+A false return can now also mean that the TCP or inner TCP header is
+unset or not linear. Callers have no way to tell the two cases apart.
+
+__bpf_skb_check_mtu() already reports the malformed case separately:
+
+		if (flags & BPF_MTU_CHK_SEGS) {
+			if (!skb_transport_header_was_set(skb))
+				return -EINVAL;
+			if (!skb_gso_validate_network_len(skb, mtu))
+				ret = BPF_MTU_CHK_RET_SEGS_TOOBIG;
+		}
+
+Two cases would now reach BPF programs as BPF_MTU_CHK_RET_SEGS_TOOBIG:
+an encapsulated skb with an unset inner transport header, and a negative
+transport offset after a bpf_skb_adjust_room() shrink.
+
+ip_exceeds_mtu(), act_police and ip_finish_output_gso() also treat this
+as an oversize condition.
+
+Should the kernel-doc be updated, or should the malformed case be
+reported separately?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/b714fa38ab650b313ca3121cd4cb3ee847d06a0d.1792327180.git.mst%40redhat.com
