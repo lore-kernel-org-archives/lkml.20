@@ -1,82 +1,33 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BB0285CAA
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A01CA20E6E2;
+	Mon, 19 Oct 2026 01:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792373593; cv=none; b=SrTRLWT4NyYFGlIPECUGzzPEyUrsb4ZXhNhE12yyI9uUI2pDDyuv8sq5yEzeFvKtr9bRYIp+W+0spr3LakwvcSb2vfO0dBhYT1Y0orryYkSt1OPgwK4gx3zFLfweTBRTUAxAtwajFk7qR5sAY7ViRrISABEL8JRmNAScbe7COck=
+	t=1792373630; cv=none; b=Aznl0+nDMGkCnGrcc3LLlu8537hsZRCGZEVzTJcvFwmGf75nIPAvTc78IOurzvlIYvNpighWctMKqUvb9mC/6cXWxTBmULRqyQfvVxRMgWt6I/EFRsK2a49TVWPqphP25ntBXQPb1v0Y2XL+AiJ3aV8Nbk38FoHi2H+Zc6gyYXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792373593; c=relaxed/simple;
-	bh=9Kc6q9rTpzhwVJQBrjDXbF+l2p6vieI5c5NZJWnYEqo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SlogAplfZWsY9rCjlWJNM1MuqkR4P/kFlYfXU6ki3YWoHzcDoPPzhHzl7H3nVNgUFu2toVa+gzItyY0/e2AWqZZlYH59HlgzIhVJEn3sczdhFVD4G/6jI8Glc8iv+VbDna3qYoBJY17RAJ0WafDZ85tRG04I8X5Hrb6MxuyOJk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=T5LrC3a8; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="T5LrC3a8"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so11081665e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:33:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1792373590; x=1792978390; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9Kc6q9rTpzhwVJQBrjDXbF+l2p6vieI5c5NZJWnYEqo=;
-        b=T5LrC3a880ioyxH/Bon90h87LXrfZPcBFzTJtzDwKCZj/44vlkclIDk+IwGhnQRKw3
-         1tDqJXA82to0IoFMANb942HhE679CcKnfgV6ZC7Y+nzOnsvypQns2loTUmfODTfnQ3aC
-         xSHrqurXtZcVFAjmmUIR4olKxG1yXmwXPd2YyHXz8XolbA+Y5yjrx6uBgzZpEVcWosPa
-         VcgGVXxumOClC9d2qlI0M44FE2xO6Xdni/RrkeERQ88XrzUlN0ATHax11jglH0gwLyaY
-         15zXiHo/dImLIwF16MvJKUeaVswgekU9VgLtAZ0JaKYY7hrd2rzBscNjrQWjp2MYoAew
-         GKFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792373590; x=1792978390;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9Kc6q9rTpzhwVJQBrjDXbF+l2p6vieI5c5NZJWnYEqo=;
-        b=S5EfsuLEuYA5dt5uG7CrAFea6LEolQTbaFuXpRHmq8QYcLeI2axsUJBLEnuIDre3qy
-         AH57Hsip+krYn07di21uM4BFc6gzcggAu17fBI3y3NFC+eyugXEMVgexy8ftudfKF5nJ
-         3xseOs7PNqhMuYD8Bp9GHERgbHPxA7DATcKuS8bAxAwLI8VlaCmMBXaiaFNvx+r4ksLt
-         1MAzUIH5ZFS6ykZAL7emffLo/1uzFsAK2KbtBygksc7ONbawyvHu1w+MKhuLyNXyP5e6
-         lkuSWLopRvOFZb6vlDAFND6epU2o4inWwuTJRuYweHVQAy9jwTWygjGkZNdDN9Ec/F9C
-         M8Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBxKGaJ9QfJTKfrcSYnVWz6jhMvAaRtVYKIlM9Z+f+OE/d7nYJxgl5yCCb0zDmSZcRjY+zl7g2VahPrdIro=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPLf9ni5ZMti1KW+Ch/OU8mtRF95/xx4/3MDhhaJ88kl8bicdD
-	yCLkdqepfQIrnOLWI7B5qu7WrazZ8OBT8Oc8yP4HBmyq8gmOn1BfA6ZCqJNu7kWHyaA=
-X-Gm-Gg: AYBFou1p904gOE2A5CPEMS2rHNW1UIJBlz3aLUeDGiC0iJRaXF1wR6xznxq/zPcsoej
-	ntb2jNahNc9vVYCi7NymslI2Fz1ImnXZ9v9f/3MSimbwiSb/fnNe7JBnIOk8gyJfsOo0oOlYjzM
-	AycijxXTD5nr2KVfzC0fPCEuEdnZfeEQrt4A7XxCWw7aEGS/l2ed4CAq6eg1/RwZl849met82JV
-	SL/ZrRl+BqnQQhVwnSZzXQ6kw+z0WL4xlhCYt0urHer9AplUq/+Hm1KH8zIL4VzH/5nWSMGC+gV
-	0dfI4ZLTusX967ff8/2DZOiIZBdiOC+b7a93Y39kVmQR5ILRInllI0pkETh24TXw1DHP7+MkY85
-	abqoBVx+Kei3/V2oNT2Xr5oWwX+uJR3T9b3x/o+A+QwITaJCQoGItANEHMDNcpsTAXm/EFdogwe
-	ZbNpEKP62fZXy1l3+Fs9UL2IxzKyjwdkGZh7RUGC1fQEcEvh7iUQ==
-X-Received: by 2002:a05:600c:1c0f:b0:4a1:e489:f89f with SMTP id 5b1f17b1804b1-4a1e489fa4bmr64348945e9.14.1792373589447;
-        Sun, 18 Oct 2026 18:33:09 -0700 (PDT)
-Received: from remote-01 ([84.17.55.226])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b303csm321116015e9.8.2026.10.18.18.33.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 18:33:09 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Lucien Jheng <lucienzx159@gmail.com>,
-	Albert-AL Lee <albert-al.lee@airoha.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	netdev@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Eric Woudstra <ericwouds@gmail.com>,
+	s=arc-20240116; t=1792373630; c=relaxed/simple;
+	bh=CLPXxO8YwoqCRp2ZUTaY8ylfbE+V5chVr1TGEeyRt38=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b+88PAPPlH7Mc1R51XWBanNYy2MV5aepvD9ajMcsLbV9fkngWI3sydPiAOoSmKGUntKBNhbGCuoX893P5iG6R6+LLpPPH9uISFfkVXSHhhMIxLIGRxg5W7vL/8kPi8PqMdiF3BGTtvYWo1dzCxUUW5ImxABis44+abbIZvuqD2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8Bxn9Fyc9VqDSQXAA--.1256S3;
+	Mon, 19 Oct 2026 09:33:38 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJDxTs9wc9VqFtctAA--.30913S2;
+	Mon, 19 Oct 2026 09:33:36 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	Hengqi Chen <hengqi.chen@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: loongarch@lists.linux.dev,
+	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: phy: air_en8811h: use firmware loaded by the bootloader
-Date: Mon, 19 Oct 2026 04:33:04 +0300
-Message-ID: <20261019013304.1612468-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2d6df47b-2cc3-4003-85db-f72b878427d9@lunn.ch>
-References: <2d6df47b-2cc3-4003-85db-f72b878427d9@lunn.ch>
+Subject: [PATCH v3] LoongArch: BPF: Fix stack arguments for indirect trampolines
+Date: Mon, 19 Oct 2026 09:33:35 +0800
+Message-ID: <20261019013335.13512-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,20 +35,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxTs9wc9VqFtctAA--.30913S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxGF4DXF1xGr4rZw1kCr18Xrc_yoW5tFWkpF
+	n8CFsxGF40qr4xt3Z7GayUZrya9Fs3Zw43Wr4DJay0ya15ury8XF1rK3ZI9F98GrnYv340
+	vrs0vwn09FWDA3gCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
+	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
+	0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUsqXUUUUU=
 
-On Sun, Oct 18, 2026 at 09:13:46PM +0200, Andrew Lunn wrote:
-> Is it possible to figure out from the firmware blob what version it
-> is?
+From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
 
-Not reliably, as far as I can tell. The version the driver prints is
-written into DM by the running MCU; the file holds zeros at that
-address. In the DSP blob the halves 0x2506 and 0x2302 sit eight bytes
-apart, which looks like the code that builds the word, but that is a
-guess at an offset in vendor code.
+LoongArch passes arguments beyond a0-a7 at the caller stack pointer. The
+trampoline store_args() helper always reads those arguments at FP + 16,
+which is correct for a regular fentry trampoline: its prologue leaves FP
+16 bytes below the stack pointer at trampoline entry to hold the saved
+RA/FP frame record of the parent function.
 
-Lucien, Albert, does Airoha guarantee any field in EthMD32.dm.bin or
-EthMD32.DSP.bin as the firmware version, at a fixed place that will not
-move in later releases? Without such a guarantee I would rather not
-compare versions in the driver.
+A struct_ops indirect trampoline is entered through a function pointer and
+only saves its own RA and FP before setting FP to the entry stack pointer.
+Its stack arguments therefore start at FP, not FP + 16. As a result, every
+stack-passed struct_ops argument is currently read two slots late.
 
-Aleksei
+Select the source offset based on whether the trampoline is indirect. This
+also prepares the stack-passed arena argument path to consume the actual
+pointer slot.
+
+With this patch, the BPF selftest "./test_progs -t struct_ops_multi_args"
+passed on LoongArch.
+
+Fixes: c9ebe2016de9 ("LoongArch: BPF: Support up to 12 function arguments for trampoline")
+Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+v3:
+  - Reword the log and comment to clarify that the 16-byte frame record
+    is saved for the parent function, not the traced function. (bot+bpf-ci)
+  - Remove a stray blank line after the opening brace of store_args(). (bot+bpf-ci)
+  - Reorder the comment sentences to match the true/false branches of
+    is_struct_ops for better readability.
+
+Here is the original link:
+https://lore.kernel.org/bpf/20260821233516.3426127-8-memxor@gmail.com/
+
+This version is based on the series:
+https://lore.kernel.org/loongarch/20261016081006.26069-1-yangtiezhu@loongson.cn/
+
+ arch/loongarch/net/bpf_jit.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+index 1a7c8effc37b..c6784602f029 100644
+--- a/arch/loongarch/net/bpf_jit.c
++++ b/arch/loongarch/net/bpf_jit.c
+@@ -1725,17 +1725,22 @@ int bpf_arch_text_invalidate(void *dst, size_t len)
+ 	return ret;
+ }
+ 
+-static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_off)
++static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_off, bool is_struct_ops)
+ {
++	/*
++	 * Indirect struct_ops trampolines place incoming stack arguments directly at FP.
++	 * Regular fentry trampolines need to skip the 16-byte RA/FP frame record saved
++	 * for the parent function.
++	 */
++	int stack_args_off = is_struct_ops ? 0 : 16;
+ 	int i;
+ 
+ 	for (i = 0; i < nr_arg_slots; i++) {
+ 		if (i < LOONGARCH_MAX_REG_ARGS)
+ 			emit_insn(ctx, std, LOONGARCH_GPR_A0 + i, LOONGARCH_GPR_FP, -args_off);
+ 		else {
+-			/* Skip slots for T0 and FP of traced function */
+ 			emit_insn(ctx, ldd, LOONGARCH_GPR_T1, LOONGARCH_GPR_FP,
+-				  16 + (i - LOONGARCH_MAX_REG_ARGS) * 8);
++				  stack_args_off + (i - LOONGARCH_MAX_REG_ARGS) * 8);
+ 			emit_insn(ctx, std, LOONGARCH_GPR_T1, LOONGARCH_GPR_FP, -args_off);
+ 		}
+ 		args_off -= 8;
+@@ -2068,7 +2073,7 @@ static int __arch_prepare_bpf_trampoline(struct jit_ctx *ctx, struct bpf_tramp_i
+ 	func_meta = nr_arg_slots;
+ 	emit_store_stack_imm64(ctx, LOONGARCH_GPR_T1, -func_meta_off, func_meta);
+ 
+-	store_args(ctx, nr_arg_slots, args_off);
++	store_args(ctx, nr_arg_slots, args_off, is_struct_ops);
+ 
+ 	if (bpf_fsession_cnt(tnodes)) {
+ 		/* clear all session cookies' value */
+-- 
+2.42.0
+
