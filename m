@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9B66178A6;
-	Mon, 19 Oct 2026 14:04:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1BB6189B8;
+	Mon, 19 Oct 2026 14:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418655; cv=none; b=efwgAP+HtejfWgSM+OVArA0lvohrBWzCeHL1gma2z/4POdXUr7VK4Ac2z8iOUr2EINrTf0eBTdKVcm/TJ8ML3KVIehg7PdXX/Km3DRh6Mf8n4yW4tVwaMPjOrvvzP+6HELeQ52Ie8RVgpFJ0yiUDB2O21+zVrTrQVLsSZLs2no0=
+	t=1792418659; cv=none; b=eWfvaSSqo9G9VwaWSG+MJKWEGizSOOdHfFfV1ZMnKwfWA9Y4wk46/Gk402J5XIpb7wAnD02fEfC8VqdYcUE1cYSciXJBSSiPosrMO4S1mIyfeR9Q6/d3eriSdTNaqRxt1SDiFqfQXMvlEPwyF4MK9DCiu9K7m+12+F24uOU6q4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418655; c=relaxed/simple;
-	bh=vb1BrXPAXRZGl2+QbSVhGabov/4ozl/PA7uJrJGmsW4=;
+	s=arc-20240116; t=1792418659; c=relaxed/simple;
+	bh=TlDmeP1l/b9CFDL45t3ek8Dtjmnsqaq9WRqzufQvjVY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FyATzkwDPejpR0xepWu8nmZfo0wj9Nt54GY1zLr87di2teBZMa1mHRQkGfy81pbM6KLBQQgXE5CsjrPMqFGutIXI9005kP1dkhFlYUn46jqm1OJf9VUE5NUHc3sEaoppSuXDVM+ik4Gr/TKfuOZC4k7EBy64hgBtKag3RBV9O1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hi73eNEs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=a5f8H7pJ9P380TnL43QDOWHGKvLwoD3rZPqGi2nFM8eW/zQtuo6Q63mRZ43rcvyc6A8JyfHwcBlmYuGUmMx0XN45zGPvvt8Y+AOYaKAbCWWe3DF/J1WwW2cmUsYkpUKoE0iCaRZMlvpHybr57vAUG8aM6o1hEB2fQNkIRFkvkCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWRg59d1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hi73eNEs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E2141F000C6;
-	Mon, 19 Oct 2026 14:04:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWRg59d1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1581F000C6;
+	Mon, 19 Oct 2026 14:04:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418652;
-	bh=1X3walW0UzjWCIBQnJ9vLvCPTV6HOoKNhQC6AF6gz4c=;
+	s=k20260515; t=1792418656;
+	bh=SCr4BBJJW0EneM2gThIHMNghpsiw6Dl1HXjh37Woi30=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hi73eNEs13IvjEaavfbwCduP/wbb5EgRVB8H4JuLwY1vghitkDziqjI43L3/q2qbD
-	 nc7m/pa4CYqmWSqqdgSG7eunL9lDCh2hiOH8/P709kCYJ6z5X4SLygzlv0BmoywBxJ
-	 CJMyef/xz5uM6u+IZnG2fm+bTSjl5161hHPm6iyxHLBJRePYpPU1hGX9u2SHzwna3O
-	 p7n0h7rcpq8WT5kFq2NnGxJbfMZ/yM3Wz7wooXySrgAke5XM0X8Hs45bgjEncQs2Re
-	 M4Jpj9Bk+H0xW/jAoWJy0S3kdifnt5mGywMfRa/UaoCrCLJGXwvlgMgIxONEKZ2Zxf
-	 6pAbMdT7HAbtQ==
+	b=QWRg59d1h/yuyXJNCDMldkzXqlKCXco4re+EJWwV7hSNtop0RFy5xIyYrneHC4ZAj
+	 QAGOLe7imd7xOFl4bs41UZITZH00FeA3rTY8EMBSzWeAgBn41HCQc59XrDnMlWN3pP
+	 vfAxBOX2rxLoG0d1HOGZ/l1reqXr47xAU6hhxRlhDrXKIDoBgF8df36IVvyx9/GYWs
+	 LxAfRB5eGEYQ2ko6MOoGn5bW1byUHJnKmN0wn6DhiphO4lvCd6kRoOiZkdvs4rrHhh
+	 cg2sHXZ7Ky2609XW9UZsrJ4GiMkGe5JWnANXb64ECUprqbPEe7Q+cc0TsAkWFbFNO9
+	 ajqxBR1CzBuWg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Heiko Carstens <hca@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
+	agordeev@linux.ibm.com,
+	gerald.schaefer@linux.ibm.com,
+	linux-s390@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] gre: fix ERSPAN o_flags race/corruption in xmit and fill_info
-Date: Mon, 19 Oct 2026 09:51:32 -0400
-Message-ID: <20261019135441.1420968-401-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] s390/mm: Fix handling of vmalloc area in do_secure_storage_access()
+Date: Mon, 19 Oct 2026 09:51:35 -0400
+Message-ID: <20261019135441.1420968-404-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -58,650 +55,452 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Heiko Carstens <hca@linux.ibm.com>
 
-[ Upstream commit 9958e69b98930834a576e156f6458166d1db1c02 ]
+[ Upstream commit a2e5a9d853e015bc876399eb18435aa88101c60a ]
 
-For IPv4 ERSPAN:
-In erspan_xmit(), the driver clears IP_TUNNEL_SEQ_BIT (for version 0)
-and IP_TUNNEL_KEY_BIT directly in the shared tunnel->parms.o_flags
-structure. Since transmit paths can run locklessly and concurrently,
-this leads to a data race.
+Secure storage access exceptions in vmalloc area need to be handled
+separately since virt_to_phys() does not work on such addresses. Given
+that there cannot be a valid access let such exceptions fail
+immediately. The kernel will either fixup or crash.
 
-Furthermore, modifying tunnel->parms.o_flags permanently alters the
-tunnel configuration. To work around this, erspan_fill_info() (which
-reports config to userspace) was setting IP_TUNNEL_KEY_BIT back. If
-erspan_fill_info (running under RTNL) and erspan_xmit (running locklessly)
-race, erspan_xmit might see IP_TUNNEL_KEY_BIT set when it shouldn't,
-leading to GRE header corruption (injecting a key field into the ERSPAN
-GRE header).
-
-Fix this by:
-1) Passing flags as an argument to __gre_xmit().
-2) Using local stack flags in ipgre_xmit(), gre_tap_xmit(), and erspan_xmit()
-   to prevent TOCTOU data races with concurrent configuration updates,
-   and passing them to __gre_xmit().
-3) Removing the racy modification of t->parms.o_flags in erspan_fill_info().
-4) Forcing IP_TUNNEL_KEY_BIT in the reported flags for ERSPAN locally
-   in ipgre_fill_info().
-
-For IPv6 ERSPAN:
-ip6erspan_tunnel_xmit() was locklessly clearing IP_TUNNEL_KEY_BIT in
-t->parms.o_flags even though it does not use these flags for building
-the GRE header (it uses local flags). This permanently corrupts the
-configuration and races with ip6gre_fill_info() which reads it.
-
-Remove the redundant and racy modification.
-This should remove false sharing in a fast path.
-
-Add const qualifiers in ipgre_fill_info(), erspan_fill_info()
-and ip6gre_fill_info() to clarify that these methods are not
-supposed to write any live parameters.
-
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260812142257.21283-1-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Tested-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>> ---
+Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough to decide: the buggy shared `o_flags` mutation is in this
-6.12 tree, the APIs match, and the failure mode is GRE header
-corruption. Compiling the full analysis.
+I have enough history, the series context, and the local `fault.c` path
+to decide. The remaining work is to write the phase-by-phase analysis.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## Phase 1: Commit message forensics
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: [gre] [fix] [ERSPAN o_flags race/corruption in xmit and
-fill_info]
-Subsystem: GRE/ERSPAN tunnels (`net/ipv4/ip_gre.c`,
-`net/ipv6/ip6_gre.c`). Action verb is explicitly **fix**.
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: **[s390/mm]** **[Fix]** handling of vmalloc addresses in
+`do_secure_storage_access()` — kernel secure-storage exceptions on
+vmalloc must not go through `virt_to_folio()` / `virt_to_phys()`.
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-Record (from the candidate text and from the original mailing-list
-submission):
-- Signed-off-by: Eric Dumazet <edumazet@google.com> (author; networking
-  core maintainer)
-- Reviewed-by: Simon Horman <horms@kernel.org>
-- Link:
-  https://patch.msgid.link/20260812142257.21283-1-edumazet@google.com
-- Signed-off-by: Jakub Kicinski <kuba@kernel.org> (netdev maintainer,
-  applied to net-next)
-- Ignore: pipeline "Signed-off-by: Sasha Levin" / "[Upstream commit
-  ...]" if present
-
-Original v4 submission (verified in `/tmp/erspan_thread.mbox`) also had:
-- Fixes: 84e54fe0a5ea ("gre: introduce native tunnel support for
-  ERSPAN")
-- Fixes: ee496694b9ee ("ip_gre: do not report erspan version on GRE
-  interface")
-- Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
-
-v2 was sent to **net** with **Cc: stable@vger.kernel.org**. v4 dropped
-Cc: stable and went to net-next after review. Absence of Cc: stable on
-the committed v4 is expected for this review pipeline and is not a
-negative signal.
-
-No Reported-by / syzbot / Tested-by on this specific patch. Author found
-it while working on RTNL-less fill_info.
-
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Bug: IPv4 `erspan_xmit()` locklessly clears `IP_TUNNEL_SEQ_BIT` (v0)
-  and `IP_TUNNEL_KEY_BIT` in the **shared** `tunnel->parms.o_flags`.
-  That permanently mutates tunnel config. `erspan_fill_info()` then
-  writes `IP_TUNNEL_KEY_BIT` back so userspace dumps look correct.
-- Symptom: TOCTOU data race between lockless xmit and RTNL fill_info. If
-  xmit observes KEY_BIT set, `gre_build_header()` injects a GRE key
-  field into the ERSPAN header (malformed GRE / header corruption).
-- IPv6: `ip6erspan_tunnel_xmit()` also locklessly clears KEY_BIT on
-  shared `t->parms.o_flags` even though it builds the GRE header from
-  **local** flags. That is redundant, races with `ip6gre_fill_info()`,
-  and causes false sharing on a fast path.
-- Root cause: treating per-tunnel `o_flags` as scratch space from
-  ndo_start_xmit.
-- Versions: Fixes tags point at ERSPAN introduction (2017) and the
-  fill_info KEY_BIT workaround (2022). All three are ancestors of this
-  6.12 tree.
+- `Tested-by: Christian Borntraeger <borntraeger@linux.ibm.com>`
+- `Signed-off-by: Heiko Carstens <hca@linux.ibm.com>` (author; s390 arch
+  maintainer)
+- `Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>`
+  (KVM/s390)
+- `Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>` (s390 tree
+  maintainer)
+- No `Fixes:` tag (expected for this review pipeline)
+- No `Reported-by:`, `Link:`, or `Cc: stable@vger.kernel.org`
+- Ignore any later Sasha Levin SOB / “Upstream commit” markers (none on
+  the raw commit)
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not disguised. This is an explicit race + packet-corruption fix.
-Extra `const` on fill_info is documentation-only. Snapshotting flags in
-`ipgre_xmit()`/`gre_tap_xmit()` is extra TOCTOU hardening requested by
-Ido Schimmel, still a correctness fix, not a feature.
-
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
-
-Step 2.1: INVENTORY THE CHANGES
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- `net/ipv4/ip_gre.c`: ~+23/-19 in `__gre_xmit`, `ipgre_xmit`,
-  `erspan_xmit`, `gre_tap_xmit`, `ipgre_fill_info`, `erspan_fill_info`
-- `net/ipv6/ip6_gre.c`: ~+2/-3 in `ip6erspan_tunnel_xmit`,
-  `ip6gre_fill_info`
-- Scope: single-purpose, two-file surgical fix. `__gre_xmit` is file-
-  static; no public API.
+- **Bug:** PGM 0x3d (secure storage access) on a vmalloc address is fed
+  to `virt_to_folio()` / `virt_to_phys()`, which are not valid for
+  vmalloc.
+- **Symptom:** wrong folio/PFN, then `uv_convert_from_secure()` on the
+  wrong physical page, or a failed get and an unresolved fault (retry
+  loop). Cover letter: kernel should fix up or crash, not convert a
+  random page.
+- **Version info in message:** none. Git places it in v7.3-rc1
+  (`v7.3-rc1~73^2~35`).
+- **Root cause (author):** vmalloc is not a linear kernel mapping; there
+  is no legitimate convert-from-secure for that address, so fail
+  immediately via the existing fault-error path.
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not hidden. Subject and body say **Fix**. Cover letter for v4 of
+the series lists this as a real pre-existing bug, distinct from two
+later “cosmetics” patches the author explicitly said were not bug fixes.
+
+---
+
+## Phase 2: Diff analysis
+
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- `__gre_xmit`: no longer copies `tunnel->parms.o_flags` itself; callers
-  pass a local flags snapshot.
-- `ipgre_xmit` / `gre_tap_xmit`: copy `o_flags` once, use that copy for
-  CSUM offload check and header build (closes TOCTOU vs concurrent
-  changelink).
-- `erspan_xmit`: copy flags, then `__clear_bit` KEY (and SEQ for v0) on
-  the **stack copy**, pass that to `__gre_xmit`. Shared `parms.o_flags`
-  is no longer written from xmit.
-- `erspan_fill_info`: stop writing KEY_BIT into live `t->parms.o_flags`.
-- `ipgre_fill_info`: if `erspan_ver != 0 && !collect_md`, set KEY_BIT on
-  a **local** dump copy. Regular GRE/GRETAP keep `erspan_ver == 0`
-  (`erspan_setup()` is the only path that sets it to 1).
-- `ip6erspan_tunnel_xmit`: delete the unused shared
-  `__clear_bit(IP_TUNNEL_KEY_BIT, t->parms.o_flags)`.
-- fill_info functions: `const` on tunnel/parm pointers.
+- File: `arch/s390/mm/fault.c` (+2 / −0)
+- Function: `do_secure_storage_access()`
+- Scope: **single-file surgical fix**, two lines in the kernel-fault
+  branch
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: [Race + packet corruption + config corruption]
-Mechanism: RMW of a shared bitmap from xmit (`__clear_bit`) vs fill_info
-(`__set_bit`). `gre_build_header()` then uses `tun_hlen` (8 for ERSPAN
-v1/v2) **and** the flags word. If KEY_BIT is set with SEQ, it writes key
-then seq into an 8-byte push, and the key write lands on the GRE
-flags/protocol word:
-
-```102:144:include/net/gre.h
-static inline void gre_build_header(struct sk_buff *skb, int hdr_len,
-                                    const unsigned long *flags, __be16
-proto,
-                                    __be32 key, __be32 seq)
-{
-        ...
-        skb_push(skb, hdr_len);
-        ...
-        if (ip_tunnel_flags_intersect(flags, cond)) {
-                __be32 *ptr = (__be32 *)(((u8 *)greh) + hdr_len - 4);
-                if (test_bit(IP_TUNNEL_SEQ_BIT, flags)) {
-                        *ptr = seq;
-                        ptr--;
-                }
-                if (test_bit(IP_TUNNEL_KEY_BIT, flags)) {
-                        *ptr = key;
-                        ptr--;
-                }
-```
-
-With `hdr_len == 8` and both SEQ and KEY, KEY overwrites the GRE base
-header. That is real on-wire corruption of mirrored traffic.
-
-Step 2.4: ASSESS THE FIX QUALITY
-Record: Obviously correct. Local snapshot + mutate the copy is the
-standard pattern (IPv6 xmit already used local flags). v4 dropped v2's
-`gre_calc_hlen(flags)` substitution after review showed it could emit a
-4-byte GRE header when SEQ was absent from o_flags; v4 keeps
-`tunnel->tun_hlen`, which is the safer stable-friendly approach.
-Regression risk is low: no new locks, no API change, fill_info dump
-semantics preserved for ERSPAN KEY reporting.
-
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
-
-Step 3.1: BLAME THE CHANGED LINES
-Record: Shared-flag mutation dates to ERSPAN introduction:
-- `f551c91de262ba` (2017-12-13) / `84e54fe0a5ea` (2017-08-22): IPv4
-  ERSPAN xmit
-- `5a963eb61b7c` / `e41c7c68ea7716` (2017): IPv6 ERSPAN
-- `ee496694b9ee` (2022-12-03): `erspan_fill_info` KEY_BIT restore
-  workaround
-- `5832c4a77d693` (2024-03-27): `__be16` flags → bitmaps
-  (`__clear_bit`/`__set_bit`); **in this tree**
-
-Bug has been in the driver since 2017; bitmap conversion only changed
-the accessor.
-
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: All three Fixes SHAs **are ancestors of HEAD**:
-- `84e54fe0a5ea` IS ancestor
-- `ee496694b9ee` IS ancestor
-- `5a963eb61b7c` IS ancestor
-Mainline commit `9958e69b9893` is **not** an ancestor of this checkout.
-
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record: Recent GRE work in this tree includes `9f948e9aede96` (restore
-GRE/GRETAP `lltx`) and capability checks. No prior fix of this o_flags
-xmit/fill_info race. Standalone commit (not patch X/Y). v1–v4 were
-revisions of the **same** patch.
-
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Eric Dumazet is a net core maintainer with many GRE/tunnel
-commits here (`erspan: make sure erspan_base_hdr is present`, header
-robustness, etc.). High-confidence author.
-
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: Needs `IP_TUNNEL_DECLARE_FLAGS` / `ip_tunnel_flags_copy` /
-`ip_tunnel_parm_kern` — all present (`5832c4a77d693`, `117aef12a7b1b`).
-`__gre_xmit` is static to `ip_gre.c`. Can apply standalone.
-
-Later mainline discussion (Sept 2026, `net: erspan: set lltx to avoid
-sch_direct_xmit deadlock`) names **this commit as a stable
-prerequisite** before enabling ERSPAN `lltx`. That later patch is not in
-this tree (`erspan_tunnel_init` still does not set `dev->lltx`). This
-fix is still valuable on its own because fill_info (RTNL) vs xmit (TX
-lock) already race.
-
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
-
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- b4 dig matched v4:
-  https://patch.msgid.link/20260812142257.21283-1-edumazet@google.com
-- Revisions: v1 net-next (2026-06-15), v2 **net + Cc: stable**
-  (2026-07-20), v3 net-next (2026-08-11), v4 net-next (2026-08-12,
-  applied)
-- v1 was sent to net-next because “7.1 was just released” (merge-window
-  timing), not because it was considered a feature.
-- v2 review (Sashiko): using `gre_calc_hlen(flags)` could emit a 4-byte
-  GRE header when SEQ is missing from o_flags; `tun_hlen` previously
-  forced 8 bytes. Eric marked CR (“What a mess”).
-- v4 dropped that `gre_calc_hlen` change and kept `tun_hlen`.
-- No NAK. Horman Reviewed-by. Jakub applied to netdev/net-next as
-  `9958e69b9893`.
+- **Before:** `is_kernel_fault()` → `virt_to_folio((void *)addr)` →
+  `folio_try_get` → `uv_convert_from_secure(folio_to_phys(folio))`.
+- **After:** if `is_vmalloc_addr(addr)`, `return
+  handle_fault_error_nolock(regs, 0)` (exception-table fixup, or
+  oops/`die`). Linear-map kernel faults unchanged.
+- Path: kernel (not user) PGM 0x3d on a vmalloc address.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record: Recipients: davem, kuba, pabeni, horms, idosch, netdev. Ido
-asked v1 to snapshot flags in ipgre/gretap too (done in v4). Horman
-reviewed v4. Appropriate maintainers.
-
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla for this race. Author discovered it while
-working on RTNL-less fill_info. Trigger is ordinary: ERSPAN TX plus `ip
--d link show` / RTNL dump.
-
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Single-patch series. Follow-up ERSPAN `lltx` deadlock fix
-depends on this for “no shared mutable o_flags in xmit.” Author agreed
-to list this as a stable prerequisite for that later patch.
-
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: No lore.kernel.org/stable thread found that rejected this fix.
-v2 was explicitly Cc'd to stable. The later lltx discussion notes this
-commit was **not auto-queued** because v4 lacked Cc: stable — which is
-why it is in this evaluation pipeline.
-
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `__gre_xmit`, `ipgre_xmit`, `erspan_xmit`, `gre_tap_xmit`,
-`ipgre_fill_info`, `erspan_fill_info`, `ip6erspan_tunnel_xmit`,
-`ip6gre_fill_info`.
-
-Step 5.2: TRACE CALLERS
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
 Record:
-- `erspan_xmit` / `ipgre_xmit` / `gre_tap_xmit` /
-  `ip6erspan_tunnel_xmit`: `ndo_start_xmit` (hot path).
-- `ipgre_fill_info`: GRE and GRETAP `rtnl_link_ops.fill_info`; also
-  called from `erspan_fill_info`.
-- `erspan_fill_info` / `ip6gre_fill_info`: netlink dump.
+- **Category:** memory-safety / logic — invalid virt-to-phys on vmalloc;
+  can become wrong-page UV export or an unresolved fault.
+- **Mechanism:** `virt_to_folio()` uses `virt_to_page()` → `__pa()`. On
+  s390 `__pa()` is identity/KASLR linear-map math
+  (`arch/s390/include/asm/page.h`), not a page-table walk. A vmalloc
+  address yields a bogus PFN. `uv_convert_from_secure()` then talks to
+  the Ultravisor about that PFN.
+- **Fix:** reject vmalloc up front; same helper already used on other
+  kernel-fault failures in this file.
 
-Step 5.3: TRACE CALLEES
-Record: `gre_build_header`, `gre_handle_offloads` →
-`iptunnel_handle_offloads`, `ip_tunnel_xmit` / `ip6_tnl_xmit`,
-`ip_tunnel_flags_copy`, `__clear_bit`/`__set_bit`.
-
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace-reachable: send on an ERSPAN/GRE/GRETAP netdev; dump
-via RTNL (`ip link`). Unprivileged users typically cannot create tunnels
-(needs CAP_NET_ADMIN), but once created, TX is a normal data path. Not
-theoretical.
-
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: IPv6 native GRE already snapshots flags in `__gre6_xmit`. IPv6
-fill_info already set KEY_BIT on a **local** copy. IPv4 ERSPAN was the
-inconsistent leftover that mutated live parms.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: **Yes.** Local tree is **6.12.111** (`pending-6.12`,
-`p-6.12-3-gc504cf0baa3d8`).
-Verified present:
-```746:747:net/ipv4/ip_gre.c
-        __clear_bit(IP_TUNNEL_KEY_BIT, tunnel->parms.o_flags);
-        __gre_xmit(skb, dev, &tunnel->parms.iph, proto);
-```
-```1603:1604:net/ipv4/ip_gre.c
-                if (t->erspan_ver != 0 && !t->collect_md)
-                        __set_bit(IP_TUNNEL_KEY_BIT, t->parms.o_flags);
-```
-```999:999:net/ipv6/ip6_gre.c
-        __clear_bit(IP_TUNNEL_KEY_BIT, t->parms.o_flags);
-```
-Bug introduced 2017; fill_info KEY restore 2022. Both long before 6.12.
-
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Expected apply: **minor context fuzz**, not a rewrite.
-This tree’s `gre_rcv` drop path lacks `dev_core_stats_rx_dropped_inc()`
-that appears as context in the mainline hunk; `__gre_xmit` itself
-matches. All other hunks match current 6.12 code
-(`IP_TUNNEL_DECLARE_FLAGS`, `ip_tunnel_parm_kern`, function layout). No
-conflicting refactor.
-
-Note: IPv4/IPv6 ERSPAN **do not** set `dev->lltx` here
-(`erspan_tunnel_init` / `ip6erspan_tap_init`). Concurrent xmit on one
-ERSPAN device is still serialized by `_xmit_lock`. The **fill_info
-(RTNL) vs xmit (TX lock)** race remains, and any future ERSPAN lltx
-backport would make concurrent xmit racy without this patch.
-
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: `git log --grep="fix ERSPAN o_flags race"` on these files:
-empty. No equivalent fix in this tree.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: [net/ipv4 GRE + net/ipv6 GRE ERSPAN] [IMPORTANT]
-Not core mm/VFS, but a widely used tunnel type (SPAN/ERSPAN mirroring,
-cloud TAP, Kubernetes). Packet corruption on the mirror path is user-
-visible.
-
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Mature GRE/ERSPAN (since 4.x). Still receiving correctness fixes
-(lltx, headroom, capability checks). This is a long-standing bug, not
-churn from new code.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Driver/config-specific: IPv4 ERSPAN (primary), IPv6 ERSPAN
-(shared o_flags clear), plus GRE/GRETAP get a small TOCTOU snapshot.
-Anyone running ERSPAN mirrors plus netlink dumps.
-
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Trigger: ERSPAN transmit concurrent with RTNL dump (`ip -d link
-show`, monitoring agents). Common in production TAP setups. Creating the
-tunnel needs CAP_NET_ADMIN; TX after that is the normal data path.
-Timing-dependent, but the window is every dump-vs-packet overlap, not a
-one-in-a-billion theoretical race.
-
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: [GRE header corruption / wrong optional fields / overwrite of
-GRE flags+protocol when KEY is injected into an 8-byte header] [HIGH]
-Also: permanent clear of KEY_BIT in live config until fill_info writes
-it back; data race on a bitmap word (KCSAN-class). Not a panic by
-itself, but corrupted mirrored packets and broken GRE layout. Stable
-rules treat this class of correctness bugs as important.
-
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Step 2.4: ASSESS THE FIX QUALITY**
 Record:
-- Benefit: HIGH for ERSPAN users (stops header corruption and config
-  clobber; unblocks a correct lltx backport later).
-- Risk: LOW (~25 net lines, local stack flags, no locking change, no
-  uAPI change, reviewed by Horman/Ido, written by Dumazet).
-- Ratio: strongly favors backport.
+- Obviously correct: vmalloc is not a valid convert-from-secure target;
+  the author states there is no valid access.
+- Minimal; no unrelated edits; no new API.
+- Regression risk is low. Kernel-mode `handle_fault_error_nolock(...,
+  0)` does not take the user `WARN_ON_ONCE(!si_code)` path; it
+  `fixup_exception()` or oopses. That matches “fixup or crash.”
+- Follow-up `ecb00aa6fb7f4` still keeps this check after switching to
+  `__pa(addr)`, which confirms the check is not a folio-API workaround.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+---
 
-Step 9.1: COMPILE THE EVIDENCE
-FOR:
-- Real race: xmit mutates shared `o_flags`; fill_info writes KEY_BIT
-  back under a different lock (RTNL vs TX lock).
-- Concrete failure: KEY_BIT observed in `gre_build_header()` with
-  `tun_hlen==8` overwrites the GRE base header.
-- Buggy code is in this 6.12 tree; Fixes commits are ancestors.
-- Small, obviously correct, no new APIs.
-- Author is a net maintainer; Horman Reviewed-by; Ido requested the
-  GRE/GRETAP snapshot.
-- v2 was Cc: stable; later ERSPAN lltx work calls this a stable
-  prerequisite.
-- v4 kept `tun_hlen` after review found v2’s `gre_calc_hlen` unsafe.
+## Phase 3: Git history investigation
 
-AGAINST:
-- v4 landed in net-next without Cc: stable (timing/review, not a NAK).
-- IPv4 ERSPAN is not yet lltx here, so concurrent xmit is serialized;
-  the remaining race is dump vs TX (still real).
-- First hunk may need trivial context adjustment around `gre_rcv`.
-- Extra snapshots in `ipgre_xmit`/`gre_tap_xmit` are slightly broader
-  than the ERSPAN-only bug, but they are the same pattern and low risk.
+**Step 3.1: BLAME THE CHANGED LINES**
+Record:
+- Handler introduced in `084ea4d611a3` (2020, “s390/mm: add (non)secure
+  page access exceptions handlers”) — `phys_to_page(addr)` on
+  KERNEL_FAULT (virt treated as phys).
+- `b95e0e792822b` (v7.1-rc2) switched that to `virt_to_folio()` (“Fix
+  phys_to_folio() usage”). Correct for the linear map, still wrong for
+  vmalloc.
+- The two new lines are this commit, `a2e5a9d853e01` (Heiko Carstens,
+  2026-07-20).
+- Current tree still has them (blame on `arch/s390/mm/fault.c` lines
+  440–441).
 
-UNRESOLVED: none that affect the verdict. Could not fetch
-lore.kernel.org HTML (403); used b4 mbox + openwall mirrors instead.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. Closest introduction of the *current* wrong
+helper is `b95e0e792822b`; the vmalloc hole exists conceptually since
+`084ea4d611a3`. Both are ancestors of this checkout.
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — local snapshot, reviewed,
-   applied upstream.
-2. Fixes a real bug that affects users? **PASS** — ERSPAN GRE
-   header/config corruption.
-3. Important issue? **PASS** — HIGH: on-wire header corruption (not a
-   panic, but not cosmetic).
-4. Small and contained? **PASS** — ~25 lines, two files, static helper
-   signature only.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — buggy code and bitmap APIs
-   present; minor gre_rcv context at most.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: Same-day series (AuthorDate 2026-07-20):
+1. `7cf227b2707ed` — NULL `mm` check (user path; Sashiko)
+2. `79ef8d384fdfb` — `lock_mm_and_find_vma()` (user path)
+3. **`a2e5a9d853e01` — this vmalloc check (kernel path)**
+4. `ecb00aa6fb7f4` — drop folio_try_get race; use `__pa()`
+5. `da1f5a7dcf182` / `e462200886fb5` — author-labeled cosmetics
+6. `656db3022083a` — re-enable `DCACHE_WORD_ACCESS`
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary
-networking correctness fix.
+This hunk is on the kernel-fault branch only and does not depend on 1–2.
+Standalone as a two-line insert. `handle_fault_error_nolock` already
+existed (`a5600f05d3d7a`, v6.13 era) and was already used in this
+function (`b00be77302d7e`).
 
-Step 9.4: MAKE YOUR DECISION
-This belongs in **this** 6.12 tree. The bug is here, the fix is small
-and correct, and it prevents GRE header corruption on ERSPAN plus
-shared-state races that a later lltx change would make worse.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Heiko Carstens is the s390 arch maintainer and owns most of this
+function’s recent history. Christian Borntraeger tested and reviewed.
+Not a drive-by.
 
-What the commit solves for stable users: ERSPAN xmit must not clear
-KEY/SEQ in the live tunnel parms. Doing so races with netlink fill_info
-and can inject a GRE key into an 8-byte ERSPAN GRE header, corrupting
-mirrored packets. Snapshot flags on the stack and report KEY only on the
-dump copy.
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: Needs `is_kernel_fault()`, `is_vmalloc_addr()` (`<linux/mm.h>`,
+already included), and `handle_fault_error_nolock()`. All present here.
+Does **not** require re-enabling `DCACHE_WORD_ACCESS`. `git merge-base
+--is-ancestor a2e5a9d853e01 HEAD` succeeds — already in this tree as a
+historical fact, not as a selection marker.
 
-Risk vs benefit: low risk, high benefit for ERSPAN. Apply with at most a
-small context tweak on the `__gre_xmit` hunk.
+---
 
-Verification:
-- [Phase 1] Parsed subject/tags; original v4 mbox has Fixes:
-  84e54fe0a5ea, ee496694b9ee, 5a963eb61b7c; v2 had Cc: stable
-- [Phase 2] Diff: local flags to `__gre_xmit`; stop mutating
-  `parms.o_flags` in erspan_xmit/fill_info and ip6erspan xmit
-- [Phase 2] `gre_build_header()` with hdr_len=8 + KEY+SEQ overwrites GRE
-  base header — verified in `include/net/gre.h`
-- [Phase 3] blame: mutation since 2017 ERSPAN; bitmap conversion
-  5832c4a77d693 in this tree
-- [Phase 3] `git merge-base --is-ancestor` all three Fixes SHAs: yes;
-  9958e69b9893: no
-- [Phase 4] `b4 dig -c 9958e69b9893`: lore msgid 20260812142257.21283-1;
-  v2/v3/v4; Horman Reviewed-by; no NAK
-- [Phase 4] Ido asked for ipgre/gretap snapshots; Sashiko caught v2
-  gre_calc_hlen malformation; v4 dropped that
-- [Phase 4] Later lltx deadlock thread names this commit as stable
-  prerequisite
-- [Phase 5] Callers are ndo_start_xmit and RTNL fill_info
-- [Phase 6] `git describe HEAD`: p-6.12-3-gc504cf0baa3d8; `make
-  kernelversion`: 6.12.111; buggy `__clear_bit`/`__set_bit` present
-- [Phase 6] ERSPAN init does not set lltx in this tree; fill_info vs
-  xmit still races
-- [Phase 8] Failure mode: GRE header corruption, severity HIGH
-- UNVERIFIED: lore.kernel.org HTML 403 (used b4 + openwall); no stable-
-  list rejection found
+## Phase 4: Mailing list and external research
+
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+Record:
+- `b4 dig -c a2e5a9d853e01` →
+  https://patch.msgid.link/20260720085834.898025-5-hca@linux.ibm.com
+- **[PATCH v4 4/8]** in “s390: Reintroduce support for
+  DCACHE_WORD_ACCESS”
+- Revisions: v1 (2026-07-16) → v2 → v3 → **v4 (applied)**
+- v3 changelog: “Fix two more pre-existing bugs reported by Sashiko”
+- Cover letter lists this as one of the real problems, separate from
+  kcore VM_SPARSE and from the folio-race patch
+- Direct review: Borntraeger `Reviewed-by`; no NAK
+- Vasily Gorbik: “Applied, thank you!”
+- lore.kernel.org HTTP fetch returned 403 (Anubis). Thread recovered via
+  `b4 dig -m`.
+
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record (`b4 dig -w`): Heiko Carstens, Alexander Gordeev, Sven Schnelle,
+Vasily Gorbik, Christian Borntraeger, Janosch Frank, Claudio Imbrenda,
+David Hildenbrand; `linux-s390@`, `kvm@`, `linux-kernel@`. Right
+maintainers and lists.
+
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No syzbot/bugzilla. Concrete trigger is documented in the **same
+series**:
+- Cover letter: DCACHE_WORD_ACCESS was reverted in `37540b8c287fc`
+  because secure-storage handling was incomplete (endless exception
+  loop); that revert had `Cc: stable`.
+- Patch 1 (`aab0734094cef`): “The guest variable storage area is
+  allocated with **vmalloc** and then donated to the ultravisor. Any
+  kernel access to that area will result in a secure storage access
+  exception.” `/proc/kcore` via `vread_iter()` was a known short-
+  read/exception.
+
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: 8-patch v4 series. This patch is self-contained. Later
+`ecb00aa6fb7f4` keeps the vmalloc check. Re-enabling DCACHE_WORD_ACCESS
+is a **feature** and is not required for this fix.
+
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: Direct lore.kernel.org/stable search blocked (403). Unverified
+whether anyone mailed stable@ for this SHA. The related revert
+`37540b8c287fc` **was** tagged `Cc: stable`, so stable trees that had
+word-at-a-time already treated this class of bug as important.
+
+---
+
+## Phase 5: Code semantic analysis
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
+Record: `do_secure_storage_access()` only.
+
+**Step 5.2: TRACE CALLERS**
+Record:
+- `arch/s390/kernel/traps.c` program-check table `[0x3d] =
+  do_secure_storage_access`
+- Hardware PGM 0x3d (secure-storage access), not a syscall helper
+- Compiled only under `#if IS_ENABLED(CONFIG_KVM)` in `fault.c`
+
+**Step 5.3: TRACE CALLEES**
+Record: `is_vmalloc_addr()`, `handle_fault_error_nolock()` →
+`fixup_exception()` / `kfence_handle_page_fault()` / `die()`. Pre-fix
+callees: `virt_to_folio`, `folio_try_get`, `uv_convert_from_secure`,
+`folio_put`.
+
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Reachable from:
+- Kernel access to UV-donated **vmalloc** (guest variable storage;
+  kcore)
+- `load_unaligned_zeropad()` spanning into a donated page once
+  DCACHE_WORD_ACCESS is on (this tree has it again via `656db3022083a`)
+Unprivileged user can trigger kcore only with privilege; zeropad/dcache
+is a common kernel path (namei/dcache) and can touch adjacent pages.
+Protected-virt hosts are the affected population.
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: No other `virt_to_folio` in this handler’s kernel-fault path
+after `ecb00aa6fb7f4`. `uv_convert_from_secure()` in
+`arch/s390/kernel/uv.c` takes a **physical** address; callers must not
+pass vmalloc virt.
+
+---
+
+## Phase 6: Cross-referencing against the local tree
+
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record:
+- `git describe HEAD` → **v7.3-rc4-27-gf0100363d8c37**; `make
+  kernelversion` → **7.3.0-rc4**
+- This is mainline 7.3-rc, not a `-stable` y-tree
+- Function exists at `arch/s390/mm/fault.c:408`
+- Current kernel-fault path still has the vmalloc check (lines 440–441)
+  then `__pa(addr)`
+- Bug is real in any tree that still does `virt_to_folio`/`__pa` on the
+  fault address without a vmalloc guard — including this line of
+  development before `a2e5a9d853e01`
+
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: Against **this** checkout the patch is already applied; the
+surrounding kernel-fault `if` matches the parent of `a2e5a9d853e01`.
+Expected difficulty on a tree that still has `folio =
+virt_to_folio((void *)addr);` in that `if`: **clean apply**. Helpers
+exist here.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: This exact fix is already an ancestor of HEAD. That is mainline
+history, not “already selected for stable.” No substitute vmalloc guard
+appears before `a2e5a9d853e01`.
+
+---
+
+## Phase 7: Subsystem and maintainer context
+
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: **arch/s390 MM + KVM protected virtualization**. Criticality:
+**IMPORTANT** for s390 KVM PV (Ultravisor / confidential guests) — not
+universal, but confidentiality and host stability for that platform.
+
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Actively maintained (Heiko/Vasily/Borntraeger). Handler dates to
+2020; this is a long-standing hole, not a brand-new subsystem.
+
+---
+
+## Phase 8: Impact and risk assessment
+
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: **Platform-specific + config-specific:** s390, `CONFIG_KVM`,
+protected-virt host (pages donated to UV). Not all Linux users; all such
+hosts that can take PGM 0x3d on vmalloc.
+
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record:
+- Kernel access to UV-donated vmalloc (documented: former vmalloc
+  stor_var + `/proc/kcore`)
+- Word-at-a-time / zeropad crossing into donated memory (this tree has
+  DCACHE_WORD_ACCESS again)
+- Not a userspace-unprivileged primitive in the usual sense; kcore needs
+  privilege; zeropad is kernel-internal but common on PV hosts
+
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record:
+- Wrong PFN → `uv_convert_from_secure()` on the **wrong** page: guest-
+  confidentiality break / host page state corruption → **CRITICAL** on
+  PV
+- `folio_try_get` fail → silent return → instruction retry → **endless
+  PGM 0x3d** (the failure mode that forced the DCACHE revert) →
+  **CRITICAL** (lockup)
+- Severity: **CRITICAL** when it hits; trigger is not every boot, but it
+  is a documented real path
+
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Record:
+- **Benefit:** high for s390 PV — avoids wrong UV export and exception
+  storms
+- **Risk:** very low — two lines, existing helper, linear-map path
+  unchanged
+- **Ratio:** strongly favors backport
+
+---
+
+## Phase 9: Final synthesis
+
+**Step 9.1: COMPILE THE EVIDENCE**
+
+**FOR:**
+- Real bug: `virt_to_folio`/`__pa` on vmalloc is invalid on s390
+- Failure modes: wrong-page `uv_convert_from_secure`, unresolved fault /
+  infinite PGM 0x3d
+- Documented trigger: vmalloc UV storage; kcore; later zeropad
+- 2-line, surgical, uses existing `handle_fault_error_nolock`
+- Written/acked by s390 maintainers; Tested-by + Reviewed-by Borntraeger
+- Author treated it as a bug fix, not as the DCACHE feature patch
+- Follow-up kept the same check with `__pa`
+- Code and helpers exist in this 7.3-rc4 tree
+
+**AGAINST:**
+- s390 + KVM PV only (smaller user base than core mm)
+- Part of a larger DCACHE series — but this hunk does not enable that
+  feature
+- No `Fixes:` / `Cc: stable` (not a negative per the rules)
+- Direct stable@ lore search could not be completed (403)
+
+**UNRESOLVED:**
+- Whether stable@ already discussed this exact SHA (lore HTTP blocked)
+- Exact older-stable context outside this checkout — not used for the
+  verdict
+
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — two-line guard; Tested-by
+   Borntraeger
+2. Fixes a real bug that affects users? **PASS** — wrong phys conversion
+   / exception loop on PV hosts
+3. Important (crash, security, corruption, deadlock)? **PASS** — UV
+   export of the wrong page and/or host lockup
+4. Small and contained? **PASS** — +2 lines, one function
+5. No new features or APIs? **PASS** — not the DCACHE re-enable
+6. Can apply to the local tree? **PASS** — helpers and call site exist;
+   this checkout already contains the change as mainline history
+
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: None (not a device-ID/quirk/DT/build/doc exception). Qualifies
+as a normal important bug fix.
+
+**Step 9.4: MAKE YOUR DECISION**
+
+This tree is **Linux 7.3-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
+surrounding handler, `is_vmalloc_addr()`, and
+`handle_fault_error_nolock()` are all here. The bug is using linear-map
+virt-to-phys on a vmalloc PGM 0x3d, which can export the wrong page from
+secure storage or never resolve the fault.
+
+The patch is two lines, maintainer-written, tested, and independent of
+re-enabling `DCACHE_WORD_ACCESS`. Benefit is high for s390 protected-
+virt; regression risk is very low. It meets the stable-kernel rules for
+**this** checkout.
+
+---
+
+### What the commit solves (for this tree)
+
+`do_secure_storage_access()` handled kernel PGM 0x3d by converting the
+fault address with `virt_to_folio()`. That is only valid for the
+identity/KASLR linear map. Vmalloc (including UV guest variable storage
+allocated with vmalloc, and later word-at-a-time probes) must not take
+that path. The fix fails those faults immediately so the kernel can
+exception-fixup or oops instead of converting a random physical page.
+
+### Verification
+- **[Phase 1]** Parsed tags: Tested-by/Reviewed-by Borntraeger; SOB
+  Heiko + Vasily; no Fixes/Cc stable/syzbot
+- **[Phase 2]** Diff: +2 lines in `do_secure_storage_access()` kernel-
+  fault branch; `is_vmalloc_addr` then `handle_fault_error_nolock`
+- **[Phase 2]** Read `arch/s390/include/asm/page.h` `__pa_nodebug`:
+  linear map only, not vmalloc
+- **[Phase 2]** Read `include/linux/mm.h` `virt_to_folio`:
+  `virt_to_page` → `__pa`
+- **[Phase 3]** `git describe HEAD` / `make kernelversion`: v7.3-rc4 /
+  7.3.0-rc4
+- **[Phase 3]** `git merge-base --is-ancestor a2e5a9d853e01 HEAD`: yes
+  (mainline ancestor, not a selection marker)
+- **[Phase 3]** `git show a2e5a9d853e01`: matches the provided diff
+- **[Phase 3]** `git blame` on `fault.c` 408–470: handler from
+  `084ea4d611a3` (2020); vmalloc lines from this commit
+- **[Phase 3]** `git show b95e0e792822b`: phys_to_folio → virt_to_folio
+  in v7.1-rc2; vmalloc still wrong
+- **[Phase 3]** `git show ecb00aa6fb7f4`: later `__pa` path **keeps**
+  the vmalloc check
+- **[Phase 3]** `git show 37540b8c287fc`: DCACHE revert; endless PGM
+  0x3d; `Cc: stable`
+- **[Phase 4]** `b4 dig -c/-a/-w/-m`: v4 4/8; lore msgid
+  `20260720085834.898025-5-hca@linux.ibm.com`; v1–v4; s390/KVM CCs;
+  Borntraeger R-b; Gorbik applied
+- **[Phase 4]** WebFetch lore.kernel.org: 403; discussion taken from b4
+  mbox instead
+- **[Phase 4]** Cover letter: this is a listed pre-existing bug, not
+  cosmetics
+- **[Phase 4]** `git show aab0734094cef`: stor_var was vmalloc then
+  donated to UV; kernel access → PGM 0x3d
+- **[Phase 5]** Callers: `traps.c` `[0x3d]`; `#if
+  IS_ENABLED(CONFIG_KVM)`
+- **[Phase 5]** Read `handle_fault_error_nolock`: kernel path fixup or
+  `die`
+- **[Phase 6]** Read current `fault.c` 439–449: vmalloc check still
+  present
+- **[Phase 8]** Failure mode: wrong UV export and/or infinite exception
+  — CRITICAL for s390 PV
+- **UNVERIFIED:** stable@ mailing-list threads for this SHA (lore 403)
+
+The fix is small, obviously correct, and addresses a real
+crash/corruption/confidentiality bug on this tree’s s390 KVM PV path.
 
 **YES**
 
- net/ipv4/ip_gre.c  | 42 +++++++++++++++++++++++-------------------
- net/ipv6/ip6_gre.c |  5 ++---
- 2 files changed, 25 insertions(+), 22 deletions(-)
+ arch/s390/mm/fault.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index b15cc4ee0d920..b1ec4f92d3462 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -474,12 +474,9 @@ static int gre_rcv(struct sk_buff *skb)
- 
- static void __gre_xmit(struct sk_buff *skb, struct net_device *dev,
- 		       const struct iphdr *tnl_params,
--		       __be16 proto)
-+		       __be16 proto, const unsigned long *flags)
- {
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
--	IP_TUNNEL_DECLARE_FLAGS(flags);
--
--	ip_tunnel_flags_copy(flags, tunnel->parms.o_flags);
- 
- 	/* Push GRE header. */
- 	gre_build_header(skb, tunnel->tun_hlen,
-@@ -652,6 +649,7 @@ static netdev_tx_t ipgre_xmit(struct sk_buff *skb,
- 			      struct net_device *dev)
- {
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
-+	IP_TUNNEL_DECLARE_FLAGS(flags);
- 	const struct iphdr *tnl_params;
- 
- 	if (!pskb_inet_may_pull(skb))
-@@ -687,11 +685,12 @@ static netdev_tx_t ipgre_xmit(struct sk_buff *skb,
- 		tnl_params = &tunnel->parms.iph;
+diff --git a/arch/s390/mm/fault.c b/arch/s390/mm/fault.c
+index 46e5748b5b1b3..9d7d3ef99fc16 100644
+--- a/arch/s390/mm/fault.c
++++ b/arch/s390/mm/fault.c
+@@ -433,6 +433,8 @@ void do_secure_storage_access(struct pt_regs *regs)
+ 		panic("Unexpected PGM 0x3d with TEID bit 61=0");
  	}
- 
--	if (gre_handle_offloads(skb, test_bit(IP_TUNNEL_CSUM_BIT,
--					      tunnel->parms.o_flags)))
-+	ip_tunnel_flags_copy(flags, tunnel->parms.o_flags);
-+
-+	if (gre_handle_offloads(skb, test_bit(IP_TUNNEL_CSUM_BIT, flags)))
- 		goto free_skb;
- 
--	__gre_xmit(skb, dev, tnl_params, skb->protocol);
-+	__gre_xmit(skb, dev, tnl_params, skb->protocol, flags);
- 	return NETDEV_TX_OK;
- 
- free_skb:
-@@ -704,6 +703,7 @@ static netdev_tx_t erspan_xmit(struct sk_buff *skb,
- 			       struct net_device *dev)
- {
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
-+	IP_TUNNEL_DECLARE_FLAGS(flags);
- 	bool truncate = false;
- 	__be16 proto;
- 
-@@ -727,10 +727,12 @@ static netdev_tx_t erspan_xmit(struct sk_buff *skb,
- 		truncate = true;
- 	}
- 
-+	ip_tunnel_flags_copy(flags, tunnel->parms.o_flags);
-+
- 	/* Push ERSPAN header */
- 	if (tunnel->erspan_ver == 0) {
- 		proto = htons(ETH_P_ERSPAN);
--		__clear_bit(IP_TUNNEL_SEQ_BIT, tunnel->parms.o_flags);
-+		__clear_bit(IP_TUNNEL_SEQ_BIT, flags);
- 	} else if (tunnel->erspan_ver == 1) {
- 		erspan_build_header(skb, ntohl(tunnel->parms.o_key),
- 				    tunnel->index,
-@@ -745,8 +747,8 @@ static netdev_tx_t erspan_xmit(struct sk_buff *skb,
- 		goto free_skb;
- 	}
- 
--	__clear_bit(IP_TUNNEL_KEY_BIT, tunnel->parms.o_flags);
--	__gre_xmit(skb, dev, &tunnel->parms.iph, proto);
-+	__clear_bit(IP_TUNNEL_KEY_BIT, flags);
-+	__gre_xmit(skb, dev, &tunnel->parms.iph, proto, flags);
- 	return NETDEV_TX_OK;
- 
- free_skb:
-@@ -759,6 +761,7 @@ static netdev_tx_t gre_tap_xmit(struct sk_buff *skb,
- 				struct net_device *dev)
- {
- 	struct ip_tunnel *tunnel = netdev_priv(dev);
-+	IP_TUNNEL_DECLARE_FLAGS(flags);
- 
- 	if (!pskb_inet_may_pull(skb))
- 		goto free_skb;
-@@ -768,14 +771,15 @@ static netdev_tx_t gre_tap_xmit(struct sk_buff *skb,
- 		return NETDEV_TX_OK;
- 	}
- 
--	if (gre_handle_offloads(skb, test_bit(IP_TUNNEL_CSUM_BIT,
--					      tunnel->parms.o_flags)))
-+	ip_tunnel_flags_copy(flags, tunnel->parms.o_flags);
-+
-+	if (gre_handle_offloads(skb, test_bit(IP_TUNNEL_CSUM_BIT, flags)))
- 		goto free_skb;
- 
- 	if (skb_cow_head(skb, dev->needed_headroom))
- 		goto free_skb;
- 
--	__gre_xmit(skb, dev, &tunnel->parms.iph, htons(ETH_P_TEB));
-+	__gre_xmit(skb, dev, &tunnel->parms.iph, htons(ETH_P_TEB), flags);
- 	return NETDEV_TX_OK;
- 
- free_skb:
-@@ -1571,12 +1575,15 @@ static size_t ipgre_get_size(const struct net_device *dev)
- 
- static int ipgre_fill_info(struct sk_buff *skb, const struct net_device *dev)
- {
--	struct ip_tunnel *t = netdev_priv(dev);
--	struct ip_tunnel_parm_kern *p = &t->parms;
-+	const struct ip_tunnel *t = netdev_priv(dev);
-+	const struct ip_tunnel_parm_kern *p = &t->parms;
- 	IP_TUNNEL_DECLARE_FLAGS(o_flags);
- 
- 	ip_tunnel_flags_copy(o_flags, p->o_flags);
- 
-+	if (t->erspan_ver != 0 && !t->collect_md)
-+		__set_bit(IP_TUNNEL_KEY_BIT, o_flags);
-+
- 	if (nla_put_u32(skb, IFLA_GRE_LINK, p->link) ||
- 	    nla_put_be16(skb, IFLA_GRE_IFLAGS,
- 			 gre_tnl_flags_to_gre_flags(p->i_flags)) ||
-@@ -1619,12 +1626,9 @@ static int ipgre_fill_info(struct sk_buff *skb, const struct net_device *dev)
- 
- static int erspan_fill_info(struct sk_buff *skb, const struct net_device *dev)
- {
--	struct ip_tunnel *t = netdev_priv(dev);
-+	const struct ip_tunnel *t = netdev_priv(dev);
- 
- 	if (t->erspan_ver <= 2) {
--		if (t->erspan_ver != 0 && !t->collect_md)
--			__set_bit(IP_TUNNEL_KEY_BIT, t->parms.o_flags);
--
- 		if (nla_put_u8(skb, IFLA_GRE_ERSPAN_VER, t->erspan_ver))
- 			goto nla_put_failure;
- 
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index ebd0198458cd3..905c22e6990b8 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -967,7 +967,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- 	if (skb_cow_head(skb, dev->needed_headroom ?: t->hlen))
- 		goto tx_err;
- 
--	__clear_bit(IP_TUNNEL_KEY_BIT, t->parms.o_flags);
- 	IPCB(skb)->flags = 0;
- 
- 	/* For collect_md mode, derive fl6 from the tunnel key,
-@@ -2116,8 +2115,8 @@ static size_t ip6gre_get_size(const struct net_device *dev)
- 
- static int ip6gre_fill_info(struct sk_buff *skb, const struct net_device *dev)
- {
--	struct ip6_tnl *t = netdev_priv(dev);
--	struct __ip6_tnl_parm *p = &t->parms;
-+	const struct ip6_tnl *t = netdev_priv(dev);
-+	const struct __ip6_tnl_parm *p = &t->parms;
- 	IP_TUNNEL_DECLARE_FLAGS(o_flags);
- 
- 	ip_tunnel_flags_copy(o_flags, p->o_flags);
+ 	if (is_kernel_fault(regs)) {
++		if (is_vmalloc_addr((void *)addr))
++			return handle_fault_error_nolock(regs, 0);
+ 		folio = virt_to_folio((void *)addr);
+ 		if (unlikely(!folio_try_get(folio)))
+ 			return;
 -- 
 2.53.0
 
