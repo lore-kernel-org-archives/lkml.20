@@ -1,120 +1,140 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E6C4A3F1E;
-	Mon, 19 Oct 2026 08:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D866E49552C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:52:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399922; cv=none; b=aqkH6GrCz4VXzPuWILjgqYpe2zKutPoeeNdKfg8rMrahM0ziwoGWUt0W8JWCJpKa9gx9s5i2qDmflql7ngO8DNl4TVqy7AwpeC9saMPfHwBelbb1YQpgsEtD2XbHXqhIJJGYKMyIu7YO5KQrlu05q9Q4gRvCq9Bo9kcPtT5bukI=
+	t=1792399951; cv=none; b=oPWOQH4BCHoFXHsn6ILOv+Tuhn69ED+FUF+6l2+DxJrPArvgCIpGE4UE4rH4Us+oLrvNuCuq0EHHuC/bSg/oXxTwdTcOFpcZ41C1qITJD7K1/wXS6cxVmIhLtl2Ml1Tp/gXrR7idxGpeqcUsZ5akyrXjkFItjVHy5iVg4WFPk9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399922; c=relaxed/simple;
-	bh=DA4DlnYJiBv1rP3tuR5PuSaqJFiopm/harezIr7sSwY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JZR9S738nLSoBdsj1lByJWhwDCmUFwyyC4MfmNnRyEezucRT5ZBhFceBx6HZl5nlI+ZBvRYDY40NhwivPH1Ukm12hVw4sYGm6EhjFUKtwnO7e8HtVVtSXRBxfX3xh9IE01YblnUEd762q3D0FHwQ4L49Ugfkmv4T662Ddl9Gw+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=A8CAOMqU; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1792399951; c=relaxed/simple;
+	bh=nEANZGCZ9guMXFCy+MYGNEwKQAPuCeBUOf9W0nQu4uI=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=RMC53lERbXe/iLUyAVEk2hLfznBu8Jp3ajTHLSQhEKEur46LYK2L7iE+FUfZtQIcENmmsy3KBwilHfF4bNYa3lsRm+hUwR+lD+HvRfe8H2HfLEPQzJnZpui+dauhFpT2VGOvwEP7fmRbcytEEaLNuvU6Nt4+mcNosXnYdu5FL5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Bb51uD+z; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jaGV4Lyb; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="A8CAOMqU"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4j7Tn2150rzMlLL;
-	Mon, 19 Oct 2026 10:51:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792399910;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DA4DlnYJiBv1rP3tuR5PuSaqJFiopm/harezIr7sSwY=;
-	b=A8CAOMqUteu36VGV4F0ICc2ZqS6ScxITNc+ytRBRlcMMes8EiAB5BX8YIrqBH2N+M0j17R
-	4EnHlQDUdfSvK7QK44nAqGMEee6vGM15YWrYaTbwJIlTjYPlQGlbbdDPQj+9+IeRmkaIzR
-	AGCUjXeyF+6y6ZYMu8u3aSz/7l06mXZDrxP9lo5gCFkyea5aYYOZ4qBi2VOa76Mu3nds1P
-	LN4U0GspJjj/k+JlLL1X73IeBSC3uba8mGWPjbE8G8gaYPmeTV4p3Y0v5m5H9j/Tu0bUqT
-	Eve1UYNeMym1XB5vF1nPi/U5geC35mrfvWQaOj8c6sq1F4ZcmdskVpdPBNcsCw==
-Message-ID: <c635054081da35e61ccc25cf356f6356ca8580ba.camel@mailbox.org>
-Subject: Re: [PATCH] cpufreq: longrun: fix typo in kernel-doc
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, "Rafael J. Wysocki"
-	 <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 19 Oct 2026 10:51:46 +0200
-In-Reply-To: <9c312de6-7c73-465f-93da-d7a75cf3be8c@oss.qualcomm.com>
-References: <20261017071434.1250140-2-manuelebnerli@mailbox.org>
-	 <9c312de6-7c73-465f-93da-d7a75cf3be8c@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Bb51uD+z";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jaGV4Lyb"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 0A6AB1D0008F
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:52:28 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 04:52:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792399943;
+	 x=1792486343; bh=cRAdLuUMQVLrTUQtW3xqfK+uVlZ53vZnJeL6TLJsmWc=; b=
+	Bb51uD+zvzxGM6E0mUk8Giz3BKrGMrrYJX4x76rDnG4XXQZ4bkc+QQYo/lCgJKnw
+	/YtlnW8l5Mg7zNTrkuv8QIx8Hjdp5VGbsPy9sKYWCD0qTGCufyK8sWmERvilRBC1
+	suD/h/ro15Dqr3eqcbBnvQ8xJutlBScOOobxIsg/ut5JyYblIKSu9wDnH8zvsxlP
+	KXQF7e6m8fTjtwEWl5yUWto9N9CbV8i0YTjeKgQzTjz4vvcVkEYVyKlAIlPOMFA8
+	bugTzawWB8mC/sORP9m1z3JbxThwVxV/6MEbhhikhts6qbm8ZMASgYX6+okqfCiJ
+	kJ3kS4Opy0c+UjM1O3osRQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792399943; x=
+	1792486343; bh=cRAdLuUMQVLrTUQtW3xqfK+uVlZ53vZnJeL6TLJsmWc=; b=j
+	aGV4LybY53Wtm+1by7eCtJn0dPTnEINAUicpLQXHxV5Dpv8CaqMBPyu/aGrhq70E
+	+D0eOt+0cLSqy+Ne7G9g5DCqpDVyRGo5IoCPPALX6k48HUC9TcT72rNvXv97v9ra
+	WNcYVRUjWaaoyvyKdjpvs5BaIfl4NXjd76HoNFeeTC3m1zgEnjZ6bKyJMcKpQPNd
+	SurClGB81XgpUnfWbXe1rrYOi3n1+rT2e/xyJjOLwRBmzNlVeZ4LtMkrKfx6nQDg
+	nvtEFB68+rgvgrGIhmfwh9TDI+TsOqpBIqiiXJhmNDJ9u/+P1qyf3WSdOz1U3GDY
+	ntnZ7VFRlLkcAZYCcPGxg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792399943; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:cU7Dz/6F1z+MP62iGIFwVBhzeT3jMPlNxIRet5mqgoVjb0G
+	uMzsZ46lo7lzibX9xRywndpPQrHVR9Oj6xwx+Rov0simfvgoQo3tlgmm6CtHc8Br
+	3un0UP74fxnzMzntKe6aWQwG73cLvD+2s9Ejpf+e+1yqwWMhW2+RmBSOitIvfjUm
+	GhDadnRf1xFX7Ub27u10zuA4lOVhJ76X1irR5qC4Xvc0Do+3VCjq2K402NkjMcLv
+	iZ6mO4xPYFFa/Hr8Bn8hj0qdymSOASRlZzmofdQBqgGE5I52848hVwmsWKStSko/
+	mrGv6kBC/KXQyot1jEmAKnlCzfq4CxdE75QXfqQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Gs2Wjku2DTGryiiEUBBCDXcmzXgVadBUGqvHkD4nUM0=:nEANZGCZ9guMXFCy+MYGNEwKQAPuCeBUOf9W0nQu4uI=;
+X-ME-Sender: <xms:Q9rVav6D3Dcxo8Dp7JWJFqt_8J5wut7N8gdYQvJz9SaLqGGLFo9Cew>
+    <xme:Q9rVavs6MbXGshW82x0ZHhMokskmEBlDr_L3WY3pDTonLkGORsRJb8Lg1tZyNDm9y
+    4Q8gOCHerODpEO5pp2eFtqjku720t1IBHn0U391crtu2AZA6CGjMaqu>
+X-ME-Proxy-Cause: dmFkZTE/dT272iY9im8e2pKUcyzfMQ8Oyk1kzzEI1f+HUy/s7LMoDoLCYPzG0mJfeS5zgO
+    f0lswCnXyxAz+3erxCsMP4+vKJeE3RV3bgTCuEtU6lTcmjMBsmyugSw1uttzfjVDVBiti2
+    oKBnrV4PrIs5JBpQqCsGNeblrRF+OSCnjJBycE5D6i35XNLxqa7W3RkNG6bn1Kp7rxg5Ip
+    fEQBkYJ23L3N/yWyUzwJ3QLpqiA/HEtisyzb4pkcIX+IMo0Aeou+u1tGFtqCfhGevzHMZd
+    oZ8vtgdi2VkY/na0up9+kUmxThyhDdk2ZOQfeZePrCRPPZSfhi7o/0QYKt05lzKu/bxIgV
+    AReHGFOFOKtO2spw5zIUjzV2Mt6Vy/rb2JeooMviE+ckKOrO3+JXUWT6a431qQDP6wsZ1B
+    JUCNzNfI1KtbtxDKQthKy3ro/ga2f8vCIrc12mHcukL43PJ7Sb0yoVf6WnE7lsuUcx+w58
+    Kf2sKWLGCas3MfVGNk2MBnJSX/QoRwdm3EUscO/dz2rjVB+OurtIIpzt62qEaLAhGVEkKE
+    c9pcKjxpuWjO+sq0+R9/Rtdq9kVa02g/2kcT7+I+UfX0l6V7CWezsZrG7j6LdTN310060G
+    8XMeBKA3hQEDNFFWhRjGxTGMA3jzqme/BM0MinigfjVujLnUyW1g5aT6cz3w
+X-ME-Proxy: <xmx:RdrVapdw0q3pcIo4FDKP9CjLcJ9aFpMgJEYH3YsC-_qpVAdGtBgjkQ>
+    <xmx:RdrVajFt2sfTAI3F-k7Ca0awfyHj4AVnCfEo7BCBIdNnQt__wutuFQ>
+    <xmx:RdrVavieEU2XyCgZuUhkL4gJ2IwJYpDzzOHFKoqLaAcpK4oqiCu9Cg>
+    <xmx:RdrVan3qJP-Cv7JpPw1hwcS8aRNhqb7x5fl54a5BJ8qgeLW8JXE8-Q>
+    <xmx:R9rVan-aKXJyknrQZ5T92z3Wf4yKBw289HESbAn057kGTwA5ZK8ivWH5>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 0244532A008F; Mon, 19 Oct 2026 04:52:18 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: jrn8qitrc5ruhwnznws3i467q8wkknbe
-X-MBO-RS-ID: cde46030cab00897271
+X-ThreadId: A4WN0AQLOakc
+Date: Mon, 19 Oct 2026 10:51:58 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ "Arnd Bergmann" <arnd@kernel.org>
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Jiri Slaby" <jirislaby@kernel.org>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+ "Hugo Villeneuve" <hvilleneuve@dimonoff.com>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev
+Message-Id: <d0d4182e-342f-4038-ad9f-e6b580c9f2e5@app.fastmail.com>
+In-Reply-To: <atXLd6SdHNr0UcjI@monoceros>
+References: <20261016130328.1037616-1-arnd@kernel.org>
+ <atXLd6SdHNr0UcjI@monoceros>
+Subject: Re: [PATCH 1/2] tty: serial: remove hub6 multiport support
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-10-19 at 11:37 +0800, Zhongqiu Han wrote:
-> Hi Manuel,
->=20
-> Thanks for the patch.
->=20
-> On 10/17/2026 3:14 PM, Manuel Ebner wrote:
-> > Fix typo to fix:
-> >=20
-> > =C2=A0=C2=A0 $ ./scripts/kernel-doc -none drivers/cpufreq/longrun.c
-> > =C2=A0=C2=A0 Warning: drivers/cpufreq/longrun.c:126 expecting prototype=
- for longrun_verify_poliy(). Prototype was for longrun_verify_policy() inst=
-ead
->=20
-> ./scripts/checkpatch.pl reports a warning which should be acceptable to
-> keep unwrapped as it is tool output.
->=20
-> WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit
-> description?)
-> #9:
-> =C2=A0=C2=A0 Warning: drivers/cpufreq/longrun.c:126 expecting prototype f=
-or=20
-> longrun_verify_poliy(). Prototype was for longrun_verify_policy() instead
->=20
-> total: 0 errors, 1 warnings, 8 lines checked
->=20
->=20
->=20
-> Also, while reproducing this issue, I noticed another problem,
->=20
-> ./scripts/kernel-doc -none drivers/cpufreq/longrun.c
-> Warning: drivers/cpufreq/longrun.c:21 This comment starts with '/**',=20
-> but isn't a kernel-doc comment. Refer to=20
-> Documentation/doc-guide/kernel-doc.rst
-> =C2=A0 * longrun_{low,high}_freq is needed for the conversion of cpufreq =
-kHz
->=20
-> It should use /* instead of /** and may be worth a separate patch.=C2=A0
+On Mon, Oct 19, 2026, at 09:51, Uwe Kleine-K=C3=B6nig wrote:
+> On Fri, Oct 16, 2026 at 02:59:47PM +0200, Arnd Bergmann wrote:
+>> Link: https://mirrors.nycbug.org/pub/The_Unix_Archive/Unix_Usenet/com=
+p.unix.sysv386/1990-December/007174.html
+>> Fixes: a300273c458c ("serial: 8250: hub6: Add cleanup code")
+>> Fixes: c526404a4a92 ("serial: 8250: Fix corner case for port matching=
+")
+>> Fixes: 7ab80d1e7243 ("serial: 8250: fix compile error with hub6_match=
+_port() when compiled as a module")
+>> Fixes: da7b5fd4e17f ("serial: 8250_hub6: add missing include for hub6=
+_match_port()")
+>> Fixes: 3d406299d882 ("serial: 8250_hub6: add hub6_match_port()")
+>> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>
+> Fine for me. I wonder about the amount of Fixes: lines, but don't care
+> enough to check.
 
-Will do.
+My first thought on this was that the hub6 support should just be a
+loadable module and that it would only require inlining hub6_match_port
+into its caller, but then I saw that doing this would be exactly a
+revert of those five patches that each individually make sense.=20
 
-> But
-> since this patch is only intended to fix the typo, the patch itself
-> looks fine to me.
->=20
-> >=20
-> > Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
->=20
-> Small nit: please consider to add the Fixes tag:
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Acked-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
 
-Well, thats the init commit, should it still be added in=20
-future patches?
-Can pre-git history be referenced?
+Thanks,
 
->=20
-> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
->=20
-
-Thanks=20
- Manuel
-
-> ...
+      Arnd
