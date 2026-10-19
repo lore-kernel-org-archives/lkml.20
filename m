@@ -1,91 +1,105 @@
-Received: from mail-m121163.qiye.163.com (mail-m121163.qiye.163.com [115.236.121.163])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FA94F85C6;
-	Mon, 19 Oct 2026 12:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.121.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5FE4E433F;
+	Mon, 19 Oct 2026 12:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414168; cv=none; b=c3OumL8YxnWcRGHkmZPJxusoVJOgyuOB6tyG6bCxz48CwUYeuVHTaB6zag8NYBwx0gsErBauFPY6k/G16MldhScIeoS0xDtvBvERpEtBOgy28KkQfOnBC8AQVxhr2d9DL39BjEE1vZqTfy2KigZ96dDSoQIjoasquBqxkxqesSI=
+	t=1792414246; cv=none; b=T+2jxhjmSmJwLDFwH813TyX7YLeLvxrpfUxB+C0fyXwV2X4tRn0QBO1nd6Ge7dmGQIXVYfLMn1SFzWS9slrm8D+0b4oNjw8zETxj+jS8F2jPbSpG46dNo0EckhckRmtnlT2GUqBero7lApYzXF2yo+e0bA3e5AF5YdxLT5b3jHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414168; c=relaxed/simple;
-	bh=uid7unXvFpXIwc//7PPu9CZ/okIyOjRVbz31UgiFRGI=;
-	h=Content-Type:Message-ID:To:Cc:Subject:MIME-Version:From:Date; b=JEGpSDWzDRWH0+s6ZRnT019YKoFmTdSB1hlxIpEIQp9K+G4AJXcBkcVpwzJsQdKxjIM+Ezbt2gn6zM/MHFSRwTZwrkETIYDbJGL3XWF70bvuMee74VuUW58V1jiABF+xZl22b2cI+OECU/R7VqT72KtKEw4NfJPTqjlzzK+Wy6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn; spf=pass smtp.mailfrom=hdu.edu.cn; dkim=pass (1024-bit key) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.b=iar6xD0M; arc=none smtp.client-ip=115.236.121.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hdu.edu.cn
+	s=arc-20240116; t=1792414246; c=relaxed/simple;
+	bh=zCsy6e9Bt2dq/Px6jDSSK5zcyrJRZAo8Uo76I5mQw3s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q9je5cl/FByfTKcAVrZbeTP/lZabnCArMSR7kCsRREYkfJvtORw8tpGvE6tx+zD4AuD+fV2eHqUsGy2i+78+QgqWTCntZJqdcsxY6fz0KS5qzegmgnTvta0Rjll+n6zO/9Kfv/h+AdTQOJP4yJk+viBHPvfmKlJf00ZZAM4t4UA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=bmkxdmwg; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.b="iar6xD0M"
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <ACoATQBWLMQm6IW3xmgPIqp1.1.1792413844984.Hmail.252270051@hdu.edu.cn>
-To: pjw@kernel.org, samuel.holland@sifive.com, vkoul@kernel.org, 
-	Frank.Li@kernel.org
-Cc: linux-riscv@lists.infradead.org, dmaengine@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: =?UTF-8?B?ZG1hZW5naW5lOiBzZi1wZG1hOiBwb3NzaWJsZSBVQUYgYmV0d2VlbiBlcnJvciB0YXNrbGV0IGFuZCBjaGFubmVsIHJlc291cmNlIHJlbGVhc2U=?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="bmkxdmwg"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6809E4E411CB;
+	Mon, 19 Oct 2026 12:50:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3BCD960582;
+	Mon, 19 Oct 2026 12:50:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3526C10328D37;
+	Mon, 19 Oct 2026 14:50:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792414237; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=k8eO+sIYmJYfoiM/+c7wKwg3jchnyvQXxOnYb69grB8=;
+	b=bmkxdmwg3KaQNaN6vE02shBqu1L0emWE7NYvIKnIPY3/Am+RowXdoAetmQS8B374afKzOl
+	aNNn9C6MyDpdMVf6dFmeAv47BAp0kfW7qoCyWpZv25zIWfP4kg1FQkpF2u9l4GRRruBZ8S
+	dnS53dnWa9czjWRuFib3WK691ecdHp9XR0UxZo0vPsOQ2C7xAF6JQrzZHdR7Woz6ux2Krl
+	HZHo7oNU9931vm/H0Ci6WDzsUwST2kPYHB823e8jFBDrFXmq7EuauN3pUe7vjqb7S8czne
+	Xh/XTi+IG2e/gJtviiIagByRPio1lfkGJHdcz3NaztjDQ78wfTl36GFXIARgMg==
+Message-ID: <d9233496-7549-4c53-b240-344bb7a8d9a5@bootlin.com>
+Date: Mon, 19 Oct 2026 14:50:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from 252270051@hdu.edu.cn( [183.157.177.89] ) by ajax-webmail ( [127.0.0.1] ) ; Mon, 19 Oct 2026 20:44:04 +0800 (GMT+08:00)
-From: LI xiao <lixiao0@hdu.edu.cn>
-Date: Mon, 19 Oct 2026 20:44:04 +0800 (GMT+08:00)
-X-HM-Tid: 0aa1542b2cacd458kusya666c29ac170
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHhgeVklKTRpOGEkYGUhNH1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSk5MVUpMTFVDQllXWRYaDxIVHRRZQVlPS0hVSk
-	tISkxDSlVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=iar6xD0MeefcJmhuJt+71CQnPls657Btt9FCJe3JsTuFY1Mz2xBGKz1xZSTBpfg7wy5Bqg511jA6IWKqkWIIQBtPUsLJWahaaA3Zlcb5Nctrm5y8qsUw80/zRcdBuQ1bT59ervkgKTgD15qrbYA14fTFuDVvDnGgMqn9EnH2+y0=; s=default; c=relaxed/relaxed; d=hdu.edu.cn; v=1;
-	bh=uid7unXvFpXIwc//7PPu9CZ/okIyOjRVbz31UgiFRGI=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net 09/10] net: pse-pd: si3474: fix use-after-free in
+ ancillary client error path
+To: Carlo Szelinsky <github@szelinsky.de>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Piotr Kubik <piotr.kubik@adtran.com>,
+ Sai Krishna <saikrishnag@marvell.com>, Simon Horman <horms@kernel.org>,
+ Kyle Swenson <kyle.swenson@est.tech>, netdev-bot+sashiko@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261018082314.48950-1-github@szelinsky.de>
+ <20261018082314.48950-10-github@szelinsky.de>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261018082314.48950-10-github@szelinsky.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-SGVsbG8sCgpJIG5vdGljZWQgYSBwb3NzaWJsZSBVQUYgaW4gdGhlIFNpRml2ZSBGVTU0MCBQRE1B
-IGRyaXZlci4KCkluIHNmX3BkbWFfZXJyX2lzcigpLCB0aGUgZXJyb3IgaW50ZXJydXB0IHNjaGVk
-dWxlcyBjaGFuLT5lcnJfdGFza2xldC4gSW4gc2ZfcGRtYV9lcnJiaF90YXNrbGV0KCksIGNoYW4t
-PmRlc2MgaXMgY29waWVkIHRvIGEgbG9jYWwgdmFyaWFibGUgYmVmb3JlIGNoYW4tPmxvY2sgaXMg
-YWNxdWlyZWQuIFRoZSBmYWlsdXJlIHBhdGggbWF5IHN1YnNlcXVlbnRseSBhY2Nlc3MgZGVzYy0+
-YXN5bmNfdHggdGhyb3VnaCB0aGlzIHBvaW50ZXIuCgpNZWFud2hpbGUsIHNmX3BkbWFfZnJlZV9j
-aGFuX3Jlc291cmNlcygpIGZyZWVzIGNoYW4tPmRlc2Mgd2hpbGUgaG9sZGluZyBjaGFuLT52Y2hh
-bi5sb2NrLiBUaGVzZSBwYXRocyBkbyBub3QgYXBwZWFyIHRvIHVzZSBhIGNvbW1vbiBsb2NrIHRv
-IHByb3RlY3QgdGhlIGRlc2NyaXB0b3IncyBsaWZldGltZS4KClRoZSBkcml2ZXIgZG9lcyBub3Qg
-c2V0IGRldmljZV9zeW5jaHJvbml6ZS4gU2luY2UgZG1hZW5naW5lX3N5bmNocm9uaXplKCkgb25s
-eSBpbnZva2VzIHRoZSBwcm92aWRlcidzIGRldmljZV9zeW5jaHJvbml6ZSBjYWxsYmFjayB3aGVu
-IGl0IGlzIHByZXNlbnQsIHRoZSBzeW5jaHJvbml6YXRpb24gcGVyZm9ybWVkIGJlZm9yZSBzZl9w
-ZG1hX2ZyZWVfY2hhbl9yZXNvdXJjZXMoKSBkb2VzIG5vdCBhcHBlYXIgdG8gd2FpdCBmb3IgdGhp
-cyBkcml2ZXIncyBlcnJvciB0YXNrbGV0IHRvIGZpbmlzaC4KCkEgcG9zc2libGUgaW50ZXJsZWF2
-aW5nIGlzOgoKc2ZfcGRtYV9lcnJfaXNyKCkgc2NoZWR1bGVzIGNoYW4tPmVycl90YXNrbGV0LgoK
-c2ZfcGRtYV9lcnJiaF90YXNrbGV0KCkgY2FjaGVzIGNoYW4tPmRlc2MgaW4gYSBsb2NhbCB2YXJp
-YWJsZS4KCkNoYW5uZWwgcmVzb3VyY2UgcmVsZWFzZSBmcmVlcyBjaGFuLT5kZXNjLgoKVGhlIGVy
-cm9yIHRhc2tsZXQgYWNjZXNzZXMgZGVzYy0+YXN5bmNfdHggdGhyb3VnaCB0aGUgY2FjaGVkIHBv
-aW50ZXIuCgoKCkkgcmV2aWV3ZWQgdGhlIExpbnV4IHY3LjMgc291cmNlIGF0IGNvbW1pdCBjMDNj
-MWExNDUwN2RmYWY4Yjg1NmMyNjA4ZjlhYzIxNjAyMWZjMjIyLgoKVGhlIHJlbGV2YW50IGxvY2F0
-aW9ucyBhcmU6Cgpkcml2ZXJzL2RtYS9zZi1wZG1hL3NmLXBkbWEuYzogc2ZfcGRtYV9lcnJfaXNy
-KCkKCmRyaXZlcnMvZG1hL3NmLXBkbWEvc2YtcGRtYS5jOiBzZl9wZG1hX2VycmJoX3Rhc2tsZXQo
-KQoKZHJpdmVycy9kbWEvc2YtcGRtYS9zZi1wZG1hLmM6IHNmX3BkbWFfZnJlZV9jaGFuX3Jlc291
-cmNlcygpCgpUbyBjaGVjayB0aGUgY29uc2VxdWVuY2Ugb2YgdGhpcyBwb2ludGVyLWxpZmV0aW1l
-IGludGVybGVhdmluZywgSSB1c2VkIGEgc21hbGwgb3V0LW9mLXRyZWUgc3ludGhldGljIHJlcHJv
-ZHVjZXIgb24gYW4geDg2XzY0IFFFTVUgZ3Vlc3QgcnVubmluZyBhIEtBU0FOLWVuYWJsZWQga2Vy
-bmVsIGJ1aWx0IGZyb20gdGhlIHNhbWUgbWFpbmxpbmUgY29tbWl0LiBUaGUgUUVNVSBtYWNoaW5l
-IHdhcyBxMzUgd2l0aCAyIHZDUFVzIGFuZCA0IEdpQiBSQU0uCgpUaGUgcmVwcm9kdWNlciBmb3Jj
-ZXMgdGhlIHBvaW50ZXItY2FwdHVyZS9mcmVlL2FjY2VzcyBvcmRlcmluZyBhbmQgdHJpZ2dlcnMg
-YSBzbGFiLXVzZS1hZnRlci1mcmVlIHJlcG9ydC4gSG93ZXZlciwgdGhlIFFFTVUgZ3Vlc3QgZGlk
-IG5vdCBwcm92aWRlIGEgbW9kZWxlZCBTaUZpdmUgUERNQSBkZXZpY2UsIHNvIHRoaXMgaXMgbm90
-IHlldCBhIHJlcHJvZHVjdGlvbiB0aHJvdWdoIHRoZSBhY3R1YWwgc2YtcGRtYSBkcml2ZXIgYW5k
-IGhhcmR3YXJlIHBhdGguCgpUaGUgcmVsZXZhbnQgS0FTQU4gb3V0cHV0IHdhczoKClsgICAgNS45
-MjEyMThdIEJVRzogS0FTQU46IHNsYWItdXNlLWFmdGVyLWZyZWUgaW4gcmVwcm9fZXJyX3Rhc2ts
-ZXQrMHhlZS8weGYwIFtzZl9wZG1hX3JhY2VfcmVwcm9dClsgICAgNS45MjQ0NTJdIFJlYWQgb2Yg
-c2l6ZSA4IGF0IGFkZHIgZmZmZjg4ODEwMDhlZGNjMCBieSB0YXNrIGtzb2Z0aXJxZC8xLzIzClsg
-ICAgNS45Mjk0NTVdIHJlcHJvX2Vycl90YXNrbGV0KzB4ZWUvMHhmMCBbc2ZfcGRtYV9yYWNlX3Jl
-cHJvXQpbICAgIDUuOTI5NTY2XSB0YXNrbGV0X2FjdGlvbl9jb21tb24rMHgxZmMvMHg3ODAKWyAg
-ICA1LjkzMTM0N10gQWxsb2NhdGVkIGJ5IHRhc2sgNzc6ClsgICAgNS45MzIxODRdIHNmX3BkbWFf
-cmFjZV9yZXByb19pbml0KzB4ZjcvMHhmZjAgW3NmX3BkbWFfcmFjZV9yZXByb10KWyAgICA1Ljkz
-MjUyNV0gRnJlZWQgYnkgdGFzayA3ODoKWyAgICA1LjkzMjYxOV0ga2ZyZWUrMHgxMjcvMHgzYjAK
-WyAgICA1LjkzMjYzN10gcmVwcm9fcmVsZWFzZV9jaGFubmVsKzB4MmMvMHg5MCBbc2ZfcGRtYV9y
-YWNlX3JlcHJvXQoKQ291bGQgeW91IHBsZWFzZSBjb25maXJtIHdoZXRoZXIgdGhpcyBpcyBhIHZh
-bGlkIHJhY2UgaW4gdGhlIGRyaXZlci4KClRoYW5rIHlvdSwKTEkgWGlhbw==
+
+
+On 10/18/26 10:23, Carlo Szelinsky wrote:
+> If devm_add_action_or_reset() fails, it has already unregistered the
+> ancillary I2C client, and the error message then reads that client's
+> device. It can only fail with -ENOMEM, which is already reported, so
+> drop the message.
+
+That's not really a fix but well:
+Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
+
+Thank you!
+
+> Fixes: a2317231df4b ("net: pse-pd: Add Si3474 PSE controller driver")
+> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
+> ---
+>   drivers/net/pse-pd/si3474.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/pse-pd/si3474.c b/drivers/net/pse-pd/si3474.c
+> index 1845b9c51cf7..2f4f241a48af 100644
+> --- a/drivers/net/pse-pd/si3474.c
+> +++ b/drivers/net/pse-pd/si3474.c
+> @@ -516,10 +516,8 @@ static int si3474_i2c_probe(struct i2c_client *client)
+>   		return PTR_ERR(priv->client[1]);
+>   
+>   	ret = devm_add_action_or_reset(dev, si3474_ancillary_i2c_remove, priv->client[1]);
+> -	if (ret < 0) {
+> -		dev_err(&priv->client[1]->dev, "Cannot register remove callback\n");
+> +	if (ret)
+>   		return ret;
+> -	}
+>   
+>   	ret = i2c_smbus_read_byte_data(priv->client[1], VENDOR_IC_ID_REG);
+>   	if (ret < 0) {
+
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
