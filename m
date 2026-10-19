@@ -1,59 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792423639;
-	b=3HN1GsDNa6UjbluPlnH8XKVQHsCQ6KQu5iD/F7E9GVbkWcizhFvfPBKFAxd7K7DXPy7E
-	 2Bjqmwgd6lPqCWppS4kr8GBmuwvZ5IgbLERbgTgPvaL19UYE66dczaWpQADM01+dPdWtN
-	 8lzii9uO4jrUtUBq43AV/QbwSBmcPzS/LJn6k4Cd1h4Z8iip6jHgQlo29B8lixaBBPTvM
-	 eNefJTedETSnDUW5wKREY4VaIJahBY90OhkqIiXZNgFp3HWiW6/ruhzRh29d1G0BLLa2V
-	 PFn7WMdY9xlTyBblmAtVmXCCUkokiM4zdffxqZsMhhnEEXb+T4Y2UWx3o53RCAIXa+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423639;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=p/d6RhL2Ea+gK3gLTdz2MSZMEDt3+2TPfT6YsedECQ8=;
-	b=x5B+OrwCI7rOd0UCnmkr3pFvW10PytTpMov1VFc4sIk1+tfnxqY1C2vuOntBplUJv4BR
-	 kLp3m+UJqV/mua4dZSJONZ6ffr7jZrCw6mMVPBUNiCav8XJupoGKNNbnFkK2VgvXoNHum
-	 Kmn2AtCFxv6kZ2ChZ//VwlwXlppkrK3RBZ8wAxjXP5Kt8tLiVYPkjKhPMSKXH/3dfyB7M
-	 LfOoCQLmpBS7LWr/XqpF+erW7CygdUTJuzs/gqgjDzDKgTWsAntRjcrj095dkHhzeLsjb
-	 yg2CkrHEpXcIwQJqE23CPNZRESshwSWe9jpK3Ufz3BunKOcppNmf+SGEjEbdVhuIbMw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wa4XtKPY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C4FB660B5044;
-	Mon, 19 Oct 2026 15:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792421706;
+	b=ei+L/tE3NSbTTcq1fTGCitQOJVuEHL/6P5sBV7nZdlIUV7HxrSFQqTCvM0Fl1aZbtP61
+	 kNAD8u4HF9xJO+3J3UHhb1/Vnu7E30ZyrWVZW9Gg0P3VA89kwSuDanZMxAIFhoQLIc4rM
+	 9NpV6WmV/6Vz9oAMo7AES3piS4HJR/SRjemckjJhHFO8DJPmeXlbvE7DgNFgY09QE3oau
+	 3OjBGOxqDKQtOxcyWRc1EI6pQr19XFpSXNv6ykygS7dVV1aUurabFZasVNfm2w2wVzVt+
+	 TeoMHDNsYYpo/w0fL8fVuZKz588IOCwhuBuHUyUEEVlHpGvIBJCm8d8HHEQJ45ad2wQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421706;
+	h=Received:Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=mZLzRwRYboY/RmAU+vEf+KfhFzbpntUfPL9/1QMLPg4=;
+	b=GCgR7D6d9SfRaYV226T9vC8CNfHsflX5NSht0VUFHsOhrhQ+SkEXvDKrqRrgP6gqky2K
+	 xZ5VXgVjp7GljaUJ5lMPtReA6bjTwpCgHc1UOEOaIswy+DaBV+yHAl9MqirNZa26zTs4u
+	 PUV5cOauu4ELT9nT9xpMFdbYQbD86qou91BUoZKVU8uudgQJbx5BMUt062AzwENQhU9Er
+	 SZk12hg4aUKF5DQUwuLW62Dzvo3j7mcjwQscScTRCLh8A/63RaCl1WcBgKD0RK4uNN8qz
+	 2mF9QfBDlQd9HACVpostfQBImSKzBG1yoC9qWls7XYA/L1j40nWbe0dyg+tTPepun2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHHofU0r;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B007B606EFE6;
+	Mon, 19 Oct 2026 14:55:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wa4XtKPY
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1BEB51F000C4;
-	Mon, 19 Oct 2026 15:27:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHHofU0r
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABBE234964;
+	Mon, 19 Oct 2026 14:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421706; cv=none; b=TCnLJuB3FaGM41lcTEq2aWDzCDHTl8TD8XX++TZc52MwHT7PhCag2sSFh7cx5nxv3yDN1QVDBLoX1jCiik56UfdtLt9awUXTXFPF1hkdVLFxV35fLn8kPAwnWLZk4v9/aNJOunDo6D7ilxchKBGqduKvrHdPd8ut3HOUNtnA5RM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421706; c=relaxed/simple;
+	bh=rzZ8aVYHTbvvvHXdIbMH7BBTWk45dgc5mYEFN5NQOlM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=m1fZLah0vPULlyLzU9lUVjC99sltZZjXQKpqaUIsfXtjFeC6ku308uJGdFLlGcLRvPmKjeVI0fcNdl0uzS6XYVvAxAMFSozDnQlPmTtfSgU6dD9Jnpethn14G5delDQT1Y45vYkgFtS1I4y5AXEJFsqe8X9wWrEIcL3dS3zGVu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHHofU0r; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526C01F000C4;
+	Mon, 19 Oct 2026 14:55:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792423638;
-	bh=p/d6RhL2Ea+gK3gLTdz2MSZMEDt3+2TPfT6YsedECQ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wa4XtKPYJ+VsN4O9LnnUfUlWnBYjMA+2WbPDAeDekCO1892qGW9gpq4arBBxdtyG0
-	 VJg9bZj9lvIYFyWBqYpla8Nz1pSc/ypinDjNVW4GV7BbPxiAki5ehjzhfSg4Y5JjlS
-	 OASniCfLVra6fUeAyap6CVDeC0qiLRM+ly6qbuUZ8bTXH7HVEocHzUHaQ2EiRv22Qz
-	 j8JmOWcd4IgRk+i5ATSlvKlw9K+L9qp+YIo+h1OrvGBTd9Cz6sRcJ2w2jbTUyS6W61
-	 okbMw218xg3P23p/oj1WnRhk82AStrY6Z4WLSnrVwT8yC9xU4FBLxGIz7ir50gZjx/
-	 aw3Z/9sTqcB2g==
-Date: Mon, 19 Oct 2026 18:27:15 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [RFC PATCH 5/6] KEYS: Replace assoc_array with struct
- keyring_index
-Message-ID: <atY20yF6B6-FpslZ@kernel.org>
-References: <20261016215326.4110064-6-jarkko@kernel.org>
- <20261016215326.4110064-1-jarkko@kernel.org>
- <2608630.1792422168@warthog.procyon.org.uk>
+	s=k20260515; t=1792421705;
+	bh=mZLzRwRYboY/RmAU+vEf+KfhFzbpntUfPL9/1QMLPg4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=kHHofU0rYuCnhF24LmEHw4SnsG9PEmLBo2DwGVUs58j86P/0FdZ6XWeHDZVLvTErD
+	 x+nBzd9woAXRC3l15OeMB2SlHqkfUknr7620h8Qw4aOs5iK5MiNwO3y4ZITB91sqbf
+	 KFSL4LR8q+FXg/ttYU8yCEw4UF3zy4j1ho4b//W/OrxVJzexrr/Gl14YZI46TTMFYX
+	 5F/oYIRGQcdconbxeDYTqbmyc9ZBEUKlERt8NvM5jRfpq83cMG1JeKy6YVKoLKVbGm
+	 YD3+tckFU23CE+YxRzCrFnAFxDC8FNpacA+kHqx1WGrt7z22o7RoX6nmDYc1b6v3ip
+	 VFfur1KqMae5w==
+Subject: Re: [PATCH net-next v6 1/5] selftests/bpf: Fix XDP feature test setup
+ and teardown
+From: netdev-bot+sashiko@kernel.org
+To: bochaolucky@gmail.com
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+ memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, shuah@kernel.org, davem@davemloft.net,
+ kuba@kernel.org, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
+ andrew+netdev@lunn.ch, edumazet@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, netdev@vger.kernel.org,
+ alexis.lothore@bootlin.com, lorenzo@kernel.org, tiozhang@didiglobal.com,
+ willemdebruijn.kernel@gmail.com, petrm@nvidia.com
+Date: Mon, 19 Oct 2026 14:55:02 +0000
+Message-ID: <179242170282.3135.3655485232785325877@kernel.org>
+In-Reply-To: <20261018-xdp-v5-send-20261008-v6-1-7336e1282ca3@gmail.com>
+References: <20261018-xdp-v5-send-20261008-v6-1-7336e1282ca3@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,124 +81,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2608630.1792422168@warthog.procyon.org.uk>
 
-On Mon, Oct 19, 2026 at 04:02:48PM +0100, David Howells wrote:
-> Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> 
-> > Maintain two linked lists in the index:
-> > 
-> > - all: enumerate committed links without retrying hash table walks when
-> >   the table resizes.
-> > - keyrings: visit nested keyrings during recursive search without scanning
-> >   links to other key types.
-> 
-> Do you actually need two lists?  Can you just "sort" the list to put all the
-> keyrings first?
-> 
-> > +			struct keyring_index __rcu *links;
-> 
-> Does that actually need an __rcu mark?  Is it going to get replaced once
-> allocated?
-> 
-> > +struct keyring_link;
-> > +
-> 
-> Somewhere near the top of internal.h, please, not sandwiched in the middle of
-> some func declarations.
-> 
-> > --- a/security/keys/keyring.c
-> > +++ b/security/keys/keyring.c
-> > @@ -14,12 +14,12 @@
-> >  #include <linux/err.h>
-> >  #include <linux/user_namespace.h>
-> >  #include <linux/nsproxy.h>
-> > +#include <keys/keyring-type.h>
-> > +#include <keys/user-type.h>
-> 
-> Why #include user-type.h here?
-> 
-> > +struct keyring_index {
-> > +	struct rhashtable	ht;
-> > +	struct list_head	all;
-> > +	struct list_head	keyrings;
-> > +	unsigned long		nr;		/* Number of committed links */
-> 
-> Given key->serial is 1-INT_MAX, nr probably doesn't need to be unsigned long -
-> otoh, it's not likely to leave a hole, I guess.
-> 
-> > +struct keyring_link {
-> 
-> I wonder if keyring_entry would be a better name, but the docs do mention
-> making and removing links.
-> 
-> > +	unsigned long		hash;
-> > ...
-> > +	struct rcu_head		rcu;
-> 
-> Can they be in a union?  And I would put rcu first as I think there are (or
-> maybe used to be) some things that required it to be first.
-> 
-> > +	struct list_head	keyrings_link;	/* in keyring_index::keyrings */
-> 
-> This may be unnecessary if you can put keyrings at the front of the list.
-> 
-> > +	struct keyring_link	*replaces;	/* Link this one replaces, or NULL */
-> 
-> Please don't put this in keyring_link.  It's only needed by __key_link() and
-> friends and could be passed around in a context struct as the edit script is
-> done now:
-> 
-> 	struct keyring_link_context {
-> 		struct keyring_link *spare;	/* Spare link block */
-> 		struct keyring_link *replace;	/* Link being replaced */
-> 	};
-> 
-> then:
-> 
-> 	 int __key_link_begin(struct key *keyring,
-> 			     const struct keyring_index_key *index_key,
-> 	-		     struct assoc_array_edit **_edit)
-> 	+		     struct keyring_link_context **_edit)
-> 
-> > +/*
-> > + * Remove every link from a keyring.  The caller holds keyring->sem
-> > + * write-locked.  A concurrent RCU reader can see some of the links gone and
-> > + * others not yet.
-> > + */
-> > +static void keyring_remove_all_links(struct key *keyring)
-> > +{
-> > +	struct keyring_index *links = keyring_index_locked(keyring);
-> > +	struct keyring_link *link, *tmp;
-> > +
-> > +	if (!links)
-> > +		return;
-> > +	list_for_each_entry_safe(link, tmp, &links->all, all_link)
-> > +		keyring_remove_link(links, link);
-> >  }
-> > ...
-> >  int keyring_clear(struct key *keyring)
-> >  {
-> > ...
-> > +	keyring_remove_all_links(keyring);
-> 
-> This can be made atomic by replacing the key->links pointer value with NULL
-> (since key->links is marked __rcu), then destroying the content afterwards.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Great remarks. I'll try to address them all together when I address
-Eric's remarks and there's been a few cleanups I've made. I'll fuse
-this all together but there's one thing.
+Low priority / nit picks for your consideration:
 
-I just sent a patch set, which is a result of going through the
-head of the patch set and hand-crafted bug fixes that make
-sense and dropped false positives. If we could get those ack'd
-soon I could then iterate a cleaner version of this patch
-set.
+- [Low] The `xdp_attached` guard only records that an attach succeeded at
+  some point.
 
-> 
-> David
-> 
+Pre-existing issues:
+- [Medium] test_xdp_features.sh uses only the tester's exit status, and
+  tester_run() returns 0 whether or not the capability is DETECTED or…
+- [Low] In tester_run(), the settimeo() and connect() failure paths
+  return directly without close(sockfd), which leaks the control socket.
+- [Low] recv_msg() accepts payloads shorter than val_size and copies only
+  the bytes it received.
 
-Br, Jarkko
+--
+
+selftests/bpf: Fix XDP feature test setup and teardown
+
+This commit fixes several setup and teardown problems in the xdp_features
+selftest tool. It initializes the DUT state and socket address lengths,
+hands the echo socket back to the caller, and stops and joins the echo
+thread only if it was started. It also samples the tester counters before
+teardown, and it detaches XDP programs only after a successful attach.
+
+> diff --git a/tools/testing/selftests/bpf/xdp_features.c b/tools/testing/selftests/bpf/xdp_features.c
+> index a27ed663967c4..3076fdda61fa4 100644
+> --- a/tools/testing/selftests/bpf/xdp_features.c
+> +++ b/tools/testing/selftests/bpf/xdp_features.c
+
+[ ... ]
+
+> @@ -341,10 +343,14 @@ static int recv_msg(int sockfd, void *buf, size_t bufsize, void *val,
+>  		    size_t val_size)
+>  {
+>  	struct tlv_hdr *tlv = (struct tlv_hdr *)buf;
+> -	size_t len;
+> +	ssize_t len;
+>  
+>  	len = recv(sockfd, buf, bufsize, 0);
+> -	if (len != ntohs(tlv->len) || len < sizeof(*tlv))
+> +	if (len < 0)
+> +		return -errno;
+> +	if (!len)
+> +		return -ECONNRESET;
+> +	if (len < sizeof(*tlv) || len != ntohs(tlv->len))
+>  		return -EINVAL;
+>  
+>  	if (val) {
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but recv_msg() only rejects
+payloads that are larger than val_size:
+
+	if (val) {
+		len -= sizeof(*tlv);
+		if (len > val_size)
+			return -ENOMEM;
+
+		memcpy(val, tlv->data, len);
+	}
+
+Can a short payload leave part of the destination unwritten?
+
+In tester_run(), stats and advertised_feature are both declared without
+an initial value. Leftover stack bytes could then affect the feature
+result that gets printed.
+
+A later patch in this series changes the check to:
+
+	if (len != val_size)
+		return -ENOMEM;
+
+That rejects short payloads before the memcpy().
+
+[ ... ]
+
+> @@ -403,9 +412,12 @@ static int dut_run(struct xdp_features *skel)
+>  			if (err)
+>  				goto out;
+>  
+> +			xdp_attached = true;
+> +
+>  			err = dut_run_echo_thread(&dut_thread, &echo_sockfd);
+
+[ ... ]
+
+> @@ -422,6 +434,7 @@ static int dut_run(struct xdp_features *skel)
+>  
+>  			exiting = true;
+>  			bpf_xdp_detach(env.ifindex, flags, NULL);
+> +			xdp_attached = false;
+
+[Severity: Low]
+The xdp_attached flag records that bpf_xdp_attach() succeeded at some
+point. However, bpf_xdp_detach(env.ifindex, flags, NULL) removes
+whatever program is attached to the device at the time it runs.
+
+If another privileged user replaces the program between the attach and
+the detach, would this still remove that other program?
+
+The out: label in tester_run() uses the same pattern:
+
+	if (xdp_attached)
+		bpf_xdp_detach(env.ifindex, flags, NULL);
+
+A later patch in this series appears to fix this. The DUT attaches with
+bpf_link_create() and cleans up with close(link_fd). The tester no
+longer attaches an XDP program at all, because it uses AF_PACKET.
+
+>  
+>  			tlv->type = htons(CMD_ACK);
+>  			tlv->len = htons(sizeof(*tlv));
+
+[ ... ]
+
+> @@ -578,7 +596,7 @@ static int tester_run(struct xdp_features *skel)
+>  	struct bpf_program *prog;
+>  	unsigned int stats;
+>  	int i, err, sockfd;
+> -	bool detected_cap;
+> +	bool detected_cap, xdp_attached = false;
+>  
+>  	sockfd = socket(AF_INET6, SOCK_STREAM, 0);
+>  	if (sockfd < 0) {
+
+[Severity: Low]
+This is a pre-existing issue, but the settimeo() and connect() failure
+paths just below this return without closing sockfd:
+
+	if (settimeo(sockfd, 1000) < 0)
+		return -EINVAL;
+
+	err = connect(sockfd, (struct sockaddr *)&env.dut_ctrl_addr,
+		      sizeof(env.dut_ctrl_addr));
+	if (err) {
+		...
+		return -errno;
+	}
+
+Does this leak the control socket? Now that xdp_attached starts out
+false, could these paths go to the out: label instead?
+
+A later patch in this series changes them to "err = -errno; goto out;".
+
+[ ... ]
+
+> @@ -636,19 +655,21 @@ static int tester_run(struct xdp_features *skel)
+>  	if (err)
+>  		goto out;
+>  
+> +	/* Sample before teardown, which can produce additional echo traffic. */
+> +	detected_cap = tester_collect_detected_cap(skel, ntohl(stats));
+> +
+>  	/* stop the test */
+
+[ ... ]
+
+>  	fprintf(stdout, "Feature %s: [%s][%s]\n", get_xdp_feature_str(),
+>  		detected_cap ? GREEN("DETECTED") : RED("NOT DETECTED"),
+>  		env.feature.drv_feature & advertised_feature ? GREEN("ADVERTISED")
+>  							     : RED("NOT ADVERTISED"));
+>  out:
+> -	bpf_xdp_detach(env.ifindex, flags, NULL);
+> +	if (xdp_attached)
+> +		bpf_xdp_detach(env.ifindex, flags, NULL);
+>  	close(sockfd);
+>  	return err < 0 ? err : 0;
+>  }
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but detected_cap and
+advertised_feature are only printed here. tester_run() returns 0
+whatever their values are.
+
+test_xdp_features.sh checks only the exit status of the tester:
+
+	ip netns exec ${NS} ./xdp_features -t -f XDP_PASS \
+					   -D $V1_IP6 -C $V1_IP6 \
+					   -T $V0_IP6 v0
+	[ $? -ne 0 ] && exit
+
+Could a broken or unadvertised XDP action still pass the selftest?
+
+A later patch in this series ("selftests/bpf: Track XDP test processes
+and isolate namespaces") adds:
+
+	if (!err && detected_cap != !!(env.feature.drv_feature & advertised_feature))
+		err = -EINVAL;
+
+The same series also replaces the shell script with
+drivers/net/hw/xdp_features.py.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261018-xdp-v5-send-20261008-v6-0-7336e1282ca3%40gmail.com
