@@ -1,59 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435323;
-	b=O3B8a4bKkJHwcu9U3DElMs8ambcVKypVrPRVrIwFU7YWuHlkc0FDvuXJP4v1zcq3bMr/
-	 RtLaddkhAPEUPMdJeiu1Vlfqqe7IvVq20NaNdBRaS57EsvGWldy5kVvGCZDMNnYVYy/6R
-	 Je9WZi5ydBecpTKXKIN6FRCXNaJ7+eIs/eczRJUcdRvwPjq8o35Sg2+dt+9+YMxlk0hvl
-	 NrMKXKNJKMRCJuoBZTasRF9hWXqrWHAEeVcjViKKj+l9oYxjRnoBCX2uq91RgZDQ6Jhyh
-	 p9EdkyxxYEaPbISsLj8CGUxsh1Cnx0EvW8k/usvnjTeCg6xNSq0YMGDjLIJ0BlANs3g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435323;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=DBaYILr5yPrj7vHaTN/bXGKctCfgNdn8sIt81WZsMvE=;
-	b=rAFzHddIc4dPHrb4zrbPj1Notj6O806NHN5iUAO1PLlvIfW4FYsw9WgkpCpichywttcB
-	 kCDx3DkSKvLEvioPgb/SLaJXHfWC6oxTcc6bi9JssYibRIP/stSRURuFEVqu/wd6miAFP
-	 t0XRSs+es1KZZEukRovRfbdQ55phN4qutSfAwXaqe5L8MlD5i9eyqSKReMKkDMSe+YHWx
-	 77Cv7RKrry17eFsYtWmpi47Vr1sf2b9W/LDhdjFc8O8IZ9XkLcRny4UmWNvQ3Rux1OAc+
-	 KUNXKijL8lUehC36IdudQtxG5VcISvWIXRBdRs+jwhDkhF14a8V2JN2QHnvenxpg+eA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUffoNsL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792435357;
+	b=H54KbSjDxzf4nJ8qZOODU2mjQ09vNrtWa8Yyu/VV/3O38ebjU4y6s/cvNx7TKGZkA5ka
+	 fYbkW/9VS11Q5qUjVsnRU1mpj/jWZLeQeHqdGg9mlxn0gdpfTXg9jqCPtwhJoIs7Ucjtq
+	 biW0xs6jjUi4qjYuvlSuViQP4Y15753EkNFQh4YAVygJTpiyYg1aeapVzCdn02alP3x71
+	 LuVaeSHPCQUbWwwdI9+Bk7CuaASqwhqgzWDd1+dO0QMwUZCF95DVdgB7DxxMVZIbGw8VM
+	 uFxV+b9kxjBbdwFlmlXPIRsWVFae0NNhvxMwoDn6xTAip4USp0fQ1EQHzJj2dWjil3Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435357;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=O0/VYkXEIyWNDLU66nfUqanWJBrmo78SmdwQEdxnnCk=;
+	b=jAFsy5+2PRa0sOPMVs7/Chrt/sanpZ0AyT02DYQ9wNk71yNXZHPcM9bxxxUXwDZLDHnL
+	 jhLzS4t1M9QwSwOTd+jnBbTWUdAQb0glyUNtf1fPFDKFLm3dOYj7xPNcU1eTmViEjMzNe
+	 WnGqa2EjPApusrv0TUlrKRzbPZ/r6/UOpMTWeooTvx4gAQyOVMvTrg9i6ogIKqzZZLLlr
+	 8bbU2r0mwBY0skzBxozomDPrF7mQT7ujNQSYKiusYHQAdmgCFGTzPi6Ok9inq4zUKV2kr
+	 HtKpnTxv4umtYa5E+y5AJr6wBonUZ9wsMQ4zO7nCF4VN18HntZQrcmnml8kcwy+0nuQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kZlm5W7w;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.15
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011015.outbound.protection.outlook.com [52.101.57.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D446606A319;
-	Mon, 19 Oct 2026 18:42:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B9E606A31F;
+	Mon, 19 Oct 2026 18:42:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24B9E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUffoNsL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FA5E1F000C4;
-	Mon, 19 Oct 2026 18:42:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792435322;
-	bh=DBaYILr5yPrj7vHaTN/bXGKctCfgNdn8sIt81WZsMvE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FUffoNsLPX/alWwlHjQ1RwdBORgG+Y+vBGUEZkLwRpVIt8EwBVWeKfEdt4KW/rRYp
-	 8kWbd8b9PhDBJlIdI9d3uchDLxTtn3KtHTxqL0wUBIohpZtxpiVDATF1jDPN2En13+
-	 7i6D5CXdBIBGo1n93fUaE83qCbQ/kK+7gSXZU/vCWztyOxRc2qerLkn5HAWIUMJZnJ
-	 IkJUBcg/YYD9syn4c8n+6AVfIVPGEVTRqe65x7vZ7nvyD0L/RiCz5Pbwy3IJcebtSV
-	 lPiBfA//tLOpYQ1AvbdWE7o3sZvyj66Jr8sjT2Tns9BzrTKGyvWg3BDItZOfIXb/LD
-	 Z393D8EBN+N5Q==
-Subject:
- Re: [PATCH net] net: pse-pd: don't enable a PI again while disabling it
-From: netdev-bot+sashiko@kernel.org
-To: ross@r-sc.ca
-Cc: netdev@vger.kernel.org, o.rempel@pengutronix.de, kory.maincent@bootlin.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org
-Date: Mon, 19 Oct 2026 18:42:01 +0000
-Message-ID: <179243532177.3135.6604862508015344848@kernel.org>
-In-Reply-To: <20261018182005.1193-1-ross@r-sc.ca>
-References: <20261018182005.1193-1-ross@r-sc.ca>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kZlm5W7w
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eZ/NU3gM/YTbgJ6qq8XyjTxKPwmVRIHxkWOX50XZjhmZLVphBzQTPZ80cFDVP2nGV3Znfpp6mplPNj4nxLcqD7S3GF9qbGotyxmwnvczX3MUXhx0p5kuL8By0XtE2//e8WsOYbdZgaaQVyGPqe5sRKI9tVmFBBy9HQU09Gt1jdPWdHNWdOZYarwDuNSVvh4NEeF75NyvAyHZ7UCCZfGy1bZJrALNNCutuGnoi6a0ZTthxOIx/HrDjdwhj45P0rkTXevUCjtpLPz06Sf6UhSGCVkqxH514M/4CnGepXZvSX9yLV9ATx0rLzUIppeGdqmNoPm62NpMIVXbyXqaz63aog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O0/VYkXEIyWNDLU66nfUqanWJBrmo78SmdwQEdxnnCk=;
+ b=J8kpWeNYi73GBPos4rFEBM2Th+ZJy7cXQ+UiqbvU8V524ZXDECGL2/4V+9AYl5fJlgkqOijsOHlNhuIEakmtOaKdByS0GWWwnmR9rcgxnKDWsp9i5tSeV2ELAJP+3whYs6HzXeCyIY7jsrPX1ATYlqDtdLLMKOJ+jv+tMxZb4pT0rZfSamAP5Q9TzbdkpMuzZiE3EQBbVQQNabBYdaAoDkJWDONsQ/llvMThymzbq3W8jrwwE1Zo2Bdw8+7ltOEZr0P5ALzFwevzCKu0+fTZno3PCCWwxcxXjyC4mlJiMH3uTA7Fa70e/glFu5KqtBbUDaJe4yBj756lZjE4p7BQLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O0/VYkXEIyWNDLU66nfUqanWJBrmo78SmdwQEdxnnCk=;
+ b=kZlm5W7wOlPJT1kyFu4q5mQzDk3DGLx+yBTG1r5NiZYqnk0FZ86+6pG42aJL71R9h5PaY4g8uNQhVdhCV7V9H8ml9Ux+GCRLTMkPVEMR2pzmkIC8ejJnf5GsXCcdjz/A8C2CapwyJbSMYmwHYJl4Prz9Bq7XRz9IrpZ8229QWdU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ PH7PR12MB7794.namprd12.prod.outlook.com (2603:10b6:510:276::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 18:42:32 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 18:42:32 +0000
+Date: Mon, 19 Oct 2026 14:42:18 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Adrian Schlegel <me@adrianschlegel.com>
+Cc: tony.luck@intel.com, bp@alien8.de, x86@kernel.org,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+	sohil.mehta@intel.com
+Subject: Re: [PATCH v3] x86/mce: Do not treat cache hierarchy errors as
+ memory errors
+Message-ID: <20261019184218.GB144824@yaz-khff2.amd.com>
+References: <20261003222012.19685-1-me@adrianschlegel.com>
+ <20261012193305.38931-1-me@adrianschlegel.com>
+ <20261019153207.GA144824@yaz-khff2.amd.com>
+ <DM914GO4A8WW.Q7YN7ISOQJJI@adrianschlegel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM914GO4A8WW.Q7YN7ISOQJJI@adrianschlegel.com>
+X-ClientProxiedBy: BL1PR13CA0372.namprd13.prod.outlook.com
+ (2603:10b6:208:2c0::17) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,310 +99,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|PH7PR12MB7794:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc56b835-82c7-413a-f157-08df2e10bbfa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	RLpSC9UjsDpvUMWfvIhVlKjYE13m6wu7xWp7UA3RUivVZo+J0/HGFABajeg/h+FlBg54m2K9MamuB8MgPC/ZgK38TnVoTmC4akZowHXKfn28qkGBpPJgM0Rsdh2aLiJhO7IrI/tmUI8db87rL9MAsXURL2jLAbnL0Vpr0GEjKJk0ZEM3vg1PY8CwJZWmFXmRuE1T03OCYSfZW8L049z8I73OykJ978/D8YiTHnoZ3Buv/z+klVXKJxpC6aezpUJzjwyd5ZfEv4cnVw5wPhBLpjgD6bf7JYOjO9msCK0Iz6UCHfxSFegBvYkV0CBjTCX+Avk3p/1RJr2jvjCo/k/9pJS6Qsdfkgm1yInKWRf6+wigA0aNMq8d4fwyx9mtgZlvR6OT0uuwkErmZTgqrvumhV2osh9xj1j6xIFcFoLjOv86VU/Pz3fEMR94zLYavqV6lsAxJw/3mBPxGAdcyv/y/1RiihN68LNkWgT0CM+/xJDSBmnZ4J2FJ5DZUtv/0w8RJzFmnKqLQF/gSaupQfQYgFhP0h7y5ChH8GlgJSB89VSobVluDeQRbenY1L6t+zq/A5Za7VmZ8uDXpVlH1iupxeTMm7bbYpD7sPaMPuo7etp2OhE/72xq6l0UImSFJN1t
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?CBUT3E/fFXcG6ddQkC0ENi6kXAD/MWUbrGnk981nlmblyvo/v5L7xm1S3R4t?=
+ =?us-ascii?Q?VdIVnXw3VuKnWDSvC42Y5edxFlnrBxdQ5jJf6TfB7RedNM92eK3sNc8I/yDe?=
+ =?us-ascii?Q?uY0DmNhEWKovdAqIySpzoncLfjb/G1ZSHkSwkDEKHm2wTDTyNSf3xyDje6rb?=
+ =?us-ascii?Q?MTyyreU9df+7KHZOWkNpc28T8tPFLNe6DuVdHxMAckom8CUe/wj0/pc7KI9j?=
+ =?us-ascii?Q?b0Qyr6rGMwVnXowjACMLK8KniKhn76v8ynnk32p03hZFhzlj6+7N+qktBKQj?=
+ =?us-ascii?Q?doJdvaGmPdqkELlfOdcngCF7L57Z62wA7188cEb5JActqNz+oIaJ+zEbVfPI?=
+ =?us-ascii?Q?T1raY6lbdGn7/EtwZSAlS6kuRtVmnJ6cgchFLg5L7ZYuIhV2eWVUdEkNfZMq?=
+ =?us-ascii?Q?dqyYEiJw8o7hvjBztmTkoMcMLG4GV4Fc22Aph1cUpwGZfH4LZLJRi20xYE1J?=
+ =?us-ascii?Q?Oh0tuaI+6KH0ghDKpkrGKe+n8mi4VcbziT3mK5uNsBmu47izbc3RsABGpJ/i?=
+ =?us-ascii?Q?TuN32Zv5KdRIqZ7G/afqGtLGvzGbW54MqmifbdJsgNG4pEsS9PJYr+yZWg7G?=
+ =?us-ascii?Q?B6p0IYQPeuyjPUK9S3ufobHy5gsnnuvIFpEIU7kdvzIxbMl50o38PdvuRQM5?=
+ =?us-ascii?Q?J6kCV5VxZ8qHoIw2+usbcOWSNFVpnrxbx0664VdDxKUyvqxpUq9bYUZecq1J?=
+ =?us-ascii?Q?vnGpOpcHoeLlKLUBV8647WGE9y/i3Xy7uioNFR0LJ/wK84CdlVnz6UU8jWj8?=
+ =?us-ascii?Q?CYkz5QpcIuUbDXs6i0ExcHdHDJnBObbdd/i/vjU4riX1b3IZ0+OjWe9IUOyp?=
+ =?us-ascii?Q?Z/Kv3uH/yzHcISplt3RmfUc7OWbcA5B4f3HmC5r3cnK+2XEJlpE/f9kCcNoh?=
+ =?us-ascii?Q?8kfom6iLKEIliG8+icEq05XBvcabnB0EC9IXmZ/iv2N6v6PQBCfMVuo6IxWS?=
+ =?us-ascii?Q?O0ObkBcNiLkWqRsv2AolOBi9DHTPaCOSIMK6+A2Xma1KwZh66kQmjkmlIETu?=
+ =?us-ascii?Q?4lhAMnWOd1slKBrsX2hPOH/QH8M2Qr7HcFucun3KT8BufownV3du/Tc/BgMJ?=
+ =?us-ascii?Q?1oFI2dsMs1Mb5TwJYIuNGeb+56fWn5PDf82OJmYstfXhkxsN7NyDRqKi6DcT?=
+ =?us-ascii?Q?LKHPDip4y7DdS5tT5x1JPZyAjxY8K8cIm/r5AZm7yKVJgxlT8YCI8Fv5jHPw?=
+ =?us-ascii?Q?l9Q+OsUKSeqVrZY8VDRd4olYhTgQBfnc/TLzTqUDHvFru+Z+2AaERQyeXc//?=
+ =?us-ascii?Q?jLiQYYCkwdUFqvXN1lIpqcpZefuipKqt1hAuRghE8fTI4XqXyLSWL/Nec4Zb?=
+ =?us-ascii?Q?4Zi80HJKIpW6ROe2XZinoXZJgnnH9u6KoKC+6Rx7i3Jbg/njNvOH5Urt4iWA?=
+ =?us-ascii?Q?64CI6DA3Q0nUUk2xnU7uqetxAiXnPndb+FJPhOzAvsUdRVWdEXohC/Erbkob?=
+ =?us-ascii?Q?hLBdEUmv6HJnG6joW9rWNqQXlDfisckvOsNK2j41vZjp6OWla11Qe+V8XXjn?=
+ =?us-ascii?Q?/lRnc69/Ni60b+fJD4ueUBR+boBn9bRd7Xs/2IzqATAQKDjyuejwIBrSGQ9G?=
+ =?us-ascii?Q?JOktP/igqukGtGjW38os+fzMLFbZgseaPa99E3G04Ulc51urtZmcRC5vHWCH?=
+ =?us-ascii?Q?EDrKhusNjfd0aJbfejvPYGO/68gebGlDrdm8NVb00BCU6MDJz7CpwsdyujVh?=
+ =?us-ascii?Q?9pDkMngFE47hxBjH9xBSGHpxBYjjO5GNf0Zici7ellm6CvSB?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc56b835-82c7-413a-f157-08df2e10bbfa
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 18:42:31.9667
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3pSIuNmh1bQHTmRGw4y0/3CgvnwV0pOzg9RDwW5I/m94rVq0MeTSAUhGyvt0XGWAIyy2cAd+gSs1q/YZUHYYCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7794
+
+On Mon, Oct 19, 2026 at 08:34:06PM +0200, Adrian Schlegel wrote:
+> On Mon Oct 19, 2026 at 5:32 PM CEST, Yazen Ghannam wrote:
+> > The SDM also mentions "Extended Memory Errors". I guess these were left
+> > out before, but should they be included?
+> 
+> I don't think so, since from what I can tell from the Intel SDM (Memory
+> Controller and Extended Memory Errors), extended memory errors use the
+> same encoding as normal memory errors, but report errors in memory that
+> is used as a cache, similar to what cache hierarchy errors do.
+> 
+> I also found this thread, where Tony made the same point:
+> https://lore.kernel.org/all/SJ1PR11MB60831E048B544C83E845D907FC8DA@SJ1PR11MB6083.namprd11.prod.outlook.com/
+> 
+
+Ah okay, makes sense.
+
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+
+Thanks,
+Yazen
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 0 (5) · Low: 0 (1)
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch removes the power-domain retry from
-  pse_disable_pi_pol().
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  pse_pi_disable() drops the error from _pse_pi_disable() and always…
-- [Medium] This problem wasn't introduced by this patch, but in the
-  DISCONNECTION branch of pse_set_config_isr() isr_pd_detected is…
-- [Medium] This problem wasn't introduced by this patch, but
-  pse_pi_is_admin_enable_pending() returns false only when…
-- [Medium] This problem wasn't introduced by this patch, but
-  pse_set_config_isr() starts with 'if (notifs &…
-- [Medium] This problem wasn't introduced by this patch, but
-  pse_ethtool_set_pw_limit() reads admin_state_enabled and…
-- [Low] This problem wasn't introduced by this patch, but in
-  pse_pw_d_retry_power_delivery() the variable 'int prio_max =…
-
---
-
-net: pse-pd: don't enable a PI again while disabling it
-
-This patch splits _pse_pi_disable() in two. __pse_pi_disable() disables
-the PI and frees its budget, and _pse_pi_disable() also retries power
-delivery in the power domain. Admin state and PD detection are now cleared
-before _pse_pi_disable() runs, and pse_disable_pi_pol() no longer retries
-the power domain.
-
-> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-> index a5e6d7b26b9fd..b46e3a13a3108 100644
-> --- a/drivers/net/pse-pd/pse_core.c
-> +++ b/drivers/net/pse-pd/pse_core.c
-
-[ ... ]
-
-> +static int _pse_pi_disable(struct pse_controller_dev *pcdev, int id)
-> +{
-> +	int ret;
-> +
-> +	ret = __pse_pi_disable(pcdev, id);
-> +	if (ret)
-> +		return ret;
-> +
->  	if (pse_pw_d_is_sw_pw_control(pcdev, pcdev->pi[id].pw_d))
->  		pse_pw_d_retry_power_delivery(pcdev, pcdev->pi[id].pw_d);
-
-[Severity: Medium]
-This is a pre-existing issue, but pse_pi_is_admin_enable_pending() only
-treats a PI as not pending when pse_pi_is_hw_enabled() returns exactly 1:
-
-	ret = pse_pi_is_hw_enabled(pcdev, id);
-	/* PSE PI is already enabled at hardware level */
-	if (ret == 1)
-		return false;
-
-	return true;
-
-If ops->pi_get_admin_state() fails, a negative error is treated as
-pending. One example is a failed i2c_smbus_read_word_data() of
-TPS23881_REG_PW_STATUS in tps23881_pi_get_admin_state().
-
-Can the retry loop then call _pse_pi_delivery_power_sw_pw_ctrl() on a PI
-that is already powered? That would request its budget a second time.
-pse_pi_allocate_pw_budget_static_prio() then overwrites
-pi->pw_allocated_mW, which leaks the earlier allocation.
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but in
-pse_pw_d_retry_power_delivery() prio_max is declared inside the loop body:
-
-	for (i = 0; i < pcdev->nr_lines; i++) {
-		int prio_max = pcdev->nr_lines;
-		...
-		if (pcdev->pi[i].prio > prio_max)
-			continue;
-
-		ret = _pse_pi_delivery_power_sw_pw_ctrl(pcdev, i, &extack);
-		if (ret == -ERANGE)
-			prio_max = pcdev->pi[i].prio;
-	}
-
-The value saved after -ERANGE is lost on the next iteration. For the
-static strategy, pse_ethtool_set_prio() rejects prio >= nr_lines, so can
-the prio > prio_max check ever be true?
-
-The comment "Do not try to enable PI with a lower prio (higher value)
-than one which already can't be enabled" describes a cut-off that never
-seems to happen. Should prio_max be declared outside the loop?
-
-[ ... ]
-
-> @@ -490,7 +513,10 @@ static int pse_disable_pi_pol(struct pse_controller_dev *pcdev, int id)
->  
->  	dev_dbg(pcdev->dev, "Disabling PI %d to free power budget\n", id);
->  
-> -	ret = _pse_pi_disable(pcdev, id);
-> +	/* The power freed is for the PI being allocated, and this PI waits
-> +	 * for power again: no retry of the power domain here.
-> +	 */
-> +	ret = __pse_pi_disable(pcdev, id);
-
-[Severity: High]
-With the retry removed here, what powers the evicted PI back on when the
-allocation that evicted it doesn't use all of the freed budget?
-
-The evicted PI is left with admin_state_enabled = 1 and
-isr_pd_detected = true, but it is off in hardware with
-pw_allocated_mW = 0. pse_pw_d_retry_power_delivery() is only called from
-_pse_pi_disable() and pse_ethtool_set_prio(). Nothing retries the domain
-after the outer allocation finishes.
-
-There seem to be two ways to get there. First,
-pse_pi_allocate_pw_budget_static_prio() can return -ERANGE after it has
-already turned off lower-priority PIs:
-
-	while (regulator_request_power_budget(pi->pw_d->supply, pw_req) == -ERANGE) {
-		if (_prio <= pi->prio) {
-			...
-			return -ERANGE;
-		}
-
-		ret = pse_disable_pi_prio(pcdev, pi->pw_d, _prio);
-		...
-		_prio--;
-	}
-
-For example, take a 60 W budget with H0 (prio 0) holding 30 W and L1
-(prio 1) holding 30 W. A new prio 0 PD H2 asks for 40 W. L1 is turned off
-and 30 W is freed, but the request still fails. L1 then stays off while
-30 W is unused.
-
-Second, pse_disable_pi_prio() turns off every hardware-enabled PI at a
-priority level, not just as many as the request needs. With two prio 1
-PIs at 30 W each and a 30 W prio 0 request, both prio 1 PIs go off. One
-30 W share stays free, and neither PI is powered again.
-
-The callers don't retry afterwards either. The CLASSIFICATION path of
-pse_set_config_isr() and pse_pi_enable() both turn -ERANGE into success.
-_pse_pi_delivery_power_sw_pw_ctrl() returns without a retry on both
-success and failure.
-
-Given this, is the new comment accurate? The commit message also says:
-
-  That PI stays waiting for power and is retried when budget is freed
-  later.
-
-In these cases the budget may already be free. The evicted PIs only come
-back after an unrelated event, such as an admin disable or unplug of
-another PI in the domain, or pse_ethtool_set_prio().
-
-TPS23881 may recover by chance, because tps23881_pi_disable() re-arms
-detection and classification. The core doesn't require pi_disable to do
-that, so other controllers might not recover. The RTL8239 driver named
-in the commit message is one example.
-
-Could the domain retry be deferred until the outer allocation finishes,
-or could the evictions be undone when the allocation fails?
-
-[ ... ]
-
-> @@ -703,14 +729,18 @@ static int pse_pi_disable(struct regulator_dev *rdev)
->  {
->  	struct pse_controller_dev *pcdev = rdev_get_drvdata(rdev);
->  	struct pse_pi *pi;
-> +	bool enabled;
->  	int id, ret;
->  
->  	id = rdev_get_id(rdev);
->  	pi = &pcdev->pi[id];
->  	mutex_lock(&pcdev->lock);
-> +	/* Disabled before _pse_pi_disable() retries the power domain */
-> +	enabled = pi->admin_state_enabled;
-> +	pi->admin_state_enabled = 0;
->  	ret = _pse_pi_disable(pcdev, id);
-> -	if (!ret)
-> -		pi->admin_state_enabled = 0;
-> +	if (ret)
-> +		pi->admin_state_enabled = enabled;
->  
->  	mutex_unlock(&pcdev->lock);
->  	return 0;
-
-[Severity: Medium]
-This is a pre-existing issue, but pse_pi_disable() still returns 0 when
-_pse_pi_disable() fails. admin_state_enabled is restored on error, yet
-the regulator core sees success. _regulator_disable() then drops
-rdev->use_count and the consumer's enable_count.
-
-If ops->pi_disable() fails, can the PSE state and the regulator state
-get out of sync? An I2C write error in tps23881_pi_disable() would do it.
-
-A later admin enable in pse_ethtool_c33_set_config() does nothing,
-because admin_state_enabled is still 1. A later admin disable goes
-through:
-
-	case ETHTOOL_C33_PSE_ADMIN_STATE_DISABLED:
-		if (psec->pcdev->pi[psec->id].admin_state_enabled)
-			err = regulator_disable(psec->ps);
-
-and hits this in _regulator_disable():
-
-	if (WARN(regulator->enable_count == 0,
-		 "unbalanced disables for %s\n", rdev_get_name(rdev)))
-		return -EIO;
-
-Should pse_pi_disable() return ret here?
-
-> @@ -1229,10 +1259,12 @@ static int pse_set_config_isr(struct pse_controller_dev *pcdev, int id,
->  				ret = 0;
->  		}
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but pse_set_config_isr()
-starts with:
-
-	if (notifs & PSE_BUDGET_EVAL_STRAT_DYNAMIC)
-		return 0;
-
-PSE_BUDGET_EVAL_STRAT_DYNAMIC is a budget strategy value (1 << 2), not
-an event mask. It has the same value as ETHTOOL_C33_PSE_EVENT_DETECTION
-(4). tps23881_set_notifs_helper() ORs events together, so detection and
-classification can arrive in the same notification.
-
-Does a DETECTION | CLASSIFICATION notification return early here? That
-would skip setting isr_pd_detected and skip power delivery for that PD
-in the classification branch.
-
->  	} else if (notifs & ETHTOOL_C33_PSE_EVENT_DISCONNECTION) {
-> -		if (pcdev->pi[id].admin_state_enabled &&
-> -		    pcdev->pi[id].isr_pd_detected)
-> -			ret = _pse_pi_disable(pcdev, id);
-> +		bool pd_detected = pcdev->pi[id].isr_pd_detected;
-> +
-> +		/* Gone before _pse_pi_disable() retries the power domain */
->  		pcdev->pi[id].isr_pd_detected = false;
-> +		if (pcdev->pi[id].admin_state_enabled && pd_detected)
-> +			ret = _pse_pi_disable(pcdev, id);
-
-[Severity: Medium]
-This is a pre-existing issue, but isr_pd_detected is cleared here
-whatever _pse_pi_disable() returns. If ops->pi_disable() fails,
-__pse_pi_disable() returns before it calls pse_pi_deallocate_pw_budget().
-pi->pw_allocated_mW then stays non-zero while isr_pd_detected is false.
-
-A later DISCONNECTION skips the disable. The next CLASSIFICATION goes
-through
-_pse_pi_delivery_power_sw_pw_ctrl()->pse_pi_allocate_pw_budget_static_prio(),
-which does:
-
-	pi->pw_allocated_mW = pw_req;
-
-without freeing the old allocation. Is that budget lost from the supply
-for good?
-
-Simply restoring isr_pd_detected on error would let the retry re-enable
-the empty port. The fix may belong in how pw_allocated_mW is tracked
-instead.
-
-[Severity: Medium]
-This is a pre-existing issue, but pse_ethtool_set_pw_limit() checks
-admin_state_enabled and isr_pd_detected without holding pcdev->lock:
-
-	    psec->pcdev->pi[psec->id].admin_state_enabled &&
-	    psec->pcdev->pi[psec->id].isr_pd_detected) {
-		ret = pse_pi_update_pw_budget(psec->pcdev, psec->id,
-					      pw_limit, extack);
-
-pse_pi_update_pw_budget() takes the lock but doesn't check them again.
-Can an ethtool power limit change race with this disconnection path?
-
-CPU1
-pse_ethtool_set_pw_limit()
-    sees admin_state_enabled && isr_pd_detected
-
-CPU2
-pse_isr()->pse_set_config_isr()
-    isr_pd_detected = false
-    _pse_pi_disable()
-        pw_allocated_mW = 0
-
-CPU1
-pse_pi_update_pw_budget()
-    pw_diff = pw_req - 0
-    regulator_request_power_budget() for the empty port
-
-Later disconnections do nothing, because isr_pd_detected is already
-false. The next classification overwrites pw_allocated_mW in
-pse_pi_allocate_pw_budget_static_prio(). Would that requested budget
-leak?
-
->  	}
->  
->  	return ret;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261018182005.1193-1-ross%40r-sc.ca
