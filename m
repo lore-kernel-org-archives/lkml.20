@@ -1,49 +1,49 @@
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
+Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A662E48F033
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:35:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC04C48FF6E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395321; cv=none; b=SeQs7hFk0Sr5WGKBn736TN600yJvwxLdXTr0bYh2p3IpEQIbxOrRtHCydLxcZ/V0SBle+9vG3ikKgXArCABlCbWqXZu2Ql/I3zHtblntc+/70zw+Uqshfmnf8Sv4vPSKD9OF9UW3hGtvLOsGnPxuJ61rXptqJig0HL3NfPehaOU=
+	t=1792395323; cv=none; b=C99ahZmMdLANRAXNpjmBx7bymLrs9yaMMd8hFdYqrqVFykAw2Zm5XI4AAVhh792t7C+v0UbgabQN9SzENUEMpoKalyReWOaiVeoAf6SppB7SZZpXhecBXvWAuAvQ468l+1dJidcnX8XBb88+9D7Wu6gTF4xzvzevIMHz/dKd4cM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395321; c=relaxed/simple;
-	bh=uhG673gQIHESA0ckKx5/i36fXjVE0uH1+OliZ8qACm4=;
+	s=arc-20240116; t=1792395323; c=relaxed/simple;
+	bh=AVjSN+no6wLWebuEZW1WqoHPn9SdSWxn+aWjA3tg3AE=;
 	h=Message-ID:From:To:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=Qg25PPP5tOIGhegv4nkEVH7HvZvWR0eUvXskThQpNDe5mqYjOXDX0vvydNXfjjdMCC32YM6xZMBBhhGbOimt3V30fuWGFuC3XHU9X7odRMtZWEmwSJx1N49e9fH4V4yTSHx1LUO/WIJHCfEqk7PghxfqGN7xUX8k/ns8SqGNAGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=I+n5R8hy; arc=none smtp.client-ip=162.62.57.137
+	 MIME-Version; b=uXhnCw5d10pLnn3O96EOzZTVglYUPX2Zabz645J/FDoORxgmxYh9taIOntLtwcoqCbdMnGn+96zUlw/f8iLP3jhWaRHBXaI+LAacWJ3EtK80UKvyaLv7SSX3Dt29EJNtBedN2G/ommpqzOUxDgROhLF+HmG5S9Gb1qJZ+tlUmQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=jQiMVou6; arc=none smtp.client-ip=162.62.57.210
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="I+n5R8hy"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="jQiMVou6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792395315; bh=Nw8/oC/7idO9zmtgTLOz1UYdwCR1fHrYtwW7P/QOEO8=;
+	t=1792395310; bh=Ue++TDzw2qo5AXu78eUhZOpwEGgAAB6mxLfyRHQ5jlE=;
 	h=From:To:Subject:Date:In-Reply-To:References;
-	b=I+n5R8hyXxsNgA2V6SbylrUGQXLhCMUEgigzJYbD3b2qV03S+lEW6rweS4qbcif4l
-	 7yNIGC+F4EDqm7Cl8taeAxvQiiRHwhk2tHTqWDoVoxurKOw+O+vYrYunGOnvNUmmAi
-	 2j/7a3PDlHDZ8OzC7e5hSCduidayKewm7dMJWV5c=
+	b=jQiMVou6PaV3nR3GPXgRDmQzC7QVpD95UewqeYVSoMo7RRkhtmC/kMt3kS9+RgraN
+	 /LOs960PQPD2Pvh9Zyv0aaTfk7KAHkmp93S/oGkhMQgwtJ/o2yXDDNTT5v2ZKEnR7L
+	 Sp8/WWt+uN7KW0Ab3TQbgoTVmTenNmqAaxMgvNuM=
 Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
 	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
 	id 8B707E35; Mon, 19 Oct 2026 15:34:55 +0800
-X-QQ-mid: xmsmtpt1792395312tg94m5cu6
-Message-ID: <tencent_A4124915CEC41FEBAD28A5294F8423BEDC0A@qq.com>
-X-QQ-XMAILINFO: NGZp1yYNf7Y+MFINV0qEIf5qH7pCV78X2lll11eA/qj7zSC8pxTX83SqODEjU8
-	 knuwQLGCeu8Azn0gyRLWU+ptdob+plNqx3XLlvJtNO88ShxfWTw/tV5LQgeHd2j0F1uR/jI/PM5l
-	 S6ofYLaTjgaCfFdkJgmRIl9mCwTj3N+IV6LtHeaDHfa0QjGZz7kupAMAvZqRQtuazvu6r2bIYkWA
-	 Baw1R5iOHB/IhpORnHHrwQNSjcCz8tB4prEuSK4UD8nJ05tH/bcR4EGrHt6GvybHvSugYkKyjKxC
-	 TyMebLqo2FM/VuTatRn6uvkomyN5K9jlffhW/YMJvf9CqQ7FD8ID3ZkQiSgV4hBAbWBDwTz2MER2
-	 QDpVbIb7Sffg1RUWtentr7cC4v5eVCRWOVPgqtjl24ebmeFhnXmRHXyvPVfHEM1G+ugOZJhcUyhr
-	 c6okTabQsOEMxdIM9kedgXBda5mqXK7GPgabUo7Ia3aC4DSJGnR1trUJBZf155s8kCEQsRC8MWwc
-	 fNhhtAipPRnFdJUuzlvH3tn2i7yxmniYLfgvyhAA7pjePYCiQvm7J01sxRBME71xTFa5RNWZuI/J
-	 MK0GYahpalWoss7QIxXRqN6xjRnCkv7PnucdyHehh2G9V+odOiGpMAGnifLgCRrVeVKVk/HKIVoc
-	 Li88ixhASxINbAim+jAgFwlHlUrs4YpmL57q+BIdsJKsGc7XYE4UV1m5AMcy/2Y3EPnnb0o8aXQf
-	 /6fkc068qVGaXOsWrf1VwEiV76u3J8ccuVn2BtmgKyquCM40UdzFZ0gW340uMLZSLpB6eq03gbA1
-	 cCcdhZdjcAK7qVQTn7AawGRl9QkYHynkTgnD6To4p+y5urRcXGU6K1TapgLwprJHKTIGkf2lXwb0
-	 xh4wG81pinoUQxeW++4aOHRz83/eSvVI4OR/c5PNVXZ2UTYs/09X1jjmHzyR9JIhs/uilLZOqyRb
-	 8Qj1NWTRXnt5vkx3S36f8X+RVkJItMEE3qdAw6tblsUV1s2Qj+ryJWPZrhTCPVpemgQDNoXWmj9j
-	 TeX2v1AvYg/rTwg1mBmCq1R+b3Je29ddWYXO/pS3iLvNC0EuuIVKYQ0UR0bAuW5iMcxnzV3EIGON
-	 YfbtId
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-mid: xmsmtpt1792395307t6sm986ry
+Message-ID: <tencent_956D46E4D86F2531CD70820411E6B6506A05@qq.com>
+X-QQ-XMAILINFO: Od8VqZhFMB3NvQrI8oKxM76xeG1VpCg3obRNPUnNcDffRb6c7Q1a8bEsLqoPZL
+	 Z19QqfSnMdEMNdZY12FfspZHf+ZavHugmNalbnDdb+hnqblgaKBDasZEkzumFR6+CzPf0CbvsDcL
+	 afCnJe3N98+Rhg+XFvPAI7OPB/85TG3vIcpVwUh4KNNY0mrT0VHgWD8kec2jj3A+dqcVqSbsb22L
+	 BY4Okuy/T3wEzOeN1oYfnxytZdvKkM/3ojPCJlUgqIUaAxrV+V8b2GVvrBhLEzBESl2EHxux1wJi
+	 AJcqa56gXpqP1+d/xE+C/cD7FgO9+XJr+dNEt0oG1DVYGJc/6B4Fdxit/76AaWCm9dpeASiZKShL
+	 nM2Oru2raaquSuG9eziC9Q4nxgJSslOC0BqCkse8Yf64PG2UdzWoQNFO/TIA/AYRjK/kNg6fwmfd
+	 +NuUfx/CSeLnxJwXjaIz3fVlfC9TWD2IaHi2V+AGWeE59JrD7KvRH94NqKsvBvikDOr0HGhsNeRB
+	 H3qmuLRT36Bz785qidhMPRuytlH42GxS4uHTxdRm2Cm/aerYAL/Px2bCostJcQP465a5IhFObqCX
+	 83x3SCB2qNCVCPcsedVzATi263khWCwncEFe+avbPkGRZaAnUBsptIeforaY/u3qRcKt4DmrCv4n
+	 lTLghWPTjMu/dva5yC1xJvRPiRJ7xh9LSJCRneJne0RtHcTbCzMLmyRsWy3vSOnh7kCnj35p4o7P
+	 t7ZH5/TwHW/KjRjCP3pipLZQ2celtW0NtcxEMtbYe4jQTd3k6IxeU+j8Qb8f5ol7JNbl16MW3th6
+	 q8DMiYbmmYKDCTZtHMod3ipHTQvXAy9MBLmMAAf4dtYuD2O1n1PRjUQTCAgLGUcXVEPz19vb3d1E
+	 baRtXdbo5SdHiqovCqlxRINfkbBmrq6pWucchJS8n8hVei/5b86p4Xbm4Q+xu914wL88wniE/gY6
+	 j1Asu5HgYIppn23npdwKq7Gx1qt1WUarK9k6sdqIku0ZiRQDXVVA5bLfifMbh9WVhT+96gui+GNa
+	 s+2qL+zoU1V1BoVfdEYoWQNCXldGNOiqK3JFEl0xlVlJ1QsiDoYyda76O69uGClaL9Rf8gkgYlBj
+	 UgOwmn
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 From: Jinjie Ruan <2118537295@qq.com>
 To: babu.moger@amd.com,
 	ben.horgan@arm.com,
@@ -65,9 +65,9 @@ To: babu.moger@amd.com,
 	zengheng4@huawei.com,
 	x86@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 10/15] arm_mpam: Track the PARTID and internal PARTID limits per class
-Date: Mon, 19 Oct 2026 15:33:36 +0800
-X-OQ-MSGID: <20261019073453.2142856-11-2118537295@qq.com>
+Subject: [PATCH v10 07/15] fs/resctrl: Add resctrl_arch_rmid_idx_match() helper
+Date: Mon, 19 Oct 2026 15:33:33 +0800
+X-OQ-MSGID: <20261019073453.2142856-8-2118537295@qq.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261019073453.2142856-1-2118537295@qq.com>
 References: <20261019073453.2142856-1-2118537295@qq.com>
@@ -81,107 +81,115 @@ Content-Transfer-Encoding: 8bit
 
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 
-The number of PARTIDs and PMGs a resource supports is global, and the
-number of internal PARTIDs is not tracked at all. Tracking this per
-class lets the resctrl glue code find the limits of the classes it will
-use, and pick the number of control groups before it is initialised.
+The current RMID allocator assumes that RMID and CLOSID are entirely
+independent or follow a rigid 2D encoding. This prevents architectures
+where an RMID is bound to a specific CLOSID from properly filtering
+free RMIDs.
 
-Resources that implement PARTID narrowing reduce msc->partid_max,
-because they don't have one configuration per PARTID. Record the
-internal PARTID limit alongside partid_max in struct mpam_props, and
-take the smaller of the values a class's RIS advertise.
+Introduce resctrl_arch_rmid_idx_match() to allow architectures to define
+their own compatibility rules between a target CLOSID and an allocated
+RMID's CLOSID.
 
-Cc: James Morse <james.morse@arm.com>
-Cc: Ben Horgan <ben.horgan@arm.com>
+No functional change.
+
 Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Dave Martin <Dave.Martin@arm.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Babu Moger <babu.moger@amd.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: H. Peter Anvin <hpa@zytor.com>
+Cc: Ben Horgan <ben.horgan@arm.com>
 Cc: Fenghua Yu <fenghuay@nvidia.com>
 Suggested-by: James Morse <james.morse@arm.com>
+Signed-off-by: Zeng Heng <zengheng4@huawei.com>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
-v9->v10:
- - Copy partid_max/intpartid_max on the first aliasing merge into a
-   zero-initialized parent instead of clamping to zero
----
- drivers/resctrl/mpam_devices.c  | 34 ++++++++++++++++++++++++---------
- drivers/resctrl/mpam_internal.h |  2 ++
- 2 files changed, 27 insertions(+), 9 deletions(-)
+ arch/x86/include/asm/resctrl.h |  6 ++++++
+ drivers/resctrl/mpam_resctrl.c |  6 ++++++
+ fs/resctrl/monitor.c           | 13 +++----------
+ include/linux/arm_mpam.h       |  1 +
+ 4 files changed, 16 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index a44d66a5733d..7f88a0170c05 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -793,7 +793,6 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
- 	struct mpam_msc *msc = ris->vmsc->msc;
- 	struct device *dev = &msc->pdev->dev;
- 	struct mpam_props *props = &ris->props;
--	struct mpam_class *class = ris->vmsc->comp->class;
- 
- 	lockdep_assert_held(&msc->probe_lock);
- 	lockdep_assert_held(&msc->part_sel_lock);
-@@ -938,18 +937,20 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
- 	}
- 
- 	/*
--	 * RIS with PARTID narrowing don't have enough storage for one
--	 * configuration per PARTID. If these are in a class we could use,
--	 * reduce the supported partid_max to match the number of intpartid.
--	 * If the class is unknown, just ignore it.
-+	 * A RIS that implements PARTID narrowing has one configuration per
-+	 * internal PARTID, and several request PARTIDs share it. Record both
-+	 * limits in the resource properties.
- 	 */
--	if (FIELD_GET(MPAMF_IDR_HAS_PARTID_NRW, ris->idr) &&
--	    class->type != MPAM_CLASS_UNKNOWN) {
-+	props->partid_max = msc->partid_max;
-+	props->intpartid_max = msc->partid_max;
-+
-+	if (FIELD_GET(MPAMF_IDR_HAS_PARTID_NRW, ris->idr)) {
- 		u32 nrwidr = mpam_read_partsel_reg(msc, PARTID_NRW_IDR);
--		u16 partid_max = FIELD_GET(MPAMF_PARTID_NRW_IDR_INTPARTID_MAX, nrwidr);
-+		u16 intpartid_max = FIELD_GET(MPAMF_PARTID_NRW_IDR_INTPARTID_MAX, nrwidr);
- 
- 		mpam_set_feature(mpam_feat_partid_nrw, props);
--		msc->partid_max = min(msc->partid_max, partid_max);
-+		props->intpartid_max = min(props->intpartid_max, intpartid_max);
-+		msc->partid_max = min(msc->partid_max, intpartid_max);
- 	}
+diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
+index 8f6edcdcfd87..7bb297a0ab6e 100644
+--- a/arch/x86/include/asm/resctrl.h
++++ b/arch/x86/include/asm/resctrl.h
+@@ -181,6 +181,12 @@ static inline u32 resctrl_arch_rmid_idx_encode(u32 ignored, u32 rmid)
+ 	return rmid;
  }
  
-@@ -2270,6 +2271,21 @@ static void __props_mismatch(struct mpam_props *parent,
- 					   child->num_mbwu_mon);
++/* x86 RMIDs are independent; any RMID can be used with any CLOSID. */
++static inline bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid)
++{
++	return true;
++}
++
+ /* x86 can always read an rmid, nothing needs allocating */
+ struct rdt_resource;
+ static inline void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 945be7465ad3..5107f4811cb2 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -279,6 +279,12 @@ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
+ 	return closid * (mpam_pmg_max + 1) + rmid;
+ }
+ 
++/* Check if the RMID's associated closid matches the target CLOSID. */
++bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid)
++{
++	return closid == rmid_closid;
++}
++
+ void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid)
+ {
+ 	*closid = idx / (mpam_pmg_max + 1);
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index ffa9c67c9f00..b5a3b70bb809 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -208,23 +208,16 @@ bool has_busy_rmid(struct rdt_l3_mon_domain *d)
+ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
+ {
+ 	struct rmid_entry *itr;
+-	u32 itr_idx, cmp_idx;
+ 
+ 	if (list_empty(&rmid_free_lru))
+ 		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
+ 
+ 	list_for_each_entry(itr, &rmid_free_lru, list) {
+ 		/*
+-		 * Get the index of this free RMID, and the index it would need
+-		 * to be if it were used with this CLOSID.
+-		 * If the CLOSID is irrelevant on this architecture, the two
+-		 * index values are always the same on every entry and thus the
+-		 * very first entry will be returned.
++		 * Check if the free RMID matches the target CLOSID.
++		 * Architecture-specific rules apply.
+ 		 */
+-		itr_idx = resctrl_arch_rmid_idx_encode(itr->closid, itr->rmid);
+-		cmp_idx = resctrl_arch_rmid_idx_encode(closid, itr->rmid);
+-
+-		if (itr_idx == cmp_idx)
++		if (resctrl_arch_rmid_idx_match(closid, itr->closid))
+ 			return itr;
  	}
  
-+	/*
-+	 * Take the smallest, so the result is safe for every RIS in the class.
-+	 * The first aliasing merge into a zero-initialized parent must copy
-+	 * the child's value, otherwise min() would clamp the limit to zero.
-+	 */
-+	if (alias && !parent->partid_max)
-+		parent->partid_max = child->partid_max;
-+	else
-+		parent->partid_max = min(parent->partid_max, child->partid_max);
-+
-+	if (alias && !parent->intpartid_max)
-+		parent->intpartid_max = child->intpartid_max;
-+	else
-+		parent->intpartid_max = min(parent->intpartid_max, child->intpartid_max);
-+
- 	if (CAN_MERGE_FEAT(parent, child, mpam_feat_intpri_part, alias)) {
- 		parent->intpri_wd = child->intpri_wd;
- 	} else if (MISMATCHED_FEAT(parent, child, mpam_feat_intpri_part,
-diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-index def0e3a65c23..0a2177241615 100644
---- a/drivers/resctrl/mpam_internal.h
-+++ b/drivers/resctrl/mpam_internal.h
-@@ -203,6 +203,8 @@ struct mpam_props {
- 	u16			dspri_wd;
- 	u16			num_csu_mon;
- 	u16			num_mbwu_mon;
-+	u16			partid_max;
-+	u16			intpartid_max;
+diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
+index f92a36187a52..0bc8049a3733 100644
+--- a/include/linux/arm_mpam.h
++++ b/include/linux/arm_mpam.h
+@@ -60,6 +60,7 @@ void resctrl_arch_sched_in(struct task_struct *tsk);
+ bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid);
+ bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rmid);
+ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid);
++bool resctrl_arch_rmid_idx_match(u32 closid, u32 rmid_closid);
+ void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid);
+ u32 resctrl_arch_system_num_rmid_idx(void);
  
- /*
-  * Kunit tests use memset() to set up feature combinations that should be
 -- 
 2.43.0
 
