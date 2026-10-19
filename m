@@ -1,158 +1,182 @@
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B4AC4EF153;
-	Mon, 19 Oct 2026 13:18:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
+Received: from 11.mo550.mail-out.ovh.net (11.mo550.mail-out.ovh.net [188.165.48.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D21D3F12CB
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.48.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415938; cv=none; b=XS6rj0Ohl+6EspGlS6IBcEfw8lybZ6WqsI1wO9cTQgapRf7omBu6UEQHxzD2TXcYVJklDWKgwZmJqdxwdwnuI+qx/8/8VgXj1FDpNnfeFod3TYKkv9iBywibrB+4aP07wxt8nfUHP2TiwODXcbKjWoPUBbNj0z/yiShxuSnS7hA=
+	t=1792415971; cv=none; b=mud8bi+8Uyug8L4EhvaWhRdHTvO2ir78EsJOQocvtLzMJym8ld53dm7ndrXbRmRVJjtlLzOgS4Jp15hNInMXjGKeN9eLHqrLc/ZohiIAnGpWz9TTXDizZ6x2IgD+CyhYil7Q+WeRj8jJdfo6FBDAmjdeQpPNBtzQG3BjMEkWUrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415938; c=relaxed/simple;
-	bh=5mFlWAfOPXaKw3l/GjzOwU1MP+KF/U0CJAJyCBxnt5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nQGHyZaEmX9YlDtftFshXaHarq46660DxpoqZ80QEgdfDsTchv/bkYmMHuHNN0PF+1bg87y8rYfKrjaGnTbq8B6DuoXW4jyz+nN0F7hT5nu5CPei4sbSv4jjiBgaR4BYoLs3znbl+7I5a+aIjvkRbcREOsKDWOooJ88N17GfzhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=c1ElGuA7; arc=none smtp.client-ip=202.38.64.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	s=arc-20240116; t=1792415971; c=relaxed/simple;
+	bh=bdvXEbBL3I1sNOLHWPY/aSM89wN1Y+K0iABTg5JXtwQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=aACG9mPmEPWpbdG2A2i/c5f/nFAAjGUls/I26uTQ4PSoJi2nTQf6oTMJR2QIqP9ghnUTyiinspaU0KkqCP/6KTbMMwiJ8xkwwWfGHXNYRaCSVuBUuWNNQsDCGtnesFw4hBWWcLvgOBa76eF7n+obgrxtxkN7NJmzTuXi25pWqFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=medichon.fr; spf=pass smtp.mailfrom=medichon.fr; dkim=pass (2048-bit key) header.d=medichon.fr header.i=@medichon.fr header.b=B+hYzMvG; arc=none smtp.client-ip=188.165.48.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=medichon.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=medichon.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="c1ElGuA7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=IQ2Lf8p5pqLRj3pA0/+h9WhzznV9xdbRRx
-	dezV9hPTk=; b=c1ElGuA7GXadIaaEjL8lNbcM5GnL1R9wbjA4jBOUVxDy+ElKt3
-	UZWmjQ3lbn6bSomaaS7ar6ltouMNRfE70/nnr+pMlS6H1V54penwxf3QGG+I6np5
-	R4bk5YkaPmeWr84I608/hBOyWO0CIJIgd515wfDEXieLvVWT0OFqFQEa4=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.183.93])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAnoze4GNZquR0TAA--.3173S4;
-	Mon, 19 Oct 2026 21:18:50 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v3 2/2] usb: roles: look up role switches attached to a graph endpoint
-Date: Mon, 19 Oct 2026 21:18:48 +0800
-Message-ID: <20261019131848.344689-3-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019131848.344689-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261017081320.220525-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261019131848.344689-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key) header.d=medichon.fr header.i=@medichon.fr header.b="B+hYzMvG"
+Received: from director11.ghost.mail-out.ovh.net (unknown [10.110.0.202])
+	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4j7SVs5yBKz5xCB
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:54:29 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-w2p87 (unknown [10.108.42.201])
+	by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id A6EAAC3DDE;
+	Mon, 19 Oct 2026 07:54:27 +0000 (UTC)
+Received: from medichon.fr ([37.59.142.109])
+	by ghost-submission-7ccd8bbbb6-w2p87 with ESMTPSA
+	id VzFGHbPM1Wq57gYAh9bqlA
+	(envelope-from <abo@medichon.fr>); Mon, 19 Oct 2026 07:54:27 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-109S003e25b5ac9-02cb-4e08-a646-4f4adac193de,
+                    E22553FEB6AEB75B33DDF2A505A99149E93FA69D) smtp.auth=abo@medichon.fr
+X-OVh-ClientIp:88.190.90.129
+Message-ID: <fd9c0bbe-6e0c-486a-ad23-ea99935a28ce@medichon.fr>
+Date: Mon, 19 Oct 2026 09:54:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Arnaud Bonnet <abo@medichon.fr>
+Subject: Re: [PATCH v2] drm/amd/display: remove unused cgs register accessor
+ typedefs
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, paulmck@kernel.org, rostedt@goodmis.org, ast@kernel.org,
+ peterz@infradead.org, gregkh@linuxfoundation.org, skhan@linuxfoundation.org
+References: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
+ <20261017130047.42080-1-emmaonana18@gmail.com>
+Content-Language: en-US, fr
+In-Reply-To: <20261017130047.42080-1-emmaonana18@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAnoze4GNZquR0TAA--.3173S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxJF4fZFy3ury5AFyktr4Dtwb_yoW5Zr47pr
-	yakF4Fqr4UJFya9w4fGan8CFyrWr4fGF4UJF4xt3Wfu3Zaq3yrJr18Ja4ayr1UCanxW34Y
-	vw18A3409asrJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP2b7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4
-	AK67AK6ry8MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
-	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0VM
-	KJUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREFB2rVHlSR7ABKsQ
+x-ovh-tracer-id: 14750696155911184108
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTEC+pQARFvnW2RMvD9rJWwoSB5KeWL1zCtrex0rqKpMGM/5SWjDLMgrr+9PpUdSees96VENuuMOCUpYmiYcW4lsBEkE8EniYAkM9m3Rnj8NjyA7soRhfPa0JBImFi7NB5lrqN4GOn1OQwSMzJvMp/9HxrvZR/Jb9vXM8njCWKzRcxewl6oiGGkofXbt5b77yqFsXqJC/pfsOjBXhKcNlvZ34D4oJxjsKydJEd4U2ZpzrE8t8cjzAQRXQORBS6UbXMhaDk40DNY01DQUxTDRzULvuVsXfia3e2pEGnhcagdyPqNu0q+OuN+fRPDRf2RlEuRMQ9iiqoYkLWaeFtR3yiWkSHUbXRaeeDPMNSRtSuEszKuLXwwsdzIjz/D1fYkL0DfXUpIV8H3zGrOKw5XtT92eRUZGjky5RbK57JNxKN4dX+qftN4vnVDd0o3T/zbmGfE031JMKXljPSEzQGrbTO+CKaYP47a6fGP771zjgVHmQypY0cAfSr3Xq38a6J9oOe0bLOuutyVzhpPlvW19RpExa2VMwNCWWv0c3q59HzRXgCF82ABDYGIhxJffHgCgVivg7JXcdIG2TxKsjRR4Ili9WH0D2RGKUmkm7aEdzTf8AmtxbMs4fH38Ui05r/e1d5MtMgnEx7Ycp8nzNSvBd+hs19ABgHafQBL5WDKamaV7pA
+DKIM-Signature: a=rsa-sha256; bh=gTmA+d0ikT+8IflEYztNYyZ9CNFtEwNKlyOUdD5euEE=;
+ c=relaxed/relaxed; d=medichon.fr; h=From; s=ovhmo3801317-selector1;
+ t=1792396469; v=1;
+ b=B+hYzMvGsktzDQBt/pNR8ValM6WDtLcrVZBp+oS8gGUsmhCcBFjET0AEs2OdImj4P8Rc23cu
+ B/AWcPmrZQ2CLRUhKlYlNvzv7RjeKaeolzV8tOuPdbklh11T49D1RwtGiFzoTvnhLJi8zccW1lc
+ ZGpVHSFaTeabF8sP2Yn5CMX1aKdB4hctX/QaL4rh6MIAga5W6D60La1QHje6cPn389oBv+8mkOa
+ OOYcbGCiWkesQi0A60vkbQTFr7gH4ejNL22jqA6B+F9+Q6TcURB4O9Ty0puDFO5Asy/BfxlDxUV
+ GeBsc1Sbva22FxaS98dhgSPFCGkfFgiXu0cGfNgN7ctaw==
 
-usb_role_switch_get() and fwnode_usb_role_switch_get() look for a switch
-on the caller's parent device node or through device_connection.  That
-does not work when one controller exposes a role switch per connector
-endpoint: the switch is registered against the remote graph endpoint and
-the consumer (the connector) has no phandle to it.
+On 10/17/26 3:00 PM, Omokefe Emmanuel Onanaroghene wrote:
+> kernel-doc reports prototype mismatches for the cgs register accessor
+> typedefs, e.g.:
+> 
+>   drivers/gpu/drm/amd/include/cgs_common.h:89: expecting prototype
+>   for cgs_read_register(). Prototype was for uint32_t() instead
+> 
+> Each of the four typedefs is used exactly once, as
+> the type of a struct cgs_ops member, so they are merely an
+> unnecessary layer of indirection. Drop the typedefs along with their
+> kernel-doc comments and write the function pointer types directly in
+> struct cgs_ops.
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Link: https://lore.kernel.org/all/981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com/
+> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/include/cgs_common.h | 60 +++++++-----------------
+>  1 file changed, 18 insertions(+), 42 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/include/cgs_common.h b/drivers/gpu/drm/amd/include/cgs_common.h
+> index f40b6a03fe63..1750401c7d08 100644
+> --- a/drivers/gpu/drm/amd/include/cgs_common.h
+> +++ b/drivers/gpu/drm/amd/include/cgs_common.h
+> @@ -80,43 +80,6 @@ struct cgs_firmware_info {
+>  
+>  typedef unsigned long cgs_handle_t;
+>  
+> -/**
+> - * cgs_read_register() - Read an MMIO register
+> - * @cgs_device:	opaque device handle
+> - * @offset:	register offset
+> - *
+> - * Return:  register value
+> - */
+> -typedef uint32_t (*cgs_read_register_t)(struct cgs_device *cgs_device, unsigned offset);
+> -
+> -/**
+> - * cgs_write_register() - Write an MMIO register
+> - * @cgs_device:	opaque device handle
+> - * @offset:	register offset
+> - * @value:	register value
+> - */
+> -typedef void (*cgs_write_register_t)(struct cgs_device *cgs_device, unsigned offset,
+> -				     uint32_t value);
+> -
+> -/**
+> - * cgs_read_ind_register() - Read an indirect register
+> - * @cgs_device:	opaque device handle
+> - * @offset:	register offset
+> - *
+> - * Return:  register value
+> - */
+> -typedef uint32_t (*cgs_read_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+> -					    unsigned index);
+> -
+> -/**
+> - * cgs_write_ind_register() - Write an indirect register
+> - * @cgs_device:	opaque device handle
+> - * @offset:	register offset
+> - * @value:	register value
+> - */
+> -typedef void (*cgs_write_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+> -					 unsigned index, uint32_t value);
+> -
+>  #define CGS_REG_FIELD_SHIFT(reg, field) reg##__##field##__SHIFT
+>  #define CGS_REG_FIELD_MASK(reg, field) reg##__##field##_MASK
+>  
+> @@ -137,14 +100,27 @@ typedef int (*cgs_get_firmware_info)(struct cgs_device *cgs_device,
+>  				     enum cgs_ucode_id type,
+>  				     struct cgs_firmware_info *info);
 
-Add usb_role_switch_at_endpoint(), which walks the caller's OF graph
-endpoints and matches a switch registered on the remote endpoint, and try
-it after the existing parent lookup.  There is no behaviour change for
-existing users: if nothing is registered against an endpoint the lookup
-falls through to the previous paths.
+Hi Omokefe, you probably forgot
+-typedef unsigned long cgs_handle_t;
+-typedef int (*cgs_get_firmware_info)(struct cgs_device *cgs_device,
+-                                    enum cgs_ucode_id type,
+-                                    struct cgs_firmware_info *info);
 
-This is needed by DWC3 designs where two Type-C receptacles share one
-High Speed data bus.
+As discussed I have built and ran some IGT on hardware for the versions
+with and without these two, so you can still use the tag if you send v3:
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- drivers/usb/roles/class.c | 40 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+Tested-by: Arnaud Bonnet <abo@medichon.fr>
 
-diff --git a/drivers/usb/roles/class.c b/drivers/usb/roles/class.c
-index edec139b6..fc739fd61 100644
---- a/drivers/usb/roles/class.c
-+++ b/drivers/usb/roles/class.c
-@@ -157,6 +157,42 @@ usb_role_switch_is_parent(struct fwnode_handle *fwnode)
- 	return dev ? to_role_switch(dev) : ERR_PTR(-EPROBE_DEFER);
- }
- 
-+/*
-+ * Look up a role switch registered against the remote endpoint of one of the
-+ * caller's OF graph endpoints.  This is how a connector endpoint that shares a
-+ * USB data bus with another connector (for example two Type-C receptacles on a
-+ * single DWC3 controller, selected by a GPIO mux) finds its own role switch.
-+ */
-+static struct usb_role_switch *
-+usb_role_switch_at_endpoint(struct fwnode_handle *fwnode)
-+{
-+	struct fwnode_handle *ep, *remote, *parent;
-+	struct usb_role_switch *sw;
-+	bool available;
-+
-+	fwnode_graph_for_each_endpoint(fwnode, ep) {
-+		parent = fwnode_graph_get_remote_port_parent(ep);
-+		if (!parent)
-+			continue;
-+		available = fwnode_device_is_available(parent);
-+		fwnode_handle_put(parent);
-+		if (!available)
-+			continue;
-+
-+		remote = fwnode_graph_get_remote_endpoint(ep);
-+		if (!remote)
-+			continue;
-+		sw = usb_role_switch_match(remote, "usb-role-switch", NULL);
-+		fwnode_handle_put(remote);
-+		if (!IS_ERR_OR_NULL(sw)) {
-+			fwnode_handle_put(ep);
-+			return sw;
-+		}
-+	}
-+
-+	return NULL;
-+}
-+
- /**
-  * usb_role_switch_get - Find USB role switch linked with the caller
-  * @dev: The caller device
-@@ -169,6 +205,8 @@ struct usb_role_switch *usb_role_switch_get(struct device *dev)
- 	struct usb_role_switch *sw;
- 
- 	sw = usb_role_switch_is_parent(dev_fwnode(dev));
-+	if (!sw)
-+		sw = usb_role_switch_at_endpoint(dev_fwnode(dev));
- 	if (!sw)
- 		sw = device_connection_find_match(dev, "usb-role-switch", NULL,
- 						  usb_role_switch_match);
-@@ -192,6 +230,8 @@ struct usb_role_switch *fwnode_usb_role_switch_get(struct fwnode_handle *fwnode)
- 	struct usb_role_switch *sw;
- 
- 	sw = usb_role_switch_is_parent(fwnode);
-+	if (!sw)
-+		sw = usb_role_switch_at_endpoint(fwnode);
- 	if (!sw)
- 		sw = fwnode_connection_find_match(fwnode, "usb-role-switch",
- 						  NULL, usb_role_switch_match);
--- 
-2.53.0
+>  
+> +/**
+> + * struct cgs_ops - Common Graphics Services operations
+> + * @read_register: read register value
+> + * @write_register: write register value
+> + * @read_ind_register: read indirect register value
+> + * @write_ind_register: write indirect register value
+> + * @get_firmware_info: get firmware information
+> + */
+>  struct cgs_ops {
+>  	/* MMIO access */
+> -	cgs_read_register_t read_register;
+> -	cgs_write_register_t write_register;
+> -	cgs_read_ind_register_t read_ind_register;
+> -	cgs_write_ind_register_t write_ind_register;
+> +	uint32_t (*read_register)(struct cgs_device *cgs_device, unsigned int offset);
+> +	void (*write_register)(struct cgs_device *cgs_device, unsigned int offset,
+> +			       uint32_t value);
+> +	uint32_t (*read_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+> +				      unsigned int index);
+> +	void (*write_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+> +				   unsigned int index, uint32_t value);
+>  	/* Firmware Info */
+> -	cgs_get_firmware_info get_firmware_info;
+> +	int (*get_firmware_info)(struct cgs_device *cgs_device,
+> +				 enum cgs_ucode_id type,
+> +				 struct cgs_firmware_info *info);
+>  };
+>  
+>  struct cgs_os_ops; /* To be define in OS-specific CGS header */
 
