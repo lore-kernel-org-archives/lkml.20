@@ -1,107 +1,120 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DBD48AE1B;
-	Mon, 19 Oct 2026 08:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EADD48F00C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397302; cv=none; b=Eq/+z/rvtKA7fO6qPCq6wHMHSEB5eA8J6sIubnOjikQBUiriD5S3D248691TeKj2FmXG34AhHWU+Z+EyP+N/m5cLKxNJaqYOUcalBTvcNzVPlZc9qAiFvMUs2aSqC5LRhWF7RfGDTJGCTsF25gpFiE65qfDnmYtghEvn7dZ3+rg=
+	t=1792397307; cv=none; b=Pgi4bZgugaWGTkMsisXvGLq0YTKIErIrDdCsjNaGtvNyaYlRa0TNF5zOBwsORxnvZZDtCHXVyDsvCejkju8WCeO71UwmOTOVkwjpnXUpRZjnPh5zubHdoNeCQ6yMVT6pCBWDVCtSKqenZi0z6gHCEKr4BrLGzwGGxIbay2vsqmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397302; c=relaxed/simple;
-	bh=wcOXy9B3DbVtBa+EzryE8J4ZW+jO109RlIiPLk2w2xI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D78nmUmM5FNRgGyT93WwC2zeovanAB9UzD/ot9iIaxHA0cU2FnTqWiAm7Pl7wvTmMUajAAb10nMKLSdgy/yjsD15XTxeQZGjeqe9xu8EieKVRdhaQUQWQt7hQL225L4FwO10FzGJiDdfDVakxzfv2Lv9BGHYtH3kB3DgDzoDsoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FBB1cfWf; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FBB1cfWf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Yc
-	HHiKIDYNnPxeBXOqhJlZrJp4ZEWl/YWNx7btzPgfI=; b=FBB1cfWfkuCdx/EBmg
-	Q1hGBPi2JjuAvaCDAgJPRw6OmUTtcVNAsqmQpAEzJJgvY7HwvbnFkzIzXu7f59la
-	Fo1vT03ZONGaa0Gx3rbVtlSJO6F7zOwcRJMYpDtcJyzIqszTgx3izrL40hg6FJHy
-	Qh0mmlughRA/obo6AwHnHfhO4=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD33yquz9Vqd9a9Aw--.57344S2;
-	Mon, 19 Oct 2026 16:07:11 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: mhiramat@kernel.org,
-	oleg@redhat.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	james.clark@linaro.org,
-	andrii@kernel.org
-Cc: linux-trace-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH v1] uprobe: Assign session ID before publishing consumer
-Date: Mon, 19 Oct 2026 16:07:09 +0800
-Message-ID: <20261019080709.477548-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1792397307; c=relaxed/simple;
+	bh=QfENBpcHhADpjfd53lUe0RxsDEJq18op5rWidDM1g4w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uiNSPJuwCtAjRUigMoTooHEdjitjSI4vwBp/gmmVsFbjew8B+x7Xfu6oz+DIWKKD0m+x2gv7zhy+NLZ0gYmxzTrGkGf9SqPPXJG2h4bFKiL7jEijaVzJd7+0tIniLbXbKiNMC7hqdngOQboWLq3X4Kc/bLyU5hCX9sZ/RbzQD6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5ead5ff47caso50281e0c.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:08:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792397304; x=1793002104;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=botmgDWh3QU3uykH2zSrPm6okwvbkqaZK5yti63bokk=;
+        b=ppJutpc7V+QdhiVDBDsM1iU1KYsAm1ZpkM/EFccLWn8HgSVsVwrTSjbKHQWVgobFk5
+         p/qV6lzLn2zl1hxKEwDFKYjh7qPWLhWh/Fe1XiBiXGB6kEYMHg7nyccRrczZfAUjEABG
+         pfiENxIMsngkFaUtg18mklTPxqZJdq9D+iFmSViC9U3h/L0MDUiPVfP7GbvxDM7pz45+
+         +XKXMaAtDSbaOGRdkHgt0Qx4CQrGR6Uwm7ijn96WHOgxKZOeOSoB9Jk61rrIJMpYUiOk
+         mqBUpi6eJ+5GwwohMH4bZZZWZMwogLlBW1HpSkLeqJ2nIUcEjFccK+9SkuDW7ubXuVXJ
+         crug==
+X-Forwarded-Encrypted: i=1; AKwUvBzIbu9UX+MLUBBNSS88gRQum/DDIgc7ruSjpoj1hCAOZp1RjhoeHSsCQ8e67b15rpGwIZ+VqnHq4F31Q6A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJMJZhVX1ri/aROorThjcBmyUs73QlvkHOZmCsCL/B43eS5fYK
+	VoNgNmT93efxlfY2iYoeyZMDNxIDkhe2KMcGJKsbPOPsm0/4QAsyolJh1rP33jEa
+X-Gm-Gg: AYBFou1V+84jRXLUglAF2d48os31CCbT6SAU3UHH7AvXODDFvAQTc9V9Wa8nLdgYhLR
+	vVVSmfHEzGQeCrDK6NOvEDNbUKuChbhxW/GIU/RRDAom5cPeANq6ZTzE867pHAk+IZRKvolPBlr
+	a2kpIQP0bSXvfjeRX+vMAMREWHfoHPm11HH0UvI03ZDc7hh9pDPv5uIGMTkVVh4LwEMSD4bG3fi
+	ZRjOaCL/M2dVgjDbdZz+Weueuz3QTOIbzEb+Pon1+yuSVwVorGC+LFvKSbHQHmFqXVfSU45PF37
+	CWqLvaCays0f6myKoHDWkh3jFtNNnM2DQVGiFglS+qX3wz9joORtKJaXzZafdiyUOWah3CzbCqy
+	cRuo7xjejmMKgzmCp4sVC5knM4xgXGSNhAh/o/mqyGCtrIyT5thJ+rDwIMpKkQcq9oFtgl4eNrt
+	8CLgPP/gqWGAiPDwSMTn4KbjN5kodV/2VuCQ99hPY954cpy4+5ymMk8tNN6bGC/RinpKuS2/KPu
+	gjYyhg71djpFLYokGExpvVwTj7fdS3CsaU5vbiNZdmAODRHM78=
+X-Received: by 2002:ac5:c003:0:10b0:5c7:a9ee:dcfb with SMTP id 71dfb90a1353d-5eaaa391a3cmr1577288e0c.5.1792397303843;
+        Mon, 19 Oct 2026 01:08:23 -0700 (PDT)
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com. [209.85.221.178])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eacd020162sm1613301e0c.10.2026.10.19.01.08.22
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 01:08:22 -0700 (PDT)
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5eac3b6b2ceso243166e0c.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:08:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBytSNBte2+NMJKfNzrAIvq0pFNJJXMid1Xj/jUZJujRVIKDmbS1zNKOf9fGslz0rAt4Hr1DSzLmVMCIW4s=@vger.kernel.org
+X-Received: by 2002:a67:e703:0:b0:7a1:f980:e934 with SMTP id
+ ada2fe7eead31-7cc369c0d0bmr1772093137.16.1792397302431; Mon, 19 Oct 2026
+ 01:08:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33yquz9Vqd9a9Aw--.57344S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ur1xCF47Jw1fKw47ZF1fJFb_yoW8ur13pa
-	n3Jr9Iy34kJw1YvrWktrZ7X34Syw4rJF47tF90ga45ZwnxJr45Ka17Ka15ta4Dtrs5KF1U
-	tr42g3yqqFZ7ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U7b18UUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4A8vE2rVz69IhAAA3A
+References: <20261019022717.511096-1-artem122novak@gmail.com>
+In-Reply-To: <20261019022717.511096-1-artem122novak@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Oct 2026 10:08:10 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUKpkTFBEj9HkSPOMfefNYcqGyh33H43oVhHVHevn4bag@mail.gmail.com>
+X-Gm-Features: AclHuK_PpER2TShAXTflyONo_n8Icmw2EzWmH61DvSpoBwL56FzjhvRFzzvqUgE
+Message-ID: <CAMuHMdUKpkTFBEj9HkSPOMfefNYcqGyh33H43oVhHVHevn4bag@mail.gmail.com>
+Subject: Re: [RFC PATCH] dt-bindings: timer: renesas,tmu: add SH7305 compatible
+To: cacioandpepe <artem122novak@gmail.com>
+Cc: daniel.lezcano@kernel.org, robh@kernel.org, geert+renesas@glider.be, 
+	tglx@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	laurent.pinchart+renesas@ideasonboard.com, magnus.damm@gmail.com, 
+	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-consumer_add() publishes a consumer on uprobe->consumers
-before assigning its session ID.  handler_chain() traverses the consumer
-list under the trace RCU read-side critical section and can therefore
-observe the new consumer while uc->id still contains its initial value.
+Hi Artem,
 
-The race is reachable when an uprobe at the same inode:offset is already
-active and a task hits its entry breakpoint while another CPU registers a
-second session consumer.  handler_chain() may store the stale ID in the
-return_instance consumer array.  By the time the function returns,
-uc->id has been assigned a nonzero value, so return_consumer_find() fails
-to match the saved ID and the session ret_handler is incorrectly skipped.
+On Mon, 19 Oct 2026 at 04:27, cacioandpepe <artem122novak@gmail.com> wrote:
+> From: Artem Novak <artem122novak@gmail.com>
+>
+> The Renesas SH7305 includes a three-channel Timer Unit (TMU).
+> Add its compatible string to the Renesas TMU Device Tree binding.
+>
+> This is an RFC because SH7305 TMU0 Device Tree support is still
+> under review.
+> Feedback on the proposed binding would be appreciated.
+>
+> Signed-off-by: Artem Novak <artem122novak@gmail.com>
 
-consumer_rwsem does not close this window because handler_chain() is an RCU
-reader and does not take that rwsem.  Assign the ID before list_add_rcu()
-publishes the consumer; the release publish of the list node then orders
-the initialized ID before readers that traverse the list.
+Thanks for your patch!
 
-Found during a static-analysis-assisted audit: candidate sites were
-surfaced by a Coccinelle rule, and the reader/writer paths were
-confirmed by LLM-assisted (GLM-5.3) code inspection.  The issue was
-not observed at runtime; it is identified by code inspection only.
+> --- a/Documentation/devicetree/bindings/timer/renesas,tmu.yaml
+> +++ b/Documentation/devicetree/bindings/timer/renesas,tmu.yaml
+> @@ -21,6 +21,7 @@ properties:
+>    compatible:
+>      items:
+>        - enum:
+> +          - renesas,sh7305-tmu  # SH7305
 
-Fixes: 4d756095d399 ("uprobe: Add support for session consumer")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- kernel/events/uprobes.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+renesas,tmu-sh7305 (+ sorted alpabetically)
 
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 7709ea882477..83e6aef61181 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -1032,8 +1032,8 @@ static void consumer_add(struct uprobe *uprobe, struct uprobe_consumer *uc)
- 	static atomic64_t id;
- 
- 	down_write(&uprobe->consumer_rwsem);
--	list_add_rcu(&uc->cons_node, &uprobe->consumers);
- 	uc->id = (__u64) atomic64_inc_return(&id);
-+	list_add_rcu(&uc->cons_node, &uprobe->consumers);
- 	up_write(&uprobe->consumer_rwsem);
- }
- 
+>            - renesas,tmu-r8a73a4  # R-Mobile APE6
+>            - renesas,tmu-r8a7740  # R-Mobile A1
+>            - renesas,tmu-r8a7742  # RZ/G1H
+
+Probably SH7305 does not support module reset, so "resets"
+should be excluded, cfr. the proposed bindings for SH7750:
+https://lore.kernel.org/3b3f41148158aa146f06a40aeb5b23c8611b1895.1716965617.git.ysato@users.sourceforge.jp/
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.43.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
