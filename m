@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443971;
-	b=NNXWn0dNyclmoTHZrnMCBx1jG0GSIHSh+JZ9t12Ek9nsqifm/NdtCGSyLYe+i2S09JhP
-	 VvWhH23d/95TaeRJGlziNnOp34EqlMPK2ZRWgN6WqlwYaKFEIW/x4PcftVofuCQVFqudc
-	 qSez/ZE6RvjtJd5QmlSPx7+DgwVMlggOZ/LR/JaaITUUS4T2gP2bOxYG9FnTfIRlLpW86
-	 ZfB0SDwdrmD2zyvZjVNDuBMkvRjsGxB+zYk3cd1j7X84MUguqvHToiRd3xqdfpUjgbwKp
-	 D9mg0TerFLuEn/hCXoTt8WeHB3IAq2VqFQMeXobWnNzf8sF62PxKDCgn2mmQCdsg8ww==
+	t=1792443973;
+	b=ZPfhk7bg0QyUKPiSA+1BRouLgGNCVIS2y40MIT04DOFJzbS/s+0H+Aac4NtxkjMtThgz
+	 GzpHWat8nLgDcD0vLHF4b2+o/hDe438cXkZcc9C+RoUKESsO9YFEWc+lP70xPFFdMcykP
+	 1LWNMdq4bUSR56lXAijni8Hy2jO8lRIeRiezyXrbiHAPaI2Q++eKMAqFb2vo8VsrQs3Kf
+	 lg3xnOT2Lz0h4hMuHm/vrnluSUpjkm9PRTTxN+J5Hxpj2hi9K0a9jrCzyCvjGFuObq4gY
+	 BlBUaFuHgVnpgcgBY+Nvze892vbQb+blGTSCfOS+tbq1YMUNhOIJZy/a5p7p4TLm3Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443971;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443973;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=9MAmvIn08RerEdZ3pqVcuDHmjNgJDApJ50B7PsC0yxA=;
-	b=hLQVvoSS10MNtp7orK5XnnjULP2A8O3kf2UZy9hAPngtUjPSwPwivwJpWbE88i8DvcIS
-	 jHsHW/qoTL9PtNDVj9PaoEumHI/6AHDnJ6Bk6Fe7qwtQ6vMs+Gtm7WUHbWCrpkSm2nMwD
-	 k/qSVvpqFSvypwNtqtldtidw/9jWe94NLSpjt7rTsZMQGBda/EyMItWSdUXfR0wfljkg8
-	 eP85yjA2TIqCnLjElFmNHQ18aOKLZK5HZDF+MsnGFI9OPUbk8ZtAfjzgNthT9PuFW+Nm/
-	 ynH3oEqcy6FLVcuPFoOL/oLXtSgjLj6ijKvGY96O/CKL5VhKZXxPGfv+tpxPLigtEJQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=WqVC5CFEQLN+eiA8h21jf2v2wQ711iAVIxvEEPes1m4=;
+	b=hMw5aHSz5ilOp4E+BiP+dYsSVVdHx20spJUzQHnniJZF1RRVmW2y8yKRKnaMMqSnh1I+
+	 av26Ol/OVCP3IUduysTJ+5L0FP1PjkqBpE2ofLHFULfNF9LMtQ0QGa1jotRHnjhKYRqF+
+	 anbBZ2pLeuAq5YH9Fgh5zQpowZq9a2u1YADYNAVEnr0aKUlMdnXjbifpYd+ReT52U/asT
+	 SgNuV0KuzYqXyLkMfhbWnZ/LI1yaTs6wSZAVkROgEz/bBN4LKhl/RMmANEP8wYaWpKQ/F
+	 Zx2qn1vk7sQuJL80CX5INtGa+B+xDwS9FyLV3xaUPEU1qgMyJ66D/SYMlg/cs3xG+ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aVHZ9bvT;
-	arc=none smtp.remote-ip=209.85.208.71
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dpX3I1Oc;
+	arc=none smtp.remote-ip=209.85.218.72
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE62606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:06:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFE62606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFC5606A325
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:06:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BFC5606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aVHZ9bvT
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6afa6850207so3286548a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:06:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dpX3I1Oc
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c3f8e149ccfso243361066b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:06:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792443969; x=1793048769; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9MAmvIn08RerEdZ3pqVcuDHmjNgJDApJ50B7PsC0yxA=;
-        b=aVHZ9bvT+GAk2MN8y6KUiGpMemjJ3Sqzfu1NGkwM1zMiY7e/fRsvy0CG/t2b/7448H
-         WcYyR74Rne/rwQSVZSFVV3jIw2Y2iElBCeuqMxCYQrbHUKDasUuQUWW7D1f1FBZ5EpAf
-         x9XgVKvIkNSOKoac4yrZldcfcqAZSXe17lCpot5uxtLRJNWUX7kY+J44ssawbw3VR8Ry
-         IQle1kXpcra9tUJmsTmiJTkBu9TK618H1Y72e8G5Sxauw+vXHqkVlqV0mekur5XgUKcJ
-         jWOl3hgWktw3TE4vKIEpwu0jO4hJRRY9gIOkvVilzTRCZ3ifndJKeW8BRu8aUeNgfUR+
-         O/yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792443969; x=1793048769;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792443972; x=1793048772; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9MAmvIn08RerEdZ3pqVcuDHmjNgJDApJ50B7PsC0yxA=;
-        b=g1zKZVixE+udO9am27ZmlLlSjEoqXHJDNNLKGRii+obLQQHdkurCpTJIJ0Qp38kxuS
-         NaOPxdsAgC7NnwYv6ffFU71qMwGHTJr2NzBr3F0TPcISBW1CibOXdalQBPkDdO7WiOCr
-         YvgiOKXmLDzz2hz0ZfPGM27gnQ/HHzY8yIleScet1fxOls7Tq88ATBYRsX9aoppVgTWK
-         wiWtSa+wrUQRfFuAbnPTToPZAc8PEMQ8mu9vzdb88I2B40ShVVMfMXCFtvYQrCwRZuN/
-         zBYOKE2HgAqyXv9ekDqhlE4l7NYY2954weSk1Xc7F058LqLgmdHsULQM/5VJ+AleUSQH
-         ITXg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5FceQFaw6mEnuiN9GgT6bReuE9P2wGNhEwlP/vgyYQ5CN0K81Z9rsMABf0o2/2yy+LFVoGo/RHS4ib70=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLB/2AaXjWLMfxSc34X5wWSSVdcG+AjQdi1kIfwty6kNBbsKHLI
-	8MBWK3Hp9u9SLbQ5H1+MAk3W5TLNdpyC639cKKyqGdguiFmdoukJtta5PwzQYOa8flsMujfkQrr
-	/MJXH4w==
-X-Received: from edvi20.prod.google.com ([2002:aa7:dd14:0:b0:6ae:14cc:13c4])
- (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:354f:b0:6aa:f14f:5571
- with SMTP id 4fb4d7f45d1cf-6b3a81f6f9amr5851038a12.45.1792443968890; Mon, 19
- Oct 2026 14:06:08 -0700 (PDT)
-Date: Mon, 19 Oct 2026 21:06:02 +0000
+        bh=WqVC5CFEQLN+eiA8h21jf2v2wQ711iAVIxvEEPes1m4=;
+        b=dpX3I1OcHLNS2fqeWjFDj9D8EkiAUIUv6c3JhQLfrP9NRsQwQDhxre0oALunj+W1Qj
+         MvHuVfZ8jh4DTKEB4MHiHIG6d1eox/pz9VfwcEiRzcMeHJHObmKoJs65fuF7KkFMdLjr
+         Kp9R+4WqfGEDy2eCzDLULeiORAlx/0MLHguWrRfonCYTHRwOVvfYgHcqlfkHPW5h7okA
+         C10zp2HJUo/Wv1C0eI1aP8ljiklHTUUju6SLLga2rEiQ6ACrRiEMqlmosMv6RkvyGfZF
+         pukj0x5Nrr3yCseyV8/w66P8b749eGWgh867q08+2h++RWXYK1y6ja9KWVmO7qRFSmvl
+         SgSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792443972; x=1793048772;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WqVC5CFEQLN+eiA8h21jf2v2wQ711iAVIxvEEPes1m4=;
+        b=OlqGuA1PmLcppgmHG/1yYwNX8t9ejKJGNxnyXEY+i7aTiRPWTE77L7Zbz9hS6ho9X0
+         QhLAEFLyRKXptI3d/vb8YRM0VdOrmWAN18B3Havbk9VL624f8gSIAaGqjVRXKND762Jr
+         jSULkZ++rdyAfqvqTry+ZeP2GQD/VMCA/3jGl8dc/9571ReBWBQ9llKLkQTaRXyClgZF
+         HsUYXVWuizaEnOeWvAGco0l8tNRiJtWhQFZHXN/SkPubRoognnSIq/G2hpsvvqVUnXfM
+         1COHNnVo8kJqFUt50X2nHlRHR9LYYm2miCz6S5BM7d4FCGpS0HrNgHQYPLyIARdK6rKn
+         HZ4w==
+X-Forwarded-Encrypted: i=1; AKwUvBxN4YtiXSDXTukm9yOx2fqXsW89SQZGunIO1RDgRJK2imYolSwu9pRYKUZ45pMkD3ED9kJsnOlNUtqiei8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK88JS5T91FPCfB8XvheM2BgJNfYkjDr87c2939LTMONkQubc72
+	8ID9cR5cDdj2oAoZZzb/PPUzZkkKj4bOgpaFRbNdfHST6fYH1B9k19pz592puYycPKIaz9iCWmw
+	Bo3Zang==
+X-Received: from ejbm7.prod.google.com ([2002:a17:906:2587:b0:c3b:6442:c974])
+ (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:9617:b0:c29:d31f:7d73
+ with SMTP id a640c23a62f3a-c419d83b528mr591194766b.9.1792443971745; Mon, 19
+ Oct 2026 14:06:11 -0700 (PDT)
+Date: Mon, 19 Oct 2026 21:06:03 +0000
+In-Reply-To: <20261019210604.2433620-1-lrizzo@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,10 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261019210604.2433620-1-lrizzo@google.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261019210604.2433620-1-lrizzo@google.com>
-Subject: [PATCH iwl-next v2 0/2] libeth, idpf: use GFP_KERNEL for the initial
- Rx ring fill
+Message-ID: <20261019210604.2433620-2-lrizzo@google.com>
+Subject: [PATCH iwl-next v2 1/2] libeth: add libeth_rx_alloc_gfp() to specify
+ allocation flags
 From: Luigi Rizzo <lrizzo@google.com>
 To: intel-wired-lan@lists.osuosl.org
 Cc: netdev@vger.kernel.org, Tony Nguyen <anthony.l.nguyen@intel.com>, 
@@ -92,33 +96,74 @@ Cc: netdev@vger.kernel.org, Tony Nguyen <anthony.l.nguyen@intel.com>,
 	linux-kernel@vger.kernel.org, Luigi Rizzo <lrizzo@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-libeth_rx_alloc() always allocates with GFP_ATOMIC, including when a
-driver fills its Rx rings at open or on queue reconfiguration. That
-fill runs in process context, right after page_pool_create() and before
-the queues' NAPI is enabled, so it may sleep, and GFP_ATOMIC is
-needlessly restrictive there: it can neither reclaim nor compact, while
-the initial fill can allocate tens of thousands of buffers across all
-queues.
+libeth_rx_alloc() calls page_pool_dev_alloc_netmem(), which always
+allocates with GFP_ATOMIC | __GFP_NOWARN. Drivers also use it to fill
+their Rx rings at open or on queue reconfiguration, which runs in
+process context before the queues' NAPI is enabled. There, the caller
+may sleep and GFP_ATOMIC is needlessly restrictive: it can neither
+reclaim nor compact, while the initial fill can allocate tens of
+thousands of buffers across all queues.
 
-Patch 1 adds libeth_rx_alloc_gfp() taking a gfp_t parameter and turns
-libeth_rx_alloc() into its GFP_ATOMIC wrapper.
-Patch 2 switches idpf's initial Rx ring fill (both splitq and singleq)
-to GFP_KERNEL.
+Add libeth_rx_alloc_gfp(), which takes a gfp_t parameter and passes
+gfp | __GFP_NOWARN to page_pool_alloc_netmem(), and make
+libeth_rx_alloc() its GFP_ATOMIC wrapper.
 
-v2:
-  - split into two patches (libeth helper and idpf consumer)
-v1: https://lore.kernel.org/r/20261016151835.2500807-1-lrizzo@google.com/
+Signed-off-by: Luigi Rizzo <lrizzo@google.com>
+---
+ include/net/libeth/rx.h | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
-Luigi Rizzo (2):
-  libeth: add libeth_rx_alloc_gfp() to specify allocation flags
-  idpf: use GFP_KERNEL for the initial Rx ring fill
-
- .../ethernet/intel/idpf/idpf_singleq_txrx.c   |  7 +++---
- drivers/net/ethernet/intel/idpf/idpf_txrx.c   |  9 +++++---
- drivers/net/ethernet/intel/idpf/idpf_txrx.h   |  2 +-
- include/net/libeth/rx.h                       | 23 +++++++++++++++----
- 4 files changed, 30 insertions(+), 11 deletions(-)
-
+diff --git a/include/net/libeth/rx.h b/include/net/libeth/rx.h
+index 0e736846c5e8a..14a528ea8a075 100644
+--- a/include/net/libeth/rx.h
++++ b/include/net/libeth/rx.h
+@@ -96,20 +96,23 @@ int libeth_rx_fq_create(struct libeth_fq *fq, void *napi_dev);
+ void libeth_rx_fq_destroy(struct libeth_fq *fq);
+ 
+ /**
+- * libeth_rx_alloc - allocate a new Rx buffer
++ * libeth_rx_alloc_gfp - allocate a new Rx buffer
+  * @fq: fill queue to allocate for
+  * @i: index of the buffer within the queue
++ * @gfp: allocation flags: GFP_KERNEL where the caller may sleep (e.g. the
++ *	 initial fill of the ring), GFP_ATOMIC from NAPI
+  *
+  * Return: DMA address to be passed to HW for Rx on successful allocation,
+  * ```DMA_MAPPING_ERROR``` otherwise.
+  */
+-static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
++static inline dma_addr_t libeth_rx_alloc_gfp(const struct libeth_fq_fp *fq,
++					     u32 i, gfp_t gfp)
+ {
+ 	struct libeth_fqe *buf = &fq->fqes[i];
+ 
+ 	buf->truesize = fq->truesize;
+-	buf->netmem = page_pool_dev_alloc_netmem(fq->pp, &buf->offset,
+-						 &buf->truesize);
++	buf->netmem = page_pool_alloc_netmem(fq->pp, &buf->offset,
++					     &buf->truesize, gfp | __GFP_NOWARN);
+ 	if (unlikely(!buf->netmem))
+ 		return DMA_MAPPING_ERROR;
+ 
+@@ -117,6 +120,18 @@ static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
+ 	       fq->pp->p.offset;
+ }
+ 
++/**
++ * libeth_rx_alloc - allocate a new Rx buffer from NAPI context
++ * @fq: fill queue to allocate for
++ * @i: index of the buffer within the queue
++ *
++ * Return: as libeth_rx_alloc_gfp().
++ */
++static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
++{
++	return libeth_rx_alloc_gfp(fq, i, GFP_ATOMIC);
++}
++
+ void libeth_rx_recycle_slow(netmem_ref netmem);
+ 
+ /**
 -- 
 2.56.0.212.g129ede20d9-goog
 
