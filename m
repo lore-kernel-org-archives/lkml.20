@@ -1,203 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02C43603EE;
-	Mon, 19 Oct 2026 03:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB773D1CAF
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792379016; cv=none; b=M8BbKI0t2Tz7+mOp7Hg1Np6TsHTLnItvnsCC39hnSYlUF9zWtrIXvyXEoGS2GvnOJ3tIec6IAMmBHunPI27bLLKbo96vezJEBaeWv/iT3YzIO9KXaAYYxLMMnfd4OIiwC05ueLaOTm8WsdJ3h/cKXGNHQ6gW9nfvAWmGtZ4Tz3s=
+	t=1792379256; cv=none; b=YF/Mp3f9ZZOZXRrq9nYZEh7YUnl5s0j6wORxTopG3LcuzxVe64HsM43ceN5Nz3QnkbXcyrPbISntePS4YFooAcSKF0db0CrIdxKOezHNxNiUnskL8Cr+XbqHleu6RZ9MeAq+NSCGG1FHFzKSq+8spuD+gPjec6jn0L73M22QXeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792379016; c=relaxed/simple;
-	bh=sexkzFM3JZ1Peqq8W/WpCxzxZWrmYhPDtG/c0xCnR28=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hRX1pOSGBgenQ802tDyfQKAZmRaW+9RVPInWO09vzkb+omeKAiNnCH92BNHCBU6AbMpcfC1pKtswVleLcqY/lGRRB3PaD1/59ULwmjLSMxDO1oC1t0ttmn7w7OHvKvWihRU03o+UdjEaYyXplxtm4rJCU+CGGogxYSnSH3q529A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QNc/rMlP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792379256; c=relaxed/simple;
+	bh=jHTAibrtRN7JuUQrwM2e62mHU5jiaYp/bw0LtOz50b4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ApJ3KXZ1orU9v3Dq2PUXhmgKXYNTwvnlklYt4ubm4A3VdHuICDGUz8yagA6UgEQxmOz7rVztKVYzIg59r/eZzqf1BOGZ+Ov36XGPGVTXjoV8Oydc195OQKOFc7wBuY9vAHy4g/ayohjXcINez+lZrl7KibZ4ml2j+47ePkdexWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=LUXCdm2w; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gGiEMMsx; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QNc/rMlP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0DA1F000C4;
-	Mon, 19 Oct 2026 03:03:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792379014;
-	bh=IZomjIC98SGl6EP6Hus+ST7xnILmx9sFkWMwhPpB6N0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QNc/rMlPH84Aw4ZQOyew6p6TL7ptvYoV/GcKtuKEPf9yI72Z0laFvPGYp968dcsj8
-	 KYtbDm66OPAy7RR8C6LKGp/q5+VVEZmTdIQrcHvFtMiF2/tlF/4bNO3w/yrtkmE2Oi
-	 4h6LiX51JYZXiiFZrLF4+lkEqRJ0xrWWDJLOQj33iPJPEjq2QZG9hrMdIbTq0yuV8d
-	 si+S6xDnkbfofT2NvT1DL6TtD980vQzorW9Koc1rIwlUE36AsczFNWAq4LUlat8xof
-	 05KykAvz17EujSLQxcmuLkHO3MHrYlCf+KI68N1Zg5tbDDh+bqUoSjaXYsIcZo9ByM
-	 cVq2HZA1EYrjw==
-Date: Mon, 19 Oct 2026 04:03:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: light: gp2ap020a00f: use
- iio_trigger_poll_nested()
-Message-ID: <20261019040328.20bc809a@jic23-hlaptop>
-In-Reply-To: <20260823192101.3991611e@jic23-huawei>
-References: <20260822024654.315309-1-fanwu01@zju.edu.cn>
-	<20260823192101.3991611e@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="LUXCdm2w";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gGiEMMsx"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.phl.internal (Postfix) with ESMTP id 4D972EC00DB
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:07:29 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-09.internal (MEProxy); Sun, 18 Oct 2026 23:07:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1792379249; x=
+	1792465649; bh=PpXCkIvtnB+W+dsNuGgJoyHlr5x81ZPt+BBZ+R6r8t8=; b=L
+	UXCdm2w50sBdJci0o7loQiPA02sOU6AVjEBgyqymLl9O5lcsNF1fjCan/zwS4gms
+	hokqvJFR0b6aKsYuClxCSNFKyhTkm3qMYq5EP6Ysj20OFcjOA0iezJSGQ0gmotdt
+	TkRalwfIB8fnf3+/H6dQtiu4Tb/Rp3wAnqdI5N65VACyg6VIG7hfY5eOySzsHD/Y
+	sVU/ESqdDK5gtjLyS8q5aGMEJYsk5OoSqidhNgg1FOkeSzXJ85bGoMANydC5mvXm
+	gR6niRPbOmsMU6m56o9G+4vJw3GEac+t83/3JSNXpqMhQX8LTezN2OD2et1UBIIb
+	zaQJIb+9TlT3fJMbdzLmw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792379249; x=1792465649; bh=PpXCkIvtnB+W+dsNuGgJoyHlr5x81ZPt+BB
+	Z+R6r8t8=; b=gGiEMMsxwGPq2S1jLg9G8bM+af0mbI8OaKXzcF3r/Sv84LpMMf6
+	x9j1sMzSASAfPTVWooLSi0QzTzV7gA5rabLcC3FQfGbL8Ry2Z2s/EemJANqBsL4i
+	F2rY8KoMwUN59xgP75EolIiKnVBBlFjMFVKczOEVxuQuYmJa0J2g7j/o82VVgYSy
+	kucwGOBCcKIwNtX4vWz+mm+ZbRCq0UvAHZCzvTjTUUj/oEoFXm+RyJ4io5AGmP6r
+	974HDk56bHFH45XM78mC12766Xg+P5x/D6BcSeejwWIM4Qm2IwTml87a8hONU58A
+	TZITvAYs7HLn8Vcc53oYmQp9Ri1xxaTVIng==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792379249; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:TQJ9wLuxxngDyDt7rt8adlVtomndoiO+tzwVug4vtLl84gC
+	lxgn0I+b4T83j13dLawpchbEFm4zmjF8UGte4HQ/GUxVlpylR8idLrmPE9nG8JGf
+	KOg/euTOqm7EZdMenq1cSEe5j/7YUIe5jC2INslgjuvPCwgeQuVqR88Yg1OBOa8v
+	Qr1QcQPT3CNPxOXRgQFwsQGVtwY2t7757yposFuBGmjqhod9T9pj/0XMuhJEgHnJ
+	Yoo4DPLqd2bH/bvNsEdCS8T4CUKB/IPSb0zgL6WzMjTtLxLv5d4KhC8nTQgmW9Nl
+	X2mOFPh3kvJBy/S3Pk77pFNBYcBDLAoqhN0M4og==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,mail-followup-to,message-id,mime-version,references,
+	subject,to;
+Message-Instance: m=1; h=sha256:4DDPGcKkTW2DqOCEH2A34Gappt2dKZ0g4CtaJjgJBc4=:jHTAibrtRN7JuUQrwM2e62mHU5jiaYp/bw0LtOz50b4=;
+X-ME-Sender: <xms:cYnVaoL3US_s4KHT8hbYia5LQY3W4rr9oAMKYL81McdTfQuYbjDtXA>
+    <xme:cYnVamF399mPPBxogTr_E57tX6m6gEg6-lXhF2zHUHdjcC7hVd9ueuqcIQgPCVK6t
+    oe_Y7jJikQiImOgm3sHUtuj9wQq17Q8PKx1I-aD48WaiC9qpCL2WsEd>
+X-ME-Received: <xmr:cYnVagR40ThBxky3rlkM4oHMGY6YDySZznTgH9Z3hoaCE0YdAud47PSuEZ_qF-tZXTIL5ki87Q62_LUinuKLqrMPU7FPqg>
+X-ME-Proxy-Cause: dmFkZTE8JY1geYk9O+D+DSokuL7tWgf726nu+VBq5BLuLTmqpEJKCp6BUjGru6/+FiGBbW
+    6PYbtjCAeWsw08HIGSyU5GVBB6ANpg9Xh5GSm7FvaI8uyygAwYf5WBiU68iLCeHM/G3W3I
+    AFDxBH11zB/LX++2iisss6P2iFWV1Rgf/MUSuBuY+NeN8qbkhDTRwtc1/E4s+IDsejJwFM
+    Vh6f2NowtSn5npmu24fqzDLrBxnOBuKuo1nuz27q+nnyb2qM3VWSP/Y7vDYNI261PQuDmG
+    8fkK6z9HjeQ1xsOJuhqi4m0VpbO++kFWwJtTpzLhd9EJTlN56aKr6jef1Gr0e2NV0osnP3
+    /pj29Du8msWMmPHzN8x1qbcmsUrIweR61TuvhN2kttJ6HeJlkTi6Kt/MvDD5qPLgBWEC3k
+    7RSx9+vYyM9a+JcbFaBQwCt+Sos3R5mLpOimWOBBe2vXZRfNRDBGBG5SxPSkiDcgQwCrhd
+    9i3+/YCA26HU6SqYA7MWx1VM1WhWI93zA0pQku93dz28zkPA4SW36FT7e8bzsu0Gb14K5e
+    OcClExSa1J/gNZixCU93C1dU8003vGvY3H1BZrBQ3s3iKHuswM3UZBGScZkb1SpiMOsPN/
+    wII6AQgLwt+ITKDc0qPfRz3xbdsm3rkTtIcOJxljCFMaPZyeNm5wNwWRSNlA
+X-ME-Proxy: <xmx:cYnVaiGdSxwej1sg1D2NRstC_6dJAYzF1irB9kGzX046Oy7VAx0SaA>
+    <xmx:cYnVas8_Xk-4ph_ItOcThRnbDSq0xJpmvvgiEyNHt9iWfm1lH21UZw>
+    <xmx:cYnVasIcG38JSmazYcDvQVtoYWFzOJFLLZbznkp_oSOhSohwtpGUEA>
+    <xmx:cYnVavaSt22c1_LDFVBT1eC6Jbf2kR0qelMHya6gDfW_ThOVY5zO0g>
+    <xmx:cYnVaq_RkFeIm2aJY1d7WZC3xznjNryEVOl-lEWpzMHvN9r-TKc9jx5P>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 18 Oct 2026 23:07:28 -0400 (EDT)
+Date: Mon, 19 Oct 2026 12:07:25 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] firewire: core: invoke packet callback from
+ workqueue when removing card instance
+Message-ID: <20261019030725.GA48580@sakamocchi.jp>
+Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+References: <20261018132955.391090-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018132955.391090-1-o-takashi@sakamocchi.jp>
 
-On Sun, 23 Aug 2026 19:21:01 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Sun, Oct 18, 2026 at 10:29:53PM +0900, Takashi Sakamoto wrote:
+> Hi,
+> 
+> This series is take 2 of the previous series[1].
+> 
+> This series updates the dummy driver used during card removal.
+> 
+> The first patch switches to a designated initializer for the dummy
+> driver, which contains mutable variables.
+> 
+> The second patch ensures that packet callbacks are invoked from a
+> workqueue in process context during card removal, maintaining a
+> consistent execution context for callbacks.
+> 
+> [1] https://lore.kernel.org/lkml/20261016135948.85343-1-o-takashi@sakamocchi.jp/
+> 
+> Takashi Sakamoto (2):
+>   firewire: core: use designated initializer for dummy driver on card
+>     removal
+>   firewire: core: invoke packet callback from workqueue when removing
+>     card instance
+> 
+>  drivers/firewire/core-card.c | 88 +++++++++++++++++++++++++-----------
+>  1 file changed, 61 insertions(+), 27 deletions(-)
 
-> On Sat, 22 Aug 2026 02:46:54 +0000
-> Fan Wu <fanwu01@zju.edu.cn> wrote:
-> 
-> > The threaded IRQ handler queues an irq_work only so that
-> > iio_trigger_poll() can run from a hardirq-like context. The driver's
-> > own buffer consumer does not need that context: the only thing the
-> > pollfunc top half, iio_pollfunc_store_time(), does is store a timestamp
-> > in pf->timestamp, and deferring through the per-CPU irq_work queue
-> > moves that timestamp further away from the actual event. Whilst in
-> > theory there can be other consumers of this trigger relying on the
-> > pollfunc top half running, given this is a light sensor those are
-> > considered unlikely to exist in practice.
-> > 
-> > Switch from irq_work to direct call of iio_trigger_poll_nested().
-> > Remove now unnecessary irq_work related infrastructure and ensure a
-> > local time stamp is acquired.
-> > 
-> > Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> > Assisted-by: Codex:gpt-5.6
-> > Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>  
-> Thanks.  This looks good to me, but will need to wait for the fix
-> to being upstream and for me to merge an rc into the main togreg
-> branch of iio.git.  So at least a few weeks, maybe longer.
-> 
-Applied.
-> Thanks,
-> 
-> Jonathan
-> 
-> > ---
-> > Applies on top of "iio: light: gp2ap020a00f: drain irq_work after
-> > free_irq" in the fixes-togreg branch of iio.git; this drops the
-> > irq_work_sync() drains that patch added.
-> > 
-> > v2:
-> >   - commit message rework only, per maintainer review; code unchanged.
-> > v1: https://lore.kernel.org/linux-iio/20260817024023.291319-1-fanwu01@zju.edu.cn/
-> > 
-> > ---
-> >  drivers/iio/light/gp2ap020a00f.c | 27 ++++++++-------------------
-> >  1 file changed, 8 insertions(+), 19 deletions(-)
-> > 
-> > diff --git a/drivers/iio/light/gp2ap020a00f.c b/drivers/iio/light/gp2ap020a00f.c
-> > index 330d597..00164fd 100644
-> > --- a/drivers/iio/light/gp2ap020a00f.c
-> > +++ b/drivers/iio/light/gp2ap020a00f.c
-> > @@ -37,7 +37,6 @@
-> >  #include <linux/i2c.h>
-> >  #include <linux/interrupt.h>
-> >  #include <linux/irq.h>
-> > -#include <linux/irq_work.h>
-> >  #include <linux/minmax.h>
-> >  #include <linux/module.h>
-> >  #include <linux/mod_devicetable.h>
-> > @@ -245,7 +244,6 @@ struct gp2ap020a00f_data {
-> >  	struct iio_trigger *trig;
-> >  	struct regmap *regmap;
-> >  	unsigned int thresh_val[4];
-> > -	struct irq_work work;
-> >  	wait_queue_head_t data_ready_queue;
-> >  };
-> >  
-> > @@ -802,14 +800,6 @@ static void gp2ap020a00f_output_to_lux(struct gp2ap020a00f_data *data,
-> >  		*output_val *= 16;
-> >  }
-> >  
-> > -static void gp2ap020a00f_iio_trigger_work(struct irq_work *work)
-> > -{
-> > -	struct gp2ap020a00f_data *data =
-> > -		container_of(work, struct gp2ap020a00f_data, work);
-> > -
-> > -	iio_trigger_poll(data->trig);
-> > -}
-> > -
-> >  static irqreturn_t gp2ap020a00f_prox_sensing_handler(int irq, void *data)
-> >  {
-> >  	struct iio_dev *indio_dev = data;
-> > @@ -932,8 +922,7 @@ static irqreturn_t gp2ap020a00f_thresh_event_handler(int irq, void *data)
-> >  	if (test_bit(GP2AP020A00F_FLAG_ALS_CLEAR_TRIGGER, &priv->flags) ||
-> >  	    test_bit(GP2AP020A00F_FLAG_ALS_IR_TRIGGER, &priv->flags) ||
-> >  	    test_bit(GP2AP020A00F_FLAG_PROX_TRIGGER, &priv->flags))
-> > -		/* This fires off the trigger. */
-> > -		irq_work_queue(&priv->work);
-> > +		iio_trigger_poll_nested(priv->trig);
-> >  
-> >  done:
-> >  	return IRQ_HANDLED;
-> > @@ -944,9 +933,12 @@ static irqreturn_t gp2ap020a00f_trigger_handler(int irq, void *data)
-> >  	struct iio_poll_func *pf = data;
-> >  	struct iio_dev *indio_dev = pf->indio_dev;
-> >  	struct gp2ap020a00f_data *priv = iio_priv(indio_dev);
-> > +	s64 timestamp;
-> >  	size_t d_size = 0;
-> >  	int i, out_val, ret;
-> >  
-> > +	timestamp = iio_get_time_ns(indio_dev);
-> > +
-> >  	iio_for_each_active_channel(indio_dev, i) {
-> >  		ret = regmap_bulk_read(priv->regmap, GP2AP020A00F_DATA_REG(i),
-> >  				       &priv->buffer[d_size], 2);
-> > @@ -964,7 +956,7 @@ static irqreturn_t gp2ap020a00f_trigger_handler(int irq, void *data)
-> >  		}
-> >  	}
-> >  
-> > -	iio_push_to_buffers_with_timestamp(indio_dev, priv->buffer, pf->timestamp);
-> > +	iio_push_to_buffers_with_timestamp(indio_dev, priv->buffer, timestamp);
-> >  done:
-> >  	iio_trigger_notify_done(indio_dev->trig);
-> >  
-> > @@ -1455,8 +1447,9 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
-> >  	indio_dev->modes = INDIO_DIRECT_MODE;
-> >  
-> >  	/* Allocate buffer */
-> > -	err = iio_triggered_buffer_setup(indio_dev, &iio_pollfunc_store_time,
-> > -		&gp2ap020a00f_trigger_handler, &gp2ap020a00f_buffer_setup_ops);
-> > +	err = iio_triggered_buffer_setup(indio_dev, NULL,
-> > +					 &gp2ap020a00f_trigger_handler,
-> > +					 &gp2ap020a00f_buffer_setup_ops);
-> >  	if (err < 0)
-> >  		goto error_regulator_disable;
-> >  
-> > @@ -1480,8 +1473,6 @@ static int gp2ap020a00f_probe(struct i2c_client *client)
-> >  		goto error_uninit_buffer;
-> >  	}
-> >  
-> > -	init_irq_work(&data->work, gp2ap020a00f_iio_trigger_work);
-> > -
-> >  	err = iio_trigger_register(data->trig);
-> >  	if (err < 0) {
-> >  		dev_err(dev, "Failed to register iio trigger.\n");
-> > @@ -1498,7 +1489,6 @@ error_trigger_unregister:
-> >  	iio_trigger_unregister(data->trig);
-> >  error_free_irq:
-> >  	free_irq(client->irq, indio_dev);
-> > -	irq_work_sync(&data->work);
-> >  error_uninit_buffer:
-> >  	iio_triggered_buffer_cleanup(indio_dev);
-> >  error_regulator_disable:
-> > @@ -1521,7 +1511,6 @@ static void gp2ap020a00f_remove(struct i2c_client *client)
-> >  	iio_device_unregister(indio_dev);
-> >  	iio_trigger_unregister(data->trig);
-> >  	free_irq(client->irq, indio_dev);
-> > -	irq_work_sync(&data->work);
-> >  	iio_triggered_buffer_cleanup(indio_dev);
-> >  	regulator_disable(data->vled_reg);
-> >  }
-> > 
-> >   
-> 
-> 
+Applied to for-next branch with a small change that both
+disable_work_sync() and destroy_work_on_stack() are called for closer.work
+in the final part of fw_core_remove_card().
 
+
+Regards
+
+Takashi Sakamoto
