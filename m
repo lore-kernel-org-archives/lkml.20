@@ -1,59 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443350;
-	b=ssk0USOjjs70ZjPBDwD+yJSXXn3iS/ILFXeN5bi/4vebQUxYz/55L/DY0FNpt6gWG3q1
-	 wv9MoxuABHAwZ53Eo9vEmHxCcu0x48RS3prHnH3+lGh1JBPsz30lS51+tKgPZRn5s70m5
-	 yoREWfzD8P3B6frk6DMTsBTJLRPk3Hxasu7xv4M3EB68HAdBGRw385Y3ogo7q4OH9Tnqq
-	 moZkXyQEZ0T9hWqkecPCC3RcqRavaWdYQdBDaxBSO038CEjPPbL1Q5mbXN2xUzW2eUPPy
-	 N2/6dP3Iw4mHL8BC6TnkdvZ01Mo/UVphJqpUoV2LkC64+waJXJZkEyGX2odHBb+KSBg==
+	t=1792443366;
+	b=Q/N1UMxX3fORImyXcdSRI0328terT511oBYAls3/D14+kmuO6ckgnkDXNLU7UhM/CAbB
+	 OfjreCTiejjtQJPNFD0ruKwA/iXW6LLv+JCNdZEapoYD/70VFcAS0BRpsAUnCQjFo7d4a
+	 SJ40KAWmwg7US1gjiBiH/nk7oFjhJnR3VNWOiTiJSC/7JIzkwvZgbXEyW2Tp0jfEwTCLH
+	 GY39/siUMZatuanXt16vIgZIO+qbtc3EzLl00OUPRN7Cg0r+Ync+7W+m2kEGegPw7hLU4
+	 e6lw17FJauFqSynZGvUjBoxeQGUgN9/ULNXu9U+75fXCdPkkgz+lwuWGUneHUDv8jcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443350;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443366;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rMxdImEr4JU1Ce1Xp+TIMLaP/oLFwxQ3dFnni3rGpH8=;
-	b=AwOl+w9Ymn6ebzeis0+Qs5EmQi68/k3O5umY7ka8/UKD9pQWJsitahTmLkzCCBeM9oYU
-	 BmaiZFDNdn7xj8NQ0D0fsRXxLuVBM1CU9LkkU17k1HPz5P94Uu0lXXTVCuTH3DHQhgG5E
-	 dN1BNBfGd4uHQIAFfs/Z6Qo4y6I2HyoiQLW9TNvRIF30U6maCSZ9SPxtHnyXhvycGaD4/
-	 tPiI549WvxlJVB1NohPIWCONawNQi1nObgpjazxSGNcMqBPY0uwzgMQ4NNli2wLjQQKsG
-	 M2x+/kUXoWfo9/u7LUPQt0ZxllpGEs/hM1vGERK0PbNgFuhZZxVuSY0KuyXIpE3aYcQ==
+	bh=BjZVrzg3rsf7XbY7jaOkZkV6KS8iKu7zuHPhPhRa91E=;
+	b=NQzxsEE2f7JhR5SKQjvwsH96XQyHYqvSYbg6BpN4HLnF+Il/huiE1QNUgxBSX8A+Xj4r
+	 pbTQ0Ne8jhFh2EQfXpeNyPIPCMVKHXPC4AkaT+it+Cx8VO1PlnZMS/daGP/yaZRJbADpt
+	 /dPMOJiE2KVrzbGZcc5dlD8dS6+F9oxOTfKxm8hx2g1s+llIGK3uNIaQz1wnrJ2jNPZqW
+	 jNDlJeSQatksLij1uwBrpGecdE8lxro+V2JJumunL2G0TVZRXfSGfDGOKwu1VFf3KvqvA
+	 i0yEswoJ1iT3mDTc7jDL15Tr4hGn0v6Z9PercazZ4HqvosWBkwCl0VezaNckTRip+1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mio3yAAR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaqOCt87;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE47606A31A;
-	Mon, 19 Oct 2026 20:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05437606A31A;
+	Mon, 19 Oct 2026 20:56:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mio3yAAR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4044B1F000C4;
-	Mon, 19 Oct 2026 20:55:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaqOCt87
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B435A1F000C4;
+	Mon, 19 Oct 2026 20:56:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443350;
-	bh=rMxdImEr4JU1Ce1Xp+TIMLaP/oLFwxQ3dFnni3rGpH8=;
+	s=k20260515; t=1792443365;
+	bh=BjZVrzg3rsf7XbY7jaOkZkV6KS8iKu7zuHPhPhRa91E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mio3yAARvbSfF93P0br7LSxP4LLYrad5K8r+4AcJzJGrBO94A3JZnsrdYOEtEArmE
-	 YIXuqjcceLLTePYZBrSHLVM8+h/7nZ7LzPnQHO59ymE6uDwNEukqCaCKsuMmORRA/w
-	 lizgSfjHeKu8lZP43cNfrWwhOR6pox331GXnjrH1R+3hQIKXGTR7IHgNYyxn0enmMp
-	 AJmPp3l6PsVyRHmAfXIfBYzyw8GdWSJsFiHRi1IZhjhCo8GeCdP3wjQPeyt4+2eRfa
-	 c5cvzryslNN/8RrYpOBs3z4tCcwMHxDEGjRRKsgSxzHJaXdTVfrLpNQnHO3B3iPXsO
-	 otMISZ1vln0rA==
+	b=AaqOCt87uid4jy9SNYadhhhufQD2OkEVYLeIo7wWintbkPMxDFt5hE094B0UN7vP4
+	 wtWaGcX5VWIhD2E9cKYa9k5DgB1K4t72apgufNGpoDikiPAAoosP3Fsbf0WhJcPlxy
+	 hX1WftopX9o+g1zUt7Qv1z0px45podZKK44kBo+r2YMJuxqJExsqHpZgHdTyLSdygs
+	 phh5+ftZaBVa1JwLYi4GUXNXoTaok9DvC52ALGtSmRhE4E5dFVKj27ux2V/2D/1mla
+	 O8Tu3RZ7yOXwFvYMkr/EusQCC5LivmSa62msVHKDIMf2hpVjEkSIy1Bfg2at/pI0Zh
+	 1aTrmPNfNCYmg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Daniel J Blueman <daniel@quora.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	axboe@kernel.dk,
-	kbusch@kernel.org,
-	kch@nvidia.com,
-	linux-block@vger.kernel.org,
+	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Manikanta Mylavarapu <quic_mmanikan@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: [PATCH 6.6.y 0/2] CVE-2026-64017: backport fix series
-Date: Mon, 19 Oct 2026 16:55:27 -0400
-Message-ID: <2026-10-19-1-daily-reply-0001-blk-mq-cached-rq-6-6@kernel.org>
+	stable@vger.kernel.org
+Subject: Re: [PATCH] i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
+Date: Mon, 19 Oct 2026 16:55:40 -0400
+Message-ID: <2026-10-19-1-daily-reply-0015-i2c-qcom-geni-clk-policy-7-2-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016184753.27189-1-artem@trailofbits.com>
-References: <20261016184753.27189-1-artem@trailofbits.com>
+In-Reply-To: <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
+References: <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,9 +68,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please consider this backport series for CVE-2026-64017 to 6.6.y.
+> On 9/30/2026 3:01 PM, Daniel J Blueman wrote:
+> > If you can get the final values into a patch for the next -rc instead
+> > of my fix here, that would be the minimal path for everyone.
 
-Queued the series for 6.6, thanks.
+Queued the mainline fix, "i2c: qcom-geni: Restore the source-clock
+selection policy", for 7.2 and 6.18, thanks.
 
 -- 
 Thanks,
