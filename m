@@ -1,104 +1,238 @@
-Received: from mta-sndfb-w02.mail.nifty.com (mta-sndfb-w02.mail.nifty.com [106.153.227.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F4355CE8B;
-	Mon, 19 Oct 2026 14:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=106.153.227.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4634C55CE94
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419359; cv=none; b=Bqas8tGPwoTGnpmZ1JL9aOvDC81TwQoKxMCEjNzOajL0tCUqd3Ju/XyMegNMV6BKayx2T8Ttze0TD6mj2nLDR01Q2QBNoJuYj2YPfOv1WTACKu9ljzx5ZvK66f23FtkLhkzCzHJm3AXPaCgu+d1cv9UdbuiJEpVl62s7uD3cSDg=
+	t=1792419358; cv=none; b=WrTspynKXbZeDzMBsNnkAIL5Jn3XYR7KK8xgwkR93D9mUyYEh5PvomMVCNTLio1FxsDkphORLClk/W7B7omEWpmKF/B7QMbzHlYTc/qU+fV5zOt30KXMdpBI3VE8PPazJz/2bTg0Vi0gYOMByR87v1gKCmA2enWegjnUIiMtwBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419359; c=relaxed/simple;
-	bh=hMmZNe8RzyTfEzTCQsPcmhGBU5InORCEXO0uFVWInZ0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=upzy9Qunvl7dyO+H2gaRBrzVuRH0Xm781hKnS24I6SMgxgLqxIum/3Ya7BkMGdgEOM/H1b+lbtIWI837Tn6FF7FlgKrFSGvvicgFnBBiNqNIeY5kncoYaZBnAJWOg4JP8hDMoHdCWEm5ysJ2B169FyBpZKD5XK23LG/2UroivmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nifty.com; spf=pass smtp.mailfrom=nifty.com; dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com header.b=gKEMjdwI; arc=none smtp.client-ip=106.153.227.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nifty.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nifty.com
+	s=arc-20240116; t=1792419358; c=relaxed/simple;
+	bh=VueBhj8axSR8Drw5sicnUiINUzk6bQ7LlEArehhNTxg=;
+	h=Cc:Message-Id:Content-Type:To:Date:Mime-Version:In-Reply-To:From:
+	 Subject:References; b=EgD/FQruRmDiuZV/jnlkgh73UHlobRUnQrcNnCiJLpIqq/HIs1UDWHFgrPGVXFvjD5YiAItMDDLN9IKnsga2nmjTgQH02LaN6cJCswEQ75wLyzOgRMi96oL7NBknKmna01TUo7pnCMm1o1jsXWVyCU6RQWX4KrIzNfWCFoQT44E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=LXMceNcC; arc=none smtp.client-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com header.b="gKEMjdwI"
-Received: from sakura.ysato.name by mta-snd-w07.mail.nifty.com with ESMTP
-          id <20261019140751810.DRGH.18412.sakura.ysato.name@nifty.com>;
-          Mon, 19 Oct 2026 23:07:51 +0900
-Received: from SIOS1075.ysato.ml (ZM005235.ppp.dion.ne.jp [222.8.5.235])
-	by sakura.ysato.name (Postfix) with ESMTPSA id 2EDD11C0162;
-	Mon, 19 Oct 2026 23:07:51 +0900 (JST)
-Date: Mon, 19 Oct 2026 23:07:50 +0900
-Message-ID: <87qzhlss09.wl-yoshinori.sato@nifty.com>
-From: yoshinori.sato@nifty.com
-To: Daniel Palmer <daniel@0x0f.com>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	dalias@libc.org,
-	dlemoal@kernel.org,
-	cassel@kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	fuchsfl@gmail.com
-Subject: Re: [PATCH 0/2] sh: Fix IDE on landisk
-In-Reply-To: <CAFr9PXn4henL=rQ3n73H7Mjwd7v6XX6Jt63h=Sywu-boOPggKw@mail.gmail.com>
-References: <20261017041419.311921-1-daniel@0x0f.com>
-	<4cdb2939264e0b7d767f44289fddffd40fddf504.camel@physik.fu-berlin.de>
-	<CAMuHMdXmZash+8PmfSVrT=Wwob-mkq0x4umyRgX2-yikV9kaVA@mail.gmail.com>
-	<CAFr9PXn4henL=rQ3n73H7Mjwd7v6XX6Jt63h=Sywu-boOPggKw@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
- Emacs/30.1 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="LXMceNcC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792419352; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=xoreJwIbc9FMkcxPipG4faUYvfDzahKIM5OORCnCFbM=;
+ b=LXMceNcCGzigzX0mF22ioTXqfXUYPoQjn3BxLQWgem6phcnaTx9GfHWjJZvEFm++8Fm5Jl
+ MriCqpDq8qfaQb6BKsg2+Z17juZm3284EkiJnYjPbzZhRe3hBpWHI/GUPiShsoqK46/BK3
+ KpQ3ucBYa0i2cFTyyh177/lnszmPVHVA55pLGUvTQ6FJwnahazFhTv3gJtFQEvaFJbMirO
+ jE/ab2HqJOzqa03de9Fz0ujyb0mTXCRfp4Edrc7VXpbXRjHvuYkvGUZSEHySfevdb7RwF2
+ bVcO9egQhXusqup2ChkMyP3nZMnpS/OLCWuJvLpdVVAqB1dnXhYc4WyVXcd++g==
+Cc: <cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	"Li Zhe" <lizhe.67@bytedance.com>
+Message-Id: <20261019141401.11927-3-lizhe.67@bytedance.com>
+X-Mailer: git-send-email 2.45.2
+X-Lms-Return-Path: <lba+26ad62616+274811+vger.kernel.org+lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+To: <akpm@linux-foundation.org>, <david@kernel.org>, <gourry@gourry.net>, 
+	<ziy@nvidia.com>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>, 
+	<ying.huang@linux.alibaba.com>, <ljs@kernel.org>, <mhocko@suse.com>, 
+	<muchun.song@linux.dev>, <roman.gushchin@linux.dev>, 
+	<shakeel.butt@linux.dev>, <weixugc@google.com>
+Date: Mon, 19 Oct 2026 22:14:01 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com; s=default-1th84yt82rvi; t=1792418871;
- bh=ZWP0POxKL7WL6Fwv13eX+VxN5lFxqWs+Vq0GdC6vMtI=;
- h=Date:From:To:Cc:Subject:In-Reply-To;
- b=gKEMjdwItn26U6iUKBgRzEbfsE6Y87nLj+LVlP75McMlAn9s6dy98hftazfUEsmNAoM1MiAU
- KSZGEgeBO6baUtXxlbBZB/LP1AqvXPxSipmlQt2meCsq2UURf/yy814YSmTJ/46Zb8iodub2tp
- 6vhlZt+6RrjH6GpgccjMVGj0jmqe4sPysSTO1nRjnklrT5sRsxunM2ILB2B0CFqaZLSaaWlsB9
- mSznJmSH73zoGQMjIGni/iv9aX0gOnxu7Dw/KZV4DOdxiX1BQ4ZCR1uCcm2rUva5Lj/Lb9DQ6p
- sksRZV8iOr1lEakb4hWsQbG+74ayKe1j2ukDG5liAuRS6hrA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+In-Reply-To: <20261019141401.11927-1-lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Subject: [RFC 2/2] mm: add tier source selector to memory.reclaim
+References: <20261019141401.11927-1-lizhe.67@bytedance.com>
 
-On Mon, 19 Oct 2026 08:04:46 +0900,
-Daniel Palmer wrote:
-> 
-> Hi Geert,
-> 
-> On Sun, 18 Oct 2026 at 23:48, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> > > I hope Geert can test and review your patches and I'll pick them up
-> > > with his Reviewed-by and Tested-by signatures.
-> >
-> > Sorry, I must have different hardware, as mine doesn't have an
-> > ATP865 PCI device:
-> >
-> >     # lspci
-> >     00:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd.
-> > RTL-8139/8139C/8139C+ (rev 20)
-> >     00:02.0 USB Controller: NEC Corporation USB (rev 43)
-> >     00:02.1 USB Controller: NEC Corporation USB (rev 43)
-> >     00:02.2 USB Controller: NEC Corporation USB 2.0 (rev 04)
-> >
-> > My CF rootfs uses pata_platform, which is enabled in my working .config.
-> > landisk_defconfig lacks CONFIG_PATA_PLATFORM=y, so it hangs during
-> > boot. After enabling that, the boot gets further, but it still hangs:
-> 
-> I guess you have something like the USL-5P that uses the SH's onboard
-> CF interface.
-> Since Florian has confirmed their hardware has the PCI IDE controller
-> like mine and reviewed the change I think we're good.
-> 
-> Daniel
+source=nodes:<nodelist> lets userspace apply the existing
+memory.reclaim aging pipeline to a specific set of NUMA nodes. Many
+tiering controllers reason in terms of memory tiers rather than raw
+node lists, and the memory tier core already exposes those tiers as
+/sys/devices/virtual/memory_tiering/memory_tierN/nodelist.
 
-Yes.
-LANDISK and USL-5P have almost the same hardware configuration,
-but the only difference is the IDE part.
-This issue needs to be confirmed with LANDISK hardware.
+Add source=tier:<N> as another typed source selector. The selector
+uses the same N as memory_tierN and resolves it to the tier's current
+memory-node mask at write time. The resulting mask is then passed to
+the same source-scoped reclaim path used by source=nodes:<nodelist>.
 
-The LANDISK that I have cannot be used immediately, but here is qemu
-that can emulate LANDISK hardware.
-https://gitlab.com/yoshinori.sato/qemu/-/tree/landisk?ref_type=heads
-This will allow you to check if it is not broken.
+This is only a selector convenience. It does not choose demotion
+targets, does not introduce a demotion-only or eviction-only goal, and
+does not change memory.reclaim completion accounting or reclaim policy.
 
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+---
+ Documentation/admin-guide/cgroup-v2.rst | 22 ++++++++-----
+ include/linux/memory-tiers.h            |  6 ++++
+ mm/memory-tiers.c                       | 24 ++++++++++++++
+ mm/vmscan.c                             | 42 +++++++++++++++++--------
+ 4 files changed, 73 insertions(+), 21 deletions(-)
+
+diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+index a016575010ba..d6e9b275fcfd 100644
+--- a/Documentation/admin-guide/cgroup-v2.rst
++++ b/Documentation/admin-guide/cgroup-v2.rst
+@@ -1467,18 +1467,24 @@ The following nested keys are defined.
+ 
+ 	The source key declares where the normal reclaim aging pipeline is
+ 	applied. It is a typed selector in the form source=<type>:<selector>.
+-	Currently only source=nodes:<nodelist> is supported. For example::
++
++	Currently source=nodes:<nodelist> and source=tier:<N> are supported.
++	For example::
+ 
+ 	  echo "1G source=nodes:0-1" > memory.reclaim
++	  echo "1G source=tier:4" > memory.reclaim
+ 
+ 	This instructs the kernel to apply reclaim pressure to memory of target
+-	cgroup that are currently resident on nodes 0 and 1. Reclaim then
+-	follows the normal reclaim path for selected folios. The source
+-	selector does not choose a demotion or eviction policy. On tiered
+-	memory systems, a source node in a non-terminal tier will usually make
+-	progress through demotion when an allowed demotion target exists. A
+-	source node in the terminal tier has no demotion target, so successful
+-	reclaim progress from that source is eviction.
++	cgroup that are currently resident on the selected source. The nodes
++	form selects nodes directly. The tier form selects the nodes currently
++	in /sys/devices/virtual/memory_tiering/memory_tierN/nodelist, where N
++	is the memory tier id. Reclaim then follows the normal reclaim path
++	for selected folios. The source selector does not choose a demotion or
++	eviction policy. On tiered memory systems, a source node in a
++	non-terminal tier will usually make progress through demotion when an
++	allowed demotion target exists. A source node in the terminal tier has
++	no demotion target, so successful reclaim progress from that source is
++	eviction.
+ 
+ 	The source selector is a source constraint only. It does not select or
+ 	limit demotion targets; those are still chosen by the kernel's memory
+diff --git a/include/linux/memory-tiers.h b/include/linux/memory-tiers.h
+index 7999c58629ee..71fa51ba317d 100644
+--- a/include/linux/memory-tiers.h
++++ b/include/linux/memory-tiers.h
+@@ -49,6 +49,7 @@ int mt_calc_adistance(int node, int *adist);
+ int mt_set_default_dram_perf(int nid, struct access_coordinate *perf,
+ 			     const char *source);
+ int mt_perf_to_adistance(struct access_coordinate *perf, int *adist);
++int mt_get_memory_tier_nodemask(int tier, nodemask_t *nodes);
+ struct memory_dev_type *mt_find_alloc_memory_type(int adist,
+ 						  struct list_head *memory_types);
+ void mt_put_memory_types(struct list_head *memory_types);
+@@ -142,6 +143,11 @@ static inline int mt_perf_to_adistance(struct access_coordinate *perf, int *adis
+ 	return -EIO;
+ }
+ 
++static inline int mt_get_memory_tier_nodemask(int tier, nodemask_t *nodes)
++{
++	return -EINVAL;
++}
++
+ static inline struct memory_dev_type *mt_find_alloc_memory_type(int adist,
+ 								struct list_head *memory_types)
+ {
+diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
+index 54851d8a195b..75ec73b224a3 100644
+--- a/mm/memory-tiers.c
++++ b/mm/memory-tiers.c
+@@ -180,6 +180,30 @@ static ssize_t nodelist_show(struct device *dev,
+ }
+ static DEVICE_ATTR_RO(nodelist);
+ 
++int mt_get_memory_tier_nodemask(int tier, nodemask_t *nodes)
++{
++	struct memory_tier *memtier;
++	int ret = -EINVAL;
++
++	if (tier < 0)
++		return -EINVAL;
++
++	mutex_lock(&memory_tier_lock);
++	list_for_each_entry(memtier, &memory_tiers, list) {
++		if (memtier->dev.id != tier)
++			continue;
++
++		*nodes = get_memtier_nodemask(memtier);
++		nodes_and(*nodes, *nodes, node_states[N_MEMORY]);
++		if (!nodes_empty(*nodes))
++			ret = 0;
++		break;
++	}
++	mutex_unlock(&memory_tier_lock);
++
++	return ret;
++}
++
+ static struct attribute *memtier_dev_attrs[] = {
+ 	&dev_attr_nodelist.attr,
+ 	NULL
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 155d0ef82b48..2abbce265af6 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -7961,29 +7961,45 @@ static const match_table_t tokens = {
+ };
+ 
+ #define MEMORY_RECLAIM_SOURCE_NODES	"nodes:"
++#define MEMORY_RECLAIM_SOURCE_TIER	"tier:"
+ 
+ static int parse_memory_reclaim_source(const char *source,
+ 				       nodemask_t *source_nodes)
+ {
+ 	const char *nodes;
++	const char *tier;
++	int tier_id;
+ 
+-	if (strncmp(source, MEMORY_RECLAIM_SOURCE_NODES,
+-		    strlen(MEMORY_RECLAIM_SOURCE_NODES)))
+-		return -EINVAL;
++	if (!strncmp(source, MEMORY_RECLAIM_SOURCE_NODES,
++		     strlen(MEMORY_RECLAIM_SOURCE_NODES))) {
++		nodes = source + strlen(MEMORY_RECLAIM_SOURCE_NODES);
++		if (!*nodes)
++			return -EINVAL;
+ 
+-	nodes = source + strlen(MEMORY_RECLAIM_SOURCE_NODES);
+-	if (!*nodes)
+-		return -EINVAL;
++		nodes_clear(*source_nodes);
++		if (nodelist_parse(nodes, *source_nodes))
++			return -EINVAL;
+ 
+-	nodes_clear(*source_nodes);
+-	if (nodelist_parse(nodes, *source_nodes))
+-		return -EINVAL;
++		nodes_and(*source_nodes, *source_nodes, node_states[N_MEMORY]);
++		if (nodes_empty(*source_nodes))
++			return -EINVAL;
+ 
+-	nodes_and(*source_nodes, *source_nodes, node_states[N_MEMORY]);
+-	if (nodes_empty(*source_nodes))
+-		return -EINVAL;
++		return 0;
++	}
+ 
+-	return 0;
++	if (!strncmp(source, MEMORY_RECLAIM_SOURCE_TIER,
++		     strlen(MEMORY_RECLAIM_SOURCE_TIER))) {
++		tier = source + strlen(MEMORY_RECLAIM_SOURCE_TIER);
++		if (!*tier)
++			return -EINVAL;
++
++		if (kstrtoint(tier, 10, &tier_id))
++			return -EINVAL;
++
++		return mt_get_memory_tier_nodemask(tier_id, source_nodes);
++	}
++
++	return -EINVAL;
+ }
+ 
+ int user_proactive_reclaim(char *buf,
 -- 
-Yosinori Sato
+2.20.1
