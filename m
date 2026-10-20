@@ -1,87 +1,34 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509745;
-	b=lJobkIP8glynOJ2K3nlYCgBXI9kyPen9lL2lsY0lsVW9jqFGtF2i7nAY7N5w/2nNo5xt
-	 K8sKM/5nron/0RbArsjZJUYt323950nTzC6wdIas1FoxEKBqsD4QOl610cKKWSqlftdOk
-	 O3BdLQ31Wd67pnRTcaHYkERCrEVCnsS9qJqz8732RJVp8gqXgiQXcKfVqsjd58mHzQTn8
-	 nBtiWEf6bVUTsadbEvKESR5QCHKHdjlziE9gPr+fkOBTKebN72DnyEc4/DS3mKEQRpaq/
-	 /nBSTfnXGgUT9Gl/QY6zIynQBe+fa/MWqSWfgwjG0J38udaHTVVJXaYIFT2xilt1Ivg==
+	t=1792509767;
+	b=LTwxbsHRoYECgmK5RqR4038By/r/CKDVWtRpuRGQ0pKva+DEoX8HSRZ2ZY3T0BKv8gXk
+	 qeB46Q7aDXaQzUnSbBrDKA98tha4Jew93RVl7livvjTT6s7A5QtjWqKYYJkJvPugorKPq
+	 W3qKzCmXJYDfd3yWnfgfY/gQeMKP4kIcycUEcoh8l/2r6PLMJUK7H11ZrV/Mxc6wOPIBk
+	 bGfNUL2K2itDYAAfMub646XaqSiSOu3uXBSYqDxTL8CTizid50yAO+gAL6FO3uvocg3BU
+	 XJdmPk1hmpOAu4g8gWJ531TRtEzEO8zwFpatqXYZdWZjltTyLYe6HMGEXImtoH/H3PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509745;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1OFWhAnG0uX3M8SO01mnqBorDPvWn0GK7g4t/4Hg8xo=;
-	b=wfxyjCsm8OK5g5Curo8Hb9WYkWkbOqhf98BAhYs89gN5Yv3iL9vv/Zc42KzR3puC0g28
-	 4B7GNJtf+Vgm+w1nK1nEAyLaY5Q+NfHr1wTi3DM9vSha7CHoe1/rqE31l3s+DN+UbRWP4
-	 6rkO+q22Ntcw/wnVV10BL6suZyfLV/dCDtoYNuFtivp6pWKOzWLN8SLtXjUDco2LzH0G2
-	 Q2MO2KyaCGXPtKZTZPCdqZQsGPpmdaMQMD2eX1n6z0lUz1Sk8AJRUBQ55CjCE29iWPp3P
-	 94uFmCoQxWBSbEApcMC3zuagn3fIScS2WmO8wyfloqy3cnw2AMbbI0iSuv7V/FUTjvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509767;
+	h=Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NxIFDVsD5axqabICLrNLsV0/HgE+/FfIy2AFMMdvPg4=;
+	b=aCbtVqx2Qy+WcmZ5QuZiPy31aRiSwyg8DuJLtHBeqSsy4c/T/d3MVSKmxic7pNeEwhH1
+	 7wj2yPruI3RDozgzuJy+A4zytcJpMiq5VSP41nlAJPrV9Th5xcFwAKENKJCoXSb6YAAji
+	 4B6FljOJxlf5wSiK70c1Oyv9kV2IRLszVVC4QHTJgWHLWQiQdgOl2CywDpa1m769tVXox
+	 XXwUuDsnusWVeY7Ma7X45oemQc5yDWNVw2IMAnjPV7F898rwO6eLZXFwVT2QCTixUPyii
+	 wxe4JDRhtM2Jwb3kLqYjgJU67NT601Z26DJUyd/2+7a6vqO8u3h8i0QA9ao8zo0zVsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bfJCTxYE;
-	arc=none smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1438D606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:22:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1438D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bfJCTxYE
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6ae27f06c2fso5782056a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:22:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792509742; x=1793114542; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1OFWhAnG0uX3M8SO01mnqBorDPvWn0GK7g4t/4Hg8xo=;
-        b=bfJCTxYEOq9839j1OvJGohqpBOX2kV1z8nWN/s/anteaeEJXo8GCIrah6d8IeCt2Kc
-         dI1WujdE50qu59QzskwEuuUgkkazr/UcBFPzf6GNOmTXHVLojhapmI6yDHNmUn776snq
-         ILZZBADmpcf40Q7UJeIs2KyP7/Pj5DMqJ3vvU5plkk5BWk4nP4gvZ8LS+2pw+9WfXhJz
-         obKMM/GRMdj2/UzwRoulkwlmKvPHWDEmsFmTqu7HloU/zjOilhAkMSI8E5obFuZaKgpv
-         rERoPComi2SLDeOExSXdHPxCsQ+c2ZQ+BNCZIOE4cFncLMEFkdt5fXKuOK5s2mpHnjaZ
-         WYjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792509742; x=1793114542;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1OFWhAnG0uX3M8SO01mnqBorDPvWn0GK7g4t/4Hg8xo=;
-        b=Uk3GdEiJ11PRNIM7O4RPVsQMwsoawVp0c8RUnfpDE+jxgff1h8djBOzq5aMz2T4usE
-         snUNAGPNvbr1F/RU++zQHLiUpjRRNn5CdWMTJe1UmJrcYthtGcxBGloi2QQe8cLo5Tyw
-         mtO4BH/zIWohuJFG4FfbYt8KouO5E7SzR6hAOwzOoggyjpvQ2xz8+HbRsTGiY5UEO2qw
-         pQ6eF3vFDC4Js7I0KAMuhwXnD6x8sEhNJZXHa09ouYuTQnYKDToEGtD4KENLohCQon0z
-         alDX6uEa1IJYhNiw3l1N6VYFkdr0f9+h7xtoAqCnCoAwbeuNO9mNRjxyddPpolbJW7LG
-         WB2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwnMa6az8VvzvhkDxpveAeU9nToutSUkiFcx0Ce/GJ551B8xJCa9k+bDodwRiWNvhHCyPO1wtxhA5Rze+s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqyHy6hflo7/gY4w2+W9d8zvC4V94XsxLnFRG/jXlgKsI4EcJy
-	MJqAq+LYEmusK76FOhdRaTkw5uUo0/Q/7YqUBWvXEK8olvmsv48bZXFqxQ/elhagT2s=
-X-Gm-Gg: AYBFou0WdeGDXApF1YrFoLWteO6rNZd3RB7cIfTg3xBybQSLBJH3Zrz5Gn8FgrtbaWq
-	eN2lfw+aDC5TXggBHGe7AyemaFB0kfMySRIVo3bpc1elg6kqd/SM5yD/JWmzG1lg9tRVJCrW0ss
-	q5JOEElxeOjlKdh1E7mPHwiC/Rm7JGa0Zm2P+Y0k6lELZKFMFZfHi8gLVGCh8SrGTpRE2B5s2jU
-	IgMwEwS4A3qtZyaWqHgv0UrWN7cPm5boyBYmthyrPULG9IjZlk8Tzy3H424skwgvlx5+FBa97sO
-	mItw/oMQkiN4znJvYGrK+wVtTmfNAhPcSGu/rGubxy3Sz0HQuhel4Pypss/Fr0tuhaSJbOf8lcI
-	VAtx/uXgcMRH460+VVZPKqByPNh1u5Yjg6v/gmo8o7jqW+xzmFvNBvMRrhTRJ9vRPq0WB8FraAn
-	WLZKmwOtvk1VHW3EGhR0ySAouuULB3kkSjnJzPKyIUYwl9VByAolFTauJJb4MWzR58LaHlkYHEc
-	SDUk1rcV2mc8iVudUHzMHNzoLKBZ2ydXtH1Bh+XlYbuFw==
-X-Received: by 2002:a05:6402:3216:b0:6ac:9a44:d412 with SMTP id 4fb4d7f45d1cf-6b3a81a52e1mr7204114a12.7.1792509742360;
-        Tue, 20 Oct 2026 08:22:22 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d80feb1sm7129919f8f.12.2026.10.20.08.22.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 08:22:20 -0700 (PDT)
-Message-ID: <f7fe0439-d123-416d-b6fa-27a6dcf25d39@suse.com>
-Date: Tue, 20 Oct 2026 17:22:18 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257A6606A31E;
+	Tue, 20 Oct 2026 15:22:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68ABB1F000C4;
+	Tue, 20 Oct 2026 15:22:43 +0000 (UTC)
+Message-ID: <45ef34c7-eea5-4813-b54f-3e34675697b5@kernel.org>
+Date: Tue, 20 Oct 2026 17:22:11 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,158 +39,156 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] module: Fix use-after-free in module_put() tracepoint
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: mcgrof@kernel.org, da.gomez@kernel.org, samitolvanen@google.com,
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261019034857.654569-1-atomlin@atomlin.com>
- <a5e66dc8-155d-4eb1-add5-8c182879cefb@suse.com>
- <4ex7fuogdtmtxil4i2bzx3yqnkqgb2x5wxysqpwapauohmcok7@jvaytjn5fo62>
+Subject: Re: [PATCH v2 2/5] mm/page_alloc: validate zonelist slots against
+ concurrent rebuilds
 Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <4ex7fuogdtmtxil4i2bzx3yqnkqgb2x5wxysqpwapauohmcok7@jvaytjn5fo62>
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com,
+ mgorman@techsingularity.net, jiang.liu@huawei.com, Bessel.Wang@huawei.com,
+ stable@vger.kernel.org
+References: <20261019172346.3344005-1-gourry@gourry.net>
+ <20261019172346.3344005-3-gourry@gourry.net>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
+ KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
+ 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
+ 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
+ tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
+ Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
+ 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
+ LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
+ 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
+ BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
+ QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
+ gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
+ CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
+ UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
+ XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
+ 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
+ FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
+ QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
+ 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
+ icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
+ uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
+ SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
+ cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
+ La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
+ FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
+ bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
+ +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
+ jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
+ CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
+ HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
+ SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
+ 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
+ 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
+ 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
+ wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
+ NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
+ OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
+ jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
+In-Reply-To: <20261019172346.3344005-3-gourry@gourry.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/19/26 1:27 PM, Aaron Tomlin wrote:
-> On Mon, Oct 19, 2026 at 10:48:44AM +0200, Petr Pavlu wrote:
->> On 10/19/26 5:48 AM, Aaron Tomlin wrote:
->>> A use-after-free condition can arise in module_put() should a thread be
->>> preempted immediately after decrementing the module's reference count
->>> while the module is concurrently being unloaded.
->>>
->>> In module_put(), the module's reference count is decremented via
->>> atomic_dec_if_positive() before the module pointer is passed to
->>> trace_module_put(). Consider a scenario where CPU 0 decrements the
->>> reference count without reaching the baseline MODULE_REF_BASE level and
->>> is immediately preempted: it relinquishes its reference while still
->>> retaining a local pointer to the module. If a concurrent CPU 1
->>> subsequently drops the final active reference, the module's reference
->>> count reaches MODULE_REF_BASE. This permits the module unload sequence
->>> (via delete_module() or the initialisation-failure tear-down path) to
->>> proceed and invoke free_module().
->>>
->>> Function free_module() invokes synchronize_rcu() and subsequently
->>> releases the memory backing struct module via free_mod_mem(). Because
->>> CPU 0 was preempted outside an RCU read-side critical section,
->>> synchronize_rcu() does not await CPU 0. When CPU 0 eventually resumes
->>> execution, it passes the dangling module pointer to trace_module_put(),
->>> which dereferences mod->name and mod->refcnt, culminating in a
->>> use-after-free. This sequence of events is illustrated below:
->>>
->>>     CPU 0                                       CPU 1
->>>     -----                                       -----
->>>
->>>     module_put(module)
->>>       atomic_dec_if_positive()
->>>       [preempted]
->>>                                         module_put(module)
->>>                                           atomic_dec_if_positive()
->>>                                           // drops final reference
->>>                                         free_module(module)
->>>                                           synchronize_rcu()
->>>                                           free_mod_mem(module)
->>>       trace_module_put(module, ...)
->>>         mod->name
->>>
->>> Resolve this by acquiring an RCU read-side critical section via
->>> guard(rcu)() in module_put(). This ensures that synchronize_rcu() in
->>> free_module() blocks until trace_module_put() has run to completion, even
->>> across preemption under PREEMPT_RCU configurations, while avoiding the need
->>> to disable preemption and preserving the post-decrement reference count
->>> tracing semantics.
->>>
->>> Fixes: cb0b50b813f6 ("module: Remove preempt_disable() from module reference counting.")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
->>> ---
->>>  kernel/module/main.c | 1 +
->>>  1 file changed, 1 insertion(+)
->>>
->>> diff --git a/kernel/module/main.c b/kernel/module/main.c
->>> index d0e1e0bd2ad0..8e2d0ab96e6e 100644
->>> --- a/kernel/module/main.c
->>> +++ b/kernel/module/main.c
->>> @@ -953,6 +953,7 @@ void module_put(struct module *module)
->>>  	int ret;
->>>  
->>>  	if (module) {
->>> +		guard(rcu)();
->>>  		ret = atomic_dec_if_positive(&module->refcnt);
->>>  		WARN_ON(ret < 0);	/* Failed to put refcount */
->>>  		trace_module_put(module, _RET_IP_);
+On 10/19/26 19:23, Gregory Price (Meta) wrote:
+> Onlining the first block of a zone rebuilds every zonelist in place,
+> shifting the slots after the new zone. An in-flight walk can use a
+> zone it previously filtered. e.g.:
+>   - a GFP_KERNEL request can land in ZONE_MOVABLE,
+>   - a node not in the nodemask can have its zones selected.
 > 
-> Hi Petr,
+> With kprobes holding the walk across the online, I was able to get this
+> zone/node misplacement to happen consistently across hotplug events.
 > 
-> Thank you for your feedback.
+> The iterator approves a slot by its zone index and node, and the
+> allocator then loads the zone pointer from the slot again:
 > 
-> Moving the tracepoint prior to the decrement is certainly a more concise
-> delta and resolves the use-after-free, but I opted for guard(rcu)() for a
-> couple of reasons.
+>   CPU 0                             CPU 1
+>   first_zones_zonelist(nodemask {1})
+>     slot 0 (NORMAL1) approved
+>                                     online_pages()
+>                                       build_all_zonelists()
+>                                         [NORMAL1, NORMAL2, ...]
+>                                         -> [MOVABLE1, NORMAL1, ...]
+>   get_page_from_freelist()
+>     zone = zonelist_zone(slot 0)    /* MOVABLE1 */
+
+Since the zonelist_zone_valid() checks you're adding happen before the
+"zone = zonelist_zone(slot 0)" part, I don't understand how they can be
+helping here. Aren't we just reapproving slot 0 when CPU 1 can mess it up
+between that reapproval and load? Am I missing something?
+
+Furthermore, since we have the zonelist_update_seq anyway, wouldn't it be
+better to use it to avoid these kinds of races rather than the more tricky
+way of relying on what exact updates in what order can derail the allocator
+side and trying to protect against those specifically?
+
+> Every later step of the walk filters and loads the same way, so a slot
+> approved for one node can also hold another node's zone by that time.
 > 
-> Firstly, symmetry in the tracepoints: trace_module_get() records the
-> resulting reference count post-increment. Moving trace_module_put() would
-> introduce an asymmetry where puts record the pre-decrement value. When
-> relinquishing the final active reference, trace_module_put() would log
-> refcnt=2 rather than refcnt=1 (MODULE_REF_BASE). For scripts or tooling
-> monitoring reference transitions, this off-by-one difference can be
-> confusing.
-
-The trace_module_put() tracepoint is used only for debugging. What
-tooling are you referring to that could be confused by changing the
-recorded refcnt value?
-
+> Recheck the loaded zone against highest_zoneidx and the nodemask in both
+> allocator loops, and skip it on a mismatch. Hot-add only inserts zones,
+> so the zone that was in a skipped slot is still ahead in the walk, and a
+> walk that runs off the end meanwhile is retried by the zonelist seq-check.
 > 
-> Secondly, keeping the tracepoint after the atomic operation ensures we do
-> not emit a trace event or dereference mod->name should an unbalanced or
-> erroneous put occur when refcnt is already non-positive (which triggers
-> WARN_ON(ret < 0)).
-
-I'm not sure I follow. Unless panic_on_warn=1 is set, trace_module_put()
-is still invoked after WARN_ON().
-
+> The recheck adds about a dozen instructions per zone visited. The two
+> fields it reads share a cacheline with zone->per_cpu_pageset, which the
+> pcp allocation path loads anyway.
 > 
->>
->> I think a simpler fix is to move the trace_module_put() call before
->> atomic_dec_if_positive(). It would change the refcnt recorded in the
->> trace from the post-decrement count to the pre-decrement value, but that
->> isn't particularly important. For instance, xfs_group_put() and
->> objagg_obj_put() take the same approach.
+> Fixes: c33d6c06f60f7 ("mm, page_alloc: avoid looking up the first zone in a zonelist twice")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/page_alloc.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
 > 
-> In the case of objagg_obj_put(), the caller invokes the destructor
-> synchronously within that very same thread once the count hits zero
-> (i.e. __objagg_obj_put() -> objagg_obj_destroy()), without an RCU grace
-> period. Placing the tracepoint prior to the decrement is therefore
-> mandatory there.
-> 
-> As we know, with modules, destruction is asynchronous: module_put() never
-> frees the module directly. Instead, free_module() already executes
-> synchronize_rcu() specifically to ensure in-flight operations conclude
-> before releasing module memory. Prior to commit cb0b50b813f6,
-> preempt_disable() served as that RCU critical section; guard(rcu)() merely
-> restores this intended synchronisation contract without disabling
-> preemption, incurring negligible overhead and fitting naturally with
-> existing patterns in kernel/module/main.c.
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index c7125f6693574..aa3cd44fdaa5b 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -3784,6 +3784,19 @@ static inline unsigned int alloc_flags_cma(gfp_t gfp_mask)
+>  	return ALLOC_DEFAULT;
+>  }
+>  
+> +/*
+> + * The zonelist can be rebuilt in place while it is walked, so the iterator's
+> + * filters may have passed a slot that now holds a different zone. Recheck the
+> + * zone itself.
+> + */
+> +static inline bool zonelist_zone_valid(struct zone *zone,
+> +				       const struct alloc_context *ac)
+> +{
+> +	if (zone_idx(zone) > ac->highest_zoneidx)
+> +		return false;
+> +	return !ac->nodemask || node_isset(zone_to_nid(zone), *ac->nodemask);
+> +}
+> +
+>  /*
+>   * get_page_from_freelist goes through the zonelist trying to allocate
+>   * a page.
+> @@ -3812,6 +3825,9 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
+>  		struct page *page;
+>  		unsigned long mark;
+>  
+> +		if (unlikely(!zonelist_zone_valid(zone, ac)))
+> +			continue;
+> +
+>  		if (cpusets_enabled() &&
+>  			(alloc_flags & ALLOC_CPUSET) &&
+>  			!__cpuset_zone_allowed(zone, gfp_mask))
+> @@ -5236,6 +5252,9 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+>  	for_next_zone_zonelist_nodemask(zone, z, ac.highest_zoneidx, ac.nodemask) {
+>  		unsigned long mark;
+>  
+> +		if (unlikely(!zonelist_zone_valid(zone, &ac)))
+> +			continue;
+> +
+>  		if (cpusets_enabled() && (alloc_flags & ALLOC_CPUSET) &&
+>  		    !__cpuset_zone_allowed(zone, gfp)) {
+>  			continue;
 
-Normally, module_put() is not invoked concurrently with free_module()
-and doesn't need to synchronize with it, so an RCU read-side critical
-section only adds overhead.
-
-The preempt_disable() call in module_put() was previously needed because
-of the complex module_ref scheme, but that was replaced in commit
-2f35c41f58a9 ("module: Replace module_ref with atomic_t refcnt"). Commit
-cb0b50b813f6 ("module: Remove preempt_disable() from module reference
-counting.") subsequently removed the no longer needed synchronization.
-
-> 
-> That said, if you feel strongly that avoiding guard(rcu)() and keeping the
-> diff strictly to a reordering is preferable notwithstanding the tracepoint
-> asymmetry, I am happy to adapt the patch accordingly.
-
-The fix is valid, but I don't see a strong argument to introduce an RCU
-read-side critical section in module_put(), especially just for
-a tracepoint that will be disabled 99% of the time.
-
--- 
-Thanks,
-Petr
