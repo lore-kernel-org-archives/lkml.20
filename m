@@ -1,32 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792515208;
-	b=O7bY35n8nQuupr60MqalZDKR/FfeGX2t3LRCqh4ZNedx26a+3hIBwmLFyEGAEfns04P2
-	 uRIKlUa3s/zp+6gpFSr8ZrWPESDZGCEuvBtxvV8AOPkq/tVzeDVc0E4o3IIuV0VvE0xBx
-	 WYk/laMHEb67FVlSUlvVrR9xIAubJuyWGP2x+p+XWQZvkfH0LAL/rcVEFBQp6gw6Xarco
-	 CtTvGKEh4pZKwtQjWEbhfsvEJRxgl6AeCZXvqkMSWJBkjyFmaEaLiva9HmmZAwUBQtuRI
-	 c/WFQsuMIKVt85mOKfxme0MXz2WxZr4vGhLwooes+JqqlSwyM5bjqtpA5pM7mHXt2rg==
+	t=1792515227;
+	b=z9Z27Y3pnVSmEjcuwG02JlHPClKMvYRg5omPgoY1ibrpHdgf4JdmAz11Jt1Mz+/a8ZTQ
+	 adNZZjZ93wBqsTq/Xn7Y7bg9QmO8DlYtc2avw1hh0rOhLQNg+7jj9NqtSQI+agG1AUuA2
+	 v0YAIC2ce3v6audPGfHPClBLz4KmVHZn1itmQJCXyN8QHkh0Kzz8GByUENFj7cbislyWI
+	 1MqBNBHg9F51VNkrAfx7jPEP0o4C41x0SqjhzZCywRvCPtMcdVx4aDUAc9X1GMejwDK3y
+	 JGRvzOpr2PEZCoYpFZNzV1k0rJCWXTTTNHHB5+nXJAZNr/z5xENJLlQrTXUob0cmqzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515208;
-	h=Received:Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date;
-	bh=yRCTc12rF2cbB54pOhxGdZ+hQohl83LOurc/J73gcVQ=;
-	b=ZZmeEZJrkvIlrWGB8ZjVzFULB5GimuZd0MVDExjWCqtfyJXuyQa5bnPmom3m1hgKf4w4
-	 2UGr+ybdC5XqPJ7Ls9d9rF3dkH4fyRJXioEROw1TITCRGg77GGm8ciVsswaMhrPJPq9yj
-	 4+ER22fLN8EmanJJrJsODOZZqkX/93xZUtIPkzee05fvZUUXqskKxH6/o0Lvwc7W/J6x6
-	 Ie6EzS3Vx9yIObr/kKqX1egogDnY22p16PHlHkv/KncGurfZeVnsoD20SBvzz85vDLmj5
-	 CiQ0uJE2OZd6TFwhJAIvEAwjgi0Z3vEtARS1uU560Z3YIhrkohmy2e7cX6+68leiWuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792515227;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pFjMjrUW0NYlGV6eXcQPR970X7IB6G109x7Ig0FhqbQ=;
+	b=yZJ4wRzDXmH4h/kRqoGdgSmdHGgqb4bniOSVbSmzQPqpdpwntHhMsqKYe0fR05LdZniu
+	 UxPJ6LyAPj2DQy1KBYQJxEpF/CE8Zgc+2kU2wMchNxE52PKmLvjWgQ4tn0pZbpVL7lzcQ
+	 ZZbHAsBX8BwyUX34Mmdkkl04hOdQSgOGAeLmSGxC5YBcrruXelsm648MmEhD1xhrMT7XT
+	 uNKO4DOINmfJbmw5+fdJ5l7NqBJajzTOl8IQnpwOH6QiDvFiHkz9qBPrHKP64OCRGTZI8
+	 gNjGdZQ9hTMO4yp/S2Iwpv006kNBY+ky6utkngp0JLf/X+XZ+4/GYwVNCNcZLs6LowA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="U9B4C7/d";
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE173606A339;
-	Tue, 20 Oct 2026 16:53:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344171F000CA;
-	Tue, 20 Oct 2026 16:53:27 +0000 (UTC)
-Content-Type: multipart/mixed; boundary="===============5436744253090291661=="
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935FD606A320;
+	Tue, 20 Oct 2026 16:53:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 935FD606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=U9B4C7/d
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j8JQf07v5z1XM4Tn;
+	Tue, 20 Oct 2026 16:53:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792515222; x=1795107223; bh=pFjMjrUW0NYlGV6eXcQPR970
+	X7IB6G109x7Ig0FhqbQ=; b=U9B4C7/dxqWoePuwLsVCiFmNZQxEdyxGesuKcdjN
+	P6SFIh7pe0Km0b/1i0E+hFozuN4Q/+3rXDuj+uFzoTe2CKcF+uR33sPknEoV0KYL
+	xGPBXe30IQRkXWTQ5gG0l7ywRzXt9oVwt6nY+qdPKM073BJ9hTgkNUti2YTPKLEO
+	U8jM1xC3DZC4DPdMicT0sYxBBhliYyYfXL/iETOH5+GlEjh0GTab9lSLyjMmYtvP
+	whmA5GNaLJiAqabeDtCaj/gdhmOb01ip/WyvWXTE4zgCFhxDQp6DAwAh7MBxwCvM
+	vNpLSV4z8a1T1iVReoCF9jU+AR+Nj84NduvlHHYeLxg5Jg==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id fXs8ebs7fYK7; Tue, 20 Oct 2026 16:53:42 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j8JQY4B8Rz1XM4Tl;
+	Tue, 20 Oct 2026 16:53:41 +0000 (UTC)
+Message-ID: <3a07f61f-bd49-487a-b72f-209a7b8cd3cf@acm.org>
+Date: Tue, 20 Oct 2026 09:53:40 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -36,147 +70,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <3e177386ed0ff37815ee705fb2cb8195952b4301858e4ff4e2b4638d14d94c3d@mail.kernel.org>
-In-Reply-To: <20261020161907.2115379-6-vineet.gupta@linux.dev>
-References: <20261020161907.2115379-6-vineet.gupta@linux.dev>
-Subject: Re: [PATCH bpf-next v3 05/12] selftests/bpf: Cover the low-32 link for zero-extending movs
-From: bot+bpf-ci@kernel.org
-To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 20 Oct 2026 16:53:27 +0000 (UTC)
-
---===============5436744253090291661==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] scsi: ufs: core: Remove an always-false
+ WARN_ONCE()
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+ <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
+ Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261020082110.3511797-1-stanleyjhu@google.com>
+ <20261020082110.3511797-2-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261020082110.3511797-2-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-> selftests/bpf: Cover the low-32 link for zero-extending movs
+On 10/20/26 1:21 AM, Stanley Jhu wrote:
+> The WARN_ONCE() in ufshcd_poll() can never fire. completed_reqs is set
+> to ~tr_doorbell & hba->outstanding_reqs on the line above, and
+> hba->outstanding_reqs cannot change in between because ufshcd_poll()
+> holds hba->outstanding_lock. So completed_reqs & ~hba->outstanding_reqs
+> is always zero. Remove it. No functional change.
 
-TL;DR:
-- Selftest comment calls the mixed-kind no-sync case unsound, but the program
-  is safe; it is only lost precision
-- Commit message says "Twelve" programs, but there are thirteen
+Patch 2/7 has a Cc: stable tag so this patch should have that tag too.
 
->     selftests/bpf: Cover the low-32 link for zero-extending movs
->
->     Twelve programs, one per decision the previous patch makes:
->
->      - zext_mov_narrow_src: narrowing the source reaches the destination
->      - zext_sync_makes_member_const: and over all 64 bits, since the member
->        is the zero-extension
->      - zext_narrow_dst_keeps_base: the reverse must not happen
->      - zext_u32_src_is_full_link: a provably-u32 source still propagates
->      - zext_self_mov_no_link: a self-mov mints no id
->      - zext_chain_drops_link: a second 32-bit mov drops the link
->      - zext_no_sync_between_mixed_kinds: differing kinds do not reach each
->        other, in either direction
->      - zext_no_sync_from_subreg_base: nor does a member reach a base whose
->        high half it knows nothing about
->      - zext_sync_between_two_subregs: two low-32 links on one base do
->      - zext_unlinked_path_stays_reachable: one unlinked path keeps the
->        guarded div reachable
->      - zext_mov_breaks_linked_src: forming the link drops the source's own
->      - zext_sync_keeps_narrower_member: narrowing the base does not widen a
->        member that already proved itself tighter
->      - zext_contradiction_keeps_range_sane: a contradiction leaves no empty
->        range behind, under BPF_F_TEST_REG_INVARIANTS so the violation is a
->        load failure rather than something only dmesg sees
->
->     Written in asm so the bytecode is the same whichever compiler built the
->     suite.
->
->     Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+Anyway:
 
-The changelog says "Twelve programs", but the list below it has thirteen
-bullets, and the patch adds thirteen programs:
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 
-zext_mov_narrow_src, zext_sync_makes_member_const,
-zext_contradiction_keeps_range_sane, zext_narrow_dst_keeps_base,
-zext_u32_src_is_full_link, zext_self_mov_no_link, zext_chain_drops_link,
-zext_no_sync_between_mixed_kinds, zext_no_sync_from_subreg_base,
-zext_sync_between_two_subregs, zext_sync_keeps_narrower_member,
-zext_unlinked_path_stays_reachable and zext_mov_breaks_linked_src.
-
-The count looks like it was not updated when
-zext_contradiction_keeps_range_sane was added.  It is the last bullet, but the
-third program in the file.  Should "Twelve" be "Thirteen"?
-
-> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-
-[ ... ]
-
-> @@ -710,4 +710,352 @@ l_exit_%=:							\
-
-[ ... ]
-
-> +/*
-> + * Two members of one id set carrying different link kinds do not propagate
-> + * to each other: r7 is (u32)base and r8 is base + 3, and the deltas were
-> + * added at different ALU widths, so narrowing r8 says nothing about r7.
-> + * sync_linked_regs() declines the pair on the kinds before the deltas are
-> + * ever consulted. Note neither register is the base -- that is r6.
-> + */
-> +SEC("socket")
-> +__failure __msg("div by zero")
-> +__naked void zext_no_sync_between_mixed_kinds(void)
-> +{
-> +	asm volatile ("						\
-> +	call %[bpf_get_prandom_u32];				\
-> +	r6 = r0;						\
-> +	w7 = w6;		/* forms the link */		\
-> +	r8 = r6;						\
-> +	r8 += 3;		/* r8 is BPF_REG_LINK_FULL, r7 is BPF_REG_LINK_ZEXT */	\
-> +	if r8 != 3 goto 1f;	/* must not propagate to r7 */	\
-> +	if w7 == 0 goto 1f;					\
-> +	r0 /= 0;						\
-> +1:								\
-> +	r0 = 0;							\
-> +	exit;							\
-> +"	:
-> +	: __imm(bpf_get_prandom_u32)
-> +	: __clobber_all);
-> +}
-                ^^^^
-
-This isn't a bug, but is the comment accurate for this direction?  It says
-narrowing r8 "says nothing about r7", and the asm comment says the narrowing
-"must not propagate to r7".
-
-r8 is a BPF_REG_LINK_FULL member, so r8 == r6 + 3 over all 64 bits.  That
-relation inverts exactly, so knowing r8 pins the base, and r7 == (u32)(r8 - 3)
-follows.
-
-In this program the fall-through of "if r8 != 3 goto 1f" forces r6 == 0, so
-r7 == 0, "if w7 == 0 goto 1f" is always taken, and "r0 /= 0" cannot be reached
-at runtime.  The program is safe.  The verifier rejects it only because
-sync_linked_regs() skips every pair with differing kinds:
-
-    if (reg->link_kind && known_reg->link_kind &&
-        reg->link_kind != known_reg->link_kind)
-            continue;
-
-That check exists for the other direction, a ZEXT known_reg against a FULL
-member (scalars_alu32_alu64_cross_type), where the 32-bit wrap really does
-break the relation.  If the differencing arm ran for known=r8 (FULL, delta 3)
-and reg=r7 (ZEXT, delta 0), it would compute r8 + (0 - 3) and then
-zext_32_to_64(), which gives exactly (u32)(r8 - 3).  That is sound.
-
-So this test pins a deliberate loss of precision, not a soundness requirement,
-but the comment presents it as unsound.  The text is unchanged at the tip of
-the series.  Someone who later makes the verifier propagate FULL -> ZEXT will
-see this test fail, and the comment will suggest the improvement is wrong.
-
-zext_chain_drops_link and zext_mov_breaks_linked_src also reject runtime-safe
-programs, but their comments say the link is dropped by rule.  Could this one
-be worded the same way, for example "sync_linked_regs() declines mixed kinds
-even where, as here, the relation would hold"?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39458500836
---===============5436744253090291661==--
