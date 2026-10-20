@@ -1,59 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792464606;
-	b=NUnYd+Cz7qxnaOYRy+S0dN6anIB/hnvaIEK+GwszvpRFDnW4fa5udjX3cS7O1xSsBvk+
-	 N0zwYrG7AZP9BjsGOgnLViH0d6ogvFqubJtpDthDl25NQMjYdamRyjQhp6aJOqipike4e
-	 cc0onKd2BS1M7MaS+GHAESfiIB6seIQxZrYheRw0ZccxPlYlJ1m2wpTz2wTJU4R3L2LzG
-	 RSfwFChWmPv0LATFXTcCOnLL4omuIpq0Xpwd2zIuXoNcEyJKBP4LZugYHwPv7hEJyQqnl
-	 f3a6MLytpIBntO5bSWkoNtYuWRDLcLaKZVUbV6ruaM7ZTHeteYCVfnh023lI5WmoYvQ==
+	t=1792464610;
+	b=J1pbQVbzzIcMBWPmmOhV+r/GIoHW164UiTojgrtqHt9ukM1Vedxqb32l7rEGqy0Sm4ll
+	 ZxrCZX4xOviuPSbTJj1/pt8vmrp7/HiMOkklPsZIwYlrHtccegKKfPccf8XZlYIidCLcs
+	 QYG5eZruDJ657QRRKCIPtjKtuF306Ed0B5asBCdKSfxNsddagbajQDWvS+SFfebA87Y0o
+	 uAJkG6qOWXM5B9W79XckO2hG+fwu2uEVJ9WaSdRpOegxVIlY/FjeWdef4SZt7f1yvvCE0
+	 ZYVbEQm/d79v1zXxG+mziFDq2TUY9mOroQ7ysQtxlGcSac8bWcxv9dcy5DoDandm02A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792464606;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	b=0TMjVt+LlvokeOU2YUvSVZACIrTwaDYIYzGe6LxrtlhHBZLeqnkuwoQW6mokbcNoSD5U
-	 ZA579WXEMmFwoFoVilI8QLnP79Qcul9IID1rEaHCHPge92N6qgtS/S4Gx5bA/f7OoyTz9
-	 aET/k3mNhoioI8riKP6CEa364vTM/Q1N/+Ft3/DUvLL7lp+V4j862dXB7KOivh4IWgUst
-	 VScMzH0Zd03Hu8qPDozBZLzBODou1KHbxYD8WyRWgcnFajEF7cHPB73JnTv8B7fn1bNlG
-	 xlePHDw5xwU3kM9nhE3mM8njPP2f+Dq4E+d7G5Hfh5J5NrVnoe1TWfynRNFBwlS+Kiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792464610;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=qSqZs6kvQ73jpKV//X6SsqeslDJs9OL8i3dqvINNPv8=;
+	b=CEMyVBPJjtDwDNDIIlpCnXl0mz9jOXuGq5Pb7Vpx4PlWTHJ+a2YSXVZD5eMGh3ojjcLl
+	 u/obrvi4NKQvylU8p5hESWMLtY6iZOTfG7LO/frkmnm0v4iiEmSyjgm/3XAD3QadNQMFR
+	 cyrIqer8XWvXMUaOjSUusPh82NvRVqaoIr8aTlgkr4Z4NCxaY19p04WCy2JjieyKHeURT
+	 3B5g7MT0sPQH/r2RWVnSZtJQHek7uJ7QxilPEJr7D7WU7odnap4aIsNFRTsboxdNc1nFK
+	 cXMsUWUwMcxINiYXrVGoEelC+Pj5erbj5q9aVO6qOuqJX3DpcHXHuflvNYfmipTJVzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PX8Dojiy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="Cr+WWcS/";
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B73606A31B;
-	Tue, 20 Oct 2026 02:50:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2525C606A334;
+	Tue, 20 Oct 2026 02:50:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2525C606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PX8Dojiy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9DD21F000C4;
-	Tue, 20 Oct 2026 02:50:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792464605;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PX8DojiyryI8Cy1W42bSDNXBQxGKz69zvqwMB0FqDPAXUUIBTsNmNh51pOnTyHQgE
-	 rgZiJUMRf/uRxf0HnWYtZU1ixK0R0y+9wopFIRMZPlr5zffQt+TDIEV9slVCq7cbXy
-	 o3sbCyv2W7PZzhbnFiXU7i/44qSf1/f2zG6J7kTlup7xpmlFRgG7rH4GSpp0gcJ+re
-	 pBU1x3e5dASkUXRj4uAYWzUuzfOL2AVbjvuG25E1hXKP8ORiZj8eoFTHnESPhUMWqc
-	 WBC33eD51hHl/xY/lbHcE9viWynHpKXywBtJudsY548NpmusvhC4gPjfVg3y2k05u2
-	 CSkw50Z2Pol2Q==
-From: netdev-bot+sinfo@kernel.org
-To: Binbin Deng <18983559317@163.com>
-Cc: shshaikh@marvell.com, manishc@marvell.com, GR-Linux-NIC-Dev@marvell.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] qlcnic: Protect loopback filter hashes
-Date: Tue, 20 Oct 2026 02:50:04 +0000
-Message-ID: <179246460434.3290.5287647652531785251@kernel.org>
-In-Reply-To: <20261020024417.517941-1-18983559317@163.com>
-References: <20261020024417.517941-1-18983559317@163.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Cr+WWcS/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=qS
+	qZs6kvQ73jpKV//X6SsqeslDJs9OL8i3dqvINNPv8=; b=Cr+WWcS/vDlwgfM9TA
+	zmmFWxnFaSAEYN63MwVeOVcDhXvfSNnGubjHlrqRnHSnNrO1vfOkIRVSERO0ttAo
+	WuK8zUU5xV1iiA3Rqfk9s4fpu3Lb5lyImNu3vk8JMpjAz42X/hnh/ljCme2SJOO3
+	eq+WG1WycGCfdg+MHkLKxM+FY=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnr8C+1tZqMLhIBA--.5123S8;
+	Tue, 20 Oct 2026 10:49:44 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Howard Hsu <howard-yh.hsu@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH 6/7] wifi: mt76: mt7996: validate temperature response length
+Date: Tue, 20 Oct 2026 10:49:32 +0800
+Message-Id: <20261020024933.3205681-7-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261020024933.3205681-1-yaojiale02@163.com>
+References: <20261020024933.3205681-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,21 +71,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnr8C+1tZqMLhIBA--.5123S8
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Xw4rAFW3AF48uryDAr1fJFb_yoWDZFg_uw
+	na9FnxJr18Kw4UKr42kwsrCryakay8u3Z5C3yrt3yfJay7JFW7ur93Zrn3GrZ2k3Z29F1D
+	Grn8Za47Za43ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbG-e7UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgg4cmrW1sildwAA38
 
-Hi!
+The temperature query reads a fixed firmware event without checking the
+response length. A truncated response can cause an out-of-bounds read.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Require the complete thermal event before accessing its temperature.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Fixes: 6879b2e94172 ("wifi: mt76: mt7996: add thermal sensor device support")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/net/wireless/mediatek/mt76/mt7996/mcu.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
+index 5391666553d9..d87851c5fc1d 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
+@@ -4702,6 +4702,10 @@ int mt7996_mcu_get_temperature(struct mt7996_phy *phy)
+ 					&req, sizeof(req), true, &skb);
+ 	if (ret)
+ 		return ret;
++	if (skb->len < sizeof(*res)) {
++		dev_kfree_skb(skb);
++		return -EINVAL;
++	}
+ 
+ 	res = (void *)skb->data;
+ 	temp = le32_to_cpu(res->temperature);
+-- 
+2.34.1
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
