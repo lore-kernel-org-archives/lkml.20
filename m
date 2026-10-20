@@ -1,61 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502223;
-	b=XJSwHscnPvpKalcVTZud5Q5g3CDj3rBYOGXc/dQwLcAZTCT4IQAbQ5F3O5tnRf1dcA4y
-	 voCJxW5I7QqSTnex0rzoDnrm1RGmdqHWia8ds0tUurgvECoVjO2KtqwAxh6lXSgyg9tv1
-	 wrZSp4pibkVOxAFWK2V7tIevK5rPGkNZ2/ugbot8ZLnXDV+G0Z2LLw2SOaJoEqyRKspbo
-	 xDsa5cZwsyeLvLn+SXfGbZU4fmfFV6g93u01yeKQKwpKzGbKVy6f28vUotio+0YbUVr3p
-	 XMllpzcyQAp4Ncp1Evm7+W6/1WTYUllrvzy5Y3j++N5efXe9ZfHUSpPn+VcbP8LfoCw==
+	t=1792502224;
+	b=WlFP8czJPmeuDQBFTSOV2+X/xnUuuhDjDu/C4gYAoOjmW73J+VpLfZkfUgFHDha0fZUN
+	 LxmsRvjQhUlnBc7CPiuhFZhRrxq25VQR+UbX6aUgd0ksVF7WWtvmC5YGhBi7D4N/wjb38
+	 XoTAzOpOvGuRCr7mQAZKWZmxtnz0as+tUMxUUE+sChbtmgQNPFr9E884fMMzisyy2Yp/6
+	 7lgmOvukN028LFJbJqtJqP1uoHXT5aP31Od5EyHR1mdbKyLDbX6Gt7GpP2Qey+4ZTw/PF
+	 kgOa9Bgq1UepsdusvF8yWfLMAFKH6WhjY/3E4fzR+LSW2XRQ7lao8j7s+c1Z6DR8P+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502223;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=sDfwnfFMb7H/U0LG01YBStUGulHQM26pPCTaRK+6r7Q=;
-	b=Xry6mxbzj7kbe7Lxv3OqV65v2laNZVwFOAk5fuYK9sstSh7DbeZp7beR3aWrjSlhqLeQ
-	 IkZuYdDfhXgtFjMOXp3OwRfCsfy8/aclFKlvm5DCdairOXv+ScVaoLvEeIGeFgCuagj9O
-	 AJX1Enl7fdm32yms781/n1eDay9K+k8m7vI83+YyZ51YxmEOWHAq7/G8DQAMHD2+l0/++
-	 Gdp7PXqlEMh84d+ykPR+flM0e/3lI3iopGWssjSP2j0SIf/9HmqnUTA1AHULBP1k+CC+N
-	 Sqth0Z/dSTgqPF7T3slVUY2EevNL7iGEXsv8bL+j7MiE8e1ShR/nCm2/rD9603eHwPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792502224;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Infomaniak-Routing;
+	bh=sD6m0KKQF8wj51NTduZuzfl9vCC3ADruqTB7lIN0B1c=;
+	b=NHMEkLHD+oucQOgJum26stzK2h9y1oCQAgoppexHBwnGeRM4tROuyPT87QO0/P0I6stc
+	 rDpciMBMVFt9Fq8M9/BkhomrCXUXr23S303hNMVCSuNVJvgq14gynynBmBSgimPDPcgBx
+	 cZSLNp33neCIEEMFS+sK/4g1IfNlQaek64OxEpEh6hBBDS7JWv0NLcgFlloLoPjSXHxH6
+	 xHiTpsVAJSmpkMMQj7jU6h+92egQXMARZ6Cp+nTzt6EPcaLS6QX5L6ZNVs5qPXCJb5caC
+	 8/CNwiZ+LiEYI0E4kdcFbUS6sqOQdYnj75PEwKjeyVdnYngnS8NzIvHN7yb8gln1IfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FfsesGt7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=qp9lMfRy;
+	arc=none smtp.remote-ip=45.157.188.15
+Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch [45.157.188.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9C6606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407CD606A31F
 	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:17:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 407CD606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FfsesGt7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ACC01F000C8
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792502223;
-	bh=sDfwnfFMb7H/U0LG01YBStUGulHQM26pPCTaRK+6r7Q=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=FfsesGt74++87e1PYiuiZqu6olz8+eXc/5ca3xBoiBV0HrNseGvgF+mEMgjbyaUwm
-	 /3urQVvJYdqeuAfGj52OJdl74yrRsYI2HqpWv5b2JVx/U/YbCoe5s4ESTKFdUrU8WE
-	 Z/ydMSAjjTC5INk9Uwh8pzP4ZevG8nJ+ZnR6u3YnrLwLUKqSu9j2aH0TqFehZTwwuL
-	 bVbjp61s2IYymQYrsOo233TB7XGRD92ee3QbUc17zgIIhq03TCkaW9vyOPDKfPMKQL
-	 8OBCWqCxuJ3GQuyvUGQr5U6bpL4pLPktM0SX8htUkdJazwOMwBVcaWYeFRJNZ6kUkb
-	 Cd+EupBy6yN9g==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5be3db57938so2764446e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:17:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwnnj7EofHTe+oO+3FeR+jYYq4ogt6AHqPZ6cVtYEbk0tETr+L70ZWdInP8E1xrkXE4lU1KnFdA8pk1hMI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+BYwOyzQ1zxPLrrTlhRce+t1bQrpN9CZdFXv7c+j5rvOB8U2v
-	Mivk8meAF7CBBG5k7Pi4OEpPDIF9bBlQ7yyTL7ronyYmUPb4i1MWr+KEn/1PazBu8YR8j+ZYQwr
-	PJBU/pDyw6oB/1S2mJnO6MLXJwt8o4TM8JM9+JhUZxQ==
-X-Received: by 2002:a05:6512:60c:b0:5be:516e:5728 with SMTP id
- 2adb3069b0e04-5be516e574emr2125370e87.32.1792502221841; Tue, 20 Oct 2026
- 06:17:01 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 09:17:00 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 09:17:00 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261017043605.1503563-4-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=qp9lMfRy
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j8CcS13W9z1GWP;
+	Tue, 20 Oct 2026 15:16:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1792502216;
+	bh=sD6m0KKQF8wj51NTduZuzfl9vCC3ADruqTB7lIN0B1c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qp9lMfRytMTRB6Rxas+4/39haxy3twrMuHisJDMnCO1hULKRQZ9vp9u0qEwWoRcd9
+	 8OU+N7RDp02FewJFiIMuFdviBccMV76g/uJPzYSagJGIxdhQ4dTFrKpD/ro6TYdzqw
+	 Gl0cpDvbmLy/yKOQw90dQqOkFXGMq3dMvdH/Cczk=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j8CcR3VLCzQvM;
+	Tue, 20 Oct 2026 15:16:55 +0200 (CEST)
+Date: Tue, 20 Oct 2026 15:16:51 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Mark Brown <broonie@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: test failure after merge of the landlock tree
+Message-ID: <20261020.shai5aMoosai@digikod.net>
+References: <asmHRyx_uDkK-tJs@sirena.co.uk>
+ <atZepZTcoR9teu-r@sirena.co.uk>
+ <20261019.Za1phooV2oom@digikod.net>
+ <atc6Vczti_EjFrQq@sirena.co.uk>
+ <20261020.ij4euziuYovo@digikod.net>
+ <atdmcnGhgZ9U8g_S@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,76 +68,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017043605.1503563-1-shengchao.guo@oss.qualcomm.com> <20261017043605.1503563-4-shengchao.guo@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 09:17:00 -0400
-X-Gmail-Original-Message-ID: <CAMRc=McoAYKHojJCT6yeTvsMLKDTisD3V42VH5ebRapuG-UGBg@mail.gmail.com>
-X-Gm-Features: AclHuK_k9lO_i1S3i6iGAOndmTvxczShpEE6soiPBepKsGh7JYvDFptjfrC8dpU
-Message-ID: <CAMRc=McoAYKHojJCT6yeTvsMLKDTisD3V42VH5ebRapuG-UGBg@mail.gmail.com>
-Subject: Re: [PATCH v4 3/4] gpio: shared-proxy: Drive the default value when
- no votes are cast
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <atdmcnGhgZ9U8g_S@sirena.co.uk>
+X-Infomaniak-Routing: alpha
 
-On Sat, 17 Oct 2026 06:36:04 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> A consumer that requests a shared line with GPIOD_ASIS never calls
-> direction_output(), so def_val keeps its initial value of 0. If the
-> line was left high, for instance by the bootloader, a later
-> gpiod_set_value(0) from that consumer matches def_val and the proxy
-> treats it as withdrawing a vote it never cast. It returns success
-> without writing the hardware, and the line stays high.
->
-> The consumer has no way to tell. Its request to drive the line low is
-> silently ignored until it first votes for high and then withdraws
-> that vote.
->
-> When the requested value is the default and no votes are
-> outstanding, write it to the hardware instead of returning early.
-> For lines configured via direction_output() this is a redundant
-> write of the value the line already has. With votes outstanding the
-> request remains a no-op, as the line must stay at the voted value.
->
+On Tue, Oct 20, 2026 at 02:02:42PM +0100, Mark Brown wrote:
+> On Tue, Oct 20, 2026 at 02:28:48PM +0200, Mickaël Salaün wrote:
+> > On Tue, Oct 20, 2026 at 10:54:29AM +0100, Mark Brown wrote:
+> 
+> > > > I removed these wrong kunit checks Friday so it should be good now, but
+> 
+> > In fact, I updated mic/next Wednesday with a new patch series addressing
+> > these issues.  I only added two (unrelated) commits on top of that
+> > Friday.
+> 
+> What I have today is f349c073889ff7694b470ca34dae9bd94d47b0cc which is
+> "landlock: Fix superblock use-after-free in release_inode()" rebased on
+> the 16th (I just tried refetching and there was no change).  It seems
+> very surprising that there might have been an infrastructure issue
+> fetching the tree all of Thursday, Friday and Monday?
 
-Wouldn't this only matter for a line requested as-is? We could avoid the
-redundant write if we only did it for such lines instead of for all
-unconditionally.
-
-Bart
-
-> Fixes: e992d54c6f97 ("gpio: shared-proxy: implement the shared GPIO proxy driver")
-> Assisted-by: LLM
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  drivers/gpio/gpio-shared-proxy.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpio/gpio-shared-proxy.c b/drivers/gpio/gpio-shared-proxy.c
-> index 24241c981df1..456a3c3dbf71 100644
-> --- a/drivers/gpio/gpio-shared-proxy.c
-> +++ b/drivers/gpio/gpio-shared-proxy.c
-> @@ -81,9 +81,16 @@ gpio_shared_proxy_set_unlocked(struct gpio_shared_proxy_data *proxy, int value)
->  	}
->
->  	/* Desired value is the default. */
-> -	if (!proxy->voted_change)
-> -		/* We didn't vote for change previously, nothing to do. */
-> +	if (!proxy->voted_change) {
-> +		/*
-> +		 * With no votes outstanding the line should be at the
-> +		 * default, but a GPIOD_ASIS line may have been left at the
-> +		 * opposite value. Drive it there.
-> +		 */
-> +		if (!shared_desc->votecnt)
-> +			ret = gpiod_set_value_cansleep(desc, shared_desc->def_val);
->  		goto out;
-> +	}
->
->  	/* We previously voted for change. */
->  	if (shared_desc->votecnt == 1) {
-> --
-> 2.43.0
->
->
+Commit 0da3cb3db77e3fe2202ddb637f6d27668dc360f7 appears in the
+transparency log:
+https://git.kernel.org/pub/scm/infra/transparency-logs/gitolite/git/1.git/commit/?id=0da8a8d3dc37ec9a71b76f9739957297d64d4b73
