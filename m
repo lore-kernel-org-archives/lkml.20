@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792475866;
-	b=D80yihp0XkJ4Q/pznf6UVAqKkUEMooOh9kVcfDh444RnnSrpjH1x0N2KeUTP2oB3OB3o
-	 s7qb/fS2WF8aiQSBveclFobua1+HYdwCWytwHsKMD8oNF5aRFpxjBF/1plYia8zq+XS3f
-	 s1gmlGSoZ1Ncb5BmvKOIRoqV2hYglqFETBTsy8WsqohJvKOq4Ncuhat+o6G37mKbA61EX
-	 SP2gM91BwLO8DC+gXLSlYg4aOODnMMBlBiNDsc33o2GAIG0UwNLqZLD9DzjDlo+LMbSkX
-	 gCT50B+kTAnc+OcakbVOnUS8fG9vjmc5nc+62ITCLHt7yflzlVu4tFpl4Ajur+4dKLQ==
+	t=1792475930;
+	b=ZYASpvTeAfNMPveYNjLMr373799HyXR3+4A+kY7rU4fc4SoJFOd2oMeS2Om1X/qNSh/K
+	 pkjzHIJ4PlqDFBl/RNrwq2V9hs144HhsALyf18b9ddXFn9/GQ3cpK1QgoEp6TcykFgRt1
+	 VG6pSw+eMSRPrWggyhH3Phs3WDQRWC/jegBwhBGFRVmgQc3Vxn/nky+4ZZtp2+BuINzt+
+	 LRGv8LKp+SHJeksVoXnoH745ZKARWQTAM1sWaLiuWgQV/BT7Fd1YCXwLA2DPuYiuqvkJ4
+	 +y5ySJFxQ8X1LVVjdp/LNGoqbSFDREUzO531befl+RVfInt8M4kQE8IO568gc8YHrKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792475866;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792475930;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=2iaM9OT1kpXTLHWYBcxjMMF73r2IZAgtIiZyPOt4dyY=;
-	b=d30Wau82ZftLHXjflybgTGU/m5xt67VeZcGGP8Lkp5E5bGQVuOQ0oKGCo4o6hE18HOlH
-	 MWTYoS16Jpr02sPBhlcO7dhSZdTNZc5k51eIXKFVKt+QTdotGuhQL51n1bkmPL0Hjlr34
-	 nCZ0IOU68vQlSzgKjZldSZ7ytYc+4IOdwyurmA+IQ9n4ZG1ofnipviz1f/yvY8l54Afhw
-	 lCN/3ws70i1GJS02Oor4E5tSmVlochFBrfqItgKcR+rr+HDeWh1oZGxfocrqqIgIRbd8w
-	 iDnoJ+q0GSNKhlOvNXx98Fwrz6Inox0ISjVULorugGkkyn+ppkaNeqyWnKA4MgvuQiQ==
+	bh=v3YPirxc15vBVNIRikZXt3oNZLluPKaQOLNlWVqwmNQ=;
+	b=Ph1NyjRbf78mQNk6pay8tNcrDKgMHz53k4J/poM19N6qEx5YfsOf9iUWmKKli1ZQGboS
+	 tcCM2HmuxqQ8f/ePvAEuLIp1MgWPOhRBkH0VC7/wCoUA0kVN8jv2gwkD0BjwyECxpCfkH
+	 wz/+vflW7ddQXNvjUwe9vhfNWpparuqjnOJTchtmFpV+MRsGPuhcyU24tgc+lhxmiAsW7
+	 Iu1wb4/tsCgEnji1spZSa/YH6RiASPVXEwc3aVGDyd7VhJJXYz5HlvKi7NFQqGWnwIln2
+	 VTxo5eLJdqToL2swCSlvbQbSd+XgX9Ew7nhBhGWjwPXYFDQm+GJfUue4CtKBFtm4NDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qv8AWNvh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSFruGtZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25980606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:57:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68A0606A31B;
+	Tue, 20 Oct 2026 05:58:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qv8AWNvh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC7261F000C4;
-	Tue, 20 Oct 2026 05:57:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSFruGtZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1D641F000C4;
+	Tue, 20 Oct 2026 05:58:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792475865;
-	bh=2iaM9OT1kpXTLHWYBcxjMMF73r2IZAgtIiZyPOt4dyY=;
+	s=k20260515; t=1792475929;
+	bh=v3YPirxc15vBVNIRikZXt3oNZLluPKaQOLNlWVqwmNQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Qv8AWNvhIwbt99gYbJLMAyU5gmnaNCIwApm2UVKN6Gy5yCFJNWCMCWcgrpkw7K762
-	 AwgLDjQ80vt8l7EIwe2M2XltNqQl6IRv+/mKAQBXYRAKX2bazFJPjKR8Gi40J5qAdA
-	 Z2v4vJGtveP/gz8D+hgie6avBgZMpCTEHv6eTbq6wQaWe/XwUmheQwvlRRpsBGDjSJ
-	 /KeEixNb8bAd+M9nb2GC7RUiuAKN5t1smdLU/pYrJqD1oO/VRDObFSmMFK4JOP0RXm
-	 oGJh8wbSkONE4DWrhLsuscEW6zKi1UL0Aat/8u4f0x7uRySLlx5z9bkm3SELbkKhq8
-	 P9N9VWRE1Polg==
-Message-ID: <69332560-6f04-4ddc-a031-46e8559ca8a9@kernel.org>
-Date: Tue, 20 Oct 2026 07:57:39 +0200
+	b=jSFruGtZ9xBAiRqSUKWJz+6O3JRZJUvBKrvZeMapksDNhM9Vu92fjOMPDvxBiVaBG
+	 pjApYwr+8KJEDOMAmqyK1NIjvTuGA71evZm6a+Ky8RVwW0h6oNDSzQF76s/Dbhaj9M
+	 BK4d42XHVhKnQn58v9BZkfhhiADME3rDu8tsqHu3CDHyOrYS360gtxyP/bBDFIEe/l
+	 nY9s18oEWmHcieliuf1hVO1wxCWzV1sNCJojNel48KAwdoRmoPi52a0CKBUC7yQ87h
+	 6YLZqqVRKf1peECIAbDlnDQqq7OQeyITZgRNjj/fIhQVPEB1+lu78JgkUd7jVmOuGy
+	 7nzLhsTmDIDhQ==
+Message-ID: <5d43ce8c-18a8-44df-afa3-d0d1d7b771b1@kernel.org>
+Date: Tue, 20 Oct 2026 07:58:44 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,15 +52,15 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: soc: ti: Document the
- ti,tda54-mcu-scm-conf binding
-To: Moteen Shah <m-shah@ti.com>, conor+dt@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, linux-kernel@vger.kernel.org, nm@ti.com,
- ssantosh@kernel.org, linux-arm-kernel@lists.infradead.org
-Cc: u-kumar1@ti.com, gehariprasath@ti.com, vigneshr@ti.com, afd@ti.com,
- a-limaye@ti.com, y-abhilashchandra@ti.com
-References: <20261019080736.944127-1-m-shah@ti.com>
- <20261019080736.944127-2-m-shah@ti.com>
+Subject: Re: [PATCH v3] dt-bindings: iio: adc: add documentation for
+ adi,ad7816
+To: wrmfwv@163.com, nuno.sa@analog.com, jic23@kernel.org, robh@kernel.org
+Cc: Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux@analog.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Tenglong Guo <admin@micronull.cn>,
+ Sashiko AI <sashiko-bot@kernel.org>
+References: <20261018110015.39497-1-wrmfwv@163.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -106,45 +106,22 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261019080736.944127-2-m-shah@ti.com>
+In-Reply-To: <20261018110015.39497-1-wrmfwv@163.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19/10/2026 10:07, Moteen Shah wrote:
-> TDA54's MCU domain exposes a shared scm_conf syscon region that other
-> peripherals, including chipid, access into rather than owning a
-> dedicated register window. Rather than a bare fallback entry in the
-> generic syscon compatible list, give it a dedicated binding
-> describing the region and the proxy/claim/lock arbitration scheme
-> that gates write access to a subset of its registers.
+On 18/10/2026 13:00, wrmfwv@163.com wrote:
+> From: Tenglong Guo <admin@micronull.cn>
 > 
-> Some of the claimable registers are gate clock controls, so also
-> document the required "#clock-cells" property that lets the node be
-> referenced directly as a clock provider for those gates. The clock
-> specifier selects the ePWM time-base gate by instance number.
+> Add a YAML binding document for the AD7816 family of ADCs.
+> This fixes the checkpatch.pl warning about un-documented
+> DT compatible strings in the staging driver.
 > 
-> Signed-off-by: Moteen Shah <m-shah@ti.com>
-> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+> Reviewed-by: Sashiko AI <sashiko-bot@kernel.org>
 
-Incomplete DCO.
+Drop, never happened.
 
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
-
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
-
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time.
-
-Please kindly resend and include all necessary To/Cc entries.
+Do not invent fake tags.
 
 Best regards,
 Krzysztof
