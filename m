@@ -1,58 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491585;
-	b=dAByHHpbFZi6ikuY1qIzp6Gb1W+on9zgMxt88zO5F36zS8bJVAAT7ylmWIUs02TUyrp/
-	 oZyvTtmetgy8sGyR6+4uCNEuxUIGGBmTSt2/8/wD6ohvuDSWOwNyn6uROnWNNwUCsx48m
-	 DDStssKVi+/oAxjs9VrbDOENdNWLgYlZmqx6bfChxzyU03FcunF5+QG7d4GH0Ud5UTHAt
-	 nnZTxRfrD01jflma9xlSpEm4jSyXdGT09UuCyuS97lF/U5FIxPzxOytOGovAPRDo+1alx
-	 i/1iDeGYxJrEafWqGoZjGqClAXBcn2P7DT9UdM4BFD2Wtn989jYhDy+xSho7Lg0z/KQ==
+	t=1792491580;
+	b=SoBNW7ev1+ojWxgdwmJMPbFyitmSHyi47GEeQ21gysRSlnaqVtXeEIIuyRxHEvQ/dKx2
+	 lOoeWHbIJ1j//w4zzNUI4NUTvOYFZqMp5KObs2ALuEldcjfx8orToyPpF+uNdiBfsz1Tq
+	 ivk4ICRC3Ig2EKaqj9/oX7V/DiY4iCOdNIBNF4gquanTOdOR4tjZG4JJZqlhF9J9mlzbA
+	 YL9+yWoHTICou7w3H8bJM6hyJXikkm+lh8PHUH0DYaGJnEjHbUWMT5CFKJ0MsEV96SHr2
+	 zoRmAb945eUDoe6worPhtT8EcQNt0hzDSs4lVgyue5ee/IcpbzcFcmBsk5ncfRRctGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491585;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=aFC5vuSMT2esAzOCEJeRc9z+/o392JRV+udxwIAa+1k=;
-	b=XWd0/QwIdimhAVjW2vZmtkOPLbhmSZinnAMN4uGeqPQaNPm52kMUsX8GllUNJ4vkYVp2
-	 N8k0W5fD3dbQ/ra0ERE5ajUbkgX49fRQFtZwN9W3KFc839ooNRz6oXXJcFCRCXlVokWu+
-	 QyFBLW/dof03Ap2Hp4yg9AYuhqrISuKPsGBOeq0vYxU4nbEZuGucTxd6GpsAuZ61nxDqE
-	 h61+vPnYG6rghLKG9lU11z7tX5HrtwpqmDTDaACwQ0UzW5F5hF9C8qZ3gBNEuXMDCe6rs
-	 ceDGQOT9y93kMuVgIdv0P3mYTc2m7lVLRggtz21mUhtjCYBMIYMGI9IUCafHlqVi1+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491580;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=DaYL+lq2X1jkyL5DAV0JgOaO+hwBEe6efZ7/qxEoSk4=;
+	b=nHX5Os1GpxCHMbobzFh7FBvZ80cyA4sh/QLXvG2gLL19biF9inwRKatlDf+szn6Nw+sb
+	 Z0xJxNvfaX4YFn+cd3lxeVZZ0clqB2VuGd/chCYt+QBLqgq3PStoeXiQ8fsVZWUPYTEMK
+	 O3kI4QgeuPnP+EdMALUPrVTZtZpKpzf5ZrR7+VdNeeIsmsfrUwsnol9rNwzgkroQX/8th
+	 JOfeIKRFG17NPzvz1DVy2LHvTrM5cUtfTj/A3093cTZLh29jrY32oqkfygQuDrMHb7XJu
+	 EV5TcqY+OKikQuAswKTKfa53l/s37ZZ62Ca+ClOHwx3hOg+dQyQ8fK/MEyYbuKD1fBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=otWV8YI5;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=WFQxwIvq;
+	arc=none smtp.remote-ip=203.205.221.202
+Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60868606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60868606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824A7606A31B;
+	Tue, 20 Oct 2026 10:19:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 824A7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=otWV8YI5
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D9EF04E4128D;
-	Tue, 20 Oct 2026 10:19:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A680260393;
-	Tue, 20 Oct 2026 10:19:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CEF4A10328DF9;
-	Tue, 20 Oct 2026 12:19:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792491576; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=aFC5vuSMT2esAzOCEJeRc9z+/o392JRV+udxwIAa+1k=;
-	b=otWV8YI528uoGxC1Iyj3a0kwxyXAzCgSmQsnFKk2O+oYEDJ0sbQ1+yCTZfFimgZ6jRiUPb
-	Sgbn/1AkFg9zkEhBj6wu+zy4VAGIUQptMimCdmDnCBQDXU1FSGDbmG50npCVVZPGU0jmJv
-	I6Er+wU1irOngQyZd62ameMt9S/AJT8c6vGQLUmA70+v4hC7CbJ1txUctgISbOFZCLus6k
-	MxbhvIUVs6Z6Z0+Hhncu2mI0oRav73P1F09WDB0fBlf+KBBn4WaDirsPOj7vi28dguYotm
-	lI648DlbfJARfSj8FSYUD+hyFzvdPfEya95fUiyFEeiF/qEs8q6UTjdvORcHzg==
-Message-ID: <0378ccc3-4807-4d63-8e61-03b465952929@bootlin.com>
-Date: Tue, 20 Oct 2026 12:19:28 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=WFQxwIvq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792491575; bh=DaYL+lq2X1jkyL5DAV0JgOaO+hwBEe6efZ7/qxEoSk4=;
+	h=From:To:Cc:Subject:Date;
+	b=WFQxwIvqXYvgxkRhBXt0IY2eCVjCQxN4tygHLfyeB6Ld/8sBzk3Ci1sYkCGEprbr6
+	 FUocmCdC3PLyim5yX8GPY4zrH4To201PFDQwqCVJv1vgjoCn0e8CD4Cp3uC0Dv8fSE
+	 XFrGVZiQ8A0xVMnYQUIxpyYSHSP2PRIXzNY4tUVc=
+Received: from [172.18.4.77] ([61.136.26.103])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 4E1B60EE; Tue, 20 Oct 2026 18:19:33 +0800
+X-QQ-mid: xmsmtpt1792491573t30mnsrro
+Message-ID: <tencent_63539C28151F9BA8C854BF6FAF9101A72707@qq.com>
+X-QQ-XMAILINFO: MipYEBg1qKqI2mwv4N+CJ2cDOe962AMH64FB71X/1VumkB693IqGWhfmqeVdBk
+	 JF5+Nc2qgkowGV/6/6cSTFh+/2TrH90Hu2yE5BKhAkBVht9zLwibhO7D04E80a5pdFKzxHolShlC
+	 p7yBUKLAZ+mBdVjxPXs7V1C1SysdaRp20qsKO+8Z2wAbVQp2eCGl19WZnlvI1z5/k1Uiqa/JzAUo
+	 c9svj0GDXE71+JIZ4RXQbCH2UR/lrcsDiyTCulQeO2Kkb3dgBp15MCp0ZUYKRLL68BDyJJWjn7QZ
+	 r7DYpagRKlRjaaE+5fVwc0P+wCvWsTMClfnMEihOw+1pOFRVynTSrYp4iTX6H3jf6wyx6TQUXhsR
+	 pRVIpGdgQGb2MAg1gyqXuk5Tvd5VFjnecBHlmhfAUWNnpQBOV//Knm8etVRyNOOPOW4AYWSiluQx
+	 1x2PHIBtPil1kXZeKHEy1RvYZlrPrn/63L8oYnnhwtlsDfrzGhL/yMv1gQAQZ+T79j342SA4mw0j
+	 H1Rd+ZGSpYGaCQdLMpiSKvLQV7lLChBHz9PtI9Ffq/LwVvQvYerP7fDP7iSkL6XEW5OwV4N1XUkp
+	 8s5MHqI4WSjzlgFFEAUfxkAMyH0D5iytmEHc/eyNp3Vf+jhNJQdDoulms7gxPMScIL3Yu8xPcARj
+	 OEFv/GZ/HtaxUDq2s8XczOVWcekUE1XgaNIcOcoVHMboafFSjCWEH/0PlaFHY2G9+siTX7JQPYW/
+	 AN7y+OC450nnVmbJCRmOrIhzarWzLps1tgP8a1AHF67ml7WqtLXrlJI8WWgY2amZKB2brms8vzDv
+	 fryXkopScdhbWyF60JcucXXj+Hdio3R3kT3MhLsO/Yleh6rXThfotq18XRyyQkFfJ7zPCzukVA3A
+	 BA9PeRRJor+ZbQe9+piZSuNogmxmIcRJ6wzGEnS0Pmf4sj1Vf33JDSopkRVFG5+URGGW+cWoIGXH
+	 UdTSzgoSPOMP1zuss1McP5GW0eX5GCUVQGfT8R64nVqjGAaUFlj3GQOGhq6r2iKdClVytBYjQMlr
+	 Cu8rJpKsiX+Xaf8dKLIjUAbrnfUDwRCqHKy1UFHYErA5l+uzXYZmC9JxBlxnz+6WPpdxq2UxSQRe
+	 +QCByBhVOMNTlbzGD93VlBW8aXWg==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: yangguikun <yangguikun19@qq.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Yangtao Li <frank.li@vivo.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v6 1/2] hfs: initialize B-tree inodes and validate catalog CNIDs
+Date: Tue, 20 Oct 2026 18:19:33 +0800
+X-OQ-MSGID: <20261020181933.18360-v612-yangguikun19@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,161 +77,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH net 05/10] net: pse-pd: check the PI state under the lock
- when setting a power limit
-To: Oleksij Rempel <o.rempel@pengutronix.de>, kyle.swenson@est.tech
-Cc: netdev-bot+sashiko@kernel.org, github@szelinsky.de,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, piotr.kubik@adtran.com,
- saikrishnag@marvell.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de, broonie@kernel.org,
- lgirdwood@gmail.com, mazziesaccount@gmail.com,
- Marc Kleine-Budde <mkl@pengutronix.de>
-References: <atb-3EIJynaRwuwe@pengutronix.de>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <atb-3EIJynaRwuwe@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
+hfs_btree_open() leaves the internal B-tree inodes with i_mode == 0.
+A crafted catalog record naming CNID 3 or 4 can return one of these
+cached inodes through hfs_iget(), triggering VFS_BUG_ON_INODE() in
+may_open() with CONFIG_DEBUG_VFS=y.
 
+Initialize the B-tree inodes with S_IFREG and their address-space
+operations before publishing them. Reject attempts to reuse an
+already-cached B-tree inode.
 
-On 10/20/26 07:40, Oleksij Rempel wrote:
-> CCing regulator related folks.
-> 
-> On Mon, Oct 19, 2026 at 02:30:24PM +0200, Kory Maincent wrote:
->>
->> On 10/19/26 10:51, netdev-bot+sashiko@kernel.org wrote:
->>>>    	previous_pw_allocated = pi->pw_allocated_mW;
->>>>    	pw_diff = pw_req - previous_pw_allocated;
->>>>    	if (!pw_diff) {
->>>
->>> [ ... ]
->>>
->>>> @@ -1908,21 +1920,17 @@ int pse_ethtool_set_pw_limit(struct pse_control *psec,
->>>>    	/* Update power budget only in software power control case and
->>>>    	 * if a Power Device is powered.
->>>>    	 */
->>>> -	if (pse_pw_d_is_sw_pw_control(psec->pcdev,
->>>> -				      psec->pcdev->pi[psec->id].pw_d) &&
->>>> -	    psec->pcdev->pi[psec->id].admin_state_enabled &&
->>>> -	    psec->pcdev->pi[psec->id].isr_pd_detected) {
->>>> -		ret = pse_pi_update_pw_budget(psec->pcdev, psec->id,
->>>> -					      pw_limit, extack);
->>>> -		if (ret < 0)
->>>> -			return ret;
->>>> -		previous_pw_allocated = ret;
->>>> -	}
->>>> +	ret = pse_pi_update_pw_budget(psec->pcdev, psec->id, pw_limit,
->>>> +				      &updated, extack);
->>>> +	if (ret < 0)
->>>> +		return ret;
->>>> +	previous_pw_allocated = ret;
->>>>    	ret = regulator_set_current_limit(psec->ps, 0, uA);
->>>
->>> [Severity: Medium]
->>> The scenario in the commit message, where budget is reserved for a port
->>> that is no longer powered, looks closed now. But can the budget and the
->>> hardware limit still drift apart in the other direction?
->>>
->>> The state check and the budget change now share one pcdev->lock critical
->>> section. The hardware limit is still written in a separate one:
->>>
->>> pse_ethtool_set_pw_limit()
->>>     pse_pi_update_pw_budget()        <- takes and drops pcdev->lock
->>>     regulator_set_current_limit()
->>>       pse_pi_set_current_limit()     <- takes pcdev->lock again
->>>         ops->pi_set_pw_limit()
->>>
->>> The threaded pse_isr() only needs pcdev->lock, so it can run in between:
->>>
->>> CPU0 (ethtool set_pw_limit)
->>> pse_pi_update_pw_budget()
->>>     sees isr_pd_detected == false
->>>     *updated = false, nothing reserved
->>>     mutex_unlock(&pcdev->lock)
->>>
->>> CPU1 (pse_isr, classification event)
->>> pse_set_config_isr()
->>>     isr_pd_detected = true
->>>     _pse_pi_delivery_power_sw_pw_ctrl()
->>>       pw_req = min(pi_get_pw_req(), pi_get_pw_limit())  <- old hw limit
->>>       pse_pi_allocate_pw_budget(pcdev, id, pw_req, extack)
->>>       ops->pi_enable()
->>>
->>> CPU0
->>> regulator_set_current_limit()
->>>     pse_pi_set_current_limit()
->>>       ops->pi_set_pw_limit()         <- new, higher limit
->>
->> @Oleksij, Here is another example of an issue related to the PSE PI being a
->> regulator provider.
->>
->> @Carlo, Kyle is working on a series that remove the support for a PSE PI
->> being a regulator provider. We will see where it goes.
-> 
-> Removing the regulator provider support is a bad idea:
-> 
-> - We will end up implementing a poor man's regulator framework inside the
-> network subsystem. Networking folks will have to deal with physical constraints
-> already solved by the power management community, requiring a different mindset
-> and domain experience.
+Validate catalog CNIDs and record types before the inode-cache lookup,
+since cached inodes bypass hfs_read_inode() validation. This also
+prevents a crafted file record from aliasing the root directory inode.
 
-That's what we thought at the beginning of the implementation of PoE but 
-in fact that's not the case. I don't see currently any cases of using 
-already solved regulator constraint in the PoE core.
-The drawback are:
-- locks issues: solved one by using worker but there are still others
-   appearing like this one
-- code complexity due to all the regulator callback wrapper
-- converting mW to mA for regulator framework then to mW again for the
-   PSE driver callbacks. There are even devices that are using current
-   limit therefore there will be 3 conversions.
+Found by syzkaller-style fuzzing of v7.2-rc7.
 
-The more painful issues are the lock issues.
+Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Link: https://lore.kernel.org/linux-fsdevel/tencent_24D928451FEFA8A35482EFFA9132A7305307@qq.com/
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: yangguikun <yangguikun19@qq.com>
+---
+Changes in v6:
+ - Drop set_nlink() and tz_secondswest initialization for B-tree inodes.
+ - Use WARN_ON_ONCE() for an already-cached B-tree inode.
+ - Defer hfs_iget() error propagation to a separate patch.
 
-> - We lose built-in regulator infrastructure: DT safety constraints
-> (regulator-max-microamp), over-current/under-voltage notifications, and
-> sysfs/debugfs (regulator_summary) visibility.
-
-I disagree here.
-regulator-max-microamp: has not interest from the PI side but this is 
-related to its power supply. The PI should still stay as a regulator 
-consumer so the power supply could describe this binding.
-
-over-current/under-voltage notifications: we are already reporting these 
-PSE PIs notification through ethtool. We will loose 
-regulator_notifier_call_chain() call but well there is no consumer to 
-the PI regulator provider so it's mainly useless.
-
-Yes, we will loose sysfs/debugfs visibility, but is someone really using 
-it as all PSE communication goes through ethtool?
-
-> - The race above is just a lock scope issue across pcdev->lock and the
-> regulator call, not a flaw in the abstraction.
-
-That's not something easy to solve as PSE and regulator provider are 
-nested together.
-Either we put all of the lock issues inside workers, it will not be 
-synchronous and will smell hackish but well...
-Or we try to combine the PSE lock with the regulator nested lock in one 
-way or another.
-Do you have a better idea?
-
-> - Writing a custom power state machine in net/ will introduce more bugs than it
-> fixes - especially if we overestimate our ability to upstream complex custom
-> logic under LLM review supervision.
-
-Removing regulator provider will simplify a lot the implementation so I 
-think it will rather remove bugs than introduce new one.
-I think we should let Kyle works on it with a RFC and we will see where 
-it goes.
-
-Regards,
+diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
+index 41b4e8f..1891ad5 100644
+--- a/fs/hfs/btree.c
++++ b/fs/hfs/btree.c
+@@ -155,44 +155,9 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id, btree_keycmp ke
+ 	tree->cnid = id;
+ 	tree->keycmp = keycmp;
+ 
+-	tree->inode = iget_locked(sb, id);
+-	if (!tree->inode)
++	tree->inode = hfs_system_iget(sb, id);
++	if (IS_ERR(tree->inode))
+ 		goto free_tree;
+-	BUG_ON(!(inode_state_read_once(tree->inode) & I_NEW));
+-	{
+-	struct hfs_mdb *mdb = HFS_SB(sb)->mdb;
+-	HFS_I(tree->inode)->flags = 0;
+-	mutex_init(&HFS_I(tree->inode)->extents_lock);
+-	switch (id) {
+-	case HFS_EXT_CNID:
+-		hfs_inode_read_fork(tree->inode, mdb->drXTExtRec, mdb->drXTFlSize,
+-				    mdb->drXTFlSize, be32_to_cpu(mdb->drXTClpSiz));
+-		if (HFS_I(tree->inode)->alloc_blocks >
+-					HFS_I(tree->inode)->first_blocks) {
+-			pr_err("invalid btree extent records\n");
+-			unlock_new_inode(tree->inode);
+-			goto free_inode;
+-		}
+-
+-		tree->inode->i_mapping->a_ops = &hfs_btree_aops;
+-		break;
+-	case HFS_CAT_CNID:
+-		hfs_inode_read_fork(tree->inode, mdb->drCTExtRec, mdb->drCTFlSize,
+-				    mdb->drCTFlSize, be32_to_cpu(mdb->drCTClpSiz));
+-
+-		if (!HFS_I(tree->inode)->first_blocks) {
+-			pr_err("invalid btree extent records (0 size)\n");
+-			unlock_new_inode(tree->inode);
+-			goto free_inode;
+-		}
+-
+-		tree->inode->i_mapping->a_ops = &hfs_btree_aops;
+-		break;
+-	default:
+-		BUG();
+-	}
+-	}
+-	unlock_new_inode(tree->inode);
+ 
+ 	mapping = tree->inode->i_mapping;
+ 	folio = filemap_grab_folio(mapping, 0);
+diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
+index e250f87..8d52170 100644
+--- a/fs/hfs/hfs_fs.h
++++ b/fs/hfs/hfs_fs.h
+@@ -163,6 +163,11 @@ extern int hfs_cat_move(u32 cnid, struct inode *src_dir,
+ extern void hfs_cat_build_key(struct super_block *sb, btree_key *key,
+ 			      u32 parent, const struct qstr *name);
+ 
++static inline bool hfs_is_system_reserved_cnid(u32 cnid)
++{
++	return cnid > HFS_ROOT_CNID && cnid < HFS_FIRSTUSER_CNID;
++}
++
+ /*
+  * Validate the CNID of a catalog record.
+  */
+@@ -219,6 +224,7 @@ extern void hfs_inode_read_fork(struct inode *inode, struct hfs_extent *ext,
+ 				u32 clump_size);
+ extern struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key,
+ 				hfs_cat_rec *rec);
++extern struct inode *hfs_system_iget(struct super_block *sb, u32 cnid);
+ extern void hfs_evict_inode(struct inode *inode);
+ extern void hfs_delete_inode(struct inode *inode);
+ 
+diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
+index 2aef3c3..a66de7b 100644
+--- a/fs/hfs/inode.c
++++ b/fs/hfs/inode.c
+@@ -421,6 +421,69 @@ static int hfs_read_inode(struct inode *inode, void *data)
+ 	return 0;
+ }
+ 
++static int hfs_system_read_inode(struct inode *inode)
++{
++	struct hfs_sb_info *hsb = HFS_SB(inode->i_sb);
++	struct hfs_mdb *mdb = hsb->mdb;
++
++	HFS_I(inode)->flags = 0;
++	HFS_I(inode)->rsrc_inode = NULL;
++	mutex_init(&HFS_I(inode)->extents_lock);
++
++	inode->i_uid = hsb->s_uid;
++	inode->i_gid = hsb->s_gid;
++
++	inode->i_mode = S_IFREG;
++	inode->i_mapping->a_ops = &hfs_btree_aops;
++
++	switch (inode->i_ino) {
++	case HFS_EXT_CNID:
++		hfs_inode_read_fork(inode, mdb->drXTExtRec, mdb->drXTFlSize,
++				    mdb->drXTFlSize, be32_to_cpu(mdb->drXTClpSiz));
++		if (HFS_I(inode)->alloc_blocks > HFS_I(inode)->first_blocks) {
++			pr_err("invalid btree extent records\n");
++			return -EIO;
++		}
++		break;
++	case HFS_CAT_CNID:
++		hfs_inode_read_fork(inode, mdb->drCTExtRec, mdb->drCTFlSize,
++				    mdb->drCTFlSize, be32_to_cpu(mdb->drCTClpSiz));
++		if (!HFS_I(inode)->first_blocks) {
++			pr_err("invalid btree extent records (0 size)\n");
++			return -EIO;
++		}
++		break;
++	default:
++		return -EIO;
++	}
++
++	return 0;
++}
++
++struct inode *hfs_system_iget(struct super_block *sb, u32 cnid)
++{
++	struct inode *inode;
++	int err;
++
++	inode = iget_locked(sb, cnid);
++	if (!inode)
++		return ERR_PTR(-ENOMEM);
++
++	if (WARN_ON_ONCE(!(inode_state_read_once(inode) & I_NEW))) {
++		iput(inode);
++		return ERR_PTR(-EEXIST);
++	}
++
++	err = hfs_system_read_inode(inode);
++	if (err) {
++		iget_failed(inode);
++		return ERR_PTR(err);
++	}
++
++	unlock_new_inode(inode);
++	return inode;
++}
++
+ /*
+  * __hfs_iget()
+  *
+@@ -446,6 +509,11 @@ struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key, hfs_cat_
+ 	default:
+ 		return NULL;
+ 	}
++
++	if (!hfs_is_valid_cnid(cnid, rec->type) ||
++	    hfs_is_system_reserved_cnid(cnid))
++		return NULL;
++
+ 	inode = iget5_locked(sb, cnid, hfs_test_inode, hfs_read_inode, &data);
+ 	if (inode && (inode_state_read_once(inode) & I_NEW))
+ 		unlock_new_inode(inode);
 -- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
+2.53.0.windows.1
 
