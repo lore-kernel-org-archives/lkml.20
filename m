@@ -1,72 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792519870;
-	b=JfEewgmBimigc9qCpRJE0kjraONjn4rKSmYsaMVIKMnw2G7lRNTvMEwK/tyMXh9vZsqd
-	 sW8W9+gyNYmVnO2vwUVAVZLn0V5vWXKzLUL5SuK7yVU988yjuSyWSw9FtJ8JeYV0VDJG6
-	 hBvUb2HB3FiSFONgJbASsLOfkIbBuxVFhOrqa2dHZkJB0JBNpARdnK4ci/po1G/y//dr7
-	 Pf0SDzuuiaKJW9Po5AOK+wrKTkegf6FbMwLWOhJ3xjlgyBMdx4Lx65sj7+5osu9BCxTDQ
-	 CwrQvi29XEgTJke08OFde2a6fr+2lfiUKaaj2PnPab1rc73zyC7EdswA2k0uNpIiUFQ==
+	t=1792519876;
+	b=Cv0CLj6qHrmEZXTF7qQvzW4i/v6pv4C6q3bC9auSV01TaHHKT26DmqA7/PM68K3LRmlP
+	 fTyPEmTfqd1X3UJ2uELMlCwhQq4sbegk1wVhBbwkx7OWgqaxY/3IMWLqHRrI7eDMHT1gZ
+	 y1cOYAP0UJnOK/Mtra03wgYttnQKLuF3dihCtUy8Hbb6VwU39Mh712od8MQtlnxEwzCYZ
+	 xmQHj9WqeF41bFM0RLFFKSWBSQsS282SmP0iNTdPozsgqlKkClcJW1ckl3FfYLGQbddsI
+	 c12naxUopZON5sfcK1YZUMfVUgKCNkDo84eZCDEPl8th3f78/Sm6LorUn8R2tOfI9mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792519870;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792519876;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=ym49b0iug7aszg9sKvRy0g7m6DL1gnPAibODuAY4lA4=;
-	b=wf25awD6x+y6Wm8j2OvKkuAroGwL3k31nKascfAS8Tgxu8K/GmrU7Gw3dDiOIAva7DAW
-	 vjbdU5qEr5ruHnZFkffyj5aTV0+DW0MbTz9CXPGZIN63VfE07CWaV6FYpy5/at36+3L9a
-	 Yk9RuMhsSl3g+0JuzcU+4WLLXCaWGAOEbCvcfkL3Sn4ZTQtdKQrAYHmZ/oHr+CBdE6/Xz
-	 KTFQknLx3VaeyKoHLZUAKi0reIcP8u1+BZhswl3q/lFqRjT2K4Aw9sTHGX1XLMTvF6Mqv
-	 PDBcXb5iayzMJYufM5emBtnRsmbbufhwEoHjEBxQwszsSd81wZh3HgBp/yMncVkYVwQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pe7zRQqq8DiaqBGD+rWVGO//vsZ4iJBToLUfyGdHZkM=;
+	b=WJR4OGDA5EoXySiw+RtWkCTotFf8S6Pc4OT1lzKHw8g+iusD8OaPrdt1k8u2GbBKSm4T
+	 fs5ULKG0W1YmbkWxDMMelRnhTdLiaQg+4B4NNblI8XDKa0FeMoZiAsJzSNH5340i3fWys
+	 hdLtmAks/DRxP2bacAjNmtkhQPPZFfkxWFchnkd4rcarlmZvL65YRTRDkgARQLDCPueU/
+	 HKM6eYjDjUkVTB8JIGbbdskBnFzB0q9vXdYuQuV4PIZf0uYXqeD1UbiSTWXJ2Dgn/g0Yu
+	 VjxJNC7+tgvH4i5Lcit8vGi9dHFEj8Lb5Tuw/UbVKW7NMEXn9mi/uCgzh0M7YmULJOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--digonzal.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E1ZJdFMm;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jwkud6FH;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5932C606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:11:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5932C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--digonzal.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B61D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:11:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B61D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=E1ZJdFMm
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-359b81ad4e8so6089968eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:11:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jwkud6FH
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2576661f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:11:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792519868; x=1793124668; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ym49b0iug7aszg9sKvRy0g7m6DL1gnPAibODuAY4lA4=;
-        b=E1ZJdFMm05GbyBcvkXPVnMYUlAfeEc6J+KuQadUJexQm6DSNcYFHVV9espJqBenVkG
-         PLfqj2B8TnuK3/0GLL+bTVmDTHno3vRYvl8X0yfPtDOtLTXKGU9rwkuZEVyW+q0Bx5HU
-         upons782AikQc/u81NgKpmtda+AG0t5GmMf0onXPJr0hhd7iSlQ5AdDK054B2imMmdNE
-         M7xE7Qrb0ZfL99822jJRCrW3lOSsE35FCpTYJ3P73qhhYBIEC7w/JoPAY6fqvosH42GI
-         H3NYjLOfy347Xn3O/VmynMzHoNwzh9LC52jQAMktfK/RKpDmBRMDCQXHfFAkaEn0dzVG
-         C5eQ==
+        d=gmail.com; s=20251104; t=1792519875; x=1793124675; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pe7zRQqq8DiaqBGD+rWVGO//vsZ4iJBToLUfyGdHZkM=;
+        b=Jwkud6FHUDrWtcml5AH1PpozqSEmpiPc9Sn4mP+h37kRFLl6C3sGLfqbXTRVUULGXt
+         mM0FBxHPH6PSgMBxzJE4ksMcZsgUdQkBECHZ/g/fXelnjJS+0Z3cHuIHZjQ91MoNUIoN
+         MpfUignn2fHOyaXBeri0sFe1rIqLdIn5Wugl2reOE5fXMIdAuCqRJx43Dff+b95Wjoa4
+         wjJmV2wpIOyrEmfkR6rNC+JUvM7TI9uSG/p+X6zhDk+I6jiVl3INyM35KAqB7kU+7xaK
+         dwKpu9zLugABB8mgRVF7qdaVH4Vod2lwwGC61or/pdUY2MY04TXSS2t92K62/jQ4pg0L
+         vCdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792519868; x=1793124668;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ym49b0iug7aszg9sKvRy0g7m6DL1gnPAibODuAY4lA4=;
-        b=ceYIM0WSkk/epKlkv1667YjOpq073tvj/KfXunTaoe4WiRHfRsFF4+QMYoN5DfJX1E
-         XFuQMae3xqc2x0jKUbF/eITXNLLwvRvChAL8azmSMpsY/ni5y3KziMKYgh5xEpUOzxOK
-         L/hX5vwE3wkm2QPLl9AJwMoulvGrL+f9i8waotRghbiLsEporZPmyB7JVh8w1cdBthaG
-         3FOqyGIdaPsJqf0jMd/NysNrxw3ctKDJ5YAkfinGiBe1vRaU1ULA9fWOpoKdbylmMFUh
-         4vVAX7npbvBa1489/yzl2gm1pYyADuRbyTfWDCbyUJ+XYbdl4gWqWpu9bqRCzLw+YvQw
-         hz+w==
-X-Forwarded-Encrypted: i=1; AKwUvByPRWfddxD+h8pzotgng90feyrAK1IvxMJXfa9wBa5yr11Ast2ZNPUowNukm/n+I/vRNL5PMoGQ50+3Kac=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIh1o1sOf8ckfYy5+SS2wM/hOp9OIpMsaDe8vNDbSD8W9tpmcnm
-	E9sMuswShCeLlLBA2+iJ1rc/N2I13dF1rFcQGOA1RYtGRC6rntw0il6El+oCMPJDfrP59BoTK3J
-	z1scFLd5Lz/wBFA==
-X-Received: from dycmb19-n1.prod.google.com ([2002:a05:693c:20d3:10b0:351:731f:c917])
- (user=digonzal job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:bf9c:b0:34d:755b:d60b with SMTP id 5a478bee46e88-3674de4e3c1mr32887eec.34.1792519867908;
- Tue, 20 Oct 2026 11:11:07 -0700 (PDT)
-Date: Tue, 20 Oct 2026 18:10:52 +0000
+        d=1e100.net; s=20260707; t=1792519875; x=1793124675;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pe7zRQqq8DiaqBGD+rWVGO//vsZ4iJBToLUfyGdHZkM=;
+        b=ewLhEEQ/FTMPUVwLYDH6GD+ASU4zlufDSW3Gccy2wilvBONaD0DSMSWXo+IX/T/k6Y
+         dlN8Z/SciiOk3//GfHAQsHz9803fBnL6Uc03uQErNlFMXyPTr3rQtbYo8l/XVk/oTv2S
+         kAvRwgwRqMSU7V+R9t9zGdAlyKS6uTbOwwZsgfCN6Vswv9kNFGOonw5+YKiWlIw/cyrw
+         CZvwfAcpVpFRkdFOZZOIo16NmYn4kaFR1EnA5OLZ5IHFIVxpRh99dBD7vLDPdWDoixzF
+         kNJ1xCdvr56D2d5mu9eS5ORSRwUmaW0c2gVjtzS1/KjkzXORHI0ZhQdqpzvCOLaAx+2h
+         hGjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFXG9OoZcdiJ1+wDGNhtoJO7kAMXNobgzdhFAyAE0cpr6EQR7g/niV4TgErkT6JHR34K5TbXQ63KZtgGo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRx8yLthMgRoLay8HqQPgYDw95pABWvd36EkSXwy5u4M0YVeTt
+	o5IWAUVrQeWtCKBeC8K9Bo3s3QeqlmRzsbMKEls5FvnvRbgDob6Fsp/a
+X-Gm-Gg: AYBFou1sx5+HAvSY5tM0SDQuAN5zKqgDppTENG3E0iRS7+6q94i/OhCxLDhc+Hj8SKR
+	IcTpzTDVP+aGD9nu/ZEfK7S0R5FIWv4H5HYRWCL9mKU0M94FIgE4j5k7WUW2pdQcvPBbZafhqf3
+	xJaUSbxihnCX4y7ZbfrOGidCJer6sBD7ysqlIJk2ntXtD8c2lQn6voOrMfNhKoOWtRgw3JANLK6
+	iHG8ziYZBJsOw7eJ4nPS853p86tp1cH3zFQeKRhGWCgZYKX1qR2dqygastBcze2eKnkiJiIXKAw
+	kEZjvDBIaTxpTIp+MMhA0KeRXwB0ZNDMdc/LMCcFAtRtO9bLgYLjPRjlkHa1kt1YnaMbLm4OWjT
+	ikhv15cBV26lPO+jBsPsEcQ71HV7tT0ebCau5vgnt0bodcX7zbqEgFgn7lSQK8Z8efc2zczAVMU
+	HSp+DStiWzG3Y2dtnq9mgToWBdAL3tcYbsm7RMS/hbVO7XDaCAd+1MNci3eJdJWM4lPQ1sttQi3
+	iVh+J0CTWlYruA=
+X-Received: by 2002:a5d:5f47:0:b0:48e:bf0:35c with SMTP id ffacd0b85a97d-48e0bf00821mr22139283f8f.13.1792519874750;
+        Tue, 20 Oct 2026 11:11:14 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4778:c500:48b3:351b:a629:512f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828cbfsm48367f8f.23.2026.10.20.11.11.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 11:11:10 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Christian Brauner <brauner@kernel.org>,
+	"Eric W . Biederman" <ebiederm@xmission.com>,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] signal: skip blocked signals in dequeue_synchronous_signal()
+Date: Tue, 20 Oct 2026 21:11:01 +0300
+Message-ID: <20261020181101.1605736-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,88 +95,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261020181053.2646782-1-digonzal@google.com>
-Subject: [PATCH] PCI/ATS: Disable ATS when ACS TB is set upstream
-From: Danny Gonzalez <digonzal@google.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: David Decotigny <decot@google.com>, Sheena Mohan <sheenamo@google.com>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Danny Gonzalez <digonzal@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Enabling ATS allows an endpoint to cache translations and initiate DMA
-requests with Translated addresses, which an upstream bridge with ACS
-Translation Blocking (PCI_ACS_TB) set will block as ACS Violations.
-Because pci_enable_acs() preserves existing PCI_ACS_CTRL bits (e.g., from
-firmware, a kexec kernel, or "pci=config_acs=") without relaxing them,
-PCI_ACS_TB may remain set on upstream bridges.
+dequeue_synchronous_signal() checks whether an unblocked
+synchronous signal is pending, but its queue scan can select a
+different blocked entry with a positive si_code. This can deliver
+a signal while it is still blocked.
 
-Update pci_ats_supported() to walk upstream bridges and return false if
-any bridge has PCI_ACS_TB set, leaving the endpoint to use Untranslated
-addresses.
+Check the blocked mask for each queued entry. Forced faults
+are unblocked when necessary by force_sig_info_to_task(), and the
+existing pending bookkeeping is unchanged.
 
-Tested by booting a machine with an endpoint advertising the ATS Capability
-behind a Root Port with PCI_ACS_TB set; verified ATS is disabled and the
-system boots cleanly.
-
-Signed-off-by: Danny Gonzalez <digonzal@google.com>
+Fixes: 7146db3317c6 ("signal: Better detection of synchronous signals")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- drivers/pci/ats.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
 
-diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
-index 9cb23780093d..094f4f825acf 100644
---- a/drivers/pci/ats.c
-+++ b/drivers/pci/ats.c
-@@ -31,6 +31,24 @@ void pci_ats_init(struct pci_dev *dev)
- 	dev->ats_cap = pos;
- }
+Reproduced by blocking SIGSEGV, queuing a positive-code SIGSEGV
+with rt_tgsigqueueinfo(), then triggering an unblocked SIGTRAP.
+Without the fix, SIGSEGV was delivered while still blocked.
+
+Patched version behaved as expected.
+
+ kernel/signal.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/signal.c b/kernel/signal.c
+index e433de93b430..4dcc47a7d30d 100644
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -684,12 +684,13 @@ static int dequeue_synchronous_signal(kernel_siginfo_t *info)
+ 		return 0;
  
-+static struct pci_dev *pci_acs_tb_path_blocked(struct pci_dev *dev)
-+{
-+	struct pci_dev *bridge;
-+
-+	for (bridge = pci_upstream_bridge(dev); bridge;
-+	     bridge = pci_upstream_bridge(bridge)) {
-+		u16 ctrl;
-+
-+		if (!bridge->acs_cap)
-+			continue;
-+		pci_read_config_word(bridge, bridge->acs_cap + PCI_ACS_CTRL,
-+				     &ctrl);
-+		if (ctrl & PCI_ACS_TB)
-+			return bridge;
-+	}
-+	return NULL;
-+}
-+
- /**
-  * pci_ats_supported - check if the device can use ATS
-  * @dev: the PCI device
-@@ -40,12 +58,22 @@ void pci_ats_init(struct pci_dev *dev)
-  */
- bool pci_ats_supported(struct pci_dev *dev)
- {
-+	struct pci_dev *bridge;
-+
- 	if (!dev->ats_cap || dev->untrusted)
- 		return false;
- 
- 	if (dev->is_virtfn)
- 		return pci_ats_supported(pci_physfn(dev));
- 
-+	/* Do not allow ATS if any upstream bridge blocks translation */
-+	bridge = pci_acs_tb_path_blocked(dev);
-+	if (bridge) {
-+		pci_warn_once(dev, "ATS disabled: upstream bridge %s has ACS Translation Blocking enabled\n",
-+			      pci_name(bridge));
-+		return false;
-+	}
-+
- 	return true;
- }
- EXPORT_SYMBOL_GPL(pci_ats_supported);
+ 	/*
+-	 * Return the first synchronous signal in the queue.
++	 * Return the first unblocked synchronous signal in the queue.
+ 	 */
+ 	list_for_each_entry(q, &pending->list, list) {
+ 		/* Synchronous signals have a positive si_code */
+ 		if ((q->info.si_code > SI_USER) &&
+-		    (sigmask(q->info.si_signo) & SYNCHRONOUS_MASK)) {
++		    (sigmask(q->info.si_signo) & SYNCHRONOUS_MASK) &&
++		    !sigismember(&tsk->blocked, q->info.si_signo)) {
+ 			sync = q;
+ 			goto next;
+ 		}
+
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
 -- 
-2.56.0.218.g1ec904b173-goog
+2.43.0
 
