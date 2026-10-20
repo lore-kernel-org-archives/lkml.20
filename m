@@ -1,120 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.5
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792486565;
-	b=UcnxEuG1eITng592ONykx6V8zrJ4xdvEUqTlHzZGOw1KaTBYDFtIbCspVm6KZpuK0xF3
-	 VrIu44MI7vEq7b5mjZc7x8AVvR9R6rIEYmNS0XJcK1ml7MY8pT/PpHzT4ECerOLNN37E/
-	 F6TacIqrm/oB7TFk2uctBXg+TWQvZKfnKOEBW8bv/G81De9qbd5tvIVyD9eMrEhmB8oXO
-	 NU7XAJwY0HJ+RJezHcj624JY7jxyTDSJUGM9igF+bRAeDmt7PSGRxPhJDKabbpnvKFji8
-	 CJCS/Fq8MN+sQdHRoLCAfUULJgTdc0252Urs4JBGlCpZnMppcoJw53OImJM7iR8E9pA==
+	t=1792486578;
+	b=Ja43azodj8DJA+WNJnBO/K0DuqP+TKnZN/U7GGl/c6RM3CJEGvx3QjC9mHViV5FXlM5h
+	 sHhfrBUdU8Wzf5v5XeGiq3FQI+6BCxZ5ho6Qnap/sgWebdVQGf8KvYTX7Oa5UqicF9noW
+	 GvhAqs7G6PVISfhpHMltTYLwH2r4YJpKVPcpFEIkXQyEXsH0rRmeLqWoy1InPqXVN8kFf
+	 k1RWlsm06b712psj1ajywDLpyxX5FP4MqBLzclAJVKKcX+BGY/rwQlB2F0x8tiseAl/Yc
+	 9c8uGXZhxt7lcRuVBIlua10z8eLnwV8pwBuJ6XCgzzFvb+7LjYyY4hxL0AsiC3D4QuA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486565;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-NV-OnPremToCloud:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cIpZyNVYXmILukAUgZqSzfPwWfI2Ag6jz2J1V0odIfA=;
-	b=FVomO9z2Dpbx9qFN4TRNw/IuJ7nt4FqFSU8XiiZIKXyvOr2qyfwwqOiDaNEYJN3zj9+Q
-	 KTITVTTpx0/f7CsB+w3DPjWRW+NJoKII577gi7Q0W6o9cgoJlw57S0JGl8I7XrqsAwqS8
-	 OL9a3NB5FpVWe28JmxdKzzcN8ANfB99dPdTmShu8fVtsoYdt4HsGFddbx+RZ62L68hTbs
-	 Kr3bqtAOIl+a9kpkKmj/euNZT/klVOO1ImoqjXm3jJkD/pWB8yPpwnNNmL6gFJrvQhXub
-	 fxxyLq6aWwJk3SKHrzTJ3iSbV2D5ThAt/mPdJCOjoOqjmEmSRbh7vPxhiGGD/K2ztsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486578;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=EO/Hx3wmjK2qfxxzLF6nASGr8bhB9j7KtckXSt/vRFM=;
+	b=QvO5n+5gfNK0ER/4HBA8cqS+eBZNDfiLVqz084Kq7dkvowJXztuaDfib6FmPwRORCRBA
+	 TUBviqu201NZMlHZW1enCy/RjFB3eusQ6SQq6Mi1MCJRwjRkPN+Cl7eUdvTOpYMIjyagG
+	 FVD0Np4zEDM7VD+e/JicnGNTgZJ5Ktpssvuo49T9JNcQkpDhpupfWF818FcL9FykgHkYL
+	 u0Bq/rL27xdNv8CcboskzbszHCY9Vy7OfkcWXJV4WADAyAu/KJUF97ai7VAVAa5Y8FXVA
+	 YvoQQXqN3APcv7E6hicz8MuM5M7B87nTjDLW0xVE2QEFESRvul4gEM8RQIsvGibsdBg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oOBBksCL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.5
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012005.outbound.protection.outlook.com [52.101.53.5])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KsMMoIBE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8803F606A330;
-	Tue, 20 Oct 2026 08:56:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8803F606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4FF606A319;
+	Tue, 20 Oct 2026 08:56:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C4FF606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oOBBksCL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eeGAI7lQh9dE0fpEehf7z5dPByTDCLp13HTryM2AwPvrWjWgdbGvcVEBN7A4mrKd7gtJExfnSKC9X+9D5xf85mwKbvrsDDPLhC9ua4TPXWgcBwKANGdTMrXHk7G9sRLlytG7J1lRLneZfIP9YMHjsqszMYTapKaK5VxyqULOiw85LiD9tQOSczE9VJfCFmcWsNGWxJ71p751OyQq4dCk1ebWLjf95BojLnB9acuS/3JI1ngekLmKSxVqV8LP2hQFowa4bxP7WVIGOwyrXgIKWnWIrsbxSI9chdMjoe8YHoBszHDZa2mYneWyqghTAQ8QTxhuyyKdAAPZI/PYoo7C8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cIpZyNVYXmILukAUgZqSzfPwWfI2Ag6jz2J1V0odIfA=;
- b=mRgpi15ewEU1No4b8rRso6EMZLjWNM4prfFtZHB5Q62tKQ6q6pUdmOVZfrmBjKfdDwVZBcUzKynVdoSiAEcYm/94OaEcw4LRsyH1o80CwkDaFHjB9ceF77EJh96upmn0DKO+h8uLwDWSVWnINsz6n47/r/NvxnuTJW55T7QJheEkSfKmw6XMgK3Pji4GtuRcJ44sKrcf8sVauidqQoP2/IDDDrYBY7qEcZ9hkk/Wwya/oa+TjhQDmuUCBwwPq+UezjMa0AvQpLrJJm3u53xhM1fbrGqK0bL5wkhShbZAbdI8EZ+UozgH0gppQYtnJzhlEiWoAKujae6Ja0dfsH1azA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cIpZyNVYXmILukAUgZqSzfPwWfI2Ag6jz2J1V0odIfA=;
- b=oOBBksCLkE+AmuXqk0F9jPaYR2JPNm+mcLep7JrR4viuC8IFYVnoAiXwvLDzRrV1A+U3sOs2pN3xSisorSF4KxlQUjiK4DHK1tdtj5W1Vr1JoxGXKoNZXScPADINilEyXWuJYYffxIhupxf6OdRM3bc4e+kt9+LVzA5JVb4YqihP4ywL5Js7E4ibCxbONtIjQR2ilbXreiCcsQrHuThPRKUzj1QBE2XnbTTCZ82Bzh1YFOSLkuBHSEqzqs23bZXHCS53ma8m8Y0KdEcvodVe06hWGcYwluGqc54Schqs5hdernrPFQ8K2mD8KY0LUq/Ko7l1sVRW/UmPckqPDZCxbQ==
-Received: from SJ0PR13CA0128.namprd13.prod.outlook.com (2603:10b6:a03:2c6::13)
- by PH8PR12MB6938.namprd12.prod.outlook.com (2603:10b6:510:1bd::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 08:55:59 +0000
-Received: from SJ1PEPF000037A0.namprd04.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::7d) by SJ0PR13CA0128.outlook.office365.com
- (2603:10b6:a03:2c6::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Tue,
- 20 Oct 2026 08:55:59 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SJ1PEPF000037A0.mail.protection.outlook.com (10.167.244.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Tue, 20 Oct 2026 08:55:59 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
- 2026 01:55:43 -0700
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 20 Oct
- 2026 01:55:42 -0700
-Received: from inno-dell (10.127.8.11) by mail.nvidia.com (10.129.68.10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 20 Oct 2026 01:55:37 -0700
-Date: Tue, 20 Oct 2026 11:55:34 +0300
-From: Zhi Wang <zhiw@nvidia.com>
-To: Alice Ryhl <aliceryhl@google.com>
-CC: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
-	<gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy Baron
-	<bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
-	<acourbot@nvidia.com>, Onur =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, "Dave
- Jiang" <dave.jiang@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, "Saeed
- Mahameed" <saeedm@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
-	<rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Sami
- Tolvanen" <samitolvanen@google.com>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] rust: fwctl: declare cfi_encoding for fwctl_rpc_scope
-Message-ID: <20261020115534.1134f2b3@inno-dell>
-In-Reply-To: <20261020-fwctl-cfi-encoding-v1-1-ebb30d1500df@google.com>
-References: <20261020-fwctl-cfi-encoding-v1-1-ebb30d1500df@google.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KsMMoIBE
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 147202021BD;
+	Tue, 20 Oct 2026 10:56:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792486575;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EO/Hx3wmjK2qfxxzLF6nASGr8bhB9j7KtckXSt/vRFM=;
+	b=KsMMoIBESSINtwlHfBGS7PTKPR4GJHMBS0bLT+mBSSOYVTd0JpMAhYbIJ8DRjJOL6BBKtz
+	QfeGYwGPFtcn5AwpxD8Ka7yICYW0gy4fGdJEEuQv9ib2RbSHugudVptsB585PIDCb3onZ9
+	5m5CbiCupGv1CkrmCtuam29zi7A4WqdaSibyuSHLMwEhjwTrmpwx11/YAvh+UzmKaNjQK6
+	GQTs6NS9KMK0jlz8/CjbZ6ldXEDJVyyHywVwe+aHtjmkBxRF8uGxPxg+1nJi7rbOMGSrxF
+	4Wm/D6NypOUfdcCDkCIOM4ZUOl7tBwZ0N9BU/FLSR7fR5lYRmWS2Y3oNw1Qu/Q==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792486575; a=rsa-sha256;
+	cv=none;
+	b=JXfW+AyeOKpXBKbOZIzqZhZMgxidE7qDWPqPeV1Yy8z4pO9P43LRf8s7dV5hfnnbsX2dnP
+	vVeUZHqn2P1Q5kWfXUg6uIgoHzhocC0i+Ol2X+f8SSiXmTo28NmyaKy8vQ3PkhiuH2y1Vv
+	PRLNbGX1LDGjrPRAVHhWYc4G5bFkmZs1abQOQafQD+vdReAn6FXaGIeLvBeZNT4OWi+c0q
+	ax7ZWuLkcp2ebhbbEW94N8XlZWilQcb2m9MnqGwv36nu3xeM9IFgzllNak3WKrc01IELZO
+	1cx8AlbLH7G59MDn4OqK5R2tRnwvKeBZhDPCCtulXEqNBa3aAq/jv6t8B9/XLA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792486575;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EO/Hx3wmjK2qfxxzLF6nASGr8bhB9j7KtckXSt/vRFM=;
+	b=YucF7it935v1ola3F0WLa0qGdkxEfB9rswmg+8t5EKhXIQHzwxZwSqdbPBrA0GP3NkxIE3
+	fdrnGpDfgeLxh7YmyKDswzO4+P00LmIteJgzqznL87Vfc8hA0hBHEcwKwtK+V5voHsdl/Q
+	t/ElEwFu/gmwksOdBD6gfJU/c2lg22IL8qVul00JhRledXtDSjwAelWYE3mEQh4Y/pB4Te
+	H6ZHXhO8H8PYPFvou7BEreEGESfzTvRRkuMe3+2IT73bq7DRBVQJRGFcWYNG3ycOzba2Xa
+	0ymdongaNl0u35Z0KRDL9hhnvDygrvKKygwSfMyGLCbCFCBAOqLEvYIyduPvXw==
+Message-ID: <cda25e6b8be6887da0da859b748662238025c60c.camel@pengutronix.de>
+Subject: Re: [PATCH V2] reset: core: Serialize concurrent deassert/reset of
+ shared resets
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Alvin =?UTF-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>, Shengjiu Wang
+	 <shengjiu.wang@gmail.com>
+Cc: shengjiu.wang@oss.nxp.com, corbet@lwn.net, skhan@linuxfoundation.org, 
+	rdunlap@infradead.org, hansg@kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, broonie@kernel.org
+Date: Tue, 20 Oct 2026 10:56:14 +0200
+In-Reply-To: <atcf1PFVcn5pdsVO@analog.com>
+References: <20261019055301.3234571-1-shengjiu.wang@oss.nxp.com>
+	 <CAA+D8APDSYbzX3S9RuLinoPiuqPHEX+L+-ZcSg-RtxxaWyvrJA@mail.gmail.com>
+	 <atcf1PFVcn5pdsVO@analog.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,127 +97,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A0:EE_|PH8PR12MB6938:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11239bd1-23d6-4884-0365-08df2e87f626
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	WPppd+BSbzF5csKk1E3MdPrR1iOxtpPVpHRRxPk3OheM8576pMS5IT6vr+hTmS8+hGoYnLCcitZw+/fvKO0QzT6QlRSUGfhYBGpj523vEsTiInqpx/3zYuSrRPv3Sdf6QTPLFQ74L+WLuiZbfLRFPUCuS23T2nw5B/fPjYWg6PjTOzfI2fxLwHVsknqn6PHm91I4xOrhCDigYlCJEFBdhmmFq468U5VE1UPCzj7n0QPANH0c59v4L6bd29Am71mWvGo2Z5Nob6zxL7BeLzGdcp9QcGDYiqWvPYDKSCHk+LtSFDSssNFT1QbN8IJz8QfJiOuSbADsDK7Z9Ke2LUKg1OopnXIMhU9LmjnVNAVDQBZbQx+gLmPoUkDJ1lAPSCWV9fePYyEkPTmXhUbXNHN9E5k3+UEHoooHLIOKIxEFIYc5uWX18hIBJsMkahpKiBln8xm6ciS2Kh6k6e9kLzZtVC9vn8vX0PYN5nzBgiFeX9waHbkJtiqxMW+F+FJObj7SytO+Hx/exEqHiJ08hEbAtQ18doH1Engi9arKM37DF2sM0JUhDZxW9FahRCWumxv6sMe0SeRVfDlLxW+hYXCdxeF4ljgfVh+xBMTdJ9QX5pwuFQkoup8OGRnoN31xiYALocBRIzGqir5euE0ssggSAweKIHF+xM1ky5/K6p8x+qFOZ52yIknapStV+kXzx6r5DgSHycIH3EGkXA10UvOueQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wC0zy5l7l0TYQjLPf3HHc3HX5f36ejMaI0LHNWzCMwOS/MuT+xFOArJ7sRyc6XDCM4vNHKJQr4UE0qtXWYTU7pzI9JREv2avGYAboFRACaW4xVfD6SwxJufhOdKowut6aIRrxQuYa+EDimLTldgFxiL4gBaoV9b/VNNWReogQm6eaxlR46PBjfNDrWzwnV0sijxNcb7UyrRZJ0wM3VZzN3jcxHaEn7kRAhwtYHIN321O0UdQtWLZMvs+phUhbB4BuGLpF1lYbeCDdWxQa8O2RqiRQqgtvRjVVbKjNY+IPXDkdMYqB2nxTs/hZRp9hyLNV0iKHDokii+RfGLAvg16XcaJn8TfLShsHkEPLg8RuQbiC5F6YIufIE1ql2VJYK6MkQAoEIzQKHnclTNWro2+pTtiSYyfyFiY3/9qmknjnVi0nOW5HnF3V5T+zCXhKttK
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 08:55:59.4397
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11239bd1-23d6-4884-0365-08df2e87f626
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037A0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6938
 
-On Tue, 20 Oct 2026 08:28:37 +0000
-Alice Ryhl <aliceryhl@google.com> wrote:
-
-> Currently, VTable::fw_rpc_callback() takes scope as a u32, whereas C
-> calls fwctl_ops::fw_rpc with enum fwctl_rpc_scope. With kCFI enabled,
-> enum types are encoded distinctly from integers, causing every fw_rpc
-> indirect call into a Rust fwctl driver to trip a CFI failure. Thus,
-> generate fwctl_rpc_scope as a newtype with a cfi_encoding attribute
-> and use it in fw_rpc_callback().
+On Di, 2026-10-20 at 10:29 +0200, Alvin =C5=A0ipraga wrote:
+> On Tue, Oct 20, 2026 at 03:17:40PM +0800, Shengjiu Wang wrote:
+> > Hi Philipp
+> >=20
+> > On Mon, Oct 19, 2026 at 1:52=E2=80=AFPM <shengjiu.wang@oss.nxp.com> wro=
+te:
+> > >=20
+> > > From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > >=20
+> > > reset_control_deassert() and reset_control_reset() guarantee that the
+> > > reset line is deasserted / a reset pulse has been issued once they re=
+turn.
+> > > For a shared reset only the first caller runs the hardware op; others=
+ just
+> > > bump the refcount and return early, so a concurrent caller can return
+> > > before the first caller's (possibly sleeping) op has finished.
+> > >=20
+> > > Serialize the shared refcount update and the hardware op under the
+> > > existing per-control rstc->lock, taken before the SRCU section to mat=
+ch
+> > > reset_control_acquire()'s mutex->srcu order. The lock is taken only o=
+n the
+> > > shared path and only for may-sleep callers (reset_control_reset() and
+> > > reset_control_deassert()); the exclusive path stays lockless. Callers=
+ in
+> > > atomic context must use the new lockless reset_control_reset_atomic()=
+ and
+> > > reset_control_deassert_atomic() variants, which skip the mutex and so
+> > > carry no completion guarantee.
+> > >=20
+> > > The op is now called with rstc->lock held on the shared path, so it m=
+ust
+> > > not re-enter reset_control_reset()/deassert()/acquire() on the same
+> > > control; a lockdep_assert_not_held() at each lock site catches that.
+> > >=20
+> > > reset_control_assert() is unchanged: a shared assert makes no guarant=
+ee
+> > > about the line state, so there is nothing to serialize.
+> > >=20
+> > > Fixes: 0b52297f2288 ("reset: Add support for shared reset controls")
+> > > Link: https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/
+> > > Assisted-by: Anthropic:claude-opus-4-8
+> > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > > ---
+> > > Changes in v2:
+> > > - Serialize only the shared may-sleep path under rstc->lock (taken be=
+fore
+> > >   SRCU to match reset_control_acquire()'s order); exclusive path stay=
+s
+> > >   lockless, and reset_control_assert() is left unchanged.
+> > > - Add lockless reset_control_reset_atomic()/reset_control_deassert_at=
+omic()
+> > >   for atomic callers; gate the mutex on can_sleep so no shared consum=
+er is
+> > >   regressed and so it works on all configs.
+> > > - Factor the body into __reset_control_*()/__reset_control_*_locked()
+> > >   helpers, and lockdep_assert_not_held() at each lock site to catch a
+> > >   controller op re-entering the API on the same control.
+> > > - Declare the new variants and stubs in reset.h, and document the sle=
+eping
+> > >   vs atomic variants in the kerneldoc and reset.rst.
+> > >=20
+> > >  Documentation/driver-api/reset.rst |  10 ++
+> > >  drivers/reset/core.c               | 204 ++++++++++++++++++++++-----=
+--
+> > >  include/linux/reset.h              |  12 ++
+> > >  3 files changed, 177 insertions(+), 49 deletions(-)
+> > >=20
+> > > diff --git a/Documentation/driver-api/reset.rst b/Documentation/drive=
+r-api/reset.rst
+> > > index 932699c57d1e..0fbc1ba92dd8 100644
+> > > --- a/Documentation/driver-api/reset.rst
+> > > +++ b/Documentation/driver-api/reset.rst
+> > > @@ -185,13 +185,23 @@ Given the reset control, consumers can call res=
+et_control_assert() and
+> > >  reset_control_deassert(), trigger a reset pulse using reset_control_=
+reset(), or
+> > >  query the reset line status using reset_control_status().
+> > >=20
+> > > +For shared reset controls, reset_control_reset() and reset_control_d=
+eassert()
+> > > +may sleep and must be called from process context. Consumers that ne=
+ed to
+> > > +operate a reset line from atomic context can use reset_control_reset=
+_atomic()
+> > > +or reset_control_deassert_atomic(); these never sleep, but do not se=
+rialize
+> > > +concurrent shared callers and so do not provide the completion guara=
+ntee of
+> > > +their sleeping counterparts. The underlying reset controller's ops m=
+ust not
+> > > +sleep when the atomic variants are used.
+> >=20
+> > On second thought, this change lets reset_control_deassert() sleep, so
+> > any driver
+> > that currently calls it from atomic context would now block. The new
+> > _atomic() variants
+> > let those callers opt out, but I can't tell how many drivers would
+> > need updating, and any
+> > one we miss is a silent risk.
+> >=20
+> > Do you have another idea to fix the concurrent deassert() problem on
+> > shared resets
+> > without this risk?  Or should we go back to the original proposal?
+> > https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/T/#m66615477929=
+b38f788d6d22a2c0bb9ca62173e89
 >=20
-
-Thanks for the fix. Looks good to me.=20
-
-Reviewed-by: Zhi Wang <zhiw@nvidia.com>
-
-BTW: I saw this =E2=80=9Clru_status=E2=80=9D needs the same treatment, gues=
-s bindgen
-will someday automatically handle this?
-
-Z.
-
-> Cc: stable@vger.kernel.org
-> Fixes: e052daab94ee ("rust: introduce abstractions for fwctl")
-> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
-> ---
->  rust/bindgen_parameters |  2 ++
->  rust/kernel/fwctl.rs    | 12 ++++++------
->  2 files changed, 8 insertions(+), 6 deletions(-)
+> The reset core could borrow a trick from the regmap library, where it
+> uses either a mutex or spinlock depending on whether the underlying
+> reset controller's ops can sleep or not. Check the struct
+> regmap_bus::fast_io member and how it's used in __regmap_init().
 >=20
-> diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-> index 8402b0c93545..e4f8c07743a8 100644
-> --- a/rust/bindgen_parameters
-> +++ b/rust/bindgen_parameters
-> @@ -27,6 +27,8 @@
->  --opaque-type spinlock
-> =20
->  # enums that appear in indirect function calls should specify a cfi
-> type +--newtype-enum fwctl_rpc_scope
-> +--with-attribute-custom-enum=3Dfwctl_rpc_scope=3D'#[cfi_encoding=3D"15fw=
-ctl_rpc_scope"]'
->  --newtype-enum lru_status
->  --with-attribute-custom-enum=3Dlru_status=3D'#[cfi_encoding=3D"10lru_sta=
-tus"]'
-> =20
-> diff --git a/rust/kernel/fwctl.rs b/rust/kernel/fwctl.rs
-> index f29244fb0d1d..b7778e4d5ee0 100644
-> --- a/rust/kernel/fwctl.rs
-> +++ b/rust/kernel/fwctl.rs
-> @@ -53,13 +53,13 @@ pub enum DeviceType {
->  #[derive(Copy, Clone, Debug, Eq, PartialEq)]
->  pub enum RpcScope {
->      /// Read/write access to device configuration.
-> -    Configuration =3D
-> bindings::fwctl_rpc_scope_FWCTL_RPC_CONFIGURATION,
-> +    Configuration =3D
-> bindings::fwctl_rpc_scope::FWCTL_RPC_CONFIGURATION.0, /// Read-only
-> access to debug information.
-> -    DebugReadOnly =3D
-> bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_READ_ONLY,
-> +    DebugReadOnly =3D
-> bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_READ_ONLY.0, /// Write
-> access to lockdown-compatible debug information.
-> -    DebugWrite =3D bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_WRITE,
-> +    DebugWrite =3D bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_WRITE.0,
->      /// Full read/write access to all debug information (requires
-> `CAP_SYS_RAWIO`).
-> -    DebugWriteFull =3D
-> bindings::fwctl_rpc_scope_FWCTL_RPC_DEBUG_WRITE_FULL,
-> +    DebugWriteFull =3D
-> bindings::fwctl_rpc_scope::FWCTL_RPC_DEBUG_WRITE_FULL.0, }
-> =20
->  impl TryFrom<u32> for RpcScope {
-> @@ -539,12 +539,12 @@ impl<T: Operations> VTable<T> {
->      /// - `out_len` must be valid for reading and writing an
-> initialised `usize`. unsafe extern "C" fn fw_rpc_callback(
->          uctx: *mut bindings::fwctl_uctx,
-> -        scope: u32,
-> +        scope: bindings::fwctl_rpc_scope,
->          rpc_in: *mut ffi::c_void,
->          in_len: usize,
->          out_len: *mut usize,
->      ) -> *mut ffi::c_void {
-> -        let scope =3D match RpcScope::try_from(scope) {
-> +        let scope =3D match RpcScope::try_from(scope.0) {
->              Ok(s) =3D> s,
->              Err(e) =3D> return Error::to_ptr(e),
->          };
->=20
-> ---
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> change-id: 20261020-fwctl-cfi-encoding-70766ce0a03a
->=20
-> Best regards,
+> It would also allow the problem to be fixed for atomic users. Right now
+> you still have the race even if the underlying reset controller's ops
+> don't sleep and the _atomic() API is being used. But if you know that
+> the reset controller ops don't sleep, you can serialize shared reset
+> control operations using a spinlock.
 
+Yes, that sounds like it could work.
+
+> With the above design you can leave the consumers alone and drop the
+> _atomic() variant of the API functions. (I'll also point out that adding
+> sleepy/atomic-awareness to the core would open the door for consumers to
+> report their requirements, e.g. that the reset control musn't sleep, and
+> for the core to validate this with the properties of the consumer.)
+
+Adding _atomic() variant at the very least would require correctly
+setting can_sleep/fast_io for all reset controller implementations and
+making sure that the sleeping controllers throw an error in the
+_atomic() API.
+
+> But... it requires an audit of all reset controller providers in the
+> tree, to see if they are atomic-safe or not, and report some kind of
+> .can_sleep property to the core (like regmap's .fast_io). I have a
+> feeling this is still more straightforward and less error-prone than
+> auditing all the consumers.
+
+Seconded. I'd really like to move to an API that visibly separates
+exclusive and shared resets, as well as sleeping / non-sleeping API,
+but I'm afraid that would be a lot of churn.
+
+> The other downside is that it's not a simple patch which can be
+> backported, which might be what you are looking for.
+>=20
+> Any thoughts? I can also help out if the idea seems good.
+
+How about adding the can_sleep property, setting it for reset-gpio, and
+adding the mutex first, and only then adding the other reset
+controllers and the spinlock. That could allow to backport a relatively
+constrained subset of the change.
+
+regards
+Philipp
