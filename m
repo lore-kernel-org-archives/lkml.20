@@ -1,42 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792516533;
-	b=nC62n4OJrsE4ZjDKPbxgL+8iP1sgUmdvfzPlVwCyyd+O6k6E8fH+6ZReDpsET2L3vq1b
-	 WLVpfLxtbl45qTUn854wAaDXPU+hXu3Ms9wiJyBhVA9BY1KoEaWv4yPjo5+nCQWwwv2c1
-	 KdSBBvYtbT3Oq4YrDDLe75kSwQ+U1Qr0J+YSLHMorRV+EpVQADywcjTiUdgNErD4Xd2E2
-	 ijAasFfS5pAK/p0eQWAYpwd3f0DRglyvCwjzUsH4S8KTIHIb4+8Azl7ba3EzFQdfsZhZS
-	 YJ3Nyqk6KDMK4rxrbpGwkMD33fclgPFjl9X7CtbvJJ0cC0mr+LUEL2HO2EXqJwXtQSg==
+	t=1792516536;
+	b=qj/oDvusSsdGvUYHcQlCJmFoCH39Hor7r2jeezPiOOONF39lsq/bYHpBxEX5NjifkKZC
+	 8hXN8kCkQawpPqnRsuytPfYuCCVHaL5ztjh6Md2JwC0bLMUcujBz9OgLyRBoH1oUKfogH
+	 X2LTprSVNzAcwW6kkjiFujUfzsx2msDLvRyAGw/m7grrJHwGUBqJmqUk3bCCJc2+mAJAw
+	 jDCtFJqsRG8f4jubJ+1F0zspsd8fHY0Ak97XB8udLqiYFPkz40G7neBELBnbJdde49bQ/
+	 xRsRK+pRYSjs0DtP4NdtBCtdEJKNNcJbzzeJMRDqSCtnJhYRHFwmTZ/3Dg3nxdYiQLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516533;
-	h=Received:Received:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+7AvEO87agVesSj9EpGksF6DuYMEbv0EchchTnG8b/k=;
-	b=b90yWmt/OSP5yGIBbpWq2+1HcyhUlhTZPAZLRp46gVDoiNaoMOLwnuFpK56LMR06zqLN
-	 aaMQZit/laNDaGhOrGKBp8Tl+2yeoxQ99zxPhoYxv/nfLIQ3C7FTqGMWniaGfL+eRAKRJ
-	 KaAK4bLgn7F7RLPhk++QcTsqg/j6GjPOZims1mlp2B5a+S5AO4qmCDdBUS+W0vR/yOxvm
-	 o02holWb/VsrQ3SHdzKh3/v/BqYh41BvSMDvah35l6DJam/1g9u9ZfN307zcVFoEkHIow
-	 tdAKsLW0oKE5xGy8qcWfDIHxWQuajnCmzUV+V/8+x9ahdTdHQXR0SnHXSB6W4TCdJlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516536;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=OdcH/0G5TygIz1llf3tnNdwtdILJ239brH+wW6iM/MM=;
+	b=xXcvJ3n3Wiyh9MRvunA70Vif8aKXMpdX7XffQAmudTcGxejRR0a6eq4C+I0P31oTSvX6
+	 Z3+O0+zIHokVIHzPIui7Fainh4+dyYwHS+VhTN7gPWzU17TavQdI8LCGJWPOnwlsphks4
+	 0OK45hnTlMEW/OHZ9F62cpFbdsZ1teby41MO+MRlbLE442gAtNuKLpbtshJHx2n3aruYE
+	 FvmAbNoik3hA4A/RxpGCfD9riTJbwX42hwE67gL9WNwOmaWs+TzUWvGuC96OdaSlLF4z/
+	 d9Xt62t6fOEKmOkXFZTZYw5QG6M5Rr7HthsYDMmRwbqc0YRuh+ffUVSQASvF3tUOUuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=E5Xa2poa;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12123606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:15:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C530B1F000CD
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:15:32 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba36cc21cdso616200e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:15:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwKZjqenunMMjjKL/7jYQwb8xwWbD9l5+Z4FF38zm0NvZoh1JYN0M4pft0HfhR7SJLHmB6cgpmO9irF4tI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdqlH3cWTAKZPb5Jp0DbqnoSWgdQPvDTYp4ZgKJEzEYHsSCkYU
-	A1vR2UhWKzJwNxdH6BUWJ/YQll0D5GuTEDQ/FxrIZnsE5OdYUkxfBeqPLYDPjwKhrXsBXzYb0Cv
-	a2is3Uh9SFlybu+0+cDe43gSdPTv2VzE=
-X-Received: by 2002:a05:6512:33cc:b0:5bc:b0f3:8a4e with SMTP id
- 2adb3069b0e04-5be50a62a31mr3833052e87.43.1792516501664; Tue, 20 Oct 2026
- 10:15:01 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12113606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:15:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12113606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=E5Xa2poa
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id ACA1CC6220D;
+	Tue, 20 Oct 2026 17:16:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0190560393;
+	Tue, 20 Oct 2026 17:15:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F0441103289A8;
+	Tue, 20 Oct 2026 19:15:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792516531; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=OdcH/0G5TygIz1llf3tnNdwtdILJ239brH+wW6iM/MM=;
+	b=E5Xa2poadgALzKUr4lDwWd+h4KD8v74ZMm7iW3l/CrJCoeAux6JySsRDMxxzOyccrdRPHp
+	r4LGuE7P3GPy8TPzSah90LoHQdFFHUHbyyKJp9pjNFVTKBzysKuktS4G+ALTlmYIFsdje9
+	/o5Nn4mrSh2kc8IiXdwNQVqbPOtxE6jNeFsQzcsR9cM5K0+yTG/tLbq0GKIMrYHJqO6SvX
+	CK1S/JfNUfuz6Vq3VRUC4k7mG+th2Zbmfp5l54SizSWTFhJgDXLc+gETRcGoyiNb6rMHD+
+	yxP36SSwksyvQlKArlyUNQDuFQXkP5A2JWKBVtWUdDNXadFzLtZdTmXbr09pjQ==
+Message-ID: <d28a828f-2f91-48c4-a462-993dfa317cb1@bootlin.com>
+Date: Tue, 20 Oct 2026 19:15:24 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -46,35 +62,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020-iio-light-gp2ap002-v3-0-b7e0946c9e79@rudorff.com> <20261020-iio-light-gp2ap002-v3-1-b7e0946c9e79@rudorff.com>
-In-Reply-To: <20261020-iio-light-gp2ap002-v3-1-b7e0946c9e79@rudorff.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 20 Oct 2026 19:14:49 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmA_CAJi31OJe19A1H316XfigAKy5XbGcpvj1CYzPYY2A@mail.gmail.com>
-X-Gm-Features: AclHuK9Cj5HfENDrz3fDPSLBKmxyGLPpayybWidXDJBEn6zBCvvY9bndZC-YM6k
-Message-ID: <CAD++jLmA_CAJi31OJe19A1H316XfigAKy5XbGcpvj1CYzPYY2A@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] dt-bindings: iio: light: gp2ap002: add leda power supply
-To: Christoph Rudorff <chris@rudorff.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net-next v2 0/2] net: pse-pd: si3474: probe error path
+ cleanups
+To: Carlo Szelinsky <github@szelinsky.de>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Piotr Kubik <piotr.kubik@adtran.com>,
+ Sai Krishna <saikrishnag@marvell.com>, Simon Horman <horms@kernel.org>,
+ Kyle Swenson <kyle.swenson@est.tech>, netdev-bot+sashiko@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261020171134.852878-1-github@szelinsky.de>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261020171134.852878-1-github@szelinsky.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 20, 2026 at 1:36=E2=80=AFPM Christoph Rudorff <chris@rudorff.co=
-m> wrote:
 
-> According to datasheet page 8 "Recommended external circuit",
-> it has tree pins that need power: vio, vdd and leda ("vled" !)
->
-> Signed-off-by: Christoph Rudorff <chris@rudorff.com>
 
-Looking good!
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+On 10/20/26 19:11, Carlo Szelinsky wrote:
+> Two small changes to the error paths in si3474 probe. They do not
+> depend on the PSE fixes for net ("net: pse-pd: assorted lifetime and
+> error-path fixes" v2) and apply to net-next as they are.
+> 
+>   1  The error message after a failed devm_add_action_or_reset() reads
+>      the ancillary I2C client, which was just unregistered.
+>   2  Use dev_err_probe() for a failed controller registration, as
+>      pd692x0 and tps23881 do.
+> 
+> 1 was found by code inspection and not reproduced. Both are
+> build-tested only, with W=1.
 
-Yours,
-Linus Walleij
+Hello,
+net-next is currently close as we are in the merge window.
+Please resend it when it open again:
+https://netdev.bots.linux.dev/net-next.html
+
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
