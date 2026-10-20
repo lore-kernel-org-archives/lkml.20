@@ -1,83 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497067;
-	b=A3HEUo7Qyqjb5nh3JnocZ1jMH4hOLqD6IKjXLI/xruL4hIMGKe1qtllbUS01M+uG7GxK
-	 AosCFcpPaCRagWJemDdSfSbfT1Dq4GVuXPgaHOIC9gQg7dyaN8AhfyL7YkgqJJUNMQshU
-	 1d9JaM+7BKWNFEIXy7QJtgookDLZlJfkTI9qISR3rhCPplvDRxwZw50X/7lj/EWVVnurs
-	 ovos+4SrYUdGYu2bdXC4sPioJy4JCft2C2ChO9CZ0+frrAEspqTs7VAZOerA7t+0VSDx6
-	 s+4ECicc6lvLStYmWbu32jlJSWhLZj10dIhlNW3Lebn8PTGDvLqryVXhYoaNBxZWpsw==
+	t=1792497079;
+	b=HuEvXNv2fucCHwGCP/Cxptiq2sHXJXCPULlio4JBzLicV6vcWMKlWFVc7E2SfiMq4Qdz
+	 pHTKtoK2RxJ2Y2q3pgIgDoXgvKPz6grun3Z+jCSVVRHVBoqY9/wBZk6kI/hAV8jJIaOFs
+	 ewFsUJV+A+sNAcIkN9RKjjVBYnt7YFGV2+Z7aNFBA+lX9sctKB6MZRp2m51VVH16yJ877
+	 +yPM8AlmKLbrUfgZyzq47aD0UmRAxnwSMHBkkvaJMXNfHOG/zrZ/GrAU5ki/qwllGOfTK
+	 87Y4T4FmLOUL9YISTOsXkftbPrOITR1cDxbj0xqArkVNd34Djd3WMTINJluzG4goF0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497067;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=kjIus0/Z7THMqH+fmdFt+9x90O1BbsB0s2G1vUB5BlU=;
-	b=4Ogf2OGx2fOpqiiZ/eIaaeHARC4cI6ofnmT3kOZEKKKN9L9/qLC9aEhj9cYPCM0ShahH
-	 2lyxiAMvSaIuqyTamETZpFD+ShlySidmx9p+0QGxC45zHtymcIEju0VyXCOVP5NaXOpCR
-	 jXr7Fq+Uierfv8ELRZG75qi/vEMfrXnbFCnQOaRx/BrZVd+sj+QELYho3wEhYNAeX1hiI
-	 /6lIO9UAL8EMz1JfE1GkgYEz5eYyG71SUVdXcWz4Ry0A/69lZY6j+SbhyXA7sx+/wOYGz
-	 /mlCkvvrxO0skeimWQ+xwKptiPTSr7ZGH3KiPmHQEzTOnZZE7GSgPVVGCOghKY942EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497079;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=v+poDdCMqQMdpLhxPUAROlDMmt9p0JT0iZceQMYjtOE=;
+	b=ZGDwPl7j7xFjoBFl7hpKGQU4wZ/BHYcyXVgWnj9hB/aUAFTofFy5KG13jUfk9I9Fg78F
+	 4FUIU0m5MyZT6P4SGWEzLc6tEUEoKJ36dOWkVvqpivbm5alu2g2hbFvrxrzuNnx77JKu6
+	 0EbxPRUD0ycYVEqIW4aUNRCB5qXr+YVZFJ4wjQY0xAQZyW/PswE6kCsjCYuYalbZzarB7
+	 F/Jxzb+oUiAXrXUkGwUzdEjU4ccDaaZrC+xO9vU1LwP05p34FLiUwQJCnFyiMMxUDzMin
+	 1xx/HiQHTfElaymtb55vSkxnXjGcyt3YhQxazVyvR77nEaWjLpylWoHhmwzo02Z0bIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lUwWStw7;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X5Q+GuNf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D74606A319;
-	Tue, 20 Oct 2026 11:51:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41D74606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0CE606A31A;
+	Tue, 20 Oct 2026 11:51:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lUwWStw7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792497068; x=1824033068;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=vZOZVuw0ZwLdXOpr1UleOlDXx5oOWBvkj4gsvs1vsuA=;
-  b=lUwWStw708zBGMj1ZE8dkplhKeQnBnmoQ2vo6Nfp7SIFI5PaFv2h+gEC
-   dtWslWb7whElHx8vp6K6NKc4TcnpelkICvInopLNbTtXp+2AynHM3NSQL
-   AKps9D8L6YbUPWx7SVa8DaFhzGCazOpWH/i5SYibaqov44RK0PcIjGwNJ
-   bnlm94NuvGmc6N6i2xuKJnf0mU3KmspHi4JjWYywJ1zKoy9LTx/KKuasS
-   hmnBeIkbyphq0K1olPNe4SuJeMq2PVSXvA8BFjsCd9QNlM7df5hFCyfMs
-   vhANBfB4sXBQGpMjAx7QukPIVLaxTtxq3f/ZPjDcPngc88+Qk5Go5SLMa
-   w==;
-X-CSE-ConnectionGUID: 6wJtUXUrRLqCaGuzqKg1Qw==
-X-CSE-MsgGUID: U1Xu49YHSJqkHI+5RS94cg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1098546"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1098546"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 04:51:07 -0700
-X-CSE-ConnectionGUID: Rgz5036KQxSUgIH5S/JUhg==
-X-CSE-MsgGUID: lWP5tft+RLebTMNLYPQWxA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2852905"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.181])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 04:50:59 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 20 Oct 2026 14:50:53 +0300 (EEST)
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-cc: Jiri Slaby <jirislaby@kernel.org>, 
-    Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, 
-    linux-serial <linux-serial@vger.kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, robh@kernel.org, 
-    krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, linux-sunxi@lists.linux.dev, 
-    Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
-    Jernej Skrabec <jernej.skrabec@gmail.com>, 
-    Samuel Holland <samuel@sholland.org>, 
-    Enzo Adriano <enzo.adriano.code@gmail.com>
-Subject: Re: [PATCH v2 2/4] serial: 8250_dw: Only accept a contiguous DLF
- readback
-In-Reply-To: <atcm2zqDs1P_EDr0@ashevche-desk.local>
-Message-ID: <09812a6a-dd0d-9c47-e1ad-5220f1954648@linux.intel.com>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <a79114e72d029732db6764935dde12aa5d497706.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <d992e18d-31ab-4937-8780-9c9dc423082a@kernel.org> <atcm2zqDs1P_EDr0@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X5Q+GuNf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6841F000C5;
+	Tue, 20 Oct 2026 11:51:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792497079;
+	bh=v+poDdCMqQMdpLhxPUAROlDMmt9p0JT0iZceQMYjtOE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=X5Q+GuNflO7uInKcvLeh4NoPPJJ11XgkvXO4nd/e7DAbskiV/bprsQqHBb/C/kimw
+	 dfl7V8D1T0Uv69T7fLhL12TIjZvI8xAPHA6kKAzkaKI9ZbmoAiygGbLCbQjYBSGoRr
+	 9n1OKlm2hrn7MDyrzAZUyOAFccJik+5LFSH/YGy2UFdc/mGA5Q4GKPqqQffR3UG7DX
+	 LjJzFauFsvEnlMHXmUtcZT9uwLZJGVNMMIOtWIvzw7GFJXT+nRAIba/utUt0I6arCA
+	 miF1RIBrI02DrpoYgs0P2Tx2r8SLa4EBxOxGbRxZkoTFRcfOZymY1A1vEUflFwWvhE
+	 JhynWPB5l0zbw==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Maxime Ripard
+ <mripard@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sriram Dash <quic_sriramd@quicinc.com>,
+ Shazad Hussain <quic_shazhuss@quicinc.com>
+Subject: Re: [PATCH v6 2/2] phy: qcom: qmp-usb: Add support for SA8255P
+In-Reply-To: <179216560275.106618.16177081518764116321.b4-reply@b4>
+References: <20261002-phy-qcom-qmp-usb-8255-v6-0-bb7dfc5636b4@kernel.org>
+ <20261002-phy-qcom-qmp-usb-8255-v6-2-bb7dfc5636b4@kernel.org>
+ <179216560275.106618.16177081518764116321.b4-reply@b4>
+Date: Tue, 20 Oct 2026 13:51:17 +0200
+Message-ID: <xhkdb5wyw4mkq.fsf@mkorpers-koolstof.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,35 +65,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain
 
-On Tue, 20 Oct 2026, Andy Shevchenko wrote:
+On Fri, Oct 16, 2026 at 21:16, Manivannan Sadhasivam <mani@kernel.org> wrote:
 
-> On Tue, Oct 20, 2026 at 08:11:06AM +0200, Jiri Slaby wrote:
-> > On 19. 10. 26, 22:06, Vinicius Pedrosa wrote:
-> 
-> ...
-> 
-> > > -	if (reg) {
-> > > +	/*
-> > > +	 * DLF is a bit field starting at bit 0, so a real one reads back as
-> > > +	 * 2^n - 1. Any other value means this offset is something else.
-> > > +	 */
-> > > +	if (reg && !(reg & (reg + 1))) {
-> > 
-> > Do I understand correctly, that this equivalent to:
-> >   if (is_power_of_2(reg + 1))
-> > ?
-> 
-> Yes, and since we check for reg to be "not zero", this will work the rest.
+> On 2026-10-02 11:39 +0200, Mattijs Korpershoek wrote:
+>> From: Sriram Dash <quic_sriramd@quicinc.com>
+>> 
+>> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+>> platform resources, including clocks, interconnects and TLMM.
+>> The driver requests resources operations over SCMI using power protocols.
+>> 
+>> The SCMI power protocol enables or disables resources like clocks,
+>> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
+>> such as resume/suspend, to control power on/off.
+>> 
+>> Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
+>> whereas power domain "transfer" controls clocks and interconnects.
+>> 
+>> In this variant, two disjoint sets of resources are modeled against
+>> the power domain suppliers which can be turned on/off to achieve modeled
+>> device states. Two modeled low power states d1 and d3 are supported.
+>> 
+>> transition: d0 <--> d3  :: both core and transfer suppliers
+>> transition: d0 <--> d1  :: only transfer supplier
+>> 
+>> Signed-off-by: Sriram Dash <quic_sriramd@quicinc.com>
+>> Signed-off-by: Shazad Hussain <quic_shazhuss@quicinc.com>
+>> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+>
+> Same comment as the other series.
 
-For is_power_of_2(), 0 is not a power of two. And it also wouldn't make 
-sense to have zero bits in the bit field as it's same as no bit field so 
-using just is_power_of_2() should be enough.
+Yes, thank you. I'll work on the other series and once we have something
+that's good there I'll create a v7 here.
 
-It could be that's what Andy meant, but the wording left too much room 
-for interpretation.
+Thanks
+Mattijs
 
--- 
- i.
-
+>
+> - Mani
