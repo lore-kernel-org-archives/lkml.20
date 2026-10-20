@@ -1,124 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501704;
-	b=Sy7xdS8iBr7wqQ/ZDLOH9hf6Bvp3gFug0/hdsQ2Lld1dim9kjQBN519bGwXR2SCwRi+r
-	 vZBEf4NAwr8cyDlPFoUcc/GKY4+4k9yBsJKfhfZSQ1QarvRvFlyTlKLl2Nv2/q8XIIYD1
-	 mr1fZMyjLkJNjzYFqBu3/I3W19CRQnSMc9IjQvyFie+telCgU6a5X2iMrOhNHhWVcWoPu
-	 bJLA8bw346BXQDYlox+jDpDlCdEutHzZQ6SZhlC8imd3PPzt7ogUIzCUjnAwMa/ytRr58
-	 SIoZFK5lfijenZLXd6WV5F7Ecp0E5ynQLCP5fjMu74qP1lrWiexR+s/Qz8/tF/uiCHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501704;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=2EqJhnJ/Jsj/AwDrzxspTil346yYpeNL4pTvcJZq0tc=;
-	b=zTW7mIo9hUgBaxSD/IhL1suCOhUZJsu6hjVEpPb9Qzx4A20lkzP8ilECVVvpHAfyGIlJ
-	 F+UKMjFGMSK2eA8xHrMlh0wDZmpG/xb7tp4jtgPDJGIMFWF52XYHUl65mp/g1Gp6XyWts
-	 b+Zdfu+9wX+mu/eSy9mMCSlHv4gsTquQOjcKe0wf6WG6qemiYeu23d0tvc6B3s6Texgcz
-	 HikhK6JliUMtrJtYZpy/8zKLki3guV+tz0k1bCJzTf8v1Cq+UaHtbpKr4esSQ3KIzfEng
-	 Z35py0HDIzqKgWlyN9XoRCuuYmb4DJn7kAnFeAuc+tUldj9R2Ey/IfOkJk5uvF4jetQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=b1qd9rTv;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Np5DYapP;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792501713;
+	b=CFfPlnPSNdEA1ia4C0DJvpPJVLjUqaj7HWm+MF1oOuNeO4hX0Yiovk2njXIuz/KRbgDw
+	 OObimGVSG2w9UpqxWcsYHobKCm9pKcemgWCg4SKzovH5h5Ei5RrqgqnZclu1MOSZlwBuH
+	 ERuM6bmf3DfJjIq0c6R13XQTMnpVzi0x2+Aoz6q2h+6lc+0Y2D4P6E7JaQQL6h1iBLKDT
+	 pThMwfmJeNF3xpR8akbeNRSR2NA2gOJ62P3v/cj47MrOC7bBF9xFovvWrcByLeyVuP6SH
+	 Zv4FzJfhl79LFTZPibndfpCmoB8vk7MyNpKXNQ7wKzTRj+h5zj1ecPPAlWNnQKtY+OA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501713;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=BQPT2RK/Bsa2DXu0Idtw0TN37aSAQhniynYTnVnEFQ4=;
+	b=ACxdIzrUVpz6DRmZR8rAA6ScryfF7soQpnKRCm+9N8/Ma66DILlM1tQj9owbctj5P/sN
+	 4d/QSTBOz1jkc8JrJiJd18hvw1/2B40nyQb3MdSYnzXZuDETHot6aEH9xcP8aA5gB+wQf
+	 mNmJrxAZr90w5A5H8/ihKst0OTtgm6tVEmwINfuP+FaD/exeIZlTOxq5th4jk8GKo5TZI
+	 sSh6/S6mKoMG9okB/J975eNF2rWagLS/Lt/KntIPN9jl36nKPUKrvaZ6dWZYn0IVYHqyN
+	 I63pn4c9KNL5FtT2+l3xAeAcEuCYpafVlL09r0RbR48vVMhFMBkLDFbbJdon7PXZdzg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lCwJbreo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F834606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F834606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7E0606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:08:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E7E0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=b1qd9rTv;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Np5DYapP
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAx3tP2562780
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:08:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=2EqJhnJ/Jsj/AwDrzxspTil3
-	46yYpeNL4pTvcJZq0tc=; b=b1qd9rTv7O/QfbRQuei/An0s4vhxKdwNBYPzRsD+
-	PiI+j8KxVbW4rKO5fUxg/Mi6XIlSAzNCNERGqBiBpYFAo0RaVvKSQ10nca6JcEup
-	9aBEVfMPGc0oTssp34qxoSC4UuY3fsAJjlvoQuPi1+/1PqyKtP6Ka11EEnOYGT/m
-	OQzTpd8vumH+ckh1DqHnE0wkICetIcjyVjR9OdmpylTCqlROZTfVgv2gcOdM2Mov
-	nhzK5J6CuHhmqFzt6Z3u61WDeEW/MkVY+6WFqmHZev69uzsPM7mH3bC3fwEcUWiA
-	htJpv8WYm3HJS5ceMp2rcFHi6xzru2jH4GmpdbuwoUsDZg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5naj8k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:08:23 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cc0418036bso351481137.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:08:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lCwJbreo
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1438dbb05c1so107888c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:08:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792501712; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dz0Hvv0/B8+ZneUNa35CSMouMkSv/DAWOi8sG55FBgBa58U92A43vkcY4shtVzKS22
+         C4X1f8nLw5QAVV6CcPZMclDpxWMdFqPRaK+LfPwCzC+vQtiUUEqEu/kv2Txks+rwYrfA
+         /Om6G/aP43QMCwUNpKrOSEXu7vY44psKh/WbFXkUBCCvfI1FwOCZCOqpMjW6A47/Dli1
+         MVswYA32Ec+5YCwgK/1ZYU5HQKcMJ7romfwlZui2vjxLo7KOaCQ/2tiWgganwNOMXVcf
+         YDdsQVg0O+GVgeXmt/vsfBySdohAbQ3LUU8YwJ9j20HtO3+9kNUEIUNTLcMih+PchqEQ
+         lKJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BQPT2RK/Bsa2DXu0Idtw0TN37aSAQhniynYTnVnEFQ4=;
+        fh=ANiKS9PJOQ5QfbDDGjB4LpnVpjxuiDPrIt76cwKZ+V0=;
+        b=lTKWKk4OV0h4adee1sbgFCxa51N9O7tKz/aBL23SFRMiN5A5ZhY/jVpG5xNe1vfSo6
+         LBmOmBIysaWjLJWXltc6/yvl4nFqtaH2Bfe3kGUzHLyEBKPKDya2xuMpuhH2r81Tsmxx
+         mOZ4gVvwYvUdVln5z+6goy0wYAxk93Ldwf8Z4niB2XwwggYzdEe0kOzsqx8lfwX6v9fR
+         8QKqE88oYuLoo920GIxNU1xuIq4pV1B1uvszF9zGZ5n+oiws7+BBqBW/FeIHIVZup5nj
+         aSB+IUjtzCxqj3eOYJUE3rPl0JjVQ2mp8DbqsA6ZP2CIuxYpaHDlMTpc98L34+jIxoHw
+         APOg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792501703; x=1793106503; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792501712; x=1793106512; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2EqJhnJ/Jsj/AwDrzxspTil346yYpeNL4pTvcJZq0tc=;
-        b=Np5DYapPqjfChlCB24jW6iR6tUrw7Y6GVI5CiLDc1bk7ed9kOZ91M3ODLLX4iz1Ib/
-         EYnhRSIubkMxOZsvOhxyllCd8rYWqhzjaa+++Ibl/0WPgufrPwiBdMXbJH0zcjdQKDWv
-         gAkF1npylZNYs6OD9RLYSB0GX3WsBC+ecWwjIaro7mRU7Lnc9Hg1ijDsx3gmd0+eahSq
-         ck2bfUegVUEgjQShgXvr6Q2pQ82r7QPRl4TaRONO5izt5/avsYhEHIszIJ2R5oo/20RS
-         jpHAfDM/pUsqmM8X+EqKgye1wGLHRtVxlkkR01khrAiIv7n349YcIYykgZ6lV1ZgmMhG
-         gfdg==
+        bh=BQPT2RK/Bsa2DXu0Idtw0TN37aSAQhniynYTnVnEFQ4=;
+        b=lCwJbreoD6jkvC9iHztmBnjisNKCUftji9Tiz6MgM3dsvC6aIN+CmtmA3yN9gmYCJj
+         cCRPvWaNodkcakLRRWYj30Yv3kLvz5j6UiZ8ETl+Msy7pdiY5THgTE/A7M5rr403ohY6
+         9Iww7Rk1ZhX2kxHIo5vsENaAJDzfI8f2Rygv5u36njcQJ/O9l1R4M2i/INJswQstONIo
+         St4Xr6o1OBT66dZ/oFfptx5PCOMzIvMVR/jZtM1ix0n4MGnLDjOvdzsj6GHkeBjpalaV
+         ovPT9BO5pQNWKOKVLONc5iG+HSVjs5O/goqZDM4B82Fdu9ra/gNk3pNFUkCh/kC/OLlt
+         Ze6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792501703; x=1793106503;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792501712; x=1793106512;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2EqJhnJ/Jsj/AwDrzxspTil346yYpeNL4pTvcJZq0tc=;
-        b=NEsRyfifiEP02dc4A8Urg/OtvheLot7YNXae58F/5z0l95ADPLTzE1HbVjO8pWHqCC
-         AvOM3AQ6Jf9qfGsR+qnNfest1GpaTe5MG7mjaBYRC4HO9AYSBlUuTVuxcefZY8jc/SKZ
-         jn5jjMBu0V6x8+k8P1QrDfhwEXQk3xPzO7fmVVlboccna+3WANLP8FDYUISfGynjswIm
-         4CMblWuPMqXjyMCLiQOYErzvx1ftOcWSgzWTUbr7zVaaqHjAVrMKNlRJoeVh39mV7gqR
-         481W81QEnMGe4Z+aeZ3awBaZQ98uO/5bWD0mgJhMiIRoZFurDfB1/80XyXJCvjqtdXfJ
-         XbNw==
-X-Forwarded-Encrypted: i=1; AKwUvBynXYzEfh2zHxEcxFF7zg5CtgZnjY0qSsJ1e45mgTp6BqfnavQwgw8TRrBGIzQRYUDYRCNnRuydz50T85k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKa9rN6A56ls04L2JoihyYyArWfg1DfpBuf4IyGaP8caREoa0b
-	+jeouue8XBfFEIwgHDBL/CEfsmAGLVw74NqfBSFF39fyoYmKlf/UsWmqWuce0wQ3OTwRrS4MzJ1
-	B2/qCYwnd/EVKwBa669CpyYwUypGi4UP0IhgfuvLamYgv3SAHWnSJnRETkbhD1gUDI6/Uxgnewf
-	4=
-X-Gm-Gg: AYBFou21Y/5a1joc8GQtMc6BrJH+0LwFg7GgploJ/qYLfkNyUr2BLfjyK+30wNwodAI
-	pJXkWTulfs6bExS/XG5IGyNZdhPVZ6MTheZWMjuLks4AezHvxq6N+wxrVuGCOqHuYAzxrRM9tgL
-	ZbxbmZw3Cnfumccyhp33oSiV+pMbCgLBs1Z/XXiC45dBBj7fUW2Y5WJjj0lnPFSkoyX1nHBEh64
-	tFTwF3Pg2CDLtD5fJaiikx8c60NldZn1mX5HalSU36B1Zu9icGAoI8trGLX2rEOnEMal4hpzOzT
-	8ai18CAte4Uu86r227qjdL7/73jI0+5+CKEvui5xBuKYCfocls90HqAcxPBmYAPRYKZKQmgg1V3
-	/U5viBhincTdAGehm
-X-Received: by 2002:a05:6102:5488:b0:7cc:2086:34cc with SMTP id ada2fe7eead31-7cc369c0cd8mr2444380137.16.1792501702670;
-        Tue, 20 Oct 2026 06:08:22 -0700 (PDT)
-X-Received: by 2002:a05:6102:5488:b0:7cc:2086:34cc with SMTP id ada2fe7eead31-7cc369c0cd8mr2444369137.16.1792501701989;
-        Tue, 20 Oct 2026 06:08:21 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d6db78csm6193709f8f.2.2026.10.20.06.08.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:08:21 -0700 (PDT)
-Date: Tue, 20 Oct 2026 16:08:19 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org,
-        Thara Gopinath <thara.gopinath@linaro.org>,
-        Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 7/7] arm64: dts: qcom: sm8250: Set active-only tags for
- CPU interconnects
-Message-ID: <gmiurdyvbr2zbkbzy2bi2telpxab6irchpfnzsv6gy2gxpb4gr@m4424rx2pbej>
-References: <20261020-topic-icc_defines_ao-v1-0-cae8d22649ac@oss.qualcomm.com>
- <20261020-topic-icc_defines_ao-v1-7-cae8d22649ac@oss.qualcomm.com>
+        bh=BQPT2RK/Bsa2DXu0Idtw0TN37aSAQhniynYTnVnEFQ4=;
+        b=yXV/lYJxi9Z2cDMK90fdmXxmpq+X9N7VSeix2A22nFDOlDkFeIhjcEQbkQdOn/FGwI
+         KyVaWzggdSGQC9W6K+uqk6D2+k9wgivrY6DKXf5Rg/UL9ks4Fm38eMAX8VRubztpHpR4
+         2RhImuOvV0Ms5qlafVTMuUsRxz/FhRhekWb8VzNUvkWHUKrJrP6WNa+uTa8wJ4k62QYC
+         bZqXeOYvpnCbPQRPNYQzVFsPkSx9Upo2SDIExfSzXjZEaAA8YfED0WOm69997I2rr708
+         rNPlzCPrAmdlvKGCkoLcD3ac3i+3baIDaQpOxpMYg8I80VzFiIjT+DD/IFJbfTpWBN6p
+         U9IA==
+X-Forwarded-Encrypted: i=1; AKwUvBzphxcdxisI1u3wAv1jpgx23nh5DzAHDb2/5R1hTNKi6WhWXcML/viaujWeYTAbWOHgjHbJBCUESMjNW3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVhb4bCIckkcTbRWaiGwFITRE+2qWCYUPmJpC5iu+lSsscfoxU
+	VqocZmrE9BtCdqxbiLVPI2XCGH91QF9OhkE0PHKbECnbybJ773Tlse2+uDWRNO/ZkxdlyvDPHO8
+	JoWNfEAFEKI7j2ezse3ctyjLFqTRiWXRZga66
+X-Gm-Gg: AYBFou22KLi45BeTUbKnWvdqKFo4G+6Zcah80JDSlc2rhfsLHjgLlEuFQXL33hdYcWJ
+	7Cbe+vA8Zefo/Ylp3AUW6EKcnRnd8mEu/f2R852zXKxGu9a3bFgp/HVvaGvU7HPetekxCK1mswx
+	oVx5GpXcpj+z3ReJLyIzN+5UZH9hpNmBUik78TIERIXF9E3nncusQ2eUjpFw/p4bvfM6ka34cix
+	ACLdsLMDSIeWK90+HuLr/lIuzEK4JXr2c/KiyUeaKfrMUiyQH6xkTD7RbxT10ETShB7V1jLpiVb
+	OIGqhEne2Hc5/j/I7Qm4xkDML7q8ufAB3rESWDpC9H+C2UhoFEWqNC1boF8khbPuJkh3BLjU2ih
+	f4NM8qSSxOu4T42F6FkU2Aw+9a7XShq51DANiwrz5KfSrnzlxGXUBU6QKWXN13+rqxUFBZCod8k
+	ssPTJoKZ9FHYmv0aTgGURuZB8=
+X-Received: by 2002:a05:7022:170a:b0:165:be2f:c56e with SMTP id
+ a92af1059eb24-185106a1606mr23666645c88.2.1792501711533; Tue, 20 Oct 2026
+ 06:08:31 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,45 +105,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-topic-icc_defines_ao-v1-7-cae8d22649ac@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: ti3h52J1mghI2_pRJkRBkG8vhMQHTlqT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1MiBTYWx0ZWRfXyzsHHATZX0pO
- /3j7w/Wh3JnUIhDvATdXjx8gqKdhhaTMFA+8WDlE3IrzxyYko3GwGzRmoSv9hgs6Mwx5gjwQ809
- uaIDxvXFCZk9sBQczj6PBkJscX/E/3lwkMdeLSeaZtKo3140Wm3QLcv5XeYDl4iwhwqsq5LWp0v
- zMM3VHS1je/5BROn5JF0WhaW38ODrqr3y+y+iR5F/LAJx52u6TF1rBEawZA0cIAC2/+RsYkO1pk
- M+zzkmk5MTWErXvlZdGrXEr6S/IS+eJPqYe+/dPPYN1q1Z+ptLZdPX76R7Q/Vh/rCgvH70yY0Q6
- DvEaZ7zfbTuZWBw8fcTTG1N3D8SaACcXnxoBXh6vClOfMRKvGi8Lta48AWY3zyauezNpJ88Yank
- 9CX8kLwsywtOHxIohoEhr5yZkkfIgivkOO19zMAdnE4i9hDKJmTg/XisAxrspBQwQLuzzLp9new
- NnG3l+z0LG57BQxuj1Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1MiBTYWx0ZWRfX528e8fG5efUM
- i1wSoV63/56zSkLTS/xokF7+YgdqySw4JaPatmsnD9KbBLSj7Soj5xK+6h0PDQq2ZnM05WSxLCg
- mjySmZtPGZ8jPM2i/XUWwE8/pHeHFQ8=
-X-Authority-Analysis: v=2.4 cv=VI9IDNPX c=1 sm=1 tr=0 ts=6ad767c7 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=PhDoQi8S-v1mXI6LFy8A:9 a=CjuIK1q_8ugA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-GUID: ti3h52J1mghI2_pRJkRBkG8vhMQHTlqT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200052
+References: <20261017130047.42080-1-emmaonana18@gmail.com> <20261019163538.28793-1-emmaonana18@gmail.com>
+In-Reply-To: <20261019163538.28793-1-emmaonana18@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 20 Oct 2026 09:08:19 -0400
+X-Gm-Features: AclHuK8lOvRZuawupQHM8p5lVPKffeC8_Y4DUib8gb6AoG1RAy7GmZeIuewnb-8
+Message-ID: <CADnq5_OP+ogqr8JHRNvqE7suYLjmyogWPXiejZJrSUv7KS2DZQ@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amd/display: remove unused cgs register accessor typedefs
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com, 
+	simona@ffwll.ch, paulmck@kernel.org, rostedt@goodmis.org, ast@kernel.org, 
+	peterz@infradead.org, gregkh@linuxfoundation.org, skhan@linuxfoundation.org, 
+	Arnaud Bonnet <abo@medichon.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-10-20 14:42:11, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> RPMH lets some votes only stay active so long as the CPU subsystem is.
-> Take advantage of that and make the CPU frequency-bound votes behave as
-> such.
-> 
-> Fixes: 8e0e8016cb79 ("arm64: dts: qcom: sm8250: Add CPU opp tables")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Applied.  Thanks!
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+On Tue, Oct 20, 2026 at 3:37=E2=80=AFAM Omokefe Emmanuel Onanaroghene
+<emmaonana18@gmail.com> wrote:
+>
+> kernel-doc reports prototype mismatches for the cgs register accessor
+> typedefs, e.g.:
+>
+>   drivers/gpu/drm/amd/include/cgs_common.h:89: expecting prototype
+>   for cgs_read_register(). Prototype was for uint32_t() instead
+>
+> Each of the four typedefs is used exactly once, as the type of a struct
+> cgs_ops member, so they are merely an unnecessary layer of indirection.
+> Drop the typedefs along with their kernel-doc comments and write the
+> function pointer types directly in struct cgs_ops.
+>
+> While at it, drop the unused cgs_handle_t and cgs_get_firmware_info
+> typedefs, and document the members of struct cgs_firmware_info.
+>
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Link: https://lore.kernel.org/all/981f01e1-0c3b-4854-9d72-8bf22af9fc64@am=
+d.com/
+> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+> Tested-by: Arnaud Bonnet <abo@medichon.fr>
+> ---
+> added kernel-doc comments for struct cgs_firmware_info
+>
+>  drivers/gpu/drm/amd/include/cgs_common.h | 74 +++++++++---------------
+>  1 file changed, 26 insertions(+), 48 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/include/cgs_common.h b/drivers/gpu/drm/a=
+md/include/cgs_common.hZZ
+> index f40b6a03fe63..79522e1bec4f 100644
+> --- a/drivers/gpu/drm/amd/include/cgs_common.h
+> +++ b/drivers/gpu/drm/amd/include/cgs_common.h
+> @@ -63,6 +63,14 @@ enum cgs_ucode_id {
+>
+>  /**
+>   * struct cgs_firmware_info - Firmware information
+> + * @version: firmware header version
+> + * @fw_version: firmware version reported by the IP block
+> + * @feature_version: firmware feature version
+> + * @image_size: firmware image size in bytes
+> + * @mc_addr: GPU address of the firmware image
+> + * @ucode_start_address: ucode start address (SMU firmware only)
+> + * @kptr: kernel virtual address of the firmware image
+> + * @is_kicker: whether this is a "kicker" (k) firmware variant
+>   */
+>  struct cgs_firmware_info {
+>         uint16_t                version;
+> @@ -78,45 +86,6 @@ struct cgs_firmware_info {
+>         bool                    is_kicker;
+>  };
+>
+> -typedef unsigned long cgs_handle_t;
+> -
+> -/**
+> - * cgs_read_register() - Read an MMIO register
+> - * @cgs_device:        opaque device handle
+> - * @offset:    register offset
+> - *
+> - * Return:  register value
+> - */
+> -typedef uint32_t (*cgs_read_register_t)(struct cgs_device *cgs_device, u=
+nsigned offset);
+> -
+> -/**
+> - * cgs_write_register() - Write an MMIO register
+> - * @cgs_device:        opaque device handle
+> - * @offset:    register offset
+> - * @value:     register value
+> - */
+> -typedef void (*cgs_write_register_t)(struct cgs_device *cgs_device, unsi=
+gned offset,
+> -                                    uint32_t value);
+> -
+> -/**
+> - * cgs_read_ind_register() - Read an indirect register
+> - * @cgs_device:        opaque device handle
+> - * @offset:    register offset
+> - *
+> - * Return:  register value
+> - */
+> -typedef uint32_t (*cgs_read_ind_register_t)(struct cgs_device *cgs_devic=
+e, enum cgs_ind_reg space,
+> -                                           unsigned index);
+> -
+> -/**
+> - * cgs_write_ind_register() - Write an indirect register
+> - * @cgs_device:        opaque device handle
+> - * @offset:    register offset
+> - * @value:     register value
+> - */
+> -typedef void (*cgs_write_ind_register_t)(struct cgs_device *cgs_device, =
+enum cgs_ind_reg space,
+> -                                        unsigned index, uint32_t value);
+> -
+>  #define CGS_REG_FIELD_SHIFT(reg, field) reg##__##field##__SHIFT
+>  #define CGS_REG_FIELD_MASK(reg, field) reg##__##field##_MASK
+>
+> @@ -133,18 +102,27 @@ typedef void (*cgs_write_ind_register_t)(struct cgs=
+_device *cgs_device, enum cgs
+>  #define CGS_WREG32_FIELD_IND(device, space, reg, field, val)   \
+>         cgs_write_ind_register(device, space, ix##reg, (cgs_read_ind_regi=
+ster(device, space, ix##reg) & ~CGS_REG_FIELD_MASK(reg, field)) | (val) << =
+CGS_REG_FIELD_SHIFT(reg, field))
+>
+> -typedef int (*cgs_get_firmware_info)(struct cgs_device *cgs_device,
+> -                                    enum cgs_ucode_id type,
+> -                                    struct cgs_firmware_info *info);
+> -
+> +/**
+> + * struct cgs_ops - Common Graphics Services operations
+> + * @read_register: read register value
+> + * @write_register: write register value
+> + * @read_ind_register: read indirect register value
+> + * @write_ind_register: write indirect register value
+> + * @get_firmware_info: get firmware information
+> + */
+>  struct cgs_ops {
+>         /* MMIO access */
+> -       cgs_read_register_t read_register;
+> -       cgs_write_register_t write_register;
+> -       cgs_read_ind_register_t read_ind_register;
+> -       cgs_write_ind_register_t write_ind_register;
+> +       uint32_t (*read_register)(struct cgs_device *cgs_device, unsigned=
+ int offset);
+> +       void (*write_register)(struct cgs_device *cgs_device, unsigned in=
+t offset,
+> +                              uint32_t value);
+> +       uint32_t (*read_ind_register)(struct cgs_device *cgs_device, enum=
+ cgs_ind_reg space,
+> +                                     unsigned int index);
+> +       void (*write_ind_register)(struct cgs_device *cgs_device, enum cg=
+s_ind_reg space,
+> +                                  unsigned int index, uint32_t value);
+>         /* Firmware Info */
+> -       cgs_get_firmware_info get_firmware_info;
+> +       int (*get_firmware_info)(struct cgs_device *cgs_device,
+> +                                enum cgs_ucode_id type,
+> +                                struct cgs_firmware_info *info);
+>  };
+>
+>  struct cgs_os_ops; /* To be define in OS-specific CGS header */
+> --
+> 2.43.0
+>
