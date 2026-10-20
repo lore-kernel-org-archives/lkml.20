@@ -1,62 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.118.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493513;
-	b=X4eo1GGtmg4A42S+HA7a3xzl4bgZnIO/gZGavZWVN3kDsEPoieuxScrUqjW4v9Qy3Yuv
-	 Tt2dHfAfmabakX8/erCyMFDSEkR43Bp/XrEO/jdnMSgzSbccM+VUjpAAooha0z9+ZqETj
-	 dVIEzBGDko95NeMLAuJjubIccc9H9zN8ujKapVXwmvRwIbxcwFnK1fc5UH/xEYQoVdv5Z
-	 U0YE3rj022kiFNGolBIr2AqhRrbQ3tmaSfZ2SBeuxXvb8Ai2J+8q8I1cp7KOwYHTtbx/7
-	 geMCFDTMMNUaWxWLKuM5j6dS+nQkfvCUqB5Xa+puUpL7xEiFOdTGfVgk/23CSZ2T9Qw==
+	t=1792493545;
+	b=l8WsFKgL70y+UQhSbrhiiM//s24SdSefI3Fp58pxlBZbUqUjtE7dd7L7jCb4oeVx48Xc
+	 9x7WyKk0XquuEc0n43ODmZLa3Jq8lJ/MshrqSlyj/HlwAzmwmA4CjWpoNyUfAXey8Ddp8
+	 0W6OdQTiMG+7WwS3+SDmc4oLhF35E94dRMiNmD2HI0t9wVOB9NRJzKhqmKPKpcgNNPRu7
+	 6KIPJfxE/Y56AUbdXWH1JXqelCbfetOT9703OwyyABrGifPJwcwq0KCKVCgBd0oAbtY+b
+	 RNrZeJx6LlVkznQa+nhuTa2NUKbFPROuKEYvaiiPlKDJFL6nV9izHV/L1aopX4Aaa8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493513;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Z9MRs6w+WliIIZKiShqiKYZW4iBNHOE0H2f3xTlWCCM=;
-	b=nmYW+OkHbdNFOpN1xtEpEfRuOkVFexz1S1Yyfi45xHumnVy7mwJynW1Ed2rXkvSkwuBk
-	 nZ0nnbSI+nVdiW2i8sI+QaX3k3CbEMQ6x2ShYwkqLxBAM/vgDfcW2vYfAiWnJ28rXkmPq
-	 6C+tOo9nq406AoAu5E7tdO69TxxhgR9EB/tYfTth0n718ek5NLwMx6ZE6JyuR+k18A/YD
-	 bmDuFHGG5RsfEBj7zFsI8ODp+0BLt9ilLlvIeWDkzIuYKRnVPVx2r1xcaEiZBI4ERp7fX
-	 Rc7GfxaWqfRSehGkXHMLt4MLrF+VVX7l4Mo09gb1LgF1WB/KpnHVqNvwa9KMZucRK5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493545;
+	h=DMARC-Filter:Received:Content-Transfer-Encoding:Content-Type:
+	 DKIM-Signature:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Originating-IP:X-ClientProxiedBy:X-Sophos-OBS:
+	 X-SASI-Version:X-SASI-RCODE:X-SASI-SpamProbability:X-SASI-Hits;
+	bh=nzDqId7rohNd7F8gR0YI1rYGcZuf65PaJTN3QFstVP8=;
+	b=bkPM8LLWepBGBCwv53qlU4nam2uCc67jR/QPetNNJH4/nGnxSYeugcWtBle1dbpWwK+b
+	 uIJMZFCj8TEIksIUj3DrmVMW3reHg+qbbPWAQVxjJi6M2T7sOmddfpFj3ldJ+UZX9yQc8
+	 rkBj4nCiOayGy62EXEvrwCmr9zkqXx6Euki2G7UxKRfQkIof3S/Dtxa9X4wb3QP5agIh7
+	 QcjVmxr/VSqZ0enAPS2cDTXvdl+gBYzBPoi6NHoKVL7Fd4Gz0E2L5DqOJY+CkqN8BRfez
+	 FymqxdyHVWmjlNsHtTFneMcmmmiLbuRgs/bQYt/uo5QbrijJ1SAdcYUWc362US0JPRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxowElf6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fiveco.ch;
+	spf=pass smtp.mailfrom=fiveco.ch;
+	dkim=pass header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=BCCe+bGP;
+	arc=none smtp.remote-ip=46.14.118.250
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99DA606A334;
-	Tue, 20 Oct 2026 10:51:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4003B60A3803
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:52:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4003B60A3803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxowElf6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD381F000CB;
-	Tue, 20 Oct 2026 10:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792493512;
-	bh=Z9MRs6w+WliIIZKiShqiKYZW4iBNHOE0H2f3xTlWCCM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VxowElf6bpFXMlwPoquDUhFpMQX+FFEOQVyC2+bP97DbC6XxVBYlVypXpz0avrCst
-	 QtL22MOS9EGomdHJiTBNviyaPQvCJn67hRDuDq0DEUjDbbFupMO9a6VHpZOJdWnj9e
-	 X9nqKxRcHsDlEyIWeJT6SMKh1i0QL9hsH5DyKd04NPK1AZdmrEwDjUT/q1P+bfGjXA
-	 sKVHePOFNqQET44l1GCPjIrfytR0vw4SHTd6t0ZwGvztQd6tksbTldxhvTlRvbOkwN
-	 Duwu5qBNsVWdhRNoASIcBA/ey3QEpXuawM+PsS4NcuqTMR8vY4QAHu/taK58DE30v8
-	 EXwnTSIt7pDMg==
-Date: Tue, 20 Oct 2026 12:51:47 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Allison Henderson <achender@kernel.org>, 
-	kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev, lkp@intel.com, 
-	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-s390@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, netdev@vger.kernel.org, wireguard@lists.zx2c4.com, 
-	rds-devel@oss.oracle.com
-Subject: Re: [linus:master] [sysctl]  8d75c338f0:
- BUG:KASAN:slab-use-after-free_in_touch_wq_lockdep_map
-Message-ID: <atdGZg2FCJk0WncT@hobbes>
-References: <202610190310.9737b2e3-lkp@intel.com>
- <atYB0bm9eEXp8A2g@redhat.com>
- <atYW0K3t57puHeLW@hobbes>
- <atYuE1xnVYe0BDG4@redhat.com>
- <atY42k00k0Waj6o4@redhat.com>
- <42964fa071bd8dcafd418c89be6d66856def4dc5.camel@kernel.org>
- <atcwdTkjj5fY0QHU@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=BCCe+bGP
+Received: from [192.168.16.44] (port=17412 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1xJ7Rq-000000002AK-2qQ3;
+	Tue, 20 Oct 2026 12:52:02 +0200
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1792493522; h=from:subject:to:date:message-id;
+	bh=1xBBu1FERZbXbIeZlyLgOta86H3Ud+NDUuigX/nq814=;
+	b=BCCe+bGPWvcMWwUEFZgUb4AswlYNpqKV1yT+rh53+DPEb3o3z9tN+8GhKGwxomNjWCL18cztxM6
+	ATDetnC9+nmLlZfMZSyBTI0utOiOq0BKoPjHWzegZzS0nVJZ8RUccaOD7RAw06Hai16brYJGmtGUi
+	o5ws1R66p5w01vsO43s=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Tue, 20 Oct 2026 12:52:02 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <linux-bluetooth@vger.kernel.org>
+CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
+	<linux-kernel@vger.kernel.org>, Valentin Kindschi
+	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
+Subject: [PATCH v8 1/2] Bluetooth: hci_sync: re-enable legacy advertising on resume
+Date: Tue, 20 Oct 2026 12:51:49 +0200
+Message-ID: <20261020105150.2863631-1-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,530 +70,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2q5pjfxl3jaesakr"
-Content-Disposition: inline
-In-Reply-To: <atcwdTkjj5fY0QHU@redhat.com>
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.10.20.95719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 8%
+X-SASI-Hits: BODY_SIZE_4000_4999 0.000000, BODY_SIZE_5000_LESS 0.000000,
+ BODY_SIZE_7000_LESS 0.000000, CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000,
+ DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000, HTML_00_10 0.050000,
+ MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000,
+ NO_URI_HTTPS 0.000000, OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000,
+ SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000,
+ WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
+ __BODY_VOICEMAIL 0.000000, __BULK_NEGATE 0.000000, __CC_NAME 0.000000,
+ __CC_NAME_DIFF_FROM_ACC 0.000000, __CC_REAL_NAMES 0.000000, __CT 0.000000,
+ __CTE 0.000000, __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000,
+ __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000,
+ __DQ_NEG_IP 0.000000, __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000,
+ __HAS_FROM 0.000000, __HAS_MSGID 0.000000, __HAS_XOIP 0.000000,
+ __HAS_X_MAILER 0.000000, __INVOICE_MULTILINGUAL 0.000000,
+ __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000, __MIME_TEXT_P1 0.000000,
+ __MIME_VERSION 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
+ __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
+ __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
+ __RCVD_CTE 0.000000, __RCVD_EXIM_4_96_AES_128 0.000000,
+ __RCVD_FROM_HOMEUSER 0.000000, __SANE_MSGID 0.000000, __SL_HEAVY 0.000000,
+ __SL_LIGHT 0.000000, __SUBJ_ALPHA_END 0.000000,
+ __SUBJ_STARTS_S_BRACKETS 0.000000, __TO_MALFORMED_2 0.000000,
+ __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000,
+ __URI_NS 0.000000
 
+hci_resume_advertising_sync() never re-enables advertising on a
+controller without extended advertising.
 
---2q5pjfxl3jaesakr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [linus:master] [sysctl]  8d75c338f0:
- BUG:KASAN:slab-use-after-free_in_touch_wq_lockdep_map
-MIME-Version: 1.0
+It restores HCI_ADVERTISING from advertising_old_state, then calls
+hci_schedule_adv_instance_sync(), which starts with:
 
-On Tue, Oct 20, 2026 at 11:12:21AM +0200, Oleg Nesterov wrote:
-> Hi Allison,
->=20
-> On 10/19, Allison Henderson wrote:
-> >
-> > The real rds_sysctl_init() also does the runtime setup of
-> > rds_sysctl_reconnect_min_jiffies (msecs_to_jiffies(1)).  Without
-> > it, the reconnect back off is lost.
->=20
-> Yes, thanks, I missed that.
->=20
-> > Also, if register_net_sysctl_sz() returns NULL in rds_tcp_init_net(),
-> > it fails as an -ENOMEM.  So RDS/TCP would still fail to come up with
-> > CONFIG_SYSCTL=3Dn.
->=20
-> Yes, I didn't even try to grep other files.
->=20
-> Hmm. I am m just curious how difficult it is to create a "complete" patch
-> which puts all the sysctl-related code under ifdef(SYSCTL)... May be some=
-thing
-> like below but I don't understand net/rds, most probably it is wrong and =
-I am
-> not sure it makes a lot of sense. Plus I have not idea how to test it.
->=20
-> > A simpler fix might be to just handle the NULL at the
-> > three call sites, e.g.:
-> >
-> >         rds_sysctl_reg_table =3D
-> >                 register_net_sysctl(&init_net, "net/rds", rds_sysctl_rd=
-s_table);
-> >         if (!rds_sysctl_reg_table && IS_ENABLED(CONFIG_SYSCTL))
-> >                 return -ENOMEM;
->=20
-> Yes, I thought about a simpler patch too. Perhaps just
->=20
-> 	--- x/net/rds/Kconfig
-> 	+++ x/net/rds/Kconfig
-> 	@@ -2,7 +2,7 @@
-> 	=20
-> 	 config RDS
-> 		tristate "The Reliable Datagram Sockets Protocol"
-> 	-	depends on INET
-> 	+	depends on INET && SYSCTL
-> 		help
-> 		  The RDS (Reliable Datagram Sockets) protocol provides reliable,
-> 		  sequenced delivery of datagrams over Infiniband or TCP.
->=20
-> for the start? CONFIG_SYSCTL=3Dn is not a common case.
-Indeed CONFIG_SYSCTL=3Dn is not common. On the other hand why would RDS
-depend on SYSCTL being configured in? Shouldn't RDS just work with
-default values when CONFIG_SYSCTL=3Dn?
+  if (hci_dev_test_flag(hdev, HCI_ADVERTISING) && !ext_adv_capable(hdev))
+          return -EPERM;
 
-Best
+The flag it tests was set a few lines earlier by the resume itself, so
+the call returns -EPERM without sending anything. The return value is
+discarded by every caller, so the failure is silent: advertising_paused
+is cleared, HCI_ADVERTISING is set, and the controller is not
+advertising.
 
->=20
-> > Let me know if you want to respin or if you'd rather I send it.
-> > Either way is fine with me.
->=20
-> Allison, up to you. Whatever you prefer.
->=20
-> Oleg.
-> ---
->=20
->=20
-> diff --git a/net/rds/ib_sysctl.c b/net/rds/ib_sysctl.c
-> index 2af678e71e3c..bccdb5c4df1d 100644
-> --- a/net/rds/ib_sysctl.c
-> +++ b/net/rds/ib_sysctl.c
-> @@ -36,19 +36,10 @@
-> =20
->  #include "ib.h"
-> =20
-> -static struct ctl_table_header *rds_ib_sysctl_hdr;
-> -
->  unsigned long rds_ib_sysctl_max_send_wr =3D RDS_IB_DEFAULT_SEND_WR;
->  unsigned long rds_ib_sysctl_max_recv_wr =3D RDS_IB_DEFAULT_RECV_WR;
->  unsigned long rds_ib_sysctl_max_recv_allocation =3D (128 * 1024 * 1024) =
-/ RDS_FRAG_SIZE;
-> -static unsigned long rds_ib_sysctl_max_wr_min =3D 1;
-> -/* hardware will fail CQ creation long before this */
-> -static unsigned long rds_ib_sysctl_max_wr_max =3D (u32)~0;
-> -
->  unsigned long rds_ib_sysctl_max_unsig_wrs =3D 16;
-> -static unsigned long rds_ib_sysctl_max_unsig_wr_min =3D 1;
-> -static unsigned long rds_ib_sysctl_max_unsig_wr_max =3D 64;
-> -
->  /*
->   * This sysctl does nothing.
->   *
-> @@ -61,6 +52,14 @@ static unsigned long rds_ib_sysctl_max_unsig_wr_max =
-=3D 64;
->   */
->  unsigned int rds_ib_sysctl_flow_control =3D 0;
-> =20
-> +#ifdef CONFIG_SYSCTL
-> +static unsigned long rds_ib_sysctl_max_wr_min =3D 1;
-> +/* hardware will fail CQ creation long before this */
-> +static unsigned long rds_ib_sysctl_max_wr_max =3D (u32)~0;
-> +
-> +static unsigned long rds_ib_sysctl_max_unsig_wr_min =3D 1;
-> +static unsigned long rds_ib_sysctl_max_unsig_wr_max =3D 64;
-> +
->  static struct ctl_table rds_ib_sysctl_table[] =3D {
->  	{
->  		.procname       =3D "max_send_wr",
-> @@ -105,6 +104,8 @@ static struct ctl_table rds_ib_sysctl_table[] =3D {
->  	},
->  };
-> =20
-> +static struct ctl_table_header *rds_ib_sysctl_hdr;
-> +
->  void rds_ib_sysctl_exit(void)
->  {
->  	if (rds_ib_sysctl_hdr)
-> @@ -118,3 +119,15 @@ int rds_ib_sysctl_init(void)
->  		return -ENOMEM;
->  	return 0;
->  }
-> +
-> +#else
-> +
-> +void rds_ib_sysctl_exit(void)
-> +{
-> +}
-> +
-> +int rds_ib_sysctl_init(void)
-> +{
-> +	return 0;
-> +}
-> +#endif
-> diff --git a/net/rds/sysctl.c b/net/rds/sysctl.c
-> index 025f518a4349..47e8782b1aa3 100644
-> --- a/net/rds/sysctl.c
-> +++ b/net/rds/sysctl.c
-> @@ -36,11 +36,6 @@
-> =20
->  #include "rds.h"
-> =20
-> -static struct ctl_table_header *rds_sysctl_reg_table;
-> -
-> -static unsigned long rds_sysctl_reconnect_min =3D 1;
-> -static unsigned long rds_sysctl_reconnect_max =3D ~0UL;
-> -
->  unsigned long rds_sysctl_reconnect_min_jiffies;
->  unsigned long rds_sysctl_reconnect_max_jiffies =3D HZ;
-> =20
-> @@ -49,6 +44,10 @@ unsigned int  rds_sysctl_max_unacked_bytes =3D (16 << =
-20);
-> =20
->  unsigned int rds_sysctl_ping_enable =3D 1;
-> =20
-> +#ifdef CONFIG_SYSCTL
-> +static unsigned long rds_sysctl_reconnect_min =3D 1;
-> +static unsigned long rds_sysctl_reconnect_max =3D ~0UL;
-> +
->  static struct ctl_table rds_sysctl_rds_table[] =3D {
->  	{
->  		.procname       =3D "reconnect_min_delay_ms",
-> @@ -91,6 +90,8 @@ static struct ctl_table rds_sysctl_rds_table[] =3D {
->  	},
->  };
-> =20
-> +static struct ctl_table_header *rds_sysctl_reg_table;
-> +
->  void rds_sysctl_exit(void)
->  {
->  	unregister_net_sysctl_table(rds_sysctl_reg_table);
-> @@ -107,3 +108,16 @@ int rds_sysctl_init(void)
->  		return -ENOMEM;
->  	return 0;
->  }
-> +
-> +#else
-> +
-> +int rds_sysctl_init(void)
-> +{
-> +	rds_sysctl_reconnect_min_jiffies =3D msecs_to_jiffies(1);
-> +	return 0;
-> +}
-> +
-> +void rds_sysctl_exit(void)
-> +{
-> +}
-> +#endif
-> diff --git a/net/rds/tcp.c b/net/rds/tcp.c
-> index 774a71f88d37..372899a2ec81 100644
-> --- a/net/rds/tcp.c
-> +++ b/net/rds/tcp.c
-> @@ -53,13 +53,71 @@ static atomic_t rds_tcp_unloading =3D ATOMIC_INIT(0);
-> =20
->  static struct kmem_cache *rds_tcp_conn_slab;
-> =20
-> +#ifdef CONFIG_SYSCTL
-> +static int rds_tcp_min_sndbuf =3D SOCK_MIN_SNDBUF;
-> +static int rds_tcp_min_rcvbuf =3D SOCK_MIN_RCVBUF;
-> +
-> +/* when sysctl is used to modify some kernel socket parameters,this
-> + * function  resets the RDS connections in that netns  so that we can
-> + * restart with new parameters.  The assumption is that such reset
-> + * events are few and far-between.
-> + */
-> +static void rds_tcp_sysctl_reset(struct net *net)
-> +{
-> +	struct rds_tcp_connection *tc, *_tc;
-> +
-> +	spin_lock_irq(&rds_tcp_conn_lock);
-> +	list_for_each_entry_safe(tc, _tc, &rds_tcp_conn_list, t_tcp_node) {
-> +		struct net *c_net =3D read_pnet(&tc->t_cpath->cp_conn->c_net);
-> +
-> +		if (net !=3D c_net || !tc->t_sock)
-> +			continue;
-> +
-> +		/* reconnect with new parameters */
-> +		rds_conn_path_drop(tc->t_cpath, false);
-> +	}
-> +	spin_unlock_irq(&rds_tcp_conn_lock);
-> +}
-> +
-> +static int rds_tcp_skbuf_handler(struct rds_tcp_net *rtn,
-> +				 const struct ctl_table *ctl, int write,
-> +				 void *buffer, size_t *lenp, loff_t *fpos)
-> +{
-> +	int err;
-> +
-> +	err =3D proc_dointvec_minmax(ctl, write, buffer, lenp, fpos);
-> +	if (err < 0) {
-> +		pr_warn("Invalid input. Must be >=3D %d\n",
-> +			*(int *)(ctl->extra1));
-> +		return err;
-> +	}
-> +
-> +	if (write && rtn->rds_tcp_listen_sock && rtn->rds_tcp_listen_sock->sk) {
-> +		struct net *net =3D sock_net(rtn->rds_tcp_listen_sock->sk);
-> +
-> +		rds_tcp_sysctl_reset(net);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int rds_tcp_sndbuf_handler(const struct ctl_table *ctl, int write,
-> -				  void *buffer, size_t *lenp, loff_t *fpos);
-> +				  void *buffer, size_t *lenp, loff_t *fpos)
-> +{
-> +	struct rds_tcp_net *rtn =3D container_of(ctl->data, struct rds_tcp_net,
-> +					       sndbuf_size);
-> +
-> +	return rds_tcp_skbuf_handler(rtn, ctl, write, buffer, lenp, fpos);
-> +}
-> +
->  static int rds_tcp_rcvbuf_handler(const struct ctl_table *ctl, int write,
-> -				  void *buffer, size_t *lenp, loff_t *fpos);
-> +				  void *buffer, size_t *lenp, loff_t *fpos)
-> +{
-> +	struct rds_tcp_net *rtn =3D container_of(ctl->data, struct rds_tcp_net,
-> +					       rcvbuf_size);
-> =20
-> -static int rds_tcp_min_sndbuf =3D SOCK_MIN_SNDBUF;
-> -static int rds_tcp_min_rcvbuf =3D SOCK_MIN_RCVBUF;
-> +	return rds_tcp_skbuf_handler(rtn, ctl, write, buffer, lenp, fpos);
-> +}
-> =20
->  static struct ctl_table rds_tcp_sysctl_table[] =3D {
->  #define	RDS_TCP_SNDBUF	0
-> @@ -82,6 +140,61 @@ static struct ctl_table rds_tcp_sysctl_table[] =3D {
->  	},
->  };
-> =20
-> +static __net_init int rds_tcp_init_net_sysctl(struct net *net)
-> +{
-> +	struct rds_tcp_net *rtn =3D net_generic(net, rds_tcp_netid);
-> +	struct ctl_table *tbl;
-> +
-> +	/* {snd, rcv}buf_size default to 0, which implies we let the
-> +	 * stack pick the value, and permit auto-tuning of buffer size.
-> +	 */
-> +	if (net =3D=3D &init_net) {
-> +		tbl =3D rds_tcp_sysctl_table;
-> +	} else {
-> +		tbl =3D kmemdup(rds_tcp_sysctl_table,
-> +			      sizeof(rds_tcp_sysctl_table), GFP_KERNEL);
-> +		if (!tbl) {
-> +			pr_warn("could not set allocate sysctl table\n");
-> +			return -ENOMEM;
-> +		}
-> +		rtn->ctl_table =3D tbl;
-> +	}
-> +	tbl[RDS_TCP_SNDBUF].data =3D &rtn->sndbuf_size;
-> +	tbl[RDS_TCP_RCVBUF].data =3D &rtn->rcvbuf_size;
-> +	rtn->rds_tcp_sysctl =3D register_net_sysctl_sz(net, "net/rds/tcp", tbl,
-> +						     ARRAY_SIZE(rds_tcp_sysctl_table));
-> +	if (!rtn->rds_tcp_sysctl) {
-> +		pr_warn("could not register sysctl\n");
-> +		if (net !=3D &init_net)
-> +			kfree(tbl);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void __net_exit rds_tcp_exit_net_sysctl(struct net *net)
-> +{
-> +	struct rds_tcp_net *rtn =3D net_generic(net, rds_tcp_netid);
-> +
-> +	if (rtn->rds_tcp_sysctl) {
-> +		unregister_net_sysctl_table(rtn->rds_tcp_sysctl);
-> +		rtn->rds_tcp_sysctl =3D NULL;
-> +	}
-> +
-> +	if (net !=3D &init_net)
-> +		kfree(rtn->ctl_table);
-> +}
-> +#else
-> +static inline int rds_tcp_init_net_sysctl(struct net *net)
-> +{
-> +	return 0;
-> +}
-> +static inline void rds_tcp_exit_net_sysctl(struct net *net)
-> +{
-> +}
-> +#endif
-> +
->  u32 rds_tcp_write_seq(struct rds_tcp_connection *tc)
->  {
->  	/* seq# of the last byte of data in tcp send buffer */
-> @@ -612,36 +725,15 @@ void rds_tcp_accept_work(struct rds_tcp_net *rtn)
->  static __net_init int rds_tcp_init_net(struct net *net)
->  {
->  	struct rds_tcp_net *rtn =3D net_generic(net, rds_tcp_netid);
-> -	struct ctl_table *tbl;
->  	int err =3D 0;
-> =20
->  	memset(rtn, 0, sizeof(*rtn));
-> =20
->  	mutex_init(&rtn->rds_tcp_accept_lock);
-> =20
-> -	/* {snd, rcv}buf_size default to 0, which implies we let the
-> -	 * stack pick the value, and permit auto-tuning of buffer size.
-> -	 */
-> -	if (net =3D=3D &init_net) {
-> -		tbl =3D rds_tcp_sysctl_table;
-> -	} else {
-> -		tbl =3D kmemdup(rds_tcp_sysctl_table,
-> -			      sizeof(rds_tcp_sysctl_table), GFP_KERNEL);
-> -		if (!tbl) {
-> -			pr_warn("could not set allocate sysctl table\n");
-> -			return -ENOMEM;
-> -		}
-> -		rtn->ctl_table =3D tbl;
-> -	}
-> -	tbl[RDS_TCP_SNDBUF].data =3D &rtn->sndbuf_size;
-> -	tbl[RDS_TCP_RCVBUF].data =3D &rtn->rcvbuf_size;
-> -	rtn->rds_tcp_sysctl =3D register_net_sysctl_sz(net, "net/rds/tcp", tbl,
-> -						     ARRAY_SIZE(rds_tcp_sysctl_table));
-> -	if (!rtn->rds_tcp_sysctl) {
-> -		pr_warn("could not register sysctl\n");
-> -		err =3D -ENOMEM;
-> -		goto fail;
-> -	}
-> +	err =3D rds_tcp_init_net_sysctl(net);
-> +	if (err)
-> +		return err;
-> =20
->  #if IS_ENABLED(CONFIG_IPV6)
->  	rtn->rds_tcp_listen_sock =3D rds_tcp_listen_init(net, true);
-> @@ -656,21 +748,14 @@ static __net_init int rds_tcp_init_net(struct net *=
-net)
->  		rtn->rds_tcp_listen_sock =3D rds_tcp_listen_init(net, false);
->  		if (!rtn->rds_tcp_listen_sock) {
->  #endif
-> -			unregister_net_sysctl_table(rtn->rds_tcp_sysctl);
-> -			rtn->rds_tcp_sysctl =3D NULL;
-> -			err =3D -EAFNOSUPPORT;
-> -			goto fail;
-> +			rds_tcp_exit_net_sysctl(net);
-> +			return -EAFNOSUPPORT;
->  #if IS_ENABLED(CONFIG_IPV6)
->  		}
->  #endif
->  	}
->  	INIT_WORK(&rtn->rds_tcp_accept_w, rds_tcp_accept_worker);
->  	return 0;
-> -
-> -fail:
-> -	if (net !=3D &init_net)
-> -		kfree(tbl);
-> -	return err;
->  }
-> =20
->  static void rds_tcp_kill_sock(struct net *net)
-> @@ -704,14 +789,7 @@ static void rds_tcp_kill_sock(struct net *net)
-> =20
->  static void __net_exit rds_tcp_exit_net(struct net *net)
->  {
-> -	struct rds_tcp_net *rtn =3D net_generic(net, rds_tcp_netid);
-> -
-> -	if (rtn->rds_tcp_sysctl)
-> -		unregister_net_sysctl_table(rtn->rds_tcp_sysctl);
-> -
-> -	if (net !=3D &init_net)
-> -		kfree(rtn->ctl_table);
-> -
-> +	rds_tcp_exit_net_sysctl(net);
->  	rds_tcp_kill_sock(net);
->  }
-> =20
-> @@ -733,68 +811,6 @@ void *rds_tcp_listen_sock_def_readable(struct net *n=
-et)
->  	return lsock->sk->sk_user_data;
->  }
-> =20
-> -/* when sysctl is used to modify some kernel socket parameters,this
-> - * function  resets the RDS connections in that netns  so that we can
-> - * restart with new parameters.  The assumption is that such reset
-> - * events are few and far-between.
-> - */
-> -static void rds_tcp_sysctl_reset(struct net *net)
-> -{
-> -	struct rds_tcp_connection *tc, *_tc;
-> -
-> -	spin_lock_irq(&rds_tcp_conn_lock);
-> -	list_for_each_entry_safe(tc, _tc, &rds_tcp_conn_list, t_tcp_node) {
-> -		struct net *c_net =3D read_pnet(&tc->t_cpath->cp_conn->c_net);
-> -
-> -		if (net !=3D c_net || !tc->t_sock)
-> -			continue;
-> -
-> -		/* reconnect with new parameters */
-> -		rds_conn_path_drop(tc->t_cpath, false);
-> -	}
-> -	spin_unlock_irq(&rds_tcp_conn_lock);
-> -}
-> -
-> -static int rds_tcp_skbuf_handler(struct rds_tcp_net *rtn,
-> -				 const struct ctl_table *ctl, int write,
-> -				 void *buffer, size_t *lenp, loff_t *fpos)
-> -{
-> -	int err;
-> -
-> -	err =3D proc_dointvec_minmax(ctl, write, buffer, lenp, fpos);
-> -	if (err < 0) {
-> -		pr_warn("Invalid input. Must be >=3D %d\n",
-> -			*(int *)(ctl->extra1));
-> -		return err;
-> -	}
-> -
-> -	if (write && rtn->rds_tcp_listen_sock && rtn->rds_tcp_listen_sock->sk) {
-> -		struct net *net =3D sock_net(rtn->rds_tcp_listen_sock->sk);
-> -
-> -		rds_tcp_sysctl_reset(net);
-> -	}
-> -
-> -	return 0;
-> -}
-> -
-> -static int rds_tcp_sndbuf_handler(const struct ctl_table *ctl, int write,
-> -				  void *buffer, size_t *lenp, loff_t *fpos)
-> -{
-> -	struct rds_tcp_net *rtn =3D container_of(ctl->data, struct rds_tcp_net,
-> -					       sndbuf_size);
-> -
-> -	return rds_tcp_skbuf_handler(rtn, ctl, write, buffer, lenp, fpos);
-> -}
-> -
-> -static int rds_tcp_rcvbuf_handler(const struct ctl_table *ctl, int write,
-> -				  void *buffer, size_t *lenp, loff_t *fpos)
-> -{
-> -	struct rds_tcp_net *rtn =3D container_of(ctl->data, struct rds_tcp_net,
-> -					       rcvbuf_size);
-> -
-> -	return rds_tcp_skbuf_handler(rtn, ctl, write, buffer, lenp, fpos);
-> -}
-> -
->  static void rds_tcp_exit(void)
->  {
->  	rds_tcp_set_unloading();
-> diff --git a/net/rds/tcp.h b/net/rds/tcp.h
-> index 39c86347188c..12b58d76c089 100644
-> --- a/net/rds/tcp.h
-> +++ b/net/rds/tcp.h
-> @@ -13,8 +13,10 @@ struct rds_tcp_net {
->  	struct socket		*rds_tcp_listen_sock;
->  	struct socket		*rds_tcp_accepted_sock;
->  	struct work_struct	rds_tcp_accept_w;
-> +#ifdef CONFIG_SYSCTL
->  	struct ctl_table_header	*rds_tcp_sysctl;
->  	const struct ctl_table	*ctl_table;
-> +#endif
->  	int			sndbuf_size;
->  	int			rcvbuf_size;
->  };
->=20
+Observed on a BCM43455 (no extended advertising) after an active scan:
+btmon shows the pause disabling advertising and no re-enable in the ten
+seconds that follow, the device does not appear in another controller's
+scan, and btmgmt info still reports "advertising" in current settings.
 
---2q5pjfxl3jaesakr
-Content-Type: application/pgp-signature; name="signature.asc"
+Enable instance 0x00 directly in that case, the way reenable_adv_sync()
+already does for the same situation. Instances continue to go through
+hci_schedule_adv_instance_sync() so the software rotation loop is
+rearmed.
 
------BEGIN PGP SIGNATURE-----
+This affects every caller of hci_resume_advertising_sync(), not only the
+scan path: address resolution changes, accept list updates, discovery
+stop, suspend/resume and the end of an LE connection attempt all leave
+advertising disabled on such a controller today.
 
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmrXR8IACgkQupfNUreW
-QU/uDgv+KFCXUulytQ2K8Ag0x3y6yIgJ4nYYp56qqb8GygnrPiJoLZJ05miyKb7f
-GuENMH5LNUZ2vVtEUU76w/+At/I1EmZBdmllvnZXdlHBnk5g3BUfeKXWH2xVnNmi
-vOUZkvt9hiUpNDgcUy342V3FBfmbgZiRrdV3uKKW678eOhfOci7v19TYYUBp28o+
-7pOIIm0MIH9lz9Ge5J6D4puaAZDklF3qPPC65Dk3KW8Ynb+ROKPuZ1yUAgeD/dSJ
-Jjl9XDAcP76iNl6UbMooRad8tK39e9/p3ZEm076A6wG5j/Nm5W+QCuU8ySfYRU8M
-NrmL1xN3GhMF76HK2b+nipNFZOdP39+O9wHGC8UN7Dq+e5xnU7bfNhdPZyCWwdAy
-GLUFyYbWDsJaxP0gd6yj5JMZi7m9YrYkpAG8mBAQ3h15YXqA/kxOkc4n/57Uw9RW
-TKTB1aqZ0l8Sov5ELGi273MxUj4VTGHtLPgUpHZUrQdNQ4hPUaQI3+F3DaACnHPQ
-qqo8+RAA
-=4/wU
------END PGP SIGNATURE-----
+The resume does nothing when the controller is already advertising, as
+it is after directed advertising was started for a peripheral
+connection, so it does not replace that advertising.
 
---2q5pjfxl3jaesakr--
+err is initialised because the extended branch leaves it unset when
+adv_instances is empty and HCI_LE_ADV_0 is clear.
+
+Fixes: ad383c2c65a5 ("Bluetooth: hci_sync: Enable advertising when LL privacy is enabled")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5.5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+---
+Changes in v8:
+- Do not restart advertising on resume when HCI_LE_ADV is already set.
+  With HCI_ADVERTISING set, a peripheral connection starts directed
+  advertising and the resume then replaced it with undirected
+  advertising; the l2cap-tester "Direct Advertising" tests failed in
+  CI.
+
+Changes in v7:
+- Enable instance 0x00 only when HCI_ADVERTISING was restored from the
+  state before the pause. Without that check, removing the numbered
+  instance that was advertising while paused reset cur_adv_instance to
+  0x00 and the resume started advertising that was not running before.
+  Reported by Sashiko.
+
+Changes in v6:
+- No change; resent as part of the series.
+
+Changes in v5:
+- New patch. v4 of the scan fix resumed advertising through
+  hci_schedule_adv_instance_sync(), which refuses HCI_ADVERTISING on a
+  controller without extended advertising, so the resume never sent
+  anything. Patch 2 depends on this.
+
+ net/bluetooth/hci_sync.c | 10 +++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 7ac26daba..d215432db 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -2733,7 +2733,7 @@ static int hci_pause_advertising_sync(struct hci_dev *hdev)
+ static int hci_resume_advertising_sync(struct hci_dev *hdev)
+ {
+ 	struct adv_info *adv, *tmp;
+-	int err;
++	int err = 0;
+ 
+ 	/* If advertising has not been paused there is nothing  to do. */
+ 	if (!hdev->advertising_paused)
+@@ -2766,13 +2766,19 @@ static int hci_resume_advertising_sync(struct hci_dev *hdev)
+ 		 */
+ 		if (hci_dev_test_and_clear_flag(hdev, HCI_LE_ADV_0))
+ 			err = hci_enable_ext_advertising_sync(hdev, 0x00);
+-	} else {
++	} else if (hdev->cur_adv_instance) {
+ 		/* Schedule for most recent instance to be restarted and begin
+ 		 * the software rotation loop
+ 		 */
+ 		err = hci_schedule_adv_instance_sync(hdev,
+ 						     hdev->cur_adv_instance,
+ 						     true);
++	} else if (hci_dev_test_flag(hdev, HCI_ADVERTISING) &&
++		   !hci_dev_test_flag(hdev, HCI_LE_ADV)) {
++		/* hci_schedule_adv_instance_sync() rejects instance 0x00 while
++		 * HCI_ADVERTISING is set, so enable it directly.
++		 */
++		err = hci_start_adv_sync(hdev, 0x00);
+ 	}
+ 
+ 	hdev->advertising_paused = false;
+-- 
+2.34.1
+
