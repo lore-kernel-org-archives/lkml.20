@@ -1,99 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792538363;
-	b=LZF3oWgIPDVMI1Bzb6C80vPlZrsVZHoqrz4YK8u1GH1HY3q16ztwjbCiKbbwBESEHM9K
-	 Ufx5/nmE4A8hIQE/Mp7dT2+ybrZ68jvRV1GYq7Lm9gh+Lie3fl5qhuGYFc31WBikqNNSv
-	 W3Sx9HntFIN1E7hKffH3C+VrFHZ2OTUiuGxFx90KuQWLiEsvsjX3rlod1gP2Co8WAfLFZ
-	 q222QSBLdMjEaF9Gz7NQZiUuGSun6CuC0VXpEVL2kVjvCVoi3R/CRIlDYqL04YVse2Ohh
-	 O9Rm5bGzxqn9rc131Vqzp0HZhCzt8xjxYULqwOfwxKxHZnE2x3ciAOMehleXsIzS1uA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792538363;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=3uU5xVP514mUbrG42KDIZyHj9BphlxVL4c20+8k4/iw=;
-	b=B/s/HgAvgnUztp9plaNcCH63zblKV51Cffszch2WAEqRrHjB42JAqN3TnDF6dJ5RbPnh
-	 3ObhLrzTZzzOzHfMLl+BoyXWyMd7WDwmq8kkWKb22cxplXQ2bT2xAPG9aNwwTSNE2bKao
-	 34pwAC8vSyqgGZtmdVGqwuTucgkJaLbwceupjXuhG3KB+7SWXHY7ukMVBIC562rNtP0re
-	 bR62ZkEDHCe8mXlAk7UuNUjRyr7alHxmjYzlrg05N3xkUoApObyEnm8RGZ81z7tl8Yv45
-	 2FZN3aaIDDHw/E3w2/qst3/Oh14MXenfv3qWQEbP63AJvpu76RfQlV3WHohL0unJdoA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="o/mCkYbj";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792538447;
+	b=m8rWMEXRBwzcdpZadevQYg7TVAlby3l5IN+DfWnrr9GwvY/4ujs1lWyQVSMLP0IBUMXD
+	 GKg34ThXLtBkSj9otuPgvC+A19A4TMGhp8/Ngd52+h2lAyt2XYSEsZYtHhLPbUBXgdOh4
+	 ApkcioYJHLGlVIjG2LJa/KgoBch8PCLA2ptWQEJo1EzcIj81VOt77fmuvSDvp18TTFw/Z
+	 p+NxH71BRxTl4hcxpctSXPcaBjN4lDoCdGbRXbW9inxjqxMBLy2HgLSuG50wqMBTUQI5v
+	 NlrD0chg3199V4ltWsJ09Jd6AZap0UEs2TDnLhRubPGUlQgqPgv9yh16X08JDyksHQg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792538447;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=P5fko3A9W0gmx80fHOluIXSlmSb91oJTUY13Ek4gCSw=;
+	b=bnl9SfFJ1jfa0JSWZ45GDEiDIwtTL0/241HFKSe1e6HhROwGXHxYQIpNPAOuK1YRiaqF
+	 3WkbumdEzsxpOZ1pikE+pgdwr9O8hAAxZSjr5CtQXGm4d4BvWldeU6mHoX1DPG3QKxRPg
+	 5h6ECDAGY57IEktnP7wu/gChcDj7wV9b2udZrtJs4CxXqUD2szBlpvkXX+I9UbBMeVjGs
+	 Ng6W0m3srSUCOOmysAeTL8UwA7FSNTIJjdpTasbumoGXfK/ydH/2ZXI+CdjbANbuOh+kI
+	 K469DXxtSeK49mWI2bHhbOrptaBJsVx5aOLyQSDS2rLZp8TEpSeYeuWx6zu3h42c5XQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VydcMoJz;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="Ue/UIrpr";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388EC606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:19:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 388EC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97C5606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:20:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E97C5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=o/mCkYbj
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eac3b6b2ceso23303e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:19:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792538362; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ifv6reIt0VoJvOPJ0PBpXfHFcSShg2y8nGH8ZogQNRZHKC7ylfsRXjQdA7Pg8zRfrP
-         I2Iy+u8NGAPzJyKlJGLs76884wi7BjOPm8l85r7Zh+MdRNNKMu8YY1L4eDfRSLzEYIlH
-         qejVqobty0b7jtboFs/RR74EZrHLpXib0PplTSMbWuS/LzsYoa8RO1Fk3dmUdEaYDFDo
-         Wbk8h4UZnfvO1AyLJUslbZ2q7vBjyhu3rtq4MB7Cq5qgQ4h46UVfrJ6pz/0NuPjXpEok
-         upPzr0ipDWfr1XxRbqzMHKeKAwUFnuh9Ak4IxLC+ihA0dgCLLwjmLiuBy+VBb5vyV41Z
-         t38g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=3uU5xVP514mUbrG42KDIZyHj9BphlxVL4c20+8k4/iw=;
-        fh=mJbLpy11ATWnYlaTs8gomGGaZQbykWi4pcVf0oqnNc0=;
-        b=oYgyjcEFliocGaBX/3tFVnaO7DJS1sUgd9djebCckcF195/A1RnQ4gyFa1x91VGbrP
-         pjLtln8IWygnFmk5wZ8of5nYGS6e3pJCMGGOPBswv72Yi8AjqjR0o3cNDmSMOGaz5Voc
-         8oj6l6JSA45DvpEejsZpgARv8Ba5d2KTdgbqV+WMO8CQJSt5sEP1cFfd2FJnmGpEZjc9
-         kpOLPpDMqRXOGQb6CYih3WRSqISKOZ347DNKziVzkf8k6uAWsWh0188TbPXpOKPemhLc
-         4fLrKuaKk7xhlGcKsyj2IZhHFSg0kAJ/bjRtiV2tHTIIpJPvvqdZ3OmavJ1UyjSHjQA9
-         YtAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VydcMoJz;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ue/UIrpr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792538446;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P5fko3A9W0gmx80fHOluIXSlmSb91oJTUY13Ek4gCSw=;
+	b=VydcMoJzMNfSya2vUJ9j5qaYApS4mXXsuDBVDp1CJDQ9r869wd8HmyTIoLBYsqB0liZKUl
+	DMh3kA0G0sbBQ4pHUeHP95vCvRlA49XiNZGVpVCByos/8BpUeY2l/yyMqmnZQ5GdKYV7Kx
+	1jQ3hTweRDL0WoK3L8g/4/Qrrc2f26w=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-606-naTGym48MuyteWwm7_FlxA-1; Tue, 20 Oct 2026 23:20:38 +0000
+X-MC-Unique: naTGym48MuyteWwm7_FlxA-1
+X-Mimecast-MFC-AGG-ID: naTGym48MuyteWwm7_FlxA_1792538437
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48dfaaea30cso84137f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:20:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792538362; x=1793143162; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3uU5xVP514mUbrG42KDIZyHj9BphlxVL4c20+8k4/iw=;
-        b=o/mCkYbjeY34X13UKJqUfc1LQSsmKds7DQlCX8Xv/aDnCKR/rijpjytefciSov8WXn
-         7I+TplU1+FTIj5BY2L9SuUgrdP8zwvkNoFJNGWBrMe5zk6FUKTSktKtX6S7P5pt2HEDh
-         4ZLwCsSC7622r/kwX7/0yND+BKIr2xwjAbHg67PhzeOfpjYONYl2bHJSSsG8j0moGUO9
-         SJsuO2K6/Ll34vjm5vG0xf0OmefKbCCTurKvnAT5UXHR6vChEPnxIhXl+FQof/gIWxie
-         kD7hx8Z0e6/EZEwo6QhOfRG3nR9A5PT2bXfFa0vK2NN7IPjhBr9DMuTH7q8Vo4pQFFge
-         8LCg==
+        d=redhat.com; s=google; t=1792538437; x=1793143237; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P5fko3A9W0gmx80fHOluIXSlmSb91oJTUY13Ek4gCSw=;
+        b=Ue/UIrprYHR+2XIIAYcBHSmjkR7zGegvXtlSz7Jt8tWZvBDV8M1fah4wIjTmd8Cp1n
+         q9aNpJ3rq3lPhXkzt1sjaOZIfuwvzjDd4IpgGyWH2T8vooQDgdvS7d0awY5X9txSa7Qs
+         f+hzeanNcZOYNbByt/VTBoJ3RNsHq1n3ReI25+2Cd2uqRKHuwxi0b1gdrBEM0leA6LQO
+         kGw5k9dxv5yyxzu1A8v9bJZMBag6GexyX9ytTg0NkNcZZPDX9Z7tFIq/UPP1RPXnvadX
+         QwjCDwhVN8FrTSPuuN0X45t57WwPrrj1NCSM1VXnXeo9VC0LXaS8J6yOGA3p8qiOefz+
+         u9DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792538362; x=1793143162;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3uU5xVP514mUbrG42KDIZyHj9BphlxVL4c20+8k4/iw=;
-        b=o4O1pBiPnlINkX4K03Swl7uGoJh8OV/RMhe5Ktv7j3daW/KpqCYBifbijUaDfuswFs
-         Rjyx3P8QZ6jhYMs/KnUi88dUhTfT3Cr5pLJEKkqZWXKFfXuiihKrO8/OF1M2hg8kZDw0
-         jGS051Z1My1u3OdnWZJyC6sjkyS62etjqwwb53OIkz5pWrhueHYPa6p5Bd2EXEMJ5Prv
-         fV51K/TErd3TNLmXtdOOYfuXUkymiIoRwarbg1XOhAmL38sou52YuwV9wNjVXe+v+i4t
-         WIGioGcpfgLsWBCmmko2fkjy+lZxMGkxLcwB00jv91+fUrvLZ1Ef/KsvgNNjdSse7kUG
-         BOQw==
-X-Forwarded-Encrypted: i=1; AKwUvBw+tqDh8D0z1KA02LrR8qKBbvoeExSWYe0ayYDfsPyKH1uktP+82AimEVNF4+Z1TfTBJGOX1tIn/GC4yaI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1HPrQEXHHNg0w53UbVHZOw3hTEX2mh874LLylxtU8nw1+3Gq1
-	dsgcJOFdb0uQkKy7581H301LIQLJMxFb3IFkrDev4TCUTo4MTVcshqotf4IumphH/adN6XJ9mzS
-	5LZDOPSLdmM4kZICcetNf6gzEYvuGDv4=
-X-Gm-Gg: AYBFou1u3Y/GVhkFbB2RdvtxGI4FBfMpUH8J5ezerTI3ubB0ZEcST+lW4oNETlohNyW
-	BQFUsvHDfaloTqoErHmux13zaFF+SsM5NTCHJVOKC+m933xCCjqZunWsnJbRuWABvNit0Qe8748
-	/kk8f/ms5MSdv9cbf00WMIoPN4BYZV/yde/GZnL4glH8dzlFmesHD6/EGsN5YlMp8tjCV97IgY6
-	YDgU1Y7lDPyltoQyut/wJ4n5WUAKGLM7I77HVu6HVUzx7YsyOiPFcmQcx23xt/1uguKIJMcIcJy
-	2kXfsP64KLcTIRrrB6jMIqFPpa/jHVR6G/6YKZb4CU5eq3nCWoekeR5sX1ASGps4po6c1mIaYPh
-	GbVjZleIZ0ainuy9fvnC2
-X-Received: by 2002:a05:6122:3c41:b0:5ea:a173:65f4 with SMTP id
- 71dfb90a1353d-5eaebdbde23mr117013e0c.11.1792538362059; Tue, 20 Oct 2026
- 16:19:22 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792538437; x=1793143237;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P5fko3A9W0gmx80fHOluIXSlmSb91oJTUY13Ek4gCSw=;
+        b=0DIXP8v04TQwnkglngiOS9soF9cyi2q9sta8sqzcs0nEc4vkVwJg3IGZOHTdigY721
+         S+uyHs4p99xYicNronSMlfIYr1Y3srMzgocJqREVhRpolzAmND4aKDb/37n10wH1D6Am
+         WSHtXteQ7Ga0SfMKUaiaUxExw34QBxfcoINQdiem9OIJPagaeByt0LqgCwZI07LJd2Rw
+         FDhn7C0Rvdl/8L4GeC4T90KXfOg2/fgcpIR/sUPcj6pLa5zK2+3q82zBSoavIRXpMovZ
+         DqYgnpLx2pw6QeOsibHRnzF02rcE440MD5gY1g8Rjd7w6cQIvohdL+DCY+wC2W7t1Aac
+         b1Zw==
+X-Gm-Message-State: AFq9FYL1p/7E+QcUGjoFj+x6Y1R7GVI/lRsPBydFFjGI+EkawKSVZcmM
+	3h66mu2vLU5VLt54Ko+MQ+SHyraHLD9e9J+Eg5DtQ3C9qa3MQPyGjdpzZsB/nPpGH5JPG7mE+bY
+	umqGqNIIJ6B9s3X1nURCUUscoxmSeQcnNcmwigTSk6MOVXCbB2CL7owivRc5VitC0tw==
+X-Gm-Gg: AYBFou23/TJnsCJvgTH7PKRi5pD/G1UqDTatoRPXeFOYBORKnwHJDwSEnXnE3TvUCwQ
+	gEuVKevBK6nx++IDmcV9Z1tKFvhQ4tMLcs4z2dgWSaUSHmU/3KPu41HrvGsv7hncgW++86FQF1E
+	xu9rE1UJWovFbgsdgK2Nze1S2VToycEsJQ0GTaRWTEsh05rMUC53Kv2oIq/qOm/+DW3HUch4o0D
+	FQI07sRbkU5s28YUPswhCvyQBFWknl0O39DUj2zzig/ADgoqnPOc6DXtTblLK6riejMFzSYW8++
+	wGJcl8ej2J1tuB4G94IPQQL0XlUsk//8yQxapIyBnuXxC/Z109cDz2bwXWPaEwNN+iUcsQ==
+X-Received: by 2002:a05:6000:2313:b0:48e:d27:bee4 with SMTP id ffacd0b85a97d-48e2642ce22mr436272f8f.2.1792538437146;
+        Tue, 20 Oct 2026 16:20:37 -0700 (PDT)
+X-Received: by 2002:a05:6000:2313:b0:48e:d27:bee4 with SMTP id ffacd0b85a97d-48e2642ce22mr436239f8f.2.1792538436673;
+        Tue, 20 Oct 2026 16:20:36 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2581f0a2sm1544348f8f.10.2026.10.20.16.20.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 16:20:35 -0700 (PDT)
+Date: Tue, 20 Oct 2026 19:20:31 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Chris Arges <carges@cloudflare.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Simon Horman <horms@kernel.org>, linux-doc@vger.kernel.org
+Subject: Re: [PATCH net v3 6/8] net: add a sysctl to opt out of virtio net
+ hdr checksum validation
+Message-ID: <20261020191918-mutt-send-email-mst@kernel.org>
+References: <cover.1792411304.git.mst@redhat.com>
+ <6f23c55c6eba3e3ec6b2c7e3a80728a326ed58af.1792411304.git.mst@redhat.com>
+ <willemdebruijn.kernel.187d58ff2bce5@gmail.com>
+ <20261020165610-mutt-send-email-mst@kernel.org>
+ <willemdebruijn.kernel.34b42ddc625c5@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,25 +131,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020152412.95560-1-mike.michalo@gmail.com> <20261020224644.3858280-1-mehmet.fide@gmail.com>
-In-Reply-To: <20261020224644.3858280-1-mehmet.fide@gmail.com>
-From: mixalhs <mike.michalo@gmail.com>
-Date: Wed, 21 Oct 2026 01:19:09 +0200
-X-Gm-Features: AclHuK-7YZ-INOiAiQfigqH4orU9yhv8_40k6xqUsVQsalHOxRswe7LmiUqLmVw
-Message-ID: <CAO+rqLgp8ZfogBbOu4rD9N9w9=FdNO+wXca4SR77NV73EGpOmA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] wifi: ath9k: fix WMI command response handling
-To: Mehmet Fide <mehmet.fide@gmail.com>
-Cc: =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@toke.dk>, 
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mehmet.fide@screeningeagle.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <willemdebruijn.kernel.34b42ddc625c5@gmail.com>
 
-On 2026-10-21, Mehmet Fide wrote:
-> Tested on an AR9271 with firmware 1.4 as an AP, on 6.12.113 with the
-> revert of 93ce8ea70451.
+On Tue, Oct 20, 2026 at 07:13:42PM -0400, Willem de Bruijn wrote:
+> Michael S. Tsirkin wrote:
+> > On Tue, Oct 20, 2026 at 03:54:23PM -0400, Willem de Bruijn wrote:
+> > > > +/*
+> > > > + * Protects changes to virtio_net_hdr_csum_check_disabled_key and each
+> > > > + * net->core.sysctl_virtio_net_hdr_csum_check. Readers don't use a lock.
+> > > 
+> > > it appears that they take the mutex_lock below
+> > 
+> > Some of them? But
+> > virtio_net_hdr_csum_check_disabled doesn't, that's the point, right?
+> > 
+> Yes, but the statement is then too absolute:
+> _some_ (or most) readers don't use a lock.
 
-Thanks a lot for testing this on real hardware so fast, Mehmet, and for
-covering the duplicate-response and sequence-wrap cases too. :D
+don't use->don't need?
 
-Michalis
