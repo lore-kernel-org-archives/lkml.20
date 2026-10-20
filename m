@@ -1,59 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485266;
-	b=vl3TdeZ5f4KHTZR9xN8MJDkdo46FOkeWbKcyA7vLpmhDMm8imSrO8OdxunyDk+JlA+2/
-	 f+oinAg0msZJnN9Oti499mmvc3xyTJ+87we2U4AIlaQNSut5wdHwrP0A9wXm0/LTfi5gs
-	 jNh11+zsX6xHt8p1Zm9f631gzU0lnIUh5QzPXZfTAdTkjZ6sNQp0G77Z/DS2zKzuoyFy+
-	 h0oM/UkMojthig3GzO4+QLaZM+QM32+hVRXyRC0tNQ/yRXFeKsJwxHO7lA30P3y3994ex
-	 DOp+yZURG/bsd+KwKA8uFpoth63yHhGQvziKaYOW1Udb49A5mmXmHTJ8IwZyEn83AKA==
+	t=1792485288;
+	b=5DobeSpDCHM8Ro/WDYZtta6frYi1gumjV84MnibPH5Ij19lpW9jXXkDRtX37k8lSvamn
+	 vD6w7tTcMSLe/PYa3swuGo92ZbZVsILFHoW1i0vnB4l48N1QPBZjB+M33c/A/imtGL4Q0
+	 vhbiqLShhlf+I9Yv7IVg3YncBafYR5tyehuCvI43QsnsL7SSYV3tAm/1XqyvVf+br+LVg
+	 rRMgMPFIdRo1ZNqDvZhQzSKXNXWpe8iRoqGF7bEQOs7/l1dEMbGU3oFZx8iGo+YJe7w3o
+	 pNF+4JUy6EaaqOr0KLc/2j04S8zqnJUo7T7iOosJY/aEvF9t76JSDLMwNPRztd1jkiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485266;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VMFqxM453yLwBXSbcRLMTntPAgtjcAyPnxyGhanIJOQ=;
-	b=2CRJRhAp5zBoJ4XnUmpIg4iJzXSBJPb09626yLokUu08MSrjAx2x82/q1UjuppI1S3s+
-	 OX6MY5Nj7HUAkwdlQbaeDAaZuvD0ll+9fwwyWuY5FMKgyD5Of8eN4kLEp+fsSPQih1IT2
-	 JLhJCK2nMGwzXiSrr5tsULyYVdmlajxOvmnjfvdo1HI83KHCpNJFghzNVYG/kg2qb6XZe
-	 iqeUVC9ttx2L6UqRDwyqNsgPHVNrGgX6/7Ny2Mxjrevwi5WTV13iB4CXOLXtrfqGUdQlz
-	 YXks26zqnwQ1sn7SP9Uyepi3PVXkLMMhU4GIBaEiAPcS1fOYnVFSkBWToqin/OgdLtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485288;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=/hA34P15q1oxVHRSjXvNvkQ68TJynXGDuNUUxf5uJkc=;
+	b=pg1wZ8jPsJTzkGMy022DeTFiWWoxMjHNSQma5KZN1ZzJHph1Rz9vIZ/USoWcDECHzfa6
+	 JHHcp+GkW8rUIoC/BWfjvz2DFG6TaQYtVmWnuOqRdj20rVionwD/nSU6hlUnJhZYVz26I
+	 YCMVZPRl1kg29Ro5MdOxhLa2VLOryJOcTQofnRFW/AcTzjr425AOWJLlxMcKjWOc6Y55T
+	 HnZ/7KlZsZirIpB5tPdTp7dxF/t1vPbRPhlzmb5o3qDvKJCTjxEkHleW1xdOhn+nUy+ig
+	 YpvyDtHZxTbRE5fjx9QDM2jVuiAsmOQHSrB/hJIDUiJ6QBJjAl+NGJlKK6z75Cg4Osg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0uSOzXq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nMsrc75s;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BED606A31B;
-	Tue, 20 Oct 2026 08:34:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E2A606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:34:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87E2A606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0uSOzXq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC79B1F000C4;
-	Tue, 20 Oct 2026 08:34:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792485265;
-	bh=VMFqxM453yLwBXSbcRLMTntPAgtjcAyPnxyGhanIJOQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F0uSOzXqFAoOHDVJSsaHQ5ir1S8o99DRmrazLP6YHC7SDbkmUtJ5y/168C2X06p/i
-	 nzMbd29t2E07Lsyc2maZDbwOG0d+L3tr74ddYjqTV3GeXof9FITQ9ycQBbGoAmtY/Y
-	 A891IhY0p7egb56CJ5SJSHUWJX9RJkwnOPRxsS7XUxaSN4OhQP8AA83kqtzXBApRik
-	 mI+L9CgLCFcD8h31nrF/m1rgO3QCchzQt6c7DO722cTDpQAp99iFgf6k3DmOjx4mPJ
-	 34+oL1kSeaOAFUz/kMCFZExcR8wvgtWMEa6R6NkGKG6L2Y/RDskzOzg6sA3uwfnA2C
-	 48Qdrfs1AlECQ==
-Date: Tue, 20 Oct 2026 10:34:22 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Devarsh Thakkar <devarsht@ti.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, 
-	Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, LiangCheng Wang <zaq14760@gmail.com>
-Subject: Re: [PATCH v3 02/14] dt-bindings: display: Add Solomon SSD16xx
- e-paper controller
-Message-ID: <20261020-futuristic-awesome-dinosaur-b61d9b@quoll>
-References: <20261019213726.4145532-1-devarsht@ti.com>
- <20261019213726.4145532-3-devarsht@ti.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nMsrc75s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792485287; x=1824021287;
+  h=date:from:to:cc:subject:message-id;
+  bh=ZUKD6ieSECuV+YPGYjPpaEVpyTy1JTloXqOkVi7zdro=;
+  b=nMsrc75sto/8Tb97uJy7uIOpuMmU/b7nBeMZeMHd9cSXsmtAARSLsS6I
+   cZTTuvx+1Xg3cquvRSKIhSq+pnO7nzfYCNnztJhVEVcBFrmyd8456+gpn
+   7hVHxcQ9RShW4HNopZ007nJ08q+x/R+F4l2siaBGCp/75JkaNNwx8wpWj
+   sJWYhSIBcts/hssBLYym7Lq/yksYAV3Sa27d3p0ZFmtLtFH3CwBkRqIxr
+   JztrJRl00uuV8hC7/BpzeiI6tYZEAGGSkBzydCFnbpR5iAJSZNoDCXnmh
+   T17mq8cWV7nx4Y4rpiFxYwG8hs2DrBX32+2YC4ADykyhTl2iXYea4a/Ar
+   Q==;
+X-CSE-ConnectionGUID: vpYJd3+tS6SkDi9Ke66ahw==
+X-CSE-MsgGUID: pLB36rIJRf6wgmKubfRqmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1083720"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1083720"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:32:45 -0700
+X-CSE-ConnectionGUID: zN4InyR+RaCRJUI7yf2uUA==
+X-CSE-MsgGUID: bLNKlF4PQFmFlX7TWP6P1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2652947"
+Received: from igk-lkp-server01.igk.intel.com (HELO 3c253b998be3) ([10.211.93.152])
+  by orviesa008.jf.intel.com with ESMTP; 20 Oct 2026 01:32:45 -0700
+Received: from kbuild by 3c253b998be3 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xJ5H0-000000006Bp-02Pf;
+	Tue, 20 Oct 2026 08:32:42 +0000
+Date: Tue, 20 Oct 2026 10:32:38 +0200
+From: kernel test robot <lkp@intel.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: crypto/aes.c:12:1: sparse: sparse: static assertion failed:
+ "__alignof__(struct aes_key) <= CRYPTO_MINALIGN"
+Message-ID: <202610201027.iEuDB4e6-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,46 +79,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019213726.4145532-3-devarsht@ti.com>
 
-On Tue, Oct 20, 2026 at 03:07:14AM +0530, Devarsh Thakkar wrote:
-> Add device tree binding for the Solomon Systech SSD16xx family of e-Paper
-> display controllers (SSD1683 [1], SSD1673 [3], SSD1680 [4], SSD1681 [5]).
-> 
-> The binding covers the 4-wire SPI interface with required GPIO pins for
-> reset (active-low), busy status (active-high), and data/command selection.
-> The spi-max-frequency is capped at 20 MHz per the SSD1683 datasheet [1]
-> which is also the maximum supported frequency amongst the family.
-> 
-> An optional rotation property (as defined by panel-common, in degrees
-> counter clockwise) allows static display orientation to be configured from
-> device tree.
-> 
-> The data/command selection GPIO pin is also kept as optional since various
-> SSD16XX controllers such as SSD1683 [1] support 3-wire mode too with
-> data/command selection bit transmitted as first bit before sending the data
-> sequence.
-> 
-> The first supported compatible is for Gooddisplay GDEY042T81 [2] which is
-> 4.2", 400x300 resolution black/white e-paper display using SSD1683
-> controller.
-> 
-> Links:
-> [1] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
-> [2] : https://files.seeedstudio.com/wiki/Other_Display/42-epaper/GDEY042T81.pdf
-> [3] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
-> [4] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
-> [5] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
-> 
-> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-> ---
-> Changes in v3:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   f47d223627f80cb7a1eb14c585fe6cb35de5e984
+commit: 0892c91b81cc889c95dc03b095b9f4a6fdf93106 lib/crypto: powerpc/aes: Migrate SPE optimized code into library
+date:   9 months ago
+config: powerpc-randconfig-r2310-20261020 (https://download.01.org/0day-ci/archive/20261020/202610201027.iEuDB4e6-lkp@intel.com/config)
+compiler: powerpc-linux-gcc (GCC) 12.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261020/202610201027.iEuDB4e6-lkp@intel.com/reproduce)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 0892c91b81cc ("lib/crypto: powerpc/aes: Migrate SPE optimized code into library")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610201027.iEuDB4e6-lkp@intel.com/
 
-Best regards,
-Krzysztof
+sparse warnings: (new ones prefixed by >>)
+>> crypto/aes.c:12:1: sparse: sparse: static assertion failed: "__alignof__(struct aes_key) <= CRYPTO_MINALIGN"
 
+vim +12 crypto/aes.c
+
+a2484474272ef9 Eric Biggers 2026-01-12  11  
+a2484474272ef9 Eric Biggers 2026-01-12 @12  static_assert(__alignof__(struct aes_key) <= CRYPTO_MINALIGN);
+a2484474272ef9 Eric Biggers 2026-01-12  13  
+
+:::::: The code at line 12 was first introduced by commit
+:::::: a2484474272ef98d9580d8c610b0f7c6ed2f146c crypto: aes - Replace aes-generic with wrapper around lib
+
+:::::: TO: Eric Biggers <ebiggers@kernel.org>
+:::::: CC: Eric Biggers <ebiggers@kernel.org>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
