@@ -1,91 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792526696;
-	b=rM1oyzPStSsv7wbM+sgwFTdJ5PJLfmyWsh7oot8ItfkutimwNCp8OYFbd9b8Szm0wnMx
-	 Uu2+m0q5mnuNeYJS2MRBob2WuKMU0x78kb5wRAl4HUvlAQ94PsHrmlVS3UT0HF9c3CoP6
-	 ZGelAudCSgImLA4yK5/9TVUhtiPHHfpn83xXpgEo+cul8KMUAbBFGNsYjQfI1rTWoyIR+
-	 mPQBf0M8MCxlEQJr4j4FaSq7Sip8+yj3S/NfaWxNZ82FIhqXW/5NCltgMkUTrD6BuPSWC
-	 nnMzHUvdz9xROx5Pze/CXN5u4QIgGBOJy8SifBtPL/Gxv+PRv8ckwN0TF+ciqH0LeCA==
+	t=1792526857;
+	b=P6zd2g9Y6DTzqKhKg6H3JYgw2mU5NGdl64USlB6lBJ3fxYopl7mZbZhjeZlWosQiK385
+	 cmNIGtwnZmMerzVRfjVfN3B61adyA6O9Zq8bqvezGchez2i2P1d0dm78PDeSXviWUFf2k
+	 WiNmLibM7AejCSTqM+v4dXlXv7GRDnw59D9hzD1EiE3fFfdHM1o3GocVthtyjLYawvR25
+	 v8gVPg1z+czBFtkrW2+kxUs7pT1xAS7KG6+DX9lfO7IIBT4IGZfmCxuK29Er4m5ytulxL
+	 J9vg8HLtBJOLLfizBy/LYIOHzpPbLia/yxJwleIJDkflGCczAWiaEuFQgqHXK9Das9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792526696;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xMZTvVnvR9FWtNNDaBKX050k2N0y/5tjvvOdwrkPXQ4=;
-	b=wth6xYGcMRtjdCKB/VgqCTJIA3IqHZBErH8S8QonjWjgr0wW/JRHSP5J/2vvPPUrG8B4
-	 wrtllIb/y9wuCwH+Slsc5Aq2fr3t2U5yBkHGT0qqEOnTqhMMRyZflV4Y9A2HvmElXmadC
-	 WjaV+uY7DGFo5lNc2ON/Y4s4XpvZ0WDq5oylM7ylYvyECzHCmed5ghj4fI7bzMAP3xtw2
-	 kxRSPI63c24LtOqPr8xG5kuHrHhtpR1PVHdn9nPrypmBzfmQsie3r+mbRiWbB+9KHeN4e
-	 Sb+UVz/JPmCDqjEUKYdu02PiSZKqWO3cNAGTMtrlD1xnuXHcaQTdxJEbdHsAY2vKFGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792526857;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=E2BGEbDmLFbyDFnjpJoQXmoXVufyoU6uu+OtS+on9zk=;
+	b=hqex136JhiVNsROnywsqNl+LLJmV8Cc14F97aH/C1wtb9icl6M5PDeCm95yPWROmikub
+	 W4vaqIufLil5ZchTjAvUtckknETcz9TmxVtMXxHy4UqLAsiIXHtbLRYuzoDr7leE3zdgW
+	 fhEPJGsCBIEnoKULFUhVx0xjk3O8Xys+OU63p7u2JN2iJt81ZX5+hbYogY5KICYngsUNu
+	 x0uDUitXw4IHItde66BKte8WUmoA3YLh0jIlO4rfP0fn9fCCG4AM2TCWArQwvg6QRVLBs
+	 NAZPIggFu+Xn9YkBFqdViRsxxbojfzXmfeBgJmsbV/jLWOZpEbNQ05zFiDVnzy4TfFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="B8NJI9S/";
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H9uaiLSu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95AD606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:04:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E95AD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5748D606A319;
+	Tue, 20 Oct 2026 20:07:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B8NJI9S/
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1e477fe16so19383245e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:04:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792526694; x=1793131494; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xMZTvVnvR9FWtNNDaBKX050k2N0y/5tjvvOdwrkPXQ4=;
-        b=B8NJI9S/eyruMrE5iJnI28LVu3YcRWv5BuNg9PYiDjMh60lTmTouCskW5ErpvkyeCu
-         +HD0/e+/sIidcUIpKv+rBnUJsCKYSMYjoPvlCtjLS4/lDrbL6eeCkd9squSRciqznx6N
-         06rmR4ADVnDzBfkubL621eFSYn2cvgyG14RTG+KR10AG1RPR8UfW6gXITMdPthPMjkCs
-         0QIwM1Fy9grtqRUm43WwOhS5ObcVZBCUYGgr/IHXYAeD+NAAQ7k+HEO9d7fuEgHkBG5y
-         Oo2hdQ+4dNYZRfuS9hbKpzentIbfqoTdk797DdcpFMhK/6WDh/l+6Bhg/6LbeZsMvz0H
-         V3nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792526694; x=1793131494;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xMZTvVnvR9FWtNNDaBKX050k2N0y/5tjvvOdwrkPXQ4=;
-        b=KBy1J0ZFmC7iKOeqomwvunUR9V/tLzz5rWTQtCciYi1xfbXm82h1YKH4bJaFDjCJGy
-         n1oXIrwY1FGwzbrpH84ISDPyn09bwky2gdEEAA2ON8f6f/qLkiq7mCqY/IzlBSEyLsLj
-         Rs2rYNggvZ1R00yZgrVmct3zsPDuXRG6FQ8XMvXYK48vgI7cqPEpEAXJ3Czt/q57S0sl
-         vEhKR0C0raHmcQQfzMILOJODLp70u5XI+o0xWJFwpudREFUwu4T1OzL+cnmnXy2zYMTA
-         azxzwciJxIz6pCyJ5wfskWAgrB1bdB0LvCkfrGwf29v0MbLE/Krkl1TIDIz2LKu8I5Oj
-         DRLg==
-X-Forwarded-Encrypted: i=1; AKwUvByL84RDNx8I7WCAewTVAFV9eJPzXtoSAaADZl1mZRzA6vALhOCCjrKZ4jDgK4qZifrLK+uIZp7QXsCPi8Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJC1usJPhYj9m4hSjvZ4TUF39YYyhCyE4pPk2ehto9ZkwgB3EZ
-	BEgaeWct+NrXqg5wL21efM/rGse6QmL8SiB97RH3VAAJ5ZLDJSPDS5KB
-X-Gm-Gg: AYBFou0eK2MSIPvbUuiMgdVja+Hxa+3AUrAuj2NVytNwOzKqpSfe9dkuEVopMK0/KKU
-	AmWVSUf4GQXIa67ctnRpHYPa6A8n0fp1eDNK7CkluwqGdS0ZJUUp6/yg1DUg1grsjYjNUFJB/Sa
-	T2is4J19n9R+aQVYi3bISnFMedAtgEP4ntOKS8UqRm8JH/bJV/xj9qQWerYDaqDF+54l5Gz/QBT
-	rqsRjQ2ZiN+aMtXavN3FnFCJyA2z5LF+Y3dsMODRUh3bnETWikOHfLpNQcntoRU5tXbf+p5QHEP
-	bDuHmi5gcegEjfY3x9x4mKkHpMCB1IpAVVHuWthuvpKElBrp3P4F9dk+3iavbdF87ljdZNcM+qj
-	1xm9t+ezfnw9gaTIDp9clytP0JmcCboDDu0u0UMiwYhwz6ij0Ri2/oyRpwlxAMXaFzkjx42hfKZ
-	js/kd/Vt7n1pBj3yDS6kE2KdZarrtX9YJiEyi6x2LRT2hKv2tA7o7pY1WS0qE2DubVqDB4KFUiA
-	fBmmMNw49FNFLk=
-X-Received: by 2002:a05:600c:4e8a:b0:4a1:8961:78dd with SMTP id 5b1f17b1804b1-4a1d7616464mr263477385e9.27.1792526694104;
-        Tue, 20 Oct 2026 13:04:54 -0700 (PDT)
-Received: from linux.tail9b532d.ts.net ([194.9.6.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fb96bc7dsm22714845e9.15.2026.10.20.13.04.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:04:53 -0700 (PDT)
-From: Eduard Zateev <hackerowskiy@gmail.com>
-To: cem@kernel.org
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Eduard Zateev <hackerowskiy@gmail.com>,
-	syzbot+9d8e687768d0f38c1f09@syzkaller.appspotmail.com
-Subject: [PATCH] xfs: preserve buffer item with outstanding references
-Date: Tue, 20 Oct 2026 22:04:31 +0200
-Message-ID: <20261020200433.3298861-1-hackerowskiy@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H9uaiLSu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427201F000C9;
+	Tue, 20 Oct 2026 20:07:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792526856;
+	bh=E2BGEbDmLFbyDFnjpJoQXmoXVufyoU6uu+OtS+on9zk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H9uaiLSu6EN8ZMZq3/0JMSJPE29d2PjlBFMnCo4seWtCTz0f2ARFbSmnvnjmrbNbr
+	 r22afbzsogdoWoQFtLND62nuBZ5boJ5Kq94KNgfb63qfNSi3Un1J8MO2aChHSJsMjZ
+	 LyhNJL0TYaW/zhN/AcrBvXO/ahu6lOZpiOr3fAdXUD4sY2K4cYc/KAU8XklZJMtzu5
+	 3tL7eaI8RBuZ8pUC/Pvf2+LSADAZDP8oJNwyWTdoqk1Zww7hynaKaD1pvJOQ5utyzL
+	 2bP6TvWec1JC0u3mPd9wwV3QP3f3qqPGw5KGhj2x5vE5aPdAlN7qXa5mJQ/aAi5DNL
+	 QBbisxdPEIJ9w==
+Date: Tue, 20 Oct 2026 13:07:35 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v9 2/5] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+Message-ID: <atfKB-aHUdQAlmho@thelio>
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+ <20261003-dfustini-atl-sc-cbqri-dt-v9-2-52fd8be98dcf@kernel.org>
+ <49444078-0777-4318-9f8b-0d582d8a29ad@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,45 +88,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <49444078-0777-4318-9f8b-0d582d8a29ad@intel.com>
 
-The buffer log item can still be referenced by the CIL after the buffer's=0D
-synchronous write completes.  In this case xfs_buf_item_relse() is called=0D
-from xfs_buf_ioend() with bli_refcount non-zero.  Freeing the item leaves=0D
-a stale pointer in the CIL, which xlog_cil_committed() later dereferences.=
-=0D
-=0D
-Restore the reference-count check removed by commit d2fe5c4c8d25=0D
-("xfs: rearrange code in xfs_buf_item.c").  If references remain, keep=0D
-the log item attached to the buffer so that its final reference release=0D
-can perform cleanup.=0D
-=0D
-Build-tested: fs/xfs/xfs_buf_item.o (ARCH=3Darm64, W=3D1).=0D
-The syzbot report does not include a reproducer, so runtime testing was=0D
-not possible.=0D
-=0D
-Fixes: d2fe5c4c8d25 ("xfs: rearrange code in xfs_buf_item.c")=0D
-Reported-by: syzbot+9d8e687768d0f38c1f09@syzkaller.appspotmail.com=0D
-Closes: https://syzbot.org/bug?extid=3D9d8e687768d0f38c1f09=0D
-Assisted-by: LLM OpenAI Codex=0D
-=0D
----=0D
- fs/xfs/xfs_buf_item.c | 3 ++-=0D
- 1 file changed, 2 insertions(+), 1 deletion(-)=0D
-=0D
-diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c=0D
-index 1a4ef34af8d..80f0cf12825 100644=0D
---- a/fs/xfs/xfs_buf_item.c=0D
-+++ b/fs/xfs/xfs_buf_item.c=0D
-@@ -80,7 +80,8 @@ xfs_buf_item_relse(=0D
- 	trace_xfs_buf_item_relse(bp, _RET_IP_);=0D
- =0D
- 	ASSERT(!test_bit(XFS_LI_IN_AIL, &bip->bli_item.li_flags));=0D
--	ASSERT(atomic_read(&bip->bli_refcount) =3D=3D 0);=0D
-+	if (atomic_read(&bip->bli_refcount))=0D
-+		return;=0D
- =0D
- 	bp->b_log_item =3D NULL;=0D
- 	xfs_buf_rele(bp);=0D
-=0D
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>=0D
+On Tue, Oct 20, 2026 at 11:37:52AM -0700, Reinette Chatre wrote:
+> Hi Drew,
+
+Hi, thanks for your comments and Ack.
+
+> On 10/3/26 12:12 AM, Drew Fustini wrote:
+> 
+> ...
+> 
+> > diff --git a/arch/riscv/include/asm/resctrl.h b/arch/riscv/include/asm/resctrl.h
+> > new file mode 100644
+> > index 000000000000..867db663d958
+> > --- /dev/null
+> > +++ b/arch/riscv/include/asm/resctrl.h
+> 
+> ...
+> 
+> > +/**
+> > + * resctrl_arch_mon_ctx_alloc() - allocate per-monitor-event arch context
+> > + * @r:     resctrl resource being monitored
+> > + * @evtid: which monitor event needs context
+> > + *
+> > + * The CBQRI driver implements no monitoring events, so there is no per-event
+> > + * context to allocate and the stub returns NULL. fs/resctrl references it
+> > + * unconditionally before checking resctrl_arch_mon_capable().
+> 
+> The last sentence is unexpected. fs/resctrl only calls resctrl_arch_mon_ctx_alloc()
+> from mon_event_read(), __check_limbo() and mbm_update_one_event(), and none of these
+> can run on a system that does not support monitoring.
+
+Good point, I will remove that final sentence.
+
+> > + */
+> > +void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r, enum resctrl_event_id evtid);
+> > +
+> > +/**
+> 
+> ...
+> 
+> > diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
+> > new file mode 100644
+> > index 000000000000..f10a24761b25
+> > --- /dev/null
+> > +++ b/drivers/resctrl/cbqri_resctrl.c
+> 
+> ...
+> 
+> > +void resctrl_arch_reset_all_ctrls(struct rdt_resource *r)
+> > +{
+> > +	u32 num_closid = resctrl_arch_get_num_closid(r);
+> > +	struct rdt_ctrl_domain *d;
+> > +	enum resctrl_conf_type t;
+> > +	u32 default_ctrl;
+> > +	u32 i;
+> > +
+> > +	lockdep_assert_cpus_held();
+> > +
+> > +	if (!num_closid)
+> > +		return;
+> > +
+> > +	default_ctrl = resctrl_get_default_ctrl(r);
+> > +
+> > +	list_for_each_entry(d, &r->ctrl_domains, hdr.list) {
+> > +		for (i = 0; i < num_closid; i++) {
+> > +			for (t = 0; t < CDP_NUM_TYPES; t++) {
+> > +				int rerr;
+> > +
+> > +				rerr = resctrl_arch_update_one(r, d, i, t, default_ctrl);
+> > +				if (rerr)
+> > +					pr_err_ratelimited("rid=%d reset RCID %u type %u failed (%d)\n",
+> > +							   r->rid, i, t, rerr);
+> > +			}
+> > +		}
+> 
+> 
+> Above looks to be an open-code of cbqri_init_domain_ctrlval(). The loop
+> is unexpected here due to the duplicate writes impacting types not used by current
+> CDP mode that the comment within cbqri_init_domain_ctrlval() justifies.
+
+Thanks for pointing this out. I'll simplify it by calling
+cbqri_init_domain_ctrlval() for each domain.
+
+> 
+> > +	}
+> > +}
+> > +
+> 
+> ...
+> 
+> > +
+> > +static int cbqri_init_domain_ctrlval(struct rdt_resource *r, struct rdt_ctrl_domain *d)
+> > +{
+> > +	u32 num_closid = resctrl_arch_get_num_closid(r);
+> > +	enum resctrl_conf_type t;
+> > +	int err = 0;
+> > +	u32 i;
+> > +
+> > +	for (i = 0; i < num_closid; i++) {
+> > +		/*
+> > +		 * Seed both DATA and CODE staged slots so a later mount
+> 
+> nit: This seems to refer to d->staged_config[] that is only populated by resctrl fs.
+
+I'll change the wording to refer to the hardware configuration for each
+type and not the staged config.
+
+> 
+> > +		 * with -o cdp does not see stale CODE values.
+> > +		 * On non-AT controllers cbqri_cc_alloc_op() masks AT to 0
+> > +		 * so all three iterations land on the same hardware state.
+> > +		 * The redundant writes are harmless.
+> > +		 */
+> > +		for (t = 0; t < CDP_NUM_TYPES; t++) {
+> > +			err = resctrl_arch_update_one(r, d, i, t,
+> > +						      resctrl_get_default_ctrl(r));
+> > +			if (err)
+> > +				return err;
+> > +		}
+> > +	}
+> > +	return 0;
+> > +}
+> > +
+> 
+> ...
+> 
+> > +/*
+> > + * Attach a CPU to the picked capacity controller at each cache level whose
+> > + * cache the CPU shares. On failure, detach the CPU from everything attached
+> > + * so far: the cpuhp core does not run this state's offline teardown when
+> > + * its startup fails, so a partial attach would otherwise leak into the
+> > + * domain cpu_masks. Caller holds cbqri_domain_list_lock.
+> > + */
+> > +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
+> > +{
+> > +	static const u32 levels[] = { 2, 3 };
+> > +	struct cbqri_resctrl_res *hw_res;
+> > +	struct cbqri_controller *ctrl;
+> > +	struct rdt_ctrl_domain *d;
+> > +	struct list_head *pos;
+> > +	struct cacheinfo *ci;
+> > +	int i, rid;
+> > +
+> > +	lockdep_assert_held(&cbqri_domain_list_lock);
+> > +
+> > +	for (i = 0; i < ARRAY_SIZE(levels); i++) {
+> > +		ci = get_cpu_cacheinfo_level(cpu, levels[i]);
+> > +		if (!ci)
+> > +			continue;
+> > +
+> > +		rid = cbqri_cache_level_to_rid(levels[i]);
+> > +		hw_res = &cbqri_resctrl_resources[rid];
+> > +		if (!hw_res->nr_ctrls)
+> > +			continue;
+> > +
+> > +		ctrl = cbqri_resctrl_find_ctrl(hw_res, ci->id);
+> > +		if (!ctrl) {
+> > +			pr_warn_once("no L%u controller for cache id %u, CPU %u is not controlled at this level\n",
+> > +				     levels[i], ci->id, cpu);
+> > +			continue;
+> > +		}
+> > +
+> > +		d = cbqri_find_ctrl_domain(&hw_res->resctrl_res.ctrl_domains,
+> > +					   ci->id, &pos);
+> > +		if (d) {
+> > +			cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
+> > +			continue;
+> > +		}
+> > +
+> > +		d = cbqri_create_ctrl_domain(ctrl, &hw_res->resctrl_res, cpu,
+> > +					     ci->id, pos);
+> > +		if (IS_ERR(d)) {
+> > +			cbqri_detach_cpu_from_all_ctrls(cpu);
+> > +			return PTR_ERR(d);
+> > +		}
+> 
+> Should a failure to set up one domain prevent the CPU from coming online?
+> 
+> As I understand the driver already brings a CPU online without a domain (albeit
+> with a pr_warn_once()) at a level when its cache has no controller (the earlier
+> cbqri_resctrl_find_ctrl()), so I wonder if here (on domain creation failure) the
+> CPU could just be left without a domain at this level without failing the CPU
+> online entirely? It looks like cbqri_detach_cpu_from_all_ctrls() keeps the domains
+> consistent.
+
+Good question. It does seem like an additional cpu would be beneficial
+to a system, even if the qos functionality is not working as expected.
+I will change the driver to warn but not fail the cpu online.
+
+> 
+> In the end this is a driver design question, so up to you.
+> 
+> I just have a few nits and a check-in on the design but all the resctrl filesystem 
+> interactions look good to me.
+> 
+> The one open is the coordination with Tony's series that moves the
+> resctrl_arch_alloc_capable() and resctrl_arch_mon_capable() work into
+> resctrl filesystem. Thanks for making the switch to use alloc_capable, that will
+> simplify the accompanying RISC-V changes.
+
+I'll remove the hooks if Tony's series lands first.
+
+> Acked-by: Reinette Chatre <reinette.chatre@intel.com>
+
+Thanks for your attention on this series!
+
+Drew
