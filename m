@@ -1,64 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792531287;
-	b=w5SEq3csd5n+P1+T2sWXhfnzkM1ILlfaVi5w2NatG1PrnZJnHfvZanWmH0j0IZAg+DHw
-	 zIf8Yoo22GZjrL5jG8LCys9wdqM5lkEdOFQWAAsQlsdb5fSJ7HLmdhbARfFDPqurcrkPe
-	 /57p79tHwbRgAOCKZDn6XgW19PLbSg9sPWMzv/LVgqct2oNByCE/bMPtvfDGqDIVPrD/1
-	 Z/C8N296XXUSJQwo/Lh+HLAQ/JoVB+qG+ZmZutlKwry0y1RCQ9WFEDC//RtMXBLKI32Gm
-	 2CGNUmkh6zOX7JLHFlwlZ7/hnF2CptP/qjEpPOASuX1EjrDBzGOoTZJ90KurOrQPpag==
+	t=1792531320;
+	b=yAuI5R/ovsDBzR019y3z48IbDKjwvzHnhguZ1DsncwhvE678F5KEhi2UD0lO3xD5OzT3
+	 ZkdBFjD93kdKTIzpQ3wmBte2Qdh3XFEoIMP9TMf/h3TywlMbS9KnZZPVt34dG6LDif7zF
+	 PjB2lkxKLHfD7IvCjY/PeliY38vp+KbUcjOQiv+GW2BcgoLSoAEYyPkA/qy8AoFnUqNxm
+	 usAMoN1H1rLsdygPBMDJFRt2G1aTbmSLiOyt3+gR1Vz7YhigRaR2eP3NhAy8uagbUWc9J
+	 3fdr/WsM1aLTOno0mZTpFOCWpS2dVjYM4ZJQfb2RZDzLR87Jlk57E799huEY287qwKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792531287;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=kfPFN6p3dzzyhZDI8mEIySVXtBWL1/DWlxavyXB3fN4=;
-	b=nQiE99tu6LXzmkw+PtWoVCDQtDN6SUi+IKJ0sy5YtKl4ygPojRFsoHWXPllsb/qyq3Jn
-	 U8UIrTGqVLcLZQfUo5ZoYETqVjVXj+MWwqE969/A5EwqGGNi3boA/lofIGPpkyjGuRNkd
-	 1AD4Vv+EK97JJNMaS5hKq3AQfTg3ywhsVGvnNcY94MzT9oDJqr+MFF7H++ph/yybXIXoG
-	 k3ULxaGtCwtvP+64TOyxu0daDXd1D7OoPDTtnnzzT/sgUTbfVC+MfikVE7V/MC5TG3azE
-	 XAwshs7tnp50Gvr8FVIHK4Nd1bQXxb2S/0gLk0TTzbZszBHBRIDiN3IBRDIl/8tr4dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792531320;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=L4lW4QRgtgru/oJ0WAOdQrIQ+BhNIuEeNA/PzS3zOCU=;
+	b=QOlWEbU71aI200lJeOPqFhlY0yH7kjEr4BxSkEUb0lkeZWoJOUOoYGmKjbb+Lej/s9t5
+	 GDTjSi4uNgzx6qVHqDJdnFV7bmNek/1qMTxq9gvP7GsztKtwl59atM26HNv/A/7/gEk7U
+	 UNM4gDr/P5Pw4lS3Wp3ujb6edLpkpML5WKNGkXa27zO1/0y8bu5hMQscL1kHp/lmpansC
+	 bXaP1A+3OzR5VDRFeiS0sEdZoysPhfP9CIMOjQzWhfeyO/TRoHTKigyUYSZVMrbA/YnZO
+	 1Nr2b7M7V7X5b3nz0yjxzs11aUOCSyKHUUpZ3vBALPnY2UoEx8uflcsTG3clXdhuY9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=evLX7g7p;
-	arc=none smtp.remote-ip=95.215.58.30
-Received: from mta1.migadu.com (out-30.mta1.migadu.com [95.215.58.30])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=wshPDE74;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=WUNt9Kam;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39AF606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:21:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D39AF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86818606A31A;
+	Tue, 20 Oct 2026 21:21:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86818606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=evLX7g7p
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XQAWskVKn7U7xT+2zsWfc+G6Pi9IJ2IbzAXQD5zOloc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792531283; v=1; x=1793136083;
- b=evLX7g7pVPpCVP6R/sCEfJSjsP25ftzprt/nwJJYw5GG+vYMZ9ce6hIm6VDHJ5yaGkh2iuyZ
- 68JdfilehvAXJsdFoMf3PKq9ip5bW7+Cqdx4AukYcpWz13NTekhMxEC06CNpCXiAB3zkXBMF7AZ
- Sbu3kX0k+JVYsupwIzvUqJ7Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bdf38585b1173da1;
-	Tue, 20 Oct 2026 21:21:23 +0000
-X-Mizu-Trace-ID: bdf38585b1173da1
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 20 Oct 2026 14:21:22 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] mm/memcontrol: publish null pointer before dropping css
- reference
-Message-ID: <atfMngq7nyZpt4u-@linux.dev>
-References: <20261020190336.3754557-1-joshua.hahnjy@gmail.com>
- <20261020193531.181318-1-joshua.hahnjy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=wshPDE74;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=WUNt9Kam
+Date: Tue, 20 Oct 2026 23:21:55 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792531317;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L4lW4QRgtgru/oJ0WAOdQrIQ+BhNIuEeNA/PzS3zOCU=;
+	b=wshPDE74zOyIJblawM0ld+RVwBdmNL+hTu4IkXviGe8mBvFDgUQnY0ypd7Ox/aKJX5xV41
+	vjjahZR1uYWTTkrRst4uSI6Xc1mCi3LwKp9kEzqv3t4tgDwJPAxiZpRO4GxU8WE0ORmH4b
+	h0TR1bqKzkEffTFnJxV6qOn4bKKxbQYz0Ib15TZ7/qnGTsGvp3PojpUbzAqUMjlP+RTLeu
+	Wm/foE4AAXB7Ht1sG2dPRUYX5UuF8bQxLB4aTvexAOnk4x6e3QRHLTY+VBLrT1iFlFi35G
+	ctewgWr/VcXTFf4YgJdEK7oGfdOVtDU2XBcmtNWiv5asayyx95R3qwDxArfpMA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792531317;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L4lW4QRgtgru/oJ0WAOdQrIQ+BhNIuEeNA/PzS3zOCU=;
+	b=WUNt9KamSn2SD6IiwERG2R4ZVIcxL9GDX/e8f7Axht6534Bijne2Msy8+pClpbxb9VXoPQ
+	Wb3xzWg93+LAwdAQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Daniel Zahka <daniel.zahka@gmail.com>,
+	Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH net-next v2 1/4] eth: mpnic: count packets, bytes, and
+ drops per ring
+Message-ID: <20261020212155.47v0ot4g@linutronix.de>
+References: <20261012-mpnic-counters3-v2-0-8afba81c2d5a@gmail.com>
+ <20261012-mpnic-counters3-v2-1-8afba81c2d5a@gmail.com>
+ <20261016220930.i32JEcqe@linutronix.de>
+ <DM8U47F4MNK3.2V54CCQ9YTNBY@gmail.com>
+ <20261019215405.OCzrrKYw@linutronix.de>
+ <20261019190543.419e70bc@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,77 +89,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261020193531.181318-1-joshua.hahnjy@gmail.com>
+In-Reply-To: <20261019190543.419e70bc@kernel.org>
 
-On Tue, Oct 20, 2026 at 12:35:31PM -0700, Joshua Hahn wrote:
-> On Tue, 20 Oct 2026 12:03:38 -0700 Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
-> 
-
-[...]
-
+On 2026-10-19 19:05:43 [-0700], Jakub Kicinski wrote:
+> On Mon, 19 Oct 2026 23:54:05 +0200 Sebastian Andrzej Siewior wrote:
+> > On 2026-10-19 09:04:38 [-0400], Daniel Zahka wrote:
+> > > > Why do you have the two mpnic_base_stats and fold the stats into into
+> > > > it? My guess would be that on stop the counters are reset and you want
+> > > > to preserve the stats.
+> > > >  
+> > > 
+> > > Not sure I understand. I think you are asking about two things:
+> > > 
+> > > 1. Why have two mpnic_base_stats?
+> > > 
+> > > To avoid a separate heap allocation that can fail. Handling an
+> > > allocation failure in the ndo_stop path when doing the aggregation into
+> > > the base stats is tricky.  
 > > 
-> > So for drain_local_memcg_stock I agree, since FLUSHING_CACHED_CHARGE
-> > is set, so you can't have it concurrent with drain_all_stock since it
-> > will skip that stock. But refill_stock also calls drain_stock when
-> > it evicts the slot but the flag isn't set, so is_memcg_drain_needed
-> > can read it at the same time.
-> > 
-> > What do you think I should do? I think reordering makes the intent more
-> > obvious and maybe it's just me but I did find it a bit misleading at
-> > first that we were dropping the reference and then publishing. 
+> > Right. But looking at hinic3_get_stats64() for instance (I just grabbed
+> > a random one) it simply does query the stats for each queue, add up,
+> > return. It probably does not drop the queues on down, just reallocates
+> > them while changing the number of queues (and maybe MTU).
 > 
-> Oh and just for clarification, my page_counter_stock series actually
-> gets rid of this codepath and switches the order when moving it anyways.
+> I don't think pre-allocating stats for chips which supports thousands
+> of queues is reasonable.
 
-Yes but this patch has fixes and might get backported, so we need to be use it
-is fixing an issue which is real.
+I don't mean to pre-allocate stats. If device-down removes queues then
+the stats gone, so what. The queues could remain.
 
-Let's try to reason how the race can happen between is_memcg_drain_needed and
-drain_stock:
+> > > 2. Why split stats into base stats and per queue stats, and why reset
+> > > the per queue counts when the device transitions down?
+> > > 
+> > > This is the way the stats in netdev.yaml are exposed depending on the
+> > > 'scope' request attribute. My reading of the relevant kernel docs is
+> > > that the per queue counters are counting events for the current live
+> > > queue, so it makes sense to reset them and fold those counts into the
+> > > base stats when the interface is transitioned down.  
+> > 
+> > Is there any other driver doing this?
+> > There is ::get_sset_count() and so on for the per-queue stats.
+> 
+> You may be mixing up queue stats (netlink) with the old ethtool -S
+> kitchen sink / garbage dump.
 
-CPU 1						CPU 2
+The statistics is folded on device-down into a global counter. So on
+device-up the statistics is still available. At least that is my
+understanding. This means the per-queue stats are lost and global stats
+don't match the per queue stats anymore.
 
-drain_stock
-  WRITE_ONCE(stock->nr_pages[i], 0);		is_memcg_drain_needed
-  css_put(&old->css);
-  /* assume full grace period */
-  						  rcu_read_lock()
-  						  memcg = READ_ONCE(stock->cached[i]);
-  						  if(READ_ONCE(stock->nr_pages[i])
-  							mem_cgroup_is_descendant(memcg);
+> > If the interface goes down and frees all its queues, then the stats are
+> > gone, true. But preserving them at the price of two (down+up) forced RCU
+> > grace period, I don't know. It looks like a bit too much.
+> 
+> This is a modern driver, the down / up path is not taken when interface
+> is reconfigured. It's only taken when the interface is actually taken
+> down or bought up. Which virtually never happens for a datacenter NIC.
 
-  WRITE_ONCE(stock->cached[i], NULL);
+So if this never happens, it might not be needed to preserve this. That
+force-RCU might not be needed. This does happen on down and I would
+assume that the device is no longer processing packets.
 
+> I don't mean to dismiss your concerns, we agonized over this off-list
+> for a week, and don't love the resulting flow, either. But I strongly
+> prefer the RCU grace period that never really runs, but is easy to
+> reason about, to more advanced fixes which use memory barriers etc.
 
-Do you think there is possible race condition in above? I couldn't see.
+Right. If you think is all makes sense and is needed then why not. It
+just looks odd.
 
-However I ran this through AI and it has convinced me that on PREEMPT_RT, this
-is indeed racy access.
+> Anyway, I'll punt to Paolo for the final call but I think this is fine.
+> 
+> Acked-by: Jakub Kicinski <kuba@kernel.org>
 
-AI reasoning:
--------------
-
-How it breaks on PREEMPT_RT
-
-On RT, local_trylock() takes a per-CPU spinlock_t (an rtmutex). That is
-rcu_read_lock() plus migrate_disable(), but the task can still be preempted
-inside it.
-
-1. CPU A, refill_stock(X): there is no free slot, so it calls drain_stock(i) on
-   old. It sets nr_pages[i] = 0, then css_put(old) drops the last reference and
-   queues the release work on CPU A.
-2. The refill task is preempted (by a tick or a threaded IRQ) before it clears
-   cached[i]. CPU A's kworker runs css_release_work_fn(), which calls call_rcu(),
-   and grace period G starts. G will wait for the refill task, because that task is
-   inside an RCU reader.
-3. CPU B, drain_all_stock() → is_memcg_drain_needed(): B has already passed a
-   quiescent state for G. It enters rcu_read_lock() and loads cached[i] == old. G
-   does not wait for this reader, because it started after G did.
-4. B is preempted right after that load (RT readers can be preempted).
-5. A resumes. It clears cached[i], puts X in slot i with a non-zero nr_pages[i],
-   and unlocks. G ends, and old is freed.
-6. B resumes. It reads X's non-zero count and calls
-   mem_cgroup_is_descendant(old, root). That reads old->css.cgroup from freed
-   memory.
-
+Sebastian
