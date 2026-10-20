@@ -1,117 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.37.86.79
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792530063;
-	b=hW1O8mPPr6Yabskrp6lEeDyjLvXjc2CFd55wxyAIbIdlO6ZodSVK09hDVHD2OmNMe3t/
-	 aVr0EkQlAJvi0vg9BzQg7TvQvSq2rJyoXdv1nvCDR+KFUw5TAeYF3KlF/o7UTJtMQAO5O
-	 rHHRqyrS/kft7Y761n3eUFNkx9Wj4Q5gzt9tJ/FG8A63SEA8jSRtML8D6Q3h+jdVYWGJN
-	 VP7f+wEFVbrSe6d8aTfSw0xWl9SDcoa6sWbifDEsPu8bmaLbIIpIFVhkMxJzby3mtavqU
-	 MfxuiFcWzO9OzaiiCyg0n7iItERcwt35iLq0/pWGDtrbGm4ffgZSM2wacUrdkx/WGSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792530063;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IPAS-Result:IronPort-Data:IronPort-HdrOrdr:X-Talos-CUID:
-	 X-Talos-MUID:X-IronPort-Anti-Spam-Filtered:X-IronPort-AV:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Authenticated-User:X-Outbound-Client-TLS:
-	 X-Outbound-SMTP-Client:X-Outbound-Node;
-	bh=sStWA3eP+fg4gqdrzt9l/SH3csz8qYH2NP7P6WSTMOc=;
-	b=ZoGxQ1ZjeOQxiyrrTsyv9QZRBFYRA24bT2cX43J8KVEn7ZFWGZgmcWNgcPzYvNTLz20K
-	 J8Xq8lQJj/+P0nYuyjnb+Y+DSOB+vizBGdC+qE5VLZO6HJn0zscKQ128EV5NQOY6SFQZN
-	 xPS9ZH/6AF4wy7LCdoj1O5I4ZJ1R+WGMPgW4wnfWxNgWRHGzbgKOX5ny0p0at478QyVeI
-	 myfdlfQBZbEoehKn4+Z0wgJRjjqLT1/a5QjmyDkjl1Ym+CUWra197rPBjC+f3inhqAT5a
-	 G8OrBHGzdaG2XVUKmYMjJXXamSwOYXaNi7vGtA49LlfZhc88BP3pJhlOQoBk23DXoSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cisco.com;
-	spf=pass smtp.mailfrom=cisco.com;
-	dkim=pass header.d=cisco.com header.i=@cisco.com header.a=rsa-sha256 header.s=iport01 header.b=Z9HMaAQc;
-	arc=none smtp.remote-ip=173.37.86.79
-Received: from rcdn-iport-8.cisco.com (rcdn-iport-8.cisco.com [173.37.86.79])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.197
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792530060;
+	b=RxpPhxGnqmJG4sant1n1FdLQ+9gQICf/JgPNc3jx70f5Q9Rr9evvx438mkKLpChZRl7J
+	 huI2allrJ48n5h9MPVQjIBz8W3Gk39h+awg4+Fj8ptLDOUwS0lkU6qm2+WtMjrVzfn7hY
+	 Ckj6WNkZGCwHytKgqc8Jwjl+8X545PqoOT2ctYw9ehhxp3l5BC2L6Fikwq4jWmUO7aXdw
+	 5hWay1QSWapbsAbSJejtffsSLJowgWPptJs+mkvUjsKrz+4FeWFqqfRQqYhrpfu1zpK/l
+	 WmSKLMYeirjC1n00GcS/qq604J0rxQCC+P0dDHZBRP1gXUHMstXDVILR2pFpD5bfzVQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792530060;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=E3HO4v2ppYBHCxa7uFucK6ln/LBk9azH/BeZ/nONaC8=;
+	b=U4yiSGUS2vkmzTpdzcFH9I/WUUO3ymGXawJODzutIZy0MP8fTYuzgIjLl8cJJ5UwkG27
+	 FtK0rT8mGa3IaLcosDI+O9KTG2LIkLzEvCVdrV+tXrxSiBp0DjXLa2GO4W2mn4e6OT+Pu
+	 eGMZfSosw0fjMTcl5f6iQkUjvDDaXAqaF1JFxxr80JuKZ39KKLK6EaAcXPV6xiN6ErWfX
+	 1bjSRouyegjLbntVM/RVm+cKuocoejkcLlcE+Jst6old6PkZP7o1UWX4r0uDncTClCui6
+	 xvq1Jsn4fzz+AkU+KiObofpLbEhJXex9xi9sl91WyDvUGQS4JTyW5oPFBGahJ8MHXHw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Cnu1oGDL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.197
+Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809A5606A325;
-	Tue, 20 Oct 2026 21:01:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 809A5606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cisco.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC77A606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:00:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC77A606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cisco.com header.i=@cisco.com header.a=rsa-sha256 header.s=iport01 header.b=Z9HMaAQc
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Cnu1oGDL
+Received: by mail-oi2-f5.google.com with SMTP id 5614622812f47-5413fa881a9so27801b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:00:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792530059; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N2FZdOSFbkc4ZbcMS17fI1aPunf7T5oSf9gdCEUhPz3fprYU0ojjkFdqAeBmPZnEJ7
+         sAvIqds97pyVLhQLC6ZJaEu6dqf0RTiIaGSH+AGwaQKzBEtzrbWh0c4cO9gF1+ue67me
+         Orki6RR4TvE+jebwonasW/JjjMbcXp5jV9hVcp2AYZH3Z5fcpPVyfk2z/k0L8NTpcNrz
+         0PLLyB0K1CNieRKnjdO+l6Q+uoTo5C/g9KX3LU1Ky2lG0xbyv2TBh/RO+UJtA5CR+k1+
+         5hCFfbu12WVfkMBYoDLoGuuBrh9AHA5fsodMu6SaGxbqTICmbRsAYLrKqXv2zSrGVnlw
+         Kcaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=E3HO4v2ppYBHCxa7uFucK6ln/LBk9azH/BeZ/nONaC8=;
+        fh=j9k1N60BuGthH1Mt8LyqHcnUG2aRJlgvg4PL1AshKgI=;
+        b=Ny262bBHaVS6x2OXRc5aZjhNO5RT1kGTq8b+zTwJjhs9z6Ns1sSjahrQl9uoITt5v/
+         E4ARjMqCQRYdIvpZU6sS9YYYLAuAjhIS8ZyRj6+YuPG3k/fUdUgsyHAXW8UvQgIceDM3
+         ndl2sFVJT6wR0d8hqplifvBwdLCYfz6COUYk1169cDPnKG9p9FSX1Cik2fQJ+0VExNo+
+         qXpas6G/RPKI40MJI+nxx9W313c+geviU14D1c/W9NM3yBA/h+Atta3ZceJ9G+GiLnx9
+         fL/3PTtzisjmIOqU4jRBEDD+IMQVqeHzNrZ/FhnwTdnPnkgVaLKxUmu7D3yg/ZymuajS
+         ZWkQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=cisco.com; i=@cisco.com; l=1738; q=dns/txt;
-  s=iport01; t=1792530062; x=1793739662;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=sStWA3eP+fg4gqdrzt9l/SH3csz8qYH2NP7P6WSTMOc=;
-  b=Z9HMaAQc3nS5bn4rIeZjH3+f+GMsW3FbmOKRicfuMQCeDX/cGPek66k6
-   DfmAefKmzI/jhGi1+eOu1iAD7LObq6iwIe3/+rJfwJ0x+79NjBiowcdJT
-   KLGP9aosFBS2kobbFMJiN52MHZ47DiGazd+TY2SLk15XEUdQVn6NqiLKn
-   s+wskkt1iPjeVFKzUdhbv+nYI2QgGIxhCWh2jjYRRoFdyZNEhcjGfFEq4
-   3BC+GeLWqMowchHeWKBoTBqQdDzSnapDHoiEQyiKXz7Pa7+GO3efE/qs7
-   CsvyyiUWHRDmqz0lXKLDOKOKwiRclnrCNIWczKv8ip/kwFcvegNnQZl8b
-   A==;
-X-CSE-ConnectionGUID: dNcoE7x4SYaZ4JIq6ErBFw==
-X-CSE-MsgGUID: 8HTA1mCuSNONMj+iDvOkpQ==
-X-IPAS-Result: =?us-ascii?q?A0A/AgCY1ddq/5D/Ja1aglmCV4FVQxkwlCqgQIF+DwEBA?=
- =?us-ascii?q?Q9RBAEBhQWOFwImNAkOAQIEAwIDAQEBAQEBAQEBAQEBCgEBBQEBAQIBBwWBD?=
- =?us-ascii?q?hOGXJAVNgFGMIEggwKCdQO1TIIsgQHeSIFoAQsUAYE4hUCII22FBScVBoFJR?=
- =?us-ascii?q?IEVg2mBUoM+hXgEgiKBDIJdk2hIgR4DWSwBVRMNCgsHBYFoAzUSKhVuMh2BI?=
- =?us-ascii?q?z4XgQcbBgWBHYEggRkjGTZrgQldgSspYAEhgQiCAgKCUYIAAgFJQQ4HRVMJF?=
- =?us-ascii?q?g9DEkcmIggSCQETGi4LgRo4PAkoQRUMZwkDGgVEAiIIAg0JB4EBFBgNSBEsN?=
- =?us-ascii?q?xUZBD5uB5FcgweBD4I/pg6hD4QooVwaM4QEpmoBmQiCWaZqgWg8gVkzGggbF?=
- =?us-ascii?q?TuCZ1MZD985JzI9AgcCBw4DC5NmAQE?=
-IronPort-Data: A9a23:KNwgWa2VWxm73o17GfbD5TVwkn2cJEfYwER7XKvMYLTBsI5bpzIEx
- 2VMUDrXO/yIZTH3f9lzbYSxpxwFuZXTyIVgHgpr3Hw8FHgiRegpqji6wuYcGwvIc6UvmWo+t
- 512huHodZ5yEzmE4Ej9atANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq8wIDqtYAbeORXUXX5
- rsen+WFYAX7gmYtYzpEg06+gEoHUMra6WtwUmMWPZinjHeG/1EJAZQWI72GLneQauF8Au6gS
- u/f+6qy92Xf8g1FIovNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ajs7XAMEhhXJ/0F1lqTzeJ
- OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXcG7lyX7n3XQL/pGAGc9OqBH6rpMMGh8q
- d45MW4gdDqtmLfjqF67YrEEasULNsLnOsYb/3pn1zycValgSpHYSKKM7thdtNsyrpkRRrCFO
- IxDNGcpNUicC/FMEg9/5JYWn+6ymnj7ej5wo1OOrq1x6G/WpOB0+OW3YYuNJYzTH625mG7Ih
- l7vpmHSHyo8E/q6y3mE3myLhff2yHaTtIU6UefQGuRRqF+exGY7DBwQSEv9oPO8zEW5Xrp3L
- kUO5iso67A/6EGxVdT7dxqiqXWAs1gXXN84O+Q24QKK0q3JyxyUCmgNUnhKb9lOnM0zSDon2
- V+It8nkCTxmrPueTnf13q2Zsz6oIgAPIGMCbDNCRgwAi/HnrJw1hRvJZs1+C6PzhdrwcRn0w
- jaXvG09iq8VgMojyaq25xbEjiiqq5yPSRQ6ji3TX2S4/kZib5WkT5Kn5EKd7vtaKoudCF6bs
- xA5d9O29usCC9SJ0SeKWuhIRO7v7PeeOzqaillqd3U8ywmQF7eYVdg4yFlDyI1Ba67opReBj
- JfvhD5s
-IronPort-HdrOrdr: A9a23:AMgzA6DTDrvP/bvlHely55DYdb4zR+YMi2TDGXocdfUzSL37qy
- nAppomPHPP4gr5O0tQ+uxoWpPgfZq0z/ccirX5Vo3MYOCJggaVBbAnxZf+wjHmBi31/vNQ2O
- NdaaRkYeeAaGSS9fyb3CCIV/A93dKA7Kekwc3az3trUEVWTpsI1XYcNu5eeXcGIjWvwvECZf
- 2h2vY=
-X-Talos-CUID: 9a23:6eJz+WxuvCPAVWfR/NVyBgUYPMsiXyLNkEzhKn3kK0dwFpCPY3GPrfY=
-X-Talos-MUID: 9a23:3V4gVws0lLV/96j5T82n1BFeHZ5tyLmVLmcrtJdFuuWaEi9oAmLI
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="6.27,168,1787011200"; 
-   d="scan'208";a="529907812"
-Received: from rcdn-l-core-07.cisco.com ([173.37.255.144])
-  by rcdn-iport-8.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 20 Oct 2026 21:00:56 +0000
-Received: from fedora.lan?044cisco.com (unknown [10.188.123.254])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kartilak@cisco.com)
-	by rcdn-l-core-07.cisco.com (Postfix) with ESMTPSA id 94E0C18000231;
-	Tue, 20 Oct 2026 21:00:54 +0000 (GMT)
-From: Karan Tilak Kumar <kartilak@cisco.com>
-To: sebaddel@cisco.com
-Cc: arulponn@cisco.com,
-	djhawar@cisco.com,
-	gcboffa@cisco.com,
-	mkai2@cisco.com,
-	satishkh@cisco.com,
-	aeasi@cisco.com,
-	jejb@linux.ibm.com,
-	martin.petersen@oracle.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jmeneghi@redhat.com,
-	revers@redhat.com,
-	adakopou@redhat.com,
-	lduncan@suse.com,
-	"Karan Tilak Kumar (kartilak)" <kartilak@cisco.com>
-Subject: [PATCH] scsi: fnic: Update module authors
-Date: Tue, 20 Oct 2026 14:00:43 -0700
-Message-ID: <20261020210043.5279-1-kartilak@cisco.com>
-X-Mailer: git-send-email 2.47.1
+        d=gmail.com; s=20251104; t=1792530059; x=1793134859; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E3HO4v2ppYBHCxa7uFucK6ln/LBk9azH/BeZ/nONaC8=;
+        b=Cnu1oGDLo7LAUHnjnLp+M9CEh6hDRYzv2QGVj3pIytf1lXkACHjzPeoHCw8JKNGI6T
+         P2b8MIv/5o61z2vodC6IhJHZQ8VjJqjP/5C8/H7uY5TLV8CY3INHsWo0Dd6PxcBssU5a
+         NGPnwQNpiesd4lTubKFfxh80+nJj0QK8RuGR8gW7llYlQmXwzhpLcjbkWVUK/W5mxo9G
+         de8Fr0srtEs3Jy2Gn2fb65FDgxi2c4a5zR5Jn8sm4wxTYbNG+yzdeeTm9z/1/uu+eIx7
+         B29eqO1L44ryeh7YFGJ6ygqjC5P/bDYlcU8V9Ctjs03Yk2XRDP6L6FD7fwtntdvmf5dc
+         VXYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792530059; x=1793134859;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E3HO4v2ppYBHCxa7uFucK6ln/LBk9azH/BeZ/nONaC8=;
+        b=piGVGFxYTRq42dv9TA8DhwD0K25ub7EYWRi4rha01TH1B9ql8p+QY5+bKv0gYG8ApV
+         VsqY03GJVhBHlzIhRIRS+MqgJ020+hkPRLRNQUIQCJCKNHqTDNMSP787hDJhChDnUWeQ
+         UlmPKKiIuyXaZI43mXUMhCom6/0FMNuH+lkWg9sM92KdtxdjrAXFfWHAgUjGC8AhghEZ
+         kuO98/f6czTRQINe6CXnZz38NREbZghW+Y6c4OR5Oy+AuhSQEFlA8B7Tbm8FdFVvdoCJ
+         5sXPHI968734WrgMbSr2chyvoAxQE7IW7kUfSzbkvHmNE0shVhA8PtNLxGCtXLgyjIQZ
+         f2eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw8y582Y63zbW0JcRaQZvDHIpya1hAQBGCWWrLS9MVqdIEEGPF4Mic/pCcVej4oQI6zXxEVnjXVa/ek96Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKK3RqhPG9M7IjSlD3FE575PuRBrV+j+09O51nmicVh8xvLcxQL
+	hWNdRuq4nYGd2CN6m7tIfX7Yw8hhpK4XgaOp2dg7d9GCgZx09Q90fiBzMcfkpbGUbdhzam9qMAz
+	vHadCpScZ6f7paVqbIpimdmBrE5Jm5gzfY4TwqWoBHw==
+X-Gm-Gg: AYBFou1dfpTC1KGOFRyY47n6Zj4G4fRroSXFsGgYE/by8ru3SnWSGX085anSwk1g5kd
+	QrtTcVO+hbFssBKiNM/crMsWrjjP5EBAcWnxSBtTGUo9GODcXF7aSiglidvhqr8W7uf+eCLLZDP
+	VMQ07r8WPtjGe8SI4TnL/gRrIDWA90smcU1DOtYES8j3x9FNRvkjT5mXqK1lJFnYW0rzSEG14rs
+	JScMT7+YbYugCpda1rhjLSVMXN0c3CZR0S6onTiJb8MGXrEAVP+JOV8ArHdlOYf/tAEAYa2htnZ
+	4IuIEVXEyCWi30tZ/6dx2wdM8PKLV3+TNms5Eadm+7IaDqYDCK55An/9xx5UxzaJIevaCHAFppv
+	EtNAkVdfs9XSHNIvqjPpmt9Yf
+X-Received: by 2002:a05:6808:1b0a:b0:4b2:8ee8:8a38 with SMTP id
+ 5614622812f47-553400a0bb3mr51174b6e.0.1792530058614; Tue, 20 Oct 2026
+ 14:00:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,58 +103,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authenticated-User: kartilak@cisco.com
-X-Outbound-Client-TLS: ANONYMOUS;unknown [10.188.123.254];TLSv1.3;TLS_AES_256_GCM_SHA384;256
-X-Outbound-SMTP-Client: 10.188.123.254, [10.188.123.254]
-X-Outbound-Node: rcdn-l-core-07.cisco.com
+References: <20261019165103.5990-1-dennylin0707@gmail.com> <9bde49a2e7794e4fb6bc3ae104eef87e@realtek.com>
+ <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev> <4f48c50cab1145fd9dbd6df6d424c877@realtek.com>
+ <CAGEkeHevidTtTNj-qfy6kE_O0wRvqT=F=sG+Hy83BOkRjCUqeA@mail.gmail.com> <CANQ=N_C3+gpQ3O=SXYpRCGTh_MC1y4TEfnxF90SWgUVF_wYPUA@mail.gmail.com>
+In-Reply-To: <CANQ=N_C3+gpQ3O=SXYpRCGTh_MC1y4TEfnxF90SWgUVF_wYPUA@mail.gmail.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Tue, 20 Oct 2026 14:00:47 -0700
+X-Gm-Features: AclHuK9nvE03u4OiDejZFQMMS-WdqhkSgofSrM6bnKNHfObbE9P6OAasARHTMnE
+Message-ID: <CAGEkeHdT1-WwJnF1wTkrrRQRzrEYESOoDeAYE+fiV0gROG+6sw@mail.gmail.com>
+Subject: Re: [PATCH] wifi: rtw88: allow key removal when the CAM table is full
+To: Shagor Khan <reza1234khan1234@gmail.com>
+Cc: Ping-Ke Shih <pkshih@realtek.com>, Luka Gejak <luka.gejak@linux.dev>, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: "Karan Tilak Kumar (kartilak)" <kartilak@cisco.com>
+> I can help in testing if you want. Since i do have rtw88 hardware available with me.
 
-Update the FNIC module author list and bump the driver version
-to 1.9.0.2.
+Thanks, that would help.
 
-Reviewed-by: Sesidhar Baddela <sebaddel@cisco.com>
-Reviewed-by: Arulprabhu Ponnusamy <arulponn@cisco.com>
-Reviewed-by: Gian Carlo Boffa <gcboffa@cisco.com>
-Reviewed-by: Arun Easi <aeasi@cisco.com>
-Signed-off-by: Karan Tilak Kumar <kartilak@cisco.com>
----
- drivers/scsi/fnic/fnic.h      | 2 +-
- drivers/scsi/fnic/fnic_main.c | 7 +++++--
- 2 files changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/scsi/fnic/fnic.h b/drivers/scsi/fnic/fnic.h
-index 3ba1592940ca..bc63cd7cc495 100644
---- a/drivers/scsi/fnic/fnic.h
-+++ b/drivers/scsi/fnic/fnic.h
-@@ -31,7 +31,7 @@
- 
- #define DRV_NAME		"fnic"
- #define DRV_DESCRIPTION		"Cisco FCoE HBA Driver"
--#define DRV_VERSION		"1.9.0.1"
-+#define DRV_VERSION             "1.9.0.2"
- #define PFX			DRV_NAME ": "
- #define DFX                     DRV_NAME "%d: "
- 
-diff --git a/drivers/scsi/fnic/fnic_main.c b/drivers/scsi/fnic/fnic_main.c
-index f13c381a66d7..a19c0b0d812d 100644
---- a/drivers/scsi/fnic/fnic_main.c
-+++ b/drivers/scsi/fnic/fnic_main.c
-@@ -56,8 +56,11 @@ static const struct pci_device_id fnic_id_table[] = {
- };
- 
- MODULE_DESCRIPTION(DRV_DESCRIPTION);
--MODULE_AUTHOR("Abhijeet Joglekar <abjoglek@cisco.com>, "
--	      "Joseph R. Eykholt <jeykholt@cisco.com>");
-+MODULE_AUTHOR("Karan Tilak Kumar <kartilak@cisco.com>");
-+MODULE_AUTHOR("Arun Easi <aeasi@cisco.com>");
-+MODULE_AUTHOR("Gian Carlo Boffa <gcboffa@cisco.com>");
-+MODULE_AUTHOR("Arulprabhu Ponnusamy <arulponn@cisco.com>");
-+MODULE_AUTHOR("Sesidhar Baddela <sebaddel@cisco.com>");
- MODULE_LICENSE("GPL v2");
- MODULE_VERSION(DRV_VERSION);
- MODULE_DEVICE_TABLE(pci, fnic_id_table);
--- 
-2.47.1
-
+Best regards,
+Hungyu
