@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792495103;
-	b=LzgzMukDKHyrojRXhcGyRYIAoQrbN3dGCyGgirqw7a+rr7qAdRHa1dUBWY0JWvN2XWmI
-	 Qe46U8RJsb8yWkPW56Qkd4cSJdStH3/1sds9ug3RptIePHjygTS52vnxRgX8ZuMWkI161
-	 SlIG6De/Ii09CpvDk6TnfmmEN168g/hKdhRVJEk7aRe8iHu0slGD875a5H4/NW+x9I+Dj
-	 xmffjCXVlX3EuqaeD5MrHTjmj/HMFQcCJGqLIsIHrCXaEqXy8v9aMC6bErGxXzLMTOxo8
-	 nuBy6ZVn0y9iM4uqraI6S6i1BRP3NG5ZQSeL1+HWB0Fgsc2dLThX3s4hzH9jBcc67RQ==
+	t=1792495117;
+	b=W7LWv3xg2wfhwjpzna9BchhX1jydO5djTUf9lVFetG+fhc4+js1InaxLyBxXgSAXMKU8
+	 cITCzr6V+8KqE+x+WibVI5+NZNPPc59PELnyFZzSZWR9xI141W9kpmLTrflyc5UyALjYw
+	 xVyABDEzam3MfRfRAGR18bff9zlu3PU1L+x781s7v4oX9ntLZ7ow01AZ7lxR/ndDJsgII
+	 wk50algCqtk3CY6xYuHGryRcOvrSXMkiVGObA1xxosw96XcOL7/rV8UR8HJOkiWCMrR9G
+	 KGmvh/uZD5BD/JshddwKS5EK5wB672gjVirw4/Lot7e827XAxz/lG+VX0A/NAd5SK9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792495103;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=R5IQJPZPaZ722ekjdLCDgWz4ITlLwSuM6xAfRDg9ni0=;
-	b=RiivS6V98KEjkzlgKmv/fRY8Tl1A6hF1vnd5Od5q5xi2P77r+zE6lNARoYSNHNGN68+o
-	 aUzsAIYiuM+QE1YG4+eNBv5MPSHpapQu5tdM7iabC18owuvtfXf9NEdurrvWDRtB2cPy1
-	 Or+4JkS1ltrTErZbN1sKKBQg2rEWe6w0iqRkJjE9eOUkyMfNGFA+jglWlKncJhpyIR/TI
-	 PZf81qHpHSDGcrJrnLoXaUuF2oMVk7uUunWwYtfUleLXxJd1+q2QCzp3YINiPfGMC0Ev1
-	 UPIEvUJ+ea3/UpI9qiPR+AoyanbeaVppklrGqNATnGAClEr0XaE67Sy5l84uS/vtSvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792495117;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Yw7XTfTbHqXsstkS3PFcEfyss0ptRfGQdiDTiB2sp34=;
+	b=XlS00pgbxBWEoUyj0KYbN+Q6RfAxwclkOkFYZHI5MGvwKcdG7Bkf60wcdhL5S1Rrz1tR
+	 yT6MnK0RZYRUx/f7LAD4LiK3MeUmpr/2EjzCfLN3fa+RZWkE/N/5fbLECUj+uClQcGuz3
+	 GG5p25a8/QxF4GOsSeL+bNviIuF57RnW0n+BEGAy0aiK9/J0yECx7xUS+r2Wr8wxU1xx6
+	 KhABj8km77KRWAUlBf1HAV9U++S9qy7d5OxBa3bLrJTebxUUImVxUNavnNox7avEGoCyt
+	 mdApcxRNihMrfaCsbo+ds66QZfvov16vsaYqzxYPdbeZbsTjVI5ibFnF7OhUBWmYe2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dk4k5rJ2;
-	arc=none smtp.remote-ip=95.215.58.80
-Received: from mta1.migadu.com (out-80.mta1.migadu.com [95.215.58.80])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfN5WZbR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F361606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:18:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F361606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7AB606A31C;
+	Tue, 20 Oct 2026 11:18:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dk4k5rJ2
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R5IQJPZPaZ722ekjdLCDgWz4ITlLwSuM6xAfRDg9ni0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792495099; v=1; x=1793099899;
- b=dk4k5rJ2uBJQaK0Ebxj+ZRKGeR7+0Dzboqmb1PAWhUgNDcQrvmS/Q6DIv+x0/jUNhCjPP81I
- hvVMRm2bPmIP9yN8+OhNAY907Bgu2YUyLLpGSbukh7MLi0HivgX9e9PTJ2XIn9ooDJwHKZLE6V/
- OOJPryfOPQ5r4u51Xx+w3T60=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 380707f91af7ed82;
-	Tue, 20 Oct 2026 11:18:19 +0000
-X-Mizu-Trace-ID: 380707f91af7ed82
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <21053bda-1be0-45c3-80a1-fe012886ab0f@linux.dev>
-Date: Tue, 20 Oct 2026 19:18:09 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfN5WZbR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D531F000C4;
+	Tue, 20 Oct 2026 11:18:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792495116;
+	bh=Yw7XTfTbHqXsstkS3PFcEfyss0ptRfGQdiDTiB2sp34=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RfN5WZbRQyDb67PXuDsLgqUm0MSX3ck+69MapXqVVLWJqcFqCCfJgy71nJmRIyxrh
+	 iJ33nkno9u/fYreDp/0cB9GjvfaV2ZhbKkTrl9Fxbq3rfX60JX0eGSnoUP7+pZAcpo
+	 Xbg8jWocl0jvK783KYQgK8JXPaKtuUxT/Ab4hxoFUgDy96mHOWO7N9/QSMFmXoYzMf
+	 WyxPuGCfc+dGqNQ8vV/E8pyxCfgaZtXdYAVe0AGvGrn71rBGeF5scLKdNHjOYx0ku3
+	 ZBhduqKzAXKA7ZreMVWQjCL1K9gZFVt2NJY7l3qQ2hKAOLtrycjqtXb+Ld92+I3DHT
+	 upZWCQ5gHXlLg==
+Message-ID: <sashiko-outbox-178890@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] irqchip/riscv-aplic: fix asynchronous probing
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vladimir Kondratiev" <vladimir.kondratiev@mobileye.com>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261020-aplic-async-probe-v4-1-68bc35e0ece1@mobileye.com>
+References: <20261020-aplic-async-probe-v4-1-68bc35e0ece1@mobileye.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 11:18:36 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,52 +58,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] tls: check the right open record in
- TLS_TX_MAX_PAYLOAD_LEN
-To: Sabrina Dubroca <sd@queasysnail.net>,
- Rishikesh Jethwani <rjethwani@purestorage.com>
-Cc: netdev@vger.kernel.org, john.fastabend@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- horms@kernel.org, wilfred.mallawa@wdc.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261019222626.745408-1-rjethwani@purestorage.com>
- <atdJUP6Jb0jODBYE@krikkit>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <atdJUP6Jb0jODBYE@krikkit>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Sabrina,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] irqchip/riscv-aplic: unsynchronized global state in aplic_probe() =
+async path
+--
 
-Thanks for your reminder. I totally forgot that thread.
+commit 6da3e6c23904896b41105f01bdd39cd511ef2b88
+Author: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
 
-I will send a v3 and update the commit message to address Paolo's comment.
+irqchip/riscv-aplic: fix asynchronous probing
 
+This commit replaces the __ro_after_init boolean aplic_syscore_registered
+flag with an atomic_t and uses atomic_cmpxchg() in aplic_syscore_init().
+This ensures syscore operations are registered only once during concurrent
+asynchronous probing and avoids writing to read-only memory when probing is
+deferred past init.
 
+> diff --git a/drivers/irqchip/irq-riscv-aplic-main.c b/drivers/irqchip/irq=
+-riscv-aplic-main.c
+> index d9afb6ae98cf5..54e1d5602f15a 100644
+> --- a/drivers/irqchip/irq-riscv-aplic-main.c
+> +++ b/drivers/irqchip/irq-riscv-aplic-main.c
+> @@ -116,14 +116,12 @@ static struct syscore aplic_syscore =3D {
+>  	.ops =3D &aplic_syscore_ops,
+>  };
+> =20
+> -static bool aplic_syscore_registered __ro_after_init;
+> +static atomic_t aplic_syscore_registered =3D ATOMIC_INIT(0);
+> =20
+>  static void aplic_syscore_init(void)
+>  {
+> -	if (!aplic_syscore_registered) {
+> +	if (!atomic_cmpxchg(&aplic_syscore_registered, 0, 1))
+>  		register_syscore(&aplic_syscore);
+> -		aplic_syscore_registered =3D true;
+> -	}
+>  }
 
-On 10/20/26 6:58 PM, Sabrina Dubroca wrote:
-> 2026-10-19, 16:26:25 -0600, Rishikesh Jethwani wrote:
->> do_tls_setsockopt_tx_payload_len() refuses to change the record size
->> limit while a record is open, because both TX paths size the record they
->> are filling against tx_max_payload_len. It looks for the open record
->> through tls_sw_ctx_tx(), a plain cast of priv_ctx_tx to
->> struct tls_sw_context_tx.
+[Severity: High]
+Does making aplic_syscore_registered atomic fully protect the driver during
+concurrent asynchronous probing?
 
+Before aplic_probe() reaches aplic_syscore_init(), it invokes either
+aplic_msi_setup() or aplic_direct_setup(), both of which call
+aplic_setup_priv() -> aplic_pm_add().
 
-I guess sashiko will complain the same issue:
+In drivers/irqchip/irq-riscv-aplic-main.c, aplic_pm_add() inserts into the
+driver-global aplics list without holding a lock:
 
-https://lore.kernel.org/netdev/20260901031931.1636980-1-kuba@kernel.org/
+	priv->saved_hw_regs.srcs =3D srcs;
+	list_add(&priv->head, &aplics);
 
+Furthermore, when aplic_msi_setup() returns -EPROBE_DEFER because the MSI
+parent domain is not ready (or fails on another error path), devres cleanup
+runs aplic_pm_remove(), which deletes from the same global aplics list
+without any lock:
 
-> There was already a patch for this
-> https://lore.kernel.org/all/20260901072927.128688-1-jiayuan.chen@linux.dev/
-> with extra locking to address sashiko comments.
->
-> Jiayuan, were you going to send a v3 to address Paolo's comment? Or
-> maybe resend your v2, since it got marked as "changes requested" in
-> patchwork?
+	list_del(&priv->head);
+	if (dev->pm_domain && dev->of_node)
+		dev_pm_genpd_remove_notifier(dev);
 
+Similarly, in drivers/irqchip/irq-riscv-aplic-direct.c, aplic_direct_setup()
+performs an unsynchronized check-then-set on the global
+aplic_direct_parent_irq variable:
 
+	if (!aplic_direct_parent_irq && domain) {
+		aplic_direct_parent_irq =3D irq_create_mapping(domain, RV_IRQ_EXT);
+		if (aplic_direct_parent_irq) {
+			irq_set_chained_handler(aplic_direct_parent_irq,
+						aplic_direct_handle_irq);
 
+			/*
+			 * Setup CPUHP notifier to enable parent
+			 * interrupt on all CPUs
+			 */
+			cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
+					  "irqchip/riscv/aplic:starting",
+					  aplic_direct_starting_cpu,
+					  aplic_direct_dying_cpu);
+		}
+	}
+
+When multiple APLIC instances are probed asynchronously at the same time,
+can concurrent calls to aplic_pm_add(), aplic_pm_remove(), and
+aplic_direct_setup() corrupt the aplics list or register duplicate CPU
+hotplug states?
+
+Should the driver-global state in these paths be serialized with a lock, or
+should aplic_driver set probe_type to PROBE_FORCE_SYNCHRONOUS (while still
+dropping __ro_after_init from aplic_syscore_registered to support deferred
+probing after init)?
+
+> =20
+>  static int aplic_pm_notifier(struct notifier_block *nb, unsigned long ac=
+tion, void *data)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-aplic-asyn=
+c-probe-v4-1-68bc35e0ece1@mobileye.com?part=3D1
