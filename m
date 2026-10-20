@@ -1,54 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.62.254.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792498146;
-	b=d/FZW3GJrCCAX+QzefdeGi1l3fEhoaWX9Rdw+8qhj4IMYdrqZJDvxkf64e7HC9/EAo3z
-	 4//70pmERjfHRAqDwBNtSKsh10nMZyJX3iS/NBJfQQ0+yziK2c/NSMQvv2+Xwo2kwtMgw
-	 IDNbVEgoXx5q3cvMa2Yv0oXcUjqTgyQemKiwUjQjuhYmm9h2X+xQ4/9S39pcqsXRsTgag
-	 SzNwy0L2WCLC0CIO2IgLbwehqt1JZdhXuM4wRYeSzQNiW1eBcPB7bwH/KeVNWWOJVP0i7
-	 0G8/2BsutoDTeVl972/Wuq5ARruyUowaPqo+rXOL+n37bF9BWvyIWQS5T/3alaZM6NA==
+	t=1792498228;
+	b=xW9ibVEFBtuOrU/d6IWFtXbLAo17iSSw9u1bDj7FmV9je3Nmuf+J9legDh8ZtOMnpf39
+	 Vt9iqCUB6Y/gYMbTBn8VaDU5Uw72hWrb8QFeOKtXYc4/Sgd1mFD6z2gLU3mEDQS68WekI
+	 7ZpOYLw6P5RZ+UtdKYu4gWMlglk5TeCyT4Nr1lTfWflhfq6UlTgOMamzJWvAvQzP/5was
+	 q1383z23XIoZdS6vsvRs/UFZouMvw9FJ7q+3wisD7LxPbRFtJVJ9lpvDFVIMXsgwAVFU6
+	 XgUS8Mh2IFIH28oZifXO6hhopr360GvmmplspNWeiS1Jos2qx+2l6Z5DmfPU07zKftA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792498146;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=2oAYJPU4rS/B67nm2olDeHtopzXuD57QG29t513sHn8=;
-	b=dF/rgpWLXE73kOsdYiEMGA7r4rbc8eiOhIC36S5iwLV8nRn5iiCMoyjUArkxNfa4fhCh
-	 hUOKZd6LgqlUIvfEvdLpMDICSKzCJYR/CQ9XAQVsSG/cSspzMfW6MjhkTpO5CaVPPil2m
-	 3fNp1jwVcRlwtjVdInauUcSqPsp5Tg4lGW1QlZoVGUr51w/bCqy11EtBTfpkkemXk5EbV
-	 aXG7/VMfDojtMti6BlbGn+C7ucqJA+gqelqWezcpqk2sOXflOuAAFZZwl/1RxAgF1++tu
-	 8yY7s6GZuagdtZBG3ejt931bRWhLwFaRBe8y+8XHUqNVS5ClmSZJshagKD5zrp5CJMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792498228;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=sTpXpqxyTpYyZqI41kPo7NL0tb03kdS+CKkIuEPUMdk=;
+	b=oNhs1J7xoK8098yXTb//RWZEw7z/EVNDxg0Bayouu8qKCNvX6w2DO0K/JZajqfaDyJAr
+	 IkT32HNsNqkDK9TY5Y965Ow1ALnF3w6MhcqLBCmoNqCSJ1vyBPTxsp9ROb497B2T7tg6A
+	 pxflyt8+8GP0+Citto0bRJTRnsjiw8zVe5U7c+pHKxVn8gm46ud9E1xCfR0GtcmkAMLKf
+	 hB8L1EwqQm3gEwKeyf+eTT3Aby2UblurYLDRpjMdtCzv0rFJfAH70jaqRgXsuJ+y0m9Np
+	 xlbMUkl7A62O7JjbcT7cZBzgqxV+nPScDiIM8JqgjPNPIYPTn2I2OWlkagERBrahRiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M+7uNKlk;
-	arc=none smtp.remote-ip=95.215.58.177
-Received: from mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ilvokhin.com;
+	spf=pass smtp.mailfrom=ilvokhin.com;
+	dkim=pass header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=SgiIw18d;
+	arc=none smtp.remote-ip=178.62.254.231
+Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC124606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:08:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC124606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD56606A31C;
+	Tue, 20 Oct 2026 12:10:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DD56606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M+7uNKlk
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NHvbn3ue2nkgb328laFkEqNkxDgGzunCyN1UR3R7YQU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792498137; v=1; x=1793102937;
- b=M+7uNKlkKoX7RObvP2s1ErlPC3SXJKgoI5mhc+dVsQucAfnZ7p0hFStgvI4PQIG0zg3ZaXUJ
- mnf2X2kVupOb9V5zUa0nZC46vyb/7n54WVky3aeQSTtu0UMUQLejzv/ERU35Fl4klH53WoIYL/C
- zkOYUg95KIvHCfrKDWXCYd60=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cac925beb0231a6d;
-	Tue, 20 Oct 2026 12:08:57 +0000
-X-Mizu-Trace-ID: cac925beb0231a6d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b75feca5-6025-44ff-8b82-b1da48cc5ced@linux.dev>
-Date: Tue, 20 Oct 2026 17:38:44 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=SgiIw18d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
+	s=mail; t=1792498220;
+	bh=sTpXpqxyTpYyZqI41kPo7NL0tb03kdS+CKkIuEPUMdk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SgiIw18dq/op+6gC0UqgBHtudL9pBSHF8UhNiPppS3zCUm2LOYtWIzk3JRo/IRsg5
+	 WJbn+DJKfBDGk3J6UCMAuD8MCPhtPGCvRI3KlVMzsLd8AXfhx5/rSnLY6ilyD6H7B7
+	 KQ6PwTPSkB8twGLwBJ62J/PmGkgbZbsOecZPy1M4=
+Received: from shell.ilvokhin.com (shell.ilvokhin.com [138.68.190.75])
+	(Authenticated sender: d@ilvokhin.com)
+	by mail.ilvokhin.com (Postfix) with ESMTPSA id 0D214FB8D8;
+	Tue, 20 Oct 2026 12:10:20 +0000 (UTC)
+Date: Tue, 20 Oct 2026 12:10:18 +0000
+From: Dmitry Ilvokhin <d@ilvokhin.com>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: linux-mips@vger.kernel.org, manuel.lauss@gmail.com,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Thierry Reding <treding@nvidia.com>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] MIPS: Alchemy: Register interrupt chips with the IRQ core
+Message-ID: <atdaKuYVOlnpna2o@shell.ilvokhin.com>
+References: <20261016181602.2152632-1-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,130 +65,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] BCM4355 Wi-Fi fails with Intel IOMMU on
- 7.3.0-2-t2-noble
-To: Peter Kiddier <peter@kiddier.org>, linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev, iommu@lists.linux.dev,
- arend.vanspriel@broadcom.com, regressions@lists.linux.dev, jgg@nvidia.com,
- kevin.tian@intel.com, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, dwmw2@infradead.org, baolu.lu@linux.intel.com,
- linux-kernel@vger.kernel.org
-References: <CA+3E589O46nj=c1Y+Rwk_nPZZKEUjFvMfWaAFmQ2-7De9iUxFw@mail.gmail.com>
- <CA+3E58-2N-uVNsmwvOGDKZvtnDQ1DF=GzFbTyRLuN8FpAd4qdg@mail.gmail.com>
-Content-Language: en-US
-From: Aditya Garg <aditya.garg@linux.dev>
-In-Reply-To: <CA+3E58-2N-uVNsmwvOGDKZvtnDQ1DF=GzFbTyRLuN8FpAd4qdg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016181602.2152632-1-f.fainelli@gmail.com>
 
-
-
-On 20/10/26 5:19 pm, Peter Kiddier wrote:
-> Adding the IOMMU maintainers and linux-kernel.
+On Fri, Oct 16, 2026 at 11:15:59AM -0700, Florian Fainelli wrote:
+> Alchemy initializes its interrupt chips through the set-type callbacks,
+> which use irq_set_chip_handler_name_locked() to assign the chip and flow
+> handler. This bypasses irq_set_chip() and its descriptor registration.
 > 
-> The original report and test results are below for context.
+> Since /proc/interrupts switched to iterating the IRQ descriptor maple tree,
+> the statically allocated Alchemy descriptors are no longer found. On an
+> MTX-1, the file contains only the CPU header and ERR counter even though
+> the timer, serial, Ethernet and PCI wireless interrupts work.
 > 
-> I haven't tested a vanilla upstream kernel, and may have limited time
-> for further testing, but wanted to share the findings in case they're
-> useful.
+> Register each IC0/IC1 interrupt chip through irq_set_chip() before setting
+> the initial trigger type. Do the same for the Au1300 GPIC. Keep the locked
+> set-type callbacks for later trigger changes.
 > 
-> Thank you.
+> Fixes: 171cc0d9eed1 ("genirq/proc: Speed up /proc/interrupts iteration")
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/info.html
-
-Similar issue is present in older non T2 Macs, so definitely not a T2 patches issue. Also, T2 patches do not touch IOMMU or brcmfmac
-
-> 
-> 
-> On Tue, 20 Oct 2026 at 22:32, Peter Kiddier <peter@kiddier.org> wrote:
->>
->> Hello,
->>
->> I am reporting a Wi-Fi regression on a 2018 Apple MacBook Air with a
->> T2 chip, running Linux Mint Zena based on Ubuntu 24.04.
->>
->> The Broadcom BCM4355 Wi-Fi device works with kernel 7.2.11-3-t2-noble
->> but fails with 7.3.0-2-t2-noble. Disabling the Intel IOMMU using
->> intel_iommu=off restores Wi-Fi on 7.3.0-2.
->>
->> Hardware:
->> - Apple MacBook Air 2018 (MacBookAir8,1)
->> - Wi-Fi: Broadcom BCM4355 802.11ac Wireless LAN SoC
->> - PCI ID: 14e4:43dc (subsystem 106b:0843)
->> - Driver: brcmfmac
->> - Interface: wlp2s0
->>
->> Test results:
->>
->> - 7.2.11-3-t2-noble, default kernel command line: Wi-Fi works.
->> - 7.3.0-2-t2-noble, default kernel command line: Wi-Fi fails.
->> - 7.3.0-2-t2-noble with intel_iommu=off: Wi-Fi works.
->> - Reloading brcmfmac on the failing configuration does not restore Wi-Fi.
->>
->> On the failing 7.3.0-2 boot, the driver detects the device, loads its
->> firmware and creates wlp2s0:
->>
->> brcmfmac 0000:02:00.0: enabling device (0000 -> 0002)
->> brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac4355c1-pcie for
->> chip BCM4355/12
->> brcmfmac: brcmf_c_process_txcap_blob: TxCap blob found, loading
->> brcmfmac: brcmf_c_preinit_dcmds: Firmware: BCM4355/12 wl0: Jul  8 2023
->> 17:49:51 version 9.30.503.0.32.5.87 FWID 01-e74b9cb0
->> brcmfmac 0000:02:00.0 wlp2s0: renamed from wlan0
->>
->> However, Wi-Fi subsequently stops responding. The kernel log reports
->> errors including:
->>
->> brcmf_msgbuf_query_dcmd: Timeout on response for query command
->> brcmf_cfg80211_scan: scan error (-5)
->> brcmf_run_escan: error (-5)
->> brcmf_msgbuf_tx_ioctl: Failed to reserve space in commonring
->> brcmf_cfg80211_get_channel: chanspec failed (-5)
->>
->> There is also an error creating the P2P interface:
->>
->> brcmf_cfg80211_add_iface: add iface p2p-dev-wlp2s0 type 10 failed: err=-52
->>
->> I tried reloading the driver using:
->>
->> sudo modprobe -r brcmfmac_wcc
->> sudo modprobe -r brcmfmac
->> sudo modprobe brcmfmac
->>
->> The driver and firmware loaded again, but Wi-Fi remained unusable.
->>
->> The firmware files are present under /lib/firmware/brcm/, and the
->> firmware version reported by the driver is the same on the working and
->> failing kernels.
->>
->> The brcmfmac module metadata differs between the kernels:
->>
->> Working kernel 7.2.11-3-t2-noble:
->> srcversion: 3B6176FDB720DDE8E7C596B
->>
->> Failing kernel 7.3.0-2-t2-noble:
->> srcversion: 3DCA38D52402541701276CF
->>
->> I did not find obvious PCIe AER or fatal errors in the failing boot's
->> kernel log.
->>
->> It has been suggested testing intel_iommu=off after reloading
->> brcmfmac. The driver reload did not help, but booting with
->> intel_iommu=off restored Wi-Fi.
->>
->> This strongly suggests an interaction between Intel IOMMU handling and
->> the BCM4355/brcmfmac driver in the 7.3.0-2-t2-noble kernel.
->>
->> I have not tested a vanilla upstream kernel, so I cannot yet confirm
->> whether this reproduces outside the T2 kernel packages. Unfortunately,
->> I have limited time available for further testing, so I may not be
->> able to investigate additional requests promptly. I wanted to report
->> the reproducible behaviour and the intel_iommu=off workaround in case
->> it helps identify the regression.
->>
->> Could you advise on further diagnostics, or whether this should be
->> investigated as an IOMMU or brcmfmac regression?
->>
->> Thank you.
-
+Reviewed-by: Dmitry Ilvokhin <d@ilvokhin.com>
