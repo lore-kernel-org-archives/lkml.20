@@ -1,55 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483246;
-	b=PVap/0/RPvth7MlHOEB8iJOdcWi8SazRz3tcWnwrmtO/9ho3ekO8vg7zCMTYOUZJ9t+Y
-	 vnJOA/HvVx+OyEDNn6GZCv/cfynB3KSH0QX7VnUlo5DTKCrIxIjtFHd8jNG3u/8IAnu7M
-	 5M4RZKPdMm6jwE1rOKmO7G7Q2Hi7WF5w9pMaYuSk3i+jfyhy2/DkpnLCManOcParm15y0
-	 fiaihRwlJ7Ar1jpN5aPisADJwIHlrM/bxh1zj5GUm4yleCGWjuoHzmLs1PnNqkL8XFCHf
-	 iZiv4pHJHeey1pq8SbBWdzDSotE/moPmPYc31uKv0Ilf0qRZo/G3d+cQ+7ss9eLaWow==
+	t=1792483271;
+	b=nLfMMroxt4TSm881Ea1gBfsKHwKKHcq8gb6sYsLDe3nR38qyZy1E/0IqZBDCt9Z6YUFt
+	 54mmNNFuJ3647BmT4eZnB8ztR4W2uZpwNSWfhtexx2u9mMEWt/09Mz1wg1dn36SBNbQ/s
+	 Q+3EiIZOssJi887IUgkmlLEOciuWbqI7+qS5gSaBpb5TqKoiAfvwUQNg1SLrFXJ2hs+LW
+	 JPNUmaz6NRQmoJjftLSGl4lGLSpNF+yr6juMm3v0Ip1zu2UUmS4au8AWwrfyU88kbqLw0
+	 ixDlLK8Msi1tSDSBfGR/sRHA93MRiKbaLV9TJJo+zV68ln/Tf+DowU6RV9L40FwajqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483246;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=l0kO4ETdfhR55VCNdjrAI5aXKIK9Djys/9OXJzeZMYY=;
-	b=gYZ9PPWAvtDuiKUInJfs7C+pJoLZBk3hmMGvt5JJLhkpin7+vXUqG4Z67gyU3Jffvil7
-	 86ADIfEywqeLriIQ5LMWch+Coa0aq0+LIevbuXpekeCUH9ovOozFy+lwjkW9Fb6a9Ul+2
-	 eCYcKXfNH1S2BSI0AMZf2LN/gKt4jKWvlhsX4WffsETNp/wXOe0QlGgrDz88NUSo2Pg2O
-	 I7H2pbTpkCoxNDzasCzGbYO+dte39iFOWlIvWk6wJhYquLxf74Fv0idinVQV0/pIS1Zfh
-	 0TgrOxxYQ1cg4Ao+6A1zKSNV2NujZ7qw7fUAnrlRqEP5MZOdy7+/H+nCIpU6pH6EmVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483271;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=BEQrrvHcs9KsE+y3M9FCOBwSyvA+LmAr++le07P3KGA=;
+	b=BWdIQKc8FM7Bnnyhp1fjsrL9oVTvmhgiXWtfNqIB0NjXgsLm/9pNEmOy7hciDnHUBA8c
+	 /p7tHegG3Z2R/SvW4LIa40SZXaNhrhzpqwNFrUQ0a2CuRTFqw8M9i/mR3ZhgzhV+wiUVW
+	 kg2PPwJusLbEulQSIeDpLdnjUGjwPQBP6374Ilu5RtKOikhcxhRIM7ZLi0i7dDaIzGg3A
+	 qdmuwoua0+LVEJdP33QThIKYuDH+PodlC763WXfYNusLNKGG2mLNv5DwR9N+NII3sbDzT
+	 3LZDwj8ocSdi2JNUKBy8bNRzb9rNRTG4f/WSMsQB9vONnpgNGDVVKJyfGV/AemQVsbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Si/sdo+P";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=G0FNFyMi;
+	arc=none smtp.remote-ip=209.85.128.69
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2113D606A31D;
-	Tue, 20 Oct 2026 08:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F07606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:01:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0F07606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Si/sdo+P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CFE01F000C4;
-	Tue, 20 Oct 2026 08:00:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792483246;
-	bh=l0kO4ETdfhR55VCNdjrAI5aXKIK9Djys/9OXJzeZMYY=;
-	h=From:To:Cc:Subject:Date;
-	b=Si/sdo+PgPNuzVm/YjolRPCbuEFkDJfz+KJLgkRW4n33E6IshUOD3ln3yfN0PoXIH
-	 K1omi3AM16MTgu06Dgg4simGghVeUWDqrtE4I3kG578KDtmMx4C+1lLMFwXHHEa/2I
-	 wtN4mS0JwXVgOGAHaAv7AlPc5sdNT6BynR3701qSo1+uo0G4PWSk4t7pFpD7jjg3kc
-	 KGb+l1cr0HDyKuApJVWnvOqSL18wGzSuhCmKExRWCbXcwAuYJbhRjpvalevqaxk1dW
-	 O7BdjokD0avegCiFomfj0aMXCR5i43ZKTfwtS05nVwX+ULL7ln3N+cXZShLxKPFxha
-	 ST5B/9fqIA+3w==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] rtc: class: Make the time32 hctosys limit configurable
-Date: Tue, 20 Oct 2026 09:59:21 +0200
-Message-ID: <20261020080026.2461578-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=G0FNFyMi
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a16dc2323cso25335405e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:01:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792483269; x=1793088069; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BEQrrvHcs9KsE+y3M9FCOBwSyvA+LmAr++le07P3KGA=;
+        b=G0FNFyMiBwG8fIKhdqwpWI+lIW9XVQYOB9AszpbsbOVlC3TwlGrSSsSHR12ebxLCvi
+         fa+d0Wd3qbPFCXi7atS8tMqZbchmqesOfoygMaK8aRDqV7ClQ/1yy4kdU2T6hTeNl2U0
+         tsBdFqexi4L0v6mh+FtTJGAef7rwFKJDQ9FBT0b1kgx1wM/WO2adoilRzoXlf7cY0dkN
+         BI5O5NdJjwkP84dSMIDTUDoXyIt/VwOrrtIMgTcJ94S0+mk0omzHErgZqDrBHGQAdeDO
+         +Du+G67ZMRaeHlTHUutwdqkE2K5ejSkSMDRV0CsW7SR3rLKxtW4obpm9clc7DHPUzLyG
+         yxRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792483269; x=1793088069;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BEQrrvHcs9KsE+y3M9FCOBwSyvA+LmAr++le07P3KGA=;
+        b=YazGdN/JcamTY7XCCKVdu7b4kzOB5QcxsjWK/Ia6wM7WCrch0ktkWeMHpsoSUZjHUO
+         DWxqC+dBFz2iCDdtW0k/1K0+tECiRdF9Jagj7KLTHhEL9E1Dw4LL77SbKwKgvbzPKhXv
+         7F426gUvwu9XFMSDwc9FfkhjIKV6EDP/nJlnX30TNhPDurcVpv/dn4MJ0l4LMNqisU7l
+         xOugCHA9d+YHmU3QFrjZL2yB3+0LvQzpKQlcA5JMDeGYBL/YiJMBp4tDOMDmDvUDGmBS
+         33pwHHuDl4KfZ9BGt3ifZaumKEsRouBSC1FG93ZQ13JHOiU6iW2YcSWHamUmXNvKCdoM
+         nUuA==
+X-Forwarded-Encrypted: i=1; AKwUvByJNKHfSuzGgbVnhIpjX45DxLgS/Wu0nY9ohPM1eSbFPGYHsaGcqyX0TEtZsSxWhmoKDYm311WhHYt1ZwA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKl9mkTnyatMTsok3iNn/8cLeCluyx9HXWCB8cNK2baYZT+ZGWV
+	VveqfGide+NIfKCQv+7tjG5t/C+P87iEAjjf0+U5/7e7L1uPDG0tq2h3qcbWs+3e0+gvCY2Brwz
+	+AF9/a4r6f0FYk+b3ig==
+X-Received: from wmbid21.prod.google.com ([2002:a05:600c:a195:b0:4a1:b4c0:10d8])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:81c9:b0:4a1:ac66:6ac6 with SMTP id 5b1f17b1804b1-4a1d7612994mr191651635e9.26.1792483267890;
+ Tue, 20 Oct 2026 01:01:07 -0700 (PDT)
+Date: Tue, 20 Oct 2026 08:01:06 +0000
+In-Reply-To: <20261019-b4-gpu_info_intobytes-v4-1-0bc04df46549@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,111 +78,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com> <20261019-b4-gpu_info_intobytes-v4-1-0bc04df46549@collabora.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020080106.1742330-1-aliceryhl@google.com>
+Subject: Re: [PATCH v4 1/2] rust/Makefile: add zerocopy and zerocopy_derive
+From: Alice Ryhl <aliceryhl@google.com>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, 
+	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+On Mon, Oct 19, 2026 at 04:25:59PM -0700, Deborah Brouwer wrote:
+> Make the zerocopy and zerocopy_derive crates available for use when
+> building the bindings and uapi crates and their tests.
+> 
+> This will be used by the Tyr driver that needs the traits IntoBytes and
+> Immutable to safely copy the struct byte-for-byte to userspace.
+> 
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> ---
+>  rust/Makefile | 24 ++++++++++++++++++------
+>  1 file changed, 18 insertions(+), 6 deletions(-)
 
-The RTC_HCTOSYS feature faces an impossible dilemma on 32-bit systems:
+`scripts/generate_rust_analyzer.py` also needs to pass `zerocopy` and
+`zerocopy_derive` in the `deps` lists of `bindings` and `uapi` (similar
+to commit 3c847e17225a ("rust: add `pin-init` as a dependency to
+`bindings` and `uapi`")).
 
- a) systemd requires RTC_HCTOSYS=y with the correct timestamp
-    for its intended operation
+Without that update, `make rust-analyzer` generates a `rust-project.json`
+where `bindings` and `uapi` only depend on `core`, `ffi`, and `pin_init`,
+so `rust-analyzer` fails to resolve `zerocopy_derive::most_traits` in
+`uapi` and does not see the derived traits on `drm_panthor_gpu_info` in
+`tyr`.
 
- b) broken RTC hardware can produce random future timestamps
-    beyond 2038 at boot time
+With `scripts/generate_rust_analyzer.py` updated as well, a subject
+prefix like `rust: add zerocopy and zerocopy_derive to bindings and uapi`
+might fit better too.
 
- c) time32 userspace immediately hangs if the time is set to a
-    date beyond 2038 and requires timestamps to be clamped
+> diff --git a/rust/Makefile b/rust/Makefile
+> index da1a7409d984..f59815fac293 100644
+> --- a/rust/Makefile
+> +++ b/rust/Makefile
+> @@ -361,12 +361,18 @@ rusttestlib-kernel: $(src)/kernel/lib.rs rusttestlib-bindings rusttestlib-uapi \
+>      $(obj)/bindings.o rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
+>  	+$(call if_changed,rustc_test_library)
+>  
+> -rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_init
+> -rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
+> +rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_init \
+> +	--extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
+> +	--extern zerocopy_derive=$(objtree)/$(obj)/test/$(libzerocopy_derive_name)
+> +rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init \
+> +	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
+>  	+$(call if_changed,rustc_test_library)
 
- d) time64 userspace is intended to survive the actual 2038
-    date and requires timestamps to not be clamped
+Nit: non-recipe continuation lines in `rust/Makefile` use 4 spaces for
+indentation rather than tabs (same for `rusttestlib-uapi`,
+`$(obj)/bindings.o`, and `$(obj)/uapi.o` below).
 
-Commit b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow
-time_t") introduced this limit to protect time32 userspace from future
-RTC dates that can break boot and address constraints a), b) and c),
-but broke d) in the process by limiting RTC_HCTOSYS to the time32 range
-and falling back to RTC_HCTOSYS=n behavior when the RTC time overflows
-that.
-
-Make the behavior configurable with a new RTC_HCTOSYS_TIME32_LIMIT
-option that chooses between breaking c) or d). On systems with
-COMPAT_32BIT_TIME=n, only RTC_HCTOSYS_TIME32_LIMIT=n is allowed since
-userspace can be assumed to be fully built for time64. 64-bit kernels
-running 32-bit userland never had the cutoff and continue to not offer
-the option.
-
-Warn on rejection with the RTC date and option name so users can
-identify the cause and find the setting.
-
-[arnd: reword Kconfig text and patch description,
-       add COMPAT_32BIT_TIME dependency]
-Fixes: b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow time_t")
-Link: https://lore.kernel.org/all/20220908115337.1604277-1-arnd@kernel.org/
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-----
-I ended up rewriting most of the text but kept Karl's ownership
-as he did the original patch.
----
- drivers/rtc/Kconfig | 21 +++++++++++++++++++++
- drivers/rtc/class.c |  8 +++++---
- 2 files changed, 26 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 8d9f4ef92f5a..9b6b0c31eb8e 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -30,6 +30,27 @@ config RTC_HCTOSYS
- 	  the value read from a specified RTC device. This is useful to avoid
- 	  unnecessary fsck runs at boot time, and to network better.
- 
-+config RTC_HCTOSYS_TIME32_LIMIT
-+	bool "Reject RTC dates after the 2038 cutoff"
-+	depends on RTC_HCTOSYS && COMPAT_32BIT_TIME && !64BIT
-+	default y
-+	help
-+	  Reject RTC dates after 03:14:07 UTC on 19 January 2038 when
-+	  initializing the system clock in order to work around broken
-+	  RTC implementations that produce nondeterministic timestamps
-+	  without a working backup battery.
-+
-+	  A rejected date leaves system time unchanged, normally near
-+	  the Unix epoch, and the RTC's hctosys sysfs attribute reads
-+	  0. Userspace must supply the time if no other source has
-+	  initialized it.
-+
-+	  Say Y here if the kernel may have to run old time32 userspace on
-+	  hardware that can produce unpredictable RTC timestamps.  If the
-+	  kernel is intended to only run time64 compatible userspace and
-+	  continue working past 2038, you must pick N here in order to
-+	  have a working RTC_HCTOSYS functionality.
-+
- config RTC_HCTOSYS_DEVICE
- 	string "RTC used to set the system time"
- 	depends on RTC_HCTOSYS
-diff --git a/drivers/rtc/class.c b/drivers/rtc/class.c
-index 01ba04028f1f..18ea141ab8c2 100644
---- a/drivers/rtc/class.c
-+++ b/drivers/rtc/class.c
-@@ -72,12 +72,14 @@ static void rtc_hctosys(struct rtc_device *rtc)
- 
- 	tv64.tv_sec = rtc_tm_to_time64(&tm);
- 
--#if BITS_PER_LONG == 32
--	if (tv64.tv_sec > INT_MAX) {
-+	if (IS_ENABLED(CONFIG_RTC_HCTOSYS_TIME32_LIMIT) &&
-+	    tv64.tv_sec > INT_MAX) {
-+		dev_warn(rtc->dev.parent,
-+			 "hctosys: rejecting %ptR UTC due to CONFIG_RTC_HCTOSYS_TIME32_LIMIT=y\n",
-+			 &tm);
- 		err = -ERANGE;
- 		goto err_read;
- 	}
--#endif
- 
- 	err = do_settimeofday64(&tv64);
- 
--- 
-2.53.0
-
+Alice
