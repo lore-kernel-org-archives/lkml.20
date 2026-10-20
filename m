@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492924;
-	b=V6T6MpXyWFTh3EzZMl9X/zfJVoEa0fUED70F0DPobLDT96jDnGVQ+EZFg3xqfP9OyrC+
-	 FGYaIUCM+53huvIZcfA5SE8yWioO9GZEef2++vt1AGfNthxSdpaRwLIjkp0WsomxyoILm
-	 p4AOdFUGL0TcWO44GGdvRh+4e+roPFoBHwbpNJ44o06PhEdCVi8jm6WHXBNTDRaZWxoik
-	 2SA9clMGhGeWFsfRDL7Uv31NGIiOoLY/QecGWdZkjWCsBwd8iN71xxVN+3iP48Z4jmF49
-	 bumYxRsURdvfzB0Cpo7Nv8WDPvairL0y/5On8S+RJs4Si+B0Hbtg2yJiECmTdnwqThw==
+	t=1792492950;
+	b=biSAGVg+Afk1znNyRDah0WPKQAG2ahv23h+v4I7B6lKDlZf2Fr+rNpK9P/ADu0UB2Evk
+	 XDPbtGDAEJxYjekUMk7VlHYxehuEy/a2ihxaq1bh3vkdiQz/fuCEOAY32nZ9dlqQMY6QW
+	 r2o+3y0r8g3AxRm4ggYD7nRJwS5QUvEt6ubXLz8kR/Quvw6UtzxlIWnnIkRUrCVKLJjhL
+	 0AfjEpEoRBI2/TDuydaTj8QuaVBwFjkMSYtMVdcgfYbypPvSGvJNkhfr3f/jDIssDcHiT
+	 OslzAqiEbrNC2YZAyhQD0ZdDwfgrCyrwhjm9XEhF8qxAOg7ZgiROT39B0rC7ZnZN4Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492924;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=HOfrP9Gwhe+jGo5BWEDgZkkf4alGpvk7OGOLWLYgIaA=;
-	b=nVJFrgZTeDqLMd402G1lpDcCCeKcpKcHWYDbYug5Lo85XsDAnO9dbMpZYCSP5hyXQohM
-	 Avz01R6EkuqGvDvlEMWxn4dOpcb2E5FoAvwCrYEytUYUfinFX7F1GKx6w7msh7HdVEXCK
-	 hwlMpsBXZaNsIpWNryXY2iPA8G/Ckfl5Lwx22kiqmrXi5NZ1L8uEUYj54QFP0/FCrHr8X
-	 +k1uf4hhCGXbl8OyhnsYfUgSHRdYmwP+zxW4wwNKUBs7RBknghiCVJdXvUcIU4mBqLLL1
-	 Msi2nk8S5jzl81iJc3PgSVIybOiWq/MXb7UEWmx4sJGWs5h3sw6JkS9FT1URcRVJS1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492950;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=FhY/buZq8qZcY3rN3OPgKMgzFsab5qOuy5WLXWX8or8=;
+	b=CjGQg4JXUDvcQ4K9cLl+jrCVSAum/qkktxlrjFPf3DLMXbYHt4qWAqX2TfWQiQwNdq5o
+	 i+9+HUK9RebiUDk9xrd2j4rX3CIjfDeGzfPbB66fO5q4EuuKBmS3DPm3cH4ebDntPKkRs
+	 ke+xNKwq61H3KAaHhphBi3gz1uNb9FEdEyazyhq55L9r2o5eSCNDgyMD1K0LR9uSJ55ak
+	 phbfmP/oJ0kYgu241NQAl4J68Nh8RbiEWhGoZAPSE8SVAmxBekb2oeiAP9fcqPnFV/Dzi
+	 zZUQcrhb+xlG9turP1FG6+HoGOMNHm0hl3MiehEzir3MWIxHpUKUuYUcUKHkzdgmh7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=R0X9Nmpp;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40861606A31A;
-	Tue, 20 Oct 2026 10:42:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40861606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=AxH+hKLI;
+	arc=none smtp.remote-ip=185.70.43.166
+Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20E3606A31B;
+	Tue, 20 Oct 2026 10:42:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A20E3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=R0X9Nmpp
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0EA711596;
-	Tue, 20 Oct 2026 03:41:59 -0700 (PDT)
-Received: from [10.0.137.15] (XHFQ2J9959-5.cambridge.arm.com [10.0.137.15])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2958D3F7D8;
-	Tue, 20 Oct 2026 03:41:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792492922; bh=OaSet948UMPKW/bEq7Gy7KB2ZNmZwB2hGOuIicxjXI8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=R0X9NmppaPctZe25oyvdRyxTPp7TrT33QgSmgyWht1QNwxUfP4JqEzNxdmziK123R
-	 XueQS3xiz/bfL8vBZ1yVww8k6Q6T25wedDXhj06BS3d1+I/XnwCjNfnm9GNFLMWDfn
-	 vC7cxViW1dKg0DcKnWi5Bhdwq1g6zBBbBiqLMygQ=
-Message-ID: <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
-Date: Tue, 20 Oct 2026 11:41:57 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=AxH+hKLI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1792492947; x=1792752147;
+	bh=FhY/buZq8qZcY3rN3OPgKMgzFsab5qOuy5WLXWX8or8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=AxH+hKLIiEwKeOct9itNuDm1mwkpIA49KP6dHfhgR4qvK7aGgnAoyYcZ1e9+g3nb/
+	 Zd52f0e924wL9/zFDreFCy2XInTxhjHTga5GMA+gRkOrt6aWjKc+QPeKmLd1b+ipLW
+	 h6U7zTCrV51FhMl9UiWhgyGtHu6XNSXo61+lznKaXme+ywjiokhby4+xeC3QTCFz3S
+	 jxW1WI9WoN417GtYMesAsEe90nhCABDasRBgkHAmDTsRm4DZaPVrAcWeWHP+dm9cjU
+	 L/BBumpf4P7rY5M0NlHJnJ36uMmaWjnu8kITSnBgv6Re2RiSEDIjIEVI78l82IHtDM
+	 l4u44QDwyahhA==
+Date: Tue, 20 Oct 2026 10:42:21 +0000
+To: Aiden Isik <aidenisik@protonmail.com>
+From: Aiden Isik <aidenisik@protonmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Aiden Isik <aidenisik@member.fsf.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] arm64: dts: exynos: add initial support for Samsung Galaxy Watch FE
+Message-ID: <5CDdVVnZEwA25WkRzHJtuO-Tw47UZGTEFrZ9SBbQ2ax1bG9_OUemLDoX5C-TzyFyS5WxuFauKFU11QGk08RM0_Nn_3HGrglq0AR7wr8IggU=@protonmail.com>
+In-Reply-To: <pyssceEfVM7C-RyMLXJw8UV4wTs-zyDxywEasLdafttU1LwckC7RjzO4BvAhElk2ExTaXVZYZ0NSQ82FcgBFXSrsGmj2TtBQ7HN0vv7gEOw=@protonmail.com>
+References: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org> <20261020-eminent-juicy-woodlouse-c3fd24@quoll> <pyssceEfVM7C-RyMLXJw8UV4wTs-zyDxywEasLdafttU1LwckC7RjzO4BvAhElk2ExTaXVZYZ0NSQ82FcgBFXSrsGmj2TtBQ7HN0vv7gEOw=@protonmail.com>
+Feedback-ID: 46524699:user:proton
+X-Pm-Message-ID: 72be47aef9cb2283fc2490f8c7ce36d8a972c2ee
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,81 +64,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
-To: Jason Gunthorpe <jgg@nvidia.com>, Jean-Philippe Brucker <jpb@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-16-ryan.roberts@arm.com>
- <20261015164102.GC13920@nvidia.com>
- <CABCqBse_aZL-EH0us2uA5X10q6E4WP02MoHTYf+M9ezRZr26WQ@mail.gmail.com>
- <20261016144202.GG13920@nvidia.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261016144202.GG13920@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 16/10/2026 15:42, Jason Gunthorpe wrote:
-> On Fri, Oct 16, 2026 at 03:22:00PM +0100, Jean-Philippe Brucker wrote:
->> On Thu, 15 Oct 2026 at 17:41, Jason Gunthorpe <jgg@nvidia.com> wrote:
->>> I think I said this last time, please don't use vfio mdev for
->>> anything. There is nothing mediated about this.
->>
->> We don't multiplex a device between guests, but the host driver must
->> control part of the device registers while the remainder is assigned to
->> a guest. The host configures accelerator access, stage-2 translation,
->> handles CPUHP and context save/restore. So we can't bind the device to
->> vfio-platform.
-> 
-> That's fine, you can make a proper vfio-cla driver.
+> Is it a wording issue? I don't depend on actual driver code in the DTS,
+> only bindings for the hardware they drive, so maybe I could make
+> that more clear?
 
-Hi Jason,
+To elaborate on this, I listed that as a dependency because that patch adds
+the compatible string for the watchdog timer, and I was also under the
+impression that drivers must be already in-tree before a DTS patch which
+uses the hardware the drivers support can be applied (otherwise you
+would be merging a DTS of which parts do not work as the prerequisite
+drivers are not in the kernel).
 
-Thanks for taking a look at this! I've been chewing on this comment and trying
-to educate myself deeper on the subject. I have a proposal...
+Is this not the case?
 
-Currently we create a struct device per CLA device instance. But multiple CLA
-device instances cooperate within a domain and the domain is the "unit of
-isolation"; we can't have some CLAs from a domain assigned to a VM, while others
-from the same domain are used by the host. Therefore it didn't feel like the
-correct model to unbind one of these devices from the native driver and rebind
-it to a cla-vfio driver. mdev seemed to solve this problem nicely for us.
-
-But looking into it in more detail, I guess something like this might be a bit
-more standard:
-
- - Split the existing CLA driver into three components:
-    - cla-core: Hardware discovery, domain configuration, struct device
-      registration and CPU hotplug
-    - cla-native driver: Provides the user space accelerator interfaces
-    - cla-vfio driver: Enables domains to be assigned to virtual machines
- - Each domain has a struct device (created by the core)
-    - An individual CLA is not represented by a struct device
- - Either cla-native or cla-vfio can then bind to a domain device
-    - cla-native exposes a char device per domain, per accelerator class
-    - cla-vfio
-
-For VFIO, I guess we could use one VFIO region per CLA, which would allow the
-VMM to construct a device tree. But it would need to additionally determine
-which CPU each CLA is bound to; perhaps that's a sysfs interface that cla-core
-could expose?
-
-Does this feel like it's going in the right direction?
-
-Thanks,
-Ryan
-
-> 
-> Jason
+Kind regards,
+- Aiden Isik
 
