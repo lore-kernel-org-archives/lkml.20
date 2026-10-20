@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490153;
-	b=IoQktbdLjpFJaUqEXc2A9rscmltxtvaqESxjZj7rsrD3+0sIXrl+L7dySheZYrmt2XL0
-	 ZmptDTEJdRSNOnXy+dzzUBFp/0djoje3Q3z9EyowLY4hnB3uIX2Xu7korGuKJSGbJqzQk
-	 PAURZ0DHkI5cWr0d/tpeQBuzOguVnrlPRpfCxYKlkj5ULw94iJsUSz5VuR2Coos87k+TN
-	 mgFH2Q1Zp2WJj6T9vmBp3VrtyYpK+BqAljhNaiSZIXx/iyZkvV4RU5JCJjp3xB3x9WBnA
-	 Pgmi2yL+/QMF7EQpkgzFKcd+897bg1iZOpSWHusXY0sJ9Okme/TqTGfDAwECkiUU6CA==
+	t=1792490196;
+	b=GIW2cmRCbxz6L6K2MNeVs891KKxkAWNTQasi66L8IBDjqIaWdz7/r30zgSAxxEvGlW93
+	 tu6oRI5BUI8Ic7jPNByPsLH7vi2wUdpNPJqUsq98GYM0NIfbzq9hTr0itOq5fnx3wtcaA
+	 eX29NOipJ8dkOrSGMwt6jHlCXIXneZrdyDGYmw8urid9+WdjHqzMypzM9EbCQ98XY8PsY
+	 7EWrhxhERE+EyyapM7g396cyX+4BSxQCk+RmsbwDWfDRMoor8bgTqkFRrpZS10tQcaaI2
+	 7z+OVdmYtYznPeMv/fd8taPnYeZl5nFIFT0HKvlcE2fKmblNc806TW+ipt/TBpkujgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490153;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490196;
+	h=Received:DKIM-Signature:Received:Date:From:To:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Action:X-Spam-Score:X-Spam-Flag:X-Spamd-Result:X-Spam-Level:
-	 X-Rspamd-Queue-Id:X-Rspamd-Server;
-	bh=3KDokqHMJCdFr0yppai0TEUVY2bosNJZ06fgH7tLIdg=;
-	b=uVfHwpPXTAlxEQREQaQXUAhyqidR5OOYCKdWnRMBQaCZTJnHQdEF+fj/0SYmoJ9DcKeJ
-	 OERYt0qs35d+xLb93YptvrTx60774BsRtqKAtuf3erdz2mWwZsENQLsPR8sS95RM0x1G/
-	 QOGSg2I4VAYghmawGZzgwGe0UdU9TkdlAFCJHDrTUW0KSczCEvMQnot9VdyIOkveHyGZF
-	 fkacZxJ5I6y4zxFD1BZ9gCiAL9/GzfRfgQYMq1r36DUoq5xgsjNuGBbrjmHvPujwVg7jH
-	 5QVvJ0nLqCqeQwf6ODfcLYhMr3PN/pyhgOLbYv5ji5LaLwU6jyUz4EJLlaM7dKCaYJw==
+	 X-Cookie;
+	bh=o5nPT80H26GdyBzi0jXQI+glih+JcqqJunkB/+qK6Vs=;
+	b=cJCzYLmUeOed6v5dqYFVUfl3wc30V3Dak9+ZrHY6wyr/D3EokxNlOno+AbjcdgJi+10r
+	 234sXM6sg9NYqsDu00kcte4tTytyhVlZlHWOXMtVSN4YKj4uFV902G74OCIL477QY4HXT
+	 k5R3UzWh/oev88fPusVqLD8Bq47jtczdnI6MAzQaJSh9tM9DlY4lNqqO9J65NUB6zhKTY
+	 DYlyTJ8gwO2jxRN98EKL/xYdVf72jwx5sVNVDTcJ1EBFdIYID9ZosYkvxWhKVSJFnI4Dr
+	 jNxJ54iYOGmRV5G56l0/KGIIK6BVltE9onsVbB1T/y1i0m+0/UzrV0Ggaw68XtsSxYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wR8kiULA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0k0793IT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wR8kiULA;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0k0793IT;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Dii7/WyL";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8743606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:55:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8743606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450BB606A31B;
+	Tue, 20 Oct 2026 09:56:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wR8kiULA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0k0793IT;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wR8kiULA;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0k0793IT
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 99B5D1F451;
-	Tue, 20 Oct 2026 09:55:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792490150; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3KDokqHMJCdFr0yppai0TEUVY2bosNJZ06fgH7tLIdg=;
-	b=wR8kiULAt3PhOrTpbYS83ImT8UxWb/RgOyNsz42FZdb4QpFSlPkbutWSzweC0RIZZg8Uxl
-	F2EkqarmcY1U8J0U3djHG3EyZeXGREBUwq/Rt09z22BuxwwWOEPXWLjoAiXkAa00mrbwPu
-	k7EUhrOKS4zqSQe4Z1K8uCGt36E02Ig=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792490150;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3KDokqHMJCdFr0yppai0TEUVY2bosNJZ06fgH7tLIdg=;
-	b=0k0793ITz02Xxwuwt3Sqnq/FV1PaTTwEFSuIcjaY8HgPj/0hTObuMXzUYSDgXa4stmyjF1
-	bToGnL8F9RjGPmAA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wR8kiULA;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=0k0793IT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792490150; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3KDokqHMJCdFr0yppai0TEUVY2bosNJZ06fgH7tLIdg=;
-	b=wR8kiULAt3PhOrTpbYS83ImT8UxWb/RgOyNsz42FZdb4QpFSlPkbutWSzweC0RIZZg8Uxl
-	F2EkqarmcY1U8J0U3djHG3EyZeXGREBUwq/Rt09z22BuxwwWOEPXWLjoAiXkAa00mrbwPu
-	k7EUhrOKS4zqSQe4Z1K8uCGt36E02Ig=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792490150;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3KDokqHMJCdFr0yppai0TEUVY2bosNJZ06fgH7tLIdg=;
-	b=0k0793ITz02Xxwuwt3Sqnq/FV1PaTTwEFSuIcjaY8HgPj/0hTObuMXzUYSDgXa4stmyjF1
-	bToGnL8F9RjGPmAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5FC96136C6;
-	Tue, 20 Oct 2026 09:55:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vn04D6Y612qTHQAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Tue, 20 Oct 2026 09:55:50 +0000
-Date: Tue, 20 Oct 2026 11:55:45 +0200
-From: Daniel Wagner <dwagner@suse.de>
-To: Mohamed Khalfella <mkhalfella@purestorage.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
-	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
-	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
-	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 12/18] nvme-fc: start error recovery instead of
- aborting timed out IOs
-Message-ID: <33f6bba9-fb2a-4417-85d7-cb93e32cd6d2@flourine.local>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-13-mkhalfella@purestorage.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dii7/WyL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1F01F000C4;
+	Tue, 20 Oct 2026 09:56:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792490195;
+	bh=o5nPT80H26GdyBzi0jXQI+glih+JcqqJunkB/+qK6Vs=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=Dii7/WyLkTvxAtglO59Rn+MdAJtEDZ1gj21jM+4fXp2QToxheJ2JexSgiXDRz0z/J
+	 q7adBt5ofc75IdmfV5DB8VDwxa5EyDHdqL/fXRLLjY+PRie51sobmzj2dabUfPi56b
+	 /dIB3g087Ul1a2Jsxogl2MAGuR3/CylkD9Sce+nUuR4DOLla8icCaxCOO/fJHPDrVV
+	 jIqwkuuoWCrl7sP+PGc1p42O/SKLpk/L/7qn+Td1Fvbc8yl9FodTN+3BhHtRRWKLSF
+	 sJjdIUq3amdL3wxLq3GIBeHK4NuUg3FuYPLSIMjxYhdN7agzInw0ZcgWcidLyHWzmg
+	 F4WzQhS4/gjqQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id AF8C01AC57D0; Tue, 20 Oct 2026 10:56:33 +0100 (BST)
+Date: Tue, 20 Oct 2026 10:56:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: manual merge of the ieee1394 tree with the origin
+ tree
+Message-ID: <atc60bmnIKiYCUHf@sirena.co.uk>
+References: <atZBEI6G3PgKHKaW@sirena.co.uk>
+ <20261020014456.GA335452@sakamocchi.jp>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,56 +61,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iA7d2ElpplopvgST"
+Content-Disposition: inline
+In-Reply-To: <20261020014456.GA335452@sakamocchi.jp>
+X-Cookie: You buttered your bread, now lie in it.
+
+
+--iA7d2ElpplopvgST
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260920182936.2317916-13-mkhalfella@purestorage.com>
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 99B5D1F451
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On Sun, Sep 20, 2026 at 11:28:10AM -0700, Mohamed Khalfella wrote:
-> -	/*
-> -	 * Attempt to abort the offending command. Command completion
-> -	 * will detect the aborted io and will fail the connection.
-> -	 */
->  	dev_info(ctrl->ctrl.device,
->  		"NVME-FC{%d.%d}: io timeout: opcode %d fctype %d (%s) w10/11: "
->  		"x%08x/x%08x\n",
->  		ctrl->cnum, qnum, sqe->common.opcode, sqe->fabrics.fctype,
->  		nvme_fabrics_opcode_str(qnum, sqe),
->  		sqe->common.cdw10, sqe->common.cdw11);
-> -	if (__nvme_fc_abort_op(ctrl, op))
+On Tue, Oct 20, 2026 at 10:44:56AM +0900, Takashi Sakamoto wrote:
 
-Yes, this makes sense to remove it from this path and do the abort in
-one place only.
+> I believe that linux-next will merge the v7.3 tag and merges all or
+> required branches onto it  within a few days, at which point the conflict
+> should disappear. However, I'm not entirely familiar with how you maintain
+> the tree.
 
-Reviewed-by: Daniel Wagner <dwagner@suse.de>
+Yes, I always start from whatever Linus' tree is and then merge further
+changes on top of it.  If things are fine with Linus' tree I guess the
+issue will go away today, though I don't explicitly track that for
+things git can sort out automatically.
+
+--iA7d2ElpplopvgST
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatc60QAKCRAv73Ows9A4
+icrRAP47I/HMxfBpJhkMvMCWU6rS6iSMOvtQX5SrHTAlRNxvLAD/V5LjLVmiBvSh
+1Zps3+RJ38xDmfRjAd7uhiAFu9t1Zwk=
+=Ixhv
+-----END PGP SIGNATURE-----
+
+--iA7d2ElpplopvgST--
