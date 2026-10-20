@@ -1,92 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.33
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792517665;
-	b=lPKMHBR5W/Ty5GPLXQiBdA7DhbeEIiqjD6rGv+5W64xdlDv/Uqti/Y/Bfp4QZPW/l7Ym
-	 m/sHI3GT33jXzOojgtYTgIoZDm/uMVhaj7XS5PDbjbuJcoVQrqNqDTzHb61l5JDpqmobO
-	 yOq0kZ2flf4zcvfbKUQcGnfD5lMj8KbJ5qg9VV8XrNSGnpLLSvf6vdseu0SfdZ+fkZtAz
-	 eyMuiHUGc11WaxjX625+qntJGQz17D5ygq2WQYJyedGvBW+hlZSzTdYMm2euOSt3KJRwC
-	 m4sBYrDBrv5io2IKIym+V0xQX39rplVRJUivSor+lplcWGrLxd4e9czO5LkOMjPhXdw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517665;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Tq+2Z+InWsalEkMyeR9TE75rSi3D5mRmISGbh26+/NI=;
-	b=3+luyDyAniLNHPSK3EuJJpCxNx3mn4t0bY/1EXj9TTQzkpauiCPvYy9+ovxBQY2sDBrp
-	 LG9fjtOTKiGsckpcTCUZCQX+oU+knv0tvIOhWqawvYLxt81I97QLYhdDaym6Vj6D8ha0T
-	 omodhTMS+QkM4S7hacY9uq+Ej7Z05j10Hc5qJzVTaPg1TNUV8yVGaOC5ThrdsmJGoMw+o
-	 B3RLeIYJ28Fdj2V5m0CBroFQdGKV3/p023ui8h41pYLUCawte17x2luCwYZI8i6InJpuG
-	 X/kmgY/oukKWz/99bksrR6awhc1xo2krPEZQQqTAWYsGMKJ3dkBttdETO2iMHlQg8jw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BTYfO8z9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.33
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011033.outbound.protection.outlook.com [40.93.194.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.247
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792517718;
+	b=qmSDu/X4V7qvCYm3fotctuXZN+5szaOWkNjUU5X7C0/UCjIjBAs1vFEsHrTkFHV9ulwT
+	 AP2Uj0tJ0BMs//NuH45A76wOpn8u1AOExpFdirWn08LupGTci62zWdpDtN5mApcI0iUw3
+	 ZjQtinfyPIf5rQtmL8/0ONOXUxQk19TFL4AyVp+oKyNL0JuZQXdJBB3KnKvOOdOxSB3DF
+	 z4jKM1Ry99j2gYlO/g5WtzQnTc0tiF9fvnAWAYngbIjQpq32NCcSQUhxasq2gfMwgt9Hl
+	 2YpNmCW5atroLhQSprH/w062SU0taoGr2fLTpCqLJCUeSz1Cc3jW4/0bu8+uwrQ0UNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517718;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NnTaOa3hkoHPkJ8XKbl1J5CFxSilwdeYRAmrFeskxiU=;
+	b=fWdNRAWnDRiuNPKr0+25jSKk1npRrKSsp/GbWsH6IAm0T6TpbzgdONCX7aj2A1Rvtrpx
+	 GHe3/ZY0JubbAu6KgxyqLrzFAMIKMWu4cTAJrmOAxJ9cYdbtI3nksKikw/ZAHCADteKfR
+	 BvoWOZY7iEOKXTPlonNhpUAy9550MdMBR2Dvd+odnryc/XTx+gmaUrF04b2ENj7uAK5rU
+	 MG5MmgzKZuHQvxD/Fnp/h64tra7reZ9J5EPSUyD/WzM9xYJEg1MXt0/FbjGshY2svRirf
+	 DURs5owF1j/2qMPApkTiSb0zjaN9MKJG5QulDJe0yiieUGMZOonFyhmMTqkAS83CgZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qu0HRDTU;
+	arc=none smtp.remote-ip=91.218.175.247
+Received: from mta0.migadu.com (out-247.mta0.migadu.com [91.218.175.247])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4C8606A31A;
-	Tue, 20 Oct 2026 17:34:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B4C8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6450B606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:35:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6450B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BTYfO8z9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hZ+cZvVsak4ONJ89WGqMUq2V77TnkmbWfTBVDn/M+UTWUMvwXw48DW91B93L+13nwZbFl58+Q112OA0uJ7tH9VrQqbhT5hE6fEtstelCqpUsOtBEQOKVn+62wQbY4TiHLNKbt0gmLKmnQI2wfExCm12UoAIiRZsXrvjwB6e4RpBDn/z1DEaBeXDtjTyJJMiSbXXckLIr3c5/300pBpsMhtFy9V7Sc+xJMH2X9XGxiDs7xQ/iPyjl7vhgI7rLpyRYO/aciAX6B5YK/mzKGdnthXZUYqwamGG0lRhN75CeW7clAXskaCLNRI3n3vCU1rdzylZRizQGZFHGi29qZSRywg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tq+2Z+InWsalEkMyeR9TE75rSi3D5mRmISGbh26+/NI=;
- b=NNfz1zMdSWCNI5vw3KPa0YKCyVNZs66SN+LUs/tIR/aoEhZgo+VtWqTqX4i6JDtQotRfLZWiKCIgiO89l1KqqU2R+5UtZcUoDGoZywnt93NuKh9RX8dC3MdxOi7KXrT4HEruX4O9b2aHYiVoyh5u0pRvNPV4zU/b84bWLfPVls9tZja15a6r8OOW7i1wEaM+u+CK9unznmMfU3FsNSbFnKdEsuYEcnDh7c1BWklxjiDBy+KN25ix26cAsej4wb1cPZy8HH6noj5R/8AwcOyYCpAU2ucHx52bLwdcJ2zR4wDA1d8pkbI3+w6lEaoqIIJgsaHKMavHx4MrYHOk128vvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tq+2Z+InWsalEkMyeR9TE75rSi3D5mRmISGbh26+/NI=;
- b=BTYfO8z9rJqoY6X7SfvyV0nJmulNrp6H1TZMs8Y4EOLI0QVyST8pyYzdRw9SxmeTrGEojBiFIPBSoYkH6/bUo2ONbmNg6sg/P1Wv8f/1r/H81v371Rz3N+5I/4t5FrYveD5uLG1ncZjLHza7MswiGJp8eYc9MvgruIIrWNWmxmgBtKlqrKspM8oefrTSRLXG/2FF1hQxjCqkKpMNhXWMqcp5ar4yroGsQ0fv1hJhO8C9Mv0pM4ufBFBqc7dExf2Hfcu+JfH3mvl+Q3GdVIFx/bIsGtsLo+1+9YjdvEEMb2mtL3p6lhlYGaBr+z1RPfMKP6EhU2tHyUhBItmyPqYibg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by DS5PR12MB238689.namprd12.prod.outlook.com (2603:10b6:8:47e::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 17:34:21 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 17:34:21 +0000
-Date: Tue, 20 Oct 2026 20:34:11 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Haoran Wang <haoranwangsec@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ipv6: icmp: use skb_dst_dev_net_rcu() for echo reply and
- unreach
-Message-ID: <20261020173411.GA3251490@shredder>
-References: <179241613335.5916.18191480036849517944@whr>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179241613335.5916.18191480036849517944@whr>
-X-ClientProxiedBy: TL0P290CA0013.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:5::20) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qu0HRDTU
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=X+yygbxUoN1ZfucgOCaad1pSIRXDRAW6Rdpby5YRIMg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792517715; v=1; x=1793122515;
+ b=qu0HRDTUi+Kp0tiqP6pTfhDUqYUBmTqxY4d46ygy3adKll0xuXsK9knjbKio19bEGhpPNKLf
+ nf9rIRr3PrJQLlhvAyjF/2yfvFGYGYIoxC+E57a1x7XqIl+5LNmhP33tnbE1sBVEvoFjNMjEje6
+ 4wl54qfAKO+66puqlICHMaKc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d23907ce8bec091b;
+	Tue, 20 Oct 2026 17:35:12 +0000
+X-Mizu-Trace-ID: d23907ce8bec091b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <20ac0187-cae1-4c8c-9949-8e8501aff2fc@linux.dev>
+Date: Tue, 20 Oct 2026 10:35:06 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,84 +58,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DS5PR12MB238689:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0cd9157-56e0-4de5-39b4-08df2ed06049
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	vD+XjzHeCISmbx++3c0ALKte3l9Tvmqw3I4zqVeOrqDvuihjfD6xSKY6eu3efCPL7PDQi7z4RN9970NrpO3zaIhL/K/a8wlDBq+DoRck8r7naV2xresgcTFqiLrfgAo0z+Rz0/Ksp95zr7rz0Rzy2DrpvYaTWr/8WeeI0nXobir+qLCOwre3eoZzUg1X4FwHegSSZjCsqc1ndu23yLwlfVf2F05GjcDqgMN/5Xx7onkR9ol12iflwa97fyhgxB8tsrmuFUkMDxMOK+FnGobf1SHGJAMEHWRWF+y09iHXDqtRTIHoeE66JysIm7gtO3rIc2kU6ig3bdd3pQmqk8k2LSe+jD9G0TFUSRckRvMOf0KitH8XftVlpFdWUFFirsNbMyASeJrFY0lv/ZbE5cbNI98nEbtxxMMe990Wt7WVyz+mSP5tbGTNr2fSJePmP8qeW8sgl/CXDKLfhn1bm0keCUt1BvtZ8VZTZTDdTAkKMRYaUiqVsXygk8OyvpGquQOnhLYynRS29Vr+cnyQtXgnzTsfyo22L4NS4bnzaOHV19kAokJmqhWGAs+CApIrVj0DcHsnVrKQM8/ngkaEbexOsTPoAFkQCe2wgqmNtNCrFRGL1fnqjbwurR1mN1BveLAYC4mP32QzLKVqZvv3Ra1fpa3UWjfkiM+zUL1kSeDNACM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ud4owxshI0Mv+OqOHn5dmO+ME2Ywi0S0mlDXwOWp0VLMQHAEfc990Yi4t+Bg?=
- =?us-ascii?Q?3S5oyctSEfPQSdBOQajya+5YprIb+3liBYFh4g0fGXNppmlB5+I+gROal2r5?=
- =?us-ascii?Q?CNv1iyB6cF/EgOrqGyT99oYKqB/OY4Svk5S30fUaApoG50/gLs6lNR5AU+lz?=
- =?us-ascii?Q?kNKZ49lShJ9wJ7CJyhKzlN+756RA+3GjWBZ9HQDOm8IMtLbuuIY1teSwAD9A?=
- =?us-ascii?Q?gC7ZET2AGWB+MvTlDpqzd2nMauAtWUMFcXLKMs2CfdB+f3Yi9a21bO6f45rY?=
- =?us-ascii?Q?BGPdleah1n8EBOkZ+JL1MqAW4QIOj/RbKtKY5osTW68bzGjj2ERXxooX6/ks?=
- =?us-ascii?Q?di481h+S2Otnl4X5234gkITWgA+yLCMOFmHSuOtre9sJ6VLcSsbqXh0tO2LV?=
- =?us-ascii?Q?IDXxPhlcAOvRq0xxi1pE7UNAhKYtUUDxGD+NNzUVzo2EVx+eb5i3qh0zP204?=
- =?us-ascii?Q?XfhxBOTTwWlFEPeid95LVSVrGXuvmIKyFvjQwfoxMjZ0pqZJWgJorAusUk/s?=
- =?us-ascii?Q?qFzyNtf2cbLBxQLCSuthBbfwGRj5p8ocvbwKIHKjSsUpkQw504Op6QNzoxUz?=
- =?us-ascii?Q?1Ehdo/lOD0ZKVwsJ8ZUHNtBebBGRGEannxsfBf/GkBI1NPiizYpdTsgNTzK5?=
- =?us-ascii?Q?l0IdQeu9mkcFrw4IAIhPE8d/B7qBCsMlMbcKxoAB34RISPKUGu4pduWkBFoQ?=
- =?us-ascii?Q?Y4bNkBFUD0q4ozVBtPMmPXJmhOEq1stL2888zfW5JU5mLrg7gK2b09AYZF+O?=
- =?us-ascii?Q?SC5SPDP7TRLqFlyMH0FFWD8wHmU8prrwrP77t/5sgc3Ol0aRyuvJgt8wj8fC?=
- =?us-ascii?Q?zGVqkSZQ7xO9PYveIp6ROk8ZfmlqZFLpapoYE199vWW3X146OGMege2KL3ff?=
- =?us-ascii?Q?+j7hKHMOnJR4TAhbHkXkHifUKXSJOzzVKy+ygGDlXwo7oFSfanWiImqFxYHZ?=
- =?us-ascii?Q?g4c00MUyfbXG1lwSCdofYa80nLxT1QACavtugI5a/lhBJd8Lll8QguUwMDA9?=
- =?us-ascii?Q?WexLs1qveGBcc+kiW8lGckwcousflPUNP65/aIjHohjac5QNL2Lh0+wWDeII?=
- =?us-ascii?Q?89+TK9d+BQANfwB8GjpIrxRHONbdHDAcOmNhX66GO7GlU5ZFHJFW1INigb4Q?=
- =?us-ascii?Q?D8iZ3mixnF0bXVaYw0gFJtwR7v6JUU5WWCufCnF36r7Jnfj5Ott5dIO2etjz?=
- =?us-ascii?Q?OaFqrvYdqZZ7h4CFIqfRU5gh55BcTNcqSkgoeocwSf387xuH0mVhnLTekCBl?=
- =?us-ascii?Q?PPlT2bMhGpbCJpevY3K+t5veGpGRDpGUla428TIVNFyut/jO5nmkcQq/IqIs?=
- =?us-ascii?Q?ubmwwL4cbj6gMOhfkHm5zC0Lje8O0E2HCHJlPDMm4VuF9NSqrkmP+ugOksz8?=
- =?us-ascii?Q?SPIiYnAfOJ0x0zglModC4lsDEPdh4kyWhAudxOUB5xZdqNjA03uRc/1B31Gv?=
- =?us-ascii?Q?kFS+2kfA5XwnC/+EnCyHTllBhqD3PFphXEK4FiPvbFAysCgJ+VJDbXGkt/dc?=
- =?us-ascii?Q?yrUS4GUInTm44BkxY53bIJ04dwYtywZt/C33tTAWVzm6Dc5AhWaDeTmhYJwV?=
- =?us-ascii?Q?iFmCCkTFrmik/cCq/A4yjT6ETeVdWQVWpicY2wjSDXIsrF0s8a32udGGluTH?=
- =?us-ascii?Q?k0MuP5UQse++xHNqTev0bWkHidr5HV4fjnU7sJXYGHJ8VsjU869awjti0up1?=
- =?us-ascii?Q?lXlhUWiidz9yXU4KXzXIWwDW3wsBLZEUKUQ/DBTWfl2ToOcE?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0cd9157-56e0-4de5-39b4-08df2ed06049
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 17:34:21.4797
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pOHtM1KtdG9sfOYQ1u6nP87htzYxu7frF47F46owkAfhYomPqrEGa65eyHpAu9S0hnSwVP6GBEgoE6kuhinsQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PR12MB238689
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next] libbpf: Prefer mounted tracefs over debugfs
+To: Eduard Zateev <hackerowskiy@gmail.com>, bpf@vger.kernel.org
+Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman
+ <eddyz87@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, linux-kernel@vger.kernel.org
+References: <20261018092629.585046-1-hackerowskiy@gmail.com>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <20261018092629.585046-1-hackerowskiy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 09:22:13PM +0800, Haoran Wang wrote:
-> ip6_err_gen_icmpv6_unreach() and icmpv6_echo_reply() derive the network
-> namespace from the ingress device with dev_net_rcu(skb->dev).
-> 
->     /* ip6_err_gen_icmpv6_unreach, net/ipv6/icmp.c:885 */
->     rt = rt6_lookup(dev_net_rcu(skb->dev), &ipv6_hdr(skb2)->saddr, ...);
-> 
->     /* icmpv6_echo_reply, net/ipv6/icmp.c:923 */
->     struct net *net = dev_net_rcu(skb->dev);
-> 
-> Under a VRF, skb->dev is the VRF master device, so dev_net_rcu(skb->dev)
-> returns the netns of the master rather than the netns the packet is
-> destined to.  The route lookup for the unreach and the send policy for
-> the echo reply (ratelimit, IPsec, route) then run against the wrong
-> namespace.  The rt6_lookup may miss the route to the source, leaving
-> skb2->dev unset, and the echo reply is emitted/routed per the ingress
-> netns instead of the destination netns.
-> 
-> The IPv4 ICMP echo path already uses the destination netns via
-> skb_dst_dev_net_rcu(skb) (net/ipv4/icmp.c:1123 and :1267), and the IPv6
-> echo path still uses dev_net_rcu(skb->dev).
-> 
-> Use skb_dst_dev_net_rcu(skb) at both IPv6 sites so the namespace is
-> taken from the skb destination, matching the IPv4 path.
+On 10/18/26 2:26 AM, Eduard Zateev wrote:
+> The tracefs path helpers look up /sys/kernel/debug/tracing first, even
+> when tracefs is already mounted at /sys/kernel/tracing. This can trigger
+> an unnecessary legacy tracefs mount and selects a path beneath debugfs,
+> which is commonly restricted.
 
-I don't understand any of this. VRF master and slave are always in the
-same netns. Same comment about the IPv4 patch.
+This doesn't describe the actual problem. If debugfs is restricted or
+not mounted, the existing faccessat() check already fails and libbpf
+falls back to tracefs.
+
+It looks like the actual trivial improvement is in avoiding the
+debugfs/tracing automount causing:
+
+  NOTICE: Automounting of tracing to debugfs is deprecated and will be removed in 2030
+
+in the kernel logs whenever debugfs/tracing gets automounted.
+libbpf triggers that on legacy kprobe/uprobe/tracepoint attach when
+debugfs is mounted.
+
+See commit 9ba817fb7c6a ("tracing: Deprecate auto-mounting tracefs in
+debugfs") and CONFIG_TRACEFS_AUTOMOUNT_DEPRECATED.
+
+> 
+> Prefer the direct tracefs mount when statfs() reports TRACEFS_MAGIC.
+> Checking the filesystem type avoids selecting an existing but unmounted
+> sysfs mountpoint. Preserve the existing debugfs fallback and the default
+> tracefs path when neither location is available.
+> 
+> Fixes: a1ac9fd6c650 ("libbpf: fallback to tracefs mount point if debugfs is not mounted")
+> Closes: https://github.com/libbpf/libbpf/issues/966
+> Assisted-by: LLM
+> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+
+Please update the commit message to show the actual consequence of the
+change. And drop both fixes and assisted-by tags. This is not a bug,
+and assited-by has been recently deprecated.
+
+The diff looks ok to me, but tbh I don't see much value in it.
+Any particular reason you decided to fix this?
+
+pw-bot: cr
+
+
+> ---
+> 
+> Validation on Fedora 44 (aarch64):
+> - Built static and shared libbpf with the default warning settings.
+> - Exercised all five path helpers using wrapped syscalls for both mounts,
+>   tracefs only, debugfs only, an unmounted tracefs directory, and neither
+>   path available. The original code fails the both-mounts scenario.
+> - Confirmed the direct tracefs paths on the host's mounted tracefs.
+> Privileged BPF attach/mount tests were not run.
+> 
+>  tools/lib/bpf/libbpf.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
+> index cb09ded90..9db0a8bde 100644
+> --- a/tools/lib/bpf/libbpf.c
+> +++ b/tools/lib/bpf/libbpf.c
+> @@ -59,6 +59,10 @@
+>  #define BPF_FS_MAGIC		0xcafe4a11
+>  #endif
+>  
+> +#ifndef TRACEFS_MAGIC
+> +#define TRACEFS_MAGIC		0x74726163
+> +#endif
+> +
+>  #define MAX_EVENT_NAME_LEN	64
+>  
+>  #define BPF_FS_DEFAULT_PATH "/sys/fs/bpf"
+> @@ -12713,12 +12717,17 @@ static int append_to_file(const char *file, const char *fmt, ...)
+>  
+>  static bool use_debugfs(void)
+>  {
+> -	static int has_debugfs = -1;
+> +	static int needs_debugfs = -1;
+> +	struct statfs st_fs;
+>  
+> -	if (has_debugfs < 0)
+> -		has_debugfs = faccessat(AT_FDCWD, DEBUGFS, F_OK, AT_EACCESS) == 0;
+> +	if (needs_debugfs < 0) {
+> +		if (statfs(TRACEFS, &st_fs) == 0 && st_fs.f_type == TRACEFS_MAGIC)
+> +			needs_debugfs = 0;
+> +		else
+> +			needs_debugfs = faccessat(AT_FDCWD, DEBUGFS, F_OK, AT_EACCESS) == 0;
+> +	}
+>  
+> -	return has_debugfs == 1;
+> +	return needs_debugfs == 1;
+>  }
+>  
+>  static const char *tracefs_path(void)
+> 
+> base-commit: a6303535c2ad9d49598d52556183911f02287791
+
