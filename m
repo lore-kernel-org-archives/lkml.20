@@ -1,102 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792474680;
-	b=1ytQcrpdLLx2B53A6mttY7OAEQ6N1lQKRirPv+KJONTup9ch2oAMDP4xg3uuqbXBLHBv
-	 X0ftXV+JaGJvS3nKaSJV2Y7fGovxAKYpfrkRdxUTHI5lTd7c37J6VkBpFOmnIDdkRj2IG
-	 f+dfVfzHGSKtJp+8OSZ12nevpamum4irLuIBqEaZfvWFwSWEqf5aP6PqdkdkAnbVRO6Xr
-	 ZOcrq7bHtmK3n0c26dwzVvb7jXJ30+Pz8fpDguZg6ONBwJ4jEETceVOd3Ch/oZt1ttDqo
-	 uGBPe9YFKuSEzmHOW5J/ppTgaa+H/ci/FUSPV36SWe5B9ebLjYFfjYzinJ5jcfj5AEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792474680;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=AbQx3F5DeqIg01v5J1HMAoVNtPC3XJeQSCQTqpj8efU=;
-	b=LmX8lsFz6Bh9uQ3+a63tMsWXaTWImzaSv4m8fZURRN1AyNt+M1sNuwYqSGJXCkJzERI5
-	 rFu09egX/3BcLkvAOMuB6dZ7OHwCsqMQ7zvVZVSQcjz5cwuADuPrk6HcnZ3qhn4j6fyIj
-	 7mgLa6f34gwdvOVRME013cRjfFWS3WbtsDGs3MPc00cJq0jRNuA2iFvzsvK9vVCJN2ovA
-	 Nob8FdIvm2mxNhTI/iyW2OC/Q4YDbLYoWP4YQmA3onQklfhCOTHQ6emwPFo3tzTk7l86S
-	 +IWnzH30ORwaofznnb0uD6RVmek4wupd9ocipLnrKZ1upiZjG0K0WHeUWQtg8oJUufw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RUgD4eHz;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792474849;
+	b=0fOYBqrTVpRIgaKkWTzsrpIFKMfZsAvfoxTB6WSzb0KEmzqD0ofdlBHVXiHMlOXS0StL
+	 q3AH0cgt0FDO+88s6rJaDzX/023xL8as/+WKP8s2ypIUxY6scd5T6QfhPacHCah41gQbG
+	 Q2wzEFqs/nTxJBjlOzLz0/I27dZvTBmdcBOUpreQvu9oW9eTFcqST6/AuLLqeor0etV5u
+	 TlDluqBtXvpHJQsDwjKg4DkYYqQOSsMh5wgGNqfHmweEaJAK5KM58NHFn2wu8f8uF6FNN
+	 Hm/IrNd31VRz4FfmTY7nnplSk9Y1R9iPv03jHVsBmVm3Au+Oq2JclqwLp5hIq6FXIkg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792474849;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=gl8OUi5kGil7GVVr3uKIin4pJiUyLxB1/O7d9fmIcws=;
+	b=wdFxxr3ZrhR66OU9He8KiAgSkL8qZtnPFw8nYBchF/AQWZenvlp7J2KDVrnNksSRkBOl
+	 VsjQfFPxULs0mQ2QYxHpSRwgUP+eB8R609cWCDsJcMUHZp2XRKNHz9pJKRb0l/+Mx9zLj
+	 /qL4RP9LiagkU2PjSuvi9O6hqG+258ldp50GhaQ0i7KZlNk/X4RCkK5KscR1xAurOnq55
+	 MsYjyZDJ5VPvhP2/0CmOnanu8Mqjg0dpCx+BVNFJbhbUaeLvMZUMXJk86UvV/lam17bi8
+	 E5tRhRJlydBZIteFZwvjsoyWFNXluLH8kbFj+9dG/S1znlK2OgpYIa0o5nW8HcPD14Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bQZk+xq7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9454C606A319;
-	Tue, 20 Oct 2026 05:37:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9454C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B43606A319;
+	Tue, 20 Oct 2026 05:40:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79B43606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RUgD4eHz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792474678; x=1824010678;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CgbzEe28G1zTrLdrNfJYfgWctwC1jg4tju9+nzpN6Co=;
-  b=RUgD4eHzpPUBnKZVvbHMKd1EjVoOsXRWo6EQDyyqUB0lu9O/9vJu4qCU
-   mMteyl3wn7+JrFaj5kwOUJZ2mE1sR3dXQ56UubBuxDKTvZGd7Amn61jna
-   6CY4EUNUBvZHMJK+itmyRzXLD8ElYjfS58eUa/UzcAYcxDUu48Chn35wZ
-   vHppLPPXUG1U9YlokzMZlDofYpmzn66Ma+5B/2+1bTpTFfbJlilbQW6f0
-   JwfZoBcnwM0GaGTVGZXvHjb+5m3hl6caf4Sw/9F/RwrwR8qHbh3fFAEdb
-   szrftpmu8eOhW2J0bZtMpi0RtslsaOjgDX9KyZ7WDdq/raCxZr1dXehXI
-   A==;
-X-CSE-ConnectionGUID: tksN/plqRmmK9zUIYunwww==
-X-CSE-MsgGUID: eNyqFsdwTXymOylt9rTpag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1059050"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1059050"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 22:37:57 -0700
-X-CSE-ConnectionGUID: LV6bCR60Sxa6Yc/YIXoDCg==
-X-CSE-MsgGUID: WFK0iYt7RvyviF8oI28nAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2691338"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 19 Oct 2026 22:37:50 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xJ2Xh-00000000Mxi-3lzb;
-	Tue, 20 Oct 2026 05:37:45 +0000
-Date: Tue, 20 Oct 2026 13:37:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: Damon Ding <damon.ding@rock-chips.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: Re: [PATCH v4 11/14] drm/bridge: analogix_dp: Use
- bridge->next_bridge instead of plat_data field
-Message-ID: <202610201323.RdqouIbq-lkp@intel.com>
-References: <20261019085836.3065008-12-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bQZk+xq7
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1D0B2201709;
+	Tue, 20 Oct 2026 07:40:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792474845;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to; bh=gl8OUi5kGil7GVVr3uKIin4pJiUyLxB1/O7d9fmIcws=;
+	b=bQZk+xq74fwC9zq8UroJBR7N9b7OMq1CgWepbLdFIHDCKF3i2AXLLJKS4gqDwCMsPW4dXK
+	4iEzeXUBS3xTqsk1YLYl4G1yY0Klxw8b4GJYenY+lSDmzsNCV5ebfSJrEmIbFjSt61SIn4
+	uLwdyPAR1d6ZuVg8OW51z+mnLf4HGiH3ENS+JCld/bdq8dqS+yWiiSP3TATOr0UeTar9go
+	HUiDQ/EJtjNA4CXkikaSFHZ2rx7vS+xwcOnk0ci5T1AJ6LhE2XsUgt+4/E18Yc6xseoSWD
+	82WmhAf4WlpyFfLE0afqzhnjXmwjM01cAcnNzyITWagX8sYWo1RvJoM4vzGVnA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792474845; a=rsa-sha256;
+	cv=none;
+	b=B91ElkoeoRGSwhhQ+nrc6zSBq/u1PZMT/Nm22wmHELJJjd/koEambypwj3/gvfGLqZC2EP
+	lKHuCWauYXTtUuSLnmNev0VS9i2AigejwzQP9tinjKFour1YNXWNumVGClE/+w3woPLCAB
+	sZGicGNHX5h5U8cgSM0aKFKXkelzmhvWBl60MpGmS7uI1MAeb0CFPR/M8AkF8QdyB+sUgL
+	PMq2rZk+6BSyE8QJ3pxKJxgLzJDyvvaoEbXXBL1xpWhA7O3kH2zDHNJN131obIcusGILu/
+	fcnURsn1dLuT9UyUB4IcaTgn4gvMxPSvN8rtkFhjkbCu4EkZrAI3bwkveke/NA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792474845;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to; bh=gl8OUi5kGil7GVVr3uKIin4pJiUyLxB1/O7d9fmIcws=;
+	b=QQv337OO7HI/TRkS71rgAZQO+DBgkxaY2N4DkfYar5rcYdJQcp++mzUgTv7xZxjrdwY0gK
+	MdyF3BbOOXnv86kkaUuQoos1PrXke4Uj3O26UfJbZ4iebkBgOKoI26zg0ZPElNmAgAdz0N
+	uJ2zSYZBOpNKKw5v1CAXdXQi/Jtk4YgHku3sGty1YNymfaerjKU1rFvjO9KgIFqn/Gk1KN
+	pWtM20FropYlyrggrRRQtKqtL/2eEdtLx/jSGX4JbCbPeKXOCqdE6b7S4VHQVdI4kaSGT3
+	mfmEXViFtepPJDLdg4ZHa6nI+tnUt7moN8xIYPUFTcA4UxMWPFD9H3zeXI4c6A==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xJ2ab-000KJi-06;
+	Tue, 20 Oct 2026 07:40:45 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xJ2aa-00000003kKd-3nb0;
+	Tue, 20 Oct 2026 07:40:44 +0200
+Date: Tue, 20 Oct 2026 07:40:44 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Kory Maincent <kory.maincent@bootlin.com>
+Cc: netdev-bot+sashiko@kernel.org, github@szelinsky.de,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, piotr.kubik@adtran.com,
+	saikrishnag@marvell.com, horms@kernel.org, kyle.swenson@est.tech,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel@pengutronix.de, broonie@kernel.org, lgirdwood@gmail.com,
+	mazziesaccount@gmail.com, Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: Re: [PATCH net 05/10] net: pse-pd: check the PI state under the lock
+ when setting a power limit
+Message-ID: <atb-3EIJynaRwuwe@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,38 +100,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261019085836.3065008-12-damon.ding@rock-chips.com>
+In-Reply-To: <bb8eaf92-2b5b-46a1-b39d-a29ae273a3b5@bootlin.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-Hi Damon,
+CCing regulator related folks.
 
-kernel test robot noticed the following build errors:
+On Mon, Oct 19, 2026 at 02:30:24PM +0200, Kory Maincent wrote:
+> 
+> On 10/19/26 10:51, netdev-bot+sashiko@kernel.org wrote:
+> > >   	previous_pw_allocated = pi->pw_allocated_mW;
+> > >   	pw_diff = pw_req - previous_pw_allocated;
+> > >   	if (!pw_diff) {
+> > 
+> > [ ... ]
+> > 
+> > > @@ -1908,21 +1920,17 @@ int pse_ethtool_set_pw_limit(struct pse_control *psec,
+> > >   	/* Update power budget only in software power control case and
+> > >   	 * if a Power Device is powered.
+> > >   	 */
+> > > -	if (pse_pw_d_is_sw_pw_control(psec->pcdev,
+> > > -				      psec->pcdev->pi[psec->id].pw_d) &&
+> > > -	    psec->pcdev->pi[psec->id].admin_state_enabled &&
+> > > -	    psec->pcdev->pi[psec->id].isr_pd_detected) {
+> > > -		ret = pse_pi_update_pw_budget(psec->pcdev, psec->id,
+> > > -					      pw_limit, extack);
+> > > -		if (ret < 0)
+> > > -			return ret;
+> > > -		previous_pw_allocated = ret;
+> > > -	}
+> > > +	ret = pse_pi_update_pw_budget(psec->pcdev, psec->id, pw_limit,
+> > > +				      &updated, extack);
+> > > +	if (ret < 0)
+> > > +		return ret;
+> > > +	previous_pw_allocated = ret;
+> > >   	ret = regulator_set_current_limit(psec->ps, 0, uA);
+> > 
+> > [Severity: Medium]
+> > The scenario in the commit message, where budget is reserved for a port
+> > that is no longer powered, looks closed now. But can the budget and the
+> > hardware limit still drift apart in the other direction?
+> > 
+> > The state check and the budget change now share one pcdev->lock critical
+> > section. The hardware limit is still written in a separate one:
+> > 
+> > pse_ethtool_set_pw_limit()
+> >    pse_pi_update_pw_budget()        <- takes and drops pcdev->lock
+> >    regulator_set_current_limit()
+> >      pse_pi_set_current_limit()     <- takes pcdev->lock again
+> >        ops->pi_set_pw_limit()
+> > 
+> > The threaded pse_isr() only needs pcdev->lock, so it can run in between:
+> > 
+> > CPU0 (ethtool set_pw_limit)
+> > pse_pi_update_pw_budget()
+> >    sees isr_pd_detected == false
+> >    *updated = false, nothing reserved
+> >    mutex_unlock(&pcdev->lock)
+> > 
+> > CPU1 (pse_isr, classification event)
+> > pse_set_config_isr()
+> >    isr_pd_detected = true
+> >    _pse_pi_delivery_power_sw_pw_ctrl()
+> >      pw_req = min(pi_get_pw_req(), pi_get_pw_limit())  <- old hw limit
+> >      pse_pi_allocate_pw_budget(pcdev, id, pw_req, extack)
+> >      ops->pi_enable()
+> > 
+> > CPU0
+> > regulator_set_current_limit()
+> >    pse_pi_set_current_limit()
+> >      ops->pi_set_pw_limit()         <- new, higher limit
+> 
+> @Oleksij, Here is another example of an issue related to the PSE PI being a
+> regulator provider.
+> 
+> @Carlo, Kyle is working on a series that remove the support for a PSE PI
+> being a regulator provider. We will see where it goes.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next]
-[cannot apply to daeinki-drm-exynos/exynos-drm-next linus/master v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Removing the regulator provider support is a bad idea:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Damon-Ding/drm-bridge-analogix_dp-Return-bitmask-from-analogix_dp_get_irq_type/20261019-165823
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261019085836.3065008-12-damon.ding%40rock-chips.com
-patch subject: [PATCH v4 11/14] drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data field
-config: parisc-randconfig-1001-20261020 (https://download.01.org/0day-ci/archive/20261020/202610201323.RdqouIbq-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 13.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261020/202610201323.RdqouIbq-lkp@intel.com/reproduce)
+- We will end up implementing a poor man's regulator framework inside the
+network subsystem. Networking folks will have to deal with physical constraints
+already solved by the power management community, requiring a different mindset
+and domain experience.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610201323.RdqouIbq-lkp@intel.com/
+- We lose built-in regulator infrastructure: DT safety constraints
+(regulator-max-microamp), over-current/under-voltage notifications, and
+sysfs/debugfs (regulator_summary) visibility.
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+- The race above is just a lock scope issue across pcdev->lock and the
+regulator call, not a flaw in the abstraction.
 
->> ERROR: modpost: drivers/gpu/drm/bridge/analogix/analogix_dp.ko: symbol 'devm_drm_of_display_mode_bridge' undefined!
+- Writing a custom power state machine in net/ will introduce more bugs than it
+fixes - especially if we overestimate our ability to upstream complex custom
+logic under LLM review supervision.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Let's fix the lock serialization instead of dropping the framework.
+
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
