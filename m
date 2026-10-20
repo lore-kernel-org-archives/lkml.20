@@ -1,60 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792459944;
-	b=h0AY5TcxGdLZXZsXkWTyvpH/4/Ba65nZadafqomOTiXYhbBXjiB67+iOUm3wafDix4PL
-	 7Qf0tdpfNJQrOw7E0v/qO6G6nlW8MJKtyOaUwoYRzJwL/DR7k4R64wwy8vjsk3JmVhAC5
-	 bR3yLNnj98aEhGZvSeMjrPhZywZ7wd79K24HEEUHAZHFVlle0PioARWImlbT6JH5+/Op/
-	 GPRvCqeWIWVA0dG14Xj5ybjYJo7B4D+/a6UoAHqOpRHQhYI9qrRjsO8oN+fyzXlIsMkhb
-	 0uhp1tsa/9mitCqs3YJGkww5Q04Vns5B9bmOUO9Wnm+FSVWQmW3jmE3VEeouBfyfsWw==
+	t=1792459959;
+	b=NVy7cL0UEBiqfluxOGt73YhxFtPl8X8cEstogONRxTQk8HVBa+G/2G7VpPcVa673W6tD
+	 uFJuvyP+yj82lTivFO5xAWs4trRgIkx8hYBgKZa0VHwdch31lCfxS0/PQYplBoJCRmqQ1
+	 mLupBcvS3hlI7CDudJ3eGpjE+OmZCT0gi7xNN0UXthlzTWV6RIfM2Pu8v2MrTMRXYoruL
+	 lDDHFaLVmKvCaUGXx/ysYqNwfzXu7wjlkFajOVDP8jzjMhY5nxHnrd/it4ZW51eQsm5r2
+	 tlKYApM2uvjSp0avZzvUrmPa3hkuVHl8tYnsGsQUl73qyzf2X9Tw8naTuKMjCZjXkTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459944;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RHHZce2bisqZNUvfZX9Hgcl7uv7oyGBAYDbe5ybUc7g=;
-	b=l9+7a2ceEPug6ofE2ZIkInb7iv2x3durGq3z4GkLSAwarLDCOo7+L+XcQ7DhCN8fgdVM
-	 8Qiu+F5ptXKYIsNkAjV0HRELhEGMSUN2jpNRX00MpB+NwiPGM31T0dZn5g4+Zxpq7x0PW
-	 xPc73TSiV/NuHfMk8+D52vW4CA2SkFhcRcxu5gFErZaXoaG4nyLDD0HYtTR1QVHl6l4BH
-	 SSw13QReMk/9dSg7w6H++OmmnBilB7To0r5w67/FWMjzAjXIy8f+dM+WN6sfIvotlz4ah
-	 Q72gLBgddlNoKZXQFl0evQhHteotWiOsRBt1Ywi3QdACSHq0Aiuu9olGc0uphlzC4XA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459959;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=hbd8F40uztWUFdFpYoq/NguOmu7kZM7kx6LRdC65rBE=;
+	b=XtEzkHjNWd+WmSV+857xvM1yedn9MiDP4b+8NUJz6arkKo7zZBljf8byoN/VmRee7M/R
+	 pISKBK3xD7HofpRybQALimYhBeObGCGcUtnsWVJisykfRcwfFjwpHWea9f1vxYKHbM683
+	 HCd4PGOsmcMB2bndv0ERS7Qutc+M9uAb5DOuPrNNUI/gokSyGnyCvkU1W2xDgt1f4KP7Y
+	 qd/rCi76pwfCAMKVbKBDbI+ud2BYO0RCw1tBxjfQ34wssDG6PeS4JKzbLr1ihr+CrTvqm
+	 9Zyc7LSaGoid2ot9oWotO9DVBFj+uMsgzutumuDgg2zArZiagqQ5nY2GYOO7rBxJeVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9fyw9BW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mtq+eZFd;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EA8606A319;
-	Tue, 20 Oct 2026 01:32:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF3D606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:32:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CF3D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9fyw9BW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4FD1F000C4;
-	Tue, 20 Oct 2026 01:32:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792459944;
-	bh=RHHZce2bisqZNUvfZX9Hgcl7uv7oyGBAYDbe5ybUc7g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=m9fyw9BWEA2jRonWWI+6v7nTpS04pSAddzT88+LEFIeWb1PsUprhO9zMQPc1zK5WD
-	 SLSMsRI93ZzBBzkgyACFkTLREk9zB4pAynyKUZHGnAEC3XmTexo84HVMnzdxnVEHGD
-	 EuKtbZtUeN9N1VXkAhGtQ05T+JMTCPGXLqEziTp1aMO4IAyeuRES27cIlcC18cgRop
-	 Or9cL5mJel0UWcFbcNLQcGi0CHLDkuasEC0Hd5J/NPO0uBaLM+dA7zh08cJGwc3BJ/
-	 kHjmU4mnnjF9nbiFflwky6Ch4sDqy6Y5cG3tv12HZHAtx4ngFIHvtF0JTn1m0WnJ9/
-	 mGP5uyJ7A0/mw==
-Date: Mon, 19 Oct 2026 18:32:23 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Cc: hexlabsecurity@proton.me, Paolo Abeni <pabeni@redhat.com>, Thorsten
- Winkler <twinkler@linux.ibm.com>, Eric Dumazet <edumazet@kernel.org>,
- Alexandra Winter <wintera@linux.ibm.com>, "David S. Miller"
- <davem@davemloft.net>, Nagamani PV <nagamani@linux.ibm.com>, Hidayath Khan
- <hidayath@linux.ibm.com>, netdev@vger.kernel.org, Simon Horman
- <horms@kernel.org>, linux-s390@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net/iucv: serialize HiperSockets receive with
- the socket lock
-Message-ID: <20261019183223.49a59d6f@kernel.org>
-In-Reply-To: <20261011-b4-disp-410518f4-v1-1-753bf3258292@proton.me>
-References: <20261011-b4-disp-410518f4-v1-1-753bf3258292@proton.me>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mtq+eZFd
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso6593653eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:32:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792459958; x=1793064758; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hbd8F40uztWUFdFpYoq/NguOmu7kZM7kx6LRdC65rBE=;
+        b=mtq+eZFdhhS01ky0+kx1VNw4MweptzQevrl1PWVnZAr64+3HZluobbKHYk/ulv5dlr
+         P0lTY1ep/oueixqy9Wm8m0UHp9e9JRZPS6UN7Jf44hZaIklHxJxNIotKNEKfCsO8Ewux
+         bx1Z6XXR4sHSy13Enr+1CMwXyqdDA4douiJSxf4AUX8LRA/1ZlgMT9gyatufVNuPdJdm
+         Y0azE4OtpnLolOTb+1ISPXZNZfod3NyvK72LbIa1eiMpTjH2UAmq7ZeitHoBxNcAqWC/
+         UA24BirhpP0FmVJaQE8LjlOm+n5MYIVQpcVxa98QXfw6xv96FWLToYNOLOgIKTo0gJLP
+         siKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792459958; x=1793064758;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hbd8F40uztWUFdFpYoq/NguOmu7kZM7kx6LRdC65rBE=;
+        b=sYQtgBn8G9ed6oJWMWeuv1qeKgHreDxyURXTwpl8O3Q9mP4e2Y0gG0IXaq4gR55lhQ
+         U6jJtOJV1GVQj0VHMuJDPIbD1JCEQyo7CbFlF8pw/j11TuB9OpELXuxG89GpIT2O0r5S
+         x/amyDZ+ms8GXJ8lquyipMsyGkHPra2XJjg1uMPuLN0Zq5VKaRtHxO+2Ft1UxAqYPnFg
+         HsKdTuuJwigtvUrbhvuB6JDSnaykLCAESPYPbwU1ynHeMHWK8WsqhBZOPpTOcgyQ02uu
+         vT/5BRMjXp0JShlIFw5IuxxtnyeZJG/eRgncTkFUXoUDIzd3BKaTjWMz0FeNoUWU0rjO
+         emHA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVMZZX3qjEPnEIUn5jltUTTGRXawVxsTFG3XrI8UQdLYNBkj6dVx0nqOjJiH+awoDLGYBU6jKrjyACjp4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImWRfsRCbuBYsIPmIlWU9VTezVoYiS8dkjo7SYDn7WG/Kna/mV
+	GB8YcK9IUICgBmEXNImKUmPgemTcq0i7oOkxUp2DDsIAsgdbYkvfCpsB
+X-Gm-Gg: AYBFou2Vq5hGuWRC//9kA5pWQws2dtyiictSyzBZlCGAhtbGbksKG3uVXxiTgmD2hnv
+	H2bMpjkvqncY/kRO2mMQOa+PL2crMqf5dB1uZZy48TZal2IgFFbnzjJnVW0VwJNRSQcT4vcpS0k
+	D4izncRKzueXvpgCGeRtZ8t1DP+q1Eho42/rtYbRPD0Yo2GwRDNvxIAG5U5ZoEIli66QLpIq8yV
+	z/XVFY1GiirluwffN06s3/kRiA878Ayn5j7/Fm6BzdAHX0PvLZvHP5338+DjXfTvZp/ON7U3W5M
+	ycHbMIR12uN1oP+xQO28aoh7rh7XrfLnmO32U7RefUjhSKRzqK36CLw/Yg2cBPk7YeW5OaCT8/1
+	0wHvu7Zku7WR/dd+L5NGkKtocVQ9LUTmKFwhygPytd6g0yujSGZYSzVrEZJlEnjMMOC8KF8x9YM
+	idjVUFBtQMtPAnvq1GVyxCpQgmqS1YNpA7mcts9bwG9dkGvba0kysEaJ63AKHdABnS/6FqO1Tdf
+	80OQRbfDah3
+X-Received: by 2002:a05:693c:87d9:20b0:365:b147:b458 with SMTP id 5a478bee46e88-365b147b492mr1958916eec.3.1792459958338;
+        Mon, 19 Oct 2026 18:32:38 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6ca5sm33999595eec.9.2026.10.19.18.32.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:32:37 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:32:36 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Arunmani Alagarsamy <aalagars@qti.qualcomm.com>
+Cc: wim@linux-watchdog.org, linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] watchdog: davinci_wdt: Fix typo 'occured' ->
+ 'occurred' in comment
+Message-ID: <31336794-97d3-41ad-9396-865cdb4e7f6a@roeck-us.net>
+References: <20261017164403.2987788-1-aalagars@qti.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,13 +97,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017164403.2987788-1-aalagars@qti.qualcomm.com>
 
-On Sun, 11 Oct 2026 14:08:17 -0500 Bryam Vargas via B4 Relay wrote:
-> +static int afiucv_hs_dispatch(struct sock *sk, struct sk_buff *skb);
+On Sat, Oct 17, 2026 at 10:14:03PM +0530, Arunmani Alagarsamy wrote:
+> Fix a spelling mistake in a comment inside davinci_wdt_get_timeleft().
+> 'occured' should be 'occurred'.
+> 
+> Signed-off-by: Arunmani Alagarsamy <aalagars@qti.qualcomm.com>
 
-Please reorder the code to avoid forward decl, please respond to AI
-reviewer's feedback. Please trim the slop in the commit msg and notes.
--- 
-pw-bot: cr
+Applied.
+
+Thanks,
+Guenter
