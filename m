@@ -1,111 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487222;
-	b=1oZMKUj/fDAgxjZFY1DTrP6DEZb3018T60YNVOlEb+rU+C+fRFomlNEgrKpK82I1kTR4
-	 5rkNqwzb2PFgpzSJT/JJyyfSWW9EOrM4tbWqOqJJ8SyiCphX4cxgKr/K19YREyfeoPKBo
-	 Y5lYrLZk7lnVknD20/DSt4C3ZzT3+KWgu9DzJndxTA0dmo0yqGkBA4yJG0VCTQBVnV35N
-	 jKqLs7ZE8pNyyR/jMHEgtHWI+xVr1ZXcupNkRGAA0I+fAfo/iSFJskNITkJhKmLuOnTKS
-	 K55YZguH7VR3lmbP9XBu0za9HBYBg9JwFMaCZ6PVsL9mL0WnPYK9+n/vjxuXy6KsZVQ==
+	t=1792487220;
+	b=UK0UNglEl8P21aIGgoGs+R/l82c2otw5gI7Opnq1I963ozurYkx6R7qhRr84E7TEgcua
+	 Gwzq04BBnzC2SPbFpJbCmx+uXxNH/eE1aV/Xm7J5o3NhID1QIEBNimHha/NsBgaE+Ky4G
+	 IEOq52e+VWCkN9wuWhF1Po/oj0jj1a1Ngk9zpqTUjPQU1b/Guq96TwwY/VDsk/Fm6CGTk
+	 d/9O/VUKsRb0rYfrbZhBTR4RLqCF0WjecQzoKCZ70OXjc9h2kxIiNqVnV12xWAtXl1TgI
+	 Klc3lEne6J+vmnLxWrURY2gh7YKfnMNgNwWrJfFPFtvIrxx2bfeR/Yrj06RkEAg8ICw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487222;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=qbtBT1zpSxLsbcMbyYVhf3JDYC/W4xf5mt5D10gHvo0=;
-	b=dVrOzC7pcn2aqKZgzaLSL76+C/smXZBWvbn6j7K33kRMpj8sFxarxkya7bPrwHYy7m4v
-	 roDZfaD7gxfbwJamCpEn1BUvKNV0/liwK/pliJ+6gqnWNckWxGqAA/U5AIj8z1ShYai6V
-	 WT+mGz644KXtsz0Zuu04JljP8DXroyQ0kM+ZMM75ZNMm3EiwCEl+PPxHZ3i5CLkZEJHoq
-	 FJVg9HIQGhNa/96721VoEz3pMAeoAaJwexFGflgyuDvHEcM1l88jGEH0fitTlI3n74qTd
-	 lVsLuNfUVGu65FVv3fupZmeKObu/hP9NUdnnh/xaCgxvnSMEif6WY4/fUOuPLWPHssg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487220;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spamd-Result;
+	bh=xwINHTgCnT1vCZQIZe0JyVWtSi5Ffah6jz5uwd0618g=;
+	b=UAZu2+PU/ZBsOnmWQnDGG4EKQQZgNkQNua/yqDDk3lOO3I6e+n9OoMfnK1zyDUjSsvWG
+	 mDw+fkDeQn06F0v81ZPZU4RABX25oq99qCc7bkAh+UrWAbPm4D+GfGdxP3iZp+6xnqMKl
+	 eoGDy6GgpQ32ikCWkTy23FE5CZ/EyVKQld8UhSXKo2eGF8AkScLwJiVSbd+WpFLSUti7H
+	 48hQH5650BobYHPWBy38+5taDUIyVX3642FKFQoGOkl3ei+ECAu5rA9UCHV+lB5llcmQX
+	 eOMyrazrJl2fAaMrVZ4B9JjMdkkeTfc5indpEiEJM7OX/pebRGLT2MSKZ/eSU5ZQAWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=YAgmFXmj;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Vdjp2tjY;
-	arc=none smtp.remote-ip=202.12.124.151
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CBT7h19t;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6lpblSgq;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CBT7h19t;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6lpblSgq;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0BA606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:07:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A0BA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EFB606A319;
+	Tue, 20 Oct 2026 09:07:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50EFB606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=YAgmFXmj;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Vdjp2tjY
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 762061D00043
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:07:01 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 20 Oct 2026 05:07:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792487213;
-	 x=1792573613; bh=qbtBT1zpSxLsbcMbyYVhf3JDYC/W4xf5mt5D10gHvo0=; b=
-	YAgmFXmjB9LJCqu5UhfWhrgkMQ+78wWrQqA2QRxxmQ9mmdJLYKjVExsXPcIQ1nCY
-	HYO0VQW8oNhgA78fDNH9KiQwpz85a4KLmWQcxjENLDhNNFKaWVTlrH6JqKhVZxjN
-	3ayzQ+9YE2HyrkD2JbMfaAOOsgfxFQheg8Yr56I4HrD3FQb8nydfmBJjHSc9WLH+
-	rH5SOKG+M2XhFzmE0+Ah59kMDRtPzHItkPXQ63e0SN2z3TANvWi+jN/1E2dmDXLj
-	YdoQzjMWcbmNMNLIAk4Erj05hkXqVezobDhOHEOnPxn+EkjpbZY9awVsB3a2zmX+
-	hX1W5EDi23GiFOXKV9UGmw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792487213; x=
-	1792573613; bh=qbtBT1zpSxLsbcMbyYVhf3JDYC/W4xf5mt5D10gHvo0=; b=V
-	djp2tjYjltPD9WauoYY13RPgdVY2L88pxKoNitXC4D+yzKb20SlGcgQlumZ+iSSs
-	w9PoA4x4okUEJqt7BkhuhkHhMGhAoamuvH4xLGNYNFOAB0baTFjUmqzyO0ZoaTDZ
-	o7MZb8yO3DpsVrQcw0g202eYqvjCqPn5rXdvnNPHS3dYjgnthyF3ddnLNAN/mC08
-	X5W1Fe4fKVkWyw9WoNuR54h6fULRnD+ZaN7zLV99fohkG5vu5ckL74K/UzRJVEj8
-	AyRUZl13q7NmSTU8enZ9nQ6yQiJsv+9FQvcuXq/iztp66w2og2JWwO7ERo7bwx0H
-	OMS1QMQBLoMZFeBHGHwnQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792487213; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:eAEok5Kxwn7zz9xiB4598w6G2D5sXY148xP053llKN4mQwh
-	1SaGuRotGWf75dFXUKHNWzI9wdKtmHjHMMVhCI4ZrWT6YZvUH3h/6jsyZoDXNbOD
-	NbjYuZT1WQQ6xXkRAgkSDm0N/o+nkHmbfGD6NgApl+AJxu1L6pvec24ZjoG0L/1o
-	0H4USEwyWxHDNrCLvO7Shoh/ZD9lMPNGlbm2BobKFkFcp/i0I7bCUJkGS9Rono4K
-	UduN2ZmYMBj8AWehKOi9tweTWp/sxBQ60FvKoBebZuFg3i4jo5eG5x7RP6UvGh4c
-	oD/RniKDTsu2243XsjG9D4NNIQOFHAat06Qydqg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Zf6XtnsRdLogxNdsFsiNl9U5lteyoRFbzV8KFT94ceY=:P1+4NKlddnjAdfdPKXMMf1nmswzQ3j+bprK9cbCihoY=;
-X-ME-Sender: <xms:KC_XaqGFWnH2TWivi-2RBBGAC3gfA1D44CKdS271GMmheqTagxxmpg>
-    <xme:KC_XamJflEGblbMedxlEtVC_s5MGvmo2Yf9kr6TZtso4llSvLhiruS06StW3YjncF
-    YOs8Zbcc8OjYTp2Pu1vhNOCySecE17SXKovaGln_CMCURUaMvHYS98>
-X-ME-Proxy-Cause: dmFkZTE6pYZjwqD9MuJZc6oGG5G4d8tXnhSRk+nCvHZBTrmX1lvtdBB2z4mSt0mtErSvno
-    uKHAQgvOcedGlRXGN7ggqvLURejOEB3vEgubbBGVASzH5JJGm6qRIN7+Gu8ohdrqvGK08J
-    9BbwSughj3UMjk4bVE1QdUhNjKK7NLUIqJUN5sOIHEt5TldzHgx1WzzQ4L7xS7cooChcY7
-    rv9AuZIKyXllIY9hKA8K1G8fT7AhYuwJ6qGIBKV8AnLHrcr1onLXuEYAENhM6M9GpdYJdV
-    vkCe5+12oZhdEE/U4lNHMtLhbLVabIlgzVVGYs6J/gKl8M51RVdHoeS/WfEqq9dzde8cNA
-    eNHfYge7WVbCoY1+KLuQFPAMWOF66HrRo+3NmsOZYMQ8MlJPXBpLhIW/NYglbhGmndf001
-    A/6CMGeBVygqyslGZMOveGymtrbbq+TtoAE/SJdXKT1O/6B+CIsxWx5kQzJAhUh3o3S+ya
-    ED2Cy9rqkUtvjKWQYuULfth6786qsr9yRxVAWVY1kxTZGxiLaoGHBG0CuazaMdF8V4RGTy
-    Kvq2LFyyqME+xXjn42vkYOKvHkXbnS/HPrkOtI5grRs9rvhzIwVtVyB/u/3b+cDvGF++rC
-    V984mXo98wkevu6m2MU40qe1fO2ZJ+FRXK6bm1CfEyG+jjKniYAIhuMEKouw
-X-ME-Proxy: <xmx:Ki_XarPN-YD47sw20HPwqP0y1YQFzBJbYIa-_vpY3eKV9fNEPmLSvQ>
-    <xmx:Ki_Xam7lZ3BlCeOb4CS1J2ll5g6bloQEIF--CeaWUTZR19J7JwqUJg>
-    <xmx:Ki_XaqmJcvhx29A0jrkaPFH1VNRUcUzJ6p_bZr43kzs83eEn5NWfoA>
-    <xmx:Ki_XauI8wNPpH7dGH-8y2tvBNNfnnLoEDZKtvDALjuQxh7dvfLD9HA>
-    <xmx:LS_XatS6u-867GxncqjomOrKbuKdTDKjIWZKuU5iq2LF_lGuz1Vopv4I>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 506CA32A008F; Tue, 20 Oct 2026 05:06:48 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CBT7h19t;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6lpblSgq;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CBT7h19t;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6lpblSgq
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B2B991F451;
+	Tue, 20 Oct 2026 09:06:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792487218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xwINHTgCnT1vCZQIZe0JyVWtSi5Ffah6jz5uwd0618g=;
+	b=CBT7h19tzNPggCOvECubxz18UsTXHXvN2iYF9nGzhd1Rciwtx50MtWPXfYfdQMpA2BqiHV
+	6ZsO1JFvHvQKht+0wqfzQ8xXgsv3/MNlHDi+wtl/rnKcrDXY6fLy+b1+7IqFkGf5RLM11n
+	tNDl+IWt0EK3yY8PxEDCkOUvmpGVCXI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792487218;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xwINHTgCnT1vCZQIZe0JyVWtSi5Ffah6jz5uwd0618g=;
+	b=6lpblSgqsRfzMEeHoHQfLNmEKP3tNMmwfJbvNwtTP6DQAi82Y99X45y6mtlyJ6HvhC/IQW
+	ruxklm15vZQOjlBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792487218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xwINHTgCnT1vCZQIZe0JyVWtSi5Ffah6jz5uwd0618g=;
+	b=CBT7h19tzNPggCOvECubxz18UsTXHXvN2iYF9nGzhd1Rciwtx50MtWPXfYfdQMpA2BqiHV
+	6ZsO1JFvHvQKht+0wqfzQ8xXgsv3/MNlHDi+wtl/rnKcrDXY6fLy+b1+7IqFkGf5RLM11n
+	tNDl+IWt0EK3yY8PxEDCkOUvmpGVCXI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792487218;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xwINHTgCnT1vCZQIZe0JyVWtSi5Ffah6jz5uwd0618g=;
+	b=6lpblSgqsRfzMEeHoHQfLNmEKP3tNMmwfJbvNwtTP6DQAi82Y99X45y6mtlyJ6HvhC/IQW
+	ruxklm15vZQOjlBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C14F136CC;
+	Tue, 20 Oct 2026 09:06:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2iNZCTIv12qzZQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 20 Oct 2026 09:06:58 +0000
+Date: Tue, 20 Oct 2026 11:06:57 +0200
+Message-ID: <87a4o8ivv2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sonali Pradhan <sonalipradhan@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Neill Kapron <nkapron@google.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Victor Krawiec <victor.krawiec@arturia.com>,
+	Felipe Balbi <balbi@ti.com>,
+	"Felipe F. Tonello" <eu@felipetonello.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] usb: gadget: f_midi: fix UAF race during IN request handling
+In-Reply-To: <20261019135701.2767078-1-sonalipradhan@google.com>
+References: <20261019135701.2767078-1-sonalipradhan@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,70 +117,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ThreadId: ATLhSvAouVZo
-Date: Tue, 20 Oct 2026 11:06:06 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Marc Kleine-Budde" <mkl@pengutronix.de>
-Cc: "Ian Rogers" <irogers@google.com>, "Thomas Gleixner" <tglx@kernel.org>,
- "Andy Lutomirski" <luto@kernel.org>,
- "Vincenzo Frascino" <vincenzo.frascino@arm.com>,
- "Stefan Kerkmann" <s.kerkmann@pengutronix.de>,
- "Christophe Leroy" <chleroy@kernel.org>,
- "David Laight" <david.laight.linux@gmail.com>,
- "Arnaldo Carvalho de Melo" <acme@kernel.org>,
- "Namhyung Kim" <namhyung@kernel.org>, "Eric Biggers" <ebiggers@google.com>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Jason A . Donenfeld" <Jason@zx2c4.com>,
- linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <fd21b7ed-003e-4c7f-a60b-0f9918b2bab1@app.fastmail.com>
-In-Reply-To: <20261020-zealous-warping-quetzal-84479a-mkl@pengutronix.de>
-References: <20261019201257.3805356-1-irogers@google.com>
- <31fe09f6-0a14-40fc-8ad8-c03998fb1f5c@app.fastmail.com>
- <20261020-succinct-zebu-of-vigor-6cb2cd-mkl@pengutronix.de>
- <d2afb4cb-145e-488b-8f6e-c83e38735526@app.fastmail.com>
- <20261020-zealous-warping-quetzal-84479a-mkl@pengutronix.de>
-Subject: Re: [PATCH v1 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option for ARMv5
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[wanadoo.fr];
+	FREEMAIL_CC(0.00)[linuxfoundation.org,google.com,suse.de,wanadoo.fr,zju.edu.cn,arturia.com,ti.com,felipetonello.com,vger.kernel.org];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-On Tue, Oct 20, 2026, at 10:41, Marc Kleine-Budde wrote:
-> On 20.10.2026 10:24:51, Arnd Bergmann wrote:
->> On Tue, Oct 20, 2026, at 08:44, Marc Kleine-Budde wrote:
->>
->> That would be better, but I still hope we can just get back to the
->> portable code across all architectures for the in-kernel version.
->>
->> I have one more request for you: can you check /proc/cpu/alignment
->> on the system that shows the performance regression with and without
->> the patch?
->
-> I asked Stefan Kerkmann (who wrote the original regression report) the
-> same question, but we haven't had time for it yet. We'll get around to
-> it.
+On Mon, 19 Oct 2026 15:57:01 +0200,
+Sonali Pradhan wrote:
+> 
+> f_midi_disable() frees pre-allocated IN requests from in_req_fifo
+> without holding midi->transmit_lock. Concurrent f_midi_transmit() or
+> f_midi_complete() calls can then access these request buffers after they
+> are freed, leading to a use-after-free.
+> 
+> Fix this by acquiring midi->transmit_lock in f_midi_disable() while
+> releasing IN requests, and checking ep->enabled under midi->transmit_lock
+> in f_midi_transmit() and f_midi_complete() before modifying requests.
+> 
+> Fixes: e1e3d7ec5da3 ("usb: gadget: f_midi: pre-allocate IN requests")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
+> ---
+> Resending and rebasing on latest linux-next as I haven't received
+> feedback on my initial submission:
+> https://lore.kernel.org/all/20260819102709.212646-1-sonalipradhan@google.com/
+> 
+>  drivers/usb/gadget/function/f_midi.c | 19 ++++++++++++++++---
+>  1 file changed, 16 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
+> index 63fb6ee70a3d..c26d04eb9209 100644
+> --- a/drivers/usb/gadget/function/f_midi.c
+> +++ b/drivers/usb/gadget/function/f_midi.c
+> @@ -280,9 +280,18 @@ f_midi_complete(struct usb_ep *ep, struct usb_request *req)
+>  			/* We received stuff. req is queued again, below */
+>  			f_midi_handle_out_data(ep, req);
+>  		} else if (ep == midi->in_ep) {
+> +			unsigned long flags;
+> +
+>  			/* Our transmit completed. See if there's more to go.
+>  			 * f_midi_transmit eats req, don't queue it again. */
+> +			spin_lock_irqsave(&midi->transmit_lock, flags);
+> +			if (!ep->enabled) {
+> +				spin_unlock_irqrestore(&midi->transmit_lock, flags);
+> +				return;
+> +			}
+>  			req->length = 0;
+> +			spin_unlock_irqrestore(&midi->transmit_lock, flags);
+> +
 
-Ok, thanks!
+Does this transmit_lock help here?  As far as I see, the ep
+enable/disable itself is done outside the lock.
 
->> In your original report, you have shown that Ian's patch
->> caused the drop in performance and that it caused the added function
->> calls, but I don't see any sufficiently hot code path that would
->> actually explain the scale of the regression,
->
-> Don't underestimate the overhead of function calls on those old CPUs
-> with tiny I-caches.
+> @@ -678,10 +690,11 @@ static void f_midi_transmit(struct f_midi *midi)
+>  	unsigned long flags;
+>  
+>  	/* We only care about USB requests if IN endpoint is enabled */
+> -	if (!ep || !ep->enabled)
+> -		goto drop_out;
+> -
+>  	spin_lock_irqsave(&midi->transmit_lock, flags);
+> +	if (!ep || !ep->enabled) {
+> +		spin_unlock_irqrestore(&midi->transmit_lock, flags);
+> +		goto drop_out;
+> +	}
 
-What I meant is that I tried to look for calls to get_unaligned()
-in the code path you'd hit with UBIFS on nand flash, and I only
-found a possible call once per page written
-(ebu_nand_write_page_hwecc), which should have a much lower
-overhead than what you observe.
+Ditto.
 
-While ubifs does use crc32, it uses the lib/crc/ version rather
-than the crypto/crc32c.c that you listed, and there is no
-get_unaligned() in the lib/ one. If you have NOR flash, the
-caller is likely do_write_buffer() calling map_word_load().
-That one could explain the problem and could also be
-optimized further if it turns out to be the bottleneck.
 
-     Arnd
+thanks,
+
+Takashi
