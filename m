@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792532302;
-	b=TK1OsMSzcJfAW63ZL7N+uZWHIPttmGu2pNtZekaGIpzo6RoC1AJFT/jR5v6zjs4whPlD
-	 YtwUP4zpxdhGxcfOcXGQ+Rw3NvBMhFKxa0ox1hlp2Dbxsk4dXn8typjrbxUICWLrLk/hx
-	 YQm74+0ydqzmMpkWD6Xqp9PrQCc2JOR6vqaCDBOT+WO4zXQYJY6ddE/IevJ1p9bArWAuq
-	 7Ef0nqE6ODzTQKv8+jZ4D5ZIK46cveoTaQ9GP6azuj9hRso9O1UufDznH6mxcAEKAybZt
-	 7tem/8oZa/75xyCd5E2ycJUZlsHmQsNudrMMOhIZvo77a79+Y8cEZ4kihd5nofAlrIg==
+	t=1792532317;
+	b=XqE3mdLE65aDgOTbNpzmx7tn/+qNh4/rUrFMfJulnq2305an9je7JNd5Wt9d6/PZDJzN
+	 HFEuCE5Q0TTwMCXLivBBYVGhWxKZv4RJt+6pU2/2K0CGaxdET/JhTAKS+NCxzvRqi9Hiz
+	 XkX9YoM3AaH0Xso7cZiZaNK88tnSdYg/7NfXH+T8pePfjNydZyT+MwB9N4bkohq+yE3rI
+	 nAF2yIN8WB7WToW+8EaFnT8y9yDk71mx9upiTQ5xiLOUeoHU1Lf9cmuuxqmGMPUzprPfl
+	 TcFM20qv3uTLlW+duKEkpObwlmgU3nK+Bi6CSz25SGsAbY4IYNyp4dGV06Ker04Rc1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792532302;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792532317;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=cBE2dw1g3Eh9EqgFtNRVCB1b68R/t5j3Hg9J4T+07Jo=;
-	b=qA5/90/q2b4z1+3x14H8owirM5hToMibF/3FekmDE+kPhCbI1rDj1VziTwukV5HINXaN
-	 tD9sq29fI6cb8p1tOuH69Ed/UCBm+2x2PlXqe44Hc4OQe4NCxoNQ9sk62nXUglMFsUOJ+
-	 qLi3VJbE5x9TlJiLl5YrFdVmzEw67f5iXd1I+UiQr0AwxXoFpzTFaMfPRQoOLOE6e+KfM
-	 7rnPzbYEzXoLh5YGFzxAkPMynNsIk87xEc9c+/Hn38co782wDwHRnGCFMutYxU+4UyGUe
-	 82nBxhNMIse01r4s3DnYCOys72nQij552YvEOcrp1Nn7eX8bIW7ud9CDI9PRwgRv0Hg==
+	bh=3O7ZycST9bH3/W8rONAwVu+nkUZVZT84pX7YzKH3170=;
+	b=b1WWabHAtwD4jgGXvTRrPwnnCk055B6voLx23Mn57KGFnnqMTwlceqlMFQ/Vk7XnmhJU
+	 1jLXa5tWjWkCQNdU/sqlH/Wv9pQZZTFm33tLz+lxw96WKuCeM+DWGkhPTjow+yBIXfOAL
+	 Ym4y0q1z2EOFxe0KqPBb45zE/P7dFJ3ChlKUkOLddRgnegQgvvAz/q0NbObWfyxQFKZlo
+	 OgJ4jsQI3A++wfy3iLtmAWXBRx83G8vsk/LXGtE8dJGR1rEIpgh5YDKkQ9fMMd+LlxmOM
+	 LKHEESzws2Pl7yjj7KqeXgRBZJQgrVxu9ci+qp6U1bWeIYC5lKGoBM0OaraVuW2i6Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVS6CcEP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iben+ze9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDD2606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:38:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7361F606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:38:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVS6CcEP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086C21F000C9;
-	Tue, 20 Oct 2026 21:38:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iben+ze9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095941F000C9;
+	Tue, 20 Oct 2026 21:38:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792532302;
-	bh=cBE2dw1g3Eh9EqgFtNRVCB1b68R/t5j3Hg9J4T+07Jo=;
+	s=k20260515; t=1792532317;
+	bh=3O7ZycST9bH3/W8rONAwVu+nkUZVZT84pX7YzKH3170=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=WVS6CcEPNYTpDVdKv39RJJJ1EIRG8Wwa5HeMqxgLTg0zVUlNjX06yRwiqzn5mE98Y
-	 RFHTpWvuIYCfN1nQfzeu289r5v1abLlxPzR00/qv/oc0zLjlujzv4fF/h/oB02+2lH
-	 loLw3R4LPfmTBSTZfCuxYzs1tI4TGC16VEvpqA110LPKac/RTx16L448dPmqib+cDA
-	 Jw49x/2lmsSsGRYPK6jTMeQJc2wLqO7GBEdU6FCkN0azPwTld7SImcCofQTN2+I6RN
-	 hoxKzNbUmE+u/IEc9nsDMrJRrsvmtB7NXcG/jAWeEYaaTSso5waIQMd/pM3h4Td/DU
-	 K8OLtEMAo/HyQ==
+	b=Iben+ze9TqKwVYOBcJ086lYIcW4L7+4zj/xDuvk27YI0RI5bhhfG5IfPhh/ns0DXp
+	 QesjTF44Jb8ODvgr6uZaxPnUkq53zt2/PJQT9tg6UKFTm9PCKb1Nc63kLPtECWWqse
+	 4DAUJvda5QdmVa+EOGzeUCztrKVDQMj3aCLd3oCP5/PRDmbM1oCQzuOHpnlTWEHceG
+	 3Ku9HKolR5BLVuQ++ogs1TxpYeqoTX1gjOo0tRVXy5kEumr79GX4c6dneFYThaLYZp
+	 kw4qDkMO3/+N1a6Tc/9pBLxibJ1wUe03NXo4GTdxTriwwW/NpnCFfZm2CCvk/9DffR
+	 BH5aUiMqhCrUw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F37473809A09;
-	Tue, 20 Oct 2026 21:38:21 +0000 (UTC)
-Subject: Re: [GIT PULL] arm64 updates for 7.4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15013809A09;
+	Tue, 20 Oct 2026 21:38:36 +0000 (UTC)
+Subject: Re: [GIT PULL] arch/microblaze patches for 7.4-rc1
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261016144012.547221-1-catalin.marinas@arm.com>
-References: <20261016144012.547221-1-catalin.marinas@arm.com>
-X-PR-Tracked-List-Id: <linux-arm-kernel.lists.infradead.org>
-X-PR-Tracked-Message-Id: <20261016144012.547221-1-catalin.marinas@arm.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux tags/arm64-upstream
-X-PR-Tracked-Commit-Id: d0de3a73194a250a2e5ffbf1dc604c0bcbb16e8a
+In-Reply-To: <CAHTX3dKCkUGo7Xmn55QEhJkiKtAyfNBj8pS8yK3QYpJsm-MW1A@mail.gmail.com>
+References: <CAHTX3dKCkUGo7Xmn55QEhJkiKtAyfNBj8pS8yK3QYpJsm-MW1A@mail.gmail.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <CAHTX3dKCkUGo7Xmn55QEhJkiKtAyfNBj8pS8yK3QYpJsm-MW1A@mail.gmail.com>
+X-PR-Tracked-Remote: git://git.monstr.eu/linux-2.6-microblaze.git tags/microblaze-v7.4
+X-PR-Tracked-Commit-Id: d037d22b216b52cc7c45c4b7ec06f3929d5a03f7
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 303bff3637d13f0ecbb280c7cb403470c440a2a6
-Message-Id: <179253230073.225072.10707551340990264293.pr-tracker-bot@kernel.org>
-Date: Tue, 20 Oct 2026 21:38:20 +0000
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-PR-Merge-Commit-Id: c3134590a8c51b34ce66fa471ffa4b4fe38daa1f
+Message-Id: <179253231557.225072.14627630213500119165.pr-tracker-bot@kernel.org>
+Date: Tue, 20 Oct 2026 21:38:35 +0000
+To: Michal Simek <monstr@monstr.eu>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>, David Gow <david@davidgow.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Fri, 16 Oct 2026 15:40:05 +0100:
+The pull request you sent on Mon, 19 Oct 2026 12:22:06 +0200:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux tags/arm64-upstream
+> git://git.monstr.eu/linux-2.6-microblaze.git tags/microblaze-v7.4
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/303bff3637d13f0ecbb280c7cb403470c440a2a6
+https://git.kernel.org/torvalds/c/c3134590a8c51b34ce66fa471ffa4b4fe38daa1f
 
 Thank you!
 
