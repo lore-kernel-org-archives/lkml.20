@@ -1,88 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792459754;
-	b=GuPbvfY8RJ7z6qH6pYxHfOQCniwDj0Q9pv/ZQIyeYJ4ytRevWddF48N+qK1HggxOcPT7
-	 BCxFyq057IxRTHxAzDX8iyp8oPYMII8O5U7jPrg7bCEXu1i0TDNynYm9tn7uBq0AK9jdV
-	 5bHVFn3Zi9NF8frN5C9DVKHtXXOxqnM0zoP73hIcl9GrskqZzDTjfxR62Ht1YYcSYXsVR
-	 shsDhn0AV6e99wQEv4rEXXKJcTs8x+kfPz1vW9+Ha92uOw1mFw0BMH+z0KRRxkI5tUBiZ
-	 58MdqXmSoH6fq4HWv21p/lRRvTTtBPvd18tolSm1Nu+dkQJoCuFWKsYyD+HUB7j3zGQ==
+	t=1792459781;
+	b=UepG9S6Fx30w7CYEarKzZ60W9iiOi1F6x0YLrbYPWRuTH1IORf7n92afkYUfwcKPpgVA
+	 kMbGfUl76NWpZysJuB3Uuis656Xc8/YqpbUcG+ZYtbXv0nggIX8dJEtQSMOtg/jPr2syP
+	 HCLZbNJ2NIZ8edfr/3gkPb+jz2sf+vNw/7gkew6ElgA/quwifan38jENHevOEzmEYHHzm
+	 fUBYLZqQKc0JgoT57qz6c8FmqUIr1NQlE3zaBy9RFXi6Wwbkcsa5nXXt1jUZCtl58EuFH
+	 Cym6V4BjnWEPfqzC493H0kKGpBpK57PqUbM1VCWK4aG3c9QpOdU6ecyIMFyyA4Nzi3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459754;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=fIqhj+O6y/smeL+V0+rXQRpO6E8ZU3+BVpVMiUWAO/k=;
-	b=5Oe9+WqKeTo+VJbbuFfjno/73kTl7Am8XbJBvktFHFYNXakekCM32eBgSs8kLBhOaqgw
-	 NkUD92uEHN3LULVTTJAiRH9Uam4DUptHUKir5Ba1mx1ImlGX67lqqOVdRqY4YKm8S+Mv1
-	 /DtQXkKVTbjhz3TD1446WflDz5FUEO3iU2+bw7M9e21WHQXdpe6h4+suJUzmJsCbt/X6B
-	 wSkGCv9msWNL2M3bVOPRK7F4XWvxRd6sJ/bjmw2XV2VMAk8nPFzLPl8YpVfulHCR+ZcaF
-	 Fe3/CNr39CaYT5xDz+5qGu2hbPgGfvvbKCbrnfjlo+a3kxzjbUJOeTrGC7JGYMKMoSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459781;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=4KxkXJ4nQz5KB2QlzezqufYuwFyMTZDhUK66xN2zGmU=;
+	b=XmOx3AHNTfU7VNz/Yh+KW4RUR25YD7lFBPfHIWDnZHpR2tZSB5JHjHnFNiIZ84m1ipnx
+	 1KaHm0Z++UM+NYcmqHbW9L31oWazBmaAADiAuYMPWW4ITcxTm6Db7L+4PVJMi4g0e/wGf
+	 q6urnwvRJ7fzzHcuRtDDbKbi0E35g6f/mrlTw4ipneO/UbNhzmwu3Us5mKEqDdDp6Jmge
+	 QmhV0tX0U0d2Z/I22GbtPT8fPYPrxC+yADFm/q23Y57bOn7X/V/s8qutrCad5f3p0Vmmt
+	 tnKJmM65d6r9nvIOC2pmn10nzVimIg6dGYxAvY6zJ9/ihgd0vatlSU2MUTR3RKaqoow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hMyrl7zK;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=themaw.net;
+	spf=pass smtp.mailfrom=themaw.net;
+	dkim=temperror header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=SVcKanoO;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=LRKN6rvs;
+	arc=none smtp.remote-ip=202.12.124.148
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D26B606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:29:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D26B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8207F606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:29:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8207F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hMyrl7zK
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 32A0B40E00E8;
-	Tue, 20 Oct 2026 01:29:07 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 6m933wAgKqxb; Tue, 20 Oct 2026 01:29:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792459744; bh=fIqhj+O6y/smeL+V0+rXQRpO6E8ZU3+BVpVMiUWAO/k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hMyrl7zK8vn3BRxJ5siMJZ9dgVt/ist2ggRRnhcznD2v4q9mQ+LP+uZxjAntElYpy
-	 L5TOleI0Ppx19biyjPfA9tmGNulUvUmV8N0zsfuPM/vYsJoiNRUoRd1gBLZQt5ikfv
-	 +NJDmceDKkoSI5B1fx+ij8UktCG2NJs4fyWApCZIfQKGM1Tk9W8SR/HPyUPIDnDrxa
-	 f6RbaKGBd5L6pF+6NSUIW6o1dQkPsNFDqytnTQ4OKkdxP7sSBgA+UFEPYrmZ/OO4EK
-	 cU460MeLAB+85/O233BHhdd+egn/pkUX/eOUoGDbRUqjnxZ9N0oVUKFWqJQrq1NOAB
-	 xXFdE8jVhZI7mj3qIVIpklCBH+L/Lqk2nplkjRtN09V4L+UAun6Bsls+vR3QIoaO3u
-	 Si/8DhgRTdGoOAi0GrXDWEFRQFCXOksbaP2ufAbDRoU4W+GXpKvyUivfMFotwfI52W
-	 cja0PK9sJ/PjcyBW6eptAdx7odedDXwHuvsPPWpbI50Ugz64y3CNTL4iPRlzfAZJhb
-	 m8aT4PO7Bnol8EMav0rqhaDJf51ac6yD+9FHrayuOt37nRlVfH9uq6pyQED8iLw+k7
-	 5G7QTEkR3Tr+62R/MDLM1+Pv2XGKwhlNj4kijS+h9HbrQDmmL3ERn18qIDRnSKrjeT
-	 s1fAgkTP01Y1bICQGVTbHYWU=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 81C2340E015B;
-	Tue, 20 Oct 2026 01:28:47 +0000 (UTC)
-Date: Mon, 19 Oct 2026 18:28:44 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Rosen Penev <rosenp@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Florian Westphal <fw@strlen.de>, Julian Anastasov <ja@ssi.bg>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH] x86/csum: Relax the len and proto constraints in 32-bit
- csum_ipv6_magic()
-Message-ID: <20261020012844.GDatbDzDp1zC0NtI6k@fat_crate.local>
-References: <20261020003238.2823758-1-sashal@kernel.org>
- <CAKxU2N9paXhCuNknUzKx5dYxhXitLZ=OVVY7Sym1HV8Mow6cSQ@mail.gmail.com>
- <20261020011140.GCata_zHOTeTXLdlr2@fat_crate.local>
- <atbBFRU1Wm94oYB7@laps>
+	dkim=temperror header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=SVcKanoO;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=LRKN6rvs
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id BA80E1D001E4
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:29:39 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 19 Oct 2026 21:29:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792459778;
+	 x=1792546178; bh=4KxkXJ4nQz5KB2QlzezqufYuwFyMTZDhUK66xN2zGmU=; b=
+	SVcKanoORputMS9MO8AZ+m9CLbuEiMGHUFhu8+iq4XrQnvlronqdcgOyYQgirLwt
+	v+in1h9mrh5fqFtUjrWtripYx0aac65Ksu5psUX2IKyf3B/d7vc0QcXTvFHVJHcT
+	0rIPT6+DfKAitRd6QNk/7WsSdvDKtF7o+SDYEaaqwaCi5Dfbmh334Krz9CKZria4
+	gG4da+nk02euiIZa8epvSyBDlLq0tv8IcJqFpJB/kEWGNa+Fq5rERscXfkVJVsJX
+	X1RQS616RedgX5XhcQI7e7Ljgh1WAOQbee1s2eNp+AkoP3QRPTiXMFbyuR0rSxim
+	/LgokHKspJeMb9DPnix1sA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792459778; x=
+	1792546178; bh=4KxkXJ4nQz5KB2QlzezqufYuwFyMTZDhUK66xN2zGmU=; b=L
+	RKN6rvsLGKJEPn1a+HKIUTjGlhoNcbwA62lUK9av8hrXG1OrxrS8TVICDfygnSQd
+	ORlbI9T12cxNWDsefTeGTR7CWtbYzfPpLN/zYHquF96krWCXrZwgZMmdCISJrN6V
+	Wr+Sd2KQS+eKDOpqGHi3BLeDx2o/3xINgW5BEpjrxCb649M3kGMpeSijzIou9NvO
+	qte92R9ELwRViQbWxTihgoYQy+DAYefvnuWUGkqCgdtLCfDI4lvSCuxD9X5x43hb
+	fN/Ajfi2Sa+s4qmoPQpZbHavTCgBKq7XO5UtkGyYh0Bqhv1mgpSZhG2aj1iOmT4Y
+	3kIygFT01ZL7CWH03HjWg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=themaw.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792459778; d=themaw.net;
+	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Gq2eRefMk0g3ReYg4M6zXgb4wmvrDZJ1wVvYesWRzx41hpz
+	fRZMz587reNP2YEWVfUPxRwp6JcDh51dSoIh0sM5/VzfCo5Y/VCATMsevec1JIG1
+	jG4ciJ3mU/S+ZA6FAubJ6B3E8Nee6hCQoZytaoispDuePkodPQVd5LT0ZAIthjqd
+	kb1Ab1hC0x6WqDgPH0ZaSZAUBfKqByp3Do3W1XwLYLgqLZc8dwl+dKlHPDXV6NmB
+	STAkZVxK4BJxMK8FgNklh9/U+AEr4SUs3bYXk0geTW9dMUO9s/qgSfAvHluszLsU
+	Lv0iwpc99SDeRaiiQbFRVFxpKbuRmWOmsBs4iyQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to,
+	user-agent;
+Message-Instance: m=1; h=sha256:EN79Ak7wVgDgTEBK9FL+qs89KwROzfndLX4I0+ZDfkM=:4KxkXJ4nQz5KB2QlzezqufYuwFyMTZDhUK66xN2zGmU=;
+X-ME-Sender: <xms:AsTWasfqRNzjpJ9gg-BuufdKOj498BlH0X6g3r9grUPzdNfu2HdDHw>
+    <xme:AsTWagyhbujE37DIweAPH5lxhqLuobr_SMLFa5nbRw--KwKvJowbkeZcjxho0VIBP
+    5-7wc9FPicaf_guEh2MBjPiFw5ROU9fiB1EMgF9ImlMTwtMIw>
+X-ME-Received: <xmr:AsTWahIv-cEu1JAuQp4CCCA3ULid1ETlPWBjhViiJpZ8RNkU9_MmdcOqC_RkgEfMz22jrlHzj4W8cn_I60b2I1U-qoTxLdH3AFrHV4xqRhiA01Pmop5fHbazr4c>
+X-ME-Proxy-Cause: dmFkZTFI8fi4K3lVj+IvxJ7hiVFq2ywh9HFKS3KgmEYlO0KtXeRuLfVLPDQaPpNCmMQJrD
+    jTOYDRQ0ay4fbW6Hmhhfrv9rHJFRKQG2ouOqai0SmVtSTJ7ZihZZIcueBPLfYhxyTyAZ7H
+    WIr0nwr9SFuqPI/s6T/qRgUC0u7viODrwoTl8yxKgmUiyXDG6iz6EUtoccKCQCZQjVf5UK
+    qULd6zOA5Yxch1zmcTRetUQ2dBn39VzrPe5NKPuzT9mmc5yHGpkQzl8vtRFgIhsD+aR7em
+    9xoJ9fpRuaLYHBa4e8tnrc7ij5V1G/gxRVCwEHxdlaW9jQHZfx1ZQXIhTHqmYlGunLujOG
+    ykvhB2kqnrfwDzbj//+M/ttIVx1KcuwEnG0vgxZhvRyd5VWVnOVdtI5uqSlcMzRlYCGAn5
+    1/Uy5gyW4rbBATkWE0m/ZgcGrTpJZkn6OXgwqgN72yxRs3oRYPYbH32diAZAePFNnQNQ1I
+    MuDRNVP/G1J14ijqS6WKW15DTCaNesy8teY/B8ZxH9HDsm1rQ2SXGv1OFyK060WZxErRq3
+    Dz1MNiLWuP8lbrpW8xw4nbhf3j1D25iSDgYAQ9PCCPCAxp0+CbcBDbTwt+N/iiPPuvNbR7
+    rUNESjLG+ifBz/3Iza+eUKvTdjnzkBIhcva39IkNsFEpY6YJCWLA/YHvWtOA
+X-ME-Proxy: <xmx:AsTWaiHsh4W96KM4MtEEQSBrazKqucWCqF-OxgTrPCiBuFNqLZ9BYw>
+    <xmx:AsTWat9f8cYv3xql7QW8tJNzaLxauiHYK3Va9qYltCCdS78wwxaoEQ>
+    <xmx:AsTWaiLiHWa2rK6XDEttBDQcba2D7v5CnH_KBdQvLncbSX9-J2QLzg>
+    <xmx:AsTWarvQQhATPAuMnKENsKPn7_dX7X6j2Vl4sO0PdpMUhVTUR8pwsA>
+    <xmx:AsTWakxEawTDmazIV5bVgDu47kaeR4_P0Ga3H_eyp5IXDhIJrpUaUB0s>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 21:29:35 -0400 (EDT)
+Message-ID: <d0bc6eaac2fc84cb43b569f49ee503057784b45c.camel@themaw.net>
+Subject: Re: [PATCH v4 0/5] Fix easy bits of the negative dentry problem
+From: Ian Kent <raven@themaw.net>
+To: NeilBrown <neil@brown.name>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner	
+ <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Amir Goldstein
+ <amir73il@gmail.com>, 	linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jake Edge	 <jake@lwn.net>
+Date: Tue, 20 Oct 2026 09:29:31 +0800
+In-Reply-To: <179237697885.1724252.11956785709205194840@noble.neil.brown.name>
+References: <20261019000810.1837917-1-neilb@ownmail.net>
+	  <f1c42d0bd125c6b1c39f1ebaee41340b5f6f03f6.camel@themaw.net>
+	 <179237697885.1724252.11956785709205194840@noble.neil.brown.name>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,27 +132,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <atbBFRU1Wm94oYB7@laps>
 
-On Mon, Oct 19, 2026 at 09:17:09PM -0400, Sasha Levin wrote:
-> I'm not stopping you from dropping it :)
+On Mon, 2026-10-19 at 13:29 +1100, NeilBrown wrote:
+> On Mon, 19 Oct 2026, Ian Kent wrote:
+>=20
+> >=20
+> > As is so often the case you've come up with an interesting and
+> > useful
+> > proposal, ;)
+> >=20
+> > Nothing stood to me out as problematic given the scope of the
+> > series.
+>=20
+> Thanks :-)
+>=20
+>=20
+> >=20
+> > >=20
+> > >=20
+> > > =C2=A0[PATCH v4 1/5] VFS: don't count references through ->d_parent
+> > > =C2=A0[PATCH v4 2/5] fsnotify: update children flags only when adding
+> > > mask
+> > > =C2=A0[PATCH v4 3/5] fsnotify: don't hold i_lock while walking
+> > > d_children
+> > > =C2=A0[PATCH v4 4/5] Add d_for_each_positive_child family of iterator=
+s
+> > > =C2=A0[PATCH v4 5/5] Use d_for_each_positive_child() in fsnotify.
+> >=20
+> > Did you have any thoughts on how to contain the number of negative
+> > dentries, (perhaps) including directory entry counts, in an
+> > intelligent
+> > way (meaning "as you go" rather than "brute force" when needed)?
+> >=20
+> > A significant problem, particularly on systems that count their
+> > memory
+> > in TBs rather than GBs.
+>=20
+> I would need to understand *why* this is a significant problem, which
+> as
+> yet I don't.
 
-I'd love to.
+I think there is something more needed to understand the problem.
 
-> Any objection to just taking Rosen's? Maybe with the tags I had on mine to make
-> tracking easier?
+The source of my concern was originally the traversal of the entire
+list of child directory dentries in the notification code to set a
+flag that depended on a parent dentry setting.
 
-Thanks, that's nice of you.
+From the information I got (which is usually somewhat limited) it
+was obvious the number of dentries was very large and there was a
+large proportion of negative dentries. The obvious assumption is
+that the implicated list traversal was causing the lock held too
+long messages due to the number of entries. There was evidence in
+the vmcore analysis the proportion negative dentries in the child
+list was unusually large too, similar to the proportion of system
+negative dentries.
 
-I'd like to use a trimmed version of your commit message because it explains
-the big picture better as to why we need this in the first place.
+I should be able to grab the vmcore again and get more details if
+that would be useful to you.
 
-Thx.
+While the unbounded accumulation of negative dentries has often
+appeared to be a problem, and the case Miklos and I were looking
+at implicated that, I also thought that traversing the entire list
+of children to set a flag based on the parent dentry was not good
+design. After mentioning that Jan replied (wrt. using the parent
+dentry instead of setting a flag on the child) saying dget_parent()
+was high overhead. I let that go even though I didn't understand
+why dget_parent() was needed. Using dget_parent() would only ensure
+the parent dentry didn't disappear from under you (it wouldn't
+protect you from deletes or renames) but dentries are rcu managed
+so an rcu_read_lock() should do the same.
 
--- 
-Regards/Gruss,
-    Boris.
+So what am I saying, I'm saying that I think the list traversal
+that was causing this particular problem can be eliminated. But
+that doesn't do anything to come up with a mechanism to better
+manage negative dentry accumulation which I think would be better
+done as part of the dentry life cycle than as a shrink operation.
+That's just my preference.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+> Allocating things that don't get used much isn't intrinsically a
+> problem.=C2=A0 We have a shrinker which will gradually removed them - or
+> less
+> gradually when memory is short.
+
+But if there are Terabytes of memory it often doesn't become in
+short supply.
+
+This might be able to be better managed by updated or possibly
+expanded settings based more on number of (negative) dentries
+than memory size.
+
+TBH I haven't looked at that aspect.
+
+>=20
+> But maybe shrinker activity itself is a problem?=C2=A0 Is that it?
+
+Mostly only in so much as it not happening.
+
+Problems with shrinker operation don't come up as much as they
+used to so I don't see that as a problem myself.
+
+>=20
+> I think it could make sense to separate positive and negative
+> dentries
+> on the d_children list.=C2=A0 This is quite do-able, though there is a
+> small
+> cost when a dentry transitions from one to the other.
+
+Not sure about that.
+
+One thing a negative dentry needs to do is maintain it's
+linkages in directories and such so it can be located on
+lookup to effect caching benefit. So separate lists might
+be cumbersome and possibly problematic.
+
+>=20
+> The only other thing I remember from the lwn article and the various
+> other articles and emails it referenced, was something about poor LRU
+> performance.=C2=A0 Lots of largely useless negative dentries push more
+> useful
+> positive dentries to the end of the LRU and we lose them too soon.
+> I think that can be addressed by having separate LRUs for positive
+> and
+> negative dentries, and giving them different weights.=C2=A0 I think the
+> cost of this would be tiny, but I'm not confident of the benefit.
+
+Or maybe adding negative dentries to the end and positives to the
+front might be simpler.
+
+A ttl might be useful too, use it to discard stale entries as they
+are encountered (although the discard policy would probably be
+somewhat more involved taking into account positive vs. negatives
+etc.).
+
+This in line with my preference to mange these "on-the-go" so to
+speak, not necessarily related to any functional parameter
+improvement that might be possible.
+
+
+Ian
