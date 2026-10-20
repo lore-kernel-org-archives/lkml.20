@@ -1,71 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792515202;
-	b=Fv6VELwUKhA2m0rjF5BSqWKXcrOgFe8vL6/G9UftSQnCN8uF9Ki6BLwnMuYQ7RfNn31z
-	 ePKn3357hfQkSXwghE0+Nex87GLpOcaqe3Li7umKtFi/D6M26wlfN1jG0QQB7/NEH4oub
-	 eQNYkJF40I+K+1hI3rMxStpt6/miXfsdUM2d8s4SUGTW+KkA7598BrMJUC91bjd0NMdMG
-	 mOdo/3I4nAzz15ZOkLZ5iEyg42+xJqIjTgD9zL8sfwOXoG0o3HRsmGYa7ln7SJgNFAb2n
-	 5ioVRVBqriFiXv/bX3sG0LDlMbLC6+UTYz09aHvYVlLzzLaV3pSKyxLlqfvLkZv/i3g==
+	t=1792515208;
+	b=O7bY35n8nQuupr60MqalZDKR/FfeGX2t3LRCqh4ZNedx26a+3hIBwmLFyEGAEfns04P2
+	 uRIKlUa3s/zp+6gpFSr8ZrWPESDZGCEuvBtxvV8AOPkq/tVzeDVc0E4o3IIuV0VvE0xBx
+	 WYk/laMHEb67FVlSUlvVrR9xIAubJuyWGP2x+p+XWQZvkfH0LAL/rcVEFBQp6gw6Xarco
+	 CtTvGKEh4pZKwtQjWEbhfsvEJRxgl6AeCZXvqkMSWJBkjyFmaEaLiva9HmmZAwUBQtuRI
+	 c/WFQsuMIKVt85mOKfxme0MXz2WxZr4vGhLwooes+JqqlSwyM5bjqtpA5pM7mHXt2rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515202;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=imfu4Q1xLhRu8Rb4R6sPh28+g8HdrHEwcBOMUN84DFw=;
-	b=bn8ZQnS3L+iShialp3gS4fPfvoHj3sDlTD+15uz/N2gjX9IuaaNu6+Md/HRjb4gL+kxs
-	 WoDTzgiz03lEvF3bBlCCWrHn9jtIMzg8QeJS0K7VR5IrTZKt+aJb+eRI1FbhTxU/U2Wo8
-	 u5T/3GUn8kOXcIkIZcQoGF59WHtKiSbFRUwRHkFCIYIVc3SLXTsj5u3KrjLdmA9l25d8g
-	 k6nyf3O9lMmS2iEBLwHjmgdTpWx0svpnnuUyF/qRTHYqXc6VAuBZYlHGs1HwqJuTKf9v3
-	 cwjHhxMM1zW6CaTwU0ve9LQBAZc2V8wfx+izNfJBOYpSNoeFB9NPOTMivkOLpbhoceQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792515208;
+	h=Received:Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date;
+	bh=yRCTc12rF2cbB54pOhxGdZ+hQohl83LOurc/J73gcVQ=;
+	b=ZZmeEZJrkvIlrWGB8ZjVzFULB5GimuZd0MVDExjWCqtfyJXuyQa5bnPmom3m1hgKf4w4
+	 2UGr+ybdC5XqPJ7Ls9d9rF3dkH4fyRJXioEROw1TITCRGg77GGm8ciVsswaMhrPJPq9yj
+	 4+ER22fLN8EmanJJrJsODOZZqkX/93xZUtIPkzee05fvZUUXqskKxH6/o0Lvwc7W/J6x6
+	 Ie6EzS3Vx9yIObr/kKqX1egogDnY22p16PHlHkv/KncGurfZeVnsoD20SBvzz85vDLmj5
+	 CiQ0uJE2OZd6TFwhJAIvEAwjgi0Z3vEtARS1uU560Z3YIhrkohmy2e7cX6+68leiWuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bwnnMoh3;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3BCCB606A324;
-	Tue, 20 Oct 2026 16:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BCCB606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bwnnMoh3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1792515199;
-	bh=imfu4Q1xLhRu8Rb4R6sPh28+g8HdrHEwcBOMUN84DFw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bwnnMoh30H86OwYZ15UsSWVlD17cstjAGJtXI+iGD+SzpfNiBGGTq+ect7vgMAOxD
-	 5R65v7pv3HGbBxpj5Ux8/9X+yLGY6ql0/BftfGBwuzte93HVxjBWPU2ug4zu/hj8gd
-	 j6hQSQG9V/E/Q5tTuTGksLiZ1r0rT+LH5/+vjtwS1S639ZEETeoXDqn8btJiL5xYiO
-	 3N/ceCCa9P6fOX5cifyzniGRKfleamtvNjfByKkUuW2dIL4JP2DROO2P3A1QXtM9jH
-	 Xqyq61gqL3nOXDWZSIr3zK1Bd260eysJk33efAN2SnsqAgGVzmTcpMnLtVtfAFaO56
-	 /LCfCrpnf5/Jw==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id BC99660051;
-	Tue, 20 Oct 2026 18:53:19 +0200 (CEST)
-Date: Tue, 20 Oct 2026 18:53:16 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Qingfang Deng <qingfang.deng@linux.dev>
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Stanislav Fomichev <sdf.kernel@gmail.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	Felix Fietkau <nbd@nbd.name>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC net] net: force software segmentation of PPPoE packets
-Message-ID: <atecfDGNBh2XIHqm@chamomile>
-References: <20261020143031.1829-1-qingfang.deng@linux.dev>
- <CAL4Wiiptz1zyxRDKrCrnK2Q-qn0_1d1aSxuUPkJKWnODpjMp1g@mail.gmail.com>
- <ee955f2c-c97b-4505-a996-f7d7c5d2a3f5@linux.dev>
- <ateaf9-cY50Goz0j@chamomile>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE173606A339;
+	Tue, 20 Oct 2026 16:53:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344171F000CA;
+	Tue, 20 Oct 2026 16:53:27 +0000 (UTC)
+Content-Type: multipart/mixed; boundary="===============5436744253090291661=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,92 +36,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ateaf9-cY50Goz0j@chamomile>
+Message-Id: <3e177386ed0ff37815ee705fb2cb8195952b4301858e4ff4e2b4638d14d94c3d@mail.kernel.org>
+In-Reply-To: <20261020161907.2115379-6-vineet.gupta@linux.dev>
+References: <20261020161907.2115379-6-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v3 05/12] selftests/bpf: Cover the low-32 link for zero-extending movs
+From: bot+bpf-ci@kernel.org
+To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 20 Oct 2026 16:53:27 +0000 (UTC)
 
-On Tue, Oct 20, 2026 at 06:44:50PM +0200, Pablo Neira Ayuso wrote:
-> On Wed, Oct 21, 2026 at 12:10:32AM +0800, Qingfang Deng wrote:
-> > On 10/20/2026 11:08 PM, Eric Dumazet wrote:
-> > > Le mar. 20 oct. 2026 à 16:30, Qingfang Deng <qingfang.deng@linux.dev> a écrit :
-> > > > 
-> > > > Ordinary TSO does not update the PPPoE payload length. A PPPoE GRO packet
-> > > > forwarded by a bridge can retain hardware GSO features and reach the
-> > > > driver without software segmentation, if the egress Ethernet interface
-> > > > advertises TSO.
-> > > > 
-> > > > To force software segmentation, clear the GSO feature mask for
-> > > > ETH_P_PPP_SES in harmonize_features().
-> > > > 
-> > > > Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
-> > > > Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
-> > > > ---
-> > > >   net/core/dev.c | 4 ++++
-> > > >   1 file changed, 4 insertions(+)
-> > > > 
-> > > > diff --git a/net/core/dev.c b/net/core/dev.c
-> > > > index a6951ea08961..27483a2ad747 100644
-> > > > --- a/net/core/dev.c
-> > > > +++ b/net/core/dev.c
-> > > > @@ -3831,6 +3831,10 @@ static netdev_features_t harmonize_features(struct sk_buff *skb,
-> > > >          type = skb_network_protocol(skb, NULL);
-> > > >          features = net_mpls_features(skb, features, type);
-> > > > 
-> > > > +       /* Ordinary TSO does not update the PPPoE payload length. */
-> > > > +       if (IS_ENABLED(CONFIG_PPPOE) && type == htons(ETH_P_PPP_SES))
-> > > > +               features &= ~NETIF_F_GSO_MASK;
-> > > > +
-> > > >          if (skb->ip_summed != CHECKSUM_NONE &&
-> > > >              !can_checksum_protocol(features, type)) {
-> > > >                  features &= ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
-> > > > --
-> > > > 2.34.1
-> > > > 
-> > > 
-> > > Ouch.
-> > > 
-> > > harmonize_features() is called for every packet, GSO or not.
-> > > 
-> > > This is a GSO-only problem, please do not add more protocol-specific
-> > > tests in this path. gso_features_check() is only called for GSO
-> > > packets, and the cost there is amortized over all segments.
-> > > 
-> > > Devices without NETIF_F_HW_CSUM already lose GSO for ETH_P_PPP_SES
-> > > because of the can_checksum_protocol() check in harmonize_features(),
-> > > and fraglist GRO packets (the main use case for PPPoE GRO) are
-> > > segmented in software anyway.
-> > > 
-> > > This leaves bridged, non fraglist GRO PPPoE packets sent to a
-> > > NETIF_F_HW_CSUM + TSO device. Have you hit this on real hardware?
-> > 
-> > I reproduced this on a VM veth interface, which advertises both features.
-> > The real hardware I have is an Intel IGC but I have not tested with it.
-> 
-> IIRC, I could reproduce the issue too with a virtio netdevice.
-> 
-> I made this inaceptable patch (see oneliner patch with protocol
-> specific update below), so the recent pppoe gso support kicks.
-> 
-> I guess adding NETIF_F_GSO_PPPOE (similar to NETIF_F_GSO_SCTP) is a
-> no-go to force software tx path to segment skbs too?
+--===============5436744253090291661==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-s/NETIF_F_GSO_/SKB_GSO_
+> selftests/bpf: Cover the low-32 link for zero-extending movs
 
-> Thanks.
-> 
-> diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-> index 9981d637f8b5..07bf265d0295 100644
-> --- a/include/linux/netdevice.h
-> +++ b/include/linux/netdevice.h
-> @@ -5514,7 +5514,8 @@ static inline bool netif_needs_gso(struct sk_buff *skb,
->  {
->         return skb_is_gso(skb) && (!skb_gso_ok(skb, features) ||
->                 unlikely((skb->ip_summed != CHECKSUM_PARTIAL) &&
-> -                        (skb->ip_summed != CHECKSUM_UNNECESSARY)));
-> +                        (skb->ip_summed != CHECKSUM_UNNECESSARY)) ||
-> +               unlikely(skb->protocol == htons(ETH_P_PPP_SES)));
->  }
->  
->  void netif_set_tso_max_size(struct net_device *dev, unsigned int size);
-> 
+TL;DR:
+- Selftest comment calls the mixed-kind no-sync case unsound, but the program
+  is safe; it is only lost precision
+- Commit message says "Twelve" programs, but there are thirteen
+
+>     selftests/bpf: Cover the low-32 link for zero-extending movs
+>
+>     Twelve programs, one per decision the previous patch makes:
+>
+>      - zext_mov_narrow_src: narrowing the source reaches the destination
+>      - zext_sync_makes_member_const: and over all 64 bits, since the member
+>        is the zero-extension
+>      - zext_narrow_dst_keeps_base: the reverse must not happen
+>      - zext_u32_src_is_full_link: a provably-u32 source still propagates
+>      - zext_self_mov_no_link: a self-mov mints no id
+>      - zext_chain_drops_link: a second 32-bit mov drops the link
+>      - zext_no_sync_between_mixed_kinds: differing kinds do not reach each
+>        other, in either direction
+>      - zext_no_sync_from_subreg_base: nor does a member reach a base whose
+>        high half it knows nothing about
+>      - zext_sync_between_two_subregs: two low-32 links on one base do
+>      - zext_unlinked_path_stays_reachable: one unlinked path keeps the
+>        guarded div reachable
+>      - zext_mov_breaks_linked_src: forming the link drops the source's own
+>      - zext_sync_keeps_narrower_member: narrowing the base does not widen a
+>        member that already proved itself tighter
+>      - zext_contradiction_keeps_range_sane: a contradiction leaves no empty
+>        range behind, under BPF_F_TEST_REG_INVARIANTS so the violation is a
+>        load failure rather than something only dmesg sees
+>
+>     Written in asm so the bytecode is the same whichever compiler built the
+>     suite.
+>
+>     Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+
+The changelog says "Twelve programs", but the list below it has thirteen
+bullets, and the patch adds thirteen programs:
+
+zext_mov_narrow_src, zext_sync_makes_member_const,
+zext_contradiction_keeps_range_sane, zext_narrow_dst_keeps_base,
+zext_u32_src_is_full_link, zext_self_mov_no_link, zext_chain_drops_link,
+zext_no_sync_between_mixed_kinds, zext_no_sync_from_subreg_base,
+zext_sync_between_two_subregs, zext_sync_keeps_narrower_member,
+zext_unlinked_path_stays_reachable and zext_mov_breaks_linked_src.
+
+The count looks like it was not updated when
+zext_contradiction_keeps_range_sane was added.  It is the last bullet, but the
+third program in the file.  Should "Twelve" be "Thirteen"?
+
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+
+[ ... ]
+
+> @@ -710,4 +710,352 @@ l_exit_%=:							\
+
+[ ... ]
+
+> +/*
+> + * Two members of one id set carrying different link kinds do not propagate
+> + * to each other: r7 is (u32)base and r8 is base + 3, and the deltas were
+> + * added at different ALU widths, so narrowing r8 says nothing about r7.
+> + * sync_linked_regs() declines the pair on the kinds before the deltas are
+> + * ever consulted. Note neither register is the base -- that is r6.
+> + */
+> +SEC("socket")
+> +__failure __msg("div by zero")
+> +__naked void zext_no_sync_between_mixed_kinds(void)
+> +{
+> +	asm volatile ("						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r6 = r0;						\
+> +	w7 = w6;		/* forms the link */		\
+> +	r8 = r6;						\
+> +	r8 += 3;		/* r8 is BPF_REG_LINK_FULL, r7 is BPF_REG_LINK_ZEXT */	\
+> +	if r8 != 3 goto 1f;	/* must not propagate to r7 */	\
+> +	if w7 == 0 goto 1f;					\
+> +	r0 /= 0;						\
+> +1:								\
+> +	r0 = 0;							\
+> +	exit;							\
+> +"	:
+> +	: __imm(bpf_get_prandom_u32)
+> +	: __clobber_all);
+> +}
+                ^^^^
+
+This isn't a bug, but is the comment accurate for this direction?  It says
+narrowing r8 "says nothing about r7", and the asm comment says the narrowing
+"must not propagate to r7".
+
+r8 is a BPF_REG_LINK_FULL member, so r8 == r6 + 3 over all 64 bits.  That
+relation inverts exactly, so knowing r8 pins the base, and r7 == (u32)(r8 - 3)
+follows.
+
+In this program the fall-through of "if r8 != 3 goto 1f" forces r6 == 0, so
+r7 == 0, "if w7 == 0 goto 1f" is always taken, and "r0 /= 0" cannot be reached
+at runtime.  The program is safe.  The verifier rejects it only because
+sync_linked_regs() skips every pair with differing kinds:
+
+    if (reg->link_kind && known_reg->link_kind &&
+        reg->link_kind != known_reg->link_kind)
+            continue;
+
+That check exists for the other direction, a ZEXT known_reg against a FULL
+member (scalars_alu32_alu64_cross_type), where the 32-bit wrap really does
+break the relation.  If the differencing arm ran for known=r8 (FULL, delta 3)
+and reg=r7 (ZEXT, delta 0), it would compute r8 + (0 - 3) and then
+zext_32_to_64(), which gives exactly (u32)(r8 - 3).  That is sound.
+
+So this test pins a deliberate loss of precision, not a soundness requirement,
+but the comment presents it as unsound.  The text is unchanged at the tip of
+the series.  Someone who later makes the verifier propagate FULL -> ZEXT will
+see this test fail, and the comment will suggest the improvement is wrong.
+
+zext_chain_drops_link and zext_mov_breaks_linked_src also reject runtime-safe
+programs, but their comments say the link is dropped by rule.  Could this one
+be worded the same way, for example "sync_linked_regs() declines mixed kinds
+even where, as here, the relation would hold"?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39458500836
+--===============5436744253090291661==--
