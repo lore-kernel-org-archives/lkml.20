@@ -1,87 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493835;
-	b=V+7rexsEZjM/5cHNBV9l7qPCVjCu2fV4JNc0JqIrR9zhCgnmYxTlZ18InE5OD2gnriEE
-	 GWmMwK3aKcfixQPTFbE014X+kqLS4sxsd2BDwjGAyJiv+Mh11Doe5UR+yB2sO3jspomky
-	 XfT3eqlS2mwchAxJWZw6OMhaypNc+kf520TYoqHIMmBSgA/E7Q1s4Jfau+O2/xjyADYha
-	 VVE3mX4afOR2n3ayzNpHPeEfaXGrFn+7OK+LU1o7dgyShVeFWX/ajumDuE+HD5RPPaIr4
-	 xaoWbvh5JaJ/F2UsnsbMGmVfOarss43c+QsnW4UbavvKz6ixsB8Q22vKy/oO5j8opoQ==
+	t=1792493840;
+	b=1Bj02qnVGrYU2lj0Vhbrwm/6CsdOelT8KCpIKKjvq+Vf0NkTx622ZqnnKuwM69cU0BUL
+	 XaA7H8ONrXE+Fsgt9GNF2sEd0BzEr3w1DdiLU6JAcyBIKEpNkkSMJ+A6aoFfJwnGT2Sx4
+	 pDN9QJ3m0+fO1quDQ6GC89COCQ8c5IZMsOpeGe2oUyssOm9De09ouOcJL2XNRQXGrjDkq
+	 18WC4l11g73x2jxb8fhRqDygfoxhF1DZpdmAv2wx9/+XzegNkao0RR7wlnlXSyh52DMHe
+	 7kEOXGhf/o4SvIIA//L0K+kIKZRnO7qyyFOVQsdw7Onc/Of4b2TsHMXFMDFa8Q5iyag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493835;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Xmo5pGCKClMTznAgnt3P15PbfjUdQDHaOBja2Zq9dD8=;
-	b=hCXFwEf1/ChS1LAu5keoNHDOaYC2ohXUB/MTJ45pE0tg9ZwfJhUA8ulms/knor1n9WaD
-	 +h4OtPaazP6YOBfoB9bdB36yH9dXQTFsPn5mzDBYv07Xtyu8lMoD7eBlqw37WfRSRlVUh
-	 p7+RysIJuzKo4GGJ5SDsqJdNgHXqJnxiGPin2QzVpSvJ4WGtJoaRCs+E0vwcn5KtAoDRk
-	 Buzc3jVo2uzdUe6CljsXu9MNAsTHzhwOYYQk/+7kqbIaS4E5rEgcRDf5pbLninz76jlvP
-	 2bUWIKxeaeRH/wAQ4dbZvQos1m4qom85+s28keGMqbHAwwV28M2Rm9rdUiiYAYCYagw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493840;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2smdSTGSfOldcvi+SYYLJcdzdDn1eRh0c0b/azFap+E=;
+	b=4ceOrt/OfP/MpHiRDDlxoZy7vZMoun+JmdHhzKpCr6FuztbEdZ6pS8eBwPdwTb3KjLwY
+	 jl2QfwXX1WkXJzazziVJtrGMC3airy5vO3hdh8SLWqAxtZYybsM0o56kfvP+CsfY4cGdx
+	 lbH57fzxFph9h6lO2Cay4N1gMK/YFpdGmpoxxJ+Gtno6SVSixOWbnIb4cHyD/vTkbv6xK
+	 bpogdNHySAO2rqUIcAeDFshlU9jhm4d33x1OAbXyAi4K9B+a0/8xOxmWjB1BmbnYF4Cjb
+	 79jmi9GhY0f8KPhYD92QM40ZAKVNJ15oGejsj/ojyJ9T3nf4EPoF3zpgtACfFJlxQiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IG8CNnwU;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJKT4izW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F57C606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:57:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F57C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BFEEA606A31E;
+	Tue, 20 Oct 2026 10:57:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IG8CNnwU
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48df54150dfso2373654f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:57:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792493833; x=1793098633; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xmo5pGCKClMTznAgnt3P15PbfjUdQDHaOBja2Zq9dD8=;
-        b=IG8CNnwU3Yrj9dJ8HGq+mCXNLvDjQMFVKXd9PsRwu4nWGz2dDCgtbz/8x0FT463ahU
-         uL12vHG8JwsMp6f2N5DElvkEFuZjOIoxpjr2CTgly2P1KGn4wNbR4YrxWNh3zUZ+deuq
-         JLF2B0G339BdzTy9BSEtsuL4tAuyPRbCTeOhkafSrK9LYj8oBzky8Jja75yXmF8SDRqw
-         bOydB5/9MlSxpEPaCoNJFF+zrYyTQXJu2xhjY/1Ohm5W04Xn39Abwj/Q+xQ4ZuckKuJ2
-         Ps7ImPM35FH3Y7idboydTb9Fwa5MqaFu2iqTlbtXbvDXsVveqhPuaedBrNXLhWwP7eqW
-         p9UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792493833; x=1793098633;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xmo5pGCKClMTznAgnt3P15PbfjUdQDHaOBja2Zq9dD8=;
-        b=PQB9v+Zx6B7XNTiZPbvpE5jiYGFKMaSSq89zcYj4noFoRAcf4hur5NeR7wB+agYPdW
-         m5CyRK1n53E3u7GipCWlyoOqk3pNRMD0LweK7FpElx+hPfA8kWdIYIVItiyTklebpgma
-         q3H/An9vYXNpwYTCe4Ci/0iNYZvpQIHPDpRPYjVmCDX0W30cxR430hVD/mJOPGJ2M/ZP
-         L2nJc9NrKKcS+GxLlAnN0GOUOJtN97PrQHFRYfj+C3DtOEODitc9B5C1FtWDqgb+YbTR
-         ee2Ks0ninAzod1JjnzJosOJPmHtrWyedpOjgtddeXW7IGJmwIzp8XYOY+HI8v0ZyRgqj
-         lkeA==
-X-Forwarded-Encrypted: i=1; AKwUvBx+Iwb5AypbN9shmAKArGy4mNRx4WUtvJp7oFdH7rrDZvsIQMSmS26XQX81fmHeRFSvKvsetUie2mkWQrM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5RN6zd+7EXeF9rkiI1oA+kb6bMsDhZtvKow9MDh8MJwm29Nty
-	vhIZR3O0nQI+Dy/Z8SmMMeCjs90dmOXa2ilFYdE4Y8ad6hjAghFrCpsaKvv87DTk
-X-Gm-Gg: AYBFou04Y+QwsMZ1IEdrBlhDxEYzX26Upr8JuByIBT2vRn4UqxjYFBiz8CuA52m/nOS
-	rTk9dXOHaLyPIumDsNo8S0y84fRZT5pGYLH9VvuiuYov8eYzbQvEcEnJTPlUaMEdy1eAxJZDZcJ
-	pFhn5c6aUhEN7p3Jrlyvj/PRc36oM05f2s4xn5B2mhhzC1e42vkop2JWIYM70ISyVlpxUvMXCsI
-	3T8TdGDbLERzb6kzXXV0um3GSqwdoqumeEUSjNrCVAMKF4dH0G16IbSWmaJNdRKLGJOWRGVxMTT
-	WKzQ7qktNNI4/+8oMOjFRsGnbDxBCUD68PrJh4l1MCfzjMJr0cHhDCiPXPyIkpG9CFS3X0aCPxt
-	aX+hwpjRDH51DHmndCMkma3besSRyHhoNqSSI4cdoKn0oSzzdw1rfD/XGGxSVFHql6lyjYibCrL
-	RKp/M/TsRBN9PPAnoiwnCjyqx0LO0A6/HdCw1JOVGYC6BJKhnqZtjckWOaBPkRIIJu4awW5byG+
-	6QwkQmtsm5bmjqOGE9K1n3XzOvEmw/1VSc3ImBn1d/lpM3BGs601sIFHxuW
-X-Received: by 2002:a05:600c:3556:b0:4a0:25c:8af2 with SMTP id 5b1f17b1804b1-4a1d76051b8mr237749825e9.17.1792493833438;
-        Tue, 20 Oct 2026 03:57:13 -0700 (PDT)
-Received: from [192.168.1.105] (92-184-144-135.mobile.fr.orangecustomers.net. [92.184.144.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce3302b5sm231782675e9.4.2026.10.20.03.57.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 03:57:12 -0700 (PDT)
-Message-ID: <87d73b29-945b-476b-ba02-71a5bad4b4bb@gmail.com>
-Date: Tue, 20 Oct 2026 12:57:04 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJKT4izW
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D97EA1F000C5;
+	Tue, 20 Oct 2026 10:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792493839;
+	bh=2smdSTGSfOldcvi+SYYLJcdzdDn1eRh0c0b/azFap+E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SJKT4izWBlp20LrPmaiK4O/ukXaZT/53xGgYlURj5wjY1+0ncpxxxcc3iQX2Y/vBI
+	 riukV5LcAhXmSQmO2MvKxOaRa6wX8FFO7BbVqhtfDCX8zijiYPyeGBvZYMuN7is/mT
+	 ZQCwwcrMyf/p3zBr5nY2+5Ge+7PA+XP5CpMOOPespN6pTXTS3yARVeGJesrUKrqY6R
+	 FF/89uutVX/rMGBtvu6fwMhQs5MJ2B15eeiRk4BtbEttwOJRonyggqXGPCCy8MjYhc
+	 6bnYXDmF+kzSML2lKjOR0hIIYE/NwMUMggPwn6zVghNuYwXq4ojsTHP5jd6AJiMn8D
+	 M5nFQbh4VDvsA==
+Date: Tue, 20 Oct 2026 13:57:15 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v3 2/3] KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE
+ in key_alloc()
+Message-ID: <atdJC3-PsaNh9PCA@kernel.org>
+References: <20261020013903.1244157-1-jarkko@kernel.org>
+ <20261020013903.1244157-3-jarkko@kernel.org>
+ <atbIP003h_YHofQb@kernel.org>
+ <20261020022832.GA3727@sol>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,46 +64,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: jme: keep RX MAC clock enabled for WoL
-To: Jakub Kicinski <kuba@kernel.org>, netdev-bot+sashiko@kernel.org
-Cc: cooldavid@cooldavid.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261011-jme-wol-submit-v1-1-9cc033e259e4@gmail.com>
- <179181078924.434549.16666867636447785126@kernel.org>
- <20261019182217.18e26e57@kernel.org>
-Content-Language: en-US
-From: Franck Baur <franck.baur.67@gmail.com>
-In-Reply-To: <20261019182217.18e26e57@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020022832.GA3727@sol>
 
-Agreed, thanks for the review.
+On Mon, Oct 19, 2026 at 07:28:32PM -0700, Eric Biggers wrote:
+> On Tue, Oct 20, 2026 at 04:47:43AM +0300, Jarkko Sakkinen wrote:
+> > On Tue, Oct 20, 2026 at 04:38:56AM +0300, Jarkko Sakkinen wrote:
+> > > @desclen in key_alloc() is saved to the 16-bit wide desc_len field in
+> > > struct keyring_index_key.
+> > > 
+> > > Reject @desclen values at or above KEY_MAX_DESC_SIZE with -EINVAL in order
+> > > to match the userspace limit. The constraints inherits from the one byte
+> > > required for the NULL character.
+> > > 
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: LLM
+> > > Fixes: f771fde82051 ("keys: Simplify key description management")
+> > > Reviewed-by: David Howells <dhowells@redhat.com>
+> > > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > 
+> > This is now the only one, which does not have keyutils script in the
+> > commit message so in that sense I think these fixes look pretty good.
+> 
+> Sure, this fix is still incomplete though, as I mentioned.
+> 
+> Turns out Sashiko found this too; see the comment on
+> https://sashiko.dev/#/patchset/20261020013903.1244157-1-jarkko%40kernel.org
 
-The RX MAC clock should be gated again after WoL is disabled on resume. 
-I have added a call to jme_mac_rxclk_off() in jme_resume() to restore 
-the expected clock state.
+I did not ignore what you said honestly but I overlooked generated
+descriptions.
 
-I have also addressed Sashiko's second concern regarding concurrent 
-link-change work. The revised code prevents new link-change work from 
-being scheduled and drains pending work before arming WoL during suspend 
-and shutdown.
+By comparing your v2 response and Sashiko's response and going through the
+code this is the list that I have where similar check should be placed:
 
-The revised driver object builds successfully with W=1. Runtime 
-validation on the JMC250 rev 03 hardware is still pending.
+- key_alloc(): before quota calculation (in place)
+- __key_create_or_update():  before assigning index_key.desc_len
+- keyring_search(): before match_preparse
+- request_key_and_link(): before match_preparse 
+- request_key_rcu(): before check_cached_key()
 
-I will complete the remaining tests before submitting v2 as a separate 
-patch thread.
+Some sites might require some minor changes I just wrote the around the
+ballpark locations.
 
-Thanks,
-Franck
+Did I miss any site that you are aware of?
 
-pw-bot: changes-requested
+Because there are so many, despite simple check I also wonder, should
+we have a macro for this check?
 
+> 
+> - Eric
 
-On 10/20/26 03:22, Jakub Kicinski wrote:
-> On Mon, 12 Oct 2026 13:13:09 +0000 netdev-bot+sashiko@kernel.org wrote:
->> - [Medium] The patch turns the RX MAC clock on before arming WoL, but
->>    resume never turns it back off.
-> sounds legit
+Br, Jarkko
