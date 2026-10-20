@@ -1,149 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.7.78
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792519495;
-	b=hJUeviNvTtILQmQOa9iN45gZEyFKy4yw1oEusCsNWpFEiy/N6puvqCpBZJ8NtTh1zCAH
-	 9AUu4aReEZNYyLfheEtqiolMWcpFXvU/Q4kE3PHG4jGtdJS6MdS0V7LSnzUWTPVnXXPWQ
-	 bvyE1amOKUpuEg35PNr7QSByKNoY7wxA/IVTWS+YVm8NbvCfApwNpyXeutoYoCBHduGNB
-	 eo00mxSaqxMeLCL0ltgD236G4H/NbqZgANV5M/Ry4sRqUZDK8tYtZLyh32u4WirADvZwC
-	 TOCXspkkwOSPcXsNK4peJwuGNbBgOl5p/dLnUP8347VX+ZJS9E56oqHqVTJg6GMmMXg==
+	t=1792519525;
+	b=nY6T7hXeDDjAps39UEyJ1ESbBeKfof6Uk1Nc0cuxRAH5l+ddbKSbNaIIHENREt08GpyE
+	 nq+jQp33frUWUcT27p1GwFxi8uSMBfKrFA1GRR5N+x5gPo7ysBn0qQWiX2MOYZ7iEeFRr
+	 nr0EFA4+n7rpwNZeQmdKRux+IAiBppuAJ0zYe+jNobJKNB9FwPpBTWaF/x4/ky7LS1Oir
+	 XQzsl4HQIB6GMFsAx76g2NfdyYxXpQQfLz3aSTgyWbImpF7VKlWjivKRnNIqf+eYF8aiW
+	 9apASStqTNWHWKFMyDX8jLgmCCo4A8lEGElU8Nu8fZX1kN4xezXbRE2gUfeTw+YB8FQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792519495;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Up8Y6kKyLiZARfpTNsHw2+u8uh2vAyQXFgzMN9iAZAo=;
-	b=lr7oYPIlrk+a4OnAATGv3ztBqH1ncYDgltRm8O2GXhyDUxs0OexbrybwUfNMN0Hxrw2n
-	 bBCYeDo6+chILl8w8lYuUs1KIfAo0GWcRxvyIZT6V9+b7snN9sAlwOpJnLeFW+/FfisDd
-	 uBdYQ25KQMbgXh0ptHRNm3FNsTJNw8g9Ob2XmRMMdC6aItJbBOxI7yZhGIwMt1vCpZVu1
-	 lqkrUj5MHS/zqrEEk53AYH3VhS3GzvbbV9buCpoXIxOeObaPn4+DvkewenO59h7FYXaJH
-	 eQjjGEsPwXVl/g8UFey3ACVwrv3D5NGkWW45MJzzi2fLnDbgvEKdZo4sNluImH8qnLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792519525;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=9eSaud7dFUgdPyFW0o5bdI3JdYL7Fm5AQErAMesA9t0=;
+	b=slwN6s+JKsiGGnaSIpObJz2EW5uR34c0feiLFc8HRAM1wHgiGQy9Br96bHEKnD1Dal8e
+	 FQfTRDvE7ofnc5KP0mM2zvlB7lReZmMZo+S8ucSEVtqRzzVs6P7F6EtQga+SpeAFdk5Xg
+	 f1Ec3G+s2NgbOiCGHnaLzaJfrT/QY/7/3A6z64SRHj5/+macdGeJUXxiN5DiL59Kbcya1
+	 65HmPZnJWSG2HSHF0JPz/iqT6v1U+5f949JdLnn/yLLT1UD1fZTe9pRnnqbjjHEzulM/g
+	 lXKOt2ERGfBhlMDAxqROVaYp0oJvj7Leq/5l+xyJiwzoVvtxP0Je8nwXWpqsiCFRgEg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=BDCKsH4c;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.7.78
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19013078.outbound.protection.outlook.com [52.103.7.78])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YHdstS9E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D046606A325;
-	Tue, 20 Oct 2026 18:04:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D046606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790E3606A319;
+	Tue, 20 Oct 2026 18:05:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 790E3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=BDCKsH4c
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l+8LD59qQjMaszmE1IVUQphCel5fWoBC6D95kSEAnlbCJgPZC9g5dAaBRvLmz2YM3bbq2q5CYkNQlUpCgoFgHDCLg/lW+ZkJ1vC8NRWIiO4TksyowQ1oAJxxMIzs8KTLo418kdpOqKC4OjSebs11i36tEtwvUeo6UPuoQUj3Lk++hiDfYTZk6erQOClrqv9g4IcbnYZP9MeKV06nOWZVC7biBO/dFE6s6XLdutz4O/kGkyXadWOwD0L6X+avSK4ytIcjjg4xckBMmxSEjfXzXMoG1luFlGymoHCGsg1aXN7JGFBaT/5PIrs9PopSRJpk9Ia5B51vPaTGHRGm13zE3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Up8Y6kKyLiZARfpTNsHw2+u8uh2vAyQXFgzMN9iAZAo=;
- b=CmRCUMi0JWOxR8XQtOAvFpyEScQLYn4mSVdlyg6sFcuZS0MBWzVVjFcFlZvdVwZP3W4WmuKLNlHTNxsO/bCB0j5I2Bdqe46luKih0Ru0RhtbrV4PzLefa1SLAdeTTpIYVXw5zU1iGojJqFz3ci7T7USXQF55Ow9z3k9kVUxoR4vUE8MZa0E88Rbg8ZyoPWcfTVQGY6rvCZnYZszmr8YwRsPjnCLN3piTpuM7CTFPSU3cG5lD6DpsA3ID3Iq0DWJQmBtg8LSkjyBA6ZxG4+CJ8bn8EV84LeoHHbxZ7vOzJrKi6H506e/BP4KtzRX5q1PtumgcFM4Iem4+c2emcF4P0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Up8Y6kKyLiZARfpTNsHw2+u8uh2vAyQXFgzMN9iAZAo=;
- b=BDCKsH4cjFkScUe+ha6GheL33sqMAde6B1Fd2EW7RQJE5nHPBWM5S6a5MwEqxFJ7tHeWMIPKKaFrWIeKg7EdEXQFyglZByJmlwt5FScCZBoj7nbfJcSgFOG0qAP/qddgmvt1ulaqtcR/6MgaJ7CaZmbNI/Naua7sCp60kRxIfjcwA+xHXu0+HlE9efXCqef3EJq+cLkvQw3HKO2ZkUZLSDLOS3C7qsLXsCD6HY+EjgQCRVj/ezLbGNlIVLaYUjt/NT9kDwG2ztxXXoh1xOdYMfIAOvzmkjzssImKyLypuGw3TWFTQEBcyhlAZa8t8eqZJOuRjPA074La+ksi+Mm+5Q==
-Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
- by MN2PR02MB6928.namprd02.prod.outlook.com (2603:10b6:208:205::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 18:04:29 +0000
-Received: from MN2PR02MB6863.namprd02.prod.outlook.com
- ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
- ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 18:04:29 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Kameron Carr <kameroncarr@linux.microsoft.com>, Haiyang Zhang
-	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
-	<decui@microsoft.com>, Michael Kelley <mhklinux@outlook.com>
-CC: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 5/5] Documentation: hyperv: Describe validation of the
- ring buffer indices
-Thread-Topic: [PATCH v2 5/5] Documentation: hyperv: Describe validation of the
- ring buffer indices
-Thread-Index: AQHdYB77N3oFYeHCFEqqg8wamzyEzbcGuqYw
-Date: Tue, 20 Oct 2026 18:04:28 +0000
-Message-ID:
- <MN2PR02MB686317D05DF1C791A8A9558FD4672@MN2PR02MB6863.namprd02.prod.outlook.com>
-References: <20261019230950.1573677-1-kameroncarr@linux.microsoft.com>
- <20261019230950.1573677-6-kameroncarr@linux.microsoft.com>
-In-Reply-To: <20261019230950.1573677-6-kameroncarr@linux.microsoft.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|MN2PR02MB6928:EE_
-x-ms-office365-filtering-correlation-id: e40703b0-cf2a-43ac-4dac-08df2ed495ba
-x-microsoft-antispam:
- BCL:0;ARA:14566002|12121999013|51005399006|37011999003|15080799012|13091999003|8062599012|8060799015|19110799012|55001999006|24021099003|31061999003|25010399006|440099028|3412199025|102099032|40105399003|1710799026;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?NuUE/Cdi+02o3cW3ZUmUd9oRJbvYjgdGGi6FSPdg96sS6u2Wi/fTT2UFwzDR?=
- =?us-ascii?Q?lzCdKyApp+T0k6nOhyH0ofotsxH44vcwgY10EtMNuDZ1wQgx9b6H1lY3LBGZ?=
- =?us-ascii?Q?tGWZErpnDDEXvCJ9kuvzki3B8+pTtCUGexmYEoycxTQHJP7Hlm16ILFbJIik?=
- =?us-ascii?Q?Q5r+3qA7YQ0OusmUgW8VQpieXeMyUV2NthxwDV/zbb61E82LbXgJgtewSYaB?=
- =?us-ascii?Q?G/9qbdmOw5jZKK4IBkWweCODxGskWuCoPu9w6vt9JeX/UNkARteszY8QbREG?=
- =?us-ascii?Q?oQyd1RD5lyHsak2eSNIrNDmEyOUYn5NXz49YrAT1XMu+fq54Y1SecaMZ5AOC?=
- =?us-ascii?Q?yvgQf2KdMtjR6Zyp+LlE4FcAvqd3ihH8lzR78BMnXSFkwij+75+HvTkc52+Y?=
- =?us-ascii?Q?xCPz/P1rdAQ1YFbJnNqYRdcfX4B0KC67/hcBsdpDjZMlanbSX/YGglPGWuCs?=
- =?us-ascii?Q?mWNi9GuXFRTFEFq5LnSb24LX59YHPpePJ9bvN1gAppkG3+c/34aKn7+kV4e9?=
- =?us-ascii?Q?f//BOloki1f6/vOCYEN6/M00FY/syjx3vJ6TYjwp2HhEUIl65H18dfh2K1Nk?=
- =?us-ascii?Q?Cn0AdNF7kAEOEaVuAHG7enSjkdwH22Z64l8ZVqjGwD6rFNlNJryHpZuHhut6?=
- =?us-ascii?Q?JN0wKn8hoRdlBnUizS6LZZzYUZKsMrbDNyGscPwPwWgzoCnFqK4lWFu+/PAo?=
- =?us-ascii?Q?27LHjap71GarQbIUivvQNZWxeO+G7IgmBpz5p0/KS6M5NTUdbcSWzgVfdyEC?=
- =?us-ascii?Q?QpCiSLBKj7NZqjPSg37fsSXnq39sEsvVuT8vtHTcueg7sFg6BrAkxBOObVdR?=
- =?us-ascii?Q?kE/MXI/wUsgJVogO3Q72JTcQMGg7JiyQDl9Civ8axk7Tv6ynM9OFvYjNHa5V?=
- =?us-ascii?Q?DoYp2IKq8ywAluPSyFZsBGp/302i9iaMDpOeCFC9rhSNOFUI+izeOTjf9daU?=
- =?us-ascii?Q?ryiAXDWwcyzClmgeqg9w4QsxD5IBsJLWGGI/VbMFLqz3JU7OWUsDLzWAIRa0?=
- =?us-ascii?Q?c7w9gqvJ+LkffkliM0s4ucnZ9wsc1cPNkA/mVt3jQLIVg+/9Xw/+NJcRTPMa?=
- =?us-ascii?Q?HwBT9jxr9aCGCms6gGyMfXbyhzaBCA=3D=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?5L6LEwi+aH2ckfj8eV9CVbJja3jxf4aUNrjF8WB8E2Us1oSo68uvcHNL9nlp?=
- =?us-ascii?Q?jf37ThmDPOOWZucZfpbnQxI4jUS4qeInjLDK9YfMh3MKR29gJMNe9wvNR0mM?=
- =?us-ascii?Q?+9zZWQ6/010aJViA7HCRc7daKlLEVrf1QxsXcHX1tkjWrRCH+Z7c+F+04DnQ?=
- =?us-ascii?Q?WFr9RV9YAZ3cXFD6OfhVMbaSmRK75BRja4WaEVy17lXcohq4ILpRRriHqoGu?=
- =?us-ascii?Q?fd1dAPmm1jb/0Co1HD2qvRQeOY6WjvSMqYfg9jqBx/Qm5VL7Cq9cF0Z8AaHj?=
- =?us-ascii?Q?zugvOv6prEE/ZrCbsDUo/gXTMO88bmuEC1MBsUsAw4cOshgXhlIviXkQH7BE?=
- =?us-ascii?Q?71B7OmuFAixo8TbahrywOh0gfBiiokXPnix9QlHceMeYfS0Bsh6yygJNLc4U?=
- =?us-ascii?Q?AQkUYdEd9FjB1sc53IIzrWaxC8iVI3w+tzb1bqfKYlGNZSVUfoAKOYZ9kwrU?=
- =?us-ascii?Q?P6i2RAfYmURdlldxhFxvl1vtZPeNZp1KwUdZoqZHcSzD51I1ZdZ/jiljRz67?=
- =?us-ascii?Q?56sWyyh72Iby1EFJAbg+frJCHWAi3IpxRgZiJMkFcSLB3p3KDXKSzDZOtL95?=
- =?us-ascii?Q?S/i1eTvYlMUPjg96k/9buNg5OrRE6SKzluuO0kZoPmbrcWebOTGTZ//kOBgK?=
- =?us-ascii?Q?2HoJDyoKSA29FPPYTcrTOoIjblI+wUeZ0lS20lHFhbDzVJXpUR49eHyLtYFC?=
- =?us-ascii?Q?qMgFi3/dZuwbXH09N3xjShc+y36eZ7ubgq/zbbzAqkk2WFDBZqmcqW0EFkjW?=
- =?us-ascii?Q?D6/kYUo8iG7HB/5Q2xOBf6Fwgkp7lImlDSJRx2cr8bf/lQrYIZbDQXOBIg19?=
- =?us-ascii?Q?UdhecFQxeKQeiEWr6MDN3saEUcTkFrTL2tcDEvJAzShvtu2Amx1PtU7b+j3A?=
- =?us-ascii?Q?dAZ5B733vJ8he5ZteYFN3d9ur3z3+BoqA59lO6i5nOwh4JsVbpa2E6H3vlaA?=
- =?us-ascii?Q?kD6cEkWPYaDXFqo72Cwx0xNiUqqfcNWfYqWPMmiDm0xQvNa/jvxQ7EL4U9YE?=
- =?us-ascii?Q?vT2kQV+IGCuErnHO4G2uyYlYdnf2ogh+UDTkKo+PPbNUlNT0Q0p6xF0P/lPM?=
- =?us-ascii?Q?HUMxqWc6fo3t6eAs295LXZDob+Vv64ljzRctuDrHu26oHvVnOWXSCfY7GMxu?=
- =?us-ascii?Q?wa/o2rwwiYtGxOu0mu5Kinj3WZIC+CN1xbFA1EBAPsra9s1wyWZFbSHXaNHS?=
- =?us-ascii?Q?tbxan6bmyKW7OcopU1gONy5v0aLG2951wL7MfbcxFCR0RC9I39l9U3fGpBz/?=
- =?us-ascii?Q?SNh8ow8pi+1xH42tSsoMns6crTQ50Fex+7KYOMf4g8OWjGz6K39rfJDrHX6j?=
- =?us-ascii?Q?GP3ziz53z2/vETBI/H4gi58+pnyBkDL0ED33u39WimQynHcJPVzWDbLAVBHk?=
- =?us-ascii?Q?jvyidWQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YHdstS9E
+ARC-Seal: i=1; a=rsa-sha256; t=1792519481; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=cO8218ncU8S2STckPIoI6sh//5C20e0X4YryZKZF4JsnI8OI1xXGAQ109xvGisqckvR5aTrx+yWJJpNCQD1Ik4mGSDcmcxlCO3FrBqd/nOcN1qRETRXNe7l7CF7nGqmoezGCb1X/wqocu5k55kMc5fYf3PaKKKBE1a+pTNnOsqE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792519481; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9eSaud7dFUgdPyFW0o5bdI3JdYL7Fm5AQErAMesA9t0=; 
+	b=UCqDPq8Rr2ancdsrd+CRdkAmgGKt7SO94IJKA9UtkrH4euthKvtzBQ5NmaGmlAdI6fjyncqii6c4dIjXcY/PeGiG1kgR7J+SPUHuUL5x1xA5ydAZR5K7mFwx/+eYiDXvHDQL7ARK2mQ6wCUvVF/CAdz1ouUSAQjdP7ZKktNR3HM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792519481;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=9eSaud7dFUgdPyFW0o5bdI3JdYL7Fm5AQErAMesA9t0=;
+	b=YHdstS9E7BGjv2OfXeJ2yZfFlYEDODFcCUHON6STCZLLvpIVPsdTejFX2UUjqOHe
+	FXyn6YE9sE7NfFz57BRen2Ln3Ij/LiUIrocMDVAgWkbRREEIzkzHAUxkggmhPJJG5A7
+	/4HYL8d4Zb/KqlaVnBZ/a4NC4G7GCSN2dYDqgn/s=
+Received: by smtp.zohomail.com with SMTPS id 1792519478414682.148302063257;
+	Tue, 20 Oct 2026 11:04:38 -0700 (PDT)
+Message-ID: <94d47cab-10c6-4ec3-84a0-3bddc9d67f5f@collabora.com>
+Date: Tue, 20 Oct 2026 20:04:33 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -153,60 +64,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: e40703b0-cf2a-43ac-4dac-08df2ed495ba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 18:04:28.9514
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR02MB6928
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
+ a cell to select TX or RX
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Rob Herring <robh@kernel.org>
+Cc: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <2501273.NG923GbCHz@diego> <20261020141039.GB4157247-robh@kernel.org>
+ <25254818.ouqheUzb2q@diego>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <25254818.ouqheUzb2q@diego>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-From: Kameron Carr <kameroncarr@linux.microsoft.com> Sent: Monday, October =
-19, 2026 4:10 PM
->=20
-> Document that the guest must snapshot and validate the read and write
-> indices before using them to index into the ring buffer or to compute
-> the available space.
->=20
-> Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
+Hi all,
 
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+On 10/20/26 16:57, Heiko Stübner wrote:
+> Am Dienstag, 20. Oktober 2026, 16:10:39 Mitteleuropäische Sommerzeit schrieb Rob Herring:
+>> On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko Stübner wrote:
+>>> Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleuropäische Sommerzeit schrieb Michael Riesch:
+>>>> Hi all,
+>>>>
+>>>> On 10/19/26 17:06, Rob Herring wrote:
+>>>>> On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
+>>>>>> Hi Krzysztof, Rob,
+>>>>>>
+>>>>>>> Existing OS should ignore surplus cell if the driver is coded properly.
+>>>>>>> Same as adding new properties or new front-compatible.  The question is
+>>>>>>> how the existing driver behaves?
+>>>>>>
+>>>>>> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
+>>>>>> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
+>>>>>>
+>>>>>> 1. Keep the second cell. Add the patch as follows:
+>>>>>>
+>>>>>> - if (args->args_count != 1) {
+>>>>>> + if (args->args_count < 1) {
+>>>>>>     dev_err(dev, "invalid number of arguments\n");
+>>>>>>     return ERR_PTR(-EINVAL);
+>>>>>>   }
+>>>>>>
+>>>>>> + if (args->args_count > 1 && args->args[1]) {
+>>>>>> +   dev_err(dev, "only the transmitter is supported\n");
+>>>>>> +   return ERR_PTR(-EINVAL);
+>>>>>> + }
+>>>>>>
+>>>>>>   With Fixes: and Cc: stable, the stable kernels maintained at that
+>>>>>>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
+>>>>>>   dts, and the receiver fails cleanly instead of getting the transmitter.
+>>>>>>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+>>>>>>   It goes in with the series, since two-cell dts only exist after it.
+>>>>>>
+>>>>>> 2. Use a flag in the upper bits of the existing cell, as Rob
+>>>>>>     suggested. Existing kernels are not affected, unless a board enables
+>>>>>>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+>>>>>>
+>>>>>> I will write the impact clearly whichever  approach is selected in
+>>>>>> the related commit messages and the cover letter.
+>>>>>>
+>>>>>> I think the cell approach is easier to read and more symmetric in the
+>>>>>> long term,
+>>>>>> but it breaks more. Which one do you think is better? Thanks.
+>>>>>
+>>>>> I'm not a user of this platform, so I don't care. Up to the platform 
+>>>>> maintainers to decide if breakage is acceptible. You just need to 
+>>>>> document the issue in the commit message.
+>>>>>
+>>>>> Rob
+>>>>
+>>>> It's a bit of a pickle, all this.
+>>>>
+>>>> I gave it some more thought. In the end this is an IP block with two
+>>>> PHYs. No more, no less. One cell is sufficient to address those, and it
+>>>> could be 0 for the transmitting PHY (DSI, display) and 1 for the
+>>>> receiving PHY (CSI, camera).
+>>>>
+>>>> Of course the two PHYs can operate in either DPHY or CPHY mode. The
+>>>> phy-cells have been (mis?)used to select the proper mode of combo PHYs,
+>>>> and this principle has been applied here too.
+>>>>
+>>>> However, we have the special situation here that the mode can only be
+>>>> changed for the complete IP block (and thus for both PHYs at the same
+>>>> time). As Bryan points out, we need to check and complain if the PHY
+>>>> mode is not set to the same value for both PHYs.
+>>>>
+>>>> I suggest using a property
+>>>>     samsung,cphy-mode;
+>>>
+>>> I guess, a maybe nicer way would be mimicing
+>>> 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
+>>>
+>>> with its
+>>> 	intel,phy-mode = <x>
+>>>
+>>> with x coming from include/dt-bindings/phy/phy.h
+>>> for the distinction between cphy and dphy, so we don't introduce yet
+>>> another way to describe this.
+>>
+>> We already have the plain 'phy-type' property which takes the same 
+>> PHY_MODE_x values. We don't need yet another vendor specific property.
+> 
+> even better then ... and I didn't look deep enough it seems.
+> 
+> 
+>>>> (name to be bikeshedded) that sets the complete IP block into CPHY mode
+>>>> (DPHY being the default) to distinguish between the modes. Since both
+>>>> modes use a different electrical interface, this is clearly a hardware
+>>>> thing and thus suitable for device tree.
+>>>>
+>>>> Then, we can address the two PHYs with the help of the already existing
+>>>> phy cell (without any bitflag tweaks to the value).
+>>>>
+>>>> The sole drawback is that we need to accept the PHY_TYPE_DPHY and
+>>>> PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
+>>>> it should only be the former.) And we need to handle those values
+>>>> correctly. But I think this is not more painful than the other
+>>>> approaches. At the same time, this design seems to be the most correct
+>>>
+>>> The current cell values are 10 + 11, so as long as we don't re-use those
+>>> exact values for the other constants the driver should somewhat easily
+>>> be able to recognize an old DT?
+>>
+>> I think you will still have an ABI issue of what does old OS do with new 
+>> values?
+> 
+> wasn't the main contract, a newer kernel should support old DTs ?
+> 
+> Aka the DT is parked in some firmware part (u-boot?) and gets handed
+> to the newer kernel.
+> 
+> I don't see deliberately handing a newer DTB to an older kernel as a
+> very common occurence?
+> 
+> 
+> And from a practical standpoint:
+> 
+> We're talking about devices with DSI displays that are at stake here,
+> so we're in the embedded world.
+> 
+> In other areas we're still fighting basic functionality like actually
+> handling the type-c orientation correctly in the usbphy.
+> 
+> So I really don't see a device with a user-updateable mainline kernel out
+> in the field, apart from people hacking around on their devices to try
+> out new features and new kernels, simply because core functionality
+> is still evolving in mainline.
+> 
+> 
+> RK3576/RK3588 devices still ship with a vendor u-boot/kernel, with
+> completely incompatible DTB afterall.
+> 
+> 
+> So yes, supporting old devicetrees on new kernels I do see as important
+> but someone working extra hard to combine a new DT with an old kernel,
+> I really don't see as an issue here.
+>
 
-> ---
->  Documentation/virt/hyperv/coco.rst | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/virt/hyperv/coco.rst b/Documentation/virt/hype=
-rv/coco.rst
-> index 3231e51..3e20249 100644
-> --- a/Documentation/virt/hyperv/coco.rst
-> +++ b/Documentation/virt/hyperv/coco.rst
-> @@ -200,7 +200,10 @@ validation is performed. For messages passed from th=
-e host
-> to the guest in a
->  VMBus ring buffer, the length of the message is validated, and the messa=
-ge is
->  copied into a temporary (encrypted) buffer for further validation and
->  processing. The copying adds a small amount of overhead, but is the only=
- way
-> -to protect against a malicious host. See hv_pkt_iter_first().
-> +to protect against a malicious host. See hv_pkt_iter_first(). Similarly,=
- the
-> +ring buffer header is shared with the host, so the guest must snapshot a=
-nd
-> +validate the read and write indices before using them to index into the =
-ring
-> +buffer or to compute available space.
->=20
->  Many drivers for VMBus devices have been "hardened" by adding code to fu=
-lly
->  validate messages received over VMBus, instead of assuming that Hyper-V =
-is
->=20
-> --
-> 2.45.4
+Just to make sure I understood it correctly: the current suggestion
+would be the standard integer property (optional)
+
+  phy-type:
+    description: D-PHY (default) or C-PHY mode
+    enum:
+      - 10 # PHY_TYPE_DPHY
+      - 11 # PHY_TYPE_CPHY
+    default: 10
+
+plus changing phy-cells to:
+
+  "#phy-cells":
+    const: 1
+    description: |
+      Argument defines whether receiver or transmitter PHY is used.
+        - PHY_DIRECTION_TX
+        - PHY_DIRECTION_RX
+      See include/dt-bindings/phy/phy.h for constants.
+
+plus handling the case where an old DTS may still have a line
+
+  phys = <&mipidcphy0 PHY_TYPE_DPHY>;
+
+and the new kernel will convert it to something equal to phy-type =
+PHY_TYPE_DPHY and phys = <&mipidcphy0 PHY_DIR_TX>;
+
+plus ignoring the whether or not an old kernel can work with a new DTS
+or not.
+
+By the way, if we handle the case of the old DTS with the new kernel
+correctly (which we should IMHO) then we do not need to change the
+existing DTS nodes, thus eliminating regressions.
+
+Is this summary correct?
+
+Best regards,
+Michael
 
