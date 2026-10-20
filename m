@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792485054;
-	b=gheZAtkztI2ZScgFcyVBAQr+9wHtPuJ2SC5xDLbkaEgFynIU+yIxs/bH9GXR/PELKKsy
-	 bH8Qdx1+/GVTBJqNp1r+bR012su4q96i8mEcRp/jh+uWYSx6UN169wWl65XPmekjM7DRc
-	 ME1Yf0eP+JirSSE+tb0+rpoXT28QsJfum3zrC9r+JMVxJ81s9E3VuPfBg37s7LpCHqeUh
-	 TjhEmqVHfqkL3UnPboWRZaNSIyTmTZ35qR7lj7QSPYy+uKYThZ2at+8D/uwTI827zf+yz
-	 igH2Au+7R+8EHUFf6IGKsUcLw8hYl6OWdXvUW855yvufOPZiCMcbVRvynU/+wndcqVw==
+	b=nXIRKIsRg+pBJmTAeuldIheBsT+kcK9SDF4jmuzDA6aD4DnY7xmuZaRK7RwUyrMOrFWe
+	 3BQfY4BLW6rdzQ7lffrs6EmkPmrv8fFhnq3DSFC2D+LJ39BoPm+/5uikDKpZ47Cds2dEj
+	 ns/eMeabdLp3I1W6zoeoFo8o/qZrMvy/J93BD/UKply4TM/yYq02GczZXMEGX6JT2u2nC
+	 dQH5lHHdVb/PWl+JpwiQDU+sWBFJU0HBNjR7XgxiScrI9L616CzdPmMOCGONJf3/XSr8z
+	 iwu5yHPXbrDw/r8pcv4cW2ARb0ehLrUOaetHu2LeK7wwvrBdlUq5k8jz4TfHVND0Ajw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792485054;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
@@ -13,25 +13,25 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
 	 Content-Type;
 	bh=aCWNPsJymC2fp4gzJndbp78M6r3pyeyfQP7eP8i0JKE=;
-	b=fA20B7ctU98OvuEd80J0ScaXka4qcIjFKLEA4aP2XXJwJExcfHceB7Tixc3xrJO+GU33
-	 05Ug8XvBXXcErIhb+j7jWJSkTmXps705BFsn17rBPnWRUvc0T8GGx0tH0x2U2cfC/GZ5Q
-	 tFisjgHkbjzQ7X5XoQbzodpKTnQLmrQqemdO98WIYyh9X6Pz4cep0B1aSLfbWdj73ULrr
-	 M43oAosO2UZDqek4nG6n6TBmZ/5z1pZh5vaMxLv5a6AFI1tLvXPcS/rwLTTQGrFQjo5CX
-	 oqUqrgNwWpsILnZ/2TVxuTlnWJ0KKVU+eLxjimb7L2YQtAMFfqqOUbMKjqWKNAP313Q==
+	b=Qgb5suZq66yZPoFFhXdi70+l7CsSoUfwLP6zNp/fZkn05fnwa7a4dL6UCvuEOr2a+2S7
+	 8zDikUotwAGNNWqA7uJysRATkqTkY0XQQWic+YPrpyieZc+3DzL2PNkKobV1b92jeAHwC
+	 JROBJMReImaZZR6YFoTgJGTTszwzbPbQ6yvOrJS1Zsqm+oUJe2Mk+KpCCWL08Mg86N2ub
+	 0ScYpKR52aZ3qlnN7mv7X+YkNoDHWxPxD/Ds5RJpAYDjfHFvo/F2nTovgKVDkraSDy8DF
+	 9qov26pucjsqWU5RmsQB2oAftrrOuGk8nhIMBhuNYL6yLiHYJJqJ5QbEarMjND+WieQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38210606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB1F606A31C
 	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:30:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38210606A31D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FB1F606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c734afb8deso4505799b6e.1
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b26d8d2498so4482784b6e.2
         for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:30:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792485053; x=1793089853;
@@ -39,15 +39,15 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
         bh=aCWNPsJymC2fp4gzJndbp78M6r3pyeyfQP7eP8i0JKE=;
-        b=poPDcAM9JDrElPNHTDnIFRhrwBTQ3/aTnq3uEtF7Vw+5/SDv2xtzWl9fq+yZStTFaU
-         FLq2VXLTYnDp2nvN68UxhUCLQIN3RlXGBH9sPXJzQbwtO42tiaEgQ3p3bZGMugeiJLo/
-         eDVJniUtBlylLA2CD35xdizHLvG57sGChRna43kx1GUuaNZ61bAOr5PkWfQUgBv39G1z
-         nLBTW7lrlB7BxMo/3TEuhRN3duKUm/Xpd0b/2ORO3VaPL50kAgMJoZGddpoZNH+uNwbb
-         INyTufwMsCrT3tfIbZ1mfNwnQHNj94wp85t+WOszMWgkQBSt6D4xE7A4zMND7xmwWeNX
-         o8gg==
-X-Gm-Message-State: AFq9FYKk0z8ZPzvT2MV7ZUDf4pcDjJkdVXSzWtyZSJhAb8tAlro3+re9
-	CYf8BMK0pDoy6w0sqYdlIRxFyTfa7xZ7qT/E+kmntYPiCy6Yh9inkWFp117nYG2MTyRbrwfNe+7
-	USxg4KHM5wj5OC9xqMONwqWSCTegNJQ6dzdaymyq8k+HuA/MrjeWjxET1R74=
+        b=YEUUoILjcyiwCulYegiQeIjMarhimq5i9vLSQPB/tb++gTJZFqiFuLUSzZDTGuq5/1
+         7OvW4gNMmt6ViHaafV7zSS3Gja0rJz/hzn6Q+4GgoP0wn/nMh7/mw1Ud8sa7SIZSiG57
+         nAfya/q1gnqx/rpJkrz6hmnB2YCpv89+R83rWU7O1tls/VVACN5MEFSQ5YrLbqytyCDS
+         n6YQGT/lO3Yfk8/znZxKg0QEgR0KR3EgH1FBLjCN3eFBQluzyoFFVRzn9TsRtkYG90q6
+         na3dlhzcFMqMzUs1GBIjiAFwajQbOjUUwqUZtxlFxAJJSW/ReH4xs2q02xumOZpX/CHz
+         0pIQ==
+X-Gm-Message-State: AFq9FYKJnvSslcKjn6RHZF/GlB+EIp6jla0meAQQWaT3k1BCAJ5ZXTMJ
+	Ya03i36QpXiHQbLaewaY7h0D7se1meq8GmqQbplSokA5r0B9IzmFMfu9AMahlC62KkuibTmw9Yl
+	81a93Ms7pqHjOU3XBXO23Jgz51O4fbCF5GDhbO+5PUS+ZD/X4VX92HImD0NE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,14 +57,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3084:b0:533:72c7:f80c with SMTP id
- 5614622812f47-53cd63bfbd7mr9002967b6e.42.1792485053299; Tue, 20 Oct 2026
+X-Received: by 2002:a05:6808:3c49:b0:4c5:12a4:ec8a with SMTP id
+ 5614622812f47-53cd4785361mr7594674b6e.36.1792485053680; Tue, 20 Oct 2026
  01:30:53 -0700 (PDT)
 Date: Tue, 20 Oct 2026 01:30:53 -0700
 In-Reply-To: <6a9b3f7a.2e649fcc.1e1977.0001.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad726bd.5c73e770.1a06c9.00f6.GAE@google.com>
+Message-ID: <6ad726bd.b5bd089a.6b57.008a.GAE@google.com>
 Subject: Forwarded: [PATCH] ocfs2: fix use-after-free in o2hb_region_dev_store
 From: syzbot <syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com>
 To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
