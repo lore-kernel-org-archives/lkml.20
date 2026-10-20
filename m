@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494499;
-	b=T1PV///pfevCBRA4ckxj8oGla67UY7HUwtNkGuBQ28NTees6lEGfNHSTfwcPujT3l5MU
-	 AP2dhwAIurq0gHcAuJzqQvB428otmss3XNw9GHqq6YxqTyxUBgch8kWVLwILJQOYt9sB7
-	 sgtnF/jDdold0Zf3j/z4u8praflFiw5xnV8Dk9O5q14XN+n+kY3sLoM97UIlUkylu4FG+
-	 XjpB9C354YL2NvrRim4aNONmoT9Mie7AD6oNyWXRuy0+De8d0DNn1Xm5WTMPIYp6E9UZ2
-	 B3vgMYzchp193XWERKbqKlpQXNUtEUscrSQM9JRe+Nnm+j0l8XDyNhK8RIwaPWOW/aw==
+	t=1792494501;
+	b=iggjj91TvdukSozfH+QpdCjgZbbzt3oKwreTwXA8TBQYaD+ZEUT7LTjSVR4X+bUTYl4N
+	 b6JbyObsN0kBnds+gcbe/K5TNw6Kq7+lX5yuFb1VsqF6XRrcwM+FpQ1mJnlJpekH0Q3UQ
+	 diwQnxLpctK2KKukFSXOTUfpSZiILgrQ7RFHQSFwwCx9KdPIOdubXWpj4/rhf5PYChruu
+	 6MBB/OnDdLkShS+8TSO7HwoTsNq6AJ/+03H01+1N0FYyI+Ul2PbWDiPJ9Nwp21ucs1JeI
+	 oCQ8oRCuRh9LbxF9bCMPhmEZW2b80sZu9TCPJhaHaYH9U0UalKwzmCiyLTDqqUoCByg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494499;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=PlF7ghBaTUOdulozqC4E2cPwGAg3QGfupH1MiS+T580=;
-	b=zlOQMsj772VSkWFSMTIk9U7V9psdgYdBD19WaEjITiHRyWrK70zP0/H/7HE2NotyybPp
-	 5Q2IG80LIi9/asgvLL4YUi2vUbURiSFUiD7/xR2i4yq07+31bqDt9M1FlwA1O1RfObdaw
-	 dbZ4OL4Rr4dN9b/I/ROssS5uVzQ4tTf2qkyHDypRGbsqLcI+wmNeSN+01kDKftSBTgDUm
-	 q6sVGHm+liCub+WJIr+xnf/ZtmnaS9lWJZf5qhFBh3Qd3EyVndskPdbI5xmIYMcVFsApn
-	 RyocVniOWGnvpstWvch7KGZ+x3pz4kXNG9Pn9VLj4XcwpGNVKf6q0BWdf9H08IFXhtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494501;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=ZVhamrUSjCR8huBFZ4vUL9+JmmauW+0214OfHZAjl4U=;
+	b=uCXug271jkziLAqtiNqiVgN5oYULdEUuayA3IOGKoVgURbX9virFloeBtP//XIctWtqk
+	 IRbhRKBPs/Ien3I5WcCIwQzcWncOJWG7WA140W2k3MIE8rfl0/ghrAySJSouR4XYMtbWf
+	 ZuynxYh0+5ObZVTebAIoq2uwSsLVbp/wh0R3/yPVcVBOjAl4eORayLQMACxFdvSxM7Jly
+	 lbP7Gf+BrHlgs1EijqdSwp19uIjPuXpL4TMpRbev7uOL4TMZzF6j7QfKw82IdVS4N6Xq7
+	 NSv4vcA5vkJ+Da9O03qvZaAd6wfK3oF3sB4epD5xVX0TvnZVl/4Gc2yk1zYunxt2CnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWoFlziJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WuakJbWY;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F63B606A324;
-	Tue, 20 Oct 2026 11:08:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E38606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:08:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86E38606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWoFlziJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547E81F000CB;
-	Tue, 20 Oct 2026 11:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792494498;
-	bh=PlF7ghBaTUOdulozqC4E2cPwGAg3QGfupH1MiS+T580=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=LWoFlziJUISk7pi2VMy49q89tXOvLa/1vZF+kaDch//hMl5Rx1cjBvmCoEF4tW91w
-	 FXfNinvQWAvC/afqzLQ3j4gvmvJb4va7CW0t01WIfQjOKxzvl7VDb6rbonvcR8Vrd0
-	 KpbWN2F0nb7zY2sfYGyfiZbT5oklOmB9eY2lTKKh0UfwyB9R8GHkZhoVHiWMZcvJFB
-	 YJnESXMK/u8fvej2k/lO/oW9/P54hRW31vDPeLvnkHBwrgZ1vN9lCrdggmUf6zF8io
-	 UCUwEn4YAWBCXEj+D4ulM0xpZdmvppDAsQQUt9HywjvbKdIS46IoVdqXavtJQ0o18G
-	 NYyNXupfdPSLw==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: linux-kselftest@vger.kernel.org,  rppt@kernel.org,  shuah@kernel.org,
-  akpm@linux-foundation.org,  linux-mm@kvack.org,  vipinsh@google.com,
-  linux-kernel@vger.kernel.org,  dmatlack@google.com,
-  kexec@lists.infradead.org,  pratyush@kernel.org,  graf@amazon.com
-Subject: Re: [PATCH v1 1/7] liveupdate: Add LIVEUPDATE_SESSION_FREEZE ioctl
- to freeze sessions early
-In-Reply-To: <20261015093816.2438942-2-pasha.tatashin@soleen.com> (Pasha
-	Tatashin's message of "Thu, 15 Oct 2026 05:38:10 -0400")
-References: <20261015093816.2438942-1-pasha.tatashin@soleen.com>
-	<20261015093816.2438942-2-pasha.tatashin@soleen.com>
-Date: Tue, 20 Oct 2026 13:08:14 +0200
-Message-ID: <2vxz8q3shboh.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WuakJbWY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ZV
+	hamrUSjCR8huBFZ4vUL9+JmmauW+0214OfHZAjl4U=; b=WuakJbWYaczrZxPmp/
+	MM6Q4d2Jogy9crmRuVCMbCtgWjAdeXWiX7FKmna2O9YfrlMpEv9KTW/W7foLiSVw
+	2szh3RZBmHXLEv0xk8I00a0fDarQG1TtTduVMgXS5rgYQD659BDPmJDMPuVQY3CE
+	RnHO6QnJad2lEfIz+PiNSwddQ=
+Received: from shaos.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDnzI2NS9dqEL_0Aw--.56621S2;
+	Tue, 20 Oct 2026 19:07:57 +0800 (CST)
+From: shaos <shawnq1@163.com>
+To: akpm@linux-foundation.org
+Cc: David Hildenbrand <david@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] mm/ksm: KSM merge drops userfaultfd RWP markers
+Date: Tue, 20 Oct 2026 11:07:57 +0000
+Message-Id: <20261020110757.960025-1-shawnq1@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,204 +60,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgDnzI2NS9dqEL_0Aw--.56621S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr4rGF47CF4fZF1xCFWUCFg_yoW5GF1kpF
+	Wvvw1agrn0gF1xJan7tFy0g3Wj9wn3G3yUJFn5Jw1ruayDGw1jyFW0ya4Y9F17Zr95C3yF
+	yw4jva4DJa95t3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U47K3UUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC0A2GlGrXS41BkgAA3n
 
-Hi,
+Hello,
 
-On Thu, Oct 15 2026, Pasha Tatashin wrote:
+KSM can merge anonymous pages in a VMA registered for userfaultfd write-protect (RWP), then replace an armed PTE with an ordinary accessible PTE. The VMA remains registered, but a read of the replaced page completes without the expected UFFD_PAGEFAULT_FLAG_RWP event.
 
-> Currently, LUO sessions are frozen automatically only inside the
-> reboot(LINUX_REBOOT_CMD_KEXEC) pathway, where luo_session_serialize()
-> iterates through all outgoing sessions under global write locks and
-> freezes them serially during shutdown. Allowing userspace to decide when
-> to freeze a session once it is done with it (and to freeze multiple
-> sessions in parallel, since luo_session_freeze() only acquires the
-> per-session mutex) avoids postponing this work to kexec shutdown and
-> reduces blackout time.
->
-> Introduce LIVEUPDATE_SESSION_FREEZE on session file descriptors to freeze
-> a session early. The ioctl runs .freeze() across all preserved files in the
-> session and serializes their metadata. Once frozen, no additional files can
-> be added to the session, and subsequent freeze calls return -EBUSY. Freeze
-> is only valid on outgoing sessions and returns -EINVAL on incoming ones.
->
-> During kexec, sessions that were already frozen early are skipped, while
-> sessions that did not invoke this ioctl auto-freeze as before. If an
-> early-frozen session is released before kexec, its files are rolled back
-> via .unfreeze() before being unpreserved.
->
-> Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-[...]
-> @@ -487,8 +488,10 @@ int luo_file_freeze(struct luo_file_set *file_set,
->  		file_ser->token = luo_file->token;
->  	}
->  
-> -	file_set_ser->count = file_set->count;
-> -	file_set_ser->files = kho_block_set_head_pa(&file_set->block_set);
-> +	if (file_set_ser) {
-> +		file_set_ser->count = file_set->count;
-> +		file_set_ser->files = kho_block_set_head_pa(&file_set->block_set);
-> +	}
->  
->  	return 0;
->  
-> @@ -501,7 +504,7 @@ int luo_file_freeze(struct luo_file_set *file_set,
->  /**
->   * luo_file_unfreeze - Unfreezes all files in a file_set and clear serialization
->   * @file_set:     The file_set whose files are to be unfrozen.
-> - * @file_set_ser: Serialized file_set.
-> + * @file_set_ser: Serialized file_set, or %NULL if not serialized yet.
->   *
->   * This function rolls back the state of all files in a file_set after the
->   * freeze phase has begun but must be aborted. It is the counterpart to
-> @@ -512,7 +515,8 @@ int luo_file_freeze(struct luo_file_set *file_set,
->   * their respective .unfreeze() handler callbacks.
->   *
->   * Context: This is called when the live update is aborted during
-> - *          the reboot() syscall, after luo_file_freeze() has been called.
-> + *          the reboot() syscall, after luo_file_freeze() has been called,
-> + *          or when an early-frozen session is released before kexec.
->   */
->  void luo_file_unfreeze(struct luo_file_set *file_set,
->  		       struct luo_file_set_ser *file_set_ser)
-> @@ -521,7 +525,8 @@ void luo_file_unfreeze(struct luo_file_set *file_set,
->  		return;
->  
->  	__luo_file_unfreeze(file_set, NULL);
-> -	memset(file_set_ser, 0, sizeof(*file_set_ser));
-> +	if (file_set_ser)
-> +		memset(file_set_ser, 0, sizeof(*file_set_ser));
->  }
->  
->  /**
-> diff --git a/kernel/liveupdate/luo_internal.h b/kernel/liveupdate/luo_internal.h
-> index 64879ffe73781..b42369c3b1f30 100644
-> --- a/kernel/liveupdate/luo_internal.h
-> +++ b/kernel/liveupdate/luo_internal.h
-> @@ -64,6 +64,8 @@ struct luo_file_set {
->   *              previous kernel) sessions.
->   * @retrieved:  A boolean flag indicating whether this session has been
->   *              retrieved by a consumer in the new kernel.
-> + * @frozen:     A boolean flag indicating whether this session has been
-> + *              frozen early from userspace.
->   * @file_set:   A set of files that belong to this session.
->   * @mutex:      protects fields in the luo_session.
->   */
-> @@ -71,6 +73,7 @@ struct luo_session {
->  	char name[LIVEUPDATE_SESSION_NAME_LENGTH];
->  	struct list_head list;
->  	bool retrieved;
-> +	bool frozen;
->  	struct luo_file_set file_set;
->  	struct mutex mutex;
->  };
-> diff --git a/kernel/liveupdate/luo_session.c b/kernel/liveupdate/luo_session.c
-> index f48e9a4185f97..403906937bc0f 100644
-> --- a/kernel/liveupdate/luo_session.c
-> +++ b/kernel/liveupdate/luo_session.c
-> @@ -34,10 +34,11 @@
->   * 1.  Creation: A userspace agent calls `luo_session_create()` to create a
->   *     new, empty session and receives a file descriptor for it.
->   *
-> - * 2.  Serialization: When the `reboot(LINUX_REBOOT_CMD_KEXEC)` syscall is
-> - *     made, `luo_session_serialize()` is called. It iterates through all
-> - *     active sessions and writes their metadata into a memory area preserved
-> - *     by KHO.
-> + * 2.  Freeze / Serialization: Sessions may be frozen early from userspace
-> + *     via `LIVEUPDATE_SESSION_FREEZE`. When the `reboot(LINUX_REBOOT_CMD_KEXEC)`
-> + *     syscall is made, `luo_session_serialize()` is called to freeze any
-> + *     remaining active sessions and write all session metadata into a memory
-> + *     area preserved by KHO.
->   *
->   * 3.  Deserialization (in new kernel): After kexec, `luo_session_deserialize()`
->   *     runs, reading the serialized data and creating a list of `struct
-> @@ -222,6 +223,10 @@ static void luo_session_unfreeze_one(struct luo_session *session,
->  				     struct luo_session_ser *ser)
->  {
->  	guard(mutex)(&session->mutex);
-> +	if (session->frozen) {
-> +		memset(&ser->file_set_ser, 0, sizeof(ser->file_set_ser));
-> +		return;
-> +	}
->  	luo_file_unfreeze(&session->file_set, &ser->file_set_ser);
->  }
->  
-> @@ -229,6 +234,12 @@ static int luo_session_freeze_one(struct luo_session *session,
->  				  struct luo_session_ser *ser)
->  {
->  	guard(mutex)(&session->mutex);
-> +	if (session->frozen) {
-> +		ser->file_set_ser.count = session->file_set.count;
-> +		ser->file_set_ser.files =
-> +			kho_block_set_head_pa(&session->file_set.block_set);
-> +		return 0;
-> +	}
+The RWP PTE is represented by PAGE_NONE plus the architecture's _PAGE_UFFD marker. In replace_page(), KSM creates the replacement with mk_pte(kpage, vma->vm_page_prot) and does not preserve that state from orig_pte. The PoC observes pages_sharing increase, reads the replaced page without an event, then re-arms it and receives the RWP event again. A non-merging control keeps the marker and continues to fault.
 
-This is getting messy. If early freeze, then you set the file_set_ser
-here, if late freeze, you set it in luo_file_freeze().
+The same replacement path also loses soft-dirty state; that separate observable is documented at https://gist.github.com/shaos26/9db36768f01eb83c6aa14ee9fc057388. This report focuses on userfaultfd RWP tracking.
 
-I think it is better to just set it here, and drop the code from
-luo_file_freeze() entirely.
+HEAD commit:    24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+source version: Linux 7.3.0-rc7
+architecture:   x86-64
+compiler:       gcc 11.4.0, GNU ld 2.38
+QEMU:           6.2.0
 
-Same for unfreeze.
+console output: https://gist.githubusercontent.com/shaos26/e887665d7868dc323d73a1d678cacd3d/raw/e3e39212903e5bd5ba12f55a94ba7ae5b25bb238/console-output.txt
+kernel config: https://gist.githubusercontent.com/shaos26/e887665d7868dc323d73a1d678cacd3d/raw/3cd943ba8c6026b43ef016a37d07efd2533a317a/kernel-config.txt
+reproducer: https://gist.githubusercontent.com/shaos26/e887665d7868dc323d73a1d678cacd3d/raw/7fc8685bb0cc01fca488fc096d4859b8b70af3fc/poc.c
 
-Maybe also rename the function to make it clear it only runs for
-serialization? The core of serialization is done by luo_file_freeze().
+Build the kernel from the revision above with the attached config. Build the static PoC with:
 
->  	return luo_file_freeze(&session->file_set, &ser->file_set_ser);
->  }
->  
-> @@ -249,8 +260,11 @@ static int luo_session_release(struct inode *inodep, struct file *filep)
->  		}
->  		sh = &luo_session_global.incoming;
->  	} else {
-> -		scoped_guard(mutex, &session->mutex)
-> +		scoped_guard(mutex, &session->mutex) {
-> +			if (session->frozen)
-> +				luo_file_unfreeze(&session->file_set, NULL);
->  			luo_file_unpreserve_files(&session->file_set);
-> +		}
->  		sh = &luo_session_global.outgoing;
->  	}
->  
-> @@ -267,6 +281,9 @@ static int luo_session_preserve_fd(struct luo_session *session,
->  	int err;
->  
->  	guard(mutex)(&session->mutex);
-> +	if (session->frozen)
-> +		return -EBUSY;
-> +
->  	err = luo_preserve_file(&session->file_set, argp->token, argp->fd);
->  	if (err)
->  		return err;
-> @@ -340,11 +357,34 @@ static int luo_session_get_name(struct luo_session *session,
->  	return luo_ucmd_respond(ucmd, sizeof(*argp));
->  }
->  
-> +static int luo_session_freeze(struct luo_session *session,
-> +			      struct luo_ucmd *ucmd)
-> +{
-> +	struct liveupdate_session_freeze *argp = ucmd->cmd;
-> +	int err;
-> +
-> +	if (argp->reserved)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&session->mutex);
-> +	if (session->frozen)
-> +		return -EBUSY;
-> +
-> +	err = luo_file_freeze(&session->file_set, NULL);
-> +	if (err)
-> +		return err;
-> +
-> +	session->frozen = true;
-> +
-> +	return luo_ucmd_respond(ucmd, sizeof(*argp));
-> +}
-> +
-[...]
+    gcc -static -O2 -pthread -Wall -Wextra -o poc poc.c
 
--- 
-Regards,
-Pratyush Yadav
+The program is intended to run as /init in a disposable initramfs and mounts procfs and sysfs itself. Boot it with:
+
+    qemu-system-x86_64 -m 1G -smp 2 -machine q35 -nographic -no-reboot \
+        -kernel build/arch/x86/boot/bzImage -initrd initramfs.cpio.gz \
+        -append "console=ttyS0 rdinit=/init panic=-1 oops=panic loglevel=6"
+
+Two fresh positive boots reported RESULT=KSM_RWP_MARKER_LOSS_CONFIRMED; the close non-merging control reported RESULT=KSM_CONTROL_TRAPS_PRESERVED. No privilege escalation, memory corruption, or cross-process access is claimed; the defect is loss of the caller's RWP access tracking. I checked the affected code against upstream master f47d223627f8; this source path appears unchanged there, but I have only reproduced the behavior on v7.3-rc7.
+
+Thanks,
+
+shaos
+
