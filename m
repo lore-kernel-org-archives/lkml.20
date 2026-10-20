@@ -1,52 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487431;
-	b=hByWCW5ja6JmK3qpjV+Gu08g4lruaa9ZHAtZbBWzbGV0g22Y4WoMngweBN50M+okfZ7A
-	 0iggN7iDZcerpdgrxu0WE9NNI0FSN0zoAOTKEZUioq59xeE62QkqWhJLx5OeVOqSzpP0u
-	 WJxx107+ooDnqrlfUvF+jQZVB9FHGpikboBRVIzZHz1Z/eXLX141tAObjmV+7oBUsLEr/
-	 5RLzKCCqldgGiCloEGCfAbsqbolc7iAdbXcZMZqIHm3VoVQHsMwCkptxYUuYWyNFT13s8
-	 g/XBWXRzEeQZeYK3/6sf9UM56D8bHNxhMLOwRTTSTG4gVKLXeC8EeRoKK3TsPSVhtLA==
+	t=1792487426;
+	b=I6v0g92yaIk5W+WMAU/ZFXh0G5oKErJNzj2VNA7jp/VrKkZdqwtjwjbFEfpom2qQYn8W
+	 wXjpgLcOUl0QFqyvXK1Aji6NQc+6zT9zGkX9WD8XthX5mCxwLS+La1wRW1N2rhQXqlMFq
+	 Z5DJNaJi6vrpiU2pVdqjgFdEd0gWtPODVHQv3QXdi+bdv36XOzTmPYK4wxB/9s8Plb5nd
+	 ZRl5WLL1CZzAqmb4Pup8WOAUWJ4Hj4lGGmtcElSHwxHvvgC4A117x4n7E7EFNIePqmAsb
+	 0FTyW7UNJOFH0tNdIeiEKc2wuwfJdZULttRROm8+wzXAcoqmM6ntaM7YUu38BPojlyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487431;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Rw1GbtwByZXxzLCSeP+8NcVEZSmlSZm+cwOSW01XRPA=;
-	b=LR4wCmbiA+UW8fGKJSMIyuBTjF7WLW9W+eXkvjTJAs+hVuVO0NpSNrbj2+hAXvBbGtEP
-	 9SETSjsU2fBTPQ/KbW8PQzemPGk90bGACB7+csXpy7i/qqLwAskf4tguSRaXs6+EisuRV
-	 XchJ/7iA23nDUbJJSN4BpuntIpNBu4aPEoYGdvtqQSJGEdpQAfi8kY8hGnsYr9VCr+Fqt
-	 zxsiHtznO3atOieT7Je/UAEvnmSJoBJwoOzcnAs8pMEW3Kp2+gTFJxoWXTLfwRVhVpZQX
-	 B/M6zu8tZFZpfdKCh26oHoynRVKFq8TUg9cQ3fMwI0GUaH6prz0SweD6oqsZRGLbzxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487426;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=AkyypTmvPkPUmubX3/0gDGnoh656aQxePoJteu5PJcw=;
+	b=Ed/hpoMh4Ra4r9a1q05Jf2UY2yheLbjx73yh1ipkVGUad7oZ2J8AGbnnTIHpt1IAaBHE
+	 8h1D1QufiZlGVLHXXyMp9RWKkQq3X2WRKIgm8oRxI8g4yugWm/4Dt+qlTUcIW4a0R/fVc
+	 SlbcxBqvwW2KSNuPIGD0+tT6b/xvp+L/tUjBfS6ZNe6fLnaSgzLV8Mb0y1Gq9lXfYiQfv
+	 aJegwlCrSQ0M+wxeM2TL8jxEKIbFvEC66sRnT7MoyXDMqdup4Rw6Z1cEkcdU24mLpg1uQ
+	 +9tnDrdG+Om2WlAjCE+0/XLWK5v+QslJ8vQEUqRlmWBQ3vhDCNSVKES3kU8P4sXeAeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEUGyCKz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=bKdWjY8G;
+	arc=none smtp.remote-ip=212.27.42.6
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A8A606A31B;
-	Tue, 20 Oct 2026 09:10:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5AB606A320;
+	Tue, 20 Oct 2026 09:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D5AB606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEUGyCKz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB34B1F000C6;
-	Tue, 20 Oct 2026 09:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792487430;
-	bh=Rw1GbtwByZXxzLCSeP+8NcVEZSmlSZm+cwOSW01XRPA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PEUGyCKz3k+i0RxmNjzmJqSunWV4gKvEKGBX9rY8yII33Efdg4veOJUEhcn+zjs4i
-	 VF7LKsOIe2B+tJ8Sfrz4Aoy1H0egKGj+kOmSYRShCdVihqpf/I8ZqPCeYD1Kr1tgt9
-	 lvri6SPlK6v3bgzYIHmWr3gs/vISi6YtfsrP11OgR2iOCInr2F6EpDobTX9Cd8DsZs
-	 dh5N7TRKtBGvXZ+F/TJrn97qvW/4fLaeoP5RcGCpNAdV3pi0m961GOqJy+2SFoJcqg
-	 sNdXM8GM/Cbxr60ntdkblCH6UqBTzirHfBTi8EZFjGK2wB7dPyZ7BVIQreAJnYJwhf
-	 aXwdojKG4n36Q==
-Date: Tue, 20 Oct 2026 10:10:25 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Julian Braha <julianbraha@gmail.com>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kbuild: pass -fno-pic when probing for -mfentry
-Message-ID: <atcvqoE2jjdIZKZe@gremlin>
-References: <20261020-pie-v1-1-9be09f2324b1@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=bKdWjY8G
+Received: from [127.0.1.1] (unknown [82.96.140.143])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 032C678034D;
+	Tue, 20 Oct 2026 11:10:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1792487424;
+	bh=175YASg7NE5RkH1KogVDWnvba034y7MXNXUHYyoe8To=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=bKdWjY8GtP3y/vxjFmhvhOfE17q3SPhtLmBs3pOEdUz72X1s8hzb3F8r+Vi0Szuc5
+	 Go96GJX4flqYuXWLYTrXrG/wbMUtVTXRMvcdVftwL8B47sKXRdJOmrvqKIVEjVmnim
+	 XEYwm+Sa6AR+LrV8deZSeI/nuFx0FTpZfW5/QuIndtuQv9WonG7oOmBiPMzMdD8yyk
+	 O49lIfdAFopDRa8MrGQ6F2dXVr45XPaYxkrCTSB6FcnFHKKQx0Te4FPztWGXAEuinj
+	 pOnCXqGwSkRVPa2l52Y+z9O992S/ufpL5Mo11r/3jzJAZYbm1eNrTx1R1gcRvIF12c
+	 TqByBtnIIBeHQ==
+From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
+Date: Tue, 20 Oct 2026 11:08:15 +0200
+Subject: [PATCH v3 10/10] can: peak_usb: only dump received bytes on decode
+ error
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,60 +60,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-pie-v1-1-9be09f2324b1@chromium.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261020-canfd_check_channel_idx-v3-10-74d17c5a599e@peak-system.fr>
+References: <20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr>
+In-Reply-To: <20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-On Tue, Oct 20, 2026 at 06:10:52AM +0000, Ricardo Ribalda wrote:
-> Some distros (namely Debian) configure their 32-bit toolchain with
-> --enable-default-pie.
->
-> To properly probe for -mfentry on them we need to pass -fno-pic,
-> otherwise allmodconfig will fail with:
->
-> ./arch/x86/include/asm/ftrace.h:9:3: error: #error Compiler does not support fentry?
->
-> Fixes: 454e00cf8ee5 ("kbuild: avoid re-running compiler and linker probes")
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-Thanks! Makes sense to me, so:
+When the decoding of a received URB fails, peak_usb_read_bulk_callback()
+dumps the whole RX buffer to the kernel log. The buffer is allocated with
+kmalloc() and its size is the adapter RX buffer size (up to 2048 bytes),
+so the bytes beyond urb->actual_length are uninitialized memory or
+leftovers from previous transfers.
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Dump only the urb->actual_length bytes received from the device. Since a
+faulty or malicious device can make every transfer fail to decode, also
+rate limit the dump.
 
-> ---
-> I found this while testing next with media-ci.
->
-> Full logs:
-> https://gitlab.freedesktop.org/linux-media/users/ribalda/-/jobs/113299249#L4729
-> ---
->  scripts/Kconfig.toolchain | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
-> index b0b9a663ddbe..53b361cf365a 100644
-> --- a/scripts/Kconfig.toolchain
-> +++ b/scripts/Kconfig.toolchain
-> @@ -170,8 +170,10 @@ config CC_HAS_MNOP_MCOUNT
->  	def_bool $(cc-option,-mnop-mcount)
->
->  # s390-linux-gnu-gcc did not support -mfentry until gcc-9.
-> +# 32-bit x86 gcc does not support -mfentry in combination with -fpic, which will
-> +# be enabled by default when gcc is configured with --enable-default-pie.
->  config CC_HAS_MFENTRY
-> -	def_bool $(cc-option,-mfentry)
-> +	def_bool $(cc-option,-fno-pic -mfentry)
->
->  config LD_OPT_FORCE_GROUP_ALLOCATION
->  	def_string "$(ld-option-str,--force-group-allocation)"
->
-> ---
-> base-commit: 3d229ce89862b8e82d71a9e11d6f840ca272a6d6
-> change-id: 20261020-pie-6774df20b0fa
->
-> Best regards,
-> --
-> Ricardo Ribalda <ribalda@chromium.org>
->
+Fixes: bb4785551f64 ("can: usb: PEAK-System Technik USB adapters driver core")
+Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
+---
+ drivers/net/can/usb/peak_usb/pcan_usb_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---
-Cheers, Lorenzo
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
+index 981168fead92..a58317cdde4e 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
+@@ -265,10 +265,10 @@ static void peak_usb_read_bulk_callback(struct urb *urb)
+ 		/* handle these kinds of msgs only if _start callback called */
+ 		if (test_bit(PCAN_USB_STATE_STARTED, &dev->state)) {
+ 			err = dev->adapter->dev_decode_buf(dev, urb);
+-			if (err)
++			if (err && net_ratelimit())
+ 				pcan_dump_mem("received usb message",
+ 					      urb->transfer_buffer,
+-					      urb->transfer_buffer_length);
++					      urb->actual_length);
+ 		}
+ 	}
+ 
+
+-- 
+2.53.0
+
