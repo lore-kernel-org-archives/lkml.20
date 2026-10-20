@@ -1,62 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792468640;
-	b=AfvkXKLt5gQoCjQ3ylZi+VjvfuUV3JmZqdikDlbdsENKQ+kxzK81j02XtwwSENO2TAAz
-	 4jtNLw5U1PK5aXDtsmrj/8sfRxiJ/VcoMiMJU2mEBbD0EuyapV3KaR4kf7GSEgYJftMsF
-	 +MsxQMDIFyw1gTdQYlTCFpTMND5DymlCJhoVcaMhAiOVTGAknh95gleKA1PV6PqLwVDHo
-	 NBQubcNlhXQVCn+LLnjQOwtoNS79aMjW6rJY0eHyeohggGVEl619jUCSBlVbwIVY7M4qB
-	 0kr740we/pG2pRzMv/nuD5RoPShwRsVqkFejKWAvOMTVrVEbTm6ffJCzdFk8QcBeLdw==
+	t=1792468669;
+	b=PBd8tqd03uRakYXCVsEvRxI+RKGuf2ixIAifOOEcOVeXu7T01BxN2oyt2ij0IYq7DbTa
+	 lhNqm6buzaX6sVA0JwnteW37ctv60eMrTYskT0HWfqw2foGQH0uZQgKw6uH4coepNrUoV
+	 atJlPxjaMDcrn/UtM8pEzJYG4OF5d0W+FTOHfZp3tPjxX6J4Ex5CVTs/V0cq6rWzfIl5L
+	 /6c9ELZTcDMJtZOJXZOVz/6aXVby2en1cXSGJy4QQUTcHr+5xfxprqdEwiJFTCB8ivcVY
+	 DeQSfhUNXjwnIHgLhO6TwYh45U+RDZCaY8mVMyAkzuxfaufWTFrMEtZQRYwfU45DTHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792468640;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=/W8Ed4jSRre2wfHFR+X/2tT/ft4pZKYlenk33nsLqiM=;
-	b=QUrUj9jkEDdEMmBa78olBX+YRe8kGnHNw/6ycIOHPeMVf9Tk4h6JI2tSiqJ1tdlNgo8x
-	 bvFuC0NsVv7AKLlhQMjJBDScnSLTJIEQ8jsG9jQhdZLbYA1bRJUmIloDPke7kOK5hErHq
-	 EbjpeB1bHrVTAyyZ0L4RmvRL/5m5jhnoJlb1RU0/P2af1p0vuzu58aiUyYg5qykw1K/yy
-	 lOV7LKjuwPBujEa+yAj9+YDDOvD1anxEOx7N17pczfXDFlzSJHIR87pEfhYON4cRbgy1b
-	 vBHXBTJFDUC+3MlVHhrgYFn9bb++x6aWCRMaiDy5jDbB9Zqkc/maJH00hPNEJr7OqMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792468669;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GjbNloEv1OIvWNQBjBw6yfhNVrFCgRGa2Awkmrsd1dM=;
+	b=03PpVXo2PeY3X++en3RT54Vd3sNjHf6stWvoczgeYtKG+Z205fU+YGarnQydew1q4vk5
+	 skaSjkaaEy1g6t2IqFszKA/NWAl9zvyn2Tr5tqPnZgmDlwZRQedR68UxkRF5pKmcg8IST
+	 kHN/YqgK3scgYxq03+dKg0QDKIkLBCBEvnScIosyuZ4Bhk2DjC/EoBqMvZemk5sHPfv6P
+	 2R7w/tgi5BpdJvgY97bemMQ8sHm8n/2FMrAsC2EyEgnXOWN3mCQ/AOxyahrQ344eTwHOU
+	 Dm54cnZorKReUzMwxIskAoyNOpEHNlGaIzfU4KEgx85Q3XZP0nkbYaAD/xhY9wfgwqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WamV38WX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YQhcM6y9;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6C1606A319;
-	Tue, 20 Oct 2026 03:57:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F529606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:57:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F529606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WamV38WX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 446E11F000C4;
-	Tue, 20 Oct 2026 03:57:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792468639;
-	bh=/W8Ed4jSRre2wfHFR+X/2tT/ft4pZKYlenk33nsLqiM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WamV38WXMlJZhfZjfN9lZxgi+2MEM8+GM6sy+7SWg78m7EJPaYgG8zmH52wEDfDgy
-	 HndhMq2G3A3iNuQha/7Ia7V6NoiH8R66/v5pa8cixxy2iEUt8KZm5qEfU/v9USZ/KI
-	 n4SVj7wNxO0ALrsl1BBrsp/4T7e85CFTkTW3LjRgDlqyQbXboX8ADiMIS8kQIwAIWw
-	 CgQTPfK2W8YKqQXCBl1+lg0zJxqI5o/nsbm5S3FwAefEmniCY1k0t7a0iAhyCp6zzp
-	 s6jGt24Kpe/ixPLTSQOFBG4SlBdHLUQIKsZbJ4F2oOV6TTVqXC+vN24WJI/qZCHntV
-	 m/dXQYMcJjP8A==
-Subject:
- Re: [PATCH net-next] net: ti: icssg-prueth: Fix dma_unmap_single() direction
-From: netdev-bot+sashiko@kernel.org
-To: fourier.thomas@gmail.com
-Cc: danishanwar@ti.com, rogerq@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- elfring@users.sourceforge.net, jacob.e.keller@intel.com,
- vadim.fedorenko@linux.dev, haokexin@gmail.com, diogo.ivo@siemens.com,
- jan.kiszka@siemens.com, linux-arm-kernel@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 03:57:17 +0000
-Message-ID: <179246863774.3135.8755286961796234504@kernel.org>
-In-Reply-To: <20261016125534.36024-2-fourier.thomas@gmail.com>
-References: <20261016125534.36024-2-fourier.thomas@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YQhcM6y9
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e9e53d011eso11482605ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:57:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792468668; x=1793073468; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GjbNloEv1OIvWNQBjBw6yfhNVrFCgRGa2Awkmrsd1dM=;
+        b=YQhcM6y9x/IvZMbFiQDLp5dt1FRbZpDdPWZRfHIkWQzyW2Trc3pOybtzPA//aAgG7X
+         ltJRsy4YF6p6hoVbQL4XUCbh0GYCA9JXkEubDzYQjVPOdQvcsbay3+5bSY6CUNhqxm+M
+         4qbpfDsGVo4Q9wINY4Ba73lQeFe6wlpWI9Pgm7euLnAUrYo+qGc9sXxKrMYneNlcjX7J
+         mJOFA/gOO7SQBYPZ6gc+/EUp1mKM4MxQHm4L9yYUjSfdFNuuWsra2dTW0acl+zCTCY+C
+         +gs28stEMxtjElNgnZ7aZh0oWXKWJWQhjTms4P6q8+/iiE93IkuMcdPLtWwEbOhcV2vo
+         8z5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792468668; x=1793073468;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GjbNloEv1OIvWNQBjBw6yfhNVrFCgRGa2Awkmrsd1dM=;
+        b=LlvSKB/JmCv91cDCJmhoZCEL14jxtxMRb+1ZQjwbdQ7J/G6UO4ob+3cJuEQynnnKQk
+         Lm8Iadx36feShD3PNk3cuEGYEJZquWmwTfhE3QYw3Ix7UaE5P7SGoN9aPoqZBL13S0k6
+         9jH5IYnbB+7bkRezR7nyDahijSRRPo+FbWmasEOkj+sKXxGN/VFHZy/rL7h+k63OT1fP
+         N23ToEC/8vTJpmpx4Zabnzi/Xzwt4bnhNBsl1dvIw3VdIurA5wxU/uxsxchE5m/cE4EO
+         EYyOSqAMMnz+gr59l/LzLDYaVKsE6DAlA9spDSad02oSuA45i8dobpseSRfs1CLpYNzE
+         hYHg==
+X-Forwarded-Encrypted: i=1; AKwUvBw16WEy0+/rT0s+9BBxoNXEC+xSCM0hZ/NJEhupvr1fHRuQvbaB7ZWGDD4nuPe3TAFCga1hZvXEJF9KSdM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpbt7H//G+a9cb+fuxAe5u6d8QxFvCka4pcjY8XN5mJXF3UXEi
+	2Q+iBep1q+X5i4X+2GECqc0ldyoPf2GyMOCCXdVrL/hzFBAM1MOpOWOZ
+X-Gm-Gg: AYBFou2LPKf4r4aVwmT5f95Q0yQuD366/CmRNKNwh/UVOCboDMc5rn1wa70Z0phCSn6
+	/kCQORvY73OEb5gyX267HMiAlDPR/j8Py9mQtrGPZz7NuyDOJTmoT1L4x7q5tt5omEmww0duPeC
+	vXEewJpLjpZnkP/PyDFC6fJgIYAjVskkvtQNbAW4HU1BYAFKvUVyS4ejKBE7ddv78mWWqDB1/1/
+	slQl3WNssD3fBYeb/Pt7aQr/XsSjjbQMKKmq68gwD6/P3KfPtjbOUlyN+ko8DfU9G99zDd+W1OS
+	+zTYMYD/MHdIu0FRnoENDheTPXPWnwnhUM6a3IAVEp7eLMr+KjHOSsq711FRFN6zgnAt0y6fGSq
+	XkcH65493dtAQAYVe3w60DSvULbbcY5pcnKUhkSZW0AN+yfMwDjMxw2L7Nzr3iPTrNeYyo1kCgE
+	JE42TiF/eWgEYqsAwv6uNfxmSvT7z9+i/6DJwIckTREIGb4dOaUs15xHaeMhAm6NaCBw==
+X-Received: by 2002:a17:902:e806:b0:2e9:568f:75bc with SMTP id d9443c01a7336-2e9a6c04230mr87982285ad.39.1792468668282;
+        Mon, 19 Oct 2026 20:57:48 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea15180273sm7857015ad.60.2026.10.19.20.57.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 20:57:47 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kees@kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v4] ocfs2: Pin owning modules for open debugfs files
+Date: Tue, 20 Oct 2026 11:57:42 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0089-v7-33777b9118b01969d965@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,254 +100,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+The OCFS2 debugfs file operation tables do not set owner. The
+full debugfs proxy obtains real_fops with fops_get() at open and
+keeps it until final release. Without an owner, this does not acquire
+a reference to the module containing the table and its callbacks.
+Removing the debugfs entries does not drain retained open files.
 
-Critical: 0 · High: 3 (1) · Medium: 2 · Low: 0
+An open connected_nodes file can therefore outlive ocfs2_nodemanager
+and make full_proxy_release() read real_fops->release from freed
+module memory. Heming also reproduced the issue with fs_state and
+asked for the other OCFS2 debugfs operation tables to be checked.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Set owner to THIS_MODULE in all eleven explicit debugfs operation
+tables: five in ocfs2_nodemanager, four in ocfs2_dlm, and two in
+ocfs2. The existing debugfs get/put pair then holds the appropriate
+module until final release. Leave the open, read and release callbacks
+unchanged. The blockcheck table already sets owner through
+DEFINE_DEBUGFS_ATTRIBUTE(), so it needs no change.
 
-- [High] The patch adds the very map/unmap direction mismatch it claims
-  to fix.
-- [High] The direction is not the real bug in prueth_process_rx_mgm().
-- [High] net: cacheline corruption due to DMA_BIDIRECTIONAL on unaligned
-  inline array
-- [Medium] The commit message's premise is wrong.
-- [Medium] The Fixes tag points at the wrong commit.
+The original controlled test used an unloadable OCFS2 module and
+case-local probe filters without changing the candidate open, unload
+or release logic. Closing a retained connected_nodes file after
+normal unload produced:
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  prueth_process_rx_mgm() refills the wrong ring.
+  BUG: unable to handle page fault for address: fffffbfff804cfef
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:full_proxy_release+0xbf/0x190
+  Call Trace:
+   <TASK>
+   __fput+0x39a/0xa60
+   fput_close_sync+0xff/0x200
+   __x64_sys_close+0x8c/0xf0
+   do_syscall_64+0x114/0x620
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Modules linked in: [last unloaded: ocfs2_nodemanager]
 
---
+Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
+Fixes: db02754c8a12 ("ocfs2/cluster: Show o2net timing statistics")
+Fixes: 87d3d3f3931f ("ocfs2/hb: Expose the list of heartbeating nodes via debugfs")
+Fixes: 3ba169ccec1c ("ocfs2/cluster: Add new function o2net_fill_node_map()")
+Fixes: 50397507e856 ("ocfs2: Expose the file system state via debugfs")
+Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Fixes: 7209300a9b98 ("ocfs2/dlm: Dumps the purgelist into a debugfs file")
+Fixes: d0129aceaecc ("ocfs2/dlm: Dumps the mles into a debugfs file")
+Fixes: 4e3d24ed1a12 ("ocfs2/dlm: Dumps the lockres' into a debugfs file")
+Fixes: 007dce53a29c ("ocfs2/dlm: Dump the dlm state in a debugfs file")
+Assisted-by: LLM
+Cc: <stable@vger.kernel.org>
+Suggested-by: Heming Zhao <heming.zhao@suse.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-net: ti: icssg-prueth: Fix dma_unmap_single() direction
+---
+Changes in v4:
+- Add the missing Fixes tag for stats_seq_fops: db02754c8a12
+  ("ocfs2/cluster: Show o2net timing statistics").
+- Add Joseph Qi's Reviewed-by; keep the code unchanged.
 
-This patch changes the DMA direction to DMA_BIDIRECTIONAL in two places:
-the mapping of the firmware command buffer in emac_send_command_sr1(),
-and the RX management buffer unmap in prueth_process_rx_mgm(). The commit
-message says the TX map and the RX unmap use mismatched directions.
+Changes in v3:
+- Match each .owner assignment to the indentation of neighboring members
+  throughout, as requested by Kees Cook.
 
-> In emac_send_command_sr1(), the command data is mapped with direction
-> DMA_TO_DEVICE. However, in prueth_process_rx_mgm(), dma_unmap_single()
-> is called with direction DMA_FROM_DEVICE. It seems like the buffer is
-> written to by the CPU before mapping the buffer; and, after mapping the
-> buffer, the device writes to the buffer.
+Changes in v2:
+- Cover fs_state and locking_state in the OCFS2 filesystem module.
+- Cover all four OCFS2 DLM debugfs operation tables.
+- Keep the five node manager fixes and the original diagnostic.
+- Add explicit module headers and Fixes tags for the added tables.
+- Add Cc: stable@vger.kernel.org.
 
-[Severity: Medium]
-Are these the same buffer? emac_send_command_sr1() maps emac->cmd_data
-on tx_chn->dma_dev. That mapping is released by prueth_xmit_free() when
-the TX completes:
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0089-v2-4c67f48d4e2d0fc85990@gmail.com
+Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0089-v5-076c780eeaf45afb2a53@gmail.com
+Link to v3: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0089-v6-f7fda843f80887488145@gmail.com
 
-drivers/net/ethernet/ti/icssg/icssg_common.c:prueth_xmit_free() {
-    ...
-	cppi5_hdesc_get_obuf(first_desc, &buf_dma, &buf_dma_len);
-	k3_udma_glue_tx_cppi5_to_dma_addr(tx_chn->tx_chn, &buf_dma);
+ fs/ocfs2/cluster/heartbeat.c | 1 +
+ fs/ocfs2/cluster/netdebug.c  | 4 ++++
+ fs/ocfs2/dlm/dlmdebug.c      | 5 +++++
+ fs/ocfs2/dlmglue.c           | 2 ++
+ fs/ocfs2/super.c             | 1 +
+ 5 files changed, 13 insertions(+)
 
-	dma_unmap_single(tx_chn->dma_dev, buf_dma, buf_dma_len,
-			 DMA_TO_DEVICE);
-    ...
-}
-
-So before this patch the command buffer was both mapped and unmapped
-with DMA_TO_DEVICE.
-
-prueth_process_rx_mgm() handles a different buffer. It is a page_pool
-page that arrived on emac->rx_mgm_chn, attached by
-prueth_dma_rx_push_mapped() as page_pool_get_dma_addr(page) +
-PRUETH_HEADROOM.
-
-The firmware reply is also read from that RX page, not from cmd_data:
-
-prueth_rx_mgm_rsp_thread() {
-    ...
-	rsp = le32_to_cpu(*(__le32 *)page_address(page)) & 0xffff0000;
-    ...
-}
-
-Does anything make the device write to emac->cmd_data, or read cmd_data
-back after the DMA? If not, could the commit message be reworded to
-describe the problem that actually exists?
-
-> Fixes: e654b85a693e ("net: ti: icssg-prueth: Add ICSSG Ethernet driver for AM65x SR1.0 platforms")
-
-[Severity: Medium]
-Is this the right commit for the Fixes tag? At e654b85a693e both pairs
-seem to match. cmd_data was mapped and unmapped with DMA_TO_DEVICE. The
-RX management buffer was an skb, mapped DMA_FROM_DEVICE in
-prueth_dma_rx_push() and unmapped DMA_FROM_DEVICE in
-prueth_process_rx_mgm().
-
-The RX side only went wrong with 46eeb90f03e0 ("net: ti: icssg-prueth:
-Use page_pool API for RX buffer allocation"). That commit moved RX to
-page_pool pages but kept the old dma_unmap_single().
-
-Stable trees that have e654b85a693e but not 46eeb90f03e0 would end up
-with a FROM_DEVICE map paired with a BIDIRECTIONAL unmap on the skb path.
-They would also get a new mismatch on the TX command path.
-
-> diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c b/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
-> index b8115ca47082f..6f4a3f64ad39f 100644
-> --- a/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
-> +++ b/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
-> @@ -98,7 +98,7 @@ static int emac_send_command_sr1(struct prueth_emac *emac, u32 cmd)
->  	tx_chn = &emac->tx_chns[emac->tx_ch_num - 1];
->  
->  	/* Map the linear buffer */
-> -	buf_dma = dma_map_single(tx_chn->dma_dev, data, pkt_len, DMA_TO_DEVICE);
-> +	buf_dma = dma_map_single(tx_chn->dma_dev, data, pkt_len, DMA_BIDIRECTIONAL);
-
-[Severity: High]
-There's a second problem with mapping cmd_data DMA_BIDIRECTIONAL.
-emac->cmd_data is a 16 byte array embedded in struct prueth_emac with
-no alignment or padding of its own:
-
-	u8 cmd_seq;
-	/* shutdown related */
-	__le32 cmd_data[4];
-	struct completion cmd_complete;
-	/* Mutex to serialize access to firmware command interface */
-	struct mutex cmd_lock;
-
-So it shares a cacheline with cmd_seq, cmd_complete and likely part of
-cmd_lock.
-
-Documentation/core-api/dma-api.rst asks for regions mapped with
-dma_map_single() to start and end on cacheline boundaries, so that
-nothing else shares those lines. With DMA_TO_DEVICE this was harmless
-in practice, because the CPU side never has to invalidate anything.
-dma-debug skips its overlapping cacheline tracking for DMA_TO_DEVICE
-mappings for exactly that reason.
-
-DMA_BIDIRECTIONAL tells the architecture the device may write the
-buffer. On a non-coherent system the CPU sync on unmap then invalidates
-the lines covering cmd_data, and those lines also hold cmd_complete.
-
-reinit_completion() writes cmd_complete after the map.
-prueth_rx_mgm_rsp_thread() calls complete() on it from the mgm IRQ
-thread while the buffer may still be mapped. Can the invalidate throw
-away those updates and lose the wakeup?
-
-Today only the descriptor allocation failure path above unmaps with
-DMA_BIDIRECTIONAL. Every command would, though, if prueth_xmit_free()
-were converted to match.
-
-If the firmware really does write into this buffer, cmd_data would need
-its own cacheline aligned allocation. If it doesn't, wouldn't keeping
-DMA_TO_DEVICE avoid the problem altogether?
-
-[Severity: High]
-Doesn't this add a map/unmap direction mismatch? Only the unmap on the
-descriptor allocation failure path below was converted. Every other
-release of this mapping still goes through prueth_xmit_free(), which
-hardcodes DMA_TO_DEVICE:
-
-emac_send_command_sr1()
-  k3_udma_glue_push_tx_chn()
-  ... TX completion ...
-emac_tx_complete_packets()
-  default:    /* PRUETH_SWDATA_CMD */
-    prueth_xmit_free()
-      dma_unmap_single(..., DMA_TO_DEVICE)
-
-The same is true of the free_desc path in this function when
-k3_udma_glue_push_tx_chn() fails, and of TX channel teardown.
-
-With CONFIG_DMA_API_DEBUG, would check_unmap() now report "device driver
-frees DMA memory with different direction" on every successful firmware
-command?
-
-The device only reads cmd_data. With an IOMMU, though, BIDIRECTIONAL also
-lets the device write to the page that holds it. That page is inside
-netdev_priv(), next to cmd_complete, cmd_lock and the napi/hrtimer state.
-
-Should the TX hunks be dropped?
-
->  	if (dma_mapping_error(tx_chn->dma_dev, buf_dma)) {
->  		netdev_err(emac->ndev, "cmd %x: failed to map cmd buffer\n", cmd);
->  		ret = -EINVAL;
-
-[ ... ]
-
-> @@ -303,7 +303,7 @@ static struct page *prueth_process_rx_mgm(struct prueth_emac *emac,
->  	page = swdata->data.page;
->  	cppi5_hdesc_get_obuf(desc_rx, &buf_dma, &buf_dma_len);
->  
-> -	dma_unmap_single(rx_chn->dma_dev, buf_dma, buf_dma_len, DMA_FROM_DEVICE);
-> +	dma_unmap_single(rx_chn->dma_dev, buf_dma, buf_dma_len, DMA_BIDIRECTIONAL);
-
-[Severity: High]
-Should this be a dma_unmap_single() at all? The page comes from a page
-pool that prueth_create_page_pool() sets up with:
-
-	pp_params.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
-	...
-	pp_params.dma_dir = DMA_BIDIRECTIONAL;
-
-That means the pool owns a mapping of the whole page.
-prueth_dma_rx_push_mapped() gives the device an offset into that mapping:
-
-	buf_dma = page_pool_get_dma_addr(page) + PRUETH_HEADROOM;
-
-Here the address is read back with cppi5_hdesc_get_obuf(). It is never
-converted with k3_udma_glue_rx_cppi5_to_dma_addr(), and it is unmapped
-with a partial length. So it does not match any mapping the driver
-created.
-
-After the unmap, the page is either recycled with
-page_pool_recycle_direct(), or, if allocation fails, pushed straight back
-to hardware as new_page = page. In both cases the pool still treats the
-page as mapped.
-
-With an IOMMU, which the commit message mentions, can this free the IOVA
-of a page the pool is still using? The next DMA into that page would then
-fault or land on a reused IOVA, and page_pool_destroy() would unmap it a
-second time.
-
-DMA-API debug would also flag this as "device driver tries to free DMA
-memory it has not allocated", whatever the direction.
-
-emac_rx_packet() handles the same kind of buffer by calling
-page_pool_dma_sync_for_cpu() instead of unmapping. Would a similar CPU
-sync be the right replacement for the unmap here?
-
->  	k3_cppi_desc_pool_free(rx_chn->desc_pool, desc_rx);
->  
->  	new_page = page_pool_dev_alloc_pages(rx_chn->pg_pool);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but a little further down in
-prueth_process_rx_mgm() the replacement buffer goes to the data channel
-instead of the management channel:
-
-	/* queue another DMA */
-	ret = prueth_dma_rx_push_mapped(emac, &emac->rx_chns, new_page,
-					PRUETH_MAX_PKT_SIZE);
-	if (WARN_ON(ret < 0))
-		page_pool_recycle_direct(rx_chn->pg_pool, new_page);
-
-The descriptor was just returned to rx_mgm_chn's desc_pool. The refill,
-however, allocates from rx_chns.desc_pool and posts on the data RX
-channel, using a page from the mgm page pool.
-
-emac_ndo_open() fills the mgm ring only once, with
-PRUETH_MAX_RX_MGM_DESC_SR1 (8) descriptors. After 8 management packets
-(command responses or TX timestamps), does the firmware run out of mgm
-buffers? If so, emac_send_command_sr1() would time out on every command,
-and the skbs held in emac->tx_ts_skb[] would never complete.
-
-All data descriptors are posted at open, so this push will usually fail
-in k3_cppi_desc_pool_alloc() and hit the WARN_ON() on most management
-packets. When it does succeed, emac_rx_packet() or prueth_rx_cleanup()
-later recycles the mgm-pool page into the data pool.
-
-Before 46eeb90f03e0 this call pushed to &emac->rx_mgm_chn. Should it do
-so here as well?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016125534.36024-2-fourier.thomas%40gmail.com
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 8e6ead433228e7419bfbbe5c7cdde65c654a24f4..1cb516df53f4e1b3b2a292eb2550faa3d16e3fa2 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -1447,6 +1447,7 @@ static ssize_t o2hb_debug_read(struct file *file, char __user *buf,
+ #endif  /* CONFIG_DEBUG_FS */
+ 
+ static const struct file_operations o2hb_debug_fops = {
++	.owner =	THIS_MODULE,
+ 	.open =		o2hb_debug_open,
+ 	.release =	o2hb_debug_release,
+ 	.read =		o2hb_debug_read,
+diff --git a/fs/ocfs2/cluster/netdebug.c b/fs/ocfs2/cluster/netdebug.c
+index f7ab66e70799302f3ed4e70ab6a8fb057dd0bfa9..5d373002297de1fdd9a05e270f7942d8c1ce2dac 100644
+--- a/fs/ocfs2/cluster/netdebug.c
++++ b/fs/ocfs2/cluster/netdebug.c
+@@ -183,6 +183,7 @@ static int nst_fop_release(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations nst_seq_fops = {
++	.owner = THIS_MODULE,
+ 	.open = nst_fop_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+@@ -415,6 +416,7 @@ static int stats_fop_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations stats_seq_fops = {
++	.owner = THIS_MODULE,
+ 	.open = stats_fop_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+@@ -427,6 +429,7 @@ static int sc_fop_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations sc_seq_fops = {
++	.owner = THIS_MODULE,
+ 	.open = sc_fop_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+@@ -476,6 +479,7 @@ static ssize_t o2net_debug_read(struct file *file, char __user *buf,
+ }
+ 
+ static const struct file_operations nodes_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= nodes_fop_open,
+ 	.release	= o2net_debug_release,
+ 	.read		= o2net_debug_read,
+diff --git a/fs/ocfs2/dlm/dlmdebug.c b/fs/ocfs2/dlm/dlmdebug.c
+index ce6d301cb9420385211d20d59637069154a89993..8919eb14df22700b36b1edf985bca15b8f185fd6 100644
+--- a/fs/ocfs2/dlm/dlmdebug.c
++++ b/fs/ocfs2/dlm/dlmdebug.c
+@@ -7,6 +7,7 @@
+  * Copyright (C) 2004, 2008 Oracle.  All rights reserved.
+  */
+ 
++#include <linux/module.h>
+ #include <linux/types.h>
+ #include <linux/slab.h>
+ #include <linux/highmem.h>
+@@ -339,6 +340,7 @@ static int debug_purgelist_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations debug_purgelist_fops = {
++	.owner =	THIS_MODULE,
+ 	.open =		debug_purgelist_open,
+ 	.release =	debug_release,
+ 	.read =		debug_read,
+@@ -394,6 +396,7 @@ static int debug_mle_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations debug_mle_fops = {
++	.owner =	THIS_MODULE,
+ 	.open =		debug_mle_open,
+ 	.release =	debug_release,
+ 	.read =		debug_read,
+@@ -601,6 +604,7 @@ static int debug_lockres_release(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations debug_lockres_fops = {
++	.owner =	THIS_MODULE,
+ 	.open =		debug_lockres_open,
+ 	.release =	debug_lockres_release,
+ 	.read =		seq_read,
+@@ -791,6 +795,7 @@ static int debug_state_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations debug_state_fops = {
++	.owner =	THIS_MODULE,
+ 	.open =		debug_state_open,
+ 	.release =	debug_release,
+ 	.read =		debug_read,
+diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
+index 6bc4a21cf5f02f04a6b54100925084aed239ae62..88d9464660833006b7bac25e2c2641dd77874438 100644
+--- a/fs/ocfs2/dlmglue.c
++++ b/fs/ocfs2/dlmglue.c
+@@ -7,6 +7,7 @@
+  * Copyright (C) 2003, 2004 Oracle.  All rights reserved.
+  */
+ 
++#include <linux/module.h>
+ #include <linux/types.h>
+ #include <linux/slab.h>
+ #include <linux/highmem.h>
+@@ -3332,6 +3333,7 @@ static int ocfs2_dlm_debug_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations ocfs2_dlm_debug_fops = {
++	.owner =	THIS_MODULE,
+ 	.open =		ocfs2_dlm_debug_open,
+ 	.release =	ocfs2_dlm_debug_release,
+ 	.read =		seq_read,
+diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+index 1e76b1d9fe0af4b3cf503e91e1dd077762fef88a..0af2245ae30369421e78ecd781b986c481d10f5b 100644
+--- a/fs/ocfs2/super.c
++++ b/fs/ocfs2/super.c
+@@ -387,6 +387,7 @@ static ssize_t ocfs2_debug_read(struct file *file, char __user *buf,
+ #endif	/* CONFIG_DEBUG_FS */
+ 
+ static const struct file_operations ocfs2_osb_debug_fops = {
++	.owner =	THIS_MODULE,
+ 	.open =		ocfs2_osb_debug_open,
+ 	.release =	ocfs2_debug_release,
+ 	.read =		ocfs2_debug_read,
