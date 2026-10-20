@@ -1,98 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506975;
-	b=e97KQBs0fWsymTYwwL2vAeiKrr1wAghl4QbgltEIYfCzXKQbaYRcZIHAO26cXWGHDBw4
-	 QumpFa+KDai//gMvTjJdcjyJGrOmqiWou4Ae1pKI4/aVsytD5hf0u710p1//tz1XxK31A
-	 Xt9Y0O1Ce39Tn+yF12TaPzGEuF7BnMvLwzymqfyY/Tajz/i7WFxiz956RRVAB5wmfZUvd
-	 XABWdsclqQqafHpvE8ne3o8rJGjIAju32h9mHBiI+/cDd+jjTR8Z7KZUK7y7NuqGhqCbb
-	 XsVd148/7koC4yQwk3AzjWc7CgJBn6WRM89PURotE6kA3euAdCCdeuLK37vQOYSqYcA==
+	t=1792506980;
+	b=ji8l1US/oxXUBGRzILuj0epkrsCkIvNwcRkry8zQoRtF1I/xZogjW7FZrGbvzvuPXuiw
+	 ftUS8K0C3CASMUKu/+P3pmrh5FqNIRJCvmnpRhlCwPT2wgDC89N3bYeR/7pFJFWCenWUW
+	 AqcVRvKgSITlc9T1X37FPQVgHnesQmlpAs0/O2xU70+nAzAPO2+BnBN3YYtzrdtXH4lmL
+	 grLVbaw4UUk8X9ygYRnPY48smrCLFY/T7UM/KDAB9eJ2tG5CLOSWaepwVwRoGcw5swbkk
+	 CXVv1q7Q6TNmArjZPbl1m1KqYnusVPtMy2Yf8dqjLLHfJgDAa0xfGP1DPlF2Nz7I8yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506975;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506980;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=58EM4/eUCWXYKgAAv92oJHvih90q+2lSB+oZ8grsLBc=;
-	b=z3Qqm/on314mDifIIGqoyG1pK2mPcs5C+nz2WorHvQc8hH+CnBcJ8yBJBkO7q/UyBOMq
-	 /K3vZ9jjGKGWY9TRgwsZiQMF1tP594txMA16FLmIFHOgESU3Gj/k7Sb1IAT0YWVUjx+7d
-	 OmAndBVOJHZV6Ztdf8v1i1HwshShTNMWuR8kUFSbNMAWn3Gf9UihF/D6NX3U5i3ft5oqJ
-	 D4adCyU40zV6AfPF0jQQOhWMSIW6xD9Z7UZEqkSWSGFgCZ4FpYZDhH3ZVOH8En1gEAZ8f
-	 /eh+PwRFierUeLD0irvdJcgiHoueEAUZSUprW7hTOgvj46dW5zQjwzhV6/a7qVzPKhQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dR1+dS7v7LccK2f/cm83IFIuuzYbBQwl7Z5inKNTp64=;
+	b=dy9kvkctNIKz8HmsFrKZWiTssyhjFF0IUBsbpnsEHlVo3fmCzmk8QsvV3WhYTSP8X86v
+	 6aOt0WR1TLlm7wq6gJT9lgI1WpZ+Rrl00XZ6L/TM2iPS6wKyUNxVWZefYs9VfGQCVmDw8
+	 2RbrhdkBitD44CRTbMN8C5c3qkQGdECM06G1UXlPqHayp7nF0Sx2Y27oOUfRBo2McugLS
+	 EF5OrGUiD1gw0U3cgYBBZlAo+8RkJSIA3PMbq1V1XyyDoCJ0eRdBFmii13PwIfHMBKGY7
+	 HNo7LjEt5SwXxYixDTCxqxYybRZnKAEBGN2GMTDN3tvHfr6ZhpsCKAEu9dSZUq0CKRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzikflMb;
-	arc=none smtp.remote-ip=209.85.167.47
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=heyiTCJ5;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBC0606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:36:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EBC0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85FD606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:36:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E85FD606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzikflMb
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bcef474680so458503e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:36:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=heyiTCJ5
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-17bc533fda3so3892311c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:36:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792506973; x=1793111773; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=58EM4/eUCWXYKgAAv92oJHvih90q+2lSB+oZ8grsLBc=;
-        b=hzikflMbvGyvPewqIHQOQwI6rPjfJ/e49GZ4qyA17j/LdJv/DbAUrWuoUJruBoy8K6
-         jQ99uUB6pWQYRHTECJhlkUqljAohk7dXUl8o0JFLO/q5ULWB/J/xkIH8uvZY2gczuagt
-         d/mWictAjAbyi4RDe/DGsFTKBXu+DuGx2P9u9SNohqEsGewqFf0RREvUl0rKi+MIHlwe
-         hY82TTn4aYiSplQUDufcdVItP0/nJ78qdnsBPXRwai2JFCBeGuN8MYNgUSIkhQvqnvBn
-         VCnxbABzYQRXUtTzPf6Y/pZXraXN2hgoR4+XE9xSm1gwrHh/5j6ClbEUEC4LMvIpgVMK
-         G+rQ==
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792506979; x=1793111779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dR1+dS7v7LccK2f/cm83IFIuuzYbBQwl7Z5inKNTp64=;
+        b=heyiTCJ5gvzLY6aZ1GHKww1GiVNPC4yv+O5aOgSX652Q7Me0YRmk/aD56ARp9sJmH4
+         /7wxHYWtVt+Q/X+182E5xa9IxSeKiCdkzrhV5s4Jzo0z5zg9kuMAV7BtzZ7QO7ZBO+1b
+         +kL+2XJbckN8g3FGZ5TZYFT0ztN2RcafkZCghXFob075370uuO5e0VETx5xE8Vyf8EQZ
+         9paZf+8c6OCEPtVfkFQ3YTb8thK5fF0KGQKnYQ/Zy+8QkvKWxbIHEZXu/hWkA7iV3/Cb
+         gjbbRgvSzYGxSI9uL7Qy1ul4fZtOoFxJqVCASCkf5cocCPjBAwN7sD6T6zpBE6ktz9Pd
+         nuHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792506973; x=1793111773;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=58EM4/eUCWXYKgAAv92oJHvih90q+2lSB+oZ8grsLBc=;
-        b=J+B6VQQsesJDmP1P5qJYzgEPD96vXkVg1TwdHqeFGnkNXZezGOllKjaxr11uWRzjn4
-         sRFvP8Bv8/Erd2UTbwcSI4B+h4gVRzbhGEiSuWyf1OG4QMtRp0oJjFxuwNA6IbkY+7NO
-         95g9xBhvvF9LUdFvljFDwGUSpavsHlL5u6XnoCqWfbwcwpbg8wVe5VK5iOO/VuYqY2WP
-         CtRMjtmP/V8Njvf/IvE7kX4wjp3mzDhgz1CWxZ09032YqMmenFZPDVV18ZIkP4on6GPd
-         4R+md6l2/eQX0PgQ3dTd37F4XE5FyLIW+YO/OwI3rlUdBxUANQ9xeC7nAHgYyxhcShVk
-         672A==
-X-Forwarded-Encrypted: i=1; AKwUvBzGsc9MnkJ7YUoSffnH2NTmgYAVpoP1lDdMX17JBqA+7rECISM3Nh/vsXeijEsHrm2KcMDHIw8EdZah2/s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTwfYwJZAZJpLw+SlTNWLIk8sHUUTLjRXSAPs57EmIhU1kYqtK
-	EOv2LFYrGC1WbdKLu1984tbVVex8Py8DBMaUGyCtomhmA0WOaUCeTV/p
-X-Gm-Gg: AYBFou0zZufU6uuGxsr8vVBSgFpOk8gAN7GG7uICtHDShefewFr6Gdj1raA3jot1AF1
-	RK3UYMxWhbM3Jz0lzjmAaVRJdtqpxPqRJDJ9xuIH0bhVP9g6D5lm/ZMe0xFp/xtS7u11i0Qqmui
-	BJj3fUcC+xKRsZikyTPxVpnCgADux5Bmw2oP76S9D+TeIlK8VmXa3cQ0NbR2XrznAi3wGT3YvuE
-	HX9DYnF/JInIuxTAjYYEysdloO49vZVBqSNPUUza4ROd/S5IpOSGgtbChApJ5IQE0Kvd0AABLLo
-	yvS2f9kpwNbVLA0rt7oCxZDMM2R4UkSP3Fg4yJlifD9TUNJ+1DH8ASiZeU9kP+JCJV2JaLiIdz0
-	5aG8A7Y4ZinvtAgLDPrFWOjOlNMaDGayypMtNMzEB28L8Wf/9EzBESUWeJetLk02DGxvZXlBP1r
-	xAg4fmECMgNQWbFHOxDKKJgvnOoyEl/fJYNJRK9yyfKNV0emmP/PbRj8FXsly+s1wpaoPQuaELo
-	Cm98AxOyKRK
-X-Received: by 2002:a05:6512:3e0e:b0:5bc:44d5:89e1 with SMTP id 2adb3069b0e04-5be5099bb10mr4092882e87.0.1792506972467;
-        Tue, 20 Oct 2026 07:36:12 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab16d7ddd0sm33890831fa.4.2026.10.20.07.36.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:36:12 -0700 (PDT)
-From: Dmitriy Okunev <dokunevdmitriy@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: lvc-project@linuxtesting.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Steve French <stfrench@microsoft.com>,
-	Ze Tan <tanze@kylinos.cn>,
-	linux-kernel@vger.kernel.org,
-	linux-cifs@vger.kernel.org
-Subject: [PATCH 3/3] ksmbd: do not release session id 0 on init failure
-Date: Tue, 20 Oct 2026 17:35:53 +0300
-Message-ID: <20261020143553.105014-3-dokunevdmitriy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261020143553.105014-1-dokunevdmitriy@gmail.com>
-References: <20261020143553.105014-1-dokunevdmitriy@gmail.com>
+        d=1e100.net; s=20260707; t=1792506979; x=1793111779;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dR1+dS7v7LccK2f/cm83IFIuuzYbBQwl7Z5inKNTp64=;
+        b=uSKF/u787nDkxZtpGSNOoqWqHxRoc+mtNzhrNzdTsGnfQs3/1W+Y4KZE846zYYovoQ
+         M/eUnJYspIZ39LoZwepaP5EeJ+7nBXVQLWaCimZh5LhRxNiOeu9T0psimHAB2E0D7o+Z
+         6iPqBHALz58V3g5CGlmhka6NH1a57I8uAIf0RmqOwXFn3hmc9vnINGBTwh5KXGquK80t
+         BlbM6TryOoVDbCsDaQZueeLgD/nmbd1S6osrxbwzGiC0Uv/n2ZK2Qlij8VJP6FZejT+B
+         Zu/3lAhIri1AD9OoHNs+8te3dsbYdlrEi5zETuRCfaqXbwtdW9ua5S7tzFPvB66+r/Z2
+         9Yxw==
+X-Forwarded-Encrypted: i=1; AKwUvBybtYwp0f0f6xPgPri7MjCceKn5uQdKbmbZUXlFCCfqfoB+NtSuqfnxLY1XT/nyj6V65caV2875/2Ij1ww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCyIbRxPpx8PKuZD+trV/BKoS89d8AGsIob6Qmmtx/24AWE0DU
+	m4fVBMRb8HpNxCbrhzOyAGURNYA07ntuWtrWmHZ3nw48JMy77fqoRnMpuFbRpMsG3SnSwi7Slwg
+	J6PtTMtk=
+X-Gm-Gg: AYBFou2TDYmTfuAWzf9cNwgFAM2QaOPHCDjUyFbL4WTTrqe9AIVTb2KcxoUXSmkcTew
+	EgycKB8lCjoKQKyvOeMk8s1Cw5CAngNiX3azPH6OTNNt0QyuvpzQo6sKvpqV3hsEHiaMzShIoR8
+	LdBUirI9S3zVIDW9HAHG4BR2J+4WjhkXDIdtVAUj4y4EYmEi7f9v+MDPOtdc9CS5D1sQwChK834
+	ubaNLrIwe12tQsvd8LCtWtUbOQbocaWkPgHiX5iYibTXdkNO1nknU5zwextcdHEYGK9/1/kLtLZ
+	pIezv3dcjtFMibdGC4db1sIbQlP62kVdwLc89x9GdLAS/oMMKS9ac0e4rT9xQq4lO6mOfwMXJsq
+	LAqoIzAZiaVBCLZUMgnWRzQOOOL+ncpiMykOt3N0deN/oFlNvZGJk6kJCNEj7gE/5fI5Y0RVDSG
+	b/sitoUPEUi3FxNlYQ0xaIPVX9mUTEzwfQrl63fchg23y0GsxdMYUA0+QTwFuiTQ3LLQRCHy/DF
+	VUs5NB7T9gn7iDYa2JEU8L7/IOwgwL2goTwX+0fHJdbs/ApOiomiMvGU3iWC5f81VyPGHPvkQI+
+X-Received: by 2002:a05:7022:ea9c:b0:149:49c:233 with SMTP id a92af1059eb24-185138b5a78mr13727639c88.27.1792506975944;
+        Tue, 20 Oct 2026 07:36:15 -0700 (PDT)
+Received: from [10.61.8.29] ([155.98.132.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18319d3b880sm34657256c88.10.2026.10.20.07.36.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 07:36:15 -0700 (PDT)
+Message-ID: <933e2d11-5bec-4737-8e5a-9b0c2a8cad60@kernel.dk>
+Date: Tue, 20 Oct 2026 08:36:14 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,48 +92,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring: clear IO_RING_F_DRAIN_ACTIVE on drain
+ completion flush
+To: Wei Gao <wegao@suse.com>
+Cc: Pavel Begunkov <asml.silence@gmail.com>, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261018070154.16944-1-wegao@suse.com>
+ <ae73d8b4-c2b9-4a9c-adca-8c995ac92975@kernel.dk>
+ <atbWH7hdrvLQJhOl@autotest-wegao.qe.prg2.suse.org>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <atbWH7hdrvLQJhOl@autotest-wegao.qe.prg2.suse.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When __session_create() fails before __init_smb2_session() assigns an
-id, sess->id remains 0 because the session was allocated with kzalloc.
-ksmbd_session_destroy() then calls ksmbd_release_id(&session_ida,
-sess->id), and since ida_alloc_min() has not yet been called,
-ida_free(ida, 0) triggers:
+On 10/19/26 8:46 PM, Wei Gao wrote:
+> On Mon, Oct 19, 2026 at 02:50:16PM -0600, Jens Axboe wrote:
+>> On 10/18/26 1:01 AM, Wei Gao wrote:
+>>> Fix:
+>>> Make io_queue_deferred() return a bool indicating whether any drain
+>>> request was active or deferred. In __io_submit_flush_completions(), track
+>>> whether any completing request had REQ_F_IO_DRAIN. Clear
+>>> IO_RING_F_DRAIN_ACTIVE only when a drained request has completed
+>>> (has_drain), no drain was active or deferred (!drain_dispatched), and
+>>> ctx->defer_list is empty. This prevents premature clearance if an
+>>> unrelated completion flushes while a drain request is still executing
+>>> in io-wq.
+>>
+>> Didn't quite feel right to me, below is with some LLM assistance
+>> to try and get to the bottom of it.
+>>
+>> Thanks for digging into this. I don't think it's just a race with a
+>> slow io-wq free, though. DRAIN_ACTIVE is still set when the next request gets initialized, so it's forced async and goes through the defer list
+>> every time, even if the drain request is freed in time.een read.
+>>
+>> Basing the clear off any REQ_F_IO_DRAIN request in the flush is not
+>> enough:
+>>
+>> - A drain request marked REQ_F_REISSUE counts as has_drain, but
+>>   io_free_batch_list() punts it back to io-wq in that same flush. With
+>>   an empty defer list, we clear DRAIN_ACTIVE while the drain is still
+>>   pending.
+>>
+>> - A second IOSQE_IO_DRAIN request that fails init after io_init_drain()
+>>   has run gets completed via io_req_defer_failed() right away. If that
+>>   happens while an earlier drain is still running in io-wq, we end the
+>>   drain, and the next request is issued before the earlier drain
+>>   completes.
+>>
+>> It also only works if the drain request completes through the flush.
+>> Without DEFER_TASKRUN, io-wq posts the CQE directly from
+>> io_req_complete_post(), so the application can see the CQE and submit
+>> before anything clears the flag.
+>>
+>> A drain request dispatched from the defer list always runs alone, so
+>> we can just remember which one it is and end the drain when its CQE is
+>> flushed, and have io-wq complete drain requests via task_work so that
+>> happens under ->uring_lock. Something like the below. Can you give it
+>> a spin with your reproducer?
+> Thanks a lot for the thorough explanation and pointing out the edge cases.
+> Your proposed fix works as expected. I ran 10,000 iterations of test with 
+> your patch applied, and all tests passed without hitting the timeout.
+> 
+> Feel free to add:
+> Tested-by: Wei Gao wegao@suse.com
 
-  ida_free called for id=0 which is not allocated.
-  WARNING: lib/idr.c:594 at ida_free+0x18c/0x250
-  ...
-  ksmbd_release_id+0xd/0x10
-  ksmbd_session_destroy+0x2d5/0x380
-  ksmbd_smb2_session_create+0x131/0x160
-  ...
+Great thanks, done. Thanks for the report and initial patch
+and the testing!
 
-Add a check for sess->id > 0  before  the release,
-since ids are allocated starting from 1
-(ida_alloc_min(ida,1,...)).
-
-Found by Linux Verification Center (linuxtesting.org).
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Signed-off-by: Dmitriy Okunev <dokunevdmitriy@gmail.com>
----
- fs/smb/server/mgmt/user_session.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/mgmt/user_session.c b/fs/smb/server/mgmt/user_session.c
-index 386c8629e134..d46dc7b2c562 100644
---- a/fs/smb/server/mgmt/user_session.c
-+++ b/fs/smb/server/mgmt/user_session.c
-@@ -409,7 +409,8 @@ void ksmbd_session_destroy(struct ksmbd_session *sess)
- 	ksmbd_session_rpc_clear_list(sess);
- 	free_channel_list(sess);
- 	kfree_sensitive(sess->Preauth_HashValue);
--	ksmbd_release_id(&session_ida, sess->id);
-+	if (sess->id > 0)
-+		ksmbd_release_id(&session_ida, sess->id);
- 	ida_destroy(&sess->tree_conn_ida);
- 	kfree_sensitive(sess);
- }
 -- 
-2.53.0
+Jens Axboe
 
