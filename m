@@ -1,86 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484001;
-	b=v3vcyqVZ9Cvtr/rO5CHzDZDpyXOftLFu20p506XFqka9IctIhDOwQ28wo2UMsFmBAwDO
-	 1u2RGkdvhapmmLxKK/z1XgNdgb5vQvpzu0cytWZKy733diSaB+VUT2A0h7ycWQjU4bGhE
-	 52O/fgKXkadNKcbSO46ggMfhgtu+jp5pdl7VVihJ29gFgJJ/qRlLkIR5UPqMJnzD+Dnd5
-	 vmuRziTDHIn5OUljeKHTmNTKs7NtnJi3xIVuoHX5YLNmt8GqdkyzbPGlfTSuAlPHFgA2E
-	 ZUQ97ovpsoEUNvXsUT6bLdX67S8UoOGWuzghyEfetKFvLQ4IqGKGgemxE10aVFvuDPg==
+	t=1792483993;
+	b=I1/RhM/s3NkeOjLLw1/3aZmNO+ah3yfuTqliLBgE519B5swOGphiuhjvVMJZCI9iElgq
+	 MZXGUp7E9r4kTVX4Jdj9NwAIb2nLSqib84ytY31BQaDye8f1sgQIESJJiRbg7lERUPXbv
+	 2w2vVqcfVgdBLU1msUO3F/8HvjwhKyMM0i1/XHpkbsSkAm9BA+o7XcxHUJKINlxPq5trM
+	 lDAdiiIBATTFpJ+ukbcsNi5dY+GcMEndMfKnPfT1F8xRPrdszKFlsjKEJfF52lFc2OUbE
+	 E8R4coaVZgGZKq0YyEutGuYG7XiOBFZqCdzO6ckY97PbXJFxM3c19GLtMrwfbJMLZJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484001;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483993;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sifT94IuJdm+evFSGgUtUBWt/nlaaaYHDsDEfF5nTj0=;
-	b=oF15MUzFtxKeOXLbyJV4wxgmwzxg/lspvoS0vUQBCkgBAxVSGeRDpm7XLCH0I1uboRSF
-	 5bXXbv7QojnV/K+QQ+DPqEKKzX6kRN8nQXVvqdrDngn2z2UFxCgcoudAKUTe2wgZLIZVd
-	 1lSxjZZe6flwDSxi71/z0SlXKxCb3qAmtrfg3MNCTduE1qRODqrOpBFL8hoIkPpKDVSZ5
-	 PcGqAVTnqGNrl1i2BBNzA98DCq8LBb3ftI5xqsEcD9e0ItYTwKo4CB80PagXrihwVxwwo
-	 JUroO0W1lqmfcz0EtXNZBujIfRWN0juexlNaNhbOSLA+6fITL1JH2lDEbNLFshnlOdQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=TsTwpzFLaL87CUGnKEpNBjiUo0nCAy+dGY5mjA4Yxa4=;
+	b=BYqNUagEj+W4gy0hDbHyrN1lpln2uncI9ZiveGZ2MiEs1L0mFD1DxfQuS2bg8slTALsu
+	 7tDx4KNquZD9ngyPwG1I4md40YCobowJa4QDFwMzGl+X4EgdERKBbdPfnY8H351ul2Xl6
+	 l4eHBo52mf455S4+W5/CeU2U20eYTkuZh6DpM7yVD/TG2kiZe2n+jaeJNfoowAlGph+uw
+	 HQ4QOGNzDOWJwlDMTitTdF+hZovyWmteII9vhJqQiDRu6i98G5Y9ymr1J9Wrh0rO+aA6b
+	 Gwlx3fU6zYPZ001Yewza3jjjzQ71jTmZefheny/+q6zmIuR4Y0Wa5qkgEZVm2fq9Byg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="hep+mB5/";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VGbBsq55;
+	arc=none smtp.remote-ip=209.85.218.69
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B25606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:13:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71B25606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC43606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:13:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BC43606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hep+mB5/
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so22479665e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:13:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VGbBsq55
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c293e604f0eso250294366b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:13:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792483999; x=1793088799; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sifT94IuJdm+evFSGgUtUBWt/nlaaaYHDsDEfF5nTj0=;
-        b=hep+mB5/rzIkpFTWECjY//gRKF5/dPu43U4EeiM7sptRr+nzRHVuGra7s+DAmavJvO
-         43XfOCWTBTAMVRmX1gunxl0uMCN2VFq0EMqyimdkr1AQacZhgKLWoNsHBx4o9ex/Bih1
-         hw7PbRz0e76GmeIFMyk70RWN4+tGEgHvEzdbxbnPisPwbDho/Hja22ces/QWrrDlPvaK
-         pkWTvquTI3EFsYebuaGPBXtka9PtOIMqjJlMuSGwwezSgfrbnp3Y9J9H1sVbj/biwJw/
-         y3ZcRM25GpoLwmAkPgH/E0Qh9u8n10GY0hWvQGrXzY5ND7XABJh8+ARDnlL7Gkn4vs71
-         /ONQ==
+        d=google.com; s=20251104; t=1792483991; x=1793088791; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TsTwpzFLaL87CUGnKEpNBjiUo0nCAy+dGY5mjA4Yxa4=;
+        b=VGbBsq55SxMht3O1sFL/JYhDoUB1lktVionTe2hmEWeoz6nsvvNHdD4vuxO4EZ5VBk
+         I/ykPxUt/pVq3kzNQgQyy1bcLYXwxSvhJbpvJXriWtSEq2xHTJLOUWDAFm5GFmKXzUKU
+         zeQBf+1swtzmV6w5L41uWwYVRDI1Q5mrimf1EfENQOEGIF3TYEXUhcJNQSDB84BT7p2k
+         IvJW1mNG6gsgso6x4r/2S8pXx1o+c3sH7wMfMUmWB65O6rwESMhS8iNG6vpMGx81Q/Jw
+         oBATHwmSWWFs+gBdvOQg6BKlDe7FapxC+zmaUSwRwJZ3YnenOf/bWAs53FPtNREsDBiO
+         CK/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792483999; x=1793088799;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792483991; x=1793088791;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sifT94IuJdm+evFSGgUtUBWt/nlaaaYHDsDEfF5nTj0=;
-        b=y0rbh42Fri6DnRkt3X5vaPQqzFYts3jlIqn8doI4viqCKyghxBbYJhyIN4wJGwwU6E
-         GIBLMxki7DxuuSg/Vs5EVab8o+C8+Sgj4kj4fj94OboyszIH1j4ThpfGe+QxBlchOZ4g
-         kMzp8JGE/UzOCRH7vByjnpTFH6eiFzJBmvcrVPuTrFXyrUjKHylu8tscoHjrnUkAUEvs
-         cPjr/DPjhZF7VqXVyiyUhX92u/03EXq8SCOkZ80bBenRy/n5aVcQ+oVl3WT7lNoy+6b0
-         i++nSNHpMgIzs7bQe2xokXtJpElIxRsKxmVSddpPTAHDQ3KVCLaOb9pkTFn4xzM9cQd5
-         scZA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIXBkD+gF6dfG22oeGvOp8mq2CWy9ofKaG7cqseZhwNJHnTIXUg/iu6mCbES3G6TXldrMojVs5uRxd/w0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIpg91qrvC9cHipDnQwyoOr4HRBfvGv51ru9IS+v/iGZszb5zc
-	oXGIilzr1COlZYmhyOypxn90R8XcTNtksL5BZ3LbRpsgCwpbqC9QKm3r
-X-Gm-Gg: AYBFou09ERcbima/yAYdOlDjznasvXe/x/dIHRJANhkZxVJEAQ7OrxQ1moJ323rup2a
-	+35vvkphslp25ZpeggtrogjCF+BNf1XpQq9bSeWcax0ltJeMApWE2fMzqbBFBu5JnC78Ec6RhDB
-	+bU5qANFdb4Beog7GpRvj1nV/aI4PCatZ2HiQSIaiVb/duTegH4ATxHrvZBSBRxbvD9iPxk4GNM
-	ZmNgOsZmoKyhxs8P0MMm6HEN959/lb/ZbuAYvSUvwGLfI9tl0XGoM4D/WfLb5oZmqRLmOntEiph
-	QUG7FyUwnpvFQ3rDRxdvpxC0CRwRHWcO88szBcUNdq+ZJglxQqb6lfHDJ8nc25prqL2g726eu3w
-	OC/E3xoClKJ8GjI3jBg/A57nbJWgzX+6a4BK02MjnsWdHO0tCrttJUrpETRfKcUAhXaEI2hjJOD
-	34tJYhtnvqRSQHtkkGCiL/ZEFg859ysGTEkJgOpoj4sueLaGJABA1f64/AP6UUmmeO7Dw2K4CO/
-	JPywXAAppJKBXsQJQcH/5YYIe6ZIaffOJvG9wcTMaIHV2NyWZppz5+wUPDq6I2w0a98e/zI
-X-Received: by 2002:a05:600c:1f83:b0:4a0:27eb:49b with SMTP id 5b1f17b1804b1-4a1d761b900mr213796785e9.30.1792483998516;
-        Tue, 20 Oct 2026 01:13:18 -0700 (PDT)
-Received: from ?IPV6:2001:9e8:f117:a001:5c30:2c3c:9609:3456? ([2001:9e8:f117:a001:5c30:2c3c:9609:3456])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cc809csm55072355e9.8.2026.10.20.01.13.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 01:13:18 -0700 (PDT)
-Message-ID: <2f64d2b7-f23d-4c99-ae1d-7404079dcde5@gmail.com>
-Date: Tue, 20 Oct 2026 10:13:17 +0200
+        bh=TsTwpzFLaL87CUGnKEpNBjiUo0nCAy+dGY5mjA4Yxa4=;
+        b=MaE1Pj0eLrJP3iIf53OVCD9T2mmMxbx4UUrzJez3dwmIDJaRr6YAM4XC3iBX3rQc7X
+         khN7sMH6Ygzjg6//1OcktkKhZW6MIaEWpVvbtIOroBH9MYJ2KTZ6oclD2hThkdq1SHvA
+         GSOUzLtJ8cRGmJ5B5CveYn9D80z5EVbHiuQT2JM330dzbJRvR1ixSRTDdgYCHik5ElsA
+         cIA1b4I6n48tfIXaCA48CVxSpV8DmaNfSZK9NjOJSOJEqXprOCLquiHbjSgCLb/pqvqr
+         42s0XNsMXA/AFf2+VnNmO2SL/SELMCHN10BThaiakMpygD+lsODFEDB1dKnW2Aa8/gOC
+         xzvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxt1nF3zRt6Ga3j0BZpCXLWiho0kV5BYXP4ePsuLZJfYmx18qqX+hSXgbY9lHYXGAz127p2ngF6G8dhGWE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKw7BVeWPVZxdRnnrx3JF4DcjQ3XOeoDYQlYAHitUwj/G3V56GK
+	BrNWc01Kt6eu+VFsKNChbLVu1vIp0bpL51bxu7TvveXyY0IcBNMfoIhkLHUIGNRWHgFJQkckYB1
+	DX6moV1syZQj2Y5y1KQ==
+X-Received: from edt3.prod.google.com ([2002:a05:6402:4543:b0:6aa:ff76:b1f6])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:aa7:d803:0:b0:6b1:e474:e0e2 with SMTP id 4fb4d7f45d1cf-6b3a81dea57mr4861388a12.43.1792483991214;
+ Tue, 20 Oct 2026 01:13:11 -0700 (PDT)
+Date: Tue, 20 Oct 2026 08:13:06 +0000
+In-Reply-To: <20261019-rust-cfi-fixes-v1-3-9503472ba738@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,81 +78,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: pse-pd: realtek,pse: add
- gen1 I2C transport
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Sander Vanheule <sander@svanheule.net>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
- Kory Maincent <kory.maincent@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261018161248.376205-1-sander@svanheule.net>
- <20261018161248.376205-2-sander@svanheule.net>
- <20261020-noisy-amorphous-jackal-1df08a@quoll>
-From: Jonas Jelonek <jelonek.jonas@gmail.com>
-In-Reply-To: <20261020-noisy-amorphous-jackal-1df08a@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com> <20261019-rust-cfi-fixes-v1-3-9503472ba738@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020081308.1768290-1-aliceryhl@google.com>
+Subject: Re: [PATCH 3/3] rust: dma: declare cfi_encoding for dma_data_direction
+From: Alice Ryhl <aliceryhl@google.com>
+To: Sami Tolvanen <samitolvanen@google.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+	Frederic Weisbecker <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>, 
+	John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+On Mon, Oct 19, 2026 at 11:34:39PM +0000, Sami Tolvanen wrote:
+> bindgen generates bindings::dma_data_direction as an integer by default,
+> while C callback tables such as dma_buf_ops declare the parameter as
+> enum dma_data_direction. kCFI encodes enum types by name even with
+> integer normalization, so the type ids would not match when C calls into
+> a Rust callback taking bindings::dma_data_direction.
+> 
+> Generate dma_data_direction as a newtype with a cfi_encoding, as is done
+> for lru_status, and convert DataDirection through the newtype's
+> constants.
+> 
+> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 
-On 20.10.26 09:27, Krzysztof Kozlowski wrote:
-> On Sun, Oct 18, 2026 at 06:12:47PM +0200, Sander Vanheule wrote:
->> Like the gen2 protocol, the gen1 protocol can also be used over both a
->> raw I2C transport and an SMBUs transport. Add a compatible for the
->> former and the compatible for the Ubiquiti Unifi Switch Lite 16 PoE
->> device that uses it.
->>
->> Signed-off-by: Sander Vanheule <sander@svanheule.net>
->> ---
->>  .../bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml          | 7 +++++++
->>  1 file changed, 7 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
->> index 3bb32349c28c..526f8525bb4d 100644
->> --- a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
->> +++ b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
->> @@ -54,6 +54,12 @@ properties:
->>                - zyxel,gs1920-24hp-v2-pse
->>            - const: realtek,pse-mcu-gen1-smbus
->>  
->> +      # I2C, raw framing
->> +      - items:
->> +          - enum:
->> +              - ubnt,usw-lite-16-poe-pse
->> +          - const: realtek,pse-mcu-gen1-i2c
->> +
->>        # UART
->>        - items:
->>            - enum:
->> @@ -100,6 +106,7 @@ allOf:
->>            contains:
->>              enum:
->>                - realtek,pse-mcu-gen1-smbus
->> +              - realtek,pse-mcu-gen1-i2c
-> That's the same device as smbus, no? Same device, same compatible.
+Perhaps also add:
 
-Physically it's the same device/MCU but the baked-in firmware and configuration
-differs. Same for the UART vs. SMBus.
+Cc: stable@vger.kernel.org
+Fixes: c2437c43cfb1 ("rust: dma: implement DataDirection")
 
-> You can have property deciding about protocol, if this cannot be deduced
-> from the clients.
+so this gets tracked alongside patches 1 and 2 for `6.18.y` backports.
 
-This was the approach in the early versions of the driver when I sent it
-to the list. Rob favored the current way [1] and I think Conor was ok
-with it later on.
-
-[1] https://lore.kernel.org/netdev/20260615212959.GA1679454-robh@kernel.org/
-
-> Best regards,
-> Krzysztof
-
-Best,
-Jonas
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
