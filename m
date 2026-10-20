@@ -1,82 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792520371;
-	b=fx2RDaK4jfGmLvaVicb18/cJ5s67eH8ffB7jyYGE4UxxzX+lGB8L8sxmZx9+EeBAhTbF
-	 LRy6kXc5dOFU7hgMRux+spg17KflltPO9+33eBRTjAy7mrhmr40LxL9iTALYjFJjfLIjT
-	 4dehoGKYzZplD0WkROfzzxIr1AsK9LlxFf9h5PX+C5Z6C7rx7aAclN8/331UkaUy5HepZ
-	 v+fOBNfHW+ZGXRS82TxbzhaMDIkTwdTnaFzvqq05I5uyxXbqtrXwkqR5BbOdYDJ9owI6X
-	 E6vQSD47AyvYaFG4zgmOtu1RwO7TNTHwdoGZRznMm7qKx5tAtKosU+k/IOGavWuITmA==
+	t=1792520387;
+	b=ThBDVR1o9K+WuzRyumv5MB52VdpBlPa5tJ6C+mT+L97eHTdxYiIUkj80s/L1Vf17gaNq
+	 k06NkOQQedm8G9bd25lkvBXk9UMCgJk0VGNeOw5FIjTraFtxxCETocW0GI9GBsvFsbMHQ
+	 jbLcJqFlExWRhwMYMOkt04II/XRNYd+jBL1WF+iLFWCNNd8p7FnbuakLkkV0vCWK68Cxw
+	 6vBACnHcypmV4DlmkJEfPFZ+ZY7ogayVwdqJAnqbFmelHZBzZuqEvzKrPTIgdr4Kc3KEQ
+	 GPKul8mrZksjMO0RcEkHNBO/KRKJ31T3z6G0jt41s9P7asrmEsLw6SewzWZKKZl1wbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792520371;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792520387;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Dg5gFyHUrVL2oc3jKDY+FlV+GkPO1tLUcMTXMAHc7i0=;
-	b=PpdwvYQxbtZPVcQiYfrAu29vw46ME9Py+AIgXgu/ITG4zuiZ9nILPgw7ntJb4t31IUJG
-	 W6T607QS1V/gRzxoe3yFPx56kuXHy0qBTOgNO7MnngzmzL/fo7JkYVE8l1Z1CFnHjRZWb
-	 8Iyg8XWSlKBw3KZapWzrbLjGAG4R44gnNJoFBZNLXR1qpdV0V8tE078iCGfAErPI0JxrB
-	 nGrPvbD+eLtiRv35FVoWqdWM5XJ9M3PDpiT95fIIK0BT75KbCAot2QP/qXL4Ee06pW3Me
-	 Yu9oyfDJX30F7hAVKFcuZLrUeZ+YQhFn5xPWKR28JKlDRqiW+WWimZxxHAuST2Zjl9g==
+	 Content-Type:Content-Transfer-Encoding;
+	bh=xOHuMA/WM9xuTdSj+ZDzOAw3l3xrB59FAR7IgfJil6U=;
+	b=ZQ0/UytBmYfa9dWkp9XMq3unldFdGsWb1JIuDIS6rgqG81ZxMlcahmkJiGEgcSHwqNk1
+	 xRq62f6I3MiEpoiO5LEuXXCvhCSB68c62wr3tdi0GQOJrXpS+z09AY9bAVrK6gUyDVpYQ
+	 MNaXEL380YNv4aFgXv80ciLRtLdGvPUINaEsAz4gGYcsc8ELxTnA3G/qGS/A6MpO6yZ+Z
+	 lVA99Pnj/zJDwgQRXrYCU2kJo8lteBQp+fU5IjNNJOUG7Pd1Bu0udpWtcf221q9iep6BU
+	 ikOYnGRijeZh9Y6zgcc0aw/TVCZHpsII6CW4s6n6vW5m9j8W6GlNP10YWQf6qHs3WCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fAj0lH2s;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hErdiEsh;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA9F60A2615;
-	Tue, 20 Oct 2026 18:19:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBA9F60A2615
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54DE60A5BD7
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:19:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B54DE60A5BD7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fAj0lH2s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792520371; x=1824056371;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=cVq0ut23LFrzXs7D1+Kz/argD7JmUvDKAsHxmIXO5LI=;
-  b=fAj0lH2saUnJ1iZz0pY0rnOK8MizaxqGfdMH4N7P84FLjmRsER/6penP
-   s2jpIIfnMZsHdW0IgG5aYkdPS74480BNZX8HEItcjzgIb7rTK9CKXdU/o
-   K2EyhplrMA6reoiKDp7w2r1W5Y5wj5p6M52Qu8egQTsswobTRwEdENqgs
-   5TjPPBDkXkNBjfVeujQh+sZIgNsxg751uOVNFjsldaZ+XVAQJW5d2yN51
-   hm9Dw3Mtc53leQrRxW6vxxuSJKqHMGQFFuUQ3xPOxaBVbhECokoPh/q19
-   /PtBo/B2PTJFFXRGa4nHzb6vK7/6Yh8Dg600Z8m3cCt+7gHQR2pfnIJZ5
-   Q==;
-X-CSE-ConnectionGUID: ZZznga6pSuiUFCA8TVDMJg==
-X-CSE-MsgGUID: M1JpnxCYTcCduDHn/rkstA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1119675"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1119675"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 11:19:30 -0700
-X-CSE-ConnectionGUID: wJEwSuXmQmiu1QqQGiQT2g==
-X-CSE-MsgGUID: AZ+hEs4UR5ORD4/+Tiw6kA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3283606"
-Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 11:19:29 -0700
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Len Brown <lenb@kernel.org>,
-	linux-pci@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/6] PCI/EDR: Remove CONFIG_PCIE_EDR
-Date: Tue, 20 Oct 2026 11:19:20 -0700
-Message-ID: <20261020181924.3003553-4-sathyanarayanan.kuppuswamy@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hErdiEsh
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-353804b591eso6666789eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:19:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792520386; x=1793125186; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xOHuMA/WM9xuTdSj+ZDzOAw3l3xrB59FAR7IgfJil6U=;
+        b=hErdiEshqyyBX6eVApdQ4fgl8tgxFrBg2fPzMCcUXEqup6Sb4E12WO7BQ/6LGW0Edc
+         eHy7b+xfCUMM32M6Nrb4GgoX7RLF2cIgR51c55M1wjPudfozchhazJ2grV4umIAOqzas
+         YgJdoiOTwSTPo23AzTYk520o6YssvURQ3zvZ+uFaQFIfotJQCBhfDmPhQ4Cv4IQnsYai
+         dI9Z+dxxsYjZfkjvEjSwSurXTtOekkhfMkAFd1AHIrihHTQhwAGyxSraE1+ekBOaknCP
+         O56DsJTsisobk9t82Zp+LYjpGyBGbEy5JuLJVxW16x0j+sTGOXXeyR62jwb6hYpuxOly
+         IM4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792520386; x=1793125186;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xOHuMA/WM9xuTdSj+ZDzOAw3l3xrB59FAR7IgfJil6U=;
+        b=IO5Dk85QKdtGdOoCJVH4jcEEe4KrRj243Uhnmu9fip9vV35JKBYmEY44ZTHLk3sdO1
+         ynwQ/meNKVcuD61Xhz6pD6r3vkT6JtuQKdKh5zUbn5khFMHiguU3HQTkSR8NMfut9yWL
+         U1WNRqzcM5o1Ec4vVn0cV++ypU34Y51uFRZOxtRhhZd8rsUxCS17qWGLRiNZFvw0ydQy
+         /pZ6Cj1TuUTvpV6r8iAFUhIXypNcbFx+IynWx3EpwAKKojCIv2cJFFY9RoacdA4M2WVd
+         u2VwIrD0dkg0+LYN5gUr8PGLW5Fb4PDFfLNPJB+Ja9xqavHZsXNUDfM1a+in6nntcQ8C
+         xy/g==
+X-Gm-Message-State: AFq9FYL53PHJAOAIVq7FKIgbp366gGsVJTeP/R4a9HYg3DodWfuS3l/u
+	w1i6YNPUWWHFulzSdcUHFFJYDsWW8+o8VqsjsgLPmGVVviNtDfzzN0X+
+X-Gm-Gg: AYBFou0EUUCWYKDiLO7Gzvi4+YGk28T8E1ld2tgqj2ltGsaXs4T9T0AYZAVzDUSVy0N
+	1giXjvHVmP59Q4lPpYNlDqRUsh4IokOSz/URPdEtEa5oqzVYh4IChqKh6ztak3C00oVzNZkSauZ
+	MbdAa3hHbHigMqY9+VIplt9ATw4QgN6egl6pTrypeo/2bLEfYSJzIAqr/X05p3v0LxHph0T4JLL
+	Lq9VSwsU9kbbf0PJX+SbawaUAnsntjjZeE2Kcu6Hwzn+l5S51MZAA85kMRbOgPbLScKY3jtp5i0
+	HbjtybiC2dAJzThmIibDnScpcyHZX8uGg4boOq2kF5U4DJCrW/oLz5R07yiQ29tu4Nvr94A6kbS
+	N7GDbm7Ze3DazYs3VNVgJ9a9ViDtL7dl9KtvJ00LhQcjX99oAqS+OfVZyIcuWoGVw3mOYLeGnHN
+	l83+QiQbiWbZTHVb7seau3+2RGubk5TbwUy2DvwQQ9oqgQr4nYGTI3885RjpGUmR9N
+X-Received: by 2002:a05:693c:65cc:b0:35c:99e1:c755 with SMTP id 5a478bee46e88-3674e355183mr55514eec.38.1792520385832;
+        Tue, 20 Oct 2026 11:19:45 -0700 (PDT)
+Received: from unix.. ([181.229.23.179])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm523728eec.2.2026.10.20.11.19.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 11:19:45 -0700 (PDT)
+From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Deepak Gupta <debug@rivosinc.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Yury Khrustalev <yury.khrustalev@arm.com>,
+	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zong Li <zong.li@sifive.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	Zishun Yi <vulab@iscas.ac.cn>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/4] arm64/gcs: release GCS on failed fork
+Date: Tue, 20 Oct 2026 15:19:30 -0300
+Message-ID: <8522b8d3d3ecda7474d0af8b8517c1f5d708ecc2.1792519121.git.ivanrwcm25@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020181924.3003553-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-References: <20261020181924.3003553-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <cover.1792519121.git.ivanrwcm25@gmail.com>
+References: <cover.1792519121.git.ivanrwcm25@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,122 +117,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Error Disconnect Recover (EDR) is the ACPI half of the hybrid DPC model,
-where firmware owns DPC and notifies the OS of containment events.
+copy_thread() maps a GCS for a CLONE_VM child and can still return
+0. A later copy_process() failure then goes through
+bad_fork_cleanup_thread, which calls exit_thread(). The hole this
+series hits is clone3(CLONE_VM|CLONE_PIDFD) when put_user() of the
+pidfd fails after that mapping. arm64 did not implement
+exit_thread(). deactivate_mm() is what normally calls gcs_free(),
+and it does not run on this path. Each rejected clone leaves one
+GCS VMA in the parent's mm until the mm dies.
 
-CONFIG_PCIE_EDR made EDR optional on top of CONFIG_PCIE_DPC.  This adds
-another knob to the decision to request DPC control in _OSC.  The OS
-requests DPC control only if it also supports EDR, so with
-CONFIG_PCIE_EDR=n it never requests DPC control.  There is little reason
-to build DPC without EDR on ACPI systems.
+Select HAVE_EXIT_THREAD and free the child's GCS from
+exit_thread(). gcs_free() already ignores a cleared base and a
+different mm, so the usual exit path (deactivate_mm() then this) is
+a no-op the second time. copy_thread_gcs() zeros the inherited
+tracking before a user-thread allocation, so an allocation error
+still skips exit_thread() with nothing to unmap.
 
-Remove the option and build edr.c whenever CONFIG_PCIE_DPC and
-CONFIG_ACPI are both enabled.
+Tasks created through the args->fn path (kernel_thread(),
+create_io_thread(), and similar) do not allocate a user GCS in
+copy_thread(). They still inherit GCS tracking via
+arch_dup_task_struct(), and with CLONE_VM a later failed
+copy_process() still shares the caller's mm, so gcs_free()'s mm
+check does not save us. Clear that tracking with
+gcs_reset_thread(), an empty stub when !CONFIG_ARM64_GCS.
 
-Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+x86 does not need the same args->fn clear: copy_thread() runs
+shstk_alloc_thread_stack() before both the PF_KTHREAD and later
+args->fn return paths, so CLONE_VM replaces the inherited tracking
+first.
+
+Tested with CONFIG_ARM64_GCS on QEMU 11.1.2 -machine virt -cpu max.
+Sixteen clone3() calls with CLONE_VM|CLONE_PIDFD and an unwritable
+pidfd pointer leaked 16 GCS VMAs without the fix. With it, the VMA
+count was unchanged.
+
+Fixes: 506496bcbb42 ("arm64/gcs: Ensure that new threads have a GCS")
+Cc: stable@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
 ---
- drivers/acpi/pci_root.c   | 6 +++---
- drivers/pci/pcie/Kconfig  | 9 ---------
- drivers/pci/pcie/Makefile | 5 ++++-
- drivers/pci/pcie/dpc.c    | 5 +++--
- include/linux/pci-acpi.h  | 4 ++--
- 5 files changed, 12 insertions(+), 17 deletions(-)
+ arch/arm64/Kconfig           |  1 +
+ arch/arm64/include/asm/gcs.h |  8 ++++++++
+ arch/arm64/kernel/process.c  | 19 +++++++++++++++++++
+ 3 files changed, 28 insertions(+)
 
-diff --git a/drivers/acpi/pci_root.c b/drivers/acpi/pci_root.c
-index a1a9c06012f8..b0e0b33e3254 100644
---- a/drivers/acpi/pci_root.c
-+++ b/drivers/acpi/pci_root.c
-@@ -438,7 +438,7 @@ static u32 calculate_support(void)
- 		support |= OSC_PCI_ASPM_SUPPORT | OSC_PCI_CLOCK_PM_SUPPORT;
- 	if (pci_msi_enabled())
- 		support |= OSC_PCI_MSI_SUPPORT;
--	if (IS_ENABLED(CONFIG_PCIE_EDR))
-+	if (IS_ENABLED(CONFIG_PCIE_DPC))
- 		support |= OSC_PCI_EDR_SUPPORT;
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index cab741a695f5..c7fc79409f98 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -177,6 +177,7 @@ config ARM64
+ 	select HAVE_ARM_SMCCC
+ 	select HAVE_ASM_MODVERSIONS
+ 	select HAVE_EBPF_JIT
++	select HAVE_EXIT_THREAD
+ 	select HAVE_C_RECORDMCOUNT
+ 	select HAVE_CMPXCHG_DOUBLE
+ 	select HAVE_CMPXCHG_LOCAL
+diff --git a/arch/arm64/include/asm/gcs.h b/arch/arm64/include/asm/gcs.h
+index 8fa0707069e8..f47aaad30d7d 100644
+--- a/arch/arm64/include/asm/gcs.h
++++ b/arch/arm64/include/asm/gcs.h
+@@ -67,6 +67,13 @@ void gcs_preserve_current_state(void);
+ unsigned long gcs_alloc_thread_stack(struct task_struct *tsk,
+ 				     const struct kernel_clone_args *args);
  
- 	return support;
-@@ -515,9 +515,9 @@ static u32 calculate_control(void)
- 	 * Per the Downstream Port Containment Related Enhancements ECN to
- 	 * the PCI Firmware Spec, r3.2, sec 4.5.1, table 4-5,
- 	 * OSC_PCI_EXPRESS_DPC_CONTROL indicates the OS supports both DPC
--	 * and EDR.
-+	 * and EDR.  EDR is always built with DPC on ACPI systems.
- 	 */
--	if (IS_ENABLED(CONFIG_PCIE_DPC) && IS_ENABLED(CONFIG_PCIE_EDR))
-+	if (IS_ENABLED(CONFIG_PCIE_DPC))
- 		control |= OSC_PCI_EXPRESS_DPC_CONTROL;
- 
- 	return control;
-diff --git a/drivers/pci/pcie/Kconfig b/drivers/pci/pcie/Kconfig
-index 207c2deae35f..de4ea33b4524 100644
---- a/drivers/pci/pcie/Kconfig
-+++ b/drivers/pci/pcie/Kconfig
-@@ -137,12 +137,3 @@ config PCIE_PTM
- 	  This is only useful if you have devices that support PTM, but it
- 	  is safe to enable even if you don't.
- 
--config PCIE_EDR
--	bool "PCI Express Error Disconnect Recover support"
--	depends on PCIE_DPC && ACPI
--	help
--	  This option adds Error Disconnect Recover support as specified
--	  in the Downstream Port Containment Related Enhancements ECN to
--	  the PCI Firmware Specification r3.2.  Enable this if you want to
--	  support hybrid DPC model which uses both firmware and OS to
--	  implement DPC.
-diff --git a/drivers/pci/pcie/Makefile b/drivers/pci/pcie/Makefile
-index b0b43a18c304..46b24311f659 100644
---- a/drivers/pci/pcie/Makefile
-+++ b/drivers/pci/pcie/Makefile
-@@ -13,4 +13,7 @@ obj-$(CONFIG_PCIEAER_INJECT)	+= aer_inject.o
- obj-$(CONFIG_PCIE_PME)		+= pme.o
- obj-$(CONFIG_PCIE_DPC)		+= dpc.o
- obj-$(CONFIG_PCIE_PTM)		+= ptm.o
--obj-$(CONFIG_PCIE_EDR)		+= edr.o
++static inline void gcs_reset_thread(struct task_struct *task)
++{
++	task->thread.gcs_base = 0;
++	task->thread.gcs_size = 0;
++	task->thread.gcspr_el0 = 0;
++}
 +
-+ifdef CONFIG_ACPI
-+obj-$(CONFIG_PCIE_DPC)		+= edr.o
-+endif
-diff --git a/drivers/pci/pcie/dpc.c b/drivers/pci/pcie/dpc.c
-index 104ff2b91f1f..71adc0e94bca 100644
---- a/drivers/pci/pcie/dpc.c
-+++ b/drivers/pci/pcie/dpc.c
-@@ -109,10 +109,11 @@ bool pci_dpc_recovered(struct pci_dev *pdev)
+ static inline int gcs_check_locked(struct task_struct *task,
+ 				   unsigned long new_val)
+ {
+@@ -167,6 +174,7 @@ static inline bool task_gcs_el0_enabled(struct task_struct *task)
+ static inline void gcs_set_el0_mode(struct task_struct *task) { }
+ static inline void gcs_free(struct task_struct *task) { }
+ static inline void gcs_preserve_current_state(void) { }
++static inline void gcs_reset_thread(struct task_struct *task) { }
+ static inline void put_user_gcs(unsigned long val, unsigned long __user *addr,
+ 				int *err) { }
+ static inline void push_user_gcs(unsigned long val, int *err) { }
+diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+index 581f80e9b9b7..83d5a07a238f 100644
+--- a/arch/arm64/kernel/process.c
++++ b/arch/arm64/kernel/process.c
+@@ -341,6 +341,16 @@ void flush_thread(void)
+ 	flush_gcs();
+ }
  
- 	/*
- 	 * Synchronization between hotplug and DPC is not supported
--	 * if DPC is owned by firmware and EDR is not enabled.
-+	 * if DPC is owned by firmware and there is no EDR, i.e., on
-+	 * non-ACPI systems.
- 	 */
- 	host = pci_find_host_bridge(pdev->bus);
--	if (!host->native_dpc && !IS_ENABLED(CONFIG_PCIE_EDR))
-+	if (!host->native_dpc && !IS_ENABLED(CONFIG_ACPI))
- 		return false;
++void exit_thread(struct task_struct *tsk)
++{
++	/*
++	 * copy_process() calls this after copy_thread() returns 0.
++	 * deactivate_mm() does not run on that failure path.
++	 * gcs_free() is a no-op once gcs_base is cleared.
++	 */
++	gcs_free(tsk);
++}
++
+ void arch_release_task_struct(struct task_struct *tsk)
+ {
+ 	fpsimd_release_task(tsk);
+@@ -503,6 +513,15 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
  
- 	/*
-diff --git a/include/linux/pci-acpi.h b/include/linux/pci-acpi.h
-index c0c54baadf04..9715351c0d51 100644
---- a/include/linux/pci-acpi.h
-+++ b/include/linux/pci-acpi.h
-@@ -123,13 +123,13 @@ extern const guid_t pci_acpi_dsm_guid;
- #define DSM_PCI_POWER_ON_RESET_DELAY		0x08
- #define DSM_PCI_DEVICE_READINESS_DURATIONS	0x09
+ 		p->thread.cpu_context.x19 = (unsigned long)args->fn;
+ 		p->thread.cpu_context.x20 = (unsigned long)args->fn_arg;
++		/*
++		 * Tasks created through the args->fn path do not
++		 * allocate a user GCS here. Clear inherited allocation
++		 * tracking so a later failed copy_process() cannot
++		 * release the caller's GCS when the mm is still shared
++		 * (CLONE_VM), as with kernel_thread() and
++		 * create_io_thread().
++		 */
++		gcs_reset_thread(p);
  
--#ifdef CONFIG_PCIE_EDR
-+#ifdef CONFIG_PCIE_DPC
- void pci_acpi_add_edr_notifier(struct pci_dev *pdev);
- void pci_acpi_remove_edr_notifier(struct pci_dev *pdev);
- #else
- static inline void pci_acpi_add_edr_notifier(struct pci_dev *pdev) { }
- static inline void pci_acpi_remove_edr_notifier(struct pci_dev *pdev) { }
--#endif /* CONFIG_PCIE_EDR */
-+#endif /* CONFIG_PCIE_DPC */
- 
- int pci_acpi_set_companion_lookup_hook(struct acpi_device *(*func)(struct pci_dev *));
- void pci_acpi_clear_companion_lookup_hook(void);
+ 		if (system_supports_poe())
+ 			p->thread.por_el0 = POR_EL0_INIT;
 -- 
 2.43.0
 
