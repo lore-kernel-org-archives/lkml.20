@@ -1,80 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510883;
-	b=qQ+/+ag5PBT4tUQ2MNTGaxIJD9S4eSGMlBUIMRqPILh7K5oPIu3/EBVPB8pY74RsY3+x
-	 hMR2YQPw9m6iSDqYsLDJ6ezGSy5zpJaZ2W3NFKDvL7qKzY3GmjzkcfiqKeGUMXr2UAgfm
-	 O3/QxE4dfkD4n4orz1KfJQjO83qH903fkoM5w8zNwSHC/kpy0S5Aqao/nlU5D3NlKaUOJ
-	 pGwJThmOa1o5Q4D0UvaXcNslAiytIeqC1LmiUh0Y5+3pws7+lAijoN1zZjBHCiHI2Xnif
-	 31fSAG5DKZxPY4XAKlPDgXnJ90VtAhwwU8ORZyyQIEDci16TjdO0VMqKD4f6QKCVl0w==
+	t=1792510885;
+	b=hrS4PZzTswrmHT6voIDJC2yBZyxb72wyvED5WvBhWhqQl2Mjg6yIQ/5D9lYOBrZrpLJP
+	 bXHr3MeR6n9TmmxqMyrs5bHhwx9xPt62m87XpwTjnFgMtdrVOW/tJNBQ0eI9gFf3lxYpL
+	 +4hQHnzSYaVUHayIlt2Z3e8vmVWqosZblBCcA0C0vTRQROnS0tp8EFop15fxQo9XV9Wsx
+	 /oGEr7j10nEBYe+829WIWEP571QrGg335KkhkDS552/5nXkBIuBqMq+jc1A5h3HmyL48I
+	 tZGI4CK5E82rMUvr9ivGa+AnXUyNIiaJj9DiglKTgv4+qSG8OdWX4pK+WShYrMGBj7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510883;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510885;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PbotHI99tftecSRxei/okpKKDZBbbGHapfuivs9s/Hk=;
-	b=TM6KXL1yUhLy5c/i7c5sRjWIWqXJmOsmOq4gR6AfL8LIBecuoR3NySQ+9y0rejHD76TE
-	 vRpp+WhfvZTvt6t+FThn9w8+o2OSoQ7VXr4w/AG1+1NvbVvHyIaLf/pS3LiExTQkW0+a7
-	 0/B6QN7LCCNanzNwpfrIj2ImWzwhx0QSpMpQfv+JneeuKJ7MwrVbkWK127M7CxN1Ufujy
-	 lFkfBdU67x8jAQlqv6+JzOrz2geyks1c/zT9xlkI/nAucZm2iVYc+rJYLyrmoVC3YIQUQ
-	 4piVpGd1ZQQQoEsnB0mrmWUHTPlb2pRNGzFUZDOfbj9VZV+0wlWiVavAfGSvNAmQ2mQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ivM2a0ffySwRM4S5Ey5w/xRUKSjlg2d1AVy7Kzk1QBE=;
+	b=Yycu5fOwraRP6BxKEsy9AGPdjyOeXhgrihDzMijbMdVcCmLPH+8kcJujDYbid0WX8FLg
+	 VuYZ3UCOPX0IL6rMr96O++Dp6ZJBybt78GPAcsZYScfAG4JRQi2PVFt7nv36XSgWUaXxp
+	 6ScMAiq+P0OT/amP1jOV9DqybXcTPLaxAZr8s2xogsPkV1g9LVE+MkQ+FmSagwvjBH5Zb
+	 NjxFkNuqP4/v/ugkWd6NWK1UiyZQt7afaMTLZ9+mynBNxCE0YjqmOvjq4xj4E/whxOJ6a
+	 YXiaCLRCf3lDDDPXePBA2/xCpJvjp551wGNFx7OYaOM9gHGFl69yVlOCa+E/uzolHNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EUZoVCgE;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UT6dl+1U;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B07606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:41:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54B07606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D52606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:41:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08D52606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EUZoVCgE
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso34024715e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:41:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UT6dl+1U
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1df4c0966so5812045e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:41:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792510882; x=1793115682; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PbotHI99tftecSRxei/okpKKDZBbbGHapfuivs9s/Hk=;
-        b=EUZoVCgELz3j+oN2CgMRKyp7JaxNmw5ownN9/r2+E2tpmbuT/HyEZcZnsA40fLxwoq
-         GFC3DLYvi64xceDDGOE75OTBQgtXTTQ4F0Fd/bjCIkwD18sWtAKJs/rDTR8wNQqcYY/u
-         SOyR1I0O16vZxIIyU2xzkddNpoxKJZeyS7mYMQBPZE13YAlqkO6pLXwOdbUWm4cRdywq
-         nzyXEwbMw3hxGB7BiBpruzAigNJ/5zSjJ6Cv2EXxsv9MaTj8OXQhj2Eb1jsdrVn1B4Ua
-         kEX3309WTkzs3Wr/Q25uHwUDWTcHUpaP+nZMZNFivOYH7bofRA/LpDz6Vy+LJk8UWEZh
-         BjcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792510882; x=1793115682;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792510883; x=1793115683; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PbotHI99tftecSRxei/okpKKDZBbbGHapfuivs9s/Hk=;
-        b=gJpJgItRGknEdkUv98j4RB7XuWzxCK+ZR3eyBl5AGuZE/PnLM0w+Ds/nLfhdn0km8U
-         5HDrdAAeZL16CZWXbEwB2AnCrOxSU7xA1Yscjk/8p0lMKTlJgjpgSSuYAe5WL1Un/Zj5
-         ykbCY5zlzCpi6UFQ0G2GhhVvmIyubJvTHtZAG1RbL+NcADUDKUTsov+ftPTcbMtwF3+6
-         HB/hppTq8ElViaDtMIiP6rNTDs+/zjDDIe38256QZQX+RGKfMqiu7libpUDF7ZU0NYpy
-         1y77C1XLsfNmZSptORIpOYIwKrjX/+eft/ZJfuaIkGbeXp0SYrTdkenOlU5mLnckNccg
-         C/hw==
-X-Forwarded-Encrypted: i=1; AKwUvBypRaqh0bak8UzcmMLvW+U0Rrh30NG+Qp7Egyhp6FrQkYoJA1lzLxCzD5jEstBPnZQVl/nfCHdC2LKbShk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3FMkfO/45PGHKIOtZhh/KndCMyVMe1R9bPolR4GwrdowT1s4s
-	g8oO7UNxiDhyb2xe+mOHTKUHv/ehYjF/dQXjDm5EzcjG3QwZUmsWB1E=
-X-Gm-Gg: AYBFou2zeqFZ0vQ9gyB4i7EzmQlsNlrTEMz0Amiy7I7vmyyKZYLJy0n/sECzjP6hO2d
-	6TqOUrAYyn8Y+7MVoMnYrCwIZGIELa9DGQnN4mzUQLLJrWllsg4bMPaYA7Uw514aAlSwOHgT081
-	MkKJe+dRoyVWlpxC9r9NxBm3c5GzNfWNwNN+A79S5DkhFwGrRkss42huH+QghXpMlv0xgSon0zp
-	UROj98JvHxVzdbmi/NfvOsdlH3Xugcql4qc/jWF90rwUy9KG79hiSLuIL/ZAbw53EIn/NUzU2fD
-	FBfCYU169wBnRSWQKHAF/XG/DnGj/+UVke/zWkd3YQUDL5NhH5lFXkSgDEFyodiQUYBZQva9kbA
-	It31jSi0YlxzgFEAO2ixkFZhka/xBeMX2bjipgwjX7QWQjMopU1r29ILfMNZNxoBcemB/TBSh/v
-	Qr2UL17UcvilsjoprK1Z0IH+H1PC80FZsAOm+rpdk=
-X-Received: by 2002:a05:600c:820a:b0:4a0:eae0:769a with SMTP id 5b1f17b1804b1-4a1d7616cfemr234758485e9.28.1792510881449;
-        Tue, 20 Oct 2026 08:41:21 -0700 (PDT)
+        bh=ivM2a0ffySwRM4S5Ey5w/xRUKSjlg2d1AVy7Kzk1QBE=;
+        b=UT6dl+1UKQIxCv+VgRp197jib9E4og5y0xRVppVAMtZt45kXyVtTVi3Cbsn4ohDWp/
+         oRcwGMx4KEUFhkYh+MQKUl6vYIJpySvNp2bSW0BVeSSFL65MAJrELvfXYjaTPpBvCooZ
+         7XxBXjIoVH68p2TK/bIShr4ySfe9CBfwwYHqi7+gFRDn2eXQnOleMzR85u0CyZRbOsdN
+         yMerjxaTaJSJxRhTwMOj0EtkTLk/m09TpUfphSYGsYuKGR5/RArWLwDdiIh9OGk2YrzM
+         iK/z0wDPZ0Ko0RpElpusIIQNVKuFXSh16Sgynaln74LUh8uBtduLGiqGfIcZXOvtr/mO
+         j/Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792510883; x=1793115683;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ivM2a0ffySwRM4S5Ey5w/xRUKSjlg2d1AVy7Kzk1QBE=;
+        b=AGB2pDBcgJOsLwZ9vk8vNe2Czp1nTd2kyTOtyoq4UQPHr/O2jx1VRc1+phZUSNGz0P
+         K/n0WB8Yf3u6YCSlYpPemRIfaKpShCJrKaqrTSukLQSgNxXDYc7TFxzZ17gBbDrR+adf
+         CZ0oi5BRb9gVdC4e2QZf+TrztD/mFxvW2tiOc9VgJLOf7x4Gv0KCMg6rwXA5lPkgfbrA
+         yQvDoxEm6bufjagtbzIxwyVEoW8p7zr15yq9v8W5eERQziuLRLRaXvNuyyBu1Q43evI3
+         Yrf0tFGZ/zugLmpw+lT59egfa6ofgcLpYnwtjVeB7EiRsu95L1i5DSptWV+/Iqoux/P/
+         HfBA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6uykOeoCx0XEhr4OHCxVPKLIGHTm3UpGyoHrAc/WvIOTEaF2JAwAq1PtMqTiVqzlvwnytAd5wi8jX9iw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNlS47Y+VgFosdgM7LeMWX0DX+3TxzZReQSkBiyA9LE4wd628v
+	Ii7ZmSL36PxjNV9rFxxVAFn5Bpay7ycEQH2lAXGEYksuIR5rwvf8ypc=
+X-Gm-Gg: AYBFou3Q0Ueer4mKtMOm8xU9lpKH9RveJwwwSikA6+7oMbQmhmlBdQJSWqVRQFq9De9
+	E1v8ZAhbCFWDpXa77yxCY1O/HwuV+MenjiefYMQMYO00yZNHKx3aFaA/OAD4jsqN+LT08Vln3vj
+	78mQ/O7PwVgHCGmg4FJryBX+yk/zcJzxuAoQU4VK4z3AP16OTtt0oU/NLjwNU/j+M5mIvS5riwX
+	uaK9UZqYlz1uyFRP2nbTsyVeugYwaiORxfvGnuMvuHeIeyZgipqy0l3g0ubxZ8HlY186b/Px84T
+	Bs7qQixYHCZyE/ki2qmnd5t93I/jU5oGR0AxcvPN6ht48VeviTwHSYn2xfYJzNchbD00fwu411M
+	WvnmDVnpjpGdyiX3wEnKVfJVXN4N236Evnz9YvNqCJ79ckClldjLNcqftanqSDEv7PxNsP/ra5k
+	oNRBaDHGadGP7iBPTx/hfF5hJcHZ53p1aGFfxoqcs=
+X-Received: by 2002:a05:600c:350e:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a1f4e8ae6bmr55223815e9.11.1792510883070;
+        Tue, 20 Oct 2026 08:41:23 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca31234sm256606155e9.4.2026.10.20.08.41.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca31234sm256606155e9.4.2026.10.20.08.41.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 08:41:20 -0700 (PDT)
+        Tue, 20 Oct 2026 08:41:21 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 To: Chanwoo Choi <cw00.choi@samsung.com>,
 	MyungJoo Ham <myungjoo.ham@samsung.com>,
@@ -84,10 +85,12 @@ Cc: Kyungmin Park <kyungmin.park@samsung.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH 0/5] extcon: cancel wq_detcable delayed work on driver unbind
-Date: Tue, 20 Oct 2026 15:41:14 +0000
-Message-ID: <20261020154119.2568395-1-tristmd@gmail.com>
+Subject: [PATCH 1/5] extcon: max14577: cancel wq_detcable on driver unbind
+Date: Tue, 20 Oct 2026 15:41:15 +0000
+Message-ID: <20261020154119.2568395-2-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261020154119.2568395-1-tristmd@gmail.com>
+References: <20261020154119.2568395-1-tristmd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,33 +104,38 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-Several extcon MUIC drivers schedule a delayed work (wq_detcable) during
-probe for post-boot cable state detection, but never cancel it on driver
-unbind.  If the device is removed before the work fires, the callback
-dereferences freed memory.
+The driver schedules wq_detcable as a delayed work during probe but
+never cancels it.  If the device is unbound before the work fires, the
+callback dereferences freed memory because the driver data is managed
+by devm.
 
-Use devm_delayed_work_autocancel() to tie the work lifecycle to the
-device.  This matches the pattern already used by extcon-gpio,
-extcon-palmas, extcon-qcom-spmi-misc, and extcon-intel-int3496.
+Use devm_delayed_work_autocancel() so the work is automatically
+cancelled when the device is removed, matching the existing irq_work
+conversion done in the same driver.
 
-For the Maxim drivers (max14577, max77693, max8997), irq_work was
-already converted to devm_work_autocancel() but wq_detcable was missed.
-The rt8973a and sm5502 drivers also need the devm-helpers.h include.
-
-Tristan Madani (5):
-  extcon: max14577: cancel wq_detcable on driver unbind
-  extcon: max77693: cancel wq_detcable on driver unbind
-  extcon: max8997: cancel wq_detcable on driver unbind
-  extcon: rt8973a: cancel wq_detcable on driver unbind
-  extcon: sm5502: cancel wq_detcable on driver unbind
-
+Fixes: 962e56bfcf0b ("extcon: max14577: Add extcon-max14577 driver to support MUIC device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
  drivers/extcon/extcon-max14577.c | 5 ++++-
- drivers/extcon/extcon-max77693.c | 5 ++++-
- drivers/extcon/extcon-max8997.c  | 5 ++++-
- drivers/extcon/extcon-rt8973a.c  | 6 +++++-
- drivers/extcon/extcon-sm5502.c   | 6 +++++-
- 5 files changed, 22 insertions(+), 5 deletions(-)
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/extcon/extcon-max14577.c b/drivers/extcon/extcon-max14577.c
+index 5476f48ed74b9..905722ede7ab1 100644
+--- a/drivers/extcon/extcon-max14577.c
++++ b/drivers/extcon/extcon-max14577.c
+@@ -763,7 +763,10 @@ static int max14577_muic_probe(struct platform_device *pdev)
+ 	 * After completing the booting of platform, the extcon provider
+ 	 * driver should notify cable state to upper layer.
+ 	 */
+-	INIT_DELAYED_WORK(&info->wq_detcable, max14577_muic_detect_cable_wq);
++	ret = devm_delayed_work_autocancel(&pdev->dev, &info->wq_detcable,
++					   max14577_muic_detect_cable_wq);
++	if (ret)
++		return ret;
+ 	queue_delayed_work(system_power_efficient_wq, &info->wq_detcable,
+ 			delay_jiffies);
+ 
 -- 
 2.47.3
 
