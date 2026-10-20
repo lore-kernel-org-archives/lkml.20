@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460410;
-	b=FEtWoZq1otYluhZFut+uCgxoOqp2BLIWOA8PioRwOX0TIGH6DZBAJJNWwx8h7xssOaUN
-	 Gdl7uXVgjkYB2wJ1JuSC7JK8ekDw8EdApsE3sIoLqo5aYKWrMnJfeCdEMOzr9SQ444Jdt
-	 zvR0t4P8k69QR+w40jorHtRchrgvbTj60DcaCYSC49wKggk8abJxHKDmOR4NH8awcXaF6
-	 hTkjGdvpp1mM8RKfaZQNXfEB0K6qjt1V1z1B5TNvV9aM072fE45AuoY5NwOsaERaicSkv
-	 SOaOLWipboDknxBZGpWtWQSXKlZmVN+xWtGcERp7MHtXLm9xVnTELJj3w04osYtUoHg==
+	t=1792460432;
+	b=NzgRMDPjmbDNexFbyNw1OA/ygMonH1EzfFV0l0Vf7Md/mrMkCdCYO/tD0JjKpSTQLaP5
+	 Cn7R5w25HVVrwhC+AZ8rtcD2zOHg+thlUzl7T4uy+AN5FSwcKi0cJWJ2cWeIij3JkctgH
+	 9mx1pgaOL+F6xX0ZTXV+xDcFpT1Uadgk9XIjJY+EYHUjX6IFx3q3173r6kr16AB04ZGgn
+	 1zlzDxaUI7IwEAGEsRPvg9NF4ByXHYqhcEyUwwpB8QJrGxhJy3FMzVDAq2fAo82LaKMkt
+	 tfopKV0E1+PSfQNKEs3HTOvvCzneTNFK0C/aHdK5PX4O2qmV2b2eZpf5nOpEGv3IEZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460410;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mBl/6I4IOSTLA74DSv40eiDjHIj1nVsm5kjlfI7vITY=;
-	b=gxjoB82ouHkZZ/ryPfl/5cxOI6Du8XIq23XyuGVjjK5w+tti2akkyCDrupNQpUlKoyJH
-	 Ol0bFOZ5QgJkHS/hkTBRl4gNJxWUz63WreCTixayVT/tjXy9j7+5f4JkCJfbPgnIujWc+
-	 1d9Q9Bita27v7rqs+4kup8s+8f2rr3X26UKT1QE8wYLmIBAb3grOfWE0QMUEHCSD1K+it
-	 69RMEhPQt4ReFwR56dvhuE+/gt2Mun+54ZfxdpOGWy5RM0mQnkbikPeVGpbGPlG5AvZM+
-	 tB1X6XHGVsMX6k2mHKKJSA00Mk5xpjIofS9gSM6YcwA/D3mkRnLEi7FkJqcfJ0fUD4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460432;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=epqa4hM2fNdEwIbvTE0P+n48JJiWFmQ5rpH56MumhIo=;
+	b=0wpDIq1+5lsoBE9xy1DQ2/AqyQAmpPJwpFxakeIuYiL8e2Aejdl2LolmyRUGVGBwKlAW
+	 Pg5PHOlmRbRcB4V+Bp8HViY2GbSiE8O2nuWmKSeVxqTI7zlfzlREpccHQOHqv/fRPGFE6
+	 eX7cYs0S5oJQ8AE624MTu8o3uLJcpFT5Ye6HS1I5VxifsOJK+fYJ/3qIQxY7vygjAPfR3
+	 Wy0aRXTGPJfZ7e0wvvj+EsgZGRDmRP2gIAyVQyq2gEqD9ZSywrZ+L+LFSO5SwK1n8sMKo
+	 pXXEckDt3lMCLbicC4tFSFq1YQg+aTMr4WHAGcCMU0byYKaDA3EOGZALspuLZK+dKfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ogPLk0II;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="Uo/vI3aO";
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12520606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:40:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207DB606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:40:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 207DB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ogPLk0II
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C8A11F000C4;
-	Tue, 20 Oct 2026 01:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792460409;
-	bh=mBl/6I4IOSTLA74DSv40eiDjHIj1nVsm5kjlfI7vITY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ogPLk0IIMeO9s5iQ8iJXEV6pBDSwYjg8PK8FgvIOYCksZw30tWBExD9/mZAizetv8
-	 4p9aEAntjySmIJBlh/fmrOtahPJ5ZsTk3J7m2aQpK4rStqcY0dqojylCzhQ8KzdEtL
-	 iP61f9/PLvmhSPvDc8ONjwxgSLp6lHoYM/vmUe0IoVWcsyn5ZXXI3ODZAnnJ6Jee6h
-	 /Qnf297/xU6UFbYbriY2jTK0d3G4Ls5mVDDyyCUocGstWKda1QYodRp+LqnsR8LpmV
-	 2BhZL1hUSlEGaTe4Xq+S/+TKBZcG5krj1bC0HOPa2rdw0ATEU38voGijfvJ9NuuGBl
-	 u5iyrQmOhCJFg==
-Date: Tue, 20 Oct 2026 09:20:05 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Muchun Song <muchun.song@linux.dev>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] riscv: mm: Define PAGE_KERNEL_RO
-Message-ID: <atbBxX-kCkB5pgsk@xhacker>
-References: <20261018023649.798595-1-nickolai@csail.mit.edu>
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Uo/vI3aO
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3CF3F40E00E8;
+	Tue, 20 Oct 2026 01:40:30 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id KBMI3ftJL8Sd; Tue, 20 Oct 2026 01:40:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1792460427; bh=epqa4hM2fNdEwIbvTE0P+n48JJiWFmQ5rpH56MumhIo=;
+	h=Date:From:To:Cc:Subject:From;
+	b=Uo/vI3aOtG1o2lyJwmhk9Fu+OunVSP0hYA9RslBQSaIa0peHlEh1hR5yAJ2ydtvYs
+	 2DTco5yxN6e4Y6HLo+8HnIge52oUImvL1dL6A7Y4slKqPQtHcLlDGBwofDVBZmivo4
+	 TTdE6XAv6hCRoNhTIQfb8zHW9jjc69so9qRzl6zdxRYsJ2yL5gAiCYgYSn98u8H/5Z
+	 iv0XkpKZY3e0Py2zq6q/hsgJLteqjXj8ttKqsw7VQkmqK+pkWOB/cer1mJamg7bvSg
+	 655uT2dWMBaeK+vmgtREXNEKBFaQWmwTswZ+FFV/ilKCs++ZhLkSGAZg3xBlhrFSrP
+	 kc9+EB/HdTNogx/XSbnxVuN82kHIKjaX+mJUwxzScdMgrae3D5VySDVgiT2UIzzktE
+	 RSSBHqygpFb83cWxWj5HEbCgyoatDIybNtZzHclKh2lYrvN5XfxrZnxBAqVtAAh4Sc
+	 iYNhE/CiTsQ8wzuF49r9yl7zO6OBlDuUiM3Usiz6q/e3Mh1aCu4ZgQ1Ki9ErdfhhDx
+	 YkdvzgjvOz49rRrpVuMrquuLJyTjE8cDQNbALHJO0iO37i9YZl09lLpgqs5HpODroK
+	 24O+oT+XUUL3d4GBj+ff9nAy05wK17+00K+bVbj4JsfmhNjt8IYKI4G3ftXf9aTacW
+	 lUMs7RGegi/HlMMa3nPluSUo=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A8A9D40E015B;
+	Tue, 20 Oct 2026 01:40:23 +0000 (UTC)
+Date: Mon, 19 Oct 2026 18:40:20 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: x86-ml <x86@kernel.org>, lkml <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] x86/cache for v7.4-rc1
+Message-ID: <20261020014020.GAatbGhNglC2npwc2r@fat_crate.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,107 +79,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261018023649.798595-1-nickolai@csail.mit.edu>
 
-On Sat, Oct 17, 2026 at 10:36:49PM -0400, Nickolai Zeldovich wrote:
-> Kernel mappings that generic code creates read-only are writable on
-> riscv. With HugeTLB vmemmap optimization (selected by riscv and on by
-> default with CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON), the tail
-> vmemmap pages of every optimized huge page are remapped to one shared
-> page with PAGE_KERNEL_RO so that a stray write to a tail struct page
-> faults. On riscv that remap keeps _PAGE_WRITE, so such a write silently
-> changes the struct pages of every optimized huge page instead.
-> early_memremap_ro() (EFI system and configuration tables), the
-> firmware loader's vmap() of the loaded image, and acpi_os_ioremap() for
-> EFI runtime code and NOMAP regions, which asks for a read-only mapping
-> precisely to avoid a writable mapping of executable code, are affected
-> the same way.
-> 
-> riscv defines PAGE_KERNEL_READ but not PAGE_KERNEL_RO, so
-> include/linux/pgtable.h falls back to "#define PAGE_KERNEL_RO
-> PAGE_KERNEL". Define PAGE_KERNEL_RO as PAGE_KERNEL_READ. FIXMAP_PAGE_RO
-> then follows from asm-generic/fixmap.h: early_memremap_ro() now passes
-> 0xe3 instead of 0xe7 to __early_ioremap().
-> 
-> Tested on QEMU virt (riscv64, defconfig with
-> CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON and CONFIG_PTDUMP_DEBUGFS,
-> booted with hugepages=8): before, every vmemmap entry in
-> /sys/kernel/debug/kernel_page_tables has W set; after, the 28K of tail
-> vmemmap of each huge page is mapped R without W.
-> 
-> Fixes: a3c7d6b642e4 ("riscv: mm: hugetlb: Enable ARCH_WANT_HUGETLB_PAGE_OPTIMIZE_VMEMMAP")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Hi Linus,
 
-Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
+please pull the x86/cache lineup for v7.4-rc1.
 
-> ---
-> 
-> Notes:
->     Reproducer (riscv64 defconfig + CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON=y
->     CONFIG_PTDUMP_DEBUGFS=y, QEMU virt): a static /init that prints the vmemmap
->     part of the kernel page table dump.
->     
->       #include <stdio.h>
->       #include <string.h>
->       #include <sys/mount.h>
->       #include <sys/reboot.h>
->     
->       int main(void)
->       {
->       	char line[256];
->       	int in = 0;
->       	FILE *f;
->     
->       	mount("sysfs", "/sys", "sysfs", 0, NULL);
->       	mount("debugfs", "/sys/kernel/debug", "debugfs", 0, NULL);
->       	f = fopen("/sys/kernel/debug/kernel_page_tables", "r");
->       	while (f && fgets(line, sizeof(line), f)) {
->       		if (strstr(line, "---[ "))
->       			in = strstr(line, "vmemmap start") != NULL;
->       		if (in)
->       			fputs(line, stdout);
->       	}
->       	fflush(stdout);
->       	reboot(RB_POWER_OFF);
->       	return 0;
->       }
->     
->       riscv64-linux-gnu-gcc -static -O2 -o init init.c
->       qemu-system-riscv64 -M virt -cpu max -smp 2 -m 1G -nographic -kernel Image \
->         -initrd initramfs.cpio -append "console=ttyS0 hugepages=8"
->     
->     Before (all vmemmap entries writable):
->       0xff1c000002000000-0xff1c000002200000  0xbec00000  2M PTE  D A G . . W R V
->       0xff1c000002200000-0xff1c000002800000  0xbea00000  6M PMD  D A G . . W R V
->     
->     After (each huge page: 4K head W, 28K tail read-only, shared page 0x81fd0000):
->       0xff1c0000020a1000-0xff1c0000020a8000  0x81fd0000  28K PTE D A G . . . R V
->       0xff1c0000020a8000-0xff1c0000020a9000  0x81fd6000   4K PTE D A G . . W R V
->       0xff1c0000020a9000-0xff1c0000020b0000  0x81fd0000  28K PTE D A G . . . R V
-> 
->  arch/riscv/include/asm/pgtable.h | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-> index 40b1ed4f3ea8..13447181ceb7 100644
-> --- a/arch/riscv/include/asm/pgtable.h
-> +++ b/arch/riscv/include/asm/pgtable.h
-> @@ -189,6 +189,7 @@ extern struct pt_alloc_ops pt_ops __meminitdata;
->  
->  #define PAGE_KERNEL		__pgprot(_PAGE_KERNEL)
->  #define PAGE_KERNEL_READ	__pgprot(_PAGE_KERNEL & ~_PAGE_WRITE)
-> +#define PAGE_KERNEL_RO		PAGE_KERNEL_READ
->  #define PAGE_KERNEL_EXEC	__pgprot(_PAGE_KERNEL | _PAGE_EXEC)
->  #define PAGE_KERNEL_READ_EXEC	__pgprot((_PAGE_KERNEL & ~_PAGE_WRITE) \
->  					 | _PAGE_EXEC)
-> 
-> base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
-> -- 
-> 2.53.0
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+Thx.
+
+---
+
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+
+are available in the Git repository at:
+
+  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tags/x86_cache_for_v7.4_rc1
+
+for you to fetch changes up to 2c10b3fa5bdf61e344bc522e6c2e00d870ce7ab8:
+
+  fs/resctrl: Ensure default group reports tasks on monitor-only systems (2026-10-09 17:43:05 -0700)
+
+----------------------------------------------------------------
+- Push down into arch code the rounding of bandwidth control user values due
+  to the different ways ARM and x86 report MBA
+
+- Fix task reporting for the default group for systems which support only
+  bandwidth monitoring, aka Haswell vintage computing
+
+- The usual fixlets and improvements
+
+----------------------------------------------------------------
+Ben Horgan (1):
+      arm_mpam: resctrl: Add pass-through resctrl_arch_preconvert_bw()
+
+Dave Martin (2):
+      x86,fs/resctrl: Add resctrl_arch_preconvert_bw()
+      fs/resctrl: Factor MBA parse-time conversion to be per-arch
+
+Dmitry Antipov (2):
+      fs/resctrl: Avoid extra call to strlen() in schemata_list_add()
+      fs/resctrl: Simplify pseudo_lock_measure_trigger()
+
+Tony Luck (3):
+      x86/resctrl: Update documented unit for the "activity" event
+      x86,fs/resctrl: Add event group descriptions for Intel Diamond Rapids
+      fs/resctrl: Ensure default group reports tasks on monitor-only systems
+
+ Documentation/filesystems/resctrl.rst     | 19 +++++++++--------
+ arch/x86/kernel/cpu/resctrl/ctrlmondata.c |  6 ++++++
+ arch/x86/kernel/cpu/resctrl/intel_aet.c   | 34 +++++++++++++++++++++++++++++++
+ drivers/resctrl/mpam_resctrl.c            |  5 +++++
+ fs/resctrl/ctrlmondata.c                  |  6 +++---
+ fs/resctrl/monitor.c                      |  2 ++
+ fs/resctrl/pseudo_lock.c                  |  9 +-------
+ fs/resctrl/rdtgroup.c                     | 10 ++++-----
+ include/linux/resctrl.h                   | 19 +++++++++++++++++
+ include/linux/resctrl_types.h             |  2 ++
+ 10 files changed, 86 insertions(+), 26 deletions(-)
+
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
