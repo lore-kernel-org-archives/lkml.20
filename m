@@ -1,100 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792477047;
-	b=M71nR9dKFDYa8Hl2p7ic3YAI7SlrMGiwDh3Kz7vxm126kLvPmc9Yuy6UN3zgR8KmeJWi
-	 aijHq679HWcrZ0MfKd3s9vuLbmkquheebHkSJvWOg/42WOwcKzALYG+avSQ2ixuFx1RYq
-	 QpZDC/zKD3fpNbQdrDCqs6e1Tq4kGeyqtgPHXSiUIpR+iUF5fi/nj6mOeMaAnqYuBNfYM
-	 F3mhbWjbwoJgJUVgZbfnM1yLbZIdgMvlQTX9yg5CbYlQC14PwWODQ2NNRPzyhoIbaECJF
-	 qYYePwQzyClxIJ9TH98sD7n2l7s9mRy4EDZPhjZV/iDk5ClpjEJ/eRCyBl0Yrs1jqUA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792477047;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BrmzMw6cqUI5ufvqtaTGz6/71SoGnJjwK4qz0ikJtRw=;
-	b=Uf8DbKYtK8/bHZLfy0QmzwY9zx3M6ct2KrDALa8gQN+dYjSNcBVKij+wkmJxqSz2mrvN
-	 s6q+kwP6O7MkV9rfMdKQPKpRMSfLe6qvDNPUnEtRsyJw9+tDW5mVTDnegy7tZEuBXwTEs
-	 yKlqpoAuhuhGrzQq4JKai8IgEDL59oO9PDZGktvuBC5wEFmOTRFUSbUcagYazyKaLMXKP
-	 YpdhvpHUMkXTC/VDVVXzwxJ1ehizr6XDNdg27THCN09aOZfWDp0goKqk1HAV5/YIhFovS
-	 Lypbpr5eIjBCe2LraJCevjBrVWlj2UkNjL0UOqYCdUrSF4slIxazWXQuv15JQD5Kueg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloud.ionos.com;
-	spf=pass smtp.mailfrom=ionos.com;
-	dkim=pass header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b=eH6K7l8I;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792477101;
+	b=naa8ReKoJxqTpxJBA5TXj7WbK6I374h2jlEqG6i3OTsTx6jUJliF2uhzFkUIwjXYuu1d
+	 tqMqJR7xPQg97PZHNtcIzgcIr+pPlJbCbz/mPAV1HGfQmqsyvH7Rd9LOtL+YcxsibdQsW
+	 wYX2PglE+vMKQlqwqe07mrmmt0s/Hk+zngh5HlR9yOubJaI3DYyj1CA9zm0/3BC2TGIlR
+	 uhPuP77/mB7xEonhEEZqZJ+ZDG+kCMJ2aA9G4freMDz3RaZqlnDI4jhAs+0+qleINlHAK
+	 zpLVEH28Nqb8IksUR0uIqXyVNI9UHkoSsEU3vFZ7c7ZaepK0JISaDBb5L07vvrYzZ0g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792477101;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=XAsGOIGfH/JxbAjnzlFqcJgkwSEZVDVRf2rQqbDcdDA=;
+	b=jMg/6MZPDLNZr2zQdwvESU0s/IdD7zhBvUh81kNr59kU/Yw03iEH/j2ZnONUDCR+U+eZ
+	 Ix6Lv2/PwfxEXl/yRoh2ELBdyQ21Nc42Dt35COg1LujmDcmxibovr+bXNqr0rDF/n+lHu
+	 xmcitLYIealyClxyhYf+3YdBI9h2vHbCeinjrWKPU59axNVdxfAwSVska+nHqVSfs9gbs
+	 gRkGN7pZuWFPCFkXApLthXf8FIHUuIwcbM6765q3tJqbmudspYuljsF/rpohBYS93HJWU
+	 O4cD6cfsKvIKWLBmQd+tKm/aXd9YteGFuscjg0MxiqJmXHV/9hua3gTNh0iGinj6vWQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Bv4vtO5h;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="C/xxifIQ";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E5F606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:17:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E5F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E84606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:18:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2E84606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b=eH6K7l8I
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1b34ed603so553039a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:17:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792477045; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sxZyi6TtOKLI+lhotWG6cpkdB+2RggXSSfw6LUGregRpZbJmt2RB+6wrNvQFVcxnrq
-         2o6NqgBWDkM0odHfzd7CJQ2YZUYwAyv30z7kzLUAkRT+PQaOKMqfaMmlE5pib1OHb4XE
-         MQ7kGcxqA83XVKNdW2HnplJ8Jfp6DX0TkNNL+YRSre/F/sYro2F36YT0QZug4i+RpItQ
-         hilvMVXwzAzqcAe9NxNRjIQNMf18wdaUu9jv2nfVXOJSmLiNMIFc3YkKc2Fa6sSLjSlp
-         jmBm+ar2xjr41K6sTFUe3kEHN9ab9hHjfxUfhhOCm/ip9rWLIMJz1VI4flB8QQfzA0XZ
-         5TWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BrmzMw6cqUI5ufvqtaTGz6/71SoGnJjwK4qz0ikJtRw=;
-        fh=bE+ciInCbsVnhKsTjGyziQuu4NUESC9CV/Atiq0lsLo=;
-        b=AQtoOkTdjh7mRkuJHsj68AVvQkymRAHXedRVr++9lMr8fEv+QJR5BpqeRkIdROMNd+
-         iFxet9rjHcA5jCSP0VPTdpocVptdoshKBxxfSp/I+2TVttdVrhlW2+e3GakGjoLdlbIy
-         cR/h+LvdHoW6u7rEWHMnxSUINc4ZguEHhBagjwiDcRoI/dMBi8n6Y6yhElB6JoCAxvzU
-         SNrQuV8UTBKlwws/b9W3CWblLb/03qXk/Lxd2Ki3DTzgWavmApgWJZaeXpI5++xKCj97
-         zw/o+HqVeq0NVIYl9A5gC2mG/K5DSgU+UcotLKm9a4XtKjvCayaCcPwymjbkx4jpRGyV
-         ufEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Bv4vtO5h;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C/xxifIQ
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tjKa620796
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:18:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=XAsGOIGfH/JxbAjnzlFqcJgkwSEZVDVRf2r
+	QqbDcdDA=; b=Bv4vtO5hJ19j7WBJjuthUVSk1Xab5xkRnWlcGgN5wNNLO2sck/N
+	rmmmEodSWVdUvxE+Dm/XuseswlLrCm+Ppbmm6EgiuYVMSg45Cy2gS0zsBfR27zl/
+	xtFY0fPxHiJBT11okZIizTxzQvARCyWUz3hwtV+b/aqzLoYzVzKSeZWjVGctBcW7
+	6pbtO/1WwdzjDU+W8D5dveTSH9edKtjeD4OiT4V9BMFAa9H53dlzQayu0571rk0y
+	u34TwaiWSDzu9h4V1CnHEkviCxKvutgSgNRYQpb3U2aPBPKXRIgjioMImHsqaut4
+	wgJN6zE6bEwQ3XijPjdgMcL3TiBVn7Pu84A==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5ns38k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:18:19 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-186c1aae818so4255553c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:18:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.ionos.com; s=google; t=1792477045; x=1793081845; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BrmzMw6cqUI5ufvqtaTGz6/71SoGnJjwK4qz0ikJtRw=;
-        b=eH6K7l8I3SY1r0RnHc7tAKBD3ywEGoX7EBEJve7cuUHOPVmc3sXZm7N1TZ93YJsy9o
-         k2P6itpQ2i+6XFewnrnvprehWmwJedqIdhIcPvtF2Oj9KdWI4QgF6hoAMOS6kFM5qkkd
-         AgsdsXlcFFHL4GgTe/pdnm8Gh11Lvh9fT8yl8I91xjC5lwIRFIhzAOoSvJ1Aj9UTmRro
-         TX0DlVJdCx7M0YpaBsfYIEdXZ0cS2BHffn5UUJM2byfTb+2z8hrqKlfCAS/Rf/qUSQhs
-         k64K5QihWxTl8YgyPvesTCzjsa5NtyhKeVaq790YzJtV+Utwzkeb6Y/anYAThukiSTrx
-         dPmg==
+        d=oss.qualcomm.com; s=google; t=1792477099; x=1793081899; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XAsGOIGfH/JxbAjnzlFqcJgkwSEZVDVRf2rQqbDcdDA=;
+        b=C/xxifIQHmegt9SjgkuvBsKXLrZq2BtyIntAh6DzjNIq/mMoqxmXf/pHwO0okiDzkl
+         8OK40aJVKPgag7GPtkIyU/lpIV7bKJt1FmnK6WdXaiF2Ydlj61wSM4mcqr84GXaPAxmD
+         i68xaQ+l7vVQuRFEBqaHQlrOiFEfXxbSsKcXNA4X6xrpeDWzscjhXZLy4F4HZLexAHlR
+         JkEwwgn1yr2/yuFRn/7ObDy27yr3zB/RdKhy6440jziF73w2T/FTbqK+EC4+8Xl/0Mvy
+         9xBRS+QvU1G/hdXcOTxzL60f27xedVC+1yf6TD5MHjFsuIeUDTIVtrmJYv21iuRU1e/x
+         KPKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792477045; x=1793081845;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BrmzMw6cqUI5ufvqtaTGz6/71SoGnJjwK4qz0ikJtRw=;
-        b=01pcY6FfdTBEJeVlIPPDryVJhgftmJ93/Tq5phHIqR0VzeoVJEU9FG/8EqZ8nWTs+3
-         54zmF6Nv+wZ/ylORSN/Tz5ezmm3+qO28wFnomHMA7WX/k3Q7X1TPPt7J4iphxSPcG9QH
-         6sysxweXPW0RaqmtVd4K1oFDYi513tBSVhTI4AmuweWg8GyLagwFWm7JQt56hj9vdedq
-         g9i4Nu0A2Yi3MIntQwBBo5wKHYi8FA+qlAyjbCOX8SqWw/U9Vb3OJa+VjdIpjcIaD6WB
-         wT9CTPti9QZsPgzjDS+kViSZh6q/u/SWrVW83+NAHyBQBVdU+ZC7yosJsVGhIL7gS5zf
-         a1Wg==
-X-Forwarded-Encrypted: i=1; AKwUvByZ3JQP2bj9ygUlV6FcIJFRUvoothJgHHT4jOmh+DipLsrMmnn9Ha1lXg4A7uTTX4xJCgRrpuQd3SrwY7w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWEei0UARI9ab13iqg08nK4CIvOMntfdSv4T6BkoPJlvIqPyZX
-	gxh+D08a3JoKGP2r9lgUqS+7YG18h4MBCjGGVBcFC1qPO6ttLLfB8Ni0eHr3N4r/Vp5+eoW/3U+
-	MhBFOlD2uNNheXyXkSBu2xJCtRlR3lciVVOErHOvBHg==
-X-Gm-Gg: AYBFou3dppZ/xs0xaTMCrg8QJe6SqzJmcdF0C5lUPf8yIhKGqlLTFZtQic4RAz72auk
-	KhbGEPUeQYyAbULlpGdM0UKQb4CwK0uHk7xWPYRJDeTFtkIbGJv0p5/U13Rob9RolsnbTkc63ph
-	Dos5ebUKwfuLKqRx/DlIN0LfZABDIH6B5Pcf0rjwBRfFXBn98uPSQV4sFRN/l681iWc68fctkzO
-	3E9OOrGULD7N9cg/k3NX4iiWaSDTW7pR8pdTXCT8kNceBbQgvC8d6q7MTU+Nuq3xfpUYYmoGLZ9
-	GANTMDx5QwkaC3gXGTuPbfEz7wcYHY8aQDD9Km5CdTdiGFOthop90taXdKh5lrRJC0wcK81cjnl
-	MCIBnrePUp/SS
-X-Received: by 2002:a17:907:6e87:b0:c40:b180:db3b with SMTP id
- a640c23a62f3a-c419e03afcbmr741266766b.3.1792477044765; Mon, 19 Oct 2026
- 23:17:24 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792477099; x=1793081899;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XAsGOIGfH/JxbAjnzlFqcJgkwSEZVDVRf2rQqbDcdDA=;
+        b=CYEvgdafzxeANl3u3PW54kbmhq+iG5aolcDU4VpIcBNlR3E3QIaaID38H4r36yLJk6
+         XIhjRlZPwDKOX+pdnuuEC6lh0JNNeU4rOzjHv3zPcpxwKuZizNDN+1GSUx4wRPsdRLBy
+         6xgufjcrJu25p56uUaUJtvoMqs/QplqhanDTYLdHtu2bRQ6H9N9qyx8Vw9Fu9wxJ4Wpv
+         qeQi80hdqI0GK0+I4MJBf2arkaYXP1ghurFLlgm6S4qESWzPdGBtxmJqfbJi9qey8uV2
+         HlP0E001EwNBQWlZCFeGD3JjcBAsZZuXcleSdnnE6aU3MIeWgoqgYXpyhKkj55tkrJG+
+         ublQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzl+83aIkbuv8CI/4lN0zMM27A1NX5jMH+C4JiSbgH4Nxmw12s/DnLRQDcdVALaOQtfmIB1sX55iddHXzc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITeJHISPzDlQ1RI1St7A3s2E2gdUbvwJpqzgTEcYTWb9SMQs+M
+	v+so7PbH69AijX+zotyv2ZWonK7IjwPeW98h/6ey9ONUnj5V6eJ07gyzZ8+6IgeteTV7r+La1zN
+	1vpK6hDqNDTVkpolYIGMnheY88YGX8srhdjl/bISTS2iH7SW/ZdJ9ag+VPMIUa9QLWZ0=
+X-Gm-Gg: AYBFou3+AG6Qor5KxOHikysrlVqbTSnDC1zjdQCipfCgIWYtiIev6lk4gJsvRjkmlY+
+	Wuie6fZBcPV+M1LJfit18PvsM3OX6aMdthDU9HV3f2BUd7a0surZJyMbDM9zzPAC9hwRkBA+OU9
+	/6O+xalT4JYXYmvyeaXSuaGT7f/SSxYA7hOb/eXS5oJ4UR/EPuO9nXmGPYD5oNvxjvCkr93sT8f
+	ILJDn9Bsk/N6WLD5rpHxf988GbdK0VrKAPpPOhvjmWyJ61HwC+urfv8Crk+ta44FEIRIuOlb6Pw
+	6sv1SlwgM3tMk6bAk8OTwHIwFnvU21H5geXsDKGz1mMIkNzwombcylaHJSyhjvg9geT9UoQJJLG
+	NlfEhp9nVUygBbDqoShOc6OvVpAOntPxVQwqfLq4Hn4v0ikm1
+X-Received: by 2002:a05:701b:4518:20b0:163:d97f:96f3 with SMTP id a92af1059eb24-1850ce9e858mr13860655c88.4.1792477098557;
+        Mon, 19 Oct 2026 23:18:18 -0700 (PDT)
+X-Received: by 2002:a05:701b:4518:20b0:163:d97f:96f3 with SMTP id a92af1059eb24-1850ce9e858mr13860632c88.4.1792477097963;
+        Mon, 19 Oct 2026 23:18:17 -0700 (PDT)
+Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831ca95700sm33197858c88.23.2026.10.19.23.18.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 23:18:17 -0700 (PDT)
+From: Peter Chen <peter.chen@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Elson Serrao <elson.serrao@oss.qualcomm.com>,
+        Ronak Raheja <ronak.raheja@oss.qualcomm.com>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Udipto Goswami <udipto.goswami@oss.qualcomm.com>,
+        Jack Pham <jack.pham@oss.qualcomm.com>,
+        Pratham Pratap <pratham.pratap@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Peter Chen <peter.chen@oss.qualcomm.com>
+Subject: [PATCH 1/1] phy: qualcomm: m31-eusb2: Add register XCFGI_159_152 for SE0 recovery
+Date: Mon, 19 Oct 2026 23:18:11 -0700
+Message-ID: <20261020061811.3127511-1-peter.chen@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,236 +126,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015125118.2966247-1-me@andrei-z.com> <20261015125118.2966247-4-me@andrei-z.com>
-In-Reply-To: <20261015125118.2966247-4-me@andrei-z.com>
-From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
-Date: Tue, 20 Oct 2026 08:17:10 +0200
-X-Gm-Features: AclHuK8yK-clpjX1OPiZivKHfrRa7B-1lxRg4XY5MMZMZt_hU0VbFUFNU3sACZ4
-Message-ID: <CAMGffE=qjNDYdwx1PYgK1K87A4NhJ=cuR+kkUhdYH81gSGb-nQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 3/3] RDMA/rtrs: Post client read requests inline
-To: Andrei-Alexandru Bleortu <me@andrei-z.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Sagi Grimberg <sagi@grimberg.me>, 
-	Max Gurtovoy <mgurtovoy@nvidia.com>, Bart Van Assche <bvanassche@acm.org>, 
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>, linux-rdma@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAyNCBTYWx0ZWRfX6XR+hmM8zd16
+ NfGr9RZE53GwgEjkCG8HIw5CXh7Ewhnb6opmNBEwTk6s/siiRAjsFdbpZO1fyeHCMdrV9XtccNb
+ wUqPlW4Ke6xicZk20mLoz+OLbl6lKOc=
+X-Proofpoint-GUID: DVUjv8JHvJZXyP-v3EM-R2l6OqEI8akI
+X-Proofpoint-ORIG-GUID: DVUjv8JHvJZXyP-v3EM-R2l6OqEI8akI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAyNCBTYWx0ZWRfX46MwsRwyirqO
+ uB6HXS5I5JTpPLep3t0Qqcyg7uImMEDyXdrqXdShIzqLqPTFEzVhKNckAqNrJgM5bxIKZBzw5wD
+ rV4a8uZn33u/tUr8F5DyX1yUdA/JWyGaoAwLGw3xPosvnEf1t60txnsevzIkv3sXpEdLGm0xdoM
+ aIQER4ayb1dP+GVRPrDKxZcC9Vna+lRpZa6MHhVBIG8SCLLJGC+LC3+h08gTV0bD5Wxpyoetpfq
+ 1E5vPPgi9ThcgAaESjTHCSaWdc8GwqzUIHBwQ18cTyBO/qDwhpi0xCwd+mcaouTCTq0tiSr569h
+ 6hQMFBIlXmdUWofMaI8DvEPrzEx1Pc2CmU1cBYABZeuO8Jrm1RJ8bG4UUumrPTqkdNiZsMxHNjE
+ KXV4MJvP9olT1fjYhIbQQvk2eJEZv3f3zs5y8OgypmZT57m51tixazpXmIPgpLgaaDi+J7xIde3
+ Y12w9nemOy/JiY3YsKg==
+X-Authority-Analysis: v=2.4 cv=TcsDJhQh c=1 sm=1 tr=0 ts=6ad707ab cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=fkmqLtjFOitS6APqvyEA:9 a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200024
 
-Hi Andrei,
+From: Elson Serrao <elson.serrao@oss.qualcomm.com>
 
-The change looks fine to me, and I did some testing on it. However,
-the data doesn't seem to show any clear performance gain from posting
-inline requests.
+This patch introduces support for the XCFGI_159_152 register to enable a
+hardware-based SE0 recovery mechanism in the M31 PHY when operating in
+host mode.
 
-Best regards,
+During PHY initialization, spurious pulses from external devices can
+interfere with speed negotiation, potentially leading to abnormal
+behavior. To mitigate this, the M31 PHY provides a fail-safe mechanism
+controlled by bit 159 of the XCFGI register.
 
-Jinpu
+When XCFG_SE0_TIMEOUT_EN (bit 159) is set, a hardware counter is
+activated to monitor the SE0 state. If SE0 persists for more than 2.5 ms
+before entering L0 mode, the PHY interprets this as bus inactivity and
+resets the state machine to its default state. After transitioning to
+L0, the PHY resumes normal operation in accordance with the eUSB
+specification.
 
-On Thu, Oct 15, 2026 at 2:51=E2=80=AFPM Andrei-Alexandru Bleortu
-<me@andrei-z.com> wrote:
->
-> The RTRS client sends a read request as an RDMA Write with Immediate of
-> a small message: the user message, the RTRS header and one memory
-> descriptor, about 60 bytes for RNBD. The message is posted by reference
-> and the QP asks for no inline data, so the HCA has to DMA-read it from
-> host memory before sending. That read is on the latency path of every
-> read.
->
-> Let rtrs_cq_qp_create() take the amount of inline data to ask for.
-> The client asks for RTRS_CLT_MAX_INLINE_DATA, enough for a read
-> request with one descriptor and up to 64 bytes of user message, and
-> the server asks for none. If the device refuses, the QP is created
-> without inline data. The client posts a read request with
-> IB_SEND_INLINE when it fits in the inline size the device granted.
-> Write requests, whose message travels behind the data in the same
-> WR, are not changed.
->
-> Providers copy inline data from sg_list[].addr as a kernel virtual
-> address, so the inline path puts req->iu->buf in the on-stack SGE.
->
-> Assisted-by: LLM
-> Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
-> ---
->  drivers/infiniband/ulp/rtrs/rtrs-clt.c | 17 +++++++++++++++--
->  drivers/infiniband/ulp/rtrs/rtrs-pri.h | 10 +++++++++-
->  drivers/infiniband/ulp/rtrs/rtrs-srv.c |  2 +-
->  drivers/infiniband/ulp/rtrs/rtrs.c     | 22 +++++++++++++++++-----
->  4 files changed, 42 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/=
-ulp/rtrs/rtrs-clt.c
-> index bf3a0377da3f..4a552e0459b2 100644
-> --- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-> +++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-> @@ -489,6 +489,17 @@ static int rtrs_post_send_rdma(struct rtrs_clt_con *=
-con,
->                                       req->iu->dma_addr,
->                                       req->sg_size, DMA_TO_DEVICE);
->
-> +       /*
-> +        * Post the request inline if it fits in the granted inline size,=
- so
-> +        * the HCA does not have to DMA-read it from host memory.  The CP=
-U
-> +        * copies inline data from a kernel virtual address, so put
-> +        * req->iu->buf in the SGE.
-> +        */
-> +       if (req->sg_size <=3D con->c.max_inline_data) {
-> +               sge.addr =3D (uintptr_t)req->iu->buf;
-> +               flags |=3D IB_SEND_INLINE;
-> +       }
-> +
->         return rtrs_iu_post_rdma_write_imm(&con->c, req->iu, &sge, 1,
->                                             rbuf->rkey, rbuf->addr + off,
->                                             imm, flags, wr, NULL);
-> @@ -1714,11 +1725,13 @@ static int create_con_cq_qp(struct rtrs_clt_con *=
-con)
->         if (con->c.cid >=3D clt_path->s.irq_con_num)
->                 err =3D rtrs_cq_qp_create(&clt_path->s, &con->c, max_send=
-_sge,
->                                         cq_vector, cq_num, max_send_wr,
-> -                                       max_recv_wr, IB_POLL_DIRECT);
-> +                                       max_recv_wr, RTRS_CLT_MAX_INLINE_=
-DATA,
-> +                                       IB_POLL_DIRECT);
->         else
->                 err =3D rtrs_cq_qp_create(&clt_path->s, &con->c, max_send=
-_sge,
->                                         cq_vector, cq_num, max_send_wr,
-> -                                       max_recv_wr, IB_POLL_SOFTIRQ);
-> +                                       max_recv_wr, RTRS_CLT_MAX_INLINE_=
-DATA,
-> +                                       IB_POLL_SOFTIRQ);
->         /*
->          * In case of error we do not bother to clean previous allocation=
-s,
->          * since destroy_con_cq_qp() must be called.
-> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-pri.h b/drivers/infiniband/=
-ulp/rtrs/rtrs-pri.h
-> index 59529d593869..bcba80d3c214 100644
-> --- a/drivers/infiniband/ulp/rtrs/rtrs-pri.h
-> +++ b/drivers/infiniband/ulp/rtrs/rtrs-pri.h
-> @@ -97,6 +97,7 @@ struct rtrs_con {
->         int                     nr_cqe;
->         atomic_t                wr_cnt;
->         atomic_t                sq_wr_avail;
-> +       u32                     max_inline_data;
->  };
->
->  struct rtrs_path {
-> @@ -286,6 +287,13 @@ struct rtrs_msg_rdma_read {
->         struct rtrs_sg_desc    desc[];
->  };
->
-> +/*
-> + * Inline data the client asks for on its QPs: enough for a read request
-> + * with one memory descriptor and a user message of up to 64 bytes.
-> + */
-> +#define RTRS_CLT_MAX_INLINE_DATA (sizeof(struct rtrs_msg_rdma_read) + \
-> +                                 sizeof(struct rtrs_sg_desc) + 64)
-> +
->  /**
->   * struct rtrs_msg_rdma_write - Message transferred to server with RDMA-=
-Write
->   * @type:              always @RTRS_MSG_WRITE
-> @@ -325,7 +333,7 @@ int rtrs_post_recv_empty(struct rtrs_con *con, struct=
- ib_cqe *cqe);
->  int rtrs_cq_qp_create(struct rtrs_path *path, struct rtrs_con *con,
->                       u32 max_send_sge, int cq_vector, int nr_cqe,
->                       u32 max_send_wr, u32 max_recv_wr,
-> -                     enum ib_poll_context poll_ctx);
-> +                     u32 max_inline_data, enum ib_poll_context poll_ctx)=
-;
->  void rtrs_cq_qp_destroy(struct rtrs_con *con);
->
->  void rtrs_init_hb(struct rtrs_path *path, struct ib_cqe *cqe,
-> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv.c b/drivers/infiniband/=
-ulp/rtrs/rtrs-srv.c
-> index 5314599d29fe..30fa4c7f64dc 100644
-> --- a/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-> +++ b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-> @@ -1759,7 +1759,7 @@ static int create_con(struct rtrs_srv_path *srv_pat=
-h,
->
->         /* TODO: SOFTIRQ can be faster, but be careful with softirq conte=
-xt */
->         err =3D rtrs_cq_qp_create(&srv_path->s, &con->c, 1, cq_vector, cq=
-_num,
-> -                                max_send_wr, max_recv_wr,
-> +                                max_send_wr, max_recv_wr, 0,
->                                  IB_POLL_WORKQUEUE);
->         if (err) {
->                 rtrs_err(s, "rtrs_cq_qp_create(), err: %pe\n", ERR_PTR(er=
-r));
-> diff --git a/drivers/infiniband/ulp/rtrs/rtrs.c b/drivers/infiniband/ulp/=
-rtrs/rtrs.c
-> index a642626e0ecb..08b8b1abb1d3 100644
-> --- a/drivers/infiniband/ulp/rtrs/rtrs.c
-> +++ b/drivers/infiniband/ulp/rtrs/rtrs.c
-> @@ -253,9 +253,10 @@ static int create_cq(struct rtrs_con *con, int cq_ve=
-ctor, int nr_cqe,
->  }
->
->  static int create_qp(struct rtrs_con *con, struct ib_pd *pd,
-> -                    u32 max_send_wr, u32 max_recv_wr, u32 max_sge)
-> +                    u32 max_send_wr, u32 max_recv_wr, u32 max_sge,
-> +                    u32 max_inline_data)
->  {
-> -       struct ib_qp_init_attr init_attr =3D {};
-> +       struct ib_qp_init_attr init_attr =3D {}, attr;
->         struct rdma_cm_id *cm_id =3D con->cm_id;
->         int ret;
->
-> @@ -271,13 +272,24 @@ static int create_qp(struct rtrs_con *con, struct i=
-b_pd *pd,
->         init_attr.recv_cq =3D con->cq;
->         init_attr.sq_sig_type =3D IB_SIGNAL_REQ_WR;
->
-> -       ret =3D rdma_create_qp(cm_id, pd, &init_attr);
-> +       /*
-> +        * If the device cannot provide the requested inline data, create=
- the
-> +        * QP without it.
-> +        */
-> +       attr =3D init_attr;
-> +       attr.cap.max_inline_data =3D max_inline_data;
-> +       ret =3D rdma_create_qp(cm_id, pd, &attr);
-> +       if (ret && max_inline_data) {
-> +               attr =3D init_attr;
-> +               ret =3D rdma_create_qp(cm_id, pd, &attr);
-> +       }
->         if (ret) {
->                 rtrs_err(con->path, "Creating QP failed, err: %pe\n",
->                          ERR_PTR(ret));
->                 return ret;
->         }
->         con->qp =3D cm_id->qp;
-> +       con->max_inline_data =3D attr.cap.max_inline_data;
->
->         return ret;
->  }
-> @@ -296,7 +308,7 @@ static void destroy_cq(struct rtrs_con *con)
->  int rtrs_cq_qp_create(struct rtrs_path *path, struct rtrs_con *con,
->                        u32 max_send_sge, int cq_vector, int nr_cqe,
->                        u32 max_send_wr, u32 max_recv_wr,
-> -                      enum ib_poll_context poll_ctx)
-> +                      u32 max_inline_data, enum ib_poll_context poll_ctx=
-)
->  {
->         int err;
->
-> @@ -305,7 +317,7 @@ int rtrs_cq_qp_create(struct rtrs_path *path, struct =
-rtrs_con *con,
->                 return err;
->
->         err =3D create_qp(con, path->dev->ib_pd, max_send_wr, max_recv_wr=
-,
-> -                       max_send_sge);
-> +                       max_send_sge, max_inline_data);
->         if (err) {
->                 destroy_cq(con);
->                 return err;
-> --
-> 2.56.0
->
->
+Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
+Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
+---
+ drivers/phy/qualcomm/phy-qcom-m31-eusb2.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
+index 275df38256de..8d954e772585 100644
+--- a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
++++ b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
+@@ -56,6 +56,9 @@
+ #define USB_PHY_XCFGI_7_0		(0x15c)
+ #define PLL_LOCK_TIME			GENMASK(1, 0)
+ 
++#define USB_PHY_XCFGI_159_152		(0x1a8)
++#define SE0_TIMEOUT_EN			BIT(7)
++
+ #define M31_EUSB_PHY_INIT_CFG(o, b, v)	\
+ {				\
+ 	.off = o,		\
+@@ -88,6 +91,13 @@ static const struct m31_phy_tbl_entry m31_eusb2_setup_tbl[] = {
+ };
+ 
+ static const struct m31_phy_tbl_entry m31_eusb_phy_override_tbl[] = {
++	/*
++	 * Set XCFGI[159] to enable SE0 timeout mechanism in M31.
++	 * This enables a counter which will assume bus inactive if
++	 * SE0 is more than 2.5ms and reset the state machine to default
++	 * state.
++	 */
++	M31_EUSB_PHY_INIT_CFG(USB_PHY_XCFGI_159_152, SE0_TIMEOUT_EN, 1),
+ 	M31_EUSB_PHY_INIT_CFG(USB_PHY_XCFGI_39_32, HSTX_PE, 0),
+ 	M31_EUSB_PHY_INIT_CFG(USB_PHY_XCFGI_71_64, HSTX_SWING, 7),
+ 	M31_EUSB_PHY_INIT_CFG(USB_PHY_XCFGI_31_24, HSTX_SLEW, 0),
+-- 
+2.43.0
+
