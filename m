@@ -1,99 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792513573;
-	b=V54lkcHSTKPXMdjS49+Lfb5D3Qncym+NX/tq1U8P9iuZ4Yv67WLd2+EDlK9T7fMZ4ctq
-	 3liIV3yMfYzHaR7qjtvclb8jHFEIBqQG+ixEMliu1qLLwgNJkgsmvc6unQsFhfhaueUqI
-	 Cn61OkPBAcyDDajO/it8u/LyJRsVGz2U9azeCNHMZImE9zg2ojkvZF26Kn91LLfEvPqfx
-	 GiD6xi56GAuYEj8ccmp5Dw1+ywDPpXCPSWoOahIiq6SEr5ZSFIjFFQidfGL0XBwhJanfY
-	 l0qMZIT8n6CJp2ADknhNfAeEnqsdJap2jJpFKDy3A4oMN5WjVxuQDAFl7iJ4MmIx5Mg==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792513681;
+	b=N8TWHOdt+Yu4TsdO6S6jDv4q15PfjP25alDrTCGdZnb3cmW3qVFTsosCP4iuGgCIT42a
+	 dWlRVMb9a8UQB56a7t5P9SBW1qR/2x/VLnv3ukGhZQYwSUPRPBWE+LfdOLIYSkhyJy7LT
+	 tmzBdMpg6cYaNJ5YuE3oJFCRrLemSak0NDgD1c7GLYlAqyslLb+1iFGdWRFPKis2LQayQ
+	 r3wHZC+82wzyjGSWg6GSn+uNpuf4jl9YfeJB1ZHaZWw4AsoIDmXWr7Sncji+KcFEY8RN4
+	 9BarodXyUk2xsbU7dNueb85mdAxlCJSja5mFnCAxVF713XGo/ctzJ9W1wUjhU26U+Ow==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513573;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=i5VCNFsiActAG/QeC/85RIQAntpDGhNKO2VQiTeZ8TM=;
-	b=2Z7nT6Ah3PZq1gs/vz9gCaEI9T5NIui+/t0xi0Nf673/NzPovRUj0Xv+f8TNsPwWDD/z
-	 bAOdmnIOJOLNWqH5eLQM0DmT+ANETH+8Z8ph847qqoKWMUrrt2gNYA5sfH7h5Vk4vouUH
-	 r3lF6b+yJ7ziGKJQaGQoVdE/D9/Ue+gqpkKKEnfLAcqzxooHQ8kdxkwBQunprUnSRPTT2
-	 mnyPo/w9ctuVQKBvSNDq2YGtSiEqMAgZwRCAm6K7SAm+h7RjTsxwLyN7KRuxfZHMYKuRy
-	 nz9IrEqI7H32imRkqYQS63Hvcl9hsDWaUvzj89hTNSfmXFIPWxPvCsSmoxpnxim8zRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513681;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=QeS1Qn1P7c+Lpc78VDjXLG/qiXX1K2KQJ38UB/RAQKw=;
+	b=KZSOZmPY7NQ5K4IU1Jl8OrFPMbC1KRUCVzGIKQblmsW8f3ZZ2no+QeoNJCeZUnLXCFQ9
+	 K+TOMrUXpa135P0tysZay9+SW45QVNhukmSf6mx7SJDf2uKV24y3DPedDVdbSuwYHSrOb
+	 HYFeUkeCfNZCTw+wG8WxDBy2Pbv5Jm2bGkwk9rgL4hFyGQBd0ATFcAAhu52w/97CcUnYS
+	 vUJElZsCc6GpI2DfCTE8RYQkFTcz+z734MYjuJ6lIK4/RIFWT1vaAoaPRe82jzp/BxP4a
+	 cY/OMntKsFegfST/P9RIJwBt+daQSgfREoSMbB3Re0yIYffQEMXwPP0A5dX/o82yaeg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gOmg+vyv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hmfgCrM6;
+	arc=fail smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E76606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:26:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35E76606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B73606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:27:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B73606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gOmg+vyv
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e96502e447so24731445ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:26:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792513572; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O69FaAecu7trLuBlL4As7qQGV0HXPK1zTRcY8Kv85c2Pxy51FDwaFlmvzjDc66rUJ7
-         Hqa3b/g0k6psWN15xP9vmc/kH6V8WrZtxi73YseXAe4yRzhfrnum/zlWx6vLTozYcMot
-         5PPVnZckVm8YQ6EIJx/4BL/S6dkHlg7RnURrbxiKQy0aPSHbLj4kmnFIe4gLNNuGqq0L
-         ZPDEvWP4s0XFEzg5p1vgj6ipszN6+X0w48rPQtOc2rfDnXCuqvSopn+Yogz/elGHJPoq
-         PH9eMDMiv+BkX9HzXhnQ81nWQy7xIn/511UZHAqF2UlJPlDzWJIbMkhIOHj+PYxI1bA3
-         JVcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i5VCNFsiActAG/QeC/85RIQAntpDGhNKO2VQiTeZ8TM=;
-        fh=sPilOYAT4QfMgYxGH2LjRrcqbLUzvrQqMQUicHZMufQ=;
-        b=K+6plclFNvZC1ykUEpFxjTCaJRic0m77GWtHv0xacRF0KInV6AGUQubfk58wwBGVnS
-         pTtG1EqhK12z/d51ptZY/rcd0xAnDrdz8Hk718Jk63m1zAOWj1AWh/1VAd6gbOaWD/VX
-         KXWHzyzsqvdtM7vI0izo3ya7CbWby8euOFJ7LUAKhM+GkQE6kB2ZrOUwC7BjimyJgndA
-         H+fExzveimGoOm/K/aCnMdK6shjmrSDPXy4SXBgxELK4HEU8+VoOodG+MMRurYddFZVf
-         5o1qEE954YHJSZdo+SqS1X7V7o6s20JmwxBEErc8M3HPhpSLnYFSxe3y9NWkAvlj0Ju9
-         muEA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792513572; x=1793118372; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i5VCNFsiActAG/QeC/85RIQAntpDGhNKO2VQiTeZ8TM=;
-        b=gOmg+vyvmWIMuS2hx5IRLchijNNSzBjjz0B7TdGImrb8nIvBP1nkZ1u0WBGOTBjq7R
-         9+OzKmyI4ka0TZWG4hnYwBR9eQGpOp5s2UlzMfjaQpXodbm22d173/XNhqRJY0cVrtJ+
-         tUOEFOwHSVzTocD35ojctfo6ve6fPH+mCuWbofsfGxdUVlrRTXhGkfxny49Q8CWxrkDk
-         MVsdVhT+vlyoze5JgDgPVHtAlDTi3KlEe9pvyDhJVrbLUfUKOJVP1CmgVkSVT9090lf4
-         GqzRzoIT2W92ENV/8HW7PRSq0nDIbldt0KEAk8ciIv4GQbfPpsINQR3mI7LP6Hh69SXF
-         QaIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792513572; x=1793118372;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i5VCNFsiActAG/QeC/85RIQAntpDGhNKO2VQiTeZ8TM=;
-        b=S4cKak/la2FynUtJFYmQqQz0ASGX+mMfaJUdlGSyq/3p9m+vOro4n5G7OSln3lbBgZ
-         NMv3MHpTAawZRxlOdBFMkazpEwsfluXJN8+LOvjlqlAAZM1xUt5nH+Q05XaaOFdLrhH1
-         8kmmHjwYaCxOQef/mN5ofcAvWQ1tmuL/dQO+VHERaoy+p7Z6o6xqB6TpncykUillNxp+
-         rMQ4O6jq0egj1eSMhXIvfVonz73t9v8CqL0oO0ni66uRQPSUBaONFWlTLc17s6wvwUB0
-         NTdu4SWJKh1E5fBhsSX4teDJ/JNE+gB0AB4548nTUs/mcsXs5qrqOM7ZAnEJWYvlKGyD
-         bB5Q==
-X-Gm-Message-State: AFq9FYLVNXLWdGdjnOsW6W52ZMN/891dc5M4uKtO7kdEtuUNK1NksTFK
-	GXI/PyFJQBmoFwNa54UxFzYxim6l90+X7G9vtGWHi7b0qBe8bFjNY2etEiM4xJ53nPveq4se0WO
-	h97jaZjGIrNQ4jrd15xFZrrHgYJhobXI=
-X-Gm-Gg: AYBFou2Ld+Q+lzi0GY+pPAL9lEdDtOpSNgQsXnUnCXHWi4cpa1C7lfdMac2lvzIMbQ5
-	v9E36v3sg7r6d9bF7AwMRKLBgQmS+69yf+TIIihykbw+qUm9k/dY/4p/FgV5B712BhgNvTMVbyT
-	m4AfAI/GtYRIq7vpO9/sysfpO7ldcWBkukOp5FIUABtNn5yoRD5dOtrEe/6zoUlEJ55VwoWVHw3
-	40V9Brcw4vclUsXLflLmIUi8F6D8PX8PrsM+5driD6np1+DP7IQbncAn6bRM67Rl0ed4dkaNwGq
-	yaqOlMZVLDlkdOnKwQsb2VKsqONJf9FR49ENzQDp6nMWblUCEPJx+0LzbPtXr9vhZkQBmbSZIIj
-	yfqQMtUqpCUZWu+6QENCZM53cfqDMRWxMTeCLawhhKw==
-X-Received: by 2002:a17:902:cf41:b0:2e3:980:dfd6 with SMTP id
- d9443c01a7336-2e9a6f52a36mr96789475ad.38.1792513572330; Tue, 20 Oct 2026
- 09:26:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hmfgCrM6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792513679; x=1824049679;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=qICt6AOPrCVPdBlIngaVKHA6Ampw1bEpn/7se0QTUBY=;
+  b=hmfgCrM6poqfRBFhaPl3oXgv1UKKdreQCm7BDwT9zmC8QXdvwaORiqxK
+   b3ZGxNDvpt4+sKPbAzG0Q1yvdrZn136gn3od/wjcpV3fEwUZPeHLvlwY4
+   V3dWdHFW9Z9D6wJA31zgmHrBZCi00XeI4Cd10n8r6ChUpPw5k7T3JiUMM
+   gI8eqabt+y0lTKQzMepq2dJJZSIghV2e88grieaLgBXSfIJCOl7lxS5Fr
+   GdI1ZjdggQR/1fGrI/+3meIKeLqBj2RNL1nRzL71K13apIKjdX0xdN6vz
+   v5CN1ZGy3Rbllz07ms3yyzTtb2Bf9MuuwIrx/RCSCPZPIz1l7Eor6RWhf
+   Q==;
+X-CSE-ConnectionGUID: tvdOuIgCRt2zrbn9lGSsYg==
+X-CSE-MsgGUID: b8a0iLe5RMixttHB2fFckg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1249782"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1249782"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 09:27:59 -0700
+X-CSE-ConnectionGUID: 9TZ+PzzHSaq3+SHDUH7aoA==
+X-CSE-MsgGUID: iR4B9n01RM+kCT0w86rEaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3258900"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 09:27:59 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 09:27:58 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 20 Oct 2026 09:27:58 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.48) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 09:27:57 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NaBFZvxS0zQXQg3KHoBS0WiVCv2tmIckR4fbQHJanQznQhZ/va1V39UboVXdFG6qxKuRvr428k+ZWuaXUn2bep57vqQIdjzoMv0yO0YQ5wRw6zJq/ZWXww4f9iqnOJZAazEWpwPJp5yyZzeSMKDSkT/eM4tV38DEhWCEqRTtgOdajWzpoPT8s4wADzlMk+GDW7Y3FuSw+4lA93SGFu/mxJvqgFugTfj/vzwSB4VH+/Ww3xVzUEvoZuV3GHKJB8KYFmkNHcxpiJT3FJE7/jUHB7FTgv1VxLRhdEVbdXG8NZ6+A9Y5+sQu+sqN5JANg9prbvRTWibSbwaQZHRWr4L6BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QeS1Qn1P7c+Lpc78VDjXLG/qiXX1K2KQJ38UB/RAQKw=;
+ b=m8cTzGJNDJy1Uf1wy4abGbbgZYOmsIxdtmstNJWzZm33Ij3ug7oJufRiAPCP5p+NXxD83Nk681FNIfE21u2J4QyLpHkWyscM7tKd+HD9AVpS+0vsImU5zTrnR4H8xcOE1ArN7n6sjKR77zcVmiqu5Kv7ae7i+gSPZaHbtiSDjPDOERp0my1KUKfDyL+NJVaEYI1pnwvsflafqmbw1GYzM8mM7cv8BwX4eDCMC0Y8XFfN8FtYdOUsVFmsFsyel1E9S7hZl1+DbBt9QbceYDq+VSQelQUXH7zeI55QmGH6MZd9uuy0pgusQy55onJzdPfRkp+vpTwaUbDK+L2ceaNSQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
+ by CH8PR11MB9507.namprd11.prod.outlook.com (2603:10b6:610:2bd::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 16:27:50 +0000
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6%7]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 16:27:50 +0000
+Date: Tue, 20 Oct 2026 09:27:48 -0700
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Fenghua Yu <fenghuay@nvidia.com>, Reinette Chatre
+	<reinette.chatre@intel.com>, Maciej Wieczor-Retman
+	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
+ Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, Chen Yu
+	<yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>, <x86@kernel.org>
+CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+Subject: Re: [PATCH v14 00/24] Allow AET to use PMT as loadable module
+Message-ID: <ateWhGpyczGElZEm@agluck-desk3>
+References: <20261019205031.16977-1-tony.luck@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261019205031.16977-1-tony.luck@intel.com>
+X-ClientProxiedBy: BY3PR05CA0025.namprd05.prod.outlook.com
+ (2603:10b6:a03:254::30) To SJ1PR11MB6083.namprd11.prod.outlook.com
+ (2603:10b6:a03:48a::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,296 +136,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014030646.662661-1-daeho43@gmail.com> <145faed4-947f-4f09-96af-c0bea87dd1db@kernel.org>
-In-Reply-To: <145faed4-947f-4f09-96af-c0bea87dd1db@kernel.org>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Tue, 20 Oct 2026 09:25:57 -0700
-X-Gm-Features: AclHuK-ASa1KcgVYjmw7SCIz_2ydoB8IjCtGwj_sZs7cG4Z5j4Fo-SXQU-qetAE
-Message-ID: <CACOAw_zidP9MX_K0fJU8_A_XQ6sYBRbmeug9vc9i4pjhPO1eoA@mail.gmail.com>
-Subject: Re: [PATCH] f2fs: reserve space to be shrunk during resize_fs
-To: Chao Yu <chao@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
-	kernel-team@android.com, Daeho Jeong <daehojeong@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|CH8PR11MB9507:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c1e0026-dc81-4382-1844-08df2ec71526
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|6133799003|22082099003|18002099003|10067099003|261009223027099003|11063799006|921020|56012099006;
+X-Microsoft-Antispam-Message-Info: G0vw8We7zN2crCZZU4xlgAHi/wA7L+1tzKDC8AuOHUXSrvbTIksfYWa7QUu9o52EkkDZDNPP72VftENyRksqafwk1e0X4PRvhEq2Whz/dyW5VTHfHs9d7IQqVY5BFVhmcIZak7PkdmYancqQoIBnzNPdFcFujJeiXIb8B1NOB2JkgcXOjeCx5OPsLioEsasklmBamAMXOonqal/fFleV3O24TUkSE4bY/LqplhbnI9AD+aLJJZjZOoh4gtmKa3sh9HDTzTY7JjBJCC6YdjW2SLA7N8U/banMZ9MxqRMaMHnfez6bjfXWxg0R4Zm2V7SLhwFlx6rM87J6pT3sX/cAsyWSzA/yL2NVEpBWUL4D+avMm/vTf1WACKEg5ngl2tnYRA3n5Y0u8GFRNEgZ84ke5/p+4r61Z2Q4JDJv5E/5idz2IJqk4C5sEDPee2GQtPQG25gDJeNKTEl9nwzfqLuG0auWzpfXrKMUhsGZ3Mz/WwZTqNm1OelvoGMvqWNtqcwPkggwf61fBJ6z6+LMLBUzsNDmtqheJawH67pWXtZe5TBFdNm/PVqiRiHMF0d/4lahNHJI+V72Pg9e3C5J0JEIcuSz8rCY5fl0k4LCrqHF7mfc3HsGFwt9rYr50+nIoNbxbMc71bzBjZ1AcyjJnHiW2g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(261009223027099003)(11063799006)(921020)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ul2FlqMVcLEUbb1gqSOfaP1pHiaeuuHdpiS/e8u4Dp5iVGD/MNX9a2m9asB0?=
+ =?us-ascii?Q?qEdcUoh1q/jTZEwfZ2/gj3aJwDahz9ki4GfNH36Sw74iZtBJEqzeHZyBELjd?=
+ =?us-ascii?Q?Zq87qO9/Ys/tbDrjcO7TFd0G/2PHeHbd2bhlDeX0noKMt2eROoBBIQdebQWb?=
+ =?us-ascii?Q?LUviuzcuHo/gxXudeuBoFRqmufRB7XaIWWiKAm6Y5m6Dzo3fqP/DxgKpIkrb?=
+ =?us-ascii?Q?Vo+zvvVPSOH2+XyADYj1qgYidbMcies95u+FpsGzcoBWKgpROQYBjzJcW3BN?=
+ =?us-ascii?Q?Q2iwweVobkXvRMhWlr3ErSuFW3rR8ovZUXhOqfOJR7q6c0gED11negYa3nHV?=
+ =?us-ascii?Q?LJ4UlEZloEzxQkPVR3aEImhkbL8ezKFmP3r973hK9YB17eJhRh+Me+I0+MQF?=
+ =?us-ascii?Q?NLMOzss8clFYdgev3jSzH4CXF33rzHciIVRX2xdIFzcLWNTpaJdkLYG8neHb?=
+ =?us-ascii?Q?Wgxw/uXQtYj4zavfZHPA+uCLvB+W+v/J7ArscihzMC9klBIdTANzGM80yFOt?=
+ =?us-ascii?Q?d6eO76BOLltFyhcCPdtSACxyOdNUE1rx6fA9RQmB90CbzNEApzaxO/pIp0hu?=
+ =?us-ascii?Q?9xf52VNdDRlEHr697Ob9PtUBmi7s/B3jLg63njm5gVx7sH10xO0Pk0qm6jvK?=
+ =?us-ascii?Q?/gnO4V0Gw4BoF7duOJ+AknjzkO2+LIW7PDqoH7GdWdAskMQc/2DeaYwOz3uE?=
+ =?us-ascii?Q?ptg+iFCV6viOGdX6xKrFbZZe/sv51GcLfjmEYWRaZq8VCbhBteQkQlBys2tI?=
+ =?us-ascii?Q?xxvWpLnTjJ6uOPvefWffUEKfAEWyHzxDRtVhxH8WapKAntMDHX6gT6KW8up8?=
+ =?us-ascii?Q?ZVYAZc4gc6er5u1FUbXP4phTzHfzokY0vCEeiki7pCTLEPuYGzdLxuXpH2nP?=
+ =?us-ascii?Q?70ctPP0zfWV2Qk3AviWcnk2VH4U/0+pcTbVUN0jmxYmAHXbSSk1Lb8JhlH6s?=
+ =?us-ascii?Q?lg+UIWgTCs8vHEjudqOWfuv1Gas3mEmWikiQsH1KT8dSMLxSm7oTy4nIGl/O?=
+ =?us-ascii?Q?1q40J6Th1QLMpZPqKv+7vX9j7cagwt2ZAkDGT1nGzUO3PuuLWfPeZW2lwhur?=
+ =?us-ascii?Q?6uEgOzoCZaKMaaR5GBLSm3BOV7pQP7LKRFknaPjVLzEH1SWc+gwL6f7qAEdM?=
+ =?us-ascii?Q?gZEH4nERKrYLkdMDlSlYCuX5/zIH/1wuxgsUD4tdhulaHEWSvyn8XlPxVp7V?=
+ =?us-ascii?Q?3KC8xXi5NpM7hAxF2gq9t94g5V4RKOJuPngEKCcBMTGZ0s5XwRFNdvEYTA7B?=
+ =?us-ascii?Q?xSHN8w+S9Im/HiSqV6oMiwidQXZuU/BC2RCZwOVqHgtKRHl0zdjGs0Ffdlqp?=
+ =?us-ascii?Q?RsPHZmc0Jl7v84mhDX4KpIMUaOuFQsBa/T8dcfIqbBkZ2HW8qBmMmjIBw8zo?=
+ =?us-ascii?Q?qvTZx3F6b3ySSqh2rExa1Mtwr3fGN6tMRzK8gjKtJ23DGWh7wLdzhoc2gNM+?=
+ =?us-ascii?Q?cjEGJAOVQT2xjb5Dke4oOmDT41T/tCTAdgT95sGbHS4JuxK12Eu55AKwEtk0?=
+ =?us-ascii?Q?Gghi5KAcORiuJ+QvZrtLVXCh2oBgSqxP9QIb9RXE3l486aEb+fO9VTl4tTD3?=
+ =?us-ascii?Q?yk33JQynui8/NVVnR+m6kvS9LdodiOH3F6JtCpVSPFwIUDRvRUFjSKqEZa/z?=
+ =?us-ascii?Q?hbVe1k2gVMC934jAFM+kxXy9TqL3//JxwRwjnRD+wVPBV4qUKeSfDWgdmfJv?=
+ =?us-ascii?Q?yunjtnLJhElZmYI2cJLPZH5Zn+F1u8jIGt5e66XDdkNHYHjIN/JHmlNctuGH?=
+ =?us-ascii?Q?ztJ3LG919g=3D=3D?=
+X-Exchange-RoutingPolicyChecked: jKqwip8k0wHikHIHujYjoHfMAmiFDynhUp/uMMK0qPWn6JqWZeQ/rFKNPeM4xVe20ICmkAFS4l87TB97D/SyQnGl+yiL7j1mxHbsSQn2opjb0HBTzr9vsL9vhLZ8Zmhqu9Y9gqvlyvK1cSgijqwuwV1tt0n3zNfoAwNhE5gFHzrQ44geGuhnhMBx9zgbIbEp+F57w952xu5y8pR9v2vcMvq3cz4BsUPZNmO5+5Snt+2i9w8z6j9FVMCQP11XrbUQZi1OIraNwCYM9EL6/W2ySr1hGUbDTf7+rf61qMMf6fTN8+WX/pcb+b1Mr4e7yEU2gxo0UB3TI+CN9IE6fYPEZg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c1e0026-dc81-4382-1844-08df2ec71526
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:27:50.1129
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6yU5AVSLKJ/Xefmzzy0cjJggQUSoRRmc7c6fkUMj9Zw2PKz+WHIrs0I0BrbmUZPeBoa3d9mid2YV7pyJVkFasg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR11MB9507
+X-OriginatorOrg: intel.com
 
-On Tue, Oct 20, 2026 at 2:10=E2=80=AFAM Chao Yu <chao@kernel.org> wrote:
->
-> On 10/14/26 11:06, Daeho Jeong wrote:
-> > From: Daeho Jeong <daehojeong@google.com>
-> >
-> > f2fs_resize_fs() checks whether there is enough free space for the
-> > shrink, runs a dry-run GC to migrate blocks out of the target range,
-> > and then drops gc_lock and the cp lock before freeze_super(). During
-> > that window, other processes, including root ones that are allowed to
-> > use root reserved blocks, can still allocate the free space, so the
-> > second check after freeze_super() fails with -ENOSPC even though the
-> > first check passed. This is easy to hit when the shrink is triggered
-> > on a live, busy filesystem, e.g. by an updater at OTA install time.
-> >
-> > Fix this by reserving the space to be shrunk once the first check
-> > passes. Add resize_reserved_blocks and deduct it in
-> > __get_available_block_count() for all callers, like
-> > alias_reserved_blocks, so that no one can allocate the reserved space
-> > until the shrink is done. The reservation is released together with
-> > the user_block_count update on success, or on any error.
-> >
-> > Also factor out __get_available_block_count() and use it in
-> > f2fs_resize_fs() to share the available block calculation, which takes
-> > alias_reserved_blocks into account as well.
-> >
-> > Suggested-by: Chao Yu <chao@kernel.org>
-> > Signed-off-by: Daeho Jeong <daehojeong@google.com>
-> > ---
-> >  fs/f2fs/f2fs.h  | 18 ++++++++++++++----
-> >  fs/f2fs/gc.c    | 41 +++++++++++++++++++++++++++++------------
-> >  fs/f2fs/super.c |  1 +
-> >  3 files changed, 44 insertions(+), 16 deletions(-)
-> >
-> > diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> > index 089a62c054e..6b9e1d0e71c 100644
-> > --- a/fs/f2fs/f2fs.h
-> > +++ b/fs/f2fs/f2fs.h
-> > @@ -1897,6 +1897,7 @@ struct f2fs_sb_info {
-> >       block_t reserved_blocks;                /* configurable reserved =
-blocks */
-> >       block_t current_reserved_blocks;        /* current reserved block=
-s */
-> >       block_t alias_reserved_blocks;          /* reserved blocks for de=
-vice alias */
-> > +     block_t resize_reserved_blocks;         /* reserved blocks for re=
-size_fs */
-> >
-> >       /* Additional tracking for no checkpoint mode */
-> >       block_t unusable_block_count;           /* # of blocks saved by l=
-ast cp */
-> > @@ -2666,16 +2667,18 @@ static inline bool __allow_reserved_root(struct=
- f2fs_sb_info *sbi,
-> >       return false;
-> >  }
-> >
-> > -static inline unsigned int get_available_block_count(struct f2fs_sb_in=
-fo *sbi,
-> > -                                             struct inode *inode, bool=
- cap)
-> > +static inline unsigned int __get_available_block_count(
-> > +                                     struct f2fs_sb_info *sbi,
-> > +                                     bool allow_root)
-> >  {
-> >       block_t avail_user_block_count;
-> >
-> >       avail_user_block_count =3D sbi->user_block_count -
-> >                                       sbi->current_reserved_blocks -
-> > -                                     sbi->alias_reserved_blocks;
-> > +                                     sbi->alias_reserved_blocks -
-> > +                                     sbi->resize_reserved_blocks;
-> >
-> > -     if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, in=
-ode, cap))
-> > +     if (test_opt(sbi, RESERVE_ROOT) && !allow_root)
-> >               avail_user_block_count -=3D F2FS_OPTION(sbi).root_reserve=
-d_blocks;
-> >
-> >       if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
-> > @@ -2688,6 +2691,13 @@ static inline unsigned int get_available_block_c=
-ount(struct f2fs_sb_info *sbi,
-> >       return avail_user_block_count;
-> >  }
-> >
-> > +static inline unsigned int get_available_block_count(struct f2fs_sb_in=
-fo *sbi,
-> > +                                             struct inode *inode, bool=
- cap)
-> > +{
-> > +     return __get_available_block_count(sbi,
-> > +                             __allow_reserved_root(sbi, inode, cap));
-> > +}
->
-> Do we need to use this to cover current_reserved_blocks update? because
-> reserved_blocks sysfs bypasses the reservation.
->
->         if (a->struct_type =3D=3D RESERVED_BLOCKS) {
->                 spin_lock(&sbi->stat_lock);
->                 if (t > (unsigned long)(sbi->user_block_count -
->                                 F2FS_OPTION(sbi).root_reserved_blocks)) {
->                         spin_unlock(&sbi->stat_lock);
->                         return -EINVAL;
->                 }
->                 *ui =3D t;
->                 sbi->current_reserved_blocks =3D min(sbi->reserved_blocks=
-,
->                                 sbi->user_block_count - valid_user_blocks=
-(sbi));
->                 spin_unlock(&sbi->stat_lock);
->                 return count;
->         }
->
+On Mon, Oct 19, 2026 at 01:50:07PM -0700, Tony Luck wrote:
+> Requiring INTEL_PMT_TELEMETRY=y to enable AET is a functional workaround
+> to enable enumeration of Application Energy Telemetry (AET) events, but
+> unacceptable to many users. It results in increased configuration complexity,
+> increased kernel memory footprint and inability to patch problems by unloading
+> a module and loading an updated version.
+> 
+> Add a registration function to the AET code that can be used by
+> INTEL_PMT_TELEMETRY to provide the enumeration functions.
+> 
+> INTEL_PMT_TELEMETRY can be loaded/unloaded independently of
+> resctrl file system mount/unmount. Perform enumeration on
+> every mount and cleanup on every unmount.
 
-Hi Chao,
+Summary of Sashiko review: https://sashiko.dev/#/patchset/20261019205031.16977-1-tony.luck%40intel.com
 
-Good catch. I will cap it by the space excluding alias/resize
-reservations in v2, like:
+Only issues in patches 12, 19, 20, 21
 
-block_t avail =3D sbi->user_block_count -
-    sbi->alias_reserved_blocks -
-    sbi->resize_reserved_blocks;
-block_t valid =3D valid_user_blocks(sbi);
+* Patch 12: [PATCH v14 12/24] arm,x86,fs/resctrl: Allocate maximum needed rmid_ptrs[]
 
-sbi->current_reserved_blocks =3D min(sbi->reserved_blocks,
-    avail > valid ? avail - valid : 0);
+Looks like a legitimate concern for a somewhat contrived problem. Users
+who use kernel command line "clearcpuid" option are always at risk of
+running into problems on the invalid h/w configuration they create.
 
-> > +
-> >  static inline void f2fs_i_blocks_write(struct inode *, block_t, bool, =
-bool);
-> >  static inline int inc_valid_block_count(struct f2fs_sb_info *sbi,
-> >                                struct inode *inode, blkcnt_t *count,
-> > diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-> > index 926e6976bc2..5bfdaeae794 100644
-> > --- a/fs/f2fs/gc.c
-> > +++ b/fs/f2fs/gc.c
-> > @@ -2374,6 +2374,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block=
-_count)
-> >       struct f2fs_lock_context glc;
-> >       struct f2fs_lock_context clc;
-> >       unsigned int secs;
-> > +     bool reserved =3D false;
-> >       int err =3D 0;
-> >       __u32 rem;
-> >
-> > @@ -2425,10 +2426,17 @@ int f2fs_resize_fs(struct file *filp, __u64 blo=
-ck_count)
-> >       f2fs_lock_op(sbi, &lc);
-> >
-> >       spin_lock(&sbi->stat_lock);
-> > -     if (shrunk_blocks + valid_user_blocks(sbi) +
-> > -             sbi->current_reserved_blocks + sbi->unusable_block_count =
-+
-> > -             F2FS_OPTION(sbi).root_reserved_blocks > sbi->user_block_c=
-ount)
-> > +     if (shrunk_blocks + valid_user_blocks(sbi) >
-> > +                     __get_available_block_count(sbi, false)) {
-> >               err =3D -ENOSPC;
-> > +     } else {
-> > +             /*
-> > +              * Reserve the space to be shrunk so that no one, includi=
-ng
-> > +              * root, can allocate it until the shrink is done.
-> > +              */
-> > +             sbi->resize_reserved_blocks +=3D shrunk_blocks;
-> > +             reserved =3D true;
-> > +     }
-> >       spin_unlock(&sbi->stat_lock);
-> >
-> >       if (err)
-> > @@ -2442,29 +2450,32 @@ int f2fs_resize_fs(struct file *filp, __u64 blo=
-ck_count)
-> >  out_drop_write:
-> >       mnt_drop_write_file(filp);
-> >       if (err)
-> > -             return err;
-> > +             goto out_release;
-> >
-> >       err =3D freeze_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
-> >       if (err)
-> > -             return err;
-> > +             goto out_release;
-> >
-> >       if (f2fs_readonly(sbi->sb)) {
-> >               err =3D thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
-> > -             if (err)
-> > -                     return err;
-> > -             return -EROFS;
-> > +             if (!err)
-> > +                     err =3D -EROFS;
-> > +             goto out_release;
-> >       }
-> >
-> >       f2fs_down_write_trace(&sbi->gc_lock, &glc);
-> >       f2fs_down_write_trace(&sbi->cp_global_sem, &clc);
-> >
-> >       spin_lock(&sbi->stat_lock);
-> > -     if (shrunk_blocks + valid_user_blocks(sbi) +
-> > -             sbi->current_reserved_blocks + sbi->unusable_block_count =
-+
-> > -             F2FS_OPTION(sbi).root_reserved_blocks > sbi->user_block_c=
-ount)
-> > +     /* shrunk_blocks is already accounted in resize_reserved_blocks *=
-/
-> > +     if (valid_user_blocks(sbi) >
-> > +                     __get_available_block_count(sbi, false)) {
-> >               err =3D -ENOSPC;
->
-> Since we already have reserved blocks in resize_reserved_blocks, we shoul=
-d
-> not expect there will be ENOSPC case here, right?
->
-> Thanks,
+If others think this is worth fixing, I can add additional checks to
+intel_aet_get_events().
 
-Right. While checking it, I found two more cases that could still fail
-the second check, and fixed them in v2 as well:
 
-- Root can legitimately use root reserved blocks between the two
-checks, which is not related to the shrink. So, I allowed root
-reserved blocks in the second check.
-- Checkpoint can be disabled by remount before freeze_super(), which
-deducts unusable blocks from the available blocks. Resize requires
-checkpoint anyway, so I added a recheck of DISABLE_CHECKPOINT after
-freeze_super().
+* Patch 19: [PATCH v14 19/24] x86/resctrl: Enforce system RMID limit on AET
 
-With these, the second check should not fail. I kept it with
-WARN_ON_ONCE() as a safety net, to avoid committing the shrink with
-broken block accounting if it ever happens.
+Same complaint as patch 12.
 
-+ /* checkpoint can be disabled by remount before freeze_super() */
-+ if (test_opt(sbi, DISABLE_CHECKPOINT)) {
-+     f2fs_err(sbi, "Checkpoint should be enabled.");
-+     err =3D thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
-+     if (!err)
-+         err =3D -EINVAL;
-+     goto out_release;
-+ }
-...
-- if (valid_user_blocks(sbi) >
--     __get_available_block_count(sbi, false)) {
-+ if (WARN_ON_ONCE(valid_user_blocks(sbi) >
-+     __get_available_block_count(sbi, true))) {
-     err =3D -ENOSPC;
 
-Thanks,
+* Patch 20: [PATCH v14 20/24] x86/resctrl: Export interface to report telemetry unbind/remove
 
->
-> > -     else
-> > +     } else {
-> >               sbi->user_block_count -=3D shrunk_blocks;
-> > +             sbi->resize_reserved_blocks -=3D shrunk_blocks;
-> > +             reserved =3D false;
-> > +     }
-> >       spin_unlock(&sbi->stat_lock);
-> >       if (err)
-> >               goto out_err;
-> > @@ -2510,5 +2521,11 @@ int f2fs_resize_fs(struct file *filp, __u64 bloc=
-k_count)>      f2fs_up_write_trace(&sbi->cp_global_sem, &clc);
-> >       f2fs_up_write_trace(&sbi->gc_lock, &glc);
-> >       thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
-> > +out_release:
-> > +     if (reserved) {
-> > +             spin_lock(&sbi->stat_lock);
-> > +             sbi->resize_reserved_blocks -=3D shrunk_blocks;
-> > +             spin_unlock(&sbi->stat_lock);
-> > +     }
-> >       return err;
-> >  }
-> > diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> > index d683240040f..28e49e8d71e 100644
-> > --- a/fs/f2fs/super.c
-> > +++ b/fs/f2fs/super.c
-> > @@ -5345,6 +5345,7 @@ static int f2fs_fill_super(struct super_block *sb=
-, struct fs_context *fc)
-> >       sbi->reserved_blocks =3D 0;
-> >       sbi->current_reserved_blocks =3D 0;
-> >       sbi->alias_reserved_blocks =3D 0;
-> > +     sbi->resize_reserved_blocks =3D 0;
-> >       limit_reserve_root(sbi);
-> >       adjust_unusable_cap_perc(sbi);
-> >
->
+Looks like a legitimate report of a race between unbinding/removing
+devices in parallel with mounting resctrl. Should I care about this
+scenario?
+
+
+* Patch 21: [PATCH v14 21/24] platform/x86/intel/pmt: Inform resctrl when MMIO maps are being removed
+
+1) Sashiko (still) worried about non-PCI telemetry devices that don't exist.
+
+2) Same device unbind/remove race with mount reported in patch 20.
+
+-Tony
