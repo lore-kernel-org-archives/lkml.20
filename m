@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792503799;
-	b=5Ut2/5QvvMRppkM7hDc68JXU0pOZpM9tcBzff2aMzSHzZAqui2X3WEqkQaCwJqzu2y2s
-	 dVjFiLMMfJCeutDXuNDbnvY+z4ti1F60AdutNKK8oF3ayD5UfaZ0P741KsRt+6c9H1jQT
-	 lSSOInq+vWc6hpU+F0KrFdE/tYs7rjlGQ6E0bXjam0VI3qZleEDq2odFTIBzAgctl41/Z
-	 K3aWWNDIDZafMhr3uCYc8hTyc+15Kr7Z1ta6TnoTgdxDiyeHMgRPX+9xPR6Xp9vXA48Du
-	 GboK/D27j564G5DIPswm1RIh2FUEevPyhnVpkIQ2ShoxztfjMaHam88BUWpTYBwR0vg==
+	b=nwqfk4E+Ouh2yZFFXGXB26CkevTG47GIopTyBVKOclcS3T/Aoxk9mCclRdYfQc+1zZxO
+	 ss6vn/jx03UEhc2hi9cczYFSgQULMK7c+HmjZj+7/7/z0qe7VCn8kn+Bg+mG++p5s9aqh
+	 GaN58Krb8T/xsWkuutE6wZJMykYwatpr5ne0Nq0mE6xSKqlra2PocFG3HQ+E3ZE/FMvla
+	 vB7prptbGXtR5FNgz1Q1LbWqlBPDOLZCtw9S0jDI0Ak8cVn14Vm5sjbkZ1haZYACS4Tr0
+	 dGJ5jY/ocKR5LwNQshl4Wza1b0fbyOxYYh7OII2hLDxnhZPQU7yggHsDLYaZWY+QjxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792503799;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=gh/ssZU1ZxA2lNKA+/oaCPlLUEBr+9t05sqZ/nZxsBw=;
-	b=AsAqEcHLjBz83fCiqZCAz+W1xPNO2mFzqg6NUw1vKH2SNxK2mRNuiQPvEcQ6cWcPpiuz
-	 e3FW3Npw7BE3XH43PWLSVQMYpQL73+Pi5Wh+BBGH6BfFZynfT0mPhqYwzRljNz5+I8ngf
-	 28hmDD+nR6qX6SnuEwlxSSPxh+X1q/s+30mvE6cEEtWWnc69WVe9quntg293i7SuPO39q
-	 2L4ZFfRt2Fh8XsyUEI5mx0e3y0bhywnejMsViSp8KrUnKY6+jTH1TEzMdMLsiLLZeUViE
-	 ZU1oFFY6CUCkX4DTwX5t3CwmQGxxskxtBUQBnvIfeMPl4bARGnWkbdNFIZAOUTvmEEg==
+	bh=odyqyzVMbrzTKYRZ9jw+lMszzq9Ci+4Dgl40G2QKZ4g=;
+	b=w84foT9oc8CaZ41VJd3OlyoMpZvt3s75H7YdE84frskMf6UOwqt1p7dSU5Gha6KFu9c6
+	 HmIi6EV8n+xg0NjGwkpxt94X/RXyoUtRnZGrh3jRCQ03cenYruuRvBuLc+IgU4GQ6yOl8
+	 W/RiAgNsoWLbr4mGMj7/vXLoEGbNHzRjBQH0WFvgVkZ3AwK22xCW4eve+Eh4+jkMPlW2n
+	 nmJ4kSQHUISBrcaL/Yy8hEooXU9iEt9jYOo2PnEWSxRSMNWiYioVjLsdw16umFctgQQVe
+	 jw8KPrjToVyrcK8Ke+xY3LuDjl9c52qobSFmIVQeSa2MJ8bgk/muunDNLC5OkmGlSPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=IkXwdVLG;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=sV3Uo3Ko;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B318606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B318606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB1F606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:43:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DB1F606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=IkXwdVLG
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=sV3Uo3Ko
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=gh/ssZU1ZxA2lNKA+/oaCPlLUEBr+9t05sqZ/nZxsBw=;
-	b=IkXwdVLG0sDBKrmS8NYxmOsyDtFxxe0YEyPflIxED2fwd1O/VJjVUT96yAVrV7ysZYab1CQwj
-	HOqeECoyWddbCkrFb3hAp+mgz5gl3ubf/Jj/aW+2gK3c3LLLElb4+CKS6gmm6X9iUJRWn7LbTlN
-	s1LU9k+NEE8W4Uk/pxZ2Eyw=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j8DBf5Bnzz1K98D;
-	Tue, 20 Oct 2026 21:43:06 +0800 (CST)
+	bh=odyqyzVMbrzTKYRZ9jw+lMszzq9Ci+4Dgl40G2QKZ4g=;
+	b=sV3Uo3Ko9ZQttkghzBtbsAEf2/Wh7G+zDqY2BnZ7vLilyF7lmmEisIUq9I/2iRDplOxHkxCds
+	HhEyj2Qza9eu1fKmByKARRH8GBmgO0Ygt7zJSWdQAQttGkc59ReQbyIB/gpOI1q2qtGDPW5jDma
+	pnWB8v9diq5zEU8VRlIKfOQ=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j8DBl6lnrz1prKf;
+	Tue, 20 Oct 2026 21:43:11 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3573C40586;
-	Tue, 20 Oct 2026 21:43:10 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 5F8284057F;
+	Tue, 20 Oct 2026 21:43:15 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
- 2026 21:43:09 +0800
+ 2026 21:43:14 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<james.morse@arm.com>, <babu.moger@amd.com>, <tglx@kernel.org>,
@@ -59,10 +59,12 @@ To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<ruanjinjie@huawei.com>, <tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>,
 	<jic23@kernel.org>, <gshan@redhat.com>, <catalin.marinas@arm.com>,
 	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v10 RESEND 00/15] arm_mpam: Introduce Narrow-PARTID feature
-Date: Tue, 20 Oct 2026 21:42:24 +0800
-Message-ID: <20261020134239.3921377-1-ruanjinjie@huawei.com>
+Subject: [PATCH v10 RESEND 08/15] arm_mpam: resctrl: Add resctrl_closid_rmid_to_partid_pmg() helper
+Date: Tue, 20 Oct 2026 21:42:32 +0800
+Message-ID: <20261020134239.3921377-9-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261020134239.3921377-1-ruanjinjie@huawei.com>
+References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,126 +79,153 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-Background
-==========
+The translation from resctrl (CLOSID, RMID) to MPAM (PARTID, PMG)
+is currently open-coded across multiple paths (CPU default settings,
+task setters, matching logic, and monitor readers). This duplicates
+the special-case logic for CDP handling in multiple places.
 
-In ARM MPAM, a monitoring group is defined by a (PARTID, PMG) pair.
-However, many production platforms implement only a single PMG bit,
-limiting the total number of monitoring groups long before the request
-PARTID space is exhausted.
+Consolidate this translation into a single helper. This not only
+eliminates duplication but also provides a unified checkpoint to support
+non-linear partitioning mappings (such as PARTID narrowing) in subsequent
+patches.
 
-Hardware Mechanism
-===================
+No functional change.
 
-Platforms with "PARTID narrowing" mitigate this by mapping multiple
-request PARTIDs onto a single internal PARTID. The internal PARTID
-dictates the control group configuration, while each individual request
-PARTID functions as an independent monitoring group. This decouples
-control and monitoring allocation, allowing more monitoring groups
-than the PMG constraint normally permits.
+Cc: James Morse <james.morse@arm.com>
+Cc: Ben Horgan <ben.horgan@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Fenghua Yu <fenghuay@nvidia.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ drivers/resctrl/mpam_resctrl.c | 64 ++++++++++++++++++++--------------
+ 1 file changed, 38 insertions(+), 26 deletions(-)
 
-Software Strategy
-==================
-
-Using request PARTIDs beyond the internal range is only safe when no MPAM
-class loses a non-aliasing control. While aliasing controls (e.g., cache
-portion bitmaps) can be safely replicated across request PARTIDs,
-non-aliasing controls (e.g., cache capacity) are additive and cannot.
-
-To ensure safety, this series implements a completely static grouping
-policy evaluated once before resctrl_init(). If any class contains
-non-aliasing controls without narrowing capabilities, the expansion
-is bypassed. This infrastructure remains completely transparent
-to user-space.
-
-Patch Architecture
-====================
-
-- Patches 1-6: bugfixes found by sashiko or while testing this series
-- Patches 7-9: Preparatory helpers, no functional change
-- Patch 10: Track internal and request PARTID limits per class
-- Patches 11-12: Driver-side modulo interleaving + flat global RMID
-- Patches 13-14: Identify non-aliasing controls; enable the narrowing
-- Patch 15: KUnit tests for the narrow-PARTID helpers
-
-Testing
-========
-
-Verified on both QEMU and real Hisi hardware:
-
-- Narrowing expands monitoring groups from 4 to 256:
-
-      [ 62.602939] mpam:mpam_resctrl_configure_partids: PARTIDs: monitor=256 closid=32 extra=1
-      [ 63.788467] MPAM enabled with 256 PARTIDs and 4 PMGs
-
-- KUnit: narrow-PARTID helper tests pass.
-
-QEMU branch: https://github.com/ruanjinjie-eng/qemu/tree/mpam
-Test cases: https://github.com/ruanjinjie-eng/mpam_testcase
-
-v10 -> v10 RESNED:
-- Resend because of SMTP rate limiting.
-
-Changes since v9
-- Compatibility with Narrow PARTID and CDP mode
-- Fix several sashiko reported issues:
-  - Return -EBUSY when a CLOSID's RMIDs are only in limbo
-  - Skip the monitor-context allocation on the force-free limbo path
-  - Return an correct error pointer from resctrl_arch_mon_ctx_alloc() 
-    on failure.
-  - Widen the PARTID reset loop counter to u32 to fix the 65536 wrap.
-- Fix MPAM enable issue when a MSC fails to probe (e.g. nr_cpus= clipping
-  the possible CPUs).
-- Add KUnit tests for the narrow-PARTID helpers.
-- Link to v9: https://lore.kernel.org/all/20261012082337.822258-1-ruanjinjie@huawei.com/
-
-Link: https://sashiko.dev/#/patchset/20261012082337.822258-1-ruanjinjie%40huawei.com
-
-Previous Versions
-=================
-
-    v9: https://lore.kernel.org/all/20261012082337.822258-1-ruanjinjie@huawei.com/
-    v8: https://lore.kernel.org/all/20260413085405.1166412-1-zengheng4@huawei.com/
-    v7: https://lore.kernel.org/all/20260317132141.1272506-1-zengheng4@huawei.com/
-    v6: https://lore.kernel.org/all/20250222112448.2438586-1-zengheng4@huawei.com/
-    v5: https://lore.kernel.org/all/20250217031852.2014939-1-zengheng4@huawei.com/
-RFC-v4: https://lore.kernel.org/all/20250104101224.873926-1-zengheng4@huawei.com/
-RFC-v3: https://lore.kernel.org/all/20241207092136.2488426-1-zengheng4@huawei.com/
-RFC-v2: https://lore.kernel.org/all/20241119135104.595630-1-zengheng4@huawei.com/
-RFC-v1: https://lore.kernel.org/all/20241114135037.918470-1-zengheng4@huawei.com/
-
-Jinjie Ruan (13):
-  fs/resctrl: Return -EBUSY when per-CLOSID RMIDs are in limbo
-  fs/resctrl: Skip monitor context allocation when force-freeing RMIDs
-  arm_mpam: Fix error return in resctrl_arch_mon_ctx_alloc()
-  arm_mpam: Fix infinite PARTID reset loop when 65536 PARTIDs are
-    supported
-  arm_mpam: Don't stall MPAM enable when an MSC fails to probe
-  fs/resctrl: Add resctrl_arch_rmid_idx_match() helper
-  arm_mpam: resctrl: Add resctrl_closid_rmid_to_partid_pmg() helper
-  arm_mpam: Add a helper to check a PARTID is in a CLOSID
-  arm_mpam: Track the PARTID and internal PARTID limits per class
-  arm_mpam: Divide the PARTIDs between the control groups
-  arm_mpam: Identify the non-aliasing controls
-  arm_mpam: Use the request PARTIDs beyond the internal range
-  arm_mpam: resctrl: Add kunit tests for narrow PARTID helpers
-
-Zeng Heng (2):
-  fs/resctrl: Unmount resctrl with the CDP state it was mounted with
-  arm_mpam: Map resctrl RMIDs onto the request PARTIDs
-
- arch/x86/include/asm/resctrl.h      |   6 +
- drivers/resctrl/.kunitconfig        |   4 +
- drivers/resctrl/mpam_devices.c      | 160 ++++++++--
- drivers/resctrl/mpam_internal.h     |  25 ++
- drivers/resctrl/mpam_resctrl.c      | 227 +++++++++++---
- drivers/resctrl/test_mpam_resctrl.c | 466 ++++++++++++++++++++++++++++
- fs/resctrl/monitor.c                |  36 ++-
- fs/resctrl/rdtgroup.c               |  46 ++-
- include/linux/arm_mpam.h            |   1 +
- 9 files changed, 889 insertions(+), 82 deletions(-)
- create mode 100644 drivers/resctrl/.kunitconfig
-
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index ee15367e36eb..9bb1f1569601 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -298,25 +298,37 @@ void resctrl_arch_sched_in(struct task_struct *tsk)
+ 	mpam_thread_switch(tsk);
+ }
+ 
+-void resctrl_arch_set_cpu_default_closid_rmid(int cpu, u32 closid, u32 rmid)
++static void resctrl_closid_rmid_to_partid_pmg(u32 closid, u32 rmid,
++					      u32 *partid_d, u32 *partid_i,
++					      u8 *pmg_d, u8 *pmg_i)
+ {
+ 	WARN_ON_ONCE(closid > U16_MAX);
+ 	WARN_ON_ONCE(rmid > U8_MAX);
+ 
+ 	if (!cdp_enabled) {
+-		mpam_set_cpu_defaults(cpu, closid, closid, rmid, rmid);
++		*partid_d = *partid_i = closid;
++		*pmg_d = *pmg_i = rmid;
+ 	} else {
+ 		/*
+ 		 * When CDP is enabled, resctrl halves the closid range and we
+ 		 * use odd/even partid for one closid.
+ 		 */
+-		u32 partid_d = resctrl_get_config_index(closid, CDP_DATA);
+-		u32 partid_i = resctrl_get_config_index(closid, CDP_CODE);
+-
+-		mpam_set_cpu_defaults(cpu, partid_d, partid_i, rmid, rmid);
++		*partid_d = resctrl_get_config_index(closid, CDP_DATA);
++		*partid_i = resctrl_get_config_index(closid, CDP_CODE);
++		*pmg_d = *pmg_i = rmid;
+ 	}
+ }
+ 
++void resctrl_arch_set_cpu_default_closid_rmid(int cpu, u32 closid, u32 rmid)
++{
++	u32 partid_d, partid_i;
++	u8 pmg_d, pmg_i;
++
++	resctrl_closid_rmid_to_partid_pmg(closid, rmid, &partid_d, &partid_i,
++					  &pmg_d, &pmg_i);
++	mpam_set_cpu_defaults(cpu, partid_d, partid_i, pmg_d, pmg_i);
++}
++
+ void resctrl_arch_sync_cpu_closid_rmid(void *info)
+ {
+ 	struct resctrl_cpu_defaults *r = info;
+@@ -333,17 +345,12 @@ void resctrl_arch_sync_cpu_closid_rmid(void *info)
+ 
+ void resctrl_arch_set_closid_rmid(struct task_struct *tsk, u32 closid, u32 rmid)
+ {
+-	WARN_ON_ONCE(closid > U16_MAX);
+-	WARN_ON_ONCE(rmid > U8_MAX);
++	u32 partid_d, partid_i;
++	u8 pmg_d, pmg_i;
+ 
+-	if (!cdp_enabled) {
+-		mpam_set_task_partid_pmg(tsk, closid, closid, rmid, rmid);
+-	} else {
+-		u32 partid_d = resctrl_get_config_index(closid, CDP_DATA);
+-		u32 partid_i = resctrl_get_config_index(closid, CDP_CODE);
+-
+-		mpam_set_task_partid_pmg(tsk, partid_d, partid_i, rmid, rmid);
+-	}
++	resctrl_closid_rmid_to_partid_pmg(closid, rmid, &partid_d, &partid_i,
++					  &pmg_d, &pmg_i);
++	mpam_set_task_partid_pmg(tsk, partid_d, partid_i, pmg_d, pmg_i);
+ }
+ 
+ bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid)
+@@ -361,13 +368,15 @@ bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid)
+ bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rmid)
+ {
+ 	u64 regval = mpam_get_regval(tsk);
+-	u32 tsk_closid = FIELD_GET(MPAM0_EL1_PARTID_D, regval);
+-	u32 tsk_rmid = FIELD_GET(MPAM0_EL1_PMG_D, regval);
++	u32 tsk_partid = FIELD_GET(MPAM0_EL1_PARTID_D, regval);
++	u32 tsk_pmg = FIELD_GET(MPAM0_EL1_PMG_D, regval);
++	u32 partid_d, partid_i;
++	u8 pmg_d, pmg_i;
+ 
+-	if (cdp_enabled)
+-		tsk_closid >>= 1;
++	resctrl_closid_rmid_to_partid_pmg(closid, rmid, &partid_d, &partid_i,
++					  &pmg_d, &pmg_i);
+ 
+-	return (tsk_closid == closid) && (tsk_rmid == rmid);
++	return (tsk_partid == partid_d) && (tsk_pmg == pmg_d);
+ }
+ 
+ struct rdt_resource *resctrl_arch_get_resource(enum resctrl_res_level l)
+@@ -461,16 +470,19 @@ static int __read_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_c
+ 		      int mon_idx,
+ 		      enum resctrl_conf_type cdp_type, u32 closid, u32 rmid, u64 *val)
+ {
++	u32 partid, partid_d, partid_i;
+ 	struct mon_cfg cfg;
++	u8 pmg_d, pmg_i;
+ 
+ 	if (!mpam_is_enabled())
+ 		return -EINVAL;
+ 
+-	/* Shift closid to account for CDP */
+-	closid = resctrl_get_config_index(closid, cdp_type);
++	resctrl_closid_rmid_to_partid_pmg(closid, rmid, &partid_d, &partid_i,
++					  &pmg_d, &pmg_i);
++	partid = (cdp_type == CDP_CODE) ? partid_i : partid_d;
+ 
+ 	if (mon_idx == USE_PRE_ALLOCATED) {
+-		int mbwu_idx = resctrl_arch_rmid_idx_encode(closid, rmid);
++		int mbwu_idx = resctrl_arch_rmid_idx_encode(partid, rmid);
+ 
+ 		mon_idx = mon->mbwu_idx_to_mon[mbwu_idx];
+ 		if (mon_idx == -1)
+@@ -485,8 +497,8 @@ static int __read_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_c
+ 	cfg = (struct mon_cfg) {
+ 		.mon = mon_idx,
+ 		.match_pmg = true,
+-		.partid = closid,
+-		.pmg = rmid,
++		.partid = partid,
++		.pmg = pmg_d,
+ 	};
+ 
+ 	return mpam_msmon_read(mon_comp, &cfg, mon_type, val);
 -- 
 2.34.1
 
