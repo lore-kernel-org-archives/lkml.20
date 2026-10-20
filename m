@@ -1,95 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501453;
-	b=PaUf0vw0xqO0dCi9Gy8ah6Ha0jQTr3jvFdhhrKm0bMxpJeg45SwLcA0U++WjWX/LWZGA
-	 2qdhk10IdAIkdMNxvJoyJOcuCZ5MTaJEWIXF4o7UIHR4nyiNaX26zzScYoGVelQ4H2vjl
-	 UDgNLc/QlfARrKVCyD8mY+mGGbRy8CYkCqRDWpMZh8GmEFZfhQYD01peRhg4bx2YuEs2i
-	 UgonW+lMZjEQi3TgzeruqM7W0ecQ914iV5XW4XbARRbMbaXME77Fz2FVACrQR1q2E98Hq
-	 sAT91iQzw10hoxnoA+RXBFIGLmFizSHMz0W4s22KK9hHMrp/VZR3DoYaAN0BjbQ7uMA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501453;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PYSPbfibjCMAgfbLhUn692RCNw6C4KcKQJGM8L0iQ9Y=;
-	b=eMtNYn3UKssCCtv6tBNb/GOWYNgWAPoeN2ed//Elwo1aOtqciUaSct+jAuWJM/zsOsJ7
-	 Xokbu19VkIbDDDvqxAVI+yW/feJeC3bFVESUQz0Lop01LAZADMPj6nuCJAN+/8Ek8bJOY
-	 IyZCkDC67W/3iwEOq4X2BM2AC1/+dJRS8175UyBONYfGlyF108P9bNKNfZYvZmPiYVH71
-	 eXYUpObFi4r5E4PQOj2F1hCxCXeSTSeFVT3IXLwT7UVTf229cpoPAtgIgae7hNfVlJJuG
-	 oAqHe1HGnMuo0XEt71MAjvO3Ja1lRBUK4IWqdwkRLPikNvS37viNaz0Kyzm6IRGQQOg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jtB4Jpwb;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792501487;
+	b=19BkDP+pdmRtMMn63aIBWwQEvqi2YT9Hfjw/rD4i6KryyA9o15+ZtmNRA6OgD8ikr+ZH
+	 xGAUQO51s+k7nAVmP5ZBKC/5a6W7i3bKs8vViB23ZNe6RkMq5QgJ5/7RKq3YyB1zzLJY7
+	 /j4YqjfHNopKgNGvGM+Dl8L5N3eBs9vMH+dGsLBk33/O91fYjWAA8xrjRiR+DffFBXtbE
+	 wwijhNP8SrSvcN92vnfrDvkLtUObvOjMhqwqJw9RBIV9f6m5AJMmC2G57SctIGiX0jEnE
+	 bMF4dUy1maSRWsgf7uj1rGgtQSJxAVT54TQ0Ge/DsvlqR/DikaPx+nfur4hQhr27YqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501487;
+	h=DMARC-Filter:DKIM-Signature:Received:Content-Type:Mime-Version:
+	 Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
+	 References:To:X-Mailer:X-ZohoMailClient;
+	bh=60yzROzme+I8oXG1X8cG4tnHO5f5LLKhunxRbjPCyxw=;
+	b=TRQ24zIvN34nrL+8B6ypFe8dQmr82H1NOZrwnkhiur/gQ3UtAUEhRu7NxIMLlsDyAQu9
+	 uV+vurQjVOY3vj9IFZFy+ri8UEHomadG58FNTgWNYPG9FFDfO1K3qnf5KWqXT2UF1Rww4
+	 5PjJkgT42GplR53WrrDvJdvDGp2ASQuhINx4mRca4tVRPpjO+M4sIP4JrfRDf4cR81tiG
+	 iivMPuXw8QOuvNFLAjTTTseSbP9quwKWnmL4fyvVRhyNYjPoq8MefJl7M+PF3RHPpUARX
+	 +wIqObQCL0CkMXHHmEHxXNcW2trI88ggC0GWR789HD+vZkGh4AtBhtHMWXefH2kbX4A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=daniel.almeida@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hxzfNk2G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA49606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:04:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BA49606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D509606A319;
+	Tue, 20 Oct 2026 13:04:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D509606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jtB4Jpwb
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a070b3f44aso658268b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:04:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792501453; x=1793106253; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PYSPbfibjCMAgfbLhUn692RCNw6C4KcKQJGM8L0iQ9Y=;
-        b=jtB4JpwbtpM84Qy4/o7CDdW6xIRk7avAnch7hBBWwUrksYoNL7Gf2RlT0uhlsyi82S
-         +YbP5kx+4M0oBdhKuioIvGE0LC7AZ6EZ1jLCxu5EEXUEUHcATHJ0YOKJHiFQdDVHqoa6
-         ZYYG7egW60rcz6K3HTk5ruRNHCPlCFGTcLvuTvHdC/RNiambefyungV8exr3qonhBEGx
-         rDC7N0VhYYghC8mNG07Onfa0Fn8kgS7I/1L35OMkQTe3p8qGdGHP0oDe3K5jxOeAJqRa
-         64EnDQfIScnWf3XMfxfTeSb9eM7g+wexutZQmMJhIfPS6TVeWYwL6emX7oCOT1oS/tSw
-         drVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792501453; x=1793106253;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PYSPbfibjCMAgfbLhUn692RCNw6C4KcKQJGM8L0iQ9Y=;
-        b=rCKsU10fy0O/nifcxkaaEWLsTu+hMQ6o+fSbaKv4cHHmQo5CabRDkTowFS8gP6GFGm
-         bVktnCciOOvati2HT1W84GnNIPVK7FQQg3+pul9LGGmHfqcfSmEXugnLkyS5LITWK4VX
-         qB/VRZXojeleA7HXUrUa2+8ccJeQM/Ti3h//CE+nLxqjmFYud266YvqghvlPLEi3eW8r
-         HxwnI3+6yypPN7DXO/7VXoWqKV1wtT8t4fjRcQ1XNNtqkv6317D/gpTt7OXa3PjG9EoT
-         D3SQ6Q99dkbZFIFaqEOo5nk0W8rKt9C2EHDt0clk5+9tzhaZFwdkC312oZrlUnT5AclX
-         0pww==
-X-Forwarded-Encrypted: i=1; AKwUvBywiZOZe7dD/CaroYXS9UKmz5QAk4HM6zZcXvogwjQ0DLDQqfES2y5VLEEaJnekDSBm3biZcfbKuaAUVMg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxdtWNxHOSrVZuzTCBnS2orYA3FGPBiXhdhTGy7kE9giSgmNXY
-	ZCXjYfjZenxQzZa96RXcB2/OC15t7caQmgM5dvaadAk5YHNKlqQY0D8M
-X-Gm-Gg: AYBFou20iS48CsHLZGqkocwzwulGoC+A5Vvn2N6J6Lkghw6Z8ONF2CyfTdrzu6mtRvn
-	MheyFq09vaTapfW13sHzBcZ9rMgFQfckWwQRoarEpAzxgBYxT8hIRYBRpU6avNz/wEzVHY3vRod
-	ZohRVRBdvXTLLVNbXHw0jEl/CqQDiVcVEmrsT01M3/OAmhad1fOD0cGlkf3zmTZRDhiOJDN9CMl
-	7wnSWvewyB+Jf86H72ci9JD4tSE8pcs3nchtpxFNpT7joS4Db2D7lyFNCNxTyyrgstJlR83de5J
-	WmeLjkqK42W55S09gr4EqGZjmbrdTK3NqnFeJSbadEBvnfNlO7nDZB3e7eUHlg0P8mhDaiUJPUn
-	kqRw8WgBUrNOUSgL0LFx2+RU8kp6fmuY9oGEIDp5gbC4n7iqsem9jzNUITvpN4j4kKISIXVMh3k
-	H6V11PwqSmLsvIaUpmS9MCAkVkxtudTKJnm7dMum+73E7Nk0RwnJhIB9aGJRacHDyV9A==
-X-Received: by 2002:a05:6a21:3949:b0:3de:46cc:b63c with SMTP id adf61e73a8af0-3e225f34c37mr8453562637.11.1792501452699;
-        Tue, 20 Oct 2026 06:04:12 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549fb556sm5267685a12.22.2026.10.20.06.04.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:04:12 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2/dlm: drain join handlers before releasing module text
-Date: Tue, 20 Oct 2026 21:04:04 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0076-v5-dd198d8a9358ad81f70e@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hxzfNk2G
+ARC-Seal: i=1; a=rsa-sha256; t=1792501449; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=fWnXbwa8JLtt61TkI+u2U22uYOVL1FMZfCRinthKZiu2rgwJQWQGmKuptFwrJRhzyRZbBvKOLTY+9I69wSWHPdTBgpwVGOM2uTWbzqInopmDYEg7s/lftjBdO2OYu5MY6BE4zcz9EcN+zMneKPIdzRBqh4edHHCObobh2aE8EjU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792501449; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=60yzROzme+I8oXG1X8cG4tnHO5f5LLKhunxRbjPCyxw=; 
+	b=Wq+sEjzawdc3he6bhmx2rrIVcwB8VxkKMVkvSR1kzOAQE7ftGy5Vd1ccZq9eM3EY/BVUH+sTq8aIcwXXxTZCHO/Tx9cSEOJ0rjdDfzckDO7uMITAoUTpNjfi8FEfbkRNmzbwOUK7m3uatDdK3aSjU1WMPV6QS+V++OBDpdnntl8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792501449;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=60yzROzme+I8oXG1X8cG4tnHO5f5LLKhunxRbjPCyxw=;
+	b=hxzfNk2G0UJiaJbbgHSfz558NINKje8EcCOdws8+o/pUT1VqCZdd6K2Vnxc9Ei5V
+	yHEZk74LPD2TyLmwpJtK2iwzKLJwsORf92Jx3j9BQEyIJTBLWGobbNOC4lsOjNCBbrd
+	d7sCVu4RCZVFc+J2RWBMK6YAun8kDl1cnQKYwIZg=
+Received: by smtp.zohomail.com with SMTPS id 1792501446453909.1476462693812;
+	Tue, 20 Oct 2026 06:04:06 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,104 +63,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v4 0/2] rust: clk: Add ExclusiveClk and use it in
+ pwm-th1520
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <atdlfNRiza3gA1iD@monoceros>
+Date: Tue, 20 Oct 2026 10:03:47 -0300
+Cc: Maurice Hieronymus <mhi@mailbox.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Drew Fustini <fustini@kernel.org>,
+ Guo Ren <guoren@kernel.org>,
+ Fu Wei <wefu@redhat.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ Brian Masney <bmasney@redhat.com>,
+ linux-clk@vger.kernel.org,
+ rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org,
+ linux-pwm@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <8625DA25-1F59-4175-81A6-BAA16C961557@collabora.com>
+References: <20260711-rate-exclusive-get-th1520-v4-0-8244a0666a71@mailbox.org>
+ <atdlfNRiza3gA1iD@monoceros>
+To: =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-The code for a registered DLM handler must remain resident until its
-last invocation finishes. dlm_unregister_net_handlers() only removes
-dlm_join_handlers from the o2net registry. o2net_handler_get() takes a
-kref on the wrapper, but that reference does not pin ocfs2_dlm text.
-o2net_process_message() calls nh_func after dropping o2net_handler_lock.
 
-With CONFIG_OCFS2_FS_O2CB=m, ocfs2_dlm can be loaded independently of
-ocfs2_stack_o2cb while nodemanager continues handling messages from a
-configured, heartbeating peer. If no dependent module or module reference
-prevents normal unload, the following ordering is possible:
 
-  Receive worker                       Module unload
-  --------------                       -------------
-  o2net_handler_get()
-    take wrapper kref
-    drop handler lock
-  <preempted>
-                                       dlm_exit()
-                                         unregister handlers
-                                       release DLM module text
-  call saved nh_func
-    in released module text
+> On 20 Oct 2026, at 09:59, Uwe Kleine-K=C3=B6nig <ukleinek@kernel.org> =
+wrote:
+>=20
+> Hello,
+>=20
+> On Sat, Jul 11, 2026 at 12:16:28PM +0200, Maurice Hieronymus wrote:
+>> Add a Rust binding for clk_rate_exclusive_get() / =
+clk_rate_exclusive_put()
+>> and use it in pwm-th1520, which previously carried a TODO noting the
+>> missing binding.
+>>=20
+>> Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
+>> ---
+>> [...]
+>> ---
+>> Maurice Hieronymus (2):
+>>      rust: clk: Add `ExclusiveClk` wrapper for =
+`clk_rate_exclusive_get`
+>>      pwm: th1520: Lock clock rate with clk_rate_exclusive_get
+>>=20
+>> drivers/pwm/pwm_th1520.rs | 18 ++++++++-----
+>> rust/kernel/clk.rs        | 67 =
++++++++++++++++++++++++++++++++++++++++++++++++
+>> 2 files changed, 79 insertions(+), 6 deletions(-)
+>> ---
+>> base-commit: 92010229c4b38897f1319d260162d2f96925ed17
+>> change-id: 20260526-rate-exclusive-get-th1520-764a949de18e
+>> prerequisite-change-id: 20250909-clk-type-state-c01aa7dd551d:v5
+>> prerequisite-patch-id: 2d3dc45c241d9062a0d2546ec649eec7970fa50a
+>> prerequisite-patch-id: 67ad535fe110207ebc79045ba022ebb7137b0309
+>> prerequisite-patch-id: 3d1d8ee5c2a4957edd0807b7a5cb65dabab345b5
+>> prerequisite-patch-id: e2659037b8aaf51831da099cc568ad5b3c24a4dd
+>=20
+> I didn't track these dependencies, but the change looks fine for me. =
+Who
+> is supposed to merge it? I can take it via pwm, but I guess a rust =
+tree
+> is more appropriate?!
+>=20
+> Best regards
+> Uwe
 
-Use o2net_unregister_and_flush_handler_list() in the shared DLM
-unregister helper. It first prevents new lookups, then waits for the
-ordered o2net workqueue to drain, including a concurrent destruction of
-that queue. The acquired invocation therefore finishes before dlm_exit()
-returns and the loader releases the callback code. The same helper also
-covers partial registration and dlm_init() error unwind before module
-memory is released.
+Please no,
 
-Oops report as below:
+See [0] instead, which also includes a newer version of this patch.
 
-    Oops: int3: 0000 [#1] SMP KASAN NOPTI
-    CPU: 2 UID: 0 PID: 54 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+[0]: =
+https://lore.kernel.org/rust-for-linux/20261013-clk-type-state-v6-1-a5e997=
+7b3509@collabora.com/
 
-Hardware identification omitted.
-
-    Workqueue: o2net o2net_rx_until_empty [ocfs2_nodemanager]
-    RIP: 0010:0xffffffffc0423871
-    Code: cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc <cc> cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc
-
-Register dump omitted.
-
-    Call Trace:
-     <TASK>
-     ? o2net_rx_until_empty+0x19b1/0x3300 [ocfs2_nodemanager]
-     ? __pfx_o2net_rx_until_empty+0x10/0x10 [ocfs2_nodemanager]
-     ? lock_acquire+0x190/0x300
-     ? process_one_work+0x935/0x1b40
-     ? process_one_work+0x834/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_worker_thread+0x10/0x10
-     ? kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ? ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ? ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    Modules linked in: ocfs2_nodemanager [last unloaded: ocfs2_dlm]
-    ---[ end trace 0000000000000000 ]---
-
-Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
----
- fs/ocfs2/dlm/dlmdomain.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/ocfs2/dlm/dlmdomain.c b/fs/ocfs2/dlm/dlmdomain.c
-index 97bb9400e24b..0f4d29cbce81 100644
---- a/fs/ocfs2/dlm/dlmdomain.c
-+++ b/fs/ocfs2/dlm/dlmdomain.c
-@@ -2215,7 +2215,7 @@ static LIST_HEAD(dlm_join_handlers);
- 
- static void dlm_unregister_net_handlers(void)
- {
--	o2net_unregister_handler_list(&dlm_join_handlers);
-+	o2net_unregister_and_flush_handler_list(&dlm_join_handlers);
- }
- 
- static int dlm_register_net_handlers(void)
