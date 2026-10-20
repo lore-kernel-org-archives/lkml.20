@@ -1,96 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.203
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513207;
-	b=3H+jm1ncMLcHzl7qk8vO3OwfofP8rU19gfXvCOFL5b66OB9XZBmCHoUPiTm1BTVKcGjC
-	 TCCAbGeMs3r0/QRiu3rYrb+y1tb1QsRt8sV2izifQveRjwGiQabNHG28p2dk1CtmWyryT
-	 ACV8dVAEPnGXBSc2kl9DCd+ZKn9MzE9F/40xDp/ddb8/+h4Nn/kddnsHx7afzwE/KkS6V
-	 VHKIL+heH4IgaRdR3Kn1NyxO5wBJka2gpeUe01v1lB2f19MX3RIFiER+dP2vi9qqXU7sc
-	 mMyuR73cDMPUMaADZR/EoBGJ7LodMHA8bszNEAFoLXdmALI2mqsqGhsfqJ4QK1/W5PA==
+	t=1792513215;
+	b=00JY9BWmq5wQrR/DVHSq5CmpoGajWdVVl34fvPIPipqkrjDa5pIx6L44Yy8pcKB6B/sK
+	 mZJeJLsyyU5iIxit75YgmOnUVZb1H/kWJVbVBka75VveEpKrmHbJYL1fpG/CvKX8OwjjI
+	 SDDpyXZBZBKLIydjX39OZSR+40q4TtsR2dGgK2VhJUTUavOdKxUQqpiHQXkTNMG1Lrz1i
+	 z7BsJtzAbCti8NbSmZipq5iVu6VnPm2KmM57fw82bD56jc4ozW3E7UQIznmOKFdqS+mKM
+	 5LQk221Bfgmxrp2AObxR55AIynMgk81S17svdvVgx8eOHDGD+wtOhanUNmNuEo0uutw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513207;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3RZb0SnMAOA57yM4atchQ4kYcf66cAOKXvBUnsreAV8=;
-	b=wJ2zytb3ML/dbiGxUrqdVsXwe44O4k8L/6sGU9fcnnjFkwDytlt79oAvIRtPorbyzY0i
-	 g8vgJoOO3ihJrQXYagKXOp+ejzcJWSTwiVhh1x+BJzqC7+S3xHo8/H211ySADWRmsVu6p
-	 WEnRzauuWJZiZ5DCoezdp1Axb30+Onr/JLSjMaATFYiPjNAl91ziA62T5jxZ1Imarpa3j
-	 n5WIg82w/HdcK9OwXhLQpoFY26Y0jOfgG+eSbdCPHjQt3KqA4Wtl6h03essunLaPDgIKn
-	 RGlxLKmigRZWOgfU6wFNbNpOdxmB/JKaT9DFRT9GWMDB5G8CPXu7ACzHl8rrTFAzUMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513215;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aeEuyyYM2ltDcE4hsGe5Ex7fp6PFqJnBAdk1jg3yBeo=;
+	b=YitJKdlaAh/KMnaonIEIIHEPGsO+ABKIvYB848JP5gulYuqDZN+x1vbpM6iK0i4JfStN
+	 IDQtDZZ34tmA1SKEZmQQrqTwdBgVnsbsikBFrQ5ys8Ps4tg9RuZqvakENpbqVrapXJuKl
+	 Pr+QVgmZCP6Wfc9tUcXzSDD4Jd6L1jVG7O2+d4jCJR9wqa/V+O0wqojGb4ZXXioslU6xV
+	 riaPv5IF4cgs76ZTdE/IlTUctlFJwCClI365vc0dWvLFW0QVYpoaGa/2IkKKeVbdopQgG
+	 oXoTRVyDwxEBTWgOWX0PDjen7DgJxg+lrpKetCIdScH2gAci4WzmAJ1ubC7m9XL7P9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="H2uro9e/";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EFBhtOgb;
+	arc=none smtp.remote-ip=91.218.175.203
+Received: from mta0.migadu.com (out-203.mta0.migadu.com [91.218.175.203])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7952C606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:20:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7952C606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82F2606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:20:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A82F2606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=H2uro9e/
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so1879588a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:20:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792513206; x=1793118006; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3RZb0SnMAOA57yM4atchQ4kYcf66cAOKXvBUnsreAV8=;
-        b=H2uro9e/GSZtQibqfeaZa1pdR6pxTxhB/R+lGQeD+iBMbNrUsjlUe6FdxQ3FOwKKk3
-         KlGE92cFlzzwiqXPu250W/9XD2x5ROogQdIcU7Uxs1K5G/A1DxTUdiccO9cdPgqETy3j
-         OOfHJ3FZwjd7QyqVpR/PjuoYBhV8kqKVoKJ/9ijjvvOaZRbcvQ4apAfZhGZkAV3eI8L8
-         TZIyp0fdxlT027WiIFIhHLTJRbWE9lBcltHCJMQ2m/AlDpX8z8+/mnheTqmMas5athpu
-         zMBcWMgZ7valtlVcnZQ9xUI/DLcIbNf+KkbwHM0608cJZHbHIJvlPdXM0BFJ1XzZz/Tj
-         /09w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792513206; x=1793118006;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3RZb0SnMAOA57yM4atchQ4kYcf66cAOKXvBUnsreAV8=;
-        b=FPzP/4Gv+Aq10ps1s2453KrWjy3gWQxGL0Xc8VAGbU0x8wD+SAraqGUDV5xjW4O7qD
-         BwlNmfsNHtAMUxfm2KF1M+f9vTdXJw24Xd40VM/4EXIRXcueajQNQwWxw4F+gcibQ8e7
-         8PYpnRzmXKFkYPZ9veWdAA1VuvESRa3B4cTnYxgdGjg3k+NiK8Cqj0Yazw/bN4G82FIx
-         +AgqO78xhQtrOgwTjm/naK4ytYcsxoYgr5rklcGhYc8hm2BH2VrKFeUbBNS46RAJH9Q1
-         U2Mrm39mgUofa2SZYbQ4xlTScqOlg2cXf6g6j5U1204Unx229zrZh4NqpYxD0dcDcgWo
-         askw==
-X-Forwarded-Encrypted: i=1; AKwUvBy2hP1K/WMKoM7FZAbJlo97ETwP0k9HpXD1DsHm4lgH4vBCYDIyNHYcS3rdPo22c3c08n50FP0C4LZ2wmE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSjOwpHljLkmykD+91Vt84E791VQP3VIxDKwYhSAahY1eQsGBI
-	huiXxs+GsZNqqspXw2jD5vaibu/zwk/TBGKTArH2Ud3OwEFNN28uBJxU
-X-Gm-Gg: AYBFou1YX+1OL+eb4WLeeW+cVgXRfG57RQB0hSS3dWSfnlgbBLSZ2ymleZitWVwW1Mg
-	cfcNlpdQoXBqzglfqZCT+3TYWnjNTaLVekheTXEJxGDoPuiUAnNabwQmArdXSqCXBtwsyTVcct7
-	wr824s2q5inhXFOxA2Tj7jkdXxMWqTpy9qFBi78Ai1ahjnMlH3bbGHAWmf0CBzONbYsNQg1Y5IH
-	Ml/KDHhvuPkBenFFUQBFHz+1kex0HfDxxonLwCh0QegsQwGZ7PPx2kyXEmg74li8mnrEYxCZQXr
-	MIfMSaX3vklBH7apBWM8Nm6/AwcfqQekGOdd4zfjKvaiTcF2Q2YS9Ovoe5o/n8HnPy1ATXkNDUA
-	bfaFdSddLKqSB/XiuHIuk/HmS5RuLbWpIoFbFN6n0VOXWObh/QXVe4rSN9r/LbS1ZhOtH/wY9ut
-	0qgaFjRS0CL2jP4YyqNZBwzToFQo8n8CYTXQGMcPoAu+qkb38QiXscCyBHK3/wpFWIdKkT7+VGg
-	qo3RNsb5gk=
-X-Received: by 2002:a17:90b:1d4d:b0:3ac:8ee5:e00f with SMTP id 98e67ed59e1d1-3acef538914mr9358618a91.57.1792513205657;
-        Tue, 20 Oct 2026 09:20:05 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549db75asm5009301a12.18.2026.10.20.09.20.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 09:20:04 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Mimi Zohar <zohar@linux.ibm.com>
-Cc: linux-integrity@vger.kernel.org,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] KEYS: trusted: Reject short TPM2 public areas
-Date: Wed, 21 Oct 2026 01:19:54 +0900
-Message-ID: <20261020161954.3956212-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <ateELTsfmHsdCEGL@kernel.org>
-References: <ateELTsfmHsdCEGL@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EFBhtOgb
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ndzYTlgaOkL0YsMx3oV9bHvAAD9cb4ogcKZ+R7dB0Mo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792513212; v=1; x=1793118012;
+ b=EFBhtOgbZyBCmvmi0O1Apam7zvD/Wx25cain0jb2B9KEiEH46CXjNQwWmd6P1Zk/7oUSR89y
+ LDURE9u0gkPCIXu3ylsKetZ0dEq1W9kdyxUPHL1dF6CpAFQhKKNf8U2BtaKw2GAPAoJvtzlTKAH
+ oQhGhJvclh2mKejGqjjUQLvU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bdd1f2ff77ffbded;
+	Tue, 20 Oct 2026 16:20:09 +0000
+X-Mizu-Trace-ID: bdd1f2ff77ffbded
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com
+Cc: martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	shuah@kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Vineet Gupta <vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v3 08/12] bpf: Recover the low 32 bits on the reverse link direction
+Date: Tue, 20 Oct 2026 09:19:03 -0700
+Message-ID: <20261020161907.2115379-9-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261020161907.2115379-1-vineet.gupta@linux.dev>
+References: <20261020161907.2115379-1-vineet.gupta@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,73 +82,246 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tpm2_load_cmd() reads TPMA_OBJECT with get_unaligned_be32(pub + 4), but
-does not require public_len to cover that field.
+A low-32 link over a wide base drives sync_linked_regs() forwards only.
+Narrowing the base reaches the members, but narrowing a member tells the
+base nothing:
 
-A TPM 2.0 ASN.1 key blob with public_len zero makes the read begin at the
-end of the B + 4-byte decoded allocation, causing a four-byte heap
-out-of-bounds read before the TPM command is transmitted. This is reachable
-from an unprivileged add_key() call when TPM trusted keys and a TPM2 device
-are available.
+	r6 = ...		/* full 64-bit unknown */
+	w7 = w6;
+	w7 += 5;
+	if w7 != 15 goto ...	/* so (u32)r6 == 10 */
+	if w6 == 10 goto ...	/* not deduced */
 
-This affects v5.13-rc1 and later kernels built with CONFIG_TRUSTED_KEYS=y
-and CONFIG_TRUSTED_KEYS_TPM=y when a TPM2 device is present. A KASAN run
-as UID 1000 with no effective capabilities reported:
+That refusal is broader than it needs to be, in two ways.
 
-BUG: KASAN: slab-out-of-bounds in tpm2_unseal_trusted
-Read of size 4 at addr ffff888106273b48 by task exploit/160
-CPU: 1 UID: 1000 PID: 160 Comm: exploit
-The buggy address belongs to the object at ffff888106273b40
- which belongs to the cache kmalloc-8 of size 8
-The buggy address is located 0 bytes to the right of
- allocated 8-byte region [ffff888106273b40, ffff888106273b48)
+It only applies to a *wide* base in the first place -- the guard is
+scoped on get_reg_width(reg) > 32. A base that fits 32 bits is equal to
+the member's low half, so a compare on the member pins it exactly, and
+such a pair already falls through to the differencing arm. What the two
+mov patches had to get right there is which extension rebuilds it, since
+choosing wrong is unsound rather than merely imprecise.
 
-TPMT_PUBLIC starts with the two-byte type, two-byte nameAlg and four-byte
-objectAttributes fields. Require public_len to cover all eight bytes before
-reading the attributes.
+And for a wide base it is only the *high* half that is unrecoverable.
+Writing the two registers against the same abstract X, the member is
+ext(X + d_member) and the base is X + d_base, so their low 32 bits are
+(X + d) mod 2^32 and differ by the known constant d_member - d_base. The
+member therefore pins the base's low half exactly; what it says nothing
+about is everything above bit 31.
 
-The exact input produced the KASAN read in 3/3 fresh boots. The fixed build
-rejected it with -EINVAL and no KASAN report in 3/3 boots; valid TPM 2.0
-ASN.1 and legacy trusted-key loads continued to succeed.
+Eduard put it as a direction rather than a kind, on v2 03/13:
 
-The issue was found with an LLM-assisted source audit and validated with an
-end-to-end QEMU and swtpm reproducer.
+> - if known_reg is sext/zext -> sync to 'full' register recovers only
+>   lower 32-bits and keeps upper untouched (counting on cross-domain
+>   bounds sync logic).
 
-Fixes: e5fb5d2c5a03 ("security: keys: trusted: Make sealed key properly interoperable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+So instead of skipping, add the delta difference to the member's 32-bit
+range and intersect it into the base's r32 and tnum_subreg, leaving r64
+and the upper tnum to reg_bounds_sync(). Never writing the high half
+directly is what keeps this sound. Dropping the guard outright instead
+makes scalars_alu32_basic and zext_narrow_dst_keeps_base verify, and both
+must not; they still fail here.
+
+It buys nothing today, and is proposed anyway. No verdict changes on any
+of the three corpora, and on its own it costs nothing anywhere. The zero
+is a result rather than a non-event: instrumenting the new arm to emit a
+token, it fires 78 times under bpf-gcc and 40 under clang, so programs do
+reach it and come out identical. zext_reverse_pins_low_half is a
+__failure without the patch.
+
+It does interact with the narrowing-fill patch that follows -- together
+they cost big_alloc2 2956 -> 3095 insns where neither does alone -- which
+that patch spells out, since a bisect lands the cost there.
+
+Suggested-by: Eduard Zingerman <eddyz87@gmail.com>
+Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
-Changes in v2:
-- Describe the wrapper as the TPM 2.0 ASN.1 key format.
-- Explain the eight-byte minimum next to the check.
-- Return -EINVAL for a malformed TPMT_PUBLIC instead of -E2BIG.
-- Replace the obsolete Assisted-by trailer with changelog disclosure.
+v3: new in v3.
+ - answers Eduard's point on v2 03/13: the reverse direction recovers
+   the low half even though it cannot recover the high one. A base
+   that fits 32 bits was never refused -- the guard is scoped on
+   get_reg_width(reg) > 32 -- so this is the remaining case, a base
+   wider than 32 bits.
+ - proposed for merge, not tagged, and it buys nothing today -- no
+   verdict changes on any of the three corpora.
+ - costs nothing on its own. With the narrowing-fill patch that follows
+   it costs big_alloc2 2956 -> 3095 insns; neither produces that alone,
+   and a bisect lands it on the fill patch, which says so.
+ - the arm is instrumented to confirm it is reached rather than merely
+   silent: 78 firings under bpf-gcc, 40 under clang.
 
-v1: https://lore.kernel.org/r/20260925095308.3248297-1-4ncienth@gmail.com
+ kernel/bpf/verifier.c                         | 58 ++++++++++++++-----
+ .../bpf/progs/verifier_linked_scalars.c       | 47 ++++++++++++---
+ 2 files changed, 80 insertions(+), 25 deletions(-)
 
- security/keys/trusted-keys/trusted_tpm2.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
-index 30188a0ec6766..fb45795b53327 100644
---- a/security/keys/trusted-keys/trusted_tpm2.c
-+++ b/security/keys/trusted-keys/trusted_tpm2.c
-@@ -425,6 +425,13 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
- 	if (private_len + 2 + public_len + 2 > blob_len)
- 		return -E2BIG;
- 
-+	/*
-+	 * TPMT_PUBLIC starts with type (2), nameAlg (2), and
-+	 * objectAttributes (4), which is read below.
-+	 */
-+	if (public_len < 8)
-+		return -EINVAL;
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index dffcaa2e1392..6b26487d4549 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -18521,29 +18521,54 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+ 		if (reg->id != known_reg->id)
+ 			continue;
+ 		/*
+-		 * The reverse direction does not work for a narrow known_reg:
+-		 * it knows only its low 32 bits, which say nothing about a
+-		 * wider reg's high half. Neither (u32)(base + delta) nor
+-		 * (s32)(base + delta) inverts once the base is wider than 32
+-		 * bits.
++		 * The reverse direction, from a narrow known_reg to a wider
++		 * reg, does not invert: neither (u32)(base + delta) nor
++		 * (s32)(base + delta) says anything about the base's high
++		 * half. It does still pin the low half, though -- both sides
++		 * are (base + delta) mod 2^32, differing only by their deltas
++		 * -- so recover that much and leave the high half alone.
+ 		 */
+ 		if ((known_reg->link_kind == BPF_REG_LINK_ZEXT ||
+ 		     known_reg->link_kind == BPF_REG_LINK_SEXT) &&
+ 		    reg->link_kind != BPF_REG_LINK_ZEXT &&
+ 		    reg->link_kind != BPF_REG_LINK_SEXT &&
+-		    get_reg_width(reg) > 32)
+-			continue;
++		    get_reg_width(reg) > 32) {
++			/*
++			 * Only @low's 32-bit half is meaningful: its var_off
++			 * is advanced over all 64 bits while r64 and the
++			 * base/step line are not, and nothing below reads
++			 * either. It is a scratch value, not a register state.
++			 */
++			struct bpf_reg_state low = *known_reg;
++			struct tnum low32;
 +
- 	pub = blob + 2 + private_len + 2;
- 	/* key attributes are always at offset 4 */
- 	attrs = get_unaligned_be32(pub + 4);
-
-base-commit: 722658cac48a6ba49f5506fd74d010ad9dbb2f05
++			fake_reg.type = SCALAR_VALUE;
++			__mark_reg_known(&fake_reg,
++					 (s64)reg->delta - (s64)known_reg->delta);
++			scalar32_min_max_add(&low, &fake_reg);
++			low.var_off = tnum_add(low.var_off, fake_reg.var_off);
++
++			cnum32_intersect_with(&reg->r32, low.r32);
++			low32 = tnum_intersect(tnum_subreg(reg->var_off),
++					       tnum_subreg(low.var_off));
++			reg->var_off = tnum_with_subreg(reg->var_off, low32);
++			reg_bounds_sync(reg);
++			goto scratched;
++		}
+ 		/*
+ 		 * Skip a pair of differing kinds. Where BPF_REG_LINK_FULL meets
+-		 * a 32-bit kind the delta relationship genuinely does not hold:
+-		 * the deltas were added at different ALU widths.
+-		 * BPF_REG_LINK_ZEXT against BPF_REG_LINK_SEXT is not that case
+-		 * -- both are base + delta in the low 32 bits, so narrowing one
+-		 * really does narrow the other -- but that deduction is
+-		 * declined on purpose. It makes an int loop counter a fresh
+-		 * constant on every iteration, so no two iterations prune
+-		 * against each other and the program runs to the instruction
+-		 * limit. See sext_no_sync_from_zext_sibling.
++		 * a 32-bit kind the delta relationship does not hold over all
++		 * 64 bits: the deltas were added at different ALU widths. For a
++		 * wide member the low half still relates and the arm above has
++		 * already recovered it; a member that fits 32 bits does not
++		 * reach that arm and is skipped outright. BPF_REG_LINK_ZEXT
++		 * against BPF_REG_LINK_SEXT is not that case -- both are base +
++		 * delta in the low 32 bits, so narrowing one really does narrow
++		 * the other -- but that deduction is declined on purpose. It
++		 * makes an int loop counter a fresh constant on every
++		 * iteration, so no two iterations prune against each other and
++		 * the program runs to the instruction limit. See
++		 * sext_no_sync_from_zext_sibling.
+ 		 */
+ 		if (reg->link_kind && known_reg->link_kind &&
+ 		    reg->link_kind != known_reg->link_kind)
+@@ -18622,6 +18647,7 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+ 				*reg = prev;
+ 			reg_bounds_sync(reg);
+ 		}
++scratched:
+ 		if (e->is_reg)
+ 			mark_reg_scratched(env, e->regno);
+ 		else
+diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+index 9a33cc60e8cb..69efe1381eca 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
++++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+@@ -247,6 +247,30 @@ l0_%=:								\
+ }
+ #endif /* CAN_USE_MOVSX */
+ 
++SEC("socket")
++__success
++__retval(0)
++__naked void zext_reverse_pins_low_half(void)
++{
++	asm volatile ("						\
++	call %[bpf_get_prandom_u32];				\
++	r6 = r0;						\
++	r6 <<= 32;						\
++	call %[bpf_get_prandom_u32];				\
++	r6 |= r0;		/* r6 = full 64-bit unknown */	\
++	w7 = w6;						\
++	w7 += 5;		/* r7 = (u32)(r6 + 5) */	\
++	if w7 != 15 goto l0_%=;	/* so (u32)r6 == 10 */		\
++	if w6 == 10 goto l0_%=;					\
++	r0 /= 0;						\
++l0_%=:								\
++	r0 = 0;							\
++	exit;							\
++"	:
++	: __imm(bpf_get_prandom_u32)
++	: __clobber_all);
++}
++
+ /*
+  * Test that sync_linked_regs() correctly handles large offset differences.
+  * r1.off = S32_MIN, r2.off = 1, delta = S32_MIN - 1 requires 64-bit math.
+@@ -414,9 +438,11 @@ l0_%=:								\
+ }
+ 
+ /*
+- * Test that sync_linked_regs() skips propagation when one register used
+- * alu32 (BPF_REG_LINK_ZEXT) and the other used alu64 (BPF_REG_LINK_FULL).
+- * The delta relationship doesn't hold across different ALU widths.
++ * Test that sync_linked_regs() does not carry the delta relationship across
++ * registers that used different ALU widths: r7 used alu32 (BPF_REG_LINK_ZEXT) and r8
++ * alu64 (BPF_REG_LINK_FULL), so the relationship does not hold over all 64 bits. The
++ * low half is recovered -- r8 comes out exactly 0x100000000 -- which is why
++ * the div is still reachable and this is a __failure.
+  */
+ SEC("socket")
+ __failure __msg("div by zero")
+@@ -434,7 +460,7 @@ __naked void scalars_alu32_alu64_cross_type(void)
+ 	/* r7 = 0xFFFFFFFF */					\
+ 	/* sync: known_reg=r7 (BPF_REG_LINK_ZEXT), reg=r8 (BPF_REG_LINK_FULL) */ \
+ 	/* Without fix: r8 = zext(0xFFFFFFFF + 1) = 0 */	\
+-	/* With fix: r8 stays [2, 0x100000001] (r8 >= 2) */	\
++	/* With fix: r8 == 0x100000000, so still > 0 */		\
+ 	if r8 > 0 goto l1_%=;					\
+ 	goto l0_%=;						\
+ l1_%=:								\
+@@ -950,8 +976,10 @@ __naked void zext_no_sync_between_mixed_kinds(void)
+ }
+ 
+ /*
+- * ... and here the low-32 link is the branch register, so the register
+- * carrying the delta must not be narrowed either.
++ * ... and here the low-32 link is the branch register. Its low half does
++ * reach the register carrying the delta, but the high half must not: r8's
++ * low 32 bits become 3 while the rest stays unknown, so r8 == 3 is still
++ * not provable and the div stays reachable.
+  */
+ SEC("socket")
+ __failure __msg("div by zero")
+@@ -1276,9 +1304,10 @@ __naked void sext_no_sync_when_base_has_delta(void)
+ 
+ /*
+  * ... and with the link as the branch register the propagation must not run
+- * backwards: a BPF_REG_LINK_SEXT register knows nothing about the base's high half, so
+- * narrowing it must leave the rest of the set alone. Were the guard missing,
+- * r8 would be rebuilt as r7 + 3 == 2, treating r7 as if it were the base.
++ * backwards over the high half: a BPF_REG_LINK_SEXT register knows nothing about the
++ * base's high bits. The low half is recovered, so r8's low 32 bits do become
++ * 2, but treating that as the whole value -- r8 == 2, as if r7 were the base
++ * -- must not happen.
+  */
+ SEC("socket")
+ __failure __msg("div by zero")
 -- 
-2.55.0
+2.53.0-Meta
 
