@@ -1,96 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792468338;
-	b=Mx7hop9dEApIa11rbtnMLFEp+kKlluxMtvGhe+MJYPGW9g/pDb37cMBAg2+9k4IwWOan
-	 LIIWRYIZcoF3bUi9/feswrNFuaTV4u3HabNLrlERCZhM+/XHNI/J0R1DUu/e4Y8SYY4NH
-	 zWTHDEGhBlDXXhXfSPXtoZeshKXXM92SB6FCa+p8KETl6psewq/55KVLKOAJ1hEwCRVzs
-	 +UdAIey6Mel4sJtcf//V8kuCW8ohj+ywT0EgFMQebwQvEvBxOc5Iao9XwZhmYgBGIHKEP
-	 w4s1dBDDEqGY+Um3a4ADxJ/dh01IBZG6bcVNlMZWm0FHzkhxNfrpWxNybB6GD1jSxyg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792468338;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792468414;
+	b=pXuG4yVWs6fg7r49T+YEHMv2UlnJ9N4SJaKqDzQBdcCKe4X33IuXQfnCwvnl7gwbFONM
+	 N5wVNP+umwGE1HVRwJpPyp/7If17mOxjXLUoFDRW3UjnnGsdj4ZsSBz0R7KPZostCjyEr
+	 U5SftdVPiHlEPPCG7xchVOL4L6m0w54z6QjTY0/48DZEz5ikHa4VnzDdNkh3AC977tVAZ
+	 7+S87bragy5xBOrHi6XsMmKROFuJ+vEEgocsrVcYINCXDf7JnJI9KecFttdRDA5Pe5/tH
+	 ha0wRsxfRUQXyqQhAsPsQHkyoEXGdTbLSrorkfP8Fwji42ii6TWnwfY/5NJyeL/M1ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792468414;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=p6i3Nyqj9VM8axM0TbP0nxGC8kaEPnrFMpaIGWIrppM=;
-	b=ENSe60QTmItD8gIafk87X7gw9lps9p7amsXUQm7N/m8B9m3eYyH4j9MODd7Myi+7Lw0E
-	 GV0um6IFC/zJLF/0HDbeaheKaddWgEzr0N9U4HZAKHfrS0GBJ1Xp9eKPEpllNlpb5cxas
-	 yzIKT3eQ0SOogUC2si9yiiZ4uyLs9ZLpmOuxErpHNcWcF3PcjDL06gqLPwdqvC9E65rPT
-	 gwQYTCN/OSX2z/nYoJ8ivIqG5yzWk+/xYnlFU0uP0KkLrRNag6oE8da8GEWPO2VdwUTV7
-	 gtUwi2/fMSYKL/XULRZxFBLxygfLj36LbbPR2GS/qp+FXNBHJZ/zDI0KN36XQ5DH+kQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
+	b=giCcI+dvxf3nFEjPsxfFFQu6cn3ea/7y3rxuVKwZI4l2QOM4DDieob0/xGJX8jCNFOex
+	 vx5QjPVXb15eywn7QT6mIh/OU2srDPwCJq/JEiMdt4AbrbPb+sABQepQuaRSwjEQi46Wo
+	 zx+SSeLgIrL1BW57PhZspleAQKLNLfOALt2aVcpZ50icnCo1Ua4sBsMqKP9K2ubpeFOsS
+	 fPvv0QW2zoDr63z452e+Tc+LA2QutTY0Zve82JmuxmApb65Whj519Akmtz2xND+xAy9jJ
+	 93eeXEdP2vct4CL747XwKKtUj+X0WJV+OIT6CNDsfeARHq1bU+QIX85B28ZtVWrTNUg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=O1lw4mFR;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="E/1d89xz";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.42
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8DE606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:52:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B8DE606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75E7606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D75E7606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=O1lw4mFR
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1e3098ee2so21451415e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:52:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E/1d89xz
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9909e82513fso211329241.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:53:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792468413; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WhBEsRve+/sjWL/vY+K3TVDwM/KFK95L9uL3jcsgad0kvs3u2MbOaVsKmnu9S00nE3
+         BHagCmXD4w54jjQAd40mGXM7h8jH2MGyvXibTWGmygMqNfsvuU7hj8ms5qASO//0oRm1
+         O6ziydlSqOHXiLBmAI+1zPIlEirVn/cb5wxjdbf82fIsTj88ynmWQ9ahnvblRODg3G6h
+         E/xjpX4W7oSvLs8RZGKtDnlGlBiOMQcO564GtM4eXAokmJ7B+Ekk6zeTzp/LpyJ5Qcn4
+         pgnVnI/+DemkFm8vug0lVbaPYn4QNCfDyEAAsqPtxdi9sa+gL7gtBVd5uSgWVXuhvLby
+         Wscg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
+        fh=pv8sdwnxouyetVgszTvdbytFw1OdVt51C/1xD3rXqKg=;
+        b=ffi0ATlMmVBX8iNUONYZmu6CiiA3CFsvz4dA1CyQPLvfTQzxUqG/xuCuxD/9ydtKYQ
+         R2n/wPH2/C2YfuuUdfk4Oj4KGA9h1BcjjowcySQCw4Ei43dM6XgULlcZOS7oMHdMwjsK
+         0E90JRENzA042XMplDzlyqzA3bfgcDovqyY25kjD3kMUf66z0b148LkIgLRvt5GjHIDk
+         p4OI5znoFX3T1HiCdVFsGdRxXU7y22DECzKUlrqhz64LxmLb2NxHJFpTOmgDO7ePuYIf
+         2IrwUNKmW9CyHkFnWLkfhrJ0ugrChMeFHxw8NttqKzv60b9C78bB/ke/OC5efVI3EHHG
+         qowQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792468335; x=1793073135; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p6i3Nyqj9VM8axM0TbP0nxGC8kaEPnrFMpaIGWIrppM=;
-        b=O1lw4mFRi/skXUvJdvDqHe+9u+ZmKs08VVKzN14/tEC2aR2MBmRqAbTK5YeeyRVmE4
-         9t0vlNRCi4OzaqvfethRNyJpdvt7Pt+RfdQKoVaWDSVUjJ2Wj7WoGBN1uWjdiz7XpIln
-         6kSuyHRJW4u5DD7ibNtavP/SsZa4j2wn+xgcKLh7QHBQQh4KCaJjMRzLmfXtClCVAmLL
-         AmniQiYXn8tDf9Cv1fmiW2ynqSDGWG6dmIfawGQ3nY0oon3MoUJ7cExawIQmIl5klHE8
-         rKRH+v/lU04So1O5vOMEW/ug+BPI5FnuFdS6HLqJQYFAuhMR2rVHzPduFypWe1cGp+eX
-         jYjQ==
+        d=gmail.com; s=20251104; t=1792468413; x=1793073213; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
+        b=E/1d89xzJd3uN6v8JmRj0qc1lnhhREM+ULZHcPaOOMv6guII5/oSZCYJ4nLHNRI8I7
+         GNSQB1akrERgKLxg9Lj8dsWGPizgqaWAQ+ClxdZKJ/Q/qk9FLaimQXifDqypOtleo5OE
+         X3+6WDdOVOZ/MtTaTgUvNS1iS87Yp7H1tWIN2pGduCTt0Zdvrd7E57QNBEtrXrouW+do
+         STmVpeWqtzdMCO6QjTVRdgszrMyE9oLvw6gXQcQE4hmJzMOPJ14khsagqj6iKZnCQUnz
+         1NwMQiwJZBVr3tNFp7pkmeUJWr2v7MWzwibVnNvXmPIJIpVyP3HG4jqm4UIN99TnXA1T
+         Boqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792468335; x=1793073135;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p6i3Nyqj9VM8axM0TbP0nxGC8kaEPnrFMpaIGWIrppM=;
-        b=XaCobw6YcseRuAte91YSiz+BXlmAjMMyr7N0ojg3yJ+D5LdjIp4BMA7bT+vd04nLO9
-         GKxKZaRCSNHN+NfgMaqw0MUSJvWFMba7YPh75lnjVpDN+zqlKUkk+qUmDHcmnw5lNYcf
-         aqihzFibk6oj1olcS8ep0Mmzn9+5iRPyM1yH8Dm5aK6vjPKuonh7RwjYVOdjwmXruPEf
-         mQBxlp5o9KSB6ajy0dgrq41O0ACJcfGEjYCo/cXPMfdomHe0cpzsOvGow8JrKOdzkiMx
-         JYr2VAJ83+R6TfimFuGNVZD18NwXk7QhSZOFASv6ST2NMSgsXxffe4jM184Hsz26pnez
-         fDvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxVlRzgrmiVV1rvIbMefo3a2K7JnKAbeTUgJ9X2wWQ/1sVLWpYcQCqLmhulIkOooOsRkDsEflMVUMr5hU0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZBAsVFuDb6E2TP6k+m4yMVuG5hjwo4Y/YhoTpmWce4J+2Rvwx
-	ymuESjkAcTArAPIGck5+b2FLVdTIhs/LFDO2Vz3XxhxWTEvDmR6RvMWh
-X-Gm-Gg: AYBFou02mvR/bb9X+WtDUF9XSwyc6YBcr3wb2HGMokuFfzon9M/irfHeFZWoubWWsFP
-	rqvT5dvg3+C/gDQ2va5EF7bh/DTH7JR8sSv3Y3D2SemzO+BnLBSnI+P4Ya4+9p68kJrqHMl74yC
-	2/fZOQQFysKBIOC0U+WczSX0UaZCjeCfhqHOhkYFTfFgu2bKc9tnU03GUqL+1KunpwGXCeRhyST
-	pStTJcTfWjjpyUDXuy9d9W6UcLR0NKQ7Fi/eHsCKQpjQ+F/HkSVj4OsU7oSqizjHe6aCQoz5M6O
-	GHCVRnduYMiEMkL8xHvhx+P9ZaSBKfgxObggB0s6OJX0/bx6C/UhlIo5pH7bArMKGwZDshSglgi
-	gh7z2qV+h2qpZnZttKI+KktfdpZn7MyEt15P63BRxhoM9J9skbiSBcydwNmLW81/wsM36+zrrvR
-	y8gIrpEBCjqj0Awp66BqQhi55xvtcHKY3LRZj072D6jo/X/LhHU57gbl6Zp5cwKmgcwih5kqJZn
-	hRvKqZrso31oE1tH+r6Wka2E3E0nxxslLBAaj5NXbVNI+FHdTH5Cg/qnxTiZBPJdIBvutrVOtp1
-	22fhTJU7V5dYhZCvsVkvDY1E8XABkMA6Vj7Izwq6fEsA7fow+f2bZFpNFnnY+dDtqNc+ARVRBPq
-	MfA==
-X-Received: by 2002:a05:600c:3554:b0:4a0:2488:71cc with SMTP id 5b1f17b1804b1-4a1d76234a3mr201359065e9.32.1792468335363;
-        Mon, 19 Oct 2026 20:52:15 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-9c92-6501-cda9-90cd-4e49-75d9.310.pool.telefonica.de. [2a02:3100:9c92:6501:cda9:90cd:4e49:75d9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d569d4sm39329925e9.10.2026.10.19.20.52.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 20:52:14 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Gabriele Monaco <gmonaco@redhat.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Nam Cao <namcao@linutronix.de>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] rv: Normalize opid IRQ state to a boolean
-Date: Tue, 20 Oct 2026 05:51:58 +0200
-Message-Id: <20261020035158.90190-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1792468413; x=1793073213;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
+        b=wfxbqEDHdKLVaP8azFK1OR0l8geRTy5c3+X+aGF+LZCz+V9RDbExCLoOmWkA25z/81
+         Dgz0rMy5SH8QlOlnx6pQo4/ItPVjuXJP5hSskZfBACqoTPd0wuziQX8WWkz/Avrv2F0S
+         CAvTMH6UbMldkG3qIWIS1Xx2LbfvGUlTofwLaEmLEJf15rI4U08pafLMeKnpy/Xf5FJh
+         125Kj6seFizAoPFlE2/S52kgHgwZ6nE9LAClRgt9CsksJQs6ls6g52vfAFeoggFTO0fM
+         aQ0GuNC2yhGaqRCgmMkMA3fmKNefTJjSlxm6PY6Vz4Iip0Nkc3xUVSLIIlhOtnOKU3s7
+         SUGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwqa473sJap5LWamaRXqgZMNCR0AEdTzitSO1FAnuOb7z3ymwqv6lkIURlU0nXeFALyey9Vvyg9vn/fuzc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0Z/Bhnw3y1Pm18Fw0uISN+4HaB/4YrDOaj2TNK2FlNHRlKRjU
+	0Un/zf3+rTHBrAbENWoIIEbURCXe9t/zG58vNaQxBXxeltQtDDBeDJKp4cL+qSv8wG5zq0mJcts
+	piukKStGCUMIG1eJ+CpkRKdrQgHHLKZ8=
+X-Gm-Gg: AYBFou2kWekx5VuCioVZGuwxd12lY9bUtQ0IdtaKlWIXDW8MARQpJXrLc3iwW1bsle5
+	S1wGwxDKU97nunBs2ITDUbYMuB9Fi/fk79SRp6JftVaqYJltEaFLZvScLZzpMRrhHBqnGyzjeFi
+	zIKo3SIlPOO0tMYEsCQZATOQahx2PrXmI/TuTA9fjUgsxA90K254KJvQpSUNvYrFFK4MLOPmkLj
+	CCrQmj3ycw+wu+nyQjHzoAq7CF8uP2ohA7Ck6yfQdGo6cAZe4F0s8PWNBQRrnTa8Pk109N+sfls
+	0gtjQq+xHjcInRwoGZaneeBH1Kb38prbbOFVYwjtnDS7O11u8J6lugG1+lIi0vIebkAA
+X-Received: by 2002:a05:6102:8645:10b0:7a9:e680:efd5 with SMTP id
+ ada2fe7eead31-7cc7bca6de0mr171865137.28.1792468412768; Mon, 19 Oct 2026
+ 20:53:32 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 19 Oct 2026 20:53:32 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 19 Oct 2026 22:45:49 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,67 +106,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <9a1b8caa-c260-469d-8b0b-6a2ca29226d0@collabora.com>
+References: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
+ <9a1b8caa-c260-469d-8b0b-6a2ca29226d0@collabora.com>
+From: Iron Berrington <berringtoni36@gmail.com>
+Date: Mon, 19 Oct 2026 20:53:32 -0700
+X-Gm-Features: AclHuK9XNMAuACY9V_8Ap8NkrnCzm4l0f59JyBZIo7KA_7HpUs6PKGbdATumTtQ
+Message-ID: <CAF2O-sNE3bKxuZrYvkBJ=-4sgSrPanzbKfcHJ0kVgFqwn0G9Sg@mail.gmail.com>
+Subject: Re: [PATCH] media: i2c: imx415: Use target vblank to calculate vmax
+ in s_ctrl
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The opid hybrid-automaton guards compare irq_off with 1. However,
-irqs_disabled() only guarantees zero or nonzero. On 32-bit Arm,
-arch_irqs_disabled_flags() returns the CPSR I bit, 0x80. Consequently,
-valid events with interrupts disabled fail the guard and spuriously
-trigger the reactor.
+Hi Michael, hi Dave,
 
-Normalize the value before returning it. Add a KUnit regression test
-that handles a need-resched event with local interrupts disabled.
-Without the normalization, the test triggers a reaction on Arm.
+Thank you both for reviewing the patch and for the Reviewed-by tags.
 
-Fixes: 2b406fdb33387 ("rv: Convert the opid monitor to a hybrid automaton")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Tested with an ARMv7 GCC 16 W=1 build and targeted SMP1 QEMU run:
-rv_test_opid and the RV KUnit suite pass.
+Best regards,
+Wenqiang
 
- kernel/trace/rv/monitors/opid/opid.c       | 2 +-
- kernel/trace/rv/monitors/opid/opid_kunit.c | 6 ++++++
- 2 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/trace/rv/monitors/opid/opid.c b/kernel/trace/rv/monitors/opid/opid.c
-index 9ae619f176fa1..a14532cc41778 100644
---- a/kernel/trace/rv/monitors/opid/opid.c
-+++ b/kernel/trace/rv/monitors/opid/opid.c
-@@ -20,7 +20,7 @@
- static u64 ha_get_env(struct ha_monitor *ha_mon, enum envs_opid env, u64 time_ns)
- {
- 	if (env == irq_off_opid)
--		return irqs_disabled();
-+		return !!irqs_disabled();
- 	else if (env == preempt_off_opid) {
- 		if (IS_ENABLED(CONFIG_PREEMPTION))
- 			return (preempt_count() & PREEMPT_MASK) > 0;
-diff --git a/kernel/trace/rv/monitors/opid/opid_kunit.c b/kernel/trace/rv/monitors/opid/opid_kunit.c
-index 3cb087a74241e..8aa1fb9c62344 100644
---- a/kernel/trace/rv/monitors/opid/opid_kunit.c
-+++ b/kernel/trace/rv/monitors/opid/opid_kunit.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <linux/kernel.h>
-+#include <linux/irqflags.h>
- #include <linux/rv.h>
- #include <rv/kunit.h>
- #include <trace/events/sched.h>
-@@ -17,6 +18,11 @@ static void rv_test_opid(struct kunit *test)
- 	guard(migrate)();
- 	KUNIT_EXPECT_TRUE(test, preemptible());
- 
-+	/* Need resched with interrupts disabled */
-+	scoped_guard(irq)
-+		rv_opid_ops.handle_sched_need_resched(NULL, NULL, 0, TIF_NEED_RESCHED);
-+	RV_KUNIT_EXPECT_NO_REACTION(test, ctx);
-+
- 	/* Wakeup with preemption and interrupts enabled */
- 	RV_KUNIT_EXPECT_REACTION_HERE(test, ctx)
- 		rv_opid_ops.handle_sched_waking(NULL, NULL);
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.39.5 (Apple Git-154)
-
+On Mon, 19 Oct 2026 22:04:36 +0200, Michael Riesch
+<michael.riesch@collabora.com> wrote:
+> Hi Wenqiang,
+>
+> Thanks for the patch!
+>
+> On 10/18/26 14:54, Wenqiang Zhao via B4 Relay wrote:
+> > From: Wenqiang Zhao <berringtoni36@gmail.com>
+> >
+> > When setting V4L2_CID_VBLANK, imx415_s_ctrl() writes the new frame length
+> > (format->height + ctrl->val) to the IMX415_VMAX register, and then falls
+> > through to case V4L2_CID_EXPOSURE to update the electronic shutter register
+> > (IMX415_SHR0 = vmax - exposure) so that exposure is preserved across frame
+> > rate changes.
+> >
+> > However, in case V4L2_CID_EXPOSURE, vmax is calculated as:
+> >     vmax = format->height + sensor->vblank->cur.val;
+> >
+> > Within the V4L2 control framework, sensor->vblank->cur.val holds the
+> > committed old vertical blanking value, which is not updated to the new
+> > value until s_ctrl() returns 0. Consequently, when VBLANK changes, vmax
+> > is calculated from the stale vblank value:
+> > - If VBLANK increases, SHR0 is computed using the smaller old VMAX, causing
+> >   the actual hardware exposure (VMAX - SHR0) to jump by the blanking delta.
+> > - If VBLANK decreases, SHR0 is computed using the larger old VMAX, causing
+> >   the actual hardware exposure to drop by the blanking delta.
+> > - Additionally, ctrl->val is clamped against the stale vmax limit.
+> >
+> > Fix this by using sensor->vblank->val instead of sensor->vblank->cur.val,
+> > which holds the target vertical blanking value currently being applied.
+> > When setting V4L2_CID_EXPOSURE directly, sensor->vblank->val equals the
+> > current vblank, keeping behavior unchanged.
+> >
+> > Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
+>
+> LGTM!
+>
+> Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+>
+> Best regards,
+> Michael
+>
+> > ---
+> >  drivers/media/i2c/imx415.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
+> > index c3b22b238..e5aa741fc 100644
+> > --- a/drivers/media/i2c/imx415.c
+> > +++ b/drivers/media/i2c/imx415.c
+> > @@ -729,7 +729,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
+> >  		fallthrough;
+> >  	case V4L2_CID_EXPOSURE:
+> >  		/* clamp the exposure value to VMAX. */
+> > -		vmax = format->height + sensor->vblank->cur.val;
+> > +		vmax = format->height + sensor->vblank->val;
+> >  		ctrl->val = min_t(int, ctrl->val, vmax);
+> >  		ret = cci_write(sensor->regmap, IMX415_SHR0,
+> >  				vmax - ctrl->val, NULL);
+> >
+> > ---
+> > base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+> > change-id: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
+> >
+> > Best regards,
+> > --
+> > Wenqiang Zhao <berringtoni36@gmail.com>
+> >
+> >
