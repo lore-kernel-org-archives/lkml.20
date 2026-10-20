@@ -1,82 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792524612;
-	b=tDiWNW30wPi7BGhSfUy89GjiC0dmM17bEqHnRTZbbqfaIw2LraU+itF59c7pcnf6ZKR/
-	 bS+hJ3lZudkMnDfSVop/V+fPBNoOYh3/jzybXbZkGF9mI5FiK4CApmFi8Tp38vWbjFEdx
-	 aKDyy40LsW0T2MJ/IG0eXurDJ9AriW830fzPb27dPreQRfBYrmoQQwKrou/zE99CajThg
-	 QXgVqU5pA8GsFCVdu7jLxdsFOE/PsKh8i5HHkR5NNCBJmy/X/09IPD1XCW0xk8MCEVeAR
-	 wo1sZcZ/pOAd9iVNaSeIAmaN5//LYJ3TGzkmrPi4YLyY9/NPadxwOkcKYmshgL85k6Q==
+	t=1792524607;
+	b=zpJG7Kj9Us6aR83KPPnJvgCacgabjsrqwp4Dzrq05X+EnKCmDPbAJbOUZO8pGA3H6hIf
+	 XmG4v5h1tuVIqA34/Z4IdI1/NvogSNpY1wCGBX4Psr4vap7NFyrU4A2/QNy1jbNPGKV3W
+	 kS82AqZ9/O0do2cs0rESRgPirDHRPNnFemhDzI31UMIBeSwhGyjmk1huEC5G5FZOIIoag
+	 uUMwUtOEJV6Sy/XU8ix9x1pMlxPUdbNty9IKWPShR6Ld2gqShkImdiHa8klxgFd9HLVQP
+	 gWTo6FRX7/perli3ijD6ue2pgfZMldyrsOSh+tUJE2bor0JP+FDK3Pr3bfvDLWrWyvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792524612;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Ro+ZQGqvoHjxfsJoqJ8Yh63KTW/BZhi188QX3SNHCQU=;
-	b=XReSWmyk04XHA9hfOMOTB+JssWLyb/2y9wxC7pbBgTNO+AyuaubSWaBLM2/C33oLY4v4
-	 VVAayQZqj/NwvVYJA+qOa+85bJTIj6C/iJZKrOhATGioF9fj0Eu182rjzHzQ5lSfrPc6s
-	 aztsC++/GWyHr6jCRQU949Od0vWaEYc+dOOLNz13iJNGBF89C+Gv9UGgOrTC4r3XEZGdT
-	 u75DBr3e7tV3pZybauM7JpxTsbFHNLOdsBFqKoK0SJEUI2zA+YVfs57SGEHbezo56/98y
-	 8qzsQ81SfZXxj3doUCjeZOVq/oDUlP52hdWCQzMZOL4hXxiOuyEe3AL8Fhizj1c6yzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792524607;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=wYg9cotcoU0u6A8/hr+EYwsFGArgBF9NN7BKO2SM0po=;
+	b=5DZF6IBY9Lo8kI12OhMz7N5saJ57n8HByXIe3n23iw6bWUJj0e/jCAxuuONbqV6LJJm/
+	 SseytcKHBcdn6phvL9LcYPvm+gSoQqC/CFaONb+aSeQMbSD1Q/x2yQBYvW/qlCWaH/bzR
+	 Wtdlz4HrUky/vX9sUehV7hxWaw+YCuzihjC0omb3Tdsx0AUKHU05N1n6WMWB+xFmdEFU5
+	 OdDLFMT0sXAc5XEBG4cMgo5XeKKBIZ/aKfRVUr4G8bIeh5CU5jEcI62pvocmr9NwCZL0E
+	 89iplQDGt7YmZH2AXxCNkbppT/AFzRPIV3Z+nmer2u08YU0ipLx/+OSjwgOLF79pf+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=HGxkr8il;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nlVIDa9w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF18606A331;
-	Tue, 20 Oct 2026 19:30:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF18606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE8E606A322;
+	Tue, 20 Oct 2026 19:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=HGxkr8il
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Ro+ZQGqvoHjxfsJoqJ8Yh63KTW/BZhi188QX3SNHCQU=; b=HGxkr8ilpsS8CX1H+RCJQyXN9N
-	kgK96RizNWOsvfnVMSk8Tt1EQ7flE2KgXhZ5O/fI2/MmGTw3xKY9+D4UtEo/+1sR+IS99TLqIPlNm
-	mdqkHxouGZwgPCqcGJG3oZmu6wsPQNdQpn2ZN4AgPmvYJhZi3WoFFmVjVMPyCzulyMTs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xJFWw-00BueB-Gr; Tue, 20 Oct 2026 21:29:50 +0200
-Date: Tue, 20 Oct 2026 21:29:50 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Cc: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	"kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"parthiban.veerasooran@microchip.com" <parthiban.veerasooran@microchip.com>,
-	"horms@kernel.org" <horms@kernel.org>,
-	"corbet@lwn.net" <corbet@lwn.net>,
-	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
-	"rdunlap@infradead.org" <rdunlap@infradead.org>,
-	"richardcochran@gmail.com" <richardcochran@gmail.com>,
-	"hkallweit1@gmail.com" <hkallweit1@gmail.com>,
-	"linux@armlinux.org.uk" <linux@armlinux.org.uk>,
-	"edumazet@kernel.org" <edumazet@kernel.org>,
-	"piergiorgio.beruto@gmail.com" <piergiorgio.beruto@gmail.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"jerry.ray@microchip.com" <jerry.ray@microchip.com>,
-	"ciprian.regus@analog.com" <ciprian.regus@analog.com>
-Subject: Re: [PATCH net-next v9 03/11] net: ethernet: oa_tc6: Move oa_tc6.c
- to its own directory
-Message-ID: <e40a4fae-b339-4a5a-b21e-3a31dd3ddd5a@lunn.ch>
-References: <20261009-s2500-mac-phy-support-v9-3-dcefe1d0bf0d@onsemi.com>
- <179166121127.434549.2014178695820662916@kernel.org>
- <CH0PR02MB786710538BD4784E5CF2C9A183672@CH0PR02MB7867.namprd02.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nlVIDa9w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073011F000C9;
+	Tue, 20 Oct 2026 19:30:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792524607;
+	bh=wYg9cotcoU0u6A8/hr+EYwsFGArgBF9NN7BKO2SM0po=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=nlVIDa9wW+uOYT5mUetEGavF0EsvitauQHKUabhlYAb6qwusxhS8KE5M1t5uxENXZ
+	 6CtgWcWfha3GUBpEsM5MODslh+VxjuuYO5OwwhBnAz8xsZndVB4qnjD+onfF9t4m/k
+	 Yuimsl9hw0WqOKBJsS2ie90qujWCs01rLX5yzk9Lj6F16URCtkbxbYxjToW1UtGT3P
+	 3O53QD56IORCzQ+sP9lkzV5PPJWDjXUdi5Y1BlGr9HRHywvbWiF02M2IfiSvK0TfwQ
+	 At1B9Y0mL6BT5IHaQ1URvaCwEScR6NmgErOmNrQAYG+3KJVCB/SImnL75QnRAqOIA1
+	 c0JlfOitYGesg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15B33808209;
+	Tue, 20 Oct 2026 19:30:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,29 +53,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CH0PR02MB786710538BD4784E5CF2C9A183672@CH0PR02MB7867.namprd02.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next net] netdev: Hide the netdev_priv() origin from
+ GCC
+ in netdev_from_priv()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179252460578.172302.12338872662372096525.git-patchwork-notify@kernel.org>
+Date: Tue, 20 Oct 2026 19:30:05 +0000
+References: <20261015165959.i.798-kees@kernel.org>
+In-Reply-To: <20261015165959.i.798-kees@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ gustavoars@kernel.org, qingfang.deng@linux.dev, jiri@resnulli.us,
+ spender@grsecurity.net, pageexec@gmail.com, morbo@google.com,
+ justinstitt@google.com, netdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ yeswanth@linux.ibm.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Tue, Oct 20, 2026 at 04:48:48PM +0000, Selvamani Rajagopal wrote:
-> Andrew, Jakub (and other concerned reviewers).
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 15 Oct 2026 10:00:03 -0700 you wrote:
+> GCC 15.1 and later can compute an object size of 0 for a pointer that
+> container_of() derives from a pointer into a __counted_by flexible array
+> member[1]; Clang gets it right. netdev_from_priv() does this with struct
+> net_device's "priv" array, so when GCC can see that its argument came
+> from netdev_priv(), FORTIFY_SOURCE sees a zero-sized net_device. Since
+> commit 9027497a25e3c ("team: use netdev_from_priv()"), adding a port of
+> another type to a team device can then fail the memcpy() to
+> "dev->broadcast" in team_setup_by_port(), which GCC sees through after
+> inlining team_port_add() into team_add_slave():
 > 
-> This following feedback about change of module name is being raised regularly. While I understand 
-> the concern (and I agree with it), this is how it has been from the beginning and I didn't see any 
-> concern from the reviewers. So, I thought it is ok to leave it the way it is.
-> 
-> My question is, should I change the module name back to the original oa_tc6.ko (from
-> oa_tc6_mod.ko that is used in this patch series). If I choose to do that, original file name oa_tc6.c
-> would have to change to oa_tc6_core.c or something like that.
+> [...]
 
-I don't think we consider module names ABI.
+Here is the summary with links:
+  - [net-next,net] netdev: Hide the netdev_priv() origin from GCC in netdev_from_priv()
+    https://git.kernel.org/netdev/net-next/c/56f8d919739b
 
-However, some distros, especially in the embedded space such as yocto,
-do make use of the module name, it produces a binary RPM named from
-the module name. So if a rename can be avoided, that would be great.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Git is pretty good at following renames, so renaming oa_tc6.c to
-oa_tc6_core.c in order to keep the module name the same should not
-cause problems.
 
-    Andrew
