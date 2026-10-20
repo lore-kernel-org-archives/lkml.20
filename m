@@ -1,32 +1,32 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509164;
-	b=ES0NRdlga7TDnLbgJDrEGIrNloDe6cTj/41C+lFa2KeyFsBb12mkK5moZ0XtcCmPBjHY
-	 xLC0/FYJombeTxI8q799TKEPAqvOZzsFK1oEAPoPYAVht56137wRjCrYOk/1K0yX9wTmH
-	 tFLI0wMRyLJxzAYjk8zoVmdjS9OPz8oJbNBUyDu4uhNUL3wq8c7HNfiY2opL4Tok3Ntlo
-	 Y3tVSY0D0S5db1/A/mVgHPSoxvY7pexc+JW+yBKmNRQaClay6CVUVXHwHBrzIPuMtcahz
-	 f0BFoxcVr+l75Hy9OD/792sk3GIfUIv2dEMXXki0VRMCq5UVSOYeep7BFrd0jfl8BmA==
+	t=1792509168;
+	b=s5FMCAOOxLseBSftCSS/RYwz36kicH5v16gHTMSxsfVFjphx8W+fQWuYMFhbTc1Ar4dn
+	 XD7Jn9+ny7AeLEKslGiDDOsgIT9qv2jPoFdIhgV0WugALNCtea3QC2U/so6bsllYmdYKp
+	 fJCVSYNXJgu+hRjP0ML/IJwlZXyTsG0R3J04t5WVPgpV4aXpY1SA/FUGGUAaf+ZofK1Mj
+	 11lH5jlvp99snDdQlRGitEAo3aHtMNrS7+0VPXl6immAj9sbk/iUacfzJ4xwIv8XofFJx
+	 7oe3MQcPGf5cQsG/xZI81tH1fUUEjkbrwA1Vuc16ExN2qsjKRl25ngre2LEFER1xMfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509164;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509168;
 	h=Received:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:
 	 From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=13Yuoyae55wiKNqti/LOAEL9RI5niDoBeik6pXc0Zx4=;
-	b=mKzhujc8cKb4YtGoFK7QOWHZ1bc3euRZyqC9x0d7KHsonNkulDebB7LmcBudNpDH9kXO
-	 5wYoc9MkSHSO6Ct97BByfvL2lXAOYRduHiSuZO32MAg3/PjI1GljO6mkPGpzpsoaua9rG
-	 PkzVPbSNxFttx7emWxiEI4R+jn5oLYDUDZVzoztmHRTDNIz1Hyw1xvS17iJy8S0fbcn2r
-	 HQje6kuFamzaKfIDpmLZ37CoGG+/sH43lF4Y3kQI5xqZSyoLVFUMJRHszUIQJC9xqSpF0
-	 qVZp7rAS0j2z8h+FzliTLchtVWg6s9Yh4hYoyH5U51EQ5OGxn6Bry3nvxv9yDxcstfA==
+	bh=i5qbLg5CfgzGS4UQhdai288NHSkfA8TdxM+Oig2AJIU=;
+	b=wYq0sYKyFNOjXaIyCi1wHWPFa1eeOkL0Zbq+JNaoj6yAMCB2ryJ6LFoX79ysLsNp228k
+	 u1zV8oqp0yu6LGgapS/Xwtw15zyYZOI7dAwmp10AqwuYLKcTkqmaDdoVOve4XTR6fF3to
+	 65hUEDtltamF63oRzyAXHQXwzepxeqWkndOu2FYw0upFVZpHuRGYhXXZUF0lqLY4KS+FG
+	 7MuKAJOOICMReGKKfiw6Y1LVg0Njn64wI5+2bEHUtoAguVSoI2U9Ac0XiAKHq88M8OdCS
+	 ZVtdKD13Vg1SUHE9wcEMrH5wIlZ8+tk2ZKStcPU2F7HyuZSIFZVmC/WBsaJ5h1B4GhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE3C606A320;
-	Tue, 20 Oct 2026 15:12:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1188E1F000C4;
-	Tue, 20 Oct 2026 15:12:44 +0000 (UTC)
-Date: Tue, 20 Oct 2026 10:12:43 -0500
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EF5606A331;
+	Tue, 20 Oct 2026 15:12:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079E11F000C4;
+	Tue, 20 Oct 2026 15:12:47 +0000 (UTC)
+Date: Tue, 20 Oct 2026 10:12:45 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -39,48 +39,28 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, edumazet@kernel.org, 
- devicetree@vger.kernel.org, mohd.anwar@oss.qualcomm.com, 
- peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com, 
- alexandre.torgue@foss.st.com, daniel@riscstar.com, joabreu@synopsys.com, 
- pabeni@redhat.com, davem@davemloft.net, maxime.chevallier@bootlin.com, 
- netdev@vger.kernel.org, linux@armlinux.org.uk, richardcochran@gmail.com, 
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com, 
- kuba@kernel.org, hkallweit1@gmail.com, krzk+dt@kernel.org, 
- p.zabel@pengutronix.de, andrew+netdev@lunn.ch, conor+dt@kernel.org, 
- lorenzo.bianconi@oss.qualcomm.com
-To: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20261019030129.1470307-2-elder@riscstar.com>
-References: <20261019030129.1470307-1-elder@riscstar.com>
- <20261019030129.1470307-2-elder@riscstar.com>
-Message-Id: <179250894164.3309593.6302141090126438838.robh@kernel.org>
-Subject: Re: [PATCH net-next 1/5] dt-bindings: net: add support for Toshiba
- TC9564
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
+ linux-sound@vger.kernel.org, Takashi Iwai <tiwai@suse.com>, 
+ linux-kernel@vger.kernel.org
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+In-Reply-To: <20261019101357.117462-2-clamor95@gmail.com>
+References: <20261019101357.117462-1-clamor95@gmail.com>
+ <20261019101357.117462-2-clamor95@gmail.com>
+Message-Id: <179250894523.3310093.11731102179479759179.robh@kernel.org>
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: Document FM34NE DSP
 
 
-On Sun, 18 Oct 2026 22:01:24 -0500, Alex Elder wrote:
-> The Toshiba TC9564 is an SoC that exposes two XGMAC 10 Gbps Ethernet
-> interfaces, each of which is attached to an embedded PCIe function.
+On Mon, 19 Oct 2026 13:13:55 +0300, Svyatoslav Ryhel wrote:
+> Document the FM34NE DSP based voice processor used in the ASUS Transformer
+> devices.
 > 
-> These XGMAC interfaces have three resets, for the MAC, PMA, and XPCS
-> layers.  These resets differ from the standard two resets defined
-> in "snps,dwmac.yaml".
-> 
-> To permit these other resets to be used, modify the way resets are
-> defined in "snps,dwmac.yaml" to be similar to the way interrupts and
-> their names are defined earlier in the file.  That is, rather than
-> adding descriptions with the resets property values, just specify the
-> maximum number of items.  Then, in the reset-names property, provide
-> a list of description/constant value pairs, indicating which renames
-> may be used among the (three) reset items specified.
-> 
-> Signed-off-by: Alex Elder <elder@riscstar.com>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->  .../devicetree/bindings/net/snps,dwmac.yaml   |  26 +-
->  .../bindings/net/toshiba,tc9564-xgmac.yaml    | 327 ++++++++++++++++++
->  MAINTAINERS                                   |   7 +
->  3 files changed, 351 insertions(+), 9 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.yaml
+>  .../bindings/dsp/asus,tf201-dsp.yaml          | 77 +++++++++++++++++++
+>  1 file changed, 77 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -88,20 +68,13 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/snps,dwmac.yaml: properties:reset-names: {'maxItems': 3, 'items': [{'oneOf': [{'description': 'GMAC stmmaceth reset', 'const': 'stmmaceth'}, {'description': 'AHB reset', 'const': 'ahb'}, {'description': 'MAC reset', 'const': 'mac-reset'}, {'description': 'PMA (Physical Medium Attachment) reset', 'const': 'pma-reset'}, {'description': 'XPCS reset', 'const': 'xpcs-reset'}, {'description': 'OCP reset (deprecated)', 'const': 'stmmaceth-ocp'}]}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/snps,dwmac.yaml: properties:reset-names:items:0: 'oneOf' is not one of ['const', 'deprecated', 'description', 'enum', 'not', 'pattern']
-	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
-Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.example.dtb: ethernet@48000 (toshiba,tc9564-xgmac): False schema does not allow True
-	from schema $id: http://devicetree.org/schemas/net/toshiba,tc9564-xgmac.yaml
-Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.example.dtb: ethernet-phy@1c (ethernet-phy-id004d.d101): Unevaluated properties are not allowed ('vdd18-supply' was unexpected)
-	from schema $id: http://devicetree.org/schemas/net/qca,qca808x.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml: Unresolvable reference: dai-common.yaml#
+Documentation/devicetree/bindings/dsp/asus,tf201-dsp.example.dtb: codec@60 (asus,tf201-dsp): False schema does not allow {'compatible': ['asus,tf201-dsp'], 'reg': [[96]], 'clocks': [[4294967295]], 'bypass-gpios': [[4294967295, 222, 0]], 'reset-gpios': [[4294967295, 115, 1]], 'vdd-supply': [[4294967295]], '$nodename': ['codec@60']}
+	from schema $id: http://devicetree.org/schemas/dsp/asus,tf201-dsp.yaml
 
 doc reference errors (make refcheckdocs):
-MAINTAINERS: Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
 
-See https://patchwork.kernel.org/project/devicetree/patch/20261019030129.1470307-2-elder@riscstar.com
+See https://patchwork.kernel.org/project/devicetree/patch/20261019101357.117462-2-clamor95@gmail.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
