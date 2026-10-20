@@ -1,112 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792526549;
-	b=WAM7lzoRljQbOlV0Exe/wqrfgz7U4Riibf9gasgB51Me5nIhrclxxovOXr8AsdjR5wTt
-	 30jheJh3CATFpWuRP9ni6K1zJpq0IJkwQ49cPOAsKq8uOqgbGL51MwAoxYrd0BwKRNzO3
-	 weI6mGKU6H4P/W3+rK8kFOh4wnFvK06yCeRcfTh1iSjaVsyFVBkv0dBQvjMRNpk60zssc
-	 Px1PSSYXOWPKgZcg2lHDoTS9hICWHkgrqIxTaTI8fmhXXxih3O2M+SPcS1KNwkRUAVOFh
-	 M3QABra/pU2KACaKBidpcLPRSQ+wsOEqyq61zwnWql9Jzl12FFXREyVJ7OI3aDi9+Ww==
+	t=1792526585;
+	b=Gjr2j+GgWva83zIkOgctZWYGuGMW3cD/5rO0HvsPmJ7RE3KT8uKqga8PkIe1aACU4R4t
+	 SBIde4rDrfSSbhVyEgW+HP948HkkbWPDWol/UJmCFaVX5cCtF4zBJKqGytYAXdqMDE+hT
+	 ecpn+Ewgc33uN+7mGXMi4wDmn3UTKGWCkz71554qt3EHeBbrcM/MlX/l9vTLKbGH6S05W
+	 KNa1LstmYGSF8j8fe/sYy8pW65lr9x0rjOiXZHj/pPkHYJvVOJT+3BVNcgbfwyGrqk9+b
+	 kUod/W9R9XnrrYga/v+iOhzD9VDlVTaXbQGvI7xTARWLZNd6HZeYHm3d2Wlnhfg4Krg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792526549;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8ZysMSfbg6fBNJbq7ExrYH4kJLqlOfTHrM/s3F+kdh8=;
-	b=iUJCov/MyvkFLOTkJN62SODUoZrRhqYHc9o5kbJyDDbyUCDw4T4Z1OjNSWBVzDt99GU8
-	 733QyYxYDd2qdpzTOFRND0G1u0jqE1BdI54CD99n8bELDvFJxfOi0H889Ej6ZtZxsnPhR
-	 Z5bplVlRcTOGmVJI4SkXCeCRZ2fuhEibd9JTeNI7NNWneJC0d/dlgPe070D4cJD4D57Tw
-	 Z9Z2lySih9vRZtHoe/6VMVJOSyPe9StjACGanucYlKiHZt75uOwrizdFA/Ss4yefK3KRg
-	 aVZ8jmOCtDu2KR4v8U/njYfJq4m4o2t6KjZ7rg4r0VtIs5nHH0V7XpcxpSGv5wphIEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792526585;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=Pku0lFbvxT3mbVhybB/c/cLdbEfIKpHTEc3Odql5vdw=;
+	b=iQ5+PTRQQvn2n4L4aG2xJcYUGUultii6LRgoRYl+ciNFj1J5zIVUcpJ5zQN8bCR3cX8U
+	 GatZR/xvkK/F+zqhivjwEMa5b6BIFhmBYnFlubNqThDBzvwmEEtyuh6pDL38ZG5zbaG2j
+	 1ySm0hhfgmSMPt/bpqlEHzcnUM37WuTZR4RPd4XunsCiXb/09AsiZLRtqK2h8YMHzB2+j
+	 +6zqv70bb8zzlu13iLHaAkJ8icZMcIpnkUUoWRMfGHQ+0Aq3j0GLU4mtVIaZPA8nGmQnM
+	 /IUSNbrhEbEET5ebODKldjAduRv2PtO7HAQ+5x98wg7hctIXgEleSPDho8O6hhHD7Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hAm+sOt6;
-	arc=none smtp.remote-ip=209.85.217.43
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dvdrdRUQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF52606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:02:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AF52606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EFBFD606A319;
+	Tue, 20 Oct 2026 20:03:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hAm+sOt6
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-745497ac8fcso45981137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:02:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792526548; x=1793131348; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8ZysMSfbg6fBNJbq7ExrYH4kJLqlOfTHrM/s3F+kdh8=;
-        b=hAm+sOt6EH4D5vva7EW689YF9IYxKzNh8GBRAPeaZ+3G+Ik1z1FdOzMr6/PIaD6pPa
-         stexztaNe0IQbsnqsC6kiklftJIVIvKi97lt7ZjTrSQ+/eHykVg9NVjEG8ZiMSrAuhEz
-         zLZEA5qwYYXtyt63z98Y0GM7/fZ2R1vExKgHCZ7C9TE+NKsxmlDzmJMXsxC0eEm5REPg
-         RBUXRkGExaXKA2VQnTcdAvVP6Gxp+7Fm30QiuCgQOoC+9DsFa6fYQ47QAgf6dNZ7ewrn
-         suSbbPGDpaunXHKGkFfamklUyJy6QTeEuiHcdRwHN51ssl05Xd7ezZX5NtkXHhCBNhfY
-         0XXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792526548; x=1793131348;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8ZysMSfbg6fBNJbq7ExrYH4kJLqlOfTHrM/s3F+kdh8=;
-        b=VM0rJ57V5Z1hlw+4DDNAIHHONk/GbVdbiLfNfOBahti4bVh7zoHEukl43xjYdLqPpg
-         mktqtOVO9WJNelrAOnTBft7MRTYM4rqsYEjDA+GEZB590tw7dujTddu8wTIxCxSB8QP0
-         A1O4tFp1M+Y8Ef8kGIev0DXBfBxOTwS5SO5HblyS87z4vPflGSLKSlXBj+bYCulxMpKc
-         AKUx06SgnKEi8POAabQjk5qdPpG0nvg5H6ZCkt4UcqmMqklAN/dUTMNMumZG0Q8a4kML
-         t/rWi0PcQwpczpfciaJRXi+MCYt1840Bbw186r0BSGBul96EORYgqSTAkACGHNqwcI9a
-         x0+g==
-X-Gm-Message-State: AFq9FYJ/6piketdpyjRMklDwoJ9e5OlBZSEQGroiyaIxvEtnDf4xVgLq
-	U11VtdYKLQc9DD3snEPEsBVGKDuSPyaupr1bxfGi3ha5ZdkslnLNVmFY
-X-Gm-Gg: AYBFou1ISnqZEvhy0znwFPoCvHVSENS3nH+KVaDC/l2pW0MosgOe9heSiSTYXCmbgh1
-	iWMSjDYZXdqAU4vv+gl5VocJsKTxcn7YO/njd62allAN7O4n711K9dSvlDuECkVZSDEWaq0MqID
-	rnFOZBk19G5SNbhpBVZjiPSAgPl2fXWRZXU8BpxIu2n8kMs59J/McbypzK+p5FaH8ysLrqwtl/O
-	8+sVeRMV7TK2oXMfYmS02p7DYVc1K8mm97YCdUOa1vW2sloU1VRt/EcKPWWj6vD3IMW/oh+7YzB
-	n73FcrbJ8VkodQqrn5M9DPt3FU0BZrJjjF3j2p5SEMUOqAuc5yQ0p+amJxf7rjupScnOTd7bmO9
-	IG8GRiEiWHBnnB42NCSmDFdwVW1Xdn91TTEORSf8gXEHKgA6/RHyp3hs8hnIl/IF3FiC5OL3qZV
-	h4khP1kHwZAf+F1l68AjxjmDL3VT+Mjv56u/hnYIZvpp86lkPVTtoLHQGIrzi/7S3452Id+Z5l9
-	U1RO7edfnX3uLkdQDEJHviTEDCyBAW+tWIlZNn8Q/PZ9xwobK8jsDyihAJBjjmqpW0ityHylLI/
-	gWNrWlXxO/5TUI3lYYKBvXqEcpq5NVU9zy8Q1g==
-X-Received: by 2002:a05:6102:38ca:b0:7b2:508e:3d57 with SMTP id ada2fe7eead31-7cc92469ef4mr87919137.4.1792526547926;
-        Tue, 20 Oct 2026 13:02:27 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc9236f63csm306154137.5.2026.10.20.13.02.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:02:26 -0700 (PDT)
-Date: Tue, 20 Oct 2026 16:02:26 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: linux-kernel@vger.kernel.org, 
- Chris Arges <carges@cloudflare.com>, 
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
- Phil Sutter <phil@nwl.cc>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- netdev@vger.kernel.org, 
- virtualization@lists.linux.dev, 
- Max Krasnyansky <maxk@qualcomm.com>, 
- Rusty Russell <rusty@rustcorp.com.au>, 
- Simon Horman <horms@kernel.org>
-Message-ID: <willemdebruijn.kernel.57aa9aa58b62@gmail.com>
-In-Reply-To: <20261020153650-mutt-send-email-mst@kernel.org>
-References: <cover.1792411304.git.mst@redhat.com>
- <b1dce3e055b973bd87bdbdc9e9729971fa383326.1792411304.git.mst@redhat.com>
- <willemdebruijn.kernel.26f697d5a674b@gmail.com>
- <20261020153650-mutt-send-email-mst@kernel.org>
-Subject: Re: [PATCH net v3 1/8] net: account for ingress-resolved virtio net
- hdr state
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dvdrdRUQ
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EAD581F000C9;
+	Tue, 20 Oct 2026 20:03:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792526584;
+	bh=Pku0lFbvxT3mbVhybB/c/cLdbEfIKpHTEc3Odql5vdw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dvdrdRUQdp5aDmxlGlQR2lFlMry4nRGg/99jRhNRmIqO97Ac2h+rfU6Y/kLe92z8M
+	 +nMgvz1H232syuZdyBS1Ph8KRQnGpUA/ji4IT2r6rYPQPIoBz5a7ZPglFQoRMvHUbh
+	 Nf6aLWWgSf4RSRiewMx055VTBZSDFtWB5zd/rfbCMwP5uicGAW8Q94sk1asEaBInb8
+	 Mi2GlkhuvGpj25U3mxJQxzzurG2oThz+pxG9eIEUjyIvd4XbPwk7it+GjkPtbVfzpI
+	 H34/c9Er0ZxIDmeJXB3P3UeiPZJxN9XEZKGRMWzlRcvFnVVhChJnm06HKwKrC1k2J/
+	 DxnPjDkIOLefA==
+Date: Tue, 20 Oct 2026 22:02:25 +0200
+From: Nicolas Schier <nsc@kernel.org>
+To: Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kbuild: deb-pkg: allow to set package name version
+Message-ID: <atfI0Uc3iWSmR49j@levanger>
+Mail-Followup-To: Nicolas Schier <nsc@kernel.org>,
+	Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>,
+	Nathan Chancellor <nathan@kernel.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+References: <20261019-deb-pkg-v1-1-7f8e60bbede5@sigxcpu.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,212 +61,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261019-deb-pkg-v1-1-7f8e60bbede5@sigxcpu.org>
 
-Michael S. Tsirkin wrote:
-> On Tue, Oct 20, 2026 at 03:27:46PM -0400, Willem de Bruijn wrote:
-> > Michael S. Tsirkin wrote:
-> > > The following patch will add ingress resolution of uncommon virtio net
-> > > hdr checksum metadata (software checksum completion at ingress) which
-> > > adds performance overhead to the packet processing.
-> > > 
-> > > We should make it visible, so a hypothetical workload relying on
-> > > uncommon metadata can be distinguished from none at all. This way issues
-> > > in the parsing will be reported and not quietly pay the host-CPU
-> > > checksum overhead instead of offload.
-> > > 
-> > > Flip every call to virtio_net_hdr_to_skb to test for negative errno
-> > > only, and have tun count these events per device as rx_csum_sw, exposed
-> > > via ethtool -S.
-> > > 
-> > > Assisted-by: LLM
-> > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> > > ---
-> > >  drivers/net/tap.c        |  4 ++--
-> > >  drivers/net/tun.c        | 41 ++++++++++++++++++++++++++++++++++++++--
-> > >  drivers/net/virtio_net.c |  2 +-
-> > >  net/packet/af_packet.c   |  4 ++--
-> > >  4 files changed, 44 insertions(+), 7 deletions(-)
-> > > 
-> > > diff --git a/drivers/net/tap.c b/drivers/net/tap.c
-> > > index ff67d99deb39..73e883394446 100644
-> > > --- a/drivers/net/tap.c
-> > > +++ b/drivers/net/tap.c
-> > > @@ -649,7 +649,7 @@ static ssize_t tap_get_user(struct tap_queue *q, void *msg_control,
-> > >  
-> > >  	if (vnet_hdr_len) {
-> > >  		err = tun_vnet_hdr_to_skb(q->flags, skb, &vnet_hdr);
-> > > -		if (err) {
-> > > +		if (err < 0) {
-> > >  			rcu_read_unlock();
-> > >  			drop_reason = SKB_DROP_REASON_DEV_HDR;
-> > >  			goto err_kfree;
-> > > @@ -1084,7 +1084,7 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
-> > >  
-> > >  	if (vnet_hdr_len) {
-> > >  		err = tun_vnet_hdr_to_skb(q->flags, skb, gso);
-> > > -		if (err) {
-> > > +		if (err < 0) {
-> > >  			rcu_read_unlock();
-> > >  			goto err_kfree;
-> > >  		}
-> > 
-> > similar to tun, should tap count this event?
-> > 
-> > > diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-> > > index 242899f7fd07..19cb443c89b0 100644
-> > > --- a/drivers/net/tun.c
-> > > +++ b/drivers/net/tun.c
-> > > @@ -210,6 +210,7 @@ struct tun_struct {
-> > >  	u32 flow_count;
-> > >  	u32 rx_batched;
-> > >  	atomic_long_t rx_frame_errors;
-> > > +	atomic64_t rx_csum_sw;
-> > 
-> > is a normal (and cheaper on 32b platforms) atomic_t or atomic_long_t sufficient?
+On Mon, Oct 19, 2026 at 09:16:14PM +0200, Guido Günther wrote:
+> Instead of hardcoding ${KERNELRELEASE} in the package name allow
+> the user to override this.
 > 
-> well it can overflow easily. i don't know that we care that a slow
-> path will be even a bit slower on these ancient platforms. correct
-> reporting seems more important.
+> This can be useful if one doesn't want to accumulate different packages
+> for every commit or micro version bump by setting
+> KDEB_PKGNAMEVERSION=7.3 or even KDEB_PKGNAMEVERSION=stable.
 
-Ok. I would hope that monitoring catches this before it hits 4B, but
-agreed that as slow path it doesn't matter.
+I am not yet convinced, that this is a good idea.  Do you want to
+elaborate a bit more, why you think this is necessary?  Have you tested
+your patch?  I don't like that source package name and binary package
+name divert w/o good reasoning.
 
-> 
-> > >  	struct bpf_prog __rcu *xdp_prog;
-> > >  	struct tun_prog __rcu *steering_prog;
-> > >  	struct tun_prog __rcu *filter_prog;
-> > > @@ -1935,11 +1936,16 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
-> > >  		break;
-> > >  	}
-> > >  
-> > > -	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr)) {
-> > > +	err = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr);
-> > > +	if (err < 0) {
-> > >  		atomic_long_inc(&tun->rx_frame_errors);
-> > >  		err = -EINVAL;
-> > >  		goto free_skb;
-> > >  	}
-> > > +	if (err > 0) {
-> > 
-> > } else if (err > 0) {
-> > 
-> > > +		atomic64_inc(&tun->rx_csum_sw);
-> > > +		err = 0;
-> > > +	}
-> > >  
-> > >  	if ((tun->flags & TUN_TYPE_MASK) == IFF_TAP)
-> > >  		skb->protocol = eth_type_trans(skb, tun->dev);
-> > > @@ -2605,12 +2611,15 @@ static int tun_xdp_one(struct tun_struct *tun,
-> > >  	tnl_hdr = (struct virtio_net_hdr_v1_hash_tunnel *)gso;
-> > >  	skb->dev = tun->dev;
-> > >  	skb_set_network_header(skb, ETH_HLEN);
-> > > -	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr)) {
-> > > +	ret = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr);
-> > > +	if (ret < 0) {
-> > >  		atomic_long_inc(&tun->rx_frame_errors);
-> > >  		kfree_skb(skb);
-> > >  		ret = -EINVAL;
-> > >  		goto out;
-> > >  	}
-> > > +	if (ret > 0)
-> > 
-> > same
-> > 
-> > > +		atomic64_inc(&tun->rx_csum_sw);
-> > 
-> > maybe reset ret = 0 in all these branches
-> > 
-> > >  
-> > >  	skb->protocol = eth_type_trans(skb, tun->dev);
-> > >  	skb_reset_network_header(skb);
-> > > @@ -3739,7 +3748,35 @@ static void tun_get_channels(struct net_device *dev,
-> > >  	channels->max_combined = tun->flags & IFF_MULTI_QUEUE ? MAX_TAP_QUEUES : 1;
-> > >  }
-> > >  
-> > > +#define TUN_STATS_LEN	1
-> > > +static const char tun_ethtool_strings[TUN_STATS_LEN][ETH_GSTRING_LEN] = {
-> > > +	"rx_csum_sw",
-> > > +};
-> > > +
-> > > +static int tun_get_sset_count(struct net_device *dev, int sset)
-> > > +{
-> > > +	return sset == ETH_SS_STATS ? TUN_STATS_LEN : -EOPNOTSUPP;
-> > > +}
-> > > +
-> > > +static void tun_get_strings(struct net_device *dev, u32 stringset, u8 *data)
-> > > +{
-> > > +	if (stringset == ETH_SS_STATS)
-> > > +		memcpy(data, tun_ethtool_strings,
-> > > +		       sizeof(tun_ethtool_strings));
-> > > +}
-> > > +
-> > > +static void tun_get_ethtool_stats(struct net_device *dev,
-> > > +				  struct ethtool_stats *stats, u64 *data)
-> > > +{
-> > > +	struct tun_struct *tun = netdev_priv(dev);
-> > > +
-> > > +	data[0] = atomic64_read(&tun->rx_csum_sw);
-> > > +}
-> > > +
-> > >  static const struct ethtool_ops tun_ethtool_ops = {
-> > > +	.get_sset_count		= tun_get_sset_count,
-> > > +	.get_strings		= tun_get_strings,
-> > > +	.get_ethtool_stats	= tun_get_ethtool_stats,
-> > >  	.supported_coalesce_params = ETHTOOL_COALESCE_RX_MAX_FRAMES,
-> > >  	.get_drvinfo	= tun_get_drvinfo,
-> > >  	.get_msglevel	= tun_get_msglevel,
-> > > diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> > > index daab43ac92ce..2e6fd81df9c4 100644
-> > > --- a/drivers/net/virtio_net.c
-> > > +++ b/drivers/net/virtio_net.c
-> > > @@ -2519,7 +2519,7 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
-> > >  	skb_set_network_header(skb, ETH_HLEN);
-> > >  	if (virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
-> > >  				      vi->rx_tnl_csum,
-> > > -				      virtio_is_little_endian(vi->vdev))) {
-> > > +				      virtio_is_little_endian(vi->vdev)) < 0) {
-> > >  		net_warn_ratelimited("%s: bad gso: type: %x, size: %u, flags %x tunnel %d tnl csum %d\n",
-> > >  				     dev->name, hdr->hdr.gso_type,
-> > >  				     hdr->hdr.gso_size, hdr->hdr.flags,
-> > 
-> > should virtio_net count these too? Or do we assume that devices are
-> > more trustworthy, so unlikely to cause this issue?
-> 
-> With memory encryption, from an untrusted host?
-> i can add that.
-
-I honestly don't know if it's worth the effort. Just curious whether
-you had purposely skipped this and tap.
-> 
-> > > diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> > > index 52ae3d875e97..e6aec9ecfa99 100644
-> > > --- a/net/packet/af_packet.c
-> > > +++ b/net/packet/af_packet.c
-> > > @@ -2913,7 +2913,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
-> > >  		}
-> > >  
-> > >  		if (has_vnet_hdr) {
-> > > -			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le())) {
-> > > +			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le()) < 0) {
-> > >  				tp_len = -EINVAL;
-> > >  				goto tpacket_error;
-> > >  			}
-> > > @@ -3136,7 +3136,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
-> > >  
-> > >  	if (vnet_hdr_sz) {
-> > >  		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le());
-> > > -		if (err)
-> > > +		if (err < 0)
-> > >  			goto out_free;
-> > >  		len += vnet_hdr_sz;
-> > >  	}
-> > > -- 
-> > > MST
-> > > 
-> > 
-> 
-
-
+Kind regards
+Nicolas
