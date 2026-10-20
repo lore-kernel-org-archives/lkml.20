@@ -1,61 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.237
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502320;
-	b=tzoJ9WnEgwUvlb1myfZvptjnbCyNb3nXoYrgFlrs4fEidS+zx2cKrOYwZoTIML3OOILb
-	 7wWMyXaEfP+MFjbpwDwc9krEtOIYNDia3v5IBhoqLyiPjeQgQndkK/ciPADjUocWzrLHy
-	 p/6fWvw0LBhBOVlptzCIYm7C/eE4Tf5nbFrUgb4O+CUYkg6rrADYoh+g8sjdhVPeZjKzo
-	 MvqYrlqkJeq0h6vO2fhj/CpbeYD+E/yxZ+t+iSmrCzbQgn18N3lbdisj6UmnENlbswQp1
-	 c5ipLtASaXKECOZ4L88b8BncCJuL9Vc1Khk10Ab9a5U1AnXgUeojg64t45t7vQYD1ew==
+	t=1792502315;
+	b=bCwObh7qJKxdX2VZfh4Qdw4tYrPsu1IsFYvIzCI4b2VnOtRvJgIX89C9tfDZzTYCGo8G
+	 Pd7TO8z4/YvwpZzJF6GC39bpzux2EXDGaWS/AeMeBoYIvLxWn9///qfznyk8Y0P+N2/x3
+	 JETWJgKHsrma7qVpSlnxzYXO9QLamIIe9HBbwhtxhtfqyDqUGzBg8XTxeDTOZkjqkUR3s
+	 v+bFlNlHmjN8zLvBeiKcki4JuGnaXwcmNoME5inLbpRGG54MQeOXtgFUzhalJztd2FAcv
+	 YCw8NgR7HYsATzZ87laGYMX3Ik8pqN0Szo6Je+F1CRbbZu20dcuHqI9pxQTKe0wCXuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502320;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=8yEkH3hB9R1dBNWdijOLIHT3zqHN8svxAFnRjevNIlg=;
-	b=YKQTGRta6/JeCY751wq76cobPADpeWfwatd/dB+QxygeGSqyVO0hFWsm44thbQggSO3v
-	 epuyq/vHBxM4PzYszsKHOeKM15754QyVpyQfCWUeoO538dKwSFcB3OoePfVnTBBbTm9B5
-	 W9/JTru0ybS5N0S79Ayu6VxlLitUWI6aQaJTlPKSM3hevN20VK98ztfBRjQSFG+LHTyJW
-	 t7g6auJaTn1Vmu5S2+cUz2vvNvXcf8/dGFB/usaNdE8zouHM2PYTWLL/vcxM49h7PUWsm
-	 kXYtcqvuo13WWVoaTxXhc9cd0NV+yRIgnxURd3VrDRICJkmuaKqOCBByvR+kEcaVSxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792502315;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=zhQTHhRDxrb17zR175fyiocPa+1wRm/9Uxlolic7thk=;
+	b=DtMUh5L63zAKftAqxbbnFLSTnOfyu0Zij0yKBa1gIa4ocIiIiqV4IeNBlsR/6fusTLMW
+	 sfi1JY/Kvm+YH2EDEJtDgmbeJC9UDKziYmWK4c4kvrynaim3HoEu/Y4svLZBbRCnWpUFp
+	 baKDGV1GoJr9D/Ew14mxEWD5bi0I44ybwvgCkI0TlAaqfyWdSZ+csxUHGGrYYRKUf/HZT
+	 i/qTEoetT2KBmJpFJi6KqPaIYuqHwMRBXDUvPhvhvd27kdcxFDwsnjiIaFTLwGqowZw7h
+	 DDvgksIesVyMK/FCQnCNZQxO+vNuyUqs57ChpDvm9TZv2OtrKGYqZGiV5kBW62FFpow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVNnUkQx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HBbS2wsS;
+	arc=none smtp.remote-ip=95.215.58.237
+Received: from mta1.migadu.com (out-237.mta1.migadu.com [95.215.58.237])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2C2606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80986606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:18:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80986606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVNnUkQx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010A51F000C6
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:18:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792502320;
-	bh=8yEkH3hB9R1dBNWdijOLIHT3zqHN8svxAFnRjevNIlg=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=ZVNnUkQxFclnD9qpymacUm7MAyi6ibAlokdmFOWIkkvtR+J0xK+v67hECJnIu8LlW
-	 cAOkTomIIxQUqwE0OnU/x0Dc1H5A0XVb624CPfh4vRtMg0T6WoTh9F+/aix7RF6ctW
-	 1tTQKaNSvB4820FARZQTfvijtojC85hkdhy+Gh72jgkkiUyggigpUfvEm51wRFgWJi
-	 vQv8p454RGIq0PfhVsIvdWvb26o1JWP7nwOCXpLCEe2WEf8PVGGjeq0nqArRphTyQP
-	 I9fbTHDMXZiqrKXnV0+SbykXiu9l/YfELFt9lnfOfRY5cyMQrqNzRodMaRadyzvOZ/
-	 HMlUu0PueNEgQ==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso2630473e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:18:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw8+9WuQdS4iwJcNn2XXc8ucDFhKbzjuLc5lfm1+Xq/VYd1HeL0qZ0Cvv6rOw8/L4O70PZhVXuHelr3OmM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhIbuk0AChfeWhLVP+2cZB7B7BeY2z1V8EiimJG0TxLS1Juv9d
-	ahC5uCQBt8fdM7Pe3is6BZIIGc4EfO2RuKXdRELKeiNZhX+TQ9O35dr0LIO7s/N6OhrwQd8z1Ks
-	r66mlrTqGiz5zniUe07TIHW7LfoT+MA4fTkqWRJKsQA==
-X-Received: by 2002:a05:6512:32ce:b0:5bf:9eec:c9a3 with SMTP id
- 2adb3069b0e04-5bf9eeccd1emr72788e87.18.1792502318705; Tue, 20 Oct 2026
- 06:18:38 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 13:18:37 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 13:18:37 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261017043605.1503563-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HBbS2wsS
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3yy/71fTKQCgcgYM/XB0wovh4NMYwl9+gtTV2Y2B9rQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792502312; v=1; x=1793107112;
+ b=HBbS2wsS9fHLsWUpvBznfbcwV33HnhT9lV/rESE1ThDnpyuoEUVw6eYCAMF2U4atRzjEmKU7
+ ekR6SNgspeMaWQgrTQi85ZzdV/ktr+y470wRM1cs/LOrrZvSBK0S0c7Kk/Bfy7sNWfyvUW9IC5m
+ L0CPqLR3wPgV6F2GYmP0F/+s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6e98f1ea0d4109de;
+	Tue, 20 Oct 2026 13:18:32 +0000
+X-Mizu-Trace-ID: 6e98f1ea0d4109de
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be3b2f17c1so6865e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:18:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwCcFjRpJ7n5TuPawer/xJgAd1FDZ06fhgW1q3dsPAJId7xKFri45wkWodf8ukaafDX41I4+IGQE7epU8A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNpiziZcdMb5HLq2Rq2MNLus+i/uIEv2Hpa9ssUw3p79HGG/ll
+	572OHl61BsBLzSdnZ74vYx5ayYoChsdvq1I+XMvBLte3Go67w5Mm4f7ae9PeKUOnxakYwcoj+Yo
+	jRR83z8+Dx36TLQACZo260ZT4W9hvGlWczUoaKPhc
+X-Received: by 2002:a05:6512:10ca:b0:5b7:6707:e44c with SMTP id
+ 2adb3069b0e04-5be66f2d62fmr148849e87.12.1792502311357; Tue, 20 Oct 2026
+ 06:18:31 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,44 +66,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017043605.1503563-1-shengchao.guo@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 13:18:37 +0000
-X-Gmail-Original-Message-ID: <CAMRc=MfRpCs4pz8Jcy=XAtZLiLZjRfmPYYXxA8ARZLCzb_5bAQ@mail.gmail.com>
-X-Gm-Features: AclHuK_NgcINKH_hBHt8udpzoQ3v7z8merjc37ePbnHL4pTaIvcwR5b3Uu5Ipn4
-Message-ID: <CAMRc=MfRpCs4pz8Jcy=XAtZLiLZjRfmPYYXxA8ARZLCzb_5bAQ@mail.gmail.com>
-Subject: Re: [PATCH v4 0/4] gpio: shared-proxy: Fix line accounting
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
+References: <20261019132103.3836646-1-fuad.tabba@linux.dev>
+ <20261019132103.3836646-4-fuad.tabba@linux.dev> <atdXdtXXTH-6DWVt@gremlin>
+In-Reply-To: <atdXdtXXTH-6DWVt@gremlin>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 20 Oct 2026 14:17:00 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTzH_GA=Vigd_nDXKDFAPCJStcANFFLeLXvsh3UqpjOpCQ@mail.gmail.com>
+X-Gm-Features: AclHuK-euDF0wuuv5pnt6Njq_PrWwxGpuc1BgLKpLexvwAe-pbj6xoTqUlxrbHk
+Message-ID: <CA+EHjTzH_GA=Vigd_nDXKDFAPCJStcANFFLeLXvsh3UqpjOpCQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] KVM: arm64: Sanitise MTE tags when a permission fault
+ installs a mapping
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Steven Price <steven.price@arm.com>, Yang Shi <yang@os.amperecomputing.com>, 
+	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Sat, 17 Oct 2026 06:36:01 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> Four fixes for how the shared GPIO proxy accounts for users and
-> votes.
->
-> Patch 1 fixes a race between consumers that request a shared line
-> concurrently. Each of them sees usecnt > 1, assumes another user has
-> already configured the line, and fails with -EPERM. On Nord RRD this
-> intermittently leaves both DAC supply regulators without their enable
-> GPIO.
->
-> Patch 2 fixes a stale vote left behind when a proxy releases the line
-> and restoring the default value fails. The line stays at the
-> non-default value for the remaining users, and votecnt can underflow
-> when the line is requested again.
->
-> Patch 3 fixes gpiod_set_value() to the default value doing nothing on
-> a line that was requested with GPIOD_ASIS and left at the opposite
-> value, e.g. by the bootloader.
->
-> Patch 4 drops a proxy's vote when it switches the line to input, so
-> releasing the line no longer fails trying to write the default value
-> to an input
->
+Hi Lorenzo,
 
-Thanks! Looks good but I have a comment on one patch and a question on
-another.
+On Tue, 20 Oct 2026 13:14:01 +0100, Lorenzo Stoakes (ARM)
+<ljs@kernel.org> wrote:
+[...]
+> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+[...]
+> > @@ -2060,7 +2060,7 @@ static int kvm_s2_fault_map(const struct kvm_s2_fault_desc *s2fd,
+> >                  }
+> >          }
+> >
+> > -        if (!perm_fault_granule && !s2vi->map_non_cacheable && kvm_has_mte(kvm))
+> > +        if (mapping_size != perm_fault_granule && !s2vi->map_non_cacheable && kvm_has_mte(kvm))
+>
+> So 'translation fault or permission fault if this will install a mapping' rather
+> than 'translation fault' alone right?
 
-Bart
+Right.
+
+> Just after this code you have:
+>
+>         if (mapping_size == perm_fault_granule) {
+>                 ...
+>         } else {
+>                 ...
+>         }
+>
+> So you could put
+>
+>                 if (!s2vi->map_non_cacheable && kvm_has_mte(kvm))
+>                         sanitise_mte_tags(kvm, pfn, mapping_size);
+>
+> In the else branch? Seems neater and clearer.
+
+Agree, I'll move it there in v2.
+
+> Also I wonder if the !s2vi->map_non_cacheable && kvm_has_mte(kvm) check could be
+> abstracted?
+>
+> E.g.:
+>
+> static bool is_mte_fault(const struct kvm *kvm,
+>                          const struct kvm_s2_fault_vma_info *s2vi)
+> {
+>         return !s2vi->map_non_cacheable && kvm_has_mte(kvm);
+> }
+>
+> Then could be:
+>
+>         if (is_mte_fault(kvm, s2vi))
+>                 sanitise_mte_tags(kvm, pfn, mapping_size);
+
+I'd rather leave that out: the fix doesn't change that part of the
+condition, and it only appears twice.
+
+Thanks,
+/fuad
