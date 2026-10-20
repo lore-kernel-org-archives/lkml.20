@@ -1,93 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792480986;
-	b=3nsNw9ehn/SDYVafJApxNRjORe9smLlin7361MZ+B7lNkXI+c047bVXWd7hG9cVtdKmV
-	 ZFNhh6gUKW2ipFBC7d60GrtEE2UmiZMTb6d73iFzxzB/rz1idQZTpLw7XpUggtNC0SvTZ
-	 KkrxQm6bwO/CdBYmOGoPJgl1pfbqZvposQeYs94n+BskpcYmOYdqiLaSXdAHyppLZ+0Tg
-	 2A4Ddu7ZrwQiWZQ/DoMNvc5UeJu8kNxsnICeY4fPIFBbU7v0A1FolCOYkUW8PWszxMe2Z
-	 9EJt9nGHtl/vuPiJsWiUEhpjnBf8yaraI2Jim0E6OsrwigJry0tTrb2vNtdzv0Ng+kA==
+	t=1792481001;
+	b=mwfuZaWp0GUx7oPZjiglbrxSRNyMRNrZVSvs4NO6IEMmh9RtEF0R6r1qnw+7q4Q8y+yw
+	 LV2I2n6mykZigUaiBwJ5dhSfaAnTB0kWY/iElrD9n6pOb/3qkEou+f02v4IUuDkX+0SGP
+	 qBgLcELKvaQYKj8h/FiEwkG6/rnCZVGGq6d2gUqjLQaBOE+wNJMlXywsYuV+bxmmvIjf5
+	 1GHkXNoBWUHvscuT5O4Y6ERn0FbJcZFPC3Rp26KY5VzQeesQmFt162+hfkfMb8A/u7O6l
+	 86D10n84DSJ1Bpj8OBDSLB+1qBIPqIl2H0qi0rVskT1Fpt5hg4RpK8MP+4RKSVfJCrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792480986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792481001;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=admPb6RDUUyQnHF1uTkWAohc96AfvEkkjESWlPY5zhM=;
-	b=pgqhOgEk9c0kyc2T2A20mzQJLn3GBeFv32lligBSWQsC3avYCRo8N4QfvrEBxJ30P6KL
-	 OhdDQQyqJGv+JiXm5nhB8OaqAy4JNT73ZfISDjqneDqBRRHuN4mke2S4NVq3EpT3gChA1
-	 /71Nc2Zt4Mxf+l6QEXO+LfEzDyi7QaBp/euSd5lF42KVod0YbM/N0SbxiNmOhx242QEmi
-	 5upKKqu8tBUxO3dO5lNNLdhWs0NgY7xxGLon4JMK+c2wLFAtfLC4qUb02Cg/OVGSbjfuV
-	 U4WPYIuyZLZm8y2MNe1ySAPg00/TsaqfBzD2T6okjydSy1D7TrL24grg6OdXaEzpVXw==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=RHUiUEHREUeEh5je+5lV75Z/l5w+EUxJwFLE25lJoH8=;
+	b=qu1KQniSezvoYnuusV4y4NYkv+LDOfEdZHQm3xKVjP++d4BPiIuXFaKBB1eMPNf/HW/q
+	 vy+TojawEpuxqI1wZJCdm3eBQRk3doRo+V8iFZEf06UJbbDFmw8cXN5v4pkbS+XlOkeP3
+	 EUg4m1W1cHpilClQMD0MA5NW997+H6nUTyGxF9+Qn8RP4/5bAfAH5Ih4zSwSiWTO5YVYc
+	 MuqvC5pkSvTfh1g90h12SfHEW/0ScGTsJx5lpAwE23aq9s2YU8LwTJ2rAHAocOm8D76ZQ
+	 RLPdVjUVH16E+rgGvDZ5PdCs3BXuwbo3Q1P8XqjQ3mBr7Tr75fN0oFKeEfmT1TJxFaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcWHaBAM;
-	arc=none smtp.remote-ip=209.85.208.177
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EdnIsuwq;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3337C606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:23:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3337C606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD456606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:23:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD456606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KcWHaBAM
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a75f960be3so30682441fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:23:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EdnIsuwq
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so263484f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:23:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792480983; x=1793085783; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=admPb6RDUUyQnHF1uTkWAohc96AfvEkkjESWlPY5zhM=;
-        b=KcWHaBAM3A3RRUMlcUgGVwLbCpZqI7qqbXNdLDSR3yKNfVsf3VaO/cCU8BGVRN8C4b
-         I9EyVpaDqv7ocZvf5l0o7m8IDbGcPyNhURNx17ixL2aTuCQwf93mh5MPg7lXusYipzqH
-         GkacnEfxhnyegCPlbXzqpuzTOsoKlAGxNGjpoQsQR8FViu9v2R3JtHDaBw85+B6Bdyzq
-         FkV5U3OLMmqFJvbVPiLPCm08KnJy9AEY7RIzX4Z6Y1X+2nGmJw17EwptRzHGQLUB/bBP
-         JfOYLkhCpismTni3VkMuDbNOUvKicO2nvlFPOSwL3w183tdRH4K6ZYGYmIl2kI6H5TkW
-         yTkQ==
+        d=gmail.com; s=20251104; t=1792480999; x=1793085799; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RHUiUEHREUeEh5je+5lV75Z/l5w+EUxJwFLE25lJoH8=;
+        b=EdnIsuwqI7NQKvCjzojPTT0RDLLN547WJUEvCt4bJznPoyINqzTvVLhEf3tH9Se4jt
+         grslrI3wq1Wn4jN7ZZctYegJUcwgAohvax2PLd3FxS+t3ZStnnOeb9yujfGcDV/FBCI+
+         mSmnM9plppXbJeZemMkLZoYraOZM3ER2+HwA1eFLU4NZvgCoZibaQlWfVilrR/AAQlo5
+         T3qv7q82p5Yv7JjMQmz9tiLuAl8vrXgyjDYCsPI4XMv9aHUw5lR67wxKDteStiVTYWvd
+         nztWJD2GenTB1wHYYsoSQFWmx+h8+qmz3L7gwrNAYmjDGz1ovD2BoAp1kWXMp1n69nY1
+         9ThQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792480983; x=1793085783;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=admPb6RDUUyQnHF1uTkWAohc96AfvEkkjESWlPY5zhM=;
-        b=pubw316jHAaI6qpf+j2bARdXRke60+ATMw3PX98sCq77C1ZyqNzuugcsyLHI6zQj7U
-         kB0QhZ9oGDbt8fA3MOI3NMwwnCTYG7QprzsrkjEXijuIkQS+JQt+0rpb7IyEZv8rC9zI
-         wVaLLTgRMKiBiLRsnutHHIIqENe0pTfq9NX1uZN5KKpTc/TWHTKguxOmN6+739uTRpPj
-         fYQF7tFVpgf9FNNvH0Ts7P+aONn4Qvhd1XzkB9cMLDJjzzEGWseVZb5HOjsTmQ+E+ZkR
-         GZNC+TIQXFts88rpuhRRMDDVsd1wXMTuEKYGx6vSixmh4lgBF+XPNH4sAmsh2J5fdcRp
-         P5Tg==
-X-Forwarded-Encrypted: i=1; AKwUvByKOpgkGxeSGzcMvXio8Om+jxZZ+ep78qOHv4qCq2qesuclfnK+q9oix8YGO4cquXQD5dKSVox5YxKKGms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpT8gqK9kVMBt/Tk456BgrnjOTG6/nxMwSX1oYn+3ZIaFkBZ7w
-	L2nZMJr9XIVQVVqM1sTjfLWZ7NZphbgv1N/N9mCjNENCbXYjV/2OPQft
-X-Gm-Gg: AYBFou1RNu6qulNB3uUoKWWpLp4fSQpe0pSyVlUsocWaU5vQuCB4iklMy88t5f1DUag
-	s9cNQh3P1XLsitt4g9aLAqKJeaiYuJ5nsO2xo9LBzt927EM2KWDvj3n+pO89CQdcJNgMvhv4Dvp
-	FrVNWjvRzwfJ5TBA0ndISUc7/4LBlmQJ6v8NPtCTkZ4TDBFkTv879IE1THhh3rfMGInQKqfSiof
-	Ry/EmYN+3IuLqUYfyj5aZD3PeU1Rup/hYKgmHF9nNv0v+HEz/XTi1y1AHbWjhN5C7KVS0GPJ68W
-	3g4gN+tUL8eFjsqfF3iazfNdIqSGS3baTuFHEbSgmrLXlzo3zaOOqcizflsVZketQ57pjs7Ebwn
-	xuZ/Zl5bHBwRxAfhy9NWIIFiFy3TA+wKSyyfHHcWp9RWDDNXIWBh5Z0lAvQ96/LUTvaL65ugor0
-	9jE2EjJu+QJs35M/yUn4/mJyPKRdRq/8jf3o4t2beKAru2AlOTRwVtNuDk8ybew18qWicibj5O
-X-Received: by 2002:a05:6512:3d09:b0:5be:4c7e:ade1 with SMTP id 2adb3069b0e04-5be50a5016cmr3395440e87.16.1792480983044;
-        Tue, 20 Oct 2026 00:23:03 -0700 (PDT)
-Received: from HachikujiMayoi ([92.36.78.63])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4be346b3sm2455631e87.18.2026.10.20.00.22.59
+        d=1e100.net; s=20260707; t=1792480999; x=1793085799;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RHUiUEHREUeEh5je+5lV75Z/l5w+EUxJwFLE25lJoH8=;
+        b=X0oXlfBwzIBA6ea8Bo36eawoGDqB43HWhU3H9EMpKUR6YN/wwe2t6kbM0CvIV2VlX3
+         ebVFx9RQ/Rf2eUa+R0iLk/YXSe5IxscKCiwBoi3BweqQ5ikG92ulkN85CNq8pNqVUATT
+         XSPDgKb5jSha1Uk4e3SdS/6kwJk4tcSMqUr5OX1+9JxksXrd9Wu5cljic/lbPsgWem9E
+         rxQFzSkQJdxTc6ouZ73j6OqRDaB/oSp9kPmQGHcxJ5z6qT06LVRQjQdfTcAfwyjvS7wC
+         PpQy6ICikzqNP7qMZARHkF0kazgr2oOagt/MdqhkJbYIXNYswuWaU+Kwkq6quMUYUJb2
+         pt8A==
+X-Forwarded-Encrypted: i=1; AKwUvBy87Lrgt8wKUi/ACaCUeNMzdWoFdPgEFt8eQGTuiJWDGEOhBTQJ10DpAUwdTwWXSK07SNjtPCBBq3BTsso=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgBJoTxPJY3c4y6zzN8pMcQKsZvTtz7lfBm60cGg1+JeM7kCuJ
+	JpiFf3WW+K/vkdiqvU5+uDI5cwSKsSe5IJPKJF3njFTHcLYqfbKBJQWg
+X-Gm-Gg: AYBFou37BAqiMqeC3WlwnI7O8c6YzkUxGW9fQg/qpyLtVUnzx80fmIwvwmX+2dOyI2H
+	kQV491TDr18U7Lmqwa2T2BxQB0Yz2GcYDf3MxmfVhtBdBIyrDlQPMhf0MjONcUk7K1mADWJblha
+	xF+8AiN80h6grrAd1HMo7g6i4KOjjcQ3T5B21BKVHImutL0s2NOSf2BllM/rIL/M8THp2w+vN6A
+	8Zcf3KXCS/8fmQFUBil1lFI92XgVDIrE3hZJr3RQPTX5/X/MSUURqD/Ym08/Iw/X5lcpXH9hK9F
+	GxTXB4gtK3dn+Qpy9eDI8KQtuW8vXd0EBgZKVHeGKifkRYkKIgT8zEJEehgAMplB6gej3e4k/XU
+	yXVziNC0Ak6V7ZhGeGeCTh5In3qUd9dCeS1ZUwIuexlipRSN7Qs5ccVhB37mlsaJPZ3psE/zpQr
+	7x0LPoGlQMyq3weHU3fGapyuFPeerkZDrUZvRy3ujW9SrN21p/x1KYLb8GM0BBFDsAeWqXWshUX
+	VGoDR7mSSdamo7wicc+cc3OU2MugBDPQGzSjb6eQmmAlyBbMlCEvCfksfwZmC4jY7sXjAZ5MysQ
+	voMZeZ3Wpi4FwAWncYbsgq//drfk1gsaI2jPjJ9hz6CGkHwJWz3wOdbMHxlx561wH3yZ+XJMDPT
+	dHsZwmf6e5DBNcIZHX/E3SN6z/x0lUCQWhGt9dzYHokHt1cme+8O8M5b6A/kc8fDCRpwwiH0+XB
+	wdkfwQ
+X-Received: by 2002:a05:600c:80c3:b0:49c:ff66:7d88 with SMTP id 5b1f17b1804b1-4a1f52b9d52mr17422595e9.7.1792480998747;
+        Tue, 20 Oct 2026 00:23:18 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d6dc034sm3958956f8f.3.2026.10.20.00.23.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 00:23:02 -0700 (PDT)
-From: Daniil Iskhakov <shkiper325@gmail.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Agalakov Daniil <empt1nesss@proton.me>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Roman Razov <bonenooo@gmail.com>,
-	Daniil Iskhakov <shkiper325@gmail.com>
-Subject: [PATCH] USB: serial: mos7720: fix actual baud rate not reported back to TTY
-Date: Tue, 20 Oct 2026 10:22:47 +0300
-Message-ID: <20261020072248.7607-1-shkiper325@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Tue, 20 Oct 2026 00:23:18 -0700 (PDT)
+Date: Tue, 20 Oct 2026 09:23:16 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org>
+Cc: vidhu.linux@gmail.com, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, Shuah Khan
+ <skhan@linuxfoundation.org>
+Subject: Re: [PATCH 3/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
+Message-ID: <20261020092316.00003339@gmail.com>
+In-Reply-To: <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
+References: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com>
+	<20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,123 +106,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Agalakov Daniil <empt1nesss@proton.me>
+On Tue, 20 Oct 2026 00:03:43 +0530
+Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org> wrote:
 
-The calc_baud_rate_divisor() function computes a divisor from the
-requested baud rate using integer arithmetic, which means the actual
-hardware baud rate may differ from the requested one. Previously this
-rounded value was never propagated back to the TTY layer, so
-tty_encode_baud_rate() was called with the requested rate rather than
-the actual one.
+> From: Vidhu Sarwal <vidhu.linux@gmail.com>
+> 
+> Add a driver for the Benewake TF-Luna, a single-point time-of-flight
+> LiDAR distance sensor with a range of 0.2 m to 8 m, connected over I2C.
+> 
+> The sensor is run in trigger mode. Each read starts one measurement and
+> waits for the timestamp register to change before reading the result.
+> In continuous mode a read can catch the sensor in the middle of updating
+> its result registers unless it is synchronised to the data ready output,
+> which this driver does not use yet.
+> 
+> When the signal strength is too low the sensor reports a dummy distance
+> of 0, so such readings, as well as overexposed ones, return -ENODATA
+> instead of a distance.
+> 
+> The datasheet is available at:
+> https://en.benewake.com/uploadfiles/2025/04/20250430174501874.pdf
+> 
+> Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
+> ---
 
-Change baudrate parameters in calc_baud_rate_divisor() and
-send_cmd_write_baud_rate() to pointers so the actual resulting baud
-rate can be written back to the caller. Update *baudrate with the
-computed value (230400 / custom) after divisor calculation.
+Hi Vidhu,
 
-In change_port_settings(), pass &baud to send_cmd_write_baud_rate()
-and guard tty_encode_baud_rate() with a status check, so the TTY is
-only updated on success and receives the true hardware baud rate.
+very good for a v1, even Sashiko reported no issues. Minor style issues from
+me.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Josh
 
-Fixes: 65d063ab21fe ("USB: mos7720: clean up termios")
-Signed-off-by: Agalakov Daniil <empt1nesss@proton.me>
-Co-developed-by: Daniil Iskhakov <shkiper325@gmail.com>
-Signed-off-by: Daniil Iskhakov <shkiper325@gmail.com>
----
- drivers/usb/serial/mos7720.c | 29 ++++++++++++++---------------
- 1 file changed, 14 insertions(+), 15 deletions(-)
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/mod_devicetable.h>
 
-diff --git a/drivers/usb/serial/mos7720.c b/drivers/usb/serial/mos7720.c
-index 94459408e7fb..1052217edf26 100644
---- a/drivers/usb/serial/mos7720.c
-+++ b/drivers/usb/serial/mos7720.c
-@@ -1264,9 +1264,9 @@ static const struct divisor_table_entry divisor_table[] = {
- /*****************************************************************************
-  * calc_baud_rate_divisor
-  *	this function calculates the proper baud rate divisor for the specified
-- *	baud rate.
-+ *	baud rate and updates the baudrate parameter with the actual value.
-  *****************************************************************************/
--static int calc_baud_rate_divisor(struct usb_serial_port *port, int baudrate, int *divisor)
-+static int calc_baud_rate_divisor(struct usb_serial_port *port, int *baudrate, int *divisor)
- {
- 	int i;
- 	__u16 custom;
-@@ -1274,10 +1274,10 @@ static int calc_baud_rate_divisor(struct usb_serial_port *port, int baudrate, in
- 	__u16 round;
- 
- 
--	dev_dbg(&port->dev, "%s - %d\n", __func__, baudrate);
-+	dev_dbg(&port->dev, "%s - %d\n", __func__, *baudrate);
- 
- 	for (i = 0; i < ARRAY_SIZE(divisor_table); i++) {
--		if (divisor_table[i].baudrate == baudrate) {
-+		if (divisor_table[i].baudrate == *baudrate) {
- 			*divisor = divisor_table[i].divisor;
- 			return 0;
- 		}
-@@ -1285,18 +1285,19 @@ static int calc_baud_rate_divisor(struct usb_serial_port *port, int baudrate, in
- 
- 	/* After trying for all the standard baud rates    *
- 	 * Try calculating the divisor for this baud rate  */
--	if (baudrate > 75 &&  baudrate < 230400) {
-+	if (*baudrate > 75 && *baudrate < 230400) {
- 		/* get the divisor */
--		custom = (__u16)(230400L  / baudrate);
-+		custom = (__u16)(230400L  / *baudrate);
- 
- 		/* Check for round off */
--		round1 = (__u16)(2304000L / baudrate);
-+		round1 = (__u16)(2304000L / *baudrate);
- 		round = (__u16)(round1 - (custom * 10));
- 		if (round > 4)
- 			custom++;
- 		*divisor = custom;
-+		*baudrate = 230400L / custom;
- 
--		dev_dbg(&port->dev, "Baud %d = %d\n", baudrate, custom);
-+		dev_dbg(&port->dev, "Baud %d = %d\n", *baudrate, custom);
- 		return 0;
- 	}
- 
-@@ -1307,10 +1308,10 @@ static int calc_baud_rate_divisor(struct usb_serial_port *port, int baudrate, in
- /*
-  * send_cmd_write_baud_rate
-  *	this function sends the proper command to change the baud rate of the
-- *	specified port.
-+ *	specified port and updates the baudrate parameter with the actual value.
-  */
- static int send_cmd_write_baud_rate(struct moschip_port *mos7720_port,
--				    int baudrate)
-+				    int *baudrate)
- {
- 	struct usb_serial_port *port;
- 	struct usb_serial *serial;
-@@ -1325,7 +1326,7 @@ static int send_cmd_write_baud_rate(struct moschip_port *mos7720_port,
- 	serial = port->serial;
- 
- 	number = port->port_number;
--	dev_dbg(&port->dev, "%s - baud = %d\n", __func__, baudrate);
-+	dev_dbg(&port->dev, "%s - baud = %d\n", __func__, *baudrate);
- 
- 	/* Calculate the Divisor */
- 	status = calc_baud_rate_divisor(port, baudrate, &divisor);
-@@ -1474,10 +1475,8 @@ static void change_port_settings(struct tty_struct *tty,
- 	}
- 
- 	dev_dbg(&port->dev, "%s - baud rate = %d\n", __func__, baud);
--	status = send_cmd_write_baud_rate(mos7720_port, baud);
--	/* FIXME: needs to write actual resulting baud back not just
--	   blindly do so */
--	if (cflag & CBAUD)
-+	status = send_cmd_write_baud_rate(mos7720_port, &baud);
-+	if (!status && (cflag & CBAUD))
- 		tty_encode_baud_rate(tty, baud, baud);
- 	/* Enable Interrupts */
- 	write_mos_reg(serial, port_number, MOS7720_IER, 0x0c);
+Remove this, this is included by i2c.h
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/string.h>
+> +#include <linux/time.h>
+> +#include <linux/types.h>
+> +
+> +#include <asm/byteorder.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#define TF_LUNA_REG_DIST		0x00
+> +#define TF_LUNA_REG_TICK		0x06
+> +#define TF_LUNA_REG_VERSION		0x0A
+> +#define TF_LUNA_REG_MODE		0x23
+> +#define TF_LUNA_REG_TRIG_ONE_SHOT	0x24
+> +#define TF_LUNA_REG_SIGNATURE		0x3C
+> +
+> +#define TF_LUNA_MODE_TRIGGER		0x01
+> +#define TF_LUNA_TRIG_ONE_SHOT		0x01
+> +
+> +/* Below this the sensor reports a dummy distance of 0 */
+> +#define TF_LUNA_AMP_MIN			100
+> +#define TF_LUNA_AMP_OVEREXPOSED		0xFFFF
+> +
+> +/* A measurement takes 10-20 ms in trigger mode */
+> +#define TF_LUNA_POLL_US			(2 * USEC_PER_MSEC)
+> +#define TF_LUNA_TIMEOUT_US		(100 * USEC_PER_MSEC)
+
+uS is better instead of US.
+
+> +
+> +struct tf_luna_data {
+> +	struct regmap *regmap;
+> +	/* Serialises the trigger, poll and read of a single measurement */
+> +	struct mutex lock;
+> +};
+> +
+> +static const struct regmap_config tf_luna_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = TF_LUNA_REG_SIGNATURE + 3,
+> +};
+> +
+> +static int tf_luna_read_tick(struct tf_luna_data *data, u16 *tick)
+> +{
+> +	__le16 val;
+> +	int ret;
+> +
+> +	ret = regmap_bulk_read(data->regmap, TF_LUNA_REG_TICK, &val, sizeof(val));
+> +	if (ret)
+> +		return ret;
+> +
+> +	*tick = le16_to_cpu(val);
+> +	return 0;
+> +}
+> +
+> +static int tf_luna_measure(struct tf_luna_data *data, int *dist)
+> +{
+> +	__le16 buf[2];	/* distance in cm, signal strength */
+> +	u16 old_tick, tick, amp;
+> +	int ret, err;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	ret = tf_luna_read_tick(data, &old_tick);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(data->regmap, TF_LUNA_REG_TRIG_ONE_SHOT,
+> +			   TF_LUNA_TRIG_ONE_SHOT);
+
+Why not have a local variable for regmap? It would allow the previous call
+to fit on one line.
+
+...
+
+> +static int tf_luna_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct tf_luna_data *data;
+> +	struct iio_dev *indio_dev;
+> +	unsigned int mode;
+> +	u8 signature[4];
+> +	u8 version[3];
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +
+> +	ret = devm_mutex_init(dev, &data->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->regmap = devm_regmap_init_i2c(client, &tf_luna_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> +				     "Failed to initialize regmap\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "vcc");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable vcc regulator\n");
+> +
+> +	/* Boot time is not documented, about 350 ms was measured */
+> +	fsleep(500 * USEC_PER_MSEC);
+
+msleep() is fine here, saves you the x * USEC_PER_MSEC format.
+
 -- 
-2.51.0
+Kind regards,
+Joshua Crofts
