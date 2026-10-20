@@ -1,87 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.127.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792516406;
-	b=god5pgdErQx05vHWCG8mtw7j6nB1+5eAZMX7ibUpY7NbKw67o62vMyznPARpy5393tZN
-	 I40/Tg8CmOFtVqiu7oPXd2V4SmCA/1yBmM3InfbRO0MRRW4Q39fwWBgvW5bxOWcmC0cCK
-	 zxCCHIJVq20gq9DwcoSjZ6trPandKONLRJmWwuZxKscaGZcbleg8Gq/jqfklZPpnuWuCM
-	 Ni5FJEGWMcD34WhttjPZCGFa3IHnF8BQHFJjXUgRVAmYSW2ZS9xLDY++e/Eq394mVqFH2
-	 cjNkBpCitpkrMqzT3XMw3ff8eOZL1mu3XUaeovUHkCJMF7eaN3GBf7pOF5eTfDur/Rw==
+	t=1792516385;
+	b=cSLeDkkb1dRgZ+Pn2yK4tJQ9t4sm3eZ/ZHOFqB5dPgGABaV/HQwr2PCc8TL/Dtm8T+QR
+	 vipsq864p33u73NRbQEfGN61uoj4WmG53eBcjLGMHE4eUl3sVAm4HYONgqjEwbYW7d3xe
+	 ehsP0MSF4fJS0J4ZHy6rapkYAdNc3ry611rCL7xy2+WH+HiLgZ07uKht7Vh1oxF44Oe6I
+	 vJRBUu1GB+C+EoOS/J4Wkj+M/esVyZjW/Qiiu3x+m+xPn+M4NEWK+O1W+EqD1X9W/fpql
+	 wWXV3W//28kkGw5mF4m507C7KB/GcTGoPYcaCmWhGdddWxNHFvnrYy1gW9yqtB0YMEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516406;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516385;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=e4OwnBidoAfAdMjRbpbOO+nJHA8rafIGJBLITYtbTdA=;
-	b=uHsTRzeOcqtihKsqSVebF3Zo5w1SuqFZu6EipRafq7mE9ZnD09hzeZdk3El2XFZRgwSN
-	 XMQWr68r+nWGHTWIV3DYR5LcuPtI4bV3UHlq0S3zNmJ0ypTlftJXv0vOg0vO/ajJUc6Uj
-	 qMCb5fdP+Wze21s4KEK1MpKjg9Ua+7NwI1KcnBbRUAbcRr4pb+ZSOxFeJmua65jmxzhWx
-	 rh/XO43oUhjk3Wk2JYeH/xDF8SFXsHhqbCT0XX52kUyS0HzH2s3MXoyZWyFfdF8QDU5z+
-	 PCqx90pV0vun5DKVwKDc0q606eq03VBmiAdR7RFvzJlsWK7wZ1zQ62P31qbxjE2kqxQ==
+	bh=oBlMAadRLUihtW59ZoPkptlPcJhMJqEim38GOPkSX2A=;
+	b=kD1X8UJqtPqreB57z0hgq469OisBd/nV2ZvbVioSvaZgA1xT04Sx9nkMkLzs9aFZ1RqO
+	 ns0+Gi3ICXCLXA8s4Ouwgxdlj7rNpYHmrwCNjCKz8Rfr4kHGMpZ0f9aBJHpgFC8pGnesO
+	 jPMGPhMNC/mtukn9xcN/MyXpmUc4dnUDIuvfBbY0onl1rZgZLpiKTyrbxqvgoAdJJu6ml
+	 7p0BZnqjuw8Qc7apfs8myS9024apBdCZNOfnwJaju0BXvrLcmt3rWVZIKIZTzTZHVUbHY
+	 /BNJBSLaxpQH7aAUpteUckB7qcuyiUoVCNs3rNgUNC614xd+c0jmusGuTVF9BuzBl9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rnowydY4;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=szelinsky.de;
+	spf=pass smtp.mailfrom=szelinsky.de;
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=BgrZ+xZs;
+	arc=none smtp.remote-ip=85.214.127.56
+Received: from szelinsky.de (szelinsky.de [85.214.127.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A816606AA33
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A816606AA33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CA7606A320;
+	Tue, 20 Oct 2026 17:13:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1CA7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rnowydY4
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36661f953e4so1357410eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:13:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792516405; x=1793121205; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e4OwnBidoAfAdMjRbpbOO+nJHA8rafIGJBLITYtbTdA=;
-        b=rnowydY4LK2PVPe3cFHeHwMC4sA2LE2zUvuRLfnIO4u694UiyX7HJZ7ND++Kgr+yXT
-         npBlaJRY3dd6vAn7WahZfV2KZKH3AlVH7Uax8Es9cRBb4Hc10nmXcujwR/VVDnMOzsZi
-         Kchfv+VrKzu5bk42KbHfcI8TZRnxja97MVLmsTgvNONBAHIIM+x/yF+c5f7JTPdXu7Dr
-         ODCwwqCikI4c/gbwrn7/GKDOF6lANS7hyCj4beMYydWx7//tUkdAwRL0RUq4UnLw01tQ
-         Azw0Ctcdk+2ZIsTkRX/7aTm8V9lRUp2nfNkywv5Hvwivk+Y3tPlUHwHxZYPuDSdP7dze
-         hTzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792516405; x=1793121205;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e4OwnBidoAfAdMjRbpbOO+nJHA8rafIGJBLITYtbTdA=;
-        b=eLZtvAusoHHEgggRB2pozjQHylWgwBEIqqtVvNB9es3lnAzV741Hit8+4mk4PzrZBr
-         omSErD48i+htKmgUg2CjnqCpMp7POjH5ZgNzTGTfQuUOQlz2rvll89NnHMdkxlVfXvcb
-         EulW9i36R4CgZ4WaUeUSLUeV8TYZKZLkKF1+/NcgUVC6MUlDGqFzyryY1pNSuVtrQ0ep
-         FNQmaXV/OvzGytLcs4RvV5Km4Ex4iYK8bEHHhr/TJvoBMyVD4RlQCLsEI4jIwWMcqJUH
-         gb9tNIcObKCvvmHQ1WjoR3SwsIbyFMznxwOZG3pCgLDgN8umfV7anCcBfCKrEFUmch7S
-         oTlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSllNNRMmu/YE81Xv2jE8Ci3uV22G453j/7mfejXDsFAqtfnvAv4p9H7VUkMS+35jy87s41qwqzJMYDVA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIukA6akaaVSRXeYrUwXYLM3aLrML0ThSsOxwv9h6s6g1OTHda2
-	ooZKgoKxJtwU6q8lUUFtAJBgR/ZuqnluG/7mD+VZnloZ7shO8vaX6e4iASQjAdAA2fE=
-X-Gm-Gg: AYBFou22khiahi7nfa8/O16gTlK227xlr9Sy5GrxxIWY9Wa6Aeb4u9v8GWmRSWanKig
-	K56HugpuGHeUyVLk/ELfRWlFt5IuPs74l0w5bOch/rRdo5HoubM9MjWDMFZcca8FhURG9tSis/u
-	SQS9Tu8GDKuC+ZIzDcD2l/5lAU8sHd59OUHuW1W7hLNGJzfXDUDEyq1UFjs8LUxTxEDO6E/pVCn
-	SCIXz//itK38wM9xgbD8UI/ZVxfQLqyxQiD6PUUboBiDEe8n9xJydgkinmxm2tcmF4PG/UktzWB
-	BlxT+ZqtCNimATH4v9sUEVAMbje+3puTuhZmmuCOHGAlNNEZu1pdC7HTA82CCIuqaGS/CyCaaC/
-	4gCeyHclimUJDRX9SjsXiFYZnnFzDeRZtbvZ64zgHR++vS/rlwONGOY8fOqb153CUOwxwydjFOj
-	W5gtJ3vabej4RQSX6B9IQbtKzx9TdpAfhsW07P/5rwcp4mngolYmroOqXreFVojjMIPtidHRbrg
-	dbr2oy2QI3viEdMcLFdOulBBiFXIu8buAUcrPEEkjtXCVD1BEzKL5uMafYK7866SP+gN32VbaHM
-X-Received: by 2002:a05:7301:6195:10b0:361:6884:78b1 with SMTP id 5a478bee46e88-361a253f345mr15767601eec.28.1792516405245;
-        Tue, 20 Oct 2026 10:13:25 -0700 (PDT)
-Received: from [10.61.8.29] ([155.98.132.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405ec6c3sm35919eec.7.2026.10.20.10.13.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 10:13:24 -0700 (PDT)
-Message-ID: <af63d378-d6d2-4fe4-bc2d-15f894b60624@kernel.dk>
-Date: Tue, 20 Oct 2026 11:13:23 -0600
+	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=BgrZ+xZs
+Received: from localhost (localhost [127.0.0.1])
+	by szelinsky.de (Postfix) with ESMTP id 77732E83125;
+	Tue, 20 Oct 2026 19:13:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
+	s=mail; t=1792516382;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oBlMAadRLUihtW59ZoPkptlPcJhMJqEim38GOPkSX2A=;
+	b=BgrZ+xZsdrEdEIduCO7WLCSFsxZy+qyVrLP4pfOQBqVjyDqt1CAjipOmgmNbBScgvlpwF+
+	KqvPXIPMvYrG8qZA0l0Y/NzWHlOZNoNQ+8/bzKuMHBysypPg6tGYRoK/veSxUt2RkKeXHY
+	otlHj6XsRKA/3yVValGDhdZ4w25lM0PpU4Ssmak1VJ5TD8t02+3QTKy0nirGx17TTDbc/Q
+	ek6ZnyXTQL3GTPbLsQcby9XFulpN7jVG3tSodQ0m5lGt48q5ZQc6ShjRVnLG/YqE6XPAHp
+	HrdO98p/LpvVWIvBBkF1fR7FHXvShUetOeLFj24wjB7xfa0AP4Jt6SK3IDfq7A==
+X-Virus-Scanned: Debian amavis at szelinsky.de
+Received: from szelinsky.de ([127.0.0.1])
+ by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
+ id ijWMu-yI5k8p; Tue, 20 Oct 2026 19:13:02 +0200 (CEST)
+Received: from p14sgen5.. (unknown [91.25.97.186])
+	by szelinsky.de (Postfix) with ESMTPSA;
+	Tue, 20 Oct 2026 19:13:02 +0200 (CEST)
+From: Carlo Szelinsky <github@szelinsky.de>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Kyle Swenson <kyle.swenson@est.tech>,
+	Ross Cawston <ross@r-sc.ca>,
+	netdev-bot+sashiko@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Carlo Szelinsky <github@szelinsky.de>
+Subject: [PATCH net v2 00/14] net: pse-pd: assorted lifetime and error-path fixes
+Date: Tue, 20 Oct 2026 19:12:35 +0200
+Message-ID: <20261020171249.853085-1-github@szelinsky.de>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,56 +82,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: linux-next: manual merge of the block tree with the mm tree
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mark Brown <broonie@kernel.org>, David Hildenbrand <david@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Tal Zussman <tz2294@columbia.edu>,
- Vlastimil Babka <vbabka@kernel.org>
-References: <atdeJ-91RQrqLke6@sirena.co.uk>
- <553dc087-b5d4-4aa0-8e84-4de6eaa45847@kernel.dk>
- <20261020100055.3e388e03fcd804f0cbde04f5@linux-foundation.org>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261020100055.3e388e03fcd804f0cbde04f5@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/20/26 11:00 AM, Andrew Morton wrote:
-> On Tue, 20 Oct 2026 06:45:16 -0600 Jens Axboe <axboe@kernel.dk> wrote:
-> 
->> On 10/20/26 6:27 AM, Mark Brown wrote:
->>> Hi all,
->>>
->>> Today's linux-next merge of the block tree got a conflict in:
->>>
->>>   block/bio.c
->>>
->>> between commit:
->>>
->>>   d4ee6948bcabb ("block: restore the iterator when rejecting a misaligned bio")
->>>
->>> from the mm tree and commit:
->>>
->>>   73a0ff6030afc ("block: fail a short atomic pin in bio_iov_iter_get_pages()")
->>>
->>> from the block tree.
->>
->> I suspected as much when I saw Andrew pick it up. Andrew, perhaps
->> let's queue it where it belongs?
-> 
-> I was hoping to get some review feedback before sending it over
-> formally.
-> 
-> I'll send it now.
+Fixes for the PSE core and the pd692x0 driver, found while working on
+the PSE controller teardown. Most of them are about what happens when a
+controller unbinds or fails to register.
 
-Applied - can you double check? Flow is a bit different in there
-compared to the one you patched against, entirely hand applied.
+ 1  The kfifo is too small: podl-pse-regulator and any controller with
+    0 or 1 lines cannot register.
+ 2  Removes two checks that can never be true. Not a fix; it makes 3
+    smaller.
+ 3  A module reference leaks when reading the port state fails.
+ 4  A failed IRQ request stays in pcdev->irq, so unregister disables a
+    line another device may own.
+ 5  The notification worker can read a PHY that was already freed.
+ 6  Setting a power limit checks the PI state without the lock.
+ 7  A power domain shared by two controllers is freed when the one that
+    created it unbinds.
+ 8  Unregister frees the PI array before it stops the IRQ handler. No
+    in-tree driver hits this; 10 to 12 build on the new order.
+ 9  Unregister frees the PI array while a lookup can still find the
+    controller.
+ 10 The PI regulators outlive the PI array, the PSE core can still
+    power a PI while the controller goes away, and a powered PI keeps
+    its budget.
+ 11 A failed registration leaks the kfifo and leaves power domains with
+    a stale supply handle.
+ 12 A shared power domain's supply handle goes stale when the controller
+    that created it unbinds.
+ 13 pd692x0 leaks its manager power budget when probe fails.
+ 14 pd692x0 crashes on a manager supply that is not resolved yet.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git/commit/?h=for-7.4/block&id=40d070cbb1906896d6fd65c39722d2411830ed9f
+Some patches need earlier ones: 7 needs the locked check from 6, 10 to
+12 build on 7 to 9, and 14 relies on 13 to give back a budget that was
+already reserved.
 
+Testing: every patch builds on its own with W=1 and is checkpatch
+clean. 1, 5, 7, 10, 11 and 12 were tested in QEMU (arm64, KASAN,
+lockdep, kmemleak) with test-only fake PSE controllers: without the
+patch, the failure in its commit message shows up; with the whole
+series, the tests are clean, except for the older lockdep report
+below. The other patches were found by code inspection and are
+build-tested only.
+
+Ross Cawston's "net: pse-pd: don't enable a PI again while disabling
+it" [3] applies on top of this series without conflicts. The tests also
+hit two older bugs that this series does not fix:
+ - With the static strategy, turning off a PI to make room for a
+   waiting one retries the waiting PI from inside its own allocation,
+   which recurses until the kernel stack overflows. [3] removes that
+   retry.
+ - pse_isr(), setting a power limit and unregister hold pcdev->lock
+   and then take the supply's regulator lock, while regulator_enable()
+   on a PI takes them the other way round. Lockdep reports it when the
+   supply lock is contended.
+
+Older problems that reviews of this series found, not fixed here:
+ - A pse_control held by a PHY can outlive its controller. The PSE
+   notifier series for net-next fixes this.
+ - Setting a power limit changes the budget and the hardware limit
+   under two separate locks, so pse_isr() can run in between.
+ - On tps23881, pse_controller_unregister() calls disable_irq() after
+   devres has already freed the IRQ.
+ - A PI waiting for budget can get budget reserved by a power limit
+   change; that budget is not freed when the PI is powered later.
+ - The PI regulators are visible before their power domain is set. A
+   PI enabled in that short time skips the budget check.
+
+Changes in v2:
+ - 2 is new; 3 now only fixes the remaining error path (Kory).
+ - 5: the worker comment says why a shared PI is safe (Sashiko).
+ - 6: kernel-doc of the return value fixed (Sashiko, Kory).
+ - 8: the message no longer claims bugs that 5 and 7 made impossible
+   or that no in-tree driver can hit; Fixes: tag dropped.
+ - 8 and 9 are patches 1 and 3 of [1]. 9 now takes the controller off
+   the list before the worker drain and the power domain flush, as [2]
+   1/4 did. Patch 2 of [1] is replaced by 10, which keeps the PI array
+   until the PI regulators are gone, lets the core power no PI after
+   unregister starts, and switches off the PIs that hold budget.
+ - 11 is patch 2 of the PSE core fixes for net-next [2], moved here.
+ - 12 is new; v1 listed this bug as not fixed. The domain no longer
+   has a supply handle of its own; each PI uses its regulator's handle.
+ - The si3474 patch and the power limit overflow fix move to net-next.
+ - Collected Reviewed-by tags; each patch says if it was triggered.
+ - v1: https://lore.kernel.org/netdev/20261018082314.48950-1-github@szelinsky.de/
+
+[1] https://lore.kernel.org/netdev/20260813200653.980170-1-github@szelinsky.de/
+[2] https://lore.kernel.org/netdev/20261018081853.47484-1-github@szelinsky.de/
+[3] https://lore.kernel.org/netdev/20261018182005.1193-1-ross@r-sc.ca/
+
+Carlo Szelinsky (14):
+  net: pse-pd: size the notification kfifo after defaulting nr_lines
+  net: pse-pd: remove dead pi_get_admin_state() checks
+  net: pse-pd: fix module refcount leak in pse_control_get_internal()
+  net: pse-pd: do not keep a failed IRQ in pcdev->irq
+  net: pse-pd: do not reach a freed PHY from the notification worker
+  net: pse-pd: check the PI state under the lock when setting a power
+    limit
+  net: pse-pd: do not tie a shared power domain to its creator's devres
+  net: pse-pd: stop async event sources before freeing PI data in
+    unregister
+  net: pse-pd: unregister from the controller list before freeing PI
+    data
+  net: pse-pd: keep the PI data until the PI regulators are gone
+  net: pse-pd: unwind allocations when controller registration fails
+  net: pse-pd: use each PI's own supply handle for the power budget
+  net: pse-pd: pd692x0: release the manager power budget through devres
+  net: pse-pd: pd692x0: defer probe while a manager supply is unresolved
+
+ drivers/net/pse-pd/pd692x0.c  |  31 +++-
+ drivers/net/pse-pd/pse_core.c | 319 ++++++++++++++++++++++++----------
+ include/linux/pse-pd/pse.h    |   5 +
+ 3 files changed, 255 insertions(+), 100 deletions(-)
+
+
+base-commit: 78731b46967e3e7102b5cd5062bef185f3404b5c
 -- 
-Jens Axboe
+2.43.0
 
