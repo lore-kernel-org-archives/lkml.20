@@ -1,45 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792496075;
-	b=COA0nfDS6u7dOSx1hwSDfNSfOyQLZ+kB1KjUSy8mIkBZ+UWyjgtvExMpbTfNv26DNkTI
-	 LVjbieobhO4LuMXz21p57RybhcpCJon6/ZvVsM3i+pCIBgWXM3DkUp7Nb+Xv+ZpAvH4FV
-	 hk3Y41tnsi8abX3PUC6mEQ2sr6q+D//LqfxN9KZ2RgYFDRHoC1W9KMg1lzOGxTIbaVZNw
-	 eWhPCoSPbDp57SQGHtLTVZUUZKQ3WRCptRoV1iNWs0TZ0GPxN+7zCjRFhrpC0+dSsXekO
-	 MXijW9xXEKztrM8w3hJT3Y00F1trwSEbRnyarEDc5U/3jNlzs25BlaI8MSbwdwzPRKQ==
+	t=1792496112;
+	b=0/wWebfV1JfN9CQcXlm7S516eOzP28+6TDZ/7Qf7tyRzZPgna8Seim0L8ee4vNCrdHtu
+	 kEzAJnAQlTFvxz6GsW/hQIa5GEEokCWEaGWN9HFQYkGR9x29XqIVCElZK4LY+9cB4rIXs
+	 kclNNXNnUpPSmdTb2K0fZ+XvUEO+cCaMH7Ji8B+kCyRnzgwO7iP627+x+gyEQi1H9QJ2h
+	 qHizVQ7ciFwyyvhCenHk3yd6dXG/peqFZ4zFsueDPtRFGkxayZ9M6SR8JjG17x0tjKqtY
+	 aCzmL65Kd9PsHkxWB9qDDeXTW/mDCS5LQ5tl6mKeelYIdcjCvvhIgfuT410pYJ+OsiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496075;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
-	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=YgiL9PYeUdMsQQJdZ2R1QPV9MD8KIpSSIKhcXP8qDRU=;
-	b=t2K6vmeI5nBLg6PqcpUIAqtEXuJIuonzs5erYSPgL5mUWh6qlmkm3fYQKa3D2AxB6PK4
-	 Np+oIcYeYW9XzWkxNlFZN1tyXH1dwLuNKk1rETyGCaII2MT5sVGF9Ud+OXVAZclaevU4A
-	 tJHpg6jcVaKMQ2tJHjDSlBlJKADoYNyZk9gAfTVdaLRUxyyygKzuAqMng1ZbBf67pfSn9
-	 RDt0ZMWvC2mYtspXOkArUnRYOGbIfu6xadlYePqzyDiOrzbzYH83pi6HG9SGhX5G02Lg1
-	 eIMMcalU71FP/o6DUoX51PzN6GYb/FSrXqfa/7rM7PdVdAbxIl8w/fr6yHRz/pXSI7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496112;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=KC+tsMxL27T8X/Np0Fb1tWZeOW8IxFTBoi/UezmyYRg=;
+	b=OHcngJGkUjuDBwkdbpsotMKVLWsg5sGux3iuDopAJVCLRq6fYvb2klDHlwcKzt6kiRbE
+	 Wz3c6Ws9l5a/aay9qjSRsje7mVyi85uH0mD1nJjvgCtTimOWPF4pCsRO/ejHXfcFYvzli
+	 2x5pS2mGvmmXDJUEyt6A1AZUTUg6xtHlSrfg/U0YbuRf9+8xpukd65R1pV7Wy+aJ06iXl
+	 RcrsaJH+bMfLO5NJh99guu4VVcbDvELtLLeA69hadVbFooE2ciS6k7e+L2WGNbknA50t5
+	 X4s8uFL32aFqaTbh7kLM4T6HWR+FGYaI5H4bsrSB6Yi2BYAVmR3ohyUQDzKTJzFQy4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYwCaJ0R;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E04E60A2604;
-	Tue, 20 Oct 2026 11:34:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E04E60A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 20 Oct
- 2026 19:34:13 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Tue, 20 Oct 2026 19:34:13 +0800
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Tue, 20 Oct 2026 19:34:16 +0800
-Subject: [PATCH net-next v4 5/7] net: ftgmac100: Require phy-mode for
- AST2700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F3E606A331;
+	Tue, 20 Oct 2026 11:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYwCaJ0R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2707E1F000C4;
+	Tue, 20 Oct 2026 11:35:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792496111;
+	bh=KC+tsMxL27T8X/Np0Fb1tWZeOW8IxFTBoi/UezmyYRg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=UYwCaJ0ROq/utWY4xpPuooyxMbQRo0ykWMVu9P2d28ECMV1HhSYPgVJj/ocpbyhNn
+	 BU9cWCF8bsTbVQwhv4e/XXWCNjtjgiv1XGb5O4xwR8szS65CDhXevP24Pa6+W8KrC4
+	 GvsLZbXEVOuQYl5+5ALmkweqkbt7xd6Pv1Kh0ZXPzNltbAIUZ0+f3acAhEFtW8/bnr
+	 /Y4GYmMjF33eUML1zli1IoUMnSmeg1jeu7m/1yMd0xIs5pHtHEvQqAycCYx2liVywR
+	 1zrFbzK+sd+BFjhpht6JMXRomiOuwi6m6gGqM0Z57+HQ4DwQYW6Qh8RWkvlzvikg9T
+	 ES7n+e/Ea+cJg==
+From: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Support Opensource <support.opensource@diasemi.com>, 
+ Lee Jones <lee@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Primoz Fiser <primoz.fiser@norik.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ mfd@lists.linux.dev, linux-watchdog@vger.kernel.org, 
+ upstream@lists.phytec.de, andrej.picej@norik.com
+In-Reply-To: <20260924065044.368341-1-primoz.fiser@norik.com>
+References: <20260924065044.368341-1-primoz.fiser@norik.com>
+Subject: Re: (subset) [PATCH v2 0/4] da9062/da9061 watchdog timeout mode
+Message-Id: <179249610684.1885397.15733265210505859748.b4-ty@b4>
+Date: Tue, 20 Oct 2026 12:35:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,63 +68,31 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261020-support_ast2700-v4-5-4d36b40939b3@aspeedtech.com>
-References: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
-In-Reply-To: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
-	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, "Heiner
- Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
- Dumazet" <edumazet@kernel.org>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>,
-	Andrew Lunn <andrew@lunn.ch>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792496053; l=1341;
- i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=1RAjtRaBnlESdbdb4uGZ6kTcr6R3XDz0Y1IoL5YzWHQ=;
- b=UdQXNxzOvSrVyLS0HL1LWYXkSktK1Pef97I3nfp566rYlh6UkoHPvSZENfJfqmYLNg4zNc398
- 8T/mnuLtHCFCQ6lFcgwJl4365if3b4GKdI0aM0zdjzpkx+hL8KD8ziZ
-X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
- pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-The driver currently defaults to RGMII when the "phy-mode" property
-is missing from the device tree. This default is no longer valid for
-AST2700, which also supports RMII via FTGMAC100_QUIRK_RMII_ENABLE.
+On Thu, 24 Sep 2026 08:50:40 +0200, Primoz Fiser wrote:
+> This is a revival of a series originally posted by Andrej Picej in
+> December 2021 [1]. It lets the DA9061/2 PMIC watchdog be configured via
+> the "dlg,wdt-sd" DT property, to trigger a full SHUTDOWN instead of the
+> default POWERDOWN on watchdog timeout, and enables that on the PHYTEC
+> phyCORE-i.MX6 SOM.
+> 
+> From v5 of original series this resend drops patch 4/5 ("dt-bindings:
+> watchdog: da9062: add watchdog timeout mode") because it already landed
+> upstream as commit 382256b219fb, later converted from .txt to YAML by
+> bd888a4377ae. Thus dlg,da9062-watchdog.yaml already documents dlg,wdt-sd
+> property.
+> 
+> [...]
 
-Make "phy-mode" a required property for AST2700 and fail probe with
-an error message if it is not specified, instead of silently
-defaulting to RGMII.
+Applied, thanks!
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
----
- drivers/net/ethernet/faraday/ftgmac100.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+[1/4] mfd: da9062: Make register CONFIG_I writable
+      commit: db52dc6f9aef97ad7f9738b5f595f42299946793
+[2/4] mfd: da9061: Make register CONFIG_I writable
+      commit: 630751941b7488912fbe432c2412b8c9fbfaed9e
 
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-index 9b7becb01726..5a578a62df67 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.c
-+++ b/drivers/net/ethernet/faraday/ftgmac100.c
-@@ -1526,8 +1526,13 @@ static int ftgmac100_mii_probe(struct net_device *netdev)
- 
- 	/* Default to RGMII. It's a gigabit part after all */
- 	err = of_get_phy_mode(np, &phy_intf);
--	if (err)
-+	if (err) {
-+		if (priv->mac_id == FTGMAC100_AST2700) {
-+			dev_err(priv->dev, "phy-mode is required for this SoC\n");
-+			return -EINVAL;
-+		}
- 		phy_intf = PHY_INTERFACE_MODE_RGMII;
-+	}
- 
- 	/* Aspeed only supports these. I don't know about other IP
- 	 * block vendors so I'm going to just let them through for
-
--- 
-2.34.1
+--
+Lee Jones [李琼斯]
 
