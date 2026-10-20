@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792495215;
-	b=1Fh8oxK9gjkwLrpL0kPCml6bY1+13B240k6hwESAHOHMNbHsezP0seaVF+xTqm0znHzD
-	 fEVEgulQtEGlT9+jA7NNLFr0efXqHDHWUnTSxDZeD7jjhL34dw+JszWdnOz4KFuJ9mWAq
-	 J6sNnGFbJ9YteN6v5bIHKti2toAfpRXpjvHOpTZpFpU/e3i21cNneUV/B8QIsfskKatwp
-	 r8qAJBRCwm2eJ8SEpOqc1Ap6TAchmevsOfhd59/m6DMwsQZGII6mQbdYb3r2Uc2r1Ho1h
-	 6Dphc47bnEANxQpiFhCvBMCnqCUlbsbeaCifZUwpyORPZP+fDJw9RIsjoXguhXYjeog==
+	t=1792495375;
+	b=rYcuJgcn2yu6OA762s7bRCXINDo5m51OGfmRGu7f+TmGf9z8TcCAyHovycjXCB3pn++J
+	 H+WGLKYEiMb2PeVOzRJG84yZNd5yuAyCqmhXw7bQTK91Rs+xWPGUCCx2ueMXJEnxQj8RJ
+	 UL+egHARmYZ3HNWe20bgx0irNSvEWCkRicDY7p5UH86Sy73vLQIWY04OcfckFWFkNbcYO
+	 pnOZKs3pL4w6NR7U9D5MpJT/ESU9WHPjOwHpiDvQUhC7xjUk0OyLjBN1b9GeE6tsstCkU
+	 Z1LS4n8hXE5eB5JVzxBkh7u5rN2W3dxOhdf65PNkUPObgXV+oHM+gPyo/VWzWtbSwww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792495215;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZFztjEr0ZQexLDh3Pann33lsXa1N2kU+5p5eWnif77Q=;
-	b=ckYJnSiCySMdn4AIfuVSSyR5J+8WhtQ5pgm9RRpcWP6FGHTEEb81s276CatFBJTGW9+5
-	 9IjEZ/xfEfKMCnk6UoUxcTvkF/cTdWYewqkOk4g9fdcp6bv9u0VRQ0X+pdttifqLc4ROJ
-	 XV0nId5mpglYtmcmqT5Lv5GxhLU0J/Q6WhESSWH5L7PqInZM/osVvj6gvp7XM7QjSua4F
-	 ey3rBFXWInGTEccIaYz9ZyFvpjQM7vCn3/2wNzcj4vcOuopeYtqXP5eBDwUBKk8SP/vUi
-	 NXsqs+3ZHqcZTfOyQR+4ZzEtJfFlKAZZgTcLJh3hmhgwR0hHr+HMQdiDI7pXYl/jkZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792495375;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZhRLvzJzPI5U781F/KKbvaLNO/DRwhdbN5Luxo3sgyY=;
+	b=tdxV1sK3UtZm/gNcNGxnepJg6GMwoCJpIrArusQ65ittJkZPNC8glTo+i0A42vPMBJrM
+	 WeH+28kzDZ3L8gGWCr+MK2JLuUTKmBuRUwu58B/MUA2Kk9LoMpHhN1NJLBiKVPlWMH/yc
+	 2idkEPpJ8gPNH5VdxGwbukimgYta995kwzvcIcq32DiAo22tfmiu1Le20vedd2dum9lRR
+	 LVWwYYt77PXI+FcYS3SYwEl9aku12nWMyKsheBJFo3Uz2bHuTXZ+tx+QTdJlPKDn5jWxa
+	 cPihnSJWJr4Ncu2RmvaPxpwBj/+zkJSBd51X031xkqSa5Dy9TSwGYeQZPPiNd4aZ/Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=opUOeqbF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=sKPsmVLV;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BB960A2601;
-	Tue, 20 Oct 2026 11:20:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CCB606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:22:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97CCB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=opUOeqbF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3701F000C5;
-	Tue, 20 Oct 2026 11:20:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792495214;
-	bh=ZFztjEr0ZQexLDh3Pann33lsXa1N2kU+5p5eWnif77Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=opUOeqbFYWlPOxOu67WIYDyUVn8DxngW37Z/PJCmqakLjfBd7R03IrVqhVLn4Pxn1
-	 xXtjPDZtXPZ4+lVZh9LnYbXaPQxoNRVyNEUba4h5wRSi6MvAOfg/pkhkPV9FzntciH
-	 4DyEkhU8VlmkxeapIGBYTSSTTjEhSrNx4EAJQ9vlM3FbjtRod51UwKUAtaAa+Epcvk
-	 Jct/IxD/BUzRA5yGVQubYhWgKgzRd5goLLJiBZveR73XkzLUXDdoTcVYDtm4V5Lk4h
-	 uXrW9ebh4QUd0RyamHsOBC/8GTXfqWIfiofVBfoKncjsp7DZZaNgnbUaQfbO9/0lDQ
-	 q6d3gIcMf/w7w==
-Message-ID: <e4af2bce-7bfa-463b-927c-9641d74e0e8e@kernel.org>
-Date: Tue, 20 Oct 2026 13:20:09 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=sKPsmVLV
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1d2ec9aadso41415e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:22:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792495373; x=1793100173; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZhRLvzJzPI5U781F/KKbvaLNO/DRwhdbN5Luxo3sgyY=;
+        b=sKPsmVLVIN2r3Na3N86n4QfTZOVMbBn0pnmaFC215UsDjoBhnnFoZjIzuYYHIBJ+2j
+         jf0uUAIg7dhU/gJbZ9tb9kAMhHIxp0CLyTEjNWPY0PTkt/CcpkON5rlrV+yC5Qe6QMnY
+         rARJkhZCCVTODWDpgyRXtQUKu7hc04DUyF5Mea5g2/oG7YBVEi2nD/MTMQd/YEYof2fW
+         yDG3v9ntVC/aJux2NgJbiBbE16fMCNuhGNvxXMfapjMuW/Cbxo8+ERzJr35+foERq23l
+         8hRVtecglofX9CtiMeawsbz4uLNwUmMQw7TgvYWypxNAsPGAVp11FQjoConQ6mbYQkbn
+         lsXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792495373; x=1793100173;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZhRLvzJzPI5U781F/KKbvaLNO/DRwhdbN5Luxo3sgyY=;
+        b=kJyqmozXIIEtTpB+yCE8g3gZkKktSQpfP32hJwhAnWhdWAlVsM/GAvW3yPe4KatYfb
+         3rN+F8dd78B5Biz7DJR2hnIzBS5lbvgRl/Y30DaF90LXiET/eshyED5BRqFsPR2Pwwv5
+         rEXCkjmoRg0pa8XvwmjTrcvNBbB1WalA4F03PJBkvLlhoWpEW5z6NCHfmFGuCqpSc/hm
+         l90VSRYX9qHwfETLDTvAhdiaQkM62bdQZXwXAYahTzQ3CJX7AOIj1TK5KDMfxdAM47zn
+         nVLu6QwR93W9uyR3zkS6u2Rc0ROBEj75TswzGoGdyfoB/Vm4pytw1AGriUvPajEIGBC0
+         IXOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy70dM8xHhp311JOKK4Jv+iEjIihcdye+2X9UerrG/p/ey/Alm9/Gz1MgJ/rENu6Kk/ow58Pl3e77orY4k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsZaqzoWzHvs9ztBQGCfK8PFIIWPWz3dVoG4wA9G6XAb4atDtl
+	du2BSVzSzIdLNS/sRs8v9oCC900naGKkZh49WAZXMltwa4nhnSP48rHNzLv+UyDXjeVAXidUMg4
+	GmaUunw==
+X-Gm-Gg: AYBFou3A1bV7rLMkrBAWWeSr0oVZvSqhFnMQtqKrwdvc6Om2iGOJqGGx5meTNEKU4XP
+	zCd0SMfsfIfnB7nUbDoC1fTfQpPdtpYl3EG0sldWoR3QF1zMWix37bj9k3K+MKPYt0L7sUFAdni
+	SuxjdMaZ0vu3pPsUKmpx1GCC+BgrmgEmv5xxi6XxrInHA7gfymmMWLJoZ+ovzD4AazFYrWYcR6F
+	e45Lk1BMwUxjLUhryF4SgaQYujqzQoydAyE1LP/V6F6z3BRAesWBZh+HNtswnGpwinEv/uJII0H
+	EOY8f0mY/WVTw3zrUpDlXltSn2g2TP7S0Yf6/YhnAnnIua+h1z19T25PH4SD5TuVoQhvR/9UA0k
+	IBTwtqdi+Yr29+5k2TPPrZJ55v9lGWrNAR7mjmKu6KispfvylxdFR84GCfJBKSOJ5UVBfhf/sVg
+	cD37WcSK89jsUF86TWSkWnvBFKLDwm0jfWLnW11tn57OE7wJatOwYD5DQgz8R+7+0UqIpbGVKrj
+	yHxZ8HRXCOChcb7RG/EJEFjEYA/qkKonjtcYR3G
+X-Received: by 2002:a05:600d:640e:10b0:4a1:98b1:1de9 with SMTP id 5b1f17b1804b1-4a1f59c151cmr652475e9.13.1792495372639;
+        Tue, 20 Oct 2026 04:22:52 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d8208b1sm5787276f8f.33.2026.10.20.04.22.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 04:22:50 -0700 (PDT)
+Date: Tue, 20 Oct 2026 11:22:46 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@nvidia.com,
+	praan@google.com, kevin.tian@intel.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
+	Cristian Prundeanu <cpru@amazon.com>,
+	Breno Leitao <leitao@kernel.org>
+Subject: Re: [PATCH v11 05/11] iommu/arm-smmu-v3: Disable the EVTQ and the
+ PRIQ in a kdump kernel
+Message-ID: <atdPBqd1-xLNZ1hs@google.com>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+ <fdebf9f372ebabd7a44581a2068d6fcbff058783.1791226953.git.nicolinc@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,84 +102,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] arm64: dts: exynos: add initial support for
- Samsung Galaxy Watch FE
-To: Aiden Isik <aidenisik@protonmail.com>
-Cc: Aiden Isik <aidenisik@member.fsf.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
- <20261020-eminent-juicy-woodlouse-c3fd24@quoll>
- <pyssceEfVM7C-RyMLXJw8UV4wTs-zyDxywEasLdafttU1LwckC7RjzO4BvAhElk2ExTaXVZYZ0NSQ82FcgBFXSrsGmj2TtBQ7HN0vv7gEOw=@protonmail.com>
- <5CDdVVnZEwA25WkRzHJtuO-Tw47UZGTEFrZ9SBbQ2ax1bG9_OUemLDoX5C-TzyFyS5WxuFauKFU11QGk08RM0_Nn_3HGrglq0AR7wr8IggU=@protonmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <5CDdVVnZEwA25WkRzHJtuO-Tw47UZGTEFrZ9SBbQ2ax1bG9_OUemLDoX5C-TzyFyS5WxuFauKFU11QGk08RM0_Nn_3HGrglq0AR7wr8IggU=@protonmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fdebf9f372ebabd7a44581a2068d6fcbff058783.1791226953.git.nicolinc@nvidia.com>
 
-On 20/10/2026 12:42, Aiden Isik wrote:
->> Is it a wording issue? I don't depend on actual driver code in the DTS,
->> only bindings for the hardware they drive, so maybe I could make
->> that more clear?
+On Mon, Oct 05, 2026 at 12:30:48PM -0700, Nicolin Chen wrote:
+> A kdump kernel cannot use either queue. The crashed kernel's CDs and page
+> tables might be corrupted, so events would spam the EVTQ, and there is no
+> way to serve the page requests that would arrive at the PRIQ.
 > 
-> To elaborate on this, I listed that as a dependency because that patch adds
-> the compatible string for the watchdog timer, and I was also under the
-> impression that drivers must be already in-tree before a DTS patch which
-> uses the hardware the drivers support can be applied (otherwise you
-> would be merging a DTS of which parts do not work as the prerequisite
-> drivers are not in the kernel).
+> The reset routine still enables both of the queues and then masks the two
+> enable bits back out, having already programmed the queue bases and taken
+> the interrupts of both.
 > 
-> Is this not the case?
+> Clear ARM_SMMU_FEAT_EVTQ and ARM_SMMU_FEAT_PRI in the probe instead, so as
+> to entirely skip the queue initialization and handling in a kdump kernel.
+> 
+> Suggested-by: Will Deacon <will@kernel.org>
+> Link: https://lore.kernel.org/all/amiBagGKn-Aym1DK@willie-the-truck/
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Tested-by: Breno Leitao <leitao@kernel.org>
+> Tested-by: Cristian Prundeanu <cpru@amazon.com>
+> Assisted-by: LLM
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+> ---
+>  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 756825e004774..42cd30c79211e 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -5247,9 +5247,6 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+>  		return ret;
+>  	}
+>  
+> -	if (is_kdump_kernel())
+> -		enables &= ~(CR0_EVTQEN | CR0_PRIQEN);
+> -
+>  	/* Enable the SMMU interface */
+>  	enables |= CR0_SMMUEN;
+>  	ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
+> @@ -5576,6 +5573,15 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
+>  	if (arm_smmu_sva_supported(smmu))
+>  		smmu->features |= ARM_SMMU_FEAT_SVA;
+>  
+> +	/*
+> +	 * A kdump kernel wants neither queue: the crashed kernel's CDs and page
+> +	 * tables might be corrupted, spamming events, and page requests cannot
+> +	 * be served. A disabled queue discards new records without raising any
+> +	 * global error.
+> +	 */
 
-That was never the case. See maintainer soc profiles.
+I find this a bit confusing. If the CD or page table of the crashed kernel are
+corrupted how is it safe to adopt them later in this series?
 
-Best regards,
-Krzysztof
+Thanks,
+Mostafa
+
+> +	if (is_kdump_kernel())
+> +		smmu->features &= ~(ARM_SMMU_FEAT_EVTQ | ARM_SMMU_FEAT_PRI);
+> +
+>  	dev_info(smmu->dev, "oas %lu-bit (features 0x%08x)\n",
+>  		 smmu->oas, smmu->features);
+>  	return 0;
+> -- 
+> 2.43.0
+> 
