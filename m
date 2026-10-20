@@ -1,97 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.79
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509226;
-	b=R6SWB8cHiDwdEeKJaVOlYgyrAZrf/bkyFOtQW+GkuX5x1zx49wIZvQWPPc8YpXQviCIb
-	 QrYryoI2U8M41kBt7TIXZlYnGAJxBQZk2z5BqfYAoyMYEgmbS5NNHIr/06QfLs6d7bm2C
-	 B1gePSKZiKKLHVMRavWuZkbq1QDTkBEkK7MsiEC/RHo8pGMDR9U15X3YlRLQ1gUPbGPoi
-	 6QJChakwmfa0cnskpklAiolehvMuYkJcRncJlJ5vaUQgJzSbbGjZtXWobAuPZlJK5uRNd
-	 l/mZ7m+0Yd6UQXtvBPvhCyPsNX67l/lO4MLHk8Mq4okCUK5nI0aFsRLZ1c+5qhGVO1A==
+	t=1792509242;
+	b=SBH1ogUuKKziWfAV4HCQlLIDFIrm4enZhUyEW2A1UpisvjwYTxiLSx83KkeXUA832LbA
+	 ePfM8CYqnr1jBWlIcae/DKVXW3I0clCtNKEj700uoytid2hL1IKb0L/3AL414jawwE1g7
+	 mVPmCW8guPHcc3R/cilX61dGViBnCsGzECbnzM0DE2VbeaaXlZIlMz76DrzkPh48qNBt+
+	 CyQdqGQOcd7b/m1EmKQ1h6qSnIkg5sml25R8AllDhvHDYUGe5Ck7Hx4cpQXSKo0nIwpSA
+	 oUTY9oS2lrIAS289VVLEDvAmjv5gISGfGD/2Ua3P+LvEWZZiDtNMInA7TNJ6ABPq5gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509226;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=E5glhVrwj86spGywngXr0iRHfq7xQsmGjowFr/WZU4A=;
-	b=sfGS/ftjGtTfsJW2HAHLlSxHhQESIf/ffB6pQGk3s/3PMXcvrvw36MpzCcFvpddr9wVq
-	 xMZrplGxFY8rAnrBf3jJ70NTN2sVeND3syDaqAmPN3X/LwwyMc0vviM+X/o5CgVWp63sS
-	 evy+pAxRG0HVambWn9kPZ6KoaudsHm9nqXOzjPMQA8RuSj5CDly7RuO3EgF/fSYTYONjw
-	 /WrGySfQOLFoaxnVD76uJJ3LuPYIV0K3WWLd7yKAIpBFkj2doysutbtCk5s0Bj2VnL1q9
-	 kixtqwENU/l9hrpZCa8vfI6860FDVeu4n26GV0Jhhtrn2ULaX89/qBfwthMUfhSdMXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509242;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=veLKnRY62zTIqxBWnrcQ0gPv1vv6tOtFBDOf6tmVKc4=;
+	b=NZgcuJN6FBKkCiZZcxy5vXmaazlPDHHF55H4ha3cRUvfV5e817fHZck+qbv7CqSKTVRK
+	 LP7hKHgd6B+GpR3t6WVM9BjgOfg/4ej3TQqvyGy5p9v4LrQmVZ2VkCk5ETvEF9uKbuUYm
+	 9JjyA6fJnUZG8cyBkqT6IXtMf+PSst2ZJ9TNQSFSCwCIEOOOeL5grE5MVmbU3nD3Gz3wQ
+	 y3dT44Rl9l0rRUzU+9+sWYQ6gLaWOCRruJVnXpWISIFHEKR5IqHeqZXoBPOPOLw84nUJ+
+	 yrQ/TCHG14xbH9RbSigui47sG4+MLFf7ohq43t4aaPLJ3uBBr8GGvJM0X0dwuL+0kbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="C/vDzz61";
-	arc=none smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ey9NJclt;
+	arc=none smtp.remote-ip=95.215.58.79
+Received: from mta1.migadu.com (out-79.mta1.migadu.com [95.215.58.79])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A2F60A2638
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:13:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3A2F60A2638
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE89606A33B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:14:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CE89606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C/vDzz61
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b3f7763d88so541517a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:13:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792509224; x=1793114024; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E5glhVrwj86spGywngXr0iRHfq7xQsmGjowFr/WZU4A=;
-        b=C/vDzz61rPXNX7mDqmExCQnBURVABP3blGrcJlLFnws13sNyQsJzyCTqcEDWeyQXev
-         b1iehKcWPYyhDjou6L6ZqdpjcMVUYXQ8JlCwj91MCRkr0mo5t9vRsyTRs2bUV5lKJOL5
-         VrmLR4WEMUke/zEM2VNxij1W0LUBsRPNwqAs/oCDodYDQRq6P3E8e+c21VIIDkQ1H7vL
-         T4QoQmCPxsOcBdBaeKZ+yE89L+SCx07HOQUp0elFbUUf8JTZxrhBM8G+R9aEDrfyCJyq
-         +oV2Gqx6WVMBq5Jtk0+tCD+J9i6Bv4smnBOsgcwAla2MDbVYLa+wt25XpM1ChOJB+CXt
-         R0/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792509224; x=1793114024;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E5glhVrwj86spGywngXr0iRHfq7xQsmGjowFr/WZU4A=;
-        b=u+nWFsPrCLWI7TycFTEFOrmCSmuIhev/2UJe0D9Ns2i0QEVqwDlQhpd83bjZb4W676
-         pBApMs91b409RrBNWSbLCP8GBoZT81WtxbXiI2Pkze9uWvaqCkTPh3p/QeUlcbbpF/lD
-         7l09X2gousa9OCwjEmO4b5Yi1zdKPC2BTmZCyOIaPqNxJudGIrMwCfMcPyT1U/9VrNJY
-         ihlxcV5/ykmFszM56JLfrsk4LSvSNBqiDxiCSDcSBv2Ka3uT0EI+k8sBy7DTQ2YekzNc
-         ED79nBfpIDW9zFxJth4lHUSTaz3fi5uVAGiNX7kTG/espJi277M8Jn7B7OhTQGIC1eMr
-         n6Dw==
-X-Forwarded-Encrypted: i=1; AKwUvBxORH2emKEz5od9sDRp+JmHlUKKFDMFN7y5eZfveGw/5JOg7NAhakogvft6FjWKQo3AuBLdDLnhF1AeXTk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILdIIwlMqOHe8Z4WvuZRIJHWaQ3XkvaKUohTHKEEoP3+uyiZTL
-	X5t9d2i9ZSouHzHNi+Q/br5ndFI6ogi8cAukmQuxFBDTzN1QojkAkhpF
-X-Gm-Gg: AYBFou1YiMr4eLjHIjxG8a4ITMpblcPBaqjtBTxL5VO5L5Kale5wrsIAZi357C1+KvE
-	+9p6Y+SYv9e74k10g0JWqQ/z2cUpyHtSfv/JZypQ5rcp745K2PjZ/ENTVFlgwu6VE0jTAfpbtbl
-	Lb7/8oRpMvoMOZnAgfRMWJwrlM+ebBA1iFtmuquH9XkV0S6wYOuMDgG0K+7I6jQJA9iix+JeyCE
-	5WeKO7+DW54eD57Xu/jqtCqpBGAhjWRP8MqfWWXBH5/HLHsbcuAz6AhRy++L4zG/cuwypc1KriE
-	d/1mxPf08xEGSzkyqARu7+RKC5czzilO4YjUe49FFRUZt4+MaQInKS0oCTwIJ8W3ZBXIs4ZsIoE
-	20pj7PrO6EflrKD03O9oYke8YQIlHGzCwf6nsLHmXCCCuDumxy8/A+1jPmXO4d5fD+UnCmpnhQU
-	047uUdVHyQeRePj+pJQBscQD5BB1fSuMJO3uw=
-X-Received: by 2002:a05:6402:c549:20b0:6b3:d0a0:3743 with SMTP id 4fb4d7f45d1cf-6b3d0bed948mr3136938a12.7.1792509223944;
-        Tue, 20 Oct 2026 08:13:43 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1b285esm5091427a12.8.2026.10.20.08.13.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 08:13:43 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Tue, 20 Oct 2026 17:13:41 +0200
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Uladzislau Rezki <urezki@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>, linux-mm@kvack.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ey9NJclt
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CX5MT6+fMmm76OEcX3Nwd/7nHwJ/bCIAJ1rrCcf4AtQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792509238; v=1; x=1793114038;
+ b=ey9NJcltneG6hcGVpaXejSRya2thLDKvTBJP00I7DU+xoK3U8yGTCCsfYc4F2Or3I7iasg7B
+ Hud5ybYQkbM7Q71G0BJpXXYcSZWg1Cfmdw1vkwNmCId+iJ5Y9G8yYaGjXeHjf5JigxPTsVmU8Vc
+ pEZSQsX9HPf3E0A1kL3ITcrc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 786fde7ad19e055f;
+	Tue, 20 Oct 2026 15:13:58 +0000
+X-Mizu-Trace-ID: 786fde7ad19e055f
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Reinette Chatre <reinette.chatre@intel.com>,
+	Tony Luck <tony.luck@intel.com>
+Cc: Dave Martin <Dave.Martin@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Babu Moger <babu.moger@amd.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Peter Newman <peternewman@google.com>,
+	Meta kernel team <kernel-team@meta.com>,
+	x86@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm/vmalloc: read vm_map_ram block regions from the
- requested offset
-Message-ID: <ateFJYagAJjvN8jr@milan>
-References: <20261017125244.b2d7134fa9697b2982cb8cec@linux-foundation.org>
- <20261017231325.796986-1-nickolai@csail.mit.edu>
- <atSM69faDNgmLNVJ@milan>
- <atYRUyFHca-giQcw@gremlin>
+Subject: [RFC PATCH] x86,resctrl: Read event counters with an IPI when the read cannot block
+Date: Tue, 20 Oct 2026 08:13:52 -0700
+Message-ID: <20261020151352.2346257-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,20 +73,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atYRUyFHca-giQcw@gremlin>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 01:48:46PM +0100, Lorenzo Stoakes (ARM) wrote:
-> -cc slopper.
-> 
-> Keep in mind that this individual is flooding the kernel with slop.
-> 
-> We should be wary about encouraging this kind of behaviour. I suggest taking
-> over patches, 'discussion' will likely result in having to deal with a meat
-> proxy.
-> 
-Thank you for the input!
+In the Meta fleet, readers of the resctrl mon_data files often sleep
+while holding rdtgroup_mutex. Over several hours, a lock profiler on
+several thousand hosts (almost all AMD) caught:
 
---
-Uladzislau Rezki
+  - 96,368 reads that held rdtgroup_mutex and cpu_hotplug_lock for
+    17 ms on average and up to several seconds, mostly sleeping.
+  - Three different userspace applications [1, 2, 3] doing these reads.
+  - Other readers and the MBM overflow worker waiting for the mutex.
+
+These long stalls put gaps in the monitoring data for these
+applications.
+
+The read has to run on a CPU in the L3 domain. mon_event_read() uses
+smp_call_on_cpu() for that. It queues work on that CPU and sleeps until
+a kworker runs it. When that CPU is busy, this takes a long time, and
+the mutex stays held all along.
+
+Commit 09909e098113 ("x86/resctrl: Queue mon_event_read() instead of
+sending an IPI") did this for MPAM, whose reads may sleep. On x86 a
+read is just one WRMSR and one RDMSR and it don't need to sleep.
+
+Add CONFIG_RESCTRL_MON_READ_IRQSAFE, which x86 selects. With it, read
+the counter with interrupts off: on the current CPU if it is a
+housekeeping (not nohz_full) CPU in the domain, otherwise with an IPI
+to one. If every CPU in the domain is nohz_full, keep the existing
+smp_call_function_any() fallback. MPAM and other architectures keep
+the old path. Peter Newman posted a similar change in 2024 [4].
+
+Results on a 316-CPU AMD EPYC with busy target CPUs, and readers that
+copy the fleet agents, per 60 s run:
+
+                                       before    after
+  hold time per read, average          350 us    4 us
+  hold time per read, worst            3.4 ms    109 us
+  time off CPU while holding           9 s       0
+  one pass over 750 files, average     360 ms    7.4 ms
+
+The cost: interrupts are off on the reading CPU for about 0.5 us per
+counter, and up to 131 us for a root group read with 128 MON groups.
+A reader that runs every 100 ms used up to 29% more system time,
+because it now spins for the IPI. A kernel with lockdep and
+DEBUG_ATOMIC_SLEEP gave no warnings while groups were created and
+removed and CPUs went offline under the readers.
+
+Link: https://github.com/facebookincubator/below [1]
+Link: https://github.com/sched-ext/scx [2]
+Link: https://github.com/facebookincubator/dynolog [3]
+Link: https://lore.kernel.org/20241106154306.2721688-2-peternewman@google.com [4]
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+ arch/x86/Kconfig         |  1 +
+ fs/resctrl/Kconfig       |  8 ++++++++
+ fs/resctrl/ctrlmondata.c | 12 ++++++++++--
+ include/linux/resctrl.h  |  5 +++++
+ 4 files changed, 24 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 15fd9ec5ecac..8512b0980f6a 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -523,6 +523,7 @@ config X86_CPU_RESCTRL
+ 	select ARCH_HAS_CPU_RESCTRL
+ 	select RESCTRL_FS
+ 	select RESCTRL_FS_PSEUDO_LOCK
++	select RESCTRL_MON_READ_IRQSAFE
+ 	help
+ 	  Enable x86 CPU resource control support.
+ 
+diff --git a/fs/resctrl/Kconfig b/fs/resctrl/Kconfig
+index 21671301bd8a..912626bb18f6 100644
+--- a/fs/resctrl/Kconfig
++++ b/fs/resctrl/Kconfig
+@@ -37,3 +37,11 @@ config RESCTRL_RMID_DEPENDS_ON_CLOSID
+ 	  Enabled by the architecture when the RMID values depend on the CLOSID.
+ 	  This causes the CLOSID allocator to search for CLOSID with clean
+ 	  RMID.
++
++config RESCTRL_MON_READ_IRQSAFE
++	bool
++	depends on RESCTRL_FS
++	help
++	  Enabled by the architecture when reading a monitoring counter
++	  never sleeps. resctrl then reads it with interrupts off, on the
++	  local CPU or by IPI, instead of sleeping with rdtgroup_mutex held.
+diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
+index cafebdff70dc..c6fea953e962 100644
+--- a/fs/resctrl/ctrlmondata.c
++++ b/fs/resctrl/ctrlmondata.c
+@@ -601,10 +601,18 @@ void mon_event_read(struct rmid_read *rr, struct rdt_resource *r,
+ 	 * MPAM's resctrl_arch_rmid_read() is unable to read the
+ 	 * counters on some platforms if its called in IRQ context.
+ 	 */
+-	if (tick_nohz_full_cpu(cpu))
++	if (tick_nohz_full_cpu(cpu)) {
+ 		smp_call_function_any(cpumask, mon_event_count, rr, 1);
+-	else
++	} else if (IS_ENABLED(CONFIG_RESCTRL_MON_READ_IRQSAFE)) {
++		int this_cpu = raw_smp_processor_id();
++
++		if (cpumask_test_cpu(this_cpu, cpumask) &&
++		    !tick_nohz_full_cpu(this_cpu))
++			cpu = this_cpu;
++		smp_call_function_single(cpu, mon_event_count, rr, true);
++	} else {
+ 		smp_call_on_cpu(cpu, smp_mon_event_count, rr, false);
++	}
+ 
+ out_ctx_free:
+ 	if (rr->arch_mon_ctx)
+diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+index 10dfdca7f4bf..2c6a19263d98 100644
+--- a/include/linux/resctrl.h
++++ b/include/linux/resctrl.h
+@@ -570,6 +570,9 @@ void resctrl_arch_pre_mount(void);
+  * a CPU that belongs to domain @d. e.g. use smp_call_on_cpu() or
+  * schedule_work_on(). This function can be called with interrupts masked,
+  * e.g. using smp_call_function_any(), but may consistently return an error.
++ * If the architecture selects CONFIG_RESCTRL_MON_READ_IRQSAFE, event file
++ * reads that must run in domain @d are done with interrupts masked. The
++ * overflow and limbo handlers still call it from process context.
+  *
+  * Return:
+  * 0 on success, or -EIO, -EINVAL etc on error.
+@@ -679,6 +682,8 @@ void resctrl_arch_config_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *
+  * Called on a CPU that belongs to domain @d when "mbm_event" mode is enabled.
+  * Called from a non-migrateable process context via smp_call_on_cpu() unless all
+  * CPUs are nohz_full, in which case it is called via IPI (smp_call_function_any()).
++ * If the architecture selects CONFIG_RESCTRL_MON_READ_IRQSAFE, event file
++ * reads are instead done with interrupts masked, directly or via IPI.
+  *
+  * Return:
+  * 0 on success, or -EIO, -EINVAL etc on error.
+-- 
+2.53.0-Meta
+
