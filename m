@@ -1,97 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792496309;
-	b=oPafmW+nju0trPRb+uZPATzW443qtKBinJxYp9CpTPK91HMQx83dAsLWPcjRru5soKxd
-	 xqPWdtXJHgygdimyU+pJjmubNeTAm+UrOAWf60jiNaOB+lR+5tu+297wadgiIujQ2u9LL
-	 QfUETaQe3MzS2GQv7To7Y9eW3g7OCKpBDMGhsQt+1Sfv1uDcYvJT/TpvOXombDxirJGns
-	 R/Df49CBVc7WkQ4YPYPWUvWbXz9xbUyJUW+jCuagJ9bB6ljA+Gn9lMxYb9//aMMvO7v3e
-	 JxkeGMGrWKriV0XqU9/cFRcF9FZX33Z8VI+lsGSW5q9pW1zASvtHItZiUPqbvI1bhMg==
+	t=1792496323;
+	b=D3GqPW6ubb6FtzVxbMRiv091zK7XnQVAQrlSFGn3UAjaj3LneLX0L5lOoELLmE2MYAOh
+	 rY1MM5gB5JOFA0CA4HtWRcOk5M5HtKBbaHXOHMp5DQ1yyqeF4WyU5njnX161Jo1vRU1mO
+	 W0ye5hXVzVa7sm/fhocV6c+BAI7ZBizM9AvoNzsIevGzcbsjEyIhT0vGUpxDZ0/SC69Ju
+	 tQ9WYdv8CTnlDiecyBP8/3Dlry7DOC2q7D2URs7LDqrxkHpxsrIKOlIbdSgjQb/0ECmdQ
+	 57p9niMQYYp4Qo4mMhNIAxqqgAQg8pK2RhUrnRhhZK94B2tePazdgwQiB1g6dsWjvNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496323;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=GUu8RpiRqtBaHObtAlgfcXnRFq0vqSVGatN9hi/iKOE=;
-	b=B/0B+XNj3Esb0sOWXX3lLxI/D9Y4L89VoyPV2zsXCGtn4G0eB4WRu+WegjfbsMNbmQOs
-	 4rNg4cPxiFhVC9dipvA5uAFiWDLsdujB2zV7eIZAISZ6+kW4TRPPs2zEV8FIh5YDTlNz8
-	 0HZMU8WjUJ0LaWXI2Yap9UchLjcRzThXThoBw5S13KBmcbQVR6kPEva9Ap2+hWRoPjU9U
-	 +Fobpv/zIyMb3YsC0aWnmmCh8+ayGC3wp5vGXqPpFIF0MgRSCMau8Jo7pEblgeYY681Eq
-	 264zrJHGzRvoGo9j9F+EOIyI8CJl/BtLNZBLiovdvvmCy/+xxLAf+ftvDe1TCBn4CaQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=WUD5J96fUgcGXSO6M/lzV9JVZT3SlQxQDuSVykx/3FU=;
+	b=0gtYuiM5FKzJPKjHCzxNxHCVmb2FHeZZdQtAFet8Fghg6/HqPyIv4VnbUcVvlI/PwMrv
+	 dvtbBofEHmS9+mj6HxnZFW+0acVBUuG8LrbolF75/1H5X8OAbhiy6TnnxVLWTxvImL9LJ
+	 8J/IbrQ1znlnm6IMMWnZ2gcJ2Dsfrv3gNeqFtrFp1qW6Mx6YnrgNPwnTfy8QjX7f2I7F0
+	 f6cxm0CNfX0nK35hSecL7h+fwDPRan8iolivKOQTDVxpSHCTP7g/g4qnkSnPdt1fwKT6D
+	 DDOi3iwTgkPGvSqfML9YsrYdHIKaChEQnbr1/zV5Nmv/oHYMYDmGEe1o+4gBwO5twuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jk8D+mrZ;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=RzmHtefR;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9082606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9082606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256CE606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:38:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 256CE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jk8D+mrZ
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a021c28046so32915e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:38:27 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=RzmHtefR
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2219902f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:38:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792496306; x=1793101106; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GUu8RpiRqtBaHObtAlgfcXnRFq0vqSVGatN9hi/iKOE=;
-        b=jk8D+mrZP13UZqkhpwLd3Zqqw1Q6CKWLZDeEZiKL0I7ABSO87Kq0wngeTeiP3CD4tj
-         H1W9udcjaeRkq9Pbmuuu4SNTOuBFWxX26t19Bpd92QzjVryydou0w8rjeCmG7XnC2QRY
-         /nlPolrGcMWnFlDCTEr6OF78ZGvDg4XxcffCjKlJpmSC6yIX+RznIN4YMZIJy5FiEK8P
-         0eyK5Juh5K0V0COJS5aKgEKxwSeKhHZkgx/wSxsrByYeFG/Jx7rp/WBivVuCsg2ALDoX
-         EHWG9NTfO9PcpdPFKm8Zshf+AFKpiYjbn92RNRdNKfahaK39SqbPbapw1PZWF7LYsR9M
-         J1Gw==
+        d=amarulasolutions.com; s=google; t=1792496321; x=1793101121; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WUD5J96fUgcGXSO6M/lzV9JVZT3SlQxQDuSVykx/3FU=;
+        b=RzmHtefRegN3eSyXGLJv1kgEBxk3Et0Xz29N8kmTetL69eo951eylWwHINHlJpSFFP
+         a1gU0tOWPcURKmVJXVKz/n2WkMISJjafbiyxZ+46wk3JH+in2OEyTjH4wwHxHEFicNw6
+         4/Nt9M+xv2x3X0zqYDuqoIjNAHQchh1PHtiS4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792496306; x=1793101106;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GUu8RpiRqtBaHObtAlgfcXnRFq0vqSVGatN9hi/iKOE=;
-        b=gqqtTbReNup8XaRW/iW4z9KiadcQK92UUKRjjIAtdyLFYfIb/o64ml1j0vTCH4BgdO
-         ynM0fqOJARnVw18ViuvebFJI6ZBaXPE33tN7CySr3NZg8k5kz6bQJG2HBRL6EfM72agn
-         hj7XVoIqsCEifIQq6Otq0CFA58hFnvzRLNzm8XaOazON6pYWAHJZC01wR5yzf0qrdyrv
-         ErSzPzNIvQ5wMgp5RWdXN3rmWqIIEvwjGFQfSxraoukinhutcWaFhLATViesZnMdM8tK
-         V9pq+GbYzRzBdq7cFsBNBinhak4vCz8QI+oxumEq7blLzC69Covc5bGb7euPcu1P5y3q
-         bCZg==
-X-Forwarded-Encrypted: i=1; AKwUvBxyhfnWcpU+U8wTVdcpyy5QAIJ3x3H6z1oxSG9vrAB71+PaSVq5tQ+6d9qAVHWzKkZM6VyXf8QljJAWrH0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFTBGYLC/itIsKZ8sLHjm+nSufJVTSsLS9zMJXT+xovMMEz1yf
-	WoDOsBmnc8vR+dyFsmFBfPxgxPJlSdpGf/V6gYpcUEmJ/jyCBsc43c/mi5NoDAuzBw==
-X-Gm-Gg: AYBFou1MjAJZvyrvC456FdFOlshYU9xmXBf7nOIAy8NUSBfR2r+1ZsJxChqK8es+eTg
-	KA6Pk0F+NC1yeU9euWxTtqf9zmKOJze7lGp1P8iE5ELMEvlWhALIpifCrqQsYw6diEbBeRq/x+b
-	TL32LGTrsN9ja8zkn9lI8e9HInkbjbWLMocGfzzLf2FQtZYTlZOJ+h+Bz3t1MaD0tg2Gk5yc6aJ
-	E8qdAz0GxqPCCKrCpjfZR7VZfHVghWjX0Xy97JsqiKRv8sJcygKsOxhCil1cWkuexYUrnNBH4jy
-	BQFAdAmfvuUXFNpYX92WFHajR3sdlkGvM3WZ8ODLT23Z5VtYZ+k4wFeFOqDlbLD0mYQWux+Lhgv
-	NaJRArFFrKOENbMQBqtIKMZGiAeknwAHvwERuvaPP1qT4bqj/DCB2UVw5C813F+nDiC1esnPc/V
-	qU3PqH7RrvBm9l1vsBPk4HyFAXMA1DmZP9XtcvDbx7WYCOTTXMYCdIMNaOZbZmGKuvAsE926FAX
-	+NEvK+CO3qozpZasWXbo9+ncAlKxbmCyUQ41fDA
-X-Received: by 2002:a05:600c:4b89:b0:4a1:e7d5:5132 with SMTP id 5b1f17b1804b1-4a1f383e580mr570175e9.3.1792496305643;
-        Tue, 20 Oct 2026 04:38:25 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f6631abfsm49603205e9.1.2026.10.20.04.38.24
+        d=1e100.net; s=20260707; t=1792496321; x=1793101121;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WUD5J96fUgcGXSO6M/lzV9JVZT3SlQxQDuSVykx/3FU=;
+        b=KkfmJdFbJmxcbk5L5Lxr/rC/uaF6y9sqelroajFMaRM4EcHI4YB4stAudeY0uZLrn0
+         iqT7+11J6Chcyxci4qrqmCfk6CBU7YMjdCtelycOadSkR5hO8Q2IsjnJDXR2tcEQLrMC
+         dRZSJqZto6xdo5/8qFqnd0C+n73zGfXiwMX/ctZ4cEsUa8BXDnvSNNjhWFnwWKRTFWwz
+         24Q4dN2eSEH2JxBNzHZ5MO/zimrlPJGPWb0Uq83lK+BbakmJmgiVX1HSqqNcP+6y9hFN
+         Bgtp6AdJrPa+gsCCDhPMr29KeBOCvaHxDwfvaFtpe1LDxLo20i9aR5jEMPNv6GjabRqJ
+         jmaw==
+X-Forwarded-Encrypted: i=1; AKwUvBydiCtTfU+M02xZI7FbgbNPnUeBrNnq6LPTDw+lh60rMQ5nPQdmoFsgAn+AjcDWhxCTTVDuodp66YdIxIM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUHjCNf9rRBJenKpzV8GgpARHFuMfeqcY2tsvzjHGrjETob1BX
+	7B/2WefxDveOy3CkW9a42wXgb3gbeW65VEQM7omHcLVjMdat6sM3zfEyNQb+0oF//QQ=
+X-Gm-Gg: AYBFou0W3+ClG26uQBSpv0Hd5do6YsTqim1Eukjea7D1o4XtbKK9qMbrbPr68IpD7lv
+	/OXSRlxu6fQI3eXSs5HjPIjFaR3ga5fK/rD/jHCynqH8EyajrOEQwkV16iclhuNlj9VaS0ZPbc7
+	o0oIMfLX5XL+/PdXPnksJiuWFQb3kmiBeLl1Fi+czzR7w0n/la4xEJrxY6FF3if7kfh8oYqPwBj
+	uuotATS73rFJ1HQ9+ocscuX071TKbmK7u9Ghmb/0a6rHzuqhi/sxyHeBjIuWdJKlVZYQqQ3zHw1
+	LMDgA/Ds6KpRpxxfRLyATNVulclsQMysxQ78HIfsABDTA6M/toe8YkFm3eh8YE8Z5jQ/Iywr7Uo
+	SBO0WiMqlX/SkhNoyvtdAr2YpQhI9iWdqSkSMnQnQ6mS4JeyrRVKshVNQcxTZMyKBxsQ67ocZko
+	W+IW/FGYYJimYtXA9/LNVCNE0AJKaFgBwyxzuReZ5r7pYLrZGhm3WmAlFo26hq49LoEP7KheUaj
+	x++206kIpiAXsTfvnhSTaCzLt45khr2Gm8akCWPZiJbl/JB1ubm0xARVUO6uDWoIe3MO7ldghyd
+	nRPE9FU0
+X-Received: by 2002:adf:fa49:0:b0:486:f856:1975 with SMTP id ffacd0b85a97d-48e07bbca4amr15868137f8f.22.1792496321379;
+        Tue, 20 Oct 2026 04:38:41 -0700 (PDT)
+Received: from thinkpat.amarulasolutions.com (host139-112-32-195.dimensionesrl.eu. [195.32.112.139])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d83a099sm4709728f8f.57.2026.10.20.04.38.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 04:38:24 -0700 (PDT)
-Date: Tue, 20 Oct 2026 11:38:21 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@nvidia.com,
-	praan@google.com, kevin.tian@intel.com,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
-	Cristian Prundeanu <cpru@amazon.com>,
-	Breno Leitao <leitao@kernel.org>
-Subject: Re: [PATCH v11 06/11] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <atdSrRwrphdI9ZQA@google.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <ee4257b62324aa75d7140f1f4a49aa0f78586fff.1791226953.git.nicolinc@nvidia.com>
+        Tue, 20 Oct 2026 04:38:05 -0700 (PDT)
+From: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+To: devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	dario.binacchi@amarulasolutions.com,
+	Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+Subject: [PATCH v2 3/3] arm64: dts: rockchip: Add Axelera Embedded 111c
+Date: Tue, 20 Oct 2026 13:37:17 +0200
+Message-ID: <20261020113717.189082-4-patrick.barsanti@amarulasolutions.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261020113717.189082-1-patrick.barsanti@amarulasolutions.com>
+References: <20261020113717.189082-1-patrick.barsanti@amarulasolutions.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,533 +102,895 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ee4257b62324aa75d7140f1f4a49aa0f78586fff.1791226953.git.nicolinc@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 05, 2026 at 12:30:49PM -0700, Nicolin Chen wrote:
-> When transitioning to a kdump kernel, the primary kernel might have crashed
-> while endpoint devices were actively bus-mastering DMA. Currently, the SMMU
-> driver aggressively resets the hardware during probe by clearing CR0_SMMUEN
-> and setting the Global Bypass Attribute (GBPA) to ABORT.
-> 
-> In a kdump scenario, this aggressive reset is highly destructive:
-> a) If GBPA is set to ABORT, in-flight DMA will be aborted, generating fatal
->    PCIe AER or SErrors that may panic the kdump kernel
-> b) If GBPA is set to BYPASS, in-flight DMA targeting some IOVAs will bypass
->    the SMMU and corrupt the physical memory at those 1:1 mapped IOVAs.
-> 
-> To safely absorb in-flight DMAs, a kdump kernel will have to leave SMMUEN=1
-> intact and avoid modifying STRTAB_BASE, allowing HW to continue translating
-> in-flight DMAs reusing the crashed kernel's page tables until the endpoint
-> device drivers probe and quiesce their respective hardware.
-> 
-> However, the ARM SMMUv3 architecture specification states that updating the
-> SMMU_STRTAB_BASE register while SMMUEN == 1 is UNPREDICTABLE or ignored.
-> 
-> This leaves a kdump kernel no choice but to adopt the stream table from the
-> crashed kernel.
-> 
-> Introduce ARM_SMMU_OPT_KDUMP_ADOPT and adoption functions that memremap the
-> stream tables extracted from STRTAB_BASE and STRTAB_BASE_CFG.
-> 
-> Note that the adoption of the crashed kernel's stream table follows certain
-> strict rules, since the old stream table might be compromised. Thus, apply
-> some basic validations against the values read from the registers. If tests
-> fail, it means the stream table cannot be trusted, so toss it entirely. To
-> avoid OOM due to a potentially corrupted stream table, the memremap for l2
-> tables is done lazily on the kdump kernel's demand.
-> 
-> The new option will be set in a following change, once the device reset and
-> the RMR setup are reworked not to overwrite the adopted stream table, and
-> the crashed kernel's in-use ASIDs and VMIDs are reserved.
-> 
-> Keep all kdump functions and kexec helpers in a new arm-smmu-v3-kexec file,
-> which will be shared with the liveupdate series in the future.
-> 
-> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-> Suggested-by: Pranjal Shrivastava <praan@google.com>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Tested-by: Breno Leitao <leitao@kernel.org>
-> Tested-by: Cristian Prundeanu <cpru@amazon.com>
-> Assisted-by: LLM
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
-> ---
->  drivers/iommu/arm/Kconfig                     |   3 +
->  drivers/iommu/arm/arm-smmu-v3/Makefile        |   1 +
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  21 +
->  .../iommu/arm/arm-smmu-v3/arm-smmu-v3-kexec.c | 398 ++++++++++++++++++
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   |  21 +-
->  5 files changed, 441 insertions(+), 3 deletions(-)
->  create mode 100644 drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-kexec.c
-> 
-> diff --git a/drivers/iommu/arm/Kconfig b/drivers/iommu/arm/Kconfig
-> index 5fac08b89deea..9a7bebe16f395 100644
-> --- a/drivers/iommu/arm/Kconfig
-> +++ b/drivers/iommu/arm/Kconfig
-> @@ -109,6 +109,9 @@ config ARM_SMMU_V3_IOMMUFD
->  
->  	  Say Y here if you are doing development and testing on this feature.
->  
-> +config ARM_SMMU_V3_KEXEC
-> +	def_bool CRASH_DUMP
-> +
->  config ARM_SMMU_V3_KUNIT_TEST
->  	tristate "KUnit tests for arm-smmu-v3 driver"  if !KUNIT_ALL_TESTS
->  	depends on KUNIT
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/Makefile b/drivers/iommu/arm/arm-smmu-v3/Makefile
-> index 493a659cc66bb..89a27de8dd2f0 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/Makefile
-> +++ b/drivers/iommu/arm/arm-smmu-v3/Makefile
-> @@ -3,6 +3,7 @@ obj-$(CONFIG_ARM_SMMU_V3) += arm_smmu_v3.o
->  arm_smmu_v3-y := arm-smmu-v3.o
->  arm_smmu_v3-$(CONFIG_ARM_SMMU_V3_IOMMUFD) += arm-smmu-v3-iommufd.o
->  arm_smmu_v3-$(CONFIG_ARM_SMMU_V3_SVA) += arm-smmu-v3-sva.o
-> +arm_smmu_v3-$(CONFIG_ARM_SMMU_V3_KEXEC) += arm-smmu-v3-kexec.o
->  arm_smmu_v3-$(CONFIG_TEGRA241_CMDQV) += tegra241-cmdqv.o
->  
->  obj-$(CONFIG_ARM_SMMU_V3_KUNIT_TEST) += arm-smmu-v3-test.o
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> index 559bfa8cbc5e0..a1f947e7d9fe4 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> @@ -986,6 +986,7 @@ struct arm_smmu_device {
->   * invalidated CONT
->   */
->  #define ARM_SMMU_OPT_FULL_CONT_RANGE_INV (1 << 6)
-> +#define ARM_SMMU_OPT_KDUMP_ADOPT	(1 << 7)
->  	u32				options;
->  
->  	struct arm_smmu_cmdq		cmdq;
-> @@ -1312,6 +1313,26 @@ tegra241_cmdqv_probe(struct arm_smmu_device *smmu)
->  }
->  #endif /* CONFIG_TEGRA241_CMDQV */
->  
-> +#ifdef CONFIG_CRASH_DUMP
-> +int arm_smmu_kdump_adopt_strtab(struct arm_smmu_device *smmu);
-> +int arm_smmu_kdump_adopt_deferred_l2_strtab(struct arm_smmu_device *smmu,
-> +					    u32 sid, phys_addr_t base, u32 span,
-> +					    struct arm_smmu_strtab_l2 **l2table);
-> +#else /* CONFIG_CRASH_DUMP */
-> +static inline int arm_smmu_kdump_adopt_strtab(struct arm_smmu_device *smmu)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +static inline int
-> +arm_smmu_kdump_adopt_deferred_l2_strtab(struct arm_smmu_device *smmu, u32 sid,
-> +					phys_addr_t base, u32 span,
-> +					struct arm_smmu_strtab_l2 **l2table)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +#endif /* CONFIG_CRASH_DUMP */
-> +
->  struct arm_vsmmu {
->  	struct iommufd_viommu core;
->  	struct arm_smmu_device *smmu;
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-kexec.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-kexec.c
-> new file mode 100644
-> index 0000000000000..6bbc369df86bb
-> --- /dev/null
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-kexec.c
-> @@ -0,0 +1,398 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
-> + */
-> +
-> +#define dev_fmt(fmt) "kexec: " fmt
-> +
-> +#include <linux/io.h>
-> +#include <linux/slab.h>
-> +
-> +#include "arm-smmu-v3.h"
-> +
-> +/*
-> + * Common helpers for a kexec'd kernel to parse, validate, and walk through the
-> + * previous kernel's SMMU table structures, shared by the kdump adoption and a
-> + * future live-update restoration.
-> + *
-> + * The common helpers are read-only against the previous kernel's structures: a
-> + * table that is not yet mapped by this kernel gets a transient memremap during
-> + * a walk, followed by an immediate memunmap. They never allocate memory or take
-> + * ownership of the previous kernel's tables; the callers make those decisions.
-> + */
-> +
-> +/**
-> + * arm_smmu_kexec_parse_strtab_2lvl() - Validate a 2-level stream table
-> + * @smmu: SMMU device of this kernel
-> + * @cfg_reg: STRTAB_BASE_CFG register value set by the previous kernel
-> + * @base: stream table base address extracted from the STRTAB_BASE register
-> + * @num_l1_ents: pointer to return the number of L1 entries
-> + *
-> + * Validate the 2-level stream table geometry in @cfg_reg and @base's alignment
-> + * against this kernel's hardware limits.
-> + *
-> + * Return: 0 on success with @num_l1_ents set, or -EINVAL on a bad geometry
-> + */
-> +static int arm_smmu_kexec_parse_strtab_2lvl(struct arm_smmu_device *smmu,
-> +					    u32 cfg_reg, phys_addr_t base,
-> +					    u32 *num_l1_ents)
-> +{
-> +	u32 log2size = FIELD_GET(STRTAB_BASE_CFG_LOG2SIZE, cfg_reg);
-> +	u32 split = FIELD_GET(STRTAB_BASE_CFG_SPLIT, cfg_reg);
-> +	u32 num_ents;
-> +	size_t size;
-> +
-> +	if (log2size < split || log2size > smmu->sid_bits) {
-> +		dev_err(smmu->dev, "log2size %u out of range [%u, %u]\n",
-> +			log2size, split, smmu->sid_bits);
-> +		return -EINVAL;
-> +	}
-> +	if (split != STRTAB_SPLIT) {
-> +		dev_err(smmu->dev,
-> +			"unsupported STRTAB_SPLIT %u (expected %u)\n", split,
-> +			STRTAB_SPLIT);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * Bound the entry count before the shift, as a log2size wider than what
-> +	 * this kernel itself supports would overflow it.
-> +	 */
-> +	if (log2size - split > ilog2(STRTAB_MAX_L1_ENTRIES)) {
-> +		dev_err(smmu->dev, "l1 entries 2^%u exceeds max %u\n",
-> +			log2size - split, STRTAB_MAX_L1_ENTRIES);
-> +		return -EINVAL;
-> +	}
-> +
-> +	num_ents = 1U << (log2size - split);
-> +
-> +	size = num_ents * sizeof(struct arm_smmu_strtab_l1);
-> +	/*
-> +	 * According to spec (6.3.24), HW aligns the base down to the L1 table
-> +	 * size, i.e. min 64 bytes, so an unaligned base would make this kernel
-> +	 * read another table.
-> +	 */
-> +	if (!IS_ALIGNED(base, size)) {
-> +		dev_err(smmu->dev, "unaligned l1 stream table base %pa\n",
-> +			&base);
-> +		return -EINVAL;
-> +	}
-> +
-> +	*num_l1_ents = num_ents;
-> +	return 0;
-> +}
-> +
-> +/**
-> + * arm_smmu_kexec_parse_strtab_linear() - Validate a linear stream table
-> + * @smmu: SMMU device of this kernel
-> + * @cfg_reg: STRTAB_BASE_CFG register value set by the previous kernel
-> + * @base: stream table base address extracted from the STRTAB_BASE register
-> + * @num_ents: pointer to return the number of STEs
-> + *
-> + * Validate the linear stream table geometry in @cfg_reg and @base's alignment
-> + * against this kernel's own limits.
-> + *
-> + * Return: 0 on success with @num_ents set, or -EINVAL on a bad geometry
-> + */
-> +static int arm_smmu_kexec_parse_strtab_linear(struct arm_smmu_device *smmu,
-> +					      u32 cfg_reg, phys_addr_t base,
-> +					      u32 *num_ents)
-> +{
-> +	u32 log2size = FIELD_GET(STRTAB_BASE_CFG_LOG2SIZE, cfg_reg);
-> +	unsigned int max_log2size = smmu->sid_bits;
-> +	size_t size;
-> +
-> +	/* Cap the size at what this kernel itself would have allocated */
-> +	if (smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)
-> +		max_log2size = min_t(
-> +			unsigned int, max_log2size,
-> +			ilog2(STRTAB_MAX_L1_ENTRIES * STRTAB_NUM_L2_STES));
-> +
-> +	/* num_ents is limited to a u32, so cap log2size at 31 */
-> +	max_log2size = min(max_log2size, 31U);
-> +	if (log2size > max_log2size) {
-> +		dev_err(smmu->dev, "unsupported log2size %u (> %u)\n", log2size,
-> +			max_log2size);
-> +		return -EINVAL;
-> +	}
-> +
-> +	size = (1U << log2size) * sizeof(struct arm_smmu_ste);
-> +	/*
-> +	 * According to spec (6.3.24), HW aligns the base down to the table size
-> +	 * and ignores the low bits, so an unaligned base would make this kernel
-> +	 * read a different table.
-> +	 */
-> +	if (!IS_ALIGNED(base, size)) {
-> +		dev_err(smmu->dev, "unaligned stream table base %pa\n", &base);
+Add minimal device tree for the Axelera Embedded 111c
+(rk3588-embedded-111c).
 
-I understand these are best effort, but what happens if the address
-corrupted and happens to be aligned?
+It offers efficient AI compute for multi-stream computer vision and
+GenAI applications in a compact design. It features a quad-core
+Axelera AI Metis AIPU and an RK3588 SoC processor.
 
-> +		return -EINVAL;
-> +	}
-> +
-> +	*num_ents = 1U << log2size;
-> +	return 0;
-> +}
-> +
-> +/**
-> + * arm_smmu_kexec_check_strtab_l1_desc() - Check one stream table L1 descriptor
-> + * @smmu: SMMU device of this kernel
-> + * @l1_desc: L1 descriptor value from the previous kernel's stream table
-> + * @idx: index of the L1 descriptor, for diagnostics
-> + * @l2_base: pointer to return the L2 table's physical address
-> + *
-> + * Return: 1 if the descriptor is unused, 0 if it is valid with @l2_base set, or
-> + * -EINVAL if it is malformed
-> + */
-> +static int arm_smmu_kexec_check_strtab_l1_desc(struct arm_smmu_device *smmu,
-> +					       u64 l1_desc, u32 idx,
-> +					       phys_addr_t *l2_base)
-> +{
-> +	phys_addr_t base = l1_desc & STRTAB_L1_DESC_L2PTR_MASK;
-> +	u32 span = FIELD_GET(STRTAB_L1_DESC_SPAN, l1_desc);
-> +
-> +	/* L1STD.L2Ptr is invalid */
-> +	if (!span)
-> +		return 1;
-> +
-> +	if (span != STRTAB_SPLIT + 1) {
-> +		dev_err(smmu->dev, "L1[%u] unsupported span %u (vs %u)\n", idx,
-> +			span, STRTAB_SPLIT + 1);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * A valid descriptor never carries a null pointer. Also, HW aligns the
-> +	 * pointer down to the L2 table size, so an unaligned pointer would make
-> +	 * this kernel read a different table.
-> +	 */
-> +	if (!base || !IS_ALIGNED(base, sizeof(struct arm_smmu_strtab_l2))) {
-> +		dev_err(smmu->dev, "L1[%u] bad l2 table base %pa\n", idx,
-> +			&base);
-> +		return -EINVAL;
-> +	}
-> +
-> +	*l2_base = base;
-> +	return 0;
-> +}
-> +
-> +#ifdef CONFIG_CRASH_DUMP
-> +/*
-> + * Helper functions of the kdump stream table adoption for ARM SMMUv3
-> + *
-> + * When the crashed kernel left the SMMU enabled with in-flight DMAs, the kdump
-> + * kernel adopts the crashed kernel's stream tables, instead of doing a regular
-> + * reset, to keep in-flight DMAs translating until the endpoint device drivers
-> + * re-probe and quiesce their devices.
-> + *
-> + * Note:
-> + *  - Adoption only starts on an SMMU that the crashed kernel left enabled, as a
-> + *    disabled SMMU (CR0_SMMUEN=0) could hold meaningless register values.
-> + *  - Values read from the crashed kernel's registers get structural validation
-> + *    only (format, size, span, alignment, and ID range); the physical addresses
-> + *    are not vetted, as the kdump kernel has no record of which pages held the
-> + *    tables.
-> + *  - A structural inconsistency at adoption time tosses the entire adoption and
-> + *    makes the SMMU fall back to a full reset blocking in-flight DMAs.
-> + *  - L2 stream tables are adopted lazily at master-inserting time, to bound the
-> + *    peak memory use against a corrupted L1 table; any lazy L2 adoption failure
-> + *    rejects that device alone, as its blast radius is bounded to the bus.
-> + *  - Only a coherent SMMU (ARM_SMMU_FEAT_COHERENCY) is supported, as the stream
-> + *    table adoption is done by memremap with MEMREMAP_WB, which is verified on
-> + *    the real hardware. Callers of these functions are responsible for gating
-> + *    ARM_SMMU_FEAT_COHERENCY once during the probe.
-> + */
-> +
-> +int arm_smmu_kdump_adopt_deferred_l2_strtab(struct arm_smmu_device *smmu,
-> +					    u32 sid, phys_addr_t base, u32 span,
-> +					    struct arm_smmu_strtab_l2 **l2table)
-> +{
-> +	struct arm_smmu_strtab_l2 *table;
-> +	size_t size;
-> +
-> +	/*
-> +	 * Retest the span in case the L1 descriptor has been overwritten since
-> +	 * the adopt. Reject this master's insert; panic or SMMU-disable would
-> +	 * either lose the vmcore or cascade aborts. Do not try to fix it, as it
-> +	 * would break all other SIDs in the same bus (PCI case). The corruption
-> +	 * blast radius is already bounded to that bus range.
-> +	 */
-> +	if (span != STRTAB_SPLIT + 1) {
-> +		dev_err(smmu->dev,
-> +			"L1[%u] span %u changed since adopt (was %u)\n",
-> +			arm_smmu_strtab_l1_idx(sid), span, STRTAB_SPLIT + 1);
-> +		return -EINVAL;
-> +	}
-> +
-> +	size = (1UL << (span - 1)) * sizeof(struct arm_smmu_ste);
-> +
-> +	/* Same live-corruption check as the span; reject an overwritten base */
-> +	if (!base || !IS_ALIGNED(base, size)) {
-> +		dev_err(smmu->dev, "L1[%u] bad l2 table base %pa\n",
-> +			arm_smmu_strtab_l1_idx(sid), &base);
-> +		return -EINVAL;
-> +	}
-> +
+This basic version of the dts supports:
+- Console
+- eMMC
+- HDMI
+- 4x USB-A
+- 2x Gigabit Ethernet
+- RTC
+- Enumeration of on-board Axelera Metis AIPU
 
-Those are a bit similar to arm_smmu_kexec_parse_strtab_2lvl() is it
-possible to have some helpers instead?
+Link: https://axelera.ai/axelera-products/embedded/111c
+Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Signed-off-by: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
 
-> +	/*
-> +	 * This L2 table is mapped lazily per master; devres frees it at unbind,
-> +	 * as with the dmam_alloc_coherent() used for a fresh L2.
-> +	 */
-> +	table = devm_memremap(smmu->dev, base, size, MEMREMAP_WB);
-> +	if (IS_ERR(table)) {
-> +		dev_err(smmu->dev,
-> +			"failed to adopt l2 stream table for SID %u\n", sid);
-> +		return PTR_ERR(table);
-> +	}
-> +
-> +	*l2table = table;
-> +	return 0;
-> +}
-> +
-> +static int arm_smmu_kdump_adopt_strtab_2lvl(struct arm_smmu_device *smmu,
-> +					    u32 cfg_reg, phys_addr_t base)
-> +{
-> +	struct arm_smmu_strtab_cfg *cfg = &smmu->strtab_cfg;
-> +	u32 num_l1_ents;
-> +	size_t size;
-> +	int ret, i;
-> +
-> +	ret = arm_smmu_kexec_parse_strtab_2lvl(smmu, cfg_reg, base,
-> +					       &num_l1_ents);
-> +	if (ret)
-> +		return ret;
-> +
-> +	cfg->l2.num_l1_ents = num_l1_ents;
-> +
-> +	size = num_l1_ents * sizeof(struct arm_smmu_strtab_l1);
-> +	cfg->l2.l1tab = memremap(base, size, MEMREMAP_WB);
-> +	if (!cfg->l2.l1tab)
-> +		return -ENOMEM;
-> +
-> +	cfg->l2.l2ptrs =
-> +		kcalloc(num_l1_ents, sizeof(*cfg->l2.l2ptrs), GFP_KERNEL);
-> +	if (!cfg->l2.l2ptrs)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < num_l1_ents; i++) {
-> +		u64 l2ptr = le64_to_cpu(cfg->l2.l1tab[i].l2ptr);
-> +		phys_addr_t l2_base;
-> +
-> +		ret = arm_smmu_kexec_check_strtab_l1_desc(smmu, l2ptr, i,
-> +							  &l2_base);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		/*
-> +		 * If the crashed kernel's l1 descriptors are deeply corrupted,
-> +		 * blindly memremapping every l2 table here could lead to OOM.
-> +		 *
-> +		 * Defer the l2 memremap to arm_smmu_init_l2_strtab(), so peak
-> +		 * memory is bounded by the kdump kernel's actual demand.
-> +		 */
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int arm_smmu_kdump_adopt_strtab_linear(struct arm_smmu_device *smmu,
-> +					      u32 cfg_reg, phys_addr_t base)
-> +{
-> +	struct arm_smmu_strtab_cfg *cfg = &smmu->strtab_cfg;
-> +	u32 num_ents;
-> +	size_t size;
-> +	int ret;
-> +
-> +	ret = arm_smmu_kexec_parse_strtab_linear(smmu, cfg_reg, base,
-> +						 &num_ents);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * We might end up with a num_ents != sid_bits, which is fine, since the
-> +	 * ARM_SMMU_OPT_KDUMP_ADOPT case bypasses arm_smmu_write_strtab().
-> +	 */
-> +	cfg->linear.num_ents = num_ents;
-> +
-> +	size = num_ents * sizeof(struct arm_smmu_ste);
-> +	cfg->linear.table = memremap(base, size, MEMREMAP_WB);
-> +	if (!cfg->linear.table)
-> +		return -ENOMEM;
-> +	return 0;
-> +}
-> +
-> +static void arm_smmu_kdump_adopt_cleanup(void *data)
-> +{
-> +	struct arm_smmu_device *smmu = data;
-> +	struct arm_smmu_strtab_cfg *cfg = &smmu->strtab_cfg;
-> +
-> +	if (smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB) {
-> +		kfree(cfg->l2.l2ptrs);
-> +		if (cfg->l2.l1tab)
-> +			memunmap(cfg->l2.l1tab);
-> +	} else {
-> +		if (cfg->linear.table)
-> +			memunmap(cfg->linear.table);
-> +	}
-> +}
-> +
-> +int arm_smmu_kdump_adopt_strtab(struct arm_smmu_device *smmu)
-> +{
-> +	u32 cfg_reg = readl_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE_CFG);
-> +	u64 base_reg = readq_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE);
-> +	bool was_2lvl = smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB;
-> +	phys_addr_t base = base_reg & STRTAB_BASE_ADDR_MASK;
-> +	u32 fmt = FIELD_GET(STRTAB_BASE_CFG_FMT, cfg_reg);
-> +	int ret;
-> +
-> +	dev_dbg(smmu->dev, "adopting crashed kernel's stream table\n");
-> +
-> +	if (fmt == STRTAB_BASE_CFG_FMT_2LVL) {
-> +		/*
-> +		 * Both kernels run on the same hardware, so it's impossible for
-> +		 * kdump kernel to see the support for linear stream table only.
-> +		 */
+---
 
-STRTAB_SPLIT which influences ARM_SMMU_FEAT_2_LVL_STRTAB is a SW choice, so it is
-possible to get such mismatch if STRTAB_SPLIT of the newer kernel is larger than the
-older kernel.
-However, I agree that in that case it's better to refuse the adoption.
+Changes in v2:
+- Prepend "regulator-" to regulator nodes
+- Drop non-existent "mem-supply" binding
+- Drop unneeded comment from rgmii-rxid; replace it with the one from
+  rk3588-youyeetoo-yy3588 to stop checkpatch from complaining
+- Remove phy reset from the gmac node; note that these are still not
+  described in the phy node because GPIO3_B7 defaults to pull-down,
+  which causes the rgmii_phy1 node to never come up.
+  Describing the reset in the parent mdio node instead does not cause
+  the same issue
+- Use the existing hdmim1_tx0_hpd pinctrl group instead of
+  redefining it
+- Drop "full-pwr-cycle-in-suspend" from the eMMC node
+- Add "vmmc-supply" and "vqmmc-supply" to the eMMC node
+- Add pinctrl for the pmic interrupt pin
+- Replace the "vcc3v3_hubreset" regulator hack with two GL3523 hubs
+  linked with "peer-hub".
+- Drop the regulators that were defined but never referenced, and their
+  corresponding pinctrls
+- Mux PCIEX4_PERST_N as GPIO, since it is being used as reset-gpios
+- Drop unused input.h include
+- Drop unused rtc label
+- Drop the local pciex1 pinctrl groups, as they were duplicates of the
+  pcie30x1m1_1_* groups in the base pinctrl for the rk3588
 
-> +		if (WARN_ON(!(smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)))
-> +			ret = -EINVAL;
-> +		else
-> +			ret = arm_smmu_kdump_adopt_strtab_2lvl(smmu, cfg_reg,
-> +							       base);
-> +	} else if (fmt == STRTAB_BASE_CFG_FMT_LINEAR) {
-> +		/*
-> +		 * The kdump kernel need not match the crashed kernel. An older
-> +		 * crashed kernel that predates two-level stream table support
-> +		 * may have used a linear table on 2-level-capable hardware, so
-> +		 * enforce the same format here to match the adopted table.
-> +		 */
-> +		ret = arm_smmu_kdump_adopt_strtab_linear(smmu, cfg_reg, base);
-> +		if (!ret)
-> +			smmu->features &= ~ARM_SMMU_FEAT_2_LVL_STRTAB;
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../dts/rockchip/rk3588-embedded-111c.dts     | 816 ++++++++++++++++++
+ 2 files changed, 817 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts
 
-For simplicity, it is better to enforce the same table formats between
-kernels as the rest of the file, for example,
-arm_smmu_kexec_parse_strtab_2lvl() refuses different STRTAB_SPLIT.
-Some checks can be removed and the was_2lvl error path. It's
-very unlikely to hit such case anyway.
-
-> +	} else {
-> +		dev_err(smmu->dev, "invalid STRTAB format %u\n", fmt);
-> +		ret = -EINVAL;
-> +	}
-> +
-> +	if (ret) {
-> +		arm_smmu_kdump_adopt_cleanup(smmu);
-
-Probably easier to inline the error handling after each call and remove this?
-
-Thanks,
-Mostafa
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index e7936a21c118..58daed40f86d 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -191,6 +191,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-coolpi-cm5-genbook.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-edgeble-neu6a-io.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-edgeble-neu6a-wifi.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-edgeble-neu6b-io.dtb
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-embedded-111c.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-evb1-v10.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-evb2-v10.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-firefly-itx-3588j.dtb
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts b/arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts
+new file mode 100644
+index 000000000000..a964b46e5c12
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts
+@@ -0,0 +1,816 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/pinctrl/rockchip.h>
++#include <dt-bindings/soc/rockchip,vop2.h>
++#include "rk3588.dtsi"
++
++/ {
++	model = "Axelera Embedded 111c";
++	compatible = "axelera,embedded-111c", "rockchip,rk3588";
++
++	aliases {
++		ethernet0 = &gmac0;
++		ethernet1 = &gmac1;
++		mmc0 = &sdhci;
++	};
++
++	chosen {
++		stdout-path = "serial2:1500000n8";
++	};
++
++	hdmi0-con {
++		compatible = "hdmi-connector";
++		type = "a";
++
++		port {
++			hdmi0_con_in: endpoint {
++				remote-endpoint = <&hdmi0_out_con>;
++			};
++		};
++	};
++
++	pcie20_avdd0v85: regulator-pcie20-avdd0v85 {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <850000>;
++		regulator-max-microvolt = <850000>;
++		regulator-name = "pcie20_avdd0v85";
++		vin-supply = <&vdda_0v85_s0>;
++	};
++
++	pcie20_avdd1v8: regulator-pcie20-avdd1v8 {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-name = "pcie20_avdd1v8";
++		vin-supply = <&vcca_1v8_s0>;
++	};
++
++	pcie30_avdd0v75: regulator-pcie30-avdd0v75 {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <750000>;
++		regulator-max-microvolt = <750000>;
++		regulator-name = "pcie30_avdd0v75";
++		vin-supply = <&hdmi_vdda0v85_s0>;
++	};
++
++	pcie30_avdd1v8: regulator-pcie30-avdd1v8 {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-name = "pcie30_avdd1v8";
++		vin-supply = <&vcca_1v8_s0>;
++	};
++
++	vcc_1v1_nldo_s3: regulator-vcc-1v1-nldo-s3 {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <1100000>;
++		regulator-max-microvolt = <1100000>;
++		regulator-name = "vcc_1v1_nldo_s3";
++		vin-supply = <&vcc4v0_sys>;
++	};
++
++	vcc_1v8_pcie: regulator-vcc-1v8-pcie {
++		compatible = "regulator-fixed";
++		enable-active-high;
++		gpio = <&gpio3 RK_PD5 GPIO_ACTIVE_HIGH>; /* PCIE30_PWREN_H */
++		pinctrl-0 = <&pcie30_pwren_h>;
++		pinctrl-names = "default";
++		regulator-always-on;
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-name = "vcc_1v8_pcie";
++		startup-delay-us = <50000>;
++		vin-supply = <&vcc_1v8_s3>;
++	};
++
++	vcc12v_dcin: regulator-vcc12v-dcin {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <12000000>;
++		regulator-max-microvolt = <12000000>;
++		regulator-name = "12vsus";
++	};
++
++	vcc3v3_m2: regulator-vcc3v3-m2 {
++		compatible = "regulator-fixed";
++		enable-active-high;
++		gpio = <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>; /* PCIE_PWREN_H */
++		pinctrl-0 = <&pcie_pwren_h>;
++		pinctrl-names = "default";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-name = "3v_m2";
++		vin-supply = <&vcc3v3_sus>;
++	};
++
++	vcc3v3_sus: regulator-vcc3v3-sus {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-name = "3vsus";
++		vin-supply = <&vcc12v_dcin>;
++	};
++
++	vcc4v0_sys: regulator-vcc4v0-sys {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <4000000>;
++		regulator-max-microvolt = <4000000>;
++		regulator-name = "vcc4v0_sys";
++		vin-supply = <&vcc12v_dcin>;
++	};
++
++	vcc5v0_host: regulator-vcc5v0-host {
++		compatible = "regulator-fixed";
++		enable-active-high;
++		gpio = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>; /* USB_HOST_PWREN */
++		pinctrl-0 = <&usb_host_pwren>;
++		pinctrl-names = "default";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-name = "vcc5v0_host";
++		vin-supply = <&vcc5v0_sus>;
++	};
++
++	vcc5v0_sus: regulator-vcc5v0-sus {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-name = "5vsus";
++		vin-supply = <&vcc12v_dcin>;
++	};
++};
++
++&cpu_b0 {
++	cpu-supply = <&vdd_cpu_big0_s0>;
++};
++
++&cpu_b1 {
++	cpu-supply = <&vdd_cpu_big0_s0>;
++};
++
++&cpu_b2 {
++	cpu-supply = <&vdd_cpu_big1_s0>;
++};
++
++&cpu_b3 {
++	cpu-supply = <&vdd_cpu_big1_s0>;
++};
++
++&cpu_l0 {
++	cpu-supply = <&vdd_cpu_lit_s0>;
++};
++
++&cpu_l1 {
++	cpu-supply = <&vdd_cpu_lit_s0>;
++};
++
++&cpu_l2 {
++	cpu-supply = <&vdd_cpu_lit_s0>;
++};
++
++&cpu_l3 {
++	cpu-supply = <&vdd_cpu_lit_s0>;
++};
++
++&gmac0 {
++	clock_in_out = "output";
++	phy-handle = <&rgmii_phy0>;
++	/* RX delay is added by the PHY, TX delay by the GMAC */
++	phy-mode = "rgmii-rxid";
++	pinctrl-0 = <&gmac0_miim
++		     &gmac0_tx_bus2
++		     &gmac0_rx_bus2
++		     &gmac0_rgmii_clk
++		     &gmac0_rgmii_bus
++		     &gmac0_rst_n>;
++	pinctrl-names = "default";
++	tx_delay = <0x44>;
++	status = "okay";
++};
++
++&gmac1 {
++	clock_in_out = "output";
++	phy-handle = <&rgmii_phy1>;
++	/* RX delay is added by the PHY, TX delay by the GMAC */
++	phy-mode = "rgmii-rxid";
++	pinctrl-0 = <&gmac1_miim
++		     &gmac1_tx_bus2
++		     &gmac1_rx_bus2
++		     &gmac1_rgmii_clk
++		     &gmac1_rgmii_bus
++		     &gmac1_rst_n>;
++	pinctrl-names = "default";
++	tx_delay = <0x43>;
++	status = "okay";
++};
++
++&gpu {
++	mali-supply = <&vdd_gpu_s0>;
++	status = "okay";
++};
++
++&hdmi0 {
++	pinctrl-0 = <&hdmim0_tx0_cec
++		     &hdmim1_tx0_hpd
++		     &hdmim0_tx0_scl
++		     &hdmim0_tx0_sda>;
++	pinctrl-names = "default";
++	status = "okay";
++};
++
++&hdmi0_in {
++	hdmi0_in_vp0: endpoint {
++		remote-endpoint = <&vp0_out_hdmi0>;
++	};
++};
++
++&hdmi0_out {
++	hdmi0_out_con: endpoint {
++		remote-endpoint = <&hdmi0_con_in>;
++	};
++};
++
++&hdmi0_sound {
++	status = "okay";
++};
++
++&hdptxphy0 {
++	status = "okay";
++};
++
++&i2c0 {
++	pinctrl-0 = <&i2c0m2_xfer>;
++	pinctrl-names = "default";
++	status = "okay";
++
++	vdd_cpu_big0_s0: regulator@42 {
++		compatible = "rockchip,rk8602";
++		reg = <0x42>;
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <550000>;
++		regulator-max-microvolt = <1050000>;
++		regulator-name = "vdd_cpu_big0_s0";
++		regulator-ramp-delay = <2300>;
++		vin-supply = <&vcc4v0_sys>;
++		fcs,suspend-voltage-selector = <1>;
++
++		regulator-state-mem {
++			regulator-off-in-suspend;
++		};
++	};
++
++	vdd_cpu_big1_s0: regulator@43 {
++		compatible = "rockchip,rk8603", "rockchip,rk8602";
++		reg = <0x43>;
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <550000>;
++		regulator-max-microvolt = <1050000>;
++		regulator-name = "vdd_cpu_big1_s0";
++		regulator-ramp-delay = <2300>;
++		vin-supply = <&vcc4v0_sys>;
++		fcs,suspend-voltage-selector = <1>;
++
++		regulator-state-mem {
++			regulator-off-in-suspend;
++		};
++	};
++};
++
++&i2c1 {
++	pinctrl-0 = <&i2c1m2_xfer>;
++	pinctrl-names = "default";
++	status = "okay";
++
++	vdd_npu_s0: vdd_npu_mem_s0: regulator@42 {
++		compatible = "rockchip,rk8602";
++		reg = <0x42>;
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <550000>;
++		regulator-max-microvolt = <950000>;
++		regulator-name = "vdd_npu_s0";
++		regulator-ramp-delay = <2300>;
++		vin-supply = <&vcc4v0_sys>;
++		fcs,suspend-voltage-selector = <1>;
++
++		regulator-state-mem {
++			regulator-off-in-suspend;
++		};
++	};
++};
++
++&i2c6 {
++	status = "okay";
++
++	rtc@68 {
++		compatible = "ti,bq32000";
++		reg = <0x68>;
++	};
++};
++
++&i2s5_8ch {
++	status = "okay";
++};
++
++&mdio0 {
++	reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>; /* GMAC0_RST_N */
++	reset-delay-us = <20000>;
++	reset-post-delay-us = <100000>;
++
++	rgmii_phy0: phy@1 {
++		compatible = "ethernet-phy-ieee802.3-c22";
++		reg = <0x1>;
++	};
++};
++
++&mdio1 {
++	reset-gpios = <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>; /* GMAC1_RST_N */
++	reset-delay-us = <20000>;
++	reset-post-delay-us = <100000>;
++
++	rgmii_phy1: phy@3 {
++		compatible = "ethernet-phy-ieee802.3-c22";
++		reg = <0x3>;
++	};
++};
++
++&pcie30phy {
++	status = "okay";
++};
++
++&pcie3x4 {
++	pinctrl-0 = <&pciex4_perst_n>;
++	pinctrl-names = "default";
++	reset-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>; /* PCIEX4_PERST_N */
++	/*
++	 * Add specific mapping required by the onboard
++	 * Axelera Metis AIPU to function.
++	 */
++	ranges = <0x81000000 0x0 0xf0100000 0x0 0xf0100000 0x0 0x100000
++		  0x82000000 0x0 0x40000000 0x9 0x00000000 0x0 0x20000000
++		  0xc3000000 0x0 0x60000000 0x9 0x20000000 0x0 0x20000000>;
++	/*
++	 * Set to 1v8 because the electronics on the pcie3x4 slot
++	 * do not receive 3v3 supply at all, but vpcie3v3-supply
++	 * must be specified.
++	 */
++	vpcie3v3-supply = <&vcc_1v8_pcie>;
++	status = "okay";
++};
++
++&pinctrl {
++	gmac0 {
++		gmac0_rst_n: gmac0-rst-n {
++			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
++
++	gmac1 {
++		gmac1_rst_n: gmac1-rst-n {
++			rockchip,pins = <3 RK_PB7 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
++
++	pci {
++		pcie_pwren_h: pcie-pwren-h {
++			rockchip,pins = <0 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		pcie30_pwren_h: pcie30-pwren-h {
++			rockchip,pins = <3 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		pciex4_perst_n: pciex4-perst-n { /* pcie3x4 reset */
++			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	usb {
++		usb_host_pwren: usb-host-pwren {
++			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		usb_hub_rst_n: usb-hub-rst-n {
++			rockchip,pins = <3 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++};
++
++&saradc {
++	vref-supply = <&vcca_1v8_s0>;
++	status = "okay";
++};
++
++/* eMMC */
++&sdhci {
++	bus-width = <8>;
++	max-frequency = <200000000>;
++	mmc-hs400-1_8v;
++	mmc-hs400-enhanced-strobe;
++	no-sd;
++	no-sdio;
++	non-removable;
++	vmmc-supply = <&vcc_3v3_s3>;
++	vqmmc-supply = <&vcc_1v8_s3>;
++	status = "okay";
++};
++
++&spi2 {
++	assigned-clock-rates = <200000000>;
++	assigned-clocks = <&cru CLK_SPI2>;
++	num-cs = <1>;
++	pinctrl-0 = <&spi2m2_cs0 &spi2m2_pins>;
++	pinctrl-names = "default";
++	status = "okay";
++
++	pmic@0 {
++		compatible = "rockchip,rk806";
++		reg = <0x0>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <RK_PA7 IRQ_TYPE_LEVEL_LOW>; /* PMIC_INT_L */
++		pinctrl-0 = <&pmic_pins>;
++		pinctrl-names = "default";
++		spi-max-frequency = <1000000>;
++		system-power-controller;
++		vcc1-supply = <&vcc4v0_sys>;
++		vcc2-supply = <&vcc4v0_sys>;
++		vcc3-supply = <&vcc4v0_sys>;
++		vcc4-supply = <&vcc4v0_sys>;
++		vcc5-supply = <&vcc4v0_sys>;
++		vcc6-supply = <&vcc4v0_sys>;
++		vcc7-supply = <&vcc4v0_sys>;
++		vcc8-supply = <&vcc4v0_sys>;
++		vcc9-supply = <&vcc4v0_sys>;
++		vcc10-supply = <&vcc4v0_sys>;
++		vcc11-supply = <&vcc_2v0_pldo_s3>;
++		vcc12-supply = <&vcc4v0_sys>;
++		vcc13-supply = <&vcc_1v1_nldo_s3>;
++		vcc14-supply = <&vcc_1v1_nldo_s3>;
++		vcca-supply = <&vcc4v0_sys>;
++
++		regulators {
++			vdd_gpu_s0: vdd_gpu_mem_s0: dcdc-reg1 {
++				regulator-boot-on;
++				regulator-enable-ramp-delay = <400>;
++				regulator-min-microvolt = <550000>;
++				regulator-max-microvolt = <950000>;
++				regulator-name = "vdd_gpu_s0";
++				regulator-ramp-delay = <12500>;
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdd_cpu_lit_s0: vdd_cpu_lit_mem_s0: dcdc-reg2 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <550000>;
++				regulator-max-microvolt = <950000>;
++				regulator-name = "vdd_cpu_lit_s0";
++				regulator-ramp-delay = <12500>;
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdd_log_s0: dcdc-reg3 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <675000>;
++				regulator-max-microvolt = <800000>;
++				regulator-name = "vdd_log_s0";
++				regulator-ramp-delay = <12500>;
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++					regulator-suspend-microvolt = <750000>;
++				};
++			};
++
++			vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <550000>;
++				regulator-max-microvolt = <950000>;
++				regulator-name = "vdd_vdenc_s0";
++				regulator-ramp-delay = <12500>;
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdd_ddr_s0: dcdc-reg5 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <675000>;
++				regulator-max-microvolt = <900000>;
++				regulator-name = "vdd_ddr_s0";
++				regulator-ramp-delay = <12500>;
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++					regulator-suspend-microvolt = <850000>;
++				};
++			};
++
++			vdd2_ddr_s3: dcdc-reg6 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-name = "vdd2_ddr_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++				};
++			};
++
++			vcc_2v0_pldo_s3: dcdc-reg7 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <2000000>;
++				regulator-max-microvolt = <2000000>;
++				regulator-name = "vdd_2v0_pldo_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <2000000>;
++				};
++			};
++
++			vcc_3v3_s3: dcdc-reg8 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <3300000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-name = "vcc_3v3_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <3300000>;
++				};
++			};
++
++			vddq_ddr_s0: dcdc-reg9 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-name = "vddq_ddr_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vcc_1v8_s3: dcdc-reg10 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-name = "vcc_1v8_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <1800000>;
++				};
++			};
++
++			vcca_1v8_s0: pldo-reg1 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-name = "vcca_1v8_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vcc_1v8_s0: pldo-reg2 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-name = "vcc_1v8_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++					regulator-suspend-microvolt = <1800000>;
++				};
++			};
++
++			vdda_1v2_s0: pldo-reg3 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1200000>;
++				regulator-max-microvolt = <1200000>;
++				regulator-name = "vdda_1v2_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vcca_3v3_s0: pldo-reg4 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <3300000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-name = "vcca_3v3_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vccio_sd_s0: pldo-reg5 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-name = "vccio_sd_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vcca1v8_pldo6_s3: pldo-reg6 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-name = "vcca1v8_pldo6_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <1800000>;
++				};
++			};
++
++			vdd_0v75_s3: nldo-reg1 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <750000>;
++				regulator-max-microvolt = <750000>;
++				regulator-name = "vdd_0v75_s3";
++
++				regulator-state-mem {
++					regulator-on-in-suspend;
++					regulator-suspend-microvolt = <750000>;
++				};
++			};
++
++			vdda_ddr_pll_s0: nldo-reg2 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <850000>;
++				regulator-max-microvolt = <850000>;
++				regulator-name = "vdda_ddr_pll_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++					regulator-suspend-microvolt = <850000>;
++				};
++			};
++
++			hdmi_vdda0v85_s0: nldo-reg3 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <837500>;
++				regulator-max-microvolt = <837500>;
++				regulator-name = "hdmi_vdda0v85_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdda_0v85_s0: nldo-reg4 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <850000>;
++				regulator-max-microvolt = <850000>;
++				regulator-name = "vdda_0v85_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++
++			vdd_0v75_s0: nldo-reg5 {
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <750000>;
++				regulator-max-microvolt = <750000>;
++				regulator-name = "vdd_0v75_s0";
++
++				regulator-state-mem {
++					regulator-off-in-suspend;
++				};
++			};
++		};
++	};
++};
++
++&u2phy1 {
++	status = "okay";
++};
++
++&u2phy1_otg {
++	phy-supply = <&vcc5v0_host>;
++	status = "okay";
++};
++
++&uart2 {
++	pinctrl-0 = <&uart2m0_xfer>;
++	status = "okay";
++};
++
++&usb_host1_xhci {
++	dr_mode = "host";
++	pinctrl-0 = <&usb_hub_rst_n>;
++	pinctrl-names = "default";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	usb20_hub1: hub@1 {
++		compatible = "usb5e3,610";
++		reg = <1>;
++		peer-hub = <&usb30_hub1>;
++		reset-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_LOW>; /* USB_HUB_RST_N */
++		vdd-supply = <&vcc_3v3_s3>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		usb20_hub2: hub@4 {
++			compatible = "usb5e3,610";
++			reg = <4>;
++			peer-hub = <&usb30_hub2>;
++			vdd-supply = <&vcc_3v3_s3>;
++		};
++	};
++
++	usb30_hub1: hub@2 {
++		compatible = "usb5e3,620";
++		reg = <2>;
++		peer-hub = <&usb20_hub1>;
++		vdd-supply = <&vcc_3v3_s3>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		usb30_hub2: hub@4 {
++			compatible = "usb5e3,620";
++			reg = <4>;
++			peer-hub = <&usb20_hub2>;
++			vdd-supply = <&vcc_3v3_s3>;
++		};
++	};
++};
++
++&usbdp_phy1 {
++	status = "okay";
++};
++
++&vop {
++	status = "okay";
++};
++
++&vop_mmu {
++	status = "okay";
++};
++
++&vp0 {
++	vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
++		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
++		remote-endpoint = <&hdmi0_in_vp0>;
++	};
++};
+-- 
+2.53.0
 
