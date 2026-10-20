@@ -1,100 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.68
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792504467;
-	b=pqYpUQYttVU7S3uev41MkAkcUJBo8AgmJ4Tx5cvqKFKWWjgg/tA87cXVFmlHk80ur9LR
-	 zRLOZXz9ao31Q15Qf5Fm16rNWLwnBwypcW7VTGwqh75LZjvWnawa06z4BuRfV2Ql9YmbF
-	 ZnGl+fU1z6On+9/s2ymelCKa3URtwtUAYFMhK/Y+b66H2pL19tUY5j4m0xhs8JiDUKMKk
-	 Ui1lBVacE2mTZn4udmSuBpmZ0eEOP98nld49nRDi+iUIFssunJGSK4/VhmrdfDth5DkCV
-	 XBuVX55lcO0dR4SHBiXr1Wn5jb5oHRce5oPZs/uPT1FA3Gr/VNPafWKmV2VEeZFf8CQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504467;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Yox76MmSLQNzY4vXnUV2RBx6MN/aCL79HirjtHAwi/A=;
-	b=lzRkxFroSs6YGrjQy3BtOGs+T4ITfcxAW5q55ng4A3eg9o+/dZqe6M95qGSvtFuG4G8F
-	 garRlUaUkUlffUhilXTzcESLgKg4tEVF3FkL/AKN8OT/BLMFcvAUNhB2V4LhYZ2Mi3fTj
-	 cVGiyMQUeVKnh8+Z03zSKjv183sbkqnR8Eno2SmnhEthjUaUL4wHHo3qHTU2yG3phel+G
-	 UxZVXKppAIrDcirjfLh0MFBA7Wwc81F0InxJQwP3sSJeXZw+8Zj/M5tCi3trVyyzPlvpA
-	 e9tcA/sjc9S5CnMRsaOR8vnjp+BluuQrh9UrzfKflUzrCJ8CcF8BfMM+ODK9FmBn2hg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ctwu0qRW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.68
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011068.outbound.protection.outlook.com [40.107.208.68])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792504473;
+	b=HlZ5vxylP3B/LtcCQCf2X65E7cDZKWz+hN8Tf6u0R3LceufcUpc9a/RjPdHPm6GBZM1w
+	 qxOEMPt3a+WCGmS/FTLOE3M91V3qNonnQP8dqyl4hbo3DfwOQ2DVQt6wYdKEGzcWWc9Bt
+	 k6x5CVZPdbSGZ6YtWvpdV75+ol/UPRbQqi5CJqXxOi53F08TgRtv3kFnnICgWJ2arFLLc
+	 kul65X8inbSdIT/3rXCFpt6tS0t6HweVMzQ3gBTkT3JH3ixO9lkrksL8cSjWhMt9Hmd1Y
+	 VJgO8E+235F80XXiFTbnRuC6rX+7UgVLR1ax3AHu9BHP0uDkLMyiqRkntZiM8rkrs0Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504473;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=9NiJBWOVUY/UQOLimlz5QAPWwsmY3B5JWfVlvXL3BvE=;
+	b=JlNZjRQnlQWS5MegldLEcIVTBUrCccJDA1vwP18/IMUH2KBkmfsZ0UN9+OYkKMaaE3i4
+	 bNCsBbtpEdmQQlSYVUwwEEyZteOWUddO2eFonIJMhPoScos4tmC7PeQeONsRWz/eeNRiO
+	 vDWizInUwRllJUSzlecYVbrzcwNbOUfDbiFrBkTEHOv8wFWWJas/rf2mQq7feU42YA/qd
+	 q7PtREukFp8u0jx3ToAGQKsZXZQpAE3k6N0FKpfh+DSzXmanxt+JJ7JUS/NfF4XDWntEZ
+	 kcV1w/9SIlVjOkMTio//g3CNeu2l6jEMhgzhFgB2Pv/NTzbkdgRj9DdD6tdRoZCluBQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nB7h357t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F7A606A319;
-	Tue, 20 Oct 2026 13:54:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10F7A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7D9606B651;
+	Tue, 20 Oct 2026 13:54:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ctwu0qRW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=msJKkCowKtepx0cGK4KaYkLJyP/5Xl1Vv2uwKKS3QeWbZl36gp5V50LNYd4KG223W9sVkcojrqtinB62d5tDMkEBPjAgTUmsiJiEgsZHjimL6qZFSpyy9eIk1Htno+ExMF72rQ0iS3dTn5Ntm2m/h9fyfX/aiZWj6qn9MK0GsTo9zyFyLDW6DRhJVZL2S6ZcxdnWmgwclSlvvvorh4ldZF+qoX2Gp0I6EDHmLsI7FSt+zM5eKpCoUMnkA5mh7Rx6msqEt4r+JR0+XKB4huECnAiaK88FE7OA6gmNnNiPjLz2ywfgHeNHwUu7ie5URsKPHTX6Rwpvq4KEH34DavqnyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yox76MmSLQNzY4vXnUV2RBx6MN/aCL79HirjtHAwi/A=;
- b=O9ABi1z8z5cPpDkKX8fMKbzXeKQSNoc5VB2kGPgohl0ZFzYx/XXGHTQVF3k7Lym53h2CH2amf3T1b3MaCGOycrO46+2AXzieTNMNVysPD8/3Lv99Zmo43EhfEqXVtruLlhn4tIWCmxnxxCYz0LRut7zecNabVaWFuRth5TQqXnOjTBtXpUBEfC/zYOFr7sdojmQ6ck5F21AgeeCRiTrgyQH5M7GnakhppVBelF1Sl4vPvB7IVv2VWG0rtTpe4UaSg0UerXwmy9jACa0jYrbprIT78GQ8k+/feDxNlYzIwP07Se8fm283BSBXoxMOJvUg7QeuGhEXyoI5xtzfpJtErg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yox76MmSLQNzY4vXnUV2RBx6MN/aCL79HirjtHAwi/A=;
- b=ctwu0qRWJq6o+atUjkudpkHYTyR3uM2tzs+ck9oaBpG/vkm7d4j+rGdtOpa6v4AiMbkfFRYSZzu1TaZdJTm9hLyK+0LyJJRYLfDXKSuUkOR7TqirFzdB5HaIyWbd8sH68WU51eVNS57650Km7vJQHvHaG3f3rmzNhiOhWJK6+GpfL8cOa/t3UJybmc7PjgmsaS4lOa5AZM46yO5zLtjJyRyvkSVlH7PwILGrVDefKwWfarnjwd9J0OnWNwxqS/V7p+FL2HsBwcXU7ZQWhuvj8gjkGvBBMlCw0xc/3n+X6Gf2iORDVJ4ZcnzmAU11XJnqOM/24JmYlbN5HtyQrPa+xA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
- by PH8PR12MB6866.namprd12.prod.outlook.com (2603:10b6:510:1c9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 13:53:52 +0000
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 13:53:52 +0000
-From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Donald Shannon <donalds@nvidia.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nB7h357t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0542F1F000C4;
+	Tue, 20 Oct 2026 13:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792504472;
+	bh=9NiJBWOVUY/UQOLimlz5QAPWwsmY3B5JWfVlvXL3BvE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nB7h357tTG/rkHYHKsaYIWHcDdBw3QJj1x7Gwo2qoEgclLJvV1WHBh8vRj/2v1Blg
+	 dJrX6DhvN0IQu1Ic8hhqhNbsQccSwMXMP6C5bGEpidcoLB3LPG5XEWpVIUpg4yfL6i
+	 3ncMSUxUMOeXhqK6LqvdNOOJ+IW4dYKR+cfUExzI28/m0XE6xzYKOuh/B9XBWhqST4
+	 lqj/TcQeqj9gHIhnvH2A9iySHuoN/4seaECx8Bswq2l/TDcBaaEGJItvKeSG+ilghU
+	 e27uk7FJ3+WEVDrSJHKEpmIgBIu70Xl0u7zXvN+ilBewE0Zz/lRxd0D29A9yzuPrZg
+	 CND3spyhoBkVw==
+From: Sasha Levin <sashal@kernel.org>
+To: Thorsten Leemhuis <linux@leemhuis.info>
+Cc: workflows@vger.kernel.org,
+	ksummit@lists.linux.dev,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	llvm@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 06/11] gpio: Add NVIDIA LSTP GPIO driver
-Date: Tue, 20 Oct 2026 16:53:44 +0300
-Message-ID: <20261020135342.2963044-4-aambrozewicz@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAD++jLkQd70V+wQhCaKES8LQqWoU+dmt=Dr0PgbA81xHh+hppw@mail.gmail.com>
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com> <20261012-lstp-usb-adapter-v1-6-aambrozewicz@nvidia.com> <CAD++jLkru2AL2_7ieOdbYrePAhNSFaa3wwEzCagiPsALgG2GwQ@mail.gmail.com> <20261016081917.1958681-4-aambrozewicz@nvidia.com> <CAD++jLkQd70V+wQhCaKES8LQqWoU+dmt=Dr0PgbA81xHh+hppw@mail.gmail.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TL2P290CA0017.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:3::7)
- To PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Brown <broonie@kernel.org>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Kees Cook <kees@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Dan Carpenter <error27@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH v3 2/7] docs: submitting-patches: say which commit a Fixes tag names
+Date: Tue, 20 Oct 2026 09:54:29 -0400
+Message-ID: <20261020135429.3340755-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <bcef59f8-33fe-4bbe-8429-307630dc6bb5@leemhuis.info>
+References: <20261016152828.3765695-1-sashal@kernel.org> <20261016152828.3765695-3-sashal@kernel.org> <bcef59f8-33fe-4bbe-8429-307630dc6bb5@leemhuis.info>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,77 +74,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|PH8PR12MB6866:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd796df1-0e32-4508-9003-08df2eb1934f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|22082099003|18002099003|4143699003|11063799006|10067099003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	epUOf/Lr0j8aFEwqlFbOL9v4g85s/sxyQiNL/YgYwR7nKSmRqdoOa05hRpC2v04Tt+KM1JcnzRYNAxTj3XVLDlzsK/TKq4fRCMVXr4ZaxQAra4sgUq6ngq+saDrPHzxjxvvp6X4NWpNS2mXxxWob18x127CKPPMkpMmDB1D1DcS6QaquhMbslClafC9ueYbf/Tpd+sXs6XY7SLEeW82Y2tZ7oBXaDOcWi86+45iejqHwB0GybLFHTyJRKBfOAK4Cf8MgaP+uu8sffZCtsep3jUZAwhnROYuHahYPwKsskVpw6PX9mqU/wu3mBe2+UKT1Yxyh6TqBVs6jpJGUc9Vu+zDbC/rbfcBPU3M5VgfUKBg9WzXiOURPIn15XXZM149noX8DxaZTH/o7Kwmz2mZIkzYA+Vy2nqJ5095UE6w9Zr8RaDWo6Id32q0HaeIj36LsLMPrCTSvk5WO3zUjNtkhWc2c+d7fZZM2Mo+XkpHHiH+Gn1H5tR0omjlqtIcZxjAunrw3ciSsL68E0Ihf3spxdFnmwkJ10zT+lbZ724HYWjdCuG83E4OGd03GEC6gZetca89GiUbL00hQCgkK51IMI7Jx7lUSK0qAsq7PxGSDCQCfEiF1hutOyoCWOAmwgDw+aPHvMnbg6HTz678Ew60qbGfKCM2JQ68DSlVMe5CGfQg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?LMzreooZlVLk6ANcJ14QQ0Ng2UnuofLh7bSeew8PP6Giti7JrXmWeACuVPhy?=
- =?us-ascii?Q?6vFOLh64Pbw+44bZcXwgf5zjrHmVrkElKrsqHv3Lfpx3L+lHjGC03vCU40vS?=
- =?us-ascii?Q?8YLcfBrKh23WBJ0g+6HaSI/0B4YlK2MsbLlhFEas/CQqiofAXp0HHrJRP47L?=
- =?us-ascii?Q?ov8TqC3md3OqAgAQnQj6TmvgJvaP+L6LlfFTWAihBNym7fQzYOKpwYNullPO?=
- =?us-ascii?Q?XPdPd+F1yXEhHVOIEIeLpQxySbWny48ruOZX+l9L6nYxf+Kkg4FFY/ZARlDc?=
- =?us-ascii?Q?8E7RLVR5REj9So8AgUf27PvMoglKZSAJdplbPcDmg6itkJuCmP43HQiXA5s0?=
- =?us-ascii?Q?2A7bFFzDdoxDDRK+kcnU9FbtGo4OGhpcdbRl91ipj9DcozqZ4/U0+VL4QD+A?=
- =?us-ascii?Q?94nrfpfFTmCSFJIW0RC47akalnQokGVgogPhqEh+bAQxMQbzr8R7FWLbDly+?=
- =?us-ascii?Q?TRYhLaaRog9AyKePwIOdSWMula0vYWHMzTrbv//rrsSQArjv5/UNZBETg0l8?=
- =?us-ascii?Q?5EvNFy2KwtFGItvNlKKTgnngNIO1OszZOvKnO+Xx6oGq95k9LGtjsGL0xaQa?=
- =?us-ascii?Q?EgAnROUlGCZ9MPkNwKDcDtarhPk4DJr3b5lRMn5PBFaid55aCNQZTj+vVk1q?=
- =?us-ascii?Q?K0NoCch0pl+KInIHzzfMyWaDS3tq5GO6yCFc2cWEIoLbt4aJgz14H0xXuHUu?=
- =?us-ascii?Q?47rtin7BWdPHvVeGH4TuQaeMdvdSExpuLHUOCo2Ciw0oyD+VAhW3NcAG5Xma?=
- =?us-ascii?Q?5iWPVteSfLpbLK204hY++N5gLuJipYStLvbStSv5VNQR9v+94yQj3hn39NRK?=
- =?us-ascii?Q?d1mtGHGTr000ymRdKk+ZOjDpZKZj0pSKgxqdu3EwaD2tlhqrNdqsxddmhdZE?=
- =?us-ascii?Q?QlvHUJpYYwVTqcFAXzyxiTxnOLv+ywT8PPR6SBLOfetAqG3v+PVVUAXvsoEw?=
- =?us-ascii?Q?n7rsPxdJaBg2Qsfv4xUlOvnPFCk/Gqds7bCGXzzJGx/vf7dj0nqIXq+aDGL6?=
- =?us-ascii?Q?AwJpa/FCHJwJ8HL+MJWYJITup7AVZrO0vY3lulIFVzKw1OiNHZ/CjQxTu9QX?=
- =?us-ascii?Q?JYG8/yM8cL3hL7Tmydrfmup/eq8Ebcr2UOy07qUHwT3O08cv8LBahA1EsWwJ?=
- =?us-ascii?Q?bb00JVbLfvkQlKScmLJOYzx+jk/iVg8K83vy8kYtnEh0RvCMnlL8/OZ++aIS?=
- =?us-ascii?Q?05GZ/DTiyzs5gYEKLAPRSGsSua/dBMkA9llaojjJtfFFuMxTLvhWzRNB2Aqc?=
- =?us-ascii?Q?9Rw/THNKKGH17LJPwuIvH3Vf+nzkqSvU1ZPjqL9aagY+f83VRpReKozJ0EDt?=
- =?us-ascii?Q?MSZ+ZEEgqdS0cGgWqS3F4NM5j1+Xq1rbZBjf2MRx+Kkpe40VMUetIMq6dqKY?=
- =?us-ascii?Q?1B1XKdYPzmGwB8UH5097AcpviLuW1g1L2kqU6XBDKAlJd9h+RLmZcQjvsKyw?=
- =?us-ascii?Q?TtTX9Iq6GHoYP25Rks+rnvd/Z8foJ4d4b9u9HPMUzgWm1S0TfUuCBRa3zTcZ?=
- =?us-ascii?Q?NyIiX5fV2nV63jZVooj2GmMmVUpwlJphVuq1O509LyKJlHSgTAnEogyYLfF4?=
- =?us-ascii?Q?YxN4J0WbLelvIkE/eYNCKAA7KMSXzdYs6X/0JHm0lguAPT1UDmICYMKeYUu3?=
- =?us-ascii?Q?J595Rp3/wVWmDbcveEL2DDQ4j5qb8JjqvIE0VLHzxgqCAI+uweFIrKiVfhpL?=
- =?us-ascii?Q?mDJ5VBzsZNc1pB4k0ivBZkoMAC5QITj3/oR6cclKEpk0CBDCtKHosxV6MZq2?=
- =?us-ascii?Q?xX4LXqjEzQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd796df1-0e32-4508-9003-08df2eb1934f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 13:53:52.6541
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RAVK+E+dsP96gKZ82EoTFftH3RxsFJ3508c8Toqo1/CdvqGj+Q7FLHrfF49YxbiGjDoDJpFeDdZULSx+svcCLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6866
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
-
-On Fri, Oct 16, 2026 at 11:14 PM Linus Walleij <linusw@kernel.org> wrote:
-> > gpio-regmap has no get_multiple/set_multiple, while the device takes
-> > several pins in one request,
+On Sat, Oct 17, 2026 at 10:07:36AM +0200, Thorsten Leemhuis wrote:
+>How about this instead:
 >
-> So just add it (get/set_multiple) to gpio-regmap.c?
->
-> There is a nice generic implementation of get/set_multiple in
-> drivers/gpio/gpio-mmio.c to draw on for inspiration.
+>"""
+>Name the commit that introduced the bug in the first place; hence, when
+>using ``git blame`` to find it, ensure to not settle on changes that
+>just moved the code. If the bug was introduced by more than one commit,
+>add Fixes: tags for each. If some change according to ``git bisect``
+>exposed a formerly hidden bug, add a Fixes: tag for that change, too. Do
+>not add tags for commits that are only suspected.
+>"""
 [...]
-> I don't quite get it, but I prefer gpio-regmap with an extended
-> gpio-regmap.
+>* After thinking about our recent discussion some more, I think the
+>Fixes: tag for a change that exposed a bug should be mandatory.
 
-Thanks for the pointer to gpio-mmio.c. We are open to extending
-gpio-regmap and will evaluate this approach.
+Agreed. It also matches handling-regressions.rst, which already asks for
+a Fixes: tag on the commit causing a regression.
 
+I'd keep one word from v3: "separately". "Introduced by more than one
+commit" also reads as a bug that only appeared once several commits came
+together, where the tag belongs on the one that completed it. Tagging
+all of them would send the fix to trees that have only some of them.
+
+So v4 will have:
+
+  Name the commit that introduced the bug. When using ``git blame`` to
+  find it, do not settle on a commit that only moved the code. If a later
+  commit exposed an older bug, add a Fixes: tag for that commit too. If
+  the same bug was introduced separately by more than one commit, add a
+  Fixes: tag for each. Do not add tags for commits that are only
+  suspected. The Fixes: tags tell the stable team which trees need the
+  fix: those that contain one of the tagged commits. Trees that contain
+  none of them do not need it.
+
+-- 
 Thanks,
-Adrian
+Sasha
