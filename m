@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792521147;
-	b=nrXQlODTa0tG52IVVaoGoU6/O1oZvLLf9141LK94eaKuERwGxIQOHco0fonzPkdw6Gmx
-	 HnwsE99UjBxJMe6dTk7fqfn5JfZ3oOTaevcXFO0uRdGbFkUX3H2nIzvjmMOoMnfs7fHdD
-	 muqGJFrOFRnG0dvjpqoWUGxLJG8ykwCuohaBecnymxegfMypV4hY84B40BzTG8aaQ2z+R
-	 HVWKZsU2+NarEneGRg6U1S4FUw1VyVrScdSMs8EpSDjtBtfE7BVINFy5/unQP/5JUoy41
-	 ntMdNHOXk4fPcU1MiWtymBby3qGXTFwzUiaqCjXmvjRGALwwdPE13SpuomNg8hKStkw==
+	t=1792521176;
+	b=nqoDnJ7EgWU7CBdQyF7VO6Trped4FRGET4FJJnKNSaSBEU1P66/jreEqkx1L3aGH7/A/
+	 MwQuCViYSbgTQKuWkaRpX2xvh64IMfKIcNMs17AVKFseezm8+PlG8FnCDixOimL/c1iwa
+	 HdMOloZ1ou82ObWGMpRYshb/GjUKj8/EQ+Nu8at0lDeCbT0htJtaHhP/KAbJClhpjMv43
+	 RLRKBkf9AxVVG0IMv7kI0o1KxSkGd6E2nYEsK/m8B1rNWbw+q7ycd6ldfNnXu4faImjtA
+	 GbdDsb3X0WZy4y7dH438KA6ElG9192D0qSHw7RxxJ3v6cRll3W9Ea6J9qxo+zJ/BtbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521147;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=8gpZqQR8Bm+rpn9a6shYPlO3ae5JX1l239NIKj38YE0=;
-	b=h6GvkMONQis9SmfUYCMlrt4qQRMrtnnL4odAKzWYv0QeVXd/kUaRayZaEtF33/Lvkkxk
-	 H685r6LUsPWd8MbFjWhY7/pt/RED8LuM9fio2eSOLIUX125PoCf7i4PbuAM1VbdfavdLu
-	 uDpTzvmKFU+Bj64IY2v9P/LDFc7bWI7rZc9kehyS6aXNfNcc8UvTMuuJ693BeAm5fmIYH
-	 2H8Mi49pNPwQMcq92IxFqMGLJqN+0rNhzCOOFtqcT8uH8YmyotGBBG71Yqru1QZM43xpP
-	 C2CyiNnA0Ccxrn/6c5349cCMxv0sJ9JAWfjoS/Hd3gX6czctvn0s9Iz9MLwBd61xIfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792521176;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VVpuWYwkWD/9/HNw8SQdi33UO4JldlQknYGbD5fRVbE=;
+	b=oU+rvp7PzEwCevJmXC5FiPMz5qejURvE/z1IrGqNt7pX9+ZvmMPtJkFoYVRPYu9FxDlG
+	 eGRwaVLD8GDoMdTDc26hmSFytET0xmT2kFQx5srysyV70ZTZqgk5FbIO8+NBnzLXFXOf7
+	 mWzIXlypM10/3Q25KQUKnCwr7GCSUe1E90iQZHq+GfAfLMTapuXxFV05ge3MZFlIOruVT
+	 UdfVyTfhdK4ovMMk7qV6fmoIECTTKLAAZKOd3FXe6S4qVqztbqw0Ns35V7PAv8QB3D+yb
+	 Tz7pmvf4vvzeFwpdMu5jP6plKSNtB7PgPxlKgODlXXcZu1MB3FxkMI92oxvRQtyYg/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="W/LrzM6F";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=7LSo6L9T;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eiFDJWYL;
+	arc=none smtp.remote-ip=91.218.175.10
+Received: from mta0.migadu.com (out-10.mta0.migadu.com [91.218.175.10])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5C2606A31B;
-	Tue, 20 Oct 2026 18:32:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B5C2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF1C606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:32:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF1C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=W/LrzM6F;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=7LSo6L9T
-Date: Tue, 20 Oct 2026 18:32:24 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792521145;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8gpZqQR8Bm+rpn9a6shYPlO3ae5JX1l239NIKj38YE0=;
-	b=W/LrzM6FLHMVBaexlCD2SCU6g5NmPGO2eU3d75jaXj/oZ40zBgvWGsftzYm9+cm1v2kaH9
-	ExcJxUMy+5WI21cH6rr34+W2vjC4ABEnwAx9g4YOExDbU7ueChP6s36j9WBTIuDB76AJd+
-	ew/hydSJmNLCtk7EaVA9Vj/RGrrb8K1jiThu+UJ/qr0u7tthWdEIPcH+7oEtAA7VNQivS7
-	5bye1Y8DqhjvoXEWvxc5hf1rR5Ri56lkk83IGJvajAdNe1+XKRPMkD38AfQqCLKLXVoOLL
-	Me48loWkyN/uHkwKlNqpU4Ti/TbB8t4op2q3E/soEEtr+/GhF8Eqk6913nTR+g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792521145;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8gpZqQR8Bm+rpn9a6shYPlO3ae5JX1l239NIKj38YE0=;
-	b=7LSo6L9T1Vs7VFs1BIoyk7MsJSEkIRCWphcJQ1Q4tXLk57IjRGDkpw/qWyCB5CfMjb5hKU
-	uv1g4onyAPaCOjDA==
-From: "tip-bot2 for Grzegorz Jaszczyk" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/apic] x86/apic: Consolidate early APIC initialization into
- apic_early_init()
-Cc: Thomas Gleixner <tglx@linutronix.de>,
- Grzegorz Jaszczyk <jaszczyk@chromium.org>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260924104102.3534474-3-jaszczyk@chromium.org>
-References: <20260924104102.3534474-3-jaszczyk@chromium.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eiFDJWYL
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZaL8y2eN1FweU55DX6zD7cbfGbNsVefal33JOq2RRQY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792521173; v=1; x=1793125973;
+ b=eiFDJWYLuxc1mV1IP/6Y8R94SNfhTmenqK8tTKp0K2hezy4gu/ZrXgBdJAADVVtEFhB75pvP
+ zN6s7N5vafqm5BmR9EdKwQu+tB/WK88I+7VsREfiEkOMTrB9BFv9jjg2JsNnvATwOHqNPSldGji
+ jOJUmvJ2cG3PBQTmcftZ9xdU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2e1178afebfa25aa;
+	Tue, 20 Oct 2026 18:32:53 +0000
+X-Mizu-Trace-ID: 2e1178afebfa25aa
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d2369629-846e-4fd8-b567-a0fd8863256c@linux.dev>
+Date: Tue, 20 Oct 2026 11:32:48 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,155 +58,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179252114409.3012171.2565095980733227098.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v2 00/11] bpf: Scope callback arguments to their
+ frame
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Amery Hung <ameryhung@gmail.com>, Emil Tsalapatis <emil@etsalapatis.com>,
+ Nicholas Carlini <npc@anthropic.com>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com
+References: <20261009202759.50520-1-ihor.solodrai@linux.dev>
+ <DM6EVHTVM3IR.3RCFLKV9WC80J@gmail.com>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <DM6EVHTVM3IR.3RCFLKV9WC80J@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the x86/apic branch of tip:
+On 10/16/26 9:42 AM, Alexei Starovoitov wrote:
+> On Fri, Oct 09, 2026 at 01:27 PM Ihor Solodrai <ihor.solodrai@linux.dev> wrote:
+>> Introduce REF_TYPE_FRAME for this use case: a reference owned by a
+>> callee frame, dropped when the frame is popped. Tie each argument to
+>> this reference so callback return invalidates it and its descendants.
+> 
+> Another idea...
+> The id is owned by the frame. Can we keep it in bpf_func_state
+> like diag_frame_id ?
+> release_reference() already takes ids that are not in refs[].
+> See unmark_stack_slots_dynptr().
+> Clones copy parent_id and slices hang off dynptr's id, so both are
+> reached.
 
-Commit-ID:     90f8b3e500657beeeb0f67bbb27c53b9707202a2
-Gitweb:        https://git.kernel.org/tip/90f8b3e500657beeeb0f67bbb27c53b9707=
-202a2
-Author:        Grzegorz Jaszczyk <jaszczyk@chromium.org>
-AuthorDate:    Thu, 24 Sep 2026 10:40:19=20
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Mon, 19 Oct 2026 17:54:29 -07:00
+Slices are not reached. A slice's parent_id is the dynptr id, and the
+walk from frame_id finds that id only while the dynptr is still in a
+register or a stack slot. R1 is caller-saved, so the bpf_dynptr_data()
+call that creates the slice usually clobbers it.
 
-x86/apic: Consolidate early APIC initialization into apic_early_init()
+This can be fixed in your diff with:
 
-Early APIC initialization is currently scattered across setup_arch():
-
-apic_setup_apic_calls() and acpi_mps_check() run early, check_x2apic() is inv=
-oked
-much later during memory range setup, and apic_finalize_early_init() runs nea=
-r the
-end of setup_arch().
-
-Consolidate the initial setup into apic_early_init() in arch/x86/kernel/apic/=
-apic.c
-so that acpi_mps_check(), check_x2apic(), and static call initialization happ=
-en
-together in one place.
-
-Place apic_setup_apic_calls() at the end of apic_early_init() in preparation =
-for
-replacing it with apic_install_default_driver(). This ordering change is safe=
- because
-neither acpi_mps_check() nor check_x2apic() uses APIC static calls (check_x2a=
-pic()
-accesses x2APIC MSRs directly via native_apic_msr_read()).
-
-  [ bp: Tone down the patch explanation text. ]
-
-Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Grzegorz Jaszczyk <jaszczyk@chromium.org>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20260924104102.3534474-3-jaszczyk@chromium.org
----
- arch/x86/include/asm/apic.h |  3 ++-
- arch/x86/kernel/apic/apic.c | 16 ++++++++++++++--
- arch/x86/kernel/setup.c     | 10 +---------
- 3 files changed, 17 insertions(+), 12 deletions(-)
-
-diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
-index b4c112b..b1610b8 100644
---- a/arch/x86/include/asm/apic.h
-+++ b/arch/x86/include/asm/apic.h
-@@ -133,6 +133,7 @@ extern void sync_Arb_IDs(void);
- extern void init_bsp_APIC(void);
- extern void apic_intr_mode_select(void);
- extern void apic_intr_mode_init(void);
-+void apic_early_init(void);
- void apic_finalize_early_init(void);
- void register_lapic_address(unsigned long address);
- extern void setup_boot_APIC_clock(void);
-@@ -183,6 +184,7 @@ extern void topology_reset_possible_cpus_up(void);
- #else /* !CONFIG_X86_LOCAL_APIC */
- static inline void lapic_shutdown(void) { }
- #define local_apic_timer_c2_ok		1
-+static inline void apic_early_init(void) { }
- static inline void apic_finalize_early_init(void) { }
- static inline void disable_local_APIC(void) { }
- # define setup_boot_APIC_clock x86_init_noop
-@@ -254,7 +256,6 @@ static inline u32 native_apic_msr_read(u32 reg) { BUG(); }
- #define x2apic_mode		(0)
- #define	x2apic_supported()	(0)
- #endif /* !CONFIG_X86_X2APIC */
--extern void __init check_x2apic(void);
-=20
- struct irq_data;
-=20
-diff --git a/arch/x86/kernel/apic/apic.c b/arch/x86/kernel/apic/apic.c
-index cb78e0d..721e194 100644
---- a/arch/x86/kernel/apic/apic.c
-+++ b/arch/x86/kernel/apic/apic.c
-@@ -1869,7 +1869,7 @@ static __init void try_to_enable_x2apic(int remap_mode)
- 	x2apic_enable();
- }
-=20
--void __init check_x2apic(void)
-+static void __init check_x2apic(void)
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index bc12df55d2e2..57859c3baeeb 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -11470,6 +11470,7 @@ void mark_frame_scoped_arg(struct bpf_verifier_env *env, struct bpf_func_state *
  {
- 	if (x2apic_enabled()) {
- 		pr_info("x2apic: enabled by BIOS, switching to x2apic ops\n");
-@@ -1884,7 +1884,7 @@ void __init check_x2apic(void)
- 	}
+ 	if (!callee->frame_id)
+ 		callee->frame_id = ++env->id_gen;
++	callee->regs[regno].id = callee->frame_id;
+ 	callee->regs[regno].parent_id = callee->frame_id;
  }
- #else /* CONFIG_X86_X2APIC */
--void __init check_x2apic(void)
-+static void __init check_x2apic(void)
- {
- 	if (!apic_is_x2apic_enabled())
- 		return;
-@@ -2064,6 +2064,18 @@ no_apic:
- }
- #endif
-=20
-+void __init apic_early_init(void)
-+{
-+	if (acpi_mps_check()) {
-+		apic_is_disabled =3D true;
-+		setup_clear_cpu_cap(X86_FEATURE_APIC);
-+	} else {
-+		check_x2apic();
-+	}
-+
-+	apic_setup_apic_calls();
-+}
-+
- void __init apic_finalize_early_init(void)
- {
- 	if (apic_validate_deadline_timer())
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index 06522a2..2bab41e 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -993,14 +993,7 @@ void __init setup_arch(char **cmdline_p)
-=20
- 	x86_report_nx();
-=20
--	apic_setup_apic_calls();
--
--	if (acpi_mps_check()) {
--#ifdef CONFIG_X86_LOCAL_APIC
--		apic_is_disabled =3D true;
--#endif
--		setup_clear_cpu_cap(X86_FEATURE_APIC);
--	}
-+	apic_early_init();
-=20
- 	e820__finish_early_params();
-=20
-@@ -1062,7 +1055,6 @@ void __init setup_arch(char **cmdline_p)
- 	/* max_low_pfn get updated here */
- 	find_low_pfn_range();
- #else
--	check_x2apic();
-=20
- 	/* How many end-of-memory variables you have, grandma! */
- 	/* need this before calling reserve_initrd */
+ 
+i.e. the reg is its own parent again.
+
+
+> All setters have callee already, so no need for patches 1-3,
+> REF_TYPE_FRAME, frameno in refs[], the reg that is its own parent, etc.
+
+I don't quite understand the concern with the series as is.
+I'm guessing a new weird REF_TYPE in refs[] which is not an actual
+acquirable object gives an ick. Or is it the plumbing?
+I take it you agree that we need some kind of frame-tied lifetime
+tracking, right?
+
+I added some refactoring patches in attempt to avoid growing
+bpf_func_state vs v1 (Eduard mentioned we create a lot of these
+objects), and that is what you've just suggested.
+
+frame_id approach is fine with me, just want to understand the choices
+we are making.
+
+Thanks!
+
+> [...]
