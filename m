@@ -1,52 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.79.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.79.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489154;
-	b=NBjxUcUivvt1XHoh3k35DjBmGMSxeGIr7UY3syuoF8ZG8wIQbXXLdm8wzQQOxpEa62vt
-	 iVe6evro5aNjqnomPSlecU3UPkvxIHbNvu9MY8WnvpdtKX6ykroqS0Et3f8SfM2ULJ65P
-	 0AbB5AD4BJkjH4JyYk6lKvvSKo3eDCbkR0A+juTd7MFITJ3dheZ1Cx5OPQLrQt++7wQ+o
-	 37EQ1YLW1db7/REYQaLNa16iUXQmx1spXOVbFY43ga7aS98MrFa0MYHZE+eJAjChnaYba
-	 peguCB5zxjnoeW9rMCzYMtuLmHXfJSMLdIEqA4Zpp/nz4goTcRrXSMJ9k0/C84c/3Fw==
+	t=1792489156;
+	b=UOrKcCW7xlbqeTCRi/Rv8AofhR7qCuiZIzp6rDVj3pEKEY2IFO7300m0djancB0xqkSn
+	 LIw2lEn8mXgsQhuMBuf3by0+2C/qe/tyFHDHvGsHkEllnfr5yc8+B1COLRXy8rZhdI+79
+	 PtU9IrQuM/MenMliPR7T024v//06+wGWbVlVncw+x8PFCa0dgvQ71hvkmKIrt8+wFsV7G
+	 27kbj0QK0WlYPFkaheWcAXm5vxKH2Pmbqgg2iHxgCLE/Qsgwwn4krkrSB+wougNKwKR6y
+	 ael2KMzPBuTx3hYsWv5nEpoEpFdkTjbp5TIPdi+4j7UoryHnbnLHh7Sf7ccKDqyUN4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489156;
 	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Info-Out:X-Proofpoint-Spam-Details-Enc:X-JNJ;
-	bh=UiMRkhpx9tlueenKCNU5oX+f0lzVMx9F/X9orrtCMYY=;
-	b=KRAAqBON/DYN6rWnm72mI/8+v2vR1Tt/jOp5q+f5YIix/eQZTZEmRvWKmvBYpwHW1lN7
-	 IQpF3aC2/M+JTZ8IqJnfpVRqceQqmaf9LoxLQ0LJ0KSRaxUzrE34yvADfBqc3SSTn70Wf
-	 VHkry+VtKnd1pj4wCMoVtu6CXMPOJ9ffI/mXQeqMOcZgr4hOwA4mbXaj2RJA14GVFoRyQ
-	 y7F9B3W1AcVe3APKeI34tVqwkWsuetsDblevzkX6kjbZn0itj+thJfoEHAXvVGUJ+2d5k
-	 ofuL7UTp6XBVlIrBEU6zSi8mIGkLRWs81C59oZS4nWe0KzXAEjbXNzN+gxccXmVwj/A==
+	 X-Mailer:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:X-JNJ;
+	bh=6RRowT7xHJs8A6zNEf76Dvwzc/XBDK8xSl9XH7Sx0So=;
+	b=U1jAifaNuCx3GOs/fE7bEvIzFhtOSUq/0n4JwSTnaBlYdi5gFAWHSZXPE2zr+VV1yJYL
+	 JiqDYk+Fe+LPf4+wkHeqpVwiXCLVgTKpTwDwk8YKw5Ew1CMPkB1+1xXuZ/q91vpPtoGL9
+	 2IHDSycueXrpLBnZGP8S5lsZ1u0/ogaCGJyHrAj20N1vPvFm/DfyccE1Q4wRcYXP5Cycr
+	 ItzTQ493+PgDEVM97DZmluJi3hS2MGV4jksv2lfxN38+Pr1VzB66np7GJz/Ji0G/w8mtZ
+	 HRDCo7JCe+zz+2df5ebUQwiQJebt32ULJe16ic5WtZ4gTLB/ssE4vp1OWdqe4+g7g8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=icloud.com;
 	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b="fCFnzE/q";
-	arc=none smtp.remote-ip=57.103.79.121
-Received: from outbound.st.icloud.com (st-2005j-snip4-8.eps.apple.com [57.103.79.121])
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=fAZBTzRm;
+	arc=none smtp.remote-ip=57.103.79.117
+Received: from outbound.st.icloud.com (st-2005j-snip4-4.eps.apple.com [57.103.79.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3583160A260F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:39:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3583160A260F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB18C60A261C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:39:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB18C60A261C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=fCFnzE/q
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=fAZBTzRm
 Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPS id B564C1800698;
-	Tue, 20 Oct 2026 09:39:08 +0000 (UTC)
-X-ICL-RepId: 01a158ad-d0b8-7d56-870b-19f80073342e
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGRhGXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOAl0FWx8RTxweGwRGAF0BTVAPVgoAQQtNV1V3AlEcVg1XQ1QEX04ZDEodUlZbE1UXRgk=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1792489153; x=1824025153; bh=UiMRkhpx9tlueenKCNU5oX+f0lzVMx9F/X9orrtCMYY=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=fCFnzE/qhfQ0D5CJLGvzWwcf1K/eG7pCeBSYPpCrN3YFJ2xZdYYljEhwuX54W8Ap9GWc8ZtGCBoNWc14gi8BQ843XES/pVDrPhxAEgPEA9pjRMqg+Wmkj15KNAyw4+ZThNf+XmJdM3EQUDFpKRctcxtT5YwtnnC960ijy+ywHOZXqGDkWD+Iu7BYwd3eNDyooewbZGdTnOlmXtJx7J7LlHMeVOjsVX5tJ1pB7n1D/skYaVEyqPoXTqRLGWk4n7kByaSGstMbtW2Jhe2uyWb3RNQi/+H9FUeFtuW69M3Ad7y/gXqmCCnBhZKE6vZ7X24yYkbd9WWUxXg3InXKcRLMXg==
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPS id BCB3718006A4;
+	Tue, 20 Oct 2026 09:39:12 +0000 (UTC)
+X-ICL-RepId: 01a158ad-e0af-7edb-9223-19ee11044e0d
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGRhGXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOAl0FWx8RTxweGwRGBl0BTVAPVgoAQQtNV1V3AlEcVg1XQ1QEX04ZDEodUlZbE1UXRgk=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1792489155; x=1824025155; bh=6RRowT7xHJs8A6zNEf76Dvwzc/XBDK8xSl9XH7Sx0So=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=fAZBTzRmS328JC55tvY1KE1xdYOmj4iuoCTTAcLXcU8GvSg30agRDemFcWznewNaASNSFZ+u3efAKvZWo5PAIXg20ChMUx+UF4GNLAFz0eIafGxxcay3OwW0mpoXnhKDjOJRO/A+mAhJfRKqlwadbWKRZayJXiyhko0HMSWhcnuM+h5vqcUIlNe8VgRBErzdfPrkO4bJjnW+rSL4al55mpbOrahulw0rujHsrHZPcEepDFJL99iDdZkyLHr86nrvwt4a+J0wl3gpK+vA6mxyL2TNSoArUbk2vK+HKySEzuzPlMoANgyGYYIboqwgWR5swUh0QYlGYnInhiUwkhePnA==
 Received: from [127.0.0.1] (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPSA id A3DC81800206;
-	Tue, 20 Oct 2026 09:39:05 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPSA id 2A3EA1800115;
+	Tue, 20 Oct 2026 09:39:10 +0000 (UTC)
 From: Sofus Forstreuter <sofus.c@icloud.com>
-Date: Tue, 20 Oct 2026 11:37:43 +0200
-Subject: [PATCH v3 02/17] media: v4l2: Add P210 pixel format
+Date: Tue, 20 Oct 2026 11:37:45 +0200
+Subject: [PATCH v3 04/17] media: v4l2-ctrls: validate av1 tile info
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-avd-v3-2-85cbaa2125d8@icloud.com>
+Message-Id: <20261020-avd-v3-4-85cbaa2125d8@icloud.com>
 References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
 In-Reply-To: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -70,104 +70,76 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: vkrDs2Lrw2bl6Nj1nShFY3z2WnMjhpUP
-X-Proofpoint-ORIG-GUID: vkrDs2Lrw2bl6Nj1nShFY3z2WnMjhpUP
-X-Authority-Info-Out: v=2.4 cv=SOVPlevH c=1 sm=1 tr=0 ts=6ad736bf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzOCBTYWx0ZWRfX8xjb45bNmWAN
+ vEcmVqjrR9p7nIp3ft6RmL6KYSXVacvnE8qJioPIOqm373VTofwVp65tDmrGUKgQnmmx00cg9KE
+ W3pwTXaUgHjxkdPEC39ABO+HccZrFQ9yUnIKjQE+sjmq02l0W7SVzAbt9ijRI8ET2y619HyiQGv
+ qiMowGs/rSS1Li4PO9Lk766rLjEPQ95Blo/4bABziKM7B3JDsizICp3KfS1dETwvD+p/lvpOigF
+ z6mzZtDOxa+PBetif52+QYqmAFkK87duNpoqsd+mmumSCeTIG0UZxTRh7JYCfXQ6LJY+Nc7wl1V
+ 4R19uBV7Lyf+HubQ5vO+fcKDtr3re5Drxlv4yJFVNLR/3GqM2qZhHXWDCkgir8=
+X-Proofpoint-GUID: TCqKx8od3_A5hMzFSEhBt7AyYaGn9mUA
+X-Proofpoint-ORIG-GUID: TCqKx8od3_A5hMzFSEhBt7AyYaGn9mUA
+X-Authority-Info-Out: v=2.4 cv=FvkIPmrq c=1 sm=1 tr=0 ts=6ad736c2
  cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
  a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=v3ZZPjhaAAAA:8 a=SpoKuckLgBGHDaJ8CcoA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzOCBTYWx0ZWRfXxdY2cbwiiEoy
- ChKHy/MiJC7InzyOlnss+Cv1dy8q8+KgJFd7oyplfLs0IPd3PJBdUe23fHdCkNSv6eaE9mzMrPY
- JjzbcakcPRoVDl1OtoUiktcndJqioJrXg6U3hy5NzaFnstX1YIBn7AO96pnXOiK57IV525M4yLV
- htpD/s5lnwPzLed3LlrEUN4lrVatEQrvjC4X/0QgV5OFFciAJrFt2By1auIQx+QTWqKUA4+OzhH
- J4ODBubrAIxHj5pG0jDMVpbWNJLJG5UyaVWxg81DHtKKVJARkn54/jfxDoJBZF1xua37JCb0G8c
- sPsjgkEnZKeyx42A29N102QtFvmKu3dCfKwkyZgDc11G3GZGYB/hVsdQVQKTts=
-X-JNJ: AAAAAAABN4W5jMAkPOYpVVD6E3k+NbzUhMNAYQ2efhWvshh0WguQWF1EOHAo2AW7BaOo9PJJEUmZ22O/hV5+wY38fg7FxpvPthx8/HrsboEoyUilxvtP7OL+h3gWGSVShGxwXsolSn5XraMGEibzVEZ3sfTsdwgJl3VbNm+FMBDnldLZWPgW85wZ/f34/LUD5MXoXLBewiFYUN81VAg7sPYFata1L1cx31wBJniOW72qQLK8AHJtpiZCVColKZuSiCrIVkiCUaG2upJq+Sm6niiunw8/ZqPJC+zS2Itn0tgsgGos8pTAKT93tVuADYjDPJgvf2T5mzDSt2MbtbrzA/gu8AHYOrNdqKJyfZdUObEt0eTerl2EgyEGRGPe8ve65F0dYT7Hk3tVpiGMuYoTA/3PaTFGcyibpRuE5CAYNkKekeuXghVVzc21qAF5jtQ5ExcL90KrT0LrLANZE4KgUThKlPhZuhRpQuTKJ9KbY4k8IMYOT5/PAZt1iA320bOsKLAHusLB6bj35Mz7ro1v8qWkbVtA61Tshy0Q7ghTrkRhhG0w5cyKGFVK2jqFHCrBPhZuMXDOhAmhGTx59dErVfQ9Vja93HMRnZ2GVInfijl1W/StMI62h2QU3TSp/edBTCfctitwo+CdT2SK8HxlT+GBwLVLuMywbHcfWHav4CW00LqlQOkLPkpKvMuUS3EK46s9hwWCSssPzY6CmHQ6RPmtU8J1uSsSvQMrl5qR+MEYnzPfhZmOLr2/t5pqJ8wq7fUduy/rk0Q/ZJJs+Ztc63EugwG/bZyzqrKVW/I6IO+ll1uZGjnHAh38LoEPG8yColvTuLYbvJesF1bgKSXVf+lp1IGWGtFalg10ING4n65zw5DvzaDeKHLPK7Vm1NXLGKn1
+ a=v3ZZPjhaAAAA:8 a=IjdaWMjaTc4ojD0rA64A:9 a=QEXdDO2ut3YA:10
+X-JNJ: AAAAAAABtWP6bfkHQcYuEQl+N1NNC+zUHk/D/3dDuVzmbOBY6nsLiBMOnx96fHzygYtqOfAINIxg0vgm3t9qFiNshawlm7rlq2dJP2LY4MqGjwr+Ypj6vyl42J5QSt1jahEqjJkoIXsJ9tdZISPHCoEmRNjuCLFrihO0axlqUHQ+qG4xq7D2FyFyeNq78rIDGhJz2UWxFavziCOtg3mD9Og1uKJZOWLBQISZqlCE8OBDEzXmqMiqNNxGYo40p2j0K4WK9fSrn9DfgUAX+3uy8YdGYvWMaX7kcJUp3Yl8lSAuIGQv4kP88Wlg8+YtwVmQVkZatjqA1e7neRq8nzFL3p3CW4ikk5Ew8A2uiZZg2QViWv+xvamT6Dlt7fkVVvQPU5Rfhozea5QxavC9YHGQALy1VQMdkdA7KZmpTwHRExY8K7pC0e7QkropePn5wBRdgryFJTwntyZSP2WwdanU52ecFR5s+ptZxdEizMIeYEgEfu7V4tk4FSyt2ix6YOvcoOBrt/v2Fn35XnhJzWNwNASwAndWEYXHUoTiZE1G5ZB+E6gOYwQEgOsP9QNvuPNH4qdzk0oGY8ehjXEMd6ckrs8j6dZWD/oKRGK5gFGCMFwyJo5a15BjrFwWR6OMldhD9t70SUHjiAXW4N+SnN6Y5cT0tBamfXMzI7BwZYi3cXyyN35MJL69MHm+UmdDU9Pv/YAIO0QLnLVWjlcRYwRStVeRz8OmtUxwg/bw0JJksmpeCE+WolF7q1w18G1AYZH2P1ZD1SwHcMco4AdhM3/aFcnXEaB0G80kkcKjGOjeaAW26KMy34KGT4UpH+ZkFck0JckVFSn8Ume815IFsPIN0pnhboAftcQlgDYqMlUyZYUDkxU5p9tEucv0XuHpxZpuJqibAU2r46EGRYZGt56YfwsXGT9fOLXXuzPp5LzVjOtj+7clPta6dgn4e2Ij
 
-P210 is a YUV format with 10-bits per component with interleaved UV.
+Many drivers use tile_cols and/or tile_rows, so make sure they are
+valid.
+
+Increase V4L2_AV1_MAX_TILE_COUNT to MAX_TILE_COLS * MAX_TILE_ROWS
 
 Reviewed-by: Neal Gompa <neal@gompa.dev>
 Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
 ---
- .../userspace-api/media/v4l/pixfmt-yuv-planar.rst          | 14 ++++++++++++--
- drivers/media/v4l2-core/v4l2-common.c                      |  1 +
- drivers/media/v4l2-core/v4l2-ioctl.c                       |  1 +
- include/uapi/linux/videodev2.h                             |  1 +
- 4 files changed, 15 insertions(+), 2 deletions(-)
+ drivers/media/v4l2-core/v4l2-ctrls-core.c | 15 +++++++++++++++
+ include/uapi/linux/v4l2-controls.h        |  2 +-
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-index 0631919bd667..f2d2e79698fa 100644
---- a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-+++ b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-@@ -138,6 +138,13 @@ All components are stored with the same number of bits per component.
-       - Cb, Cr
-       - No
-       - Linear
-+    * - V4L2_PIX_FMT_P210
-+      - 'P210'
-+      - 10
-+      - 4:2:2
-+      - Cb, Cr
-+      - Yes
-+      - Linear
-     * - V4L2_PIX_FMT_NV15
-       - 'NV15'
-       - 10
-@@ -834,12 +841,15 @@ number of lines as the luma plane.
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+index 661a3a25da52..922cf74c4eb8 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+@@ -800,10 +800,25 @@ static int validate_av1_film_grain(struct v4l2_ctrl_av1_film_grain *fg)
+ 	return 0;
+ }
  
- .. _V4L2_PIX_FMT_P010:
- .. _V4L2-PIX-FMT-P010-4L4:
-+.. _V4L2-PIX-FMT-P210:
++static int validate_av1_tile_info(struct v4l2_av1_tile_info *ti)
++{
++	if (ti->tile_cols > V4L2_AV1_MAX_TILE_COLS ||
++	    ti->tile_rows > V4L2_AV1_MAX_TILE_ROWS)
++		return -EINVAL;
++
++	if (ti->context_update_tile_id >= ti->tile_cols * ti->tile_rows)
++		return -EINVAL;
++
++	return 0;
++}
++
+ static int validate_av1_frame(struct v4l2_ctrl_av1_frame *f)
+ {
+ 	int ret = 0;
  
--P010 and tiled P010
---------------------
-+P010, tiled P010 and P210
-+-------------------------
++	ret = validate_av1_tile_info(&f->tile_info);
++	if (ret)
++		return ret;
+ 	ret = validate_av1_quantization(&f->quantization);
+ 	if (ret)
+ 		return ret;
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index d17e41d51d2e..abdfa102a77b 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -2939,7 +2939,7 @@ struct v4l2_ctrl_vp9_compressed_hdr {
+ #define V4L2_AV1_MAX_NUM_PLANES		3
+ #define V4L2_AV1_MAX_TILE_COLS		64
+ #define V4L2_AV1_MAX_TILE_ROWS		64
+-#define V4L2_AV1_MAX_TILE_COUNT		512
++#define V4L2_AV1_MAX_TILE_COUNT		4096
  
- P010 is like NV12 with 10 bits per component, expanded to 16 bits.
- Data in the 10 high bits, zeros in the 6 low bits, arranged in little endian order.
-+P210 is the same as P010 but the chroma plane is only subsampled by 2 in the
-+horizontal direction.
- 
- .. flat-table:: Sample 4x4 P010 Image
-     :header-rows:  0
-diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index 11ab684024c5..43ef12d073a3 100644
---- a/drivers/media/v4l2-core/v4l2-common.c
-+++ b/drivers/media/v4l2-core/v4l2-common.c
-@@ -325,6 +325,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
- 		{ .format = V4L2_PIX_FMT_NV42,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 1, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_P010,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 2, 4, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
- 		{ .format = V4L2_PIX_FMT_P012,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 2, 4, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
-+		{ .format = V4L2_PIX_FMT_P210,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 2, 4, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
- 
- 		{ .format = V4L2_PIX_FMT_YUV410,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 4, .vdiv = 4 },
- 		{ .format = V4L2_PIX_FMT_YVU410,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 4, .vdiv = 4 },
-diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-index 17ba1ae70735..1f2519ffeb2b 100644
---- a/drivers/media/v4l2-core/v4l2-ioctl.c
-+++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-@@ -1369,6 +1369,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
- 	case V4L2_PIX_FMT_NV42:		descr = "Y/VU 4:4:4"; break;
- 	case V4L2_PIX_FMT_P010:		descr = "10-bit Y/UV 4:2:0"; break;
- 	case V4L2_PIX_FMT_P012:		descr = "12-bit Y/UV 4:2:0"; break;
-+	case V4L2_PIX_FMT_P210:		descr = "10-bit Y/UV 4:2:2"; break;
- 	case V4L2_PIX_FMT_NV12_4L4:	descr = "Y/UV 4:2:0 (4x4 Linear)"; break;
- 	case V4L2_PIX_FMT_NV12_16L16:	descr = "Y/UV 4:2:0 (16x16 Linear)"; break;
- 	case V4L2_PIX_FMT_NV12_32L32:   descr = "Y/UV 4:2:0 (32x32 Linear)"; break;
-diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 5373dba640fa..5472e433ed06 100644
---- a/include/uapi/linux/videodev2.h
-+++ b/include/uapi/linux/videodev2.h
-@@ -659,6 +659,7 @@ struct v4l2_pix_format {
- #define V4L2_PIX_FMT_NV42    v4l2_fourcc('N', 'V', '4', '2') /* 24  Y/CrCb 4:4:4  */
- #define V4L2_PIX_FMT_P010    v4l2_fourcc('P', '0', '1', '0') /* 24  Y/CbCr 4:2:0 10-bit per component */
- #define V4L2_PIX_FMT_P012    v4l2_fourcc('P', '0', '1', '2') /* 24  Y/CbCr 4:2:0 12-bit per component */
-+#define V4L2_PIX_FMT_P210    v4l2_fourcc('P', '2', '1', '0') /* 32  Y/CbCr 4:2:2 10-bit per component */
- 
- /* two non contiguous planes - one Y, one Cr + Cb interleaved  */
- #define V4L2_PIX_FMT_NV12M   v4l2_fourcc('N', 'M', '1', '2') /* 12  Y/CbCr 4:2:0  */
+ #define V4L2_AV1_SEQUENCE_FLAG_STILL_PICTURE		  0x00000001
+ #define V4L2_AV1_SEQUENCE_FLAG_USE_128X128_SUPERBLOCK	  0x00000002
 
 -- 
 2.55.0
