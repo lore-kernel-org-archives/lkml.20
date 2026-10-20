@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792462502;
-	b=XnFHgiTHGr4Z1DIlJ6gsZ+qoV/noUNBdUMKG3B9C8ThsV/DJDmrdOmftWR0QTLMqhOlc
-	 cRygQHLmOSV6Y8kD32Y38JhP5ITuZYcKyo3SKCJEK68+nszq9A/Ybq2ONxMvcKY3yJQYv
-	 O1oaVOTya8sMPYLYfDDVUWKBeXERqVjUzkIvzNMevmxPxXDI511gGqsTWMdP0aoxKqdiR
-	 Gm/Cy6q6YKMpJFKZTgsU8NyjFjlp3+HPr9vIcAtpKlkV3iwMWMp7u1JT3Qu4iAI2RMUNW
-	 iZ5CYI41z8jlPI6aNwSeJwkW/tloFtTacmUvqfanLsjjNomrPq23fvwL+NO/IbuJ2NA==
+	t=1792462561;
+	b=4Rjg0WIKkgLjkC5OIVOQu47YgmIFk1C3M9InpwowlY6OEyzafcfkeq+izLSZXRcFYJX4
+	 FvJCxUWB0yISxHUDIbKeE16K+U4GJMq+cjxrwKtPOChYfvE2NnMvo0UJ9fZTkkTJK0WEg
+	 ePhItBalzdL11avXF+N1nUE1htjEq4xxHSvDOPmxurwRiLaLutGz+gwwp8EXzyQM3dvsb
+	 YTub1tfKUOoQZn0sIErPk5U5EJ4JdA/HQ+Xf7bMRGGCgdtBX39+BCBRqmCobgLCjTfgOo
+	 DVsBoQDset+m0Do0LSQToBqkt3tuO5nZDqHanM+vuUTQQR3VnpnpU0mMvK6py6MMVBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792462502;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=H5koWBlEkzUtVRPXaV/v1U0rZzsCMMRJSatrplJvvdI=;
-	b=hRoCKl17vdur6sf9HzFLgXiCITDpxPK8SnwD0EIy2DBfdCLSo/V/c/I/ZseJiNJcWSwb
-	 l3STAlGNd+WEpMmm8oUQr8DqKxOgVUBN2kVvEw/qATmuOsAzu3V+73BOcXw9HyGz3/AAZ
-	 GJ6+Z5Uy8a1QKXr6uIcOZvXbGCRpLis8nBxr18ijKJ7heLppSmkiSpfIWJl0JSrxmKfQP
-	 i9ewFgFrh+aCoHZFHBsyKToqAgzux35nyXPn/yn4d1qzzVi7QvqzoDjmB2XCRjMhIgZuy
-	 IRXCcZd1Z40ZwTQ1w4TRKGf7FPxjbMRIu+pleC6BWkiG/ju79Vw5CPuIjdlsmpYNq+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792462561;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=gtZ8T9izfzsjweeSbfKQJNhM7I6ABBXW3hJHKFzZxaw=;
+	b=TNpuLUiyV0BFy7zQBDGLJ8ljWo4W9h/7l4MNpW2azMyQaQcURqICrSqfgnFWdg/yoCxf
+	 2Lg7sJQE9WA9vk4ft06AJDP26a9cregd8sgCeYSolL0eC+9SfvtI0/AG9R29cCk7Du29R
+	 Qiu+zaww4yQTesMdIEVERZ4IJSGLwk9RaxCfKtbed3kMlc7dp6x3uUmpM8fMLP+CfwHFn
+	 fCiTgZTOkZQ5VB0HQ45KErL4XLR2HeLiIMhGBxyhVE5sBmfobRF6qQiokbv2btAn9nSEr
+	 hzqd2p5qQjYilZxJ6+9jlM8bsQjp+KaBojN1QMmGX5tMyFlaB++oggz/fm2du6qduwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MtTqySqA;
-	arc=none smtp.remote-ip=91.218.175.104
-Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdOM4ow7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D434606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:15:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D434606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3DE606A31A;
+	Tue, 20 Oct 2026 02:16:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MtTqySqA
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RIrheAYm8hykGe22Eq3j94xLVcRIa2q6YiEDm7rvq1I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792462498; v=1; x=1793067298;
- b=MtTqySqABRAkFsDiyocbxlm1d9OrkRuNkd5LlWHji6/bhhwnZuwybc6iZbny2iJF29J8rO84
- k45ctSv0WYakcFKuJ6QKpSoB9ZaSCyoQJdjOji+otlausoKPjDUEChFLZRBH6o0srn03qBWoMlR
- d7AfDngwtMkve4uGwALBDn6U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1bfec103754fcc10;
-	Tue, 20 Oct 2026 02:14:58 +0000
-X-Mizu-Trace-ID: 1bfec103754fcc10
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f8d85b59-971d-4397-a785-b4ab4d301874@linux.dev>
-Date: Tue, 20 Oct 2026 10:14:54 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdOM4ow7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B2471F000C4;
+	Tue, 20 Oct 2026 02:15:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792462560;
+	bh=gtZ8T9izfzsjweeSbfKQJNhM7I6ABBXW3hJHKFzZxaw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cdOM4ow7D+EGkUXgBAs5t7yiU5AoCm5gg6pvm3fYlO7gnLSYVOSV79TkMQvSHdHDx
+	 shwGPw5Zf75SiaNrVRTf4RxCb4W6+fbQM4ZHuSQvzscNsabYGXtfMoWWOInd5TjiUY
+	 NzRgYw49z1+SvYKm+YREc5LUPAgxL/G7gjQxI2U3fo1+FCsHmcKu1+B9A0LcyuPB07
+	 BgDVL/yug6mT2nfP/fE4IvPU0FQNbk66d6i8tmqHNZkGytlwRQLO7V8XPgf6hvAW4R
+	 /sHFMOiK5pjDvBEkH0QnVym9ix3GNb4FlYrw81vWXDYJ1nrx4xG6Rwm1l155UDIV38
+	 4+5u5+jGQz2Gw==
+Subject: Re: [PATCH net] net: hns: retire service work before releasing device
+ resources
+From: netdev-bot+sashiko@kernel.org
+To: mhun512@gmail.com
+Cc: shenjian15@huawei.com, shaojijie@huawei.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, ae878000@gmail.com
+Date: Tue, 20 Oct 2026 02:15:59 +0000
+Message-ID: <179246255949.3135.9443785297870382318@kernel.org>
+In-Reply-To: <20261016020035.3621768-1-mhun512@gmail.com>
+References: <20261016020035.3621768-1-mhun512@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,150 +63,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/shrinker: allocate shrinker_info_unit from a
- dedicated kmem_cache
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
- <david@fromorbit.com>, Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org
-References: <20261019-vstor-144715-shrinker_info_unit-kmem_cache-v3-1-0fb061e09bf4@virtuozzo.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261019-vstor-144715-shrinker_info_unit-kmem_cache-v3-1-0fb061e09bf4@virtuozzo.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
 
-On 10/20/26 12:11 AM, Konstantin Khorenko wrote:
-> shrinker_info_unit holds BITS_PER_LONG atomic_long_t of deferred work
-> plus a one-word bitmap, 520 bytes on 64-bit. kzalloc_node() takes it
-> from kmalloc-1k, so almost half of every unit is padding.
-> 
-> Allocate the units from a cache of their own, sized to the unit. The
-> cache is not cache-line aligned: the counters of a unit already share
-> cache lines between shrinkers, and aligning the unit would only keep
-> neighbouring units off each other's boundary line, at the cost of part
-> of the saving.
-> 
-> Suggested-by: Andrew Morton <akpm@linux-foundation.org>
-> Assisted-by: LLM
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-> ---
-> This is v3 of patch 1/2 of "mm/shrinker: make per-memcg shrinker units
-> cheaper", sent on its own as Andrew asked in the v2 thread.
-> 
-> Patch 2/2 of v1-v2, "mm/shrinker: allocate the per-memcg shrinker units
-> on demand", is not part of this posting. It is the change that makes a
-> memcg pay only for the shrinkers it uses, and it is discussed separately
-> in the v2 thread.
-> 
-> Tested on a 4-CPU, single-node VM with the test from the earlier cover
-> letters: 8000 tmpfs mounts, then 2000 empty memory cgroups. The units
-> move from kmalloc-1k to the new cache, 31 per order-2 slab, and the
-> unreclaimable slab per cgroup goes from 144 KB to 87 KB. Removing the
-> cgroups and dropping the caches returns the cache to its earlier size.
-> 
-> memory.reclaim on a cgroup still frees its objects on 140 ext4
-> superblocks, and cgroups making their first objects while mounts keep
-> raising shrinker_nr_max leave nothing in dmesg, also with
-> slub_debug=FZPU on the cache. selftests/cgroup test_memcontrol passes.
-> test_kmem_memcg_deletion also fails without the patch, by a similar
-> margin.
-> 
-> Changes in v3:
-> - Allocate the unit from a dedicated kmem_cache instead of shrinking it
->    to 63 ids so that it fits kmalloc-512 (Andrew Morton, Muchun Song).
->    New subject, since the unit keeps its size.
-> - Link to v2: https://patch.msgid.link/20261014-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v2-0-51af2aedbe6c@virtuozzo.com
-> 
-> Changes in v2:
-> - Patch 1: check the unit size with BUILD_BUG_ON(!is_power_of_2())
->    in shrinker_unit_alloc() instead of an open-coded static_assert()
->    in the header (Muchun Song).
-> - Link to v1: https://patch.msgid.link/20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-0-5a7608393b7a@virtuozzo.com
-> ---
->   include/linux/memcontrol.h |  1 +
->   mm/memcontrol.c            |  2 ++
->   mm/shrinker.c              | 11 +++++++++--
->   3 files changed, 12 insertions(+), 2 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+- [Medium] hns_nic_service_task() now takes rtnl_lock() on every run of
+  the 1 Hz service work, on every port, around…
 
-Thanks,
-Qi
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it is a
+  reachable kernel BUG.
+- [High] This problem wasn't introduced by this patch, but the remove
+  path still races with an AE-register notifier callback that is already…
 
-> 
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index 7d1c0ce189a88..b5a89594c263c 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -1675,6 +1675,7 @@ static inline u64 mem_cgroup_get_socket_pressure(struct mem_cgroup *memcg)
->   }
->   #endif
->   
-> +void shrinker_unit_cache_init(void);
->   int alloc_shrinker_info(struct mem_cgroup *memcg);
->   void free_shrinker_info(struct mem_cgroup *memcg);
->   void set_shrinker_bit(struct mem_cgroup *memcg, int nid, int shrinker_id);
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 856a7d07586cc..7a817181168ed 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -5717,6 +5717,8 @@ int __init mem_cgroup_init(void)
->   	memcg_pn_cachep = KMEM_CACHE(mem_cgroup_per_node,
->   				     SLAB_PANIC | SLAB_HWCACHE_ALIGN);
->   
-> +	shrinker_unit_cache_init();
+--
+
+net: hns: retire service work before releasing device resources
+
+This patch reorders hns_nic_dev_remove(). It now sets NIC_STATE_REMOVING,
+unregisters the AE notifier, waits for any TX timeout already running, and
+drains the service timer and work before unregister_netdev(). It also takes
+RTNL earlier in hns_nic_reset_subtask() and wraps the link status update in
+hns_nic_service_task() with RTNL.
+
+> diff --git a/drivers/net/ethernet/hisilicon/hns/hns_enet.c b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
+> index e905f10b894e8..977f054b00c31 100644
+> --- a/drivers/net/ethernet/hisilicon/hns/hns_enet.c
+> +++ b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
+
+[ ... ]
+
+> @@ -2058,7 +2059,14 @@ static void hns_nic_service_task(struct work_struct *work)
+>  	struct hnae_handle *h = priv->ae_handle;
+>  
+>  	hns_nic_reset_subtask(priv);
+> -	hns_nic_update_link_status(priv->netdev);
 > +
->   	return 0;
->   }
->   
-> diff --git a/mm/shrinker.c b/mm/shrinker.c
-> index 7ec2a9704f6f2..4fb424e721bca 100644
-> --- a/mm/shrinker.c
-> +++ b/mm/shrinker.c
-> @@ -12,6 +12,12 @@ DEFINE_MUTEX(shrinker_mutex);
->   
->   #ifdef CONFIG_MEMCG
->   static int shrinker_nr_max;
-> +static struct kmem_cache *shrinker_unit_cachep;
-> +
-> +void __init shrinker_unit_cache_init(void)
-> +{
-> +	shrinker_unit_cachep = KMEM_CACHE(shrinker_info_unit, SLAB_PANIC);
-> +}
->   
->   static inline int shrinker_unit_size(int nr_items)
->   {
-> @@ -33,7 +39,7 @@ static inline void shrinker_unit_free(struct shrinker_info *info, int start)
->   		if (!unit[i])
->   			break;
->   
-> -		kfree(unit[i]);
-> +		kmem_cache_free(shrinker_unit_cachep, unit[i]);
->   		unit[i] = NULL;
->   	}
->   }
-> @@ -47,7 +53,8 @@ static inline int shrinker_unit_alloc(struct shrinker_info *new,
->   	int i;
->   
->   	for (i = start; i < nr; i++) {
-> -		unit = kzalloc_node(sizeof(*unit), GFP_KERNEL, nid);
-> +		unit = kmem_cache_alloc_node(shrinker_unit_cachep,
-> +					     GFP_KERNEL | __GFP_ZERO, nid);
->   		if (!unit) {
->   			shrinker_unit_free(new, start);
->   			return -ENOMEM;
-> 
-> ---
-> base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
-> change-id: 20261016-vstor-144715-shrinker_info_unit-kmem_cache-69ea3f78b635
-> 
-> Best regards,
-> --
-> Konstantin Khorenko <khorenko@virtuozzo.com>
-> 
+> +	rtnl_lock();
+> +	/* Keep linkwatch events within the netdev's registered lifetime. */
+> +	if (!test_bit(NIC_STATE_DOWN, &priv->state) &&
+> +	    !test_bit(NIC_STATE_REMOVING, &priv->state))
+> +		hns_nic_update_link_status(priv->netdev);
+> +	rtnl_unlock();
 
+[Severity: Medium]
+Can this hold the global RTNL mutex for 200 ms or more on every service
+cycle?
+
+hns_nic_service_timer() re-arms every SERVICE_TIMER_HZ and schedules this
+work. That means every port now takes RTNL once a second. Before this
+patch, RTNL was only taken when NIC_STATE2_RESET_REQUESTED was set.
+
+On a port where h->phy_dev is set and the PHY mode is
+PHY_INTERFACE_MODE_XGMII, the locked section runs genphy_read_status()
+and then hns_nic_adjust_link():
+
+hns_nic_adjust_link() {
+    ...
+		if (h->dev->ops->need_adjust_link(h, ndev->phydev->speed,
+						  ndev->phydev->duplex)) {
+			...
+			netif_carrier_off(ndev);
+			msleep(200);
+			h->dev->ops->adjust_link(h, ndev->phydev->speed,
+						 ndev->phydev->duplex);
+    ...
+}
+
+On XGMAC ports, hns_xgmac_config() never sets mac_drv->need_adjust_link,
+so hns_mac_need_adjust_link() always returns true:
+
+hns_mac_need_adjust_link() {
+    ...
+	if (mac_ctrl_drv->need_adjust_link)
+		return mac_ctrl_drv->need_adjust_link(mac_ctrl_drv,
+			(enum mac_speed)speed, duplex);
+	else
+		return true;
+}
+
+So with the link up, msleep(200) runs under RTNL on every cycle. On AE v2,
+hns_ae_adjust_link() also calls hns_ae_wait_flow_down(). This blocks
+rtnetlink and every other RTNL user system-wide, and the delay adds up
+across ports.
+
+Is RTNL needed here for the reason given in the comment?
+hns_nic_dev_remove() now sets NIC_STATE_REMOVING and calls
+timer_shutdown_sync() and cancel_work_sync() before unregister_netdev().
+Any running worker therefore finishes while the netdev is still
+registered. The lock seems to add only serialization of the
+NIC_STATE_DOWN check against ndo_stop.
+
+[ ... ]
+
+> @@ -2398,6 +2406,21 @@ static void hns_nic_dev_remove(struct platform_device *pdev)
+>  	struct net_device *ndev = platform_get_drvdata(pdev);
+>  	struct hns_nic_priv *priv = netdev_priv(ndev);
+>  
+> +	set_bit(NIC_STATE_REMOVING, &priv->state);
+> +	if (priv->notifier_block.notifier_call)
+> +		hnae_unregister_notifier(&priv->notifier_block);
+> +	priv->notifier_block.notifier_call = NULL;
+
+[Severity: High]
+This is a pre-existing issue, but can hns_nic_dev_remove() still race with
+an hns_nic_notifier_action() callback that is already running?
+
+ae_chain is a RAW_NOTIFIER_HEAD. DSAF probe walks it with no lock:
+
+hnae_ae_register() {
+    ...
+	ret = raw_notifier_call_chain(&ae_chain, HNAE_AE_REGISTER, NULL);
+    ...
+}
+
+hnae_unregister_notifier() only calls raw_notifier_chain_unregister().
+That unlinks the entry but does not wait for a callback that is already
+running. DSAF probe and enet remove run under different device locks, so
+nothing orders them.
+
+Suppose the callback is inside hns_nic_try_get_ae() when remove starts:
+
+CPU1 (DSAF probe)
+hnae_ae_register()
+  raw_notifier_call_chain()
+    hns_nic_notifier_action()
+      hns_nic_try_get_ae()
+        hnae_get_handle()
+        hns_nic_init_ring_data()
+        register_netdev()
+
+CPU2 (enet unbind)
+hns_nic_dev_remove()
+  set_bit(NIC_STATE_REMOVING, ...)
+  hnae_unregister_notifier()
+  timer_shutdown_sync() / cancel_work_sync()
+  reg_state still NETREG_UNINITIALIZED -> skips unregister_netdev()
+  ring_data still NULL -> skips hns_nic_uninit_ring_data()
+  ae_handle still NULL -> skips hnae_put_handle()
+  free_netdev()
+
+Could free_netdev() then free a netdev that is partway through
+registration? That would leak the handle, the module and cls_dev
+references, and ring_data. The callback and remove could also both
+release the handle at the same time.
+
+After hns_nic_try_get_ae() returns, the callback also writes to priv:
+
+	if (!hns_nic_try_get_ae(priv->netdev)) {
+		hnae_unregister_notifier(&priv->notifier_block);
+		priv->notifier_block.notifier_call = NULL;
+	}
+
+That write would land in freed memory, and the chain walk may then read
+nb->next from the freed priv.
+
+hns_nic_notifier_action() never checks NIC_STATE_REMOVING. Moving the
+notifier unregistration to the top of remove makes the window smaller but
+does not seem to close it.
+
+> +
+> +	/* Join a TX timeout that passed the REMOVING check before work drain. */
+> +	if (ndev->reg_state != NETREG_UNINITIALIZED) {
+> +		netif_tx_lock_bh(ndev);
+> +		netif_tx_unlock_bh(ndev);
+> +	}
+> +
+> +	/* Stop the timer and drain work before ndo_stop touches the hardware. */
+> +	timer_shutdown_sync(&priv->service_timer);
+> +	cancel_work_sync(&priv->service_task);
+> +
+>  	if (ndev->reg_state != NETREG_UNINITIALIZED)
+>  		unregister_netdev(ndev);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is
+reg_state != NETREG_UNINITIALIZED the right test for unregister_netdev()?
+The patch uses the same test for the new netif_tx_lock_bh() barrier. The
+barrier itself is harmless, because alloc_netdev allocated the TX queues.
+
+If register_netdevice() fails in netdev_register_kobject(), reg_state is
+left as NETREG_UNREGISTERED:
+
+net/core/dev.c:register_netdevice() {
+    ...
+	ret = netdev_register_kobject(dev);
+
+	netdev_lock(dev);
+	WRITE_ONCE(dev->reg_state, ret ? NETREG_UNREGISTERED : NETREG_REGISTERED);
+	netdev_unlock(dev);
+
+	if (ret)
+		goto err_uninit_notify;
+    ...
+}
+
+A NETDEV_REGISTER notifier veto also ends in NETREG_UNREGISTERED once
+netdev_run_todo() runs.
+
+hns_nic_try_get_ae() handles this as an ordinary failure through
+out_reg_ndev_fail. hns_nic_dev_probe() then registers the AE notifier and
+returns 0, so the driver stays bound. On a later unbind or rmmod:
+
+hns_nic_dev_remove()
+  unregister_netdev()
+    ...
+      unregister_netdevice_many_notify()
+        BUG_ON(dev->reg_state != NETREG_REGISTERED);
+
+Should both guards test reg_state == NETREG_REGISTERED instead?
+
+There is a related case. If the AE notifier, which is still registered,
+fires later, hns_nic_try_get_ae() calls register_netdev() again on the
+same device. register_netdevice() would then hit:
+
+	BUG_ON(dev->reg_state != NETREG_UNINITIALIZED);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016020035.3621768-1-mhun512%40gmail.com
