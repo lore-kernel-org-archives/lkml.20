@@ -1,71 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.202
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493543;
-	b=3tr7nLwk5keyux3by0JUQU7/K5/zpmXUnKfgWMdyl6phhofSJzhMah5IwFfo5enNTvvF
-	 nNjxiBL5rwans3v2u1yOGCLyyayB48aHr/T6olTPXtevkSUts8pMiIFYwA485KnvBJOqB
-	 xMITCC/ifcCAJ9ZuAc0Hr0bDegHpdw27/+JoDNuDUK3usfW6jlued4YX/agvJ0r1FMoFw
-	 F9ZqbzeLccXG2NxtitqRWtqR0mPPBzss5tVTGtHMoBoJ1us1zPr/3+Q6kbq0NpPM9ArFQ
-	 o9AS3AKXzi0kUOPOtniCJDWz+oPoKYBQ2Vj/dm5M/jLdTljGrYh1o22xMUBVgu5Prww==
+	t=1792493591;
+	b=3HZY7AHkiaWc4HJP4pWj+hoVvKDWOCUVL05pR5rh9vIcC3fUGfXo8VPaqVCyKJN4C50H
+	 uP7aIzf5aSjZ5eRdHpJj0/HlOd1NFAtMtQWcrnzHtstKXBFGAEK1Vfb23Q9KPc7KlUN+6
+	 jxrRRKqX6pgHenA3JYTz++6m1kW7K7H9yV2OXYYFpm/Y0ZaXoNYzTR9j4XxI8+W9hVlxH
+	 Ap/+E3ArgShoXTVVxb9r4icFmWnmAaUjHGcZMPnuYBYi3YaRDtpoduFv8OwrfOk0mWdW3
+	 D667MmGHIgwxAVSRkROvC2HX9l8/bPrCGFxq2zUK+B8dzkP/aRNYc4xNtH9oC67NnpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493543;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZHZs513fUIH8Uh9joScZ6/li+ZcM7NQZlH6DFjNrec4=;
-	b=QUnP0/P+ADZJFlZsTnDTeDq9QsOj9ix62bzcknfk4Hpelf4n6VD4T3C2uFSIlbhpQau7
-	 eSP4sHEyu8Ex2eTE/48eJdf8eGFf8O25VnNCv1d3+Aab/XvmjPty6oQRpZv3HKgO2yFyw
-	 AXe/Bf36t6NUT6VfncuCFqDRf2YZF8T1J6HQhVFnDmVnLSVNqnVTjgd5U47aOIkxOxvax
-	 xomTlF6+tMscsAeo/upwiesbeWQOlucW5YUrVkS4fM6uOtzi/Gcch/+ORhkNeS0vPJd+P
-	 PId+eMn7GdvqaZyuhPDhfGS75WvKO2gbqrIpdWnSE3ZqIInVigF2lSDPhjSzUwmy/EA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493591;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=WMV8ofDDxBNdTwSP1aYc+u/HWDgqRDgvwAh8onkk2KY=;
+	b=1pH9aVSsYr3kEcU8nPhpIYc6HrASYOfMLHtB/0hFktCe1f3X9MfMn3vzDe0pgKUyVJps
+	 uMSyeRVSSvCqfjou34SDqBU1Aus+3OkA3fG5x8vAq50Bl5LwwORyFGkfcTxWZnIhgJeIu
+	 3fg3F+EBvev3MqX9Ip5ZZkwHK2iRHv3YMfKumNsai+kfHi+xaobyXqjfjZSec4eV6UbUe
+	 zcgVUqtFLNphmq1cVjk9oZrDdbrLrUa7WtowpP3gE4vRbdbkSgDtZ+2lOZn3G1ESd32+8
+	 9SvCD/eECSwwQceqyAmVbfbXt8zfGQZwp+o+pQq9xKrA18hE6LsYgHgPtJ2QydFJlDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FHHMHqTc;
-	arc=none smtp.remote-ip=203.205.221.202
-Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a09MkyTY;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PwApjBuH;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10E2606A32C;
-	Tue, 20 Oct 2026 10:52:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A10E2606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1CD606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:53:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B1CD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FHHMHqTc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792493539; bh=ZHZs513fUIH8Uh9joScZ6/li+ZcM7NQZlH6DFjNrec4=;
-	h=From:To:Cc:Subject:Date;
-	b=FHHMHqTc1K0mCfLO5Q+LueN+bAa65w8XhaI604sqByc9TLD8mmccWUZjj1OUI/Bxq
-	 XakUSdR+FkOPIrNjHVaacRB3oLcIcCCqdaDmLm307yMzvN+dZo6FeIu8XK51sp5ihj
-	 /qpPVjL9VeBu17tXboLOHSFZ7FfjdrW+uJ8Qp1dk=
-Received: from [172.18.4.77] ([61.136.26.103])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id D11BFAC6; Tue, 20 Oct 2026 18:52:17 +0800
-X-QQ-mid: xmsmtpt1792493537t9gdwfo3y
-Message-ID: <tencent_EC9DEFBD1157A73B5394A8051F96A8EE5407@qq.com>
-X-QQ-XMAILINFO: OATpkVjS499uhmQXXZDmt6BBCcw6fGYvSk87KgIqABlqe4Wz0JLsntHAGFW5jo
-	 8iq/PcSgyU7AfTo3mN5MKPJ4f6g65c1W0PMkrtjZQ+1wc6l6BhEug1AU+J9BUZLuwVPHu2YU5bO2
-	 doiIo8WVRLPJUXFZmm17aKZQf/nl8IyKZVCOh6iUL2NG53xa6614BKqQ6P0zHgjnAP/HyAzH5KgR
-	 OM5VPxnkuQVEWk93pgIcxnnnS4RCzBS1R/TKvT0wSk+Od6xtFEhpbKzScFxvGlA3kzK8E+Mk9N6T
-	 cissvt1oGVQ2E8QkiIK8ukHqD+Bdl03xvLvk4hX73NL3w4uBuIJy0vG13h6mZhqnHfgi2c4AyobW
-	 OftSa8MiK5Of23Pq/SWIERp7dRrVujFXxLlo6ITmPpkepoVLY4RMhdd2Xk2+QvJBQwBTnPCJl9m0
-	 yB1BrYOJhvQGXWrBQsPTIRge+68O/D3NiZBi+LdlGakpiv0sUHMaZfqL33vMU/XGghMk2om/WYBE
-	 f2xY/SbgBxRp+zl3TCPIzUnucaUAG5tAGhSeeq4ABiVMIsYs4AHgksG2ZdE18mW9sAI+FBNB5IZP
-	 o63YGVUAC6eg0vEAhjnj13wB0BZpoxFy7STnnVlbXJhbPnse/aHTgOr7kWuS7bphS08EufTVDtrZ
-	 czn49GRLjcDdiaPgGfgxbNe79JmtUe6IbU14LX3iuIVhwqdfMkoimfvNLw3JUD8xfS1Cw6SGJCK8
-	 okfWJMSEBozMxiHc03Cctt97zLDYS1nHM16oMII3e2UIMROfPFiwzjak9oFS+9WbNlunlw7yJU5U
-	 eKLGeIrn5cynsukDl6Zkx3JiLwEhhCOb9Uz8HJD2X+qFVs0VEkbeCOEJ07wraHN/48gRK8vqbdZh
-	 aEWF21V7uy2C1+KUH1YCNhoOPX82LB/ze9Y+aFt87mx2RVqf4vpTvaz666TBzWGPWezEGZnolxR5
-	 PI/DzHaeA0qzNozbZCB79N9oT40epcgDR9uC0jxdR25hUjYF06qGXuJ8TUUJZizh4DslAyOc2FsG
-	 7gP6fvDx7SBlW4eW7BwJeBwes2mlgnsO74MpRnT8T/VTs0FD22tFFXgkxqkEdD0j4JjcOHHkmXrH
-	 qgzY44
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND] fs/ntfs3: fix log replay index walkers running past the entry chain
-Date: Tue, 20 Oct 2026 18:52:16 +0800
-X-OQ-MSGID: <20261020185216.37136-ntfs3-yangguikun19@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a09MkyTY;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PwApjBuH
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K7xCb53806921
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:53:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WMV8ofDDxBNdTwSP1aYc+u/HWDgqRDgvwAh8onkk2KY=; b=a09MkyTYoekj80La
+	KfCkZdaIGY+uH9MenW+CzrmFFSde2y4GGW4aeHQUJo+RwLoaVDRS83MAuv1XMLR3
+	MPcxLLJT5vp/qcrWPLSiWImyOe9lCbtEuDnRarXUZLsj0aVgur8e1M+neH3tk96/
+	kMj5Z+jl5rB4C2pLqEJ2rjVyKFm086ZyBysnlYRWnZFQoL6w9tAF9Mv2UP5/xX7G
+	AjJne7QZJdDkxwRPEO2GTmwjUkPCCkpFXzBuqaQ7LCdAqehqv6NJrzCnLCOC9KmN
+	w4UNa+htDoxj617ourxVqPKG7ssNhD4KuyPecGA7/naSI1m2jIZJpDzbUgcuWGVw
+	I8YwWw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5pa5a0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:53:09 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93edac58b24so99110485a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:53:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792493589; x=1793098389; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WMV8ofDDxBNdTwSP1aYc+u/HWDgqRDgvwAh8onkk2KY=;
+        b=PwApjBuHbaNbfFudvRQK1a0ttxkBWV/gnIigTlCLcTOIxbj8hZQIAofI7/PTwHuQTp
+         i9cPChv/PQP1kQRlxg0XrzYFKkiSWrktI6FU+az4dTNvB3gHjTUxwI7UxJTWxFQv7crp
+         taccO6jxr4T1EbCiyL8zRwaOyfTiGFIVcsHT+lNuHmEe91XoUWPYbcjcxbVjFIkgM63S
+         gd5juuWGPxVaYvVkyzb9N8ADYLk6ek6Qzq269k7ya5AA8+wyldPIAiTFSuzOIwpy4Wqa
+         X4S3xZneZ2payTw0sdgKsNS5Wj08TXQo+yUirRmXTWoarYz37hxK7W2gSXUtC3Tu20sk
+         yZLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792493589; x=1793098389;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WMV8ofDDxBNdTwSP1aYc+u/HWDgqRDgvwAh8onkk2KY=;
+        b=eZOMe6IJursC6bzM3tlu2i5U4Xi5RzW/jfErXor8RVwkAcEaYYSRAq7c7dH3/OzenM
+         90PwZxtHjSWaMmb8qE9Qg08m5+i2K4bU0NHdBX0ZN3dD1qhhHqZUpj6fwfwzMROla/fn
+         +Foi7dbg4QKrJIvPIuQKFeNVk5YH5yXRuz58fWH9MIJg1sKt3RDxrItQgWrCWMVIFbmv
+         OuLsFsylCsjDfbakDaUM1oKnlb+2PaK4jQVq+6W8qXIwBifTypRpyjpH0d1/WidejAI2
+         D5NgI6imzpnbDPJCqclUPCMrnAlRCiqKS3szdnWSSM80Mc00iey0kZeJvz6mkbt5KoHk
+         9hTA==
+X-Forwarded-Encrypted: i=1; AKwUvBw7zzby7oOqihyIEI1QiYHCToU3Ef15lNrIAV+G+5WnB9b/RBox+sJAUmBxdQYfoaBL7gYYcCP7EsfgO2A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLO/+05L9oWZ9IOl05IY3ZzOcP9GcpvbEENuKwswtZ7C+/Lepw6
+	NKGaMBdnvqfu4zrCn9EyyIdA4JQy7V2htAwywc5gt0jVSD/MDur0gMk2NntxgvpqvpV+uiBqLgk
+	8ZrS30bnLJBfP9oKaoIiDlRMlbGqbdNf35ILZ/6xdwbV+nvHcrWpF1QCzitmUhqm0HxE=
+X-Gm-Gg: AYBFou095H6rZXkar3FQyuCOxs25GPkqqm1W9RMOhp9dVYobVKvuW+cPfmT711rRlcJ
+	r7suZ/pQz+WOl3eauZ0qz7FXTs/1KQg8BtpyZAsZsNmHHrKYWVUjqkjg1KTX8jL1QCzStn7PdQ4
+	ljcF24Sf6iWTeqi3k2J1iV9/bw+M54q+YtGLWeAX+VCkVbaZx5wpNQz5oxgjVapCW+WWpPJTXPT
+	NxAwTaYgG246eMkMzdrl3Ot95e5ldibxeNfkDjTxTsP932sKFFgclRvCuIU/ZKJB3brMPIVwvGe
+	ps1r70St/XaHmUAW3j5xcniHVpriUeo40oz6jEctNvd2emmkXxCC09/EFOoJJoQL+a/93MJIlSq
+	S467yLjDRhzZd8kZ6PU3qhA==
+X-Received: by 2002:a05:620a:2602:b0:93f:25c7:a4e7 with SMTP id af79cd13be357-93f29d3b758mr1946131585a.4.1792493588665;
+        Tue, 20 Oct 2026 03:53:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:2602:b0:93f:25c7:a4e7 with SMTP id af79cd13be357-93f29d3b758mr1946128385a.4.1792493588199;
+        Tue, 20 Oct 2026 03:53:08 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1335d3sm5239663a12.3.2026.10.20.03.53.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 03:53:06 -0700 (PDT)
+Message-ID: <69210508-5b08-4199-8d98-67685c8e90d5@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 12:53:03 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,127 +115,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 5/6] phy: qcom: snps-femto-v2: Move PHY init registers
+ to config tables
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>,
+        Philipp Zabel <pza@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261009-phy-v6-0-50408e45bcc1@oss.qualcomm.com>
+ <20261009-phy-v6-5-50408e45bcc1@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261009-phy-v6-5-50408e45bcc1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: nN4c8zbk3_FiyshB9Kp2eCSE_xFV5DCG
+X-Authority-Analysis: v=2.4 cv=fb84WEQF c=1 sm=1 tr=0 ts=6ad74815 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=lPcTt8mPJekVWdHiCMEA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0MyBTYWx0ZWRfX7MsR4Cb7Xhm4
+ O3yAvthZum5Oz3biEwCjN+9grXam6SAaT55rq11ZliEPifQsqXd3YPSvyesG1ZB9gCk9lIny/1T
+ TkygNRObuR0kz4TuHGMSRqBMTF8M5jxQJfB1zFGZLqDW9UueSHewqE181xbMJwLV4g7Ut1aOSmT
+ 9boIkmRB6S/hPl5WvHI3jEBXRGHjLe8y79aEwhrzbbqBPbRBBChkh5EyxDFDZU+Vrv0vSnf4+PF
+ ZGxbc4C33+i3N5dQkVa0AmSMc5psmMzNk3uSJS1AvvSs9yFTpJ8549NIehAzRpqU3WX6JMsHhXV
+ 8AawUhXamoZwwVEfCNP7+wY1TlbC8lWGYD/RPkwuV2cz/zVnofv/azw/DB3xnuKgpVLcjCpEbJp
+ AdbsaONyJCyvcTexCuHS7yKGYYJ86xUewaIswXYVuOAvV5gyAONuIKtwCcEGUVwLU1OFzQC8R0Z
+ Wx3unQJoC8/0pDUYYRg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0MyBTYWx0ZWRfX9QBKw0GjYsHx
+ myJZIuqDPqHn+b30/Ny3/i0zpcCpbZAz/A4lp7BtDA0BJDEHYKJaI8CNxaua/mw/0ynaLNUcWIp
+ zIemRqkNzT30AVry5Fci8zP3p++rAYQ=
+X-Proofpoint-ORIG-GUID: nN4c8zbk3_FiyshB9Kp2eCSE_xFV5DCG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ phishscore=0 clxscore=1015 bulkscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200043
 
-check_if_root_index() and check_if_alloc_index() walk the directory
-entry chain of an index header until the walk offset reaches
-lrh->attr_off.  They only re-check the buffer boundary at the top of
-each iteration, and they do not stop at the NTFS_IE_LAST entry that
-check_index_header() treats as the end of the validated chain.
+On 10/9/26 6:49 AM, Varadarajan Narayanan wrote:
+> The driver currently programs the common PHY register sequence directly in
+> qcom_snps_hsphy_init(), with the fixed register writes split around the
+> override parameter handling. This makes it hard to support SoCs that need a
+> different sequence or different values.
+> 
+> Move the fixed pre- and post-override register programming into per-
+> compatible configuration tables, and keep the 7 nm override parameters in
+> the same match-data structure. This allows the driver to share the common
+> sequence while adding SoC-specific sequences for future platforms such as
+> IPQ9650.
+> 
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> ---
 
-The gap between the end of the validated chain and hdr->used is inside
-the buffer but is never validated as directory entries.  A crafted
-$LogFile can place a size field there that jumps the walk straight to
-an attr_off far outside the buffer, and the walker then reports
-success.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The callers treat that result as "attr_off names a valid entry":
-
-  - SetIndexEntryVcnRoot/Allocation write the 8-byte log payload at
-    attr/ib + attr_off,
-  - AddIndexEntry* compute PtrOffset(e1, hdr + used) with e1 beyond
-    that point, which underflows to a huge length,
-  - Update/DeleteIndexEntry* read entry fields at the same offset.
-
-Mounting such an image read-write therefore performs an out-of-bounds
-write of controlled data at a controlled offset while replaying the
-log.
-
-Observed on v6.6.12 with KASAN (kasan_multi_shot=1), mounting the
-crafted image read-write:
-
-  BUG: KASAN: slab-out-of-bounds in log_replay+0x9744/0xe850
-  Write of size 8 at addr ffff88804b097f40 by task mount/8065
-  Call Trace:
-   kasan_report
-   log_replay
-   ntfs_loadlog_and_replay
-   ntfs_fill_super
-
-  The buggy address belongs to the object at ffff88804b097f00
-   which belongs to the cache kmalloc-64 of size 64
-  The buggy address is located 0 bytes to the right of
-   allocated 64-byte region [ffff88804b097f00, ffff88804b097f40)
-
-  Allocated by task 8065:
-   kmemdup
-   log_replay+0x55bf/0xe850
-
-The write repeats at consecutive addresses while the same log record
-is replayed; 54 reports were collected in a single mount.  Without
-KASAN there is no message and the mount appears to succeed.
-
-Stop the walk at the NTFS_IE_LAST entry so the landing offset can no
-longer be driven past the end of the validated chain.
-
-Tested on v6.6.12 and on a v7.3-rc5 based linux-next tree, both with
-KASAN: with the crafted image the unpatched kernel reports
-slab-out-of-bounds (write of size 8) during mount, while the patched
-kernel rejects the record ("failed to replay log file. Can't mount
-rw!") and no KASAN report is produced.  An ordinary NTFS image still
-mounts read-write, accepts writes and is readable after remount.
-
-The image is 63 MiB (197 KiB gzipped).  I can send it if you want to
-reproduce it, or it can be regenerated: the crafted image only rewrites
-the root directory index record and the $LogFile restart area of a stock
-NTFS volume created with mkntfs -s 512 -c 4096.
-
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guikun Yang <yangguikun19@qq.com>
----
- fs/ntfs3/fslog.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -2956,6 +2956,7 @@ static inline bool check_if_root_index(const struct ATTRIB *attr,
- 
- 	while (o < ao) {
- 		u16 esize;
-+		bool last;
- 
- 		if (o >= asize)
- 			break;
-@@ -2964,8 +2965,13 @@ static inline bool check_if_root_index(const struct ATTRIB *attr,
- 		if (!esize)
- 			break;
- 
-+		last = de_is_last(e);
-+
- 		o += esize;
- 		e = Add2Ptr(e, esize);
-+
-+		if (last)
-+			break;
- 	}
- 
- 	return o == ao;
-@@ -2981,6 +2987,7 @@ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
- 
- 	while (o < attr_off) {
- 		u16 esize;
-+		bool last;
- 
- 		if (de_off >= used)
- 			break;
-@@ -2989,9 +2996,14 @@ static inline bool check_if_alloc_index(const struct INDEX_HDR *hdr,
- 		if (!esize)
- 			break;
- 
-+		last = de_is_last(e);
-+
- 		o += esize;
- 		de_off += esize;
- 		e = Add2Ptr(e, esize);
-+
-+		if (last)
-+			break;
- 	}
- 
- 	return o == attr_off;
--- 
-2.39.5
-
+Konrad
