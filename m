@@ -1,70 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504473;
-	b=HlZ5vxylP3B/LtcCQCf2X65E7cDZKWz+hN8Tf6u0R3LceufcUpc9a/RjPdHPm6GBZM1w
-	 qxOEMPt3a+WCGmS/FTLOE3M91V3qNonnQP8dqyl4hbo3DfwOQ2DVQt6wYdKEGzcWWc9Bt
-	 k6x5CVZPdbSGZ6YtWvpdV75+ol/UPRbQqi5CJqXxOi53F08TgRtv3kFnnICgWJ2arFLLc
-	 kul65X8inbSdIT/3rXCFpt6tS0t6HweVMzQ3gBTkT3JH3ixO9lkrksL8cSjWhMt9Hmd1Y
-	 VJgO8E+235F80XXiFTbnRuC6rX+7UgVLR1ax3AHu9BHP0uDkLMyiqRkntZiM8rkrs0Q==
+	t=1792504491;
+	b=OXUZUIlnsk0bDM6qX7uxi2B/qefOW6kc6+U68Ol2nE5LOn2A+h2wLPzbIgo8dHDjpr09
+	 IJ38HF6k4cmaoLq6RkIbrHzq8Qpfb8tbKCq+QEg1WZ88W76VBfICc4i6aV/od4/yRSMo2
+	 kkFwxNJ1Vs+DO0bV8c0sxN76q1ZiQQ67cA7tlrWi/8ssz60XwcqwvWejgnpStnxIaEKZ6
+	 DU0kEgMCSV7ts0aZp5jAe6SN8QU2GD+O4ERjYhdgdWRWBj1bTsDpm3elYrP9ppuCyeG+/
+	 Pe5u4NmGjoK59dF2CcarmvXBomggiSHeJdnkb29Z+JstYLRtYuqxyv6kQep9wdSZt6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504473;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9NiJBWOVUY/UQOLimlz5QAPWwsmY3B5JWfVlvXL3BvE=;
-	b=JlNZjRQnlQWS5MegldLEcIVTBUrCccJDA1vwP18/IMUH2KBkmfsZ0UN9+OYkKMaaE3i4
-	 bNCsBbtpEdmQQlSYVUwwEEyZteOWUddO2eFonIJMhPoScos4tmC7PeQeONsRWz/eeNRiO
-	 vDWizInUwRllJUSzlecYVbrzcwNbOUfDbiFrBkTEHOv8wFWWJas/rf2mQq7feU42YA/qd
-	 q7PtREukFp8u0jx3ToAGQKsZXZQpAE3k6N0FKpfh+DSzXmanxt+JJ7JUS/NfF4XDWntEZ
-	 kcV1w/9SIlVjOkMTio//g3CNeu2l6jEMhgzhFgB2Pv/NTzbkdgRj9DdD6tdRoZCluBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504491;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=0T3CF+lNulPhOQdmQA356bFW0iY3IjfuUFpfux3LREY=;
+	b=3Iy+hK7tz/uezK1i2TSL3ahiQkbiw7TmociconOvYHzJkjsabc6mWijunBqqrAKPhGiF
+	 Jubrxmx/UHLRMdsWV151Q0Jt8gheAroX8JOZoTf8F6C59XPu2IOaVPED0LN0PJo24MfQC
+	 HGPSjp77NqHUpdbiY4hKPYa/inv3UIxjn4G3iwEtmycIAfJb1H+sOTQw/1Em4qaKT2/Nu
+	 /jdbjLvGbWWZ84CIPYoxsCavHuvrjrtJfUc4xTg3zqmzAJnARORBM6yKY+YTw/XFIoezU
+	 PTz/oqiIMaMj/Nmmpg/+wcVSpkZHdxOyFBy9wbYQJ4iRNXV/QkEvkykicF3vp/m+NKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nB7h357t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HpS+yzTC;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="t/XQHvNd";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7D9606B651;
-	Tue, 20 Oct 2026 13:54:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73620606AB0C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:54:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73620606AB0C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nB7h357t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0542F1F000C4;
-	Tue, 20 Oct 2026 13:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792504472;
-	bh=9NiJBWOVUY/UQOLimlz5QAPWwsmY3B5JWfVlvXL3BvE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nB7h357tTG/rkHYHKsaYIWHcDdBw3QJj1x7Gwo2qoEgclLJvV1WHBh8vRj/2v1Blg
-	 dJrX6DhvN0IQu1Ic8hhqhNbsQccSwMXMP6C5bGEpidcoLB3LPG5XEWpVIUpg4yfL6i
-	 3ncMSUxUMOeXhqK6LqvdNOOJ+IW4dYKR+cfUExzI28/m0XE6xzYKOuh/B9XBWhqST4
-	 lqj/TcQeqj9gHIhnvH2A9iySHuoN/4seaECx8Bswq2l/TDcBaaEGJItvKeSG+ilghU
-	 e27uk7FJ3+WEVDrSJHKEpmIgBIu70Xl0u7zXvN+ilBewE0Zz/lRxd0D29A9yzuPrZg
-	 CND3spyhoBkVw==
-From: Sasha Levin <sashal@kernel.org>
-To: Thorsten Leemhuis <linux@leemhuis.info>
-Cc: workflows@vger.kernel.org,
-	ksummit@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Kees Cook <kees@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Dan Carpenter <error27@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH v3 2/7] docs: submitting-patches: say which commit a Fixes tag names
-Date: Tue, 20 Oct 2026 09:54:29 -0400
-Message-ID: <20261020135429.3340755-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <bcef59f8-33fe-4bbe-8429-307630dc6bb5@leemhuis.info>
-References: <20261016152828.3765695-1-sashal@kernel.org> <20261016152828.3765695-3-sashal@kernel.org> <bcef59f8-33fe-4bbe-8429-307630dc6bb5@leemhuis.info>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HpS+yzTC;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=t/XQHvNd
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792504488;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0T3CF+lNulPhOQdmQA356bFW0iY3IjfuUFpfux3LREY=;
+	b=HpS+yzTC0pvWL4slLEPOAZc5nEcSfJxiNoCeslJuhhdLD/YOzAOmjbqs9vLhDfmDRK9eVj
+	l++7OFgdAMB9cSmlf6BjQ3U0oiDnN/YubKqcNRPX3pEGBxnX6QjuVNBWLekEOWC6C3pwnx
+	4WHzqxFeWclR0sdyDDR8bQknzJJKyV/TlzFc2x5QfGqwef4N61/qU4H6WvV5rEjaDgC6xp
+	TI0ZjPEytsYNHVijyreZVIADKF2J60RWZW8hzX9R7oomiJyqsmc9IM+TZGkzmG8IsslneK
+	w2HQdXOUR18ssgeolfB5FifW1kgE9nHuj034lUcJjaMrRU9ibjGplPeV8y5J5g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792504488;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0T3CF+lNulPhOQdmQA356bFW0iY3IjfuUFpfux3LREY=;
+	b=t/XQHvNdwrt5Km9Qjr6JMl+2YltoHG+bg3U3AHR+f1BWTYzHvMXa7rcRYHT5xv0Lh+DzPv
+	UVHj48WHPrJcjyDw==
+To: Peter Zijlstra <peterz@infradead.org>, Jiakai Xu
+ <xujiakai24@mails.ucas.ac.cn>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
+ <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben
+ Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin
+ Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/mmcid: Bound the CID allocation busy wait
+In-Reply-To: <877bjiem45.ffs@fw13>
+References: <20260918013454.1850369-1-xujiakai24@mails.ucas.ac.cn>
+ <20260918104349.GL776954@noisy.programming.kicks-ass.net>
+ <877bjiem45.ffs@fw13>
+Date: Tue, 20 Oct 2026 15:54:47 +0200
+Message-ID: <87mrs8bhp4.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,42 +79,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Sat, Oct 17, 2026 at 10:07:36AM +0200, Thorsten Leemhuis wrote:
->How about this instead:
+On Thu, Oct 15 2026 at 22:37, Thomas Gleixner wrote:
+> On Fri, Sep 18 2026 at 12:43, Peter Zijlstra wrote:
+> The stall makes no sense because mm_get_cid() is invoked from:
 >
->"""
->Name the commit that introduced the bug in the first place; hence, when
->using ``git blame`` to find it, ensure to not settle on changes that
->just moved the code. If the bug was introduced by more than one commit,
->add Fixes: tags for each. If some change according to ``git bisect``
->exposed a formerly hidden bug, add a Fixes: tag for that change, too. Do
->not add tags for commits that are only suspected.
->"""
-[...]
->* After thinking about our recent discussion some more, I think the
->Fixes: tag for a change that exposed a bug should be mandatory.
+>   10967                 /* First user ? */
+>   10968                 if (!mm->mm_cid.users) {
+>   10969                         sched_mm_cid_add_user(t, mm);
+>   10970                         t->mm_cid.cid = mm_get_cid(mm);
+>
+> which means this is the first CID user on the MM. So how can the bitmap
+> be exhausted?
+>
+> I have a suspicion but it does not add up (yet).
+>
+> This is a two CPU VM. Assume that the process which invokes execve() has
+> more than two threads. That means the MMCID of the process is in per CPU
+> mode. sched_mm_cid_exit() ignores a mode change when the last user goes
+> away and with two CPUs the threshold to switch back is when the user
+> count goes below _ONE_. So there is probably stale state there, but the
+> last outgoing task should have reclaimed the per CPU CID and dropped it,
+> but the other CPU still has it assigned to it. So that first allocation
+> should succeed...
+>
+> I'll try to write a trivial test program tomorrow which creates enough
+> threads and does an execve().
 
-Agreed. It also matches handling-regressions.rst, which already asks for
-a Fixes: tag on the commit causing a regression.
+Hmm. There is stale state, but there is always _ONE_ CID available
+because the last exiting thread drops the per CPU CID.
 
-I'd keep one word from v3: "separately". "Introduced by more than one
-commit" also reads as a bug that only appeared once several commits came
-together, where the tag belongs on the one that completed it. Tagging
-all of them would send the fix to trees that have only some of them.
+As the mode is TRANSIT the whole scenario resolves when the new exec
+spawns threads or schedules around. That just works by chance, but I
+couldn't find a way to exhaust the bitmap for the initial allocation.
 
-So v4 will have:
+So I really need to see the reproducer for this splat.
 
-  Name the commit that introduced the bug. When using ``git blame`` to
-  find it, do not settle on a commit that only moved the code. If a later
-  commit exposed an older bug, add a Fixes: tag for that commit too. If
-  the same bug was introduced separately by more than one commit, add a
-  Fixes: tag for each. Do not add tags for commits that are only
-  suspected. The Fixes: tags tell the stable team which trees need the
-  fix: those that contain one of the tagged commits. Trees that contain
-  none of them do not need it.
+The patch below cleans up the stale data and fixes a consistency issue
+vs. the allowed CPUs accounting.
 
--- 
 Thanks,
-Sasha
+
+        tglx
+---
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -10880,6 +10880,10 @@ static inline void mm_update_cpus_allowe
+ 	 */
+ 	mc = &mm->mm_cid;
+ 	guard(raw_spinlock)(&mc->lock);
++	/* Might have raced with exit() */
++	if (!mm->mm_cid.users)
++		return;
++
+ 	mm_allowed = mm_cpus_allowed(mm);
+ 	weight = cpumask_weighted_or(mm_allowed, mm_allowed, affmsk);
+ 	if (weight == mc->nr_cpus_allowed)
+@@ -11019,6 +11023,33 @@ static bool sched_mm_cid_add_user(struct
+ 	return mm_update_max_cids(mm);
+ }
+ 
++/*
++ * sched_mm_cid_exit() does not handle the mode switch for the last user
++ * because for normal exit() that's a pointless exercise. But if the
++ * process which issued execve() was multithreaded and the last exiting
++ * thread switched back from per CPU mode then this leaves stale state
++ * around. The indicator for that is mm_cid::mode having MM_CID_TRANSIT
++ * set.
++ */
++static void sched_mm_cid_cleanup_execve(struct task_struct *t, struct mm_struct *mm)
++{
++	if (likely(!mm->mm_cid.mode))
++		return;
++
++	WARN_ON_ONCE(mm->mm_cid.mode & MM_CID_ONCPU);
++	mm->mm_cid.mode = 0;
++
++	unsigned int cpu;
++
++	for_each_possible_cpu(cpu)
++		per_cpu(mm->mm_cid.pcpu->cid, cpu) = 0;
++
++	bitmap_zero(mm_cidmask(mm), num_possible_cpus());
++
++	mm->mm_cid.nr_cpus_allowed = t->nr_cpus_allowed;
++	cpumask_copy(mm_cpus_allowed(mm), &t->cpus_mask);
++}
++
+ static void sched_mm_cid_fork(struct task_struct *t)
+ {
+ 	struct mm_struct *mm = t->mm;
+@@ -11035,6 +11066,7 @@ static void sched_mm_cid_fork(struct tas
+ 
+ 		/* First user ? */
+ 		if (!mm->mm_cid.users) {
++			sched_mm_cid_cleanup_execve(t, mm);
+ 			sched_mm_cid_add_user(t, mm);
+ 			t->mm_cid.cid = mm_get_cid(mm);
+ 			/* Required for execve() */
+
+
+
