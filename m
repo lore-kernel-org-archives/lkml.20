@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492927;
-	b=EyTybm+zhWYbY4gI5fkFQVFhsGr9AuP+HkByfb/kxxOvIklrHUB8IAdGOfqPvkxnY6xJ
-	 QUoJjNfhQsNPIoOZHC2E+VVxbWqEiQJxnzj+85VwxAPzyfLVnjbZYqLzb5SaztCE7CZ/T
-	 8wyR1VX+IKBElqQON35/ibh/gHmFcnk0/gSZL95Tgy42mzt9Y2r5fuWyD3fXCnz0tVOZO
-	 GwbfBFzfVYKAoQMzoGnErd1mY6b63vd2qFMDViQp03cEBV6/3Dl6A4mv9wnri1wD46YsC
-	 2VhdiLdWc++KomMqApkRcX0DHZqzNtelz0CVa5jEEw2XYd7DIyBxNohNa4i1rCz7avQ==
+	t=1792492924;
+	b=V6T6MpXyWFTh3EzZMl9X/zfJVoEa0fUED70F0DPobLDT96jDnGVQ+EZFg3xqfP9OyrC+
+	 FGYaIUCM+53huvIZcfA5SE8yWioO9GZEef2++vt1AGfNthxSdpaRwLIjkp0WsomxyoILm
+	 p4AOdFUGL0TcWO44GGdvRh+4e+roPFoBHwbpNJ44o06PhEdCVi8jm6WHXBNTDRaZWxoik
+	 2SA9clMGhGeWFsfRDL7Uv31NGIiOoLY/QecGWdZkjWCsBwd8iN71xxVN+3iP48Z4jmF49
+	 bumYxRsURdvfzB0Cpo7Nv8WDPvairL0y/5On8S+RJs4Si+B0Hbtg2yJiECmTdnwqThw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492927;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=SzS1WZkbMVxMj9MfBsNaLXiCQUGMSdIL3Mh0PMncUuY=;
-	b=TIyQGoVEaEkd/JLLh7dV3Q0joLJdBjAW2E4QeuAbkBVXYWZz53v+BecdSTXBFu5LAbk+
-	 WfVb/KvKb7RmtJMO0+X3xlNi2EEeCHYc07Lxc9RwByHoDyroR/2+sRhJWS7Uuh8UtuM4u
-	 6rPM9WwdOSI/AFwWEp0djjK8pOcrGguFAy5MJiDc+gy5GNZzFB5myJ1t4OyLoq7Gl4g5w
-	 DRoznTwr3SvEE9WWRNctSug448hMgrPhQj+zrCBDj7HtBr3j992v4LkjUGVH1hAmCvboZ
-	 qGUfpNoHom1UlRviRKZ5YOFekDVEkouYDCOiw3XevXPdYJG5N1uAljQGMOuQQTNUW4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492924;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=HOfrP9Gwhe+jGo5BWEDgZkkf4alGpvk7OGOLWLYgIaA=;
+	b=nVJFrgZTeDqLMd402G1lpDcCCeKcpKcHWYDbYug5Lo85XsDAnO9dbMpZYCSP5hyXQohM
+	 Avz01R6EkuqGvDvlEMWxn4dOpcb2E5FoAvwCrYEytUYUfinFX7F1GKx6w7msh7HdVEXCK
+	 hwlMpsBXZaNsIpWNryXY2iPA8G/Ckfl5Lwx22kiqmrXi5NZ1L8uEUYj54QFP0/FCrHr8X
+	 +k1uf4hhCGXbl8OyhnsYfUgSHRdYmwP+zxW4wwNKUBs7RBknghiCVJdXvUcIU4mBqLLL1
+	 Msi2nk8S5jzl81iJc3PgSVIybOiWq/MXb7UEWmx4sJGWs5h3sw6JkS9FT1URcRVJS1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=cMtEmoig;
-	arc=none smtp.remote-ip=212.27.42.6
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E599606A319;
-	Tue, 20 Oct 2026 10:42:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E599606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=R0X9Nmpp;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40861606A31A;
+	Tue, 20 Oct 2026 10:42:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40861606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=cMtEmoig
-Received: from [127.0.1.1] (unknown [82.96.140.143])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 45636780331;
-	Tue, 20 Oct 2026 12:41:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1792492925;
-	bh=SuLF+hZJLx1ZNzgNEWt/n8SV2wSInY8IHJ4CaCAP+Tg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=cMtEmoigRlFFWd0pGbgdOyf3/HMj8IPcM4WH3MiliKmqGIP3gXX8x4vMQcP7EN89Q
-	 cw6ApaEsvXj6wxm1jfgmz7US5si8syupI8cKaGAd7TgUDX4Ei/0vXZcCHpKz/hLchN
-	 RqMlNq+WQNMPWs+Nw6eT8ujhYF3EwHfImR1xYCvRdEVI93OVQVfickOi4tBcvjzq4J
-	 t+IHec8VMol9XxQiqXBRipvdk235Q8UX9yfYQiPR5YC3F5QZSSSMbB9KIIQg7rqKlE
-	 JnsUZWne33+GWfDQ69baYpTCeE9HfABUA9sYp7vqa+b0IHY/zPgj5wVNWP22D3nsJt
-	 6LXYKC/FF+Utg==
-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
-Date: Tue, 20 Oct 2026 12:40:25 +0200
-Subject: [PATCH v4 10/10] can: peak_usb: only dump received bytes on decode
- error
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=R0X9Nmpp
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0EA711596;
+	Tue, 20 Oct 2026 03:41:59 -0700 (PDT)
+Received: from [10.0.137.15] (XHFQ2J9959-5.cambridge.arm.com [10.0.137.15])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2958D3F7D8;
+	Tue, 20 Oct 2026 03:41:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792492922; bh=OaSet948UMPKW/bEq7Gy7KB2ZNmZwB2hGOuIicxjXI8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=R0X9NmppaPctZe25oyvdRyxTPp7TrT33QgSmgyWht1QNwxUfP4JqEzNxdmziK123R
+	 XueQS3xiz/bfL8vBZ1yVww8k6Q6T25wedDXhj06BS3d1+I/XnwCjNfnm9GNFLMWDfn
+	 vC7cxViW1dKg0DcKnWi5Bhdwq1g6zBBbBiqLMygQ=
+Message-ID: <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
+Date: Tue, 20 Oct 2026 11:41:57 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,54 +53,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261020-canfd_check_channel_idx-v4-10-bfbde81f8bab@peak-system.fr>
-References: <20261020-canfd_check_channel_idx-v4-0-bfbde81f8bab@peak-system.fr>
-In-Reply-To: <20261020-canfd_check_channel_idx-v4-0-bfbde81f8bab@peak-system.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
- Wolfgang Grandegger <wg@grandegger.com>
-Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
+To: Jason Gunthorpe <jgg@nvidia.com>, Jean-Philippe Brucker <jpb@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-16-ryan.roberts@arm.com>
+ <20261015164102.GC13920@nvidia.com>
+ <CABCqBse_aZL-EH0us2uA5X10q6E4WP02MoHTYf+M9ezRZr26WQ@mail.gmail.com>
+ <20261016144202.GG13920@nvidia.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261016144202.GG13920@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
+On 16/10/2026 15:42, Jason Gunthorpe wrote:
+> On Fri, Oct 16, 2026 at 03:22:00PM +0100, Jean-Philippe Brucker wrote:
+>> On Thu, 15 Oct 2026 at 17:41, Jason Gunthorpe <jgg@nvidia.com> wrote:
+>>> I think I said this last time, please don't use vfio mdev for
+>>> anything. There is nothing mediated about this.
+>>
+>> We don't multiplex a device between guests, but the host driver must
+>> control part of the device registers while the remainder is assigned to
+>> a guest. The host configures accelerator access, stage-2 translation,
+>> handles CPUHP and context save/restore. So we can't bind the device to
+>> vfio-platform.
+> 
+> That's fine, you can make a proper vfio-cla driver.
 
-When the decoding of a received URB fails, peak_usb_read_bulk_callback()
-dumps the whole RX buffer to the kernel log. The buffer is allocated with
-kmalloc() and its size is the adapter RX buffer size (up to 2048 bytes),
-so the bytes beyond urb->actual_length are uninitialized memory or
-leftovers from previous transfers.
+Hi Jason,
 
-Dump only the urb->actual_length bytes received from the device. Since a
-faulty or malicious device can make every transfer fail to decode, also
-rate limit the dump.
+Thanks for taking a look at this! I've been chewing on this comment and trying
+to educate myself deeper on the subject. I have a proposal...
 
-Fixes: bb4785551f64 ("can: usb: PEAK-System Technik USB adapters driver core")
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
----
- drivers/net/can/usb/peak_usb/pcan_usb_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Currently we create a struct device per CLA device instance. But multiple CLA
+device instances cooperate within a domain and the domain is the "unit of
+isolation"; we can't have some CLAs from a domain assigned to a VM, while others
+from the same domain are used by the host. Therefore it didn't feel like the
+correct model to unbind one of these devices from the native driver and rebind
+it to a cla-vfio driver. mdev seemed to solve this problem nicely for us.
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-index ccfc26d3e5a6..b86ea6f6b07c 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-@@ -265,10 +265,10 @@ static void peak_usb_read_bulk_callback(struct urb *urb)
- 		/* handle these kinds of msgs only if _start callback called */
- 		if (test_bit(PCAN_USB_STATE_STARTED, &dev->state)) {
- 			err = dev->adapter->dev_decode_buf(dev, urb);
--			if (err)
-+			if (err && net_ratelimit())
- 				pcan_dump_mem("received usb message",
- 					      urb->transfer_buffer,
--					      urb->transfer_buffer_length);
-+					      urb->actual_length);
- 		}
- 	}
- 
+But looking into it in more detail, I guess something like this might be a bit
+more standard:
 
--- 
-2.53.0
+ - Split the existing CLA driver into three components:
+    - cla-core: Hardware discovery, domain configuration, struct device
+      registration and CPU hotplug
+    - cla-native driver: Provides the user space accelerator interfaces
+    - cla-vfio driver: Enables domains to be assigned to virtual machines
+ - Each domain has a struct device (created by the core)
+    - An individual CLA is not represented by a struct device
+ - Either cla-native or cla-vfio can then bind to a domain device
+    - cla-native exposes a char device per domain, per accelerator class
+    - cla-vfio
+
+For VFIO, I guess we could use one VFIO region per CLA, which would allow the
+VMM to construct a device tree. But it would need to additionally determine
+which CPU each CLA is bound to; perhaps that's a sysfs interface that cla-core
+could expose?
+
+Does this feel like it's going in the right direction?
+
+Thanks,
+Ryan
+
+> 
+> Jason
 
