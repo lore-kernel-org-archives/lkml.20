@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792499961;
-	b=T29vDlRPbaEkqOjSNTvuqAnR6GZ2ZUxXbD3ZGNBIMYVa4/ic6K/uVyQNqhwqrzbRHDut
-	 UiV65l6bHPPRd3TENGqkXEWYjkXYM/6wXD16q1o5N8RJvzNWi1iorTSUr0/qT43LKZAZi
-	 gcgP+wsS+iKubMn4GvkWrxy4yyhsyU/RzFezVw3xUpkz3tEniLRW29OHf9PvSYJRjoOtN
-	 yyTWYTwzpGGw6ULyJI2+/g/SdSt7l73NEO4LUWblhCPG1luskC4nE/uvh/V5Hh16y2JgE
-	 oxau8B62ekePaaLckWgx76s3VxsCE1Zvb7rN9y+r+BkGMlGibiRWE0+LUz5l6smejFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792499961;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fPyspVFbPKIDQ4LqkzeoiuA1iNZYYjJnNTZsI6hWXKY=;
-	b=Xpl6TIDNMy4XZlyBfD4KTFs7EbT4uFi+RMenV8GPdUH/mFnkAJfyr4Y5qJz21aON9hWx
-	 DZxADrqMDM/hzYcgWM2dMdvEebiJb5tyoOQyVBx8gn+aVXQCPGUHg8O1RF1YFAqul8C4U
-	 2guGU2KsvXvchqd+XX53WHU67oqsBp25WuEkxGA3xDJa21G4zXpVTAaWBs5XCEsr+pHwb
-	 Zt1j6EMnfidsEJ0mOa2Yep0cBkpc6ZBTFyLHA2bwNG7B0tEv/0+V9hyupO4QvkkXFcTMu
-	 IJ9Wf1Q8QoEtq/Yi+zR3fyPBZiFtcpu3eCs61XHzH1OxEyTO3Kbi6599xthTvs0l8EA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amzA5L5b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792499990;
+	b=DpfseSBZYyr9P0uSj++rOlPdeR1yyvSqDOvD2pAdyX9XTvg9TIwyMSyIS/QKxc+9GBsB
+	 6WjUPtCZYzSa0CpyssnG3CatrG/qSIHnPRMz17hewmaEjSbq+XAUbA252Tk1I9KfLlUk2
+	 p1QPztdXV9IClKvtJLc8VkQUowPCXLitdcXa11hOJC5Xi0nhsm57gunw4P6elzvKHKpg/
+	 HjmyyHCzR+jYJmw0QXQwjfzsqWGtVpa6kTENVUdUwyXALENiG84GuN7vjLk7bIk+Mc+/P
+	 +ddDRNAwAFFxmm9KEe+2CSBXGB7F/Q2uDJsZcVy/DrdKSi3QyODeN+wWkDpxZl0xDMA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792499990;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mn+KPT7PNe9VT7UdlFzXBdv0pr1VqYLkw7yXQZOMxLw=;
+	b=Dv+er/mihfWqC2ka8FW1XSEyxn1mY4OczvnT8cRi/Q8q4b6GmutkqtPft0FF4k0fOjs8
+	 adcD6x1aqy4WN5lE88PbUu4FdY3QdMDdSlKo3ZlCys6Jia4idJpiL1mcLvHEtzqFvOHey
+	 +9dzwgddC/BQ2UqhWyMhJ1aFu6xRqhGPXHMZVJ58+OL/GcN7VT25MGWTdTXvK/kcPu4c+
+	 N3D94rbf9OoDq3+QoBG5XgeHY5QOSWai3aAkQjMEFSw4NtNUE/siPUVv8bbvDUItn5EhH
+	 QKU9GxHOu9ODhOhp2Bi4T6LFXKZlbZsrxnCJFCojbswAwBQlGouc0HHL8W4FqQPm4tQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gckgA8by;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 748F4606A319;
-	Tue, 20 Oct 2026 12:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F79606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:39:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3F79606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amzA5L5b
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 842ED1F000C7;
-	Tue, 20 Oct 2026 12:39:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792499961;
-	bh=fPyspVFbPKIDQ4LqkzeoiuA1iNZYYjJnNTZsI6hWXKY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=amzA5L5bHG9DIriq3h2b/Os91GZsZpLn91eYSpfkQFR/nuyPRfhB5bvbe7uirA8wO
-	 6nELKuRj3I5YIGVsNJmNeCRy6nzvOnZzaPPhlU6O0ySEfqQqBnJki0cY6UL84G9+Bm
-	 yUOIutEKrklpRWrwmx4KO8LWEEUeN5JPuas8BQaRC10oBysGHcpDc4zn1QrqSHVqsr
-	 4y1pBb75Hwpegkl5gGBipGGBtTwWl3r920zMGwUlxNWTsvO8grapN7oTzeN9jQWdr6
-	 F54ozaeXyHlEyKA1vOR5jborJ2CXdjHKTIYqZsVSOqhrl7eAUD+Mxn1Yjy7uBeCRKu
-	 2RD27EsLe4rfw==
-Date: Tue, 20 Oct 2026 14:39:18 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: rodrigo.alencar@analog.com
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
-	Olivier Moysan <olivier.moysan@foss.st.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH 06/10] iio: frequency: ad9910: add axi backend driver
-Message-ID: <atddZ9KZkXwgv2IA@monoceros>
-References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
- <20261015-ad9910-backend-support-v1-6-3c21648c8e26@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gckgA8by
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c45111bebso1990131f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:39:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792499988; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qSlvwN3uLSSSGCz5EgbgD9yRNAtqadCupsJ2YHmQ+IZZUm1Ekf6a4SbuBYj/WM61k+
+         L7xzttekBi2K6uUP2utT8wDaXqlEI/Vm51pPLIWEdQqZCbWtyRi+vLzhHfLDI2+PYEC8
+         yEqAESihpu821H2nde+J2jzYeWbamnqQYC//5qeTrjmVwEvzlVwfxkESELG3Z58Nmx7R
+         VKNscqwmtOVi8vyeVeyhM40pnMiZP/O+cErQw7a1uvW3wZ8mt7/C2NefHYaWV/w0b9Nk
+         ISCj8ys5EDQm+H0+736jg9UebWHGEJraK9HJZFtl86u086qe8bjYnpAz7n95qQFzqgZ6
+         kjmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mn+KPT7PNe9VT7UdlFzXBdv0pr1VqYLkw7yXQZOMxLw=;
+        fh=w8DVwzX9ZpijILuEhV6yPskB5efJC4JIrYeU0Z/urXE=;
+        b=OThqwPAig6+PUxdU3gp1GXDcj6by7oGLqH4KFEGLgZGDx2Ig6Td8ktmBW15PFhQD4Y
+         vlC7CwTOERczEHYBOf8RY6+wEaiQCarr/deIqdh0cUtR4s+vSLeUHgL6tdp0MFDkNXnr
+         l/wdZJvuUgnItGq7OPXfsun4jnxxxEaQJ/zJ/SN8RVpuytd1UNJj23CcY1Nq1tgvSbHs
+         xe4fZviqJI3V4u8utDZ4/4GtA0Y5zc3UhZu2AWovfkoWjaVlgIr4b2e/26+jCusvHra8
+         0eUYAqakvPuHdQmzSGDfE/+bdiYIffsjh7KPGJwKtUza7PcQrAcr5keJ6dmeioYF/Eyu
+         eEOw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792499988; x=1793104788; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mn+KPT7PNe9VT7UdlFzXBdv0pr1VqYLkw7yXQZOMxLw=;
+        b=gckgA8byjsGEdVN8Oe89vE/KvG+6bqzWUIfTn8joJ2MQKIZ/t1PNErPtmh9OMAn3vC
+         P3eKQmb+TvnrYRWdfSArFZDfukjYzv85mZWJWq9dWaG82DFfJowJo/MZxMttJ2kJjLys
+         53CbLDxXimjFQpc4ybWTbYWQ1PHhDweE4odPk0bAyytyCvQXygxtbucjPnonKjYpgD3s
+         ohFbDFbampKm/vVXv3FUy+1qzb+8QxK+Qu7yMV4dJ5xU24dVnjmPhO9v6MoCxSbJEKnL
+         A/v0+5v2iqiQJL7lcDUjoV7ktIFPiFWO+zzyXKi3gXQakae7FAnBHpUF09dIr5/QUShA
+         1CYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792499988; x=1793104788;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mn+KPT7PNe9VT7UdlFzXBdv0pr1VqYLkw7yXQZOMxLw=;
+        b=eAsD1mxy2KZFlI/Ea52cuaYmZDzi72mN3grY/hkJ0rRKPS0bTGK6EHrGVb/1/XyFa5
+         ybZScHV1Pa+zZZ54oYTD0zmnAOt0u2LY98+a6kJ91Q75ChbG5y0Px8/XYBX0XLQU79Xw
+         LgecGpNJJeRr+36hOXZg7Af5CWK31Er9T/8kX564NbPvqC9+Ud0GTtHzs3+Vss4vdhod
+         8Ppn4Q+SDHl2w6svU2eA/NQFuQCfNf5okFr6i5fh9lw0KIW3ptNw41YAPktsI4cKkq/X
+         9x+XTo48JLzuTgjBb/zIXYYorfmg3bc4vnFZFssTdUgFHCUkOV175MU70FFDK0dfsTL9
+         zp3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwRx8nO2c/jrHmuOeXVoEftIEnasY6KLaUPjzX2IBsrD3FIaFQtomDZY+3cyh2RJusznljMQ4ZBpI5ugOk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkw5iNHn5iB4khXCzeq/pVVyG6aK1Pu34gFUaWIS48VTItChsc
+	fd35fgP/r18AEMIcNIJF22w3Bwha/i1cd0MTdpzZRq0a3Q6uDZ7E0HaJ4bRbd70mhk8+4Cy03qV
+	CaC+RKf/n9ZrK0L61qmSSmYEtEay2/xlpqhVecqw=
+X-Gm-Gg: AYBFou0vmKJy8cw/7gS7imZWCCiNFu8rqhKavUgY6AoC2KGFzA0kRS3Y3aEmHFYqqIM
+	DCOkHkkTpaTScDwv3DejCODuG+2Vuhpy0+VkA93FW3+DhNrpa2GFsm4I+NFdRHyI9NV1/nT4vlN
+	r5dAHmrmq9JO2UP7SWgphvm9pUlSv2bOkuMdkXw3R11KGtG4gwPUo67bDWlR8Rdh5z71ltjj5fL
+	4b0SnaJQm563FLfPmc+yOkuKSCf6M9FhytInh5rv0T5iQLlncgeWhh1nm86yDkemdwvzRgXmALO
+	7e07KnsvTFUpytHWo7Hgae4P02wyJYOZGTRYUEkD22S2o8WXLlSS6sVjyQXQbBk5NBE=
+X-Received: by 2002:a05:6000:26d0:b0:48c:77ad:d52d with SMTP id
+ ffacd0b85a97d-48e20fbffb6mr3084270f8f.43.1792499987813; Tue, 20 Oct 2026
+ 05:39:47 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,164 +103,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hepozkqd53cm62gy"
-Content-Disposition: inline
-In-Reply-To: <20261015-ad9910-backend-support-v1-6-3c21648c8e26@analog.com>
+References: <20260910082008.12397-1-syedtayyabfarooq08@gmail.com>
+ <2026091034-slicing-same-692a@gregkh> <CAKD4hN41w_bRPAY3i9=tD1tWQLag3r-FGsngD5U6igM=FWe-_Q@mail.gmail.com>
+ <2026102052-stretch-craftily-e3f8@gregkh>
+In-Reply-To: <2026102052-stretch-craftily-e3f8@gregkh>
+From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+Date: Tue, 20 Oct 2026 17:39:34 +0500
+X-Gm-Features: AclHuK8QNNfi9bQ6Wl4hOpfhwScE0HF214wRGBmecZbXX8hu2QyD6SP0CGAeWSI
+Message-ID: <CAKD4hN5mFTS6OyYjDdWjDs1b2Y99-FZCGd4AkXhEOZ-gF94Ovw@mail.gmail.com>
+Subject: Re: [PATCH] usb: gadget: u_serial: fix use-after-free between tty
+ open/close and gserial_free_line
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
---hepozkqd53cm62gy
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 06/10] iio: frequency: ad9910: add axi backend driver
-MIME-Version: 1.0
+Apologies for the confusion, As a first-time contributor, I am still
+familiarizing myself with the patch submission workflow.
 
-Hello,
+I have addressed all of your comments in the v2 patch, which was sent
+as a separate thread. Please review the updated version here:
+https://lore.kernel.org/all/20260910105359.12915-1-syedtayyabfarooq08@gmail=
+.com/
 
-On Thu, Oct 15, 2026 at 01:49:46PM -0300, Rodrigo Alencar via B4 Relay wrote:
-> +static int ad9910_axi_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
-> +				const struct pwm_state *state)
-> +{
-> +	struct ad9910_axi_state *st = pwmchip_get_drvdata(chip);
-> +	u64 period, duty;
-> +	int ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	period = mul_u64_u64_div_u64(state->period, st->pd_clk_freq_uhz,
-> +				     1ULL * NANO * MICROHZ_PER_HZ);
+Thanks,
+Tayyab
 
-Does st->lock protect st->pd_clk_freq_uhz? If not, the lock can be taken
-later.
-
-> +	period = min(period, U32_MAX);
-> +	duty = mul_u64_u64_div_u64(state->duty_cycle, st->pd_clk_freq_uhz,
-> +				   1ULL * NANO * MICROHZ_PER_HZ);
-> +	duty = min(duty, period);
-> +
-> +	if (state->polarity == PWM_POLARITY_INVERSED)
-> +		duty = period - duty;
-> +
-> +	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_PERIOD, period);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_WIDTH, duty);
-> +	if (ret)
-> +		return ret;
-> +
-> +	st->pwm_polarity = state->polarity;
-
-An inversed polarity waveform isn't the same as just inverting the
-duty length. So this is cheating. The right thing to implement here
-might be inconvenient, but you shouldn't implement .apply() anyhow and
-the waveform stuff has saner semantics.
-
-> +	if (state->enabled)
-> +		return regmap_set_bits(st->regmap, AD9910_AXI_REG_DRG,
-> +				       AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
-> +
-> +	return regmap_clear_bits(st->regmap, AD9910_AXI_REG_DRG,
-> +				 AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
-> +}
-> +
-> [...]
-> +static const struct pwm_ops ad9910_axi_pwm_ops = {
-> +	.apply = ad9910_axi_pwm_apply,
-> +	.get_state = ad9910_axi_pwm_get_state,
-
-Please use the waveform callbacks instead of .apply() and .get_state().
-
-> +};
-> +
-> +static int ad9910_axi_setup(struct ad9910_axi_state *st)
-> +{
-> +	int ret;
-> +
-> +	st->pd_clk_freq_uhz = AD9910_AXI_PD_CLK_MAX_FREQ_HZ * MICROHZ_PER_HZ;
-> +
-> +	ret = regmap_set_bits(st->regmap, AD9910_AXI_REG_RESET,
-> +			      AD9910_AXI_REG_RESET_CORE_MSK);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_clear_bits(st->regmap, AD9910_AXI_REG_RESET,
-> +				 AD9910_AXI_REG_RESET_CORE_MSK);
-> +}
-> +
-> +static int ad9910_axi_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct ad9910_axi_state *st;
-> +	struct pwm_chip *pwm;
-
-the name `pwm` is usually only used for variables of type struct
-pwm_chip *. Please call this `chip` as it is done in the rest of the
-driver.
-
-> +	void __iomem *base;
-> +	struct clk *clk;
-> +	int ret;
-> +
-> +	pwm = devm_pwmchip_alloc(&pdev->dev, 1, sizeof(*st));
-> +	if (IS_ERR(pwm))
-> +		return PTR_ERR(pwm);
-> +
-> +	st = pwmchip_get_drvdata(pwm);
-> +
-> +	base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
-> +
-> +	st->dev = dev;
-> +	st->regmap = devm_regmap_init_mmio(dev, base,
-> +					   &ad9910_axi_regmap_config);
-> +	if (IS_ERR(st->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(st->regmap),
-> +				     "failed to init register map\n");
-> +
-> +	ret = devm_mutex_init(dev, &st->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ad9910_axi_setup(st);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to setup device\n");
-> +
-> +	pwm->ops = &ad9910_axi_pwm_ops;
-> +
-> +	ret = devm_pwmchip_add(dev, pwm);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Could not register PWM chip\n");
-> +
-> +	return devm_iio_backend_register(dev, &ad9910_axi_back_info, st);
-
-It's unclear to me what is the relation between that iio backend and the
-PWM. If .set_sample_rate() is called for the iio device, does that
-change the output of the PWM? If yes, that's bad and needs fixing.
-
-> +}
-
-Best regards
-Uwe
-
---hepozkqd53cm62gy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrXYPIACgkQj4D7WH0S
-/k6k2wgAuvlnAI/8NOCk6w1mONb4/gMLWFBN4F+WgeB5WFVR3x8A3lRZV6iReu8D
-iCcoiU3RCCXjd4Onz+dKx2R7RmAaOCpf2dRz5iDpAvmJvMh0zC0s55VfUZrLcyUF
-JM28ZnzWgt1gMMjoTdUZ0DcsCMTmhXqqXcUNpF4vmq2mzNB4yx70sCBSc/H1jQQe
-ajzKNjCLVpS9FkF/KsEpp7Lx9m/fUrr4TF5oZCxoc/FH9FNRgNCSErDoNkN5oR08
-mA71Eots59CAPLd8w5PXmYoahVmKKAkxUyowR9AbcS0fDJWiJOPXc/mI8zxE7OKL
-3eE8Yj21x7Rx+jeZMlfdcPBSRDjHKQ==
-=VZx8
------END PGP SIGNATURE-----
-
---hepozkqd53cm62gy--
+On Tue, Oct 20, 2026 at 4:39=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Tue, Oct 20, 2026 at 03:49:29PM +0500, Syed Tayyab Farooq wrote:
+> > Hi,
+> >
+> > I wanted to follow up on this patch, if anyone has had a chance to revi=
+ew it.
+>
+> It seems you ignored my review comments on it?
