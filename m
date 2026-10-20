@@ -1,99 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792507211;
-	b=O84OPYCcIuYxSu9NInAKo9Bq5cFVhCrIylrJHDSxOIFJ+2lvO5xSkFbJqMpdGkfuJ01a
-	 uwz+7WwMpuQizxEZ25gfy++LTY5vtnjQ4yH2Qei8zTQPal33W0eXN1YDyM+/j81/rI5Ls
-	 ubrf/2UH5NcLcSiTKAFXFR4qULoBkag9OCHIoaYplG66xtrmxFWANxkBL7Oh3zdFKMFO0
-	 ADTbUNdfTit1risxWh+bVxfokHnDAIubVU8TtnSl5e4+cHFP9ARY6oPGA7+gg5gs6yFoB
-	 nJCfPh/rcUJF+JByOcxh1215xksC+mNAgGbOTbm1ihFulDe4HgjHlEeROrsJo+LMyKQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792507211;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
-	b=fd1FMQpRgDT0pwsmILETZOLE79rf5dLTkIF7bhVWPYuOeB+i6/HprQov77MFTeqGV0OF
-	 N8LStajbA/yWRwaqpsrInPT+K741S6c9j63cPJyvzDz5r4Kit9G+MvDcsHzGylOYnkL0r
-	 0FQ5bEQ1TRs571fipj4MwEaDAwIgWsqedh+BrO1o/J5zd3KByVs1uvl6rfTu/SsO4Ge2e
-	 SknpkPoXCY0gEkVfqIBXXpW/sQnWmtBmdL5KHIixOTDCdHwaeiwscQsusgwtqaltZH1Hf
-	 p/DgMA/MlfHU7M+FVc7nWoLhrxVl/4et5OyR2JnypC+of+Z5Kx+ke0MNPbAVbhcTIOA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Z6ribNwS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792507277;
+	b=srnqiQUaU01gWgxh61vRq72jezxAMZv65GQgp66u+0dJ/XxR9EkyoClCqj+NXDsg002C
+	 H0+azdUQpf45JXrqdleleWjDlieie3EJq08Vvsm2FEYghKQ+uPZpmdKBOwIrX7LuoxRMg
+	 5SP/pelbux1AT/862zrl4ursgDOK8I7VsRgC/4XO9qN9jT57xj5NpvGbJ1Xa+CIEBvfjd
+	 b6y1+D3PynMa/P0wwRkfQJqIbq2Um4v52VYsjfIhG2u+l0sTkhjooUsH4b6rhBLixsVLe
+	 uaFsvu4epKBUHX/xbDG1h4+o3bMVNTvqh8+hZD7OglmXZQ9JxP5SJjpS5IGz/nna9Jg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507277;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=M4aoTvaWwUMwy50VJh27ZiJbEOO22PDQ4jEs7HBeRt0=;
+	b=b5SQSHCsUSWDDvw/HbVgzodzmAhRyzvl2D6ToaoOU6eUf5sk/VsilBxJvufj/HpUQRW8
+	 /UUZoj0CDWiJp2BLbS5zQaXX4sQmmGNxjFIQ4mTM6mcG7vCu62vEZCqa/qc+wosXdVNnV
+	 Hg5/0xDjx/8HYBCgU1l7oeNlExAZ/y+Kke7IDrwPSwrTuDbbBvwm3yRgFli9TgXAAMt+H
+	 5UelZ3bOaoKVNwfHy6UvSCTx6w9khA1n+dO1HH7+W+Uwz1uldRG9qdQdCZbJzwSQgHP9Z
+	 qHFlFKMfifHLs36RwnQ56hX9dFMwVRKgP++endrUWqWF373ObaSqcQ8HaUuZJsRXZAg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MkucNR58;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AnPYDpYo;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92F4606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:40:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E92F4606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73996606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73996606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Z6ribNwS
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6df0b02fe91so476753eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:40:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792507210; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pYjJ5ic+dP/mo6g1YuHomLSmCfijNzJJ9ik3cqP5bNA4lU6kA9pwWQjfBM4TsJ2DVI
-         lkLdJRRfz7yS2ZIl7S8s8bGZQY7+KSElwAK23JW4HB/ZTixPzZAHuZ1/RWu4jS6kGNRC
-         EE6/5FAcfF9nHLotgfuJuPFjVvesgi4WdMhGn1RzFW4niAJ/s9QAl+aVdtuy2mtsHNl4
-         NiQ3I7S+bztuPDrUIuIKgVRbaK0CbFcmTJ+rjBf3ghnSBa9hkM+nnpNnbwt0lkjtLjT1
-         YDLX1NoksuXhlYnqYB+fJ40PXg+xhIKJwTn3d1LSS/o9819vz92aJi2gQS5EH9XsF0lQ
-         lIWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
-        fh=brqzOotWBHxvktauqY4FFTNdZDE5Qm2/sreiP/xsvzE=;
-        b=aLGmJQ4+NEseqDsgnvsfZSgO81QDmN227o1Gz4qOdXuRYIOyEJG49X4SldyoMJNs1C
-         WiKerXTn1aW+AfQt43JoYIT0Q8XwHgFu0fkY86AGOCakXrTIYFf7xHf7QtfE0R66oY/W
-         qDERNtQ6s77iNETZn5SB8pwXsbVTNmLDBh7i2iwzeCvNfEoJU3bsNxoq3AWKRdNANF41
-         SLSz32stGueH7OgBUD5ARokFIfkYrw3a9/Ct10k9fJUDoKY74xgcGhfc3gd01sP49jTz
-         9TX64t4vMaETlcFG+W/PDk3pd9JagMXcX+zCO2DE0R7k41fpFlmDv6CeGaLcuMT77o5W
-         6irQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MkucNR58;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AnPYDpYo
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDAA8u702626
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:41:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	M4aoTvaWwUMwy50VJh27ZiJbEOO22PDQ4jEs7HBeRt0=; b=MkucNR58bymGLymL
+	X0wFDVy5PY6mD1Fyeq8owHTKM85oymAAQ6rgUbrrcIKx5wfNNcl0Wyr851ioQ8M6
+	UCzaXEl4M5nI8mgbfXJP77wVWTBGVJlIlAE3y6Ymz1dpT4fF8t+rftUW05QtNkq7
+	J6JqvPJn09nix92Ea2q4SgAQ1vs+1g3CcJg+xq5eSFTv0EInB5P6yiphYQl1uyw4
+	9LUkbYGW8DtFJz8QIN6QFRWxuvvy8CKm0RNZglXFVrPpbQTGkT2zGiLLtdPfhj0U
+	PviKDx4u2Lf3BOlq5mQ4RTgSI4Pyty7W0ZvliVJi8ekdkPt7fzA+/9w6+xaNkV3i
+	beiZPg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5stwer-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:41:16 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cac495d99so59406085a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:41:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792507210; x=1793112010; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792507276; x=1793112076; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
-        b=Z6ribNwSkuRORSRUqgJFndKt+a8pNkfz+uixDZBj2RIOvLAexORAwbiSKcQUVGCjop
-         no35lkWv9bv6vKlR8fbjqwM9NDFMSs7PVNzOG059ZrH9BBqxjCeiS56Yo2HUm46Yp1cS
-         KdMO2m7IWh5CC05+ItHv3vXvOMsde5bPxkYUJdhEfbmO8YOoM0g9+v0FLMvJVDrqo0Dz
-         npsVT+CmXl4AmmCH9Mp2ZyIwqARrrJr+fZx1BbWiHMRtgagoNolGfVCU8QRJ9mTMygzz
-         VIYfE057NaafOemF/r5oX5sh5UF+HIDpV3sRJdp1bOX03m3OwrlIh9aVXr+CRhMtyceS
-         aTSg==
+        bh=M4aoTvaWwUMwy50VJh27ZiJbEOO22PDQ4jEs7HBeRt0=;
+        b=AnPYDpYonEI/vZl+9zM4s0CoDTtBy3JiNKBU0KnTYE++gHt5xXraUsfwbSYJ4bVYTN
+         gmmrcoIH7VoPA4dYH9VCdfZMGAmBqW7fZNYBPsH4ta6iPorH0ow9F5y7WgI9FxP5R2MN
+         2S45SWbcwjVFDBGGpL5RHl/VIFiSgWsg9JQTR0fcI/baLHMHc+E6rvj0Mp02esPhOsyR
+         KdfQE1xlfZnA/SVOMm90iiKbJV9f1v1wFoBA8vUh+5pIobe7wN/tTcmrINdC/1HLynco
+         6EhpIu3WBjrrcwq0WK8mIwpswV+nOd1qG6lE2XzZKY0T/DBV5uIqpJh887oyqpy67lse
+         TaLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792507210; x=1793112010;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
-        b=oyfrhu5vIGEP5u7Wl8h+cwYwqIkkQgJQo/26hP3iBmWa8TT2ouhg/83Wrj5fN1ahfP
-         5hn0vGk7LnZVWw/JvrzOcJxUrpyFURxb4IsI1PIrYUg6+GjpP44FLzRksFktQ+XzFFM7
-         c1K+LGy/E/1g57XKSefk+cqavgFF5S7a15pzgU3++b3WOBFVlS6imq6RpedavJialJZg
-         QQ6n8WlH19mmkAYIyh76JzzA2z7A+1fGWHCzq4SOKkxO+VbCpyifzeL+29eGgPjqbfex
-         Zte9ivtIpL1vaaFKxXUzdfJyl43RtgFXJYv/9xTBvVjBgcyxrpVDfb4wJQ5BvLXDBDYz
-         gE9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxjg0jmkoEruKI9p3/fZGJZlwyv5It7XrcIQQuYm2/7dxSG53e9u/qPF3szPKAmdVRNejU6AuWFfBpBgWU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIm7zZkJtJKCxp5sy+8HM12ie3u9CDwcisb8xGrc8A+uUdtNnea
-	Bn7/eveT+Va7bq4ABGGgtLfWOlzoY17lJRbFJjyBZnwXEbBpoW92vrD7cCENbNUUhaCnRXx8DBf
-	Dp7+wflVm3yMPBjIDqGbLBWrA6oisSkECTEdp5/0yuQ==
-X-Gm-Gg: AYBFou2oIyHyoQ80gB2BWXG+srIMa592y5k7Zq9OhLYzQ9/UGgqbFgKDmDXi41g4unI
-	4ha3jk7xvs5YRvYwRqGcADZDI01plsnhP0VJl6VQVnQWqEwopBBUMJkr1ybNvbTXDxKnys82aq+
-	VKWDd2gXqcp3+nV2utvwrBnAsTCDF1sLHLrV8/ZRU2lG1PpEMUzAL/JCgshH3ShTCpBcmGcgNxF
-	nWlBMccXd1pdvEqzHE/UnbfqI1bPZY0xed8izPde64XCNlFt1Qv04pOzWVnulW57ziGxdQ7CkAc
-	5QjBT/lPbMp0Mdiy7hhHLo4SG6ZgDw7TSQi5r26duAJcXSmD8N+5teq/XsnzKNLce9rYDl2m/Xh
-	GpqBz3mGwny5lZUj4Mx8m2dc2wCZixpzd1YYhUv6gKpOx8bbLC4udcnNTBwqA6Qlkl7fECy0n
-X-Received: by 2002:a05:6820:2d03:b0:6c7:8dab:ca1a with SMTP id
- 006d021491bc7-707bbe2cd66mr1550317eaf.17.1792507209625; Tue, 20 Oct 2026
- 07:40:09 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792507276; x=1793112076;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M4aoTvaWwUMwy50VJh27ZiJbEOO22PDQ4jEs7HBeRt0=;
+        b=iVt+I0uoMDYE+eObWUT+Zc3ntxt6gmYbrOqhnvI/LFicBKeQ5/rwO0RF0G1ain/yq2
+         U9v5FqgALfJasoiiunRGs5Rlk5MrLGgalV7nNB00CFz61X/d4xxkPibAl7Srhj64BzDu
+         PwYnIu2eZ3TnERrF+2yQweNI0U+bL0hsq7sCyOKEmCsZi3+9RJjqb2OnTcqC4rcJRG2a
+         +GqX0PuZ3JnxXOLmjryRsxk+33MOfC8YGOM3yquJBtmBaNuEcif0QTCZPx8vYjbO59JE
+         V6qVTT7H9jO1yMjgpyzWFRusD/VPe1q68pnV9yufOTgS9C/KVczz73z933d5M/VirSh0
+         L6gw==
+X-Forwarded-Encrypted: i=1; AKwUvByHrUonl4lnkwAXseh+law0cIJQ9xcSFeAYNyH40ulWwpFvu8Koj+f/kPygatAtHEmB56qg4o2YnV2PUqk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZg74s37Gg2kjV7xxVpZHSOddfRu6oK5/3jdUz4yALFqHXET3i
+	eBj0zFkcVww9oB3xRBvoD6/HxVDTCAYnbT3NtqBnlw59YBliKHrYpAL9zk1po39p6xMY4LCzvc0
+	gFZRHAONVyDrKs1hRHRE5RqyElV2g/aM8n7EyxjNvt3/KOJMBFrspUz53EOqUZTxH0g4=
+X-Gm-Gg: AYBFou3EutMg2RKXfM1Z5dH6dn0ruFRMrFZaav7t9Jiv91KwFoFSDxyscgYTdQeBCLZ
+	9v/ko9DQIsuLoEijH6fn2bL5yKl/6g1U8/0YpgNOhjPHVULjHId1qNdoLwi7qzwdKH5/i9BZzOQ
+	jXhjr488hhkRpE54yXealRV9WiiaLAWNpKR5lKy93iLX7GjadybJB61get4LONsj4lqjiTg4kFa
+	6OUeK/54uqP/eqXld9Gobinvkfozb+oA9aUYSXnLmeKRzx5WFEr4U8VPDsu2mCje47mTSWuq28t
+	WmeFnO/v/CuzSpo7zAZX8O/fVoIG+VJB6DTO4rD16SOxeRCzo4Ehym6upnFRGSenoux939XGB8W
+	aE5XaPmtMrhMayn+XdB4QuA==
+X-Received: by 2002:a05:620a:17a2:b0:93f:1a1a:2974 with SMTP id af79cd13be357-93f29e1748emr1920605185a.6.1792507275514;
+        Tue, 20 Oct 2026 07:41:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:17a2:b0:93f:1a1a:2974 with SMTP id af79cd13be357-93f29e1748emr1920600285a.6.1792507274885;
+        Tue, 20 Oct 2026 07:41:14 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919c03bbsm468162866b.64.2026.10.20.07.41.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 07:41:13 -0700 (PDT)
+Message-ID: <8be959d7-cae1-4f1a-8247-67381a6dc811@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 16:41:11 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,180 +115,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
- <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com> <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
-In-Reply-To: <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 20 Oct 2026 15:39:52 +0100
-X-Gm-Features: AclHuK_b39VaTdZ3dmgtb-s5SV-tLyOzJVne1uRjIl6FFmaQNj3mm_E5Od-ztsk
-Message-ID: <CAPY8ntD2C-7UTKX2Srusn_Tzx5KS3tnUtPP+piMYbUKZP91Rpg@mail.gmail.com>
-Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
- Starvis 2 family members
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] usb: dwc3: Notify XHCI core of tunneled status
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Mathias Nyman <mathias.nyman@intel.com>,
+        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "usb4-upstream@oss.qualcomm.com" <usb4-upstream@oss.qualcomm.com>,
+        Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
+        Mika Westerberg <mika.westerberg@linux.intel.com>,
+        Sven Peter <sven@kernel.org>
+References: <20260929-topic-dwc3_tunneling_state-v4-0-63e296346d57@oss.qualcomm.com>
+ <20260929-topic-dwc3_tunneling_state-v4-4-63e296346d57@oss.qualcomm.com>
+ <asBMw-j0fxVLVW5Q@vbox>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <asBMw-j0fxVLVW5Q@vbox>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1OCBTYWx0ZWRfX0rUm6G0cN2ow
+ JSnfHQpGmP1IuR/SpGYJOfpypncZ3uwjZHfTZbfeJUhYNHFkNLwbZs6hwEjMqqlfkpHu7OWzPhd
+ sSsrrNnaZd9wyWuYVGdLkzwKfoLM2oCBA33MoWW+6OyLOVCfaqUy7LRWfryyrwzRr/ZTxVqqcGi
+ QxGipKKVhdLuqrV/SaXEDNi3Hf1oIK60xnWNE97068BNxUnxOHgDM9JGNnDxAJnfL/NYnBnribH
+ 3BY0SdjFcXKKjZCy8UqTCI4RD7yWDivaVS0eDV9yryLc2oO26hWyfLy/CJOsf1jJ5ZncgfSPbog
+ ArLlMJo7YT2tu96UDBZxY0QEaaFZhUueQ7kEfRmvmNZEUKxbu55H7Ua9VpzUpcgW33rQH+pd2UP
+ Fl1UbOYe9AE+yOGd7ctkbc336fjXefgQPB/CuEr2AEAAY1J/aopW8I2ZjeHgtJ9TGtNv7OJX475
+ ai+oaNj4rnczX2stepw==
+X-Authority-Analysis: v=2.4 cv=fIusTpae c=1 sm=1 tr=0 ts=6ad77d8c cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=ORxTflC89JRLnpgA4MQA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: x_Hmz2hgOoMYpQf6XEzWt4tS757SMEIE
+X-Proofpoint-ORIG-GUID: x_Hmz2hgOoMYpQf6XEzWt4tS757SMEIE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1OCBTYWx0ZWRfXwmg9Am1uXAcD
+ +YxZoQw60TAIzRo6rO4lW1aJUu/SMZ+wXn9T6DPCtiMJwYXo7Td04Qvm3sNA+EOctf/M67Fnz4N
+ 3+nVAyiPYm2/2Pb+MeWbp6F+52BL8fE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200058
 
-Hi Sakari
+On 10/3/26 3:23 AM, Thinh Nguyen wrote:
+> On Tue, Sep 29, 2026, Konrad Dybcio wrote:
+>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>
+>> The Thunderbolt framework relies on the USB core to create device links
+>> for tunneled ports, so that the USB3 controller is only kept
+>> runtime-resumed for the duration of the tunneling. This depends on
+>> first knowing whether a connection is tunneled or native.
+>>
+>> Add the logic to handle that for DWC3 controllers.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> ---
 
-Thanks for the review
+[...]
 
-On Tue, 20 Oct 2026 at 11:07, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
->
-> Hi Dave,
->
-> On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
-> > There are multiple members of the Sony Starvis 2 image sensor family
-> > that have the same hardware requirements as imx678.
-> > Add them as options to the imx678 binding, rather than duplicating it.
-> >
-> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > ---
-> >  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
-> >  1 file changed, 32 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > index 098f72544216..027872a134f2 100644
-> > --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > @@ -5,7 +5,7 @@
-> >  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
-> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >
-> > -title: Sony IMX678 Sensor
-> > +title: Sony IMX678 and Starvis 2 Sensors
-> >
-> >  maintainers:
-> >    - Jai Luthra <jai.luthra@ideasonboard.com>
-> > @@ -13,21 +13,47 @@ maintainers:
-> >  description:
-> >    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
-> >    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
->
-> You could rewrap this while at it.
->
-> > +  It is part of the Starvis 2 family of sensors.
-> > +  Other members of the Starvis 2 have the same hardware requirements, and
-> > +  therefore share this binding.
->
-> This paragraph could be rewrapped, too -- the limit is 80 characters per
-> line.
+>> +	/* Not all DWC3 instances have CIO HW, trust the platform firmware */
+>> +	if (!device_property_present(dwc->dev, "usb4-host-interface"))
+> 
+> Can we pass this as a dwc3 property from your glue driver instead,
+> inferred from the compatible string? (ie. add dwc->has_cio)
 
-OK, I'll rephrase it so that it makes sense as one reflowed paragraph.
+We have both CIO and non-CIO hosts with the exact same compatible
+strings on the SoCs that support it :/
 
-> >
-> >  allOf:
-> >    - $ref: /schemas/media/video-interface-devices.yaml#
-> >
-> >  properties:
-> >    compatible:
-> > -    items:
-> > -      - enum:
-> > -          - sony,imx678-aamr
-> > -          - sony,imx678-aaqr
-> > -      - const: sony,imx678
-> > +    oneOf:
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx585-aamj
-> > +              - sony,imx585-aaqj
-> > +          - const: sony,imx585
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx662-aamr
-> > +              - sony,imx662-aaqr
-> > +          - const: sony,imx662
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx675-aamr
-> > +              - sony,imx675-aaqr
-> > +          - const: sony,imx675
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx678-aamr
-> > +              - sony,imx678-aaqr
-> > +          - const: sony,imx678
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx832-amr
-> > +              - sony,imx832-aqr
-> > +          - const: sony,imx832
->
-> Should we also have a sony,starvis2 compatible? Just wondering.
+Ack to other comments. If we need to wait for this dt property,
+would you be open to getting patches 1-3 merged in meantime?
 
-I deliberately didn't based on the discussions Jai had with DT
-maintainers when upstreaming the original binding [1], particularly
-Conor's comment:
-"Remember, having distinct multiple compatibles for the same hardware so
-that you can induce different software behaviour is not something we
-typically permit. While we do want to support all use cases, it isn't
-always the case that devicetree is the right place to do it."
+Or maybe we can lean on the fact that there exist dwc3+ACPI devices
+that could consume this property too and sneak by ;)
 
-Sorry, but when time is limited, IMHO debating dtbindings just isn't
-worth it. I've therefore taken the simple option.
-
-I do have patches that implement that compatible and fully autodetect
-the sensor[2], but I'll keep them downstream.
-Doing so means that we have one common overlay for connecting any of
-the supported Starvis2 sensors to a Pi.
-
-[1] https://patchwork.linuxtv.org/project/linux-media/patch/20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com/
-[2] Currently the top 2 commits on
-https://github.com/6by9/linux/tree/mainline_starvis2_v2, but that
-branch will get rebased/reworked.
-
-> The driver isn't generic still as it requires sensor specific information
-> to be passed to it. CCS solves this with CCS static data (via firmware
-> loading mechanism) so there are no driver changes even if the capability
-> and limit information can't be obtained from device's registers or the
-> device requires MSRs.
-
-I'm assuming you're referring to the patchset as a whole as I don't
-believe I've used the term generic in this patch. I'm happy to swap to
-"common Starvis 2 driver" where appropriate within the patchset
-instead.
-
-IMHO Pushing the config to firmware files doesn't help, particularly
-as these sensors don't have a common ID register and so identification
-isn't trivial. It also makes life more involved for a distribution
-maintainer to ensure they're picking up the relevant files, and that's
-assuming that someone is curating them.
-
-My aim with the series was to reuse as much common code as possible,
-rather than submitting 5 separate drivers which are identical other
-than constants and arrays of registers. Jai now has IMX676 working
-with this driver, so that would make it 6 variants. Refactoring to use
-a firmware file adds complexity for minimal gain, and you'd have to
-special case IMX678 so it worked without a firmware file to avoid
-regressions.
-
-I guess the common core could be refactored to be a library, so that
-you could minimise module size by having the sensor specific config in
-a module that depends on the library. You're talking of saving a few
-kB uncompressed though, so that would be quite extreme. I'd be more
-tempted to have individual Kconfig entries and use #if
-IS_ENABLED(CONFIG_IMXxxx) to conditionally compile in the config to a
-common module.
-
-  Dave
-
-> > +
-> >      description:
-> >        The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
-> >        variant (IMX678-AAMR). The variant-specific compatible describes the
-> >        exact sensor variant, with the generic IMX678 compatible as a fallback.
-> > +      The same applies for the other sensors in the family.
-> >
-> >    reg:
-> >      maxItems: 1
-> >
->
-> --
-> Regards,
->
-> Sakari Ailus
+Konrad
