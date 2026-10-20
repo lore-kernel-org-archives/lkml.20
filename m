@@ -1,92 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792526198;
-	b=ztDIaDKisigih9M2VzwWQcPUQF29DBBtUCy9DIgWRf+z34TpoSybFw8wM+gWw9++/zlK
-	 j0RvdYfHYNT/J87JU8wwS2IJKDLmPPjPOyaTyh3WC400+E4TYz6BUu0aegAcPGKmX7qFU
-	 T+sIEOW6uBiowbd2oOxv+UEF7HVumacYcOgr2LuetftrBZLSeL+5eETsU1QXbEbCNO2CM
-	 PaoSKE+1/oor6DsuE8xSUmo+qgZYMBMK94EdW3XXxwvDwmwqS0Y8em33XoMYGOROVqDHs
-	 vgYBQiND/tJIm3eCMOPiCKoGCwjr9RJmCCEPu9P6VYKbjzyzspiBuR8z+hCmcF9PXLw==
+	t=1792526221;
+	b=GYUU3KGkvB1ZajZVEOvXoUnGFTOFe8f9KDHgAj2/aXxuasv/6pynKviMT5FgGZV6cjll
+	 X9DkOskzm2Z0D7+2+RjiuXyn/gPg1bvA2PqRuKBlKzYl52L94GfU0ZthWi9iOaLAZ8Wxa
+	 p8Y0QAms3VNa3Lf0Rqij8xLhTE/0wVZD8y7qJxXagLuxsZ2ZzYLPsDJeMUnKOptvxOTyi
+	 2lrTO2n7nuaZFvzTtbBPDFdfKSHgpo3tXJK/Wjafes3RA7xkXGsv96BKDXXjFbCU434Z8
+	 Af7XJTMJ6jliA87nFyETi0M9PgiHWho9NHGgjivw5RBLrxWEulVV+YfKIw4fr/5UoqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792526198;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mpQ3RiWaLmkacBrX11wLWQ7ZHjfXoVlldjLf+y4vUcc=;
-	b=pQWuQQnWet1geP9Y3e9D49OZjERivIKCU9xwbTjf4Z6DDw9cjQQdRAEObImMjLgUh3kn
-	 xDqBBacnbS0OtIKGBzh5CctIfFNhSlNOrf8IgC602TrBfNDHddhxmWl77nUHwKnuOS+2q
-	 04bnrtPfvn3nI0mK5P//pmtuoKch8eiwPoQeY2N9mLR6PuuRf5q9ozpkjvF3y5kbWuAEJ
-	 v/NGKQgfRUY7N6rwKoajobdyMfVbe5UfDC9GHillna1TXTA9J/apgFq+JNG6z4NevTmX4
-	 Ii6zkRg8znJgVYfG1pGCkNY58eW3ePglxB+g8QX1WRxQQxytAPyqw11JsG5OmVmZIlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792526221;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=ZHJqnjP8g/3yDGwxBSj5xvPKD1sNfHJrCGIjTMarSAw=;
+	b=LTHv9AtOGQ2i4XmZiWp68qPHGhrmq4Hkoxko3XD175XFjSj5UeODgvt3l79OOmp3gLZ3
+	 dnDS5gBsJCqdfWVkHHNrtve8fVDcfhQMHg8dWe9BlSx+CSPPxPq/cuzJGwSVnYWpv0MFY
+	 1wFxsR5ON5Dt0ifUBDtBDPOFh0PtQxYfMuZttikTEQ0lA2y4LskA8Xn3rm41cBV0lP49k
+	 345cojfAJB/gIVY91sQI+YVu9IDiqzRy1WFeiKBBrggnyeHOqVzTxxo7+FkUBjDV1QScV
+	 PifdrVO0WCptmTdoR1PoQY67oeOGSHd7VevibuXoe9VhOew9Fxmo3pBruJLyUjwQwMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZwpWDIKt;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ePwCjIbN;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15ACF606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15ACF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B104E606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:57:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B104E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZwpWDIKt
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1fa22006cso23155e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:56:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792526195; x=1793130995; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mpQ3RiWaLmkacBrX11wLWQ7ZHjfXoVlldjLf+y4vUcc=;
-        b=ZwpWDIKtt08y2XY2XJbdbDMsdI3O3ojs/U6Qb5zbdYWZiPXpPE9gF89HadmJa1jcrM
-         8VeRguG42uIlGtJ93H16GwgPsu+R1sIK1VAUwBv8/9CfVvs/lP/7je7CL8uigPPekNo9
-         szIUhsIU6mG8dyUKvAl49igo8+SXGa8ov9PBEmlGFLkYGEDoNly3aHI3CLcLGGH8vgXG
-         XkMLBrXGCDWO7ZB5AhlXFvb+yI5r3kcK11X1HLs4podPeQxPDDbQmXqTasZ3nDU+jE2f
-         KVTa9IiMM5wcSh1WUePySQ/cdhLDaZ0t6oFnmhimDtrPE1W0KRivezpX7LFnXKp17sRt
-         b5zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792526195; x=1793130995;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mpQ3RiWaLmkacBrX11wLWQ7ZHjfXoVlldjLf+y4vUcc=;
-        b=neEyBmSClCBcnsMvDh3n5gWq/eztvxwVFf9iwBvVEYYJhnOrzz95VGFS5QmJuVp3gn
-         d03HsNAw0vOzuyNURJ/TQ8ac5zm6ehPwRz5/4ujHvcS00+7kqd0+RV4k22jVhj62SWjd
-         Ny7XbgHV3kf5HTtlWBznJ3Fr79XMmjZr/gtWYxSbZnR+O+3fCBdTx+Jnph++VgC8czQW
-         v/QR7L0UVNwNS4C4p9apPbA+YLyki6dLeaL9JxtZc1ilGOO5PN91d6CEp25N7dPPhs0g
-         FccJC1e1eVU4Uyzvf9pkaeLTzdJ8tqUaDQgnzNVs5evE68SbeYHAz5SW/nlWkMD/8cAl
-         JV5g==
-X-Forwarded-Encrypted: i=1; AKwUvByQQdnFuUGGFPisEWG55N34Pv2FfP1wb2if5apb99e5jD11OVz99rGLpxYXdqTsPAzAKd/xI+QTPhALcEY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrC3MyoMnEzo6SOaWUN1awGjl/c+mY/JhtThL6Z9exdE1rnW+/
-	gRaBJklOBx2W3tR4i126ec/ucIlbjDY1PC64LNSlvvlS/STVEbzvg3Y2
-X-Gm-Gg: AYBFou2UxmNNgNaKbU6N59ENPKymR1P8NH8cvyNM9dYyfNnWhDi5iQwIZUTn4w7Lhk6
-	xb4QVLVHOvFu1NbEVw1nV6/S3V0Amz44hGQvRbAdFPzz7tzX+HYGhyb1En+QgWfKh6qPznT1/CS
-	sHc0zUWWuJxUjPIGKCGMLKhX+exbaXmPcSxb5WTCZp4+s2LZT36kCmQ6zrRcVKcCqbu0OknhMDz
-	eQyXpWC41xUqJE48pHDvhFuF6KTKIqB+aFOEmByYPnrWmi65uhxt3ONWQduoVaoDVYwvgxIVgkj
-	oZ7ufCJhEEFs3KcCvrZPNELqQTlL90ctRVu4DRRugCcY+muvAjH8yH8ek0YdZRfWv2Wx+604CX/
-	EcnYPv0bxmMmCm/QR/UsoNCu/EAneBxBL4Vg/8gagpQnIrja8E4NxgYDUw2oI0WZdehvGuA+WAS
-	FgYOFXCeY5bSI5iVBEvz7M8OLOhfVMsEB1tTFoUm1BykuCfipKxXYuQToVzHxircMMSbn8XDVBo
-	87xzwFEBxI=
-X-Received: by 2002:a05:600c:190e:b0:4a1:90d7:88a8 with SMTP id 5b1f17b1804b1-4a1d76106c0mr259156705e9.25.1792526195325;
-        Tue, 20 Oct 2026 12:56:35 -0700 (PDT)
-Received: from ADRIAN-PC.lan ([171.22.87.31])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d699dasm103092035e9.12.2026.10.20.12.56.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 12:56:34 -0700 (PDT)
-From: =?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J . Wong" <djwong@kernel.org>,
-	linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
-Subject: [PATCH] xfs: add __printf attribute to xfs_buf_alert_ratelimited()
-Date: Tue, 20 Oct 2026 21:56:28 +0200
-Message-Id: <20261020195628.248878-1-adriangarciacasado42@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ePwCjIbN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792526221; x=1824062221;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=awu3qVpHXeUGdCR1yBLT1pFtzDDKmfiOadqoWwHL7OQ=;
+  b=ePwCjIbNU6ocHPCJtTvU7Opc59E1VuzC6zo365TNGPFyGtNwglFRmc0x
+   rEHkxZXX5VtrCEevA/PYOIYCe50m6rPQ+2AUoN6+nA/mmCppgOlDOrcLr
+   W1Ro/xoxJNHpX0JhnhhdNrePv0xG6BJ8iMKnMf4wpip612L9tG76oCKrf
+   pQzXZk412vR/KUDnjmfJJs0TP63V4UQal+NWMf48sCO6zcIGHjAhEPclx
+   qQfz92pG1mdrPGeiRpZ8SyQC6pt4zg9vglVOxfiUjf9acjgi5r5jz7maZ
+   IqRKJkr8WGnrAyNTR4WwnwNDJNoUG1B3vAFHcUDjfTV3CFhKPHQWjFlWZ
+   A==;
+X-CSE-ConnectionGUID: UhAjudbtSdWp1egeULDKfg==
+X-CSE-MsgGUID: 8AC59iloQGaa0OS1BvA8Iw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1220499"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1220499"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 12:57:00 -0700
+X-CSE-ConnectionGUID: CZwSjB9fRNC3N+m/KAtdNg==
+X-CSE-MsgGUID: 7NjMx2TgTaqykoTjw5wHBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="4643579"
+Received: from unknown (HELO [10.241.242.209]) ([10.241.242.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 12:57:00 -0700
+Message-ID: <ed3daf45d18d539c849b1e6c804fc9dca961b028.camel@linux.intel.com>
+Subject: Re: [PATCH] sched/cache: Ignore non-fair current in alb_break_llc()
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Kayra Cizmeci <kayracizmeci@gmail.com>, peterz@infradead.org, 
+	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Ben Segall	 <bsegall@google.com>, Mel Gorman
+ <mgorman@suse.de>, Valentin Schneider	 <vschneid@redhat.com>, K Prateek
+ Nayak <kprateek.nayak@amd.com>, Chen Yu	 <yu.c.chen@intel.com>, Ricardo
+ Neri <ricardo.neri-calderon@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org
+Date: Tue, 20 Oct 2026 12:56:59 -0700
+In-Reply-To: <0bca533c5667732d3490341b4f766dda5852e4ad.camel@linux.intel.com>
+References: <20261020161755.55690-1-kayracizmeci@gmail.com>
+	 <0bca533c5667732d3490341b4f766dda5852e4ad.camel@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,38 +88,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-xfs_printk_level() and _xfs_alert_tag() in fs/xfs/xfs_message.h are
-annotated with __printf(3, 4), but xfs_buf_alert_ratelimited() in the
-same header is missing the attribute.
+On Tue, 2026-10-20 at 11:14 -0700, Tim Chen wrote:
+> On Tue, 2026-10-20 at 19:17 +0300, Kayra Cizmeci wrote:
+> > Commit d6b9afab44e23 ("sched/cache: Fix
+> > checking active load balance by only considering the CFS task")
+> >=20
+> > Stopped using task_util() for non-fair tasks. Since the values
+> > of non-fair tasks can be stale.
+> >=20
+> > __active_load_balance_cpu_stop() calls detach_one_task(), that only loo=
+ks
+> > to cfs_tasks list. So if the rq->curr is not fair, doing a decision
+> > according to it is wrong, since we only migrate tasks that is fair.
+> >=20
+> > Commit f0d243a96f26 ("sched/fair: Avoid creating misfits during
+> > cache-aware balancing") uses cur without checking if the cur is in fair
+> > class or not. Fix this.
 
-Because xfs_buf_alert_ratelimited() formats its variadic arguments via
-struct va_format and %pV, the compiler does not suggest the format
-attribute under -Wsuggest-attribute=format, and callers do not get
-compile-time format string checking.
+I suggest rephrasing the log a bit:
 
-Add __printf(3, 4) to xfs_buf_alert_ratelimited() to match the other
-logging helpers in fs/xfs/xfs_message.h.
+  Commit d6b9afab44e23 ("sched/cache: Fix checking active load balance
+  by only considering the CFS task") stopped using task_util() of a
+  non-fair curr in alb_break_llc(), as the util of non-fair tasks can
+  be stale.
 
-Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
----
- fs/xfs/xfs_message.h | 1 +
- 1 file changed, 1 insertion(+)
+  However, commit f0d243a96f26 ("sched/fair: Avoid creating misfits
+  during cache-aware balancing") still passes curr to
+  task_misfits_asym_cpu() regardless of its class, which then calls
+  task_fits_cpu() on it. A non-fair curr is never migrated by active
+  balance, since detach_one_task() only picks tasks from cfs_tasks.
+  Ignore a non-fair curr so it does not affect the decision.
 
-diff --git a/fs/xfs/xfs_message.h b/fs/xfs/xfs_message.h
-index 811b885f41..bfae8dddc9 100644
---- a/fs/xfs/xfs_message.h
-+++ b/fs/xfs/xfs_message.h
-@@ -87,6 +87,7 @@ void asswarn(struct xfs_mount *mp, char *expr, char *f, int l);
- 
- extern void xfs_hex_dump(const void *p, int length);
- 
-+__printf(3, 4)
- void xfs_buf_alert_ratelimited(struct xfs_buf *bp, const char *rlmsg,
- 			       const char *fmt, ...);
- 
--- 
-2.39.5
+Tim
 
+
+> >=20
+> > Fixes: f0d243a96f26 ("sched/fair: Avoid creating misfits during cache-a=
+ware balancing")
+> > Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+> > ---
+> >  kernel/sched/fair.c | 4 +++-
+> >  1 file changed, 3 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index 0feec172fd37..6347ae4cb419 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -11016,7 +11016,9 @@ alb_break_llc(struct lb_env *env)
+> >  			return true;
+> > =20
+> >  		cur =3D rcu_dereference_all(env->src_rq->curr);
+> > -		if (cur && cur->sched_class =3D=3D &fair_sched_class)
+> > +		if (cur && cur->sched_class !=3D &fair_sched_class)
+>=20
+> Thanks. util was already 0 for a non-fair curr, but cur was still
+> passed to task_misfits_asym_cpu(), which would evaluate
+> task_fits_cpu() on a non-CFS task. Since nr_pref_llc_running and
+> h_nr_runnable only count CFS tasks, curr can be e.g. an RT task here
+> with a CFS task queued behind it, and active balance would only ever
+> detach a CFS task anyway. So the fix makes sense.
+>=20
+> Suggest that you put a comment here:
+>=20
+>                   /*
+>                    * Active balance only detaches CFS tasks, so a non-fai=
+r
+>                    * curr is never migrated. Ignore it and avoid using it=
+s
+>                    * stale util in the misfit and LLC checks.
+>                    */
+>                   if (cur && cur->sched_class !=3D &fair_sched_class)
+>                           cur =3D NULL;
+>                   if (cur)
+>                           util =3D task_util(cur);
+>=20
+> Could you update the changelog to say explicitly that the issue is the
+> non-fair curr being fed to task_misfits_asym_cpu(), not util?
+>=20
+> Tim
+>=20
+> > +			cur =3D NULL;
+> > +		if (cur)
+> >  			util =3D task_util(cur);
+> > =20
+> >  		if (task_misfits_asym_cpu(env, cur) ||
