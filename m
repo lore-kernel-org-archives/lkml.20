@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500187;
-	b=Bc87smziDMlldiPf5fXJjg7FPOLrwo/ormUolHozZHcmqNLQA6LTGS06VsGvVbf3gQKq
-	 5ckKMQXegbE0UayaT87l2vLATrJnJllaLceZXXw2DKqoXSxgui4RthKwXh2DT4LOswGvJ
-	 y7kpoyGEsiXqE0uG1t4UptIo9lz2FfrslK7UYKhWWfB1WsznvpuPiYbbPQWX+Pu7uCYIg
-	 A1RV5BXdRB0bRe6M5SGhh4hjctBiP22WFEAruV7GMRbfRQH5PVSzmKaMT9sYqxpsrXOCb
-	 wsf5/yyWBLubGOGAHE2TMZMbM2TShmUZscDZfNmqK18IlUzOodwokj51i+tw7ROD5sQ==
+	t=1792500191;
+	b=d8h9NxUq2PM/5857VPxWp1giLE7UX0CLCwQqIDq22gK0w0T+lsa87FU2LNJtREOuOQYx
+	 VxWz8fqLVQnAqhCrNoG9mgY+dsmhSM6XS+9uk+ioBpweYOlM9hT5ZVrxJ29DaFHmUwqBy
+	 0DnxqCWLjggEVAWyQdndw7AgowI4760Mu3yCxHDAn4gqfL8ZLdsy321XPAN6puoznFG9Y
+	 ygW77/e5PHHXBE//QOjvrJj4F0ALecS3kKKaFu8EPxvQEOJqkchQYtDNqOr/7sbcKjwCc
+	 iz9Ur60BmzKd4rOMCJ8sKXhMzVC4zdYR4nhmhJnp5eF4eG4YFirupBNTITWmYTiw/0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500191;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=HEG63JYFr/Fj3C4cM9XX9+4Avc3M5MWxi2v4QHcFdKw=;
-	b=NXKKsUXamYCc3SjADBU05hn4yH46v58nh7dBmJdSvHkY5o4jRAEsz3zA6ZVBs9rjmEJj
-	 uuFOc59R7talP5CQtdq0Ik5lde/9jGo5DAinM0/CjZpVHBSk8nEeOfG+BE2KdXkvrjKvY
-	 Kt0ggryV49Ae0qhl0MSoc+9nDlCKXTtCXH3w2NBiEJSmqwzxe/D83ngQqju6fVVX3CdFw
-	 HR+QfysQIDunWctz5368XtJBw0+SgO8LSvBc0IYXItVLkpbDhXNc+K7lOrETF1IJqjNVM
-	 6EZGp1lQL3Egk5wv+LMdRU+28lLcjMa/OQUD8YORCuBHba7g2EHqI71duAfmiCEEheQ==
+	bh=MVCL73K9OKscy8732C/XX4AudTbxU6kKFArkDg8Njkw=;
+	b=eI8AwkhRhXeOGQmZkve2jDWH2gWE0H2RUorr2SYXDoAFC8H0ESQ8poA7QsJVrpHY2xJV
+	 TkLaBoj2K/M4z73s3jpnsPht0ghDGovEpFVvA3LV32W8znrBPYvV0vnzigvkS6GFt8kUN
+	 eZGoora93k98kjvCGwmaOrwi0YTbapkrvH2YO2JRH6vjXM7ZnSxdQmmdJ+jOBoYLTDZU0
+	 /feztyTTpopp2hG90CzP0cEMH0+wA1y8l6pXTpMK+alpYXVK03ujQOLl/Q0JdsuOuRp9b
+	 lnezYkI2jTJfNcsG+khaOuvcVwCvS3sTmbaxoIM2/acKtDY0B6YcRBSVxTuEikCEljA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFQpDMeE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPlCBRPH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AB5606A324;
-	Tue, 20 Oct 2026 12:43:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38E9606A327;
+	Tue, 20 Oct 2026 12:43:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFQpDMeE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 274EC1F000C5;
-	Tue, 20 Oct 2026 12:43:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPlCBRPH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E6D71F000CB;
+	Tue, 20 Oct 2026 12:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792500186;
-	bh=HEG63JYFr/Fj3C4cM9XX9+4Avc3M5MWxi2v4QHcFdKw=;
+	s=k20260515; t=1792500190;
+	bh=MVCL73K9OKscy8732C/XX4AudTbxU6kKFArkDg8Njkw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LFQpDMeEK86Pe0QcHUg0qnUrbL8dD6fjwVOtXdZOMYnWMcdAWolkrEcsRQEI5zGdc
-	 YrYDTuqhFQf9uKaNkMy8UH0YG2SaHxQmvYEDOZfzyM2ghBf9uHVVNs5NnBR24hfrdU
-	 ixFqE87pISXlD+dtuSfCRnwdJ8IqA/YfFDwSfFE/zVk9+4T3W/rTQSufzSGZPfzCAk
-	 dVpVS0Qj6gsMd7Addd63nPy8wyX3H332jJ6VuuMiYQcQOXtpeKEVXA4hTr/q+KHx9H
-	 QtkOEGs53pwIs7+6+zV9BujXD7itzfekpCyTnqIRtY/tjcD5AjYIbZd5S6A3++Vnxp
-	 bVaP4ZrTk0V4A==
+	b=QPlCBRPHieKlq4IJu4Ni1ns6h3KSA5ICS51/VpvUKsEJVipKU4/dV5qaSu0QgzaMm
+	 7Ut05RRMWeKCY3yd3oO97fZSj+yEeQWOjTFRLoQO2hc31SjNSmXlY/XqfHNrsK5xWA
+	 kSGmtlGvCOMysvHymacOk9CVJtbxrqxVvoEOVbcsw8EhhTtF6KqUhCjUo2P+1TiOEm
+	 K3Y0SG7VwLTRP33+A0ckB21f/pIOq/NcjDCIV7dZ4dEkSMlYb6rI4dbs1u6dTM2JJJ
+	 mRuxc3tsF78T1pf6wsG9UcA9TF7Jfp1DOUKRKUSlu6gNxXA7PwxFcPXHq79WZv9hph
+	 KJKUlV4struxA==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Tue, 20 Oct 2026 14:42:05 +0200
-Subject: [PATCH 1/7] arm64: dts: qcom: kodiak: Use ICC tag defines
+Date: Tue, 20 Oct 2026 14:42:06 +0200
+Subject: [PATCH 2/7] arm64: dts: qcom: sc7180: Use ICC tag defines
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-topic-icc_defines_ao-v1-1-cae8d22649ac@oss.qualcomm.com>
+Message-Id: <20261020-topic-icc_defines_ao-v1-2-cae8d22649ac@oss.qualcomm.com>
 References: <20261020-topic-icc_defines_ao-v1-0-cae8d22649ac@oss.qualcomm.com>
 In-Reply-To: <20261020-topic-icc_defines_ao-v1-0-cae8d22649ac@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -67,11 +67,11 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792500178; l=4494;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792500178; l=4402;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=p9fBIkCQogzm8WkyToHn9qbjATuzmStZrn5OeMXxcgs=;
- b=qCM5ZlExsNhw58hpVjCSrkUi8vjWsHdMZNT6Wl0FBRPmL0NxQmbGkqd/bBhxCsPtOvTk06AOB
- 4EfeI1p8GyDCxWYDv+RKjzsaEmeBl8LQ5AXDo1jBCFc2D6lbk9XOlWJ
+ bh=jdJzsPYQpyVaPuW5rFhX+L4So5dJHDkXygUX5luWybU=;
+ b=jImjhZLWISZcrxy8NB6YHMrmiHJXKyjvnZBNx5HbtEwf0RXw8OrN9Aag/X3SU+dT0xflz86rk
+ 8IddeQeCIy2CfOX+F03FKnKhFSsk0e3Q+MVLUmR/XCJ72NSKKk+rLE3
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
@@ -82,93 +82,93 @@ demistify them.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/kodiak.dtsi | 24 ++++++++++++++++--------
+ arch/arm64/boot/dts/qcom/sc7180.dtsi | 24 ++++++++++++++++--------
  1 file changed, 16 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-index 8c7523602d27..9cbaf8219355 100644
---- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-@@ -216,7 +216,8 @@ cpu0: cpu@0 {
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index 70fbfb31d4a4..29e345a6a13f 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -89,7 +89,8 @@ cpu0: cpu@0 {
+ 			capacity-dmips-mhz = <415>;
+ 			dynamic-power-coefficient = <137>;
  			operating-points-v2 = <&cpu0_opp_table>;
- 			capacity-dmips-mhz = <1024>;
- 			dynamic-power-coefficient = <100>;
 -			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
 +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
 +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
+ 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
+ 			next-level-cache = <&l2_0>;
  			#cooling-cells = <2>;
-@@ -245,7 +246,8 @@ cpu1: cpu@100 {
+@@ -119,7 +120,8 @@ cpu1: cpu@100 {
+ 			dynamic-power-coefficient = <137>;
+ 			next-level-cache = <&l2_100>;
  			operating-points-v2 = <&cpu0_opp_table>;
- 			capacity-dmips-mhz = <1024>;
- 			dynamic-power-coefficient = <100>;
 -			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
 +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
 +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
+ 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
  			#cooling-cells = <2>;
-@@ -269,7 +271,8 @@ cpu2: cpu@200 {
+ 			qcom,freq-domain = <&cpufreq_hw 0>;
+@@ -143,7 +145,8 @@ cpu2: cpu@200 {
+ 			dynamic-power-coefficient = <137>;
+ 			next-level-cache = <&l2_200>;
  			operating-points-v2 = <&cpu0_opp_table>;
- 			capacity-dmips-mhz = <1024>;
- 			dynamic-power-coefficient = <100>;
 -			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
 +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
 +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
+ 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
  			#cooling-cells = <2>;
-@@ -293,7 +296,8 @@ cpu3: cpu@300 {
+ 			qcom,freq-domain = <&cpufreq_hw 0>;
+@@ -167,7 +170,8 @@ cpu3: cpu@300 {
+ 			dynamic-power-coefficient = <137>;
+ 			next-level-cache = <&l2_300>;
  			operating-points-v2 = <&cpu0_opp_table>;
- 			capacity-dmips-mhz = <1024>;
- 			dynamic-power-coefficient = <100>;
 -			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
 +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
 +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
+ 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
  			#cooling-cells = <2>;
-@@ -317,7 +321,8 @@ cpu4: cpu@400 {
- 			operating-points-v2 = <&cpu4_opp_table>;
- 			capacity-dmips-mhz = <1946>;
- 			dynamic-power-coefficient = <520>;
+ 			qcom,freq-domain = <&cpufreq_hw 0>;
+@@ -191,7 +195,8 @@ cpu4: cpu@400 {
+ 			dynamic-power-coefficient = <137>;
+ 			next-level-cache = <&l2_400>;
+ 			operating-points-v2 = <&cpu0_opp_table>;
 -			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
 +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
 +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS &epss_l3 SLAVE_EPSS_L3_SHARED>;
+ 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
+ 			#cooling-cells = <2>;
+ 			qcom,freq-domain = <&cpufreq_hw 0>;
+@@ -215,7 +220,8 @@ cpu5: cpu@500 {
+ 			dynamic-power-coefficient = <137>;
+ 			next-level-cache = <&l2_500>;
+ 			operating-points-v2 = <&cpu0_opp_table>;
+-			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
+ 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
+ 			#cooling-cells = <2>;
+ 			qcom,freq-domain = <&cpufreq_hw 0>;
+@@ -239,7 +245,8 @@ cpu6: cpu@600 {
+ 			dynamic-power-coefficient = <480>;
+ 			next-level-cache = <&l2_600>;
+ 			operating-points-v2 = <&cpu6_opp_table>;
+-			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
+ 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
+ 			#cooling-cells = <2>;
  			qcom,freq-domain = <&cpufreq_hw 1>;
- 			#cooling-cells = <2>;
-@@ -341,7 +346,8 @@ cpu5: cpu@500 {
- 			operating-points-v2 = <&cpu4_opp_table>;
- 			capacity-dmips-mhz = <1946>;
- 			dynamic-power-coefficient = <520>;
+@@ -263,7 +270,8 @@ cpu7: cpu@700 {
+ 			dynamic-power-coefficient = <480>;
+ 			next-level-cache = <&l2_700>;
+ 			operating-points-v2 = <&cpu6_opp_table>;
 -			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
 +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
 +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS &epss_l3 SLAVE_EPSS_L3_SHARED>;
+ 					<&osm_l3 MASTER_OSM_L3_APPS &osm_l3 SLAVE_OSM_L3>;
+ 			#cooling-cells = <2>;
  			qcom,freq-domain = <&cpufreq_hw 1>;
- 			#cooling-cells = <2>;
-@@ -365,7 +371,8 @@ cpu6: cpu@600 {
- 			operating-points-v2 = <&cpu4_opp_table>;
- 			capacity-dmips-mhz = <1946>;
- 			dynamic-power-coefficient = <520>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			#cooling-cells = <2>;
-@@ -389,7 +396,8 @@ cpu7: cpu@700 {
- 			operating-points-v2 = <&cpu7_opp_table>;
- 			capacity-dmips-mhz = <1985>;
- 			dynamic-power-coefficient = <552>;
--			interconnects = <&gem_noc MASTER_APPSS_PROC 3 &mc_virt SLAVE_EBI1 3>,
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS &epss_l3 SLAVE_EPSS_L3_SHARED>;
- 			qcom,freq-domain = <&cpufreq_hw 2>;
- 			#cooling-cells = <2>;
 
 -- 
 2.56.0
