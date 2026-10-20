@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792518249;
-	b=WUsk0v/ekhliNSE+XkPed7VT7OtLo+QrblIyPU/gacWtUIDzqjUKL0oJ3TXLGi2Vs960
-	 4/OX29yBInMkzFWJgGhoBRqvEIh4Kemn0saSXrJnOEIhks+1OtVEIm+sOihzf04KQj+5q
-	 8MIFceGBbo6p4eNyiANVZHpL7GRLOTgehiM+wNcbLLqKOnvtmDzDDw9SRmzY+v7pOHkFZ
-	 hZsz7v+mVYP2KPdJEUR7z8xC8+XX3FGdseq8dmj1hFsdCbCUIUvW1qNHp002jOoDxlMy7
-	 P470Fq+Khnq9BIaARwDIhilVXgihtFCqjwtu1IhMngiopLmh4AI5kKFj9H6s1dtOtNg==
+	t=1792518261;
+	b=gH6HtWkI0hZaU6H4T/6zcD621wIpoaNUQfcRlXrv7Q34J6QCK6lwWx8l+98FmKNTgqDj
+	 XX9cox3nZAQ/gmEpDHKv9f0fCKWyVyLSh4CBbF6H5+i0tk2BzMIwTenQGbPQU6foTgMyh
+	 9Oi5iQteYZENMDw/QUIWCxbv0Le9+HD3FDpolMYgstNfBIYLO9vpkjSnd/RVNjOfHFwh3
+	 Mn5As7foy9YT2nI5NHBly21y30ezPUB35jiRP9zNJI5KAJAcQRCn99mT10s4f84LHE6ZA
+	 BJHowMHYLKd0NFEi9dCbV4wFHvG9M+7QS2rJ+e5kr+81yAyGSf8Yp3EshwwpkN8oJ1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792518249;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5dAqZyIdnLqZkDPsYtrDxXC8F11XV4d+UfmkgL0qrH0=;
-	b=SQ6yXjf/HXomYfzCS+zSCgUcIUC9XrgS11Pq8/4fagdvCLjEXPrq5vDbD/NBBeSGvP8a
-	 sb1wnPLHnBVsDQDnkdFg0mzZnsJO8II0uA55fqDhqy0PLeRI0LCxLVARg37IX2rfF7qUe
-	 +MAJBBj9hg2Tmk05vBKqcrUdfgZ8DFsEidWZoyaYgp3sBJJCoCOH8ToHYrZmw6SqUMXDk
-	 cp3ugHxIXaS/QyXcPgWaREqFaGGxWmo8fHOHTuuJ2ysxEPBDOXuKEd7fhDjI02O/PB1Oy
-	 HtGhtisn3ZdAk5XcZWqjNSOnLL7H2XtgayebT84JgyZrt7CfmW4gJyw0ZYoTUmEL1uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792518261;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=+K8ozS5zuMGtMGwNhUM19X47O639ySjcKiELw/sxceA=;
+	b=aCkVydE4W+74w72PiXsYiZlcnCmKvfOGVctAdq1qjom+lGN4TVt8vkbrJaIN7Lmz5cwb
+	 oIcj0zi09P4S48QygObpRNURJwuD5IZqVIyvrgNy4X6c4EjeYpxkIpJGLiQiuK7x1hfaO
+	 DDV8k1zPRBiF0wUxqanxGGzGPQxDhO4aP6ifTyCHlsbeQRP91xRZBX6GpSWkN4npqags3
+	 xPvvfKu4frFYE6xjnQQ96JtXGDaIv4EVsM1yHrUcJeW9GMt2D5smM8Mhelxwd5SYxj0jo
+	 8EzPhCnkDmjEOLbi8+v24W/5e8SlJZ7ocgSjxNoEBHsaSABH1gfwgh/AJIlhjDEnCbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3ox2Okf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUDRh7YW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 935FC606A32D;
-	Tue, 20 Oct 2026 17:44:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3FB606A31C;
+	Tue, 20 Oct 2026 17:44:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3ox2Okf
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A321F1F000C9;
-	Tue, 20 Oct 2026 17:44:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUDRh7YW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26EBA1F000C9;
+	Tue, 20 Oct 2026 17:44:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792518249;
-	bh=5dAqZyIdnLqZkDPsYtrDxXC8F11XV4d+UfmkgL0qrH0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H3ox2OkfS/0A8Wu+iLxT5Hloq26brloB7KfmJ2124DkToVAurh2mPE2mUmlOsnbBj
-	 JhciHIYKcZOplUmzJrz1AJkzd+pxmpcEfqkd0g3M82soVL/OrC3A1gpKdsDVwJhNXY
-	 BwFmh0m9hBMQiPWTiTGI3ZwXgEpk4cJYms2lTh1ygjy7v7JgFINwdlLiksp51pYJHY
-	 BeCPeoUaLany4ZZa9g57z6zAuG0IuAbqjeomyjv3Rl7/kw1L8XKiQ5vu2mToagMq9v
-	 XD3e/p3nIOLxF/D3Ff6vORdue0pSrj6sjOR5zvRrBUwe5y1T2RHSkNlq+fCic59o1c
-	 aPyfN1k1PIa1w==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	stable@vger.kernel.org,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v4 3/3] KEYS: Verify the key identity in __key_unlink_begin
-Date: Tue, 20 Oct 2026 20:43:21 +0300
-Message-ID: <20261020174325.2229448-4-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261020174325.2229448-1-jarkko@kernel.org>
-References: <20261020174325.2229448-1-jarkko@kernel.org>
+	s=k20260515; t=1792518261;
+	bh=+K8ozS5zuMGtMGwNhUM19X47O639ySjcKiELw/sxceA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gUDRh7YWfe9WXFp97Ekumy3Uc+t7Jl5KGU1SqMu+vRNSQBd8OmUSQbWnVXZiDb3VA
+	 qwhxr5lvCtJSG3NgF+yFewtFW9xXuW6hK93i5/jYD7XRi6E2NeGMZplMxA1JxJnVuq
+	 4U10F4AWuf26z4s40Kh9fm+y702cTIgTW94Ma2CDBHcdd095g9uRpPvmfi7itx8e40
+	 CIFbWqeOvAWQyhGZz31M+N6MVLOj10Zagq7kEQXU8lTaC5R0mQ5Pg86BXk9QdwH1tq
+	 kS8QazMow37t/jcvBlTOGOCJ+J0OYduKjHydf2tVXlI0l3t0egRbF80mu1QGJOwA5n
+	 8pZ4M717xFLjg==
+Message-ID: <sashiko-outbox-179440@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net v6] net: schedule a purge when the defer queue
+ rejects a free
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joseph Kain" <jkain@nuro.ai>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261019174400.1377093-1-jkain@nuro.ai>
+References: <20261019174400.1377093-1-jkain@nuro.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 17:44:11 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,62 +59,152 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When two keys have identical type and description, linking the second key
-replaces the first in a keyring. However, attempting to unlink the first
-key (no longer in the keyring) unlinks the second key.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] net: skb_attempt_defer_free() still latches defer_count on skb_d=
+efer_max=3D0
+- [Medium] net: repeated IPIs and lock contention in skb_attempt_defer_free=
+()
+--
 
-This happens because __key_unlink_begin() calls assoc_array_delete() with
-&key->index_key, matching only on type and description rather than the
-key's identity.
+commit 6c549c105bac5ff899022b2e84c0969ec08de899
+Author: Joseph Kain <jkain@nuro.ai>
 
-Example:
+net: schedule a purge when the defer queue rejects a free
 
-  keyctl new_session >/dev/null
-  keyctl newring ring_a @s
-  keyctl newring ring_b @s
-  A=$(keyctl add user A ss %:ring_a)
-  B=$(keyctl add user A qq %:ring_b)
-  keyctl newring R @s
-  keyctl link $A %:R
-  keyctl link $B %:R
-  keyctl unlink $A %:R
-  keyctl show
+This commit schedules a defer list purge from the reject path in
+skb_attempt_defer_free() when defer_count exceeds defer_max, changes the
+limit check from >=3D to >, and moves the defer_count reset after
+llist_del_all() in __skb_defer_free_flush().
 
-Verify the key identity before unlinking, and return -ENOENT on mismatch,
-instead of unlinking the key with the wrong identity.
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index e76762e29360e..a5912b728ddd7 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -6940,8 +6940,11 @@ static void __skb_defer_free_flush(struct skb_defe=
+r_node *sdn, int budget)
+> =20
+>  	if (llist_empty(&sdn->defer_list))
+>  		return;
+> -	atomic_long_set(&sdn->defer_count, 0);
+>  	free_list =3D llist_del_all(&sdn->defer_list);
+> +	/* Racy on purpose, as in __dev_xmit_skb(): a producer landing between
+> +	 * the del_all and this store stays queued but uncounted.
+> +	 */
+> +	atomic_long_set(&sdn->defer_count, 0);
+> =20
+>  	llist_for_each_entry_safe(skb, next, free_list, ll_node) {
+>  		prefetch(next);
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 41beaf625421a..596f99811bacd 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -7392,8 +7392,14 @@ nodefer:	kfree_skb_napi_cache(skb);
+>  	defer_max =3D READ_ONCE(net_hotdata.sysctl_skb_defer_max);
+>  	defer_count =3D atomic_long_inc_return(&sdn->defer_count);
+> =20
+> -	if (defer_count >=3D defer_max)
+> +	if (unlikely(defer_count > defer_max)) {
+> +		/* The kept increment only comes back down when a flush zeroes
+> +		 * it, and this is the one path that sees a full queue.
+> +		 */
+> +		if (!llist_empty(&sdn->defer_list))
+> +			kick_defer_list_purge(cpu);
+>  		goto nodefer;
+> +	}
 
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- security/keys/keyring.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+[Severity: Medium]
+Can setting net.core.skb_defer_max to 0 and later restoring a positive
+limit still latch sdn->defer_count in the absorbing state?
 
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 2c54f7f84c55..5281da9d5bf7 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -1506,9 +1506,15 @@ static int __key_unlink_begin(struct key *keyring, struct key *key,
- 			      struct assoc_array_edit **_edit)
- {
- 	struct assoc_array_edit *edit;
-+	const void *object;
- 
- 	BUG_ON(*_edit != NULL);
- 
-+	object = assoc_array_find(&keyring->keys, &keyring_assoc_array_ops,
-+				  &key->index_key);
-+	if (!object || keyring_ptr_to_key(object) != key)
-+		return -ENOENT;
-+
- 	edit = assoc_array_delete(&keyring->keys, &keyring_assoc_array_ops,
- 				  &key->index_key);
- 	if (IS_ERR(edit))
--- 
-2.47.3
+In net/core/sysctl_net_core.c:proc_do_skb_defer_max(),
+proc_dointvec_minmax() writes 0 to net_hotdata.sysctl_skb_defer_max
+before static_branch_enable(&skb_defer_disable_key) patches the jump
+label across CPUs:
 
+    oval =3D !net_hotdata.sysctl_skb_defer_max;
+    ret =3D proc_dointvec_minmax(table, write, buffer, lenp, ppos);
+    nval =3D !net_hotdata.sysctl_skb_defer_max;
+
+    if (nval !=3D oval) {
+        if (nval)
+            static_branch_enable(&skb_defer_disable_key);
+        else
+            static_branch_disable(&skb_defer_disable_key);
+    }
+
+Additionally, preemptible callers in tcp_eat_recv_skb(),
+skb_consume_udp(), or mptcp_eat_recv_skb() may already have passed the
+skb_defer_disable_key check in skb_attempt_defer_free(), and on 6.18
+through 7.0 stable kernels targeted by Fixes: 844c9db7f7f5,
+skb_defer_disable_key is not present at all.
+
+When defer_max is 0 and sdn->defer_list is empty (either initially or
+after a flush drains existing entries), each producer in
+skb_attempt_defer_free() increments sdn->defer_count to 1, 2, ..., N,
+sees defer_count > 0, skips kick_defer_list_purge(cpu) because
+llist_empty(&sdn->defer_list) is true, and jumps to nodefer without
+adding to sdn->defer_list.
+
+Because __skb_defer_free_flush() returns early when
+llist_empty(&sdn->defer_list) is true without zeroing sdn->defer_count,
+restoring net.core.skb_defer_max to a value <=3D N leaves sdn->defer_count
+at or above defer_max with an empty sdn->defer_list, permanently
+disabling deferred freeing for that (cpu, node) pair.
+
+Also, if sdn->defer_list has fewer than (defer_max >> 1) entries queued
+when net.core.skb_defer_max is set to 0, enabling skb_defer_disable_key
+causes subsequent producers to return before the reject path while
+proc_do_skb_defer_max() neither kicks nor flushes pending nodes, which
+can strand those queued SKBs if the owner CPU does not raise
+NET_RX_SOFTIRQ on its own.
+
+[Severity: Medium]
+Does calling kick_defer_list_purge(cpu) on every rejected SKB cause
+repeated IPIs and lock contention when the target CPU has BH disabled or
+uses backlog threads?
+
+The commit message notes that kick_defer_list_purge() coalesces through
+sd->defer_ipi_scheduled so a burst of rejects costs one IPI. However, in
+net/core/dev.c:trigger_rx_softirq(), sd->defer_ipi_scheduled is cleared
+in hardirq IPI context immediately after raising NET_RX_SOFTIRQ, before
+net_rx_action() and skb_defer_free_flush() run:
+
+    static void trigger_rx_softirq(void *data)
+    {
+        struct softnet_data *sd =3D data;
+
+        __raise_softirq_irqoff(NET_RX_SOFTIRQ);
+        smp_store_release(&sd->defer_ipi_scheduled, 0);
+    }
+
+If the target alloc_cpu is running with BH disabled (for example under
+bh_lock_sock(), local_bh_disable(), or napi_poll()), or if softirq
+processing is deferred to ksoftirqd, hardirqs remain enabled on that
+CPU. Each CSD IPI interrupts the target CPU in hardirq context and clears
+sd->defer_ipi_scheduled to 0 while sdn->defer_list remains non-empty,
+allowing subsequent rejected frees in skb_attempt_defer_free() to send
+repeated IPIs until skb_defer_free_flush() actually drains the list.
+
+Furthermore, when use_backlog_threads() is true (such as on
+CONFIG_PREEMPT_RT), kick_defer_list_purge() unconditionally acquires
+sd->input_pkt_queue.lock via backlog_lock_irq_save() on every rejected
+free even when NAPI_STATE_SCHED is already set on sd->backlog.state:
+
+    if (use_backlog_threads()) {
+        backlog_lock_irq_save(sd, &flags);
+
+        if (!__test_and_set_bit(NAPI_STATE_SCHED, &sd->backlog.state))
+            __napi_schedule_irqoff(&sd->backlog);
+
+        backlog_unlock_irq_restore(sd, flags);
+    }
+
+> =20
+>  	llist_add(&skb->ll_node, &sdn->defer_list);
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019174400.1377=
+093-1-jkain@nuro.ai?part=3D1
