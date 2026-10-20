@@ -1,100 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792466492;
-	b=H7enpRiTpE0cl/S1ulKGLpfV33hYVD0wXeosdpe4LIeZeoyUnf+CwcAeCPdsLXlrzhDH
-	 Vf5vj/Zo6o3PV5kc/aXUoqr28KvQDOEOwPAbQC9BHqqJUUx3sPBg7+ftBh9wS3EFiWfWI
-	 W9B01L7Hk1FKVU7nHO2h458DnMn1s8W6XV1JUZN/6c9HTwGaqKaA7vwZTuwD5BYLxtWjU
-	 N5YcBx3ucMnXxyukjBJwbYV9LQFM1uLBkPXhwe4qr5Cbx2kOXcc0Z8Hy+8qOVVOElq86C
-	 170aZu9f8pdmtUq3L5USrceNxbnYNml5vZwpVo4FVKtEgxg9oQPx8XLwU0RPg+6rN/w==
+	t=1792466519;
+	b=MC3fNr0prO8wBobkTYHbCkNlJS4OaVk6JG0NS0saRXVT6ZrolSHx92aXW7k8b72zk0Nc
+	 qH9CswK1XXFXEEEV4pSR1G25W2L0rCk7QB9UX6bbsTX3jf2S/m+H0P3HZ7Ckn9GkgKtn3
+	 ygGtL/GnIDNleXVP4iToTDLynJApSLKuydOp8tokD+nmprTojcY0Tmapr+he08hBgpn1n
+	 OTFOKfSFlnmeLq4H9PK+0I7fKYG4o+kdMdMA2NZ534gJssY2h+tTVyhtCC70MjHymJaqP
+	 frFZUZo7J7aQM80UzBJA3IL2ckJsEGiBx0aNzvKwSitcVwfeuQDH/xnUad8d/HZ8BSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792466492;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792466519;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=lLdoywuBRsUnhzRmRUhPliwolaqyJQAaZER5imRmeic=;
-	b=FReuaFKZ0454Uo/1vB/gHA6fD3NeNafNUeIlB1Yg/3OpfqYal8pLkTkEVqjA1rdaDUe4
-	 bQJ4tOZs/Z6u9SS4UzFsfRu19sOs2Bz6NHJ4XaoKo9cGT8dlDPBT/mfqQOu2SM8K4EYAd
-	 IjfecdtGPiAKinEWbSKUTZh+flzHPz7GXaeMtOayqmMllRHSfZ/BkauqzDKf+3lM05uZS
-	 6/GMJxmburdS9d5B9GpVByvVoA3GVK7OGKx9G6iH00q55xVNeZtUYFzpJs4S7Jtx6tHpa
-	 /xnf3UlSK8cXVOHUnGnZZ7di5q0fOUy0NISVTsv2R8nnBwV1qWkp6PWJb6GZXNzbGOA==
+	bh=gnzh+m64uMxXKaq6t/vdpcSaRLdFTK11HDMv+R6rWJw=;
+	b=34wBLuCuXSYT2OBgWzhnjxrSNcfw8MtAB1aey66/WKG+1/NeeM6CxHXnZJAN8rMix60E
+	 TNSrkLLSZ8QTm1MxE1IWkkfhusbheyrIM6IC958iR0KAsDM0h3EyDSSGLSd+5OtSFWihe
+	 rqEC/zG45srIwekuzV+a+5YN8ORMkjsTGqE0dA+S6kmDo9atFRsT+AAWwoDP/wsHwiY6s
+	 ojj8K0fyIQdZfdlWU0OuL59Coihu99fW2vF73qTZCCfY0CwkU1lxZMN59G8bnqJ9Q79QD
+	 4wxYUeCjx8KV/FKrBkBigb9y6TUSpPQfwUezWa5XCOmHmtyvtgTND8Ue4vm4bGNoy+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DbaAIKP6;
-	arc=none smtp.remote-ip=74.125.231.132
-Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=kDc6S37x;
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E423606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:21:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E423606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B43606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:21:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09B43606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DbaAIKP6
-Received: by mail-oo2-f4.google.com with SMTP id 006d021491bc7-702f1150a16so292981eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:21:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792466490; x=1793071290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lLdoywuBRsUnhzRmRUhPliwolaqyJQAaZER5imRmeic=;
-        b=DbaAIKP6yVtLasOewGk+VzRGyBf4i3jOCBNiVUNDdZ3HXL7CfNwu76Wkqt3aJ86AeQ
-         I9OL/c1z11QNRx5qmcy0fi3UTcnw1dRDNR9nhOWQdKu5bWT7cVrF1FyppUJ8xZKMlDn0
-         yNnpgXAq1pW9Kn8p/iBqf5MbdA+aNZmWMSlHva4OIGoxyGr+enEfid1dw/zjJn07IXrE
-         ATjNzTrRj0tOD3ajVrTjHU14ssNIZ9NB4T2ZWibtGhCcnN2Hhglm55IuqLiqzapce0Ff
-         zNt9TNfVs7VfEG4rTcbWGFK+PYB+Nd+lyd6PaomF/Rsc4DuyUrvMTZuLPaT1ze/wbLAu
-         CFsw==
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=kDc6S37x
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 243D13F97F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:21:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1792466516;
+	bh=gnzh+m64uMxXKaq6t/vdpcSaRLdFTK11HDMv+R6rWJw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version;
+	b=kDc6S37xhECSvMudc/RhaZruUmgJQZ59vTHoUlXbAZ8Lpj3OWnewB0PLTXndtT3EQ
+	 bP/McniTomXZ2Iz3RlOnsjDv9wNrhQA8M7OoED0xr7AVLQ2s9dTB6MxvJA6r/19JnS
+	 WB5PlGu3D/aMbMToo4BKlnGcfiohPNIlz1lwK4PI6uIshR+dDYBiUkFbiKEUQocTY3
+	 BX1FHO/akvKAotDM6+ekNUAZAG7iOT5FHa3XFt7t0kJRgl55aUslj627hR2gdyoPnP
+	 Nk58zaqrBxKfoWxJSYIpkOgighw9M0Mpd8NWf8I0g1rcWIFwlsivZmyWyxqeLgebHE
+	 E+nxINK+aurvuwzx8ttji5xg5lXyagGHfKxfM/mDfBTH/YBrw5KlRVCL2F49DADPsF
+	 Sw5mOAZbCgI8rU5hD/7olDWsMA3JIW5UShwhyY7H15IBqMzD6H0xFgQShCnD2tUoPr
+	 migebZ6FHKPp/U8KwAk3etew5MzHHOfw/4CPKo62V8YNKh7H7Za7OiU0hZ1gsrPj2p
+	 T7oeXrCDggEaCB+sqy7bzsyq41NXwn3LW6ZEzcRm7LJXFkntTnZe1WtjmqETBmFSbz
+	 Ucto73ThKs74N3O0s5x/TrIJKK7QqkTBKsRSEF+pSFe9mg4eMtsBebwxf1O+OZOqYx
+	 GOIWhjgFLba8O52BEpMtuJuw=
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e617b5e9b3so16622825ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:21:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792466490; x=1793071290;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lLdoywuBRsUnhzRmRUhPliwolaqyJQAaZER5imRmeic=;
-        b=W/7fwe9BuYW04MCCZAGq1vgtbaG/3xoBkwKx4M3DLiMAR/yEFw8Lb6r1MCXnLRYQxX
-         H5RZZxBfpfJISWO8CCfUAQzSoMrXRNv4GSJGxDVvhAfTHpLy2EiqiRC38cWoGcGTevpz
-         CoNg5HFXSMxEhshlERuAGVhFK+9gH2MBoswNiIn05Nk5QJc/ocOCWMfFSfzQ/UJzddOf
-         WX8NwMIrdN6aweE62Us7mfR87hNm2h+F4hQKbm/gajNRAoDBHMN6m7R1Mm5ZrT8U7X8F
-         cs2BX/KYL4q9bVROvC+6niisbm6dln7r0p7nZ3hX6NzmPCWKSKgPKgke8aRh6xYpwhXy
-         QShw==
-X-Forwarded-Encrypted: i=1; AKwUvBycd5CAx5YBZ6Wq7DX16AvQYUAZWoupsGvhkiIzN/lHLi+xQZqMkcIVze0pgMAKEREPpdStIAgzSmbU+W4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRPovaO87jDBKSh4Mu+DbrJ7cWShsmi5GDvpfncpp5AoLGO0wo
-	kJ+yPthX7JSCdhe3dN0f/I2CYx2qEiPEy6E02oOesfReS2aOJ7aBkGt/
-X-Gm-Gg: AYBFou2qYSNCwoJ3U7VwOiEkGijYJ5y8DrykBJxI14qH4KEIUq11MMfEWjwP1CVBgE4
-	Twj/6C2ZhOu3P5l0symUCyBPoUQ8GSO1z5URW/KYEM6pZz/8bftuyJYNQTUd/R1BQo3sUXVJVWq
-	7dwwUXHBZwAry0235s8Kj/32AKpOckjjMsaHhdAa96H7dkKx+fN3PWUZYUXcHyeQZO0TD8oQJvS
-	ugadw0wioUtSodm1YaURevnuss2zm++qZR7aYhNPB6g3yyHTIy6I8SMBD6KguyfvERiJXpu7kFL
-	0DyY0PGn4qNeuyZRCEqAA6iS48iOBNrn64Qu4Uj2EhniX7oWPL4j7Kx4w4xc7xmK8VgdoduwPhZ
-	VUnVRvXaogKZDjA+78NlnZMmsVaRNYWCRJWRxf6LuCyeykhKFLZrobXNMGWj8gYFfMaf/E5OL97
-	6gKLGByPpXuvId/mgjEd3cYDiaZHMvHN0fTitfciI1suWMwCVHmqWMOkxPcM8szAJkbThIcZmDg
-	SEzgqnHSURfmjqadr81G2A3U2N7LND9y0OsbA==
-X-Received: by 2002:a05:6820:4cc5:b0:6f6:61c5:d929 with SMTP id 006d021491bc7-7035618b5ccmr6920440eaf.38.1792466490415;
-        Mon, 19 Oct 2026 20:21:30 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.165])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-701900722d9sm8338676eaf.10.2026.10.19.20.21.24
+        d=1e100.net; s=20260707; t=1792466514; x=1793071314;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gnzh+m64uMxXKaq6t/vdpcSaRLdFTK11HDMv+R6rWJw=;
+        b=cikCocFP+w6zM3845du3f07EJLlrd/gyMUTEM3dkiXyYZVDnYuYIjIkcPM7/F3fNLJ
+         k+nv1U1jlnDRTN3DHZluW5H8vX5g9Vrk7qXFyKZTcfwnfG12PhOz+pyTrxFc7rEo8Fqm
+         +bWFKVRpjf2Dwy6LNP17VfoX8044b1CmYdq+387J7ESmmnz76awSmgwtH0CyIe9nlTUw
+         dfVzH3xtK3ViRkuRiAylBco9n5rl/ahea8VBCgTCVEaRNhuBmQENTuO2wc5Ai29lGBaO
+         cZdKArEn1JSYZQz8FMJ1uAzd7f+7pYaguEBBrUKoxokSk/NbU/NfSmWKTbDO1OXnF/Bn
+         reHg==
+X-Forwarded-Encrypted: i=1; AKwUvByxDIOn1GZCSNFlg9KsrKEuzwh8acN9f/HlGzi+OtYUHv4UOavNcjr6cObQ21O/JHL68zU4oqH9pLHsJLk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1lJMn2J5/g2w5Mj5Afmx6v1MrOG0yMx7PF2HEVXiH/kcOeU7H
+	eeebBRtRqm1tvHO1DBLlN1dg/Pm6SSrOKfiIEnKC0PsPaZWtEZvLXy6mqztdq5my+Nuz/UAodPM
+	FsZriRdV4Z3E9mWosEmEp7AOz1WOm75n6G5bVNKSCoQgWcZ/4Mc3dicS7dGTs3DrXTOIS3Zipvc
+	oxkPGKqQ==
+X-Gm-Gg: AYBFou0ga4EHaE9yeymWJJHpCNUOPiWl9Fg1RHtKyjbuceWRJqTLAJrHcoMbDCwURKo
+	mBdK6RM4KCLxh2+LgYoMTW8fotoSBKL9HW3CRmwhsEuxBBRZf3rxgRcR3cHLDOZA9TZdeTTSKlw
+	6oPxDRrWwcWE1Y5+UYT9MrXBjGJA8o4KiYQG+8nWeL/q4l1XDiEqZFHtTCP0jdM+mA1J3c2h7Dh
+	nDFqSzX9dQdJlJrkWRRuiXOSHM6xrx87kGlSoG8PicM7Q0DNSnSyNjayPxS8mg8LpYKeYXIb70K
+	SymIVoqCmx6yeuIcEHF7ccQ1Lz2WnPchXRyZbuWy0v2ZYzFqUPyQw1KglyAyLkmIE2TNasae1Sq
+	50OXrCpF7qg==
+X-Received: by 2002:a17:903:3884:b0:2e9:6972:54d7 with SMTP id d9443c01a7336-2e9a7058929mr78152865ad.52.1792466514272;
+        Mon, 19 Oct 2026 20:21:54 -0700 (PDT)
+X-Received: by 2002:a17:903:3884:b0:2e9:6972:54d7 with SMTP id d9443c01a7336-2e9a7058929mr78152665ad.52.1792466513956;
+        Mon, 19 Oct 2026 20:21:53 -0700 (PDT)
+Received: from ZBook.gateway ([123.208.39.53])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea14dfb7absm7674745ad.38.2026.10.19.20.21.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 20:21:28 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Eric Dumazet <edumazet@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Kees Cook <kees@kernel.org>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	Breno Leitao <leitao@debian.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Kexin Sun <kexinsun@smail.nju.edu.cn>
-Cc: netdev@vger.kernel.org,
+        Mon, 19 Oct 2026 20:21:53 -0700 (PDT)
+From: Changwei Zou <changwei.zou@canonical.com>
+To: herbert@gondor.apana.org.au
+Cc: changwei.zou@canonical.com,
+	davem@davemloft.net,
+	gaurav.jain@nxp.com,
+	horia.geanta@nxp.com,
+	iuliana.prodan@nxp.com,
+	jeffbarnes@linux.microsoft.com,
+	stephane.debusne@cynove.com,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>
-Subject: [PATCH net v3] netlink: fix out-of-bounds bitmap access clearing stale mc groups
-Date: Tue, 20 Oct 2026 11:21:19 +0800
-Message-ID: <20261020032119.1334986-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	lukas@wunner.de,
+	martin.kepplinger-novakovic@ginzinger.com,
+	pankaj.gupta@nxp.com,
+	sahil.malhotra@nxp.com,
+	sahil.malhotra@oss.nxp.com
+Subject: Re: [PATCH v2 0/2] crypto: caam - Fix RSA destination buffer handling
+Date: Tue, 20 Oct 2026 14:21:44 +1100
+Message-ID: <20261020032144.961571-1-changwei.zou@canonical.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <asdIf-bbjjSHRNh7@gondor.apana.org.au>
+References: <asdIf-bbjjSHRNh7@gondor.apana.org.au>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,64 +123,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-netlink_realloc_groups() sizes nlk->groups to the number of groups
-that exist at bind/ADD_MEMBERSHIP time.  When more multicast groups
-are registered later (e.g. a new genl family), existing sockets keep
-their smaller bitmap.
+Hi Herbert,
 
-When clearing a multicast group of a departing family,
-__netlink_clear_multicast_users() runs netlink_update_socket_mc() on
-each socket on mc_list, which does test_bit()/__assign_bit() on
-group - 1 with no regard to nlk->ngroups.  Skip groups that lie
-beyond the socket's bitmap: such a socket could never have joined
-them.  This is the same guard do_one_broadcast() already applies.
+Thanks for the review.
 
-The overflow windows differ per architecture, both needing privileged
-module (un)loading.  On 32-bit kernels the ~54 dynamically allocated
-genl groups already exceed the initial 32-bit bitmap, so the table
-can grow there directly.  On 64-bit kernels the same in-tree set
-fits the initial 64-bit bitmap only while allocation stays
-contiguous: genl_allocate_reserve_groups() takes the first free
-contiguous range and unregister does not compact, so an
-unload/reload sequence can fragment the ~59 free IDs until no
-fitting range remains, forcing the table past 64 bits and reaching
-the same stale-bitmap overflow on the next family teardown.
+> If a caller provides an unaligned destination scatterlist where
+> req->dst_len is larger than the actual RSA output size (such as
+> key->n_sz), the bounce buffer is zero-initialized and sized to
+> req->dst_len. [...] Could this corrupt adjacent data by copying zeroes
+> over the trailing capacity of the caller's buffer? Should this copy
+> only the actual hardware output size instead of the full buffer
+> capacity?
 
-This issue was discovered by Tencent CodeBuddy Security.
+There is no out-of-bounds access or adjacent-memory corruption: the
+copy-back targets the caller's own dst (orig_dst) and is bounded by
+req->dst_len, the buffer length the caller provided. It reads dst_len
+bytes from the bounce buffer (sized ALIGN(dst_len, cacheline) >= dst_len)
+and writes them into that same dst, so neither buffer is overrun.
 
-Fixes: 84659eb529b3 ("[NETLIKN]: Allow removing multicast groups.")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
+That said, copying only the actual output size is a sensible improvement,
+and I've applied it in v3: the copy-back is now bounded to the RSA output
+size (key->n_sz) instead of req->dst_len. The hardware writes the full
+modulus-width (n_sz) output - the RSA PDB has no separate output-length
+field - and caam_rsa_enc()/caam_rsa_dec() guarantee dst_len >= n_sz, so
+the trailing capacity of the caller's buffer is left untouched.
 
-v3: Correct the reachability again (sashiko review): 64-bit is also
-    reachable - group IDs are allocated in contiguous ranges without
-    compaction, so fragmentation from an unload/reload sequence can
-    force the table past the initial 64-bit bitmap too.
+Another option, if keeping the full dst_len copy is preferred, is to seed
+the bounce buffer with the caller's original destination contents before
+the operation (rather than zero-initializing it) and copy all dst_len
+bytes back afterwards. The hardware overwrites only [0, n_sz) with the
+result, so [n_sz, dst_len) still holds the caller's original bytes and the
+full copy-back leaves the trailing region unchanged. I went with the
+simpler key->n_sz bound for v3, but I'm happy to switch to this if you
+prefer.
 
-v2: Correct the Fixes tag (the clear path was added by 84659eb529b3,
-    not by the dynamic bitmap commit), drop Cc: stable and describe
-    the actual reachability (32-bit kernels with in-tree families)
-    instead of implying generic heap corruption.
+Kind regards,
 
- net/netlink/af_netlink.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-index 9fdf964224ab4..8cc655aa927f1 100644
---- a/net/netlink/af_netlink.c
-+++ b/net/netlink/af_netlink.c
-@@ -1657,6 +1657,12 @@ static void netlink_update_socket_mc(struct netlink_sock *nlk,
- {
- 	int old, new = !!is_new, subscriptions;
- 
-+	/* A socket whose bitmap predates this group can never be a member;
-+	 * don't touch bits beyond its allocation.
-+	 */
-+	if (group - 1 >= nlk->ngroups)
-+		return;
-+
- 	old = test_bit(group - 1, nlk->groups);
- 	subscriptions = nlk->subscriptions - old + new;
- 	__assign_bit(group - 1, nlk->groups, new);
--- 
-2.43.7
+Changwei
