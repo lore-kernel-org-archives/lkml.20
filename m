@@ -1,77 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.129.254.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792465781;
-	b=EN3xxxifBlb75iYnWdNVbQ3EUrM0oO2NrrdhCeBL38e0VazI+jpAXG7Rdk7oW56HBKFz
-	 XNjaE/TeZvyzwem7ul2oKUFlAqVKc8hbhJ1v265u2KvsyaPzodNpZpitjxONr728Ef/DP
-	 o0BSmC2TNXgH3QtfeY5WpIwceWCvNMG3x2bVlpnecxqwgFJ8ovG81+4W4alD8WrDX8KPa
-	 gUMTlEliJWXgChvqJMkT7ruHLMwjPdOU/ympgX17VXcXAmHCYV5t/CD53A/aZ6fktwGmt
-	 mLm96aKJ87XIKLUfVMxYfdb6Rl51F5/EDEGcIO9SOnUzjz/jbiGpwI7zoTC/EphvgkQ==
+	t=1792465788;
+	b=T/eopU6Dq9C2vb3xo7bYe/NYe3Sk03vu5HcaDEeZ8VsMFjlbpRAPnnEhDz81LT8qKtki
+	 KvoLkSlRmfdZhn6b8TDpPdMigG5pnkg16IjiQm5gN4Ohu7CT2NRj8Kceu4ckmijOae4jS
+	 RJvPdp/HXGaVTFpW1vg/SaCYsKW0MXG3rKxvMehLeYz8WOarDnl21GDIm6dkO2vfh0X+8
+	 8SmsCVzD8tPACzFEaKBudbJuNXF/ijXJoR1BsO+P1xBmFhOQwgzcN2a1btrmxxFpk5px0
+	 QrUU9hI7jf1UBpfSmv51jljoGMkIY7ribxhMh030Z8b0JmEQkKTAGqY1rAZuW3zJAIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465781;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=V6YTkuc+JQ/Q5NgJoM+Ztyfr/5wVw30o5S+KA6zRLSw=;
-	b=FwRFe9976aCqZy6d5ESbBi/RnjvR3kwrmA2FMOE/cTtLO1sVhCnB+8EYnUJcLqsIe2Ou
-	 kS9QlBV1WHV1oPZCFAxvvDAw6jMy6dYsfTSrhrGzoNlkEoH8YA3irIxAqaF9i2dkBeF4v
-	 sgFrtvBDduFx9QxDKAkRcw4YhfVwhe1JLsCTd//MPiuiooQ/RjoYONFBOvYWG1lOrFxPG
-	 J81JRZ0og2OukstNPERjh8ECNbiN9LjTl1+azl/+8thTO03q/4bGYaQy0m5BjGpooNrez
-	 QKT30YlKqwysLDm2UHDLXk2oDTiyUuMDjgdK49nyyChl2+2ubXmnwQ7ULacPmi+rHiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465788;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=BwMABzq17quVoIHYyKwYmdp349lPbATYRGNxi8kCTYY=;
+	b=kDyCxh54ZNnXLQNIlCPAsKNUdDbsR9J8jLlSDBiVSCh3I3B0oqXAwv1sr3IoqTH+rksK
+	 IINTOnVWEOJ5Wa9awmtfsPBYII8lRBqjxPLixX/3HnG+a1QIBCr8ubcERuuBiJyVB2IOf
+	 E4Z1m6cF7HVQXsYQOAOiCInE2h2Yaw+FRXXznpjhRE5bXyE4VEfxPg1vggBoY4N3S0/2q
+	 /G88lLpO1ZmLMiUONfYRtdXVdPxiOBc5qbGnEGgRBYtIUTLgt2HhnxKuDD5GKCl9/E6L9
+	 OIsolRMdBaIha38t/T4JfdfDXKQJ0MoaUiXJ3/uozcTir0Q1VspmiJDGWATTxVFuopw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=R6y0wWT2;
-	arc=none smtp.remote-ip=103.129.254.95
-Received: from mail-m25495.xmail.ntesmail.com (mail-m25495.xmail.ntesmail.com [103.129.254.95])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dPYyX69e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0568606A324;
-	Tue, 20 Oct 2026 03:09:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0568606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CC460A6F69;
+	Tue, 20 Oct 2026 03:09:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=R6y0wWT2
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 51a4cee81;
-	Tue, 20 Oct 2026 11:09:28 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Sandy Huang <hjc@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dave Jones <s.dave.jones@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 2/6] dt-bindings: phy: Add rockchip,rk3568-edp-phy
-Date: Tue, 20 Oct 2026 11:09:12 +0800
-Message-Id: <20261020030916.3223833-3-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261020030916.3223833-1-damon.ding@rock-chips.com>
-References: <20261020030916.3223833-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dPYyX69e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216911F000C5;
+	Tue, 20 Oct 2026 03:09:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792465788;
+	bh=BwMABzq17quVoIHYyKwYmdp349lPbATYRGNxi8kCTYY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dPYyX69eo4wU0/dBW9jZ15xf2ZIpNIZtrDb8AZg/FnVRKI2n+4mqsBL+n17AXoen6
+	 5adRlZYqi+iYdB0fU/qEoKvSMqJL09an/ua1yUNN/RT/P4nqzGOmqeXuiwcb7DMoU5
+	 rmCk7M65Qup8RmGokk4KAQPpXa5v9oR7Wtm/UcRIMfUxQ7Ur2N+JSW2UhF/D3r4vrr
+	 4e3RchktRf3YXhsStH8o87alGJAMT3025sXlfLElof2lnAy5rPDUFSaHcvSTUWXD4A
+	 Rvfh9dK5+ZzCDA11XvkzHF/KsEPBYs6lssJfRf6sSolzGaOF5t1R+SRyMeIERY88T8
+	 7PQtgbiQbDd8w==
+Subject: Re: [PATCH net-next v14 07/12] dpll: sit9531x: add support to get and
+ set priority on input pins
+From: netdev-bot+sashiko@kernel.org
+To: arouhi@sitime.com
+Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
+ arkadiusz.kubalewski@intel.com, ivecera@redhat.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, cjubran@nvidia.com,
+ Oleg.Zadorozhnyi@devoxsoftware.com, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 20 Oct 2026 03:09:46 +0000
+Message-ID: <179246578667.3135.9023338680952688439@kernel.org>
+In-Reply-To: <20261016005823.13690-8-arouhi@sitime.com>
+References: <20261016005823.13690-8-arouhi@sitime.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,136 +66,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa157490f9103a8kunmfd20f05334c750
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHklCVkkYS0xMH04YTUNJHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=R6y0wWT2nnSV2WXaa1gQkDyuye2uuSHCXbSdvBW+qlw1rVM5UOyEDOI5Kj67CamC05tWqQAyMOBy4z3UZupioXXe4rNerDSx11Kvgeay0TShCnzdqrs5HesMkDQHbF1AY42QzCg5zCZfxiMBKF+0krqMx2PQTxSObHM53u8uwZs=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=V6YTkuc+JQ/Q5NgJoM+Ztyfr/5wVw30o5S+KA6zRLSw=;
-	h=date:mime-version:subject:message-id:from;
 
-Document the eDP transmitter PHY with NaNeng IP block found on the
-RK3568 SoC.  The PHY is controlled through the eDP PHY GRF registers,
-so its node is modeled as a child of the eDP PHY GRF syscon.  Also
-add the "rockchip,rk3568-edp-phy-grf" compatible and the "edp-phy"
-child node reference to the Rockchip GRF schema.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 59 +++++++++++++++++++
- .../devicetree/bindings/soc/rockchip/grf.yaml | 15 +++++
- 2 files changed, 74 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
-new file mode 100644
-index 000000000000..afe7bc3d839e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
-@@ -0,0 +1,59 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/rockchip,rk3568-edp-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip eDP Transmitter PHY with NaNeng IP block
-+
-+maintainers:
-+  - Damon Ding <damon.ding@rock-chips.com>
-+  - Heiko Stuebner <heiko@sntech.de>
-+
-+description:
-+  On the RK3568 SoC the eDP PHY is controlled through the eDP PHY GRF
-+  registers, therefore the PHY node is expected to be a child of the
-+  eDP PHY GRF syscon node.
-+
-+properties:
-+  compatible:
-+    const: rockchip,rk3568-edp-phy
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: refclk
-+
-+  "#phy-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - clocks
-+  - clock-names
-+  - "#phy-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rk3568-cru.h>
-+
-+    soc {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
-+
-+      edp_phy_grf: syscon@fdcb0000 {
-+        compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
-+        reg = <0x0 0xfdcb0000 0x0 0x100>;
-+        clocks = <&cru PCLK_EDPPHY_GRF>;
-+
-+        edp_phy: edp-phy {
-+          compatible = "rockchip,rk3568-edp-phy";
-+          clocks = <&pmucru XIN_OSC0_EDPPHY_G>;
-+          clock-names = "refclk";
-+          #phy-cells = <0>;
-+        };
-+      };
-+    };
-diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-index 7bcb4e2f47ec..8d4ced0145b8 100644
---- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-+++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-@@ -93,6 +93,7 @@ properties:
-               - rockchip,rk3399-grf
-               - rockchip,rk3399-pmugrf
-               - rockchip,rk3562-pmu-grf
-+              - rockchip,rk3568-edp-phy-grf
-               - rockchip,rk3568-grf
-               - rockchip,rk3568-pmugrf
-               - rockchip,rk3576-ioc-grf
-@@ -156,6 +157,19 @@ allOf:
-           $ref: /schemas/phy/rockchip,rk3288-dp-phy.yaml#
-           unevaluatedProperties: false
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3568-edp-phy-grf
-+
-+    then:
-+      properties:
-+        edp-phy:
-+          type: object
-+          $ref: /schemas/phy/rockchip,rk3568-edp-phy.yaml#
-+          unevaluatedProperties: false
-+
-   - if:
-       properties:
-         compatible:
-@@ -309,6 +323,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - rockchip,rk3568-edp-phy-grf
-               - rockchip,rk3576-dcphy-grf
-               - rockchip,rk3576-vo1-grf
-               - rockchip,rk3588-vo-grf
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] A priority that the device has latched can be rolled back in
+  the driver's records and reported to userspace as refused.
+- [Medium] A priority change confined to standby inputs can move the PLL
+  off a healthy fallback reference.
+- [Low] The default priority for a source a PLL has never listed is
+  SIT9531X_PRIO_MAX_SLOTS - 1 = 10.
+
+--
+
+dpll: sit9531x: add support to get and set priority on input pins
+
+This patch adds prio_get and prio_set callbacks for the sit9531x input
+pins. Both work on a per-PLL configured priority, and the Page 1 table is
+rebuilt in priority order when a listed input's priority changes. The
+poll now also watches priority and operational state, and the baseline
+for that comparison is taken when each pin is registered.
+
+> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+> index 1aad598930d72..f3dbe949f219b 100644
+> --- a/drivers/dpll/sit9531x/core.c
+> +++ b/drivers/dpll/sit9531x/core.c
+> @@ -671,6 +671,44 @@ bool sit9531x_input_prio_present(struct sit9531x_dev *sitdev, u8 pll_idx,
+>  	return !!(sitdev->chan[pll_idx].prio_mask & BIT(input_idx));
+>  }
+>  
+> +/*
+> + * sit9531x_input_prio_get - read an input's priority for a PLL
+> + * @input_idx:	input source in hardware encoding (see
+> + *		sit9531x_input_hw_src())
+> + * @prio:	output priority (lower is preferred)
+> + *
+> + * Reports the priority configured for the source on this PLL, which is
+> + * kept whether or not the source is currently in the table: state and
+> + * priority are separate attributes, so disconnecting an input and
+> + * connecting it again must not change the priority it reports.  The
+> + * value is seeded from the hardware table, and re-seeded whenever the
+> + * read-back shows the table was rewritten by something other than this
+> + * driver.  A source that was never listed reports the lowest slot.
+
+[ ... ]
+
+> +	chan = &sitdev->chan[pll_idx];
+> +	if (chan->cfg_known & BIT(input_idx))
+> +		*prio = chan->cfg_prio[input_idx];
+> +	else
+> +		*prio = SIT9531X_PRIO_MAX_SLOTS - 1;
+> +
+> +	return 0;
+> +}
+
+[Severity: Low]
+Is "the lowest slot" still accurate now that priorities from 0 to 255 are
+accepted?
+
+The default for a source the PLL has never listed is
+SIT9531X_PRIO_MAX_SLOTS - 1, which is 10. sit9531x_prio_cfg_seed() seeds
+it the same way:
+
+	chan->cfg_prio[src] = SIT9531X_PRIO_MAX_SLOTS - 1;
+	chan->cfg_known |= BIT(src);
+
+The commit message says the same thing:
+
+  "An input the PLL has never listed reports the lowest slot, the
+  priority it would be connected at."
+
+However, sit9531x_dpll_input_pin_prio_set() accepts values up to U8_MAX:
+
+	if (prio > U8_MAX) {
+		NL_SET_ERR_MSG(extack, "Priority out of range (0-255)");
+
+sit9531x_prio_table_build() sorts members by cfg_prio and uses
+prio_last only to break ties:
+
+	kc = (chan->cfg_known & BIT(cur)) ?
+	     chan->cfg_prio[cur] : U8_MAX;
+
+Here is an example. IN0 is listed and is set to 50. IN1 has never been
+listed and keeps the default of 10. Connecting IN1 then goes through
+sit9531x_input_prio_add()->sit9531x_prio_table_apply()->
+sit9531x_prio_table_build(), which puts IN1 in slot 0, ahead of IN0.
+sit9531x_prio_activesel_pick() may then move the PLL to it.
+
+Should the default follow the real lowest priority (U8_MAX, for example),
+or should the comments and commit message stop promising "lowest"?
+
+[ ... ]
+
+> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
+> index 4c7cae4ce93ec..0400444d91a55 100644
+> --- a/drivers/dpll/sit9531x/dpll.c
+> +++ b/drivers/dpll/sit9531x/dpll.c
+
+[ ... ]
+
+> +static int
+> +sit9531x_dpll_input_pin_prio_set(const struct dpll_pin *pin, void *pin_priv,
+> +				 const struct dpll_device *dpll,
+> +				 void *dpll_priv, u32 prio,
+> +				 struct netlink_ext_ack *extack)
+> +{
+
+[ ... ]
+
+> +	mutex_lock(&sitdev->multiop_lock);
+> +	rc = sit9531x_input_prio_set(sitdev, sitdpll->id,
+> +				     sit9531x_input_hw_src(dpin->id),
+> +				     (u8)prio);
+
+[Severity: Medium]
+Can a priority change that only touches standby inputs move the PLL off
+a healthy fallback reference?
+
+sit9531x_prio_table_commit() takes the current source from the
+CLK_ACTIVESEL nibble it reads back, not from the reference actually
+routed to the PLL:
+
+		u8 sel = sit9531x_prio_slot_get(val, slot + 1);
+		...
+		sel = sit9531x_prio_activesel_pick(sitdev, chan->prio_srcs,
+						   srcs, sel);
+
+The driver's comments say that when the selected source A loses its
+signal, the device fails over to B on its own and leaves the selection
+naming A. Suppose A then recovers while the PLL is still on B.
+
+Now a prio_set that only reorders inputs below A and B rewrites the
+table. In sit9531x_prio_activesel_pick(), A is the top live source in
+both the old and the new table, so the function falls through to:
+
+	if (sit9531x_prio_src_usable(cur) &&
+	    sit9531x_prio_src_live(sitdev, cur))
+		for (i = 0; i < SIT9531X_PRIO_MAX_SLOTS; i++)
+			if (srcs[i] == cur)
+				return cur;
+
+It returns A, and latching that selection moves the PLL from B to A.
+
+Doesn't that contradict "a change further down the table leaves the PLL
+where it is" in the commit message? The comment above the pick also
+says "a change further down the table must not pull a PLL off a healthy
+reference".
+
+The selection logic came with the previous patch, for state changes.
+This patch adds prio_set as a new way to reach it. When the top is
+unchanged, would keeping the routed reference (chan->routed_ref) rather
+than the stale selection nibble avoid the switch?
+
+> +	if (!rc)
+> +		dpin->prio = prio;
+> +	mutex_unlock(&sitdev->multiop_lock);
+> +
+> +	if (rc) {
+> +		NL_SET_ERR_MSG(extack, "Failed to set input priority");
+> +		return rc;
+> +	}
+
+[Severity: Medium]
+Can the driver's record of this priority end up disagreeing with what
+the device latched?
+
+In sit9531x_prio_table_commit(), the slot writes and the latch can
+succeed. The new table is then recorded as the read-back baseline:
+
+	if (!rc) {
+		sit9531x_prio_mask_build(sitdev, pll_idx, srcs);
+		memcpy(chan->seen_srcs, srcs, sizeof(chan->seen_srcs));
+		chan->seen_valid = true;
+	}
+
+The holdover release runs after that. If all SIT9531X_HO_CLEAR_TRIES
+attempts fail:
+
+	if (ho_rc) {
+		...
+		if (!rc)
+			rc = ho_rc;
+	}
+	chan->ho_release_pending = !!ho_rc;
+
+sit9531x_ho_release_retry() clears HO_FORCE later from the poll, so the
+PLL ends up running the new order.
+
+Meanwhile sit9531x_input_prio_set() sees rc != 0 and reverts:
+
+	rc = sit9531x_prio_table_apply(sitdev, pll_idx, chan->prio_mask);
+	if (rc) {
+		chan->cfg_prio[input_idx] = old_prio;
+		chan->cfg_known = old_known;
+	}
+
+sit9531x_dpll_input_pin_prio_set() then returns the error and leaves
+dpin->prio as it was.
+
+sit9531x_chan_state_fetch() re-seeds only when the read-back differs
+from seen_srcs:
+
+	if (!chan->seen_valid ||
+	    memcmp(srcs, chan->seen_srcs, sizeof(chan->seen_srcs)))
+		sit9531x_prio_cfg_seed(sitdev, pll_idx, srcs);
+
+seen_srcs already holds the new table, so the poll never repairs this.
+The getter and the poll snapshot keep reporting the old priority while
+the device holds the new order, and no notification is sent.
+
+The next sit9531x_prio_table_apply() for some unrelated reason, such as a
+sibling's state change, builds from the reverted cfg_prio. That reorders
+the device back without anyone asking, and
+sit9531x_prio_activesel_pick() may move the PLL off its reference.
+
+A latch failure in sit9531x_prio_prg_commit(), or a rollback that fails
+part-way, looks like it ends in the same split. In both cases seen_srcs
+comes from the read-back table while cfg_prio has been reverted.
+
+The commit message says:
+
+  "A priority the table write refused is not kept: the configured
+  value goes back to what it was, so nothing reports a priority the
+  device never took."
+
+On this path, isn't the driver reporting the opposite of what the device
+holds? Could the rollback be based on what the read-back table actually
+encodes, rather than on the errno?
+
+[ ... ]
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016005823.13690-1-arouhi%40sitime.com
