@@ -1,97 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792527622;
-	b=t5yRTlQXXTeHnl9DyDCt4sFzPEccby64xHaXFcnkL0hxVsHqg1gtNJyjsLG9H2LmQjgd
-	 WidXT/B3v4vOlgem52WM3u0d7JHnUxI4McM4RoZLsPxcf+jkloCYcu8/f8iklXYZ2d8Ly
-	 /m0UPU9nT63ZpaaIrWFhSTyl0OVqbgw52no1Ko2iRiXiHNbr4UD7wWmcgoOzSGKBZBfk2
-	 hej9J1kEoTFCISnPsEaXFgd8X6qvp5tpr+k8ZePLlKdMANPFFqWG8NuBKPJNvWEOpr5Cz
-	 RuoINpZdXGGRWMPjaVmVNxn4ljOW7O28nZeEwCzOR8eTc+xX83CKvhhrqzqRZJeKSSA==
+	t=1792527656;
+	b=kuFL5jEoWR60MFqeEfHMg9c4i3OgPpsE0iXUcsCIZqqROPD3qL8Sh2GpuaAZ1LD0quOx
+	 hQhJOsZ1SeZZg7/tIZ0etsUKUTpX/SH1hazmhBbibKchZxdKzATbQajDyiVzJxH1a7x7d
+	 rJuMPGbZ4f5R72lM2iqyEqIp8Shk67EyrLmZWArhetK0SM71EvmS871HAoDY2ex7Xo754
+	 0x7DAISjxqrUe65zIEIYH7DxFeezb7Rl2xZd9U9GekOZUsbDm9eeh2zTvIJktvtt5U5Zh
+	 xqntOMGNpVo9umq5sVdw1cgJ1aQftFqaRbqfYYEOrjNs8uHIxLyT4SHQnnxBdbvqSjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792527622;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=EPIXAJZkQDCcHbLvbKTfW5OnsdsgE9PbSQDDg/rz3K0=;
-	b=nxasDITVyj9tLbg65/mhOG/FTbv2QTfzFutUGn9gsH/B9ppo1UhkVK/7AvZ+vINiYv+p
-	 WF01kFSTf3LygBsp0sZMs0r0Fz4FgmpbULS/Dkjuzw8VxbE8UiREfI9VhdgI9Fx/X/pNq
-	 ls3VT+bp9RimMIgCgHwxpEABgDt8eHAJ0a6i6IDrhcPaDNYDQsMF3fkgSN6zlYJLN2e4k
-	 0tsTS6OlijNye58111uQHy2gNlc3YbqX4UUw1ZcskNmwUk8WFU3NfVu2rWToVxKJIla14
-	 EQNrY/iF8e/Dtjrj/ulFhe2+yzobxN1GHKaDdWvRKwSONC9+nz7taY98LxLfnpR3NHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792527656;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=Y1PhgQ1ndqRDyJF7Pafjgy82Qw1ekRDup6lb/N9jbJs=;
+	b=qmsrF8Xd6miuP5r0Ra6aNM5GC4gL/E5578mtAVj2/2Gqey3yl0EyjtF08rAarUROH2BL
+	 YCCb/5/IwqUcQAGxU8w1kCbGHRlxbCxtsOns/giHjXqMHpDNRgp2nvc8kw1OfpVsUGSOB
+	 SZgCGpfgq8sgwu7KEIeu2svQscVe3SizUdzwIdN355dN1UqYHWKOLSXxbhAykggApT/4G
+	 dJ3lxL57el8u9IJQ0TgufvYPqluI6pXaCD1WZId0tjQYCjgzMEBR8s9RNc2agmbTGtRr0
+	 Lm+FJo+shNvNYQdfXMvA1BDL6Oj55iv82RTLuklQFhQ6cW7H1Doiai8xsLd11SI2XKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=bOuwAPAt;
-	arc=none smtp.remote-ip=209.85.222.176
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NCNZ9smD;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B43606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:20:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B43606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B02606A31D;
+	Tue, 20 Oct 2026 20:20:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6B02606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=bOuwAPAt
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93f2ed2541aso4883085a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:20:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792527620; x=1793132420; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EPIXAJZkQDCcHbLvbKTfW5OnsdsgE9PbSQDDg/rz3K0=;
-        b=bOuwAPAtKcczF949cnW6uJfDZ/2l/cCmLn+ov2hnEvuK9ipVEuATvir0+R/tI61RoB
-         soOQIQDSpc3SvMKXxS/62liN3mKS5xrLoX+NQXjFs9mJhAUUiEyRtHMoWFNLbtO2yAif
-         w6RHxusWHz//MD+hoAClMBf+j1tog7m3yLj7ovK1LrQUyrJj7BmY6AVPyqvxVunjQWOJ
-         b7hztBmvXapUs26J3IJ4uwI9xOQALKLEgGzQCHa/FxZZjs/TBQrdMWJmEXx5z97AxC4b
-         EvR3hnWVutU1HEBTIyUaUPKVr7sjKRa1Zlwr9/ch5CIhG7QFeHShwPbNoAorRWtF630E
-         gdfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792527620; x=1793132420;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EPIXAJZkQDCcHbLvbKTfW5OnsdsgE9PbSQDDg/rz3K0=;
-        b=p1XCqA87nhQUq9ZTz/80V3s7MgHEt5NkKt/27COeCjVw8PVFXzrMjEwKWOlBV9tqpO
-         OHDdySbmsYnxxJHuHiNppuIixVc173JHua2Xt+hRRWRt+fk73nZDOQAHT4MIXKhP9JjY
-         BPl8o8edOTyzfVPBJIDxfNTcr8hiFL5TjTvp2dk0EjgQqKOvJsjZb+wZ1aaeDm7ogLUJ
-         N0oC8nOffnezjHf4BxrGAcfcDdsCVP9YkQYPNrD16ekflZlaUkYUWV8jYdEZYkd+OFBk
-         3TaysDwKVaAcEoSGNLjF7E1wwe/HiFaDAoTDrW8kLpFi4oqUAs+CKwNHKcNMp7FAnspo
-         JfNw==
-X-Forwarded-Encrypted: i=1; AKwUvByiU2ew9qtPsWPRLywEtrIrIwZrWrPHqufd1RoVUBXvnfhWyAZZ7XungqHm+07hXW6DnH5l1p6P+BaA0Xs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtWS8OKpUWz7oqZSkm8BJ8fdYWdRXyQN8etMXN/F0aHr35TBaa
-	KYRfrzXKMnx3CD35ov/dOx1ZM5b/LTh2cM9Dqy3CRU9yNLMJAnwNL2kFFn2zRi0iLM0=
-X-Gm-Gg: AYBFou36fGEntoRpn+f8eG6pv/z+OzTnHkQRXaK+qoyRz6EXlpaWTrJuXCA+s4IUjuL
-	VmWUYC6gUXe17nsG675M/kcOf8SfpWDRLK2elZjOYZuSy+ZBpWAGh2iT2L0KLpUwdub0JNcylll
-	rpNiC6X5XRIJqewQNYTX9yQJqsS8gg1UtTBT9b1CDbGuyvxbwYy+qJ4FvY8lH/QAxdMu2Sr5Wd+
-	KALQLURhHKLsghFxTVl7fkuLKgPxluGPA0WJCpcuC6aBXdyEsjWdRSFxTXcg9UstgftE8PRSFOP
-	7mLGmv/tSpJzQuVTNqt6QMM2Ey5hScDQ7YKQ2ANq9od6iDsftxYJgur0chF2Y0XOkC0F0YcP+6b
-	YmBwoc3M4nknEP98VF5oczeB/O/sqaTsz9I0ztmbKs5jv6QIYL3RklzoGzrzji7eJ1XoHO0yA+x
-	3yiX0GyPLVF0dZ4Yhkt0lm1o8hWUH5gzJMsx0toWS48eMM8vB4yzohliFwRYzFyFOuvpEgAxu4P
-	ZMZI/t7z3lUU0hSDBgbDLQCj0csps5jUZg/4SJNBuI9b9YMzJ8qX4aJE36g1YjAnQ==
-X-Received: by 2002:a05:620a:44c1:b0:93e:c173:f690 with SMTP id af79cd13be357-93f57fa664amr59174285a.36.1792527620137;
-        Tue, 20 Oct 2026 13:20:20 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56e30610sm68153885a.43.2026.10.20.13.20.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:20:19 -0700 (PDT)
-Date: Tue, 20 Oct 2026 16:20:17 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, 
-	hannes@cmpxchg.org, ziy@nvidia.com, mgorman@techsingularity.net, 
-	jiang.liu@huawei.com, Bessel.Wang@huawei.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] mm/page_alloc: validate zonelist slots against
- concurrent rebuilds
-Message-ID: <atfLxfuFm-c8pKnP@gourry-fedora-PF4VCD3F>
-References: <20261019172346.3344005-1-gourry@gourry.net>
- <20261019172346.3344005-3-gourry@gourry.net>
- <45ef34c7-eea5-4813-b54f-3e34675697b5@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NCNZ9smD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792527656; x=1824063656;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=p9o98t3CO2x/QIfBS82D/0ItkWNwlaPRKyWOi2emP2U=;
+  b=NCNZ9smDyHYdnAyZ6NFqjnvyo8OpNNQX90dSuDRg83rUiO/NP9zhG0Gx
+   EiJrQlHCPEpdzajGUH8mh0EmRxXxfHPW5/rptEmas5IijVZJpzBHa2IFU
+   Ul/zphHFoelwjkUb4eE61WbqyquVrW5mLapKuRDvFjtEBe/cx+aRWoepL
+   uSOuRLTnps1Eoy6us3ld6drIFTF3q88QHOXel3RHK1hoiIFr6SOdniaar
+   e81yRT8IoI6EMedQA2JZAY//CbhFtoDSArFZ64nH6TQdeoAQ2sXPf296T
+   ZoqwrmVNm0dJOGVxOJ//CyNEdqL/7AoEUiLx15vvCkyHWK2Xa3b5YfFY6
+   Q==;
+X-CSE-ConnectionGUID: a0qGKGHET12Mq7dr8HjLRg==
+X-CSE-MsgGUID: dEbKqAsCR6m21Cu7poLTog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1244063"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1244063"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 13:20:56 -0700
+X-CSE-ConnectionGUID: kMQ6bIZ7SDC0o6gMdR15jw==
+X-CSE-MsgGUID: uWOTTOCSTBaIoF+KT0kngQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3363731"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.181])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 13:20:52 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 20 Oct 2026 23:20:50 +0300 (EEST)
+To: Takashi Iwai <tiwai@suse.de>
+cc: platform-driver-x86@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
+    Junrui Luo <moonafterrain@outlook.com>, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] platform/x86: ibm_rtl: Fix potential OOB read at signature
+ search
+In-Reply-To: <87y0bsfocc.wl-tiwai@suse.de>
+Message-ID: <4d28c3ce-63f7-399e-9798-4f35e60c608b@linux.intel.com>
+References: <20261020130301.351768-1-tiwai@suse.de> <818a69b8-785f-9eec-d93a-89c8833d94fc@linux.intel.com> <87y0bsfocc.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,43 +80,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <45ef34c7-eea5-4813-b54f-3e34675697b5@kernel.org>
+Content-Type: multipart/mixed; boundary="8323328-264967888-1792527650=:1177"
 
-On Tue, Oct 20, 2026 at 05:22:11PM +0200, Vlastimil Babka (SUSE) wrote:
-> On 10/19/26 19:23, Gregory Price (Meta) wrote:
-> > Onlining the first block of a zone rebuilds every zonelist in place,
-> > shifting the slots after the new zone. An in-flight walk can use a
-> > zone it previously filtered. e.g.:
-> >   - a GFP_KERNEL request can land in ZONE_MOVABLE,
-> >   - a node not in the nodemask can have its zones selected.
-> > 
-> > With kprobes holding the walk across the online, I was able to get this
-> > zone/node misplacement to happen consistently across hotplug events.
-> > 
-> > The iterator approves a slot by its zone index and node, and the
-> > allocator then loads the zone pointer from the slot again:
-> > 
-> >   CPU 0                             CPU 1
-> >   first_zones_zonelist(nodemask {1})
-> >     slot 0 (NORMAL1) approved
-> >                                     online_pages()
-> >                                       build_all_zonelists()
-> >                                         [NORMAL1, NORMAL2, ...]
-> >                                         -> [MOVABLE1, NORMAL1, ...]
-> >   get_page_from_freelist()
-> >     zone = zonelist_zone(slot 0)    /* MOVABLE1 */
-> 
-> Since the zonelist_zone_valid() checks you're adding happen before the
-> "zone = zonelist_zone(slot 0)" part, I don't understand how they can be
-> helping here. Aren't we just reapproving slot 0 when CPU 1 can mess it up
-> between that reapproval and load? Am I missing something?
->
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Heh, see patch 3.
+--8323328-264967888-1792527650=:1177
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-patch 2 and 3 should probably be re-ordered, or maybe just squashed
-together?
+On Tue, 20 Oct 2026, Takashi Iwai wrote:
 
-~Gregory
+> On Tue, 20 Oct 2026 15:52:28 +0200,
+> Ilpo J=E4rvinen wrote:
+> >=20
+> > On Tue, 20 Oct 2026, Takashi Iwai wrote:
+> >=20
+> > > The loop for signature search fetches 8 bytes at each check,
+> >=20
+> > But that's not all it's going to access??
+>=20
+> Oh indeed it access further.
+>=20
+> > > while the
+> > > loop count is calculated in 4 bytes unit, which means that, at the
+> > > last entry, it fetches over the limit.
+> > >=20
+> > > Correct the boundary condition to "ebda_size/sizeof(unsigned int)-1"
+> >=20
+> > This seems even more obfuscated than this code already is!
+>=20
+> Yeah, the driver code is really ugly, and I made a whip cream on the
+> top :)
+>=20
+> > I think it should do this instead:
+> >=20
+> > (ebda_size - sizeof(*rtl_table)) / sizeof(u32)
+>=20
+> Hrm, this will result in the omit of the last loop entry?
+>=20
+> I guess it'd be better understandable rather by directly adding the
+> offset in the loop instead of the counter.  Something like below.
+
+The patch below looks fine sans one nit but could you please send it in=20
+own thread so it gets captured by patchwork & sashiko & etc.
+
+> > Admittedly, it a logical change too but why you think only partial RTL=
+=20
+> > table is good enough just because signature can be checked? After the s=
+ig=20
+> > check, it will read the struct beyond that.
+> >=20
+> > ...And that other sizeof() should use u32 as well.
+> >=20
+> >=20
+> > Unrelated to this change and if you have this HW and can test changes, =
+it=20
+> > would be nice to also get rid of the debug parameter and use dynamic=20
+> > debugging instead of RTL_DEBUG() for consistency.
+>=20
+> No, I don't.  It was caught only through reviews at backporting to the
+> distro kernels.
+
+Fair.
+=20
+> > I also don't understand why it's mixing readq() and ioread*() for readi=
+ng=20
+> > from the same area.
+>=20
+> I guess it's just an optimization for the signature check.
+> The driver needs significant code cleanup, in anyway...
+
+Sure. I had written something along the lines of having plenty of=20
+additional comments but cut it out in the end. :-)
+
+> thanks,
+>=20
+> Takashi
+>=20
+> -- 8< --
+> From: Takashi Iwai <tiwai@suse.de>
+> Subject: [PATCH v2] platform/x86: ibm_rtl: Fix potential OOB read at sign=
+ature
+>  search
+>=20
+> The loop for signature search fetches 22 bytes of struct ibm_rtl_table
+> at each check, while the loop count is calculated in 4 bytes unit,
+> which means that, at the last entry, it fetches over the limit.
+>=20
+> Rewrite the loop to use the byte offset and correct the boundary
+> condition check for avoiding the potential OOB access.
+>=20
+> Fixes: 15dd100349b8 ("platform/x86: ibm_rtl: fix EBDA signature search po=
+inter arithmetic")
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  drivers/platform/x86/ibm_rtl.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/platform/x86/ibm_rtl.c b/drivers/platform/x86/ibm_rt=
+l.c
+> index 139956168cf9..6f0a10e1d81e 100644
+> --- a/drivers/platform/x86/ibm_rtl.c
+> +++ b/drivers/platform/x86/ibm_rtl.c
+> @@ -234,9 +234,9 @@ static const struct dmi_system_id ibm_rtl_dmi_table[]=
+ __initconst =3D {
+>  };
+> =20
+>  static int __init ibm_rtl_init(void) {
+> -=09unsigned long ebda_addr, ebda_size;
+> +=09unsigned long ebda_addr, ebda_size, offset;
+>  =09unsigned int ebda_kb;
+> -=09int ret =3D -ENODEV, i;
+> +=09int ret =3D -ENODEV;
+> =20
+>  =09if (force)
+>  =09=09pr_warn("module loaded by force\n");
+> @@ -271,9 +271,9 @@ static int __init ibm_rtl_init(void) {
+>  =09=09return -ENOMEM;
+> =20
+>  =09/* search for the _RTL_ signature at the start of the table */
+> -=09for (i =3D 0 ; i < ebda_size/sizeof(unsigned int); i++) {
+> +=09for (offset =3D 0 ; offset + sizeof(*rtl_table) <=3D ebda_size; offse=
+t +=3D 4) {
+
+Nit, remove the extra space before semicolon.
+
+
+--=20
+ i.
+
+--8323328-264967888-1792527650=:1177--
