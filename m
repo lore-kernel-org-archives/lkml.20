@@ -1,102 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792468414;
-	b=pXuG4yVWs6fg7r49T+YEHMv2UlnJ9N4SJaKqDzQBdcCKe4X33IuXQfnCwvnl7gwbFONM
-	 N5wVNP+umwGE1HVRwJpPyp/7If17mOxjXLUoFDRW3UjnnGsdj4ZsSBz0R7KPZostCjyEr
-	 U5SftdVPiHlEPPCG7xchVOL4L6m0w54z6QjTY0/48DZEz5ikHa4VnzDdNkh3AC977tVAZ
-	 7+S87bragy5xBOrHi6XsMmKROFuJ+vEEgocsrVcYINCXDf7JnJI9KecFttdRDA5Pe5/tH
-	 ha0wRsxfRUQXyqQhAsPsQHkyoEXGdTbLSrorkfP8Fwji42ii6TWnwfY/5NJyeL/M1ag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792468414;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
-	b=giCcI+dvxf3nFEjPsxfFFQu6cn3ea/7y3rxuVKwZI4l2QOM4DDieob0/xGJX8jCNFOex
-	 vx5QjPVXb15eywn7QT6mIh/OU2srDPwCJq/JEiMdt4AbrbPb+sABQepQuaRSwjEQi46Wo
-	 zx+SSeLgIrL1BW57PhZspleAQKLNLfOALt2aVcpZ50icnCo1Ua4sBsMqKP9K2ubpeFOsS
-	 fPvv0QW2zoDr63z452e+Tc+LA2QutTY0Zve82JmuxmApb65Whj519Akmtz2xND+xAy9jJ
-	 93eeXEdP2vct4CL747XwKKtUj+X0WJV+OIT6CNDsfeARHq1bU+QIX85B28ZtVWrTNUg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="E/1d89xz";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.42
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.152
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792468474;
+	b=xjS6seG7vy/qEgJ8c+4PMwtLuGwnJRRT4OZx29tmpecbHIlt1NWMfQ0L42tHptGUJtYR
+	 rzCb9RqXrZoz/Zw81T5O55EBE0pK4+WWCcLCjjdRQz6ZYdeatyzx/k4lOk2QBAg6ocC8R
+	 bKB2c3/y5+IPMCI1wxinDgIje9cGtRxLj4gRidsoIG76iDq8+2gyERklw0gAsOKM5oA7X
+	 myGATVN6sQo1ht6EMPW3IlXxAoSnebNVXRs2OZ6EBOjVDZ5dnLKda0gHnvyDC0oEE6KFt
+	 9/ZXrCBNBRgHueqEsRAh/HSjptKw2oMhwHncPuRBwAzhNox/U0pg1OBtV5IUCwN12eQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792468474;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=unM+Wmu425LqozgSwnXty70TeWuAL+4t8eE8dEw9cXU=;
+	b=z7arhadlxf49V80BSTDU/SUVaCGRUK3mcMOwbCuQEdGovqGXoFy0ytYShUYp2lLvnC3J
+	 v7NSaW+oZYqq4ZHIDtfErPFBLvcrp3BTgG9nTpT9fp6Gddn7MNp55PChjEJl2HyHFis/W
+	 V0PZzBNLzphCd5HABAHKrSKMqVkqq6IE+sSeBBkjExgkajc4IsHYFwT9MKrOoKxF0hfaq
+	 /LW/NMil5DUooMFffBMfCXi80yJGo1AudsHPwDOQxeMzu1WLlC4D6VAKXTBRywAWkmogu
+	 L6AwOdWdUCpWsAZygTbO734tKDQZfAjRtU9yfo4OBUIJZ8xNno/1b4py4zPJUdugSrg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=dWvFX6XN;
+	arc=none smtp.remote-ip=156.224.81.152
+Received: from mail-m81152.xmail.ntesmail.com (mail-m81152.xmail.ntesmail.com [156.224.81.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75E7606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:53:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D75E7606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CAFA606A31A;
+	Tue, 20 Oct 2026 03:54:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CAFA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E/1d89xz
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9909e82513fso211329241.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:53:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792468413; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WhBEsRve+/sjWL/vY+K3TVDwM/KFK95L9uL3jcsgad0kvs3u2MbOaVsKmnu9S00nE3
-         BHagCmXD4w54jjQAd40mGXM7h8jH2MGyvXibTWGmygMqNfsvuU7hj8ms5qASO//0oRm1
-         O6ziydlSqOHXiLBmAI+1zPIlEirVn/cb5wxjdbf82fIsTj88ynmWQ9ahnvblRODg3G6h
-         E/xjpX4W7oSvLs8RZGKtDnlGlBiOMQcO564GtM4eXAokmJ7B+Ekk6zeTzp/LpyJ5Qcn4
-         pgnVnI/+DemkFm8vug0lVbaPYn4QNCfDyEAAsqPtxdi9sa+gL7gtBVd5uSgWVXuhvLby
-         Wscg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
-        fh=pv8sdwnxouyetVgszTvdbytFw1OdVt51C/1xD3rXqKg=;
-        b=ffi0ATlMmVBX8iNUONYZmu6CiiA3CFsvz4dA1CyQPLvfTQzxUqG/xuCuxD/9ydtKYQ
-         R2n/wPH2/C2YfuuUdfk4Oj4KGA9h1BcjjowcySQCw4Ei43dM6XgULlcZOS7oMHdMwjsK
-         0E90JRENzA042XMplDzlyqzA3bfgcDovqyY25kjD3kMUf66z0b148LkIgLRvt5GjHIDk
-         p4OI5znoFX3T1HiCdVFsGdRxXU7y22DECzKUlrqhz64LxmLb2NxHJFpTOmgDO7ePuYIf
-         2IrwUNKmW9CyHkFnWLkfhrJ0ugrChMeFHxw8NttqKzv60b9C78bB/ke/OC5efVI3EHHG
-         qowQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792468413; x=1793073213; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
-        b=E/1d89xzJd3uN6v8JmRj0qc1lnhhREM+ULZHcPaOOMv6guII5/oSZCYJ4nLHNRI8I7
-         GNSQB1akrERgKLxg9Lj8dsWGPizgqaWAQ+ClxdZKJ/Q/qk9FLaimQXifDqypOtleo5OE
-         X3+6WDdOVOZ/MtTaTgUvNS1iS87Yp7H1tWIN2pGduCTt0Zdvrd7E57QNBEtrXrouW+do
-         STmVpeWqtzdMCO6QjTVRdgszrMyE9oLvw6gXQcQE4hmJzMOPJ14khsagqj6iKZnCQUnz
-         1NwMQiwJZBVr3tNFp7pkmeUJWr2v7MWzwibVnNvXmPIJIpVyP3HG4jqm4UIN99TnXA1T
-         Boqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792468413; x=1793073213;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
-        b=wfxbqEDHdKLVaP8azFK1OR0l8geRTy5c3+X+aGF+LZCz+V9RDbExCLoOmWkA25z/81
-         Dgz0rMy5SH8QlOlnx6pQo4/ItPVjuXJP5hSskZfBACqoTPd0wuziQX8WWkz/Avrv2F0S
-         CAvTMH6UbMldkG3qIWIS1Xx2LbfvGUlTofwLaEmLEJf15rI4U08pafLMeKnpy/Xf5FJh
-         125Kj6seFizAoPFlE2/S52kgHgwZ6nE9LAClRgt9CsksJQs6ls6g52vfAFeoggFTO0fM
-         aQ0GuNC2yhGaqRCgmMkMA3fmKNefTJjSlxm6PY6Vz4Iip0Nkc3xUVSLIIlhOtnOKU3s7
-         SUGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwqa473sJap5LWamaRXqgZMNCR0AEdTzitSO1FAnuOb7z3ymwqv6lkIURlU0nXeFALyey9Vvyg9vn/fuzc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0Z/Bhnw3y1Pm18Fw0uISN+4HaB/4YrDOaj2TNK2FlNHRlKRjU
-	0Un/zf3+rTHBrAbENWoIIEbURCXe9t/zG58vNaQxBXxeltQtDDBeDJKp4cL+qSv8wG5zq0mJcts
-	piukKStGCUMIG1eJ+CpkRKdrQgHHLKZ8=
-X-Gm-Gg: AYBFou2kWekx5VuCioVZGuwxd12lY9bUtQ0IdtaKlWIXDW8MARQpJXrLc3iwW1bsle5
-	S1wGwxDKU97nunBs2ITDUbYMuB9Fi/fk79SRp6JftVaqYJltEaFLZvScLZzpMRrhHBqnGyzjeFi
-	zIKo3SIlPOO0tMYEsCQZATOQahx2PrXmI/TuTA9fjUgsxA90K254KJvQpSUNvYrFFK4MLOPmkLj
-	CCrQmj3ycw+wu+nyQjHzoAq7CF8uP2ohA7Ck6yfQdGo6cAZe4F0s8PWNBQRrnTa8Pk109N+sfls
-	0gtjQq+xHjcInRwoGZaneeBH1Kb38prbbOFVYwjtnDS7O11u8J6lugG1+lIi0vIebkAA
-X-Received: by 2002:a05:6102:8645:10b0:7a9:e680:efd5 with SMTP id
- ada2fe7eead31-7cc7bca6de0mr171865137.28.1792468412768; Mon, 19 Oct 2026
- 20:53:32 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 19 Oct 2026 20:53:32 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 19 Oct 2026 22:45:49 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=dWvFX6XN
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 51a6837e1;
+	Tue, 20 Oct 2026 11:54:19 +0800 (GMT+08:00)
+Message-ID: <5f982595-f3b1-4d64-8b14-ad38dac2b3a1@rock-chips.com>
+Date: Tue, 20 Oct 2026 11:54:18 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,98 +48,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <9a1b8caa-c260-469d-8b0b-6a2ca29226d0@collabora.com>
-References: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
- <9a1b8caa-c260-469d-8b0b-6a2ca29226d0@collabora.com>
-From: Iron Berrington <berringtoni36@gmail.com>
-Date: Mon, 19 Oct 2026 20:53:32 -0700
-X-Gm-Features: AclHuK9XNMAuACY9V_8Ap8NkrnCzm4l0f59JyBZIo7KA_7HpUs6PKGbdATumTtQ
-Message-ID: <CAF2O-sNE3bKxuZrYvkBJ=-4sgSrPanzbKfcHJ0kVgFqwn0G9Sg@mail.gmail.com>
-Subject: Re: [PATCH] media: i2c: imx415: Use target vblank to calculate vmax
- in s_ctrl
-To: Michael Riesch <michael.riesch@collabora.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Philipp Zabel <p.zabel@pengutronix.de>,
+ Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
+ Wilfred Mallawa <wilfred.mallawa@wdc.com>,
+ Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 10/17] PCI: dwc: Free the MSI domain after the host
+ .deinit() callback
+To: Koichiro Den <den@valinux.co.jp>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
+References: <20261020031049.969895-1-den@valinux.co.jp>
+ <20261020031049.969895-11-den@valinux.co.jp>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261020031049.969895-11-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa157721e3f03a4kunm5db5cf0491b23d
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHk1IVk8fTEpDHkIfSh0ZTFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=dWvFX6XNnQNDR54IgdjXK6+k4kPUsSDESx0hmPEK9CoHYPoYPS0d77IXfq3s+v1Qxj3fTIBAwRaKWsn3O8elzaUYD1cu5iRW2dkO4UW8upfXaIscnbBGfY5xfMjKVXta5Qo0njIwP1rdhnzY6gY1cmozU5QeojPoA9OiMf/ExSM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=unM+Wmu425LqozgSwnXty70TeWuAL+4t8eE8dEw9cXU=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Michael, hi Dave,
+Hi Koichiro
 
-Thank you both for reviewing the patch and for the Reviewed-by tags.
+在 2026/10/20 星期二 11:10, Koichiro Den 写道:
+> dw_pcie_host_deinit() frees the iMSI-RX domain before calling the host
+> .deinit() callback. For a core-owned parent interrupt,
+> dw_pcie_free_msi() removes the chained handler right before the domain.
+> A glue driver that owns the parent interrupt and demultiplexes the MSIs
+> itself through dw_handle_msi_irq() can only stop its handler in
+> .deinit(), after the domain is gone, so a late interrupt can still
+> dispatch into the freed domain.
+> 
 
-Best regards,
-Wenqiang
+I think you need a rebase anyway since there are two patches touching
+MSI irq naming stuff in pci-tree's next branch and will probably
+show up in tommorow's linux-next.
+
+...
+
+> +static void dw_pcie_free_msi_domain(struct dw_pcie_rp *pp)
+> +{
+>   	irq_domain_remove(pp->irq_domain);
+> +	pp->irq_domain = NULL;
+> +}
+> +
+> +void dw_pcie_free_msi(struct dw_pcie_rp *pp)
+> +{
+> +	dw_pcie_remove_msi_handlers(pp);
+> +	dw_pcie_free_msi_domain(pp);
+>   }
+>   EXPORT_SYMBOL_GPL(dw_pcie_free_msi);
+>   
 
 
-On Mon, 19 Oct 2026 22:04:36 +0200, Michael Riesch
-<michael.riesch@collabora.com> wrote:
-> Hi Wenqiang,
->
-> Thanks for the patch!
->
-> On 10/18/26 14:54, Wenqiang Zhao via B4 Relay wrote:
-> > From: Wenqiang Zhao <berringtoni36@gmail.com>
-> >
-> > When setting V4L2_CID_VBLANK, imx415_s_ctrl() writes the new frame length
-> > (format->height + ctrl->val) to the IMX415_VMAX register, and then falls
-> > through to case V4L2_CID_EXPOSURE to update the electronic shutter register
-> > (IMX415_SHR0 = vmax - exposure) so that exposure is preserved across frame
-> > rate changes.
-> >
-> > However, in case V4L2_CID_EXPOSURE, vmax is calculated as:
-> >     vmax = format->height + sensor->vblank->cur.val;
-> >
-> > Within the V4L2 control framework, sensor->vblank->cur.val holds the
-> > committed old vertical blanking value, which is not updated to the new
-> > value until s_ctrl() returns 0. Consequently, when VBLANK changes, vmax
-> > is calculated from the stale vblank value:
-> > - If VBLANK increases, SHR0 is computed using the smaller old VMAX, causing
-> >   the actual hardware exposure (VMAX - SHR0) to jump by the blanking delta.
-> > - If VBLANK decreases, SHR0 is computed using the larger old VMAX, causing
-> >   the actual hardware exposure to drop by the blanking delta.
-> > - Additionally, ctrl->val is clamped against the stale vmax limit.
-> >
-> > Fix this by using sensor->vblank->val instead of sensor->vblank->cur.val,
-> > which holds the target vertical blanking value currently being applied.
-> > When setting V4L2_CID_EXPOSURE directly, sensor->vblank->val equals the
-> > current vblank, keeping behavior unchanged.
-> >
-> > Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
->
-> LGTM!
->
-> Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
->
-> Best regards,
-> Michael
->
-> > ---
-> >  drivers/media/i2c/imx415.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
-> > index c3b22b238..e5aa741fc 100644
-> > --- a/drivers/media/i2c/imx415.c
-> > +++ b/drivers/media/i2c/imx415.c
-> > @@ -729,7 +729,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
-> >  		fallthrough;
-> >  	case V4L2_CID_EXPOSURE:
-> >  		/* clamp the exposure value to VMAX. */
-> > -		vmax = format->height + sensor->vblank->cur.val;
-> > +		vmax = format->height + sensor->vblank->val;
-> >  		ctrl->val = min_t(int, ctrl->val, vmax);
-> >  		ret = cci_write(sensor->regmap, IMX415_SHR0,
-> >  				vmax - ctrl->val, NULL);
-> >
-> > ---
-> > base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
-> > change-id: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
-> >
-> > Best regards,
-> > --
-> > Wenqiang Zhao <berringtoni36@gmail.com>
-> >
-> >
+dw_pcie_free_msi() now calls freeing irq_domain unconditionally:
+
+The problem is that pcie-qcom.c uses the ECAM init path, which does not
+go through dw_pcie_host_init(), and registers its own devres action,
+see:
+drivers/pci/controller/dwc/pcie-qcom.c:2034
+      return devm_add_action_or_reset(dev, qcom_pci_free_msi, pp);
+
+drivers/pci/controller/dwc/pcie-qcom.c:1995
+      static void qcom_pci_free_msi(void *ptr)
+      {
+             struct dw_pcie_rp *pp = (struct dw_pcie_rp *)ptr;
+
+             if (pp && pp->use_imsi_rx)
+                     dw_pcie_free_msi(pp);
+      }
+
+This leads to the following sequence:
+
+   1. dw_pcie_host_init() succeeds and pp->irq_domain is created;
+   2. the driver is removed or probe fails, dw_pcie_host_deinit() calls
+      dw_pcie_free_msi_domain() and sets pp->irq_domain to NULL;
+   3. the devres action qcom_pci_free_msi() still holds the same pp and
+      calls dw_pcie_free_msi(), which enters dw_pcie_free_msi_domain()
+      again;
+   4. irq_domain_remove(NULL) dereferences a NULL pointer and the kernel
+      crashes.
+
+
+So I suggest you to add a safe check if (!pp->irq_domain) before doing
+that.
+
+
+> @@ -633,7 +643,7 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
+>   
+>   	ret = of_pci_get_equalization_presets(dev, &pp->presets, pci->num_lanes);
+>   	if (ret)
+> -		goto err_free_msi;
+> +		goto err_deinit_host;
+>   
+>   	/*
+>   	 * Allocate the resource for MSG TLP before programming the iATU
+> @@ -649,7 +659,7 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
+>   
+>   	ret = dw_pcie_edma_detect(pci);
+>   	if (ret)
+> -		goto err_free_msi;
+> +		goto err_deinit_host;
+>   
+>   	ret = dw_pcie_setup_rc(pp);
+>   	if (ret)
+> @@ -686,14 +696,16 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
+>   err_remove_edma:
+>   	dw_pcie_edma_remove(pci);
+>   
+> -err_free_msi:
+> -	if (pp->use_imsi_rx)
+> -		dw_pcie_free_msi(pp);
+> -
+>   err_deinit_host:
+> +	if (pp->use_imsi_rx && pp->irq_domain)
+> +		dw_pcie_remove_msi_handlers(pp);
+> +
+>   	if (pp->ops->deinit)
+>   		pp->ops->deinit(pp);
+>   
+> +	if (pp->use_imsi_rx && pp->irq_domain)
+> +		dw_pcie_free_msi_domain(pp);
+> +
+>   err_free_ecam:
+>   	if (pp->cfg)
+>   		pci_ecam_free(pp->cfg);
+> @@ -718,11 +730,14 @@ void dw_pcie_host_deinit(struct dw_pcie_rp *pp)
+>   	dw_pcie_edma_remove(pci);
+>   
+>   	if (pp->use_imsi_rx)
+> -		dw_pcie_free_msi(pp);
+> +		dw_pcie_remove_msi_handlers(pp);
+>   
+>   	if (pp->ops->deinit)
+>   		pp->ops->deinit(pp);
+>   
+> +	if (pp->use_imsi_rx)
+> +		dw_pcie_free_msi_domain(pp);
+> +
+>   	if (pp->cfg)
+>   		pci_ecam_free(pp->cfg);
+>   }
+
