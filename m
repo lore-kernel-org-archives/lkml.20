@@ -1,49 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.202.115.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792488009;
-	b=0Q8zQ08dWDsjl2B4Q2kHeNv3px4zLW1PAaHmm9IzFbh5HWSw479RNCDhFn1p5y8Pv/2A
-	 Z1MRPee1dPkzQnZRgn+/zeIvf10nza3vbAJ3F6QhE2LHECmCCug/kyUsfrrlv20f9nQf3
-	 owZd8Q16iqOjm8r45TUbdPKI62s0o9s4Tz+5dtfDeIrAlsc13tXJh1f7nXrbDQVzul3j2
-	 vvlfg1+vse8q2wS1HGPk+9TU8sRyNTOaUBXsbGn7bnBIaob9MZvNLg/4CoxIyJn0fyR2+
-	 n1tx3ex6YR6KPJkJi4Iy/NTnlBOFN1W9NPisa4XL0fGt6Pns9VzUuigKzgrrKv3wEHA==
+	t=1792488007;
+	b=yCuBwc3gRKtUE2InmNz2++xmoSwjhFh1aXCqOCdfgbvLx5UAM0KjiamVR8sSElSXVGee
+	 QMUpv3gaCLVey5M1gDNuAqYqGhTLZmQYZpedH6L91ar+hbsr9R33ocKE1CQ6p6O/gdOK4
+	 dRt70eiKDI8+aMpGZKbRV1MJEm9ApMyqik5Rg4JF7oCoEzSjrCgp0USVcBGndDb2yo2IQ
+	 n6Oao+e6dC+9zVTDMiynVb6qpRhXYzHSjyqiqYFKNYnJoG5Z0JMq7ezab10zJMK09XJAN
+	 +Kq1bDu4vbVuVYK5jMoYBJY7t2Z+2kaPEUQ05rtMu07GjjaFyyMSQQ7n2agGlYIfPzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792488009;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=5y63LO8K1OCznULxQHwWfMhQvv8jfPHcfHJ8c5j0ul0=;
-	b=oHJdixpE6avJ1eggUZzQ+FbYNtrYcIeWz4zygdNcH9WBcR+FLSzKjbmHHjhVccuk1Dpa
-	 vS6sht598LP0X7J6S27lmYgxIqPgD7/3HFueq8knlEV+M0mZ5+Tafw7nlieq7emzEPx6q
-	 oVhoZqo5OykG9OVonE1W68lLyO0LXJArquUYG3rjsHAzEJQVykXG8IhNtaWgEOF2cJYA6
-	 D4mPE7fe0fH0KJfSw2h+AiIbH3EARsfPJlK/cRpeBdDeu+VEBQaC/oDl5CIdsUgb5M1fO
-	 8yN7Dk950+Hh4Yr+uNvbT4cteT3tm5WpFBBeJXEHS+cAxzxVXWbBX0M8JgMZA5Y5oMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792488007;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:DKIM-Signature;
+	bh=jwuobWmR9Q8VWmW6gJ1VH9w4uh3ahrR+9ZGTOu9b6cc=;
+	b=za3G3MbAHKYLbutjIsFpM45fwBnV+BeCh/yElrcYCIImLcCz8L02T6839RrDtQVkpmAV
+	 eEPrfcLqc0k3GukMrwwawfQfUloxJp6/QMrzkp8SVx7l2Z1dEyJ52134CI1nqnnlvKQ8y
+	 MR9BzJvDB++k7gi0ZiNgGlIP/+NCX8wprWZoZnCoSBguCJ9qTsT0QKfTEPj5migbFCBXf
+	 Q7hjpeSUJ94C7cVzu9BrY9jbQ+Gvs9FcymyZkk2AcWR5Fodl1p08cvAX9c8pbBzlgozZr
+	 1x9VuLynFCDcKCht2+fWh/nUtBTPDtQNe/cuU6ZRVY4JizAy2FxxdJ85Oy6CqkEQkJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kEY+wVHT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C76606A331;
-	Tue, 20 Oct 2026 09:20:08 +0000 (UTC)
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=cH+ArPJM;
+	arc=none smtp.remote-ip=111.202.115.100
+Received: from outbound.baidu.com (mx15.baidu.com [111.202.115.100])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 2D491606A32A;
+	Tue, 20 Oct 2026 09:20:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D491606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kEY+wVHT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA4B1F000C4;
-	Tue, 20 Oct 2026 09:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792488008;
-	bh=5y63LO8K1OCznULxQHwWfMhQvv8jfPHcfHJ8c5j0ul0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kEY+wVHTeudtPuBhkmpr/azpG6rDUEWGsD/0LxSH9PhEN9Vr92DvgG3YWU5Wb8kMp
-	 GmmR/tzccolphTyi4/tQKiXmRg4PZa7hyFaSopkMa/XQCiARR5HXrRd41RbjalBh2p
-	 t8Q7lWuj6XrvdZjscB5m6HDjOdA6xAdMNXgBsy/OgWHPiOMDQ+Nl/p87D+27szz9IK
-	 yGTzxbKklk3X7NWbH5GU7vdhp6PuFfzRnIluWs3kPu/DNvAto+Qmp7d5EZuRQ3gT4C
-	 Up/tsVpvfywBVnrBDxcKsOrSTu0y6ykmLB2suKptbmWonndqDc9qlnuOgKS/sQaE+o
-	 BRB22XmMWvSpw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 774E43808209;
-	Tue, 20 Oct 2026 09:20:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=cH+ArPJM
+X-MD-Sfrom: zhangyili01@baidu.com
+X-MD-SrcIP: 172.31.51.15
+From: Yili Zhang <zhangyili01@baidu.com>
+To: <zhangyili01@baidu.com>
+CC: <alex@shazbot.org>, <ankita@nvidia.com>, <christian.koenig@amd.com>,
+	<dri-devel@lists.freedesktop.org>, <leon@kernel.org>,
+	<linaro-mm-sig@lists.linaro.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <nicolinc@nvidia.com>,
+	<stable@vger.kernel.org>, <sumit.semwal@linaro.org>,
+	<dawid.osuchowski@linux.intel.com>
+Subject: Re: [PATCH] dma-buf: Fix IOVA offset when linking phys vecs to sgt
+Date: Tue, 20 Oct 2026 17:19:45 +0800
+Message-ID: <20261020091945.27327-1-zhangyili01@baidu.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260924065508.27245-1-zhangyili01@baidu.com>
+References: <20260924065508.27245-1-zhangyili01@baidu.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,43 +57,28 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] selftests: tc-testing: use $IP in hfsc test 8c39
- setup
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179248800729.3606430.14897745214644926489.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 09:20:07 +0000
-References: <20261014121414.2373985-1-ivecera@redhat.com>
-In-Reply-To: <20261014121414.2373985-1-ivecera@redhat.com>
-To: Ivan Vecera <ivecera@redhat.com>
-Cc: netdev@vger.kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
- shuah@kernel.org, victor@mojatatu.com, kuba@kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc7.internal.baidu.com (172.31.50.51) To
+ BJKJY-Exc19.internal.baidu.com (172.31.51.15)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1792487996;
+	bh=jwuobWmR9Q8VWmW6gJ1VH9w4uh3ahrR+9ZGTOu9b6cc=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=cH+ArPJMOsQJO7iUm+7EOvEi+++pZU3/JaYxUs6ekdZc36JciWX8UgH4nc4QjhMAo
+	 25DxzbBvwwYSxgVWtm7MKy1B8GEmlFqz+FGPZyDvpQgJyZWrVwy1MBN5E2MxlVhFsd
+	 lN1aEdG+86PH/bjosU81pIoiUR6IFTXO6nvXdkBm8zsYgWi7zEOhFacSzGGI+56FHs
+	 nf+Q122GlQP39P4HT40PmltyzY1Vw1rZch4Ab3uQzmrJ9d3oGd6KY+ddGnG762opkT
+	 og7Jlo4+W9K+zoO/66G3FQ3P7zl6ke2/rEgurgZIuE3KcjWGZr7xPjRixd6CouTojx
+	 TIE11Txfll2qw==
 
-Hello:
+Hi Sumit, Christian,
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Gentle ping on this patch.
 
-On Wed, 14 Oct 2026 14:14:12 +0200 you wrote:
-> Test 8c39 brings up lo with a bare "ip" command. nsPlugin runs it as
-> "$IP netns exec <ns> ip ...", and as tdc runs commands with an empty
-> environment, "ip netns exec" searches only the default execvp() path
-> (/bin:/usr/bin). On systems that install ip only in /sbin, like Fedora,
-> the setup fails:
-> 
->   # ./tdc.py -e 8c39
->   Test 8c39: HFSC classify walk still reaches leaf after lateral drift
-> 
-> [...]
+It has two Reviewed-by tags from Dawid and Leon, but I don't see the fix in
+v7.3. Since the 7.4 merge window is now open, could it be queued for v7.4?
 
-Here is the summary with links:
-  - [net] selftests: tc-testing: use $IP in hfsc test 8c39 setup
-    https://git.kernel.org/netdev/net/c/b6ef0d965fe8
+I'm happy to resend with the collected Reviewed-by tags if that helps.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks,
+Yili
