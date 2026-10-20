@@ -1,98 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.26
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792478551;
-	b=ghEeJa0F6HbfRjGAp9W0vZ2a72wlDIzW7QUZgRUFDH/vjGCXrI1IlcW4NjcmNZolL3SN
-	 aLn8D+wfl5cNdp8gF9qARupSSeIMmAgCPww5pZfgYZL6XB7hdYdsbCvBvpv40jYvlv2h3
-	 KTc+m6WvZBthosAwa8wDk9TcxuWV3RPG1f0xMeodcnNPDpq/Ub0zTekP5dvEfgmGTWEtH
-	 Np6p5qyNx51ssISufcLFZYtoAVa6/iZxPvomCN8IdAXnDX8J2ZCBZRE0CRceJfieQpX1J
-	 rnY4lUIxiffj9eLiueLUi6q4sOzdQwOaGcBWi3eWs5sVzXpzCn6fP3zUDbATs9T88/w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478551;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JxaNGXJItpPThMo+f0/DCe+lhgtTFXUhOE3CRHRj/h8=;
-	b=DBoBMvg2NCQoQzFk+ZXFzJwXRlsUiVuOMx7GsfIEIFIUAN8Uy0vJd2GvX79lcJ/g0Xav
-	 D331BgM0VHyOpcXeXx0C4rEQVY0sA1F9lHjR2g0zcEZ3AY5AuOP3JTCUiFmaxQMxbTZe1
-	 s/KeknTDbQ9oO7EslLz6uAHHg040PEVDyG6GHigzLLfT01q8Oir6GwZGClvaTTgz30z+7
-	 U3D4oTO3h3q1SgYr/78ldPZR6kz6XRv/g42NLJbmJ4ftrbRgtirMbojU3+mviHA/QQMbd
-	 LKq8OTZ/TATNBfd3HvEKSgPlxyyYPNJ/qz/O6o3wSAt+yxJRwOVDLE5Zxr9rnqi6DRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PDSh6scw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.26
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011026.outbound.protection.outlook.com [52.101.62.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792478598;
+	b=jkUiG2LTu3NFsmN7Y4flpaJAtdPlvynWNY9aE0o2eqYpcRRWRmCUrJbeOHhg1h2dGGMC
+	 52468dxxlK83SSD8g8GOppp92rbVQfbFy0OBPu9h1tDSE75ZDWiSrJa1W8R48umqGC2HI
+	 9a/kTk5QJ9qR7rpWL2jl/PFZiUTXRR9ED+mXCXCreMn4nGmDsZGaMRo9Scd558ZQUjY/Z
+	 DPNc7SC7c5eEy+vvscuHAIO87pkkETdm8hWsYimz/1jd7z3F1dDaOtbCAaTqeYVSx8Vh8
+	 HuHsu21ATRkJP9F/0NrFI+L5zrFyy//muqN8H2hbv48nOlQb2is7ZOr7TeIbEp0ds1Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478598;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=A4Jhss0pRPIhgOnD8xRK1TmnFOh+C6KbjtZV2ahE5wE=;
+	b=3IkB1Y18SOIo4vkztJm0tuzWipgk14/uu7XKIKna7RImcvi1GMtaPz1GduLkv9Fo+lNP
+	 XbGpzTzLeIbbxGEH7BGPkqVOq6DoEPwee/1YwI6xQ4fy+P7rWdLSnFgFdXnyRfS2x/1ki
+	 UE+T7a4GONztp5vBRQUdZDdUZUsmqbcSHsVZD3eh8qRNt3hqEGAYg7mgiqOmtINboPpb+
+	 DAdGStIxD4djiq0oCA4bPuQ/v5gCFyUkW3qKdZxh+fFF5arrfbcMaulmnQeVbK4pckx/S
+	 /lQEVu4EggjFdfgSKIgeJnmdTQK9LLC3zWoFrIk55j1dIa56F9SGWuzcobdKgswz33Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="BP/zGISa";
+	arc=none smtp.remote-ip=91.218.175.182
+Received: from mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC2F606A319;
-	Tue, 20 Oct 2026 06:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EC2F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF3F606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:43:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DF3F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PDSh6scw
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lz03mZ56zwjlTP6Kt9h2OqkEXSGzd0GbtPbHj0r/uaVdesw6bDAmMVP+UtKVRhEhbl9wYFrzibNLxdHrgejyRawl4F/Mm/wbszNQlj7BLH+4dLD4Mk36yhiv2miFvUsmeh36CV1n/I05Up4DDvnv4BmjKNfA4jAaCkR/2wkfncfahMMFRcJPTdD/tpjxlTLbmwdHZ79QczVL/rvmu0FEoyZERDjHpwUt86H7+sIXmZiLPEku1G6+eFKqzvOaVKb1GyvN5XbiGMrHrHeD5csBRk5nVYRSCdsO8VXaxuzB6BEXJ/Lo2IQHH61lWFWgxjE46y60jtKCKcOHw640mHzsdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JxaNGXJItpPThMo+f0/DCe+lhgtTFXUhOE3CRHRj/h8=;
- b=Z6OsNI2iaMzsv/RipSkAj+L4PbeLkkUPo3tlq/4Ma1WabQhBccR5FTCThjQn9wOBUt7QfQVJ0+Wo2Zukn6WYICynN/EjJDQRKgWhKXQ6U/b6Ca1fV6DiDcAuLgQReteUR+ZBksOwDeNuOPBbVjT9QHo8JonaewfAjnlrDxwROVEko73fZKaHsZcffpdgQzdnbnLRiGLX2pLiBJMnl8SXM3/LKIAgVyZE5UJHknQu9I6Z4nQGU5F8BTRoJHYZ/viKINYl4rzvdAcMbzF8C1jkL9JnIHKYRfdU6EHr5loXthQ8moCYO62aUSVd751iLkZYAnWlKE9i+LfIJHVervBgUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JxaNGXJItpPThMo+f0/DCe+lhgtTFXUhOE3CRHRj/h8=;
- b=PDSh6scwW8T2i/odKnK5G8Dxcdn77ghVMvtuEYaStVrDW2nDmpvUe8J1Mko1VSTeuvuj6fxf2ZUgnzH8TT3SfX7722+po+YXW2H3aO88PVDIY/bavJGkOrtS6/+4lWq6LkpBjDfj6wFD88Dps3oAIh3f2rLEYfXFh3Z8yZ43WJw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS4PR12MB9658.namprd12.prod.outlook.com (2603:10b6:8:280::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 06:42:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 06:42:23 +0000
-Message-ID: <dc91d903-139d-4253-83f7-51a78dd4530b@amd.com>
-Date: Tue, 20 Oct 2026 08:42:18 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Restore the scatterlist entry count before
- freeing
-To: Leon Romanovsky <leon@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Ankit Agrawal <ankita@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
- <20261019183146.GH64621@unreal>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261019183146.GH64621@unreal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0342.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BP/zGISa
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BmlXgOG0RMJHh37iPBOzDPjQSKllj1HY7c2b8Mw6ROM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792478594; v=1; x=1793083394;
+ b=BP/zGISajVO78Q4y1q5o2WUmHt99E3xrMdETB07e1OA5jkietsgWcdBEIZV2NcmLvqD5PpDt
+ zPAfWO6igXTEJhmBTnOJbIcUJMVOaiuzHWM0vrpBpVep0ocQkt/Uq3leSTTt+R9u6hCrEdn6+FD
+ RLgUyFDzgYRDmsk7WXOhQCIU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ca1f3b611870107a;
+	Tue, 20 Oct 2026 06:43:14 +0000
+X-Mizu-Trace-ID: ca1f3b611870107a
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
+Date: Tue, 20 Oct 2026 07:43:06 +0100
+Message-ID: <20261020064306.1542865-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,124 +75,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS4PR12MB9658:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfda978e-652c-408c-4404-08df2e754beb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|7416014|6133799003|18002099003|22082099003|10067099003|3023799007|4143699003|260925021911599003|260925022911599003|260925021311599003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	HAHP4qFsbxQAHsiC69iRw/Ppb4np9gHf1+C/fm+VQJJ+WF5HWzkk2lsnIqQj9hdzQCX4TmLuSC/UUNVZ0PWEU8XWUPaCPgCQtD+rzj3f3/9kW3HaJlaQTf9xOJhHM2BfjvPBgbpc2q30W9KonXT+//PGreuTYKwe1s1QRLv5Qx8kZk9CDD52ZTg7Z16LQkjAtUJBpH79HjDjO3/sM0aSEmKHqoZfhATZxm+/B8491zLhH+v6e4KGqspk8jCnlcz1HUGYn/EQncvkOzUqAL67eGeeAjJNt37v2X8Sd1aLFA7+3P/J8z7YYYeC1dNd1dLqmfbiWLEe4CTFBz5rq7QXS8OEKSdZTsArRa7JjRUd+wb8G7LD1A4qbwoY3qLj2lfsDOSHoMK0JlBwihU3oMSLULlaG/dfFkX9hTFw0lCuXrVRt4QfZs2KBYTdXyGQKrxOMfHFb/nAudmm8wy92w7aK88D5ZDBcsaeo0yhEDrlg3Eo2ge/lAPADbXmvBMHz9cEVqZlvWFagLMReZ9P9BmjeA5NS2CfmwVU8W0i69HVGSkX77pp1KrEXm5B1/F2UpsrC46i0Tfu6TIwApto/z4ZX7jPSOHnJUyN48JHyJqRE8V5ZCCNU2YgKHaemkirpbjbDRp+y+J6HjG/OxFIBDp4EVXh3Hh5NPXg5h2heruHHo4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(7416014)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(4143699003)(260925021911599003)(260925022911599003)(260925021311599003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q3BreHlyNXpWN0QvVjBJVnVyeGlVelNpOE4xL2cxVno3RlZ4SWp2OU5UWmNR?=
- =?utf-8?B?UGVVNzFiSHRkMTRJMnBXWWNJWlNoVDZOZUR2Q1VuOHlXUVk4VTR0T0V0eE4y?=
- =?utf-8?B?MlplQnJCbVBTcjFqbGNwOFFXc2FPc3JBUm5PczZXMnh6RllkaENOa3JsVWZ5?=
- =?utf-8?B?alJORE1ISC96TFVRcUxSeUkwV05mdGx2cVRlUXNRazNZTkgvVW5ZUlJQNmJS?=
- =?utf-8?B?eUl3cndaYlJ2dmpIQnVmcEN5ZFc1MnNTeVBVMUtnODBaUFNXV0NBeGxUSCtX?=
- =?utf-8?B?MVRmb2VLSk5kM2RsQUVCS3lrOTI4UzA0SGpKdFdETlZweUl5d0lOMnFaeWMx?=
- =?utf-8?B?WDB2TlRBbkl3aU5wWldtZE5HNklveGtJQWFha1FZTkJBeUwvR2VuNC8vekli?=
- =?utf-8?B?YjhzSkFlNk4xTk5uREFQR3RzWlk3NFdLM3ZoKzlKdDFvNDdqUEtIYmVhK2Vq?=
- =?utf-8?B?U1FTNWJ4V2FGam9ITlhtSUt3T3I4Z2ZZeE16VTU5eFBqNjlGcWpiWGE2Smdz?=
- =?utf-8?B?R3B3eGc0b1NjekRtUytRa1VuNkVPcklrTVk0dFpsd3M4NDh6dGE4VHRoQWhJ?=
- =?utf-8?B?NnZNYkhLbmVQQXVOTkVKRkRKNXNYRzJ5RXdRL1JhVVlWb21Zc3VQR3N1NCtQ?=
- =?utf-8?B?Y21MNUhSMnVQcXJ1Qzc3cUJDU0p1a0xLTHZmMHhneTNPODBKcWlEK1JvYm9M?=
- =?utf-8?B?QU42TWZ0Z2JLQTlIM2p2L0V5WExWNi8rODE5Wi93ZjlwbitLQmFnNmxSY09n?=
- =?utf-8?B?MkpvL2xNa1pvSWVka2FKSTZjUGFnODdWNjhVNU91TzRHUUhZSnBaajNRS05T?=
- =?utf-8?B?MmlDU0NEbHpVeldLbXRwdXdiTmExZnJWMWRCdGhGdE9rL3F1dGlkR3dFUVIv?=
- =?utf-8?B?ZFozanhtdmowWVpOVUdiWlExN2hBM3YxWk1vTzNuZzF2QTFFYlF4djRKNWtq?=
- =?utf-8?B?NkRZQzlhY1V0a3Q5Tk1qT1l3Skwvbk53UXYwU1Q3ZUpuazlIQTlTRHRQRkh5?=
- =?utf-8?B?dzE0TC9taG1rSk5iNkpsbHg3WUJtSHVPZnhjMDVHQlZ4UjlpVHVuM3FzNWZD?=
- =?utf-8?B?ek1rK041RFoxb1ZQNjExbmxUQVk0M3N6TzZ0bnl5REp5Nk1xamp2YkFwc1Y3?=
- =?utf-8?B?RGloa2NLUHlxUzlmNUJ4cVVNZ1I5ZFAyQW5XQUxqSUNONHpqcEE1TC9vNUpw?=
- =?utf-8?B?Y2l1WFEvemVBWmQ0VWFOS1dOSGxsZ3JETHU4UVRJOWVmdDdBbTQxSjAxWjAw?=
- =?utf-8?B?QThpUXc3TEVCellsSm1QTjliY3JrMTIyYzNaTkk0dTZwQ3BkdENKSncyemZz?=
- =?utf-8?B?ZTJHUEg5Q0JLTHdPZEo5UWQ4anlwN255MFJVTHJzQjZOVU1SaEdMSnBtWWdo?=
- =?utf-8?B?RE5NS3B1Y3hwZzIyOXJUeURKL0Uxd0NKZUxVajhocW8wTEoySGViQUFtNFox?=
- =?utf-8?B?NFZvZU80bDJyeHpDaFpIRUswejVZU0N4YmYvUnNmZktIRnBqVkVWWVI5RHhH?=
- =?utf-8?B?WWZSZE5aRkVuVmRYd05RVml6MDhuci95RmdqOTNINS94a0p2elNUK2pJdHZn?=
- =?utf-8?B?YVkwcThuSXI2RVl6MWhJUVhIWjl3cFBOOWxuNGJMNjFjUVh4R2RrVTZqU2hB?=
- =?utf-8?B?a3FoWWhqV2pTclZzRnNkMFlkZE4rU2lpRmNNYUZacWlib3YxRTJFTlEzRnFy?=
- =?utf-8?B?WHR0VGNwaE45aENYNVBVSHJUMjZFcmJLRVhBM05US2JnV3YrM1h2MTdRbDhk?=
- =?utf-8?B?TzJlRThVanNaQWtsRGdhVmY4dEpLZFV6SjlTT042d1ljUUlKUkp3VEdVMTZa?=
- =?utf-8?B?WGlqdUc2UVlEZ3JWRUZTZUl0ekVsYy9SbXVFTERqcldQaVFZN3J6WDNvZlBs?=
- =?utf-8?B?OHJ1N2owUjlRZlhPOXdXVklWL0RoYmJBcU1zQ0dPQ1l2ZVVoTDQ2ODk2b3RE?=
- =?utf-8?B?ZzcyUE5tSXJZSjB5VUp3VE53OHU2RmQrR0JzS3pvUkdSa3NlbllpZS9kVFdU?=
- =?utf-8?B?WjhMWmRwR1FsRlJCamJzM054cmgwNG55TmhObFc0Q1B6NXJqQUxLUTcyS1BJ?=
- =?utf-8?B?a2hBdThDTG1MVmZ6aHVaWS9COHZhNHV0ZEU1YUpHNTBCZ1hTQzFDU0hWeXJU?=
- =?utf-8?B?L05Sd2RkaFVuVE9EenlVNzdtbmFxMHZaaEdMZ3lnYUpnZjN0V1piZVMyTW9X?=
- =?utf-8?B?ejVlVVRuMVl3THNwNlA4RGZkQkVlYmNucm5XRFBXZnIrYWdab0IrNUtSSWxm?=
- =?utf-8?B?MU9IQWJvL3lhRThDclpWVkRQZkQzYVRQa0hQSHdRM0J3VS91aFVRYzV3R0JT?=
- =?utf-8?Q?t2occyHxVHuUUlnHSV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfda978e-652c-408c-4404-08df2e754beb
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 06:42:23.1523
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WtapGk3nZuaW6LhedchaEEHuej2HZMvie1Lg8RpScOVBzHlyHKjA16XaOqSFsCV/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9658
+Content-Transfer-Encoding: 8bit
 
-On 10/19/26 20:31, Leon Romanovsky wrote:
-> On Tue, Oct 13, 2026 at 02:46:24PM +0300, Leon Romanovsky wrote:
->> From: Leon Romanovsky <leonro@nvidia.com>
->>
->> dma_buf_phys_vec_to_sgt() clears orig_nents to mark the returned table
->> as DMA-only. Since sg_free_table() uses orig_nents to walk and free the
->> scatterlist, dma_buf_free_sgt() leaks the allocation on every successful
->> map/unmap cycle.
->>
->> Restore orig_nents from nents before freeing the table. The helper
->> allocates the DMA list directly, so nents retains the allocation count,
->> including for chained scatterlists.
->>
->>
->> The reported kmemleak output was:
->>
->> KMEMLEAK LEAK: 2 driver-related leak(s)
->> KMEMLEAK LEAK: unreferenced object 0xff11000125ceff00 (size 32):
->> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295031027
->> KMEMLEAK LEAK:   hex dump (first 32 bytes):
->> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
->> KMEMLEAK LEAK:     00 00 01 00 28 38 00 00 00 10 00 00 00 00 00 00  ....(8..........
->> KMEMLEAK LEAK:   backtrace (crc 4e8077f2):
->> KMEMLEAK LEAK:     __kmalloc_noprof+0x451/0x8b0
->> KMEMLEAK LEAK:     __sg_alloc_table+0x2a0/0x4d0
->> KMEMLEAK LEAK:     sg_alloc_table+0x24/0x170
->> KMEMLEAK LEAK:     dma_buf_phys_vec_to_sgt+0x84f/0xed0
->> KMEMLEAK LEAK:     0xffffffffa1ad21a8
->> KMEMLEAK LEAK:     dma_buf_map_attachment+0x138/0x690
->> KMEMLEAK LEAK:     ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
->> KMEMLEAK LEAK:     0xffffffffa138f8d2
->> KMEMLEAK LEAK:     0xffffffffa1396abe
->> KMEMLEAK LEAK:     0xffffffffa1331a5f
->> KMEMLEAK LEAK:     0xffffffffa13320dd
->> KMEMLEAK LEAK:     0xffffffffa1ad696d
->> KMEMLEAK LEAK:     0xffffffffa1acecc7
->> KMEMLEAK LEAK:     0xffffffffa1acfd17
->> KMEMLEAK LEAK:     __x64_sys_ioctl+0x72c/0x11f0
->> KMEMLEAK LEAK:     do_syscall_64+0xa1/0x4f0
->> KMEMLEAK LEAK: unreferenced object 0xff1100016dbf3a80 (size 32):
->> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295034705
->> KMEMLEAK LEAK:   hex dump (first 32 bytes):
->> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
->> KMEMLEAK LEAK:     00 20 10 00 28 38 00 00 00 10 00 00 00 00 00 00  . ..(8..........
->>
->> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
->> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
->> ---
->>  drivers/dma-buf/dma-buf-mapping.c | 2 ++
->>  1 file changed, 2 insertions(+)
-> 
-> Reminder, thanks
+From: Marc Zyngier <maz@kernel.org>
 
-I'm waiting for anybody familiar with the code to review this.
+KVM uses the VM's ID registers as the source of truth for what the
+guest has, but userspace can expose S1PIE or S1POE without the features
+they imply. As per the architecture, both imply TCR2 and ATS1A, and
+S1POE also implies HPDS. With TCR2 hidden, the world switch skips
+PIR_EL1, PIRE0_EL1 and POR_EL1 while KVM doesn't trap them, so the guest
+accesses registers that are neither trapped nor switched. Under VHE,
+that leaks values between guests. On nVHE and hVHE, pKVM included, the
+host kernel resumes with the guest's PIR_EL1 and PIRE0_EL1.
 
-Regards,
-Christian.
+On first run, clear S1PIE and S1POE from the VM's ID registers when the
+features they imply are missing, before anything derives state from
+them. The guest and userspace then see neither feature, and the guest's
+accesses to their registers UNDEF.
+
+Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
+Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
+Reported-by: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/r/20260930-arm64-gcs-v21-2-3556644cd927@kernel.org
+Link: https://lore.kernel.org/r/8633u229lq.wl-maz@kernel.org
+Cc: stable@vger.kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+Changes in v3:
+- Sanitise the ID registers instead of changing the trap tables, using
+  Marc's patch (Marc, Sashiko)
+- Rebased on kvmarm-7.4
+- Link to v2: https://lore.kernel.org/r/20261018080921.3942517-1-fuad.tabba@linux.dev
+
+Changes in v2:
+- Also require FEAT_HPDS for S1POE (Marc)
+- Link to v1: https://lore.kernel.org/r/20261015153041.3770032-1-fuad.tabba@linux.dev
+
+Based on kvmarm-7.4 (dd0bc00e3e920; also applies to kvmarm/fixes
+2ea3a929fe01e).
+
+ arch/arm64/include/asm/kvm_host.h |  1 +
+ arch/arm64/kvm/config.c           | 78 +++++++++++++++++++++++++++++++
+ arch/arm64/kvm/sys_regs.c         |  2 +
+ 3 files changed, 81 insertions(+)
+
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 1c6632216e327..695c389047c91 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -1741,6 +1741,7 @@ static inline bool kvm_arch_has_irq_bypass(void)
+ 	return true;
+ }
+ 
++void kvm_idregs_enforce_dependencies(struct kvm *kvm);
+ void compute_fgu(struct kvm *kvm, enum fgt_group_id fgt);
+ struct resx get_reg_fixed_bits(struct kvm *kvm, enum vcpu_sysreg reg);
+ void check_feature_map(void);
+diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
+index 1053676551aff..d856c0b5c3907 100644
+--- a/arch/arm64/kvm/config.c
++++ b/arch/arm64/kvm/config.c
+@@ -59,6 +59,7 @@ struct reg_feat_map_desc {
+ 	const struct reg_bits_to_feat_map feat_map;
+ 	const struct reg_bits_to_feat_map *bit_feat_map;
+ 	const unsigned int		  bit_feat_map_sz;
++	const unsigned int		  idreg_idx;
+ };
+ 
+ #define __NEEDS_FEAT_3(m, f, w, id, fld, lim)		\
+@@ -130,6 +131,21 @@ struct reg_feat_map_desc {
+ 		.bit_feat_map_sz	= ARRAY_SIZE(m),		\
+ 	}
+ 
++/*
++ * Declare the dependency between the features advertised in an id
++ * register, and the set of other features they depend on. This
++ * generates a struct reg_feat_map_desc.
++ */
++#define DECLARE_IDREG_FEAT_MAP(n, r, m, f)				\
++	struct reg_feat_map_desc n = {					\
++		.name			= #r,				\
++		.feat_map		= NEEDS_FEAT(~(r##_RES0 |	\
++						       r##_RES1), f),	\
++		.bit_feat_map		= m,				\
++		.bit_feat_map_sz	= ARRAY_SIZE(m),		\
++		.idreg_idx		= IDREG_IDX(SYS_##r),		\
++	}
++
+ #define FEAT_SPE		ID_AA64DFR0_EL1, PMSVer, IMP
+ #define FEAT_BRBE		ID_AA64DFR0_EL1, BRBE, IMP
+ #define FEAT_TRC_SR		ID_AA64DFR0_EL1, TraceVer, IMP
+@@ -205,6 +221,7 @@ struct reg_feat_map_desc {
+ #define FEAT_MEC		ID_AA64MMFR3_EL1, MEC, IMP
+ #define FEAT_HAFT		ID_AA64MMFR1_EL1, HAFDBS, HAFT
+ #define FEAT_HDBSS		ID_AA64MMFR1_EL1, HAFDBS, HDBSS
++#define FEAT_HPDS		ID_AA64MMFR1_EL1, HPDS, IMP
+ #define FEAT_HPDS2		ID_AA64MMFR1_EL1, HPDS, HPDS2
+ #define FEAT_BTI		ID_AA64PFR1_EL1, BT, IMP
+ #define FEAT_ExS		ID_AA64MMFR0_EL1, EXS, IMP
+@@ -280,6 +297,25 @@ static bool feat_anerr(struct kvm *kvm)
+ 		kvm_has_feat(kvm, ID_AA64MMFR3_EL1, SNERR, FEAT_ANERR));
+ }
+ 
++/*
++ * S1PIE and S1POE imply TCR2 and ATS1A, and S1POE also implies HPDS, but
++ * userspace can set them independently.
++ */
++static bool feat_s1pie(struct kvm *kvm)
++{
++	return (kvm_has_feat(kvm, FEAT_S1PIE) &&
++		kvm_has_feat(kvm, FEAT_TCR2) &&
++		kvm_has_feat(kvm, FEAT_ATS1A));
++}
++
++static bool feat_s1poe(struct kvm *kvm)
++{
++	return (kvm_has_feat(kvm, FEAT_S1POE) &&
++		kvm_has_feat(kvm, FEAT_TCR2) &&
++		kvm_has_feat(kvm, FEAT_ATS1A) &&
++		kvm_has_feat(kvm, FEAT_HPDS));
++}
++
+ static bool feat_sme_smps(struct kvm *kvm)
+ {
+ 	/*
+@@ -1299,6 +1335,14 @@ static const struct reg_bits_to_feat_map vtcr_el2_feat_map[] = {
+ static const DECLARE_FEAT_MAP(vtcr_el2_desc, VTCR_EL2,
+ 			      vtcr_el2_feat_map, FEAT_AA64EL2);
+ 
++static const struct reg_bits_to_feat_map id_aa64mmfr3_el1_feat_map[] = {
++	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1PIE, feat_s1pie),
++	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1POE, feat_s1poe),
++};
++
++static const DECLARE_IDREG_FEAT_MAP(id_aa64mmfr3_el1_desc, ID_AA64MMFR3_EL1,
++				    id_aa64mmfr3_el1_feat_map, FEAT_AA64EL1);
++
+ static const struct reg_bits_to_feat_map ich_hfgrtr_feat_map[] = {
+ 	NEEDS_FEAT(ICH_HFGRTR_EL2_ICC_APR_EL1 |
+ 		   ICH_HFGRTR_EL2_ICC_IDRn_EL1 |
+@@ -1408,6 +1452,40 @@ void __init check_feature_map(void)
+ 	check_reg_desc(&ich_hfgitr_desc);
+ }
+ 
++static const struct reg_feat_map_desc *idreg_feat_maps[] = {
++	&id_aa64mmfr3_el1_desc,
++};
++
++static bool idreg_deps(struct kvm *kvm, const struct reg_feat_map_desc *r)
++{
++	struct resx resx = {};
++	u64 val;
++
++	for (int i = 0; i < r->bit_feat_map_sz; i++) {
++		if ((r->bit_feat_map[i].flags & CALL_FUNC) &&
++		    !r->bit_feat_map[i].match(kvm))
++			resx.res0 |= reg_feat_map_bits(&r->bit_feat_map[i]);
++	}
++
++	val = kvm->arch.id_regs[r->idreg_idx];
++	kvm->arch.id_regs[r->idreg_idx] &= ~resx.res0;
++	kvm->arch.id_regs[r->idreg_idx] |= resx.res1;
++
++	return val != kvm->arch.id_regs[r->idreg_idx];
++}
++
++void kvm_idregs_enforce_dependencies(struct kvm *kvm)
++{
++	bool again;
++
++	do {
++		again = false;
++
++		for (int i = 0; i < ARRAY_SIZE(idreg_feat_maps); i++)
++			again |= idreg_deps(kvm, idreg_feat_maps[i]);
++	} while (again);
++}
++
+ static bool idreg_feat_match(struct kvm *kvm, const struct reg_bits_to_feat_map *map)
+ {
+ 	u64 regval = kvm->arch.id_regs[map->regidx];
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index e9cf6cc340349..f10905347f3a1 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -5872,6 +5872,8 @@ static int kvm_vm_finalize_sys_regs(struct kvm *kvm)
+ 	if (kvm_id_regs_final(kvm))
+ 		return 0;
+ 
++	kvm_idregs_enforce_dependencies(kvm);
++
+ 	/*
+ 	 * This hacks into the ID registers, so only perform it when the
+ 	 * first vcpu runs, or the kvm_set_vm_id_reg() helper will scream.
+
+base-commit: dd0bc00e3e9201fd49b62ff9cc07890c89003afe
+-- 
+2.47.3
+
