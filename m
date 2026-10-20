@@ -1,111 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792521911;
-	b=pDhdaeWwZfhPDMX9OouhZfizQjOGYTIHcXPkpqe+naCWi8RmPZbZ/dLk+hsz8SOQH5Dj
-	 ycWkAsUGa1OYd1e0DB4Wf1regU45YSVoz/q6N2CqtyO/gWcteRBEImNKn5g5LXToEv5uC
-	 amrcYZ8XG/5YTuT4LGHrf7aUJvCGzqqEgIoLOpvVoZOzsb/EswIvNhmRts6bWb3psrCw5
-	 jqy+Caw9sRmVuhpLhEfYBupgYovMfu2VZFkhaqfqn447j/sZdIdozt298brxvimKyso5n
-	 xVAPqrdV0gVZ43GrPQJuSvo/NvWdci8BFwhaJBbLJNR4xr+RsoZxwjVcTrVWmA+Pcbw==
+	t=1792522062;
+	b=I5xeVutOwBs5Uhss1oGtlfYzJNCRrUgbW5KSMy3NldPSuidHJxzKTY2bfW+3bFmnajgo
+	 vHXLmawjIGQlOXu5GkZr0gjyv3OKnUcG/3G+wrmH5EzTH/NBQitmI9ppqt3t1ZsPydtL2
+	 UbfcCpaH+ZYgkHYu5InywdOV6jLWuonGJA8kCXyBOINAyRhQS2B01bSkj7LaQKQxYBPH7
+	 n5HWMzvW1mznpEZ0nvbnj6NoczmW0DUNev7+e8Oc7yocfkjiuuc2Td4qF4MvBKAaZTP+C
+	 Po68PGiGgK4q1xzZxAfc/oCOCqmASxCAgdzSTwUbeAVnLcASTmwv5Z0z1YbcykqJg1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521911;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=4dEKJiz7qNn7fsOJLiI2+hUQgs9ULSFP/CeGMQxc8t8=;
-	b=cyWHEljgJiU+fXGupZDj/Fl8Gd2+ocVZWAlRERSTS7koabq9m6Ka4XQSzSkBD168luQK
-	 wNgPbGgYpUEd8F64RYaKEvWHMJCW9/qEC3Kg42+rb8RLAs969GTkWC9yTJe3iQhWzlXZM
-	 kny1ycHGSIKPiBQ1DbsALoV1PWd44Tjm5Y3BuaCJMtKRaJ3SySS96FJ5aziWsRookm1lo
-	 ue5Wwt/tQ84Ma/ZA6ZxTp+sqZTYWLWhqT5WXAJjMtYd5XFNbjP7UTJ11ZpmdoCKEZbG0e
-	 pUkG/T3vW46DI5SwGqYAltNG0ViEnst35fB5MLrCyE9tiW4IzvaARwzGFuldauDBfEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792522062;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=NEVIAWxa+q6sbG3Bq/x2CA113pzvbMJrwYJBK5kHkqE=;
+	b=3GNF/fQz/c7mlCzs/F3zqQOfdwSbQxEanbVv/OpEy1ixDqOqrhsdWaW/vpr7yv929y1M
+	 2PHmaoSvRV3uxEbOXSs+DSrlwBdru5UZeVHydPVDdJA9xH9pO4lT9ZbXlxsRAstYamVP4
+	 Pfv+p6J4SrgQY8iD9jKnqjevUItFjFI+wXekGT6Ga3dp0Iw0rKACrt0F3CUPO+Ep3ytSx
+	 wvBWxVjm5x8SEtY+Oqo37prnSDH3s48WTL+l9wLcNSbpaRAUDD+k6MsqbAeb+yVAHOvM1
+	 iVI8KcFZlAIDfjRHFwXVa+FrEH5yc+YhUG5AIV22CCuG5BG2F1cZ3QcU3N6SRudvw+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.com;
-	spf=pass smtp.mailfrom=fastmail.com;
-	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm2 header.b=ikppvGeZ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=F+rvf0FS;
-	arc=none smtp.remote-ip=202.12.124.145
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Sa5NXzLZ;
+	arc=none smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D01606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:45:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5D01606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC26606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:47:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EC26606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm2 header.b=ikppvGeZ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=F+rvf0FS
-Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
-	by mailfout.stl.internal (Postfix) with ESMTP id 24B0C1D00022
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:45:10 -0400 (EDT)
-Received: from ams-imap-15 ([10.64.2.35])
-  by ams-compute-01.internal (MEProxy); Tue, 20 Oct 2026 14:45:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1792521906;
-	 x=1792608306; bh=4dEKJiz7qNn7fsOJLiI2+hUQgs9ULSFP/CeGMQxc8t8=; b=
-	ikppvGeZ+AxvlH2tqrDDxw+bakFVQvLMt5hGwd6WPjR7peAs1iNOytvIyGVoJ1kv
-	M0dQNIPYkcegH4sIXFZ9h1G92skhmTrLhyAE0ierFJmNX0Ok6aGQsW+dh0Ni1bIM
-	Av//0wVex86fiZ/Frfapn5tYyiqTLBQj/o3Q7kqwpI1xYnqbFW/CB4e3JYI3VVMA
-	McRIxEzVBcjKr7YTAnyUC88VQqIpvgcAiwir0c4+oKzw0pF4X8/6koCsCyRMUnpw
-	m8h84SFncypXLSBIcNhhmVY5VrXdl2KALU83j1M5hLbx9hL3V6l/yT2uhwBcYCiW
-	wdhwTcSMOlU4IYZkiD1EXg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792521906; x=
-	1792608306; bh=4dEKJiz7qNn7fsOJLiI2+hUQgs9ULSFP/CeGMQxc8t8=; b=F
-	+rvf0FSxTNO5qJsdskRSehaHl8iUgc74wiXg+qppG69Sx/rHKWlsUv9SzZEFp/kh
-	+ijK2pdcnkloHbz8MjnOGMr2Pfye+a71v1NBmAQhMWYm8dFH2w30HyEQvTDMMNm9
-	triczu79MccZP/fsPW4tTo0O5UnD7WW+GNOPoDo8mUHPKc5gp3GrlLfzlmlIKlor
-	Z6iaZlFeeG1KISMoqAvxg+3mhe/Zm/5BmlFCsG7pDRx6LGQ4tsNwlzVln3CYrR9A
-	1pH88KWH/d1wJ3EhwQYuhzKogLEsUwXFG1PQvvm2uT/5Mk0cAUqwrVM7ppeNDr5f
-	eO9oaKaO7hDx33UuJj8bg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=fastmail.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792521906; d=fastmail.com;
-	mf=PGtyaXN0b2ZmZXJoYXVnc2Jha2tAZmFzdG1haWwuY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:UdPQ6PsxGcNO2aCGmU40DW4PBBH4zwlEPUVeHioW2jr7Gyi
-	k8HWllMwogEaU8RWeipWU0ZzutcjIpp/KknJvly+Jt34vr7fsNVPG2G6hXYrwdYs
-	TLffQIpEzazRgR7zFuf8uthgtkUxT0D6xPpPl2dMnDBjEZOZlkQ32DaSSl0EsNcH
-	gXXG9PvOA5cwGv/GCEWupNV79YY5mO28NmPY9ygkJFoXukcLgPWwPcS+it7yoRRc
-	0aBe/zMk5/WrHYi019HeE79JtZY9376ngC6+uu0bbkJpoyXqPYbTB3pkX6yIopwl
-	bbXNjnqa4WD9CiNJ8fpmQbwg9TU/8r7jDlbWhFw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:eiGEWz1IZDeLE0+s45IETC6sl+0s+pO8Ueb5Tt3fzfI=:+qsCSwPYDsXm85Bi/Rgzp/9GtjzQpGZpb5B+fpP28Fk=;
-X-ME-Sender: <xms:rrbXas2F96ghFKhEELIxms2jjdTNoG40dj_jmgMy1Og6xzHqlNZBbFE>
-    <xme:rrbXah76JE5i37_bhdHMcm1zvUsSUJjlUA7ld7sl4FVnWPb2Xb_ORCusUAjwjNHQV
-    9lTH9I_jKdt-u8wIa_R39NTKOYsBruESVDFzQpulsNf4UdBvi5yxp88>
-X-ME-Proxy-Cause: dmFkZTET/xFmh/bjKM9xko8pFox5FcMBGV5bKPq7a+RPnkEb1FWGmrRbCdnu0YNaSxPjjy
-    kbJSuwYf4WBAmJkb6IftDSNX800lGyw5LER4xxL4+TFSPSbom8LuPo+uitkMa0yjpuDmbp
-    YaghWnaSEwTwYLQhKwtJf4ZaicBtqiaJHqN6SD9SZ+5k0ztrI/vUQJM+guyM0aePW2sw1l
-    /7IsjZlSGr/0i+68ye/u4VH8w5ODz2YJYPOvNLHiGCi5NGnK2FKw6bmZC48vSErMHqnx87
-    7w4I7GXbwPRvPcCwbxOzK7YkGyX2/rPr91Nxg5wc0fDDrQgU9ebR0SDjT7Co9SUTykLpA5
-    yb4J5XjhuOV0l4G2DhXu83BqOKrLE08qZQjFQmOwOru0mQYTgaYbhv6vRKhMavhrbcYL9f
-    s0DsYrIc4Nh8y8PznhLW8wnhVmLTRhwWa2OMMTg7+eJlS8KjhFhi4cw63uJF4KOLBMSTw+
-    ItFXoG1QB6C4ciIdhXhHgydzh8ix52GdMfEcPRQOxlzIT+dA5e/liqsGXIhSTEZo+/ES3o
-    /SpS/MIZ3Co/pizyD6haFIrd+ssEFpwVxv8JXwb2+GL2ACZ8M2PM7DqZnsIalJMoioZvX/
-    GKonlmynZjDfW1ajTrnxuhRMV/2VcVExJYOdJ5pDKddRa/wySqB4vafaP8HQ
-X-ME-Proxy: <xmx:sLbXapXeSvt4Lmzanc6sD9JCi7YGySw0LlISe3gzImfiD2o5TkIKeA>
-    <xmx:sLbXakjCZjk-Am_65Ma2gwNTIbgOZRGaRUbxe77vfadDvlOOSfgWKQ>
-    <xmx:sLbXakbftVtkqAfEDPGY9N3Cb_WyiTVhxZX57AI5mWwEvM38tuIZjg>
-    <xmx:sLbXahr5XvquA92K7NIZcA7DTmKsjy31aBcNnhxeP6hmakdmat7nqA>
-    <xmx:srbXanZgyoY2NI3my3Y07wCHIJtb6olFmvwI0Y3dlgyonLlAdTD4Tg59>
-Feedback-ID: i8b11424c:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 9926222C00A4; Tue, 20 Oct 2026 14:45:02 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Sa5NXzLZ
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-535179e995bso148801cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:47:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1792522060; x=1793126860; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NEVIAWxa+q6sbG3Bq/x2CA113pzvbMJrwYJBK5kHkqE=;
+        b=Sa5NXzLZLC5cl1xFp6GpVEMA9olp832CfbB6VI6WfjZthAIjfFaha31rnOLtmDxQrP
+         Tqmc26+JG+x654yj0+nWvtCYOf7YXrj4nhwPMkHiSN3snHTSGkFBj8sExLpFsweD392P
+         Th4lphLYZanW72sbY44dkj1vE2guWlEU4enLxSi5cU4HRlqmDEXyuGYrohOonjllHp/f
+         X6C839DMt2gQIGX0/yoCr+wFi1WELclFxhSC9u2YdLkDa5H49OjE3ctEuxOEaJztQPOq
+         /O4AQC3J66GegucPpgvcl9q8Rc7L23eGZVs6QPwesiC7Xj8PLO1sfpH9xB+zeHJ6hDf8
+         R3kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792522060; x=1793126860;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NEVIAWxa+q6sbG3Bq/x2CA113pzvbMJrwYJBK5kHkqE=;
+        b=ghfXvHfqzEafWXZMkBGYDdUrc4ARGbMZ5kEeyzcYd25zjjtwinyf3oIlUEqW0T20HF
+         QisFXiw/BqjaofLYB5Je6qrlJaefxUMlDTNwmpwqp8QwhfA1nNj8TgkWOI0YxOp3+QL6
+         V6XOGm9j+aB1BIBFcbpJ3xSrRLDOHscGDJ6C+P9rBz9CZxtet8pRLncp4eqwcFI52wCu
+         1oh/QqUy0Rd+sn2E9c2G486Nsk3kKjHzIeeKMTQXciKcDGom8zRFpoIUGRrfW6YbhfSk
+         rO6hXR3Hm7ZLwX/YtlgYXS0C0MiI/e/lHaD8V3QFqbpZgKh/bKoAHXDCIkwbtsPsmA+Q
+         oHrg==
+X-Gm-Message-State: AFq9FYLo1BGDWhjHpFO8t7AW/MF5Z8TSyvdS3ebZJpZGroFvuMVstGSL
+	bjJmUehgtCECvKG490A7SUkD9zGKtpi00monqzg8ZgevwrvUCl8L8OFDJ6xXk+6nnCY=
+X-Gm-Gg: AYBFou2oYh6hEphc6DZzy3KsROJSgDBhe6N2N8C6SLlSBg7F0kloXmvHULhyqs79Sbx
+	M5STqcIg3h0Qxnm0fp9MN7NGNopBjAMNplEgw97bLnUwkr27wRc14mwOsIMcGRuU6oY7AfY8TT7
+	41VcJLy/DOIeoZElATu4L+KPQvx8PBPLdnwNojSDikj+4M7RKEoWNxQ5H8Zh/fagZ+IHx5RqJzu
+	Sy2MVckMt1qNjMqmTBfvZ021sWXx1VwAjWA6tEBD4WLJtCWOToI85rUw0ZhizVMrqZbI5/gkzNu
+	30sVbP+MFpvRxtDzk4GTSv8OeHroH7Vp3mcv2DwQDFmirl5S+rX50JLhmUNaFGwqgfAQLZgYWf+
+	tX1SUT6KTiJn7/szEToKFOaQUBVy0R/YShr7DO/Rd1ul82gH7AHtHYK9KZYw6Xlar84i4RzNPDP
+	9x+rlmntr8pcjf0d71MiOZa9/t0kPMOkmmSBxyGiLKdFSr3/66xXHI+IJdw/g6oS1b+XILNx3qR
+	RzsIPKCosfwqZSCHIKMWb5ySLQPMOxR8UwLvZcUt2QPVa/CGtRMaDBdrk+WoLjG9Wg=
+X-Received: by 2002:a05:622a:1aa5:b0:535:232f:ca25 with SMTP id d75a77b69052e-53645bfef7emr161704501cf.7.1792522060406;
+        Tue, 20 Oct 2026 11:47:40 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53698b427f5sm2545661cf.15.2026.10.20.11.47.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 11:47:37 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xJEs5-0000000CtNP-0Yiq;
+	Tue, 20 Oct 2026 15:47:37 -0300
+Date: Tue, 20 Oct 2026 15:47:37 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
+Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
+ host attestation
+Message-ID: <20261020184737.GS14213@ziepe.ca>
+References: <20261020124536.GM14213@ziepe.ca>
+ <atdvnMJuHUJlqX8t@e129823.arm.com>
+ <20261020135006.GO14213@ziepe.ca>
+ <atd2_9Q2wTv_3MXz@e129823.arm.com>
+ <20261020143620.GP14213@ziepe.ca>
+ <atd-I059nHAwcZFE@e129823.arm.com>
+ <20261020145806.GQ14213@ziepe.ca>
+ <ateGVeZmDcOSxaOD@e129823.arm.com>
+ <20261020164755.GR14213@ziepe.ca>
+ <atefXz-0cD9viNHK@e129823.arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,43 +114,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Tue, 20 Oct 2026 20:44:41 +0200
-From: "Kristoffer Haugsbakk" <kristofferhaugsbakk@fastmail.com>
-To: "Steven Rostedt" <rostedt@goodmis.org>, git@vger.kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
- "Jonas Rebmann" <kernel@schlaraffenlan.de>,
- "Junio C Hamano" <gitster@pobox.com>,
- =?UTF-8?Q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
-Message-Id: <095638e2-3e01-4217-8f08-3f9cb7fe8a07@app.fastmail.com>
-In-Reply-To: <20261020141011.0015d172@gandalf.local.home>
-References: <20261020141011.0015d172@gandalf.local.home>
-Subject: Re: FYI, git output messages are being used by other tooling
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atefXz-0cD9viNHK@e129823.arm.com>
 
-On Tue, Oct 20, 2026, at 20:10, Steven Rostedt wrote:
-> Hi,
->
-> I just want to let you folks know that ktest.pl (tools/testing/ktest/ in
-> the Linux kernel repository) parses the output of git to display the first
-> bad commit found in an automated git bisect.
->
-> The output was recently updated via: 0c0f93e7fa64 ("bisect: print bisect
-> terms in single quotes") which made ktest.pl fail to find the bad commit.
->
-> The change is being addressed:
->
->   
-> https://lore.kernel.org/all/20261009-ktest-git-bisect-v1-1-1d1428f6cbf4@marliere.net/
->
-> But I figured it would be good for you to know about this dependency.
+On Tue, Oct 20, 2026 at 06:05:35PM +0100, Yeoreum Yun wrote:
+> > 
+> > > If we implments this with library, are you thinking that file should
+> > > be located at driver/firmware/arm_firme or other place? though we make it
+> > > with library, I still think it should be located at
+> > > driver/firmware/arm_firme or some place in arch/arm64, but as
+> > > perspective abstraction to mange firme helpers in one place,
+> > > I think this design seems good.
+> > 
+> > Will has indicated a preference for driver/firwmare
+> 
+> Okay. with this let me make a driver/firmware/arm_firme as library not
+> a module format and make this library APIs (base, attestation) to be used
+> attestation and other. This means device / driver registeration with
+> smccc and done in driver/attestation/provider but use the APIs from
+> /driver/firmware/arm_firme.
 
-There were recent threads about how to
-query for the first bad commit.
+You should try to structure it with a firme headerfile, and some
+inline helpers to invoke the smcs and then a very small set of out of
+line functions that *are used by multiple firme drivers*.
 
-https://lore.kernel.org/git/asAbOSQ4BkuCTPY5@debian/
+Don't put attestation in driver/firmware/arm_firme..
 
-I had a recent script that I put on hold and didn't
-finish. But it involved using exit codes and querying
-for things like ref state. And maybe using
-git rev-list --bisect.
+You can look at what I did for DRTM for some inspiration
+
+https://lore.kernel.org/all/11-v2-989a18390eb1+486-arm64_drtm_jgg@nvidia.com/
+
+After some feedback from Jonathon I think it turned out fairly well.
+
+Jason
