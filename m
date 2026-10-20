@@ -1,54 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.247
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792517718;
-	b=qmSDu/X4V7qvCYm3fotctuXZN+5szaOWkNjUU5X7C0/UCjIjBAs1vFEsHrTkFHV9ulwT
-	 AP2Uj0tJ0BMs//NuH45A76wOpn8u1AOExpFdirWn08LupGTci62zWdpDtN5mApcI0iUw3
-	 ZjQtinfyPIf5rQtmL8/0ONOXUxQk19TFL4AyVp+oKyNL0JuZQXdJBB3KnKvOOdOxSB3DF
-	 z4jKM1Ry99j2gYlO/g5WtzQnTc0tiF9fvnAWAYngbIjQpq32NCcSQUhxasq2gfMwgt9Hl
-	 2YpNmCW5atroLhQSprH/w062SU0taoGr2fLTpCqLJCUeSz1Cc3jW4/0bu8+uwrQ0UNQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517718;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=NnTaOa3hkoHPkJ8XKbl1J5CFxSilwdeYRAmrFeskxiU=;
-	b=fWdNRAWnDRiuNPKr0+25jSKk1npRrKSsp/GbWsH6IAm0T6TpbzgdONCX7aj2A1Rvtrpx
-	 GHe3/ZY0JubbAu6KgxyqLrzFAMIKMWu4cTAJrmOAxJ9cYdbtI3nksKikw/ZAHCADteKfR
-	 BvoWOZY7iEOKXTPlonNhpUAy9550MdMBR2Dvd+odnryc/XTx+gmaUrF04b2ENj7uAK5rU
-	 MG5MmgzKZuHQvxD/Fnp/h64tra7reZ9J5EPSUyD/WzM9xYJEg1MXt0/FbjGshY2svRirf
-	 DURs5owF1j/2qMPApkTiSb0zjaN9MKJG5QulDJe0yiieUGMZOonFyhmMTqkAS83CgZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qu0HRDTU;
-	arc=none smtp.remote-ip=91.218.175.247
-Received: from mta0.migadu.com (out-247.mta0.migadu.com [91.218.175.247])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.68
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792517796;
+	b=AoBEOOkz+b9ZuwNO4XrdpW4jYnJpbaWqzEtFIK3SgTMNV2m9XB2bazCxBkU5gyHYwoXd
+	 3S/ARzZd/ttOGloFm9jjQDOhr0AhnC5TnijckPgrh5azGlAovyBaNh+EaprPb9RyrAeCX
+	 jZr/C2Ga9QkamOM60t27axD3DNz6qWZ7zQFgzacC2fPx8+L5Glw6ZHGs1y8VFDtQEgdhX
+	 9Wvzbs63aMAPVpP9ZpMhzpRYobpled2OXJL8NKtG/CNauaKutK9KKD3J49ieES0MNyFvB
+	 SbYo/xLzQtxPnNpuLUnM4ErfZATd4U5AigKe6T9KkG/vspulA0hCHeGp7JFu1FMcFhw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517796;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=q9YLzauE97mN/5zqnD9jU8gAi/Zk5uH01SdB9tn2mAs=;
+	b=RY9rCcfKtW19nT2maQwK3YSjar+lkj1QO5M7Nb/hKeKl3wNxHXGoQGP7IYhyZuYYDt2P
+	 0gMUzyGca8oTb3dc8MqP7wJZnxkccsl46uU158om2pMwMpSVLD0/vTU2Z8e9V8El5ipaz
+	 2LZpcz7vVHoDjAiFX2zsawBseM/r+md7P32CKp2I5W6vHgIShAlPf+W3ZQZZs7aLJNSoA
+	 wn+dlq+ruoKyuIvOxPfmYRHlBHcG2T1n+JG2fAYB16ba5EHB66lX7gj3K20L2jJivKkDV
+	 sJrc4/Ok4t23mdOyVk5iLY5U7UA7a9z2P03DBCcrTB37gtflXmXxyjokymBw9I6ypjg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="q/98Noll";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.68
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010068.outbound.protection.outlook.com [52.101.46.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6450B606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:35:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6450B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4128606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:36:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4128606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qu0HRDTU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X+yygbxUoN1ZfucgOCaad1pSIRXDRAW6Rdpby5YRIMg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792517715; v=1; x=1793122515;
- b=qu0HRDTUi+Kp0tiqP6pTfhDUqYUBmTqxY4d46ygy3adKll0xuXsK9knjbKio19bEGhpPNKLf
- nf9rIRr3PrJQLlhvAyjF/2yfvFGYGYIoxC+E57a1x7XqIl+5LNmhP33tnbE1sBVEvoFjNMjEje6
- 4wl54qfAKO+66puqlICHMaKc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d23907ce8bec091b;
-	Tue, 20 Oct 2026 17:35:12 +0000
-X-Mizu-Trace-ID: d23907ce8bec091b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <20ac0187-cae1-4c8c-9949-8e8501aff2fc@linux.dev>
-Date: Tue, 20 Oct 2026 10:35:06 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=q/98Noll
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OCkc4rmlZOy7i01jwrtTbpVy2y9QpoVBaAzUdJxXSI0TRLPVrd40SqeRacRyUauvd54GIYsjl8B611sYed5N+7B1PCpes0GEQzmZsO+qqHuaC6di/sDh7ubzgzroJWKJjVivuJhAPbpo0xDBAv2mS5qO6qvgwLjLxi3YCCIr27O6S7zFudNcgAByMBF9BYoDMSZMYJZbRAq9stV1sqfprOjDmK7XzFMvbGdgJlQgEAlMr+UXu7S1zjRslAG1P1tw/OgeO6oWmobrmm4dYLZUTm9uQOoLEHh2M88uXRFI+b3ofZZ9FNs1vVTsw+aBiZlsJtwqMfecyfZfoT4sWEQTdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q9YLzauE97mN/5zqnD9jU8gAi/Zk5uH01SdB9tn2mAs=;
+ b=YcW0K4MZqKnlwX7PROL4B9KNOF5m1gkuxxb8B1srMfCQYS/xGcVw0fjM/bB8P1cC44eG25FT/KVPPTn63oefCHqRFx3D3os4zEpVOCN5ZdnYG4iemPAOK6u1PAD1mauVgQYNxd0fBzUyPm2dz7vJm1aYyFSSA/pkPMRQOu//l364WIUr/R5kk9BXPVNKYeT8ofpieds9jiYREn5Lk8x5qBsRlMPTYZP/gOMHdFgOpJ1YDirl4DzOBjygnd904mlEA+A3yE9eRG0g08aauztjHjHwSyJ+Hjf1x4InXFesOI0w1zR629jWrMnjixByZP8LZT0voXfyDRL8b4BvqLZu+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q9YLzauE97mN/5zqnD9jU8gAi/Zk5uH01SdB9tn2mAs=;
+ b=q/98NollNc5d2EBnmM9lVV4B1oN/daG9UxdscLUyLEbLQ0sW640tv1uTOFliQUubobVbQrbvTkkXJvNp6FmRN7aWVD7JUZdX3TjfkaWYExK5gk5lW6Ec6gSq/6+D6qe3/+Bkvf8ydNSH4jDUDqik8xGhNNZGmwwQFY8biwFDi2sgfY5i/SBthwvUn0R+uBUwN6nEIzdbDeLk8efriki5kGxHq1DvNujnnwvQ52z1qlT+GX65C+uX+Qa80prbfxr9Oxu9zeXiBdBMeeVgGuk5JrOuExSeMnXkhFase16GFgABr/+V/8MU1c0gbco73hMWRz4nuSzq9leRwcLpVHAMWw==
+Received: from MW4PR04CA0284.namprd04.prod.outlook.com (2603:10b6:303:89::19)
+ by IA1PR12MB7758.namprd12.prod.outlook.com (2603:10b6:208:421::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 17:36:30 +0000
+Received: from CO1PEPF00012E62.namprd05.prod.outlook.com
+ (2603:10b6:303:89:cafe::11) by MW4PR04CA0284.outlook.office365.com
+ (2603:10b6:303:89::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Tue,
+ 20 Oct 2026 17:36:29 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CO1PEPF00012E62.mail.protection.outlook.com (10.167.249.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Tue, 20 Oct 2026 17:36:29 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
+ 2026 10:36:05 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 20 Oct
+ 2026 10:36:04 -0700
+Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Tue, 20 Oct 2026 10:36:03 -0700
+Date: Tue, 20 Oct 2026 10:36:01 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
+	<jgg@nvidia.com>, <praan@google.com>, <kevin.tian@intel.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <jamien@nvidia.com>, <kas@kernel.org>,
+	Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>
+Subject: Re: [PATCH v11 06/11] iommu/arm-smmu-v3: Add
+ ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
+Message-ID: <atemgT/67JPpdk57@nvidia.com>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+ <ee4257b62324aa75d7140f1f4a49aa0f78586fff.1791226953.git.nicolinc@nvidia.com>
+ <atdSrRwrphdI9ZQA@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,116 +119,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next] libbpf: Prefer mounted tracefs over debugfs
-To: Eduard Zateev <hackerowskiy@gmail.com>, bpf@vger.kernel.org
-Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman
- <eddyz87@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>, linux-kernel@vger.kernel.org
-References: <20261018092629.585046-1-hackerowskiy@gmail.com>
-Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20261018092629.585046-1-hackerowskiy@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <atdSrRwrphdI9ZQA@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E62:EE_|IA1PR12MB7758:EE_
+X-MS-Office365-Filtering-Correlation-Id: da8f7411-0292-485f-ae8d-08df2ed0aceb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|82310400026|376014|1800799024|23010399003|6133799003|22082099003|18002099003|10067099003|5023799004|11063799006|4143699003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	p1nVJek8Rr7RiItFESY9LiOZ5fSaQAUu5jY8nYUv2RpVykj1WMuDlcT2TW5iU2hA/QDWaZcxfkxyg9Jo8Z6VbMZetVUhevGhbxVaJm+SgsVqTzCiXc5Uop9VQ28wl5bRn/xS9prxzSMVHKTu2vgDCJUd9NGM4bU60F0TJs+AnpjYpz1f6GZytU3WmwhcWrcjjUhFpmnupnOe85AlcXgqE0pE5o3DnRm5yPmp6NWkMqD14DE+lZwfvscY2SoPt8PU9dHxzi9vZhnEqAAkkDmapYNJ5MMwPqGIaRcwUjMY+ij2OULQXkPn+etPYSdTHtvldBg3kuqM4z2tPJ0/svPiql0VXk8tKwuGZQRfXou+7+esvlXzFwKloroQev9PGH9y6RNFfKIE045Wf9m8rut4jxY8TWPbxV62kdt09+gylefXp4OBdEJHOgStREbzHGPQ806etg0ixSk2pKjMlAcq2xai8I6aWcjchWz9qJndOpMsphayvFTlQ1TK4Bze5VqR9SntAnMm5l2pIxnkv2dRZWbB3JeGEnLygcEaWmdBsHXXz+Xzd7kBgsBcHGvzLeqzlmS7fzmRs1oLjumSLSzDtmpIEs6sGdSW59juL0gfXb1KZv34VSz6IebeKMbfj+S/RzyXZU3xa2KF66sHHcCpJp8nfCH1kzCCNHjszovG6BN8lOPCrfoWJCD6ktQ53mK/5a9OxLjIr1lcRLUxVsPX8w==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(82310400026)(376014)(1800799024)(23010399003)(6133799003)(22082099003)(18002099003)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	TpSV9znDAloiw4EYAM05FWLJyuMpmcr5Arbiobv38DOrhvj0AF5WonTHTvJUjB8cyoFdOX8/yhgVFHRyOgPGFMNsDgfcJ8PMvzFDxELRj0w83X7aQvkuEXt5vUmk9Bdf3wV52+heqvtGj12iVBzepAA+Jcye2gZK3IaEMeuCfzAIQZ4LgmpJSe3rq4DAlQUfwbyQyw1GqYbRUn6SZRGrm3dyw5KFoO01Ws+aSkeVEamkLk0quDxcNAjIbNH8MATF/Adnx1oow/6PZKh4fa6RqdMxlh+jxlyfPucvx6+OCPO4i90+7ZUQPV5+9iLebW20/Kjhs4DI0oiZGxRIQFkmmAZYXtU77uDdCsmglFClpCbCug3fPEX2omJQe2uoaS70IyzriEdEl218GMSEWP+iIfK9dMMV7aYZowGoYROfuQ3rYI3NVAUaJDGsS9XK7V3p
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 17:36:29.8039
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da8f7411-0292-485f-ae8d-08df2ed0aceb
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E62.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7758
 
-On 10/18/26 2:26 AM, Eduard Zateev wrote:
-> The tracefs path helpers look up /sys/kernel/debug/tracing first, even
-> when tracefs is already mounted at /sys/kernel/tracing. This can trigger
-> an unnecessary legacy tracefs mount and selects a path beneath debugfs,
-> which is commonly restricted.
-
-This doesn't describe the actual problem. If debugfs is restricted or
-not mounted, the existing faccessat() check already fails and libbpf
-falls back to tracefs.
-
-It looks like the actual trivial improvement is in avoiding the
-debugfs/tracing automount causing:
-
-  NOTICE: Automounting of tracing to debugfs is deprecated and will be removed in 2030
-
-in the kernel logs whenever debugfs/tracing gets automounted.
-libbpf triggers that on legacy kprobe/uprobe/tracepoint attach when
-debugfs is mounted.
-
-See commit 9ba817fb7c6a ("tracing: Deprecate auto-mounting tracefs in
-debugfs") and CONFIG_TRACEFS_AUTOMOUNT_DEPRECATED.
-
+On Tue, Oct 20, 2026 at 11:38:21AM +0000, Mostafa Saleh wrote:
+> On Mon, Oct 05, 2026 at 12:30:49PM -0700, Nicolin Chen wrote:
+> > +	/*
+> > +	 * According to spec (6.3.24), HW aligns the base down to the table size
+> > +	 * and ignores the low bits, so an unaligned base would make this kernel
+> > +	 * read a different table.
+> > +	 */
+> > +	if (!IS_ALIGNED(base, size)) {
+> > +		dev_err(smmu->dev, "unaligned stream table base %pa\n", &base);
 > 
-> Prefer the direct tracefs mount when statfs() reports TRACEFS_MAGIC.
-> Checking the filesystem type avoids selecting an existing but unmounted
-> sysfs mountpoint. Preserve the existing debugfs fallback and the default
-> tracefs path when neither location is available.
+> I understand these are best effort, but what happens if the address
+> corrupted and happens to be aligned?
+
+This is a basic sanity so HW wouldn't immediately fail. A corrupted
+address would be trickier to test out; also we don't have a perfect
+way to do that. Earlier versions had some address range check. I've
+dropped it, following Jason's comments.
+
+This is also in the kdocs of the whole smmu kdump functions:
+
+ *  - Only a coherent SMMU (ARM_SMMU_FEAT_COHERENCY) is supported, as the stream
+ *    table adoption is done by memremap with MEMREMAP_WB, which is verified on
+ *    the real hardware. Callers of these functions are responsible for gating
+ *    ARM_SMMU_FEAT_COHERENCY once during the probe.
+ */
+
+> > +int arm_smmu_kdump_adopt_deferred_l2_strtab(struct arm_smmu_device *smmu,
+> > +					    u32 sid, phys_addr_t base, u32 span,
+> > +					    struct arm_smmu_strtab_l2 **l2table)
+> > +{
+> > +	struct arm_smmu_strtab_l2 *table;
+> > +	size_t size;
+> > +
+> > +	/*
+> > +	 * Retest the span in case the L1 descriptor has been overwritten since
+> > +	 * the adopt. Reject this master's insert; panic or SMMU-disable would
+> > +	 * either lose the vmcore or cascade aborts. Do not try to fix it, as it
+> > +	 * would break all other SIDs in the same bus (PCI case). The corruption
+> > +	 * blast radius is already bounded to that bus range.
+> > +	 */
+> > +	if (span != STRTAB_SPLIT + 1) {
+> > +		dev_err(smmu->dev,
+> > +			"L1[%u] span %u changed since adopt (was %u)\n",
+> > +			arm_smmu_strtab_l1_idx(sid), span, STRTAB_SPLIT + 1);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	size = (1UL << (span - 1)) * sizeof(struct arm_smmu_ste);
+> > +
+> > +	/* Same live-corruption check as the span; reject an overwritten base */
+> > +	if (!base || !IS_ALIGNED(base, size)) {
+> > +		dev_err(smmu->dev, "L1[%u] bad l2 table base %pa\n",
+> > +			arm_smmu_strtab_l1_idx(sid), &base);
+> > +		return -EINVAL;
+> > +	}
+> > +
 > 
-> Fixes: a1ac9fd6c650 ("libbpf: fallback to tracefs mount point if debugfs is not mounted")
-> Closes: https://github.com/libbpf/libbpf/issues/966
-> Assisted-by: LLM
-> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+> Those are a bit similar to arm_smmu_kexec_parse_strtab_2lvl() is it
+> possible to have some helpers instead?
 
-Please update the commit message to show the actual consequence of the
-change. And drop both fixes and assisted-by tags. This is not a bug,
-and assited-by has been recently deprecated.
+Sure. I can do that.
 
-The diff looks ok to me, but tbh I don't see much value in it.
-Any particular reason you decided to fix this?
-
-pw-bot: cr
-
-
-> ---
+> > +int arm_smmu_kdump_adopt_strtab(struct arm_smmu_device *smmu)
+> > +{
+> > +	u32 cfg_reg = readl_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE_CFG);
+> > +	u64 base_reg = readq_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE);
+> > +	bool was_2lvl = smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB;
+> > +	phys_addr_t base = base_reg & STRTAB_BASE_ADDR_MASK;
+> > +	u32 fmt = FIELD_GET(STRTAB_BASE_CFG_FMT, cfg_reg);
+> > +	int ret;
+> > +
+> > +	dev_dbg(smmu->dev, "adopting crashed kernel's stream table\n");
+> > +
+> > +	if (fmt == STRTAB_BASE_CFG_FMT_2LVL) {
+> > +		/*
+> > +		 * Both kernels run on the same hardware, so it's impossible for
+> > +		 * kdump kernel to see the support for linear stream table only.
+> > +		 */
 > 
-> Validation on Fedora 44 (aarch64):
-> - Built static and shared libbpf with the default warning settings.
-> - Exercised all five path helpers using wrapped syscalls for both mounts,
->   tracefs only, debugfs only, an unmounted tracefs directory, and neither
->   path available. The original code fails the both-mounts scenario.
-> - Confirmed the direct tracefs paths on the host's mounted tracefs.
-> Privileged BPF attach/mount tests were not run.
-> 
->  tools/lib/bpf/libbpf.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-> index cb09ded90..9db0a8bde 100644
-> --- a/tools/lib/bpf/libbpf.c
-> +++ b/tools/lib/bpf/libbpf.c
-> @@ -59,6 +59,10 @@
->  #define BPF_FS_MAGIC		0xcafe4a11
->  #endif
->  
-> +#ifndef TRACEFS_MAGIC
-> +#define TRACEFS_MAGIC		0x74726163
-> +#endif
-> +
->  #define MAX_EVENT_NAME_LEN	64
->  
->  #define BPF_FS_DEFAULT_PATH "/sys/fs/bpf"
-> @@ -12713,12 +12717,17 @@ static int append_to_file(const char *file, const char *fmt, ...)
->  
->  static bool use_debugfs(void)
->  {
-> -	static int has_debugfs = -1;
-> +	static int needs_debugfs = -1;
-> +	struct statfs st_fs;
->  
-> -	if (has_debugfs < 0)
-> -		has_debugfs = faccessat(AT_FDCWD, DEBUGFS, F_OK, AT_EACCESS) == 0;
-> +	if (needs_debugfs < 0) {
-> +		if (statfs(TRACEFS, &st_fs) == 0 && st_fs.f_type == TRACEFS_MAGIC)
-> +			needs_debugfs = 0;
-> +		else
-> +			needs_debugfs = faccessat(AT_FDCWD, DEBUGFS, F_OK, AT_EACCESS) == 0;
-> +	}
->  
-> -	return has_debugfs == 1;
-> +	return needs_debugfs == 1;
->  }
->  
->  static const char *tracefs_path(void)
-> 
-> base-commit: a6303535c2ad9d49598d52556183911f02287791
+> STRTAB_SPLIT which influences ARM_SMMU_FEAT_2_LVL_STRTAB is a SW choice, so it is
 
+I missed that.
+
+> possible to get such mismatch if STRTAB_SPLIT of the newer kernel is larger than the
+> older kernel.
+> However, I agree that in that case it's better to refuse the adoption.
+>
+> > +		if (WARN_ON(!(smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)))
+> > +			ret = -EINVAL;
+
+I can replace the FEAT guard here with
+
+	if (WARN_ON(FIELD_GET(IDR0_ST_LVL, idr0) != IDR0_ST_LVL_2LVL))
+		ret = -EINVAL;
+
+> > +		else
+> > +			ret = arm_smmu_kdump_adopt_strtab_2lvl(smmu, cfg_reg,
+> > +							       base);
+> > +	} else if (fmt == STRTAB_BASE_CFG_FMT_LINEAR) {
+> > +		/*
+> > +		 * The kdump kernel need not match the crashed kernel. An older
+> > +		 * crashed kernel that predates two-level stream table support
+> > +		 * may have used a linear table on 2-level-capable hardware, so
+> > +		 * enforce the same format here to match the adopted table.
+> > +		 */
+> > +		ret = arm_smmu_kdump_adopt_strtab_linear(smmu, cfg_reg, base);
+> > +		if (!ret)
+> > +			smmu->features &= ~ARM_SMMU_FEAT_2_LVL_STRTAB;
+> 
+> For simplicity, it is better to enforce the same table formats between
+> kernels as the rest of the file, for example,
+> arm_smmu_kexec_parse_strtab_2lvl() refuses different STRTAB_SPLIT.
+> Some checks can be removed and the was_2lvl error path. It's
+> very unlikely to hit such case anyway.
+
+Sashiko pointed out a corner case that a modified kernel kdumps
+into a vanilla kernel. It is not really a big effort to support
+it. So, I would rather keep this.
+
+> > +	} else {
+> > +		dev_err(smmu->dev, "invalid STRTAB format %u\n", fmt);
+> > +		ret = -EINVAL;
+> > +	}
+> > +
+> > +	if (ret) {
+> > +		arm_smmu_kdump_adopt_cleanup(smmu);
+> 
+> Probably easier to inline the error handling after each call and remove this?
+
+I don't quite follow this. The clean function is used by three
+sites. How can we remove it?
+
+Thanks
+Nicolin
