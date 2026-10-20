@@ -1,32 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792515176;
-	b=JCHxb8HjhVRA7R1XXB4FOxolZrmk0Odzag5RYGNa5oW8ngLm3FM/lLACd+7yUaBErq6R
-	 bYzQF6TP1Z3UDVD+SvVS0ds5zSqmuK9Tze4I8tdYBP8Pot2LK2P0kQeQh3R4MdRqXQ8uW
-	 +e1Iso8qN1F5HfZNL6C1hSGqKXE4WAz6w2hylOClCc4bITyLDwaTIXIPhUs13/UZecb69
-	 boK4Ybhrcno7JcnOFnTlDt2nr3DuUdTSu/hVXykGMY8in5xfXAGU+76HAYnYgAlrjNaqJ
-	 f3aAg/7j2eHoGx+ka0Iqs2Qja97mHo1892V5rSK3tQQVDENI/U5QcoTttMrbyPhYWtw==
+	t=1792515202;
+	b=Fv6VELwUKhA2m0rjF5BSqWKXcrOgFe8vL6/G9UftSQnCN8uF9Ki6BLwnMuYQ7RfNn31z
+	 ePKn3357hfQkSXwghE0+Nex87GLpOcaqe3Li7umKtFi/D6M26wlfN1jG0QQB7/NEH4oub
+	 eQNYkJF40I+K+1hI3rMxStpt6/miXfsdUM2d8s4SUGTW+KkA7598BrMJUC91bjd0NMdMG
+	 mOdo/3I4nAzz15ZOkLZ5iEyg42+xJqIjTgD9zL8sfwOXoG0o3HRsmGYa7ln7SJgNFAb2n
+	 5ioVRVBqriFiXv/bX3sG0LDlMbLC6+UTYz09aHvYVlLzzLaV3pSKyxLlqfvLkZv/i3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515176;
-	h=Received:Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date;
-	bh=XM6QUhiAHMte//ZApppucvlSVjaxJ4gVEpSACq7TeeE=;
-	b=y5k+fWIgWt8N0ZSXZHC1elsupYlbVdOh9RmyfML8xJd+DsIDsJflhlf2kWJWc2YYhUEY
-	 89E2Z5w3JKl83jQGx64yVLfzjrGe4Ete7THab1DhY/Ts3/+AVWvKsJ/PWDwifhp3EaLHF
-	 gCdsFmSe5QZd9cnTOL9+8MMEeUWVfx8Y2GAk6zY8U8vzf6xZcMTyb/UNe33TwIrLSwsIv
-	 Ftx3TtcKWrcdfovHb0t7lmrUFFklY6GJi/XY+o7Eqt1cakKywO6uyVNj3CPYB9N+3StAN
-	 3AmX5qas0hk2ciPdTOcSK/xN/c+7oMX8jnZvsTdzm6gs4oYsx3wOBxASNrVzmAoghcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792515202;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=imfu4Q1xLhRu8Rb4R6sPh28+g8HdrHEwcBOMUN84DFw=;
+	b=bn8ZQnS3L+iShialp3gS4fPfvoHj3sDlTD+15uz/N2gjX9IuaaNu6+Md/HRjb4gL+kxs
+	 WoDTzgiz03lEvF3bBlCCWrHn9jtIMzg8QeJS0K7VR5IrTZKt+aJb+eRI1FbhTxU/U2Wo8
+	 u5T/3GUn8kOXcIkIZcQoGF59WHtKiSbFRUwRHkFCIYIVc3SLXTsj5u3KrjLdmA9l25d8g
+	 k6nyf3O9lMmS2iEBLwHjmgdTpWx0svpnnuUyF/qRTHYqXc6VAuBZYlHGs1HwqJuTKf9v3
+	 cwjHhxMM1zW6CaTwU0ve9LQBAZc2V8wfx+izNfJBOYpSNoeFB9NPOTMivkOLpbhoceQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bwnnMoh3;
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FCA60A2614;
-	Tue, 20 Oct 2026 16:52:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6183B1F000CD;
-	Tue, 20 Oct 2026 16:52:55 +0000 (UTC)
-Content-Type: multipart/mixed; boundary="===============1187056397503495093=="
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3BCCB606A324;
+	Tue, 20 Oct 2026 16:53:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BCCB606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bwnnMoh3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1792515199;
+	bh=imfu4Q1xLhRu8Rb4R6sPh28+g8HdrHEwcBOMUN84DFw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bwnnMoh30H86OwYZ15UsSWVlD17cstjAGJtXI+iGD+SzpfNiBGGTq+ect7vgMAOxD
+	 5R65v7pv3HGbBxpj5Ux8/9X+yLGY6ql0/BftfGBwuzte93HVxjBWPU2ug4zu/hj8gd
+	 j6hQSQG9V/E/Q5tTuTGksLiZ1r0rT+LH5/+vjtwS1S639ZEETeoXDqn8btJiL5xYiO
+	 3N/ceCCa9P6fOX5cifyzniGRKfleamtvNjfByKkUuW2dIL4JP2DROO2P3A1QXtM9jH
+	 Xqyq61gqL3nOXDWZSIr3zK1Bd260eysJk33efAN2SnsqAgGVzmTcpMnLtVtfAFaO56
+	 /LCfCrpnf5/Jw==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id BC99660051;
+	Tue, 20 Oct 2026 18:53:19 +0200 (CEST)
+Date: Tue, 20 Oct 2026 18:53:16 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	Felix Fietkau <nbd@nbd.name>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC net] net: force software segmentation of PPPoE packets
+Message-ID: <atecfDGNBh2XIHqm@chamomile>
+References: <20261020143031.1829-1-qingfang.deng@linux.dev>
+ <CAL4Wiiptz1zyxRDKrCrnK2Q-qn0_1d1aSxuUPkJKWnODpjMp1g@mail.gmail.com>
+ <ee955f2c-c97b-4505-a996-f7d7c5d2a3f5@linux.dev>
+ <ateaf9-cY50Goz0j@chamomile>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -36,133 +75,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <fb6e1da8e20593510ea7dbfc1527db1aaf4682c22968a209dbf2ed771646a6fd@mail.kernel.org>
-In-Reply-To: <20261020161907.2115379-11-vineet.gupta@linux.dev>
-References: <20261020161907.2115379-11-vineet.gupta@linux.dev>
-Subject: Re: [PATCH bpf-next v3 10/12] selftests/bpf: Cover the low-32 link for narrowing stack fills
-From: bot+bpf-ci@kernel.org
-To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 20 Oct 2026 16:52:55 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ateaf9-cY50Goz0j@chamomile>
 
---===============1187056397503495093==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, Oct 20, 2026 at 06:44:50PM +0200, Pablo Neira Ayuso wrote:
+> On Wed, Oct 21, 2026 at 12:10:32AM +0800, Qingfang Deng wrote:
+> > On 10/20/2026 11:08 PM, Eric Dumazet wrote:
+> > > Le mar. 20 oct. 2026 à 16:30, Qingfang Deng <qingfang.deng@linux.dev> a écrit :
+> > > > 
+> > > > Ordinary TSO does not update the PPPoE payload length. A PPPoE GRO packet
+> > > > forwarded by a bridge can retain hardware GSO features and reach the
+> > > > driver without software segmentation, if the egress Ethernet interface
+> > > > advertises TSO.
+> > > > 
+> > > > To force software segmentation, clear the GSO feature mask for
+> > > > ETH_P_PPP_SES in harmonize_features().
+> > > > 
+> > > > Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
+> > > > Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+> > > > ---
+> > > >   net/core/dev.c | 4 ++++
+> > > >   1 file changed, 4 insertions(+)
+> > > > 
+> > > > diff --git a/net/core/dev.c b/net/core/dev.c
+> > > > index a6951ea08961..27483a2ad747 100644
+> > > > --- a/net/core/dev.c
+> > > > +++ b/net/core/dev.c
+> > > > @@ -3831,6 +3831,10 @@ static netdev_features_t harmonize_features(struct sk_buff *skb,
+> > > >          type = skb_network_protocol(skb, NULL);
+> > > >          features = net_mpls_features(skb, features, type);
+> > > > 
+> > > > +       /* Ordinary TSO does not update the PPPoE payload length. */
+> > > > +       if (IS_ENABLED(CONFIG_PPPOE) && type == htons(ETH_P_PPP_SES))
+> > > > +               features &= ~NETIF_F_GSO_MASK;
+> > > > +
+> > > >          if (skb->ip_summed != CHECKSUM_NONE &&
+> > > >              !can_checksum_protocol(features, type)) {
+> > > >                  features &= ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
+> > > > --
+> > > > 2.34.1
+> > > > 
+> > > 
+> > > Ouch.
+> > > 
+> > > harmonize_features() is called for every packet, GSO or not.
+> > > 
+> > > This is a GSO-only problem, please do not add more protocol-specific
+> > > tests in this path. gso_features_check() is only called for GSO
+> > > packets, and the cost there is amortized over all segments.
+> > > 
+> > > Devices without NETIF_F_HW_CSUM already lose GSO for ETH_P_PPP_SES
+> > > because of the can_checksum_protocol() check in harmonize_features(),
+> > > and fraglist GRO packets (the main use case for PPPoE GRO) are
+> > > segmented in software anyway.
+> > > 
+> > > This leaves bridged, non fraglist GRO PPPoE packets sent to a
+> > > NETIF_F_HW_CSUM + TSO device. Have you hit this on real hardware?
+> > 
+> > I reproduced this on a VM veth interface, which advertises both features.
+> > The real hardware I have is an Intel IGC but I have not tested with it.
+> 
+> IIRC, I could reproduce the issue too with a virtio netdevice.
+> 
+> I made this inaceptable patch (see oneliner patch with protocol
+> specific update below), so the recent pppoe gso support kicks.
+> 
+> I guess adding NETIF_F_GSO_PPPOE (similar to NETIF_F_GSO_SCTP) is a
+> no-go to force software tx path to segment skbs too?
 
-> selftests/bpf: Cover the low-32 link for narrowing stack fills
+s/NETIF_F_GSO_/SKB_GSO_
 
-TL;DR: Test issue: sext_fill_does_not_inherit_zext_link appears never to put a
-zero-extending link on the stack slot, so it can't distinguish the new
-check_mem_access() condition from the old one; its comment and commit message
-look inaccurate.
-
-> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-> index 69efe1381eca..ab78285153fb 100644
-> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-
-[ ... ]
-
-> @@ -1494,6 +1591,215 @@ __naked void sext_drops_stale_step(void)
-
-[ ... ]
-
-> +/*
-> + * A sign-extending fill must not come away with a zero-extending link. The
-> + * slot below already fits 32 bits, so the fill is not narrowing and assigns
-> + * no link kind of its own, and "state->regs[dst] = *reg" copies the slot's
-> + * verbatim; check_mem_access() is what has to drop it, since it would leave
-> + * r2 recording a zero-extension of a value it has just sign-extended.
-> + * Asserted on the register dump rather than on a guarded branch, so it pins
-> + * the rule itself and not a downstream effect.
-> + */
-> +SEC("socket")
-> +__success __log_level(2)
-> +/* a copied link would print as R2=scalar(id=N+0,smin=... */
-> +__msg("(81) r2 = *(s32 *)(r10 {{.*}} R2=scalar(smin=")
-> +__naked void sext_fill_does_not_inherit_zext_link(void)
-> +{
-> +	asm volatile ("						\
-> +	call %[bpf_get_prandom_u32];				\
-> +	r6 = r0;						\
-> +	call %[bpf_get_prandom_u32];				\
-> +	r0 <<= 32;						\
-> +	r6 |= r0;		/* r6 = full 64-bit unknown */	\
-> +	w7 = w6;		/* r7 = zext32(r6), fits 32 bits */ \
-> +	*(u64 *)(r10 - 8) = r7;					\
-
-Does this test ever put a zero-extending link on the slot?
-
-The w7 = w6 above does give r7 BPF_REG_LINK_ZEXT, but the spill that follows
-clears it.  In check_stack_write_fixed_off(), r7 fits in 32 bits, so
-assign_scalar_id_before_mov() runs before save_register_state():
-
-    if (src_reg->link_kind && src_reg->link_kind != BPF_REG_LINK_SEXT)
-        bpf_clear_scalar_id(src_reg);
-    ...
-    if (!src_reg->id && !tnum_is_const(src_reg->var_off))
-        src_reg->id = ++env->id_gen;
-
-The slot ends up with a fresh id and link_kind == BPF_REG_LINK_NONE.  The
-4-byte ldsx is not narrowing, so the fill copies a plain id, and
-check_mem_access() drops it through the existing !no_sext clear.  The
-link_kind == BPF_REG_LINK_SEXT part of the new condition never sees a ZEXT
-kind here.
-
-This leaves two problems.
-
-First, the in-test comment looks wrong:
-
-    /* a copied link would print as R2=scalar(id=N+0,smin=... */
-
-print_reg_state() prints +delta only when link_kind is set, so a surviving
-plain id would print as R2=scalar(id=N,smin=...
-
-Second, the commit message says "The last two pin the link-kind checks in
-check_mem_access()", but this test cannot tell the new check from the old
-one.  It passes with the pre-series:
-
-    if (!no_sext)
-        bpf_clear_scalar_id(...)
-
-It also passes with a relaxed condition such as:
-
-    !(size == 4 && regs[value_regno].link_kind != BPF_REG_LINK_NONE)
-
-which would let a ZEXT link survive a sign-extending fill.
-
-At this commit no spill/fill sequence appears able to bring a
-BPF_REG_LINK_ZEXT kind into the ldsx arm at all.  Spills strip every non-SEXT
-kind via assign_scalar_id_before_mov(), and a 4-byte fill of a 4-byte slot
-does the same on the slot.  A narrower fill goes through the narrowing arm
-instead.
-
-That holds even after 3649346488fc ("bpf: Track low-32 scalar equality across
-narrowing stack spills"), because the fill-side
-assign_scalar_id_before_mov(reg) clears the slot's new ZEXT kind before the
-copy.  No later commit in the range (3649346488fc, 73fbac05c8bd) changes this
-test.
-
-Should the comment, the test name and the commit message describe what is
-actually pinned here (a plain id dropped across a range-changing 4-byte
-ldsx)?  Or should the test be reworked once a ZEXT-carrying slot is
-reachable?
-
-> +"
-> +#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
-> +"	r2 = *(s32 *)(r10 - 8);	/* sign-extending, not narrowing */ \
-> +"
-> +#else
-> +"	r2 = *(s32 *)(r10 - 4);					\
-> +"
-
-[ ... ]
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39458500836
---===============1187056397503495093==--
+> Thanks.
+> 
+> diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+> index 9981d637f8b5..07bf265d0295 100644
+> --- a/include/linux/netdevice.h
+> +++ b/include/linux/netdevice.h
+> @@ -5514,7 +5514,8 @@ static inline bool netif_needs_gso(struct sk_buff *skb,
+>  {
+>         return skb_is_gso(skb) && (!skb_gso_ok(skb, features) ||
+>                 unlikely((skb->ip_summed != CHECKSUM_PARTIAL) &&
+> -                        (skb->ip_summed != CHECKSUM_UNNECESSARY)));
+> +                        (skb->ip_summed != CHECKSUM_UNNECESSARY)) ||
+> +               unlikely(skb->protocol == htons(ETH_P_PPP_SES)));
+>  }
+>  
+>  void netif_set_tso_max_size(struct net_device *dev, unsigned int size);
+> 
