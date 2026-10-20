@@ -1,62 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.210.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486071;
-	b=QxVjbhvw+tf5cXQrBL7HAdTzCzWvWLNJQFdl+XdhhgN5D2f7Qh9CQPPzsJX6twu1IdkG
-	 hLwHTtF+r7vQYWJ1FDaF/fnkFgNJayzmsOobOWIfUwgywaaSu4Axo2RKp+3t+NPUJXyc2
-	 vY4zBazilp1NyfZfLrNgDTiLaAXuntrUbqFSJtMH5/YRVBJt94Ov1lqC9KDT4t/mepxHB
-	 xPkiMbNCFAfjYozzyWA/39fxeS1EDCQCWrd91k4AZzOFIskom14W5FnMViPmqdXGMtn6x
-	 aFhBRBGGQGsjxRnqjsOr8ZyByiie1U1PUbexuMwsx1f9K20GMg0UDccu363zZ8k+vNg==
+	t=1792486085;
+	b=SVcY2H16Qwjtwxc0/Q3uwXAXjwz9MK/p3Dgtjf2STpujQjxGA3BBq9Wss5q1ifcSbw93
+	 2dXtcMeio0abocKPnlq16TQiiTA1hCtdAmOlD+g3jrgYubtSuESmLKGYuE68vPvaXKPqx
+	 PtpIb/wXaQVGGsRviDxImGxg9HMsWPpWfbWsvgY3LTiIuhjchlb/VmrYWjkHVlVwjBm0I
+	 Auo8rlOYrTlWMWGgDCUjG+EyjV/6yjQ1ps0YVLPuIWTUqbqeb90V/RRQG+G/8dLW2/oC4
+	 c1u1hN1DlKlgV/BtFoXsOWiVpHXje+eArmRrvK/VjboAM3icHOPUq+TD92U8SyUcQBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486071;
-	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=4CDV7Fb28f7p410QdXOYcdHtqn3aUTnJhPVD7hO35j0=;
-	b=0SOwgeyKM3+mDtITbA3wsiU00kmMkHEVfzTI5GBfwj6vrmt2IhCWkPc7hgQZZ8W5G7Xc
-	 jjU1Pgh+4BOOiXhR6Nt42r2LQu1CbvIqctaHGDsBOX+sZtpgi1mtKi5AtI5Z0nCnpktlp
-	 5loOL4XrPyjrcSFc2pdlsU37almj/IKRyZGj9vQHI2SoZb3UAT3EDuk3mT0gEdEBQj3Fo
-	 M1LvJvYqsXGo1bI+T/kraZwCD2yronLyy1swbN3HXsKizaGrnYamUUs06S/KRTbU56/Tv
-	 +8wIDxFZwdjd6AmMMbV0Y4OKdRQn3sBc+npR4zqUsiuE4OKZ6WAaxaOVP3JWSZeshhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486085;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-Originating-IP:X-CM-SenderInfo;
+	bh=mVS2Zzmo2aNS6iZnAY+DB7ysTEdcEOsDvaLXa+jkuGg=;
+	b=S3lNhMg30nhsEFq2w3p2ZCOlj1NKLOJEub5kzwF6fYDG+IVXzMZ/b5AYlka6SgaspoTi
+	 mK4L4SpISArmZPQMv2K1wrmSbkuTKgNnKm8VPvmPiAcROz6kfFlH8i37KsZ054jgeGCnH
+	 SE+P9//Y+icGdlJuA1lkezlFBUqC+vCS5eRn5u4k9HykLoHxAf1IvL0/LBnRVvmYpzw+J
+	 hKWhBKz18taWs45hzQioyWJQMEq6t4geFeIwqHvxsK2Il/SHkzvnmpNQsKIbIfDsE3CSL
+	 UC+Ge7rxPUc0lCLIUMlsaUz5YGOZaStODqgJfgrEMgoOyDf5ZPI5x+TuZxXdEaBbDXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=librecast.net;
-	spf=pass smtp.mailfrom=librecast.net;
-	arc=none smtp.remote-ip=185.128.210.58
-Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="WCipe/tH";
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F17606A31B;
-	Tue, 20 Oct 2026 08:47:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49F17606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
-From: Brett A C Sheffield <bacs@librecast.net>
-To: gregkh@linuxfoundation.org
-Cc: stable@vger.kernel.org,
-	patches@lists.linux.dev,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CCA60A381B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:48:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75CCA60A381B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WCipe/tH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=mV
+	S2Zzmo2aNS6iZnAY+DB7ysTEdcEOsDvaLXa+jkuGg=; b=WCipe/tHU73lQWhe1X
+	yaq0vChJx8sbnvhmJzW6q1dtuvbf/mSw5hfQ/yDqiYB3MKY6offLTebjFj3ZZn5+
+	3UsFhE1KFLHWKxYtaGg5Ux9PFAyTiTH57wZzFwj8yEDxLsEeMLb7KNtYgoKqtyec
+	oD9mZKVSXETcBJh4IQIrwCETQ=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3t62yKtdqN_ayBQ--.9980S7;
+	Tue, 20 Oct 2026 16:47:52 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	Brett A C Sheffield <bacs@librecast.net>
-Subject: Re: [PATCH 6.6 0000/1651] 6.6.160-rc2 review
-Date: Tue, 20 Oct 2026 08:47:34 +0000
-Message-ID: <20261020084738.42318-1-bacs@librecast.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020075535.084584701@linuxfoundation.org>
-References: <20261020075535.084584701@linuxfoundation.org>
+	wangxuewen@kylinos.cn,
+	wudandan@kylinos.cn
+Subject: [PATCH v4 29/31] ntfs: report named stream metadata and recovery errors
+Date: Tue, 20 Oct 2026 16:44:19 +0800
+Message-ID: <20261020084421.2196486-30-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
+References: <20261020084421.2196486-1-liubaolin12138@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,13 +66,165 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3t62yKtdqN_ayBQ--.9980S7
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Xw13Jw4DtFW3Cr45GrWrGrg_yoW7Kr1kpF
+	WxC393K3s3tFyxKwn7tan0v34fKFn7Kw47Kr4UJ3W7ArsYqr15tF4jkr1I9FWrtryrWanI
+	qF45twsxur17ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jzq2NUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RhJFGrXKrh2xgAA3z
 
-# Librecast Test Results
+From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-044/044 [ OK ] liblcrq
-010/010 [ OK ] libmld
-120/120 [ OK ] liblibrecast
+Report missing or stale MFT references after a successful base-name
+lookup as EFSCORRUPTED only when the caller holds the directory i_rwsem.
+Pass that locking state through the helper and its callers. Unlocked
+revalidation can race with unlink or record reuse and must not report
+those races as corruption.
 
-CPU/kernel: Linux auntie 6.6.160-rc2-gc578c158a368 #1 SMP PREEMPT_DYNAMIC Tue Oct 20 08:16:25 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
+Also report missing required stream attributes and cleanup failures.
+For rollback failures that trigger shutdown, report the cleanup errno
+and retain the EIO operation result. Preserve the existing ENOMEM and
+interruption exceptions, and keep ordinary missing streams silent.
 
-Tested-by: Brett A C Sheffield <bacs@librecast.net>
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+---
+ fs/ntfs/named_stream.c | 35 +++++++++++++++++++++++++++--------
+ fs/ntfs/stream.h       |  2 +-
+ 2 files changed, 28 insertions(+), 9 deletions(-)
+
+diff --git a/fs/ntfs/named_stream.c b/fs/ntfs/named_stream.c
+index 6130359f616a..1073ff7e12f7 100644
+--- a/fs/ntfs/named_stream.c
++++ b/fs/ntfs/named_stream.c
+@@ -252,6 +252,7 @@ int ntfs_stream_path_check(struct ntfs_volume *vol,
+  * @dir_ino: directory containing the base file or directory
+  * @uname: UTF-16LE base name
+  * @uname_len: Length of @uname in UTF-16 code units
++ * @dir_locked: caller holds the directory i_rwsem against namespace changes
+  *
+  * Resolve the directory entry and verify its MFT reference before returning
+  * the inode.
+@@ -259,7 +260,7 @@ int ntfs_stream_path_check(struct ntfs_volume *vol,
+  * Return: Referenced inode on success, or ERR_PTR() on failure.
+  */
+ struct inode *ntfs_stream_lookup_inode_by_name(struct inode *dir_ino,
+-		__le16 *uname, int uname_len)
++		__le16 *uname, int uname_len, bool dir_locked)
+ {
+ 	struct ntfs_volume *vol = NTFS_SB(dir_ino->i_sb);
+ 	struct ntfs_name *name = NULL;
+@@ -276,12 +277,20 @@ struct inode *ntfs_stream_lookup_inode_by_name(struct inode *dir_ino,
+ 		return ERR_PTR(MREF_ERR(mref));
+ 
+ 	inode = ntfs_iget(vol->sb, MREF(mref));
+-	if (IS_ERR(inode))
++	if (IS_ERR(inode)) {
++		if (dir_locked && PTR_ERR(inode) == -ENOENT) {
++			ntfs_report_file_metadata_error(dir_ino, -EFSCORRUPTED);
++			inode = ERR_PTR(-EFSCORRUPTED);
++		}
+ 		return inode;
++	}
+ 	if (MSEQNO(mref) != NTFS_I(inode)->seq_no &&
+ 	    MREF(mref) != FILE_MFT) {
++		/* Unlocked dentry revalidation can race with unlink and reuse. */
++		if (dir_locked)
++			ntfs_report_file_metadata_error(dir_ino, -EFSCORRUPTED);
+ 		iput(inode);
+-		return ERR_PTR(-EIO);
++		return ERR_PTR(dir_locked ? -EFSCORRUPTED : -EIO);
+ 	}
+ 	return inode;
+ }
+@@ -333,7 +342,7 @@ static int ntfs_stream_d_revalidate(struct inode *dir,
+ 			ni->vol->upcase_len))
+ 		goto out;
+ 
+-	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len);
++	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len, false);
+ 	if (IS_ERR(base_vi))
+ 		goto out;
+ 	if (NTFS_I(base_vi) != ni->ext.base_ntfs_ino) {
+@@ -441,7 +450,7 @@ struct dentry *ntfs_lookup_stream(struct inode *dir_ino,
+ 	}
+ 
+ 	base_vi = ntfs_stream_lookup_inode_by_name(dir_ino, base_uname,
+-			base_len);
++			base_len, true);
+ 	kmem_cache_free(ntfs_name_cache, base_uname);
+ 	if (IS_ERR(base_vi)) {
+ 		err = PTR_ERR(base_vi);
+@@ -564,7 +573,7 @@ struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
+ 	bool stream_created = false;
+ 	int err, rollback_err;
+ 
+-	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len);
++	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len, true);
+ 	if (IS_ERR(base_vi))
+ 		return base_vi;
+ 	if (!S_ISREG(base_vi->i_mode) && !S_ISDIR(base_vi->i_mode)) {
+@@ -635,6 +644,10 @@ struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
+ 	else
+ 		err = PTR_ERR(stream_vi);
+ 	if (err) {
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(base_vi, -EFSCORRUPTED);
++		}
+ 		if (stream_created) {
+ 			rollback_err = ntfs_attr_remove(base_ni, AT_DATA,
+ 					stream_name, stream_len, &rollback_vi);
+@@ -646,7 +659,8 @@ struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
+ 				    rollback_err == -ERESTARTSYS) {
+ 					err = rollback_err;
+ 				} else {
+-					NVolSetErrors(base_ni->vol);
++					ntfs_report_file_metadata_error(base_vi,
++									rollback_err);
+ 					NVolSetShutdown(base_ni->vol);
+ 					err = -EIO;
+ 				}
+@@ -698,7 +712,7 @@ int ntfs_unlink_named_stream(struct inode *dir, struct dentry *dentry)
+ 	if (!path_result)
+ 		return -EINVAL;
+ 
+-	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len);
++	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len, true);
+ 	if (IS_ERR(base_vi)) {
+ 		err = PTR_ERR(base_vi);
+ 		goto out_free;
+@@ -1044,6 +1058,7 @@ static int ntfs_stream_finish_remove(struct inode *attr_vi)
+ 		remove_inode_hash(attr_vi);
+ 	} else {
+ 		NInoSetBeingDeleted(attr_ni);
++		ntfs_report_file_metadata_error(VFS_I(ni), err);
+ 		remove_inode_hash(attr_vi);
+ 	}
+ 
+@@ -1279,6 +1294,10 @@ static int ntfs_stream_ioctl_get_inode(struct inode *base_vi, __le16 *sname,
+ 	attr_vi = ntfs_attr_iget(base_vi, AT_DATA, sname, sname_len);
+ 	if (IS_ERR(attr_vi)) {
+ 		err = PTR_ERR(attr_vi);
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(base_vi, -EFSCORRUPTED);
++		}
+ 		attr_vi = NULL;
+ 		goto out_unlock;
+ 	}
+diff --git a/fs/ntfs/stream.h b/fs/ntfs/stream.h
+index 5cbf6e8f6b68..84929e755689 100644
+--- a/fs/ntfs/stream.h
++++ b/fs/ntfs/stream.h
+@@ -29,7 +29,7 @@ int ntfs_stream_path_names(struct ntfs_volume *vol,
+ 		__le16 **stream_name, int *stream_len);
+ 
+ struct inode *ntfs_stream_lookup_inode_by_name(struct inode *dir,
+-		__le16 *name, int name_len);
++		__le16 *name, int name_len, bool dir_locked);
+ struct dentry *ntfs_lookup_stream(struct inode *dir, struct dentry *dentry,
+ 		const struct ntfs_stream_path *path);
+ struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
+-- 
+2.51.0
+
