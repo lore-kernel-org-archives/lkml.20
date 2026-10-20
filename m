@@ -1,61 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792522483;
-	b=jzj+mIj/I789T6bqjwB1JmBS+UcOXpniq0kq+EZCzzXkmRzBG1/bmE/E34jpDdfYNZDe
-	 L4C0/DxbB6UOxfXHr9LPIzhIRYGEUO0T9hiC0scIJz+TxxWXA2+Pdnot4Wzd31JNRdptk
-	 PkJreuwy/lMqyxe0KZq96SlS8XDFYdgGVA+83BCiPnf+FJBcb9Y28XMxYTM3CHd3xnqb3
-	 rxORpr/qBRXyqMgbo+J1Piwk5EGfht8wZFwf8LH6IXS3yXexABTGroIUTSh12YJ1kWQLV
-	 kfeVjsxRAf/ehKwqlOZW9rcSGxaYs0neYqWthOUEtI6Ne0PReYzrJpiy1QGhTVYWjMQ==
+	t=1792522490;
+	b=08xJIAKHuDmlY10Rgs4GqpaMu7CrBsXK48cVP7Xf0Zob6cTMcNnOXnZ+egdLGA5hIwLn
+	 mOtBXWVZwZML7SbsXhJH7niKF0Rspqn6b/F3E0oMFJv8CmrCjIownHcUnncDH11WNEW9z
+	 xraVbqqu6HFgO/qvMwSVM9kJgUpLEpBmHyoWr0CQoaflbb/QvdvPitzR4JgN1A6NDSdKE
+	 jC4J+S6u7kCACekbIb1g00M91YaTZ4wdr8lJau6U1dwsG2oVt4DAeBryQtY/RUU2kTDfP
+	 zlBaKf7YgROevz6uRjdfmlDhD0NibPfTGcMU7Y578FKKjtyN0nHlx9zG1mIAmmTcEVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792522483;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Gv37jKTovYwPpi+mAZX6EXS4G9Iivo86YVUQKN9nrMg=;
-	b=1IIAdXn22fijHAdFy9O+1oo14BS838ifDI//UHNtCGTwaUEMmTEELWdFi2qjLUEIbSSF
-	 2E+UDPrQGvablox0vh/wYl7uJRZujm46do3be0OkGwCaRh0ketqhllwOrnZt3q4FJ0OOC
-	 xCq3W5R9QisJLka8Yq0+zEoC17L++/gId+LGuusF0Yfc1WapMurJx9IYiTBsM+2VxPpeQ
-	 XKMr3vQzkusjoIpLT7aB94Y6Etxg1TDqUzPAL+22tBBfb+2kpK2sk/5jdfPNWu8OZh/ny
-	 HS9ui29js8ZnegT122nXsvR4gx+v05gpGrNEfuH2e4r1rCnNxui0/2wR5e4dbFvNkeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792522490;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=a+YGUJeEL21flQxeJgEyROLOEEmxFMPwen0F3bt91wI=;
+	b=pqDYWz0Pi9JgMiVFxusYKVT+CmF1U4ks95XxTExZ4sW/QV0ucST3SWlEWBMuggE3MkVD
+	 u7PLMj4+kMar/KCMiFFrLVLkZ2r86fHU/943siDRD5WjOh/dqO3Xy3YR3VV4SH4NlnKJE
+	 +f3cqCRYSwGtlQs7oQUfAqyH0UkPgaScoFpKipQtl1xyMhKupHn/81EDWkIjKXWv9oQqO
+	 jMIrhDDteGlx1O2qG+mEFVFd6/BLaH0KvhYGKB0yyyqnR2ssvhVnWicndlo4l0OvlLcoB
+	 ifeIEOrDxfgHQGAoug9iq2usS2MWhazzfkiQeNQEMm9Y3QZRKFmpWdTbJTUgL9A6InA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=io6yBBsk;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=chzPD2Bt;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cNpSjyVD;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088BA606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:54:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 088BA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39112606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:54:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39112606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=io6yBBsk;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=chzPD2Bt
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792522479; bh=Gv37jKTovYwPpi+mAZX6EXS
-	4G9Iivo86YVUQKN9nrMg=; b=io6yBBskYojib9aiBYbzQ2EA0zx/VihK1rPVonGnD0ag4CTGgT
-	IU8LEmzzxeYPzHJvkPRCVdo1QncdjelCAEtCyydaTqTkjiEEKXV5SR6K68Z0OPAnq0Q64dc9EgD
-	tU6Q12DuLUp0L2cOYZmFmqNOT190KxZ7j5nbgZWwbsB5zBI2+azcaiwyERlYrjl9mFriP/RP19u
-	n5JXcjsWUgi4FEnyaZgWwxXha0xOmblW04GICyEVdzkzNi0CYrv477YiTW8VI21Kz4vWLgdSlnd
-	2GlPWJCjfssMoEDMF4nH1TV73/PdVYZUsMbaePXVsvfYGgrTTzslcyJV5ujXza4cqDQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792522479; bh=Gv37jKTovYwPpi+mAZX6EXS
-	4G9Iivo86YVUQKN9nrMg=; b=chzPD2BtHJNgjIrGMseWc4pW6nXJH19ekUD8QHLnRp1cdoCTjn
-	Vdy53VjgTvKSLXqb4cpnsFyj2ZQiMQAH/xAg==;
-Date: Tue, 20 Oct 2026 19:54:38 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, paulmck@kernel.org,
- torvalds@linux-foundation.org
-CC: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
-In-Reply-To: <2f65337241e230cd26c130bc3183ad230c7c40e4.camel@physik.fu-berlin.de>
-References: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop> <2f65337241e230cd26c130bc3183ad230c7c40e4.camel@physik.fu-berlin.de>
-Message-ID: <62138DD6-F054-4992-810C-EDE92C835346@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cNpSjyVD
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36681e85e87so1419641eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:54:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792522488; x=1793127288; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a+YGUJeEL21flQxeJgEyROLOEEmxFMPwen0F3bt91wI=;
+        b=cNpSjyVDxeZMqcqxOqB9EKCdiKtPdvBLoG6NwPB2ME90BEBUSoASCok3BTJCWRzmch
+         pNWcgsLpP4PYDmJr8a0L4mKvc7JsdLL2H7n7kPI2wZkDtIaq0W1rRg/MY6hUM/gy5Uoy
+         W+m7CWwruUbFTIYyqnOJmBOL0w946NXdRSpxe6jaOK0BT0sCvBvGsnj6H5fBmWcWNvLZ
+         msrgSrE2dYQ/4jED9CbuOpHR4ZW8ZY384J9TEKtFsWkaRluoI3p5WBWwaKkqlP4+GRbQ
+         U4HwE9gc512DhP6yTqnRZIiJQwgX36aA+yBDDi2k7JIy8yC1YZIs0MXwbGp1hJ1veg6G
+         SECw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792522488; x=1793127288;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=a+YGUJeEL21flQxeJgEyROLOEEmxFMPwen0F3bt91wI=;
+        b=vCkBWKOHK+dl3fNnN3dbKwSURQeDx+KXhbUA64uqVGcj7fnrcEkMEqZMoyImjYy4nD
+         FPce0x/hFWiz2Ezxr9lE0qm4Kn62OnQkvQVFuPzrx2NMOaw5kzrnW1xdKk17y3oQ4/KR
+         IB1q5tjqGcWX+v0AAmPtIzI5/NeL2AH5a3fwflbFrQQjzmuutdVWXQxg14o6IZdNzTvE
+         0+QWk9BFoxQRF6t4ruzav+ACU8HuQSvRyOgFd2lpl0R7b/C1k50KImD2+oD/RF+Rgoet
+         Nqiq1NqngqWOnyRORj/LIM6c4kz5f70vLIdg5OkXNvyna0JgjUFL5TJtBoyNXmaz8wvI
+         wPkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzlPxfK7/wouAyCwARIvZyzk9NF3OFm9dph1sCt5D6JT/PtHQs3+iCRnKVs0+sNvZQWtX8nZ87+D+GtOfA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeDdMEHZnuZTGK5d7cA5xGD9/WwK+yTq0VBU77tbR6nFB8xW34
+	3uNGMTLfDi7l4THNx7dQnOuopfXY/oqpk9YRZ/MMLGUXHwXMUhXyUAeY
+X-Gm-Gg: AYBFou1QXmTO7EFVwOuWoLJ08i6LqDbHMe4wQ6mWtvLJpS+M6htNiTm5du2YxXwPl8Z
+	zsO60ahyANQlpjlfZ0zEfAc3VI4+PzOve6gqAygR++4HdNQ8GGMNZnXp9rniERS6XVgFTSPOPSE
+	xRrUQNmgy2Z7VpVDjxrTJYb1Q3tXu9RzT4gEZxSi6Rimx5oQ+QK4tl+G7g9kn3V8ebNXL/ybwNM
+	aoJ2e4Xkh0aFgHEx4nrMjMo7t7QWVjkXuGdEQ0711KJAUp+JZrA4KP8upaENoQTb2nNdKklo0Gq
+	Uov7acTp3NY12mtRFeEeMXmRcpBbNSsKjGoGH3/ZevvjZPgvzhKM+kc0ajx9EWyEO6NKwqthSqL
+	kbE1oYYlA8qyNROh294jEaykOmJcacoSXrANpei9Rd2JOt1K3YXt1DVeTi0NrebnBQ2h8Os0q8f
+	b/ddN9pKxaxcmjJqi0QS4/VVup8JiiPLJu7ZOht8cZebsrrFWwyJZm0v38PCjmvsOUwDVLZkDoi
+	SG2pbASyoZDnzBQzglnrAaMFYLU+arDWgP2E4Tm
+X-Received: by 2002:a05:693c:6382:10b0:35c:de00:93d3 with SMTP id 5a478bee46e88-3674f6143a2mr134088eec.40.1792522488031;
+        Tue, 20 Oct 2026 11:54:48 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:92d1:8038:c4e7:1f0c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405ed2absm606896eec.5.2026.10.20.11.54.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 11:54:47 -0700 (PDT)
+Date: Tue, 20 Oct 2026 11:54:43 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
+	Ion Agorria <ion@agorria.com>, =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Florian Krischer <florian.krischer@fkr.dev>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, mfd@lists.linux.dev, linux-leds@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v12 4/7] input: keyboard: Add driver for ASUS Transformer
+ dock multimedia keys
+Message-ID: <ate3WJz8gg9LUG9u@google.com>
+References: <20261019100406.103687-1-clamor95@gmail.com>
+ <20261019100406.103687-5-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,36 +103,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261019100406.103687-5-clamor95@gmail.com>
 
-On 20 October 2026 19:48:32 BST, John Paul Adrian Glaubitz
-<glaubitz@physik.fu-berlin.de> wrote:
->Hi Paul,
->
->On Fri, 2026-10-16 at 20:51 -0700, Paul E. McKenney wrote:
->> However, it sadly does not permit easy implementation of all algorithms
->> needing on two-byte atomic operations because there are some systems
->still
->> supported by Linux that do not have native two-byte store instructions.
->> There is reason to believe that these systems will soon no longer be
->> supported by Linux.
->
->Since this paragraph has produced a headline today [1], would you mind
->clarifying what you meant here? What architectures are you talking about?
->
->Thanks,
->Adrian
->
->> [1] https://www.phoronix.com/news/Linux-7.4-Two-Byte-CMPXCHG
+On Mon, Oct 19, 2026 at 01:04:03PM +0300, Svyatoslav Ryhel wrote:
+> From: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> 
+> Add support for multimedia top button row of ASUS Transformer's Mobile
+> Dock keyboard. Driver is made that function keys (F1-F12) are used by
+> default which suits average Linux use better and with pressing
+> ScreenLock + AltGr function keys layout is switched to multimedia keys.
+> Only Dock keyboard input events are tracked for AltGr pressing.
+> 
+> Co-developed-by: Ion Agorria <ion@agorria.com>
+> Signed-off-by: Ion Agorria <ion@agorria.com>
+> Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Annoyingly my name isn't on there :(
+Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-But I'm happy it IS a headline :)
+> +
+> +static void asus_ec_keys_setup_keymap(struct asus_ec_keys_data *priv)
+> +{
+> +	struct input_dev *dev = priv->xidev;
+> +	unsigned int i;
+> +
+> +	BUILD_BUG_ON(ARRAY_SIZE(priv->keymap) < ARRAY_SIZE(asus_ec_dock_ext_keys));
+> +
+> +	dev->keycode = priv->keymap;
+> +	dev->keycodesize = sizeof(*priv->keymap);
+> +	dev->keycodemax = ARRAY_SIZE(priv->keymap);
+> +
+> +	input_set_capability(dev, EV_MSC, MSC_SCAN);
+> +	input_set_capability(dev, EV_KEY, KEY_UNKNOWN);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(asus_ec_dock_ext_keys); i++) {
+> +		unsigned int code = asus_ec_dock_ext_keys[i];
+> +
+> +		if (!code)
+> +			continue;
 
->
->
+Nit: this check is not needed, input core will remove KEY_RESERVED (0)
+from the keybit when device is registered.
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+> +
+> +		__set_bit(code, dev->keybit);
+> +		priv->keymap[i] = code;
+> +	}
+> +}
+> +
+> +static int asus_ec_keys_probe(struct platform_device *pdev)
+> +{
+> +	struct i2c_client *parent = to_i2c_client(pdev->dev.parent);
+> +	struct asusec_core *ec = dev_get_drvdata(pdev->dev.parent);
+> +	struct device *dev = &pdev->dev;
+> +	struct asus_ec_keys_data *priv;
+> +	int error;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, priv);
+> +	priv->ec = ec;
+> +
+> +	priv->xidev = devm_input_allocate_device(dev);
+> +	if (!priv->xidev)
+> +		return -ENOMEM;
+> +
+> +	priv->xidev->name = devm_kasprintf(dev, GFP_KERNEL, "%s Keyboard Ext",
+> +					   ec->model);
+> +	priv->xidev->phys = devm_kasprintf(dev, GFP_KERNEL, "i2c-%u-%04x",
+> +					   i2c_adapter_id(parent->adapter),
+> +					   parent->addr);
+> +
+> +	if (!priv->xidev->name || !priv->xidev->phys)
+> +		return -ENOMEM;
+> +
+> +	asus_ec_keys_setup_keymap(priv);
+> +
+> +	error = input_register_device(priv->xidev);
+> +	if (error)
+> +		return dev_err_probe(dev, error,
+> +				     "failed to register extension keys\n");
+> +
+> +	priv->nb.notifier_call = asus_ec_keys_notify;
+> +
+> +	error = blocking_notifier_chain_register(&ec->notify_list, &priv->nb);
+> +	if (error)
+> +		return error;
+> +
+> +	ec->ext_keys_enabled = true;
+
+I think this block (after input_register_device()) can go into open()
+method for the input device.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static void asus_ec_keys_remove(struct platform_device *pdev)
+> +{
+> +	struct asus_ec_keys_data *priv = platform_get_drvdata(pdev);
+> +	struct asusec_core *ec = priv->ec;
+> +
+> +	ec->ext_keys_enabled = false;
+> +	blocking_notifier_chain_unregister(&ec->notify_list, &priv->nb);
+
+And this into close().
+
+Thanks.
+
+-- 
+Dmitry
