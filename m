@@ -1,61 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500771;
-	b=Uss7tDw+mpBJDe6me3no1TZlZjN9rSEGph9Ix4TeUIgTd4GsIQWK10ztHBYVSzErUcNM
-	 71bJdUFf//oM9PcFR9lCEdh5nwyUNX520XQNX7Ex7AVIlVsFFx0U3hskHmNZ/EXWbZz6k
-	 wgyw+apfYn3l7cgFBIFEpbXfZXxnWjIBWrN0qoyL/ii2/Io/HT7sesxe+i63rH5JCkVzP
-	 qnJO4QlB0QfU6eBNSJ+QDt1oBf0O/3TzqLUFVItCVONuRaUBfavhR1zKTtYvF9kJMGN4D
-	 moT6xOHzGYIGTEKV5GwP5ngWjbUUsbFBFbs8JakiHpTr8HM8H3a0F+lFs1L9u5THy1Q==
+	t=1792500777;
+	b=4vLhBxbI2LMyQ8SsCAUS4s6oiL/SfwkTDUUGpHqCAtbpbUO/5BCqOjBz0OMlD62dke1/
+	 178c1iAwEos8x+Ui6GtuKIbALtUglXKCHuNTIshDyByWW7WmcEplpyIbUGzlRVwF14OBi
+	 SuLfcGbVGfTWi9ifNxUCZDtp7JoDbYU7atyfwTETM+7g310qf/P36CX/k7mrswf8p+BiV
+	 GJSUoCf8E6F7rpJVtaogNkvBNyM1DZ0R/JvULyVu+YnbA8dkYsWjKbSvvLb48odAPs3Cy
+	 Gst1gLCBn1VPpWTBbXPP7rV2Yb5+Q/s7OM2CUSfSrPyDfU+2216ySXYunUv/vZI/rYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500771;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=Iog5cj9gQ1VLcQX/ZJ4/JUmApqIRY63Pzim15xBJZA4=;
-	b=q+usvC98NW9+JThLL0YcAd4nO9y2gr7jlvVXANXNJR6R8+P09Ro0SCwInjbpWF/7aidv
-	 VHjtaJE8q8WOJ89Fy5gwt4oWUoXgtfgbRO0RoiyH2nggGBiv6zl+BL2dDdFgYnOchZ8JD
-	 5JHm7HjW+iCecHa0BymOCarVV18OcPIpSugyYsUagnyFNOwoMihBnkDIRtAefOE7arvek
-	 DFANqJaTpflliDoNi2sY6pr1MYHEhWdNtEXhO069SVfJBK3EHEHxi0+alwLfDoQp9nyV/
-	 GUjAJLQAOEzsvVMaAxCvc2PqB6NMQjDjYT59AnULNQLuK7eNEQFpPu16/LneTi90z9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500777;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=wxmEz/CK+OAfk+vdzvHdXAndOrVUAuRsR691a5B0+lA=;
+	b=tbeiEYdW5IDPtQoybaQbUfE08zvw8DN81jslMM2yNPxNLxsPX9lPCLw4i/prGiCKyGv9
+	 5NL+7fuMbii8U167/jFOI3Z5d2840tcMdpxKOY0Q2GsykfZKH880KKvj6Cgx2NbwwG4NH
+	 S5dostn6musfZ+azn2KAgzpAW+eU65Mqo3A+FJy0RFMuJLE4RL5d8kUbS5L9FlmyeVBCm
+	 q6/D8rfR9Tb8duLkecKbji2WlGUo35fNJ14U8Q2wIAUx8rJRbXpuglABf+IXjI/UykpDI
+	 jv7mwwZioK5z8YrrwCoalZm9g8i+3HvDRH7A50DaecbU5l73sFqsiZUq+twsKs2iGsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tcl8IopX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=sPuEgIK+;
+	arc=none smtp.remote-ip=209.85.128.69
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548A660A2607
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:52:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB2660A4AF2
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:52:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FB2660A4AF2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tcl8IopX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AD61F00ADF
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:52:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792500771;
-	bh=Iog5cj9gQ1VLcQX/ZJ4/JUmApqIRY63Pzim15xBJZA4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Tcl8IopX5XfgaCedFUCGnnX0qpLjXEfggFrl4g6uF0J9pj2ZByCxfjOKZhvjf29OT
-	 jyRZuEMaP+YsyaKXuH7/hX/aY07mqXNVV4LO8+f4vrcvMJBaBHK/vgvD6bqnZQoggG
-	 QmsW3kbSDYN4OLZz6SprO/PkstsWSmGXjHfa96tybNAqxlgR6r68ILHZyG8U3skR5p
-	 iZfHum1fWwYY7PCqVKD0/TqkffuGi8ZQN9TWachUoSMbvG1ruVtWESZ29ZpqRwRhP/
-	 s94Ge/xbVFsRNjGzYNFfkQVJ+9mlgllQjFQLQMDnF++TXXYNRy8qMtFagnQRiqbRW5
-	 d1Gt1sKrWNd1Q==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d0so17706001fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:52:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxdq8XFuV2C9J0OHp438+CGtSCyAvCGUc94h5UEvrCRX6L4bCG6opxqwrdSa0hLhOw6kv6NFwhVd9AsqjM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLO8A9cDm1H9jcp2oGThMFdWnkj79nX2V427paH/f+d5yhQ91u5
-	T7QV1Y8p1VSbGkgD+iqSgpoqlLo3v90FB0xWMvCgyCYLS2obkWznS17IeWppx30v6lzejP1mxdm
-	uGnOMyzVp52u3VFxR2okjXfj26N4Kc3DOVSuRMTmSIg==
-X-Received: by 2002:a05:651c:a214:20b0:3a8:d9d5:f9d3 with SMTP id
- 38308e7fff4ca-3ab29175de5mr15085321fa.16.1792500769655; Tue, 20 Oct 2026
- 05:52:49 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 13:52:48 +0100
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 20 Oct 2026 13:52:48 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <179206391202.36987.1416057976823693032@pm.me>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=sPuEgIK+
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1e295b702so25088205e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:52:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792500774; x=1793105574; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wxmEz/CK+OAfk+vdzvHdXAndOrVUAuRsR691a5B0+lA=;
+        b=sPuEgIK+98czDktbzUvIPBkndx989j5su5BzrAv0TFL7yzVx5TL8/TcbzNEy/f5QIR
+         gPeOFTVLFcqYk95GAz8IWOojfks1tRZTZLq3DciYSUWx/Lo8yyF28FkPfcXdG62i9LXg
+         nM9qdVsTKqH4DdAlRwj/aQNFL5SmAUZueIyT3iw/BFJxQxzuHjKON7mQS4IQ7AK6hEHV
+         WwPEluNA9ufw4o4P80IuuklPyfv0sGFl+GQftMqYV6M4AJvo558hqkxIzMZrOxcwNv9i
+         6lw21SiPCE2rEPvJSf3qo/n/Pj8MO8lvbbR8m6JmqqRxng4XJuacgaS/DPgUMB2JhQYk
+         eqPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792500774; x=1793105574;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wxmEz/CK+OAfk+vdzvHdXAndOrVUAuRsR691a5B0+lA=;
+        b=jFK+Stjc/W3JsQZIJY4iEVH06weBBIU8zBgbH/HW2uZxVsIthfK8VLHsrqLtrvCaZS
+         8YXdP+ucsP7kDBBh8lvDl4qtqWogw7myk/bhv2kOqnm4lHZ1QXHoNSMiQ+r7ZP0AEFYc
+         SNcVkLVwucQwTjcd9QdLl9+hAUXtiHioHyje9fhNVSF4EuzrPbN+UOUEGKL0R4nnk8Uw
+         XR0yFLhuEZ6qdevD2pNSwpWYTWC+WH+ryUFubi/UF+SI0J1ZES6ZdpTmaJrryL4Q3PWh
+         zFQM2WOmHE2QofpdcrYpI7Hxc4E15P08PdhL7ogrg2eP7BbgSfUDKo0Pfn6JFePIPeiD
+         Pm5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwBcCEdlYPszfcu7QbERRSRQIjMc/hyhpIEoFd4bEkZvD/Al1BpnGtyUHrJq2J59VzEEKl6nXySGIYlsgE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKL5O10NPL+rz3xLjPM9e3pyR4VvUtgXEP00W1PQKCX7H7tBU33
+	2jy1W65czYVp5LcS+4zuHjNrs5GPQZA3XJvF0N/H4LsJL7983ZW5Y1CFpTJkwOkCDTE22M2QxHW
+	yVndXd/FeoSWJgbVcEw==
+X-Received: from wroy18.prod.google.com ([2002:adf:f152:0:b0:48c:7ee7:2c6f])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:1da1:b0:4a1:ac66:6059 with SMTP id 5b1f17b1804b1-4a1d7614eefmr242597465e9.26.1792500773711;
+ Tue, 20 Oct 2026 05:52:53 -0700 (PDT)
+Date: Tue, 20 Oct 2026 12:52:39 +0000
+In-Reply-To: <20261020-rust-workqueue-v3-0-ea7c74d02068@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,315 +78,488 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <179206391202.36987.1416057976823693032@pm.me>
-Date: Tue, 20 Oct 2026 13:52:48 +0100
-X-Gmail-Original-Message-ID: <CAMRc=Mf_93HM8RFq3i3Cuy1_L=VFskt6NcgkcwsyZVH7ymO1Yw@mail.gmail.com>
-X-Gm-Features: AclHuK_FLO2OQBomfcZDzAChpS6bYz-U0182uXSwbxihEnP3jdGgRRa6mwaU0dc
-Message-ID: <CAMRc=Mf_93HM8RFq3i3Cuy1_L=VFskt6NcgkcwsyZVH7ymO1Yw@mail.gmail.com>
-Subject: Re: [PATCH v2] pinctrl: qcom: Restore the pin configuration after hibernation
-To: Birk Skyum <birk.skyum@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+References: <20261020-rust-workqueue-v3-0-ea7c74d02068@google.com>
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=17149; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=oDrOybZ5GyeEV00KNLPrW81TDHW0BndIwgF6Sr82ykQ=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq12QeC6MGSF3kc+DxsiClC22vl0ytW1kgupgfH
+ GWWGH6tSH2JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatdkHgAKCRAEWL7uWMY5
+ Rq/xEACr5kuaCof+Q662nrAz6sm05Pj9zjPnF/uZOE5JL07RWzJsbcGsOFljs6QigNYEgUTIOkW
+ SPsy3cONR/ZI8UQooEo0v040fho/oW67yHSO8IoFr0SCrp74sDe1Z1U2h3UQaO5ikKzget1Tcgf
+ CQRqCjKJFHopsjlgSW+8CjCgczEzWKWezmxaxpMYf9iibdwbc8uV4+hWoUI9p/Tbnuhx3pODKi4
+ 7rabh6kT/P8EXHL1jVzWwjhqMlvPYRjXK7nw2+MGvrNKvueDNMOZRz0eZsPn7jQL+ZfjhBbmyST
+ hVgPuAQ270MpIUkamAtQmAPo+KwDwfM6eibBhRo4YGIrt8nB5gTfLv2BhGY1GBtjTLpNDwwTm7N
+ t7Xi6U4GMKTscyE6d3IBLEcXVcZBa12s5s8LxyGzk7FQn8OUmUV3/24fCGPedIjVOZ89SkWJ4td
+ f8x83ZnAny3+itsp/t0s/dgyUXKRM0jwqOMtFQPf+EQ6sGrBjh4LAbo60VoxjlH3SNfv5PkP3rV
+ KzZdipVqBlrRuvJPt5qXSvFu4DbbvO6GZ32s2Y5ddyeG2kj1FDLNpIewpXxioH0eOypU2Dzt5bs
+ 0GLNYSgD2qzexvafVV4USYk4QCR6unD9cKcryvDIlZyjpNbBQ+86sWpPDXDsQyqIFlD2xi6GmJP gBTgndqKY828LnQ==
+X-Mailer: b4 0.14.3
+Message-ID: <20261020-rust-workqueue-v3-4-ea7c74d02068@google.com>
+Subject: [PATCH v3 4/4] rust: workqueue: add ScopedWork for non-'static work items
+From: Alice Ryhl <aliceryhl@google.com>
+To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
+	John Hubbard <jhubbard@nvidia.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+	Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, 15 Oct 2026 13:31:54 +0200, Birk Skyum <birk.skyum@pm.me> said:
-> A hibernation image is restored after a power cycle. The TLMM registers
-> then hold what the boot firmware and the kernel that loaded the image
-> made of them. The restored kernel has the configuration it applied in
-> memory only, and nothing writes it to the hardware again, so every pin
-> that the loading kernel did not set up the same way stays wrong.
->
-> On a Lenovo Yoga Slim 7x (X1E80100) the Bluetooth and Wi-Fi enable lines
-> are two of them. Their drivers are loaded from the root file system, so
-> the kernel that loads the image never touches the pins. This is
-> /sys/kernel/debug/gpio before the hibernation and after the resume:
->
->   gpio116 : out low  func0 2mA no pull
->   gpio117 : out high func0 2mA no pull
->
->   gpio116 : in  low  func0 2mA pull down
->   gpio117 : out high func0 16mA no pull
->
-> The driver that owns gpio116 still believes it drives the line.
->
-> Save the control, output and interrupt configuration registers in
-> freeze_noirq and write them back in restore_noirq, the output level
-> first, so that a pin drives the right level from the moment it becomes
-> an output. Changing the interrupt configuration can latch an interrupt,
-> so the status is cleared where the register changed, as
-> msm_gpio_irq_set_type() does.
->
-> Only the GPIOs the kernel uses are put back: those requested as a GPIO,
-> muxed to a function or used as an interrupt, as pinctrl-intel does. A
-> valid GPIO without an owner may be in use by firmware. The SDC pads
-> after the GPIOs are configured without a mux function, so they never
-> have an owner, and their control register is always put back.
->
-> msm_pinctrl_dev_pm_ops gets the two callbacks and x1e80100 starts using
-> these ops. With that x1e80100 also gets their suspend and resume
-> callbacks, which apply the sleep and default state of the controller's
-> own pins where a board defines them.
->
-> Signed-off-by: Birk Skyum <birk.skyum@pm.me>
-> ---
-> Changes since the RFC:
-> - Put a GPIO back only when the kernel uses it, as a GPIO, through a
->   mux function or as an interrupt, as pinctrl-intel does (Bartosz).
-> - Save and restore the SDC pads after the GPIOs as well (Bartosz).
-> - Allocate the save area under the same option as the callbacks,
->   CONFIG_HIBERNATE_CALLBACKS (Sashiko).
-> - Clear the interrupt status only where the restore changed the
->   interrupt configuration (Sashiko).
-> - Say in a comment that a both-edge interrupt emulated by flipping the
->   polarity is not primed again. No SoC with such pins uses these ops.
-> - Rebased on pinctrl-qcom/for-next.
-> - Link to the RFC: https://lore.kernel.org/r/179163141354.18006.80461347454353634@pm.me
->
-> Tested on a Lenovo Yoga Slim 7x with v7.2 plus this patch. The kernel
-> also carried the PCI change in [1], without which this machine does
-> not resume at all, the smp2p change in [2] and a GENI serial change
-> that is not posted. The Bluetooth driver had [3] applied. On
-> pinctrl-qcom/for-next the patch builds without warnings with W=1 and
-> sparse, with hibernation on, off and without sleep support.
->
-> - Before the hibernation 45 TLMM pins have an owner, gpio116 and
->   gpio117 among them (wcn7850-pmu), and four are interrupts.
-> - pm_test=core and test_resume pass.
-> - After a hibernation with a real power-off the TLMM part of
->   /sys/kernel/debug/gpio differs only in the level read on two inputs
->   (gpio93 and gpio153), as it did with the RFC.
-> - A suspend (deep) and wake still works.
->
-> The Yoga has no SD card slot and its SDC2 pads have no owner, so this
-> only shows that putting them back does no harm. I did not read them
-> back.
->
-> Not covered here: the LPASS LPI pin controller, whose pins also come
-> back at their reset values after a hibernation.
->
-> [1] https://lore.kernel.org/r/179181074907.22199.10556821368232442334@pm.me
-> [2] https://lore.kernel.org/r/179158127177.70185.5691100900886332545@pm.me
-> [3] https://lore.kernel.org/r/179163212446.46972.2306254853726299632@pm.me
->
->  drivers/pinctrl/qcom/pinctrl-msm.c      | 147 +++++++++++++++++++++++-
->  drivers/pinctrl/qcom/pinctrl-x1e80100.c |   1 +
->  2 files changed, 146 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
-> index 27f06bbc113c..0dd478e80e30 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-msm.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-msm.c
-> @@ -39,6 +39,15 @@
->  #define MAX_NR_TILES 4
->  #define PS_HOLD_OFFSET 0x820
->
-> +/* Register values of one pin group, kept across a hibernation. */
-> +struct msm_pin_state {
-> +	u32 ctl;
-> +	u32 io;
-> +	u32 intr_cfg;
-> +	u32 intr_target;
-> +	bool saved;
-> +};
-> +
->  /**
->   * struct msm_pinctrl - state for a pinctrl-msm device
->   * @dev:            device handle.
-> @@ -58,6 +67,7 @@
->   * @soc:            Reference to soc_data of platform specific data.
->   * @regs:           Base addresses for the TLMM tiles.
->   * @phys_base:      Physical base address
-> + * @saved:          Pin registers kept while a hibernation image is taken.
->   */
->  struct msm_pinctrl {
->  	struct device *dev;
-> @@ -80,6 +90,8 @@ struct msm_pinctrl {
->  	const struct msm_pinctrl_soc_data *soc;
->  	void __iomem *regs[MAX_NR_TILES];
->  	u32 phys_base[MAX_NR_TILES];
-> +
-> +	struct msm_pin_state *saved;
->  };
->
->  #define MSM_ACCESSOR(name) \
-> @@ -1583,9 +1595,133 @@ static __maybe_unused int msm_pinctrl_resume(struct device *dev)
->  	return pinctrl_force_default(pctrl->pctrl);
->  }
->
-> -SIMPLE_DEV_PM_OPS(msm_pinctrl_dev_pm_ops, msm_pinctrl_suspend,
-> -		  msm_pinctrl_resume);
-> +static bool msm_pin_has_own_intr_target(struct msm_pinctrl *pctrl,
-> +					const struct msm_pingroup *g)
-> +{
-> +	return !pctrl->intr_target_use_scm && g->intr_target_reg &&
-> +	       g->intr_target_reg != g->intr_cfg_reg;
-> +}
-> +
-> +/*
-> + * A GPIO is only put back when the kernel uses it, as a GPIO, through a mux
-> + * function or as an interrupt. Other valid pins may be in use by firmware.
-> + * The pads after the GPIOs (SDC) have no GPIO and are configured without a
-> + * mux function, so they never have an owner and are always put back.
-> + */
-> +static bool msm_pin_in_use(struct msm_pinctrl *pctrl, unsigned int i)
-> +{
-> +	const struct pin_desc *desc;
-> +
-> +	if (i >= pctrl->chip.ngpio)
-> +		return true;
-> +
-> +	if (!gpiochip_line_is_valid(&pctrl->chip, i))
-> +		return false;
-> +
-> +	desc = pin_desc_get(pctrl->pctrl, i);
-> +
-> +	return desc && (desc->mux_owner || desc->gpio_owner ||
-> +			gpiochip_line_is_irq(&pctrl->chip, i));
-> +}
-> +
-> +/* Remember how the pins are set up when a hibernation image is taken. */
-> +static int msm_pinctrl_freeze_noirq(struct device *dev)
-> +{
-> +	struct msm_pinctrl *pctrl = dev_get_drvdata(dev);
-> +	const struct msm_pingroup *g;
-> +	struct msm_pin_state *s;
-> +	unsigned long flags;
-> +	unsigned int i;
->
-> +	raw_spin_lock_irqsave(&pctrl->lock, flags);
+From: Danilo Krummrich <dakr@kernel.org>
 
-Sorry I didn't point it out earlier but can you use a lock guard here?
+Add ScopedWork<T>, a work item wrapper whose destructor calls
+cancel_work_sync(), allowing T to carry non-'static lifetimes. Ownership
+of the data is not transferred to the workqueue; instead, the
+synchronous cancellation on drop guarantees the work function is not
+running when the data is freed.
 
-> +	for (i = 0; i < pctrl->soc->ngroups; i++) {
-> +		g = &pctrl->soc->groups[i];
-> +		s = &pctrl->saved[i];
-> +		s->saved = msm_pin_in_use(pctrl, i);
-> +		if (!s->saved)
-> +			continue;
-> +
-> +		s->ctl = msm_readl_ctl(pctrl, g);
-> +		if (i >= pctrl->chip.ngpio)
-> +			continue;
-> +
-> +		s->io = msm_readl_io(pctrl, g);
-> +		if (!g->intr_cfg_reg)
-> +			continue;
-> +
-> +		s->intr_cfg = msm_readl_intr_cfg(pctrl, g);
-> +		if (msm_pin_has_own_intr_target(pctrl, g))
-> +			s->intr_target = msm_readl_intr_target(pctrl, g);
-> +	}
-> +	raw_spin_unlock_irqrestore(&pctrl->lock, flags);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * The image is restored after a power cycle, when the pins are back at what
-> + * the firmware and the kernel that loaded the image made of them. Nothing else
-> + * writes the configuration again, so put back what was there.
-> + *
-> + * A both-edge interrupt that is emulated by flipping the polarity gets the
-> + * polarity it had, which is not primed for a line that changed meanwhile. No
-> + * SoC with such pins (one-bit detection) uses these callbacks.
-> + */
-> +static int msm_pinctrl_restore_noirq(struct device *dev)
-> +{
-> +	struct msm_pinctrl *pctrl = dev_get_drvdata(dev);
-> +	const struct msm_pingroup *g;
-> +	struct msm_pin_state *s;
-> +	unsigned long flags;
-> +	unsigned int i;
-> +	u32 val;
-> +
-> +	raw_spin_lock_irqsave(&pctrl->lock, flags);
+Because that guarantee only holds if the destructor actually runs,
+ScopedWork::new() (and thus new_scoped_work!) is unsafe and requires
+that the resulting value is never forgotten. In return,
+Queue::enqueue_scoped() is a safe method that accepts a &ScopedWork<T>
+on any queue, including the system queues.
 
-And here?
+ScopedWork does not use the Work/WorkItem machinery: it embeds the
+work_struct directly and registers its own C callback, which recovers
+the &ScopedWork<T> via container_of!() and passes it to
+ScopedWorkItem::run(). The work_struct and the user data live in a
+private Inner<T> that is wrapped in Opaque as a whole, so that the &mut
+Self held by the destructor while cancel_work_sync() waits does not
+claim uniqueness over memory (including padding) that a worker thread
+may still be reading through &ScopedWork<T>.
 
-> +	for (i = 0; i < pctrl->soc->ngroups; i++) {
-> +		g = &pctrl->soc->groups[i];
-> +		s = &pctrl->saved[i];
-> +		if (!s->saved)
-> +			continue;
-> +
-> +		if (i >= pctrl->chip.ngpio) {
-> +			msm_writel_ctl(s->ctl, pctrl, g);
-> +			continue;
-> +		}
-> +
-> +		/* Set the level before the pin starts driving it. */
-> +		val = msm_readl_io(pctrl, g);
-> +		val &= ~BIT(g->out_bit);
-> +		val |= s->io & BIT(g->out_bit);
-> +		msm_writel_io(val, pctrl, g);
-> +
-> +		msm_writel_ctl(s->ctl, pctrl, g);
-> +		if (!g->intr_cfg_reg)
-> +			continue;
-> +
-> +		if (msm_pin_has_own_intr_target(pctrl, g))
-> +			msm_writel_intr_target(s->intr_target, pctrl, g);
-> +		val = msm_readl_intr_cfg(pctrl, g);
-> +		msm_writel_intr_cfg(s->intr_cfg, pctrl, g);
-> +
-> +		/*
-> +		 * Changing the configuration can latch an interrupt. One that
-> +		 * is latched with the configuration unchanged is a real one.
-> +		 */
-> +		if (val != s->intr_cfg)
-> +			msm_ack_intr_status(pctrl, g);
-> +	}
-> +	raw_spin_unlock_irqrestore(&pctrl->lock, flags);
-> +
-> +	return 0;
-> +}
-> +
-> +const struct dev_pm_ops msm_pinctrl_dev_pm_ops = {
-> +	SYSTEM_SLEEP_PM_OPS(msm_pinctrl_suspend, msm_pinctrl_resume)
-> +	.freeze_noirq = PTR_IF(IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS),
-> +			       msm_pinctrl_freeze_noirq),
-> +	.restore_noirq = PTR_IF(IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS),
-> +				msm_pinctrl_restore_noirq),
-> +};
->  EXPORT_SYMBOL(msm_pinctrl_dev_pm_ops);
->
->  int msm_pinctrl_probe(struct platform_device *pdev,
-> @@ -1663,6 +1799,13 @@ int msm_pinctrl_probe(struct platform_device *pdev,
->  	if (ret)
->  		return ret;
->
-> +	if (IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS)) {
-> +		pctrl->saved = devm_kcalloc(&pdev->dev, pctrl->soc->ngroups,
-> +					    sizeof(*pctrl->saved), GFP_KERNEL);
-> +		if (!pctrl->saved)
-> +			return -ENOMEM;
-> +	}
-> +
->  	platform_set_drvdata(pdev, pctrl);
->
->  	dev_dbg(&pdev->dev, "Probed Qualcomm pinctrl driver\n");
-> diff --git a/drivers/pinctrl/qcom/pinctrl-x1e80100.c b/drivers/pinctrl/qcom/pinctrl-x1e80100.c
-> index e4c0abcd95b9..bfe122fc7e79 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-x1e80100.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-x1e80100.c
-> @@ -1855,6 +1855,7 @@ static struct platform_driver x1e80100_pinctrl_driver = {
->  	.driver = {
->  		.name = "x1e80100-tlmm",
->  		.of_match_table = x1e80100_pinctrl_of_match,
-> +		.pm = &msm_pinctrl_dev_pm_ops,
->  	},
->  	.probe = x1e80100_pinctrl_probe,
->  };
-> --
-> 2.55.0
->
->
->
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Co-developed-by: Alice Ryhl <aliceryhl@google.com>
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+ rust/kernel/workqueue/mod.rs    |  48 +++++-
+ rust/kernel/workqueue/scoped.rs | 342 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 389 insertions(+), 1 deletion(-)
 
-Otherwise looks good to me so if there are no objections, I intend to queue
-it for v7.5 with guards added.
+diff --git a/rust/kernel/workqueue/mod.rs b/rust/kernel/workqueue/mod.rs
+index 78e6a7bb960a..73fa0bea4220 100644
+--- a/rust/kernel/workqueue/mod.rs
++++ b/rust/kernel/workqueue/mod.rs
+@@ -212,6 +212,13 @@
+ mod builder;
+ pub use self::builder::Builder;
+ 
++mod scoped;
++pub use self::scoped::{
++    new_scoped_work,
++    ScopedWork,
++    ScopedWorkItem, //
++};
++
+ /// Creates a [`Work`] initialiser with the given name and a newly-created lock class.
+ #[macro_export]
+ macro_rules! new_work {
+@@ -283,11 +290,50 @@ pub unsafe fn from_raw<'a>(ptr: *const bindings::workqueue_struct) -> &'a Queue
+     pub fn enqueue<W, const ID: u64>(&self, w: W) -> W::EnqueueOutput
+     where
+         W: RawWorkItem<ID> + Send + 'static,
++    {
++        // SAFETY: `W: 'static`, so everything borrowed by `W` remains valid forever.
++        unsafe { self.enqueue_raw(w) }
++    }
++
++    /// Enqueues a [`ScopedWork`] item.
++    ///
++    /// Unlike [`Queue::enqueue`], this does not require the work item to be `'static`. This is
++    /// sound because a [`ScopedWork`] cancels itself synchronously when it is dropped, and
++    /// [`ScopedWork::new`] requires that this destructor runs before any lifetime in `T` expires.
++    ///
++    /// This may fail if the work item is already enqueued in a workqueue.
++    ///
++    /// The work item will be submitted using `WORK_CPU_UNBOUND`.
++    #[inline]
++    pub fn enqueue_scoped<T>(&self, w: &ScopedWork<T>) -> bool
++    where
++        T: ScopedWorkItem + Sync,
++    {
++        // SAFETY: The `ScopedWork` destructor calls `cancel_work_sync()`, and `ScopedWork::new`
++        // guarantees that this destructor runs before any lifetime in `T` expires. Hence everything
++        // borrowed by `T` remains valid until the work item has run to completion or has been
++        // cancelled.
++        unsafe { self.enqueue_raw(w) }
++    }
++
++    /// Enqueues a work item without requiring it to be `'static`.
++    ///
++    /// # Safety
++    ///
++    /// Everything borrowed by `W` must remain valid until the work item has run to completion or
++    /// has been cancelled.
++    #[inline]
++    unsafe fn enqueue_raw<W, const ID: u64>(&self, w: W) -> W::EnqueueOutput
++    where
++        W: RawWorkItem<ID> + Send,
+     {
+         let queue_ptr = self.0.get();
+ 
+         // SAFETY: We only return `false` if the `work_struct` is already in a workqueue. The other
+-        // `__enqueue` requirements are not relevant since `W` is `Send` and static.
++        // `__enqueue` requirements are not relevant since `W` is `Send` and the caller guarantees
++        // that everything borrowed by `W` remains valid until the work item has run to completion
++        // or has been cancelled, so the function pointer is never called after a lifetime in `W`
++        // expires.
+         //
+         // The call to `bindings::queue_work_on` will dereference the provided raw pointer, which
+         // is ok because `__enqueue` guarantees that the pointer is valid for the duration of this
+diff --git a/rust/kernel/workqueue/scoped.rs b/rust/kernel/workqueue/scoped.rs
+new file mode 100644
+index 000000000000..e490ac752423
+--- /dev/null
++++ b/rust/kernel/workqueue/scoped.rs
+@@ -0,0 +1,342 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Scoped work items.
++//!
++//! Provides [`ScopedWork`] for work items that may borrow data with some non-`'static` lifetime.
++//!
++//! Unlike [`Work`]-based items, ownership of a [`ScopedWork`] is not transferred to
++//! the workqueue. Instead, its destructor calls `cancel_work_sync()`, which guarantees that the
++//! work function is not running (and will not run) once the destructor returns. This is what
++//! allows the inner data to carry non-`'static` lifetimes.
++//!
++//! Creating a [`ScopedWork`] is `unsafe`, because the above guarantee only holds if the destructor
++//! actually runs: the value must not be forgotten. Once created, a [`ScopedWork`] can be enqueued
++//! on any queue using the safe [`Queue::enqueue_scoped`].
++//!
++//! # Examples
++//!
++//! ```
++//! use kernel::workqueue::{
++//!     new_scoped_work,
++//!     Queue,
++//!     ScopedWork,
++//!     ScopedWorkItem,
++//! };
++//!
++//! struct MyWork {
++//!     value: u32,
++//! }
++//!
++//! impl ScopedWorkItem for MyWork {
++//!     fn run(work: &ScopedWork<Self>) {
++//!         pr_info!("value = {}\n", work.value);
++//!     }
++//! }
++//!
++//! let work = KBox::pin_init(
++//!     // SAFETY: `work` is not forgotten.
++//!     unsafe { new_scoped_work!("MyWork", MyWork { value: 42 }) },
++//!     GFP_KERNEL,
++//! )?;
++//!
++//! let queue = Queue::new_unbound().build(c"my-wq")?;
++//! queue.enqueue_scoped(&work);
++//!
++//! // Dropping `queue` first drains it, so the work item is guaranteed to have run by the time
++//! // `work` is dropped.
++//! drop(queue);
++//! # Ok::<(), Error>(())
++//! ```
++
++use crate::{
++    bindings,
++    container_of,
++    prelude::*,
++    sync::LockClassKey,
++    types::Opaque,
++    workqueue::RawWorkItem, //
++};
++
++#[cfg(doc)]
++use super::{
++    Queue,
++    Work, //
++};
++
++use pin_init::Wrapper;
++
++use core::ops::Deref;
++
++/// Trait for types that can be used as scoped work items.
++///
++/// Implementers define the work function that executes when the item is dequeued by a workqueue
++/// thread. The callback receives a reference to the containing [`ScopedWork`], which provides
++/// access to the inner data via [`Deref`] and can be passed to [`Queue::enqueue_scoped`] to
++/// re-enqueue the work item from within the work function.
++pub trait ScopedWorkItem: Sized {
++    /// Called when the work item is executed.
++    fn run(work: &ScopedWork<Self>);
++}
++
++/// The payload of a [`ScopedWork`].
++///
++/// # Invariants
++///
++/// `work` is an initialized `work_struct` whose work function is [`ScopedWork::<T>::run`]. An
++/// `Inner<T>` only ever exists inside a [`ScopedWork<T>`].
++#[pin_data]
++struct Inner<T: ScopedWorkItem> {
++    #[pin]
++    work: Opaque<bindings::work_struct>,
++    #[pin]
++    data: T,
++}
++
++/// A scoped work item that cancels synchronously on drop.
++///
++/// `ScopedWork<T>` contains a `work_struct` and the user data `T`. Its destructor calls
++/// `cancel_work_sync()`, guaranteeing the work function is not running when the data is dropped.
++///
++/// This allows `T` to carry non-`'static` lifetimes.
++///
++/// Construct via [`new_scoped_work!`], which returns an `impl PinInit` suitable for embedding
++/// in-place inside other pinned structs. Because the soundness of [`Queue::enqueue_scoped`]
++/// relies on the destructor running, [`ScopedWork::new`] is `unsafe` and requires that the
++/// resulting value is never forgotten.
++///
++/// # Examples
++///
++/// Self-re-enqueueing from within the work function:
++///
++/// ```
++/// # use kernel::sync::atomic::{Atomic, Relaxed};
++/// # use kernel::time::{Delta, delay::fsleep};
++/// use kernel::workqueue::{
++///     self,
++///     new_scoped_work,
++///     Queue,
++///     ScopedWork,
++///     ScopedWorkItem,
++/// };
++///
++/// struct RequeueWork<'a> {
++///     counter: Atomic<u32>,
++///     queue: &'a Queue,
++/// }
++///
++/// impl ScopedWorkItem for RequeueWork<'_> {
++///     fn run(work: &ScopedWork<Self>) {
++///         if work.counter.fetch_add(1u32, Relaxed) < 2 {
++///             work.queue.enqueue_scoped(work);
++///         }
++///     }
++/// }
++///
++/// let queue = Queue::new_ordered().build(c"requeue_wq")?;
++///
++/// let work = KBox::pin_init(
++///     // SAFETY: `work` is not forgotten.
++///     unsafe {
++///         new_scoped_work!(
++///             "RequeueWork",
++///             RequeueWork {
++///                 counter: Atomic::new(0u32),
++///                 queue: &queue,
++///             }
++///         )
++///     },
++///     GFP_KERNEL,
++/// )?;
++///
++/// queue.enqueue_scoped(&work);
++/// # fsleep(Delta::from_millis(300));
++///
++/// assert_eq!(work.counter.load(Relaxed), 3);
++/// # Ok::<(), Error>(())
++/// ```
++#[pin_data(PinnedDrop)]
++#[repr(transparent)]
++pub struct ScopedWork<T: ScopedWorkItem> {
++    /// The whole payload is wrapped in [`Opaque`] on purpose: while the destructor waits in
++    /// `cancel_work_sync()`, a worker thread may still be executing [`ScopedWorkItem::run`] with a
++    /// shared reference to this value, concurrently with the `&mut Self` held by `drop`. [`Opaque`]
++    /// opts out of the uniqueness guarantee of that `&mut`. Wrapping individual fields would not be
++    /// enough, since the `&mut Self` would still claim exclusive access to the padding bytes.
++    ///
++    /// # Invariants
++    ///
++    /// `inner` is always initialized.
++    #[pin]
++    inner: Opaque<Inner<T>>,
++}
++
++// SAFETY: A `&ScopedWork<T>` only hands out `&T` (via `Deref`) and a pointer to the `work_struct`,
++// which is only ever accessed through the C workqueue API. Hence sharing it is safe when `T: Sync`.
++unsafe impl<T: ScopedWorkItem + Sync> Sync for ScopedWork<T> {}
++
++// SAFETY: The `work_struct` is only ever accessed through the C workqueue API, which is safe to
++// use from any thread. Sending the contained `T` requires `T: Send`.
++unsafe impl<T: ScopedWorkItem + Send> Send for ScopedWork<T> {}
++
++impl<T: ScopedWorkItem> Deref for ScopedWork<T> {
++    type Target = T;
++
++    #[inline]
++    fn deref(&self) -> &T {
++        // SAFETY: `inner` is always initialized (type invariant), and `data` is only ever accessed
++        // through shared references.
++        unsafe { &(*self.inner.get()).data }
++    }
++}
++
++impl<T: ScopedWorkItem> ScopedWork<T> {
++    /// Creates a pin-initializer for a new scoped work item.
++    ///
++    /// Use [`new_scoped_work!`] to automatically provide the lock class key.
++    ///
++    /// # Safety
++    ///
++    /// The caller must ensure that the destructor of the initialized `ScopedWork<T>` runs before
++    /// the memory it lives in is reused or any lifetime in `T` expires. In particular, the value
++    /// must not be leaked, e.g. via [`core::mem::forget`] or by leaking the allocation that
++    /// contains it.
++    #[inline]
++    pub unsafe fn new<E>(
++        name: &'static CStr,
++        key: Pin<&'static LockClassKey>,
++        init: impl PinInit<T, E>,
++    ) -> impl PinInit<Self, E> {
++        try_pin_init!(Self {
++            inner <- Opaque::pin_init(try_pin_init!(Inner::<T> {
++                work <- Opaque::try_ffi_init(|slot| {
++                    // SAFETY: `slot` is a valid pointer to uninitialized memory for a
++                    // `work_struct`, and `Self::run` is a valid work function for a `work_struct`
++                    // embedded in an `Inner<T>` that is embedded in a `ScopedWork<T>`.
++                    unsafe {
++                        bindings::init_work_with_key(
++                            slot,
++                            Some(Self::run),
++                            false,
++                            name.as_char_ptr(),
++                            key.as_ptr(),
++                        )
++                    };
++                    Ok::<(), E>(())
++                }),
++                data <- init,
++            }? E)),
++        }? E)
++    }
++
++    /// Returns a raw pointer to the `work_struct`.
++    #[inline]
++    fn raw_work(&self) -> *mut bindings::work_struct {
++        // SAFETY: `inner` is always initialized (type invariant).
++        unsafe { Opaque::cast_into(&raw const (*self.inner.get()).work) }
++    }
++
++    /// The work function registered with the C workqueue.
++    ///
++    /// # Safety
++    ///
++    /// `ptr` must point to the `work` field of the `Inner<T>` of a live `ScopedWork<T>`.
++    unsafe extern "C" fn run(ptr: *mut bindings::work_struct) {
++        // SAFETY: `Opaque<T>` is `#[repr(transparent)]`, and by the safety requirements `ptr`
++        // points to the `work` field of an `Inner<T>`.
++        let inner =
++            unsafe { container_of!(ptr.cast::<Opaque<bindings::work_struct>>(), Inner<T>, work) };
++
++        // SAFETY: `Inner<T>` only ever exists inside a `ScopedWork<T>` (type invariant), and both
++        // `Opaque` and `ScopedWork` are `#[repr(transparent)]`, so `inner` is also a valid pointer
++        // to the containing `ScopedWork<T>`. By the safety requirements it is live; its destructor
++        // calls `cancel_work_sync()` before the memory is released, so it stays live for the
++        // duration of this call.
++        T::run(unsafe { &*inner.cast::<Self>() });
++    }
++}
++
++// SAFETY: `&ScopedWork<T>` points to a `work_struct` whose work function is
++// `ScopedWork::<T>::run` (type invariant), so passing it to `queue_work_on` is sound. The pointer
++// stays valid until the work function has run or the item is cancelled, because the `ScopedWork`
++// destructor calls `cancel_work_sync()` and `ScopedWork::new` requires that destructor to run.
++unsafe impl<'a, T: ScopedWorkItem + Sync> RawWorkItem<0> for &'a ScopedWork<T> {
++    type EnqueueOutput = bool;
++
++    unsafe fn __enqueue<F>(self, queue_work_on: F) -> Self::EnqueueOutput
++    where
++        F: FnOnce(*mut bindings::work_struct) -> bool,
++    {
++        queue_work_on(self.raw_work())
++    }
++}
++
++#[pinned_drop]
++impl<T: ScopedWorkItem> PinnedDrop for ScopedWork<T> {
++    #[inline]
++    fn drop(self: Pin<&mut Self>) {
++        // SAFETY: `raw_work()` returns a valid `work_struct`. After `cancel_work_sync()` returns,
++        // the work function is guaranteed to not be running.
++        unsafe { bindings::cancel_work_sync(self.raw_work()) };
++
++        // SAFETY: `inner` is initialized (type invariant), no longer accessed by the work
++        // function, and never accessed again after this point. `Opaque` does not drop its
++        // contents, so we have to do it here.
++        unsafe { core::ptr::drop_in_place(self.inner.get()) };
++    }
++}
++
++/// Creates a [`ScopedWork`] pin-initializer with a new lock class.
++///
++/// This macro expands to a call to [`ScopedWork::new`], which is `unsafe`, so the invocation must
++/// be wrapped in an `unsafe` block.
++///
++/// # Safety
++///
++/// The caller must uphold the safety requirements of [`ScopedWork::new`]: the destructor of the
++/// initialized `ScopedWork` must run before the memory it lives in is reused or any lifetime in
++/// the inner type expires.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::workqueue::{
++///     new_scoped_work,
++///     ScopedWork,
++///     ScopedWorkItem,
++/// };
++///
++/// struct MyWork {
++///     value: u32,
++/// }
++///
++/// impl ScopedWorkItem for MyWork {
++///     fn run(work: &ScopedWork<Self>) {
++///         pr_info!("value = {}\n", work.value);
++///     }
++/// }
++///
++/// #[pin_data]
++/// struct MyData {
++///     #[pin]
++///     work: ScopedWork<MyWork>,
++/// }
++///
++/// fn init_data() -> impl PinInit<MyData> {
++///     pin_init!(MyData {
++///         // SAFETY: `MyData` is only ever pin-initialized, so its `work` field is dropped
++///         // whenever `MyData` is.
++///         work <- unsafe { new_scoped_work!("MyWork", MyWork { value: 7 }) },
++///     })
++/// }
++/// ```
++#[macro_export]
++macro_rules! new_scoped_work {
++    ($name:literal, $init:expr) => {
++        $crate::workqueue::ScopedWork::new(
++            $crate::c_str!($name),
++            $crate::static_lock_class!(),
++            $init,
++        )
++    };
++}
++pub use new_scoped_work;
 
-Bart
+-- 
+2.56.0.212.g129ede20d9-goog
+
