@@ -1,48 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.101.248.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792478523;
-	b=dSpZAVwk+k378gD+uUYcqw3YdoN8Pjd31xWbiPvoFAfGwYb+3YHoQ8NgHL9rdiAsLOoY
-	 WIwx+bQ2mIfcE8W6Z02uOv/rAikkfNAAHc6cGKPNA4/HQDC1jpx489Ayu7Wx98/tKOsVF
-	 eWSMnKKZJeqyhLKp2jbHL9XTpvIv1A+SsbTqpu45ldD13g5o2EIsImYtMzHAnkXbPoPr8
-	 16TZVKpn2UEUb+7HXR1n1qaR/yF4ncvl8XReTQEdWcV65lcdv7XLjyLhs00irpPHEeD9t
-	 WseFuzfzh1Vu+2WiZV2ge3TsGhTxhxzgs170B0NwfIaq5ObKJ/aGufotPTQFXBYXjIA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478523;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=0sGhfVf70RmnAcAzk6y7Lb3xZXdCmux3/eQgjBBlkKs=;
-	b=GgMsAHq4Mzsl35csZs+YiqP0p/n4RS7xnT3Y6qOFN1UyfTVLkWZGf9ANWQeNmwHnMrOP
-	 eumodtBQnU1y5qHdHvIlRmaEeLABW/BcOFxh0a8gVSCbSsAhm3eWpQptuX5ZLM6JjWTow
-	 7tRp3El1CiepmvhuM1p9SXhMtwIkAlR1TTuJLVIvsIEDs8YdvJcmxc5tz/apIDSZcvuoL
-	 w+aXr7sDnk/ZwDgq6t7+41KFsms/bm3Tm9GMrSSku1MB5fvITL1Vo6GPYiZ5or0uRisNR
-	 LSS3uQ12iIiYnu/HUQCH75/T8qiNy3C6W0wav5fK4Zh9sL4uFe4D8SgoMP48/x4ShDQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=eswincomputing.com;
-	spf=pass smtp.mailfrom=eswincomputing.com;
-	arc=none smtp.remote-ip=46.101.248.176
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7D3F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:42:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7D3F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0002472LT.eswin.cn (unknown [10.12.96.78])
-	by app1 (Coremail) with SMTP id TAJkCgDniXMgDddqfWGHAA--.19571S2;
-	Tue, 20 Oct 2026 14:41:37 +0800 (CST)
-From: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-To: Nam Cao <namcao@linutronix.de>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-Subject: [PATCH v4 0/2] riscv: kprobes: simulate nop and c.nop instructions
-Date: Tue, 20 Oct 2026 14:41:34 +0800
-Message-Id: <20261020064136.665-1-yuanxiaofeng@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.26
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792478551;
+	b=ghEeJa0F6HbfRjGAp9W0vZ2a72wlDIzW7QUZgRUFDH/vjGCXrI1IlcW4NjcmNZolL3SN
+	 aLn8D+wfl5cNdp8gF9qARupSSeIMmAgCPww5pZfgYZL6XB7hdYdsbCvBvpv40jYvlv2h3
+	 KTc+m6WvZBthosAwa8wDk9TcxuWV3RPG1f0xMeodcnNPDpq/Ub0zTekP5dvEfgmGTWEtH
+	 Np6p5qyNx51ssISufcLFZYtoAVa6/iZxPvomCN8IdAXnDX8J2ZCBZRE0CRceJfieQpX1J
+	 rnY4lUIxiffj9eLiueLUi6q4sOzdQwOaGcBWi3eWs5sVzXpzCn6fP3zUDbATs9T88/w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478551;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=JxaNGXJItpPThMo+f0/DCe+lhgtTFXUhOE3CRHRj/h8=;
+	b=DBoBMvg2NCQoQzFk+ZXFzJwXRlsUiVuOMx7GsfIEIFIUAN8Uy0vJd2GvX79lcJ/g0Xav
+	 D331BgM0VHyOpcXeXx0C4rEQVY0sA1F9lHjR2g0zcEZ3AY5AuOP3JTCUiFmaxQMxbTZe1
+	 s/KeknTDbQ9oO7EslLz6uAHHg040PEVDyG6GHigzLLfT01q8Oir6GwZGClvaTTgz30z+7
+	 U3D4oTO3h3q1SgYr/78ldPZR6kz6XRv/g42NLJbmJ4ftrbRgtirMbojU3+mviHA/QQMbd
+	 LKq8OTZ/TATNBfd3HvEKSgPlxyyYPNJ/qz/O6o3wSAt+yxJRwOVDLE5Zxr9rnqi6DRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PDSh6scw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.26
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011026.outbound.protection.outlook.com [52.101.62.26])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC2F606A319;
+	Tue, 20 Oct 2026 06:42:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EC2F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PDSh6scw
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lz03mZ56zwjlTP6Kt9h2OqkEXSGzd0GbtPbHj0r/uaVdesw6bDAmMVP+UtKVRhEhbl9wYFrzibNLxdHrgejyRawl4F/Mm/wbszNQlj7BLH+4dLD4Mk36yhiv2miFvUsmeh36CV1n/I05Up4DDvnv4BmjKNfA4jAaCkR/2wkfncfahMMFRcJPTdD/tpjxlTLbmwdHZ79QczVL/rvmu0FEoyZERDjHpwUt86H7+sIXmZiLPEku1G6+eFKqzvOaVKb1GyvN5XbiGMrHrHeD5csBRk5nVYRSCdsO8VXaxuzB6BEXJ/Lo2IQHH61lWFWgxjE46y60jtKCKcOHw640mHzsdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JxaNGXJItpPThMo+f0/DCe+lhgtTFXUhOE3CRHRj/h8=;
+ b=Z6OsNI2iaMzsv/RipSkAj+L4PbeLkkUPo3tlq/4Ma1WabQhBccR5FTCThjQn9wOBUt7QfQVJ0+Wo2Zukn6WYICynN/EjJDQRKgWhKXQ6U/b6Ca1fV6DiDcAuLgQReteUR+ZBksOwDeNuOPBbVjT9QHo8JonaewfAjnlrDxwROVEko73fZKaHsZcffpdgQzdnbnLRiGLX2pLiBJMnl8SXM3/LKIAgVyZE5UJHknQu9I6Z4nQGU5F8BTRoJHYZ/viKINYl4rzvdAcMbzF8C1jkL9JnIHKYRfdU6EHr5loXthQ8moCYO62aUSVd751iLkZYAnWlKE9i+LfIJHVervBgUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JxaNGXJItpPThMo+f0/DCe+lhgtTFXUhOE3CRHRj/h8=;
+ b=PDSh6scwW8T2i/odKnK5G8Dxcdn77ghVMvtuEYaStVrDW2nDmpvUe8J1Mko1VSTeuvuj6fxf2ZUgnzH8TT3SfX7722+po+YXW2H3aO88PVDIY/bavJGkOrtS6/+4lWq6LkpBjDfj6wFD88Dps3oAIh3f2rLEYfXFh3Z8yZ43WJw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS4PR12MB9658.namprd12.prod.outlook.com (2603:10b6:8:280::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 06:42:23 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 06:42:23 +0000
+Message-ID: <dc91d903-139d-4253-83f7-51a78dd4530b@amd.com>
+Date: Tue, 20 Oct 2026 08:42:18 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Restore the scatterlist entry count before
+ freeing
+To: Leon Romanovsky <leon@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
+ Ankit Agrawal <ankita@nvidia.com>
+Cc: Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+References: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
+ <20261019183146.GH64621@unreal>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261019183146.GH64621@unreal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0342.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ea::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,88 +102,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgDniXMgDddqfWGHAA--.19571S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJFyfWr1DZr47Xr4xur4xtFb_yoW5WF43pF
-	sIkwn8Kr4kJwnxC3sxAw4xZFWrKws7Jw4fJF47t34rta1UKF13tFn2g3y5ZFnxWw4Fg34a
-	vF17Wryvkry7ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUva14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
-	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
-	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
-	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
-	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyT
-	uYvjfUYCJmUUUUU
-X-CM-SenderInfo: h1xd05xldrwv1qj6v25zlqu0xpsx3x1qjou0bp/1tbiAQEGE2rWRjQeDAAAsJ
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS4PR12MB9658:EE_
+X-MS-Office365-Filtering-Correlation-Id: bfda978e-652c-408c-4404-08df2e754beb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|7416014|6133799003|18002099003|22082099003|10067099003|3023799007|4143699003|260925021911599003|260925022911599003|260925021311599003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	HAHP4qFsbxQAHsiC69iRw/Ppb4np9gHf1+C/fm+VQJJ+WF5HWzkk2lsnIqQj9hdzQCX4TmLuSC/UUNVZ0PWEU8XWUPaCPgCQtD+rzj3f3/9kW3HaJlaQTf9xOJhHM2BfjvPBgbpc2q30W9KonXT+//PGreuTYKwe1s1QRLv5Qx8kZk9CDD52ZTg7Z16LQkjAtUJBpH79HjDjO3/sM0aSEmKHqoZfhATZxm+/B8491zLhH+v6e4KGqspk8jCnlcz1HUGYn/EQncvkOzUqAL67eGeeAjJNt37v2X8Sd1aLFA7+3P/J8z7YYYeC1dNd1dLqmfbiWLEe4CTFBz5rq7QXS8OEKSdZTsArRa7JjRUd+wb8G7LD1A4qbwoY3qLj2lfsDOSHoMK0JlBwihU3oMSLULlaG/dfFkX9hTFw0lCuXrVRt4QfZs2KBYTdXyGQKrxOMfHFb/nAudmm8wy92w7aK88D5ZDBcsaeo0yhEDrlg3Eo2ge/lAPADbXmvBMHz9cEVqZlvWFagLMReZ9P9BmjeA5NS2CfmwVU8W0i69HVGSkX77pp1KrEXm5B1/F2UpsrC46i0Tfu6TIwApto/z4ZX7jPSOHnJUyN48JHyJqRE8V5ZCCNU2YgKHaemkirpbjbDRp+y+J6HjG/OxFIBDp4EVXh3Hh5NPXg5h2heruHHo4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(7416014)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(4143699003)(260925021911599003)(260925022911599003)(260925021311599003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q3BreHlyNXpWN0QvVjBJVnVyeGlVelNpOE4xL2cxVno3RlZ4SWp2OU5UWmNR?=
+ =?utf-8?B?UGVVNzFiSHRkMTRJMnBXWWNJWlNoVDZOZUR2Q1VuOHlXUVk4VTR0T0V0eE4y?=
+ =?utf-8?B?MlplQnJCbVBTcjFqbGNwOFFXc2FPc3JBUm5PczZXMnh6RllkaENOa3JsVWZ5?=
+ =?utf-8?B?alJORE1ISC96TFVRcUxSeUkwV05mdGx2cVRlUXNRazNZTkgvVW5ZUlJQNmJS?=
+ =?utf-8?B?eUl3cndaYlJ2dmpIQnVmcEN5ZFc1MnNTeVBVMUtnODBaUFNXV0NBeGxUSCtX?=
+ =?utf-8?B?MVRmb2VLSk5kM2RsQUVCS3lrOTI4UzA0SGpKdFdETlZweUl5d0lOMnFaeWMx?=
+ =?utf-8?B?WDB2TlRBbkl3aU5wWldtZE5HNklveGtJQWFha1FZTkJBeUwvR2VuNC8vekli?=
+ =?utf-8?B?YjhzSkFlNk4xTk5uREFQR3RzWlk3NFdLM3ZoKzlKdDFvNDdqUEtIYmVhK2Vq?=
+ =?utf-8?B?U1FTNWJ4V2FGam9ITlhtSUt3T3I4Z2ZZeE16VTU5eFBqNjlGcWpiWGE2Smdz?=
+ =?utf-8?B?R3B3eGc0b1NjekRtUytRa1VuNkVPcklrTVk0dFpsd3M4NDh6dGE4VHRoQWhJ?=
+ =?utf-8?B?NnZNYkhLbmVQQXVOTkVKRkRKNXNYRzJ5RXdRL1JhVVlWb21Zc3VQR3N1NCtQ?=
+ =?utf-8?B?Y21MNUhSMnVQcXJ1Qzc3cUJDU0p1a0xLTHZmMHhneTNPODBKcWlEK1JvYm9M?=
+ =?utf-8?B?QU42TWZ0Z2JLQTlIM2p2L0V5WExWNi8rODE5Wi93ZjlwbitLQmFnNmxSY09n?=
+ =?utf-8?B?MkpvL2xNa1pvSWVka2FKSTZjUGFnODdWNjhVNU91TzRHUUhZSnBaajNRS05T?=
+ =?utf-8?B?MmlDU0NEbHpVeldLbXRwdXdiTmExZnJWMWRCdGhGdE9rL3F1dGlkR3dFUVIv?=
+ =?utf-8?B?ZFozanhtdmowWVpOVUdiWlExN2hBM3YxWk1vTzNuZzF2QTFFYlF4djRKNWtq?=
+ =?utf-8?B?NkRZQzlhY1V0a3Q5Tk1qT1l3Skwvbk53UXYwU1Q3ZUpuazlIQTlTRHRQRkh5?=
+ =?utf-8?B?dzE0TC9taG1rSk5iNkpsbHg3WUJtSHVPZnhjMDVHQlZ4UjlpVHVuM3FzNWZD?=
+ =?utf-8?B?ek1rK041RFoxb1ZQNjExbmxUQVk0M3N6TzZ0bnl5REp5Nk1xamp2YkFwc1Y3?=
+ =?utf-8?B?RGloa2NLUHlxUzlmNUJ4cVVNZ1I5ZFAyQW5XQUxqSUNONHpqcEE1TC9vNUpw?=
+ =?utf-8?B?Y2l1WFEvemVBWmQ0VWFOS1dOSGxsZ3JETHU4UVRJOWVmdDdBbTQxSjAxWjAw?=
+ =?utf-8?B?QThpUXc3TEVCellsSm1QTjliY3JrMTIyYzNaTkk0dTZwQ3BkdENKSncyemZz?=
+ =?utf-8?B?ZTJHUEg5Q0JLTHdPZEo5UWQ4anlwN255MFJVTHJzQjZOVU1SaEdMSnBtWWdo?=
+ =?utf-8?B?RE5NS3B1Y3hwZzIyOXJUeURKL0Uxd0NKZUxVajhocW8wTEoySGViQUFtNFox?=
+ =?utf-8?B?NFZvZU80bDJyeHpDaFpIRUswejVZU0N4YmYvUnNmZktIRnBqVkVWWVI5RHhH?=
+ =?utf-8?B?WWZSZE5aRkVuVmRYd05RVml6MDhuci95RmdqOTNINS94a0p2elNUK2pJdHZn?=
+ =?utf-8?B?YVkwcThuSXI2RVl6MWhJUVhIWjl3cFBOOWxuNGJMNjFjUVh4R2RrVTZqU2hB?=
+ =?utf-8?B?a3FoWWhqV2pTclZzRnNkMFlkZE4rU2lpRmNNYUZacWlib3YxRTJFTlEzRnFy?=
+ =?utf-8?B?WHR0VGNwaE45aENYNVBVSHJUMjZFcmJLRVhBM05US2JnV3YrM1h2MTdRbDhk?=
+ =?utf-8?B?TzJlRThVanNaQWtsRGdhVmY4dEpLZFV6SjlTT042d1ljUUlKUkp3VEdVMTZa?=
+ =?utf-8?B?WGlqdUc2UVlEZ3JWRUZTZUl0ekVsYy9SbXVFTERqcldQaVFZN3J6WDNvZlBs?=
+ =?utf-8?B?OHJ1N2owUjlRZlhPOXdXVklWL0RoYmJBcU1zQ0dPQ1l2ZVVoTDQ2ODk2b3RE?=
+ =?utf-8?B?ZzcyUE5tSXJZSjB5VUp3VE53OHU2RmQrR0JzS3pvUkdSa3NlbllpZS9kVFdU?=
+ =?utf-8?B?WjhMWmRwR1FsRlJCamJzM054cmgwNG55TmhObFc0Q1B6NXJqQUxLUTcyS1BJ?=
+ =?utf-8?B?a2hBdThDTG1MVmZ6aHVaWS9COHZhNHV0ZEU1YUpHNTBCZ1hTQzFDU0hWeXJU?=
+ =?utf-8?B?L05Sd2RkaFVuVE9EenlVNzdtbmFxMHZaaEdMZ3lnYUpnZjN0V1piZVMyTW9X?=
+ =?utf-8?B?ejVlVVRuMVl3THNwNlA4RGZkQkVlYmNucm5XRFBXZnIrYWdab0IrNUtSSWxm?=
+ =?utf-8?B?MU9IQWJvL3lhRThDclpWVkRQZkQzYVRQa0hQSHdRM0J3VS91aFVRYzV3R0JT?=
+ =?utf-8?Q?t2occyHxVHuUUlnHSV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfda978e-652c-408c-4404-08df2e754beb
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 06:42:23.1523
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WtapGk3nZuaW6LhedchaEEHuej2HZMvie1Lg8RpScOVBzHlyHKjA16XaOqSFsCV/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9658
 
-Per-hit XOL out-of-line execution of a probed nop costs an extra
-exception round-trip (the slot's trailing breakpoint traps back into
-the kernel), and for uprobes that round-trip is a full
-kernel<->userspace one.  Since these instructions have no
-architectural effect, simply advance the program counter inside the
-breakpoint handler instead.  riscv_probe_decode_insn() is shared by
-kprobes and uprobes, so both benefit.  It primarily matters for
-uprobes on USDT sites: under the SystemTap SDT ABI, the recorded
-probe location is by construction a plain nop or c.nop.
+On 10/19/26 20:31, Leon Romanovsky wrote:
+> On Tue, Oct 13, 2026 at 02:46:24PM +0300, Leon Romanovsky wrote:
+>> From: Leon Romanovsky <leonro@nvidia.com>
+>>
+>> dma_buf_phys_vec_to_sgt() clears orig_nents to mark the returned table
+>> as DMA-only. Since sg_free_table() uses orig_nents to walk and free the
+>> scatterlist, dma_buf_free_sgt() leaks the allocation on every successful
+>> map/unmap cycle.
+>>
+>> Restore orig_nents from nents before freeing the table. The helper
+>> allocates the DMA list directly, so nents retains the allocation count,
+>> including for chained scatterlists.
+>>
+>>
+>> The reported kmemleak output was:
+>>
+>> KMEMLEAK LEAK: 2 driver-related leak(s)
+>> KMEMLEAK LEAK: unreferenced object 0xff11000125ceff00 (size 32):
+>> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295031027
+>> KMEMLEAK LEAK:   hex dump (first 32 bytes):
+>> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>> KMEMLEAK LEAK:     00 00 01 00 28 38 00 00 00 10 00 00 00 00 00 00  ....(8..........
+>> KMEMLEAK LEAK:   backtrace (crc 4e8077f2):
+>> KMEMLEAK LEAK:     __kmalloc_noprof+0x451/0x8b0
+>> KMEMLEAK LEAK:     __sg_alloc_table+0x2a0/0x4d0
+>> KMEMLEAK LEAK:     sg_alloc_table+0x24/0x170
+>> KMEMLEAK LEAK:     dma_buf_phys_vec_to_sgt+0x84f/0xed0
+>> KMEMLEAK LEAK:     0xffffffffa1ad21a8
+>> KMEMLEAK LEAK:     dma_buf_map_attachment+0x138/0x690
+>> KMEMLEAK LEAK:     ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
+>> KMEMLEAK LEAK:     0xffffffffa138f8d2
+>> KMEMLEAK LEAK:     0xffffffffa1396abe
+>> KMEMLEAK LEAK:     0xffffffffa1331a5f
+>> KMEMLEAK LEAK:     0xffffffffa13320dd
+>> KMEMLEAK LEAK:     0xffffffffa1ad696d
+>> KMEMLEAK LEAK:     0xffffffffa1acecc7
+>> KMEMLEAK LEAK:     0xffffffffa1acfd17
+>> KMEMLEAK LEAK:     __x64_sys_ioctl+0x72c/0x11f0
+>> KMEMLEAK LEAK:     do_syscall_64+0xa1/0x4f0
+>> KMEMLEAK LEAK: unreferenced object 0xff1100016dbf3a80 (size 32):
+>> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295034705
+>> KMEMLEAK LEAK:   hex dump (first 32 bytes):
+>> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>> KMEMLEAK LEAK:     00 20 10 00 28 38 00 00 00 10 00 00 00 00 00 00  . ..(8..........
+>>
+>> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+>> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+>> ---
+>>  drivers/dma-buf/dma-buf-mapping.c | 2 ++
+>>  1 file changed, 2 insertions(+)
+> 
+> Reminder, thanks
 
-patch 1: simulate nop and c.nop in the breakpoint handler.
-patch 2: extend the RISC-V kprobes KUnit test to cover both.
+I'm waiting for anybody familiar with the code to review this.
 
-Measured on QEMU (RISC-V virt, emulated): per-hit cost of a uprobe
-on a USDT-style nop site drops by roughly 80 percent; a kprobe on a
-nop by roughly 40 percent.  (arm64 commit ac4ad5c09b34 measured ~2x
-on real arm64 hardware for the same class of change.)
-
-Changes since v3:
-- patch 1: drop the NOP/C.NOP encoding comment (per Nam Cao's review;
-  the other macros have none, and the encodings are in the spec).
-- collect Reviewed-by from Nam Cao on both patches.
-- re-ran the QEMU benchmark on a next-20261019 base: uprobe per-hit
-  cost drops by roughly 70 percent and kprobe by roughly 30 percent,
-  the same magnitude as v3.
-
-Changes since v2:
-- patch 1: no code change; commit message reworked per Nam Cao's
-  review:
-  - dropped the kernel-text nop motivation (jump_label text sites
-    cannot be kprobed; register_kprobe() rejects them via
-    jump_label_text_reserved()), and the mcount claim (the function
-    entry instruction is an auipc; the nop sits at +4 only).
-  - corrected the attribution of the arm64 prior: ac4ad5c09b34 was
-    motivated by uprobe/USDT benchmarks, not by a generic "single
-    step is slow" claim.
-  - described the per-hit saving precisely in XOL terms (one extra
-    exception round-trip; for uprobes a full kernel<->userspace one).
-  - added a USDT-form uprobe measurement (ftrace uprobe event,
-    emulated QEMU), in the style of the arm64 series numbers.
-- patch 2: unchanged.
-
-Changes since v1:
-- patch 1: add use-case justification and benchmark result to the
-  commit message.
-- patch 2: simplify test functions to load KPROBE_TEST_MAGIC
-  directly (per review).
-
-Verified by cross-compiling for RISC-V and running the kprobes KUnit
-test in QEMU (ok 1 kprobes_riscv).
-
-Xiaofeng Yuan (2):
-  riscv: kprobes: simulate nop and c.nop instructions
-  riscv: kprobes: add nop and c.nop to the KUnit test
-
- arch/riscv/include/asm/insn.h                 |  7 ++++++
- arch/riscv/kernel/probes/decode-insn.c        |  6 +++++
- arch/riscv/kernel/probes/simulate-insn.c      | 14 +++++++++++
- arch/riscv/kernel/probes/simulate-insn.h      |  2 ++
- .../kernel/tests/kprobes/test-kprobes-asm.S   | 23 +++++++++++++++++++
- 5 files changed, 52 insertions(+)
-
--- 
-2.34.1
-
+Regards,
+Christian.
