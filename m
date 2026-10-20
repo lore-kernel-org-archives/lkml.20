@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792472117;
-	b=hji6KZhn4xMORbZXXpc+p7Ln/yCkOJTcRZ9s63Pnz2cvE+HuiNcFiOJJZ/w4++RvpH2o
-	 cNCOpY+aS/DIFIU4nETjtvSpY9PYOHtTHwkq6dp4Qq18bE7Ly4kDQ44ygPshdPd7CTtbv
-	 mjEZ6nWN4TdxX52/Dc2xU7MJZjFudGPJ9fQN2zZWq0NzQ+zpqIDguPUwq3BV4XqKpnsfB
-	 pyk4uX0m+4JPFVNR0dxnL4HQSTmAYBnq6qga3XORhfhLWSxGMecr9HPTKNbVMwc3IG3xj
-	 zU36K3OY8xQsGH3bQ8AoAQusW4deD0IYpNcBLBrWf8XB8jOeJ/aaK7LUwegXzLDrGCw==
+	t=1792472283;
+	b=b8ST58ATmw27AqYaXaYphBfjfLKdBRcBV9vx157IP77aH4VSpv2LTXzPrgTLIjr5y8O1
+	 wm3gghMaNGpZZI1/cK9iXjYA6P21sUQ9Poy+BgOj9EDACdPP9nDkTjOYXdd16VEkRzXm8
+	 oJQLjqZ2jm7AUHwW9knWvnP/liVsb31JVjm7LujmI7N4Py1Z+aZEobUXX3xaGgzlc5lug
+	 4raBfJfAGQPDl8XGOy8IJqiP53WPTFq3SdL2hmJUeNHaS1HN0vniKev+8c94yosgmcFIA
+	 YIdLpK1mOilhBlaYz3zvsG8xdwQiuo9RqH/V+0DqnnlJ0fefHW6+kot6ddZqBLCwvvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792472117;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JWmybeGplPkSTpFTj85ztkArMWjjQyueHRK8ugu3OPQ=;
-	b=MUaJqPB6FAGxCXcSglI0O41j7yoij+0PnxyJueytcszwgGJr5aGeFAd12VA6/siFD+NX
-	 PBSkqFVFT02hivmHgdRB7Y2ZBNz2D6Fo1k3ipi9mIw1eqY7dwlwTVU5MNdwDEL50kqn5b
-	 VDDFZbt7BygETC6vQ0aF3D6nJ8eKW5z4nUcQRElOs2o4h2tCUcdvoZnk1nFZi4nW0ymEg
-	 8b64Cz4TZhdOreWoVnFj/Rz7FOcj2dJqzkcQhwPA1E80ZoAu8B+GZCn0MQYBSn/XUzINh
-	 5vuNMfms0aUSN/Vbbo0N9F7czgTLXUYzpI0QjzvzPfYz7SCVXEh1EMmaExDK4R9KSDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792472283;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=PXvHI4ZMZs0RxUKTgV1Lb2DAyFnkL0Lb9mKLkFmdCz8=;
+	b=4NlKBUICyRCWRT2w0usWsH4AWALnTikRm1BbuZNahsrGZaAbgiVoCnOi+abABc/962b1
+	 lsV1ZyRwCwMzvb/NF/doVh6TU4x2Q/Mzsf3PBZYOYivT7s8ObyaK4QWd1MA6q4/AIlXA8
+	 lIt6t7k6ZjJkRZ6eR144tMqIqwy5GWdnvLYr6MS3OyGcfm9kIntAr2lPyXJqVEJAhXvuI
+	 fqFhnltPYiMadR/7cxJiX1kpis+6TTYbnNKMb6r1V01vCoEseCHt3V4iKN1J2Y7Amby6G
+	 zNKCDO8GQNlEI/8zKkuXsBqlkppZTJ2hJ4FDxfIbEVIJaUkX/cruMDcJskhm0E+gY3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ePbOYlT9;
-	arc=none smtp.remote-ip=95.215.58.132
-Received: from mta1.migadu.com (out-132.mta1.migadu.com [95.215.58.132])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0254E606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:55:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0254E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ePbOYlT9
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LFjs2kFiCzLrj4HtSUdWz5JO/YUmh3RAwrRfcIouXUQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792472109; v=1; x=1793076909;
- b=ePbOYlT9ZgnXHYmY2hQEgHhhrvgS4wZU6iluN736mIvkP2GdxPk9KcZppbWxvbHXuLdqSNV4
- 5KfNhVGrs7uD3xXEMzsN9MT+PO59R8zz6sjz/CQh3LuD1mBpY+NiaxqukauYmqf4evU9c7Fn7j8
- 7NxxFUmr7yAYnLeCvDmjh0PU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id da4906023b4f5813;
-	Tue, 20 Oct 2026 04:55:04 +0000
-X-Mizu-Trace-ID: da4906023b4f5813
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2d307dae-41b7-45cb-a35d-6cbfb09cde04@linux.dev>
-Date: Tue, 20 Oct 2026 12:54:56 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656DE606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:58:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 656DE606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b26d8d2498so4313648b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:58:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792472282; x=1793077082;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PXvHI4ZMZs0RxUKTgV1Lb2DAyFnkL0Lb9mKLkFmdCz8=;
+        b=2jIYW0dclgPJKiy5gyy1+7ixG20EQXiSxlIhviEKnxSwOxTiirZF8qvpQZElNpwGYh
+         6ikPzCoEcCxMj5I8cRgfovRg0cW3u25VwcLtyNQF+HbsTOpso+FVp4sfCEp5R7PHkJAO
+         B2OimfQPamy8DURCTfvCjDRkBGS43D3+eKg1pWwK+IsoSBD45uEWfJco/s1E3mz+JFX/
+         L3+BHxR47SgOwCJ26REenv1eYj4i/ueVu+3e9Cz6fVNvRZIWEp+nUdBnBk7uHTMWzAZL
+         UfOkDrZQuOV44JO0GoNGAlOq++MXBWEbGZCv0ZbVtAje0nhZQ1H1iJjyJyUBNGEDhcH2
+         c2hg==
+X-Forwarded-Encrypted: i=1; AKwUvBzF4qnWavxLSgem+Xl6ETxmjv0cfjY+6UTMBScdsugGsHl8Y0fbP765IMTdT37l2B0hy/U/U54+g+ky9S0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcBDpbbd3Lv5N2ACuYar0QFa0FQvyFXGEr872EkigdiMYO3Fqn
+	ih6Jy6cXoq6GiLSjnFneZGWrGY8AP0MDBoMVvBUi8p3O4IO9PVwDffhiI1lCBe/d+kx5//gqpeR
+	NBRv624+3JcEoaEckxtUYT+6sbqvg0TID8L9KVPJIBy5421m2DGYbGo75wF4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,65 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 1/6] bpf: Add syscall common attrs support for
- link_create
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, bpf@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Shuah Khan <shuah@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- Hangbin Liu <liuhangbin@gmail.com>, Martin Karsten <mkarsten@uwaterloo.ca>,
- Masashi Honma <masashi.honma@gmail.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261019153628.15912-1-leon.hwang@linux.dev>
- <20261019153628.15912-2-leon.hwang@linux.dev>
- <DM9282PWYQD9.21LDVIJ8824AL@gmail.com>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <DM9282PWYQD9.21LDVIJ8824AL@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:11ce:b0:4b3:8d45:aa2b with SMTP id
+ 5614622812f47-53cd247bd9dmr7816065b6e.16.1792472282388; Mon, 19 Oct 2026
+ 21:58:02 -0700 (PDT)
+Date: Mon, 19 Oct 2026 21:58:02 -0700
+In-Reply-To: <20261020042900.875-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad6f4da.f84f00d0.6bdd.0011.GAE@google.com>
+Subject: Re: [syzbot] [x25?] possible deadlock in lapb_data_received
+From: syzbot <syzbot+059a2795ad4cff2a2695@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 20/10/26 03:25, Alexei Starovoitov wrote:
-> On Mon, Oct 19, 2026 at 08:36 AM Leon Hwang <leon.hwang@linux.dev> wrote:
->> +	ret = bpf_log_attr_report_size(&attr_log, 0);
->> +	if (ret)
->> +		goto put_prog;
-> 
-> can we drop bpf_log_attr_report_size() ?
-> Nothing is logged when the attach succeeds, so there is no size to
-> report, and libbpf zeroes attr_common, so log_true_size reads 0 anyway.
-> Finalizing only when ret < 0 already keeps -EFAULT away from a live link.
-> Then no need for the 2nd write, the log.c refactoring and the put_prog
-> label.
+Hello,
 
-Sounds reasonable to me.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Besides libbpf, other BPF loaders, e.g. cilium/ebpf, also need to zero
-attr_common before calling the BPF syscall.
+Reported-by: syzbot+059a2795ad4cff2a2695@syzkaller.appspotmail.com
+Tested-by: syzbot+059a2795ad4cff2a2695@syzkaller.appspotmail.com
 
-> 
-> Something like this (compile tested only):
+Tested on:
 
-Will change like this.
+commit:         70dd4ee7 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1701cc95580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
+dashboard link: https://syzkaller.appspot.com/bug?extid=059a2795ad4cff2a2695
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1250b831580000
 
-Thanks,
-Leon
-
-> [...]
-
+Note: testing is done by a robot and is best-effort only.
