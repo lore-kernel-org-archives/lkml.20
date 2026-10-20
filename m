@@ -1,93 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792485893;
-	b=QtEDXvbbZXH3eOVwoXDDzcIM0pr7KMfPx23RwsWBsOTytU8k8wodeybmPiEID2IRmvCH
-	 aXX1zn+ULPu2GdPkkVaJF63FWtJ8buWyHq7Q/Wt7zoMl+503trw1mTSrlKGHE57Cg0d3r
-	 VoZZoVB03dTs7lKJSLcFi+vM40g5VTAA5+nSxv035c0nWyIl9kOZ8PBzlxA+PV5b17/kU
-	 Z5dDkBPoyHZbHzKGqPscs4llKTiutjtMX2prirFdNm7Z1DGx/3U9WBHHUifN1C3ke0Kc7
-	 yYWFRC15LFk/yzsFsCrey7tDANMj0AyvkOzivmeQzof6zjMWm/+/mAy664C4lBPZaAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485893;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+lGJ6BADoHgdKMcBI6uAuyv4TQ1R+n8qZXhWOmKkMW4=;
-	b=G0G47UdLTkrj+TJGZB1OKWfqOfTD2I286UYZG/9lAZZvRV4VE7nPwAR3ofgZ2fQlRtfb
-	 F8+gYwsdSC2PzWdww+aFRQAPvzDKcv+3tLL8UsUMp2MopyvNICqbd13MwSLlk7J7dPYso
-	 NrYs3JcpLj93jUcWPqW5xcnFqUMWfA8NsTCcllVd0yGc/KwEpLaGeJA8ftN1jfEksfVDo
-	 mkL2bTQkJxjZMLuArYfV4Rq+3zG8zLV2VCkcbQ1Jf+xt7QbWkcHLm+prVBXeq9rEhyl2s
-	 gu4IvPdCxqPBfojS0SlZX+XSabTcOhZf5jv3K7X7z11mDSSXdrCZbWisteLUd1q91yw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XyVqg6OO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.71
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010071.outbound.protection.outlook.com [52.101.193.71])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792485888;
+	b=0LWp45vobRQXwGNy1Fr6HMhqAoiwEnYnuJgcb1ZytJp4pdnzCpwx7ohnufULtBFKm+57
+	 i7abPmhq1YvDeqMPFgbVqhZ2mhio2ybn/ElxXuU846QXPKmbpSbrQALy2uF8ZqO5Y+C0I
+	 tXKe00qacdKxle7+HdqrPiSBi/pIbFZHGoVpLC24wLnW37WrO4Hcbrpo6LJkuzBv1I4QY
+	 V+tkgDGUja8WIXIE5bVNYy6BuRX9jRhCdO0C1WYWq0UMhZv88O7KoRrUaT9aSR4ZznxEG
+	 T35MqQWdatk/KW/7qZiawRWaiT0S2+CH12ATZ5FmkUKyKUFSNrg1bLFQCh6FaFRC9kA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485888;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=IOykgL61cuW1n5MEW266fwr0my84aNUsRAsiOJrq0cY=;
+	b=OTbPsPhGbqrayP5r+rA5Vv/7cJPIogt4mY+oXmnlf9PvuwGm6MPxsLXA4okFxArwAhJP
+	 Rj0HSXhdm6fpMVMiwXHgeHrBe99Rw7xGR4Wb5CZGauQwdZVfdNioAMngZDXDtiSuG4KmN
+	 Q5+pEglnanSs0Vnx403YIIuHkCdNUMMZtKAyvPuUuQ/Kiek6iVWXnsGZmd4CPoykRiFWP
+	 9zygWqOQJSUkbIxKDx7iNoXTk2rZW/TCIuvrUsQO2ywIhuK+vGrWvJIXDXnqJ1BRqDp2+
+	 btCyzcl0bU8KUy5Urwo095W4KXkdJmA3WMcB//BT5+N5mgjwjaz8OYsoUeOHalzooxg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KRQLYxEG;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2F760A3802
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F2F760A3802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773C5606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:44:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 773C5606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XyVqg6OO
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XS3MxckC7DqK1RUwITUcwqaqZv+EyAz9GVcbFNItNhHWjIRiOw/pcCDJt+nSz1xx3nm+ZbvWgBhzb9+2cN4aNBVhG/h5vdF4mKZT/JAbBbi6ffHdhgJfNZMIE340HNWEpiCcBHTygU1LmajHm/rEJ1pGt/DR2Ok2P5uzbaTlpQ4Qt6k/y7zgYqrOTjRRoUKIwkxgvQ7Ig6s7OHSfbuJ+kSUX6A8XcJScdARe6cmE2lwIYwpMJeS5Yv+VN+DPnTpdTo6zhSIMtQaurVI514VddaAEc1oBce/NKO54mAivxIgoP28O8gZ+1iVFfMGuHXUynjfDyR/9/xoXOhA8rhoNbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+lGJ6BADoHgdKMcBI6uAuyv4TQ1R+n8qZXhWOmKkMW4=;
- b=OyzkfY7JwmHV7uNeNc/ENA1L9gV5Do6pau5bnBZmKSG4K6M+4S2lrQPzwSbNWBJ7zdGOvHSEcJXgb12fOlBb7H2I8NBLJX611zMwxz2LV8tjV1AyI9KHB8MkCaHnvOpf3rrPorpLDbJP2UgixbF2rz5DPE3nctNTbFI4+Tdt32lVqU7nAwmnRDF4aj3hKgeYxPk84xtamyAL5eFtAS8kjZEd5ZvxE1AMGS2mndZWlgEhv13u+dJHjW4XzWTUKEgcUOOlPEnxJEqwJaeAXueuFqtLeqBzL1ApLuYJmKCLxW7ntxtQi/hDvfjlE6jHGVxSHE7whQdjrxfHrb2FAMsCew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+lGJ6BADoHgdKMcBI6uAuyv4TQ1R+n8qZXhWOmKkMW4=;
- b=XyVqg6OO5OxoPqy91tVFcuU8+15q6TUOGGbJ/YDnqTLsTdjarON9bP/m8WgTKkZ66Q6oKOgztP7XHKBKB+KCMWNVZ0FQm6AQ0Drju6sGntjbbA8ovDPw929noajDrAFrUFcA3dKA6wYxjBziH2gjzpQMRzKnlyJ1rRj8YuNsqf3Cj7r9ngJnkIZs0Y21LiMOR5lY3lr43KhRShQoyklmJIIxeIm19Uo8D0lboZ1lVjKgvM67BCDM0daS40RHouvJ7VQfG+vUelEKjbYr8c/p4/OGxweiuHJ/qD15kbjgkNAu1MRGjHNrulzv10fXZnppNnbSPF7cCCfzcBBky4PAoQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by CY8PR12MB7220.namprd12.prod.outlook.com (2603:10b6:930:58::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 20 Oct
- 2026 08:44:50 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 08:44:50 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: Emil Tsalapatis <emil@etsalapatis.com>,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCHSET sched_ext/for-7.4-fixes] sched_ext: Fix proxy execution balance callbacks
-Date: Tue, 20 Oct 2026 10:43:18 +0200
-Message-ID: <20261020084400.845842-1-arighi@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: GV0P278CA0083.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:710:2b::16) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KRQLYxEG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=IO
+	ykgL61cuW1n5MEW266fwr0my84aNUsRAsiOJrq0cY=; b=KRQLYxEGE+edIZKd6T
+	IeD256uCOjN5yZojzWy5Eyuk4ydCIg2aVprnATiKSd5jycnz0jc0MTS7ZQmBpFWP
+	aVvc+YptV+VbxWFRlc67NF8T2jHNuJc4mAA4ja7wFcZrIdU99/HKAy1ZsOfWckGV
+	IptZhVJLRMAheJGPXIus4tius=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3XyPnKddq1latBA--.56704S2;
+	Tue, 20 Oct 2026 16:44:26 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	wangxuewen@kylinos.cn,
+	wudandan@kylinos.cn,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v4 00/31] ntfs: report filesystem errors through fsnotify
+Date: Tue, 20 Oct 2026 16:43:50 +0800
+Message-ID: <20261020084421.2196486-1-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,83 +63,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CY8PR12MB7220:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6289b6dd-8e5b-4fab-7457-08df2e86671b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|10067099003|18002099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	5XCff0URnjwTC3w59vxzxFKZT/ahwnWiSxep/8GTEERFJYmeHsTG9mAZxJVfiAai9jKLYeJo5r/LOEE8P1xp1iqT9NW/8jObXnlPt3hwxI2O8AcMrE6Daci+4OBnsxrB1+tSjWso9E976gsTj1/2W/fSQDo4sr+qqw0lWFzLIDxhUro64c+QZCnyvxVJR53zY8zeGo31wz5mBHo/w/CTptYAUzULTbjZPnn1x/mDg8hrd95LOeIOUOsFkPO6/gciLL+C5F7m2CIAeqwxXzNuN3Qk5ZybeX/GD5aqdhKTuTDyPu2oxPhPdyvma5X1TMot5Bvw92WrCtaI5xzbGW+aJcQMagQqkDup2Y2sk8hZwzLboEC7iw9oaHTzzTu+zq1HDNSjMsM1EurDNeOXu0ahctfiwdzhyRrV5uPwkhn7lneHsY1+TYsUNwsmpttdqrvUw9O6yHHpk7pVPb4R/yWe01fkjRNjKgdHnXxdBHC3AiFG6upSqpupxiD0d7Bzv8B7WbhN+fUeaYmRPlhY4YOfBUPYst2AITYA8NF0pPW2SCKaZKVz7d0OqCebXiQy+uge1wpsGTMFJqU2TlBXXFtorEMTgav1AKvSJZmc8JMBfYdRe0oJRWH1qWv08R400Vq4NSXsRmNq6chuTQnEACTT0fnujDJbkXyQTUNsjuHD9G8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(18002099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?iatw0Al/OchiWmF5T4KTawwIsnMBMrzSwC/0mPEEWBgB19TR1kghFNoa6jkq?=
- =?us-ascii?Q?iLLtsaB/IcO+2qhRvb+pGgLjdZusyVpyi6An1INxHcddWrTaz3C1J6K4+Nif?=
- =?us-ascii?Q?t/K4QxUkeCUu6DuhFx+2zVkKhynpmg0dsaQWqtffs07k8OzrQ644jwB6LEhN?=
- =?us-ascii?Q?L2KC533sltu0SDXyRP/KNpvHhLIz3gcZji0OCNSzxNkiPffy79LFKoq00uDy?=
- =?us-ascii?Q?Utj7fBVO2ResmbBhMhumY6gDxKsOaVk6/m+0XB/Jz7ogiU81K6VsoL9IVVTX?=
- =?us-ascii?Q?OshOTD5PhxVbPJbT60yedWGOBiR6xAsB6ive15XPKvpkCXmSmDsIHLew/FkP?=
- =?us-ascii?Q?nOq6/ArOoqAfOSgsQBBz/pfO/eIVJocxPPyRmuV5t3c0wGnB5SBRxfbAvsf8?=
- =?us-ascii?Q?wgsiwe19TuwThShQEO1hhTNHKw68q8sMszmaXMBzSGJMlIsayGjWPcOAkdTw?=
- =?us-ascii?Q?lfbzlgQuZO9Eg8kcVIonHgax+WRcNxFdhLZe+IVW+G58809b8yGVpK8oMs9E?=
- =?us-ascii?Q?NMKvcXcqxFgRxIdiK7qyn94/MfV9pwVqvOEELnnG2E1YWSQvCZTf+bH5KHWZ?=
- =?us-ascii?Q?JOlZphz7HO7WkgZ/AKF5ni+yFflNxaLL5jy/lBt+w5qT0rqHD0RFfL43BKL8?=
- =?us-ascii?Q?VhsECE76VHutuckb+ovbrDoZexzeJX7c6PcZtiV+IK4Lhzsk5/1xGF+EFOPP?=
- =?us-ascii?Q?NPIV64KSNioKWl0oUnXBJFHeDDKaBua7VpLm/w5Ox2carULXLCUE1Mi5l6J5?=
- =?us-ascii?Q?HPd3+xoXGiKVaZe69nIQIB7lZO2mRQ2Imd+wF9y+b5LttA3U9EPF/2twTrvI?=
- =?us-ascii?Q?kj6AJz+vVCrv2D1t1pHDmuNFoV6sDBuCgIvzoYVtzKR3yP+DC6/EatgSCEAg?=
- =?us-ascii?Q?Pnhz4KK72Cinhj+MQWMqcf1aSikCIxsSXYnE6wY2dbw+9MoIJXDLT0SeGLnh?=
- =?us-ascii?Q?wDOevrfVMZkdciefD8gm9xL/T+hopr44cN9Ak8bffet+v27AxjHtWNlJotNz?=
- =?us-ascii?Q?GnrtiqvKI3dOLF028cjjQELHSyrjTxJRiwewZrs+diQlUIa/bpRRWccCRV5f?=
- =?us-ascii?Q?MifqWeq8C28LwI/sl96xxW6mDhjeS9HkGochXLjWG9622nU/FSWEuiWbvuby?=
- =?us-ascii?Q?XaCyqPHx77I4HcH7S2Tb8MYKQQtN8l+1oIaaqN0rxhgyfkrq+6eIWsPYKoac?=
- =?us-ascii?Q?vWQZ43wKbMp4qboVwExYDkGhuWPUqLHezhKnGYgerx3rcawOYCZgGmWcYyCp?=
- =?us-ascii?Q?Iy0p7hzEYBhWuoyubUT2GuuiiY4+/kZT81K5ypmWOL043HvvaT7ZxfSK8flO?=
- =?us-ascii?Q?jx7W8+vpcXhdCbGSmwSREwxYQID6vB6xUHjyB1bWTiTpUS62exeLeeb1mFAO?=
- =?us-ascii?Q?jJ8WNGetrOr60BqrZW64y99TNqYsYlKW8CEQJO5NixSKeme4SJ05QXwUsWR5?=
- =?us-ascii?Q?fRYgkuz79c66b4z4fcloe0UjenE5pKb0X9L13F6982MIdn1MpkJvSDa4EG7W?=
- =?us-ascii?Q?YaaHjBHFuQ0uybXqCJvr2AKJy8VAe5nk1Elu5PRRW0ab3mg6KMhjYIu4uTDC?=
- =?us-ascii?Q?vPHG5XMNZgdg5rHrRtJhPtG2eD9uk6bhByQM9EHtU4zANKMyvvhS8RQyquD+?=
- =?us-ascii?Q?VCKI1hcQwj+TrKIMuvIuJ6XzX5ULyOvtntqSZMVs0KEAHQOztgLVJLEwgPec?=
- =?us-ascii?Q?nEWm8SXH+RObjsbyDtthLhEcPiQfqdqcfY3UgNSUlZqSx/v2?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6289b6dd-8e5b-4fab-7457-08df2e86671b
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 08:44:50.1112
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uKvqQ1nHmdNjqBcQolR1bV5/WmvsgSAB7W6z1fRnUfG8bTdzWtg4MvGIRdnW2YwZYQkyCPMZtQuaWXcr82GEsA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7220
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3XyPnKddq1latBA--.56704S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuw47GrW5CF4kArWDGw4xXrb_yoWfJF18pF
+	97C3s3t3s7tFyIqrZIy3y0qa4rKas5GayUXwn8G34Ikrn5Kw1YqFWxK3W09FyrCrWFq3yD
+	Xw4UW39ruryUAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYv38UUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6goV32rXKeps+AAA3A
 
-This series addresses the three follow-ups you reported after applying
-"sched_ext: Queue the kick_sync wait from set_next_task_scx()" [1].
+From: Baolin Liu <liubaolin@kylinos.cn>
 
-The first patch prevents queue_balance_callback() from requeueing a
-callback that is already the sole list entry. With proxy execution,
-SNT_REPICK followed by SNT_PICK can otherwise queue the kick_sync
-callback twice, linking it to itself and running the wait twice.
+Report NTFS metadata corruption, failed recovery and shutdown through
+FAN_FS_ERROR. File events identify the affected base file; volume events
+cover errors without a usable file reference. Preserve the existing
+volume error bit and shutdown policy.
 
-The second patch routes dispatch-time deferred actions through irq_work
-when proxy execution is enabled. Proxy resolution can zap balance
-callbacks and then select idle or another scheduling class, leaving no
-SCX dispatch to restore the discarded deferred callback.
+Confirmed metadata corruption uses -EFSCORRUPTED (-EUCLEAN) in both
+events and failing NTFS operations. This intentionally changes
+userspace-visible corruption errors previously returned as EIO or
+obscured as ENOMEM/EINVAL. Genuine I/O, allocation and unsupported-format
+errors retain their own errnos. Ordinary EOF and missing names or streams
+are not corruption. Partial-I/O and best-effort operations retain their
+existing return semantics; an independent recovery failure may produce
+an event with a different errno from the initiating operation.
+The generic open_by_handle_at() wrapper still converts decode errors
+other than ENOMEM to ESTALE.
+NFS handle decoding also maps corruption errors to STALE.
 
-The third patch removes the now-unreachable foreign CPU check from the
-kick_sync wait callback.
+Based on ntfs-next commit 19dc08f1f2c5 ("ntfs: support persistent
+noatime attribute").
 
-[1] https://lore.kernel.org/r/08cac02c604dd73ef96fc92eb29d692b@kernel.org
+Changes since v3:
+- Extend reporting to previously uncovered corruption and recovery
+  failures in system metadata, attributes, runlists, directories/indexes,
+  MFT records and writeback, LZNT1/WOF, EA/ACLs, named streams, reparse
+  points and object IDs. This includes ntfs_ib_read(), nonresident iomap
+  and ntfs_lookup_inode_by_name(), the lookup path in this base; the
+  cited ntfs_lookup_inode_by_example() is absent.
+- Reuse ntfs_inode_base() for attribute and extent inode attribution.
+  Use volume reports during eviction; before SB_ACTIVE, record only
+  the volume error state.
+- Use test_and_set_bit(NV_Shutdown, &vol->flags) so concurrent shutdown
+  callers initiate only one shutdown report.
+- Preserve specific errors through attribute search contexts, index
+  traversal, buffered reads and mount initialization. Keep recoverable
+  resource failures distinct from failed recovery after metadata changes.
+- Stabilize export parent reconstruction against rename/rmdir and avoid
+  classifying unlocked named-stream revalidation races as corruption.
+  Preserve directory resume behavior after deleted keys and partial
+  reads, including retries after traversal errors.
 
-Andrea Righi (3):
-  sched/core: Avoid requeueing a singleton balance callback
-  sched_ext: Use irq_work for deferred actions with proxy execution
-  sched_ext: Remove the foreign CPU check from the kick_sync wait
+Series organization:
+- 1-4: fix lost writeback errors and cluster-free count handling;
+  add reporting helpers and preserve search-context initialization errors
+  through the API and all callers.
+- 5-7: boot geometry/MFT bootstrap, required system files/volume
+  metadata, and logfile validation/emptying in separate patches.
+- 8-10: runlist/cluster allocation, iomap/buffered reads, and
+  LZNT1/WOF compressed streams in separate patches.
+- 11: handle source-record removal failure during attribute moves
+  before updating the attribute-list reference.
+- 12-14: attribute lookup/validation, record updates/cleanup, and
+  attribute-list updates/recovery.
+- 15-17: attribute conversion/mapping, resize/relocation recovery,
+  and range updates.
+- 18: inode metadata and eviction cleanup.
+- 19-22: index validation/block I/O, traversal errors/directory
+  retries, directory metadata, and index update/recovery failures.
+- 23-24: namespace/file recovery and export parent reconstruction.
+- 25-27: MFT record lifecycle, bitmap/data growth recovery, and
+  MFT writeback in separate patches.
+- 28-30: EA/ACLs, named streams, and reparse/ObjectID indexes.
+- 31: add the atomic shutdown helper and convert all callers.
 
- kernel/sched/ext/ext.c | 18 +++++-------------
- kernel/sched/sched.h   |  3 ++-
- 2 files changed, 7 insertions(+), 14 deletions(-)
+Validation:
+- The final kernel passed 35 QEMU guest cases covering normal file and
+  namespace operations, streams, metadata corruption, directory resume,
+  compression/mapping gaps, AttrDef, mount, concurrent shutdown, export
+  handles, fsync/remount/readback and filesystem ustat selftests.
+- Compression-buffer allocation injection reproduced EIO before the
+  fix and ENOMEM afterward. A complete retry succeeded after disabling
+  injection, with no filesystem error event; the healthy control passed.
+- Six additional ACL guest cases passed with CONFIG_MULTIUSER=y.
+  On-disk invalid UID/GID values in access and default ACLs returned
+  EUCLEAN and generated EUCLEAN events identifying the affected inode.
+  Valid ACLs read back correctly; invalid userspace ACL submissions
+  returned EINVAL without error events. These tests used no kernel hooks.
+- Eleven additional NFSv3/TCP loopback guest cases passed using kernel
+  nfsd, a mounted Linux client and targeted RPC tests. Tracing confirmed
+  ntfs_get_parent() calls from nfsd for healthy and corrupt parents,
+  with subtree_check enabled and disabled. The tests also covered
+  stale handles and 320 rename/rmdir race iterations without false
+  corruption reports. Corruption events identified the affected directory.
+
+- Sparse C=2 checked all 31 NTFS translation units, including WOF,
+  on both the final tree and its ntfs-next base, without diagnostics.
+- Seventeen guest cases passed with KCSAN and lockdep enabled, covering
+  normal I/O, namespace/streams, concurrent shutdown, ACLs and NFS races.
+  KCSAN selftests passed and both monitors remained active throughout;
+  no KCSAN or lockdep diagnostics were printed.
+- Eighteen targeted injection cases covered the two resident free-space
+  failure exits and six attribute/MFT errno branches, including moved
+  versus unmoved records, source-record restoration, ENOMEM controls,
+  event attribution and cluster cleanup.
+- Twenty-six directory-retry, EA/ACL and iomap/MFT injection cases were
+  rerun against the final source tree and passed.
+
+Baolin Liu (11):
+  ntfs: preserve cluster-free counts in attribute cleanup
+  ntfs: add filesystem metadata error reporting helpers
+  ntfs: report runlist and cluster allocation metadata errors
+  ntfs: report attribute lookup and validation errors
+  ntfs: report attribute list update and recovery failures
+  ntfs: report attribute conversion and mapping update failures
+  ntfs: report inode metadata and eviction cleanup errors
+  ntfs: report MFT record validation and lifecycle errors
+  ntfs: report MFT bitmap and data growth recovery failures
+  ntfs: report MFT writeback errors to fsnotify
+  ntfs: report each shutdown transition once
+
+Dandan Wu (11):
+  ntfs: report required system file and volume metadata errors
+  ntfs: report logfile metadata and emptying errors
+  ntfs: report iomap corruption and preserve buffered read errors
+  ntfs: report LZNT1 and WOF compressed stream errors
+  ntfs: report attribute resize and relocation recovery failures
+  ntfs: report incomplete attribute range updates
+  ntfs: report index validation and block I/O errors
+  ntfs: preserve index traversal errors and directory retries
+  ntfs: report directory lookup and metadata corruption
+  ntfs: report index update and recovery failures
+  ntfs: report namespace and file recovery errors
+
+Xuewen Wang (9):
+  ntfs: propagate mapping-pairs update errors from inode writeback
+  ntfs: preserve attribute search context initialization errors
+  ntfs: report boot geometry and MFT bootstrap errors
+  ntfs: handle source record removal failure during attribute moves
+  ntfs: report attribute record update and cleanup failures
+  ntfs: serialize and report export parent reconstruction errors
+  ntfs: report EA metadata and restoration errors
+  ntfs: report named stream metadata and recovery errors
+  ntfs: report reparse and object ID metadata errors
+
+ fs/ntfs/aops.c         |  24 +-
+ fs/ntfs/attrib.c       | 738 ++++++++++++++++++++++++++++++-----------
+ fs/ntfs/attrib.h       |   8 +-
+ fs/ntfs/attrlist.c     |  43 ++-
+ fs/ntfs/bitmap.c       |   2 +-
+ fs/ntfs/compress.c     |  30 +-
+ fs/ntfs/dir.c          | 108 ++++--
+ fs/ntfs/ea.c           |  84 +++--
+ fs/ntfs/file.c         |  33 +-
+ fs/ntfs/index.c        | 313 +++++++++++------
+ fs/ntfs/inode.c        | 265 ++++++++++-----
+ fs/ntfs/inode.h        |  10 +-
+ fs/ntfs/iomap.c        |  53 ++-
+ fs/ntfs/lcnalloc.c     |  17 +-
+ fs/ntfs/logfile.c      |  51 +--
+ fs/ntfs/mft.c          | 326 +++++++++++-------
+ fs/ntfs/named_stream.c |  55 ++-
+ fs/ntfs/namei.c        | 140 ++++++--
+ fs/ntfs/object_id.c    |  40 ++-
+ fs/ntfs/reparse.c      |  98 ++++--
+ fs/ntfs/reparse.h      |   2 +-
+ fs/ntfs/runlist.c      |  16 +-
+ fs/ntfs/runlist.h      |   1 +
+ fs/ntfs/stream.h       |   2 +-
+ fs/ntfs/super.c        | 279 +++++++++++-----
+ fs/ntfs/volume.h       |   4 +
+ fs/ntfs/wof.c          |  41 ++-
+ 27 files changed, 1970 insertions(+), 813 deletions(-)
+
+
+base-commit: 19dc08f1f2c5563ba4da6afd5ecace8eba163aef
+-- 
+2.51.0
+
