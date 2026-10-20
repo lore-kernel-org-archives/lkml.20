@@ -1,67 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792532555;
-	b=iNO963ySAQuIDzSLk/FEGi2Bi22Mwi5xZd+KoHrmG84igvRNSvMDsE5JX+GNprrNWdVB
-	 GlSu/BMIfIFZKTHtSGH1ritlK7Y2PJoupgC9MJa0stylzm+j3043mcTCuXK6hWF3bW8dA
-	 h7ltgfv7+hIYzNYyd3sjeoUASy9g4uPSjB5L1ruh3wuI2UV0y7b5CttLh9YACNTDojde6
-	 TLPo25cCd53J34IFUMbXjomWLqBJFJzfL6KXRj2Hme3V7WTeRaet0gE0fwBl+8Z+YtFKG
-	 ML8i3x75oSqWN/GcmVhCfR2MC+843aE9A9oabxQGuLHpu+ABHSU+lp+FJ382J4s2NOA==
+	t=1792532617;
+	b=GDGkDxjblo5Lyfu4NUVUIbp1h/occJLGSssIEW/pOCk4/iEz5RrNfpeHjIN9J0Uz6rsv
+	 dtDpitDNBssz5YufUc/zo1S/7xVh0ZkbmGCHH0qOlg2OujMfRBy09lCzVAhpz7lWsiGZS
+	 Vo665gL9kIblUYOz8TqAuS8oZ2Ie34YS3C7jT5Uavtv7MXQstaQVY4R6N8UE0iX/JPpFV
+	 K2CgG/mPxa8hgUA6AIK06HAdSSvLUe1aSeHknCQTpxR36F+eRLI3C7IF62t0GpTxi0IgX
+	 YgZMfrCt1Odd/w9mq/zsdGXLXA+CLdV8f2Z9Kx78kcojnS75d1FEcuQzXnV1695rm8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792532555;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:CC:Subject:
-	 User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=EZoVk953tdpmRXAVkVQyjR2UGZ+9j5515QF7WBP1WBk=;
-	b=C06ZRKcEELizGEUfddMax7e8qqWLDkzuSmah4+05wPD/N4UgRVjsaO+R6CaZ0HfoOJ+H
-	 Nki76xmsifdKuCtEQTEa8BgHlxu2VD9o9RV+5rwlEf1wvRhqyiSoeg1nVZJRWp3oqMavQ
-	 Dm/kzH47JYjZOhJky0J0iwDVQD1IOsKO29DZ/4trO0tNYzjmrxLxpE+KKeQdfTmsAsUPz
-	 P2r73rpciogEtiAYvmHct/bPRawvhlg/M2Kskk7/CYDeTfsclUQaC12IiEFL7P7Q7PnJr
-	 lYrSQfaRWByUXcR7N3eTUG8pYrUQb8RkipU33PDffDDZpk8k13527PXOsY6jZDWBbQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792532617;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FZYzVeUNoWEzXy2Zmcwswz0fwSsjGxLRlMvQ0gDzSrE=;
+	b=CoYOy1nGfTxm1P04D/jl5s+IE2yRAxDgPeaHVuOglQBdYORbGeM/7ERTpxpFvUEfi4t1
+	 pNW2v0qgqr9jSvOSbEg+pnLmCmIccWqaCWoN1yTZllfSsEsPB/BIl5yGSIi/AJDKo/kmp
+	 1dO35MOlgsQQTIsj7kcxeyPZwWnkmXlVp6Et0eU7BY8RfO3VHa9+mwrdZApoRP97/lUBG
+	 y9mIF+c7BuNqfZbH5M0/U3mlX6CpvBAYtyEj+Bt94hadKXCP2gJgWNwwnfKYxZkJG20lg
+	 qKynuO8TPf0T8sjKzMTd1Lg9SOyqXnsW1YCKGBRk5Hg2mKVfUx+mnYS1FSOK2Cbis4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Ws+kLsKd;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AR0AI64/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D9F606A319;
-	Tue, 20 Oct 2026 21:42:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84D9F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F2A606A319;
+	Tue, 20 Oct 2026 21:43:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Ws+kLsKd
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1A89AA161F;
-	Tue, 20 Oct 2026 23:42:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792532549; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=EZoVk953tdpmRXAVkVQyjR2UGZ+9j5515QF7WBP1WBk=;
-	b=Ws+kLsKdofv/SfwkZRiBLhQLma9RauatD4xtoDQ9QDvSn0F5ryDf0YijpfI6Wvg8ZQV5RB
-	j3VeYj2rqX4Yhxa/DJhf6INhNVyjMs9LI/K26NERS5DEYu1guli7OnTrfHeWPyC7+ubEo7
-	JnROMakMNrMn6HaRt6H5tmj2qb0pRMc6Js5NajLCPZvtjTO9uVGopp1nfL3LSHCska2hd/
-	tKO3okH0wkDsTUbTYiEpmnC4aDDljhSleVGOhe9CX7bGHV+oeP+jiRyZHm6eThm1QWpTbi
-	p1IefVOjmDDh3+RWnTBSWjATy9oRZhTiRijuBFGVqHXHhabRe+s4GzSwncbhWw==
-Date: Tue, 20 Oct 2026 23:42:26 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Oliver Neukum <oliver@neukum.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- =?ISO-8859-1?Q?Sjur_Br=E6ndeland?= <sjur.brandeland@stericsson.com>,
- Alexey Orishko <alexey.orishko@gmail.com>,
- Greg Suarez <gsuarez@smithmicro.com>,
- =?ISO-8859-1?Q?Bj=F8rn_Mork?= <bjorn@mork.no>
-CC: Breno Leitao <leitao@debian.org>, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mikkel Eskildsen <mke@visotia.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_net_1/2=5D_net=3A_usb=3A_cdc=5Fncm=3A_d?=
- =?US-ASCII?Q?on=27t_enable_BHs_in_tx=5Ffixup_under_netpoll?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <20261020-cdc-ncm-netpoll-v1-1-682184384b49@tipi-net.de>
-References: <20261020-cdc-ncm-netpoll-v1-0-682184384b49@tipi-net.de> <20261020-cdc-ncm-netpoll-v1-1-682184384b49@tipi-net.de>
-Message-ID: <C3957DEA-5A45-4371-A7F2-72DB1F61C404@tipi-net.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AR0AI64/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8A51F000CA;
+	Tue, 20 Oct 2026 21:43:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792532617;
+	bh=FZYzVeUNoWEzXy2Zmcwswz0fwSsjGxLRlMvQ0gDzSrE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AR0AI64//jsGud8X3shnr3IfAk1Durldm/X3dAsqwcTnDnzi99yMaWc+jfP2N/PeB
+	 IHgRtf7Nzud6Im0g8Rc3BrAG5GTPUMAXhhuHVWwkR5Tw+JDRGlHqCPnZoOx2L1XzmX
+	 QrT6COmsCVUG+TS2IzBDKlmhlnK9x1wmwcGHAqQCepMYe4ylIHYDJgZkyDIG+mdLzE
+	 gWXRSRaTMSx21GQSCoGmMUR8wDHIPsSkTzCwuPFFGHBOtP2ni7iGZxjSuRCsroq4Nb
+	 YqNpOfh1GG0gC87tYyEF5HIjxZYZO7NCWpebZ/H8dISspHTMfygozDnlHzb8UIOr+w
+	 tuVS8J+WfmyLA==
+Date: Tue, 20 Oct 2026 21:43:35 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <linux-cifs@vger.kernel.org>,
+	"moderated list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <samba-technical@lists.samba.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v4 1/3] KEYS: Expand key->{datalen,quotalen} to unsigned
+ int
+Message-ID: <20261020214335.GE699485@google.com>
+References: <20261020174325.2229448-1-jarkko@kernel.org>
+ <20261020174325.2229448-2-jarkko@kernel.org>
+ <atfT5WJU_ldjpQOM@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,48 +69,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atfT5WJU_ldjpQOM@kernel.org>
 
+On Tue, Oct 20, 2026 at 11:49:41PM +0300, Jarkko Sakkinen wrote:
+> For any kernel patches I've missed all Sashiko reviews so far and have
+> not taken the feedback into account in anything.
+> 
+> There is two issues:
+> 
+> 1. I was not subscribed to linux-security-module. I could be and have
+>    been but probably when I've changed my list subscriptions at some
+>    point otherwise, I happened not to be.
+> 2. Even if I was subscribed to linux-security-module, at least I'd
+>    like to get reviews Cc'd that concern my patches or patches
+>    sent to me.
+> 
+> Now that Eric pointed out Sashiko review I was able to look up this
+> via web browser:
+> 
+> https://lore.kernel.org/linux-security-module/20261020174325.2229448-1-jarkko@kernel.org/T/#mccc5900222fdad9d790be343fcec2a32540ed2fb
+> 
+> This is somewhat inconvenient though that it responds like that, and
+> not to the review thread.
+> 
+> Not actually sure how do you write a Sieve filter that automates
+> relevant-to-me Sashiko emails going into some specific folder but
+> I'm sure that is somehow possible. I guess I'll start by subscribing
+> to linux-security-module.
 
+Well, the keyrings mailing list isn't currently opted into Sashiko
+monitoring or emails.  linux-security-modules is opted in, but it's set
+to have the Sashiko emails go to only that list.  See
+https://github.com/sashiko-dev/sashiko/blob/main/projects/linux/mailing_lists.toml
 
-On October 20, 2026 9:16:55 AM GMT+02:00, Nicolai Buchwitz <nb@tipi-net=2E=
-de> wrote:
->netpoll holds the txq lock and calls ndo_start_xmit() with IRQs off but
->BHs on=2E The spin_unlock_bh() in cdc_ncm_tx_fixup() then runs pending
->softirqs=2E If one of them transmits, it spins on the txq lock that
->netpoll holds=2E With netconsole on a cdc_ncm device this ends in a soft
->or hard lockup=2E
->
->Use spin_lock_irqsave(), which is safe both under netpoll and on the
->normal xmit path=2E
->
->Fixes: c84ff1d6dff3 ("cdc_ncm: reduce driver latency in the data path")
->Reported-by: Mikkel Eskildsen <mke@visotia=2Ecom>
->Closes: https://lore=2Ekernel=2Eorg/netdev/PRAP189MB185019A5A8D411482BB6E=
-0CDA9982@PRAP189MB1850=2EEURP189=2EPROD=2EOUTLOOK=2ECOM/
->Tested-by: Mikkel Eskildsen <mke@visotia=2Ecom>
->Signed-off-by: Nicolai Buchwitz <nb@tipi-net=2Ede>
->---
-> drivers/net/usb/cdc_ncm=2Ec | 8 ++++++--
-> 1 file changed, 6 insertions(+), 2 deletions(-)
->
->diff --git a/drivers/net/usb/cdc_ncm=2Ec b/drivers/net/usb/cdc_ncm=2Ec
->index 35db38cb3e4a2=2E=2Eb579442f4a272 100644
->--- a/drivers/net/usb/cdc_ncm=2Ec
->+++ b/drivers/net/usb/cdc_ncm=2Ec
->@@ -1524,6 +1524,7 @@ cdc_ncm_tx_fixup(struct usbnet *dev, struct sk_buff=
- *skb, gfp_t flags)
-> {
-> 	struct sk_buff *skb_out;
-> 	struct cdc_ncm_ctx *ctx =3D (struct cdc_ncm_ctx *)dev->data[0];
->+	unsigned long irqflags;
+    ["linux-security-module@vger.kernel.org"]
+    reply_to = ["list"]
+    positive_review = "all"
 
-x-mas, argh =2E=2E=2E broken before and after, will fix this in v2=2E
+(Sashiko defaults to no email, because unfortunately there hasn't yet
+been consensus in the kernel community to enable it everywhere yet.)
 
-But let's hear what/if clashiko will add, before I mark it cr in pwbot =2E=
-=2E=2E
+keyrings could be opted in by opening a GitHub pull request that edits
+that file.  Let me know if you want me to do it.
 
-> [=2E=2E=2E]
+My preference is what I set the fscrypt and fsverity lists too: enable
+monitoring of the list and emails of issues found to everyone (but not
+the noisy positive reviews, i.e. "It looks great!"):
+
+    ["linux-fscrypt@vger.kernel.org"]
+    reply_to = ["author", "list", "recipients"]
+
+So for keyrings I suggest we add:
+
+    ["keyrings@vger.kernel.org"]
+    reply_to = ["author", "list", "recipients"]
+
+Do you agree with that?
+
+- Eric
