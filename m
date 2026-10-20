@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485888;
-	b=BdwsLsPGLMqykJY8bP6SVU5C7YeyP8p0TdaQW2ixTwXtOuRTGVXf/xUJ7m1te//NvkWJ
-	 2tD355Cl0su0Ml/YuH+PUUp4GFhKXu87PMjdpV/Z99ncBXJ7MiQO+GkF7kR6wQVBJbj/A
-	 2Gzg7smoU7XHOiHatBKBn8L0bTIRkqu3ApUFz4dhJrfZ1g8b6iW1sUvO1gsz9DjO3R7/5
-	 KsKWXqiQ88M8rMLJzPLdeNd6Lnhr0RTLpIx+wuq2V9UN9uIVejMwCZNNwlizqyzujdmeU
-	 TtKDEMOMBm2KTKi0UoseRz5L/NLQBuEzUji+qL+kkoeGtUpil3pm3/SRiZhhVbu4wsQ==
+	t=1792485890;
+	b=jzjMXBM2zZjQpzNhvndyhI07NWE4Y0ADuFHEZbR5LZoDBvAuswp8EzSm0ZpH62uK4toR
+	 I7vo5WoFh2VZfvOqI4VSOBEF3EFi6GTMz62z/VcgEZO/uo6K0pukHVSv2yy1PzMbKX3Nr
+	 IqahBFsulrvNyXhkmn+1mMnsnoiBo67P3aLLypH9zbibgHtFjoa3SWORg8eQRFvuSAW60
+	 nhcPCoOM6v8Tgwwh++/bYWKkgv9Z+QzKdDhr8GPkFKiv3OmMgAhDi4PJXCheM+KqJdJkM
+	 Yj0mrd1n8Pbn/dvKwvKs46qyxwcdElah05Xs1n5NHi7fkcOuY+QeinVbxcRwRVNVeHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485888;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485890;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-Originating-IP:X-CM-SenderInfo;
-	bh=1FV927e++ZwPma2sscnHEyJ9bGLQYMZ39H1t/XcQGMw=;
-	b=qC/XFaJBOAtt41bl8dgA0KsYI88u69l/lJG/CJzWo7I6C0QweD5QorHyMMfnZIcHnWgq
-	 t9WiPT9NuU94yKOZz2Zm++j5/obx+NP2wHNTVxPoBh4dfFJOHFGAY3QJluz0mre/EQz2S
-	 4v/fDx6tNyInp8v25MYH7NdvYqD+Zi3K80ekshg5E0K0sOH+AsT3ibvN6ZQst+RD0sAfP
-	 5HegY5/8mtoB2MEfRbblbHRnFG5j3rWoqXpPx5rAWEBXIIOju8Hi6nUR6GE28NgyUzRBD
-	 h/69Z8Lw/nSk0D9fLEGZOjuaIkRfiffOnoZWH/iZw2ipUVqYA8blFgxueNk3L1SqIeA==
+	bh=YYH+ghVUXSTySGP/oik3jbStHMoxHjaB2HLpu9DWi34=;
+	b=5GmK5OMaj1N/0C1FkRPpPY8/DtWD9yxvS+DUy4VnvSeiqt/8i4VrH2hUzL32uyCfCT+W
+	 erCzeo/w/nlfzNxtHAO5SgejXQWgBI5kTX/3uz9VsUVzc1IyaLIPq8XOhNGpg3OVmNaKR
+	 /tUASZ4M1Hulb8gyVnAP3Gn/DdVljCbwo2IrvKbwvS7gUUDk9A5fSnvR9cqXQ45Br4A8G
+	 odugkMX0UeCA6iEzfZCwTD0c9plJsN3U52igbHBZOfUx/GpTWmUW5x6lDiEXcl9/ucffh
+	 Tp0LGnz/w58O/1meOxcl+v324QEc42tyJdGCZPB+2utVs8UR1vOCHehR8cDR49KTl0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KdB++2Dw;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UdLbxQlJ;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62638606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:44:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62638606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F142A606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:44:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F142A606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KdB++2Dw
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UdLbxQlJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=1F
-	V927e++ZwPma2sscnHEyJ9bGLQYMZ39H1t/XcQGMw=; b=KdB++2DwvxsJM37Vx0
-	2VEFuaQMzE6anh5ISi8QIvU9QJIY6aQkOOe3RpxRZ8JDrAcBH9sDvuEsER+fcdMw
-	6YdOzLZB4aWOZXgBkrgEGsMisgH+uP+h/MXZgD0/motFamAWbuvpvFC4GyXahTIz
-	J9a3wRFUmVXK1iuG5hS7/gnms=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=YY
+	H+ghVUXSTySGP/oik3jbStHMoxHjaB2HLpu9DWi34=; b=UdLbxQlJymBgfsBKdf
+	UAzGnU1uTZIpqD2ZSxbcT2GtGlE1lW2XECr9phIvjOROYfMUlSpoRXBRAiydoGBb
+	WHh+T9A/tXf/y3Oo/rL5+Nugr81mLmJrMwap8y30KART6bDa16ko4+VPgQ1b6eNa
+	uA+MVHMgeNsuQjxXD7I+La168=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3XyPnKddq1latBA--.56704S5;
-	Tue, 20 Oct 2026 16:44:28 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3XyPnKddq1latBA--.56704S7;
+	Tue, 20 Oct 2026 16:44:30 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	wangxuewen@kylinos.cn,
-	wudandan@kylinos.cn,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 03/31] ntfs: add filesystem metadata error reporting helpers
-Date: Tue, 20 Oct 2026 16:43:53 +0800
-Message-ID: <20261020084421.2196486-4-liubaolin12138@163.com>
+	wudandan@kylinos.cn
+Subject: [PATCH v4 05/31] ntfs: report boot geometry and MFT bootstrap errors
+Date: Tue, 20 Oct 2026 16:43:55 +0800
+Message-ID: <20261020084421.2196486-6-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
 References: <20261020084421.2196486-1-liubaolin12138@163.com>
@@ -67,130 +66,348 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3XyPnKddq1latBA--.56704S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZw1fXw4Utw4xXF1UtrW7CFg_yoWrWw15pF
-	97Awn3Kw4DJFy2grs2kr42vw1Skas2gw4Utr1UXw1xZ3Wktw18tF4vyF1F9F1fKFWrX3yj
-	qr1j93y7ur4UZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jHlksUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QwW4GrXKexJ7wAA3N
+X-CM-TRANSID:_____wD3XyPnKddq1latBA--.56704S7
+X-Coremail-Antispam: 1Uf129KBjvAXoW3tr4fXrW5Ar4kCw15ZrWDJwb_yoW8Jry5Wo
+	WS9F4q9w4kKw13Aa4vgw10vasru3ZxCws5Jr45Gr4DCFWvgw1UX347Jw13WayfGw4Ygr1D
+	Ary8Jw4rAFW8Gryxn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU4iiSUUUUU
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q4W4GrXKe5KUwAA3y
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-Add file and volume helpers to report metadata errors through the generic
-deferred fsnotify infrastructure while retaining the volume error bit.
-Pass the caller's errno unchanged.
+Mount initialization detects invalid MFT locations, mirror mismatches
+and corrupt bootstrap metadata without consistently recording them.
+Report these failures and use EFSCORRUPTED for confirmed corruption.
 
-Move ntfs_inode_base() to inode.h and use it to identify the base file for
-attribute and extent inodes. Fall back to a volume report for I_FREEING
-or I_WILL_FREE, when retaining the inode for deferred reporting is unsafe.
-When SB_ACTIVE is clear, record only the volume error state.
+Preserve specific errors through boot-sector parsing and MFT loading.
+Keep allocation failures and unsupported geometry distinct, and retain
+the existing read-only fallback. Before SB_ACTIVE, reporting records
+the volume error state without sending events.
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
 ---
- fs/ntfs/inode.c  |  7 -------
- fs/ntfs/inode.h  |  8 ++++++++
- fs/ntfs/super.c  | 29 +++++++++++++++++++++++++++++
- fs/ntfs/volume.h |  3 +++
- 4 files changed, 40 insertions(+), 7 deletions(-)
+ fs/ntfs/inode.c | 27 ++++++++++++++++++++----
+ fs/ntfs/super.c | 55 +++++++++++++++++++++++++++++++++++--------------
+ 2 files changed, 62 insertions(+), 20 deletions(-)
 
 diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 52e22022b4e7..c8560dd47d44 100644
+index 5b3d1453d5e1..6ed995b09a3f 100644
 --- a/fs/ntfs/inode.c
 +++ b/fs/ntfs/inode.c
-@@ -3532,13 +3532,6 @@ void ntfs_destroy_ext_inode(struct ntfs_inode *ni)
- 	kmem_cache_free(ntfs_inode_cache, ni);
+@@ -1880,7 +1880,7 @@ static int load_attribute_list_mount(struct ntfs_volume *vol,
+ 	ntfs_debug("Entering.");
+ 	if (!vol || !rl || !al || size <= 0 || initialized_size < 0 ||
+ 			initialized_size > size)
+-		return -EINVAL;
++		return -EFSCORRUPTED;
+ 	if (!initialized_size) {
+ 		memset(al, 0, size);
+ 		return 0;
+@@ -1896,7 +1896,7 @@ static int load_attribute_list_mount(struct ntfs_volume *vol,
+ 		/* The attribute list cannot be sparse. */
+ 		if (lcn < 0) {
+ 			ntfs_error(sb, "ntfs_rl_vcn_to_lcn() failed. Cannot read attribute list.");
+-			return -EIO;
++			return -EFSCORRUPTED;
+ 		}
+ 
+ 		rl_byte_off = ntfs_cluster_to_bytes(vol, lcn);
+@@ -1974,7 +1974,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 	struct attr_record *a;
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	unsigned int i;
+-	int err;
++	int err = -EIO;
+ 	size_t new_rl_count;
+ 
+ 	ntfs_debug("Entering.");
+@@ -2002,6 +2002,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 
+ 	/* Allocate enough memory to read the first mft record. */
+ 	if (vol->mft_record_size > 64 * 1024) {
++		err = -EOPNOTSUPP;
+ 		ntfs_error(sb, "Unsupported mft record size %i (max 64kiB).",
+ 				vol->mft_record_size);
+ 		goto err_out;
+@@ -2013,6 +2014,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 
+ 	m = kzalloc(i, GFP_NOFS);
+ 	if (!m) {
++		err = -ENOMEM;
+ 		ntfs_error(sb, "Failed to allocate buffer for $MFT record 0.");
+ 		goto err_out;
+ 	}
+@@ -2101,6 +2103,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 		ni->attr_list = kvzalloc(round_up(ni->attr_list_size, SECTOR_SIZE),
+ 					 GFP_NOFS);
+ 		if (!ni->attr_list) {
++			err = -ENOMEM;
+ 			ntfs_error(sb, "Not enough memory to allocate buffer for attribute list.");
+ 			goto put_err_out;
+ 		}
+@@ -2120,6 +2123,8 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 			rl = ntfs_mapping_pairs_decompress(vol, a, NULL, &new_rl_count);
+ 			if (IS_ERR(rl)) {
+ 				err = PTR_ERR(rl);
++				if (err != -ENOMEM)
++					err = -EFSCORRUPTED;
+ 				ntfs_error(sb,
+ 					   "Mapping pairs decompression failed with error code %i.",
+ 					   -err);
+@@ -2222,6 +2227,9 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 		nrl = ntfs_mapping_pairs_decompress(vol, a, &ni->runlist,
+ 						    &new_rl_count);
+ 		if (IS_ERR(nrl)) {
++			err = PTR_ERR(nrl);
++			if (err != -ENOMEM)
++				err = -EFSCORRUPTED;
+ 			ntfs_error(sb,
+ 				"ntfs_mapping_pairs_decompress() failed with error code %ld.",
+ 				PTR_ERR(nrl));
+@@ -2260,6 +2268,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 			 */
+ 			if ((vi->i_size >> vol->mft_record_size_bits) >=
+ 					(1ULL << 32)) {
++				err = -EOPNOTSUPP;
+ 				ntfs_error(sb, "$MFT is too big! Aborting.");
+ 				goto put_err_out;
+ 			}
+@@ -2285,6 +2294,11 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 			err = ntfs_read_locked_inode(vi);
+ 			if (err) {
+ 				ntfs_error(sb, "ntfs_read_inode() of $MFT failed.\n");
++				if (err == -ENOENT) {
++					err = -EFSCORRUPTED;
++					ntfs_report_metadata_error(vol,
++								   -EFSCORRUPTED);
++				}
+ 				NVolClearMftBootstrap(vol);
+ 				ntfs_attr_put_search_ctx(ctx);
+ 				/* Revert to the safe super operations. */
+@@ -2356,9 +2370,14 @@ int ntfs_read_inode_mount(struct inode *vi)
+ err_out:
+ 	/* Also reached from inside the $DATA loop. */
+ 	NVolClearMftBootstrap(vol);
++	if (err == -ENOENT || !err)
++		err = -EFSCORRUPTED;
++	if (err != -ENOMEM && err != -EOPNOTSUPP &&
++	    err != -EINTR && err != -ERESTARTSYS)
++		ntfs_report_metadata_error(vol, err);
+ 	ntfs_error(sb, "Failed. Marking inode as bad.");
+ 	kfree(m);
+-	return -1;
++	return err;
  }
  
--static struct ntfs_inode *ntfs_inode_base(struct ntfs_inode *ni)
--{
--	if (ni->nr_extents == -1)
--		return ni->ext.base_ntfs_ino;
--	return ni;
--}
--
- static int ntfs_attr_position(__le32 type, struct ntfs_attr_search_ctx *ctx)
- {
- 	int err;
-diff --git a/fs/ntfs/inode.h b/fs/ntfs/inode.h
-index cf447fb51725..952398753ed1 100644
---- a/fs/ntfs/inode.h
-+++ b/fs/ntfs/inode.h
-@@ -298,6 +298,14 @@ static inline bool ntfs_inode_is_named_stream(struct ntfs_inode *ni)
- 	return NInoAttr(ni) && ni->type == AT_DATA && ni->name_len;
- }
- 
-+/* Extent and attached attribute inodes refer to their base MFT inode. */
-+static inline struct ntfs_inode *ntfs_inode_base(struct ntfs_inode *ni)
-+{
-+	if (ni->nr_extents == -1)
-+		return ni->ext.base_ntfs_ino;
-+	return ni;
-+}
-+
- /* Return the base MFT inode for an attribute inode, or @ni itself. */
- static inline struct ntfs_inode *ntfs_base_inode(struct ntfs_inode *ni)
- {
+ static void __ntfs_clear_inode(struct ntfs_inode *ni)
 diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 71f0aea46bf8..df09c277ee54 100644
+index 9bf5a626abbc..afee1b262a12 100644
 --- a/fs/ntfs/super.c
 +++ b/fs/ntfs/super.c
-@@ -14,6 +14,7 @@
- #include <linux/sched/mm.h>
- #include <linux/fs_context.h>
- #include <linux/fs_parser.h>
-+#include <linux/fserror.h>
+@@ -869,10 +869,10 @@ static bool ntfs_validate_mft_io_geometry(struct ntfs_volume *vol,
+  * @b:		boot sector to parse
+  *
+  * Parse the ntfs boot sector @b and store all imporant information therein in
+- * the ntfs super block @vol.  Return 'true' on success and 'false' on error.
++ * the ntfs super block @vol. Return 0 on success and -errno on error.
+  */
+-static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+-		const struct ntfs_boot_sector *b)
++static int parse_ntfs_boot_sector(struct ntfs_volume *vol,
++				  const struct ntfs_boot_sector *b)
+ {
+ 	unsigned int sectors_per_cluster, sectors_per_cluster_bits, nr_hidden_sects;
+ 	unsigned int logical_block_size;
+@@ -890,7 +890,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		ntfs_error(vol->sb,
+ 			"Sector size (%i) is smaller than the device block size (%lu).  This is not supported.",
+ 			vol->sector_size, vol->sb->s_blocksize);
+-		return false;
++		return -EINVAL;
+ 	}
  
- #include "sysctl.h"
- #include "logfile.h"
-@@ -426,6 +427,34 @@ const struct option_t on_errors_arr[] = {
- 	{ 0,			NULL }
- };
+ 	if (b->bpb.sectors_per_cluster >= 0xf4)
+@@ -914,7 +914,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		ntfs_error(vol->sb,
+ 			"Cluster size (%i) is smaller than the sector size (%i).  This is not supported.",
+ 			vol->cluster_size, vol->sector_size);
+-		return false;
++		return -EINVAL;
+ 	}
+ 	clusters_per_mft_record = b->clusters_per_mft_record;
+ 	ntfs_debug("clusters_per_mft_record = %i (0x%x)",
+@@ -945,7 +945,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		ntfs_error(vol->sb,
+ 			"Mft record size (%i) exceeds the PAGE_SIZE on your system (%lu).  This is not supported.",
+ 			vol->mft_record_size, PAGE_SIZE);
+-		return false;
++		return -EINVAL;
+ 	}
+ 	/* We cannot support mft record sizes below the sector size. */
+ 	if (vol->mft_record_size < vol->sector_size) {
+@@ -953,7 +953,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 				vol->mft_record_size, vol->sector_size);
+ 	}
+ 	if (!ntfs_validate_mft_io_geometry(vol, logical_block_size))
+-		return false;
++		return -EINVAL;
  
-+/*
-+ * Report confirmed metadata corruption as -EFSCORRUPTED, matching the errno
-+ * returned to the caller. Preserve the errno of I/O and recovery failures
-+ * so listeners can distinguish their causes.
-+ */
-+void ntfs_report_metadata_error(struct ntfs_volume *vol, int error)
+ 	clusters_per_index_record = b->clusters_per_index_record;
+ 	ntfs_debug("clusters_per_index_record = %i (0x%x)",
+@@ -983,7 +983,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		ntfs_error(vol->sb,
+ 			   "Index record size (%i) is smaller than the sector size (%i).  This is not supported.",
+ 			   vol->index_record_size, vol->sector_size);
+-		return false;
++		return -EINVAL;
+ 	}
+ 	/*
+ 	 * Get the size of the volume in clusters and check for 64-bit-ness.
+@@ -993,23 +993,25 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 	ll = le64_to_cpu(b->number_of_sectors) >> sectors_per_cluster_bits;
+ 	if (ll >= 1ULL << 32) {
+ 		ntfs_error(vol->sb, "Cannot handle 64-bit clusters.");
+-		return false;
++		return -EINVAL;
+ 	}
+ 	vol->nr_clusters = ll;
+ 	ntfs_debug("vol->nr_clusters = 0x%llx", vol->nr_clusters);
+ 	ll = le64_to_cpu(b->mft_lcn);
+ 	if (ll >= (u64)vol->nr_clusters) {
++		ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 		ntfs_error(vol->sb, "MFT LCN (%llu, 0x%llx) is beyond end of volume.  Weird.",
+ 				ll, ll);
+-		return false;
++		return -EFSCORRUPTED;
+ 	}
+ 	vol->mft_lcn = ll;
+ 	ntfs_debug("vol->mft_lcn = 0x%llx", vol->mft_lcn);
+ 	ll = le64_to_cpu(b->mftmirr_lcn);
+ 	if (ll >= (u64)vol->nr_clusters) {
++		ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 		ntfs_error(vol->sb, "MFTMirr LCN (%llu, 0x%llx) is beyond end of volume.  Weird.",
+ 				ll, ll);
+-		return false;
++		return -EFSCORRUPTED;
+ 	}
+ 	vol->mftmirr_lcn = ll;
+ 	ntfs_debug("vol->mftmirr_lcn = 0x%llx", vol->mftmirr_lcn);
+@@ -1050,7 +1052,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		}
+ 	}
+ 
+-	return true;
++	return 0;
+ }
+ 
+ /*
+@@ -1127,6 +1129,18 @@ static void ntfs_setup_allocators(struct ntfs_volume *vol)
+ 	ntfs_debug("vol->mft_data_pos = 0x%llx", vol->mft_data_pos);
+ }
+ 
++/* An unused record is corruption when a required system file is loaded. */
++static struct inode *ntfs_system_iget(struct ntfs_volume *vol, unsigned long mft_no)
 +{
-+	NVolSetErrors(vol);
-+	if (vol->sb->s_flags & SB_ACTIVE)
-+		fserror_report_metadata(vol->sb, error, GFP_ATOMIC);
-+}
++	struct inode *inode = ntfs_iget(vol->sb, mft_no);
 +
-+void ntfs_report_file_metadata_error(struct inode *inode, int error)
-+{
-+	struct ntfs_inode *ni = NTFS_I(inode);
-+
-+	/* Attribute inodes share the file handle of their base inode. */
-+	inode = VFS_I(ntfs_inode_base(ni));
-+	/* Eviction cannot retain an inode reference for the deferred report. */
-+	if (inode_state_read_once(inode) & (I_FREEING | I_WILL_FREE)) {
-+		ntfs_report_metadata_error(NTFS_SB(inode->i_sb), error);
-+		return;
++	if (IS_ERR(inode) && PTR_ERR(inode) == -ENOENT) {
++		ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++		inode = ERR_PTR(-EFSCORRUPTED);
 +	}
-+	NVolSetErrors(NTFS_SB(inode->i_sb));
-+	if (inode->i_sb->s_flags & SB_ACTIVE)
-+		fserror_report_file_metadata(inode, error, GFP_ATOMIC);
++	return inode;
 +}
 +
- void ntfs_handle_error(struct super_block *sb)
- {
- 	struct ntfs_volume *vol = NTFS_SB(sb);
-diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-index ed5c0ccb9cd9..27f58beb4b2d 100644
---- a/fs/ntfs/volume.h
-+++ b/fs/ntfs/volume.h
-@@ -262,6 +262,9 @@ DEFINE_NVOL_BIT_OPS(SymlinkNative)
- DEFINE_NVOL_BIT_OPS(MftBootstrap)
- DEFINE_NVOL_BIT_OPS(StreamsWindows)
+ static struct lock_class_key mftmirr_runlist_lock_key,
+ 			     mftmirr_mrec_lock_key;
+ /*
+@@ -1142,7 +1156,7 @@ static bool load_and_init_mft_mirror(struct ntfs_volume *vol)
  
-+void ntfs_report_metadata_error(struct ntfs_volume *vol, int error);
-+void ntfs_report_file_metadata_error(struct inode *inode, int error);
-+
- static inline void ntfs_inc_free_clusters(struct ntfs_volume *vol, s64 nr)
- {
- 	if (!NVolFreeClusterKnown(vol))
+ 	ntfs_debug("Entering.");
+ 	/* Get mft mirror inode. */
+-	tmp_ino = ntfs_iget(vol->sb, FILE_MFTMirr);
++	tmp_ino = ntfs_system_iget(vol, FILE_MFTMirr);
+ 	if (IS_ERR(tmp_ino)) {
+ 		if (!IS_ERR(tmp_ino))
+ 			iput(tmp_ino);
+@@ -1242,6 +1256,7 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
+ 		if (((struct mft_record *)kmft)->flags & MFT_RECORD_IN_USE) {
+ 			/* Make sure the record is ok. */
+ 			if (ntfs_is_baad_recordp((__le32 *)kmft)) {
++				ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 				ntfs_error(sb,
+ 					"Incomplete multi sector transfer detected in mft record %i.",
+ 					i);
+@@ -1257,6 +1272,7 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
+ 		/* Do not check the mirror record if it is not in use. */
+ 		if (((struct mft_record *)kmirr)->flags & MFT_RECORD_IN_USE) {
+ 			if (ntfs_is_baad_recordp((__le32 *)kmirr)) {
++				ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 				ntfs_error(sb,
+ 					"Incomplete multi sector transfer detected in mft mirror record %i.",
+ 					i);
+@@ -1276,6 +1292,7 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
+ 		}
+ 		/* Compare the two records. */
+ 		if (memcmp(kmft, kmirr, bytes)) {
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 			ntfs_error(sb,
+ 				   "$MFT and $MFTMirr record %i do not match.  Run chkdsk.",
+ 				   i);
+@@ -1310,6 +1327,7 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
+ 	do {
+ 		if (rl2[i].vcn != rl[i].vcn || rl2[i].lcn != rl[i].lcn ||
+ 				rl2[i].length != rl[i].length) {
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 			ntfs_error(sb, "$MFTMirr location mismatch.  Run chkdsk.");
+ 			up_read(&mirr_ni->runlist.lock);
+ 			return false;
+@@ -2741,9 +2759,10 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	 */
+ 	result = parse_ntfs_boot_sector(vol, (struct ntfs_boot_sector *)boot);
+ 	kfree(boot);
+-	if (!result) {
++	if (result) {
++		err = result;
+ 		if (!silent)
+-			ntfs_error(sb, "Unsupported NTFS filesystem.");
++			ntfs_error(sb, "Failed to parse NTFS boot sector.");
+ 		goto err_out_now;
+ 	}
+ 	if (!vol->mft_write_supported && !sb_rdonly(sb)) {
+@@ -2795,6 +2814,7 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		ntfs_set_default_dentry_ops(sb);
+ 	tmp_ino = new_inode(sb);
+ 	if (!tmp_ino) {
++		err = -ENOMEM;
+ 		if (!silent)
+ 			ntfs_error(sb, "Failed to load essential metadata.");
+ 		goto err_out_now;
+@@ -2802,7 +2822,8 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 
+ 	tmp_ino->i_ino = FILE_MFT;
+ 	insert_inode_hash(tmp_ino);
+-	if (ntfs_read_inode_mount(tmp_ino) < 0) {
++	err = ntfs_read_inode_mount(tmp_ino);
++	if (err) {
+ 		if (!silent)
+ 			ntfs_error(sb, "Failed to load essential metadata.");
+ 		goto iput_tmp_ino_err_out_now;
+@@ -2826,6 +2847,7 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	vol->lcn_empty_bits_per_page = kvmalloc_array(lcn_bit_pages, sizeof(unsigned int),
+ 						      GFP_KERNEL);
+ 	if (!vol->lcn_empty_bits_per_page) {
++		err = -ENOMEM;
+ 		ntfs_error(sb,
+ 			   "Unable to allocate pages for storing LCN empty bit counts\n");
+ 		goto unl_upcase_iput_tmp_ino_err_out_now;
+@@ -2876,6 +2898,7 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		queue_work(ntfs_wq, &vol->precalc_work);
+ 		return 0;
+ 	}
++	err = -ENOMEM;
+ 	ntfs_error(sb, "Failed to allocate root directory.");
+ 	/* Clean up after the successful load_system_files() call from above. */
+ 	iput(vol->vol_ino);
 -- 
 2.51.0
 
