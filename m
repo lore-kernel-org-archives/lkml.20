@@ -1,80 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792487954;
-	b=f1B4mmvfW3qantDP8JvlEwzVzgXXrbBGJKjmEnvRZQa1PX21pUzbZadlJcv2tLgjLfwn
-	 2cPEcBygXnIZkIbwdl7DOtiQyQDyqN5kkj3uI+bmBsSd+RkGwsc68Aqdx3YLvLmswFo2h
-	 rUDfGQMLaOiWEMm3kU5RuSEh8m/5n6h9aSX7XSxb6wbRjRSXZI+7yr1H2DOktXuWpuG/S
-	 JlFEbau22bsZq4YEv5Hpnai6DkF9lCvBS+iiVPEZRHTR7gVO0SuXawPPUiZ5/V1Tx/Efa
-	 gs/aOWRa4ObhkQxUoTRHLHRYe/olNLo33yorbCZVI+yeB3DmmuVWxDvttiqUSR3M1Ag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487954;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:In-Reply-To:
-	 References:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=4qJbhDueB81+tPuWcRR2Jg6rPFktFnxMsGcG4bGELWg=;
-	b=Ol5NZYODJKJTlOtHnr6vFkMlNNJrQhFYFBuGGqehZ72Yk8GQdiV7mFw7GVs0YsNj5f+d
-	 FS/iXqeqb/0P5RnB921EiQ9cb0//EUmYVh8ovgSjDnFpuMu4OftZk8ExfZ2kTbYBQaJM+
-	 Pb8ulf5AAXoxulLM3g+aIO8qEE82D1t5pkWDhLpzd3JV1xc92OPmRGPN9Ycs9tNeXJdtX
-	 6GtQDklahZ+rQyLJwGA6tBU3OMWe+xcl9w5ct6EjbR0nZNQYhrryvx3/Ld4i88pClcbsu
-	 zUAEFtBLHwOLFm4fNKbalZveVrnHHVkpAiiFPcY+vaGvoy9qkv83LPjJpxty2FmzEug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meVbhBq1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDF8606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meVbhBq1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792487953;
-	b=ZV4Xo23btX9bAAtBJRuPsdaJ4ExQgGTMJXjmKxvglE8MasGu8VqXC4amf3ZgUNybclKp
-	 eq/UXZHbIOWNYHgqD5xNJvvMv67xQh/d+6xMDNbs2TDnCiQ6H92so9vF1rJJWrBohwlFo
-	 7UMRFTnb0wc1/3zsb2JrBQPshlYFvmpDtpYnF4dGFne6x6N122o5v2e+Lt3oO4sYCGpdJ
-	 v6pTZ1AwlUWz5TJjq+zuoYCQBDd2o8Nu6kl3HVtpdwMsZxzN0wtNs/UmDyaC6fJ/MvUvD
-	 gC8WIfEt5AED1x5hN9Sr0lxtWLf4rq4AAreqz4XuiuMq0GT67uNmBwNsWtf0UB9/FuQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792487953;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:In-Reply-To:References:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4qJbhDueB81+tPuWcRR2Jg6rPFktFnxMsGcG4bGELWg=;
-	b=uqJnv1Myxm22TbUyTARmq1QwJbbpm6zB/eJ5twkntK3rlEEy5VKcGnLq+KUHeib44L8q
-	 MF8Hr030A1k0+Yh3eaF4G9sfUiKEgth7IgJls75zuuuH1anN+AdyZeSwM/R1KqjT1Hynw
-	 YtRHABgbAYQDiUvg5AKWvqGkkQ7l9CmhVVGubCfAje2HSD9e2fq4VlSSuEiudjxTkGxht
-	 siy4AccVb0HweH1ylazkaJonQgBkxyJbu9DpKe9dkHWtSdOANJwy5f6dE/Y9DW0nPRyK/
-	 ObLVQlc2eRCn5A8nJqybkTXKOc+o6fc+Ociw+CSDnpXfuzolnd0xn4ahjNDEaKP2KGw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792487978;
+	b=Z2t7I7BsLIRuZ4TRFMt5FdK8ZA/oBTyeTPOF0s/9NJXkUHPIjSvzPi8jk99IY9jNc+sz
+	 1JuxKpgaHbH7qROu2UJSkNQyQOWFeDcU64dGcuQzYBs/rHXKcztbYEw4VAfZIVvToUb8O
+	 3Ai/8BzaIUCF7ydq7ggDmUq7wBVM0tWVpZtu0s8IYAMvDmon4tcf+St4zBgb8azaMk+og
+	 Eo6sjyn3waZ7iO+oSud1cwQoFbF4RvYctS/0Q+Pi6ngck/z1WtaE6cKiuHM36Ht/WGgo+
+	 IGPvBsVa7qwRcCSVMwI2FjEdJXUizwkPr6B4dlmInuNT/z8YLKyO+lazk1OZZGxyZfQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487978;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JGq046gGXw4XcOdGnSEHgJIR2O0gujEWvtIf5Ag1ia0=;
+	b=HgGV4bqidxa4t0qLgbOfWSsfEYgHyxtDJD5essVOcl6dTkAo4tKs5FjgtfLWkpDVzTfV
+	 v7Xj1fDx+Q6wy1YYTVIvjo98LI2lr1n9gWrBsFD2VXzAW+ZGa49vnlXZGJS/SC0sb1zId
+	 ui6JAAMO9I1QI/3KNKhKtY3WtlEK+ZRsKwYOUCC1JQzhj06yXH/5d1vejE7qfhPuz9I8h
+	 q9rBDKa5CJYdiAAgFOnzORxG2u8yZTq95Ms0fJnY6L23oA3+06a1/ybc425S9efVWSk9S
+	 0jktCrF2QhfiD9TtTW8CChxU7+Qn0qDuMiueUaxr2djr8HEFt+eYRubfYtRIgjNdHhQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="ZvoC/0Hj";
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D40551F000C4;
-	Tue, 20 Oct 2026 09:19:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792487953;
-	bh=4qJbhDueB81+tPuWcRR2Jg6rPFktFnxMsGcG4bGELWg=;
-	h=From:Date:Subject:In-Reply-To:References:To:Cc:Reply-To;
-	b=meVbhBq1NhmLKWUg7RTShEac2BdOnx6H3Y/k4el4AKT4cgn7GwiYLfEJBRN5+M36y
-	 bzTibISxvMh4JfMO4CRisz0JEifQUjT5WsxuskCMPiKHjl5chGhrqiGIcf2VY8Ftzz
-	 wEPa+kI2GIbgtDwEKD4yTU27e29HWmPAYomfHl0HclFxXC9RV7J09ZxhVz3ikxJQpR
-	 9JlCkH2Tob9WTEQhIV4lRJHMOTtDEeAJXoKzjTw7OzUmk6gV0Jp76pFbXC+Hqm4i3Y
-	 RsJLLrqHJH8A11tu4LmOtXO/mWqD3E7rw7VY7JTEBNiudY6VEeJkTfhazEPCo3XsqU
-	 EbA6PI7KOXWkA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 30940406D4;
-	Tue, 20 Oct 2026 09:19:12 +0000 (UTC)
-From: Vladyslav Yamkovyi via B4 Relay <devnull+hex.aleph0.ai@kernel.org>
-Date: Tue, 20 Oct 2026 11:19:12 +0200
-Subject: [PATCH v2] drm/i915/psr: Use register notifications during async
- flips
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10CE8606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:19:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10CE8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZvoC/0Hj
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1531348f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:19:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792487976; x=1793092776; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JGq046gGXw4XcOdGnSEHgJIR2O0gujEWvtIf5Ag1ia0=;
+        b=ZvoC/0HjoWQBe6v4RhWlvN8gU1HwGS3CXsFeZbO9CKrYN76M87wee0pPAkvi3zWerB
+         5gbyQCOC4M32KxMEbgF11ebqOvSHUnLNEK3oGaKiw/XUY6VdqRMHSijI2S0xJu6e/6n2
+         4QI4NicD7mO6c51s6t8+jOaoGHYam10T2WhM4xRO9RpH/CZC+SHMlZRilh0pbhkT4koW
+         Icn25SHGSLXG2rV6FXIoSwoROrRtXxGnufkJqNquKjOVxPzC+bwaXpYZNNEBm4sPtinz
+         nwjDdZXQduUeK8bzZPNxIuBsFxCR/YDyVYtsWi9HpsCPzAZjw5A86NjCDccgQeav4zik
+         tn/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792487976; x=1793092776;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JGq046gGXw4XcOdGnSEHgJIR2O0gujEWvtIf5Ag1ia0=;
+        b=AUVdO4w/5hJcBS1J3l+RmWMpxN3zby/t1jgJn9pw+7BIUfeAmr6sws9SDRPaq7igAi
+         ZQRMDiZ++xo1YEZlTba/vjuylqgl9csALSSCc5TY/uae2uTQZFWOjLRd6+NR72a5UkpP
+         ntOO9khZBUvOedyIQu49rMAkJMRZp/4Dfh70h4cTXfx6hDCgTKxA+E//2MfwOo01UKkF
+         NzfSb/CIvpqE2Wct7QQztn0IYEPifRsh4BieQTSf2QSzzaKmIbjKl7MrkZqRcBe3NwJ3
+         2kAbSHpawouJqXCFb/AQLiXwoO52ZDzaWFs8f5eeLV0TKPiw3QC0OMAd2jGbmOVPTI3q
+         KQtQ==
+X-Forwarded-Encrypted: i=1; AKwUvByAGM6a1LhxX/Ie77fEwLNwmSzfxkjjHN9I0uK+8ddw8XdvmcmNhj4PM+oQS0TM9iel7TepA9a3pXXNXAA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLl6aKKd0ghENp/+hseNBCHCXI0S3Afn6dc3hoPmkSC1nhcNQIM
+	KBwm1dhZO6RvIo/IM3WDziBM2pDMmFkDbZ+OdiMcu+mMRqK9kR9AM0suts9QrEZY3A8=
+X-Gm-Gg: AYBFou1508ppVd8HAdy4gDp6yru3gowTE4aEfS3q3N47znUhg/n9M8enUgFwB4WWv9L
+	IDfO3nBPQ7OpjX4mTeGD43P0KBSyI9WZb51Vb3VtxJL5IIKjUl3WfGLH9Ha/MXHT3AO2czDFJhm
+	ELxFIC3R3WlYqxdnwC3tup9NXdjKK03QDa8rxatjex1EoBgOWL+6UM84eIeN4S+2ew1Rc2kwGxG
+	WHsUyKOm1llliETzm4LqRQGFJgI/IY6nWcHDxZVuKpVvq6wsn16fBiz0BfVJLE03INDS8RrEmcv
+	NIp8Pen51K3VZjb2sn2iD0DqYlxpLgc9j+amry6ACr/JSD13KZw2mCyUc8xaLPU4VerCELl3V8B
+	Yy2h4HXVoHjS4+3J/De+V3wD0g52rm6RWUo+dJJw4ix4t6IzRxgnvrnI0caqYZozUrZGHAnKk+E
+	4DyOCeVkJ+sPrS6bJq7LTbTGpeftBczxG7NyBr5F+yD/1Kx6F8hZzm1JDVin73sQq0X2SWwVp50
+	pckTJDj457MEheKO/3PuJdPDt0kuOh6yK8WXmkgeGb8/GzMO9J9rw==
+X-Received: by 2002:adf:e19a:0:b0:48e:6f:a9c1 with SMTP id ffacd0b85a97d-48e07fa6ffamr21235031f8f.54.1792487976218;
+        Tue, 20 Oct 2026 02:19:36 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:e3a1:1a65:a394:be54? ([2a01:e0a:106d:1080:e3a1:1a65:a394:be54])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d8208b1sm5114545f8f.33.2026.10.20.02.19.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 02:19:35 -0700 (PDT)
+Message-ID: <9bf6d1b1-d287-49bf-9755-a3ce42b85823@linaro.org>
+Date: Tue, 20 Oct 2026 11:19:34 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,187 +91,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-fix-psr-async-trans-push-v2-1-5282017ba8ea@aleph0.ai>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0K6drSFUKIr72FYtGVqaxSaDhAJ4
- e626AFcTf7k/Ze/MsLokdilWFnE2ZMf+hTKQ8GMU/0dwXcps5KXUnBRgfVvCBRB0dIbGKPqCcJ
- EDrRVsq552XDTsFQPERO7q2/tN9OkH2jG7MuEVoSgk8G4/OriC0YfTr+bCedpHOKyr5tFNv0xZ
- BYgALE5a1sJLaW9qicGx4/Ks3bbtg9bn1139AAAAA==
-X-Change-ID: 20261013-fix-psr-async-trans-push-bfa6550270c7
-In-Reply-To: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
-References: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
-To: Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, 
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>, 
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org, 
- intel-xe@lists.freedesktop.org, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
- =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792487951; l=6884;
- i=hex@aleph0.ai; s=20261013; h=from:subject:message-id;
- bh=qpQHd14VRb2xAvTSBwHDgWqfyncSp1FaXBXGgUUAOR4=;
- b=N9q0FCAIL40xYH6e3ysER68/zdF08bff0J3B0g++9pHWpnzPOrl5b9jE4iWCxVClDB2Pq9jc3
- ZEuPm9BsqKhBCMzuw/O1FlrV06JnEaw7uuQQKY+0v2aC0tRJI8ZOjJy
-X-Developer-Key: i=hex@aleph0.ai; a=ed25519;
- pk=faUPQ+UBdMQ6ZcbVM9ytjGUZvrhV8mzf+ctgaoVsZy0=
-X-Endpoint-Received: by B4 Relay for hex@aleph0.ai/20261013 with
- auth_id=1170
-X-Original-From: Vladyslav Yamkovyi <hex@aleph0.ai>
-Reply-To: hex@aleph0.ai
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 4/4] ASoC: codecs: wcd939x: fix ref leak and NULL deref
+ with USB-C audio
+To: Val Packett <val@packett.cool>, Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261020082631.1509275-1-val@packett.cool>
+ <20261020082631.1509275-5-val@packett.cool>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261020082631.1509275-5-val@packett.cool>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Vladyslav Yamkovyi <hex@aleph0.ai>
+On 10/20/26 10:26, Val Packett wrote:
+> Some code issues were found during review of a port of typec code from
+> wcd939x to wcd937x, pointed out by sashiko-bot:
+> 
+> * wcd939x->wcd_mbhc may be accessed by the typec callbacks which are
+>    independent of the ASoC codec lifecycle, don't leave it as NULL/PTR_ERR;
+> * wcd939x->typec_switch reference was leaked on unbind, put it there;
+> * the device_node reference returned by of_graph_get_remote_node() was
+>    being leaked, add a __free annotation to the declaration.
+> 
+> Fix them in wcd939x as well.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 10f514bd172a ("ASoC: codecs: Add WCD939x Codec driver")
+> Signed-off-by: Val Packett <val@packett.cool>
+> ---
+>   sound/soc/codecs/wcd939x.c | 18 ++++++++++++++----
+>   1 file changed, 14 insertions(+), 4 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/wcd939x.c b/sound/soc/codecs/wcd939x.c
+> index 26fe0b6313cd..56e041e70fd4 100644
+> --- a/sound/soc/codecs/wcd939x.c
+> +++ b/sound/soc/codecs/wcd939x.c
+> @@ -2466,6 +2466,7 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
+>   {
+>   	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
+>   	struct wcd_mbhc_intr *intr_ids = &wcd939x->intr_ids;
+> +	struct wcd_mbhc *mbhc;
+>   
+>   	intr_ids->mbhc_sw_intr = regmap_irq_get_virq(wcd939x->irq_chip,
+>   						     WCD939X_IRQ_MBHC_SW_DET);
+> @@ -2482,9 +2483,12 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
+>   	intr_ids->hph_right_ocp = regmap_irq_get_virq(wcd939x->irq_chip,
+>   						      WCD939X_IRQ_HPHR_OCP_INT);
+>   
+> -	wcd939x->wcd_mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
+> -	if (IS_ERR(wcd939x->wcd_mbhc))
+> -		return PTR_ERR(wcd939x->wcd_mbhc);
+> +	mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
+> +	if (IS_ERR(mbhc))
+> +		return PTR_ERR(mbhc);
+> +
+> +	/* May be accessed by platform dev typec callbacks, only set if valid */
+> +	wcd939x->wcd_mbhc = mbhc;
+>   
+>   	snd_soc_add_component_controls(component, impedance_detect_controls,
+>   				       ARRAY_SIZE(impedance_detect_controls));
+> @@ -2499,6 +2503,8 @@ static void wcd939x_mbhc_deinit(struct snd_soc_component *component)
+>   	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
+>   
+>   	wcd_mbhc_deinit(wcd939x->wcd_mbhc);
+> +	/* May be accessed by platform dev typec callbacks, clear */
+> +	wcd939x->wcd_mbhc = NULL;
+>   }
+>   
+>   /* END MBHC */
+> @@ -3171,7 +3177,7 @@ static int wcd939x_populate_dt_data(struct wcd939x_priv *wcd939x, struct device
+>   {
+>   	struct wcd_mbhc_config *cfg = &wcd939x->mbhc_cfg;
+>   #if IS_ENABLED(CONFIG_TYPEC)
+> -	struct device_node *np;
+> +	struct device_node *np __free(device_node);
+>   #endif /* CONFIG_TYPEC */
+>   	int ret;
+>   
+> @@ -3434,6 +3440,10 @@ static void wcd939x_unbind(struct device *dev)
+>   	put_device(wcd939x->txdev);
+>   	put_device(wcd939x->rxdev);
+>   	component_unbind_all(dev, wcd939x);
+> +#if IS_ENABLED(CONFIG_TYPEC)
+> +	if (wcd939x->typec_analog_mux)
+> +		typec_switch_put(wcd939x->typec_switch);
+> +#endif /* CONFIG_TYPEC */
+>   }
+>   
+>   static const struct component_master_ops wcd939x_comp_ops = {
 
-Async flips skip the TRANS_PUSH sent by intel_pipe_update_end().
-On platforms using TRANS_PUSH for PSR frame-change notifications,
-an async flip from self refresh can therefore lose its completion
-event and freeze scanout.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Select register-based frame-change notifications for an async request
-and while any plane remains in async mode. Restore TRANS_PUSH when
-the CRTC returns to synchronous operation. Update the selector under
-the PSR lock before programming the planes, preserving the current
-VRR enable state.
-
-Fixes: 129a4da11707 ("drm/i915/psr: Use TRANS_PUSH to trigger frame change event")
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9582
-Link: https://lore.kernel.org/dri-devel/20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai/
-Cc: stable@vger.kernel.org
-Signed-off-by: Vladyslav Yamkovyi <hex@aleph0.ai>
----
-v2: Don't send a push for async flips; instead stop using TRANS_PUSH as
-the PSR frame change event while async flips are in use (Ville). No push
-is sent for async flips, so intel_vrr_check_push_sent() is unaffected
-(Jouni).
-
-Tested on Panther Lake (eDP, PSR2, Panel Replay with and without VRR).
-
-I could not determine whether LNL_TRANS_PUSH_PSR_PR_EN may be changed
-while the PSR/PR source is enabled (Bspec 69984 is not public).
-The patch changes it in pre-plane update, after the previous commit's
-hardware programming has completed and before the planes are programmed.
-Exiting PSR around the switch added about one refresh interval at fixed
-refresh and about 40 ms with Panel Replay+VRR in local tests.
-Is changing the selector without exiting PSR supported?
----
- drivers/gpu/drm/i915/display/intel_display.c | 11 +++++++++++
- drivers/gpu/drm/i915/display/intel_psr.c     | 10 +++++++++-
- drivers/gpu/drm/i915/display/intel_vrr.c     | 17 ++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_vrr.h     |  2 ++
- 4 files changed, 38 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index d5d4453f283b..92e2b6100ec8 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7412,6 +7412,8 @@ static void intel_atomic_dsb_prepare(struct intel_atomic_state *state,
- 				     struct intel_crtc *crtc)
- {
- 	struct intel_display *display = to_intel_display(state);
-+	const struct intel_crtc_state *old_crtc_state =
-+		intel_atomic_get_old_crtc_state(state, crtc);
- 	struct intel_crtc_state *new_crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 
-@@ -7438,6 +7440,15 @@ static void intel_atomic_dsb_prepare(struct intel_atomic_state *state,
- 		!intel_crtc_needs_modeset(new_crtc_state) &&
- 		!intel_crtc_needs_fastset(new_crtc_state);
- 
-+	/*
-+	 * DSB frame-change notification uses the old CRTC state, whereas
-+	 * DSB wait handling uses the new policy. Change the notification
-+	 * mechanism on the CPU path before programming the planes.
-+	 */
-+	if (intel_psr_use_trans_push(old_crtc_state) !=
-+	    intel_psr_use_trans_push(new_crtc_state))
-+		new_crtc_state->use_dsb = false;
-+
- 	intel_color_prepare_commit(state, crtc);
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 00d0146b2600..4c862fa8d795 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3187,6 +3187,12 @@ void intel_psr_pre_plane_update(struct intel_atomic_state *state,
- 				wm_optimization_wa(intel_dp, new_crtc_state);
- 		}
- 
-+		if (psr->enabled &&
-+		    intel_psr_use_trans_push(old_crtc_state) !=
-+		    intel_psr_use_trans_push(new_crtc_state))
-+			intel_vrr_psr_frame_change_update(old_crtc_state,
-+							  new_crtc_state);
-+
- 		mutex_unlock(&psr->lock);
- 	}
- }
-@@ -4660,7 +4666,9 @@ bool intel_psr_use_trans_push(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 
--	return HAS_PSR_TRANS_PUSH_FRAME_CHANGE(display) && crtc_state->has_psr;
-+	/* Keep register notifications while any plane remains in async mode. */
-+	return HAS_PSR_TRANS_PUSH_FRAME_CHANGE(display) && crtc_state->has_psr &&
-+		!crtc_state->uapi.async_flip && !crtc_state->async_flip_planes;
- }
- 
- bool intel_psr_pr_async_video_timing_supported(struct intel_dp *intel_dp)
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index d43a06907d18..4f691ca50ea3 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -758,7 +758,7 @@ static u32 trans_vrr_push(const struct intel_crtc_state *crtc_state,
- 	if (send_push)
- 		trans_vrr_push |= TRANS_PUSH_SEND;
- 
--	if (HAS_PSR_TRANS_PUSH_FRAME_CHANGE(display))
-+	if (intel_psr_use_trans_push(crtc_state))
- 		trans_vrr_push |= LNL_TRANS_PUSH_PSR_PR_EN;
- 
- 	return trans_vrr_push;
-@@ -1059,6 +1059,21 @@ void intel_vrr_psr_frame_change_enable(const struct intel_crtc_state *crtc_state
- 		       trans_vrr_push(crtc_state, false));
- }
- 
-+void intel_vrr_psr_frame_change_update(const struct intel_crtc_state *old_crtc_state,
-+				       const struct intel_crtc_state *new_crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(old_crtc_state);
-+	enum transcoder cpu_transcoder = old_crtc_state->cpu_transcoder;
-+	u32 push = trans_vrr_push(old_crtc_state, false);
-+
-+	/* VRR enable/disable has not run yet; preserve the old timing state. */
-+	push &= ~LNL_TRANS_PUSH_PSR_PR_EN;
-+	if (intel_psr_use_trans_push(new_crtc_state))
-+		push |= LNL_TRANS_PUSH_PSR_PR_EN;
-+
-+	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder), push);
-+}
-+
- bool intel_vrr_is_fixed_rr(const struct intel_crtc_state *crtc_state)
- {
- 	return crtc_state->vrr.flipline &&
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
-index 19c7990be1b2..c2ca4db5acfe 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.h
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-@@ -35,6 +35,8 @@ void intel_vrr_dcb_increment_flip_count(struct intel_crtc_state *crtc_state,
- bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state);
- void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
- void intel_vrr_psr_frame_change_enable(const struct intel_crtc_state *crtc_state);
-+void intel_vrr_psr_frame_change_update(const struct intel_crtc_state *old_crtc_state,
-+				       const struct intel_crtc_state *new_crtc_state);
- void intel_vrr_get_config(struct intel_crtc_state *crtc_state);
- int intel_vrr_vmax_vtotal(const struct intel_crtc_state *crtc_state);
- int intel_vrr_vmin_vtotal(const struct intel_crtc_state *crtc_state);
-
----
-base-commit: 24d867f5e671c78760ab39087a57c25ad98e1f42
-change-id: 20261013-fix-psr-async-trans-push-bfa6550270c7
-
-
+Thanks,
+Neil
