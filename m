@@ -1,60 +1,151 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.7.83
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792519525;
-	b=nY6T7hXeDDjAps39UEyJ1ESbBeKfof6Uk1Nc0cuxRAH5l+ddbKSbNaIIHENREt08GpyE
-	 nq+jQp33frUWUcT27p1GwFxi8uSMBfKrFA1GRR5N+x5gPo7ysBn0qQWiX2MOYZ7iEeFRr
-	 nr0EFA4+n7rpwNZeQmdKRux+IAiBppuAJ0zYe+jNobJKNB9FwPpBTWaF/x4/ky7LS1Oir
-	 XQzsl4HQIB6GMFsAx76g2NfdyYxXpQQfLz3aSTgyWbImpF7VKlWjivKRnNIqf+eYF8aiW
-	 9apASStqTNWHWKFMyDX8jLgmCCo4A8lEGElU8Nu8fZX1kN4xezXbRE2gUfeTw+YB8FQ==
+	t=1792519580;
+	b=4II/dHsYnYj1mQ0X9uRcVtIEZ/h6hsYLM9qQCANu5BB28wtQ56cavNmoEIdJamGiFgOd
+	 2uNneW8cvGAVzsk7nuAqAJAT5L+yneQixbNJ28WiZ+Ey04dbZQWleINDHPuUf/C/TJYtF
+	 SyDSVI8VySDGGw6XENZnkDnk4xsPS4EAtsIUhXQGnCsYPM+vbZPl3ac8aNXIyRK4tLflZ
+	 mGGXoy075wVwmDT5QZqTR2JmlhehaFo/Gcy0BuSyHys9mOf3XBfllN3578U3jFPSi4EwI
+	 pRv+NXnotVjf+91n/9/CjuvDyeOFTF4cWt5ga2Y5Ur5fofGS56lLUlVWCaKd7Wnrbkg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792519525;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=9eSaud7dFUgdPyFW0o5bdI3JdYL7Fm5AQErAMesA9t0=;
-	b=slwN6s+JKsiGGnaSIpObJz2EW5uR34c0feiLFc8HRAM1wHgiGQy9Br96bHEKnD1Dal8e
-	 FQfTRDvE7ofnc5KP0mM2zvlB7lReZmMZo+S8ucSEVtqRzzVs6P7F6EtQga+SpeAFdk5Xg
-	 f1Ec3G+s2NgbOiCGHnaLzaJfrT/QY/7/3A6z64SRHj5/+macdGeJUXxiN5DiL59Kbcya1
-	 65HmPZnJWSG2HSHF0JPz/iqT6v1U+5f949JdLnn/yLLT1UD1fZTe9pRnnqbjjHEzulM/g
-	 lXKOt2ERGfBhlMDAxqROVaYp0oJvj7Leq/5l+xyJiwzoVvtxP0Je8nwXWpqsiCFRgEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792519580;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=DiJMhRCrfDaacw3dIifFDZrjGWdBDDeK3LfuR3NRnks=;
+	b=qgSoZ/POuBd3HSaqSWmJEsE1KLI8afHnruI9lupiFmHRQc820Q4HT86boylRJcBpof1d
+	 rvbRcvTLWrWFDT+0q15M3UWccjDzVODjqzqlqoOWLbVneXzpI8bp3v+tlSS1rOLNSfD9K
+	 RmU8gGQofOXQFvy+Bhb02UZxAikgdJLKX+lzKcyV3J8DNKe5YTHGOL9+4x9Pd8snAP+v9
+	 xe5jJaioEXTHLgbgaz4jvfJ911IiRSfIccMLNm1+/p+WJBzqJXfiURS/leUjcmzSSV3wU
+	 k46xEihQ5e1T5HITzvgL3tFfo93YVWmE6OdmsaLB594P0qDdlmssEhwlPtcjghLrX2A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YHdstS9E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=fkPPrCCi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.7.83
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19013083.outbound.protection.outlook.com [52.103.7.83])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790E3606A319;
-	Tue, 20 Oct 2026 18:05:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 790E3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662A2606A319;
+	Tue, 20 Oct 2026 18:06:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 662A2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YHdstS9E
-ARC-Seal: i=1; a=rsa-sha256; t=1792519481; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=cO8218ncU8S2STckPIoI6sh//5C20e0X4YryZKZF4JsnI8OI1xXGAQ109xvGisqckvR5aTrx+yWJJpNCQD1Ik4mGSDcmcxlCO3FrBqd/nOcN1qRETRXNe7l7CF7nGqmoezGCb1X/wqocu5k55kMc5fYf3PaKKKBE1a+pTNnOsqE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792519481; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=9eSaud7dFUgdPyFW0o5bdI3JdYL7Fm5AQErAMesA9t0=; 
-	b=UCqDPq8Rr2ancdsrd+CRdkAmgGKt7SO94IJKA9UtkrH4euthKvtzBQ5NmaGmlAdI6fjyncqii6c4dIjXcY/PeGiG1kgR7J+SPUHuUL5x1xA5ydAZR5K7mFwx/+eYiDXvHDQL7ARK2mQ6wCUvVF/CAdz1ouUSAQjdP7ZKktNR3HM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792519481;
-	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=9eSaud7dFUgdPyFW0o5bdI3JdYL7Fm5AQErAMesA9t0=;
-	b=YHdstS9E7BGjv2OfXeJ2yZfFlYEDODFcCUHON6STCZLLvpIVPsdTejFX2UUjqOHe
-	FXyn6YE9sE7NfFz57BRen2Ln3Ij/LiUIrocMDVAgWkbRREEIzkzHAUxkggmhPJJG5A7
-	/4HYL8d4Zb/KqlaVnBZ/a4NC4G7GCSN2dYDqgn/s=
-Received: by smtp.zohomail.com with SMTPS id 1792519478414682.148302063257;
-	Tue, 20 Oct 2026 11:04:38 -0700 (PDT)
-Message-ID: <94d47cab-10c6-4ec3-84a0-3bddc9d67f5f@collabora.com>
-Date: Tue, 20 Oct 2026 20:04:33 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=fkPPrCCi
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C759RP5e+SBbVs8LLxsVjBWk7MKTbd+/VgCl+hHMDeEMAhUml4vdyoyZx9bJYcompMQX71rc2eOBIME2dhFpMqzpWtzE+LfbqdwbPKpgLfGHqRK4aAGLdZRFkoGtXFkRpmq6SMndqJPOEGlUNYiHNrG7u9KUdgz4oyXt71McAAkQGKn+SK4i4UPq1mxfj8Nx1u/7uU/nnHOMRFUP6FtwJ3am3pfCNsycnFRKz+jVS7YQIA8poJxw+v1pg/JYCg8PMldsDnuqegOwfYWqXGfGaGQ8vEQKFEc+bfxCkQwFMys3gKsh2wXFqcqDzn9T1DM7QK6maiYHNSgmuay9r5wPQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DiJMhRCrfDaacw3dIifFDZrjGWdBDDeK3LfuR3NRnks=;
+ b=olG5x/EDu5l/RQ+2VvprF7uuSytfNSr50Pp5EsIQpu/W5T+emIgeaqsSDMm9jMOFv9Ifd8IJAFcnuCUd6zC0VKOzsS1+FjFDnrmfNnUMR47uDyqg4nxkkWL/GPoTQUSp9/CNUHrku2Ep6AjZ/eYjs3TeGNMuNaufuNxyZfZLO/sc3xwG2lWSeKYaPsw6yZNbiyQpBdjHkuZ3lCE2fwtImrpbqC0IJtTm2ru0t2I3OKUULHR4cpZJn5SGb2w/cQ4gzgRoRFT4BRKK0TdOIokwr3kK/6wyhhG8UdRgxFdsFC9+IY2QkDaNwvWqLzMRlXizUeRP/124xW76TbBcaXKkPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DiJMhRCrfDaacw3dIifFDZrjGWdBDDeK3LfuR3NRnks=;
+ b=fkPPrCCiwo2EHduzar85ohCAXCsZuERcUfm4cOmAiPOsaCBgGXWH/oRzcXZOiPWahCrkCR3dUqLoEoAfZK1d4tfjcfB2hHNmWueMx2lJ5nSG+3H73TKU995Ibw0D7JdtgDeYBCtvxH1xzP0mnUoVj50N5rJ0U1uPBf084+hk0UHnIpmAZ4b7zYyo1zS7CFkLQf3wPVPrHtSfi2y7jGtJzzSj9TFAsFl7h+kk1r4rBhvXAVoOJTyuiVxJiOWdUKPK3B+cYCPHeJE8XlOeONkhdTnZfx1PxmJtup6+HQs8pHslyZUS/P9FFOU5m4yWnluJP9k+DJZaxXliUc206fbVYg==
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
+ by MN2PR02MB6928.namprd02.prod.outlook.com (2603:10b6:208:205::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 18:04:11 +0000
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 18:04:10 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Kameron Carr <kameroncarr@linux.microsoft.com>, Haiyang Zhang
+	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
+	<decui@microsoft.com>, Michael Kelley <mhklinux@outlook.com>
+CC: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2 3/5] Drivers: hv: vmbus: Compute ring byte counts from
+ a caller-held snapshot
+Thread-Topic: [PATCH v2 3/5] Drivers: hv: vmbus: Compute ring byte counts from
+ a caller-held snapshot
+Thread-Index: AQHdYB762f4L4uaOX0uJste68Gd8rbcGupBg
+Date: Tue, 20 Oct 2026 18:04:10 +0000
+Message-ID:
+ <MN2PR02MB6863B5BB274EC29FB15862A5D4672@MN2PR02MB6863.namprd02.prod.outlook.com>
+References: <20261019230950.1573677-1-kameroncarr@linux.microsoft.com>
+ <20261019230950.1573677-4-kameroncarr@linux.microsoft.com>
+In-Reply-To: <20261019230950.1573677-4-kameroncarr@linux.microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|MN2PR02MB6928:EE_
+x-ms-office365-filtering-correlation-id: 63660497-e22e-44d6-cdaf-08df2ed48ada
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|12121999013|51005399006|37011999003|15080799012|13091999003|8062599012|8060799015|19110799012|55001999006|24021099003|31061999003|25010399006|41001999006|56899033|19061999003|440099028|3412199025|102099032|40105399003|12091999003|1710799026;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?dC94RUJ8I8to+oMhMZJ7WSEvUqLFrwIJaaPbYQai1ZvXwSoL67RFdjtvHKIl?=
+ =?us-ascii?Q?ahHa+f36omHrGFk/0i0kWk/pcPmjsOBdi3th1kQW4n1BiC4xEDsrCWVzsaRE?=
+ =?us-ascii?Q?P4Y6dW5dwaI/AC180cHdekGt1FpvKhme6IvRcq/Be+7Wx1JxXySXf+uUtRig?=
+ =?us-ascii?Q?e9GEceZprX12rzK6JEBXdYajIDIO5QIq7go3xwdKj5bxlEODL1gfMU87qyyu?=
+ =?us-ascii?Q?2v98o1r1iGVmsMvQs1BjHFtAbWY8+1FgSf5gXITo0LjJg+h3Hq2v2OXIyKaC?=
+ =?us-ascii?Q?tYycfhXuKs+6Kis4NKoEHhjDBvCISwmEv9r4Zs3hvNY0aYlMoiOgdlpDhZx9?=
+ =?us-ascii?Q?IwJ3NzHh+gR3NDxDyP6hvlWPhkjdSR/E1oaGRVBRAIHrtMIGn9ca0age3AeS?=
+ =?us-ascii?Q?zSC+5wgk5ijt1/Kb74WzBb7LZwzeP5As6dGObHdccwIPIX/fhkZEnKzNnlDE?=
+ =?us-ascii?Q?mCc2fQhp2oMe8Wr11WbZFL5sy0xkBwT6Y/6wWkROoKq/Yw/sjwZeoeLVaO1j?=
+ =?us-ascii?Q?+WT6y+LU279KcJM31O3LHaCgbPcbxVEEriETDmr1ryVrDYfysAZnNRFXdGjf?=
+ =?us-ascii?Q?4YbWXcscRkqVKUXf6krCEl866BoV8g46PGdYVbhkdrgu6CBeUbJtnEZmxQ3S?=
+ =?us-ascii?Q?y7Kpa5Up9mx+Gm+eS7Zdfp4yDz8VliVNqtibeKIUMdMf+Od+KNbUzkhegkWO?=
+ =?us-ascii?Q?4pNFFED40a8n2eQjGc/Z3Bij8GgLno1oSFyOzmE2WLX60OCbW2dge7mos85Y?=
+ =?us-ascii?Q?Z+JXXo1u44hjQhq3S8h9AQGtyxudKZR3vsxR63etmvHDHjsMFLKnI8+K9/Iy?=
+ =?us-ascii?Q?0cLpH+U7fJsyfUfbzhvVpDBKRW3SZQeWGpc53QvdgTqEiv41JmuZ+rvPaeR5?=
+ =?us-ascii?Q?PEtJ26/uNUWkLyjxLLA9hhSjK7TDSqEqG3KTDjKOGa6QYPeB1DODCwksKOVX?=
+ =?us-ascii?Q?nW6dvmNxsV4JaBu3U/IyWX+XqPWRI/r85XL6x5s7r0aaoz2dTtUH2ykMNow5?=
+ =?us-ascii?Q?1ifdZ+HVIYwtTddswpZYIwAV6dvQArbE3tcz/ZudjDfLbBFLjYtrTWHg3Xuy?=
+ =?us-ascii?Q?2jS8dREyjCiPKGFa+0WoSNbBAkQM1z4ijLfuaHzXf8F3YS0rQpn26rZLQNrL?=
+ =?us-ascii?Q?fZtRj1s778HciNrEJMmYbq1YHQBVVgORJhtuiwVRlPSoHG2XWfMW8+9w2wR1?=
+ =?us-ascii?Q?LfSOrfm95hJ9w8cC?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?u1WHoogcLnlddPXG0F7oyxbBcRFE2wp3HctnDKRvHLeQEhptwhReJXNXhxRW?=
+ =?us-ascii?Q?Jt96qgUNCdhmCc53IY7JXP1LlK6cGTWP1otF3hbg7FLlumY3+PU+DZIBGt+w?=
+ =?us-ascii?Q?k5EhjEibuRBIFZzqQ7FmsalLzOY96jkORHmpYz2QM3dJxuXSa+z9PwtyxXrU?=
+ =?us-ascii?Q?+csJf6MbuLYBMcWqDKbWTnVRO+JZTNB0ws4c9S+979osa4K1UfTqSAnDvti1?=
+ =?us-ascii?Q?dB1pf2yqZGpf4ITEOEQaRQMWYV2jIfTmnj9aSsCJS3Iap2jVEzwgLNrx8W9A?=
+ =?us-ascii?Q?f28IFuPnMsCSzcTrHe9AdZhCgSt2tsPHFvqikbj0mMZsM24H93w++iVekWi3?=
+ =?us-ascii?Q?TmGhVDephirVwFCFFcmlGMPyB9ZD5XlmWde9gvTd6J5cvqmem830gpfLnVww?=
+ =?us-ascii?Q?6um7iKJU8laBEOxdrEbRjKl5dySrydY0UbjkiNGb+L1XkSCZ07BZr54zWtwV?=
+ =?us-ascii?Q?sEYqpgN+ptD6AkPknSoH72YLbCKShIxiX36LFM/eVV3DP3dSsNuA2i9JBDeQ?=
+ =?us-ascii?Q?kkUrneXIlYo064OMIw3PUl4Qz7Eu/Ceo+4HL4j1Hb7xm0PlGSby4yPtjiZ7H?=
+ =?us-ascii?Q?tPP1Htp2pCs20Dgax+Qy2gpTz6b94bsfH6Q65EHn/gBqPTvwr3bU0ba+ZEEY?=
+ =?us-ascii?Q?Hx6AK/rkv9pCy5wC3ucSq0AOnGY2mWFBVfoyEwOFfFt0DY2GIMl44JVxI4ht?=
+ =?us-ascii?Q?fI/yWpXjSRcD8HpT6xGEZD7cO76180WU1toTDgmDodrjWOoVjQoXCx3Hu/lW?=
+ =?us-ascii?Q?nIvDoQg3kIFF1HNd5MuYSvojvN0ivWbKCv0a4cjq1IT9LUULW8YSY8AjLUGm?=
+ =?us-ascii?Q?ggdbSYx7p1v+A39FLmM7Szvg1Opc3NGimcY0Pgos4102xUnHJvsDlsUbviJB?=
+ =?us-ascii?Q?Tndab+4xfEEcSBXs3jTVh/al1RpLTAbdXSOhZXs6n/uIoBgyKvs0Gk9Wk31e?=
+ =?us-ascii?Q?SbjnbaT/+UwUFpkgrhJoRowui21ywEXkCNnanyotnUpOw5Qz4TDIUYgZMurL?=
+ =?us-ascii?Q?WgHEzIfEyKw7ADY20zOqmWrCXMsXN/N/e6e63B1aBV1l7agkN3HHq2tJiLpH?=
+ =?us-ascii?Q?MREiLImltXS6vtJ3IPS0iZv3GlMI0hnB80CSnfX5q0fUASJBtYa8JvINKu2K?=
+ =?us-ascii?Q?o0W68p8CZygN4p4zTqn0EAlSadvjR7y3bfGF7XUH1IUFFlqXK24PVHzHKAwl?=
+ =?us-ascii?Q?EV1Q26f/7+GPibDIPFoly2QB67gjm/KkN2IvgpacjAJqoyhaPfI+J3WPnU5M?=
+ =?us-ascii?Q?Yke8RhYRKbNbC9pUcSnWIEWpPUM5JYAqNDGdgKQY7jv7XWZukS81KTM7Q68i?=
+ =?us-ascii?Q?J86ighdTqeY1gF2U9zRhqe8bI6LFnsjXxUmRlbCW66//x5yBkrECiiAB61CS?=
+ =?us-ascii?Q?kMnPm48=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,212 +155,281 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
- a cell to select TX or RX
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Rob Herring <robh@kernel.org>
-Cc: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <2501273.NG923GbCHz@diego> <20261020141039.GB4157247-robh@kernel.org>
- <25254818.ouqheUzb2q@diego>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <25254818.ouqheUzb2q@diego>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63660497-e22e-44d6-cdaf-08df2ed48ada
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 18:04:10.6895
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR02MB6928
 
-Hi all,
+From: Kameron Carr <kameroncarr@linux.microsoft.com> Sent: Monday, October =
+19, 2026 4:10 PM
+>=20
+> hv_get_ringbuffer_availbytes() reads the indices directly, so a caller
+> that also wants the index values has to read them a second time. The
+> host can change them in between, resulting in the byte counts and the
+> indices reflecting two different states of the ring.
+>=20
+> Replace it with hv_ringbuffer_avail_write() and
+> hv_ringbuffer_avail_read(), which take the indices as arguments and
+> return a single count. They are separate because most callers want only
+> one of the two values. Use them in hv_ringbuffer_write() in place of the
+> open-coded equivalent. hv_get_bytes_to_read(), hv_get_bytes_to_write()
+> and hv_pkt_iter_avail() duplicated the same arithmetic, so put the
+> helpers in include/linux/hyperv.h and use them there too.
+>=20
+> Add a hv_ringbuffer_indices_invalid() helper that bounds checks a pair
+> of read and write indices, and use it for the check in
+> hv_ringbuffer_write(). Convert the remaining callers to use a single
+> snapshot:
+>=20
+>   - hv_ringbuffer_get_debuginfo() now reports the indices and the
+>     computed byte counts from the same snapshot.
+>=20
+>   - hv_pkt_iter_close() computes the free space from priv_read_index
+>     instead of re-reading the shared read index. The two agree unless a
+>     misbehaving host has rewritten the value.
+>=20
+> No functional change intended for a well-behaved host.
+>=20
+> Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
 
-On 10/20/26 16:57, Heiko Stübner wrote:
-> Am Dienstag, 20. Oktober 2026, 16:10:39 Mitteleuropäische Sommerzeit schrieb Rob Herring:
->> On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko Stübner wrote:
->>> Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleuropäische Sommerzeit schrieb Michael Riesch:
->>>> Hi all,
->>>>
->>>> On 10/19/26 17:06, Rob Herring wrote:
->>>>> On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
->>>>>> Hi Krzysztof, Rob,
->>>>>>
->>>>>>> Existing OS should ignore surplus cell if the driver is coded properly.
->>>>>>> Same as adding new properties or new front-compatible.  The question is
->>>>>>> how the existing driver behaves?
->>>>>>
->>>>>> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
->>>>>> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
->>>>>>
->>>>>> 1. Keep the second cell. Add the patch as follows:
->>>>>>
->>>>>> - if (args->args_count != 1) {
->>>>>> + if (args->args_count < 1) {
->>>>>>     dev_err(dev, "invalid number of arguments\n");
->>>>>>     return ERR_PTR(-EINVAL);
->>>>>>   }
->>>>>>
->>>>>> + if (args->args_count > 1 && args->args[1]) {
->>>>>> +   dev_err(dev, "only the transmitter is supported\n");
->>>>>> +   return ERR_PTR(-EINVAL);
->>>>>> + }
->>>>>>
->>>>>>   With Fixes: and Cc: stable, the stable kernels maintained at that
->>>>>>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
->>>>>>   dts, and the receiver fails cleanly instead of getting the transmitter.
->>>>>>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
->>>>>>   It goes in with the series, since two-cell dts only exist after it.
->>>>>>
->>>>>> 2. Use a flag in the upper bits of the existing cell, as Rob
->>>>>>     suggested. Existing kernels are not affected, unless a board enables
->>>>>>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
->>>>>>
->>>>>> I will write the impact clearly whichever  approach is selected in
->>>>>> the related commit messages and the cover letter.
->>>>>>
->>>>>> I think the cell approach is easier to read and more symmetric in the
->>>>>> long term,
->>>>>> but it breaks more. Which one do you think is better? Thanks.
->>>>>
->>>>> I'm not a user of this platform, so I don't care. Up to the platform 
->>>>> maintainers to decide if breakage is acceptible. You just need to 
->>>>> document the issue in the commit message.
->>>>>
->>>>> Rob
->>>>
->>>> It's a bit of a pickle, all this.
->>>>
->>>> I gave it some more thought. In the end this is an IP block with two
->>>> PHYs. No more, no less. One cell is sufficient to address those, and it
->>>> could be 0 for the transmitting PHY (DSI, display) and 1 for the
->>>> receiving PHY (CSI, camera).
->>>>
->>>> Of course the two PHYs can operate in either DPHY or CPHY mode. The
->>>> phy-cells have been (mis?)used to select the proper mode of combo PHYs,
->>>> and this principle has been applied here too.
->>>>
->>>> However, we have the special situation here that the mode can only be
->>>> changed for the complete IP block (and thus for both PHYs at the same
->>>> time). As Bryan points out, we need to check and complain if the PHY
->>>> mode is not set to the same value for both PHYs.
->>>>
->>>> I suggest using a property
->>>>     samsung,cphy-mode;
->>>
->>> I guess, a maybe nicer way would be mimicing
->>> 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
->>>
->>> with its
->>> 	intel,phy-mode = <x>
->>>
->>> with x coming from include/dt-bindings/phy/phy.h
->>> for the distinction between cphy and dphy, so we don't introduce yet
->>> another way to describe this.
->>
->> We already have the plain 'phy-type' property which takes the same 
->> PHY_MODE_x values. We don't need yet another vendor specific property.
-> 
-> even better then ... and I didn't look deep enough it seems.
-> 
-> 
->>>> (name to be bikeshedded) that sets the complete IP block into CPHY mode
->>>> (DPHY being the default) to distinguish between the modes. Since both
->>>> modes use a different electrical interface, this is clearly a hardware
->>>> thing and thus suitable for device tree.
->>>>
->>>> Then, we can address the two PHYs with the help of the already existing
->>>> phy cell (without any bitflag tweaks to the value).
->>>>
->>>> The sole drawback is that we need to accept the PHY_TYPE_DPHY and
->>>> PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
->>>> it should only be the former.) And we need to handle those values
->>>> correctly. But I think this is not more painful than the other
->>>> approaches. At the same time, this design seems to be the most correct
->>>
->>> The current cell values are 10 + 11, so as long as we don't re-use those
->>> exact values for the other constants the driver should somewhat easily
->>> be able to recognize an old DT?
->>
->> I think you will still have an ABI issue of what does old OS do with new 
->> values?
-> 
-> wasn't the main contract, a newer kernel should support old DTs ?
-> 
-> Aka the DT is parked in some firmware part (u-boot?) and gets handed
-> to the newer kernel.
-> 
-> I don't see deliberately handing a newer DTB to an older kernel as a
-> very common occurence?
-> 
-> 
-> And from a practical standpoint:
-> 
-> We're talking about devices with DSI displays that are at stake here,
-> so we're in the embedded world.
-> 
-> In other areas we're still fighting basic functionality like actually
-> handling the type-c orientation correctly in the usbphy.
-> 
-> So I really don't see a device with a user-updateable mainline kernel out
-> in the field, apart from people hacking around on their devices to try
-> out new features and new kernels, simply because core functionality
-> is still evolving in mainline.
-> 
-> 
-> RK3576/RK3588 devices still ship with a vendor u-boot/kernel, with
-> completely incompatible DTB afterall.
-> 
-> 
-> So yes, supporting old devicetrees on new kernels I do see as important
-> but someone working extra hard to combine a new DT with an old kernel,
-> I really don't see as an issue here.
->
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
 
-Just to make sure I understood it correctly: the current suggestion
-would be the standard integer property (optional)
-
-  phy-type:
-    description: D-PHY (default) or C-PHY mode
-    enum:
-      - 10 # PHY_TYPE_DPHY
-      - 11 # PHY_TYPE_CPHY
-    default: 10
-
-plus changing phy-cells to:
-
-  "#phy-cells":
-    const: 1
-    description: |
-      Argument defines whether receiver or transmitter PHY is used.
-        - PHY_DIRECTION_TX
-        - PHY_DIRECTION_RX
-      See include/dt-bindings/phy/phy.h for constants.
-
-plus handling the case where an old DTS may still have a line
-
-  phys = <&mipidcphy0 PHY_TYPE_DPHY>;
-
-and the new kernel will convert it to something equal to phy-type =
-PHY_TYPE_DPHY and phys = <&mipidcphy0 PHY_DIR_TX>;
-
-plus ignoring the whether or not an old kernel can work with a new DTS
-or not.
-
-By the way, if we handle the case of the old DTS with the new kernel
-correctly (which we should IMHO) then we do not need to change the
-existing DTS nodes, thus eliminating regressions.
-
-Is this summary correct?
-
-Best regards,
-Michael
+> ---
+>  drivers/hv/ring_buffer.c | 68 ++++++++++++++++--------------------------=
+------
+>  include/linux/hyperv.h   | 50 +++++++++++++++++++++++++++--------
+>  2 files changed, 61 insertions(+), 57 deletions(-)
+>=20
+> diff --git a/drivers/hv/ring_buffer.c b/drivers/hv/ring_buffer.c
+> index 7f466c5..cda957d 100644
+> --- a/drivers/hv/ring_buffer.c
+> +++ b/drivers/hv/ring_buffer.c
+> @@ -107,35 +107,12 @@ static u32 hv_copyto_ringbuffer(
+>  	return start_write_offset;
+>  }
+>=20
+> -/*
+> - *
+> - * hv_get_ringbuffer_availbytes()
+> - *
+> - * Get number of bytes available to read and to write to
+> - * for the specified ring buffer
+> - */
+> -static void
+> -hv_get_ringbuffer_availbytes(const struct hv_ring_buffer_info *rbi,
+> -			     u32 *read, u32 *write)
+> -{
+> -	u32 read_loc, write_loc, dsize;
+> -
+> -	/* Capture the read/write indices before they changed */
+> -	read_loc =3D READ_ONCE(rbi->ring_buffer->read_index);
+> -	write_loc =3D READ_ONCE(rbi->ring_buffer->write_index);
+> -	dsize =3D rbi->ring_datasize;
+> -
+> -	*write =3D write_loc >=3D read_loc ? dsize - (write_loc - read_loc) :
+> -		read_loc - write_loc;
+> -	*read =3D dsize - *write;
+> -}
+> -
+>  /* Get various debug metrics for the specified ring buffer. */
+>  int hv_ringbuffer_get_debuginfo(struct hv_ring_buffer_info *ring_info,
+>  				struct hv_ring_buffer_debug_info *debug_info)
+>  {
+> -	u32 bytes_avail_towrite;
+> -	u32 bytes_avail_toread;
+> +	u32 read_index;
+> +	u32 write_index;
+>=20
+>  	mutex_lock(&ring_info->ring_buffer_mutex);
+>=20
+> @@ -144,13 +121,14 @@ int hv_ringbuffer_get_debuginfo(struct hv_ring_buff=
+er_info *ring_info,
+>  		return -EINVAL;
+>  	}
+>=20
+> -	hv_get_ringbuffer_availbytes(ring_info,
+> -				     &bytes_avail_toread,
+> -				     &bytes_avail_towrite);
+> -	debug_info->bytes_avail_toread =3D bytes_avail_toread;
+> -	debug_info->bytes_avail_towrite =3D bytes_avail_towrite;
+> -	debug_info->current_read_index =3D ring_info->ring_buffer->read_index;
+> -	debug_info->current_write_index =3D ring_info->ring_buffer->write_index=
+;
+> +	read_index =3D READ_ONCE(ring_info->ring_buffer->read_index);
+> +	write_index =3D READ_ONCE(ring_info->ring_buffer->write_index);
+> +	debug_info->bytes_avail_toread =3D
+> +		hv_ringbuffer_avail_read(ring_info, read_index, write_index);
+> +	debug_info->bytes_avail_towrite =3D
+> +		hv_ringbuffer_avail_write(ring_info, read_index, write_index);
+> +	debug_info->current_read_index =3D read_index;
+> +	debug_info->current_write_index =3D write_index;
+>  	debug_info->current_interrupt_mask
+>  		=3D ring_info->ring_buffer->interrupt_mask;
+>  	mutex_unlock(&ring_info->ring_buffer_mutex);
+> @@ -282,8 +260,8 @@ int hv_ringbuffer_write(struct vmbus_channel *channel=
+,
+>=20
+>  	read_index =3D READ_ONCE(outring_info->ring_buffer->read_index);
+>  	old_write =3D READ_ONCE(outring_info->ring_buffer->write_index);
+> -	if (unlikely(read_index >=3D outring_info->ring_datasize ||
+> -		     old_write >=3D outring_info->ring_datasize)) {
+> +	if (unlikely(hv_ringbuffer_indices_invalid(outring_info, read_index,
+> +						   old_write))) {
+>  		spin_unlock_irqrestore(&outring_info->ring_lock, flags);
+>  		pr_err_ratelimited("outbound ring indices out of range: relid %u read =
+%u write %u size %u\n",
+>  				   channel->offermsg.child_relid, read_index,
+> @@ -291,9 +269,8 @@ int hv_ringbuffer_write(struct vmbus_channel *channel=
+,
+>  		return -EIO;
+>  	}
+>=20
+> -	bytes_avail_towrite =3D old_write >=3D read_index ?
+> -		outring_info->ring_datasize - (old_write - read_index) :
+> -		read_index - old_write;
+> +	bytes_avail_towrite =3D hv_ringbuffer_avail_write(outring_info, read_in=
+dex,
+> +							old_write);
+>=20
+>  	/*
+>  	 * If there is only room for the packet, assume it is full.
+> @@ -445,10 +422,7 @@ static u32 hv_pkt_iter_avail(const struct hv_ring_bu=
+ffer_info *rbi)
+>  	 */
+>  	write_loc =3D virt_load_acquire(&rbi->ring_buffer->write_index);
+>=20
+> -	if (write_loc >=3D priv_read_loc)
+> -		return write_loc - priv_read_loc;
+> -	else
+> -		return (rbi->ring_datasize - priv_read_loc) + write_loc;
+> +	return hv_ringbuffer_avail_read(rbi, priv_read_loc, write_loc);
+>  }
+>=20
+>  /*
+> @@ -568,6 +542,7 @@ void hv_pkt_iter_close(struct vmbus_channel *channel)
+>  {
+>  	struct hv_ring_buffer_info *rbi =3D &channel->inbound;
+>  	u32 curr_write_sz, pending_sz, bytes_read, start_read_index;
+> +	u32 write_index;
+>=20
+>  	/*
+>  	 * Make sure all reads are done before we update the read index since
+> @@ -607,11 +582,13 @@ void hv_pkt_iter_close(struct vmbus_channel *channe=
+l)
+>  		return;
+>=20
+>  	/*
+> -	 * Ensure the read of write_index in hv_get_bytes_to_write()
+> -	 * happens after the read of pending_send_sz.
+> +	 * Ensure the read of write_index happens after the read of
+> +	 * pending_send_sz.
+>  	 */
+>  	virt_rmb();
+> -	curr_write_sz =3D hv_get_bytes_to_write(rbi);
+> +	write_index =3D READ_ONCE(rbi->ring_buffer->write_index);
+> +	curr_write_sz =3D hv_ringbuffer_avail_write(rbi, rbi->priv_read_index,
+> +						  write_index);
+>  	bytes_read =3D hv_pkt_iter_bytes_read(rbi, start_read_index);
+>=20
+>  	/*
+> @@ -627,8 +604,7 @@ void hv_pkt_iter_close(struct vmbus_channel *channel)
+>  	 * Exactly filling the ring buffer is treated as "not enough
+>  	 * space". The ring buffer always must have at least one byte
+>  	 * empty so the empty and full conditions are distinguishable.
+> -	 * hv_get_bytes_to_write() doesn't fully tell the truth in
+> -	 * this regard.
+> +	 * curr_write_sz doesn't fully tell the truth in this regard.
+>  	 *
+>  	 * So first check if we were in the "enough free space" state
+>  	 * before we began the iteration. If so, the host was not
+> diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+> index 5c65820..09f25ad 100644
+> --- a/include/linux/hyperv.h
+> +++ b/include/linux/hyperv.h
+> @@ -209,31 +209,59 @@ struct hv_ring_buffer_info {
+>  };
+>=20
+>=20
+> +/*
+> + * The indices live in memory shared with the untrusted host, so check a
+> + * snapshot of them before using it as an offset or to compute a byte co=
+unt.
+> + */
+> +static inline bool
+> +hv_ringbuffer_indices_invalid(const struct hv_ring_buffer_info *rbi,
+> +			      u32 read_loc, u32 write_loc)
+> +{
+> +	return read_loc >=3D rbi->ring_datasize ||
+> +	       write_loc >=3D rbi->ring_datasize;
+> +}
+> +
+> +/*
+> + * Byte counts for a caller-supplied snapshot of the indices, so that th=
+e
+> + * counts and the indices the caller goes on to use describe one state o=
+f the
+> + * ring.
+> + */
+> +static inline u32
+> +hv_ringbuffer_avail_write(const struct hv_ring_buffer_info *rbi,
+> +			  u32 read_loc, u32 write_loc)
+> +{
+> +	u32 dsize =3D rbi->ring_datasize;
+> +
+> +	return write_loc >=3D read_loc ? dsize - (write_loc - read_loc) :
+> +		read_loc - write_loc;
+> +}
+> +
+> +static inline u32
+> +hv_ringbuffer_avail_read(const struct hv_ring_buffer_info *rbi,
+> +			 u32 read_loc, u32 write_loc)
+> +{
+> +	return rbi->ring_datasize -
+> +		hv_ringbuffer_avail_write(rbi, read_loc, write_loc);
+> +}
+> +
+>  static inline u32 hv_get_bytes_to_read(const struct hv_ring_buffer_info =
+*rbi)
+>  {
+> -	u32 read_loc, write_loc, dsize, read;
+> +	u32 read_loc, write_loc;
+>=20
+> -	dsize =3D rbi->ring_datasize;
+>  	read_loc =3D READ_ONCE(rbi->ring_buffer->read_index);
+>  	write_loc =3D READ_ONCE(rbi->ring_buffer->write_index);
+>=20
+> -	read =3D write_loc >=3D read_loc ? (write_loc - read_loc) :
+> -		(dsize - read_loc) + write_loc;
+> -
+> -	return read;
+> +	return hv_ringbuffer_avail_read(rbi, read_loc, write_loc);
+>  }
+>=20
+>  static inline u32 hv_get_bytes_to_write(const struct hv_ring_buffer_info=
+ *rbi)
+>  {
+> -	u32 read_loc, write_loc, dsize, write;
+> +	u32 read_loc, write_loc;
+>=20
+> -	dsize =3D rbi->ring_datasize;
+>  	read_loc =3D READ_ONCE(rbi->ring_buffer->read_index);
+>  	write_loc =3D READ_ONCE(rbi->ring_buffer->write_index);
+>=20
+> -	write =3D write_loc >=3D read_loc ? dsize - (write_loc - read_loc) :
+> -		read_loc - write_loc;
+> -	return write;
+> +	return hv_ringbuffer_avail_write(rbi, read_loc, write_loc);
+>  }
+>=20
+>  static inline u32 hv_get_avail_to_write_percent(
+>=20
+> --
+> 2.45.4
 
