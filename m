@@ -1,47 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484308;
-	b=Bfg1wvjifS+zAvIuyu5pgbyruGqb3W4C1uy5arENQTRHLsSkqqHzc6j/mX7Buv6aDrCk
-	 mXIgCeKCzyl7+DctvZjNInlS03dJNHAVfvoy3zzP4oCtP7c2UPc6Xc7P7GwtWmwVDQo0+
-	 kqDfsaVr7z7c9KBOl1UzbzBuKMw2NoRxZv1i+7upqHxTB6ADbQbf7pGpro83gBMfDxUFV
-	 qm40yTS88sxnngA5tL+LcHDJdZ27KmSGZKEVhS17OAdW24DKUkUUAO6MYvlnLn5nmcytd
-	 DVizFlzQ3ZYW442zXy3WXlpAHh5Qczi5t7LX//HJznGN4dEL3L9kIjTprPzJTvhZUlQ==
+	t=1792484339;
+	b=I5ayTfg/ttqn0ys6tAdmmTzQOJZf+/7s5d/FPI3lywP39TSJX2cYA3+0Mk8u/tZlxbjd
+	 eNG9WcF2HxYC4TU3+KmMj33EGAEJ3zS6rKeoCyPKwA8ZZnK6vJL31EzcUBXbKvG7mnP82
+	 0LB3K3eE2GE1uEINRPpK3ITCmUA9TOsAwortqOBUralUg5PiURXv+/6xA4OclMnJb+iYh
+	 LBDGNXkgI5xq3jyZlgpdl2JubhFR6sKUFp1rU5/WEH/ats2ZXbYKe/Ong2yONv6lE3FIL
+	 NT1wpSTQidhcw5lzDmpicGRuS+PTPI8yVCU7aogNHPOA1idRswkh6wzdWkIO9YYpWvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484308;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rhd9i6MZ/tSeH3TKysGHa5PRQgjZlpMeCGZ/ilQN7u4=;
-	b=cQyasgj2aYs1dZRy2kddyHIICoAQH/503kzh8gTQdUEphT2FPB4P8k2WnZOUJm7K0fsO
-	 XYUOPODjcm0qfRJIAWS89ptgwjXMwMuqsZHf9g4h7mY4Cg7pepc2BScDdKup+t2qyTBYe
-	 J0+FiYvgT6S9QQS44wNtPsK2A7wguGBWVJCcjXSNTMLm6KQAkM/wW8VaTRF3ya+AoNYMM
-	 LxUl1XKSWroBaOZGU4jCKH/nSG1FsbMWAnRXx/3UypNA+HakkDdsvhVp50HR7j1vza0U7
-	 CLUMR0Upvc90WlkiE3+UaCiIdqYOYUxNp7b0cEj3LdtYDF4YbM7hy+EdwfEG4P2QyEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484339;
+	h=DMARC-Filter:DKIM-Signature:X-Mailer:References:To:From:Date:
+	 X-Original-From:Content-Transfer-Encoding:Received:Mime-Version:
+	 In-Reply-To:Content-Type:Cc:Subject:Message-Id:X-Lms-Return-Path;
+	bh=kV+ysOu+6F/RM1Ge8MteVU55Vww6sMy8zKEuNEbejKQ=;
+	b=3/pivCbA8FvI8FBNg4QpqPYUUM6q2lcHPY9PEHKZQ4chVVPmPjiOoPC0V2NPSI0PHo8J
+	 O4kanDx8aqim3Yz8P0CHmzqxZ0MFa8hvD+iKoSD8WD84mAfkJlmUUJPqTZ91d7PHAqW1F
+	 28b6P6Hrycb47aT6p1vUnOtVdWKOw4fX2pXm5qH9qWmY1OHC8zy6sN7biamNOkBoqQXaA
+	 axaqOaF7u6YC6dWyB9pfWOkCXNq8eBAts212pT/AIrFM/KVeDsDPy/OPD1NShP+384uQD
+	 ngSJ6M0tHg7uc+v5absMHn965hp6xTicKWf9mXNDzEZcxuBEFf6fmuWXldZET8aSUVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuyZcDLB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=deepcomputing.io;
+	spf=pass smtp.mailfrom=deepcomputing.io;
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=Rik6LH3x;
+	arc=none smtp.remote-ip=209.127.231.37
+Received: from va-2-37.ptr.blmpb.com (va-2-37.ptr.blmpb.com [209.127.231.37])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B56606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:18:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F954606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:18:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F954606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuyZcDLB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878311F000C4;
-	Tue, 20 Oct 2026 08:18:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792484307;
-	bh=rhd9i6MZ/tSeH3TKysGHa5PRQgjZlpMeCGZ/ilQN7u4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DuyZcDLBfXNWGZLzrjjSwNI0RzkczO2f3zpg9vZGZFaS9pACw8aG3t0ARdAuQvUpJ
-	 Y0yKh/MRIGouMTXjxlKTSRaT6iXqHy71ZAbQXpZ9MkolrGsHxKh/dr/OX1/4OMSeQd
-	 8Igv/fmXqVZP1lAGUC08nLriQ983EoBLSu9HIRMP3ZScQWfvC0afHppbX81k0ZFnEr
-	 TI1vDWFtseK9Dfpk7vRuXTWYPHawurc49SNlwPBVNrosNDt+prbwGFkSHmFlmVRYgQ
-	 tux4Gr+NELTlqmf4DbsgcToRnH0obdgf52u7zp6K/OETHTxV3DpRhRN2JvX9TbaFM/
-	 /XwIgnp+F4UPg==
-Message-ID: <b6d4de88-cf2c-444d-8050-da2a9b22c7b9@kernel.org>
-Date: Tue, 20 Oct 2026 10:18:23 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=Rik6LH3x
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1792484327;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=kV+ysOu+6F/RM1Ge8MteVU55Vww6sMy8zKEuNEbejKQ=;
+ b=Rik6LH3xw2WgVTAswQttkhsFkbz/SdBV67CnAGhby8Ij9B8U6RhFYUAcADYznyJbFY+7w6
+ GtN6kpAE6+oYE6Yd1h8bg9y4Kbl+5KgZXkzzTo0A7elwt6fLBRZXN2cpJZEVvHEDiMn+aP
+ lL4prTi2CBpu/ewa0srn3XXvMZFdQCGDKSDDYs2fYtIJwpBSodT+h45icMFUg2thmwYNle
+ bJOMUht3MlXO6rO97J15PAx8byiEZbrlqCkHxvIrtz0U2JmnCyOeI/SV3xC3qI8Mq6vCHO
+ 7JEYdSW9+ceXoW8cusV2JncGJ6DXVm8IJWhll1REVlGF6j+kkua4RVQBN3Kd+Q==
+X-Mailer: git-send-email 2.43.0
+References: <20261020081633.3673704-1-sandie.cao@deepcomputing.io>
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Date: Tue, 20 Oct 2026 16:18:31 +0800
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+Content-Transfer-Encoding: 7bit
+Received: from roma-Laptop-12th-Gen-Intel-Core.. ([14.155.180.235]) by smtp.feishu.cn with ESMTPS; Tue, 20 Oct 2026 16:18:43 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,111 +64,189 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 1/3] mm/hugetlb: fix mremap move length truncation
-To: Li Zhe <lizhe.67@bytedance.com>, muchun.song@linux.dev,
- osalvador@suse.de, akpm@linux-foundation.org, rppt@kernel.org,
- peterx@redhat.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261019113034.97690-1-lizhe.67@bytedance.com>
- <20261019113034.97690-2-lizhe.67@bytedance.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20261019113034.97690-2-lizhe.67@bytedance.com>
+Mime-Version: 1.0
+In-Reply-To: <20261020081633.3673704-1-sandie.cao@deepcomputing.io>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+Subject: [PATCH v2 1/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator tree
+Message-Id: <20261020081831.3673722-1-sandie.cao@deepcomputing.io>
+X-Lms-Return-Path: <lba+26ad723e5+dff7a6+vger.kernel.org+sandie.cao@deepcomputing.io>
 
-On 10/19/26 13:30, Li Zhe wrote:
-> move_hugetlb_page_tables() returns the number of bytes moved, but
-> its return type is int while the generic move_page_tables() path uses
-> unsigned long lengths.
-> 
-> A hugetlb mremap() move length above INT_MAX can therefore be
-> misreported to copy_vma_and_data(). The out-of-range conversion to int
-> is implementation-defined; on common 64-bit builds, for example, a
-> 4 GiB move can be reported as zero, making the caller treat the move as
-> a failure and use the wrong length for rollback.
+Add the P1 PMIC's regulator topology tree for DeepComputing FML13V05 board
 
-Sounds like we want to CC stable here, right?
+Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
+---
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 155 ++++++++++++++++++
+ 1 file changed, 155 insertions(+)
 
-> 
-> Return unsigned long from move_hugetlb_page_tables(), matching
-> move_page_tables() and preserving the full byte count.
-> 
-> Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
-> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
-> ---
->  include/linux/hugetlb.h | 18 +++++++++---------
->  mm/hugetlb.c            |  8 ++++----
->  2 files changed, 13 insertions(+), 13 deletions(-)
-> 
-> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-> index 16c4c4caa126..cc12040e4032 100644
-> --- a/include/linux/hugetlb.h
-> +++ b/include/linux/hugetlb.h
-> @@ -121,10 +121,10 @@ void hugepage_put_subpool(struct hugepage_subpool *spool);
->  
->  void hugetlb_dup_vma_private(struct vm_area_struct *vma);
->  void clear_vma_resv_huge_pages(struct vm_area_struct *vma);
-> -int move_hugetlb_page_tables(struct vm_area_struct *vma,
-> -			     struct vm_area_struct *new_vma,
-> -			     unsigned long old_addr, unsigned long new_addr,
-> -			     unsigned long len);
-> +unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
-> +				       struct vm_area_struct *new_vma,
-> +				       unsigned long old_addr, unsigned long new_addr,
-> +				       unsigned long len);
-
-While at it, can you convert all these to use double tab indent instead?
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
+diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+index b5d5112de358..804abc85602a 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+@@ -22,6 +22,161 @@ memory@100000000 {
+ 		device_type = "memory";
+ 		reg = <0x1 0x00000000 0x4 0x00000000>;
+ 	};
++
++	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "AUX_VCC3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
++	};
++
++	reg_aux_vcc5v: regulator-aux-vcc5v {
++		compatible = "regulator-fixed";
++		regulator-name = "AUX_VCC5V";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-always-on;
++	};
++};
++
++&i2c8 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c8_cfg>;
++	status = "okay";
++
++	p1@41 {
++		compatible = "spacemit,p1";
++		reg = <0x41>;
++		interrupts = <64 IRQ_TYPE_LEVEL_HIGH>;
++		vin1-supply = <&reg_aux_vcc5v>;
++		vin2-supply = <&reg_aux_vcc5v>;
++		vin3-supply = <&reg_aux_vcc5v>;
++		vin4-supply = <&reg_aux_vcc5v>;
++		vin5-supply = <&reg_aux_vcc5v>;
++		vin6-supply = <&reg_aux_vcc5v>;
++		aldoin-supply = <&reg_aux_vcc5v>;
++		dldoin1-supply = <&buck4>;
++		dldoin2-supply = <&buck4>;
++
++		regulators {
++			buck1: buck1 {
++				regulator-min-microvolt = <1050000>;
++				regulator-max-microvolt = <1050000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck2: buck2 {
++				regulator-min-microvolt = <1050000>;
++				regulator-max-microvolt = <1050000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck3: buck3 {
++				regulator-min-microvolt = <800000>;
++				regulator-max-microvolt = <800000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck4: buck4 {
++				regulator-min-microvolt = <2100000>;
++				regulator-max-microvolt = <2100000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck5: buck5 {
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck6: buck6 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <500000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			aldo1: aldo1 {
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-always-on;
++				regulator-boot-on;
++			};
++
++			aldo2: aldo2 {
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-always-on;
++				regulator-boot-on;
++			};
++
++			aldo3: aldo3 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++			};
++
++			aldo4: aldo4 {
++				regulator-min-microvolt = <3300000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-always-on;
++				regulator-boot-on;
++			};
++
++			dldo1: dldo1 {
++				regulator-min-microvolt = <1200000>;
++				regulator-max-microvolt = <1200000>;
++				regulator-always-on;
++				regulator-boot-on;
++			};
++
++			dldo2: dldo2 {
++				regulator-min-microvolt = <900000>;
++				regulator-max-microvolt = <900000>;
++				regulator-always-on;
++				regulator-boot-on;
++			};
++
++			dldo3: dldo3 {
++				regulator-min-microvolt = <800000>;
++				regulator-max-microvolt = <800000>;
++				regulator-always-on;
++				regulator-boot-on;
++			};
++
++			dldo4: dldo4 {
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-boot-on;
++			};
++
++			dldo5: dldo5 {
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-always-on;
++				regulator-boot-on;
++			};
++
++			dldo6: dldo6 {
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-always-on;
++				regulator-boot-on;
++			};
++
++			dldo7: dldo7 {
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-always-on;
++				regulator-boot-on;
++			};
++		};
++	};
+ };
+ 
+ &uart0 {
 -- 
-Cheers,
-
-David
+2.43.0
