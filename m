@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485090;
-	b=OZTHKBlL403CkzM5xGZKlc/B0lhAHWQ5zI4qdLnlpNNJ0vjhPgc+meOuoJh3oXQEuhGs
-	 6KBBzAkD+vmW7Wiqlc4hZKRo9my+GvWRN6cfjvqveF+CFmessDvh4PqTTY10Oqm0OD9bB
-	 DdULQVKTbc4GYOkDo80N9cCgk1spV2mSD6Wlfif9s0Pt2zhNX2WsGUjYBAbvS5moSIYGl
-	 x4tfxrAKzolnLQ3bWUCoNvTkgQwOrjrVhcGcW46b6BhsRUFZPw0ZeIm6ibaY/z7y5Qklv
-	 hEmRcT+7v66TT4xOJmV1t3RY+iFQQGGduBlLbNwQfIK4TEL/kvtPnyDvsTdfuMYqy2w==
+	t=1792485137;
+	b=mOY1BmBIe5VHqarYSaAlArBj+d2vI4qLdSBpOBzVsXXtICgu+Ia2x/VBx/u88vraZSMn
+	 bcDkFxsPnRBUH5cc44NG3gFLikX/TVpE+kCJwMI/EjNCQchqlskZeEgxuFNHSn4saiUuE
+	 jJCj0cGod2FHKEzfcd58l12SMn4Q5l/jKlcdPUL7dVPLfle6ag7At5IHMDqs1rX8Kd0aU
+	 ETHxL2XACR6wEmID5GAPYi/OT9qsBTBZwoHKB9m7Tz/f3jY+ej2cO5PO5oHRkW/IlOm5D
+	 oVBc0HKZKOU7o0LXlUmIeOXWbF3S7VdH+ID4mryKMrVcKl9SZIkt5VTXbiVlOtafdQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485090;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=s+1oChBSSokuHupQL3Eas8zUsbYR10ns8xAR8Q/zsUk=;
-	b=jdulvYn3n2mo36iD3z8N1SHTZt00bJV2uKSv+c9vn2FFIkPCGqdiu76ZQfY1CJajyPdI
-	 xse58p15fWJyd6tXfTlTvH5SvexC5s/dQ5Njt9TltaTXpW+AzYGxY2YYAOgr05fXu4xLS
-	 hvdvMWESXQzkvauWxFR3aE83Lev8j3t1gzJRT8K95KpLI3sLlh9jSfqCKICGE6ejEovT+
-	 Bq88QsonTgZkUaxxEAvhWIve+Pdx5Mtml+XuI83aLZw6eVe5AFIf1vND2A2OwJ/rm4B8J
-	 m5EOlw4bIsle6PkMm9VlpdDW19Pt/Z4gkIPqOWZGR8Vksfy0k0VK1ZiYa2bndXLBoIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485137;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=WYwqUV0a09kbpatRxoseIFVv0mewCx3MSBetA+PMlF4=;
+	b=pJXOIzR7SZGyeorrrrp0qV9g4dIC+V4h4rzpp6THNrstbv06CwD+fCz/hYot9nY2dKvE
+	 p7kLhpQ+zPW2zOic+O5mb8sN1HSZ0xgQnFJB27xNhm68zwSJ3TciO5sCwLDS1VkvXs726
+	 RvDwKZkgyml4TRUZb1nOpC8sJUMT9xZAMpqwN8WW6X9swe3b7A2M/DfF6y/PknKWkZcYa
+	 /bkCzLXfiNOezIEWw+9Ltb/B3TtukzNHQX9YUpU93v1PzBKMkgiCnTIRHtpJ3+RABKEQH
+	 8V/mhbPINQAE4e8T8hijvYjFuzrDewIHiN2sJpsLkbYc3wz0tGG33z5hiCVWFeai+7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KIZtFHFU;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TXdb5k1g;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B44360A2606;
-	Tue, 20 Oct 2026 08:31:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B44360A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C091D606A319;
+	Tue, 20 Oct 2026 08:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C091D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KIZtFHFU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792485090; x=1824021090;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ZXAjazWBp88/eOGpDfVPxZYET8/clYWgR4YQVUXPHLg=;
-  b=KIZtFHFU01o08O+Zkhx/xPUYV/iGvNbtkFoyBznZ2rcPaKQeFH1Y3w/z
-   SjuYure56YmZ0OFIGjh+ctWy3MNpfxUHg9nes7nNgGyoJJqV5E8CAmKXi
-   qPYsGvkSr1lU+XgO9sT9lF8InteT31oLgMvtW5f5C/J/cQxQV37Irl9eW
-   I6dj71HcC5G42sN9YdkWQoUsOi4mWMZ0mSiM+sCyawJRi3tl45MtKJfhM
-   MLG8AhBVFwZTA4wx6biYZQv8pe9S6T8DHjkJXSjGpahXPSmPAPRFuPDnF
-   JYfP+obSOT6Hxi/P7LJ9dOLnVzShdScunVwZoDkregLpvm6InSxDNR77f
-   g==;
-X-CSE-ConnectionGUID: IoP0EOCoRNeCcq2Nhg2MCw==
-X-CSE-MsgGUID: F7irHwbWQrC3ua35ZvIBxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1209387"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1209387"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:31:29 -0700
-X-CSE-ConnectionGUID: GkX5RfzGSyakXA5bt9nYFw==
-X-CSE-MsgGUID: vTIs+iXPRM6JRkmHX8MA2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3161125"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:31:26 -0700
-Date: Tue, 20 Oct 2026 11:31:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jiri Slaby <jirislaby@kernel.org>
-Cc: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
-	linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	ilpo.jarvinen@linux.intel.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>
-Subject: Re: [PATCH v2 2/4] serial: 8250_dw: Only accept a contiguous DLF
- readback
-Message-ID: <atcm2zqDs1P_EDr0@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <a79114e72d029732db6764935dde12aa5d497706.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <d992e18d-31ab-4937-8780-9c9dc423082a@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TXdb5k1g
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792485132; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=WYwqUV0a09kbpatRxoseIFVv0mewCx3MSBetA+PMlF4=;
+	b=TXdb5k1gEb105YVtipP1+Yer3QcgbQgdv05emH8KM5SAvBIEd1douqj0sQ/QqFu6+x0JtfQavdTWImN4UGrqBOD/1HB2LkNnKqqcA/BRr6d5GmJZfEysz+cY82kw/SM3DJGlHCHDgvl3nqrS0VpJJy3hEhzgSq1XijurKuE7NI4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDCLk5f_1792485131;
+Received: from 30.221.145.25(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDCLk5f_1792485131 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 16:32:11 +0800
+Message-ID: <27f03c8f-c41d-437a-aca7-e6aecbed45f8@linux.alibaba.com>
+Date: Tue, 20 Oct 2026 16:32:10 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,32 +53,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d992e18d-31ab-4937-8780-9c9dc423082a@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2/heartbeat: serialize concurrent writes to a
+ region's dev attribute
+To: Eklavya Singh <eklavyasingh2106@gmail.com>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Heming Zhao <heming.zhao@suse.com>, Andrew Morton
+ <akpm@linux-foundation.org>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
+ <20261019072936.2279-1-eklavyasingh2106@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261019072936.2279-1-eklavyasingh2106@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 08:11:06AM +0200, Jiri Slaby wrote:
-> On 19. 10. 26, 22:06, Vinicius Pedrosa wrote:
 
-...
 
-> > -	if (reg) {
-> > +	/*
-> > +	 * DLF is a bit field starting at bit 0, so a real one reads back as
-> > +	 * 2^n - 1. Any other value means this offset is something else.
-> > +	 */
-> > +	if (reg && !(reg & (reg + 1))) {
+On 10/19/26 3:29 PM, Eklavya Singh wrote:
+> o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+> is already started, but nothing stops two writers from doing that at
+> the same time. configfs only serializes writes through the same open
+> file, so two processes that each open the dev attribute can both get
+> past the check:
 > 
-> Do I understand correctly, that this equivalent to:
->   if (is_power_of_2(reg + 1))
-> ?
+>   A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+>   B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+>   A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+>   B: start fails, fput(NULL)
+> 
+> Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+> so the error paths can free the slot data twice.
+> 
+> syzbot hit the fput(NULL) with an unbound loop device, where every
+> start fails with -EIO. With four threads doing the same thing on a
+> KASAN kernel I get both crashes within a second:
+> 
+>   BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+>   BUG: kernel NULL pointer dereference, address: 0000000000000158
+> 
+> Add a mutex to the region and hold it in dev_store(), in the
+> block_bytes, start_block and blocks stores, and in dev_show(), since
+> they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+> takes the mutex in a small wrapper rather than with guard(). It sleeps
+> with the mutex held while it waits for the heartbeat thread. That is
+> fine because neither the thread nor the teardown paths take it.
+> 
+> With the patch the same test ran for 10 minutes with lockdep on and
+> nothing was reported.
+> 
+> Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+> Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+> ---
+> v2: take the mutex in a wrapper around dev_store() instead of with
+> guard(), since dev_store() uses goto for its cleanup. No other changes.
+> 
+> v1: https://lore.kernel.org/all/20261018163121.128911-1-eklavyasingh2106@gmail.com/
+> 
+>  fs/ocfs2/cluster/heartbeat.c | 32 ++++++++++++++++++++++++++------
+>  1 file changed, 26 insertions(+), 6 deletions(-)
+> 
+> diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+> index 1c3def99bb0..003c398366e 100644
+> --- a/fs/ocfs2/cluster/heartbeat.c
+> +++ b/fs/ocfs2/cluster/heartbeat.c
+> @@ -269,6 +269,8 @@ struct o2hb_region {
+>  	struct list_head	hr_handler_list;
+>  	/* Serializes timeout arming against failed-start and teardown. */
+>  	struct mutex		hr_arming_mutex;
+> +	/* Serializes the region's configfs attributes against dev_store(). */
 
-Yes, and since we check for reg to be "not zero", this will work the rest.
+Naming the covered 4 region's attributes would be clearer.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> +	struct mutex		hr_dev_mutex;
+>  	bool			hr_stopping;
+>  
+>  	/* last hb status, 0 for success, other value for error. */
+> @@ -1676,6 +1678,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
+>  	unsigned long block_bytes;
+>  	unsigned int block_bits;
+>  
+> +	guard(mutex)(&reg->hr_dev_mutex);
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1705,6 +1708,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
+>  	char *p = (char *)page;
+>  	ssize_t ret;
+>  
+> +	guard(mutex)(&reg->hr_dev_mutex);
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1731,6 +1735,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+>  	char *p = (char *)page;
+>  	int ret;
+>  
+> +	guard(mutex)(&reg->hr_dev_mutex);
+>  	if (reg->hr_bdev_file)
+>  		return -EINVAL;
+>  
+> @@ -1748,10 +1753,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+>  
+>  static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+>  {
+> +	struct o2hb_region *reg = to_o2hb_region(item);
+>  	unsigned int ret = 0;
+>  
+> -	if (to_o2hb_region(item)->hr_bdev_file)
+> -		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
+> +	guard(mutex)(&reg->hr_dev_mutex);
+> +	if (reg->hr_bdev_file)
+> +		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+>  
+>  	return ret;
+>  }
+> @@ -1867,11 +1874,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
+>   * this is acting as commit; we set up all of hr_bdev_file and hr_task or
+>   * nothing
+>   */
+> -static ssize_t o2hb_region_dev_store(struct config_item *item,
+> -				     const char *page,
+> -				     size_t count)
+> +static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
+> +				       const char *page, size_t count)
+>  {
+> -	struct o2hb_region *reg = to_o2hb_region(item);
 
+Would it be worth recording that hr_dev_mutex must be held now?
+
+>  	struct task_struct *hb_task;
+>  	long fd;
+>  	int sectsize;
+> @@ -2032,6 +2037,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+>  	return ret;
+>  }
+>  
+> +static ssize_t o2hb_region_dev_store(struct config_item *item,
+> +				     const char *page,
+> +				     size_t count)
+> +{
+> +	struct o2hb_region *reg = to_o2hb_region(item);
+> +	ssize_t ret;
+> +
+> +	mutex_lock(&reg->hr_dev_mutex);
+> +	ret = __o2hb_region_dev_store(reg, page, count);
+> +	mutex_unlock(&reg->hr_dev_mutex);
+> +
+> +	return ret;
+> +}
+> +
+The wrapper keeps hr_dev_mutex held across the whole start, including
+the wait for the thread:
+
+        ret = wait_event_interruptible(o2hb_steady_queue,
+                                atomic_read(&reg->hr_steady_iterations) == 0 ||
+                                reg->hr_node_deleted);
+
+hr_timeout_ms is O2HB_REGION_TIMEOUT_MS, 2000, and hr_steady_iterations
+starts at O2HB_LIVE_THRESHOLD + 1, or one more doubling again when this
+is the only region and global heartbeat is active.  So a read of the dev
+attribute that races a start blocks for roughly six seconds, or ten for
+that first region, where it used to return at once.
+
+Thanks,
+Joseph
+
+>  static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
+>  {
+>  	struct o2hb_region *reg = to_o2hb_region(item);
+> @@ -2156,6 +2175,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+>  	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
+>  		name, strlen(name));
+>  	mutex_init(&reg->hr_arming_mutex);
+> +	mutex_init(&reg->hr_dev_mutex);
+>  	reg->hr_stopping = true;
+>  	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+>  	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
 
