@@ -1,55 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494477;
-	b=NH5uhMwsHYQ/mwrYidapm89535QXUKjyWtep/+NOdNyZJ0yoey3JsT1hjBfB9mqzU3nN
-	 sbjmaBzEyPPFf67hGE1g+g1CxwxMq9bQDRgm2ji+d+VuTGDRMWr4hkgDbStUfhekB2dr9
-	 7fu64VrOpL/uLO9XmqQ8MbusR52aSHQzRD+/dDWZHhd4dy6cujvvgXFmmUrby+XFyc25C
-	 BzDTt6S+nOfWton/lFApcgBHqXmjRECxRiXTddoZHv4GklNCkVLh1d39ZN9JZ+hIPNZx/
-	 hKHk5ehrO4Aj95cT/w6hvqMS6d+4cqbNcWDEFxfO2AMcqO12PLVpC9K7zxgKsMOZG1A==
+	t=1792494482;
+	b=nxfV9SODOzLdHPow74S0e713KTi7h5e8xWNSyqfa4t9qg2g0ly/n2bHrlx8pipae/vXl
+	 /Dq0tV8x5vi3BpQSMioxAun2bWWXpMrrCH4nlPvlRLy+idWXSE7sbzUJLIeBOkcPEfki+
+	 KARsdv6o0u0DYPOEAN/bn/Tr3loLWCPpJe7ypbVgyWSUjF4rtHXngu2jDi466Xw0cBlTH
+	 5Sewcmmg5+fJPO+0vz/Jda1qJJxL4ybzkbBFsX/EPqpIxgmnfMY60JW9Kh7irnLpVabY1
+	 rzGzxjnY4K7z7T5VaVCpo4GSbfuzKNTkbwM3hCiIN+5kZfkntgJrpS0qLOhXBz9pa4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494477;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494482;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=2kHi/Es8dkIPmkb5B6JokKevhVaE/UvcT1ONLUVioHQ=;
-	b=uZN0vRkfxv+vegJLjDYVVJAE5IT1euIKBOIR1LvExbGsTrnNoL6x15QVUP8CVfjDKITu
-	 BxQJPbJ2K+EMm9KsjKnaHkif5SCQYelkInCE3qMCA7sOQHazxe7TepqZqRcMCIj3eP3vj
-	 g4+PsSS2YB16ncwv8L1jkUTTPNWmFrCzuGZbEdnhUSkLoJy1Hjdm7JpeQ337Bw5cZ9H9r
-	 nEfITPl0IRlu4w9W4/1iIP14OF8UcFWtnZDyQXAvpOp8mqTsgK0YPTneE7h6xM2tV4zpK
-	 Mx14FYDX06RXmw8/kgo5+wJXuCyKn+jo0HQIn+ADINCoX4lJJzckHtoVFtdZpSEGn4g==
+	bh=swzxuzAAPk1vAzSfjUBi6A+yIRFDCeelp/hZ1PU1LeU=;
+	b=X1oT6RzggGqppSUVlEwKGjiOmUqOLaQZra8p77XXEjAlH706dQND0XFoggJRVi8HOlIx
+	 UrRJhMeCowCemn826X7EunasJPgf2d1DRbcyQSiLcmXhrz8y6c4eke1uiH+utPBGTPRJC
+	 xb2eJRhC/RdqgOXrFgZjbYbl0jk1PvSwtRJUX0/DfDnXx+0XmDqnRXF5yYC//+4Usu4+q
+	 zjnUCL4gUHNPSQqkgYYmjOjfTf/OdKQ4ukGrbqV8n5q6rsTLtOh91hrRlFlbjJ2t9VESX
+	 pGrhdnmurSdCudKg/+Vnpyfi6N4jnAWerTsk/T4UwAXgMKxe1APEKkLc+Eh0f4O2/0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DzeiU0cn;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SsD3UHBa;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5CF606A31D;
-	Tue, 20 Oct 2026 11:07:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B5CF606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FE360A2601
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:08:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5FE360A2601
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DzeiU0cn
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SsD3UHBa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2k
-	Hi/Es8dkIPmkb5B6JokKevhVaE/UvcT1ONLUVioHQ=; b=DzeiU0cnhtJTCWbykx
-	CFDqNbStxV6LH+OPTjbTUcpEk8MoOi2AzdLP8eFVnBNo453RNHTCcqIQ6X8Iha3Z
-	hdEBe9HvwJEWGvWd578t4m5Zh2Mf0rLEqv2qugXH1wf6KmaE/T7SQ8VGo7cC4UvF
-	rTZ7Cwl4sZsbkrgEjoyd/NKJs=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=sw
+	zxuzAAPk1vAzSfjUBi6A+yIRFDCeelp/hZ1PU1LeU=; b=SsD3UHBaamws0R8h3b
+	HGF5RaGnEOeIJ8UHYd6YxuZp1kGUjDJVs2XcHVaQ30A/WQ1rcn+N2rTSSpXWQ9A7
+	1zf9XsF9iCPJi6jaMU4642ecTTng7wtEqV1bc23PfUnllJqwy4u5pMxhFCQ2F5L2
+	nN6LUeipFl+xvkIijnVEnUzos=
 Received: from shaos.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3fwKDS9dqImAiBg--.35613S2;
-	Tue, 20 Oct 2026 19:07:47 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3_xOCS9dqKN5BBg--.52199S2;
+	Tue, 20 Oct 2026 19:07:46 +0800 (CST)
 From: shaos <shawnq1@163.com>
 To: brauner@kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] fs: statmount writes an empty UID-map string past bufsize
-Date: Tue, 20 Oct 2026 11:07:47 +0000
-Message-Id: <20261020110747.959829-1-shawnq1@163.com>
+Cc: linux-kernel@vger.kernel.org
+Subject: [BUG] kernel/nstree: listns stops at an inactive cursor entry
+Date: Tue, 20 Oct 2026 11:07:46 +0000
+Message-Id: <20261020110746.959806-1-shawnq1@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,20 +59,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3fwKDS9dqImAiBg--.35613S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw1rCFWfCryxXF4UuF18uFg_yoW5Xr1fpa
-	909w1FgF1kXFsYyr9Y9a18Xw1rWF9ay3W7W395Xrn8ua4Ygryjgr1xtayakF429rZ5G3Wj
-	vrZ093Z29wsYqwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UuE__UUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC0ASEkmrXS4RA3AAA3s
+X-CM-TRANSID:_____wD3_xOCS9dqKN5BBg--.52199S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AryfGr17Kw1DJrWkZr4DCFg_yoW8KF1kpF
+	ZYy393K3W7KF1xJrs2vr18X3WrCr97Ja1UJF95uw4IyF4DCr1vyr1xu34YkFsrJry8Ga4Y
+	qa1Uta1DJa1kuFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UfUUUUUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8gODkWrXS4OgnAAA3q
 
 Hello,
 
-statmount() can return success after writing one byte outside the caller-declared buffer when STATMOUNT_MNT_UIDMAP is requested for a non-idmapped mount with a short nonzero buffer.
+The cursor-based listns() path can return ENOENT at an inactive namespace even when a later active namespace is still visible and listable. A caller continuing pagination can therefore stop early and miss later namespaces.
 
-For a 100-byte buffer, statmount_string() reserves an empty-string NUL, but statmount_mnt_uidmap() emits no text for the non-idmapped mount. The seq->count == start return skips the string-size check. copy_statmount_to_user() then copies the reserved byte at buf + sizeof(struct statmount), which is offset 512 on x86-64. The PoC observes the byte at offset 512 change from 0xaa to 0x00 while the syscall returns success and reports size=101. A guard-page variant returns EFAULT. The non-empty-string EOVERFLOW and non-string short-buffer controls do not write the sentinel.
+The PoC creates a user namespace and pins it in the namespace tree with a memfd passed to a surviving process. After the creator exits, the namespace becomes inactive but remains the first tree entry after the cursor. A later active user namespace is present. Plain listns(0) omits the inactive ID and includes the later ID, while listns(cursor=inactive_id-1) returns ENOENT; advancing the cursor to inactive_id returns the later namespace.
 
-This is a write past the declared userspace buffer, not kernel-memory corruption or a demonstrated cross-process write. The UAPI comment says an undersized buffer for string fields returns EOVERFLOW.
+The normal list iteration skips inactive entries, but lookup_ns_id_at()/lookup_ns_owner_at() apply ns_get_unless_inactive() to only the first cursor match, and the syscall treats NULL as end-of-list.
 
 HEAD commit:    24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 source version: Linux 7.3.0-rc7
@@ -82,23 +80,18 @@ architecture:   x86-64
 compiler:       gcc 11.4.0, GNU ld 2.38
 QEMU:           6.2.0
 
-console output: https://gist.githubusercontent.com/shaos26/b1957e09840ff4132181bb0498515b17/raw/d28102014b7fce8474658331d19ae8270b96c683/console-output.txt
-kernel config: https://gist.githubusercontent.com/shaos26/b1957e09840ff4132181bb0498515b17/raw/baa5ee61ce748667104c480560ab5116a100e3fd/kernel-config.txt
-reproducer: https://gist.githubusercontent.com/shaos26/b1957e09840ff4132181bb0498515b17/raw/af16c41b0afbc29d186d0295429bf95c1f608c23/poc.c
+console output: https://gist.githubusercontent.com/shaos26/7832f4370119799cac6c493e6984e107/raw/41d7d989d2b28afa92d6a11989e218224e175647/console-output.txt
+kernel config: https://gist.githubusercontent.com/shaos26/7832f4370119799cac6c493e6984e107/raw/3cd943ba8c6026b43ef016a37d07efd2533a317a/kernel-config.txt
+reproducer: https://gist.githubusercontent.com/shaos26/7832f4370119799cac6c493e6984e107/raw/7cb61c70f803fcf46edb4ec185a5c526553b9c6b/poc.c
 
-Build the kernel from the revision above with the attached config. Build the static PoC with:
+Build the kernel from the revision above with the attached config. Build poc.c as a static init program, place it at /init in an initramfs, and boot a fresh guest with:
 
-    gcc -D__EXPORTED_HEADERS__ -static -O2 -Wall -Wextra -Werror \
-        -I linux/include/uapi -I linux/arch/x86/include/uapi -o poc poc.c
+    timeout 120 qemu-system-x86_64 -m 2G -smp 2 -machine q35 \
+        -kernel artifacts/bzImage -initrd artifacts/probe-initramfs.cpio.gz \
+        -append "console=ttyS0 rdinit=/init panic=-1 oops=panic nokaslr loglevel=6 probe=listns" \
+        -nographic -no-reboot
 
-Place it as /init in a minimal initramfs containing /dev/console, /proc, /sys, and /tmp, then boot the exact kernel under QEMU:
-
-    qemu-system-x86_64 -m 2048 -smp 2 \
-        -kernel build/arch/x86/boot/bzImage -initrd initramfs.cpio \
-        -append "rdinit=/init console=ttyS0 panic=-1 kfence.sample_interval=0" \
-        -display none -monitor none -no-reboot
-
-Two exact-revision boots produced STATMOUNT_UIDMAP_EMPTY_OOB_INDEPENDENT_CONFIRM and exited cleanly. The one-byte destination is within the process's own mapped address space; no privilege escalation or kernel memory corruption is claimed. The affected code path is still present in upstream master f47d223627f8; runtime validation was on v7.3-rc7.
+Two fresh positive replays and an active-cursor control produced the expected results. This is an enumeration correctness issue; the PoC does not demonstrate a namespace permission bypass or escape. The affected lookup logic is unchanged in upstream master f47d223627f8; runtime validation was on v7.3-rc7.
 
 Thanks,
 
