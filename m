@@ -1,73 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792468680;
-	b=evf+SfYX3FFRYD6LAYu2sib/7tAXDgEBUM49mgEs7WQV/ClzthbvbUBBBiqd4WNhFETX
-	 JPVbIkJoEaCwXoi+lNzJaVAhhTO7B5zcjEMIKFS+kD4MTiWGdPKq2EaX6gnVTt8tVub8/
-	 wcauAEIWX/wScEDWnN7AoE3q09RaQyoKSi65xIkRUShkeAIablaaySlBInjswFr3jyiPJ
-	 fxmmv0kQA50u0rRw8XzcihI1Q4qfNKrSWyWUFDoJhRsoU0iRenodhjFVuE/CR2ZdkGTgi
-	 RISJt1lxCo4TURWQ97we1r3C+PsfS3bdbe6dvqr3H8Hhk3ThHRtpGywVhF8GQFt50mg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792468680;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tw36DOY+NKJEc0tW3hOU3drFnK2hugBKcc7rXv1MyG8=;
-	b=LVfVDT3YwJDEQUpz/QAmSEpL2OeBRYuSyyDGFUyglvN/oZxnBmNQUQUef+bPuHjenyK6
-	 +MT2kVbz1VmW+YqTMWkV0O1c2dDjaGz9R5Bv9TNNSqgiSaYdornoWuPd6sYR5aQf0vJOq
-	 mvN8OXByB+wzytVkL6tYnHoNo/clFesTQ1RbWeWmOYAdABVqRX8Du6NHyldeHSANoUXNv
-	 ZMKQntlTEcAxWWM6342Ru/jP/n/I4cLYUQWn3nDjcIgEPh5nunvhF8jBvO982jUlGg3Xa
-	 w19tJItyNkqDMvOv4rsFOJOaDqvujZ5JyJExrjp10PFilTmNzQswzynD2tthCf36ang==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=SjvJ10Z9;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFA37606A31A;
-	Tue, 20 Oct 2026 03:57:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA37606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792468716;
+	b=aqCL/WuQA5hLjPsPVdagLifx0FgOzr3+Gd3+3fyTQzsRmCMLqP0AySA1TJEK8g1Tcmrs
+	 PTR9J+Rix/6lNiPUNw6VDQYEkabQlmQm+uRNOcxTqwBCS/G3Xkw611xN/Rgbwmv3GqbAv
+	 6ty/QXiYeC3Uvpz5aBXLaiW+2jIybUQXD2MsKP7FLExMsSyag+8dl61vpEFkfRiwlbs3u
+	 1ai5lA6d8TBzwHVO6b9ooefTOgwy9PFD3+9FcJQyXgAfKd2ymKc6qSuHI5DBL7LT8BD+c
+	 7XW08jppHK4uUBjQfBsdAwbHrStcj5oGL/eN61uYkvnQCoQqHxwTa0BLzZ1mc64mjWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792468716;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sB3EMeCLT6tUp6/1r4igHRDKO9JLOX6M799+v8giSI8=;
+	b=YcHqzekXeOiiT+0qsKMOoeCQAeVPIOP8n7VsYMTnq5MLEkb3icYfYafcf7sYRLXa+SeI
+	 2HTl+2QROggo/CMUJRDZPw1/dugmDqS9iwX9KoL/7wtjX0uWFI7oXUtr6WSQgzs0dOwiZ
+	 /hv8gHmaaiwG9yrkFKPbjyrLh/j8tNPmryuustYQAKXr5oEzR8lW5ZzIdKBQ/LHl31+2K
+	 WNFZ4sHRpkArppb7qmtX04G/+8BBP8i0+0R8tKcbl3lLNieLLBhIgVLA9vt++7iGsS4aa
+	 dX+WPDxs66biijBnObUzcVxFfeF2JEtKEk6EItKIMkJAcEFAmR/FcEv+yurs87N4m+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="jy/7Gz8m";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.42
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011042.outbound.protection.outlook.com [52.101.62.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D44606A319;
+	Tue, 20 Oct 2026 03:58:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7D44606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=SjvJ10Z9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=SjvJ10Z9TRJuxyjxnxI9tShev4l58jQEhpLWfibiT56CdUf2f5Szw3nt6x3hj9Xm+Z7+fTLD97AOn
-	 5E9hOwy1Ji7vSS87sEBQgRbNhEeWl+tIt7HcybUv3rFGWiEXzL0oUvQA75af3NbPsZa387JSni/0+b
-	 nLBc6U/u6Do7HqZ8=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26ad6e6bb042-53e41;
-	Tue, 20 Oct 2026 11:57:49 +0800 (CST)
-X-RM-TRANSID:2ee26ad6e6bb042-53e41
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from desktop-c950f82eaac8410e-20260515094303939 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26ad6e6ba206-bef8f;
-	Tue, 20 Oct 2026 11:57:49 +0800 (CST)
-X-RM-TRANSID:2ee26ad6e6ba206-bef8f
-From: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
-To: mst@redhat.com,
-	david@kernel.org
-Cc: jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	stable@vger.kernel.org,
-	Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
-Subject: [PATCH v2] virtio_balloon: drain update works on probe error paths
-Date: Tue, 20 Oct 2026 11:57:44 +0800
-Message-ID: <20261020035744.1131-1-zhaimingbing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <20261019084406.162-1-zhaimingbing@cmss.chinamobile.com>
-References: <20261019084406.162-1-zhaimingbing@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=jy/7Gz8m
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qMmt7TLH215xsbRnvZNqG6xjfdLTMzkQfOlFK26K8Ws+0auu4PKuFdgq2PQv+HIcIpJCCbU8/2wmXG9hsF9gsDXA/Zn04F7E7z9hDIDcyfuhgOs5mxwxmZMM8wLXOSmY0ntFczR31VrWv0y2zBAshHVdu6UZhNt5VzD96pcKyvIjvX8huBrQP7bcTpla8G256yGVAoHZElzwK4Etx97zHkvA3BXrvb+FZnUw40paSDAj1teivHRtV5yOqcHeb28D/CN75ONswJB+yX/fHunOfP41BG6X+alYVxfnjMlLnVGGMgNPCIUYZZ4YnrSO0LuhcVuQdF9KaJ95wgnPk6yicQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sB3EMeCLT6tUp6/1r4igHRDKO9JLOX6M799+v8giSI8=;
+ b=ZKXEwW2IBspS7t53k7p2UvQJ2FDp0R23di3HfsfWZMFKgiPTPQ/m8BjRXzhYtB7v9jybC/8W5GGDjVTxwCb4JALrBGpWPPzzrOT0+Df8lqCii3NeLLO13H/XG0vwfuKAS3hc4wb9kS34h3OvmA4yUKhpWcPQxitl8vaP4XL0VV454CZpyCzkApJ11/H/Fzgy6a5aQm5RjYUF0/T34tShk5gSPHRQllBdeTXUNeEDeOsqwUQaajyoJ2PD7CFaRxP0gR1gvbPsWOdRw3UDPfaZhIzoSFQHWBlTA7lmxw8FQD8FJp2CslHdHNadi5BgLy0ZOs6t0NRAn//qc5ncPgCULg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sB3EMeCLT6tUp6/1r4igHRDKO9JLOX6M799+v8giSI8=;
+ b=jy/7Gz8my3qMgIso+OD1Ntns728wnFuZ5yICXvZMivl8TmSJaGtuAraxDwvEOemm3ETX4s60bLPl5YoR1bcrLl35cc12HjeKZAJQZ2MlidIV75UxHhdQxyDxFRk5LIl/ZBuu+gb7i1DOA7VAFurJNuhNWLhrzazer87BfA3Za8Lrof4DaiPl1dV8CEVcmOzbUn51sgenSSD2ZvyA89v9gn2SFxo0+p+V0KO0jn3nRi4jrkuoxRIuGDG02K1bJryOfhYz3WYo2X2rQ65KOhbVUSfOOq9qm2GOpTYnMGDQPBtmJlg20eBdA/KXRRJaTCI7ncYrczk9s/SeT6zFx36Rzg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DM4PR12MB9071.namprd12.prod.outlook.com (2603:10b6:8:bd::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Tue, 20 Oct
+ 2026 03:55:33 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 03:55:33 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>,
+ Thierry Reding <thierry.reding@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Krishna Reddy <vdumpa@nvidia.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-tegra@vger.kernel.org
+Cc: Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ Robin Murphy <robin.murphy@arm.com>
+Subject:
+ Re: [PATCH v2 06/11] ARM: dma-mapping: Handle foreign buffers in
+ arm_iommu_get_sgtable
+Date: Tue, 20 Oct 2026 12:55:19 +0900
+Message-ID: <lJdkrMxST1imtqkbsWFTHw@nvidia.com>
+In-Reply-To: <52c9bad4-39f4-46cf-87c2-9e57e8beeb5c@arm.com>
+References:
+ <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
+ <20261016-b4-arm32-iommu-dma-cookie-v2-6-b06842a01938@nvidia.com>
+ <52c9bad4-39f4-46cf-87c2-9e57e8beeb5c@arm.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TY4P286CA0110.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:380::19) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,113 +116,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DM4PR12MB9071:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6be499c2-cea7-4e80-4dc2-08df2e5dfdb3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|10070799003|23010399003|7416014|18002099003|10067099003|22082099003|4143699003|261009223027099003|11063799006|921020|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	nePAV7UVQp1RZna1LlatTSCgX51kICon8SatyM88NA0fh5gHEHWV5+Pp1b+Ga7r9Y4219TEKWMK2y7E8viJCn3yWCRc34VZFm4UEr4WxmE22CRdqMRqFIWhPUKO2SJ0uaHaxmFG1vyyqUxnMUBiQ+VqDRYrZsIV8iQidz9uqvPGf2Hb0E4BNvMLw0n0NKzEouIeglaBpVbTij5qdVjIx7cLMfPTC62kpseLoATQ0TEVtNm6pkW75nvSWDRkW9/cXrgFEAnGaw1btxqnb91gzkbIWgbsF/wgNCJ7JCLBbYwnfCpGXvjrvWX83TIxNMonWkRn1+HAuBaFJIHKN0N6b6Fuaj4s8muN3A2q8C1c35UFZiZRNGNsqeFtr74pa4GsUegIDOCS2hnGSOJR1ETJ3FdlQDzvenmLf4Gm/PTnBssQ2RZAcktaEtqCb90sTibGD/Af3EiIgLtChxXyyix2vykZTOPQtoVvDBAZj0Lf1KCWx+02RKgG+4oR7HUY9Qy0kTpbwIARDQINoJEn98qgOS23XChAyhzhaJ5+44X7eZxt1Q76XadQIR1Rh03YJL5tXK+3ytjdxMywXm0Xmf9kcYwydR/3Fu/OKzT3eq+t2jdDvagixIn41hM8FGPGzfnoiA4otWA+fazNY49cG2QZoZsbgyVut672jMg/skUv5xrJWSQB4TwFl9a6TjnVDY/U1udWCe9QY0eEiP+FHxmcgVw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(23010399003)(7416014)(18002099003)(10067099003)(22082099003)(4143699003)(261009223027099003)(11063799006)(921020)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bGR4RlF3QUZNc1JqUTVmeWc5VHBOU044aWZ1Q1BsMUNOV01BVk5QK0dlLzBU?=
+ =?utf-8?B?bU1qMWpvWng0MitUcGNSSkUzaVM4eTlKTElUQWVmS1lLdVptQ2hLYnZIZHBH?=
+ =?utf-8?B?RkpCLzRuQ0FtdDE2K3V6RGNMNXZUWFV3VC94QVk5emR5a0t0RlZCYU5LVmdH?=
+ =?utf-8?B?VG1kYW0xZ0M3ekVJUDhHNTdRSUp5T2l6V2kxdVJBdTNjODBnRjh2TnBQQ01W?=
+ =?utf-8?B?MmFvSWhETUo1RmhUeGZzYWR0ZUZhaGJwN1pMNHNEZXNjc29LU2hLblRLbGtI?=
+ =?utf-8?B?RWNYWGJLUm9XRTRqYWVxbjEvVVphbjFZcHdVOFc3dEJ6Qm9YRFlWYVJPWktC?=
+ =?utf-8?B?aGxWa2RNNVVZNlJTd05ZemFKWFhabE85MUMzR0l5aVRZeit5diszUWVyVzY0?=
+ =?utf-8?B?MCtvRGh1K2syOWNzWkVaUm1MQXZaY2pFK0RUQ3UvWURqOHhORWVSUXhlNDM2?=
+ =?utf-8?B?YVVkVWk2K2ZvaXdjL1BQdHVHMDB6OWw3QTQyTG9wTEVjUlZIeTBzT3JybnJX?=
+ =?utf-8?B?dlRETnpZMnVtUTNEUlBZdnJaS3RkcTQ4TmZLVndTSlBHNUpLbmt5TSswL2d2?=
+ =?utf-8?B?dlhpaG5vbXRBVzFXaEpmbXB5OGFZazJ5L0VxcjF4MUYxKzJKNERtR3ZDNVp4?=
+ =?utf-8?B?K1JqQ2JRVDk4L0cyNkVVZDJsdHNmVmgzYnZzaXdZMmN6NXBPWGRPM3B5bmNy?=
+ =?utf-8?B?MnlwSlBrd2UrR04ra2JNNWFOQjlwcWhsNGJ0ZWpOczJNSml4RDBObVJ1Qmxt?=
+ =?utf-8?B?UzY4NThQVUtkTjBaT1F1RHMrdVNBQUFQY29heUdBbWNNUnVITzZXM0hXaGw3?=
+ =?utf-8?B?ZDQxVWpBb2tiNGtDSVhIUnM1b3BwVlJLRS9mNldDcGxWR0pxcW9nNTYvTXVN?=
+ =?utf-8?B?RHRpVEtYdUhNQ0k1ODdQTVh0Z0FuSHZyaHRrczJmSjJKTDVKd2J3SlZ3cnNK?=
+ =?utf-8?B?S1FTclhEQXNSK1FxVlRjdHk3SGtGVmZPeTJNTWlhNmZzZWxSR1U0Q2Vzbzdv?=
+ =?utf-8?B?aU9ZZ0FWbXNTMHFxV0lTNHV3a01hcE9qZk56SGZ5blFucXlkTzhlanQzT3hR?=
+ =?utf-8?B?SGNtV1BPK1dDbTdReFJVN3IzTkcrVjdFMFFSUE9Eakl4SURoWm13T1lUWGJy?=
+ =?utf-8?B?OFZKYVRVV3JRS3AvdUNGYjE2Nm90M2l4YWtyU3dpUmdlVkVCdjhiWXRqZnRw?=
+ =?utf-8?B?SVZoYlIwNkJyQUNMNzlKeWJaMFpHTnU3RC9ySG1hODcvMDZsdVZBRWlqRnhh?=
+ =?utf-8?B?citJSTJHZGFCVWNQSzYrR3QwenlTSk56Zlg5c2g3bzlzWHBwNFl0bjFvSEtk?=
+ =?utf-8?B?RG5KdVRiMUpraVp3YUQ0TDBDdFVXbEQwRkZBOEJpZCtNT21rKzEweDNoYXZy?=
+ =?utf-8?B?VnFsaTYvQ1RlbjJKQWs0dU1DZ0Fod3ozZUIreGFqN2NYd3N2SUtKSnE4RGZK?=
+ =?utf-8?B?RzZwZWpUcy9VM3dZR3p1K201QWl2dDRSbVo4WlR5SnNXMlZmUE9aN2x0dlFE?=
+ =?utf-8?B?RGlTZGg4YmhjVXQ5ell5aWFzRkhSYnA3Y2pNS283S2t4cnRoaXM5VG9ZTnpZ?=
+ =?utf-8?B?Um9aUVhuV0NkVjc0djA4YlMycUZIVXIrMFVDRENpMzdGSVpudFVtVHZIbDZV?=
+ =?utf-8?B?V3ZDWjA0dldPdW5ONUUyMFhDZnNyeGRtUUFYTEZUclFPNDE2OERISk9GRExz?=
+ =?utf-8?B?a29nQzM2dFVwdm5MVWZoNzVwbWQrQmpQRWRzMWpRNldZMmVhVitaeGJzcUJP?=
+ =?utf-8?B?T1pjTWMzblF5YTk4dmhDbmZGM0E3bzlRN1ZUSmYyYkw0c2JrZy9GUGJxSStj?=
+ =?utf-8?B?QmdlRUk1V1RtMHp0UjRwMjhtVXRWY1lXTno5c1hXYUVraHhBblRlVXBqV2RC?=
+ =?utf-8?B?dEhrOWRsRGwxRHhPeHQ3K0RHYVV4eUt1THZtMHVIRCtoUjJHMW1DWVpXOTF4?=
+ =?utf-8?B?cHdQcmJackJ5K0xRRDhuanB3UjEzZjE4YU5UNFR2VFRaOEFVanZybEg4RjhD?=
+ =?utf-8?B?MnZrMXFKU3BEc0UzUUlMU080WXpqWTFPRTdjVFZwMHJWMWUyN0FCS3p3ZTRj?=
+ =?utf-8?B?MWI3RlQ5eWhoeG83ODNQQ2NwVjhqZVRCUmk2WDdsS1gzNm5pWUs4OHQxMktI?=
+ =?utf-8?B?U252M010bG4vQU1ubXJCblMycmhKNE05YVFxSWsxZjJPdElXbWtsNUNTcEdX?=
+ =?utf-8?B?MXNiUVRVN1dlcEFwY1JxemhtS2VMSTBRTFl4RjlyV2lySi9lZzk5aTdLRXpm?=
+ =?utf-8?B?U0JUTXRIQU5RUXh4U1hhTkRZR1dCdnZvSjluRTJYNVE3WVBHczZSS3pnNVNN?=
+ =?utf-8?B?VE9pN3dMaWM3YnBSdXhwVTlQYTR6SGppbURUMXc3d2I4SDFsS215S1dJSlh3?=
+ =?utf-8?Q?CvgHndWuLL3fr4q+WOrJKXfoZa/ejz8eEeHW1uMfOPQ55?=
+X-MS-Exchange-AntiSpam-MessageData-1: X0aWJxPhDNV3dA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6be499c2-cea7-4e80-4dc2-08df2e5dfdb3
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 03:55:33.5313
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eEvpIkQAYFOgs3V3ayXyhOpaWUb3q+e5uQQazGMuTTeiknlj5Fh0TRixI3HW0Ty/JoBhC+Rxq2uww1NhABrkxg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9071
 
-init_vqs() arms the stats virtqueue callback, so an update work can
-already be queued on the system freezable workqueue while
-virtballoon_probe() is still running.  If a later probe step fails, the
-error unwind deletes the virtqueues and frees vb without stopping the
-works, and the queued work runs after the balloon struct is gone:
+On Tuesday, October 20, 2026 12:47=E2=80=AFAM Robin Murphy wrote:
+> On 16/10/2026 7:46 am, Mikko Perttunen wrote:
+> > arm_iommu_get_sgtable can only describe buffers which came from
+> > arm_iommu_alloc_attrs, and returns -ENXIO for anything else. This is
+> > stricter than iommu_dma_get_sgtable(), which falls back to describing
+> > the buffer as a single chunk.
+> >=20
+> > The difference shows up when a buffer is allocated for one device and
+> > mapped for another, as TegraDRM does. Buffers are allocated on the
+> > host1x logical device, which has no dma_configure and therefore uses
+> > direct DMA ops, and are then mapped for a display controller behind the
+> > SMMU.
+> >=20
+> > Add the same fallback as iommu_dma_get_sgtable().
+>=20
+> Hmm, that's not actually what it's for... :(
+>=20
+> The "fallback" is only for the case when iommu_dma_alloc() has hit the=20
+> dma_alloc_from_pool() path, see a98d9ae937d2 ("arm64/iommu: handle=20
+> non-remapped addresses in ->mmap and ->get_sgtable"). It was never meant=
+=20
+> for dipping into *other* DMA ops because the caller has erroneously=20
+> passed the wrong device. Just like dma_mmap_attrs() and=20
+> dma_free_attrs(), dma_get_sgtable_attrs() must match the original=20
+> dma_alloc_attrs() call - that's a bug in TegraDRM.
 
-  BUG: KFENCE: use-after-free read in virtqueue_get_buf_ctx
-   update_balloon_stats_func+0x121/0x300
-   Workqueue: events_freezable update_balloon_stats_func
+Ah, indeed. That's easy to fix in TegraDRM. I think this happened=20
+because TegraDRM has this (a bit unsavoury) use of DMA API on both the=20
+drm device and the actual platform devices side by side.
 
-remove() already handles this via virtballoon_quiesce().  Factor the
-stopping of the update works out of it and run it on the probe error
-path as well, before the queues and vb go away.
+Thanks,
+Mikko
 
-The same hole exists when init_vqs() itself fails after
-virtio_find_vqs() succeeded: the stats priming can fail with the queues
-up and the callback armed, yet probe jumps straight to out_free_vb and
-leaks the virtqueues while the queued work still references vb.  Unwind
-inside init_vqs() in that case, stopping the works before the queues
-are deleted.
+>=20
+> Thanks,
+> Robin.
+>=20
+> > Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> > ---
+> >   arch/arm/mm/dma-mapping.c | 25 +++++++++++++++++++++----
+> >   1 file changed, 21 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+> > index d6315baeddb9..c2ec4f107808 100644
+> > --- a/arch/arm/mm/dma-mapping.c
+> > +++ b/arch/arm/mm/dma-mapping.c
+> > @@ -1169,12 +1169,29 @@ static int arm_iommu_get_sgtable(struct device =
+*dev, struct sg_table *sgt,
+> >   {
+> >   	unsigned int count =3D PAGE_ALIGN(size) >> PAGE_SHIFT;
+> >   	struct page **pages =3D __iommu_get_pages(cpu_addr, attrs);
+> > +	struct page *page;
+> > +	int ret;
+> >  =20
+> > -	if (!pages)
+> > -		return -ENXIO;
+> > +	if (pages)
+> > +		return sg_alloc_table_from_pages(sgt, pages, count, 0, size,
+> > +						 GFP_KERNEL);
+> >  =20
+> > -	return sg_alloc_table_from_pages(sgt, pages, count, 0, size,
+> > -					 GFP_KERNEL);
+> > +	/*
+> > +	 * The buffer was not allocated through these DMA ops. It may belong =
+to
+> > +	 * a device which is not behind an IOMMU at all, which can happen whe=
+n a
+> > +	 * buffer is allocated on one device and mapped for another. Describe=
+ it
+> > +	 * as a single chunk, as iommu_dma_get_sgtable() does.
+> > +	 */
+> > +	if (is_vmalloc_addr(cpu_addr))
+> > +		page =3D vmalloc_to_page(cpu_addr);
+> > +	else
+> > +		page =3D virt_to_page(cpu_addr);
+> > +
+> > +	ret =3D sg_alloc_table(sgt, 1, GFP_KERNEL);
+> > +	if (!ret)
+> > +		sg_set_page(sgt->sgl, page, PAGE_ALIGN(size), 0);
+> > +
+> > +	return ret;
+> >   }
+> >  =20
+> >   /*
+> >=20
+>=20
+>=20
 
-The drained work takes vb->wakeup_lock in process_wakeup_event() and
-finish_wakeup_event(), so this depends on "virtio_balloon: initialize
-wakeup_lock before virtqueues are set up", which moves that
-spin_lock_init() to the top of probe.
-
-Fixes: 1f34c71afe51 ("virtio: Fix scheduling while atomic in virtio_balloon stats")
-Reported-by: syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0f659760bac1ecb01812
-Signed-off-by: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
----
-
-Changes in v2 (from sashiko review):
-- unwind inside init_vqs() when the stats priming fails after
-  virtio_find_vqs() succeeded, instead of leaking the virtqueues on the
-  out_free_vb path with the callback still armed.
-- spell out the dependency on the wakeup_lock initialization patch:
-  the drained work takes that lock.
-
- drivers/virtio/virtio_balloon.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index 8c1b47ec1..dd2056882 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -554,6 +554,17 @@ static void update_balloon_stats_func(struct work_struct *work)
- 	finish_wakeup_event(vb);
- }
- 
-+/* Stop queueing of and drain any pending balloon update works. */
-+static void virtballoon_stop_updates(struct virtio_balloon *vb)
-+{
-+	spin_lock_irq(&vb->stop_update_lock);
-+	vb->stop_update = true;
-+	spin_unlock_irq(&vb->stop_update_lock);
-+
-+	cancel_work_sync(&vb->update_balloon_size_work);
-+	cancel_work_sync(&vb->update_balloon_stats_work);
-+}
-+
- static void update_balloon_size_func(struct work_struct *work)
- {
- 	struct virtio_balloon *vb;
-@@ -633,6 +644,12 @@ static int init_vqs(struct virtio_balloon *vb)
- 		if (err) {
- 			dev_warn(&vb->vdev->dev, "%s: add stat_vq failed\n",
- 				 __func__);
-+			/*
-+			 * The virtqueues are up and the stats callback is
-+			 * armed: stop the works and unwind the queues.
-+			 */
-+			virtballoon_stop_updates(vb);
-+			vb->vdev->config->del_vqs(vb->vdev);
- 			return err;
- 		}
- 		virtqueue_kick(vb->stats_vq);
-@@ -1075,6 +1092,12 @@ static int virtballoon_probe(struct virtio_device *vdev)
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		destroy_workqueue(vb->balloon_wq);
- out_del_vqs:
-+	/*
-+	 * init_vqs() arms the stats virtqueue callback and primes the
-+	 * queue, so an update work may already be pending: stop queueing
-+	 * and drain it before the virtqueues and vb go away.
-+	 */
-+	virtballoon_stop_updates(vb);
- 	vdev->config->del_vqs(vdev);
- out_free_vb:
- 	mutex_destroy(&vb->balloon_lock);
-@@ -1115,11 +1138,7 @@ static void virtballoon_quiesce(struct virtio_balloon *vb)
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		virtio_balloon_unregister_shrinker(vb);
- 
--	spin_lock_irq(&vb->stop_update_lock);
--	vb->stop_update = true;
--	spin_unlock_irq(&vb->stop_update_lock);
--	cancel_work_sync(&vb->update_balloon_size_work);
--	cancel_work_sync(&vb->update_balloon_stats_work);
-+	virtballoon_stop_updates(vb);
- 
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		cancel_work_sync(&vb->report_free_page_work);
--- 
-2.43.0
 
 
 
