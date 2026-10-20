@@ -1,72 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792515821;
-	b=A0gFwbrPQ/j1HOSWrYuqjs7yavYtXE9BZRBBt8KvV2/vTcvJ4h3XKitgMB6NWbO0qTY7
-	 GTZCXnw6xwGnu2LUgSr8qfzfCHjqb4tLe6k3kX7DGk5DZpFC7hHD4nhEO3UpHyvIXVXCt
-	 qTGR9vI6hupxtJahyaMnOAfyYXocaJ3YAJm84Ik0w/y+YmMkdndKxOHY3N7udTYRlPjCT
-	 IK/MH97PTXGdlIwX+MTO1zl2qlYPcgBqPP3QRmIfVXaQP1JTXXej1kmEyR00WWLyrUU3N
-	 FXkZwxioE8kfkkvgs7v22rTOXWpaSpdjZMa2Vt3gB1c6UBPdhG5mkt2v5/nLjlV/Tvw==
+	t=1792515854;
+	b=00AlyGSN+UqKmW/iOKFgPxnZfiAlZQqW9dMrijWBQoXtmAo7UWSpV59T+fAFYMEGDRO/
+	 Y4GihKbyHAgLWMlMuwAZztMBiCgHe4OSCGLpcg9XDRme4QF2UsciynUfy/0VfRL5Igu0p
+	 VRfn4VJjE8CMmmhhTJ4Rr+XP6CHdS+y61kvXdBkKs0niPHt+tR8lTeyQyiwKxznmsuaq0
+	 j5AIrZBsFB/swnNgCfd7pHt1wyOte92Q/p7vsGV1FluClbE9+ahLF2OZ5tHzbvAMGa3U7
+	 z1fDR31x3xbaJPP4CiJFL0/w++xX+hITTqJpHP4bUjUKQP1S7c6fwWbQ60mXQhyVrWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515821;
-	h=Received:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=jDKBdDNUgnFBiehR+3AYyTsALn1WTufXGDvPpnjpNx0=;
-	b=G0HEaIUOZuMLwULW1j9XYJM8/IxLkTJ48LT/JZ3uNae9Mpcr8vsPrYBkKQxpOLEeAAef
-	 RTX4EOkp2HxrhcoYV0pa7/ApmsKu7ogEjA+KzY+dnHpWk/wB7B8/f+vVDSoCNLC5l6bWs
-	 5oz33PpaDEFp56q2vNtN9KQ50c0eBDmISXHxUS6d60+FupTLvOUAMShhp80K4ZgLSo4eC
-	 +EYLa41eeLrhN199eli/eYITzjUNmjZbxaVlkNRoAzpbUgeUWuDcEougKrTYTbQXdjS64
-	 StWs6ieLuM9kvq+nWj1ZJN2jkRnW+872Q0tTOx6mEhOcIokeNRfzc3PIDpThdNE9lSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792515854;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ilOCs9JW1eswWZldgI01PyWwMif6Q2IZWcYqSQMNIxA=;
+	b=gQS655SP2TSClUPCwU88xGw9gK6OFhf82Ab93jnccr/Wa3g0wNzGS2ICFYQAsddf+Ope
+	 8FZmx5N+7s44JYxdjmSk9COkidVcYEcxEXGNlS9PoDsIovZfW47LOYQc+7nA3KjtoeZOt
+	 xET9nGn/UMsLkeSZd+0LXee+WqTe05DELoBTfrOnmeWGwpB5l8m6UjdSw693UJZfT4YOw
+	 Zuz4ckwXR4dStS1ASnWZJQQjxQ5R6g9QhaxscnsKFQ5NRQKiE8dPnl7QjWt6bBgxncLSv
+	 MDzzwzCEJctQYvI3+eWHa0x+CWW8pburMeGUt2KmUfHOY2wB6py3zoOzEf9tStbV+eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=vVVPW8rl;
+	arc=none smtp.remote-ip=91.218.175.100
+Received: from mta0.migadu.com (out-100.mta0.migadu.com [91.218.175.100])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC6B606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:03:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E7E81F000CB;
-	Tue, 20 Oct 2026 17:03:39 +0000 (UTC)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 3F2E3198003A;
-	Tue, 20 Oct 2026 13:03:06 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Tue, 20 Oct 2026 13:03:08 -0400
-X-ME-Sender: <xms:yZ7XavrOIw1_gBGyaziF-ZMtgVeJKE3nH4r7UYLRU8Y_TmizNyllgQ>
-    <xme:yZ7Xai_uCVDX6P-UZwskLNQK_Mr3csTBsbSsWKN6waTl5OqsQzGqJ8Pr7dRL0iRZX
-    _j46ke_378wETQ-1RfIPMOFkPjph_MOCCCeXi4ExGr8hh3RNejt16E>
-X-ME-Received: <xmr:yZ7XakMNXp-fEx-jQVJ_YQhHVX32jE6ZzgozHV5e2RzwwSTx2ezWknKte_0>
-X-ME-Proxy-Cause: dmFkZTGkGIb3di2YCLCxxSDu64sQiSzl5RCtVWfkYdh889CF9jK0BQXmVxD4pT3c/xsx5j
-    bF0l00c2FSQwMLsevVaWcEbFPrXZuV+j1kO8K6B1q9AIA+Z+td5APm+by2UaUaK7szc4Me
-    F65Gr85Jd0nqGWJM4ya7q/ASMJXeMwMqWPC2tHJk1dvqfMc+2MyQv1t2c6LbWGl7yl8lQo
-    TGH5DoJc62V0ssUipmWTQVdTt8a87oJAlHy4qY7seWpswcRl33BqtDXMTtlbURGtse1ax3
-    XUC6RgZUTGjQrJssIhC+MCX/eTdgBorlngyx26IU2FgGV287DaSW3cBmdqwUiozfPp6eVc
-    Uuy/BU9SxgF9qXafjZnRjQguUd+sWoMGPWmJBQZJcnt1SyDhl2lvyck9NPZ7YWuVcRQuI9
-    uptTq9sDU8HOH3tpAFHtEKTLJ33COusQ9TyvQuqW5GEgNl6zD8AcFc7KhnbJk1HgiWDxyO
-    7wqF7sTEKFe/yTMuXdVBeqEDu1kpBy+PVdFzDIYiVslmun31rtXOUs7TPPeEgbUBMPeccx
-    Xg+0EsFUeebSIOe8QPMw9tldi9hpcm4QF0/9Oo1dR+IptD03LRAShFAxx9IicHQmIyygHt
-    BtYTOTUxrTbXLY0Z0hSARlrNk8pxjQ3RU3URtGrxyz4WYeeMEDT6svAs0gYQ
-X-ME-Proxy: <xmx:yZ7Xask2yfKJnejDpG-XGtzdGptLMV-MvfelgPB05-wMZsR7SuRf7Q>
-    <xmx:yZ7Xap-TIprOdGX76uDRQL4kechcy6IhLgA-hmO2QebI2OSgdgUArQ>
-    <xmx:yZ7XalMM5WFHMSFizZATTLbYyOTLMMWGJvVe-p3dTm_7yfhoWsc-SQ>
-    <xmx:yZ7XatHnwFey-_M-_7WScr6IEHhyu5C6LPVCwwIxzX66l9O6IOPodQ>
-    <xmx:yZ7XariDxe-NaLtuu9lzGit0tTgE4P1aXPEkype1kUEKlxfbegLwihNk>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 13:03:04 -0400 (EDT)
-Date: Tue, 20 Oct 2026 18:03:03 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Mike Rapoport <rppt@linux.vnet.ibm.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, shaos <shawnq1@163.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vma: avoid broken uffd merge on mremap
-Message-ID: <atede4rPZKNVqwDr@thinkstation>
-References: <20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org>
- <b61cbf73-b92a-4869-af94-72c30bbe9527@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96179606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:04:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96179606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=vVVPW8rl
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=V6YUdxWoTDNnXagrWvpsYWqhtgXuh09OxHBYpt8V1OY=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792515848; v=1; x=1793120648;
+ b=vVVPW8rlAWtGlBcXnOSiY1L+7yxBfBgbWoHTFjuvyT4G8C4CkoIoQeuebeLr8HWfC2tcdBoK
+ utm2tY11sqh4t3QLCXRI+wYV08ojAWkdAJ2gfB/p0rOjfisK+fJsqBrJx40P0CCfqyusA9gOZlT
+ 4dTYMDtu09Ne+W+crI0ivq+VBuVsL+INHvSJLo7CNbNQyT4xVpmlgyW/ES2SBxTnTctCFhNpRSO
+ zkpIY5ORVO4Mv95s5VdSkovA/MXV8jn4wpq53Vmj/zmY/wgMN2N6EwELSrle+/3UETVawwT2hV/
+ Cd96HEmKpmzVi3x6r5Gdn1NprW7XPkVI5MJqrbn7z7Low==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 22d13bc26f5e4975;
+	Tue, 20 Oct 2026 17:04:07 +0000
+X-Mizu-Trace-ID: 22d13bc26f5e4975
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: 
+Cc: Val Packett <val@packett.cool>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
+Date: Tue, 20 Oct 2026 14:03:24 -0300
+Message-ID: <20261020170341.1641325-1-val@packett.cool>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,97 +78,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b61cbf73-b92a-4869-af94-72c30bbe9527@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 05:51:12PM +0200, David Hildenbrand (Arm) wrote:
-> On 10/20/26 16:55, Lorenzo Stoakes (ARM) wrote:
-> > Userfaultfd often causes unexpected interactions within mm, and does so at
-> > the intersection of uffd, mremap() and VMA merging.
-> > 
-> > When an mremap of a VMA occurs, copy_vma_and_data() calls
-> > mremap_userfaultfd_prep() to notify uffd of this.
-> > 
-> > However, mremap_userfaultfd_prep() simply drops the UFFD context for the
-> > VMA if the user did not register it for remap, i.e. didn't specify the
-> > UFFD_FEATURE_EVENT_REMAP flag.
-> > 
-> > This is OK for the VMA itself, as upon page table move, move_ptes() clears
-> > UFFD page table flags, using vma_has_uffd_without_event_remap() to
-> > determine whether to do so.
-> > 
-> > However, this doesn't account for merging with adjacent VMAs, whose page
-> > tables won't have received this treatment, and thus latent UFFD markers
-> > will be left around.
-> > 
-> > Worse, it'll break UFFD for any VMAs it is merged with. This is very
-> > surprising behaviour for a user, who will then simply not receive UFFD
-> > events for VMAs they ought to.
-> > 
-> > Resolve the issue by explicitly checking for this case via
-> > vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
-> > function explicitly designated for mremap() operations.
-> > 
-> > Also update the userland VMA tests accordingly.
-> > 
-> > Reported-by: shaos <shawnq1@163.com>
-> > Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
-> > Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  mm/vma.c                          | 5 +++++
-> >  tools/testing/vma/include/stubs.h | 5 +++++
-> >  2 files changed, 10 insertions(+)
-> > 
-> > diff --git a/mm/vma.c b/mm/vma.c
-> > index de5ebc57e7a5..1be613044b4a 100644
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -1211,6 +1211,11 @@ static struct vm_area_struct *vma_merge_copied_range(struct vma_merge_struct *vm
-> >  
-> >  	vmg->copied_from = vmg->middle;
-> >  	vmg->middle = NULL;
-> > +
-> > +	/* If not registered for remap, uffd context will be cleared. */
-> > +	if (vma_has_uffd_without_event_remap(vmg->copied_from))
-> > +		return NULL;
-> > +
-> >  	return vma_merge_new_range(vmg);
-> >  }
-> >  
-> > diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-> > index be8f5161f92a..f786a585caf0 100644
-> > --- a/tools/testing/vma/include/stubs.h
-> > +++ b/tools/testing/vma/include/stubs.h
-> > @@ -386,6 +386,11 @@ static inline bool is_mergeable_vm_userfaultfd_ctx(struct vm_area_struct *vma,
-> >  	return true;
-> >  }
-> >  
-> > +static inline bool vma_has_uffd_without_event_remap(struct vm_area_struct *vma)
-> > +{
-> > +	return false;
-> > +}
-> > +
-> >  static inline bool anon_vma_name_eq(struct anon_vma_name *anon_name1,
-> >  				    struct anon_vma_name *anon_name2)
-> >  {
-> > 
-> 
-> @Kiryl that should solve the issue I was raising the other day with leftover
-> uffd PTE bits outside of uffd areas? Can you review?
+Currently only wcd939x has support for USB-C SBU audio in mainline, but the
+older WCD codecs can do the same thing 939x does with USBSS, with an
+external 3rd party mux instead. This series adds support for that based on
+wcd939x code.
 
-Yes, it is the same copy_vma() merge.
+Tested on sm7325-motorola-dubai.
 
-With the merge refused, the reset in mremap_userfaultfd_prep() only
-covers the moved range, and move_ptes() has already cleared the uffd
-bits there.
+v3:
+  * Zero initialize the device_node with the __free, oops (sashiko-bot)
+  * Clear the pointer in wcd93[79]x_mbhc_deinit before tearing down the
+    actual wcd_mbhc object (sashiko-bot)
+    * Hopefully this is good enough to satisfy the concern about
+      getting a typec notification *while removing the codec* which is
+      something that has an extremely low chance of ever happening in
+      practice anyway. I'm not adding an extra mutex for this. I'm tired.
+  * Pull R-b for the commit in the middle but not for the other ones
+    because of the changes above.. (prooobably would've been ok but well)
+v2: https://lore.kernel.org/all/20261020082631.1509275-1-val@packett.cool/
+v1: https://lore.kernel.org/all/20261018231244.1266926-1-val@packett.cool/
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Thanks,
+~val
 
-P.S. vma_has_uffd_without_event_remap() is a mouthful. With negation in
-the name...
+---
+
+Val Packett (4):
+  ASoC: dt-bindings: qcom,wcd937x: Add USB-C graph properties
+  ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
+  ASoC: codecs: wcd-mbhc: guard against NULL cfg in
+    typec_report_(un)plug
+  ASoC: codecs: wcd939x: fix ref leak and NULL deref with USB-C audio
+
+ .../bindings/sound/qcom,wcd937x.yaml          |  15 ++
+ sound/soc/codecs/Kconfig                      |   2 +
+ sound/soc/codecs/wcd-mbhc-v2.c                |   4 +-
+ sound/soc/codecs/wcd937x.c                    | 170 +++++++++++++++++-
+ sound/soc/codecs/wcd939x.c                    |  21 ++-
+ 5 files changed, 198 insertions(+), 14 deletions(-)
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.55.0
+
