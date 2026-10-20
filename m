@@ -1,159 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.60
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792489256;
-	b=gAe4uSqRCI9PvBZ+ePZRmH9yWwlPMRtznPeU09Liod6Qky6JkJxgWZ/FVvt+Xl8Apn55
-	 6Hst2jjomTtm3ABnIQwiJcXVmA6zDzXa/uBfIAyWjdNQQDosI3YzGyO3jWPf95aop8H6t
-	 fstStf0QIbCPTnCmqLXw9FMjORtwcY8sqt0BAcfGjTg4ajNHfU0Wm94rvuhOBVtVYJJkp
-	 Ig0xndYjRtv1KpGGb8w8E+/b8dG4PX0oOWylwqe8Pg84XtYza1hLk5ckXhQ6M+VWbzRrT
-	 OwNlQ+78lZjOd/wLOge0hJJKrr2QZVyPbG36P7F9wnoiPFSIF5kd+8/GKLRqWPQOQKw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489256;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=z9r3c3CCNmfgLUST/Xvp5ZAjrEEHkxWUnnXwAnwDhoI=;
-	b=RgJ07zsmBuoDVYPmCrrv3zqXn9uxvJ12tS57+UNowKY5fnFskmaBj/eqjybepZ8GCNdz
-	 0f6ClzatZ+s6bW/SEle0tUbe4tj0NRUsJ6+plHrKkj1xKANbKUezy8R60xTjJTYEH5WbB
-	 vpXXdDIwfk7B6O4SMhk8fNGnamEPQfRrlus4R0keqxuxXQ+7cXheelps1c1TNGUHKhJrI
-	 KRdFpYMr0b7caoiXMwdbqjAz5I6V8zPRhqnl+4ZsnCnh+iWCHnDaZoxVBpWP81agMqQi8
-	 Y6QsEVfKdWughAwE3nDKBoMe1y/YOp8zckKfX3YFzRBAMiOzb44Zsul/BunzsFzlzyw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=B6KIXhtT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.60
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010060.outbound.protection.outlook.com [52.101.228.60])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792489279;
+	b=w0W1jIxAsO6TsS9EfMMAnSkx1tw+6mVDCpVnYGaSPMdGGwutxchqs+6ruyaJcrb6PR42
+	 /a0MQa3s7RlmX5A50aQXwURFSS5t6qu6q8P1CJ9Sef0CYsOIIkCld0WWyMzWKqS0hgSWO
+	 GX1s7Uj4+/AcPPvNBKupCiPufuCMS2glyWPRKXfcrL9AmImsssccPF6g8BIeulXqt2FCp
+	 59JRHkzpEB9Lpvws6G1vP1P0hF3n3+dzTJ/N9MR8YMCwP8WDgYXHwiaPV+PEkzp1lkzFO
+	 TMRdKYp1FkPBgh1+n9y2EyojAj4Q/E1ORCK2apgfn93VC1zbBQ1rRoRS44dl4EoXBww==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489279;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kcaNBbiUMzKXzNSISjdYUCG67KZVrDK5XLEKTAvzTD8=;
+	b=5eFlA4jB/WYXEWv7ZDZtuWFw7x6dSqvj8QD2cOF6L5bJatujX27T0Q9qu/s4L/bo5aY5
+	 XnrydWE6nNa5gVTjZwgXsev0wMx8GiGhWOKuXbVoE4pL6tdoGq7m5v/ntciSE+6FxLl0v
+	 B1jmQMQX3pI2oXXaKZoqNz3CTgMJ082/9N0r/gJXNRHmAa5z55deKuIyz42GEhXprH6FX
+	 /hAK7e4xCOF7dyVcUgKRmayL8me0lvTtL8NqT9J5PXEAC8UcBvsQ3FvhiiWC4zcezNr1C
+	 XBy7dHw+y07acJiRP1z0Ws7LmfUnU4z3xEHWpFY0LI/J/h3MtBpFy9QpEkaPtRLORmA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=hnd9Hn8E;
+	arc=none smtp.remote-ip=115.124.30.133
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC3760A2605;
-	Tue, 20 Oct 2026 09:40:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC3760A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC23606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EC23606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=B6KIXhtT
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cuf8iMY5ofoQvdAuWoWZM9FgrlElf4qp9sKrBvS1yrnIddXwL+5P+AfCf4uUHX4SlEBoxvHdqw72Isvio06Et7Ph/CfYgZT/KNAAekN1t0iQ0YcFflrb2lkWn8r2ugJzFBPLqBrpwyIHkmp7s+FN4lWM9Vv/Pkfte0ApF1bLfzM3nsJWyQxiLXfwznbx0+JNqYxA56pvtNNQBfb+MnhOEVcT3/EiH+LfkMcS0T5AHGN4N35vuPeM+fmNNghatYaSavn04uH9dLvvk/BNCz+zZIx9Xx7RSUv2rYoVHt+ITqjdYGwT93y0+Q6UY/ubIrPMHoJKlQCaaPgs5cGNXG0FCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z9r3c3CCNmfgLUST/Xvp5ZAjrEEHkxWUnnXwAnwDhoI=;
- b=ZN4k73G2GitbTkg1nroJQIAUWY0j09Qo8Zt4sw7aVpKsH4w6BvoGqCqIH/YC+SO/KZoX2r0PxF25GsnrfnbC71IX5z6B+DIZ+MPqglGpYYMxoaWZONp8GecaR0Fsz2gR7cUqD74uyKRF8O6UyF54wITXSzUU2RMHQM9yot0pV7+zSXH7qhCVrt/NbBkQdECraen2LGD2J8hwxOTcE/2idfP1W3yUG/dkvgPQGvkXeLPNwqeBqXM+GdbiMhC+PYBRn7SfOTv4mHlKvVhWR8Ns9QdpKV4RpkRS9nVhy64JZ3zWvVjSKpz1+yvNbIePOR5KG/pquRfYJ3xbmPJ+GMdWgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z9r3c3CCNmfgLUST/Xvp5ZAjrEEHkxWUnnXwAnwDhoI=;
- b=B6KIXhtT8j5jbzWB8Skg1i8a4RP40+mZyKQAgMTklRvJEbnntsyMLaYDIBtZAxGG5JMx+RFZat2FtuCDm+qOuYtx8Lgbxw+MCl0XHrrJ0tWS8T91L9qa7cFxZRogb6EbiaeUQ8RjGlHDseSW5fl7zAJY4rvyl3qd5PR5z2WIbjk=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS3PR01MB9429.jpnprd01.prod.outlook.com (2603:1096:604:1c7::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 09:40:49 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0496.021; Tue, 20 Oct 2026
- 09:40:48 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: geert <geert@linux-m68k.org>, "biju.das.au" <biju.das.au@gmail.com>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
-	<jirislaby@kernel.org>, Au Dang <au.dang.jx@renesas.com>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>, Frank Li <Frank.Li@nxp.com>,
-	Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-Subject: RE: [PATCH 3/4] serial: sh-sci: Skip TDxE status clear for PORT_SCI
-Thread-Topic: [PATCH 3/4] serial: sh-sci: Skip TDxE status clear for PORT_SCI
-Thread-Index: AQHdX+uKU5XdgtR0/E+7uhFwdkpa+bcGHFIAgAAHjHA=
-Date: Tue, 20 Oct 2026 09:40:48 +0000
-Message-ID:
- <TY3PR01MB1134642EE67B528D5C9DF9A1786672@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261019170139.473808-1-biju.das.jz@bp.renesas.com>
- <20261019170139.473808-4-biju.das.jz@bp.renesas.com>
- <CAMuHMdVJAYL7L8q0ShxF8vJ-nhmyCiTgTNLJxLv9wLcshLfLGQ@mail.gmail.com>
-In-Reply-To:
- <CAMuHMdVJAYL7L8q0ShxF8vJ-nhmyCiTgTNLJxLv9wLcshLfLGQ@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS3PR01MB9429:EE_
-x-ms-office365-filtering-correlation-id: 77a4f366-94fd-4330-2ae5-08df2e8e3929
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|38070700021|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- 1Lc6MpzTV0VCIiegCaYMKYmqL7zZSIEHDAxfm46sknPYQTRVg5z1RS4fZz3X2mTPSL4OwCpFMk3SRYPTrk9ETUzgylDXJGWyupu96fJ3XTZ9DBqZGwSEISjtugvd8NhPR/PFiuiMC432luGf8MLKwJsE1qMYrrSW/uEcoEL7ossv8tmw0hsWwhL+qwEFNioXiA9kN2Wx23KJl7AZhn3CmQye3WbLmeapzZeKBc0vvjgLzbXbUZxV0HhauUo+bVD/Bk7vTR+eRZAUS0EhRZAHbD0BEMoUUn7d3wj+KsK3LatnwgsI9/Dl1MWiS5v+NLfDupZA5iCmZo/J80vLaGFkIlaUWn/T1mkfN1wDwuBfinlsGSxJMZzv9+QCNMkz2W1EqGwTB13I7BPryVo6d1uiARd/XWu1g3CCj0cQCzU8SMyHj3Aw+pR12xj9rLN2L7WDWx2+OMbKYXdAsiBzV0dnsgEai5tRoUHWhMGLINmVjNkQLTIsC5Hj9uyJqJeQ2p9iQb+MLakd2/8Ms2+KtIM+zdYVdl17BlJRkfyfbCfVLCIfmFmBwkgMAH+B2Lqw05p4NVUrXYwRTjgeBJQPMlrIamDzRbLZToqRzSn6UH2SRDJHNH4T3gxvt2bpqRkSmpHMdLCPpd55Qp6mYmQOfGi54iqf4FphIK3J2t1pzFFbQS25HAOTTF66Jckk2m2hHfUvGEAl8ArjZwIsUJWATl31KlXUeokTKN0NHXdYd+Y4UkY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(38070700021)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?RXhQSGF4L0c2WEhkOFl0ME4vTWhiOWdZV1RXS2dIL3F1V2tIV1UrbVBiQmpn?=
- =?utf-8?B?TENXdWdKYXV2cHJ0WGtRRlhjcGNyMUV0dzdZcHVDVzczeDg2Qlg5VG96L1pL?=
- =?utf-8?B?dDJ4dVJ0UWcxUVkrMHVvczdmUzFOY09tOG5HMVFuK2NNVXRWM1RZTTZENU9a?=
- =?utf-8?B?eUl1TlprYzdzVzlmdXBxQkJvU3BONk9TcTErejY5TjFlVlRDT2QwcWEyL25t?=
- =?utf-8?B?UUwvbzVONlFWRVAxdVZjbzAzNE9kT3NxUlhKTUpEQXEwSEI2Y003OHkvdnpw?=
- =?utf-8?B?U2p1M0g1eTBPcnhKa0EzSDA3Vit0aTZybmh3NWZxNnA1L2xaZDgwRUhjcVFK?=
- =?utf-8?B?NUU1T01zWnRCNE9LQXNlQXVkaE53UzZNVTMvVHVQc25jYVdXeG9XK3oyT0tC?=
- =?utf-8?B?R0s5NnlZOU1hTXd1T0lLNDNEdjE1WTRjSXRaa09ObGRHb3BGK1BFYzkwYTJh?=
- =?utf-8?B?S2JRRkNIc3JmNHhZMnNkbjFmQ0Fxb01RWEQ0STdKaTAxZ3ZmUWxObU1BTDlR?=
- =?utf-8?B?WGg3M1B5K0tjTXZFbExYM203ZG00UkpkYy9kQ05ia0Z6NkVocWNLaGh1cWxW?=
- =?utf-8?B?eW04MlAySVlIWE9qUDU0U0pRVVh1OVUyVDZzM29xQmNHWU1uSVJEb1ExSGh4?=
- =?utf-8?B?ajRTRTkrdmRMNjZUbDh3TW5jTHpQRkFMMXZCZ2cvcEhwc1NXdytCZzhkN2sx?=
- =?utf-8?B?alhjRDNNbUxwalpXMTUxazl5c2VDRzJmSXpJcnFmYzJ0VUFwclJ6TWRwQ2Uw?=
- =?utf-8?B?RTdvK3IxZTlXdHpsbTR5Y1NIdHpaTGtiQ0wyQXdPR1hEK1dUdU40dEd5ZFV2?=
- =?utf-8?B?ZGwycXVQVXZLTTFhMlZmdkRjVnE3M3B6TXQveU1Gb1c1QThrMUMwanphbGNw?=
- =?utf-8?B?Y2VGZWd1aCsxenZpSnJ0bnpmUElkVlI2SDdEQUZ0UllxKytnL1hpejcxZVpi?=
- =?utf-8?B?bDlPMjArRFZyNWtDRHU5eUFUMTdpRE1aVjF1VFphN3VRK3pCYVVpOFYxRmlh?=
- =?utf-8?B?RFBTZjZoUmxVV1plQ2dPUjFDL1B1YitQdkp3YVpkUTdLNEJGYkc4R0lrTHpn?=
- =?utf-8?B?d2JNTlAyM29seC9ITWpKK0V0U0h0cXA3ZTVjeURlU3pPU1hPdmxQN280d1ZF?=
- =?utf-8?B?eHJnTEdDU2xiZ0pMa000Y1dpdjNRd0xmN3NVTFRUb1ZtTWdhQW5DSlIwd01s?=
- =?utf-8?B?T1NkMjFkOW1ZckhjMWk3dDVlT0tyYVlsRUpwTHR3Sjh3UFY2c2FqVUhicUNt?=
- =?utf-8?B?UkJOeTJnNndHMTdVNklwS0R0c2o3b0tvSkZPS3kvTFQvWGFiSlRRYys1V0ZY?=
- =?utf-8?B?S25hcW9WMVROZnhYMDZGeHllRWx6ODc0d1pWenllWjlZOWMwZW5Dd1RySmdy?=
- =?utf-8?B?ZVp2Z2pBcDgrZnlxZXdUcTlIUDFObFlvSVhQMlZ1MGtFdkVVdGVmZ2xmS2c2?=
- =?utf-8?B?WVRkTVBwM04ya1hmc0tlTWRFcG1nV3pHbWlHYmhya3ltZTE2MnV6NWdrT2tj?=
- =?utf-8?B?TGtxYXpCL0FzdS9PL0VpckJWMG41dUp5RmVLUjNLQ3BFeGRVSW1XbkxrK3Er?=
- =?utf-8?B?YWwybkJLNWlJQ3MxMW1XdGFEeWRmZDNVMUxNTjIrUTB1ZkhJNTdDUCsvWUdK?=
- =?utf-8?B?cU5aZnFFTUZIUlJ6Y3VBeDl6bmJuYXdYTURFMUtOM2IrQWRPaTQ2V0RKU1A3?=
- =?utf-8?B?UXlmaXRPaTdlTDNqQTV1VUJBNXpxcG1LdDdXbVNFWU1wV1RpLzZIbFkwb1lT?=
- =?utf-8?B?b29XWjBNQVVSVzRRbVM4eFR0WG4zOEFYeWVzb3c3OXhDdHZKbVB6MW1Wdzlo?=
- =?utf-8?B?NlJtZ2xYblFVdXJyZkpGYUxTdFlEMGpTWDFQY1dYZHBuL0Z4cUUwRitnWDEx?=
- =?utf-8?B?cnJSU0JPT3pSQnRRaWhnaEE2VXRYU3NSRzVwZkV3R3RoSVIvV1pNOU14QTdJ?=
- =?utf-8?B?NWpXTHZtUlJBNFlFWlNKY1Jqb0lPNDI3TmVwZGtGSzlmTVUvcGhIZGZwVFla?=
- =?utf-8?B?MkdSNUkyQXNRL25jbWdjMWxSOUVWanhrNGlUUmNuUTlkM3JGWVhVVFFYV3FD?=
- =?utf-8?B?WHdrbVk3OWE5c0ozZEc4T0tib0U0SjExWEEvOTVTcklBWjFkZmttMjVUdkdj?=
- =?utf-8?B?Qm11clVYV2pTTWVKRGFZRHNXcUVacFAvK0k1TzN1SkRBb1BPbVJBWm10MkVx?=
- =?utf-8?B?MGgrakY1Z3BpaGtzUnVmekE4V3Q5SlRYT0tWNVg3Lzc1N3lvRGJVYldRUFR4?=
- =?utf-8?B?TDl6YjJuTTNtWVZXM0NkNTNmcTk4dEMyZytibUtIS2FibGRBT2g4bE94L0w0?=
- =?utf-8?B?aHFpUnlHRUNpazg1dERvSHEyQnp5QkFveGVwK3Y3TUdIeWNtdVZ2dz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=hnd9Hn8E
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792489276; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+	bh=kcaNBbiUMzKXzNSISjdYUCG67KZVrDK5XLEKTAvzTD8=;
+	b=hnd9Hn8EXWYYouXAjRHaPzeWZ9FNrXDV6wHWZhyezJoHCN/rluBc4hezKr+J22THL4gOrreiChGFGhWXH++mUE1J3ZrCto4nNnIJBn7mg1dlQlYw4ABXrIX6KYy6luayJBspeIIaG0Vj4ymV4IELjC01JhtAEryMfI1O0tRJuWk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XDCspNU_1792489269;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDCspNU_1792489269 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 20 Oct 2026 17:41:12 +0800
+From: fangyu.yu@linux.alibaba.com
+To: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	baolu.lu@linux.intel.com,
+	jroedel@suse.de,
+	zong.li@sifive.com,
+	andrew.jones@linux.dev,
+	anup@brainfault.org,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	atish.patra@linux.dev,
+	skhawaja@google.com,
+	vasant.hegde@amd.com,
+	joerg.roedel@amd.com,
+	tanchi25@mails.ucas.ac.cn,
+	gong.shuai@sanechips.com.cn
+Cc: fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	kvm-riscv@lists.infradead.org
+Subject: [RFC PATCH v5 00/10] iommu/riscv: Add hardware dirty tracking for second-stage domains
+Date: Tue, 20 Oct 2026 17:40:56 +0800
+Message-Id: <20261020094106.92722-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -163,67 +84,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77a4f366-94fd-4330-2ae5-08df2e8e3929
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 09:40:48.8915
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: roSyQ5OKPviTQmMHPajPF4B0Kt+Hoc+i8pgGxTDC/XIGhXIAEQd8Wjr9BeOaZnV/qmk2TL9joFcxbfwvQolprI3E/xcgOi8UMKsSuqjD9m4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB9429
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-SGkgR2VlcnQsDQoNClRoYW5rcyBmb3IgdGhlIGZlZWRiYWNrLg0KDQo+IC0tLS0tT3JpZ2luYWwg
-TWVzc2FnZS0tLS0tDQo+IEZyb206IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnRAbGludXgtbTY4
-ay5vcmc+DQo+IFNlbnQ6IDIwIE9jdG9iZXIgMjAyNiAwOTozNg0KPiBTdWJqZWN0OiBSZTogW1BB
-VENIIDMvNF0gc2VyaWFsOiBzaC1zY2k6IFNraXAgVER4RSBzdGF0dXMgY2xlYXIgZm9yIFBPUlRf
-U0NJDQo+IA0KPiBIaSBCaWp1LA0KPiANCj4gT24gTW9uLCAxOSBPY3QgMjAyNiBhdCAxOTowMSwg
-QmlqdSA8YmlqdS5kYXMuYXVAZ21haWwuY29tPiB3cm90ZToNCj4gPiBGcm9tOiBBdSBEYW5nIDxh
-dS5kYW5nLmp4QHJlbmVzYXMuY29tPg0KPiA+DQo+ID4gT24gUE9SVF9TQ0ksIHRoZSBURHhFIChU
-cmFuc21pdCBEYXRhIEVtcHR5KSBmbGFnIGluIFNDeFNSIGlzIGNsZWFyZWQNCj4gPiBhdXRvbWF0
-aWNhbGx5IGJ5IGhhcmR3YXJlIHdoZW4gZGF0YSBpcyB3cml0dGVuIHRvIFREUi4gQ2xlYXJpbmcg
-aXQNCj4gPiBhZ2FpbiBmcm9tIHNvZnR3YXJlIHZpYSBjbGVhcl9TQ3hTUigpIGdlbmVyYXRlcyBh
-IHNwdXJpb3VzIFRYSQ0KPiA+IGludGVycnVwdCwgd2hpY2ggY2F1c2VzIHRoZSBsYXN0IGNoYXJh
-Y3RlciB0byBiZSB0cmFuc21pdHRlZCB0d2ljZS4NCj4gPg0KPiA+IFNraXAgdGhlIGNsZWFyX1ND
-eFNSKCkgY2FsbCBmb3IgUE9SVF9TQ0kgaW4gc2NpX3RyYW5zbWl0X2NoYXJzKCkgYW5kDQo+ID4g
-c2NpX3BvbGxfcHV0X2NoYXIoKSwgYXMgdGhlIGhhcmR3YXJlIGFscmVhZHkgaGFuZGxlcyBpdCBh
-ZnRlciBlYWNoIFREUg0KPiA+IHdyaXRlLg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogQXUgRGFu
-ZyA8YXUuZGFuZy5qeEByZW5lc2FzLmNvbT4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBCaWp1IERhcyA8
-YmlqdS5kYXMuanpAYnAucmVuZXNhcy5jb20+DQo+IA0KPiBUaGFua3MgZm9yIHlvdXIgcGF0Y2gh
-DQo+IA0KPiA+IC0tLSBhL2RyaXZlcnMvdHR5L3NlcmlhbC9zaC1zY2kuYw0KPiA+ICsrKyBiL2Ry
-aXZlcnMvdHR5L3NlcmlhbC9zaC1zY2kuYw0KPiA+IEBAIC05MTMsNyArOTEzLDggQEAgc3RhdGlj
-IHZvaWQgc2NpX3BvbGxfcHV0X2NoYXIoc3RydWN0IHVhcnRfcG9ydCAqcG9ydCwgdW5zaWduZWQg
-Y2hhciBjKQ0KPiA+ICAgICAgICAgfSB3aGlsZSAoIShzdGF0dXMgJiBTQ3hTUl9URHhFKHBvcnQp
-KSk7DQo+ID4NCj4gPiAgICAgICAgIHNjaV9zZXJpYWxfb3V0KHBvcnQsIFNDeFREUiwgYyk7DQo+
-ID4gLSAgICAgICBzLT5vcHMtPmNsZWFyX1NDeFNSKHBvcnQsIFNDeFNSX1REeEVfQ0xFQVIocG9y
-dCkgJiB+U0N4U1JfVEVORChwb3J0KSk7DQo+ID4gKyAgICAgICBpZiAocy0+dHlwZSAhPSBQT1JU
-X1NDSSkNCj4gPiArICAgICAgICAgICAgICAgcy0+b3BzLT5jbGVhcl9TQ3hTUihwb3J0LCBTQ3hT
-Ul9URHhFX0NMRUFSKHBvcnQpICYNCj4gPiArIH5TQ3hTUl9URU5EKHBvcnQpKTsNCj4gDQo+IElz
-IHRoaXMgaXNzdWUgcHJlc2VudCBvbiBib3RoIGNsYXNzaWMgU0NJIGFuZCBSWiBSU0NJPw0KPiBz
-LT5vcHMtPmNsZWFyX1NDeFNSKCkgcG9pbnRzIHRvIGVpdGhlciBzY2lfY2xlYXJfU0N4U1IoKSBv
-cg0KPiByc2NpX2NsZWFyX0NGQygpLiBUaGUgZm9ybWVyIGFscmVhZHkgaGFzIGFuIGludGVybmFs
-IGNoZWNrIGZvciBQT1JUX1NDSSwgdGhlIGxhdHRlciBoYXMgbm90LiBTbyBwcm9iYWJseQ0KPiBp
-dCBzaG91bGQgYmUgaGFuZGxlZCB0aGVyZS4NCg0KSXQgaXMgYXBwbGljYWJsZSBmb3IgUlovRzJV
-TCBiYXNlZCBTQ0kgYXMgZm9yIFREUkUgYW5kIHRoZSBoYXJkd2FyZSB0ZWFtIGNvbmZpcm1lZA0K
-aXQgd2lsbCBiZSBhdXRvIGNsZWFyZWQgYnkgdGhlIGhhcmR3YXJlLg0KDQpPbiBSU0NJLCB3ZSBu
-ZWVkZWQgdG8gZXhwbGljaXRseSBjbGVhciBpdCBhbmQgaXQgaXMgaGFuZGxlZCBpbg0KcnNjaV90
-cmFuc21pdF9jaGFycygpLyByc2NpX3BvbGxfcHV0X2NoYXIoKQ0KDQpDaGVlcnMsDQpCaWp1DQoN
-Cj4gDQo+ID4gIH0NCj4gPiAgI2VuZGlmIC8qIENPTkZJR19DT05TT0xFX1BPTEwgfHwgQ09ORklH
-X1NFUklBTF9TSF9TQ0lfQ09OU09MRSB8fA0KPiA+ICAgICAgICAgICBDT05GSUdfU0VSSUFMX1NI
-X1NDSV9FQVJMWUNPTiAqLyBAQCAtMTA0OSw3ICsxMDUwLDggQEANCj4gPiBzdGF0aWMgdm9pZCBz
-Y2lfdHJhbnNtaXRfY2hhcnMoc3RydWN0IHVhcnRfcG9ydCAqcG9ydCkNCj4gPiAgICAgICAgICAg
-ICAgICAgcG9ydC0+aWNvdW50LnR4Kys7DQo+ID4gICAgICAgICB9IHdoaWxlICgtLWNvdW50ID4g
-MCk7DQo+ID4NCj4gPiAtICAgICAgIHMtPm9wcy0+Y2xlYXJfU0N4U1IocG9ydCwgU0N4U1JfVER4
-RV9DTEVBUihwb3J0KSk7DQo+ID4gKyAgICAgICBpZiAocy0+dHlwZSAhPSBQT1JUX1NDSSkNCj4g
-PiArICAgICAgICAgICAgICAgcy0+b3BzLT5jbGVhcl9TQ3hTUihwb3J0LCBTQ3hTUl9URHhFX0NM
-RUFSKHBvcnQpKTsNCj4gPg0KPiA+ICAgICAgICAgaWYgKGtmaWZvX2xlbigmdHBvcnQtPnhtaXRf
-ZmlmbykgPCBXQUtFVVBfQ0hBUlMpDQo+ID4gICAgICAgICAgICAgICAgIHVhcnRfd3JpdGVfd2Fr
-ZXVwKHBvcnQpOw0KPiANCj4gR3J7b2V0amUsZWV0aW5nfXMsDQo+IA0KPiAgICAgICAgICAgICAg
-ICAgICAgICAgICBHZWVydA0KPiANCj4gLS0NCj4gR2VlcnQgVXl0dGVyaG9ldmVuIC0tIFRoZXJl
-J3MgbG90cyBvZiBMaW51eCBiZXlvbmQgaWEzMiAtLSBnZWVydEBsaW51eC1tNjhrLm9yZw0KPiAN
-Cj4gSW4gcGVyc29uYWwgY29udmVyc2F0aW9ucyB3aXRoIHRlY2huaWNhbCBwZW9wbGUsIEkgY2Fs
-bCBteXNlbGYgYSBoYWNrZXIuIEJ1dCB3aGVuIEknbSB0YWxraW5nIHRvDQo+IGpvdXJuYWxpc3Rz
-IEkganVzdCBzYXkgInByb2dyYW1tZXIiIG9yIHNvbWV0aGluZyBsaWtlIHRoYXQuDQo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgLS0gTGludXMgVG9ydmFsZHMNCg==
+From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+
+The RISC-V IOMMU architecture defines an AMO_HWAD capability (Hardware
+Access/Dirty update) that allows the IOMMU to atomically set the A/D bits
+in second-stage PTEs on DMA access.  When DC.tc.GADE is asserted, the IOMMU
+autonomously sets D on the first write to a page mapped by an iohgatp
+domain.  This series wires that capability up to the iommufd dirty-tracking
+interface (IOMMU_HWPT_SET_DIRTY_TRACKING / IOMMU_HWPT_GET_DIRTY_BITMAP) and
+reports IOMMU_CAP_DIRTY_TRACKING.
+
+Design notes
+------------
+
+* The feature is scoped to second-stage (iohgatp) domains only; these are
+  the domains created for KVM / VFIO device pass-through when userspace
+  allocates an HWPT with IOMMU_HWPT_ALLOC_NEST_PARENT or
+  IOMMU_HWPT_ALLOC_DIRTY_TRACKING.  First-stage (iosatp) domains are not
+  touched by this series.
+
+* The page-table side plugs into the existing generic_pt dirty hook
+  framework (amdv1 / vtdss style).  RISC-V adds the three required PTE
+  ops – is_write_dirty / make_write_clean / make_write_dirty.
+
+Testing
+-------
+
+* Test on QEMU RISC-V, a nvme and an e1000e device was passed through
+  to an L2 guest via vfio-pci + iommufd.
+
+* generic_pt KUnit: the existing test_dirty case now runs and passes for
+  the RISC-V 64-bit format.
+
+Follow-up work
+--------------
+* Build a dedicated end-to-end test case that drives the full flow
+  (HWPT_ALLOC with DIRTY_TRACKING -> attach -> IOAS_MAP -> generate real
+  DMA -> SET_DIRTY_TRACKING -> GET_DIRTY_BITMAP -> verify bitmap against
+  expected IOVA footprint) so that the behaviour can be regression-tested
+  beyond the KUnit PTE-level coverage.
+
+* If possible, rebase and retest on top of the updated "iommu irqbypass"
+  patchset.
+
+LLM-based coding assistants were used for code exploration, patch
+review, test execution, and drafting/editing messages and this cover
+letter. I reviewed and finalized all resulting code and text.
+
+---
+Changes in v5:
+    - Propagate the GADE bit from the new device context into the hardware
+      DC in riscv_iommu_iodir_update(), so the pre-enabled GADE actually
+      reaches the hardware. (Per Gong Shuai)
+    - Issue a global IOTINVAL.GVMA in riscv_iommu_iodir_set_mode(), so that
+      second-stage translations cached before a DDTP mode change (e.g. by
+      a previous kernel after kexec) are flushed as the specification
+      requires. (Per Tan Chi)
+    - Rebased on top of v7.3, with [1] and [2] applied.
+    - Link to v4:
+      https://lore.kernel.org/linux-riscv/20260915032828.11250-1-fangyu.yu@linux.alibaba.com/
+Changes in v4 (Jason's suggestions):
+    - Rebased the series on top of [1] and [2].
+    - Drop the RISC-V-specific pt_num_items_lg2() top-level special case.
+    - Validate page-table address widths by translation stage: accept only
+      Sv39/Sv48/Sv57 widths for first-stage tables and only Sv39x4/Sv48x4/
+      Sv57x4 widths for second-stage tables.
+    - Replace the aliased first-stage/second-stage MODE union with
+      independent FSC/IOSATP and IOHGATP MODE fields.
+    - Add pt_dirty_supported() to restrict RISC-V generic_pt dirty tracking
+      to second-stage tables.
+    - Link to v3:
+      https://lore.kernel.org/linux-riscv/20260821132749.82070-1-fangyu.yu@linux.alibaba.com/
+Changes in v3 (Andrew Jones's suggestions):
+    - Rebased the series on top of Andrew Jones' generic_pt RISC-V supported
+      feature mask fix, which adds PT_FEAT_RISCV_SVPBMT to the supported feature
+      set.
+    - Added PT_FEAT_RISCV_S2 to the RISC-V generic_pt supported feature mask and
+      KUnit feature matrix.
+    - Kept PT_FEAT_SIGN_EXTEND only for first-stage RISC-V KUnit configs; second
+      stage configs now use PT_FEAT_RISCV_S2 without sign-extension semantics.
+    - Split RISC-V IOMMU capability checks into first-stage FSC and second-stage
+      IOHGATP helpers.
+    - Updated second-stage paging domain setup to use GPA widths 41/50/59 and to
+      avoid PT_FEAT_SIGN_EXTEND.
+    - Link to v2:
+      https://lore.kernel.org/linux-riscv/20260507113706.11400-1-fangyu.yu@linux.alibaba.com/
+Changes in v2 (Jason's suggestions):
+    - Introduced a single PT_FEAT_RISCV_S2: second-stage selection is driven
+      purely by this feature bit.
+    - Switched from dynamic DC.tc.GADE toggling to static pre-enable.
+    - domain_alloc_paging_flags: follow the switch/case design from other
+      drivers.
+    - Drop IOMMU_CAP_DEFERRED_FLUSH in riscv_iommu_capable.
+    - Remove the .hw_info-related patch.
+    - Link to v1:
+      https://lore.kernel.org/linux-riscv/20260428131359.34872-1-fangyu.yu@linux.alibaba.com/
+
+[1] https://lore.kernel.org/linux-iommu/1-v2-563ee63886f0+1209-iommupt_armv8_jgg@nvidia.com/
+[2] https://lore.kernel.org/linux-iommu/20260818092444.42755-1-andrew.jones@oss.qualcomm.com/
+
+Fangyu Yu (6):
+  iommupt: Add RISC-V Second-stage (iohgatp) page table support
+  iommupt: Add RISC-V dirty tracking PTE ops
+  iommu/riscv: Add domain_alloc_paging_flags for second-stage domain
+  iommu/riscv: Pre-enable GADE for second-stage domains
+  iommu/riscv: Add dirty tracking support for second-stage domains
+  iommu/riscv: Add IOTINVAL.GVMA invalidations
+
+Tomasz Jeznach (2):
+  iommu/riscv: report iommu capabilities
+  RISC-V: KVM: Enable KVM_VFIO interfaces on RISC-V arch
+
+Zong Li (2):
+  iommu/riscv: use data structure instead of individual values
+  iommu/riscv: support GSCID and GVMA invalidation command
+
+ arch/riscv/kvm/Kconfig                       |   2 +
+ drivers/iommu/generic_pt/fmt/iommu_riscv64.c |   2 +-
+ drivers/iommu/generic_pt/fmt/riscv.h         | 158 +++++++++++--
+ drivers/iommu/riscv/iommu-bits.h             |   7 +
+ drivers/iommu/riscv/iommu.c                  | 235 +++++++++++++++----
+ include/linux/generic_pt/common.h            |   4 +
+ include/linux/generic_pt/iommu.h             |   11 +
+ 7 files changed, 347 insertions(+), 72 deletions(-)
+
+-- 
+2.50.1
+
