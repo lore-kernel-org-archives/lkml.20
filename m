@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460498;
-	b=HpqElU1e9E6F0SDa4yWfUPiZW5iBDQHF7bwFmlCAyUiGbKh2FZ9q+RfL/8l6KMsNfC2Q
-	 sGyvBEl9hdyO/qrkP+PoeXd5Sn8qOn/N3Bsw9oc59CrGZ4vOmei7zEnwPj2AJ/hoMzKyL
-	 lN+lLXzxYg/VvXVi2dOEdcztz0cOYZpTRKYew6CcwWZaGq9FczA0a8MNYPxh6WuYF94cn
-	 EhYtUbmeLZrLqoVub0u8kNvpIJbSvNe+SBF1Me2HaP+K1muN6sRLnlHA2xl0vTEE7AqtR
-	 8WCcYS5mWMTQ9mF9X7NCeWKWZVXcuIkFNHn3ewwIUbHl2oEw3Jem+HUBzDO0S9WBiug==
+	t=1792460492;
+	b=wdiR8UkvZcWbE/6Q0sa5IIkGtqA0WUFKLIN6WXn8W1yIQoiWY13pGTJYW4647Q7y74ez
+	 LTPqPU12uTYDvMWT/IUxATTWM/HB/l9rpq/OjSKbXeF01JiWFXSr+9n9pH5RvLvGTSpzX
+	 OxECSS8z/Pdva2aAf3EP7RAGQWWpwLSKx901XlnbPl5q+b05qIX3o41OgiHGVxt2uQ6hl
+	 FO2U2T6Mzzf/nCDoQt8omhDlIwAkaGaJr3xtTFzqVWz1hlxD6oRq2pKHjDmYwv/HrpDi4
+	 liFskIQu7rQW+iWWQeZTro+w0dMlez4yppI7+X4QXVADuyl5EU5/0+wV4b2Ot7wBWoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460498;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jV9vQbp8kVwiR6PyktkkrAbRYjtNNONjs0XwKEZKtBY=;
-	b=k1HN4RDNcASdbiHraADszPRRpXvteOaPsOWhvvJu36PCyv6G5Wt8oOXlfnxEUagl14os
-	 JDJhlQpqM6mN7qGW5a4HWiqasVYIHGDUfnp+zgq23Bw9keQrJgCuCBm+AVsCGy4gsOZhD
-	 5dNZMki8b2kRtqbcR2HQzFn393c9HcrW+ZoFLlilDWXhYXUIRtpPEukg83vB9Ya4oC0MW
-	 J4PDzKniZPLPhA5VF2XXCVP4fn+RDW7YMJG82oF2k3x7G9mNgdB066D9FoUTzd8fMv3Hv
-	 Bql0KKk22Yq7iH0ub9B0UafZ5hqTooyQyEtoLlMDVUIkxzT+8rFHZRtqI+UjqVW4LqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460492;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=aDnrN/rnO8GTJvw/uGicHbUYV95/hlCAICtPYU2nHKk=;
+	b=RZAPYybVX1BUTCSortI6fjOV6EF2DIL6nDqnMoRWnizry0jQTnBQs6++cGU4Ndq1/3t/
+	 i2zLKAV1rtEbhNSyO/HXMJDVVnpIgj9Q6wrQ/3mi+gSu8XYAYophw8UKndfxLZ/xMv0rP
+	 hKn1y5SaczaZN64s8eNd6GLRrOuN1KYMFI1P/lGNPGFyNb/skKIe+5Q3mWQbDoYQczkMm
+	 tHqKHtnlUVTkwTt2U3vVql5SLe7v3aFNXnOMAvzXnBfhFR/fTCm/lL2uKnsIYyBliOtlL
+	 i2x+mWsP1RliK3Oie3eAQZID1oEH7W2B8akoLjdB5Rda/EvdFEnj1wJnpn53Z0q3xPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wti6IN8A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEGECTr6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6667606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:41:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A372B606A328;
+	Tue, 20 Oct 2026 01:41:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wti6IN8A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BABE71F000CB;
-	Tue, 20 Oct 2026 01:41:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEGECTr6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0DF01F000C7;
+	Tue, 20 Oct 2026 01:41:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792460497;
-	bh=jV9vQbp8kVwiR6PyktkkrAbRYjtNNONjs0XwKEZKtBY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wti6IN8AaYX6nR1a4nrFjdTh15ygN7WfDZAQ9TLe061bRkGIkDilOcPLyKPzmDSsi
-	 k7rXChH/oGTKJN73CSQTcKxofRqOXRonR7NKa7RfPQcKA03BjsGf4rvqOWFSrvuuTh
-	 fK3mTNgzah2xKFQa59Ayk/4o6eDa45k2rRhvEigTolOfnZvIUn2w1RoIdXsnlcXnfA
-	 hsKPyaVxBDfbYi4AzaKkZCN0x579dx7rLqtw34VnyFvQLOyncVCXFv/sQdRgzlvfMj
-	 p2DLgTI+Djf803DsIJ20+9t5/9hSmcI3yX6VwNbYuY7Cyr13ZG5mBDDznnuwUYFd+q
-	 ZllEwGVlNnECw==
-Date: Tue, 20 Oct 2026 09:21:35 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Haorong Lu <ancientmodern4@gmail.com>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] riscv: signal: check the full syscall return value
- for a restart
-Message-ID: <atbCH0O2JSJdBVKE@xhacker>
-References: <20261018024215.798849-1-nickolai@csail.mit.edu>
+	s=k20260515; t=1792460491;
+	bh=aDnrN/rnO8GTJvw/uGicHbUYV95/hlCAICtPYU2nHKk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OEGECTr6MHjApaNaS5+l2ymKg3u8HTBL/7GV3C5c5WJoQ8MW7IsR0A2qF4yZGzorC
+	 dcK2MbWcgiTqwiZXIxc7HCCn47o/YGI+bvhRKoRgrU1TyJbODxLwZkp4uivelC9TvX
+	 PIU0j4E0VOPC5RhEiFdCPTWwlvQVGe2wocxgB5UZ/9KmxYFYWOZMn9KfyNvUx758JN
+	 MuWCjWiAAzBYtv+tf1opGvqVyzjvNx5tWyA2mFq9BHxZp/j4yHYqgujNuqM/j1YEJL
+	 vUzs7/lj17u4rKMi3rjBdQGhfSLDK+t6h68T54F6H+CPwKMuj99U1bF70Um4foADHH
+	 rHUW5sx9y+Yng==
+Subject: Re: [PATCH net-next v6 8/9] net: dsa: realtek: rtl8365mb: re-latch
+ the family D SerDes
+From: netdev-bot+sashiko@kernel.org
+To: namiltd@yahoo.com
+Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 20 Oct 2026 01:41:30 +0000
+Message-ID: <179246049030.3135.13023954288671040078@kernel.org>
+In-Reply-To: <c43a5bf1-0cf9-4c68-b905-e9b615e2c9b2@yahoo.com>
+References: <c43a5bf1-0cf9-4c68-b905-e9b615e2c9b2@yahoo.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,151 +64,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261018024215.798849-1-nickolai@csail.mit.edu>
 
-On Sat, Oct 17, 2026 at 10:42:15PM -0400, Nickolai Zeldovich wrote:
-> A system call that returns a 64-bit value whose low 32 bits happen to
-> equal one of the -ERESTART* codes is restarted or turned into -EINTR
-> when a signal is pending on the way back to user space. lseek() returns
-> the new file offset, so lseek(fd, 0x1fffffe00, SEEK_CUR) followed by a
-> signal with an SA_RESTART handler runs the lseek() a second time and
-> leaves the offset at 0x3fffffc00; without SA_RESTART the call fails with
-> EINTR after it has moved the offset. With a SIGALRM interval timer of
-> 20 us, 2337 out of 2000000 such lseek() calls moved the offset twice and
-> 2695 out of 2000000 returned EINTR. brk() can return an arbitrary
-> address the same way, and a value ending in 0xfffffdfc goes through
-> restart_syscall() with whatever restart_block.fn the task last set.
-> 
-> arch_do_signal_or_restart() reads regs->a0 into an int, which drops the
-> upper half of the return value before it is compared with -ERESTARTSYS
-> and friends. The code before the restart handling was moved out of
-> handle_signal() switched on the unsigned long a0 and was not affected.
-> 
-> Keep the return value in a long. Compat tasks see only the low 32 bits
-> of a0, and a 32-bit tracer writes it zero-extended, so sign-extend it
-> from 32 bits for them as before.
-> 
-> Tested with the program in the notes on QEMU virt (riscv64 defconfig):
-> the offset is moved exactly once and no EINTR is returned with the patch.
-> 
-> Fixes: ce4f78f1b53d ("riscv: signal: handle syscall restart before get_signal")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Good catch!
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> ---
-> 
-> Notes:
->     Reproducer (static riscv64 binary run as /init's child on QEMU virt, -smp 2;
->     riscv64-linux-gnu-gcc -O2 -static -o lseek_restart lseek_restart.c):
->     
->     #define _GNU_SOURCE
->     #include <errno.h>
->     #include <fcntl.h>
->     #include <signal.h>
->     #include <stdio.h>
->     #include <string.h>
->     #include <sys/time.h>
->     #include <unistd.h>
->     
->     #define OFF 0x1fffffe00LL	/* low 32 bits read as -ERESTARTSYS */
->     
->     static volatile long nsig;
->     
->     static void handler(int sig)
->     {
->     	nsig++;
->     }
->     
->     static void run(int fd, int flags, const char *name)
->     {
->     	struct sigaction sa;
->     	struct itimerval it = { { 0, 20 }, { 0, 20 } };
->     	long i, moved = 0, eintr = 0;
->     
->     	memset(&sa, 0, sizeof(sa));
->     	sa.sa_handler = handler;
->     	sa.sa_flags = flags;
->     	nsig = 0;
->     	sigaction(SIGALRM, &sa, NULL);
->     	setitimer(ITIMER_REAL, &it, NULL);
->     
->     	for (i = 0; i < 2000000; i++) {
->     		off_t r;
->     
->     		lseek(fd, 0, SEEK_SET);
->     		r = lseek(fd, OFF, SEEK_CUR);
->     		if (r == OFF)
->     			continue;
->     		if (r == -1 && errno == EINTR)
->     			eintr++;
->     		else if (r == 2 * OFF)
->     			moved++;
->     		else
->     			printf("%s: unexpected %#llx\n", name, (long long)r);
->     	}
->     	memset(&it, 0, sizeof(it));
->     	setitimer(ITIMER_REAL, &it, NULL);
->     	printf("%s: %ld signals, %ld calls moved the offset twice, %ld returned EINTR\n",
->     	       name, nsig, moved, eintr);
->     }
->     
->     int main(void)
->     {
->     	int fd = open("/lseek-test", O_RDWR | O_CREAT, 0600);
->     
->     	if (fd < 0) {
->     		perror("open");
->     		return 2;
->     	}
->     	run(fd, SA_RESTART, "SA_RESTART");
->     	run(fd, 0, "no SA_RESTART");
->     	return 0;
->     }
->     
->     Before:
->     SA_RESTART: 283700 signals, 2337 calls moved the offset twice, 0 returned EINTR
->     no SA_RESTART: 246693 signals, 0 calls moved the offset twice, 2695 returned EINTR
->     After:
->     SA_RESTART: 306854 signals, 0 calls moved the offset twice, 0 returned EINTR
->     no SA_RESTART: 278090 signals, 0 calls moved the offset twice, 0 returned EINTR
-> 
->  arch/riscv/kernel/signal.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/kernel/signal.c b/arch/riscv/kernel/signal.c
-> index 59784dc117e4..b1e92b969d96 100644
-> --- a/arch/riscv/kernel/signal.c
-> +++ b/arch/riscv/kernel/signal.c
-> @@ -499,7 +499,7 @@ static void handle_signal(struct ksignal *ksig, struct pt_regs *regs)
->  void arch_do_signal_or_restart(struct pt_regs *regs)
->  {
->  	unsigned long continue_addr = 0, restart_addr = 0;
-> -	int retval = 0;
-> +	long retval = 0;
->  	struct ksignal ksig;
->  	bool syscall = (regs->cause == EXC_SYSCALL);
->  
-> @@ -508,6 +508,8 @@ void arch_do_signal_or_restart(struct pt_regs *regs)
->  		continue_addr = regs->epc;
->  		restart_addr = continue_addr - 4;
->  		retval = regs->a0;
-> +		if (is_compat_task())
-> +			retval = (int)retval;
->  
->  		/* Avoid additional syscall restarting via ret_from_exception */
->  		regs->cause = -1UL;
-> 
-> base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
-> -- 
-> 2.53.0
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] rtl8365mb_conduit_state_change() never looks at its `conduit`
+  argument.
+
+--
+
+net: dsa: realtek: rtl8365mb: re-latch the family D SerDes
+
+On family D chips, this adds a delayed work item that repeatedly parks
+and restores SDS_MISC. That drives the DISABLE -> HSGMII edge the SerDes
+receiver needs in order to latch, and the work keeps checking the link
+after that. Episodes start from ->conduit_state_change(), or from
+pcs_config() when the conduit is already up, and stop when the conduit
+goes down.
+
+> diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+> index a8e9220b217fd..a1155a75356da 100644
+> --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
+> +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+
+[ ... ]
+
+> @@ -1670,8 +1774,184 @@ static int rtl8365mb_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
+
+[ ... ]
+
+> +	/* The re-latch edge has only been observed with HSGMII, so the work is
+> +	 * only armed for 2500base-x. It starts once the conduit is up.
+> +	 */
+> +	if (is_d) {
+> +		WRITE_ONCE(mb->sds_relatch_armed,
+> +			   interface == PHY_INTERFACE_MODE_2500BASEX);
+> +		/* With the conduit already up no conduit_state_change() will
+> +		 * follow, so start the episode here.
+> +		 */
+> +		if (READ_ONCE(mb->sds_relatch_armed) &&
+> +		    READ_ONCE(mb->sds_conduit_up))
+> +			rtl8365mb_sds_relatch_start(mb);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void rtl8365mb_conduit_state_change(struct dsa_switch *ds,
+> +					   const struct net_device *conduit,
+> +					   bool operational)
+> +{
+> +	struct realtek_priv *priv = ds->priv;
+> +	struct rtl8365mb *mb = priv->chip_data;
+> +
+> +	if (rtl8365mb_get_family(priv) != RTL8365MB_FAMILY_D)
+> +		return;
+> +
+> +	guard(mutex)(&mb->sds_cfg_lock);
+> +
+> +	WRITE_ONCE(mb->sds_conduit_up, operational);
+> +	cancel_delayed_work_sync(&mb->sds_relatch);
+> +	if (operational && READ_ONCE(mb->sds_relatch_armed))
+> +		rtl8365mb_sds_relatch_start(mb);
+> +}
+
+[Severity: Medium]
+Should rtl8365mb_conduit_state_change() check which conduit the event is
+for? It never uses the conduit argument. As a result, every conduit in
+the tree overwrites the single sds_conduit_up flag, and each one cancels
+or restarts the one SerDes work item.
+
+dsa_switch_conduit_state_change() in net/dsa/switch.c passes on every
+conduit's state without filtering:
+
+    ds->ops->conduit_state_change(ds, info->conduit, info->operational);
+
+rtl8365mb_setup() also accepts more than one CPU port:
+
+    dsa_switch_for_each_cpu_port(dp, ds) {
+        /* Use the first CPU port as trap_port */
+        if (cpu->trap_port == RTL8365MB_MAX_NUM_PORTS)
+            cpu->trap_port = dp->index;
+
+The RTL8367S-VB, added later in the series, allows port 6 (EXT0, SerDes)
+and port 7 (EXT1, RGMII) to both be CPU ports. Suppose the RGMII conduit
+goes down while the SerDes conduit stays up. Would that cancel the
+SerDes work and leave sds_conduit_up false? A SerDes that has not
+latched yet, or that loses its link later, would then stay in the "link
+up, no frames" state.
+
+A later pcs_config() would not restart the work either, because it reads
+the cached flag.
+
+The reverse case looks affected too. If the RGMII conduit comes up while
+the SerDes conduit is down, park/restore episodes would start against a
+far end that is not running.
+
+rtl8365mb_pcs_config() above raises a related question.
+rtl8365mb_phylink_mac_select_pcs() returns the shared PCS for any port
+in a SerDes mode:
+
+    if (rtl8365mb_interface_is_serdes(interface))
+        return &mb->pcs;
+
+rtl8365mb_pcs_config() then sets sds_relatch_armed for any 2500base-x
+user, with no dsa_port_is_cpu() check. Suppose port 6 is a 2500base-x
+user port (SFP or 2.5G PHY). Could any CPU conduit coming up start an
+episode on it?
+
+If so, whenever that user link is down (after a cable pull, for
+example), SDS_MISC would be parked for 20 ms every 1 s for 15 tries,
+then every 10 s. The "did not latch" and "link lost outside a
+reconfiguration" warnings would be logged each time.
+
+Other implementers of this op filter on the conduit. For example,
+qca8k_conduit_change() does:
+
+    struct dsa_port *dp = conduit->dsa_ptr;
+    ...
+    if (dp->index != 0)
+        return;
+
+Would a similar check here, limited to the CPU port that owns the
+SerDes, avoid both cases?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/5a4715dd-89e0-4868-9ffb-c8fb73b18d04%40yahoo.com
