@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485967;
-	b=eYRmsXwAoMlrIeKlgO7/9ct9y8qLczn7ztHIEcaHKYUUZzMtdUDZWhbCvkMa1N/scjVS
-	 A1CNoPDFgQVvbUQSfZwzc3gKuoPVrsHVCLcnbvhtVZbA+76mGFwYXhzUvOK9GW7YXRevA
-	 86pqkWNqb/kJBDExP10gO6a7w/decD1qcfgbEQF+8Nz2de6R0xDg4/N/hj+lLHJEUWVVG
-	 En55IXP66ec7cenrd6WjqMojGEdzi7OgY9s6ArReW281yWIkb6UFZdPzjBZgAJxspyRDl
-	 DP6fj8RR+L1tsmYq1yWUnXyV3hEToTOii/I93CbYYFofouvZb+/00f26i12ja157DuA==
+	t=1792485963;
+	b=flio328MQrkfVEkgt1rst984J2SwV3Rm9WT6ebaPa6Wt8dOBu2nv4gl6/B4MTMWJSaiw
+	 YEKwEDYt0iUJ+PHrh+9j8RuA/30hmUf4vrNsVlYnKqTIZXtj3iprGlfhH1PLuGKcM8OMk
+	 I8CgToe8zB4Qh5NCdqlpoT9boHwZhqYVtH8Z8X4pRNWD8/EWsmgr9cFNLBRicOfgojdlL
+	 YaQDlSbwjOHU5x5UDnAXgbmfDhlMWPMgambYyX4wPBTenJykTOq084XHyuGI2n4a1as5a
+	 oJv+8uTzkHPtvDzvf4P5txYzdllP8OvsxNTAbWzDPM+6j6cAT7Db2p3MBHqEnUd76RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485967;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=jLZNqZ797ffi18BTv1o+2kbw3qIa8d3zQHXnbXOJ2Fs=;
-	b=B3/Vd1BBBXcm3+TmYHmC58x8maPA+XtLg+YFkR7yPeZWtwplX5CcMDfI9+diPCVmT3Ch
-	 ZqGaKA/5Sl3UiNwZNsasEe1movczmbqW5ZBdo3ePsGgULku/92r/MFbNlHh0KbrEWqHiM
-	 mrk7255y+jLclKJ/mZpXP8Rp3VHvAKzVDOIZ6/N9SMFVpy9MmD2gj2qIaSqAe+2SjBuOb
-	 1cW0SxdjaIzbc30f5PfJX43ki6DwVGGVT/HBi+89pgiieGkpRnXzWV3KYrVZTq6x/6s5s
-	 yMknrWI2Ylgz2vaZnu+9PrEICCyGB5C4HpfL4FhaS211ytTLtdOq/JDwVrlNLhizIng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485963;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=r+n9kpP6+KuFZV3wferc72jxCsAkXJABKbiEAiTkZpQ=;
+	b=4kD8aX2sgP8uUxhwsZmiGXF4HjhVkFIO6JbD139nKPtYVwNxOlPCFMKXEo61fjPkNYM+
+	 O46NDdnuggwUyUPtrnFJ7g9tfe83SqCHx2HlC9QyMe+VApJp2R8YCfoxQNohYjKS2+nMH
+	 bAyZhsAH7v8EPY+sThV6A95bY4TME6L/SORQ6hYSdNKBNvj9Di1KuJdqlmuvwZ/eZ0FTa
+	 W/iOTwQU5Ydc+6y7EtiGw3KaaDhX9y3/8FIdRkSuN65Z0VoEzJ5+EC8sJtlOqwVYPQsT0
+	 G/3e+3kTRVkBzNIjFA6WZmnfCFMGnaT7LvcX4IGsskB+CkQpUTl2lYLxZKiVoDNIO+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="IQKsM/5w";
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B5660A382B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:46:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B5660A382B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IQKsM/5w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jL
-	ZNqZ797ffi18BTv1o+2kbw3qIa8d3zQHXnbXOJ2Fs=; b=IQKsM/5wy491VtvhGb
-	0U6X07ntJNM0uEz+ZhGx4MqG8qwL6LOKOMC244KCzUd7CmvQPbJCp8Z4FTVnNeSB
-	xZtfHSocT+x5zLh9QuHkidPdwxU2JLa/wjLr8xY9U3Gg+B9zWJx4mziBztLmDTWC
-	7VTIVRlUoVbTJbh88FAnsH9/M=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3n0ksKtdq7UkHBg--.56105S3;
-	Tue, 20 Oct 2026 16:45:34 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	wangxuewen@kylinos.cn,
-	wudandan@kylinos.cn
-Subject: [PATCH v4 09/31] ntfs: report iomap corruption and preserve buffered read errors
-Date: Tue, 20 Oct 2026 16:43:59 +0800
-Message-ID: <20261020084421.2196486-10-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
-References: <20261020084421.2196486-1-liubaolin12138@163.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3913F606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3913F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-540537f959fso3607692b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:46:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792485962; x=1793090762;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=r+n9kpP6+KuFZV3wferc72jxCsAkXJABKbiEAiTkZpQ=;
+        b=DLuJ48AdJ9DPgmOIafs0/0NGVcUBrfvC4XX8qvhkoha7nVMbD7lKT6A17dKzqWZgqN
+         GyqqAdGyfxx7f0sWhjKM6B/B+dRGH+/4S1I5QitJ8GHJ+clTEVVfPL+xxjjhF+VCuxjP
+         xptszPOc2rKiRHWN75oSWrn28jB1+xSyCWf0MhInMHk7vNA7ponSAyfwcNiDvW7S5eBc
+         T6njcursaN9yhOXZthvu6rBS8rbREJbToBniKQqMLnLny885GqcOw6RuT1SyEjTAnL4k
+         VBqaIN0Bbf1HxHWbNeH3W0X4CzjGQ7fktKVBGXlBOBVFqZ4SjgmjfmAQXz2+KEm6ix+q
+         MxjA==
+X-Forwarded-Encrypted: i=1; AKwUvBwAnywlHjQPU8CtfqxoDfkH9cw0E2YHqwHOJ2In9lhzQAxel9FjkKTZXZaAkidO4M7Cp+QIYu8WBveu3A8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIp1VizDyfH1yEQ0KWeg290cRBrvC8qh2V6cvon0qm71F0jfD41
+	sLrbbbDibyRaJs2YRbrBtTn8pbuNNYOeE2awcBy1EU1+DxTlSEup1/2R0kOgM0ZCLyqC/gyu3+g
+	+yDULCTzCCVN7ERzfuMriup7DjP2HiXyhdvyHilzBCQfTGLHtYPdzYqP5DMg=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,195 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n0ksKtdq7UkHBg--.56105S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtF1xXF48Wr17AF1fKryrXrb_yoWxJrWDpF
-	9Ikr9xKr4rXr9rWrn3tFZ8Zw1F9w18K34UXryxGwn7Zan0yw47K3W0kF4Y9FySqr95Jw1q
-	qrWUKrW7ua1UZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFq2_UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q4m8GrXKi5ZFAAA3F
+X-Received: by 2002:a05:6808:14c6:b0:53b:f96:ba4f with SMTP id
+ 5614622812f47-53ccd9ba76fmr10754176b6e.36.1792485962252; Tue, 20 Oct 2026
+ 01:46:02 -0700 (PDT)
+Date: Tue, 20 Oct 2026 01:46:02 -0700
+In-Reply-To: <20261020083034.8155-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad72a4a.a20cb897.960b0.00ba.GAE@google.com>
+Subject: Re: [syzbot] KASAN: slab-use-after-free Write in o2hb_region_dev_store
+From: syzbot <syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Dandan Wu <wudandan@kylinos.cn>
+Hello,
 
-The iomap paths detect missing required attributes and invalid runs
-without reporting them. Report these conditions as EFSCORRUPTED while
-preserving allocation and underlying mapping errors.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Capture synchronous iomap errors in read_folio so buffered reads retain
-their errno instead of turning corruption and allocation failures into
-EIO. Keep the existing partial-read behavior.
+Reported-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
+Tested-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
 
-Signed-off-by: Dandan Wu <wudandan@kylinos.cn>
----
- fs/ntfs/aops.c  | 22 ++++++++++++++++++++--
- fs/ntfs/iomap.c | 43 ++++++++++++++++++++++++++++++++++---------
- 2 files changed, 54 insertions(+), 11 deletions(-)
+Tested on:
 
-diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
-index 7884737657d5..474e99aa123d 100644
---- a/fs/ntfs/aops.c
-+++ b/fs/ntfs/aops.c
-@@ -48,6 +48,22 @@ static const struct iomap_read_ops ntfs_iomap_bio_read_ops = {
- 	.submit_read		= ntfs_iomap_bio_submit_read,
- };
- 
-+static int ntfs_read_folio_iomap_next(const struct iomap_iter *iter,
-+				      struct iomap *iomap, struct iomap *srcmap)
-+{
-+	int *error = iter->private;
-+	int ret;
-+
-+	ret = ntfs_read_iomap_ops.iomap_next(iter, iomap, srcmap);
-+	if (ret < 0)
-+		*error = ret;
-+	return ret;
-+}
-+
-+static const struct iomap_ops ntfs_read_folio_iomap_ops = {
-+	.iomap_next = ntfs_read_folio_iomap_next,
-+};
-+
- /*
-  * ntfs_read_folio - Read data for a folio from the device
-  * @file:	open file to which the folio @folio belongs or NULL
-@@ -72,6 +88,7 @@ static int ntfs_read_folio(struct file *file, struct folio *folio)
- 		.cur_folio = folio,
- 		.ops = &ntfs_iomap_bio_read_ops,
- 	};
-+	int err = 0;
- 
- 	/*
- 	 * Only $DATA attributes can be encrypted and only unnamed $DATA
-@@ -103,8 +120,9 @@ static int ntfs_read_folio(struct file *file, struct folio *folio)
- 			return ntfs_read_compressed_block(folio);
- 	}
- 
--	iomap_read_folio(&ntfs_read_iomap_ops, &ctx, NULL);
--	return 0;
-+	/* iomap_read_folio() otherwise discards synchronous mapping errors. */
-+	iomap_read_folio(&ntfs_read_folio_iomap_ops, &ctx, &err);
-+	return err;
- }
- 
- /*
-diff --git a/fs/ntfs/iomap.c b/fs/ntfs/iomap.c
-index c248c61854cc..e0ac03dd5138 100644
---- a/fs/ntfs/iomap.c
-+++ b/fs/ntfs/iomap.c
-@@ -76,8 +76,13 @@ static int ntfs_read_iomap_begin_resident(struct inode *inode, loff_t offset, lo
- 
- 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
- 			CASE_SENSITIVE, 0, NULL, 0, ctx);
--	if (unlikely(err))
-+	if (unlikely(err)) {
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
-+		}
- 		goto out;
-+	}
- 
- 	attr_len = le32_to_cpu(ctx->attr->data.resident.value_length);
- 	if (unlikely(attr_len > ni->initialized_size))
-@@ -215,11 +220,12 @@ static int ntfs_read_iomap_begin_non_resident(struct inode *inode, loff_t offset
- 	rl_length = ntfs_cluster_to_bytes(vol, rl->length - (vcn - rl->vcn));
- 
- 	if (rl_length == 0 && rl->lcn > LCN_DELALLOC) {
-+		ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
- 		ntfs_error(inode->i_sb,
- 				"runlist(vcn : %lld, length : %lld, lcn : %lld) is corrupted\n",
- 				rl->vcn, rl->length, rl->lcn);
- 		up_write(&ni->runlist.lock);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	if (rl_length && length > rl_length - vcn_ofs)
-@@ -418,7 +424,7 @@ static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_
- 		err = ntfs_map_runlist(ni, vcn);
- 		if (err) {
- 			mutex_unlock(&mrec_ni->mrec_lock);
--			return -ENOENT;
-+			return err;
- 		}
- 		down_read(&ni->runlist.lock);
- 		rl = ni->runlist.rl;
-@@ -430,9 +436,17 @@ static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_
- 	/* Seek to element containing target vcn. */
- 	rl = __ntfs_attr_find_vcn_nolock(&ni->runlist, vcn);
- 	if (IS_ERR(rl)) {
-+		unsigned long irqflags;
-+		s64 allocated_size;
-+
-+		read_lock_irqsave(&ni->size_lock, irqflags);
-+		allocated_size = ni->allocated_size;
-+		read_unlock_irqrestore(&ni->size_lock, irqflags);
-+		if (offset < allocated_size)
-+			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
- 		up_write(&ni->runlist.lock);
- 		mutex_unlock(&mrec_ni->mrec_lock);
--		return -EIO;
-+		return offset < allocated_size ? -EFSCORRUPTED : -EIO;
- 	}
- 	lcn = ntfs_rl_vcn_to_lcn(rl, vcn);
- 
-@@ -451,19 +465,22 @@ static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_
- 	 * extent over clusters that are allocated on disk but unknown to us.
- 	 */
- 	if (lcn == LCN_RL_NOT_MAPPED) {
-+		if (!map_err || map_err == -ENOENT)
-+			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
- 		up_write(&ni->runlist.lock);
- 		mutex_unlock(&mrec_ni->mrec_lock);
--		return map_err == -ENOMEM ? -ENOMEM : -EIO;
-+		return !map_err || map_err == -ENOENT ? -EFSCORRUPTED : map_err;
- 	}
- 
- 	max_clu_count = min(max_clu_count, rl->length - (vcn - rl->vcn));
- 	if (max_clu_count == 0) {
-+		ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
- 		ntfs_error(inode->i_sb,
- 				"runlist(vcn : %lld, length : %lld) is corrupted\n",
- 				rl->vcn, rl->length);
- 		up_write(&ni->runlist.lock);
- 		mutex_unlock(&mrec_ni->mrec_lock);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	iomap->bdev = inode->i_sb->s_bdev;
-@@ -506,11 +523,17 @@ static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_
- 			rl = ntfs_runlists_merge(&ni->runlist, rlc, 0,
- 					&new_rl_count);
- 			if (IS_ERR(rl)) {
-+				err = PTR_ERR(rl);
-+				if (err != -ENOMEM) {
-+					err = -EFSCORRUPTED;
-+					ntfs_report_file_metadata_error(inode,
-+									err);
-+				}
- 				ntfs_error(vol->sb, "Failed to merge runlists");
- 				up_write(&ni->runlist.lock);
- 				mutex_unlock(&mrec_ni->mrec_lock);
- 				kvfree(rlc);
--				return PTR_ERR(rl);
-+				return err;
- 			}
- 
- 			ni->runlist.rl = rl;
-@@ -698,8 +721,10 @@ static int ntfs_write_iomap_begin_resident(struct inode *inode, loff_t offset,
- 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
- 			CASE_SENSITIVE, 0, NULL, 0, ctx);
- 	if (err) {
--		if (err == -ENOENT)
--			err = -EIO;
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
-+		}
- 		goto out;
- 	}
- 
--- 
-2.51.0
+commit:         f47d2236 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17930771580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=f5a0e1a0c1f8a1fc
+dashboard link: https://syzkaller.appspot.com/bug?extid=3025e3e8fc0b928af8f5
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1442eb71580000
 
+Note: testing is done by a robot and is best-effort only.
