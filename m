@@ -1,75 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792499167;
-	b=1l8OIH0tVvHGQy+O8ln7CXNXmytWER3ayXhZbAUESfpcqCK0W4Tg3anrOprnba5EL2yH
-	 D6LzOA5vDoS5wVxFk4HzWPQP1geYqLChqVx0iwzhWSsIyJWftEZDRgFgP1bzd6Bi3+KHY
-	 YYOT/FudfB6CnYnaeuBYYEuRYpgf06qUuVXAM5Ke4HJzDVZAmtv3+x1s4MY1egAPeP2AU
-	 pdwILnh82o0yJUMULkc8x4fHKygJXnE/I7HG7ILTt7dhrii2GgFjVDdGxlKtXloIiOZvU
-	 2SazkSx0VV0yFv66ogehYeCcRNqycUq7G76UdSsjBwWY+XNWzDutV/6x25by1iHQWtw==
+	t=1792499225;
+	b=wKwA4KKGR4q4QKO19d7mvuuPI3ET1cc3Lq+KnG26fN63dI1eFwxmsfJ64yOQZacpuiEI
+	 b1ThFc4q96ePjMVf4BoRIOvXWwrzk0z2xb+zFfryN6mE7hkg1MkcpAsco5F/M8ISkRRc1
+	 ubmujQJnR+1Z2nFTaSAO5qI2yjF0451Q5BOUhSCd8Go3ZcHqThdvix/hRv1/W48Yyu4HF
+	 3QgGvBclbT6MCMLkX8W8C+mHsnSx+LRkyC4I+SODWCboOoedSmbW16z/mGlfkaRMeutuI
+	 qUpo2czzafgkmD63jVqgJ4MSp0l5KiGTm1I7LARdJ5Ccg/v3zeDZG9hlkyKER7NyTRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792499167;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=w8ekeggAdWyBqH97gBi+p9TPg4z/iYMBplVI65cJ2lQ=;
-	b=mC/YIl8pb25+k6/qMsHtJqXOrFi//gzjnKJWn68l4CKmO4wJ/ynaBgXZOCal4Zeybha4
-	 xeof4ABbMPi1UQ13hwgSIO0PTWa6wLeiByS3RKcl9VYVnPG7d+bgiSZp6A2/Mrd1ZL8FC
-	 7e1yitKROgP0zxZHr/H6+au/X9QaR542cJn2oUtiUKnDBCv2vDxFIJcv8iaQHTF8FjjCf
-	 C3yAnKkayfOWqplxuyuGsaOvuZlVzCkJaAMXuilKs1QizHJyUgq6rYC2osxP1wayqgJEq
-	 g8LE4Yxk/lGhCRu/+3NBhN6GaDwv16Vs8g+cJ1e23UlC1PRRh8qOSeO5/dGaoF49kwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792499225;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=r+JXJ7/RizMzNWpQZbCi3pXUDD6ZYso7OnyQ+kdiZlM=;
+	b=AttoYIXlkn02B69q7rsGezMWItKVAtNww0Si+rjnp2NP94ja9+xouksvG/r+bGdcsHG0
+	 y5iIuBFLh42xoNwytaGpFl3GLmvQb9OsL+SK8rZnKC8blWoi4KgW6ii6CeJIgRkzs7WRZ
+	 48tiGY0omM5CUTBO7cPir3V2pJPUruu+Zje8iMEx+LruuDwp7VtTnsmNMJ5AO+VZtnxgO
+	 DIDkc6pmROxQarSILXQgb9JfkHp0TryNMmYNNEcinhWqguYTAD/TLpt7chkMf7WgOutN5
+	 Htc9P56mdrUiGJBBVTDEFbsoNuUgp26zX8y/dOGWNZUMA+TsHo/VCpjiAmJHcbbC74w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dmarc=none header.from=resnulli.us;
+	spf=none smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=hFWwiKZY;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263A3606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:26:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 263A3606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so1171603a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:26:06 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AD3606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:26:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66AD3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=hFWwiKZY
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so18774855e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:26:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792499217; x=1793104017; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=r+JXJ7/RizMzNWpQZbCi3pXUDD6ZYso7OnyQ+kdiZlM=;
+        b=hFWwiKZYM9mL6E9PjvXPJ3WGnS6fCoA5M4DIXCiZ7QxzFi2/LcC4qvf+KiToBx11vf
+         GRItbzTNaPMrrqtIFRswHSZ98neyu90Uq5IfSu4sQ36KzvEhbpjmB1UwNwd7qYf4BWxN
+         bDz3iEsnC7hCleu9A1kqlb5Rzg4kdPeLjcGlV31/IXxUBLh7w3J02q1/tfvUIz81uOS/
+         UEM6+101n2rlxfRua/iUXIXttcSlcn3JJy+8PQ0VU6ITRl8uQjt14rR220smlHCvOj+l
+         C6Q2+TncSYuWzfBvITAgECC4jVu0YXsBeECg75adzeCZE0pz4lYpLhgty1FCkfWqLh1e
+         sotA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792499166; x=1793103966;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=w8ekeggAdWyBqH97gBi+p9TPg4z/iYMBplVI65cJ2lQ=;
-        b=N4RhOOQlsnsVTtQQdmLchw1bvmRmbL1gSgToscwXZHk3esFuEmv5F60AF/Gfz+x+HZ
-         meRF6feRuI7vFCPl8OxJNyfdOu4bYahbwZlE3JFO+QciMDMQhxdAVGEwmcqO5lU6U9TW
-         FoY1vqQ+cosVDHwoZn8AuEBCTI98oeu2tFO+waFIejSgDK7hbaEmKPxdK5y2jLJIeXkw
-         yW+lCzD3hsygYw+mxPlUEFLI+7bFgrUgy2QErawzjCDC7VekUWS+F5RF+zto9lhLqcKq
-         kP7/ZTP96ayQFDpWzo6+Iqt0DHD0NhKF467u7TnS1CkeHTy4sVq0WwhloHxwInYZii3Q
-         f0qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxwUh5Y7ViGEbPXw+ogD2gZZtMK8sijTBoez5NFVbUmDZb1bENBDzgY8g1z+SGJXpz7e6KcAh4QvT3/25s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxE5Wekogvy5hnqU95S85SdR7tzvfQ70wCdIoTLRFRbQ6CSPRs
-	4qoKKJAZbufAEWo8+IojUTggu0l2U0IoFli00VZR3kl8HlRBBnWV4CwARd/37XQHCtg=
-X-Gm-Gg: AYBFou2Tv2eBu/kpopquBKjas4iQYgV/e5MKDgpShUrgRYFT9G6hj7Lt4U0bPMzRnF0
-	nwah7TLxWjls+8LOXrRGg7fwdriZqn1pV7MVpxOYagfcTfld6OEH3hBkwjVabARQfFrjBf9ErIv
-	ktxM21ADWuN2AhxykyvsNv8SXvhrTe+mFioYT3ChyyzFbjXXvqDirG4ZexynEXNebnm26tpOK86
-	P2ezoQURlKDkiAxWsumMtt01shFw7nsvtoLS2FnoNFwKwtCGwl4eB84/LNHiYBCziDgc7Yd1opw
-	l9TTErG5ofJKzBmWocbtWoPGVpXdmTAWKQBXokJHkiSd54Un2EycWtZQNylHzG6kTk+qkmwuMVP
-	jUd8UpZh3fnlxeA1WsHFBzvi8/Rfcv6tf9vDLi8FjIoXB/G6u8plkYNtk6tzv9qMRDt9iaGJ0oE
-	mKdO6PLs8tRIG4+JNagybjqNEYw4c2a72Qn5WVd6FV5FPYpQyJo7Ygr/juoPRDFVr4JPt2yFv2g
-	dGuLsOdejBB6hrovuyZ9jwpH4nDJKWOyrRMzRA=
-X-Received: by 2002:a17:90b:5112:b0:3ac:83c1:2c0 with SMTP id 98e67ed59e1d1-3acef58e42cmr8990268a91.64.1792499166206;
-        Tue, 20 Oct 2026 05:26:06 -0700 (PDT)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com. [74.125.82.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad60ec450asm3196470a91.3.2026.10.20.05.26.05
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 05:26:05 -0700 (PDT)
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso859949eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:26:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByAwO8ndFtgrJNAk5nSoVYqjGFmaHut06Seymw5SYlkU7byAtquo37HIwlSZte7eFNf5rYSwh2/2jr42wQ=@vger.kernel.org
-X-Received: by 2002:a05:6102:509f:b0:7b8:1a1b:8e79 with SMTP id
- ada2fe7eead31-7cc36495eeamr2517275137.0.1792498854605; Tue, 20 Oct 2026
- 05:20:54 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792499217; x=1793104017;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r+JXJ7/RizMzNWpQZbCi3pXUDD6ZYso7OnyQ+kdiZlM=;
+        b=Q5JQcnneL1YCNRkMSD+pD0qvmN46n5IXdOgUd6Et2u93JkrFjDiL43RNV3tRRUpDeK
+         pjpCsHS+C2xevLOa/Sxw9B7XGf64Hw2FZTGh3Z89vL2bbdxZxk39YHHEI/sdoGxkhrSS
+         hnxn13lHR1693ZY/u85oijZJeSI4DAAdZlhmBDioGQZEAmxN0ZpSRrQrDNcwC417/w0J
+         ipg8pPNSG2nDl4Jg7NLm1gYcZ1mt0DL6YutWqhUuE9glBrk/onpDiK++c7HZczO2AzBS
+         DRk5VJ6ezKKd9idWPjVbBHlB25UQE6AIbrSL1W2F5L1svv3rWJuuwrh4h0SB+f0bgVyD
+         2Hug==
+X-Forwarded-Encrypted: i=1; AKwUvBy6MD2WJaPGtE553eBL2jwkvm5418nsGCLr/KIxppF1aI2MHnIL4o3slpkaQHuduBAUJ+DEl6qqgK0Fvgk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOgodNL3DC1DGZaSpUdhJ5H0j7/x7UwPcTrVrOUIghREng+tP2
+	Sq2TedscLOM88MlZEk//j9XoZus7cUFadVLWCSsa4/ovRmJVQRVzIFle1cslnaTA554=
+X-Gm-Gg: AYBFou25FkwPyJtqQw9L6Gn67Sx9qnXDCMUSPmJuzuGRH7jq41yYkCsuEJspZJvDDqW
+	kTjfENTnCMIQnIYR8XwrA4GzHveZ8V78cbFmGXHSLbSihg0Z6kNMxytVnvu7loCEY2Hkk0Wy30x
+	FMh6YtvtDLdXHqQpk0ktvRY6VtTT5zjUqq30KD6pBKPb1hKr/RYGVWX0kQg0mcXRDOWLSv6fA9v
+	jv539L+gjfLfcMCN6NqzTueWA9yELEwQBHo3lHOLajkgabpGHdQ/VlxqAKS5kEiQzOeUSAVnhIG
+	3bM/mN2u2G4tkReX+rkK2aG8mozgB5akKsTh1zpda0Rn0g+wioIkjOratkyHwI9GJMPrjlbxvMK
+	IrqrcTaClRnhsTvjYo3X2Vap7rMIL6v/oYF1eGi42PdjaCgcChcMCt+0bpae9BIHtPaobgwA6BQ
+	+VOgHxFTssG6zv1b6fYeRjWBX8kQClnGbp9fErOymOaXT4cwN2XW255Gxs2xk1JfFBHqPGsg6Fb
+	Kuc
+X-Received: by 2002:a05:600c:34c5:b0:4a1:dc8e:edc1 with SMTP id 5b1f17b1804b1-4a1dc8eee6dmr208638065e9.0.1792499217319;
+        Tue, 20 Oct 2026 05:26:57 -0700 (PDT)
+Received: from localhost ([85.163.81.98])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ce1479sm69425855e9.14.2026.10.20.05.26.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 05:26:56 -0700 (PDT)
+Date: Tue, 20 Oct 2026 14:26:54 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 02/20] ctlv: Add the UAPI wire format and family API
+Message-ID: <atddoIx-sA2eheSu@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-3-jiri@resnulli.us>
+ <179245258504.58760.15790996354033644110.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,100 +104,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
- <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-15-e052903a3832@ideasonboard.com>
-In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-15-e052903a3832@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 20 Oct 2026 14:20:43 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXLC7Zw9x6=iz2WMeuPr=rhqKMVPpRdVqFcHJxmAYC79w@mail.gmail.com>
-X-Gm-Features: AclHuK8ponr4NJ0lS94fhAlbo48BEUWSxi4Wc_0ZZ5rhhDlLA3L5w0smnHDD8jQ
-Message-ID: <CAMuHMdXLC7Zw9x6=iz2WMeuPr=rhqKMVPpRdVqFcHJxmAYC79w@mail.gmail.com>
-Subject: Re: [PATCH DNI v3 15/15] media: rcar-fcp: Check device revision at
- probe time
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-media@vger.kernel.org, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179245258504.58760.15790996354033644110.b4-review@b4>
 
-Hi Paul,
-
-On Thu, 15 Oct 2026 at 09:53, Paul Elder
-<paul.elder+renesas@ideasonboard.com> wrote:
-> From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Tue, Oct 20, 2026 at 01:29:45AM +0200, jgg@nvidia.com wrote:
+>> [ ... 159 lines skipped ... ]
+>> +#define CTLV_NODE_SCHEMA_UNLIMITED 0
+>> +
+>> +#define __CTLV_NODE_SCHEMA(_attr, _kind, _occurrences, ...)	\
+>> +	{ .attr_id = (_attr), .kind = (_kind),			\
+>> +	  .max_occurrences = (_occurrences), __VA_ARGS__ }
 >
-> Verify that the device revision register reports a valid value,
-> otherwise reject the device.
+>This reads alot better without the extra macro layer. The point of
+>this is to allow the codegen output to be concise it is worth being a
+>bit more verbose here so the exact form is easier to see.
 >
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-
-Thanks for your patch!
-
-> --- a/drivers/media/platform/renesas/rcar-fcp.c
-> +++ b/drivers/media/platform/renesas/rcar-fcp.c
-
-> +
-> +static const struct of_device_id rcar_fcp_of_match[] = {
-> +       { .compatible = "renesas,fcpf", .data = (void *)RCAR_FCPF },
-> +       { .compatible = "renesas,fcpv", .data = (void *)RCAR_FCPV },
-> +       { },
-> +};
-> +MODULE_DEVICE_TABLE(of, rcar_fcp_of_match);
-
-I don't see a good reason for moving this around?
-
-> +
->  static int rcar_fcp_probe(struct platform_device *pdev)
->  {
->         struct rcar_fcp_device *fcp;
-> +       int ret;
+>> +
+>> +#define __CTLV_NODE_SCHEMA_CHILDREN(_first, _count, _required)	\
+>> +	.first_child = (_first), .children_count = (_count),	\
+>> +	.required_children_count = (_required)
+>> +
+>> +#define CTLV_NODE_SCHEMA_ROOT(_first, _count, _required)	\
+>> +	__CTLV_NODE_SCHEMA(CTLV_ATTR_ROOT, CTLV_SCHEMA_NEST, 1,	\
+>> +			   __CTLV_NODE_SCHEMA_CHILDREN(_first, _count, _required))
 >
->         fcp = devm_kzalloc(&pdev->dev, sizeof(*fcp), GFP_KERNEL);
->         if (fcp == NULL)
->                 return -ENOMEM;
+>For instance this is much more directly readable:
 >
->         fcp->dev = &pdev->dev;
-> +       fcp->type = (enum rcar_fcp_type)device_get_match_data(&pdev->dev);
+>#define CTLV_NODE_SCHEMA_ROOT(_first, _count, _required) \
+>	((struct ctlv_node_schema){                      \
+>		.attr_id = CTLV_ATTR_ROOT,               \
+>		.kind = CTLV_SCHEMA_NEST,                \
+>		.max_occurrences = 1,                    \
+>		.first_child = _first,                   \
+>		.children_count = _count,                \
+>		.required_children_count = _required,    \
+>	})
+>
+>Even if it is longer, and and clangd can now jump to the struct members
+>
+>I also think each of these should have a one line comment explaining
+>when it is used.
 
-s/rcar_fcp_type/uintptr_t/, although this no longer seems to trigger
-a conversion between pointer and integer of different sizes warning?
+Okay, makes sense.
+
 
 >
->         platform_set_drvdata(pdev, fcp);
+>> [ ... 61 lines skipped ... ]
+>> +#define __CTLV_STUB_SCHEMA(_family, _set, _node, _optional)	\
+>> +	{ .family_id = (_family), .set_id = (_set),		\
+>> +	  .node = (_node), .optional = (_optional) }
 >
+>Same here
 
-> @@ -215,13 +332,6 @@ static const struct dev_pm_ops fcp_pm_ops = {
->         RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
->  };
+Ok.
+
+
 >
-> -static const struct of_device_id rcar_fcp_of_match[] = {
-> -       { .compatible = "renesas,fcpf" },
-> -       { .compatible = "renesas,fcpv" },
-> -       { },
-> -};
-> -MODULE_DEVICE_TABLE(of, rcar_fcp_of_match);
-> -
->  static struct platform_driver rcar_fcp_platform_driver = {
->         .probe          = rcar_fcp_probe,
->         .remove         = rcar_fcp_remove,
+>> +
+>> +#define CTLV_STUB_SCHEMA(_family, _set, _node)			\
+>> +	__CTLV_STUB_SCHEMA(_family, _set, _node, false)
+>> +
+>> +#define CTLV_STUB_SCHEMA_OPTIONAL(_family, _set, _node)		\
+>> +	__CTLV_STUB_SCHEMA(_family, _set, _node, true)
+>> +
+>> +struct ctlv_schema_tree {
+>> +	const struct ctlv_node_schema *node_schemas;
+>> +	u32 node_schemas_count;
+>> +	const struct ctlv_stub_schema *stub_schemas;
+>> +	u32 stub_schemas_count;
+>> +};
 >
+>I've been ponding for a while what 'stub' means in this context.
+>
+>AI suggested "extension_points would be a clearer name here." I guess
+>because ctlv.rst calls it "Inheritance and extension points" ?
 
-Gr{oetje,eeting}s,
+Will think about rename. Pehaps better documentation&comments would be
+enough, IDK.
 
-                        Geert
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>
+>> +
+>> +#define CTLV_SCHEMA_TREE(_name) {				\
+>> +	.node_schemas = _name##_node_schemas,			\
+>> +	.node_schemas_count = ARRAY_SIZE(_name##_node_schemas),	\
+>> +}
+>
+>It is helpful to put the struct on these macros ((struct X){})
+>
+>#define CTLV_SCHEMA_TREE(_name)                                         \
+>	((struct ctlv_schema_tree){                                     \
+>		.node_schemas = _name##_node_schemas,                   \
+>		.node_schemas_count = ARRAY_SIZE(_name##_node_schemas), \
+>	})
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+okay.
+
+
+>
+>> [ ... 127 lines skipped ... ]
+>> +typedef size_t (*ctlv_family_priv_size_fn)(void);
+>> +typedef const void *(*ctlv_family_pre_init_fn)(const void *init_info);
+>> +typedef int (*ctlv_family_init_fn)(struct ctlv_device *ctlvdev,
+>> +				   const void *init_info, void *priv);
+>> +typedef int (*ctlv_family_post_init_fn)(struct ctlv_device *ctlvdev,
+>> +					void *priv);
+>> +typedef void (*ctlv_family_pre_fini_fn)(struct ctlv_device *ctlvdev,
+>> +					void *priv);
+>> +typedef void (*ctlv_family_fini_fn)(struct ctlv_device *ctlvdev, void *priv);
+>> +
+>> +typedef int (*ctlv_stub_fill_fn)(void *priv, struct ctlv_op_ctx *ctx,
+>> +				 const struct ctlv_cursor *request,
+>> +				 struct ctlv_cursor *nest);
+>> +
+>> +struct ctlv_stub_ops {
+>> +	u16 family_id;
+>> +	u32 set_id;
+>> +	ctlv_stub_fill_fn fill;
+>> +};
+>> +
+>> +#define CTLV_STUB_OPS(_family, _set, _name) {			\
+>> +	.family_id = (_family),					\
+>> +	.set_id = (_set),					\
+>> +	.fill = _name##_fill,					\
+>> +}
+>> +
+>> +struct ctlv_family {
+>> +	const struct ctlv_family_schema *schema;
+>> +	const struct ctlv_family *parent;
+>> +	const struct ctlv_op *ops;
+>> +	u32 ops_count;
+>> +	ctlv_op_pre_fn pre;
+>> +	ctlv_op_post_fn post;
+>> +	ctlv_family_priv_size_fn priv_size;
+>> +	ctlv_family_pre_init_fn pre_init;
+>> +	ctlv_family_init_fn init;
+>> +	ctlv_family_post_init_fn post_init;
+>> +	ctlv_family_pre_fini_fn pre_fini;
+>> +	ctlv_family_fini_fn fini;
+>> +	const struct ctlv_stub_ops *stub_ops;
+>> +	u32 stub_ops_count;
+>
+>Having the function ops in a struct use typedefs instead of just
+>coding the signature is unkernelly, I couldn't figure out what this
+>was done, it seems there is no user of the typedef
+
+Right, will remove.
+
+
+>
+>> [ ... 182 lines skipped ... ]
+>> +/* Implementation limits, not wire-field maxima: raising them is compatible. */
+>> +
+>> +/* Request roots, action replies, query reply fragments and event roots. */
+>> +#define CTLV_MAX_INLINE_MESSAGE_LEN	0x100000	/* 1 MiB */
+>> +/* Includes the error information root. */
+>> +#define CTLV_MAX_ERROR_LEN		0x4000		/* 16 KiB */
+>> +/* The root attr is at depth zero. */
+>> +#define CTLV_MAX_NEST_DEPTH		32
+>> +#define CTLV_DEFAULT_QUERY_REPLY_LEN	0x10000		/* 64 KiB */
+>> +#define CTLV_MAX_EVENT_QUEUE_LEN	0x1000000	/* 16 MiB */
+>
+>If they are just random kernel limits I'm not sure they should be in
+>this uapi header?
+
+True, will move to internal c/h
+
+>
+>-- 
+>Jason
