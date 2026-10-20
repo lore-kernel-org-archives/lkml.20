@@ -1,82 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792520377;
-	b=dslC2tRU9B3LZ8gtBk+04nFzHj030NHojdRavxgbXhHpd7xe25vkf0sa4KyRUDq+wOJf
-	 58YMoSeRonkA8X/kLVaIP0fJmzxKU8IFlNrMkgC2Chu1BkVox4qswP3URHYAu5OfETRHs
-	 yuaeAGE0rLn2rlAGyx7eiElj/W9y19vDB8CW8/HjzkGGq3uRa1Cyb4YZv6zDcWGnlxtkY
-	 Fp1OGRLIYqb57iCBfXLK5xKd5xA+GhEfl2PEpcj+lC1NWHiRK1YVw0aEXukh2vvFCxS5b
-	 R8gtp90HNYR+LwYnESRILLhHTuU7KH+IHYJJ+W7uecI3b2lMJxGzot54Eu42/qPPrHA==
+	t=1792520383;
+	b=Z7+0/Pafvog9Ai+tGNP7lMfOPpV3DSFhKyGg5mR+EHi4Mlupe4NgS1OTiK4xwoswmI4Y
+	 o589QDcAc1IMTri7V16QkkcoScOSJB+VJ2Ps9Ob1rIntCaKafeBDw+zTAhr8Mk57MfsoU
+	 dyb3EDsGd2E8ebngixS7HD0+EL8rzMJGScTgWlakFE1nYJz0yafuFQ7mwr61wisAr7Q17
+	 jJcLDNCqDgzCb+unVU2BFLDemorZ72JkCkAw3IQSxCYTQyWBxRO/41MkuH3932B6qthsu
+	 A/E/JSwN+axIVruQydImwv9dtWqd8G4TJhGrbg6bKiD6tDy7j49PAtolyXcJcarphQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792520377;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792520383;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2w5USolQI1OxcXxkFQr+PuqzB7QJ1VSZ3KqdxbbCMEA=;
-	b=v3/p9EbShbTbBxvfCTDaeN4cKsYYmqc41az5csZPDV7XzDMGiCtMn7dne6aMXc4mvbrq
-	 jdqG/UNo+gnZT3qH0xLrVpaJq4PpUvkPgunji0N9U6VYwe4JpqR2H2LZ/I6XkLTcxC45l
-	 1ZQCH8hU+p1RXQ4nKR+Was83vwcxrJiCcjhWq0b33qzHA9j7DDjO0jqNj3cqATsfg6nny
-	 FCl1ETQ8zQiZdqk5C0GW+vATRk1FxCbYmQSbmxV7v1LOBMSeWCqTC7nHQZF6GEDEQAYLj
-	 6rGfEXELF/0bctkPZT+GpgVtvL8l0yC/GAB3YRwnMPalHnkLLJx8N9tdQN1NXKVmxLw==
+	 Content-Type:Content-Transfer-Encoding;
+	bh=aAgJAbuVXKrl/2XmWKq188uudjDScblSy5jf6BBIQNg=;
+	b=paIfO9bI4Vi5Y/duoHZryvDslNF119gb59syTBE6LmscxNaGDwslUS8QldCFkYJO+f0x
+	 BCsGFDNiKpKKoPNFrLNWAyVX1is8nTdVDiJ/BrFvknYd6b72RqefjQ0gT7db9xXMibNpC
+	 U9EpC3dkUZdSBSg6QlepTIj/uJ+wbCJKsWOd0ML57hGk792ecOtlN3oYAg880vlj9ALLx
+	 0WsM33OANQs3ZiHcBgGIgUFfK978pXXfy5CCZsMRgHjkLcEcUSnFJMVHyTzCsde/Mk3DO
+	 tzqLhRz2SMgvuYpFGhlVw+zXuvrTKwrfpqt81ntwhPLhzLvbfDLt9iffz9UdE5qvz7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a7W9nQ5u;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a4pGtYWO;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBEF60A3804;
-	Tue, 20 Oct 2026 18:19:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DBEF60A3804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0874160A4AF2
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:19:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0874160A4AF2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a7W9nQ5u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792520372; x=1824056372;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=wrdZYqgyZr10bvKBuIHWekho32wvbhmlfaidg0mzcew=;
-  b=a7W9nQ5ucgg7/eQAqxZSNuY/zkvy6nuqZpoMEAo6C1yM19ukyucrktKh
-   TzL8QNhcVPaPX0EQFmOsqrqBg0rjGCyhLz3jmERwBtnrjreBtstldqnWg
-   rF9RgCbMvCaPDeoxHMSdDSbG2DwLCsSowecKvTg80MSD5SdFuoFgxOHsy
-   aK/0t2693w2p90M+MOgX3eH9ZNoAwGLSK9IbYqt1DVXDpGDKDCxdwcTkb
-   5QcpZcnh9JkaqsjmbokC2o3U77RtmBPYfEEU10sqWFmy4u6cw2F/HI0p8
-   cbPBKeU2Gflod5DF5UOK133gb4i+BG4vu0iYW5gfWeMSiDEoRHIforHwD
-   Q==;
-X-CSE-ConnectionGUID: P7rt+bFISrW3zb/WZJTLNg==
-X-CSE-MsgGUID: mWnmJSNlQl2LNumOeTszkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1119685"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1119685"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 11:19:30 -0700
-X-CSE-ConnectionGUID: RphP8SMGTsyg9siSPOxh9Q==
-X-CSE-MsgGUID: VT2tWqFESiq8DRcp6GX7cA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3283608"
-Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 11:19:29 -0700
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Len Brown <lenb@kernel.org>,
-	linux-pci@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/6] PCI/portdrv: Don't require AER to bind DPC service
-Date: Tue, 20 Oct 2026 11:19:21 -0700
-Message-ID: <20261020181924.3003553-5-sathyanarayanan.kuppuswamy@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a4pGtYWO
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3535a54bed9so4863221eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:19:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792520381; x=1793125181; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aAgJAbuVXKrl/2XmWKq188uudjDScblSy5jf6BBIQNg=;
+        b=a4pGtYWOiSmenFvGPTru8CpQa+m8KAH+2lyBCyqv5yv8RqYnOHAsCyZaam/NdjnJBm
+         2+rS+PxUutw9UJuupoj+jGcnIa9rsRJln3p4NK658UDA45OgB8Z0T9PMNI3UMXaKp1mE
+         h/kovDHAWJRmhN2AYgonjcYXJpxUr4HFCFqsvlqBZ0krR9Z/TLNgBK8erPC3zEJrmJqi
+         jh65CBrnS5rmrIR13i6zFjLEyUrN7pX+TpVWcziKlbdQ12yXKQH3fpHnqS64QgzkGyAl
+         TJXNTWWtHFTZgM75Mngz+43InF3KfziANoONzhlOhCkhXvjR4j6qN+py+xuooiTXGY64
+         3dlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792520381; x=1793125181;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aAgJAbuVXKrl/2XmWKq188uudjDScblSy5jf6BBIQNg=;
+        b=EoqUXxx78ZJZxINqD+6XC96NdbkgxFwFU8ojArCIaG93r2xHgewCdJ+7aTE4tXl2ns
+         cNovmEQ/6DVFznbEglQy3ycIbnSykLoIy4wN1xelUCZqdt0TPr1Gn5Jr+hpjADB8mmI+
+         oMwZNlFAbqiOLSzNGlyTG1BOU3/XOwItzjgS1UsfDKWIrQlzukqHH0GzBnFx8UodVxg/
+         b8wz0E9o2NWi0dRugfBQ8qkK33RR3SyPw/3vJRiBqDCsRC0u6qVgc8TNb6VX0MDvpR4X
+         dAUkYgf3VrKiRLEVTLFD3y4UYtWtem0lf3rK1Wo0+105nUVdwq4qjKwj3PgKeMave8iG
+         y9Lw==
+X-Gm-Message-State: AFq9FYJdTHDGqHHV4D+6QQWj/sn/Mq8NaHp+1ZEGoB20fttQDUKGyHVK
+	2F1iJyKZZEPhz4XI2GAuypiuA9jjnhpBWreMoG2drZXDe1fHT+8sP+MW
+X-Gm-Gg: AYBFou1niiNNQO+PQTnY8GDtfuBcNl91BQObCNK0t+wHNHWGuLGW9a7jLJEXHpBJvPO
+	l7J1GL2txTx5FM351UOvOVstwa9kdjcHI7TkwH9mrzXi9oT5dFvLeb3+qZc06YkUV9esOp663vT
+	bpcnTNIV+BhXUvIXiKCp62YIcEqY6AZtwBvZmVtl1kGdizEL8Iiar5AYZLTYaE2w/w73b3wkyIn
+	4Kgl5M534hK6GFxajHohuwulF4w9NdzwnJ+G1MFIYMTxaNddq8hWndoCQibM/4tV0axM45Em35D
+	c3jiyH4vdFSCvgtF6g2T3GFjIIhhqA8y8OnTggUuREtRlRZAKYFhL0QqG4QWkET2uTSfVeSl7n9
+	vTRHQJfMV1/V9vLhmZWhmML72UiUz0e8pvgwl+mwLFMtD26cVz/H2p51yWibO7S0TG6Bp5riyb0
+	N0wh6Zoc6M26Lbk9PMKVZMW7aTxnY6tta2nb3TLioOtsGZ6dyA/lCUWstBgYFKeT9q
+X-Received: by 2002:a05:693c:8399:10b0:35e:f1a5:9ba6 with SMTP id 5a478bee46e88-3674a40738emr116407eec.5.1792520380928;
+        Tue, 20 Oct 2026 11:19:40 -0700 (PDT)
+Received: from unix.. ([181.229.23.179])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm523728eec.2.2026.10.20.11.19.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 11:19:40 -0700 (PDT)
+From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Deepak Gupta <debug@rivosinc.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Yury Khrustalev <yury.khrustalev@arm.com>,
+	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zong Li <zong.li@sifive.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	Zishun Yi <vulab@iscas.ac.cn>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>
+Subject: [PATCH v2 0/4] arm64, riscv: release shadow stacks on failed fork
+Date: Tue, 20 Oct 2026 15:19:29 -0300
+Message-ID: <cover.1792519121.git.ivanrwcm25@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020181924.3003553-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-References: <20261020181924.3003553-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <cover.1792179433.git.ivanrwcm25@gmail.com>
+References: <cover.1792179433.git.ivanrwcm25@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,56 +116,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-get_port_device_capability() binds the DPC service only if
-pci_aer_available() is true.  pci_aer_available() is false with
-"pci=noaer" or when MSI is disabled.
+This is not a port of the x86 TLS fix. That leak was inside
+copy_thread() when set_new_tls() failed, so copy_process() skipped
+exit_thread(). Here copy_thread() returns 0 and a later
+copy_process() step fails. The concrete hole is clone3() with
+CLONE_VM|CLONE_PIDFD and an unwritable pidfd pointer: put_user()
+returns -EFAULT after the architecture has mapped a shadow stack.
+exit_thread() does run, but arm64 and riscv did not implement it, so
+that mapping stays in the parent's mm.
 
-The DPC driver does not need either of these.  pci_aer_available()
-depends on MSI only because the AER driver does not work with INTx
-(commit 3e77a3f7895e ("PCI: Disable AER with pci=nomsi")).  The DPC
-driver does not depend on MSI or on the AER driver, and it works on
-ports without an AER capability.
+Normal exit already frees via deactivate_mm(). The failed-fork path
+never reaches that. The free helpers already refuse a foreign mm
+and a cleared base, so wiring them to exit_thread() does not unmap
+the parent on !CLONE_VM or double-free on a normal exit. A
+successful clone3() child with the same flags exits through
+deactivate_mm() and then exit_thread(); that is the usual teardown
+order this series also enables.
 
-PCIe r7.0 sec 6.2.11 recommends that the OS link control of DPC to
-control of AER.  PCI Firmware r3.3, sec 4.5.2.4, requires the same for
-_OSC.  Both are about ownership, not about using the AER driver.
-host->native_aer and the _OSC negotiation already cover ownership.
+riscv's shstk_release() comment already described this
+exit_thread() call. The architecture never selected
+HAVE_EXIT_THREAD, so the documented path was not connected.
 
-Drop the pci_aer_available() check.
+Do not add cleanup for a copy_thread() allocation error:
+copy_process() skips exit_thread() when copy_thread() fails. arm64
+clears inherited allocation tracking before attempting the
+allocation; on riscv a failed allocation can still leave the
+inherited parent base in place. Tasks created through the args->fn
+path do not allocate a user shadow stack in copy_thread(); with
+CLONE_VM a later failed copy_process() still shares the caller's
+mm, so that path clears inherited tracking before return.
 
-The changes in behavior are:
+x86 does not need the same args->fn clear: copy_thread() runs
+shstk_alloc_thread_stack() before both the PF_KTHREAD and later
+args->fn return paths, so CLONE_VM replaces the inherited tracking
+first.
 
-  - ACPI systems booted with "pci=noaer" or with MSI disabled, and with
-    "pcie_ports=native" or "pcie_ports=dpc-native".  The OS now uses DPC
-    there, which is what those options ask for.  Without them nothing
-    changes, because the OS does not request AER control in _OSC, so
-    host->native_aer is not set.
+The selftests assume /proc is mounted. They use kselftest.h / KTAP.
+Feature and clone3 availability skips run before ksft_set_plan().
+The plan is three tests: a valid clone3 writes a pidfd, sixteen
+bad-pidfd clones return -EFAULT, and the shadow-stack VMA count is
+unchanged.
 
-  - Non-ACPI systems booted with "pci=noaer" or with MSI disabled.
-    host->native_aer is set there, so the OS now uses DPC.  An
-    uncorrectable error that used to be ignored with "pci=noaer" now
-    triggers DPC, which takes the link down and resets the devices below
-    the port.
+Based on commit f47d223627f8 ("Merge tag 'vfs-7.4-rc1.sync_close' of
+git://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs").
 
-Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
----
- drivers/pci/pcie/portdrv.c | 1 -
- 1 file changed, 1 deletion(-)
+arm64: QEMU 11.1.2 -machine virt -cpu max, CONFIG_ARM64_GCS, one
+vCPU. Unpatched VMA count 1->17. Patched 1->1, 3/3 KTAP pass.
 
-diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-index 32fc623dd410..b77680fd3b75 100644
---- a/drivers/pci/pcie/portdrv.c
-+++ b/drivers/pci/pcie/portdrv.c
-@@ -263,7 +263,6 @@ static int get_port_device_capability(struct pci_dev *dev)
- 	 * permission to use AER.
- 	 */
- 	if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_DPC) &&
--	    pci_aer_available() &&
- 	    (pcie_ports_dpc_native || host->native_aer))
- 		services |= PCIE_PORT_SERVICE_DPC;
- 
+riscv: QEMU 11.1.2 -machine virt
+-cpu rv64,zimop=on,zcmop=on,zicfiss=on, CONFIG_RISCV_USER_CFI, one
+vCPU. Unpatched VMA count 1->17. Patched 1->1, 3/3 KTAP pass.
+
+Changes since v1:
+- arm64: introduce gcs_reset_thread() (empty stub without
+  CONFIG_ARM64_GCS). Document why x86 does not need the same
+  args->fn clear. Comment the property of the args->fn path, not
+  only kernel_thread().
+- riscv: same args->fn wording; clarify that normal exit reaches
+  shstk_release() through deactivate_mm() while failed-fork did not.
+- selftests: rewrite on kselftest.h / KTAP. Drop open-coded
+  [OK]/[FAIL], exclusive-end VMA matching, ss_kb, depth(16), and
+  parent GCSPR/SSP ping checks. Count only VmFlags lines with " ss".
+  Skip before ksft_set_plan(). Factor my_syscall2 into gcs-util.h.
+
+Assisted-by: LLM
+
+Iván Ezequiel Rodriguez (4):
+  arm64/gcs: release GCS on failed fork
+  riscv/shstk: release shadow stack on failed fork
+  selftests/arm64: GCS must not leak on a failed clone3
+  selftests/riscv: shadow stack must not leak on a failed clone3
+
+ arch/arm64/Kconfig                            |   1 +
+ arch/arm64/include/asm/gcs.h                  |   8 +
+ arch/arm64/kernel/process.c                   |  19 ++
+ arch/riscv/Kconfig                            |   1 +
+ arch/riscv/kernel/process.c                   |  20 ++
+ tools/testing/selftests/arm64/gcs/Makefile    |   3 +-
+ .../selftests/arm64/gcs/gcs-clone-pidfd.c     | 168 +++++++++++++++++
+ .../testing/selftests/arm64/gcs/gcs-locking.c |  20 --
+ tools/testing/selftests/arm64/gcs/gcs-util.h  |  24 +++
+ tools/testing/selftests/arm64/gcs/libc-gcs.c  |  20 --
+ tools/testing/selftests/riscv/cfi/Makefile    |   5 +-
+ .../selftests/riscv/cfi/shstk-clone-pidfd.c   | 173 ++++++++++++++++++
+ 12 files changed, 420 insertions(+), 42 deletions(-)
+ create mode 100644 tools/testing/selftests/arm64/gcs/gcs-clone-pidfd.c
+ create mode 100644 tools/testing/selftests/riscv/cfi/shstk-clone-pidfd.c
+
+
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
 -- 
 2.43.0
-
