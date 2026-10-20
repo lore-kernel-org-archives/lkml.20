@@ -1,104 +1,105 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792529267;
-	b=N5jDW4i5zSEJdkgWX8SiikQr7fqhWOkc7td4xFb+1Qt2jWEkkHMWe3tyRZkQChKo8h2x
-	 7cwWQ92YxdeGu133GdDuGYBnTgDyXGMnUVKuQJlGoW9lS87OyXqW0x3ltlvKSirp2GK6L
-	 EMkR49rvQVoTo2Sl5T9/pKsNPQWN+JVx5aAtjYtNJcrjYIIaKwrEEa+Dg1pFvkwkfqIsM
-	 PZfpuuT1PMuDH1ryNZs+YR0ZgW6bHRlc6QHI4ohchHFFlITIz8MX2nl5/WRLvXN4JzClq
-	 xJZhBmhs0xiO+OLfSUyBQWoVGKy69Z2W0vyqcCSkCbebjbHTXMs1uGRm3/zx2qC7Bow==
+	t=1792529269;
+	b=ELCPtCkfptQwOdvK23tPkfOSlBdGlMEErSSo4BcupFbMXD18P8OI3/2ngx/AFCUjAgP8
+	 b+frzu8YnRuwtpxxKsHknpxyO2lm9d/rXffzpjTPCJXXFrqd0nOmdEQ65VtAK3oSdIM6a
+	 +bzxdY2aKf56rSHJyLk7zORWvhv5QCeqhVjyhgdDMzgY/FQqdavl8hq9XUQFpBSn+L2wU
+	 qU5nzsObqyEoEg878V4SjRT4a+wiD8bob7Kqh7mF8AIxUn7In0YjQ4hmFWJMvgeBt3BWW
+	 8uvPG/nPpLW1u96PfVyRxZE+patdTU2UHneR3CPyqt1QY+++w8euTs9Y4DPbHR19sbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792529267;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792529269;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=IB/ZjUSIH8oWz+WZKTgO5NAmSxJZU52lsWrTkciQxko=;
-	b=CvwK6e563KSBFR+LsFaNIM36g8XNy7nJM52WSpeOWnpq+auYKINu71Tnc5bcAhrrioZj
-	 n2LVMpzdtk7OyFtTJER0HFwnk6aLYCua22przcDetmosBJPitqyPDfFGv+MHC7CYYNKgy
-	 oiBJx7NzgCdOYZ2TCH2xhl6y5P7PYJJVXaCTb2w+YjObq5MAQojapNPpqvI+g4tMx0130
-	 F3ySCxTo5JVC3MbM4sBfg5lpMQkFm/kqORJ+7VL18yvMI7bGcBpsHL7vXQWB7tGyVDyBo
-	 gwAEqzuSg018En/sUakICy+pb6C5k2FhDS2IfhqJ5AgxnnIiiseobi36rq6GN4KEErQ==
+	bh=auHda5CSTpFNG1o4wVJLyt7WC09ph7Sw8ajCkX07shE=;
+	b=TBMyDyGINMx8hHvp48sfnHEXn5GVdFdF+D/DdyGZqF9UT+VALs+mcFYmZy3YyOEp8q2l
+	 XXFVo0hHSEHR/Vwt+KhGHzqZRm4VdzdWfDvgOdC9yGIXGJDWwXuvrn1ZTxtInGchXcGWq
+	 /4r3CdOm45yCGKL1bIMBM9a2VX6I6fON8d34Ke+vPZBnvq5miXEzPJiisQtXmnernPDql
+	 9BWXylvNd671bjijj5pkL/AunH9lla29Wj2x4do+OZhO3VMRhQJiOcLpThZoFWkRwwyYN
+	 qU25zvk/6FTtDl3DmVNKE/cSya+XUjVjKalsSa6kBI9PKuxueTjvvgcrhb5WizTbstg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GhxpIZ8c;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WE68LauX;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DNy+cn2l;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="fIfs/8HJ";
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F47606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F47606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D33606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39D33606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GhxpIZ8c;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WE68LauX
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KGtb461376255
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:46 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DNy+cn2l;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fIfs/8HJ
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KHSIY1836385
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:48 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=IB/ZjUSIH8oWz+WZKTgO5NAmSxJZU52lsWr
-	TkciQxko=; b=GhxpIZ8c+53Da+Ez2FcUSLrvAD6ESxQFYDLUJSZOyhCFczICK5G
-	+aemkGIdNTrl65uvbrSLeoWwPky5A6wZzP7HnLx7oC6Leca9I954Oq6m/LyXrNH7
-	gV0Wh9iKTCfAVboO3PBEWEdtTUte/20UV+pjXE57+kkk1r0dSokJttyCUGNV4cpJ
-	1YZwWi71qtZBkX/VvLSW8QGklUKlGY4VjAf/NrK+hhE4FgrRWvv+hW9gcr6kiXX9
-	jBW3ZhgzwpIMKf8xqEGMF/Pz5b97YNsfb8BMYiwZ9otjA9OQp6RajgcvU1zaeSSv
-	F5eeZHLwCOILOdxXQgv95eABRfjFXVTapdg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hebyd0wf7-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=auHda5CSTpF
+	NG1o4wVJLyt7WC09ph7Sw8ajCkX07shE=; b=DNy+cn2lxuGGyTuFlrlhLspvCbU
+	hTE0iW5+KgkzHbTGK5t/ZrFdbbe9MkgmL3m1o5TSUwLHV1ktrAGBd71jBux8Rr5j
+	grBSwyMspaibTnEQKLi5TLJnCcr3x4yEnvJXq1TQbS6ZT9Yj+6VJUqSm87fU/CrL
+	+OgB4DYl5qwcYP+MMt9b0gvzdSbsUBW07VAM9Qr1mIvgIOKJkxL5TdTKJAkA0KGM
+	GP//Uv1VYB7gvNvag/ffHFcOXR7vlsCprfFZuJI/Y1fG+lX9cbJxFtUi4wvtkxqw
+	jRcloqHj/Bujba/lLrwrK5hCxRSzxwsLs1s7/Uf2ji1D2oG16w/fOV+O5AA==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7hva1c5-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:46 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a46f0f158dso79222a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:47:46 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:47:48 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a01ea9e318so39957b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:47:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792529266; x=1793134066; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IB/ZjUSIH8oWz+WZKTgO5NAmSxJZU52lsWrTkciQxko=;
-        b=WE68LauXviD3BaGCbm9RGc7RgItbH36Fg7Agrx6CArhdokF2Onvg1XWtG4Q0UETt8D
-         gxWY1ISoPT7mFsIYpRXg9b9n0l2gc7In7oTA6Cx3T+8YiTFySxk40iOJDfpHQgqWM9rq
-         u+S6ogoLWRV4K0ex/w7OMlSiRzc5w0bR62tx5BdCkVOvcHKTdGvYPyknAreUBrZe9IBc
-         haywXw2WVyDFdkyBZNbQZ6ceMmAXKMZGrqVglq2sZVyw418av2gzeKUvkfEJjX/XJI9W
-         b15vKwpxPgKU9/rgxlfJ6xFjy9a/UF95kJ0m/dCx2CI+V2ir1tiivQZJ9/s4fcDoLwB6
-         PTWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792529266; x=1793134066;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1792529268; x=1793134068; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IB/ZjUSIH8oWz+WZKTgO5NAmSxJZU52lsWrTkciQxko=;
-        b=zarjd2dn/GptbMtNdmMUVjX2XYmo4rpsTvS0Gc4xUHAsR4NRKDQTgj46UgBcONnIa4
-         FTrIJD0KoCMuAR7dx4IhhHHjhwj1GUIsnwsI0Pc6uWJTIoo4GK6VGoJIuzGZwWFEdD7Z
-         hrA2VAAOgc0GL0nVGalj6U6xvV2E4c9o2rTZJJN5OkuWzD5CKreY0LjSvgM8mPA7xjPD
-         Tl1NRS384tcKeYhIwlXBm17DkGZX3cQTyAjUYMPYL91xgsXUBaqNaqwCfQQ54lXJb66f
-         LkSCjLeXKVs3j2tNrp7sLkX7peVW6b+VeMzMfah3Sse0+E2nvTbuX1wl6CebZgk0R7Y8
-         0VDw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQhAx21kf3qXeltWRzwx/DwrUIZNAKJSe/ytDfBC9YqQ8hsETo7BposeQ3wzYx9NlxlAW1ky1KjICiFo8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQA79kOB/AK4139JCqDNrddTrX1lgOFsY87baT02I4+hLsdlq8
-	1TGSK5kV69nKiepwHzLRRPm5lXXfclGgwd2xFgVpNz/gJ/BBxZcBqdYZVRJ3OxsPuyuh3udiNAJ
-	aOioGLf5wSaeLHKcrrJikIy57XcXQ0lLa+q98HnOLNXD4LTWnBl1ZohYiuieoydabjmA=
-X-Gm-Gg: AYBFou11MFQOuWJwKVWLbWYHxrYGH5pL2C+tMJJ4AO2TRZtDfqRc/IVLrDKmE+P0h/F
-	7p65d1WUiVnbSrqUo6P1k0zOuQfADW335zYlGkKqf7Wy439frYEoG4YiY4ZrWw5HLnCNC1do3KU
-	FNLbHFR8hMc39anh8tVSLOr3PXqy5nTo+ciz6NxTXhViTbaOsARvdmMhojgxhc83UE70dRbv8Lv
-	I1mDVV7uFCD0qYM4E+kTvgE8M0Ocba2755Zlvs3xivS9MOYYr36XKxqKBA4RLA6TM4srAUXnAAV
-	4Ljp44PQuHWs5UUAxARQlmqYLZjM3nPrDZK27TS1pfWs4Do3MKa/YSX6X2Haz3QNB/DP/hcrL73
-	/smZseskLmmFLVP2GW2p6KS+xfXOL3NuLN8eYXOEtdiWKRv74
-X-Received: by 2002:a17:90b:5546:b0:3a6:f6b0:30ce with SMTP id 98e67ed59e1d1-3ad86f5951amr34848a91.36.1792529265648;
-        Tue, 20 Oct 2026 13:47:45 -0700 (PDT)
-X-Received: by 2002:a17:90b:5546:b0:3a6:f6b0:30ce with SMTP id 98e67ed59e1d1-3ad86f5951amr34840a91.36.1792529265169;
-        Tue, 20 Oct 2026 13:47:45 -0700 (PDT)
+        bh=auHda5CSTpFNG1o4wVJLyt7WC09ph7Sw8ajCkX07shE=;
+        b=fIfs/8HJIp6tD9du8f7UOFotl7uDCyUBKKV3y4lQBNxdf2mtVhOoCkOkFn44Ih1tYD
+         ilpjxWcKLOZMC/HNFObVgb8b6a13IZ7eJ2Jl1T1X95KjeTLrSXi7BqI3mhqL1koPNfnp
+         NV/9zh/iLB6VUsSKlp3FrvVo2QJltup34qbtHr1mox+xKRkS4zLgMmwOltsJQRKB1oqd
+         z+xI7biBndIE/FAMQCzskO5E0PubGmBS5KHU8KG0QL6IE0SRtT07zJ2rUS0eEkfAYtCt
+         ftGk5rUBXePogNPmBljaTd62y2q5k9AM0OLPpKD86E3XGCbNrCrzl/fqI9wAAiKI5cAr
+         hCLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792529268; x=1793134068;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=auHda5CSTpFNG1o4wVJLyt7WC09ph7Sw8ajCkX07shE=;
+        b=F7gCpTZtnI5HxQvEn98B0MpUY0VomzoeHM91wx0RHVFXZ9qpwbzjOVtKw2qSCHLDC3
+         kXIN88rup5mvcl6aQguq2Rs3lup35cRfM/BlYfYvUwosX+iJHt5AACzHsKFIITzDh9Yz
+         JBpQbmv5LlTD6N/8iH0M8NvML0CUTGJ0frrNsEXMuXty885rK7GAeNeszf6Q0mCuUvl9
+         Qd9QGCkScDTqxriKWTzMvXBSB+S9rxkaFi4gGzjq5sQoe+KINjSBEFUiBVDZOk3jxx+N
+         Ar0U1nOCl32zSLrPWqKmPUJIAqXroMAuJwqAqaRjM3xXx5OYv/MWT9euMExUDwezEova
+         ff+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwdw8XtFV9P913C2wRAtI+lXqHUeQKNtwdARsAVK6JQZixpQypk3kxmPIpDkmv8xk1GDgJ+uo4VWJ/cDjA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpfofa2rshciYSqHLX65bWU9rNQi5s2nxKsAuc4LtCDhvF8rY8
+	GUAdcaE0gZOC4INQRu8/DEBtZ+AiXgSitiPZ4zr9RLfTfKd9M50DryplE2o2vVJoMAeomOGFxx0
+	sSnf+OTKOTGpSNsN36HBEmo4Mvo7r7chS9pz99A9Hz+fNOmjiDGs/9lOvchmPhL0Iz3g=
+X-Gm-Gg: AYBFou3tMnHL+8lgOGeH6waKZyYwL2PgCZNmefzzRER5+jl5L63a6BeDJo+qzg8cC/X
+	n5M4Btx6gyst3QzFCT6qhF37kbm8oVqgCWKsIO/dhMC6exdF9KDpdwjLgVjj6sozrUtit+TFXnI
+	JTdxCXHa9ZCjs/GoYlvXcIFcLzOLmkMDWadcpmENGVTXHDjKTX9mNR4ukC8Qf3wCOKDBVt8nGSa
+	H+H0SHMaUYEZ3bIa516vujxGwBc8vE3s281kXJyDJNbQ+D4mGZea/AC8dfFpHm1CfzXrZb8qc8E
+	PqLPRu0q+q/tAzEF2ghU0xV3uRvOENXSsbSiXR1lTxO9cmsLdBWEWHUN7o7Mbyp1Y87oq+aSTcg
+	/zLAOaT2xPc/Z/rQ3ICtzXq5GdUiZU6XbLgX/cz1p04nAsbvCIA==
+X-Received: by 2002:a05:6a00:3020:b0:898:22b4:c8b8 with SMTP id d2e1a72fcca58-8a089d98ad6mr100749b3a.3.1792529267787;
+        Tue, 20 Oct 2026 13:47:47 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3020:b0:898:22b4:c8b8 with SMTP id d2e1a72fcca58-8a089d98ad6mr100733b3a.3.1792529267299;
+        Tue, 20 Oct 2026 13:47:47 -0700 (PDT)
 Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad83607790sm326982a91.1.2026.10.20.13.47.44
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895c0affsm72200b3a.29.2026.10.20.13.47.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 13:47:44 -0700 (PDT)
+        Tue, 20 Oct 2026 13:47:46 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -106,18 +107,20 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
         Jie Zhang <jie.zhang@oss.qualcomm.com>,
         Akhil P Oommen <akhilpo@oss.qualcomm.com>,
         Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
         Konrad Dybcio <konradybcio@kernel.org>,
-        linux-kernel@vger.kernel.org (open list),
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
         Marijn Suijten <marijn.suijten@somainline.org>,
-        Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH 00/12] drm/msm/a8xx: GPU state capture support
-Date: Tue, 20 Oct 2026 13:46:14 -0700
-Message-ID: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH 01/12] drm/msm: Import adreno_snapshot.h
+Date: Tue, 20 Oct 2026 13:46:15 -0700
+Message-ID: <20261020204728.28844-2-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
+References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,119 +131,369 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX/fiQG1HEaggi
- mW+gjaXvRpRl1PUiupY8p4vFYvRXX2RMPX9zRCD50ptrMC9R23rBpS8GTxNx8rrs8tQErJFpNAF
- qr3vFECo7V1Ui+uiAoCU/ppu96G1FyhCzcI20SoTGJVjwuqqAfrzle+/3eMDUYmfCu54ln5FRgo
- poWdpSBx6/3jwDFgZ8ODkdA7aFx6Jxb38FzNdXGXbeJh+i21L6te9T/L7JlGQzYGVQtLaGT8UzW
- o5mbwaCwEqjxp+4oyREKfs4Vd7hLGwGgAmz99GqzA8GrkB5axt1Il1zNVN+Lo6XGC443QuXtNvD
- bIFhVVTzFqGdx4iMx7lSbMXnwmsA1oq7i2azn2Qm11hZl0mgxQLr0xW+vIFQYyBwWlYjHsNJdRH
- s000ByCWogQ5sy+eodZ0Kw687A+XNgFLIo8FxcR9cf5JimIEgIGDjFfBPbL4EQA+tcgppoQ8R58
- U0pe6L5MjKX0mi9nLnA==
-X-Authority-Analysis: v=2.4 cv=TdsDJhQh c=1 sm=1 tr=0 ts=6ad7d372 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfXztcg7VgS1mcD
+ bj5Hr3QF97y6n3Z0f5mlR1ZG0nvbvrlNHO9h42vCR9K3L2tyFw+9jvavCCCE3mMx9Kr58Cr6qqj
+ HqbrKOHPbVpTKU541NLvZEitlBy0llRzUfrPcRPcMDNK4FfEFCV2QL+X7mG340E+hCEu68F22tV
+ e6EuzsGQ2w0HswiGD5y7ya+aVDFrviYo4XQZGQhldju0fjThtiYTv9MeUQT0A9tVqi1UYlbtzYC
+ /l3V9kYHuFvD9X/BIjkJHjUfn4qZTCtYvBGbIz977jPvCfoSJwiwv/i8YHRm2vVzhJzh3/3EHr1
+ E63Qvm4VZa5j1sbduQ9LQ0ooZ3RnWkIRaQTs9Ec/7KmGcDae5ymBosghr+Kf//AEfnJWEFRw6DE
+ r8SfjIBl5Ayan/Xiv2AVwv9/wPc89ig9QgY3Y6hlVqKw1lN5Zavh5jEExMNnb7zMUR5BP9CTSUa
+ jKn4brTZ3i/N/qfxMJg==
+X-Proofpoint-ORIG-GUID: lI5vzip7kZfFdaLYkRsyphFwUPfdO9CD
+X-Proofpoint-GUID: lI5vzip7kZfFdaLYkRsyphFwUPfdO9CD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX9vjZ+pT2hOZl
+ DXgAgJocvjo53RH2IyHkDUbnEmFz5fkhi8fBQST+IG5R4Pwlz04BIuSfRlAYauzlcIWlXB22i1w
+ bOGCVJbb+KrJIC/DokHAMROJfAaOLDo=
+X-Authority-Analysis: v=2.4 cv=NppE4MdJ c=1 sm=1 tr=0 ts=6ad7d374 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=e5mUnYsNAAAA:8
- a=aXZFJKk2W_MRhlCQtksA:9 a=uKXjsCUrEbL0IQVhDsJ9:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: nmZsbk0VsiIUi319PFwqiVwtaWJvPXZv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX7fE4lN3IZ2kX
- 6Jddg+Nh1Xz/TYwvbn1KzNyRhtOFW+PWPwYQvXZfJYA+kvRmoGnOkCv+p7M0enuZu+XQZTLYqxv
- QxGHlQ3ZuXcBcHQwuEjb+s8gjqKUzDQ=
-X-Proofpoint-GUID: nmZsbk0VsiIUi319PFwqiVwtaWJvPXZv
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=brQcgiZQOO_HO4CFPnwA:9 a=OpyuDcXvxspvyRM73sMx:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-20_03,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
- clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610200082
+ impostorscore=0 malwarescore=0 spamscore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200082
 
-This series introduces gen8 devcoredump support.  Compared to previous
-gens, it:
+Based on kgsl_snapshot.h from downstream KMD.  We'll be re-using some of
+this for gen8 devcoredump.
 
-1. Switches to generated tables.  Compared to hand modifying headers from
-   kgsl (which were originally generated, then adjusted a bit by hand before
-   adding to kgsl tree.  And then copied to drm/msm and lightly modified
-   some more in the process).
-
-   In the process, we also switch to generated nonctx reg tables and
-   cp_protect tables.
-
-2. Aligns to the "snapshot" format that kgsl/etc use for hw state capture.
-   The non-generation specific bits (SMMU fault info, capturing relevant
-   BOs, etc) still works as before.  Everything gen8 specific gets encoded
-   as "snapshot" sections, ascii85 encoded in the resulting devcoredump
-   file (similar to captured BOs).
-
-3. Try to make it easier to at least compare kgsl snapshot code with
-   upstream, for porting fixes/etc.  State capture is tedious and mind-
-   numbing, and the last thing you want to do when debugging a GPU hang
-   is going down the rabbit hole of having to first debug gpu state
-   capture.
-
-   However, I don't love kgsl_snapshot_add_section().  It does avoid
-   duplicating snapshot header stuff everywhere.  But the ergonomics
-   are not great.  So instead I went with "align with what I wish kgsl
-   looked like..
-
-The mesa/crashdec side of this is at:
-
-   https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/45304
-
-I'd appreciate tested-by's on Hawi, Maili, Milos, and Pakala, since I
-don't have these devices at-hand to test myself.  In particular, do
-things look fine after the switch to generated nonctx regs.  To test
-devcoredump, you can use the msm_recovery test in igt.. or just:
-
-  cat /sys/kernel/debug/dri/*/gpu > /dev/null
-
-
-NOTE: Uses $codename for generated file/table names, rather than continue
-      to perpetuate the equally meaningless gen8_x_y naming from kgsl into 
-      upstream.  At least the codenames are familiar upstream and this
-      removes an extra level of name translation.
-
-Rob Clark (12):
-  drm/msm: Import adreno_snapshot.h
-  drm/msm/a8xx: Export aperture helpers
-  drm/msm/a8xx: Add a8xx_aperture_acquire_slice()
-  drm/msm/a8xx: Allow nonctx reglist to include GMU regs
-  drm/msm/a8xx: Stop getting GMEM_PROTECT from nonctx list
-  drm/msm/adreno: Fix PROTECT span length
-  drm/msm/adreno: add temporary __maybe_unused
-  drm/msm/a8xx: Import generated headers
-  drm/msm/a8xx: devcoredump state capture support
-  drm/msm/a8xx: Switch to generated nonctx regs
-  drm/msm/a8xx: Switch to generated protect regs
-  drm/msm/adreno: Remove temporary __maybe_unused
-
- drivers/gpu/drm/msm/Makefile                  |    4 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |    7 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   15 +-
- drivers/gpu/drm/msm/adreno/a8xx_catalog.c     |  668 +----
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c         |   42 +-
- drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c   | 1253 +++++++++
- .../gpu/drm/msm/adreno/adreno_gen8_snapshot.h |  582 ++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h       |    2 +
- drivers/gpu/drm/msm/adreno/adreno_snapshot.h  |  526 ++++
- .../drm/msm/adreno/catalog/adreno_glymur.h    | 2315 ++++++++++++++++
- .../gpu/drm/msm/adreno/catalog/adreno_hawi.h  | 2410 +++++++++++++++++
- .../drm/msm/adreno/catalog/adreno_kaanapali.h | 2339 ++++++++++++++++
- .../gpu/drm/msm/adreno/catalog/adreno_maili.h | 1900 +++++++++++++
- .../gpu/drm/msm/adreno/catalog/adreno_milos.h | 1994 ++++++++++++++
- .../drm/msm/adreno/catalog/adreno_pakala.h    | 2178 +++++++++++++++
- 15 files changed, 15583 insertions(+), 652 deletions(-)
- create mode 100644 drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
- create mode 100644 drivers/gpu/drm/msm/adreno/adreno_gen8_snapshot.h
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_snapshot.h | 321 +++++++++++++++++++
+ 1 file changed, 321 insertions(+)
  create mode 100644 drivers/gpu/drm/msm/adreno/adreno_snapshot.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_glymur.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_hawi.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_kaanapali.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_maili.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_milos.h
- create mode 100644 drivers/gpu/drm/msm/adreno/catalog/adreno_pakala.h
 
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
+new file mode 100644
+index 000000000000..f9956e0bc1d5
+--- /dev/null
++++ b/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
+@@ -0,0 +1,321 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#pragma once
++
++#include <linux/types.h>
++
++/* Snapshot header */
++
++/* High word is static, low word is snapshot version ID */
++#define SNAPSHOT_MAGIC 0x504D0002
++
++#define DEBUG_SECTION_SZ(_dwords) (((_dwords) * sizeof(unsigned int)) \
++				   + sizeof(struct adreno_snapshot_debug))
++
++/* GPU ID scheme:
++ * [16:31] - core identifer (0x0002 for 2D or 0x0003 for 3D)
++ * [00:16] - GPU specific identifier
++ */
++
++struct adreno_snapshot_header {
++	__u32 magic; /* Magic identifier */
++	__u32 gpuid; /* GPU ID - see above */
++	/* Added in snapshot version 2 */
++	__u32 chipid; /* Chip ID from the GPU */
++} __packed;
++
++/* Section header */
++#define SNAPSHOT_SECTION_MAGIC 0xABCD
++
++struct adreno_snapshot_section_header {
++	__u16 magic; /* Magic identifier */
++	__u16 id;    /* Type of section */
++	__u32 size;  /* Size of the section including this header */
++} __packed;
++
++/* Section identifiers */
++#define ADRENO_SNAPSHOT_SECTION_OS           0x0101
++#define ADRENO_SNAPSHOT_SECTION_REGS         0x0201
++#define ADRENO_SNAPSHOT_SECTION_REGS_V2      0x0202
++#define ADRENO_SNAPSHOT_SECTION_RB_V2        0x0302
++#define ADRENO_SNAPSHOT_SECTION_IB_V2        0x0402
++#define ADRENO_SNAPSHOT_SECTION_INDEXED_REGS 0x0501
++#define ADRENO_SNAPSHOT_SECTION_INDEXED_REGS_V2 0x0502
++#define ADRENO_SNAPSHOT_SECTION_DEBUG        0x0901
++#define ADRENO_SNAPSHOT_SECTION_DEBUGBUS     0x0A01
++#define ADRENO_SNAPSHOT_SECTION_GPU_OBJECT_V2 0x0B02
++#define ADRENO_SNAPSHOT_SECTION_MEMLIST_V2   0x0E02
++#define ADRENO_SNAPSHOT_SECTION_SHADER       0x1201
++#define ADRENO_SNAPSHOT_SECTION_SHADER_V2    0x1202
++#define ADRENO_SNAPSHOT_SECTION_SHADER_V3    0x1203
++#define ADRENO_SNAPSHOT_SECTION_MVC          0x1501
++#define ADRENO_SNAPSHOT_SECTION_MVC_V2       0x1502
++#define ADRENO_SNAPSHOT_SECTION_MVC_V3       0x1503
++#define ADRENO_SNAPSHOT_SECTION_GMU_MEMORY   0x1701
++#define ADRENO_SNAPSHOT_SECTION_SIDE_DEBUGBUS 0x1801
++#define ADRENO_SNAPSHOT_SECTION_TRACE_BUFFER 0x1901
++#define ADRENO_SNAPSHOT_SECTION_EVENTLOG     0x1A01
++
++#define ADRENO_SNAPSHOT_SECTION_END          0xFFFF
++
++/* OS sub-section header */
++#define ADRENO_SNAPSHOT_OS_LINUX_V4          0x00000203
++
++/* Linux OS specific information */
++struct adreno_snapshot_linux_v4 {
++	int osid;		/* subsection OS identifier */
++	__u32 seconds;		/* Unix timestamp for the snapshot */
++	__u32 power_flags;	/* Current power flags */
++	__u32 power_level;	/* Current power level */
++	__u32 power_interval_timeout;	/* Power interval timeout */
++	__u32 grpclk;		/* Current GP clock value */
++	__u32 busclk;		/* Current busclk value */
++	__u64 ptbase;		/* Current ptbase */
++	__u64 ptbase_lpac;	/* Current LPAC ptbase */
++	__u32 pid;		/* PID of the process that owns the PT */
++	__u32 pid_lpac;		/* PID of the LPAC process that owns the PT */
++	__u32 current_context;	/* ID of the current context */
++	__u32 current_context_lpac;	/* ID of the current LPAC context */
++	__u32 ctxtcount;	/* Number of contexts appended to section */
++	unsigned char release[32];	/* kernel release */
++	unsigned char version[32];	/* kernel version */
++	unsigned char comm[16];		/* Name of the process that owns the PT */
++	unsigned char comm_lpac[16];	/* Name of the LPAC process that owns the PT */
++} __packed;
++
++/*
++ * This structure contains a record of an active context.
++ * These are appended one after another in the OS section below
++ * the header above
++ */
++struct adreno_snapshot_linux_context_v2 {
++	__u32 id;			/* The context ID */
++	__u32 timestamp_queued;		/* The last queued timestamp */
++	__u32 timestamp_consumed;	/* The last timestamp consumed by HW */
++	__u32 timestamp_retired;	/* The last timestamp retired by HW */
++};
++
++/* Ringbuffer sub-section header */
++struct adreno_snapshot_rb_v2 {
++	int start;  /* dword at the start of the dump */
++	int end;    /* dword at the end of the dump */
++	int rbsize; /* Size (in dwords) of the ringbuffer */
++	int wptr;   /* Current index of the CPU write pointer */
++	int rptr;   /* Current index of the GPU read pointer */
++	int count;  /* Number of dwords in the dump */
++	__u32 timestamp_queued; /* The last queued timestamp */
++	__u32 timestamp_retired; /* The last timestamp retired by HW */
++	__u64 gpuaddr; /* The GPU address of the ringbuffer */
++	__u32 id; /* Ringbuffer identifier */
++} __packed;
++
++/* Replay or Memory list section, both sections have same header */
++struct adreno_snapshot_mem_list_v2 {
++	/*
++	 * Number of IBs to replay for replay section or
++	 * number of memory list entries for mem list section
++	 */
++	int num_entries;
++	/* Pagetable base to which the replay IBs or memory entries belong */
++	__u64 ptbase;
++} __packed;
++
++/* Indirect buffer sub-section header (v2) */
++struct adreno_snapshot_ib_v2 {
++	__u64 gpuaddr; /* GPU address of the IB */
++	__u64 ptbase;  /* Base for the pagetable the GPU address is valid in */
++	__u64 size;    /* Size of the IB */
++} __packed;
++
++/* GMU memory ID's */
++#define SNAPSHOT_GMU_MEM_UNKNOWN	0x00
++#define SNAPSHOT_GMU_MEM_HFI		0x01
++#define SNAPSHOT_GMU_MEM_LOG		0x02
++#define SNAPSHOT_GMU_MEM_BWTABLE	0x03
++#define SNAPSHOT_GMU_MEM_DEBUG		0x04
++#define SNAPSHOT_GMU_MEM_BIN_BLOCK	0x05
++#define SNAPSHOT_GMU_MEM_CONTEXT_QUEUE	0x06
++#define SNAPSHOT_GMU_MEM_HW_FENCE	0x07
++#define SNAPSHOT_GMU_MEM_WARMBOOT	0x08
++#define SNAPSHOT_GMU_MEM_VRB		0x09
++#define SNAPSHOT_GMU_MEM_TRACE		0x0a
++
++/* GMU memory section data */
++struct adreno_snapshot_gmu_mem {
++	int type;
++	uint64_t hostaddr;
++	uint64_t gmuaddr;
++	uint64_t gpuaddr;
++} __packed;
++
++/* Register sub-section header */
++struct adreno_snapshot_regs {
++	__u32 count; /* Number of register pairs in the section */
++} __packed;
++
++/* Indexed register sub-section header */
++struct adreno_snapshot_indexed_regs {
++	__u32 index_reg; /* Offset of the index register for this section */
++	__u32 data_reg;  /* Offset of the data register for this section */
++	int start;     /* Starting index */
++	int count;     /* Number of dwords in the data */
++} __packed;
++
++struct adreno_snapshot_indexed_regs_v2 {
++	u32 index_reg;	/* Offset of the index register for this section */
++	u32 data_reg;	/* Offset of the data register for this section */
++	u32 start;	/* Starting index */
++	u32 count;	/* Number of dwords in the data */
++	u32 pipe_id;	/* Id of pipe, BV, Br etc */
++	u32 slice_id;	/* Slice ID to be dumped */
++} __packed;
++
++/* MVC register sub-section header */
++struct adreno_snapshot_mvc_regs {
++	int ctxt_id;
++	int cluster_id;
++} __packed;
++
++struct adreno_snapshot_mvc_regs_v2 {
++	int ctxt_id;
++	int cluster_id;
++	int pipe_id;
++	int location_id;
++} __packed;
++
++struct adreno_snapshot_mvc_regs_v3 {
++	u32 ctxt_id;
++	u32 cluster_id;
++	u32 pipe_id;
++	u32 location_id;
++	u32 slice_id;
++	u32 sp_id;
++	u32 usptp_id;
++} __packed;
++
++/* Debug data sub-section header */
++
++/* A5XX debug sections */
++#define SNAPSHOT_DEBUG_CP_MEQ     7
++#define SNAPSHOT_DEBUG_CP_PM4_RAM 8
++#define SNAPSHOT_DEBUG_CP_PFP_RAM 9
++#define SNAPSHOT_DEBUG_CP_ROQ     10
++#define SNAPSHOT_DEBUG_SHADER_MEMORY 11
++#define SNAPSHOT_DEBUG_CP_MERCIU 12
++#define SNAPSHOT_DEBUG_SQE_VERSION 14
++
++/* GMU Version information */
++#define SNAPSHOT_DEBUG_GMU_CORE_VERSION 15
++#define SNAPSHOT_DEBUG_GMU_CORE_DEV_VERSION 16
++#define SNAPSHOT_DEBUG_GMU_PWR_VERSION 17
++#define SNAPSHOT_DEBUG_GMU_PWR_DEV_VERSION 18
++#define SNAPSHOT_DEBUG_GMU_HFI_VERSION 19
++#define SNAPSHOT_DEBUG_AQE_VERSION 20
++
++/* Slice mask info */
++#define SNAPSHOT_DEBUG_SLICE_MASK 32
++
++struct adreno_snapshot_debug {
++	int type;    /* Type identifier for the attached tata */
++	int size;   /* Size of the section in dwords */
++} __packed;
++
++struct adreno_snapshot_debugbus {
++	int id;	   /* Debug bus ID */
++	int count; /* Number of dwords in the dump */
++} __packed;
++
++struct adreno_snapshot_side_debugbus {
++	int id;   /* Debug bus ID */
++	int size; /* Number of dwords in the dump */
++	int valid_data;  /* Mask of valid bits of the side debugbus */
++} __packed;
++
++struct adreno_snapshot_shader {
++	int type;  /* SP/TP statetype */
++	int index; /* SP/TP index */
++	int size;  /* Number of dwords in the dump */
++} __packed;
++
++struct adreno_snapshot_shader_v2 {
++	int type;  /* SP/TP statetype */
++	int index; /* SP/TP index */
++	int usptp; /* USPTP index */
++	int pipe_id; /* Pipe id */
++	int location; /* Location value */
++	u32 size;  /* Number of dwords in the dump */
++} __packed;
++
++struct adreno_snapshot_shader_v3 {
++	u32 type;  /* SP/TP statetype */
++	u32 slice_id; /* Slice ID */
++	u32 sp_index; /* SP/TP index */
++	u32 usptp; /* USPTP index */
++	u32 pipe_id; /* Pipe id */
++	u32 location; /* Location value */
++	u32 ctxt_id; /* Context ID */
++	u32 size;  /* Number of dwords in the dump */
++} __packed;
++
++#define TRACE_BUF_NUM_SIG 4
++
++/**
++ * enum trace_buffer_source - Bits to identify the source block of trace buffer information
++ * GX_DBGC : Signals captured from GX block
++ * CX_DBGC : Signals captured from CX block
++ */
++enum trace_buffer_source {
++	GX_DBGC = 1,
++	CX_DBGC = 2,
++};
++
++/**
++ * adreno_snapshot_trace_buffer: Header Information for the tracebuffer in snapshot.
++ */
++struct adreno_snapshot_trace_buffer {
++	/** @dbgc_ctrl: Identify source for trace */
++	__u16 dbgc_ctrl;
++	/** @dbgc_ctrl: Identify source for trace */
++	__u16 segment;
++	/** @granularity: The total number of segments in each packet */
++	__u16 granularity;
++	/** @ping_blk: Signal block */
++	__u16 ping_blk[TRACE_BUF_NUM_SIG];
++	/** @ping_idx: Signal Index */
++	__u16 ping_idx[TRACE_BUF_NUM_SIG];
++	/** @size: Number of bytes in the dump */
++	__u32 size;
++} __packed;
++
++#define SNAPSHOT_GPU_OBJECT_SHADER  1
++#define SNAPSHOT_GPU_OBJECT_IB      2
++#define SNAPSHOT_GPU_OBJECT_GENERIC 3
++#define SNAPSHOT_GPU_OBJECT_DRAW    4
++#define SNAPSHOT_GPU_OBJECT_GLOBAL  5
++
++struct adreno_snapshot_gpu_object_v2 {
++	int type;      /* Type of GPU object */
++	__u64 gpuaddr; /* GPU address of the object */
++	__u64 ptbase;  /* Base for the pagetable the GPU address is valid in */
++	__u64 size;    /* Size of the object (in dwords) */
++} __packed;
++
++struct adreno_snapshot_eventlog {
++	/** @type: Type of the event log buffer */
++	__u16 type;
++	/** @version: Version of the event log buffer */
++	__u16 version;
++	/** @size: Size of the eventlog buffer in bytes */
++	u32 size;
++} __packed;
++
++struct adreno_snapshot_gmu_version {
++	/** @type: Type of the GMU version buffer */
++	u32 type;
++	/** @value: GMU FW version value */
++	u32 value;
++} __packed;
++
 -- 
 2.56.0
 
