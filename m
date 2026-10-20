@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503875;
-	b=TFURoEXW0rklk/kug5k4r9hd8sPlD1XCy4gqofQsnxcAKxJxs76iAziZpNop7j4yOLh+
-	 WIVcpRxGteqj0Z+jtZ6uHmpOqhNf348c4gAgdH/7OzgjJtAfA+vlsoSbPpzcMsWBrJCLO
-	 5Z2lhO89s2GmxdWIyKC0PDwRH24g+J7TNPFtF5+UZAuSiN1AxJh6CWnhqoVBlTvu7jRje
-	 3CjCAbqcIV/0ykss8Yj2aU68Cwm9t0koH0cNVvPHUOB7QjBhUrtf+yujFMAJ+2S2DDlnX
-	 UgFMfm+sAzIH0u/A44YaSMf6eGPGtwOorl4x0XNu/2J+mNMW6FKCQpmC1mtwoc25C2Q==
+	t=1792503880;
+	b=r7mGWhNKc/V64r2PJDcFkDFgVAyyjqOcMBTZrby95fsQmGetGaLaqxavjZn/0uHTtfoZ
+	 /uZB5UrSrqUh8OOYzn6Ax8KUMl4Qk1z6hv5bjQnk+q06/0YowBPcgN0iNZCFBeO6sptLN
+	 yuQWqJLbBHtxaPReiqIrGHWBtzUuWv8BbPsbmNmBwaDztJWd78P5KcF2hzWNtdLGhuy9I
+	 M9p+wpXprkLtUXceoc3tgzn07oWTwOK7nW5R+fZLuaTD3i5tzNRNhnzEkyCjK7Gh5gNnD
+	 eJ56n6y5oVM4zxiwTIfIUF6mrOMWRiQtsmGEOJ/ZkFffU4vlcm/ru5qaR3BUeBOT3kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503875;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JufSvahKYBxLNaiAOPVVDwJMshwclOuxobT+p8WRgM0=;
-	b=iLDyPBS2zp7JoZEmdsB0oIyRSu1Uxr3za3IQUJg8kxUyVIPhHQSGAI1S3coQlI2JB0mT
-	 2bdQ61NtdPXQDw1Ei+njyxT4GMo/zimm3vRTQKpdF8W2j9f4IO3pmcjn6UEoE16XwOy8f
-	 CG+853Z37Rec+42Vb0YsRLkn4KpHGeknQoOYWzcfU3P4n0vCg6GdVLLSAc9Y6f2Zu0tRr
-	 qAJwuNhkho8uuqymbSa61Y/KL6VNKO9cvTXOIVb/9ppQUfgARQTlgccK8+cmM3BYQrODk
-	 xlkynoqeNPP5sfqO9Tnw2Kwrm2Yqh+iNmO+3WVbUq0EI1rJBd+MpPFG/Dj+TKDvnGOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503880;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=Ja+gqSqJOdKCK/Bh+e4+IiJm3sk6MFvWKtgYDqRgAng=;
+	b=NRUx8o7fXphikNIxz91Twxpaq2xZMm7e58hpD8dRhvdFzkym5gBcX2DocmZihfGHI2zU
+	 XHLN3aiTvksgH7kuxfIFM8wrrFM6etQiKzpfcA/vcjs06Mel/5YJaM5xwCkt9dUZKYbvh
+	 4otZ3RZe/D5XJ4vA/31gywyOekENXrVVRdVwpUksJLPJaDuNoaUU2b4nffcrmfPDVt7jM
+	 8hiXpnC2aW4eblWVm0q3NiGW4aZbw0GKw5b8i/Tf04mbNiKSORz9vFdekAjFmFX3qjN4G
+	 tedwzSDcXszQHI7qgfYPJ4UavguDHiY41xJaFF8rcfcSmQPerStNpmmQUZLs/CyXRWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHKKnATg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VcoQO9nV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E854F606A31C;
-	Tue, 20 Oct 2026 13:44:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85A760A262D;
+	Tue, 20 Oct 2026 13:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHKKnATg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1061F000C5;
-	Tue, 20 Oct 2026 13:44:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VcoQO9nV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A55E1F000C5;
+	Tue, 20 Oct 2026 13:44:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792503874;
-	bh=JufSvahKYBxLNaiAOPVVDwJMshwclOuxobT+p8WRgM0=;
+	s=k20260515; t=1792503879;
+	bh=Ja+gqSqJOdKCK/Bh+e4+IiJm3sk6MFvWKtgYDqRgAng=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZHKKnATgv1lPZHDP4orTmrcvYRCz7vKql41RMzrFxxaZqBF+SmiOSsI/GkzXMtlmR
-	 1uYcLzxq2vKKWTUzW7iviZbkBJRQOhMCgYFmJVbwQoteq+1RSx4PnRtVCCqJ/xfLZM
-	 ukYfmbUSBDhYwAjDru/gu45C5/LUkJF2ADPnS9GFrYxYOyc+AkaXL2jCTN6x63P3MJ
-	 hm79SsFgQDAAHFo1Htsam0dzXHe1wmZUITcwBYbJX+5jW61ZoCdp6JOpilMEqj5fPW
-	 EAbRHQc/Ja9+pLEm5CYNS3JTypkm/7jtEapu+OwKQ5kRTI6soeYfrhESddU7uvsXKy
-	 TLRsj6Zebe9kg==
-Date: Tue, 20 Oct 2026 13:44:31 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v5 3/5] watchdog: w83627hf_wdt: Move register offsets
- into driver data
-Message-ID: <atdwPzZNF61JjOKp@google.com>
-References: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
- <20261020-w83627hf_wdt-improvements-v5-3-90b226684fc7@bootlin.com>
+	b=VcoQO9nV9srRY8du8dennLbTmgWVnN/UmJbz7V2gWdVcSeSnPg5i572vC1Agj4HVe
+	 Rdg3QqKb1bERmj6bpdnaUHSpbX8bnyHw67p0jaC02MXXYiEXr/LOeILX8iGqw8muz8
+	 TzVZBg0je3Q0UQW8sHZqy58dQ9A6nKilYzG1ayjaUIN5UeBdgW9o0MSvHw9jKYDGKs
+	 4MRqor+2jCqtVQkd5nlhVs47ju9dMuP/UF18zguqcHFJiq/++gNsG+k3Jgp/xGtAYs
+	 Ei/KlHVSXydU6ZcxIbR3ZGp5+AKjnaaKxdzkJOdnk9+4PSGsOdCR5fq71Q0VcDNdwZ
+	 3gsgVI8tUYBYQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id D72261AC5994; Tue, 20 Oct 2026 14:44:36 +0100 (BST)
+Date: Tue, 20 Oct 2026 14:44:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: Re: [PATCH] ASoC: cs35l56: Wait for firmware timer expiry before
+ system suspend
+Message-ID: <atdwRCswAUZ8f2M-@sirena.co.uk>
+References: <20260915102110.3276924-1-rf@opensource.cirrus.com>
+ <178948311377.151760.13181956545960061223.b4-ty@b4>
+ <f3af6d37-abb4-4641-99e5-b9554f0e64ad@opensource.cirrus.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,51 +62,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7nIQD3szGvtuMB+x"
+Content-Disposition: inline
+In-Reply-To: <f3af6d37-abb4-4641-99e5-b9554f0e64ad@opensource.cirrus.com>
+X-Cookie: You buttered your bread, now lie in it.
+
+
+--7nIQD3szGvtuMB+x
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020-w83627hf_wdt-improvements-v5-3-90b226684fc7@bootlin.com>
 
-On Tue, Oct 20, 2026 at 10:11:56AM +0200, Paul Louvel wrote:
-> Register offsets for the watchdog timer, control, and status registers
-> differ across Super I/O chip variants. Store them in the driver data
-> instead of global variables.
-> 
-> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+On Tue, Oct 20, 2026 at 02:21:37PM +0100, Richard Fitzgerald wrote:
 
-With a nit fixed,
+> This commit seems to have got lost somehow. I can't see it in any of
+> your branches.
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+> Does it need a resend?
 
->  static int wdt_io;
-> -static int cr_wdt_timeout;	/* WDT timeout register */
-> -static int cr_wdt_control;	/* WDT control register */
-> -static int cr_wdt_csr;		/* WDT control & status register */
->  static int wdt_cfg_enter = 0x87;/* key to unlock configuration space */
->  static int wdt_cfg_leave = 0xAA;/* key to lock configuration space */
-...
-> +struct w83627hf_reg {
-> +	int control;
-> +	int timeout;
-> +	int csr;
-> +};
-...
-> > +static const struct w83627hf_reg w83627hf_default_regs = {
-> +	.timeout = W83627HF_WDT_TIMEOUT,
-> +	.control = W83627HF_WDT_CONTROL,
-> +	.csr = W836X7HF_WDT_CSR
-> +};
-> +
-> +static const struct w83627hf_reg w83627hf_nct61xx_regs = {
-> +	.timeout = NCT6102D_WDT_TIMEOUT,
-> +	.control = NCT6102D_WDT_CONTROL,
-> +	.csr = NCT6102D_WDT_CSR
-> +};
-> +
-> +static const struct w83627hf_reg w83627hf_w83697xx_regs = {
-> +	.timeout = W83697HF_WDT_TIMEOUT,
-> +	.control = W83697HF_WDT_CONTROL,
-> +	.csr = W836X7HF_WDT_CSR
-> +};
+Yes, please.
 
-To be consistent and neat, I'd expect the order in the declaration of
-struct w83627hf_reg to also be: timeout -> control -> csr.
+--7nIQD3szGvtuMB+x
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatdwRAAKCRAv73Ows9A4
+iU4pAP0YKzy5e38DiyxokJQ9itBj1ePUKC27MUXdzzVBV1PingD/ZG76UjMGi63i
+B8p5bfJWf0JoXOJ/jPPiZuM4DkbIEQs=
+=fdES
+-----END PGP SIGNATURE-----
+
+--7nIQD3szGvtuMB+x--
