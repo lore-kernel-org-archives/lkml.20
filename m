@@ -1,100 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792533815;
-	b=0GC6hFPgqJ3jJhcXbYrhQOJSgQnfMIZdklpXuMAqOG0QtOPfrs/MPFL17ZoB0rm1Idr2
-	 JrBUg+1mAyiAXPFgiYSyn9r07smPeVMdiu12/mkXAskQC79m0G/JJ9LP1YFS2bj1qdp1p
-	 XFURJ3F3oPIud0pGry4Tpwa2ppZTSCq9XQ3MN/f2z3q01znzPOu+GquGHJRdsWT/BEO7N
-	 THXfVwXm8Qo+w1HAJeP7WlcIX5YBCQNxSd5OsuuBrbahIrjjcJedxh8l29J/i3oxGsd0z
-	 QYllZda8LneHd57FqJz/JVRuNyeHMEYWZ3Us7KlJE4vJ01kfKTZwPu+S6rjkDmKZIlQ==
+	t=1792533897;
+	b=ztRv2QJpRCP8EtipNqzWQa3XHnCe7k5rx3hGYBHBuyOsSvYMG8TmlVgMsXTsL5pmK5zz
+	 OsnebKTlvaPcOryUO/x28rsYNdoFuRA8i6J1enK4ptThpdPc+9Jgxcj3kh54QMGxNPkIs
+	 pSxdBqWNQCiqb/+v4bb6CCPyUtP1xnuWfJ71AfgF4hFOWG5lVWqi5tK84BFlt9iGvY2T+
+	 kSJCdvMQb2g/jMPewQaw9g91ZZUGqc4/S4tfW6SFV9gOVegocKsCbFQ3EPZUU+TBsfi8J
+	 r+GibzR8fKjHSS/X7QgDzmMQn4W9ucE9AtcJkmILtZU260izHSnE8aoJzpncFKVdKjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792533815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792533897;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+dby3oqMku+pe08nNb3SVcKfzQbLv8VO0Jweo3C76TU=;
-	b=UAl0xva42jZYIO2UKaEaYiLlFBHXOCgdxKxPrhO8D0B3brTb6+5WXJcyn47CNtsfIrpT
-	 SYQsoYyf0kBQQpt9y+wyS+mjCjn+p6TXdQgJS22NR9OAat1OX+5JfwjlZE/EpDVYFXAVl
-	 Zon3UYIQnBQUldZomGSCikuu/I+3kCTzo5OgY6w5iWajJXa8llfwZYHkYTXUf9tEqdFdk
-	 bYHppYntj25uaDR1/ytPkjtE12EDgwDFBEA6eSTvChMHIMH9ewCcf0mGnSPcWerGVNsSA
-	 LAmd6bZh8F9Lwh5XOZoNTVaYYet+j0Na5/E7/HeLim821lSeaRCLRF06IcWo+c5e/6A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=g2Bv95uNs9wnwCFMBpMwBUA6CnTr1QvlE7eTvmlNDHY=;
+	b=RzLNrhyC08/QWO2zvoX2TasAYN6hPn6ywGbyGRxL4uk5S61OejOO7jxxbieVpzjvWidP
+	 QX6iVhinx8/97JZmgze9Dfx64Iy9EWH2pHO5AgAkK11qM+MGqoygmKiQFr3J5U/s7M52s
+	 A5NGNff+i5G6Fg2bTMJX2rhi6obq+jUMCuB7IYSJH1lITqzBR7Y9CsUalBlP3+ebCNMqy
+	 ut/OpYksgyo9MYW1hOsxyr/uykn3b6A+fBUT7Bs5B4ePOs1uBgSyo4qjisNxEsopGe5aa
+	 hW5Gg4l/vl4/kCMKvpU3q/ClSjGkW7WCF9hZQj8FADqZWWwd4lJHjs7j4ddtGcD9oaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bwMeU46D;
-	arc=none smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y7wBBVab;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425D2606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:03:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 425D2606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BD5606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:04:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9BD5606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bwMeU46D
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b125371596so8139627b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:03:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y7wBBVab
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-36758ba1f01so11990eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:04:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792533814; x=1793138614; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+dby3oqMku+pe08nNb3SVcKfzQbLv8VO0Jweo3C76TU=;
-        b=bwMeU46DSpMaL+E6BqdBfQM1X+nhJNew/stYea3NTaaDZpNMxczs2ExuZDRUYrYu1L
-         HFvyQt95rXzkohmpRrgBFYSLBrre7BytFYppMXmWYY4vJGalc3WO2HiadaAADOgdSsAs
-         EG5L+pa+8QAnWju4iXY3gwEJtbHx7yXnZVnPXQGrTi9KYo2ROFmpTpkOZJgI3KW4RV2q
-         pESuZbnNwrmRpPTY2hmlfDTQe2YT1BILU8EGiWFUmU6U2BeQBsFxBYa4aJsVMReXsABt
-         f0SGVSVvSNezeI3/4byB2xiyFvVhuBQN1+aTxdGJWA3w5JCimYVbEoXkS0JdMJXpN6Uw
-         mMAQ==
+        d=gmail.com; s=20251104; t=1792533896; x=1793138696; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g2Bv95uNs9wnwCFMBpMwBUA6CnTr1QvlE7eTvmlNDHY=;
+        b=Y7wBBVabwOLKHpv+CX0LKO3BiKmnTqBr5oc4314z6/tDH1eDzK98NzssIhJ5fIAhZa
+         /IJAvcJp9CjdBSiXKp3XDUTjosFrPSU3O8Gx1Wf7v0v/T/puZ16185tszBh9KXvZ/O/v
+         hTcDYBOasVTMOGp7yso782Tu34nGLZHFnhKp5+W0Qy6lREVEDvsg/P9DuY0Qv9VYNVDL
+         ImucOr6UkL1kSwGce0VE+mQ3ja2xT9z21fKUwalPtVl8CO4ZCPJpsgyPCXYl9ch+Y1Vs
+         0KVxncqqLRGc7BGgb0gHGcvaRZwZsNeaRBeUfoM/wM1KDHGMKyrZS22nVOkmWK85FD0d
+         dvyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792533814; x=1793138614;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+dby3oqMku+pe08nNb3SVcKfzQbLv8VO0Jweo3C76TU=;
-        b=BDQZs1guh9K67iYwTRO2/EimPR8NcJPxkdTcvjGjmwh+E/eRBwhG9PPphenvQuX4ub
-         l1kE2vfMTNHfax1vBV++QU0f5qFGtawRh0w5v0REemp/gVxS2R/X41cvSmocjyX6g1gw
-         3lEbw3q1nzza8SX+bzgvM1WypoeO9d9IK3Z5cb91fdu0c+ZkzvlYgnCrXVhzvGNBNprj
-         92HqJIAvCxpcGK5ZquwsAtzbSO2sUxYH57zpwqbkvJIrt2IFJlt8Iust1435FydRBLiN
-         TpPtIsldfEg8Ugsmr4T+WmppSWkXld66DRUBZw556QeFM5PP8DKaVVxgYh8xpD9qL9RL
-         JbOw==
-X-Forwarded-Encrypted: i=1; AKwUvBw5mvbNPIKhOSJhlP7nL7JLprkYTzMjeN8suyRU1hRGou5+zLvK9SfchYXV/HhzWUNCdK3XMDg1l7smuho=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRyuSnvMF2iua/6bMn/42WFCYwOt0hoayq0lJ00EyOvOxt17ho
-	wGL+RU88ig/YPOA40Y58+CBdJEV1C414wlJCl/g/lGNRmFY8RQO8AfOt
-X-Gm-Gg: AYBFou2hn3BjOsFz7Fkwuo4RLN8ohR84e9LolN1oKukA7YuU6uba1qyi/Mx2KI0x0gK
-	EZ2zRWi4l9IoAOb0vG7COcqmjhqBX31aLS1vIoVG1d7CaCAU+xfyQZKsCI2/56uX+UTBVx/BpHf
-	T4zLL9H/+1jlo5j9vmNgNpMAlasG+enUgN1o3y+IhC7xzwtJrDuvGsISPexpVw/wUnGMLuqd7Yr
-	vCdpjMDg+siXOMPPeYvkszXsmPpMmXD/LJKomEsAtBRH5FUWiLyrb3v5ZPweqRNh2TACx5V4dwH
-	mKKtWLJ86m+9K5b3RDtaXL4JITXj7eZchukzl3ZnfsSQCJC+HJ5zKpdAAZTIDkDj1rU7OYfIwn2
-	c9bY/Qyp4hsGrjG3pF1S60aIIsRVsEBcr7O4snFmFPzn0oipBBWgO2cbEbcEblT6faaEGJv6sfn
-	eXAPwRZFPoW1puPG0JMHTtb5RZ1Tp0jeaMQSrelr7CH2LvLxLcunkS/J7HQKxgmEYvirvJy9+8C
-	VZSpgOj7lja35EEFu8jEC/Rec+PJg==
-X-Received: by 2002:a05:690c:a:b0:8b0:a30a:7f31 with SMTP id 00721157ae682-8b133dae495mr1678197b3.29.1792533814287;
-        Tue, 20 Oct 2026 15:03:34 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:5d::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300eb0ecsm3660387b3.26.2026.10.20.15.03.33
+        d=1e100.net; s=20260707; t=1792533896; x=1793138696;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g2Bv95uNs9wnwCFMBpMwBUA6CnTr1QvlE7eTvmlNDHY=;
+        b=jHoAIQbLjWNXZ5QWaHyuH0vrBOFS2YshsroPaqPV0xwvguTjrp53ycx/j06RrjYygv
+         2W9x2v7jQ9JGutGPKBh+8AET9SMPwaZbHFecvxW2EAWZAa2oZr/3pkA0C/UE08+sM6ao
+         umM1CXNCumm2rZCzHPOqJ4Yxy1DgzuehGxltSd9mVkgOsn9Mo6BtYMIcW/vrhZEmEWj9
+         EgAQLA1tblc1Kzj+3OXR4ChlTUHozrqlS5ogIkDOp7IwKwlaGTYwYsCcPHYJh9juECQa
+         gXR2MfeaBKEGTTTiAx9OTjP2SpU54FiFLj2t1ar7Hg6uYdTHEFr/WvHTirfKek07f0p0
+         rUGg==
+X-Forwarded-Encrypted: i=1; AKwUvBx7NKebnSNGWAgyvSUcMaw/gBmHjfBtcJTGmVLh4YFJA2u27GqQu5b/PmVZnhza451yKwELFNa6Wkbx978=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFWoMxa2EZFIJxi6jvDpiK+YxwTtRjqeQgBc7iEbfrHXPUSS4a
+	3xSCHlo1afTX1BgjORxCcLpK/xCZLlVrVgUWp+PU4fa8mjEJyAbOn+kf
+X-Gm-Gg: AYBFou09GSgr0EsSljmxuTFJYCF2+cKSAmum2qCwT6zQD1zVkidWmgRJr544HAjVuM8
+	2SkBP6XC6V7lIWjp5Sm054vlmXczPB2fwdjHeshjrg8/xiZspBcgb1CFS3APzjv4xq1Y+a5sn6Z
+	F67lvn+hTb1lnwJka07XwrVAbV9hs3Aad6BDQDTshQVNp30298xWzZwKBAfX41Abap5I3joOpi0
+	JbFKO273IQwVJizSyqA58FyPXEqMWjRE0Bm23kZc2aev2NOjJUTw81ipxA2yKQoytcpbUdhieZt
+	T8aoZtkNigbp5PifvDlW/U79/q41fS1R9KPCyH3U5cFg2PtnKFbo8GC+k+Kb8xTWCOEWXJb98xO
+	D9hFr2W1I5okmJPn8ZAnIx8716SPEEILTgn/J+vyip10/waD0nwqZnOh+vIxYpLOPcamGVfBIYO
+	tWK26OFRf+C4th/HoVZ7/OHAKE2laqOcRwujdBHkuh6+Ym69TlIi/1lUJ6cpcvsVUjo5IuueRBd
+	SyGfu1dkkIv4bJIbAlGyYFm9Q==
+X-Received: by 2002:a05:693c:88cc:20b0:361:6884:78b1 with SMTP id 5a478bee46e88-3674e55505amr774159eec.28.1792533895522;
+        Tue, 20 Oct 2026 15:04:55 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674206d1f1sm1363240eec.28.2026.10.20.15.04.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 15:03:33 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
+        Tue, 20 Oct 2026 15:04:55 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: pmladek@suse.com,
+	rostedt@goodmis.org
+Cc: andriy.shevchenko@linux.intel.com,
+	linux@rasmusvillemoes.dk,
+	senozhatsky@chromium.org,
+	akpm@linux-foundation.org,
 	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH] mm/memcontrol: publish null pointer before dropping css reference
-Date: Tue, 20 Oct 2026 15:03:27 -0700
-Message-ID: <20261020220331.2641416-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <atfMngq7nyZpt4u-@linux.dev>
-References: 
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] lib/vsprintf: Preserve the sign of seconds in %ptSp
+Date: Tue, 20 Oct 2026 22:02:43 +0000
+Message-ID: <20261020220243.67919-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,88 +98,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue, 20 Oct 2026 14:21:22 -0700 Shakeel Butt <shakeel.butt@linux.dev> wrote:
+The documentation defines %ptSp as equivalent to %lld.%09ld, but
+timespec64_str() formats tv_sec with default_dec_spec, which does not
+have SIGN set. Negative seconds are therefore printed as unsigned
+values: {-1, 0} produces "18446744073709551615.000000000" instead of
+"-1.000000000".
 
-> On Tue, Oct 20, 2026 at 12:35:31PM -0700, Joshua Hahn wrote:
-> > On Tue, 20 Oct 2026 12:03:38 -0700 Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
-> > 
-> 
-> [...]
-> 
-> > > 
-> > > So for drain_local_memcg_stock I agree, since FLUSHING_CACHED_CHARGE
-> > > is set, so you can't have it concurrent with drain_all_stock since it
-> > > will skip that stock. But refill_stock also calls drain_stock when
-> > > it evicts the slot but the flag isn't set, so is_memcg_drain_needed
-> > > can read it at the same time.
-> > > 
-> > > What do you think I should do? I think reordering makes the intent more
-> > > obvious and maybe it's just me but I did find it a bit misleading at
-> > > first that we were dropping the reference and then publishing. 
-> > 
-> > Oh and just for clarification, my page_counter_stock series actually
-> > gets rid of this codepath and switches the order when moving it anyways.
-> 
-> Yes but this patch has fixes and might get backported, so we need to be use it
-> is fixing an issue which is real.
-> Let's try to reason how the race can happen between is_memcg_drain_needed and
-> drain_stock:
-> 
-> CPU 1						CPU 2
-> 
-> drain_stock
->   WRITE_ONCE(stock->nr_pages[i], 0);		is_memcg_drain_needed
->   css_put(&old->css);
->   /* assume full grace period */
->   						  rcu_read_lock()
->   						  memcg = READ_ONCE(stock->cached[i]);
->   						  if(READ_ONCE(stock->nr_pages[i])
->   							mem_cgroup_is_descendant(memcg);
-> 
->   WRITE_ONCE(stock->cached[i], NULL);
-> 
-> 
-> Do you think there is possible race condition in above? I couldn't see.
-> 
-> However I ran this through AI and it has convinced me that on PREEMPT_RT, this
-> is indeed racy access.
+Negative values can arise from time differences, for example in
+fnic_get_stats_data() after the realtime clock steps backwards.
 
-Wow, thank you for going through and doing an analysis!
+Use signed decimal formatting for the seconds and add printf KUnit
+coverage for zero, negative seconds and the signed limits.
 
-> AI reasoning:
-> -------------
-> 
-> How it breaks on PREEMPT_RT
-> 
-> On RT, local_trylock() takes a per-CPU spinlock_t (an rtmutex). That is
-> rcu_read_lock() plus migrate_disable(), but the task can still be preempted
-> inside it.
-> 
-> 1. CPU A, refill_stock(X): there is no free slot, so it calls drain_stock(i) on
->    old. It sets nr_pages[i] = 0, then css_put(old) drops the last reference and
->    queues the release work on CPU A.
-> 2. The refill task is preempted (by a tick or a threaded IRQ) before it clears
->    cached[i]. CPU A's kworker runs css_release_work_fn(), which calls call_rcu(),
->    and grace period G starts. G will wait for the refill task, because that task is
->    inside an RCU reader.
-> 3. CPU B, drain_all_stock() → is_memcg_drain_needed(): B has already passed a
->    quiescent state for G. It enters rcu_read_lock() and loads cached[i] == old. G
->    does not wait for this reader, because it started after G did.
-> 4. B is preempted right after that load (RT readers can be preempted).
-> 5. A resumes. It clears cached[i], puts X in slot i with a non-zero nr_pages[i],
->    and unlocks. G ends, and old is freed.
-> 6. B resumes. It reads X's non-zero count and calls
->    mem_cgroup_is_descendant(old, root). That reads old->css.cgroup from freed
->    memory.
+Fixes: bccd5937447f ("lib/vsprintf: Add specifier for printing struct timespec64")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+Tested with GCC 13.3.0 and W=1. The ARM64 printf KUnit suite, booted
+in QEMU 10.2.1 with HVF, reports 27 pass / 1 fail before the fix and
+28 pass / 0 fail afterwards. A 32-bit x86 build of lib/vsprintf.o and
+lib/tests/printf_kunit.o also passes without warnings.
 
-Thanks for taking a look. I think this is the race condition that Sashiko
-brought up in the original series that I had.
+ lib/tests/printf_kunit.c | 15 +++++++++++++++
+ lib/vsprintf.c           |  9 ++++++---
+ 2 files changed, 21 insertions(+), 3 deletions(-)
 
-I will go ahead and send a v2 with a new commit message that explains
-this PREEMPT_RT race condition so that it is more obvious where it can
-actually race in a kernel. Thanks!
+diff --git a/lib/tests/printf_kunit.c b/lib/tests/printf_kunit.c
+index eccf041ebd56..3bd5115c2eab 100644
+--- a/lib/tests/printf_kunit.c
++++ b/lib/tests/printf_kunit.c
+@@ -572,6 +572,21 @@ time_and_date(struct kunit *kunittest)
+ 
+ 	test("2019-01-04T15:32:23.011235813", "%ptS", &ts);
+ 	test("1546615943.011235813", "%ptSp", &ts);
++
++	ts.tv_sec = 0;
++	ts.tv_nsec = 0;
++	test("0.000000000", "%ptSp", &ts);
++
++	ts.tv_sec = -1;
++	test("-1.000000000", "%ptSp", &ts);
++	test("1969-12-31T23:59:59.000000000", "%ptS", &ts);
++	ts.tv_nsec = 999999999;
++	test("-1.999999999", "%ptSp", &ts);
++
++	ts.tv_sec = S64_MIN;
++	test("-9223372036854775808.999999999", "%ptSp", &ts);
++	ts.tv_sec = S64_MAX;
++	test("9223372036854775807.999999999", "%ptSp", &ts);
+ }
+ 
+ static void
+diff --git a/lib/vsprintf.c b/lib/vsprintf.c
+index 1d95ab9314bf..7c1964e7822e 100644
+--- a/lib/vsprintf.c
++++ b/lib/vsprintf.c
+@@ -1997,10 +1997,13 @@ char *timespec64_str(char *buf, char *end, const struct timespec64 *ts,
+ 		.flags = ZEROPAD,
+ 	};
+ 
+-	if (fmt[2] == 'p')
+-		buf = number(buf, end, ts->tv_sec, default_dec_spec);
+-	else
++	if (fmt[2] == 'p') {
++		spec = default_dec_spec;
++		spec.flags |= SIGN;
++		buf = number(buf, end, ts->tv_sec, spec);
++	} else {
+ 		buf = time64_str(buf, end, ts->tv_sec, spec, fmt);
++	}
+ 	if (buf < end)
+ 		*buf = '.';
+ 	buf++;
+-- 
+2.43.0
 
-Joshua
