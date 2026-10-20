@@ -1,59 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792524580;
-	b=qAwhzLiGpo7Cfj7gL7rEnppG1njogSb5pFK9vSpjz3XhfVgKazg7fhFNAYpP/Rz25GTg
-	 rOA2EsbqEKVpRsoGRFOwlL3wUzdUUxiTXiX0Bmdcf4Vaq3ZLRwTV0RPpzK07YLVWg389M
-	 Ql4UH2u0tHZ9kodNzIJc220MyhujTD/Fa+BM0zRqkFoqLrRADu5h5YZ5s/MmWNZbdhY7U
-	 RShqQ4xELzGleMHMltXbyXIlBUuS1k18f3WLbOQEu4Qhvssw6/TAFhEsdpBg87XFQ6sLC
-	 DpxogtJMzJ/iNeF3qeParv0oI6yjLWSlG5X9kDtlpUaXJUBXVyO38IU5etQkBoIhHVw==
+	t=1792524612;
+	b=tDiWNW30wPi7BGhSfUy89GjiC0dmM17bEqHnRTZbbqfaIw2LraU+itF59c7pcnf6ZKR/
+	 bS+hJ3lZudkMnDfSVop/V+fPBNoOYh3/jzybXbZkGF9mI5FiK4CApmFi8Tp38vWbjFEdx
+	 aKDyy40LsW0T2MJ/IG0eXurDJ9AriW830fzPb27dPreQRfBYrmoQQwKrou/zE99CajThg
+	 QXgVqU5pA8GsFCVdu7jLxdsFOE/PsKh8i5HHkR5NNCBJmy/X/09IPD1XCW0xk8MCEVeAR
+	 wo1sZcZ/pOAd9iVNaSeIAmaN5//LYJ3TGzkmrPi4YLyY9/NPadxwOkcKYmshgL85k6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792524580;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=I94aAzapOu4bWlCEuyJTyJ5vDMzMhATdT66ow1BtHqQ=;
-	b=VSrJW61Nl00HRbp6hlSOmATfkEpw/u55MPPaK4rjNlFyRig3z/ZspQX3h4pc1h9u64zE
-	 FslRhX0M42ee2ZRN7PxzYbtdOQM/k1iEqvLy7iWhp8Wexpp/5voeg8MgsOIy1J/GMlKB4
-	 XUK5FiSnRHuuVpjA/qHJSoGZnpAfiWP/v+zd3HjMEQZ6/Kim2Ldn21LZfUmV6ByxL7a60
-	 zf59i+WEmOjBO9G/798Uo4SA7N1FWSERDVf/OXTVr3bEp+CrUJ34f90jiFh6C97aerOX/
-	 cgw3QcmnoKIYELKR/eUcooAbyivXnh5PgkQW6DUnreJyXBHf1Pd0OCZHbDS3eIVQxhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792524612;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Ro+ZQGqvoHjxfsJoqJ8Yh63KTW/BZhi188QX3SNHCQU=;
+	b=XReSWmyk04XHA9hfOMOTB+JssWLyb/2y9wxC7pbBgTNO+AyuaubSWaBLM2/C33oLY4v4
+	 VVAayQZqj/NwvVYJA+qOa+85bJTIj6C/iJZKrOhATGioF9fj0Eu182rjzHzQ5lSfrPc6s
+	 aztsC++/GWyHr6jCRQU949Od0vWaEYc+dOOLNz13iJNGBF89C+Gv9UGgOrTC4r3XEZGdT
+	 u75DBr3e7tV3pZybauM7JpxTsbFHNLOdsBFqKoK0SJEUI2zA+YVfs57SGEHbezo56/98y
+	 8qzsQ81SfZXxj3doUCjeZOVq/oDUlP52hdWCQzMZOL4hXxiOuyEe3AL8Fhizj1c6yzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=7gOljyoz;
-	arc=none smtp.remote-ip=216.40.44.17
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=HGxkr8il;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1F6606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:29:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C1F6606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF18606A331;
+	Tue, 20 Oct 2026 19:30:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF18606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=7gOljyoz
-Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 14C86A7DF4;
-	Tue, 20 Oct 2026 19:29:37 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id F018120027;
-	Tue, 20 Oct 2026 19:29:34 +0000 (UTC)
-Date: Tue, 20 Oct 2026 15:29:33 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: John Stultz <jstultz@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Vincent Guittot
- <vincent.guittot@linaro.org>, Christian Loehle <christian.loehle@arm.com>,
- Qais Yousef <qyousef@google.com>, LKML <linux-kernel@vger.kernel.org>,
- Hongyan Xia <hongyan.xia2@arm.com>, Ingo Molnar <mingo@kernel.org>, Wei
- Wang <wvw@google.com>, Patrick Bellasi <patrick.bellasi@arm.com>, Dietmar
- Eggemann <dietmar.eggemann@arm.com>
-Subject: Re: Uclamp races due to non-atomic static_branch_likely updates
-Message-ID: <20261020152933.16989549@gandalf.local.home>
-In-Reply-To: <CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com>
-References: <CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=HGxkr8il
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Ro+ZQGqvoHjxfsJoqJ8Yh63KTW/BZhi188QX3SNHCQU=; b=HGxkr8ilpsS8CX1H+RCJQyXN9N
+	kgK96RizNWOsvfnVMSk8Tt1EQ7flE2KgXhZ5O/fI2/MmGTw3xKY9+D4UtEo/+1sR+IS99TLqIPlNm
+	mdqkHxouGZwgPCqcGJG3oZmu6wsPQNdQpn2ZN4AgPmvYJhZi3WoFFmVjVMPyCzulyMTs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xJFWw-00BueB-Gr; Tue, 20 Oct 2026 21:29:50 +0200
+Date: Tue, 20 Oct 2026 21:29:50 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Cc: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"parthiban.veerasooran@microchip.com" <parthiban.veerasooran@microchip.com>,
+	"horms@kernel.org" <horms@kernel.org>,
+	"corbet@lwn.net" <corbet@lwn.net>,
+	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
+	"rdunlap@infradead.org" <rdunlap@infradead.org>,
+	"richardcochran@gmail.com" <richardcochran@gmail.com>,
+	"hkallweit1@gmail.com" <hkallweit1@gmail.com>,
+	"linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+	"edumazet@kernel.org" <edumazet@kernel.org>,
+	"piergiorgio.beruto@gmail.com" <piergiorgio.beruto@gmail.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"jerry.ray@microchip.com" <jerry.ray@microchip.com>,
+	"ciprian.regus@analog.com" <ciprian.regus@analog.com>
+Subject: Re: [PATCH net-next v9 03/11] net: ethernet: oa_tc6: Move oa_tc6.c
+ to its own directory
+Message-ID: <e40a4fae-b339-4a5a-b21e-3a31dd3ddd5a@lunn.ch>
+References: <20261009-s2500-mac-phy-support-v9-3-dcefe1d0bf0d@onsemi.com>
+ <179166121127.434549.2014178695820662916@kernel.org>
+ <CH0PR02MB786710538BD4784E5CF2C9A183672@CH0PR02MB7867.namprd02.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,32 +86,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: F018120027
-X-Stat-Signature: 9iftkkgu3bu7sx1bsjw19jg3nbp35hhj
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+L9wtMfYzqlenzd+qbJAmCbRJ4DioSU4Q=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=I94aAzapOu4bWlCEuyJTyJ5vDMzMhATdT66ow1BtHqQ=; b=7gOljyozvgVhw7Q1nsTJxiCwBvZhzqI7AWqMwCyJ933wDRsrgOpknnibu4fW+BV9do+Ahiy/Ue360peqZK5m95ScYIXiLB/A/GplO/QHi3itGThX8bunlIrOfBlTxrE1bMSAsbu9tpBQsfqC9lfu0k651tFaf08zUN+AywQHMGU=
-X-HE-Tag: 1792524574-319727
-X-HE-Meta: U2FsdGVkX19kFMhiPk8pcezznPHxXwECNGH7jw5T4H5VOf6mUXxKn8I3T/z41Go8pjBIPf05Np4qRCR51xR07A5k4x8psL+vWsepy27RVaigF/if2KiBsqqbbpK45+xj7vkaJG2NrAaJLpDxY+y0H5IFc5oHFilYr3UdQhiVaLBz3L8PrZwezvCbKJtW+6baEewjv2vlljZiFF+YsO65h01wbh62aXMXmiE1LuneZCKkUXE/HEUvQ9l+hXcDKrfqGw+/l+sub2KzGHXRrGArDqUggnm0L7vgs5e8GbNaeOvgnXvLYm/q3iHtXOS/aEixH9dT9oWvdj8edqutGk53YWAuMmNz/dK+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CH0PR02MB786710538BD4784E5CF2C9A183672@CH0PR02MB7867.namprd02.prod.outlook.com>
 
-On Tue, 20 Oct 2026 11:53:47 -0700
-John Stultz <jstultz@google.com> wrote:
+On Tue, Oct 20, 2026 at 04:48:48PM +0000, Selvamani Rajagopal wrote:
+> Andrew, Jakub (and other concerned reviewers).
+> 
+> This following feedback about change of module name is being raised regularly. While I understand 
+> the concern (and I agree with it), this is how it has been from the beginning and I didn't see any 
+> concern from the reviewers. So, I thought it is ok to leave it the way it is.
+> 
+> My question is, should I change the module name back to the original oa_tc6.ko (from
+> oa_tc6_mod.ko that is used in this patch series). If I choose to do that, original file name oa_tc6.c
+> would have to change to oa_tc6_core.c or something like that.
 
-> Maybe should the jump_label_update() logic be using something like
-> stop_machine? Or should there still be a conditional on key->enabled
-> in the unlikely case to make the behavior consistent? Or is there just
-> something about the uclamp usage that is off?
+I don't think we consider module names ABI.
 
-There's never been any guarantee that all call sites would update
-atomically. The first user of jump labels was tracepoints and I really do
-not want stop machine involved with them.
+However, some distros, especially in the embedded space such as yocto,
+do make use of the module name, it produces a binary RPM named from
+the module name. So if a rename can be avoided, that would be great.
 
-Perhaps we could add an api like static_key_enable_atomic() and
-static_key_disable_atomic() that would go through a stop_machine() and
-update everything that way for those locations that need an atomic view of
-the updated jump labels.
+Git is pretty good at following renames, so renaming oa_tc6.c to
+oa_tc6_core.c in order to keep the module name the same should not
+cause problems.
 
--- Steve
+    Andrew
