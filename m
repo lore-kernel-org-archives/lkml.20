@@ -1,64 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792529386;
-	b=U7Qc/Kt+CCm6MQp5PfbHSZhiYmeiA+VF7IcZj3sASKvhlauFiknG0wZNamVVUOxuWfkk
-	 wG5amB6yJa+6E3W4wAPW+vc7d+v1gEEkgKQY1uNasltJuyNNTV+RoCXitv3Jz/ljFWrh8
-	 jL5MsKW84gLxJVKlioDcrqvcOAoJ2Fs4DNBJl520GleEezEzEQg2I/0wPXvTIeoltvjdf
-	 lAHuKLKmVcQRsjNg4hzO/Ht9Q+hRyRA0xp6oElEN5SR4zBvKWbPa5xTLkicyLBOvtzG6Y
-	 7IQXEvMIqn4qA18F28L74U514lmQt1bV4uanLb/92aoM+RfkhpAR6nB/XSAvKicRAQA==
+	t=1792529409;
+	b=vDUol0bXVA7FRKu+Fq7QOIa4rrtBC+tcjFmUKAxMYX5FTwDTmF2iYmddPknTVKrauZwn
+	 SmAyRA0r13A1O+tctFLRzZ6SbSuh+8uvV/fEZWI0hmyLhAdbepmw+Mc01H03LMdASxcZe
+	 HQ/w18ItZw7xZMpzcVsf9BxY5Is3tVc71vGNwnm0n+0wDhLIBYzr6Xa66dV/f7Q2V/rXg
+	 4EZfCV3XYCCrKBepfJyeHX9UX6+0WCbjpFGvjqe3rxR05IJsF4a/GT77qh0yLGU+PJ9YW
+	 QxFLr+0BcrAca0d7/P74d/6f3VwJ+781UsUkg18105/im7dtuLYNg0Qs14YZ5Gc59qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792529386;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dh8wV/jJ5UfA4S3B5D1pgryN5AOY10+5zoMt8CWEc78=;
-	b=PJPEhZZvQz7q+4mfPUWaxnY2e2LE03Qozrz4GHCAUqZ1pZlzMSA606U5BmjqHqzDyNXG
-	 +4fJVajTs2ohyYlvEl+zgVQd3DfHlicgbG2b1/3eaXwJqekszQ+7LRAcKg8ouGmkkQ1uD
-	 SkESDGh8dCodYEoJNfkUhri1FNOdGuCc8g0dp/WmcLK4iU8MXNa5VKbXjtWvMWAwHo8nJ
-	 ADnNHCIlbCm2SiZp/mh8b0nefu6sSMv4y0kwGO+By8DXKIaQgUsNzwklMyB2ReNdUuzl9
-	 xh3RAxZWlQXwnGSMp0DoBTLgSx9osSLsoonWmVFKbpzGjmXgBdp1rsD30c6miwZ6w+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792529409;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=UQAaHgmlQKDGLtXEfAY2vP+sucWYdmNtFS1d5EJPeGc=;
+	b=q2ZMsTN9r/PlyfYc3iHcNfu8UGGUnHuhGT1pNH8SQjGHAYrvqhnN2cV5hAt6ubgELc8H
+	 ToAwWimcnNHaHCJrD7ZlzkxvcZfGaC3B9JEBzuUKE7VAK8XR+W7byd80szamqyUpRJc2L
+	 KN549CYwemwodYII65v2gz6Auc4qXgRJd6oN/Q9mPmdwYwoxM/vS4//qG58ceh+HJIO2s
+	 eiQwnXr+3a78yGjpiRCwFdvGkolwP3SIAEGnM90dnwtGIHHd13k862nTAIz6c6/MmvqY3
+	 7mtd5hngjKZ/Cq2tWZF2DlH7nMVF2o+NQ1TOLgzqedPvU6L6EZkf+dteLMedblZnjkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtbSDrfK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMHv9988;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 43709606A319;
-	Tue, 20 Oct 2026 20:49:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2E0606A326;
+	Tue, 20 Oct 2026 20:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtbSDrfK
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 47F001F000C9;
-	Tue, 20 Oct 2026 20:49:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMHv9988
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D121F000C9;
+	Tue, 20 Oct 2026 20:50:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792529385;
-	bh=dh8wV/jJ5UfA4S3B5D1pgryN5AOY10+5zoMt8CWEc78=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LtbSDrfK/jnkOMIk1Vq/D6h1ukD57ByPKlcwGDFV0slDf9Q6JfzcgyssFWm0qkzsP
-	 hVg/PQaVAsiqrdJFUWWX5WGGfj9FTPDcwP6XFpo4yDxFtRKNQocCUTN9ncdtBMfBe6
-	 8gRawyU7SaQZQ9MRf4l5B7QnZR8wPpZvA5fizxvMhCWXjdJpeHshcBby5dssWv0evN
-	 JlVnSmUhqoZY73KXweMXwkVAH1gToajWnUZWeqB2zu6GUujDKXzVRBlg5WDozD6V4z
-	 UXyY43FQosz/5izpy6BPjW3au8xOpNHgFoZ87dWtF7i6FVQN2QN33+mwUfzXCRUDkX
-	 DVCZ7MvNrA6Cg==
-Date: Tue, 20 Oct 2026 23:49:41 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org, Eric Biggers <ebiggers@kernel.org>,
-	stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <linux-cifs@vger.kernel.org>,
-	"moderated list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <samba-technical@lists.samba.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] KEYS: Expand key->{datalen,quotalen} to unsigned
- int
-Message-ID: <atfT5WJU_ldjpQOM@kernel.org>
-References: <20261020174325.2229448-1-jarkko@kernel.org>
- <20261020174325.2229448-2-jarkko@kernel.org>
+	s=k20260515; t=1792529408;
+	bh=UQAaHgmlQKDGLtXEfAY2vP+sucWYdmNtFS1d5EJPeGc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=lMHv9988OSw2Qf+jK72hfM+vT4RWfedhlGVr3DF3Qf+AgaVYB8GqYUmk2VmWZSGAt
+	 fVLMIxSADHPxcIxNqHJCYDs6mG9jfnMOsCPQQfAqVbHCGkX5i8lPFh5h8naCuHh+Cb
+	 mO1FC6lE2R0nlZzI5YWZ2+HCqxdUiKWTl5APQiJTZuoFsYqdmqAiAQ7/cgnYnzBAOL
+	 mO8clKUA62qvqMATwLOjyFeezb4Qf0Ahf9vNnh7EcxMUZKutXlgVj6VPod3lotxsCT
+	 Ohcbn63c8567IwCpq6rIvpbujWvIyASF6PXBgMemmmNKRtVdPJcAEbJt1FHeQQ6052
+	 K262PCg9WIR3Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 774423809A09;
+	Tue, 20 Oct 2026 20:50:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,65 +53,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020174325.2229448-2-jarkko@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v5] net: phy: marvell: keep WOL_EIE across interrupt
+ reconfiguration
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179252940703.202014.9168036604597546075.git-patchwork-notify@kernel.org>
+Date: Tue, 20 Oct 2026 20:50:07 +0000
+References: <20261014194818.11640-2-rosenp@gmail.com>
+In-Reply-To: <20261014194818.11640-2-rosenp@gmail.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
+ sshegde@linux.ibm.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, michael@stapelberg.de,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org
 
-On Tue, Oct 20, 2026 at 08:43:19PM +0300, Jarkko Sakkinen wrote:
-> In key_alloc() and key_payload_reserve(), key->quotalen and key->datalen
-> can receive values larger than USHRT_MAX.
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 14 Oct 2026 12:48:18 -0700 you wrote:
+> marvell_config_intr() rewrites the whole interrupt enable register, so
+> the config_intr call from phy_init_hw() on resume silently cleared
+> WOL_EIE on the 88E1318S and 88E1510: m88e1318_get_wol() still reported
+> WAKE_MAGIC, but a matched magic packet was no longer routed to INTn and
+> the board did not wake.
 > 
-> Example:
+> Bit 7 of that register is WOL_EIE only on these two PHYs; on others,
+> such as the 88E1111, it enables a FIFO error interrupt. So give the
+> 88E1318S and 88E1510 their own config_intr and handle_interrupt, and
+> leave the shared callbacks unchanged.
 > 
->   keyctl new_session >/dev/null
->   owner=$(keyctl newring owner @s)
->   keeper=$(keyctl newring keeper @s)
-> 
->   for ((i=0; i<16384; i++)); do
->       key=$(keyctl add user "k$i" x "$keeper")
->       keyctl link "$key" "$owner"
->   done
-> 
->   awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
->   keyctl clear "$owner"
->   awk -v uid="$(id -u):" '$1 == uid {print $NF}' /proc/key-users
-> 
-> Because key->datalen wraps around 65535, the quota refunded upon clearing
-> is truncated, causing quota bytes to leak in /proc/key-users.
-> 
-> Change the types of key->datalen and key->quotalen from unsigned short to
-> unsigned int so that they can carry the full payload length without
-> truncation.
-> 
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reviewed-by: David Howells <dhowells@redhat.com>
-> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> [...]
 
-For any kernel patches I've missed all Sashiko reviews so far and have
-not taken the feedback into account in anything.
+Here is the summary with links:
+  - [net,v5] net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
+    https://git.kernel.org/netdev/net/c/f434191f9388
 
-There is two issues:
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-1. I was not subscribed to linux-security-module. I could be and have
-   been but probably when I've changed my list subscriptions at some
-   point otherwise, I happened not to be.
-2. Even if I was subscribed to linux-security-module, at least I'd
-   like to get reviews Cc'd that concern my patches or patches
-   sent to me.
 
-Now that Eric pointed out Sashiko review I was able to look up this
-via web browser:
-
-https://lore.kernel.org/linux-security-module/20261020174325.2229448-1-jarkko@kernel.org/T/#mccc5900222fdad9d790be343fcec2a32540ed2fb
-
-This is somewhat inconvenient though that it responds like that, and
-not to the review thread.
-
-Not actually sure how do you write a Sieve filter that automates
-relevant-to-me Sashiko emails going into some specific folder but
-I'm sure that is somehow possible. I guess I'll start by subscribing
-to linux-security-module.
-
-Br, Jarkko
