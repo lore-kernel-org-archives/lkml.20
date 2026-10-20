@@ -1,80 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792474159;
-	b=cTQLOfe3/Gb5sz0RwIUEZihjn6x8NpxQK1qlojPZpxg1lA2AHC4bEa/3UlorxJwlY48S
-	 AHiDlzXKy9m4mdhdRroqJwj8Z0szCj8xvMtCPcNJFi9WXC3479HWMhQJAeCLe7iWYWGPR
-	 0/4ovypP5tgH+IbdNBq4W9edLpZY5WiUWaO4eOC+Mkt5wKP+fAtwBLqHOE2cHo6gGbn+R
-	 eS6pHrP+yg/LB5hq+0Ms56piE9bRD3t51AQAskUmnj3S1uTUi2R//tc/lbwRn5Q0Rzs/P
-	 zyawo5SOURZ+cFsOCe1EBCc72GZ1HzJObM4r0atzCgGICsW/G/oZjEaf9ZcEiXNZlkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792474159;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=0Ub+UudVZh6+Pop1X2tCnVJRsbTR40D/96nuKlIS9ls=;
-	b=lShF+xIO/qEIqy3VM8XjiTcdesiQwGNkIL6RAEmDFYkt9Qs+Ams67DWGtnQdBNusqHsr
-	 er5MI1qySR6AO1ARWnK57Sgo5psJd2AputMD35i8XEPOfw55DBflqd2Db7USjijWXcGOc
-	 gzR5JCCGEDPXfwyjcYy14pvEn8WykP8HFEbWKUz/4WQJJzoLyfDLYDCcg9m1bXWi9YPn+
-	 N4g1eotP3ziaNb9u2oj/7MwhJ0wW1Q8KN9AMvrdayg115eXn676vq/A8d/+ieRIdjfpJB
-	 PSIgcxvlImEw207Kvenbxo9Twj4zWTTwKnwTyeLxTre7pBkqozenRTbNAOuudWduxfg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=r0D7+zxQ;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792474189;
+	b=YgBcGbThpWeYKZe80Xd5tfiE0u+b4g+r5t6UxabqYrAo/ZxVa+TrU65uGtU8BCrkCSwy
+	 aOeMUTgDiik9Fyn02THthTAJcs0xHbN6CbwiI28dIGk3o82sEb4c4eppTot9HrYX6cnvd
+	 GlGsjTfB+BMP3X31nIfNRA9m9n7iCn8apc6FEO62SAnlWN1Y2BHdpjyY2A+ko0CD7HIK4
+	 /QQOSBCE7DMIR/d+qoXUptMU+9OJHNO6kSZS0gj80oGXFmHrdqyJkXbJfj970Rdbd+5Hi
+	 DMLYJgBapSTigNu4pvhni8u3lI1poVKVLygti3pleIx4CGyupRe1D65cjqaTFuCm85A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792474189;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tHAjKdka0IAEGQfm3qc8oW1fRsGpvdXl9O5QyjZFVAg=;
+	b=OES64nwnZkkyMFv8BRA3+BQJE5dmFwJ/LUHbvfIbueium2+W4Rq53PEiztg73oQYb5c3
+	 JYG/VpEwSLRhXkfp+RVJOezJH15msJ9zrY+UBo7o7te2Mqa2UJAXxOnthIHIgIVxL4OS6
+	 zTx4zvM6MBLTucQ6D1FyjQqbgMHewYNT73glXde5G8rYgg1W5uAncelNcUwPvMR3aeB4x
+	 l4eeTKqFxz0R6UYnZm6bJRv5Ok55rDsL9Olg4rYA1/cWX+/mFAVROcGXntvOKqIRsMGNO
+	 HHqP1PUbXq6hjgFKO7RkaOo6S27+5cdzUqTVJxDzQyy00hTsGwFOnU0LyL8hscABSBA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n5+kTXHa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.178
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C630606A319;
-	Tue, 20 Oct 2026 05:29:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C630606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF37606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:29:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEF37606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=r0D7+zxQ
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69K5T7nmC2667120, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1792474147; bh=0Ub+UudVZh6+Pop1X2tCnVJRsbTR40D/96nuKlIS9ls=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=r0D7+zxQ8iUtOg635DZQr2pwExg333apx1YY9BvvMdR3vJMra8K3IyHpjzmsKW9dj
-	 iLtcsn/Vt/LMGdug1K3JKHS61HRcWxxsqkSns0FpWlyDRZJEE7TT0tmZp2Wdf+q2DJ
-	 TtV7x7E/N6VS3MaJ9k+lwHUSLYEgmtSFVImc1ex/dPHvGeimI1hMqpzU1FOwDKHfn5
-	 F8/TCqaQMfx3Xmgor7fMklwwPNSJ1UOCvXIA9N69VJiINdQBFhPBY7BTqWqKDzV+L9
-	 awWe1ZabVymJN7619b7NDxcmIbLkIEmeaXxQSzSUJFnYDUU87WMvew2aCX9mZmag6F
-	 OY1K19HnjGFnQ==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69K5T7nmC2667120
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 20 Oct 2026 13:29:07 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 20 Oct 2026 13:29:07 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 20 Oct 2026 13:29:07 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>, Hungyu Lin <dennylin0707@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"reza1234khan1234@gmail.com" <reza1234khan1234@gmail.com>
-Subject: RE: [PATCH] wifi: rtw88: allow key removal when the CAM table is full
-Thread-Topic: [PATCH] wifi: rtw88: allow key removal when the CAM table is
- full
-Thread-Index: AQHdX+uKpKj5AeqD60mYtFtK4iFuvbcFrrNw//+mgICAAJDAYA==
-Date: Tue, 20 Oct 2026 05:29:07 +0000
-Message-ID: <4f48c50cab1145fd9dbd6df6d424c877@realtek.com>
-References: <20261019165103.5990-1-dennylin0707@gmail.com>
- <9bde49a2e7794e4fb6bc3ae104eef87e@realtek.com>
- <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev>
-In-Reply-To: <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n5+kTXHa
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f079a63b8so260688185a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:29:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792474187; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m4LSY8jsBoOPnsbyCRpCtClpKayeT2npWDvADoJXp7GyXu9+5BqnHkqhNlCOh2Z2RU
+         BEztXdDK1zLjX6RQohXDTDmTYkuMdolQk4xYaM1BySLiBp5P2MOoVLtWYy+G+sFRo/HM
+         JkzvW9GYpd5ykIQKcXG5QsWXn1FeuaVaovstNfpYE3qVKjULacAyn+/v1VGIKO00wpKe
+         QqR7hDMOSfDMWFkMN2B2+ubueY8ffPqOvSCzGOIEHGdskJ5U2TeuLtWJKkHV8+unGlBG
+         MsVj3Fj9rmmLlWjLxKWLjwtPa5L6x3bRLhSCInOWs5r42UvkjLkEzDk8FqMn3VrmlcT8
+         YHuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tHAjKdka0IAEGQfm3qc8oW1fRsGpvdXl9O5QyjZFVAg=;
+        fh=rPwvCcqYzJTaoWGp1e5vu3OShr+1d2sAmvbICsH+jXM=;
+        b=kWMg6/mASj8r747VhYpANyUaU8T/P0G3srsH6nXeZwdtjn03fbAXadnQyfAn9h5kAB
+         TfsjKDkNhnRMrBMV/q/5zVai9DPPce8QVYeiIfJ59dPPdyn3vfD50Ni3ceDbbkczZVNr
+         sCohb1Yv0sYCkRmNLPHFqPw0qmFQCOI3qtgyjuE05f2TJtlHKik/7qDnF4A+flF/RuvG
+         2pdRzVy24ZlhgknAVa2gYr0StV4HOxUrAZrNZK1vo9a14HK4epTB/GGtaQGh8lUiuyx5
+         Y27y9/Ro0JHF5IWHKdXHqCSIia9E+f5rWvrDlE/hQCNTd1SJMTSb8aUs5Y0/7lTOJPzJ
+         KgYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792474187; x=1793078987; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tHAjKdka0IAEGQfm3qc8oW1fRsGpvdXl9O5QyjZFVAg=;
+        b=n5+kTXHasuicYviffMU8HhNzFbnSLJolY/w0BEX+uxjFA8ePrLtwQdWpizr6WVFfi8
+         LrAUqDxcEqbkqllSHdwLmdrsIeN/YqHqeQL/dT5rcO5lHroYB9rjLnqdKteK8FM4Nw4J
+         jtWtLrcNEHHhk+PZhLmWUhYLScXdnxAFoTVhBriwUkd8XBLMGdRHmSwBOAZ6GY2XXQbb
+         vMuRoidzoU/Gd0jpucqoqETdJBcoRxdgiq75jbheoXtWZCAEOfmSaIiHvYzWJ0NflAvW
+         CNcY3w3Xafer+Cp4BkAZxjqAs+pA74VpWOCc6zbmG72CMDCgzpfc86I++Wk7JoIoEg5e
+         hvIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792474187; x=1793078987;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tHAjKdka0IAEGQfm3qc8oW1fRsGpvdXl9O5QyjZFVAg=;
+        b=Gk3B22jec6ipMXUakvXTTmyilsLdEba4oHV+VbMHXthwBmiLjGl3Fo2vkrwUuICsd3
+         53c6A2fowtmHy4mCbVuyhFnoY/UTbE5LAnRwMKExckaunMTA/Qgegyot6k8aekQ2TriZ
+         +48W/HAh+6Z0nD0EgWfMP5nJPzpRJVRksk/3gcj/T8w1SDTQ+qvnNA0xcUCRpnNqfT2/
+         MKenY4Aafu1IT1xgztCauxGL1qHpU+BCyXfuSeK0Ut678dwhD5arkYYhXk35c8xokK7Q
+         1xPPsMPBdZqA97VVWbgzw/vk/GON3TIJ9xMdwr7gTy9YJEiF2xtbUX4UJKVSkBQNfBJM
+         tb6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByjknovDWzZj1hK6STTxhHNGj65l0bxfKsL1C8SDFUceigOBU37hk1Bdz7nXxNIZQuCoM1IRBv2zcSOOuA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaAvYYGWDldyK3oSFMKsrQ2Hr/tb0P77sIKenneBYAAKEjlHBS
+	oMQ4Dooq6dj8qGM1DDqyJzlYRYSmmjUOe1kZcs35xunBjRMOUdB+b0M6uibYfE64CMsIM2FigEh
+	uKQBybrlGj6VoE6LPA6ql8R7BGc/MC+4=
+X-Gm-Gg: AYBFou1uJelvx0oZg9DH9IjLWv1FzavTeU5e9Wf48KSo/rdQ7lSfmt6hWD53DyccbcJ
+	84LztBUbzTGqbKCYmkPFS1R8hCF/BQkoRw4RUxV0Jyx+kOAezLDtM4k38txT94ZqGq6Dbrx8Qgd
+	BhauxZaKn01YrwhYMrlvARuc+gbXMfgrxItBRvk8w1s6/NgtYgVVO3slhYYovXkbM7Z3UA+6vEf
+	CzZr1fqPhyAqwuwXF5oAm45hUAxPHwIHcIyr2zvG4JItsFzM+RRtoimFSlcrgYVW15VhOtGYwKl
+	ZzFM+OiHTXhcU90Obj3LXhBjly4FxgVGg0iPoZj2N0AuA9B31cWs62ysEX4dVOeAB0B1YE4ukRh
+	W9nBt0hgKaaPUdiTJlplL4W5794ejNsq4j105Ig1lEYXlCKLzPLwn+E91yo+xVZGK/hG1s34A95
+	p0QVWK0/vJ4aA=
+X-Received: by 2002:a05:620a:3950:b0:93f:2463:f78f with SMTP id
+ af79cd13be357-93f29d81cb5mr1631822685a.62.1792474187518; Mon, 19 Oct 2026
+ 22:29:47 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,45 +105,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261019231243.802569-1-austin.linux@gmail.com> <6bc4e237-353b-462f-b388-3844821dd67f@kernel.dk>
+In-Reply-To: <6bc4e237-353b-462f-b388-3844821dd67f@kernel.dk>
+From: Austin Schuh <austin.linux@gmail.com>
+Date: Mon, 19 Oct 2026 22:29:36 -0700
+X-Gm-Features: AclHuK-3C03Y2foM4nH1_Fagl2dH4K7q2dr8npdWhOWTe2qyEiaSppZtHzBVMF8
+Message-ID: <CABsbf=Gnw0+u80oebHZf24m94YSHDxFtYY2-Bq_=bMfvqUUvkg@mail.gmail.com>
+Subject: Re: [PATCH] io_uring/futex: return a wait's data to the cache when it
+ fails to arm
+To: Jens Axboe <axboe@kernel.dk>
+Cc: peterz@infradead.org, io-uring@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBIaSBQaW5nLUtlLA0K
-PiANCj4gT2N0b2JlciAyMCwgMjAyNiBhdCA0OjA3IEFNLCAiUGluZy1LZSBTaGloIiA8cGtzaGlo
-QHJlYWx0ZWsuY29tPiB3cm90ZToNCj4gDQo+ID4NCj4gPiBIdW5neXUgTGluIDxkZW5ueWxpbjA3
-MDdAZ21haWwuY29tPiB3cm90ZToNCj4gPg0KPiA+ID4NCj4gPiA+IHJ0d19vcHNfc2V0X2tleSgp
-IGxvb2tzIGZvciBhIGZyZWUgQ0FNIGVudHJ5IGJlZm9yZSBjaGVja2luZyB0aGUNCj4gPiA+ICBj
-b21tYW5kLiBXaGVuIGFsbCBwYWlyd2lzZSBlbnRyaWVzIGFyZSBpbiB1c2UsIERJU0FCTEVfS0VZ
-IHJldHVybnMNCj4gPiA+ICAtRU5PU1BDIHdpdGhvdXQgY2xlYXJpbmcgdGhlIGV4aXN0aW5nIGVu
-dHJ5Lg0KPiA+ID4NCj4gPiBJcyB0aGlzIHRoZSBhY3R1YWwgY2FzZSB5b3UgbWV0Pw0KPiA+DQo+
-IA0KPiBGcm9tIG15IGludmVzdGlnYXRpb24gaXQgc2VlbXMgcmVhY2hhYmxlLg0KDQpJIGtuZXcu
-IEkganVzdCB3YW50IHRvIGtub3cgaWYgcGVvcGxlIGVuY291bnRlcmVkIHRoZSBwcm9ibGVtLCBv
-ciANCmZvdW5kIGFuZCBmaXhlZCB0aGlzIGJ5IHJldmlld2luZy4gDQoNCj4gDQo+IEFzIGZhciBh
-cyBJIHVuZGVyc3JhbmQsIGl0IG5lZWRzIGFsbCAyOCBwYWlyd2lzZSBlbnRyaWVzICg0LTMxKSBp
-bg0KPiB1c2UgYXQgb25jZSwgc28gQVAgbW9kZSB3aXRoIDI4IHNlY3VyZWQgc3RhdGlvbnMgKDMx
-IG1hY19pZHMgYXJlDQo+IGxlZnQgYWZ0ZXIgdGhlIEFQIHZpZiksIG9yIElCU1MvVERMUyB3aXRo
-IGFzIG1hbnkgcGVlcnMuIE5vdA0KPiByZWFjaGFibGUgYXMgYSBwbGFpbiBjbGllbnQuIE9uY2Ug
-aXQgaXMgaGl0IGl0cyBwYWlyd2lzZQ0KPiBESVNBQkxFX0tFWSBmYWlscywgbWFjODAyMTEgZnJl
-ZXMgdGhlIGtleSBhbnl3YXkgYWZ0ZXIgbG9nZ2luZw0KPiAiZmFpbGVkIHRvIHJlbW92ZSBrZXki
-LCB0aGUgY2FtX21hcCBiaXQgaXMgbmV2ZXIgY2xlYXJlZCwgYW5kIHRoZQ0KPiB0YWJsZSBzdGF5
-cyBmdWxsIHVudGlsIHRoZSBkcml2ZXIgaXMgcmVsb2FkZWQuDQo+IA0KPiBJIHRoaW5rIGl0IGNh
-biBiZSB0ZXN0ZWQgd2l0aCB0d28gY2xpZW50cyBieSB0ZW1wb3JhcmlseSBzZXR0aW5nDQo+IHNl
-Yy50b3RhbF9jYW1fbnVtID0gNi4NCj4gDQo+ID4gPg0KPiA+ID4gTW92ZSB0aGUgYWxsb2NhdGlv
-biBhbmQgYm91bmRzIGNoZWNrIGludG8gU0VUX0tFWS4gRElTQUJMRV9LRVkgdXNlcw0KPiA+ID4g
-IHRoZSBleGlzdGluZyBrZXktPmh3X2tleV9pZHguDQo+ID4gPg0KPiA+ID4gIEZpeGVzOiAxMGQ1
-ODgyM2NiNDQgKCJ3aWZpOiBydHc4ODogZml4IG91dC1vZi1ib3VuZHMgQ0FNIHdyaXRlIHdoZW4g
-a2V5IHRhYmxlIGlzIGZ1bGwiKQ0KPiA+ID4NCj4gPiBTaG91bGQgaXQgYmUgPw0KPiA+DQo+ID4g
-Rml4ZXM6IGUzMDM3NDg1YzY4ZSAoInJ0dzg4OiBuZXcgUmVhbHRlayA4MDIuMTFhYyBkcml2ZXIi
-KQ0KPiA+DQo+IA0KPiBJIHRoaW5rIDEwZDU4ODIzY2I0NCBpcyB0aGUgcmlnaHQgdGFnLiBJbiBl
-MzAzNzQ4NWM2OGUgdGhlIGNoZWNrIHdhcw0KPiANCj4gICAgICAgaWYgKGh3X2tleV9pZHggPiBz
-ZWMtPnRvdGFsX2NhbV9udW0pIHsNCj4gDQo+IGFuZCBydHdfc2VjX2dldF9mcmVlX2NhbSgpIHJl
-dHVybnMgYXQgbW9zdCBSVFdfTUFYX1NFQ19DQU1fTlVNICgzMiksDQo+IHdoaWNoIGVxdWFscyB0
-b3RhbF9jYW1fbnVtLCBzbyB0aGUgY2hlY2sgbmV2ZXIgZmlyZWQgYW5kIERJU0FCTEVfS0VZDQo+
-IGFsd2F5cyByZWFjaGVkIHJ0d19zZWNfY2xlYXJfY2FtKCkuIFRoZSBidWcgdGhlcmUgd2FzIHRo
-ZQ0KPiBvdXQtb2YtYm91bmRzIFNFVF9LRVksIHdoaWNoIDEwZDU4ODIzY2I0NCBmaXhlZC4gRElT
-QUJMRV9LRVkgb25seQ0KPiBzdGFydGVkIGZhaWxpbmcgb25jZSB0aGUgY2hlY2sgYmVjYW1lICI+
-PSIuIFRoaXMgcGF0Y2ggYWxzbyBkb2VzIG5vdA0KPiBhcHBseSB3aXRob3V0IDEwZDU4ODIzY2I0
-NCwgc2luY2UgaXRzIGNvbnRleHQgaGFzIHRoZSAiPj0iLg0KDQpJIGZlZWwgdGhlIGluaXRpYWwg
-Y29tbWl0IGUzMDM3NDg1YzY4ZSBjb250YWluaW5nIHR3byBidWdzLiBPbmUgaXMgDQptaXNzaW5n
-IHRvIGNoZWNrIHByb3BlciBib3VuZGFyeSwgYW5kIHRoZSBvdGhlciBpcyB0aGlzIG9uZS4gDQoN
-CldpdGhvdXQgZTMwMzc0ODVjNjhlLCBpdCB3aWxsIG91dC1vZi1ib3VuZHMgU0VUX0tFWSwgYW5k
-IHRoZW4NCml0IGlzIHBvc3NpYmxlIHRvIERJU0FCTEVfS0VZIGZhaWwgKGF0IHdyb25nIGJvdW5k
-YXJ5KSwgbm8/DQoNClBpbmctS2UNCg0KDQo=
+On Mon, Oct 19, 2026 at 5:54=E2=80=AFPM Jens Axboe <axboe@kernel.dk> wrote:
+> Patches like this have been posted before, and my question is
+> always "is this a common case?"? Reading this:
+>
+> > Notes:
+> >     Based on for-7.4/io_uring (5b01d5955ac2).  Built for arm64 with
+> >     PREEMPT_RT, W=3D1, no new warnings.  The numbers are from an equiva=
+lent
+> >     change on 6.18.39-rt on a Jetson Orin Nano, counting kmem:kmalloc/k=
+free
+> >     by call site with bpftrace while a test loops on IORING_OP_FUTEX_WA=
+IT
+> >     with a value the futex word doesn't hold.  Happy to turn that into
+> >     a liburing test if it's useful.
+>
+> makes me very much think "nope, not at all", as it's a deliberately
+> failing test case. And yes if you keep issuing failing waits,
+> then it'll drain the cache. The cache is for the hot FAST path,
+> which is not an error path.
+
+Fair on the test case, it only showed the mechanism.  But for an event
+loop, -EAGAIN from a futex wait isn't an error path.  Right before
+io_uring_enter() re-arms the wait that just fired, the event loop loads
+its futex word.  If the word has already changed, it handles the
+new message and re-arms with the new value instead.  A message published
+between that load and futex_wait_setup() checking the word makes the
+wait return -EAGAIN, and that is how the loop learns there is more to
+do.  The window can be shrunk, but not removed; nearly all of what is
+left is inside io_uring_enter().
+
+Here's how often that happens, measured on a Jetson Orin Nano running
+for-7.4/io_uring with PREEMPT_RT.  The event loops are AOS (a robotics
+framework).  Each one keeps one IORING_OP_FUTEX_WAIT armed per channel,
+on the channel's queue index, and re-arms it after every wake.  One
+channel: a SCHED_FIFO 40 publisher at 2 kHz with a SCHED_FIFO 40
+subscriber, then low-priority processes publishing and subscribing on
+the same channel as well, then interrupt and system load on top.
+bpftrace on fexit:io_futex_wait counted, per process, the waits armed
+(IORING_OP_FUTEX_WAIT issued) and how many of them returned -EAGAIN
+instead of sleeping.  Two minutes each:
+
+                             real-time subscriber    low-priority procs
+                 messages/s  arms/s  -EAGAIN  rate   arms/s  -EAGAIN  rate
+  pair only           2,000   2,000        0    0%        -        -     -
+  + low-priority     12,200  11,020    1,292   12%   14,760    1,229    8%
+  + load             12,200   9,830    2,797   28%    4,120      377    9%
+
+(messages/s is everything published on the channel, arms/s and
+-EAGAIN are per second.  A subscriber arms fewer times than messages
+arrive because one wake can cover several messages.  Under load the
+low-priority processes arm less often because the load takes their CPUs.)
+
+In all, 2,520 and 3,170 arms a second failed in the last two runs.
+bpftrace also read the futex word as each failed arm returned.  Of the
+683,303 failures across both runs, 88% found the word exactly one
+message past the value the wait was armed with.  So the arm raced a
+single publish, not a backlog.  Load makes it more likely because the
+stretch between that load and the kernel's check gets longer.
+
+Timed from syscall entry to io_futex_wait() returning, 74% of the
+real-time subscriber's failures came within 6 us.  For the low-priority
+processes, which can be preempted in there, a third took more than
+40 us.
+
+Without the patch, each of those failures is a kfree() and then a
+kmalloc() on the next arm: about 3,000 a second here, from a slab cache
+shared system-wide, and more the busier the system gets.  On PREEMPT_RT
+the slab slow path's list_lock is a sleeping lock, which is where this
+started for us.  The patch doesn't change the armed path at all; it
+only stops the cache from draining.
+
+I can send a v2 with these numbers and this explanation in the commit
+message, in place of the synthetic test.
+
+What I'm after is a futex wait an event loop can reliably re-arm without
+latency spikes.  Is there a better way to avoid the allocation here?  If
+you'd rather not have every failure refill the cache, I can limit it to
+-EAGAIN, the one failure an event loop hits in normal operation, and
+keep the kfree() for the rest.
+
+Thanks for the prompt reply!
+  Austin
