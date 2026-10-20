@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494983;
-	b=HGX8uD7dQ7En2SAkOWbv8Qq7RRfYtJwnJsRaiokw+6Ely7AH2rvM7PXhGmF+VCbsVYqs
-	 vPEMetxYpQIG2WzvwXFsH16eYxxl4mW7Tm9Jg1KiRTU1cYYaaSKPAkYJFf0KtMzEUGPT5
-	 4vlYH53uBa8j+CqCXNrHPNq4r6L43GwrxWF6NAEU2vPQTCzlQnHgLMfFNe66/cC4hU2zr
-	 0X37iHIB8h56m4mRwrTJF0Tc25ZvCr66IVFqqeNxdJFOuBxbiYBx+izZwJDPtv/N7lMlQ
-	 IcSxSenZmWJsJhBgxOk8U6/LqeA/GuCozv1Z152Pcz6ZtwYOQpQsRbYCfkVelNHNQbw==
+	t=1792495021;
+	b=1VEPkCbhDbedICezPvG+XuchUj0xglxTS0uXS0AzsCAVF/dLuySjQf8cYNHZ21m1ZkNp
+	 huIwwdxDNlQdRf8zdL0YA6ADb2TEaeL5+HRT1fB/8RYvA5Ct7czIfylLCesKjB1albY6O
+	 OVfLWUh0RSO7J6gSHg8pV7aHu1v201fXhYsxYYFjrcdbXLW6dr1xUlkZEI7tXN472KZ3Y
+	 bxy3r6MJWTJlot/G/8wDdtebd0nEV0qUbaZBtFppV7PxvUdYVyOt7cefR6xHCkKnwAleN
+	 iNvl1Zl3d9gAe2a5uq9loDXUTxf8VHO93iREaFG48PBaFjGAtGSOQieRuIxwNULNntg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494983;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=bxw/EhE4FNjfEBFr+SgmSBcERnLEt+GnFpVvWXnolUs=;
-	b=LkIraL2x/zBi+CHUcXR6SQhJ28YFY40qoYW63/jiAu2X544R6q1U7aowjpMm3C/2vcEc
-	 unmh61NgacpcjpCXc6YcDv9xu5kD7B70kVQmzYkJdudYlqfUriYmMGrFOPF4gaFCD+sVG
-	 mQjd1/er9xrtHDb4oU/Ubq/7znS3ZlIJNMnqVIqZ7eq1tLp8WJInOPDidrw+ezvMbpAcz
-	 LwXGT2TrzYuaOsSgRSyzzWo+Hck5/5BwxHxKMe8lo7OngGHvQ6hia8LICMs6rM2W7D2NX
-	 Ykf9+n56lEc6a8OmRBPqMWDTPYjVJdlCFLkqRonceq/I7WlX2X2VOJymZantbjK7IuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792495021;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=bVNQzZPkVhaJesZfY8LQ/WfX4unos7POmP6IgKPN9ZE=;
+	b=t6zZt1/CdN3EQegJsZcwwEMWi6WNn9dYSkGbDy6W4KtD9OfiRbVIlN6IfjTqWin2yeJ0
+	 rq9QAszH2MvxSLXGAj7YY4SqvgVuVbcgXHaC4uSlSvCDhh0H4XQ4QhaF/zQkZs8Dr9APZ
+	 erNeaR4rKo2VsbknVM+6KPJ/Nux0X53pBlLHqiTbcZsFT0o0fM9XKkGwuRzaC9VqTVqEo
+	 z7bRwOY7tyxr6DEhl5mSV1ZMtTReBH59ksfK3bhFktyCqsemAHWG1KcizaKCZaKidELvz
+	 +G8mrwmuq9WB2/ETyl8jC+25AyFS5M4yEz9Y8rjGe5AV0DBnySA+LUl2JMs3CkSLANQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="FJc/wkba";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=E8ivwJid;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="FJc/wkba";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=E8ivwJid;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iKiQI0YZ;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B385606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B385606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B2B606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:17:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66B2B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FJc/wkba;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=E8ivwJid;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FJc/wkba;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=E8ivwJid
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9ED601F79A;
-	Tue, 20 Oct 2026 11:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792494965; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=bxw/EhE4FNjfEBFr+SgmSBcERnLEt+GnFpVvWXnolUs=;
-	b=FJc/wkbaMpKB25TLPlT6kazIvDNZJdxK39tVGCmtzSwaeVGOv/QxjTke/0I2XreI9ZvNr5
-	PVKe6ZWxSFxUI99fjekfAdmv5Um1ywqm6Qc7BbwjEgCC71WDmapi2lPvCEZULng295HipB
-	2voZo+sGnbC8nEhDVZF+KdJK+4vqRSY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792494965;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=bxw/EhE4FNjfEBFr+SgmSBcERnLEt+GnFpVvWXnolUs=;
-	b=E8ivwJids2MHCFrTYPFJZCqqJoT+NgFq1hdnL1TE4Zbe4MDxeZFGi8p7u7vlR2bqlRQEJn
-	G49uMm9PAxTycjBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792494965; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=bxw/EhE4FNjfEBFr+SgmSBcERnLEt+GnFpVvWXnolUs=;
-	b=FJc/wkbaMpKB25TLPlT6kazIvDNZJdxK39tVGCmtzSwaeVGOv/QxjTke/0I2XreI9ZvNr5
-	PVKe6ZWxSFxUI99fjekfAdmv5Um1ywqm6Qc7BbwjEgCC71WDmapi2lPvCEZULng295HipB
-	2voZo+sGnbC8nEhDVZF+KdJK+4vqRSY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792494965;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=bxw/EhE4FNjfEBFr+SgmSBcERnLEt+GnFpVvWXnolUs=;
-	b=E8ivwJids2MHCFrTYPFJZCqqJoT+NgFq1hdnL1TE4Zbe4MDxeZFGi8p7u7vlR2bqlRQEJn
-	G49uMm9PAxTycjBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E5954136C6;
-	Tue, 20 Oct 2026 11:16:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id dv8oJHRN12qhcQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:16:04 +0000
-Message-ID: <350adc03-dd7f-4120-ac9c-b6d04ff44faf@suse.de>
-Date: Tue, 20 Oct 2026 13:16:04 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=iKiQI0YZ
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1d2ec9aadso41155e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:17:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792495020; x=1793099820; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bVNQzZPkVhaJesZfY8LQ/WfX4unos7POmP6IgKPN9ZE=;
+        b=iKiQI0YZCWITQAbPXullO3qjXuhOR285XcVYT1QqdOKcjgtOzM4f4AcZ2nExQg2KC7
+         5ATbzBgIf+GKUBp5ZmoUucVxHxS5PpCZ5EHTzkoUgCmuwDYqPgjS4orvn6OSovaYQqD2
+         9vaeM6qBHCZcsBYlFS10WJ6AUmgD4UD7ier3Q3rza48K9Fz0sO6nl5jhk3sWSsMjHdED
+         VhTxIPwqhet0Hx2yY4LC5tpEMlQzuYag9u+YwCcMW7auYGP0s9dhilow5FDYP2SDQuie
+         WLivaTceW5p+aQhihbvt61DAg+RnPFNI14uoiPCfi2vcxN6+QoaqhgbzXCS03gs/k1cK
+         iKWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792495020; x=1793099820;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bVNQzZPkVhaJesZfY8LQ/WfX4unos7POmP6IgKPN9ZE=;
+        b=an03MQO6mXB+K2L9dmoVrV05mS2hp0+Hi8xknA/b3GvcCadHaJAOMcvN2jMiM7wlj5
+         LJw9nUovxa0kcguCucQQgHBd3b4k3Z40tP234Dw0cI808jyX3fD1kc4fLLqIu/YuJo2B
+         iN4s6aGmx1959iailU8CuOEj1BZaMZmJPrQCA8G1gqiZsiv3uKhakitL2U0PxQ9LGQP4
+         uJFns1NjvVNNCMmYei513aJ1XfjHTTTWbBhWhAVXQVg28pfXx8gmPjOdkrWndpxtyXFg
+         Iw8qcY3GybFDhjnKQ2pWZazhJW8nCvIEVDGGlgWvXGSfknodAKHSZimrEDLEiRLYq5Tf
+         oPkw==
+X-Forwarded-Encrypted: i=1; AKwUvBye67UwZpeu1Se1eC7BaqaxP19oVg+nyGkVE6qqpvR8TUU/pTGwcxn7NZYtDs6HcqiOh0Lgp+3bR721pFg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMopezOnvZOPamPbNRpmDrjGGx+/hKhIhdV0HJ/sfbGj6XRk/r
+	S4x1q0Xetpmi/cfNNalgSNk1uSNSfS9rQ38j5/UmALhFPaxf5V44gFoE9kHBr5KdmA==
+X-Gm-Gg: AYBFou3StaDSy0mDJnaasc88cX0ZtcoHoSF7jQytHmNj8GXYe7Ks0Jl6V4ZCF7CWzRJ
+	mX30Fixvc878IG2kONOt4wgzwT+xP51kbG/gL9rrtBieXjJyE6OY02fIYONi/yiOh8Ac4ZBxOcJ
+	mNkMHFvV3kZjGgUlO/20yQdjVzdOkrRK9ia33b3GAE+DbhP48xR3fhRRJAmDgm5QelXcPyiF2S7
+	yC3pZu1QyX+kVkIG3E0CYnPEi3kEgmwZeAMj5futhdavgMHoOkW50IGsDDA38ja1vO9zGsh6pvm
+	7l+MwTN9KXIrWl6SbHAcbuBryIam3s7JCLUYp28FEEk5q3Ut/Qe5PTmUjenCQGun+VDkPVCb9eu
+	5lXRXGtG89HGjSPIscxgMaw8dIAJgJIyhx7UqsdCJl8ZR36Y3yptK3MjXg1X1VKDdxAJU1SciB1
+	KA/xmGaP+XUtQmjBQtFw4dSlcLGVf27U+HpMSoThK/3LbGmNF8DWSYq3SQk5IFBbuVzjVj4+Iyx
+	X4DPUD7KMddd9oEp6nx8jbaKg==
+X-Received: by 2002:a05:600c:a3a5:b0:4a1:a48c:17eb with SMTP id 5b1f17b1804b1-4a1f59a5836mr572995e9.11.1792495019224;
+        Tue, 20 Oct 2026 04:16:59 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d82fe82sm5139903f8f.51.2026.10.20.04.16.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 04:16:58 -0700 (PDT)
+Date: Tue, 20 Oct 2026 11:16:54 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@nvidia.com,
+	praan@google.com, kevin.tian@intel.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
+	Cristian Prundeanu <cpru@amazon.com>,
+	Breno Leitao <leitao@kernel.org>
+Subject: Re: [PATCH v11 04/11] iommu/arm-smmu-v3: Add ARM_SMMU_FEAT_EVTQ for
+ the event queue
+Message-ID: <atdNpl732M7D4dXz@google.com>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+ <250a57bbdd232bbb1e3511b7768a1c9ae3d204e6.1791226953.git.nicolinc@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,419 +102,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/13] drm/client: splash: turn the device tree image
- as it asks
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261013093243.505776-1-maximpedraza@gmail.com>
- <20261013093243.505776-10-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261013093243.505776-10-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.79 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TAGGED_RCPT(0.00)[dt];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[25];
-	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -2.79
-X-Spam-Level: 
-X-Spam-Flag: NO
+In-Reply-To: <250a57bbdd232bbb1e3511b7768a1c9ae3d204e6.1791226953.git.nicolinc@nvidia.com>
 
-Hi
+On Mon, Oct 05, 2026 at 12:30:47PM -0700, Nicolin Chen wrote:
+> The driver programs and enables the event queue unconditionally, while the
+> PRI queue has an ARM_SMMU_FEAT_PRI gating each of its touch points. Yet a
+> kdump kernel wants to leave both of the queues alone, which would take an
+> is_kdump_kernel() test at every one of those places.
+> 
+> Add an ARM_SMMU_FEAT_EVTQ that the probe always sets, as the event queue is
+> architecturally mandatory, and gate the queue's allocation, its interrupt,
+> its MSI vector, and its CR0 and IRQ_CTRL enables on it. A subsequent change
+> will turn the queue off in a single place.
+> 
+> No functional change intended.
+> 
+> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+> Suggested-by: Robin Murphy <robin.murphy@arm.com>
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Tested-by: Breno Leitao <leitao@kernel.org>
+> Tested-by: Cristian Prundeanu <cpru@amazon.com>
+> Assisted-by: LLM
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 
-Am 13.10.26 um 11:32 schrieb Màxim Pedraza Padilla:
-> The same board is often fitted with the same panel mounted in more than
-> one orientation. Let the device tree node ask for the image to be turned,
-> with a "rotation" property counting degrees counter clockwise, as panels
-> already do and as DRM_MODE_ROTATE_* count, which is what it is kept as.
->
-> The rotation turns the image and not the screen: "logo-position" and
-> "logo-offset" stay in screen pixels, and a quarter turn only swaps how
-> much room the image takes up. Placing it in a frame that turned with it
-> would make the same pair of coordinates mean different places on the
-> same panel, decided by a property that describes the image.
+Reviewed-by: Mostafa Saleh <smostafa@google.com>
 
-> The three blitters, one per destination pixel size, become one that
+There is a nit below though.
 
-Reading the code below, may I suggest to do this in two steps: first 
-read the image data into a temporary buffer, invert height and rotate as 
-needed.  Second, copy the temporary image into the graphics buffer and 
-adjust the color format.
+Thanks,
+Mostafa
 
-Eventually we want to have a useful and flexible drawing/blitting API 
-for the DRM clients. Keeping drawing steps separate will help a lot in 
-the long run.
-
-Best regards
-Thomas
-
-> reads the source pixel through the rotation and writes it according to
-> the pixel size. Each source pixel is read as three bytes rather than as
-> an unaligned u32: a BMP row is only padded as a whole, so with 3 * width
-> already a multiple of four the last pixel of the image was read one byte
-> past its end. An upright image going to an RGB888 buffer is still copied
-> a row at a time.
->
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
 > ---
->   drivers/gpu/drm/clients/drm_splash.c | 206 ++++++++++++++-------------
->   1 file changed, 110 insertions(+), 96 deletions(-)
->
-> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-> index 8561d00a5b96..fdf398987007 100644
-> --- a/drivers/gpu/drm/clients/drm_splash.c
-> +++ b/drivers/gpu/drm/clients/drm_splash.c
-> @@ -25,6 +25,7 @@
->   #include <drm/drm_drv.h>
->   #include <drm/drm_fourcc.h>
->   #include <drm/drm_framebuffer.h>
-> +#include <drm/drm_mode.h>
->   #include <drm/drm_plane.h>
->   #include <drm/drm_print.h>
->   
-> @@ -130,6 +131,8 @@ struct drm_splash {
->   	 */
->   	s32 pos_x, pos_y;
->   	s32 off_x, off_y;
-> +	/* One of DRM_MODE_ROTATE_*: turns the image, not the screen */
-> +	unsigned int rotation;
->   };
->   
->   static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
-> @@ -283,6 +286,28 @@ static void drm_splash_dt_placement(struct drm_splash *splash,
->   		splash->off_x = (s32)val[0];
->   		splash->off_y = (s32)val[1];
->   	}
+>  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  1 +
+>  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 89 ++++++++++++++-------
+>  2 files changed, 61 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> index 8f2c0b1cc4a8d..559bfa8cbc5e0 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> @@ -972,6 +972,7 @@ struct arm_smmu_device {
+>  #define ARM_SMMU_FEAT_BBML2		(1 << 24)
+>  #define ARM_SMMU_FEAT_HAFT		(1 << 25)
+>  #define ARM_SMMU_FEAT_DS		(1 << 26)
+> +#define ARM_SMMU_FEAT_EVTQ		(1 << 27)
+>  	u32				features;
+>  
+>  #define ARM_SMMU_OPT_SKIP_PREFETCH	(1 << 0)
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 6ff61565f7583..756825e004774 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -2381,7 +2381,8 @@ static irqreturn_t arm_smmu_combined_irq_thread(int irq, void *dev)
+>  {
+>  	struct arm_smmu_device *smmu = dev;
+>  
+> -	arm_smmu_evtq_thread(irq, dev);
+> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ)
+> +		arm_smmu_evtq_thread(irq, dev);
+>  	if (smmu->features & ARM_SMMU_FEAT_PRI)
+>  		arm_smmu_priq_thread(irq, dev);
+>  
+> @@ -2390,7 +2391,12 @@ static irqreturn_t arm_smmu_combined_irq_thread(int irq, void *dev)
+>  
+>  static irqreturn_t arm_smmu_combined_irq_handler(int irq, void *dev)
+>  {
+> -	arm_smmu_gerror_handler(irq, dev);
+> +	struct arm_smmu_device *smmu = dev;
+> +	irqreturn_t ret = arm_smmu_gerror_handler(irq, dev);
 > +
-> +	/* Degrees counter clockwise, as for panels, and as DRM counts them */
-> +	if (!of_property_read_u32(np, "rotation", &val[0])) {
-> +		switch (val[0]) {
-> +		case 0:
-> +			splash->rotation = DRM_MODE_ROTATE_0;
-> +			break;
-> +		case 90:
-> +			splash->rotation = DRM_MODE_ROTATE_90;
-> +			break;
-> +		case 180:
-> +			splash->rotation = DRM_MODE_ROTATE_180;
-> +			break;
-> +		case 270:
-> +			splash->rotation = DRM_MODE_ROTATE_270;
-> +			break;
-> +		default:
-> +			drm_warn(splash->client.dev,
-> +				 "splash: %pOF: unsupported rotation %u",
-> +				 np, val[0]);
+> +	/* Without either queue, the thread would have nothing to drain */
+> +	if (!(smmu->features & (ARM_SMMU_FEAT_EVTQ | ARM_SMMU_FEAT_PRI)))
+> +		return ret;
+>  	return IRQ_WAKE_THREAD;
+>  }
+>  
+> @@ -4763,11 +4769,14 @@ static int arm_smmu_init_queues(struct arm_smmu_device *smmu)
+>  		return ret;
+>  
+>  	/* evtq */
+> -	ret = arm_smmu_init_one_queue(smmu, &smmu->evtq.q, smmu->page1,
+> -				      ARM_SMMU_EVTQ_PROD, ARM_SMMU_EVTQ_CONS,
+> -				      EVTQ_ENT_DWORDS, "evtq");
+> -	if (ret)
+> -		return ret;
+> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ) {
+> +		ret = arm_smmu_init_one_queue(smmu, &smmu->evtq.q, smmu->page1,
+> +					      ARM_SMMU_EVTQ_PROD,
+> +					      ARM_SMMU_EVTQ_CONS,
+> +					      EVTQ_ENT_DWORDS, "evtq");
+> +		if (ret)
+> +			return ret;
+> +	}
+>  
+>  	if ((smmu->features & ARM_SMMU_FEAT_SVA) &&
+>  	    (smmu->features & ARM_SMMU_FEAT_STALLS)) {
+> @@ -4950,7 +4959,15 @@ static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
+>  
+>  	/* Clear the MSI address regs */
+>  	writeq_relaxed(0, smmu->base + ARM_SMMU_GERROR_IRQ_CFG0);
+> -	writeq_relaxed(0, smmu->base + ARM_SMMU_EVTQ_IRQ_CFG0);
+> +
+> +	/* PRIQ's vector needs EVTQ's to be kept */
+> +	WARN_ON_ONCE(!(smmu->features & ARM_SMMU_FEAT_EVTQ) &&
+> +		     (smmu->features & ARM_SMMU_FEAT_PRI));
+> +
+
+I can't see how we can end up in this case, I’d suggest dropping it
+if I am not missing something.
+
+
+> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ)
+> +		writeq_relaxed(0, smmu->base + ARM_SMMU_EVTQ_IRQ_CFG0);
+> +	else
+> +		nvec--;
+>  
+>  	if (smmu->features & ARM_SMMU_FEAT_PRI)
+>  		writeq_relaxed(0, smmu->base + ARM_SMMU_PRIQ_IRQ_CFG0);
+> @@ -4987,16 +5004,20 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
+>  	arm_smmu_setup_msis(smmu);
+>  
+>  	/* Request interrupt lines */
+> -	irq = smmu->evtq.q.irq;
+> -	if (irq) {
+> -		ret = devm_request_threaded_irq(smmu->dev, irq, NULL,
+> -						arm_smmu_evtq_thread,
+> -						IRQF_ONESHOT,
+> -						"arm-smmu-v3-evtq", smmu);
+> -		if (ret < 0)
+> -			dev_warn(smmu->dev, "failed to enable evtq irq\n");
+> -	} else {
+> -		dev_warn(smmu->dev, "no evtq irq - events will not be reported!\n");
+> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ) {
+> +		irq = smmu->evtq.q.irq;
+> +		if (irq) {
+> +			ret = devm_request_threaded_irq(smmu->dev, irq, NULL,
+> +							arm_smmu_evtq_thread,
+> +							IRQF_ONESHOT,
+> +							"arm-smmu-v3-evtq", smmu);
+> +			if (ret < 0)
+> +				dev_warn(smmu->dev,
+> +					 "failed to enable evtq irq\n");
+> +		} else {
+> +			dev_warn(smmu->dev,
+> +				 "no evtq irq - events will not be reported!\n");
 > +		}
-> +	}
->   }
->   
->   static int drm_splash_dt_load(struct drm_splash *splash, const u8 **data,
-> @@ -479,73 +504,68 @@ static unsigned int drm_splash_place_axis(s32 pos, s32 off, unsigned int span,
->   	return clamp_t(s64, coord + off, 0, last);
->   }
->   
-> -static void drm_splash_blit_pix16(struct iosys_map *map, unsigned int dpitch,
-> -				  unsigned int x_pad, unsigned int y_pad,
-> -				  const u8 *sbuf8, unsigned int spitch,
-> -				  unsigned int width, unsigned int height,
-> -				  bool invert_y, u32 format)
-> -{
-> -	unsigned int x, y, src_offset, dst_offset;
-> -	u32 scolor, dcolor, wr_off;
+>  	}
+>  
+>  	irq = smmu->gerr_irq;
+> @@ -5029,7 +5050,7 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
+>  static int arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
+>  {
+>  	int ret, irq;
+> -	u32 irqen_flags = IRQ_CTRL_EVTQ_IRQEN | IRQ_CTRL_GERROR_IRQEN;
+> +	u32 irqen_flags = IRQ_CTRL_GERROR_IRQEN;
+>  
+>  	/* Disable IRQs first */
+>  	ret = arm_smmu_write_reg_sync(smmu, 0, ARM_SMMU_IRQ_CTRL,
+> @@ -5055,6 +5076,8 @@ static int arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
+>  	} else
+>  		arm_smmu_setup_unique_irqs(smmu);
+>  
+> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ)
+> +		irqen_flags |= IRQ_CTRL_EVTQ_IRQEN;
+>  	if (smmu->features & ARM_SMMU_FEAT_PRI)
+>  		irqen_flags |= IRQ_CTRL_PRIQ_IRQEN;
+>  
+> @@ -5173,16 +5196,21 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+>  		smmu, arm_smmu_make_cmd_op(CMDQ_OP_TLBI_NSNH_ALL));
+>  
+>  	/* Event queue */
+> -	writeq_relaxed(smmu->evtq.q.q_base, smmu->base + ARM_SMMU_EVTQ_BASE);
+> -	writel_relaxed(smmu->evtq.q.llq.prod, smmu->page1 + ARM_SMMU_EVTQ_PROD);
+> -	writel_relaxed(smmu->evtq.q.llq.cons, smmu->page1 + ARM_SMMU_EVTQ_CONS);
 > -
-> -	for (y = 0; y < height; y++) {
-> -		src_offset = (invert_y ? (height - y - 1) : y) * spitch;
-> -		dst_offset = (y_pad + y) * dpitch;
-> -
-> -		for (x = 0; x < width; x++) {
-> -			scolor = *(const u32 *)(&sbuf8[src_offset + 3 * x]);
-> -			dcolor = drm_draw_color_from_xrgb8888(scolor, format);
-> -			wr_off = dst_offset + (x_pad + x) * sizeof(u16);
-> -
-> -			iosys_map_wr(map, wr_off, u16, dcolor);
-> -		}
-> -	}
-> -}
-> -
-> -static void drm_splash_blit_pix24(struct iosys_map *map, unsigned int dpitch,
-> -				  unsigned int x_pad, unsigned int y_pad,
-> -				  const u8 *sbuf8, unsigned int spitch,
-> -				  unsigned int width, unsigned int height,
-> -				  bool invert_y, u32 format)
-> -{
-> -	unsigned int x, y, src_offset, dst_offset;
-> -	u32 scolor, dcolor, wr_off;
-> -
-> -	for (y = 0; y < height; y++) {
-> -		src_offset = (invert_y ? (height - y - 1) : y) * spitch;
-> -		dst_offset = (y_pad + y) * dpitch;
-> -
-> -		for (x = 0; x < width; x++) {
-> -			scolor = *(const u32 *)(&sbuf8[src_offset + 3 * x]);
-> -			dcolor = drm_draw_color_from_xrgb8888(scolor, format);
-> -			wr_off = dst_offset + (x_pad + x) * 3;
-> -
-> -			iosys_map_wr(map, wr_off, u8, (dcolor & 0x000000FF) >> 0);
-> -			iosys_map_wr(map, wr_off + 1, u8, (dcolor & 0x0000FF00) >> 8);
-> -			iosys_map_wr(map, wr_off + 2, u8, (dcolor & 0x00FF0000) >> 16);
-> -		}
-> -	}
-> -}
-> -
-> -static void drm_splash_blit_pix32(struct iosys_map *map, unsigned int dpitch,
-> -				  unsigned int x_pad, unsigned int y_pad,
-> -				  const u8 *sbuf8, unsigned int spitch,
-> -				  unsigned int width, unsigned int height,
-> -				  bool invert_y, u32 format)
-> +/*
-> + * Copy the BMP pixels into the buffer, converted to its format and turned by
-> + * @rotation, one of DRM_MODE_ROTATE_*, which count counter clockwise. The
-> + * rotation turns the image, not the screen: a quarter turn swaps how much
-> + * room the image takes up, and @x_pad and @y_pad place that room on screen.
-> + *
-> + * Each source pixel is three bytes read on their own, since a BMP row is
-> + * only padded to four bytes as a whole and the image need not be aligned.
-> + */
-> +static void drm_splash_blit(struct iosys_map *map, unsigned int dpitch,
-> +			    u32 format, unsigned int cpp,
-> +			    unsigned int x_pad, unsigned int y_pad,
-> +			    const u8 *sbuf8, unsigned int spitch,
-> +			    unsigned int width, unsigned int height,
-> +			    bool invert_y, unsigned int rotation)
->   {
-> -	unsigned int x, y, src_offset, dst_offset;
-> -	u32 scolor, dcolor, wr_off;
-> -
-> -	for (y = 0; y < height; y++) {
-> -		src_offset = (invert_y ? (height - y - 1) : y) * spitch;
-> -		dst_offset = (y_pad + y) * dpitch;
-> +	bool quarter = rotation & (DRM_MODE_ROTATE_90 | DRM_MODE_ROTATE_270);
-> +	unsigned int dw = quarter ? height : width;
-> +	unsigned int dh = quarter ? width : height;
-> +	unsigned int x, y, sx, sy, row, off;
-> +	u32 scolor, dcolor;
+> -	enables |= CR0_EVTQEN;
+> -	ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
+> -				      ARM_SMMU_CR0ACK);
+> -	if (ret) {
+> -		dev_err(smmu->dev, "failed to enable event queue\n");
+> -		return ret;
+> +	if (smmu->features & ARM_SMMU_FEAT_EVTQ) {
+> +		writeq_relaxed(smmu->evtq.q.q_base,
+> +			       smmu->base + ARM_SMMU_EVTQ_BASE);
+> +		writel_relaxed(smmu->evtq.q.llq.prod,
+> +			       smmu->page1 + ARM_SMMU_EVTQ_PROD);
+> +		writel_relaxed(smmu->evtq.q.llq.cons,
+> +			       smmu->page1 + ARM_SMMU_EVTQ_CONS);
 > +
-> +	for (y = 0; y < dh; y++) {
-> +		for (x = 0; x < dw; x++) {
-> +			switch (rotation) {
-> +			case DRM_MODE_ROTATE_90:
-> +				sx = width - 1 - y;
-> +				sy = x;
-> +				break;
-> +			case DRM_MODE_ROTATE_180:
-> +				sx = width - 1 - x;
-> +				sy = height - 1 - y;
-> +				break;
-> +			case DRM_MODE_ROTATE_270:
-> +				sx = y;
-> +				sy = height - 1 - x;
-> +				break;
-> +			default:
-> +				sx = x;
-> +				sy = y;
-> +				break;
-> +			}
->   
-> -		for (x = 0; x < width; x++) {
-> -			scolor = *(const u32 *)(&sbuf8[src_offset + 3 * x]);
-> +			/* A positive BMP height stores the rows bottom up */
-> +			row = invert_y ? height - 1 - sy : sy;
-> +			scolor = get_unaligned_le24(&sbuf8[row * spitch + 3 * sx]);
->   			dcolor = drm_draw_color_from_xrgb8888(scolor, format);
-> -			wr_off = dst_offset + (x_pad + x) * sizeof(u32);
-> +			off = (y_pad + y) * dpitch + (x_pad + x) * cpp;
->   
-> -			iosys_map_wr(map, wr_off, u32, dcolor);
-> +			switch (cpp) {
-> +			case 2:
-> +				iosys_map_wr(map, off, u16, dcolor);
-> +				break;
-> +			case 3:
-> +				iosys_map_wr(map, off, u8, dcolor & 0xff);
-> +				iosys_map_wr(map, off + 1, u8, (dcolor >> 8) & 0xff);
-> +				iosys_map_wr(map, off + 2, u8, (dcolor >> 16) & 0xff);
-> +				break;
-> +			case 4:
-> +				iosys_map_wr(map, off, u32, dcolor);
-> +				break;
-> +			}
->   		}
->   	}
->   }
-> @@ -584,7 +604,7 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
->   	bool bmp_invert_y;
->   	u32 bitmap_offset;
->   	size_t row_len, pixels_len, end;
-> -	unsigned int x_pad, y_pad;
-> +	unsigned int x_pad, y_pad, img_w, img_h;
->   	const u8 *image_data;
->   	struct iosys_map map;
->   	struct drm_rect r;
-> @@ -644,7 +664,16 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
->   	}
->   	bmp_pitch = row_len & ~(size_t)3;
->   
-> -	if (bmp_width > scanout->width || bmp_height > scanout->height) {
-> +	/* The room the image takes up on screen, once turned */
-> +	if (splash->rotation & (DRM_MODE_ROTATE_90 | DRM_MODE_ROTATE_270)) {
-> +		img_w = bmp_height;
-> +		img_h = bmp_width;
-> +	} else {
-> +		img_w = bmp_width;
-> +		img_h = bmp_height;
-> +	}
+> +		enables |= CR0_EVTQEN;
+> +		ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
+> +					      ARM_SMMU_CR0ACK);
+> +		if (ret) {
+> +			dev_err(smmu->dev, "failed to enable event queue\n");
+> +			return ret;
+> +		}
+>  	}
+>  
+>  	/* PRI queue */
+> @@ -5330,6 +5358,9 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
+>  	u32 reg;
+>  	bool coherent = smmu->features & ARM_SMMU_FEAT_COHERENCY;
+>  
+> +	/* The event queue is architecturally mandatory, unlike the PRI queue */
+> +	smmu->features |= ARM_SMMU_FEAT_EVTQ;
 > +
-> +	if (img_w > scanout->width || img_h > scanout->height) {
->   		drm_err(client->dev, "splash: BMP image is too big for the screen");
->   		return -EINVAL;
->   	}
-> @@ -678,9 +707,9 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
->   #endif
->   	} else {
->   		x_pad = drm_splash_place_axis(splash->pos_x, splash->off_x,
-> -					      scanout->width, bmp_width);
-> +					      scanout->width, img_w);
->   		y_pad = drm_splash_place_axis(splash->pos_y, splash->off_y,
-> -					      scanout->height, bmp_height);
-> +					      scanout->height, img_h);
->   	}
->   
->   	image_data = data + bitmap_offset;
-> @@ -691,40 +720,24 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
->   		return ret;
->   	}
->   
-> -	r = DRM_RECT_INIT(x_pad, y_pad, bmp_width, bmp_height);
-> +	r = DRM_RECT_INIT(x_pad, y_pad, img_w, img_h);
->   
-> -	/* In case the target format is RGB888, source data can be copied to
-> -	 * the video buffer line by line, avoiding some overhead.
-> +	/*
-> +	 * An unturned image going to an RGB888 buffer has the same byte order
-> +	 * as the BMP, so it is copied a row at a time.
->   	 */
-> -	if (scanout->format == DRM_FORMAT_RGB888) {
-> +	if (scanout->format == DRM_FORMAT_RGB888 &&
-> +	    splash->rotation == DRM_MODE_ROTATE_0) {
->   		drm_splash_blit_rgb888(&map, fb->pitches[0], x_pad, y_pad,
->   				       image_data, bmp_pitch, bmp_width,
->   				       bmp_height, bmp_invert_y);
-> +	} else if (px_width >= 2 && px_width <= 4) {
-> +		drm_splash_blit(&map, fb->pitches[0], scanout->format, px_width,
-> +				x_pad, y_pad, image_data, bmp_pitch, bmp_width,
-> +				bmp_height, bmp_invert_y, splash->rotation);
->   	} else {
-> -		switch (px_width) {
-> -		case 2:
-> -			drm_splash_blit_pix16(&map, fb->pitches[0], x_pad,
-> -					      y_pad, image_data, bmp_pitch,
-> -					      bmp_width, bmp_height,
-> -					      bmp_invert_y, scanout->format);
-> -			break;
-> -		case 3:
-> -			drm_splash_blit_pix24(&map, fb->pitches[0], x_pad,
-> -					      y_pad, image_data, bmp_pitch,
-> -					      bmp_width, bmp_height,
-> -					      bmp_invert_y, scanout->format);
-> -			break;
-> -		case 4:
-> -			drm_splash_blit_pix32(&map, fb->pitches[0], x_pad,
-> -					      y_pad, image_data, bmp_pitch,
-> -					      bmp_width, bmp_height,
-> -					      bmp_invert_y, scanout->format);
-> -			break;
-> -		default:
-> -			drm_warn_once(client->dev,
-> -				      "splash: can't blit with pixel width %d",
-> -				      px_width);
-> -		}
-> +		drm_warn_once(client->dev, "splash: can't blit with pixel width %d",
-> +			      px_width);
->   	}
->   
->   	drm_client_buffer_vunmap_local(buffer);
-> @@ -1193,9 +1206,10 @@ void drm_splash_register(struct drm_device *dev,
->   	spin_lock_init(&splash->fw_lock);
->   	init_completion(&splash->fw_done);
->   
-> -	/* Centred unless the image source asks otherwise */
-> +	/* Centred and upright unless the image source asks otherwise */
->   	splash->pos_x = -1;
->   	splash->pos_y = -1;
-> +	splash->rotation = DRM_MODE_ROTATE_0;
->   
->   	if (format && format->num_planes == 1)
->   		splash->preferred_format = format->format;
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+>  	/* IDR0 */
+>  	reg = readl_relaxed(smmu->base + ARM_SMMU_IDR0);
+>  
+> -- 
+> 2.43.0
+> 
