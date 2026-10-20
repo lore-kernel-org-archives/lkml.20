@@ -1,103 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500339;
-	b=ZE8ilYHiWeR4RRZUGjJFTk6pXr7yFcPqhAKmhurQ9AknRlQdjdQmAn49aBIGVMQ5ZrkZ
-	 1lrLMwot8/ArydGCNIkmW45IMOKxDM1fLyEvmnEpaycaZ3RVGHV9tKdpe1xVp9EIVrIVD
-	 rqmLTmY849nxLRB8qpVcVJ8nxTCF2NNfc+FtHB9lZjx3gdjmIwu4ChG6POFKSjJji48CI
-	 AKEWljZV1cUGDuC/Ccein+wiKTh6hT5v1whMV3ZSfAvUssts7znLk1lv82i492DgTZQf7
-	 5LXBHKMma1FBhtemB26sg0gZQmutNowAESSLOpChQ/Kdcni+HBr2zmKhfxqIUP3DgMA==
+	t=1792500366;
+	b=QCkSuhfZcP5kiENZAGVxO0UHBjP9PyAc5IWqiA7GtuU/4AleSwg1GBg1hfdruUR+qIVY
+	 EqhBiMqfj8f5sF9HWunaq4/mrO/NohyOV8G2jT75IqHEqQz1DVEMElx14xc9M4l5NwEcB
+	 VCZhIIzV2zuF4EcMChiwDR8qHG+QzxWYRFBaLBl58qBZPdqX2NJT8kS8N3OuWLO5EUQ+M
+	 jC1iE0hfOOBb5xjcTpxt+/qEevSPvQsIgoljklqrCHadNaEQgeiJKLhhGh2adkQIJsExL
+	 G32X4Tzw2tqWTlamZ/kw8ft9gbvoPBZYJWlCvXYeDaraWDBRe9YcNIWHlGh2S5NA41A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500339;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=5Jgziv0oXH76L4ws+TONisnnpeya3jfmnUGQwTi5aL4=;
-	b=b6CZ9tBmllv0kI+KB++B8vyEeeMfWpVfmERYQYuvjq/zdzNoKLbcYTJBLlWVExCaDPAo
-	 6rFjw3cyMy+c47ho492AMQfTXRwWurg2CB4NqkicBoGwuoQttSWGh8kv0JbVhWJysloOa
-	 SaPEBYOJyKvlZFcfsbhn89tHWRLiZwt1OSfbW+0O4qU/B0eiOYFv6v3Ag0/ZCKm0ZoaE6
-	 fpEQFW3LH2zV1D6/OmT7S5xtVeQnvolbhcODuo3zBm/yXLS8bbR6bztvHxU2umZKUjmw7
-	 Zt6m2QYTYUuEwlcivtjVVs4lRDr1iaL8tKVl8EwW3jTYsLbMFWkUCLb2YWY7DlT88vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500366;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spamd-Result;
+	bh=TiiWp0U7IU3ZOr9wtJZIzgg6WfTemiPc3VI8BpBKs9Q=;
+	b=F32WxPwCgmm6fPBzov4tsuzxV86m25fgU8jsJbBoELI7SZr0sMRhy10asOldJyq3NMcE
+	 is522YJHQykAdnIYA1jAel5AIdq8rhMOuGadPFogAsCUIM1gxdl3fIjhwK54q1ixrYwfb
+	 jiDvEV1G+QfB2NqPYEUEyjs9fBC8brWS4cIJB7c7qdqq/NRjZEzAroUlDoRCrpoawxGcx
+	 MaiimIhFeF0roMX6YGObAvAM3u/ZwxtORUx24awRbvksxsjscc+Pn5WH134JtHzxwYnsE
+	 dFpta0ixap4jrRpeLyVuLrHjaPimtrdJasFLsFoy9//jTXLSKJaeby21Xlfov3SRNzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=nCOvcJ6M;
-	arc=none smtp.remote-ip=209.85.219.46
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Uc1tQUzO;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Juo5nlyG;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Uc1tQUzO;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Juo5nlyG;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B30606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:45:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79B30606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1474D606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:46:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1474D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=nCOvcJ6M
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-917d595138fso21133516d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:45:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792500337; x=1793105137; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Jgziv0oXH76L4ws+TONisnnpeya3jfmnUGQwTi5aL4=;
-        b=nCOvcJ6M/c2PVcoQQPo8VZ0I1iMWdiilnMF/fBURNmxmeUV5JvLD5Hv+wv/7hI0ykn
-         S1w6Yxzmn4lEU1lB0tHsqbFWM26fDunb2K+bNVa7nf+ylraqzlc5jlvJ++WuQAmE7B6/
-         jlBbBa6cOXDVQXIdxnTCESfPWtlY6q8Dx7YxrOjibfKs0c75x1kZpDCB4kg/DKTOvzk6
-         SNzqQJTSqhi/F7AN+KOew745tePb9N6IncNMmDPRyL5Vjip9J8yOP2pQmij/GcXHhfcZ
-         Q5+StmN4nMVJTjq5STTSmzvv6ssdgdp2GfBcrSM+CKos/8Os57rtB5qbOhZAIXJWwFl2
-         kYKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792500337; x=1793105137;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Jgziv0oXH76L4ws+TONisnnpeya3jfmnUGQwTi5aL4=;
-        b=QHioJfMD3VkAmpNVkq5c4IgZVKJY8wq4bPXz5qLnjx5EadBgLbrbaDsEtDYQ00+YUN
-         hUJkC2NbQPSitmmU/gDbdqTslV1ZjR9xGOI575Ko07bB1djN404GWpTcrT3kdWh1N6rd
-         2cykQrT9zT1cSWKJozeieMSAAS1HEokNVD/E+niNNReTbgOvbdFlWHfDGPynO2iiLWeG
-         lRy8ugo67582lfk8aJQ7ZyZR8wWd1tdLQi3VqueMN0J2ctFguGz6DhdRASyRi8CzdH5g
-         P/E55RbGN3lt1R1g30pUTix3UOnayg1TnY0HoKfDGu9eiPcCRhxGRfYJZy55f6mgyQib
-         LExQ==
-X-Gm-Message-State: AFq9FYKvUuHGdht4UH88fBRPADmvM9cmb9Lclj9ZQY1NOQPgW8jUOn9N
-	olWDnmotKvrlssy5/IvBM9y9U7lZ65mWTnyN6+gluqXPfmYrFVaF1qJPDbe1Hi/ntW0=
-X-Gm-Gg: AYBFou0wVt7BGDPC6gqTrH7BK1jrxiRP1x9pdnGSpNftafa0gklxhiY/sLe8j2RtH3Y
-	Rf7o4XEMWSiqLmL/9FJAEaF+dRbG88KWO4u1Q371UIT/Hp3MVW1H9INXv/U7qdsek1guSzPotF0
-	ov+/YJZq88A9FGNbiTrKqRDmOECeehN50NH4nccxCHXKVFwTaR4fOcTFJWNs5w2iOQRsN6Y6e1Q
-	dr6lh7OOXvkwjMysMONGTHrbozGyBUzgREOAua7+F4tBAhbnvdyfhVKfLL/14mGC64izVXUkLd6
-	0SI1yNfVodY5wIghATU67VcebUjjksDs+5quwT0O9yvg8H3HNha6U7NB7eWDo4DtA0QP/MOfVXj
-	MCrXmhWHabYY7aC9QiUXnZkm99FQcYZ7S0BIUvjMl659T8c9YGxU/ygwzqLR3J4boMmqsdFZftN
-	2UtnNI+F74eyk37EWmYad/4A/Qnd6Fsi/XJc5bpSbNZ00IZihabxoTFzY6UYsNcV8XEK4VxzQPH
-	lb1JAvOrkaqXqJi4YFNS8dggykyY/9q+oZ1rR/cLOz/3KpXC0ZxUES0Wg==
-X-Received: by 2002:a05:6214:3f89:b0:914:cdbf:b76 with SMTP id 6a1803df08f44-91bdf0a622cmr179577856d6.13.1792500337142;
-        Tue, 20 Oct 2026 05:45:37 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c0408c531sm25905716d6.19.2026.10.20.05.45.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 05:45:36 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xJ9Dk-0000000CS5W-05Ws;
-	Tue, 20 Oct 2026 09:45:36 -0300
-Date: Tue, 20 Oct 2026 09:45:36 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Suzuki Poulose <suzuki.poulose@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sami Mujawar <sami.mujawar@arm.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
-Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
- host attestation
-Message-ID: <20261020124536.GM14213@ziepe.ca>
-References: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
- <20261019233532.GL14213@ziepe.ca>
- <atcUoSdggT9eU8YE@e129823.arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Uc1tQUzO;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Juo5nlyG;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Uc1tQUzO;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Juo5nlyG
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 544CE21BF1;
+	Tue, 20 Oct 2026 12:46:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792500364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TiiWp0U7IU3ZOr9wtJZIzgg6WfTemiPc3VI8BpBKs9Q=;
+	b=Uc1tQUzOGE1fU5Rd/Q40eBKynCWiMKmhIHLBpuPqPQjnuMmOtsjr9NEGxYhQlZJt04cc0V
+	pka7QDupMVx3sckmEpWrM2iK/x2HiEszxv1UptqLy3aeLkiDeIgJT8Bc9NqE1dcPIEgiRT
+	UoDqArz/RlJlOAqPyTf+pXfOxicflNU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792500364;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TiiWp0U7IU3ZOr9wtJZIzgg6WfTemiPc3VI8BpBKs9Q=;
+	b=Juo5nlyGp8ODkkdQEPpiUW+V/VLNBQkn64iZGyUP2ZgBYamI010s6Vf+GBVHc+GIJmVaLW
+	j01B6w4E11Q7pVAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792500364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TiiWp0U7IU3ZOr9wtJZIzgg6WfTemiPc3VI8BpBKs9Q=;
+	b=Uc1tQUzOGE1fU5Rd/Q40eBKynCWiMKmhIHLBpuPqPQjnuMmOtsjr9NEGxYhQlZJt04cc0V
+	pka7QDupMVx3sckmEpWrM2iK/x2HiEszxv1UptqLy3aeLkiDeIgJT8Bc9NqE1dcPIEgiRT
+	UoDqArz/RlJlOAqPyTf+pXfOxicflNU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792500364;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TiiWp0U7IU3ZOr9wtJZIzgg6WfTemiPc3VI8BpBKs9Q=;
+	b=Juo5nlyGp8ODkkdQEPpiUW+V/VLNBQkn64iZGyUP2ZgBYamI010s6Vf+GBVHc+GIJmVaLW
+	j01B6w4E11Q7pVAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 20528136CC;
+	Tue, 20 Oct 2026 12:46:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id jMkIO4ti12q5UQAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Tue, 20 Oct 2026 12:46:04 +0000
+Date: Tue, 20 Oct 2026 14:46:03 +0200
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 17/18] nvme: Add support for CQT to nvme host
+Message-ID: <4459053b-35eb-4359-99a6-05393a9a62d6@flourine.local>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-18-mkhalfella@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,55 +114,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atcUoSdggT9eU8YE@e129823.arm.com>
+In-Reply-To: <20260920182936.2317916-18-mkhalfella@purestorage.com>
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,purestorage.com:email,grimberg.me:email]
 
-On Tue, Oct 20, 2026 at 08:13:37AM +0100, Yeoreum Yun wrote:
-
-> > Also this is weirdly structured, it should just be one driver under
-> > drivers/attestation/ that does the measurement register part of firme,
+On Sun, Sep 20, 2026 at 11:28:15AM -0700, Mohamed Khalfella wrote:
+> TP4129 KATO Corrections and Clarifications defined CQT (Command Quiesce
+> Time) which is used along with KATO (Keep Alive Timeout) to set an upper
+> limit for attempting Cross-Controller Recovery. Add ctrl->cqt, read its
+> value from controller identify response, expose it via sysfs, and have
+> nvme_fence_timeout_ms() account for it.
 > 
-> JFYI, FIRME's platform attestation token doesn't have the measurement
-> register. ploatform attestation token will include the firmware
-> information (e.g. firmware hash) and verifier checks the firmware
-> information. the meaurement with RIM/REM will be part of Realm token.
-> FIRME's PAT is for host attestation and doesn't include Realm token.
+> Use CQT to drive time-based recovery in fc, rdma, and tcp transports.
+> Add a fenced_work delayed work to each transport controller. If CCR
+> fails, fencing_work switches to error recovery immediately if CQT is not
+> supported. Otherwise it schedules fenced_work after the remaining fence
+> timeout, which also switches to error recovery when scheduled.
 > 
-> Therefore, in the new UAPI, attestation only have the evidance
-> interface and MR interface wouldn't be used by making mr_cap as NULL.
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> Reviewed-by: Hannes Reinecke <hare@kernel.org>
+> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 
-I'm aware, and this may change.
+the sysfs entry needs to be documented, with this
 
-> > it shouldn't have two components and some weird firme_get_instance()
-> > thing to link them together. That isn't how to build HW drivers in
-> > Linux..
-> > 
-> > Since ARM has bundled different concepts together into one SMCC FID
-> > range, it probably make sense for the smccc_devices to somehow spawn
-> > multiple smccc_devices for the various internal software aspects
-> > rather than have one driver spawn aux devices to split it ..
-> 
-> If FIRME were intended solely for attestation, I think your suggestion
-> would make sense.
-
-The FID are largely orthogonal, AFAICT there is no shared
-infrastructure between the various functional blocks.
-
-SO it needs to be split into proper narrow drives in the eventual
-kernel implementation. token goes to attestation, link ide goes to
-tsm, and so on.
-
-> However, considering that FIRME may be extended to support other services,
-> such as IKE key management, I think having FIRME-related code scattered
-> across different subsystems would actually make things more complicated.
-
-Nope, it is the right thing to do from a kernel perspective. We always
-de-agregate these kinds of multi-function devices into proper
-per-subsystem driver.s
- 
-> I initially considered introducing a dedicated FIRME bus as well,
-> but I felt that would be overengineering.
-
-Nope, just use the smccc bus and split up the 'multi-function FID'
-there. It doesn't need to be over complicated.
-
-Jason
+Reviewed-by: Daniel Wagner <dwagner@suse.de>
