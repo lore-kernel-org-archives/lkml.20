@@ -1,58 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792533075;
-	b=vthosqwEAqM3D7frSLy5PL4SoG8WtRkxRecM7lcAIxbTMwJzDJoBCEax3+2qQQRhqXjj
-	 cVk0C3wbZBaHgtx8ShRBigkcLlT+J3GnfxGwmmyunoOt3EDWn5F4PsNN5eaAAZ6vSmbiM
-	 3QDh1+onA4NUZpQYJkzIlSsTQppgrqFN8IA94A32j534zibjy3SMhUYP70yxiyap7HtDy
-	 YQf0OqaQ8y3STX7tV35Xn/8dW6oA8PWkOigZm32PMvNCJFoaZ/NfsvBh2CVYVxgbYcdrG
-	 Ivo/irf+XKU6ylvzhJzh2lb3/q6C1Z8ZNrmrlhvcH+qrfd0GsaoSrP6z5BgEcZLGT2g==
+	t=1792533102;
+	b=BrbBXcFWnG9sncss3KJwYsb/qcrd7E8wrytVrgg4g5wAYi/EeN1vMfJjr3a0bmy5BP3Z
+	 T99McC0RN39VEG2ArrY2YSAMJQTaeREYC8ASjURQCCtWg0TBsNMnq0j6mvDBFiNuRaCgY
+	 /GQlqnKelwisucYMeqfXc/z3MIqiw/oGEeByX3Q/EmqETfHgq8HlkumWRO8MAKq8oKWe1
+	 a1inir6AMgI38318fJxTzIW6WVx+T6JPNEUDtGSPpQekFP3K68zKrTcuBy/pqX+Zi69SN
+	 ztltTX5V2RvE6ZCNVmbH/sDp8C+Y2mnFcqdXv/sTXZNQjEpd4UoTTyUfQcMbtwOs6QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792533075;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=Dgmpj/jLj8XS79u4VwMA0OWW4dt1yLlXf8Z9kmCGhps=;
-	b=KvO6ZuaXZDF06OXxFjKPymPOeABp4c3w6JQ2o1bRVzgBv9fQ6tI7CMj2BhFfDfgDl7Cb
-	 CXTataS7LUWq9VAI5cMLsN/Oky5cuZydH1PDfHn0VY7rVXjcSjN87B8RPX/ZBOSZakKRv
-	 WD8jqI3OXbzbngU3c/bY6VERaRehUw3xwjR2gQh9KkoqKFXyCTrqlqvFjQqa7i8nJEPqR
-	 0RS/lq9YfTY4GlBjdh2zZvR46RtnwoRWnxFtryjwQgHmPa1IYo40ivYBrfSqH5NYiba2u
-	 DkcSyhsCSeAgBiHUY3+UklWLuLJqVIrTroGgCjI+bvesMAsTHZz8XyoUq4hOdFbTG/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792533102;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=du/VsXvpGoU4TbTB6TihajteW9SA20ibVgY/D3oS6UU=;
+	b=4PMqF2j5zg62fyIZgt+i4hq9zFKGVV++N76HFoc2asOlBA1bMqXABEaRf02cvyc+8xyN
+	 A+ibX+Tpl4GStAZN6O6MEHiusD1O4bvlXVgfhCuP7TkMpqN/XOWBxf8OWgJ0Zkx+sfpYQ
+	 Zk12JPXALxPH+bKhXZMozJECgHIvip3grjNqN64vL2TU9eJdosaXush2Hce3WRUBFMnaf
+	 LZDTmpG7qqcBvm2gVLiEja/KazpZNau/xYQdsDAsF5nn6MWY8hMyBRWTMk5fQjQ9GziAt
+	 k14AvQxhg4UyFaShTYQ74H96tPdUo4LiUkBWo7aG76keUedkb23oyWbjy4426KC8AaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=auogUJUJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QQprMQCp;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6687F606A31A;
-	Tue, 20 Oct 2026 21:51:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917E2606A319;
+	Tue, 20 Oct 2026 21:51:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 917E2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=auogUJUJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7941F000C9;
-	Tue, 20 Oct 2026 21:51:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792533074;
-	bh=Dgmpj/jLj8XS79u4VwMA0OWW4dt1yLlXf8Z9kmCGhps=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=auogUJUJ9o0R5aiFbjZ/10UAil6GoXkkEoT3MV2UdddpmxoN8nmqeOdF2wd2xaMdb
-	 vL5/ZF6ZUAbhfz9kcGpa8ijnxNFx4MrRZgpW+NA2aryJYM87LUa8Iib4Clyqa3mXDp
-	 FMHujrAsvaDyKCizK77/svDdwX8bbu5c4oPlCZnL0cyXMajL4VenKy8Q4Hc/ShzouX
-	 LjgaWLA2jSeNpsAmAT+40aHa5rzQt9t8UTdCaxQYOPQGTY6dxrxQBuHCVi7v60xzTc
-	 mOE6NGm5/QXseAqrJyTwWGFtJ2RiNeKSFXRzP608+9m5hfmdQrFyLojKfm4pYxqaVv
-	 BDnxlhAH4Ruug==
-From: Thomas Gleixner <tglx@kernel.org>
-To: tip-bot2 for Wang Shuaiwei <tip-bot2@linutronix.de>,
- linux-tip-commits@vger.kernel.org
-Cc: Wang Shuaiwei <wangshuaiwei1@xiaomi.com>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org, Waiman Long
- <llong@redhat.com>
-Subject: Re: [tip: timers/nohz] tick/nohz: Add BLOCK_SOFTIRQ to the hotplug
- safe mask
-In-Reply-To: <178985193276.2819794.55124822433246938.tip-bot2@tip-bot2>
-References: <20260904064506.671203-1-wangshuaiwei1@xiaomi.com>
- <178985193276.2819794.55124822433246938.tip-bot2@tip-bot2>
-Date: Tue, 20 Oct 2026 23:51:11 +0200
-Message-ID: <87ik2w11o0.ffs@fw13>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QQprMQCp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792533102; x=1824069102;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=PEfVcbXKkHHVq9Ags3CMYmB+lU1zUEH1kcy+tNpZ0cE=;
+  b=QQprMQCpBkeHi7Gkwg4lL/n/cgPYX55dEK3+nr28wGaQiggambbL8o8/
+   JmYa7fE7tRP1SSl86Gyia9+tCA5RuAq0L4R6YKL1Dz31AyEFojw6SBNIp
+   t/6pn+4SfiqImXMGAsajMn2xV9QEHLYiLgeIMdRpSuzpGLC1Z6NA0ryDI
+   QoWpfEG+ZUYoQPg1i4hpSEhTFhFABS8w/mxGf0lrb6E1D7NX24s+be3DE
+   sAtRhjMLEMxneknR37kM2JfI6Ko/gH0vfHYG0CmSQ5fzJdrdR6A8yYfyX
+   YQ/zteKjyofeFvbBnx8LDA2D8NDyXFpngn6GaTBV+cRZqb/Wyy3W8Kdla
+   w==;
+X-CSE-ConnectionGUID: DomZ5yWRSYO6tbMhDhRR8A==
+X-CSE-MsgGUID: nWoxQViCQei2GYaJCpyIcA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1136994"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1136994"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 14:51:41 -0700
+X-CSE-ConnectionGUID: wP4KsWL3Ts2Zi782tP2mbg==
+X-CSE-MsgGUID: gjtRkszLQ1KFvC8U7SYFJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3277320"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.181])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 14:51:40 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Hans de Goede <hansg@kernel.org>, 
+ Patryk Pilichowski <pat.pilichowski@gmail.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261020141427.1580282-1-pat.pilichowski@gmail.com>
+References: <20261020141427.1580282-1-pat.pilichowski@gmail.com>
+Subject: Re: [PATCH v2 0/2] platform/x86: msi-wmi: Ignore WMI events for
+ keys also handled by atkbd
+Message-Id: <179253309511.28707.18186547761243368124.b4-ty@b4>
+Date: Wed, 21 Oct 2026 00:51:35 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,39 +80,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Sat, Sep 19 2026 at 21:05, tip-bot wrote:
-> tick/nohz: Add BLOCK_SOFTIRQ to the hotplug safe mask
->
-> During CPU-hotplug stress testing combined with an I/O workload, the
-> following message is observed:
->
->   "NOHZ tick-stop error: local softirq work is pending, handler #10!!!"
->
-> On CPU offline, ksoftirqd is parked at CPUHP_AP_SMPBOOT_THREADS while the
-> CPU still takes interrupts. A block completion raised after that point
-> stays pending, and if the dying CPU goes idle before teardown,
-> report_idle_softirq() sees it, keeps the tick alive and prints the error
-> above.
->
-> Such pending block completions on the outgoing CPU are drained later by
-> blk_softirq_cpu_dead() (CPUHP_BLOCK_SOFTIRQ_DEAD), so a pending
-> BLOCK_SOFTIRQ is harmless here. Add it to SOFTIRQ_HOTPLUG_SAFE_MASK like
-> the other teardown-covered vectors.
+On Tue, 20 Oct 2026 16:14:25 +0200, Patryk Pilichowski wrote:
 
-In principle this is correct, but with partial hotplug it is not. It
-might work by chance, but not by design.
+> On MSI notebooks, several keys send a WMI event through the Wind event
+> GUID in addition to a regular AT keyboard event, and each press logs
+> "Unknown key pressed". This series marks those codes as KE_IGNORE.
+> 
+> Patch 1 sorts the existing scancodes numerically with no functional
+> change, as suggested by Ilpo. Patch 2 adds the new entries.
+> 
+> [...]
 
-Just use the sysfs interface to bring down the CPU to
-CPUHP_AP_SCHED_WAIT_EMPTY. If a soft interrupt is raised in that state
-which requires ksoftirqd then that might be delayed to the point where
-an interrupt arrives and eventually handles it (or not).
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-That means all of this "safe" mask magic needs some thoughts.
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
 
-Thanks,
+The list of commits applied:
+[1/2] platform/x86: msi-wmi: Sort scancodes numerically
+      commit: c21bef518bc023dfac0f22c9a63a813706e67639
+[2/2] platform/x86: msi-wmi: Ignore WMI events for keys also handled by atkbd
+      commit: 34f5b0ef61f6366b2bdc9f6d111bc5b225be004f
 
-        tglx
-
+--
+ i.
 
