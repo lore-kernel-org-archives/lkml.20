@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.36.163.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792527386;
-	b=SYGhqO9mZ9M1STFQkLmE4O3zAXKaV9zbX9pwG4TFhQkId4YVUdoNz6AxewwXNdWMIBgc
-	 lYD6N1UizvDcjfOlAKYkxbOn9pgtEZXi2NArWu5EhcjZBrCQ+lyRmTBI8oouUNmCB2tcJ
-	 1PSOApD4BHta47JSqUzOdhL6u/ij/IG3zQdjHDiMvwy5YFRgnMk7dXERsehAcevkErN2w
-	 hdOnAaDmra1dGAZK6TYcrB6rUSHb092rte9Mpa9ZVOI4R4I70WIRHF2pig9aj+Z5R7Nr4
-	 Vf/0UQdWyxUGudkd2h7rZL4fDr5ds7YSbwVo9TY7OA8R6uLlBXyJ7Ad/rrNmOguMUeA==
+	t=1792527408;
+	b=Z35uwGEn5IiTb1+g21k0vMZFXL38h9tbYDBBkCW32PDmmU5EtmB8TWKQvP6nRRe2gqzS
+	 Vpn1GwI66ipjWMAI7I37tfWiWRASehNL/TRUpwWUsV9mT6EQLjAkU9ETKLNXJJAwuO0L5
+	 ii9062ibByQrPcPmSau8XB//TzCuE+hjmVQ2uloORhxOy+h+A9Eu30Ti2WXKM9RvvEntx
+	 1GPb4izNtOR0cGxrXI6zreH2xW7aLVxRE9Mx59llZO/KB/zT4yUrGoqzFFMjWE0phu5PB
+	 FGX3VSHy96KCwbCJYP/PIqsQSB+um7EFm78Vr4/Lz34CjTOYmP9sP891rtZTKyZsOxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792527386;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=l8nfLNB3+5ViDqBfX9n3L+eaVBFkpa6RHHMKSpIEVFQ=;
-	b=WNPKSu+wyHrwuEAZgw7pgB8aFnpb0rOQCrhn1Nk2luyvz9WkPgF7AIcbRJRSWUCbD+dU
-	 Tkx0uzxdVFbB7efqQIP6+RYHHLo0iQCXnPvp57wb2AkVmc9eX8RQWgG0LDGWS4Oah1Glu
-	 bZuNvlTvaycU1lCawq7pH6Z9umScRSDCVQdCx81wrd4KGVZ2DBV3nzD1+KGHGTDafndBi
-	 +p5GP5NCI9f5A1IMjT6x7C3O+Ep59vSTweWslj8cZmjcLO8qNIxo1eL0JfIReCGXmuczG
-	 0NDzIKHEYkp3zcFT+6Dl5e85WcspvWC/TuvncPSYdbb+H7cujvkEscTn6pWTicN1iqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792527408;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:References:
+	 In-Reply-To:Accept-Language:Content-Language:X-MS-Has-Attach:
+	 X-MS-TNEF-Correlator:x-originating-ip:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:X-SEG-SpamProfiler-Analysis:
+	 X-SEG-SpamProfiler-Score;
+	bh=lGGqMygbUi+Y25JSyEHdD3vPIdAVBUUS53m4PDKIUm8=;
+	b=fXjMKqVuFkni1bj1QuUn6BgFKj9rlG64/IlRXyRZqvV2Nd19GcWyB0dB4gFXIi0BhxRo
+	 qjqnBwkpr5c01oQhXuWX08T5yldhNg8EhVRnjYADjLDbHEKckyDMzd6PeT4tsOvVFKXzP
+	 LHoopHjBkzIT2U551ybRjc19foB7pbvzSZaY3oEdg9GpwslLI6K6HlMyC1usPip0IYGEj
+	 /wV8qIrua0IqRfipg5YwWGupXSq0giP7nEITQPdboQrQ12RVDz7h9qVymLlbEDJvbayR7
+	 x4Ie9nx6DVuY8yaAli15OpjZg2CvraO4UBvwRC49DrzuZNSahgUphjErPv37pOmh63Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=weissschuh.net;
-	spf=pass smtp.mailfrom=weissschuh.net;
-	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=PlYqRBTH;
-	arc=none smtp.remote-ip=159.69.126.157
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	dmarc=pass header.from=alliedtelesis.co.nz;
+	spf=pass smtp.mailfrom=alliedtelesis.co.nz;
+	dkim=pass header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=ZgKkUPYD;
+	arc=none smtp.remote-ip=202.36.163.20
+Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97567606A31B;
-	Tue, 20 Oct 2026 20:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97567606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E0B606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06E0B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=PlYqRBTH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1792527383;
-	bh=t9+lk7wI4c/SelFDXwByIl2Q4CvsL2GzHqdgDMd0AqQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:From;
-	b=PlYqRBTHQf+mnT+suDeYO08a6XnW6gnVrtiqG54A5n5pl3G++QkZukSVRG1yPrnI7
-	 zy0RmvnCXZ9q1nIqa8JYB1JkNMHZJ2mHW4CkIZ8vHFulJxmZ4nmOy7vpEdgMczHUwN
-	 0IUJrF6fY/2gJXqK1Y/FqGTV3K5WIopGAdXOlQxc=
-Date: Tue, 20 Oct 2026 22:16:22 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Nicolas Schier <nsc@kernel.org>, 
-	Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>, Nathan Chancellor <nathan@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kbuild: deb-pkg: allow to set package name version
-Message-ID: <7bc00156-6723-4987-88bd-9d3451edc8a5@t-8ch.de>
-References: <20261019-deb-pkg-v1-1-7f8e60bbede5@sigxcpu.org>
- <atfI0Uc3iWSmR49j@levanger>
+	dkim=pass (2048-bit key, unprotected) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=ZgKkUPYD
+Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 481C42C057F;
+	Wed, 21 Oct 2026 09:16:34 +1300 (NZDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
+	s=mail181024; t=1792527394;
+	bh=lGGqMygbUi+Y25JSyEHdD3vPIdAVBUUS53m4PDKIUm8=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=ZgKkUPYDoXTHGyyxCnwKT5xOJp9ROSlH18rtsT7a71znNrIVj5KYCMuBU7wxebTAZ
+	 V9Ra0y6kOkkMNOTIcDDag2zOL251GCl5G96dkUfUO6lELGjqMsX4wMUqf3vIVhrd0o
+	 NkElALC6T62frst9EVXhXyi2POiZnVyn3yxulCTt6g9JZnEpCXf1z3YuLsAjYWigzc
+	 uSNIiEUDNVLffb2tUkH7pBVQcGyL8silIWB1btxthpbWe2L7+mxArenIgB1mTeQ3RA
+	 pLGZHc5lKaYIUfkDFtAgSVREVBspc8Ii4Kp+nNdpikIkj7+htUjI/i7L4bln6a19Lz
+	 aP8uPnOfqXXNg==
+Received: from svr-chch-ex2.atlnz.lc (Not Verified[2001:df5:b000:bc8::76]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
+	id <B6ad7cc220001>; Wed, 21 Oct 2026 09:16:34 +1300
+Received: from svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8::76) by
+ svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8::76) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 21 Oct 2026 09:16:33 +1300
+Received: from svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567]) by
+ svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567%15]) with mapi id
+ 15.02.2562.056; Wed, 21 Oct 2026 09:16:33 +1300
+From: Chris Packham <Chris.Packham@alliedtelesis.co.nz>
+To: Ross Cawston <ross@r-sc.ca>, "andrew@lunn.ch" <andrew@lunn.ch>, "Markus
+ Stockhausen" <markus.stockhausen@gmx.de>
+CC: "lee@kernel.org" <lee@kernel.org>, "pavel@kernel.org" <pavel@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@kernel.org" <edumazet@kernel.org>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/3] leds: add Realtek RTL9300 port LEDs under software
+ control
+Thread-Topic: [PATCH 0/3] leds: add Realtek RTL9300 port LEDs under software
+ control
+Thread-Index: AQHdXzkLyWoGk3ubIUO2orwfvDHWs7cDCdoAgAAMOwCAAvFUAA==
+Date: Tue, 20 Oct 2026 20:16:33 +0000
+Message-ID: <c5f79284-941a-4a93-a37e-398613d5ddfa@alliedtelesis.co.nz>
+References: <20261018194339.132-1-ross@r-sc.ca>
+ <59f75e7d-9b56-441d-a4b5-58ad3862267e@lunn.ch>
+ <20261018232015.527-1-ross@r-sc.ca>
+In-Reply-To: <20261018232015.527-1-ross@r-sc.ca>
+Accept-Language: en-NZ, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C4B4329473912A4C8D8743478EDEAFA4@alliedtelesis.co.nz>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,31 +101,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atfI0Uc3iWSmR49j@levanger>
+X-SEG-SpamProfiler-Analysis: v=2.4 cv=FJW4xPos c=1 sm=1 tr=0 ts=6ad7cc22 a=Xf/6aR1Nyvzi7BryhOrcLQ==:117 a=xqWC_Br6kY4A:10 a=drD7vYo3kbIA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=rzwT0FkT7oDZkIX673MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-SEG-SpamProfiler-Score: 0
 
-On 2026-10-20 22:02:25+0200, Nicolas Schier wrote:
-> On Mon, Oct 19, 2026 at 09:16:14PM +0200, Guido Günther wrote:
-> > Instead of hardcoding ${KERNELRELEASE} in the package name allow
-> > the user to override this.
-> > 
-> > This can be useful if one doesn't want to accumulate different packages
-> > for every commit or micro version bump by setting
-> > KDEB_PKGNAMEVERSION=7.3 or even KDEB_PKGNAMEVERSION=stable.
-> 
-> I am not yet convinced, that this is a good idea.  Do you want to
-> elaborate a bit more, why you think this is necessary?  Have you tested
-> your patch?  I don't like that source package name and binary package
-> name divert w/o good reasoning.
-
-FWIW we have something similar for the Arch Linux packaging with
-PACMAN_PKGBASE. It is the complement to the proposed patch, as Arch Linux
-by default does *not* allow multiple installed kernel packages of a
-single type at the same time. PACMAN_PKGBASE allows this.
-KDEB_PKGNAMEVERSION would enable the Arch Linux behavior for the Debian
-packages. Personally I would have found this convenient in the past.
-
-
-Thomas
+SGkgUm9zcywNCg0KT24gMTkvMTAvMjAyNiAxMjoyMCwgUm9zcyBDYXdzdG9uIHdyb3RlOg0KPiBP
+biBTdW4sIE9jdCAxOCwgMjAyNiBhdCAxMDozNiBQTSBVVEMsIEFuZHJldyBMdW5uIHdyb3RlOg0K
+Pj4gUG9ydCBMRURzIHNob3VsZCBiZSB3aXRoaW4gdGhlIHBvcnQgbm9kZSBvZiB0aGUgc3dpdGNo
+IGluIERULiBJZGVhbGx5DQo+PiB5b3Ugd2FudCBhbGwgTEVEcyBmb3IgYSBwb3J0IHRvIHN0YXJ0
+IHRoZSB3aXRoIGJhc2ljcywgb24vb2ZmIGNvbnRyb2wuDQo+IFsuLi5dDQo+PiBTbyBwbGVhc2Ug
+ZG9uJ3QgbWFrZSB0aGVzZSBMRURzIHNwZWNpYWwuDQo+IFRoYXQgbWFrZXMgc2Vuc2UuIFRoZSBj
+YXRjaCBpcyB0aGF0IFJUTDkzMDAgaGFzIG5vIHN3aXRjaCBkcml2ZXINCj4gdXBzdHJlYW0geWV0
+LCBzbyB0aGVyZSBpcyBubyBwb3J0IG5vZGUgd2l0aCBhIGRyaXZlciBiZWhpbmQgaXQgdG8gcHV0
+DQo+IHRoZW0gaW46IG1haW5saW5lIG9ubHkgaGFzIGRyaXZlcnMgZm9yIHRoZSBzd2l0Y2gncyBJ
+MkMgYW5kIE1ESU8NCj4gY29udHJvbGxlcnMuDQo+DQo+IFVubGVzcyB5b3Ugc2VlIGEgcGxhY2Ug
+dGhleSBjb3VsZCBnbyBpbiB0aGUgbWVhbnRpbWUsIEknbGwgd2l0aGRyYXcNCj4gdGhpcyBzZXJp
+ZXMgdW50aWwgdGhlcmUgaXMgb25lLg0KPg0KPiBDaHJpcywgZG8geW91IGtub3cgb2YgYW55b25l
+IHdvcmtpbmcgb24gYW4gUlRMOTMwMCBzd2l0Y2ggZHJpdmVyPyBJZg0KPiBzbywgSSdkIGJlIGds
+YWQgdG8gaGVscCB3aXRoIHRoZSBwb3J0IExFRHMgdGhlcmUuDQoNCkkgZG9uJ3Qga25vdyBvZiBh
+bnlvbmUgYWN0aXZlbHkgd29ya2luZyBvbiBpdC4gSSBkaWQgaGF2ZSBzb21ldGhpbmcgDQp2YWd1
+ZWx5IGZ1bmN0aW9uYWwgYXMgYSBzd2l0Y2hkZXYgZHJpdmVyLCBJJ2xsIHNlZSBpZiBJIGNhbiBk
+aWcgaXQgdXAgDQphbmQgc2VuZCBpdCB0byB5b3UgZGlyZWN0bHkuIEkgZGlkIGxvb2sgYXQgdGhl
+IERTQSBkcml2ZXIgZnJvbSBvcGVud3J0IA0KYnV0IEkgY29uc2lkZXIgRFNBIHRoZSB3cm9uZyBt
+b2RlbCBmb3IgdGhlIFJUTDkzMDAgKG1haW5seSBiZWNhdXNlIHRoZSANCiJuaWMiIGlzIG5vdCBh
+IHRydWUgRXRoZXJuZXQgaW50ZXJmYWNlIGl0J3MganVzdCB0aGUgRE1BIGNoYW5uZWwgZm9yIA0K
+dHJhcHBlZCBwYWNrZXRzIGFuZCBGREIgdXBkYXRlcykuDQoNCkknbSBzdGlsbCB2YWd1ZWx5IHdv
+cmtpbmcgb24gUlRMIHN0dWZmIGJ1dCB3ZSd2ZSBwaXZvdGVkIHRvIHRoZSBBUk12OCANCmJhc2Vk
+IFJUTDkzMTFCLiBGb3Igb3VyIGNvbW1lcmNpYWwgcHJvZHVjdCB3ZSdsbCBiZSBzdGFydGluZyB3
+aXRoIHRoZSANClJlYWx0ZWsgU0RLIGJ1dCBwZXJzb25hbGx5IEknZCByZWFsbHkgbGlrZSB0byBz
+ZWUgYW4gaW4ta2VybmVsIGRyaXZlciANCmZvciB0aGVzZSBzd2l0Y2hlcy4NCg==
