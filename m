@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792527387;
-	b=gK1T/6zMw/3tzKpKXO8iF0n5EMwMzzkhqqNkhiPex16qob/YIn9fBXRaqlSIblYPMQGl
-	 rzvrXHSs/3MddqdrQIwI1sCY6gk7g6q1NttLg9cy1Sq/n1Witpfb3DVBTyaYW1BbagIcp
-	 SX9TrKGZX4PaWImZDIqyGW9mIDvq0qrMQdSgyd+0Lmwbn5IflosLMFcdtPafp5eKlWaD2
-	 iar+wivUn3oLXHU6Y1aM0cXdcCK17k22GPq6p75vulyrKMEz6x+zogoPgzU/57MSE1buu
-	 e3AOgjXXvun53L0GZhe+CdRd9ybQSEc/Pf69ep/W0RhJN4rXP+Ev+GZ1GptO8H9K6Cw==
+	t=1792527386;
+	b=SYGhqO9mZ9M1STFQkLmE4O3zAXKaV9zbX9pwG4TFhQkId4YVUdoNz6AxewwXNdWMIBgc
+	 lYD6N1UizvDcjfOlAKYkxbOn9pgtEZXi2NArWu5EhcjZBrCQ+lyRmTBI8oouUNmCB2tcJ
+	 1PSOApD4BHta47JSqUzOdhL6u/ij/IG3zQdjHDiMvwy5YFRgnMk7dXERsehAcevkErN2w
+	 hdOnAaDmra1dGAZK6TYcrB6rUSHb092rte9Mpa9ZVOI4R4I70WIRHF2pig9aj+Z5R7Nr4
+	 Vf/0UQdWyxUGudkd2h7rZL4fDr5ds7YSbwVo9TY7OA8R6uLlBXyJ7Ad/rrNmOguMUeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792527387;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dHXCMZxbmZBp3LZs3JAEzMx2van/657Vf/vx+nmCHDw=;
-	b=4bX1yJc5vnwV1J7d1wBkgRjBo7dtIMAG66YSYW1L1UVVyCx4o0tJ5dZYTj+GtBWMAG/C
-	 wOu/JjVhxVzvf1C36SHTKZI36xSy2CdsqVlKykRsR35UB2wBD42AbqoltAAoUryeyP2yp
-	 uKqLVC6Dp0MlBF4n5H9UG7Td0jzCVmR6VqiMtRsrfldoSO2PUHxbWFPy8KdNEZDNTl61U
-	 AeAqzoPSqr8TP6jQR0LuuvlXsevL0I1ydNWS0j4tcqYy1ybB4gDW4pKcgLpd5RJkWfvFn
-	 BU7YZK/2WJ/ZdNj6JEJZtq+twYYCecnhDoeXkASklcHuJI8oFof5MxzNpS1fbo3Qwbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792527386;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=l8nfLNB3+5ViDqBfX9n3L+eaVBFkpa6RHHMKSpIEVFQ=;
+	b=WNPKSu+wyHrwuEAZgw7pgB8aFnpb0rOQCrhn1Nk2luyvz9WkPgF7AIcbRJRSWUCbD+dU
+	 Tkx0uzxdVFbB7efqQIP6+RYHHLo0iQCXnPvp57wb2AkVmc9eX8RQWgG0LDGWS4Oah1Glu
+	 bZuNvlTvaycU1lCawq7pH6Z9umScRSDCVQdCx81wrd4KGVZ2DBV3nzD1+KGHGTDafndBi
+	 +p5GP5NCI9f5A1IMjT6x7C3O+Ep59vSTweWslj8cZmjcLO8qNIxo1eL0JfIReCGXmuczG
+	 0NDzIKHEYkp3zcFT+6Dl5e85WcspvWC/TuvncPSYdbb+H7cujvkEscTn6pWTicN1iqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="stA/Z/0R";
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=PlYqRBTH;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1331D606A320;
-	Tue, 20 Oct 2026 20:16:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1331D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97567606A31B;
+	Tue, 20 Oct 2026 20:16:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97567606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=stA/Z/0R
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j8NwV2xGWz1XM4Tn;
-	Tue, 20 Oct 2026 20:16:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792527382; x=1795119383; bh=dHXCMZxbmZBp3LZs3JAEzMx2
-	van/657Vf/vx+nmCHDw=; b=stA/Z/0RymJ2jtWL4LUXUX5z+oQ5LvcSYryvbJ/7
-	pc9NWVi8F+X0ebIw+kH3Rw+m3Ss4Hi6MMUpKGi4/FwMx+tDfog/0ffMh+Woo5Bhq
-	Fd9uu/WzJpzFLWL2xiwjAJr+K12J4uix5fzR6OHSyp86tmrXwtjHsszH/pJxMhhN
-	n5smGxRA3G8dOZJ8tzo2W9mUpdhXpgquJ/SenA2taHFMpUYRespmlRa+SafWJcyu
-	Nui8u2L8bxe6k45Fdt5xvp3D28GkPlzLM/IluDmz5oQi1aNHNAQTh6UMSozwwcBU
-	BMhxaPcR+1DGObqmi9dOmTYHi8YOCY6TN+rqXwMKLSeCzw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id FDsGoPmVIBWK; Tue, 20 Oct 2026 20:16:22 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j8NwP0Lyqz1XM4Tl;
-	Tue, 20 Oct 2026 20:16:20 +0000 (UTC)
-Message-ID: <b43f6355-2d02-4957-af64-1d9e4238090d@acm.org>
-Date: Tue, 20 Oct 2026 13:16:18 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=PlYqRBTH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1792527383;
+	bh=t9+lk7wI4c/SelFDXwByIl2Q4CvsL2GzHqdgDMd0AqQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:From;
+	b=PlYqRBTHQf+mnT+suDeYO08a6XnW6gnVrtiqG54A5n5pl3G++QkZukSVRG1yPrnI7
+	 zy0RmvnCXZ9q1nIqa8JYB1JkNMHZJ2mHW4CkIZ8vHFulJxmZ4nmOy7vpEdgMczHUwN
+	 0IUJrF6fY/2gJXqK1Y/FqGTV3K5WIopGAdXOlQxc=
+Date: Tue, 20 Oct 2026 22:16:22 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Nicolas Schier <nsc@kernel.org>, 
+	Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>, Nathan Chancellor <nathan@kernel.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kbuild: deb-pkg: allow to set package name version
+Message-ID: <7bc00156-6723-4987-88bd-9d3451edc8a5@t-8ch.de>
+References: <20261019-deb-pkg-v1-1-7f8e60bbede5@sigxcpu.org>
+ <atfI0Uc3iWSmR49j@levanger>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,37 +58,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] scsi: ufs: core: Do not release a reserved request
- in ufshcd_abort()
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
- <mkp@kernel.org>, linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
- Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261020082110.3511797-1-stanleyjhu@google.com>
- <20261020082110.3511797-8-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261020082110.3511797-8-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <atfI0Uc3iWSmR49j@levanger>
 
-On 10/20/26 1:21 AM, Stanley Jhu wrote:
-> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-> index ee898f4a5bb1..5d1a9b4e9b8d 100644
-> --- a/drivers/ufs/core/ufshcd.c
-> +++ b/drivers/ufs/core/ufshcd.c
-> @@ -8228,7 +8228,8 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
->   	 * Clear the corresponding bit from outstanding_reqs since the command
->   	 * has been aborted successfully.
->   	 */
-> -	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
-> +	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)) &&
-> +	    ufshcd_is_scsi_cmd(cmd))
->   		ufshcd_release_scsi_cmd(hba, cmd);
->   
->   	err = SUCCESS;
+On 2026-10-20 22:02:25+0200, Nicolas Schier wrote:
+> On Mon, Oct 19, 2026 at 09:16:14PM +0200, Guido Günther wrote:
+> > Instead of hardcoding ${KERNELRELEASE} in the package name allow
+> > the user to override this.
+> > 
+> > This can be useful if one doesn't want to accumulate different packages
+> > for every commit or micro version bump by setting
+> > KDEB_PKGNAMEVERSION=7.3 or even KDEB_PKGNAMEVERSION=stable.
+> 
+> I am not yet convinced, that this is a good idea.  Do you want to
+> elaborate a bit more, why you think this is necessary?  Have you tested
+> your patch?  I don't like that source package name and binary package
+> name divert w/o good reasoning.
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+FWIW we have something similar for the Arch Linux packaging with
+PACMAN_PKGBASE. It is the complement to the proposed patch, as Arch Linux
+by default does *not* allow multiple installed kernel packages of a
+single type at the same time. PACMAN_PKGBASE allows this.
+KDEB_PKGNAMEVERSION would enable the Arch Linux behavior for the Debian
+packages. Personally I would have found this convenient in the past.
+
+
+Thomas
