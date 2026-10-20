@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.249.212.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792504165;
-	b=S/WOH83jtyByNx+lCNW5zGPR0oNnjSKK9Ayol+j2EOAqYCGQLsi68A/DrQfJzablVDzL
-	 2QwGPA8ZAwYHqkBTPNXAlczcRHglZ4NQ58DxX5vx6Awk244FM29onrlb0X93xav2n4Cdp
-	 CJnMj3jsUpLTuj5msHHxq2APp+WtP5iaIYdItifqhfM4K4CNywEH9CaydvdMOgK2XS0ju
-	 Q5kvwaFZ/xEOF9Q4kYNIJ8P6mjeqJk8Cs0MsCJOCD7Oi829VgxON8KYc8inIQKPasJWYs
-	 1CD+ryjvfP0RnCd0EpsdvbJsH3+RH93zsCo360OcPbKspPYLUSvgCjELuXSn8na9ZzQ==
+	b=Dyr0mlv8wTQo5IhxtNjZTAdvY3psDFKvEwycWLSCfjjPl6EoS06GFJtc/DeGaV8Jkz2b
+	 d4tj5nSbrC0EB7frRO4TTa4sMyDp2xBVGw2wN1xt7s6WXGyMaApEZuvUAByP05WXaS3T1
+	 NwNpCM4f8SKRydwEixBE4WrzdGQOuKmU5+4vMq0vXVfKMKETrGlZQFWuO4jVQOeo9RnrA
+	 KJzp90gn1W3l3Ej/HQiRQNK4I5GdOn1N1f5EIm9ahEKZG4+0PsF0hoTGsFtiSOh48IFgV
+	 pSdE1QYdT8B/cp6iE3yjFhwTtCH/bJBDu1LFcK9oGCCxGoi54MAX9gP0X7JcQpCJGfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792504165;
 	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=2COAk/CcWgyuKoSCiG2BraDacDuukk9ckYGnLhe88x4=;
-	b=y2d6EiEFt9vr38QN+uOptJMhFY68xQo+zjvUHGPi0DmQ4G4XMRfe0j5Zhr3WfJoKf+yI
-	 kzQKX3OpT46WqmJahm1yfXmSmZtwIixo4X8vFJa5xBt5nwhII6OeodDzrEL6kAgg0L6TI
-	 +ow1D4Hskgm9HUzc68B+KkrjFVtS+HTgFbhDz/pO9+EhaWqn/yXGk69RQf5pPp6FSlSvD
-	 l2hYIQJsVS2ipXA/w+8mk9JkZDoX2ENZXWew0kn9RHv6hwWgThv6WrFMETr6kHGrfVEqP
-	 qaFFOlPjfHjXkNSeDGZq588BJPMU9KVFz415gk00lHzCH/pod0TMV5JRQL4tamrxCOw==
+	bh=TCuwUlgjsjgq6HIlrPRr3zg9Ei2scfmEW2TTFFhMGK0=;
+	b=bN6WjmoXYy6c+iT1RU3WSkHMErlOs9nTM52Qgax+XReuoYfYRxt8ZSnjWD6B0Dk+JdDr
+	 yNJEeUWRxg37GbOmu9cYT90N3EwgbD5ohI4y6mnPDfXI5OhqKOVyJx8C9FK5XzYa7lSGO
+	 cTDu7ZId55pINyNRDy8ANaul3ocUEZb10UGnJ0kWHTtlSl7M7mUV4V2ZFMhyhvuzwGOub
+	 PliPdOPMzbQCLLIAMbIv3/7uqsi58M6s93peRX+ZKMH7WhsAVoFlNiU/teF9i5KXZRnIK
+	 LjkHZy+ZIjY1oAqI6lRVaQsbLbfDjloK0Y6UfJuoXZc33TgVn1dXQTgbyHO6agdbP8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=huaweicloud.com;
 	spf=pass smtp.mailfrom=huaweicloud.com;
@@ -26,19 +26,19 @@ Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7AC5606AB39;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F04606B653;
 	Tue, 20 Oct 2026 13:49:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7AC5606AB39
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4F04606B653
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
 Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j8DKd1hPczKHMWm;
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j8DKd4NZMzKHMZF;
 	Tue, 20 Oct 2026 21:49:09 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 2F70D408E5;
+	by mail.maildlp.com (Postfix) with ESMTP id 8925E409A8;
 	Tue, 20 Oct 2026 21:49:19 +0800 (CST)
 Received: from localhost.huawei.com (unknown [10.67.174.243])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgB3d_pdcddq79ScBA--.16873S7;
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgB3d_pdcddq79ScBA--.16873S13;
 	Tue, 20 Oct 2026 21:49:19 +0800 (CST)
 From: Xu Kuohai <xukuohai@huaweicloud.com>
 To: bpf@vger.kernel.org,
@@ -50,9 +50,9 @@ Cc: Alexei Starovoitov <ast@kernel.org>,
 	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
 	Emil Tsalapatis <emil@etsalapatis.com>,
 	Yonghong Song <yonghong.song@linux.dev>
-Subject: [PATCH bpf-next 05/16] libbpf: Add the arena percpu chunk attribute to map creation options
-Date: Tue, 20 Oct 2026 13:22:50 +0000
-Message-ID: <e596c9878df94ac93c172d93106c8ebd2dac4bb7.1792503001.git.xukuohai@huawei.com>
+Subject: [PATCH bpf-next 11/16] bpf, arm64: Add support for arena percpu
+Date: Tue, 20 Oct 2026 13:22:56 +0000
+Message-ID: <1ada7d01118df6deb0707b1a17ff11e041d6ca80.1792503001.git.xukuohai@huawei.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1792503001.git.xukuohai@huawei.com>
 References: <cover.1792503001.git.xukuohai@huawei.com>
@@ -66,11 +66,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgB3d_pdcddq79ScBA--.16873S7
-X-Coremail-Antispam: 1UD129KBjvJXoWxWrW7XFWkZry3Wr47KFy8Krg_yoW5uFy8pF
-	43CFyxCr15Xr45Z3yDWa1Fvw4YgFnxWry2y3y7JryUZFZrZw1fAry2kanxAryagFZ0yw17
-	u3yagryUXFyxZrJanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+X-CM-TRANSID:_Ch0CgB3d_pdcddq79ScBA--.16873S13
+X-Coremail-Antispam: 1UD129KBjvJXoWxXryxCF1rCw1xuF4UWryxuFg_yoWrCrWxpF
+	n2kr95Cr48XF45Z395Xw4DJr13KanYgw48KrZ8G3yftryYqryDGFsYka13Aa45WrWUur43
+	GFy2gry3ua4UArUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPYb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
 	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
 	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
 	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
@@ -80,94 +80,137 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxWrW7XFWkZry3Wr47KFy8Krg_yoW5uFy8pF
 	6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtV
 	W8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
 	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
-	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJw
-	CI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU1KFAJUU
-	UUU==
+	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr
+	1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07Ui4SrU
+	UUUU=
 X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
 
 From: Xu Kuohai <xukuohai@huawei.com>
 
-Add the percpu chunk offset and size information to the map creation
-attribute, and set the values when creating an arena map.
+Add arm64 JIT support for the arena percpu pseudo instruction.
+Translate the address for each cpu by adding the offset
+smp_processor_id() * chunk_sz to cpu 0's address.
 
 Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
 ---
- tools/include/uapi/linux/bpf.h | 4 ++++
- tools/lib/bpf/bpf.c            | 4 +++-
- tools/lib/bpf/bpf.h            | 4 ++++
- tools/lib/bpf/libbpf.c         | 6 ++++++
- 4 files changed, 17 insertions(+), 1 deletion(-)
+ arch/arm64/net/bpf_jit_comp.c | 51 ++++++++++++++++++++++++++++-------
+ include/linux/bpf.h           |  2 +-
+ kernel/bpf/arena.c            |  2 +-
+ 3 files changed, 43 insertions(+), 12 deletions(-)
 
-diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
-index 6f70db7515dd..246f52361372 100644
---- a/tools/include/uapi/linux/bpf.h
-+++ b/tools/include/uapi/linux/bpf.h
-@@ -1615,6 +1615,10 @@ union bpf_attr {
- 		__aligned_u64 excl_prog_hash;
- 		/* Size of the passed excl_prog_hash. */
- 		__u32 excl_prog_hash_size;
+diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+index 1d5f4cf88d33..998806cc700e 100644
+--- a/arch/arm64/net/bpf_jit_comp.c
++++ b/arch/arm64/net/bpf_jit_comp.c
+@@ -500,6 +500,21 @@ static void emit_percpu_ptr(const u8 dst_reg, void __percpu *ptr,
+ 	emit(A64_ADD(1, dst_reg, dst_reg, tmp), ctx);
+ }
+ 
++static void emit_current_cpu_id(u8 dst, struct jit_ctx *ctx)
++{
++	u8 tmp = bpf2a64[TMP_REG_1];
++	u8 tmp2 = bpf2a64[TMP_REG_2];
++	u32 cpu_offset = offsetof(struct thread_info, cpu);
 +
-+		/* offset and size of an arena percpu chunk */
-+		__u32	arena_percpu_chunk_off;
-+		__u32	arena_percpu_chunk_sz;
- 	};
- 
- 	struct { /* anonymous struct used by BPF_MAP_*_ELEM and BPF_MAP_FREEZE commands */
-diff --git a/tools/lib/bpf/bpf.c b/tools/lib/bpf/bpf.c
-index b49822d212ae..3d5fd7e23898 100644
---- a/tools/lib/bpf/bpf.c
-+++ b/tools/lib/bpf/bpf.c
-@@ -210,7 +210,7 @@ int bpf_map_create(enum bpf_map_type map_type,
- 		   __u32 max_entries,
- 		   const struct bpf_map_create_opts *opts)
- {
--	const size_t attr_sz = offsetofend(union bpf_attr, excl_prog_hash_size);
-+	const size_t attr_sz = offsetofend(union bpf_attr, arena_percpu_chunk_sz);
- 	const size_t attr_common_sz = sizeof(struct bpf_common_attr);
- 	struct bpf_common_attr attr_common;
- 	struct bpf_log_opts *log_opts;
-@@ -246,6 +246,8 @@ int bpf_map_create(enum bpf_map_type map_type,
- 	attr.map_token_fd = OPTS_GET(opts, token_fd, 0);
- 	attr.excl_prog_hash = ptr_to_u64(OPTS_GET(opts, excl_prog_hash, NULL));
- 	attr.excl_prog_hash_size = OPTS_GET(opts, excl_prog_hash_size, 0);
-+	attr.arena_percpu_chunk_off = OPTS_GET(opts, arena_percpu_chunk_off, 0);
-+	attr.arena_percpu_chunk_sz = OPTS_GET(opts, arena_percpu_chunk_sz, 0);
- 
- 	log_opts = OPTS_GET(opts, log_opts, NULL);
- 	if (!OPTS_VALID(log_opts, bpf_log_opts))
-diff --git a/tools/lib/bpf/bpf.h b/tools/lib/bpf/bpf.h
-index 826d9cc9ab65..15a544488eb5 100644
---- a/tools/lib/bpf/bpf.h
-+++ b/tools/lib/bpf/bpf.h
-@@ -70,6 +70,10 @@ struct bpf_map_create_opts {
- 	const void *excl_prog_hash;
- 	__u32 excl_prog_hash_size;
- 
-+	/* offset and size of an arena percpu chunk */
-+	__u32 arena_percpu_chunk_off;
-+	__u32 arena_percpu_chunk_sz;
-+
- 	struct bpf_log_opts *log_opts;
- 
- 	size_t :0;
-diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-index 3d18ba483f6e..0b0c9d72b353 100644
---- a/tools/lib/bpf/libbpf.c
-+++ b/tools/lib/bpf/libbpf.c
-@@ -5816,6 +5816,12 @@ static int bpf_object__create_map(struct bpf_object *obj, struct bpf_map *map, b
- 	create_attr.map_flags = def->map_flags;
- 	create_attr.numa_node = map->numa_node;
- 	create_attr.map_extra = map->map_extra;
-+
-+	if (obj->arena_percpu.present && map == &obj->maps[obj->arena_map_idx]) {
-+		create_attr.arena_percpu_chunk_off = obj->arena_percpu.offset;
-+		create_attr.arena_percpu_chunk_sz = obj->arena_percpu.chunk_sz;
++	emit(A64_MRS_SP_EL0(tmp), ctx);
++	if (is_lsi_offset(cpu_offset, 2)) {
++		emit(A64_LDR32I(dst, tmp, cpu_offset), ctx);
++	} else {
++		emit_a64_mov_i(1, tmp2, cpu_offset, ctx);
++		emit(A64_LDR32(dst, tmp, tmp2), ctx);
 +	}
++}
 +
- 	create_attr.token_fd = obj->token_fd;
- 	if (obj->token_fd)
- 		create_attr.map_flags |= BPF_F_TOKEN_FD;
+ #define BTI_INSNS (IS_ENABLED(CONFIG_ARM64_BTI_KERNEL) ? 1 : 0)
+ #define PAC_INSNS (IS_ENABLED(CONFIG_ARM64_PTR_AUTH_KERNEL) ? 1 : 0)
+ 
+@@ -1742,19 +1757,10 @@ static int build_insn(const struct bpf_verifier_env *env, const struct bpf_insn
+ 		const u8 r0 = bpf2a64[BPF_REG_0];
+ 		bool func_addr_fixed;
+ 		u64 func_addr;
+-		u32 cpu_offset;
+ 
+ 		/* Implement helper call to bpf_get_smp_processor_id() inline */
+ 		if (insn->src_reg == 0 && insn->imm == BPF_FUNC_get_smp_processor_id) {
+-			cpu_offset = offsetof(struct thread_info, cpu);
+-
+-			emit(A64_MRS_SP_EL0(tmp), ctx);
+-			if (is_lsi_offset(cpu_offset, 2)) {
+-				emit(A64_LDR32I(r0, tmp, cpu_offset), ctx);
+-			} else {
+-				emit_a64_mov_i(1, tmp2, cpu_offset, ctx);
+-				emit(A64_LDR32(r0, tmp, tmp2), ctx);
+-			}
++			emit_current_cpu_id(r0, ctx);
+ 			break;
+ 		}
+ 
+@@ -1829,6 +1835,26 @@ static int build_insn(const struct bpf_verifier_env *env, const struct bpf_insn
+ 		else
+ 			emit_a64_mov_i64(dst, imm64, ctx);
+ 
++#ifdef CONFIG_SMP
++		if (insn->src_reg == BPF_PSEUDO_ARENA_PERCPU) {
++			u32 chunk_sz = bpf_arena_percpu_chunk_sz(bpf_prog_arena(ctx->prog));
++
++			/* tmp = smp_processor_id() */
++			emit_current_cpu_id(tmp, ctx);
++			/*
++			 * tmp *= chunk_sz
++			 * arena_map_alloc() guarantees
++			 * chunk_sz * nr_cpu_ids <= vm_range <= 4 GiB and
++			 * cpu_number < nr_cpu_ids, so a 32-bit mul
++			 * cannot overflow here.
++			 */
++			emit_a64_mov_i(0, tmp2, chunk_sz, ctx);
++			emit(A64_MUL(0, tmp, tmp, tmp2), ctx);
++			/* dst += tmp */
++			emit(A64_ADD(1, dst, dst, tmp), ctx);
++		}
++#endif
++
+ 		return 1;
+ 	}
+ 
+@@ -3446,6 +3472,11 @@ bool bpf_jit_supports_percpu_insn(void)
+ 	return true;
+ }
+ 
++bool bpf_jit_supports_arena_percpu_insn(void)
++{
++	return true;
++}
++
+ bool bpf_jit_bypass_spec_v4(void)
+ {
+ 	/* In case of arm64, we rely on the firmware mitigation of Speculative
+diff --git a/include/linux/bpf.h b/include/linux/bpf.h
+index 5ffefcd5f15e..4a7af8433c19 100644
+--- a/include/linux/bpf.h
++++ b/include/linux/bpf.h
+@@ -677,7 +677,7 @@ u64 bpf_arena_map_kern_vm_start(struct bpf_map *map);
+ u32 bpf_arena_percpu_chunk_off(const struct bpf_map *map);
+ u32 bpf_arena_percpu_chunk_sz(const struct bpf_map *map);
+ bool bpf_arena_percpu_off_in_range(const struct bpf_map *map, u32 off);
+-struct bpf_map *bpf_prog_arena(struct bpf_prog *prog);
++struct bpf_map *bpf_prog_arena(const struct bpf_prog *prog);
+ int bpf_obj_name_cpy(char *dst, const char *src, unsigned int size);
+ 
+ struct bpf_offload_dev;
+diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+index 310573a2661b..4d2df31d1811 100644
+--- a/kernel/bpf/arena.c
++++ b/kernel/bpf/arena.c
+@@ -133,7 +133,7 @@ bool bpf_arena_percpu_off_in_range(const struct bpf_map *map, u32 off)
+  * prog->aux->arena. Return that arena's underlying bpf_map, or NULL if
+  * @prog does not reference an arena.
+  */
+-struct bpf_map *bpf_prog_arena(struct bpf_prog *prog)
++struct bpf_map *bpf_prog_arena(const struct bpf_prog *prog)
+ {
+ 	struct bpf_arena *arena = prog->aux->arena;
+ 
 -- 
 2.47.3
 
