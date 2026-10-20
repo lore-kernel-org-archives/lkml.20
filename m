@@ -1,91 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792516204;
-	b=mzYqT4m5jE9YYmnzCHps0bu6RY2gt0GMmbpxFCXKZeqKsPRWTvxQE8/byxE2lzJocKqg
-	 bdCOBMjm6Ml5YkyTkPgs7I6ItuwOSKYMKEK6xLXYllEbaU1l2v6X26zgSwuLLuC703QHu
-	 WN/i3wfhBCL5YO2uprECgi+cjLfRPT3z7JAs4RcBMHEyuLqIZHBnQstURw81Cx+ZPD98G
-	 oyHDLMJMUBE39sDPd6KosTvs+BurU/IfQTgjdAIVXG2jY7VXTSLRn1+VIL4I4tlWdEfOg
-	 evIx4fh6ZOfb8iggoTp887i65hr4I+wK+4GcqOWsusqlzoA8UkVl3RQ3I/povbqChcA==
+	t=1792516253;
+	b=4z0SIAYxrL/gxfPdCmS6Fgo19oLgHdmawuse71d1d3RwC2Wr1xvxh7roo+2wRPuRlgK3
+	 3s26ckrmrr1rO4WLyJJpylZQQEDrWLzMHfR2sXzmFTg6othOko846LkHd+SxytIyTgb4j
+	 TAqxDwFjABJG/ihYH3wj1e9i8x8jbiYTy/gJQh3feGYFq3MZJmKR1mOCiBzK0RleVqrgs
+	 oH+PXBSu6Oo1uWMCTPMmnJRKqHalH8S10t0xUvos2524qyPiCO2JOI+RZTUE/sQLXI6ML
+	 3ytFHwa2HPDEI/9k6K4ilZUQN6a3h4Jhkk+vkAcwqk8KtONcjdndJ/KqpBOuRwIu2MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516204;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mB3ExWCA2J/hz4bVxnQ14PDyt+eP4cInceMUIvD65do=;
-	b=tenx+QKpHuWiVipKyCvo6DNVPVQpZ56CQnqUnpL3xvQOOvgXabtrLa1LUcybI9/eWsKA
-	 E+wcECZwk0lRLI83tFWqp83q0QFsPnZAGdRkMkA+6IiQLbiqNV5nikWiy9Wdc7inaCR1I
-	 DVNsvTwmLnaeoG3YGTowpBx+52RP6HxTAUhQO+brehr8ZG27YfaeF07UNVEdtw/sY4t6E
-	 amQY+ZrQrHKnHtZYuoe9JBz1jiHsCFfc8S9J5/6A/vi9OHsP+laGYLerYCnBBTzDsCeyE
-	 lCI+nmLRFEcI+cbt/J7bz2AG4j+Dczr22PtJdt05toxTg4dObFw/dMBzJHma9SPf9RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516253;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:CC:Date:Message-ID:In-Reply-To:
+	 References:User-Agent:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=VJqkIiPNVDYg99+7WtjqOTUKFy/SQG4E1Zt5xkilM1s=;
+	b=qBJhY07fFZx5pclvqAgQ8dw20us43lPoCIU0PXu1fJ1s3OAmj9bxSlgeoZDbVftG9eBw
+	 nnBtErRvKAtohZQMIqPwlr/Hs9iCE2l7wCM/0VkmbbA2FaodOBTW/QS2OgfpiBB0qWkYz
+	 aw7hqTWzYnnK1X+AgFp7JK5yM5lVqvDZI49ctELte36IM/Xawbpcrca0RltMDSwTl9/Yc
+	 b2nz7Qgc/owh7Sj2RDUARGtpNKgpmYArEEb6/XxtkfzRrYCFYyJJs4iuWBmlItTnvK+6d
+	 DBudX4oOe5297V4P/cV/9NX4cSvY4G6YGKTav0iKMH2gaYo5Gws3mihBT6JcSLTDyxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B8N1Y8kZ;
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=FfFkyGYe;
+	arc=none smtp.remote-ip=209.85.216.100
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0782360A2617
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:10:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0782360A2617
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F524606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:10:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F524606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B8N1Y8kZ
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-3663e04e9a8so1045663eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:10:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792516203; x=1793121003; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mB3ExWCA2J/hz4bVxnQ14PDyt+eP4cInceMUIvD65do=;
-        b=B8N1Y8kZaV6DSNONYfzoeySsAqHneCgiJOPMig2VYypdH2KgKHSubkP8Pndr4Zroyo
-         yE9ggo8Dbrmh7NmpTbrdfvnjA+hk0IGqE92NidH0MKFtj/YrPMibyb9elrlTVdPWsGgv
-         rz8sHXqfYN/qR/m3s3rHfem1j3VvjHCfzWT9/92/PSzQusPtwxWJbT+czb2GXrJy5DYr
-         y4FIeY2bYu7WmzQqKqVHGtA2oca4l83R6s+jtOY5d2smLkG74tRfs4i4HJU3eeGa2ng+
-         jZF4rILbj7F3XBxyqY0zP8uX8E338mJJj6HhpwLFxsucpBqDq4y/Wa0PHCKz62LBwpLN
-         BRHA==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=FfFkyGYe
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso2258628a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:10:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792516203; x=1793121003;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792516252; x=1793121052;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :user-agent:references:in-reply-to:message-id:date:cc:to:from
+         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mB3ExWCA2J/hz4bVxnQ14PDyt+eP4cInceMUIvD65do=;
-        b=jF8dUlehRMy0DAuHTBJP183lbjzYaSLWEewPv8HIxfUsLz1mt9Uds/KQyRPtbG6xXY
-         bYiC86XnEB/Y98lYMYi98CtWPAKlGjZppcb/eAq0tnWm4WifNKujj1y2WEJf9vt/88c8
-         nEAgwjskircGsZi3cwy5tHAoOv3cUhLbBLTdbBO2NJGte3cd2rKLSE1hDV6Znk8m3ot4
-         3ea88JfktK//bhzamNbKts17JHJvnAZ7AIgoyneBrGBL5V2A3UNJXNZyTrnNr5jWl4J3
-         yvwXmfvnlrun9ClPvm/zZI1u6b0spudV7ao1AXAYHmGZ0OJkN/+rtTKZEGryLKaqvvrl
-         lluQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0/iFxWqMSWUGUMfgZC8d9cXYTsYF5LlywXLMnXg4eA4FEmYJ4sLrOCVIuGtIRzJCD99hhmOmXTyMsAk0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4GqyvdfoK0/Fgn3nv25P6RsP3UHOdWxzGHwoWHyXxueLyXQ1f
-	+72HQ5qxGjy7bdqJyIVruqoDyEhJsY/uk5oiX+0dy0OUuWiKyDmKAtin
-X-Gm-Gg: AYBFou1u4b5cvG6JquWHOz+1zzmRABInDoaxvM23vKEgOcUSIL/h3sOPedR/NwT/yB0
-	M07uTbhwT1l1HP8WtfftIBil+qCATktcPeBDQu4aiRm8Wu5u/6MYZ7Vr0B/VDFmL4dv5x9z1LUm
-	sIoFuqdXotRYX95tOgJ8xa4qxzQGb/q2AZCxG9fJM05ljWXpAvgeybSubvB8NPsk4XS0lGoPlry
-	cH+JLrQgPizhrGDGrOpqkQ/R5XIHOY1IgJw5u9bGgy7gDn4KeUOidvwWBN6UQP+xV0xLXJ9dATe
-	uCM5B47qGCU3ooC197+LTTSKzXJs6phDGYuvPSaDMEIwGkgHkEUDvgQhn/K7wfvUzDFmeOgPlW4
-	wkPxai2NAhbnL/eMtsD6hwr6rELb/Y7AgAOnejML1xsENnI36aHLGPfg0Keimbef2DQq5qDTHnl
-	R2wIx1Z7gVlQ/xjv5wiRZQE7oaugoPXtYNoAlry3opkUhQ+QwXaNXAGobHpXRdYLnuGP0ZdqAy4
-	yp8lUx1eRwymORrGKUIbmAmT0s=
-X-Received: by 2002:a05:701b:4202:20b0:166:4b44:66e9 with SMTP id a92af1059eb24-185139ae07fmr17061416c88.32.1792516202910;
-        Tue, 20 Oct 2026 10:10:02 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831ba424a6sm37852008c88.17.2026.10.20.10.10.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 10:10:02 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: yury.norov@gmail.com
-Cc: linux@rasmusvillemoes.dk,
-	tklauser@distanz.ch,
-	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] cpumask: Preserve short reads in cpumap printing helpers
-Date: Tue, 20 Oct 2026 17:01:26 +0000
-Message-ID: <20261020170126.15428-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=VJqkIiPNVDYg99+7WtjqOTUKFy/SQG4E1Zt5xkilM1s=;
+        b=TCMXP7Iu/jnvii6xRUYlsTQ53bgf8v+K0MOVW8USVGghNZdKi/TYyuVCW+y7js3NKJ
+         JndANxNG3kNV4aPLtrdPXsUvQ65i2Fe4erI2Cov3OXG97Yn2228GnlclqT8ymzzkhEeu
+         ApPvfm8eHW9mmMuEdcV9maIQYinC95XrReeoCexSjh2bcgv0dbre2k7EByZobWU9/F+1
+         qRoVAsce4uQXUFAaLbuYCGzW0YzqOrbkLVp4n647pmCnDU0yjJXFXkl0WGYBt/DnEHzJ
+         n+L2PyOoQTb2BekC1KvcvtLIH8mIW/K1pT9sWM/sehGmXdItBFUFIzz3pboHHwENKe3q
+         3iog==
+X-Forwarded-Encrypted: i=1; AKwUvBxJV2nIP0Worn0J9FCSPSYdDKkuUOppHAdAfExS6vy426q6WQKLMbZMwtLMYzgnIwHgjhF6//FNOYcCZXw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdCSDoI85DJXXv9G68tQhQIaIu3WVZ1Qwg5nZCQvAeAyUprTyO
+	QcS0klRhDbNH851q3Likjcbf4wol5BpjWxMDE0Tr7Q0FpKnXPPKg+rc0Kv2jEjnVS+GC2jp2Bxk
+	kjhAkYRGwng0MbuxwUmsoe66XJBGkttOj0okIfRTfRd/h+9cwdRtxGRICFfOfUq7Y727eb010Ti
+	S3QjwSWWc3F3So6fY9MiFhwnlON6q3lqAqKDIWvFi46bNsalvsvsUuKiymO3y/gDQfSlqdoaVHm
+	iNnhi1rBJ9+Cztscv16x/E=
+X-Gm-Gg: AYBFou1jYaqvyjgb1w0XXsgO/E08GBw2J1QAGOCeuqKYf4GlJL6aJ2HetMw6T/q3uUR
+	1h1FxD+W8tposhuGYeqtC5LO69GPFI3AvZT5xG2sVth4cqFWCUWoPe63XY2kYjspBtCPeyid5L9
+	g0kxpWeLiSp75XW6/4Zq2o0eSpNvA1uCZK03DG2HS9RIDowm48wumW2URHEOjgOTVgFSew2FSOu
+	SdmYedzwksvZd8v8qIYrLWURc3GgvjOXw02VwlBlO+NgbAGXujgOvnCw5TJmjz7ExosGG2sJLA6
+	IBP2sGCozB5t1kWsv4tN74pXgA0CWkVVN+wcfKTW5v3lTHP0kvRk125Ru+b/mRwffOI325o4jKy
+	HWJjlTiIagtWK4kLGkCcWi1hTJIDCk1OjITqiBjwRL/pc2g+qrH13ulaWxz+M+XnFvhqDWx2ut8
+	AAgo2mebL11iNssToZfclnmaamRE+wHlH47TZVEKw=
+X-Received: by 2002:a17:90b:5408:b0:3ab:d45c:59e2 with SMTP id 98e67ed59e1d1-3acef59e499mr10369608a91.55.1792516252306;
+        Tue, 20 Oct 2026 10:10:52 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ad830182f4sm24820a91.2.2026.10.20.10.10.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 20 Oct 2026 10:10:52 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9179a556c43so77358016d6.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:10:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1792516251; x=1793121051; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :user-agent:references:in-reply-to:message-id:date:cc:to:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VJqkIiPNVDYg99+7WtjqOTUKFy/SQG4E1Zt5xkilM1s=;
+        b=FfFkyGYeNh8NDOWMMRF9OUdYUtWCgjUEcWhgzyFl245kBo+btyXy5DuI8hZEb/Aj4k
+         STM9cYu0+QfGMKNdIZBWKgsDFCNdIk20k95rLQbCGr0Kha9xyNPmzsyq+SlnEIWnQEqS
+         A2Yt6pn6Sor+SHAlhSW7sYixaTWsBB3p3M4E8=
+X-Forwarded-Encrypted: i=1; AKwUvBymMVyifnG2O/Z/83qWxVqpcEuMdqxd3IYGnYTwRZs9+CbsUemIQIhm2KEcmk4QzzdFzbeppqEAtUhJ2PI=@vger.kernel.org
+X-Received: by 2002:a05:6214:250d:b0:914:51b1:6161 with SMTP id 6a1803df08f44-91bdf0df624mr198193746d6.30.1792516250833;
+        Tue, 20 Oct 2026 10:10:50 -0700 (PDT)
+X-Received: by 2002:a05:6214:250d:b0:914:51b1:6161 with SMTP id 6a1803df08f44-91bdf0df624mr198193046d6.30.1792516250202;
+        Tue, 20 Oct 2026 10:10:50 -0700 (PDT)
+Received: from [192.168.178.59] (f215227.upc-f.chello.nl. [80.56.215.227])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10c48c49sm2815656d6.41.2026.10.20.10.10.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 10:10:49 -0700 (PDT)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Jason Perlow <jperlow@gmail.com>, <aditya.garg@linux.dev>, <baolu.lu@linux.intel.com>, <dwmw2@infradead.org>
+CC: <iommu@lists.linux.dev>, <bhelgaas@google.com>, <linux-pci@vger.kernel.org>, <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <regressions@lists.linux.dev>, <regressions@leemhuis.info>
+Date: Tue, 20 Oct 2026 19:10:46 +0200
+Message-ID: <1a15a4b49f0.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
+In-Reply-To: <D0E6473C-3234-4367-83E7-B85C022B0F1A@gmail.com>
+References: <D0E6473C-3234-4367-83E7-B85C022B0F1A@gmail.com>
+User-Agent: AquaMail/2.7.0 (build: 200700061)
+Subject: Re: [REGRESSION] intel-iommu/brcmfmac DMAR fault on Broadcom PCIe wifi, v7.3-rc7 -> v7.3 final -- candidate mechanism and proposed fix path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,63 +111,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; format=flowed; charset="us-ascii"
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-The cpumap printing helpers unconditionally subtract one from the bitmap
-helper's return value to exclude a terminating NUL. A partial read may
-not reach that NUL, so this also subtracts a data byte from the returned
-length. A one-byte read therefore returns zero even when data remains.
-For example, this command prints nothing despite the file being nonempty:
+Op 20 oktober 2026 18:02:30 schreef Jason Perlow <jperlow@gmail.com>:
 
-  head -c 1 /sys/devices/system/cpu/cpu0/topology/core_cpus_list
+> NOTE: an earlier report on this bug from us bounced off one of these lists 
+> due to HTML/multipart formatting from the mail client used -- apologies, 
+> switching clients. This mail includes the full original report plus a 
+> follow-up, merged into one self-contained report since the original never 
+> reached anyone.
+>
+> === ORIGINAL REPORT ===
+>
+> Hardware: Intel CoffeeLake-H platforms, various. The affected device is a 
+> Broadcom BCM4364 802.11ac PCIe wifi adapter (14e4:4464) at 0000:05:00.0 on 
+> an Apple MacBookPro16,1 (T2 Mac). Aditya, including you directly since this 
+> is T2 hardware; copying iommu/pci/wireless because the fault signature and 
+> the fact that it reproduces on only one of five tested machines (at the 
+> time of the original report -- see follow-up below, that has since changed) 
+> looked like it needed eyes on the core IOMMU/PCI path, not the driver.
 
-Subtract one only when the copied range actually ends in NUL. This
-preserves short reads, EOF and negative error returns while continuing
-to exclude the terminator from complete sysfs reads.
+[...]
 
-Fixes: c86a2d9058c5 ("cpumask: Omit terminating null byte in cpumap_print_{list,bitmask}_to_buf")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- include/linux/cpumask.h | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+> THE ONE ANOMALY WE CAN'T YET EXPLAIN
+>
+> Despite the last two items above being unchanged, the actual generated 
+> .config has CONFIG_INTEL_IOMMU_DEFAULT_ON unset after make olddefconfig 
+> against the rc7 source tree, but =y after the same process against the 
+> final source tree, even though our template explicitly answers "# 
+> CONFIG_INTEL_IOMMU_DEFAULT_ON is not set" in both cases. Our working theory 
+> is that some other symbol started selecting/implying INTEL_IOMMU_DEFAULT_ON 
+> between rc7 and final -- which would override an explicitly-seeded "not 
+> set" answer during olddefconfig resolution -- but we have not identified 
+> which one yet.
 
-diff --git a/include/linux/cpumask.h b/include/linux/cpumask.h
-index 4c8bb6953107..2caeae982faf 100644
---- a/include/linux/cpumask.h
-+++ b/include/linux/cpumask.h
-@@ -1334,8 +1334,14 @@ static __always_inline
- ssize_t cpumap_print_bitmask_to_buf(char *buf, const struct cpumask *mask,
- 				    loff_t off, size_t count)
- {
--	return bitmap_print_bitmask_to_buf(buf, cpumask_bits(mask),
--				   nr_cpu_ids, off, count) - 1;
-+	ssize_t n;
-+
-+	n = bitmap_print_bitmask_to_buf(buf, cpumask_bits(mask),
-+					nr_cpu_ids, off, count);
-+	if (n > 0 && buf[n - 1] == '\0')
-+		n--;
-+
-+	return n;
- }
- 
- /**
-@@ -1356,8 +1362,14 @@ static __always_inline
- ssize_t cpumap_print_list_to_buf(char *buf, const struct cpumask *mask,
- 				 loff_t off, size_t count)
- {
--	return bitmap_print_list_to_buf(buf, cpumask_bits(mask),
--				   nr_cpu_ids, off, count) - 1;
-+	ssize_t n;
-+
-+	n = bitmap_print_list_to_buf(buf, cpumask_bits(mask),
-+				     nr_cpu_ids, off, count);
-+	if (n > 0 && buf[n - 1] == '\0')
-+		n--;
-+
-+	return n;
- }
- 
- #if NR_CPUS <= BITS_PER_LONG
+Simply run make menuconfig and it should be able to tell you how it is 
+selected.
 
-base-commit: a73b4d1fa7d334a5f7de5bb0a14726530f66196e
+Regards,
+Arend>
+
+
