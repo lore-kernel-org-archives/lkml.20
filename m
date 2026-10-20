@@ -1,110 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792514878;
-	b=wkcLmCjdY+Jw0qyF8rMDM5T2mOxo8VuGyZ19p5lo3gdawyl/eA8Cq3jPs5CagLwFfnBg
-	 Rgj1v65nFXOXdpqxVMJe7GH9vlZhC+A2JQu9bNR4VpjaAsGEX/cCXC+0GsSomRyo8JcT5
-	 K/wzAF95PEElRDjdOcO04S87B3xzLpQ0yhg0/rKL5v8vXcgJwHbQG2GyGwPJdD9Xm4SiJ
-	 HjdOvnX0vGWNby4ji0eqLFoyOUiR7HcPsy5lt4nYmIo8Dkw8d1O8592kYmZK66XiEp9sH
-	 sLAQ1SBM/8hnTDUtKfhQWkYLBiFiqLGyRZdrlehH9JiD8Pf8/bv9DICBJwOEHaJCB5A==
+	t=1792514872;
+	b=HSQLtX4lmDuf6esyHkW4fK8Hd1S2c3ad6IRyA8dUe+2Yx6u7kr5EQ1chEyexetK+vTPS
+	 wKoqa5Xj/gomgyECRr0iSI+QGFPkCi3HpVgTdI8J3in/7vqd333WofRgJb9ja/8X1hp4n
+	 Z5o1QGGs3T1arp0O18VSPS6FDB7VJC5WCxVOrOBvB/ZRFFF287krNtXEMQyL0QTmxxkl+
+	 ThzoHXXzLgHPtla505RFmiDiOp1WZcssfgHR94m9DGeygg+oSETX+ZpFBooyTvvb3Vi4E
+	 DP3W5CG0gTsJtXC+3PVAto+l4zUCXQ0CDvdYDJvbtxd5nD4fgkjByPasIqDPWX8n8/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792514878;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=ksV1nYGWqa4ysMkLSXAqAv6N9dnVAqAoSrOhhUQFIQo=;
-	b=nddSG5H0OO2Q2ExiBmyafgmZqeFFhGr/EYzATw4GRf1M1y8OvXdO+oLKGyBNEh2UAgc3
-	 VEMIid3m0ck2rvvbpo7rHKQhLuMKsOMVTOwR2pTVedpl3xiZq9AltHT1WAtPwgVo6b2ej
-	 70kE/KagfjVtSlN9x5YryLOmUT4aVyibxfJeXmNejAQXT9rXrSdIUxim17dbJBPYFt2hb
-	 bxf7IBVz5br4K1zZLtHq+E3x+O11KGRi4R1tJDqUFds1O0GLMFcyTTtQDUxTxgDzroUCw
-	 A156hQSB+08UQFVB/W8t/EVfEIxvzk7EsN/Ak+DxZxArdC5LyZD3q2bLzySNcJbvicQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792514872;
+	h=Received:Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 X-sashiko-severity:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=IO+RdfSgg+iO9BLu43VpKXaQsv4LWOE8tdPSlKLB4S8=;
+	b=Nt+xhZ/DRGVAfLz+8Pu9LjifyP3qQN2FnbKMbyfaZDh2yuZ5ZWbuJUfgHbQXLeTyTmn7
+	 aeUkSB1wfncPWdRxCOvbiRVkReKpgCT30TmeK6rC8LMqV0/WufSgKp2WVtyNrLNpQJvuQ
+	 cNhPEA2ZpGOyaYJVSApvZ7UghwToxQCLvROd437ciUpv0RgpPXzuPlbPh89g27ZW7wHFR
+	 v8BIvPw8IN0JKec4fOcBVKXqacvPIe7wG1lekk5WgXoJvEM6WfRIFOWU1UiBGOpVCRLeI
+	 ADjebK8O0n4yusFPPrv3jINVw30RFfz/qgy+IP2lD92P4ZR8dBUQE121z+FThPXmJqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=A0izvL8y;
-	arc=none smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D997A606D57C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:47:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D997A606D57C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=A0izvL8y
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53397554beaso38038381cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:47:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792514877; x=1793119677; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ksV1nYGWqa4ysMkLSXAqAv6N9dnVAqAoSrOhhUQFIQo=;
-        b=A0izvL8y0Q9h0MiYFltvtQzmtBN/iGSAXi2/Y6so2xMJzojtTDqYc9g3iSRZsCyjlm
-         Zwl40E5lofBJWF3ale34iEw9x3Xq7OzCSJ4sZxZPRaCikOkt0o5/yo9boVmaSvTm1tOv
-         Nnf6vGisC95mbNALSphRILzb8RuHBwM91R7v8GaRx+IdReg5ng7H6WLyZ7z7P+/BKxqv
-         u86zezkEuoHiB5y7tSk6bFMLxPt59m29BiDHPAkJrBKZyo1BqUJOCq/Kj6Xsly/btbcq
-         EM8WoJrW0YxOaa3+OSh56q6rUjF/Rn1cs0mzlKphS9JMTYdpVgs2plZCuHs69eu9Uidd
-         VYcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792514877; x=1793119677;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ksV1nYGWqa4ysMkLSXAqAv6N9dnVAqAoSrOhhUQFIQo=;
-        b=H705y4ojOqDAh8HJdJdkZNmCGUtRho8Bu50nWYdUSRgHa+rRMyvwPVePinDuv5uMMt
-         yeE0gQ1II7gDSf0xo8XJigF0jabuNtz9HhDd4hN+okW0TNeyP1qkYD5WuNwrfLnNQnbP
-         hRMqy8/NATaX1Zb8mh6PEkNX43QyileeCdxb4maF/zqO4wUyawHyXog7KuOjX9ubtFhu
-         HIWOYgRhqBZ0n+vqsdVn3fklXhgsR/GBtwSgrjq7gpO6geR+tXN0WpBmS6e0IQ5sVrX3
-         xOBm+Ipa+d5a9wa4yd8rhXVVC/1QP0tzMV35t/zqstyw5XxNaw0bawVq6HXW4qeOV87r
-         Rh1Q==
-X-Gm-Message-State: AFq9FYJaKBuehZ5Va79prDWiVjsOlmjoC/d8pnnPhtrjvRrBwq/ApzTU
-	zQYPzoiW+oZ21oeIyJVPEYPBnUKR+Z8K0egH1RRqlpM4iYs8c6XrVS39JBvC0K5LPko=
-X-Gm-Gg: AYBFou0kxZWGyqguQbIaJBY5g97hW5xagjfF1n7C2UcAqWPq2AldXLBhNoCGTosojJk
-	gQD0a3ti1BMqh7E1uY3Di7e0zShARHfRac/n0HnWsU23zBK09qvemRmyahSoX0jjZzl6U06WELK
-	QVzSiTJHj3QuKjKf812RuBHCGFvmw0ve1GIcw4X++8Sd1AOXrmsCjawXVSv8CQBzW6+FxdEls8F
-	4ZvRNF0zd9+MYDOD39MH+sjfftiHU1Y3kB+fwhBxx9DjQpDT9dYAxun70qfS+a2bBxYXGYfdwVH
-	fB3jUfLFpTr12N5g8vv7nUD8erzGxt+lOT7rvhf6K2kO2TPmsyBjOa5DrqgAEQX8ldtztGQjh+V
-	KchOysEuXo50q5Ela8FyI/LZYfcpFpbSeqPyNIM8PU6Ca3DqNHM37KwdfQrJyHljOwIT11EJy//
-	NjpvTjEqVCmvfzZJi2CkVPseBq9NbGM6g+tcis8PvFFyE0GOB4c3T2WqOOv98L/fRWatmIdv1K5
-	/0TcCEQfVWgs3JmRXGVT7SMgb9KuHaNfK5uDOWIuv269CB4gsJYyFSQ
-X-Received: by 2002:ac8:6106:0:b0:535:a5f9:7522 with SMTP id d75a77b69052e-53646105effmr173286901cf.65.1792514876834;
-        Tue, 20 Oct 2026 09:47:56 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53698b71878sm44011cf.16.2026.10.20.09.47.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 09:47:55 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xJD0F-0000000Cndt-1WvQ;
-	Tue, 20 Oct 2026 13:47:55 -0300
-Date: Tue, 20 Oct 2026 13:47:55 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Suzuki Poulose <suzuki.poulose@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sami Mujawar <sami.mujawar@arm.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
-Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
- host attestation
-Message-ID: <20261020164755.GR14213@ziepe.ca>
-References: <20261019233532.GL14213@ziepe.ca>
- <atcUoSdggT9eU8YE@e129823.arm.com>
- <20261020124536.GM14213@ziepe.ca>
- <atdvnMJuHUJlqX8t@e129823.arm.com>
- <20261020135006.GO14213@ziepe.ca>
- <atd2_9Q2wTv_3MXz@e129823.arm.com>
- <20261020143620.GP14213@ziepe.ca>
- <atd-I059nHAwcZFE@e129823.arm.com>
- <20261020145806.GQ14213@ziepe.ca>
- <ateGVeZmDcOSxaOD@e129823.arm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8795606D54D;
+	Tue, 20 Oct 2026 16:47:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BF5F1F000CB;
+	Tue, 20 Oct 2026 16:47:50 +0000 (UTC)
+Subject:
+ Re: [PATCH net-next v7 04/13] net: mana: swap queue sets in mana_set_channels
+From: netdev-bot+sashiko@kernel.org
+To: weh@linux.microsoft.com
+Cc: longli@kernel.org, kotaranov@microsoft.com, kuba@kernel.org,
+ davem@davemloft.net, pabeni@redhat.com, edumazet@google.com,
+ andrew+netdev@lunn.ch, jgg@ziepe.ca, leon@kernel.org, haiyangz@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, shradhagupta@linux.microsoft.com,
+ horms@kernel.org, ernis@linux.microsoft.com, stephen@networkplumber.org,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, sdf@fomichev.me, daniel@iogearbox.net, hawk@kernel.org,
+ ast@kernel.org, john.fastabend@gmail.com, weh@microsoft.com,
+ edumazet@kernel.org
+Date: Tue, 20 Oct 2026 16:47:19 +0000
+Message-ID: <179251483988.3135.18174536583131851095@kernel.org>
+In-Reply-To: =?utf-8?q?=3Cec57f3853ef344a7d5ec8907ba530313b0163bae=2E1791710?=
+ =?utf-8?q?735=2Egit=2Eweh=40linux=2Emicrosoft=2Ecom=3E?=
+References: =?utf-8?q?=3Cec57f3853ef344a7d5ec8907ba530313b0163bae=2E17917107?=
+ =?utf-8?q?35=2Egit=2Eweh=40linux=2Emicrosoft=2Ecom=3E?=
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,75 +59,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ateGVeZmDcOSxaOD@e129823.arm.com>
 
-On Tue, Oct 20, 2026 at 04:18:45PM +0100, Yeoreum Yun wrote:
-> On Tue, Oct 20, 2026 at 11:58:06AM -0300, Jason Gunthorpe wrote:
-> > On Tue, Oct 20, 2026 at 03:43:47PM +0100, Yeoreum Yun wrote:
-> > > On Tue, Oct 20, 2026 at 11:36:20AM -0300, Jason Gunthorpe wrote:
-> > > > On Tue, Oct 20, 2026 at 03:13:19PM +0100, Yeoreum Yun wrote:
-> > > > > > I wouldn't over complicated it. We already have smccc bus to do this,
-> > > > > > we don't need layered stacks of busses here. Just change smccc bus to
-> > > > > > be able to break up the multi-function SMC into several devices.
-> > > > > 
-> > > > > I think my explaination was poor. Apologise...
-> > > > > I'm not saying another bus making but just wrapper of smccc-bus APIs
-> > > > > for firme specific and definietly, this would separate the
-> > > > > multi-function SMC to defien each firme device (attestation and IDE).
-> > > > 
-> > > > I don't see that kind of complexity is necessary.. I think it is
-> > > > better to just have the root smcc bus spawn them 
-> > > > 
-> > > > > But, the *base* is common. and I couldn't find any proper location to
-> > > > > deploy *common* code unless making arm_firme.
-> > > > 
-> > > > What common code excatly?
-> > > > 
-> > > > There shouldn't be? Getting an attestation is entirely orthogonal to
-> > > > set link ide, for example?
-> > > > 
-> > > > If you can identify what you think would ever be common that might
-> > > > help clarifgy what to do..
-> > > 
-> > > I mean the BASE service of firme and typical example is shared buffer
-> > > allocation. I agree IDE and attestaion service are orthogonal. but
-> > > in case of base-service is not. it could be used for both service.
-> > 
-> > It doesn't look like it needs a "shared buffer", just allocate it
-> > right before invoking the SMC that needs the memory. Use a simple
-> > library function to help allocate it. No need for a struct device
-> > layer.
-> 
-> Retrieving a PAT requires a buffer shared between the worlds. Before
-> allocating that buffer, the driver needs to query its requirements
-> through the BASE service's feature-query calls.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-So? Make the query, allocate the buffer, get the token, free
-it. Simple, one driver, no convoluted flows. Use a little library
-style call or inline to reduce duplication if eventually necessary.
+Low priority / nit picks for your consideration:
 
-> Considering possible extensions to the BASE service, my preference
-> would be to expose these operations through firme_device rather than
-> standalone library functions. The intention is to keep access to the
-> BASE service within FIRME-specific drivers and provide a consistent
-> interface for those drivers.
+- [Low] Old RX queues are marked retiring before the TX drain wait, while
+  RSS still sends all RX traffic to them.
 
-Try not to overdesign things. If we don't know we need it now based on
-how the current spec works don't imagine something else.
+Pre-existing issues:
+- [Low] Concern: the live replacement path throws away a user-configured
+  RSS indirection table without calling ethtool_rxfh_indir_lost().
+- [Low] Concern: the 120 s TX drain in mana_publish_qset(), with all
+  queues stopped and carrier on, lets dev_watchdog (watchdog_timeo =…
 
-ARM spec design is informed by Linux implemetnation. Having a sane
-simple implemtnation in Linux will motivate future specs changes to
-align better.
+--
 
-> If we implments this with library, are you thinking that file should
-> be located at driver/firmware/arm_firme or other place? though we make it
-> with library, I still think it should be located at
-> driver/firmware/arm_firme or some place in arch/arm64, but as
-> perspective abstraction to mange firme helpers in one place,
-> I think this design seems good.
+net: mana: swap queue sets in mana_set_channels
 
-Will has indicated a preference for driver/firwmare
+This commit changes mana_set_channels() to build a replacement queue set
+first, quiesce TX, drain the old TX queues for up to 120 seconds and then
+publish the new set, with a rollback path, instead of doing a
+detach/attach cycle. It adds per-RXQ drain_stats and a retiring flag, so
+that retiring RX queues stop writing the shared per-index counters; the
+private counters are folded into rxq_stats_ret[] later. It also gates
+mana_select_queue() on port_is_up and keeps carrier off after a failed
+rollback.
 
-Jason
+> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> index 744d5ebe8dbbb..c80a06ffbe508 100644
+> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
+> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+
+[ ... ]
+
+> @@ -4053,9 +4155,305 @@ int mana_alloc_qset(struct mana_port_context *apc,
+
+[ ... ]
+
+> +int mana_publish_qset(struct mana_port_context *apc, struct mana_qset *newq,
+> +		      struct mana_qset *out_old)
+> +{
+> +	struct net_device *ndev = apc->ndev;
+> +	int err;
+> +
+> +	ASSERT_RTNL();
+
+[ ... ]
+
+> +	netif_tx_disable(ndev);
+> +
+> +	mana_qset_snapshot(apc, out_old);
+> +
+> +	/* Mark before the grace period so old completions cannot wake the
+> +	 * replacement's stopped queue.
+> +	 */
+> +	mana_qset_set_retiring(out_old, newq, true);
+
+[Severity: Low]
+Can this freeze the visible RX counters for the whole TX drain wait?
+
+This call sets rxq->retiring on the old RX queues before synchronize_net()
+and mana_wait_qset_txqs(), and that wait can last up to 120 seconds. RSS
+still sends all RX traffic to these old queues during the wait.
+
+Once retiring is set, mana_rxq_stats() picks the private counters:
+
+    return READ_ONCE(rxq->retiring) ? &rxq->drain_stats : rxq->stats;
+
+>From then on, updates from mana_rx_skb(), mana_run_xdp() and
+mana_process_rx_cqe() go into rxq->drain_stats. mana_get_stats64() and the
+ethtool stats code read only rxq_stats[] and rxq_stats_ret[]. The counters
+users see therefore stop moving until mana_fold_qset_rx_stats() or
+mana_destroy_rxq() folds them in later.
+
+mana_update_rx_dim() also returns early for retiring RX queues, so adaptive
+RX moderation stops for the same window.
+
+The window is usually a few milliseconds, but it reaches 120 seconds on the
+drain timeout path. The same pattern stays in place for full rebuilds and
+for the retiring tail in channel reductions later in the series.
+
+The early marking only seems needed for the TX wakeup race. Could the RX
+retiring flag be set later, just before mana_config_rss() steers traffic to
+the replacement queues, while the TX retiring flag stays where it is?
+
+> +
+> +	/* Drain TX/XDP readers past the gate and polls missing retiring. */
+> +	synchronize_net();
+> +
+> +	err = mana_wait_qset_txqs(apc);
+> +	if (err)
+> +		goto resume_old;
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but while mana_wait_qset_txqs()
+waits up to 120 seconds with every TX queue stopped and carrier still on,
+dev_watchdog (watchdog_timeo is 15*HZ) can call mana_tx_timeout(). That
+queues queue_reset_work, which then runs after mana_publish_qset() returns.
+
+The baseline path had the same window. mana_detach() called
+netif_tx_disable(), and mana_dealloc_queues() then waited up to 120 seconds
+under RTNL with carrier on.
+
+On the drain timeout path here, the reset only runs after newq has been
+freed, so it does not invalidate the replacement queues. In effect it is
+the existing recovery for TX queues that really are stuck.
+
+Is that interaction intended for the new publish path?
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+> index 43c5c3bf5c408..913349edfe13c 100644
+> --- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+> +++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+
+[ ... ]
+
+> +	err = mana_alloc_qset(apc, scratch, new_count, apc->rx_queue_size,
+> +			      apc->tx_queue_size, apc->priv_flags, &newq);
+> +	if (err)
+> +		goto free_scratch;
+
+[Severity: Low]
+This is a pre-existing issue, not one introduced by this patch.
+mana_alloc_qset() always resets the replacement set's indirection table
+with mana_rss_table_init(scratch). A live set_channels therefore discards
+a user-configured RSS indirection table without calling
+ethtool_rxfh_indir_lost().
+
+The baseline mana_alloc_queues() did the same on every detach/attach.
+
+A later patch in the series fixes this ("net: mana: keep a user-configured
+RSS table across a queue rebuild"). It adds mana_rss_table_keep() to the
+split, grow and full-rebuild allocators and calls ethtool_rxfh_indir_lost()
+after a successful publish.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791710735.git.weh%40linux.microsoft.com
