@@ -1,95 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792505966;
-	b=v58F9jhPMVm1ENk5eqUI3rmiuKFiWHBRAxa1+NYyd9ndO0VozE+iVJsLBuVAQT/boawl
-	 z/Vz0SnRvHtQat7vzFMIhOkIfF3XqRwCPWGiU9MIPAS2ErPoDS2R6U4V4j/LyDxCLRnhn
-	 b7tmx6+2MpFZIYrVu/mp//UglC4NAggrFhPBDiHsTpEcPE0yaObml7fIKFP0KRpm+1x6k
-	 YgGoVAPwfekOiTILSFTNTQP9xrK7jlPO21ssNnyh6P3OgOiJQE2DbsFhVaiYPfV75sQRu
-	 LH6M3Ma6P53nyh0UZ0THlzln6t0MhR8E3eCzSLCSzflZu47W2u75jZmTG0Ya9A5idXA==
+	b=iH/shcQAMb/RiDmMnEWhPmZNuN2SfaRUu+HgMdYKMPsYJw+/0DR7/i0XOdxYrr67yiss
+	 5UHbX1TjU3yk1tWbP7QgO9xL1vb4oGkp4W6xrrvGz9snrLchO5J7+LiLlcacJ/xEAoc55
+	 tpV/mru4siMfuwZhhn5iCFsT4JouI+a6QHVEFFCkEv6D0qxgGbYCXmm+BXo1LfW8go7M/
+	 RngzZ005a+6XvPVEuF5VsiSuH5MIhmsQKvurChJalHhg8W/4qTSNxwNERk3vl283VReEw
+	 w5swUw5D3IKgJjqHiUoCBU4lix59Jce5KWTgbbvw9ByJtCYr2H7Yh0HZC9I+nQ6iLHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792505966;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=YkoDoRI70vCTaQBZvsRQEGTtNXqyblBPUwYfPQEb34Q=;
-	b=32v4HXEhrokEz1FFfvbGyZig/fxCpan5pQxOkv/4NrXHGJCoIxXygz5Z2Gxfjd7HImJg
-	 cHdGXlpNGtTtDPfU7pJ3pbdnKYoYYhu1AgCj4k0UZcWtQ4xmyiinsTKYQLrOXnbTohD6j
-	 6EhHQwMuOOIs92R32LUkHmqqFReDm84CFXYjgI9eXbFQGSarA88Ftag8XK6Uvcr2wbmnr
-	 uxV3uQsjSvcM+f/xgNAgOcsIrNCjFr9JeHIFUldL2pPLWzkdvmw+IZQdzATpunRBd872W
-	 WLVx+9bH6e8+8giZV6BGopK7bKkOxVYWCGBBMdRxa97y9NLJ3c7ql1DTyivaV9dsbVg==
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-Mailer:
+	 X-Authenticated-User;
+	bh=kqnEF+q2yzunlljkCgMnTGrBrqEf3TIoC9fVf9hGPjM=;
+	b=BA4NF1Pc5TTHiiDFluM2Onf0ky5C2b6B5BB51iP96xZycvtWzjNdBsTC+YzHtaaJFOYr
+	 ELdNuic0V6TPj4bUCIkwaNzgMr+znytAKptfhb/RTv/bkYUEPlqBEs6dRufA41YTcLeWk
+	 Ni577s75Qp+HDcbNRZwnO44DXn45pypMojokao/zTv05DrPjlNEXdBT57jubygXd3n4LC
+	 iQKFdX2KBHCgCVQNqnR3FyyfeS9RB6cYy5I4wcNGRZRHIzW+zWi9gY8drOE/n8qvf8QxH
+	 cp4SQrZzQMqbDO/Vda5+yiZitP2zIubR3lXfurCsffAGIGtuP11+dzwnvK/eEpWMQuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=cUsGTRWI;
-	arc=none smtp.remote-ip=209.85.222.174
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=bp42wrWC;
+	arc=none smtp.remote-ip=212.27.42.3
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919B9606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:19:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 919B9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEED606A320;
+	Tue, 20 Oct 2026 14:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFEED606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=cUsGTRWI
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93f2b8cf037so262144485a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:19:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792505964; x=1793110764; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YkoDoRI70vCTaQBZvsRQEGTtNXqyblBPUwYfPQEb34Q=;
-        b=cUsGTRWIH9EJciEn7zAs4VS09n4txlL/2Kc6Jd/Iz4sj3PYxp29ix1P5ZiRvNCVMzm
-         KEYmfGeExCYSLcLz/W/doOdtM8pHYKUDZMFuYLf2REbMOFcjrIyVPzc8UFKqfAugbnZY
-         mAV1tDtdYAHB05jBGiEUMDiXiRQvKM4ZAIpxQUR7tewRu+oSif/5EuecdYlG5gE9nAg5
-         TVboywSCL/FpJx4B6pgqnSKjDqh+J6Wh521nfhs2nEBJaIMNQ4WcD9DnukoDm20+ci1T
-         RMAtRuuasFz9LrG+vnXh/H4+/lZIxGknEJ+SfYNZ8JYevckkF3fIrnReGZ5zYy6YzbiO
-         sigg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792505964; x=1793110764;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YkoDoRI70vCTaQBZvsRQEGTtNXqyblBPUwYfPQEb34Q=;
-        b=mHDeX+7FQX72ezCkOZgxaPVy5WHhSWXLZVYsRmBP6IUgfDGxWNKtbiIPmmK8k57cEa
-         gsO7WNuHG3nsE4ZcJu2P/65RviD1rf7MGzasZuZXKZcYBgeqI1LD3czaHhWmhVkThjsP
-         Ck5xGky7e4CHnafO5dqUF3IFF9tfpAJ4oE7hmmVTiHRNkX7Sm+PeurBUsMjP1c7kuAyW
-         HIzcWvhdgufapoD00sy1ZWkZbGiFJbh2qFUPjIFIWS9n2qQbtrJZm2IaKrFhRmy4VEjy
-         lYzGcSIh7iagLWK/zVZiQFQPCTHqIO5X2zJpzqs6sH/piCa3cymn36rK5vIlhHUrzcuM
-         pTDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxeUp7LiS4PiIMMpgCE2SC55QkU6g7RIopL3IuR5dwCWMFfCdvakDJHl7Nayo8wtbuhTvNGNnzgnP9EJJA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKu4hoPPB/dFGfBkSKjNKbCLBS5dhraauCCXlB3PoyoLqSgJO2F
-	Ka/16KQlrMG356k8ywy08euHDXTJoy+r89jT6QN2PcaQFasVP3plfnir92GMz4SM7A==
-X-Gm-Gg: AYBFou1n5RKY1foOkETCLiwhV9okl6f8iMOOGXIQBt8mXQP9T0IkkJYqjzaySHVxjYZ
-	ZocvAphlwSMm7vNTdgTRj2oBTFs+YJd3GgKbwuFKi8jwbqxNE9FZpklVgxOGr7P06lNaBy4VNLe
-	HXEHmd9/jUJ4LrXAfDd2eSu+E9+tVSIQofnHKWBIiYxijrI4iX11B2JlrN7Sgr1HyAiKjSZnMT1
-	rw3tMMLtYkNkV8pX3DZq4GvB/9D5Ue6OPcnHkjuweVsM9s2PCJgkCPzkprUih9v4F1WFy7c8u8c
-	ay7aUdctQoiSkVrzgieMm4fAh16uAMUiOQ9vHCLmL854CWEaKXvpW8xdwHnufKYNoGTLPgW0vCM
-	0fiK48lMy+rOs6YBv61uNXy/ImIen81PKsGgF1W/6sGkqXxFKOaZy2BNHBMCsTNWd+mcLvm6gm1
-	x+3NPG0JoJyHqQUAjVVzNFyQgl8sE7F6yxnM5YYUENzId6Euk8pKe0xieAsCAVXJ43H4ceMFAH
-X-Received: by 2002:a05:620a:3711:b0:93f:22af:cce7 with SMTP id af79cd13be357-93f29b48f0bmr1804346785a.12.1792505964411;
-        Tue, 20 Oct 2026 07:19:24 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4b10563fsm227100085a.43.2026.10.20.07.19.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:19:23 -0700 (PDT)
-Date: Tue, 20 Oct 2026 10:19:21 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Joe Wang <joe_wang@aspeedtech.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] usb: ehci: Quiesce ASPEED EHCI before halting it on
- shutdown
-Message-ID: <8e2fb3af-3bf9-448a-a6b3-16f629417152@rowland.harvard.edu>
-References: <20261016-upstream_ehci_aspeed_shutdown-v1-1-8440c13b5652@aspeedtech.com>
- <7dfc5ef1-a466-4d78-af65-147bee8fe698@rowland.harvard.edu>
- <OSQPR06MB725090D70BB07F70A2B521E789672@OSQPR06MB7250.apcprd06.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=bp42wrWC
+Received: from zimbra65-e11.priv.proxad.net (unknown [172.20.243.215])
+	by smtp3-g21.free.fr (Postfix) with ESMTP id E269214095D;
+	Tue, 20 Oct 2026 16:19:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1792505957;
+	bh=H1/mP/b1Njxs6cmNY/GEagmuoC+DP9CLfbABpipPGxw=;
+	h=Date:From:To:Cc:In-Reply-To:Subject:From;
+	b=bp42wrWCKRh0RX9w32gnS3nFbPhJO+wJGUHq/1c/YcpJ6dPC7jLsv3Raxzpz2/phd
+	 GV39WFPY+fZQtCHCyZHWhkFVKoW9nGEePVF7pDzWWhnrNWvr4ev/l7WNdOFGEcMgUM
+	 qASKW914X2F0tJrgLwqBfQ55hwL3E3IqSmnh2b7GRPHANCV4DRcnnMA8vtS4vouFKw
+	 CYskQgzuKbZxUdLg07N53za/W7EaKmfcfs5BWMoqdY2HmhxY28KHwthpED76guW+oJ
+	 Qc0sOuQzb/ZNcuRcUhy+hPa1E2ghHbthysle6Q5k/0NXWQKT8ZnZBhikws9QAjXmQw
+	 tgYWdBBQC6Oxg==
+Date: Tue, 20 Oct 2026 16:19:16 +0200 (CEST)
+From: =?utf-8?Q?St=C3=A9phane?= Grosjean <stephane.grosjean@free.fr>
+To: Dan Carpenter <error27@gmail.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, 
+	Wolfgang Grandegger <wg@grandegger.com>, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Stefan =?utf-8?Q?G=C3=BCnther?= <stefangun@pm.me>, 
+	stable@vger.kernel.org, s grosjean <s.grosjean@peak-system.fr>
+Message-ID: <899587980.1227073500.1792505956589.JavaMail.root@zimbra65-e11.priv.proxad.net>
+In-Reply-To: <atdybEUQ9EUdZ9A4@stanley.mountain>
+Subject: Re: [PATCH v5 00/10] can: peak_usb: fixes, cleanup and input
+ validation hardening
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,74 +68,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <OSQPR06MB725090D70BB07F70A2B521E789672@OSQPR06MB7250.apcprd06.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - GC154 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: stephane.grosjean@free.fr
 
-On Tue, Oct 20, 2026 at 10:42:55AM +0000, Joe Wang wrote:
-> Hi Alan,
-> 
-> Thanks for the review.
-> > 
-> > Under what circumstances does ehci_shutdown() run without ehci_stop()
-> > being called first?  Is controller death the only possibility? 
-> 
-> No, it's the normal case: ehci_shutdown() runs from the .shutdown
-> callback during reboot, poweroff and kexec, where the HCD is not
-> removed, so ehci_stop() is never called and the controller is usually
-> still running with devices attached. The issue was seen on a host
-> using LinuxBoot (NERF) firmware, which boots the final OS with kexec.
+Sorry about that, and thanks for the reminder. I'll wait at least
+24 hours between postings from now on.
 
-Okay, so this will slow down a normal reboot or poweroff.  Hopefully not 
-by very much, if everything is working properly.
+Regards,
+St=C3=A9phane
 
-> Controller death is mentioned in the changelog only because relaxing
-> the check in ehci_quiesce() also affects that path.
-> 
-> > If the controller is dead, will quiescing work?
-> 
-> It won't help, but it's harmless. The death path has already cleared
-> CMD_RUN, CMD_ASE and CMD_PSE, so ehci_quiesce() writes those bits back
-> as zero and the handshakes either succeed at once or time out after
-> 16 uframes. ehci_shutdown() already touches the registers through
-> ehci_halt() in that case anyway.
-> 
-> > Is there any real reason not to do this on all types of EHCI controller, not
-> > just ASPEED?
-> 
-> No EHCI technical reason that I know of. I limited it to ASPEED because
-> that's what the report and my testing cover. Since ehci_stop()
-> already quiesces unconditionally, doing it for all controllers should
-> be safe.
-
-I think it makes sense for the change to apply to all EHCI types.  It's 
-not really a good idea to leave an independent DMA master running while 
-the system is shutting down.
-
-> > Don't you want to check whether the controller has already been quiesced?
-> 
-> The quiesce has to come after rh_state is set to EHCI_RH_STOPPING;
-> otherwise a URB submission or hrtimer event could re-enable the
-> schedules through ehci_poll_ASS()/ehci_poll_PSS() before the halt.
-> That's why v1 relaxes the check in ehci_quiesce(). The side effect is
-> that a controller that was already suspended or halted gets quiesced
-> again, which is harmless but unnecessary.
-> 
-> I see two ways to avoid the extra ehci_quiesce() :
-> 
-> (a) Keep the relaxed check, and in ehci_shutdown() record under
->    ehci->lock whether rh_state was EHCI_RH_RUNNING before setting
->    EHCI_RH_STOPPING, quiescing only in that case. This is the
->    smaller change.
-> 
-> (b) Same as (a), but leave ehci_quiesce() unchanged and have
->    ehci_shutdown() call a separate helper for the schedule
->    quiescing part. Other callers of ehci_quiesce() are then not
->    affected at all.
-> 
-> Either can be combined with dropping the `is_aspeed` check. Which would
-> you prefer?
-
-(a) is more reasonable.
-
-Alan Stern
+----- Mail original -----
+> Could you please slow down.  Only resend once per day.  Otherwise
+> it's
+> a bit like involuntary pair programming for people who are on the
+> list.
+>=20
+> regards,
+> dan carpenter
+>=20
+>=20
+>=20
