@@ -1,66 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792539570;
-	b=1n5PGTy/OW0MlWPolc93PR9QuGb9rF5DJ88OpngXOCty0CYLf07KxFNa0GS6xXwkWErg
-	 zY8Q4dGTUbEE9PudOD0fmo5CNkCLiK+cZnuRpfT1p5Rsf85Kf7+TAaZXgfGmdHFL4ZrIR
-	 XOwQMLMS0vx7qv9LuCjDJMMBEi4846cXq4onC3oWSbDoWPenOWi1FAHx2GE7ySaXwH8aP
-	 bHfxaDYmjU9FOPWtkoMjKUQE8VJrSVNd8Bp/aVbYpS9i3sqyuBHMi3kbWJrs2CovApe1r
-	 r1Ociroc0xujeQkxE+FrlpPyNeZ390ICSvZn+1kKDNzjsY8HUM7vJ0TXre+5wsNFySA==
+	t=1792539797;
+	b=vspCryITRJ48RhwI5JN6sazE/pKTM6FVAXlAizumrlM4q+rpSDqdSMaP40Lm08lHktmW
+	 AdLxEw7DByg3ElOuh2zvWX7Cs9EgKYonz+QZ4/cJ4oLGzkT3OhqmEuwE32BEsGFy63UA4
+	 evcABox8vnyL8ylROEpzHKZYFmCODM2nAlLqD8YkwWqQO0B76rYfPWNHEzSM6WNQmln6b
+	 +TprQXusrj7O5pKp06BhKXNXKXKU+0GLaZrKQG/7doznGc0xXWD8sA1+POCZtn6t/iHMo
+	 HvHmoWTcydg9JXo7I2fw9MFn/2iSOptPu/d/B9uYEmDsxPzXhqm+qabo6zxKpN+RNWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792539570;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MvPKh2LFCRo5HFkIjF2qDl5qC/wMMf/toViD9nxJYC0=;
-	b=C4cLb/Frx/qBOKkL+xJH6G3nDa9knripWNJLJLUzYTh3o4Q1sHoZiBH156xr2Fau7UXC
-	 oYg6SIo2PtWEPI4E0SDscXq33TEYBDmw+uRJFpsuAuUfZOgOQg7Hm1hVSnAgzglA/IVaZ
-	 Ahcir2W7rn3cdqEPlQN2rx3ZAhJz+pj5jwKY09eBkUr9sfm2c2pc6pww8h6E2BBW0q//F
-	 ebagaHCmqyenIsV3RDG3J3dQ0fQysFspn4oroQsDCVteybA+4fEQs9m1TYJaZu0S/0uvi
-	 H21iHS61RYLx04h1S4ele6QDlqa2thvbOTrAomxoCLfQmLGzQngp4+WPkTzbkUyORXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792539797;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	b=tbGwQmVH+LbasTTjWkOfyT8s4+xofjtiIHJcVB04uMNRnszema84YOnfUgGehW0CdUYg
+	 Us9psoRdPfGsNSuEg1C2R+1ImzvksZdNLNP0m7cmPKa2NeZatkKTI+Gn6WzS4twnW9sbk
+	 qo26ARDJO7w6ffI68k7vbaxlpX8bJEkjM+jTH0TUsAisxLXMESLmvVrdh57deJhvip0xB
+	 SI95Y9MNlKi01BbtJn3Hc6T+PQltBY1u1i/vdRxdYaNwkxoWL4+XutF82xRnN3bPW3qPX
+	 Gr9UrZGvtazZmkWbPD2BuHqcuaYilxmjWS7dtfjusKiT5rC9Lo3TtKI4MJN2ehNrfhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nau/Q4LF";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JSZKlZcY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F157606A319;
-	Tue, 20 Oct 2026 23:39:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F596606A319;
+	Tue, 20 Oct 2026 23:43:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nau/Q4LF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DB4D1F000C9;
-	Tue, 20 Oct 2026 23:39:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JSZKlZcY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC60B1F000C9;
+	Tue, 20 Oct 2026 23:43:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792539569;
-	bh=MvPKh2LFCRo5HFkIjF2qDl5qC/wMMf/toViD9nxJYC0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Nau/Q4LFrwosrfYQpQ+p0FIoHHf1KpsvhH26jv59Sn/U/x/EA5+nAoav6rAnDS8BA
-	 RiQ7lhIBhhs3+50lQVutaVM03jVaq49QF40fqbIEi469uvbG7+bLvN8SIYiuXCcpEi
-	 0VFQT2ZURPZ0qdzAiuI+XZgiq/ssnsDdedIpx69+lH80Zc1uUiYJi5kF0nf4U+DknV
-	 rAzgqxrM7nX6/e2/uhHpLguBPh0Rhfz3mcETzqagf5fWjcdrKuTEoqdqsRFPMV5F8g
-	 Adv70qRaGSD+Rg0PVPUVibeacB0h37KeuWZsdvcZjPWtSPiI2cXz2/q9l04IWfphOz
-	 plFGSCwHK5vXg==
-Date: Wed, 21 Oct 2026 00:39:18 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
- linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
- lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
- cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
- James.Bottomley@HansenPartnership.com, aik@amd.com, jpiotrowski@nvidia.com,
- qinkun@google.com, pgonda@google.com, alistair.francis@wdc.com,
- ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
- dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com,
- peter.fang@intel.com
-Subject: Re: [PATCH RFC 02/20] ctlv: Add the UAPI wire format and family API
-Message-ID: <20261021003918.36151a58@jic23-hlaptop>
-In-Reply-To: <20261021000003.71f78d99@jic23-hlaptop>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
-	<20261015145053.3664509-3-jiri@resnulli.us>
-	<20261021000003.71f78d99@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792539796;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JSZKlZcY48lK0Xxb9vMD5skTpzittkyWCm6Q978hpE7kn8ju8zRWxpw7oHAvtj1iY
+	 4ZtDaKs1UV618GWOub5oaCS1I0ua7uGcIfrHjNDV/T7gnwVjlP/bsz8/IVkOiHMc7A
+	 s0C8JGYEGe8WwbUkORvyT2hZ8/20aIn0BiqzTBYabrkkIqI6oBlTinC7ilG7tGrTlv
+	 E/wITXnF1E0NssRUvdzKWnLG4U3+QlBPvmnqt/sw5rJFMa7GWt26p3GMGowIn70zlX
+	 oxybvwrODp0r5pUMO/fZSkOXKdp1OVghkR67yrOz7eI0cGg540i21S88D1QCnW9P3/
+	 9aJrfVoEsxvHA==
+From: netdev-bot+sinfo@kernel.org
+To: Akshay Ubale <akshay.ubale001@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Breno Leitao <leitao@debian.org>,
+ Kees Cook <kees@kernel.org>, Matheos Worku <matheos.worku@sun.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] niu: bounds-check phy-type and model VPD strings
+Date: Tue, 20 Oct 2026 23:43:15 +0000
+Message-ID: <179253979539.3290.9924821446681218748@kernel.org>
+In-Reply-To: <20261020233007.71945-1-akshay.ubale001@gmail.com>
+References: <20261020233007.71945-1-akshay.ubale001@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,33 +65,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
+Hi!
 
-> > +/**
-> > + * struct ctlv_attr - Attr header.
-> > + * @len: this header plus its payload, excluding this attr's trailing padding
-> > + * @flags: CTLV_ATTR_F_* bits
-> > + * @attr_id: complete attr ID, or CTLV_ATTR_ROOT for a message root
-> > + *
-> > + * Attrs are aligned to CTLV_ALIGNTO, which is why @attr_id is __aligned_u64: a
-> > + * 32-bit ABI would otherwise align this structure to four bytes. A nested
-> > + * payload is the concatenation of CTLV_ALIGN(child.len) bytes per child, so
-> > + * child padding counts inside the containing attr's @len while a leaf's own  
-> 
-> Whilst I get what you mean, leaf doesn't feel like a clear concept in this
-> comment block.  Maybe 'this attrs own padding does not.' or something like that?
-Ignore this one - lack of coffee...  Leaf is indeed clearly defined as most nested
-child.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-> 
-> > + * padding does not. Scalar payloads are native-endian. Within each request
-> > + * root or nest, occurrences of one @attr_id are contiguous; different IDs
-> > + * otherwise have no required order.
-> > + */
-> > +struct ctlv_attr {
-> > +	__u32 len;
-> > +	__u32 flags;
-> > +	__aligned_u64 attr_id;
-> > +};
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
