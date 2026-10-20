@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792503055;
-	b=bBvdx6eDmCEzsG7CoPKGE2qheohnT4bPAwdH7nkoUir4XTgnrg7kCyewv4Dvj0HooNeI
-	 cSBpHu9HqHU+lpSwB3FSX5IoV27otWMCbRl5qjgOmbnIGj3QZ7/Dq1zopq9Ff2LDqM80L
-	 CCLJrZJ0ygFVPvFZ2kfJca2+DTJAyVS6R6yE7g7F5S7cdXuayCIu/bqvcfIkHsZeFv6Gr
-	 HOL+eMUMeMTf7RfJrwCGthiqeGlKmwRuEa4ydI2Nho47cG5NOYanvysk7wPHmeXBKz5LL
-	 fMuXmItPteXdQ4ZgYlMWnv5zTP6KihZ/KvlZA1Y1ChXJ6wrpskYDpepBR1mS+ncx1Jg==
+	b=grfyy2lAnjqs7dZlBHB9lhQDt20VjDwgjE2F0dU39Bp6yc1dg3LAZZbBW2+TxqQdLN69
+	 RX9lmoasqFBwvn1X2LBC3/eidpj6KH2WVlvVMXV5NPu9OWOubsnbY7PTIIUHplylqqpMV
+	 e257Psw4D7/3nnz2NxztHRP185i3GkpWZCy4JkXsFgrSZAR9y/kHO1Yr88k8gji4f/76q
+	 9+olFVNLCPPv9Sxa8a5VIGNyXCmKyh0VyP6zXX1c4Lvk9aA8nUc9PRJvb2xvDOoN7jYEz
+	 IQ1oCgLjwVW57NUyrDtkVsg5KnevRp4KpMyEOYGO8I3ljMo4pFkFqWPf5skscVJppSA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792503055;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xxbuQ7YnwKJRiO0qCRVlDpGTsW4CQx/KBY872s2d53w=;
-	b=3OBUp37u51FK675Ldk5PJIbHbs1PMzKlGmwKuWmqZKmC7Lpr/EIugtMbKqhjWK+QR7fT
-	 9DaIlNJlmSUyu5B46+IXeztP28O91GaI2TUTIT9mivMl3JrEUGcRgT7cK6gmrkqxGJe1c
-	 ndBXKH8ZTALVI3dFBF9horvBXXK66OpxeGOaY8YfxVjkoZRuG1lflM3sUAwdL9Fkd4OOa
-	 75UdII/wD40uf77ReOr1wOv61u2ft2X8SZ8t1TcIIu9tzdOtT3l7sE6b/qucCKgmffUW0
-	 r5UvA7vkuwE2LwYn+WxGp8wOxdOiMz87TbODxN7COGJzzbwe5N1kDXhel6NZcEn2jDg==
+	bh=5Pod1YmxY0mwyxZMirX/Q5jewqNFd+iNhCd3CzounCc=;
+	b=Bbi6u8dgTwuvn3Igxi5f1FABwSMe7CKljFPJKHkJ96KaVbDTn5wpyQQnyXUuF6nchObx
+	 39EwfRKiWoJ8vhVYKn7M1oS7gSdy+IrlTPJJGd4Oso5EzSS9nVlDIQM0K1DsXUCMa9J4I
+	 eDJ5xXYLEOg7QbZfopJKPBtA9FrqPmITMMN1GBxmbR6fdNeP464RA6Xa51P1E0SY5W+TF
+	 RQkgruXHVHjnPfePUgQkQWGCR8+P8WaseAoicyVfV8mNMpNSIEbKOVTd/LJH3CbcBw7ZD
+	 9BtUBhuT+VgF0OPhML7kLA19U1YsG4sAJGF6yLKjIB9t0e2dKeENczI000+Lvpjt22w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jjDEqrCM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQDDys3Z;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D9260A2601;
-	Tue, 20 Oct 2026 13:30:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769E660A2617;
+	Tue, 20 Oct 2026 13:30:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jjDEqrCM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQDDys3Z
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792503054;
-	b=ydsAShz6tbdbDPzIpll4c8ZVPBtEJiiRDNR2wID/Ku7vr/qifpjNLdEemQN35LInvDfL
-	 6tgEkfKWZ+d6gA0FiBX+qgOHiJpPZLZ3+xZAIIre3WH8c/BRGSfyXdX3IOvpp/xT9wTqE
-	 9uQkAZy6gU27J3iJnTW/B9K3MB79/YR+eFJ+uRxFa5lEoWYFIDPcANf89ahfyPQ6qoQIo
-	 Nji/tUcrHfZmn4r6F21dFFBmTXbX7HEKCBZg16jEIXx3UGCmGKF+mntU4Iyf7vTSdj478
-	 CdNcnoOJAxno83rSfjBM1fhxgFd/DX0gnvBkfvnt8qZWCm/tfyKUyMyBMNiZyxZV8Gg==
+	b=xPyXR3DzMiPNxjz1UT6TDcugYrtMDjiv2HYIQMr5VKxIX/UiELl3veVeQgGCqGD8KhbX
+	 9pUvmqEjvTXfrhDSzZRbmhFV5uLMSqtXPzcdf+6+qxX4daBQzN2gFZ273w6FRNNGtVO2s
+	 sfoWh+c0l8NML5cq6f1BXGcj6CgARhSnpnh/lZG+EadLWL7jnEV/AWQ3/q2+Z3IKnN6bv
+	 Prpl5UmME4xPnyQVTt30VLcc2zrRyqu/UWUJvj2sPUYZdsVERifDom9TeTbjgpsBaAE+r
+	 IAXA7yVOIrRyw4RMymWlIsP7HdSxSn3vxFQm9nu7HNhSQBvNhmI/AHyQ3lQLkKTorEw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792503054;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xxbuQ7YnwKJRiO0qCRVlDpGTsW4CQx/KBY872s2d53w=;
-	b=EYfICaDEhBARE4L35N0kk8dQAJUlr5Z4486m42SMzCd2CKlTn2oVe34/Fygesyj9Y7rF
-	 GUS/SPRSYvboB2D4nWSYb/PCwKqiqwjhXDXvNHF0rFYyx8Zmz2ZD3jSnUx0y3N+MU8pzW
-	 FBapC1IJipP0+DQO2peoOm2KbjgvjKmgF3hDwk0XdwYDQushcrYh6IB1IIZJa3Pty2rvs
-	 aiOsTSKvSy/MdJ1XwqmCGAg/S4VpqXNNSkRIfiiqdcwpiZjG7xPr690NgbAx0lVKSovpo
-	 +HGGYRL3/jMLYawaTljSIZbk7L6hFfKnMcp3Pg7kUCRdHMOg3vuyW0giXlR4BKM1QKA==
+	bh=5Pod1YmxY0mwyxZMirX/Q5jewqNFd+iNhCd3CzounCc=;
+	b=Kiq8U/z2pu24Ol3q5TuZH2vSgj35654wN77XfqiaPvIzfysC7W/ITcfRiWPG5TH0Pn/m
+	 KejokoPeCo1E+oxkbPFtaRUibBc+9IN0eKzNc1spV+wdN9qpFNl7qMZxd9A6OedkBm9Hz
+	 X8QxAXyabXEFMdcaHhy7lCtoQg3ZXn3qslgZb1ebIJLSqSvvY7g4jGRkQzhuya8Yn761g
+	 quPp7oFeVZ9YR6IwTRbEdsPCGq8dFbS6fDMp8pMyg1YlVkY+hIaigvrdVo1C+fIN91u7t
+	 WpTSQGyPFWx8KrZfg7ebhAI7KwVoRGCqb0vaDC0tClXP/Yr1uQAuZFfLP8Z0M4KcUhQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B09011F000CA;
+	by smtp.kernel.org (Postfix) with ESMTPS id B67EB1F000CB;
 	Tue, 20 Oct 2026 13:30:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792503054;
-	bh=xxbuQ7YnwKJRiO0qCRVlDpGTsW4CQx/KBY872s2d53w=;
+	bh=5Pod1YmxY0mwyxZMirX/Q5jewqNFd+iNhCd3CzounCc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jjDEqrCMxN1QvlvI60KTq/kuhnyQp6mQCeR9XKkgoYuVqCaV1igZUKEvGosPjcRP+
-	 5k8XmDfRsWImnm8XTGOjlGF4CjWSYW56GvpOxex6GLU/HTRzLiYF1l+CZLe/7Yfxtr
-	 HnA2exhG1JN/cyj5ubjU8Z3yo6FOOTa0+tioozerYF89Ke3Ac1Clcald728MJkktrJ
-	 MRaTntomlgYmu7cEM0quHrK6GS75WOvmYbINuMbTVEia0KGYI1egUJk2xzasB9F3Y9
-	 OnGYvXrcBYPkVPTxocY1Pq5lxuphNmTpXv/GPfLNvRUwMSuF8Qb0UHaZRRsAN2dtPV
-	 F/+Zm+mXuynAQ==
+	b=bQDDys3ZlKJtD41MGvKR6XDzIgGEYoebPs6LAgD4R4gIHIFd1bvqXPWZVIhxpYzAi
+	 oKNJrqIXYYDoWwAkOwjyEqDCOYNMjR3yUvNQzhC3UYlW42UjyAiTK8l4q+ODCCzmlp
+	 RZp2KYG7YAYGAvfh6Xw44KsADoV0xdv7pXNKPfP+XLxpx8AwwygnaaUczqD04nZiHI
+	 xqwGPiLfICryijPoBGIDQPdWuWndGLzZ4FV5eWmL5XhMypZLZk0t/JcQk7Ygtvch8h
+	 8s1lEeq98uAYy5cPBp6oWajB4ETBxlyt3VR8OujYIBz6xiwdR9BaC6YLuxS6hr9Zwt
+	 JdQrXf7wJuohw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B0CAA43194;
+	by lkml.kernel.org (Postfix) with ESMTP id B79F943199;
 	Tue, 20 Oct 2026 13:30:51 +0000 (UTC)
 From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
-Date: Tue, 20 Oct 2026 15:30:46 +0200
-Subject: [PATCH v5 07/10] can: peak_usb: fix RX cursor desync for
- self-received RTR frames with SRR
+Date: Tue, 20 Oct 2026 15:30:47 +0200
+Subject: [PATCH v5 08/10] can: peak_usb: reject records for unset channels
+ in PCAN-USB Pro
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,21 +84,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-canfd_check_channel_idx-v5-7-a62b35b867f0@peak-system.fr>
+Message-Id: <20261020-canfd_check_channel_idx-v5-8-a62b35b867f0@peak-system.fr>
 References: <20261020-canfd_check_channel_idx-v5-0-a62b35b867f0@peak-system.fr>
 In-Reply-To: <20261020-canfd_check_channel_idx-v5-0-a62b35b867f0@peak-system.fr>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, 
  Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
  Wolfgang Grandegger <wg@grandegger.com>
 Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792503050; l=2124;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792503050; l=2967;
  i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
- bh=0jWkvtrawf4H585XSLeRYSXK05iFHqh2BhPJhVjt6PM=;
- b=xBlbyTajQAIdvC40AHLoGzqyoPN60Bpc+g36SmXAS+GGLJKT547i6ujI7AGxH6OP/+syiOibO
- 8PqzJzv9pv9BhkU/Bipf7xsRZp+oWYi0rtYKbDYcBAxPZs3iXYjSMJt
+ bh=7cZFn3PowfU4SRYPZttd6kMIm8eGedioX77nVvlSNqY=;
+ b=6IwngBMI2zLcSOO43f6SvpRK+tTwXXRVX3XKIxnVOSH9Ha6TF8MpueRhEWKvUrcM8HyGYm3eZ
+ wOIUMmSGDCsAobzaH4CitNDiLPOrZZd6lKIar4kBJ/N57/8hSXLjMBK
 X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
  pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
 X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
@@ -109,60 +108,79 @@ Content-Transfer-Encoding: 8bit
 
 From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-pcan_usb_encode_msg() appends a one-byte "writer id" whenever
-PCAN_USB_TX_SRR is set in can_id_flags, for both RTR and non-RTR
-frames: the data block and the SRR writer id byte are two independent,
-unconditional steps.
+Records received from a PCAN-USB Pro device carry a CAN channel number
+used to index the CAN device table usb_if->dev[]. The decoders only
+check this number against the size of the table.
 
-pcan_usb_decode_data() only consumed that extra byte in the non-RTR
-branch, inside the same conditional block that reads the CAN data
-payload. A self-received RTR frame with the SRR bit set (e.g. a
-loopback echo with CAN_CTRLMODE_LOOPBACK) therefore left the RX cursor
-one byte short, causing the private id byte to be misparsed as the
-next record's status/len byte and the rest of the URB to be misparsed
-or rejected.
+The slot of channel 1 stays NULL until that channel has been
+initialized, while the RX URBs of channel 0, which share the same
+bulk-in endpoint, may already be running. A record for channel 1
+received in that window leads to a NULL pointer dereference in URB
+completion context. Moreover, when probing channel 1 fails after its
+slot has been filled, the slot keeps pointing to the freed channel.
 
-Move the private id byte skip out of the RTR/non-RTR branch so it is
-applied whenever SRR is set, matching the encoder's layout.
+Reject records for a channel whose slot is empty, and clear the slot
+of a channel in pcan_usb_pro_free(). Slots are published with
+smp_store_release() and read with READ_ONCE().
 
-Fixes: 3a7939495ce8 ("can: peak_usb: PCAN-USB: add support of loopback and one-shot mode")
-Cc: stable@vger.kernel.org
+Fixes: d8a199355f8f ("can: usb: PEAK-System Technik PCAN-USB Pro specific part")
 Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
 ---
- drivers/net/can/usb/peak_usb/pcan_usb.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 93da0fd4f10e..4c8cfed31634 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -697,16 +697,19 @@ static int pcan_usb_decode_data(struct pcan_usb_msg_context *mc, u8 status_len)
- 		memcpy(cf->data, mc->ptr, cf->len);
- 		mc->ptr += rec_len;
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+index cbc23953ce61..151c5ea2859b 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+@@ -543,7 +543,12 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
+ 	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
+ 		return -EINVAL;
  
--		/* Ignore next byte (client private id) if SRR bit is set */
--		if (can_id_flags & PCAN_USB_TX_SRR) {
--			if ((mc->ptr + 1) > mc->end)
--				goto decode_failed;
--			mc->ptr++;
--		}
--
- 		/* update statistics */
- 		mc->netdev->stats.rx_bytes += cf->len;
+-	dev = usb_if->dev[ctrl_idx];
++	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
++
++	/* reject records for a channel that is not (or no longer) set up */
++	if (!dev)
++		return -EINVAL;
++
+ 	netdev = dev->netdev;
+ 
+ 	skb = alloc_can_skb(netdev, &can_frame);
+@@ -590,7 +595,12 @@ static int pcan_usb_pro_handle_error(struct pcan_usb_pro_interface *usb_if,
+ 	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
+ 		return -EINVAL;
+ 
+-	dev = usb_if->dev[ctrl_idx];
++	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
++
++	/* reject records for a channel that is not (or no longer) set up */
++	if (!dev)
++		return -EINVAL;
++
+ 	netdev = dev->netdev;
+ 
+ 	/* nothing should be sent while in BUS_OFF state */
+@@ -933,7 +943,8 @@ static int pcan_usb_pro_init(struct peak_usb_device *dev)
  	}
-+
-+	/* Ignore next byte (client private id) if SRR bit is set.
-+	 * Note: this test must be done even when the frame is an RTR frame.
-+	 */
-+	if (can_id_flags & PCAN_USB_TX_SRR) {
-+		if ((mc->ptr + 1) > mc->end)
-+			goto decode_failed;
-+		mc->ptr++;
-+	}
-+
- 	mc->netdev->stats.rx_packets++;
  
- 	/* convert timestamp into kernel time */
+ 	pdev->usb_if = usb_if;
+-	usb_if->dev[dev->ctrl_idx] = dev;
++	/* publish dev to the decoders */
++	smp_store_release(&usb_if->dev[dev->ctrl_idx], dev);
+ 
+ 	/* set LED in default state (end of init phase) */
+ 	pcan_usb_pro_set_led(dev, PCAN_USBPRO_LED_DEVICE, 1);
+@@ -981,6 +992,9 @@ static void pcan_usb_pro_exit(struct peak_usb_device *dev)
+  */
+ static void pcan_usb_pro_free(struct peak_usb_device *dev)
+ {
++	/* clear this channel's slot: dev is going to be freed */
++	WRITE_ONCE(pcan_usb_pro_dev_if(dev)->dev[dev->ctrl_idx], NULL);
++
+ 	/* last device: can free pcan_usb_pro_interface object now */
+ 	if (!dev->prev_siblings && !dev->next_siblings)
+ 		kfree(pcan_usb_pro_dev_if(dev));
 
 -- 
 2.53.0
