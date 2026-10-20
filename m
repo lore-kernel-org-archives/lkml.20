@@ -1,84 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485011;
-	b=LiIuZVMFPTfjvLhr4JoJJjk8H2LnB0JUCnjs0ShRBY12kODIj+UMtVoCcqnRLAWL/CMS
-	 p69o6sSHXMnvfvIzHDPAUjvXB7Dn01hvg3UViRxvyEKI6Q09AfpAhBMAQ2GnB5QEEp868
-	 MsLexk+zhyzyXmWocKrdcSXJrDlYggOkgEgO7kxI4xXiNRLJJfejOWOnNOU7j2CbN2J0N
-	 TexEOu57gpRPTrx9ub1IEaP7CaSU9onnVz8ebts3+oaFfhgqMdATLMTQQgr14djfIIvhA
-	 aKf66GzpvOqMVO7BIhC2jalffgqMzspb9SHQI+S+hXGIwJJ68virXt0hep4BM7+3/1A==
+	t=1792485054;
+	b=gheZAtkztI2ZScgFcyVBAQr+9wHtPuJ2SC5xDLbkaEgFynIU+yIxs/bH9GXR/PELKKsy
+	 bH8Qdx1+/GVTBJqNp1r+bR012su4q96i8mEcRp/jh+uWYSx6UN169wWl65XPmekjM7DRc
+	 ME1Yf0eP+JirSSE+tb0+rpoXT28QsJfum3zrC9r+JMVxJ81s9E3VuPfBg37s7LpCHqeUh
+	 TjhEmqVHfqkL3UnPboWRZaNSIyTmTZ35qR7lj7QSPYy+uKYThZ2at+8D/uwTI827zf+yz
+	 igH2Au+7R+8EHUFf6IGKsUcLw8hYl6OWdXvUW855yvufOPZiCMcbVRvynU/+wndcqVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485011;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=SH4f7kSSSOqRKPp383w+nJEtgT8hrei7yyRtccIHY5A=;
-	b=c7IfCZRgCOznT+m69R+LRP93BhfBGEScHaWD2iWiqx2TQ+P7z/QM/L4vZQP5KM/wJ77z
-	 4V13Yqi2mVsWhg1nMuCFZUGCL9IqfaYOf8NOb9O5IJctDJZRQ7qLqTRwNmnT4R/MhM//x
-	 CW35D7L25y01UvXvIVHMz9n9J/WaS8cKINdyq6TInXbgHZ+Qr4fZTrxiF59KYfZnknZOb
-	 3tL/95uW9V6D28+GG/NLQl6PF/pyOS7GdtWbQJN70yKzjMoXdi/ryACcLd8e5k++xSmxg
-	 sfTGXi5hKywPXNkTR69ScsM8FRXC28K2V7YI7V3FvgugklpbMa+xTt2aKoZ96fTZDzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485054;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=aCWNPsJymC2fp4gzJndbp78M6r3pyeyfQP7eP8i0JKE=;
+	b=fA20B7ctU98OvuEd80J0ScaXka4qcIjFKLEA4aP2XXJwJExcfHceB7Tixc3xrJO+GU33
+	 05Ug8XvBXXcErIhb+j7jWJSkTmXps705BFsn17rBPnWRUvc0T8GGx0tH0x2U2cfC/GZ5Q
+	 tFisjgHkbjzQ7X5XoQbzodpKTnQLmrQqemdO98WIYyh9X6Pz4cep0B1aSLfbWdj73ULrr
+	 M43oAosO2UZDqek4nG6n6TBmZ/5z1pZh5vaMxLv5a6AFI1tLvXPcS/rwLTTQGrFQjo5CX
+	 oqUqrgNwWpsILnZ/2TVxuTlnWJ0KKVU+eLxjimb7L2YQtAMFfqqOUbMKjqWKNAP313Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPODbXxY;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1135B606A33F;
-	Tue, 20 Oct 2026 08:30:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1135B606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPODbXxY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792485011; x=1824021011;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ut3G5c8rvGrpw6eB6UmvojAffaEPq4sehW3h0fIJ+hM=;
-  b=nPODbXxY7Il0teIcZLDwt/h4KNPU4Ay8+nsevQnXMGq4Euwt1Ayj1BLe
-   980zW91HImTS5UmBsCq0jHHbKNDs5sGMyJXsF+/IXtyXiLJDkDb/MCtpA
-   9pDHjdjyfIANTrkXGONWVSunRxLDWZS4JMqubKC33ex6N+ehmXeieaG8P
-   7oVEOrz2d76iuBbzivQJGI2JNNlPZ4k+Al2iftc+SsyeNZLzhM+tMR6O9
-   JX6o79c7pbUGV0KylqczS42XOK6ofuL6sR63Gkfo7wfswddVkEEqRht5D
-   t9m7GEmV24NIKMoEQVnRjj4mHkA2EFzHmCAaOgNUmLH5aOCOOp1j0nYEu
-   w==;
-X-CSE-ConnectionGUID: ORhGv6FtT9CDdGNvJspR0Q==
-X-CSE-MsgGUID: pUSA00DrQK6dSTyLaFNEpw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1075779"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1075779"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:30:10 -0700
-X-CSE-ConnectionGUID: ff4tx7z4RauaHg52GK7m4g==
-X-CSE-MsgGUID: OE45QHLrSziL2awgXk/q/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3086559"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:30:05 -0700
-Date: Tue, 20 Oct 2026 11:30:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
-	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
- when DLF is present
-Message-ID: <atcmiqfmoa6HoJpp@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38210606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:30:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38210606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c734afb8deso4505799b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:30:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792485053; x=1793089853;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=aCWNPsJymC2fp4gzJndbp78M6r3pyeyfQP7eP8i0JKE=;
+        b=poPDcAM9JDrElPNHTDnIFRhrwBTQ3/aTnq3uEtF7Vw+5/SDv2xtzWl9fq+yZStTFaU
+         FLq2VXLTYnDp2nvN68UxhUCLQIN3RlXGBH9sPXJzQbwtO42tiaEgQ3p3bZGMugeiJLo/
+         eDVJniUtBlylLA2CD35xdizHLvG57sGChRna43kx1GUuaNZ61bAOr5PkWfQUgBv39G1z
+         nLBTW7lrlB7BxMo/3TEuhRN3duKUm/Xpd0b/2ORO3VaPL50kAgMJoZGddpoZNH+uNwbb
+         INyTufwMsCrT3tfIbZ1mfNwnQHNj94wp85t+WOszMWgkQBSt6D4xE7A4zMND7xmwWeNX
+         o8gg==
+X-Gm-Message-State: AFq9FYKk0z8ZPzvT2MV7ZUDf4pcDjJkdVXSzWtyZSJhAb8tAlro3+re9
+	CYf8BMK0pDoy6w0sqYdlIRxFyTfa7xZ7qT/E+kmntYPiCy6Yh9inkWFp117nYG2MTyRbrwfNe+7
+	USxg4KHM5wj5OC9xqMONwqWSCTegNJQ6dzdaymyq8k+HuA/MrjeWjxET1R74=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,63 +57,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Received: by 2002:a05:6808:3084:b0:533:72c7:f80c with SMTP id
+ 5614622812f47-53cd63bfbd7mr9002967b6e.42.1792485053299; Tue, 20 Oct 2026
+ 01:30:53 -0700 (PDT)
+Date: Tue, 20 Oct 2026 01:30:53 -0700
+In-Reply-To: <6a9b3f7a.2e649fcc.1e1977.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad726bd.5c73e770.1a06c9.00f6.GAE@google.com>
+Subject: Forwarded: [PATCH] ocfs2: fix use-after-free in o2hb_region_dev_store
+From: syzbot <syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 19, 2026 at 05:06:10PM -0300, Vinicius Pedrosa wrote:
-> dw8250_probe() installs dw8250_set_divisor(), which brackets the
-> DLAB/DLL/DLH sequence with dw8250_idle_enter() and dw8250_idle_exit()
-> so a BUSY UART cannot drop the divisor LCR write.
-> 
-> dw8250_setup_port() runs afterwards and replaces that hook with the
-> dwlib divisor hook whenever it detects DLF. The dwlib hook programs the
-> divisor through serial8250_do_set_divisor() without entering idle,
-> leaving the LCR|DLAB write exposed to BUSY.
-> 
-> When termios changes while the UART is transmitting, that LCR|DLAB
-> write can be ignored and dw8250_check_lcr() retries it between
-> dw8250_idle_enter() and dw8250_idle_exit(). dw8250_idle_exit() then
-> restores IER while DLAB is still set, so the value lands in DLH. The
-> real IER stays at the zero written by dw8250_idle_enter(), and the port
-> gets no further TX or RX interrupts while up->ier says they're enabled.
-> 
-> Do not replace a divisor hook the driver has already installed. Program
-> DLF from the BUSY-safe hook, inside the idle section, through a dwlib
-> helper that checks dlf_size.
-> 
-> Observed on an Allwinner A733 (Radxa Cubie A7Z), where
-> dw8250_setup_port() mistakes the RS485 control register for DLF (see the
-> next patch): the first interactive tcsetattr() during console output
-> left hardware IER at 0 and up->ier at 0x07. The shell never printed its
-> prompt or read input. With this change alone the same boot reached the
-> prompt and echoed input, and hardware IER matched up->ier afterwards.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-...
+***
 
-> +/* Program the fractional part of the divisor, if the UART has one */
-> +void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac)
+Subject: [PATCH] ocfs2: fix use-after-free in o2hb_region_dev_store
+Author: kartikey406@gmail.com
 
-Let's reduce amount of double underscore functions. Let's call it
-dw8250_update_dfl(). Also call the parameter just 'frac'.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-void dw8250_update_dfl(struct uart_port *p, unsigned int frac)
 
-...
 
-> +++ b/drivers/tty/serial/8250/8250_dwlib.h
+Two tasks can concurrently write to the same region's "dev" configfs
+attribute, each through its own open fd. configfs does not serialize
+separate fds against each other here.
 
->  void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
->  void dw8250_setup_port(struct uart_port *p);
-> +void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac);
+The only guard against a second writer is an unlocked check near the
+top of o2hb_region_dev_store():
 
-Put it rather after _writel_ext() implementation, because it's just a small
-wrapper on top of it. Or even make it 'static inline' there.
+    if (reg->hr_bdev_file)
+            return -EINVAL;
 
+This check happens well before hr_bdev_file is actually assigned;
+several validation steps and an fd lookup sit in between. If a second
+task runs this same check before the first task has assigned
+hr_bdev_file, it also reads NULL and also proceeds.
+
+Both tasks then call o2hb_map_slot_data(), which allocates
+reg->hr_slot_data, and later, on any failure, o2hb_unmap_slot_data(),
+which frees it. Since hr_slot_data is also unprotected, one task can
+free it through its failure path while the other task is still
+populating the array, producing the use-after-free reported by syzbot.
+
+Race flow:
+
+  T1: dev_store()                      T2: dev_store()
+  if (reg->hr_bdev_file)  // NULL      if (reg->hr_bdev_file)  // NULL
+  ...                                  ...
+  reg->hr_bdev_file = ...
+  o2hb_map_slot_data()
+    alloc reg->hr_slot_data
+    populating slots...
+                                       reg->hr_bdev_file = ...
+                                       o2hb_map_slot_data()
+                                       failure -> out:
+                                         o2hb_unmap_slot_data()
+                                           frees reg->hr_slot_data
+  writes to freed slot data  <-- UAF
+
+Fix this by adding a per-region mutex, taken at the top of
+o2hb_region_dev_store() before any region state is modified and held
+until the function returns.
+
+Reported-by: syzbot+3025e3e8fc0b928af8f5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3025e3e8fc0b928af8f5
+Assisted-by: Claude
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+v2:
+ - Expanded the description with the race flow
+ - Updated Fixes: tag
+ - Use tab for indentation
+ - Dropped locking in o2hb_region_release(); configfs already
+   serializes store and rmdir
+ - Take the lock before the hr_node_num assignment, using
+   guard(mutex) so every early return releases it
+---
+ fs/ocfs2/cluster/heartbeat.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 1c3def99bb07..e20ef0459f54 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -273,6 +273,8 @@ struct o2hb_region {
+ 
+ 	/* last hb status, 0 for success, other value for error. */
+ 	int			hr_last_hb_status;
++	/* Serializes concurrent writers of the "dev" attribute */
++	struct mutex		hr_dev_write_mutex;
+ };
+ 
+ static inline struct block_device *reg_bdev(struct o2hb_region *reg)
+@@ -1879,6 +1881,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	ssize_t ret = -EINVAL;
+ 	int live_threshold;
+ 
++	guard(mutex)(&reg->hr_dev_write_mutex);
++
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -2149,6 +2153,8 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 
+ 	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
+ 
++	mutex_init(&reg->hr_dev_write_mutex);
++
+ 	/* this is the same way to generate msg key as dlm, for local heartbeat,
+ 	 * name is also the same, so make initial crc value different to avoid
+ 	 * message key conflict.
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
