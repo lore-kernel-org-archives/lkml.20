@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505284;
-	b=ib2C6vH/ykBEa7VK0JX3AmnZYhTv2Vsw+OzFA10+5GIYhHFr2xNeyHTF75Sb8dg/vKF4
-	 /2M5iY+FjwMoWfdAwc4NGUrnQz3pYt2jzF3AtFVfVGIxDgGUI1P7gQC4jTVVx36hy2Z6d
-	 w3oAvTCgeVG8bu/hvIemGPhGipJoJTXc2grmoUVufFfE5kVC3gjRqDWVyEs1jYqelOKC3
-	 FUUWWeyZJ5akZPT5I27zt4a+TilVsC1a7kvcO0zjO9A8Et6eASNzjciBids8HSogGHqHI
-	 AdibGH0M2tPW3zxI5maG3dKO0outlRZtbaYRoQcYuRXfBMnqfKJR0sgpPnf0bcfKXkQ==
+	t=1792505285;
+	b=wIQID3dGXV0T30o4EurPQANoGAps0+ZrJ+/GZ+tispSP3Lm9HBbfDOxMAEADCG88q2AS
+	 hx+hrOxiKReySbT/ZZXcqAckMDRjPfFn+6SxQhPUgWf2zgd6pJ+/MdlLf1p8p43FkLkgw
+	 +AtjBGWAl3x53lYxoWTq50hOTqVK45//pqTW+y8mNbMYe7SBheTq543ifcPO4lJDKEcQK
+	 TuSw6/hyKqKvdVn0Nxkj0KSnGOwdfYIu/Xf0QIK3G/DEprcKZ8GHiOZpqUqoIfAck3LNJ
+	 MM6hcYdLhdMkXkVYM1wsfWTd+JtGLNgDxL3qCZ3bhdNESk6K6zEWpnn4CBlv6uTRuaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505284;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HyfAA1P25OiQxle+Wp/YWdNeqd49n99nmilr5GjgY6I=;
-	b=CHSPcY/sOxcac12yCkYaWkjnaAX2sYgKrjutXU7svL5szhRlf+SQBvlgMGnvmQeH73pq
-	 CFKfBkMOtPJ6wVKZQa0PYd8xyQALIQa/b2Vr6alRFuEJDbxSms1BKrzz554Im05ELWe7Z
-	 I9HAd1JpeqDtW3LLXH31OXDCFrLDro1H15Ml2V8LaAXRqEtweFFxhYwRcZj7UUskZwfR1
-	 Ivj4jvpvHAGkojjfwhMOIOd7cMOjba7hhbGdtdx1+hrreGDPuAQx4BOkpq1OhVLWmB1Pi
-	 EKS4KeTVkElIk57/TMF5hjWUdjBEecTKx/SS2i9R6LXHQxzPXnysL3FdR0EsmpsG7Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505285;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=Z+XgTr7BNZ+hRHl6R5m/SWxwX2d2nx84wkJrTDwH4AA=;
+	b=tZlUIZNqIitQifd+KPLtfw/vOBxS83dWNEic9oJ2N8oEex30qq84WBQQ0zTQT3uWJc1h
+	 SdMMrCLLdOhSCcl8Y4BCaf7lpLn3UIhhlFoKFFGENX+owJhGOPT72NjR+dmgLJIt6qpaA
+	 Z8eDU4CCd87zhOlUlyRgwf8hdYh/uT6CRGupKXECpOdq52sdOw3C464GnTgvicuJ9mjQz
+	 x7LMfYRt4tn4dGW+lv8KIDuNaFsjmu1m3wbG/u4DrXB8v2Gd4dknxxRnmUK+8W91Eu3L+
+	 31PMOCAt6uAvGWArXpvwmh/23aeoMk/5feSuq869ZcT/3UIbc/qWXQiULYMM1bqhMng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gv7g7XrF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D6F60A2617;
-	Tue, 20 Oct 2026 14:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gv7g7XrF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2D181F000C4;
-	Tue, 20 Oct 2026 14:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792505283;
-	bh=HyfAA1P25OiQxle+Wp/YWdNeqd49n99nmilr5GjgY6I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gv7g7XrFu6iTomWP2Raap8LiYG3LM4SG/iwjh6J3YDM1Ej5yARUkYWV31nlSAsyyb
-	 pMyxrxsH+KoYlvWpwUIcYO2WV9Wc8z+Dx3bcRAGKkm8kx2HkuMLHbfoQialzCYFnbX
-	 GXBT5sy1zDL/UoZOlZtC5JHaw4tHV9jx/leguQEGgfsK7LuBTh7i+zYuHexu8GTl0E
-	 IOiAvLLuFpkq1clec0MdMnZud94PXLwCxFFCftnHewUZnRc1C32AS4rczE7Huq8VOs
-	 yEU56D6eChXx9nCz+e45MwkqXnQpzWnMYGtwAMUgGJXfqlEFIUmC+AQs9Jn5++FHtc
-	 ZPc0lBvdV+mMw==
-Date: Tue, 20 Oct 2026 14:08:00 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v5 5/5] watchdog: w83627hf_wdt: Add minute mode counting
-Message-ID: <atd1wP1cELjiwjXT@google.com>
-References: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
- <20261020-w83627hf_wdt-improvements-v5-5-90b226684fc7@bootlin.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5183660A2616
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:08:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5183660A2616
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e9eso4908337b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:08:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792505284; x=1793110084;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Z+XgTr7BNZ+hRHl6R5m/SWxwX2d2nx84wkJrTDwH4AA=;
+        b=lFArLaEPGbiMqtLKO7E+DqrdLOOn4EVqeHI/u/eT0e5z9XAw7dJQ4mpxVl9T9nOSrm
+         WerCAv8k+YwOfKaPSJAeaKik1Gk2J+rRvwvzp7x3+HQ3oDByiyqwSSERkTtCmXdckbYR
+         OBiDYiDrmKDf0LY86o2/ctrfePCzhogW12Kv89wKhcS6zep70lIS0HcxYcMu9Gt55pkg
+         10Q38muVS9jvhdv16mNuP1rjunttjc3YNELQN/0aRWSL4uzFyKo9xfiIJT+u3FzBFhMS
+         Mf46UYfnZrXQLL1w54294DbYAQRFReylr1uedgdsmTk3Qm4KTPSf5Mdel7oXMxlq2un2
+         Nxtw==
+X-Forwarded-Encrypted: i=1; AKwUvBwTZtmdA7xwqYgQQNr8FXKguKqjKcvOYKKit1+D67FBi/XfOad/7lmfq7/W7LAaETbOYWE2bCFB3zcPe+A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvVXBVRL1UQFjs9j9TkZpG/Uqy8YuaaC8HS5DDAYV+O9JAmPbU
+	lmZXJWhTlKU+HXA5m2BvpGMgLZWo5h3HeytF/YbX/YIIaw8jr9+lU+oRiqNmXUFp91kP4wC5WF2
+	yc/UEa5+oAIhTRpA2I5xjlzU/Vi8AVH0DRQlwfWQWAK1BEpmBqPkgadTlMiM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,28 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-w83627hf_wdt-improvements-v5-5-90b226684fc7@bootlin.com>
+X-Received: by 2002:a05:6808:67c6:b0:4d7:2721:cfb0 with SMTP id
+ 5614622812f47-53cd42a3861mr9605653b6e.31.1792505284384; Tue, 20 Oct 2026
+ 07:08:04 -0700 (PDT)
+Date: Tue, 20 Oct 2026 07:08:04 -0700
+In-Reply-To: <20261020081456.7283-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad775c4.5c73e770.1a06c9.0131.GAE@google.com>
+Subject: Re: [syzbot] [nfs?] KASAN: slab-out-of-bounds Read in nfsd
+From: syzbot <syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, neil@brown.name, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 20, 2026 at 10:11:58AM +0200, Paul Louvel wrote:
-> All of the chips supported by the driver can be set to minute mode,
-> allowing timeout value up to 255 minutes.
-> Add it to the driver.
+Hello,
 
-I didn't review the patch carefully as I was thinking about a fundamental
-question: isn't 255 seconds already more than enough for a hardware
-watchdog?  Why does it need to support minute mode for timeouts larger than
-that?
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-> @@ -49,7 +50,8 @@ enum chips { w83627hf, w83627s, w83697hf, w83697ug, w83637hf, w83627thf,
->  static int timeout;			/* in seconds */
->  module_param(timeout, int, 0);
->  MODULE_PARM_DESC(timeout,
-> -		"Watchdog timeout in seconds. 1 <= timeout <= 255, default="
-> +		"Watchdog timeout in seconds. 1 <= timeout <= "
-> +				__MODULE_STRING(WATCHDOG_MAX_TIMEOUT) ", default="
->  				__MODULE_STRING(WATCHDOG_TIMEOUT) ".");
+Reported-by: syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
+Tested-by: syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
 
-The patch is obviously not based on the watchdog-next branch (see commit
-b152ca999c5f ("watchdog: Replace __MODULE_STRING() with __stringify()")).
+Tested on:
+
+commit:         f47d2236 Merge tag 'vfs-7.4-rc1.sync_close' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=125599cd580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b8fd4ba7675545d0
+dashboard link: https://syzkaller.appspot.com/bug?extid=561b859d032c8bf2fb53
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=15e5cc95580000
+
+Note: testing is done by a robot and is best-effort only.
