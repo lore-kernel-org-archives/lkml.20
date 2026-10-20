@@ -1,66 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792466452;
-	b=1vluTdA6K9i2zxOwwvi5c7gW8+era/HdI0xA/9GwqEWIQBs/hes4cWsNhOIuI3NEjGmj
-	 AGplw9Rc7aEf8pCwv3xPKcBrep+GAsEYQo1fNbflxZVNJM8L+CyTX/bbgvL687OqNbNIb
-	 G286lR2PhArbPSmaCUwbk78vH0nqoegb7x2mSyhNZ4xwgVnJDagGyfnEdtltbtcRpI7Cs
-	 iiQ0+pkyqD7zGg4PjGoXW35hK1G7Vz/jDysCPvTRFbABF8tmXkebVRH9iJH1+WK6rCaTh
-	 UCn4zs1Azi8sXU0Z6dD4ErX6sOJQRk2uAhyA/FNEPCy3whJPz/4P+pVPN98UUTWD6iA==
+	t=1792466490;
+	b=rV5lUGPExIfrxYudJVZ1w8+R9AygSatnpWSbAVlCtorJDyIK8NzyDz49IzW4JUD80SjJ
+	 xYoG1L52cbV73CpaQGYH035b5WgUsVCiY0lz9ujf+xZHo0gt+j29XpHj9tbxo/POQqoxP
+	 ZbBSjt58c/vrzIVHx3PK6exawPS0dzcym6f8bPQUn+Q/E+C/U62A97H0/bMUkkfxA/8lD
+	 B6Mq1cjEWQz4ba4Y22ro3WUEsrVupi0cSxjMOJQYw5XZ4AC13wAFIFnmv+t6KuHYOWLax
+	 UW8U39KFQSGLQuECPvwG69i+RcQ3+aS0FBn/XCzbzEoyTUdc+jh8k7tEdoS/BnIrTBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792466452;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Originating-IP:Date:From:To:
-	 Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:X-NTES-SC:
-	 Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	 X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=9w5uahAcrB4Q3cZDy78yDCkRWPZKYjgKEi8M73VfoLg=;
-	b=0IeKrWSml1DV5E1nR2bzKL5OqrM3wRSSyCAnCnkMC2Wlqldq4QvIPJlVkFmyogh9F68f
-	 m7NsgPPThdCy1rKUx5rEbahDtbF/k3hfWLRugArOggt9u2VoOxPnoB6wJ/PwVD9B++h5w
-	 owFSXp9n4r4QMws6KHRIZOGG6P8h43tjf/z6hrJWI/S3FAL2bltoIuqdAomdLWiPa4DX0
-	 eSSKMFejVEuhk3o3HiO/doAoGCjV4jqBFj6ZKYt0qV5wAz9Afn+Vpvs5bUYS04YFKuWq6
-	 I4DSoCMN+VX2dijOJdeUk7cjKeI0ZO4wA846nKzx2rmVddH/Wi7jKZDuh1vhSwUUzxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792466490;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3ZczriNEGbYP80Dxb3vE1rbQgQ2Yn+EPpd9+08XBNYI=;
+	b=5R2FCEjtYXF3C2CnY+/YrrMcSfHKNPZ8j53t1U6w08z2BwYNzzBLSk7seKzhnfVrPpEG
+	 UpBMxKn7cS6Xo1usYGnP7qNIEs5L6UhVcbt1BsCwcrx9xTtlraTGicbkRN9xcK5db0eqi
+	 PH6Ub22qKbcNVJ5w93VMvwYymjCisPBX4iyuiLcx0869Zuo611WH5Qifcg08pUrZhQ45I
+	 dBR21RYhsIuUWVzh7JXucPekcPFT1/xRZbYcPErn9T41Mkrlm/rn/egDNxx16lqTHfRNR
+	 ETzEw3EjJQugEJDbpBaxKbATj9kI1oC2sN6MTmMTlwtFYg2RnrJpoyKXK8DE/FsaDSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="RWJcf5F/";
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778B8606A319;
-	Tue, 20 Oct 2026 03:20:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 778B8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=YtOYWhTo;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F137606A319;
+	Tue, 20 Oct 2026 03:21:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F137606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RWJcf5F/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=9w5uahAcrB4Q3cZDy78yDCkRWPZKYjgKEi8M73VfoLg=; b=R
-	WJcf5F/aR4Quea9q7OrvV+aHrH4UobdVEzRGlIs7iJSonQQ3h9RbYfby7iRjxhhz
-	ehZFpgb66gxwo2L53y1sHq9VljYq5hn/ncfHUPHQj5ucHMDtLVMdfyXnzNjjruB1
-	EbJKOnIC8HLDXaYJd0QBEThWvLw5maCLuODRbYAsxw=
-Received: from slark_xiao$163.com (
- [2408:8459:3c10:539b:d4b2:3883:2280:43f4] ) by ajax-webmail-wmsvr-40-103
- (Coremail) ; Tue, 20 Oct 2026 11:20:28 +0800 (CST)
-Date: Tue, 20 Oct 2026 11:20:28 +0800 (CST)
-From: "Slark Xiao" <slark_xiao@163.com>
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: mani@kernel.org, jeff.hugo@oss.qualcomm.com,
-	krishna.chundru@oss.qualcomm.com, mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re:Re: [PATCH] bus: mhi: host: pci_generic: Update the default
- autosuspend_delay_ms as 5000ms
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAFEp6-2XUE4AQPm5hinnRGyrrsHok2ftsFXragiHgDSKKtKWow@mail.gmail.com>
-References: <20261019055109.49922-1-slark_xiao@163.com>
- <CAFEp6-2XUE4AQPm5hinnRGyrrsHok2ftsFXragiHgDSKKtKWow@mail.gmail.com>
-X-NTES-SC: AL_Qu2SAPiduUwp7iKaZukckk4WhuY7WcOyuPkg2YZSc+wEiCD8/T0YeENYM0fkyPmKLiG8rTuLeSll0dRndoB7gaq5LtroiC5CN9PvgnAYVQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=YtOYWhTo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=YtOYWhToBcLQDDnXV+HFp1yvkgalicr8vcec1O1Cv0zZ2VWj0VsNxC2XYW1Bgtw3ZrJ8gPF/IKyoZ
+	 xLz9UJsQmdE+wvjtIal9wgJ0XldJCynb1qCKgMqvB3S2FYKbYoXiKhPozaUlspc8vHmS+5Od+rWRn2
+	 lpINaiF0vj4DVvpI=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ad6de33b55-f2fc2;
+	Tue, 20 Oct 2026 11:21:26 +0800 (CST)
+X-RM-TRANSID:2ee16ad6de33b55-f2fc2
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[36.137.216.38])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86ad6de27eca-bdbd6;
+	Tue, 20 Oct 2026 11:21:25 +0800 (CST)
+X-RM-TRANSID:2ee86ad6de27eca-bdbd6
+From: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
+To: dlemoal@kernel.org,
+	cassel@kernel.org
+Cc: linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tongzhiwei <tongzhiwei@cmss.chinamobile.com>
+Subject: [PATCH v2] ata: libata: skip sata_down_spd_limit() when no device is present
+Date: Tue, 20 Oct 2026 11:20:54 +0800
+Message-ID: <20261020032054.430-1-tongzhiwei@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.45.0.windows.1
+In-Reply-To: <20261010075457.882-1-tongzhiwei@cmss.chinamobile.com>
+References: <20261010075457.882-1-tongzhiwei@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,56 +71,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <70714501.3175.1a157532149.Coremail.slark_xiao@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZygvCgDn14X83dZqHH1cAA--.206W
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC5xwHa2rW3fzSKQAA3x
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkF0IDIwMjYtMTAtMTkgMTU6NDE6MjcsICJMb2ljIFBvdWxhaW4iIDxsb2ljLnBvdWxhaW5Ab3Nz
-LnF1YWxjb21tLmNvbT4gd3JvdGU6Cj5PbiBNb24sIE9jdCAxOSwgMjAyNiBhdCA3OjUy4oCvQU0g
-U2xhcmsgWGlhbyA8c2xhcmtfeGlhb0AxNjMuY29tPiB3cm90ZToKPj4KPj4gRm9yIHNvbWUgTUhJ
-IGRldmljZXMgaW4gc29tZSBzcGVjaWZpYyBzY2VuYXJpbywgdGhlIGRlZmF1bHQgdmFsdWUKPj4g
-b2YgYXV0b3N1c3BlbmRfZGVsYXlfbXMgbWF5IG5vdCBlbm91Z2ggdG8gaGFuZGxlIGxhc3Qgd2Fr
-ZSBldmVudC4KPj4gVGhpcyBtYXkgbGVhZCB0byBzb21lIHVuZXhwZWN0ZWQgcHJvYmxlbXMuCj4+
-Cj4+IFJlZmVyIHRvIHRoZSBRdWFsY29tbSdzIFdpbmRvd3Mgc2V0dGluZ3MgYW5kIHdlIGNoZWNr
-ZWQgdGhpcyB3aXRoCj4+IFF1YWNsb21tIG92ZXIgY2FzZSwgUXVhbGNvbW0gcmVjb21tZW5kIHVz
-IHRvIHNldCB0aGlzIGFzIDUwMDBtcy4KPgo+UXVhbGNvbW0KPgo+PiBRdWFsY29tbSBhbHNvIHN1
-Z2dlc3RzIHVzIHRvIHVwZGF0ZSB0aGlzIGZvciBhbGwgTUhJIGRldmljZXMuCj4+IFNpbmNlIHRo
-aXMgc2V0dGluZyBoYXMgYWZmZWN0ZWQgc29tZSBleGlzdGVkIGtlcm5lbCB2ZXJzaW9ucywgaXQn
-cwo+PiBiZXR0ZXIgdG8gYmUgYXBwbGllZCB0byBzdGFibGUgdmVyc2lvbi4KPgo+VGhpcyBsb29r
-cyBtb3JlIGxpa2UgYSB3b3JrYXJvdW5kIHRoYW4gYSBwcm9wZXIgZml4LiBJdCB3b3VsZCBiZQo+
-aGVscGZ1bCB0byBkZXNjcmliZSB0aGUgdW5kZXJseWluZyBpc3N1ZSwgaW5jbHVkaW5nIHRoZSB0
-aW1pbmcgYW5kCj5zZXF1ZW5jZSBvZiBldmVudHMgdGhhdCBtYWtlIHRoaXMgbmVjZXNzYXJ5LiBJ
-biBwcmluY2lwbGUsIGVpdGhlciB0aGUKPmRldmljZSBjYW4gYmUgc3VzcGVuZGVkIGF0IHRoYXQg
-cG9pbnQgb3IgaXQgY2Fubm90LiBSZWx5aW5nIG9uIGEKPmRlbGF5ZWQgc3VzcGVuZCBmZWVscyBm
-cmFnaWxlIGFuZCBtYXkgZW5kIHVwIG1hc2tpbmcgdGhlIHJlYWwgcHJvYmxlbS4KPgpIaSBMb2lj
-LApIb25lc3RseSwgUXVhbGNvbW0gaGFzIGJlZW4gYW5hbHl6aW5nIGZvciBvdmVyIDIgbW9udGhz
-IGFuZCBzdGlsbCBoYXNuJ3QKaWRlbnRpZmllZCB0aGUgcm9vdCBjYXVzZS4gCgpBY3R1YWxseSBJ
-IGhhdmUgZXhwbGFpbmVkIHRoZSByZWFzb25zIGJlaGluZCB0aGUgZXZlbnRzIHRvIE1hbmkgaW4g
-YW5vdGhlcgp0aHJlYWQsIHlvdSBjYW4gcmVmZXIgdG8gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
-bWhpLzIwMjYwOTE5MDk1NTA2Ljk1NzAtMS1zbGFya194aWFvQDE2My5jb20vCgpGcm9tIFF1YWxj
-b21tJ3MgcGVyc3BlY3RpdmUsIDIgc2Vjb25kcyBpcyBub3QgZW5vdWdoIGZvciB0aGVpciBkZWZh
-dWx0IGRlc2lnbi4KVGhleSByZWNvbW1lbmRlZCB1cyB0byB1cGRhdGUgdGhpcyB2YWx1ZSB0byA1
-IHNlY29uZHMgYW5kIE1hbmkgY2hlY2tlZCB0aGlzCmludGVybmFsbHkgYXMgd2VsbC4gU28gd2Ug
-ZGVjaWRlZCB0byB1cGRhdGUgdGhpcyA1IHNlY29uZHMgc2V0dGluZyB0byBhbGwgTUhJIGRldmlj
-ZXMuCgpUaGFua3MKPj4KPj4gRml4ZXM6IGQzODAwYzFkY2UyNCAoImJ1czogbWhpOiBwY2lfZ2Vu
-ZXJpYzogQWRkIHN1cHBvcnQgZm9yIHJ1bnRpbWUgUE0iKQo+PiBDYzogc3RhYmxlQHZnZXIua2Vy
-bmVsLm9yZwo+PiBTaWduZWQtb2ZmLWJ5OiBTbGFyayBYaWFvIDxzbGFya194aWFvQDE2My5jb20+
-Cj4+IC0tLQo+PiAgZHJpdmVycy9idXMvbWhpL2hvc3QvcGNpX2dlbmVyaWMuYyB8IDIgKy0KPj4g
-IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Pgo+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9idXMvbWhpL2hvc3QvcGNpX2dlbmVyaWMuYyBiL2RyaXZlcnMvYnVz
-L21oaS9ob3N0L3BjaV9nZW5lcmljLmMKPj4gaW5kZXggNzE5M2EzODRjY2E0Li40MDczNWJlYjQ2
-Y2IgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvYnVzL21oaS9ob3N0L3BjaV9nZW5lcmljLmMKPj4g
-KysrIGIvZHJpdmVycy9idXMvbWhpL2hvc3QvcGNpX2dlbmVyaWMuYwo+PiBAQCAtMTQ4Myw3ICsx
-NDgzLDcgQEAgc3RhdGljIGludCBtaGlfcGNpX3Byb2JlKHN0cnVjdCBwY2lfZGV2ICpwZGV2LCBj
-b25zdCBzdHJ1Y3QgcGNpX2RldmljZV9pZCAqaWQpCj4+Cj4+ICAgICAgICAgLyogQWxsb3cgcnVu
-dGltZSBzdXNwZW5kIG9ubHkgaWYgYm90aCBQTUUgZnJvbSBEM0hvdCBhbmQgTTMgYXJlIHN1cHBv
-cnRlZCAqLwo+PiAgICAgICAgIGlmIChwY2lfcG1lX2NhcGFibGUocGRldiwgUENJX0QzaG90KSAm
-JiAhKGluZm8tPm5vX20zKSkgewo+PiAtICAgICAgICAgICAgICAgcG1fcnVudGltZV9zZXRfYXV0
-b3N1c3BlbmRfZGVsYXkoJnBkZXYtPmRldiwgMjAwMCk7Cj4+ICsgICAgICAgICAgICAgICBwbV9y
-dW50aW1lX3NldF9hdXRvc3VzcGVuZF9kZWxheSgmcGRldi0+ZGV2LCA1MDAwKTsKPj4gICAgICAg
-ICAgICAgICAgIHBtX3J1bnRpbWVfdXNlX2F1dG9zdXNwZW5kKCZwZGV2LT5kZXYpOwo+PiAgICAg
-ICAgICAgICAgICAgcG1fcnVudGltZV9tYXJrX2xhc3RfYnVzeSgmcGRldi0+ZGV2KTsKPj4gICAg
-ICAgICAgICAgICAgIHBtX3J1bnRpbWVfcHV0X25vaWRsZSgmcGRldi0+ZGV2KTsKPj4gLS0KPj4g
-Mi41My4wCj4+Cg==
+A hot-unplug goes through ata_eh_schedule_probe() -> ata_dev_init() ->
+sata_spd = 0.  After commit 69f2c9346313 ("ata: libata: Fix
+sata_down_spd_limit() when no link speed is reported"), when the device
+is unplugged, every probe lowers sata_spd_limit.  This breaks
+commit 2dc0b46b5ea3 ("libata: sata_down_spd_limit should return
+if driver has not recorded sstatus speed").
+
+As a result, when the device is plugged back in, it is limited to a
+low speed that is never recovered.
+
+Use the SStatus DET field to detect the no-device case and bail out
+of sata_down_spd_limit() when no device is present (DET == 0).
+
+Fixes: 69f2c9346313 ("ata: libata: Fix sata_down_spd_limit() when no link speed is reported")
+Assisted-by: LLM
+Signed-off-by: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
+---
+Changes since v1:
+- v1 ("ata: libata: preserve sata_spd link cache across ata_dev_init") took the
+  wrong approach (caching sata_spd across ata_dev_init).  This version instead
+  bails out of sata_down_spd_limit() when SStatus indicates no device is present
+  (DET == 0), without altering ata_dev_init() or the sata_spd cache.
+
+ drivers/ata/libata-sata.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/ata/libata-sata.c b/drivers/ata/libata-sata.c
+index ad40f516c6d4..775da21cbbae 100644
+--- a/drivers/ata/libata-sata.c
++++ b/drivers/ata/libata-sata.c
+@@ -549,6 +549,9 @@ int sata_down_spd_limit(struct ata_link *link, u32 spd_limit)
+ 	 * If not, use cached value in link->sata_spd.
+ 	 */
+ 	rc = sata_scr_read(link, SCR_STATUS, &sstatus);
++	/* No device present (DET == 0): nothing to recover by lowering speed. */
++	if (rc == 0 && (sstatus & 0xf) == 0)
++		return -EINVAL;
+ 	if (rc == 0 && ata_sstatus_online(sstatus))
+ 		spd = (sstatus >> 4) & 0xf;
+ 	else
+-- 
+2.43.0
+
+
+
+
