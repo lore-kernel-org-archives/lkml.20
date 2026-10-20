@@ -1,104 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.30
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792515802;
-	b=cTVmQQ1+q9f79v9LbOHsIxvbL3K0CW/jRuWs6c6nTY2zP6iXtTEq/AeBVHXozT/RyZOc
-	 lQD0n7k2Ui/g7Gk3Ng9Wlvklm6roF5zi8dLv4aWblKxnZKdmja4h26aPnRk5xXfNO3HLX
-	 IpJqtWaYVLixm9ZV0SpIMvgTMtkeznq8MwlVWCh3YhlszXRF+Bbw2vFo/igOO99EBEGDJ
-	 8ZRJ2RXGjNDLiOoHNUj+K+ItNIDGo2Zkno01cpumsfJ2T1apiUUMo2TAxcuQWrsTbyfkU
-	 H9XLyzHsMSzZ1+T3/aVN2cQUwhrqtTUUVtTncvyNbIdV/wDyB+ebJPwc14hPOEP1gLg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792515802;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HLygSldqrazNR7nErNE+CkiMUpATeacE7+/HdTH2jck=;
-	b=H6yjLP1gmrtD1Xw3yItirWhcBxcUXi4nw49yOrUMpHlXR9gASxjc7cPW5uYBGYEX5JlL
-	 YU4xZVUiBKPQSd5P+swjU8zhNdtlUYyvDBk/AWTpt8g58Irbix3Uhrhl+5U/XqF4FrUOi
-	 Gpr/3bf7AByEzh86CGYbzIMNgV1rdoEq3dSBDuS6JdFx/nCUHt4EVrtgiy/jDBoRbpBP9
-	 V/1V417iEGWaUOGTjFz3qklmhb7PJBDqexOHJqxKwnV+0hddB7fJ5+/DFpu5IVRREtk4V
-	 lTnV1ZBVsCgnoIAXAL9GYH/5hxi8EuvZ2MEC1c4JhsYZ8wrtQqofvZ3fem3nRaQ5KMw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rulMwm7K;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.30
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011030.outbound.protection.outlook.com [52.101.70.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792515813;
+	b=kezJcrb1kO3gMdHEvKkMGv1p5wEvsLzOBgFUk//qMpdWhgz0sIY7TQPg4XCjmLl1IWEM
+	 9u/M+aVTBSSHPUlqye4Jt0jCKNsAJgDjPA0FupPaTe45Zxa1pI2dFj6b0B4fD5qPGbg9V
+	 U023Y+BwedWVTIekayzN1ekOYcQ9BOSFPk+Gng/jvCdcGLvFE2agBqj9t3p+Y+lNtIl4z
+	 tuGLmiDBvbxrGhJxEELTPa3hYDdFi6gTOxRijGMFeNbsMsAyAQ2lTfy9PLfysxnTpbUmW
+	 8+Lxcz6vnGNmIclz0AlJP8e6dvlNAmmIflc0NdddWbSH/yKSSPJjDA/48ODDgAzOx/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792515813;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PdL12cit1+z6d3jeLw0+naLR3nXNXmktozH9BnIvo4w=;
+	b=nJi7q/ivVqwkCa8l9pyyyGXs42agB1NBZsEMJ9sV5/b8QTeQ5qxs2lyfZg5lvAPza6oI
+	 YQUr8PP+HyTtr7J0tnR8P+vYRCeoA/YESSUYZDZQz9KURBAaJ0v47uZARB++6QfFLFAs+
+	 OHLITXJ0Cpxzc7b8sRhY2Pi1ijx/YJkRlFlUY/ZMQiXuGGp0SZ00ZR5PQxtBYU9s9U5Dc
+	 K6CqkeiRaWvgMco4eWCrndt8aauT9enJeoqxMpQ4L3PWMOxiWnICT9XVxG+JoRfRMKSOw
+	 wn/4nqVd5GxkwgXm9SWJgJj4oKNVu6xPh26AZ7q1QEOSiQKUzYCMzz9NmC8qATvEC6Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ea8L1762;
+	arc=none smtp.remote-ip=209.85.219.51
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E94B606A31F;
-	Tue, 20 Oct 2026 17:03:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E94B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EF2606A336
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:03:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6EF2606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rulMwm7K
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=naNDBxalh6ylcueNBXgPNrpMmWbyt/lIem4klHR2GgZkFWrrUhM/endf3prS9696K69iJmK9qPfBCJECXgkjAEu2flqKxaTjpURjMLKZxm9oyfdZS++Hq/InX9Vfc/glnXhtHkNJ9N1PTSl2nWF+RaH/OSNaHmzIUjhyxewPLyAAI+EDbx1M9MatWmrm4EW/45/BvZDW74YYjCpjTBPmwdqlGHSCA+nCZFsPJqohKim3sepgBB701Ey5MhGZTyM7x8teOWlcIL5bqmbzVOL4IXkDV8cyJO604JpPGUy0oboa3f56+iukXtNZZmlhnISaC2Y7+XftWwXyK8eExIuplQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HLygSldqrazNR7nErNE+CkiMUpATeacE7+/HdTH2jck=;
- b=oeZ17wW50cEH57ZrM1talWzPNsDfW4hVN6+gsZnzfVtbA9yThwfXeesvxYi+P2pnD0UaYbwm2an0dz/ENzUul5WIVpGQgnpmO3SRO7/fYRpjZPvtp+XdWxGTV1EDnhM+UHQsV0iErkY3lGhiVtIdqQscmCIgaCthjO8hzIfePi45VOPlCzmStP9icwnydiwSZnvjSfPJ8XbUI4qeyMW7LWuoa1I9GSqsEXpIAtIyNHf0H0FlcvGyKiep/kbBUGocZanJr5YVWNhZulbvhNYHhEpV7FvE4rxGvgglcy8npaqBRsiYir6J1gA6yNYGNd+Xcz4CyReE9fw66D6wHIy/CQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HLygSldqrazNR7nErNE+CkiMUpATeacE7+/HdTH2jck=;
- b=rulMwm7KPrm5+8oMA2FN1Hs0Y+aRs1udVGNsBNb6As/e+p8V3meNfrNIb4Ac4J7HCWtT024yOz9A5occVrJqFW7ZZtsWisOoyVEnhh8YwgmXX7JJK8Bj4LFNid7Um9JEleHk0XWAmJQamXPpANlP1KODDVzUwvLWRXRsVxDB+uO+I1ETso1Xzp+HRLIbNUtrPH+YhOAXNZXEx/vm2DV9Nkqu8AuYHmqs1wYQfTWou0ZkbqfyT0s4mVFve144oTVfcbjknHbA3eko1LqLhpEeNjtmCO02H3Qg+tOeHSbrwgvJrykYy0MfdwNrHRmT6FMcEeZEhXoTB77XcjIv6hQH9g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by BESPR04MB687020.eurprd04.prod.outlook.com (2603:10a6:b10:11e::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 17:03:17 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 17:03:17 +0000
-Date: Tue, 20 Oct 2026 12:03:05 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Frank Li <Frank.Li@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>, Niklas Cassel <cassel@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Rob Herring <robh@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
-	linux-pci@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ntb@lists.linux.dev
-Subject: Re: [PATCH v6 6/8] NTB: ntb_hw_epf: Discover vNTB-embedded DMA
-Message-ID: <ateeydMZkyZcRDYl@SMW015318>
-References: <20261020054948.1218370-1-den@valinux.co.jp>
- <20261020054948.1218370-7-den@valinux.co.jp>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020054948.1218370-7-den@valinux.co.jp>
-X-ClientProxiedBy: SJ0PR03CA0336.namprd03.prod.outlook.com
- (2603:10b6:a03:39c::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ea8L1762
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-9178510f3bdso39391076d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:03:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792515812; x=1793120612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PdL12cit1+z6d3jeLw0+naLR3nXNXmktozH9BnIvo4w=;
+        b=ea8L1762+Pgyp10eIpSuWBoRK2+QTDqo+y+ikCOhpKKFmoDN5ctpPMw2rrmmzVEYiL
+         CJqe9UKNcgACd/qM+FAWqRaj0hy3bciPnidc+nEahpb8fDs1X3wYTf3Jd5TrAhJWR+D0
+         Y2P6wNd4OwrZ59Zad+5PTSPJE+NcAzQ1zvTWZjIMJNHsSI2+MxkmNn83SIbpTsPM/Pjc
+         Q/y8NMmzKKstrJnhXluZa7aHOBPOMfgoKvMzJO+Pjhr+h0Putk0RufkXto6LiGXAZclA
+         owYZZr/w+RCkeUVJER25cSvN/gcs51/ImQM+ybxnNliGTRHOSwrCgPzCYsuA43fZTq8U
+         6yTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792515812; x=1793120612;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PdL12cit1+z6d3jeLw0+naLR3nXNXmktozH9BnIvo4w=;
+        b=Gx+5FhQM0xqXiai3lklNZJEGXZdISiYGHPAfgrHYL6oR0YuzITil9J+tMJayd4EjcP
+         mhApklJi+dcPXDgoOqB5EWAzSWxmBQRqGzBah0AKT/u6xd08oJ4qy/HlJulPPWWugXYs
+         oxU/3sgiBOiNkDXWZMbZXuMDyJlvYP4Nj0lcm+z3Jc46B45mCeZ6CvWdnLE/ZnNReSk8
+         hla5WlTf23QRj53mnv07dZC7KnS47IJBL+Mm8W/orp5Q5M3BRjAnV45fNX9UMiloLpcb
+         vOfRxnMp63UCcMhMvAkyIhEbGZcl8qESRkBmRvUOpt1NupHaCxtYYJi8HoAIOSJLNfEN
+         VH9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwsx9kWcwE3h1jypgn9SKYDAHizPLVl7oABJ6RjaYyExtkD4YBkpw+VR9T8qLKCLYxT3kQX9ZgpkPUB1Qw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMGJtgJQgpvqo/SMVShYl43DhD8UnoChJ95ZP+03Ctxjl98Xs8
+	mpvoSnSOkystcGlpMzip3JaPY7QpjdlQqBp/ZcXlaGpUv8RDF/0kxjGn
+X-Gm-Gg: AYBFou2LjXFpQLSef8KGIwQrDAAm/UgZO6oUNLanSakNwbbQwF8Q4QYsi7M0Ivd1kwu
+	ANZg+dqLUqcsUatTDGYFARCmIeKE8k69jtn3hM7PO/oa4oncpQQ+CV82rq4BA93JvAQv+XI1CT1
+	yOsXO1/AR5ij5+VKo7+ZFd2K8p83DL6ub4hVxpNW80Iq/dOt8jsFuxHOvLwMaVXrjEZN1rwAqXv
+	vPXU+DSRXm1SQX+ABTMTsBnQBCJDxdKyXL4R96o3oiAAXa//m7nE9yfjNFoKTTpyIM1sZXmcxdE
+	OHnWdbePWHyuueeXQx6t9ublK0ywkLheZpp/2bkCLSwIs9kXlVR8FbmOjAwHw26m7IAW11Ah1d0
+	HGipI3de73WNC1sa18Qo4+kApq+EoSHS9lk/Xxzi1rtNYyg4Grl1wmhsVO8MwpDlfVjseKqnJEz
+	nF/xtl2cGrKUvo/cJPHYwxAETBBBB0PhmWv41egeKqptRhYzUTuesg0hvU6dJuaLPuQrBaMeqIk
+	L/lXDBwIMbKFiNQW/fLdQ==
+X-Received: by 2002:a05:620a:294c:b0:93f:26f6:6bab with SMTP id af79cd13be357-93f29ccce99mr1849718785a.18.1792515811784;
+        Tue, 20 Oct 2026 10:03:31 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56c6e030sm31479985a.1.2026.10.20.10.03.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 10:03:30 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1] iommu/sun50i: Report TLB invalidation timeouts from iotlb_sync_map
+Date: Tue, 20 Oct 2026 13:03:11 -0400
+Message-ID: <20261020170324.1223144-2-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,455 +101,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|BESPR04MB687020:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5cad1a4-23d4-4cd5-4d2f-08df2ecc095c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|19092799006|23010399003|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ldnHC4s5Ljc6nexzOOX1j/1E4kel9Uuc8VK0EhWR0D6z2AxufA1xP5ttmxmgqPHBu01YHc5/SzjlVBmvd3O0JlZ50nk9n/s35XWrHSS20F+dqc1QxPkdbm7WcVvyzY9aXCFhZsW4R0ofxdpC/Bph72Sl/oAJC3+fUG15iCAJJif7CE/FJcKjZ2Ptf1kgmrJm/91drAHqrg74kPNfFhKKf86pmZT09WcDtfBcxUs7Y4DN5RJy1mnfJq8rJanbCb6QFPSBc+4J5HwvyJVinqGxFsggJDoWQei7Sb1k0OK5TBDOG+IUxUHICbvGXtGVHPqi/wVD/rRiaB8/v4PYtFdCxxANcnilMDf9T4eUoHti+9cdHLTbKF0+GRSJdhd/p9eykG75EIZ2VWaf9i6F4/OCRtT5g/T4bqHKGRND5ylyEMm4EZJtrUg3kZH1J5OUnia9zTv/bOTRCMtFxD50OIfbmuaJsJfnVN9bI1H0xiN0E9tamf2jl9G6ktknY8fAIkXK1KO/DcElonwiVF+grWvzswKjdM0P4MgPU7rKlRZkn8suqBCQf/tUQZ9yVZvJ3uLRHs/CKE8GYWxl1uMGCSs7VZVPF1tXZB71ppZildpYS7+NZVb/j6sry59fIFGRI2ZU
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(19092799006)(23010399003)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?xg1i5FDBrmiVU/OuWj75OYR0/0hSK+KfbAXn1XmDCnYRJRGOKbZk1BlAFG5j?=
- =?us-ascii?Q?h4gOiLl+9Ga3IUFMxC0h9xfNfusuKM7H7LsGS4Bta/VwtVGZ71ZTqm6vwy+m?=
- =?us-ascii?Q?u+kPfRqjcOXDJPOIVGNHyyPmz7W82lYU9Aq6n62RnHi6ynICz23+LOGOE5jQ?=
- =?us-ascii?Q?kRGdm+YAcA8slS+RJ6QaNMGC5WPsUl5pQgrfn701WUPkZTBdxUNHEwl+FOro?=
- =?us-ascii?Q?wMz2YRRZW8A1aNnF9XdyFO7YgVIQJ4sgwuTGOXwgoOlXx69izJpB3Jpv/IIo?=
- =?us-ascii?Q?FAfgqUU512Qiz7UAdJbOtkT5jlKrQO2eQB0K+uNt7Cvud1Cv8TlkOTEGZBY9?=
- =?us-ascii?Q?PAHMmjtUS93C8Tp4/XyjIll26ygIXv85s/e1RFuY0cs8VON67Vsyz9C0DBO7?=
- =?us-ascii?Q?hPZRanyoDKKKuo1FFxB5tIl4h7QN86QQpkjBC9WxmUg5Ys/5qAIeOaOgckFJ?=
- =?us-ascii?Q?ulTKloOKRYlKH5Fa2/CGFlOcgeHQLu3paCTCk64poHWXSLV95SLO4tAg+u2O?=
- =?us-ascii?Q?7dk9ydo2aK1qpLr2mjXVLYVthXIlFewt8+ob9uuXFhYpcIeC7aHYV4DqQWfJ?=
- =?us-ascii?Q?UnIbU3BqKJybPhtPZa9lm/23RqdKEh0L8r7v+jnVSfdCXJ7XDefhDw5TtNVw?=
- =?us-ascii?Q?syRj+LD613qljARW3We/TMq/XbACmM8Bcv/HdU+LQH/Ps+oo6fXzhT3e4Zhh?=
- =?us-ascii?Q?GyT++Y067ObPPQ2ICWmLQtCY7WxCJ1Hd+iMr2ESGqA19cYKEzk2q6ff1EhAC?=
- =?us-ascii?Q?jStCCxvHJUEQUWY3Zgb4EdLIi0sTfzXaVbfbhRJHE+k7/LOqONLKzj3ZH5Se?=
- =?us-ascii?Q?XFuW+vzthrM+LyRxehrqkIQt/5aM7h2S4Q3fhNvmcHAjkqGqJb7CPf9EEpXA?=
- =?us-ascii?Q?MaBSTnrCcKBj5dDE9sMlFn4OnbZWjBOndwSVOzUX7a4ZiSOOdqOkffz/ilDn?=
- =?us-ascii?Q?VU6Z0ig1E84Lm77lkNufDST5gXrRw7Hj4UKyuYaaNOBmGulN9d1w+xbp7Zff?=
- =?us-ascii?Q?ivGpgMabfXN4IvqqDQ5R1FDUAA+4PuGYPyTbf9kr6DFCUraWl9DtjJ/l8ibt?=
- =?us-ascii?Q?4s9MsCksAXg7kZV/ug4hydyQpvN1G8xxmjCSxRCXE+GkNzNOND4XKkzUOFop?=
- =?us-ascii?Q?+SRzVYOoft95qQ3/SyTussOVD4KpLOzEo/Mu8FrH3DfaCS3siJBgLn3UX5g8?=
- =?us-ascii?Q?Eq/ZXSDehkOv3+Ayb51D64ACGWlESPRHrYR4tp93NEczAqjjTP0gBQ7vgR+a?=
- =?us-ascii?Q?2BzZIw79kSuniyOL4+fWdc5kYXMI5q3h/Lfsqh0/9VgYgJYPoZao+FYPxWlG?=
- =?us-ascii?Q?MZh1Q+L//qQ6wp1izUUmkPDeeBQ7pP8oEGGGCFn2mOyKJp6TjueHC1f7kbwL?=
- =?us-ascii?Q?WWsRPIWSDXXD9hJGaxP5KwTKlO4x1gR9KK7AD6mj6xrv9GW9Lk9jwQrcBvbJ?=
- =?us-ascii?Q?pHY20WNTszMBcwFwAkH56C1jDjieyxVFtJ87Kdt6DuXj1uIkvY1i0t/YUF11?=
- =?us-ascii?Q?LgqoQgZbSKL/lRRFp3LHgmVo6flJ+NYpbcDuj0hKkxSvN1mhScj/SvlEgRIT?=
- =?us-ascii?Q?yS7wbYaPZnSvogbZIsnfJ3rQ2TGAOMBK/d/s6H2ILy4OwIEcTebo6QFrppNO?=
- =?us-ascii?Q?qhgEaD/cWRh7UK0e9puhj0ZtvtWQwdRyTkFc/pIHB29evsj/zY7xoGePu8j9?=
- =?us-ascii?Q?ZhwyenAiaJRxt97eO5oT2TeHTX/y9tOdRc9ZW5BIeBhzhkqJfmu7hdaEDQWC?=
- =?us-ascii?Q?1DtsO/Rb5CLndfKMXNJ9a+1lUoxz1vuAZqvMWmj4WMghb5fOV5Cw?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5cad1a4-23d4-4cd5-4d2f-08df2ecc095c
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 17:03:17.6479
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2uDsMWEspL1bagxRY7fIq8I8A4ej6joNL3am8czMc2FlHlHVDgdFLAUolrAMM1wDopXMp3olQ4VN7spKQw92xRBRZ7/VUQUH3Lrm7Pa+G0VllRFzC8LhAZSLhZeS3U8U
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR04MB687020
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 02:49:46PM +0900, Koichiro Den wrote:
-> A vNTB PCI function can now expose endpoint-local DMA channels to its
-> host. Decode the extension and register the advertised channels before
-> the NTB device, so clients of that NTB device can use the DMA
-> functionality in the same PCI function. Endpoints without the extension,
-> or hosts without support for its DMA type or with no DMA IRQ available,
-> continue without DMA.
->
-> Only DW eDMA is supported for now. Dispatch on the advertised DMA type
-> and keep type-specific setup in local helpers. Support for another
-> implementation can add a new case and its own helpers.
->
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
+sun50i_iommu_iotlb_sync_map() invalidates the TLB and PTW cache entries
+around a newly mapped range, as the IOMMU can otherwise keep using stale
+entries for it (see commit e563cc0c787c ("iommu/sun50i: Implement
+.iotlb_sync_map")). When an invalidation times out, it only prints a
+warning and the callback still returns 0, so iommu_map() reports success
+for a mapping that the IOMMU may not be using yet.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Since commit fa4c4507099f ("iommu: Allow .iotlb_sync_map to fail and
+handle s390's -ENOMEM return"), iommu_map() unmaps the range and fails
+when .iotlb_sync_map() returns an error. Return the result of the
+invalidations, after still issuing all of them and restoring auto
+gating. The page fault handler keeps ignoring it. The unmap path is not
+changed, as .iotlb_sync() and .flush_iotlb_all() cannot report a
+failure.
 
-> Changes since v5:
->   - Derive the control region and DMA extension offsets from
->     include/linux/pci-epf-ntb.h instead of hard-coding them. (Frank)
->   - Move shared-MW boundary handling to the BAR-sharing patch.
->   - Link to v5: https://lore.kernel.org/r/20261009045949.1109871-7-den@valinux.co.jp/
->
->  drivers/ntb/hw/epf/ntb_hw_epf.c | 273 +++++++++++++++++++++++++++++++-
->  1 file changed, 267 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/ntb/hw/epf/ntb_hw_epf.c b/drivers/ntb/hw/epf/ntb_hw_epf.c
-> index ff92c2a61ce7..e0016128b95c 100644
-> --- a/drivers/ntb/hw/epf/ntb_hw_epf.c
-> +++ b/drivers/ntb/hw/epf/ntb_hw_epf.c
-> @@ -8,6 +8,7 @@
->
->  #include <linux/atomic.h>
->  #include <linux/delay.h>
-> +#include <linux/dma/edma.h>
->  #include <linux/io-64-nonatomic-lo-hi.h>
->  #include <linux/module.h>
->  #include <linux/pci.h>
-> @@ -18,6 +19,12 @@
->  /* Offsets into the control region, see include/linux/pci-epf-ntb.h. */
->  #define NTB_EPF_CTRL(field)	offsetof(struct epf_ntb_ctrl, field)
->
-> +/* Private DMA wire extension produced by pci-epf-vntb. */
-> +#define NTB_EPF_DMA(field)	(EPF_NTB_DMA_CTRL_OFFSET + \
-> +				 offsetof(struct epf_ntb_dma_ctrl, field))
-> +#define NTB_EPF_DMA_REGION(field)	\
-> +	offsetof(struct epf_ntb_dma_region_ctrl, field)
-> +
->  /*
->   * Legacy doorbell slot layout when paired with pci-epf-*ntb:
->   *
-> @@ -71,6 +78,24 @@ struct ntb_epf_irq_ctx {
->  	unsigned int irq_no;
->  };
->
-> +struct ntb_epf_dma_region {
-> +	unsigned int bar;
-> +	resource_size_t offset;
-> +	resource_size_t size;
-> +};
-> +
-> +struct ntb_epf_dw_edma {
-> +	struct dw_edma_chip chip;
-> +	struct ntb_epf_dma_region reg;
-> +	struct ntb_epf_dma_region ll[EDMA_MAX_RD_CH];
-> +};
-> +
-> +struct ntb_epf_dma {
-> +	struct ntb_epf_dma_region submap;
-> +	unsigned int nr_irqs;
-> +	u32 type;
-> +};
-> +
->  struct ntb_epf_dev {
->  	struct ntb_dev ntb;
->  	struct device *dev;
-> @@ -82,6 +107,8 @@ struct ntb_epf_dev {
->  	unsigned int mw_count;
->  	unsigned int spad_count;
->  	unsigned int db_count;
-> +	struct ntb_epf_dma dma;
-> +	struct ntb_epf_dw_edma dw_edma;
->
->  	void __iomem *ctrl_reg;
->  	void __iomem *db_reg;
-> @@ -136,6 +163,213 @@ static int ntb_epf_send_command(struct ntb_epf_dev *ndev, u32 command,
->  	return ret;
->  }
->
-> +static bool ntb_epf_dma_region_parse(struct ntb_epf_dev *ndev, u32 base,
-> +				     bool optional,
-> +				     struct ntb_epf_dma_region *region)
-> +{
-> +	void __iomem *reg = ndev->ctrl_reg + base;
-> +	resource_size_t bar_len;
-> +	u32 bar, offset, size;
-> +
-> +	bar = readl(reg + NTB_EPF_DMA_REGION(bar));
-> +	offset = readl(reg + NTB_EPF_DMA_REGION(offset));
-> +	size = readl(reg + NTB_EPF_DMA_REGION(size));
-> +	region->bar = bar;
-> +	region->offset = offset;
-> +	region->size = size;
-> +	if (!size)
-> +		return optional && bar == U32_MAX && !offset;
-> +	if (bar > BAR_5)
-> +		return false;
-> +
-> +	bar_len = pci_resource_len(ndev->ntb.pdev, bar);
-> +	if (offset > bar_len || size > bar_len - offset)
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +/* DW eDMA */
-> +
-> +static int ntb_epf_dw_edma_parse(struct ntb_epf_dev *ndev, u32 length)
-> +{
-> +	struct ntb_epf_dw_edma *edma = &ndev->dw_edma;
-> +	struct dw_edma_chip *chip = &edma->chip;
-> +	u32 count, chan_offset, chan_size;
-> +	unsigned int i;
-> +
-> +	chan_offset = offsetof(struct epf_ntb_dma_ctrl, chan);
-> +	chan_size = sizeof(struct epf_ntb_dma_chan_ctrl);
-> +	if (length < chan_offset + chan_size ||
-> +	    (length - chan_offset) % chan_size)
-> +		return -EINVAL;
-> +
-> +	count = (length - chan_offset) / chan_size;
-> +	if (count > EDMA_MAX_RD_CH)
-> +		return -EINVAL;
-> +
-> +	if (!ntb_epf_dma_region_parse(ndev, NTB_EPF_DMA(reg), false,
-> +				      &edma->reg) ||
-> +	    !IS_ALIGNED(edma->reg.offset, sizeof(u32)))
-> +		return -EINVAL;
-> +
-> +	chip->mf = EDMA_MF_EDMA_UNROLL;
-> +	chip->ll_rd_cnt = count;
-> +	chip->func_no = PCI_FUNC(ndev->ntb.pdev->devfn);
-> +
-> +	for (i = 0; i < count; i++) {
-> +		u64 paddr;
-> +
-> +		if (!ntb_epf_dma_region_parse(ndev, NTB_EPF_DMA(chan[i].desc),
-> +					      false, &edma->ll[i]) ||
-> +		    !IS_ALIGNED(edma->ll[i].offset, sizeof(u32)))
-> +			return -EINVAL;
-> +
-> +		paddr = readl(ndev->ctrl_reg +
-> +			      NTB_EPF_DMA(chan[i].desc_addr_lo));
-> +		paddr |= (u64)readl(ndev->ctrl_reg +
-> +				    NTB_EPF_DMA(chan[i].desc_addr_hi)) << 32;
-> +		if (paddr == U64_MAX)
-> +			return -EINVAL;
-> +
-> +		chip->ll_region_rd[i].sz = edma->ll[i].size;
-> +		chip->ll_region_rd[i].paddr = paddr;
-> +	}
-> +	ndev->dma.nr_irqs = count;
-> +
-> +	return 0;
-> +}
-> +
-> +static int ntb_epf_dw_edma_irq_vector(struct device *dev, unsigned int nr)
-> +{
-> +	struct ntb_epf_dev *ndev = dev_get_drvdata(dev);
-> +
-> +	/* DMA vectors follow the NTB link and doorbell vector block. */
-> +	return pci_irq_vector(ndev->ntb.pdev, ndev->db_count + 1 + nr);
-> +}
-> +
-> +static const struct dw_edma_plat_ops ntb_epf_dw_edma_ops = {
-> +	.irq_vector = ntb_epf_dw_edma_irq_vector,
-> +};
-> +
-> +static void __iomem *
-> +ntb_epf_dw_edma_map_region(struct pci_dev *pdev,
-> +			   const struct ntb_epf_dma_region *region)
-> +{
-> +	return pcim_iomap_range(pdev, region->bar, region->offset, region->size);
-> +}
-> +
-> +static int ntb_epf_dw_edma_init(struct ntb_epf_dev *ndev)
-> +{
-> +	struct ntb_epf_dw_edma *edma = &ndev->dw_edma;
-> +	struct dw_edma_chip *chip = &edma->chip;
-> +	struct pci_dev *pdev = ndev->ntb.pdev;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	/* Install BAR submaps before mapping the advertised DMA regions. */
-> +	ret = ntb_epf_send_command(ndev, EPF_NTB_COMMAND_SETUP_DMA_BAR, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	chip->reg_base = ntb_epf_dw_edma_map_region(pdev, &edma->reg);
-> +	if (IS_ERR(chip->reg_base))
-> +		return PTR_ERR(chip->reg_base);
-> +	for (i = 0; i < chip->ll_rd_cnt; i++) {
-> +		chip->ll_region_rd[i].vaddr.io =
-> +			ntb_epf_dw_edma_map_region(pdev, &edma->ll[i]);
-> +		if (IS_ERR(chip->ll_region_rd[i].vaddr.io))
-> +			return PTR_ERR(chip->ll_region_rd[i].vaddr.io);
-> +	}
-> +
-> +	chip->dev = ndev->dev;
-> +	chip->nr_irqs = ndev->dma.nr_irqs;
-> +	chip->ops = &ntb_epf_dw_edma_ops;
-> +	chip->flags = DW_EDMA_CHIP_PARTIAL;
-> +
-> +	return dw_edma_probe(chip);
-> +}
-> +
-> +static void ntb_epf_dw_edma_deinit(struct ntb_epf_dev *ndev)
-> +{
-> +	dw_edma_remove(&ndev->dw_edma.chip);
-> +}
-> +
-> +/* Common endpoint DMA */
-> +
-> +static int ntb_epf_dma_parse(struct ntb_epf_dev *ndev)
-> +{
-> +	u32 magic, type, spad_off;
-> +	u16 revision, length;
-> +	int ret;
-> +
-> +	/*
-> +	 * Legacy endpoints place scratchpads where this extension would begin.
-> +	 * Once the extension is present, malformed metadata is fatal.
-> +	 */
-> +	spad_off = readl(ndev->ctrl_reg + NTB_EPF_CTRL(spad_offset));
-> +	if (spad_off < EPF_NTB_DMA_CTRL_OFFSET + EPF_NTB_DMA_CTRL_COMMON_SIZE)
-> +		return 0;
-> +
-> +	magic = readl(ndev->ctrl_reg + NTB_EPF_DMA(magic));
-> +	if (!magic)
-> +		return 0;
-> +	if (magic == U32_MAX)
-> +		return -EIO;
-> +	if (magic != EPF_NTB_DMA_MAGIC)
-> +		return -EINVAL;
-> +
-> +	revision = readw(ndev->ctrl_reg + NTB_EPF_DMA(revision));
-> +	length = readw(ndev->ctrl_reg + NTB_EPF_DMA(length));
-> +	if (revision != EPF_NTB_DMA_REVISION ||
-> +	    length < EPF_NTB_DMA_CTRL_COMMON_SIZE ||
-> +	    spad_off < EPF_NTB_DMA_CTRL_OFFSET + length)
-> +		return -EINVAL;
-> +	if (!ntb_epf_dma_region_parse(ndev, NTB_EPF_DMA(submap), true,
-> +				      &ndev->dma.submap))
-> +		return -EINVAL;
-> +
-> +	type = readl(ndev->ctrl_reg + NTB_EPF_DMA(type));
-> +	if (type == U32_MAX)
-> +		return -EIO;
-> +
-> +	switch (type) {
-> +	case EPF_NTB_DMA_TYPE_DW_EDMA:
-> +		if (!IS_REACHABLE(CONFIG_DW_EDMA))
-> +			break;
-> +		ret = ntb_epf_dw_edma_parse(ndev, length);
-> +		if (!ret)
-> +			ndev->dma.type = type;
-> +		return ret;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	dev_warn(ndev->dev,
-> +		 "Endpoint DMA type %u unavailable, continuing without DMA\n",
-> +		 type);
-> +	return 0;
-> +}
-> +
-> +static int ntb_epf_dma_init(struct ntb_epf_dev *ndev)
-> +{
-> +	switch (ndev->dma.type) {
-> +	case EPF_NTB_DMA_TYPE_DW_EDMA:
-> +		return ntb_epf_dw_edma_init(ndev);
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
-> +static void ntb_epf_dma_deinit(struct ntb_epf_dev *ndev)
-> +{
-> +	switch (ndev->dma.type) {
-> +	case EPF_NTB_DMA_TYPE_DW_EDMA:
-> +		ntb_epf_dw_edma_deinit(ndev);
-> +		break;
-> +	}
-> +}
-> +
->  static int ntb_epf_mw_to_bar(struct ntb_epf_dev *ndev, int idx)
->  {
->  	struct device *dev = ndev->dev;
-> @@ -347,16 +581,20 @@ static int ntb_epf_init_isr(struct ntb_epf_dev *ndev, int msi_min, int msi_max)
->  {
->  	struct pci_dev *pdev = ndev->ntb.pdev;
->  	struct device *dev = ndev->dev;
-> +	unsigned int dma_max = ndev->dma.nr_irqs;
-> +	unsigned int dma_min;
->  	u32 argument = EPF_NTB_MSIX_ENABLE;
-> +	unsigned int ntb_irqs;
->  	int irq;
->  	int ret;
->  	int i;
->
-> -	irq = pci_alloc_irq_vectors(pdev, msi_min, msi_max, PCI_IRQ_MSIX);
-> +	irq = pci_alloc_irq_vectors(pdev, msi_min,
-> +				    msi_max + dma_max, PCI_IRQ_MSIX);
->  	if (irq < 0) {
->  		dev_dbg(dev, "Failed to get MSIX interrupts\n");
-> -		irq = pci_alloc_irq_vectors(pdev, msi_min, msi_max,
-> -					    PCI_IRQ_MSI);
-> +		irq = pci_alloc_irq_vectors(pdev, msi_min,
-> +					    msi_max + dma_max, PCI_IRQ_MSI);
->  		if (irq < 0) {
->  			dev_err(dev, "Failed to get MSI interrupts\n");
->  			return irq;
-> @@ -364,8 +602,17 @@ static int ntb_epf_init_isr(struct ntb_epf_dev *ndev, int msi_min, int msi_max)
->  		argument &= ~EPF_NTB_MSIX_ENABLE;
->  	}
->
-> -	ndev->db_count = irq - 1;
-> -	for (i = 0; i < irq; i++) {
-> +	dma_min = dma_max && irq > msi_min;
-> +	/* Reserve one shared DMA IRQ when available, then give the rest to NTB. */
-> +	ntb_irqs = min_t(unsigned int, irq - dma_min, msi_max);
-> +	ndev->dma.nr_irqs = irq - ntb_irqs;
-> +	if (dma_max && !ndev->dma.nr_irqs) {
-> +		dev_warn(dev,
-> +			 "No IRQ available for endpoint DMA, continuing without DMA\n");
-> +		ndev->dma.type = 0;
-> +	}
-> +	ndev->db_count = ntb_irqs - 1;
-> +	for (i = 0; i < ntb_irqs; i++) {
->  		ndev->irq_ctx[i].ndev = ndev;
->  		ndev->irq_ctx[i].irq_no = i;
->  		ret = request_irq(pci_irq_vector(pdev, i), ntb_epf_vec_isr,
-> @@ -377,7 +624,7 @@ static int ntb_epf_init_isr(struct ntb_epf_dev *ndev, int msi_min, int msi_max)
->  	}
->
->  	ret = ntb_epf_send_command(ndev, EPF_NTB_COMMAND_CONFIGURE_DOORBELL,
-> -				   argument | irq);
-> +				   argument | ntb_irqs);
->  	if (ret) {
->  		dev_err(dev, "Failed to configure doorbell\n");
->  		goto err_free_irq;
-> @@ -610,6 +857,11 @@ static int ntb_epf_init_dev(struct ntb_epf_dev *ndev)
->  		dev_err(dev, "Unsupported MW count: %u\n", ndev->mw_count);
->  		return -EINVAL;
->  	}
-> +	ret = ntb_epf_dma_parse(ndev);
-> +	if (ret) {
-> +		dev_err(dev, "Invalid endpoint DMA layout\n");
-> +		return ret;
-> +	}
->
->  	/* One Link interrupt and rest doorbell interrupt */
->  	ret = ntb_epf_init_isr(ndev, NTB_EPF_MIN_DB_COUNT + 1,
-> @@ -760,6 +1012,12 @@ static int ntb_epf_pci_probe(struct pci_dev *pdev,
->  		goto err_init_dev;
->  	}
->
-> +	ret = ntb_epf_dma_init(ndev);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to initialize endpoint DMA\n");
-> +		goto err_dma_init;
-> +	}
-> +
->  	ret = ntb_register_device(&ndev->ntb);
->  	if (ret) {
->  		dev_err(dev, "Failed to register NTB device\n");
-> @@ -769,6 +1027,8 @@ static int ntb_epf_pci_probe(struct pci_dev *pdev,
->  	return 0;
->
->  err_register_dev:
-> +	ntb_epf_dma_deinit(ndev);
-> +err_dma_init:
->  	ntb_epf_cleanup_isr(ndev);
->
->  err_init_dev:
-> @@ -782,6 +1042,7 @@ static void ntb_epf_pci_remove(struct pci_dev *pdev)
->  	struct ntb_epf_dev *ndev = pci_get_drvdata(pdev);
->
->  	ntb_unregister_device(&ndev->ntb);
-> +	ntb_epf_dma_deinit(ndev);
->  	ntb_epf_cleanup_isr(ndev);
->  	ntb_epf_deinit_pci(ndev);
->  }
-> --
-> 2.54.0
->
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+This was found with a static analysis tool from ongoing, not yet
+published research, and confirmed by code inspection. It has not been
+reproduced on hardware; a timeout is not expected on working hardware.
+Compile-tested only (ARCH=arm64 defconfig with SUN50I_IOMMU=y, W=1).
+
+ drivers/iommu/sun50i-iommu.c | 42 ++++++++++++++++++++++--------------
+ 1 file changed, 26 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/iommu/sun50i-iommu.c b/drivers/iommu/sun50i-iommu.c
+index be3f1ce696ba2..74ca3625ae25c 100644
+--- a/drivers/iommu/sun50i-iommu.c
++++ b/drivers/iommu/sun50i-iommu.c
+@@ -298,8 +298,8 @@ static void sun50i_table_flush(struct sun50i_iommu_domain *sun50i_domain,
+ 	dma_sync_single_for_device(iommu->dev, dma, size, DMA_TO_DEVICE);
+ }
+ 
+-static void sun50i_iommu_zap_iova(struct sun50i_iommu *iommu,
+-				  unsigned long iova)
++static int sun50i_iommu_zap_iova(struct sun50i_iommu *iommu,
++				 unsigned long iova)
+ {
+ 	u32 reg;
+ 	int ret;
+@@ -313,10 +313,12 @@ static void sun50i_iommu_zap_iova(struct sun50i_iommu *iommu,
+ 					reg, !reg, 1, 2000);
+ 	if (ret)
+ 		dev_warn(iommu->dev, "TLB invalidation timed out!\n");
++
++	return ret;
+ }
+ 
+-static void sun50i_iommu_zap_ptw_cache(struct sun50i_iommu *iommu,
+-				       unsigned long iova)
++static int sun50i_iommu_zap_ptw_cache(struct sun50i_iommu *iommu,
++				      unsigned long iova)
+ {
+ 	u32 reg;
+ 	int ret;
+@@ -329,29 +331,36 @@ static void sun50i_iommu_zap_ptw_cache(struct sun50i_iommu *iommu,
+ 					reg, !reg, 1, 2000);
+ 	if (ret)
+ 		dev_warn(iommu->dev, "PTW cache invalidation timed out!\n");
++
++	return ret;
+ }
+ 
+-static void sun50i_iommu_zap_range(struct sun50i_iommu *iommu,
+-				   unsigned long iova, size_t size)
++static int sun50i_iommu_zap_range(struct sun50i_iommu *iommu,
++				  unsigned long iova, size_t size)
+ {
++	int ret;
++
+ 	assert_spin_locked(&iommu->iommu_lock);
+ 
+ 	iommu_write(iommu, IOMMU_AUTO_GATING_REG, 0);
+ 
+-	sun50i_iommu_zap_iova(iommu, iova);
+-	sun50i_iommu_zap_iova(iommu, iova + SPAGE_SIZE);
++	/* Issue all invalidations even if one of them times out. */
++	ret = sun50i_iommu_zap_iova(iommu, iova);
++	ret = sun50i_iommu_zap_iova(iommu, iova + SPAGE_SIZE) ?: ret;
+ 	if (size > SPAGE_SIZE) {
+-		sun50i_iommu_zap_iova(iommu, iova + size);
+-		sun50i_iommu_zap_iova(iommu, iova + size + SPAGE_SIZE);
++		ret = sun50i_iommu_zap_iova(iommu, iova + size) ?: ret;
++		ret = sun50i_iommu_zap_iova(iommu, iova + size + SPAGE_SIZE) ?: ret;
+ 	}
+-	sun50i_iommu_zap_ptw_cache(iommu, iova);
+-	sun50i_iommu_zap_ptw_cache(iommu, iova + SZ_1M);
++	ret = sun50i_iommu_zap_ptw_cache(iommu, iova) ?: ret;
++	ret = sun50i_iommu_zap_ptw_cache(iommu, iova + SZ_1M) ?: ret;
+ 	if (size > SZ_1M) {
+-		sun50i_iommu_zap_ptw_cache(iommu, iova + size);
+-		sun50i_iommu_zap_ptw_cache(iommu, iova + size + SZ_1M);
++		ret = sun50i_iommu_zap_ptw_cache(iommu, iova + size) ?: ret;
++		ret = sun50i_iommu_zap_ptw_cache(iommu, iova + size + SZ_1M) ?: ret;
+ 	}
+ 
+ 	iommu_write(iommu, IOMMU_AUTO_GATING_REG, IOMMU_AUTO_GATING_ENABLE);
++
++	return ret;
+ }
+ 
+ static int sun50i_iommu_flush_all_tlb(struct sun50i_iommu *iommu)
+@@ -409,12 +418,13 @@ static int sun50i_iommu_iotlb_sync_map(struct iommu_domain *domain,
+ 	struct sun50i_iommu_domain *sun50i_domain = to_sun50i_domain(domain);
+ 	struct sun50i_iommu *iommu = sun50i_domain->iommu;
+ 	unsigned long flags;
++	int ret;
+ 
+ 	spin_lock_irqsave(&iommu->iommu_lock, flags);
+-	sun50i_iommu_zap_range(iommu, iova, size);
++	ret = sun50i_iommu_zap_range(iommu, iova, size);
+ 	spin_unlock_irqrestore(&iommu->iommu_lock, flags);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static void sun50i_iommu_iotlb_sync(struct iommu_domain *domain,
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.43.0
+
