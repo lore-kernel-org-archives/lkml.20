@@ -1,69 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.40
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506660;
-	b=cJqaYkwdR/ktW67/X55AsnjYzZpkZngQ9QUKdmjYIyjgX3NrZQfv1HVpZc7GGqz2Z4sj
-	 TH34v3QbAYFg9rZ3ZdKwUaZJRpxsalyQbt6BTmzC7beKOpE6v09V51i6BJQKS0rMKuJGw
-	 tTePlB9KMtQCh9YfiG3Q/CkrqBluIGZH2WNJyFzLTGGkV2qbtCOi74SvIlWpuZjUYxh5V
-	 ctbfWs+nRURXmOaDds2bdiu1/OXIWuzgc6ORjmoXDL8qG7ypwVf6SMkSaIhgRDeeFedP3
-	 GmXdCaCRG4tURCyfWEqKx9vP9VOi2Rce56WksFIHXmsrHYOtpc7NgtCOSEBStT5iSdw==
+	t=1792506704;
+	b=z6aXDznB0g61PA0/UbHGqLS4TOC5HDDrtKuD8+ObLMSs5X4Svt8R7zsVAUmIVtxv0T5T
+	 cpAnvDx9lB8is5d4RBab9VSpDVUnBY9uE2eMMtXO78frGFzfyMgTzl50jzg6yiOuKo+zW
+	 01DidLmwZJb7MsRdTB6jpLXE+SsjqRESguCCWnVAgLMsaANSNv+MqzmN3OZxyy29EaBA8
+	 XTqNSf0BaZl+1fZrhc6LXm2v/tU48FP6FqRbZTEqrmImDutKh35sTpHL9vOtv/jCrgEDj
+	 ZiurbDx8jRQ4V6ryKHr8LRNKw0ipF/2eb1UhTDqDCKaAntr3BAyHsB3Q2HiFLWyhx0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506660;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Kjv9P6jh7n80KmQTVviZB7f96Of0OPau+dzZLCspckQ=;
-	b=aKRsgn+7/l7LKyQNy9obtCA52+ogby58ISKKEROGPLJauKb7yKcCciLM0z7B2eo9u9P3
-	 uC3aWs82IzxJUQ9bUOFe9qGBKchP8voiMZcv88jRsXCoYFtFN3mDJk2F+170HnxZborp1
-	 M7ac6RmdQT8vKWCS//aDKNtHcsL6yU8T7ApIX6c9N4XiYCTC3PPlRB7CIYh9HSQChvPSY
-	 EaqulJvxB0fIRfVKXEp/Piybr8LdR1qlEt6y/YsrJULyaCE69qkWHY0wbdM1pclb9SPo3
-	 8ayU0tPBDiVw7AwY+3A9MUJ2L/WJA4MHx5+463im/x5eEhI7RLuwsJMP7kspCpAVMWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506704;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=79PDGBo/ROKE02Uy/sJRxhzs3FckYw8dDZ3wx3mZFZI=;
+	b=mmSx8YbwrcJWs+ts8xLBm1ZFarupEUyVitpFzWbgG1z6EfB4vJuuYmx+iGPd6oTRwejN
+	 E8zs+aZWBShkn/KW+XpPywV0Ml04BXETfon5+8QkNZnflb5njEKKbTXHKDXLGhCIarwI5
+	 Tb/WwkTKEDc64Ix55OHTJL3v5ME8uy6VpOizxZPZM2ZUcMF0nDJZKfhg4Fx4a211Bect2
+	 Orp/QrCIEr5Qeoifgz1KQddb227GpqOEXwwI2BQYUolgu2cwP7Vq7YdmRey4eMLe0slRm
+	 c4be/0SSrvxzaAI0H3tTuaUEnNqZMmgge+5plmNHfkRwXFga7dNK2bvdMtB+u9ifAOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=StcAVyWr;
-	arc=none smtp.remote-ip=95.215.58.40
-Received: from mta1.migadu.com (out-40.mta1.migadu.com [95.215.58.40])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="oM4d/Kri";
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8AD606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:30:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B8AD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E5E606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:31:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07E5E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=StcAVyWr
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ym7fuUE5bda8YR8vTMQIuvc+NuQU+bNetmk10VNyjek=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792506652; v=1; x=1793111452;
- b=StcAVyWru1Cm518qBqaf4AJSxcrV6acWxLmqVoK1hMOaghLpnYpAU9V+uIYaiQybvxmLF1HC
- nZAFboqwHxfnibSD33GyD4kZwNOHD0X5m/MyOGBBHArWyhvD1dziooULOIoDgqRoNxeJFtk8HsM
- VD3NyKijJOd6Hzgw4kAWVGy4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7487264007fe2945;
-	Tue, 20 Oct 2026 14:30:38 +0000
-X-Mizu-Trace-ID: 7487264007fe2945
-X-Migadu-Flow: FLOW_OUT
-From: Qingfang Deng <qingfang.deng@linux.dev>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Stanislav Fomichev <sdf.kernel@gmail.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	Felix Fietkau <nbd@nbd.name>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>
-Subject: [RFC net] net: force software segmentation of PPPoE packets
-Date: Tue, 20 Oct 2026 22:30:30 +0800
-Message-Id: <20261020143031.1829-1-qingfang.deng@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oM4d/Kri
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a06b44bd01so1065662b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:31:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792506703; x=1793111503; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=79PDGBo/ROKE02Uy/sJRxhzs3FckYw8dDZ3wx3mZFZI=;
+        b=oM4d/KriHS1CJeZrfVsVM/Ncn0aQPYiCz2FhG+VV75PK5Y75SD43lvlsP1cSSU5nVc
+         FOmJfIjRRnat8deDz/Qkl5JdnDDizXXVqRzBbG2m5nO6ck5HOtuISAckWiVgpMDjmyuH
+         Fkn+Zg8kmhU44YsoFNDczzMhr2Ipz4GZz1v3fUxQ5Vfk3JRNnkw7daNmI8wlYAd0/uFi
+         mYf+Ijnnq7LRIuUpMaKV6ZrCj2sMR19xn0Sn/BEFMoMYr9R7PWfpqqdrDtiKfcldO9B5
+         0g3yjuZIoKjKxLHYSO3WrqyswQov8l6R7xooPimWzKc6KRroVj7ydb7fC50UbI8ki7EG
+         mkdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792506703; x=1793111503;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=79PDGBo/ROKE02Uy/sJRxhzs3FckYw8dDZ3wx3mZFZI=;
+        b=wZYov98KOJdLBg3ZHT2siXqns6eNU7L9m6ZIxu1fMlRErbzVY9l7rmhTghZFNtxCFS
+         8J+UVICU52RMLDPOwkNCl3s7FIylg88tyPExiqW4IjGHN3Fz/3ccFrycXkj7d3M7X1E0
+         Me1Xytz5koVV7DXMz3UfXJVlBiYmLsrKelMZ3U/msfQTG8WPSwtqO24Kvyyj1nKegXpA
+         ThDKUzIPeYPj9DBznYLtk18AwnFLwL5gmhNtbctl8HRZJVvO7c9s5yUGPLelDivZ8Zzw
+         p4rNl0GDGy4meOyuaPpbyHa+pZ6T62cNgSfpQ+oNqpFGb0DrU5XKmrIucZ6VhcJc7tww
+         Hjyw==
+X-Forwarded-Encrypted: i=1; AKwUvBza8qPFo4Fdwj2xOgW6EgCgMXLaUm8EKRWcIvpB2x5O9IkEOx3WMQ5MdFpmVobMebr6i8I2co43ymdXiI0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpcnrbAH9K4p0ZP0+r7AkDeYNcO9FbZVR8j1eiwBTvqQqQ0l1z
+	wj0Pi1tYxNu7Y8ULWUB+216DYWN0BypLlQCA8asFsgBcEITSt6U/jXQO
+X-Gm-Gg: AYBFou2WhxEZyYeGo75i+fU9VCIPvqgrZggqkkLaHtsuQPMJQSzDsWdUeq4wpfhYc35
+	q4P0rqXT3OtdzK33D+Y/EGAiR6wU8JSFDKVliS3VMzs5/paOxW4H5WbwBXG0bagZtb+gOBYOCAG
+	5XUst181fOxJKnCPE7AhieV4saidKbcDk1sBYHEgbDnCrEb9Hy5yAyssh3N1Vel5WMvSa7cMwUx
+	rjeJ9cHgyzyizjNQj/jfM3WLx2qVQZmNIcAWHXBw30lpeGisRHXmfNWB4SpMVM9MyhN825FO1QN
+	WPb6IyMEFFdKcvn0nFceTZpHN0C5mz5KlI9oLBjG+aSSitnt4Ivike0wYvj6bcCsvpI4cxrt8zz
+	Ujpur+rXSJja1MhVZFpwisdgt1GpqJ88OZgFHywG/f1evv4E8J/82dozOWomi5JuF7OAdgoSgRY
+	l/knYNl7vb0UBKIbX9LlG8EPXxR61BPkJfNjr4AtRqUwlP1H9CyTiNWs4Luw5NrzS9orjVRpyz8
+	ItQZ6Wecd6WEvtdyu54WJWnuprUOQAvvQ==
+X-Received: by 2002:a05:6a00:4b49:b0:869:84b4:4b36 with SMTP id d2e1a72fcca58-8a04be69ef6mr8251834b3a.16.1792506703265;
+        Tue, 20 Oct 2026 07:31:43 -0700 (PDT)
+Received: from arch.localdomain (123202092053.ctinets.com. [123.202.92.53])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f580173efsm4789001b3a.50.2026.10.20.07.31.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 07:31:42 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	heiko@sntech.de
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	Jun Yan <jerrysteve1101@gmail.com>
+Subject: [PATCH 0/2] ASoC: codecs: Add Everest ES7202 support
+Date: Tue, 20 Oct 2026 22:31:30 +0800
+Message-ID: <20261020143135.623897-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,35 +106,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Ordinary TSO does not update the PPPoE payload length. A PPPoE GRO packet
-forwarded by a bridge can retain hardware GSO features and reach the
-driver without software segmentation, if the egress Ethernet interface
-advertises TSO.
+This series adds support for the Everest ES7202, a 2-channel PDM
+analog-to-digital converter controlled over I2C. Patch 1 adds the DT
+bindings and patch 2 the ASoC codec driver.
 
-To force software segmentation, clear the GSO feature mask for
-ETH_P_PPP_SES in harmonize_features().
+The driver is based on the Rockchip BSP driver, reworked for mainline to
+use regmap and devm_ helpers, probe the device ID, and report the actual
+per-step PGA gain.
 
-Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
-Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
----
- net/core/dev.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Jun Yan (2):
+  dt-bindings: sound: add Everest ES7202
+  ASoC: codecs: add support for Everest ES7202 PDM ADC
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index a6951ea08961..27483a2ad747 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -3831,6 +3831,10 @@ static netdev_features_t harmonize_features(struct sk_buff *skb,
- 	type = skb_network_protocol(skb, NULL);
- 	features = net_mpls_features(skb, features, type);
- 
-+	/* Ordinary TSO does not update the PPPoE payload length. */
-+	if (IS_ENABLED(CONFIG_PPPOE) && type == htons(ETH_P_PPP_SES))
-+		features &= ~NETIF_F_GSO_MASK;
-+
- 	if (skb->ip_summed != CHECKSUM_NONE &&
- 	    !can_checksum_protocol(features, type)) {
- 		features &= ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
--- 
-2.34.1
+ .../bindings/sound/everest,es7202.yaml        |  56 +++
+ sound/soc/codecs/Kconfig                      |  10 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/es7202.c                     | 372 ++++++++++++++++++
+ sound/soc/codecs/es7202.h                     | 133 +++++++
+ 5 files changed, 573 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/everest,es7202.yaml
+ create mode 100644 sound/soc/codecs/es7202.c
+ create mode 100644 sound/soc/codecs/es7202.h
+
+--
+2.56.0
 
