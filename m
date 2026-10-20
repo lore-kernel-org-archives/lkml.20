@@ -1,104 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505023;
-	b=Pqhvdtkjf0HuqgVm9beXmaL5d/LUuYYgG2YkAMuDvY+9OB4lp0qOE/IguhAe9DfrCkPm
-	 hTf80ayMBGHGxft4Yuwdpx/XRsUwao3XhwlqGg6wFjN60GxsPXH+hVakzHsHH0QxLiYXM
-	 K2AkCwxtuYow51AF9KeWJ27K9qalfZePJRfolsvQCPJPaCb/GITHHadkgWlM6NAwzvsnn
-	 HjmQ4HFnhoBPAGgoOJdNk5bXS/+6N2n1GEZH+pZPGtf8zDDWDOWZ9vzV/6QzoXGZHjYs3
-	 bJklZZqETuKX99ltwfTpD1hxWv+bYoZohns8ca/eOSCmOTWeDq/Raks+Dr30EEqxedg==
+	t=1792505065;
+	b=KmkKs2upe7u/w4OLFHd+ZGuXo0C16833FUM9yiqZ9aEHTJflq2tw255/kBQ3fIoztADe
+	 eohN5HaO0rqKKKqQVaNCr3aEc/XWGitzTeatZUrmwtbAgjG1kzqFT1dP0OWC3q+3Cwvou
+	 g0S8CAZGUweomILPkCwJqwXkXYWCcpe6hclbMBqP59Go6c0IZSkPKxmqz7uU7AIPxyW6v
+	 piw2YkhcFv2rkhPbQ9de7CahvVVwdhAbOpF97+snQpa2d9ot9r6ARGEyfyPrrtYK0gIxY
+	 /1D13DK1Y7tksXz9W6JLPj7Noqi90nn/WxAKWnl2JK5p+8cjvGKMvpocumNipZVFsLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505023;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HzO4m0Q8yZV5RgPhRhakwzaTu65IYUbFA7iVxGbsJX0=;
-	b=dNv/V3qjMwQ0tryGkFZebu+3Ks8WR6KqNZcCPTaR/lxxZTx+gJpP8MEPirKJMKC0H938
-	 4Ts/sWEDXaVmHRTqzWQVjA5H9TvjEXSusz9ZXyINOpAyyZ7PBGhVYRclorV+Hf7pUz+rl
-	 B34Kia+ZGSt5dwDrbx/gQW6BYEg4F2amA3c5o5p+609Mm/gD0zs49FzzVwUft5lU05sUF
-	 1j+i28ndebqWL3F7o3KeqVm0IUTSPuNdREDoYLdsXFjMT2Wcp+CtBxTqki5xVT6Yqsudc
-	 UDik2AS3nbLtCZv+lGWAsSToNE8ILxICnsQVkjppRNswAWQdLroz6W+KqaPbsrGnjHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505065;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=VTSXONY++MHAhLW+7kA48dz0Wy/1YW5a9nSo3Jvds/4=;
+	b=ZtufoOui68SNvcJqGWyve8ED6o7Sr3trhBqI2UoSBcokmLVvlOpEOx7WqD/F1NpM49VS
+	 ZqJyCmJsdYI8UbMz4kCFUpWFhqGY23N7Cm199vfbeJ/3Wxl7ZZbjrZse7YMFgVstzpgLn
+	 P/XOxpRDwcyDFMqbWfG67VpXBeKzysAcBLW+sgywRi3+fWivkO9iiLeK1CeCCiiqO3XiW
+	 +B1SnizeqBz1rxyUEoI3QvsupM9K9dQMY2fXvm6uqMtblGemKSR/jIhkQtFW/AJV+kJpd
+	 U7TXL0PYK5D7IoQQ4WOga/3/p70cCzUE1Cqdw6AEE/nlRh2jP6NfzJ3B1AZh2b9vCDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HxiTvnzw;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d1YoMmCE;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jD3Ku7t5;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E24606A32D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:03:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7E24606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87737606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:04:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87737606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HxiTvnzw
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e7e742a2c7so4806795ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:03:42 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d1YoMmCE;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jD3Ku7t5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792505063;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VTSXONY++MHAhLW+7kA48dz0Wy/1YW5a9nSo3Jvds/4=;
+	b=d1YoMmCEYMXsUc8UpRWc2vm4Z0difS/OnP6W+4mgxE4foxt66RTfx804iKsbRBehOluh3o
+	su7REJEcUv+vpsmaP/Ew8AHLLxWOAx6DAEoeF/0hFIYsUyMG2sZs10tWz7LHUJHPDxTitu
+	QNM1ogfuxx3Pd25+L992j922ixtcHKE=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-57-hgayIRrpPneR_HASYvciBQ-1; Tue, 20 Oct 2026 10:04:22 -0400
+X-MC-Unique: hgayIRrpPneR_HASYvciBQ-1
+X-Mimecast-MFC-AGG-ID: hgayIRrpPneR_HASYvciBQ_1792505061
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1e295b702so25873665e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:04:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792505022; x=1793109822; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HzO4m0Q8yZV5RgPhRhakwzaTu65IYUbFA7iVxGbsJX0=;
-        b=HxiTvnzwxG+Z4/tTdOnOwEo8xP/vrYpSV/ydXWUaOzzfYJO4JbvQjoz+tRYAChzTer
-         ng/yjkIsN1a3TTM+m0rF1GjAgsXiuLexHYpXDp5idwUUpOFBdAzDxnDHgzZfp8D++0hF
-         HYO+pkonW4yvEBkVQLX7zIIr4+mXlCMkVxJQ8FU/U77fJI+/j4F5SaS8lPHhNih2P739
-         QL5wRnRARdX6cPYCKl1M5WhN+YbZeXZsumdMO4JbxlnddpcMckbBmzoFRMpb5QQxD0Qb
-         PSpkTQYqydF70T2kwmyVfOBGMd9uLipAGCajKgfCNBX2SxWObutrdrD281Kwo3Gl/xeK
-         +c3g==
+        d=redhat.com; s=google; t=1792505061; x=1793109861; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VTSXONY++MHAhLW+7kA48dz0Wy/1YW5a9nSo3Jvds/4=;
+        b=jD3Ku7t53da2jDbwWAd3mnSS/fhq2YOw/BNvuENil4PTdqhIaC6xkmeQHh8XWV6ush
+         SEEM4hj/niIDEaUFc2gJIBzf9/IU72mM9htxfduVH6owTsXNxi6u3/qlJi5vdpjwWBna
+         OQgVbN/PQYIeJvAz5r03IlGB/OMHgf/QjprM3HDOWO+3tYVfdGzXU2cCiF+Ixl+xIMxS
+         eIMjODXMkWJDu6vgF8R8BPfVu2lddbbDz9F1m2Pg5hY4Qx3bjqI27PhaGv9f/f1IK5rF
+         gVICSTUt0DoLAqkM7Ym0GzMx4N7P7Eg+6qo2teQQHIp7uXmFp/AiEyWS30AdHbIWIkgT
+         IuGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792505022; x=1793109822;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HzO4m0Q8yZV5RgPhRhakwzaTu65IYUbFA7iVxGbsJX0=;
-        b=HMips+CSfIaJyA41g+/5jNueYvtauA1mY7V58Rcah+9bJUK9d/8umJN4JYh+NV+8k6
-         FEi2DPow+hlKfoMQ9gyzILmT2arFkzt1NGxo0bt340eT2dy2TFR77eoCGtIsKKCO2jC1
-         Pr6RwlKg4UNzzMFK7YMeYIG0kCTh/H+gsclIgtwL1zdZE2hpfm39N41HO4gJyiOCVR0E
-         gVfPmZsOtpEC2WQEqdUJQ7XWe34ru4r8vnQT9GRKjPK/ZBSKzdGAHf/pYnUZXSdEJqyl
-         N85p8tGKYZag6R/4GZdB4FqB0u/TdE3tiRuyQaQy64QZ49wCwU6ghVP3AAnRv25DfBfT
-         F4iQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOn5MBBeDh1Ijj4+CNMVetlhmzZb0oHvGIPp3zyTVrKJ2+2gehsihazz5JpkbxLdS7TrAjsOVjJtWo/JM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvqgif3MH0sSI+q+2ED7aHh5BwpZkOni6mcFa19gKZb72XQzly
-	YZYnPEHdYl8py/x8trt/ZQN8u2nMouqOv1T2jmoqmipgNsFJ2YQydJWT
-X-Gm-Gg: AYBFou293y8AgeeU1pFxvsbhg2+wumPnxMlHI3sKHfGxE32Yuw7yuNnMo8d27kTPQBC
-	sTRwsXMR5dv9UjH51nUFeV0JuXHxVxLG454+1CvJF22uwQYn+Rg4UJygyY4dtaB8jQnqkNkDg3R
-	eOYuuIAtfXfHuVKCk1Dly4aEfwPngJN1Yvr8cGhgza0ghfBqmZXND6sQPxjRQfvqOvLMWSaoIW/
-	h7xzVIHkebAVztYWdcRAnxO17HU5V5gKEPHX7AYyntxlEexBclCphd08YQ3EMs/TSe43Hd8cFYK
-	6WSRobzOL9cvUTX2JtdZq3CpP0iYje3qksVmoonLNSEMJ4/rg0HvUUbToVshCwMLqSfPaHZOuNm
-	lAbF5gzIQZ0sWfKNy75s1rOp7No9Jm0SR7ThvJ2N8CzLOmImNjTwfP+OXvnA6K34cLT7X5YIzSf
-	A102s3hcj5IzCtZfgvHGFQbRBqvO1csmafw7jK1XHxIHkRP88wxfdAgSsUk+A8bBSsD0yb3q56c
-	78q28favoY=
-X-Received: by 2002:a17:902:ecce:b0:2df:34c0:72fe with SMTP id d9443c01a7336-2ea1dd670d2mr14819585ad.35.1792505021811;
-        Tue, 20 Oct 2026 07:03:41 -0700 (PDT)
-Received: from Aaron-M6 ([188.253.120.162])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea1502971csm12434865ad.51.2026.10.20.07.03.36
+        d=1e100.net; s=20260707; t=1792505061; x=1793109861;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VTSXONY++MHAhLW+7kA48dz0Wy/1YW5a9nSo3Jvds/4=;
+        b=QLo4JLMYe0rpHPRxrc4MINGI/YbBjnYPpPdFX8VuaYIJcqhHikXM8kGk0PkF3AmBFS
+         oXDagR/q42dek0eDIgTP5SJ8dHGtG55dIVNExuG7m9iCEIqMoq2FaoTp+SlYeuYVaBAn
+         XBhUSOeUc5pq98s5DR1BOpbmNuJqjJneE0lsnvbwhsWCzeZlLCecku7K1xdCMUnbn7/1
+         k/kytTVXDuV+GXSH3JfA7CHj8vSe+7Wfms9lkHf2zh4JzkXf93fw7ywhecPvDcdrQObK
+         eFcpIKk9/zi1UG03TD8h0M5je4L1QkiHcWSTy07yzUECEb67sELUSyyMZhCtrAzJWSyM
+         OzRw==
+X-Gm-Message-State: AFq9FYL2UKSGncXuUVbhFCELLFwMz2Z584N2pHa3GiLiLuzd+wcg6b9p
+	/KFCYbY5RNRrJqUVjkyICMTQAIfV8A0lfP1vFnaod2pTqTYaTXSFkiws/bDKbiBSm/apeKDy260
+	Lu33OWy6xpYGMPk+06AnLzKAXUy+2RENtRM9Xh1qJ/yOvdM36vXoXa3hOhqI4x90NrQ==
+X-Gm-Gg: AYBFou1BveDxD4GUrM+izuG5Fk33r6OgAboc8CxUjiZ3wZL51xBMj8nYHyj8vezoVcm
+	5e/rBc+u3k8iTlDsOYDi5XMKU4hQZegDOCrtsWF8AYYGSLOGL9jIbJJyb1KmoIkxFrP6ThvER7H
+	LiC7FaI6Jdq9QSnpBjuPbq0hQgxT0wZiXTutngrN5ZPJYR+MaU91iWjlZar5ijJ9WSKed8K8f/4
+	guAwZB9SVKbJ2JFpJQ0TuTaKjf35KC7yotlDu+5iQEs6z0rmybs4lYOn7sI4LZiZr4EoFaHXwV7
+	VYfPmz3hGexkcBIkCqL+XV4Eq/V3rProLCnk/9zbCks8vjM1ME/slKSmEcVFM9d40ySuJQ==
+X-Received: by 2002:a05:600c:859a:b0:4a1:d8c5:b23f with SMTP id 5b1f17b1804b1-4a1d8c5bb82mr193418435e9.24.1792505060861;
+        Tue, 20 Oct 2026 07:04:20 -0700 (PDT)
+X-Received: by 2002:a05:600c:859a:b0:4a1:d8c5:b23f with SMTP id 5b1f17b1804b1-4a1d8c5bb82mr193417665e9.24.1792505060268;
+        Tue, 20 Oct 2026 07:04:20 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cc0708sm68065075e9.7.2026.10.20.07.04.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:03:41 -0700 (PDT)
-From: Yaozhong Li <yaozhonguwl@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Chris Zhong <zyw@rock-chips.com>,
-	Zhang Qing <zhangqing@rock-chips.com>,
-	Joseph Chen <chenjh@rock-chips.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yaozhong Li <yaozhonguwl@gmail.com>
-Subject: [PATCH v4 3/3] arm64: dts: rockchip: fix power-off on Firefly-RK3399
-Date: Tue, 20 Oct 2026 22:01:14 +0800
-Message-ID: <20261020140127.720-4-yaozhonguwl@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.3
-In-Reply-To: <20261020140127.720-1-yaozhonguwl@gmail.com>
-References: <20261020140127.720-1-yaozhonguwl@gmail.com>
+        Tue, 20 Oct 2026 07:04:19 -0700 (PDT)
+Date: Tue, 20 Oct 2026 10:04:15 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Chris Arges <carges@cloudflare.com>, Phil Sutter <phil@nwl.cc>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Simon Horman <horms@kernel.org>, linux-doc@vger.kernel.org
+Subject: Re: [PATCH net v3 6/8] net: add a sysctl to opt out of virtio net
+ hdr checksum validation
+Message-ID: <20261020100349-mutt-send-email-mst@kernel.org>
+References: <cover.1792411304.git.mst@redhat.com>
+ <6f23c55c6eba3e3ec6b2c7e3a80728a326ed58af.1792411304.git.mst@redhat.com>
+ <87fqy13h97.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,48 +131,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <87fqy13h97.fsf@all.your.base.are.belong.to.us>
 
-poweroff on this board drops the rails and immediately brings them back
-up, so it reboots instead of staying off and U-Boot reports a power-on
-reset.
+On Mon, Oct 19, 2026 at 04:19:16PM +0200, Björn Töpel wrote:
+> "Michael S. Tsirkin" <mst@redhat.com> writes:
+> 
+> > The ingress validation as implemented by the previous
+> > patch is stricter than what it replaced: GSO
+> > packets whose checksum metadata matches no transport header are
+> > dropped, and non-GSO ones get their checksum completed in place.
+> > Such packets used to pass with the metadata unvalidated,
+> > and with no overhead.
+> >
+> > I judge that this should not affect any deployments, but there is still
+> > some risk that it does.  In case a deployment depends on them anyway,
+> > provide a per-netns switch to get the old behavior back:
+> >
+> > echo 0 > /proc/sys/net/core/virtio_net_hdr_csum_check
+> >
+> > The default is validating.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > ---
+> >  Documentation/admin-guide/sysctl/net.rst | 19 ++++++++
+> >  include/linux/virtio_net.h               | 23 +++++++++
+> >  include/net/netns/core.h                 |  1 +
+> >  net/core/dev.c                           |  6 +++
+> >  net/core/net_namespace.c                 |  1 +
+> >  net/core/sysctl_net_core.c               | 60 ++++++++++++++++++++++++
+> >  6 files changed, 110 insertions(+)
+> >
+> > diff --git a/Documentation/admin-guide/sysctl/net.rst b/Documentation/admin-guide/sysctl/net.rst
+> > index e586e17fc7a5..b1a1c4714b22 100644
+> > --- a/Documentation/admin-guide/sysctl/net.rst
+> > +++ b/Documentation/admin-guide/sysctl/net.rst
+> > @@ -246,6 +246,25 @@ processes are dropped unless socket option SOF_TIMESTAMPING_OPT_TSONLY is set.
+> >  Default: 1 (on)
+> >  
+> >  
+> > +virtio_net_hdr_csum_check
+> > +-------------------------
+> > +
+> > +When processing packets with a virtio net header (through tun, tap, a
+> > +packet socket or a virtio network device) that request checksum offload
+> > +(VIRTIO_NET_HDR_F_NEEDS_CSUM), validate the packet: complete the checksum
+> > +in software, or drop the packet where the header does not match it.
+> > +
+> > +When disabled, the header is trusted not to corrupt the packet, and the
+> > +checksum is offloaded to hardware (or not verified if it never reaches
+> > +hardware). This is only safe if no protocol is processing the packets.
+> > +
+> > +The setting is per network namespace, but only writable by the host
+> > +root: root inside a network namespace created by an unprivileged user
+> > +cannot disable the validation.
+> > +
+> > +Default: 1 (on)
+> > +
+> > +
+> >  wmem_default
+> >  ------------
+> >  
+> > diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+> > index 97b554ef7123..25aa95c11e31 100644
+> > --- a/include/linux/virtio_net.h
+> > +++ b/include/linux/virtio_net.h
+> > @@ -5,6 +5,7 @@
+> >  #include <linux/if_vlan.h>
+> >  #include <linux/ip.h>
+> >  #include <linux/ipv6.h>
+> > +#include <linux/jump_label.h>
+> >  #include <linux/netdevice.h>
+> >  #include <linux/udp.h>
+> >  #include <net/gso.h>
+> > @@ -78,6 +79,19 @@ static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
+> >  	*thoff = nhoff + iph->ihl * sizeof(u32);
+> >  	return iph;
+> >  }
+> > +/* Defined in net/core/dev.c, enabled while any network namespace
+> > + * has net.core.virtio_net_hdr_csum_check set to 0.
+> > + */
+> > +DECLARE_STATIC_KEY_FALSE(virtio_net_hdr_csum_check_disabled_key);
+> > +
+> > +/* Failsafe: a namespace can disable the check with
+> > + * net.core.virtio_net_hdr_csum_check.
+> > + */
+> > +static inline bool virtio_net_hdr_csum_check_disabled(struct sk_buff *skb)
+> > +{
+> > +	return static_branch_unlikely(&virtio_net_hdr_csum_check_disabled_key) &&
+> > +	       !READ_ONCE(dev_net(skb->dev)->core.sysctl_virtio_net_hdr_csum_check);
+> > +}
+> >  
+> >  /* Where does the L3 header start, and what protocol is it?
+> >   * Handles Ethernet and VLAN headers; other devices use the
+> > @@ -179,6 +193,12 @@ virtio_net_csum_partial_ok_at_offset(struct sk_buff *skb, u8 hdr_gso_type,
+> >  	unsigned int thoff;
+> >  	int ip_proto;
+> >  
+> > +	/* Failsafe: a namespace opted out of the validation,
+> > +	 * trust the checksum metadata as before.
+> > +	 */
+> > +	if (virtio_net_hdr_csum_check_disabled(skb))
+> > +		return true;
+> > +
+> >  	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
+> >  		return false;
+> >  
+> > @@ -516,6 +536,9 @@ virtio_net_tnl_offsets_ok(struct sk_buff *skb, bool outer_isv6,
+> >  	unsigned int thoff;
+> >  	int ip_proto;
+> >  
+> > +	if (virtio_net_hdr_csum_check_disabled(skb))
+> > +		return true;
+> > +
+> >  	if (!virtio_net_l3_start(skb, &nhoff, &proto))
+> >  		return false;
+> >  	if (outer_isv6 != (proto == htons(ETH_P_IPV6)))
+> > diff --git a/include/net/netns/core.h b/include/net/netns/core.h
+> > index 9ef3d70e5e9c..ae8110772c97 100644
+> > --- a/include/net/netns/core.h
+> > +++ b/include/net/netns/core.h
+> > @@ -18,6 +18,7 @@ struct netns_core {
+> >  	u8	sysctl_txrehash;
+> >  	u8	sysctl_tstamp_allow_data;
+> >  	u8	sysctl_bypass_prot_mem;
+> > +	u8	sysctl_virtio_net_hdr_csum_check;
+> >  
+> >  #ifdef CONFIG_PROC_FS
+> >  	struct prot_inuse __percpu *prot_inuse;
+> > diff --git a/net/core/dev.c b/net/core/dev.c
+> > index e76762e29360..d14950b1af3a 100644
+> > --- a/net/core/dev.c
+> > +++ b/net/core/dev.c
+> > @@ -2389,6 +2389,12 @@ EXPORT_SYMBOL(tcf_sw_enabled_key);
+> >  
+> >  DEFINE_STATIC_KEY_FALSE(netstamp_needed_key);
+> >  EXPORT_SYMBOL(netstamp_needed_key);
+> > +
+> > +/* Enabled while any network namespace has net.core.virtio_net_hdr_csum_check
+> > + * set to 0.
+> > + */
+> > +DEFINE_STATIC_KEY_FALSE(virtio_net_hdr_csum_check_disabled_key);
+> > +EXPORT_SYMBOL(virtio_net_hdr_csum_check_disabled_key);
+> >  #ifdef CONFIG_JUMP_LABEL
+> >  static atomic_t netstamp_needed_deferred;
+> >  static atomic_t netstamp_wanted;
+> > diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
+> > index da5f881fbd3b..2d340fafba85 100644
+> > --- a/net/core/net_namespace.c
+> > +++ b/net/core/net_namespace.c
+> > @@ -396,6 +396,7 @@ static __net_init void preinit_net_sysctl(struct net *net)
+> >  	net->core.sysctl_optmem_max = 128 * 1024;
+> >  	net->core.sysctl_txrehash = SOCK_TXREHASH_ENABLED;
+> >  	net->core.sysctl_tstamp_allow_data = 1;
+> > +	net->core.sysctl_virtio_net_hdr_csum_check = 1;
+> >  	net->core.sysctl_txq_reselection = msecs_to_jiffies(1000);
+> >  }
+> >  
+> > diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+> > index eb35da3556f4..c65ff86cc5f9 100644
+> > --- a/net/core/sysctl_net_core.c
+> > +++ b/net/core/sysctl_net_core.c
+> > @@ -18,6 +18,7 @@
+> >  #include <linux/slab.h>
+> >  #include <linux/sched/isolation.h>
+> >  #include <linux/hex.h>
+> > +#include <linux/jump_label.h>
+> >  
+> >  #include <net/ip.h>
+> >  #include <net/sock.h>
+> > @@ -678,6 +679,54 @@ static struct ctl_table net_core_table[] = {
+> >  	},
+> >  };
+> >  
+> > +/* Defined in net/core/dev.c, declared for the gate in
+> > + * include/linux/virtio_net.h.
+> > + */
+> > +DECLARE_STATIC_KEY_FALSE(virtio_net_hdr_csum_check_disabled_key);
+> > +
+> > +/*
+> > + * Protects changes to virtio_net_hdr_csum_check_disabled_key and each
+> > + * net->core.sysctl_virtio_net_hdr_csum_check. Readers don't use a lock.
+> > + */
+> 
+> nit: OCD doesn't like mixing old netdev comments with vanilla style...
+> one VVV as well.
+> 
+> > +static DEFINE_MUTEX(virtio_net_hdr_csum_check_mutex);
+> > +
+> > +static int virtio_net_hdr_csum_check_sysctl(const struct ctl_table *table,
+> > +					    int write, void *buffer,
+> > +					    size_t *lenp, loff_t *ppos)
+> > +{
+> > +	struct net *net = (struct net *)table->data;
+> > +	/* checkpatch warns but this can't be const: tmp.data is set
+> > below */
+> 
+> nit: Redundant comment...
+> 
+> > +	struct ctl_table tmp = *table;
+> 
+> ...and here, can't we instead get rid of tmp, and do something like:
+>     | u8 *value = table->data;
+>     | u8 old, new;
+> 
+> > +	u8 old;
+> > +	int ret;
+> > +
+> > +	/* Root in a user namespace must not be able to weaken the
+> > +	 * validation for the network namespace it controls.
+> > +	 */
+> > +	if (write && !capable(CAP_NET_ADMIN))
+> > +		return -EPERM;
+> > +
+> > +	/*
+> > +	 * Make sure virtio_net_hdr_csum_check_disabled_key counts zero values of
+> > +	 * net->core.sysctl_virtio_net_hdr_csum_check.
+> > +	 */
+> > +	mutex_lock(&virtio_net_hdr_csum_check_mutex);
+> > +
+> > +	old = net->core.sysctl_virtio_net_hdr_csum_check;
+> > +	tmp.data = &net->core.sysctl_virtio_net_hdr_csum_check;
+> > +	ret = proc_dou8vec_minmax(&tmp, write, buffer, lenp, ppos);
+> > +	if (write && !ret && old != net->core.sysctl_virtio_net_hdr_csum_check) {
+> 
+> and then:
+>     | old = READ_ONCE(*value);
+>     | ret = proc_dou8vec_minmax(table, write, buffer, lenp, ppos);
+>     | new = READ_ONCE(*value);
+>     | 
+>     | if (write && !ret && old != new) {
+> 
+> at least that's easier to read for me. (No blocker!)
+> 
+> 
+> Reviewed-by: Björn Töpel <bjorn@kernel.org>
 
-Firefly's BSP drives GPIO1_D0 high while the system runs and low during
-shutdown, before writing the RK808's shutdown bit. Mainline does not
-describe GPIO1_D0 at all, so nothing drives it and the shutdown does not
-stick. Describe it in the PMIC node, with the settle time the vendor
-uses.
 
-The BSP releases GPIO1_B5 in the same sequence, and in testing the board
-came back up when that pin was still high as the shutdown bit was
-written. Mainline describes GPIO1_B5 as the backlight enable GPIO.
-pwm-backlight drives its enable GPIO low whenever it turns the backlight
-off, including from its shutdown callback in device_shutdown(), which
-runs before the PMIC's power-off prepare handler. When pwm-backlight is
-not bound, nothing claims the pin; on this board it is then an input
-reading low, which also lets the shutdown stick, although that is not
-guaranteed on every board. The pin is therefore left to the backlight.
-
-Fixes: 171582e00db1 ("arm64: dts: rockchip: add support for firefly-rk3399 board")
-Assisted-by: LLM
-Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
----
- arch/arm64/boot/dts/rockchip/rk3399-firefly.dts | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-index 0568dfa..210e4cb 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-@@ -327,6 +327,8 @@ rk808: pmic@1b {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pmic_int_l>;
- 		system-power-controller;
-+		power-hold-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>;
-+		power-hold-delay-ms = <200>;
- 		wakeup-source;
- 
- 		vcc1-supply = <&vcc_sys>;
--- 
-2.55.0.windows.3
+Thanks, I'm addressing sashiko review points, will address this
+in v4.
 
