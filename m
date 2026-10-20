@@ -1,59 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792531664;
-	b=Bb3zNcFIXKrMWloRQNERwTRCFg9zWKuAKmIuHPBhGMrjXgTqsJmF47nUCHi3qTBYYshP
-	 M/oaWEtRT9PnvtgEM/kG3Wbcx2ao3uUp82ehsExyeOZm+Th+4BB1d45nUvcSl9ZBygFaG
-	 Yy+KVB48bMA/aqxGaRbJA7dauXXj9QRDpXqFChaIWR5tNKdCdQMlp+0hM0F4v/lOiwfxw
-	 QBnBeSHjeTY7z2qcrcecZ/3K0fpfpmP57N5HQfJ80O52eFd7/eQUVjN6446UZyd/CVif4
-	 4zoV/T3DKni8+9ryb78xTZMovE3Vd/ErXY9a7ToqQhNxaud9LUz2WMTqmxvF1QJ73aA==
+	t=1792531815;
+	b=Sxwqq3itGX9GiJKjIRKPVKrtf8MMO3pvNsKFq3hdA+uJBBO2fG0ULNURV+rsErX4tib4
+	 LMgqi19XERrvSWlyKYq7MdhW2fR5Ro+X5yw1cJ5tfv7lbYn/jiRmrRW2Cx3rN4lXwl5b7
+	 jwL3AIy9x7ofYdrZQtEhBf1MdnomeRoWbenIvnLTXO7yIPBl6D6AsLhs7NJxQIoSS/07q
+	 s6sHuBVd3nqsCmK/X9RmDt+n9aJWkjG/20jnYOLPNIMmBNawQe19DB44tmhOFo5BaEsbq
+	 mMFFMAl7l1mWa5DQdqDBUr97phXwzjgF+BAYFkAeBKb78v1gNrWePMrRwkZs3IHwdCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792531664;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MxupQuLrjTmidyr+71XgcptZJ4StthJ+f8ITbIGGDw4=;
-	b=rt60s0Zd0oKyESpUkBDtC40SNj4uLF+HgUYzfn34z8h+ug4AU2yA39jnZayZblbWlV84
-	 1WU4mpBCn2oY7aNL+yG6mrHQ1HqgH+S94vaMB2Q0iUjbwVakpGBjClLKHjpseLyhOFME+
-	 09VIIKOOpCEfFvszNu2ODLjPQA4ql6Xo+HJyctQ18PyGao/o/Z4cXDbdz1f8kznKuQiqy
-	 luguyavRG8lwKeMwIX932gnSi23VXEhd5tPKwXN5Qpyz/G1RywT01JL2+FbsJLQBuI1u6
-	 GZAxckWcZqc5n6Him+QjAJSDxzjmdRio4fQfLUdRwWt8OwZOfc2sAAsjjYJ8xsbznzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792531815;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=J52yf6wiclMJabmxnVaoIJf0AuS/MM8eQ4Dlsmc3wb0=;
+	b=k1Lq0Dn9O6Dch9XTydDH/qjPRYTSCOqB2egSEgmTN2E1qplFWdG/g2mnTfUF6SAWzd4h
+	 QlAhVNopKSnrQ6I07oGbLHXRyFDn/bUOMcwA+GCJ4gDo0hbQ4d2fdUtlwNd0zeQ8xyC/W
+	 cZroUNYcUVp8SsEw2j86c8ZGZQ8MVbPIvD6o0LqLGoa38p7J/rKjLxNkjwUrPlRiAVVg0
+	 a2VHwG/G/xhFEWLoLfOsjWnV0oJbao3KGOcn2iK7nooOcfaUDQ+hfU0NG01Fb0qQfqFUS
+	 5hyyqNTpL9/R64Nzk1x3ffc2EYdS9lYCcRpi4wDz+WlVB5ZAD85HFMOfYQZ9RC1yUhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DnJkrwqZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHQ8yZyY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10026606A31A;
-	Tue, 20 Oct 2026 21:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88FC606A31A;
+	Tue, 20 Oct 2026 21:30:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DnJkrwqZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78C071F000C9;
-	Tue, 20 Oct 2026 21:27:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHQ8yZyY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831311F000CA;
+	Tue, 20 Oct 2026 21:30:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792531663;
-	bh=MxupQuLrjTmidyr+71XgcptZJ4StthJ+f8ITbIGGDw4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DnJkrwqZND59uB1P3BIS3g9oYMyms9aM1dHhA8wKri1z2IMGEE45HbOK3CO/VapY9
-	 nFPATHSvDItkzqnCcjnTvTHZ8IeggBxveinn1ZYKLtjty3P7Af1NTh9ImhBzEr8Rso
-	 mpntA0jwUNPtlkBHueN4xcbS8N23dnwuKfA8JPn2W7nNDhk1Qs0FfjzbGJxHkOoYeT
-	 ZiJxUz27HQzwaopyBAYaigFLWUtviRAwIjsAAyWemP0Srg25pe3QNx30Gfj33fQRMj
-	 Dbs0r1bFBU/foUPiz9cycXvTeNcPotRUUYMms3oatF/E2JHsWUePFAPca2uJ2Munhh
-	 /2Y2auQ17BGjw==
-Date: Tue, 20 Oct 2026 22:27:39 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Yili Zhang <zhangyili01@baidu.com>
-Cc: <linux-cxl@vger.kernel.org>, <djbw@kernel.org>,
- <alison.schofield@intel.com>, <dave.jiang@intel.com>, <dave@stgolabs.net>,
- <linux-kernel@vger.kernel.org>, shijujose2008@gmail.com,
- <vishal.l.verma@intel.com>
-Subject: Re: [PATCH v2] cxl/edac: Fail ECS threshold read for reserved
- encodings
-Message-ID: <20261020222739.72a07093@jic23-hlaptop>
-In-Reply-To: <20260930095627.32616-1-zhangyili01@baidu.com>
-References: <20260928073553.85669-1-zhangyili01@baidu.com>
-	<20260930095627.32616-1-zhangyili01@baidu.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792531814;
+	bh=J52yf6wiclMJabmxnVaoIJf0AuS/MM8eQ4Dlsmc3wb0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=eHQ8yZyY84tatF7KM3DslRXtYQ/9q92pR66szqcqv1y4RuBbaoL/hkQNlQAiAYV3G
+	 1/DsF4EMJH0/K2jb7WX6xk2kaCLC26gGRGY8ihRYOYzM3O4t018jieAkR8WaVWS9jh
+	 qE2ztadEnGw3u0vR7dr6dWUOYGd5bmkljGN5nOFqyPF2SmOkQ7eyiGYsEKHkJGaweH
+	 k8g+Ohv5R8CAJK/hhyOOnSJeMeu8ZTaK3nR+CqOCDYt99YgOGUDopLK4wYAjOY9lnz
+	 DnYFYV8IT5FlaMZS4RQmTXT+/dqRQVLbSvWu+BX7GtC9t3/y9YovoDWY3K2AmmmW8+
+	 DontoGP5WKUBQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773E03809A09;
+	Tue, 20 Oct 2026 21:30:14 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,109 +53,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v3 0/7] net: mctp: usblib: Increase coverage of
+ kunit testing
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179253181301.220085.14897480542454867780.git-patchwork-notify@kernel.org>
+Date: Tue, 20 Oct 2026 21:30:13 +0000
+References: 
+ <20261014-dev-mctp-usb-lib-test-v3-0-ee5bc3ea1db1@codeconstruct.com.au>
+In-Reply-To: 
+ <20261014-dev-mctp-usb-lib-test-v3-0-ee5bc3ea1db1@codeconstruct.com.au>
+To: James Lee <james@codeconstruct.com.au>
+Cc: jk@codeconstruct.com.au, matt@codeconstruct.com.au, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ kees@kernel.org, gustavoars@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
 
-On Wed, 30 Sep 2026 17:56:27 +0800
-Yili Zhang <zhangyili01@baidu.com> wrote:
+Hello:
 
-This just called out in the CXL upstream sync call as lacking
-review!  Sorry about that - I missed it entirely :(
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-
-> cxl_get_ecs_threshold() extracts a 3-bit index (0-7) from the
-> device-supplied ECS config word and uses it to index
-> ecs_supp_threshold[], which only has 6 elements.
-
-So this bit suggests this is hardening against bad device.
-Definitely a good thing to do given it is fairly simple but
-not a fix as such (so no rush to land it!)
-
-> A device reporting
-> index 6 or 7 causes an out-of-bounds read of adjacent .rodata, whose
-> value is then returned to userspace via the EDAC 'threshold' sysfs
-> attribute (small info leak and wrong reported threshold).
+On Wed, 14 Oct 2026 12:47:30 +0800 you wrote:
+> Current usblib tests only check receipt of a limited combination of
+> packets lengths.
 > 
-> The threshold count field also has reserved encodings 0-2, which
-> currently read as 0 from the sparse lookup table. That behavior is
-> not intentional; it is just an artifact of the array's implicit
-> zero-fill. The ABI documentation only lists 256, 1024 and 4096 as
-> supported values, so rather than documenting 0 as well, make the
-> read fail for all reserved encodings and only ever report the
-> documented values.
-
-For this one, can we trigger these values by writing a threshold of 0?
-I think that is blocked by cxl_set_ecs_threshold() so I think this
-one is also hardening against a bad device?
-
+> Added tests of receiving packets with invalid fields, and more complex
+> packet spanning. Also created tests for transmitting packets, covering
+> most code, except for mctp_usblib_tx_cancel() and allocation failures.
 > 
-> Convert the cxl_get_ecs_*() helpers to return an int and write the
-> attribute value through an output parameter (u32 * to match the
-> macro), so that errors propagate through the shared
-> CXL_ECS_GET_ATTR() macro to the sysfs read.
-> 
-> Fixes: 85fb6a16ad14 ("cxl/edac: Add CXL memory device ECS control feature")
+> [...]
 
-My overall suggestion is drop the fixes tag and state that this
-is hardening against devices returning values not currently in the spec.
+Here is the summary with links:
+  - [net-next,v3,1/7] net: mctp: usblib: Add to parameterized kunit tests.
+    https://git.kernel.org/netdev/net-next/c/acfb9c263d70
+  - [net-next,v3,2/7] net: mctp: usblib: Add test for splits inside headers
+    https://git.kernel.org/netdev/net-next/c/21e1d4515755
+  - [net-next,v3,3/7] net: mctp: usblib: Add tests of invalid headers
+    https://git.kernel.org/netdev/net-next/c/c0a372f72972
+  - [net-next,v3,4/7] net: mctp: usblib: Complete rx tests
+    https://git.kernel.org/netdev/net-next/c/40e59c00ae21
+  - [net-next,v3,5/7] net: mctp: usblib: Simplify allocation logic in mctp_usblib_test_rx_init
+    https://git.kernel.org/netdev/net-next/c/77cb5c6b3464
+  - [net-next,v3,6/7] net: mctp: usblib: Add initial kunit tx tests
+    https://git.kernel.org/netdev/net-next/c/1e12f734afc1
+  - [net-next,v3,7/7] net: mctp: usblib: Add test for failing append
+    https://git.kernel.org/netdev/net-next/c/9e061caa3bdd
 
-It might actually evolve to become a real fix with future hardware
-changes using those reserved values but we have no reason to think
-that will happen yet. 
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-We had a small discussion on the call about fixes for bad hardware
-and I expressed my view that if they are cheap (like here) in
-maintenance burden by all means take them, but I'll push back on
-anything that needs very complex solutions.
-
-With this minor tweak to the commit description this patch looks
-good to me.
-
-
-> Suggested-by: Alison Schofield <alison.schofield@intel.com>
-> Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
-
-Updated Shiju's email address in the +CC.
-
-
-> ---
-> v2: Per review feedback, fail the read with -EINVAL for all reserved
-> encodings instead of returning 0, converting the cxl_get_ecs_*()
-> getters to an int return with an output parameter so the error
-> reaches the sysfs read.
-> ---
->  drivers/cxl/core/edac.c | 26 +++++++++++++++++---------
->  1 file changed, 17 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-> index b321971fef58..fd6612dde7f1 100644
-> --- a/drivers/cxl/core/edac.c
-> +++ b/drivers/cxl/core/edac.c
-> @@ -624,21 +624,31 @@ static int cxl_mem_ecs_set_attrbs(struct device *dev,
->  			       0, NULL);
->  }
->  
-> -static u8 cxl_get_ecs_log_entry_type(u8 log_cap, u16 config)
-> +static int cxl_get_ecs_log_entry_type(u8 log_cap, u16 config, u32 *val)
->  {
-> -	return FIELD_GET(CXL_ECS_LOG_ENTRY_TYPE_MASK, log_cap);
-> +	*val = FIELD_GET(CXL_ECS_LOG_ENTRY_TYPE_MASK, log_cap);
-> +
-> +	return 0;
->  }
->  
-> -static u16 cxl_get_ecs_threshold(u8 log_cap, u16 config)
-> +static int cxl_get_ecs_threshold(u8 log_cap, u16 config, u32 *val)
->  {
->  	u8 index = FIELD_GET(CXL_ECS_THRESHOLD_COUNT_MASK, config);
->  
-> -	return ecs_supp_threshold[index];
-> +	if (index >= ARRAY_SIZE(ecs_supp_threshold) ||
-> +	    !ecs_supp_threshold[index])
-> +		return -EINVAL;
-> +
-> +	*val = ecs_supp_threshold[index];
-> +
-> +	return 0;
->  }
 
