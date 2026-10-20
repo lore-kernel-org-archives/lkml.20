@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490072;
-	b=pd/HZsOAXS+Uv8yYTyxHqGoDgh5pEtOiBzUafLH33jv+Sx7SZB80hoEblM/FlKptKYJu
-	 G/4+GvnaNOGWJXh2rN6xXrBQBQRhxc3xNaqfh+P0LzisWrXYLDSU90ZEbQv1cZPXyt5PE
-	 LtmapJGGCUnRafbuTuUiZZylGhVeuBjeL4jaVmPygeRmX6VD7kW/gWAfSfufbD7+to52M
-	 0rsYPBSSKVwHb01BLoQ9BXHBAQaYr3f0LnsvziyX/wfT+2V6NGVXwNacX3uY418AVR5GY
-	 hcIF9tbco4Ugp5yyUCuf9YCDUgY/VzZTVWMbKn2BE5uBgvtbbpYtrtihEiMF4L99tuQ==
+	t=1792490096;
+	b=UAkGTFp6EB0daddMe7pBgqkBXnSyBWzhTKmHxG8QPgBKlzET/+m516eO8uOcRgvEEbdk
+	 g6q3PjpBYOfyLYLcAwBb32VEm/Frz8HoFe4JdK/e4PK4lTULD8rI6T78F0w857U+rI/qU
+	 0LTFYc5k+bTZteoJsyTs4RhZ48kaB5nSWAUUw8YSO21jLnPEwt8UXPa8B1SSVO2FMG23v
+	 bvmBKDpuYqRzTMRODL+Bg8mvpf0BVCalOSSdqRTPmUyBrSXKepWJsr6T0mC+L88yrK1aq
+	 OeC66PPf/OYuHK2YgVgPH1iNoGHmOXS9xUxyGVSM+K8k+Rjyzyi4iiL1IK8oFP6Ll6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490072;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=XU02vtpj4WKj/rbk9TEtb2CY+iaX9oVs0uiW/nlc+38=;
-	b=2ayRiIRD19YNuP6WqPHE+JmtbP8rJdHeDACiBSYLrpGi0LnXNnjRJlFX9AGnYYSSIMKB
-	 a1vaVrqvHSjgL3mvcfDUlYh9aQlUMVWRfaSlCwpVDuJSdQ0xQE3qgSa1KonAEPP7JLS0t
-	 a0ge+Pfl+I6SA4l+ZUzhNXnMAP0k9YBw3y/gFLMTFW8Gfbe4FIoEbP2TJsDlMZCdhfAAb
-	 ZMDoGmLoNJ+v2rz1s/tgKiw3qIHp95Y1JO9YKAY9glEC05RZ/OP1uDznNtfSv5tNnW+BJ
-	 9x1kjYCILrwDj0x5g/SKWH+CTv+v8Fxvwfb+LIWQDM1a4LvPBY59bnlgF3B1gTcELIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490096;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=dDSPmAeSz6brBNu8fQ7IOQc9bc9W3mTNan1N4VkyxOs=;
+	b=G3d5kcdvQOgVxSD1yvkapEtxzWT6nVeW5Zv1hcc8DwsiqQBTdLGP6kop0LCJR36+DtyP
+	 02Jrtq+5L7z364AvzO+zCvf7CQneb5c2wZNmkE9rpRVunaWD0G8wkyN2SHKRJ+DHHaTv/
+	 YlRf0op2NmMHak2bZVXfjZfZ9p7G22ktGEQYUB8V2pjk/Yq+9lGiamDBkiIVfZ7Qoizpo
+	 pCgwnM4bfG0snHZyrHWolzQXAAImM9L3WaWdMTT/Hy4h9GWq58iZnLXtNbBHEMgBn4nH3
+	 1ydtGherVI37mU16oDizGlh6bEzkO84e8v9sV2AvcGbN9BJucxq+7X4umnuub6o9mog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UuGOs1lV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z80g66Ps;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB80606A31C;
-	Tue, 20 Oct 2026 09:54:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2E8606A31B;
+	Tue, 20 Oct 2026 09:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UuGOs1lV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AD3D1F000C4;
-	Tue, 20 Oct 2026 09:54:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z80g66Ps
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1011A1F000C4;
+	Tue, 20 Oct 2026 09:54:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792490071;
-	bh=XU02vtpj4WKj/rbk9TEtb2CY+iaX9oVs0uiW/nlc+38=;
+	s=k20260515; t=1792490095;
+	bh=dDSPmAeSz6brBNu8fQ7IOQc9bc9W3mTNan1N4VkyxOs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UuGOs1lV/boJy/jYSxjma4ZO0M62wbFXX2JbzpRWvo0tKGQKUJRDI40vvg1J7g60l
-	 Kktq8aahK9sxls5oxBS8W+f/mZoLIi2IuRpRzNshXcxbuC5JXkGVd/reNW82dRoizM
-	 xq/F6CY17vCRNs2u7j/GdXpYw1iMfcHGZi5of+DWc5Y7u9bGnAWhgp/MfIAU0FkagJ
-	 bY6HsafGt5uBawjbUbpnhqZmE9qgKS7w/3CB0IuQaLhtw9MK1nL58p7QwfVe1QdxdQ
-	 q+QOVtQCNzmcfoC+LflnAZwOAawgl4pbPKEemRcYgMPXitfT/SIMOsY1Jq9GC2eTJW
-	 ndBun4aA/NDGg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 29F6E1AC57D0; Tue, 20 Oct 2026 10:54:29 +0100 (BST)
-Date: Tue, 20 Oct 2026 10:54:29 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: test failure after merge of the landlock tree
-Message-ID: <atc6Vczti_EjFrQq@sirena.co.uk>
-References: <asmHRyx_uDkK-tJs@sirena.co.uk>
- <atZepZTcoR9teu-r@sirena.co.uk>
- <20261019.Za1phooV2oom@digikod.net>
+	b=Z80g66Ps5QuE8en45kpCqDQbsP46vvka9IxSMgXC47/w7Zu1H/Oz7oaTquJbQ+/tW
+	 toGnNIgprhqk3Y2C2YnQFxiTRZFPPT6FBsZCKvNCfspOKPKAA1yE8JYXXQkc1S23Cs
+	 5Kcw2e/lGDsccb4HUd21Vhh+cd6nXlXT1uDwooPhhDVRC4z/XtsZhaduDxSDkwwxkN
+	 g/kRyEXdr2shHIPFeJpWOkjzixToGm/Fkp18g1qPF/USQTwAMHIHtKt3105faJNfIp
+	 WjHCtHAsIgXTakecPs7wjChN6eP3Neopkgcq7Pw1VCNIqrfYmO1xmfwmIPwgWuKz25
+	 Byw1QqdFGBKhA==
+Date: Tue, 20 Oct 2026 10:54:51 +0100
+From: Lee Jones <lee@kernel.org>
+To: "Grumbach, Emmanuel" <emmanuel.grumbach@intel.com>
+Cc: "johannes@sipsolutions.net" <johannes@sipsolutions.net>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Coelho, Luciano" <luciano.coelho@intel.com>
+Subject: Re: [PATCH 1/1] wifi: mac80211: ignore PM bit in non-bufferable
+ MMPDUs for PS start
+Message-ID: <20261020095451.GE1206986@google.com>
+References: <20260928100508.3487525-1-lee@kernel.org>
+ <9b3efaebb9f5460f6bfaaa284fd235e76c940361.camel@sipsolutions.net>
+ <20260928142434.GA2112133@google.com>
+ <d8227c92ab9c752dc6b591945ea8f9c5e3cc6223.camel@sipsolutions.net>
+ <20261020065830.GA1206986@google.com>
+ <591baf4f5983a2205550523a792681dad4b77b66.camel@sipsolutions.net>
+ <cbf2c9297ab7ff1b2ef5fd98876e952fe5a52e7f.camel@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,41 +66,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WQI98jbIRqyKTEdn"
-Content-Disposition: inline
-In-Reply-To: <20261019.Za1phooV2oom@digikod.net>
-X-Cookie: You buttered your bread, now lie in it.
-
-
---WQI98jbIRqyKTEdn
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cbf2c9297ab7ff1b2ef5fd98876e952fe5a52e7f.camel@intel.com>
 
-On Mon, Oct 19, 2026 at 11:11:20PM +0200, Micka=EBl Sala=FCn wrote:
-> On Mon, Oct 19, 2026 at 07:17:09PM +0100, Mark Brown wrote:
+On Tue, 20 Oct 2026, Grumbach, Emmanuel wrote:
 
-> > This issue is still present today.
+> On Tue, 2026-10-20 at 09:42 +0200, Johannes Berg wrote:
+> > On Tue, 2026-10-20 at 07:58 +0100, Lee Jones wrote:
+> > > 
+> > > You were also right to suspect the client-side TIM path in
+> > > ieee80211_rx_mgmt_beacon(), when (dynamic_ps_timeout == 0) (for
+> > > instance,
+> > > when power-save is disabled on the client interface) and
+> > > IEEE80211_CONF_PS
+> > > is not set, mac80211 currently ignores its AID bit in the TIM and
+> > > never
+> > > sends a wake nullfunc frame to flush the AP's buffered frames.
+> > > 
+> > > If you're happy for me to do so, I'll send the following 2-patch v3
+> > > series:
+> > > 
+> > >  1. Symmetric PM-bit handling in ieee80211_rx_h_sta_process() (only
+> > >     consulting the PM bit on data and bufferable management frames,
+> > > while
+> > >     waking sleeping stations on Auth / (Re)AssocReq as-per
+> > > 9fef65443388).
+> > > 
+> > >  2. Sending a wake nullfunc in ieee80211_rx_mgmt_beacon() when the
+> > > TIM
+> > >     indicates buffered unicast traffic while IEEE80211_CONF_PS is
+> > > not set.
+> > > 
+> > > Does this help or hinder?  Your call.  If you decline, I'll go
+> > > ahead and
+> > > close out our internal (Android) report as `Won't Fix` and move on
+> > > to
+> > > something else.
+> > 
+> > I think what you do with your report is probably not my problem ;-)
 
-> I removed these wrong kunit checks Friday so it should be good now, but
-> I notice that linux-next still has the next-20261001/landlock merge
-> commit instead of the latest changes from mic/next (which should not
-> conflict).  Could you please confirm that a normal merge works?
+Yeah, TMI, sorry! =:-)
 
-It was broken with whatever I fetched yesterday hence me reporting it
-still broken and merging the old version, I've just started the merge
-for today so I'll find out this afternoon if the fix worked.
+> > IMHO adding the client side defence definitely makes sense, though in
+> > many/most cases it'll be up to the firmware anyway.
+> > 
+> > I don't think I have a problem with the AP-side spec alignment, even
+> > if
+> > it's a touchy area, but depends how complex the code gets perhaps? I
+> > don't think any client would rely on us not handling the PM bit in
+> > those
+> > frames, and they're supposed to set it to 0 (reserved) anyway, so I'm
+> > not very worried about it. The patch was fine and I guess moving that
+> > around to apply to both sides wouldn't really change it much? Want to
+> > try?
+> > 
+> 
+> FWIW: the firmware on Intel devices will send an NDP with PM=0 when we
+> get a TIM bit set even if we are already awake. This is meant to re-
+> sync the AP in case we are out of sync. So 2. makes sense to me.
 
---WQI98jbIRqyKTEdn
-Content-Type: application/pgp-signature; name="signature.asc"
+Okay, let me follow-up.  Bear with.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatc6VAAKCRAv73Ows9A4
-iZ7PAQC7hbnLj8m6w6Yt74Ts/HWwpLMG9QcILnyDuKClQ2hiBgEAoE8XxC1R1lzq
-m/G7Q90zXPhCg7HSRCZ5iDUiUAM/TgQ=
-=hz3m
------END PGP SIGNATURE-----
-
---WQI98jbIRqyKTEdn--
+-- 
+Lee Jones
