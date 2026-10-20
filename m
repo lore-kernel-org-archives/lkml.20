@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792520564;
-	b=mIyVCqdoTlLE53dIyCfH6XPNc0cHIgZpoPnFSPrHzHu3AXW0LWGjoQWKqutH0W9vO0Ra
-	 RK03bSz/chefUV0G45BUgcS7M05PfItfxV0DPrga1SjwtBce8GPZkDyaaRER+jTTk2kAn
-	 tuKYr/ZgAvg47XyZbji8CwS7m2NV0+Zzj6YRMt3teR4RRo+SlU2pLEX6rrAmzvN3HVo+i
-	 jQ4y/98UU5pGN45mZo5Fn/ZwQhiSCEInFmxJVTWLs9U1lDvuPh+VKlJ0M4uw5zpgwNaLz
-	 v/dcGfEPpZUTVOt0u383sYc0Ux6EZBJ27CPMLaf7JJvRfu/VdkSUFesnZztlIqb4JGw==
+	t=1792520684;
+	b=cxmIdFBgeX8nZqtMV4/X9ll/CGc0b36NxjTTqXuGUeMNU/g/qUsNlr1t7yBKtng/a5IW
+	 rnLMGlfFe0i43PVw7e/n1oz/JH4teThDIcM9kHSuOj5/9hRjVyLGa7c5YADFd/Lk8T4w1
+	 WDfdMm1KQFoj0sAfGEMryhu45GQQcy8Md/FZHK4RLyrQvo7bRQ95VeriFyfHZQzJWS63S
+	 X7KkXIRT280960KRcX8hiAOgnuhqFDKFp//tjjn8B+6+xie58ngDaNaE114VzOPaVKB5U
+	 HM1SJgdO94lGGKn33B2rDVFg6bRHQ3TjLQ+vdEZSJ2yl7Fd74dR34La26wv0t4MUNAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792520564;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792520684;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QBkELidHnujeG3xBjThPr+adF0FJwgUwsd5WBy30Lkc=;
-	b=engHe+oTQWEAJqOv2G3XEvsvSN+L9CFwQKHc/rift4r/D4tYUekGsjRPIqvMdBHEJKql
-	 keDRfElL16wFsnsaSBZC8ErbnOiQJCv83RVMvhLhPySAOhRdIr0yO0XoPyKM0PyzCIuCH
-	 mvMEVTK4BBBOpu4t4nd+z7d/gAveXlq9XcckQRsUUkQljNhPLKSxs5jaW5JG8k4knZusK
-	 VaiId0hNQNY6v8CFpcY3wWEJ2NzwTmH+pxKA1TnkjKRKqBpwMKTZU2Y/Kf47KQ4AoBXO0
-	 Ns9xPH4HPCJuTnkGaXnaHWImpmU8LZZZxkG46+sL7Ua4Q77nHG+nIqsOoXtvk4i8dtg==
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 Reply-To:MIME-Version:Content-Transfer-Encoding;
+	bh=X9IgOVKkLpQ1ZKnnSNRsmikwcvRAYdkY+NKhG4LXiUE=;
+	b=nodZ6EvTg9yjdKKd9PMKaCv4/AyV46X5ti3t4UFbAp1dL1v8SgNfz+T7SuoQbHPRHSjm
+	 UcUX3BHw2r14wJ0YVFKTSfm0iPSlIbdlvHONkSn+RfSQ1kEraZGJnF42t08ZqeonMrxxq
+	 ijpLq4VVMbA+y0+YmaAV+GlmXH9vEfdaQAMWgneoZOhcOcUILQxX9jzelICmsL8L7wjdF
+	 cNERAoqEI7zXi+dTfsI/+gJvYhL0TlNYwRc25eEmXUz4SMQtoI3Treffe4PZIePL1Bl5S
+	 DSrmw0QXwrauh+8onIOS6g/1KnLnE6S/JGsqOGrtXHa7hollzkB71GL4mVjc+Mk3f5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UCiKwgE1;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bIYqeafH;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15F5606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:22:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B15F5606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC56606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:24:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BC56606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UCiKwgE1
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3514b90bb89so9736884eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:22:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bIYqeafH
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2264013a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:24:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792520563; x=1793125363; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QBkELidHnujeG3xBjThPr+adF0FJwgUwsd5WBy30Lkc=;
-        b=UCiKwgE1munICdPucccsS61rgAr8sNDaXJOSU/TLALuS9a1Dr23yGosoCSNij4gb5N
-         aMItYkFB9I8uAu5e5l+qi7ilgNrv+u4c8WgoXeTS2GplpXRa/KlRUxzGg2cl+GEGAuEe
-         pfHXIe5HE5dtKMBixNO6bpP/CdhGjFqSW0Wg29BHp8X704DryyV1PnCKszt4YDmpZyLS
-         IbIz4GjiQxwRTdUwFuZbSaEv5et6adr71xuAb+NOjTVvvCgAgMwK5hFVWtP/4DHYs+xd
-         Ydjy65sfKvXYuJcbyZ+TmlK+G44mejeyiWB5i58vYOXiJSAyxZ6YImS5hyFm8+g5Mew/
-         DPTQ==
+        d=gmail.com; s=20251104; t=1792520684; x=1793125484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X9IgOVKkLpQ1ZKnnSNRsmikwcvRAYdkY+NKhG4LXiUE=;
+        b=bIYqeafHaX8PX++2LHb1j07gXXgFIeJcbT9Bi7cK64iwIj2rPqq4AE+TcNn9cN3OPP
+         evaUU6idlsW4MkJX5vHfhD8FbJRd2GPrEwmsm4QqxKa5TF3eNQQ9T3KCJ38trkv7Rmw1
+         x3IvoKO4PkrfrmiKM4UowPDAC7FPmBQk09DQLDI8rf2A6Cp07Krn1C3o68wncKGHbtyb
+         Jz94vWUAXQ9LjeOB3XLQhXhFKskNOsaXkcs438BkIzgmCnB03gwf4sWd6pDM/EG021lx
+         sY+BDr9o52pZ77PiP6N9tpzzN4kmXa2Fw+OZwO91quZXgUUlK5Z60nbewAryqKfWLbo8
+         YcfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792520563; x=1793125363;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QBkELidHnujeG3xBjThPr+adF0FJwgUwsd5WBy30Lkc=;
-        b=Qnxd8SfVYx7MFnAnymfLpPOEEd8rUOBWX0cLRLwhv38pkTlG/MPD7ewiLdVil6PZ+5
-         MmA8DqtU3336qwfOuzTEmVup45Ha6R2Q6tcmA22apNz5tt5X6TLNRGjOVxXGLLUEHmj5
-         OrjuHoW3yX0H7L3GvFMbxAFX4cd2VvGtfwacV7uVWVoEpRt6u4ZSCWmztvfzbChRtksO
-         7nf0e0RVoQkiBqNJLqXkQ9byPhyUZrLmYspkGjFB0/+eIxcHlfA68FZTs9JXsdtuc1sY
-         NvjqCnjaQVdSkzvhPjOoz1d/SUsZqMdFuTDsSLGzDbq5XCDKGDQLkIo5cHxlU8XoLUhP
-         leOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx5dyeJMi5n0m4mROBFOsPKZpyNFm+S99Y8/dtTq+zUGoOaen8w6mf3tRH1j+2iF7924G4jitDDnaVg5LM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILMQdz7+2UZ7sybbEOeVUu6oqICpcJzbZXJAmhaIeJlUdHVcq2
-	/QJfuYfWhzgl84ENScN173QYqB+ygLgkqDm8CYSZQ3JVRLRO6BdBWhiV
-X-Gm-Gg: AYBFou022v+AuD7nok7Vxx55wQrhsRwWYzBS1UjoozsuFkW8LAkZpXtzkUJUiBpGCwL
-	qthVLwnyCzdJpLwefv3BV8YhPMRLBAV2bqry6BRCqyh4vhxcEjTjPRqtvq4UuxzZxgwbCWrwtai
-	pKannOgP9gRxT2HdMtcd4i5DUmGshmwEAMc1HwCoJRxNTY6Ea9Y9zxysSBjvLueUFooPdUp8hT1
-	GLNr4Ij9i/+RzeXsGl3x8OE09MLB//I3plHhprrDuTq6TQWlRNXGrdFtK0w6p8Num2tlidnKtpA
-	h2OoAdtqaO690lXyegVPmw5GXFcPVAf3gOQNnck/1yL7Hi7dveNAHUNt8v1kgdUfHgxLtyJrPqC
-	CZPNapYw2J3XLir498DRgSaxVTgui8X88Lxevb+uosk1m673/0qiHq0nqEH886CQ3Q1D+Y8dFVj
-	OeeUO7j3WWNKa8nAPjzHUbLtB9KFoXJHVhEXhGNrhQTogm48GQErM5J3Z4ahEkHGYBlbaYKy0xQ
-	n7lm94mad5+D89IfX6ZpaBDRuKU4O5uYNEzGlvpnBGV/eg8KPMZ9ek=
-X-Received: by 2002:a05:693c:65cc:b0:367:23b6:94e1 with SMTP id 5a478bee46e88-3674e25bf5cmr71459eec.41.1792520562401;
-        Tue, 20 Oct 2026 11:22:42 -0700 (PDT)
-Received: from localhost.localdomain ([206.206.192.161])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8439sm402866eec.11.2026.10.20.11.22.41
+        d=1e100.net; s=20260707; t=1792520684; x=1793125484;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X9IgOVKkLpQ1ZKnnSNRsmikwcvRAYdkY+NKhG4LXiUE=;
+        b=liCS++kiQQLPVmM3N6WsSFKhzmdubHJTKWF8GBNLIZtVBm8M3lQm7grrm1hA/9GjOy
+         P9bsqe2Jz4e/7MrtDXldAJ8+WpE883wFvjxoxLqGEeztnBSWMnTRDe7XKrA80QoRkhM3
+         +YxyAxuhrFBZjalIprW100XD4ep3UnkDXhPg9XFQb+BG51Cjg33lqHVVQ3b11AZHLKHC
+         VXg2p+2tWgu+6KnTgkAeuUfCWAbCyR1pQ8FUDp+nxLDBNMXGhVpe6y24Kl3e7fWWbfl6
+         78ueRsALJEqkDqp4VY+VNGcWLSFXX50srxQ0Tvbq42mSMf1cdSZh+HH11gYYVcOsJhXb
+         XqTg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwA8amucIOk2urRTpBSRh2tQYYeCNWaAHnmVVIhe3weTyRCUQgk9mbPLGyNU7mW7azzj3rO0UDGq8nkWc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqoLkCpEerK1Oll53HpBi+4D1U5A934yIJk3c3YPTPk21dyQNA
+	fr4wCl8sj9Xstf8MNHgtI4iGWOVWNoSKaMcSA5R3cnB2j9BNx/9xt9jy
+X-Gm-Gg: AYBFou2AAQT6kjVHFB/l5oX4jkMX6dJhpEXHjjqE0QTADNuX0p+1ghBh+nyC9fWbvSP
+	+bWb5G/IycTyKXsbBTxY7A0nwNfCLhTGNZjkffFO4bDt3nlrMzL275WrMC46KjFdwKYPT/CoH4g
+	sz7G/wRo+sC00qGhdkN/RX3Vw46nd1qz5bkERq/HByJqfTWvcdCWtaTfxIrjxuvpr00PQJwOho4
+	gAOOWLy9RB0CZSo2xlsFiJuyMhI9hrqFljrQvnAD2GV8v0fLKt/IsOmvrzGlTfQ+AhY+dlfY+gK
+	NwaALsc/9nZkZDYXl+8cOritfuA1VP3Xj8aak4miD39W+oeuWbZNeYEClhQDA5ZF6uyVC1oW8Qx
+	Ke50AIiHzym9hd93JFbvbNOJ/O3CT4dpsiuGKbeKZOswZ+xWpQhBT+LNKlaLih4iGS7/ltsLciC
+	LGN+p/nyE7IOl3n9sc2zx7vOGL9SUVFOEDds193vrNreBukr+MUCY15HEZ9utFmMkPH9y5UvCWs
+	foqOHK5AS/7zlras/roahNV+Vm5LGoxGzFPltmsCBe4W5TAaZTm9DD+h/EFQ/ZALzjmTaEvrxY=
+X-Received: by 2002:a17:90a:d010:b0:3aa:ff61:9504 with SMTP id 98e67ed59e1d1-3acef134b64mr9721601a91.20.1792520683712;
+        Tue, 20 Oct 2026 11:24:43 -0700 (PDT)
+Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b464dd7sm2159985ad.52.2026.10.20.11.24.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 11:22:41 -0700 (PDT)
-From: Yibo Liu <yiboliume@gmail.com>
-To: Philipp Reisner <philipp.reisner@linbit.com>,
-	Lars Ellenberg <lars.ellenberg@linbit.com>,
-	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: drbd-dev@lists.linux.dev,
-	linux-block@vger.kernel.org,
+        Tue, 20 Oct 2026 11:24:43 -0700 (PDT)
+From: Michael Kelley <mhkelley58@gmail.com>
+X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com
+Cc: linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	co+0845f49852fd568f@bugs.sh,
-	Yibo Liu <yiboliume@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drbd: validate digest size in checksum resync and verify requests
-Date: Tue, 20 Oct 2026 18:22:00 +0000
-Message-Id: <20261020182200.236875-1-yiboliume@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	linux-hyperv@vger.kernel.org
+Subject: [PATCH 1/1] PCI: hv: Spread load across CPUs when selecting effective affinity CPU
+Date: Tue, 20 Oct 2026 11:24:33 -0700
+Message-Id: <20261020182433.336637-1-mhklinux@outlook.com>
+X-Mailer: git-send-email 2.25.1
+Reply-To: mhklinux@outlook.com
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,88 +106,240 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-receive_DataRequest() sizes the digest buffer of P_CSUM_RS_REQUEST and
-P_OV_REPLY packets from the length the peer puts in the packet header,
-without checking it against the digest size of the negotiated csums-alg
-or verify-alg. w_e_end_csum_rs_req() and w_e_end_ov_reply() later
-memcmp() crypto_shash_digestsize() bytes of that buffer; the D_ASSERT()
-on the size only logs a message.
+In a system with multiple devices with the same configuration (such as
+NVMe controllers), the affinity masks are the same for all such devices.
+Linux typicaly must select a single CPU from each mask to be the effective
+affinity. If a fixed algorithm is used, such as picking the first CPU
+in the mask, interrupts from multiple devices are assigned to the same
+CPUs, while other CPUs are not assigned any interrupts, producing an
+interrupt load imbalance.
 
-A peer that sends a shorter digest thus causes a slab-out-of-bounds read
-in the worker, and a peer that declares a huge length makes the receiver
-attempt an oversized kmalloc() that triggers a page allocator warning.
+On x86, the "APIC" IRQ chip avoids this problem by spreading the
+interrupts across the CPUs in an affinity mask. It tracks the number
+of IRQs assigned to each CPU, and chooses the CPU in the mask that
+has the fewest assignments. Because Hyper-V vPCI device IRQs eventually
+parent to APIC, the spreading done by APIC accrues to Hyper-V vPCI
+devices, so all is good in x86 systems.
 
-  BUG: KASAN: slab-out-of-bounds in memcmp (lib/string.c:676)
-  Read of size 8 at addr ff11000007b9d630 by task drbd_w_r0/601
-  Call Trace:
-   memcmp (lib/string.c:676)
-   w_e_end_csum_rs_req (drivers/block/drbd/drbd_worker.c:1182)
-   drbd_worker (drivers/block/drbd/drbd_worker.c:2189)
-   drbd_thread_setup (drivers/block/drbd/drbd_main.c:314)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+On arm64, the "ITS" IRQ chip for the GICv3+ITS does the same kind of
+spreading for LPI interrupts. But Hyper-V provides guest VMs only with
+a virtual GICv3, not including an ITS or LPI support. IRQs for vPCI
+devices on arm64 are mapped to SPIs and parented to the "GICv3" IRQ
+chip. The GICv3 IRQ chip always chooses the first CPU in the affinity
+mask as the effective affinity, producing an interrupt load imbalance
+for Hyper-V vPCI devices in arm64 systems.
 
-  Allocated by task 605:
-   __kmalloc_noprof (mm/slub.c:5439)
-   receive_DataRequest (drivers/block/drbd/drbd_receiver.c:2715)
-   drbd_receiver (drivers/block/drbd/drbd_receiver.c:5371)
-   drbd_thread_setup (drivers/block/drbd/drbd_main.c:314)
-   kthread (kernel/kthread.c:436)
+The Hyper-V vPCI driver already has an arm64-specific IRQ chip to
+allocate and managed SPIs for use by vPCI devices. Solve the imbalance
+problem by extending this IRQ chip to implement a "set affinity"
+function that tracks SPIs assigned to each CPU, and chooses the
+least-loaded CPU as the effective affinity. Then invoke the parent
+IRQ chip (GICv3) to actually set that single CPU as the effective
+affinity in the virtual GICv3 hardware. As a result, IRQs are spread
+across CPUs like on x86 and interrupt load imbalances are avoided.
 
-Reject the packet and drop the connection unless the declared digest
-length matches the digest size of the corresponding transform, or if
-no such transform is configured.
-
-Fixes: b411b3637fa7 ("The DRBD driver")
-Cc: stable@vger.kernel.org
-Reported-by: co+0845f49852fd568f@bugs.sh
-Signed-off-by: Yibo Liu <yiboliume@gmail.com>
+Signed-off-by: Michael Kelley <mhklinux@outlook.com>
 ---
-Changes in v2:
-- Drop patch 1/2 (P_DATA_REPLY size check); this is now a single patch.
-- Check the digest length only in receive_DataRequest(), before the
-  buffer is allocated, and leave drbd_worker.c unchanged: with the exact
-  size enforced on receive, the sizes compared in the worker always match.
+As an alternative, this spreading functionality could be implemented
+for SPIs directly in the GICv3 IRQ chip, similar to what the ITS IRQ
+chip already has for LPIs. While Hyper-V's scheme of using SPIs for
+vPCI interrupts is allowed by the arm64 architecture, it's atypical.
+So the original decision was for the Hyper-V vPCI driver to handle
+the allocation and management of SPIs for this purpose rather than do
+it in generic GIC code. That led of the introduction of the "MSI" IRQ
+chip in the Hyper-V vPCI driver. This implementation of the spreading
+functionality follows that original decision by extending the "MSI"
+IRQ chip. If reviewers have reasons to prefer enhancing the GICv3 IRQ
+chip driver instead, I'm open to doing that.
 
-v1: https://lore.kernel.org/all/20261015222800.85928-1-yiboliume@gmail.com/
+I have not added any documentation to Documentation/virt/hyperv/vpci.rst.
+That documentation needs an entirely new section on the IRQ domains
+and chips, and their hierarchy differences on x86 and arm64. I'm
+working on a separate patch to add that documentation. But I don't
+want to hold up this improvement for that larger documentation task.
 
- drivers/block/drbd/drbd_receiver.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/pci/controller/pci-hyperv.c | 144 +++++++++++++++++++++++++++-
+ 1 file changed, 142 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
-index 2135c14354a8..d45c4e68f83b 100644
---- a/drivers/block/drbd/drbd_receiver.c
-+++ b/drivers/block/drbd/drbd_receiver.c
-@@ -2711,7 +2711,17 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
- 		break;
+diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
+index 85d826f8f68d..1706090cebeb 100644
+--- a/drivers/pci/controller/pci-hyperv.c
++++ b/drivers/pci/controller/pci-hyperv.c
+@@ -746,10 +746,132 @@ struct hv_pci_chip_data {
+ /* Hyper-V vPCI MSI GIC IRQ domain */
+ static struct irq_domain *hv_msi_gic_irq_domain;
  
- 	case P_OV_REPLY:
--	case P_CSUM_RS_REQUEST:
-+	case P_CSUM_RS_REQUEST: {
-+		struct crypto_shash *tfm = pi->cmd == P_CSUM_RS_REQUEST ?
-+			peer_device->connection->csums_tfm :
-+			peer_device->connection->verify_tfm;
++/*
++ * Data structures and helper functions for spreading the CPU in the
++ * affinity mask that is picked for the effective affinity. Such
++ * spreading is done by the "APIC" IRQ chip on x86 and by the
++ * "ITS" chip for LPIs with GICv3+ITS on arm64. But Hyper-V provides
++ * only a GICv3 with SPIs (no ITS or LPIs) to arm64 guests. For SPIs
++ * the "GICv3" IRQ chip always picks the first CPU in the affinity mask,
++ * which can overload that CPU and reduce parallelism in processing
++ * interrupts.
++ *
++ * While the Hyper-V configuration is architecturally allowed, it's not
++ * typical, so the spreading is done here in pci-hyperv.c with the "MSI"
++ * IRQ chip parented to "GICv3". Track how many SPIs have been assigned
++ * to each CPU, and use that data to spread the IRQ load evenly across
++ * the CPUs instead of just picking the first CPU. The code follows a
++ * pattern similar to the spreading logic for the "ITS" IRQ chip.
++ */
 +
-+		if (!tfm || pi->size != crypto_shash_digestsize(tfm)) {
-+			drbd_err(device, "%s: unexpected digest size %u\n",
-+				 cmdname(pi->cmd), pi->size);
-+			goto out_free_e;
++struct cpu_spi_count {
++	/* Index 0 is unmanaged. Index 1 is managed. */
++	atomic_t	count[2];
++};
++
++static DEFINE_PER_CPU(struct cpu_spi_count, cpu_spi_count);
++
++static void hv_pci_inc_spi_count(struct irq_data *d, int cpu)
++{
++	int idx = irqd_affinity_is_managed(d);
++
++	atomic_inc(&per_cpu_ptr(&cpu_spi_count, cpu)->count[idx]);
++}
++
++static void hv_pci_dec_spi_count(struct irq_data *d, int cpu)
++{
++	int idx = irqd_affinity_is_managed(d);
++
++	atomic_dec(&per_cpu_ptr(&cpu_spi_count, cpu)->count[idx]);
++}
++
++static unsigned int hv_pci_arm64_get_min_load_and(struct irq_data *d,
++					   const struct cpumask *cpu_mask1,
++					   const struct cpumask *cpu_mask2)
++{
++	unsigned int cpu = nr_cpu_ids, tmp;
++	int count = S32_MAX, this_count;
++	int idx = irqd_affinity_is_managed(d);
++
++	for_each_cpu_and(tmp, cpu_mask1, cpu_mask2) {
++		this_count = atomic_read(
++				&per_cpu_ptr(&cpu_spi_count, tmp)->count[idx]);
++		if (this_count < count) {
++			cpu = tmp;
++			count = this_count;
 +		}
-+
- 		di = kmalloc(sizeof(*di) + pi->size, GFP_NOIO);
- 		if (!di)
- 			goto out_free_e;
-@@ -2742,6 +2752,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
- 			goto submit_for_resync;
- 		}
- 		break;
 +	}
++
++	return cpu;
++}
++
++static unsigned int hv_pci_arm64_get_min_load(struct irq_data *d,
++				       const struct cpumask *cpu_mask)
++{
++	return hv_pci_arm64_get_min_load_and(d, cpu_mask, cpu_possible_mask);
++}
++
++static int hv_pci_arm64_select_cpu(struct irq_data *d,
++			  const struct cpumask *aff_mask)
++{
++	int cpu;
++
++	if (irqd_affinity_is_managed(d))
++		cpu = hv_pci_arm64_get_min_load(d, aff_mask);
++
++	else if (cpumask_intersects(aff_mask, cpu_online_mask))
++		/* Try the intersection of the affinity and online masks */
++		cpu = hv_pci_arm64_get_min_load_and(d, aff_mask, cpu_online_mask);
++
++	else
++		/* If that doesn't fly, the online mask is the last resort */
++		cpu = hv_pci_arm64_get_min_load(d, cpu_online_mask);
++
++	pr_debug("IRQ%d -> %*pbl CPU%d\n", d->irq, cpumask_pr_args(aff_mask), cpu);
++	return cpu;
++}
++
++/*
++ * Track the count of SPIs assigned to each CPU. Pick a single CPU from the
++ * affinity mask based on the SPI loading data, and have the parent IRQ
++ * chip (should be "GICv3") set the effective affinity to that single CPU.
++ */
++static int hv_pci_arm64_set_affinity(struct irq_data *d,
++				     const struct cpumask *mask_val,
++				     bool force)
++{
++	unsigned int cpu, prev_cpu;
++	int ret;
++
++	prev_cpu = cpumask_first(irq_data_get_effective_affinity_mask(d));
++	if (prev_cpu < nr_cpu_ids)
++		hv_pci_dec_spi_count(d, prev_cpu);
++
++	if (force)
++		cpu = hv_pci_arm64_get_min_load(d, mask_val);
++	else
++		cpu = hv_pci_arm64_select_cpu(d, mask_val);
++
++	if (cpu >= nr_cpu_ids)
++		goto err;
++
++	ret = irq_chip_set_affinity_parent(d, cpumask_of(cpu), force);
++	if (ret < 0)
++		goto err;
++
++	hv_pci_inc_spi_count(d, cpu);
++	return ret;
++
++err:
++	if (prev_cpu < nr_cpu_ids)
++		hv_pci_inc_spi_count(d, prev_cpu);
++	return -EINVAL;
++}
++
+ /* Hyper-V PCI MSI IRQ chip */
+ static struct irq_chip hv_arm64_msi_irq_chip = {
+ 	.name = "MSI",
+-	.irq_set_affinity = irq_chip_set_affinity_parent,
++	.irq_set_affinity = hv_pci_arm64_set_affinity,
+ 	.irq_eoi = irq_chip_eoi_parent,
+ 	.irq_mask = irq_chip_mask_parent,
+ 	.irq_unmask = irq_chip_unmask_parent
+@@ -888,21 +1010,39 @@ static int hv_pci_vec_irq_domain_alloc(struct irq_domain *domain,
+  * composing MSI from the hypervisor. GIC will eventually set the right
+  * affinity for the irq and the 'unmask' will retarget the interrupt to that
+  * cpu.
++ *
++ * The first cpu is always used for initial activation because spreading the
++ * initial CPU would have to be done without information about affinity groups
++ * that may exist. The resulting assignments would pollute the "least loaded"
++ * data for making the final assignments. Everything would still work, but
++ * the spreading would be less even than it could be.
+  */
+ static int hv_pci_vec_irq_domain_activate(struct irq_domain *domain,
+ 					  struct irq_data *irqd, bool reserve)
+ {
+-	int cpu = cpumask_first(cpu_present_mask);
++	int cpu = cpumask_first(cpu_online_mask);
  
- 	case P_OV_REQUEST:
- 		if (device->ov_start_sector == ~(sector_t)0 &&
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
++	hv_pci_inc_spi_count(irqd, cpu);
+ 	irq_data_update_effective_affinity(irqd, cpumask_of(cpu));
+ 
+ 	return 0;
+ }
+ 
++static void hv_pci_vec_irq_domain_deactivate(struct irq_domain *domain,
++					     struct irq_data *irqd)
++{
++	int cpu;
++
++	cpu = cpumask_first(irq_data_get_effective_affinity_mask(irqd));
++	if (cpu < nr_cpu_ids)
++		hv_pci_dec_spi_count(irqd, cpu);
++}
++
+ static const struct irq_domain_ops hv_pci_domain_ops = {
+ 	.alloc	= hv_pci_vec_irq_domain_alloc,
+ 	.free	= hv_pci_vec_irq_domain_free,
+ 	.activate = hv_pci_vec_irq_domain_activate,
++	.deactivate = hv_pci_vec_irq_domain_deactivate,
+ };
+ 
+ #ifdef CONFIG_OF
 -- 
-2.34.1
+2.25.1
 
