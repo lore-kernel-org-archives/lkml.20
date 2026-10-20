@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792492487;
-	b=BAkQfjFAO4V4j1ir++ioOn1lL01VJPAzxpXxqKD8YJXPZP7YWFKzo8QJ8+Z/YRJVe6Av
-	 0F1eYbdgAixQhF3MOe9zv3VcRpGpJozZ7rOL5rRpZRgLG2xbCuReqAxZH+PrKPtg+RHj4
-	 Wmf2GWe5zWSyCVh2ZQro6ulzQmI/7r3nQ328UEssrLQ8F3ilqTORbynmNmiTFOjNi8qAj
-	 S9PjO9nDI4P0CoqzkWzReSyGlfB6xNM2U0zy3tFU+lyaBBt4lVRaenJ3CHCftKAcq1Zr9
-	 vJt1XcHOxoEAXgRt07uFNGDE3Xl2Jcyl9Ko9/ZE7Emez3sBdj5iqwybuXdARQxhq1bw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492487;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792492529;
+	b=QDDPHZxvDwdR007o/oKU/w3FJRfkvgANy+DggMjPRdIyBYUfk/KcPQs4/evuCbsw4YY9
+	 ZQ7T9DypB27Q6fFelStC6NBfPSt2n+tfrPUC0/lxBan0kiZw+Mnx8wK1rSZSxWq1xRJiu
+	 mhwOlpfhWdAPVXT6fOGHQQaJ6qbDiN7zZSexJJK9XqWTcmAYdBj5obAIqBSAeO4s6ZkfC
+	 Wgp+LnwKQuRK55Rfm7U5qjdAxLONvT6EaCH92fQwplndJJ4XD6cUj/7oDoU0RSBcEA8Jp
+	 +8hO0Vi2aojh4ARCFFHPx4+3fXdMH/5BYXWadq6LY6S6DhXTRhkPfA2ZWiCaCXTdzcQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492529;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7yqug8sdWoY+Xi/S1g7k8vlRdY1kPSN8O1HjSFthE/o=;
-	b=4lMVjlD9rYakSKzd5ls0SjcdClj63mKnAiZHbkua2FaNOBWZgZLMDR8fg/Ns90SnlPCx
-	 EMeUxBsQmoNwaG08QQfgVMFfggzLgS49C8QEx/qdERAE90+5SXIxU5KF3P8Ml3tIGQZIC
-	 fiSuNl9znzo+eOCaP5ic9PnxjToKozKipTSBy7+s4AvGQfklRuwB6osx1QcU2uWqI4shg
-	 w3xk8P+mT7cmEO+zb0lqVKIT7NukBUiaIgOAMtWRsXEhUP/3kbpughEEJzY2msqyc6PLg
-	 YB6pIQtUvsDy+CJBszFyUZFGZA8NOt0TppRwX3PwRNRmMxY6L7iDTfe6qpCwQxZjr1w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cI4IJybI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=b6vl8DhBKNBBeDdXDarV+k7b4TukYYKqz3C8gKFsMSM=;
+	b=wp+yXpBSnqS0PmF1oHJ2TcZT23GwI4WUAmKgb+VvaSJpKcwhJitexhyVaqpFI/2SiZDH
+	 Ukt+864OZNe9pub+OTLIiG92Mm4m1ikuWDNMx+XVKK9kuDO1Yi1KsZ4TtW1A/g7OQgB0z
+	 /eEWqS5V1sOF2vwqYSrv8WpjkZG99y8pPkdcVaBrADNFly/iSrcr0vKOHV1ckB+hUCJI7
+	 pNNKRi+3/U5E4XcseCxBCd0vV3pdBtIMqDgV4Jn2NuU7bsOSAjtQjxhdW3NLAVnFp6GGW
+	 DU3yRXs++AqGIWUVXUoW+7BGPz/Zf9zoaLvYM7qQbOC3K1GqDlCAJqT3PjCYHmx2B7g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Tfy8gPpg;
+	arc=none smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC13606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:34:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADC13606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5627606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:35:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5627606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cI4IJybI
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-185fd3a4ca3so357178c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:34:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792492486; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JTY37KgGupvMEXyybgs2CmT0yKB3ZZgyOakRPV/reIiz8+6DT6eX/6WxLvOjzJcIsA
-         6ThvRfPYNzzlM++mcqBM8bodp/qaHhSFPytka1m2knlGCevSUf32wUbD0P2IdW/1AEF2
-         vX7ipOaWN1BQ3sK4ZQhR2msE0mmt6by2CgyzzgCj6o3vyGbXeN6wExj7Uy/4g9P23hEj
-         g01Yy14zpqYQX6V/btWI5oNcK6O9OHg67/P5BmsWSPxzWGc6O0AEZqVLpUH/IG/e0PbD
-         uuiTtSvwWYD7YeqOzM74oGNrC/eZM0AfAqoeO+CwBE0njMQu94MbvHoY1DbUKzqArIji
-         8EOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7yqug8sdWoY+Xi/S1g7k8vlRdY1kPSN8O1HjSFthE/o=;
-        fh=XbF4YdGpNbvNVQ3FD7tpv4zXuznN9deAQ93gsUQUqN0=;
-        b=JwB6BH/Qzb73WviqwqM9UzRTlSMIDwUvnTpTKRTwJJxF9g6t/W8WJiU11Vz34oViYv
-         L/mPXzPnQ3RoX3buSKQb8+KrR4e8o3ICyDD6TuZbd/8QEm6R2fwMEXkp12PK7nkRa560
-         0OQSIJ9bI9325PLEfeeg7g5CJlfeCGwvw92DzWC9FL4b9O34e2ohppKUtMOcyttSqdx2
-         9PWokcQJMkhcOF9aFBiTQC8w3NSzXnekqIV+1v9qRTYQlwoLJPYWNVRbPl5TomW5z/V3
-         uL9nLZn7RO/bCDLyRqj+0Zb+D2gDTHR6IljlSKVcpWJ/35HgALpGGU7BnfsrER/gKRld
-         bFCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Tfy8gPpg
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so4695073a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:35:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792492486; x=1793097286; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7yqug8sdWoY+Xi/S1g7k8vlRdY1kPSN8O1HjSFthE/o=;
-        b=cI4IJybIWAFbUhFgiqBGwhfqjgpLGre5R3ot79Ke3zI83Rv8hsE7zK5rQQywe4d1ep
-         r23usjXDN6ONg5MR+VjsdgsKNHxDDg0RrsGtvGgLLY7pBHRzQC8h3/H7kxTnExzE6Qmo
-         QpZbMR5D5TDURKfX9iAKFDKoEOuHC/IePb6qiP33yxaGOZL4qmuyU3HaaGQSjnc/0vAN
-         VhzGtkVCEK9aZxDzOsE877SK4MI9vgdKQQaC/5Oj8b/f1ETaawk5swZ6s8fSIdJzKSFn
-         lbaG7dr3LzHW2i+qbB5nZmgclId/Y+2MInJaqBdwT014/GtR7t3ednJvS8omieNK8REW
-         ob7A==
+        d=gmail.com; s=20251104; t=1792492526; x=1793097326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b6vl8DhBKNBBeDdXDarV+k7b4TukYYKqz3C8gKFsMSM=;
+        b=Tfy8gPpgNea4NWmTe/7uKj8VWr03aU0uep+R7u3EFHcdUFS3ae+coI/B/Hu3NW78CT
+         y/GZGFdeUTthHmMrLVJpyb/zB/r4//qrjlRALruWMwv0M1SzyvyrhWc7grCEz1dnNnhi
+         tjeLbdjlPXE7NqLWScuqc3+OfFtRubc7ukA+lUkYNxyqZ+Hj9HkupJjDRflce8aUJBuB
+         wkX8xo5uJOktCCHq9WcXGb5wf/9aI1Uio7EBxdeo37XyAJuGLw0btJme7AOZv4iQrQ2u
+         COI/cssbwIY9TtKbVd+2oS8KG+8xAcJrqb3Tj9iT65FxEaCV/PLkyfddaxYrw44i94hU
+         uFnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792492486; x=1793097286;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7yqug8sdWoY+Xi/S1g7k8vlRdY1kPSN8O1HjSFthE/o=;
-        b=A5MIaVkiWIo9cvOLqFqUKk0gaH6I6l+pa4NLqWpwY0Fr0fO2LkaiUz10U2I7cIKDYc
-         w+L2l7fjnzr41zUr1Z5BuVdb3ZW6FwvI4/VEJh862tLAheJZ+lA6ofKRqIjPKNL4tQhm
-         MHs3quAzJ0rKPsNGLjCCLmXi/r6i1xGYX0mPBqeVOxY3sK8LRxfe4Bk7raS8QkHVoOme
-         OhwjwKVUnm8YFuUXaVdVIJNNz3ES7rzIqrnVHhhp3/ZaSsId9a+xjzw8+yI34XLcSU7U
-         uGATjjAKXkw0fS8GnGZuB6bZzVXRxppUhWyweCALa1f0QjkMaewwv5cKALypltl+dVPE
-         FdeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznrAGROQOVUM+/nKnZVN5kr4sWxkg75PPmdk49w+DxL8sHF7O0HUOVVK2w9jSAn9s9vwWB6AHqTh55Uu8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgO4e0w2uiY8DBlnVggi5XYHbBXuWDWMcscpHMC+MJe1WNhr88
-	RMrBl48K1StDlBFrVoj8vMgcMOzT19txKIpADVovFtL1E0jDsIv8flbylHj2/bMXUnHR9QZF+zY
-	If8yA2vU3ZreJsoyFCbBulP43wtSPLUilXdrxDipS
-X-Gm-Gg: AYBFou30bJq+uwnC/V1LW+/3kNxD2O+HOHpKHIgN8hr0vJOKggb5f+0l8wLSzd76QUZ
-	w2FBkbb/q76pCfapAJ7hbXqov6bkQXzwayu44eu53oF1IqZKed7m6hEo6l8esyjK65StaWlvSfX
-	YFcDxpa5dqEGYFUOPjwYFUquiEohrOqy7nQY8na3LEw/RVSjIqs2eTxVjBBi5p6QFsRPurJED4n
-	jm1YVl7EPd7VVOPoOJvK5R/RloP46hDahPhgv3Psup7EqeFgyS6sS8h3ho2moqOPDIFuScBCNDx
-	W6qSlsm4gMoYZhqKqcy2ecQ+U7ksyCmIX9cZdy1fOqVY0GHoD6IGrYJU70ODEca+P66+qs3YLdo
-	kt8axRZcAPkC1+DmR9qXzeg==
-X-Received: by 2002:a05:701b:4657:b0:183:bebb:e93b with SMTP id
- a92af1059eb24-1850d3705c0mr13844857c88.6.1792492484834; Tue, 20 Oct 2026
- 03:34:44 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792492526; x=1793097326;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b6vl8DhBKNBBeDdXDarV+k7b4TukYYKqz3C8gKFsMSM=;
+        b=x6wvdalF14cRcC/UKGKpvPPcN4+K4AXS7oOGizMI6GMFBk1nsfKgi1w1vKlAy49XZq
+         c+JtWI/dBQGLGwREesIiCb92fiwy9MtJtEt42bmFVyDUgu0ACiDCkxPwTSwwvEuJoqzw
+         iLUJ/yDd5UfsaSSyPyuaEIQql48zORvwOYXZpq0bWOJP2Qd6k5/B27Ry8gZ+pRZpFJK/
+         VBMG7n0ORFYQ1MP8fBMRpOAP4ZevOcylmporAz/hezW4BF8mecdsflcqNQdYVyRRGSk+
+         ZWptkUAwHC7iiA2n7iINJtsKrEIyLqiBIJPDpc829hfoyzrGpgmzR1Fwr5S6E+2e+wbp
+         XD/g==
+X-Forwarded-Encrypted: i=1; AKwUvBxxivzRw7HkS+Xhvp7zkihlYIjaUdGRA4alljjdAP/2hPJrV/YgJ1wZEF2wNLUVxN+CP3wrtqJ5HcOMp3A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRCDKA9xtz59QUkdxa5ywJAJBJeWUqOQW6af6GJ5k2wMAAGz0t
+	MJz1xYGOc20lXj/KdN/lHqdzMzpRPla7HnuGxTn8smkGHVNSz69hKelZ
+X-Gm-Gg: AYBFou1Pj9zsOpqUk87rGnefeYxmGfi6JB+2G7495SasiR4OzTijIAocPRd1vj2HlKc
+	FxUXbUWJxwiLR+ayR99X9J9XFNlK3MGVYI6MunRYtvIPvjpzvDAkj1SyE8bHmM5FUjfzKAilrz9
+	7RQidoqFs8p46jVjuSbMEGHlh7kqQQ4DBMMGs6sQfITpLoRoqjGXjDHvSlibI1u6iVR/QoQPHmq
+	44xsvJ9DhxqzDP+LJS8WppH29nJCyauY14JXbZyBa1IGBQV5SUpgOMyj6Rs5hYo77lIy8AkLbG/
+	5nz2tj7TJuyQvZBaQLTMhhaZN8DRhXq0wT1X8UmX/UAJGyRioYucsp4z5D5pNbwk+qK024NDBFv
+	7m04szgJ+iWKES6A3//GQuC4FuFwAHaENUnVgSmVEQ8Z2SbJEqM7+pA5GgNjRaB7Q3PpKYc8vyX
+	ZVawPru1J8RRSWMHxbrP8xRPUWRHYnpFVpWmS9JXJfSgFbtmeLO8Lben/53A6/l16Vy1SePjsp/
+	4C/KF+/N2b99ec6wj8glIYUYPMm1VXP1ErgmKNAJ7NvvErqfw45K5jDX3Q3yUWk8plPzrgIfrKU
+	16CSEkJeRnYHSHs5GzmarnlyEqxeKg==
+X-Received: by 2002:a17:907:60c8:b0:c43:a881:3f4b with SMTP id a640c23a62f3a-c43a8814361mr595412366b.47.1792492526023;
+        Tue, 20 Oct 2026 03:35:26 -0700 (PDT)
+Received: from localhost.localdomain (ip-80-113-117-72.ip.prioritytelecom.net. [80.113.117.72])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bcae3sm479893666b.57.2026.10.20.03.35.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 20 Oct 2026 03:35:25 -0700 (PDT)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Phil Sutter <phil@nwl.cc>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH nf] netfilter: flowtable: extend ct timeout of offloaded GRE flows
+Date: Tue, 20 Oct 2026 12:35:20 +0200
+Message-ID: <20261020103520.76439-1-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,61 +101,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015145714.3327543-1-elver@google.com> <DM8X51YCN6AA.1HV7J3R3PIYY9@garyguo.net>
- <CANpmjNPALPJQDZFfNAqo8v0eu_0uNvj+rJ5xqeC3ZZSvs9zQwA@mail.gmail.com> <CANiq72mCixHhc5tU6ueiJNEfE7yHXHXekhWDcvhFdfd414Q3yw@mail.gmail.com>
-In-Reply-To: <CANiq72mCixHhc5tU6ueiJNEfE7yHXHXekhWDcvhFdfd414Q3yw@mail.gmail.com>
-From: Marco Elver <elver@google.com>
-Date: Tue, 20 Oct 2026 12:34:07 +0200
-X-Gm-Features: AclHuK9vxwrK8NaLvu2ec0o5N9md4lXO8zMypsPDxXbgQlLlX57bi1hqfmPPF_I
-Message-ID: <CANpmjNNmnTMqxSJ_R+wYeAkFOxnJcUmwktNuG990GunjxhcvbQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] kbuild: rust: enable KCSAN support
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Gary Guo <gary@garyguo.net>, Alexander Potapenko <glider@google.com>, 
-	Boqun Feng <boqun.feng@gmail.com>, kasan-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org, Dmitry Vyukov <dvyukov@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Yury Norov <ynorov@nvidia.com>, David Gow <david@davidgow.net>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Alvin Sun <alvin.sun@linux.dev>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Petr Mladek <pmladek@suse.com>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 20 Oct 2026 at 12:27, Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> On Mon, Oct 19, 2026 at 11:59=E2=80=AFPM Marco Elver <elver@google.com> w=
-rote:
-> >
-> > Which tree should this go through? The Rust tree? Probably too late
-> > for this cycle.
->
-> I think you send KCSAN PRs, so I thought you would use that, thus the
-> Acked-bys (I suspect others thought the same). But the Rust or Kbuild
-> trees are also a possibility, yeah.
+Since commit 03428ca5cee9 ("netfilter: conntrack: rework offload nf_conn
+timeout extension logic"), the flowtable gc worker extends the timeout
+of an offloaded conntrack entry from nf_flow_table_extend_ct_timeout()
+once it falls below 5 minutes. That function only knows about TCP and
+UDP and hits WARN_ON_ONCE() for any other layer 4 protocol. However,
+GRE flows can be offloaded too, both via nft_flow_offload and act_ct,
+since commit 4e8d9584d154 ("netfilter: flowtable: Support GRE").
 
-Happy to take it - but in the interest of avoiding conflicts, thought
-it might be better suited for the Rust (or Kbuild trees).
+The timeout of an offloaded GRE entry drops below that threshold as soon
+as a packet of the flow still goes through conntrack. With ip6gre
+tunnels using the default encapsulation limit this is ordinary traffic:
+the flowtable does not parse the Destination Options header in front of
+GRE, so every packet of the flow takes the classic forwarding path. It
+also happens for a packet with ttl <= 1, which the flowtable fast path
+passes up to the classic forwarding path. nf_conntrack_gre_packet() then
+refreshes ct->timeout to the GRE stream timeout (180 seconds by default),
+and the next gc run triggers, as reported by syzbot:
 
-> In any case, at least for Kbuild and Rust, the PRs were already sent
-> (and, generally speaking, I would have expected a patch like this to
-> be in the list for longer anyway).
+  WARNING: net/netfilter/nf_flow_table_core.c:553 at nf_flow_table_extend_ct_timeout+0x1ee/0x2f0
+  Workqueue: events_power_efficient nf_flow_offload_work_gc
+  Call Trace:
+   nf_flow_offload_gc_step+0x545/0x7b0
+   nf_flow_table_iterate+0x13c/0x1f0
+   nf_flow_offload_work_gc+0x22/0x70
+   process_scheduled_works+0xc3d/0x1630
+   worker_thread+0xa47/0xfb0
+   kthread+0x38b/0x480
 
-Needs some -next time, too.
+Besides the splat, which panics the machine with panic_on_warn, the
+default branch sets the new timeout to 1 jiffy, so the conntrack entry
+expires right away and the offloaded flow is torn down.
 
-If I don't hear otherwise, I'll pick it up later this week / next week.
+Handle GRE like UDP and extend the timeout to NF_CT_DAY. GRE conntrack
+has no protocol state to take into account, and NF_CT_DAY is also what
+flow_offload_add() already sets for every offloaded entry, GRE included.
+This also restores the behaviour from before commit 03428ca5cee9, when
+the conntrack gc worker extended offloaded entries of any protocol to
+NF_CT_DAY.
 
-Thanks,
--- Marco
+Fixes: 03428ca5cee9 ("netfilter: conntrack: rework offload nf_conn timeout extension logic")
+Reported-by: syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=521f7e7e2b974abde99a
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+---
+Tested on v7.3 in QEMU, with and without KASAN, lockdep and
+DEBUG_OBJECTS, using netns topologies where a router namespace
+offloads GRE flows to a flowtable:
+
+ - nft "flow add" and tc act_ct, each with IPv4 GRE and ip6gre
+ - ip6gre with the default encapsulation limit (plain pings), and
+   ttl=1 GRE packets for IPv4
+ - 120s stress runs: 6 GRE tunnels plus TCP/UDP traffic, ttl=1
+   packets, flowtable deleted and re-added every ~20s
+
+Without this patch every run hits the WARN above and the GRE
+conntrack entries are torn down and recreated over and over (hundreds
+of NEW events in the stress run); with panic_on_warn=1 the kernel
+panics. With it there is no WARN, GRE entries stay offloaded with a
+~1 day timeout, and TCP/UDP behave as before. The nft_flowtable.sh,
+nft_offload.sh and nft_interface_stress.sh selftests give the same
+results with and without this patch.
+
+ net/netfilter/nf_flow_table_core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
+index 36bbc7be2f..94502c97ba 100644
+--- a/net/netfilter/nf_flow_table_core.c
++++ b/net/netfilter/nf_flow_table_core.c
+@@ -544,6 +544,7 @@ static void nf_flow_table_extend_ct_timeout(struct nf_conn *ct)
+ 
+ 		switch (l4proto) {
+ 		case IPPROTO_UDP:
++		case IPPROTO_GRE:
+ 			new_timeout = NF_CT_DAY;
+ 			break;
+ 		case IPPROTO_TCP:
+-- 
+2.43.0
+
