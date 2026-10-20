@@ -1,74 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505525;
-	b=gGQd5R0NjF7vCl5FLvQP5TiBsDTj9I5CUA8OdFrfSzeM/Qr1mBwtE8hm3LgtGLCA4H/d
-	 aXei6DswhAACnsMOFNMKgKNOPQD4sBRGTtjK5Izg3QBw9xQA6KDWElinaVRvZVMAtkbld
-	 3114NoGoH4LDN3P1YSE90AJuut89Xh2bO5fHoS42/H2hHNZJVRUOv2ux4hcCCdrSZauGC
-	 kSsA0kOL/OdorBUmsjkHrjmg+XgXNRZxGS0a7y9Pgk+Q8ZQUJmix2ZLbca8Bbcp7j4s88
-	 dMxvAF6mI7YbcY6+1kZXWDPKIIyGm5WxZ3mCsoOi5f8GrssviatXLqrlsN+PGEDrB6g==
+	t=1792505522;
+	b=F5sLDUfLAN46WjbEMGQKcBV0px+y5b4b+qEppoHZdDVVicb4QfbOiBh/3E++FG/+96eX
+	 tIndTrbb+KP5VjS3FMVernaOpslduuMuevlcmHQLCSm70d8Dvw+C/HJ9qwfOBQ0xC7rxU
+	 +EQXrUsAqoAy/QyJgzD5qq4q8QmefpfPhh8ULAwuyMZigyjtfTZrtThdMVKX/ulh23Crp
+	 3qeFhgCD/7jzsgACmx9OpnDX1lAwVYd6hZtwLoxpaW2UzCvKOtL4DORJN/q7JGSi7M+ri
+	 1TDyWrArSUl/V4Go3zKa7n1lMR9RkX9l44U1Xu54U12jBRYu0AamquXhRojvK8lENUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505525;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505522;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=WHGoCidqFSyi/pUScArPHnmY62JmBnz40/TVqc3BEQU=;
-	b=MDa60y+RwCxewArbpmwAFa4SVaY1SlY11Wwjq9cY6oXckuHUMXPSwjdEYosc6RyErDRk
-	 +1OlwnBRqcrqKXsreoe/6yLRtUCaZYxOLEIn/ELgcQ6DJdP4Sm0ZlBibHzfwJ8boq3ihF
-	 rZyF/GC0MnEcle56CKI9yx3/uj6UOWCi6LqmyzZKewnQNRampDbHDQRpmijgqaUmm9VwY
-	 QUSAtMEZPXXyVWeU94SitCgZTcs/NSBDahmBjsix+osQjH5GtomHP8lX8AtHp7WZXULf2
-	 U2Y2dmyMqM0fte+JRIZr/0zhu9PbffTbGapvlylBhgl3U+MwAsseSZ9jPuA5o6PAGtw==
+	bh=/RGMtPsTm/8QaP5dJUjKtkf6ssaRNcEBC9Nb0rlpySw=;
+	b=whVqjPOBd4peCyZD5d4aSHeVc2PS4KnyxoOcmq2J+zHQLjIZ8CWOzBK9RgW40uglcAcd
+	 mKPnXGpV9/+mIRA0k3HiRCFiolZHwCYO6dx3tEskPzmRRoZf+7mZMzTHIzLO7uTqf5/IO
+	 fnUmudgpCDfAcVJXQXEPYypxjDsOTD++ZQt8ZYpQZQgh9pEBmD8+So7lyVfKAicYZpQpU
+	 ly9i6wChOKikrTBH7TbF6Yuv2+zSRJppSPrKVIm09MiZ/oPinKBDlgtb9NrViWd6kZRq1
+	 hwezCqrykiaJz8WaQjsQdMf82kzQBuo3p1IxA0OboFItqFJ3XoGA7C9wq4y6J03o7Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="RAUQj/0g";
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QfeeOsni;
 	arc=none smtp.remote-ip=192.198.163.14
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F63606AA34;
-	Tue, 20 Oct 2026 14:12:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07F63606AA34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB9D606AA10;
+	Tue, 20 Oct 2026 14:12:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CB9D606AA10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RAUQj/0g
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QfeeOsni
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792505525; x=1824041525;
+  t=1792505522; x=1824041522;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Cw+iEn6H4Xjb0C/nRsSqQor1kcEUPNaTGXaJvFuVa3M=;
-  b=RAUQj/0grmmwy/VLqL6o5Dpv5ObHaelMZf8lbPfyn1C2ISzp8VCCw594
-   7pYCtwOg/jyXDvscn9jTdHY/4y2Ae+P461qNB/RYM4N43WjxKXgfWe/x8
-   vh1vAHNuD6Y4Xj2iq9rwLa3Pu0Zi5JPddscgeb7BD7I8A3zN/4NKS05KV
-   85upocY3YWLgmexRCScMIkP81YYtbWUuz5SlZy3IpaqNyeN79BpSCdQj4
-   MTr1tAIXzgMImI2eJk6n6ecQghyFEbmVkUMvCIyW1j69ky7j7YiL79BI6
-   FlhWEc4A+YhOr5Bl5FTlNsiQB2tOtQFPvzDFAMYpllUfvg0A1ycYh1PLL
-   w==;
-X-CSE-ConnectionGUID: rFnC6IbgTcyx1pMcdliz+Q==
-X-CSE-MsgGUID: WBkbh07RRJCwuW7vjf5nuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1222327"
+  bh=zQD3hbIPnpgaLY5T8/cjBzLo9/tZJaTRDyNNHF0TFMA=;
+  b=QfeeOsniZHdBBLuiKyzN37b4HB3pW4N16j/gijVdRdMpGvJJvtWsIwwW
+   Gw/ML+BCG/kcdvfcgUnUCbfDYuHQGwKS7HrnYoU+MPXY0yrjjZgI9rE41
+   iOFAXZS++E5oQ0G0WoIJLcway9EwlmcglkwbqhwjCgm5B237vtSzf3Guz
+   pHIMFs+SVV9Ra1FExEpu9bvHWAb0Yekc7hRpK7ufJlAXfXPcXjNE9eJxB
+   GzxxG+tS08BfRGQtTxA9cAcJftzPvDEvy+UqmBEOChAQipUrZTZzR10ts
+   9rSfXb/QSnX2fpzbSjzjr6kQjwLIxVXJuyyDtJMyuIigQ+Bu1IcbjEhMQ
+   Q==;
+X-CSE-ConnectionGUID: ZOX05/T4QUS9vsElPw5Jgg==
+X-CSE-MsgGUID: cYhpew1gQ1yR1KmK2Q84oA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1222320"
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1222327"
+   d="scan'208";a="1222320"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 07:12:04 -0700
-X-CSE-ConnectionGUID: BuA52f2wTGeZCIMMPzYRQQ==
-X-CSE-MsgGUID: WjnonV9YRU2Dyze8oyOa9A==
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 07:12:01 -0700
+X-CSE-ConnectionGUID: hx9ijRoyQ4+S64Vn60Ucdw==
+X-CSE-MsgGUID: LqACVQSYT7CA8kkf1G/Yhg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2888093"
+   d="scan'208";a="2888076"
 Received: from igk-lkp-server01.igk.intel.com ([10.211.93.152])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 07:12:02 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 07:11:59 -0700
 From: Pawel Chmielewski <pawel.chmielewski@intel.com>
 To: Linux ACPI <linux-acpi@vger.kernel.org>
 Cc: LKML <linux-kernel@vger.kernel.org>,
 	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	abhinavmir <atg271@gmail.com>,
 	Pawel Chmielewski <pawel.chmielewski@intel.com>
-Subject: [PATCH v1 30/30] ACPICA: release: Update version to 20260930
-Date: Tue, 20 Oct 2026 16:10:51 +0200
-Message-Id: <20261020141051.2194123-31-pawel.chmielewski@intel.com>
+Subject: [PATCH v1 28/30] ACPICA: iASL: Fix the truncated count of external control methods
+Date: Tue, 20 Oct 2026 16:10:49 +0200
+Message-Id: <20261020141051.2194123-29-pawel.chmielewski@intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261020141051.2194123-1-pawel.chmielewski@intel.com>
 References: <20261020141051.2194123-1-pawel.chmielewski@intel.com>
@@ -85,30 +86,49 @@ Content-Transfer-Encoding: 8bit
 
 From: Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>
 
-Write most relevant changes that happened since the last release. Move
-the release notes to a markdown file for nice formatting compared to the
-currently used txt file. Finally update the release number.
+AcpiGbl_NumExternalMethods counts the external control methods that the
+disassembler finds in a table. Its type is BOOLEAN, which is an unsigned
+char, so the counter wraps at 256. A table with more than 255 external
+control methods gets a wrong count.
 
-Link: https://github.com/acpica/acpica/commit/e85aa3bebaae
+The wrong count makes the disassembler print a bogus warning.
+AcpiGbl_ResolvedExternalMethods is a UINT32 and keeps the correct value.
+The two counts then differ, even when the disassembler resolves every
+method. AcpiDmUnresolvedWarning() subtracts the counts to get the number
+of unresolved methods. That unsigned subtraction wraps and gives a very
+large number. A table with 300 externals, all of them resolved, reports
+"There were 44 external control methods found during disassembly, but
+only 300 were resolved (4294967040 unresolved)".
+
+A count that is an exact multiple of 256 truncates to zero. In that case
+AcpiDmUnresolvedWarning() returns early and prints no warning at all,
+even when methods stay unresolved.
+
+Change the type of AcpiGbl_NumExternalMethods to UINT32, which is the
+type of AcpiGbl_ResolvedExternalMethods.
+
+Link: https://github.com/acpica/acpica/commit/36a5217a09bd
+Link: https://github.com/open-acpica/acpica/pull/1221
+Originally-by: abhinavmir <atg271@gmail.com>
 Signed-off-by: Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>
 Signed-off-by: Pawel Chmielewski <pawel.chmielewski@intel.com>
 ---
- include/acpi/acpixf.h | 2 +-
+ drivers/acpi/acpica/acglobal.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/acpi/acpixf.h b/include/acpi/acpixf.h
-index 9557462e0be8..051ea76b7f5d 100644
---- a/include/acpi/acpixf.h
-+++ b/include/acpi/acpixf.h
-@@ -12,7 +12,7 @@
+diff --git a/drivers/acpi/acpica/acglobal.h b/drivers/acpi/acpica/acglobal.h
+index 08b8270b10de..5294983a6795 100644
+--- a/drivers/acpi/acpica/acglobal.h
++++ b/drivers/acpi/acpica/acglobal.h
+@@ -294,7 +294,7 @@ ACPI_INIT_GLOBAL(ACPI_PARSE_OBJECT_LIST, *acpi_gbl_temp_list_head, NULL);
  
- /* Current ACPICA subsystem version in YYYYMMDD format */
- 
--#define ACPI_CA_VERSION                 0x20260408
-+#define ACPI_CA_VERSION                 0x20260930
- 
- #include <acpi/acconfig.h>
- #include <acpi/actypes.h>
+ ACPI_GLOBAL(u8, acpi_gbl_dm_opt_disasm);
+ ACPI_GLOBAL(u8, acpi_gbl_dm_opt_listing);
+-ACPI_GLOBAL(u8, acpi_gbl_num_external_methods);
++ACPI_GLOBAL(u32, acpi_gbl_num_external_methods);
+ ACPI_GLOBAL(u32, acpi_gbl_resolved_external_methods);
+ ACPI_GLOBAL(struct acpi_external_list *, acpi_gbl_external_list);
+ ACPI_GLOBAL(struct acpi_external_file *, acpi_gbl_external_file_list);
 -- 
 2.50.1
 
