@@ -1,65 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792529982;
-	b=BFtLy+QSLP49IUqlXCRtk3vDrZkG9EcyUjOIJftJLE3lcFSqRZ/yFej7tBcUvQhQpCsj
-	 XsOaozbVYC+IuJ8WT6ae8ceKGxQTtm4b8VuXSZ0T1xZfIy4SP1HvKp1TeQCFok5DMmb8x
-	 LA57tcQchq5QvnILgsGEL1ZnFoLSIaiidACUgI1Q0mFa0PwvDv2VR7HE6+ZSmenmDBkQg
-	 psjo8FIr9nX6B7fRARm5OAQ3Bsg1WA7DRXfe9pdgPTI6MJlmBYkDGCDCOYtvnW6IN6XZR
-	 Uf5NliJTxn/6PXfFHgDzlG8OOd2xcV4K5Y3XZ+tF0zs7Y3IGG4/zoMolPnL8w/xo32w==
+	t=1792530021;
+	b=dNjiy1stwckrovkr4bcHZQ6CMMZCrw7k3ZGCUPrSXXs5ndzgIuKI579enT3SBa5pmVii
+	 OiTdH8zEfeCrJyuBsoFCm+2fLh2H89vkFKammGb82SZ2soUIaDKgY1oOL/PE2PIna3Lmg
+	 3MrhYiEx3sKUB+LEI/vQyEOioo3sGPXYqLfBTSzc/ruwUuf0okhc+udZdfyaZ9F0Fhsvp
+	 x4VzH6CpX8vmDowr3z3xEvrPuizOBSQG7J+n7Yb7E3syCJ/2059sqTmvKUsdEicLzXD+C
+	 FA72fcKTavhr1mj6Gs83nNCxNRIo71iMJqHwoX1AliJxY8R+kkMhpN4eZdINGws4xdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792529982;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VE7p/L/3yxTJYwyBjIwtl8Ff79GppXv+KyTupwFY5NQ=;
-	b=FGELg1uicMiiTTLi98QE/d47ONABumvsihLzHBQBV3RMvS3LHmAAzt9XvVqz8YicELTX
-	 7lzoSiU7wZJ2kuaR7cMLxtX9TgiRQJa2pDmv9obTSGmDcQ1PVepH9g9kVDj8vD+CmjDcg
-	 iq/ZQxePx8AG6h4vb1LAJLgQBvFp3D7hRBXEKL4hrd5kdqnHRZfxXe4Ak4myIZvk1SAVg
-	 GbzKq7yqBLnj3zagOH5t6HE/fLX7YaMcirUTsOywNrB2C/PDuw4PPMvqdpx1MspIQsFWy
-	 ga++pEoJ3q25Xi/H24qLW2e1QpGGcYrSpaGNsU8EBVV1f2NK05KIp48AeTA5fFzBreA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792530021;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=rXhJ4L/NzZHRNleuPwZVcwoS29a45TpivMkwEHBOWew=;
+	b=Pr16G6nUUtsaU2aphu+Iam/nTkAt2f9Bzi9OWmrEZ6Gl40DX+4q9x43cgLmR2f/7ATmw
+	 h7ggd5kyHEMm0jdnMgAF51yoFzOPb7ndpTgYb/zsk8VODb2BE1RbsRvnujG5u0qGZFlUD
+	 T0g4zXykBfPhj4xVQ4zrRn3snZQJyBmS6mTtnHP3TMsLcyTKfVlvGpd5qcGMf7ILgRAYq
+	 hEMq6JpElkRuRA4RuCTM94QG4Q5pb/LcJO4+9wpsRS3MZWYxrGLIkSVb1TVNXQRxg/49T
+	 rHeuMTXNgTjuweRYvXYFjyqy/T+KK+Hx1PCzZzMAiYkMzOMMPfwbwkocjIV7ikLFCPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eC+w/Fy/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MTmDRsy3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 8F6D8606A31B;
-	Tue, 20 Oct 2026 20:59:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B79606A326;
+	Tue, 20 Oct 2026 21:00:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eC+w/Fy/
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D81731F000CB;
-	Tue, 20 Oct 2026 20:59:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MTmDRsy3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C791F000C9;
+	Tue, 20 Oct 2026 21:00:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792529982;
-	bh=VE7p/L/3yxTJYwyBjIwtl8Ff79GppXv+KyTupwFY5NQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eC+w/Fy/mrlW9xD8B+x5pPjKfTyPP3E4gkMLFXSLVfsqQLqoy3TsXeyotw2GkijzY
-	 f8lHAYvJJdOY06x6jRyUUoCzapBT0qRrVyji8pr6SVYHcRCzdqwGfeVClU8fXk1gt6
-	 K4Q3tZedy5wQUw0UXy4JH9oK0WtG1/cNOpEWy72b0mgYRYnrnkGAYXMRZh58PCc1YH
-	 HcTkyz1sz+8Ig3nOVsWyIYZckm9eejMTiRSko/7nqoghkWHHVCVfV6Rm2VP1w6qRvG
-	 gPLJtBiC8qPhcZwFRYJonU2Ma7ndQcnK1GgWQlfTjWoAkK9U6S1KmLTXVR44xezEW3
-	 Y/RT+J7gGAksg==
-Date: Tue, 20 Oct 2026 23:59:38 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org, Eric Biggers <ebiggers@kernel.org>,
-	stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <linux-cifs@vger.kernel.org>,
-	"moderated list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <samba-technical@lists.samba.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] KEYS: Expand key->{datalen,quotalen} to unsigned
- int
-Message-ID: <atfWOitzEIWKJvog@kernel.org>
-References: <20261020174325.2229448-1-jarkko@kernel.org>
- <20261020174325.2229448-2-jarkko@kernel.org>
- <atfT5WJU_ldjpQOM@kernel.org>
+	s=k20260515; t=1792530020;
+	bh=rXhJ4L/NzZHRNleuPwZVcwoS29a45TpivMkwEHBOWew=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=MTmDRsy3nLBQ0PhKm6Gb0dU33W8UFBz7XMBQN21MCWcbcn62H6RMM4ALcD7PujBR2
+	 2hZODVAK2ICJeo8rw54l1P80smzfFiYoy0JAkwuyvKBsrRE6ZPPz/Je5ct62o1fw2x
+	 sGkpw9CUbCSqQJ51JxYRMywQv2e13LQ6dNAIWGq0OYdnR+jvx3mB8p4IjWu7lcycif
+	 2SmlkwP4RMnQ73tzKepKaAPBmRZSDuu0Hb2JGAPXVUcy9crBnwzZPaRsEvK+buBcDd
+	 nf5RgO2xJhpd1VhgLGjzkV+pKWT1i+pu60aAEs4vcgiMNpG9K0a0CAZLy7UqRvN/+R
+	 FoRNQQ7Oal5zg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A44E3809A09;
+	Tue, 20 Oct 2026 21:00:20 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,27 +53,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atfT5WJU_ldjpQOM@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next v3 0/6] bpf: Add syscall common attrs support for
+ xdp
+ link_create
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179253001886.208021.6536312952037292688.git-patchwork-notify@kernel.org>
+Date: Tue, 20 Oct 2026 21:00:18 +0000
+References: <20261020152804.39863-1-leon.hwang@linux.dev>
+In-Reply-To: <20261020152804.39863-1-leon.hwang@linux.dev>
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: bpf@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+ memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, hawk@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, rostedt@goodmis.org, mhiramat@kernel.org,
+ mathieu.desnoyers@efficios.com, shuah@kernel.org, kuniyu@google.com,
+ liuhangbin@gmail.com, mkarsten@uwaterloo.ca, masashi.honma@gmail.com,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
 
-On Tue, Oct 20, 2026 at 11:49:46PM +0300, Jarkko Sakkinen wrote:
-> Now that Eric pointed out Sashiko review I was able to look up this
-> via web browser:
-> 
-> https://lore.kernel.org/linux-security-module/20261020174325.2229448-1-jarkko@kernel.org/T/#mccc5900222fdad9d790be343fcec2a32540ed2fb
-> 
-> This is somewhat inconvenient though that it responds like that, and
-> not to the review thread.
-> 
-> Not actually sure how do you write a Sieve filter that automates
-> relevant-to-me Sashiko emails going into some specific folder but
-> I'm sure that is somehow possible. I guess I'll start by subscribing
-> to linux-security-module.
+Hello:
 
-I.e. nothing against Sashiko per se. It is probably useful but it has
-configuration that is worse than eg syzkaller has. I will adapt to that
-but this still the case. It is easier to adapt now that it finally
-unmasked itself :-)
+This series was applied to bpf/bpf-next.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-Br, Jarkko
+On Tue, 20 Oct 2026 23:27:58 +0800 you wrote:
+> I'm planning to add syscall common attrs support for LINK_CREATE cmd.
+> 
+> This is the first series for the plan, that adds syscall common attrs
+> support for xdp LINK_CREATE.
+> 
+> Thereafter, retire the tracepoint bpf_xdp_link_attach_failed, because
+> the underlying driver's error can be back-propagated to user space via
+> the syscall common attrs.
+> 
+> [...]
+
+Here is the summary with links:
+  - [bpf-next,v3,1/6] bpf: Add syscall common attrs support for link_create
+    https://git.kernel.org/bpf/bpf-next/c/c8e3a753a9ee
+  - [bpf-next,v3,2/6] bpf: Add syscall common attrs support for xdp link_create
+    https://git.kernel.org/bpf/bpf-next/c/d80d00835520
+  - [bpf-next,v3,3/6] bpf: Retire tracepoint bpf_xdp_link_attach_failed
+    https://git.kernel.org/bpf/bpf-next/c/278568acb588
+  - [bpf-next,v3,4/6] libbpf: Factor out __sys_bpf_fd helper
+    https://git.kernel.org/bpf/bpf-next/c/deb9732f53da
+  - [bpf-next,v3,5/6] libbpf: Add bpf_link_create_log API
+    https://git.kernel.org/bpf/bpf-next/c/1480f290d1f7
+  - [bpf-next,v3,6/6] selftests/bpf: Add tests to verify link_create logs
+    https://git.kernel.org/bpf/bpf-next/c/f23fa8f01ce3
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
