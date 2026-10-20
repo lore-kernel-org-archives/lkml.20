@@ -1,59 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485508;
-	b=v2fLTyJ8kfaNgAk+wLzPFgob7KOM5bUsfvypD9Vv32lrqNruektMR6ySfyyDqAj6sY+u
-	 LcKM9l32C69Wb4VrbbSU4TX48MwofCe5WF/3X9+yJpyvETpTI6phD7IDo7RFXQCW4HU3o
-	 mpQi70dre/eBNFK0OofO+TBVh54uNFKbTcl4S0IV3V5y6xU0U16Gz73ryDA/qPrNcbwfF
-	 nmtuWw6rhYhiHzLF8Kyac1HFF1KW1aX+m0GndOrijcPSNbYOBKHiPY+QleeFhTxOut9Ir
-	 GTmaty1ZAPSVZqglvwbNdS7a71V9c4ZC7ENwEz7lpVEcFZDjdS/RtVnMV/4H4I9XMcw==
+	t=1792485502;
+	b=1obf51F8NapCqO99kA6zDXTCHfAN1LYruMt/baZ7R4vh5WlP1MPOv/lIvdA7FevPDPiW
+	 01bbPnxqmdILa/gD6/+IcLyBIwMjQbw7JPukcdf0bUfJui64y86KwZO4/T8pBEpAtOuUd
+	 9rjLw6X4nkU9hH0EUtgUZtXHC3oUNczV4xXuvTWrTkM7k730avgTwdRenekxmsCcaEfwE
+	 fFPIhiHVPn6LkSwy5+AMsq//k0Iji/BOU6aadblYXtuwjLdLZWtz02Mh/K71tOn/+Loq6
+	 2k9JEJm0ciwc0oiPnCRsN5swHTe3K8roXdAOYL2pVw4pEyXN+lN4qO/4LjTQlX2T01g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485508;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=e8y/kWrfmAZJzM1pii0kBczM+tT4ZdsDF43zB4kqNSI=;
-	b=gfcHbcMPGtEzIQjTgadRn9jOF5Xb4c1PehM38mo1jb7WA8N5iS3bAKx8wQpQVlADPisG
-	 08VQLEPOBb7fP7px5o19JfHLkdZapLhU1tpQrjW7Kuxs4TgFNqMGBBrAruc9NmzBXAEdo
-	 UqtZPadqNU3iTx/fDf8MKAA8oB6yH9QbYNdBY5VPiot7TMRkYSoNDT7DIBGv+XxnKMDm4
-	 u+ljYk/uZrjCTJoPOXGY8Cb6RtGtkR9vvX8I7d+FfkSrSdJ707kpE3ROzkPdQ4gt54Jh8
-	 VDZB+klp1ZlwE5NZMcjRTxmsbZf4GZjNXhQlu+js44oAzxy3QXE429vTt2ZlNUzI0JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485502;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=3a978/iWfjMwwVZvL1+s6j16eVM0+TnP/Uzgo/nVM4c=;
+	b=a5U6OjUgUxL9soUZwr6ZPv+KrZd3kPY9rETBs3MpYWBusgPLk6gymF3yoXlcWzrU6XYr
+	 by3l7vMRXNocpHGg3OaoBSVUAv5m4O1HpLErz6dvpxVSuvl3KlWULCO4u81yJ/1JlCO35
+	 wDon4+ME09al/nXP8lii82h/z9nOQhVjRaPw1IL9L++Exmmis2sKVC3aQLo8ekonxyqaH
+	 REBG2h3c8WVC0WXy/fTOWcVWMg6RSJkTiiYwyf6Lk0/NfCa8H9RRp1+7EJ9sjB8GGz+Cc
+	 vJcXVC5z7BXvH7HIF6PHvQnsZQPHDhwxsVBj1bn4iehQz2qDKVkBDO9lC++Z9V8Zu5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.145
-Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com [115.124.28.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=xAVz2vO7;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A5A606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10A5A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0131226-0.00196772-0.98491;FP=8703013179357746418|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037034017;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jlWubFU_1792485489;
-Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jlWubFU_1792485489 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 16:38:16 +0800
-From: Li kunyu <likunyu@open-hieco.net>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com
-Cc: linux-kernel@vger.kernel.org,
-	Li kunyu <likunyu@open-hieco.net>,
-	"Li Wang (Hieco)" <li.wang@linux.dev>
-Subject: [RFC PATCH 1/6] sched/fair: Add SMT sibling push in periodic load balance
-Date: Tue, 20 Oct 2026 16:37:41 +0800
-Message-ID: <20261020083746.37068-2-likunyu@open-hieco.net>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261020083746.37068-1-likunyu@open-hieco.net>
-References: <20261020083746.37068-1-likunyu@open-hieco.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C65606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:38:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82C65606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=xAVz2vO7
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1d293b293so16885235e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:38:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792485500; x=1793090300; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3a978/iWfjMwwVZvL1+s6j16eVM0+TnP/Uzgo/nVM4c=;
+        b=xAVz2vO7Ltvqn9wr2sOmxRzszaervw2B63r90/KR1p5HBng3lMJO13PjroTle5N8sG
+         yfj1SI0dEBp+cDVm2cI+7u7QwyfYohmqRC7otCtd4/Pl1NKxn2ONl1CmNErylD2j8sEy
+         b+yQnCCBQu0XcNDqd7KeXi2oeJsbCWreqLKRS5CeZeERqWBOL1YVbRZVut4sEOi1fhOo
+         +NLV+aO3bYTwW4oAuY4W1mtUG7RZ/ivkx4YsJM7GMPfTMCG35nZcbbIFlsonl06EjlOQ
+         ILj6Y1AWfjcdghOzctqkG+LL2i6LfIGHJhAuxFMapFNlLEzsI0OI+edoMEn2Iqvrn+XS
+         PrQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792485500; x=1793090300;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3a978/iWfjMwwVZvL1+s6j16eVM0+TnP/Uzgo/nVM4c=;
+        b=IzpD4JpYcY1V4iEbNwmsDa+/dM4sRPWc7SAj8SMbq97DWM3xMkZwN22kVrKhKmS5I3
+         wHeBVBM6kMTXRr1XoOE5k2u0Be8gNCO+57ix95csbGG0CCo1YfP3zcOg7Xz4GQ3Um5at
+         7TR7jc5uiavIz11OUdvtS2G2Zr/6z+1a6guNV3ijKuRUHfMk6EiZxipzgsrFXziGN3kc
+         qsrOhJrP3s9ueCpOEhUNTNLLY2fzOSNja8JFudatvJl1BhhW0BkdlAaG6zbltLCl/9Fg
+         Qpn+3AchFsvxnlNz9/CdjhMLlXIDyY3nq7jkGgqQTUEXuHUquC9vduqwhS8LjYrmuDka
+         /uog==
+X-Forwarded-Encrypted: i=1; AKwUvBy45F6PSY45y59PXWXYZiyd6iwbfwE8uqQHjPtvkEMvC7bybO/CZsSu0T4rbuOUr63Hccl2tpJNFhZvaB4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTeYpFjTIMTmdEgaIvlcrhyqsVir6lKls9TnbLaLaS7LQOV7xA
+	58/2e1jKqblGZE1IeVITyoC66SR0cJYMw4PR6OMeqkHMli0C/Aq6cCoX0BaWNOHJlEk=
+X-Gm-Gg: AYBFou0Nm5z2o7WoCWq+gq0S3cG8uW6DMGXbrCxFUZO1DKosrUMG2DMQXtMfqq7ZS/J
+	rRH50gjsKYVkzGNelzCkVYtUBy0B0VgJG0zWJR6kKnR2fN9fx9hN1LFYd1jF0+hb79EDKOEoF8d
+	uFAJ8KJVq2gqA70DXa27TzTRWSS7ZsERZSbf4s/nXRNachWm+T5ccomwtFD/KZ5xQrPdiBWmctO
+	mPyeMd81JEBftggOr605RgOvapwdE9Ajp8JLzloKk9z0hAId7B3rvHhq8IulXDEejfNI7Zdg5Ji
+	KoZWgAPAN/uni5Fw+q8WbUoDDfU7I/LxbAhAFWV8usOMBdBcKK43J9MgPlNZfdhOWTM2oxy5kV6
+	98+enkIWPooX+r+eHcp4gVPh/HOAUsG2/hQtKiwsnlTq9UrJnlHGs39aMieli+QZbYjbx+nctTc
+	8ctoad3LspmzB4n2l/uqR4aLezUJHP7XtGgoZNyvfqeTnezfB7Wm2yKS9yuS04p6pEwzBuJkcyh
+	q2bGTzhtietKcw5NcDrrlX2+Qfe+VoTYRtMP5nLYnaTpLnWCRbMX60VOOsWU/lfVyZpLQS57jQ/
+	MndbvqfZE/JJF89Vs8gOc+6mUb+fYW7ZXHJp1a8d2a6cKfDFHUcDzVPjDLw=
+X-Received: by 2002:a05:600c:4e11:b0:49f:bc43:9e96 with SMTP id 5b1f17b1804b1-4a1d75f2396mr206375345e9.8.1792485498960;
+        Tue, 20 Oct 2026 01:38:18 -0700 (PDT)
+Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cc8e98sm59739325e9.9.2026.10.20.01.38.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 01:38:18 -0700 (PDT)
+Date: Tue, 20 Oct 2026 09:38:16 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: elder@riscstar.com, andrew@lunn.ch, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/2] net: pcs: xpcs: re-order xpcs_pre_config()
+ to update after the reset
+Message-ID: <atcoeLhohLkjVz-I@aspen.lan>
+References: <20261014223100.304486-2-elder@riscstar.com>
+ <179232845425.3135.8614802619087243641@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,207 +101,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <179232845425.3135.8614802619087243641@kernel.org>
 
-[Purpose]
+On Sun, Oct 18, 2026 at 01:00:54PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
+>
+> Critical: 0 · High: 0 · Medium: 3 · Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [Medium] This patch adds a generic XPCS soft reset on Wangxun TXGBE
+>   parts every time SGMII is configured.
+> - [Medium] The patch drops the interface-change check that gated the
+>   SGMII reset, while the new comment still says the reset happens on a…
 
-An attempt is made to migrate the task to an SMT sibling CPU. If the
-migration fails (i.e., the conditions are not met), it generally incurs
-no additional overhead.
+I think some of the other Medium issues are closely related to dropping
+the interface-change check... and that it either a mistake in my part
 
-Migration fails in the following scenarios: (1) the current CPU is in
-the CPU_IDLE state; (2) the current CPU load is relatively low; (3) the
-overall CPU load is evenly distributed. All three cases are expected, so
-no intervention is necessary.
+Definitely needs a respin:
+pw-bot: cr
 
-Migration succeeds in the following scenarios: (1) the current CPU load
-is moderately high; (2) the current CPU spawns a large number of
-processes or threads within a short period (i.e., bursty tasks);  (3)
-the SMT sibling CPUs are idle while the current CPU meets the minimum
-migration requirements. All three cases are expected and can achieve
-rapid task distribution.
 
-[Implementation]
+> - [Medium] The commit message describes a preparatory reorder that just
+>   'hoist[s] the special case logic for SGMII into the parent function',…
+> - [Low] The error handling in xpcs_pre_config() now behaves differently,
+>   and the commit message does not mention it.
 
-When conceptualizing this plan, we attempted to add push functions in
-multiple locations, and finally tested and analyzed that adding this
-function in periodic load balancing is the most appropriate:
 
-1. There is no need to consider complex locking logic, as the CPU is
-already idle and the task is no longer running.
-
-2. At this point, it is only necessary for the CFS load of the SMT
-sibling CPU to be lower than a certain proportion of the current CPU,
-which is more efficient.
-
-3. After the current CPU load drops (task migration successful), there
-is an opportunity to pull CFS tasks from other CPUs, which is meaningful
-for the overall situation.
-
-Tested-by: Li Wang (Hieco) <li.wang@linux.dev>
-Signed-off-by: Li kunyu <likunyu@open-hieco.net>
----
- kernel/sched/fair.c     | 108 ++++++++++++++++++++++++++++++++++++++++
- kernel/sched/features.h |   9 ++++
- 2 files changed, 117 insertions(+)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 6e005f1e8dc9..a43a168f23ba 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -136,6 +136,15 @@ static unsigned int sysctl_sched_cfs_bandwidth_slice		= 5000UL;
- static unsigned int sysctl_numa_balancing_promote_rate_limit = 65536;
- #endif
- 
-+/*
-+ * The imbalance percentage condition for pushing tasks to SMT sibling CPUs.
-+ *
-+ * (default: ~25%)
-+ */
-+static unsigned int sysctl_smt_buddy_imbalance_pct = 125;
-+static unsigned int sysctl_smt_buddy_imbalance_pct_min = 105;
-+static unsigned int sysctl_smt_buddy_imbalance_pct_max = 200;
-+
- #ifdef CONFIG_SYSCTL
- static const struct ctl_table sched_fair_sysctls[] = {
- #ifdef CONFIG_CFS_BANDWIDTH
-@@ -158,6 +167,15 @@ static const struct ctl_table sched_fair_sysctls[] = {
- 		.extra1		= SYSCTL_ZERO,
- 	},
- #endif /* CONFIG_NUMA_BALANCING */
-+	{
-+		.procname	= "smt_buddy_imbalance_pct",
-+		.data		= &sysctl_smt_buddy_imbalance_pct,
-+		.maxlen		= sizeof(unsigned int),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec_minmax,
-+		.extra1		= &sysctl_smt_buddy_imbalance_pct_min,
-+		.extra2		= &sysctl_smt_buddy_imbalance_pct_max,
-+	},
- };
- 
- static int __init sched_fair_sysctl_init(void)
-@@ -14226,6 +14244,94 @@ update_newidle_cost(struct sched_domain *sd, u64 cost, unsigned int success)
- 	return false;
- }
- 
-+/*
-+ * An exciting thing is that we have implemented an efficient push
-+ * function process.
-+ *
-+ * It is applied in cycle load balancing and nohz_kick process.
-+ * It can help us solve the problem of high workload of CFS tasks in
-+ * the RQ queue.
-+ */
-+static bool smt_buddy_move_task(struct rq *src_rq)
-+{
-+	bool is_overload, is_move = false;
-+	int src_cpu = cpu_of(src_rq), smt_cpu;
-+	unsigned long src_cpu_runnable, smt_cpu_runnable;
-+	struct sched_domain *smt_sd;
-+	struct task_struct *p;
-+	struct rq *smt_rq;
-+	struct rq_flags rf;
-+
-+	if (!sched_feat(SMT_BUDDY_ASSIST) || !sched_smt_active())
-+		goto exit;
-+
-+restart:
-+	if (src_rq->nr_running < 2)
-+		goto exit;
-+
-+	rcu_read_lock();
-+
-+	is_overload = false;
-+	src_cpu_runnable = cpu_runnable(src_rq);
-+	for_each_cpu(smt_cpu, cpu_smt_mask(src_cpu)) {
-+		if (smt_cpu == src_cpu)
-+			continue;
-+
-+		smt_cpu_runnable = cpu_runnable(cpu_rq(smt_cpu));
-+		if ((src_cpu_runnable * 100 > smt_cpu_runnable * sysctl_smt_buddy_imbalance_pct)
-+			&& cpu_active(smt_cpu)) {
-+			is_overload = true;
-+			break;
-+		}
-+	}
-+
-+	if (!is_overload) {
-+		rcu_read_unlock();
-+		goto exit;
-+	}
-+
-+	smt_sd = lowest_flag_domain(src_cpu, SD_SHARE_CPUCAPACITY);
-+	if (!smt_sd) {
-+		rcu_read_unlock();
-+		goto exit;
-+	}
-+
-+	rcu_read_unlock();
-+
-+	rq_lock_irqsave(src_rq, &rf);
-+	smt_rq = cpu_rq(smt_cpu);
-+
-+	struct lb_env env = {
-+		.sd             = smt_sd,
-+		.dst_cpu        = smt_cpu,
-+		.dst_rq         = smt_rq,
-+		.src_cpu        = src_cpu,
-+		.src_rq         = src_rq,
-+		.idle           = 0,		/* __CPU_NOT_IDLE */
-+		.flags          = LBF_ACTIVE_LB,
-+	};
-+
-+	/* Update the src_rq clock only once when migrating tasks. */
-+	if (!is_move)
-+		update_rq_clock(src_rq);
-+
-+	p = detach_one_task(&env);
-+	if (!p) {
-+		rq_unlock_irqrestore(src_rq, &rf);
-+		goto exit;
-+	}
-+
-+	rq_unlock(src_rq, &rf);
-+	attach_one_task(smt_rq, p);
-+	local_irq_restore(rf.flags);
-+	is_move = true;
-+
-+	goto restart;
-+
-+exit:
-+	return is_move;
-+}
-+
- /*
-  * It checks each scheduling domain to see if it is due to be balanced,
-  * and initiates a balancing operation if so.
-@@ -14245,6 +14351,8 @@ static void sched_balance_domains(struct rq *rq, enum cpu_idle_type idle)
- 	int need_decay = 0;
- 	u64 max_cost = 0;
- 
-+	smt_buddy_move_task(rq);
-+
- 	rcu_read_lock();
- 	for_each_domain(cpu, sd) {
- 		/*
-diff --git a/kernel/sched/features.h b/kernel/sched/features.h
-index 8f0dee8fc475..173e39bb950a 100644
---- a/kernel/sched/features.h
-+++ b/kernel/sched/features.h
-@@ -142,3 +142,12 @@ SCHED_FEAT(LATENCY_WARN, false)
-  */
- SCHED_FEAT(NI_RANDOM, true)
- SCHED_FEAT(NI_RATE, true)
-+
-+/*
-+ * Based on the scalability feature added on the basis of SMT, by pushing
-+ * CFS tasks to SMT sibling CPUs, the load can be rapidly reduced.
-+ * When the load of SMT sibling CPUs is relatively high compared to
-+ * the scheduling domain (above SMT), CFS tasks can be migrated to other
-+ * CPUs in the scheduling domain, achieving fast and efficient migration of CFS tasks.
-+ */
-+SCHED_FEAT(SMT_BUDDY_ASSIST, false)
--- 
-2.47.3
-
+Daniel.
