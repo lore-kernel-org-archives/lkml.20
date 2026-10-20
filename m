@@ -1,48 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792464398;
-	b=2M8ajll0cu8jOjQREGUw0H2BGRdjLDOcFy77pjMag2FX5KH/sYwsKofaKM7JoqiY5z6g
-	 WWvaH4dFwXStwig8j9ySuPjOdCvS9Zh2AanO1mvTQnRJkLlcdDWnjwTunozPnFQLyoBEL
-	 IxBdaVoh62gcBdY9cVADah83tZmhmp7jtg4Kdu6Y2GN9MZ4DkuWUl0++0nT77RZQbBfJO
-	 mLBuZ/bwwU8raxqFM5xrAZM80+SJr8dVhSmVbgGqHs6zJlB6A7IXuW5aFVeOZQKEXCA0c
-	 8C7/ApRLMynt4CPWcs4lT/DmrtLSqd6KKbFdLS50JkWGtmg9jO4avBMeNSAy2Cjrxbg==
+	b=pHoxdiUo/jOZaesT0AsXNKTNy+5mWqi2JWbgTpJ2EN5I4yQPYVvcF5XRL5Bpne7lFLZT
+	 oV+aE+YSKHCQbbBWfVqh5GV0V+w/TZa4gdboqb8Is+RpEnNgWl0MXlEc548mWubAUj9YI
+	 lSk5K5a2FhxIv0Cty9xvAyKN6y0Pzwb9VEkaMHNJUJmxmNivfXp9jKwjGs75bfoR9Nwu8
+	 9uig+7IzD+Ap8ItCXcLcyPQ7IghQkcMPxG0oxwDcm/yXyEpkJGoA1cOTTBbf9c2hXOLoZ
+	 cgTRz8qfxTokqQNy8Jmon/BJA2hK4ZI4n2eQHi1qkPtsLKzskkgEJba6f5fo5IREmiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792464398;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=RN3k8czzMRgmOq/HRFi3+tQnogP9QGjQCyHmUCQ+VUg=;
-	b=DJH+HZWxU/h+YQJZJVuBniqBAIR6QGAbMI3nhss5vGUUL4kciD6cuRZ1/FMKpHUz8hhT
-	 VEe7/AXF+v6c9aMshXGxjI113eUdmGNXz3yH+G6lcwlQLPxbL6a5YU1Lf2XEzHVhdzYCM
-	 5VuEA40CJpwrbPGFXn3Ws8uFOomKygQcEgcZLcTNENpeOYqWlRkYQQRPcuNmlxipC1/mi
-	 N7S/m+ZIeuTUHdBkDnUuqmfnw69FZRIJs1ji57e84KB1BeBBkLAjIt0POsIj6E9RIsaJV
-	 2L0NjGfLkg0ixnpsd0Wd+UgYFJeHdBz2SDBbog1vsAG/6lkS+F9rGU58WoCvfYBISiA==
+	bh=LyA3JX14Q6WRUe8iSFtxvl8ukjUrydPdyqI0BYKCZIU=;
+	b=ch+zyiMTlJB3fIrC4z+mrNNHCOwpUWJs9E0B+Zsd2N5mIlvKfETNDLvjRZQiQhbAQ2TT
+	 V8Zc1RiBTcB2iDTGE20hf/lbdUtF78X1jcLjG3BIALm1AdB5/s8Tls9erDeemREmA4MSx
+	 qaCBxQUFcB38OgIvNSGyyYHpLB4BNTteE9T3hDTOduQlLk1nIQ1cLTCvXNJL4ey+EFIDC
+	 U9mCylsKRBNqxB9/iYO7pSx0xTAffRy5T48A3PO/ppOBJjEn881wcCTzE2NSHcd8QqlTe
+	 O8H4gyojWdWl1WuNGmv7suGqpbi9S2xkaiHBn/5+LHo1/xj6gu95JtzLVSMvrqpyhFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mxGw2sQB;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=fvZV49Pp;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AEC606A322;
-	Tue, 20 Oct 2026 02:46:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26AEC606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEE1606A325;
+	Tue, 20 Oct 2026 02:46:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EEE1606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mxGw2sQB
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=fvZV49Pp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=RN
-	3k8czzMRgmOq/HRFi3+tQnogP9QGjQCyHmUCQ+VUg=; b=mxGw2sQB8hYJH4gYCq
-	2y4+hkmlB0hxn0pMepd5zM3sa7gANUfKHPDFUk4XIvbM0B51vDMd6CIxr/lVIOEW
-	ehDF12aKnU4q8pZf/Qr6WpplhraUTr7OnxhBx03JOvMHTtN61a0teSjPmIWpkE4/
-	+Kr/JD49adTnwyQe4Y5MUaTr8=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ly
+	A3JX14Q6WRUe8iSFtxvl8ukjUrydPdyqI0BYKCZIU=; b=fvZV49PpCPWdpYt7uA
+	OrBd3+Ny9esLFTnFO3oqsVu9c5JQ5iZc40jWKguf6NXBD/s3+4ijLG+t9EA1lvbz
+	MuPrTH5bORD/0GGSuDkyjpMeUFsEhmOtSfg3WqMkA6g2vASoUX3KTK8W0a/HfjaJ
+	VSUQ6baCAS9Uz2UTT/MVw+6No=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3H9HZ1dZq2OtmBQ--.60682S11;
-	Tue, 20 Oct 2026 10:45:59 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3H9HZ1dZq2OtmBQ--.60682S4;
+	Tue, 20 Oct 2026 10:45:50 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Felix Fietkau <nbd@nbd.name>,
 	Lorenzo Bianconi <lorenzo@kernel.org>,
@@ -52,15 +52,14 @@ To: Felix Fietkau <nbd@nbd.name>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Deren Wu <deren.wu@mediatek.com>,
-	Hao Zhang <hao.zhang@mediatek.com>,
-	Mingyen Hsieh <mingyen.hsieh@mediatek.com>,
+	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH 09/11] wifi: mt76: mt7925: validate TX power response length
-Date: Tue, 20 Oct 2026 10:45:41 +0800
-Message-Id: <20261020024544.3101738-10-yaojiale02@163.com>
+Subject: [PATCH 02/11] wifi: mt76: mt7921: validate EEPROM response length
+Date: Tue, 20 Oct 2026 10:45:34 +0800
+Message-Id: <20261020024544.3101738-3-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261020024544.3101738-1-yaojiale02@163.com>
 References: <20261020024544.3101738-1-yaojiale02@163.com>
@@ -74,40 +73,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H9HZ1dZq2OtmBQ--.60682S11
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GF45uryktFy3XryDtFy3CFg_yoWkWFcE9r
-	4v9r97Jr18G3yDtr42kF43WFZFy3y8X3WkArWrtrWrWa17J3y7Cr9ayrsxWr9ruws7ZF45
-	Gwn8Aa4UX34SgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbAsqtUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Af+OWrW1eccuwAA3Z
+X-CM-TRANSID:_____wD3H9HZ1dZq2OtmBQ--.60682S4
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKFW3tr15JFyxWF15AF13Jwb_yoWkZFg_ur
+	1v9rn7Jr1UGw1UKr42kw13ZFZ0yay8A3W8ZrWrtrWYqFWUJrW7ur93ZrZ8GrZFkws2vF1U
+	Cwn8Jay5X3sIvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU1XTmPUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzR78N2rW1d6CNQAA3Y
 
-The TX power query copies a complete event payload without checking the
-firmware response length. A truncated response can cause an
-out-of-bounds read.
+The EEPROM reader indexes the data array in a firmware response without
+checking that the complete response structure is present. A truncated
+response can therefore cause an out-of-bounds read.
 
-Require the complete TX power event before copying its payload.
+Require the complete EEPROM response before indexing its data.
 
-Fixes: c948b5da6bbe ("wifi: mt76: mt7925: add Mediatek Wi-Fi7 driver for mt7925 chips")
+Fixes: 23bdc5d8cadf ("wifi: mt76: mt7921: introduce Country Location Control support")
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/wireless/mediatek/mt76/mt7925/mcu.c | 4 ++++
+ drivers/net/wireless/mediatek/mt76/mt7921/mcu.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-index d768002c64c2..f37d2a8eafe6 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-@@ -2287,6 +2287,10 @@ int mt7925_get_txpwr_info(struct mt792x_dev *dev, u8 band_idx, struct mt7925_txp
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
+index 782c8baaf776..ef6660653723 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
+@@ -104,6 +104,10 @@ static int mt7921_mcu_read_eeprom(struct mt792x_dev *dev, u32 offset, u8 *val)
  					&req, sizeof(req), true, &skb);
  	if (ret)
  		return ret;
-+	if (skb->len < sizeof(*event)) {
++	if (skb->len < sizeof(*res)) {
 +		dev_kfree_skb(skb);
 +		return -EINVAL;
 +	}
  
- 	event = (struct mt7925_txpwr_event *)skb->data;
- 	memcpy(txpwr, &event->txpwr, sizeof(event->txpwr));
+ 	res = (struct mt7921_mcu_eeprom_info *)skb->data;
+ 	*val = res->data[offset % MT7921_EEPROM_BLOCK_SIZE];
 -- 
 2.34.1
 
