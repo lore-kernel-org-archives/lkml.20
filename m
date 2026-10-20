@@ -1,129 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500633;
-	b=NWEdZA66WK3jc665rvshVXjP4TYCyJuJFEgkuRU12qSwHfKY9oCEuExpooK9g9aiaiw2
-	 wmlE0b/azHmLSEqNRGcZfSXBjvdWhCSlk6AQCzqtmwTTZFUmbSzXlINNnfx1HTpxi2LmM
-	 Xn06l/cy06IhRT/IEpOlN4o2DfZyg5KkHhOccygEtGItez+j5dAO1eFHCN+wT6rGLIGjK
-	 zNOlqxdbL3JOGQyiKIyRPJjbVel4gsruhzWcC7zC/4Oy0AVhDgdpw6eUpPBs0JWNGHCQQ
-	 G8h+Ss9++ez3z5HNoSw+9RGmmd29u4KKRJdu3pv0bKdFKMXfD3ArR4RlmYf0OSuY+fw==
+	t=1792500670;
+	b=hcFgggiKFUQz4B54IqYXET6Um+eDjVikeBuej6MzE7a+hom6BGxavOzzu665XR1pACoI
+	 Rt6K8iETNN10S16/1glhmL7P+Q4A6VvjCx7z6kBQ8lfUJmvlx6WS1cS2eP5u+YVabD+td
+	 4HVS4iNv6eW1Ua5QVTXp5Klt2gmXc10O5ihXvFeIcy6QwqqQ/SYjOV9wE6vK3wBme/Rj1
+	 j6phY7dtRdhAS2IV7eddxb4Wi6L9Nq/vSEDgBTNb7PbyMvGMjqrW1f5bahRbgPyh8fefX
+	 8foKI2OEctbdZroybpNdG+ab0ppbK4pC0pEbFUxXaPlzS8/rCGpwPH7SS0DstXQe2Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500633;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KpSvEb1ZmSOewVyzZaYexwDFI9NVYIxSu0bLN4vULYs=;
-	b=iAPBZ+HUUU8QE3h9Hnja8pMxTnKvbgaCePMobx0gQ4Tmr6UK84E2poxiT4m2TuWXK4L1
-	 yyIXZBq4DmVOlBKkbSduepPHzgDdAmkU8HvkVbhRT+kwcxeflYVn5D7PwL6CoCN/Zws3h
-	 9rS+mNofX5IQQpxpxOJacZJjZV5M+tICPnPycYTwqnG3ZTbmUtUmQxTiE4haLikaqI0ok
-	 LhQrgJU/F3aDPXGL2KDZTku4/R6LxaFxEILM09nhDtIwlLZZzPnfP+70c5BiOXmkOho6j
-	 ZRiqE+I3XPcrHGn8D6+Bfuq+5y+EToZBtHoAXm+/wrBv3XBRm0ubGGkSCHrSUrjWykQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792500670;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Scanned-By;
+	bh=YxottX/ImyknSsFNy+uHufp0WQNNy3hoX9V92370Wdg=;
+	b=jrssyuItYfX5zx7zFJRa9UpABPBqi7WM32EncH06btdrXtHF3Tt5NnRL/l81EchDka6f
+	 IaCV8o1uNidJTLQ2TMuvLEwguRERXj53X1TFUiBcJ+w1h7VsvoiIJdbyoCBDN6m5jAd5S
+	 e0SkR3o0jaCpjjRfX4kmF3KNX8mK3s9W+udhaskmidWUmB2YoGgkqQUpUcVX9TKIP5R0I
+	 St+yirOyefQx9+7fB1/7/Y3wf6Nrb7u89q36bpM14G58w6qSIjrfyVO6ZSEMIAUabzHWw
+	 I37HFedro+2q/8lLdhIC/+e/roUetkpEnt9/+owuo+xut0g6/PDF+sOG54GQ5DKWXFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b="C+/fZsuX";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Srk91qOQ;
-	arc=none smtp.remote-ip=103.168.172.156
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PZH1BT0f;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65C4606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:50:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A65C4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B957A606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:51:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B957A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=C+/fZsuX;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Srk91qOQ
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 01C76140012D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:50:32 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Tue, 20 Oct 2026 08:50:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792500631;
-	 x=1792587031; bh=KpSvEb1ZmSOewVyzZaYexwDFI9NVYIxSu0bLN4vULYs=; b=
-	C+/fZsuXU060k6/s7dA9jM6XcTcVilUWUX/jyaYNcv9MYe0Tgr5eJjpQPogb6sWb
-	+QV1ajue5HvpKe8PiM8lXKvMYzqXq+XeXzC6crJhUvs88iVCUsHFQsc4+TDW2ZQc
-	YYJA22LOvnYmjYIkA3K5NhHa46P8sfvW5sigl3ucojRtEYhYfIcrsqF1g30liTmh
-	WnjUeufI5/i4Vp0HmsH/wHTRtrjKitcnmzHdWgDZ8MXGKfTtXCd+ft0LQ5+xGlxt
-	iYdhNvDPr8Fp0Mk5e2xXq4QF2/RrOOCd6JG/f7kAQWNbOEJGQ0YEuf5tLGsApngC
-	fYvPE8jcEmr/piJ6kH8bpw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792500631; x=
-	1792587031; bh=KpSvEb1ZmSOewVyzZaYexwDFI9NVYIxSu0bLN4vULYs=; b=S
-	rk91qOQR8BrawTth/rYIaPGAJJxaYRjeDgW61xfDD/b9UfbUcSe0iJV7okQYUW49
-	RZcKrRxidtW3s2bqWte5e7ECqbFcExp0577D+4uCsMySG4ay/5r5tMXgeLveRcso
-	0xhhuR6CxqFQ4LX5c7IvhdQvRMd7jFieqOM8jDyILeM419C6aEwKjVhzI/Hp8esy
-	MS9bY2mrtC+iaRDo+PkOkPb/tjJjPvLeI0MrdywixPxA1cbtaBVr3kWp/BHEanwK
-	6ia6UX58DI5Z3Jp8gGzF2gxZwqsuJm+OX4B6rgDsV3r25VOBxHXAyh631ryc7Kix
-	RK2xirDmOwwM++SLryC8A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792500631; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:HmhyGbY+1Vwr52I7fBJfaaLPLHOkM39sqbfYB4LU5iBySfR
-	v8xAHO7AlnP8G+xDVpUt3Ho4vlu2guppsuR4YXuXfVDXci6+OVOK+5z0gHVsGQ/R
-	q9zv4/LrDaqaXNR5E2DTJONoz0ttRZ4ym13yrr8OpLQF2Cz4vOThwy+n2ilHPGHd
-	W36f2K1HyEhGGHDF8gQUuomz+PMIhs+bM3CWttGoACJgb7JMXJx2jxiG9YIqcA5C
-	fF26qr0JshUK5SNJNx09OTvb4xQ8rKl4/CPmfEteQwsx/WLuWfIkTj6aKAlIL7nD
-	MQ0DBMZbXo/Hq8L4J3npCs7RecLd91GopiRBN0A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:s2UGIG31dVFUg3IePb3OGKYWRiFAu1bRFyBtld4V9rk=:fCMs0Pv52oKfJdphB7XHmJehRsKvOrbbtcXx2K/iuPU=;
-X-ME-Sender: <xms:lmPXaqvm6TsRdD7Rk8n7lXyo4RcWWU07K9mGyQsghorgzAJhk-6U1A>
-    <xme:lmPXaojO5_BmGqNx20cIDnR7yTyjvi3KrpAE4SdPxp5RbX8QBU0UBhKKDBts3z4m1
-    jAVdosNltlNp8EkvIYEQ-uAdnrbJ17u9wIp3dIeV3iWACVXqkLQq6Q1>
-X-ME-Received: <xmr:lmPXau18DTCQ3SlZ1PG7G4DI6j3kQono1KoGjwaSQSG_KhfRdscYMwwaWyZrMPVgfOsoDrnJ1nx3a-DIaUrECO9I>
-X-ME-Proxy-Cause: dmFkZTE2Du0we4KvtkwYGASTx0hsJNnuyBM3jUnEi/7RiemtGh+Gi0SLRw0/E5muq2rj5U
-    BDAFL3o8mLH4+ktrQxfXyDWU5V/1tUk4UxTY4LeN0jAH8Zb/xWk9hzgwE2ZDxDluGf6Hrv
-    RSxQxazp/9a0nqUgmKSSDk9xluPL/KvCZ4J/CrVBUdjkdifEVky7xSWmza9/3vURTQ8bvH
-    CNzXdcwkDR7FT2ENYBkIxO0hK0srKpVTmaqskyiHfdL8bY+hToKretRYCrDogijKG86zLj
-    m94QHMmk6HCu7iMtfNc88kpN+Q2Xc7SESlfdfmTg3Q8ATafFxKkvtSmzVxxfvK4xw3N6eC
-    oBmVmuvYx9GCYkb6t0IixCLfUJKcOkZ0vVcG6V5HT7viNYzwheW8pnMwIB46hqQmLstf/l
-    4j7O2XSKEj/lqlBm/K9j6SsKpawo1L75ZIWV5yTmkSjRLqOQKFnqddXcPELFJND9rTQJnu
-    yTBTCPpWYjWzeQCbLrhYIdDzKjygdPMdLi9lmEE/vLVnFZ8z9IHqixRn9NnA8LAPd43Osz
-    1dmcVr52wuCiFY0BS1MgxHGz1k4Y5rSqToCO+fs4DL+P5rciXnuu5N7b/Q9Y4wYqRE5IuG
-    cCt3/EAtOhTZS8TlOST85YLRfLBMiauEeOYhjMsavRkk0lE3RY82/+VWskdQ
-X-ME-Proxy: <xmx:lmPXag-eWWXNxbItODDt9kzZIknDUPOuxeVjmHg6Akm_2rXQZpkWrw>
-    <xmx:lmPXakPN1bkDIfsF-QIkjDZHkqAl5qkO5Bn7LmBQ9PR3w6YOpDEX8g>
-    <xmx:lmPXasBO53G1DjDOsrA94AueZWKWqMYm1a7BgA3221no_14u2VJwqQ>
-    <xmx:lmPXauPcxJ-yrGxSHB4C6kpDfaKjq32eSqxw0_ZP2fWRV-3Q5g6rEw>
-    <xmx:l2PXakcnVJ8i7xP0jAilcp_hwDF8i58YOhPIozmeGkyM1U8svR6Hm1w9>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 08:50:25 -0400 (EDT)
-Date: Tue, 20 Oct 2026 21:50:22 +0900 (JST)
-Message-Id: <20261020.215022.576606933901583722.tomo@flapping.org>
-To: samitolvanen@google.com
-Cc: ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
- daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com,
- work@onurozkan.dev, fujita.tomonori@gmail.com, frederic@kernel.org,
- lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
- jstultz@google.com, sboyd@kernel.org, abdiel.janulgue@gmail.com,
- robin.murphy@arm.com, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
-Subject: Re: [PATCH 2/3] rust: hrtimer: declare cfi_encoding for
- hrtimer_restart
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
-References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
-	<20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PZH1BT0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792500668;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=YxottX/ImyknSsFNy+uHufp0WQNNy3hoX9V92370Wdg=;
+	b=PZH1BT0fTtk2T5NPZlxrwxMWNW/13cAOP6A9Us5jT+I6IVA2FkGvtZZu5P1UTzPwUp273Q
+	5zOujvS/z5ckzt9zDeZ2HAmElYz9vGMMTnntw3b4VvvykUjSWwb/iexf2mcQzTiNw8UOyD
+	PeadSRo+o1+/hBFlgiw6soxvezuugFA=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-696-wnZYHm72PJuDxZ9TrXFQ5w-1; Tue,
+ 20 Oct 2026 12:51:05 +0000
+X-MC-Unique: wnZYHm72PJuDxZ9TrXFQ5w-1
+X-Mimecast-MFC-AGG-ID: wnZYHm72PJuDxZ9TrXFQ5w_1792500664
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0EEA61955EAB;
+	Tue, 20 Oct 2026 12:51:04 +0000 (UTC)
+Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D48CA1803A51;
+	Tue, 20 Oct 2026 12:51:02 +0000 (UTC)
+From: Laurence Oberman <loberman@redhat.com>
+To: linux-scsi@vger.kernel.org,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	=?UTF-8?q?Kai=20M=C3=A4kisara?= <Kai.Makisara@kolumbus.fi>,
+	John Meneghini <jmeneghi@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] MAINTAINERS: add Laurence Oberman and John Meneghini as SCSI tape driver maintainers
+Date: Tue, 20 Oct 2026 08:50:59 -0400
+Message-ID: <20261020125059.1797559-1-loberman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,32 +77,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Mon, 19 Oct 2026 23:34:38 +0000
-Sami Tolvanen <samitolvanen@google.com> wrote:
+The SCSI tape driver (st) is currently marked as orphaned. Add
+Laurence Oberman and John Meneghini as co-maintainers and change the
+status to Maintained.
 
-> The hrtimer callbacks return bindings::hrtimer_restart, which bindgen
-> generates as c_uint. C calls them through hrtimer->function, which
-> returns enum hrtimer_restart. kCFI encodes enum types by name even with
-> integer normalization, so the type ids never match and every call fails
-> the CFI check.
-> 
-> Generate hrtimer_restart as a newtype with a cfi_encoding, as is done
-> for lru_status, and adapt HrTimerRestart to the newtype.
-> 
-> Fixes: 8a8afe9349fb ("rust: hrtimer: introduce hrtimer support")
-> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
-> ---
->  rust/bindgen_parameters     | 2 ++
->  rust/kernel/time/hrtimer.rs | 6 +++---
->  2 files changed, 5 insertions(+), 3 deletions(-)
+Also add a link to the tape_tests repository, which contains the test
+suite used to validate the st driver.
 
-Tested the hrtimer doctests on x86_64 QEMU with CONFIG_CFI=y. Without
-this patch they hit a CFI failure in __hrtimer_run_queues, and with it
-they pass.
+Kai Mäkisara, the previous maintainer, has agreed to this change.
 
-Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
-Tested-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Cc: Kai Mäkisara <Kai.Makisara@kolumbus.fi>
+Signed-off-by: Laurence Oberman <loberman@redhat.com>
+Signed-off-by: John Meneghini <jmeneghi@redhat.com>
+---
+ MAINTAINERS | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4ad924aeaf16..10bde5d86026 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24576,8 +24576,11 @@ F:	include/uapi/scsi/
+ F:	include/ufs/
+ 
+ SCSI TAPE DRIVER
++M:	Laurence Oberman <loberman@redhat.com>
++M:	John Meneghini <jmeneghi@redhat.com>
+ L:	linux-scsi@vger.kernel.org
+-S:	Orphan
++S:	Maintained
++W:	https://github.com/johnmeneghini/tape_tests
+ F:	Documentation/scsi/st.rst
+ F:	drivers/scsi/st.*
+ F:	drivers/scsi/st_*.h
+-- 
+2.56.0
+
