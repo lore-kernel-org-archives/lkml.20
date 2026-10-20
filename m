@@ -1,75 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792461731;
-	b=tpnuKAHJAkX6AKqHdFwYH8Apkollmk0YoqtA5cvBscsluhOQHYEylNygTnx6lc87/+VM
-	 Sm/FHEGlpfaqGqOyhpCUjcpcnh4ZZqy6z5ZyBbq5tng3rY/6PNHeq574VXvcXEvoEmBb1
-	 91aCce9lufsr2C1VwHyvRkpN5AvYN9RCWoDjxF3nKsIiZZ2LJIJNsSt8uSQutI2UXvcE7
-	 pn+Eq7i4Yh3k0+9bcp97L/u80rhUnZftFL2n+Nz4dSLeqjzNiaapiimCE3b3fFJG9Db8p
-	 0iAWYHZEV3FJbk2CwHPxMQnJ0zn8KKVWAj0S+DvTfU6Tw2qfBSAZhUbYfj87EkSrJDw==
+	t=1792461779;
+	b=4yAehVdP+OY5fqwKw0YQLgyRjuE32cJA0XfuUDoJFlL6eMKHdDc8KUgiPaSdIQK66Rjw
+	 xg7xgzMkNfY/T3I1U7UZ91SWdfGGIayph3r5iCyMuw4UUQggsYHbgWyWp3VPBXvWSE01B
+	 RihYkxbChOP9VoWSfxeKW5YvuPY/fJ6/81KYd4kPmrQCpsqx5ipWf5oofTuaPnVz39Orw
+	 aH+PMKCvWsDj6lW68ZfzESJOWWPsjXfLPmqA8HWUWbSRbsMFsPyOviszamXuL9/7m/l1L
+	 Hr4jsRi9dau6cxj0gBPjf7tFdRoA1dBSucxcbGwUS4cqO4le1HnRJb59K8YZ5eNdRlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792461731;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0E0Q82Is6zdEjs6jL2vNo7lRDKdCGLWZjluyuxDIQjY=;
-	b=XcF7+JbAZy2OM9LmT2AMGaFUB1vv3r6zv7kxyLNleJ5GJVIGcAEvTpZGF8ai8KknmCRB
-	 KecrQfYxTu+7XXlQgSPZNYdB//QT4GhB3tboJoYhuk4S9lUA7NAFmj/BAcg6DU6gud4p1
-	 z2urf2lVA9F+Mm8fOrxYjYfCwr3zrxRlqEU65thOmd6qm6vMPnhe6pDoJQYxLea75a0VR
-	 U3jj+6JyhAxlIgW3PnO0s/GTCMzpyD1HVVDsZ5snIW1/NP5DzCfMmYmaTVZLlusrpv4U2
-	 1OoxaQwrpnglGVsuqANZrm63TrSLR54xJNu9fweBOqBm90CwBmZUWP+DEVHyR/5KMSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792461779;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nOZ4Ter206XpxcOoYF6+q+So3F0oft7pzSF2vobVs3M=;
+	b=z4gzgmw0KbFkc0Kharnxadx9wQlK6Okgkw6WExcwRKI0ST9QYwxCIemCqc9CEET0mXyT
+	 DVzx79rQEBeH5VNydhibhOmIFS89JPJDYyIUgXf0/0gsGea3aT9MRCNAa5hTrxhxnIXTv
+	 sesffoQKHb16GmFrDh95VwwWvyHxHyj5cs2ryQZV7ifWXMpS6Tcjd4ehOyKU1RVwouVfs
+	 NMVZJaQMqemGkyV0ffCGWNPTtLY6F+4evofy81aOSOClb7EiVx/lmtlqP1MWlCY3mPMLK
+	 ap+YsIW98isV9pdQazu/rMHGVO5XX6WFLFfn4D2kf8Sfws/Sa6jQY7vpDzmWDlC748A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="IcD/Wkuw";
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EDBE0606A319;
-	Tue, 20 Oct 2026 02:02:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDBE0606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hi5nSi0Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0474606A319;
+	Tue, 20 Oct 2026 02:02:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=IcD/Wkuw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=IcD/Wkuwea181oj1+ZhQlsefMEZjCRnWU3t7K0zHabYpAXROemLoRAujzGGyCSu7baYhTD1K7oQTr
-	 u2LSDwtzzS2NKpBKpXmSeB0eoNPRnDj/LJH2ng3gNdImqWKKYCgLISYRou24eG2GGw6FnXFrf1AtbL
-	 pJfuCil0d6+pUJTE=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56ad6cb9609e-14724;
-	Tue, 20 Oct 2026 10:01:58 +0800 (CST)
-X-RM-TRANSID:2ee56ad6cb9609e-14724
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.99])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ad6cb95dba-ba9c2;
-	Tue, 20 Oct 2026 10:01:58 +0800 (CST)
-X-RM-TRANSID:2ee66ad6cb95dba-ba9c2
-From: yanxia <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	lorenzo@kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] veth: fix stale peer max_mtu on XDP program replacement
-Date: Tue, 20 Oct 2026 10:01:47 +0800
-Message-ID: <20261020020147.790274-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hi5nSi0Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04711F000C4;
+	Tue, 20 Oct 2026 02:02:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792461778;
+	bh=nOZ4Ter206XpxcOoYF6+q+So3F0oft7pzSF2vobVs3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hi5nSi0Z8e4PuO1zKyB1ESBMT7Zc9KPxYUe3Bk9Z6LfL/4bOKOA+XMoewdt4dVXwO
+	 1Y6PhXJZaVCbF4HFyBVScVN17PIkL46KDlsZ2hg/HtJIDoxqQ1rCrbfpdYb4JXR/Ef
+	 84g8R1QG00wFQyOpX3UlpM7TqM7T+aJVmktP2c7F6iIXbBq7BMq9NwrDrVfBJtErR7
+	 8SQVHrqkKNe7hrYc6kM82Hn2eclsjmJ++91F0fjdDVX4IBYbuOrb2YOqUdgYmYJxDP
+	 XXe8tou7YeMTxbmY//w09p1rOdPnGrKrMJ77GKNMqtuuQ8LHfz1D2Nl2Am75fGcWrk
+	 QEM61ljMCKXxA==
+Date: Mon, 19 Oct 2026 19:02:56 -0700
+From: "Peter Chen (Qualcomm)" <peter.chen@kernel.org>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Xu Yang <xu.yang_2@oss.nxp.com>, pawell@cadence.com, rogerq@kernel.org,
+	gregkh@linuxfoundation.org, Frank.Li@nxp.com,
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+	balbi@kernel.org, linux-usb@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	jun.li@nxp.com
+Subject: Re: [PATCH] usb: cdns3: imx: fix kernel panic on remove due to kfree
+ of static platform_data
+Message-ID: <atbL0FjdTOQoJHjQ@hu-petche-lv.qualcomm.com>
+References: <20261019084944.2051097-1-xu.yang_2@oss.nxp.com>
+ <atZ_w13x6QgsMhwn@SMW015318>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,61 +62,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atZ_w13x6QgsMhwn@SMW015318>
 
-veth_xdp_set() calculates the peer MTU limit from the incoming program's
-XDP fragment capability, but only stores it when no program was attached.
-Replacing a program with one having a different fragment capability
-therefore leaves the peer's max_mtu stale.
+On 26-10-19 15:38:27, Frank Li wrote:
+> On Mon, Oct 19, 2026 at 04:49:44PM +0800, Xu Yang wrote:
+> > From: Xu Yang <xu.yang_2@nxp.com>
+> >
+> > When cdns_imx_remove() calls of_platform_depopulate(), the child
+> > platform device is destroyed. platform_device_release() then calls
+> > kfree(pdev->dev.platform_data), but cdns3-imx assigns a pointer to
+> > a static global variable as platform_data, so kfree() on it triggers
+> > a kernel panic.
+> >
+> > [   56.809541] Call trace:
+> > [   56.811982]  kfree+0x44/0x398 (P)
+> > [   56.815300]  platform_device_release+0x24/0x4c
+> > [   56.819747]  device_release+0x3c/0xa0
+> > [   56.823413]  kobject_put+0xa0/0x120
+> > [   56.826906]  klist_children_put+0x18/0x28
+> > [   56.830920]  klist_prev+0xb4/0x1c0
+> > [   56.834325]  device_for_each_child_reverse+0x7c/0xc8
+> > [   56.839294]  of_platform_depopulate+0x34/0x80
+> > [   56.843664]  cdns_imx_remove+0x34/0xcc [cdns3_imx]
+> >
+> > Fix this by iterating over child devices and clearing platform_data
+> > to NULL before of_platform_depopulate() is called, preventing the
+> > invalid kfree().
+> >
+> > Fixes: ff6d6e6c6778 ("usb: cdns3: imx: add glue layer runtime pm implementation")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+> > ---
+> 
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Replacing a regular program with an xdp.frags program keeps rejecting
-otherwise valid jumbo MTUs. The opposite replacement leaves a larger
-limit in place and permits MTUs which a fresh attachment of the regular
-program would reject.
+Acked-by: Peter Chen <peter.chen@kernel.org>
 
-Update peer->max_mtu after every successful attachment or replacement.
-Keep the GSO feature update conditional on the first attachment.
+Peter
+> 
+> >  drivers/usb/cdns3/cdns3-imx.c | 8 ++++++++
+> >  1 file changed, 8 insertions(+)
+> >
+> > diff --git a/drivers/usb/cdns3/cdns3-imx.c b/drivers/usb/cdns3/cdns3-imx.c
+> > index a2f041e1707c..2c86fadd2cf2 100644
+> > --- a/drivers/usb/cdns3/cdns3-imx.c
+> > +++ b/drivers/usb/cdns3/cdns3-imx.c
+> > @@ -218,12 +218,20 @@ static int cdns_imx_probe(struct platform_device *pdev)
+> >  	return ret;
+> >  }
+> >
+> > +static int cdns_imx_reset_pdata(struct device *dev, void *data)
+> > +{
+> > +	if (device_is_compatible(dev, "cdns,usb3"))
+> > +		dev->platform_data = NULL;
+> > +	return 0;
+> > +}
+> > +
+> >  static void cdns_imx_remove(struct platform_device *pdev)
+> >  {
+> >  	struct device *dev = &pdev->dev;
+> >  	struct cdns_imx *data = dev_get_drvdata(dev);
+> >
+> >  	pm_runtime_get_sync(dev);
+> > +	device_for_each_child(dev, NULL, cdns_imx_reset_pdata);
+> >  	of_platform_depopulate(dev);
+> >  	clk_bulk_disable_unprepare(data->num_clks, data->clks);
+> >  	pm_runtime_disable(dev);
+> > --
+> > 2.34.1
+> >
+> >
 
-Found during review of the XDP replacement path and confirmed with
-native XDP on an isolated veth pair. Before the fix, direct replacement
-rejects MTU 9000 after switching to xdp.frags, and accepts it after
-switching back to a regular program. Detaching and attaching instead
-produces the expected results in both directions.
-
-UML tests on net reproduce the problem before this change and match the
-detach/attach controls afterwards, with both devices up or down and
-with either endpoint receiving XDP. Failed replacements preserve the
-previous state; same-type replacements and detach also behave as
-expected. Small-frame traffic passes in the devices-up cases.
-
-Fixes: 7cda76d858a4 ("veth: Allow jumbo frames in xdp mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: yanxia <yanxia@cmss.chinamobile.com>
----
- drivers/net/veth.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 643b97dc..7db389ae 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1622,10 +1622,9 @@ static int veth_xdp_set(struct net_device *dev, struct bpf_prog *prog,
- 			}
- 		}
- 
--		if (!old_prog) {
-+		if (!old_prog)
- 			peer->hw_features &= ~NETIF_F_GSO_SOFTWARE;
--			peer->max_mtu = max_mtu;
--		}
-+		peer->max_mtu = max_mtu;
- 
- 		xdp_features_set_redirect_target(peer, true);
- 	}
-
-base-commit: 78731b46967e3e7102b5cd5062bef185f3404b5c
 -- 
-2.43.0
 
-
-
+Thanks,
+Peter Chen
