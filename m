@@ -1,116 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792499340;
-	b=slb8+obfqy99AEkQiCy+j7/MZaybJl4ZsSU2K9SkZyoaTjTBWiUFG+GvOw1m9NHYhWHX
-	 6wDFhUAwucopl2feIAqSrKWp6VlanLvjwFt9F2KjUlBv0tKJL6Mw38nAMfgFqtD7ImV/0
-	 PJLT+j3hbtXvRVhBwGgFdc3JYs0QMManxe6oRVwN8yeD1mMgXUG2mRqVqWU1XSLPHIhHN
-	 OVMXLL9EK9+OztSkO+dzfFDzWEpbPoNaZBBsRuBLG7WxSHAM8marLlif9KJy0Rz3A6iG7
-	 FG2vEKWvSyzK6nogrB8azXZwkJxnc0qIXyqWV8PwFp4FKc5kSA8nr+oDBkJiKTkLcMQ==
+	t=1792499453;
+	b=cnJn3yST7uGlpBZaB9WkdY8sZec0x88D14Euz7yFDgQaSm6tK1h1zIPNbugsgf26Vws8
+	 /zpmPmW9lOX9BopQnCmBypiIpvDvXZ9vY7grG2mg+6qAqKl1WuEZgeUbNB9yRr3dHGq7d
+	 XWndNW2e9JkMPifF1hVGbhuuhcAmeBqqL9fcXFpHV9ExdGsnW792LyN+4RZTxXo8NH9HH
+	 yYVweFfIGezvciS82EJdknOrYa/BdEuY2eomCYAc1haM6CmW+zGlJCFP4ONhdSF2txWg2
+	 smYb98+wussfyWgCDJilYcBp+FIBpkyK+VcAaZNVYAH8FJPiEFG+SYaJYZuhgNh0JGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792499340;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792499453;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=lfZbqFmLr8Q6MECdNX562ifwqH83lxZBW8nCUfGoGTs=;
-	b=hYCbKc5oqY6H6mBPY9tBuyJue5fRa1aqENjA9IFt82L5TyZ+bSsRQSEdRSmHU1YXg06x
-	 Y5oXHZ6C3ifJQnPAm6DoNQ2PkJieASq58Q/FmLId9ktuukWsRa4KO1JQVnoSCaCxnFJnf
-	 ht7mBqQxIgluKZR+U+cwiMNOBhvatMciH++KsHiXlJ/TGouySjINZGdFsfRRmnwcEVjEG
-	 C63nbIizz7ECjMT5sRbWYvZVBmhoVFsJLHu5LLrzsDX98iFjf5/jxnuPx3XzZBQg6g+W6
-	 0zBWduOf9KpU/+JG/su3SWs5smPJj1goOm11ge9ufcDDYEErPb5wRFt+7XzWOX4IM1g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=r7W1rJt9IDsmCTMPs7E6cwvO7KQhC7QspT2DHRypph4=;
+	b=l0loHr9m2jnv3tB63KaFlmsMhpdOra4UemV9SJUJp2psz4KQCuY1nvC6lXTbenwjqwir
+	 HmmBv42ZZYCKWfMOBw4YsPetbjHL4s9V2WUcGSCUNVJSiKFxVGh/BFmDU/MAWdpz0qR8Y
+	 i5VVxxUc4ZlwSV5UaN0f93dRqd7QVTj+GQ/TKCd1mvck3uOTOMlbPkorB4pHicv2IYLRX
+	 bK01oHIfcrazhU0wWtT4Gv0PA9qTl5rASVK2GE4+PmrPW49kOt7a348KzpwS68W8k8pdc
+	 lt8KzLQZT1XIiUbTra1r4+GLltSuP7p73QduI/b0UTb5SIJ9vxWjwf/FmOrxk9c53Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="N6/XTZC1";
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MGbp4qZx;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F80606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:28:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F80606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CE7606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75CE7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=N6/XTZC1
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2259110f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:28:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MGbp4qZx
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ad51132eeaso249126a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:30:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792499338; x=1793104138; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lfZbqFmLr8Q6MECdNX562ifwqH83lxZBW8nCUfGoGTs=;
-        b=N6/XTZC1nghPVLJWcx1jJKYR4/4ERrwB29Br8hBD6S6stsVkyggKbfiq5fzNXL0Ppa
-         CpU5KUKmPjnpFpMbUt+w1NE/dR0xBhSLkoiEJUb8HbxJpF16pLYMJFzX4LZczorpoYDL
-         tpWtXbrLIlLKnn+kut1zfc0Zvxe0vcdJhaSEnPgwC3UywPI7qKVSYwJwDJ1nYraXTk87
-         xH4nt1vtE5uwMdNG/3RcqX25B/npAZxPRJyZXTpZryF+VdoS8Kaw+K+l/tJaKRJOage0
-         UlXTfArrgqnCVZ89FPaeaQ8XanGPj7Wli8RNgRb/39LwAyz4fj5NCWP4ArMwt/WiJD2X
-         8RRw==
+        d=gmail.com; s=20251104; t=1792499453; x=1793104253; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r7W1rJt9IDsmCTMPs7E6cwvO7KQhC7QspT2DHRypph4=;
+        b=MGbp4qZx4EIRTCRzrgZYAtC3H9I/XO6VBPTbo8pn9LEgZOZTyksmEy7aqBTwRyBF7C
+         1naFXOUIl6s6tHJ/P5/Pd6/U3k6/2qlYFbCns7qRjf3neh8me0Uc1RXxwpfXMV/rH/y9
+         xVJzdQZT6kaD/L3GNZOHcutF/ozurPybsN2HF1raYKixC1t3bRxhSxrebYup30NFqgiZ
+         AGuY5qA0pCf96gWY7uh+gX/F4UWA7QjaZe8fYOPs8l0iFHvdhLCRnDOyiKVeH0Dn1Dk3
+         mHjV8a2Krz69nXhInbWwG27e365r7T0KwgNLud2ERPkFXBMHj0VHVrtuv1K5cRrzOtAC
+         cIPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792499338; x=1793104138;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lfZbqFmLr8Q6MECdNX562ifwqH83lxZBW8nCUfGoGTs=;
-        b=R+UQRXX8FmF8pkjiw+Wuqt880BlWYkuUSmdInzj7byIkEgCZ5ASmnp1/6tdGd5MfKZ
-         HQ44lh2rDyOwoZyTweCvAxsIMpWGE5fKQVpRI+/5RVWPPyBcfRP5Q8cp4N7I4mxW0uHn
-         u1MBYEGfBJM5odsYX+Lxd/1wknWkTNMMHRCRA24/O7qsGtTjyPVO5Ex8x8Q/iPI82Aoi
-         bPtEtZ58CJ2cP1qWO1fJ/J+X5xxtifgu3sxsgCA90SzvG+6QG5NNsPh7vWWlgYeVehro
-         4LsMPCqoFEsrQdBOT5Jo3tXZpTkxn9nchqVZ4cmPluZX2EEa+wNPTNV2BIZuydwt3li5
-         oQmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzd3SRb+mnB8W8rjwkyEV5w2bS3SNPNxM9wbPGXNjMRWbfXerXcwgzEv6BEKF8GNglFFeniV11108o0x/I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7Fa3cmT6eJM7bbqUq7Vt2+TTwb9Fsf1x7l/y7jkr4Jur3waS+
-	LPt9k2tb311DVg+imRjnLecyZV7UIZ5h1uYDfc1fRZK5/f1Q5pY6mau1kcmbCyC75VA=
-X-Gm-Gg: AYBFou0Q0npuIbUuhrh3byUYQPas6h4EoW28ZVn8Uca0XvTTA83tZulYyWedBs6bUbo
-	zJyM+9gYKoHBNd3JwURgkBIOwW/pRXlrMuojHzlDylhRGZgPdxX8XsMCblLXTgiMkNR5gZzJqeY
-	EVy3ELIJwEtnUNZh2/jmAHbZ6jXCxPPX7Ysp+di4xhQ9+GuNbXt8IglZg4CbkjktEj/Sy2PlqRi
-	HMvlqsI5sVYIJiDStZYaC+AWQ4UM+sAGyhifXbU9bgJEXVpUk2oQpozQxuTMHtp1AtcRhxwja9C
-	vtzUBa7w3wgifKySCUFR/pbFqpTYxUq8eZfkreRbRpZ0N/xnofc9FhDWYCy3yhX8TU/Z3DuokT6
-	q+QPxs02X/7TyQsOeJ5JD1P9PLLkBgJKN0H+/QYqs4lJTMIuZwBKGbFzghgZtTP96AvdIAqVoW/
-	jxZjLrRjQqEt7c+WN4HBIYTaO9Yxcdkcz7B5+zsAYRfaDvV2fdYxblYm9PMRM/KZiooLKW+OB2i
-	7+vceuM3Uk=
-X-Received: by 2002:a05:6000:4694:b0:48c:414f:cc12 with SMTP id ffacd0b85a97d-48e07f9c387mr16153415f8f.40.1792499337854;
-        Tue, 20 Oct 2026 05:28:57 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d6dbd33sm5588977f8f.8.2026.10.20.05.28.55
+        d=1e100.net; s=20260707; t=1792499453; x=1793104253;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r7W1rJt9IDsmCTMPs7E6cwvO7KQhC7QspT2DHRypph4=;
+        b=PCieqiMx0Wmo3GxI45CA7R4BPWSOjdQMjx65x3TMwSdvsQQFmeOK7D7nnaWU6ISmJC
+         h0a2pytz47pnygq6jFFDbR854h0ECJ43ObLu0NNaNtvVRlZdyjH/QLtDAHCvOBHVnpuc
+         Mp0zyFOBnJS67t4DM/kjrs3Rc7ETLVa090bVCqcIhM9sNucGFZ3MHCfNMyVhjr688ro8
+         /J8pyfDhbv8w0UnTouM3iG791PMnOY6TqpCfXAH/2IQOiGCS9vERA2AZi6qv1H0IjdUF
+         qDNHdrKIwe41NbD/GjX0FOpsH7sVCzeWdXqb5HLM+jiezi/q+4RzCVdzXxHmyKy/Ebrv
+         amyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRmhD4bQnaIvrN/1gZH+DwOnGVRLTJlbEr6svnH4uVdHY4Kb/9qkeK71jeNkHp+EV6l3ZTOgPnQXnZmoo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyAz68lD/tG77s6+5k2Iryp51/trMHLvq5G7sliCzXcnsaAvOr
+	deur+f6bIinJae7XefTmkaeYvcnQwOpkDzII9SZF7Z/F3Wu1d0RWGj4X
+X-Gm-Gg: AYBFou3n9kRbFuaeq/vmkWB3NdZilflQQop0KxoRHhnFLqDO1hXqHzS4ZzBSGu742Mn
+	G9QE8P3/oZJIdSOYaH1a1ePArQdf5KN1t3OF/h0kNQoOdszjq+NSyI9YrFfgQWFfEX3N5mLO9rk
+	ujdbSstpux3DC02EGKjwLrajPPhM7F8708/cTEAwkOLM5m8wU2/JzZJAXf1/r9i+gsY98xTW68y
+	oGpivaL0jkKP/C2yEv2SiwnPul392K+bhLV/8G6GKYzeFd24ZhKGWHinJQzqK3suRox4qX4WP4W
+	GdPynKeyQkcio0nNd2B2wbOFxScm+Koyf8PU5+3T1FUc5aYjo6/bhNmrbJ/ql6x6bkxmzPKpuhS
+	v3ywn9ZvCCiOFXImoI0/7cdExX90u4B5Uuz4A8+ZOh7S1LTH8BlDzj1RbruPH/r7YpkwmYgBel4
+	xbDhwR7akg2p7OhkGB4QvfrvJaO1CQv0exa2ihL6ul+ErylLiPcy/z2jmDsFcPl/KFda7JTgdDs
+	rgvO/n+kgE8wI4Xr1KtCoikr5hp35g94jMtdRPUXtIcCqO2hFEb8RtEaa7Rn/JYAi/K14drUniQ
+	8BsBaQ==
+X-Received: by 2002:a17:90b:5111:b0:3ac:a7ee:6785 with SMTP id 98e67ed59e1d1-3acee29305emr15938113a91.1.1792499452686;
+        Tue, 20 Oct 2026 05:30:52 -0700 (PDT)
+Received: from mi-ThinkCentre-M760t.mioffice.cn ([43.224.245.234])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd65497e28esm4783715a12.7.2026.10.20.05.30.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 05:28:56 -0700 (PDT)
-Date: Tue, 20 Oct 2026 14:28:43 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Dave Young <ruirui.yang@linux.dev>, Borislav Petkov <bp@alien8.de>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org,
-	Joel Granados <joel.granados@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
-	John Ogness <john.ogness@linutronix.de>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Kees Cook <kees@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Bo Gan <bo.gan@broadcom.com>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Stephen Brennan <stephen.s.brennan@oracle.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Ian Forbes <ian.forbes@broadcom.com>
-Subject: Re: [PATCH v2 3/6] panic: Allow postponing pre-kdump notifiers
-Message-ID: <atdee9q7DExYLGPE@pathway.suse.cz>
-References: <cover.1790014793.git.zack.rusin@broadcom.com>
- <52183acf25209275a9a57fe5d746f82d3b7efc3c.1790014793.git.zack.rusin@broadcom.com>
+        Tue, 20 Oct 2026 05:30:46 -0700 (PDT)
+From: Wenwu Hou <hwenwur@gmail.com>
+To: hannes@cmpxchg.org,
+	yosry@kernel.org,
+	nphamcs@gmail.com
+Cc: chengming.zhou@linux.dev,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Wenwu Hou <hwenwur@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm: zswap: set zswap_ever_enabled when enabling zswap at runtime
+Date: Tue, 20 Oct 2026 20:29:42 +0800
+Message-ID: <20261020122942.3477541-1-hwenwur@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,120 +100,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <52183acf25209275a9a57fe5d746f82d3b7efc3c.1790014793.git.zack.rusin@broadcom.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon 2026-09-28 13:55:37, Zack Rusin wrote:
-> Provide an escape hatch for debugging kdump failures that may involve
-> pre-kdump callbacks. Add panic_pre_kdump_postpone to skip their early
-> invocation in crash core without consuming the once-only guard.
-> 
-> When enabled, the chain runs before kdump only when
-> crash_kexec_post_notifiers is also enabled. Leave the late panic call
-> unchanged so callbacks remain eligible if that path is reached.
-> Skipping the callbacks may prevent hypervisor crash handling.
-> 
-> Suggested-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-> Link: https://lore.kernel.org/r/bc0bdd14-5e6a-0676-cd04-14fb0bb93cd5@igalia.com
-> Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
-> ---
-> New in v2: optional postponement policy suggested by Guilherme.
-> 
->  Documentation/admin-guide/kernel-parameters.txt | 14 ++++++++++++++
->  include/linux/panic_notifier.h                  |  1 +
->  kernel/crash_core.c                             |  3 ++-
->  kernel/panic.c                                  |  2 ++
->  4 files changed, 19 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 33cd30996e47..3d722df30838 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -4904,6 +4904,20 @@ Kernel parameters
->  			This option should only be used for systems with the above
->  			constraints as it might cause the panic operation to be less reliable.
->  
-> +	panic_pre_kdump_postpone=
-> +			[KNL] Defer pre-kdump notifiers to the late panic path.
-> +			They run before kdump only when
-> +			crash_kexec_post_notifiers is also enabled. If panic
-> +			reaches the late path without entering kdump, they
-> +			can still run there.
-> +			Intended for debugging kexec/crash-dump failures.
-> +			Skipping these callbacks may prevent correct crash
-> +			handling by the hypervisor.
-> +			Format: <bool>
-> +			Default: 0
-> +			Writable at runtime via
-> +			/sys/module/kernel/parameters/panic_pre_kdump_postpone.
-> +
->  	panic_print=	Bitmask for printing system info when panic happens.
->  			User can chose combination of the following bits:
->  
-> diff --git a/include/linux/panic_notifier.h b/include/linux/panic_notifier.h
-> index 3ad390764a41..655ee5c77181 100644
-> --- a/include/linux/panic_notifier.h
-> +++ b/include/linux/panic_notifier.h
-> @@ -11,5 +11,6 @@ extern struct atomic_notifier_head panic_pre_kdump_list;
->  void panic_notify_pre_kdump(char *msg);
->  
->  extern bool crash_kexec_post_notifiers;
-> +extern bool panic_pre_kdump_postpone;
->  
->  #endif	/* _LINUX_PANIC_NOTIFIERS_H */
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index 5d9fe9e00f39..d6b2293dd0fe 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-> @@ -140,7 +140,8 @@ void __noclone __crash_kexec(struct pt_regs *regs)
->  			struct pt_regs fixed_regs;
->  
->  			crash_setup_regs(&fixed_regs, regs);
-> -			panic_notify_pre_kdump(NULL);
-> +			if (!READ_ONCE(panic_pre_kdump_postpone))
-> +				panic_notify_pre_kdump(NULL);
+zswap can end up enabled without zswap_ever_enabled being set, which
+leads to data corruption. With CONFIG_ZSWAP_DEFAULT_ON=n:
 
-Honestly, it looks a bit confusing to me.
+1. zswap_setup() fails to create the initial pool. Setup still counts
+   as successful, but zswap_has_pool stays false.
+2. The user writes a compressor name to
+   /sys/module/zswap/parameters/compressor.
+   zswap_compressor_param_set() creates a pool and sets
+   zswap_has_pool = true, but never enables the zswap_ever_enabled
+   static key.
+3. The user runs "echo Y > /sys/module/zswap/parameters/enabled".
+4. zswap_store() now stores pages in zswap, and swap_writeout() skips
+   writing them to the swap device.
+5. On swap-in, zswap_load() first checks zswap_never_enabled(). It
+   returns true, so zswap_load() reports that the page is not in zswap.
+   The page is then read from the swap device, which holds stale data.
 
-The name "postpone" suggests that they will be called later.
-But they likely will never be called because the crash kernel
-will take over the control and eventually reboot the system.
-The panic() path will never run.
+Fix this by enabling zswap_ever_enabled in zswap_enabled_param_set()
+before zswap_enabled becomes true.
 
-Also there is:
+Fixes: 2d4d2b1cfb85 ("mm: zswap: add zswap_never_enabled()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
+---
+ mm/zswap.c | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
 
-void oops_end(unsigned long flags, struct pt_regs *regs, int signr)
-{
-	if (regs && kexec_should_crash(current))
-		crash_kexec(regs);
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 37f34e406c8e3..d2b4c248baa67 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -629,12 +629,29 @@ static int zswap_enabled_param_set(const char *val,
+ 		if (zswap_setup())
+ 			break;
+ 		fallthrough;
+-	case ZSWAP_INIT_SUCCEED:
+-		if (!zswap_has_pool)
++	case ZSWAP_INIT_SUCCEED: {
++		bool enable;
++
++		if (!zswap_has_pool) {
+ 			pr_err("can't enable, no pool configured\n");
+-		else
+-			ret = param_set_bool(val, kp);
++			break;
++		}
++
++		/*
++		 * The initial pool may have been created later by the
++		 * compressor param rather than by zswap_setup(), in which
++		 * case zswap_ever_enabled is still off. Flip it before
++		 * zswap_enabled becomes visible to zswap_store(), otherwise
++		 * zswap_load() would skip stored entries and read stale data
++		 * from the backing swap device. param_set_bool() treats a
++		 * NULL value as true.
++		 */
++		if (!val || (!kstrtobool(val, &enable) && enable))
++			static_branch_enable(&zswap_ever_enabled);
++
++		ret = param_set_bool(val, kp);
+ 		break;
++	}
+ 	case ZSWAP_INIT_FAILED:
+ 		pr_err("can't enable, initialization failed\n");
+ 	}
+-- 
+2.43.0
 
-where
-
-int kexec_should_crash(struct task_struct *p)
-{
-	/*
-	 * If crash_kexec_post_notifiers is enabled, don't run
-	 * crash_kexec() here yet, which must be run after panic
-	 * notifiers in panic().
-	 */
-	if (crash_kexec_post_notifiers)
-		return 0;
-
-So, when: "crash_kexec_post_notifiers == true" then
-kexec_should_crash() returns "0" then
-crash_exec() is not called. The system might still
-call panic() but remember "crash_kexec_post_notifiers == true"
-so the notifiers are called before __crash_kexec().
-So panic_notify_pre_kdump() will still get called
-before __crash_exec().
-
-Is this intended, please?
-What is use case, please?
-
-Maybe, it would make sense to add "panic_pre_kdump_disable"
-which would completely disable the notifiers when they cause
-problems.
-
-Best Regards,
-Petr
