@@ -1,51 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506828;
-	b=KjguYj/EO1acpPrvUbaQf4LvQJJn7exd27Pjo7YRDDjwlKv0ktmMhAvDPv3MlhM0pxTT
-	 diJpPt+WsR+z0bcJVVrye1Nm1NI2vg8Z3L1gOHyDgCX+FJolrzti6idWFb7Db7pminbyQ
-	 zCp2+GW74KRUPE/oS04V+lqkS7WBjv2yjHbE11rCTzXSA9PtqVn0/GtsIlHktlLw3Bn3d
-	 TEO80DJdjWWzG7WEOClY+asXrNAnXksmphr724qbMfKnkq8Q7Sbqnjsqt0da7uerd+5RD
-	 81sgiXHSYMkOHQRmL1AskB0RUeT6bDYBOClcuETAJ0uvqyjegfybtNtp23daex0+ZMg==
+	t=1792506830;
+	b=Assnra6oPAW/uU40Pvajs5UBmFlgqPbDpAw3uq288Ziy5PuC2VsGumR8V+WVd/G/yW5V
+	 sPHORDRaYQ79lM/qfFmwqxJ27CxMuYt6kMhvkkfo9dOgibuGTkmecjuYjTYRCh39zkzaX
+	 q/GENRDMJBwhTOYMkxJ+MH9xFeuv6PRkQMZZ0HQH/7dRcQhxvCZWKCmlmvd7WjLlWZo2P
+	 3CqjNYjBtRe6st31XQKejvApn2sKblPHQYne9Asxr+C0P2WE6A6Dl19Wbx+Zk8nRqpHM9
+	 A57QrQxRrKSyN52crJo+RR0uNsp7rLCvW5WNxJHdAHH9nyy+iHSO3PaGliFriTDgk0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506828;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Stat-Signature:X-Spam-Status:
-	 X-Session-Marker:X-Session-ID:DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=mqwyqkEBoam5eZLB5ejTvO5EOFtBdTT+O6KBB1MaL2Q=;
-	b=bYtuGUmkQSE9dxgF72QSGEDVdTtmh+m0VktQkUU9nPSHPDiAMh/KyI+6HsN6eOnIvvtA
-	 MkhWYlkjshfxUWEDrwSz/nKbcLG5hU0xOm3fV12AoBuzwYL2+WZ9X2hB4BQmRtrn7DfGu
-	 w3E76bux37sZD0i7cPVRw+f8hOpWkgYb5RjSWSaevD9rvI7MKUKD5t8uFQrR7zPxfkCQi
-	 mtTTwHscy4Qw7CMXLOySiu7m29ZRRQIbEvhlbDBqvg/jcpDM9nf0o+KSnCh7Vfk8oo8gJ
-	 n+5CrIWXQun8IvO1/nbIisDMjfuMD6VlPTtM9dwCOrbW9N8lBlFcaoO1CMukPUWBxSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506830;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=MvXYGUokLQK9Dpvt3WU6+mLNEmr/sUmdQTAq+bivxy0=;
+	b=3narDKk+bDoECJZ1kKjG0yE7gdS7NmuCuSlq09Tzkw0cpgG9NQH2iSdynXBiizZYXgsx
+	 DAebDAqYXJMLw8ZqlnY8fvXIpemAJ24FoiRPmYoz8LR0wvB+clE1WBFQJKUBzmxyZOvWI
+	 QoD1I+6AsZ014Cxed2WQd4jC+Qfqg2ZRbemkvE1bwzq8yYsSKjw8tLrDmPVQniLeMJ7Rv
+	 4Gum4yFV5gNeMyWYkp58MQQcTnZORhquNyC/L30TBb3TKEaQKB9X5qJsX2qYH2HDvvsLZ
+	 gf44dpKOwzvWZYMHLygaF8UzYFM4ALl3D3ged5wHLQyNKwyvfpPG1mCr9KZdEPbSGzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=MyG1rUwR;
-	arc=none smtp.remote-ip=216.40.44.14
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b="M/jU848e";
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A61E606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:33:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A61E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE63606A334;
+	Tue, 20 Oct 2026 14:33:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BE63606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=MyG1rUwR
-Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 0919B1401FF;
-	Tue, 20 Oct 2026 14:33:40 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf06.hostedemail.com (Postfix) with ESMTPA id 8143D20011;
-	Tue, 20 Oct 2026 14:33:39 +0000 (UTC)
-Date: Tue, 20 Oct 2026 10:33:38 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>
-Cc: John 'Warthog9' Hawley <warthog9@kernel.org>
-Subject: [PATCH] ktest.pl: Add total test run time to output
-Message-ID: <20261020103338.4be97a72@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=M/jU848e
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 88898A1627;
+	Tue, 20 Oct 2026 16:33:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792506827; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=MvXYGUokLQK9Dpvt3WU6+mLNEmr/sUmdQTAq+bivxy0=;
+	b=M/jU848eDL1eex6rULHc6nDPa68O6M5l+EE1eZ0Ug8fblu1k+y5bUGC/N7wJ27yor5iG6o
+	Xfm+yAJqV9L46bXxiGAm7B2tkRESGRoMu1csK9E38oZGCM8d0k3F13LFZ+HqMTxFRkeXTn
+	9e0K57WLLFfUgB2VK5klk+54Jnq/RL3m9MYiYjVFgqzSJSO7AcY+ajEa4N5cvO9I2Fam9O
+	6Gv2F4GO6xtNpYHJ6d1OIH4+jqm0ZGSwipEfFN0pjNW7MqEAIvqsearnQsvABzNrndqh27
+	V+TvaCWHFTHph/BWH/SmXpULWmO40JvGJ56BYRsjQvJPBhhHmkEEn1wz/v+Fug==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Tue, 20 Oct 2026 16:33:40 +0200
+Subject: [PATCH 3/4] usb: usbtmc: add Rigol DP800 and DS1000Z to the packet
+ I/O quirk table
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,84 +57,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: 8143D20011
-X-Stat-Signature: ququ9p641r3t8xjktn4akeyw6weghyc5
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/rWB03iSkoEX43+HkJPG1rG+CzbilAN/c=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=mqwyqkEBoam5eZLB5ejTvO5EOFtBdTT+O6KBB1MaL2Q=; b=MyG1rUwRYfk/BB5ZMSBybLVn3lsPnJGavE+dK1BKW3rOMX7+K4w8DTiF8POov4RrEMsQOXiu2z9j5J0NXtSmkPt0ZlKCc2VSo9tZsKMP5kx59DswyT9jfW/2NqVn2+r5sH8XeX5ObzjErUr14NJQFNqa74aGzox5sGXi4YL13Gw=
-X-HE-Tag: 1792506819-645977
-X-HE-Meta: U2FsdGVkX1/bO3KND9O4NV+YvxTjQABy63FoHoHoMI0f/pRAO0Bl6GLBWTEPHb3iEJQCU3Ac5qi/tIguIJPAEGg6BELnFNBdxT3xukiNaVSsUDlVluoZJjPhR01GuYgq9Vez3tLhIeNu3gmowNQ3P3X1C7s58XK3ETF358+jRa8rJHR8yFAxrfPxnRhCDdcn8iznPAM4Hno0NBvhBVC6yWaPiJLIEwYk1eZef5vKPsj9Ikr2VqMIiwhnQiFdQW29o6h5hNHxylb17pNo0whzYeoX9oi16I+YxE9MsDOP3xt4PEPTvia0i+Xl24u0rGoVNEhuxI+NwHij8I32BugcoqSqrlDEa3+t4BRaj5Bk/+1RUNtP5MMw+/2tcurfe9I3
+Message-Id: <20261020-fix-usbtmc-short-packets-v1-3-903f4d029193@tipi-net.de>
+References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
+In-Reply-To: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Steve Bayless <steve_bayless@keysight.com>, 
+ Guido Kiener <guido@kiener-muenchen.de>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nicolai Buchwitz <nb@tipi-net.de>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Steven Rostedt <rostedt@goodmis.org>
+The Rigol DP800 power supply and DS1000Z oscilloscope families also
+advertise 64-byte bulk endpoints at high speed. Replies are cut off
+after the first packet, and writes larger than 64 bytes fail on the
+DP800:
 
-It can be interesting to know what the total time of all the tests took.
-Instead of just seeing the time for each individual test, at the end of
-the test (even on failure) show the total time the test took to complete.
-This can also help identify if something has changed in the setup that
-should be investigated if the times suddenly increase drastically.
+  usbtmc 1-1.3:1.0: Unable to send data, error -71
 
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Tested on a DP832A and a DS1054Z.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- tools/testing/ktest/ktest.pl | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/usb/class/usbtmc.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tools/testing/ktest/ktest.pl b/tools/testing/ktest/ktest.pl
-index f94ed2e98887..29d29c40807b 100755
---- a/tools/testing/ktest/ktest.pl
-+++ b/tools/testing/ktest/ktest.pl
-@@ -227,6 +227,7 @@ my $build_time;
- my $install_time;
- my $reboot_time;
- my $test_time;
-+my $start_run_time;
- 
- my $warning_found = 0;
- 
-@@ -1609,6 +1610,14 @@ sub run_post_ktest {
-     $post_ktest_done = 1;
- }
- 
-+sub show_run_time {
-+    return if (!$start_run_time);
-+    my $end_run_time = time;
-+    doprint "\n   Total run time: ";
-+    show_time($end_run_time - $start_run_time);
-+    doprint "\n";
-+}
-+
- sub dodie {
-     # avoid recursion
-     return if ($in_die);
-@@ -1631,6 +1640,8 @@ sub dodie {
- 	`$power_off`;
-     }
- 
-+    show_run_time();
-+
-     if (defined($opt{"LOG_FILE"})) {
- 	print " See $opt{LOG_FILE} for more info.\n";
-     }
-@@ -4534,6 +4545,8 @@ print_test_preamble 0;
- 
- $SIG{INT} = qw(cancel_test);
- 
-+$start_run_time = time;
-+
- # First we need to do is the builds
- for (my $i = 1; $i <= $opt{"NUM_TESTS"}; $i++) {
- 
-@@ -4766,6 +4779,8 @@ if ($email_when_finished) {
- 	"$successes of $opt{NUM_TESTS} tests started at $script_start_time were successful!");
- }
- 
-+show_run_time();
-+
- if (defined($opt{"LOG_FILE"})) {
-     print "\n See $opt{LOG_FILE} for the record of results.\n\n";
-     close LOG;
+diff --git a/drivers/usb/class/usbtmc.c b/drivers/usb/class/usbtmc.c
+index 679ab5908e203..861913b9de918 100644
+--- a/drivers/usb/class/usbtmc.c
++++ b/drivers/usb/class/usbtmc.c
+@@ -60,6 +60,8 @@ MODULE_DEVICE_TABLE(usb, usbtmc_devices);
+  * device's packet boundaries are preserved.
+  */
+ static const struct usb_device_id usbtmc_packet_io_devices[] = {
++	{ USB_DEVICE(0x1ab1, 0x04ce) },	/* Rigol DS1000Z family */
++	{ USB_DEVICE(0x1ab1, 0x0e11) },	/* Rigol DP800 family */
+ 	{ USB_DEVICE(0xf4ec, 0x1220) },	/* Siglent SDM4065A-SC */
+ 	{ } /* terminating entry */
+ };
+
 -- 
 2.53.0
 
