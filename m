@@ -1,99 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792522456;
-	b=2IdU1mOV/SpPby3Q3dhAqHNhrZE3WVCzEh/ABcoLVXD3WDo/8/ZTfs2ATnvqSuHfUCFD
-	 tPC3ybTwET8Zqx8QgMn4eetdkPG/eaEZdIkLhWzgzabxD2MINpUyYMGPVwil2L4EVb2mQ
-	 zjd5pTpFhTmcTXCbE9NMLnZI5wqMTrfsd8onv5K0P+uML1GIReaeoC+CCfs4EmJrZfNZK
-	 ol8Nfs+zNCUD8G/jxQAEXwNazM8gKtiJtqVRSk68ECy8vI8uuh3Zq45YoCMtjDbst8Ero
-	 TngbbaORddl7tWceW8rKZARgTZaaOGvzPRfmkNVEuT4eIvzu5rnzWpj0uAOBbVhwzag==
+	t=1792522483;
+	b=jzj+mIj/I789T6bqjwB1JmBS+UcOXpniq0kq+EZCzzXkmRzBG1/bmE/E34jpDdfYNZDe
+	 L4C0/DxbB6UOxfXHr9LPIzhIRYGEUO0T9hiC0scIJz+TxxWXA2+Pdnot4Wzd31JNRdptk
+	 PkJreuwy/lMqyxe0KZq96SlS8XDFYdgGVA+83BCiPnf+FJBcb9Y28XMxYTM3CHd3xnqb3
+	 rxORpr/qBRXyqMgbo+J1Piwk5EGfht8wZFwf8LH6IXS3yXexABTGroIUTSh12YJ1kWQLV
+	 kfeVjsxRAf/ehKwqlOZW9rcSGxaYs0neYqWthOUEtI6Ne0PReYzrJpiy1QGhTVYWjMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792522456;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=pgQtG3vnk+bWjLiiQyxn/AA9Q7BaiyxLmpP3Dp0sSVk=;
-	b=FBa5O9ostS9VmVxUAUGxMl3/zYx1xkGPGVAyChmh0Pfvz48bGISIHuhME+VZq+ZzxsNo
-	 7dVNIg6EVB2vOcY/WDi+D53Fg9Q4aB3uiVPw9tKMdsUFQAeTVfNO44dxDQapMjtURJycM
-	 /uQYq73dPZrBe2vcZnEkQHv0B93rfjMw5L7E5AMwynqvWaDQ/wmfwHjcrfq8QkPy0QjKs
-	 ONLP+YGnEfLyMl7wGu6LVJWtmPfdW+ycfJquDq1ShD8OsKNyLnjxoQH8eJcFZEZJZeGmr
-	 /iQY22xnFULAJcd/GCuo2CihKmebNz2Phd0NcDCtkRVzztuhkSnc2aGNtP3QPaLvz5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792522483;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Gv37jKTovYwPpi+mAZX6EXS4G9Iivo86YVUQKN9nrMg=;
+	b=1IIAdXn22fijHAdFy9O+1oo14BS838ifDI//UHNtCGTwaUEMmTEELWdFi2qjLUEIbSSF
+	 2E+UDPrQGvablox0vh/wYl7uJRZujm46do3be0OkGwCaRh0ketqhllwOrnZt3q4FJ0OOC
+	 xCq3W5R9QisJLka8Yq0+zEoC17L++/gId+LGuusF0Yfc1WapMurJx9IYiTBsM+2VxPpeQ
+	 XKMr3vQzkusjoIpLT7aB94Y6Etxg1TDqUzPAL+22tBBfb+2kpK2sk/5jdfPNWu8OZh/ny
+	 HS9ui29js8ZnegT122nXsvR4gx+v05gpGrNEfuH2e4r1rCnNxui0/2wR5e4dbFvNkeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GkUodeA9;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=io6yBBsk;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=chzPD2Bt;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0048606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:54:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0048606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088BA606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:54:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 088BA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GkUodeA9
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48dfbf48b92so370545f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 11:54:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792522454; x=1793127254; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pgQtG3vnk+bWjLiiQyxn/AA9Q7BaiyxLmpP3Dp0sSVk=;
-        b=GkUodeA9n4Im8HwoXs1SuuEb0pDdQyTB0NnmRg+K3F9ZT8PIX9Cgq2bXbuw7BC1Oqe
-         SfrSe0kQ6uxBHt3Iw/NwZRa6h/So6OvOGFhMuvw/4n5/m0uW1HYrLkvCw4ixcOE/MAnp
-         H3NpFXFuVp2GYtz6mUFESNrVsnhU54DKGsaelkWq3ZQyxN+klSgm1CrWCWk+iV4Kmw3t
-         LTiJjfnzWPcD5Q1QTq1UZQu234vYsh5qJC01KwTad+2cAIKmCppD7421GBXFBiPRGgd2
-         mTX9xwa6/kpvlXyU9+K1W29hMePUdHRQp6yAsD851nINEip9DBlAtTfCHHfPE7Yreg9n
-         dzqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792522454; x=1793127254;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pgQtG3vnk+bWjLiiQyxn/AA9Q7BaiyxLmpP3Dp0sSVk=;
-        b=koHug22YCxrC4ukfyJqyC+wf7GYJ5Zyl5kj414/MllzKMAPv7KfHaqDgVHTfQne9Vs
-         oOrMSjVUkpJ4Z1lj3dcGnLyut6rJ2uikSXFsTwkIVBD08nU7P22r19N4T3Uhv3aH0+RG
-         /i5A3ncrTnfT9NIUhm/sOlAN5CGXQOj1gNOV1gntz2b5LETn7V0nQG10sZBaKiGTXK5I
-         I+bmu4LA63IBGHNZVL3iY0lFRdaTGFpgQFikgArJUPovzAxvlPGcwDx5gvE8oP9JUflH
-         nnz5t27ztYU3oaBqZEJ7u4z9S2IHPlc39/0f6O31z6pvWUwrYg/Q11ivq44cgisck2En
-         sTgA==
-X-Gm-Message-State: AFq9FYLvSFcK1/RAGygzhGT+ksBtFq002/BGb3ZJrl88Ef+WYn7PGIz1
-	h6zH3AEtE/BjMX6SaY2bKNizu3vl5L4nTuE5QnZbZ1LzbxchxmIX3Pxs
-X-Gm-Gg: AYBFou1UVXmQHG8K6yR5S0bxxz2SXVnQw0NJjCy1ZtDpDTrabltgtY6qol9IqI5pQkw
-	xtaZej3BMmlKf4tq895yCHSiPLRNNdKMKJOmRE74fsCJsm2mJ3suWlZSb1qaQ1+eLzgkBKM4pOB
-	1qWVgXRpADLESeItmVhrQij068PFx5GeKsnm9GGDfoPwOYkJYP7OzFU0G/mo0erfi6YJ+xWCDtw
-	3Ax+R33be6Ul5+J4C8QuBtx07pOFDzHhzIflKwGYnvirsjESRomyF7PziC6Kek59HL65UUyUBLY
-	Z13afuqk4TqZ6vG0mYaYDOo8Er3hadHKFpvgMnxElVJTBBxAQqtIh02BHPyLgkEh8EPnWjoUjaM
-	6ma7l5POD2WziEX78MAMJlVc2ek9OIPz/+z2/TAmg5+rNSv61Hg6NSawFvz5a2hgEp1jfMz1n8F
-	WaZR+e6H48IfOSLGhv6kfTqMhsRprDkCgnEjAPOvd5MF1YRCwiflJEd1yYAQICx0AdkkpChmRGc
-	mS7Pj2ecHyxu7LnYIqFSQ==
-X-Received: by 2002:a05:600c:3512:b0:4a1:b027:99ef with SMTP id 5b1f17b1804b1-4a1d7601f29mr237231285e9.2.1792522453895;
-        Tue, 20 Oct 2026 11:54:13 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fb845dc2sm15895005e9.8.2026.10.20.11.54.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 11:54:13 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Ricardo Neri <ricardo.neri-calderon@linux.intel.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org,
-	Kayra Cizmeci <kayracizmeci@gmail.com>
-Subject: [PATCH v2] sched/cache: Ignore non-fair current in alb_break_llc()
-Date: Tue, 20 Oct 2026 21:54:01 +0300
-Message-ID: <20261020185402.57017-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=io6yBBsk;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=chzPD2Bt
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792522479; bh=Gv37jKTovYwPpi+mAZX6EXS
+	4G9Iivo86YVUQKN9nrMg=; b=io6yBBskYojib9aiBYbzQ2EA0zx/VihK1rPVonGnD0ag4CTGgT
+	IU8LEmzzxeYPzHJvkPRCVdo1QncdjelCAEtCyydaTqTkjiEEKXV5SR6K68Z0OPAnq0Q64dc9EgD
+	tU6Q12DuLUp0L2cOYZmFmqNOT190KxZ7j5nbgZWwbsB5zBI2+azcaiwyERlYrjl9mFriP/RP19u
+	n5JXcjsWUgi4FEnyaZgWwxXha0xOmblW04GICyEVdzkzNi0CYrv477YiTW8VI21Kz4vWLgdSlnd
+	2GlPWJCjfssMoEDMF4nH1TV73/PdVYZUsMbaePXVsvfYGgrTTzslcyJV5ujXza4cqDQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792522479; bh=Gv37jKTovYwPpi+mAZX6EXS
+	4G9Iivo86YVUQKN9nrMg=; b=chzPD2BtHJNgjIrGMseWc4pW6nXJH19ekUD8QHLnRp1cdoCTjn
+	Vdy53VjgTvKSLXqb4cpnsFyj2ZQiMQAH/xAg==;
+Date: Tue, 20 Oct 2026 19:54:38 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, paulmck@kernel.org,
+ torvalds@linux-foundation.org
+CC: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
+In-Reply-To: <2f65337241e230cd26c130bc3183ad230c7c40e4.camel@physik.fu-berlin.de>
+References: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop> <2f65337241e230cd26c130bc3183ad230c7c40e4.camel@physik.fu-berlin.de>
+Message-ID: <62138DD6-F054-4992-810C-EDE92C835346@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,54 +65,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Commit d6b9afab44e23 ("sched/cache: Fix
-checking active load balance by only considering the CFS task")
-stopped using task_util() for non-fair cur.
+On 20 October 2026 19:48:32 BST, John Paul Adrian Glaubitz
+<glaubitz@physik.fu-berlin.de> wrote:
+>Hi Paul,
+>
+>On Fri, 2026-10-16 at 20:51 -0700, Paul E. McKenney wrote:
+>> However, it sadly does not permit easy implementation of all algorithms
+>> needing on two-byte atomic operations because there are some systems
+>still
+>> supported by Linux that do not have native two-byte store instructions.
+>> There is reason to believe that these systems will soon no longer be
+>> supported by Linux.
+>
+>Since this paragraph has produced a headline today [1], would you mind
+>clarifying what you meant here? What architectures are you talking about?
+>
+>Thanks,
+>Adrian
+>
+>> [1] https://www.phoronix.com/news/Linux-7.4-Two-Byte-CMPXCHG
 
-__active_load_balance_cpu_stop() calls detach_one_task(), that only looks
-to cfs_tasks list. So if the rq->curr is not fair, doing a decision
-according to it is wrong, since we only migrate tasks that is fair.
+Annoyingly my name isn't on there :(
 
-Commit f0d243a96f26 ("sched/fair: Avoid creating misfits during
-cache-aware balancing") passes cur to task_misfits_asym_cpu()
-without checking if the cur is in fair class or not. Fix this.
+But I'm happy it IS a headline :)
 
-Fixes: f0d243a96f26 ("sched/fair: Avoid creating misfits during cache-aware balancing")
-Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
----
-Changes v1->v2:
-* Add suggested comment (Tim Chen :>)
-* Change the changelog so that it says the issue is passing a
-  non-fair cur to task_misfits_asym_cpu()
+>
+>
 
-This versions not compile-tested. Tho only change is this comment,
-so it should be fine. Right? ;-).
-
- kernel/sched/fair.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 0feec172fd37..9d7fd6cec376 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -11016,7 +11016,14 @@ alb_break_llc(struct lb_env *env)
- 			return true;
- 
- 		cur = rcu_dereference_all(env->src_rq->curr);
--		if (cur && cur->sched_class == &fair_sched_class)
-+		/*
-+		 * Active balance only detaches CFS tasks, so a non-fair
-+		 * curr is never migrated. Ignore it and avoid using its
-+		 * stale util in the misfit and LLC checks.
-+		 */
-+		if (cur && cur->sched_class != &fair_sched_class)
-+			cur = NULL;
-+		if (cur)
- 			util = task_util(cur);
- 
- 		if (task_misfits_asym_cpu(env, cur) ||
--- 
-2.53.0
-
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
