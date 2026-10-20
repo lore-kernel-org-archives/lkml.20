@@ -1,137 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487054;
-	b=PV3rb1/02R2qFM+AnxeT2/3wd+AoNMwu+0+cLm3EQtN5lk3grR8u+qJDvafxYT+v1pky
-	 REpba4UEbaPYI/Z3SB2m9aTbrceZbA9P3KQVhCaSTYVkvNiDQSmqd6yruo/VHkZS1IWBG
-	 M7A8Ujye4UwIGneGBrNzv/gXkXFoNsMjZo+ocoumLe3B5z3Cuy26xScrcd5rc2xcfG6s6
-	 i1eCZdWey/Si03WwAlcoX8AJC7TmtGtZHwPo39WiEHW4MwH3ZnF227BYmnnIN8iawMgFh
-	 G+fgY7+cp7YQjS7gmccOUvWkz6t5jdAwAOri5xXWn43awIbuOl/Hkb0qulKTsSjncPw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487054;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=wzX1TW2NwI+yWssGoHbGc+/K6ykZuk0NhVu5SB7QmUk=;
-	b=MHl8mIoh2KfxOrsTm1wxysn4V7pFAceZot/PaRCEa46lqeZidUAGBke/TCX39PRwWaIn
-	 no62tsLutlHBujXExAUGCfWa8amUdFmw9tzW0xTeuXCO1j/W53a8+rJtbhAFdk7o+0Zup
-	 uUKE1bMWRSy4IvmamajBzcOjxDz+9H70mtxQ7nuU57abdckv3/ZVag4Y80KKCZQkhLw8e
-	 rQyuVqxuTFXCDaRse+b9DvbijMT3bIjsPAc0rSkvCQwp56h6EtWZmW86eLcESRfI0qWss
-	 mlorrPMFno3UVIpCkg3moNrOo/BBD3gojL//4EjmCsod75215LIghhv1xB1+rcAt7EQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CP0BhtAm;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bSpvEH87;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792487050;
+	b=ljxKfBU5tjWhUUdYEkOpbXeIjZSZo8G2B3ZUbAdFdSNcor84KPSGTKpnfbJNuJ5sq5E+
+	 65I0mRwd3tcNxT+ywMJIY2utcmCysWNgBOH5dV9tP8VfLw/13kpgUQlF7ZEP+cB8+Xbo5
+	 o+mvGi8vA+SNY2pq9sz7Cm8d3iVQ23LTNGfXppJn4OhuvWXR3YGsWc8m9hl3bA/i2j5jj
+	 LNXazg6wZzrsww62bgUlrrSGCSwxzhus2Fwpt21b0xJDAdw+yZk+uKvJy65o9yqCxYDLK
+	 r8mczqKyZidUre+B7wXS5YdnsGuG3y8E23bJX5Q+BJdRuppq5g9T1oOXuZ095+2vHLQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487050;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Feedback-ID:X-Zoho-CM-AccountID:X-ZohoMailClient;
+	bh=7fPwpHZdaKLM+cMIv4LZwyyUgYl642IcMfN3iFx5WTo=;
+	b=PKEXsrmw3B4l3D+ytWP0JXXIpjC8hxQYzMgnxExmwX/4wEBhwVOELuXtmUV87WgJBSOx
+	 kohH8pthaYJRR16Oge662t+2VgcWhjqhDQNcoEy+uRwG0LprfyDnotswti+t1N0LI2CM1
+	 T2m2j0z4tIlYtw9xCs2K96z/DGpLKWNZCbF72rmMxd0I1G/6E2fFFhmdS5LeyVLkjBoM7
+	 3MlVXMi088bYx4gZ8tdHgpPCNY3zLJe3jFEdHXCuZlLHBj9wTDIi/s6JeXaYKTlsYTLy0
+	 xjjvb9dN3GSxeHWHb1U3Gxu4lrh310+vltwfruWR4Q8sD7eBdb81o06bwyDfx7TMHAg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.com;
+	spf=pass smtp.mailfrom=zohomail.com;
+	dkim=pass header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=Ygns+KRG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
+Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2265606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:04:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2265606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C467606A31B;
+	Tue, 20 Oct 2026 09:04:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C467606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CP0BhtAm;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bSpvEH87
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8QrUG1254226
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:04:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=wzX1TW2NwI+yWssGoHbGc+/K
-	6ykZuk0NhVu5SB7QmUk=; b=CP0BhtAmyCT6JyLAkmqWdyIfIqbOfM4Nfxl5Nrdu
-	KmRJTmyZosrBtw/iaRX1wdVgSBjVPmUIMVhWovX6ncpqb9k9WXXADINBVivRrH0q
-	TbLtJ84eSTo0UiODkhGpq4usdA8zwPF8z83+bxw26VUz8YVWBXoT4OUEyYGJV6Hy
-	OgFc1mR7lwPS/vEnfHXLIdHIAO3H+a5M657e0Cav7BGQx7B6qT0TPsmMJxpLhtty
-	uuZHLlvmiZB+dNueEAJs3pxrSQyBMvj80JBx9FHzhsiKpg8dHXXPrNyE39DliMTJ
-	Z3DLcT0g7H9c2ntNhXDqgb+0OGyskd802zcs65EcThsnsA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n9rbf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:04:13 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-934963b2bc0so616473685a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:04:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792487052; x=1793091852; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wzX1TW2NwI+yWssGoHbGc+/K6ykZuk0NhVu5SB7QmUk=;
-        b=bSpvEH87sYF5X9Do9f74ghqyunqFSAT5x2b5vT7JYTeuCIK4yND76EmlHKuX1E2t1W
-         zdLOmCaCEg3BctVhP6zkJ9NubH8p07JZ9b2DYi0qkUr/GjauUelho4ssezuiIst0asKW
-         AyqeSqy+e6mGg+vjewwHEEH3igSEFtLtgvRwEBRnckY9aC2P13f1QywEVoQZlAWJToZF
-         Uat9pTO+aVyo+JvJxYMkiHXYZw9F/qYijHVa9nfwZc0FWs0001yyhPS6evjhaLX94B9c
-         nwG4AtYlpOachqr4KjTuycuMZTyZY2eKMz8/qUnZmZGWMfv0Y8MIoPoahAGcKQNZkrJC
-         CWJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792487052; x=1793091852;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wzX1TW2NwI+yWssGoHbGc+/K6ykZuk0NhVu5SB7QmUk=;
-        b=lkyBKkvrZfVbMt5kyk858flZBmlGpuBTzw6ojXrDux+WOgpfFSSrKB4Lz3EmkD9YWW
-         x9exGq6K2hNGd7DGs40jdwInmfsF9vN3G0S2ToZCAplUsM0xQiI/kiyE5mUDtDoaxJA9
-         fjERStfiGmJO8FNGcLffjRZCIv786ZgO7FkNHsCW26D+uh3W77uvlNXiwHej64qcGKoi
-         WVi6MU/Xx8yHxiA/hhUvQuWGP2NH4JFZ6PBTrZWnqO3f5sxkKiMzoEDrEBLhedNz4KDb
-         J6Sp0QObXJfBknvHWjzdMAVSvu4f6lF0LOkwd1nZklQX4AWTGTtj7qTxAScl4KmOd9Pa
-         RSHw==
-X-Forwarded-Encrypted: i=1; AKwUvBwavEqROj1B+uE2/IeQJ+4P3ThB++FdSlSNsbEWrQ8cgSAZnhE6L+OZyj9hmz4XMIgV0NrRMeNPRO6hLN4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqk/K8/ifA9QeH/x0HxOogmXQrEe3rK0aclsmONJylOjaWYimR
-	MLaWnZE5AgsxyMA8CJwu9NBVU81oAMoUtcJtAbDDCsPmW6Ih509yNfIo1Bgt1gsN+SHqLkdjV7Z
-	sxceTFj1+KcpgZYNgnKS6x0mfW/anWEsCqUhQRcglve8iSBb9L3XjfvZeXHJr00NSVSE=
-X-Gm-Gg: AYBFou3EPB/fMZ+vHoJ4ekWgW3wjZpOgYqG/MIaQSQpbm3f3BRHICxGNZjlhkr3VOft
-	4QInkN6VXziecJhak21hPY8d7Wl+xS7//lWloQ6d24waGFK/T2HJIL4rURRFjFHudol8nyFtYqz
-	Xyq2YZZwO5I/ywBLboObT94Mou3No1Jn3ZoyCOq23bnRVZzc6lHXegzUdWeIKRChR8NQWgKwA/Z
-	nPUemfDIzOtTqQQmkN2QVU6OO5iugHaSWxOA2v0vo1WwsCN0MHlwm4VzwzBLDmMjJH6aT8sqrZv
-	QNo4ZrE8U/uA1pZdJJ6MedIP3SIoWJvFCZQgFjFX2F2CiVy/S2FEAenkbv2HS/V3O7cWgobPmAE
-	vRWZs5YcpXQP7MHHjvSH8PMy8FYfLMcs0J6Eu3a7y8VUd5PTH118uQDcpQEUb1gPAASz0lTc0fE
-	5K/NZLwo6ckeIS
-X-Received: by 2002:a05:620a:17aa:b0:93f:277b:313d with SMTP id af79cd13be357-93f29b9742bmr1724721985a.2.1792487052071;
-        Tue, 20 Oct 2026 02:04:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:17aa:b0:93f:277b:313d with SMTP id af79cd13be357-93f29b9742bmr1724715685a.2.1792487051406;
-        Tue, 20 Oct 2026 02:04:11 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a434e4csm2531830e87.42.2026.10.20.02.04.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 02:04:07 -0700 (PDT)
-Date: Tue, 20 Oct 2026 12:04:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Joonwoo Park <joonwoop@codeaurora.org>,
-        Imran Khan <kimran@codeaurora.org>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Ilia Lin <ilialin@codeaurora.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Yassine Oudjana <y.oudjana@protonmail.com>,
-        Dmitry Baryshkov <lumag@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 06/10] clk: qcom: mmcc-msm8996: keep mmss_mmagic_maxi_clk
- always enabled
-Message-ID: <vs77pfhgismmyrx4ftmsrl5hylwcjpxirnjdw46c6wu2jcvczl@4wbizp5p247u>
-References: <20261019-msm8998-fix-clocks-v1-0-370949e4d8a0@oss.qualcomm.com>
- <20261019-msm8998-fix-clocks-v1-6-370949e4d8a0@oss.qualcomm.com>
- <3de40458-7d7e-4cd8-a200-746e4c2adb13@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=Ygns+KRG
+ARC-Seal: i=1; a=rsa-sha256; t=1792487043; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Vd+iqqYgcnztG2eiQgRJHxPpTzZqpsiiyYb6EYyrKOZwR8D2Wvrx/ouWOwnV57tg2ybLROmQeIUtQnMwVxScuaW5qYF9wqqiwSGRQxaPpOdbg5B5F9pAD9On84tcvFg8ZEoArq4gSKMokBghMwGMGchDiOVlnUBPaj3P3oGgyhM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792487043; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7fPwpHZdaKLM+cMIv4LZwyyUgYl642IcMfN3iFx5WTo=; 
+	b=OwYflvt+/uvzJV/lB6Vd7WNq7epnqU/wDo4Da+i/FVtq7Hlr1GwxGZeebFWxkVWbBllzrihjr/Wj1EZrIoDbJ06vb0IziXZi8ZSb1AsSbxciS1ISbh8Yym9Rjf7VQ/+WzpALYR8sJCZLlQBrqrw6mK8hxXyfwQMMg0rANzsSc94=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792487042;
+	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=7fPwpHZdaKLM+cMIv4LZwyyUgYl642IcMfN3iFx5WTo=;
+	b=Ygns+KRGad2+ixoJMBgdu2H/GwBo3bBEgCb0NW6mHNKWd5VK5PplEXDkhTMbERzf
+	CUrqlQCNyE7GCMpoFXpAITBh7nJC8K2Xfv1mM/rOZfHnftrv6DNHG9PG0ZAB3PS1AtS
+	zRcr9vEYwfNClpd3GwSbm1ElBO7hp0kRABGcLPW4=
+Received: by smtp.zohomail.com with SMTPS id 1792487040338487.1605834647628;
+	Tue, 20 Oct 2026 02:04:00 -0700 (PDT)
+From: Li Ming <ming.li@zohomail.com>
+To: dave@stgolabs.net,
+	jic23@kernel.org,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	vishal.l.verma@intel.com,
+	djbw@kernel.org,
+	iweiny@kernel.org,
+	icheng@nvidia.com
+Cc: linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/1] cxl/mbox: Return success for CXL_MBOX_CMD_RC_BACKGROUND
+Date: Tue, 20 Oct 2026 17:03:52 +0800
+Message-ID: <20261020090352.939795-1-ming.li@zohomail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -141,67 +77,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3de40458-7d7e-4cd8-a200-746e4c2adb13@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: krD8Nv0DKkHFEbSnUVAGCqwAg-6E1lNh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzNSBTYWx0ZWRfX0xOi8VMrsGf2
- D0szIxQ280iATqZq+IkXcXMZtgGSEJsHyfxRkyrKv/8msQzRlPI1BIwc+fsusiQW70xOcoSs66L
- cgcH3/QXs/j+Fk0rytPjDUkQpqsmvraiwlxSdNA1qFO6t1W1DJG7+wGXH7wwsivj+5LoihpEZdI
- ibNH+i6MyMsQj8+kY9ExeEaeF4UhkP/B70Yesbd61MIOab+/cfbTebB0jfMYjkgn0MBC4lMmTiu
- 7fPDmpDalR+fs5jD83MxMOO1dG5PCt0LHTLLmME6U+kHtTZWQHayzJU2FWEZWpjgy9Uvp53nSFD
- 0ScoO9w9KKnh3dMCADuvIz+UPl3Ix0/JatpfP4mWgpWjQANSrfoSAlwTYcI/dMvi0Mcqzlt8apY
- oABkiC4YsbRYIbhjrZIsqLFd2b7+O8+gjAlP44RbG3moVAyIoAE3RpRFg7Z2+DnsvoLW325PdIK
- 397NCGNJdrZmFo/DFGQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzNSBTYWx0ZWRfX+ctkRpwYPxtR
- j1qME1+JbfrnP6xGnVfiIT6XcOqMVtFFF59Ec2mRbKtwcg1/RmQKpYejFQyKREYxibTNVZATWl3
- ioqNKg0Rqz3VwCZSt3A7lkYC93HQKRE=
-X-Authority-Analysis: v=2.4 cv=VI9IDNPX c=1 sm=1 tr=0 ts=6ad72e8d cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=_XvO8LXBJ3Q0iDersrIA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: krD8Nv0DKkHFEbSnUVAGCqwAg-6E1lNh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200035
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227fdfea7f0d3ae05f633b0e33600003d7850d29c2723e9caaa549eaddca363334bda772185edfd3d:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-On Tue, Oct 20, 2026 at 10:35:36AM +0200, Konrad Dybcio wrote:
-> On 10/19/26 3:41 PM, Dmitry Baryshkov wrote:
-> > Enabling vmem_maxi_clk fails with -EBUSY, the branch never leaving halt
-> > ("vmem_maxi_clk status stuck at 'off'"), which makes the VMEM block
-> > unusable. The MAXI branches sit behind the MMAGIC aggregator, so they
-> > cannot leave halt unless mmss_mmagic_maxi_clk is running.
-> > 
-> > Commit 7705bb7176b9 ("clk: qcom: mmcc-msm8996: leave all mmagic gdscs
-> > and clocks always enabled") marked the MMAGIC clocks CLK_IS_CRITICAL
-> > because there is no bus driver to manage them, but missed this one: its
-> > siblings mmss_mmagic_ahb_clk, mmagic_video_axi_clk and
-> > mmagic_video_noc_cfg_ahb_clk all carry the flag while
-> > mmss_mmagic_maxi_clk does not.
-> > 
-> > Mark it CLK_IS_CRITICAL as well.
-> > 
-> > Note that the halt bit is truthful here and must not be papered over
-> > with BRANCH_HALT_SKIP: touching the block while its AXI clock is off
-> > silently resets the SoC.
-> 
-> Will the right fix forward be to grab a handle to all of mmagic
-> for MNoC and activate them as needed? CLK_IS_CRITICAL is obviously
-> a workaround
+In CXL subsystem, each mbox command hw return code is mapped to a
+corresponding errno value. Currently, CXL_MBOX_CMD_RC_BACKGROUND is
+mapped to -ENXIO.
 
-Most likely. Some of the clocks might need to be removed from the voting
-model at all. I'd say that it's a separate set of fixes, possibly
-affecting other platforms too. I have it on my todo list, but it's
-long...
+However, a BACKGROUND hw return code indicates that the command has been
+accepted by the device and continues execution asynchronously. It does
+not indicate a command failure.
 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Return 0 instead of -ENXIO for CXL_MBOX_CMD_RC_BACKGROUND so that
+callers do not treat a successfully started background operation as an
+error.
 
+Fixes: 92fcc1abab09 ("cxl/mbox: Improve handling of mbox_cmd hw return codes")
+Signed-off-by: Li Ming <ming.li@zohomail.com>
+---
+ drivers/cxl/cxlmem.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+index c401e3a1af06..cc71d7a84cdc 100644
+--- a/drivers/cxl/cxlmem.h
++++ b/drivers/cxl/cxlmem.h
+@@ -160,7 +160,7 @@ static inline struct cxl_ep *cxl_ep_load(struct cxl_port *port,
+  */
+ #define CMD_CMD_RC_TABLE							\
+ 	C(SUCCESS, 0, NULL),							\
+-	C(BACKGROUND, -ENXIO, "background cmd started successfully"),           \
++	C(BACKGROUND, 0, "background cmd started successfully"),		\
+ 	C(INPUT, -ENXIO, "cmd input was invalid"),				\
+ 	C(UNSUPPORTED, -ENXIO, "cmd is not supported"),				\
+ 	C(INTERNAL, -ENXIO, "internal device error"),				\
 -- 
-With best wishes
-Dmitry
+2.43.0
+
