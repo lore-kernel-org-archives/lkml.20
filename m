@@ -1,61 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792525948;
-	b=146t4Pw8wTLz9O0iGMevcPY+nRjoIkis/DfPtrnn+CZf+zUXExybgzR9rrcXvEszhDV3
-	 EZpEuzkNIsXObXd4Y9ioVsvTPaQXK4FkcIkjYeasLWzMxCuB5HBJYEshYhlFaQ7jz/vVQ
-	 UNJvNPaoZnYhfxt3aJ7PmzxM8FV7R/9DMmyDvkbxPGdb+9RAMCakoHXfZmf/0K40A0FMg
-	 cpTMBsUZBEeXULDGsUuWrfx5MD9u8YUvKfDHI58OuuLRmrOCMKxYzRKmek5q1/HuqYv+j
-	 OPL4YvpbvmuEXgMsBJH5bebZgP3zv3q/HOLVAg2MPNUCOp5LoiEDOpqx+hFJhjdl33Q==
+	t=1792525953;
+	b=4zjJzsNacFXukcilStnIjyCMoBMF/vUheTDNYf6OK0qMmnOAvrPeOUnquNkL4ZGQPaKD
+	 +e7ZhhvW0kxXuvqEMzKCs44kBWXmUXRhI/ZTDUlRx4s3k73WZyiQPMRsoSFOFbiROP+46
+	 4BfyvzI+an7dzZmgJPZJXWTMS+zbX6ITxklPzrvqGhJ/mwFxmOw5S/UNOGZC3jYUzw8U3
+	 xgq1U8WJ76J/c5awge1xKjifmOXCCFgwz7ggL9AYnVaOFqzPa98y+FVXUCYgZPQj3rd9b
+	 UL4T730LvaXxhDlDr+Y1d4ZsjMLdv3yRJLdsahqgz1N5OtgvKLKmCoY8YzfS8Ya+9vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792525948;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=TVMsvylpP/ZnU9JYZOI0/TB/0MO1mUWfwPXWOVftonM=;
-	b=C36l82CThl96/Tw5wSIT5oIhooyJocGcEeOX976WFC0lqk12b2BBUyUOknEyYS3NMqw0
-	 35QGBfpSpexZKDiT8EMndcfpDn2nVfX3V/RfGFcsavdrAk12taCwKGBlTgeIaybb7JxJD
-	 /emMR1jrCRZ9+PoVTa3cVbQjPwhbBoTZzYSxnTxRfQenZ0t35trl+9H0vynzvjfFxzCWr
-	 oK7iKKod5775zdLXGSshMa5kT1uXoAoN7zBAab+euPPQT/kipCC5zicsyGNQPKmEXck3k
-	 ZlwxYrIPSXHBcu3ZEMwSVD65Mur3vJmiRaIncBEkPQWTpfBYxQCfYHqYeJMeSkXlEgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792525953;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=UIlLpTslQoJi/WhjaJsyed+o5SEcLwojJ1nZYarv590=;
+	b=Y1n6pZ2FQRep2ZuYLklvkyvAR1LvaKiGw9CSe6CTS8ZYcPMQ/iWR3JEf1Cpg50e9ywgY
+	 2AHaKtFe1OMmuBVh//RDWbbH41WbfTwyUwvIR/Ve9DHkifskVvLhD+AU5pQPTAWWoD+SH
+	 fi3efqpss8VuQhhHpDuIQgbkxGew1Jq9p0rBVfRZvHnEVkVU29DUmBvAg8xM8b/FIMsrm
+	 UcusI+mkli9RFlakiv7aOCKoTRwLhahjqdyH5rXM3veqtjceTI1YRZvoERdcmkQ1zy0ia
+	 LJHR/gfWnf9L/BB8UaIUStMrEogECBXCRQoAIG/WrK4/Y8MzxJq+iBOXR6Fg1V+N/0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFa2proZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=uNI1Z34g;
+	arc=none smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005F7606A319;
-	Tue, 20 Oct 2026 19:52:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF56606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:52:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BF56606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFa2proZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAA0E1F000C9;
-	Tue, 20 Oct 2026 19:52:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792525947;
-	bh=TVMsvylpP/ZnU9JYZOI0/TB/0MO1mUWfwPXWOVftonM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mFa2proZX+jUFQnsQlkOl07MzBA5N7X6MsJREKldOAdNk8r/B9Ymng9E7CyxgOAE0
-	 PdPm4sj2Aan/brxGWz44oCDxnt7lhQHuu4BX6ApaZDhvVQzFvPKj+Hq589IDsA17a0
-	 f99nAgT7dfJyXuIqVKEp3Un15GK8WZFSgQaU0kIOGuxmkJ9N6jYb0EngSZCwh26TS1
-	 mP5EuBs7otOlGofdqJwu97gb4O8o+0PaHEXz7ThIID4EeqANADC4uXhtM6TWTrg9on
-	 KP3M3CJFcgQ8IL/VNvQv4XK1n16/SPVAbmkf6Zx8zyLuj4SQVexK91eOjjJ+mZR9c5
-	 ANfhoFNfzpWiw==
-Subject: Re: [PATCH net] net: stmmac: fix rx checksum offload with extended
- descriptors
-From: netdev-bot+sashiko@kernel.org
-To: todadzealexi19@proton.me
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 19:52:26 +0000
-Message-ID: <179252594627.3135.13846678930090028029@kernel.org>
-In-Reply-To: <20261016-stmmac-rx-csum-v1-1-986342ec40df@proton.me>
-References: <20261016-stmmac-rx-csum-v1-1-986342ec40df@proton.me>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=uNI1Z34g
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53644b28706so500621cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:52:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792525951; x=1793130751; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UIlLpTslQoJi/WhjaJsyed+o5SEcLwojJ1nZYarv590=;
+        b=uNI1Z34gD8pS88g49jQxXOZaBvAGB0cBTDIgRmV6x9KW0twHtFcBQlmx6HA/N2Fjon
+         p0wEvG0VhrjjGEBCWw+b+VEbzx5e5Pvvi1KlFE7YPYuvGBL3xC2gz690oFUYpsLhSbRR
+         TB4tO5JFjx3mSwEqQOaRU65X1milSpXqeeJc+F+JN2FeC294yraLg6MzCTMvAcWr0geA
+         oQJLuE25SLr3CzajQWwEr/RoHxDGs1XFnpzumziYtG5TMi3GQdF/nURm9jfNB3YUrVGM
+         zB3oFo6091mIAa54aZ/WZkZ6oCmPLQgWbgqbGQV8mc44P1oPJ+q75ShSFIiVtr9yvNts
+         gFnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792525951; x=1793130751;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UIlLpTslQoJi/WhjaJsyed+o5SEcLwojJ1nZYarv590=;
+        b=D8KdKCREPpvg5B+Ded5Cqi0nlj7qWAsPWHUhbe3N83aGDQUTsSOROQBqpN6I6s8Pv8
+         iMPzJgXmodZpMFBie9bSs7eipxZPrDOZdlnIsZ5kwUkaBF7kkNn6UKuM9+H/QwJFl3An
+         FNU3TkBfyS4JAivHU2wCZJEWGuLig2U/6d1V/s9NJKh/kEbz0rc2Pk2NCXeof1adBDqx
+         3D0XtliANPQ4emLeMfMzopDo+NRhRNb9nFJf3/ihkntENtXZT1h2YfrwCuQWc5/eOV8v
+         hWq+IX7/vC+S5KzjdvU1m3+Ak2ReP2GJaihPNMPKfh0fQdsRjHnZobqdFFh3hWYuufZh
+         nZvQ==
+X-Forwarded-Encrypted: i=1; AKwUvByhndCHVMMR5az3er9ZVSO6fNjUeM1O1L5QzfthgaByVLi0fm6H4KjIFcdjsqKWSfRNVd+GUWYDzmB7GIE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLh+4beYhssKivv8RVwb0Xrzk+NMlDXxCdRb4dy1shR6yhLb4PA
+	YmJCw0fZwb94HdJTKdTR0/nmo6JsM9nzrSiKnrvdjvVp5mu6j3Ivoqk9gtJxLc+iuQ==
+X-Gm-Gg: AYBFou2brnl522uFT77edcXT1spE59qN5a8goyhmhvSHfLjEind4z2Eustxi58vhsHl
+	oYqTtg+14YQrG+mCT6nKtX8Q4LlugbePThzU+/X3sOaGrHPBVMhYD3UbCYY9cm/1vZmpC0avyP/
+	B/w+0hBguS06HCOmsf7DfF2E3BNJ/Oc8xwpCn4YJc/VKcIPPFG4s2lo2TVHi6ZCbBXZRiPMkAWy
+	J9qnDvSLhd4VFyt11ULqpNDluGXdtReAnSdO0mCCuNTHq5NxPuaEgbJFjO1hPiDAlUHMqu1fikb
+	XVtPe1Q5Dct2Fqh7aHn8Kepw88+huore4pISXhHcJUyVwOJTutwCXj9SKTYXEzsozfNEEdRGYYP
+	76gD9uirBKWBnV6AeRB/VxKR52ItFoG5gc/zcRwwje9okcWFc3LzKO2swRDo59hcpqY8i3IxxQA
+	v8WspGUDm9KgqOmpqemdlfbfclG+dNUYGYbr8plJsQjJEoDD9iPn86s49zUitEHWlNjdNyQXQIm
+	Q==
+X-Received: by 2002:a05:622a:229d:b0:535:855e:6e25 with SMTP id d75a77b69052e-5364604517bmr169421111cf.47.1792525951439;
+        Tue, 20 Oct 2026 12:52:31 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53698ae6077sm3873891cf.6.2026.10.20.12.52.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 12:52:30 -0700 (PDT)
+Date: Tue, 20 Oct 2026 15:52:28 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: hcd-pci: avoid double disable on surprise removal
+Message-ID: <a25e2100-e01f-49b7-b794-da1027dffedf@rowland.harvard.edu>
+References: <20261020-topic-hub_pci-v1-1-bccdaef0344f@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,194 +95,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-topic-hub_pci-v1-1-bccdaef0344f@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Tue, Oct 20, 2026 at 05:05:39PM +0200, Konrad Dybcio wrote:
+> A PCI HCD can be surprise-removed after suspend_common() disables it
+> and before resume_common() re-enables it. Avoid a second call to
+> pci_disable_device() in the remove path when no enable reference
+> remains.
 
-Critical: 0 · High: 0 (1) · Medium: 3 · Low: 0
+Does the double disable actually cause any problems?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Alan Stern
 
-- [Medium] The fix leaves its own stated root cause in place.
-- [Medium] enh_desc_ext_rx_csum() keeps csum_none whenever RDES0 bit 7
-  (RDES0_IPC_CSUM_ERROR) is set (enh_desc.c:116-118).
-- [Medium] In stmmac_rx() and stmmac_rx_zc(), stmmac_rx_status() reads
-  des0 for the OWN check, and then enh_desc_get_ext_status() reads…
-
-Pre-existing issues:
-- [High] The AF_XDP zero-copy RX path ignores the checksum status from
-  the descriptor.
-
---
-
-net: stmmac: fix rx checksum offload with extended descriptors
-
-This patch changes the extended RX status callback so that it returns a
-status. enh_desc_get_ext_status() now uses RDES4 to upgrade csum_none
-frames to good_frame when the hardware reports a TCP, UDP or ICMP payload
-with no header, payload or bypass error. It also fixes
-ERDES4_IP_PAYLOAD_TYPE_MASK, and stmmac_rx() and stmmac_rx_zc() now use
-the returned status.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> index 0512536012251..7620246f6a441 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> @@ -109,8 +109,26 @@ static int enh_desc_coe_rdes0(int ipc_err, int type, int payload_err)
->  	return ret;
->  }
->  
-> -static void enh_desc_get_ext_status(struct stmmac_extra_stats *x,
-> -				    struct dma_extended_desc *p)
-> +static int enh_desc_ext_rx_csum(u32 rdes0, u32 rdes4, int status)
-> +{
-> +	u32 type = FIELD_GET(ERDES4_IP_PAYLOAD_TYPE_MASK, rdes4);
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  drivers/usb/core/hcd-pci.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/core/hcd-pci.c b/drivers/usb/core/hcd-pci.c
+> index cd223475917ef199511311eda5c6aaef073b0ad4..34c4d352b40c40c54cf17c30fc264833ba05bcd6 100644
+> --- a/drivers/usb/core/hcd-pci.c
+> +++ b/drivers/usb/core/hcd-pci.c
+> @@ -348,7 +348,9 @@ void usb_hcd_pci_remove(struct pci_dev *dev)
+>  	usb_put_hcd(hcd);
+>  	if ((hcd_driver_flags & HCD_MASK) < HCD_USB3)
+>  		pci_free_irq_vectors(dev);
+> -	pci_disable_device(dev);
 > +
-> +	if (status != csum_none || !(rdes0 & RDES0_FRAME_TYPE) ||
-> +	    (rdes0 & RDES0_IPC_CSUM_ERROR))
-> +		return status;
-
-[Severity: Medium]
-The commit message says RDES0 bit 0 is the Extended Status Available flag
-when extended descriptors are used. enh_desc_get_rx_status() still passes
-that bit to the COE table as payload_err:
-
-    ret = enh_desc_coe_rdes0(!!(rdes0 & RDES0_IPC_CSUM_ERROR),
-                             !!(rdes0 & RDES0_FRAME_TYPE),
-                             !!(rdes0 & ERDES0_RX_MAC_ADDR));
-
-This early return only corrects the csum_none rows. With RDES0_FRAME_TYPE
-clear and ESA set, the same misread produces table entry 0x1. If bit 7 is
-also set, for example timestamp available, it produces 0x3. For both,
-enh_desc_coe_rdes0() returns discard_frame:
-
-    else if (status == 0x1)
-        ret = discard_frame;
-    else if (status == 0x3)
-        ret = discard_frame;
-
-Can this still drop valid IEEE 802.3 length-field frames (LLC/SNAP, STP
-BPDUs) that carry extended status? On discard_frame, stmmac_rx() and
-stmmac_rx_zc() release the buffer. When hwts_rx_en is set, rx_errors is
-not incremented either.
-
-The tree doesn't show whether the GMAC sets ESA on 802.3 frames, so this
-depends on hardware behaviour.
-
-The commit message says "Everything else keeps the status from RDES0".
-That seems to include these discarded frames. Would it be more complete
-to stop passing ERDES0_RX_MAC_ADDR into enh_desc_coe_rdes0() for extended
-descriptors, instead of overriding only the csum_none subset?
-
-[Severity: Medium]
-Is RDES0_IPC_CSUM_ERROR the right bit to test here? With extended
-descriptors and advanced timestamping, enh_desc_get_rx_timestamp_status()
-reads RDES0 bit 7 as Timestamp Available:
-
-    if (ats) {
-        struct dma_extended_desc *p = (struct dma_extended_desc *)desc;
-        return (le32_to_cpu(p->basic.des0) & RDES0_IPC_CSUM_ERROR) >> 7;
-
-stmmac_init_timestamping() turns on adv_ts in exactly this configuration:
-
-    else if (priv->extend_desc && priv->dma_cap.atime_stamp)
-        priv->adv_ts = 1;
-
-With HW RX timestamping enabled (for example HWTSTAMP_FILTER_ALL), would
-every timestamped frame take this early return and get its checksum
-verified in software again? The ERDES4_IP_HDR_ERR check just below
-already covers IP header errors.
-
-> +	if (!(rdes4 & (ERDES4_IPV4_PKT_RCVD | ERDES4_IPV6_PKT_RCVD)) ||
-> +	    (rdes4 & (ERDES4_IP_HDR_ERR | ERDES4_IP_PAYLOAD_ERR |
-> +		      ERDES4_IP_CSUM_BYPASSED)))
-> +		return status;
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index b837e8e27a352..efedd050474ff 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5605,8 +5605,9 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
->  			break;
+> +	if (pci_is_enabled(dev))
+> +		pci_disable_device(dev);
+>  }
+>  EXPORT_SYMBOL_GPL(usb_hcd_pci_remove);
 >  
->  		if (priv->extend_desc)
-> -			stmmac_rx_extended_status(priv, &priv->xstats,
-> -						  rx_q->dma_erx + entry);
-> +			status = stmmac_rx_extended_status(priv, &priv->xstats,
-> +							   rx_q->dma_erx + entry,
-> +							   status);
->  		if (unlikely(status == discard_frame)) {
-
-[Severity: High]
-This isn't a bug introduced by this patch, but in stmmac_rx_zc() the
-refined status stored here is only compared against discard_frame and
-rx_not_ls. stmmac_dispatch_skb_zc() takes no status argument. When coe is
-set, it marks every IP frame as verified:
-
-    if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
-        skb_checksum_none_assert(skb);
-    else
-        skb->ip_summed = CHECKSUM_UNNECESSARY;
-
-stmmac_rx(), by contrast, also checks status & csum_none.
-
-dwmac4_wrback_get_rx_status() reports RDES1_IP_HDR_ERROR and
-RDES1_IP_PAYLOAD_ERROR as csum_none, not discard_frame. enh_desc also
-reports payload errors, bypassed checksums and fragments as csum_none.
-
-With an XDP_PASS verdict, can frames with a bad TCP or UDP checksum reach
-the stack as CHECKSUM_UNNECESSARY through
-stmmac_rx_zc()->stmmac_dispatch_skb_zc()?
-
-The commit message says "Frames with a bad TCP, UDP or ICMP checksum, over
-IPv4 and IPv6 and including fragmented UDP, are still dropped". That looks
-true only for stmmac_rx().
-
->  			xsk_buff_free(buf->xdp);
->  			buf->xdp = NULL;
-> @@ -5788,7 +5789,9 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
->  		prefetch(np);
->  
->  		if (priv->extend_desc)
-> -			stmmac_rx_extended_status(priv, &priv->xstats, rx_q->dma_erx + entry);
-> +			status = stmmac_rx_extended_status(priv, &priv->xstats,
-> +							   rx_q->dma_erx + entry,
-> +							   status);
-
-[Severity: Medium]
-Is a dma_rmb() needed between the OWN check in stmmac_rx_status() and this
-read of the extended status? enh_desc_get_ext_status() reads des4
-directly:
-
-    u32 rdes4 = le32_to_cpu(p->des4);
-
-stmmac_tx_clean() has the barrier for the matching TX case:
-
-    /* Make sure descriptor fields are read after reading
-     * the own bit.
-     */
-    dma_rmb();
-
-Before this patch, a stale des4 only skewed the extra_stats counters. Now
-enh_desc_ext_rx_csum() can upgrade csum_none to good_frame based on RDES4
-alone, and stmmac_rx() then sets CHECKSUM_UNNECESSARY.
-
-enh_desc_set_rx_owner() only sets RDES0_OWN, and nothing clears des4 on
-refill. On a weakly ordered CPU, could des4 be loaded before the OWN bit
-and return the previous frame's clean TCP status, even though the new
-frame's RDES4 reports a payload error?
-
-stmmac_rx_zc() has the same gap.
-
->  		if (unlikely(status == discard_frame)) {
->  			page_pool_put_page(rx_q->page_pool, buf->page, 0, true);
->  			buf->page = NULL;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-stmmac-rx-csum-v1-1-986342ec40df%40proton.me
+> 
+> ---
+> base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+> change-id: 20261020-topic-hub_pci-903b8c18d17b
+> 
+> Best regards,
+> -- 
+> Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> 
