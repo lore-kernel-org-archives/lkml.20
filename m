@@ -1,64 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792459560;
-	b=xy7/SasUkCvle3K69QdRad4Fe4rnmFMgOhWT9oADWAyz7tSq/5I8wKPxv7Z1/mYFdLmR
-	 yamc/WDnnkxW0mz39Jg6yHa/TFCivoUKWm2DpNGaQOV66PycHfV3/T5CRMNraOqkpaDD3
-	 krlIKEfmE932M3ADUTNCZJvCIOv4nBfmmtMfnC9DGEHPwjqo85ER7oDBJ3QA7epM2it+S
-	 9hsx+qCAQiMg5zBLoIK4cDADDkkI2Tk2peV4yr/GIXq0yCSgPKQIGJF+LoZYBOmT2hnwP
-	 AvfsVKESXxycEEArix3Fq8FZlR7SnDXR/920FtMwfvTS1beEPqp2eqO8YTwaSWxnqDA==
+	t=1792459565;
+	b=fBH2jb37iv4jq43SzHWWAo4OFxLz19K5frS2hTqoF2xszNuZ0k7Lh0KizMWzAWh1GEAP
+	 Ii+vUNqf9t0YYjdFERzLgc0bFqM6WHZQ8GOab+H2opTwBFUnwYWw+T5BSBrfjWK9P0mMa
+	 gktZNxJK/DDE4nAHdQtr5NKBNeADi4KF6+VBkXp9jX1z29P37aJRchS7fP0CPMfgreIca
+	 FuT1gnU9b9xsZanKmccQYGDMsmfJRWm6es4kSCku0PDB+fE1m0ZXbUb/u3BMmQtVbV9Gy
+	 Yf9deHIXwHX0n6hmR1C17h7X16CUFSOxP6Aac+1CQHUb3Cm0PajfV2oTENZONykdqDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459560;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wSX0ou4En0Loje0VMQSvyBs2WArXvoHO0E4dlLLOqxo=;
-	b=zMaKeLMWvn9ICLAU77Sd0R9r/qWMcv8udOwVfdEOF7OOwBa+oWy19oyCGoypdBRH9x6H
-	 yAFu7zJ028tG5DcQ3DgVX6/6cqvUSHS/vZFwMNIg5SckQ61T8+SEQOSwc/ExUsOab9VNV
-	 rk7ZaPgBfoLOOZkX4tUv2ukXe3fBL8659olVQ7A7xLOEVQXokd44phdL9oftY2NHcl7EA
-	 1+kcx1azyvjZ4r8VF9b3yOx2BtMTxUWFH7QLxgy79HgGSGayVCDxq7yQTgRlO1e9RGyxc
-	 CW9fXKvesIQ0jT32or+ByT9A5udo8WyPmfK/qHd8qQviHJ2nFYBvHEuzHumsnJfx1DQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459565;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=TDPMkG1SQgnWSwQUqpWJz4GemlxwNldPDN0SoLdOdWA=;
+	b=TmExS4uJsZ2qYgcQQm9bFDwRsIx83xPdKMiPvHyxtBI4R6/820+tKL4Cmy7zlcEkut1n
+	 vOXrln3SJEYI5dasUru4TxYpYgJRP3rI6N2SpAqxEzrR0azETmXbQfHzfQKMO4Tgx+5Sq
+	 dlYEDClXl4gQzmy6pa+M6yq1ZQzvlSkVFiaKr2mMWtSouc1ySB8AZo04EjyoS3Jqu05Ae
+	 nEjEYlGBEpv8+K1bpwYowkljW2c1dAhMEEBjxP8EdTiZTjvcLALtGZFYzd5z6IYQqyBZP
+	 1p6P463rGhZH9O9edTdMO7IiBZUFxy8MauZQztbbrkMLa/mw1NirQtTibvykBVcwmhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kJgC9DX8;
-	arc=none smtp.remote-ip=91.218.175.23
-Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dtUKGBhT;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEFD606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:25:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAEFD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBD8606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:26:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EBD8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kJgC9DX8
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6cxA+5Cap6YuVVh878URw7RVJb0ynDru1vwbXqf/Zcg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792459556; v=1; x=1793064356;
- b=kJgC9DX84QK9wuR5Pel/YZV605dqtEWagrLtqqcNdNDFdv+SQb6r0hEc7VETykvPRQs6Tgm1
- NP41AwvhRdbJfDiwfhiOLco3eTbp2gSrNFZtHvPVReRWBngGlagCUJ74Ohrya4EX1V73CrEslYt
- VbA6sx2pY3pF+cCxIUUfjQXk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 83bbbd00093168ec;
-	Tue, 20 Oct 2026 01:25:56 +0000
-X-Mizu-Trace-ID: 83bbbd00093168ec
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 19 Oct 2026 18:25:51 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: syzbot <syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com>, 
-	david@kernel.org, gourry@gourry.net, joshua.hahnjy@gmail.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, rakie.kim@sk.com, 
-	syzkaller-bugs@googlegroups.com, ying.huang@linux.alibaba.com, ziy@nvidia.com, 
-	linux-ext4@vger.kernel.org, Vlastimil Babka <vbabka@suse.cz>, Barry Song <baohua@kernel.org>, 
-	Theodore Ts'o <tytso@mit.edu>, jack@suse.com
-Subject: Re: [syzbot] [mm?] WARNING in shrink_one
-Message-ID: <atbC0ml_mctTyEP0@linux.dev>
-References: <6ad67231.a20cb897.960b0.0042.GAE@google.com>
- <20261019164638.c33e70eaefbee802eefb4716@linux-foundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dtUKGBhT
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ab9268d90eso1579117a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:26:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792459564; x=1793064364; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TDPMkG1SQgnWSwQUqpWJz4GemlxwNldPDN0SoLdOdWA=;
+        b=dtUKGBhTi4pj2sO++DHt5X+7Sx+F3pK5XAmnYA/olV3k80cy4IDnn+ykEnmQkRvSIG
+         DhRDPrRav/PXW8OqhjimAI4udO+ElQn5Vhh8Q0NIgYrjvTr4cBcTieqRhlgGp5ACYGzZ
+         rfsT/Mns7cRkdieikIXgem5Hr+dWNuv88t/hqtujOTRULVBaxmqBVW7aR1OVlbGo0CnA
+         54dKgRbAm4CYiUYR45AjsbmZsYE9GQ+/HDlQruDkegX7lzvdJC/sRauGrm5I4LpZyFug
+         xKTqtc5sJNY+z2UJAZrfRCOWLWx+bn/CVvWjNjfILZ54VNStNOzjj925t2tmMh6pZqg1
+         JOZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792459564; x=1793064364;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TDPMkG1SQgnWSwQUqpWJz4GemlxwNldPDN0SoLdOdWA=;
+        b=Z+P4BGiVkZWbLnd02tfaFl8SZd5Qp1ZSvyRVkQZWjK+mpY3d2M1E81S86JDZ/4e6z+
+         fmUlTOz7dbEoCu4hTLKYlR4hathJdx7gpuT9uEyFwnKrU/Q7093nMd6g8OZjvLanfet7
+         3yZ9StmLluzVa0c4U/oJ6nxPZq8lgTMsDy229Qzw1UsVDzpuxgaGs62rQ/3rIl5i8Qcd
+         PTu8/r0SLgKbsyileLWf6OQFmBRJ20Yi9Kd9Ies60UBAZphgW9HVKlf7La8GjxO9o+vG
+         F/xYe53vpoiv7kLlRvYMinKVfW20J4BJSUjkn+VA+sFWMMPcRYFfFvzgIN4D05v7l19S
+         zlYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwEDYNpg755erpHJbiRJbWJhstP1OKRNlGp3zu7+g7qnX8Spe2ySJnQ3UYelXqmbAZIYo2u5zzxrXwfG4U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLa8wKEwCa2+qTQdFeb+fJoIWDHSuqQxCGcxRI6oeeqFhPXkVuw
+	NRc5UP0bPfB12LDrLnVA7vEUb4VUyJ6ZJxrZFk98byANqihMKc+gBA10
+X-Gm-Gg: AYBFou3iWOEvb/eVxnOYk9QTGx9gsHISyA8+XN8CFdVX5N8fYyLVL3Ajru6kRNh5D6I
+	bN3GMKaDJgF7gEPxO4Por0rj3z5Rsav8m/MeF+vKlWonmXLdG63eW4TEWUz2hiduBkVkgivUEMC
+	oB5aLtfq5b5lveFs0XSec03Gwy5BsB6xaJdnMXqZU0DGa8Ur3KMxoMPciQrPj4NCcDm5Q/LVMHi
+	k4FnVzxLFQBxnNe7Hrm5YjKjkqLIgcTJfWcnES4tqZNQDJa6Az0tQSfqYGdYIcbP+suvggmwhPy
+	kX0lumQ8CIChZoZxXjwGTWvZ/nvWHLFYGl0KWJ7FjOecD1qNMOE+5xawYjsijbvT1J9FoJK8OIt
+	GOBdGm4INYo6fprXUueVSVl/sdcghAn34P2lK3oIxFlaUmbw3jNUvrI69/6qFIoXZ9wrEqxLJ+N
+	s1yMu7lFaC8+POoCj/mMsTMSx3dWOm4o6TgWZK94FUTlpegKyK6O869OFxbrrMX00zVAOY7SuPk
+	01bntSCGepPtJDd1aolXbMc2IFXoJLT4gMwkj6xnuOYECJPEe+meVMQLgBBmXmzwglJHg==
+X-Received: by 2002:a17:90b:57c7:b0:3ac:a139:1b13 with SMTP id 98e67ed59e1d1-3aceed9ff39mr7771161a91.29.1792459564582;
+        Mon, 19 Oct 2026 18:26:04 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5df655b1sm1647321a91.17.2026.10.19.18.26.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:26:04 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:26:03 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: krzk@kernel.org, peter.griffin@linaro.org, robh@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org,
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	hajun.sung@samsung.com, wim@linux-watchdog.org
+Subject: Re: [PATCH v3 2/2] watchdog: s3c2410_wdt: Add support for Exynos8855
+ SoC
+Message-ID: <38b3759c-b564-4826-bae3-5f0eda7ed20c@roeck-us.net>
+References: <20261006161700.2185432-1-alim.akhtar@samsung.com>
+ <CGME20261006155900epcas5p1b842116272ea9d75c815ebb11303cfa5@epcas5p1.samsung.com>
+ <20261006161700.2185432-2-alim.akhtar@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,102 +104,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019164638.c33e70eaefbee802eefb4716@linux-foundation.org>
+In-Reply-To: <20261006161700.2185432-2-alim.akhtar@samsung.com>
 
-+Jan Kara
+On Tue, Oct 06, 2026 at 09:47:00PM +0530, Alim Akhtar wrote:
+> Watchdog IP on this SoC is similar to Exynos850/ExynosAutov{9/920}.
+> This does not have CNT_EN_WDT bit in PMU and offset of RST_STAT is
+> different then the previously support SoC.
+> Reuse the offset as much as possible from already supported SoCs
+> 
+> Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
 
-On Mon, Oct 19, 2026 at 04:46:38PM -0700, Andrew Morton wrote:
-> On Mon, 19 Oct 2026 12:40:33 -0700 syzbot <syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com> wrote:
-> 
-> > Hello,
-> > 
-> > syzbot found the following issue on:
-> > 
-> > HEAD commit:    a0ff06b3a7bd Merge tag 'firewire-fixes-7.3-final' of git:/..
-> > git tree:       upstream
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=12cdb20d580000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=44ac479246d4559b
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=54f6a8926b40a171f2c8
-> > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> > userspace arch: i386
-> > 
-> > Unfortunately, I don't have any reproducer for this issue yet.
-> > 
-> > Downloadable assets:
-> > disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-a0ff06b3.raw.xz
-> > vmlinux: https://storage.googleapis.com/syzbot-assets/3f4bcbceb92e/vmlinux-a0ff06b3.xz
-> > kernel image: https://storage.googleapis.com/syzbot-assets/bf4df8252e54/bzImage-a0ff06b3.xz
-> > 
-> > IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> > Reported-by: syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com
-> > 
-> > ------------[ cut here ]------------
-> > current->flags & PF_MEMALLOC
-> > WARNING: mm/page_alloc.c:4816 at __alloc_pages_slowpath mm/page_alloc.c:4816 [inline], CPU#3: syz-executor/5706
-> > WARNING: mm/page_alloc.c:4816 at __alloc_frozen_pages_noprof+0x1eac/0x3300 mm/page_alloc.c:5449, CPU#3: syz-executor/5706
-> 
-> Thanks.  The stack trace is missing important bits for some reason, but
-> it appears to be ext4 disagreeing with page reclaim.
-> 
-> __alloc_pages_slowpath():
-> 	if (unlikely(nofail)) {
-> 		/*
-> 		 * We don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
-> 		 * otherwise, we may result in lockup.
-> 		 */
-> 		WARN_ON_ONCE(!can_direct_reclaim);
-> 		/*
-> 		 * PF_MEMALLOC request from this context is rather bizarre
-> 		 * because we cannot reclaim anything and only can loop waiting
-> 		 * for somebody to do a work for us.
-> 		 */
-> -->>		WARN_ON_ONCE(current->flags & PF_MEMALLOC);
-> 	}
-> 
-> The electrical think machine said:
-> 
-> 
-> filemap_fault()
->   -> direct reclaim
->      -> shrink_slab()
->         -> super_cache_scan()
->            -> prune_icache_sb()
->               -> evict()
->                  -> ext4_evict_inode()
->                     -> ext4_clear_inode()
->                        -> ext4_discard_preallocations()
->                           -> ext4_mb_load_buddy_gfp(
->                                GFP_NOFS | __GFP_NOFAIL)
->                              -> __filemap_get_folio()
->                                 -> page allocator
->                                    -> WARN_ON(PF_MEMALLOC)
-> 
-> 
-> The task enters direct reclaim after a filemap allocation failure. 
-> Reclaim calls shrink_slab(), which evicts an ext4 inode via
-> super_cache_scan() and prune_icache_sb().  The eviction path eventually
-> calls ext4_discard_preallocations(), which explicitly does:
-> 
->     err = ext4_mb_load_buddy_gfp(sb, group, &e4b,
->                                  GFP_NOFS | __GFP_NOFAIL);
-> 
-> If the buddy-cache folio isn't resident, ext4_mb_load_buddy_gfp()
-> allocates one through __filemap_get_folio().  This reaches
-> __alloc_pages_slowpath() with __GFP_NOFAIL while PF_MEMALLOC is set,
-> triggering the warning.
-> 
-> Simply removing __GFP_NOFAIL doesn't look safe.  The preallocations
-> have already been detached from the inode's tree, and failure to load
-> the buddy information can prevent their space from being released
-> correctly.
-> 
-> It seems that ext4 needs a way to complete this mandatory cleanup
-> without performing a NOFAIL allocation from the slab-shrinker context. 
-> Perhaps the preallocation cleanup could be restructured so that it
-> doesn't require allocating buddy-cache folios during reclaim?
-> 
-> The syzbot report is at:
-> https://syzkaller.appspot.com/bug?extid=54f6a8926b40a171f2c8
+Applied.
 
-Jan already has a series which will fix these kind of issues:
-http://lore.kernel.org/20261009133253.20102-1-jack@suse.cz
+This missed the start of the commit window, so queued for v7.5.
+Sorry for the delay.
+
+Guenter
