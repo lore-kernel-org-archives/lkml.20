@@ -1,74 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510202;
-	b=D6+yoeExSMmeu1oVgePpmN8sfE8vbqUQoWY9pts+YcVUxlt51EgfGTtA7ym7q0uiq57i
-	 DQCTAcdAkLKMVbJuNQ8kS6FBTwrq9xxJWHB4aLrck4jGWO99LammuUhxMk6fw32FFTOCD
-	 DUtBgAifiLmBjwKnBRSV2cAHQvxa+wyhOcem5qGEnNnttIbj5qoi1OVwq3eBqfPgTxiLe
-	 /N8IeXB6BehMNnijxQqxwNMx+wJwUCG906d+u8W1dDClBI2hPXEMeHLYUDFpHENHNM/fb
-	 H5qw7ySQUO+lo62J7guwdGKfJ0Hw3o9dLuKkOlkDvage5/xoIa3Kfr5z45ubCe0kV6g==
+	t=1792510237;
+	b=LB9E4//lgsWctPLWOW3Wlm9MU0Rakzz8nIvwmM2hXVfCDFFQ/z/KC8eO5ANxuTdn5rav
+	 fK4HveblR5nU07UyaDzTTG6wfNYJyOVP+zjfGQhVUSUxtLDXQnOGy7z3c4zTNg6pw0C8+
+	 ugTB/6N6Av3/mQK5Y6DcLQSNBy7JCpc6dSsnqvMuNvuTvLTt+W14iAsIONoWvw1EEiJUV
+	 A17uOBDquYbcq3B6cTyjoOGjVpRcteaisweM2ODv6uTpk+1q/UV+XVTtu7vCPX1YtfDEW
+	 4epWjgqdj0DrsrspcveUHFzNnLGUeG+kyk+auRjrfuIpfEOP0fYqXJZy92uYr2EQyLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510202;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8lP419SPnk9bISnyNiCg+XhXZjrC6NfgXVYlaoCpSY8=;
-	b=fctEkaIU+muFAbVSG91Y3E5/EPy8mCMRqm1KGjcUxGSFdKhLkPSQVjKXIxxvuUZQIXUv
-	 tc5fPauLYWQkEOpI9URHd1ToCeS/W68WUw33BafuGwuxZ77EDCgI8vkqzvjLQKF97JLha
-	 PuZpgwsRGwJsxuV4AR3KJIMhsfbNDG/ZOx9hO54LFNBvkQNTD6XNEJizQAIuW8ghGeIgl
-	 qWMqYMcJtZf4KZVGIvj/b5IiW5P3STlPErrE3chzvrLUpgwvnLtvpHvzYZ58IOC3G5im3
-	 jpn95Kys70WaOZLKhaUozq2UqGxcrVq7XAEl91fkWI4D+bMWjSUa5naUHgwJPs+k3zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510237;
+	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=VMqDibeEONqAJsijitjSdM1kHE4HWDS9vh+bBPboeGQ=;
+	b=W4izgiXOszXhfT4SKHo/HprQv5rrjZ0cLuw02ODw8tBgn8CBqbgnC6hdjz+DvBMNgO/Y
+	 QpZZ+CAQNHgxPOO3X3FxBFu0gvz2bzzsVKqYlBvh2c1mLW+3KxLRbbsUUIlDGlvoyWpTb
+	 b+EIopMdtVstA4BeBia/oZEliCY4lJ7/GMyTqqKyZddj7ZWAGIDCxT6t6kthnwEJcWBZE
+	 xMIyi1d+9y53b9z46PCl4VEvZ1KT2K0WqMVbhN8dIoDUicrUY29dJ9Q0TnhMbi8Ge+EJC
+	 +4LrXtbbTlqzNEs1Lw3mfuhYivtNiX+/vKSW5RBdu2oiYVT4F7R6rTvX7a20Q9Anzew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=rg+DKVN7;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D2FF960A260B;
-	Tue, 20 Oct 2026 15:30:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2FF960A260B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=rg+DKVN7
-Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 79D9F1C0264;
-	Tue, 20 Oct 2026 17:30:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1792510201;
-	bh=uaxU0e0Lu4aUVtxqhdGDQ6/02ahHZX3ZrV5iXIX1lI4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=rg+DKVN7Cje1waGmERK1XDHIa0X9eF3lfTFdA2RPd3frdunoQyv9FWNlUu5BUhefl
-	 xYf2LlWuigX0lftXV3kLBWOaB66gSgcuMmlAunAfc2dCYdqe7TfI0omA95BvFig79c
-	 JeWQ7ikgJ+pLL9LH2LmSgKHjTpotGyDNGXg9uk8U=
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: linux-kernel@vger.kernel.org
-Cc: Renzo Davoli <renzo@cs.unibo.it>,
-	Oleg Nesterov <oleg@redhat.com>,
-	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
-	Kees Cook <kees@kernel.org>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87432606A324;
+	Tue, 20 Oct 2026 15:30:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4933D1F000C8;
+	Tue, 20 Oct 2026 15:30:32 +0000 (UTC)
+Date: Tue, 20 Oct 2026 17:30:00 +0200
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
 	Thomas Gleixner <tglx@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Alexey Gladkov <legion@kernel.org>,
-	Eugene Syromyatnikov <evgsyr@gmail.com>,
-	Davide Berardi <berardi.dav@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	strace-devel@lists.strace.io
-Subject: [PATCH v9 3/3] selftests/ptrace: add a test case for PTRACE_SET_SYSCALL_INFO syscall skipping
-Date: Tue, 20 Oct 2026 17:29:43 +0200
-Message-ID: <20261020152945.575664-4-renzo@cs.unibo.it>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020152945.575664-1-renzo@cs.unibo.it>
-References: <20261020152945.575664-1-renzo@cs.unibo.it>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
+Message-ID: <ateI-JcExDyfXKrs@red-moon>
+References: <20260925-acpi-static-table-irq-probe-defer-v1-2-2c62125d0085@kernel.org>
+ <arZDwutoadki7tiZ@ashevche-desk.local>
+ <arZNL9BnTGK0Klwc@red-moon>
+ <arZS4vwxps01dGb7@ashevche-desk.local>
+ <arqSqcoWAkhy-8do@red-moon>
+ <d1720b63-65bf-4019-bc19-1852555f7993@arm.com>
+ <asieTvinZ7c2QpQm@red-moon>
+ <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
+ <atXyIadz1TEKSodg@red-moon>
+ <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,297 +67,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
 
-Check whether PTRACE_SET_SYSCALL_INFO syscall skipping semantics
-implemented in the kernel matches userspace expectations.
+On Mon, Oct 19, 2026 at 08:05:50PM +0200, Rafael J. Wysocki (Intel) wrote:
+> On Mon, Oct 19, 2026 at 12:34 PM Lorenzo Pieralisi
+> <lpieralisi@kernel.org> wrote:
 
-Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
-[v8: also check an error return value, and that the syscall cannot be
- changed anymore once skipped while its return value still can;
- checkpatch fixes]
-Assisted-by: claude-opus-5-5
----
- .../selftests/ptrace/set_syscall_info.c       | 230 +++++++++++++++++-
- 1 file changed, 229 insertions(+), 1 deletion(-)
+[...]
 
-diff --git a/tools/testing/selftests/ptrace/set_syscall_info.c b/tools/testing/selftests/ptrace/set_syscall_info.c
-index 1cc411a41cd6..e4fc2779ee5a 100644
---- a/tools/testing/selftests/ptrace/set_syscall_info.c
-+++ b/tools/testing/selftests/ptrace/set_syscall_info.c
-@@ -11,9 +11,15 @@
- #include <err.h>
- #include <fcntl.h>
- #include <signal.h>
-+#include <stdlib.h>
-+#include <stddef.h>
- #include <asm/unistd.h>
-+#include <sys/prctl.h>
- #include <linux/types.h>
- #include <linux/ptrace.h>
-+#include <linux/filter.h>
-+#include <linux/seccomp.h>
-+#include <linux/prctl.h>
- 
- #if defined(_MIPS_SIM) && _MIPS_SIM == _MIPS_SIM_NABI32
- /*
-@@ -36,6 +42,7 @@ struct si_exit {
- 
- static unsigned int ptrace_stop;
- static pid_t tracee_pid;
-+static pid_t tracer_pid;
- 
- static int
- kill_tracee(pid_t pid)
-@@ -64,6 +71,25 @@ sys_ptrace(int request, pid_t pid, unsigned long addr, unsigned long data)
- 		       ptrace_stop, ##__VA_ARGS__);		\
- 	} while (0)
- 
-+static int sys_seccomp(unsigned int operation, unsigned int flags, void *args)
-+{
-+	return syscall(__NR_seccomp, operation, flags, args);
-+}
-+
-+static struct sock_filter seccomp_filter[] = {
-+	BPF_STMT(BPF_LD+BPF_W+BPF_ABS, offsetof(struct seccomp_data, nr)),
-+
-+	BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, __NR_restart_syscall, 0, 1),
-+	BPF_STMT(BPF_RET+BPF_K, SECCOMP_RET_ALLOW),
-+
-+	BPF_STMT(BPF_RET+BPF_K, SECCOMP_RET_TRACE),
-+};
-+
-+static struct sock_fprog seccomp_prog = {
-+	.filter = seccomp_filter,
-+	.len = ARRAY_SIZE(seccomp_filter)
-+};
-+
- static void
- check_psi_entry(struct __test_metadata *_metadata,
- 		const struct ptrace_syscall_info *info,
-@@ -128,7 +154,6 @@ check_psi_exit(struct __test_metadata *_metadata,
- 
- TEST(set_syscall_info)
- {
--	const pid_t tracer_pid = getpid();
- 	const kernel_ulong_t dummy[] = {
- 		(kernel_ulong_t) 0xdad0bef0bad0fed0ULL,
- 		(kernel_ulong_t) 0xdad1bef1bad1fed1ULL,
-@@ -138,6 +163,7 @@ TEST(set_syscall_info)
- 		(kernel_ulong_t) 0xdad5bef5bad5fed5ULL,
- 	};
- 	int splice_in[2], splice_out[2];
-+	tracer_pid = getpid();
- 
- 	ASSERT_EQ(0, pipe(splice_in));
- 	ASSERT_EQ(0, pipe(splice_out));
-@@ -516,4 +542,206 @@ TEST(set_syscall_info)
- 	ASSERT_EQ(ptrace_stop, ARRAY_SIZE(si) * 2);
- }
- 
-+TEST(set_syscall_info_seccomp)
-+{
-+	/*
-+	 * Check for seccomp filter support without installing a filter:
-+	 * a NULL filter fails with EFAULT if SECCOMP_SET_MODE_FILTER is
-+	 * supported, and with EINVAL or ENOSYS otherwise.
-+	 */
-+	ASSERT_EQ(-1, sys_seccomp(SECCOMP_SET_MODE_FILTER, 0, NULL));
-+	if (errno != EFAULT)
-+		SKIP(return, "SECCOMP_SET_MODE_FILTER: %m");
-+
-+	tracer_pid = getpid();
-+	tracee_pid = fork();
-+
-+	ASSERT_LE(0, tracee_pid) {
-+		TH_LOG("fork: %m");
-+	}
-+
-+	/* tracee */
-+	if (tracee_pid == 0) {
-+		tracee_pid = getpid();
-+		ASSERT_EQ(0, sys_ptrace(PTRACE_TRACEME, 0, 0, 0)) {
-+			TH_LOG("PTRACE_TRACEME: %m");
-+		}
-+		ASSERT_EQ(0, kill(tracee_pid, SIGSTOP)) {
-+			/* cannot happen */
-+			TH_LOG("kill SIGSTOP: %m");
-+		}
-+
-+		ASSERT_EQ(0, prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
-+			TH_LOG("prctl: %m");
-+		}
-+		ASSERT_EQ(0, sys_seccomp(SECCOMP_SET_MODE_FILTER, 0,
-+					(void *) &seccomp_prog)) {
-+			TH_LOG("seccomp: %m");
-+		}
-+
-+		/*
-+		 * From now on every syscall stops the tracee, so do not use
-+		 * ASSERT_*() here: it would write() its message before
-+		 * _exit(1) and the tracer would report a syscall nr mismatch
-+		 * instead of the test case that failed.
-+		 */
-+
-+		/* run getpid unmodified */
-+		if (getpid() != tracee_pid)
-+			_exit(1);
-+
-+		/* run getppid instead of getpid */
-+		if (getpid() != tracer_pid)
-+			_exit(1);
-+
-+		/* skip getpid and return 42 */
-+		if (getpid() != 42)
-+			_exit(1);
-+
-+		/* skip getpid and fail with ESRCH */
-+		errno = 0;
-+		if (syscall(__NR_getpid) != -1 || errno != ESRCH)
-+			_exit(1);
-+
-+		_exit(0);
-+	}
-+
-+	int status;
-+
-+	/* tracer */
-+	ASSERT_LE(0, waitpid(-1, &status, 0)) {
-+		LOG_KILL_TRACEE("waitpid: %m");
-+	}
-+
-+	ASSERT_EQ(0, sys_ptrace(PTRACE_SETOPTIONS, tracee_pid, 0,
-+			(PTRACE_O_TRACESECCOMP | PTRACE_O_TRACESYSGOOD)))
-+		LOG_KILL_TRACEE("PTRACE_SETOPTIONS: %m");
-+
-+	ASSERT_EQ(0, sys_ptrace(PTRACE_CONT, tracee_pid, 0, 0)) {
-+		LOG_KILL_TRACEE("PTRACE_CONT: %m");
-+	}
-+
-+	static const char * const testname[] = {
-+		"unknown error",
-+		"getpid seccomp unchanged",
-+		"getpid seccomp nr change: getppid",
-+		"getpid seccomp skip+set retvalue",
-+		"getpid seccomp skip+set error"
-+	};
-+
-+	static const unsigned int expected_nr[] = {
-+		__NR_getpid,
-+		__NR_getpid,
-+		__NR_getpid,
-+		__NR_getpid,
-+		__NR_exit_group
-+	};
-+
-+	for (ptrace_stop = 0; ; ++ptrace_stop) {
-+		ASSERT_EQ(tracee_pid, wait(&status)) {
-+			/* cannot happen */
-+			LOG_KILL_TRACEE("wait: %m");
-+		}
-+
-+		if (WIFEXITED(status)) {
-+			tracee_pid = 0; /* the tracee is no more */
-+			ASSERT_EQ(0, WEXITSTATUS(status)) {
-+				LOG_KILL_TRACEE("unexpected exit status %u",
-+						WEXITSTATUS(status));
-+			}
-+			break;
-+		}
-+		ASSERT_FALSE(WIFSIGNALED(status)) {
-+			tracee_pid = 0; /* the tracee is no more */
-+			LOG_KILL_TRACEE("unexpected signal %u",
-+					WTERMSIG(status));
-+		}
-+		ASSERT_TRUE(WIFSTOPPED(status)) {
-+			LOG_KILL_TRACEE("unexpected wait status %#x", status);
-+		}
-+
-+		ASSERT_EQ(status >> 8, SIGTRAP | (PTRACE_EVENT_SECCOMP << 8)) {
-+			LOG_KILL_TRACEE("unexpected stop, wait status %#x", status);
-+		}
-+
-+		struct ptrace_syscall_info info = {
-+			.op = 0xff  /* invalid PTRACE_SYSCALL_INFO_* op */
-+		};
-+		size_t info_size = sizeof(info);
-+
-+		ASSERT_LT(0, sys_ptrace(PTRACE_GET_SYSCALL_INFO, tracee_pid,
-+					info_size, (uintptr_t) &info)) {
-+			LOG_KILL_TRACEE("PTRACE_GET_SYSCALL_INFO: %m");
-+		}
-+		ASSERT_EQ(PTRACE_SYSCALL_INFO_SECCOMP, info.op) {
-+			LOG_KILL_TRACEE("entry op mismatch: %m");
-+		}
-+		ASSERT_TRUE(info.arch) {
-+			LOG_KILL_TRACEE("entry arch mismatch: %m");
-+		}
-+		ASSERT_TRUE(info.instruction_pointer) {
-+			LOG_KILL_TRACEE("entry instruction_pointer mismatch: %m");
-+		}
-+		ASSERT_TRUE(info.stack_pointer) {
-+			LOG_KILL_TRACEE("entry stack_pointer mismatch: %m");
-+		}
-+
-+		ASSERT_LT(ptrace_stop, ARRAY_SIZE(expected_nr)) {
-+			LOG_KILL_TRACEE("ptrace stop overflow");
-+		}
-+		ASSERT_FALSE(info.seccomp.nr == __NR_exit_group && info.seccomp.args[0] == 1) {
-+			LOG_KILL_TRACEE("tracee error: %s",
-+					testname[ptrace_stop]);
-+		}
-+		ASSERT_EQ(info.seccomp.nr, expected_nr[ptrace_stop]) {
-+			LOG_KILL_TRACEE("syscall nr mismatch");
-+		}
-+		const struct ptrace_syscall_info seccomp_info = info;
-+
-+		switch (ptrace_stop) {
-+		case 0:
-+		case 4:
-+			break;
-+		case 1:
-+			info.seccomp.nr = __NR_getppid;
-+			break;
-+		case 2:
-+			info.op = PTRACE_SYSCALL_INFO_EXIT;
-+			info.exit.rval = 41;
-+			info.exit.is_error = 0;
-+			ASSERT_EQ(0, sys_ptrace(PTRACE_SET_SYSCALL_INFO,
-+						tracee_pid, info_size,
-+						(uintptr_t) &info)) {
-+				LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: %m");
-+			}
-+			/* the syscall cannot be changed anymore once skipped */
-+			ASSERT_EQ(-1, sys_ptrace(PTRACE_SET_SYSCALL_INFO,
-+						 tracee_pid, info_size,
-+						 (uintptr_t) &seccomp_info)) {
-+				LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO after skip succeeded");
-+			}
-+			ASSERT_EQ(EINVAL, errno) {
-+				LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO after skip: %m");
-+			}
-+			/* but its return value can */
-+			info.exit.rval = 42;
-+			break;
-+		case 3:
-+			info.op = PTRACE_SYSCALL_INFO_EXIT;
-+			info.exit.rval = -ESRCH;
-+			info.exit.is_error = 1;
-+			break;
-+		}
-+
-+		ASSERT_EQ(0, sys_ptrace(PTRACE_SET_SYSCALL_INFO, tracee_pid,
-+					info_size, (uintptr_t) &info)) {
-+			LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: %m");
-+		}
-+
-+		ASSERT_EQ(0, sys_ptrace(PTRACE_CONT, tracee_pid, 0, 0)) {
-+			LOG_KILL_TRACEE("PTRACE_CONT: %m");
-+		}
-+	}
-+}
-+
- TEST_HARNESS_MAIN
--- 
-2.55.0
+> Basically, yes, the idea is to defer the creation of the platform
+> device until the dependency is met.
+> 
+> > till the dependencies are cleared but then, without a _CRS, where will
+> > the consumer driver find the platform device resources ?
+> 
+> Well, good question.
+> 
+> > There are multiple facets in this issue and possibly some of them have
+> > been already solved but I need to pull them together.
+> >
+> > > Note that the dependencies can be added to acpi_dep_list after
+> > > creating a struct acpi_device with acpi_add_single_object() and
+> > > acpi_scan_add_dep() is not really suitable for that, but it should be
+> > > doable if the dependencies can be found.
+> > >
+> > > > I need to have a deeper look into this next week but I wanted to ask first
+> > > > whether there was something I missed - most likely.
+> > >
+> > > Well, it is not really straightforward.
+> >
+> > Yes it is getting messy. This RFC, with all its flaws, does not transparently
+> > prevents enumeration but rather relies on -EPROBE_DEFER to sort out
+> > dependencies - though it does so by adding more stuff into ACPI static fwnode
+> > that to be honest I'd rather see gone.
+> 
+> I think what you need is a notification mechanism that will trigger
+> when a specific device (enumerated via the ACPI Namespace) becomes
+> operational.  It doesn't look like any of the existing ones (platform
+> device probe deferral or ACPI device dependencies tracking) is really
+> suitable for your use case.
 
+Yes. It might just be a notification from ACPI core to say "the driver for
+this ACPI device probed, go create platform devices that depends on it".
+
+We can check and track the dependency in code that does create those
+devices today.
+
+I will think about this to see how bad this might look like.
+
+> > > I'm still not sure why you can't represent all devices in the ACPI
+> > > namespace in addition to describing some of them in static tables.  I
+> > > guess that would work for everybody, wouldn't it?
+> >
+> > That's a fair point - though then code will have to work with firmware
+> > that does NOT explicitly require those devices in the namespace (ie: firmware
+> > as it is specified _now_); it can turn out to be a mess even less
+> > manageable than this discussion ;-)
+> 
+> If it has to work under these conditions anyway, then adding stuff to
+> the namespace is rather pointless.
+
+Yes that's the problem, reworking the code to make it work with namespace
+devices is doable the issue is existing firmware and that we can't change it
+(and we can't create it in the kernel either).
+
+Thanks,
+Lorenzo
