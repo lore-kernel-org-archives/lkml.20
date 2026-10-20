@@ -1,74 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503455;
-	b=vLdTcXJimoDKk2wtHcVhN5cvEDbR04RUE3emPmIVSnxdXRDbnPUKiskMB3tRNAiaRBGl
-	 OBrXmiE5aSpCB7culRw5TmwXFVxNqwQ7hfXzQ1C/X+I+mEsRNIAMROVCjAzv62RRT/TTM
-	 DC6sKWVoP4t5L0EgOSDwOlHDB9EXZUFh5qEhyGAgsOzqpZa6S7nhXFtO/IEOuvT3ffEdb
-	 95vZfy3dFsD3ZF5J5WsLNtmvAWiET6gcpZxdNbUJMELl8ycCWzxjxPsvVMRuCpArImyV4
-	 GnX6CGuoERhkeJpJI41h6y7a8rsao7yXwnC6m2c/JXvhxOIg9JgGGZ9vwVvfF3T7x+Q==
+	t=1792503472;
+	b=L9dq3lzOBt7DyU1fzpeoKD1Qo8iF3obgkvSvbGTIZ3YRD0KOm5yluBZARdAZFjdDfRJK
+	 jnKGCkSSZrYPdLXKNzI1fnbAdrjZRLlfQXXfEMx2nQCS9815eAm7ObB3YtdX+n4hxylag
+	 5j5vXB6LpKr4j5/VSMzVwlkXftGi3bywEqaH3sigSQWoyhEhBmtS+FBKsP6iwtQef+z3o
+	 jtUAj7kC8FSKXUq+1EPbNuJWBo4ZvrwU8Zuusds6X7eBCf0kcsiI+jK94Yipl2cw67Qp6
+	 QDh76C8f6mZXcPecgmKMZ2Rb6ioB+Ywbb3hKxldsDl6qTn6jVqwNrlFeR6SzOmLT4/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503455;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=KP8+Rg92qaiNXtTZwizo1xFliBBNfvKPtvWSZnigpZk=;
-	b=LJ9N8K57cXCYwovA7yCTRiLrJhRkqvTan9bTPNkyuJDROn5JVRz9JeFqfOYjLqK34G8b
-	 EMl6/XpT2KDJdk0cgHK1DE5MjZNQy45cOSkL3YVMyr/sQJKXqjEbS9KpRVxkF0DofaQ7V
-	 W8AUYUNQhlXlvM8DQQo2l5LcZssYeuQgg0u4kuhUn0z9bmsO4y3uFPy89H3gPpm7/wRNF
-	 nOG9w67ZmedjOCSBRjT/xfw4OghRXW+RjUuJ/MXZgLu0+cQIrf3BHgzJQrvqmnqz5B/K1
-	 E6s70eqXU22dElT2wpNULBiuYSC/oiCjzZA1IbQQf9lIQI3u3+CbYErcb6eNiOsNjBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503472;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=m8yfQEcljjdCYG73U7/b7AoriibsdHfzmxVKPS8fPUs=;
+	b=4OLlFEr1MmX2+DrlvkheW3tvLH17DGq/dlMH7CLlxhOFU2x2m1XiKfs35Z8IrsON9Nby
+	 Y9RzvB7TmbFHgwvPnr1AhaglmwyeHXDDlyGj38AFTl+K5RkGbfYiYoRmd9PfEGr8ncGMI
+	 id9wAf9wLAuTmDlN7a6QXB5qi7w5UxJQaxputFYAXyX3XY1AgKoUwMHzkrHG8fiL4Bi5Y
+	 Q0ZlkZVwyleWn/h8s+ZgxV1Yz7kyRadaMEauYpk39Q9EYe1QU4w65iP4BRLFZIhRkPAZx
+	 wc/RyWIuaOog6DgS86KO5vzTO76bJnDTeZDcB/7+jEdXGLQPiedjJYCssAf7zMSFDVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Dl8jAd9H;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=LK7gFmux;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=R8rsXKOl;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90625606A33A;
-	Tue, 20 Oct 2026 13:37:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90625606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734F2606A33C;
+	Tue, 20 Oct 2026 13:37:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 734F2606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Dl8jAd9H;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=LK7gFmux
-Date: Tue, 20 Oct 2026 13:37:30 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792503452;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KP8+Rg92qaiNXtTZwizo1xFliBBNfvKPtvWSZnigpZk=;
-	b=Dl8jAd9HlghR6CPkD0xYEV8gG+eI7xd53zD0ZaHqJRZfl+zHGRGxGWMTVOH+Ks7gEH6Pm4
-	C1dJVp7/X4TzBK/wPCGa4oGMVmvzakJw61YtbyKZ7+oR24/LN8UjJqxiEh86RCd0J4GLkG
-	wCJXTlW61BPHXonZW9fwI3Zyw1dvgGW3gA5xDoPR3JvKqAD66iBWyBTsg7KoEqygUl9UYQ
-	jyyFlfz2bQIe/04LRCvZ4H4/WwSK+LSO5hnEEp3z8BE1nevN6IxRPoqrTOFV7g19G4zjZG
-	QzL2HBwmT8DXB3QhF9BLVWI2SIwBLzz1IvKC6g1nI4+kugYBMHVM+Ja5DMuLBg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792503452;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KP8+Rg92qaiNXtTZwizo1xFliBBNfvKPtvWSZnigpZk=;
-	b=LK7gFmuxTZbgAjI9vJcsECBFRcGUl93uuf+ccZN7IjyS2RY5rFQGt/MaULFl4eZjtmzX/1
-	yyct1XWUkcxlWMCQ==
-From: "tip-bot2 for Hui Su" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/urgent] sched/mmcid: Fix affinity-triggered switch back
- to per-task mode
-Cc: Hui Su <sh_def@163.com>, Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260915155953.2856524-1-sh_def@163.com>
-References: <20260915155953.2856524-1-sh_def@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=R8rsXKOl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=m8yfQEcljjdCYG73U7/b7AoriibsdHfzmxVKPS8fPUs=; b=R8rsXKOlypisObnCg9uR6fNJlX
+	3Ubrwa1LV61x/Q2ZHgC5nkXY6zgx+U0J3139rGr7qgrXVCaOFicihD2ArvNXmk3po7ySxW+/iKiA+
+	ZSVKW6spvm8mn7dKG86W6sztHwm1Zaue5dFIOkgFPxaJDeZsyVWimViZN6t2uR58W/fgW2zSyADH/
+	8N77TIADYxy7+zZMLREv7YAkIfD5l6c7xqSXjnqB0poA9y0O92RuJavkgLP9bEJe05gVeX13vUjgk
+	nRHqV/V6MLrFK3mGyzBM96C2HURgOjSjJup1Yf6oMTK4ddLWw3jTrM9y2A+/+ivOZdy+vdYmznz+I
+	a1VDQpHA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+ =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
+ Michael Riesch <michael.riesch@collabora.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add a cell
+ to select TX or RX
+Date: Tue, 20 Oct 2026 15:37:35 +0200
+Message-ID: <2501273.NG923GbCHz@diego>
+In-Reply-To: <73ef0d06-75c5-4c10-b4c3-c7b3c07a1e18@collabora.com>
+References:
+ <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261019150631.GA265407-robh@kernel.org>
+ <73ef0d06-75c5-4c10-b4c3-c7b3c07a1e18@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,77 +75,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179250345063.3012171.17206615076303624704.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-The following commit has been merged into the sched/urgent branch of tip:
+Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb Michael Riesch:
+> Hi all,
+>=20
+> On 10/19/26 17:06, Rob Herring wrote:
+> > On Mon, Oct 19, 2026 at 04:15:03PM +0800, =E6=A5=8A=E6=99=BA=E6=88=90 w=
+rote:
+> >> Hi Krzysztof, Rob,
+> >>
+> >>> Existing OS should ignore surplus cell if the driver is coded properl=
+y.
+> >>> Same as adding new properties or new front-compatible.  The question =
+is
+> >>> how the existing driver behaves?
+> >>
+> >> As you pointed out on 5/8, the xlate checks args_count !=3D 1. The DC-=
+PHY
+> >> driver was merged in v6.15, so every kernel since 6.15 fails on a seco=
+nd cell.
+> >>
+> >> 1. Keep the second cell. Add the patch as follows:
+> >>
+> >> - if (args->args_count !=3D 1) {
+> >> + if (args->args_count < 1) {
+> >>     dev_err(dev, "invalid number of arguments\n");
+> >>     return ERR_PTR(-EINVAL);
+> >>   }
+> >>
+> >> + if (args->args_count > 1 && args->args[1]) {
+> >> +   dev_err(dev, "only the transmitter is supported\n");
+> >> +   return ERR_PTR(-EINVAL);
+> >> + }
+> >>
+> >>   With Fixes: and Cc: stable, the stable kernels maintained at that
+> >>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
+> >>   dts, and the receiver fails cleanly instead of getting the transmitt=
+er.
+> >>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+> >>   It goes in with the series, since two-cell dts only exist after it.
+> >>
+> >> 2. Use a flag in the upper bits of the existing cell, as Rob
+> >>     suggested. Existing kernels are not affected, unless a board enabl=
+es
+> >>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+> >>
+> >> I will write the impact clearly whichever  approach is selected in
+> >> the related commit messages and the cover letter.
+> >>
+> >> I think the cell approach is easier to read and more symmetric in the
+> >> long term,
+> >> but it breaks more. Which one do you think is better? Thanks.
+> >=20
+> > I'm not a user of this platform, so I don't care. Up to the platform=20
+> > maintainers to decide if breakage is acceptible. You just need to=20
+> > document the issue in the commit message.
+> >=20
+> > Rob
+>=20
+> It's a bit of a pickle, all this.
+>=20
+> I gave it some more thought. In the end this is an IP block with two
+> PHYs. No more, no less. One cell is sufficient to address those, and it
+> could be 0 for the transmitting PHY (DSI, display) and 1 for the
+> receiving PHY (CSI, camera).
+>=20
+> Of course the two PHYs can operate in either DPHY or CPHY mode. The
+> phy-cells have been (mis?)used to select the proper mode of combo PHYs,
+> and this principle has been applied here too.
+>=20
+> However, we have the special situation here that the mode can only be
+> changed for the complete IP block (and thus for both PHYs at the same
+> time). As Bryan points out, we need to check and complain if the PHY
+> mode is not set to the same value for both PHYs.
+>=20
+> I suggest using a property
+>     samsung,cphy-mode;
 
-Commit-ID:     7dbc307b6c72a5412e3f4e9fa2e0e926925fc5d6
-Gitweb:        https://git.kernel.org/tip/7dbc307b6c72a5412e3f4e9fa2e0e926925=
-fc5d6
-Author:        Hui Su <sh_def@163.com>
-AuthorDate:    Wed, 16 Sep 2026 00:59:53 +09:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Tue, 20 Oct 2026 15:31:33 +02:00
+I guess, a maybe nicer way would be mimicing
+	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
 
-sched/mmcid: Fix affinity-triggered switch back to per-task mode
+with its
+	intel,phy-mode =3D <x>
 
-MM CID switches to per-CPU ownership when the number of users of an mm
-exceeds the maximum number of CIDs. When the affinity union grows, the
-per-CPU threshold is recalculated and the MM can switch back to per-task
-ownership through deferred work.
+with x coming from include/dt-bindings/phy/phy.h
+for the distinction between cphy and dphy, so we don't introduce yet
+another way to describe this.
 
-mm_cid_calc_pcpu_thrs() incorrectly uses min(nr_cpus_allowed, users) to
-calculate that switch-back threshold.  This makes pcpu_thrs no larger than
-users, so the users < pcpu_thrs check in mm_update_cpus_allowed() can never
-succeed.
+As you said, the electrical wiring is completely different between the dphy
+and cphy parts, so is a property of the board.
 
-For example, with three users restricted to two CPUs, the MM enters per-CPU
-mode. On an eight-CPU system, widening the affinity union to all eight CPUs
-should produce a threshold of four, but the old calculation produces three
-and returns early. The MM therefore remains in per-CPU mode even though the
-widened CPU set makes per-task ownership preferable.
 
-Calculate pcpu_thrs from nr_cpus_allowed directly. The users bound in
-__mm_update_max_cids() still controls when per-CPU mode is entered, so this
-does not change the threshold calculated when switching from per-task to
-per-CPU ownership.
+> (name to be bikeshedded) that sets the complete IP block into CPHY mode
+> (DPHY being the default) to distinguish between the modes. Since both
+> modes use a different electrical interface, this is clearly a hardware
+> thing and thus suitable for device tree.
+>=20
+> Then, we can address the two PHYs with the help of the already existing
+> phy cell (without any bitflag tweaks to the value).
+>=20
+> The sole drawback is that we need to accept the PHY_TYPE_DPHY and
+> PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
+> it should only be the former.) And we need to handle those values
+> correctly. But I think this is not more painful than the other
+> approaches. At the same time, this design seems to be the most correct
 
-Tested with an x86_64 QEMU reproducer using three users, an initial two-CPU
-affinity, and an eight-CPU affinity expansion. The baseline does not invoke
-mm_cid_work_fn() after the affinity expansion. The fixed kernel invokes the
-deferred work once and completes the switch back to per-task mode.
+The current cell values are 10 + 11, so as long as we don't re-use those
+exact values for the other constants the driver should somewhat easily
+be able to recognize an old DT?
 
-Fixes: fbd0e71dc370 ("sched/mmcid: Provide CID ownership mode fixup functions=
-")
-Signed-off-by: Hui Su <sh_def@163.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20260915155953.2856524-1-sh_def@163.com
----
- kernel/sched/core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1754d9f..76c6499 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -10852,11 +10852,10 @@ static void __mm_update_max_cids(struct mm_mm_cid *=
-mc)
-=20
- static inline unsigned int mm_cid_calc_pcpu_thrs(struct mm_mm_cid *mc)
- {
--	unsigned int opt_cids;
-+	unsigned int nr_cpus =3D mc->nr_cpus_allowed;
-=20
--	opt_cids =3D min(mc->nr_cpus_allowed, mc->users);
- 	/* Has to be at least 1 because 0 indicates PCPU mode off */
--	return max(min(opt_cids - opt_cids / 4, num_possible_cpus() / 2), 1);
-+	return max(min(nr_cpus - nr_cpus / 4, num_possible_cpus() / 2), 1);
- }
-=20
- static bool mm_update_max_cids(struct mm_struct *mm)
+Heiko
+
+
