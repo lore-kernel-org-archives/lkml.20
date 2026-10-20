@@ -1,65 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792530337;
-	b=jET0dlUz2aYMAG+bV01olQrnAeZD1H9xD77ummY5H02jPfo1ytYaTznHaAIbWL2JRUYS
-	 wmZmNq4xOEGNdmla6Yxa3WrsOV2fWpcb+ndxePRLNd9dzan1yokHpEFlwDj8zy1pzLWtk
-	 6J5t9te5qN6+B/NWKRydOyihEbwd3UPEgPQI9Vn/g2H7ZWfyRYoQP8NO5Msxx94537uS7
-	 e/Gbo0Qfyme222SPOSgHJG3odpHYR3FV4ISyT4xHzUO4VSepHpXoCq5teeFHes2DpJnVd
-	 8ffOjsp9+jsHXuCVi0ye/cQBiql6rHMYG4VuWCFyUz1uQKDGYSelt2aN0a9boEHeE2w==
+	t=1792530371;
+	b=TIuXMtdb2UO3VffxVT1bPL5FUlsb8PHHfPjBfhItPnOMd+zsETZKYkdUsqLGMpNZMo63
+	 iOZtxfzkdBNHukDj0nErYqfr8cUmT5ujqxBK5KF0a8EKpobv8s+R0PCSiI0NXT8KUleh3
+	 Pm4/+FTWAdZNxya4nGY8BCCbz4ISLKyuYYQaAXgdrZUZQPZ9f855vd7noQo4jeofpLbgV
+	 6+BC5D17ntF9LRaKrgi1o5tuZIMspiKz0fjQV0zCAT2ELx7neH48/FzdfrtLneFNqq7WK
+	 9Gaqe3oatJGrpd8zgvzTCTWbv2YDHy1bMmIwr095hCLxaoErj04ToqQbaFH0Qt2R1EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792530337;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=eMqMFwpTpqN2HVxCs4u1Rwn8A+RwwZ+HmzQanCZlbz8=;
-	b=vRnrnEIDTG94hpoLHYNBR5eSIxKXYkfxIkvEihl4mNsxGblIX66lumzzs9665r5KkxGi
-	 01wdXxyKGBUqtqLstnDkQ/+rLiUG3pKe6bYETukXLGKIvSVbaFw89xT8TWe3b/Pi3AnvS
-	 30p9S+FjIC2f+fZ6WF1qsZdja8EYNF9ZtdSj8rrtZrsh5OrYnuV60JjVkB9zIGnj5PMPR
-	 NASu6yFuLcGcdcdY4LNTVrr0rK2euiZ4TXgU1LCHlU6MmMXwqw+s4ybVEUhBLZ3so9Prw
-	 x4oKouvd1vckDvvbsePZbHtXT/6Zf/DLyPfF+TxDH0z7OnTivf2ya6QOi0pK3osPw6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792530371;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Okbwmm84zWuOe4euiyrXaliuQ5bQTF/Kj7LXwohSA00=;
+	b=S2RHHhvP3rBlzu4mAnZykO+3z5rlnMsSFqITRFCWN0ryjf5kfGshLGHc9UVWLeoIm0yP
+	 LYl3kQdgUR6UE41KUU385EkNBmJ+DELyGsJQBfAFIprSvbRoN21FaBRBioV8KtOhsr8vX
+	 /PQK2PSi8Eo/Z7e3TbjID3qYeBU8L2+kNO7ZojPAshAbhg7IsbqDNVBYz2/8TcSeIQM15
+	 2rniLX4ljTI3UqbLW8nmZFTXJAzh9Zzbjpwd37NDCNF5xQW66FSiYDljKB/USC+w4O/0m
+	 we/fhBjMHsnWoU70GX8BCV7CvcesBe51IN7GFz2X8EJAUS0Y1i3CGyr7GW7jiihXuYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=JDkvzPaB;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2k06brA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4CD606A31A;
-	Tue, 20 Oct 2026 21:05:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF4CD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0864606A319;
+	Tue, 20 Oct 2026 21:06:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=JDkvzPaB
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=eMqMFwpTpqN2HVxCs4u1Rwn8A+RwwZ+HmzQanCZlbz8=; b=JDkvzPaBGFYP/YGilqnwS/4V7d
-	cQEL59YkU01AvJpJspB2yA2HPmO+upPkeQOxWljn4yzebKeoo5pwhFvlR9KAkAHk7JlsLeo55Jfo2
-	bJTyVQ0WMl9kwqb5sS0y0tPbL2nEdteYIgHBInrDPBh2sw+rhXkbbuIKZi/7m0/evMGU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xJH1H-00BvdT-Be; Tue, 20 Oct 2026 23:05:15 +0200
-Date: Tue, 20 Oct 2026 23:05:15 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Stefano Munari <stefanomunari.sm@gmail.com>
-Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
-	UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Nicolai Buchwitz <nb@tipi-net.de>, netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: usb: lan78xx: fix error handling in
- lan78xx_open()
-Message-ID: <1449a6a1-670c-4d1d-bb98-51f92e32d848@lunn.ch>
-References: <20261020202614.30277-1-stefanomunari.sm@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2k06brA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C6C1F000C9;
+	Tue, 20 Oct 2026 21:06:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792530370;
+	bh=Okbwmm84zWuOe4euiyrXaliuQ5bQTF/Kj7LXwohSA00=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=o2k06brAvTVvieiztxnSUOhgnLqYQ9kQ+vUrlU574jBoe2u5jXcGbmjx5PZM7OF3p
+	 foKa5aTGywK93Jw6dlFUCjHjiqVlHR5VDsXqipIFbwP1AN8Zjfw37kyvNUOg3ev0N/
+	 U2aJEBzjHLWOQQUz+GLOexfioMpzNRyebEtlGyXjRUDg7ScsJypDMvJpnekZir0Cxy
+	 2Y0RTOl4snRvogwJo1WkAmvECBUJBVXdOSeNNqBLcsQWvK4uTxAiJgUFoCbPur3BJx
+	 UvC2BEeXS1hMh+Ke3rqpCEq1IaphX1XD0SeHCOTDgTFApWQwH9ICxAVfrIPf8ILHfF
+	 g6R3n4cDHgaKg==
+Date: Tue, 20 Oct 2026 22:06:05 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, mocker-mug-unwoven@duck.com,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+	Arka Mondal <arka@arkamondal.net>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: light: Add AMS TCS3472 and TCS3400
+Message-ID: <20261020-protector-supper-1e9d019291a0@spud>
+References: <20261016-tcs3400-v1-0-3d79d2a7f449@duck.com>
+ <20261016-tcs3400-v1-1-3d79d2a7f449@duck.com>
+ <af011ab8-b9ab-49d1-b9fe-4e87b3979bbd@kernel.org>
+ <20261017013600.077fee36@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,26 +66,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="L6OcHM2yt5jenoCy"
+Content-Disposition: inline
+In-Reply-To: <20261017013600.077fee36@jic23-hlaptop>
+
+--L6OcHM2yt5jenoCy
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020202614.30277-1-stefanomunari.sm@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 10:26:14PM +0200, Stefano Munari wrote:
-> A failed interrupt URB submission leaves NAPI enabled and EVENT_DEV_OPEN
-> set. A subsequent open enables NAPI again, triggering BUG_ON() in
-> napi_enable().
-> 
-> Clear EVENT_DEV_OPEN and disable NAPI on the submission error path.
-> 
-> Reproduced using failslab on a Raspberry Pi 3 Model B+ (LAN7515).
-> With the fix, the injected allocation failure returns -ENOMEM and a
-> subsequent open succeeds. Verified connectivity with ping and SSH.
+On Sat, Oct 17, 2026 at 01:36:00AM +0100, Jonathan Cameron wrote:
+> On Fri, 16 Oct 2026 16:43:42 +0200
+> Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>=20
+> > On 16/10/2026 10:15, HuskerMinion via B4 Relay wrote:
+> > > From: HuskerMinion <mocker-mug-unwoven@duck.com>
+> > >=20
+> > > The tcs3472 driver has no binding yet. It matches DT nodes only throu=
+gh
+> > > its I2C device ID.
+> > >=20
+> > > Document the TCS3472 family and the AMS TCS3400 family, which the next
+> > > patch adds to the driver. Both are I2C color sensors with one thresho=
+ld
+> > > interrupt and a VDD supply.
+> > >=20
+> > > Signed-off-by: HuskerMinion <mocker-mug-unwoven@duck.com> =20
+> >=20
+> > Please read submitting patches how to properly attribute the work with
+> > your real and known identity
+> >=20
+> >=20
+> > > ---
+> > >  .../devicetree/bindings/iio/light/ams,tcs3472.yaml | 57 ++++++++++++=
+++++++++++
+> > >  1 file changed, 57 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/iio/light/ams,tcs3472.=
+yaml b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
+> > > new file mode 100644
+> > > index 000000000..cd4a0516e
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
+> > > @@ -0,0 +1,57 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/iio/light/ams,tcs3472.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: AMS TCS3472 and TCS3400 color light-to-digital converters
+> > > +
+> > > +maintainers:
+> > > +  - HuskerMinion <mocker-mug-unwoven@duck.com>
+> > > +
+> > > +description: |
+> > > +  Color light sensors with 16-bit clear, red, green and blue channel=
+s, an
+> > > +  I2C interface and a threshold interrupt.
+> > > +
+> > > +  The TCS3472 family covers the TCS34721, TCS34723, TCS34725 and TCS=
+34727.
+> > > +  The TCS3400 family covers the TCS34001, TCS34003, TCS34005 and TCS=
+34007. =20
+> >=20
+> > We do not take families, but actual devices. TCS3400 seems to be a real
+> > device, so I don't get why you call it a family.
+> >=20
+> >=20
+> > > +  The variants differ in I2C address and interface voltage.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    enum:
+> > > +      - ams,tcs3400
+> > > +      - ams,tcs3472 =20
+> >=20
+> > Your driver cod suggests these are compatible, so it should be expresse=
+d.
+>=20
+> That's only true because this driver hard rejects a whoami mismatch
+> which is something we shouldn't really be doing. If we do a look
+> up in driver and fail to match we should be using the data associated with
+> the ID that the fallback compatible would have had.
 
-Memory allocations for small blocks generally don't fail, so this is
-theoretical, and very unlikely to happen. Please target net-next, and
-drop the Fixes tag.
+Agreed. At most, the driver can emit at info level that the unknown ID is
+being treated as xyz device instead.
 
-    Andrew
+> Our old fun of what should we do about fallback compatibles and
+> devices with ID registers.  Some of which (in this driver) are actually
+> compatible with each other and some of which are not (in the sense
+> that the match the WHOAMI and do different things depending on that
+> matching).
+>=20
+> I still prefer that we never claim devices that need different
+> handling are compatible (even if detectable) because of that prevents
+> new drop in parts being used (as they normally have different whoami
+> values even as supposedly drop in replacements).
 
----
-pw-bot: cr
+I think I've said this a few times, but I have no recollection if I said
+it to you or elsewhere, but IMO how detection works is as follows:
+
+If you can detect capabilities at runtime, then having some sort of
+common compatible is fine, because you can figure out how to handle the
+device based on what the capability discovery interface reports and this
+works fine for new devices. Ideally the common compatible is a fallback in
+case some issue with the integration crops up or to constrain things like
+input clocks etc. The former is more of a problem for things like i2c
+controller IPs and the latter probably isn't super relevant either to
+different devices in a family of ADCs that likely all share the same
+package. If there's some new bit, you have to change the driver to deal
+with that feature, but you'd have to do that for any new feature no
+matter the scheme used, so that's not a big deal. The designware SPI
+controller works like this, for example. I don't know if there are any
+IIO devices supported that have something like this.
+
+On the other hand, detecting the device ID at runtime is no better in any
+way than having a specific compatible. You effectively end up with match
+data gated on a whoami value, which is basically the same thing as
+gating it on a specific compatible except for how this blows up in your
+face when someone comes along with drop-in replacements (which maybe are
+made by another company) that, as you point out, can have different whoami
+values meaning you need to modify the driver for every new device
+despite having the ability to detect what device is being used.
+
+Devices being declared compatible that need different handling, because
+you can use whoami values to account for the behavioural differences I
+would advise avoiding since it's equally easy to use match data to get
+the same result and it's immediately obvious when looking at a
+potentially 1000s of line driver spread across multiple files that
+things are different when you can jump to the of/spi/i2c device id
+array and see what the differences between devices actually are.
+
+IOW, I am recommending removing decision making based on whoami values,
+removing warnings about whoami mismatches, adding specific compatibles
+for all devices to the bindings, using fallbacks to devices with
+compatible programming models where applying identical handling to both
+devices in the driver is functional and adding match data in place of
+whoami-based decision making in drivers. The end result of that being
+that your drop in replacement devices, be that from a different vendor
+or the same one after a product refresh/manufacturing change etc can
+work without any changes being needed to the code.
+
+Personally, I think it's okay for an 8 channel device to fall back to a
+4 channel one, if the extra 4 channels won't work since technically the
+fallback is an exact subset of the 8 channel device - but I do
+understand that people don't want to do that because 4 channels not
+working is not really the same thing as a device where using the
+fallback means a reduction in performance, e.g. using a fallback on an
+ethernet controller that allows networking in U-Boot to function without
+driver changes, but at a reduced bandwidth compared to using some new
+feature only available in the new device. So I tend to ack stuff where
+people say that an 8 channel and a 4 channel device aren't compatible,
+even though technically a driver written for the 4 channel device would
+work perfectly fine on the first 4 channels of the 8 channel device.
+
+Hope that helps?
+
+Conor.
+
+> I don't mind enough to argue much about it however.
+> Note that before this series all the supported parts were actually
+> compatible and the only difference was a print on the id match. So
+> if this patch hadn't turned up an I'd noticed, I have simply
+> deleted the error return.
+
+--L6OcHM2yt5jenoCy
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatfXvQAKCRB4tDGHoIJi
+0vRTAP9oW0xcpw9j7yCVc+5v3TSoVq3S5pVJ8nEjDMWG9S4sgwD/cr7KMifZ3OZe
+zBvLBaJMwqCUWKGNFd11id10QJx6jwc=
+=GMQ0
+-----END PGP SIGNATURE-----
+
+--L6OcHM2yt5jenoCy--
