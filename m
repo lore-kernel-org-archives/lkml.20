@@ -1,69 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486681;
-	b=0Utgb94FXvRY1lfa//ImSIS4XEV+NC63kP8LK/7fKJLzu9ZHth5NdZzBIC4pEURpCJsB
-	 WUCsyRjYDq+nmR5ql4HgoE1jTwq54GFPMtHXqEgJbaJU5z6hK7Z95Fnfa28zVoeiWPkiJ
-	 QeSF3rT8Bf6A6lUjjA6IS8rR5N61hBwtMsV41vR9UyCcUjSTTvyXdPcen2io0N3eePSjP
-	 kkTrS51mLVKQEO6R0XpaOLgTEkgUWOLpOPN/HsKYadS+K+5VFf2fYIGslwYzofyHHG+ee
-	 CUW8FSASriNKmUDKekaYVJUcdJfQcr9N0stiT4n7GqMMmtlSUPbHH3QWPwzNcZHwEJQ==
+	t=1792486734;
+	b=VBmKK3LlAhSBpqtq8RbpjCijsUAhhnnhS8Nm3TCiit2PCitiB6dAWxBIafevSqUgA9MJ
+	 Lac9tQyTdLDHS/JYBrKadUkZ5brXdT5gc+dURjLnMLhNGcNRrUdBbMtB+Jv6PC5EQeC7K
+	 zkYBg5nX+W2R3hq12uLC8u3SWRmNvb6ExvgHtI4IMopoW/ZnGY8d//GdupuMjTbc1tqq7
+	 AlL6tLuXcQEIO3wD7xeeoQDoGAkqDoYjJQgUVrPaJNY/FJBWUavs7UIkmizcQ7L1a/81g
+	 yJ4bBVe0cFx04zVn30Jea7Ndt0Z8++F1rd9eQ+50JKhEqSHRicO+LwzJNIAny14eSZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486681;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
-	bh=f2RC02k4kzNCEkVNB0+GicfGGVn/vdjSFeUmhuG7iU8=;
-	b=JnoRORtKkNiodKsaZta1ievrz3KmBVJi+EUsaZJNfjUmmsCQxHPAzKilseaafRwEfCHm
-	 9HFFokXYZGFN8DIb+/Nuucfd4gYd4zkct3z1KPgFcPHd3RImF5R0rSutURXBQTcX0b0KO
-	 JzpxphHXnPbMkRXCuBmNexr4xCx9DoT11nsrHgx6d91p/Nm/LK8NYdIEnDFlHnXE989VU
-	 zZA+6/9puWqKKdCsA8lE15BZYXvZO95IoNvaiiyimXnloiuOp/QJgvgk600katRIDWW9q
-	 rp9QRXeu97gJZ8OwZ2XeFUJDgj9MAedyqqRDcQNEOuzx0yMcr/YoTYYyNG3durfxb9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486734;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=HlLZ9zGeNEup/rHEpny5JmMLv3fK5Tlr0wrd1y6qyXY=;
+	b=IyehdeazHh7byR9b+KkNcUk1oI0F9BQd4+6EE4e0bC68+aQClf3AB21Vv+KHZmHrlzKV
+	 uzGg5Lky3C6qKoDkU1anjwTPM3L97ARLHaBvAsTLg9n4/oAfno0gEu2EFr1gspVZsWLKb
+	 UY1S0Y9Eu5OF1dIKIf1ep/uJdktsCtP7shtA8THnZ6kvtFk4AvHLeMyIgogZI/bTIUzev
+	 9eT69ICOP02J8d/cXDoidcFznhZqxLcjQc6vpAeu1il1n9JE0Sy0gf0NITNlnwYIn3vX4
+	 S+P4pLPN+uLdY0rn6L4VQXEadRHwB3DBzMneJThZTGetMBUgOl17YknbE7jk6F5aoqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b="McdG56U/";
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EwlNOE9A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3244F606A319;
-	Tue, 20 Oct 2026 08:58:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3244F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABC9606A31A;
+	Tue, 20 Oct 2026 08:58:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=McdG56U/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1792486687; x=1824022687;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=AG80YPxqxi+pkt3jLWqElJJ+6PD1MdH6CVxrcZj82s4=;
-  b=McdG56U/R/HOvn8uLU0siwzVvPo10fW58sg+wwelkDwV4M3yyIEuZBIm
-   oUf3OyPBD0v32vznMLvSxSD1HTP4EhPcHBAV9j+9TRaRTlhjofBY8M/gU
-   nzeXqOKzRJwuW1tJzj2dxzNEO7xu2i88OvhBLfv3WGTdp+JoBETO+jnfS
-   sbCcbrF/IuEN5a2sUl/I/Xr7jk/iJUvJ4jKOwKUiv+NMaz1NT611vuNsl
-   xMfjdpPIW1EjMTLeZateG+SyxIIAitDx2E8oF5h5QoMsKiCGXw+4PqU2p
-   cSwI4PB5Q+yo3F9qRd0oONd312NNRgO75BdwPDK23UWe3Pfa6P3M1LqDF
-   g==;
-X-CSE-ConnectionGUID: g1XMydjBTL6qIJKaVNKb0Q==
-X-CSE-MsgGUID: +ALR+oy0QVOFf9U4GZMkCw==
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="65303176"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:58:07 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Tue, 20 Oct 2026 01:57:59 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 20 Oct 2026 01:57:58 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Tue, 20 Oct 2026 10:57:27 +0200
-Subject: [PATCH net] net: lan969x: don't disable hardirqs in fdma tx clear
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EwlNOE9A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C421F000C4;
+	Tue, 20 Oct 2026 08:58:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792486734;
+	bh=HlLZ9zGeNEup/rHEpny5JmMLv3fK5Tlr0wrd1y6qyXY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=EwlNOE9A6HClJkvde0kvUnzaqmRf601biMcVfJWjPPZAPytYo3tQ2sQspN5IdLrr8
+	 j1LKmnLBwQ4VpNLE939lziDV64lDN1ppA9OjHtxyFTQorxqVCeeqqvOCfFJG7p8Egx
+	 tn7AU4U63x6jl0VWqgQjuQbUS9YZsLXNhaLarB2KdlyJTu4oVzLwf45aPqOM5euA2P
+	 9jQrzNi9IlM4mQS7knsGSVoJN6EHvMXzKQSveHO0qJdIlLJfLo4pPB7MU15S2LWNtj
+	 3qnN98lfGiaC2xxxviQYyqR0znEe7mJN2E/F3jaWyI1VXLxrGWxhz1C6ns+teAQ8l3
+	 MT8nrF3+l/xEg==
+Content-Type: multipart/mixed; boundary="===============0961616978328380911=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,75 +49,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Message-Id: <a02301c0ff8593349602f81cdf0c21f1b38db0b60118f8eed3199a6a38330234@mail.kernel.org>
+In-Reply-To: <20261020083713.905006-1-yanxia@cmss.chinamobile.com>
+References: <20261020083713.905006-1-yanxia@cmss.chinamobile.com>
+Subject: Re: [PATCH bpf-next v2] tools/bpf: Remove legacy BPF tools
+From: bot+bpf-ci@kernel.org
+To: yanxia@cmss.chinamobile.com,daniel@iogearbox.net,bpf@vger.kernel.org
+Cc: yana06070@163.com,ast@kernel.org,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,davem@davemloft.net,edumazet@kernel.org,kuba@kernel.org,pabeni@redhat.com,horms@kernel.org,corbet@lwn.net,skhan@linuxfoundation.org,rdunlap@infradead.org,richardcochran@gmail.com,netdev@vger.kernel.org,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 20 Oct 2026 08:58:53 +0000 (UTC)
+
+--===============0961616978328380911==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261020-lan969x-fdma-tx-clear-irq-v1-1-b9f9d1eda317@microchip.com>
-X-B4-Tracking: v=1; b=H4sIAPYs12oC/x3MQQqEMAxA0atI1gasSrVeRVwUm2pAO2MqUhDvb
- nH5Fv/fEEmYIgzFDUIXR/6FDFUWMK82LITssqGuaq0qZXCzwWiT0Lvd4plw3sgKshzoet13nTe
- 6bRTk/i/kOX3vEQKdMD3PC39ukH1wAAAA
-X-Change-ID: 20261019-lan969x-fdma-tx-clear-irq-d86877f96431
-To: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Steen
- Hegelund" <Steen.Hegelund@microchip.com>
-CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-X-Mailer: b4 0.14.3
 
-lan969x_fdma_tx_clear_buf() runs from the NAPI poll and frees the skbs
-of completed tx DCBs with napi_consume_skb(), under sparx5->tx_lock.
+> tools/bpf: Remove legacy BPF tools
 
-Before this patch, the lock is taken with spin_lock_irqsave(), so the
-skbs are freed with hardirqs disabled. RX skbs are marked for page_pool
-recycling, so when such an skb is forwarded back out and its tx
-completion frees it here, the free path reaches __page_pool_put_page(),
-which warns via lockdep_assert_no_hardirq().
+TL;DR: Nit only: the reworded filter.rst sentence says the instruction table
+lists opcodes, but it only has mnemonics and descriptions, so the new wording
+may mislead readers.
 
-Take tx_lock with a plain spin_lock(), as the only other tx_lock user,
-sparx5_port_xmit_impl(), already does. tx_clear_buf() is only called
-from softirq context, so disabling hardirqs is not needed.
+> diff --git a/Documentation/networking/filter.rst b/Documentation/networking/filter.rst
+> index e0b9dc14a9bf..ee35cea6face 100644
+> --- a/Documentation/networking/filter.rst
+> +++ b/Documentation/networking/filter.rst
 
-Found with lockdep enabled (CONFIG_PROVE_LOCKING), which the assert
-depends on. Reproduced on lan969x by redirecting received frames out of
-another port with tc mirred.
+[ ... ]
 
-Fixes: d84ad2c0d80c ("net: lan969x: add FDMA implementation")
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
----
- drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+> @@ -213,9 +210,8 @@ contains a miscellaneous argument that can be interpreted in different
+>  ways depending on the given instruction in op.
+>
+>  The instruction set consists of load, store, branch, alu, miscellaneous
+> -and return instructions that are also represented in bpf_asm syntax. This
+> -table lists all bpf_asm instructions available resp. what their underlying
+> -opcodes as defined in linux/filter.h stand for:
+> +and return instructions. This table lists the assembly notation and
+> +the corresponding opcodes defined in linux/filter.h:
+>
+>    ===========      ===================  =====================
+>    Instruction      Addressing mode      Description
 
-diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-index c7e0e58ff0f7..053d125eda65 100644
---- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-+++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-@@ -54,10 +54,9 @@ static void lan969x_fdma_tx_clear_buf(struct sparx5 *sparx5, int weight)
- {
- 	struct fdma *fdma = &sparx5->tx.fdma;
- 	struct sparx5_tx_buf *db;
--	unsigned long flags;
- 	int i;
- 
--	spin_lock_irqsave(&sparx5->tx_lock, flags);
-+	spin_lock(&sparx5->tx_lock);
- 
- 	for (i = 0; i < fdma->n_dcbs; ++i) {
- 		db = &sparx5->tx.dbs[i];
-@@ -83,7 +82,7 @@ static void lan969x_fdma_tx_clear_buf(struct sparx5 *sparx5, int weight)
- 		db->used = false;
- 	}
- 
--	spin_unlock_irqrestore(&sparx5->tx_lock, flags);
-+	spin_unlock(&sparx5->tx_lock);
- }
- 
- static void lan969x_fdma_free_pages(struct sparx5_rx *rx)
+Does the table that follows actually list opcodes?
+
+It only has three columns: Instruction (mnemonics such as ld, ldh, jeq, ret),
+Addressing mode, and Description (prose such as "Load word into A").  There
+are no opcode values like 0x28 and no BPF_* opcode macros from
+linux/filter.h or linux/bpf_common.h in it.
+
+The old text said the table showed what the underlying opcodes defined in
+linux/filter.h "stand for", which matched the Description column.  The new
+wording reads as if the opcodes themselves are listed, so a reader looking
+for the encoding of an instruction will not find it there.
+
+Would something like "This table lists the assembly notation and what the
+corresponding opcodes defined in linux/filter.h do:" keep the original
+meaning?
+
 
 ---
-base-commit: 07bd391eb9572e74f073c49acef327611234f9bb
-change-id: 20261019-lan969x-fdma-tx-clear-irq-d86877f96431
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Best regards,
--- 
-Daniel Machon <daniel.machon@microchip.com>
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39395316270
+--===============0961616978328380911==--
