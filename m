@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513023;
-	b=gQAtc0Geg/Ik9DDLW3nlhRyXl+sgkOW2+EbktLncdKPKO70nNtt741Ad7BTIDUNHINqT
-	 KGvoFyAcRRefJ68rjrYX9g7+BHKMHIffMUnHudy8WJgFZJ2sPkEuWWQtXxMHfQJqJFfD5
-	 /WUlSSkRyC7fORAo7Bu3Yg4z9F5PjG1QZlO78Ol4YTEjwhEP5aSHNRwBbdNbwAEyBEyia
-	 P1IIK0+z872pxya/GmkTjGFdG/ZiJOoL7a5gBr8S5hzHpfdj8R5ADqf1yWtxGDBMZyazw
-	 9VstJQK9f/thb7N4+K7MK5f5D5RZYzrYJP3Tqeq+YkC/IAcxrKAcuU26+c1OMcVv+ug==
+	t=1792513031;
+	b=GyydYDsx+/egzFSSl1iawV8pQ3IkHKaOB8gOoFXEvCAJsdNYOQ2jv9/Qoct0uxkTbo3g
+	 FDJ0lhxmPuFJRFzeDqEpdZCL/b+NP9ancMtenTRriYs8bIlPRSEK6PE0HN9D+FtFmkLDx
+	 8cGZq3rfqXiDoH525I5zzE2Oj1BOmvuYLr0iqClTJjSjJRNJJMFn5rbmr3V6W9wjEbh4V
+	 Pas9NtX/fOh3IVvk7nI4yCxbU7hkFwCv3DA2scN8MiFxJ4sebaEDQ0eu0eUs5rAgW3IyI
+	 V6T5k3QJH9sNMJ6YgUdi6OeM1H+xxOUK/p3P3gE6FxHqESBUUoksd85Z4tFKhruTCxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513023;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513031;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oF8o2NkVOsBS01dOJyuHdHQ0Bcvo6IPZ+9izz83SPZo=;
-	b=17REjM2ziW4xPiVpXk06zKJndL+ScxJtjWzP3+ifD4Bh8nXYS4eebu0DyBpKDAYzfTtR
-	 yWgROF/ZCv0VPhKDts5481skSfy2ckohddPpATmLmbUniyg44rn29PGuUF7GOIip6QiIx
-	 7mrFRdykZOsaGATGx3wfMiy1fSnPmqzeM4rrU258gj4Kkg2aLZy/XWpXYXFPCqh4DSTEe
-	 mgMn64GP9VAoMm9ryMdld1wAH827VKUNy7d6v8iIM+JSWArG1kpQvTSzfH10RkN117/uI
-	 fVzKVLsgukxOuBdNu5n4JLAMWBTYqckRrz2I35oNX6S4QxQpHE64YoQqQyoNbJ3fBpg==
+	bh=bBTTI+QB2qQ53J0Dr/MoUAb2MNIGyWZXrr66z8NyYG0=;
+	b=1zslXE8wKFbxLw2w66Hd+c5AP5/9A22r7Qy1k2akN934jCgHDP+uHXXRzVZMSMip75Yc
+	 kPNdkgSc7yhUV7ZUR+3UA+sjKq8YcKCwgGs41mNU6tnkX+eYFgitQy62oFs5bJ3jjXEhB
+	 Nqt92iSHjwdPs/QrheaIGm8aa7oCBsqAeZDHtxAtY2CoIbKTsw4oPj3ajkgmLmNEmanFW
+	 a0Irt1pkV9QA7ju8Ll7sXi/Lf+/1lSYd4mxkGbY0z1hwuIgC3BnVWFP7ek7yWWoLwEPrs
+	 bKYyY5ivIEzR+kHz/YE4hI+kuMkpFlcv9qwjx0UDonnthWmTQKAcNE4dJGHSX1otmMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JLbW5fDE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WVNQ6/IP";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537EF606A32D;
-	Tue, 20 Oct 2026 16:17:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9276760A2622;
+	Tue, 20 Oct 2026 16:17:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JLbW5fDE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AFFD1F000C4;
-	Tue, 20 Oct 2026 16:16:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVNQ6/IP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992731F000C5;
+	Tue, 20 Oct 2026 16:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792513023;
-	bh=oF8o2NkVOsBS01dOJyuHdHQ0Bcvo6IPZ+9izz83SPZo=;
+	s=k20260515; t=1792513030;
+	bh=bBTTI+QB2qQ53J0Dr/MoUAb2MNIGyWZXrr66z8NyYG0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JLbW5fDEVYrKo6ZjPeo5eyS966SGrbULngiTBtm1nuiL8LRkc/2e4V1WIkq0F2BWI
-	 1EZpZuJHLQYXkvUOjV+adFLTid9IPmDnmq0b5OOtpBXyCN6kOngDeEXiV+8pjFmxVV
-	 eXZgNuAGS4sWc2TpecBzf1B+B1YTwFlqkHTYZqs6KCN0sBj36nI73Kpqn1EjQEpWH2
-	 k9DSQttz9YZ9oA6DPAM8qmFTkLmnEkig00Ng4JQfakwgB8+bWuVDJmCi6zkgskPAfB
-	 Eua1wzgzzwKkHBcYtf3kvzqjgBYNOEEVbB+6VEdy00J5wD/VYIYT4PE7ngSYYT6LCm
-	 KeK8/VJGuecDg==
+	b=WVNQ6/IPJ4zCegk7EffQTGQnk4ga4u5B5nZBvlx6JPq0YzCaj0DBAV/VQd6E961hg
+	 i/v7u1+UVnN27NAf+zWMPBwmBc8jlsBERp1HOb6PT6XR93p7b+fEyoN92R1yEgQEFN
+	 RtgWMcC/4C+211fOXn93IPCUrxN4glLmh/IUOYnsGRMrOvZIox/8TYayAJHb2Rn66+
+	 XHtvbYHqlB1c7GPDxX4ngnNhHnsljOmgs9farnfcLik1I8lFhnLKHAKZaj7pRENU/k
+	 uUDrpgvKkS6ERkCU7mOxLBP6j9EBcp4byecbsWOHwHxV7kYUK1BuwwQ6YVCatM8Y8p
+	 1aDUJiuaz5n7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: workflows@vger.kernel.org,
 	ksummit@lists.linux.dev
@@ -64,9 +64,9 @@ Cc: linux-doc@vger.kernel.org,
 	SJ Park <sj@kernel.org>,
 	Bradley Morgan <brads@mainlining.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH v4 2/5] agents: add a skill to determine Fixes tags
-Date: Tue, 20 Oct 2026 12:16:39 -0400
-Message-ID: <20261020161642.3713052-3-sashal@kernel.org>
+Subject: [PATCH v4 3/5] agents: add a skill to determine stable tags
+Date: Tue, 20 Oct 2026 12:16:40 -0400
+Message-ID: <20261020161642.3713052-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261020161642.3713052-1-sashal@kernel.org>
 References: <20261020161642.3713052-1-sashal@kernel.org>
@@ -81,99 +81,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Blame and existing Fixes tags can point to code movement instead of the
-change that introduced a bug. Add a skill that sends the agent to the
-description of the Fixes: tag in submitting-patches.rst, and adds the
-checks agents tend to skip: pinning down the bug before searching,
-following the code past moves and refactors, comparing each candidate
-with its parent, tagging a later commit that only exposed the bug as
-well, handling merges, reverts, backports and bugs older than the Git
-history, and taking the commit ID and subject from the commit rather
-than typing them.
+Whether a fix needs a stable tag, and which releases it should reach, is
+decided by hand and is often missed or left too broad. Add a skill that
+sends the agent to stable-kernel-rules.rst for the decision and the tag
+format, lists the kinds of changes the stable trees take and leave out
+in practice, and adds the checks agents tend to get wrong: finding the
+first release that contains each introducing commit, checking that the
+fix applies to the oldest affected release, giving every stable tag the
+same version, and following the subsystem's stable policy.
 
-If the origin cannot be established, the skill returns no tag. Point the
+If the decision cannot be made, the skill returns no tag. Point the
 bug-fix procedure in coding-assistants.rst at the skill.
 
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 ---
- Documentation/process/coding-assistants.rst |  9 +++--
- agents/skills/find-fixes/SKILL.md           | 39 +++++++++++++++++++++
- 2 files changed, 46 insertions(+), 2 deletions(-)
- create mode 100644 agents/skills/find-fixes/SKILL.md
+ Documentation/process/coding-assistants.rst |  7 +-
+ agents/skills/stable-tag/SKILL.md           | 72 +++++++++++++++++++++
+ 2 files changed, 77 insertions(+), 2 deletions(-)
+ create mode 100644 agents/skills/stable-tag/SKILL.md
 
 diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index 1efc7b08f09f8..ddff951856dce 100644
+index ddff951856dce..fc4e98fd96e11 100644
 --- a/Documentation/process/coding-assistants.rst
 +++ b/Documentation/process/coding-assistants.rst
-@@ -33,6 +33,11 @@ or send mail. A skill returns its result with the evidence for it, or says what
- is missing. Do not fill a missing result with a guess or a placeholder, and do
- not finalize the work until it is resolved.
+@@ -37,6 +37,8 @@ The following skills are available:
  
-+The following skills are available:
-+
-+* agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug fix, or
-+  checks an existing one.
-+
+ * agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug fix, or
+   checks an existing one.
++* agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
++  returns its stable tag, or checks an existing one.
+ 
  Licensing and Legal Requirements
  ================================
- 
-@@ -96,8 +101,8 @@ these steps:
+@@ -101,8 +103,9 @@ these steps:
     another one. The fix must not add build warnings and must pass the
     checkpatch.pl checks (see submitting-patches.rst).
  6. Commit the working fix with a detailed message describing the problem, the
--   solution and a Fixes tag. Do not add a Signed-off-by tag, and add an
--   Assisted-by tag, as described above.
-+   solution and a Fixes tag determined with the find-fixes skill. Do not add a
-+   Signed-off-by tag, and add an Assisted-by tag, as described above.
+-   solution and a Fixes tag determined with the find-fixes skill. Do not add a
+-   Signed-off-by tag, and add an Assisted-by tag, as described above.
++   solution, a Fixes tag determined with the find-fixes skill, and a stable tag
++   if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
++   add an Assisted-by tag, as described above.
  7. Identify the maintainers and lists using scripts/get_maintainer.pl.
     Documentation/process/security-bugs.rst shows how to do that.
  8. Indicate what could not be done. If the fix could not be built or tested, or
-diff --git a/agents/skills/find-fixes/SKILL.md b/agents/skills/find-fixes/SKILL.md
+diff --git a/agents/skills/stable-tag/SKILL.md b/agents/skills/stable-tag/SKILL.md
 new file mode 100644
-index 0000000000000..12b6ea83876d9
+index 0000000000000..d87bcc95089d3
 --- /dev/null
-+++ b/agents/skills/find-fixes/SKILL.md
-@@ -0,0 +1,39 @@
++++ b/agents/skills/stable-tag/SKILL.md
+@@ -0,0 +1,72 @@
 +---
 +# SPDX-License-Identifier: GPL-2.0-only
-+name: find-fixes
++name: stable-tag
 +description: >-
-+  Determine the bug-introducing commit and return a verified Fixes tag for
-+  a Linux kernel fix. Use when preparing or reviewing bug-fix patches,
-+  drafting their commit messages, or checking an existing Fixes tag.
++  Decide whether a Linux kernel fix should be backported to stable kernels
++  and return verified Cc: stable tag lines. Use when preparing or reviewing
++  bug-fix patches, drafting their commit messages, or checking an existing
++  stable tag.
 +---
 +
-+# Determine a Fixes tag
++# Determine a stable tag
 +
-+Read the description of the Fixes: tag in
-+Documentation/process/submitting-patches.rst. It says which commit to name
-+and how to format the tag. Follow the rules for skills in
-+Documentation/process/coding-assistants.rst.
++Read Documentation/process/stable-kernel-rules.rst. It says which changes go
++to stable and how to write the tag, its prerequisites and its version. Follow
++the rules for skills in Documentation/process/coding-assistants.rst.
 +
-+- First establish exactly which bug the fix addresses: the failure, how it is
-+  triggered and the code involved. Trace only that bug. If the search leads
-+  to a different bug or subsystem, go back to the fix.
-+- Name a commit from the history of the tree the fix applies to. A stable
-+  backport of that commit, or a commit that exists only on another branch, is
-+  not a valid tag.
-+- Treat blame output, an existing Fixes tag and a bisection result as leads,
-+  not answers. Follow the code back through moves, renames, file splits and
-+  older implementations to the commit that made it wrong.
-+- For each candidate, compare the commit with its parent and explain why the
-+  code was correct before and wrong after. Keep apart the commit that added
-+  the code, the commit that made it wrong, and a later commit that only made
-+  the bug reachable, which gets a tag of its own.
-+- Check each parent of a merge, whether the bug was reverted and later
-+  reintroduced, and whether a backport differs from its upstream commit.
-+- If the bug is already present in the first commit of the Git history, name
-+  that commit: Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2"). Confirm that the bug
-+  exists there instead of using it as a default. A shallow clone boundary is
-+  not an introducing commit; report the limit instead.
++Judge a change by what it does, not by how its description labels it: a
++"cleanup" that releases a resource on an error path fixes a leak. In practice,
++the stable trees take:
 +
-+Take the commit ID and subject from the commit itself instead of typing them.
-+Return the tags with that explanation and the candidates you rejected. If the
-+origin cannot be established, return no tag and say what is missing.
++- Fixes for crashes, oopses, BUG and WARN splats, hangs, lockups, RCU stalls,
++  deadlocks, data corruption and security issues.
++- Fixes for use-after-free, double free, NULL pointer dereferences,
++  out-of-bounds accesses, integer overflows, uninitialized data, reference
++  counting errors, and memory or resource leaks.
++- Fixes for races, including data races.
++- Fixes for incorrect behavior, such as wrong results, wrong hardware
++  programming, or endianness and type errors.
++- Fixes for problems reported by syzbot, other fuzzers, or the KASAN, KMSAN,
++  KCSAN and UBSAN sanitizers.
++- New device IDs and quirks for drivers that exist in the stable trees, device
++  tree fixes, and device tree additions for hardware that existing drivers
++  support.
++- Corrections to documentation that is wrong.
++- Performance fixes that prevent lockups, stalls or hangs.
++- Reverts of commits that are in a released kernel.
++- Fixes for bugs introduced by commits that were backported to stable.
++
++They do not take the following, unless a fix that is taken depends on it:
++
++- New features, new user-visible interfaces or behavior, new drivers, and new
++  module parameters or sysfs attributes.
++- Refactoring, code movement and other preparation patches.
++- Optimizations that do not prevent lockups, stalls or hangs.
++- Cleanups that do not change behavior, such as style, renames and comment
++  changes.
++
++Then work out which releases need the fix:
++
++- Determine the Fixes tags with the find-fixes skill first. A change with no
++  introducing commit, such as a new device ID, a quirk or a build fix, or a
++  bug older than the available history, affects every release that contains
++  the code it changes. Otherwise, if the Fixes tags are unresolved, so is the
++  stable decision.
++- For each Fixes tag, find the first release that contains the commit, not the
++  release it was based on. If no release contains it, check whether the
++  commit was itself backported to stable.
++- Check that everything the fix uses exists in the oldest affected release.
++  If something is missing, list the commit that added it as a prerequisite
++  if it is small and fit for stable, or start the tag at the first release
++  that has it.
++- Give every stable tag in a commit the same version: a tag without a version
++  asks for every stable tree and overrides the versions in the other tags.
++  The stable tooling reads the first version number in a tag comment as the
++  version, so describe what older trees need in the commit message.
++- Follow the stable tag policy in the maintainer profiles, the `P:` entries in
++  MAINTAINERS, for the changed files.
++- Ask the caller whether the fix addresses an unpublished vulnerability, as
++  described in Documentation/process/threat-model.rst.
++
++Return the tag lines with the reasons for them, or the reasons for no tag. If
++the decision cannot be made, return no tag and say what is missing.
 -- 
 2.53.0
 
