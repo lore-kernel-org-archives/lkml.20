@@ -1,99 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792499990;
-	b=DpfseSBZYyr9P0uSj++rOlPdeR1yyvSqDOvD2pAdyX9XTvg9TIwyMSyIS/QKxc+9GBsB
-	 6WjUPtCZYzSa0CpyssnG3CatrG/qSIHnPRMz17hewmaEjSbq+XAUbA252Tk1I9KfLlUk2
-	 p1QPztdXV9IClKvtJLc8VkQUowPCXLitdcXa11hOJC5Xi0nhsm57gunw4P6elzvKHKpg/
-	 HjmyyHCzR+jYJmw0QXQwjfzsqWGtVpa6kTENVUdUwyXALENiG84GuN7vjLk7bIk+Mc+/P
-	 +ddDRNAwAFFxmm9KEe+2CSBXGB7F/Q2uDJsZcVy/DrdKSi3QyODeN+wWkDpxZl0xDMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792499990;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mn+KPT7PNe9VT7UdlFzXBdv0pr1VqYLkw7yXQZOMxLw=;
-	b=Dv+er/mihfWqC2ka8FW1XSEyxn1mY4OczvnT8cRi/Q8q4b6GmutkqtPft0FF4k0fOjs8
-	 adcD6x1aqy4WN5lE88PbUu4FdY3QdMDdSlKo3ZlCys6Jia4idJpiL1mcLvHEtzqFvOHey
-	 +9dzwgddC/BQ2UqhWyMhJ1aFu6xRqhGPXHMZVJ58+OL/GcN7VT25MGWTdTXvK/kcPu4c+
-	 N3D94rbf9OoDq3+QoBG5XgeHY5QOSWai3aAkQjMEFSw4NtNUE/siPUVv8bbvDUItn5EhH
-	 QKU9GxHOu9ODhOhp2Bi4T6LFXKZlbZsrxnCJFCojbswAwBQlGouc0HHL8W4FqQPm4tQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gckgA8by;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.76.27.144
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792499991;
+	b=QfZk4+NL4krFoAjR/uBCOnNy7avlPN2E4KCZpdGHk90c30JN8e6K6R+T0zHKPzPPbelO
+	 eN0wxIGDxB9GZSebekDogevlEmkeeoFobyNr17yKiPFZx2OrLi/nrgcYanZTYdrnHq4jy
+	 WuP+MgLDJxggnfVcA3de43nwxt54frqSabYq6gT/83ouTOF24L2+RxN0h58TupmmhQRBz
+	 p6Bxz5PU7UZuAHQTP/qM+bFPBzYP7YLmbf1Pl2S5l6PSTqYT8NJIORmh+VWilcY70T9PL
+	 zUf2lfbUXsPKnCJ8hoab/++IXNZSr9c4Ueb265GreyRx0U0PEgCaWirr0GDX4gd25sQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792499991;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=99Rn/UZ1H9MbzGEXcXS/NYd0KredJZ+AqYa9UlDNkl4=;
+	b=rAB3nyOP6/SXM/HTjIUX5xj3oxteEfcqIUezbZHny03KXhlV9nggNab+/2jsKJnbCiVT
+	 DP+52EOm331A8nucDegJkn24ZkrfDn7Rr4qXy5kKzsyjNTAdh1rjt8JPy+9dde6RimIn5
+	 D/caHPYmgpJJnIltj83jQR+ONCfO6tcUNja4rppw3YpkQnL613ZmR09z4MwSwBpTH/ch6
+	 k8US/loLAXLRlGr7x93dx16f75KFnCRMJIKm9bIkL+nYYNkEbKkieRRhZv3sFyBXVC+fY
+	 QisdmEvqU69Pu8JSxmZG8FDtTQFm3qxH5UFkews9bKt3Mef/sKX0goBOKE5un0vUH2g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=andrei-z.com;
+	spf=pass smtp.mailfrom=andrei-z.com;
+	dkim=pass header.d=andrei-z.com header.i=@andrei-z.com header.a=rsa-sha256 header.s=sig1 header.b=Jur1rxuw;
+	arc=none smtp.remote-ip=82.76.27.144
+Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F79606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3F79606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F76606A31E;
+	Tue, 20 Oct 2026 12:39:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78F76606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gckgA8by
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c45111bebso1990131f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:39:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792499988; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qSlvwN3uLSSSGCz5EgbgD9yRNAtqadCupsJ2YHmQ+IZZUm1Ekf6a4SbuBYj/WM61k+
-         L7xzttekBi2K6uUP2utT8wDaXqlEI/Vm51pPLIWEdQqZCbWtyRi+vLzhHfLDI2+PYEC8
-         yEqAESihpu821H2nde+J2jzYeWbamnqQYC//5qeTrjmVwEvzlVwfxkESELG3Z58Nmx7R
-         VKNscqwmtOVi8vyeVeyhM40pnMiZP/O+cErQw7a1uvW3wZ8mt7/C2NefHYaWV/w0b9Nk
-         ISCj8ys5EDQm+H0+736jg9UebWHGEJraK9HJZFtl86u086qe8bjYnpAz7n95qQFzqgZ6
-         kjmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mn+KPT7PNe9VT7UdlFzXBdv0pr1VqYLkw7yXQZOMxLw=;
-        fh=w8DVwzX9ZpijILuEhV6yPskB5efJC4JIrYeU0Z/urXE=;
-        b=OThqwPAig6+PUxdU3gp1GXDcj6by7oGLqH4KFEGLgZGDx2Ig6Td8ktmBW15PFhQD4Y
-         vlC7CwTOERczEHYBOf8RY6+wEaiQCarr/deIqdh0cUtR4s+vSLeUHgL6tdp0MFDkNXnr
-         l/wdZJvuUgnItGq7OPXfsun4jnxxxEaQJ/zJ/SN8RVpuytd1UNJj23CcY1Nq1tgvSbHs
-         xe4fZviqJI3V4u8utDZ4/4GtA0Y5zc3UhZu2AWovfkoWjaVlgIr4b2e/26+jCusvHra8
-         0eUYAqakvPuHdQmzSGDfE/+bdiYIffsjh7KPGJwKtUza7PcQrAcr5keJ6dmeioYF/Eyu
-         eEOw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792499988; x=1793104788; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mn+KPT7PNe9VT7UdlFzXBdv0pr1VqYLkw7yXQZOMxLw=;
-        b=gckgA8byjsGEdVN8Oe89vE/KvG+6bqzWUIfTn8joJ2MQKIZ/t1PNErPtmh9OMAn3vC
-         P3eKQmb+TvnrYRWdfSArFZDfukjYzv85mZWJWq9dWaG82DFfJowJo/MZxMttJ2kJjLys
-         53CbLDxXimjFQpc4ybWTbYWQ1PHhDweE4odPk0bAyytyCvQXygxtbucjPnonKjYpgD3s
-         ohFbDFbampKm/vVXv3FUy+1qzb+8QxK+Qu7yMV4dJ5xU24dVnjmPhO9v6MoCxSbJEKnL
-         A/v0+5v2iqiQJL7lcDUjoV7ktIFPiFWO+zzyXKi3gXQakae7FAnBHpUF09dIr5/QUShA
-         1CYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792499988; x=1793104788;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mn+KPT7PNe9VT7UdlFzXBdv0pr1VqYLkw7yXQZOMxLw=;
-        b=eAsD1mxy2KZFlI/Ea52cuaYmZDzi72mN3grY/hkJ0rRKPS0bTGK6EHrGVb/1/XyFa5
-         ybZScHV1Pa+zZZ54oYTD0zmnAOt0u2LY98+a6kJ91Q75ChbG5y0Px8/XYBX0XLQU79Xw
-         LgecGpNJJeRr+36hOXZg7Af5CWK31Er9T/8kX564NbPvqC9+Ud0GTtHzs3+Vss4vdhod
-         8Ppn4Q+SDHl2w6svU2eA/NQFuQCfNf5okFr6i5fh9lw0KIW3ptNw41YAPktsI4cKkq/X
-         9x+XTo48JLzuTgjBb/zIXYYorfmg3bc4vnFZFssTdUgFHCUkOV175MU70FFDK0dfsTL9
-         zp3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwRx8nO2c/jrHmuOeXVoEftIEnasY6KLaUPjzX2IBsrD3FIaFQtomDZY+3cyh2RJusznljMQ4ZBpI5ugOk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkw5iNHn5iB4khXCzeq/pVVyG6aK1Pu34gFUaWIS48VTItChsc
-	fd35fgP/r18AEMIcNIJF22w3Bwha/i1cd0MTdpzZRq0a3Q6uDZ7E0HaJ4bRbd70mhk8+4Cy03qV
-	CaC+RKf/n9ZrK0L61qmSSmYEtEay2/xlpqhVecqw=
-X-Gm-Gg: AYBFou0vmKJy8cw/7gS7imZWCCiNFu8rqhKavUgY6AoC2KGFzA0kRS3Y3aEmHFYqqIM
-	DCOkHkkTpaTScDwv3DejCODuG+2Vuhpy0+VkA93FW3+DhNrpa2GFsm4I+NFdRHyI9NV1/nT4vlN
-	r5dAHmrmq9JO2UP7SWgphvm9pUlSv2bOkuMdkXw3R11KGtG4gwPUo67bDWlR8Rdh5z71ltjj5fL
-	4b0SnaJQm563FLfPmc+yOkuKSCf6M9FhytInh5rv0T5iQLlncgeWhh1nm86yDkemdwvzRgXmALO
-	7e07KnsvTFUpytHWo7Hgae4P02wyJYOZGTRYUEkD22S2o8WXLlSS6sVjyQXQbBk5NBE=
-X-Received: by 2002:a05:6000:26d0:b0:48c:77ad:d52d with SMTP id
- ffacd0b85a97d-48e20fbffb6mr3084270f8f.43.1792499987813; Tue, 20 Oct 2026
- 05:39:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=andrei-z.com header.i=@andrei-z.com header.a=rsa-sha256 header.s=sig1 header.b=Jur1rxuw
+Received: from MAILGW-HP.hp.vtj.corp.irix.systems (localhost [127.0.0.1])
+	by vtj.irix.systems (Proxmox) with ESMTP id 8221013CE8;
+	Tue, 20 Oct 2026 15:39:47 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:from:from:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=sig1; bh=99Rn/UZ1H9MbzGEXcXS/
+	NYd0KredJZ+AqYa9UlDNkl4=; b=Jur1rxuw7ZoSUr5QzCGDJtcmybHMgFIclklY
+	47BolaC3w5bG3R7PL4hw3tPaUlTwrTOI0w6kPwvmwRGIbFUg2v7yMGY4QKjBejiB
+	6b7rEbpja4wLd6cmddx1ItNnnJCVRLZdwd0xWT6HpyhPoHkaQUgJ+NvlhRcqOvY5
+	3ams9kW3EgV5nbFPhjX4nwQ5pnLAMXOJtynu9Q3NUbJXvY7ICngblMHu7Sm9dH31
+	c9RfFiNny0eNuq3puzSTu6Q9hhGcqJssG/6JDYWGZgRsdLFsDgDVxLQGhGKyuM4e
+	GELmwSXkSJ59TMfFLpBpmGxZkQHT/9qz5Gxa86w8xSEPU3h0gg==
+Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by vtj.irix.systems (Proxmox) with ESMTPS id 0885513D28;
+	Tue, 20 Oct 2026 15:39:47 +0300 (EEST)
+Received: from [10.89.11.73] (10.57.8.14) by VTJ-MX.corp.irix.systems
+ (2a02:2f04:1:9c24::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 20 Oct
+ 2026 15:39:46 +0300
+From: Andrei-Alexandru Bleortu <me@andrei-z.com>
+To: Jinpu Wang <jinpu.wang@cloud.ionos.com>
+CC: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Sagi
+ Grimberg <sagi@grimberg.me>, Max Gurtovoy <mgurtovoy@nvidia.com>, Bart Van
+ Assche <bvanassche@acm.org>, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+	<linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH RFC 3/3] RDMA/rtrs: Post client read requests inline
+Date: Tue, 20 Oct 2026 15:39:38 +0300
+Message-ID: <20261020153938.1445837-1-me@andrei-z.com>
+In-Reply-To: <CAMGffE=qjNDYdwx1PYgK1K87A4NhJ=cuR+kkUhdYH81gSGb-nQ@mail.gmail.com>
+References: <20261015125118.2966247-1-me@andrei-z.com>
+ <20261015125118.2966247-4-me@andrei-z.com>
+ <CAMGffE=qjNDYdwx1PYgK1K87A4NhJ=cuR+kkUhdYH81gSGb-nQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,42 +78,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260910082008.12397-1-syedtayyabfarooq08@gmail.com>
- <2026091034-slicing-same-692a@gregkh> <CAKD4hN41w_bRPAY3i9=tD1tWQLag3r-FGsngD5U6igM=FWe-_Q@mail.gmail.com>
- <2026102052-stretch-craftily-e3f8@gregkh>
-In-Reply-To: <2026102052-stretch-craftily-e3f8@gregkh>
-From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-Date: Tue, 20 Oct 2026 17:39:34 +0500
-X-Gm-Features: AclHuK8QNNfi9bQ6Wl4hOpfhwScE0HF214wRGBmecZbXX8hu2QyD6SP0CGAeWSI
-Message-ID: <CAKD4hN5mFTS6OyYjDdWjDs1b2Y99-FZCGd4AkXhEOZ-gF94Ovw@mail.gmail.com>
-Subject: Re: [PATCH] usb: gadget: u_serial: fix use-after-free between tty
- open/close and gserial_free_line
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
+ VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
 
-Hi,
+On Tue, Oct 20, 2026, Jinpu Wang wrote:
+> The change looks fine to me, and I did some testing on it. However,
+> the data doesn't seem to show any clear performance gain from posting
+> inline requests.
 
-Apologies for the confusion, As a first-time contributor, I am still
-familiarizing myself with the patch submission workflow.
+Thanks for testing it.
 
-I have addressed all of your comments in the v2 patch, which was sent
-as a separate thread. Please review the updated version here:
-https://lore.kernel.org/all/20260910105359.12915-1-syedtayyabfarooq08@gmail=
-.com/
+That matches what I measured. The gain only showed with one I/O in
+flight against a memory-backed device (4 KB random reads to null_blk,
+ConnectX-6 Dx over RoCE): fio's mean completion latency went from 20.1
+to 19.7 us, under 2 %, and it took 15 paired rounds to resolve. With
+more I/O in flight or a real drive it would be lost in the noise.
 
-Thanks,
-Tayyab
+As I wrote to Leon, I'll leave the series unless someone finds that
+latency matters to them.
 
-On Tue, Oct 20, 2026 at 4:39=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Tue, Oct 20, 2026 at 03:49:29PM +0500, Syed Tayyab Farooq wrote:
-> > Hi,
-> >
-> > I wanted to follow up on this patch, if anyone has had a chance to revi=
-ew it.
->
-> It seems you ignored my review comments on it?
