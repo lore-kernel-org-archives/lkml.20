@@ -1,111 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503633;
-	b=pKdcsTCpbodIFvqJ9qS7D5oyYPoglLsLfyIK0+KC9xSnnfQ6XNIfHFubR8xDn6piCcEH
-	 cB81RhJWRso/OmTVBCPupFWqpLd6l6ei1WtvjsO42rOZtLeLCm5tzY1a3u0VbETGjWDio
-	 pFkmdWclP36LJ5wcdjabzeGUjW/CiMteps0bML3hUIiCI8dIUw/JcBZYjgPVxcP2QLjU/
-	 LXklk3lGfa+9VYbvDg+FxsY+iKJEBxcHia0Y0081uKW4IpOzhMytyZIZP5qCU5jJgbPSi
-	 WyJ2z9Qi+p4yl7S83P1wehOTpypvBxSAbqnI0Ryl3BYXGI2IQzGBuVeVAhVVaWZONbg==
+	t=1792503661;
+	b=QlImwz36VA8QDP/x6kJSIDGBwHRrMwR1sulbH6nNOfJb6/sD2/Fu8KAh00FrpPS3brPq
+	 7bjPJvHCicU+CoPMEfyWcO3j7vtaQ/ZK29TV2PeX4L+5M3+V2/RVFabpWCAKIOHep0x7Y
+	 8LYC/IdCAwoR1fltXDI5B5m/iRjR2Qo9sXSKoko/l+0WQTBYU6jw9Y7nS5fQEv7auygIA
+	 IB1dn4/xDa/tO4QfvyCBr4zV23chUEqHqfHqq/SBdW59pHQdrbtdDEuS95Bit7UbJJa62
+	 j80e8eTcZM8dhE3MPIhWPlh6pvgEVZK88W/LIfaPMyqHwF7d4TEUIx454WUzF92/PNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503633;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=kjoD4zTcGaDNKdU4jZr6UC/VbdfZPGCSWwgF9INjzk8=;
-	b=pTHbchf1qUIJCwnU8JEuMep7D+AlQ0xLCcCmvOldMLseBbN7xwETwUXQTh235U00UIUr
-	 ARJJe+pV1kmWsf2WovOxujaiAmQpE8JlAaF0tdVWDAXo2IVkDUmsayXHb8waA4Up/FRij
-	 wxt7JAfdtz5BPQeuiPY0NiCbw0755V5E544x+eofx3aAusEnBNqzLGAFw19iDUkQWexut
-	 Xrjs80phSkv78jpM/1bVDw5M7r3Wr41+18Ee3y97riST/v5Wb9h4KjvIR+o01TZYlgWDB
-	 GTEBp9dvKqXusgzSeHxqvgcJHprrh6JZ4fESFw9o43FY6w7iUTkB2NA/e1qG4+xHGPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503661;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=Ch9EGHhdFtFSQITU6Xmc/6an1xBjtM45m6Nl/WAREV4=;
+	b=YceRe0Ggrg0zGpY/QoToTfzU7OVvai2bAqUTOF/JZ/P5AB7UApSO4r6whvGzykYeCZeS
+	 u3ZwlI9rSJE7hkEI5YX1FYrFdTd6pNN01daiO/3nq0pKCcjHueZ4rZAK974iA4NAyahEl
+	 kEwon55hLgQnl34f3gNYkFEa/bmeKZPH/GiMEDhDquol7I/9E2p1Ahi3pXkyREwS6Pflz
+	 oCK4nXtqtvJI8bz/NZyD2vo3Q3Tt2uXPnfULYUKpYRUOrGX8mwZGm/9KN87ClrAoDqrPH
+	 xwDdfu3vTKG3uf7rczh3qWyJ40Sv7fjSc/1RHw4aeZ2O59f+ihAqzBgVSV1ZCyZE83g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=J+lSBTPp;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Xerno1ll;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b="Q6sAmx/s";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="KA/jFcbg";
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C63B606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:40:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C63B606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61044606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:40:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61044606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=J+lSBTPp;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Xerno1ll
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDA8uK702574
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:40:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kjoD4zTcGaDNKdU4jZr6UC/VbdfZPGCSWwgF9INjzk8=; b=J+lSBTPp8au92YwL
-	dppsvk97Ir47oVbGtiv4KOuchx4pkFy9PDd8bUDY/mrhbW7QzlBWHrsqzh0dck5x
-	7IzlATfYdGkklpaYWcd5nA9LdnB67rTDl2TIACrLnUCUOvDd6sWMcZE5ZGDuEMty
-	hUqwzKLOtAAOBfYG7bHhnKgceozxVduKkx4PUZC25GtJQYGwb1BV8fiRBK1r0cf0
-	iv/b0KGakppcxeBIeHsO4x0jqOOrLlhOl5x+yw/UTuLNk3ZrVqFrB+SyMcqY+hSM
-	MXbVsW6ZsvndvWOR6HUgUll/1fPAfha0V6025kI0nN038Dy1piNrlSV2bLWX8uYc
-	JHWeGA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5stnmy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:40:31 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9106bb33cdfso9113586d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:40:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792503631; x=1793108431; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kjoD4zTcGaDNKdU4jZr6UC/VbdfZPGCSWwgF9INjzk8=;
-        b=Xerno1llNzdwOOSdwYCePrFJkureNneXwLwss1gnlmYvtd/qr63/KTHUUC0hDUk4UA
-         k++h1q6CRlQ6V9WrP76XucKfxDD/qrfoVlJmdXluLcwlgyxQTWwLl4UGrkCHz2qT8YyJ
-         TpP+/wdMKPqzVluqoMr4TqQnd4Iqzzj1x16QRrdDzWLK3bnG5fCIjPac2FoQEcU0AVLQ
-         q4eJ1r7rBH4ffvRrrJYvQpLWd7w5t+SxkwMCu85ChTT7HJqeUUNQGnIhWfitZDaICJCm
-         RAvhSY109Ncpk7pqYob7bfUcc5HVFjhU/I4KotYJr9VD3EEOY+70g/MZTFHDte7fuwOi
-         wTGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792503631; x=1793108431;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kjoD4zTcGaDNKdU4jZr6UC/VbdfZPGCSWwgF9INjzk8=;
-        b=SN6SPkHMR0ba2+ahVZCRoWFX1TJrQlL83pvSFT5tAbQqgJ4RcUBEZxmiEke4ucIltL
-         m0HyUy+dmCK2/P0S4COSQgmNKy0TyzgGYnHfO/bafjXeJGCqtDSrbRDpjsr/pjfbnxyc
-         abOsxyvS+Dt4RXB1Yz2fhRLq6FBIiJUagOJrPw1luWxoGkT/Lrt0wb5duC2OwkMOpIU6
-         FgIcOu5dcB8HjEMELw/gB74/CANC+ptcEfByqdTCzZHibXRcr1VlWMKDX5dgoozdkbwV
-         1b1mymtvIw9JMxj+7kbdLrmNWP5eyupyOUvnGmDGFh4gsCroKqvn2k5AUv+yQNAbjK5u
-         97EA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfZYjjr0dfs2sfn1kpgHiG0pWJmEkgaPWVxBrT1KavPHjBrdFBcGIlivFFVwYh7AmGmrU7mbgTrDLnhYo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQpxEjiO1vj6HlAub32RHUgccZlSLR70kz6Zt4pzam6ho0tof2
-	OV6TepKI+5IGl+KCa7CFRswz7n869204N3B1rywWJfVYDKXYJKcIX6wGrHlWATyRMsdxiIyXsig
-	V7dkmlsuxuE+RyD1yH23HO4AqTPbQGCrKB37uIzzDPvbD0+wMkurxnAKvPH9icbx7TuQ=
-X-Gm-Gg: AYBFou1M1a6kzYZnfDf2YD4sEv2oQlUlKcBHG8VmMwxGqE6n9hUhWoscfS8KPBgyZ07
-	r3/EUKj6KoC9ZAC2Lh+erniSDkVCrYuw0eQUVFynAH174APDyDZ8Qg65qoQbDXcc3No0X6R/Mv/
-	ML+Z440MQi6NI/OeMmRKgPzuSWB+WUX3SSp5nHAA2xmoFOGnR3q64R1TR9vNJxI1yGzdpC2Vj/J
-	iS9BhWduHG7X6xqL9Ws+HO8E4GnjOgdJlxQ3Cj7aRx/eBcw90zC8ga3g94x8X2ti/k7QY3W+QJ8
-	qwN2P80Hb+7+HXR6qyV1RJRZt4ya/ot9P9QeeODJJmmHYjai9W51n9B2e2vCnHWmEldJpFbJvpE
-	oBvsetAlrA3Dhs5nGCYlhIg==
-X-Received: by 2002:a05:620a:3904:b0:93f:977:5d9 with SMTP id af79cd13be357-93f29a13be3mr1922211785a.0.1792503631130;
-        Tue, 20 Oct 2026 06:40:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:3904:b0:93f:977:5d9 with SMTP id af79cd13be357-93f29a13be3mr1922204285a.0.1792503630475;
-        Tue, 20 Oct 2026 06:40:30 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb165bsm477628566b.71.2026.10.20.06.40.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 06:40:29 -0700 (PDT)
-Message-ID: <d3670f1b-57ba-426a-bdfe-be560740f516@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 15:40:26 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=Q6sAmx/s;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=KA/jFcbg
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 5D561140012B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:40:54 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Tue, 20 Oct 2026 09:40:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792503654;
+	 x=1792590054; bh=Ch9EGHhdFtFSQITU6Xmc/6an1xBjtM45m6Nl/WAREV4=; b=
+	Q6sAmx/s4efWvRJxz5ONQ94MWaRqF6EPglSRKZ1jax2P4NFTaxdXvcMJWbxaSE6f
+	HxAyxZuTc1LgOKSIhPk94Vgpzx2k/FCG3fheup7psqgcR/0B1o3uhkpw3JJU8l7l
+	Z3rnFzmrHA8QV10pLUtpxp8bTyV0cIHn/Gay8sV4paqZ/OtikYb/62RPeqxZRexc
+	W4JUD6LcZDzilyEO8B75Z5aeq+X1ZOlLSAgfr+FmEEr/fQc5uGyt2yxYziyfICbC
+	x+jo071hVy2Y0FgQ+4k8oz6kO8cPjeAfDr98TF9riklRH4exPUr7XQUZZVNvHBuE
+	aH26l8bYIN+ZQhEry97ouQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792503654; x=
+	1792590054; bh=Ch9EGHhdFtFSQITU6Xmc/6an1xBjtM45m6Nl/WAREV4=; b=K
+	A/jFcbgUXJHZqLUD/0Y9/KfDsr1XoNsQBCgMNw5ADUyCfV8/4ClK8dzLoxmPwyfM
+	0a+co/Y2qXNB/d2YDaaBroqMGy0Q1+kcPO4OHnfmuLuz4CY7HbTeJS5LWljaBwlg
+	2QvIVmIZJBY5451TTIsXN2UqZfxVReJg+S0UkUuHXi4AXhAmW3nGJMtZb+gNgIg5
+	SJSltJBQbq1FeHfzMmP2icW+fCEygEjVMDWtltpn50OAae3qfFvUcyo2kWF6WkKb
+	4bhsBLFRyGoFgYHtnkwSE4d27SwAVDWLelO1BI3Im1zfZDPoV1Wk8Ou80rdsKScF
+	+Jgn87pliNcUUB08odJ6Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792503654; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:JSEVQMN0PWuasTtqFIRjOLRz5mwrkzx0rm+0WYtaIpFEyO9
+	jWCsr/oOtADEPCOnDnXbkqsZbxhcWhBXwiUtYdK3OKIeMPEK2gd/skSdXoPUgD30
+	9G3dcv6KNlWC1jORZjbWXOrYnmW5Ce3tDI54S5cOWWRbjxDj8cqZduo7gb2Bx6cX
+	ApbuLFvE+zDS5rIiHuyFxppJ7/1NMr9xdMAHV2qTLGVpGRZkbYux0Wwb42YaZrLJ
+	xJK0jzcSxHhlzYOtTqgzyD0htY9Br2Jbru231rldP0TsD2FyaSyLz9ygT7fxFeqQ
+	Zh4S9PGVO5dSIpmyUCkZtlNAxucaZJXolH4X8wQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:7eVYVWFSw1dv9c9XRzhrtGOOKWPK9sZLTfUvGkT0IrU=:cFm8amiM4h0ViIctEggUhklzsyqkE/L1L7M9EPmqZE0=;
+X-ME-Sender: <xms:Zm_XapAfqsV6rWHP2_TWKg0J4o4QpKVKQCR34QMsQTIxOSkkZNZa_g>
+    <xme:Zm_Xah_eI8QktFjG0MbuljSr2SjbM5O2cnue6PFc-VUMNzBRLTu7oqPjyRHTx1X4T
+    _oY1I1fXhQ61aK2ZY_9HjpHdXx69vuvXb_r5TJ-bhfLZ6AFHDviKxznLw>
+X-ME-Received: <xmr:Zm_XasHr07WMGclPLRx_AFEBg5H-ev4yh_VZy9H0S-Zs0k10nAqdHMYrIqfLJRbDCm5TNbgIIf0dpFdS2o1ylfZiP-KCQ_c>
+X-ME-Proxy-Cause: dmFkZTFfYFgKMVra/dTO3FrIJ2fwYSC98RHH68tJO7rscRjLc3qWFpGQmq/tiAEDEAQ/6s
+    gL2tc41CSKt83ptvcHBNrq1JC5qAegJjcow4aUi5tSI5Snfilek55jmpguKzi+1v1e7lkh
+    P6Dj+qF46w1YAO44TZQj5UjrWQdgbn88Uvn7Upw2zOPqwY4wlpIYSSU+K1ZE1v8idHcXrh
+    JC4oMTWn0x+27MfmZhB73vgZk+DO0+MO3NlNjgjEzNEZYsOND7cTsEWMXK+0WSZXuDySpX
+    gXR8PvxyqhE67mE0xK8et9KLwgIJkZMGufwiu3hT8/1tk9yBSUskFR9LCO2cjuep1mw0cg
+    wwXQgvdZXyxH2E+pkzPFU/vhQMElYec2ENjlNYMkh/6RHLZ6CG4aT3xAf/0w4bKmPEsadk
+    TfQIWuNeCAE8TnSnVyLbwdhP9EOVlXnPa/QANE5uzvAm334848hhoT1qfEAvGkgEewBRmi
+    EXzcGbD07y7FsqFCZLXtW5D48GIStn7l0fj87mIl5kUPkfus8WQybpsodc5TxQx0Ir03/9
+    DzGw3OSpxObnyVLek3PeocsOikO8DwEhXiTeGdRTYSA8KE6LOVtVJM19Rmr9KbbqlP87gP
+    Y1JzhFt/QxtrBJB7gDDTphIzhmA3CEnPeKpCCOkzGshueGoXZc9m3BN8tf0A
+X-ME-Proxy: <xmx:Zm_XarTo5gFRvjeT4OeQziotIB2Fb7e0I5POQ56bJ1KInTB7NPb9Aw>
+    <xmx:Zm_XajRswEe0OV3AJ7rVUds5un5INMemiLjtBUfeDNR1G4Zi8-rIcA>
+    <xmx:Zm_Xau3U_t4ZStAVrvyxAWnjZtIw3M4Bnk20IV5JlX9ovyg-DxueTg>
+    <xmx:Zm_Xatzi88N3MN8wrHcxsN9anyxkFHpGk0I19l9_0vNmrZGQakPjNQ>
+    <xmx:Zm_XavRyB4KLZbzxzsBYb_8qXMcuKOspPW_wOd0nGw5azKZn5muYW6-G>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 20 Oct 2026 09:40:53 -0400 (EDT)
+Date: Tue, 20 Oct 2026 15:40:51 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	=?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>,
+	Yusuke Goda <yusuke.goda.sx@renesas.com>,
+	Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 2/4] media: rcar-isp: ispcore: Update image data flush
+ settings
+Message-ID: <20261020134051.GB1172387@ragnatech.se>
+References: <20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se>
+ <20261019-v4l2-add-nv12-v1-2-4a84736803b6@ragnatech.se>
+ <03c04d5b-c93c-4e1e-8889-de079adae312@ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,75 +136,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] power: sequencing: qcom-wcn: support SW_CTRL wake
- IRQ
-To: Linghui Wu <linghui.wu@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261014121910.1509541-1-linghui.wu@oss.qualcomm.com>
- <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1NCBTYWx0ZWRfX85tf2imDwd/W
- DuXaLXFgU4ArVhaM9Dif/xR/pDvXKDJn5l/r7BOAxhDBJ/xQyc9vxDDQSJ9zQf9hRvMAate3aJq
- U4Eib+eCZVxFw49pzwbI9iJjVRNQJQ5edARgk/qW9+H9e31PL1YWSEwujwAtsHsmE5d8xgbux/k
- UBq/fWE+YX3PePiZKhGzXZKzQjTt1qv0Dn0a9XTUD5vwWmqfs+YwHtz6+x/6L7YwwozjCoMP1tf
- kAfiriB4vDnl/b3BLbAbJV19uRZves/4P9AfWevFdeFDfNnegieSUGldHwQdYOjImMGt8LiwQv9
- hGZvW2TvP9lf2AuecnnGJFsO3oWnd1VxVKb5z+YqIu+KBqCIWsoe55Lcp+05VX+3TF4YOjYLZKD
- 1Tgu3B9XpAcTNji2RcZ7+lwx8DRNnE/yCwKQ23VWJIaZaSfxxVN/57j7tOAPMEc0Vukwlp1hVsj
- umW5jFr2zb8AyXT9/oA==
-X-Authority-Analysis: v=2.4 cv=fIusTpae c=1 sm=1 tr=0 ts=6ad76f4f cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=nQyRZacoh_ZcsPQd3roA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: MzsE1FYyNuHAG_cciCbZqrVyUDxAT9Df
-X-Proofpoint-ORIG-GUID: MzsE1FYyNuHAG_cciCbZqrVyUDxAT9Df
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1NCBTYWx0ZWRfX5uQ969MY566T
- ClJ/B3HEh3dQL8/iVI+dKQoTIP1f4B1ZdY28cNQzNLAW+GeIg1VzB6IEO878/bcKIzkJhC7tifl
- 3rGemNKioSyZPR8pYqPDx5r3uhym05c=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200054
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <03c04d5b-c93c-4e1e-8889-de079adae312@ideasonboard.com>
 
-On 10/19/26 11:39 AM, Linghui Wu wrote:
-> Some WCN3990-family devices use the SW_CTRL GPIO to indicate that
-> resources need to remain available while the application processor is
-> suspended.
-> 
-> Teach the Qualcomm WCN power-sequencing driver to use the existing
-> SW_CTRL GPIO as a dedicated wake IRQ when the power sequencer is marked
-> as a wakeup source. The PM core keeps the IRQ disabled during normal
-> operation and arms it for system suspend.
-> 
-> The series documents wakeup-source for the WCN PMU binding and enables
-> it for the Shikra CQM, CQS and IQS EVKs.
-> 
-> The series has been runtime-tested on qcom-next and kernel 6.18.y on
-> Shikra hardware.
+Hi Barnabás,
 
-qcom-next is currently based on v7.3-rc4 (for whatever reason) and
-has 1398 patches on top of that. Please pick the presumably 2 or 3
-you need to boot (I don't know, I'm not following shikra) atop a
-clean linux-next/master and retest.
+Thanks for your feedback.
 
-Konrad
+On 2026-10-20 12:19:54 +0200, Barnabás Pőcze wrote:
+> Hi
+> 
+> 2026. 10. 19. 21:35 keltezéssel, Niklas Söderlund írta:
+> > Later versions of the datasheet have an updated chapter on how the image
+> > out flush settings depends on proper stride settings. Update the bytes
+> > per line calculation and flush out settings to match the datasheet
+> > clarification.
+> > 
+> > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> > ---
+> >   drivers/media/platform/renesas/rcar-isp/core-io.c | 28 ++++++++++++++++++++---
+> >   drivers/media/platform/renesas/rcar-isp/core.c    |  2 +-
+> >   2 files changed, 26 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
+> > index badde72352c1..48db37bad69c 100644
+> > --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
+> > +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
+> > @@ -733,6 +733,28 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
+> >   	},
+> >   };
+> > +static unsigned int risp_io_calture_bytesperline(unsigned int width, unsigned int bpp)
+> 
+>   calture -> capture
+> 
+> 
+> > +{
+> > +	/*
+> > +	 * The datasheet specifies strict alignment and padding rules to be able
+> > +	 * to flush out all the pixels. Each line must be 256 byte aligned and
+> > +	 * at the end of the frame at least one extra line of space must be
+> > +	 * available.
+> > +	 *
+> > +	 * As we can't extend the buffer with one extra line we need to work
+> > +	 * with stride setting to satisfy both constraints. Fortunately the
+> > +	 * datasheet gives us a calculation for this.
+> > +	 *
+> > +	 *   FLUSH[pixels] = ALIGN(WIDTH[pixels], 256)
+> > +	 *
+> > +	 *   PADDING[bytes] = ALIGN(BPP[bytes] * WIDTH[pixels], 256) - BPP[bytes] * WIDTH[pixels] + BPP[bytes] * FLUSH[pixels]
+> > +	 */
+> > +	unsigned int data = bpp * width;
+> > +	unsigned int padding = ALIGN(data, 256) - data + bpp * ALIGN(width, 256);
+> 
+> So this adds one line's worth of extra padding on top of what is needed to achieve 256-byte alignment
+> of the actual data? With this change, for an output size of 2304x1296, I see
+> 
+>   ioctl(18</dev/video3>, VIDIOC_TRY_FMT, {
+>     type=V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE, fmt.pix_mp={
+>       width=2304, height=1296,
+>       pixelformat=v4l2_fourcc('X', 'R', '2', '4') /* V4L2_PIX_FMT_XBGR32 */,
+>       field=V4L2_FIELD_NONE, colorspace=V4L2_COLORSPACE_DEFAULT,
+>       plane_fmt=[], num_planes=0
+>     }
+>   } => {
+>    fmt.pix_mp={
+>      width=2304, height=1296,
+>      pixelformat=v4l2_fourcc('X', 'R', '2', '4') /* V4L2_PIX_FMT_XBGR32 */,
+>      field=V4L2_FIELD_NONE,
+>      colorspace=V4L2_COLORSPACE_SRGB,
+>      plane_fmt=[
+>        { sizeimage=23887872, bytesperline=18432 }
+>      ],
+>      num_planes=1
+>    }
+>   }) = 0 <0.000074>
+> 
+> which means that the stride is `(2304 * 4) * 2 = 18432`, which is effectively
+> twice what would be required for just the 256 byte alignment. So this
+> in practice doubles the size of every buffer, or am I missing something?
+
+No that is correct, check chapter 54.5.11 Notes of additional memory 
+area of flush out (Image Output DMA).
+
+I'm quiet sure we could be more clever add add the flush out after the 
+image by sizeimage = bpp * (hight + 2) or something like that. I opted 
+for the big hammer here as this large padding space is needed to support 
+NV12 due to how the DMA-engine operates.
+
+In future we could look at using this more clever way for NV16 and RGB 
+which do not need the large padding are to operate properly.
+
+> 
+> 
+> > +
+> > +	return data + padding;
+> > +}
+> > +
+> >   static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
+> >   				       struct v4l2_pix_format_mplane *pix)
+> >   {
+> > @@ -749,16 +771,16 @@ static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
+> >   	case V4L2_PIX_FMT_NV16M:
+> >   		pix->quantization = V4L2_QUANTIZATION_LIM_RANGE;
+> >   		pix->num_planes = 2;
+> > -		pix->plane_fmt[0].bytesperline = ALIGN(pix->width, 256);
+> > +		pix->plane_fmt[0].bytesperline = risp_io_calture_bytesperline(pix->width, 1);
+> >   		pix->plane_fmt[0].sizeimage = pix->plane_fmt[0].bytesperline * pix->height;
+> > -		pix->plane_fmt[1].bytesperline = ALIGN(pix->width, 256);
+> > +		pix->plane_fmt[1].bytesperline = pix->plane_fmt[0].bytesperline;
+> >   		pix->plane_fmt[1].sizeimage = pix->plane_fmt[1].bytesperline * pix->height;
+> >   		break;
+> >   	default:
+> >   		pix->pixelformat = V4L2_PIX_FMT_XBGR32;
+> >   		pix->quantization = V4L2_QUANTIZATION_FULL_RANGE;
+> >   		pix->num_planes = 1;
+> > -		pix->plane_fmt[0].bytesperline = ALIGN(pix->width * 4, 256);
+> > +		pix->plane_fmt[0].bytesperline = risp_io_calture_bytesperline(pix->width, 4);
+> >   		pix->plane_fmt[0].sizeimage = pix->plane_fmt[0].bytesperline * pix->height;
+> >   		break;
+> >   	}
+> > diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
+> > index b5861d0cd0e8..3e135e84b75b 100644
+> > --- a/drivers/media/platform/renesas/rcar-isp/core.c
+> > +++ b/drivers/media/platform/renesas/rcar-isp/core.c
+> > @@ -398,7 +398,7 @@ static int risp_core_config_output(struct rcar_isp_core *core,
+> >   	/* Set image out flush EOF. */
+> >   	risp_core_write(core, ISPCORE_DMA_IMAGE_FLUSH_OUT_REG(index),
+> > -			pix->plane_fmt[0].bytesperline <<
+> > +			ALIGN(pix->width, 256) <<
+> 
+> I'm probably mistaken, but does this not need a multiplication by bpp?
+> Or was the previous version actually incorrect?
+
+The whole DMA Flush operation was a tad missunderstood but is better 
+documented now. The unit here is pixels not bytes. This register covers 
+all component outputs and each component may have a different bpp.
+
+> 
+> 
+> >   			ISPCORE_DMA_IMAGE_FLUSH_OUT_PADDING_PIXEL_EOF_SHIFT);
+> >   	/* Enable DMA and set burst length. */
+> > 
+> 
+
+-- 
+Kind Regards,
+Niklas Söderlund
