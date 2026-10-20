@@ -1,73 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792469071;
-	b=f107Y7PMeljwhcspsRFlXGq31RTW09qTXBYONcIaZ4czJ8Ek2LtmJKsHGyS3mJeyCyWR
-	 0fBLse16xf/zmTfmpW12uuZJiphFiRBtc77EkqoZtlzrXmtyDX74NPAUZ57m/dz59+a+H
-	 HjYqcLSR1KdkQ4ltG40HbduA7I1GH5kIw94w9jhDb4oh2ykX4UTmzi7K/Vp9F7uia3YFT
-	 ubNiXfINJ87g0VBfmfr8BpPQf1DGypD+HSy00uzqQkD8YPpvTPD6i/GLYDajGXmrMHYhH
-	 X2YQnkGxrOIVkA+r4NxSjWNxVeTh0+sQP84cpPol9ozmTRMAdbgTWACzq4ycBBuL2pQ==
+	t=1792469176;
+	b=vIMnSUduqeFLI7Mli8EpffrX4vTMmZbZqyeIhhLfVFwN/wKoTGeO0Zq4x2DrL2RGQMiW
+	 G6aPM3SfdgyTwdbuernWHFQFJ2AYACNvoWXDQ4TcZ5vpnXsAd46WmHezKy+TOF+M3toL2
+	 HqMeeYBSfrMPuY8+kwKGSHSn9Rof0cbDV0dd3zbCcB09lZuUvimqvGi/YBpbGRgXorPK5
+	 o0EG3kKr3iaWX5qa76gLGv02xHCcPvrADxo9QUqJ8r/C98hlaCGIkpxnc/8PP3intUXPv
+	 0+yOn9ce06iGAd/7TsHqlYzE4nO5wrP8tPLQtuXlU5aerOTtA/2cANRA0KLVSpYNJ6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792469071;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=azyHE/kwhma2vzkQ8Qv+XIIP6pxTj4UgZnMo+VZ6rDA=;
-	b=TZDgOZx0YzapTA8H4XHuqnBzu9E1C2nYUq0vAjVu9cTHDGn4pg9KE0h/qp2A3aX3wHZg
-	 vEuJncWxif4DxvXP9X/H1L/FmrpohQN39z7+Ik6PyK5G47t+5xXK6JA0e/NUgPNkQjfdl
-	 mk7QL6LK6q0TuaVBC4afHOOPPI54KnjsIQdYavRcap1yZMnhoknSnc5lchYwfzU9eANFr
-	 B4V7CZDDAS15hz5I/z9tqLwhPIS2XxP3ephwBjQrB6oDnk6iV8ED7U1PlJzItgan9feyV
-	 bp2Ic6cXNjWFJpLBzGi2Wuk5ryLYAEskVMB/CFkFF/lkHtFMtLY7CZ0PY9KA06AArGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792469176;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=X94iF6WQ9utJc+Qff8l5eUqC4oEFwLu3u0KuYxIiRHM=;
+	b=nfaXRC334LBjRBdY1epxww38yXf4L1DH1w4EA6V9q9gPa7NkkhnKpTktuGwJancdpGRB
+	 1ARXIxMp6yvG1Bn4R0bjeiRQHkjKLFmaLp0VkeXe2MRErYbDRFur7y1RflMNc03tj14xA
+	 h8T7crBLiAFmnOcBKr7ZozQ/46H6sTNYnAbNksP05BxMAtMPzaJefsdfrjEY7RqOQpOW7
+	 ncvG+W++KHZRzxdWWSkggIJuCS2N5DCYZbouADWHbsoZyOxnJzPRj3mLBl+Gitn+epf1v
+	 Jv+bSd4hwvFLnzKKC77pdINm/sYSp89u/Virk2WBTn10m2Nfs2eAqUx7OoNgE0Tn6Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hjfmfjpP;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.71
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2089C606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:04:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2089C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hjfmfjpP
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D563140E029C;
-	Tue, 20 Oct 2026 04:04:27 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id bTbv_SB3cr7b; Tue, 20 Oct 2026 04:04:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792469064; bh=azyHE/kwhma2vzkQ8Qv+XIIP6pxTj4UgZnMo+VZ6rDA=;
-	h=Date:From:To:Cc:Subject:From;
-	b=hjfmfjpPkjJz/AN+EgutxFkVAUXY4+CGuO43bHhZuwGoAHeqhJZ79EUrPJm3S0Hgg
-	 NZVPOExuTZdqsKnfV9+2eyx0OCtFkqurLDbLOcxqPF7aTIQTub89zhV8lezil25L5R
-	 Ju4PaZXvCOO600d9qgPBZfBLR0WTFq+uElDTSPKL2nwlOBtsAmimWsKx9LGAslUhpl
-	 HZwNpRVh2YInvL9wwk2D/qpyYJ70MD75JvgPRDvAhPYyN2ooaenSGN4F5Au+kyT4gb
-	 O7bSQAZ1L8MBWhR8jXPEY+3IljODGyQzoeQsoZUmmJiuGqPbbTXRy1dGVpxh937fK/
-	 d1Oii90Ev6etkq+HXpKjaeu4KTXQ2yGbIPZk4DDmmKC8zm+30cbZTG3cDqfXMzRed9
-	 4SjscsSz7PVz0xMcBn9p8aKMKoZK6sIhZHhq6XUkoLi2GbrYdmTA7Tg+0Qv3rAKxvR
-	 zJN8h9E1t5AT8zElj5n/JZ9FzM8QSWzesOgp+m2n9mLabLJA3EjU/KdF88WCzZRMMq
-	 cQX/HwcaM53CFkvmqh0veqOj5K0g4DIDGtp8a8ZWp3ahQPYPwvrwwYz+YY/keFzgue
-	 dhRZw9UgzLGLmiFCMitsD5z/RvXiMWDEJ0tCf+v0ND3dItt+Bor2JlESw17AM2lfUs
-	 3AMtyhAHaZHwEJxqeT//86Eg=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2111140E029B;
-	Tue, 20 Oct 2026 04:04:21 +0000 (UTC)
-Date: Mon, 19 Oct 2026 21:04:17 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: x86-ml <x86@kernel.org>, lkml <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL] x86/cpu for v7.4-rc1
-Message-ID: <20261020040417.GAatboQRu2kKhkvhPz@fat_crate.local>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA137606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 04:06:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA137606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-815f2b1ecc3so5514702a34.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:06:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792469175; x=1793073975;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=X94iF6WQ9utJc+Qff8l5eUqC4oEFwLu3u0KuYxIiRHM=;
+        b=u6AAQvFNitn0zlPn3Si9P0zp4jm9Eukas7swzbHWzDRAW1pj6N3dbfdwphBwddy+Pr
+         KKqXkf/rz0Gk3I1V8KoXmXvHHtUJNrm+gG3Ng7muXCiRmGJ1abBSWFgK2WLyD0V7tsN7
+         bLnUgV4uD1NGa2tLshZRVqLxgS3OjeNZRHApYUqfiiUZGGdNBrGyikewvYJfgkjSNd0+
+         XX6Y5cnmiCSGsApgu5DlCT0QNq0Vq6a9qMBNtMFJYvfUUuxOcY1PeiBmaNrsi/pWt52Q
+         S5ySP/o1EzF8eGTA5dpnn8uYFXQbZ60I7ta3S0bNsKXl5dYjvNuc94D6+ay96uUOzTyY
+         kusg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2dksqZE+ia78NW+DEfBIs+WzeT4YsGmt1AquUETCQDPbIiybJNHPT2jVbwK3JTMUNPxUiJfiiXTbOzWg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHjkHkS8c06VlMqAifA6sftuSes1eFtCUrz5xt9xEbpXhaoL7s
+	HYvZ0dofoZmAek/sBguRoKgbZhFS0Mv9arFbhIifMMGr3hWywBVl0iNLrIl61cOKX1sB9yPi6Uj
+	SOEqQdCi+I1YOsZuODPnjCKHL0T25yP+QHPoVuVvYykjn5vZUGy5ySN54ZLU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,63 +58,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Received: by 2002:a05:6808:1707:b0:4c4:5f5b:6918 with SMTP id
+ 5614622812f47-53cd1cbc0edmr7852445b6e.16.1792469174897; Mon, 19 Oct 2026
+ 21:06:14 -0700 (PDT)
+Date: Mon, 19 Oct 2026 21:06:14 -0700
+In-Reply-To: <8bb0534e33a5f5d152d2b1768d1fd7c6@manguebit.org>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad6e8b6.f84f00d0.6bdd.0010.GAE@google.com>
+Subject: Re: [syzbot] [cifs?] KASAN: slab-use-after-free Read in cifs_crypto_secmech_release
+From: syzbot <syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com>
+To: pc@manguebit.org
+Cc: bharathsm@microsoft.com, linkinjeon@kernel.org, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, pc@manguebit.org, ronniesahlberg@gmail.com, 
+	samba-technical@lists.samba.org, sprasad@microsoft.com, 
+	syzkaller-bugs@googlegroups.com, tom@talpey.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Linus,
+> #syz test: git://git.manguebit.org/linux.git cifs-fixes
 
-please pull the x86/cpu lineup for v7.4-rc1.
+This crash does not have a reproducer. I cannot test it.
 
-Thx.
-
----
-
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tags/x86_cpu_for_v7.4_rc1
-
-for you to fetch changes up to 2711d67bc3a776abcfc651ad87be5d29ada19166:
-
-  x86/cpu: Don't transiently clear the boot CPU's capabilities (2026-09-17 02:05:39 +0200)
-
-----------------------------------------------------------------
-- Rework early CPU features detection code to handle a case where recorded
-  CPU capabilities are temporarily cleared in an interruptible region. The
-  practical implication of this lead to, for example, KASAN complaining due to
-  5-level pagetable support disappearing intermittently; by Ihor Solodrai
-
-- AMD Zen5 started reporting TLB sizes as multiples of 32 so adjust the TLB
-  sizes reporting code to consider that
-
-- Return the proper retval when trying to enable user shadow stacks
-
-----------------------------------------------------------------
-Bill Roberts (1):
-      x86/shstk: Return the correct error value when user shadow stacks are disabled
-
-Borislav Petkov (AMD) (1):
-      x86/CPU/AMD: Fix Zen5 TLB sizes reporting
-
-Ihor Solodrai (5):
-      x86/cpu: Factor init_cpu_info() out of identify_cpu()
-      x86/cpu: Initialize boot CPU cpuinfo defaults early
-      x86/cpu: Inline generic_identify() into identify_cpu()
-      x86/cpu: Move 32-bit SEP setup into identify_cpu()
-      x86/cpu: Don't transiently clear the boot CPU's capabilities
-
- arch/x86/include/asm/cpufeatures.h |  2 +
- arch/x86/kernel/cpu/amd.c          | 21 +++++----
- arch/x86/kernel/cpu/common.c       | 96 +++++++++++++++++++-------------------
- arch/x86/kernel/shstk.c            |  2 +-
- 4 files changed, 63 insertions(+), 58 deletions(-)
-
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
