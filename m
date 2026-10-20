@@ -1,49 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792455613;
-	b=JuWchwk+oP4z8pbRI1hg5AUFwk5I8J/dNiD15QJ5vCm+DMeWMkTmJ78T34Nk2+3/1X3W
-	 cetqhQ4XoXfqljvs8KEmNbLHL9aCg1E16nHzpvU7mcGmUlfFL2aHZDN6/lfMBGz2NH8bd
-	 UbwmesxOOvPaGFvEoCQrnYOyoKCLX6A2O0IrLSIi1fqke1VgUKXdmYMEp/G5yBk/6FyNx
-	 JizP7QcZ0ii/bWICgwlLXdiIfB5IW0A1bezgh0w25DbZHSneVjIkOtNkaq3SbTBT5l4yv
-	 xXL9Dw1G9Cmn+9y4/qcIjvI7QffYARkk39wFOT10TSLWW3RpP6SNklfAA2cP0yO4YOA==
+	t=1792455599;
+	b=oZWq0jpGKCTOUM1P95dcwrMmj3977M8HEd5tYbnW+hAxFtqX5H+8qdm/Bg2WLttwNq/5
+	 ytMGPiPZJ064J+RKe5CtZZ1xs98B1MijrZgNY10Ekk8TalvkKA3jHWjt3JC6XsBzMuwqc
+	 qpcdgCKw5eI+CHc7LbbSyhiX1GP9/XBCLj6TDWaNurzo4NnQqBKMG895q9vDuje23zTmX
+	 Ilc9LdPHNrbJ/rt9roHVLPByRn9TZmj+iGgek6pljoAEgqpzYpdmG0J2IHzCvBRCA74XM
+	 2Ux+Y16KVvnBgVbtqLPCWJeQmP/+GIiu5JCl6CPS7XFHd2KXboiKXkSNJGYHLnb5FXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792455613;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=zPrDuXU+qul5SBHHR8AdZmqE/d5fyyD0AILjgbV+C7g=;
-	b=yaHYDfm4Q0RsoZregqkC5XWLDw6AaHVg5GRJWbWDHF4El9qzpVdhSOeIIGpKXbh9sqWm
-	 b03hlAY8KQKdmm+zTETkwCFMDwA1G3arbzYepZOEPD3bHNbsqiTNsFhjIil+SABe9sKff
-	 gHqppN9gW9a4/vpLSsDfrH73IBoc5FsqKs3+Pdhygkr0MEQdxXfSzXuY3fQxCJtdfnSiS
-	 W7MvmgW1tFxQmcSFc6lPvvcZdNyQ9fqCtYUQ8M3sfDycUuxUEbqoD53krlq/JQi49oFfV
-	 h2P9GmBSbBSLfpQZ0Sla9IQ9zDWpKwR1kR3ZRoQ2siKAA/RX9n5sRlLQivozh/M4owQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792455599;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iiF2O/bop5EiTIhynx8VYby9gA8x0KILaVvvx9Isbbw=;
+	b=krRuzUirst4eG/zcN5Ozw+/yfQcY352JT0JJ0mZsqq6habAIUY+osvSXnH5jaHytqofc
+	 YGxaDQcmFOgiwhPG8YMuyQRoRj7CwG5ARhteUGkUn42xxBpk/LWhYBmekLdgbwyZ/9Lfh
+	 LVcnOzFEf/cPg89ecMppUi0j1wm084xZ86ZrJ2dhHqni6XVd77RCutaoziEPr9q1j50fC
+	 jIBUjklDWXk/f8jkpgNd69PD/fIaWk69tzkObl0y2jhCBAy3FplKQEgjpqed5jiCmSWKq
+	 HBynHGkfOsgOjJldvvmjuOxdsaErhxIPJe8U6//jVzW7SzfNQ9iLCX5YFTtUxAju8IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfviUlE3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uw6He+YX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3188D606A31F;
-	Tue, 20 Oct 2026 00:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9BEA0606A319;
+	Tue, 20 Oct 2026 00:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfviUlE3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDCFF1F000C7;
-	Tue, 20 Oct 2026 00:20:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uw6He+YX
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D84921F000C4;
+	Tue, 20 Oct 2026 00:19:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792455612;
-	bh=zPrDuXU+qul5SBHHR8AdZmqE/d5fyyD0AILjgbV+C7g=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=gfviUlE3najpuFiwcxmBkjnbV1P2lWYo3dGmKQqet3VDyJLtEhwh0D5A3E6tMj6/A
-	 yxWgreysZpclaqPYAnGwgQbgMfvgh4e8Gb2aFoBvJZFfccwnDt6bTr51kFB78aXIka
-	 VDgbiZFpvCC/TQFA7qcTCaaZPhiF51XTmgXFp5haJu5YagvVUBq3gubPj2mZGxBGRX
-	 gDJqJXp6VKL5nNozNA8CxPaDuKrspCSAgn3gu4i0rt8kylao1qY2m7xKlYBLCBphbH
-	 959yjicNv5iuGirwMQ+bZCpeGtJ+SuN3gxkuLfPIeE9p9R8fSMkPhHkfKqd3cgh+W2
-	 Zme8hVVwVoRhQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44803924A6F;
-	Tue, 20 Oct 2026 00:20:12 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792455599;
+	bh=iiF2O/bop5EiTIhynx8VYby9gA8x0KILaVvvx9Isbbw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Uw6He+YXpmoBmuUyr/Q2wsQOB6KqlFv013VZSg0/9G7xLtJ2g3nUKeUzj/A1igCGB
+	 acHIUwwDPAvuY8LI7/4aODpJJ+Bbkul41MPoeQSbiZD5MpKTd7NwYU3dv/ai0/Lk0U
+	 H8YU+w1LkPFmts4oxw468I9uC9PNJTIDE8V3DmlkxydArZ/Pz53rsBZmqSm1DGOcng
+	 SlRN6cYu1MYx1b81xmGHTLYpib3XHyzru44u+6o1oRxG/LOBDobl0oO06yKk9xTr0S
+	 7lwW+Cu+AUweYbgT5mevhU9FWew/h65YZtKFqr3BlOqIfiQsJ/RAb1UtT1xOPTsgNk
+	 3N3dtwoE3ODlA==
+Date: Tue, 20 Oct 2026 03:19:55 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v2 2/6] KEYS: Reject @desclen values >= KEY_MAX_DESC_SIZE
+ in key_alloc()
+Message-ID: <atazq_p9kYi38xWa@kernel.org>
+References: <20261019181732.449591-1-jarkko@kernel.org>
+ <20261019181732.449591-3-jarkko@kernel.org>
+ <20261019191759.GB65095@quark>
+ <ataBwhb8d2M1q2ux@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,58 +64,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next 0/3] bpf: Fix builds broken by fatal
- resolve_btfids
- warnings
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179245561140.3398635.15879772378050778401.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 00:20:11 +0000
-References: <20261019211006.2574350-1-sashal@kernel.org>
-In-Reply-To: <20261019211006.2574350-1-sashal@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
- john.fastabend@gmail.com, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, edumazet@kernel.org, kuniyu@google.com,
- pabeni@redhat.com, willemb@google.com, davem@davemloft.net, kuba@kernel.org,
- horms@kernel.org, ameryhung@gmail.com, puranjay@kernel.org, sdf@fomichev.me,
- mahe.tardy@gmail.com, jiayuan.chen@linux.dev, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, petr.pavlu@suse.com, leon.hwang@linux.dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ataBwhb8d2M1q2ux@kernel.org>
 
-Hello:
-
-This series was applied to bpf/bpf-next.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
-
-On Mon, 19 Oct 2026 17:10:03 -0400 you wrote:
-> Commit 201a454df948 ("resolve_btfids: Fix the --fatal_warnings exit
-> status") makes resolve_btfids warnings fail the build again with
-> CONFIG_WERROR=y. That exposed BTF ID references to functions some
-> configs don't build. KernelCI has been seeing i386
-> i386_defconfig+kselftest builds fail on linux-next since next-20261015:
+On Mon, Oct 19, 2026 at 11:46:58PM +0300, Jarkko Sakkinen wrote:
+> On Mon, Oct 19, 2026 at 12:17:59PM -0700, Eric Biggers wrote:
+> > On Mon, Oct 19, 2026 at 09:17:22PM +0300, Jarkko Sakkinen wrote:
+> > > @desclen in key_alloc() is saved to the 16-bit wide desc_len field in
+> > > struct keyring_index_key.
+> > > 
+> > > Reject @desclen values at or above KEY_MAX_DESC_SIZE with -EINVAL in
+> > > order to account for the NUL terminator and prevent integer overflow.
+> > 
+> > This should say something like: "in order to match the userspace limit
+> > and avoid u16 truncation".
+> > 
+> > There are also similar truncations of desc_len to u16 in
+> > key_create_or_update() and keyring_search().
 > 
->   WARN: resolve_btfids: unresolved symbol bpf_arena_reserve_pages
->   WARN: resolve_btfids: unresolved symbol bpf_arena_free_pages
->   WARN: resolve_btfids: unresolved symbol bpf_arena_alloc_pages
->   Failed to generate BTF for vmlinux
->   Try to disable CONFIG_DEBUG_INFO_BTF
-> 
-> [...]
+> Ack.
 
-Here is the summary with links:
-  - [bpf-next,1/3] bpf: Drop unused entries from special_kfunc_list again
-    https://git.kernel.org/bpf/bpf-next/c/63be110a96ae
-  - [bpf-next,2/3] bpf: Don't reference arena kfuncs when arena isn't built
-    https://git.kernel.org/bpf/bpf-next/c/ced6a0993e2f
-  - [bpf-next,3/3] bpf: Fix ksock build with BPF_LSM=y and SECURITY_NETWORK=n
-    https://git.kernel.org/bpf/bpf-next/c/a81bd9262cde
+Please correct if I'm wrong but I think these don't need anything 
+special given that both are capped by strndup().
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Br, Jarkko
