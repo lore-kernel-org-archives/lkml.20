@@ -1,96 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792457420;
-	b=kws3ozPVN3kit3rIrIHguxtmFuZ3nw5ZkA2zIZM8CohC9uFKO0Ti9qTGVupf8kKmB5SM
-	 wpJu60pNq9URUtReCHIDhLsjUDdiPNldi+/EePTrhcN0g9o2BuB+3DNc3PQm7mwBH2pvP
-	 ddqITY97+lnIRo+usbX4d4zmxeOUB0ybbPl851kPny4SesKWeZ9VJVymiZeah7i6CQ0Xh
-	 Ydkwbh/R/8Y7H8Qga2bBFk9I3xNZFWC6C4+qWEyNzJsqTod2zqdZEZTnDaXBe0YDX+Em5
-	 qU4e8CZL4mWb6y/15qB29JecFB9n5bZIJd5j0pRudX52J0JQvHN5IvoW5aM3D2xtPJg==
+	t=1792457436;
+	b=ge1o2bmob8pok8bBUwhOsaYUaJmFkgckItGkCkBvIpFGIVSLpXiWWQvYEzBUFdMFWTYp
+	 Ou/n7lUKefj6V5gT6FY+nMO5ZZjICqhGW5/do00RvxgYCayGEgz5elCXbbdNC61LozkgZ
+	 KzUFLACdK/2C/9SfNgzMq/Ofz+bUW51hfu7OpNPQKF9XdfyAdFHwDZfX81xSSSesH0kBV
+	 nxFnLsaC+DFL2WuBYmNblR14Oh1S5LD5QVzkSNYeC06v/oSDpqYc8gPWQrsJagWoVCTSl
+	 PWylbxVtlyMpiRy+oGJtAqnVDoskjZTG18uV/nIpCWnL4D+Z5VqvxIdLYMzHj5fJHTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792457420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792457436;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Qhg1mk+TKSbXJlLmrTbnehLYHTBBzICBJ2ydFEY5x14=;
-	b=AD7zQZrV58TRI4IsZEeGEJAo6R/gcbr8PHFlKZFIt8EsVBSf+P0ekArCWKoZp9KTKI19
-	 usrqtf/ULcWQc63fnA+TjtWsOaCAJEO8sygfw/0JW/DstvXNYWIWJm1bbiW6hCXDoAAYz
-	 jxKYHL6trChJRN7NPVEbtsBEiyBxLvJdUbPTTqCk/JwkfR9UmQz4uONF9h7vTqD9m2KMU
-	 T2nIVlidLT+iSnAXKVJS3TCyadDqBfP4J5DGcZHEbw/LvmQspQT3CBdndadynknJmFjr1
-	 8X5ReKovgzdMM8jafA/27vxxfFGh45s015iEFW68drYDnNhX8QDg0fCRKwqZAQUnzww==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QBQ41uNUL7QeVuDF5bJBKPFqA1U4nX2UmaFaXr/UJ0I=;
+	b=ggn+ZdC421VLN8Qjz3ir95iLXT66Q/RwjlgEsGHUCpz6WWTwFn019ZVbT8V1c2aWJcjx
+	 n4yiGQq8VWqqZ2NTlr2y5Y+rVI1pqfWp1iEiBqwAZjt4OF0BgW4+ga1qmaCRvI3hs0WOw
+	 D+6tJgfApeFR2APpJuRI+KZefmZ3/YQXfvcrZw200d9isefVR5JtjUQyOgolGL0WIIIhF
+	 L/QYb79fQomB/HcU4IrBl/ymiTdJuImy5Kv60zrVrXSzoBN0oRRuiDFRlxOufr6v4d9jh
+	 8s1SU9JcQhkxIYkh2HlJhclYGg1/7tZkRrZPixewET1uZG3FC4ooqORlJPBx3lynsJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=isslab.korea.ac.kr;
 	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=sLheooKG;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=xaOBRBmd;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61552606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61552606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E79606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:50:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14E79606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=sLheooKG
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a07025cce4so794717b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:50:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=xaOBRBmd
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso793545a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:50:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792457418; x=1793062218; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qhg1mk+TKSbXJlLmrTbnehLYHTBBzICBJ2ydFEY5x14=;
-        b=sLheooKG60Uxk70ynZ1E3+9Ax4Y1JGIovLgMJXyVqR8cg13gCmSIz4jcGIzWkijl3P
-         j6Qg6vvukNuNIWgO36m/2t5e82752tISCTa5j75jCrjpgFHLSlf7TlMnXF+OmuOy6srH
-         picoa4yddE0PR/w6TABY4Vao9ec7vKORMNHJSu5V0NhhUf9FTGEFvxGC0FIsvEHCV3m2
-         /vpn/+ZeDhkDrxM4ueO9MB8dM0WZUefqqzmLCts8vLX98l1+bglop/erlOBEoLrhPSEd
-         hv2pMV1nZzcUFmKRSQDClj7bCKwhPHKyWMRnZBeCegGDybK6D/x0zPI59i5nO8DUgeNU
-         nXbg==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792457435; x=1793062235; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QBQ41uNUL7QeVuDF5bJBKPFqA1U4nX2UmaFaXr/UJ0I=;
+        b=xaOBRBmdO+wJXqajcFST5GfWQLqomKnTphjim9GO9GQF4Ks/EKrhhqh7An2Yq0/RQz
+         FtS4nXllTReUyPF/UC1+pmHJHMGbmeYDP8blzfke0wSKsRVXo2Q1ARq7RNS/hmYho3eo
+         HyzFYdz4zxVtjbeTKWidx/X9DQOgBvkWHxSUNiMNveo6MCPR9cbdkScWGgZ/nXriLxaG
+         HM8PaaRGLYQ9Bip/TAruc7dy6KSJeJiZivUV5dXhOqzcrCuw2TkPFpCgFlEcg2DxErHD
+         Kq5tfRrDGsZWdMujRtJCm1Ro39gT07sSMfmBYrsKM9rbydoVAO9aRzqBy1SXb3thK8TC
+         g6DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792457418; x=1793062218;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qhg1mk+TKSbXJlLmrTbnehLYHTBBzICBJ2ydFEY5x14=;
-        b=KYSAv5y5xexdf0i1hPtQtz36aZCmN0aUvDesHsawk6a+DZjiY49JTwrhuT8LvtQBll
-         Y4lcQxWLpcUuX0YCq4oMa9h4+QOQU1A49yxPMrFmC3PK5Skuj+aJOIEhiUFZ96jcwOer
-         soJCFSv44/HJcURMr2/4SEVMQ9Epff52yH81wxWi8o+hpOcCSYupEELv6Ce6o+bqdYGn
-         PzTCob8xEHEHIEj9wVwc4nIBje09o1lEovqilx5yANVZGt5gC6r5dUWBCou3c30oLxQ+
-         TSlwufcdwjY24De+Sq9KyRSOd5FfhBPgbW88pXN6Qv+wLKAfuk4zdSLUglhXH3wu7e/e
-         7MWQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJBsT1Zy5gVk7jvXq91RCpNsEomrglyPvWir35CreInMPHgE/z2bGJO3q/H066xAV8OEGHjB65vfgBzhA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsnOauceiiC8IduFTs9seqpozATh5bT7YeiMvPGWWldTKth1E8
-	2yTzJIAzD08e/homzEW4M0Nl5QbZVojnGyR05Yd2GqQ4ra8Dyrmbrz4xXZPbN8KKYGU=
-X-Gm-Gg: AYBFou27Pnyd5DRmLwqUot/KsKC31hvGAPcNUS0VulmKKcC40b3HJra8Tx7kxEsrdBu
-	Pg+CVZCn1029Q+vR0H8XQVBvsgyK0NleVaIkeVknC2pF91FTV193x391KE9f/vjs5Q/SS+51c1w
-	0aKQFqILyrFkTTeXEvlfeZlfb4aIP0ewzcQaExCWbJp3gSRCLnKJdv4Ix6xLUkVKyeKZXuBiNvM
-	9gbLxjHwoDNLyYZOE8Ab2Gdl5gMdofVPVm6TI8nrCqZ45OhH7CrufKOD6g68uDpCPO8pw8pcFKU
-	dLbjiKggyX5dZ1ZzSjjtEWuf+mAcrPHCOqit8J+hB/H4AZBtm3PRM7ft4ZNM3QdZu7jbQztbm/O
-	TH58+CONpZ53MdASRCUoGtp7UBGpMEhtTP8XsVDJBq2nf9JuznIuYcnLZdW96GKuvGWrArtG4IT
-	5aKVOF1iBHrQn7RuQ3yHgXTMq3C9adk8C4ABhlGQ7NPJWostoMHldzQPswjd5eAkAESWgrlIpOX
-	RuCFA==
-X-Received: by 2002:a05:6a21:8286:b0:3e2:6f90:b54c with SMTP id adf61e73a8af0-3e26f90b707mr879180637.47.1792457418390;
-        Mon, 19 Oct 2026 17:50:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792457435; x=1793062235;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QBQ41uNUL7QeVuDF5bJBKPFqA1U4nX2UmaFaXr/UJ0I=;
+        b=RZpvQ6C1oS4V0aO67oyR/L/eLPHbNdryXmjOw1wNkM7OeUI3L2BURrK9nQvIKez/eW
+         2y24w/3mMSggyW6YY6LRuNkrlWWDgh9D+8neYxs+E6gfu4ak/J+CFNRFtBiNRoIDVPMk
+         YjuaDKvdGN2Nf678Q8z0MZV4q2Z6DMdRDaNGazD79zlD8k+4l/OEuBx9eqR23SpDAIfp
+         PEYcG3V/tTpmJQQNfquxOrohuY/VGAA7eLCwk0prFMrURBC0/ntx66eSOWxpWGVrdgsi
+         9frgMFwY05Rzzf3z6dZy3jOvCj1MyvuIbO9H0LN3vVyudlTKjh/cGuoVk0iEzQctQfYQ
+         d1YA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMUjiYI2gCE0ZMK9n5713krue2l0gNtoIV3gWxV0OxdDLVmlKGrg0fdctYIIiujsJirI3iZusg+FI60AI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgK8utcElwnBId7pKuPrY20PGXG/zXmueRPfdXA6XFHrk/2VJP
+	Z49po2ERGiowiosndPfHY4NRpkOBe2xEiW/inbukSJSoKoEFjA5TRtMs0ULm0a4Celc+iXPq25T
+	B6rtO
+X-Gm-Gg: AYBFou34hSNKVs7r1xHpVis1y2xjqqNa7ZagwaBFD0ihRlsYs9Xdgw8YMFjLDAWxZKq
+	i4Q1D95AvU59ddr8sAenzEqxl4MnKHDGgskWnW0ifE4bf+8zIrllTrwWIr/nAFgCxMwkMhP6TLY
+	kux4bRtQfljdNOY9NuFNKcl+pBFGMAzgh4eSt0D62SKX7VA1nBf8UdY5JO/D9OCnAemeJEgNZjw
+	ckVm6G1Z7brD7/FDKhzxviMvWkCA/pa4o76gLhd949ZmJa+eBAIZnbZ1IJVSZ9qWteQ1DEoEO45
+	V0P0i9c8mkuTr6B5gYQtibp9nXhK5eC61SUNsKvVkpKKaP0BGVIm9zamGcAni9sNvnpR3XvbQH8
+	wIk6uWatCdIdoxBglQ3C59L9+uQ4AdIFZ+YY9awNqj+f/jssj/r66kd4tGnIF2CRi+pmxACTOx7
+	8Eicz2gN2gz4+vEkOTKIhkP7uFtiG020OVWdxMnFSGSiG02psBFOzZR3gBZlQvevT3YUXStU+O1
+	TC9FA==
+X-Received: by 2002:a17:90a:dfc8:b0:3ad:6738:db14 with SMTP id 98e67ed59e1d1-3ad6738dc0amr599730a91.55.1792457435069;
+        Mon, 19 Oct 2026 17:50:35 -0700 (PDT)
 Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd65ab63cadsm4224287a12.4.2026.10.19.17.50.16
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3b16c2asm8520499a91.2.2026.10.19.17.50.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 17:50:18 -0700 (PDT)
+        Mon, 19 Oct 2026 17:50:34 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: Jeff Chen <jeff.chen_1@oss.nxp.com>,
 	Jeff Chen <jeff.chen_1@nxp.com>,
 	Francesco Dolcini <francesco@dolcini.it>,
 	Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
+Cc: Aamir Ahmed <elb12345@hotmail.co.uk>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH v3 0/3] wifi: nxpwifi: fix the 11AX_CFG response handler
-Date: Tue, 20 Oct 2026 09:50:02 +0900
-Message-ID: <20261020005003.1105086-1-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v4 0/3] wifi: nxpwifi: fix the 11AX_CFG response handler
+Date: Tue, 20 Oct 2026 09:50:24 +0900
+Message-ID: <20261020005027.1105121-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019092653.3609605-1-jeff.chen_1@oss.nxp.com>
-References: <20261016042542.773945-1-yhlee@isslab.korea.ac.kr> <20261019092653.3609605-1-jeff.chen_1@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,20 +101,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Jeff,
+This supersedes
 
-Thank you for taking the time to review the whole series, and I'm sorry
-for sending v1, v2 and v3 in such quick succession. I understand that
-made it hard to tell which version to look at, and I'll be more careful
-with the cadence from here on.
+  [PATCH v3 0/3] wifi: nxpwifi: fix the 11AX_CFG response handler
+  <20261016042542.773945-1-yhlee@isslab.korea.ac.kr>
 
-I've folded all of your comments into a single v4. The commit messages
-are cut down to the issue and the fix, and the bounds patch now selects
-the destination buffer by band before validating and copying that one.
-I'll send it as the single revision to review, and I won't post further
-versions on top of it.
+which should be dropped.  Apologies for the churn on v1 to v3; this one is
+meant to be the last.
 
-Thanks again for your patience.
+Three fixes in nxpwifi_ret_11ax_cfg() and, for patch 1, its two siblings.
+The order matters.  On the base the extension ID is read one byte too far
+in, so a correctly formatted capability TLV is never recognised and the
+unguarded store patch 1 closes is never reached.  Patch 2 is what makes it
+reachable, so patch 1 goes first.
 
-Regards,
-Yehyeong
+The driver has not appeared in a released kernel, so no patch has a stable
+tag.
+
+Changes in v4
+- patch 3 selects the destination buffer by band first and validates that
+  one, instead of checking both unconditionally.
+- the three commit messages are cut down to the issue, the path and the
+  fix.
+
+Still open, and not addressed here.  Patch 1 closes the window where the
+response path reads curr_cmd->data_buf after nxpwifi_wait_queue_complete()
+cleared it, but not the one where it read the field first and holds a
+valid pointer in a local while the waiter returns and reuses the frame,
+because nxpwifi_process_cmdresp() reads the field without
+nxpwifi_cmd_lock and calls the handler outside it.  That is the lifetime
+contract between a cancelled command and a late response rather than this
+driver's 11ax code, mwifiex is in the same position, and I am not sending
+a patch for it.
+
+Testing.  I have no IW61x hardware.  A KUnit harness injects a fabricated
+command response into nxpwifi_ret_11ax_cfg() on a KASAN kernel, 12 cases,
+each in its own boot, with the TLVs in the wire format the send side of
+this command produces; it says nothing about what the firmware emits.  The
+base gives 6 ok and 6 not ok with 2 KASAN reports, the base plus patches 1
+and 2 gives 6 ok and 6 not ok with 6 reports, and the full series gives 12
+ok with none.
+
+Yehyeong Lee (3):
+  wifi: nxpwifi: guard the 11ax response handlers against a detached
+    command buffer
+  wifi: nxpwifi: read the 11AX_CFG extension ID at the right offset
+  wifi: nxpwifi: bound the TLV lengths in the 11AX_CFG response
+
+ drivers/net/wireless/nxp/nxpwifi/11ax.c | 67 ++++++++++++++++++-------
+ 1 file changed, 48 insertions(+), 19 deletions(-)
+
+
+base-commit: 3d229ce89862b8e82d71a9e11d6f840ca272a6d6
+-- 
+2.43.0
+
