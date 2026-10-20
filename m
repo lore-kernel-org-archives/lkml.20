@@ -1,74 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792498350;
-	b=Ef3Pc6ibtIo66yiegjyT1GplBBsopoXM2/T7Dab91f+fAkszijOMDmFRIFuGCxxGmcpu
-	 BjSnkd0EJGCaWQD8K7f93dfvZhmTJRE5chHZWhltv08uvwzAH3oCkjKTzzGAY8VKU2dMY
-	 xyATk3j7oOi70AkmH9RsW6oio3Fbs0MNxKOxBr55z2wp7hz5vYZSKSH/fpK4gxQllxvdv
-	 JuGQl0lWdAoJ5UcndY5nek0I7kqfRjWkBz5USd/x5Re2IjdOzFMf4S+c2bgAHvcEbicwq
-	 Guix7LDzaUoB1bM14A0tNwC9z53qwfvRvLyeSw7+J67A/nJ9IAn2vWs0U4mCIN3oZtA==
+	t=1792498349;
+	b=txWzyIfXVwDbu36MmFLn9BFP10ClkrCIIELN6B8Uup92myAE+cQmKUgjFWJliFCxlszi
+	 Bg4+JhEdAflHJfMwVlmeJpRuOP1LZtlM7tKXifMDnqBwmc9Bl27zftLv+hRvaGLFRjUEx
+	 2hnJ8dREmaWbWqSKubW0UcgYwFzOiU5Qx/GWS2vtC59W7tWd8u82MEMMJJIEJXPXei/4Z
+	 1+TDFjychiQCc8eI7K2sMI5/jey0YV2ECZ8LTTmuVTPJXb/2PaZxyRQMFN89nrinKU6wm
+	 LkRGz5HZPthcMmS8rFu2/4QKwQi01ZECevfaX6RfsXvFfmym8+UJ6njrXl1k/q6XC3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792498350;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=15y+rjAagndMWGwtM7jZ3FI/6ZLw41O6Mm1RADPXVig=;
-	b=5ioMloTeQzGuPdtKeoZ6+ZFSuuLzqbtT4WEWAxYG/S1GUJIVLknkjRv9Dc+7/OEZaxHf
-	 cW6VrDqu7YeRDUPRB5WNFNuHz1TJ2GiCsh/culfguV2Mf3OCy11nC+G7czsSm71FMX/mK
-	 S+E1y5urNRF12ROYjSh4q+IxlC7Jf8ayhdNtAc3rGgOIe+Bf2270p8At5Kerd7IamQgvB
-	 fDIO0OS0+As/C/19c1f0w2gX+1UicIq0KFXWvJT9iUiDOxN9ceQh7FGrQ/V4w7m/VfAUP
-	 cC5Ci0NqlOENc4FOoeylu2ZnolI6Y6WdNT1DkOc+aOiFenIbwEpL22jP9Fy2Cvqg9Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792498349;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=CQJLh+vS7OYaAUP51MkMV7udw8y7udD7KSJWpA2e+Dw=;
+	b=hASVVBlEHdkHcz0SmW7Uzl8S/htyjbDzTPJ/JMLCaOX3WdXZMDrKYkG6phW/jgMR20Kd
+	 x2XCK15Y4A4sNSv3Dh64LvHe0pHGSDS+/9qzyZwf8JGfdgyhM3EHFA5ZWJWW/Vlveh9cX
+	 k0fKP5GjOl9s+UkPlIkwcG/Bc5jX6b3g217kIuZ8A2H4Y3IhM4B2+TCjupSNA8kfAFGR7
+	 tulXPtcHIYtq6oui5C8Ttb0/Pno8P6WF0YzarsrnJF2lRxr7DAOzt7hk0vXXWus2sjzA/
+	 /nbsusWf+1T3o2/m1ik8yBJAMUHgVrD8be8vym6S2XxQgKZDj2hZY+TfykkQAGXof/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sadrul.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=PAKoiuvQ;
-	arc=none smtp.remote-ip=74.125.224.72
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aa1PnYSf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A3D606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 12:12:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97A3D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sadrul.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D4F606A31A;
+	Tue, 20 Oct 2026 12:12:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=PAKoiuvQ
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-675706e468dso3927930d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:12:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792498349; x=1793103149; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=15y+rjAagndMWGwtM7jZ3FI/6ZLw41O6Mm1RADPXVig=;
-        b=PAKoiuvQQkkjHkOs6RfgGQJ+nnDlik4X7i6u61dIqwoIw8wnmSwygTSoMCH/cnLbEC
-         PnAbGc5ep7OxEwUw1jUbJqyGNK7UnX6q9jAugMXaNpfYmdLbCE0by9Gg4oRjZjffIOhy
-         nDIZ3BsJ8Jkf/atrremfB07vYT36J8ZhyCjeB4A6GsW/fOOvLyDYI8oUV5OeG7TqxBdy
-         DLAMR4kt3sp7Gw/8NBWv2KmFezzjD6nO9xiDrYGDxUO6g/F8cDIE1CqAxxj5xVBMMQI8
-         Jn6ZyOCxm9dKCksnIl4lXV/J5p6KCBt/XDOPLunLv1bbHwRIn1VHsFl3RoLUmM7046lU
-         gCsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792498349; x=1793103149;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=15y+rjAagndMWGwtM7jZ3FI/6ZLw41O6Mm1RADPXVig=;
-        b=O2F+BYJhzU4UuUN16vh5famjwHPPB8oJBiAbC8zWn1BqTqxYqnYvD+3+hAaJPkc2ij
-         He/+NJ+ZzYCEUHRr41xNyhxz6X2DwbJzLkmDWdughx4MXISqs7WM/LI4caHC1QmY7jnL
-         SaW3Qt88Dt55BXrbRvVuIrysUNx8GstThMZjjr+HCxGdL4DPldwtw9yPCcAcNa4GOV+k
-         25Skgnd/12tmhGGnxc+epL+2mWX5JQoBW/2tbb4RUY2NltTdQ5heOEkVqU0XbvK/ZtkP
-         X+QmrJGMNkkhKvhyUA2m98xNyBp+8Ob59PGkoSTNK4mlZCSbCfGwZ6+mOLCUZI4H+g2A
-         Lw0w==
-X-Gm-Message-State: AFq9FYJwLrHAlNjFMrJ+R1M55/3M8XRs7vHBB03HXgao6eUR7w+SUyVa
-	q0p0adyacZoS9zVeJGawdL7iULcsfFsq3FFuKOwjLQKz8E5G9cc+0OyxROqbJzfxGX2tdl1Qt4E
-	mShi0WAXI4Bdz2rSi5hVAk60uEHjaplHlUKE5McFi50SgE9QdvIjJEWbZB0SQJrHpCwwovzI9Ko
-	aSQLeUE2CsDyDZDvS+NOJOKFxnuslNh6GmhKA0inOnFoz3
-X-Received: from yxrc11.prod.google.com ([2002:a53:c80b:0:b0:679:5b49:e5a2])
- (user=sadrul job=prod-delivery.src-stubby-dispatcher) by 2002:a05:690e:128e:b0:677:d251:ccc6
- with SMTP id 956f58d0204a3-679f88d3ecdmr739083d50.71.1792498349203; Tue, 20
- Oct 2026 05:12:29 -0700 (PDT)
-Date: Tue, 20 Oct 2026 12:11:59 +0000
-In-Reply-To: <20261020121159.2154649-1-sadrul@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aa1PnYSf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F8291F000C8;
+	Tue, 20 Oct 2026 12:12:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792498348;
+	bh=CQJLh+vS7OYaAUP51MkMV7udw8y7udD7KSJWpA2e+Dw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aa1PnYSfevYL1ZNdXnjb+hI4uRvs1/gGxkB9941j+c/MDXOYLL2KkvdBqZLLcOAk1
+	 HBeGTbFDjrYGgfiCTjwIWncOYAiCuI0OG4B8ygWJWkgdsItZCxC2uMUgk+hhyX8K9F
+	 Tgk/NlL5XTI4TopYbTnq2DjzBnltSjcHhYKEHrxCWCWxXOg/j9JkjrnXJbVf8yGflG
+	 X59sS/RqKELC24Ah7jFmyc218zLJ++sEF9H8BJvoZIF7c9uFv8R6FreL2QMtT0uZdn
+	 ObSoVhNkT6920mkJiyqrcTcWqYiaI5NZk+gYgWl4ebXNSY8t+xLzlBHq6Ky94/BWc1
+	 nPWxytbnG/D5Q==
+Date: Tue, 20 Oct 2026 13:12:24 +0100
+From: Lee Jones <lee@kernel.org>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: Re: [PATCH v2 46/53] mfd: ioc3: Add IOC4 ATA/ATAPI cell
+Message-ID: <179198336665.839288.12369537253671309518@kernel.org>
+References: <cover.1791890466.git.kaloz@kernel.org>
+ <754bae380c938b63eeaa87e3dccf9755314675ed.1791890466.git.kaloz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,69 +58,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261020121159.2154649-1-sadrul@google.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020121159.2154649-2-sadrul@google.com>
-Subject: [RESEND 2/2] fs/select: mark select and poll tasks TASK_FREEZABLE
-From: Sadrul Chowdhury <sadrul@google.com>
-To: linux-kernel@vger.kernel.org, 
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org, Pavel Machek <pavel@kernel.org>, 
-	linux-pm@vger.kernel.org, John Stultz <jstultz@google.com>, 
-	Sadrul Chowdhury <sadrul@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <754bae380c938b63eeaa87e3dccf9755314675ed.1791890466.git.kaloz@kernel.org>
+X-AI-Review-Draft: <754bae380c938b63eeaa87e3dccf9755314675ed.1791890466.git.kaloz@kernel.org>
 
-Similar to epoll_wait(), threads sleeping in do_select() and do_poll()
-sleep in TASK_INTERRUPTIBLE via poll_schedule_timeout(). During system
-suspend and resume, these threads are woken up by the freezer solely to
-transition to TASK_FROZEN, and woken again upon thaw only to re-evaluate
-file descriptors with no pending activity and sleep again.
+--- checkpatch.pl: clean (0 issues) ---
 
-A previous attempt to make select() and poll() freezable in commit
-9745cdb36da8 ("select: use freezable blocking call") was reverted in
-commit 59612d187912 ("Revert "select: use freezable blocking call"")
-alongside the epoll revert due to issues caused by the legacy freezer
-architecture.
+On Tue, 13 Oct 2026, Imre Kaloz wrote:
 
-Following the freezer overhaul in commit f5d39b020809 ("freezer,sched:
-Rewrite core freezer logic"), tasks in TASK_FREEZABLE are safely frozen
-in-place into TASK_FROZEN without running userspace code or experiencing
-premature wakeups before resume completes.
+> Add an IOC4 cell for pata_sgiioc4: a DEFINE_RES_MEM() over struct
+> ioc4_ata_regs and a DEFINE_RES_IRQ() for other_ir bit 0
+> (IOC4_OTHER_IR_ATA_INT). It joins ioc4_cells[] between the kbd and rtc
+> cells.
+>
+> The ATA passthrough bit follows the drive's INTRQ line, which stays
+> asserted until Status is read, unlike the discrete events on the rest
+> of other_ir. Make it the one level-triggered bit of the other_ir bank.
+> libata reads Status while servicing the interrupt, so ioc3_irq_ack()'s
+> W1C write is the only ack needed.
+>
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> ---
+>  arch/mips/include/asm/sn/ioc4.h |  1 +
+>  drivers/mfd/ioc3.c              | 19 +++++++++++++++++++
+>  2 files changed, 20 insertions(+)
+>
+> diff --git a/arch/mips/include/asm/sn/ioc4.h b/arch/mips/include/asm/sn/ioc4.h
+> index 781fcfb81b5e..d23676ae82b4 100644
+> --- a/arch/mips/include/asm/sn/ioc4.h
+> +++ b/arch/mips/include/asm/sn/ioc4.h
+> @@ -129,6 +129,7 @@ struct ioc4 {
+>  #define IOC4_OTHER_IR_GEN_INT		0xff000000	/* generic pins */
+>
+>  #define IOC4_OTHER_IR_KBD_INT_BIT	6	/* bit index */
+> +#define IOC4_OTHER_IR_ATA_INT_BIT	0	/* bit index */
+>
+>  #define IOC4_SSCR_DMA_EN	0x10000000	/* enable ring buffer DMA */
+>
+> diff --git a/drivers/mfd/ioc3.c b/drivers/mfd/ioc3.c
+> index 01c919c18b06..b471c90e737c 100644
+> --- a/drivers/mfd/ioc3.c
+> +++ b/drivers/mfd/ioc3.c
+> @@ -850,6 +850,13 @@ static const struct ioc3_variant ioc3_variant = {
+>  	(IOC4_SIO_IR_PORT_INT(0) | IOC4_SIO_IR_PORT_INT(1) | \
+>  	 IOC4_SIO_IR_PORT_INT(2) | IOC4_SIO_IR_PORT_INT(3))
+>
+> +/*
+> + * In other_ir only ATA passthrough is level triggered. It follows the
+> + * drive's INTRQ line, which stays asserted until the host reads Status;
+> + * the other other_ir bits are discrete events.
+> + */
+> +#define IOC4_OTHER_LVL_MASK	IOC4_OTHER_IR_ATA_INT
+> +
+>  #define IOC4_UART_RES(port) {						\
+>  	DEFINE_RES_MEM(offsetof(struct ioc4, uart[port]),		\
+>  		       sizeof_field(struct ioc4, uart[port])),		\
+> @@ -869,6 +876,12 @@ static const struct resource ioc4_kbd_resources[] = {
+>  	DEFINE_RES_IRQ(IOC4_IRQ_OTHER_BASE + IOC4_OTHER_IR_KBD_INT_BIT)
+>  };
+>
+> +static const struct resource ioc4_ata_resources[] = {
+> +	DEFINE_RES_MEM(offsetof(struct ioc4, ata),
+> +		       sizeof_field(struct ioc4, ata)),
+> +	DEFINE_RES_IRQ(IOC4_IRQ_OTHER_BASE + IOC4_OTHER_IR_ATA_INT_BIT)
+> +};
+> +
+>  static const struct resource ioc4_rtc_resources[] = {
+>  	DEFINE_RES_MEM(IOC4_BYTEBUS_DEV0, M48T35_REG_SIZE)
+>  };
+> @@ -898,6 +911,11 @@ static const struct mfd_cell ioc4_cells[] = {
+>  		.resources = ioc4_kbd_resources,
+>  		.num_resources = ARRAY_SIZE(ioc4_kbd_resources),
+>  	},
+> +	{
+> +		.name = "pata_sgiioc4",
+> +		.resources = ioc4_ata_resources,
+> +		.num_resources = ARRAY_SIZE(ioc4_ata_resources),
+> +	},
 
-Pass TASK_FREEZABLE to poll_schedule_timeout() in do_select() and
-do_poll() (TASK_INTERRUPTIBLE | TASK_FREEZABLE) so that polling threads
-remain asleep undisturbed across suspend/resume cycles.
+Shouldn't this have been added in Patch 31?
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Sadrul Chowdhury <sadrul@google.com>
----
- fs/select.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+>  	{
+>  		.name = "rtc-m48t35-ip35",
+>  		.resources = ioc4_rtc_resources,
+> @@ -974,6 +992,7 @@ static const struct ioc3_irq_bank ioc4_irq_banks[] = {
+>  		.ir = offsetof(struct ioc4, other_ir),
+>  		.ies = offsetof(struct ioc4, other_ies),
+>  		.iec = offsetof(struct ioc4, other_iec),
+> +		.lvl_mask = IOC4_OTHER_LVL_MASK,
+>  	},
+>  };
+>
+> -- 
+> 2.47.3
+>
 
-diff --git a/fs/select.c b/fs/select.c
-index 8943f20e8300..5cbbe86135bc 100644
---- a/fs/select.c
-+++ b/fs/select.c
-@@ -601,7 +601,7 @@ static noinline_for_stack int do_select(int n, fd_set_bits *fds, struct timespec
- 			to = &expire;
- 		}
- 
--		if (!poll_schedule_timeout(&table, TASK_INTERRUPTIBLE,
-+		if (!poll_schedule_timeout(&table, TASK_INTERRUPTIBLE | TASK_FREEZABLE,
- 					   to, slack))
- 			timed_out = 1;
- 	}
-@@ -961,7 +961,7 @@ static int do_poll(struct poll_list *list, struct poll_wqueues *wait,
- 			to = &expire;
- 		}
- 
--		if (!poll_schedule_timeout(wait, TASK_INTERRUPTIBLE, to, slack))
-+		if (!poll_schedule_timeout(wait, TASK_INTERRUPTIBLE | TASK_FREEZABLE, to, slack))
- 			timed_out = 1;
- 	}
- 	return count;
 -- 
-2.56.0.212.g129ede20d9-goog
-
+Lee Jones
