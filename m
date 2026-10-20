@@ -1,50 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792502432;
-	b=ZpSiihQaMczzjp8RlghhQb6VenViXqC507l+NRv3DwlnN4doszf2iz0Z2tK0upP+ljkA
-	 7NWaWC359/GU2wV4UiPRm8bjyC8LufLMLrdqIf8jVS3cZENdOj/Pmovr5zEdnEh3Rk5lN
-	 oNcAHsjPW44AT/CosDtBRT+qKWlhUoD3aJmL6+hVZ9+xc3NhePuFwoEKpv8aES2d11yan
-	 AD0hsHcivaQBdg4W2cplxuV1o+pKmsEfgWb9gzC3ftFlyvgQn58SvtxuEXurOgVqd+Pmi
-	 YFlHsAx1nzzWzWxaYJ5c0ZAx0VEDVHTt7AFEqjn2RDxqIgPfffaiY0xEIcVb+TADPGw==
+	t=1792502452;
+	b=i/7uGJ3taxxdVEKugnhTdPWf2x+CkHeGFp5ifs3QeaTwMVh3Hq/cXyjvoPxm7XxC8++R
+	 cOysQEKkkBiOtmWX/QaDiOT3lageeXm/FeiIEv8JUsVjK6zEOKm6vtTzQg3NBp/mmuxj6
+	 qMH3pIDa6K6NL58KXEkEH44KPzrA8CpZMIoUS+/1BGvNEJR4ULgowYIh5YbdyoBllIsac
+	 NLJaP890cu4kOS6eMmSvbNddyuBjlx0//OhJQS5T1QT+QsY1PrHSzUEKAx1lTvMx1FTLj
+	 ovB1yWD8SxzrwLATbOO/gjy8AIYCTjld2AdGCIGdMzQUlLVKsby/PuZz9as6fnJFCDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792502432;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HT30sp3tP45KqVAVlJk+Ve9kV8F+vAkrhPjIisPzUrM=;
-	b=moB5URsyHXYKcc6nBoYRcYs0kyZg5KLMjiXL/5ecAf7VOKcHphJ3hgvQPmJWP40y4bbM
-	 K3Bs7rZLA3PMxwCFcYLwvwwW+obZo0RyPp+6bNayrranHwojENQDQamcT0yQmPI17Vf98
-	 kM0JgTXWJf9j442m2GEgOjhezvUbXhW6zmFvxXB4u4a7ftZUXF/ez8iaS+QAHT2FN78oM
-	 HxYrR5Eh4VWTTZ/nD1iueyW2ZjFAyxutFvAPDVsUT0e+IPmHG4eK3gPi3UIB0Xz6RLzo4
-	 xeJa53mwkzLRAr9PdLx4Htp1ULiWG2WwUodPgh02dU6ViaaGDepux14hejXR30v957Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792502452;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1aDjPA8RRZSC5RYtmkxavzjaFEuPSiecALjC0nZN+Aw=;
+	b=mf4afNjle2qToZI5NSC8nxfTbLKs9sK07EgdF1ov//NwuItKKOO97PEKh+c8QWCRMfcA
+	 XOZNcSKBk9or3lB+HE67rPb8lC9eimDosWa/j9O+mf7ZPyNtDFY4sayowz+vYv12POPkp
+	 HxOwfKaOXzy/9BIfqa3CxdygmAfhcs2wqSu+Y4QHpmZthmnLzTBPB7QC/VfRjZA7KcCVd
+	 pJ84RuAWK1SjTBuUZOAZhIiD04bKhWSJFi1Tk15v8swbQjct4gkSO16LI/MBdr3BHx177
+	 g+QHlSOexg3Cp5RLg9909Mjhgw+0bJ8M9KL1EaO0CBeewH6eeqWdqjgIgNzVOlxEHIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EjUqhy51;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rcwmCASu;
+	arc=none smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4CB606A328;
-	Tue, 20 Oct 2026 13:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1650606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:20:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1650606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EjUqhy51
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF501F000C4;
-	Tue, 20 Oct 2026 13:20:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792502431;
-	bh=HT30sp3tP45KqVAVlJk+Ve9kV8F+vAkrhPjIisPzUrM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EjUqhy51xNeABJf1R7U9Ac48krDJHEDy/+YAaTlyqAb3xuauQmOyi79CT7piSP31D
-	 WTQD5d2k/0tJXxAk8rZEKgkhdldoZmQe6S2y7eI3gr1XoVO/RtInpxHPDBjwV79ZGQ
-	 /NJm50cCY7sB96mIZrVXkTBbgmsJAuNK1rp8uL9U=
-Date: Tue, 20 Oct 2026 15:20:27 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Haasham Khan <haasham93@gmail.com>
-Cc: pure.logic@nexus-software.ie, johan@kernel.org, elder@kernel.org,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] staging: greybus: remove unnecessary goto
-Message-ID: <2026102011-snap-unequal-51b0@gregkh>
-References: <20261020123310.5625-1-haasham93@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rcwmCASu
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso1244806a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:20:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792502451; x=1793107251; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1aDjPA8RRZSC5RYtmkxavzjaFEuPSiecALjC0nZN+Aw=;
+        b=rcwmCASuLgxsbEPoDfm/Ukh0cXl0rSSVME+BUp10XnjMBdJVdNVCtwU5mcYvOEFGEw
+         KJ+cPp9W8g2LCGh7UAFHAdbD1bL+Yv0PT2xDja4cF4vIaU4uJIWfA5rJojhsZrTurdI0
+         bFaROH4CPUUbzDBV5Ak39vvvXhJhDa5UWSx+hl9iUTVMJWbHafdvJjiuFBlQpziQSMj8
+         FaCC5V/D3shcxw15FLRDY9FXDHVXkr86HaLFtDwfnBbUdgc8Yh9PKLvArVg1c2NoEYZS
+         VBou7r0GqJPNcGgKjMExQ86x7x/Np1eOQ+Va9kSFrRblfyG0J7pGJxX/mZpcmPrDl2Fg
+         KdMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792502451; x=1793107251;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1aDjPA8RRZSC5RYtmkxavzjaFEuPSiecALjC0nZN+Aw=;
+        b=MmdFtE0PXVDALIOv9Rx1O+Z5GtTImw5yK8AyfFb+kDRcq6Ftk4PpXqIncrTTzbIQxj
+         x54SnxjT0rO8lW7Xon/Mw1SYYYV+XoEVntWveRFCPhfCgUARNMj3VmaDZMs7KMCzp9g/
+         UIYcNJQAwzSfskTg/TdphLkzyNU3+B7CQXEl6+9WryP8NWLnoprsts3fBbwj3PjTtUJ2
+         diz0KJN61fOsxuEkWV0cxibRwYiCwh8OxV4wtJqsvTxuPg4EIAVZCNzFi5HeTiGDTPxF
+         vOCmqJQNXr6pbCIGlELN/EGeDR4g4FNvxDkNRsTXRUE8WtgNY8QFyzcYu4hnZ9Ocsf6r
+         /otA==
+X-Forwarded-Encrypted: i=1; AKwUvBwHswlDAs1T6CwdPBG9PfD0HPqmTGikTjqDvto5cdosmg/sTp3TNvCg8GZR764NHaBHbaj9jz0TSzee7DQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+yTY7R26KIq/P55qFU2BWEpPV522ukYmN9wLvYnIIDBT3JMOj
+	NBfmo6D3gxGLNOCe6DFazsvj9zsp7/R40Yz9N3edKcZ1k3RoCqSfX1UJ
+X-Gm-Gg: AYBFou1CyI8JXacG8JlOPdT7TiPloQBACUzgBS+UZKQN3ovEZkdQPzBoLYcoFWFJY8T
+	71fXQw8mQvA8QjcRdcOiQ+dsfUDTNlbKw3KXWDZm6Wo0CRCkkIUY/Nc/Typ2BDhurnI/RxHcd8W
+	BE6yU8nLn0/jgtTkVlBQczgy7uHJg2ggEi5Lk3SoOX1td35F1voayPsWyAUXq5xrEuTbfcrepjq
+	GI4AAme+VUVQe5ppId2lYtdQFiGVPYx7I7XqjJX4NUwbFRPj+RiIJ8oO70v4ix/SA1ov9G3sVJs
+	JmLetX9KjdsQ1Fi3/MKAR6G64qP6KLIWEgx/D6FsAlOIf/UjjHgbfSL74JH0/wOT7J67Ujqiihm
+	AVGPJLHAWY6zZabw+T0vXJqSC49l2PdPyYYaXkkqeRgFbIQoV+MB6ywU5Xaz6bxzC02oCnpkkwg
+	WcSjSNsxiD8IWlYMV3ba9LENWpYzyJmm5Cog7mxKJpzezGv1TFLEpYTjDG/RQ/dTspfbgJk9drF
+	2PgbjGp5avDTVMsIMzCq6nmX1C76xB5euSUiAx21x4KYXJw2gzy5c5toGhp6IN0wYFNxB3OtnP+
+	iP+qlKvuSGsKWqiy9PgOqHgmxFph/4KN65vcGViQcQ/Ix3qi
+X-Received: by 2002:a05:6a20:6a2b:b0:3e0:eae8:7525 with SMTP id adf61e73a8af0-3e22605a105mr9382056637.64.1792502451093;
+        Tue, 20 Oct 2026 06:20:51 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a0cf97sm4846882a12.24.2026.10.20.06.20.48
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 20 Oct 2026 06:20:50 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: Mike Christie <michael.christie@oracle.com>,
+	Dmitry Bogdanov <d.bogdanov@yadro.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yu Zhang <yuz08559@gmail.com>
+Subject: [BUG] scsi: target: iscsi: Text/SendTargets command reuse -> NULL-ptr-deref / UAF in iscsit_build_sendtargets_response() (remote)
+Date: Tue, 20 Oct 2026 23:20:43 +1000
+Message-ID: <20261020132043.99594-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,59 +98,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020123310.5625-1-haasham93@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 12:33:10PM +0000, Haasham Khan wrote:
-> Signed-off-by: Haasham Khan <haasham93@gmail.com>
-> ---
->  drivers/staging/greybus/loopback.c | 4 ----
->  1 file changed, 4 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-> index efc69c10cffe..284935fded12 100644
-> --- a/drivers/staging/greybus/loopback.c
-> +++ b/drivers/staging/greybus/loopback.c
-> @@ -609,10 +609,6 @@ static int gb_loopback_async_transfer(struct gb_loopback *gb, u32 len)
->  					     request, len + sizeof(*request),
->  					     len + response_len,
->  					     gb_loopback_async_transfer_complete);
-> -	if (retval)
-> -		goto gb_error;
-> -
-> -gb_error:
->  	kfree(request);
->  	return retval;
->  }
-> -- 
-> 2.53.0
-> 
+A remote iSCSI initiator can crash the target (NULL pointer dereference in the
+TX thread) by sending two Text PDUs that reuse one ITT.  The same reuse also
+yields a use-after-free and conn_cmd_list corruption.  Everything below is
+against current mainline (drivers/target/iscsi/iscsi_target.c); the paths are
+unchanged from v6.x.
 
-Hi,
+Root cause
+----------
+The ISCSI_OP_TEXT dispatch, for a Text PDU whose TTT != 0xFFFFFFFF, looks up an
+*existing* command by ITT with no state check:
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+	case ISCSI_OP_TEXT:
+		if (hdr->ttt != cpu_to_be32(0xFFFFFFFF)) {
+			cmd = iscsit_find_cmd_from_itt(conn, hdr->itt);
+			if (!cmd)
+				goto reject;
+		} else {
+			cmd = iscsit_allocate_cmd(conn, TASK_INTERRUPTIBLE);
+			...
+		}
+		ret = iscsit_handle_text_cmd(conn, cmd, buf);
 
-You are receiving this message because of the following common error(s)
-as indicated below:
+iscsit_find_cmd_from_itt() returns any command on conn_cmd_list with a matching
+init_task_tag, regardless of its state.  A SendTargets command stays on
+conn_cmd_list after its response has been sent (i_state ISTATE_SENT_STATUS); it
+is freed only once the initiator's ExpStatSN acknowledges it
+(iscsit_ack_from_expstatsn()).  So an initiator that does not acknowledge it can
+hand the same command back for reprocessing.
 
-- You did not specify a description of why the patch is needed, or
-  possibly, any description at all, in the email body.  Please read the
-  section entitled "The canonical patch format" in the kernel file,
-  Documentation/process/submitting-patches.rst for what is needed in
-  order to properly describe the change.
+iscsit_setup_text_cmd() then frees the text buffer and clears the pointer, but
+leaves the previously set ICF_SENDTARGETS_SINGLE flag on the command:
 
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
+	kfree(cmd->text_in_ptr);
+	cmd->text_in_ptr	= NULL;
 
-thanks,
+iscsit_process_text_cmd(), seeing a NULL text buffer and a non-default TTT, takes
+the empty-continuation path and re-executes the command:
 
-greg k-h's patch email bot
+	unsigned char *text_in = cmd->text_in_ptr, *text_ptr;
+	if (!text_in) {
+		cmd->targ_xfer_tag = be32_to_cpu(hdr->ttt);
+		if (cmd->targ_xfer_tag == 0xFFFFFFFF) {
+			...
+			goto reject;
+		}
+		goto empty_sendtargets;
+	}
+
+On the TX thread iscsit_build_sendtargets_response() then dereferences the NULL
+text buffer, because ICF_SENDTARGETS_SINGLE is still set:
+
+	unsigned char *text_in = cmd->text_in_ptr, *text_ptr = NULL;
+	...
+	if (cmd->cmd_flags & ICF_SENDTARGETS_SINGLE) {
+		text_ptr = strchr(text_in, '=');	/* text_in == NULL */
+		if (!text_ptr) {			/* checked too late */
+			...
+		}
+
+strchr() dereferences the NULL pointer before the !text_ptr check can run.
+
+Note that LIO never assigns a target transfer tag for Text (it always sets
+cmd->targ_xfer_tag = 0xFFFFFFFF in iscsit_setup_text_cmd() and rejects
+multi-sequence Text in the same function), so a well-behaved initiator never
+sends a Text PDU with TTT != 0xFFFFFFFF; the reuse path is only reachable by a
+hostile/buggy initiator.
+
+Reproduced
+----------
+KASAN kernel, demo-mode LIO iSCSI target on loopback (authentication=0,
+generate_node_acls=1), iblock backstore.  A custom initiator logs in to Full
+Feature Phase (normal session), then sends two immediate Text PDUs:
+
+  PDU #1: F=1, ITT=0xaabbccdd, TTT=0xFFFFFFFF, data "SendTargets=iqn.<x>"
+          -> allocates the command, sets ICF_SENDTARGETS_SINGLE, links it on
+             conn_cmd_list (harmless, normal SendTargets response is sent).
+  PDU #2: F=1, ITT=0xaabbccdd, TTT=0x00000000, empty data, ExpStatSN not
+          acknowledging PDU #1 -> finds the same command, frees text_in_ptr,
+          re-executes it.
+
+The target panics immediately:
+
+  BUG: KASAN: null-ptr-deref in strchr+0x13/0x50
+  Read of size 1 at addr 0000000000000000 by task iscsi_ttx/3430
+  CPU: 0 ... 7.1.6
+  Call Trace:
+   strchr+0x13/0x50
+   iscsit_build_sendtargets_response.constprop.0+0x18b/0x950
+   iscsit_build_text_rsp+0x94/0x380
+   iscsit_response_queue+0x3b3/0xd50
+   iscsi_target_tx_thread+0x2b6/0x500
+   kthread+0x211/0x270
+   ret_from_fork+0x333/0x590
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:strchr+0x13/0x50
+  Kernel panic - not syncing: Fatal exception
+
+Because SendTargets is how initiators perform discovery, and discovery sessions
+are frequently unauthenticated, this is reachable by a remote peer that can open
+a session to the portal; with panic_on_oops it is a remote crash.
+
+Two further consequences of the same reuse (same root cause):
+ - Use-after-free: if PDU #2 is pipelined while the TX thread is still walking
+   g_tiqn_list for PDU #1, iscsit_setup_text_cmd()'s kfree(cmd->text_in_ptr)
+   frees the "SendTargets=iqn..." buffer that iscsit_build_sendtargets_response()
+   is reading -> KASAN use-after-free read.
+ - conn_cmd_list corruption: if PDU #2 carries a non-empty "SendTargets=..."
+   payload with the same ITT, iscsit_process_text_cmd() runs the unconditional
+   list_add_tail(&cmd->i_conn_node, &conn->conn_cmd_list) on a command that is
+   already linked.
+
+Note for a fix
+--------------
+Guarding text_in before the strchr() in iscsit_build_sendtargets_response()
+addresses only the NULL dereference; the use-after-free and the list corruption
+come from reprocessing an already-processed/linked Text command and are not
+covered by that guard.  A complete fix likely has to reject reuse of an existing
+Text command via the TTT != 0xFFFFFFFF path (LIO never hands out a Text TTT, so
+there is no legitimate continuation to honor).  Exact approach left to you.
+
+Reported-by: Yu Zhang <yuz08559@gmail.com>
