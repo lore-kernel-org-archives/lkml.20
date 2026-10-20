@@ -1,111 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487889;
-	b=i7ig5D3STxgMwbCyeda9hoS0j8IgcHUZy6bWEs1S+ykTHxuGPXNX1C3b46Wf2ekNnj8k
-	 +iecDzlHVzdWpCvz+OJSz9BxlQUkZ+MPwS5/d0nxdd2cuMk5VLEks8r4CwAKOYtes/aBr
-	 tnLSGlHhCbPW/N7vInd+m8DOP+4j6oepU6JqbJ846+vPVMKkuLcmIFGC+jwrum/f+Lz1G
-	 sXC39HzZ9UhG27aJy06EMLDIr5f+n0F65tnqMAkxf/p8T7GQS7UXyGR2Gw2DxOG0XWNse
-	 cT8cK4SdpOFvrvY3Qe0ZRapqjHBMm7S/pb2/OJvIHbewcOYNCmTcJpBjDR4TT//0Bbg==
+	t=1792487897;
+	b=Ms+PSwaYM3QzqIifVSLwWkfd66Ht6IoPxLTKOzsNFX0tvXyB3cFV1sdRkMQDkyrNhMeM
+	 aU2S/i9Zpftp7iL9emfhwDANmKkORGWMATYqFDaWzusxTvRHTsgFR2x3ehfoaMmRURz1B
+	 ra3QFgcxFv5agSAPGdpiS+2XRhUA2uHSfZm/+u+Ul6pqHN6O5vpCb0PT7twcqtOa9IMwK
+	 GBKotISyXFprXi3nhQdcp3pLysXcCO9gDDxyoD4/P1GBs57s9RKoKqbk07RKtFuibgXUg
+	 9UbSI8EJvctg+5dC1D0YeUr5hm5FfSSopswmKtMUoKB8b1TujieCJQeN+1v0gB7eP7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487889;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Rspamd-Action:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
-	bh=ysfbbrFI8yivLPYPpI0njpIa6LJjUf9RR89EPWV3woQ=;
-	b=AM1OTjAS9dLEvF7ajwngVp6T0QMuLFW2H4N9IEhEIlLyS8wsSdg8UJiMCPu6evXTekyt
-	 sL8mxeYcUjgndfP80WbsC9ubZv8LdhWpo6A7pAVlznUiYk0KBHaR2/eRwtzxKLp/QqA62
-	 g/aFSRxDgMISZxutyOAJV8vdAeSSwwWxXkdjUYbVJNbpQmvAxtXo1f3kA5NjCgypUFXPW
-	 D4Zbq6huetNCI4PUwOvjCPkcqV559I/Y0jskYAxECehzqWZqCn8PN/poALQVgHyoD6mwj
-	 uoNUWh1+lXf4s+7apdiTudjVzm/5CzA87ukQFsle2paAe+AQtXZoqf8GHsoyeb6Yv4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487897;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=zZae8cCLpGUPs+pgeY59E6wTBH/4CN2UxTfUiGkfupo=;
+	b=M9Mf81U3buyldj4gbgxyUIEmUSmxOX1OSEhZbE88GPgZ1TID+zQG5z8KxRC4F6ELz2BL
+	 gqiUDcive7rxXymrbTEsTnNE/ZDQpHUs/wOlp2rXgIJ6VGqAptnxnuySmDo8YQ2KZENvc
+	 obcZC+/ffFpEeVlAwvMsY6sX4XFWYljI38mOqoyTNDY+AEk2axVbZ1ndI5N/qg0kJdxTE
+	 VVx2MCkPWPHXSpWgp6ARHke5HPSLUSkF1ZdMsibHsAklXxCsjlOPfA/Nwwl+M+3R4RdUQ
+	 Q4mE4pv1jJUAK5NojO6dsgKIcSP/KDPBd+AZ16E2JbOaD/EjF80MkFsCPQEIiQbS25w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=W2tO11AD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GlVPXgLU;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=W2tO11AD;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GlVPXgLU;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=TSm1sS73;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9DB606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:18:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC9DB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919EC606A319;
+	Tue, 20 Oct 2026 09:18:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 919EC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=W2tO11AD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GlVPXgLU;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=W2tO11AD;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GlVPXgLU
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B53D11F44E;
-	Tue, 20 Oct 2026 09:18:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792487885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ysfbbrFI8yivLPYPpI0njpIa6LJjUf9RR89EPWV3woQ=;
-	b=W2tO11ADs9lp13lL6/fdplhBq0f1R9OtWB/EyD27XTYl7cyUV4GkvUC+3Px7lPVMlJ6Ix+
-	15B4omv2hYncyr3nLfkYAigVEtMCJgRrkVI5Nu0kXs8DDphXsxy2+2UEDOJKpj0HrCZz6Y
-	BdhzKfE/7AvyYi7rk0iiOf3B2zhrLN4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792487885;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ysfbbrFI8yivLPYPpI0njpIa6LJjUf9RR89EPWV3woQ=;
-	b=GlVPXgLUletv7Aw/8+gtLbc1JwS7igsW7TkChkoRqVg5ludBuM3zt8Ifhfu0zIARUua7zu
-	xKYus6Tj9QEsqfBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=W2tO11AD;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GlVPXgLU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792487885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ysfbbrFI8yivLPYPpI0njpIa6LJjUf9RR89EPWV3woQ=;
-	b=W2tO11ADs9lp13lL6/fdplhBq0f1R9OtWB/EyD27XTYl7cyUV4GkvUC+3Px7lPVMlJ6Ix+
-	15B4omv2hYncyr3nLfkYAigVEtMCJgRrkVI5Nu0kXs8DDphXsxy2+2UEDOJKpj0HrCZz6Y
-	BdhzKfE/7AvyYi7rk0iiOf3B2zhrLN4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792487885;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ysfbbrFI8yivLPYPpI0njpIa6LJjUf9RR89EPWV3woQ=;
-	b=GlVPXgLUletv7Aw/8+gtLbc1JwS7igsW7TkChkoRqVg5ludBuM3zt8Ifhfu0zIARUua7zu
-	xKYus6Tj9QEsqfBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7A498136C6;
-	Tue, 20 Oct 2026 09:18:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id PTFaFM0x12ofcQAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Tue, 20 Oct 2026 09:18:05 +0000
-Date: Tue, 20 Oct 2026 11:18:04 +0200
-From: Daniel Wagner <dwagner@suse.de>
-To: Mohamed Khalfella <mkhalfella@purestorage.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
-	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
-	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
-	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 09/18] nvme: Implement cross-controller reset
- completion
-Message-ID: <207f5a00-7fee-4ea5-b541-38424d4766bd@flourine.local>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-10-mkhalfella@purestorage.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=TSm1sS73
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K1EAwo4175533;
+	Tue, 20 Oct 2026 09:18:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=zZae8c
+	CLpGUPs+pgeY59E6wTBH/4CN2UxTfUiGkfupo=; b=TSm1sS7384MwU32CQ3D9TQ
+	EGjUlRiTBZseIomCBXlf2hHMHFOKW6hg519Buwm1HycLbjIwpd7IDYDtzkChh22Y
+	XOffHG9G2KLxwS99H0Hx5xnxBwqJsfO2WffinJdSiQy/5LdmBpF2POFsL4T0vE70
+	4f6m5WGTR0TWuKM5QFP5kLAUz3LfrhDmgIn3wUsbpZrUogONO372X5pG4Xv9DFSk
+	+Q/VC9/hEZR2KWpT+unY65zvbwBm8YEUU4UV7j5u/Q6J56x3et8+i1v1Ks+RwfJ6
+	510tEazYLwDy7BBbKjIo0UEvPWvT2+xDxQ/Zxyg6pCtBO33PWCgrdlMmjcKb7XFw
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw581vxx-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 09:18:13 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69K6q9d63754457;
+	Tue, 20 Oct 2026 09:18:13 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hcnjh19cy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 09:18:13 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69K9I7IN31064644
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 20 Oct 2026 09:18:07 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 70C202004B;
+	Tue, 20 Oct 2026 09:18:07 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2AAA220043;
+	Tue, 20 Oct 2026 09:18:07 +0000 (GMT)
+Received: from [9.224.77.173] (unknown [9.224.77.173])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 20 Oct 2026 09:18:07 +0000 (GMT)
+Message-ID: <4e7493a4-98c1-42c9-8bfb-62dc41801568@linux.ibm.com>
+Date: Tue, 20 Oct 2026 11:18:06 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,67 +85,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920182936.2317916-10-mkhalfella@purestorage.com>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: B53D11F44E
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/1] KVM: s390: pqap: fix AP status written to wrong
+ half of GR1
+To: Gautam Gala <ggala@linux.ibm.com>, kvm@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: frankja@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org,
+        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        svens@linux.ibm.com, akrowiak@linux.ibm.com, pasic@linux.ibm.com,
+        pmorel@linux.ibm.com
+References: <20261020082534.481867-1-ggala@linux.ibm.com>
+Content-Language: en-US
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+In-Reply-To: <20261020082534.481867-1-ggala@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzNiBTYWx0ZWRfX/S8XNpCXTvtr
+ HKCx0g4FDFZJzpGQxB6+4+6+8GfvuQgiSR+SzvBJRGO/RZtkGA9Sq2T0iIN6Hl4oN2QDl5+Zu1T
+ 59NQoFA4cjeMGlxQquuSV1xte7YiuVE=
+X-Proofpoint-GUID: MrG2SlkIfGcqEZcCSfbGtJD1xLcbKk-9
+X-Proofpoint-ORIG-GUID: MrG2SlkIfGcqEZcCSfbGtJD1xLcbKk-9
+X-Authority-Analysis: v=2.4 cv=UOBIjyfy c=1 sm=1 tr=0 ts=6ad731d5 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=_B2Ys1ejglQFZ4E6RQEA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzNiBTYWx0ZWRfX+STS1bZaGM92
+ gJRI12AYZAqP/IFShEBHnp7KuZZXgTdzud96Q77n3cGSOAyaogA6Q9DI+2ZaNy70TaTsLdZNtDG
+ Z1pBq4HJNCbi7Yng0x0LG8WF4OUcI5how83KxZKn2nHooC+4aMIIDBKuspKdWH9+7al/337GD5X
+ VJlwoL3C0znRc8L2lNajBBpC7Tsvf7IcaEtM5k234R6H6Rfyq7/I6vmxvbIPZr0J40ITS07QN/P
+ 7W4ZBNbbB30mrn8zm4bQiCdGuB1yDctOU9xnMbCdC2VKUSuw26d+gIBklIG2jHJWA1maSUa1+Qp
+ ASmuULRqbayNKIhzJK2MRP8opC2yDRytSHUizOP7apg3LYrZQExfDXTqhySeROu6ysEjBTxSW0S
+ 03/Z0EM7BS/f8pdXJKmUk5qzl8jurlyKPgG2AYCr/6A+OVLXGnCQ0xK78/zASr1PaA/bgyPw/Ze
+ FJMFgkjhMGDHQVpECuA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200036
 
-On Sun, Sep 20, 2026 at 11:28:07AM -0700, Mohamed Khalfella wrote:
->  static void nvme_fw_act_work(struct work_struct *work)
->  {
->  	struct nvme_ctrl *ctrl = container_of(work,
-> @@ -5099,6 +5142,9 @@ static bool nvme_handle_aen_notice(struct nvme_ctrl *ctrl, u32 result)
->  	case NVME_AER_NOTICE_DISC_CHANGED:
->  		ctrl->aen_result = result;
->  		break;
-> +	case NVME_AER_NOTICE_CCR_COMPLETED:
-> +		queue_work(nvme_wq, &ctrl->ccr_work);
+Am 20.10.26 um 10:25 schrieb Gautam Gala:
+> The AP Queue Status Word (APQSW) occupies bit positions 32-63 of GR1,
+> i.e. the low 32 bits of the 64-bit register, while the upper 32 bits
+> are reserved.
+> 
+> The no-hook fallback path in handle_pqap() synthesizes an APQSW and
+> copies struct ap_queue_status directly into GPR1 using memcpy(). On
+> big-endian s390 this places the APQSW in the upper 32 bits of the
+> register rather than in the architecturally defined APQSW field.
+> 
+> Use union ap_queue_status_reg and assign its value directly to GPR1.
+> This places APQSW in the correct half of the register and aligns the
+> fallback path with the register layout used by the AP infrastructure.
+> 
+> Fixes: e5282de93105 ("s390: ap: kvm: add PQAP interception for AQIC")
+> Reported-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+> Signed-off-by: Gautam Gala <ggala@linux.ibm.com>
 
-What happens to the waiters on sctrl->ccr_list when the source
-controller enters error recovery while a CCR is pending?
+Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>
 
-As far as I can tell, ccr_work itself is fine. The reset path cancels
-it via nvme_stop_ctrl(), and in the error recovery path the Get Log
-Page just fails once the admin queue is torn down. But the target drops
-all CCRs issued by the old association when it frees the controller,
-so the CCR completed AEN for them will never arrive. Nothing on the
-host side walks ccr_list when the controller leaves LIVE, so
-nvme_issue_wait_ccr() sleeps until min(kato, deadline - now) runs out
-before nvme_fence_ctrl() tries the next source controller. In the
-worst case that eats the whole fencing window.
+Thanks. applied.
 
-Would it make sense to fail all pending entries (set ccrs to a failure
-status and complete them under ctrl->lock) when the source controller
-goes into error recovery, so the fencing code can move on to another
-path right away?
+> ---
+>   arch/s390/kvm/s390/priv.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/s390/kvm/s390/priv.c b/arch/s390/kvm/s390/priv.c
+> index b3cb2c2c3aa7..ccb2a7830265 100644
+> --- a/arch/s390/kvm/s390/priv.c
+> +++ b/arch/s390/kvm/s390/priv.c
+> @@ -592,7 +592,7 @@ EXPORT_SYMBOL_FOR_MODULES(kvm_s390_is_gpa_in_memslot, "vfio_ap");
+>    */
+>   static int handle_pqap(struct kvm_vcpu *vcpu)
+>   {
+> -	struct ap_queue_status status = {};
+> +	union ap_queue_status_reg status = {};
+>   	crypto_hook pqap_hook;
+>   	unsigned long reg0;
+>   	int ret;
+> @@ -661,8 +661,8 @@ static int handle_pqap(struct kvm_vcpu *vcpu)
+>   	 * No hook means no driver to enable the SIE CRYCB and no queues.
+>   	 * We send this response to the guest.
+>   	 */
+> -	status.response_code = 0x01;
+> -	memcpy(&vcpu->run->s.regs.gprs[1], &status, sizeof(status));
+> +	status.status.response_code = 0x01;
+> +	vcpu->run->s.regs.gprs[1] = status.value;
+>   	kvm_s390_set_psw_cc(vcpu, 3);
+>   	return 0;
+>   }
+
