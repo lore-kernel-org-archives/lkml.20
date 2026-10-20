@@ -1,57 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792481349;
-	b=TgV+cTqV/GA9nrCry0WQurbtCZCJC9+U11+wb75nRBnuMeSyVcw7Ep1AvqfRI+YmJ2dw
-	 /Y5iPNGXbShqF6uLVkZZEeEHFfsQgg2F1Vrk7Wo298Fv6hOT6ZUdGPSvnOYfm9MSxHqHs
-	 DSRjbUKsS6hLvB2I9uNSVRMEQ6OQLQVrDX5fSuyqam22aK8WyIhVD2q8AwIQ3gE39Pn8V
-	 39ojqfL64+vu7s7LdFRZggy3RJuv6i1kdbsEjleSY3N2JBScTyk61Bw1AZ4Q7RgqIVkjq
-	 9fYdujrg7phPVP+SBPewQvpmn4kqktBy8VIE6zK+kmq3FvYj3PxV3sJMwJMkuMnZ3ZQ==
+	t=1792481352;
+	b=31ZOLIBxlgYwlHp9ImyD76eTXCdvHqMNHkcfapajiYMJb1Xrt9G8fi7FuIA2Z4VkVzQE
+	 mopds9z3nYfS1nvUEP2p+9VtBsDQdroD3Qubo/0u7U/phTKrFxmq7nKMu0JPqBjAQjyOT
+	 K8NCkJjYBCQvr7Zm1YjH7ooi5XGA1ZfCmfKxsnCZEBtvvz5ci7OIjmox9rXH+3rjfeQkA
+	 2Splckv8XcmLScxW91lo98X/u9e1Tfu4BBzRVAlq3AstA0NzrphRToV6lX4gKSCS3ExjW
+	 ezPNhz6C09hpB7bmL+vhGuJYINKAzNO3fudN2hm7u5RnJo+DmlWKvCgrp2BiItzx9Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792481349;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CdVPKzwoivUCsdSw3FkVKkpyKW0HyzJVixAN0MOhIPM=;
-	b=ygVJ6tvPx5MdBRMkm/IDYsbXPiXybLdYiKk/4vxVVUZjMoEGHzk37okZcFVVoK+jmbb3
-	 pFoj2iubhMkyUbbUPhVkaNDGH939sJl95LLF4uLrucnLUw+vKtEu6KPC8gToxRQ9WC9fp
-	 +/FjSJmLEN9RwVWv+9surJdwEh/iKNQmEEFJlHQzfJwSzs8GTKR5CMU3/0pO01Ux5nYQt
-	 REevbiJd1xsRGNtgl0quzzDC/XK6byTkG8OUsJftLvzByQpMY7THelkVv2xOFaB7NzGWL
-	 czDCTytZUxbNbLj+YciBhZxOs+xmrw9CV7PQ7Y7NXrJaL+Q/JAXygyLIx3AnM5Fl77w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792481352;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=RJlSQp8r350iMwIMlHz6kJOY3IIHWCaiqptCoWQnTWs=;
+	b=TC/dZYpApae526nq5WXCODqlMDg/TZIZInltdW6snxsr/TlknCdjhGgxJhd+v8p3kt/X
+	 BbpejUmggf6RcAWVfHrhOyCNSIKO+HSvGJrYZLYARitj8+r1FDTeeVZuVhmbq0J0QAAwk
+	 ns9MOQpN5BPsH/lY5aQysgdfAg4+VP4tpj+jmHzJPX+tO8V8sUatnPlHqckKB5aEAJHkd
+	 hgwTHbGDRPl7knVsFq1SnOr3ojr+/8xaFGDLZohSTBoihh1TFfMxzX1i3iW8kH+R3Mks8
+	 7nLF43zrQX5FUSnkZuRg01/xQd13o16R3Hl7dxkHXbakivTd+J6RwcoI+ICeGiQM15Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIXjbYf3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=airkyi.com;
+	spf=pass smtp.mailfrom=airkyi.com;
+	dkim=pass header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b=FrTF+Z7K;
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A625606A319;
-	Tue, 20 Oct 2026 07:29:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EFD606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:29:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80EFD606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIXjbYf3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E20E1F000C5;
-	Tue, 20 Oct 2026 07:29:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792481349;
-	bh=CdVPKzwoivUCsdSw3FkVKkpyKW0HyzJVixAN0MOhIPM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FIXjbYf3AV5Qs/wCsTPZ+x0WbGU4mOV3fNH+XeUA8OVU7ams05iy3bM3MC+3f3iHB
-	 cPBLKROzYNxbHqTVW/8yWeM2etJfpmM1tZ7X9P/w5PTeOvcdSxQJCQspOm0FisTpvJ
-	 wouf/WTsjMoO0hLUeMeYcs+VyD7BV1zRWPPlvcpRNp6dQotnwE+Xewsgwx4sDSPk7L
-	 vTLb52l8ud38tvfX/qOqq6xhxAkSrcTPmsCkwPCQ9xbpchvLZo95i4ZMMG+HVQr0iA
-	 yEfqOwk9L6k3ISrIJP0xNGJUaCN0wkegAuEgTezWOjdcwIBdg+EXS780XvEZUjjeHX
-	 4ipcJzhYkfowA==
-Date: Tue, 20 Oct 2026 09:29:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ross Cawston <ross@r-sc.ca>
-Cc: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, chris.packham@alliedtelesis.co.nz, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: net: realtek,rtl9301-switch: add port
- LED controller
-Message-ID: <20261020-weightless-tidy-goshawk-aefb1e@quoll>
-References: <20261018194339.132-1-ross@r-sc.ca>
- <20261018194339.132-3-ross@r-sc.ca>
+	dkim=pass (1024-bit key, unprotected) header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b=FrTF+Z7K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+	s=altu2504; t=1792481336;
+	bh=RJlSQp8r350iMwIMlHz6kJOY3IIHWCaiqptCoWQnTWs=;
+	h=From:To:Subject:Date:Message-Id;
+	b=FrTF+Z7KD0Ibekx7CXN10Hj+f88ph8HX61g1ihWLTz8bTFigbnblv8EguE/4jqpxy
+	 SPxNcv/bFbVDV8i84Y8vNv+AYLy7WkQjVdsVLZXIY9fq9XaY8EmykfwcsIrxjO1NgC
+	 E63iCWSnN4GsN8126szMflZbKr15EXo1p9o1rZp8=
+X-QQ-mid: zesmtpsz4t1792481335t9bc8c4d2
+X-QQ-Originating-IP: rMyewjLzKncWQnPrp9ri5tZ/Pt41y4HBpk1o+5qM6Fw=
+Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 20 Oct 2026 15:28:50 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 11522251199344246924
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sandy Huang <hjc@rock-chips.com>,
+	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: [PATCH v8 3/7] drm/display: Add soft depend for aux-hpd-typec-dp-bridge module
+Date: Tue, 20 Oct 2026 15:28:12 +0800
+Message-Id: <20261020072816.180-4-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20261020072816.180-1-kernel@airkyi.com>
+References: <20261020072816.180-1-kernel@airkyi.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MvW0gkkpO9JeOgXld5tLuUqTzQyCBdr/SLGm/yM8QGHgBA4hLevagzd8
+	RzPQs7Z17cT0L4wdbHvICr5/OZto2EfA2ogO9/V+Al0JAOKVEyxQhGUMsMU+ohqIjrZusU7
+	dksVVbfvt4ueNJLR2sA1UJAcy/ABy0DVjZVWSE8yp/Cd2XczvQhaJ/R1dK5fuKaWl5lIkxG
+	lcxlszWB411A4Hqa+hd2vk+Pa4ocImVMptl1+n6cIQ5FEqBARlAss5zZwWV5vORFMIrklDH
+	6uh2rwJgqivWOmaIOaLHMGzYVNz+l4xCAhc5E7LNhUmA2w592MoCXNcPQtTYMkWEOCIm1CS
+	e7nES3gRCo3PpC1owOQPmJg1RGt/3gE25pnlN6RZgpc4oJ36ikvepix0gkL+CjASRRNIHY8
+	cDXeVt/ORDlr36phjHnk8Gq1IGiFlF6Q09F45HQMOGV7Q/FWrzNEWGWqiuZTxKTBwpGc3ba
+	pk/qaFF0L+yDCgEGWdpYyuUww5ysZixBvvbIcmcFecs6xN4kSjJ7mJp0yjdtG4jwke2jnAS
+	F6oapYmTCjiA7Wzp9TPLBu8O9ehyHNgjBSXdZLko4eXkxl7CjTgArDJea1Wl4SKw6DxHVQP
+	DOgeXrXWLrkgYsbfOqYP6Z0fRcXq1BsJGyjAxzmzPzv/PLyzPrtys9b4eT+7520TirlEzVf
+	Bm8tgZWqa/1ADijAHvZjD8+Rs/0U3Ny1TXzLZ2Ye5mvFo0GJ7HNWtHgihhNqisNIDEcjyFT
+	VztnsHyRe9CnjnLP1w0luJ840ONGy+Kl99QQK0OEC33uHXhHAihcDx//ivADQlu47m4FXau
+	emQNj/S3R2wKgqrvpqSeNzrCLDmDmMhBpY2vIve9dOi24XpRGSIcL509al37BRj2ZNKUWUL
+	9mDdT+A3RSHIh76fReMNjHUqKHdhokE9WFywsWb9GUZsmep68rJ4B4kaDDityAu+soCtbJc
+	q5zmvlmJTTU/Cv2BgEKLl6sLQXe13ynrjnGxmUmT1xX7VF688GA8j7bLJSTE/l7u1FV5OlE
+	6HGUJ4UVuo7IpIwcxi3CT3DWzt2ok=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,37 +108,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261018194339.132-3-ross@r-sc.ca>
 
-On Sun, Oct 18, 2026 at 12:43:37PM -0700, Ross Cawston wrote:
-> The switch drives the port LEDs, and some boards wire LEDs to it that
-> have no hardware function and are switched in software, such as PoE
-> status LEDs. Allow the software LED control block, described by
-> realtek,rtl9301-port-leds, as a child of the switch like its I2C and
-> MDIO controllers.
-> 
-> Signed-off-by: Ross Cawston <ross@r-sc.ca>
-> ---
->  .../devicetree/bindings/net/realtek,rtl9301-switch.yaml        | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml b/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml
-> index 80eabc17066..9529327ee0c 100644
-> --- a/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml
-> +++ b/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml
-> @@ -57,6 +57,9 @@ patternProperties:
->    'mdio-controller@[0-9a-f]+$':
->      $ref: realtek,rtl9301-mdio.yaml#
->  
-> +  'led-controller@[0-9a-f]+$':
-> +    $ref: /schemas/leds/realtek,rtl9301-port-leds.yaml#
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-This depends on previous patch, so cover letter should be explicit what
-maintainers can or cannot do with it.
+The aux-hpd-typec-dp-bridge module serves as a generic TypeC
+DisplayPort HPD bridge and is not required by any other
+module. Therefore, it will not be auto-loaded.
 
-Best regards,
-Krzysztof
+Given that the drm_display_helper module houses DisplayPort-related
+helper code, add a MODULE_SOFTDEP() within it to suggest loading the
+aux-hpd-typec-dp-bridge module beforehand.
+
+Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Tested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+(no changes since v6)
+---
+ drivers/gpu/drm/display/drm_display_helper_mod.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/display/drm_display_helper_mod.c b/drivers/gpu/drm/display/drm_display_helper_mod.c
+index d8a6e6228773..f0152d6b0b2d 100644
+--- a/drivers/gpu/drm/display/drm_display_helper_mod.c
++++ b/drivers/gpu/drm/display/drm_display_helper_mod.c
+@@ -18,5 +18,6 @@ static void __exit drm_display_helper_module_exit(void)
+ 	drm_dp_aux_dev_exit();
+ }
+ 
++MODULE_SOFTDEP("pre: aux-hpd-typec-dp-bridge");
+ module_init(drm_display_helper_module_init);
+ module_exit(drm_display_helper_module_exit);
+-- 
+2.53.0
 
