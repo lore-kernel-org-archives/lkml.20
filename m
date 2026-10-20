@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505829;
-	b=N33y2PvUVvcmg8JFJ34/aYEd5PBnKI5fJp8pXm5+E2TPBIO5A7ekYrPGcObs1ytRFYZ8
-	 bbAjoEmieHqPc88mZu5ALGO69XDzhjD4YgRRJsJMIJ5wN72Ul7onzJcoECbi2l4w7sukh
-	 oNWThLCvjX+to4UDc9ttDWSrxIqtQn6hxs6mg4TK2bqark4C/X63ffFEnLsnZSImDtaVc
-	 S96UT23CAp06P/8tLfcR3QGxjLz2DZD6EFTT5XqmWHF/o5v9GmFB1xsHAt/TB3Dv/I//G
-	 /yrujP+ifAEVxTrl/VUjlrQEj+m9KoYAoYCEF4X8fF5hKwvIVaZ1LWzArGd3SMl1/kQ==
+	t=1792505835;
+	b=xOQCMNJWA9sZYW5MjpuOgX9wK/Dnk8Kdt9V3NAsO5i7vjY5ywX0gDbSq/PlZ+hllIh90
+	 rW57xNhMCekBTswm5JSZxozF7PgfHR/Y7r3jrmNvUYTvUPUX1SYnhlio/+0z77xidfeDs
+	 GQ4vj5AMZGUkrTaZ7YhJptXODdZ6oXfIXREXyUiKLqHKdj+nC6MtVTkXwWwuvs3sK1Bg4
+	 B4KCM6Z2vs/O4wh73kCxRmV+rtUHTNFdRhb2ovAIFhLoECy7rN+FjRG1ZkONfJIMYv7Ct
+	 jtm2n3EElgv+iXvNjdK8xFHhL4EUPrioZfV5BpFfwKxSivA/oiNFna/lTRmKnATBN4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505829;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505835;
 	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
 	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=/bwahVLN0DEkxTRBZ/QYg4lSD68f7g2itJ3lu6Z/yU8=;
-	b=Uieuo8QxNUNLlOjcM5J4t+rrjq6jRtXBEiPHYt91xBLZfMd2lVKZA5RtDz3I9ZEJebXF
-	 hOayta9O/u5McGJwiSNni2FKv1tiNfgu14Mj2OSCu+KZ5m4MUe76rWDaeBYe6qi/6oiOp
-	 88IFfoxKMyza6yYNv1aQ4OEAQlpJzPxzhHJ8HcVZr2srpzONfUh6qc6mBlowfnlqEmamR
-	 i68sh2mdACku22KqrHQJQkR5UwTPvwy3MhkelM5v/5uKs5SKHK3W86/Fyd68LEQaC+AlI
-	 JPOpXNDnXwfvnhwN9qXJKVRcYICIOqsvQTYp111YA9t3qbjD5eLvmQfvYezV6/Jn3WQ==
+	bh=LW9SqWypznNch6MsxfasV2/XAf80QtBLLlx4Yh8uaWI=;
+	b=uz192alkq8FBTtkfJ5KBggbdmCrsaTM56bizmidhq3FETRbXUANEyBrE2pM4OI3ihBkd
+	 C/PNzO5K0lULNIaoWnxPA/d02TO18iU3pc3TcAUpQBi8STa89heodsWiAGhtqc2AvPT7D
+	 MsDXcE7ftYXVFFDAoAXsBcw5sUMggoA8YHQXUlVQh+UlL9Plmyxn0qPcJuRcXISF8jIjE
+	 kc6Y4EHjAjfzOg7QTw8PnVr9QA6v6eCjoqRgAPydKHv3RwJQ5JWUa9aObkiJjPEFviQQG
+	 EtFVsUZnvyu6Pg7Xa87pa750Nz0c0GqKE0aXxPugK7jyrUxVb0pmPSWTKqtCJKXr/YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwqYtWbc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZdQEQIV0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B48D606AA2C;
-	Tue, 20 Oct 2026 14:17:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6464A606A327;
+	Tue, 20 Oct 2026 14:17:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwqYtWbc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7AF1F000C4;
-	Tue, 20 Oct 2026 14:17:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZdQEQIV0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29EA1F000C4;
+	Tue, 20 Oct 2026 14:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792505829;
-	bh=/bwahVLN0DEkxTRBZ/QYg4lSD68f7g2itJ3lu6Z/yU8=;
+	s=k20260515; t=1792505835;
+	bh=LW9SqWypznNch6MsxfasV2/XAf80QtBLLlx4Yh8uaWI=;
 	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=XwqYtWbc09MHfYsfV1HGcppcIfI4RZtsJqSYpLJuvClv7mEF1wEe0CcrtCOrZUB5j
-	 zL+np52ZBqJAnOgGEx0+vI3RE6qm0/6DRiKcaYCEkcE64mYksv1rkWt8CI6j9sDA4l
-	 eUZdPUlBCC7Iwuz6UJm5tCUj338HeHAmfI2uz5A6FtqEOr+XBhP0SFOvJDWkaWgHJr
-	 XMECc2rlIXNtO6SFrGnipFNO47rDXbTZ2tSAcT3fAqxPeK7R7+qz8BED2jlGjf1TbG
-	 X7aBupPdaLyyrsFDG/YiGs56vdwr4XSo5mhi8nxX4yp9gZzT2zvYGjAW9PqgRs5jcT
-	 ggVPYzxoF0lUg==
-Content-Type: multipart/mixed; boundary="===============5182827459711567144=="
+	b=ZdQEQIV0PMomNuziuHoTjx3T7q6jdZxZirB0kE6jfOB4ete+uu3/yVEDTlu7RL9F3
+	 d3tUuykJRo4iZuuzSJbgEyylMOvedMGA0fHWdZRdBmGx6p60dDNYAv9/8gKOQFLDFZ
+	 MfaWK1/FbyLQ2zv2fD1jOFafF5leVspsCdXWAdgvWe3m7UtAB6PA/IL4x3GHZBV9iu
+	 jhdZr3E+uZFPOlJnYm4BSWG+ffmZn7Q7vXkRNU8Q7paUbdzhECmA8JqARQB8lZaGlf
+	 hO9au3lnfSf8EYwJRyos2PcZB8MN7fDaVl0RPohlKJycrBxMir4EytkKwG/4r3/e7K
+	 G7JauRFQzB6LA==
+Content-Type: multipart/mixed; boundary="===============5502121670553229102=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,115 +49,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <45632128dde3ab61514bf0db311766b2113e01b63bdbd37c04f4a8b2de6c985c@mail.kernel.org>
-In-Reply-To: <ad35a4e7b9ff044a63d7903ae6509c68ea05d6d5.1792503001.git.xukuohai@huawei.com>
-References: <ad35a4e7b9ff044a63d7903ae6509c68ea05d6d5.1792503001.git.xukuohai@huawei.com>
-Subject: Re: [PATCH bpf-next 16/16] selftests/bpf: Add test for arena percpu bounds
+Message-Id: <9e3c68360cf25fad73a6c9397f0e77d8b35d8a6cb72d129b66328ea4fe7bfe18@mail.kernel.org>
+In-Reply-To: <2f1a53eb72a6fdb93346cb4e1d04a5d472177b1c.1792503001.git.xukuohai@huawei.com>
+References: <2f1a53eb72a6fdb93346cb4e1d04a5d472177b1c.1792503001.git.xukuohai@huawei.com>
+Subject: Re: [PATCH bpf-next 08/16] bpf: Extend syscall to accept arena percpu information
 From: bot+bpf-ci@kernel.org
 To: xukuohai@huaweicloud.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org
 Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,emil@etsalapatis.com,yonghong.song@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 20 Oct 2026 14:17:08 +0000 (UTC)
+Date: Tue, 20 Oct 2026 14:17:14 +0000 (UTC)
 
---===============5182827459711567144==
+--===============5502121670553229102==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> selftests/bpf: Add test for arena percpu bounds
+> bpf: Extend syscall to accept arena percpu information
 
-TL;DR: Nits only in the arena percpu bounds selftest: a redundant insns[2].off
-= 0 assignment, and the repeated bpf_prog_load and log-check code could share
-a helper.
+TL;DR:
+- BPF_MAP_CREATE may silently accept arena percpu fields for non-arena map
+  types, blocking future uapi use
+- A nonzero percpu chunk offset with zero size is not validated
 
-> diff --git a/tools/testing/selftests/bpf/prog_tests/arena_percpu.c b/tools/testing/selftests/bpf/prog_tests/arena_percpu.c
-> --- a/tools/testing/selftests/bpf/prog_tests/arena_percpu.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/arena_percpu.c
-
-[ ... ]
-
-> +/* check out of range pseudo instructions and accesses */
-> +static void test_arena_percpu_percpu_bounds(void)
-> +{
+> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+> index 868589f07330..05cd6397adae 100644
+> --- a/kernel/bpf/arena.c
+> +++ b/kernel/bpf/arena.c
 
 [ ... ]
 
-> +	/* a reference at the start of the chunk loads */
-> +	insns[1].imm = page_sz;
-> +	prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
-> +				"arena_percpu_ref", "GPL", insns,
-> +				ARRAY_SIZE(insns), &prog_opts);
-> +	if (!ASSERT_GE(prog_fd, 0, "in_range_load"))
-> +		goto out;
-> +	close(prog_fd);
+> @@ -298,6 +301,17 @@ static struct bpf_map *arena_map_alloc(union bpf_attr *attr)
+>  		/* user vma must not cross 32-bit boundary */
+>  		return ERR_PTR(-ERANGE);
+>
+> +	if (attr->arena_percpu_chunk_sz) {
+> +		u64 offset = attr->arena_percpu_chunk_off;
+> +		u64 size = attr->arena_percpu_chunk_sz;
 > +
-> +	/* the first u64 below the chunk and one past its end are rejected */
-> +	bad_offs[0] = page_sz - 8;
-> +	bad_offs[1] = page_sz + page_sz;
+> +		if (!IS_ALIGNED(offset, PAGE_SIZE) || !IS_ALIGNED(size, PAGE_SIZE))
+> +			return ERR_PTR(-EINVAL);
 > +
-> +	for (i = 0; i < ARRAY_SIZE(bad_offs); i++) {
-> +		insns[1].imm = bad_offs[i];
-> +		prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
-> +					"arena_percpu_ref", "GPL", insns,
-> +					ARRAY_SIZE(insns), &prog_opts);
-> +		if (!ASSERT_LT(prog_fd, 0, "out_of_range_load"))
-> +			close(prog_fd);
-> +		snprintf(expected, sizeof(expected),
-> +			 "per-cpu arena reference at offset %u "
-> +			 "outside cpu 0's chunk", bad_offs[i]);
-> +		ASSERT_HAS_SUBSTR(log_buf, expected, "out_of_range_log");
+> +		if (offset > vm_range || size > (vm_range - offset) / nr_cpu_ids)
+> +			return ERR_PTR(-E2BIG);
 > +	}
 > +
-> +	/* the last u64 of the chunk is in range and loads */
-> +	insns[1].imm = page_sz + page_sz - 8;
-> +	insns[2].off = 0;
-
-This isn't a bug, but is this insns[2].off = 0 assignment needed?  The field
-is still 0 from the initializer at this point.
-
-> +	prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
-> +				"arena_percpu_ref", "GPL", insns,
-> +				ARRAY_SIZE(insns), &prog_opts);
-> +	if (!ASSERT_GE(prog_fd, 0, "last_u64_load"))
-> +		goto out;
-> +	close(prog_fd);
-> +
-> +	/* one u64 past the chunk end is rejected */
-> +	insns[2].off = 8;
-> +	prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
-> +				"arena_percpu_ref", "GPL", insns,
-> +				ARRAY_SIZE(insns), &prog_opts);
-> +	if (!ASSERT_LT(prog_fd, 0, "out_of_range_access"))
-> +		close(prog_fd);
-> +	snprintf(expected, sizeof(expected),
-> +		 "per-cpu arena access at offset %d size 8 "
-> +		 "outside cpu 0's chunk", (int)page_sz);
-> +	ASSERT_HAS_SUBSTR(log_buf, expected, "out_of_range_access_log");
-> +
-> +	/* an access below the chunk start is rejected */
-> +	insns[1].imm = page_sz;
-> +	insns[2].off = -8;
-> +	prog_fd = bpf_prog_load(BPF_PROG_TYPE_RAW_TRACEPOINT,
-> +				"arena_percpu_ref", "GPL", insns,
-> +				ARRAY_SIZE(insns), &prog_opts);
-> +	if (!ASSERT_LT(prog_fd, 0, "below_chunk_access"))
-> +		close(prog_fd);
-> +	snprintf(expected, sizeof(expected),
-> +		 "per-cpu arena access at offset -8 size 8 "
-> +		 "outside cpu 0's chunk");
-> +	ASSERT_HAS_SUBSTR(log_buf, expected, "below_chunk_access_log");
-
-This isn't a bug, but could the five identical bpf_prog_load() calls and the
-repeated reject/log checks share a small helper?
-
-Only insns[1].imm and insns[2].off differ between the cases, and the
-ASSERT_LT + close, snprintf into expected, ASSERT_HAS_SUBSTR sequence is
-repeated three times.
-
-A helper taking the reference offset and the access offset, and returning
-the prog fd or checking the expected log, would make each case a single
-line, like run_on_cpu() and check_percpu_value() do elsewhere in this file.
+>  	kern_vm = get_vm_area(KERN_VM_SZ, VM_SPARSE | VM_USERMAP);
+>  	if (!kern_vm)
+>  		return ERR_PTR(-ENOMEM);
 
 [ ... ]
+
+> @@ -311,6 +325,10 @@ static struct bpf_map *arena_map_alloc(union bpf_attr *attr)
+>  	if (arena->user_vm_start)
+>  		arena->user_vm_end = arena->user_vm_start + vm_range;
+>
+> +	arena->percpu_chunk_sz = attr->arena_percpu_chunk_sz;
+> +	if (attr->arena_percpu_chunk_sz)
+> +		arena->percpu_chunk_off = attr->arena_percpu_chunk_off;
+> +
+
+If userspace passes arena_percpu_chunk_off != 0 with arena_percpu_chunk_sz
+== 0, is the offset ever validated?
+
+In that case the alignment and range checks above are skipped, the offset is
+ignored, and arena->percpu_chunk_off stays 0.
+
+The commit message says "Both are checked at arena creation time", which
+only holds when arena_percpu_chunk_sz is nonzero.  The excl_prog_hash
+handling in map_create_alloc() already rejects the matching case of a size
+without a hash:
+
+	} else if (attr->excl_prog_hash_size) {
+		...
+		err = -EINVAL;
+
+Should arena_map_alloc() return -EINVAL when arena_percpu_chunk_off is
+nonzero but arena_percpu_chunk_sz is 0?
+
+[ ... ]
+
+> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+> index 849bc9136299..240c7349284d 100644
+> --- a/kernel/bpf/syscall.c
+> +++ b/kernel/bpf/syscall.c
+> @@ -1396,7 +1396,7 @@ static int map_check_btf(struct bpf_map *map, struct bpf_token *token,
+>  	return ret;
+>  }
+>
+> -#define BPF_MAP_CREATE_LAST_FIELD excl_prog_hash_size
+> +#define BPF_MAP_CREATE_LAST_FIELD arena_percpu_chunk_sz
+>  /* called via syscall */
+>  static int map_create_alloc(union bpf_attr *attr, bpfptr_t uattr, struct bpf_verifier_log *log,
+>  			    struct bpf_map **mapp, struct bpf_token **tokenp)
+
+Does raising BPF_MAP_CREATE_LAST_FIELD here make CHECK_ATTR accept
+arena_percpu_chunk_off and arena_percpu_chunk_sz for every map type?
+
+Only arena_map_alloc() reads them, and map_create_alloc() has no check for
+these fields.  For example, BPF_MAP_CREATE with map_type =
+BPF_MAP_TYPE_HASH and arena_percpu_chunk_sz = 4096 succeeds and the values
+are silently dropped.
+
+map_create_alloc() already rejects the comparable per-type field:
+
+	if (attr->map_type != BPF_MAP_TYPE_BLOOM_FILTER &&
+	    attr->map_type != BPF_MAP_TYPE_ARENA &&
+	    attr->map_type != BPF_MAP_TYPE_RHASH &&
+	    attr->map_extra != 0) {
+		bpf_log(log, "Invalid map_extra.\n");
+		return -EINVAL;
+	}
+
+Since current kernels will accept any value in these fields, they can never
+later be given a meaning for other map types, or for the offset-only case
+above.  Bad loader input, such as percpu info attached to the wrong map, is
+also never reported.  No later commit in the series (through 08224ba2de19)
+adds this check.
+
+Should map_create_alloc() return -EINVAL when map_type is not
+BPF_MAP_TYPE_ARENA and either arena_percpu_chunk_off or
+arena_percpu_chunk_sz is nonzero?
 
 
 ---
@@ -165,4 +175,4 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39434884362
---===============5182827459711567144==--
+--===============5502121670553229102==--
