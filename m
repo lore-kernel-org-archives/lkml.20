@@ -1,72 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792482634;
-	b=t2cBoEtMVxfYizj9IBc3DN5QVzL8KFziBugYDQBixRx9ThRkr1jIJ8xdomIsAtiLX43i
-	 WG2M480liowrhTokUqL7PWUbsyTQUiQCBxNwdZhGlsSradACZnfiTaKYKWyFm/Le+Pyse
-	 lDmySndgW0K5kO+By5HM+B7NSvuRS9x6EpMt31LcGeXsBp16tnARv0TVfOq/BwIDAdj/7
-	 jsJOOL7bb06i8SLSG/iqFtQiLBVhWjGCfFbBpQ9AFuaJ9Fg98Lp3f6PCKcgENVfSbJdGB
-	 O99C14SjDhdl7Rb35GE4sxOdEoCkajy8QgKbQ6mQWZPKzvi3AFrj/88C5lhUJ3mLZPw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792482634;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Pu3C9gNSSW1SZOaOvtYdw2Ykdk6v6QqTygLjRHUJrNw=;
-	b=ZIuk7WVZOJ4Tcvi5aVwygskjaejEttsy9Ez+LxavstBNI1xVWVxqMENafkfBRRjnb9Dm
-	 dRkFFRDDQXipLu/al6Itawvyl1pjzodoAoj7xOCF+Z2OWzcoIU+dF6LG47HnOopdHALxV
-	 BRC+8b0lrpHz94zNwS/lE7eLsmnxCWft0yL01szGnik1sd93PTy0T6KwIa9DUnXQDvZ8x
-	 KkJe9tCJti2Izmubtb0TJ82B6iUGgO64JzBsKhtszCsRDYeMwOpK3Tl/I4uX9njhNV+nD
-	 mnaD9Z/3B0cuPVTOogIF13EMyWAEUWkro5trzac8kOBOa8304CcgcPWwOVTPHeR+96g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=PJr9Kqdf;
-	arc=none smtp.remote-ip=209.85.208.69
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.56
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792482641;
+	b=uMNyVTx66CH+YnQOO6gvU11NdIO/R8TabCDNGzetjijYqKMKUOUo1AFHKxIqTZ3qlqW4
+	 zyln0syFbvFGSoPRtrutPFYA5LfWAC0KYdF8o/lwiI08nUXhmLDhLhnsFJ2eyuaQryeZX
+	 w8vLbP62Stdi7v3G0WsaMhdEtmzTcNKbUMdxAXlEqIX7nw9k7qm2K3sHLSsTVTHB7sdSg
+	 t359iJdpqrH3J5bjiP5ZV8ksCVoKqbqnD0Ryf1scGUfHueu8MeY10+nPcMbymkGazC8yV
+	 NvmJOq8DfX7+G2mrjhnHKHkt/+G22iiWLgpqE7jGDzcGymorzMZ5F7ZY7kj+YDUiHKg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792482641;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=IZZnKyPa7HLJF5KG2VLB64dHnszxJhX9zYvk+lCAo7I=;
+	b=d66YFsvyPxvuvhQSbS9jbI7zYyz/0TPH66iEf6xSV0jEIwUfd2i37D31UQCA90K+88na
+	 eaZvNuCDQObYU4k1xik4eXvTPD6BBe9aYBsV28OIZJ9i35CuUGDXTigDKnvlBElxDbyie
+	 oCTGjY6s2JGH7SdAAhQqaBPKIuV4HipQRy319s1VPyCJKytNWUfvZUJhZh7AfpeUTQqEe
+	 mCNvXSMlZgMHdPydHKcAR1eiiLDDgHGeVu0P27cmfiOsFgC9sALf2MIcMpIYDsbWYHKOM
+	 ocpCyotccHl0vedkXGbLLo/EGeyQBc3+cJRLWlX1/prELyqG4G63iaQq3xuAPK62TAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ifw6gUM6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.56
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012056.outbound.protection.outlook.com [52.101.43.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C3B606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:50:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C3B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6A8606A31C;
+	Tue, 20 Oct 2026 07:50:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B6A8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=PJr9Kqdf
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b1d43907c2so3284010a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:50:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792482632; x=1793087432; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pu3C9gNSSW1SZOaOvtYdw2Ykdk6v6QqTygLjRHUJrNw=;
-        b=PJr9KqdfaDzRfjtsAvgQg5FfN4Sg7xt6H1TiRlhpquo78+A8JFEgvVh8kHEs+e6yaO
-         8Tj2nssWIbNbceaBfhVyRNH1yjBbxyGspF0vAN6sDJOH74Xa8MY8wpNerZdYjlfN808w
-         NWL2o5biLZK2hFH7hOFZupVx2uVn+xmYROrQ+0Ebo71e/9r8Uf5wUlrZykzhuS4BvGxp
-         72rPuWJ4CEuaLWT/LF7pXw/GzKvyfdHO7aOjT8cJq9EW8N7vuDpfHWWNf3lrNuIDrcQq
-         ZuFk4atAapHIxXtwDwjAAJT8OZOqgDnIX5GHx982WmWOKyOY1f+dI6X1UTZxFHB2fJ1E
-         q9mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792482632; x=1793087432;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pu3C9gNSSW1SZOaOvtYdw2Ykdk6v6QqTygLjRHUJrNw=;
-        b=pFV8svhxK6FoneiOi8ZmiWUqqWAQOB6kEVDjkbS2w2Bzo5GIn/RM48D91WqKJpx3n4
-         kmEaLqmHO/B057rYTX0LoeUxIXr0bGm+ltZ5kO7LicOcyfGiEfdeNlf69oW7iNZ+3CLs
-         7NZ/DMZ69kaKMAAB3gmyo0bY5z/MLXh8msb5jenUsU/HA9XUm+h1Vk0+DfaPHaZ4uaJe
-         93x/egRgsSqRNS6IX7o7X+Dg/ODupfDq4AFnlpY2W0PJnq94mFKTlGQyRi9qdAxnSRSt
-         Xze5V0/lrXDM24JURCjVB3Cxt0RshsrE6hoORHPSTCyAPTke6yMxMcF7nr4+Gj4bOCDN
-         eR1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxGTnhheRqC+kn7gZ/yhNUKW/HMpyz5QbunVuQfZYErEIr6bdm4lOisT2hKuArkg8Z0nr2BWQFsFd/FxCs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGbhJkjqGe/HvL8HOXcrJEI5zceQIgJuXFMWjty0PzqLFxoPiH
-	KBQ885RYEerpekVfUE6DjqnYNLpmmDe2zdgucq7Rha7NqfaswvlNvtOsmtWNMocUIw+yAZUv7UF
-	bkIwQLa48FF9UdU9fTQ==
-X-Received: from edr4.prod.google.com ([2002:a05:6402:44c4:b0:6ac:b90c:5524])
- (user=michalblk job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:44da:b0:6b1:b849:c7d8 with SMTP id 4fb4d7f45d1cf-6b3a81ac904mr4648985a12.38.1792482631297;
- Tue, 20 Oct 2026 00:50:31 -0700 (PDT)
-Date: Tue, 20 Oct 2026 07:50:29 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ifw6gUM6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hB3uxZFjhcw1lZKuzp8FzM6o92VASW8DRMi378ZxIYOis7sLtyPCXrRN1IiSAa/bgOLc8DDx5EDFZzk05k77TQdPb1oovVUE6ukRvdGsOquS2NM2g9GPVLkdiS36Jty0QAuDEmxvgy9cLwMQIu9rIZW94S6s/6m6mz4KUZuKcAwWzIcHxEuw76vy8YN4S83n6K/YOXMWhgjdW4TUh5lZxTrfqoA6NBD3gJfDMd/7Y76BFqJg/pS0PicrTVTDYFHUsJj3LFwicJHQc/6lyLAbE7JhWZffrJU+dgj1AGe2CAEIV5wQOM8mG25l8Smj6nx0n6at3TwXlCYOgwRO/FfWFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IZZnKyPa7HLJF5KG2VLB64dHnszxJhX9zYvk+lCAo7I=;
+ b=P8D+qnAh7ZoXdm4GksQyHAM1dLMPZaS6azhPhEoz4MrKVJpWiOc5f1cgFrjYgPdVCOD2/i2b733H/qljPUna1SGbRz0JJpdlAOOwfQN3lE8/ap67Egp9lVkfftnj4fBG++NcdAdPz1TEvhwi4udTGcFKoQyijMW/1xNuqne1p2A6Vc6csSyPKVnKJ1rf5HarNX3Vm9gER//nhIH57XFmKCEcjBgV20tROUXV/esu7hmMKsxwaIzGtEj8rg9t1Hs4xvyS/MCRz8WQs4xs0ThXpSgMi+HovHkRQTTzb92awvaz9R5L9XH4BJvt1CdqgU1gGeQTopcfqxUGvXGNjgrP+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IZZnKyPa7HLJF5KG2VLB64dHnszxJhX9zYvk+lCAo7I=;
+ b=Ifw6gUM6mdJm/yePvfxauKWmbBaZCHo2TEl7hD/mkfEJHXCz5rDiOQ/NJEsHF0mRPOvqEyPmP5EVo88QXUPgEr+jkwym+bXzSrIqVeDnByqz+QI5bgLumE2kWeZEruYFbAQES/QpBAINhBk8PAlIZNN8muoHhZwQwb8HqR5KGuLwDFpHXOacsZZFRbfPjZOV9zBc8bIE0CAlLOigio2/lk2xabQDRIPiVg1wzO3675tDwiTp+1fNn2MdjCZf4qk3Ek+8OkvXDh0rWZl3rRHbRsxig/p7sQr4HQZWFmksq+WrHynaQNcTcLuwrwZzu4wiTQA9ArHhWuNXvZUE7A+5Ew==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by MW4PR12MB7014.namprd12.prod.outlook.com (2603:10b6:303:218::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
+ 2026 07:50:38 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 07:50:38 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
+Cc: linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] pwm: tegra: Fix value discarding for duty and period
+Date: Tue, 20 Oct 2026 16:50:34 +0900
+Message-ID: <NYQDQXZBQCm1uL6pMDxwQg@nvidia.com>
+In-Reply-To: <20261015085336.4181137-2-u.kleine-koenig@baylibre.com>
+References: <20261015085336.4181137-2-u.kleine-koenig@baylibre.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: OSTP286CA0007.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:223::15) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,441 +97,168 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020075029.330343-1-michalblk@google.com>
-Subject: [PATCH v2] selftests/sched_ext: Add class_switch_stall test
-From: Michal Blaszczyk <michalblk@google.com>
-To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
-	Changwoo Min <changwoo@igalia.com>
-Cc: sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Kuba Piecuch <jpiecuch@google.com>, 
-	Michal Blaszczyk <michalblk@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|MW4PR12MB7014:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc12b8ff-6882-470e-f2d4-08df2e7ed4db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|376014|1800799024|23010399003|11063799006|56012099006|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	7ATH7cKDWTI0jcHmC+vAM31fXDgQy/DEXlWBLaZjOY/j65BBGtptb6lLFwPGVd4v+brrs8Xk2vhRqrl5gP8frnNy2rmxg8GbrfAA7XiR+E74AowoWMh5qmhY2nhqaSIm7XnvyAcSbR1bMlhGP2xoVI4VNwHnVFjTqwZ9y1sbvj1hv1uIALvGAO2yWEGAmFt6jnvfuickfeI8jF9AWiMP1ynPc/zNVzeHghlEDxw7XDXQxgwBEHC8MQjO1CWHznjHVc+53IP9nqYtPDN0PiwdHVWCoSFR5moYdl5Dtz23TwEQNWhRkvff3a0dEJE/wNhJCOHlpcAMzg++GQZAL771l6jQP9ytC93AQXg+ly4Z3z99q2KRZjNgHD5jBvfQT6TN9/zWi0GpE3YQv5YGVJ5WcIV7e7ApfEVvp/Ss3LW+UOnPn+yzfbpLA72EcOpEbVsigpBd8C8yudglEG1yvvnvYFiy/hW8cTWNIM8sErO3vTCXp+hhU4tjlnk014QfDqI03miX8Ojor833VV64/t/86Yvq0ox097+X3/l0+Na4BDkbGNy/MfuvMIb3yF46XNn7v3Ol1HgNnps+DbvMrifacX6hs5CUZk0BRVFrKLl1hzen8QPH+H1AMEOL41tUnF9YfrFFdY+t7mlIxODx3iP50FpGGMOnVcxnWGnf36yvA4g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(23010399003)(11063799006)(56012099006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eHFQSVpNb3JXY2FoeEhNNlJqZ1RUTUs2R0lnL3lkMnBFTnBlZHN3VUVUbHZG?=
+ =?utf-8?B?cUVvVXFWZldEMzdHaWJUTzZVdExvbFlrRmlHZXhJQWFSZXhHZ3J0OGRjOUZ4?=
+ =?utf-8?B?VERVWWV1dldEaDVDVUxwOFlNclM2MGk5OUY4YlYwT2RBMUVqK0JFS1NvbktN?=
+ =?utf-8?B?Q3FscHRzR21IMGZYNmdEL2hWRFJ5OHZtSDhkUExxWGJwZkJDM2F0Ynl2a1Qy?=
+ =?utf-8?B?b2FOZWh5eFhicmZObFNXMUNaN1liR0d2N1R6clVEMElnR3M1N3pxZTM4MDNQ?=
+ =?utf-8?B?WHN1eWlvaWtmOERueU5iam92c2tGOUpsTyt1Y3ZDYTdYTlVrbDZrZnovUlVP?=
+ =?utf-8?B?TWtIbnVOYnZORGhtT1doeVFKMDNxcjQ5SVdRd0VHdDFmWE1WRTRIcVF1bnZE?=
+ =?utf-8?B?ckJ4eTZsMitnU3hPeXJsczd5WmlpQnUvNVR0UXRRUnJ1YzFBZk1hSy9zNjRm?=
+ =?utf-8?B?VG94MlJPKzNZUjgyMkRjU1B4dGJsNThMVmNWVG9lMnNmSjJPVFBoTFFjTHEz?=
+ =?utf-8?B?VGdqMWFsVGxCVnF0VFdVNkswS2pyUUwzRzRhR3ByRllHZHdabkNYbW92bytm?=
+ =?utf-8?B?dW04ZW1xMHN3NTlGTUpGczRvaUtMWE1hMWdzREFDYmMyb1FZOXVVRW9LcDJK?=
+ =?utf-8?B?aWZVNk01eUQzem9FTzV1UjVDcVdpTUN2MytDRDNteTRpVHVkZkswR2o4VFdr?=
+ =?utf-8?B?dU8xZnZMSmUrWWFFTSt3UlhLRGNXanlsQTdHODl1S252RUR1bktEaEJGUjYv?=
+ =?utf-8?B?amt1QjVpaDdaSlcraG56WXptbHVnZ3BkZkVCLzhzd3MwTDFYSkhYMFg0NUNP?=
+ =?utf-8?B?Qm9HWWsyRXF3eTJBemw5TlFrandVc29YSDVLMnpIRzNpWFkrUmhrNHlUNDdE?=
+ =?utf-8?B?SHI1SVVldFphUXdaOXNhMEdFQXJrUWlXY2hzQVp2SlZVeCtrYVBPSTRmK054?=
+ =?utf-8?B?cGQxTndxMFhTQXR4Rjc4eXpEUXl4MDJnRnVFS1dycUpJaTg3a1pWSHR4K0VY?=
+ =?utf-8?B?aGJ4OENxZWdpUVJVaU5BempyQ0VDZEFzZ09EejlZRkxFRVZLUkl2b05xZml3?=
+ =?utf-8?B?QUcwQWlBeTFwZlRSK3hjQ3VGSk5pYlk0WHBxY1BBQWJRTkh6WU9ZRUlLdmNT?=
+ =?utf-8?B?aDJaMmQxU29RYVFrU21BWWxHeGlaTHdKZWJEN21XRjllVXdrL3dleHlEUUN6?=
+ =?utf-8?B?VTZIZi9nTnZDdUY5OWhJTGlwNG9WVGRxVXF4SE9UN0lzS2JkTWhBQko1c25a?=
+ =?utf-8?B?YmF5dDRaamQ0K2ZXMHZWeTlNbG5HdnNWcWVGNnk0UitZZ0ZBSG1NWnQ3WmZo?=
+ =?utf-8?B?SUxjY1g3cHhSZWVvSkdQcmtFbytEeUxKUEZnVmxIaFhSejVJcmVaVDc4Rzhp?=
+ =?utf-8?B?cjIydDgrMy93aU1USEFKSTZOMnZSWlUwa05MV1hIdjBZVU9VMVB1NVZlRmxr?=
+ =?utf-8?B?c3BCdDdzWTdPTFpMQzZTTENhTTlQRXJBMjQ4ZkRvaVY1dTUrdTE2ZGtIZDV0?=
+ =?utf-8?B?cndJQ3Qwdm90ZzlWWTFqMVp6K3dDb1pJV1gzRTVzSjNLU3FRS1ltNG5vOUgw?=
+ =?utf-8?B?bFRDdVZqU2FxdkowbWZvcEhEcHFjUWVVQUNReG11RUVHRCtnTkVweVJSRUl3?=
+ =?utf-8?B?bXpJRVhCN0R3VXViVitTQnBLZDNtWkgwYzFBNWd2c25VV2h6ZktiNUU3WEdj?=
+ =?utf-8?B?TzhMM0RVYTF4MXNZQm14VHpuODdyMVdUZFh2NllPQTRobHNFTkpsbUpZZldG?=
+ =?utf-8?B?OFZUVGdmaDlNazM1TlNUS2l4U1dIU1lmMmMrV1NGL25FOG5JZFZ6QTcwMmRP?=
+ =?utf-8?B?YjlIc3pZR2wySW9Nd09XTThEcGlVckZ4ZGRZc3RuM3plZU9Cd1lXMnhGVWlH?=
+ =?utf-8?B?cThwQTByQnhiQ3JNOERmbHNZWkd5MFlvRmViY3hVMitvMU9oUkp0bjFKR29n?=
+ =?utf-8?B?L0cveDV4T3JMU1VJQkNUZWl6RmdGQWdiUnBHQ2JleDNlbCtQZzYzSVhtdFEv?=
+ =?utf-8?B?bmFKcWhWbVNRTFMxTDdPWkVLeTA5K1NEUW5OSitmMUlFTEoxZHgyemRGRDdD?=
+ =?utf-8?B?eTFJZU0vRTdLcTQ0dlcwT1NYUEdFb1ZoSk4vQXI1QWxrTG1iVkJmNkJLc1FM?=
+ =?utf-8?B?WkdvM1BoWmdqNlZQZ3Y5TEhrNVhJNjZ1UEs4R25Iay9zMlFYTGc5TWJWR2c0?=
+ =?utf-8?B?SEdjUFZsK2U2M0ZENkRsUmxSN2crTmJRd2ZlS2JXVU92RjlHUnFHMmsxb2M0?=
+ =?utf-8?B?LzJoUGJTTmFhT25ydU5mcXdDYlk3cFdHVCtyU0FmY3ZkbWUwTVpXRmVKYVh6?=
+ =?utf-8?B?NEZ6NW51Y0UyRVYxcmczanJvRDZqb0R1Q3RJRDVMcGJoaWJmZ1lUNDBFeVZw?=
+ =?utf-8?Q?2kLMN/3pjgOu0SbmIpPBYDlATvA8CqZiYogMcRhNsY/FG?=
+X-MS-Exchange-AntiSpam-MessageData-1: 2ATPfkKl7HrL6g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc12b8ff-6882-470e-f2d4-08df2e7ed4db
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 07:50:38.4107
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6SCySK+xgSXe+VOoEnWoJKEm8YWmPKOUpFq3UBaz6D561INfOvC1PVkE7TfBudMvb1gn4Ci6s7LQQ0S4ioCetA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7014
 
-Add a test for a task which leaves SCHED_EXT while it's waiting. Its
-scheduler keeps the task waiting on a DSQ after it wakes up. The test
-switches the task to SCHED_OTHER while it's waiting, lets it sleep outside
-of SCHED_EXT for longer than the watchdog timeout, then switches it back
-and wakes it up. The scheduler keeps it waiting again, for longer than the
-watchdog interval but shorter than the timeout, which the watchdog must not
-report as a stall.
+On Thursday, October 15, 2026 5:53=E2=80=AFPM Uwe Kleine-K=C3=B6nig wrote:
+> tegra_pwm_config() is called with u64 values passed for duty_ns and
+> period_ns in tegra_pwm_apply(). Make these parameters u64 instead of int
+> to not lose the upper bits for bigger values. If such a discard happens
+> the values that are written to hardware become wrong, or (if the
+> discarded period value becomes 0) a division by zero happens.
+>=20
+> Adapt the math functions accordingly to not let the now potentially
+> bigger values result in overflows.
+>=20
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/bug/linux-5c5b97d6-4da6-4d06-9dc7-957419dcd83=
+2
+> Fixes: fd3ddd4355c0 ("pwm: tegra: Implement .apply() callback")
+> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
+> ---
+> Hello,
+>=20
+> actually the Fixes: line isn't quite accurate. The problem that the
+> arguments are cropped to int from u64 exists since v4.7-rc1 (commit
+> 5ec803edcb70 ("pwm: Add core infrastructure to allow atomic updates"))
+> in the pwm core, but the blamed commit above is the commit where this
+> problem was moved to the pwm-tegra driver and thus it's fixable there.
+> The problem in the core doesn't exist any more since commit 0829c35dc534
+> ("pwm: Drop support for legacy drivers") in v6.0-rc1.
+>=20
+> Note this patch changes the rounding of the duty cycle (from somewhat
+> round closest to somewhat round down). It would not be hard to keep the
+> behaviour by introducing a variant of mul_u64_u64_div_u64() that rounds
+> closest, but the rounding is spoiled anyhow by later rounding of the
+> period. To actually fix that it would be best to convert the driver to
+> the waveform callbacks.
+>=20
+> Example calculation: Let's assume an input clock (pc->clk_rate) of
+> 100000 Hz and a request with period_ns =3D 230399744 and
+> duty_ns =3D 128249857. To translate that into register settings the
+> DUTY_SHIFT values will be round down with both approaches and result in
+> an actual duty_cycle of 127658000 ns (=CE=94 =3D -591857 ns) while 128557=
+000 ns
+> (=CE=94 =3D 307143 ns) would also be possible.
+>=20
+> Best regards
+> Uwe
+>=20
+>  drivers/pwm/pwm-tegra.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
+> index 5cdbe120ba2d..8b5ed7998fdd 100644
+> --- a/drivers/pwm/pwm-tegra.c
+> +++ b/drivers/pwm/pwm-tegra.c
+> @@ -138,22 +138,21 @@ static inline void tegra_pwm_writel(struct pwm_devi=
+ce *pwm, unsigned int offset,
+>  }
+> =20
+>  static int tegra_pwm_config(struct pwm_chip *chip, struct pwm_device *pw=
+m,
+> -			    int duty_ns, int period_ns)
+> +			    u64 duty_ns, u64 period_ns)
+>  {
+>  	struct tegra_pwm_chip *pc =3D to_tegra_pwm_chip(chip);
+> -	unsigned long long c =3D duty_ns;
+>  	unsigned long rate, required_clk_rate;
+>  	u32 val =3D 0;
+>  	int err;
+> +	u64 c;
+> =20
+>  	/*
+>  	 * Convert from duty_ns / period_ns to a fixed number of duty ticks
+> -	 * per TEGRA_PWM_DEPTH cycles and make sure to round to the
+> -	 * nearest integer during division.
+> +	 * per TEGRA_PWM_DEPTH cycles.
+>  	 */
+> -	c *=3D TEGRA_PWM_DEPTH;
+> -	c =3D DIV_ROUND_CLOSEST_ULL(c, period_ns);
+> +	c =3D mul_u64_u64_div_u64(duty_ns, TEGRA_PWM_DEPTH, period_ns);
+> =20
+> +	/* The cast here is fine as c <=3D TEGRA_PWM_DEPTH */
+>  	val =3D (u32)c << TEGRA_PWM_DUTY_SHIFT;
 
-Without commit 993e8fbfecbb ("sched_ext: Reset runnable_at when a task
-leaves its scheduler"), the watchdog charges the task for the time it
-spent outside of SCHED_EXT and aborts the scheduler.
+The change looks good to me, but the required clock rate calculation=20
+further below should also be updated accordingly.
 
-Assisted-by: LLM
-Signed-off-by: Michal Blaszczyk <michalblk@google.com>
----
+Thanks
+Mikko
 
-Notes:
-    v2: Raise the watchdog timeout to 3s and the park time to 2s, set
-    timeout_ms from userspace, shorten the time outside of SCHED_EXT to
-    TIMEOUT_MS + 1s, and derive the second read timeout from TIMEOUT_MS
-    (Andrea). Rebase on sched_ext/for-7.4-fixes, which has the fix this
-    tests, and refer to the fix by its commit ID.
-    
-    v1: https://lore.kernel.org/r/20261019124146.3582127-3-michalblk@google.com
+> =20
+>  	/*
+>=20
+> base-commit: 00e917df050d79ac26ec700717680ad6421d2808
+> --=20
+> 2.56.0.rc1
+>=20
+>=20
 
- tools/testing/selftests/sched_ext/Makefile    |   1 +
- .../sched_ext/class_switch_stall.bpf.c        | 120 +++++++++
- .../selftests/sched_ext/class_switch_stall.c  | 245 ++++++++++++++++++
- 3 files changed, 366 insertions(+)
- create mode 100644 tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/class_switch_stall.c
 
-diff --git a/tools/testing/selftests/sched_ext/Makefile b/tools/testing/selftests/sched_ext/Makefile
-index c5d3a2eaea7da..44083f1c65969 100644
---- a/tools/testing/selftests/sched_ext/Makefile
-+++ b/tools/testing/selftests/sched_ext/Makefile
-@@ -165,6 +165,7 @@ all_test_bpfprogs := $(foreach prog,$(wildcard *.bpf.c),$(INCLUDE_DIR)/$(patsubs
- 
- auto-test-targets :=			\
- 	cgroup_nr_cpus			\
-+	class_switch_stall		\
- 	create_dsq			\
- 	dequeue				\
- 	dequeue_iter			\
-diff --git a/tools/testing/selftests/sched_ext/class_switch_stall.bpf.c b/tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
-new file mode 100644
-index 0000000000000..8268dcb45a0cc
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
-@@ -0,0 +1,120 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * A scheduler that keeps the target task waiting on a DSQ when it wakes up,
-+ * until it's switched out of SCHED_EXT or, if @park_ns is set, for @park_ns.
-+ * This lets userspace switch the target out while it's waiting.
-+ *
-+ * Copyright (c) 2026 Google LLC.
-+ */
-+
-+#include <scx/common.bpf.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+#define PARK_DSQ 0
-+
-+UEI_DEFINE(uei);
-+
-+s32 target_pid;		/* set by userspace */
-+bool park;		/* set by userspace, cleared when parking */
-+u64 park_ns;		/* set by userspace, how long to park, 0 for no limit */
-+u64 nr_parked;		/* how many times the target has been parked */
-+u64 nr_released;	/* how many times the target has been released */
-+
-+static bool released;	/* set by the timer, cleared when parking */
-+static s32 target_cpu;	/* CPU to kick when the timer fires */
-+
-+struct release_timer {
-+	struct bpf_timer timer;
-+};
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_ARRAY);
-+	__uint(max_entries, 1);
-+	__type(key, u32);
-+	__type(value, struct release_timer);
-+} release_timer SEC(".maps");
-+
-+static int release_timerfn(void *map, int *key, struct bpf_timer *timer)
-+{
-+	released = true;
-+	scx_bpf_kick_cpu(target_cpu, 0);
-+	return 0;
-+}
-+
-+s32 BPF_STRUCT_OPS(class_switch_stall_select_cpu, struct task_struct *p,
-+		   s32 prev_cpu, u64 wake_flags)
-+{
-+	/* Don't dispatch directly so that wakeups go to ops.enqueue(). */
-+	return prev_cpu;
-+}
-+
-+void BPF_STRUCT_OPS(class_switch_stall_enqueue, struct task_struct *p,
-+		    u64 enq_flags)
-+{
-+	struct release_timer *rt;
-+	u32 key = 0;
-+
-+	if (p->pid != target_pid || !park || !(enq_flags & SCX_ENQ_WAKEUP)) {
-+		scx_bpf_dsq_insert(p, SCX_DSQ_GLOBAL, SCX_SLICE_DFL, enq_flags);
-+		return;
-+	}
-+
-+	park = false;
-+	released = false;
-+	target_cpu = scx_bpf_task_cpu(p);
-+	scx_bpf_dsq_insert(p, PARK_DSQ, SCX_SLICE_DFL, enq_flags);
-+	__sync_fetch_and_add(&nr_parked, 1);
-+
-+	if (!park_ns)
-+		return;
-+
-+	rt = bpf_map_lookup_elem(&release_timer, &key);
-+	if (!rt) {
-+		scx_bpf_error("failed to look up the release timer");
-+		return;
-+	}
-+	bpf_timer_start(&rt->timer, park_ns, 0);
-+}
-+
-+void BPF_STRUCT_OPS(class_switch_stall_dispatch, s32 cpu,
-+		    struct task_struct *prev)
-+{
-+	if (released && scx_bpf_dsq_move_to_local(PARK_DSQ, 0))
-+		__sync_fetch_and_add(&nr_released, 1);
-+}
-+
-+s32 BPF_STRUCT_OPS_SLEEPABLE(class_switch_stall_init)
-+{
-+	struct release_timer *rt;
-+	u32 key = 0;
-+	s32 ret;
-+
-+	ret = scx_bpf_create_dsq(PARK_DSQ, -1);
-+	if (ret)
-+		return ret;
-+
-+	rt = bpf_map_lookup_elem(&release_timer, &key);
-+	if (!rt)
-+		return -ESRCH;
-+
-+	bpf_timer_init(&rt->timer, &release_timer, CLOCK_MONOTONIC);
-+	bpf_timer_set_callback(&rt->timer, release_timerfn);
-+	return 0;
-+}
-+
-+void BPF_STRUCT_OPS(class_switch_stall_exit, struct scx_exit_info *ei)
-+{
-+	UEI_RECORD(uei, ei);
-+}
-+
-+SEC(".struct_ops.link")
-+struct sched_ext_ops class_switch_stall_ops = {
-+	.select_cpu		= (void *)class_switch_stall_select_cpu,
-+	.enqueue		= (void *)class_switch_stall_enqueue,
-+	.dispatch		= (void *)class_switch_stall_dispatch,
-+	.init			= (void *)class_switch_stall_init,
-+	.exit			= (void *)class_switch_stall_exit,
-+	.flags			= SCX_OPS_SWITCH_PARTIAL,
-+	.name			= "class_switch_stall",
-+};
-diff --git a/tools/testing/selftests/sched_ext/class_switch_stall.c b/tools/testing/selftests/sched_ext/class_switch_stall.c
-new file mode 100644
-index 0000000000000..2d0ca85caabb7
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/class_switch_stall.c
-@@ -0,0 +1,245 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Check that a task which leaves SCHED_EXT while it's waiting doesn't carry
-+ * that wait over to its next stay on SCHED_EXT. If it did, the watchdog would
-+ * count the time the task spent outside SCHED_EXT as waiting and abort the
-+ * scheduler.
-+ *
-+ * Copyright (c) 2026 Google LLC.
-+ */
-+#define _GNU_SOURCE
-+
-+#include <bpf/bpf.h>
-+#include <poll.h>
-+#include <sched.h>
-+#include <scx/common.h>
-+#include <signal.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+#include "class_switch_stall.bpf.skel.h"
-+#include "scx_test.h"
-+
-+#ifndef SCHED_EXT
-+#define SCHED_EXT 7
-+#endif
-+
-+/* watchdog timeout, the watchdog checks every half of it */
-+#define TIMEOUT_MS 3000
-+/* longer than the watchdog interval, but shorter than the timeout */
-+#define PARK_MS 2000
-+/* time spent outside of SCHED_EXT, a stale wait would exceed the timeout */
-+#define OUTSIDE_MS (TIMEOUT_MS + 1000)
-+
-+static enum scx_test_status setup(void **ctx)
-+{
-+	struct class_switch_stall *skel;
-+
-+	skel = class_switch_stall__open();
-+	SCX_FAIL_IF(!skel, "Failed to open");
-+	SCX_ENUM_INIT(skel);
-+	skel->struct_ops.class_switch_stall_ops->timeout_ms = TIMEOUT_MS;
-+	SCX_FAIL_IF(class_switch_stall__load(skel), "Failed to load skel");
-+
-+	*ctx = skel;
-+
-+	return SCX_TEST_PASS;
-+}
-+
-+/* Echoes back each byte from @in_fd. */
-+static void child_main(int in_fd, int out_fd)
-+{
-+	char c;
-+
-+	while (read(in_fd, &c, 1) == 1) {
-+		if (write(out_fd, &c, 1) != 1)
-+			_exit(1);
-+	}
-+	_exit(0);
-+}
-+
-+static bool read_byte(int fd, int timeout_ms)
-+{
-+	struct pollfd pfd = { .fd = fd, .events = POLLIN };
-+	char c;
-+
-+	return poll(&pfd, 1, timeout_ms) == 1 && read(fd, &c, 1) == 1;
-+}
-+
-+/* Waits for up to 1s for @pid to be in interruptible sleep. */
-+static bool wait_for_sleeping(pid_t pid)
-+{
-+	char path[64], buf[512], *state;
-+	bool sleeping;
-+	FILE *f;
-+	int i;
-+
-+	snprintf(path, sizeof(path), "/proc/%d/stat", pid);
-+
-+	for (i = 0; i < 1000; i++) {
-+		f = fopen(path, "r");
-+		if (!f)
-+			return false;
-+		/* The state follows "(comm)", and comm may contain ')'. */
-+		state = fgets(buf, sizeof(buf), f) ? strrchr(buf, ')') : NULL;
-+		sleeping = state && !strncmp(state, ") S", 3);
-+		fclose(f);
-+		if (sleeping)
-+			return true;
-+		usleep(1000);
-+	}
-+	return false;
-+}
-+
-+/* Waits for up to 1s for the target to have been parked @cnt times in total. */
-+static bool wait_for_parked(struct class_switch_stall *skel, u64 cnt)
-+{
-+	int i;
-+
-+	for (i = 0; i < 1000; i++) {
-+		if (skel->bss->nr_parked >= cnt)
-+			return true;
-+		usleep(1000);
-+	}
-+	return false;
-+}
-+
-+static bool set_policy(pid_t pid, int policy)
-+{
-+	struct sched_param param = {};
-+
-+	return !sched_setscheduler(pid, policy, &param);
-+}
-+
-+static enum scx_test_status run(void *ctx)
-+{
-+	struct class_switch_stall *skel = ctx;
-+	enum scx_test_status status = SCX_TEST_FAIL;
-+	int to_child[2] = { -1, -1 }, from_child[2] = { -1, -1 };
-+	struct bpf_link *link = NULL;
-+	pid_t pid = -1;
-+	int i;
-+
-+	if (pipe(to_child) || pipe(from_child)) {
-+		SCX_ERR("Failed to create pipes");
-+		goto out;
-+	}
-+
-+	link = bpf_map__attach_struct_ops(skel->maps.class_switch_stall_ops);
-+	if (!link) {
-+		SCX_ERR("Failed to attach scheduler");
-+		goto out;
-+	}
-+
-+	pid = fork();
-+	if (pid == 0)
-+		child_main(to_child[0], from_child[1]);
-+	if (pid < 0) {
-+		SCX_ERR("Failed to fork");
-+		goto out;
-+	}
-+	skel->bss->target_pid = pid;
-+
-+	if (!wait_for_sleeping(pid) || !set_policy(pid, SCHED_EXT)) {
-+		SCX_ERR("Failed to switch the child to SCHED_EXT");
-+		goto out;
-+	}
-+
-+	/*
-+	 * Keep the child waiting on the DSQ after it wakes up, and switch it to
-+	 * SCHED_OTHER while it's still waiting.
-+	 */
-+	skel->bss->park_ns = 0;
-+	skel->bss->park = true;
-+	if (write(to_child[1], "a", 1) != 1 || !wait_for_parked(skel, 1)) {
-+		SCX_ERR("The child wasn't parked");
-+		goto out;
-+	}
-+	if (!set_policy(pid, SCHED_OTHER) || !read_byte(from_child[0], 1000)) {
-+		SCX_ERR("The child didn't run after leaving SCHED_EXT");
-+		goto out;
-+	}
-+
-+	/* Let time pass while the child sleeps outside of SCHED_EXT. */
-+	if (!wait_for_sleeping(pid)) {
-+		SCX_ERR("The child didn't block in read()");
-+		goto out;
-+	}
-+	usleep(OUTSIDE_MS * 1000);
-+
-+	/*
-+	 * Bring the child back and keep it waiting for longer than the watchdog
-+	 * interval, but shorter than the timeout. Its wait must start now, not
-+	 * when it started waiting before it left SCHED_EXT.
-+	 */
-+	if (!set_policy(pid, SCHED_EXT)) {
-+		SCX_ERR("Failed to switch the child back to SCHED_EXT");
-+		goto out;
-+	}
-+	skel->bss->park_ns = PARK_MS * 1000000ULL;
-+	skel->bss->park = true;
-+	if (write(to_child[1], "b", 1) != 1 || !wait_for_parked(skel, 2)) {
-+		SCX_ERR("The child wasn't parked again");
-+		goto out;
-+	}
-+	/*
-+	 * A stall is detected up to a watchdog interval after the timeout. Wait
-+	 * long enough for it to be reported by the exit info below.
-+	 */
-+	if (!read_byte(from_child[0], 2 * TIMEOUT_MS)) {
-+		SCX_ERR("The child didn't run after the second wait");
-+		goto out;
-+	}
-+
-+	/*
-+	 * Only the watchdog aborting the scheduler lets the child run before
-+	 * it's released. The exit info is recorded asynchronously, wait for it.
-+	 */
-+	if (skel->bss->nr_released != 1)
-+		SCX_TIMED_WAIT_UEI(skel, uei, 1000);
-+
-+	if (UEI_EXITED(skel, uei)) {
-+		SCX_ERR("Scheduler exited (kind=%llu): %s",
-+			(unsigned long long)skel->data->uei.kind,
-+			skel->data->uei.msg);
-+		goto out;
-+	}
-+	if (skel->bss->nr_released != 1) {
-+		SCX_ERR("The child was released %llu times, expected 1",
-+			(unsigned long long)skel->bss->nr_released);
-+		goto out;
-+	}
-+
-+	status = SCX_TEST_PASS;
-+out:
-+	if (pid > 0) {
-+		kill(pid, SIGKILL);
-+		waitpid(pid, NULL, 0);
-+	}
-+	if (link)
-+		bpf_link__destroy(link);
-+	for (i = 0; i < 2; i++) {
-+		if (to_child[i] >= 0)
-+			close(to_child[i]);
-+		if (from_child[i] >= 0)
-+			close(from_child[i]);
-+	}
-+	return status;
-+}
-+
-+static void cleanup(void *ctx)
-+{
-+	struct class_switch_stall *skel = ctx;
-+
-+	class_switch_stall__destroy(skel);
-+}
-+
-+struct scx_test class_switch_stall = {
-+	.name = "class_switch_stall",
-+	.description = "Verify that leaving SCHED_EXT ends a task's wait",
-+	.setup = setup,
-+	.run = run,
-+	.cleanup = cleanup,
-+};
-+REGISTER_SCX_TEST(&class_switch_stall)
 
-base-commit: e2859566ffbc3a9f33308255114ccf167124e048
--- 
-2.56.0.212.g129ede20d9-goog
 
