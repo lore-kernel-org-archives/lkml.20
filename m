@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792517956;
-	b=CQjPfnxVP/vydDflX7tApBm4k2j6qgLit5gsf62S1ete+yYaLfX6JzszliHme0RlzwYR
-	 MyUt+9gtvy96yyrZOuDSAF02OJWlRrUqidPM312TTr10B0ZURYZdXZuT/QHXSpwr8ex5l
-	 UoSLHxFuKat8NQhR96gifEE66jXGQzRaRittnWBd/PWqqtghjbR/fzRg7GgWGeOYwB6qj
-	 uLqw6eXMlX7JwfD+YOa3u5v8ayidCPT6/MZ7kxY05tNTHDUm2EfarCLlExho1nI/xWGs1
-	 WW8xopb4P35OVuEs3f2LqLpOGOH3K/U7a7A0Jzm7/2DbrUrjbmSE6yCKgVQeuJJuIQg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517956;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ejnXPpAefmwKQuaZISzEiXIEf4jvZdKKJ6wwjfA1jmE=;
-	b=5XQHP+8mUC0CP/vCNX/kY13ZOvFyi9+rjwcmDlxsVd98MTDpIRq81001c5YeOEmiB3xI
-	 XxpF6e+6CELmsbqfQi91yIcDP41vN9x+r2dl1aRwRgz/LcBqDoZ0ENX8WMKgWyTVwhu/T
-	 MmlsKLdsiZI7/DqnsecYLbPnV9td2PtJPLSoeQsvzbF/SYDk5YWvsmOkYtA72qRktr/j9
-	 N1AbH4IYv4l1O3j4UDB9N4fV0bxJ+35jQxx2lNWwH+0Q0XgyRu9QPms6nFyNA+JcFmX7w
-	 DjwIg6mQs//3zgL1kY2CyIRce9Z1pKixsm41E4MTDN+Wk1EHgcTCK7Pu4UD36YkxgaQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GIIL0DGP;
-	arc=none smtp.remote-ip=91.218.175.49
-Received: from mta0.migadu.com (out-49.mta0.migadu.com [91.218.175.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792518008;
+	b=07DjVJt1qKJCdjX3Ih24XmKA7GxxKPCu/Gtc6JIGF+lWQbOmOeaGSWo55Mv3DIx5gE+v
+	 CI5mYz3OU0zspamZiKJHT0+I4XF3pdAIiGT6C709J6aaeNgcXdV8TXjS6nHCJafDTg5JS
+	 tSkEBAwmZ7QrPvwk3VgXmFhIe77F6cblBV6VPySmidgXPRLWamuQM0CKRdc5ef5dG5KlO
+	 9OwzjYUiKpnJuEAFGmVPeESEG42mLx6JiQdEIc1zVSsXiiO0esfye8H4NUv2CFXbkbLr+
+	 uJsBduGZ4j1HpUHRLKUyD3cgFeHinJQfkv0jfy0JldkJTWT7S3UK+CJJODYqB2RWsxw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792518008;
+	h=Received:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=QFuKDc/12bMTQ7N0UCuWts6YlsGbG6+Qtuk7PJSX6is=;
+	b=kP28cc+OSiVjjLiCnNCunGnPxZHDmB5fQ7waQcCrqcrR3CuU9VS8odwJoR+uidZdhS3h
+	 Nmc05A9tgSCbeNYf8fpJL3RpCll0WphTABdkRbz5c4H+x8PTNy8gi1qhi5N5BJ+Btyoqt
+	 q5zQWDtFcgTVfioZiWOgaM54cydrUDcmsvxBBTs+ejxSnmlITMgYDsHPtqfdKQSMVlmIn
+	 qyTyYQoZ0bjU8i/bTLL86u19nMldHwe3vIvTd/9SxPtPiNC9QybVe7X9uGdkQ2xKT3lOM
+	 58nCoo0RHzzQlpP314GS8gvUJHfkKByZf1GdcSvq6HXUTzW2yQ24F6UzfFDFMoAHqEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F18E606A31E;
+	Tue, 20 Oct 2026 17:40:08 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792518007;
+	b=bDr2G5Y6ZZj6RLSQwzUBz1/tdR+08d4Hx5ciPNPgUkaKQyfYSS8PDg8okiQEyXNrmMLJ
+	 f4aQW8IOkJTwgzBB28L2aewM/jduxppKoZzedLXTdZSl7jmNUQIttXSwo6eGn2221ICSA
+	 bS4UqfFHKrbXIMAjScyZZuwz++LIe0I8nzqSGyDxiL2Pu4aSsF9y5zqxJe9sPj0mevs6T
+	 wjSv0QPNJWwStoIWQv9e7c5Ru+69QC8nSvi1n3cMVSigX+I6chqihVqePMa+YbEhjocvl
+	 nh0pZyVtOczGGVvaQGYLSEPH/3xnuknCks1XaWnEyaDxe5Y/boCsIoVtcBUziK28Z1g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792518007;
+	h=Received:From:Date:Subject:MIME-Version:Content-Type:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=QFuKDc/12bMTQ7N0UCuWts6YlsGbG6+Qtuk7PJSX6is=;
+	b=B1WVTVzP5w0xJnAcyipovBsy5hsG2kJUMwMbHtge0F9GdwoHm1ExyusORBs9PHZZz2Vf
+	 xdm/BV6lrqhmZfinzks8ffxzPxNjTCnfsNE2ZoHyUydx/LsGZR+ftK6zsCuwzqzYaKv4V
+	 0oxgUPSZ6n5i6Gmw1GwLz393VuUc6lEdIH1+dj5XtCE+rUr6aZt7ZxVQEpHcrTHia5Xzp
+	 9OQ3tXJQdtfGdvzfJAEV9YazIJOwxD5JkHAY3ztLkwPGAluTEYXv8g/TUs10ca6qTDAd5
+	 GKSZ/29Swuv1WLQKozDdg3rFH8BdKYbNIvS4zY45QBgCTm8BqtTN7szoiTW1oVRAcfw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBF4606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:39:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FBF4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GIIL0DGP
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=J93Fn08gXYX73zzQt4Psiim3AWUrAfxgKY2VikdZQGc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792517953; v=1; x=1793122753;
- b=GIIL0DGPIlC4PaY7ZV9s0PHMeAzJelUYoMjcKVMqAiIhjziedNZW1ML9b/7sN2c/2o0TpHTx
- cGbF7PvjV647ncvSo9XPntZBwIpem8RQ0AyEhFb2z6P4RU/l4EVGqlr+U7MKs2I5ks/tuJ5wqp4
- QQoDAllijQ0bOp/4doRCKUnU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4ed11797560c934b;
-	Tue, 20 Oct 2026 17:39:13 +0000
-X-Mizu-Trace-ID: 4ed11797560c934b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fa5487dc-571d-42f1-8cc6-b838cc4040ed@linux.dev>
-Date: Tue, 20 Oct 2026 19:39:11 +0200
+	by smtp.kernel.org (Postfix) with ESMTPS id 66AB41F000C9;
+	Tue, 20 Oct 2026 17:40:07 +0000 (UTC)
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D876543181;
+	Tue, 20 Oct 2026 17:39:36 +0000 (UTC)
+From: Ximing Zhang via B4 Relay <devnull+xzhangjr.gmail.com@kernel.org>
+Date: Tue, 20 Oct 2026 21:39:35 +0400
+Subject: [PATCH] hwmon: (coretemp) Retry failed sensor creation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +69,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/7] HID: asus: Force hid-input to bind to the Zenbook
- Duo hotkey interface
-To: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: Joshua Leivenzon <hacker1024@users.sourceforge.net>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>,
- Luke Jones <luke@ljones.dev>, Ivan Levchenko <me@livan.pro>,
- Nathan Chancellor <nathan@kernel.org>
-References: <20261020092423.36380-1-p.pisati@gmail.com>
- <20261020092423.36380-4-p.pisati@gmail.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <20261020092423.36380-4-p.pisati@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-coretemp-retry-sensor-creation-v1-1-7dd4851a34dc@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNywrCQAxFf6VkbWA6SH38irgY01QjOFOSqSil/
+ 25qV5ezuOfMYKzCBudmBuW3mJTs0O4aoEfKd0bpnSGG2LUhBqSiXPk1oo9+0ThbUSTlVP2K/bA
+ /UTikSMcOXDIqD/L5By7XjW26PZnqaoVl+QEDUwdJggAAAA==
+X-Change-ID: 20261020-coretemp-retry-sensor-creation-df49c07a2c86
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ximing Zhang <xzhangjr@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792517975; l=5089;
+ i=xzhangjr@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=MYBfcW2pD2/t3BIjxPJYWT5sIWj6owKm2KcGLQr+EfI=;
+ b=9wpgk/F+Ccrk+9gWDW7q2I+eYgh0MGAs2XePYIoW0Wb910cbEglW8DF1IIADWTGlT+zNclZ6w
+ R9hokX2V7INAo1VmvuswKKkG+4VWWiYEog/aKia79eXimyMopZyqXrK
+X-Developer-Key: i=xzhangjr@gmail.com; a=ed25519;
+ pk=C7VXFeUl3Bjjb638l0w1D5vm9qSpdbzEYql77XoYqTQ=
+X-Endpoint-Received: by B4 Relay for xzhangjr@gmail.com/20261015 with
+ auth_id=1207
+X-Original-From: Ximing Zhang <xzhangjr@gmail.com>
+Reply-To: xzhangjr@gmail.com
+Content-Transfer-Encoding: 7bit
+
+From: Ximing Zhang <xzhangjr@gmail.com>
+
+coretemp_add_core() only logs create_core_data() failures, but
+coretemp_cpu_online() still records the CPU in pdata->cpumask. When an
+SMT sibling is processed later, the mask makes the driver skip sensor
+creation. The core interface then remains absent until all siblings are
+cycled or the module is reloaded.
+
+Package sensor creation is similarly attempted only when the hwmon
+device is first registered. A failure leaves the package interface
+absent for the lifetime of that device.
+
+Retry missing package and core sensors whenever an eligible CPU comes
+online. Determine whether a core sensor exists from its temperature data
+instead of the CPU mask, which continues to track CPUs available for MSR
+reads and hotplug retargeting.
+
+A package retry might fail after per-core data exists. Keep the core_data
+array alive until the hwmon device is unregistered so failure cleanup
+cannot discard live per-core pointers. Publish nr_cores only after that
+array is allocated successfully, and rate-limit errors because a
+permanent failure can now be retried.
+
+Tested on an Intel Core i7-10510U running 7.2.5-1-cachyos. With
+test-only fault injection, two package creation failures and one Core 0
+creation failure left the unpatched driver without both interfaces. The
+patched driver retried and exposed all five readable sensors. SMT sibling
+hotplug and 20 module unload/load cycles also retained the expected
+sensors.
+
+Signed-off-by: Ximing Zhang <xzhangjr@gmail.com>
+---
+coretemp currently treats a failed package or per-core sensor creation as
+permanent for the lifetime of the hwmon device. This change retries missing
+sensors as eligible CPUs come online while keeping the CPU mask available for
+MSR targeting and hotplug handling.
+
+Tested on an Intel Core i7-10510U running 7.2.5-1-cachyos. Test-only fault
+injection reproduced missing package and Core 0 interfaces with the current
+driver. The patched driver recovered both interfaces after two package
+creation failures and one core creation failure. SMT sibling hotplug and 20
+module unload/load cycles also completed with the expected readable sensors.
+---
+ drivers/hwmon/coretemp.c | 30 ++++++++++++++----------------
+ 1 file changed, 14 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index 3836beade59f..fa3b04d0e041 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -489,13 +489,15 @@ static struct temp_data *
+ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
+ {
+ 	struct temp_data *tdata;
++	int nr_cores;
+ 
+ 	if (!pdata->core_data) {
+-		pdata->nr_cores = topology_num_cores_per_package();
++		nr_cores = topology_num_cores_per_package();
+ 		pdata->core_data = kzalloc_objs(struct temp_data *,
+-						pdata->nr_cores);
++						nr_cores);
+ 		if (!pdata->core_data)
+ 			return NULL;
++		pdata->nr_cores = nr_cores;
+ 	}
+ 
+ 	tdata = kzalloc_obj(struct temp_data);
+@@ -533,9 +535,6 @@ static void destroy_temp_data(struct platform_data *pdata, struct temp_data *tda
+ {
+ 	if (is_pkg_temp_data(tdata)) {
+ 		pdata->pkg_data = NULL;
+-		kfree(pdata->core_data);
+-		pdata->core_data = NULL;
+-		pdata->nr_cores = 0;
+ 	} else {
+ 		pdata->core_data[tdata->index] = NULL;
+ 		ida_free(&pdata->ida, tdata->index);
+@@ -605,7 +604,7 @@ static void
+ coretemp_add_core(struct platform_device *pdev, unsigned int cpu, int pkg_flag)
+ {
+ 	if (create_core_data(pdev, cpu, pkg_flag))
+-		dev_err(&pdev->dev, "Adding Core %u failed\n", cpu);
++		dev_err_ratelimited(&pdev->dev, "Adding Core %u failed\n", cpu);
+ }
+ 
+ static void coretemp_remove_core(struct platform_data *pdata, struct temp_data *tdata)
+@@ -714,20 +713,16 @@ static int coretemp_cpu_online(unsigned int cpu)
+ 		if (IS_ERR(hwmon))
+ 			return PTR_ERR(hwmon);
+ 		pdata->hwmon_dev = hwmon;
+-
+-		/*
+-		 * Check whether pkgtemp support is available.
+-		 * If so, add interfaces for pkgtemp.
+-		 */
+-		if (cpu_has(c, X86_FEATURE_PTS))
+-			coretemp_add_core(pdev, cpu, 1);
+ 	}
+ 
+ 	/*
+-	 * Check whether a housekeeping thread sibling is already online. If
+-	 * not, add the interface for this CPU core.
++	 * Add missing package and core interfaces. Besides handling the first
++	 * CPU in the zone, this retries an earlier failed creation attempt.
+ 	 */
+-	if (!cpumask_intersects(&pdata->cpumask, topology_sibling_cpumask(cpu)))
++	if (cpu_has(c, X86_FEATURE_PTS) && !pdata->pkg_data)
++		coretemp_add_core(pdev, cpu, 1);
++
++	if (!get_temp_data(pdata, cpu))
+ 		coretemp_add_core(pdev, cpu, 0);
+ 
+ 	cpumask_set_cpu(cpu, &pdata->cpumask);
+@@ -778,6 +773,9 @@ static int coretemp_cpu_offline(unsigned int cpu)
+ 			coretemp_remove_core(pd, tdata);
+ 		hwmon_device_unregister(pd->hwmon_dev);
+ 		pd->hwmon_dev = NULL;
++		kfree(pd->core_data);
++		pd->core_data = NULL;
++		pd->nr_cores = 0;
+ 		return 0;
+ 	}
+ 
+
+---
+base-commit: 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e
+change-id: 20261020-coretemp-retry-sensor-creation-df49c07a2c86
+
+Best regards,
+--  
+Ximing Zhang <xzhangjr@gmail.com>
 
 
-On 10/20/26 11:24, Paolo Pisati wrote:
-> From: Joshua Leivenzon <hacker1024@users.sourceforge.net>
->
-> The Zenbook Duo USB keyboard reports its hotkeys on a dedicated
-> interface, separate from the keyboard and consumer control ones, that
-> only contains ASUS vendor usage collections. hid-input does not
-> consider those an input application and never binds to the interface,
-> so the hotkeys are never mapped.
->
-> Pass HID_CONNECT_HIDINPUT_FORCE for the interface of Zenbook Duo
-> keyboards that carries the ASUS vendor collection, which skips that
-> check, so the vendor usages go through asus_input_mapping() like on
-> any other ASUS keyboard. The other interfaces either have a proper
-> input application or nothing worth an input device.
-
-Reviewed-by: Denis Benato <denis.benato@linux.dev>
-
-> Signed-off-by: Joshua Leivenzon <hacker1024@users.sourceforge.net>
-> [pisati: use HID_CONNECT_HIDINPUT_FORCE on the vendor interface instead
->  of injecting a fake keyboard collection into its report descriptor]
-> Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
-> Tested-by: Rebecca Mara Müller <rebecca.mara@posteo.de> # UX8407AA
-> Reviewed-by: Denis Benato <denis.benato@linux.dev>
-> ---
->  drivers/hid/hid-asus.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-> index 54f4d68eecc7..68211ebe1290 100644
-> --- a/drivers/hid/hid-asus.c
-> +++ b/drivers/hid/hid-asus.c
-> @@ -1514,6 +1514,7 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
->  	struct asus_drvdata *drvdata;
->  	struct hid_report *rep;
->  	bool is_vendor = false;
-> +	unsigned int connect_mask;
->  	int ret;
->  
->  	drvdata = devm_kzalloc(&hdev->dev, sizeof(*drvdata), GFP_KERNEL);
-> @@ -1609,7 +1610,15 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
->  		return ret;
->  	}
->  
-> -	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
-> +	/*
-> +	 * The Zenbook Duo hotkey interface only has vendor collections, which
-> +	 * hid-input does not bind to on its own.
-> +	 */
-> +	connect_mask = HID_CONNECT_DEFAULT;
-> +	if ((drvdata->quirks & QUIRK_ZENBOOK_DUO_KEYBOARD) && is_vendor)
-> +		connect_mask |= HID_CONNECT_HIDINPUT_FORCE;
-> +
-> +	ret = hid_hw_start(hdev, connect_mask);
->  	if (ret) {
->  		asus_worker_stop(drvdata->worker);
->  		hid_err(hdev, "Asus hw start failed: %d\n", ret);
