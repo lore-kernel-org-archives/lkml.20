@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494007;
-	b=UhTFgq7Cqm9N65m1GbamvBPDl4xexSe4B/HGWyh3kV2QbIYvF+f7VbYbQWnIzN/3SZ8o
-	 52sU5omxiAqlYMuINvh7jGKIE3C9J7Tc5n2gUBERPivEWQGLZTicJyj2bW8Nl0liyqEvs
-	 K9x+/xVQ1Z2S8ExpAfNY0iBDBUae/JZySz05zLxynQjxHywxsue1um/M+nOJVxC7Rbvz+
-	 PgJlxYfZmMWH3+cAwbwApvPr4xPKCfPzQzQ8AzmxdBGy+tA4fsMUXdU5IbP1T58T/TG3j
-	 ApIHgiX8nMip24BJJw/myWNwQntzCieiJT5OO4Xr9T9kZhlXNLoS//Oz/DtKuZL6hXw==
+	t=1792494056;
+	b=X0opwpWhauKkJFSSR7U/VsGv7othT9ZQSPZ+II+XqqhJhgKGKpdxm63zxcwo17Leltey
+	 ET7dD4Nbhbe5VMUQVS9eSrShIEKwOC0+tGwH1LK1SXjGFgHqYqrfj2egaZO1cvJJArqFu
+	 kzlvpDOKzU8ZR3miCxwbMw9nX1aQ3peVnJk0VPHIebj3HQybe4oxZSO8tAP66u72IhD6L
+	 E7sm9Z3NFcWVTuPFYQFdpY31MqJwpGuE+OkmHQB0litmM0jXeV4lmCLi4snOpbEPOhtZJ
+	 YHGL8H4yaUlCP57y1+5o0sx9tHA5Psoyr2SgLTUfzJw00AssEnLhOnWtLWkaFx5V7Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494007;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=WiR8iAXAhvMxD9bk2dRxOA7ofdhVuuIXZY/5WPc5+Io=;
-	b=TYrfssFUuP1S5HOEGJgei7FSpWXE+q9BRxDfRbzZVjIanCt7skvyn/HaXtqESPcZ+0g+
-	 igblgtheiGaF/yoG3/cZt+/eRgVCGhPPhvGOVp7HlVaJ7G60Cj0voLTo+/a5LLxU6N8u2
-	 NFvY5G9wccySerFh7HGHe2ldons4N0KanO/ys+hJKut4hia21y7mSsi/NVkdyDSp2z5Nx
-	 +94UQl34+zEMKDRJCiotM8LRWh98+YgyJ4izLdIzxLhqVR1FUzftEA9W15wvhgZJATNeY
-	 Y0Q/G5YdW59ihYwqyn2Y4Y+mOZ20PZuMun2wV/S36PUiNwvbDT4rawA1EzGvfTD7GGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494056;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=vSoBJw3bJU+XayjzczxzT9tLb1CSLP3d3fwCLBfTU4o=;
+	b=PbDC86SkDRvEO+L90x2wEMolSFXs1ocxwsZgACl4U0H8SqCnzAniOgwnDgv5J2B1qjOx
+	 Izyoy8w7Mi/LFNra41w03xAu1Cr4LW9Y7NSwCV0oVtWBDuugacBMyW3q/xEdzlZjpxYT4
+	 KHnSQWFfpQRP7BG+eaLtlipE2HCRrveRCLklj882xjj76s6IMm6lnbUD0qKb+1677vbXQ
+	 I/SuPDev6VnlsRpdlWJGybwkfuux7gjxFfbB5MJt/nju5A4jU0KgNBT2aCLKojs8x+wNC
+	 s9ushLitSddlV+rj4gV/V1U5ufADrj0IsuMA1rGjDYOj7UqID06imPxRPQr5ooORjsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2hsQ4I3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gnKD+AWY;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A30606A31E;
-	Tue, 20 Oct 2026 11:00:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A12F606A31A;
+	Tue, 20 Oct 2026 11:00:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A12F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2hsQ4I3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0021F000C4;
-	Tue, 20 Oct 2026 11:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792494007;
-	bh=WiR8iAXAhvMxD9bk2dRxOA7ofdhVuuIXZY/5WPc5+Io=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=J2hsQ4I3EKFxk5XZkEpJYTRkmC3UMQ1MOzl2RU9D9wJOXp4SGcdY1jcK834b+dJhY
-	 y2L1C4kzEHE58ed9JjwqiqOu6MlDGRJeYRg0PhjyJlUKaCul4uXjzzkMbv+GeQUrgk
-	 iF1nk5vpefK82APXTBnBQi5dzDQpVCUPJVE9YjxG0BGEQQ0hZ6vmuxj8A+2hmRccGA
-	 x7S6LDrITP//OZHdXAla9DQe4PakWY4vliJI0419JXRsyK6N+Wbo44JCOtCgmDf1Ax
-	 y1n4Hkua5gVTySBe6sADi3etZ7xx8E0QulsjtSByYUfsf/wWUXsCuj3KiElHGDngaa
-	 5khjIe7CiSQaQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F16503808209;
-	Tue, 20 Oct 2026 11:00:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gnKD+AWY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792494057; x=1824030057;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=f1gIxStBvvTnb8FUgZjxNH2u6l0XyPghXfOpb0RB0J4=;
+  b=gnKD+AWYQBJLN2CFNfugIj0cQrpBio0AMf0kx/rENFTAaj4lZDv9bF+X
+   KOEarHC8VW/dWlIGdizt/OhAX1h8dpUwtgchYsf8fp2fLQ0Ed/oDJ+Zne
+   bBZ0m/gg4fZ2Abb2XQKxpr1oZe+w4JlJyaqraOlMyUvMRLoWrFlldlPaZ
+   V4NF/6Q/pxF6fWoXUK6iUU8jJHBOri1ERwfFv6SC3L+k0bjZbTh2/Mc+x
+   SlLdiG/4XZ/OKiOc7wPfJlOu+zUvLCamCqa1DsoT+vIhAaxQLi6uIrHrR
+   dnpwkisqKv3ULrZOlmwl85JtEKelJ2z86rFNn26FtfIAC0b+oNee+ZOuB
+   w==;
+X-CSE-ConnectionGUID: /Jpwnj3tRHKs2b3k9RWjEQ==
+X-CSE-MsgGUID: uECbREtNRqG9IkLYLFPjRQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1083344"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1083344"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 04:00:56 -0700
+X-CSE-ConnectionGUID: GDanXnDXRsyEl3uWTadSJg==
+X-CSE-MsgGUID: 6tz/75haS3yne8QlpbGpww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="4571442"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa013.fm.intel.com with ESMTP; 20 Oct 2026 04:00:52 -0700
+Date: Tue, 20 Oct 2026 18:55:59 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: pbonzini@redhat.com, dave.hansen@intel.com, seanjc@google.com,
+	x86@kernel.org, kas@kernel.org, adrian.hunter@intel.com,
+	yan.y.zhao@intel.com, binbin.wu@intel.com, xiaoyao.li@intel.com,
+	chao.gao@intel.com, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org, nik.borisov@suse.com,
+	tony.lindgren@linux.intel.com
+Subject: Re: [PATCH v2 2/2] x86/virt/tdx: Drop tdh_phymem_page_wbinvd_*()
+Message-ID: <atdIv8UNaqJ+9Vf6@yilunxu-OptiPlex-7050>
+References: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
+ <20261015191710.3632302-3-rick.p.edgecombe@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,51 +83,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v4] xsk: freeze deferred pool teardown without
- blocking
- unregister
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179249400554.3664159.797074660449120287.git-patchwork-notify@kernel.org>
-Date: Tue, 20 Oct 2026 11:00:05 +0000
-References: <20261014-xsk-suspend-teardown-v4-1-27795582e4a3@gmail.com>
-In-Reply-To: <20261014-xsk-suspend-teardown-v4-1-27795582e4a3@gmail.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: netdev@vger.kernel.org, pabeni@redhat.com, kuba@kernel.org,
- magnus.karlsson@intel.com, maciej.fijalkowski@intel.com, sdf@fomichev.me,
- horms@kernel.org, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, andrew+netdev@lunn.ch, bpf@vger.kernel.org,
- edumazet@kernel.org, davem@davemloft.net, bjorn@kernel.org,
- linux-kernel@vger.kernel.org, kerneljasonxing@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015191710.3632302-3-rick.p.edgecombe@intel.com>
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Wed, 14 Oct 2026 12:33:48 -0600 you wrote:
-> Deferred pool destruction calls ndo_bpf() under RTNL. system_wq is
-> not frozen during system sleep, so that callback can run after a
-> device has suspended and gated its clocks. Use system_freezable_wq
-> so running destruction finishes before device suspend and new work
-> waits until process thaw.
+> KVM previously needed to call different types of tdh_phymem_page_wbinvd_*()
+> helpers for different types of reclaim. So it had a stack of helpers and
+> some open coded logic to use them in the rarer TDR reclaim case. Now that
+> the wbinvd is gone, the steps for each operation are logically equivalent.
+> So collapse the helpers and just call tdx_reclaim_control_page() from the
+> TDR reclaim path.
 > 
-> Keep assigned pools visible to NETDEV_UNREGISTER independently of
-> the socket list. A released socket has already left that list, but
-> its final pool put can queue destruction after workqueues freeze.
-> A resume-time unregister would then wait for a device reference
-> whose release cannot run until the resume completes.
-> 
-> [...]
+> This unification brings TDR reclaim in line with the behavior of the other
+> reclaim paths, by handling TDH.PHYMEM.PAGE.RECLAIM failure by leaking the
+> page and setting the TDR page pointer to NULL. This results in reclaim not
+> being tried a second time, which is reasonable because the first reclaim
+> failing suggests a problem with the TDX module.
 
-Here is the summary with links:
-  - [net,v4] xsk: freeze deferred pool teardown without blocking unregister
-    https://git.kernel.org/netdev/net/c/fece8420e76f
+Ah, it really is bigger than expected: Removing __tdx_reclaim_page();
+unconditionally nullify kvm_tdx->td.tdr_page;
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Personally, I would split the helper collapsion into the 3rd patch in
+this series. But I'm also good this way.
 
-
+Reviewed-by: Xu Yilun <yilun.xu@linux.intel.com>
