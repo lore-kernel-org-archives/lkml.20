@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792493384;
-	b=teGxlUdLYpozkGgN2Yf1vWPZCnDv9q9E8GdDYS9NdquzrY3TElNiVWUX9mZwAepCYhaQ
-	 k8jmS5PAFahgy3a4YRjYCgJujyEO0j4+9z+oU/d/K8fTf6MJF7sH1THLZTQe6k9q9mHAI
-	 4g2RXbxxorv3IvLLj1vrTMocfNkb6y7nIY5ffdjzncBj7ZLcYQ9w5LDpxdeBhozVDb4PI
-	 s0QYobD0wupfEJT+BD0ZSismibTsjnVQDRemBSuCEtcaJ9yEHqtw8yu6rgjWyQOr+cgLE
-	 mK74nYLe2x7ngoQO9vnPtKxuKliYBLE1Jv2rernbw1sUqiZ9oRiQlEqGjy0Nx9JErpA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493384;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0ERjj3b6jlFN0zemFoMz78y4i9w1Q1w2xDGBIcTZIVk=;
-	b=MOhLERmswSgQVeURk2UTxbDY6uZPd73prakR1k/pSdfia3FCP8ZD9nk8llLRaIXAcNns
-	 o0YvOovO43PJKsJphU4DA+QtvsqRhFYBRTL5bAY5viqZX3Ms0hbdVWEzN5QcrhMMm5thn
-	 6OIdxoO34BiTTEB7PrH6eQMA7gjyd2gj7bq/sX5PSWFQrcsfB6QOBozry/AwulGLwV1Bt
-	 A/qzaI3XK+9qTz4C6HY+olaN7fs7g3gEp+zaow2tnaekMD72iCwvvBitdwXQlLq9EdgTu
-	 jBFRGJJEkdV6MrgkFTVmXJtGQA1qEVWAJBkGa4GbIzGPfwCtqJSmp2jh06dw561rrqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TPpX3wnG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792493455;
+	b=Wauv8wGqXdHAvDmhN21Mnz5qaurWKykZIGWMp0RRC9M3+d0mQCM6/bDRXQUrBSrxoAj5
+	 bq0j7HjPnakfYEL4kh6glsrv16kNTCpOb0MnLVkA5eKINgWFSeIdDEAnogjOZlsD8ez7O
+	 CLvBT7rk6Ug9UaG5ZnnHxt3o6Pnd7+uP4T423DGcXc9g8e8IVLcJiw8SdABu2sjyRZIkf
+	 r73QK2EjSPfk2Vjb1mIGluYWNKnkc/dMArLkYVRkUAm2HhbYz35/s7yrjrcIv2eX9FYHl
+	 4fLJi3V2tKN+ZQO3gJDq3Bmr+p6ZczYf0ynYhyHBQEYTulti0VV6wQmUsNn6AmNwc8g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493455;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Scanned-By;
+	bh=JANbW0OsMsiIZhYIihCc20hPsaNmoKXg98JEd0I6bjw=;
+	b=W24rPqak3LUJ87SD0JO7C6Z8scoJ9Di69yruLpCLbkah2WxOJt4POS3o6EwzBg1bXpkZ
+	 U5nO3zYVjxHwYEkV/XX9XM6n1EG749jZwTb7d5/N3a8TMkX1fGfFpbOji6tClVUmc0D44
+	 0n9ekyWaj8Yvkmjg/ndyvhiY/+zIX0RLNg+6YIpaq+Jq9qo5YTSvhrtnwGtNtlyBi7G+K
+	 FNtbMTCl4hwcsOnQPStGHOLSyuCtNkUShNx6vcMgC2D+0XHV2CXdqy6ZS9yJFmfUaIh00
+	 QnFtxegh2nSTSwFNq8hkPlKk9oD8NEdw41lO3H45/UC1s27ezoeb3sMwnhv6QRkGQeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="I/eySZnY";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80744606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:49:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80744606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC79606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAC79606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TPpX3wnG
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1f403aca0so4829255e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:49:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792493383; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aGsz+NP6Z3HMa2zz0PK4sIlW73a6YNSzguo9JNCKtBoVIBA3jbEi7AECtZkcp/NzbD
-         u/tvFLz+N4/q7p/blJcJrqPvUWb/yYMK9yptc++KjeqYmvkWzrOD55lA3IwIA3XI/ybK
-         IR0hdbqYTjblv4cME06ODgosavqX8kSonb7zq0LjwdUAL+m1tIPWLysBJh6S4FXccTWl
-         EuqleR8XCgdaiTUISJAxkzisgDWOQZk1VCfQVthApPEJz1jPhLimvnMr1LLD9+ydmpE6
-         6kD6bk9fphXg0g7wk/pdkwwF8a+yXTBux1K8XWBjKZJOWnfxlqlu/wPSuybbhmtwgENm
-         0ZVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0ERjj3b6jlFN0zemFoMz78y4i9w1Q1w2xDGBIcTZIVk=;
-        fh=DorDbeL5aVZHeqoHSgSVbp0bQH5M+X5ETAzTsM6mT+E=;
-        b=B4sZGseWbka1xoPmK2Ps5Qg/qifBm6QX1MinvvZeXCOx407POe9+1RmMBIG0ybawQF
-         PakS8NEhzHZCafyvUvDgQ0z690JbawJnajSB0SaeavvvgskBw7sEnf0NWAyvf2fTbPp9
-         02wwpiLwsg9kHO4BeQbhcVDLKxRit9SCjmlNdpYC+qIULW1fUrcAiwGvvw+ejuVLzrq/
-         S9dFILtOE/dSEwkr+8Q++OFSuzs+VviINcrMfaAcvQdGgghrC1BGcaXeKEx5qa++yUsT
-         WlLUj6B5ZFmmmfPN21OZVkr/DiBz1BiXtbfA4BrEFEcd9Ia7ZHBlZyAtJ1joZxcfrnDv
-         ObSA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792493383; x=1793098183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0ERjj3b6jlFN0zemFoMz78y4i9w1Q1w2xDGBIcTZIVk=;
-        b=TPpX3wnGOQahTvPAnK4i+JyMtHVrDR7xB/ESQEn0GoaTeyr2uJOBhZTChKBSNtqOER
-         axyxhisG3PqQBrVJfLr7QITFq4C9TqSb0pW0KeX8gAaroLBxl2rUQyy82Xi7RY+lgagN
-         s/Qt1CaXs5KtqdKfsiTWmgPaVHUwAZ5TIVDUMm70Oj68PXNJj4FKbWKK97povLrVTD/e
-         5oSPp/z6eOuu8ZUWen1h2kTW4Iw56CiMm6gdZXT9vR/N9zF9xmQu9nO2dlpHXCaChdcq
-         rOC13SLEBU855JgZJIcQyNkWuHeOW1bNQSh+wuSALXsvbCWZEqe0Em6nyqbzv9jE6qUm
-         Lj+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792493383; x=1793098183;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0ERjj3b6jlFN0zemFoMz78y4i9w1Q1w2xDGBIcTZIVk=;
-        b=XrknJk11XPG0Mo6oyNu6CJrHMppsWYdTg2YJqsdoHgy7ppR4gLJi9ZKilLafUzYbX/
-         8JvMn7l3k2oMlULKDcDBthMUVx4VMVwti4CLLLzQsPTVV03kNOpXL4A+kh232QVathXn
-         S4vwd29T5RuodcQxVPL2+Dewf2NkHlqa7SnHhls1zwnV4r8RHM70thissdb4yfBsfyBi
-         xJNNOQyAbaZNflkaAn5tljY44NJeRAlMEjRl/YWINSG6ekVwn5wKI9TUK/xegxYYUTFl
-         Eka/n00t7qUmHN5RnaX3BRdt0b1sVlz6r6/QxrLCoKtR6BXb0lxUmQXfLCMLiOCneYBx
-         krOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwzUCosMHXq27qgvr4ciZdjbENt7XQ61KduNSaXrKzM/N4WPIQFhSjFv+/1AQpz5pZQ9Kocx7pv/vML+Mw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEJsF505a6WEQKN6XMyyZnrDV5qnRWLc/UO7pBxVcLGcpbTX+a
-	apPH5NhSmQ5/FteLIxrZNsy52gQE8Rz575NgiSfgoyht3WfWT4uyl1YXdqggBDy/rztxXreiWDR
-	hxk+YJRb3toET8svB3YPrI3OvAGnPmxtJA2aW5uc=
-X-Gm-Gg: AYBFou2tDvYU9iOHHnOIo9zOLTgFyxgFkP8Krd9WyHgbqDf59QH69BWgPQ0EdqR+6wK
-	J0ACvwOrSlvOt5VAR6JCWCBWcJVuNwpgXebBhAPYGniW6XqaO226RNvZryHU5o8kC5703XSh+rv
-	5htlwTozyeNddCB8zLYW0lrXILwVf/jP5Tym1r+z4Zq5jP0a5PNnYNjGUGyamIMZNf09UroQeWb
-	JiuQ0wwaChwgCNnuSmQ9oxLjqt7trcooJ1XHg/PbBZcsaHW+W4w9C8EwCZ3mu3Q33d7cxOdpi5r
-	ra+R72RD2K0w6kvhfRJelxvPQ87rfCjZWiA9207mQ5B7geNNZuEnWZ+lIvsEU7qt2/pe+x0xdNa
-	BCw==
-X-Received: by 2002:a05:600c:4e8a:b0:4a1:cedc:ab51 with SMTP id
- 5b1f17b1804b1-4a1d76315d7mr240612575e9.35.1792493382711; Tue, 20 Oct 2026
- 03:49:42 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I/eySZnY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792493454;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JANbW0OsMsiIZhYIihCc20hPsaNmoKXg98JEd0I6bjw=;
+	b=I/eySZnYhvSK4q3f9XD0XqVpk1V2XNc4RIsTPxqWkPAc4lxMZ0if7tZsrnbjBE86m+ggkK
+	Eu2TsTVrOftqASVeCDKIKRkbub8fCNnE4Vn/vOIfsogKQQkhJT0O4X46q4okKfd8Xa4xY6
+	Igi63C/m71hRg8sDjq7fnPPdkLN8UC8=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-503-d1ZaYW2ONtaZUUzoThD6KQ-1; Tue,
+ 20 Oct 2026 10:50:50 +0000
+X-MC-Unique: d1ZaYW2ONtaZUUzoThD6KQ-1
+X-Mimecast-MFC-AGG-ID: d1ZaYW2ONtaZUUzoThD6KQ_1792493449
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 513181800655;
+	Tue, 20 Oct 2026 10:50:49 +0000 (UTC)
+Received: from bfoster (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CEF391956088;
+	Tue, 20 Oct 2026 10:50:47 +0000 (UTC)
+Date: Tue, 20 Oct 2026 06:50:45 -0400
+From: Brian Foster <bfoster@redhat.com>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Theodore Ts'o <tytso@mit.edu>, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] mm/truncate: fix the zeroing end of
+ pagecache_isize_extended()
+Message-ID: <atdHhW7JU8j5pozl@bfoster>
+References: <20261016222721.791785-1-nickolai@csail.mit.edu>
+ <atZw_gtMIIKXgc1q@bfoster>
+ <CADGQE7H91ZwPgUzPHoAJmF3WjzRKxeQkQcV8+BLdGn7+kkEduA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,93 +82,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260910082008.12397-1-syedtayyabfarooq08@gmail.com> <2026091034-slicing-same-692a@gregkh>
-In-Reply-To: <2026091034-slicing-same-692a@gregkh>
-From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-Date: Tue, 20 Oct 2026 15:49:29 +0500
-X-Gm-Features: AclHuK-mv7z6N1nztlZcm0gQ1fK6qCovt-jNOk4zF2MaRkNEXkkLjayfgXV9GsU
-Message-ID: <CAKD4hN41w_bRPAY3i9=tD1tWQLag3r-FGsngD5U6igM=FWe-_Q@mail.gmail.com>
-Subject: Re: [PATCH] usb: gadget: u_serial: fix use-after-free between tty
- open/close and gserial_free_line
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: David Brownell <dbrownell@users.sourceforge.net>, 
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADGQE7H91ZwPgUzPHoAJmF3WjzRKxeQkQcV8+BLdGn7+kkEduA@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Hi,
+On Mon, Oct 19, 2026 at 03:54:14PM -0400, Nickolai Zeldovich wrote:
+> On Mon, Oct 19, 2026 at 3:35 PM Brian Foster <bfoster@redhat.com> wrote:
+> > > --- a/mm/truncate.c
+> > > +++ b/mm/truncate.c
+> > > @@ -878,8 +878,7 @@ void pagecache_isize_extended(struct inode *inode, loff_t from, loff_t to)
+> > >               unsigned int offset, end;
+> > >
+> > >               offset = from - folio_pos(folio);
+> > > -             end = min_t(unsigned int, to - folio_pos(folio),
+> > > -                         folio_size(folio));
+> > > +             end = min_t(loff_t, to - folio_pos(folio), folio_size(folio));
+> >
+> > Good catch...
+> >
+> > folio_size() returns size_t and folio_zero_segment() expects size_t for
+> > the offset params. Perhaps we should that instead of loff_t?
+> 
+> size_t is (unsigned int) on 32-bit machines, like i386, which has the
+> same issue (reproducer from the patch).
+> 
 
-I wanted to follow up on this patch, if anyone has had a chance to review i=
-t.
+Ah, Ok. So loff_t makes sense for the min_t(). I do still wonder if it
+makes sense to switch offset and end to size_t while we're here though.
 
-Thanks,
-Tayyab
+Brian
 
-On Thu, Sep 10, 2026 at 1:38=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Thu, Sep 10, 2026 at 01:17:19PM +0500, Syed Tayyab Farooq wrote:
-> > syzbot reports a slab-use-after-free in tty_init_dev()/gs_close()
-> > involving struct gs_port. The port is allocated when a gadget serial
-> > function instance is created via configfs mkdir (gserial_alloc_line())
-> > and freed via a plain kfree() in gserial_free_port() when the instance
-> > is removed via configfs rmdir(). Nothing prevented a concurrent
-> > open("/dev/ttyGS*") from racing with rmdir: the tty core could still
-> > reach gs_open()/gs_close() and dereference the gs_port after it had
-> > already been freed, since the ports[] table entry these functions
-> > looked up was a bare pointer with no refcounting tied to the tty core.
-> >
-> > Fix this by giving struct gs_port proper tty_port-managed lifetime:
-> >
-> >  - Add gs_install()/gs_cleanup() tty_operations. gs_install() looks up
-> >    the port once under ports[idx].lock, takes a tty_port_get()
-> >    reference, and stores the result in tty->driver_data. gs_cleanup()
-> >    drops that reference when the tty_struct is released. This ties the
-> >    gs_port's minimum lifetime to the tty_struct using it, so it can no
-> >    longer be freed out from under an open tty.
-> >
-> >  - Give tty_port a destructor (gs_port_destruct()) that does the
-> >    kfree() that gserial_free_port() used to do directly, and
-> >    switch gserial_free_port() to tty_port_put() instead of an
-> >    unconditional kfree(). Also, tty_port_destroy is automatically calle=
-d
-> >    when the reference reaches 0. The struct is now only actually freed =
-once
-> >    its last reference (held by either the ports[] table or a live tty)
-> >    is dropped.
-> >
-> >  - Stop gs_open() from independently re-deriving the port from
-> >    ports[port_num].port and reassigning tty->driver_data. gs_install()
-> >    is now the single place that looks up and pins the port; gs_open()
-> >    re-deriving it separately could, on an unlucky race with the port
-> >    index being freed and reallocated, leave tty->port and
-> >    tty->driver_data pointing at two different gs_port instances, with
-> >    the one gs_close() uses left unprotected. gs_open() now just uses
-> >    the already-validated tty->driver_data, while still holding
-> >    ports[port_num].lock across the first-open kfifo allocation to
-> >    serialize concurrent first opens against each other (kfifo_alloc()
-> >    needs GFP_KERNEL, so it can't run under port_lock).
-> >
-> >  - In gs_close(), a tty's .close() can legitimately run against a port
-> >    whose port.count is still 0, e.g. when gs_open() fails and the tty
-> >    core unwinds via tty_release(). The previous code treated this as
-> >    an impossible state (WARN_ON(1)), which trips panic_on_warn on
-> >    syzbot and isn't actually a bug -- it's an expected outcome of a
-> >    failed open. Treat count =3D=3D 0 the same as any other "not the las=
-t
-> >    closer" case and return quietly instead of warning.
-> >
-> > Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3Dfe63e4d633540f230624
-> > Fixes: c1dca562be8a ("usb gadget: split out serial core")
-> > Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-> > ---
-> >  drivers/usb/gadget/function/u_serial.c | 64 +++++++++++++++++++++++---
-> >  1 file changed, 57 insertions(+), 7 deletions(-)
->
-> Did you forget an Assisted-by: tag?  And did syzbot test this?
->
-> thanks,
->
-> greg k-h
