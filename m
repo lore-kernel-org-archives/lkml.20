@@ -1,87 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505638;
-	b=HZb02KBAIE4uPeRuMsM4ErbBHfa6+WBnCyxYSGukqxkv1xzNJqV4B3ROsdl30AcmmN8S
-	 B1+vn1XyX9qCfaWujW1y34kL0cMd0I5Dwrj/EDFyj62DXjtV1n9jqaqzKI+cpC1T2mHQ2
-	 6Kt2DtD9xSMWyARnX6LV7tTpuLfIk9adj3tHLVE9Qfub3gONT3FuSluGKkazHviti18ZO
-	 9N7yg3YPkU09YvXFclomUr600a6py+Ug9L+qwLn7tfAzAG2sHVcvQduwdjmQRn5Us9UoK
-	 7NpFrirSzcuYe5QGipo+atulDZo1Lf+NHqaeAHy+tD8hfNs1p+kv3Bq8CPXGwkWzHKQ==
+	t=1792505611;
+	b=dftecuG/oOMRQzaf75OVOWdZ70PSXdPgaNaeSKFuuHiZMOKyJTvePkHJOD5kf3t4sGVn
+	 YeZkqEbDLWwZRwMDG9uLq7NcE2trNDM3i7CevSbmQ38IWQlpiqg9u3jhISB6S55xgaoas
+	 RoTgdofFE3Do7ePK0S9W1RSXS6CmcKqBLH2RV+dqS4TzRf6JnEuvELTZJQj7ou3vAZJXu
+	 P7NSE+HKxla/MBTbcH6wq3kQRk2bXApWedTJiJpeojsOiM5B4p5VG1sHdOnlsrkFQ00Yd
+	 5S4LcjBq7H8RogfFAS2/54S8FcV7scboKDxaQRoXxuQJBZbgNYL/kwl5jTtTEfnsjSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505638;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505611;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zqiNo29U5F/POgSeiY+9/aC7kFsroceZdJdpmz64yjM=;
-	b=iNH5DguMqRk7SkyA+I2D1E2jcZ1ki9vN8bUp4lAE7hhjTE5cs9zwIFGPx7NGHUVxlOlj
-	 dAMLvtulEhVlLSMCw428YXb9gz2/pKliLUW7qAUZNrCqeKXI6vNLH3dCvV0lklsyX+BGX
-	 /EkAg/pYvRHe/5vE0nPDADuB0Mk0fmQWVxkmpsHSNGBsuoeZOD6n6Mp50DfMCYeRJKfao
-	 n2UhF1JMr21jBPuAhNIPNPdMrfuN3brefqQEuHA7BXghvKat/KJppJw1zazjW5btQMfDP
-	 PDac+NoG3ziENvKXu5rTSiXAzqOI9dWTPxwvm7sJTHWnAkSF//H+rmzOtLafVueuTVw==
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=2p+OjOHlHh/hYV4+lX5y6IE5sOmeOqo3jOvS9mTomqc=;
+	b=KSwoHiGQvJEHLkgbJ6saUtzS5YsWlhG2CziNbMbrvNNamKanH8UfkiR0F7bSNUPK0/0C
+	 Lcm837fF6NVphTyw5jYNRHg1gKZByLMxPTkRSCMM+yGZ5s+DNtx8/Jqo7TeFcHy/zTDbF
+	 hDk6zMwvkziSLLJOeg8Oo0C0N/X4mC6gFztUwcdU/zfwvYZXhClUg73ZxhEBllZaCnrt6
+	 2EIX3UeQ6s7F2bz2jvXb0M1aga/kZd/niWUhrdP5VK8iQs6ZovBU4n7Aa2lA/EKOJ3tZa
+	 cw3yEJqYB6PGK/utM+2q+wVMnL7nO5Zo7qKLZnssE0NSe7tbgLPCx+11kMNVNXMkgZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=OyNtMRmh;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=aleksei.kharlamov@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=eIikATpE;
+	arc=none smtp.remote-ip=212.227.17.21
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D0D606AA2C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:13:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D0D606AA2C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129D9606C21B;
+	Tue, 20 Oct 2026 14:13:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 129D9606C21B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=OyNtMRmh
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so33461235e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:13:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792505635; x=1793110435; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zqiNo29U5F/POgSeiY+9/aC7kFsroceZdJdpmz64yjM=;
-        b=OyNtMRmhWpTGSYCrMeQim0qy4zGFvFB4BDyizCgoSZdINh/FBCxkZnbWnrB8+Dj12I
-         ERjQO0hhrRm7k3Yt7HAK/T3YDvP2TLcyO7bEo02fRTuBNYfx9HA+IAUga7H3v1qr9cCz
-         lzg3b0jtKuFWFroQy4BkhaAqm0tr7/Sk51wt9EXmilxA+YWd8nXo5JrdZCiaBXqa9YL9
-         /5fuJnSJJCChfpV2JqPo+hhcaNnHrLBngji1PK/Yr0Dg2Lt5tm/AoUGnCvJ2r7rvZtF1
-         CIkoPSn+xhwrC6DQCWIPRxDmSWS0lt3sZTL+pEIsepyElg4Zwu9qqTlbid6qPF3FVvSX
-         Q02w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792505635; x=1793110435;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zqiNo29U5F/POgSeiY+9/aC7kFsroceZdJdpmz64yjM=;
-        b=TUpZdlr6/+DR++eyPxEst4ghWNmfBaZv3610np9ljjFO1sUgZIjbyJLhpf5dxA/tzK
-         rmvguWI5aV+zkQJo40+eYaHGE71HqrVrpYHTEtG/hKwKNXtlFmUwwO3x0juVnFKH3zsp
-         RPDFCFvF+yJBTF6hP8+Ve59r57e/5uOyR7+9c6hE/q9zLWtaEPQqob+pSJ/D+aC6G/Qe
-         OikF1r8vFJ5h9xOv7ggZu5w0VOYoZ3+nbRSLc2OVvu3D2WZyPNn4i96IVTzaY/LJNvcw
-         +zV3cI0t5nyDDUNWoitIQWYlozTywEjoRDMsXKwPOP5+kcr0OfVSPzV5bYSg+2I1cbDr
-         v5dg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8IVhgYtkaC5qwvLEQsYyf6lQW66q0eKrFhY1snXGPrU1I/AW/kBGGh9I2xP2/rXfR3ME0J6/VIW/95Ck=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyV4Ydmdc77/wYyYtLgyCY0xFnc6NA/18/cZPDpfMUyjc6FpuB
-	3m7+ZFTg87w8SIpLdIOXwaQIJaP1JLOLluFwnvz5ubk/kQURL74SHvOOyH8ma6tk7Bo=
-X-Gm-Gg: AYBFou0zeii6CawZnDa40JEiepPhnrdrR7e1ZduNkS8FQx51O3zgMmezWqPLOCjLAJQ
-	M1HZ0NMFuHTvwGFEi2tdlQemgC2iXQdNnNZipyYHTJxL9UYc8rT9tdRB6K1evZU8X6Q+dNlXsxe
-	7f+iYME4FwjNRyDf/RDt3Sx+xBJyrbdsWXbqijXfymBn1Ae5onl5mcKaeR0plO9fnMjrcJN4xLx
-	5eRwbaeh1sj2+eM5Nx47HE+AmdvR9tg7LHN67U2j9AMsYLYdh81jolX83B07WTazI8BSeIdNTh6
-	x4ycqrFtRmuNEG8xhrdkiBVh77++4si573CkDn4L2w9Sc2WeygZLDZAHmYKnqfJi1aPh9qtc2DO
-	GC6x7K2PMXPjNFkn4g7Jq6t9md2QfTHol3YqBmU3lBJeMAhYRkiMhymPiQS0Cqpx1gxJ/IZ5wJe
-	yflrLpe3Vd03FAJgPfqeE7Z/YFak6b9nFfFjWoYdYNkMdEAgZeb16lpNZhTR4V6H9eIJwBi5Ky4
-	MHEkzKI/Pe2Yg==
-X-Received: by 2002:a05:600c:8709:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4a1d76255f6mr203914945e9.18.1792505632904;
-        Tue, 20 Oct 2026 07:13:52 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca30aa5sm40054275e9.2.2026.10.20.07.13.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 07:13:52 -0700 (PDT)
-Message-ID: <59264732-a4b3-4fd0-a0fc-7e2fc3f73d60@linaro.org>
-Date: Tue, 20 Oct 2026 15:13:50 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmx.de header.i=aleksei.kharlamov@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=eIikATpE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1792505571; x=1793110371;
+	i=aleksei.kharlamov@gmx.de;
+	bh=2p+OjOHlHh/hYV4+lX5y6IE5sOmeOqo3jOvS9mTomqc=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=eIikATpEj4WwRdW0BlN3UzSD6J/dI+gaJLUdi/1LK4HJQGDo+jcmvw2gWYnLneIA
+	 MSRwGvZRAWyjip2HAUA7X7v7OyBs1HHsZGBX9ysRINzTlZhSJcbabEE3RKS6fzddV
+	 0EyyW5bJ2LXXdbm93TVmtvqnaJ7/FsC3XUkQqIN+k7oLYTs2vPIROKjKN+yMAFnm9
+	 tZOVb9xb8HfvijbbPdRqAlZxwoJxg4aq6grxTTWOLNvMkC//Cdxe3fidTULxv/O38
+	 92bJSuQZvKxHMA1lUsaRiDSX8zSXBUJbC8lNuQQcBiziYjohSMkcw17CIupO4rv2A
+	 svm7t7o9+PH1zvp3tA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1Mv31c-1wSRP9203M-00tX5h; Tue, 20
+ Oct 2026 16:12:51 +0200
+Message-ID: <cf372cf0-f0e9-433c-bcaf-c218da07b1ab@gmx.de>
+Date: Tue, 20 Oct 2026 16:12:47 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,635 +65,125 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 23/25] perf cs-etm: Decode AUX samples into callchains and
- branch stacks
-To: Leo Yan <leo.yan@arm.com>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
- <20260915-arm_cs_support_aux_sample-v1-23-35cf6f297d20@arm.com>
+Subject: Re: [PATCH ath-next 1/3] wifi: ath10k: set the PMF peer flag on
+ WCN3990
+To: "Nagashima, Shunsuke" <shunsuke@nagashi.ma>
+Cc: Jeff Johnson <jjohnson@kernel.org>, linux-wireless@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-kernel@vger.kernel.org,
+ David Heidelberg <david@ixit.cz>, Fabricio Akio <fabricioakio@gmail.com>
+References: <20261016-ath10k-series-v1-send-v1-0-c847697b3558@nagashi.ma>
+ <20261016-ath10k-series-v1-send-v1-1-c847697b3558@nagashi.ma>
+ <a523eda4-5708-4427-a044-a61c0386e5a9@gmx.de>
+ <CACB3TCJVoFbMEpbtvuO5c-udCoZgDvMBeH0RXUXp90hab3Dh2g@mail.gmail.com>
 Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-23-35cf6f297d20@arm.com>
+From: Aleksei Kharlamov <aleksei.kharlamov@gmx.de>
+In-Reply-To: <CACB3TCJVoFbMEpbtvuO5c-udCoZgDvMBeH0RXUXp90hab3Dh2g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:JQBzJOPgRcqPGjO3hgnbeyc3Qo2bjtWG+guDOVNXwfXAu9j7Jji
+ HpFLD2aSM09GsstKf8w9FBgyTwnoCFfxE0jQdFOPCx/Uxza1qK51PODrPELzsgdR50PJHU1
+ axQYJC3VUZlevWYuSXhQ3HKnevktkAj1xR9UuJU94gXWb2z9SRwzE1iGb6eCzoyk84jm6V6
+ eDvbF9Sa75d2ln3E/qG6A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Rpw0kjYosOI=;aalfzVDKHjA5cx+GpS4nG0q9cuc
+ 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
+ cjkg9Vj10jxyaZaqvZlIJhUBzLEajlYTFS4Ms8=
 
+Hi,
 
+On 10/20/26 04:47, Nagashima, Shunsuke wrote:
+> If you have time, could you try this patch itself (instead of your own
+> version) on the Fairphone 4 and reply with a Tested-by if it works?
+> WCN3988 uses the same WCN3990 entry in ath10k_hw_params_list, so the
+> patch should apply to your device as it is. Station mode only is fine.
 
-On 15/09/2026 16:49, Leo Yan wrote:
-> Decode raw AUX trace embedded in PERF_SAMPLE_AUX and attach missing
-> callchains and branch stacks to the owning PMU samples.
-> 
-> Select the decoder by the sampled CPU and initialize its thread context
-> from the sample's PID and TID. Queue each payload temporarily for the
-> shared timeless decoder, clearing packet queues and flushing thread
-> stacks before decoding an independent window. The embedded trace already
-> belongs to the sample, so timestamp correlation is not needed.
-> 
-> Extend cs_etm__save_sample_history() to collect callchains as well as
-> branch stacks after decoding. Support --itrace=G and --itrace=L while
-> preserving recorded callchains and branch stacks.
-> 
-> Record CPU ID on AUX sampling events so each sample selects the correct
-> decoder.
-> 
-> Assisted-by: Codex:gpt-6
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   tools/perf/arch/arm/util/cs-etm.c |   6 +
->   tools/perf/util/cs-etm.c          | 308 +++++++++++++++++++++++++++++++++-----
->   2 files changed, 274 insertions(+), 40 deletions(-)
-> 
-> diff --git a/tools/perf/arch/arm/util/cs-etm.c b/tools/perf/arch/arm/util/cs-etm.c
-> index d2861d66a6612ea213066258672ba41769e578cb..710887daad0e4cbb5f48a45aa396c7bbab4c7ead 100644
-> --- a/tools/perf/arch/arm/util/cs-etm.c
-> +++ b/tools/perf/arch/arm/util/cs-etm.c
-> @@ -450,6 +450,12 @@ static int cs_etm_recording_options(struct auxtrace_record *itr,
->   	 */
->   	evsel__set_sample_bit(cs_etm_evsel, CPU);
->   
-> +	/* Raw AUX samples need the sampling CPU to select the trace decoder. */
-> +	evlist__for_each_entry(evlist, evsel) {
-> +		if (evsel->core.attr.aux_sample_size)
-> +			evsel__set_sample_bit(evsel, CPU);
-> +	}
-> +
->   	/*
->   	 * Also the case of per-cpu mmaps, need the contextID in order to be notified
->   	 * when a context switch happened.
-> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-> index 815a22cedc49e9281b7087f01355bb71b5e41c57..8a1b532df0d3f45fbec85b32ade9bc5ce5b58c98 100644
-> --- a/tools/perf/util/cs-etm.c
-> +++ b/tools/perf/util/cs-etm.c
-> @@ -66,6 +66,7 @@ struct cs_etm_auxtrace {
->   	 */
->   	bool per_thread_decoding;
->   	bool snapshot_mode;
-> +	bool sampling_mode;
->   	bool data_queued;
->   	bool has_virtual_ts; /* Virtual/Kernel timestamps in the trace. */
->   	bool use_thread_stack;
-> @@ -77,6 +78,7 @@ struct cs_etm_auxtrace {
->   	/* Internal reconstruction depth, see cs_etm__br_stack_init() */
->   	unsigned int br_stack_sz_plus;
->   	struct branch_stack *br_stack;
-> +	struct ip_callchain *chain;
->   	u64 latest_kernel_timestamp;
->   	u32 auxtrace_type;
->   	u32 branches_filter;
-> @@ -804,7 +806,8 @@ static void cs_etm__packet_swap(struct cs_etm_auxtrace *etm,
->   	struct cs_etm_packet *tmp;
->   
->   	if (etm->synth_opts.branches || etm->synth_opts.last_branch ||
-> -	    etm->synth_opts.add_last_branch || etm->synth_opts.instructions) {
-> +	    etm->synth_opts.add_last_branch || etm->synth_opts.add_callchain ||
-> +	    etm->synth_opts.instructions) {
->   		/*
->   		 * Swap PACKET with PREV_PACKET: PACKET becomes PREV_PACKET for
->   		 * the next incoming packet.
-> @@ -961,7 +964,7 @@ static int cs_etm__flush_events(struct perf_session *session,
->   						   auxtrace);
->   	int ret;
->   
-> -	if (dump_trace)
-> +	if (dump_trace || etm->sampling_mode)
->   		return 0;
->   
->   	if (!tool->ordered_events)
-> @@ -1077,6 +1080,7 @@ static void cs_etm__free(struct perf_session *session)
->   
->   	zfree(&aux->metadata);
->   	zfree(&aux->br_stack);
-> +	zfree(&aux->chain);
->   	zfree(&aux);
->   }
->   
-> @@ -1102,6 +1106,13 @@ static struct machine *cs_etm__get_machine(struct cs_etm_queue *etmq,
->   	if (pid_fmt == CS_ETM_PIDFMT_CTXTID)
->   		return &etmq->etm->session->machines.host;
->   
-> +	/*
-> +	 * AUX samples without context IDs use the owning host sample's PID/TID.
-> +	 * Keep EL1 trace in that host context as well.
-> +	 */
-> +	if (etmq->etm->sampling_mode && pid_fmt == CS_ETM_PIDFMT_NONE)
-> +		return &etmq->etm->session->machines.host;
-> +
-
-This is probably not necessary to change if we base off of the 
-per-thread decoding patches. "[PATCH 01/14] perf cs-etm: Fix nVHE 
-per-thread decoding" already sets host if "perf_guest" isn't set. And I 
-don't see a need to tie machine detection into aux sampling, it should 
-affect the actual decoding as little as possible, it's just another way 
-to gather trace.
-
->   	/*
->   	 * Not perfect, but otherwise assume anything in EL1 is the default
->   	 * guest, and everything else is the host. Distinguishing between guest
-> @@ -1615,7 +1626,7 @@ static void cs_etm__add_stack_event(struct cs_etm_queue *etmq,
->   	int size;
->   
->   	if (!etm->synth_opts.branches && !etm->synth_opts.instructions &&
-> -	    !etm->synth_opts.add_last_branch)
-> +	    !etm->synth_opts.add_last_branch && !etm->synth_opts.add_callchain)
->   		return;
->   
->   	if (!cs_etm__packet_has_taken_branch(tidq->prev_packet))
-> @@ -2059,10 +2070,17 @@ static int cs_etm__save_sample_history(struct cs_etm_auxtrace *etm,
->   		return -ENOMEM;
->   
->   	/* Consume branch history so later samples cannot reuse the same window. */
-> -	thread_stack__br_sample_late(thread, sample->cpu, etm->br_stack,
-> -				     etm->br_stack_sz, sample->ip,
-> -				     machine__kernel_start(machine));
-> -	thread_stack__br_stack_consume(thread, sample->cpu);
-> +	if (etm->synth_opts.add_last_branch && !sample->branch_stack) {
-> +		thread_stack__br_sample_late(thread, sample->cpu, etm->br_stack,
-> +					     etm->br_stack_sz, sample->ip,
-> +					     machine__kernel_start(machine));
-> +		thread_stack__br_stack_consume(thread, sample->cpu);
-> +	}
-> +
-> +	if (etm->synth_opts.add_callchain && !sample->callchain)
-> +		thread_stack__sample_late(thread, sample->cpu, etm->chain,
-> +					  etm->synth_opts.callchain_sz + 1,
-> +					  sample->ip, machine__kernel_start(machine));
->   
->   	thread__put(thread);
->   	return 0;
-> @@ -2187,6 +2205,13 @@ static void cs_etm__flush_all_stack(struct cs_etm_queue *etmq)
->   		cs_etm__flush_machine_stack(etmq, HOST_KERNEL_ID);
->   		break;
->   	case CS_ETM_PIDFMT_NONE:
-> +		/*
-> +		 * AUX samples provide PID/TID via PERF_SAMPLE_TID, so flush host
-> +		 * stacks even without traced context IDs.
-> +		 */
-> +		if (etmq->etm->sampling_mode)
-> +			cs_etm__flush_machine_stack(etmq, HOST_KERNEL_ID);
-> +		break;
->   	default:
->   		break;
->   
-> @@ -3064,6 +3089,61 @@ static bool cs_etm__tracing_kernel(struct cs_etm_auxtrace *etm,
->   	return false;
->   }
->   
-> +static bool cs_etm__sampling_mode(struct perf_session *session)
-> +{
-> +	struct evsel *evsel;
-> +
-> +	evlist__for_each_entry(session->evlist, evsel) {
-> +		if ((evsel->core.attr.sample_type & PERF_SAMPLE_AUX) &&
-> +		    evsel->core.attr.aux_sample_size)
-> +			return true;
-> +	}
-> +	return false;
-> +}
-> +
-> +static int cs_etm__aux_sample_init(struct cs_etm_auxtrace *etm)
-> +{
-> +	struct evsel *evsel;
-> +
-> +	if (!etm->sampling_mode) {
-> +		if (etm->synth_opts.add_callchain) {
-> +			pr_err("CS ETM: --itrace=G requires AUX samples\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		return 0;
-> +	}
-> +
-> +	evlist__for_each_entry(etm->session->evlist, evsel) {
-> +		u64 type = evsel->core.attr.sample_type;
-> +		u64 required = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_CPU;
-> +
-> +		if (!(type & PERF_SAMPLE_AUX))
-> +			continue;
-> +
-> +		if ((type & required) != required) {
-> +			pr_err("CS ETM: AUX samples require IP, TID and CPU\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		/*
-> +		 * Synthesize the callchain from AUX trace when it is not
-> +		 * provided by the PMU sample.
-> +		 */
-> +		if (etm->synth_opts.add_callchain && !(type & PERF_SAMPLE_CALLCHAIN))
-> +			evsel->synth_sample_type |= PERF_SAMPLE_CALLCHAIN;
-> +	}
-> +
-> +	if (etm->synth_opts.add_callchain) {
-> +		etm->chain = zalloc(struct_size(etm->chain, ips,
-> +						etm->synth_opts.callchain_sz + 1));
-> +		if (!etm->chain)
-> +			return -ENOMEM;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int cs_etm__br_stack_init(struct cs_etm_auxtrace *etm,
->   				 struct perf_session *session)
->   {
-> @@ -3071,10 +3151,11 @@ static int cs_etm__br_stack_init(struct cs_etm_auxtrace *etm,
->   
->   	evlist__for_each_entry(session->evlist, evsel) {
->   		/*
-> -		 * Only timestamped events can be matched against the decoded
-> -		 * trace, so do not advertise a branch stack on any other.
-> +		 * AUX samples own their trace window. Other samples need a
-> +		 * timestamp to match against the decoded trace.
->   		 */
-> -		if (!(evsel->core.attr.sample_type & PERF_SAMPLE_TIME))
-> +		if (!(evsel->core.attr.sample_type &
-> +		      (etm->sampling_mode ? PERF_SAMPLE_AUX : PERF_SAMPLE_TIME)))
->   			continue;
->   		if (!(evsel->core.attr.sample_type & PERF_SAMPLE_BRANCH_STACK))
->   			evsel->synth_sample_type |= PERF_SAMPLE_BRANCH_STACK;
-> @@ -3101,9 +3182,85 @@ static int cs_etm__br_stack_init(struct cs_etm_auxtrace *etm,
->   	return 0;
->   }
->   
-> +static int cs_etm__set_sample_context(struct cs_etm_queue *etmq,
-> +				      const struct perf_sample *sample)
-> +{
-> +	struct machine *machine = &etmq->etm->session->machines.host;
-> +	struct cs_etm_traceid_queue *tidq;
-> +	u64 *metadata = get_cpu_data(etmq->etm, sample->cpu);
-> +	struct thread *thread;
-> +	u8 trace_id;
-> +	int ret;
-> +
-> +	if (!metadata)
-> +		return -EINVAL;
-> +
-> +	ret = cs_etm__metadata_get_trace_id(&trace_id, metadata);
-> +	if (ret)
-> +		return ret;
-> +
-> +	tidq = cs_etm__etmq_get_traceid_queue(etmq, trace_id);
-> +	if (!tidq)
-> +		return -ENOMEM;
-> +
-> +	thread = machine__findnew_thread(machine, sample->pid, sample->tid);
-> +	if (!thread)
-> +		return -ENOMEM;
-> +
-> +	tidq->kernel_start = machine__kernel_start(machine);
-> +	tidq->decode_el = ocsd_EL_unknown;
-> +	thread__put(tidq->decode_thread);
-> +	thread__put(tidq->frontend_thread);
-> +	/* Thread already holds a reference from machine__findnew_thread() */
-> +	tidq->decode_thread = thread;
-> +	tidq->frontend_thread = thread__get(thread);
-> +
-> +	return 0;
-> +}
-> +
-> +/* Consume the queued AUX window while its owning sample is still available. */
-> +static int cs_etm__process_aux_sample(struct cs_etm_auxtrace *etm,
-> +				      struct perf_sample *sample)
-> +{
-> +	struct cs_etm_queue *etmq = cs_etm__get_queue(etm, sample->cpu);
-> +	struct auxtrace_buffer buffer = {
-> +		.data = sample->aux_sample.data,
-> +		.size = sample->aux_sample.size,
-> +		.pid = sample->pid,
-> +		.tid = sample->tid,
-> +		.cpu = { sample->cpu },
-> +	};
-> +	struct auxtrace_queue *queue;
-> +	int ret;
-> +
-> +	if (!etmq || !etmq->decoder)
-> +		return -EINVAL;
-> +
-> +	queue = &etm->queues.queue_array[etmq->queue_nr];
-> +	if (!list_empty(&queue->head) || etmq->buffer)
-> +		return -EINVAL;
-> +
-> +	ret = cs_etm__set_sample_context(etmq, sample);
-> +	if (ret)
-> +		return ret;
-> +
-> +	cs_etm__clear_all_packet_queues(etmq);
-> +
-> +	buffer.buffer_nr = etm->queues.next_buffer_nr++;
-> +	list_add_tail(&buffer.list, &queue->head);
-> +	ret = cs_etm__run_timeless_decoder(etmq);
-> +
-> +	/* The buffer is borrowed for this decode only. */
-> +	list_del_init(&buffer.list);
-> +	etmq->buffer = NULL;
-> +	etmq->buf = NULL;
-> +	etmq->buf_len = 0;
-> +	return ret;
-> +}
-> +
->   /*
-> - * Add decoded branch history to an existing sample. The sample keeps its own
-> - * ip, callchain and event identity; only an absent branch stack is filled in.
-> + * Decode the trace belonging to this sample and fill in missing history.
-> + * The sample keeps its IP, event identity and any recorded stacks.
->    * A user-only PMU sample can have a zero IP when the interrupt skids into
->    * the kernel; its thread and trace window still identify valid history.
->    */
-> @@ -3112,25 +3269,35 @@ static int cs_etm__process_sample(struct cs_etm_auxtrace *etm,
->   {
->   	int err;
->   
-> -	if (!etm->synth_opts.add_last_branch || sample->branch_stack ||
-> -	    !sample->time || sample->time == (u64)-1)
-> +	if ((!etm->synth_opts.add_last_branch || sample->branch_stack) &&
-> +	    (!etm->synth_opts.add_callchain || sample->callchain))
->   		return 0;
->   
-> -	/* Adding branch history to existing samples supports the host only */
-> +	/* Adding history to existing samples supports the host only */
->   	if (sample->cpumode == PERF_RECORD_MISC_GUEST_KERNEL ||
->   	    sample->cpumode == PERF_RECORD_MISC_GUEST_USER)
->   		return 0;
->   
-> -	err = cs_etm__update_queues(etm);
-> -	if (err)
-> -		return err;
-> +	if (etm->sampling_mode) {
-> +		if (!sample->aux_sample.size)
-> +			return 0;
->   
-> -	/*
-> -	 * Decode every queue up to this sample's time. Afterwards the thread
-> -	 * stack holds the branches that executed before the sample, and
-> -	 * nothing that executed after it.
-> -	 */
-> -	err = cs_etm__process_timestamped_queues(etm, sample->time);
-> +		err = cs_etm__process_aux_sample(etm, sample);
-> +	} else {
-> +		if (!sample->time || sample->time == (u64)-1)
-> +			return 0;
-> +
-> +		err = cs_etm__update_queues(etm);
-> +		if (err)
-> +			return err;
-> +
-> +		/*
-> +		 * Decode every queue up to this sample's time. Afterwards the
-> +		 * thread stack holds the branches that executed before the
-> +		 * sample, and nothing that executed after it.
-> +		 */
-> +		err = cs_etm__process_timestamped_queues(etm, sample->time);
-> +	}
->   	if (err)
->   		return err;
->   
-> @@ -3138,9 +3305,16 @@ static int cs_etm__process_sample(struct cs_etm_auxtrace *etm,
->   	if (err)
->   		return err;
->   
-> -	if (etm->br_stack->nr)
-> +	if (etm->synth_opts.add_last_branch && !sample->branch_stack && etm->br_stack->nr)
->   		sample->branch_stack = etm->br_stack;
->   
-> +	if (etm->synth_opts.add_callchain && !sample->callchain) {
-> +		/* An empty history produces only a context marker and sample IP */
-> +		if (etm->chain->nr > 2 ||
-> +		    (etm->chain->nr == 2 && etm->chain->ips[1] != sample->ip))
-> +			sample->callchain = etm->chain;
-> +	}
-> +
->   	return 0;
->   }
->   
-> @@ -3225,6 +3399,10 @@ static int cs_etm__process_auxtrace_event(struct perf_session *session,
->   	struct cs_etm_auxtrace *etm = container_of(session->auxtrace,
->   						   struct cs_etm_auxtrace,
->   						   auxtrace);
-> +
-> +	if (etm->sampling_mode)
-> +		return 0;
-> +
->   	if (!etm->data_queued) {
->   		struct auxtrace_buffer *buffer;
->   		off_t  data_offset;
-> @@ -3529,14 +3707,28 @@ static int cs_etm__queue_aux_records_cb(struct perf_session *session, union perf
->   	return ret;
->   }
->   
-> -static int cs_etm__queue_aux_records(struct perf_session *session)
-> +static int cs_etm__prepare_auxtrace_queues(struct cs_etm_auxtrace *etm,
-> +					   struct perf_session *session)
->   {
-> -	struct auxtrace_index *index = list_first_entry_or_null(&session->auxtrace_index,
-> -								struct auxtrace_index, list);
-> -	if (index && index->nr > 0)
-> -		return perf_session__peek_events(session, session->header.data_offset,
-> -						 session->header.data_size,
-> -						 cs_etm__queue_aux_records_cb, NULL);
-> +	struct auxtrace_index *index;
-> +	unsigned int i;
-> +
-> +	/*
-> +	 * AUX samples have no AUX record to describe the formatter framing.
-> +	 * Since it is only supported by TRBE, the trace is always unformatted.
-> +	 */
-> +	if (etm->sampling_mode) {
-> +		for (i = 0; i < etm->queues.nr_queues; i++) {
-> +			struct cs_etm_queue *etmq = etm->queues.queue_array[i].priv;
-> +
-> +			etmq->format = UNFORMATTED;
-> +		}
-> +
-> +		return 0;
-> +	}
-> +
-> +	index = list_first_entry_or_null(&session->auxtrace_index,
-> +					 struct auxtrace_index, list);
->   
->   	/*
->   	 * We would get here if there are no entries in the index (either no auxtrace
-> @@ -3546,7 +3738,12 @@ static int cs_etm__queue_aux_records(struct perf_session *session)
->   	 *
->   	 * In that scenario, buffers will not be split by AUX records.
->   	 */
-> -	return 0;
-> +	if (!index || index->nr <= 0)
-> +		return 0;
-> +
-> +	return perf_session__peek_events(session, session->header.data_offset,
-> +					 session->header.data_size,
-> +					 cs_etm__queue_aux_records_cb, NULL);
->   }
->   
->   #define HAS_PARAM(j, type, param) (metadata[(j)][CS_ETM_NR_TRC_PARAMS] <= \
-> @@ -3622,6 +3819,11 @@ static int cs_etm__create_queue_decoders(struct cs_etm_queue *etmq)
->   	if (decoders == 0)
->   		return 0;
->   
-> +	if (etmq->etm->sampling_mode && decoders != 1) {
-> +		pr_err("CS ETM Trace: AUX samples require a per-CPU raw trace source\n");
-> +		return -EINVAL;
-> +	}
-> +
->   	/*
->   	 * Each queue can only contain data from one CPU when unformatted, so only one decoder is
->   	 * needed.
-> @@ -3679,11 +3881,12 @@ static int cs_etm__create_decoders(struct cs_etm_auxtrace *etm)
->   		int ret;
->   
->   		/*
-> -		 * Don't create decoders for empty queues, mainly because
-> -		 * etmq->format is unknown for empty queues.
-> +		 * AUX sample buffers are queued when their samples are processed,
-> +		 * so create their decoders even though the queues are still empty.
-> +		 * Other empty queues have no known format or data to decode.
->   		 */
->   		assert(empty || etmq->format != UNSET);
-> -		if (empty)
-> +		if (empty && !etm->sampling_mode)
->   			continue;
->   
->   		ret = cs_etm__create_queue_decoders(etmq);
-> @@ -3818,6 +4021,19 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->   		etm->synth_opts.thread_stack = session->itrace_synth_opts->thread_stack;
->   	}
->   
-> +	etm->sampling_mode = cs_etm__sampling_mode(session);
-> +	if (etm->sampling_mode) {
-> +		/* AUX windows augment their owning samples, without synthesizing events. */
-> +		etm->synth_opts.instructions = false;
-> +		etm->synth_opts.branches = false;
-> +		etm->synth_opts.callchain = false;
-> +		etm->synth_opts.last_branch = false;
-> +		if (!session->itrace_synth_opts->set) {
-> +			etm->synth_opts.add_callchain = true;
-> +			etm->synth_opts.add_last_branch = true;
-
-This causes a segfault in perf report -D because Perf expects the sample 
-to have these things, but we never add them. Maybe we can skip setting 
-these when dump_trace is true?
-
-This also leads me to wonder if we should be dumping the trace for each 
-sample. The raw dump is a very well used debug feature, and I'm not sure 
-if aux sampling use cases suggest that it wouldn't be just as useful 
-here too.
-
-> +		}
-> +	}
-> +
->   	if (etm->synth_opts.calls)
->   		etm->branches_filter |= PERF_IP_FLAG_CALL |
->   					PERF_IP_FLAG_TRACE_BEGIN |
-> @@ -3828,11 +4044,13 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->   					PERF_IP_FLAG_TRACE_BEGIN |
->   					PERF_IP_FLAG_TRACE_END;
->   
-> -	if (etm->synth_opts.callchain && !symbol_conf.use_callchain) {
-> +	if ((etm->synth_opts.callchain || etm->synth_opts.add_callchain) &&
-> +	    !symbol_conf.use_callchain) {
->   		symbol_conf.use_callchain = true;
->   		if (callchain_register_param(&callchain_param) < 0) {
->   			symbol_conf.use_callchain = false;
->   			etm->synth_opts.callchain = false;
-> +			etm->synth_opts.add_callchain = false;
->   		}
->   	}
->   
-> @@ -3859,7 +4077,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->   		/* Use virtual timestamps if all ETMs report ts_source = 1 */
->   		etm->has_virtual_ts = cs_etm__has_virtual_ts(metadata, num_cpu);
->   
-> -	if (!etm->has_virtual_ts)
-> +	if (!etm->has_virtual_ts && !etm->sampling_mode)
->   		ui__warning("Virtual timestamps are not enabled, or not supported by the traced system.\n"
->   			    "The time field of the samples will not be set accurately.\n"
->   			    "For Arm CPUs prior to Armv8.4 or without support FEAT_TRF,\n"
-
-Not sure if there is a need to change this? ETE always has virtual 
-timestamps and sampling mode only supports ETE.
-
-> @@ -3875,6 +4093,8 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->   	session->auxtrace = &etm->auxtrace;
->   
->   	cs_etm__setup_timeless_decoding(etm);
-> +	if (etm->sampling_mode)
-> +		etm->timeless_decoding = true;
-
-I suppose this is because you are only decoding to attach branch history 
-to samples. If we also supported generating other branch and instruction 
-samples from aux samples then timestamps could be useful.
-
-But then again, large aux samples with lots of filtering could still 
-cover large time periods and multiple PIDs. Maybe you would want context 
-IDs or timestamps to be able to decode properly? What would it look like 
-once this is based off of the JIT patches and we just use push_heap() 
-followed by cs_etm__pop_heap() in cs_etm__process_sample(). That should 
-still result in the branch stack being attached to the sample without 
-any other changes, and without worrying about whether timestamps or 
-context IDs are enabled or not.
-
-
->   
->   	etm->tc.time_shift = tc->time_shift;
->   	etm->tc.time_mult = tc->time_mult;
-> @@ -3889,9 +4109,11 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->   	etm->use_thread_stack = etm->synth_opts.thread_stack ||
->   				etm->synth_opts.last_branch ||
->   				etm->synth_opts.add_last_branch ||
-> +				etm->synth_opts.add_callchain ||
->   				etm->synth_opts.callchain;
->   
->   	etm->use_callchain = etm->synth_opts.thread_stack ||
-> +			     etm->synth_opts.add_callchain ||
->   			     etm->synth_opts.callchain;
->   
->   	if (etm->synth_opts.last_branch || etm->synth_opts.add_last_branch) {
-> @@ -3899,13 +4121,18 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->   		etm->br_stack_sz_plus = etm->br_stack_sz;
->   	}
->   
-> +	err = cs_etm__aux_sample_init(etm);
-> +	if (err)
-> +		goto err_free_queues;
-> +
->   	if (etm->synth_opts.add_last_branch) {
->   		/*
->   		 * Existing samples are matched to decoded trace by time, so
->   		 * the trace must carry timestamps that are correlated to perf
->   		 * time and the queues must be decoded in time order.
->   		 */
-> -		if (etm->timeless_decoding || !etm->has_virtual_ts) {
-> +		if (!etm->sampling_mode &&
-> +		    (etm->timeless_decoding || !etm->has_virtual_ts)) {
->   			pr_err("CS ETM Trace: --itrace=L requires virtual timestamped trace\n");
->   			err = -EINVAL;
->   			goto err_free_queues;
-> @@ -3920,7 +4147,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->   	if (err)
->   		goto err_free_queues;
->   
-> -	err = cs_etm__queue_aux_records(session);
-> +	err = cs_etm__prepare_auxtrace_queues(etm, session);
->   	if (err)
->   		goto err_free_queues;
->   
-> @@ -3972,6 +4199,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->   	session->auxtrace = NULL;
->   err_free_etm:
->   	zfree(&etm->br_stack);
-> +	zfree(&etm->chain);
->   	zfree(&etm);
->   err_free_metadata:
->   	/* No need to check @metadata[j], free(NULL) is supported */
-> 
-
+I can confirm your patch works too (same setup as my last message).
