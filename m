@@ -1,61 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594094;
-	b=JUa/EN6oVC+Qz4CGx0FHY2Jp/VQ2AFuTsMXhlaVUXJJEy9ztpEdSWz9qCWET8BXvjt6C
-	 nSqwRwu0z5DjgAKBKVOMxp8YJmMGvFAbm2OI9tZSrPsZ1uAwXvt416NVoKhlvpEzGK8eZ
-	 V2+kGZ0KO3uiu7Hh9QM0NkT5QLsRL6XNPpiaNQAaN0SXWD1y+cr2IzktEhcQwXQ4+OmmD
-	 yfHZ0hXU2EP6PSI0csd3soMvMivXjv/gba6Qv1yx+fY+owqRM09ITU/4FWsVE0kRgs2D8
-	 q4zY21MSz+/qQ6sAe9EyJB0yX5UYGNmp2lMuPg9waEbEoNzz4qbL08pj6VEMIggUO7g==
+	t=1792594137;
+	b=lawCZCnOICxwlljx1rW1e68wuWEgAn2TZDeo0V/Djp27KB/q7rW8VizVx+zV6xkWEzNa
+	 KJkMIOmbI7UQIHiCr9vBNKa/TIhR3GZJUKnv5TrvKMDjcXy3PJl2hKRQ9GUAGuAjGOPdO
+	 GUJaMOKMQ8kBfLm/UHAquh7rPUrKapQ1hNeQm3M18XefoqQNL7XzkaNu9CYmANTaNVZ8a
+	 dAX/uFClgzJE+9WzKBZJNN70ieOwE1PiNKOZZyLQGNfoA6JH8fAZ27rlzBwjDHsuphzm8
+	 5Cn5N5VLY5UPj6RsQhxVxOWfMG5ImCXnxPV9XWe/mXv65RLaRhwAInfN26UY9TC6tAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594094;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=xiVykom2YjTuvPe8VeWLYn7RNEDdL2oqs8qk9+I+zJU=;
-	b=BSzz0C13OyzqpnuaOQwyWsE27d5m1opx5/6qg5B0hq3rsHGAkpwlMgibSmFqsnYuSBJw
-	 XU9ShviUdCQsxlsKiOsUBxx9674CFOkY59klhgIQU8CVv6rnO+ldzzKWXK+BPfP9jBoRe
-	 HMTvMs7BbjcEdd4LisAridyp4/BRYU+Mngb73Ik2BfByT08CPniiTFABbanbKYFkR5Ju/
-	 SXHgDlgqCIM+K3bZ/nWK5tLJwFN0pI1QTmUwZG8Zi73bVQK88BAXRZA+qQnrJwRXv2s1I
-	 fXriUSeD+wUBhKjaJb1sBgAfWAmnMGiXhOk1fscD22jDHx9HjQVrgaxqR+bIPsBpIgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594137;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=N6/2Sb8S4wXn18oNbwyPRtqNqgXpmx0Kczxs042VHUc=;
+	b=VqiIAdC7QloNAi+zSDd8/KKE3d/WYoUiq/wmTla/4GSPeDaMBN3uaQLyAHtW/haYL3Pd
+	 tR4xSciY+eENPN/E4ubik5fIJlyGwY5mWe3Zgq+pNPuZqMu7sCJ/I57e0/6tKJKNfnEPA
+	 RnhvkabYIXgWcQQuKHIkTVsnJleDTqI6/iHpBv1BLpube5gI6i7gRxp18pvCEfoAia3zD
+	 eLensnAHsAjTd2sKeJMEqyolJrfqqbIOgE7XiAlhLnveU7pPcHbLl+hQZyVoXgNqpPRla
+	 yHKg6V8JrwRlvK7xd0OYBd5KCghBZzKjUG1oav58FBYv5jaIh2CMqjCC1bOlypxSr0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=in3fDV9u;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4+QiyR0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2748606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:48:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2748606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAADF606A320;
+	Wed, 21 Oct 2026 14:48:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=in3fDV9u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=xiVykom2YjTuvPe8VeWLYn7RNEDdL2oqs8qk9+I+zJU=; b=i
-	n3fDV9uKcWEuedSShdIoSxS6BQifOHQgblxMT7y95XO050PPFbyDqcqcClEvHMSn
-	enR99eXoJuwPMCvt3aj5pImNPGpoML/NUnOfMoRcfUupTEeo1jO4gpM7J+dwcBjj
-	WUpDy5yERvoNdnJEAU9QY7YncH0KfDOx5hDAptkMHE=
-Date: Wed, 21 Oct 2026 22:47:48 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Marc Zyngier" <maz@kernel.org>
-Cc: "Thomas Gleixner" <tglx@kernel.org>, "Radu Rendec" <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH 3/6] irqchip/gic-v3: validate MADT records before use
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <868q3x1zlp.wl-maz@kernel.org>
-References: <20261016141357.2793046-1-yaojiale02@163.com>
- <20261016141357.2793046-4-yaojiale02@163.com>
- <868q3x1zlp.wl-maz@kernel.org>
-X-NTES-SC: AL_Qu2SAPmSu0gt7iGaY+kcn08ShO49XMOyvfoi2YFTc+AEnyzt4CYNekNFJlbR4NixDT6PtCCIYido2OlHUoR6oAStpJgTyQt97YFeUPDbgw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4+QiyR0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906CE1F000C2;
+	Wed, 21 Oct 2026 14:48:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792594136;
+	bh=N6/2Sb8S4wXn18oNbwyPRtqNqgXpmx0Kczxs042VHUc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=g4+QiyR0zjjUH+qeMM1dC5eG6T5La7qKoXwMu5ka8yqlXIvOliDwEYBiGIhZzP4JQ
+	 LQ8DN6rmrpdD/yKCMtcb9hVtWqtCFgfWEbfMH+2Th6XTOl5en3K+pjHiWMTYAZ4Uix
+	 wJd8xw+WJ1YEWbWehulmOTcLyE30cRXGbqN3J6jbCjaNQ081+zmEAsLgmiwCNfOn8G
+	 Fna3vUifNsjfZyssERs42KYY4qRBGkb3XDfHR8o5SzIc/zXNaLiU6oydu3Hkay/cvy
+	 3yZEDJ67+73rpnNmCSiYoiEwhEtCp2rx8cCn386oubuyYx6f3gGsiaqJrd/YfA9mgL
+	 aZsIg6G6TtrNw==
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20261020135706.3573260-1-rf@opensource.cirrus.com>
+References: <20261020135706.3573260-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH RESEND] ASoC: cs35l56: Wait for firmware timer expiry
+ before system suspend
+Message-Id: <179250807063.3599968.16781577865112278467.b4-ty@b4>
+Date: Tue, 20 Oct 2026 15:54:30 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,74 +59,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <4134d280.9c43.1a15eeec2a6.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:aygvCgD334eV0Nhq9YZdAA--.865W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhUqZGrY0JVd3gAA3h
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1158; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Q7FXU9bHeZrCKb5cCHOeYwF8mFup3fMwZpGJQ7M4eQw=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJuXLgq0NXakyOdmf7u3+Qji7UK7Xn9Z6pv9Lecc2Xax
+ a6/4uxvOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRqCyGf0pHljJ7lcc5mIqZ
+ L3mq0Fig9PZPQpvkxh0zO49UpVg/2MLIcGhvYSbHf60Yh2NNlQ9aNK/sWOtXXzdfdPbNxufW0eJ
+ bWAE=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-SGkgTWFyYywKCkF0IDIwMjYtMTAtMTYgMjI6MzY6NTAsICJNYXJjIFp5bmdpZXIiIDxtYXpAa2Vy
-bmVsLm9yZz4gd3JvdGU6Cj5PbiBGcmksIDE2IE9jdCAyMDI2IDE1OjEzOjU0ICswMTAwLAo+Smlh
-bGUgWWFvIDx5YW9qaWFsZTAyQDE2My5jb20+IHdyb3RlOgo+PiAKPj4gVGhlIEdJQ3YzIEFDUEkg
-cGF0aHMgY2FzdCBnZW5lcmljIE1BRFQgaGVhZGVycyB0byBkaXN0cmlidXRvciwKPj4gcmVkaXN0
-cmlidXRvciwgYW5kIENQVSBpbnRlcmZhY2UgcmVjb3JkcyBiZWZvcmUgY29uZmlybWluZyB0aGF0
-IHRoZQo+PiBjb3JyZXNwb25kaW5nIGZpeGVkLXNpemUgc3RydWN0dXJlcyBhcmUgcHJlc2VudC4g
-VHJ1bmNhdGVkIHJlY29yZHMgY2FuCj4+IHRoZXJlZm9yZSBjYXVzZSBvdXQtb2YtYm91bmRzIGZp
-ZWxkIHJlYWRzIHdoaWxlIHByb2Jpbmcgb3Igc2V0dGluZyB1cAo+PiB2aXJ0dWFsaXphdGlvbiBk
-YXRhLgo+Pgo+PiBDaGVjayBlYWNoIHR5cGVkIE1BRFQgcmVjb3JkIGJlZm9yZSBpdHMgZmlyc3Qg
-ZmllbGQgYWNjZXNzLiBBbHNvIHJlamVjdAo+PiBhIHNob3J0IGRpc3RyaWJ1dG9yIHJlY29yZCBp
-biB0aGUgdmVyc2lvbiB2YWxpZGF0b3IsIHdoaWNoIHJ1bnMgYmVmb3JlCj4+IHRoZSBwcm9iZSBj
-YWxsYmFjay4KPj4gCj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMu
-Y29tPgo+PiAtLS0KPj4gIGRyaXZlcnMvaXJxY2hpcC9pcnEtZ2ljLXYzLmMgfCAxOCArKysrKysr
-KysrKysrKysrKysKPj4gIDEgZmlsZSBjaGFuZ2VkLCAxOCBpbnNlcnRpb25zKCspCj4+IAo+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9pcnFjaGlwL2lycS1naWMtdjMuYyBiL2RyaXZlcnMvaXJxY2hp
-cC9pcnEtZ2ljLXYzLmMKPj4gaW5kZXggNmUxZmE1YjI0N2ZjLi4wNTg4ZDZkODNiMzEgMTAwNjQ0
-Cj4+IC0tLSBhL2RyaXZlcnMvaXJxY2hpcC9pcnEtZ2ljLXYzLmMKPj4gKysrIGIvZHJpdmVycy9p
-cnFjaGlwL2lycS1naWMtdjMuYwo+PiBAQCAtMjI5OSw2ICsyMjk5LDkgQEAgZ2ljX2FjcGlfcGFy
-c2VfbWFkdF9yZWRpc3QodW5pb24gYWNwaV9zdWJ0YWJsZV9oZWFkZXJzICpoZWFkZXIsCj4+ICAJ
-CQkoc3RydWN0IGFjcGlfbWFkdF9nZW5lcmljX3JlZGlzdHJpYnV0b3IgKiloZWFkZXI7Cj4+ICAJ
-dm9pZCBfX2lvbWVtICpyZWRpc3RfYmFzZTsKPj4gIAo+PiArCWlmIChCQURfTUFEVF9FTlRSWShy
-ZWRpc3QsIGVuZCkpCj4+ICsJCXJldHVybiAtRUlOVkFMOwo+PiArCj4+ICAJcmVkaXN0X2Jhc2Ug
-PSBpb3JlbWFwKHJlZGlzdC0+YmFzZV9hZGRyZXNzLCByZWRpc3QtPmxlbmd0aCk7Cj4+ICAJaWYg
-KCFyZWRpc3RfYmFzZSkgewo+PiAgCQlwcl9lcnIoIkNvdWxkbid0IG1hcCBHSUNSIHJlZ2lvbiBA
-JWxseFxuIiwgcmVkaXN0LT5iYXNlX2FkZHJlc3MpOwo+PiBAQCAtMjMyNSw2ICsyMzI4LDkgQEAg
-Z2ljX2FjcGlfcGFyc2VfbWFkdF9naWNjKHVuaW9uIGFjcGlfc3VidGFibGVfaGVhZGVycyAqaGVh
-ZGVyLAo+PiAgCXUzMiBzaXplID0gcmVnID09IEdJQ19QSURSMl9BUkNIX0dJQ3Y0ID8gU1pfNjRL
-ICogNCA6IFNaXzY0SyAqIDI7Cj4+ICAJdm9pZCBfX2lvbWVtICpyZWRpc3RfYmFzZTsKPj4gIAo+
-PiArCWlmIChCQURfTUFEVF9FTlRSWShnaWNjLCBlbmQpKQo+PiArCQlyZXR1cm4gLUVJTlZBTDsK
-Pj4gKwo+PiAgCS8qIE5laXRoZXIgZW5hYmxlZCBvciBvbmxpbmUgY2FwYWJsZSBtZWFucyBpdCBk
-b2Vzbid0IGV4aXN0LCBza2lwIGl0ICovCj4+ICAJaWYgKCEoZ2ljYy0+ZmxhZ3MgJiAoQUNQSV9N
-QURUX0VOQUJMRUQgfCBBQ1BJX01BRFRfR0lDQ19PTkxJTkVfQ0FQQUJMRSkpKQo+PiAgCQlyZXR1
-cm4gMDsKPj4gQEAgLTIzOTEsNiArMjM5Nyw5IEBAIHN0YXRpYyBpbnQgX19pbml0IGdpY19hY3Bp
-X21hdGNoX2dpY2ModW5pb24gYWNwaV9zdWJ0YWJsZV9oZWFkZXJzICpoZWFkZXIsCj4+ICAJc3Ry
-dWN0IGFjcGlfbWFkdF9nZW5lcmljX2ludGVycnVwdCAqZ2ljYyA9Cj4+ICAJCQkJKHN0cnVjdCBh
-Y3BpX21hZHRfZ2VuZXJpY19pbnRlcnJ1cHQgKiloZWFkZXI7Cj4+ICAKPj4gKwlpZiAoQkFEX01B
-RFRfRU5UUlkoZ2ljYywgZW5kKSkKPj4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4+ICsKPj4gIAkvKgo+
-PiAgCSAqIElmIEdJQ0MgaXMgZW5hYmxlZCBhbmQgaGFzIHZhbGlkIGdpY3IgYmFzZSBhZGRyZXNz
-LCB0aGVuIGl0IG1lYW5zCj4+ICAJICogR0lDUiBiYXNlIGlzIHByZXNlbnRlZCB2aWEgR0lDQy4g
-VGhlIHJlZGlzdHJpYnV0b3IgaXMgb25seSBrbm93biB0bwo+PiBAQCAtMjQzNyw2ICsyNDQ2LDkg
-QEAgc3RhdGljIGJvb2wgX19pbml0IGFjcGlfdmFsaWRhdGVfZ2ljX3RhYmxlKHN0cnVjdCBhY3Bp
-X3N1YnRhYmxlX2hlYWRlciAqaGVhZGVyLAo+PiAgCWludCBjb3VudDsKPj4gIAo+PiAgCWRpc3Qg
-PSAoc3RydWN0IGFjcGlfbWFkdF9nZW5lcmljX2Rpc3RyaWJ1dG9yICopaGVhZGVyOwo+PiArCWlm
-IChoZWFkZXItPmxlbmd0aCA8IHNpemVvZigqZGlzdCkpCj4+ICsJCXJldHVybiBmYWxzZTsKPj4g
-Kwo+Cj5XaHkgaXMgdGhpcyBvcGVuLWNvZGVkIGluc3RlYWQgb2YgdXNpbmcgdGhlIGNoZWNraW5n
-IG1hY3JvPwo+Cj4+ICAJaWYgKGRpc3QtPnZlcnNpb24gIT0gYXBlLT5kcml2ZXJfZGF0YSkKPj4g
-IAkJcmV0dXJuIGZhbHNlOwo+PiAgCj4+IEBAIC0yNDU3LDYgKzI0NjksOSBAQCBzdGF0aWMgaW50
-IF9faW5pdCBnaWNfYWNwaV9wYXJzZV92aXJ0X21hZHRfZ2ljYyh1bmlvbiBhY3BpX3N1YnRhYmxl
-X2hlYWRlcnMgKmhlYQo+PiAgCWludCBtYWludF9pcnFfbW9kZTsKPj4gIAlzdGF0aWMgaW50IGZp
-cnN0X21hZHQgPSB0cnVlOwo+PiAgCj4+ICsJaWYgKEJBRF9NQURUX0VOVFJZKGdpY2MsIGVuZCkp
-Cj4+ICsJCXJldHVybiAtRUlOVkFMOwo+PiArCj4KPldoeSBpc24ndCB0aGlzIHVzaW5nIEJBRF9N
-QURUX0dJQ0NfRU5UUlkoKT8KPgo+PiAgCWlmICghKGdpY2MtPmZsYWdzICYKPj4gIAkgICAgICAo
-QUNQSV9NQURUX0VOQUJMRUQgfCBBQ1BJX01BRFRfR0lDQ19PTkxJTkVfQ0FQQUJMRSkpKQo+PiAg
-CQlyZXR1cm4gMDsKPj4gQEAgLTI1NDcsNiArMjU2Miw5IEBAIGdpY19hY3BpX2luaXQodW5pb24g
-YWNwaV9zdWJ0YWJsZV9oZWFkZXJzICpoZWFkZXIsIGNvbnN0IHVuc2lnbmVkIGxvbmcgZW5kKQo+
-PiAgCj4+ICAJLyogR2V0IGRpc3RyaWJ1dG9yIGJhc2UgYWRkcmVzcyAqLwo+PiAgCWRpc3QgPSAo
-c3RydWN0IGFjcGlfbWFkdF9nZW5lcmljX2Rpc3RyaWJ1dG9yICopaGVhZGVyOwo+PiArCWlmIChC
-QURfTUFEVF9FTlRSWShkaXN0LCBlbmQpKQo+PiArCQlyZXR1cm4gLUVJTlZBTDsKPj4gKwo+Cj5X
-aHkgZG9lcyB0aGlzIG5lZWQgdG8gYmUgcmUtY2hlY2tlZCBpZiB0aGUgdmFsaWRhdGlvbiBwaGFz
-ZWQgaGFzIHN1Y2NlZWRlZD8KPgo+PiAgCWFjcGlfZGF0YS5kaXN0X2Jhc2UgPSBpb3JlbWFwKGRp
-c3QtPmJhc2VfYWRkcmVzcywKPj4gIAkJCQkgICAgICBBQ1BJX0dJQ1YzX0RJU1RfTUVNX1NJWkUp
-Owo+PiAgCWlmICghYWNwaV9kYXRhLmRpc3RfYmFzZSkgewo+Cj5UaGFua3MsCj4KPglNLgo+CgpJ
-IGhhdmUgdXBkYXRlZCBpdCBpbiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjEwMjEx
-NDQ1MjQuMzY0MTQzLTEteWFvamlhbGUwMkAxNjMuY29tLwoKPi0tIAo+V2l0aG91dCBkZXZpYXRp
-b24gZnJvbSB0aGUgbm9ybSwgcHJvZ3Jlc3MgaXMgbm90IHBvc3NpYmxlLgo=
+On Tue, 20 Oct 2026 14:57:06 +0100, Richard Fitzgerald wrote:
+> ASoC: cs35l56: Wait for firmware timer expiry before system suspend
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/1] ASoC: cs35l56: Wait for firmware timer expiry before system suspend
+      https://git.kernel.org/broonie/sound/c/6cc7db9fdd06
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
