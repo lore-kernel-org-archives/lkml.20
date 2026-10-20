@@ -1,49 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.160.28.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792481865;
-	b=BwJjd+Z+AxOQIPJtGe+z6hgsvmKG1wiJ47r+hTYAPcz3msyjPMAE9/qb1osbxUPSj47v
-	 y+GJxF6k6EkkdFlTgby8b3USNyhnnXCCunoGS0vTkLqrHEMZtSH+Btv5lihmmFE26Htz0
-	 WvxXxhE0hc65VmvVUVM17UesD5pKC7KtnwFRIP05mtGyh8J8q3kC2ItHMjjp1m2BDVijl
-	 RuFyMzlQOFvQut9/YfxqU2MtIK4Ly5+n9YZWL3GQ1xLW2yiuu9Wc4q8K0zQXxdyPXuZmR
-	 eVzSXNKqMJ4EFenXpnMvIpLGc+jN095a87JRqO7ysQlRgZONCUwUEPL00zhM/Auk2RQ==
+	t=1792481913;
+	b=AyP73/CZDoQ+Ptkdtg4x/ZhoOt04zIkoVtgoWVpcN3IuSIM474Fasz5RNYBa6dh613VH
+	 YbbwmWyIb4kQ6dcToQu8H/mtsYK8WKFKfivTKiJph+tuOiY4MrJJ2MBm6LWxMtxEsmA5t
+	 ctf5R0xoXiIVHyV/5mCchJbY6iMDPfmNfbdBYdPGZKvBhgNIQ1zRjjDSAFqIW6IPvaKsz
+	 1kBZtla1RZmY8eQy6C9tAgOQBFCxlrTBbh3jM6dPyRf0DsxQzFwaSq2eVn4kB1PzjQWcU
+	 JbeWv493U0wAWt4O27HCOuiJ5kQ+iokvwCdTyfCZpDQgP6CzbqlitY8TArmMf5dQ0hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792481865;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Spam-Score:X-Spam-Score:X-Clacks-Overhead;
-	bh=0HS6tT3KdrhmD3sjNiNbCvEXsKi2u4/Jhk//K3aXK8A=;
-	b=vzrF4WCc14hs/1C2g0nkQWQb5HzJ6woIOOl6x+vOx5l0oPdp/w7F9mJvWv6UOH0C6LZe
-	 Shazus4P97EMaN/d3d6f1cTBAMsbv/UbxS9wDWSH32hOXx6rjRXUv9ts5JBVT9gMD4AZJ
-	 DjrloLCXTUoqddMalXUZxOK/JkgLdrPVd55rQTTRifyx+wIMSMNNY4kdTOThSVU6S8lGL
-	 VstNxkHQlAL3LYNOg+DpiWy9GqK4yb+/jgJ+NhSn07dh/VculionHxc0Odj+z8ui3IK2G
-	 rNkJ0jW347R68LVuciOgeNs0BC4GlTIWLEJtxPQJUy4Nr+ZzqPSoda4nKCrCESQ5B3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792481913;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oz6wrkWaiEX/dh/gMZoaUenwuxXGqpb8c6cRP28y4OA=;
+	b=OP+W6joSwqm57pbSFDymc06S8Z2VyBB99q4WCqj6mn3fc0ERK/lcx3qYV4Cmdv/QJeRS
+	 BYhQlBJ8ZhLOGeg1dVZjtGNRJbR+JTiP030jC0hF2WNZf0v1fKVoSqpHr3I7hzYREvoAW
+	 l9Ju0PRxUz1w2r6BIDkfjb/BdPi4Ui391uBrYSdP48qwY0QZ7hfNuqMnHN17RrDBhVmWA
+	 cBJyC0vVS7X6X2DHpzpqNt+g5gOKzLEBf/jycxlvCY2BVbHkv5JdFDtNZedaeRV7M1jEW
+	 gBMaJWScG8MGydS6OaJDaEhw0Rlops1UPRe/ItJsTCcw/QVxUvOVxwZImOits0nv2zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cambridgegreys.com;
-	spf=pass smtp.mailfrom=cambridgegreys.com;
-	arc=none smtp.remote-ip=217.160.28.25
-Received: from www.kot-begemot.co.uk (ns1.kot-begemot.co.uk [217.160.28.25])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqOhXFPY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10781606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:37:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10781606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cambridgegreys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cambridgegreys.com
-Received: from [192.168.17.6] (helo=jain.kot-begemot.co.uk)
-	by www.kot-begemot.co.uk with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <anton.ivanov@cambridgegreys.com>)
-	id 1xJ4PP-008pey-S5; Tue, 20 Oct 2026 07:37:19 +0000
-Received: from madding.kot-begemot.co.uk ([192.168.3.98])
-	by jain.kot-begemot.co.uk with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <anton.ivanov@cambridgegreys.com>)
-	id 1xJ46y-00000002MYI-39we;
-	Tue, 20 Oct 2026 08:37:18 +0100
-Message-ID: <e1418f63-6815-4732-b07f-934414ebd124@cambridgegreys.com>
-Date: Tue, 20 Oct 2026 08:37:17 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD6E606A319;
+	Tue, 20 Oct 2026 07:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqOhXFPY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D04D01F000C4;
+	Tue, 20 Oct 2026 07:38:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792481912;
+	bh=oz6wrkWaiEX/dh/gMZoaUenwuxXGqpb8c6cRP28y4OA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YqOhXFPYgdaEkMMpfic3LrP+uQ2qIoUigKmyROg8/Y+7lcFjWc3nufb17duq+a8sX
+	 T0J+X6XyNhwhrBoMGpBchKch3+KzTxVVmy7e7U/Xnma33dt7T4EBPlP7Cv/UihCbdu
+	 eUZotqcMOU7VJZeKwZEBlDpDSZPxwnb1x0p7r1IvREg5AO4VdnEeQoKpNtS4yYC+9H
+	 R/HczxB2W/PKjIq39KMY4Fs5DZQee3OtczbtA6NA7K3d24ChfWP1vny2TAOTFgcjk5
+	 E8+NIAGr79w1QWHPUwHNvExiLb1gQrBwS57l5xqR8M5KA1/Q7BAS191JJotnNTIoSk
+	 am7jbcVSbnO4g==
+Date: Tue, 20 Oct 2026 09:38:29 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Val Packett <val@packett.cool>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Luca Weiss <luca.weiss@fairphone.com>, ~postmarketos/upstreaming@lists.sr.ht, 
+	phone-devel@vger.kernel.org, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: usb: fsa4480: Add an optional audio
+ port/endpoint
+Message-ID: <20261020-muscular-quizzical-elephant-fbb0e7@quoll>
+References: <20261018225906.1265299-1-val@packett.cool>
+ <20261018225906.1265299-2-val@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,52 +63,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] um: vector: use kmalloc_objs() for the message vector
-To: Hungyu Lin <dennylin0707@gmail.com>, Richard Weinberger <richard@nod.at>,
- Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-um@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261020072035.8980-1-dennylin0707@gmail.com>
-Content-Language: en-US
-From: Anton Ivanov <anton.ivanov@cambridgegreys.com>
-Organization: Cambridge Greys
-In-Reply-To: <20261020072035.8980-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Score: -1.0
-X-Spam-Score: -1.0
-X-Clacks-Overhead: GNU Terry Pratchett
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261018225906.1265299-2-val@packett.cool>
 
-On 20/10/2026 08:20, Hungyu Lin wrote:
-> Allocate mmsg_vector with kmalloc_objs() so the element size is derived
-> from the destination type and the allocation helper handles multiplication
-> overflow. The default allocation flags remain GFP_KERNEL.
+On Sun, Oct 18, 2026 at 07:58:56PM -0300, Val Packett wrote:
+> To actually support analog audio output, the fsa4480 driver needs to
+> deliver the hotplug notifications over the Type-C graph to an audio
+> codec driver. Describe a second port intended for the codec. Keep it
+> optional to make sure existing device trees do still validate.
+
+Argumentation is questionable. We do not add bindings/DTS to represent
+driver needs, but actual hardware connections, so please rephrase. See
+qcom,wcd9390-usbss for examples, as it is the same block basically.
+
 > 
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> Signed-off-by: Val Packett <val@packett.cool>
 > ---
->   arch/um/drivers/vector_kern.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
+>  .../devicetree/bindings/usb/fcs,fsa4480.yaml  | 90 +++++++++++++------
+>  1 file changed, 63 insertions(+), 27 deletions(-)
 > 
-> diff --git a/arch/um/drivers/vector_kern.c b/arch/um/drivers/vector_kern.c
-> index e902e78c5ff6..d6127944b202 100644
-> --- a/arch/um/drivers/vector_kern.c
-> +++ b/arch/um/drivers/vector_kern.c
-> @@ -528,8 +528,7 @@ static struct vector_queue *create_queue(
->   		return NULL;
->   	result->max_depth = max_size;
->   	result->dev = vp->dev;
-> -	result->mmsg_vector = kmalloc(
-> -		(sizeof(struct mmsghdr) * max_size), GFP_KERNEL);
-> +	result->mmsg_vector = kmalloc_objs(*result->mmsg_vector, max_size);
->   	if (result->mmsg_vector == NULL)
->   		goto out_mmsg_fail;
->   	result->skbuff_vector = kmalloc(
-> 
-> base-commit: 4ad423aa2108485f8bc5dde51fdf9c1ed979ee4b
-> 
-> 
-Acked-By: Anton Ivanov <anton.ivanov@cambridgegreys.com>
+> diff --git a/Documentation/devicetree/bindings/usb/fcs,fsa4480.yaml b/Documentation/devicetree/bindings/usb/fcs,fsa4480.yaml
+> index 89b1fb90aeeb..9dfe95b6adf3 100644
+> --- a/Documentation/devicetree/bindings/usb/fcs,fsa4480.yaml
+> +++ b/Documentation/devicetree/bindings/usb/fcs,fsa4480.yaml
+> @@ -9,31 +9,11 @@ title: ON Semiconductor Analog Audio Switch
+>  maintainers:
+>    - Bjorn Andersson <bjorn.andersson@linaro.org>
+>  
+> -properties:
+> -  compatible:
+> -    oneOf:
+> -      - const: fcs,fsa4480
+> -      - items:
+> -          - enum:
+> -              - ocs,ocp96011
+> -          - const: fcs,fsa4480
+> -
+> -  reg:
+> -    maxItems: 1
+> -
+> -  interrupts:
+> -    maxItems: 1
+> -
+> -  vcc-supply:
+> -    description: power supply (2.7V-5.5V)
+> -
+> -  mode-switch: true
+> -  orientation-switch: true
+> -
+> -  port:
+> +$defs:
+> +  controller-port:
+>      $ref: /schemas/graph.yaml#/$defs/port-base
+>      description:
+> -      A port node to link the FSA4480 to a TypeC controller for the purpose of
+> +      A port node to link the FSA4480 to a Type-C controller for the purpose of
+>        handling altmode muxing and orientation switching.
+>      unevaluatedProperties: false
+>  
+> @@ -69,15 +49,56 @@ properties:
+>                    - AUX+ connected to SBU2
+>                    - AUX- connected to SBU1
+>  
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: fcs,fsa4480
+> +      - items:
+> +          - enum:
+> +              - ocs,ocp96011
+> +          - const: fcs,fsa4480
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  vcc-supply:
+> +    description: power supply (2.7V-5.5V)
+> +
+> +  mode-switch: true
+> +  orientation-switch: true
+> +
+> +  port:
+> +    $ref: "#/$defs/controller-port"
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    properties:
+> +      port@0:
+> +        $ref: "#/$defs/controller-port"
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        description:
+> +          A port node to link the FSA4480 to an audio codec in order to
+> +          notify it whenever an analog audio adapter is plugged/unplugged.
 
--- 
-Anton R. Ivanov
-Cambridgegreys Limited. Registered in England. Company Number 10273661
+Same here
+
+Best regards,
+Krzysztof
+
