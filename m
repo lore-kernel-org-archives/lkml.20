@@ -1,88 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792517267;
-	b=e8DWaYC+7GOjXgxCqv4p+1ggM3uXVZeic3Hyyp5qWUQuKlBuwVFZwSMsak4QHwjqt0o1
-	 kmHCxqkUFI4RJhMC5ogcmn6BbyPCMKnclV36wtGtMFeHMdzvrn2iz76tXAR4//S8UwiX5
-	 Fi6mS4FgmX8PyEKs996EE3QabVf1h1FTlcn444qQNVseG5PuHlJ1X0fMV6ALN+rDkhemF
-	 QHV6BYxXRECF+3OE0gvnj1kZbNVA4QV47J9Y5jWsMAGUtmzuQgVerodCB9Hj+YLWaH6Gf
-	 4nQs//RUZwqSz/UkjGt+E+CdcmW2vF6CWk8bZTZraPy5rjQv+PP2KJXwQoZ6Dn5L5hA==
+	t=1792517312;
+	b=NS3jgtN0Fzo3A6xVKDCqGAATGtZsmL1uXRXF9X/NYR+S04538C7kQpBiiq/iLz1MQfXw
+	 aIJFZbzYLiFjxURwPz4i/a+bF6EeWahhc+IbgOXqvBVqTDCUx8pEpvXuzEbPY85Ol/jFC
+	 4ED5FI1RDIxuKMepwhQ9bdJAzgMC2A1K+oRpYf4V2xHNWLXTsQiEIUKy5sdDRLe0/Cabq
+	 sB86+Jnmb8Zhbj/YG7QUYak1y/+P3KCBabr0cwbZmVAzbUV/WwPjDPDmUGhypH4eUthl3
+	 m/47Ok5bUDdYD0Rb7zeTGGRKChOE6jk/FOovizjoO5utcVJf6gatMmsVN+kOMe/QBcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517267;
-	h=Received:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=yU04/QpgFe3hGyqIUoTM6z5+gKHxPwBv/6QVAeU2r6Y=;
-	b=sHKUiC1k2oeWwzaGMYwpzFHFYgQ88LqTm3nf6Gx4MzPUhwcQxl+Ursx2RJFZTprP/18N
-	 7uij4NmvezIWU9c65Jv3aLNbiLqjifQMiXeMpgmIuL24mYOK3CxrNXsJca8tlNQl1J3uA
-	 vdaLRi/Qpr9ChBwMTiQ3WD81Nj8YKfRP+nD1tBqFTGGkiU3v+wcSaBrhXZkFBjOlxUvlQ
-	 1gcHwNcB6Rlp60R0igQXSpvk31hTYVUA8H0HuP4dEzNHceYbBBFYoiGCLI4C7szvaWWKg
-	 EjSK0/d3G/lqL6J9HEtZoU/A2bhRZIhtMZLwCDdb8hdDf7JSdn9cKFbz7RVq0y/Lihw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517312;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=xd2xn7InKp+SrI7s/BHBhFnK8Dcvi3AeSU04cbSblZ4=;
+	b=ja/JNhpCTWsCAGWlffZ007/cRW41GSZte8mNQl/a0pM1tOWQt6S0uZZDOl2P6SzuC8WT
+	 tmMk2R9GAJWlhSJaaZNGDjIr16k63Mxy4c3kJAMgycVS1PGXEeB4GopdaA8YP2ZNpzDqQ
+	 hdL0B4+ewwKJ/bZgnjvxP52iAW+aLWl69+XY/GxvgrzM8dxx1gKWG2OIhHVPiv/vighin
+	 d0bIYEuN57f4uxzGJal0myZ7cTyHKN6n6tgPhDXJly/Z8P5LENUowvCKJGTVstl9T7tes
+	 2D9xdf+eSXHkltcH/b5YFwwdAsU6fV+uzh1h1H/b3356tfBUPSN8wlgGZK36inhGl8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=VqsPYUNx;
+	arc=none smtp.remote-ip=209.85.219.47
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D586606A31B;
-	Tue, 20 Oct 2026 17:27:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB3A1F000C9;
-	Tue, 20 Oct 2026 17:27:44 +0000 (UTC)
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.ams.internal (Postfix) with ESMTP id DE3A0198003A;
-	Tue, 20 Oct 2026 13:27:18 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Tue, 20 Oct 2026 13:27:26 -0400
-X-ME-Sender: <xms:dqTXajhhAkytqTNlgANjRk-o93Rtlpoi-Ezo2eNr-yvrypWxigvkoA>
-    <xme:dqTXap3VaCSp2pOEbBYe1ZkKPW8sbSwgHzYOcqxs-uQ4aDw1JhDGZ2W6MMl0KiX5F
-    n6cbzk1SsrVVgNEt_agSPV4sFIcUGKYnktw3qqF8zk_vl6240UCdrI6>
-X-ME-Received: <xmr:dqTXamw4BWbJQ3vzYTcY1e0ey3jevieyfoMrSuzq0XSJ26cqwC1_BnfN5_k>
-X-ME-Proxy-Cause: dmFkZTGzP+F9vGPOZyaAazPtUwGQnMUL7fv9cbbx9r1tOaZQdDv97soC3NeH5tlEJqA6MA
-    8AB1mvW+ert6FpnONSEWAGkFPR+x/6nRW2wqDxG/x8xhzSPhANNTFTZd8rW1kL2SaYnlii
-    9CI3mhrsxtoq1xY4vpBJF2vYlEEH0XnB8T5gYNVsrEhr2hHVW9SAl6G+hpF9cS/72KRnf7
-    fX8wTM61liLZyYgaGEdx2EdbDIPJx0z5cvtRj60sqAXPKKMWkjnpExa4OE7h4TrxEplFja
-    gINIRlbgECBRkQGX0Y+PF8v3BMTWO8ODfE4TdaqEy7j/P6a++XwxGK7gWEuEvV58vHXkWg
-    WOptSd0fB6Ww8rvbb1gSU7DkB+If5hEwJrAAF94suydCEtNuR68UWN7C18EE9EBmf7vpTF
-    DVZwc4RymnasVGbQFGCY0HDcvIk8ASkm8W4hyO2amxhWiWEg/ItJJoQ22r4YQs+iaV0nrf
-    YxI5i3jEm7+V4W88aFGO3OjJf9X0g0VikjKzXcF/VABnLpgxgh2c55aD7z1uLzqqhrE0Un
-    L7UjVXQhOuSZh6QuXmTr5pRCs28i6LGHt1HXz8ISWHDlSYVzyrNKfw/r3zNUG58zDm+fPw
-    MpWHZg0Pmo8unfVtRtd10UaJA3WTyjHukRe0nCFdaaJMNHrjLQz2ivfer5jA
-X-ME-Proxy: <xmx:dqTXarMZAHnl-2VfPFpCVLhSbIyQ8eiCVvp8RDdJTT7SdGmmdBNKrg>
-    <xmx:dqTXasuSLTcjkFNVxoGGymoNkeMRJ4TmCNlACvbvralnp8AeSs0OXw>
-    <xmx:dqTXahw8P6Ddpi2XRDE8N8zFmRAaAflhBcRy-Fefac_t226a92ea5w>
-    <xmx:dqTXat5joCdsDY05-ygPYgGmt6bbzdoYQlnK8jCHFK_SS14gocQfoA>
-    <xmx:dqTXasUj_G7FDmOs-kp4WRZ1iUv4_A1bbyHE3n5OYDJmSq9S0lNvc__p>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 13:27:17 -0400 (EDT)
-Date: Tue, 20 Oct 2026 18:27:16 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Harry Yoo <harry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Matthew Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Jan Kara <jack@suse.cz>, Hugh Dickins <hughd@google.com>, 
-	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
-	"Liam R . Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	"Paul E . McKenney" <paulmck@kernel.org>, Pedro Falcato <pfalcato@suse.de>, 
-	Luis Chamberlain <mcgrof@kernel.org>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, 
-	Jaegeuk Kim <jaegeuk@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, kernel-team@meta.com
-Subject: Re: [RFC PATCH 00/18] mm: read the page cache without folio
- references
-Message-ID: <atejY_iL7U29bV4Q@thinkstation>
-References: <20261019154913.1765974-1-kas@kernel.org>
- <atZurH8mp-yW3Upg@thinkstation>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A70606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:28:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A70606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=VqsPYUNx
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91befbcad6dso44177176d6.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:28:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792517310; x=1793122110; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xd2xn7InKp+SrI7s/BHBhFnK8Dcvi3AeSU04cbSblZ4=;
+        b=VqsPYUNxILRhN2J6f0RkpSt9C41C0GtOBBGNy9lUh30TaoJ8cFmYnc4f7MV8RhbUEg
+         fjNikbxz7aba+FIbwa+l7rnSgJNEIiL6EIH59BHD65xXEDP+2saS2bc/9Kppla7eH2QR
+         LeqYrpotYAE/qFJMi7bLoTf/UX9YXThgcevkEAuelTTxdmRTq0ylvTmIYshex3BgAOXZ
+         O1Dxkk4PBQOqS4SeRTBfT6EAuuYeQ/sJpJ0rmoC4hRvvBQhon0LNYlzYQNSTZYSlI3bI
+         T5lLrq0bUcbca3AocUjYu1NJMofNMnrRn1vt6GVLPEQWt2HlcUHgUcWiEif/EQZhl4cL
+         VR5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792517310; x=1793122110;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xd2xn7InKp+SrI7s/BHBhFnK8Dcvi3AeSU04cbSblZ4=;
+        b=K5m3hwQyHpm60kmeEjdreTeScmBCsIUAnaImNG96/8KRRGFfin2Wvp129C4vEWbv5J
+         vSahrZ8cz7/SZcMsLNzUyrJ7du0t+9wrSP9VWT7m47dcDeEeANaCrl7epz4Y1VXeUa+f
+         jtip646PwxATFYkadiEKwzZBwhu822mYv0WUrp3L2/VtiHLedFTwfRP/ZsDgLxGOGueP
+         qmCuJonxjJzSbISM46bR94260VCbd2yQCZHsthQZeuWWDUj2sb25GLUndiI36J8WsXEw
+         fcEsG2MbNHT8GRMkg38FhGgzuGMkiCTv/ErmBAxfs3JqfNBvqofjgeO9mTyYFST01BwV
+         wSyw==
+X-Forwarded-Encrypted: i=1; AKwUvBz2bXfDAi1NTiNZQKfTv2XeZ2DZPozgYn8R685pao+POsllJ/DCrXhJ+D9PcwmIeaY+7dxN08KJ5AwNYOA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJG4+J93zWH+JU0mO8UP7XvJJpWaGaT2gnl9HCtcXn01L5eSTZd
+	lpNVAqh1OivamFvNedkpxowezuetIFOaR5hoakbi+/ab96mRnbZtGE177LledhJC9fI=
+X-Gm-Gg: AYBFou2UfMoC6Y64yyk2Hj+/PvkvWZg3T+hF4Mqo7tWVJhUDbWWvesELvj1ZWLIqPmx
+	+9qnFlkVx24HW+WWIcoEWZTiZV/0mi9F4bGCMvXh4PtzbyZhme1E9fHtVvBToPKtx+dxiwwHatV
+	ucbwV9Izce3WZt4xoK147P4g+4qQbxW9Ollf4aZW7RfqsFwzzYa4uWESoE6d5SyftSYZfy+MDyG
+	tikhEASHIl7Ai+Lork/hr2o5Eo1awILxLi4UchzHGpo30Qd45hEQnjipdenk74Q4lZ2DR5aV0MY
+	TR7DzaSTTvmLQWO1yFOHELnMwGmaePKUz1AqHy4Su/WhqjyaMMSpjlRqtH2SQqw6VldnnM0/QTt
+	di7s+zMkG1900bAwcajOF3oTRuYCiV1fe4b8Ryfuf/s8cd72mS1hvLdFkeYVd7UA6WCeHCH2k1f
+	F5lKgJuuA40wWdd6mp0LERl2hRRGx08p8r0BLHFH4LpyX8ihDYXAuy3NAXbSccbCRkKiA6yc27h
+	yokwCGSlLt8QrLsfFzX/AXz6S6Bif7OkVvA+1LN51h0Wu3hJKbiwSB8
+X-Received: by 2002:a05:620a:44c3:b0:93e:c12c:9b70 with SMTP id af79cd13be357-93f29df45b9mr1944842885a.75.1792517310522;
+        Tue, 20 Oct 2026 10:28:30 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10b72cfdsm3288526d6.12.2026.10.20.10.28.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 10:28:29 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,52 +87,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atZurH8mp-yW3Upg@thinkstation>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/vma: avoid broken uffd merge on mremap
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ Mike Rapoport <rppt@linux.vnet.ibm.com>, Peter Xu <peterx@redhat.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, shaos <shawnq1@163.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org>
+References: <20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org>
+Date: Tue, 20 Oct 2026 13:27:36 -0400
+Message-Id: <179251725685.2936366.12518786742522387392.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Mon, Oct 19, 2026 at 10:20:52PM +0100, Harry Yoo wrote:
-> On Mon, Oct 19, 2026 at 04:48:53PM +0100, Kiryl Shutsemau (Meta) wrote:
-> > Small reads of one file from many CPUs all take and drop a reference on
-> > the same folio, and its refcount bounces between the CPUs.  This series
-> > lets filemap_read() and shmem copy from the page cache without taking a
-> > reference.  It is Linus' RFC [1], reworked: a folio that such a reader
-> > may copy from is freed only after an RCU grace period.
-> >
-> > Only the folios that reads keep coming back to get the flag,
-> > PG_rcu_free: those that folio_mark_accessed() finds as accessed as the
-> > LRU records.  Streaming reads and data that never gets hot are not
-> > deferred, so the memory held back stays small and most frees are not
-> > touched.
+On 2026-10-20 15:55 +0100, Lorenzo Stoakes (ARM) wrote:
+> Userfaultfd often causes unexpected interactions within mm, and does so at
+> the intersection of uffd, mremap() and VMA merging.
 > 
-> By applying this to hot folios only, small reads would benefit only when
-> they contend on the refcount. That further narrows down the scope of
-> workload that would benefit from this. Random or sequential small reads
-> still perform the atomics on the refcount.
+> When an mremap of a VMA occurs, copy_vma_and_data() calls
+> mremap_userfaultfd_prep() to notify uffd of this.
+> 
+> However, mremap_userfaultfd_prep() simply drops the UFFD context for the
+> VMA if the user did not register it for remap, i.e. didn't specify the
+> UFFD_FEATURE_EVENT_REMAP flag.
+> 
+> This is OK for the VMA itself, as upon page table move, move_ptes() clears
+> UFFD page table flags, using vma_has_uffd_without_event_remap() to
+> determine whether to do so.
+> 
+> However, this doesn't account for merging with adjacent VMAs, whose page
+> tables won't have received this treatment, and thus latent UFFD markers
+> will be left around.
+> 
+> Worse, it'll break UFFD for any VMAs it is merged with. This is very
+> surprising behaviour for a user, who will then simply not receive UFFD
+> events for VMAs they ought to.
+> 
+> Resolve the issue by explicitly checking for this case via
+> vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
+> function explicitly designated for mremap() operations.
+> 
+> Also update the userland VMA tests accordingly.
+> 
+> Reported-by: shaos <shawnq1@163.com>
+> Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
+> Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-They do, but an atomic on a cache line the CPU already owns is cheap.
-The cost is the line bouncing between CPUs, and that takes many reads of
-the same folio, which is what the hot marking looks for.
-
-Single thread, 16-byte pread() of one page, mitigations=off: base does
-7.4-7.7M reads/s, the series 7.7-8.0M.  Dropping the reference saves a
-few percent when nothing contends.  With 64 threads on the same page,
-base falls to 17M reads/s in total and the series does 220M.
-
-> Maybe we should try to either 1) find a better heuristic to mark
-> which folios should have PG_rcu_free to make it beneficial for wider
-> range of workloads or 2) identify workload that heavly contends on the
-> refcount of a small set of folios...
-
-Marking more is not free either.
-
-A flagged folio goes back to the page allocator only after a grace
-period, so what reclaim and compaction free is not usable right away,
-and they have to work harder to keep up.
-
-I am all for finding a better heuristic. But it is hard balance.
-
-I will get back with data from real workloads.
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Gregory Price (Meta) <gourry@gourry.net>
