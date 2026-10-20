@@ -1,50 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486898;
-	b=vtQOPRk4+S3bhv0lRO+IX72+ZfZfCFaEE8jcoPNNMsdc7x9fP/uD9q62rgFvAaNdmKl4
-	 ygrgI23CDGfcSHCPAeNSZQrBjzu6ThRF3wyOKFmEFLS16C4drUQr7REQX4GMP27x+Dirb
-	 KakO6CbdpbVtQOu/ljizTSxm49iOQcVmK6na3OgBFUAfj7L5OpUpT7vablr7Zr8Rk5Uth
-	 jw7BTrkOiHBHj3WR4RZyJwwgFbKpDQXc1SqZqY2Pr8/jOcct5Ax7oFyne4O4TcjMf0uGn
-	 W6rFLGysoavSSIAXKJaX8TH2olsV7RAV7P0xXnHt6pyDrwEU31ilFyN3xi9tsxnT+iQ==
+	t=1792486934;
+	b=OaySijRYo6/+qm95wSbUh4K18nNpCFYw8DiPHUOeKyURtAyL2ZcC2C76C+kRB7/jsbQg
+	 2HZk1yehT11kXM2Oy6+MTWk/NbNTPegk3H/2x3z1aZEzFeLP03JHzhhg65h/eziQA4T3X
+	 imxZ+J9bSwok7Vjiad8Ul86QEPxp2ilEmjA00tt4FnD0DRHRLtNF401LnkvTB11OueZSp
+	 nGogPZZFz4pD4wJrjwIIOtLLs9XvQ4fPhiviEyRMOarkjTb+WDHocX3TQ+YrZHEzbVSPN
+	 99O0X/8jU47L3qu7LVnZ3/5g3pWaiXCdeQ2PGSK5VbKSl2PtJC27P0qSNXIbRy8W+zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486898;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=txkej36h9367y0x2bES4uUqq4pZI8LsSCqMazCvfZxU=;
-	b=hKGSAmJTed56W32hkZGk8wzVfNUvZE1ILJ3mZrshlXz1m3I7AC62OQnL2hGUTXDSkKff
-	 1IvtdKvm55WxwhaXlRZ4LGak6j/kVqt6K3+Sf+cwkWTaCHbBHQN4TqiK721rvSp74L2zN
-	 fn2thwxifaBd95eayakcv/YvIO4k/DWw8H/IwYnEJ8aE/9QT02lESwUGtBTyBcYoCoOPV
-	 hBMOViRGdAdYjO7/aKAInrsXsMUwsWQnEiLUgvVm6z/gp/XhOKG1XlP/5b3YifBbEEEFx
-	 RQ16MpeDiypmMz2zazuuZZw+MGPRaqQRZ16n7RmEKVDCmxA9UKgHTar0XQXzy8jj+ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486934;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9m8EJZJphILGcBqQZQvehuU/fPhn1XULUzvAHjdvFco=;
+	b=C6e27G084nrj6x01rxSOWiegwmZpoBeUDBlOU9+3l/iEPCgfWNhxTy1ZXYt8Vz20Az1w
+	 GETcTDINgjt30iEbaOY5W6OJbjuj1/LfURM94N0UxNYjL60//5xRQeHw1x3u+rtCtDQrR
+	 ESzCwxWgvEgq+o1aKn9s3qh3HV9AUAL/HIqqncn1JNLgYpD/LvxGMheQS3fq1XofMYDiT
+	 pqR+HIToI60hFbmgaFsu43YRfnaX5OWd/I0jsTVXqJIZ2G/bv4woqZDcJdKTlB7AX96zV
+	 PsbLgUS8OBld4l11cxqfHmtOs4Gkv9MOSJ2AD2E7iDGn689qMZlghIEzmiDQJ07T6ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hamSkWrR;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=h24IFOUV;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D71606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:01:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89D71606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDF5606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:02:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCDF5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hamSkWrR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:From:To:
-	Content-Type; bh=txkej36h9367y0x2bES4uUqq4pZI8LsSCqMazCvfZxU=;
-	b=hamSkWrREsZ/Da+B7oS78zrZOiy1SD3vjdQ1X0/VfNNuqFyDe3k2AkjvW7BlKO
-	M7r1eNSQAxFyjtLe+RSzHkY6lz1ZdQPBl8UzwqvlzedmoTSzYarhW247A4OWI3bf
-	7rL+iLaTeG4FTmo1ge+77vG+zhsBKfCKJUZdcjgnQ61CY=
-Received: from [IPV6:2409:8900:1fc3:39f:e8cc:cbbb:bff:8070] (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3P1LbLddqqZ2wBA--.38503S2;
-	Tue, 20 Oct 2026 17:01:17 +0800 (CST)
-Message-ID: <3dc2d90d-fcec-452c-a294-28862a1892b5@163.com>
-Date: Tue, 20 Oct 2026 17:01:14 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=h24IFOUV
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1efc90e7cso2714095e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:02:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792486932; x=1793091732; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9m8EJZJphILGcBqQZQvehuU/fPhn1XULUzvAHjdvFco=;
+        b=h24IFOUVa1efqAQgdXJ/8ARRoI+/w1G94mEeKBJR0/koIiKtJ60MG1t0s4SsUjQcJf
+         LxuUy1FroSoNFyvt6I63rpm/7jjCnYaIDOulcCLJBo9axu0zC/e3ekZKnDutdoks9cP2
+         m6JFChHR6KSoyiM0tAmvOdSc9cJ6rLFOARclhYclTnd8gZ9BGLXQe8CkC74oCMmraP5u
+         pnUyLrP9cRYJvT9h4r4NhHgRg9Bz2pSoVBshfXmScEqJjpcc3sTJVJCNvzahsYDlIOIg
+         k/4cPswuiJZgzQHPKr03cReZgenoyQg0tMwVz83JHfqf4q7S/EnwaFyEnNTZ2QP/ip6F
+         3MJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792486932; x=1793091732;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9m8EJZJphILGcBqQZQvehuU/fPhn1XULUzvAHjdvFco=;
+        b=v5negQJOscXnqSgsRFlGwD90bW4kM1IoXfTjL2okDLeK3nCaS5vzdQuxacpwrrz2Mw
+         /QsdpvIn1/58QfJNzBb2bUMwyxUxy9MwoS8KMRXjfbjH6hMiMHdb2V+2IycaCokHcFDc
+         uQ2Jtgf6k4Wb7D8/hw7qH8CZ86PAfce1fZP5eSnBsa9eBJ1VRTdnpNnagzt1CK7EN67H
+         4+N0ltCKRuaQi+ll/ozmN0Ov4Ai//q0Sn4+lyIKh4Z5cNJUO0QC9yiW1BNU2sesWGmra
+         lUzXXcBeB+LCxxrexVweEBk4kuRTZmUAzL+KJYqfwwC89F/R6eHl+oLWMMR1/B9/9Pcc
+         zfAg==
+X-Forwarded-Encrypted: i=1; AKwUvBzvLaxqR8AK0l+gHe0fdHYme1lDZ+YmtbDBqulIsG3VkMiBb7I2FRIx9s4RxaYqfyoCf4atgZ4iSA+OwlU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0E9dLtli37I/fs/Qe6x2VTLM5yQ7tX17rfCq87HAoYc5yHVm2
+	7y1AVovIKb5qF6p3USSt4ZmA2sPy3FFggY28NEdNdBRqcdCZXhz5KAyP7AIVrOmn/Q==
+X-Gm-Gg: AYBFou2F6t76KovR3JFEa7fFAdVbIMnMgUPd8J6ZzyGMAOwq5H/TbFnWn/w2Msn43yp
+	ztuhiZG45+vw8tyVugzIIkUJicKely2BizDELGnMs53Z4sA2sAZr9ZhLYyRmouaPvapcZoYxnsH
+	aNiQAl0qVScvSmyjAGmpRTYBVq3smzC6t1XHMzU1onSFb1Bv/5JuF5Oy7aAEt5if9fvSwIDAbXJ
+	cMA36UZryzdpd6FR55au7DzwOG/CRoz2NzvAnegxsoHLL8LzLq/c4KwlIUaa46doNoW/KR6AWXw
+	n25VFFUV8DMafRwMxFbymK+OH+jul4qwhMeMniHj6Zw0Yde4AUUMgUvu19uvH7smjHp3zK9oQ5x
+	wGWgk6Vu3IQmhBlajmVAFuOcOzxSqHYPUh4aS4l7kipnJ5/RMUtF6DheeTmywveEmWwDPH/WEkc
+	DesT9P0suTkMGWirJQlAnEKY48j/6efPvuqwich65vVfPF5VMxm/QfW1gUObkjAl9Rp2BK0fcKs
+	C5v8mQPjmOaJou4QA9hYPbK8BfPdrqEBLpS3ligjRA=
+X-Received: by 2002:a05:600c:4743:b0:4a1:d899:b62f with SMTP id 5b1f17b1804b1-4a1f45f8877mr30834125e9.0.1792486931667;
+        Tue, 20 Oct 2026 02:02:11 -0700 (PDT)
+Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca30aa5sm33064205e9.2.2026.10.20.02.02.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 02:02:08 -0700 (PDT)
+Date: Tue, 20 Oct 2026 10:02:00 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Snehal Koukuntla <snehalreddy@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sebastian Ene <sebastianene@google.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 2/2] KVM: arm64: Support FFA_MEM_RECLAIM2 in host
+ handler
+Message-ID: <atcuCDHAAKZJEbHC@google.com>
+References: <20261016082341.4030770-1-snehalreddy@google.com>
+ <20261016082341.4030770-3-snehalreddy@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,221 +108,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/31] ntfs: report filesystem errors through fsnotify
-From: liubaolin <liubaolin12138@163.com>
-To: linkinjeon@kernel.org, hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- wangxuewen@kylinos.cn, wudandan@kylinos.cn, Baolin Liu <liubaolin@kylinos.cn>
-References: <20261020084421.2196486-1-liubaolin12138@163.com>
-Content-Language: en-US
-In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P1LbLddqqZ2wBA--.38503S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3ZFW7XryDArWDKF4fKryrtFb_yoWDXrWUpF
-	93C393t3srtryIqr9Fy3y0qa4F9a4rG3yUtrn8G342kwn5Kw1SqFW8Ka409FyrCrWFg3yq
-	qw4jg39rCry5AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UVSoAUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6h0T3WrXLd1HjwAA38
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016082341.4030770-3-snehalreddy@google.com>
 
+On Fri, Oct 16, 2026 at 08:23:41AM +0000, Snehal Koukuntla wrote:
+> FF-A v1.3 ALP5 (DEN0140 rev J) adds the FFA_MEM_RECLAIM2 interface,
+> allowing an Owner to reclaim a subset of pages from a shared or lent
+> memory region by populating constituent memory region descriptors in
+> its TX buffer along with a starting descriptor byte offset and initial
+> page index. Upon completion, the Relayer returns the number of 4K pages
+> reclaimed in x3.
+> 
+> Support FFA_MEM_RECLAIM2 in the host FF-A proxy handler. Validate the
+> register arguments, copy the constituent descriptors from the host TX
+> buffer into the hypervisor's TX buffer, and check the descriptor bounds,
+> the total page count and the initial page index on that copy before
+> forwarding the call to the SPMD. On success, unshare the reclaimed page
+> ranges from the host stage-2 page tables.
+> 
+> Link: https://support.arm.com/documentation/den0140/j
+> Signed-off-by: Snehal Koukuntla <snehalreddy@google.com>
 
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
 
-在 2026/10/20 16:43, Baolin Liu 写道:
-> From: Baolin Liu <liubaolin@kylinos.cn>
+> ---
+> Changes in v2:
+> - Rename FFA_FN64_MEM_RECLAIM2 to FFA_MEM_RECLAIM2
+> - Check that the sum of pg_cnt across all constituent descriptors
+>   matches total_pages, guarding against overflow (Vincent)
+> - Simplify the flags and offset alignment checks (Vincent)
 > 
-> Report NTFS metadata corruption, failed recovery and shutdown through
-> FAN_FS_ERROR. File events identify the affected base file; volume events
-> cover errors without a usable file reference. Preserve the existing
-> volume error bit and shutdown policy.
-> 
-> Confirmed metadata corruption uses -EFSCORRUPTED (-EUCLEAN) in both
-> events and failing NTFS operations. This intentionally changes
-> userspace-visible corruption errors previously returned as EIO or
-> obscured as ENOMEM/EINVAL. Genuine I/O, allocation and unsupported-format
-> errors retain their own errnos. Ordinary EOF and missing names or streams
-> are not corruption. Partial-I/O and best-effort operations retain their
-> existing return semantics; an independent recovery failure may produce
-> an event with a different errno from the initiating operation.
-> The generic open_by_handle_at() wrapper still converts decode errors
-> other than ENOMEM to ESTALE.
-> NFS handle decoding also maps corruption errors to STALE.
-> 
-> Based on ntfs-next commit 19dc08f1f2c5 ("ntfs: support persistent
-> noatime attribute").
-> 
-> Changes since v3:
-> - Extend reporting to previously uncovered corruption and recovery
->    failures in system metadata, attributes, runlists, directories/indexes,
->    MFT records and writeback, LZNT1/WOF, EA/ACLs, named streams, reparse
->    points and object IDs. This includes ntfs_ib_read(), nonresident iomap
->    and ntfs_lookup_inode_by_name(), the lookup path in this base; the
->    cited ntfs_lookup_inode_by_example() is absent.
-> - Reuse ntfs_inode_base() for attribute and extent inode attribution.
->    Use volume reports during eviction; before SB_ACTIVE, record only
->    the volume error state.
-> - Use test_and_set_bit(NV_Shutdown, &vol->flags) so concurrent shutdown
->    callers initiate only one shutdown report.
-> - Preserve specific errors through attribute search contexts, index
->    traversal, buffered reads and mount initialization. Keep recoverable
->    resource failures distinct from failed recovery after metadata changes.
-> - Stabilize export parent reconstruction against rename/rmdir and avoid
->    classifying unlocked named-stream revalidation races as corruption.
->    Preserve directory resume behavior after deleted keys and partial
->    reads, including retries after traversal errors.
-> 
-> Series organization:
-> - 1-4: fix lost writeback errors and cluster-free count handling;
->    add reporting helpers and preserve search-context initialization errors
->    through the API and all callers.
-> - 5-7: boot geometry/MFT bootstrap, required system files/volume
->    metadata, and logfile validation/emptying in separate patches.
-> - 8-10: runlist/cluster allocation, iomap/buffered reads, and
->    LZNT1/WOF compressed streams in separate patches.
-> - 11: handle source-record removal failure during attribute moves
->    before updating the attribute-list reference.
-> - 12-14: attribute lookup/validation, record updates/cleanup, and
->    attribute-list updates/recovery.
-> - 15-17: attribute conversion/mapping, resize/relocation recovery,
->    and range updates.
-> - 18: inode metadata and eviction cleanup.
-> - 19-22: index validation/block I/O, traversal errors/directory
->    retries, directory metadata, and index update/recovery failures.
-> - 23-24: namespace/file recovery and export parent reconstruction.
-> - 25-27: MFT record lifecycle, bitmap/data growth recovery, and
->    MFT writeback in separate patches.
-> - 28-30: EA/ACLs, named streams, and reparse/ObjectID indexes.
-> - 31: add the atomic shutdown helper and convert all callers.
-> 
-> Validation:
-> - The final kernel passed 35 QEMU guest cases covering normal file and
->    namespace operations, streams, metadata corruption, directory resume,
->    compression/mapping gaps, AttrDef, mount, concurrent shutdown, export
->    handles, fsync/remount/readback and filesystem ustat selftests.
-> - Compression-buffer allocation injection reproduced EIO before the
->    fix and ENOMEM afterward. A complete retry succeeded after disabling
->    injection, with no filesystem error event; the healthy control passed.
-> - Six additional ACL guest cases passed with CONFIG_MULTIUSER=y.
->    On-disk invalid UID/GID values in access and default ACLs returned
->    EUCLEAN and generated EUCLEAN events identifying the affected inode.
->    Valid ACLs read back correctly; invalid userspace ACL submissions
->    returned EINVAL without error events. These tests used no kernel hooks.
-> - Eleven additional NFSv3/TCP loopback guest cases passed using kernel
->    nfsd, a mounted Linux client and targeted RPC tests. Tracing confirmed
->    ntfs_get_parent() calls from nfsd for healthy and corrupt parents,
->    with subtree_check enabled and disabled. The tests also covered
->    stale handles and 320 rename/rmdir race iterations without false
->    corruption reports. Corruption events identified the affected directory.
-> 
-> - Sparse C=2 checked all 31 NTFS translation units, including WOF,
->    on both the final tree and its ntfs-next base, without diagnostics.
-> - Seventeen guest cases passed with KCSAN and lockdep enabled, covering
->    normal I/O, namespace/streams, concurrent shutdown, ACLs and NFS races.
->    KCSAN selftests passed and both monitors remained active throughout;
->    no KCSAN or lockdep diagnostics were printed.
-> - Eighteen targeted injection cases covered the two resident free-space
->    failure exits and six attribute/MFT errno branches, including moved
->    versus unmoved records, source-record restoration, ENOMEM controls,
->    event attribution and cluster cleanup.
-> - Twenty-six directory-retry, EA/ACL and iomap/MFT injection cases were
->    rerun against the final source tree and passed.
-> 
-> Baolin Liu (11):
->    ntfs: preserve cluster-free counts in attribute cleanup
->    ntfs: add filesystem metadata error reporting helpers
->    ntfs: report runlist and cluster allocation metadata errors
->    ntfs: report attribute lookup and validation errors
->    ntfs: report attribute list update and recovery failures
->    ntfs: report attribute conversion and mapping update failures
->    ntfs: report inode metadata and eviction cleanup errors
->    ntfs: report MFT record validation and lifecycle errors
->    ntfs: report MFT bitmap and data growth recovery failures
->    ntfs: report MFT writeback errors to fsnotify
->    ntfs: report each shutdown transition once
-> 
-> Dandan Wu (11):
->    ntfs: report required system file and volume metadata errors
->    ntfs: report logfile metadata and emptying errors
->    ntfs: report iomap corruption and preserve buffered read errors
->    ntfs: report LZNT1 and WOF compressed stream errors
->    ntfs: report attribute resize and relocation recovery failures
->    ntfs: report incomplete attribute range updates
->    ntfs: report index validation and block I/O errors
->    ntfs: preserve index traversal errors and directory retries
->    ntfs: report directory lookup and metadata corruption
->    ntfs: report index update and recovery failures
->    ntfs: report namespace and file recovery errors
-> 
-> Xuewen Wang (9):
->    ntfs: propagate mapping-pairs update errors from inode writeback
->    ntfs: preserve attribute search context initialization errors
->    ntfs: report boot geometry and MFT bootstrap errors
->    ntfs: handle source record removal failure during attribute moves
->    ntfs: report attribute record update and cleanup failures
->    ntfs: serialize and report export parent reconstruction errors
->    ntfs: report EA metadata and restoration errors
->    ntfs: report named stream metadata and recovery errors
->    ntfs: report reparse and object ID metadata errors
-> 
->   fs/ntfs/aops.c         |  24 +-
->   fs/ntfs/attrib.c       | 738 ++++++++++++++++++++++++++++++-----------
->   fs/ntfs/attrib.h       |   8 +-
->   fs/ntfs/attrlist.c     |  43 ++-
->   fs/ntfs/bitmap.c       |   2 +-
->   fs/ntfs/compress.c     |  30 +-
->   fs/ntfs/dir.c          | 108 ++++--
->   fs/ntfs/ea.c           |  84 +++--
->   fs/ntfs/file.c         |  33 +-
->   fs/ntfs/index.c        | 313 +++++++++++------
->   fs/ntfs/inode.c        | 265 ++++++++++-----
->   fs/ntfs/inode.h        |  10 +-
->   fs/ntfs/iomap.c        |  53 ++-
->   fs/ntfs/lcnalloc.c     |  17 +-
->   fs/ntfs/logfile.c      |  51 +--
->   fs/ntfs/mft.c          | 326 +++++++++++-------
->   fs/ntfs/named_stream.c |  55 ++-
->   fs/ntfs/namei.c        | 140 ++++++--
->   fs/ntfs/object_id.c    |  40 ++-
->   fs/ntfs/reparse.c      |  98 ++++--
->   fs/ntfs/reparse.h      |   2 +-
->   fs/ntfs/runlist.c      |  16 +-
->   fs/ntfs/runlist.h      |   1 +
->   fs/ntfs/stream.h       |   2 +-
->   fs/ntfs/super.c        | 279 +++++++++++-----
->   fs/ntfs/volume.h       |   4 +
->   fs/ntfs/wof.c          |  41 ++-
->   27 files changed, 1970 insertions(+), 813 deletions(-)
-> 
-> 
-> base-commit: 19dc08f1f2c5563ba4da6afd5ecace8eba163aef
+>  arch/arm64/kvm/hyp/nvhe/ffa.c | 126 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 126 insertions(+)
+>
 
-Hi Namjae and Hyunchul,
-    Sorry for the delay in sending v4. It has been about a month since
-I posted v3.
-
-    Hyunchul raised three points in the v3 review:
-    1. Some paths detect corruption without calling any report_*_error()
-       helper, including ntfs_lookup_inode_by_example(), ntfs_ib_read(),
-       and ntfs_read_iomap_begin_non_resident().
-    2. Reuse ntfs_inode_base() instead of repeating the logic for finding
-       the base inode at individual call sites.
-    3. Use test_and_set_bit() when setting NV_Shutdown to avoid races
-       and duplicate shutdown reports.
-
-    We have addressed these points in v4. Xuewen, Dandan, and I spent
-considerable time auditing the error paths, especially looking for
-missing reports. During that work, we found further reporting gaps
-and related error-handling issues that needed attention, so preparing
-this revision took longer than expected.
-
-    The series now contains 31 patches. We split the changes into 
-smaller,focused patches to keep individual patches manageable and make 
-review easier. Sorry for the length of the series, and thank you for 
-your patience.
-
-    We would appreciate another review of v4. Thank you both for your
-time and feedback.
-
-Best regards,
-Baolin.
-
+[...]
