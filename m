@@ -1,107 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792462481;
-	b=Q0IRTaiRadQBpZ7LsMpaSpi5+andM4yLt3t25S6YCXCm/SbyLgEhIKzDoyI6d2Wi9KF0
-	 6XQXaog7P2cKgNyEGu8L9T4khEynlDYSwOsQvNS3bIdnF/8geOJhLV06bOGnTrNeg4EIG
-	 1VxxS2I10I0IOXiStCJmJrttYtqUt2MonokEOUKcO42O1gxg0uYYrEHuFZD4SvLMi8qbw
-	 MTuk4lEIHWXwFjZCGMws7+U+iO3YMxK88UB6KTR0Wa+ps5yXrhTNXdV1hnX9TxvatL/rA
-	 Vkz2JFTOUrTp+Broo1OVKg3WlXHVtIUGLITz9Mu/uLE5BzoXzsXfz6xAmXz6tUyCJPg==
+	t=1792462502;
+	b=XnFHgiTHGr4Z1DIlJ6gsZ+qoV/noUNBdUMKG3B9C8ThsV/DJDmrdOmftWR0QTLMqhOlc
+	 cRygQHLmOSV6Y8kD32Y38JhP5ITuZYcKyo3SKCJEK68+nszq9A/Ybq2ONxMvcKY3yJQYv
+	 O1oaVOTya8sMPYLYfDDVUWKBeXERqVjUzkIvzNMevmxPxXDI511gGqsTWMdP0aoxKqdiR
+	 Gm/Cy6q6YKMpJFKZTgsU8NyjFjlp3+HPr9vIcAtpKlkV3iwMWMp7u1JT3Qu4iAI2RMUNW
+	 iZ5CYI41z8jlPI6aNwSeJwkW/tloFtTacmUvqfanLsjjNomrPq23fvwL+NO/IbuJ2NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792462481;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=5Iwx53FddK31aCeF3yTsYcRGG3DAdKI2xVbjXFtQkwA=;
-	b=EdwqSeFWuoYPi+Zg1rGcuQBSe189xz/RVhmJN4J4tauTEctaPRhTnKH1yF4sZwcvI0G9
-	 djLz2UofHrqInW+Ou81hj7Y23wNWOeRSRgP/9+IZL+koxtIXJF3hGZS0LvCJrUsTeEfq6
-	 QHolz7h0keiGkH8YagfdvwA1uU1Qlx71ua/UZ5s/0j2SuD0mE8EQKmMTDSe5ekYvJRt7N
-	 MYUKorclRUFs1jHrxKMkARqTkhUy1mC12bCVcWS8Lsv4xlT9r+LOxlv+OSZcC80knZkG2
-	 SFCZR2AYpb6pSsOevwQ2RYkfs386d70jjBuE13wLYSjSNyZqLlE62OdEJFDUUJI7bDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792462502;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=H5koWBlEkzUtVRPXaV/v1U0rZzsCMMRJSatrplJvvdI=;
+	b=hRoCKl17vdur6sf9HzFLgXiCITDpxPK8SnwD0EIy2DBfdCLSo/V/c/I/ZseJiNJcWSwb
+	 l3STAlGNd+WEpMmm8oUQr8DqKxOgVUBN2kVvEw/qATmuOsAzu3V+73BOcXw9HyGz3/AAZ
+	 GJ6+Z5Uy8a1QKXr6uIcOZvXbGCRpLis8nBxr18ijKJ7heLppSmkiSpfIWJl0JSrxmKfQP
+	 i9ewFgFrh+aCoHZFHBsyKToqAgzux35nyXPn/yn4d1qzzVi7QvqzoDjmB2XCRjMhIgZuy
+	 IRXCcZd1Z40ZwTQ1w4TRKGf7FPxjbMRIu+pleC6BWkiG/ju79Vw5CPuIjdlsmpYNq+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oBihJ65C;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MtTqySqA;
+	arc=none smtp.remote-ip=91.218.175.104
+Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8702606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:14:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8702606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D434606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 02:15:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D434606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oBihJ65C
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1348756f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:14:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792462479; x=1793067279; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Iwx53FddK31aCeF3yTsYcRGG3DAdKI2xVbjXFtQkwA=;
-        b=oBihJ65CMLYBqYHD9hPzlwUnnU21Djjlk+0ywA8lRRGdNyRHqBkmkB2lVi7j7VuJ1l
-         MPwAaFfom20siTmykpM4ACL2ty3lpQ6vyWJJmpPI8ZNX5UWUMWNCT76IcffFNMOUGFTk
-         ORdK+O3A4W904mNRG0BhTfAQ3NjS8YqXkkKvnV12Bxd9kRss/cY1Tv6b9jyxrJCeHjml
-         1UVPVfEtj0r/j8yx2gjVcG3pxob+11ZYhiUZjgUj33HkXufAXfebmxat2Oeiaf2Mav0z
-         Vvwv6t7UGKyBpY9zHG+AYKsyBiV69wdVVX/+3Y2olVz6L5eDY0ngAgoqozcmxhtarnNO
-         JaXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792462479; x=1793067279;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Iwx53FddK31aCeF3yTsYcRGG3DAdKI2xVbjXFtQkwA=;
-        b=MthaLxibTrNo4xA58iQrzdWNpXVw5O92bcNRBiFRnLUDCR64Q3GtEigUNKk7n4HH4h
-         tBWWO2obxp5mkYuXgopKqwKu5PwZuPID5mvwXqkc+yl8O52Or0pqkWN2Qafn34hbbu5f
-         3nUBwM3izW+2VFfpo49fJQtiEAC9qNN2nnsLVdrdJ1ttkmodV/R7gATq7R7YpOiuGpGQ
-         O3xx8jA6fMoFxZcRVeicrrDsDjkVQI4xtLiG2dzkMv5ymm+FpzKcfDPO7XmMn9UUyp8T
-         b1jWoaHtPR3+leQIfwooRh+ECIlPB3qnwm9CxLBwzobm8TQUCIV4Cess8IYKWmqpJPFt
-         E80Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx2BXBgqRzzqq8hmcaWZbV8vuGeRBAEITI00XMdMzxCWFzfM2DWaZv3yHRylNYunAimSB87IHKY043JwXA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxisutKd0ga331o7Qug6EUTyrvEsXAW9a5n+6SltFrbuzd84ke
-	Jiwv36XZT7TC6bCIBLIrpq+faqek3dAwIvTYdKSamV7W2eEt45Dw7QiA
-X-Gm-Gg: AYBFou2axOCTUrmgowey75P4TBwJ62awwfg8oaSI321ip0GPMeCVvbFMKvUEW+Q3E44
-	OIkKpg+Gpx2qaoSBtWCcr9c26ECPNwYn0V+W/UT2ZNwlr73UG7+S+4se1W1Xdhl+OF3JrlwFBYy
-	6shz2SvOPVGOkqmc8yUQhaT4y2L/IyrAry6s6V1BOkxFIRQ81eGDnSRV0EQLQCfIN3u5Z1Q4sKK
-	s8oogn31P0wOU1llZXzQXOvJrg5e5vFVNeZ3DZDJ9tMFadp3iphTqkR0bpYrKbspR+aaBIx++Dn
-	++waWkkHEbKgVamv41grrcPDLkY3Y8jSMjfkga8fcXI3UTsp2za/XfI2syZ988+SE/b3lTUD3k0
-	M9BnZsQIYKxEJ6p+9ZMyy7+evkU4f9xQEjGR2ARBw093w6k3BqmKU7Jrq5HGzJJ9kLwPYB/bGqr
-	Es1koBU+yEpytzjUhVpa+Ln2oChu9FBTqqJtJa0XSYDNCjWfsT/kegMJIWuHycuA3jKZTrq8lOl
-	zpD7d2IhOmzjv1A+e+5tuHNTAe2pbgVk0jH7cIzeIPVX3lev5QuUnV+5+If8RDwf+t2SlSeLcko
-	ij4wWW+Q0aTJg20UyHBqPoimIRd2qaSyN5koSnAummWL6ObF54I6s1skCrnYL0ysMf4t+l3d32c
-	t9dmML092UA==
-X-Received: by 2002:a05:6000:491d:b0:488:5852:6ee3 with SMTP id ffacd0b85a97d-48e07bc2f43mr19882172f8f.34.1792462478968;
-        Mon, 19 Oct 2026 19:14:38 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-9c92-6501-cda9-90cd-4e49-75d9.310.pool.telefonica.de. [2a02:3100:9c92:6501:cda9:90cd:4e49:75d9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d8208b1sm2879816f8f.33.2026.10.19.19.14.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 19:14:38 -0700 (PDT)
-Date: Tue, 20 Oct 2026 04:14:36 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Harry Yoo <harry@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, David Hildenbrand <david@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Stevens <stevensd@google.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Shuah Khan <shuah@kernel.org>, Amery Hung <ameryhung@gmail.com>, 
-	Swaraj Gaikwad <swarajgaikwad1925@gmail.com>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, cgroups@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/3] locking, mm: Add atomic allocator trylocks on
- RT
-Message-ID: <atbOS2rs94fB2red@gmail.com>
-References: <20261005070625.8871-1-kmehltretter@gmail.com>
- <asZ8jmWNoGk5tYce@thinkpad>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MtTqySqA
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RIrheAYm8hykGe22Eq3j94xLVcRIa2q6YiEDm7rvq1I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792462498; v=1; x=1793067298;
+ b=MtTqySqABRAkFsDiyocbxlm1d9OrkRuNkd5LlWHji6/bhhwnZuwybc6iZbny2iJF29J8rO84
+ k45ctSv0WYakcFKuJ6QKpSoB9ZaSCyoQJdjOji+otlausoKPjDUEChFLZRBH6o0srn03qBWoMlR
+ d7AfDngwtMkve4uGwALBDn6U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1bfec103754fcc10;
+	Tue, 20 Oct 2026 02:14:58 +0000
+X-Mizu-Trace-ID: 1bfec103754fcc10
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f8d85b59-971d-4397-a785-b4ab4d301874@linux.dev>
+Date: Tue, 20 Oct 2026 10:14:54 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,34 +58,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asZ8jmWNoGk5tYce@thinkpad>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/shrinker: allocate shrinker_info_unit from a
+ dedicated kmem_cache
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
+ <david@fromorbit.com>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org
+References: <20261019-vstor-144715-shrinker_info_unit-kmem_cache-v3-1-0fb061e09bf4@virtuozzo.com>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20261019-vstor-144715-shrinker_info_unit-kmem_cache-v3-1-0fb061e09bf4@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 07, 2026 at 07:15:29PM +0100, Harry Yoo wrote:
-> On Mon, Oct 05, 2026 at 09:06:22AM +0200, Karl Mehltretter wrote:
-> > On PREEMPT_RT, a BPF task-storage program attached to sched_waking
-> > can deadlock when kmalloc_nolock() obtains an rtmutex-backed allocator
-> > spinlock while try_to_wake_up() holds p->pi_lock. Releasing the allocator
-> > lock can enter priority-inheritance or wakeup code and re-enter scheduler
-> > locking.
-> > 
-> > The first RFC [1] rejected every non-preemptible caller. That prevents the
-> > deadlock, but it also rejects BPF arena allocation and faults under the
-> > arena's ordinary raw lock.
-> > 
-> > This RFC instead adds an atomic owner state for bounded PREEMPT_RT spinlock
-> > trylocks. Atomic acquisition succeeds only from the completely free state.
-> 
-> Please don't skip discussion stage and jump into submitting a very
-> intrusive change across locking and mm, assisted by LLM? :/
-> 
-> I don't think attempts to tackle this problem will make progress without
-> discussing and getting buy-in from (PREEMPT_RT) locking folks.
-> 
 
-Sebastian, Peter, Thomas, did you have a chance to look at the locking
-direction here?
+
+On 10/20/26 12:11 AM, Konstantin Khorenko wrote:
+> shrinker_info_unit holds BITS_PER_LONG atomic_long_t of deferred work
+> plus a one-word bitmap, 520 bytes on 64-bit. kzalloc_node() takes it
+> from kmalloc-1k, so almost half of every unit is padding.
+> 
+> Allocate the units from a cache of their own, sized to the unit. The
+> cache is not cache-line aligned: the counters of a unit already share
+> cache lines between shrinkers, and aligning the unit would only keep
+> neighbouring units off each other's boundary line, at the cost of part
+> of the saving.
+> 
+> Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+> Assisted-by: LLM
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> ---
+> This is v3 of patch 1/2 of "mm/shrinker: make per-memcg shrinker units
+> cheaper", sent on its own as Andrew asked in the v2 thread.
+> 
+> Patch 2/2 of v1-v2, "mm/shrinker: allocate the per-memcg shrinker units
+> on demand", is not part of this posting. It is the change that makes a
+> memcg pay only for the shrinkers it uses, and it is discussed separately
+> in the v2 thread.
+> 
+> Tested on a 4-CPU, single-node VM with the test from the earlier cover
+> letters: 8000 tmpfs mounts, then 2000 empty memory cgroups. The units
+> move from kmalloc-1k to the new cache, 31 per order-2 slab, and the
+> unreclaimable slab per cgroup goes from 144 KB to 87 KB. Removing the
+> cgroups and dropping the caches returns the cache to its earlier size.
+> 
+> memory.reclaim on a cgroup still frees its objects on 140 ext4
+> superblocks, and cgroups making their first objects while mounts keep
+> raising shrinker_nr_max leave nothing in dmesg, also with
+> slub_debug=FZPU on the cache. selftests/cgroup test_memcontrol passes.
+> test_kmem_memcg_deletion also fails without the patch, by a similar
+> margin.
+> 
+> Changes in v3:
+> - Allocate the unit from a dedicated kmem_cache instead of shrinking it
+>    to 63 ids so that it fits kmalloc-512 (Andrew Morton, Muchun Song).
+>    New subject, since the unit keeps its size.
+> - Link to v2: https://patch.msgid.link/20261014-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v2-0-51af2aedbe6c@virtuozzo.com
+> 
+> Changes in v2:
+> - Patch 1: check the unit size with BUILD_BUG_ON(!is_power_of_2())
+>    in shrinker_unit_alloc() instead of an open-coded static_assert()
+>    in the header (Muchun Song).
+> - Link to v1: https://patch.msgid.link/20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-0-5a7608393b7a@virtuozzo.com
+> ---
+>   include/linux/memcontrol.h |  1 +
+>   mm/memcontrol.c            |  2 ++
+>   mm/shrinker.c              | 11 +++++++++--
+>   3 files changed, 12 insertions(+), 2 deletions(-)
+
+Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
 
 Thanks,
-Karl
+Qi
+
+> 
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index 7d1c0ce189a88..b5a89594c263c 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -1675,6 +1675,7 @@ static inline u64 mem_cgroup_get_socket_pressure(struct mem_cgroup *memcg)
+>   }
+>   #endif
+>   
+> +void shrinker_unit_cache_init(void);
+>   int alloc_shrinker_info(struct mem_cgroup *memcg);
+>   void free_shrinker_info(struct mem_cgroup *memcg);
+>   void set_shrinker_bit(struct mem_cgroup *memcg, int nid, int shrinker_id);
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 856a7d07586cc..7a817181168ed 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -5717,6 +5717,8 @@ int __init mem_cgroup_init(void)
+>   	memcg_pn_cachep = KMEM_CACHE(mem_cgroup_per_node,
+>   				     SLAB_PANIC | SLAB_HWCACHE_ALIGN);
+>   
+> +	shrinker_unit_cache_init();
+> +
+>   	return 0;
+>   }
+>   
+> diff --git a/mm/shrinker.c b/mm/shrinker.c
+> index 7ec2a9704f6f2..4fb424e721bca 100644
+> --- a/mm/shrinker.c
+> +++ b/mm/shrinker.c
+> @@ -12,6 +12,12 @@ DEFINE_MUTEX(shrinker_mutex);
+>   
+>   #ifdef CONFIG_MEMCG
+>   static int shrinker_nr_max;
+> +static struct kmem_cache *shrinker_unit_cachep;
+> +
+> +void __init shrinker_unit_cache_init(void)
+> +{
+> +	shrinker_unit_cachep = KMEM_CACHE(shrinker_info_unit, SLAB_PANIC);
+> +}
+>   
+>   static inline int shrinker_unit_size(int nr_items)
+>   {
+> @@ -33,7 +39,7 @@ static inline void shrinker_unit_free(struct shrinker_info *info, int start)
+>   		if (!unit[i])
+>   			break;
+>   
+> -		kfree(unit[i]);
+> +		kmem_cache_free(shrinker_unit_cachep, unit[i]);
+>   		unit[i] = NULL;
+>   	}
+>   }
+> @@ -47,7 +53,8 @@ static inline int shrinker_unit_alloc(struct shrinker_info *new,
+>   	int i;
+>   
+>   	for (i = start; i < nr; i++) {
+> -		unit = kzalloc_node(sizeof(*unit), GFP_KERNEL, nid);
+> +		unit = kmem_cache_alloc_node(shrinker_unit_cachep,
+> +					     GFP_KERNEL | __GFP_ZERO, nid);
+>   		if (!unit) {
+>   			shrinker_unit_free(new, start);
+>   			return -ENOMEM;
+> 
+> ---
+> base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+> change-id: 20261016-vstor-144715-shrinker_info_unit-kmem_cache-69ea3f78b635
+> 
+> Best regards,
+> --
+> Konstantin Khorenko <khorenko@virtuozzo.com>
+> 
+
