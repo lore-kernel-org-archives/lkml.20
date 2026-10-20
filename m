@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792507657;
-	b=PhnK5hjnMGeMUQSSSH0Lt8hWspdGi+4uzDN6quyGZLHdo9ET1h3vqICDIYHrD9XhIpr5
-	 ZhQ2Mu1aBdY0nkhvzEY5LDlWw27tvXPmL+X/HByyRdtsTvE9LPZrGTG214YQKPnBQd3E8
-	 5+INYuNrbIJrrwpYAx7gWOF7sZr8IfdLyaeXs10Phjhh3YDom5+klyLWtmWQ/Tt1xMQyv
-	 zbmmiK1cFMAcMYgNRqM/+PtLX2AreSj4PoVXd1A41ukGdj/kBFYLyGg8LvxbbLJ3Nv3uF
-	 9SqqumoHVr0jUIoCHRjpcL7CQxMBdyte7E9eVW9eVBl7Hx9DXisnyUpRC9t0yj6DpOw==
+	t=1792507682;
+	b=4c1GVkDMFbBh6LtrLuR0P5VOriNpwByN2l0EUI5pSLMSv1fP1fPMpdyNgf8soduo72mY
+	 nglBSGb7L6gvRtHgRV5PArOrWOEIJwdpc4aC0TNw0OAlCFcB9WJR8oCmjkJHUcq8a6GUj
+	 +Wms5NoJkszo1t39ZIKPuN3oUOkcLKQGO2S+TWqW+GLwispbFd5yZ/9eHjd5FHvO0+3Bf
+	 82DMmM7uMSgqju8fYB28pxkHajM7eRcFWIccQxd/mS7eauMuFQ9+r87bqZZ9Ynu7/mcj2
+	 FZIHyWtsycLuwFh8xD1FT1n9g93joNHBS0KNsZF+aw++qbDn7myGCP61fW+6vS9f/1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792507657;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8KLZGYnTaZZfWo0UwCu1ph7Ozc8pVIN7vRMc1zsSV1g=;
-	b=xwJj61EIAutixGwMppkUANHBVXYDrprBhBe+5ljsOXwS0sXZ4Usb1KssKOQXR83nz+qX
-	 jMJO4nLZ8GQGhqX/U667PsD9O7i6mkgTN7mx5hjw4DKSxCo4D5Qg8b3Mj4l7PAs1JMxuJ
-	 5BrEGg2oX26qCDYYtfm7JS9LhlAj2tVxEAsQ9JHxISPBX4walxQF/uL/M7gQ7RfQREjQg
-	 j/fmswSHgJ5VMgdFVCb5mtRdHcijzyHITfLBRQZ9PKTtlMz2YgHMYksy/GOysUrMldyeR
-	 1eB5PFZmZEKwvURPybhFttdsTgs3KGSmb2hYnXvBmz+qvNOkRrseqQHxpP+RmZMR6Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507682;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
+	bh=wbrg7teiEaZnv5DkKLxUF7WwT/nqBKWUsCVToNR2pF0=;
+	b=nakEuKlK6YJjSmYv2lLwluMHC6LDr7I3ayfMFTq7vlKkN8R5IdtAojsdj6biYF2NvFP9
+	 /LNWLoj5fi6hS7skSoJAucvrLR1M2FsEGG7IT7vCt0WOud81yRg4hHrnwwHgLyV8XPiuP
+	 r/qn8wpbQi1+Zwin1k2oxIa3bYzceUZkpaoqw+uabToA54mdAP+gp1G6MubOS0wH7KqFW
+	 jGmcOvxuCfAb/RwpT76PRhqpx4WTBKd2xfvIaQZz1IFgHNd4ZKNvyHc5LKULZceTZAIWW
+	 cSwfTibCNxwvyqSnCRXC433K+SMhxkAT6vrhyS5r2u4xJrV+7+5339hukzI1Vqp7Uzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D4MT/KgP";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K023x4vI;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81181606A319;
-	Tue, 20 Oct 2026 14:47:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4E7606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC4E7606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4MT/KgP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48FA1F000C4;
-	Tue, 20 Oct 2026 14:47:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792507657;
-	bh=8KLZGYnTaZZfWo0UwCu1ph7Ozc8pVIN7vRMc1zsSV1g=;
-	h=From:To:Cc:Subject:Date;
-	b=D4MT/KgPVeIyRqW9ieO8UoVRz48J1VsRFefiD3x9nDNdAu62Mkrvbh9F4WY8uzk1L
-	 t+zUAqjuIjRc8S4m425jmJFCAUoXO10wl8OCTqVtBc5LE7WvffRUYcLQwFwBMKaoZx
-	 1QIzJx7T1LS5Jq9dWWJO3igUYuhuFvob6iZ6y+EJa7Wwgaxi9RDKsv/f2xDWbmaEkI
-	 1AIkuUwrmE9zqQHCQboXcQ8ic2izEQoKZB99XWR/yfXW0Ny8Yzvbt6nKL5fLRjJsdl
-	 +JyjHbO7FAA+nFX+djkxpiYKUjzE5C0Jck79FdHXf2VEXBo9svXkGJDY7mXLdbbM+N
-	 daaI6ENhhxiPA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH] mm/damon/sysfs-schemes: hold damon_sysfs_lock in target_value_store()
-Date: Tue, 20 Oct 2026 07:47:25 -0700
-Message-ID: <20261020144726.88978-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K023x4vI
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e8b20a899fso16450725ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:48:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792507681; x=1793112481; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wbrg7teiEaZnv5DkKLxUF7WwT/nqBKWUsCVToNR2pF0=;
+        b=K023x4vIK+0AWHVLLYF0HDcHMEpd+ZXCelWlr7RM2y9pM+XDsljVqpvx1IsA6zrOC4
+         TLBiw3bpPi3cIN4R2oThVdHLLlRK2seUDrmpgoj5iJWLxpEqjPNVmNiviRJnOhrcQKR1
+         l0f1WRP2tU+bxfV14jB2KP2kJKI6k7RL8ucSy6N8Gysko4QxUXqSj0sGSH+soYD733Qz
+         dPm/73d5KlOFddqlxk/a/7vWXtchP+ENdKT8MjECJbnsbuOnMzD34nIir9BieopYWrzD
+         y6QhmHaZcJMAtJ+iDfPGguJdFOoISykHQovUvWAwjLGRU3+jz4wo0eFXH6hWWw+CKtDu
+         p6qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792507681; x=1793112481;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wbrg7teiEaZnv5DkKLxUF7WwT/nqBKWUsCVToNR2pF0=;
+        b=Gqpuo7kX5ylNZGRWI/DGInHFhGyw5GSff1QGRQ3c/1DZD4oe8MyRPfN3wXoSs87x2l
+         9D40tPqJ2fXwELtmEthspY7KCiThphYYx9lUys68VfCdaz3WRdBR0nDz2I/oZo8Owx6R
+         Xzvvs4QjYt5uXPlkAbXOOqeiAEsw7/ocV83ZoG9Ev7cfrhX1iMY1j0a6nW1iATIrmtms
+         A7PFJR6U5rSsgHmjWU0xXpqCkioR9D/1rmJej9C8E8bWtSe32vON5ZLwZ76G8gVW5meN
+         0B33hYhZyerFPBHLiOFyu8XjBuSvFbE37C5DVPnnkT4iBHGzKiMIEWGGW7Lv2aKKyUWc
+         f46w==
+X-Forwarded-Encrypted: i=1; AKwUvByocBN9jEh0pMDp8XTxugex94/Z4og14KhQ4fWlDHUff43zEOTq0Eww8KQdTZZOiSGg1TxnBEWhKRNNk9w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiHQ+pNdvSEISF2jlYqa8csnSI1SvRYiGFHD6e9sBRQ1J/CNmX
+	gVP2kSvKbOO49c0CzPxwaQBY9xPskKlyaGj1G54pgnP2qf5xiq3cPt1v
+X-Gm-Gg: AYBFou3wcl59hFSg9r9DsSJhAhQiZLPvh0av/4NAB1b5/fPvMWZcvU/Vw6Sq8wk9gfD
+	EqvbVtPsXg+1qTUqT7VlJkXhUIgWDgUhyxJ2gsmNlQheHYjUX9lWW3W5rXrfIARo+JTLzJyDOHy
+	KWHQXEfl1NrR3IFRAzEvkNbtV0ydP77dYkGO435UOxy5oCy/PqQ7mP0MKvupeanB/CZ5OSwB7KZ
+	tC4EmN0IQDBT0XABWeNsRrtdffmJWv5YJmxOKf5yY98FuLI59vwSU8ivib96IKhR6ndBl78tspa
+	RsCSIabczLakCMD0wtlE7Hi1C/eI3p96anvU91OyRFOTbuu3nQSlECyMPieE3N5lJX5Xmn/qkd7
+	vY9Qm86VXBJ8QBlGO7vvrsWrd+JwvSUCt07R5zCEW7e2RaAj6+E39U2TacGnPDFv4iANAxK0XIc
+	QcfJPTIJzkshmUXKUKjCfj1PkHEsMCSMySw9TAXPNtyzyYcpmMIc92OpjghTGviUjWr1v0xxGIy
+	alpqjpWRJ57tlyhGqrsz+3k1Zi5dtFfH14/5YBbG5r7mw8CcQ+KuUoH1BRDNYWslIQt3eTMRRls
+	ZGU=
+X-Received: by 2002:a17:903:2301:b0:2e5:dce7:5c43 with SMTP id d9443c01a7336-2e9a6841aa4mr97854735ad.6.1792507680918;
+        Tue, 20 Oct 2026 07:48:00 -0700 (PDT)
+Received: from localhost ([153.61.198.254])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea151840c4sm13046815ad.67.2026.10.20.07.47.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 07:48:00 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 20 Oct 2026 14:47:59 +0000
+Message-Id: <DM9QXVWZXOHM.21TW53TSXHZ9F@gmail.com>
+Cc: "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Emil Tsalapatis"
+ <emil@etsalapatis.com>, "Yonghong Song" <yonghong.song@linux.dev>
+Subject: Re: [PATCH bpf-next 00/16] Add percpu variable support for bpf
+ arena
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Xu Kuohai" <xukuohai@huaweicloud.com>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+In-Reply-To: <cover.1792503001.git.xukuohai@huawei.com>
+References: <cover.1792503001.git.xukuohai@huawei.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,70 +104,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Remove a race condition under certain use cases that can trigger
-divide-by-zero.
+On Tue, Oct 20, 2026 at 06:22 AM Xu Kuohai <xukuohai@huaweicloud.com> wrote:
+> To use percpu data in a bpf arena today, we need to define an array
+> sized to the maximum possible cpu number, like the cpu_ctxs array
+> defined in tools/sched_ext/scx_qmap.h. This is not a convenient
+> pattern. It lacks performance and scalability, and wastes memory.
 
-damon_sysfs_add_quota_score() setup damos quota goal as user configured
-and pass to the core layer.  Because it could have a race with
-damos_sysfs_quota_goals_rm_dirs(), which destructs the files that carry
-user configuration, both are called under damon_sysfs_lock protection.
+It depends on how you use it.
+Patches 10 and 11 emit the same thing as
+&arr[bpf_get_smp_processor_id()]: load the cpu id, multiply, add.
+The x86 verifier and the arm64 JIT inline that helper already.
 
-The damos quota goal setup disallows zero target_value parameter because
-it can be used as a denominator later in the core layer function,
-damos_quota_score().  Otherwise, divide-by-zero can happen.
+__u64 hits takes a page per possible cpu with this series and 8 bytes
+per cpu in an array.
 
-For the zero value check and final assignment,
-damon_sysfs_add_quota_score() reads damos_sysfs_quota_goal->target_value
-twice.  And user can update damos_sysfs_quota_goal->target_value via
-target_value_store(), which doesn't hold damon_sysfs_lock.  As a result,
-a time-of-check-to time-of-use (toctou) race can happen.  If the user
-sets the value to zero between the zero value check and final
-target_value assignment, zero target_value is passed to the core layer
-and results in divide-by-zero.
+cpu_ctxs[] is indexed by cid and qmap_dump_cid() reads other cpus'
+slots from bpf, so scx_qmap cannot use this.
 
-Fix by holding damon_sysfs_lock in target_value_store() while saving the
-value.  The read side, damon_sysfs_add_quota_score(), is already called
-while holding the same mutex lock, so it avoids the race.
+Keep it in the bpf prog.
 
-Users could reproduce the race by writing zero to the target_value sysfs
-file while DAMON is starting, or online parameters update is ongoing.
-The issue will only rarely happen in the real use cases.  It requires
-sysfs write permission.  The race window is short.  Sane users wouldn't
-write zero target_value.  Especially, they wouldn't do that while DAMON
-enablement and/or online parameters update is ongoing.  That said, the
-probability is not zero, and the consequence (divide-by-zero) is quite
-bad.
+Any arena offset is safe to access, so the kernel doesn't need to know
+about percpu chunks. bpf_arena_alloc.h does it already with
+page_frag_cur_page[NR_CPUS]: a table of pointers and a page that the
+cpu allocates on the first use. NUMA_NO_NODE gives the local node and
+user space reads the table through its mmap.
+Then no need for BPF_PSEUDO_ARENA_PERCPU, the map_create attrs, verifier
+and JIT changes, new libbpf APIs and libbpf changing thread affinity
+during load. What is lost is plain 'hits++', but kernel C doesn't have
+that either. Initial values are left to the prog below.
 
-Closes: https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
-Fixes: 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota goals user input to DAMOS")
-Cc: <stable@vger.kernel.org> # 6.8.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/sysfs-schemes.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Something like this:
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 8f083611741fd..55298a17b653a 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -1355,7 +1355,13 @@ static ssize_t target_value_store(struct kobject *kobj,
- {
- 	struct damos_sysfs_quota_goal *goal = container_of(kobj, struct
- 			damos_sysfs_quota_goal, kobj);
--	int err = kstrtoul(buf, 0, &goal->target_value);
-+	unsigned long target_value;
-+	int err = kstrtoul(buf, 0, &target_value);
-+
-+	if (!mutex_trylock(&damon_sysfs_lock))
-+		return -EBUSY;
-+	goal->target_value = target_value;
-+	mutex_unlock(&damon_sysfs_lock);
- 
- 	return err ? err : count;
- }
++/*
++ * One copy of 'type' per cpu. A cpu allocates its copy on the first use,
++ * so it comes from the local NUMA node and cpus that never run the prog
++ * cost nothing. User space reads any cpu's copy through name[cpu].
++ */
++#define DEFINE_ARENA_PER_CPU(type, name)				\
++type __arena * __arena name[NR_CPUS];					\
++									\
++static inline type __arena *this_cpu_##name(void)			\
++{									\
++	__u32 cpu = bpf_get_smp_processor_id();				\
++	type __arena *p = name[cpu];					\
++									\
++	if (!p) {							\
++		p = bpf_arena_alloc_pages(&arena, NULL,			\
++					  round_up(sizeof(type), PAGE_SIZE) / PAGE_SIZE, \
++					  NUMA_NO_NODE, 0);		\
++		name[cpu] = p;						\
++	}								\
++	cast_kern(p);							\
++	return p;							\
++}
 
-base-commit: 33560dfbb2df9b2d1525fd51ceeca3c1167431e3
--- 
-2.47.3
+Orthogonal to that people are working on slab-quality allocator
+for arena. It's also going to be done completely on bpf side.
+
+pw-bot: cr
