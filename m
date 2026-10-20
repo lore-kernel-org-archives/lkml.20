@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513484;
-	b=knD8xI/8osayPkjYL9QAranGZZ9dEMIfHcqF8YnhskWgv6rCYfy6+MyVl08q5GCqI1ye
-	 qRG5mvi+5x16ShyFQOOmJEROZFVehSUENjRVV9uPasfuavKWsVn7l7UIqTku7Db9PS0SJ
-	 ww+CJvepQZTXa3DEsAVtorZJqauooXnsUGqMGv1RqQJRKEyvB43b8hGG3+hobHB/9GF9M
-	 vct8aY2x163QBGKWlQGcnCtmL2WxL81XelbeEX1doFYd5qaizvueaN8K2b6+Exwrcm0tC
-	 gtZ5MEOkeC+ugIl8S6S9Z9V+d5bzZg4ZNGaZDhjQVdkC33qpqXey2bxTb65rU3p+b+A==
+	t=1792513515;
+	b=t8sGK1CNiKeRvzuUJCYr/SC26fiIF093E8L7fOrZNLYniI6y7H8xNNjxFcxqFvhnjIbk
+	 HGCgGdpbWlKnm980VjxJh0UZILcRkVmFJFl+S3KZLltrJsDCk6lauIwAjnmgBh/GSH6kd
+	 ak5z00IEvKX9RQB5f7Tb6+uAQK3eRHRehTvIzr9BT7qFxEUkv9Tt71gBUgvY4KlbwmKiH
+	 xCRGHgRFhmPtpPZHFvuBR+MK1BZZoOnOnngw5yfIeoFgH7ZqfmoysNB5+j6Wogk6ZSGRE
+	 cSSb7/7thBOerQdTU+wRjFRwOw0aHQX9QR7oFHHdmbsw++O3YSKC6qxIN7o7PZJc2bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513484;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513515;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:CC:Subject:User-Agent:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OigSq64J0rt4TZoDpYc+GBYQyOVQhjW9BeOIpOHcBFA=;
-	b=h5oBRCHneZX06r+4fMFSrGgJqUAU/jZfrt8WwhqcMQNsfGUdOU4USRDZpJ2AS7RT7d8f
-	 vdlx3MheK7hg90vTps1qGfL8vEWhpE7tpvT6o0GVBfO8JTeQs8oLg5zbuIcVqQJHK50oT
-	 qahQJ4ED4m4iY6/e7vi+NDPQOtQc9zVwUi04LUgZ2GXVzD4u1PN2GsWpqz9yOmjsN+QaR
-	 MG+S2iYMiPM4brtoVCREyqZ8se5v399YqN6M/AZv4EebRzfd2OeWivDkr8k9tVfiBzrYK
-	 ujr3/gz6N2yACfRTTZCg2I+j+T+Pv+KabNwQm0+3So2Cjvb0U/Jh/z+blHybdbMakPA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=/WZzvTV0o4Cct2YrzgchgsksenktGnjoF41y1u44DrU=;
+	b=M8jYhu+0Pinqclbxws+cIgQks7FhU/TrCHhlN8plrn0VRd5Dk3ZBjxu08G5MXFIkGOi3
+	 LlTgo9ZSMMfRHlmFViwXePtS2VI8Jy7yFQ8n98L91rlwGTG3HwyW1WwFYqcU+wURMWin6
+	 blpA05GOiXh/kyApGzm0LPlSgBXo9J0yULVUUGI214pqgbaLgFxalHNcBX2GSTFSaGb+x
+	 VnW9LUJqAvUf24YZNqsxPKyDJ9KfLiijzDTctZzy4cs5LHCx6LKOIbsKFj0bx/muj8gHF
+	 W7gTmYhflNfbDE5JfKtf9CHjMhITsLBJNpV7rjnl7NTEPkvUk7xi7//PfvkdIQThxzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JcbfB6El;
-	arc=none smtp.remote-ip=74.125.224.47
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FT2rIuBM;
+	arc=none smtp.remote-ip=209.85.222.48
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE97460A2607
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:24:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE97460A2607
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0865606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:25:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0865606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JcbfB6El
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-679965fb848so3547182d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:24:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FT2rIuBM
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-99059bdcdeaso745350241.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 09:25:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792513483; x=1793118283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :user-agent:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OigSq64J0rt4TZoDpYc+GBYQyOVQhjW9BeOIpOHcBFA=;
-        b=JcbfB6ElF0dXJk/pdHAhuxeqJ+cksCGm7FNEjK/67u2FsqW+EOwEhBzLJk+ylc5nNv
-         HO1ChSiigoKMgW+OsknuONzCRobFmd2ys/9oBt/PJVw+vsfwTLcduSTXNDvDsq5PMq1R
-         9B9FvRT0UiP9LXbwlBuf5i2UaQgCmDMIwC++Cq/fK0p00DDQbyVWt9TjncLwrGIo2QRz
-         ub/5ieaLv9hU0DjWL4ZSoNFpjjHqbcRZt/YGoPyme5KFn43CkB1zlNFLbj0saVWc1XPS
-         EH1yMbJXitOM4SmylHIQW2o7Of1BLnRMwllmhTZlRAV2S0Rm70u04080XyP3YKD/qC8I
-         mgyg==
+        d=gmail.com; s=20251104; t=1792513514; x=1793118314; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/WZzvTV0o4Cct2YrzgchgsksenktGnjoF41y1u44DrU=;
+        b=FT2rIuBMmyXTaQsPut2rxO01PTvpI0lTY6Gq2VMb3qGEgVtC19MBPB/rn7nr7p6HyO
+         TO/H/iA8b9O29s+mQZ+hfNcV2whFbpDaBm/g3ERJRPzbD+3TiOUWzHON0XVUBl5+5z/u
+         8rtAha4fAXDelEfpY8h1/9qWzU8ajpi+ARdPc+slGCtkYBBy5M0rScjU5nAeZJBg7UTY
+         V0Xi4igg/jtxBNWZCGcyIPyaE1zIFT1xr5UM4xDl1UfmdqJ20e050ITJ6tJ0Lguimjt6
+         GyvCKsfV4cKgGwRNj8v4++sMdJzx7FX2YVBKb3AR18SodGJkMGuHIDrFt9xyAJnEfwkX
+         wn2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792513483; x=1793118283;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :user-agent:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OigSq64J0rt4TZoDpYc+GBYQyOVQhjW9BeOIpOHcBFA=;
-        b=v/k2ZgsIXGAM0/PWZ8sPWBQl6PsrU6n9RPHzH02zuXbGqquEkPvVaRfRmBUK43G9yQ
-         rUJc8fiRWcNKEq9d2W1LhIaLAM9MY9dT+Fzn1jjfGdZlre3cqVZjXacxcSObqECyFalG
-         yR17Z712BQFSvJwmJQ0A8z1wsTcoudiHtxyujHI+UcRKV40ItXYhxHkGtXfxq165nBAr
-         wLDVdQNQ6Wd/fVi1/PJ2WT9/tLkNRIu631xzTUMHgJn3h6+I1EonpWXdkqtJtOcdPkFF
-         /DtiSMU5wPnnhvkrJjV/gHEEzCYFBWteuc5p4xe5rQEvOhkk3UzESPNx0ndyiBlTo8qa
-         o3ZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPl9aruqe9b8D0mrlVv8gVwrwx7pp5fKrdGgFlLKVSNAOUm5mn4NMq8WA9un5tYog33IYYsQ+oaI4IagI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4m1iliWSxeW4VIe9Ds/DJ3LpAZTULq/Aruk/QIU0YIk5t/UOi
-	w1wnsNgZjV0PRYu0kn61bSxnxJ6S7u9Zr/DgWzOzEvI/RIIUX1+J1Pddh+dXDGnPQfA=
-X-Gm-Gg: AYBFou3L3BhJ6XLE5yAyD5hyIndwzP5Eob7NeSeBGeyFpKsJgAInaB8N7kR/7ELP+iV
-	ykqLa+buRhfymqQF2Ta3B351n4GmRLwdRHXse3BN4U714FZE9jgrYWwEPhzZCF6DxG3x1MX+Uu1
-	43za6TrjxwFPu2V4m+fYIN6lfjxgDDuCrL9twCo0pPY/eb/BbSGx2LUGXoM4f/4URJxRPMbr0+V
-	NCieqBBw8TnK8jIfaAZIpzfJoWCJ/AI0sT7D9Ypa6oajkWKWczt/gH7OMlYhTY5BlL5SqYFLJTP
-	6qvAgkQib3Tbcu10onkPm8NAVf16vHY7GVsFS/dEHGWvrA9AvPP/g21OI5bDRE69USAQb9Dv2k8
-	BGAGoE+xat1Nha25tWHejekpX3dhPQmyuYGgOputreaHXtGeB1siTWKT2h+5C1tZxEtAamulrxc
-	DHj5J85BY6uWhZYl34P74IEtlifPQB6DoRMGpE6vUf2TQCAzWDmKEbBLOUOGvp8Q/v6AJl6kEYf
-	taQ5sFYAp+UhLS5VooQbFdWULrfVv6KYJIlJLn/g73IUK9ZVMVdP5kZgSx+EOALyhwVHHOTzKQw
-	22Ojnto83gonrDCse8cXs8rxTQC1spCoxhS28Cqfzg3CZIHj/tu2Z2gXCpb7UA/FECcz3lZf4sS
-	bkMwL8Q==
-X-Received: by 2002:a05:690e:43c3:b0:679:980d:996d with SMTP id 956f58d0204a3-679ca75c039mr1677629d50.23.1792513482689;
-        Tue, 20 Oct 2026 09:24:42 -0700 (PDT)
-Received: from ehlo.thunderbird.net (212.153.88.200.l.sta.codetel.net.do. [200.88.153.212])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679b1e095efsm5543486d50.5.2026.10.20.09.24.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 09:24:41 -0700 (PDT)
-Date: Tue, 20 Oct 2026 12:24:40 -0400
-From: Jason Perlow <jperlow@gmail.com>
-To: aditya.garg@linux.dev, baolu.lu@linux.intel.com, dwmw2@infradead.org
-CC: iommu@lists.linux.dev, bhelgaas@google.com, linux-pci@vger.kernel.org,
- arend.vanspriel@broadcom.com, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
- regressions@leemhuis.info
-Subject: =?US-ASCII?Q?=5BREGRESSION=5D_intel-iommu/brcmfmac?=
- =?US-ASCII?Q?_DMAR_fault_on_Broadcom_PCIe_wifi=2C?=
- =?US-ASCII?Q?_v7=2E3-rc7_-=3E_v7=2E3_final_--_candida?=
- =?US-ASCII?Q?te_mechanism_and_proposed_fix_path?=
-User-Agent: Thunderbird for Android
-Message-ID: <7A444F17-F81B-4A33-A7AF-9E30B3EEFA67@gmail.com>
+        d=1e100.net; s=20260707; t=1792513514; x=1793118314;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/WZzvTV0o4Cct2YrzgchgsksenktGnjoF41y1u44DrU=;
+        b=fuSO33iXOQx1VBK3RXi8Rp4QykqxbAYqkBhydwiGJSFI8sMR/EVFrfC0z/iYf2DNYB
+         dKRlAlcpni6BLKiPHWvBfgO3k+TxVsBClb/K0EfIPfMJPnZx4I9sBbSWv62oxxN2Eq9W
+         DUKmwZzrXfZNy57kSVtMaDe3WoxokVS6mONugwaqSrHd1bcJM/W4gUEk1wOwRTvcFsPW
+         1H6AtJXyYZsP9J9QpN++qWR/Q0Lygx4lCk0VzqfwpJzjdEb//FraZXL4pD7iRjZnsZHg
+         kYE2XAVxg4ledhqbHx18mFCrJurIXK3RGe/uwzPMERgMGEIpu/SVd+UAqpFi5H2OlCKW
+         mMDw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtzD7Xv3MuioS4irdWTuRFgJS88jHTAlTOgtSZbViEg06vsH4ffk+75hT+EPdjsdZJ5INea0sV9QsYP3A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJHnBfCZ86JdgFNBv46trY/6xU2UEgiZljTaco8HjVP1LbfdTF
+	0GUG0ogubW1+mVmrXq41iuAMoPePLJ3VpMQB0Ne/aF1s3M9v3/CxUrjH
+X-Gm-Gg: AYBFou26VfFp0FJcc/25KrwxxWerNaJjaXME2NBnh0DpzvfymR4yOz8afcRRbPdzlWY
+	HEts2bDO+Ji9tZz+GJbbnJhHPDIoIfvr4Lxivo0yXHxM1To+Cu/sEv3Ju88ptBXY2oAWGcTWOf4
+	Ca1HUrOjhmboeaHwthEx107f0wTItzUv7vHnhllPkDp/g3yu9SdaIvZGVeAjog9t/KSaB67cANo
+	JR3faaL8TQtsLxZl8f76MRK98+EaKCzOlFRXNqc6JByZmj8wv0e+kr9kAwGrt+a6bi7p0Jb5LKG
+	pNHlJTMZ0SAIXwvaNwY+uyfYu5i8x5pK5Pa4kkwk+NNHzyz9V3VXS8yFfJTJlpK3uN5hbQge2Ff
+	rrUCCXGTsGSfCD5rYu+Q5xqEGdFv+mGN/RxI0oB5SWTWJQAm4xstmH5yI1oZt2SnJde3AYP4Xle
+	SRYvlA8hdVhqNi6VukV3EsdPPoPbtcvs/rFalnrlalXONe6N+qZc8NLVSosqGVrDqkO1jxZM8hp
+	QWGdJjkUU0frpjfq6YZbQTKhnGyNq3HgKbLVvlvIObl6Wqyw1K3yXkb8DLXyzC6bioGQV05oR5R
+	WeM3ik/599/zTrKWN2XAOzo9tfZH9C2Q
+X-Received: by 2002:a05:6102:947:b0:7c3:68c9:d24b with SMTP id ada2fe7eead31-7cc369c11fbmr1937696137.17.1792513513614;
+        Tue, 20 Oct 2026 09:25:13 -0700 (PDT)
+Received: from alsa-dev.int.suenodeluz.com.do ([74.244.193.177])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990d0e0ba56sm297984241.1.2026.10.20.09.25.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 09:25:13 -0700 (PDT)
+Date: Tue, 20 Oct 2026 12:25:10 -0400
+From: Frank van de Pol <fvdpol@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: perex@perex.cz, corbet@lwn.net, khan@linuxfoundation.org, 
+	rdunlap@infradead.org, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 00/13] ALSA: jockey3: Add support for Reloop Jockey 3
+ DJ controllers
+Message-ID: <u74rh4prk6dvevot57p5ewimezjfcrkidw7zznqomcebixvmrg@rngpubtcmrnm>
+References: <20261019174445.1931263-1-fvdpol@gmail.com>
+ <874iegh5u1.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,168 +98,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <874iegh5u1.wl-tiwai@suse.de>
 
-Resending, stupid Gmail mobile client/HTML/apologies =2E
+On Tue, Oct 20, 2026 at 03:14:30PM +0200, Takashi Iwai wrote:
+> > 
+> > Frank van de Pol (13):
+> >   ALSA: jockey3: Add probe skeleton for Reloop Jockey 3 DJ controllers
+> >   ALSA: jockey3: Start the bulk streams
+> >   ALSA: jockey3: Add PCM playback
+> >   ALSA: jockey3: Add PCM capture
+> >   ALSA: jockey3: Add KUnit tests for the Ploytec codec
+> >   ALSA: jockey3: Add optimized codec variants
+> >   ALSA: jockey3: Coalesce several packets into one URB
+> >   ALSA: jockey3: Recover a stalled stream
+> >   ALSA: jockey3: Add a watchdog for mid-stream stalls
+> >   ALSA: jockey3: Add sample rate switching
+> >   ALSA: jockey3: Add MIDI support
+> >   ALSA: jockey3: Add power management
+> >   ALSA: jockey3: Add driver documentation
+> 
+> Thanks, this makes it much easier to digest and review.
 
-=3D=3D=3D ORIGINAL REPORT =3D=3D=3D
+Thank you.  The functional splitting took quite a bit more effort than I
+initially expected, but am happy with the result and makes it much easier to
+understand how and why it all pieces together.
 
-Hardware: Intel CoffeeLake-H platforms, various=2E The affected device is =
-a Broadcom BCM4364 802=2E11ac PCIe wifi adapter (14e4:4464) at 0000:05:00=
-=2E0 on an Apple MacBookPro16,1 (T2 Mac)=2E Aditya, including you directly =
-since this is T2 hardware; copying iommu/pci/wireless because the fault sig=
-nature and the fact that it reproduces on only one of five tested machines =
-(at the time of the original report -- see follow-up below, that has since =
-changed) looked like it needed eyes on the core IOMMU/PCI path, not the dri=
-ver=2E
+> Now it's already a time for 7.4 merge window, so I'll check the series
+> after merge window is closed.  Meanwhile, Sashiko already reviewed,
+> and you can enjoy its complaints :)
 
-SYMPTOM
+I already started analysing the Sashiko feedback and take advantage of the
+findings/analysis to further improve/harden the driver.  I'm quite impressed
+with this tool and think it will help improve the code base.
 
-Between a locally-built v7=2E3-rc7 kernel and a v7=2E3 final kernel (same =
-=2Econfig template, same patch series beyond one T2-specific AER quirk that=
- is upstream in final and therefore held out of our patch set), the BCM4364=
- wifi firmware on the affected unit crash-loops continuously:
+Good luck with the merge!  I'll regularly rebase the driver to keep up-date
+with the latest kernel, and submit a v6 patch-series (same split as the v5)
+for your review in two weeks or so.
 
-   brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac4364b3-pcie for ch=
-ip BCM4364/4
-   brcmfmac: brcmf_c_preinit_dcmds: Firmware: BCM4364/4 wl0: =2E=2E=2E
-   ieee80211 phy0: brcmf_fw_crashed: Firmware has halted or crashed
-
-repeating every ~6s, indefinitely=2E dmesg shows the actual mechanism -- a=
- real IOMMU DMAR page fault on the wifi device, timed to the same cadence a=
-s the firmware crash:
-
-   DMAR: DRHD: handling fault status reg 3
-   DMAR: [DMA Read NO_PASID] Request device [0000:05:00=2E0] fault addr 0x=
-ffeff000 [fault reason 0x06] PTE Read access is not set
-
-Four such faults logged at uptime 13=2E4s/19=2E4s/25=2E3s/31=2E2s, each im=
-mediately followed by a brcmf_fw_crashed event=2E intel_iommu=3Doff removes=
- the fault and the crash entirely (8+ minutes stable, single clean firmware=
- load, stable AP association)=2E The prior v7=2E3-rc7 kernel on the SAME un=
-it has zero DMAR faults and zero firmware crashes with IOMMU on by default,=
- so this is a regression introduced somewhere in the rc7->final window on t=
-his unit, not a long-standing issue=2E
-
-ORIGINAL 1-of-5-machines SURVEY (since superseded, see follow-up)
-
-We initially ran the identical kernel build across five machines and only =
-one faulted at the time: the affected unit; a second MacBookPro16,1 with th=
-e same BCM4364 chip; three non-Mac x86_64 machines spanning three more wifi=
- vendors (Intel iwlwifi AX201, Intel iwlwifi Centrino 2230, Realtek rtw89 8=
-852BE), all clean=2E IOMMU was actively translating DMA on every one of the=
- five machines; only the one unit faulted at that time=2E
-
-WHAT WE RULED OUT BEFORE WRITING IN
-
- * AER/ANFE quirk on the T2 Secure Enclave device: its PCI ID match is exa=
-ct (Apple SEP, 106b:1802) and does not touch the wifi device (14e4:4464); r=
-eal PCI topology on the affected unit also shows SEP and wifi on separate r=
-oot ports (00:1b=2E0 -> [04] vs 00:1c=2E0 -> [05] off the PCH), so there's =
-no shared-root-port mechanism either=2E
- * brcmfmac driver source: git diff v7=2E3-rc7=2E=2Ev7=2E3 -- drivers/net/=
-wireless/broadcom/brcm80211/ is empty=2E
- * Our own config template: byte-identical between the rc7 and final build=
-s=2E
- * The upstream Kconfig stanza for INTEL_IOMMU_DEFAULT_ON (drivers/iommu/i=
-ntel/Kconfig): byte-identical text between v7=2E3-rc7 and v7=2E3 (default y=
-, no depends on)=2E
-
-THE ONE ANOMALY WE CAN'T YET EXPLAIN
-
-Despite the last two items above being unchanged, the actual generated =2E=
-config has CONFIG_INTEL_IOMMU_DEFAULT_ON unset after make olddefconfig agai=
-nst the rc7 source tree, but =3Dy after the same process against the final =
-source tree, even though our template explicitly answers "# CONFIG_INTEL_IO=
-MMU_DEFAULT_ON is not set" in both cases=2E Our working theory is that some=
- other symbol started selecting/implying INTEL_IOMMU_DEFAULT_ON between rc7=
- and final -- which would override an explicitly-seeded "not set" answer du=
-ring olddefconfig resolution -- but we have not identified which one yet=2E
-
-=3D=3D=3D FOLLOW-UP (what changed since the original report) =3D=3D=3D
-
-1=2E The second test unit we called "clean" (CHIMERA, identical MacBookPro=
-16,1 model and BCM4364 chip to the affected unit) was NOT actually immune -=
-- left running longer, it crashed at 41 minutes uptime with the identical s=
-ignature=2E So this is not host-specific or even config-specific within a m=
-odel; it is cumulative/probabilistic with firmware-crash retries, not a sta=
-tic per-unit property=2E We now apply intel_iommu=3Doff to both units=2E
-
-2=2E We tested iommu=2Estrict=3D1 (forcing synchronous TLB invalidation, n=
-o lazy-unmap window) on the affected unit=2E It does NOT fix the problem --=
- 9 firmware crashes and 18 DMAR faults in the first minute, same as baselin=
-e with lazy invalidation=2E This rules out a stale-mapping-during-lazy-unma=
-p race specifically=2E The IOMMU is failing to produce a valid mapping for =
-the address the device requests, not failing to invalidate an old one in ti=
-me=2E
-
-CANDIDATE MECHANISM
-
-The four DMAR fault addresses we captured are all exactly 4K-page-aligned,=
- clustered within a ~2MB window, with irregular (non-fixed-stride) deltas b=
-etween them -- consistent with each firmware-crash retry requesting a genui=
-nely fresh page, not a sub-page cacheable-alias bug=2E
-
-Reading drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie=2Ec (v7=2E3)=
- shows why=2E On firmware crash, the bus =2Ereset op (brcmf_pcie_reset()) r=
-uns this sequence, unconditionally, for every chip revision:
-
- 1=2E Disable ASPM=2E
- 2=2E A real hardware watchdog reset of the wifi chip's own silicon: WRITE=
-CC32(devinfo, watchdog, 4) -- a write to the BCMA ChipCommon core's watchdo=
-g register, Broadcom's standard SoC-wide hardware reset mechanism (used her=
-e in place of a PCIe FLR)=2E
- 3=2E Restore ASPM=2E
- 4=2E Free the old ring buffers (brcmf_pcie_release_ringbuffers, dma_free_=
-coherent) and allocate fresh ones (brcmf_pcie_init_ringbuffers -> dma_alloc=
-_coherent, confirmed clean, correct DMA-API usage -- no raw pointer math, n=
-o dma_map_single/dma_map_page misuse)=2E
-
-So every firmware-crash recovery cycle contains an actual chip-level hardw=
-are reset of the wifi silicon, sitting inside the normal recovery path, imm=
-ediately before fresh DMA buffers are allocated=2E The IOMMU has no visibil=
-ity into that internal chip reset -- it only tracks dma_alloc_coherent/dma_=
-free_coherent calls=2E If the chip's internal DMA engine state (cached poin=
-ters, in-flight descriptor/prefetch state) is not fully re-synchronized wit=
-h the IOMMU's page tables across that reset window -- plausibly interacting=
- with whatever changed in pci_dev_wait()'s reset-timing behavior between v7=
-=2E3-rc7 and final, one of the only real PCI-core diffs we could find betwe=
-en those two tags -- a stale or premature DMA read from the chip in that wi=
-ndow would produce exactly "PTE Read access is not set": a page the IOMMU h=
-as no reason to have mapped yet=2E
-
-This reads as plausibly Broadcom-specific rather than a generic any-PCIe-w=
-ifi-vendor bug: in our survey across Intel iwlwifi (two chip generations) a=
-nd Realtek rtw89, all clean on identical kernel/IOMMU config, none of those=
- drivers perform a full chip-level silicon watchdog reset as part of routin=
-e firmware-crash recovery the way brcmfmac does=2E That is a direct consequ=
-ence of Broadcom's wifi chips having their own embedded ARM co-processor an=
-d firmware, versus a more host-driven firmware model elsewhere=2E
-
-We have not proven this causally yet -- it is a source-grounded mechanism,=
- not a confirmed root cause=2E
-
-PROPOSED FIX PATH
-
-1=2E Bisect: the real fix, if this mechanism is right, most likely belongs=
- in one of two places -- (a) brcmfmac's reset sequence, inserting a synchro=
-nization point (barrier, or a readback to force completion) between the poi=
-nt where the fresh DMA mapping is guaranteed IOMMU-visible and the point wh=
-ere the device is signaled ready to resume (brcmf_pcie_hostready / the mail=
-box write that follows), or (b) PCI/IOMMU core, if pci_dev_wait()'s v7=2E3 =
-behavior change doesn't give the IOMMU enough time to fully settle before t=
-he device can issue a post-reset DMA=2E We don't yet know which=2E
-2=2E We are rebuilding with CONFIG_DMA_API_DEBUG=3Dy to reproduce this on =
-the affected unit=2E That should show the exact call site and timing of the=
- bad mapping, which would tell us definitively whether this is a one-line b=
-rcmfmac timing fix or something deeper in IOMMU/PCI core=2E Will report bac=
-k with results=2E
-3=2E In the meantime, worth testing as a less blunt interim workaround tha=
-n intel_iommu=3Doff: iommu=3Dpt (passthrough -- disables DMA remapping but =
-keeps interrupt remapping)=2E Haven't tried this yet ourselves=2E
-
-Happy to share full dmesg, the DMA_API_DEBUG output once we have it, or te=
-st a proposed patch on real hardware -- we have the affected unit and can r=
-eproduce on demand=2E
+> 
+> 
+> Takashi
+>  
