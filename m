@@ -1,94 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.63
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792532179;
-	b=JXAZMAEYd+ux33zvRfGM14lcRh3TukifC6BM6xmeYVvF2z65JlJPIMua0p5mt3OYcoM1
-	 /iuKCHtgYBb6Kyeh1ZHiAkZAEpYoOv+nLJz0lYUVMLgvJpocQvnIdOsHQxYPXVDv8sB4j
-	 wftdNz8pFGwPUxWXWfTRnbeFo5PVDmjynPwRtYjj1SfwBkRBIsC64k3sL0leXym56nr5h
-	 QtTgmryiVBtNQp1+QYozzz7mw6h7NGzj5ecBX2lnsBGrozTQskWNEJqKe0ureAESiSZTB
-	 4jf5E5jvY6HZsBFVBDbUvmQl57tL1CS1D+eHC8/ZWx8nHgGMOjlEafCMUDDiFE7/ccQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792532179;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=EPrx/qMb/c/4Nb0tUkKnfqwKmYVunMeDvQOrImGC94E=;
-	b=SNEqVh2urYwHtjH1oUamGJ10Og+F/cKJl8nqfOCW3uvPBmFGENud4y1nNlPfse0UncoF
-	 lFRnSHGhug4ZD/EKkc3Opx7N77nh9DNAw1HBfUXflrk/uh7jp4khOg53nl2gRpB7GGSrF
-	 p4eA3PJvohg/kW2TLPPCYpRMP0uBzyYe3qDh5W/MbzHZRf2KG1ccIcPTfs9OuI4MO93GW
-	 25MGUbc7577wB5CgJd/XPVn1T34Jm4zjhz91k4PFxMMENqgfnXnWUlaRItUetIhwCf5jQ
-	 YX/6MOs9mDXrkjDoilGAjbWUqCYD410tzW19dXf4y+ez2q2/ID7sWFWKkFwmD0lNIXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kkN7Rs3A;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.63
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012063.outbound.protection.outlook.com [52.101.66.63])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792532194;
+	b=iGzr3JNREhSia2FWZuWpHjxoWb8zUN2vZ3yf3d0+MyEEo42vB1hqWmNTlG/tlpsYzrQx
+	 avkqcaWgJgc2COVwBpLLtMSwLwXJEDRpF79D72LSBY4xbKICLfnjMMS/mXqFOd2wR3H6b
+	 ZaDkoXSYKbQxEZ5mWaVMLNvznrxwhlmFOw8s5u0FMwUrrejazVxjpo7wkUcMF7dc2UqaK
+	 /s2zAdINyvPs1mTCVCR2s1op9CxPh/rJCgVsQ1IrW/Uddk+Q3UTdnC2rt1lK0gumS8bQa
+	 MrZcHkcGmx+D7CZ8NnXp0+gJz1WhlGSTDts00qhLxEEfGCzm1iTrwRayUzZHn1GAS6w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792532194;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=0GbSbxcF7mqk/j5zgXa6M00AnGq+z6SkEGan9KfTiYE=;
+	b=H0McTDS25gIff2CgGbxe1Cricp6hetnlGcV4maF2VPI0TTDC0WGyjR7LkBEbYunsyU54
+	 jRRHyv3Fzq9jhFLnhrle0C25RHCcfbR2pdiSC1dgWiQ9dIqLhlO/XSjCEIgMkKyEq9BLV
+	 bBbnPb3+/dENawagF0OHEcyEa2AMzsIqc0h8wSoOUmru1svSo8Xu1hbCdapnRGsv5H1Hx
+	 2i1OzHS9ZrKZ3k8CsWNZffyrGpBTEODlrKtDYebNrusMron3dV4lqWQDKJJ7UdS59YPxY
+	 zUQ+suQoh0IuYxUsI7eTPxqaHHosO8CXzmAEFG3Tq+2wdpH8Ud2lJQYU+HvyV6pWLgQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=AdVZBQoz;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="e79WIh/L";
+	arc=none smtp.remote-ip=103.168.172.148
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD134606A31B;
-	Tue, 20 Oct 2026 21:36:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD134606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3510606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:36:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3510606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kkN7Rs3A
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y4ifubTepOkgiLYbJThhSni8YCFr/HYzyQxmmmWQ1pmq2TxiRk4xk84ha/fgm+ze1MiYLuY+41ViFiB+kZXu6OIU+IQrxBoywJF6yZu8/0nQ425jlfX+Ynp+rMYhCceZEY5ABRIHytc0oRr1P9KcuXbu+8uFNugwiaYUy/gm+1Hm1X8/sSGJfCJeg8IoZp9Bdvoo5Mljddu5N5b707Yymi+47As5kihjpvU0Dla5b/5NhrevG+XpbGEmD1zM07uuBwz6LQXof1zamBNq3Jv6yisnXZgicXbdAPH1gkjjDZKYCm2jJcF2yBFqEbN/ZTci3rcO/C0e+eILbQ4ll4e59A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EPrx/qMb/c/4Nb0tUkKnfqwKmYVunMeDvQOrImGC94E=;
- b=VSFg2HBMuHYD/BINm6mJCHqOZVls4O7EBcfSQxiAoZIJv+k5QO8Pbf+OEgRKGLcCWzrDG/Ns9TtL8IZPwi+4Kh4wYIByPbUNh4akAdvaF6Z1MmrrnRaQXRafuyVJ7LY8cjiBWQOPlUkM948C9uf8l1/hh+InAJJYqXYoMAm7azU7BSY0iE5nShIKyFCFhexVGWrh8lFWQ7lCTMurY0HX13Dr6k1pz3ZfWKH47uCzgIOjYdB73Ti0/TcoXUlEKOqJm06MEQYQ/GLOX9Sio58q3RhDkTrzFU/wnrClKcViUe67V/a7rTwK9K8AbnNNemdVr6RDEo4yleA/cshE5HFYxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EPrx/qMb/c/4Nb0tUkKnfqwKmYVunMeDvQOrImGC94E=;
- b=kkN7Rs3AqCia2fYiaKw8/MA+WjfR7gpB11QMNV4V1N7Dydp+MVWvUsWS27ZnFU17kniNDN+B1rKzDZayRnFdvpg4ci6Z3gWoYq0OFxgB2m4yKQdkVoKogpBjOWJBx8dFPu9obpHfrIiEJbE1h4eN97Zr6w4gOhAl2kkteP8CzO3cLlTbAb43xC/B7PKJ/ssb7onkMi9e9gWyx/at0D9vmSBq26FtDxsV0NhxN8IfY1a39WAyiWBjnwLmsLyqA2iko6vNojqsLO/ICJWadTJNuaqL5C6tw1ueKcOuGSIOKJrYt53cWJKSYmwjWdsLULXdmohuku1WWjvORnY1oFKoEg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM9PR04MB8953.eurprd04.prod.outlook.com (2603:10a6:20b:408::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
- 2026 21:36:15 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 21:36:15 +0000
-Date: Tue, 20 Oct 2026 17:36:08 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
-Cc: vkoul@kernel.org, dmaengine@vger.kernel.org, Frank.Li@kernel.org,
-	andi.shyti@kernel.org, mukesh.savaliya@oss.qualcomm.com,
-	naresh.maramaina@oss.qualcomm.com, aniket.randive@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: qcom: gpi: Set IEOB on linked I2C GO TRE to
- retire TX descriptor
-Message-ID: <atfeyHPnndVH-BSC@lizhi-Precision-Tower-5810>
-References: <20260909175332.304767-1-sevanevorotov29@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909175332.304767-1-sevanevorotov29@gmail.com>
-X-ClientProxiedBy: DS7PR03CA0351.namprd03.prod.outlook.com
- (2603:10b6:8:55::16) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=AdVZBQoz;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=e79WIh/L
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 98579EC0506
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:36:32 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 20 Oct 2026 17:36:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792532190;
+	 x=1792618590; bh=0GbSbxcF7mqk/j5zgXa6M00AnGq+z6SkEGan9KfTiYE=; b=
+	AdVZBQoz9zsHKbgJiLmILkcBFD/venW3C5T3k9bUEIndHesl4KHxluW+DbDXh8KZ
+	+gtbsJkrmK7JIr7+urE1mmb4I8QVCwwcQKQ++OKLrii8oYE16w2kCcmpi3Pr9MPp
+	b9ev6u5EvAMlrDHoBYZwG4skgEFT2bGUax2J+XTozD/RyAwVsdW8ooLMO3Ulg0wJ
+	r43BIJzMWXW6EmSggnntRlYqVhoLUCRKeIWb4yxFGhMDaTdkjkH95kSm7ZWeN0gA
+	sBkBGgBQqsLlJU448Hoo9DCyVcN7oSn1JrxPOVSfIVrbOX34eY0oUVMaZilgAV47
+	1XEK2cdid+y32yRfJzRL/w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792532190; x=
+	1792618590; bh=0GbSbxcF7mqk/j5zgXa6M00AnGq+z6SkEGan9KfTiYE=; b=e
+	79WIh/L9qGP+EpT3hI2k5R+OQW6pDK44kNwimyu7VucRFyQZQvfNvooMHUgIiyRT
+	C6juuHaqwq7wmb/yP3ImvX42UJTPu6wNovRmDiVSxkBHzpbvzoBJoIDiltpNqEia
+	ozYlGHiumWEBiYnHpXxAM7yW1Q7nb9IkKnYH90XHQBNWCpc5WofDSksJoTdSx7vb
+	lqjPfPa0YHdEFMV4ovz/pE9fboyxQgScbdOxzp+Nksh+pbA4cIZ9Ysn0z3upghsW
+	gKw58EuxTw7DEMrqbB/9wBcx5aBUinteCSfDKoWJ85I/B2YNuK75pvAIjOBdyFrn
+	9GcuTWdSSU7wPDRZwbJVA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792532190; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:H+gjLsaWkKRcPTZN60WW5xws6WMGelyjSR+cvaToFYbjZyC
+	6Bk3Ff8sh6LjD959J3o0NxgkuyMdkwxpEm5WAqaUXnmLJy7g/rIJDgGVBr8kNYpH
+	cxnTKI6rWvNZaNUvuYJ3bbBlWcqty05sD9R0WeqeRPq5znskZMUWnD2+EHtZpxJ7
+	xipM7MgO0qfyBdvY/eEVEqRYlhYWciQaV1ESmlMnpt3dQD08j8TQkxxix2UKIWFC
+	SMn5m70ehJPQ4h7LZ9UdR6l+l7XpyN925PrdrdDsjz8BIQGiOxQKb1+iLWOehhM7
+	w6A7lL86dyycsb5KFjzx2VUljLB6Zs2jbvLwDgw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:1Ens3Vb2WEJuo5l6XGUwlSnDxgUirZOBZ7zFmckBBZI=:ef+akXHVMDf7SQcMykZ96WWptyVk1nyIOnthQ8jSqBc=;
+X-ME-Sender: <xms:3N7XakNwf5lqCwskTIUcQ18HtZ11ZM5tI9STjrfJxWivbzRKyW7lJg>
+    <xme:3N7XalzScU0ue0jbSQADmRNomaEwZ6YuaUqdxv2m_Y_gtnERB4_uF_PPAzumf9UIP
+    9nMCfVCYD34lsQMAUfHgGCsqt4Sg5XLhwPegGmVmuwtYPSjjfCc8Xq->
+X-ME-Proxy-Cause: dmFkZTGoMHb3d+Xh30/9DmivZ32y8pPIF08b/I3akBfROr1ndoXeA52Jr8CBxi2Yquzr+w
+    c7QHtCaM6levoerK3vFkPRn7o1gkD1kDuIoK1wlQn0NxHtp67JeqdgnUbLLQptExQeDTiI
+    7rTsRz5cdM4L1PzbaHKihqGeJs+2/CQMTG/oG6dvKe0zZEZQU5yGUgt8kPU1i9Ac1JRUFU
+    zvCX8J5DuGNUFr36PJ0RHQrknGRECgTS3kz3WriSI364YVZnu/vjq26+/5/QNmki+qf/rD
+    AxNrPuQKk1sPSvFmKmm6ExNJA6RK3767WlL5868MHwHOsBoV59KleOhz2I4AUIi3Iv99f1
+    TBrBFnW0mXI0PeR0ivxLHNNsMTp2kBIfGVZIQ8AVekDJ9Gh1oicFPANCd/T4Xr6B9plMNi
+    57GFTZQ4eBa/Nem119yvrbMe45i31fikkTXrtzqmJCgW3Q58DbwN1Y1EvvTs9pPYro0XcX
+    M45QUtXXmQus2VHAMcZspY/OBEp/8GRLm2RnpQT0qIv7Tndkaz8+a2k644EIR72F7YwUFm
+    GVG8AoN9BkL6TzY2p4P6Ov3Hy6zs8RHmKmBn1+mHUvKd67qZLa+M/b3Wp9RKAhsXWtZQj2
+    Uwzedz368yXMYZqZnJ7pIuP5iMGH1URXl3tmKp5vrehS4OlT9N9VU+3Yd8Ag
+X-ME-Proxy: <xmx:3d7XamZomFx1c83XVsdb24PLwPBgrhpFQ9mbVQPNkpJl1OSeBqymaw>
+    <xmx:3d7XaiVxtBCSE2mnTenBfm3JUqZ-T6JromnBM2OMd0wQ4dmavrMNwg>
+    <xmx:3d7Xasiy0PQcp12kYDykkqjiMaaoJp7_SNZ5Fpt9xyt-RuY3ezcTIw>
+    <xmx:3d7XaosQTfUKZpZAKI64gBM9tKH5YH7a4lvlLdQ06Blu5sPKAh8vQQ>
+    <xmx:3t7XamHEG5Jt2PSZa939BtR7aq-MEiEdJD9an6lBfQxovOP2Fs4VHvqu>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 254B232A008F; Tue, 20 Oct 2026 17:36:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,136 +115,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB8953:EE_
-X-MS-Office365-Filtering-Correlation-Id: 836a76e0-48fd-4db2-d99d-08df2ef22b64
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|7416014|376014|1800799024|366016|18002099003|22082099003|3023799007|11063799006|261009223027099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	wOO4hgHwe2VlX8FzQsExjC4KtR4W8X3yMyXat4WtrakTwio5TNZJPde4FYltVW7FvJCeZpUzmbpFvQaKU/0mGIUcABwMx0FflzrMRk5j1nPtolcpgbTEaVuZn9+8uY3TbfGUyADY/WMrIPhISXD2qF8qtibNOGRMdw2RecmxR5TqLDpQOPwWak8Dnksv3Y3M/JWZ5/LLT+GiuO8xy2QyuD1sSm5lk1DUimLX+YXvmzMdgSAKYQkw2ML1SFPGBMU2E9GFq03tSzchjQDjiz9DUS1zSA50P2JTMckDWtgJitM9xu3YRazs+8vywM4D/x9ghb7p99YxTevntFeLjrKFuXxqCV3cMXtO8mXIcJKD1ur/VNMR7JjlECI1ZSZvlbPg3iAEw8wHBywdsnYGXZc/K90EDmJxhaYrmYw8IL7c4GX2H7bEhZwu5fIIqmNa/Um4nVP2NIw3frqykh7EshcofJK/D4uEo8tBWcQkPVIvJ9Gzn1Dt576CJaE88LcZDjv3+3PSyQkWJs+k9bBB/PmMy67GjeMPZEicblegaNtt6pF9GKyR0p4MUIOggjfLqMxBuI8TBJpwQZ5wUOhSoZdPMU6gUrUbmFx/zM7FSprTVu+XmPfLqes/my+ccVTGtByJ0RhmtukaXMf58UqXR9U3q/5wB7by9g1LZhAJRq0FthY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(7416014)(376014)(1800799024)(366016)(18002099003)(22082099003)(3023799007)(11063799006)(261009223027099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kJW9WR+jOYuVCx0riAtVLieFe06Je3iCYJRRyXcQiKDxTTlodpVGQSYe262G?=
- =?us-ascii?Q?TGt2x7zZlS6LJJgd0EARQ2xrErpvClgLaTo9TU7yYtjdK4/Uu/xPdEgNRJVG?=
- =?us-ascii?Q?f+gNss9FKgQENEv3BvJE3h9Mtgww2emRKlwzr2+90EdNkIGf3o4uD/g16d3D?=
- =?us-ascii?Q?nE2UhjeQIqrUyjPVOh9BrmY/8mMu8nOevGi0zNhm27CQxUM6VZLtYoCkjMdY?=
- =?us-ascii?Q?o8mcoLCnB/pEPSxizgenE7mYf9BHz6ogxQ0X8CyDmxwOUVhHLptjXnbX7U8t?=
- =?us-ascii?Q?9J5FIxY30+SeJmaKn8YmznYfUqv16hG6ouRn3iJd/gn8vOOJFQjTg1p/Oyfb?=
- =?us-ascii?Q?qco3Q1TPH+5bUoBh+jRzuCM1zS+tgfmd49Gieg7R0nugWVCXDhy81ezIjN/Y?=
- =?us-ascii?Q?RACO58yXuh6dO+NddoahJVfLVojGhmOnMDEYHBW6lA4FRKm0dsCay+bpIf+n?=
- =?us-ascii?Q?k5BSe4CpESoY+/C755vpkuAmZ1L5cnzo162kS0Ndl9+ytf4je1USsPZ0ia+C?=
- =?us-ascii?Q?2+R/Is8yp68MZj7Akpi8aCFJ1OHtrFF+F9+ILDIs2IRdwE7tlGAZUTkC6Yne?=
- =?us-ascii?Q?ABIoY4zX9nVzv8o02tFfyHZtHvQifV2JvbbFkDg6q/bukn64E56wdVlrLunR?=
- =?us-ascii?Q?7VPXNlMHWQSzEcH9TsKX/7goukovkMbbBxpRgjUhqeJYVs8IknPJ6j3WIFpV?=
- =?us-ascii?Q?tZtaLQZVMG8Phb6hX2NZzKd9AftFt7AMQU66DrAPzRfqftZFv+NoK9Qjg8Rs?=
- =?us-ascii?Q?wfTKtakCDhCj6HiDjTi+PG5XNzOyQ8MFZvY+R5f6eN2TV0+3iM6wwM9Wzsos?=
- =?us-ascii?Q?+VpTYZfsTePFkiCY7kH6q2ArcdXJ1+4FBzHFyqSj1gjxtR4NMYOVT7yEnQP9?=
- =?us-ascii?Q?VK/hBRDSyiO9Ck7vkhpmhDgsK2x2oA+ymBbmyiKQiXb2tS3OZ3PEQEPaeru7?=
- =?us-ascii?Q?3Q2tMVxAH7qfMfGPEET4zS6Y+x7of2stNvXP7VlufaPpLHAS5aay+kFPnlpf?=
- =?us-ascii?Q?70XA2HIho1HHkfY0YFi8YTopuPO6kqC4oq398VyOWyqQgIBEz0F7RhMRzgfH?=
- =?us-ascii?Q?o7wNN0k9BzHBaylKTUQiQW7uBgcGSY+WxIRZaO/tshpD+fB9JJtmz0f3Ph1h?=
- =?us-ascii?Q?530Quj/vBZk5ytFzFdGwHMuKJ8bU9KP+voOup5ifl5L4xd0XWNHPM1T24l0l?=
- =?us-ascii?Q?jVvow5R7vJIE0NM4Bk0WZZrI83FyJgylhOcR18vsYXp5WYEqc0PiSqtAIbRw?=
- =?us-ascii?Q?LnKGl6sIFYsJK+X5kmzmEDuLwbcsqA2oCb24x/qfFgi1HTyhVeypJuUjDwoA?=
- =?us-ascii?Q?oX3dUrj6+91/gGGQfR2eAH0smA+ebvYeiNVS8jhkYXoOmfAXkiSHfdTKO9gA?=
- =?us-ascii?Q?1UjVZEaKM1nQeM4ScZhUW0jUiUtqfWJJ0+28apu3DVNnX2Rqe4xm6k4S9Xjt?=
- =?us-ascii?Q?6O5qFH5Xk3XwcIHlob6pMYG7c4pfovBMlzChVNswQiRjuwdvRv3HBOLeYP48?=
- =?us-ascii?Q?mFhIS8SAYAb1fn/anNClmtYIKsSPjVp37+iVM5iG5XRfcSq1Sy8psnxvSghh?=
- =?us-ascii?Q?vX1PAUV/dgCN1R0uW6TxAQABiLFI/iQ6jkYTLpmSBEvo2zNCuHB6iJZawUHY?=
- =?us-ascii?Q?XqMkscY+PbAP5O7IA3nK2yPCwHQ31woPv5UBRRSESgRzublu1eAan/exNrEy?=
- =?us-ascii?Q?0ay1DSmcYgELWOO7ySYC6P3dOw2OCz9N9Z/QfgzzCgI0iH59sc4LnpE81HQG?=
- =?us-ascii?Q?xRFo6BgJ09LDnhm3q7Pe4FllOK2bujIBycoT8pgBktcq8ng8sMpv?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 836a76e0-48fd-4db2-d99d-08df2ef22b64
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 21:36:15.6009
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5bAxRLHlwYCamTB4zJRY961ul9Q7gHMMQXmbtscZpDxnUvf3rxJRAhZoNu2hazXhwwWstg67YIgwFFzhNJ0AkKShzF0qyd57OO4PNCapKsWp2ILHulvFd/sjJ1IkAhZu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8953
+X-ThreadId: AWltsBeAjQxZ
+Date: Tue, 20 Oct 2026 23:36:06 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Hungyu Lin" <dennylin0707@gmail.com>
+Cc: "Andrew Morton" <akpm@linux-foundation.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Message-Id: <735f670b-b93d-402b-8eb0-43826a05bfe9@app.fastmail.com>
+In-Reply-To: <20261020210157.52057-1-dennylin0707@gmail.com>
+References: <20261020210157.52057-1-dennylin0707@gmail.com>
+Subject: Re: [PATCH] compat: Avoid double rounding in times()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 12:53:32AM +0700, Vsevolod Nevorotov wrote:
-> In GPI mode, an I2C read transaction consists of a command phase on the
-> TX channel (issuing CONFIG0 and GO TREs) linked to a data phase on the RX
-> channel (issuing the DMA TRE to receive data).
+On Tue, Oct 20, 2026, at 23:01, Hungyu Lin wrote:
+> do_sys_times() already converts CPU time to USER_HZ ticks. The compat
+> path converts each value back to jiffies before converting it to
+> COMPAT_USER_HZ. This round trip can lose precision even when the two
+> userspace rates match.
 >
-> Commit 656147fb1d4c ("i2c: qcom-geni: Avoid extra TX DMA TRE for single
-> read message in GPI mode") avoided programming a dummy TX DMA TRE for read
-> messages, leaving only the GO TRE on the TX channel with the TRE_FLAGS_LINK
-> flag set.
+> With HZ=250 and USER_HZ=COMPAT_USER_HZ=100, one user tick becomes two
+> jiffies and then zero compat ticks. Every odd tick count loses one
+> tick, so any of the four tms fields can underreport CPU time by an
+> additional 10 ms.
 >
-> However, gpi_create_i2c_tre() did not set TRE_FLAGS_IEOB (Interrupt on End
-> of Block) on the linked GO TRE. Because no TRE on the TX channel has an
-> interrupt flag set, GSI hardware never generates a completion event on
-> the TX channel when the GO command finishes. As a result, the TX transfer
-> ring read pointer is never advanced and TX descriptors are never retired.
->
-> Under sustained or high-frequency traffic (such as touchscreen controllers
-> operating at 120-240 Hz), the TX transfer ring quickly runs out of slots:
->   gpi 900000.dma-controller: not enough space in ring, avail:1 required:3
->   geni_i2c 990000.i2c: prep_slave_sg failed
->   geni_i2c 990000.i2c: GPI transfer failed: -5
->
-> Fix this properly by setting TRE_FLAGS_IEOB on the GO TRE when multi_msg
-> is true (matching Qualcomm's hardware specification and the existing SPI
-> implementation in gpi_create_spi_tre). When the hardware finishes executing
-> the GO command block, it generates an MSM_GPI_TCE_EOB event on the TX
-> channel. In gpi_process_xfer_compl_event(), handle MSM_GPI_TCE_EOB for
-> linked I2C command descriptors without a subsequent TX DMA TRE by
-> retiring the descriptor and updating the cookie without invoking the
-> client callback, allowing the linked RX channel's DMA completion
-> (MSM_GPI_TCE_EOT) to signal final transfer completion to the client.
-> Other EOB events fall through to the default transfer completion path.
->
-> Fixes: 656147fb1d4c ("i2c: qcom-geni: Avoid extra TX DMA TRE for single read message in GPI mode")
-> Signed-off-by: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
-> ---
+> Return the value directly when the native and compat units match. Keep
+> the existing conversion for differing rates.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Good catch!
 
->  drivers/dma/qcom/gpi.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
-> index a5055a6273a..a1ab63bf9f6 100644
-> --- a/drivers/dma/qcom/gpi.c
-> +++ b/drivers/dma/qcom/gpi.c
-> @@ -1050,6 +1050,13 @@ static void gpi_process_xfer_compl_event(struct gchan *gchan,
->  			return;
->  	}
->
-> +	if (compl_event->code == MSM_GPI_TCE_EOB &&
-> +	    gchan->protocol == QCOM_GPI_I2C &&
-> +	    (gpi_desc->tre[gpi_desc->num_tre - 1].dword[3] & TRE_FLAGS_LINK)) {
-> +		dma_cookie_complete(&vd->tx);
-> +		goto gpi_free_desc;
-> +	}
+> Fixes: f06febc96ba8 ("timers: fix itimer/many thread hang")
+
+That one apparently just moved the code into a separate function, but
+the bug was already there before 2.6.12:
+
++               tmp.tms_utime = compat_jiffies_to_clock_t(cputime_to_jiffies(utime));
++               tmp.tms_stime = compat_jiffies_to_clock_t(cputime_to_jiffies(stime));
++               tmp.tms_cutime = compat_jiffies_to_clock_t(cputime_to_jiffies(cutime));
++               tmp.tms_cstime = compat_jiffies_to_clock_t(cputime_to_jiffies(cstime));
+
+
+>  #ifdef CONFIG_COMPAT
+>  static compat_clock_t clock_t_to_compat_clock_t(clock_t x)
+>  {
+> +	if (USER_HZ == COMPAT_USER_HZ)
+> +		return x;
 > +
->  	if (compl_event->code == MSM_GPI_TCE_UNEXP_ERR) {
->  		dev_err(gpii->gpi_dev->dev, "Error in Transaction\n");
->  		result.result = DMA_TRANS_ABORTED;
-> @@ -1668,10 +1675,12 @@ static int gpi_create_i2c_tre(struct gchan *chan, struct gpi_desc *desc,
->
->  		tre->dword[3] = u32_encode_bits(TRE_TYPE_GO, TRE_FLAGS_TYPE);
->
-> -		if (i2c->multi_msg)
-> +		if (i2c->multi_msg) {
-> +			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_IEOB);
->  			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_LINK);
-> -		else
-> +		} else {
->  			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_CHAIN);
-> +		}
->  	}
->
->  	if (i2c->op == I2C_READ || i2c->multi_msg == false) {
-> --
-> 2.55.0
->
+>  	return compat_jiffies_to_clock_t(clock_t_to_jiffies(x));
+
+I don't think there are any architectures left that define USER_HZ
+and COMPAT_USER_HZ differently. This was true on ia64 with x86 compat,
+but that was dropped in v2.6.33 back in 2010.
+
+   Arnd
