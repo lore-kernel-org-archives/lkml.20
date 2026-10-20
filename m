@@ -1,104 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792474154;
-	b=BjJXZ5XLtcAjBGtB9gVbvmynkYXGYzdyOx87QeVyflysSEcWbksZReTqJLVV20pZF3qv
-	 ShgwGgHAuwX35gXrT1utp/vs3gNFdrgEcd662Xn1Q7RoWu2oTEppVHVLBvEgSAOk7Gi1K
-	 YoO41CT3UZpMqGd0FSgKabMcVe8+ppG5xi9qFzewKX7bwP7eCdAOQalbbVpdtAamwJtb+
-	 e9R6r66n3nJCpTd1N4YJymN0lAXVWf6cpktt5G/QFIv6Zalfm9iZkRGm76RUhaHW8rz2O
-	 vb0Eavafv66R4zupfIV9YJZsQT++dekarXWFnFQIFBzFIE4n+CJ1SK7UW55v3+U5toA==
+	t=1792474159;
+	b=cTQLOfe3/Gb5sz0RwIUEZihjn6x8NpxQK1qlojPZpxg1lA2AHC4bEa/3UlorxJwlY48S
+	 AHiDlzXKy9m4mdhdRroqJwj8Z0szCj8xvMtCPcNJFi9WXC3479HWMhQJAeCLe7iWYWGPR
+	 0/4ovypP5tgH+IbdNBq4W9edLpZY5WiUWaO4eOC+Mkt5wKP+fAtwBLqHOE2cHo6gGbn+R
+	 eS6pHrP+yg/LB5hq+0Ms56piE9bRD3t51AQAskUmnj3S1uTUi2R//tc/lbwRn5Q0Rzs/P
+	 zyawo5SOURZ+cFsOCe1EBCc72GZ1HzJObM4r0atzCgGICsW/G/oZjEaf9ZcEiXNZlkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792474154;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=c9R77y7CmEav0rC77XG2mhErQJ4vnSWiNFq8rafLmTg=;
-	b=ho1tLYCStRTE6t51bm9K4ceIVgVOtL4Q6RrcYmD3JHc86I8FT+wHpvvVMe2Dke/kkfIz
-	 YjmAL1iqBtTofFsn4tMfk5tRO68PbgNpMwNI3GZKi7beTwHWu6/0tdwV+LFRVG8/z8EeK
-	 Yv5hN9HkjXvhSPoDEiS/FftP9EBbL/0CZ9nVGq7JUnCx64+gjAZSLrrgPOu0ktwW/cPl6
-	 q5hy9LKsIEgnvxZ4i8MvEiAEPAB4VGZQ9NB44A3vVXEhYR8kC+fIuOd93zuli1Qmy7GGg
-	 bSJ6NII6qJHdY2+yD/jwqtP7QH5/kFC1+1D3TQ+r0r8u6XwIGng0azdQ8TpBO5arxtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792474159;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=0Ub+UudVZh6+Pop1X2tCnVJRsbTR40D/96nuKlIS9ls=;
+	b=lShF+xIO/qEIqy3VM8XjiTcdesiQwGNkIL6RAEmDFYkt9Qs+Ams67DWGtnQdBNusqHsr
+	 er5MI1qySR6AO1ARWnK57Sgo5psJd2AputMD35i8XEPOfw55DBflqd2Db7USjijWXcGOc
+	 gzR5JCCGEDPXfwyjcYy14pvEn8WykP8HFEbWKUz/4WQJJzoLyfDLYDCcg9m1bXWi9YPn+
+	 N4g1eotP3ziaNb9u2oj/7MwhJ0wW1Q8KN9AMvrdayg115eXn676vq/A8d/+ieRIdjfpJB
+	 PSIgcxvlImEw207Kvenbxo9Twj4zWTTwKnwTyeLxTre7pBkqozenRTbNAOuudWduxfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IQBUBur3;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=r0D7+zxQ;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34C3606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:29:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C34C3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C630606A319;
+	Tue, 20 Oct 2026 05:29:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C630606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IQBUBur3
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a077aed337so146657b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:29:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792474153; x=1793078953; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c9R77y7CmEav0rC77XG2mhErQJ4vnSWiNFq8rafLmTg=;
-        b=IQBUBur3C3ooYTg5kvhTecuHSB1BGpjp7yAA0mIKn1KXQvvi8yjEcRmkxmKnWdeE7E
-         0wnTYdvYGnwAqgAO0varwi/dIYQYYwS3hLf3CcXVW5HdtDxHqnKocb23lWaeCrUyzVkJ
-         V9ibknii+z+WI7x7BKoDF/F29SvU+LcIdoAmsK8L7WcmZWt1ZJB/VGooD2EisfUsIgbL
-         XmWCcBxoRhup+qP1okUxUbtANYOkhCdiB1wdmC4hnz7h0xaFqxHtmI5p13UXlGNVD8R1
-         P6ePeijdS59iYgsFsWSMB8pgwiovwod371lTewAs2HI3HiUZMDA7nQOeT12z8cOB757r
-         9ONQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792474153; x=1793078953;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c9R77y7CmEav0rC77XG2mhErQJ4vnSWiNFq8rafLmTg=;
-        b=fy0ufAC7jlbc9lHMhrrdWmPvMKocoEbEMJehYM+93q7PuXGxCazBDX6Uo59UarAUPT
-         paIN6NWSIH4+BxEghvtnXm43VUJWtWwsT9qE7tAl2c01kUCXiVPdN8ZKJYFBlVI5tkBs
-         HtRhPQ78FDKJi874MyhisE/FSBYkuQyy5zMZcuDnmWNoNaZiWhxts8muo7e7hIszqphK
-         GPylM/Ox87cWfaxj2N+Ur1hU4Jrk690hJUZT1BcantGnOWrrszyyyNUe6Vc4ufaYgfiv
-         PdmZpyk0gbPmm4jpo3NPK52dM0RE6O5XhhD45vVatsFrdhxJH3S9GtvWDsHqymtJrgBL
-         OKgg==
-X-Forwarded-Encrypted: i=1; AKwUvBzbsJW8ov0dRSkOn4WVIHnmrBtXxtgxY1nGv1AeBJj5Ea4sFmIuj5RHMsbL6d6/oAVmkwtebiAz0dflO6o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK69Yc/87sLa5VwZ5ioMq1NjijBOmzdUZnufHTGi1K8XdcWMfaV
-	g0HXfwltDOeCEDt8eaoSqK6Sg/3vh5LJkHvv45r7PQyigc++iMn41wbZ
-X-Gm-Gg: AYBFou3ZNZUJnFWPW9nSwdPvpOetEes+HWqpnzGVShf2KXIIlaX3fbDojXAFjNj4jHN
-	Vg93sf4xNBnwBlR7GfgGtmbSzWd+b5f7Z7jMbQepuqgabDrAosQ4nGvXe5xpZDZT+asCrBYGUTY
-	SalbnaQgFhNXdh4Msgm/UdwMkew9GgheSv2j37LIcoyX5rSMDqWnuWDV5N14CqTeIOCvCUXbJTQ
-	pkUG4YnU/ML2zCaa6VZzklBFRsNgtFYXfG4cAw1s9nfkYyBiMyq/Isg0sVmMoiUKIj5X+MVki3n
-	Kwt3sAfLNnVqj1tJ/onvTFX7KIXPsXE5nlVHe55SwfeSsl7/M3ZF6oMSgefj1Zgtf3W3jUhwwx7
-	zmvr0AQqA0EN6XCW3UcMJod3Bisb5MYLLsWUxHhaBXc6NE3qLNVoiCazkUSfMEU/sK3qJFiYqYT
-	WDnzPjmkeuDBbgVBdPp6DmA0cDPcl5vg8mPDvuSCqPcVEDZK/o/QZ7feGUTYcTKTQq4L+koAtns
-	0Gc
-X-Received: by 2002:a05:6a20:c885:b0:3de:57da:7fa6 with SMTP id adf61e73a8af0-3e26fb93cc3mr773371637.39.1792474152912;
-        Mon, 19 Oct 2026 22:29:12 -0700 (PDT)
-Received: from hachimi ([101.5.175.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654eaf4e3sm4406759a12.26.2026.10.19.22.29.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 22:29:12 -0700 (PDT)
-From: Lanfeng Wei <xlfylawarthur@gmail.com>
-To: hamzamahfooz@linux.microsoft.com
-Cc: airlied@gmail.com,
-	decui@microsoft.com,
-	dri-devel@lists.freedesktop.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	longli@microsoft.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	regressions@lists.linux.dev,
-	simona@ffwll.ch,
-	ssengar@linux.microsoft.com,
-	stable@vger.kernel.org,
-	tzimmermann@suse.de,
-	xlfylawarthur@gmail.com
-Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-Date: Tue, 20 Oct 2026 13:28:47 +0800
-Message-ID: <20261020052849.9241-1-xlfylawarthur@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <atZjtSlZAocUWYBS@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <atZjtSlZAocUWYBS@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=r0D7+zxQ
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69K5T7nmC2667120, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1792474147; bh=0Ub+UudVZh6+Pop1X2tCnVJRsbTR40D/96nuKlIS9ls=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=r0D7+zxQ8iUtOg635DZQr2pwExg333apx1YY9BvvMdR3vJMra8K3IyHpjzmsKW9dj
+	 iLtcsn/Vt/LMGdug1K3JKHS61HRcWxxsqkSns0FpWlyDRZJEE7TT0tmZp2Wdf+q2DJ
+	 TtV7x7E/N6VS3MaJ9k+lwHUSLYEgmtSFVImc1ex/dPHvGeimI1hMqpzU1FOwDKHfn5
+	 F8/TCqaQMfx3Xmgor7fMklwwPNSJ1UOCvXIA9N69VJiINdQBFhPBY7BTqWqKDzV+L9
+	 awWe1ZabVymJN7619b7NDxcmIbLkIEmeaXxQSzSUJFnYDUU87WMvew2aCX9mZmag6F
+	 OY1K19HnjGFnQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69K5T7nmC2667120
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 20 Oct 2026 13:29:07 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 13:29:07 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 20 Oct 2026 13:29:07 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>, Hungyu Lin <dennylin0707@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"reza1234khan1234@gmail.com" <reza1234khan1234@gmail.com>
+Subject: RE: [PATCH] wifi: rtw88: allow key removal when the CAM table is full
+Thread-Topic: [PATCH] wifi: rtw88: allow key removal when the CAM table is
+ full
+Thread-Index: AQHdX+uKpKj5AeqD60mYtFtK4iFuvbcFrrNw//+mgICAAJDAYA==
+Date: Tue, 20 Oct 2026 05:29:07 +0000
+Message-ID: <4f48c50cab1145fd9dbd6df6d424c877@realtek.com>
+References: <20261019165103.5990-1-dennylin0707@gmail.com>
+ <9bde49a2e7794e4fb6bc3ae104eef87e@realtek.com>
+ <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev>
+In-Reply-To: <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,11 +84,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Mon, 19 Oct 2026 14:38:45 -0400, Hamza Mahfooz wrote:
-> I actually have been working on cursor plane support for hyperv-drm.
-> I'll post a patch soon.
-
-That will be great. When the patch is ready I'll validate that the
-problem at hand is settled.
+THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBIaSBQaW5nLUtlLA0K
+PiANCj4gT2N0b2JlciAyMCwgMjAyNiBhdCA0OjA3IEFNLCAiUGluZy1LZSBTaGloIiA8cGtzaGlo
+QHJlYWx0ZWsuY29tPiB3cm90ZToNCj4gDQo+ID4NCj4gPiBIdW5neXUgTGluIDxkZW5ueWxpbjA3
+MDdAZ21haWwuY29tPiB3cm90ZToNCj4gPg0KPiA+ID4NCj4gPiA+IHJ0d19vcHNfc2V0X2tleSgp
+IGxvb2tzIGZvciBhIGZyZWUgQ0FNIGVudHJ5IGJlZm9yZSBjaGVja2luZyB0aGUNCj4gPiA+ICBj
+b21tYW5kLiBXaGVuIGFsbCBwYWlyd2lzZSBlbnRyaWVzIGFyZSBpbiB1c2UsIERJU0FCTEVfS0VZ
+IHJldHVybnMNCj4gPiA+ICAtRU5PU1BDIHdpdGhvdXQgY2xlYXJpbmcgdGhlIGV4aXN0aW5nIGVu
+dHJ5Lg0KPiA+ID4NCj4gPiBJcyB0aGlzIHRoZSBhY3R1YWwgY2FzZSB5b3UgbWV0Pw0KPiA+DQo+
+IA0KPiBGcm9tIG15IGludmVzdGlnYXRpb24gaXQgc2VlbXMgcmVhY2hhYmxlLg0KDQpJIGtuZXcu
+IEkganVzdCB3YW50IHRvIGtub3cgaWYgcGVvcGxlIGVuY291bnRlcmVkIHRoZSBwcm9ibGVtLCBv
+ciANCmZvdW5kIGFuZCBmaXhlZCB0aGlzIGJ5IHJldmlld2luZy4gDQoNCj4gDQo+IEFzIGZhciBh
+cyBJIHVuZGVyc3JhbmQsIGl0IG5lZWRzIGFsbCAyOCBwYWlyd2lzZSBlbnRyaWVzICg0LTMxKSBp
+bg0KPiB1c2UgYXQgb25jZSwgc28gQVAgbW9kZSB3aXRoIDI4IHNlY3VyZWQgc3RhdGlvbnMgKDMx
+IG1hY19pZHMgYXJlDQo+IGxlZnQgYWZ0ZXIgdGhlIEFQIHZpZiksIG9yIElCU1MvVERMUyB3aXRo
+IGFzIG1hbnkgcGVlcnMuIE5vdA0KPiByZWFjaGFibGUgYXMgYSBwbGFpbiBjbGllbnQuIE9uY2Ug
+aXQgaXMgaGl0IGl0cyBwYWlyd2lzZQ0KPiBESVNBQkxFX0tFWSBmYWlscywgbWFjODAyMTEgZnJl
+ZXMgdGhlIGtleSBhbnl3YXkgYWZ0ZXIgbG9nZ2luZw0KPiAiZmFpbGVkIHRvIHJlbW92ZSBrZXki
+LCB0aGUgY2FtX21hcCBiaXQgaXMgbmV2ZXIgY2xlYXJlZCwgYW5kIHRoZQ0KPiB0YWJsZSBzdGF5
+cyBmdWxsIHVudGlsIHRoZSBkcml2ZXIgaXMgcmVsb2FkZWQuDQo+IA0KPiBJIHRoaW5rIGl0IGNh
+biBiZSB0ZXN0ZWQgd2l0aCB0d28gY2xpZW50cyBieSB0ZW1wb3JhcmlseSBzZXR0aW5nDQo+IHNl
+Yy50b3RhbF9jYW1fbnVtID0gNi4NCj4gDQo+ID4gPg0KPiA+ID4gTW92ZSB0aGUgYWxsb2NhdGlv
+biBhbmQgYm91bmRzIGNoZWNrIGludG8gU0VUX0tFWS4gRElTQUJMRV9LRVkgdXNlcw0KPiA+ID4g
+IHRoZSBleGlzdGluZyBrZXktPmh3X2tleV9pZHguDQo+ID4gPg0KPiA+ID4gIEZpeGVzOiAxMGQ1
+ODgyM2NiNDQgKCJ3aWZpOiBydHc4ODogZml4IG91dC1vZi1ib3VuZHMgQ0FNIHdyaXRlIHdoZW4g
+a2V5IHRhYmxlIGlzIGZ1bGwiKQ0KPiA+ID4NCj4gPiBTaG91bGQgaXQgYmUgPw0KPiA+DQo+ID4g
+Rml4ZXM6IGUzMDM3NDg1YzY4ZSAoInJ0dzg4OiBuZXcgUmVhbHRlayA4MDIuMTFhYyBkcml2ZXIi
+KQ0KPiA+DQo+IA0KPiBJIHRoaW5rIDEwZDU4ODIzY2I0NCBpcyB0aGUgcmlnaHQgdGFnLiBJbiBl
+MzAzNzQ4NWM2OGUgdGhlIGNoZWNrIHdhcw0KPiANCj4gICAgICAgaWYgKGh3X2tleV9pZHggPiBz
+ZWMtPnRvdGFsX2NhbV9udW0pIHsNCj4gDQo+IGFuZCBydHdfc2VjX2dldF9mcmVlX2NhbSgpIHJl
+dHVybnMgYXQgbW9zdCBSVFdfTUFYX1NFQ19DQU1fTlVNICgzMiksDQo+IHdoaWNoIGVxdWFscyB0
+b3RhbF9jYW1fbnVtLCBzbyB0aGUgY2hlY2sgbmV2ZXIgZmlyZWQgYW5kIERJU0FCTEVfS0VZDQo+
+IGFsd2F5cyByZWFjaGVkIHJ0d19zZWNfY2xlYXJfY2FtKCkuIFRoZSBidWcgdGhlcmUgd2FzIHRo
+ZQ0KPiBvdXQtb2YtYm91bmRzIFNFVF9LRVksIHdoaWNoIDEwZDU4ODIzY2I0NCBmaXhlZC4gRElT
+QUJMRV9LRVkgb25seQ0KPiBzdGFydGVkIGZhaWxpbmcgb25jZSB0aGUgY2hlY2sgYmVjYW1lICI+
+PSIuIFRoaXMgcGF0Y2ggYWxzbyBkb2VzIG5vdA0KPiBhcHBseSB3aXRob3V0IDEwZDU4ODIzY2I0
+NCwgc2luY2UgaXRzIGNvbnRleHQgaGFzIHRoZSAiPj0iLg0KDQpJIGZlZWwgdGhlIGluaXRpYWwg
+Y29tbWl0IGUzMDM3NDg1YzY4ZSBjb250YWluaW5nIHR3byBidWdzLiBPbmUgaXMgDQptaXNzaW5n
+IHRvIGNoZWNrIHByb3BlciBib3VuZGFyeSwgYW5kIHRoZSBvdGhlciBpcyB0aGlzIG9uZS4gDQoN
+CldpdGhvdXQgZTMwMzc0ODVjNjhlLCBpdCB3aWxsIG91dC1vZi1ib3VuZHMgU0VUX0tFWSwgYW5k
+IHRoZW4NCml0IGlzIHBvc3NpYmxlIHRvIERJU0FCTEVfS0VZIGZhaWwgKGF0IHdyb25nIGJvdW5k
+YXJ5KSwgbm8/DQoNClBpbmctS2UNCg0KDQo=
