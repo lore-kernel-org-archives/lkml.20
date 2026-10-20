@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792538505;
-	b=gzJzOGRZJXoEu6lsAVSwactCW+i7luPJ1dXFpHap6S4OY22Y/0sGmJwVigOE/uswK+3S
-	 qanehjj+ghxEjsdK7TXugIL6lNy/6OycWVWYn9VprUIDnOza5fIw4JiHOhenXYZfbMTYd
-	 u2BXFlUCqVHXxWjPPKzPHK7STAm2Y0juC8QU6qQlWTNYRa36Eb8l3tpcpStqP3elh2XVB
-	 34ysQnQytTfZCs23h97HPrZrPH9C91vsKqlZLJm6IGrKFtl8dQ9PsOrrGVv93EquAPaP/
-	 q8C3m9/jKapyvBsTd8G4rqYkwJgQBiCMa6EL4kpYttzG9Y0SuQoc3Ep1fiUpyA9Mbjg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792538505;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=wxAh+Ne1jASQiYLIaGgyMvhKyKgjJ2FMW5Pt3awzq1Q=;
-	b=uvUNzQ8vIregNMoUghLF3rvjtn2Sf41SDW0cHjoYion+P2hoiUnqZhMLxhjGI/d0AqEe
-	 OqMHzzDsLYQA5yoqdOQgY8dJZbYjBT//tX3G8WTfngkMEu6F5CXGN4zgkmVbJUbd+hn+t
-	 rgLjDhJBwCoLDBZabNJaALBsxpmOmLSSlvSmwu8rhQzRwNdSuHNzpcDzFk1X7nrtjNkva
-	 L6eKkg2iWSba9Of+Jb3/BV/PRvLcReZsTvAzql/WoHbw2GcjXEa31E6GLCpEjlG/bJSSN
-	 bR0DmZDX1cvRq+EuJzEe+jnfaqHP3tYA9lE/G3NTFiarMZGB5MbrD+Z7x21QLOsPlKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=S7pM44aL;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD746606A319;
-	Tue, 20 Oct 2026 23:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD746606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792538769;
+	b=Hid1LrXD1AAibP24xqWaQmz2H9Y+1xNnI2Wft1QUdKZnsRWHVYoMyP3T0gMbPrTafMdD
+	 ObpQPT4gIVdgGRnyOGFlSZfWvWq4janzmD6a28T8v857r0ZUpM0V7UKSaaNn6BExLKNnJ
+	 0VBy5J3Z4wkgpP1ELUKB8NHlWzADdRhBweyxVcR4j15Yi0a4cEeu0E5GBsxLeLFj5wvN6
+	 IHuPfCHISkEOhhh91SYg+YP5LF2lwphfTgV/JMEVNBi7Eev/WOcEw6QJLRKynxp+gAlwy
+	 LDqyCBqaRy9KUyQgKAwUp8uJBsNTu3DhCeKphp+EdkeMtRlsJ4/wdvLj4A8AOXmO+lg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792538769;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=xyqDPzOKJl88+NvwNHrrm2JsEqX4pARN/C15jZakpa0=;
+	b=Fr/tZwMiVP71KQAF/Efyy6NPBYNv4lbiq14J0IAhx3qkzNf9AVP6MLjj6eaahqHWYfAS
+	 fCrs+a1Ja/N77yuAN5CWbASlF+yu9KD5jVSM3ji1pB+HhK7dzHHAOvD0ibFUyMOtWWOwz
+	 J3HyXy9yHsSezqBhc+jN+XcgMi79ddYYrrvWT/zTa63EVMLR9rV5otJtYXf00velGrOFy
+	 sXNOIkFCmm3FAUWvAYWR6FwasweHSI0l75LK29sjUJBOF6dMAFW5VQYY10bkjUV6txWHv
+	 8RIgcrWgoQtyR4/oqpN8UGnMRgj8lZ8SwOkMt8NObkNs1eJL25HyIK+VCHuc4lPJVVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qM0+ADNG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789BD606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:26:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 789BD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=S7pM44aL
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id 3A3C420B7168; Tue, 20 Oct 2026 16:21:37 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3A3C420B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792538497;
-	bh=wxAh+Ne1jASQiYLIaGgyMvhKyKgjJ2FMW5Pt3awzq1Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=S7pM44aLB3gZK2JI34fkHNHluJMXfyOhL4k1popVUMJN10/rYmyemLKkba6xsKjuz
-	 pBDky1QGicbwDIQGKuSA5Wp5k72iQDcIJBnV4TbGA3EfrLgHKjG01Y+JUSSIc88Soc
-	 Mzv3rX0/KWisgbPOceaPU0c5LbFWOJIyz6uGAFfY=
-Date: Tue, 20 Oct 2026 19:21:37 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Lanfeng Wei <xlfylawarthur@gmail.com>, airlied@gmail.com,
-	decui@microsoft.com, dri-devel@lists.freedesktop.org,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
-	longli@microsoft.com, maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org, regressions@lists.linux.dev, simona@ffwll.ch,
-	ssengar@linux.microsoft.com, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-Message-ID: <atf3gfQlW+46PzRG@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
- <20261019154121.6257-1-xlfylawarthur@gmail.com>
- <8e91baa4-1ca5-43b8-bb04-9b5e3630bc2b@suse.de>
- <atZjtSlZAocUWYBS@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <3a4c4a4d-6ab4-42b6-8ae6-7ca0730b8069@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qM0+ADNG
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2dd76b1361dso1097535ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:26:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792538768; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ijc841MbXyrd/cZ6jS3XMkT+DIdWnAR/UTwRTQRAtcZuJwAxvSzEb4xheX6NY45vbh
+         gTli0xyhy+BE7ijmj4UxtoFEu767iZY/o9EmQpO+f1Ew582EUo+D0noeaDYxIhG21WAu
+         xKVQsuGouN3TQyBikwjJ/6bCGbYvrrVT6hBNbJGq7Ttr6UUW7w72fk97m09XP/1dzAlp
+         5Q269+T81M1ncKZrbdLWXokGEv19vFVLwb/H8i7BqQJzCgSAE2+1KXH9PsckTcsJvzA7
+         vqGLodRDyKulYIa/Ze+sOsZgZxpkN5ULEicZ2lwFzm863XanwkjIdGt5yMFh3skj5OsQ
+         Kodw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xyqDPzOKJl88+NvwNHrrm2JsEqX4pARN/C15jZakpa0=;
+        fh=Ob2VunO06lorQxnJuHwsqTNvbmWpD6co94BSjRSnrlk=;
+        b=hwcOjZUyccNTn/BxOQ7jiyWBMS9l9S/0zhPKYr2jR84IAvlBADxlQe9Qe9kMWV6cf9
+         L+JOPhvGdWKvFDamh0Iuymex8C9IF5f9hKGvTaN1hzYoB7vf801zR1tG6e9VBIYlf4c7
+         ZL/29ebv5TgEdJr74RQUWeh/6ZMW/Uj/OLvk2AuwCHOi2aShZgpaK7OkK2PHZH5qTl6T
+         YEOaPk9dAs6xC0Wdk5QPVznx+/0SQ/S+ESFFG82khUz4u2CEyeBIWPfoiePFqey77SUJ
+         PZM9RVQCTN90gEY4/zph5VMYo9NauNlA5wAZYuY1Ab5Nj59Q2hLRTHhnm10uicg9/D39
+         PhGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792538768; x=1793143568; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xyqDPzOKJl88+NvwNHrrm2JsEqX4pARN/C15jZakpa0=;
+        b=qM0+ADNGoG3hYbfcw9Hhfz1nkRSW5OE3gkA32HzVbHb6cTQfwInMWb6jgTvgikixYt
+         NR1Bm1uImSOUNIt0HdWC7wk6ceUdaCMvZUneapLTvY7j66PJX+f33N9mTpZg8D0kxbmO
+         JzloxsssVmu/gVxMuIGT8rTZBG+eTnSqyn3H7jwEC1ksSRizF6ANPGqEPDUFuGAiC8jV
+         DIocPjtvPOwB6tYWxJWF3RcLTWJk89LvUmOqL31KmcG31QCFKJPHFyRal/wW0smxUO71
+         u0Z0TRF3+xEvMZXbaW0dLZW5a9iHqrNeyLtveF8va4fa/DIvI31hhPCPbHKX9iqFZrU1
+         b7Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792538768; x=1793143568;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xyqDPzOKJl88+NvwNHrrm2JsEqX4pARN/C15jZakpa0=;
+        b=n7py8ka3SZKFsHCrMn0CNwZkb7Kng8x2vTNO/7fz0Mz+rrNtiY1tXTf/3C4FeWRYi9
+         2O0JrjTZvRwjhw+bl+kooS9AWK/tKsjAPhsvk0IP3zpCJ6MZU1vb43K1emfNN7OB/75a
+         RIV/UXH9tK64jI6rOVgKSriacWr44mmGEFEgqQLWLMOvW9gO/NR5m9Ud081K19U7TY0L
+         VfJ2U0vPovBqM2Sy3ISYEGRz7eM5r7De5UJaaX3tGdE8O4dGb5DsgUp7++SsIFUTMXgd
+         oQfHcFCQ6vXd4n8e7dzptEFAf0pz2+9nW5/OVMn4fmy8Hgp7X6LiDdVYgog94Dllx9jI
+         RWzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQR3Rx0CW6Axp6CzREadySVuq2N+36MFUOZLHVVTnayeKJFtD9oteCenS/DNpVV2XrjALNvAYzPi3Vf6Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJldyFbeYHC8oigA9FPlhck0dfEvzOIWKSeDS0OLS6V2zhkBrEh
+	nEulI4ytPwgfYHQFhqpgiRQAzk5LVi/Jajy+ETWxSeLcsLeMxkdiegY8M4GvS20veo9C890yCW8
+	80yEOinjex5C+Dwtlem7L72WSshgoyF4=
+X-Gm-Gg: AYBFou1OmlskBbu6kpTcY9JkK9CzIrBUmpy1b+/cIYYCjaj8mQSFuMAc/2LAId2wOEH
+	EvBfbbhZv9A0HnhEPyNxMxHtmHJJEvOB6Oga9xA6j8JAATTQnaCISVrUPOWDa6pGPphV1pVX4qi
+	j6plBw2yKMmesGNxVYynu8eaBTXObz8DDKkW9r2i7mzWrvP0Xc/Qj8JTpKQzauN15A7Ne0vW41H
+	e9lwFjIoogJ4F8NXMzZOb2rjbzMF0O2eQvnsAb0+lG9E8GyoOyMLG90EDKrWJio8XwLZ5jCJYV2
+	SPe3cneVIkvuTbOkWwmqm8P0V519Vmbq2UQnnn6S+++MSJ/IlBXiRTfaUaUCURwzqbg3OpffI39
+	DtOiBLExt0IIpwZ9/dewde7MzhEQkUTWdXxvVwCCUE5uyFgHCBGae
+X-Received: by 2002:a17:90b:17cb:b0:3ac:a521:95e with SMTP id
+ 98e67ed59e1d1-3ad86f028c8mr320588a91.47.1792538767665; Tue, 20 Oct 2026
+ 16:26:07 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,129 +104,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3a4c4a4d-6ab4-42b6-8ae6-7ca0730b8069@suse.de>
+References: <20261019153628.15912-1-leon.hwang@linux.dev> <20261019153628.15912-6-leon.hwang@linux.dev>
+In-Reply-To: <20261019153628.15912-6-leon.hwang@linux.dev>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Tue, 20 Oct 2026 16:25:55 -0700
+X-Gm-Features: AclHuK9R-Pz11REH9KszPt0wQBWz-TsT_XQJqO1BNWiMHHq0gxNTu4ERDjHPk6w
+Message-ID: <CAEf4Bzbr46UkiE1sbb+Zwcs0S1ejpKmtTGjNCAkWD-J6FRcPGQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 5/6] libbpf: Add bpf_link_create_log API
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: bpf@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Shuah Khan <shuah@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, Hangbin Liu <liuhangbin@gmail.com>, 
+	Martin Karsten <mkarsten@uwaterloo.ca>, Masashi Honma <masashi.honma@gmail.com>, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 01:48:58PM +0200, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 19.10.26 um 20:38 schrieb Hamza Mahfooz:
-> > On Mon, Oct 19, 2026 at 06:03:55PM +0200, Thomas Zimmermann wrote:
-> > > Hi
-> > > 
-> > > Am 19.10.26 um 17:40 schrieb Lanfeng Wei:
-> > > > Hi Thomas,
-> > > > 
-> > > > > Yeah, what's the cause of it? Switching off features does not fix any
-> > > > > bugs or improve the status quo.
-> > > > You are right that the module parameter is only a workaround for users
-> > > > affected; it does not fix the underlying scheduling problem.
-> > > > 
-> > > > The cause is that the synthetic vblank timer is used to pace completion
-> > > > of atomic updates triggered by dirtyfb, in addition to providing
-> > > > synthetic vblank events. In Xorg's software-cursor path, pointer motion
-> > > > damages the primary framebuffer and the damage is instantly submitted
-> > > > via DRM_IOCTL_MODE_DIRTYFB. The Hyper-V dirtyfb path performs a
-> > > > synchronous atomic commit, and with the vblank timer enabled that commit
-> > > > can wait for the next simulated vblank. Under continuous pointer motion,
-> > > > these commits dominate the update path and delay normal client updates,
-> > > > resulting in sever frame-rate drops.
-> > > > 
-> > > > This particular regression results from the combination of the blocking
-> > > > dirtyfb path, synthetic vblank pacing, and the absence of a Linux DRM
-> > > > cursor plane in Hyper-V. While the Hyper-V video protocol does have a
-> > > > hardware-cursor command path, the upstream hyperv_drm driver currently
-> > > > exposes only a primary plane. Cursor plane support was deferred during
-> > > > the initial upstreaming [1]. Without a cursor plane, Xorg has to fall
-> > > > back to software cursor-rendering path and it competes with periodic
-> > > > graphical updates on the primary plane.
-> > > > 
-> > > > So the proper long-term fix could be adding cursor plane support in the
-> > > > Hyper-V DRM driver, which may take some time. Providing that the stated
-> > > > purpose of the offending commit is to rate-limit display updates, while
-> > > > its current implementation regresses the existing software-cursor path,
-> > > > I think adding a switch or reverting the commit until the requested
-> > > > features in the driver is ready, is a reasonable short-term fix.
-> > > The problem is that module parameters are impossible to remove in practice.
-> > > Once in place, someone always depends on it. They also increase the number
-> > > of states to test.  Avoiding them is usually a good idea. Especially as
-> > > workarounds for bug or regressions.
-> > > 
-> > > 
-> > > I'm not familiar with the Hyper-V protocol, so I have a question. Why is it
-> > > hard to implement cursors? From the link at [1], I assume that cursor
-> > > support was left out because the simple-kms pipeline did not support cursor
-> > > planes. This has long been resolved: the simple-kms pipeline is gone and
-> > > hyperv_drm runs on the regular DRM framework.  Unless there's anything
-> > > special with the Hyper-V protocol, cursor-plane support should be do-able in
-> > > a single patch. [^1]
-> > > 
-> > I actually have been working on cursor plane support for hyperv-drm.
-> > I'll post a patch soon.
-> 
-> Awesome! Even if it doesn't fix the reported bug, it is still an improvement
-> for everyone.
-> 
-> To fix the bug, you *might* have to implement atomic_async_update. [1]  It
-> allows legacy cursor updates to jump ahead of the commits and change the
-> cursor without vblank synchronization. It's a little-used feature and
-> semi-deprecated, but maybe necessary in case.  (Make it a separate patch,
-> I'd say.)  There's existing support in other drivers to see how it works.
-> 
-> [1] https://elixir.bootlin.com/linux/v7.3/source/include/drm/drm_modeset_helper_vtables.h#L1406
-> 
+On Mon, Oct 19, 2026 at 8:37=E2=80=AFAM Leon Hwang <leon.hwang@linux.dev> w=
+rote:
+>
+> Add a new API to accept the log opts, instead of extending the existing
+> struct bpf_link_create_opts.
+>
+> Appending log_opts to struct bpf_link_create_opts would place them after
+> attach-type-specific fields of varying sizes, making it difficult to
+> extend the struct while preserving forward compatibility.
+>
+> For example, adding log_opts would prevent extending uprobe_multi
+> directly with a new build_id field. Instead, a separate union would
+> be needed:
+>
+> struct bpf_link_create_opts {
+>         /* ... */
+>         union {
+>                 /* ... */
+>                 struct {
+>                         /* ... */
+>                         __u32 path_fd;
+>                 } uprobe_multi;
+>         };
+>         struct bpf_log_opts *log_opts;
+>         union {
+>                 struct {
+>                         __u64 build_id;
+>                 } uprobe_multi_ext;
+>         };
+>         size_t :0;
+> };
+>
+> Without log_opts, build_id could be added directly to uprobe_multi:
+>
+> struct bpf_link_create_opts {
+>         /* ... */
+>         union {
+>                 /* ... */
+>                 struct {
+>                         /* ... */
+>                         __u32 path_fd;
+>                         __u64 build_id;
+>                 } uprobe_multi;
+>         };
+>         size_t :0;
+> };
+>
+> Introduce bpf_link_create_log() to accept struct bpf_log_opts separately,
+> preserving the forward compatibility of struct bpf_link_create_opts.
+>
+> Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+> ---
+>  tools/lib/bpf/bpf.c      | 28 ++++++++++++++++++++++++----
+>  tools/lib/bpf/bpf.h      |  5 +++++
+>  tools/lib/bpf/libbpf.map |  2 ++
+>  3 files changed, 31 insertions(+), 4 deletions(-)
+>
+> diff --git a/tools/lib/bpf/bpf.c b/tools/lib/bpf/bpf.c
+> index 9a2107d4f6d8..263a1d516a02 100644
+> --- a/tools/lib/bpf/bpf.c
+> +++ b/tools/lib/bpf/bpf.c
+> @@ -788,9 +788,10 @@ int bpf_prog_detach2(int prog_fd, int target_fd, enu=
+m bpf_attach_type type)
+>         return bpf_prog_detach_opts(prog_fd, target_fd, type, NULL);
+>  }
+>
+> -int bpf_link_create(int prog_fd, int target_fd,
+> -                   enum bpf_attach_type attach_type,
+> -                   const struct bpf_link_create_opts *opts)
+> +static int __bpf_link_create(int prog_fd, int target_fd,
+> +                            enum bpf_attach_type attach_type,
+> +                            const struct bpf_link_create_opts *opts,
+> +                            struct bpf_log_opts *log_opts)
+>  {
+>         const size_t attr_sz =3D offsetofend(union bpf_attr, link_create)=
+;
+>         __u32 target_btf_id, iter_info_len, relative_id;
+> @@ -965,7 +966,7 @@ int bpf_link_create(int prog_fd, int target_fd,
+>                 break;
+>         }
+>  proceed:
+> -       fd =3D sys_bpf_fd(BPF_LINK_CREATE, &attr, attr_sz);
+> +       fd =3D __sys_bpf_fd(&attr, attr_sz, BPF_LINK_CREATE, log_opts);
+>         if (fd >=3D 0)
+>                 return fd;
+>         /* we'll get EINVAL if LINK_CREATE doesn't support attaching fent=
+ry
+> @@ -975,6 +976,10 @@ int bpf_link_create(int prog_fd, int target_fd,
+>         if (err !=3D -EINVAL)
+>                 return libbpf_err(err);
+>
+> +       /* bpf_raw_tracepoint_open() does not support log_opts */
+> +       if (log_opts)
+> +               return libbpf_err(err);
+> +
+>         /* if user used features not supported by
+>          * BPF_RAW_TRACEPOINT_OPEN command, then just give up immediately
+>          */
+> @@ -999,6 +1004,21 @@ int bpf_link_create(int prog_fd, int target_fd,
+>         }
+>  }
+>
+> +int bpf_link_create(int prog_fd, int target_fd,
+> +                   enum bpf_attach_type attach_type,
+> +                   const struct bpf_link_create_opts *opts)
+> +{
+> +       return __bpf_link_create(prog_fd, target_fd, attach_type, opts, N=
+ULL);
+> +}
+> +
+> +int bpf_link_create_log(int prog_fd, int target_fd,
+> +                       enum bpf_attach_type attach_type,
+> +                       const struct bpf_link_create_opts *opts,
+> +                       struct bpf_log_opts *log_opts)
+> +{
+> +       return __bpf_link_create(prog_fd, target_fd, attach_type, opts, l=
+og_opts);
+> +}
+> +
+>  int bpf_link_detach(int link_fd)
+>  {
+>         const size_t attr_sz =3D offsetofend(union bpf_attr, link_detach)=
+;
+> diff --git a/tools/lib/bpf/bpf.h b/tools/lib/bpf/bpf.h
+> index 826d9cc9ab65..dedaf8086902 100644
+> --- a/tools/lib/bpf/bpf.h
+> +++ b/tools/lib/bpf/bpf.h
+> @@ -484,6 +484,11 @@ LIBBPF_API int bpf_link_create(int prog_fd, int targ=
+et_fd,
+>                                enum bpf_attach_type attach_type,
+>                                const struct bpf_link_create_opts *opts);
+>
+> +LIBBPF_API int bpf_link_create_log(int prog_fd, int target_fd,
+> +                                  enum bpf_attach_type attach_type,
+> +                                  const struct bpf_link_create_opts *opt=
+s,
+> +                                  struct bpf_log_opts *log_opts);
 
-From my testing it seems that the cursor plane support on it's own is
-sufficient to deal with the reported issue. So, I'll hold off on this
-for now.
+Leon,
 
-Hamza
+how about instead of adding this new API, we try to repurpose
+bpf_link_create_opts' iter_info to be used as log opts? we have this
+right now:
 
-> Best regards
-> Thomas
-> 
-> > 
-> > Hamza
-> > 
-> > > Best regards
-> > > Thomas
-> > > 
-> > > [^1] See https://elixir.bootlin.com/linux/v7.2.11/source/drivers/gpu/drm/ast/ast_cursor.c
-> > > for an example of how this looks. Most of it is hardware-related, but hyperv
-> > > would likely be similar in concept.
-> > > 
-> > > > > We had another fix for a problem with vblank timers:
-> > > > > 
-> > > > > https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
-> > > > > 
-> > > > > Did you validate that this fix is unrelated?
-> > > > Yes I tested that fix and confirmed that it is irrelevant. It solves
-> > > > issues with excessively long frame durations, however this problem is
-> > > > found in normal frame updates (in my case 60Hz / 16.7 ms per frame, way
-> > > > below INT_MAX).
-> > > > 
-> > > > Best regards,
-> > > > 
-> > > > Lanfeng Wei
-> > > > 
-> > > > [1] https://lore.kernel.org/dri-devel/20200622110623.113546-1-drawat.floss@gmail.com/
-> > > -- 
-> > > --
-> > > Thomas Zimmermann
-> > > Graphics Driver Developer
-> > > SUSE Software Solutions Germany GmbH
-> > > Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-> > > GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-> > > 
-> > > 
-> 
-> -- 
+union bpf_iter_link_info; /* defined in up-to-date linux/bpf.h */
+struct bpf_link_create_opts {
+        size_t sz; /* size of this struct for forward/backward compatibilit=
+y */
+        __u32 flags;
+        union bpf_iter_link_info *iter_info;
+        __u32 iter_info_len;
+        __u32 target_btf_id;
+        union {
+
+
+that iter_info/iter_info_len is a bit of a legacy before we had
+per-attach type union, what if we add iter section into the union,
+wrap iter_info with union and put log_opts there, mark iter_info
+deprecated or something.
+
+I'm not sure anyone is actually using iter_info (I didn't find any
+uses in Meta code base, for instance), but we can detect its use by
+checking iter_info_len: if it's non-zero, then iter_info must be a
+real bpf_iter_link_info. so we should be able to detect this just
+fine, the only downside is that you can't use log_opts and iter_info
+simultaneously, but I think that's fine: you can update your code to
+use new iter.info fields instead, if you need log_opts + iter_info.
+
+WDYT?
+
+
+> +
+>  LIBBPF_API int bpf_link_detach(int link_fd);
+>
+>  struct bpf_link_update_opts {
+> diff --git a/tools/lib/bpf/libbpf.map b/tools/lib/bpf/libbpf.map
+> index eeba4072a5da..f6eb57151f7d 100644
+> --- a/tools/lib/bpf/libbpf.map
+> +++ b/tools/lib/bpf/libbpf.map
+> @@ -475,4 +475,6 @@ LIBBPF_1.8.0 {
+>  } LIBBPF_1.7.0;
+>
+>  LIBBPF_1.9.0 {
+> +       global:
+> +               bpf_link_create_log;
+>  } LIBBPF_1.8.0;
 > --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-> 
+> 2.55.0
+>
