@@ -1,53 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501742;
-	b=O1ziV7V7OYkyn9IKFTiCANzIboEkRR2KHa5BX1dZ/wXDE0WvU36qaS0oxbe6Uo1eQrX0
-	 hSSrjGcvKRb59Cdxudxa/mWY7J3Hw+PBhKBNaLVCz4YKxWyGb62EuVujjl8TJrbjRSk0I
-	 X/bz4vTLlfMhSLr7ZPjSXQgVECUqr9quvH5BeKSXg5fm5S54CKStMaXUuAlFSZxTpJ4Yu
-	 W2weklNdUXock9NzSOrDqQge7v6BmvcZaE/ngenAdsMYQeTmbHaJ0NF4/uYndNOaIxluz
-	 nF/eez5WuT2NO3QkQTs0+U8S77lvn0/GKVHxPCP8iWQGHB0LEzSrKjW6ZiFFHcXWXeA==
+	t=1792501739;
+	b=H30W07mkAZTC1uo+Z1W8FGijn6sBpqXT2pePEAsu6aV9jW4/UacXubYdYQF7voQhgtIy
+	 Gv7gRX2ci7uxzSfBD5wyGHyXUm1elfD/+NaJSSs6BFbNHK11t1Sya7IP0+WHRSCdX2zmD
+	 3r3CAEJyP/wejKuMR4OYp9YBS8wfk3juuRhj1UrMTGBRIgPJUXlVOly/v/zBGQLdfR/gx
+	 8NW5uJqKUlYhmeG/6wq34EjCA+X94Ke6gqqdacRYEDvXbNaZKoEjs8nHZTTvyaHKZTBbI
+	 Re895VrWMei62ajtt9cze/TXmVmGrwgpuc6WoICLz4AxQce8e/CP2TLaaNMiL0lYkgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501742;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=MXZA+Lmi8mgt9fAKly3weduActwWnCMoJQiWHQCJQ80=;
-	b=Ifxv/j69waPB390yeHqsa05/SR3MIWWI2iZWrJB6UQ1ek9uDFgDnwH/6WXEXy00ax5NP
-	 PV+yyTHwPAg8L8iIA6l8/7s8KjsaUKj4jOduka4lJUt1mDeCeXguljCi4VRxL0or1RpkE
-	 mY7byAgqcGXEacU8RI87n0UxQhInuba86ZnfUoI8vlA/cl8Q/Ogs1/LoNOsai2ME3n/Ev
-	 YAL+rA1hNX3zpqcI2ScbmUhF/Dzxn0V1TWzG+KsTwG/WswjbF8oSrJ5aKnbYPXASO1OIZ
-	 Nk7Jo4F0AVpNlv+vL150Yb5UixkpNloHIfyuxBprQxakT14W1xuO2/dJkoPOvkbW5dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501739;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
+	 X-QCInternal:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=1PfjqpynO03WIyvXgW/PiCt6nsrGlIflwxgquLztZJs=;
+	b=Km7dxmeeoj9O6dtgIgqkTn1IIy9fuA3EkxnQCcdt1LryL+qDZ8G+zKtxniJBoVbCXLJz
+	 Kepm5BvfFAxHQnoC/sIbjhQ7og2F6Yj/r7+GmHPhENya14cB3eSXiAKHfzq9Z+oUPRZ2S
+	 NEn//2ESaUl8YfogvR7JZrsPZFxFPstZFAgCqlTNkxvY7oYSGm72Oc5qIwrn/x6up9uzl
+	 6cb/MQGxXkGULOTWz2WWyKJG7fLiff5zu8F5Z/yAVZFtxqiT9Nk3COypKL1UEd8LV4azH
+	 t/PQ8/n5AzEXSRC59zbev84F7o1tSJsy0ZCoWSsdP8qW7Tt2JvJe+/vFN6ePrdHeC6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZoZIxgJZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TKqulvSd;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F38A606A327;
-	Tue, 20 Oct 2026 13:09:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E3D606A319;
+	Tue, 20 Oct 2026 13:08:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58E3D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZoZIxgJZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB091F000C9;
-	Tue, 20 Oct 2026 13:09:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792501741;
-	bh=MXZA+Lmi8mgt9fAKly3weduActwWnCMoJQiWHQCJQ80=;
-	h=Date:From:To:Cc:Subject;
-	b=ZoZIxgJZ1nXM1AeTfT1AwpHlQYyOFN64RifBrxD+cc06hk10IIKjkx+Z0XzBBhkay
-	 GPWDJi28TE4DcuHNPWIZDnfwXSej81otMWFQaiTVMcZasN08S70AdtW97sQXDzzVpn
-	 FcHwCUc4aUWreY8wsCy78/+xQY3ZiL2wq2mjushKnLHfcSFUjo/5Au0LGkSgAMibLM
-	 MhUKHGt6+grWIoT+3hvtiQtsWxGbiVU2rEsXfjXiGvWIb0vfbq2JQRcwKPxJHwtzLk
-	 mRuvkbahRYmMwRtlcKWw7P3UCOLXVzHrOo+byTsiuAEsMRIWGg6wP/drXniYsk2kaM
-	 29fgdom85SSnA==
-Date: Tue, 20 Oct 2026 15:08:55 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Bradley Morgan <brads@mainlining.org>, 
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Yibo Tan <lhfff@tju.edu.cn>, 
-	Zhan Xusheng <zhanxusheng@xiaomi.com>, Kees Cook <kees@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] sysctl changes for v7.4-rc1
-Message-ID: <atdn5xA9AZHAWNsM@hobbes>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TKqulvSd
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KCs6W62262569;
+	Tue, 20 Oct 2026 13:08:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=1PfjqpynO03WIyvXgW/PiCt6nsrGlIflwxg
+	quLztZJs=; b=TKqulvSdAxxA71Rn0W5EYTJ+0Jlz196FhwU+XFeiciVZVPN3iVM
+	KDVaYPqJ8e9wfayklQ082TjiFjH/AY/w7QoLqecX+PfGoz4jkY/AFf027AhQ0mMM
+	iwILoRAnGhUEWAfh1Cq1andZIbGbapmhkdEnVZBj+O/bMG+rDlY590NHfmNar+Jb
+	kdVnDC78bXgzfsWqSNS4dCjuJNEz9EaQlMl8r7Q3FGLauaETLSxM2Dm/HPuEv8w0
+	oChV91cCcz1aCC3OqWDzenwd+X5YwV5qpUkFlTD45tiyzqFjyM3mk+gZrypn4BGa
+	yEOkbAqreqdY+Nl/dujzOJthpeybuAd6Few==
+Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5pjkgr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 13:08:56 +0000 (GMT)
+Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
+	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69KD8rRP2007818;
+	Tue, 20 Oct 2026 13:08:53 GMT
+Received: from bt-iot-sh04-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
+	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTP id 69KD8qqW2007806;
+	Tue, 20 Oct 2026 13:08:53 +0000 (GMT)
+From: Cheng Jiang <cheng.jiang@oss.qualcomm.com>
+To: andersson@kernel.org, konradybcio@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Cheng Jiang <cheng.jiang@oss.qualcomm.com>
+Subject: [PATCH] arm64: dts: qcom: shikra: Add RF_CLK2 clock to wcn3988-pmu nodes
+Date: Tue, 20 Oct 2026 21:08:52 +0800
+Message-ID: <20261020130852.3049639-1-cheng.jiang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,108 +78,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7di5a6a4566sitx3"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=a7WlZkSF c=1 sm=1 tr=0 ts=6ad767e8 cx=c_pps
+ a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=AAjP_CEppu18DpECG8EA:9
+X-Proofpoint-ORIG-GUID: EkbyV0N_8s8TUHgTEv4edJd8lldKxHF9
+X-Proofpoint-GUID: EkbyV0N_8s8TUHgTEv4edJd8lldKxHF9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1MiBTYWx0ZWRfXzVg17ef3REkk
+ JJdzcoyYBVKMzYP13Ujz8Q93FmFKktJfwA/ZqZArwPxUQJEdkPQsArMalPjZ1MfQkc9QJWMyUDW
+ TBnbwk52Toja+QA59atuBROFbCdsJbY/Wz3OdCzRslelZw2pzVKpJyVUgZIElst6OD7RJtsnK6F
+ /jcYp1S88v28bmjlVvX4/XvGWfzjGJM8QDiddrFobV7p7sLgkw6A9gEVBawYN9wKJqXXWIrN77K
+ w6w4brSDwrkIGIpUVztHJziETWkMltbhbdjZjK63cIryCH0oYowLG7G1afWGUiOgwBeCFrkHonG
+ CXnZphZh9sCm/enYiscC5OSAtG3N+l0K8YiNDGF7iaOUr/HgVRCRQdMAdCuDOoffdxToh2m9+Ah
+ 9DIKi6HYXlfUlOwoXxPp6ZcXX6bMvbG5IP4ZHojn5B/uNoxHPVWpSV/U6mgocgl/M/iDxxthVb7
+ Pstl5w0U4V+lXdGgEig==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1MiBTYWx0ZWRfX4r/0CDmVw+0P
+ P03s5U1wmsXFV6BiqtE7ZPrJ0v+8wuwmpjETAkDsquVfuRpJ8aInC9vScenmbLimBnDPOyP2x7Z
+ keHC/dN1l81wLE/mKzNvrDWUwVZdctk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1011
+ malwarescore=0 priorityscore=1501 adultscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200052
 
+The WCN3988 on the Shikra SoMs takes its reference clock from the RPM
+RF_CLK2 clock. It is not described in the device tree, so pwrseq-qcom-wcn
+finds no clock to enable and RF_CLK2 stays off, leaving Bluetooth unable
+to come up.
 
---7di5a6a4566sitx3
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: [GIT PULL] sysctl changes for v7.4-rc1
-MIME-Version: 1.0
+Describe the clock on the wcn3988-pmu nodes in both SoM dtsi files so
+pwrseq-qcom-wcn enables it as part of the WCN3988 power-on sequence.
 
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+Signed-off-by: Cheng Jiang <cheng.jiang@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi | 2 ++
+ arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi | 2 ++
+ 2 files changed, 4 insertions(+)
 
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
+index b2747c765755..d442a19d7557 100644
+--- a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
+@@ -3,6 +3,7 @@
+  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+  */
+ 
++#include <dt-bindings/clock/qcom,rpmcc.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/iio/qcom,spmi-vadc.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+@@ -157,6 +158,7 @@ wcn3988-pmu {
+ 		pinctrl-names = "default";
+ 
+ 		swctrl-gpios = <&tlmm 88 GPIO_ACTIVE_HIGH>;
++		clocks = <&rpmcc RPM_SMD_RF_CLK2>;
+ 
+ 		vddio-supply = <&pm4125_l7>;
+ 		vddxo-supply = <&pm4125_l13>;
+diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
+index 093032527eb2..48729fd44186 100644
+--- a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
+@@ -3,6 +3,7 @@
+  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+  */
+ 
++#include <dt-bindings/clock/qcom,rpmcc.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/iio/qcom,spmi-vadc.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+@@ -85,6 +86,7 @@ wcn3988-pmu {
+ 		pinctrl-names = "default";
+ 
+ 		swctrl-gpios = <&tlmm 88 GPIO_ACTIVE_HIGH>;
++		clocks = <&rpmcc RPM_SMD_RF_CLK2>;
+ 
+ 		vddio-supply = <&pm8150_s4>;
+ 		vddxo-supply = <&pm8150_l12>;
+-- 
+2.43.0
 
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/sysctl/sysctl.git/ tags/sysctl-7.04-rc1
-
-for you to fetch changes up to 7b08e5851884e4ad207a6401b1dcffdb03d43c28:
-
-  selftests: sysctl: Check the sign of a negative jiffies read (2026-09-25 14:00:00 +0200)
-
-----------------------------------------------------------------
-Summary
-
-* Disallow partial vector updates
-
-  Stage sysctl vector writes before updating. Removes the chance of leaving a
-  sysctl vector partially updated due to erroneous input. This is not an atomic
-  write; a concurrent reader can still see a partially updated vector.
-
-* Remove redundant sysctl config guards
-
-  Remove locations where (CONFIG_SYSCTL && CONFIG_PROC_FS) was checked. They
-  are superfluous as CONFIG_SYSCTL now depends directly on CONFIG_PROC_FS.
-
-* Rewrite selftests using KTAP helpers
-
-  Each test now reports its own KTAP result and runs in a subshell. Test suite
-  continues after failure.
-
-* Misc
-
-  Fix a use-after-free in the selftests test_sysctl module. Quiet an unused
-  variable warning in fs/proc/proc_sysctl.c:init_header(). Add tests for
-  partial vector updates and the int jiffies converters.
-
-* Testing
-
-  This series was run through the sysctl selftests and kunit in x86_64. It
-  landed in linux-next between rc2 and rc3, giving the latest changes
-  considerable of testing
-
-----------------------------------------------------------------
-Ethan Nelson-Moore (1):
-      sysctl: quiet unused variable warning in fs/proc/proc_sysctl.c:init_header()
-
-Joel Granados (5):
-      sysctl: Split data conversion and file position handling
-      sysctl: Reject uint arrays before calling the general proc_vec
-      sysctl: Disallow partial updates for erroneous sysctl vectors
-      sysctl: Add 0013 to test partially updated vectors
-      sysctl: Rewrite selftests on top of KTAP helpers
-
-Oleg Nesterov (3):
-      sysctl: collapse redundant CONFIG_SYSCTL nesting in kernel/sysctl.c
-      sysctl: consolidate CONFIG_SYSCTL into a single block in kernel/sysctl.c
-      sysctl: remove redundant CONFIG_PROC_FS checks
-
-Yibo Tan (1):
-      sysctl: unregister tables before freeing bitmap
-
-Zhan Xusheng (2):
-      sysctl: Add jiffies converter entries to the test module
-      selftests: sysctl: Check the sign of a negative jiffies read
-
- drivers/parport/procfs.c                 |    6 +-
- fs/dcache.c                              |    2 +-
- fs/file_table.c                          |    2 +-
- fs/proc/proc_sysctl.c                    |    2 +-
- kernel/sysctl.c                          |  459 ++++++----
- lib/test_sysctl.c                        |   33 +-
- tools/testing/selftests/sysctl/sysctl.sh | 1476 ++++++++++++------------------
- 7 files changed, 881 insertions(+), 1099 deletions(-)
-
---7di5a6a4566sitx3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmrXZ+cACgkQupfNUreW
-QU+GpAwAh0j8oNd6CI6bKJ7w937ctcgWTqQz2iSuDojBP2HsqDLsHXB0UuVgRRSL
-4b9/78g8fMKAv63XyjhwrNzpk595QSXZJwgnYPbxAO4x7Z1cUXG0q0qTioiZ8jem
-Ta45ly8Hl+of45MWv+RTW98qAf3h2dV5vemAiiHSaLu81Q1sSgZ0j03LLcbMwe6N
-vkCA/WLJ89TUB4/sztQ0M7e4R/pzjjlIyvOZDO0Kcui3pa1U0vcygT+gSCt+MtAx
-cMkSDf/yqUdKsaSGfpyqh8M+TddiGFq65F8DahEvCt/R8SpmSjQOWKce7AIvTt2t
-wYxlIBEuHV08nXJcYYvJQaS9X+UC61zIOJpDl7ioD75DPaa6CjBh9SN6yEr7D4dP
-NaHAtk12d3yKNM7yZNNTAcAYVq+nTMPO5cHocXAA9eyDD+j3NHJG9RPy7F1enOy6
-9Xn0fRTCqJso14DzJeAxNFlTHenLSEi7/HkgrsqhtNA054lGpH1poSfZgJPv3cwl
-0342Xap/
-=Dhch
------END PGP SIGNATURE-----
-
---7di5a6a4566sitx3--
