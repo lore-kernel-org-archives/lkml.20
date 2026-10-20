@@ -1,77 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792527195;
-	b=bqC49SYjmeT2OxZzZux0vKP9B0HUj+F+NQ+R4YWx8thnJfj7n6NRy9GoUNm8P4GmDslK
-	 0CYgFSBank09j2G9qA2DTv4/utQ3HgyGEyDaC23/J7rpLuIzzr9Vy3+cGw2sh5YhMtg2Z
-	 6ETsGY0DeqinKU2t1A2G6OTEV1AV+8giSrDvI9XG2Vpvceg6ujFWwjiwPkomZL/5Mu0r6
-	 +gNY+27Ih+yWd1NeY5PNYZZ8uDOAzGT9JpQotVU1XS3YTkzx522C3/A2m/YP7yI+8Z7YU
-	 DeGIKuYxedZeCi+cfyzmLiJKqhMxK+53PTIoJcg95stA80m442eWD2gQ8cNyEXPnI2Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792527195;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=Oah3iaTrovgfL9AhWMbpu28y1JJA5jwM7jXNU1H/0Iw=;
-	b=TqpEKfG+C9D3o2VjJZGCIYfrsLfyeFnZrNlJ9HqGbtIWR5jVi0QnaeSgrl3ipb2J2hBo
-	 9QevI0CeQDgEShwMb1HvTUWuewkVbVCBC8Iq/HPY8+uQtt/ZDZH3HorNxH0vdYfmWEBuB
-	 esHpRoc5NnhDHfhNueCGIkZVJiuonXpthhWUtGKmWYXlhaUzmHKfoSVidO7+bXL83fC+y
-	 3+sHOOuGEfqkhOqr1PZLF/WKDK90gyLkdx+LKJHO3HBJzpEOjmJf4GGGzBaROwUdBoea0
-	 iEoM+4vWp7fR5FtqQa3OyfCHCWgH1f8CIpz+Qi8qS4re1GGKlCdnAZTMMi+6ZoZysYw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EOmT92ot;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.2
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792527194;
+	b=gLha2o6QNBVuQ6BfWmxoonYC7sZJCUWqjae2Gu2AmramVYdWHiXfPqUY3k3EdoUIwXCs
+	 Zn/ia41Jetk30TkbUcbxrfggYK96RojTt2HlpaIbwSoO7E+RERU+oShLgLNEA0kOCTcFm
+	 1i+seDt4ATz42CahHFcV02A7scvrq4fw1PLr7/9wZm+Rr1mTSdQn/zO/jC9sPAAcAFaE/
+	 QUpkDwvztW0Hd+sZJIvXi5Yt6iwaqG1Q34W9ThV/p6cVjwer0ASDoHoraEMMBCEbqtq04
+	 ZuDKF3yEXqXdHVi1oJLjg8BTxlS2nGAgBrzLSWvwGoM9cb4QgX66G6VItHM3OI/Jt+g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792527194;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ATMrQXFT7oqIbKXJTlyZ8a0stZYMJpZo3BjGZ2up0XE=;
+	b=aAHg+yYe7OJwc3tj4Xk2fRVDtNwDU9NPKk7CaOrUHZWC93I6mSwLrb7WDNt9NwgHZSbw
+	 sjQcwG5ciEu4Tcjq5Yd/TtrzuZ1xRlhgJi7hmoiWppvm6X5J60azWdhtkGne1l9l40xoH
+	 NOoSfU0LRyN4lm4Gv4wmHtUcNISCV+orN3v0aLITfHOGDaase7MmW8C7uAQLriqt+M5mQ
+	 Cgq6ATfzz9idNV/eL5sr3qkwKKdONbSHGKJ/KUmHkdq3De1/N2rZ7iHZ/yXn7/iwgQcuC
+	 iGRw7GQ/gNVDBGNLG1GUkjZFsvPGmh85iLfSo7r5G7in8qBoWLZObWtnC9/a8WsjkEQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=caSQ4JaV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.2
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011002.outbound.protection.outlook.com [40.107.130.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EFD606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:13:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90EFD606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865EF606A31D;
+	Tue, 20 Oct 2026 20:13:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 865EF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EOmT92ot
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792527193;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Oah3iaTrovgfL9AhWMbpu28y1JJA5jwM7jXNU1H/0Iw=;
-	b=EOmT92otkpGb/LozScsIHJAHHHjhC4n7t+ciU+D9FV2jykkX2Ey+Mq8fXIMTIlLuWYgZFM
-	U5R43nx1GbGxVzSNujD/VUs6lfNikXXb9U+TCkiJ50cuoNHF6OVnExXrjMXmp1vZPj0qhu
-	XXo2UcOZvKlXzSl3KkQqYotkWEzbzFU=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-19-JJguI9unOi-Q7vdkgp_c0Q-1; Tue,
- 20 Oct 2026 16:13:10 -0400
-X-MC-Unique: JJguI9unOi-Q7vdkgp_c0Q-1
-X-Mimecast-MFC-AGG-ID: JJguI9unOi-Q7vdkgp_c0Q_1792527188
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EF03E1954185;
-	Tue, 20 Oct 2026 20:13:07 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.48.29])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C8027195608B;
-	Tue, 20 Oct 2026 20:13:03 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: netdev@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 0/3] rxrpc: RACK-TLP fixes
-Date: Tue, 20 Oct 2026 21:12:51 +0100
-Message-ID: <20261020201258.290827-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=caSQ4JaV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JZ1bzW3qvxTlTbcGhRu1RVxPgoKAYKXtybFeghdQu+zeqbNzrY+BG356y9E5yOrxs+nGXcsPO8F4ftSxqvdfwpZfUii7Cd5+Xaytmro0PPE4MCPKHhHWjM1qwdC8z3VYkewCrEl1Mm4fzqjgBaAWhAI3BCJOJ3T5BGxKiCdkvv9THEUVxqIyW77yIPmuxdU6CC16DEM73s2qEjJ7+mqg1IC4Vs0gHUNrntSLf6Iyorw9d7OY2jvLYhHL0EioFKJAbS3rPvgNoxN5RbyAZfzzpxWIHHzHdppW8dvC/WjFpQKh4lrfm+DRCIiyfZjUKtao64lXAdi57G/lQuF839ySpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ATMrQXFT7oqIbKXJTlyZ8a0stZYMJpZo3BjGZ2up0XE=;
+ b=ACHiYwJ/zJQKbLVvIHVNN2x6noG29RzQxZQuSfsY/UgD8u0gx45ih+ft9rfQ58TS6JG6h0wi19NetR85LRQB3aIwNBX/rUNsYaeVGKxwXh7J44GZkBhbyWXkm0YuZGBBDS/Zsqh4NFmFsGNZ/KP/5Da5PcjJ0cP/CRXQqmIWvRwuwB9NeB6T/Vg7juop6puoikiTJ2gcYVEnpKSIZL8eEu4v9VcFk74myNVSljPjUKrfEXmNsopqIbObjuzRuJ1svh/nfJ6hXw018mt3q1oiZRhUFz5ygZnqQAwiRyJKFGFFoxq90yX7LTGCvvyrt1gw92UQlE+Rm7H9Oekh8udf0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ATMrQXFT7oqIbKXJTlyZ8a0stZYMJpZo3BjGZ2up0XE=;
+ b=caSQ4JaVuIjJOLdQhY/d48L9oYb4yG0HjO/MAxFIHtSzQu5wMZRBoK5NvL3ANfPSTdkXf5UDVKVMCZBd2rfp0STLLGF/VIbcKIheRKx0pVJcZ+BfQxSar/WlGYmPw/vLtlVDf2OnvSKUU+zaT18v3q9I8R2iLzmMXycF3IxVSgKqCsanFKvJS8LJBgeapkWd32Oy1HLDiO/XTRJ4Y1MFQiFv0/f4eIrOmQ9GnlKrGrOGjLovtBd30UOQmTZ7McP+Z5727NMUIPgBezmibzULGO/Xlx4UkhxTQs5kLKlfaloNwSCz+cz9c6U/iAEHUKHBPDunLY2QR9jYdcg0gRx92Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21) by PR3PR04MB7323.eurprd04.prod.outlook.com
+ (2603:10a6:102:88::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 20:13:09 +0000
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 20:13:09 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH v3 0/7] display: lcdif: imx: add display support for
+ imx8dxl and imx8qxp
+Date: Tue, 20 Oct 2026 16:12:50 -0400
+Message-Id: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEPL12oC/02N3w6CIBxGX8VxHQ0wf0RXvUdrjX8mzdSBMZvz3
+ QNry8uzfed8MwrWOxvQqZiRt9EF13cJyl2BdCO7u8XOJEaMMCCcCGym9tZq42psQCujpBasVij
+ tB29rN62ty/XL4aUeVo85kBeNC2Pv3+tZpHn369LDphspJhg4UHmUUAmmzt007HX/RLka2dart
+ h5LnpFc8AoYlGD/3rIsH7OfygjqAAAA
+X-Change-ID: 20260709-dxl_lcdif-d6cbdbac92fb
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Robert Chiras <robert.chiras@nxp.com>, 
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792527183; l=2245;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=ublPUsEO8Woz+3cSzWD1Ktjy9oBsQkoXzNW6aEzsv+4=;
+ b=X+30/OJhkIDPbZmHeUt794fWsyLB3VxkYHiVXxYCAwhUfpQKl4QRjk0075/uCbQeagseXzcEA
+ Pu6v6bP5KPBBphteS5LvmVLUzIhQ/VgaIcGyDl4ywXB/ssUG6OljEV9
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: PH0P220CA0026.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:d3::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,57 +121,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|PR3PR04MB7323:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e7841cc-fabe-4307-c439-08df2ee68ed1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|23010399003|7416014|1800799024|261009223027099003|10067099003|56012099006|3023799007|18002099003|921020|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	NGklbdTuSUaXT5+cnkUJZLx661PJ73PCt7JZzUokhNymApfi7RRNMWQ4KIO54HlTcMJUvD/hzVWGlOxjDmFwMqc49ELQEfGRSQ31I1SDEoG9IQRcptiTsayQaD5HkX8Xb0wWMTy+Midq+cdsAHcDCN2AJ5mCSFltSFvITf7GSWitmM/pcA6G+m8ohZqS0O9XQonD3DNQ92uaCMTmJpL4DKlSMk8ko/vavsJEAj2n4G2rKWpoXJ4fEczC1pZ7EisfRhdz5R1oc9QyBZPT5UqEuXhdKUcibkMx0kpaMawnbRavYmCrvKAQrx7zXpOUDt2FjEX4abA066rZBv1oTZQDDbzKD7flZQbxy8IZ204xJeZrbAme4ikofOKbs4AA3+07YydEeeeqR7M7Sl8JpK9by9ZbZzrFi2bh5UrIEVAxCuolQV9cKzy7VJpajzJ3UVA2EjeOkgm97XuXzam9ip8rcYRu3syGe7JEekJIRkBIBAfXNwwF99bjK3mQvaWmG4kiiYoGeuugSxQeOQCtnTiJ+ZA2rfJ4Yvaeo6bYIOxJl/rGsGurpQGMyAPwlosZqghb5RbrmmL90KZbsxD3B8yk8T2OgR/Nom005p3i6TYIrFw+aD+HK9t+bdCRE2QTcmB5yptW+MRUJuKTAfS3euWFKEGapTb6R8ASgVxDkahn6ac=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(23010399003)(7416014)(1800799024)(261009223027099003)(10067099003)(56012099006)(3023799007)(18002099003)(921020)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WTVDeWRZenAvaE1UTzlHR2hGd2RHbFRJWnN0cU9zbjQzRFJRNHJ3eUo4VmhU?=
+ =?utf-8?B?MjdlVjZjY2Yzamg4SW1WZGxlSlcxdnF1ZS9vKzFRYzV6cndwcWVDR0xHWDk1?=
+ =?utf-8?B?SWJVa2kxQmx1SnA1ZGxvNXZsRzBwdC8xYVdSdlhkV2YwR0hBamxMM3FySWp1?=
+ =?utf-8?B?NEMwSGRUK0xCdGxWV3hnYUhFajNVVVBRaEZRZUI1V0VRY00yU2tBR0xOZVVS?=
+ =?utf-8?B?SzJTbGVGRUtSdXk5MnVyZHk3RFVvWEdNTWJ1SUF5OE1uMEdCZGFIanJtN1lS?=
+ =?utf-8?B?YmRraU1TV2RxTjlCajdMdFB2aUEyZkZEd0J3UXJSRGNIMzNWaW5XdDIvSm5F?=
+ =?utf-8?B?cThjMWtSbGdqRW9CZFhNRmNpL2JTOGxBMVdqRGhJWlNIdTY5eW9nd0tWTXU5?=
+ =?utf-8?B?b0JVa21WaXZOb0JuL2hScmpZWUhacXVYR3JrSEoxRjlCN21JQUMxYTdQejRN?=
+ =?utf-8?B?cUEwNEhuUVpEOGx3RDN1VUFnbU9JaTl0bHQwLzdGOVZYaE1jaG5lOC8wNGpm?=
+ =?utf-8?B?aTlLVjdiN1RDTkpIMm5Ddm1kZzgwMTROVTlEQUFoc3JEUmlpTnB6aFhBaDY2?=
+ =?utf-8?B?ejJFOXl2Um4xWjBXOFo2ZWZkQ2RlU0ZkMjV5cWFSeU9xK2N1V0dUbXFaMFJh?=
+ =?utf-8?B?eUIwSVhPQzFtSloydFhBcFIrdjRXcGtZdFpEZGMyc044VHkvMmVpS3RCMGVj?=
+ =?utf-8?B?d3pvczlxcGpDcG4vMFdtcU9KUXVNNFFFTFdVcVFyVTR0aWllMlJrT2F4SEZB?=
+ =?utf-8?B?SWJTSlJJazM1b2tpVEZEWWNaS1dLOVJwVHIwaEE2TnYwTE94cTdGcGYzNzYv?=
+ =?utf-8?B?WTAyakc4UEZ3TjBPYVpiNHJ2RGRCLzVHUS9sejVMci9GYnRHZmQvSCtHcFhC?=
+ =?utf-8?B?M01KM1NHWHRUbDhLbnd6WDNac3hQT1lUUXY1dWlUSVYvbTViNVhybWI5ek5o?=
+ =?utf-8?B?Q3hoaDF2d3p1SkI5c3d2TmY3YVV4eDVKVDEwek5idC9IRjNCN0JpV3czdVFk?=
+ =?utf-8?B?Y2Y3eXhONENqcUdlSDUxZlBVb2V3TDNJaE1hOFpweWxlRU1FNXM3VC9iT2NQ?=
+ =?utf-8?B?ME9IWGF1SFJlYTJxeW1rcjFvYkxPcHNUbVNHRklxaTdTS0s0QmpLbmhLQ0kw?=
+ =?utf-8?B?Q0dvWGlOTlJVbHVodDVPaXN5N1l6QWdkS1RhdG81elBFUEpJUGg0WHFBanJi?=
+ =?utf-8?B?a3dxMmVBamtqeFlwSU85TUFQSTVQbVVQMUR6UUlob041MGhpZTljbU1YNTBx?=
+ =?utf-8?B?YXdPalpRRnRKMFIvcUpyREF3eU5iT1hqR3NzQUhtMmFpckFTMUtKZEp5RWN2?=
+ =?utf-8?B?eS9JTlZhQmdkY2tWWFVCK0dDdDVERkkrdXowb1VhTmhPb3haSG1rZEdDSzV6?=
+ =?utf-8?B?eUZlakwxb3lseEhIenlhQlFua2ZBem9GN1VmRzAxY2xKNDdWbmQ5ZzMwUWNs?=
+ =?utf-8?B?TUhEMExGQTBqZGMrY3RLQzdDSys3QkdsN2N4WXZKWkNZd2JwQlBOSWV0VnNY?=
+ =?utf-8?B?ZVp3b0FZRGIyeVVTVFgwUDJiSXVNZ1hKUU9jVkVBa3RMUWZFblFyUWZVcmcv?=
+ =?utf-8?B?WE5xeVpHN0F3YXVSU3B1U0d6Y1FCU2VBUFdVaUhWcWZrMituUmJrOHJHNkZm?=
+ =?utf-8?B?ekxEeU1xWk5sWFVWSUVEVVlid0lSVUdYd1NSK1lvNmRraDFwQ0xGS3o4Wms0?=
+ =?utf-8?B?SmxZQU9tYTZxeXBVZWlDSm82WmxlTXg3Z1N5cUVMWHNOSnNPYXhZLytHUkJF?=
+ =?utf-8?B?dTY5bHdwemlNQWxzODZCa0RKTU9JTFdXL1Q5Q1JvbEZRZEdpKzRFQkVQdXMw?=
+ =?utf-8?B?U2lQUXJETThXRzhsZUxSQVpzejZqNFd2N1p4UTZjTVE1cUhPbTJ0K0NvcTdE?=
+ =?utf-8?B?MXd6VERrc21SZUk2bnhKZ1lDR09yYnFjNzFzMDkyL09uODVldmxNNFR2bVE4?=
+ =?utf-8?B?ZVlMWjhsa0VJS3ppY2NNdzZkS2l6eDY5eU43MjRkSFcwRTBET3llYkp5QURB?=
+ =?utf-8?B?L3V0eWpnclJ4dGZDY0RkOVdmSUlBbSswV010K2pHVUpLb0EvNmhJZG5GMjdJ?=
+ =?utf-8?B?VFNHczVSeEFpZjM4Q3poNkNpcWtFSHpnU01KbE9GVlBIYzkzRkpqbWlubVpu?=
+ =?utf-8?B?R25EUTNQVFFmQTY1WXdXNDR3NVlYKytuRzRaVDZrVW9wMUcyS3JCaUFtRksw?=
+ =?utf-8?B?UWtkTW4ySGRlbGxzRTkvWWh0RFRYNUl4VStDcVBJVlFqTEZPb3oya2JnQnhE?=
+ =?utf-8?B?Y3BBclh3bi9UaWpKOEhoMk9XTHZlV2ZLVjBoOFFZb1RoODRwbFFFMEE1M0R1?=
+ =?utf-8?B?NDdCdHRYR29pcmxNVnhjK0MzN3QrT2RDemZXUzRCclAzQ0FBVXkzTjQxRGFm?=
+ =?utf-8?Q?P5pKFitHRIOlMCJn+jTCJrwRbl9+ZGnK9jYCE?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e7841cc-fabe-4307-c439-08df2ee68ed1
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 20:13:09.2914
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 13HLBvj2LyUxypuQCj77pvOIbzJe7fzYiljVjgWxs1umof/xrvBHrnlRlfNN9K1MQaeupxhmRx3H4aX7/5wSfVCcndy2HmdSwMs5fpAvhF/du8s6RcWBOKPNaUcR6iWB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7323
 
-Here are some fixes for AF_RXRPC's RACK-TLP implementation.  It's split
-into three patches: the first just fixes the RFC number in comments but has
-no actual code changes; the second introduces a new way to count in-flight
-packets; the third does the actual fixing, including:
+i.MX8DXL and i.MX8QX support LCDIF, which is compatible with i.MX6SX.
 
- - Making the "in fast/RTO recovery" flag available to RACK-TLP code after
-   the Reorder timer expires.
+- Update lcdif binding doc to support front compatible string:
+fsl,imxqxp-lcdif and fsl,imx8dxl-lcdif
+- Update simple pannel binding doc and driver to support waiken,101wx001
+- update chip dts to support lcdif ip
+- add overlay file to enable lcd panel waiken,101wx001 and lcdif
+- use onboard pinmux "pinctrl-multiplexer" for on board signal switch
 
- - Arming the RTO timer if no other timer is running and there is unacked
-   data.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v3:
+- add bus-width = <18>
+- add lcd panel information at dtb file.
+- detail see each patch's change log
+- Link to v2: https://patch.msgid.link/20260715-dxl_lcdif-v2-0-da797562636e@nxp.com
 
- - Initialising the TLP state in the correct place.
+Changes in v2 (fix sashiko reported problem):
+- add power domain required for binding
+- fix 136 height
+- add acm patch to cleam MCL clock output pin
+- remove iomux hog in overlay file
+- Link to v1: https://patch.msgid.link/20260714-dxl_lcdif-v1-0-6761a8a6592b@nxp.com
 
- - Not resetting the xmit timestamp when marking a packet lost.
+---
+Frank Li (7):
+      dt-bindings: lcdif: add compatible string for i.MX8QXP and i.MX8DXL
+      dt-bindings: display: simple: Add waiken,101wx001-wct
+      drm/panel: simple: Add Waiken WKS101WX001-WCT panel support
+      arm64: dts: imx8-ss-dma: Add lcdif support for i.MX8QXP and i.MX8DXL
+      arm64: dts: imx8dxl-evk: Add onboard GPIO mux controller
+      arm64: dts: imx8dxl-evk: Move ACM MCLK pin to ACM pinctrl
+      arm64: dts: imx8dxl-evk: add lcdif overlay
 
- - Correctly checking the flight size.
+ .../devicetree/bindings/display/fsl,lcdif.yaml     |   6 ++
+ .../bindings/display/panel/panel-simple.yaml       |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ arch/arm64/boot/dts/freescale/Makefile             |   3 +
+ arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi     |  29 +++++
+ .../dts/freescale/imx8dxl-evk-lcdif-101wx001.dtso  | 119 +++++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8dxl-evk.dts      |  88 ++++++++++++---
+ arch/arm64/boot/dts/freescale/imx8dxl-ss-adma.dtsi |  11 ++
+ drivers/gpu/drm/panel/panel-simple.c               |  31 ++++++
+ 9 files changed, 279 insertions(+), 12 deletions(-)
+---
+base-commit: c27e4587a73de339f2d9f1304c913413055ed408
+change-id: 20260709-dxl_lcdif-d6cbdbac92fb
 
-David
-
-The patches can be found here also:
-
-	http://git.kernel.org/cgit/linux/kernel/git/dhowells/linux-fs.git/log/?h=rxrpc-fixes-2
-
-Changes
-=======
-ver #2)
-- Rebased on latest net-next/main.
-- Fixed Sashiko-reported bugs[1]:
-  - When performing TLP_send_probe() [rfc8985 7.3], don't do backoff.  Note
-    that backoff may already have been done by rxrpc_resend().
-  - In rxrpc_tlp_calc_pto(), clamp call->peer->pmtud_jumbo to be at least
-    1.
-  - Added a patch to replace the way in which the number of in-flight
-    packets is tracked to avoid estimating using values which aren't all
-    updated at the same time.
-
-[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260925191520.2206700-1-dhowells%40redhat.com
-
-David Howells (3):
-  rxrpc: Fix the comments saying RFC8958 to be RFC8985
-  rxrpc: Fix counting of in-flight transmitted packets
-  rxrpc: Fix RACK-TLP implementation
-
- include/trace/events/rxrpc.h | 11 ++++-----
- net/rxrpc/ar-internal.h      | 22 ++++--------------
- net/rxrpc/call_event.c       | 13 +++++++++++
- net/rxrpc/input.c            | 15 ++++++------
- net/rxrpc/input_rack.c       | 45 +++++++++++++++++++-----------------
- net/rxrpc/output.c           |  5 ++--
- 6 files changed, 56 insertions(+), 55 deletions(-)
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
 
