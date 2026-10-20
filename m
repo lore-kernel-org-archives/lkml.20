@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792479006;
-	b=Wg82axhKWzPHDhdkj2vWOze2EdrhIySnogM9BdwXvwjfy1zZXifabiCFjud99b6eFEUt
-	 fo6Nn/XMtKx1pJSwi//gf7DgciMTWo0Wb5sRHuN2XfXUlS0FqJApO44Kz8mBDhpeeo05I
-	 DezS8G7/QgSRRok8HRT7ZTB4+voGHcmJIMf89/SJvx8EOvpsmV7vQoYBpNCudPoIb/ZVP
-	 gv8xDhdvyO05GdVv61mZEtUC0s2N8s7bjX+xkzT0U2Vn0y5OAJ+q6F15sg5JPiPDKt3+7
-	 1gKiMsbv78+wtiTFX0axvq62reH14J75u5MfFNV9sOHKO0u4/sCXjoeT2xi/z8XD8Pw==
+	t=1792479094;
+	b=40rhOucmdC7tl9GVkxaGRbR+z0TSWq8+oM5Z5AMOX06tb3ZFoz8S2SAIN6oQ2zjk56vl
+	 K7EpekkqtZ9GrNaDcj+1LtZML2fKCkj4MaLV+2sTUJaPmCeVcJpCiERyv16+Q7Kvap0kn
+	 g0vtw1F65mwyvAxzdqP5vH8iw90sFZ0W9X6/AFBbRHeiGgTcard8KERcgQaXEBk7N4kVw
+	 /Yl/xvR/sl2gO18xgmJcMs+Q26oJEk1fBJNCJxJx/8y1VVgzjWnKhgJttFAc4TXf3Av/i
+	 0ah0czWlWHQmDEnD01RGDVw+FE0Z7ghq57VF9uNHsbOlTv0m879AX7foVwlNifYo5ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792479006;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=1hJ0aQ7fGA2QuLMADJWwMmxygYV3IJuA53iBt1oJi10=;
-	b=Le7UBXwjabwIdsS7+g8O8KQvviTPWvEplxn/YhHXzSxQooCfzRU2VP+QilS4c4yBET+B
-	 RymoWrHyU3U3ps63/2Ax5M/u7ZXJy4f1aJpfBNP9+3EwPQe0WPk58zdn/gMbHlZGnRtjv
-	 lar9hLd+Q74U7yyr7mgh2Q1rDUKasGlFq7iQhmcI8ga6oXXFGSCGW/nI8GhYX8WijmGlY
-	 fPLJpnkIATHsI4TnPWXB/Z47tQIyXYD5HFuVTAFpl+vurFmx2jTFVvR8CMFUNoOOjkwL/
-	 Iu9cb5BoCN4tpRCQJlP1buuAoTas8OC14GcycHG7Dsz6QUe9r2R0xTPCtBIt/i2Girw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792479094;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dHQhRD6vyxHfKtcPIP6kj0jtBv/cVh1zjgBd/JhnQeQ=;
+	b=mu4hZXTFulqigeAvSQ0RxxP49N2+1e8jYV2I3NywQ1t0jP/7JHtLuGtlwHnPqn2/z/gg
+	 7QRjhgtPYgsdl9Ts5OBLv6vQbPpbfc72qWMkSW8T3mdZttopzZkJVIX37L5DTYuQyzi8y
+	 BRxqtuQO4BPROeVFb6P2rglOLYM9QrBrt0041rxEr6eBQ7XR6jEW6+5uWvjdiuMndNv1t
+	 nNvDamA5Qt8pv63JXQCvhBSHuU3DywKwDNFoReh2GhvaYszDK6RkmXopQmdkzURa3bTi5
+	 YL7d5SabQNDn8pFTW8j1alSQ38XxzWgyZqIlSdY+sDzIrvKd0jzkC5n2F/hXhMyFMlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="K4La02/7";
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XlsyYn4Q;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FD260A261D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:50:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82FD260A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFD7606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:51:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADFD7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=K4La02/7
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261020065003epoutp0259e826f2a2fcba0205aee62e9f181c82~gKig3QoAp2136721367epoutp026
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:50:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261020065003epoutp0259e826f2a2fcba0205aee62e9f181c82~gKig3QoAp2136721367epoutp026
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792479003;
-	bh=1hJ0aQ7fGA2QuLMADJWwMmxygYV3IJuA53iBt1oJi10=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=K4La02/7uL8hYSw1rOZzAu76bVFJxuVjbCVA/CxuXwy+txENIbaZEbIQyAYQ54cOS
-	 nH9AoWVihRE2WQ6urrS6nqSZ9K6wFwESy0TuOsrDH+qC+TTl7cm+81NIxXLYexta16
-	 tH1ffbegYU0D+QehEQCbAecSSpBy97MIy1HI1Vt0=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261020065003epcas5p494ef041799fe8dee90182375c6f60d23~gKigS9rM60089400894epcas5p4X;
-	Tue, 20 Oct 2026 06:50:03 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.88]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j83222PKMz6B9m9; Tue, 20 Oct
-	2026 06:50:02 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261020063838epcas5p29bad3adea6f1dff99c3362a3d5d4094c~gKYiu_9-42333523335epcas5p2K;
-	Tue, 20 Oct 2026 06:38:38 +0000 (GMT)
-Received: from bose.samsungds.net (unknown [107.108.83.9]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261020063836epsmtip17c0d399fee97e034ef9399f4af327565~gKYgVQ_pD0324703247epsmtip13;
-	Tue, 20 Oct 2026 06:38:36 +0000 (GMT)
-From: Raghav Sharma <raghav.s@samsung.com>
-To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
-	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
-	conor+dt@kernel.org, raghav.s@samsung.com
-Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
-	pokala.reddy@samsung.com
-Subject: [PATCH v3 14/14] arm64: dts: exynos8855: add cmu_usb clock DT nodes
-Date: Tue, 20 Oct 2026 12:25:58 +0530
-Message-Id: <20261020065558.1829402-15-raghav.s@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XlsyYn4Q
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so2631777a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:51:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792479093; x=1793083893; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dHQhRD6vyxHfKtcPIP6kj0jtBv/cVh1zjgBd/JhnQeQ=;
+        b=XlsyYn4QZ5xeFcxfmYe0YJbtBkOtdfi0jehGfY+o5BU0Y74fuNp7fOQIjsX5KqKHMi
+         BkGGTDd19afZjuMgFZlYCMY2C7cNfgKjiiIN2yfrYPK8sP5OyQ+CuQATH+cZhDlDH7kh
+         vrv+nGnm9HowpCUXOv7nXl+CAmiPsXMEMAxZxD3L0GP+b55VoxT/MlKYvyg7dU/58Lfa
+         JFbAwvf0mcc3IYkPykpf0CRH1vK0mf/kFen+cmbfFhaW6VnApk9gwFlVRNO08br0nSx4
+         /NIA+YcVR4mIvHEfyVrUS2xjEEEniVbgibRLENc3JM9yParehvYI6iGEhfQWo6UVgGok
+         GD5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792479093; x=1793083893;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dHQhRD6vyxHfKtcPIP6kj0jtBv/cVh1zjgBd/JhnQeQ=;
+        b=hzZ3DrzzsICuSGejTgo3Qp638hIXtCS0XjQYFxGCoLkZvkM7U4FCAt/qnJjtijWw2u
+         U59AleKRKwNjFVbzJC79Lcs20xOVExe2rPHySCh60DfE8i0dP+LLFY37pvO+Skfc7MBO
+         9J0wUvMNTz3gVEOWERXvCdN75np+fU8Em/etXvOuLNHpPPys5eZFmCy/I3HG09/hJMJ8
+         Ou8MWkmVMM23ZGOeC6pRf5IC/82PHm7nL5xu89fliqFYpMuF6tLuT+jpdOkRmvFQEQD6
+         3O+k2cTD9A495RrK/IvrYaHSFvI0ePUnYAp3MvivTyv+bvpo1ePiGFsXfWvUftsxlWJT
+         kDUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtU+TS/aauZsUwqrB+8wb20bRcjR/pE16vdxO1cEQy6TcNdhiQ/2nZ5RBEeYeg3Ke7FhIqAYXHuNiPSFQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHPsNTU2WQy+lGfC9HsbGkoMgYkp+bRJg1sk2sarsUTY5y6dyq
+	XuEaZW3JzLKrOuZKbkPs4PU04hBUijgvaBnvo3YScTM3j+BkvrtmZa2UlGxwVA==
+X-Gm-Gg: AYBFou1zEBYDeF33fbsUoF3CizDvsidbEX6APnLhwF2dwK982ZLnpMmPPL3CSyOHzuO
+	xprgGN/dGCs8+gCVggFPFFPTE37MTrXLATtxRFGxbdvSw3l0eWAW2oTPmBLDuTOBtBlYg/eYOdc
+	iFRwT256UuYwcoPoWLK3shUs+Q8X6+d8CbpWolgK9mLBg2O/TDNF8f1itcG6ijRaqjlJZAygbdv
+	SYaDdJIG387IYrBvKAvy45Y7X2DErjX4uEddjxo4QGs7ztpz5CmIkeVKBAjZzIH/TeZq1Lk+UhP
+	IrXTWcqhLqYyfwF78f9oBA2kYBe2jdQ7nHtIkRARhIjqnzJWKBrm/MjR/X3gyqk9etQ4rd1JFTd
+	2gPaAOuxVVtfVx75SGEnuDW8CHc8OmoP+jgxeC9Tfrs367yLqfaGSbnKhU787ooRtxfE02YvR+z
+	feNpQ82KZJzWsddaeghkCT7OcZiTpwZdqVptT060e+6PfJbHf7EUaFQcjK1FKRO5jTSJFFtITAL
+	7uawbM0cEP8Qxb4RMtL2xW4Gwmb77G0bA==
+X-Received: by 2002:a17:90b:3ec5:b0:3ac:adce:60af with SMTP id 98e67ed59e1d1-3aceeb92998mr8773726a91.16.1792479093049;
+        Mon, 19 Oct 2026 23:51:33 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad5d56eddbsm2563561a91.9.2026.10.19.23.51.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 23:51:32 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Alexander Aring <alex.aring@gmail.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Chandru Gopi <chandru.gopi.dev@gmail.com>,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wpan] ieee802154: look up the wpan_phy dump ifindex in the caller's netns
+Date: Tue, 20 Oct 2026 14:51:25 +0800
+Message-Id: <20261020065125.896530-1-maoyixie.tju@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261020065558.1829402-1-raghav.s@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,59 +104,65 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261020063838epcas5p29bad3adea6f1dff99c3362a3d5d4094c
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261020063838epcas5p29bad3adea6f1dff99c3362a3d5d4094c
-References: <20261020065558.1829402-1-raghav.s@samsung.com>
-	<CGME20261020063838epcas5p29bad3adea6f1dff99c3362a3d5d4094c@epcas5p2.samsung.com>
 
-Add required dt node for cmu_usb block, while at this
-add sysreg_usb which contains bits for DRCG and MEMCLK
-which are used by clk driver
+nl802154_dump_wpan_phy_parse() looks up NL802154_ATTR_IFINDEX in
+init_net, while the dump only returns phys in the caller's netns. For a
+caller outside init_net, the result depends on what the ifindex is in
+init_net. If no device there has it, the dump returns -ENODEV, even
+when the ifindex is one of the caller's own 802.15.4 interfaces. If an
+802.15.4 interface there has it, the dump is empty. If any other device
+there has it, the filter is ignored and the dump returns every phy in
+the caller's netns.
 
-Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
-Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+GET_WPAN_PHY needs no privilege, so an unprivileged process outside
+init_net can use this to tell which ifindexes exist in init_net.
+
+Look the ifindex up in sock_net(skb->sk), as nl80211_dump_wiphy_parse()
+does. Commit 66e5c2672cd1 ("ieee802154: add netns support") added the
+netns check to the dump loop. It also removed the "TODO netns" comment
+above this lookup but kept init_net.
+
+Fixes: 66e5c2672cd1 ("ieee802154: add netns support")
+Cc: stable@vger.kernel.org # v4.8+
+Assisted-by: LLM codeql
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
- arch/arm64/boot/dts/exynos/exynos8855.dtsi | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+I asked about this on linux-wpan and netdev in September [1].
 
-diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-index 3dd7a4c4c609..dcf1e58c6367 100644
---- a/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-@@ -192,6 +192,27 @@ pinctrl_cmgp: pinctrl@12030000 {
- 			interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
- 		};
+Found with a CodeQL check for lookups done in init_net. Tested on an
+unmodified v7.3 and on v7.3 with this patch, in qemu with two
+mac802154_hwsim radios and phy1 moved into netns ns1. Not tested on
+real 802.15.4 hardware. Dumps from ns1, filtered by ifindex:
+
+  ifindex in the filter                     before fix   with fix
+  4: wpan1 in ns1, unused in init_net       -ENODEV      phy1
+  3: wpan0 in init_net, unused in ns1       empty        -ENODEV
+  5: sit0 in init_net, unused in ns1        phy1         -ENODEV
+  3: wpan0 in init_net, new wpan2 in ns1    empty        phy1
+
+Rows 1 to 3 give the same results for uid 65534 in ns1. For uid 65534
+in its own user and net namespace, which has no phy, ifindex 3 and 5
+return an empty dump before the fix and -ENODEV with it. Unfiltered
+dumps and dumps from init_net do not change.
+
+[1] https://lore.kernel.org/all/20260920165057.3753458-1-maoyixie.tju@gmail.com/
+
+ net/ieee802154/nl802154.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/ieee802154/nl802154.c b/net/ieee802154/nl802154.c
+index 115f43d0e158..fae5c413fa60 100644
+--- a/net/ieee802154/nl802154.c
++++ b/net/ieee802154/nl802154.c
+@@ -581,7 +581,7 @@ static int nl802154_dump_wpan_phy_parse(struct sk_buff *skb,
+ 		struct cfg802154_registered_device *rdev;
+ 		int ifidx = nla_get_u32(tb[NL802154_ATTR_IFINDEX]);
  
-+		cmu_usb: clock-controller@13000000 {
-+			compatible = "samsung,exynos8855-cmu-usb";
-+			reg = <0x13000000 0x10000>;
-+			#clock-cells = <1>;
-+
-+			clocks = <&oscclk>,
-+				 <&cmu_top CLKCMU_DOUT_USB_NOC>,
-+				 <&cmu_top CLKCMU_DOUT_USB_USB20DRD>;
-+			clock-names = "oscclk",
-+				      "bus",
-+				      "usb20drd";
-+			samsung,sysreg = <&sysreg_usb>;
-+		};
-+
-+		sysreg_usb: syscon@13020000 {
-+			compatible = "samsung,exynos8855-usb-sysreg",
-+				      "syscon";
-+			reg = <0x13020000 0x10000>;
-+			clocks = <&cmu_usb CLK_GOUT_SYSREG_USB>;
-+		};
-+
- 		cmu_top: clock-controller@13900000 {
- 			compatible = "samsung,exynos8855-cmu-top";
- 			reg = <0x13900000 0x10000>;
+-		netdev = __dev_get_by_index(&init_net, ifidx);
++		netdev = __dev_get_by_index(sock_net(skb->sk), ifidx);
+ 		if (!netdev)
+ 			return -ENODEV;
+ 		if (netdev->ieee802154_ptr) {
 -- 
 2.34.1
 
