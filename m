@@ -1,96 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506361;
-	b=uBl+vSpbSDh6Tz1PPn8lnaJ2XBgSvBiPF25VUYJUiqMaAuttsVmkiy2xR4FBqBR0QpVI
-	 YiHIAKvyFeMblJyqSURhnfKKvSTBf9VUi9Pi8VEo4Xlg/aQiswdU7buUqoyT3FKyC0Wp5
-	 DrpjhvYX/zSbOl1nqD+PKWJiWO9SdniY8L35fKvDqYDKWUtR12dZv5zw6oNDeqrfSbgTk
-	 YRVEYexkDpvyj475Hw1Bl8nLz0NNaLBtqxwJIOB27Y3vqK+abwxFF/Mv58/8fynY/W/Hm
-	 M1k7Y0u0GDJrZyOzyyHYrKUJdv/hJaEChBJjnz7e6yiCDsek0/Slq9b3V9QNCPYyIQQ==
+	t=1792506374;
+	b=yziqiHXSam7DzmpuzsMXZRd1Ddwd/0QlARfefyl4cHyQRoG0wowv32Z9crLHT6tIvysw
+	 STxqVUVXHri0FQAdjkvKpOapdv0rpy7MJTRijTkSsAGZIAeqURzgmG30tjGYp28tCBz2R
+	 pluCb3S8OI3byxPycJEcA7yttxIZ8TSOsgCO1J+aIlp/9HmChAD2pVXTyvAabsz6mHSib
+	 y1Se9exuUnlKfVEAshoZ6oTZEZQswBA4A/CDkcc1Nli+9OC/xwsFWd6yOE3Q3OuCFc3ZK
+	 N6f03gUiIrrFFKSfA4UMMAA2LrZyPb5gsxD4Ay76+RtvXX498zSiSaMvjsnZ//qoqmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506374;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=7RWczmxZUd2zIPBf7cDOEeEN988E+Le0eDxxMs8/MXs=;
-	b=iIRZanBvP3C2RqguZGeIHsjiuDiOpa7fPQ23rCF9JYdcx4wVEYZQ7TfYUP8hpnd+GwI4
-	 L6bYz0vw3A6kwzSFcWF2dv+a/RF9XicrbAaQIzGns8u3iqVC37Gpb/5ElReLM0LZO46zw
-	 uJJBrnf922FdqlHrcruCyVQAl5BFm10Hs6FPvX4MYb/qFNN2scR07HUyraySsXFyACXre
-	 pEvBkJ3k0GhE5s60Q68/ms5Mut0nice/vTegxgLjg0DW4oL9Dq0Nmr9mKyAT6G6uA4qxy
-	 GBIEC3l2tsbyaiW6fya1fcKBSTUkuA14EeqZxWTfwVzmjfFSoDObCVHF0VO1r8zMWUA==
+	bh=lKN2Kpy24qYXb++X9M24Ji7pq7TM4o+Umqf1AAgxfzE=;
+	b=CqGN7PatuDSfGzK3AQGrL5Q5s377Ickp7PWdukWxqJHPew0mi6FUnOp/KBpUxsH5Uz/b
+	 57GkkP24N+EQoqiyftPuoMiA22LIpHeXoEOf0IVpymlWfWr5I9IAuLp9lPpRGZwM36aec
+	 OYcHW/REMiLuTwnmZVnYVaiieiwV5697Lhho0sUMPR1c54uhtmMdNj5HuLMTzRyKDiS9Y
+	 Bvv/6Ewfpn34SahpA9PJf/YGSBaw0kVpkq+fOx5RF+DcE9Ei5hiH6SJL9hsacZnBX9VzG
+	 mf5moE8aOF73Vd+1QOvOZ0HwAkKD8ra58/RScQ85g63LrlynRIe4xfI+SdELIUYFaMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eJK8g8Me;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="m/9U24QS";
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4510606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:26:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4510606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EE0606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:26:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47EE0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eJK8g8Me
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38759bcd877so2005251a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:26:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=m/9U24QS
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c43373ae89aso379146866b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:26:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792506360; x=1793111160; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7RWczmxZUd2zIPBf7cDOEeEN988E+Le0eDxxMs8/MXs=;
-        b=eJK8g8MejqV9x2Hu41kHWeJSeWzsbxg0bL526SOb0HgS+1naaZXq9tqMgKbN2+W2ST
-         nCZQ7BusvRl4wWKV/FeDKnCi1JG0MuOeG5/BDhy/U+0Pu+DWZdRPPP8nCgwcdX8CUBVh
-         QyZx4zVe1fUcfFDOYyriNtrraHAvgDHNdk8QMY8eaofXwoV7lM8GrwvDO7Cmw4NxrWWR
-         knxajiEm5Kal81rC7XB9qjwVqqYnZEi5CEMxzj6o5WqHcbp+mo7LtEnWvK7ZTPBjf4P1
-         HrSCN5IBBXaI2+V7iqPW9Ury/tos/G6hAhOeNgvnmvQbZFo0Csf4SMaaq/jQXLV0PAQJ
-         XzWA==
+        d=linaro.org; s=google; t=1792506373; x=1793111173; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lKN2Kpy24qYXb++X9M24Ji7pq7TM4o+Umqf1AAgxfzE=;
+        b=m/9U24QS2Bz/OBc7yLUW7ra9avWJTiDbw2N8OWcBxciX+hOnKDyxTX4KI9hZE4E+mr
+         JK1LaV9jQUJ09o6pP6JRKkhbT5jyFX4Z8Zlg3cXiQeeUHlFec5KoYWgdd6jZT2d93WuG
+         YxnqFvde23cuE8kQ1070EDs+wtduXbpSNpLE9kvNPHZ9TXAnEENbFp1+a79wLY3p5N/1
+         OcdtFrR40UO1342c69sfjiSkLRmshc9dutjX/u7f4Ab1dhEk3uA8sRc25K03afHnDJkQ
+         INhvsed/UNgSZYhjgC+H4w8CZjVB3cgdUc6lA3pS2IeA9B6vJ6HMUeiwBgEvRjCfX+0Z
+         pB7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792506360; x=1793111160;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792506373; x=1793111173;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7RWczmxZUd2zIPBf7cDOEeEN988E+Le0eDxxMs8/MXs=;
-        b=n5oJdSovCmTTOG+8Xt+oz1dmWwxa3riodIOdYODn1F8iWeUhipkaoI2J4zI18iZq3v
-         GJSs8e7nkgg2hwf0qVHn3sdC3YGEukEqw3Cv+Ss1PWL674UStSt52AHzNAY7VSbbzIFK
-         M7vdrRe90Ro2dI5rYCbzd3hX6iDUxxyuu88jc20AwZEnv4pOLWkP+NQwGmekKFTsQHUl
-         qHHNBxYkmVUMjWIeLIPpB4H4dqBc2FG2sepfMIzFR14RmvFYERfSsXUvtFrzC3/Laypz
-         aRHZxtG0gTIkHWVQd77ret+dxIu+eQMpG01jAYnGdF08jpcNG8VlZc/oaDew00YCWf/R
-         nGPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy7mNcmu601GRysfWAW1oM7UoxgCfEN3LbHzqrmk0XVuJsJgdINdPSrFEEP3iCBAh/6a6QwjHXAMqdRu3Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjpdvVZXeRjslaL0GuxgM6UFkhRfOSwvbaRTvTABNd38yK7ddR
-	dlyGjbMn2LTi84RV3riEnAtA90PBLQSaALmQpkBOAGmLtTnX+YHRGSkZ
-X-Gm-Gg: AYBFou25guTsWQKUbvbXGbPzrd8DIrN0r/PpCbpyrw4MluHg3SiLGqIEauF+Zx9Ah/v
-	rMeZzv3WkQOlsq04SeTS6bJ2iYjzI/gp8Z4KRRFa04YHUusUcG+8fjYUHmV1cdjTY8AFNLPr6oS
-	0VUf1pwW3U7h/nf9b3J55NmgbaY0v0X0NZsInV4Ds/imzpf35Wi0zs+O7JLJhoartzq0Ku/UDn/
-	lWrdlYyceBe18Mz2lseytj/h/dl3gnmlq/lGWYpW4Sc2vWKho+oGXC++x7rDKbPPa222egQ5FCt
-	Paz59TWdGIQCS7uOUV4KuDbBkljr3At4e2y+cHrbUHDCaBSLzBc8XOkDenpjtJYyAIj+m10/YF9
-	FY8/Le8AVjsWilEjJ2yD4czeztHtVznWTlyJjhHzNXbtVK+3oTnzpsQnQ8g83w1psNscRSXp3V0
-	1BJQBacCo0Zjm7km87Ku9BuOnUV0J8YYrtMt4K2QbFj3uRYTVBj6J4Z2M3eALngHh7tb9BsuzkJ
-	rkv8gaDqordCuibUgf0G0Vs21JkSyqikCLqR2vC1GAqzDIn1JC01FMnr7yZVyY7DcVfWSrN
-X-Received: by 2002:a17:90b:5743:b0:3ab:1b1c:8a70 with SMTP id 98e67ed59e1d1-3acef29e7c2mr9107677a91.38.1792506359913;
-        Tue, 20 Oct 2026 07:25:59 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd0cde4fdsm10447319a91.4.2026.10.20.07.25.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 07:25:59 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v4] ocfs2: cache the mount context for dentry lock callbacks
-Date: Tue, 20 Oct 2026 22:25:53 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        bh=lKN2Kpy24qYXb++X9M24Ji7pq7TM4o+Umqf1AAgxfzE=;
+        b=pkw8r6tN+j7KHQ8Wdpa2gVEL5YTUvG1KRWkYbUyW5UpThOvq6PeKCMlWakJBVfihWJ
+         Ob/axg2MsQDkvkLDuMD7uwjAvPeY8LuhkBHW+TWpomsgOPG7QvN6G/n8Oi6TuCHfz0tB
+         ZN/OcPjUJgR50msVoBo8HttzM/XVHHKm8ycUmOUyYOCe00TvzgT0nvm/YzaEGd4qeMTt
+         xho0z+sgTw5X8l5zh2NgcZCr1PetQjrTB0xFgumuiv4d079NXeBJaCy1ku041ayoHHla
+         HK3OG9LpRMs0B6N5IDU6ESYQxr3jn9jlP0hGOzZzCgajwnnieLT3kybHi9xIYZ27KweI
+         On6w==
+X-Forwarded-Encrypted: i=1; AKwUvBzdShe0nfm90wy66wPjp1WTxb5JldHhXuMj2Xchr8QlGwIfgySKn8RuhCtx2gRQS9DZ5k1W2DFG9VUUxh4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqyLuVB8H5P1iwhitLRwK/+u2Aj4pyhrCza7tOC2u5svGOXkRv
+	O+gJHVxFruV4xc5AKCdpSH6jhrhxLrcQXKIGaTSk5ZSreBR9Fz1594Ztb/1QEqaZ+D8=
+X-Gm-Gg: AYBFou3Ipzhg0EuWibkptmDkdaHFAJSv9PXWX5/pKg4fDA+98H99ExSNG0qAP14XM5B
+	VbqQ5wblIuNtWvzRXq32Bx9MJs/KM/aTL+dsZNQbQdwSbteWDMZP12IJEA0e57c9U1ZBYBWwfTS
+	Wf1AR2wvssomDlDVib79GsEISw/mi7VFB9eZvyVTAxkPhCiGsLP6lkNAzwgWMVlHjPRCCJEMMVw
+	rX72z+STyR1I+w531cMiOG1IcHpr/SHYe6SOyG1962NDOhH6MmwhEfeUtQkbdsQ3Ac6OBM9QtSX
+	/NBQB9v6jYDdRoNNvzWEqgGdrAuBUlv+3dI0PNs4wca/UxbaEfBIG1qeYG2hjEzWmoJaUxgYYcQ
+	+7aGDCLooNEkntUqRDxGDv5Z7NVbCn1R05PM/lN/GqQGSzVJynGr/9Pk4vLllyNLScsKTtzA4oX
+	678vfrwvb19Sn6An/fc+30dtE8fkvBkSqDcsJXGpTPe1I5++eSaJOsDprRtUwUnRM1NXqhIpuYj
+	NH5
+X-Received: by 2002:a17:906:f5a8:b0:c38:ee33:2931 with SMTP id a640c23a62f3a-c419f709659mr789055466b.37.1792506372574;
+        Tue, 20 Oct 2026 07:26:12 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d810035sm6911288f8f.13.2026.10.20.07.26.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 07:26:12 -0700 (PDT)
+Message-ID: <52dc152f-5417-4af4-b084-5ca5f821a6f4@linaro.org>
+Date: Tue, 20 Oct 2026 15:26:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,148 +91,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 25/25] Documentation: coresight: Document AUX sample
+ decoding
+To: Leo Yan <leo.yan@arm.com>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
+ <20260915-arm_cs_support_aux_sample-v1-25-35cf6f297d20@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-25-35cf6f297d20@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ocfs2_drop_dentry_lock() drops the inode reference before releasing the
-DENTRY lock. This lets inode eviction release the local inode and open
-locks before a remote unlink can proceed past the DENTRY lock.
 
-A DLM callback can still arrive before the DENTRY lock has been dropped.
-ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
-which can access a freed inode when the downconvert thread drops the
-last inode reference in its post-unlock callback:
 
-  Downconvert thread                     DLM callback thread
-  ------------------                     -------------------
-  ocfs2_process_blocked_lock()
-    ocfs2_dentry_post_unlock()
-      ocfs2_dentry_lock_put()
-        ocfs2_drop_dentry_lock()
-          iput(dl->dl_inode)
-          [inode reclaimed after RCU]
-                                         ocfs2_blocking_ast()
-                                           ocfs2_get_dentry_osb()
-                                             dl->dl_inode->i_sb
-          ocfs2_simple_drop_lockres()
+On 15/09/2026 16:49, Leo Yan wrote:
+> Describe recording AUX trace in PMU samples and generating callchains
+> and branch stacks with --itrace=G and --itrace=L.
+> 
+> Explain the default decoding behavior, preservation of recorded stacks,
+> context ID requirements and decoding limitations.
+> 
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   Documentation/trace/coresight/coresight-perf.rst | 39 ++++++++++++++++++++++++
+>   1 file changed, 39 insertions(+)
+> 
+> diff --git a/Documentation/trace/coresight/coresight-perf.rst b/Documentation/trace/coresight/coresight-perf.rst
+> index c0c82b3d26ea88dad7143afdb047c4d8f502b4a6..59eda2a5b6473ed1cb6bade5d281a12bdde76bb0 100644
+> --- a/Documentation/trace/coresight/coresight-perf.rst
+> +++ b/Documentation/trace/coresight/coresight-perf.rst
+> @@ -171,6 +171,45 @@ no branch history at all, for example samples from a thread that was never
+>   traced, or samples recorded before the first or after the last trace window.
+>   It is built and installed with perf's other dlfilters.
+>   
+> +Decode branch stack and callchain from AUX samples
+> +--------------------------------------------------
+> +
+> +With a kernel that supports CoreSight AUX sampling, record an AUX trace
+> +window inside each cycle sample::
+> +
+> +  perf record --aux-sample=8192 -e '{cs_etm//u,cycles/period=100003/u}' \
+> +        -- ./workload
+> +  perf script --itrace=G16L64 -F comm,pid,tid,cpu,event,ip,brstack
+> +
+> +``G16`` adds a reconstructed callchain and ``L64`` adds up to 64 branches.
+> +Either option can be used alone. Existing callchains and branch stacks are
+> +preserved. Without an explicit ``--itrace`` option, both are enabled for AUX
+> +samples. Decoded history is available in ``perf script`` and ``perf report``.
+> +
+> +AUX sampling supports unformatted, per-CPU sink (TRBE) trace. Each sample
 
-Store the mount context in the DENTRY lock resource's l_priv field and
-use the default mount-context lookup. Recover the containing dentry
-lock with container_of(), as already done for refcount locks, and remove
-ocfs2_get_dentry_osb(). ocfs2_dismount_volume() shuts down the DLM before
-freeing the mount context, so callbacks can use it without accessing the
-inode. Preserve the existing iput-before-unlock order to avoid delaying
-local inode and open lock release until after the DENTRY lock is released.
+Minor nit, but "per-CPU" in this context might be confusing for users. I 
+know we've used "percpu_sink" in the driver (unrelated, but maybe 
+"single_source" would be better there anyway), but from the point of 
+view of userspace, "per-CPU" and "per-thread" would be related to how 
+the event is opened. Which doesn't affect aux sampling.
 
-Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-Changes in v4:
-- Drop the convert-worker change from v3. Keep MAYBE_ORPHANED marking before
-  the extra-reference check, including the dl_count == 0 path needed for
-  local orphan cleanup.
-- Retain the osb cache from v2 and the original iput-before-unlock order;
-  remove the incorrect worker-lifetime claims from the commit message.
+> +selects its CPU's decoder and starts a fresh trace window. The window already
+> +belongs to the sample, so ETM timestamps are not required for attribution.
+> +Samples without decodable history receive no reconstructed stack. CPU-wide
+> +recordings must enable context IDs to distinguish tasks within a window; the
+> +default recording setup enables them.
+> +
+> +Callchains cover only calls visible in the captured window; callers before
+> +the first synchronization point cannot be recovered.
+> +
+> +When kernel tracing is enabled, AUX samples can include PMU interrupt-handler
+> +execution before the trace source is paused. The late-sample helpers trim
+> +this using instruction addresses, which may not uniquely identify the sample
+> +boundary for kernel samples.
+> +
+> +Formatted sinks such as ETR are not supported. They can collect trace from
+> +sources on multiple CPUs in a shared buffer, mixing execution from unrelated
+> +threads into the AUX sample. Context IDs can distinguish these threads, but
+> +trace from other CPUs can consume the limited sample window, leaving little
+> +history for the sampled thread.
 
-Changes in v3:
-- Move the inode lookup and MAYBE_ORPHANED update after the existing
-  FREEING/dl_count guard and successful extra-reference acquisition,
-  addressing Joseph Qi's review.
-- Keep the osb cache from v2 and preserve iput-before-unlock ordering.
+This isn't really an issue if you are only tracing a single process 
+regardless of shared sinks. As the aux sampling driver implementation is 
+quite tied to the sink, it only makes sense to say we didn't implement 
+it because we think the main users only want TRBE, and it's extra 
+complexity to do it for ETR. But that doesn't really seem necessary to 
+mention here.
 
-Changes in v2:
-- Preserve the existing iput-before-unlock order and cache the mount context
-  in the lock resource's existing l_priv field instead.
-- Recover the containing dentry lock with container_of() and remove the
-  inode-dependent mount-context lookup.
-- Correct the comment describing the dentry lock's inode reference.
+TRBE also supports multiple threads anyway, because you haven't put a 
+hard limitation on using --per-thread.
 
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v6-17b58652a3505eeecb0c@gmail.com
-Link to v3: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v8-d01e30cb3f465e294c0a@gmail.com
 
- fs/ocfs2/dcache.h  |  5 ++---
- fs/ocfs2/dlmglue.c | 16 ++++------------
- 2 files changed, 6 insertions(+), 15 deletions(-)
+> +
+> +Guest samples, synthesizing instruction events, and saving reconstructed
 
-diff --git a/fs/ocfs2/dcache.h b/fs/ocfs2/dcache.h
-index 7f246c5692d8..046ab9a80769 100644
---- a/fs/ocfs2/dcache.h
-+++ b/fs/ocfs2/dcache.h
-@@ -17,9 +17,8 @@ struct ocfs2_dentry_lock {
- 	u64			dl_parent_blkno;
- 
- 	/*
--	 * The ocfs2_dentry_lock keeps an inode reference until
--	 * dl_lockres has been destroyed. This is usually done in
--	 * ->d_iput() anyway, so there should be minimal impact.
-+	 * The inode reference is dropped before dl_lockres is unlocked.
-+	 * Callbacks must not use it to find the mount context during teardown.
- 	 */
- 	struct inode		*dl_inode;
- 	struct ocfs2_lock_res	dl_lockres;
-diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-index 88d946466083..437a726834c8 100644
---- a/fs/ocfs2/dlmglue.c
-+++ b/fs/ocfs2/dlmglue.c
-@@ -58,7 +58,6 @@ struct ocfs2_mask_waiter {
- #endif
- };
- 
--static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_inode_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_file_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_qinfo_osb(struct ocfs2_lock_res *lockres);
-@@ -258,7 +257,6 @@ static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
- };
- 
- static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
--	.get_osb	= ocfs2_get_dentry_osb,
- 	.post_unlock	= ocfs2_dentry_post_unlock,
- 	.downconvert_worker = ocfs2_dentry_convert_worker,
- 	.flags		= 0,
-@@ -309,7 +307,7 @@ static inline struct ocfs2_dentry_lock *ocfs2_lock_res_dl(struct ocfs2_lock_res
- {
- 	BUG_ON(lockres->l_type != OCFS2_LOCK_TYPE_DENTRY);
- 
--	return (struct ocfs2_dentry_lock *)lockres->l_priv;
-+	return container_of(lockres, struct ocfs2_dentry_lock, dl_lockres);
- }
- 
- static inline struct ocfs2_mem_dqinfo *ocfs2_lock_res_qinfo(struct ocfs2_lock_res *lockres)
-@@ -610,13 +608,6 @@ static __u64 ocfs2_get_dentry_lock_ino(struct ocfs2_lock_res *lockres)
- 	return be64_to_cpu(inode_blkno_be);
- }
- 
--static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres)
--{
--	struct ocfs2_dentry_lock *dl = lockres->l_priv;
--
--	return OCFS2_SB(dl->dl_inode->i_sb);
--}
--
- void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 				u64 parent, struct inode *inode)
- {
-@@ -624,6 +615,7 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 	u64 inode_blkno = OCFS2_I(inode)->ip_blkno;
- 	__be64 inode_blkno_be = cpu_to_be64(inode_blkno);
- 	struct ocfs2_lock_res *lockres = &dl->dl_lockres;
-+	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
- 
- 	ocfs2_lock_res_init_once(lockres);
- 
-@@ -652,9 +644,9 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 	memcpy(&lockres->l_name[OCFS2_DENTRY_LOCK_INO_START], &inode_blkno_be,
- 	       sizeof(__be64));
- 
--	ocfs2_lock_res_init_common(OCFS2_SB(inode->i_sb), lockres,
-+	ocfs2_lock_res_init_common(osb, lockres,
- 				   OCFS2_LOCK_TYPE_DENTRY, &ocfs2_dentry_lops,
--				   dl);
-+				   osb);
- }
- 
- static void ocfs2_super_lock_res_init(struct ocfs2_lock_res *res,
+I don't think guest is working anyway even without aux sampling. There 
+is some structure left in the code for if we ever decide to support it. 
+But I don't think we should mention or do anything special for guest in 
+relation to aux sampling.
+
+> +callchains with ``perf inject`` are also unsupported.
+> +
+>   Perf test - Verify kernel and userspace perf CoreSight work
+>   -----------------------------------------------------------
+>   
+> 
+
