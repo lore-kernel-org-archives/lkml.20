@@ -1,61 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504166;
-	b=e3IfsbRdbXs7pPkPBJd1xJnZsgFOl7JiwQFICsz7wdYc2cAgxP7Aj4kDusuyas67N6g1
-	 TasNBCtD8gQKSyVW8VzDVqJHp/gumL9ua5lk7SoLap7VgkXmfVqR0/ghmZSJLRCO88Vx7
-	 t9qM6Ligem9tQ/sYiCcKBgnVT/bgnArh+RSnX6vs7aCUyi3czC2QSq04naA2oWR6NY1Yy
-	 mZBPPDiNo+/yTlWgTM4fQAGIk/chieD7Ro1iszi9WvkoMq+drmo5EiOAnqtTpRUF7bcEH
-	 QuuEeDhmqms4nM4DDPL+NGnmmvsUmEBlYWYXmxWBGHBBy8Gwjoi1ZYm8jCIG9AAtSyg==
+	t=1792504211;
+	b=EDIERu3MoafuhPhNF4SyDMz6Bwz4MiMtKiUckRSkCOmVUPGAAEhkuF7CviW8Y4EfRzmr
+	 wmPwpzVj0TFwxcpfGpGeEqThbON2G/T444+yHzYnIwyHtp1ZVTZJW9UiXktfVu+iLKe9r
+	 cG6ZeijlDlMAWNghupXXaGE08j9g44IkG7l3mvGISCrJ9BDtzdvbcHWg5XTTpSgPNENxV
+	 BnhMvWrVYF7/MPGc2AUESpHE+1IUoPl0GoUvIXBUBFN8pwz1XGnur6xijN1ta1ZhSUc9/
+	 Q1PDVuliNNeQBvwOiHAgMYqCQgKUAOAmKyYoYTEA2D23mPCRlGiJsER9vxstzq2LtJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504166;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=Torqv/G2ZCtdeRRGEInhExYmid8QlzHORZuFadcT4cs=;
-	b=q9tZv3rAjKn4YZbGgWCT3NuJU1eI6UwAFlH3IGFoU1lFe01BwomE+RelACDDgvk2OgbZ
-	 E/jW7X2akLmXluUECSmwxCtY0eBG2C5UfpuHisKWn+YdDNd0SpnmAiGU9ZXpiIJDplzS1
-	 Ze261kXzxzIiGC7jQEZD5wo/QnbptgWRFM6kEhJnQdJ8O6tLQZgcvgSDlUyR7qb0t8mkW
-	 nKHfWWa4N55Af5rt9FN7Ux7+SG6rW4x6C7+U25T6wHTGOu1YxLHLComP4T41u/deCHysC
-	 oZhiAuLhH3AjejjPi3Hm0rHZCOt6IxvOEAMB/wdNweAHqr5MejD0rhregnz6eMWpGAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504211;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=L4U5UYLlAya7jsMhIje74k036UH7Y9HqJ+sW7JwcvH0=;
+	b=kJXKdAlXyFvSs0Y0/84T71dpXqBBi7XZkz2BGMfq7IKlOv44aottJPdOXqs0JOMQwjdO
+	 JJjIZ2+XqjppSBKU+W1NnInNjq+S6mZtlzq8ksEn0RhlSJ8gm7zgvkHTROxm9zU859CVn
+	 DFhS/WYYSZ2kdlkUdrP2SyMhrnOq8c/GKMc2jrBUWQD2v2YHayRy60w4AxJZ1kw78Bwo7
+	 tkldpkl4HtKb8FAQ0Cp5bIabc7pqT5eG9MvPEneY/RbDKzQ9GzBWxJWuIhTrYwdH61Hk4
+	 gfknvBoVtK6skoRrNgq4m6J+V35KqSVKKPuoXJ3Jmk02acTWr6aqJV4dG9Mjk6wjPWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=45.249.212.51
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=L39EG48g;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557FB606F45A;
-	Tue, 20 Oct 2026 13:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 557FB606F45A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j8DKn2bzTzYQttK;
-	Tue, 20 Oct 2026 21:49:17 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 5C948409A4;
-	Tue, 20 Oct 2026 21:49:19 +0800 (CST)
-Received: from localhost.huawei.com (unknown [10.67.174.243])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgB3d_pdcddq79ScBA--.16873S10;
-	Tue, 20 Oct 2026 21:49:19 +0800 (CST)
-From: Xu Kuohai <xukuohai@huaweicloud.com>
-To: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Yonghong Song <yonghong.song@linux.dev>
-Subject: [PATCH bpf-next 08/16] bpf: Extend syscall to accept arena percpu information
-Date: Tue, 20 Oct 2026 13:22:53 +0000
-Message-ID: <2f1a53eb72a6fdb93346cb4e1d04a5d472177b1c.1792503001.git.xukuohai@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792503001.git.xukuohai@huawei.com>
-References: <cover.1792503001.git.xukuohai@huawei.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0A3606AB11
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:50:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F0A3606AB11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=L39EG48g
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f36c18b75so179801785a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:50:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1792504209; x=1793109009; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L4U5UYLlAya7jsMhIje74k036UH7Y9HqJ+sW7JwcvH0=;
+        b=L39EG48g+a4TXKfB3mpuDYsTACW6dH7XIlJQ6b9JYZejVYM5hKWl9PazjJbxtyK5Qz
+         xgJ6dF4dndSY6JHzyPW6IDH8I8j/g7qgyuqW65aAGxxITQJ2cXhV5WGo4HYQAxco7DKi
+         huCWF4QK4LXR9nInipic/v4yDfAJnuzqlw9joKGIYr6szA2sxdkaoA+zN18cZja9fv2I
+         sdyd4IXYweY73MvFvDrx7WErq0ht2Rj2ANYHLcF8mHvhWfjyfx7JLUWuX9thw8C2wemf
+         zBO5bqy0ND9uVCK/orpl1Legpe+XYyLBDtO4c43nVxeG688WlqXP0/2bkhTaXldEI2op
+         SIqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792504209; x=1793109009;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L4U5UYLlAya7jsMhIje74k036UH7Y9HqJ+sW7JwcvH0=;
+        b=sAg2YpDxf2uEjsD0+DNvBCIxh117cUC1AcLPMPZkTIC/lapjNd/TE7Gbi8iMt+RTBg
+         CbW3zv8J7Vl7eV7251MjG0mzG6uZ+Uunku8mIfm3cmcA2MzzGYgpSRRiG0UZXAMoKVGO
+         uxHwoJEVPRtUWBrtGOOU1GYqLBSw+QkXYzWcG/5NZLKTv2d9nkXnnslVs992tNrDM28a
+         EXb4bHVjzwpbIDdkj4wdG2GPuXvnVCxnjL/rY0wf0PS3rzoaBjEXue0gQM+BbJzd6rg+
+         bB8gbVAbHVOYp53+yVxQqo1BRlEwOzY8zD34H5QUMABgenBQRuqkRmLDmmO9Ox98lyCv
+         YYYw==
+X-Gm-Message-State: AFq9FYKdWkxoImY8VPCEZEdZPoztx/vRzrbHSe/zfaiA9vYLVmYygU4f
+	lWbupULSk6mt7oBcnhVcY0nmPa3zL16jcI1YxrElKdJvbiyNe6B3xOJL4IRvnrQnMEw=
+X-Gm-Gg: AYBFou0G/Y+ujSFTV+8KaGvJKiS9GdQHQ2HULbNclyb5dP38c/cgYqPBXHFK5W7td58
+	b+EUVVQ3TIU7OOAW0DVe6tU5ciAuNGkKPmzU0Jtgd3hD2tp2r41Yd3TQHTha7UzlZOzcrXbaSWV
+	gOxAdUpb9VsnhW063ojOfo8lOJXogdDwVnj694FjHGafz2+KKgCbf3yh7P9HLdlb/mvj01nL0GN
+	zGVqsgdCt5P7YtVD4R+z0SdAPDegfZZcM8R0QmZWmB8gm0i/WG2A9uLFgGkEkhU7q4TJHtEpqNi
+	7XXC1K/pY4wVOBqek/XRHUWmhBJ6iYm12ebt5YXRBVjBEJAxgabiemqeDCDsr99qbCslq+Em/al
+	vmfao6AsHei9uBUwJLwxTmaWUR0GmZrcp0KtWZ7Zbnr6nCebn1/eFG2NgqCRyv8zyXP5idru5oh
+	3n+jUwCtmrfpQI+9Jtt0ZD30zAOAAhlKSeAfhUjL0pfaXQQqTE8Rwe3KDXiCFbZBVrqwNQxF/uj
+	wUanhOplib8IWDeP9EpvBCLbeiK7ul0TX+wx01Qd0YupurcP8kRg0mV
+X-Received: by 2002:a05:620a:4689:b0:93f:3646:7a5e with SMTP id af79cd13be357-93f3646a313mr1474410885a.64.1792504209082;
+        Tue, 20 Oct 2026 06:50:09 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4b082ec5sm224944885a.20.2026.10.20.06.50.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 06:50:07 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xJAEA-0000000CabA-1he9;
+	Tue, 20 Oct 2026 10:50:06 -0300
+Date: Tue, 20 Oct 2026 10:50:06 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>
+Subject: Re: [PATCH RFC 0/3] firmware: arm_firme: introduce FIRME support for
+ host attestation
+Message-ID: <20261020135006.GO14213@ziepe.ca>
+References: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
+ <20261019233532.GL14213@ziepe.ca>
+ <atcUoSdggT9eU8YE@e129823.arm.com>
+ <20261020124536.GM14213@ziepe.ca>
+ <atdvnMJuHUJlqX8t@e129823.arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,113 +109,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgB3d_pdcddq79ScBA--.16873S10
-X-Coremail-Antispam: 1UD129KBjvJXoWxJw48Jw4xtr1kWF15uFWruFg_yoW5ZFy8pF
-	s3GF98Xr4jqr4I9ry3Jw4UGrWY9wn5X34xCayDCFy0yry2qr1vkFW0va1Yqa4Y9r43ur1f
-	KrWIgryFga47AFJanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
-	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
-	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
-	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x02
-	67AKxVW0oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64
-	xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j
-	6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtV
-	W8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
-	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
-	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJw
-	CI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU1KFAJUU
-	UUU==
-X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atdvnMJuHUJlqX8t@e129823.arm.com>
 
-From: Xu Kuohai <xukuohai@huawei.com>
+On Tue, Oct 20, 2026 at 02:41:48PM +0100, Yeoreum Yun wrote:
+> > On Tue, Oct 20, 2026 at 08:13:37AM +0100, Yeoreum Yun wrote:
+> > 
+> > > > Also this is weirdly structured, it should just be one driver under
+> > > > drivers/attestation/ that does the measurement register part of firme,
+> > > 
+> > > JFYI, FIRME's platform attestation token doesn't have the measurement
+> > > register. ploatform attestation token will include the firmware
+> > > information (e.g. firmware hash) and verifier checks the firmware
+> > > information. the meaurement with RIM/REM will be part of Realm token.
+> > > FIRME's PAT is for host attestation and doesn't include Realm token.
+> > > 
+> > > Therefore, in the new UAPI, attestation only have the evidance
+> > > interface and MR interface wouldn't be used by making mr_cap as NULL.
+> > 
+> > I'm aware, and this may change.
+> 
+> Yeap. but current, it's enough with evidance.
+> 
+> > 
+> > > > it shouldn't have two components and some weird firme_get_instance()
+> > > > thing to link them together. That isn't how to build HW drivers in
+> > > > Linux..
+> > > > 
+> > > > Since ARM has bundled different concepts together into one SMCC FID
+> > > > range, it probably make sense for the smccc_devices to somehow spawn
+> > > > multiple smccc_devices for the various internal software aspects
+> > > > rather than have one driver spawn aux devices to split it ..
+> > > 
+> > > If FIRME were intended solely for attestation, I think your suggestion
+> > > would make sense.
+> > 
+> > The FID are largely orthogonal, AFAICT there is no shared
+> > infrastructure between the various functional blocks.
+> > 
+> > SO it needs to be split into proper narrow drives in the eventual
+> > kernel implementation. token goes to attestation, link ide goes to
+> > tsm, and so on.
+> > 
+> > > However, considering that FIRME may be extended to support other services,
+> > > such as IKE key management, I think having FIRME-related code scattered
+> > > across different subsystems would actually make things more complicated.
+> > 
+> > Nope, it is the right thing to do from a kernel perspective. We always
+> > de-agregate these kinds of multi-function devices into proper
+> > per-subsystem driver.s
+> >  
+> > > I initially considered introducing a dedicated FIRME bus as well,
+> > > but I felt that would be overengineering.
+> > 
+> > Nope, just use the smccc bus and split up the 'multi-function FID'
+> > there. It doesn't need to be over complicated.
+> 
+> Then, I think the arm_firme layer could simply wrap smccc_driver and
+> smccc_device, with an extensible base interface shared across services.
 
-Extend the bpf syscall to accept the arena percpu chunk offset and
-size. Both are checked at arena creation time to make sure they are
-page-aligned and the percpu chunks live inside the arena vm_range. If
-the checks pass, the values are stored in struct bpf_arena for the
-verifier and the JIT.
+I wouldn't over complicated it. We already have smccc bus to do this,
+we don't need layered stacks of busses here. Just change smccc bus to
+be able to break up the multi-function SMC into several devices.
 
-Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
----
- include/uapi/linux/bpf.h |  4 ++++
- kernel/bpf/arena.c       | 18 ++++++++++++++++++
- kernel/bpf/syscall.c     |  2 +-
- 3 files changed, 23 insertions(+), 1 deletion(-)
+> Would it be better to post based on Jiri's branch [0] for next-spin?
+> 
+> Thanks for your comments! :)
+> 
+> Link: [0] https://github.com/jpirko/linux_mlxsw/tree/wip_attestation_pre_rfc_draft1
 
-diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
-index 9e5fa52c9bc2..6b17dcfc36b4 100644
---- a/include/uapi/linux/bpf.h
-+++ b/include/uapi/linux/bpf.h
-@@ -1628,6 +1628,10 @@ union bpf_attr {
- 		__aligned_u64 excl_prog_hash;
- 		/* Size of the passed excl_prog_hash. */
- 		__u32 excl_prog_hash_size;
-+
-+		/* offset and size of an arena percpu chunk */
-+		__u32	arena_percpu_chunk_off;
-+		__u32	arena_percpu_chunk_sz;
- 	};
- 
- 	struct { /* anonymous struct used by BPF_MAP_*_ELEM and BPF_MAP_FREEZE commands */
-diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-index 868589f07330..05cd6397adae 100644
---- a/kernel/bpf/arena.c
-+++ b/kernel/bpf/arena.c
-@@ -67,6 +67,9 @@ struct bpf_arena {
- 	struct irq_work     free_irq;
- 	struct work_struct  free_work;
- 	struct llist_head   free_spans;
-+	/* percpu chunk offset and size */
-+	u32 percpu_chunk_off;
-+	u32 percpu_chunk_sz;
- };
- 
- static void arena_free_worker(struct work_struct *work);
-@@ -298,6 +301,17 @@ static struct bpf_map *arena_map_alloc(union bpf_attr *attr)
- 		/* user vma must not cross 32-bit boundary */
- 		return ERR_PTR(-ERANGE);
- 
-+	if (attr->arena_percpu_chunk_sz) {
-+		u64 offset = attr->arena_percpu_chunk_off;
-+		u64 size = attr->arena_percpu_chunk_sz;
-+
-+		if (!IS_ALIGNED(offset, PAGE_SIZE) || !IS_ALIGNED(size, PAGE_SIZE))
-+			return ERR_PTR(-EINVAL);
-+
-+		if (offset > vm_range || size > (vm_range - offset) / nr_cpu_ids)
-+			return ERR_PTR(-E2BIG);
-+	}
-+
- 	kern_vm = get_vm_area(KERN_VM_SZ, VM_SPARSE | VM_USERMAP);
- 	if (!kern_vm)
- 		return ERR_PTR(-ENOMEM);
-@@ -311,6 +325,10 @@ static struct bpf_map *arena_map_alloc(union bpf_attr *attr)
- 	if (arena->user_vm_start)
- 		arena->user_vm_end = arena->user_vm_start + vm_range;
- 
-+	arena->percpu_chunk_sz = attr->arena_percpu_chunk_sz;
-+	if (attr->arena_percpu_chunk_sz)
-+		arena->percpu_chunk_off = attr->arena_percpu_chunk_off;
-+
- 	INIT_LIST_HEAD(&arena->vma_list);
- 	init_llist_head(&arena->free_spans);
- 	init_irq_work(&arena->free_irq, arena_free_irq);
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index 849bc9136299..240c7349284d 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -1396,7 +1396,7 @@ static int map_check_btf(struct bpf_map *map, struct bpf_token *token,
- 	return ret;
- }
- 
--#define BPF_MAP_CREATE_LAST_FIELD excl_prog_hash_size
-+#define BPF_MAP_CREATE_LAST_FIELD arena_percpu_chunk_sz
- /* called via syscall */
- static int map_create_alloc(union bpf_attr *attr, bpfptr_t uattr, struct bpf_verifier_log *log,
- 			    struct bpf_map **mapp, struct bpf_token **tokenp)
--- 
-2.47.3
+Lets give it a few weeks?
 
+I'm confident both of your attestation drivers will go ahead at the
+fastest possible speed once we get the subsystem settled :)
+
+Jason
