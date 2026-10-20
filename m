@@ -1,55 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792482783;
-	b=laaSCvRRbmQG3SLkvM0wuj6RmO6Xf1HDL8W+9Dhx/8rzzR3eyLcH1Fi3JV+kPpyDVLdp
-	 Og/lYW0kLP25J6FsOzLrSP+doxkAp/wVb9AebcADkckXQBKm9/nCk6nyIDTvK/V6wU9cK
-	 hhCI4QDqchmMbeKcSXuRe9RkQKVyhZh4sk0h/gj0d3vSg6Qdq87unPsqSIts0Y3dx1Qg0
-	 iYYCIyB6mTLxVeI+ZfIQefaX2pNwJqscLdQvZJUh300SLR54B02HMPq3Hee56pMxshkRG
-	 mbdnG2MDFkCEg8iQmaZ+PtkzDYYcjRZ0qo879TZRANk3nAsGCYKmYOcev8whPuZVjnQ==
+	t=1792482785;
+	b=lDdHduEcOTgfmPayHXiqGPj7xMrBqvj4j86jTOYqX0KYqT77Uu+2EKp1EoJq6o5/ffXF
+	 /zawzJaLZ8Hry37WjkqREFxhpuYKHn9cq6rkEsaNxg1K4RBuRX7/qcnp2XhxWZAxsuLLL
+	 3R7iUuyEtqf0qkCMU7fxwr/kSr/eyiVZrx49V44u1HhLjXBeduoAQt1Bi3kERdI4Z5Gof
+	 CTTabJpwY0INqk3T4vlSMUJik8/WFuxzw0jngNckpYCaY3buf/hxMg9UCC+DjjQrrFTYc
+	 d41RBxX1LRsyyf6+FXCewvKoENZVRT0jwqPDFM9ypEnqAo3DvQQTtmZIs/9dWu6j6WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792482783;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=hi+RizexM700lJm+zJb+vjtDDdoQ9eNhKLCKMXQF8Cc=;
-	b=zEhyPmZXKJqPeeq48InoKFpO/kOjIBuuTiORw17jVvZHqGeQnZ3on8b6Jdhj2dFksCQ9
-	 F+cIbefng4QN7sU5Yfj4HX0YIt+BxOo/KaswTI4J7dO5A2Nxc4n7wrcWtOj+pQhFqJLA5
-	 CLq9cu3Sz1zYyjMADmK0u6j8gt0VXNQHP7zDapYaBbWVhrarWGPYQvHc6S+/L6sPF9e8g
-	 xtK9YPhNAo+nt2RIceCDqBJe7IqwF6eBkvBQ5Z4vFkAXojahb5moE9yv3VrSMt14Io+zH
-	 7rmNmUGwtqnsaTWeYvKwRDQBbuj+iq+6Urtiy62G9EDMJy4fCFmg8OU4b1X0DWooPPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792482785;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=oreWRsHu0/Y/Reg+AkC/KD5bgP4fkoJRzWsKaFNl2KY=;
+	b=rgQuAxouLwHtZkTLL52HZSPnRDlOhIpHGp1C4Y/kSpzrIDHhk4UaB1sHGPZXQEULEkme
+	 J4MjetjUldQKNmYy/pOkbLgnCtA5Y5vLa16fLK056+28h0yPd36nXsX05How6now9oS8e
+	 KPDalhEmwaOtvFzxBWIkMkeIwmeysTBqxQUGArvwA9eipJyYo04h6ov70r+kFQueVhz2M
+	 7XCxfhcia25/w3OE97A6oB98UKWLS0c7SALSUXYffyDcDrwOPtciJG4ziEFVGGJua/uwv
+	 cB1fe/cDree58xI6cJtCyGCd39BVHqkWzeDd1lbrdsox478qL5Qc/nW9mfMjSz7xPVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=y9eroWaR;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOnZjXNC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DE0606A31B;
-	Tue, 20 Oct 2026 07:53:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14DE0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBFC606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:53:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=y9eroWaR
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id AB70FC5CD5F;
-	Tue, 20 Oct 2026 07:53:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3E4D460393;
-	Tue, 20 Oct 2026 07:52:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 351CF10328D8B;
-	Tue, 20 Oct 2026 09:52:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792482778; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=hi+RizexM700lJm+zJb+vjtDDdoQ9eNhKLCKMXQF8Cc=;
-	b=y9eroWaRPITyTjrHPUIpCtTPYTC79pAmN2AmgzyvBdS1kRnW21+VrVlTLK8BMm4l8okMu+
-	xH3nRyzR2BGLvPQdz4I2NdNL+ZMkfigJpysxQdhxErANk56ghzvZkVO75XuBb3apI0Z1VO
-	tzIdlH4OFyB+0Ik3L3qRGe87m/SKpahFF/iyoI/XFakxkaAFwkv2ODQ7PvDOz9IRlcs/OI
-	isk6wZjjj4v+LR2g5xlxVrY3ZDzVtGtAiXrFPpIrgI221e7u/2oA4F3x7wds0epUUUFfhN
-	9yLeEC16MIIGBbTn2hc1/++Q8g8vvayyUDSXYj00hUUASHpBMzEXmU0P+E8Hbw==
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOnZjXNC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085AB1F000C5;
+	Tue, 20 Oct 2026 07:53:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792482785;
+	bh=oreWRsHu0/Y/Reg+AkC/KD5bgP4fkoJRzWsKaFNl2KY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LOnZjXNCL6cpxfuzxz3pLkyebgaHRvb6qiN7MLYZggTKKbawULXCFlu2i/+HTq6R2
+	 qujo2942aZsU5deb4T/4Mm6v+3ZxuqDqVc0H1e/5C9aS5STCF8QyB8vj46R0a46MS7
+	 glyKhEgBTM8O814OqO8ao1gV/AHHhG0ZNuNCBCp/Hnjy4q9635desihFiDPwa84fnH
+	 dGIc5y7CQ79I7gAobtG3JU2Ya/Xknj2iloMXbJwH1AVoEEXqugCrsR4Bes38VVSZny
+	 UBIv+SEn5B8thLRBxaGg5p9ks/0Gk6+a96UZu3C9yqYgaAhAJS4XHi21w5ZhvBx4Zo
+	 D0JwAM8/9d3tQ==
+Message-ID: <95a5ab94-5d91-4a01-a417-19f27aa91b54@kernel.org>
+Date: Tue, 20 Oct 2026 09:52:59 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,50 +50,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/compaction: skip folios containing hwpoisoned
+ pages
+To: "Huang, Ying" <ying.huang@linux.alibaba.com>,
+ Yuanhe Shu <xiangzao@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, vbabka@kernel.org, linmiaohe@huawei.com,
+ nao.horiguchi@gmail.com, ziy@nvidia.com, wangkefeng.wang@huawei.com,
+ tujinjiang@huawei.com, mgorman@techsingularity.net, kaitao.cheng@linux.dev,
+ chengkaitao@kylinos.cn, muchun.song@linux.dev, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
+ <20260928105805.1215770-2-xiangzao@linux.alibaba.com>
+ <99cbd960-439d-4672-aba9-6b49697db8b3@kernel.org>
+ <20260929034123.2705745-1-xiangzao@linux.alibaba.com>
+ <877bjowf9i.fsf@DESKTOP-5N7EMDA>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <877bjowf9i.fsf@DESKTOP-5N7EMDA>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 20 Oct 2026 09:52:54 +0200
-Message-Id: <DM9I42KN8Y2M.1076TL8NU62GR@bootlin.com>
-Subject: Re: [PATCH v4 1/6] watchdog: w83627hf_wdt: Fix watchdog identity
- truncation
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Tzung-Bi Shih" <tzungbi@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-Cc: "Wim Van Sebroeck" <wim@linux-watchdog.org>, "Guenter Roeck"
- <linux@roeck-us.net>, <linux-watchdog@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <stable@vger.kernel.org>, "kernel test
- robot" <lkp@intel.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com> <20261013-w83627hf_wdt-improvements-v4-1-b6f6b60a9566@bootlin.com> <atY1mMlBN1L93rbi@google.com>
-In-Reply-To: <atY1mMlBN1L93rbi@google.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 
-On Mon Oct 19, 2026 at 5:22 PM CEST, Tzung-Bi Shih wrote:
-> On Tue, Oct 13, 2026 at 03:58:45PM +0200, Paul Louvel wrote:
->> The identity field in struct watchdog_info is only 32 bytes in size, but
->> the identity could be at most 33 bytes in this driver, resulting in
->> truncation.
->> Remove the "Watchdog" suffix, as this is implied that the device is a
->> watchdog if a user request his identity.
->>=20
->> Cc: <stable@vger.kernel.org>
->> Fixes: 3d6757a640f8 ("watchdog: w83627hf_wdt: Report the probed chip nam=
-e via WDIOC_GETSUPPORT")
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202610080027.3OsJDwfo-lkp@=
-intel.com/
->
-> The patch doesn't really fix anything.  The longest string in `chip_name`
-> with the " Watchdog" suffix is still under 32 bytes.
+On 10/11/26 15:14, Huang, Ying wrote:
+> Yuanhe Shu <xiangzao@linux.alibaba.com> writes:
+> 
+>> On 9/28/26 20:12, David Hildenbrand wrote:
+>>>
+>>> Then they should implement it.
+>>
+>> Agreed, and nothing here replaces copy_mc.  Two things the check adds
+>> while that work is pending: on archs without copy_mc the plain copy
+>> does not fail, it consumes the poison - the same poison consumption
+>> commit 841a8bfcbad9 ("mm: prevent poison consumption when splitting
+>> THP") refused to risk on the split path, at your suggestion; and the
+>> refusal happens before the copy is attempted at all, while copy_mc
+>> recovers only during the read.  The check and copy_mc compose.
+>>
+> 
+> Is it good to implement the trick in copy_mc_user_highpage() and
+> copy_mc_highpage() if the macro copy_mc_to_kernel is undefined?
 
-Indeed, max is 21.
-No idea why it got reported in the first place also.
+That is indeed better.
 
-Best regards,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- 
+Cheers,
 
+David
