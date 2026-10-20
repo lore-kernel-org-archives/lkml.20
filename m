@@ -1,92 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792532661;
-	b=ObxDJyVpAsmy8HIiWLOQaGpDvE+kn2aDB9sXV7rGTIkn1Dz5UmhiuIB5uPKuOfwo7uGW
-	 1fJX+8Z5drM55QAsWWcAAU8NnAbB26F5sSAE5K8WoeRdMDMZLGZhJnEIGXff+mHix0AoB
-	 ADXkNOGuosqLZnHtGjAOefpgGTxbog0HxXNzuGfuY3tz7f/9Qckdw+LelXUk25XKUPYEf
-	 R0TSacEani1CJyt/sEfLShEQGSY14Fd/mtSa5xl5QMONSrP7h8xAknIMOc3H9/cSdPqCi
-	 hmnpHEHmveFub5Emi48z14S3ACl2W2t2WsdCEAu8EC6tA4byhpwABbAWScUi7SE3e7A==
+	t=1792532704;
+	b=CIh7wQyYfDcuIqDF5TAo/YGUE/cg/XgM78pJx6BMgv0imZxOHjnHEQZJjU9v60+5CZeD
+	 GU1NAVFwe/WVwOZPTJG3dHUgwWWOu7mOtQzZMhaAELsPCNBOD7kxORkTxIDxUHIyqcvPs
+	 RLw691rMOP/hUkk9DVhgZTmd4HLAeBzWIBVOR+J7oaQT4+J2jfwFqdEhmVtKzeEkTkMdO
+	 vzoTMBBJYPvZumlg1EeIqSiWvUvqcgeUWnnXo2rv4iSbYnPxlFYtkopK7glb23l0wcH1I
+	 faTYzIR+Dmh4O9d/rc/rjjENBXHHJhTKEzU6fR9CJm5GrZd65eMmstByhY9dkq1eTbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792532661;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792532704;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qixMFLQKVMmNskruooKfS/1sCqg+Gqo0bQrcrDyhyF0=;
-	b=YH7sEQxVHd16jXTMbkKY0XSNU8KVDQ3YJrt+5ALzplPVvh46j/CCLJBbfSp4JVwmrLpa
-	 5zBrRdG/S7PTZ22oWumSJPNz/GMjvyDT6YX0LE5sGG5SLuC0Dn4cABimk33oHzFoUVfae
-	 I8VfwcvktENlClTpIapfK+lTtcstuzek3kyrKyije+vNjkbst8+AbQKR91BOF4haKbg4P
-	 6iIEL54tIvc/E2Q3jCSyR6rWoGyr88ZmTo7fbZxi8TaU5t9Ngk1H/o79Y3iJcPXR/Hwjc
-	 k551NOO6TkFHMCXMC06JWMdEq/uaTURMatdtvIRDohYxw72b7Xm0UH9O+Dz/qNU5Q4A==
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=cfAvdLwXfWjd40UoEy069YQpliwsafovGfmnhOmQbDc=;
+	b=OtxCmpfhS2chZrxPXz7PvxtNTHVG10trFYfNG+3UcGaUzslQgOoORhrD4BIC4ajpMprz
+	 RjcQuvxfZxVCWbyu7UAnIsVyYiAMlF+jHy1tLvd5yfE4ot1YKAC/qs3UKtCOu0nnSEA0r
+	 iJdfNjCZjIP6HIgE0MTpyzfgSChJBW2xMmkvtrgBYtVYFx7p2/oyuMHBJ552yvN9Tf95M
+	 N8DrHx/a5c+NMuLWLprx6lnCMgxmPXIem2G4x0kU/nJjWhFM7jPqaBvV5oT9bLImvyszu
+	 RN4vO83Ru7lXe3w/IcGKDP8wVzQwW2AqJvVoNNYDNP68o6+w6lzQpQrBOfHZ8AtHwsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cUJVCm16;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="M9/nW9xi";
+	arc=none smtp.remote-ip=209.85.216.97
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D12606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:44:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D12606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6AB606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:45:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C6AB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cUJVCm16
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ab98332238so82520a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:44:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=M9/nW9xi
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3ace9e6e1a5so712388a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:45:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792532660; x=1793137460; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1792532703; x=1793137503; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qixMFLQKVMmNskruooKfS/1sCqg+Gqo0bQrcrDyhyF0=;
-        b=cUJVCm16Z+DpPimxR5tNFKd7OiumeNsRlBKsES5RBw9fwVnGfPg24+R4e7bRVl2irG
-         7MdCuKNH1BFpMAWMJr5+oTCUriQ2uKF8etftyhJ2N2nLgQ7RGuGqkQGwSU1pAtVCNL3z
-         tyPLWoUZhR6niwkZ3BIHidnQJDVTyNCC0MBOB8+lBMSg5SZe/w9rrLtYi5JWqJ/QhrAW
-         8U9m6CtTT84eukhVdS4Fsgq+YEJG6bYX5xMLKZ8u5CZ5qfHdOFPsvG2R8HklLj1XG7WB
-         8jMKbtq6sGP3/VTGErSvKMDVdhp+t04AcCeHsBsNRDk6FQOQd/TbZmOlIsMGoZ611Zm4
-         MDCQ==
+        bh=cfAvdLwXfWjd40UoEy069YQpliwsafovGfmnhOmQbDc=;
+        b=M9/nW9xiXHNH5cAM4l4UytRW3tUYuKEg38HW4bOk5CXDt6X70hNM1dCysYV7xAmWNa
+         o+FyFEEMvTXkHQyrzsFn9G3vGnhtH3WR2BOl3yBsu848b+SQkDnNGlauQD5iM/gceBZ9
+         w3Y2cpV6ap6ddfacMymj2E3FSZmNwCDUEydfcnPffsa4W1ZcXfwcQQnhqSD/WfQgbAzG
+         1yL0AHndXWwuhGsUQuDE3ZlmdH1gSMXuzss1HODYBZ7RwNFJtF6VfRbYj+fzgMBxBJQR
+         GQ2VOqlKlOkgTydZika1x0DHKA/IPZHOPzcZBiOhAmvaIB/FXXkEp4A13etbEuYSHBq5
+         +iHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792532660; x=1793137460;
+        d=1e100.net; s=20260707; t=1792532703; x=1793137503;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qixMFLQKVMmNskruooKfS/1sCqg+Gqo0bQrcrDyhyF0=;
-        b=S4xdH+Mu8nz2NnEZkHukumo1m6plxRErKkHxIux4X794QGgEeqk0Vgjwmvyl0pyTsQ
-         QpaXOvGcVinL41+awS4TNeTo3Lc1aHI2VwOZWbP/Y5RRxntrGVQqRx3bbssVTbd9XVbh
-         649eEFFfWYHZGijoLUJGKNM+drI6qJpsPT02Kj7AeGCGeJ8iUi7Hm+dmS/EJtUsAqRtC
-         cMRIiewhU333ZKpr/hbwX2BZVLgoMHwXgUEDpjvqaDC0sIbnQUJ2Pk0gX5nlUiaUrO5u
-         ARL3OFfTHhcxebb1TyMM70OOrdzMY4sdDLe+exPYY64fcWK0vYc7pmwHfLz4g/ybct9f
-         e6fw==
-X-Forwarded-Encrypted: i=1; AKwUvByfYbLxTXQnrpOKcTiCBmXg/3xjQr8zkq/9yPeV6u+cB1zk0E1dkHC9PgYJtW5NwpNJdjbSe9r7FLxqkyk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsCuS0iExe6U37JmNcNKj6FvGlA0a1ChmaEeZAAtudW7U4MYqT
-	qEGmbai5/9LszaeXkOB8C+/kyVQdsE8A6hcd/udeifee7yIZTUCPRTcY
-X-Gm-Gg: AYBFou2vHzIbMtuQFHXtYEAK6nTcIW7Xsh3QH2jzpgBMEOPvEG2auGsigRXciOZnJvy
-	EaygWx7i/PxFYyOjgA86qqnoNOrAQ99YD1G6x4+Y3JQWmGWW67BO3wnc3EWwtEtqO2PFMtmXgPV
-	4cMSbrxDQcGG5JnJ0zCjRaDvmp4HS9PPBoBLEfGKajmGlbf+EyeYFF19kGdlbhdkli4Cdju+wj3
-	//O2l7m4c7g5PlMEqecTyNePdoO6/aHhsmp06Ow2BWeiaQRI2a71wuwiLiLPmLwK6v4FKv9sy1e
-	lcSU54PFaSDgzwniOFp6L874e9cozFK9sV9XpvvPIiceU8M4NhwsmGEkVa6s1jBsYF/nmx38z6a
-	3UaLPLnSuyhn4rJgCNL8hNK6TZ+k/HwxzBgDXvEIjC0deAkIAWWJ0K2VZ6j7ts6h7Aldyqkkae9
-	8ZBXi88EaNjkQsLsG28hVV7lX78yPVAq0C0Gzz/bePTSDmqcuoSFvHMjcNhWl/KWDgb7AWlxhtt
-	ZsiFX50wihf379gDbR77VqxXR0ehraQQ0JQmN/4nJ6shfKoyM++afVs69JQuPVTeHwmPuhWP6Zq
-	Wz2mPAAf3pZOV7mJ0xyr4hfeAzmbk+nXVxJMMWRnm/e9vA4=
-X-Received: by 2002:a17:90b:380b:b0:3ad:6738:db14 with SMTP id 98e67ed59e1d1-3ad86d63c56mr191921a91.55.1792532660502;
-        Tue, 20 Oct 2026 14:44:20 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:37f::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad802957d3sm1216158a91.8.2026.10.20.14.44.19
+        bh=cfAvdLwXfWjd40UoEy069YQpliwsafovGfmnhOmQbDc=;
+        b=xnjBXnyKMcBpzbD6i/REMdOR1EpS4IB0EO2laHyfHDgfTULWxJFZaNXLmAE3MYqPp4
+         od2HpJ8Ofehzy/W2HXypaul0JJ2D0hK6NckRvuyNapFfD8hUkJIYKcBi7UCCdQ4HRM/v
+         OUpwfxcmikm6P8wLIAvaUheGmt255/2vUjuDF/cRWTJurTgVjhcdH8tcq56wfwDaLo5B
+         YdfzMMoTOqSryUEr4JcJcbcbhGoNQ2qr6WDCi6fm0c60ZLK4za/XxcRU3H9tk2jPuhJp
+         hdv96zjzibDmyBERYs7X7dbRO12RD6BrbbQ0mii1tFSolSOLs+iDCWzsZ6oO2v18iVIu
+         NRrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzlMalHZs0DTv9w9rZtd/8hnYcBkqLvK/ce+kNdVYODRutyPewcH0BPOZOQBv2ATNcxcbp4G+it6rntev4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEASF41r/cvvI9JOl0cKJ2P1VneANJaBjAVXRaO9YyM6+pDBna
+	vPdvljRBhBe/GSuc/8ozYKajzijNPBrayuGCSyCJJ/R2Ymg9Dxd0L21TNM6hN1VJa0RByJhN25T
+	+KsRxJCeXnPeU1Kob9t1Qm291+Ndqz71eqIx8R4fdui0/5Zb6ZTgS
+X-Gm-Gg: AYBFou2QPF1M6xvKKaToQweagznK31/v/Aa97AAVWQn8b7IEIPytkkFt+LvII4PGV85
+	9vBbd/uKcR0cas6MUGVfmiuzDOLbg7959DPIOQXbrfSdJ/ukHNiTBmm2qT/boCQ9gCh1Jcpel56
+	68Rprecj3JwcgxUo5f8Zieqg/ikBHe2AAmS/tM6e3eU0191exqn/JIS/FfcwaQVuttPYw92K9Vv
+	Z9kqABnOg7K2Db6teiQql651+3uhrrm6iKenHX/R8VEyT52wWtYjn0ciWdLCUwuemqW+EjY3Bh2
+	kSFXo/8MvVgS4ygTtg8dvvy4/BPn8Tlc80cpeiqR55nElZvAFMk8m98ex6WQj5jaQeLiDZWSsvH
+	X3h7Xu/K/B5tMCIuUVqk=
+X-Received: by 2002:a17:90a:fc48:b0:3ab:d26b:c2df with SMTP id 98e67ed59e1d1-3ad86f1ad53mr123540a91.27.1792532702744;
+        Tue, 20 Oct 2026 14:45:02 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ad816f490csm559018a91.2.2026.10.20.14.45.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 14:44:19 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Stefan Roese <sr@denx.de>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3] dmaengine: mv_xor: protect MBUS window access with a spinlock
-Date: Tue, 20 Oct 2026 14:44:18 -0700
-Message-ID: <20261020214418.1525032-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Tue, 20 Oct 2026 14:45:02 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [IPv6:2620:125:9025:23::2ea])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 212A9402B5;
+	Tue, 20 Oct 2026 15:45:02 -0600 (MDT)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id 1BF17DC0D46; Tue, 20 Oct 2026 15:45:02 -0600 (MDT)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Boris Pismenny <borisp@mellanox.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2] tls: keep TX and RX hardware offload on the same device
+Date: Tue, 20 Oct 2026 15:44:59 -0600
+Message-ID: <20261020214500.972308-1-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,58 +112,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mv_xor_add_io_win() reads and writes shared MBUS window registers
-and updates the shared win_start/win_end arrays in mv_xor_device.
-Multiple DMA channels can call this function concurrently via
-mv_xor_prep_dma_xor(), leading to races where two threads can
-select the same free window slot, corrupt the registers, or produce
-inconsistent cached state.
+After TX is offloaded on device A, a route change, or a change in the
+usable-slave set of an 802.3ad or balance-xor (layer3+4) bond, can make
+RX setup program device B. tls_device_attach() sees the existing TLS
+destructor and keeps ctx->netdev pointing at A. The RX driver state on B
+is then untracked: tls_dev_resync() and tls_dev_del() are invoked on A
+for a context it never created, and neither socket close nor
+NETDEV_DOWN on B calls tls_dev_del() for B, so the driver context leaks.
+The reverse setup order has the same problem.
 
-Add a spinlock to struct mv_xor_device and hold it across the
-register read-modify-write and cache update in mv_xor_add_io_win().
+Check the shared device binding under device_offload_lock before each
+tls_dev_add(). Permit the first attachment and a second direction on the
+same device. Reject a different device, including when the old binding
+was cleared by NETDEV_DOWN: the TLS destructor remains installed and
+tls_device_attach() cannot establish a new binding. Setup then falls
+back to software for the requested direction.
 
-Fixes: 77ff7a706f01 ("mv_xor: Add support for IO (PCIe) src/dst areas")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+The RX check precedes allocation and software setup. TX uses its existing
+resource unwind path without calling the driver. Document the shared
+binding and clarify that fallback is per direction.
+
+Fixes: 4799ac81e52a ("tls: Add rx inline crypto offload")
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
 ---
- v3: add comment to satisfy checkpatch.pl
- v2: use guard()
- drivers/dma/mv_xor.c | 3 +++
- drivers/dma/mv_xor.h | 1 +
- 2 files changed, 4 insertions(+)
+ Documentation/networking/tls-offload.rst | 16 ++++++++++------
+ net/tls/tls_device.c                     | 24 ++++++++++++++++++++++++
+ 2 files changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/dma/mv_xor.c b/drivers/dma/mv_xor.c
-index c4e0dce3ca64..da8eea8789ae 100644
---- a/drivers/dma/mv_xor.c
-+++ b/drivers/dma/mv_xor.c
-@@ -494,6 +494,8 @@ static int mv_xor_add_io_win(struct mv_xor_chan *mv_chan, u32 addr)
- 	if (xordev->xor_type == XOR_ARMADA_37XX)
- 		return 0;
+diff --git a/Documentation/networking/tls-offload.rst b/Documentation/networking/tls-offload.rst
+index e5802bcd4d22..cf0e599c06a1 100644
+--- a/Documentation/networking/tls-offload.rst
++++ b/Documentation/networking/tls-offload.rst
+@@ -71,12 +71,16 @@ During driver initialization device sets the ``NETIF_F_HW_TLS_RX`` and
+ pointer in the :c:member:`tlsdev_ops` member of the
+ :c:type:`struct net_device <net_device>`.
  
-+	guard(spinlock_irqsave)(&xordev->win_lock);
+-When TLS cryptographic connection state is installed on a ``ktls`` socket
+-(note that it is done twice, once for RX and once for TX direction,
+-and the two are completely independent), the kernel checks if the underlying
+-network device is offload-capable and attempts the offload. In case offload
+-fails the connection is handled entirely in software using the same mechanism
+-as if the offload was never tried.
++TLS cryptographic connection state is installed separately for RX and TX
++on a ``ktls`` socket. For each direction, the kernel checks if the underlying
++network device is offload-capable and attempts the offload. If offload fails,
++that direction is handled in software as if offload had never been tried.
 +
- 	/*
- 	 * Loop over the cached windows to check, if the requested area
- 	 * is already mapped. If this the case, nothing needs to be done
-@@ -1345,6 +1347,7 @@ static int mv_xor_probe(struct platform_device *pdev)
++Both hardware directions share one device binding. Once one direction is
++offloaded, the other direction must use the same device. If a route change
++selects a different device, or ``NETDEV_DOWN`` has cleared the binding,
++hardware offload of the other direction is declined and it uses software
++instead.
  
- 	platform_set_drvdata(pdev, xordev);
+ Offload request is performed via the :c:member:`tls_dev_add` callback of
+ :c:type:`struct tlsdev_ops <tlsdev_ops>`:
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index f11d0528fc43..9df183d0dd97 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -1022,6 +1022,20 @@ int tls_device_decrypted(struct sock *sk, struct tls_context *tls_ctx)
+ 	return tls_device_reencrypt(sk, tls_ctx);
+ }
  
-+	spin_lock_init(&xordev->win_lock);
++/* Both directions share ctx->netdev. A second direction must use that
++ * device; after NETDEV_DOWN clears it, no new direction can be offloaded.
++ */
++static bool tls_device_can_attach(struct tls_context *ctx, struct sock *sk,
++				  struct net_device *netdev)
++{
++	struct net_device *ctx_netdev;
++
++	ctx_netdev = rcu_dereference_protected(ctx->netdev,
++					       lockdep_is_held(&device_offload_lock));
++	return sk->sk_destruct != tls_device_sk_destruct ||
++	       ctx_netdev == netdev;
++}
++
+ static void tls_device_attach(struct tls_context *ctx, struct sock *sk,
+ 			      struct net_device *netdev)
+ {
+@@ -1157,6 +1171,11 @@ int tls_set_device_offload(struct sock *sk)
+ 		goto release_lock;
+ 	}
  
- 	/*
- 	 * We need to know which type of XOR device we use before
-diff --git a/drivers/dma/mv_xor.h b/drivers/dma/mv_xor.h
-index c87cefd38a07..36c1fde6dfea 100644
---- a/drivers/dma/mv_xor.h
-+++ b/drivers/dma/mv_xor.h
-@@ -80,6 +80,7 @@ struct mv_xor_device {
- 	struct clk	     *clk;
- 	struct mv_xor_chan   *channels[MV_XOR_MAX_CHANNELS];
- 	int		     xor_type;
-+	spinlock_t	     win_lock; /* protects the MBUS window regs and win_start/win_end */
++	if (!tls_device_can_attach(ctx, sk, netdev)) {
++		rc = -EOPNOTSUPP;
++		goto release_lock;
++	}
++
+ 	ctx->priv_ctx_tx = offload_ctx;
+ 	rc = netdev->tlsdev_ops->tls_dev_add(netdev, sk, TLS_OFFLOAD_CTX_DIR_TX,
+ 					     &ctx->crypto_send.info,
+@@ -1227,6 +1246,11 @@ int tls_set_device_offload_rx(struct sock *sk, struct tls_context *ctx)
+ 		goto release_lock;
+ 	}
  
- 	u32                  win_start[WINDOW_COUNT];
- 	u32                  win_end[WINDOW_COUNT];
++	if (!tls_device_can_attach(ctx, sk, netdev)) {
++		rc = -EOPNOTSUPP;
++		goto release_lock;
++	}
++
+ 	context = kzalloc_obj(*context);
+ 	if (!context) {
+ 		rc = -ENOMEM;
 -- 
-2.56.0
+2.50.1
 
