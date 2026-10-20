@@ -1,61 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491116;
-	b=VBjFFd7caJ6KFoayAceWpx/Xvw/a6Qc9QDvmfIFLnx4D4FpEpMVZvu5IeciVn2gCiHSq
-	 oOvoXwYXWAkOUA3CnS8FIny5/torUnpfclIziXm1P//tH+92tCivafjriIkG0HTmd389w
-	 Oco4JuSJJJZxmdo5fL5Lj8pn2tbxwcvIeZk0UizaGfd3xDOr0Dv1EKZVmI3lieLUSWEZR
-	 Hi+Ul9QMJgPNfCwsJHFzpa3Ykhh7ICqZxrn11/DuXf4ZuwtnyuO9s2rQtlJF3kX+m3p/r
-	 wGtTmXFblWbKWM2clcS9AHALxPxUXPO5Xzg7tT3ZW1W7iNgWZfZuoUtUP1ZADbLykwg==
+	t=1792491150;
+	b=LrUNb5k+P1TTZ0DYYmOA5sQL/ftc6h3lMbc29ncYa+2MjApn1mTLv+yPQzN1Ju1+eDJM
+	 5yo60/AH1LvOiWF4ojH9GmzwxOxcQO2kGUcNzjooOTWRHTy1+2KnbuECHw9UpGbL5gsn/
+	 KPIIvEa5pJV7t8zK3SyK3aZuRIg9Z55N9WTUHMFNdZkshfaw9SAWVIcr1cUZggXkQRP3k
+	 AlyWFZrnQ83GoTzdZzDAUpu/5ktLXJfbq3q3QKHlM2FvyUQ+/nvZyMNuFo71n4LWrWcAW
+	 QTcWDq2F4hQJ4uHtbxAmR2Gvp6uoc/hjszjxfPk+c+OYZw1aA73NLLCrcqzi8dC7Jlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491116;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7nteGObl6tpBTZEAOzKq4nqis2nYsetm5CtazCpg/Ho=;
-	b=ihHR67re/46iZJd2wf1GvN9RwacHMBDUiAdCiAX8uhg0rSfne5KjTjPTVsyolWOWd+Ep
-	 GW1pkWa8ikobCrI5KzYkwWADixS9UIBbLCKjhkAnkYmaDo+U2UvvJrERDB/EaAAvhR4W1
-	 BhVexGZTepYB3sQwkuWkBIzWFpuYchxO16HXgFaFYLcGcXdNwu2ESGl6C76wk1dKB9E6W
-	 lO0UkKIhUT5ArhCHOt6H3UAHGkz1LRE/kmZhMrnwVChGNElWgCbESKXReW/mVGbOxNW1A
-	 uyBFdyhqOYOwrMToBQS1dMPyMy1ILqVM5zQ8NOjfs3jAF3/s0ZMG8V4qdPeHmyC6+zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491150;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Tic+MEYPom4wGmvGcpAFFzdY5yD2zqiNNiMUJA9W8AU=;
+	b=5OxL3Epq9GJ7o+1SIPE+NZBde/QzvBkhHhY7RYk5dzt1hWWbZiMZeDPx5WJSvg/sfhgB
+	 i7eBjHHHcmYWBVGPrOH7+Y8Ut6tB19QLiErWbY4U4a/b+zGOKjoHJUttMODO9IW6Gm2T2
+	 nNQyyLO92vORa1Gs/RUxEMCEZU4805iMNXnWXYalSMrhcPGfDTu9B84sF+jG9g/NXeU+c
+	 Ak31f+l6hkLptB3uzneYpIgptP7hsyScvygyhZ9nHKgGtMwrZHFtqhpDxploAkeSOLClM
+	 +t7lgSi8T1wDckgtBrKd3PihKf+xqNN5gn66ZJXq8RMePaLIjMaT2zOZ8rL3CKQJD7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=c1ut7cfn;
-	arc=none smtp.remote-ip=115.124.28.49
-Received: from out28-49.mail.aliyun.com (out28-49.mail.aliyun.com [115.124.28.49])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pg2Yq7uB;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D499606A32A;
-	Tue, 20 Oct 2026 10:11:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D499606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7708E606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:12:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7708E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=c1ut7cfn
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1792491112; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=7nteGObl6tpBTZEAOzKq4nqis2nYsetm5CtazCpg/Ho=;
-	b=c1ut7cfnaZk5pqV4gZ9+eI/31zPprYX/PR4nSFHx+8306ipQKLjsOllwdeHfPOV0GVcsEJ/uqM+ce8p+z3dGcivfJZpwwSNmo5WkwJdG5ayV5q+IsbezkbRDmMtg9XKA4PKglUHz2Vj2QQTfzcEHVcvOlSQjecQaKZe5YcEM+VE=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07892643|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00381769-0.000805355-0.995377;FP=12127585923466235074|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jlhO7Fd_1792491110;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jlhO7Fd_1792491110 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 18:11:51 +0800
-From: liuc63 <liuc63@xiaopeng.com>
-To: M Chetan Kumar <m.chetan.kumar@intel.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Guanglei Zhu <zhugl3@xiaopeng.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: wwan: iosm: fix NULL skb deref in ul_td_process
-Date: Tue, 20 Oct 2026 18:11:41 +0800
-Message-ID: <20261020101150.16967-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pg2Yq7uB
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so31193645e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 03:12:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792491149; x=1793095949; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tic+MEYPom4wGmvGcpAFFzdY5yD2zqiNNiMUJA9W8AU=;
+        b=pg2Yq7uBwZ4rLYgg0bH0kNv1+PrYHJeCxIyiBlszinCVmWsIoa4XmSfARmmFk4/8/e
+         BxRp1cdWr4P0eoUCXo0JRA1iTRT8U0WvTlq3q/9StEYFqqxGTzbDMqQVF6TAZ0pu/l2k
+         /eifg8tG7I7UUpmO0iN17UgfZcfizWIqdnLRgHwxjxsfcaU2nkyEeEN39HbJw6gTE3pn
+         bgH1aTxpKXVWOBggescUEQHhHdWEA4TqSvt7LBONIraubXCJ38E9MpqNMdviYkORtj7f
+         XBVtw9cDNYUJh1lFFYRukTqa/EbTG+bQaEgaap8Tzy/B3n+VxQlQ0gY9RW8yosPNJsgm
+         QPLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792491149; x=1793095949;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tic+MEYPom4wGmvGcpAFFzdY5yD2zqiNNiMUJA9W8AU=;
+        b=Mab3eX1ttFQ0D8gXAC6zmEhIiya8O2MYe4YJp4A6rh751zMvW1tQsdBYgclgJdwr4S
+         oQN+aIryCPwcoUFOBzbZ3iOfGZ9g5zoXM4bU2wynB7BuP6krwQuF45a7QSR/r7dERn+J
+         JLVov60MNVbOQiVpbs4A0BKTVdt0fyrrYPBeIGJ6H2oAgogF8yq+40xRPxDEX0RLCGv5
+         0xJu8i20tNNvSf7E3k9fhniGsiPaG7ZGb6ROaS1ezRQTLnZEVZ0nSW7kvkQwyQKdk5yi
+         zaNZIW6C3mDGHAz4L5oS93VyYn48BWjvDTm23lfaMvNgpyzbNaPDeCGkKApHrRThsSXP
+         vTTA==
+X-Gm-Message-State: AFq9FYJdmZdZ3lTco3GXdbZH1q5VdC0jSupEuVr984IxfeQN1MNgHPOu
+	UeYiMCHNiIVMIo784/dqrej8HjDhEXqSS0P47cql1FMIvaHHceytKieQ
+X-Gm-Gg: AYBFou3Dg8znkse0sf+CSE19bXOjhS9V1R5hvIVqBarnmX2D3ftnGEk2SMUIF0XHRb6
+	CTo0QRaBk794Cy4dQm5e6YnL9FnSOqDPRHJhhWbo5ggEW6L9bi23KUgBuOd3vAHNVI1FM4UD2wQ
+	+x6Xp2jf0LDIQ5mdw01oa4BodMOHZ4uaDplyY3/oC+oByXy5SasM321wnSai1/G4RjaYRXN13J0
+	48smu76UzkuGpm5t+SFrxL9ivTJ26GbQ0365ihrulQu+eV0GiOMFg6swnKiwFBD7MWVyiZJ8l8/
+	uEh3GQEPfOKZyB6t/lMK8dhM0vANpYxdTfmFrjiwL+fA4uNOqw0GCCHiOtxEYAnRG2yJkVeOd/n
+	wXr0CCZx1z7HMIhRwkCYdKJJejEXr04XjHcOaDlGfA5xeoJSfVSKZYiRNJt3IzKaJAY/WQGtYZx
+	XqY5UQWuPsC/uduWT+TiocU8Og/4m+8BtxSXcsYGsAmIZpWE6Nmf5mWzz4c87LGGa5rtzhfD7IW
+	pBvMJb0WTRQXpg=
+X-Received: by 2002:a05:600c:83c9:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a1d764145cmr197044785e9.33.1792491148597;
+        Tue, 20 Oct 2026 03:12:28 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4778:c500:9306:24f1:3e60:eff0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818c59sm5315447f8f.30.2026.10.20.03.12.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 03:12:28 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] profiling: fix sampling step on 64-bit big-endian systems
+Date: Tue, 20 Oct 2026 13:12:24 +0300
+Message-ID: <20261020101225.917959-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,42 +93,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Liu Chao <liuc63@xiaopeng.com>
+read_profile() stores the sampling step in an unsigned long
+but copies only four bytes to userspace. On 64-bit
+big-endian systems (not common obviously), this copies
+the upper 32 bits and discards teh rest, causing
+/proc/profile to report zero for normal shift values.
 
-ipc_protocol_ul_td_process() fetches the skb for the current tail
-entry and then dereferences IPC_CB(skb) when comparing the TD buffer
-address against the skb DMA mapping. If the skb slot is NULL (e.g.
-the entry was never populated or was already consumed), this results
-in a NULL pointer dereference.
+Cast to unsigned int so we get the correct 4 bytes, while
+keeping the shift calculation in unsigned long.
 
-Validate skb before dereferencing it, mirroring the existing check on
-p_td->buffer.address. Return NULL and log the error when the skb is
-missing so the caller can handle the malformed descriptor.
+A small C reproducer under qemu-s390x reproduced this and
+proved the fix works for prof_shift=2.
 
-Fixes: 64516f633bfd ("net: iosm: protocol operations")
-Cc: stable@vger.kernel.org
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Fixes: 2d186afd04d6 ("profiling: fix shift-out-of-bounds bugs")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c b/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c
-index f2f86f41fd10..dee2e6607f77 100644
---- a/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c
-+++ b/drivers/net/wwan/iosm/iosm_ipc_protocol_ops.c
-@@ -302,6 +302,11 @@ struct sk_buff *ipc_protocol_ul_td_process(struct iosm_protocol *ipc_protocol,
- 	if (pipe->old_tail >= pipe->nr_of_entries)
- 		pipe->old_tail = 0;
+ kernel/profile.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/profile.c b/kernel/profile.c
+index 1fcf1adcf4eb0..e7defa90a34c9 100644
+--- a/kernel/profile.c
++++ b/kernel/profile.c
+@@ -156,7 +156,7 @@ read_profile(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 	unsigned long p = *ppos;
+ 	ssize_t read;
+ 	char *pnt;
+-	unsigned long sample_step = 1UL << prof_shift;
++	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
  
-+	if (!skb) {
-+		dev_err(ipc_protocol->dev, "skb is null");
-+		return NULL;
-+	}
-+
- 	if (!p_td->buffer.address) {
- 		dev_err(ipc_protocol->dev, "Td buffer address is NULL");
- 		return NULL;
+ 	if (p >= (prof_len+1)*sizeof(unsigned int))
+ 		return 0;
 -- 
-2.50.1
+2.43.0
 
