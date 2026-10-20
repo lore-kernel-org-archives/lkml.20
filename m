@@ -1,76 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.235
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.249
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513256;
-	b=JhAcuegVZXsc+9yjVaUrc1jA1u7rCvxb4qz/6JgTw4v5jx8gqxe3tmybBsqY3dJFVWTJ
-	 KhU511RFgyhHX+oNIfV/sTJPAvKlA8YJB1n3fNDWggraKdd4oVG/pJ20bAozcOQTYuchz
-	 mWy0ZqrBIpFWX857azF2yHNATrrSWm26SLsf1fkh+aiGyfTlrkPWYqxIC/DwEQoURZekN
-	 NH4zZNzMmCZF98Ei+sytWNHUaXj25B9lktXOyM/ZrO10G5TTgGVqJ9H2e5bfymrKYqy/r
-	 w2mDspMeaX5qR/LUu60DE8C4HIiaL6iafGv9XAb+PBzITyyk6CqDydyZxdcsftnDK1w==
+	t=1792513290;
+	b=kzbHOKj1jr1REG8h5oOYH9QT+MOmCSI1R3I3rOhjRFjABpiubayw37rXulE3eEJOIVLa
+	 lmAS4OrrQOtvJvZ9JZLzxs60MT3X5LU/3vogUgLqSAbbJA9SntePHcbfXuXLLcWl3vG6t
+	 ldDQRBdkZAnS5clB6jgTu3yjaSrn0aNkaRft9B3zQfkcwc1rNQZ4Cg/PAZkAKxbn8sqSk
+	 zAVZEUXtQs+wcrUvWZkdG2qZlKZ1JGBXul/IRCYN5zO5vzZFKrGne1MtYkCwh7Z6pKGsP
+	 wwYEvL2SOGMic5DnQ8kyrIRbpDh5b+woxE88pj3su9V+xtw6XKUUz4qjbT4PSnu0Rrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513256;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513290;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hrU0r9uDIs9Pd22NaQQcI8Yi0Ld/nqW4OLqdhS8pNrI=;
-	b=KAK4nkJQ2vLyjuWeFz+H9gxNad7MWqallqGv2IP5sq0me7Gg5l1hHUZ0JIawvzUkJjlj
-	 iEzBD3B46a1yqZUtjnmKxovzZQQSjCuc3i/zWzbIUhJFDkKmmJ+FzB0owx0aiQtKppuvv
-	 94IgtweH8ri9CiuPFxqIfZTAq2wUXF1jXEVfCVHw8pfvczvi2oDbWNoEcpUEaDpONeH6c
-	 QmUvGzWXd0w7cmiqMwmx0fStpiEGsqvZ2QVwVG+ypZa3XLyNx799LFZfeyKjDvH6TDaMv
-	 RN8Km5DltR55qRFK/N/EkLhWaQKMAWAqqziUx+7NKjZPxieUW/P2GR7SA/32vNZ9CdA==
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=pxcH42x189/zaOrwEfxK0dZti1fheIX3Rga1B4Am/Tw=;
+	b=twXt9KN+EQyCIbe+sBDq4L/zF2PpZnXnWxyup2q8copsP+BC7ptSnX+8aADufsz39PkW
+	 eQFjeLVMhY1hEwUUcriENJ4INAkG4mD0ym2UduTI9oNXxcNSQEC56YB/JvEUxCVlZJFrb
+	 zXM6wU3bfSqAmyGn+9RDaJoOMq/u7JLOTNqvWhB8J6FeQJcecCfTscARC2bv9oYQhUXkE
+	 y97yAUJrHsxKGGuDpk5KtxXjswI2DjqialIjaCqXgliLUzlhWl3XU7hkZG1XHlbyUT2zC
+	 holSsP2zzC27hqHdfCiLj1aDlTkdCAdX93taeVKeV+p9VzjYVL+VKbY6l2TNqS0Y64Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DdSjhmh4;
-	arc=none smtp.remote-ip=91.218.175.235
-Received: from mta0.migadu.com (out-235.mta0.migadu.com [91.218.175.235])
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=l1QiNQXS;
+	arc=none smtp.remote-ip=91.218.175.249
+Received: from mta0.migadu.com (out-249.mta0.migadu.com [91.218.175.249])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2948C60A2607
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:20:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2948C60A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A1F606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:21:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47A1F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DdSjhmh4
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=l1QiNQXS
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NbWUSQWwUXooZIyxNLSex7QYUtdoTqWvzVJqXTgn82c=;
- c=simple/simple; d=linux.dev;
+DKIM-Signature: a=rsa-sha256; bh=49a+oRA1lv+Mz1o41YRrStLBxL2F34gYMEViUmKV2t4=;
+ c=simple/simple; d=packett.cool;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792513254; v=1; x=1793118054;
- b=DdSjhmh4MWu3D3DfmX7AKIi9g6mERQmU6G+jeRd4kFbYCSrHHm8E3orwkqcUcCfCY3YJ2WPI
- i+aMwtCvz57MkjjEZoVMXrYD7HIfnGysxxClgTP8QWYASdDvlLH7JYj1GW6qHLrctehdPg84Fr3
- 15RqnSM3D9gIERG+L76VZoPk=
+ t=1792513287; v=1; x=1793118087;
+ b=l1QiNQXSTgs0KInbxTTQOwL+qD4qZLQM++ij0ACwxGBCsbFZeCw4Y7MBBUWhDuLOJJxHpdKi
+ o5NWyVrSNkDmQXgDt3msA6n7jlbHcj4D9jsgOnHm1PVHvVTvNQKykqGpE2zY+ZTdrpmaMHS8KcX
+ TPjb4/Q+zjSdub5SeKewDBG+pHc2oa1B4lv2xIDhf/py+rvsuyt9/jrlKUJeDKkNQ6/H8YKhExJ
+ FIBuy8RLbzpxnbQhkQoa+8R2M2LkH9kGKa9+xeguza6vBYvo1XbCVPHijxz37U92NSIMIfUIEcN
+ I2bsecLbYVOT/HIMs5ebStfU0FAqjf92F8bFeMBIzXYPg==
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a1348edbf7a2f3df;
-	Tue, 20 Oct 2026 16:20:54 +0000
-X-Mizu-Trace-ID: a1348edbf7a2f3df
+Received: by smtp.migadu.com with ESMTPS id 4ab1a25d000ef3f3;
+	Tue, 20 Oct 2026 16:21:27 +0000
+X-Mizu-Trace-ID: 4ab1a25d000ef3f3
 X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com
-Cc: martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	shuah@kernel.org,
-	bpf@vger.kernel.org,
+From: Val Packett <val@packett.cool>
+To: 
+Cc: Val Packett <val@packett.cool>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v3 12/12] [do not merge] selftests/bpf: Cover the low-32 link for narrowing stack spills
-Date: Tue, 20 Oct 2026 09:19:07 -0700
-Message-ID: <20261020161907.2115379-13-vineet.gupta@linux.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020161907.2115379-1-vineet.gupta@linux.dev>
-References: <20261020161907.2115379-1-vineet.gupta@linux.dev>
+	devicetree@vger.kernel.org
+Subject: [PATCH v3 0/2] usb: typec: fsa4480: Support reporting hotplug events to a codec
+Date: Tue, 20 Oct 2026 13:20:29 -0300
+Message-ID: <20261020162101.1527014-1-val@packett.cool>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,247 +79,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Six programs:
+Currently the fsa4480 USB-C SBU MUX is not actually used with audio
+codecs in mainline. I have gotten it to work with the wcd937x codec
+on sm7325-motorola-dubai (copying the Type-C notification handler
+code from wcd939x to wcd937x, will be sent after this).
 
- - zext_narrowing_spill_reaches_fill: narrowing while the value is still
-   on the stack narrows the slot, and the fill copies an already narrowed
-   value. This is the order the link is for
- - zext_narrowing_spill_drops_link: the other order does not pay, since
-   the fill is a mov and a mov drops a zero-extending link
- - zext_narrowing_spill_truncates_slot: the slot must be truncated before
-   the kind goes on it, or the first sync empties it. Asserted on the
-   dump, since nothing downstream rejects an empty slot --
-   BPF_F_TEST_REG_INVARIANTS does not walk them
- - zext_narrowing_spill_byte_no_link: a sub-word spill is below the model
- - sext_delta_survives_narrowing_spill: a source carrying a delta hands
-   it to the slot
- - sext_fill_of_narrowing_spill_drops_zext: a sign-extending fill of such
-   a slot must not come away with its zero-extending link
+v3:
+  * Put the codec mux/switch refs after unregistering our mux/switch
+    in fsa4480_remove (sashiko-bot)
+v2: https://lore.kernel.org/all/20261020081343.1507986-1-val@packett.cool/
+v1: https://lore.kernel.org/all/20261018225906.1265299-1-val@packett.cool/
 
-Posted with the patch above, which is not proposed for merge; these go or
-stay with it.
+Thanks,
+~val
 
-Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
-v3: was v2 13/13, now tagged [do not merge] with the patch above.
- - zext_narrowing_spill_keeps_link becomes
-   zext_narrowing_spill_drops_link: a fill is a mov, and a mov drops
-   the link (patch 4)
- - new: zext_narrowing_spill_reaches_fill, the first positive test for
-   the spill link, narrowing before the fill
- - new: zext_narrowing_spill_truncates_slot,
-   sext_delta_survives_narrowing_spill and
-   sext_fill_of_narrowing_spill_drops_zext
 
- .../bpf/progs/verifier_linked_scalars.c       | 181 ++++++++++++++++++
- 1 file changed, 181 insertions(+)
+Luca Weiss (1):
+  usb: typec: fsa4480: Report switch & mux events to codec
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-index ab78285153fb..8ade4836e1b2 100644
---- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-@@ -1217,6 +1217,128 @@ __naked void zext_fill_byte_forms_no_link(void)
- 	: __clobber_all);
- }
- 
-+/*
-+ * The link does reach a fill, provided the narrowing happens while the value
-+ * is still on the stack: sync_linked_regs() walks spilled slots, so narrowing
-+ * r6 narrows the slot and the fill copies an already narrowed value. This is
-+ * the order the narrowing-spill link is for; the other order is below.
-+ */
-+SEC("socket")
-+__success
-+__naked void zext_narrowing_spill_reaches_fill(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;						\
-+	call %[bpf_get_prandom_u32];				\
-+	r0 <<= 32;						\
-+	r6 |= r0;		/* r6 = full 64-bit unknown */	\
-+	*(u32 *)(r10 - 8) = r6;	/* narrowing spill, forms the link */ \
-+	if w6 != 0 goto 1f;	/* narrow r6 while it is on the stack */ \
-+	r2 = *(u32 *)(r10 - 8);	/* fill gets the narrowed value */ \
-+	if r2 == 0 goto 1f;					\
-+	r0 /= 0;						\
-+1:								\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
-+/*
-+ * A narrowing spill stores only the source's low 32 bits, so the slot is their
-+ * zero-extension. Filling it back is a mov, though, and that drops the link
-+ * for the same reason zext_chain_drops_link does, so a later narrowing of the
-+ * source does not reach the filled register.
-+ */
-+SEC("socket")
-+__failure
-+__msg("div by zero")
-+__naked void zext_narrowing_spill_drops_link(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;						\
-+	call %[bpf_get_prandom_u32];				\
-+	r0 <<= 32;						\
-+	r6 |= r0;		/* r6 = full 64-bit unknown */	\
-+	*(u32 *)(r10 - 8) = r6;	/* narrowing spill, forms the link */ \
-+	r2 = *(u32 *)(r10 - 8);	/* fill it back */		\
-+	if w6 != 0 goto 1f;	/* narrows r6, propagates to r2 */ \
-+	if r2 == 0 goto 1f;					\
-+	r0 /= 0;						\
-+1:								\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
-+/*
-+ * save_register_state() copies the source register whole, so the slot of a
-+ * narrowing spill arrives holding bounds for bits the store never wrote.
-+ * Recording BPF_REG_LINK_ZEXT on top of those is a contradiction, and the first
-+ * sync_linked_regs() runs straight into it: it rebuilds the slot's low half
-+ * correctly and then intersects it against the stale wide bounds, which are
-+ * disjoint from it, leaving the slot with an empty range. Nothing downstream
-+ * notices -- not even BPF_F_TEST_REG_INVARIANTS, which does not walk stack
-+ * slots -- so assert on the dump.
-+ */
-+SEC("socket")
-+__success __log_level(2)
-+/* untruncated, the slot kept r6's umin=0x100000000 and went empty on sync */
-+__msg("*(u32 *)(r10 -8) = r6 {{.*}} fp-8={{.*}}smin=0,smax=umax=0xffffffff")
-+__naked void zext_narrowing_spill_truncates_slot(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;						\
-+	r7 = 1;							\
-+	r7 <<= 32;						\
-+	r6 |= r7;		/* r6 >= 2^32, so the spill narrows */ \
-+	*(u32 *)(r10 - 8) = r6;	/* slot is (u32)r6 */		\
-+	r8 = 1;							\
-+	r8 <<= 32;						\
-+	r8 += 5;						\
-+	if r6 > r8 goto 1f;	/* narrows r6, syncs the slot */ \
-+1:								\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
-+/*
-+ * A sub-word spill is below the low-32 model, so no link is formed there.
-+ * The fill is a byte load too, so this pins the spill-side and fill-side
-+ * size gates together rather than either on its own.
-+ */
-+SEC("socket")
-+__failure __msg("div by zero")
-+__naked void zext_narrowing_spill_byte_no_link(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;						\
-+	call %[bpf_get_prandom_u32];				\
-+	r0 <<= 32;						\
-+	r6 |= r0;						\
-+	*(u8 *)(r10 - 8) = r6;	/* 1-byte spill: no link */	\
-+	r2 = *(u8 *)(r10 - 8);					\
-+	if w6 != 0 goto 1f;					\
-+	if r2 == 0 goto 1f;	/* not deduced */		\
-+	r0 /= 0;						\
-+1:								\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
- #ifdef CAN_USE_MOVSX
- 
- /*
-@@ -1628,6 +1750,36 @@ __naked void sext_delta_survives_narrowing_fill(void)
- 	: __clobber_all);
- }
- 
-+/*
-+ * And for a narrowing spill: the slot holds (u32)(r6 + 5). Recording delta 0
-+ * there put the slot, and anything filled from it, 5 away from the truth.
-+ */
-+SEC("socket")
-+__success
-+__naked void sext_delta_survives_narrowing_spill(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;						\
-+	r6 <<= 32;						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 |= r0;		/* r6 = full 64-bit unknown */	\
-+	w7 = w6;		/* BPF_REG_LINK_ZEXT, delta 0 */	\
-+	w7 += 5;		/* BPF_REG_LINK_ZEXT, delta 5 */	\
-+	r8 = (s32)r7;		/* BPF_REG_LINK_SEXT, delta 5 */	\
-+	*(u32 *)(r10 - 8) = r8;	/* narrowing spill keeps delta */ \
-+	if r6 != 0 goto 1f;	/* narrow before the fill */	\
-+	r2 = *(u32 *)(r10 - 8);	/* r2 == 5, not 0 */		\
-+	if r2 == 5 goto 1f;	/* always taken: r2 is 5 */					\
-+	r0 /= 0;						\
-+1:								\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
- #endif /* CAN_USE_MOVSX */
- 
- #ifdef CAN_USE_LDSX
-@@ -1800,6 +1952,35 @@ __naked void sext_byte_fill_drops_sext_link(void)
- }
- #endif /* CAN_USE_MOVSX */
- 
-+/*
-+ * The same, with the zero-extending link coming from a narrowing spill rather
-+ * than a mov. The spill truncated the slot to 32 bits, so the fill is not
-+ * narrowing and assigns no link kind of its own; the slot's zero-extending
-+ * one must not survive the sign-extending load.
-+ */
-+SEC("socket")
-+__failure __msg("div by zero")
-+__naked void sext_fill_of_narrowing_spill_drops_zext(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;						\
-+	call %[bpf_get_prandom_u32];				\
-+	r0 <<= 32;						\
-+	r6 |= r0;		/* r6 = full 64-bit unknown */	\
-+	*(u32 *)(r10 - 8) = r6;	/* narrowing spill: slot is ZEXT */ \
-+	r2 = *(s32 *)(r10 - 8);	/* sign-extending, not narrowing */ \
-+	if w6 != -1 goto 1f;	/* slot low 32 bits are all ones */ \
-+	if r2 s>= 0 goto 1f;	/* taken only if r2 was rebuilt zext */ \
-+	r0 /= 0;						\
-+1:								\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
- #endif /* CAN_USE_LDSX */
- 
- char _license[] SEC("license") = "GPL";
+Val Packett (1):
+  dt-bindings: usb: fsa4480: Add an optional audio port/endpoint
+
+ .../devicetree/bindings/usb/fcs,fsa4480.yaml  | 94 +++++++++++++------
+ drivers/usb/typec/mux/fsa4480.c               | 57 +++++++++--
+ 2 files changed, 116 insertions(+), 35 deletions(-)
+
 -- 
-2.53.0-Meta
+2.55.0
 
