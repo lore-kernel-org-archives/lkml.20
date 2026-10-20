@@ -1,122 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.64.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792521425;
-	b=vcYRVgvpwC8GY8qHsBZ/DMYen/OPlSmopfD9VSp1YIq0gPZBYs4B7rv4IP3d1qd51bhA
-	 bxWorcp+VgTVV7XCDFhgVPOS2BsJH6ziTWn+ZE38msnghzsTGZHMupfkuuu0Sd/wIq00V
-	 oivTspOw4gsyNBY29YOm7S9Cc0JH9Cgq7v6I29gGYGckfcBkqruYYZglX/wcwHlAuGz/Y
-	 HzDaUzeJvQ0e1zxCLVVXOZKbSoJrE1naWN4bEHu71V1n+WTvQP5eThz0JM0ucU6GnkbFV
-	 DNzq3TDoHTIZKD2cnns5JdUsTUcuFl58if+Gc2tzMAUn590m/u2QzR5PsHkZD+VKHcw==
+	t=1792521430;
+	b=YQyyruJ0kbjuFtxt6q/tkcEfl4WePpQBrjbHL9w3trUlYKplKged36z0rpzON1um11uW
+	 qt2bWAErZORZSXS9ZreUucgQj1fyeE2gCShEcDXg7NikABzEGW2zXgsjfnxKkFjkFYwfV
+	 kVnq87lsjyRhLfmqDWxQqb0zXmvfdh2pVgcnzd9qwb0avrh5exMNOfF1Y+LenA8YBHDqz
+	 03uKKMnGPlmvjdtu9n4Y3/oPMnRiu5BRdWyV7xp78YhmxJyCgEWvKUsFdctDHOgc80dvn
+	 qIhGSzlmh73MGUlEZyMUsoWMFyc/J/fPuJeQ42qJBc1lY3Lgb7jKmCg1OYcTywUvPNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792521425;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=Xk97U5KKr9uT2wGVlkJMzD5zV/qzXLcGQzuyBrZTy64=;
-	b=YB13RMQEjEO04/iT+WBV1MoTCDs3AmXW5KZ/JuruaELw77nJe4TKQztYu9mZRcItOavM
-	 aQK4t3c3TH9OWf1njc2qTUIJ3e3YU+n1JkWcovak6lGSHR/skBJzk1kDDqoKIT6VFoL/T
-	 EfOGy6dTwlHkbKcYUk6+p/S6bW2uVqckYg8iSpdTq5fcPVUspv0cPb0sfC409W6X6xsfk
-	 K7EbBPdvgrC/SInR1rBy0wKjOfoHrrdMvS4NmRKPb+Wj8J+rtEaYQYvG09NldD12dVk/7
-	 TS3vDWzsn+ZUw1Qp8pHw/USQV+CBP2O6NvpO/dP30Tk6KmgC21Mp0BsqsdU0itCdakA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792521430;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-Mailer;
+	bh=uKjP4PhEv6h6oryOUkaipQ7zazivOxdCQR8xjjU99uA=;
+	b=HHzWuftGHwp0sy4JLe/c52OnhBaQvgYKX2liL8wE0gNLGuvbjDru0k5mQR9orGU2L70J
+	 VnTT2ZpfKZg06LTLXT2Uc/RyCb6DnwhnvfcDAIJXu4tgv/5VsmQHjC2oI2ELN+u+ErZ6L
+	 C2m/aLbH2V2tqWGCiPi/j/Jkriog9maJJ8UsXP9gOxBZHYj1cr4yy1SV6nxadNHwH7WYm
+	 OLQvARjovS37eoQ9Liyz5jIsrBwtHlqEOpd+PTHPjWQ0Ur3l8/4k/iK30WtQQwviQhENi
+	 fl7vbWI3FphZ//oh+0UkDhzfhfrknYFBnGiVXwgdccoOSzFsYiDqL3ps7FOhaWF05qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=LLTGl4te;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="s2g37/qH";
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ByuzWqlN;
+	arc=none smtp.remote-ip=34.2.64.18
+Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com [34.2.64.18])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401C7606A32D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:37:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 401C7606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFC5606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADFC5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=LLTGl4te;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=s2g37/qH
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 77F0BEC01BF
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:37:04 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-02.internal (MEProxy); Tue, 20 Oct 2026 14:37:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1792521424; x=1792607824; bh=Xk97U5KKr9
-	uT2wGVlkJMzD5zV/qzXLcGQzuyBrZTy64=; b=LLTGl4teA5x8cNENGHYfr+cGNn
-	x6N3fx9/1QSvsOSx9ztEXiWTwfG/85rQ1YcUbkycTJLnYC4C3RZt/Z509PkpljA5
-	JfFFv/L6jpo+P4FbjQa3BYRYWS4yfy3uMjoYZ/0/rKaKbBfwMkwNuKpR0r3IkHK/
-	qeIFkfmnk2TlX1+u1gFgwQW7b7DeQlB6jyyvmbRmbIhTxHwe9qeOfddpdMfqrMP/
-	zUvYnPbzWrsTKTA5vChjAMGhdLb/FNR9iHOPwzUGldCSYnG0MvD8vVDwqZBV7cwN
-	z1WF/B6ud07JIgaHIEp7pWn0FwqXV2Kcf0v85IBvp9focUA4+ptYoNvpccjw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792521424; x=1792607824; bh=Xk97U5KKr9uT2wGVlkJMzD5zV/qzXLcGQzu
-	yBrZTy64=; b=s2g37/qHM7+0g1Ei+Dnhv2jKDPTX9Uhqcpq5K0LwtuAK7jpXyce
-	I70MsT1jQYPAYQW52wIHQ9p3u6N/rZe6x5YXpyUHTJA7Y+MGYwPwzF3z4An9qyNp
-	Ge9S850BcYsbnb9FC9k6dvYCe61o2WOTuMNaV6CrL9JaVF0MMfqQoqk7MEwaU6tX
-	obYuPU28PcgrMv82efdEt4URI4cZSIxXIe2FQ9OrMr8CpR3jmRAUa0d+WFDpFtck
-	6s9h6GB0nBJV3bak+bTghfOvU8EkK0eXWFEF1uaRLR+PpApYNB2CryZuJiQaKrK4
-	zQFlfjy/i8sLOP7PMNEdjOqZoJcAt/D7DvA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792521424; d=pobox.com;
-	mf=PGdpdHN0ZXJAcG9ib3guY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:aVUWGeSPfmi6hUR8/J07LECwRamEmb7blBzJ71Mvaf1dMOB
-	7U5yzaX/02TujG6pPZqCWt2op7A6ay25gKuJBYVwsLg0+EaAvkx16li8w0Obc6MK
-	VfpO2n+GqDAX93BCVN35olRk2963Ic5Aec0mkPsK1qq0r/lUtVNvOlZmRMIpo9SJ
-	3WrHMCSw7aVZd1/NIBcw/3yoz6/dcoaqKK7us5Ip8wy3tzcmRInoN7U6WPPRRwqq
-	JGJw6DOQEvMCokF9cJSV5VgHrnu9tvwDs6qOZPR9x+jUwjeVgKbpi1LGAJCR/cr6
-	H/ofmfDYH4CxHoZ07dzefVuvqI5+5XZiFrsAHmg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:qSyeHOcuEn8uaqs3aepQ+orwsjIz75rjI4vMfAyNabc=:ckcNN+M9E363QiM9yS58/K5MUSml3LoDrCv0Zallm5w=;
-X-ME-Sender: <xms:z7TXaq0cROy1WVLL9ym1OYaSQmRQE6FBNLRJiHKDUzSwAxJDuS239A>
-    <xme:z7TXamYTLSRnsoBNfmIvW7l11qWu99Q1svFyZDNy6EU0TBbiTDoNrvGgrj9fgieYG
-    OCZoq2Td5rcI0lPlbbIyfh3T3vL-y6UJBviU2Uxhjt1Q3dvTUoAsSL5>
-X-ME-Received: <xmr:z7TXaqK1HKPASoNwuhlxHm6uacvs_x8DKf3FagXPyfzC6D9Aw57NkzrR85wdrI2cz7k4Esdt_736uUt9a5SWmpnuHH5x7PfnJi22>
-X-ME-Proxy-Cause: dmFkZTENpwGJFmMc1CaYH0vt2Z8+AIIVPE3R1cazOcMtGJIprDOjGDUmTjCfchiu8XpH+U
-    gCeKJvguI9mTxSRKImLw5VTPGzXBcn8CudhkNF+HoUKe8tLuBfYYgzMr82AoDM4qKIPIHN
-    yJxWJWNWhv27Hg9Gf2e/c/QB+AMeIXK4ArGa8o1ioFfetSzARIRTcqkZ4UZOAyA5qOSnao
-    LBwoMaVv3txsk+jPw4c+d/QKy57eMHG2tqBFA9dy5TMJf/tGorbNCeyY6IaQLASZVL4b7N
-    tN5hA90V4+MC19L341SxhxDOSsgdSyLomb3RrYxB7SWIK9fmU9TXpGbXvkl5xOu0GgmNFI
-    b8XGYxd+dPG+4/yhnzfnXYYsAx1ayLv7z3dWmEhrNPC9pIbAJHSmRbGXjMAmR8iDk64D8p
-    JMac7KrceXAPWfcqM2sRhxegPEpK7hWk9aDlozK4vp90Ms3eL1eQhP2fBMMltypNCJXgcR
-    cm+t2Z0i7iqWXC7HEUaHhROUvAnMWvXXDSuMHQRm5Rs9Gg8EDt0eUL2TgzUzDPPCEEInmg
-    VuwknMWCNTzkBMyys1r6Bk48lDk1NyLTuwCdzUihjNUpvABYZLOMogmmNxbdrmmqKuP7ji
-    jVe7sLlhqXNbGpSVRD+uA7NxYcTRbkc/i+z6ERSc0a/C7K1yZ/rdSO2lGF2A
-X-ME-Proxy: <xmx:z7TXatEA8bo8a_bHBrOuf_g6MPfOht9EmhVXdVY1Rg1GoRpuGxsjLQ>
-    <xmx:z7TXapuVDSzAmpes1DBrJVus9MR5UhFMGj3TYSeZU-YM3XRskKqLXQ>
-    <xmx:z7TXakv540nUJR3xrl_-dcde6jAWwUUFyTW8FcDd75USQvwjhFt5mA>
-    <xmx:z7TXavBicg7t_fruGgYLxTrzr2SX88pzqE2OMnyFMEQnvMBAeD-ONg>
-    <xmx:0LTXahJ70rrjicdiCkb2Zv3Y8XN-eB4nmPLltef1ctDK7C4tDhzCt4R->
-Feedback-ID: if26b431b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 14:37:03 -0400 (EDT)
-From: Junio C Hamano <gitster@pobox.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: git@vger.kernel.org,  LKML <linux-kernel@vger.kernel.org>,  Jonas
- Rebmann <kernel@schlaraffenlan.de>,  =?utf-8?Q?Ricardo_B=2E_Marli=C3=A8re?=
- =?utf-8?Q?_=28SUSE=29?=
- <ricardo@marliere.net>
-Subject: Re: FYI, git output messages are being used by other tooling
-In-Reply-To: <20261020141011.0015d172@gandalf.local.home> (Steven Rostedt's
-	message of "Tue, 20 Oct 2026 14:10:11 -0400")
-References: <20261020141011.0015d172@gandalf.local.home>
-Date: Tue, 20 Oct 2026 11:37:01 -0700
-Message-ID: <xmqq8q3sw75e.fsf@gitster.g>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ByuzWqlN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792521428; bh=uKjP4PhEv6h6oryOUkaipQ7zazivOxdCQR8xjjU99uA=; h=From:To:Cc:Subject:In-Reply-To:References:Date:From:Subject:Reply-To; b=ByuzWqlNLpdr1zZVVQ8kvVWDiY80UYgomU8KGPAKoXoI6MmdmjX/zp49+YO+nRrd3ipLE0jM0veVeqB2bkbX7iUVZ/XNfcQU4MDw3zgkwHUVbwgYdCp8ul5MddaLxtwIvgBYTkuG0QJa+0LAt1Rw6bnCV5wZb7+ZO+3ewVNZJ3AmasroOzCkakzahP0HOs9duV2fWmgEZPSK1Yl6ALxztRGTYmZogDfYVfD95LqQErHaQti+WLqpijIX77GjFcSQbmpMDa7Cuj+MNF15atYwZ+Kvt7/a+eLxMZPaY/Ojs/RyZnq4qGWNt7mBk18+i9d5oAR+uL8PGIeCmlTuwTkGTA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792521428; bh=VT1vJ2eTnBG62j+sXGyHHpF2FrfcuiSSmE375IoQ6JG=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=BmLBupnD7akZTNXXM/b6GHt2JTeDy8B0COV5JzaF3U0cjMucTJoP/HT2KL+CRZoYuEArtPXrsCHhkfoABoYHDWZ+9LWu2NDhfcqfpzB2nq90A+ItqP92Q6AmOy3TBBMRlYG+12MgygGbYNWj/vCYSBBtcVUovulKir7C0gvxoGI8ycM/mTf43FOc0AuGrhNs5w8dwTrccAmw/p2wxqpiaXqUWEs/9vAwUcPyq9WuRd9jVLW5kxWPTJULgOgsaoAXXsN6uYf8PhrQdEPyM+mP5tZM/CCwQ8FjpxbshvTI1CSosaxQt/92jPRMSsjNz74QQpUipjxJsFrumANhpUr9SA==
+X-YMail-OSG: tMmAiVQVM1nyWZpopzmNi.y0Q6ac7wMbUFCxl06PlbWehOboM4IIlcsHAtGwz9s
+ nHOSqg9YEn7oS_pAAHuRIWoAiqNCzKP1nC8yz6EeH1dGQpi06pA0ZijTd2lu37bM1n6KB5awVKbR
+ UJ_pnLhggR2l_Sleq_nfYYUIXRKeTMxVr7sKp3.iJIyPvDGtyA4MMifMx7XzhTeWYl0bhZmZP5KN
+ HPig_kaXumm9APttv4kwJXvIK2w6w0GQ48ZdYCWhP6p9Ru1DSEVPOX2tsmiv7r4IeLCXtdpP68.4
+ 4ltHAy323cep6VDMgb2uyRfuze1XZhPlK8EKQa.iycFk2KMJY1.BhuUtbcOa0hvVoWVms8lmsQ6l
+ dguoOlBSefL1vd6TlyNLrVqMzt51jd2MaBL_W2M3SgQRw8XQJyloBMWosWXFZES00UyPIukqhHdl
+ SwBa6t9MIHfeL8JefFR7FkiBgh5oK5OnWsaAfFgP8.Yf8DbzJDHHIQauPDYNCPuLr0CKsPgImgq_
+ yKTomPXucd1KH1YblXFupMp5huYcqA2GEXVdbUvF_ndo2QikUa309qhB.7fb3gMikWtVC5CUvXRk
+ Fos4pLcvN3hOVauoi_Z6D_SKuUzc0RAsfzSfpFbV9jPhtcGm1Fz0DcjXYZZxfxlhxe6mepSLblNi
+ p401sOSMxUn5kqXSCEoj_4hqviSKYW50JRQuSGB1YYT1UHx5YdvRCds1qx3lxXo9JeZfrctdoA3t
+ jmL_ONsae3HH6aGH9WaPbj2WtTzD4ULu..1nqFXzmFa1KPA1OgB6mD5OIlR3VNKbZeAJ.2RWvDi4
+ 3oHnBNbBxrdNYf_OHW_TMJq4u7ykwNVxN9NISmpLzo.pB3NXc7xY_3BX6gLvn3wvMi8aTGCK3q.a
+ 0opsAWNJK3mICOpC5KAEzEexnVGV0s7IOwaHDND8PQZkR8RJWq6anARQ7mSfQNYM6q45zEVH1r4i
+ _pdxHXmDuFlFwIJOiMR7lmTsWnzYLdyqihNBDTnkZbaW7dDj3gVkPWajKw_ZQur5nybmPMxuqa9u
+ 7NY9wAfJjdKpRS_SnBE.0J5cxNUIZ3SlcxAYvgmKLGGzBCsDvVkCQuoxuTfoyt3j4Uq7GYH0sMWp
+ 98bAAfCNKl8fcuZOSDZaEFZa4LBeh8jdNKjMXKoc6M8xxP3u1VZUBEtrlRXEYu4VSgi1N2FxDKbe
+ W4_8DtgNdwJ5MkZ8NA2cYUBcwpq7hd3yUo2GhXk2YGpFB1CdJmO50ztm7pQ2NL3msB_gtMo80Ir0
+ OJYmhJlkmsS.ha2b.1bHsYpz2ixAjnMTUbjyym.PXoFXiwUdXow6k4dZ1K5y2y1mh1grH3X4V04D
+ 6L6WFz5ReavSe0cyt0Id6vJz8Ql3cbKB7lOUdGVODyObMs_f7SjjgZPkE4un.RhOr6VFyPAiOggs
+ eJtciAiST7ze.cJ3Md3gcucQO1Xs9CNSrNMNluBaSOJ74zRoID5YCCGjHsOR1RugTMalZVQREO9f
+ AY8umjmNxGO7d_KPpMlfkna7MOS4djR1Zj12kuUPFvJmhObKAqvPrc1m7ngfJ5Ks7t0MShpxAsoO
+ cxuH89zKXL7gtj4t4PpnZ_n5ZsLcGqIhG85roW2LFmyx2J7egMIlBAYOgsHAY4i_PGZyym89S8kW
+ vKzgnCa4lugEMRKX.awRV4bwuSKZ8huBVUOz0c6.pvADYBcD2KrrfNGGx9YkzF7iGFYxD9aTQMuI
+ mCAkxRSMgDbXtBwNUOlVBrg7PKHf5sYiXMhBiw6rYn7z9opdneTiY.DlekGsaXcRJ7v0gx871awh
+ taLk37nRUWhp7GsHdhBXcMt6oJLfKWfiT946GBa1p5DZKtHqI5MWh9kPzYtx1w0fBYnsR7RPmWQG
+ JeydFKoflxyF8VfiaTDqNfVxakZU0ZNoTbgYJdhwws3dv4PT1qz31it66td_As.E7miDkvijlwwV
+ bV1GsPhI4pnmmgo09bLcOSi6H183ZgtpH6.UdOTFvKP8Bb33tXPAOuE9gWiXULn6lVTCWvM.ofHp
+ nZKiTPf9HPz3PHBwXJbo-
+X-Sonic-MF: <capitain_jack@yahoo.com>
+X-Sonic-ID: 3dbfca32-40be-4856-8db1-d8e14c9724d4
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP; Tue, 20 Oct 2026 18:37:08 +0000
+Received: from dip109.lsn.bf1.yahoo.com ([67.195.177.118])
+          by hello (SMTP) with SMTP ID 1ef2aaac2e463c76687331ab09204a2e;
+          Tue, 20 Oct 2026 18:37:06 +0000 (UTC)
+From: Daniel Campos Ramos <capitain_jack@yahoo.com>
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
+In-Reply-To: <CAHk-=wieaheq8rXSps3xRZpNNMQMEj9BH5gU+Dh4q_ZgokO51Q@mail.gmail.com>
+References: <CAHk-=wieaheq8rXSps3xRZpNNMQMEj9BH5gU+Dh4q_ZgokO51Q@mail.gmail.com>
+Date: Tue, 20 Oct 2026 15:36:39 -0300
+Message-ID: <179252139906.1666014.10596432029920554734@yahoo.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,23 +90,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+X-Mailer: WebService/1.1.26740 mail.core.serving.mcws.prd.acl:role.token.mcws.jsmtp.yahoo
 
-Steven Rostedt <rostedt@goodmis.org> writes:
+Hi Lorenzo, Linus,
 
-> Hi,
->
-> I just want to let you folks know that ktest.pl (tools/testing/ktest/ in
-> the Linux kernel repository) parses the output of git to display the first
-> bad commit found in an automated git bisect.
->
-> The output was recently updated via: 0c0f93e7fa64 ("bisect: print bisect
-> terms in single quotes") which made ktest.pl fail to find the bad commit.
->
-> The change is being addressed:
->
->   https://lore.kernel.org/all/20261009-ktest-git-bisect-v1-1-1d1428f6cbf4@marliere.net/
->
-> But I figured it would be good for you to know about this dependency.
+I maintain Sparky Stereo OS and have preliminary measurements of preparing reduced compiler inputs ahead of consumption.
+Our Lean Code pipeline retains the complete authored source and generates a representation with removable comments eliminated, preserving required directives and source locations.
+The aim is fewer bytes for repeated consumers to read and scan.
 
-Shouldn't the script instead seeing "git show bisect/bad" instead?
+On an AMD A10-9600P laptop with 12 GB RAM and SATA SSD storage, our 17 October header experiment changed 6,290 files out of 10,352 examined.
+The changed subset went from 61,154,706 to 44,167,571 bytes: 16,987,135 fewer bytes (27.8%).
+Preparing it with two workers took 258.94 seconds.
+These are file-size figures, not measured disk reads.
+
+Using the prepared headers, the elapsed-time medians were:
+
+                             pairs   authored     lean
+Qt umbrella, syntax only       20    9,284.25 ms  9,259.50 ms
+Qt umbrella, -O2 -g            20   10,970.60 ms 11,046.45 ms
+Qt umbrella, preprocessing     20      882.45 ms    890.25 ms
+acpi_call module, -j1          10    4,672.95 ms  4,677.45 ms
+v4l2loopback module, -j1       10    6,572.40 ms  6,541.05 ms
+
+All builds exited successfully, but these measurements do not establish a compilation speedup.
+The experiment used engine 0.1.2, always ran authored before lean within each pair, and used different header paths; it does not establish binary equivalence either.
+We have not measured full-kernel builds.
+Any benefit from reuse must also repay the preparation and verification cost.
+
+Separately, with engine 0.1.3 on the same laptop, eight paired application-start rounds with variant order reversed each round gave these median paired window-time changes:
+
+                    cold       warm      cold pairs faster
+plasmashell        -159.9 ms   +43.8 ms       7/8
+Dolphin             -66.7 ms    -6.9 ms       5/8
+Discover            -70.6 ms    -1.4 ms       6/8
+System Settings     -38.1 ms   -41.9 ms       4/8
+
+Those used 95 selected runtime text files in a nested headless environment.
+CPU temperatures ranged from 63 to 91 degrees C, so these are preliminary observations, not evidence of a general speedup or a kernel-build result.
+
+The policy and implementation are public:
+Policy: https://github.com/danielcamposramos/driver_stereodisplay/blob/main/sparky-os/LEAN-CODE-POLICY.md
+Implementation: https://github.com/danielcamposramos/driver_stereodisplay/tree/main/sparky-os/lean
+
+Would a controlled kernel-build comparison, including preparation cost and repeated-use break-even, be useful to this discussion?
+I can provide the raw records behind these preliminary numbers.
+
+I develop this with Claude and Codex as AI partners and take responsibility for this report.
+
+Daniel Campos Ramos
