@@ -1,70 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503815;
-	b=1CwSgizi2V0jZDuzba4ODAkhTGvDjgPIGo9H8+lPBG8Z10cG0++OFUOjJ6vvpbQNcDBD
-	 /vWNh+J+8YwhySNK5jHZMONuab1bCfOoSfKQtS64M0T2bLGe4SYvfAJrJ/kDP/w65DajR
-	 +Zfl1ZhvSr9vBJ38tCK1XAgRkJgMzOp7pDezondlgFTevAAeoCk0FyFRE9paoNQQpeD0F
-	 AFkBVtKW8M/e7f3LtBhZEerPO87l8ohKRdJBceZtq5ze38oLsKE73ZM4Efa/TyvLKZx4X
-	 dXl9mNXzt14XsZxUsAc93RUZThILANirdOnVD+6Gp+8VY10jkv8QPnPChuwRiNMcb+Q==
+	t=1792503804;
+	b=wAZe6Mx8ZgzHo2OPZZrVLjF75TRZRlXpQJt7dfWuAunm6LB0vq61+3tgp3NLRYw3Dh9n
+	 NFJCGwyWUgBGAABmIJr7WCzFE2nMU9HAalq+wg3/6Ct57Oo3KXIoooyHDYpgOUXPSG4gz
+	 OTsI6t8SokXd9K8ljwt360GR/bxpn/GA35FtmGBBVcSXxfb+0wi3QoiqsCPBPApyhOEZ+
+	 O/ra/v5p+9meChDN5i7zbDmfugzzqcQX+2D1jPshMs++Zu7H3A1jU12a7wLHrRyoJk0jE
+	 l/D2VcI6j5phncJKxHXOBywg4oJrLqcwp4i8dyf01BYvUyErDpP+6HfNvJOcMTsYHXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503815;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=a7evs3c83W1K0F5zxXLeZ2sMhNgoUa3W9M3ODO/7lLQ=;
-	b=1anrU9fcxohhRcQAszkQgFRFPOC2hfzYm+2lcFDydHFnsZtBqtGxJ0z/BnXr1mZ1bTt5
-	 NJ5ecBN7Odl3GnopODtTnBe2AWo7OUCx2alQNKZ2boobS9B24LglD14pkb0djT2j2pcqT
-	 osm0XZG72mbqL5SWStDr6I9cpEMBU4MIXehmrLmTK+Uze9Wx8y0dLwk8kAlxR05GwBEzv
-	 TN2hiBE1jeQsTBt4TH4wq4klLobnoqad63gyfZUTxoeMQJxsevazGHGChWrl4v3xq1mIi
-	 Fv4I4HIxx0WIixnpgRtaAXmybI7GMJB9RlohrjD0G2rI7Ph1Hk24KHsTl7DaiUuRqsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503804;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=LuPhFMOumlGNTqQS+w5VZbx5YKJeqmejHfb/ECYIeb4=;
+	b=0ZvoAqFOSV1epIsJttL2evaO9YnNgM37sZlBiBJeCgLKtBph7z6yKfwrWjr2UhAx1QNd
+	 GovE4mfnz/rbIDcqJcxfsfe8jrcHyCBVSheDqQIBzD4UsetkZrd6AO0kCeJhOBbKCberO
+	 wruOjOUlarOhzjoVN/GYdAOTHN7EZcabn09WM8g+uAEhbpTS6RCV3Ez/EzKM9fnSRd2FX
+	 LYW70rL/ig4VX+6NlNEcYQglpEDpMy3B7IqtsMuKPS2QXoe8/rLh7aKGBfE5kwm05vPN7
+	 dKiHJ0KQsS5GOaVuWvroughQBMLWJlTA7G7m2i+erMnHk+1Yj4oYqixLqJ6yajjBILg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eiyfybd+;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ENOtAHqy;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4F960A260A;
-	Tue, 20 Oct 2026 13:43:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC4F960A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A59460A261F
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 13:43:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A59460A261F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eiyfybd+
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 99A02C63455;
-	Tue, 20 Oct 2026 13:44:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EFC6860393;
-	Tue, 20 Oct 2026 13:43:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 76C6210328DD2;
-	Tue, 20 Oct 2026 15:43:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792503807; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=a7evs3c83W1K0F5zxXLeZ2sMhNgoUa3W9M3ODO/7lLQ=;
-	b=eiyfybd+X2pk32UqSIsmjeuQkMNAyn1C43i1jHY9+4kFLJdeoDlggreSvd+5vcMkXl39iW
-	iLLNJex4YdZGn17yHAlSqd5o3I4wOR/IMu1nGk/tq4tOTx3XybVBz1U5ujwFH6MSKRD9sF
-	NqJP8pVV6pMBdGmx2MPd+vskXq/Nj/cuC6dUbtpkliYL1FVHw34t3DaiZZ+yLkgC4W6fGI
-	9+kgdZ64ns+/vKP/GFVmjCrT3WZ9P/cnLIgBLwwacQtxgQg/a0mXyTJx3j45ZejpnP+fUf
-	tYdSpSIOKpNLLMsPfMcSiTM5twNqauwBorU1eLPJpDCZWvYDc+8dfHXvJZPgOg==
-Date: Tue, 20 Oct 2026 15:43:21 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Eric Liu <liuer@nvidia.com>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Guenter Roeck <linux@roeck-us.net>, Mia Lin <mimi05633@gmail.com>,
-	Medad CChien <ctcchien@nuvoton.com>, linux-rtc@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rtc: nct3018y: report chassis intrusion through hwmon
-Message-ID: <179250379387.320906.7689435596822345237.b4-ty@b4>
-References: <20261001054108.3346426-1-liuer@nvidia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ENOtAHqy
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=LuPhFMOumlGNTqQS+w5VZbx5YKJeqmejHfb/ECYIeb4=;
+	b=ENOtAHqytCnIAQlZg7jlFKkYgsP/kLzMzpChH8QKTQKnGM5Xm4gDnm6tfA63rj2BCK6EX0IyA
+	5kjP3Fdu8vU568DbkD6wZ5Xu+2aaJ1uC5Nl7u1FmYMsvRzmxQfZ8U+QtgOp6OJ3d0oWXxAKk3Hp
+	1xDq5nI2NTRSyP/cruhnxNA=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4j8DBZ39yrzcbNm;
+	Tue, 20 Oct 2026 21:43:02 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id D8FC94057F;
+	Tue, 20 Oct 2026 21:43:10 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 20 Oct
+ 2026 21:43:10 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <ben.horgan@arm.com>, <fenghuay@nvidia.com>,
+	<ruanjinjie@huawei.com>, <tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>,
+	<jic23@kernel.org>, <gshan@redhat.com>, <catalin.marinas@arm.com>,
+	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v10 RESEND 01/15] fs/resctrl: Return -EBUSY when per-CLOSID RMIDs are in limbo
+Date: Tue, 20 Oct 2026 21:42:25 +0800
+Message-ID: <20261020134239.3921377-2-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261020134239.3921377-1-ruanjinjie@huawei.com>
+References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,24 +74,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001054108.3346426-1-liuer@nvidia.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Thu, 01 Oct 2026 14:41:08 +0900, Eric Liu wrote:
-> Add an hwmon intrusion alarm for the chip's chassis intrusion latch.
-> Reading it says whether the chassis has been opened since the latch was
-> last cleared; writing 0 clears it and re-arms.
+resctrl_find_free_rmid() returns ERR_PTR(-ENOSPC) when no matching RMID
+is found in the free list. On systems where RMIDs depend on CLOSIDs
+(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID), the target CLOSID may have RMIDs
+temporarily in limbo rather than permanently exhausted.
 
-Applied, thanks!
+When userspace attempts to create a new monitoring group, a permanent
+-ENOSPC failure prevents retry even though the CLOSID's RMIDs may become
+available once the limbo handler completes.
 
-[1/1] rtc: nct3018y: report chassis intrusion through hwmon
-      https://git.kernel.org/abelloni/c/c1c260266abf
+Check closid_num_dirty_rmid[] before returning -ENOSPC. If the target
+CLOSID has dirty RMIDs, return -EBUSY to signal a retryable condition.
 
-Best regards,
+Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
+Cc: James Morse <james.morse@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Babu Moger <babu.moger@amd.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ fs/resctrl/monitor.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 73413cb128ea..da883adc3adc 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -225,6 +225,14 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
+ 			return itr;
+ 	}
+ 
++	/*
++	 * If this CLOSID has RMIDs in limbo, return -EBUSY so userspace can
++	 * retry. Otherwise, the CLOSID is genuinely out of RMIDs.
++	 */
++	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) &&
++	    closid_num_dirty_rmid[closid])
++		return ERR_PTR(-EBUSY);
++
+ 	return ERR_PTR(-ENOSPC);
+ }
+ 
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.34.1
+
