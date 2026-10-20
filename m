@@ -1,57 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456025;
-	b=fi4d6jywLn6r/bNKrspWboJaqwFdD+PB3dhKzAi2Z9I1dXwk/mOogKwMhGZaNM61jKBK
-	 4I3KKZfjQffwxyhZxOl3+N/+ns4aeu+q7cesI/soDM9tmXFmTzGh97rbF1AHPzR9VEWhD
-	 fEvwugysjCD+aFJoy9jB1uvN2irhpXl0kd5Y+dCxwPgZr+dfCz1s/mO3e84jUwEYeEDR1
-	 Z09Oa7uQT26/jRD79FxnsQz0oT89s9ZQlFoeh3zPkev6X9HZ62Fd1mUZnxXm2vAKH1tkV
-	 OgxIFdiQb+TwDVUgSQoJMBBoDZiFfJpq35EIHNom+UG52OF0oH+1EAZIM27u5X4kpNw==
+	t=1792456208;
+	b=n7B+Ix3/EJ9abfY+tqf1LwewMeGdzAszSAZFIB99847te0QEvPnZb3bpOYTUCidt+jvI
+	 cYhmpXNxmcrtrfkVyV4HRUmiORxJ/Q0nLkVQ7RYLYTSd6cHBYB5HCiJyZy1XdV9ACanoZ
+	 Ssh14nvplaNvm7fBoGaKUyKzFi0oMcIjdKgorKUI3GFeLnYa0nofUXY2hUK+XocrGJLM4
+	 sMz6LabvVvuMeCnXHBi13eZiKVWdyzVViv+gjiwxMKBju4hrS8X3L6ZKwK0q8e5O+ncmh
+	 W5vQDThoVrEncQ7oqDLesAf52h8/J+h8pWYmLADXkv9b3NxhcfP2BtWIIcoJP3f5qXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456025;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References;
-	bh=B3F7kA1Dq0BTEFmIKNS4VjfCfEEYVS0La+GUC2XgmTY=;
-	b=v9GnnkcT2kVH4uq34bqc2EfBNkn4DIyWn/2lyPV7/js2BiEHxo3a6oP046aBTnNPcHHQ
-	 YOTlqsajB2maxjpx2g3gJhTnDsaO4na0iNSmcSrIsOwKGsQcJEXjEt6ZF0x963RGwwC5j
-	 RwgT17IpQzbMYJKaVXXCi7EUHF25vKUpSBvUtZLsl8I5daZ8owlEzddr+LKZar0r5FwTM
-	 F5sa+fxA2D6XiWLmkX9swIN+jCPbtezOYjAOvE2daaighAiHcDz1YxENbJRjcnic7dej+
-	 lstTO8uXABbkprTkmA7fnZBIFs3bIz+Qdjo1SvfC7ukGnv4vk5ZMUgk1D8VWVC2Zt3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456208;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=v/itqcaZj20oy9iaG1WD7g6OMfZmjMhyPYVdcy9JOJI=;
+	b=4hhHuDxw968MlduUZCH6cliF5COohyXB98y7o9oqatiCCr9hYV+1wvkp7ALHH/+FEnbM
+	 4reJNxgeDxZOB/Yje7xAEEe6se7NRTfbe9kfqm0X/IlQqbeuIN+GS75eZ+eaI1tkaPRM9
+	 JuRqFpFNxT2I34jSxVPo1kpeJrgqPxGBCdB53NZu0rZg7YHsmd8n2xeFOwGnUXTSofpse
+	 HppjCCivTQb5FIzeQrepYBF6GkF6/n+ozeLuIfJt5Fc6KbiSkkGIbCH1mRoo1L2xczRU0
+	 lWbviSXkioUHzRr+5sxscJCOcDS0zoJ84f6CuTFTF0Sib16rsZhVIY1YgzvtCfXXaHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9zJX4iz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTF+2Iyg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1EE606A31B;
-	Tue, 20 Oct 2026 00:27:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1CE606A31E;
+	Tue, 20 Oct 2026 00:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9zJX4iz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B53A1F000C5;
-	Tue, 20 Oct 2026 00:27:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTF+2Iyg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D2C1F000C5;
+	Tue, 20 Oct 2026 00:30:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792456024;
-	bh=B3F7kA1Dq0BTEFmIKNS4VjfCfEEYVS0La+GUC2XgmTY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=g9zJX4izF01bCwJidOuWWw6Rf+k7Qq3u17asgSBpTsRN0NvCriOVwH3S32h6IWXZs
-	 8MOMDudO0Zf0Y7Vo8z66qGUO37Uj4nQYSjpdPZUcGbvTj3HLEiqA5HuRtV1c+wKWZQ
-	 ht48pYPupekUlR+G25ayUvapYdZhd7NYadGMzQruOPn4F4LglvbxKk1KoeEDDbVaoF
-	 SeO0baEuPiXZHGU/jrx8b3kXcOkKiVXW4LhionZVVq3la3vi8Esat0DO0oxrrAXOAV
-	 2Rf0ierOamtP1j1ybwx5q/ISc92IpvSRSbmmMbXeA5u1zT/vTchBnx+AV+5VweT8GL
-	 cf1AVlLaZk05w==
-Date: Mon, 19 Oct 2026 14:27:03 -1000
-Message-ID: <08cac02c604dd73ef96fc92eb29d692b@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 sched_ext/for-7.4] sched_ext: Queue the kick_sync wait
- from set_next_task_scx()
-In-Reply-To: <20261018162415.55913-1-arighi@nvidia.com>
-References: <20261018162415.55913-1-arighi@nvidia.com>
+	s=k20260515; t=1792456207;
+	bh=v/itqcaZj20oy9iaG1WD7g6OMfZmjMhyPYVdcy9JOJI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=NTF+2IygV4JP9HdUSlIVuoCE51dx9rtYvrVTnPGXGGgTgY6nMEgrbuzF4Ha0FPsHK
+	 2dNntfyCmX4Bq0dZIXSTViELGb6Dw8PNnDJrAyzwgn7D6AD6BuPz4Ddw89zsWWYTLx
+	 gpA8TSPxKU2HNjjt4MXdQuRp3NRh5mbfmI5Pl7V9ceZDu4Fa9WO0EH7DeaNYqyR/YW
+	 V/fiLXeBfYh36QUhCaTmhgCT/F45q+XlrA5NkBgIjXYj8qJAeIBNVFZ68c0iMJQWXd
+	 rVANTuI2m1fPkoKqXwTP8XgxsE1lXwBLeQ6O9WS6eWlGAnqEoW0HsAiXIZvw565fTl
+	 tEKCNdYK4QHDg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 772FD3924A6F;
+	Tue, 20 Oct 2026 00:30:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,24 +52,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next v2] bpf: Annotate data races on bpf_lru_node type
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179245620614.3402121.11443505330541884495.git-patchwork-notify@kernel.org>
+Date: Tue, 20 Oct 2026 00:30:06 +0000
+References: <20261019-fix-lru-node-type-kcsan-v2-1-c10a410b3565@gmail.com>
+In-Reply-To: <20261019-fix-lru-node-type-kcsan-v2-1-c10a410b3565@gmail.com>
+To: Nicholas Velten <nicholasfvelten@gmail.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+1ea4f564bf6f1f3d1dc4@syzkaller.appspotmail.com
 
-Applied to sched_ext/for-7.4-fixes.
+Hello:
 
-A few follow-ups:
+This patch was applied to bpf/bpf-next.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-- With proxy exec, __schedule() can call set_next_task() twice on a
-  repicked donor (SNT_REPICK, then SNT_PICK), which queues
-  kick_sync_bal_cb twice. When it's alone on the list, it ends up linked
-  to itself and the wait runs twice.
+On Mon, 19 Oct 2026 14:38:20 -0300 you wrote:
+> From: Nicholas Velten <nicholasfvelten@gmail.com>
+> 
+> KCSAN reports a data race on bpf_lru_node::type between the LRU list
+> rotation and the free path of the common LRU:
+> 
+>   BUG: KCSAN: data-race in __bpf_lru_list_rotate / bpf_lru_push_free
+> 
+> [...]
 
-- The foreign CPU check in kick_sync_wait_bal_cb() looks unreachable now.
+Here is the summary with links:
+  - [bpf-next,v2] bpf: Annotate data races on bpf_lru_node type
+    https://git.kernel.org/bpf/bpf-next/c/f25f6319e248
 
-- Not from this patch, but maybe_queue_balance_callback() clears
-  SCX_RQ_BAL_CB_PENDING when queueing, so a proxy exec zap leaves the
-  deferred work unscheduled until the next wakeup or deferred request on
-  the CPU.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Thanks.
 
---
-tejun
