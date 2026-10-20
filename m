@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487411;
-	b=jhE6RUyK2OC3MNb15Wq/NuZPaaOonY67tHhV+J0TWUpfYFPt9el4xpNTNw0DhPERUwm7
-	 X63qJfYbKe+c95rGeNJ+3BwmSkpuXZKTmttuszW/2X7wFSwIWvlHvwQRKisiKehKRFsht
-	 6BKF37okf0EaP5XnwfwOOSJjLWkfalL4v+RMHYe25yumMBrV2B0MOVAcuPxSkIVpElKLX
-	 BLsllD+rlvpqsoKtJTnmIC4nVAYDO/ZBBuokdp5go2S63etbr9/mx2kzTsMl/eFJYAcmX
-	 21IcrujYDEWaNd3v37FB7fYgpMX/OLtK27gYujiLwgrLrXbQVTzAq8anjV7LXOc1RCQ==
+	t=1792487414;
+	b=SZH2Bpg4qiSMPfnbLi0otn8Q9fzgy3+W9mDg4Zkri0DOUeWaNq6yaSVpAzWWZXotohNQ
+	 lBJ8WrtptTX0FWwzc30e/q0qHH/0eqb+z/7Hpg3GblIwitxrHvCT2qsY7dBx7GZaADQPP
+	 OpA0XWgFAAKxZWsWV5ikpoFQFLLgKEx+uWkmzDeyGWcAa2kEj4vukACgDj/2k68IGfqUn
+	 UuKuU2sU2csnJ/EZb3TrtZPx60SRBOCUuSLAbPp/XSaRGqj2kzYI93duKeeefyIr3o2Hq
+	 PgTMaIe+MMhyw/h8md/neNE7sbJpDQBEGi2klrXPpavOjXUqlddh9Pj7MYIX0AqFcaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487411;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=5Pod1YmxY0mwyxZMirX/Q5jewqNFd+iNhCd3CzounCc=;
-	b=UP9MsNSx5CGgmrGbhIsyhsWksKaEXdFsy9VvOLpPAs90nIb8glNcXXeg9S2B5Q3cI8cU
-	 OT0zFvKmL9BZFQIfaJW+WAn70ruQEgHyuPYBPJhyp3/LpTBejqAEjNLKakqCGlplJqALi
-	 jT5Qeedmu2dgaEvFAKgRAzOZZxcZKN3AEczl4G5oEPBQtv1CCLyUuLAwfazwRROKMFioA
-	 lvWwq98h8sKfqFLufNxCR+ITalXGKyUxQeP3YCggDT7b32s+qY3/BYD/VP/FLTJ5IV2Sk
-	 jMo4baYvi2gRKVXZwt3Dpol/LM7WBqzPreDi9Wye7ua8obc+cjZrr502r0wOuIGVtew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487414;
+	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BbfbbBkGHHJ9xJbKeZMyOFLrS6C9DUiYcTXqWzeBXR0=;
+	b=g9DBAtQs+/Win0YCvDBNiRGTAgCXTmUOGrpNzpbj983Rp58aTJHeQAjlpLbo7WHI7agJ
+	 N2PkymbGAdhXlTZ2qcOn15Qr9kNT6Mu2YK1cpjHSxCguhpjeJ2OAJeL299+EBhMAiwYNM
+	 NTlY4BJyojIT5H3vhZWDzHkIZsr5ZloEV++8gaYMlgW+3CQrbo5ugpx1YiFDbVjrsRp/5
+	 /JMpruESh2Wlh45a4f1+3apD2VRrQnLUscckJzF+IkWd1UCS8Y6KDaSBLnRo3iyFPf1ev
+	 ujxHnHvASIeumyielaHWtDr0dqaU4jBzM/4L6W68LexCixyqwZ+rE3ttQSHGaBU2vQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=TAVGKHER;
-	arc=none smtp.remote-ip=212.27.42.6
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7921E606A32C;
-	Tue, 20 Oct 2026 09:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7921E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=TAVGKHER
-Received: from [127.0.1.1] (unknown [82.96.140.143])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 33D16780507;
-	Tue, 20 Oct 2026 11:10:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1792487408;
-	bh=JqXCGcRDqtL7zkcf9fyXFxgm56IFtxVuG9kG9TF756g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=TAVGKHERQhuj34HJj7uBt3k5r4f8afa3zt0FOQCyTkkANhu32iG5u9qqazSnDjtdl
-	 3Gch/xwJsG6F5xHT6IaKvQeq4UUjIwghVdg3CAab5T6Xva/lJJkqRRjfmUknLqicIV
-	 44ejQ0Ck6Mhf4uRzE3XH7pBPHKGxErofiBXNe27j2z+j/NpZ99/2cqiHyNTGhDgTCk
-	 Nib6K1617pb0Kf81/tI7Gm84fjUaB2FmZ/+PPNBTNyN53ofWmevJIKjRa1RhPR8hV9
-	 azwkP0ZX6aQ/2XhHJswQVDQfxdhD3yCP4KMmQD5YPH/XWTwuzwysC9HQW5gkBm9Qzm
-	 VfYhCf2hSpVZQ==
-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
-Date: Tue, 20 Oct 2026 11:08:13 +0200
-Subject: [PATCH v3 08/10] can: peak_usb: reject records for unset channels
- in PCAN-USB Pro
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2712606A32F;
+	Tue, 20 Oct 2026 09:10:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2712606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 09363d3acc6611f19a56ed5b684f684d-20261020
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_MISS
+	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN, HR_FROM_NAME
+	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
+	IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF, CIE_UNKNOWN, GTI_FG_BS
+	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:616e850c-312c-475a-9778-2a1feee7c7c7,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:616e850c-312c-475a-9778-2a1feee7c7c7,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:3a5630fd8d96709ee450f45365b885da,BulkI
+	D:2610201710079SN48DAU,BulkQuantity:0,SF:17|19|38|66|78|102|127|850|865|89
+	8,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS
+	:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,A
+	RC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_FSD,TF_CID_SPAM_SNR,TF_CID_SPAM_FAS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 09363d3acc6611f19a56ed5b684f684d-20261020
+X-User: wangyan01@kylinos.cn
+Received: from localhost.localdomain [(223.104.132.233)] by mailgw.kylinos.cn
+	(envelope-from <wangyan01@kylinos.cn>)
+	(Generic MTA)
+	with ESMTP id 975866426; Tue, 20 Oct 2026 17:10:03 +0800
+From: Wang Yan <wangyan01@kylinos.cn>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: wangyan01@kylinos.cn,
+	runyu.xiao@seu.edu.cn,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: mtpav: restore negation dropped in guard() conversion
+Date: Tue, 20 Oct 2026 17:09:59 +0800
+Message-Id: <20261020090959.570101-1-wangyan01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,94 +83,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261020-canfd_check_channel_idx-v3-8-74d17c5a599e@peak-system.fr>
-References: <20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr>
-In-Reply-To: <20261020-canfd_check_channel_idx-v3-0-74d17c5a599e@peak-system.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Dan Carpenter <error27@gmail.com>, 
- Wolfgang Grandegger <wg@grandegger.com>
-Cc: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
+commit 316e0074ecdc ("ALSA: mtpav: Use guard() for spin locks")
+claims to be "Merely code refactoring, and no behavior change", but
+it accidentally dropped the "!" from
 
-Records received from a PCAN-USB Pro device carry a CAN channel number
-used to index the CAN device table usb_if->dev[]. The decoders only
-check this number against the size of the table.
+        if (! (portp->mode & MTPAV_MODE_OUTPUT_TRIGGERED))
 
-The slot of channel 1 stays NULL until that channel has been
-initialized, while the RX URBs of channel 0, which share the same
-bulk-in endpoint, may already be running. A record for channel 1
-received in that window leads to a NULL pointer dereference in URB
-completion context. Moreover, when probing channel 1 fails after its
-slot has been filled, the slot keeps pointing to the freed channel.
+in snd_mtpav_output_trigger().
 
-Reject records for a channel whose slot is empty, and clear the slot
-of a channel in pcan_usb_pro_free(). Slots are published with
-smp_store_release() and read with READ_ONCE().
+Restore the negation.
 
-Fixes: d8a199355f8f ("can: usb: PEAK-System Technik PCAN-USB Pro specific part")
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
+Signed-off-by: Wang Yan <wangyan01@kylinos.cn>
 ---
- drivers/net/can/usb/peak_usb/pcan_usb_pro.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ sound/drivers/mtpav.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-index cbc23953ce61..151c5ea2859b 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-@@ -543,7 +543,12 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
- 	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
- 		return -EINVAL;
+diff --git a/sound/drivers/mtpav.c b/sound/drivers/mtpav.c
+index 1ed6d4f0cb62..288a873a27e6 100644
+--- a/sound/drivers/mtpav.c
++++ b/sound/drivers/mtpav.c
+@@ -443,7 +443,7 @@ static void snd_mtpav_output_trigger(struct snd_rawmidi_substream *substream, in
  
--	dev = usb_if->dev[ctrl_idx];
-+	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
-+
-+	/* reject records for a channel that is not (or no longer) set up */
-+	if (!dev)
-+		return -EINVAL;
-+
- 	netdev = dev->netdev;
- 
- 	skb = alloc_can_skb(netdev, &can_frame);
-@@ -590,7 +595,12 @@ static int pcan_usb_pro_handle_error(struct pcan_usb_pro_interface *usb_if,
- 	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
- 		return -EINVAL;
- 
--	dev = usb_if->dev[ctrl_idx];
-+	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
-+
-+	/* reject records for a channel that is not (or no longer) set up */
-+	if (!dev)
-+		return -EINVAL;
-+
- 	netdev = dev->netdev;
- 
- 	/* nothing should be sent while in BUS_OFF state */
-@@ -933,7 +943,8 @@ static int pcan_usb_pro_init(struct peak_usb_device *dev)
- 	}
- 
- 	pdev->usb_if = usb_if;
--	usb_if->dev[dev->ctrl_idx] = dev;
-+	/* publish dev to the decoders */
-+	smp_store_release(&usb_if->dev[dev->ctrl_idx], dev);
- 
- 	/* set LED in default state (end of init phase) */
- 	pcan_usb_pro_set_led(dev, PCAN_USBPRO_LED_DEVICE, 1);
-@@ -981,6 +992,9 @@ static void pcan_usb_pro_exit(struct peak_usb_device *dev)
-  */
- static void pcan_usb_pro_free(struct peak_usb_device *dev)
- {
-+	/* clear this channel's slot: dev is going to be freed */
-+	WRITE_ONCE(pcan_usb_pro_dev_if(dev)->dev[dev->ctrl_idx], NULL);
-+
- 	/* last device: can free pcan_usb_pro_interface object now */
- 	if (!dev->prev_siblings && !dev->next_siblings)
- 		kfree(pcan_usb_pro_dev_if(dev));
-
+ 	scoped_guard(spinlock_irqsave, &mtp_card->spinlock) {
+ 		if (up) {
+-			if ((portp->mode & MTPAV_MODE_OUTPUT_TRIGGERED)) {
++			if (!(portp->mode & MTPAV_MODE_OUTPUT_TRIGGERED)) {
+ 				if (mtp_card->istimer++ == 0)
+ 					snd_mtpav_add_output_timer(mtp_card);
+ 				portp->mode |= MTPAV_MODE_OUTPUT_TRIGGERED;
 -- 
-2.53.0
+2.25.1
 
