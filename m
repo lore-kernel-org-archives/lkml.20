@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792539449;
-	b=jshzbqYgGWByPFdd+a2G1EQDHtgHT5Rzecd+Vld6ijeY7z6NnQolusPppW2WmyAs7qFu
-	 EYV3+GElp30k5ZUQa0zmxFK6q1bHQPg2+/cGO/PcJKvkpw9nGr//Yq9sM73tWvBV5rv8S
-	 gQisVSMswXkre3uf7Or1BNdMAJCqFd92YWd8TIZxGC/zZ6JsgnTEHgYj1w4hAkdi+IEhq
-	 6FX0rHNcHBE1FbnmJ8R26qyyQ2YhUGZcSgYdfTmEdPHlUzLLRAMISVmQpqN3ZfDiR8u7M
-	 59sIX0cQ4sdHTvIjXEtWbL3mw3ujoeyWyS4MYIXYslMW2mS48HbAKl6fj8RjzixCEBQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792539449;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792539474;
+	b=jsHuP1XLnnMwSaC11IoNFt5YYCe4yYF08ahdJpwN4i+ofZCfsy1L3hDhVKNIYdaeGNXw
+	 uaWujJ67FhhXMBvYgWo4KAs0SfZbtYT6Gwh8VDFLhBfVw1KFWQHldzibmcfL5IsN88Pcp
+	 geAff6aT5lAYHjeUxDIQgqecSkz+fFl+GXohGlUtjB44IIrWg6jHqAd6ccfPnaQkbTavI
+	 5inSIPx28XiLcof6ZoPU4JwaHnteoV6+KlqvFvOXB4ocU6MvZ3LjN7PBULA6viIFcpngs
+	 KayHccoejMdf7KeHeVJGvaEbFY6nANzS78jXYlEmN7/NlDp7VdNRpx1j+CAPZpFNnjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792539474;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PMi+PnFccvaD8+yCUa0N3gNkTUvskvlBPr4LLDyPhEg=;
-	b=H/V/tPz4dQemr41ycw57rkBB/CCKM0nBBc7uNjwn6pyJCTG4MmDaHDpzTpmOWFXj6Rf2
-	 wyhhn3zRNZfhXZ7W/5MXg92+FT10BlagqaLPc2HrL/Dn7AM/sSbfAb19PkoCquPKAoIUt
-	 12tlSSly0YPK1JEuUImpOC7Jw+QMTZciDS/sEDM90UP8ouiXRAJgzxfjjSuGPgZbhYLSw
-	 piHOFq0+/E9Tp607WIHJsW7Al3tPQAVQh5OFPmHab5FeNEAmLGJnU2gy1GnziZb8WpNtd
-	 cXQqvElmsDY00eos1p8Aw7erXZQS7M56BgxZjJgW0uEPk05n/3kkt62wSOMFrzr6EZw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ucoGans+Z6/DkY4UTOeYgSsSSQakdWd0/LydR6karMw=;
+	b=B9pg6jeZbSH66ROpntWl6trilYW/0RU3ccoGnuonI39hWJh66fh4X45fEMCdr/cam1a1
+	 znyjblN+A68bEcxOn5+68gXw45FEJeeQ3eb/FFAJyLESQBP7q9xNqEUOgYIDEft8qa+ao
+	 qQBIT1K6I+POdGPacXtdG1XNodnmmbB4cH94CcHys5bUmMrkeVRQF0Q0tzozlv5FhoB85
+	 MLtHUmzAJC/flOAM4wo0dNPL+JWqZCE1Ln8pZunhDqiVZWJO2l2aDzYKac1R8euHxX25m
+	 xyImkzdBkUW0OgcAqoPn22Tw99VQZ5a1DS3XCCcbIcK6mTrh69Y8pSFzZ1OC6qjc6sA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Fn/kkC7j";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kA2+fE1b;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75DB606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:37:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E75DB606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60EE8606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:37:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60EE8606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fn/kkC7j
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c40f29667e6so12754366b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:37:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792539447; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HGogDHdWdHW1zTYwFr1SJyg4tOF+p8OLgtUtv+l/xGeT4+13PQmjOnHdNHAKXBZ05R
-         xqygdETbtdXkx5ra+ChB0LatvOoOaCw3siQ6aWRRvzbbfUMPz6TMoqT12UMpp2uckiit
-         +vqfUDYP06THcfaWjvWDGB1p2gBwbg5tGvLKLUTITE2BGMi1Sgrub8MgXicCP6DFnYe7
-         lcHDuRz15v00B0QznHtXLtxB0XPI2I6t2IQRmfKxwhB9WnbaDtrGs9F9E5pEb9hbS38+
-         UsvpYCWMDf/bfKeIlwH/As4U1BhKqmHDCqDpHFJ9zfp37tYVtwe8lBdZ3SzbmadZaaH3
-         6hzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PMi+PnFccvaD8+yCUa0N3gNkTUvskvlBPr4LLDyPhEg=;
-        fh=QqZuppkIyr2MJMSh/4GwonYMlyMkhdnfoQD6knAvHXQ=;
-        b=NhG8xz83uijhtD0taq/tmUoyYduEOo5stZ4nmSiOoJi6n0U+gSKplQExcWfqRHoWWh
-         1MF6c9h+3FJaqM+Iu2NqP0J2iC30LmHkC3v6cCQRVmffgmtVjyuows+kC+m88vjzQJCC
-         NYhz9gMIsrRnGdTeC+cG1LZlM1xRCndKiaZFAZCaHuI1iXBOI5MzGJRbZYZInl6COqYi
-         IUycGnHWw8Tbt3xigLwp9jw0LADDewx4Qpa9YpQ74aa/Hqw4kvN9+7BFGL10VndzR+wv
-         oryRqQA9dmS/V1lbIWCJxauEUxvjFWFVi4bOY+2gVAGeBYOxzoIOHilnXQ7eZu/CzPaH
-         soFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kA2+fE1b
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e0d1da913so104509f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:37:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792539447; x=1793144247; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PMi+PnFccvaD8+yCUa0N3gNkTUvskvlBPr4LLDyPhEg=;
-        b=Fn/kkC7jilFMh3hObGap6hKFVeaZdwAT/S0wkVhlugZvayllm0CzCFpB2QZd+CRVBp
-         b3YCQbGvhbkZcwZ5Lu54P5tTj3+f9CSdETfDD0gxQh0SqWfL1NZUvJ9jwCfTQED3TyNT
-         JuTACtnABg9mmSIKiRbr3NZFqxLlqj4rgq3Ld2DoA3cUImyezxrMfpqFyukHc5mS6cvh
-         GOqCuvvXtLD8bFt+9QYxEA/68skY0Tsg89Hw6IJZQblEvP/mz3TBm8OkGpg3JqVTvEhK
-         923OAaxQttUQYGvJqCo5NFcviVtpsKC9SbWxfAJpln6QDgynzrRyV0Jll1FkvPApaALA
-         Yj4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792539447; x=1793144247;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792539473; x=1793144273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PMi+PnFccvaD8+yCUa0N3gNkTUvskvlBPr4LLDyPhEg=;
-        b=iWjRSNfPhQ5KxzBdAFfkDnD8otELAC0sI6wV8qlj1vQDCOfgw5DPNeQBKHXg9TA9bk
-         bdxiM9qQUx1i7Hol06F+k+GICE470BMXEkFufgm87/2UPNeqgjWb6FrG+2GQ/UWkIEFi
-         Xhy2/bt8XPBHMgxN5/ApyQXd7BCpUTXPaQlVZzABqmXXVI7UWyl+Qg1vNfV+Go0MMOJt
-         kaO8A3Ah8T/lCDzADCDwV5OwVxMMf5aq+JO/u/ogbmW8QR2IsA8Eu1BeOtHr263i5VC+
-         jvS/IBTKSFSbuBvirECiIrnCM1CCEMEIqUO7SbdArL5nNy13+UmEo06+JH8gHY4s38gh
-         OW5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzDVv6d7mo7mzYFvSMj531ukHBb1DRGmtxb+XRPa79ByNV74LlZ1iZ3FJlgMqi9PjeZptFpg3D2of2Dlis=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJatvk1LK3CFmz+X6Ax0enLNQUy7gJD7zPvyTIWIzv33F3NDN1D
-	8GTjHkNE1qJDf0zkD7JUoLPjgJ6w/SS9uOVh0WXFKtsx5+AkiwecUw8k/oMlK9rAUbMza24W0oa
-	olm66gJX5UBnBJ5J1c36OPbwrIgJr5ftmGPdlRw==
-X-Gm-Gg: AYBFou17rNJprjY+FdruncK6KvhSZJaeK4gnUHOw/ONG8Nyhrt8qmAM4o0a6JsTfn4A
-	8llZQ9DcVgXQVh7kKMReYNq92Gy4ODyRwe7OowMjuWZVwEkhPwbycrQ7yKRSd/njZr7mN/hdGdO
-	PbqZvzT7elKL5r46o6T/kb8PrmJ6ZV5u+fAHKWZtIZXwEeAQXhLeFbukCopRo4QcFhezYZBlCFN
-	6oJn1pfvpc0qISY9f0gZ9oGjuAcaQFX7719Y1e6oWASG5pOSj7Bj4qwL3RlHMgJ2yvigsqTPtYf
-	sWtcFNy76Cnpp2yB9X5B6liMGDLDZgb43dFi1JSoO8VQQoU2RaAhpyVU+ZWvXEkJIP831swH1sx
-	PRaUiSxzS06hJmVmxZf8p76bkN0W+u+E3s+jfniDfRRr4FYssYx0ArfHj3qjz1OFIv1Cp
-X-Received: by 2002:a17:907:6d27:b0:c40:dead:7466 with SMTP id
- a640c23a62f3a-c4679597fd2mr47255966b.20.1792539447062; Tue, 20 Oct 2026
- 16:37:27 -0700 (PDT)
+        bh=ucoGans+Z6/DkY4UTOeYgSsSSQakdWd0/LydR6karMw=;
+        b=kA2+fE1b/tPF3YnsCgW3qYVaw/PEioEsGS4BBM8os99u7hiSVu8SCUJG/2vsOvmbY2
+         jT4DJs76ooKb3pTUlY8hIINkrtcEt/iK1or1IiPfrpxkaTkcXKBgZkmnvMIIlXMO1TD6
+         iQvULmHA05BA6M4D+SQSzzgBTTOTiAF8LVR0yWXC1D22hvxtaStReWxn/slV0xNx/w4u
+         tYBFqRAdfahspg/DoU68/3wuJkhXmTw2+DThiDMsDmLvaN/A3yuYDzYmIm/HMVzXCf60
+         pncMFfoVwDznSeYpl66IEYBCXCPj2rGUIN3fsAZ463uuYZibe7Fsk4m4xV66UgZkJ4Z/
+         U7Sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792539473; x=1793144273;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ucoGans+Z6/DkY4UTOeYgSsSSQakdWd0/LydR6karMw=;
+        b=fahK4639h2mHHObl/t/DpQYER/JYUjW38mH4L6363uxUtB4BT+Bir1/PSl7YJOAMgt
+         M6TuLllLMoslyuH+qzwfC2O7y76M2jp3pA9nBe+QQEOo44Y6FYEn+ouS1OAUErGtfbb9
+         OPXfRYv4yB4zQXPBGKzZeILcLfCERcFvZBT/A4upG6vZ/d/JEZ5oaoYQnLhlBQxN2LkP
+         nb4WlOaRp/RgU1QnPbfjeGNueJ7kDapD8B1kvms2gHyKmny/crrgO3DW0FGb2rauGzzY
+         eiutvpRikiJ44Vr/RKOVx9FDz5NdZ72BlIYcPBRL5j8wPh27z25c5D9TCrMoS13GGyc6
+         XwBg==
+X-Forwarded-Encrypted: i=1; AKwUvBwByhtPqHVPbm94lSkAUFGoi9G9q+qpSA50Q7xivvGrEoppYy6tBkAsuiSSNJSN+QKmio2coDeF0IWbQlI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRpsT3uoOkF4LtqA7jr2xE5ar+QHnekGJMoO6FVcAiXI9SZkty
+	+9MDADamS16j+lCFhbFcO6CgfjftDzoquD3SWjkSNAdbXE2Mwbbzjtc=
+X-Gm-Gg: AYBFou3wzQvLl8qS7UicnfRGzvgqqupAYyVXspYwaEpC34yMQom0PuWZGCs7GfkZsBb
+	5h/tfUpwA9cx3GdCEDfuPf4C20R9v6Ifn8zA7hhaaRF8gIfVDzS2LNERF4RJTsl29ocYpBZMBpd
+	2uo2npVMK/zKfmcveuYk+z1tZzzPV1UPRBCc7Wc8UN7APSQkp59SwCbFCyjJm/sZE0gjiSeWnxH
+	Re+EL9NMtq5bcVwSVQvc1PNyhuvnkuD8rPk4FaJzcB7AGpjmRiAQsTTBxxIlhpeuv8dLyWmw9nL
+	IgbRmDROWG+z9PEndY7c7KwsYxXatBBE4s5BG5rUuh+HzsDHaOFBW/Q1ri+GvX/d4+7RyBtK2Yz
+	+WPLiw9S4iTDQI+me2WHyXStkgvuYoYlCJNR2n8El5rvBJhSg+Z7Or8/N24gBC+QTmLWMOwtqLo
+	4RP1uYBBix2gi4bmSDU2P7l2zsOl41oo7148jOD6WIadni9m3KkQbFDpK4W4ONyougVVfLYCKS4
+	/lwZtKsnlqGLdeGheIFWAtMWEaaHl90b/EgkeuUe1mR
+X-Received: by 2002:a05:6000:4013:b0:48c:58b9:f17c with SMTP id ffacd0b85a97d-48e1e7b672dmr8287971f8f.12.1792539472559;
+        Tue, 20 Oct 2026 16:37:52 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:8109:9d9f:2700:ddfd:9840:a7b7:c1d7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258426f4sm1532763f8f.54.2026.10.20.16.37.51
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 20 Oct 2026 16:37:52 -0700 (PDT)
+Sender: Akshay Ubale <akshayubale.dev@gmail.com>
+From: Akshay Ubale <akshay.ubale001@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Akshay Ubale <akshay.ubale001@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Kees Cook <kees@kernel.org>,
+	Matheos Worku <matheos.worku@sun.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] niu: bounds-check phy-type and model VPD strings
+Date: Wed, 21 Oct 2026 01:30:07 +0200
+Message-ID: <20261020233007.71945-1-akshay.ubale001@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,227 +104,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019234402.805759-1-mhun512@gmail.com> <1fe09bc6-2341-48f3-80b5-0d9dc02796a9@roeck-us.net>
-In-Reply-To: <1fe09bc6-2341-48f3-80b5-0d9dc02796a9@roeck-us.net>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Tue, 20 Oct 2026 19:37:14 -0400
-X-Gm-Features: AclHuK-n7HXTrGRNTLUJKxTldJMnq9XQIWZa_22ydo7BcJ8gXvzDr2Dnbozk5vY
-Message-ID: <CAGEsz8EtusjcLXrUV7AP+5DvXAY42g8xnCQHSTR6sz8xkrWHHg@mail.gmail.com>
-Subject: Re: [PATCH v2] hwmon: (sht15) Stop deferred work before releasing its resources
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Guenter,
+niu_get_of_props() copies the "phy-type" and "model" device-tree
+properties into fixed-size np->vpd buffers with strcpy(), which does
+not check the property length.
 
-The original issue is that read_work can remain pending after a
-measurement timeout, while unregistering the regulator notifier does
-not drain previously queued update_supply_work. Both may access
-resources after they are released.
+Use the length reported by of_get_property() to reject values that do
+not fit, and copy with strscpy() so the destination is always
+NUL-terminated.
 
-You're right that v2 is unnecessarily complex. I'll remove
-IRQF_NO_AUTOEN and the IRQ caching changes, and keep only the explicit
-IRQ teardown and work synchronization in v3.
+Fixes: a3138df9f20e ("[NIU]: Add Sun Neptune ethernet driver.")
+Fixes: f9af857489cc ("niu: Determine the # of ports from the card's VPD data")
+Signed-off-by: Akshay Ubale <akshay.ubale001@gmail.com>
+---
+ drivers/net/ethernet/sun/niu.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-Thanks for the review.
+diff --git a/drivers/net/ethernet/sun/niu.c b/drivers/net/ethernet/sun/niu.c
+index 54dd7281191d..fab6af105df2 100644
+--- a/drivers/net/ethernet/sun/niu.c
++++ b/drivers/net/ethernet/sun/niu.c
+@@ -9260,7 +9260,7 @@ static int niu_get_of_props(struct niu *np)
+ 	else
+ 		dp = pci_device_to_OF_node(np->pdev);
+ 
+-	phy_type = of_get_property(dp, "phy-type", NULL);
++	phy_type = of_get_property(dp, "phy-type", &prop_len);
+ 	if (!phy_type) {
+ 		netdev_err(dev, "%pOF: OF node lacks phy-type property\n", dp);
+ 		return -EINVAL;
+@@ -9269,7 +9269,12 @@ static int niu_get_of_props(struct niu *np)
+ 	if (!strcmp(phy_type, "none"))
+ 		return -ENODEV;
+ 
+-	strcpy(np->vpd.phy_type, phy_type);
++	if (prop_len > sizeof(np->vpd.phy_type)) {
++		netdev_err(dev, "%pOF: phy-type property too long (%d)\n",
++			   dp, prop_len);
++		return -EINVAL;
++	}
++	strscpy(np->vpd.phy_type, phy_type, sizeof(np->vpd.phy_type));
+ 
+ 	if (niu_phy_type_prop_decode(np, np->vpd.phy_type)) {
+ 		netdev_err(dev, "%pOF: Illegal phy string [%s]\n",
+@@ -9294,10 +9299,15 @@ static int niu_get_of_props(struct niu *np)
+ 		return -EINVAL;
+ 	}
+ 
+-	model = of_get_property(dp, "model", NULL);
+-
+-	if (model)
+-		strcpy(np->vpd.model, model);
++	model = of_get_property(dp, "model", &prop_len);
++	if (model) {
++		if (prop_len > sizeof(np->vpd.model)) {
++			netdev_err(dev, "%pOF: model property too long (%d)\n",
++				   dp, prop_len);
++			return -EINVAL;
++		}
++		strscpy(np->vpd.model, model, sizeof(np->vpd.model));
++	}
+ 
+ 	if (of_property_read_bool(dp, "hot-swappable-phy")) {
+ 		np->flags |= (NIU_FLAGS_10G | NIU_FLAGS_FIBER |
+-- 
+2.53.0
 
-Best regards,
-Myeonghun Pak
-
-2026=EB=85=84 10=EC=9B=94 19=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 8:37, =
-Guenter Roeck <linux@roeck-us.net>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On 10/19/26 16:44, Myeonghun Pak wrote:
-> > The IRQ handler can queue read_work, which accesses GPIOs and may re-en=
-able
-> > that same IRQ.  A measurement can return while read_work is still pendi=
-ng
-> > or running.  The regulator notifier can also queue update_supply_work,
-> > which accesses the regulator.  Neither work item was drained on removal
-> > or on all probe failure paths before the managed resources were release=
-d.
-> >
-> > Use request_irq() and free_irq() since the IRQ must be released at an
-> > explicit point in the teardown sequence.  Disable and drain read_work
-> > before freeing the IRQ.  Unregister the regulator notifier before drain=
-ing
-> > update_supply_work and disabling the regulator.
-> >
-> > Use IRQF_NO_AUTOEN to ensure that the IRQ stays disabled until the firs=
-t
-> > measurement, rather than enabling it briefly between request_irq() and
-> > disable_irq_nosync().  Cache the IRQ number and check errors from
-> > gpiod_to_irq().
-> >
-> > Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
-> > Assisted-by: LLM
-> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> > ---
-> > Compile-tested (W=3D1). No runtime testing.
-> >
-> > Changes in v2:
-> > - Replace managed IRQ request/free with request_irq()/free_irq().
-> > - Use IRQF_NO_AUTOEN and cache the data GPIO IRQ.
->
-> That replaces a relatively simple patch with a much more complex
-> one, and Sashiko takes offense with it. What is the problem with
-> the original code ?
->
-> Guenter
->
-> > - Preserve asynchronous work drain ordering on probe failure and remove=
-.
-> >
-> >   drivers/hwmon/sht15.c | 47 +++++++++++++++++++++++++++++++++---------=
------
-> >   1 file changed, 33 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
-> > index 7bb2105d1ae223e7131ba4cc0523e4e074e01302..c95acec7ae2f8f57a10bd72=
-f65a2905e64c3c58c 100644
-> > --- a/drivers/hwmon/sht15.c
-> > +++ b/drivers/hwmon/sht15.c
-> > @@ -31,6 +31,7 @@
-> >   #include <linux/bitrev.h>
-> >   #include <linux/gpio/consumer.h>
-> >   #include <linux/of.h>
-> > +#include <linux/workqueue.h>
-> >
-> >   /* Commands */
-> >   #define SHT15_MEASURE_TEMP          0x03
-> > @@ -120,6 +121,7 @@ static const u8 sht15_crc8_table[] =3D {
-> >    * struct sht15_data - device instance specific data
-> >    * @sck:            clock GPIO line
-> >    * @data:           data GPIO line
-> > + * @irq:             interrupt number for the data GPIO line.
-> >    * @read_work:              bh of interrupt handler.
-> >    * @wait_queue:             wait queue for getting values from device=
-.
-> >    * @val_temp:               last temperature value read from device.
-> > @@ -149,6 +151,7 @@ static const u8 sht15_crc8_table[] =3D {
-> >   struct sht15_data {
-> >       struct gpio_desc                *sck;
-> >       struct gpio_desc                *data;
-> > +     int                             irq;
-> >       struct work_struct              read_work;
-> >       wait_queue_head_t               wait_queue;
-> >       uint16_t                        val_temp;
-> > @@ -532,9 +535,9 @@ static int sht15_measurement(struct sht15_data *dat=
-a,
-> >               return ret;
-> >       atomic_set(&data->interrupt_handled, 0);
-> >
-> > -     enable_irq(gpiod_to_irq(data->data));
-> > +     enable_irq(data->irq);
-> >       if (gpiod_get_value(data->data) =3D=3D 0) {
-> > -             disable_irq_nosync(gpiod_to_irq(data->data));
-> > +             disable_irq_nosync(data->irq);
-> >               /* Only relevant if the interrupt hasn't occurred. */
-> >               if (!atomic_read(&data->interrupt_handled))
-> >                       schedule_work(&data->read_work);
-> > @@ -546,7 +549,7 @@ static int sht15_measurement(struct sht15_data *dat=
-a,
-> >               data->state =3D SHT15_READING_NOTHING;
-> >               return -EIO;
-> >       } else if (ret =3D=3D 0) { /* timeout occurred */
-> > -             disable_irq_nosync(gpiod_to_irq(data->data));
-> > +             disable_irq_nosync(data->irq);
-> >               ret =3D sht15_connection_reset(data);
-> >               if (ret)
-> >                       return ret;
-> > @@ -825,7 +828,7 @@ static void sht15_bh_read_data(struct work_struct *=
-work_s)
-> >                * have gone low in meantime so verify it hasn't!
-> >                */
-> >               atomic_set(&data->interrupt_handled, 0);
-> > -             enable_irq(gpiod_to_irq(data->data));
-> > +             enable_irq(data->irq);
-> >               /* If still not occurred or another handler was scheduled=
- */
-> >               if (gpiod_get_value(data->data)
-> >                   || atomic_read(&data->interrupt_handled))
-> > @@ -976,25 +979,31 @@ static int sht15_probe(struct platform_device *pd=
-ev)
-> >               goto err_release_reg;
-> >       }
-> >
-> > -     ret =3D devm_request_irq(&pdev->dev, gpiod_to_irq(data->data),
-> > -                            sht15_interrupt_fired,
-> > -                            IRQF_TRIGGER_FALLING,
-> > -                            "sht15 data",
-> > -                            data);
-> > -     if (ret)
-> > +     data->irq =3D gpiod_to_irq(data->data);
-> > +     if (data->irq < 0) {
-> > +             ret =3D data->irq;
-> > +             goto err_release_reg;
-> > +     }
-> > +
-> > +     ret =3D request_irq(data->irq, sht15_interrupt_fired,
-> > +                       IRQF_TRIGGER_FALLING | IRQF_NO_AUTOEN,
-> > +                       "sht15 data", data);
-> > +     if (ret) {
-> > +             dev_err(&pdev->dev, "failed to get irq for data line\n");
-> >               goto err_release_reg;
-> > -     disable_irq_nosync(gpiod_to_irq(data->data));
-> > +     }
-> > +     /* IRQ remains disabled until a measurement starts. */
-> >       ret =3D sht15_connection_reset(data);
-> >       if (ret)
-> > -             goto err_release_reg;
-> > +             goto err_free_irq;
-> >       ret =3D sht15_soft_reset(data);
-> >       if (ret)
-> > -             goto err_release_reg;
-> > +             goto err_free_irq;
-> >
-> >       ret =3D sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
-> >       if (ret) {
-> >               dev_err(&pdev->dev, "sysfs create failed\n");
-> > -             goto err_release_reg;
-> > +             goto err_free_irq;
-> >       }
-> >
-> >       data->hwmon_dev =3D hwmon_device_register(data->dev);
-> > @@ -1007,9 +1016,14 @@ static int sht15_probe(struct platform_device *p=
-dev)
-> >
-> >   err_release_sysfs_group:
-> >       sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
-> > +err_free_irq:
-> > +     /* The read worker can re-enable the IRQ, so drain it first. */
-> > +     disable_work_sync(&data->read_work);
-> > +     free_irq(data->irq, data);
-> >   err_release_reg:
-> >       if (!IS_ERR(data->reg)) {
-> >               regulator_unregister_notifier(data->reg, &data->nb);
-> > +             cancel_work_sync(&data->update_supply_work);
-> >               regulator_disable(data->reg);
-> >       }
-> >       return ret;
-> > @@ -1023,12 +1037,17 @@ static void sht15_remove(struct platform_device=
- *pdev)
-> >       hwmon_device_unregister(data->hwmon_dev);
-> >       sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
-> >
-> > +     /* The worker can re-enable the IRQ, so stop it before free_irq()=
-. */
-> > +     disable_work_sync(&data->read_work);
-> > +     free_irq(data->irq, data);
-> > +
-> >       ret =3D sht15_soft_reset(data);
-> >       if (ret)
-> >               dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR=
-_PTR(ret));
-> >
-> >       if (!IS_ERR(data->reg)) {
-> >               regulator_unregister_notifier(data->reg, &data->nb);
-> > +             cancel_work_sync(&data->update_supply_work);
-> >               regulator_disable(data->reg);
-> >       }
-> >   }
->
