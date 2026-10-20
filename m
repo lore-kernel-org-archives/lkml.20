@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
 	t=1792481250;
-	b=hgdmri02vtzUh7ZQaVQW2RG0fQYJhjm7fNyOPc+TSaQlSMlv7GFBPE02OCbb8Fk7NrJm
-	 9J1dbU6gh7GjmsehVpqjdFC1YYjFIYcN61WBB52imzLaXZB7F8Mr1lSiBAqwCXDXOx85p
-	 jC972zwUeYzeY9o67WWq/yEtLxtkE/MNmEEZ/XpJbJYpncZ9I49yJKZqu1vTwxal/EnIr
-	 IxGDGyvvksDmN7/ScWUYtgGdEla4d0nn2xLYqLltG493SwLs1l91mqtn0D8VbO86A/p+t
-	 eijodUGiHELZTciqvy81AxVuauR2f/u5nUVtwIBU4ltf3cUzebLk9BJfA5WvyXpnNbQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=nFChLzuuCLI43aS6hUQn3GDEoj64UMzxppr/H8sS9+HUY8xqremawpgDuiBaylokfJEo
+	 oAFInK4KEd6j0wePq5f3ks6kqk1bMB3/BdqS0s3oUX28AJqTUsPYD6JWCmV3IMQrMQPIU
+	 aGhVCzy4nUjG8P+fBOlGpkjP5z7OVnoXsecV0Ag/DSDfI6UknedE5Yle3g+sOXv7jIPbr
+	 TGnCSo7Bl348BtgUGdUT0Aa7yDL6kJwx6wsprxllPybES0firPlU3YeZ3rBqylrLh4ZhI
+	 BBLX8r4iTVw+ckPi6Q0oLAM8j3FErLiX0edYssmdP2qHbNTX49P1CYFnKmEbwjEy71Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792481250;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0zrJsy6+pFWfHViBKa8dcpiN0fO/uxJvY/CktxDW/j0=;
-	b=ngOpPij+L9FRirUWReVmGpclwxtTzv6KV3v1LLJ+NpRRUw01IC5xgpLWTw7DT9fLT7Rn
-	 SbzCT0QF3vEh/soO7hKGTw1ioXNDT8C8y+UAs1JxiO9E7eQ0HiMbqBYXJi8RtqjncbY+c
-	 efFF1A4DCYgBnf2Ht3oEVnmaMQAkNM+2rzgHyosoNkAqfY/ABNseBq8Np9auoQl5P3nSI
-	 GIjdVClrizoINIk7nKA0pijQVOuDHeIBEt2NTRPbk5Qu37vSN2l/WvEG4lyfmi788QKQQ
-	 ph3zx1ClhRC/7aW95sTHgvTu1uTlykiC8rPnz8QhJNOPdvS+OHMQcEBmEypoE4hSpPg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=oreBUFr7UOwcag4Lyp3MhlrEMw46izSqLjbflLZfF9M=;
+	b=O2RCtWtiTF3ST49LaMjH8xExboHg7sD5lgKQcXU+Rhsh6PEYS6iVSid7eKevZRQASO1b
+	 0hld0Y1tQxLMB+258uzRWmUDEMdfp5YR9Op/zBsR/mNo01SD7Kg0tx6k/1KL0HwzXY4Z1
+	 9NGhkKZsDuJYEATcfNr7r4uGFkYn7RDdpGcjEAWpm6m+v87/UI5MUhfGa7sQfFZ9kZFZt
+	 6v/qj1k1iZ5Gsd9hM5Ma7tN3RLNXdcQc+BTH3JHG/3c8yln3A/u+CTpZbIZiVq5Z6ScPd
+	 cmEIGuowJybIs42MycrdZpGVb5Vr/m5mGxWvXf0LnRO42imJqZMU7IUSdPhPP45SGoA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CAdKwYDi;
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BSkiROCn;
+	arc=fail smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A54606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14DF606A31C
 	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:27:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07A54606A321
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B14DF606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CAdKwYDi
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-3663e04e9a8so415785eec.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BSkiROCn
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-353804b591eso5572028eec.0
         for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:27:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792481249; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FlC4cHOpLlhkyAbYO8Pxo13M29qSB8L/UyTPU6iv+1w+Q/dKzKFqnfPJGCMMv2BXZj
+         6LXDJ6KU7BynmKbUN2tEqcXWgT5pAzrjLlzbqij5y08ha1/4WgSVrr/nv/vwf6TIbPf4
+         zNgdE4rJnOyxT+AZ0gdcJQ3NAw1atTpHr5jBSrmponZrVfj5DotjzV9oI0K9vjy3gXu2
+         RAGo0RplGJySdPVaXF2GBDREDNywDubhhrRx8ZpdhjiflPY2O0RyQZhM3XfHaqrRH/qe
+         k+47OK9+PNnm0ou1bKhAWudbk/pCMrZqWdxRQ8rjtaFr2vhxL5US61czu3k6f0J6PwE6
+         aQLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oreBUFr7UOwcag4Lyp3MhlrEMw46izSqLjbflLZfF9M=;
+        fh=zlPRan1SzQVMewlnyukOPC9uN5BRYKYQrme4TvjKfXY=;
+        b=AsLLX0lTGj0UKT/8IUmFhcq6/ALG1vi6o5QIpT+jKgk7U38Cg1j7uIMg8qjZ/NZg0Y
+         08OiAopNXar2FQ8ya1UwZPeKqELYaP0P9GMjL2wvF66v6MNrbL8Xbr6p/Vm1KzbySd8v
+         9glxwuSNO+ZfETEKsY7TlDphjNTmvDyJdXFyX8qEYKEOf8MRSOSbGAkGUoaV3FartCv4
+         dQRGh+f0a9dBr4srPPLqnsWvWa87t9h6xhsKxtn9oJqUGtVy7vJeY5aZhBjSOWbmo0cy
+         sqsppS54h4xP/m+h4ICc2rn3tgljHtGoUfl/g0Gu0lVWweubt+0X0DyKJAKHO1X24ebQ
+         HIog==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1792481249; x=1793086049; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0zrJsy6+pFWfHViBKa8dcpiN0fO/uxJvY/CktxDW/j0=;
-        b=CAdKwYDieH/mM+qs+HVjyvwmt4OrcxXllqKFOPPXkDeVV4qNhYTyqJMJcrQwaev7If
-         BetT3yLcc5xRJCWCUInP5oLzcBjzH8t5mFlSvZbJipgfZfevw1yK9xuYiHZ8YtlGccz3
-         VBJwK4la/A4r5uVjf+8/PO/LBlgWmKFMUn0j1kY7WHtiXbrG0gzyW4yH+8JFrfaN4pep
-         fI/GRuIW9ieXiPv/elFHUYZucl3lun3Bp+5Tlb1SpF9KXmjHSNqhZteX5MvuGrTF1igI
-         B1s27oEw6ht+c5uE3iBQoiur1u6G999iY7nN4Bnk2/6z08lgKZ6iVJ2G9+4dxJrQLTAL
-         bsvA==
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oreBUFr7UOwcag4Lyp3MhlrEMw46izSqLjbflLZfF9M=;
+        b=BSkiROCnNX58runhrTm481OeUe6TigS9vHK/+OpJrzISryqv6gzY1meZWXeXBK1TM5
+         AC7OWBag1lIVxMOnonE9yViTuJFz8+NjIchY6oIM0Ms7rn26hIQRvp5350SzaxDi2Nr+
+         AYxvqSFKAaVltVGTHYxUVSgKHGctsooVeSkzQUa0cEPLuxd6S8zkBcNqsYmZYludnRO7
+         27/rpaV5jOvsgxXEYRNJPK06HDStg5yCj8K1nDSd7nR4jNMl2inCuFYB6qSlTIsDKgQX
+         d4bolP76Dhzke2KFbwjisP6mXoxnu/0jLFvoOr3aGirCtZJLBN99e1IkjMwfT0FPYvyA
+         qhWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792481249; x=1793086049;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0zrJsy6+pFWfHViBKa8dcpiN0fO/uxJvY/CktxDW/j0=;
-        b=c2r9BOdNGRXyFqiImL0dCGg8QopnuD673BU+vyQ7z3ncYSyoSP05bQ+D1AnmfiAvB6
-         deWHAj1y4BNULRwiQlgLZcxqCXnVYerSEZJcA4WjrN1FfUybmpVdVjmkbvjy0G8DY1Y7
-         PcmFXlOXK/3Aj56yY7o9ABnwsaCM4HWWEMfPpg1XRWEFESPiVa99pLc8cSOictqfnrYH
-         oYzHg8ql5IPOO3SeepNpe2PVlwPeaUGMO63lVUs5wKVROfF/jd1HCaO0RVVwsSPYHIb6
-         xkLheX2nX0tXL1VYAAHC+Jl+MIVQunC7PCRcJQbJDPjoml7ku95e3eh6WKAOwuE4GAkR
-         9x0g==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ1DC7cYWYJFkKCV/0iu2q4dJ9Al0k6kX/1ZUlIBgHGsmHEhXaMzHTIBINrO898s2LinGt/3gbKyBg9Vk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6Q6U8EeFXgVPaETWkG2rXYwOSKepcuTAKSXSj6exqI+WrC850
-	tzKwtJz0Yh303HOZDRcPeGvw8uNZX4d36FwgDxfOdjTW4y7FXt4MEfgO
-X-Gm-Gg: AYBFou2Q56Buo5KXlQ7MrscOUGKY7qS8Utt10/wn7qj07WE+4RkZS/N9AkqCmuRG9wb
-	hg73Cf+DSBnmDJL7GcgQ0EA2dx1KRynSd56lBTNFDekGxvX7nXVi5tf9Lt51m3C5h5nS5nJRtBb
-	qSp/oZlVrexWh3nP0Zhs3OwexsylGrZzPlI1VId89EhOCHMsJ2McNnguYkTuDEtfXt147s2USnC
-	/OyPxyEmYzu72HpopcFel8H9T88MbRaYJ337Mfk3a0xg1WFZx3tDSW3Y73TO2diUDZX0g3ksKZF
-	55f8araOnGW5fFe647H0eQBm32iKrHYujlDRyTNuEbmI+JkM9C2bVS9Wqx44gT+YagMMfsX1buQ
-	gFKplVVgsMp/EyqwlPS58W/mW+jcZjrFXWsy2XV4MzcTW6xm4XYDI+I7UwcF5GkJaYR2pbPMz4k
-	mWUGDCptTsGIynixzdsnrHSVeQB06KZQ3JWH9l83/l1znTe11+G43I6oHDLr8fILe79tlfJi/2+
-	oR/375FGCOYTMcDH6XVnS+bhbzEwslz8iN3
-X-Received: by 2002:a05:693c:8244:b0:366:8efb:bab9 with SMTP id 5a478bee46e88-3668efbc174mr439554eec.11.1792481249125;
-        Tue, 20 Oct 2026 00:27:29 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819bc569sm37090220eec.11.2026.10.20.00.27.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 00:27:28 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Miroslav Benes <mbenes@suse.cz>,
-	Petr Mladek <pmladek@suse.com>,
-	Joe Lawrence <joe.lawrence@redhat.com>,
-	Song Liu <song@kernel.org>,
-	live-patching@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] klp-build: Use kzalloc_objs() for object and function arrays
-Date: Tue, 20 Oct 2026 07:27:12 +0000
-Message-ID: <20261020072712.12633-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oreBUFr7UOwcag4Lyp3MhlrEMw46izSqLjbflLZfF9M=;
+        b=qdFWfdj81J/gkfGCHWJIrVYpX4lyxG8fDvKg5b/BAoDmAqnzVFR/m9OfEg/zQ7MWXc
+         TjAlzb17VOvkMcvH1w27RUZXbCw32GNeNMosGFs3thi6VFFwRTM1eNA2Re2f2BQxutjL
+         d5smGLLEF5nfIIoNL0JMTXDgkLdBHVnb3EAggOwBNQvJqc29m1OUKdMCO3107K69/sF3
+         QcvYBuqhmGUJWRNXKzW0Sboc7UyXUTZGpuz++ujjkbBJNazZbyNia5GOd1eOWIdbi+Pq
+         VcsczzND2aVSGHfGSGCsUhgp+uTxlJyThRClzjzEQR2R+KYik5TcOWQ48m8ppMtnjzdY
+         EUeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHaolGftcTrevU/qYpl60c89GdMpAQI5oQEb3O0JiHLQgrLih9qNYKSrkrk3hXJMKpufgl20ooWbKfm/k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMYQWkqJH9T9mf3ynaYjq4IMjtNT4SVXpHfaknqkzlnspemiYY
+	re2VXibWYJ1TueVWKtmV4WuogYZxu+xIeckKs5vXgvJ3TXZjPA8VPYoKfMNiWlHTQuXWWudUIrX
+	w7xnkBn/KugFLjjZ4M21jJZ40JxWNsLY=
+X-Gm-Gg: AYBFou3s/TpVy4tzW21Qdy9/E9o9t6DgaJLhn2bvD5JrzAg0AkuBtzaRfnIsjKmQQ6d
+	CecAtN8Wqz1L6R1+/ZXvqv6OZEOSEsXilGd3+sQ780Ft9K0hIbNRDP7GjMPjpC28DvquUh5FHfE
+	EZWgE0p6VyxbOOPHhl2fWn86FHOowPJdZTU58J27ZrfyJ75nZMP5BRCRPptFY3dbIVgJCPIzk28
+	N+deRHYUfUKFjfFyoaR3oFbO8HtegtN0uDrROV/5A/HqaVwry3Y80ujI7jpFNpYITNSKcPXN38R
+	juhGm5Cy9k5Ejy4Z1P2cCPoU/mnDwcdiiUNWQgc+0eBov9ofoYFZU3MTHtJHf39Jjm4p2ymY80m
+	z76sNQregA5mP
+X-Received: by 2002:a05:7301:140c:b0:34e:67d0:bbb4 with SMTP id
+ 5a478bee46e88-361a0e85fdcmr14132186eec.10.1792481248787; Tue, 20 Oct 2026
+ 00:27:28 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,41 +104,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261019100406.103687-1-clamor95@gmail.com> <70f4c4d7f6263385d29ed8baa2106769@fkr.dev>
+In-Reply-To: <70f4c4d7f6263385d29ed8baa2106769@fkr.dev>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 20 Oct 2026 10:27:16 +0300
+X-Gm-Features: AclHuK9h-tQcbXrVM0viwwPsC9zuaQ4jRTMIV3P7VlE38_D0lFsuAg_ZHkgq7SA
+Message-ID: <CAPVz0n0Oiok9vx1xmTPPpv8+iHCfL4XTE+D3jBMc1rUUHAftMg@mail.gmail.com>
+Subject: Re: [PATCH v12 0/7] mfd: Add support for Asus Transformer embedded controller
+To: Florian Krischer <florian.krischer@fkr.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
+	Ion Agorria <ion@agorria.com>, =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, mfd@lists.linux.dev, linux-leds@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Allocate the object and function arrays with kzalloc_objs() so their
-element sizes are derived from the destination types and multiplication
-overflow is handled by the allocation helper.
+=D0=B2=D1=82, 20 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 03:5=
+7 Florian Krischer <florian.krischer@fkr.dev> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> I tested the v12 series on an ASUS Eee Pad Slider SL101 running Debian 13
+> with the 7.0.1 postmarketOS Grate kernel.
+>
+> The system booted successfully. The EC identified as ASUS-EP102-DOCK,
+> firmware SL101-0202. I verified keyboard key events from the EC keyboard
+> and touchscreen contact and coordinate events from the tablet's maXTouch
+> device.
+>
+> Tested-by: Florian Krischer <florian.krischer@fkr.dev>
 
-Keep the extra zeroed entry used to terminate each array. The default
-allocation flags remain GFP_KERNEL.
-
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- scripts/livepatch/init.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/scripts/livepatch/init.c b/scripts/livepatch/init.c
-index f14d8c8fb35f..908676d6d07d 100644
---- a/scripts/livepatch/init.c
-+++ b/scripts/livepatch/init.c
-@@ -34,7 +34,7 @@ static int __init livepatch_mod_init(void)
- 		goto err;
- 	}
- 
--	objs = kzalloc(sizeof(struct klp_object) * (nr_objs + 1),  GFP_KERNEL);
-+	objs = kzalloc_objs(*objs, nr_objs + 1);
- 	if (!objs) {
- 		ret = -ENOMEM;
- 		goto err_free_patch;
-@@ -47,7 +47,7 @@ static int __init livepatch_mod_init(void)
- 		struct klp_func *funcs = objs[i].funcs;
- 		struct klp_object *obj = objs + i;
- 
--		funcs = kzalloc(sizeof(struct klp_func) * (nr_funcs + 1), GFP_KERNEL);
-+		funcs = kzalloc_objs(*funcs, nr_funcs + 1);
- 		if (!funcs) {
- 			ret = -ENOMEM;
- 			for (int j = 0; j < i; j++)
-
-base-commit: f663062d717eac2c01f77eaf321fa630528e672d
+Thank you, Florian! Your feedback is quite valuable.
