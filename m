@@ -1,64 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792505966;
-	b=iH/shcQAMb/RiDmMnEWhPmZNuN2SfaRUu+HgMdYKMPsYJw+/0DR7/i0XOdxYrr67yiss
-	 5UHbX1TjU3yk1tWbP7QgO9xL1vb4oGkp4W6xrrvGz9snrLchO5J7+LiLlcacJ/xEAoc55
-	 tpV/mru4siMfuwZhhn5iCFsT4JouI+a6QHVEFFCkEv6D0qxgGbYCXmm+BXo1LfW8go7M/
-	 RngzZ005a+6XvPVEuF5VsiSuH5MIhmsQKvurChJalHhg8W/4qTSNxwNERk3vl283VReEw
-	 w5swUw5D3IKgJjqHiUoCBU4lix59Jce5KWTgbbvw9ByJtCYr2H7Yh0HZC9I+nQ6iLHg==
+	t=1792506004;
+	b=wtVa5eR4RX4cwTtQqycU4cwyBshM6PZFlDGJKmDGscl2VpE2vPdZ0oF6kQF1YFKQC9i3
+	 dPXb557RT1vMW5yeRwqLaAULVh5Ig5N1+HBcnq1UYmYzL4Q45Vw5jONaQvctgEq1zTatw
+	 gKxqga/WaODEXiXw+w0xTZOvcl0cYHsWcY4bLlVoQfB9UQ0Qcy9Ny2RvFIadpDFKmMKsR
+	 SEn6qT8g9MgvI/UF1xT58/z4s38RrGFNgGe3dKgxVIgdh5wJacjInxu8j33vDD9YUlJEU
+	 oyt2KswBAxDC/IEcauQhTF+7To9k//DrEOBLnRN7AvbFt2tiiZOx1JaVgJtJVsVCyDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505966;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-Mailer:
-	 X-Authenticated-User;
-	bh=kqnEF+q2yzunlljkCgMnTGrBrqEf3TIoC9fVf9hGPjM=;
-	b=BA4NF1Pc5TTHiiDFluM2Onf0ky5C2b6B5BB51iP96xZycvtWzjNdBsTC+YzHtaaJFOYr
-	 ELdNuic0V6TPj4bUCIkwaNzgMr+znytAKptfhb/RTv/bkYUEPlqBEs6dRufA41YTcLeWk
-	 Ni577s75Qp+HDcbNRZwnO44DXn45pypMojokao/zTv05DrPjlNEXdBT57jubygXd3n4LC
-	 iQKFdX2KBHCgCVQNqnR3FyyfeS9RB6cYy5I4wcNGRZRHIzW+zWi9gY8drOE/n8qvf8QxH
-	 cp4SQrZzQMqbDO/Vda5+yiZitP2zIubR3lXfurCsffAGIGtuP11+dzwnvK/eEpWMQuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506004;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Infomaniak-Routing;
+	bh=MmtTgqf0itXurfWR15iP0g1i4zaJ4RksSWrfdHa2AsY=;
+	b=UC3RAcjeBFOacnPU+jaOjL8BNck3OBkh1JH/8OLEv3LVOGMMiLzSBUYU3c5zAQxyjvCe
+	 TPEPcWWNcoy1wV9Rjo9NosTb82NtkL9mJuqqSXzDyJbG70PWjqZW38niWuJUVBNfmDFwu
+	 qvuqyzPtxLDiuiRbIWv4MNNFAZJZy3RCgfHy170aBLpn7mDUINW5yIU5YZq9S3xGHv3TZ
+	 LFYCtz1sOANKPaujvBfBzbGbkgJ+shOgMgcnnVy1VUs5s/1cg+BrJviWD1mnRlIz1UPZu
+	 ho20DS0o6r2Ckrw5EduBzILnKZ+kVUcRfx6YUtIgu15dYD3R2cuH51ZAnP5P1lT9dqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=bp42wrWC;
-	arc=none smtp.remote-ip=212.27.42.3
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=pm2MmCyU;
+	arc=none smtp.remote-ip=84.16.66.174
+Received: from smtp-42ae.mail.infomaniak.ch (smtp-42ae.mail.infomaniak.ch [84.16.66.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEED606A320;
-	Tue, 20 Oct 2026 14:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFEED606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7F7606AA07
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:20:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F7F7606AA07
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=bp42wrWC
-Received: from zimbra65-e11.priv.proxad.net (unknown [172.20.243.215])
-	by smtp3-g21.free.fr (Postfix) with ESMTP id E269214095D;
-	Tue, 20 Oct 2026 16:19:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1792505957;
-	bh=H1/mP/b1Njxs6cmNY/GEagmuoC+DP9CLfbABpipPGxw=;
-	h=Date:From:To:Cc:In-Reply-To:Subject:From;
-	b=bp42wrWCKRh0RX9w32gnS3nFbPhJO+wJGUHq/1c/YcpJ6dPC7jLsv3Raxzpz2/phd
-	 GV39WFPY+fZQtCHCyZHWhkFVKoW9nGEePVF7pDzWWhnrNWvr4ev/l7WNdOFGEcMgUM
-	 qASKW914X2F0tJrgLwqBfQ55hwL3E3IqSmnh2b7GRPHANCV4DRcnnMA8vtS4vouFKw
-	 CYskQgzuKbZxUdLg07N53za/W7EaKmfcfs5BWMoqdY2HmhxY28KHwthpED76guW+oJ
-	 Qc0sOuQzb/ZNcuRcUhy+hPa1E2ghHbthysle6Q5k/0NXWQKT8ZnZBhikws9QAjXmQw
-	 tgYWdBBQC6Oxg==
-Date: Tue, 20 Oct 2026 16:19:16 +0200 (CEST)
-From: =?utf-8?Q?St=C3=A9phane?= Grosjean <stephane.grosjean@free.fr>
-To: Dan Carpenter <error27@gmail.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, 
-	Wolfgang Grandegger <wg@grandegger.com>, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Stefan =?utf-8?Q?G=C3=BCnther?= <stefangun@pm.me>, 
-	stable@vger.kernel.org, s grosjean <s.grosjean@peak-system.fr>
-Message-ID: <899587980.1227073500.1792505956589.JavaMail.root@zimbra65-e11.priv.proxad.net>
-In-Reply-To: <atdybEUQ9EUdZ9A4@stanley.mountain>
-Subject: Re: [PATCH v5 00/10] can: peak_usb: fixes, cleanup and input
- validation hardening
+	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=pm2MmCyU
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j8F1D5QRwz12nT;
+	Tue, 20 Oct 2026 16:20:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1792506000;
+	bh=MmtTgqf0itXurfWR15iP0g1i4zaJ4RksSWrfdHa2AsY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pm2MmCyU8YXiPamKx0lObCB9pvTVIlEXncTSl5f23Ff2IQe8yAtHVrBWS0ez9x7TE
+	 BinDUl/slMZxi7jYkDul31p9lT1xkGAAcQuhReVSO7TabHY0O351oNdroaYEDSLATX
+	 nLwPRZuXF3GcX3QZ7AjiHHvDq+N5hC1ZGc9VjIxI=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j8F1D0BrLzLwb;
+	Tue, 20 Oct 2026 16:19:59 +0200 (CEST)
+Date: Tue, 20 Oct 2026 16:19:58 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Mark Brown <broonie@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: linux-next: manual merge of the landlock tree with the security
+ tree
+Message-ID: <20261020.oa9oezae6aX6@digikod.net>
+References: <atdvaWI6T-HXhtix@sirena.co.uk>
+ <20261020.eethaeluo6eK@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,24 +67,72 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - GC154 (Linux)/7.2.0-GA2598)
-X-Authenticated-User: stephane.grosjean@free.fr
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020.eethaeluo6eK@digikod.net>
+X-Infomaniak-Routing: alpha
 
-Sorry about that, and thanks for the reminder. I'll wait at least
-24 hours between postings from now on.
+On Tue, Oct 20, 2026 at 04:14:01PM +0200, Mickaël Salaün wrote:
+> On Tue, Oct 20, 2026 at 02:40:57PM +0100, Mark Brown wrote:
+> > Hi all,
+> > 
+> > Today's linux-next merge of the landlock tree got a conflict in:
+> > 
+> >   include/linux/ns/ns_common_types.h
+> > 
+> > between commit:
+> > 
+> >   436485132d236 ("Automated merge of 'lsm/dev' into 'stable-7.4'")
+> 
+> I cannot find this commit, is it a new one from linux-next?
 
-Regards,
-St=C3=A9phane
+Ok, it's a new commit from Paul, part of his pull request.  I guess I'll
+re-create my merge commit...
 
------ Mail original -----
-> Could you please slow down.  Only resend once per day.  Otherwise
-> it's
-> a bit like involuntary pair programming for people who are on the
-> list.
->=20
-> regards,
-> dan carpenter
->=20
->=20
->=20
+> 
+> I had to create a merge commit because the LSM next branch is too old,
+> so I followed the previous merge resolution from linux-next, but it
+> looks like today's merge commit is different than the previous ones.
+> 
+> > 
+> > from the security tree and commit:
+> > 
+> >   0cbc5a0d65b05 ("Merge branch 'lsm/dev' into master")
+> > 
+> > from the landlock tree.
+> > 
+> > I fixed it up (see below) and can carry the fix as necessary. This
+> > is now fixed as far as linux-next is concerned, but any non trivial
+> > conflicts should be mentioned to your upstream maintainer when your tree
+> > is submitted for merging.  You may also want to consider cooperating
+> > with the maintainer of the conflicting tree to minimise any particularly
+> > complex conflicts.
+> > 
+> > diff --combined include/linux/ns/ns_common_types.h
+> > index 47a5cfe2326a3,fddc62be3b626..0000000000000
+> > --- a/include/linux/ns/ns_common_types.h
+> > +++ b/include/linux/ns/ns_common_types.h
+> > @@@ -116,11 -116,11 +116,11 @@@ struct ns_common 
+> >   	struct dentry *stashed;
+> >   	const struct proc_ns_operations *ops;
+> >   	unsigned int inum;
+> >  -	struct ns_tree;
+> >  -	struct rcu_head ns_rcu;
+> >   #ifdef CONFIG_SECURITY
+> >   	void *ns_security;
+> >   #endif
+> >  +	struct ns_tree;
+> >  +	struct rcu_head ns_rcu;
+> 
+> The previous merge (from yesterday and before [1]) was moving the
+> ns_security at the end of the struct but this new merge commit moves it
+> before the ns_tree field.  Do you know why?
+> 
+> [1] b6926a7ca6e5 ("Merge branch 'next' of
+> https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/lsm.git")
+> 
+> >   };
+> >   
+> >   #define to_ns_common(__ns)                                    \
+> 
+> 
