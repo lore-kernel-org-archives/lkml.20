@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792475958;
-	b=vLB70eKUwcR0ILbGb980SKQ8kNhRcOi6Q/xcvI/dwOqsP1j3oKEoCHm42eixVDcTdlp5
-	 ysqvpMLMmeoiL74HMcO3e+6wn7lG8j+2tLSpeQt7UhCZks/PdvGObLXPhZhDRu5fdkxWm
-	 vVfSskrKrFr25xGMzOLto3sPIrZ1QGDCmqfDmn/mzTMJcR4N77jaMDmGvAqXtp2GV30w1
-	 DNhLPJeJGZQxOc3rwrVrav5h+qRJ3jiZYU4blWiTnY64RpsWqPI6nAQyT9a5sUtl3a9kd
-	 Vor7/P/mOum8BCEATUps2uVR0JesJrw6Sa+GTYv2Nj8piDQEgBwza6aDlXXbfXBSAmQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792475958;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=aCg8fph/1fJDI6h7fkyNcd2zVqelb2p7EHJpKPHyiUA=;
-	b=euso5LTms6vqyradPedLD8mJEjijU8vpC6KMVAHNrU7a9piT09P9d/k8SgjcRLZrSbgU
-	 vDPxpVMUYoH864ZNQqVxsTwEz66o7BbWuoanznGeVEu5JUYd60W96nzebFtbThJfzv1c4
-	 oQMu07s7eqMf3iYLsIfc7GUcFG+nqnhAffQfyHgSBEwg9he47BdSZ+P39BM7T6KlDk7re
-	 cb8qSoLHSHrxXzr2YCYVB8P0KQgIkMSUcbMBXFx4oTkmsR4hLR9TlxdkFPP8uxKOUjPGw
-	 25EDf/mGvkCWE8NjeulcbRmy5EqE+GIBX5lytnt+dZldLddDBOgCQMruJfj++vOR/Cw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lmr2jZ2B;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.41
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792476053;
+	b=JEhpPIyMXEYyQ5yOP5/NlQE6Ph6dwhyRWRvmhQ5MZ1aJVmaqOnVfHq+4WhZhh+8Clhr2
+	 QCtVK5tOh+TEwJJw5/98mbqW2eUy54Zhj9XRA2vpEuaOPPUa8Of8mprfjLb3X+EgvDIhZ
+	 VALyNYjTofuBf9N1FJjE0GtBKNkJyVldgqa04MRzCbUShznqHLUNLexk1OmRrQ4wZ3X/J
+	 LJWjE0PjbGoy96Lkq9vrUKLWnnTd9XanzWMANnccQufa+a/s78SGQEDUew23FY3YCyLDo
+	 iqeYPevphEEWilTrCK5l5n/00psZm1R7bUYIryqT8KlT/w/uH5vsLjKMIU7vgQrgH/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792476053;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tjahWStJaWAkZdXXLpQF/IAPVZCHaZCufugG+xHQea0=;
+	b=YI3m260eL2eZODOlq+qjvyMta4feLl6zQp8+w+w6tYpWT1UPoRyJJ/UPY6AKv61iumIO
+	 ECLbfLq4k0YBSqR+s27A2GTgEyiNW30TjxndVkNWXACKcfqKQ0Y5gm7pXEZRZTbNB86+2
+	 N9MIxbJNRDsUl8P2FQ2KllSWvqYCDCmc/uKTeRybMmD2Jy6PV3drfFn11Jzz03rrsLIwK
+	 /uE7+Msm2BRKRDKjJuAlEoQkW83mbhVfkrkYI8L9szGWuKrDzCzwKzsVhKaAr2kccQNQM
+	 DaKQi0umO2N3x0FkDss8WwXCOkAVzteokkgCziJL1c0EQSqxc+vrVUyhL0G5BZt5d9Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wjhl2gV9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E0A606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 05:59:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59E0A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB1D606A319;
+	Tue, 20 Oct 2026 06:00:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lmr2jZ2B
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso2059461e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:59:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792475955; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lRDmlXqoOcXA7lop7tVssv43TgwwIT/sAp4IvE/7aF0y6pgGVWGGPuBFS9PaucaRza
-         XqPeVR0vGWMsv88yE0fHOHwo7OWyuBBiPwrACA7KKV+rxPWnRsgsi2APe74KwLxU7qOb
-         rv3UWF0bLczizmUFggBH8CxVNxNuX1XD/ibdDGSPHYhQHS9AqlRRJUrZFzyC+gxy0mzR
-         Q+Xp28yfPC3IfKvd9ii203ucSo7S3rjzhxLK8xRmH4PsiPtsXtEhPS8SStzdSgHBssqe
-         V5mJHsQ7XITiPwVNzAumd+vpkv5SERYyPYngNEg5gWKvVtoRwHocd/QIJCccs8iG73hQ
-         HJ2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aCg8fph/1fJDI6h7fkyNcd2zVqelb2p7EHJpKPHyiUA=;
-        fh=AlkQpL5wYjkgKBQNT0OSSViybc4qhFS2p0FYY9h6Z90=;
-        b=qxgJFzmJwjvmGLQqoYd0KG4Zpg96VeYOCQ9IjRt86JQESXLBOvwjRwiOX9QTh75Cvb
-         lQ+bKLEdC51G87HuQNq07mE8X4pn2FHtMjt3pSnb94NUIO3VRuB/sv5NR4DSDzozjoYo
-         4Bi7Fg6Dd10asqf0bsW6o8xxVepnuy4z75Y6PTwXojDxcB2zL06q3q09hN5sYlvHiAGD
-         hrHyrRJRN1XOuDc+c2yLVCxY31tQ9m+YGPNJ9/zk6wixZ+Aw0oMZlAUoK82TO5a5+IL4
-         sfB40jzsq6aDf2dQMddwUtg0HAdj235eOt3GFJMQBZkeFEmiSWvDnj0b5Jo4kDWqnZTy
-         y4aw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792475955; x=1793080755; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aCg8fph/1fJDI6h7fkyNcd2zVqelb2p7EHJpKPHyiUA=;
-        b=Lmr2jZ2B5nGzZubbHDveW5Lk0pG0LnPLcq4ZJADSym1+3OiTmqLFUdmuZjeP7F+fgn
-         BurHWcTuilSCPFoUXF9tFwBDQKkL+ePJlibjdUruDM8rXLD5yKpAyAXL+Ts6GtFdAGON
-         9nfLZ1z9GiQZQrymP7vRILd1QlJaGpp+V/huGhwckPKmn8FKDChHYx4DoHhrC7WfAGdI
-         zcF4Cq5mcu3UW5OB+m+0qywXyr74ep+AySNYy5Zx1gaFrelDeqKQ5Xyfdn/LNw84yGcy
-         +gjGp+GKfNuwgq6XzaX8aJH4fWo51jrtCZ87e0wVvNx6odR4H4cew7pi+wuJ6GdUjrot
-         9UKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792475955; x=1793080755;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aCg8fph/1fJDI6h7fkyNcd2zVqelb2p7EHJpKPHyiUA=;
-        b=Y1R7NFikhzQVByL4GzBC140GxusYSnPRzSJn14pGl5LUo7RFAx/qQXhcmqBjrneL5/
-         ui9900ahBf4hDySbSgYvIq+eIrLThh4y/7WCqNdPAXfwg+swvrnACp2VDaBkeCXMSy7g
-         BE7W9f6zz+F9v2g6oMnSqiZr9kyT1EbFRWN+MiNqujmew5/B2nyH+++0+NEdxQ6F4MGV
-         r8iFoCT+mfNkTJbanqR9BHfPF8Wu0YcR4rKZavVj8nzq+KaNXJNco4Cr+ZnFYKV/smTh
-         5bxCMJCenxjqqNYyqA7drqNKtTaMjsE0oqrkX0M6uZMMdzIhiCQwTBeHq8FRPPOJIR9O
-         4LLA==
-X-Forwarded-Encrypted: i=1; AKwUvBzC7LN0TYPOqRFpnVOPWQngPpzZhzrFCG+LclCSOKEJTU1F+I/UFgk5dFShZwf9HjtDJRduv3foHtzW4LU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCsp8Gc+KN3Yj9jfVDnNYsFwZsdBmZLe7EHTGAcEtAdPuPVbcq
-	wMZoP7CJrhuaDYkF+Fu5lOXOML1HPRmeHn0XwgtHXdD8HOTSV+S70fvwab10zzx5BhWTWueI6hf
-	/gmftZJQP7XZaouzchrgPuQ7WbY0e550=
-X-Gm-Gg: AYBFou2C2auxMTu5VXybk3NMZlb/HHuTlduRPBXjf/u5Vuu+JGKtKMOez/zI7VLUWVK
-	dYBsnJ6DeK+a1gAFTR58SLBG3MlpgbjR30jwqT5O2VLsm8C3PpBC7NZoZE7ECRF9Tk87DpIQ7Q/
-	HiQMv0GTg+jFCbKQ57v5PGDL02uKUjtz/FVykfnbwDNMypX85qcldjPXBy5/hbZtPYxab4jgTnp
-	QbkyrL7lQJQhFg6Dd+Sx2kpj4otvGzpB7AvzKGgNMS/e2fg75oAhizVLGWC+u+FiLKldJqZT+W7
-	+d2Or0wL/9+hdAQT7FKuEFZuqoU6e3Cw7puNNPKkU/YHZEHdDWbxwKkDXAJdADcjowfl9RZ4HZm
-	+2koVBgoLcAIH7IqYQXa22XeNnI87qaITilpImI7ThGw=
-X-Received: by 2002:a05:6512:401c:b0:5bc:f6b4:96c1 with SMTP id
- 2adb3069b0e04-5be50a09735mr3339214e87.9.1792475954919; Mon, 19 Oct 2026
- 22:59:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wjhl2gV9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EE11F000C4;
+	Tue, 20 Oct 2026 06:00:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792476053;
+	bh=tjahWStJaWAkZdXXLpQF/IAPVZCHaZCufugG+xHQea0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Wjhl2gV9AJj254FHkZF+7CKdQCdvE20SmL91dGF/QylrOjGMzIG+pH0qGFHABSB9J
+	 pb78GQxC1NtOYNqDXATp+PfYyJ4N8CCZgMk6YPEDCoRgsazvhYQC0D+LtNa4OKNPYg
+	 wu6wGoWnWs/9fymyslDAFWwciUauiHXbyFxpICotOfa1aWeUaYmQ9ldFDyE/kZQ4jf
+	 HysdKsOtcRmJbDPGmoh37DtIJnMdCRV/Iv688KubOM/8N/FpV74m80N5ro0hXZp6m7
+	 4t3jbT+cf9L8lwuzizRyUWUKJsYGv/da/M0qNm9yQR/rzwxclTAoP3H/w7u/dSp8wq
+	 seB5wZccb2NzQ==
+Message-ID: <e43c4831-1a12-45b3-9614-97dbd2bc48d5@kernel.org>
+Date: Tue, 20 Oct 2026 08:00:47 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,207 +51,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-tegra-drm-yvu420-v2-0-512889103ab4@gmail.com>
- <20261018-tegra-drm-yvu420-v2-1-512889103ab4@gmail.com> <HmrilxC8QwiAQGw2IQ1Ztw@nvidia.com>
-In-Reply-To: <HmrilxC8QwiAQGw2IQ1Ztw@nvidia.com>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Tue, 20 Oct 2026 00:59:03 -0500
-X-Gm-Features: AclHuK-m8XMWtAb64cQPzzqZx3KIZG_Ohxl4ldySrzNI4kuCiiZ69ozwRbh1oCQ
-Message-ID: <CALHNRZ9pTTLTpsKCi7oETcjpxNbZmQxfnC+pvEx4Wezv1_zchw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/tegra: Support swapping chroma planes
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] dt-bindings: input: touchscreen: samsung,s6sy761: Add
+ S6SY791 and reset GPIO
+To: Lukas Timmermann <linux@timmermann.space>,
+ Lukas Timmermann <foss@timmermann.space>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org
+References: <20261011-lat3st-google-raven-touch-upstream-v1-0-2a9f55159b9e@timmermann.space>
+ <20261011-lat3st-google-raven-touch-upstream-v1-1-2a9f55159b9e@timmermann.space>
+ <0a486a08-8d6c-4ca5-8a54-e7499630095c@kernel.org>
+ <atYlyqHToGjAr22T@archstation>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <atYlyqHToGjAr22T@archstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 12:08=E2=80=AFAM Mikko Perttunen <mperttunen@nvidia=
-.com> wrote:
->
-> On Monday, October 19, 2026 7:03=E2=80=AFAM Aaron Kling via B4 Relay wrot=
-e:
-> > From: Aaron Kling <webgeek1234@gmail.com>
-> >
-> > The Tegra display controller supports some yuv types, but not their
-> > chroma swapped variants. For example, yuv420 is supported but yvu420 is
-> > not. This can be efficiently worked around by just passing the hardware
-> > said chroma planes backwards. Add a flag to the plane state struct and
-> > handling to both tegradc and nvdisplay paths.
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >  drivers/gpu/drm/tegra/dc.c    |  6 +++++-
-> >  drivers/gpu/drm/tegra/hub.c   | 14 +++++++++-----
-> >  drivers/gpu/drm/tegra/plane.c |  5 ++++-
-> >  drivers/gpu/drm/tegra/plane.h |  3 ++-
-> >  4 files changed, 20 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-> > index b0bfa946e6979..39c2e920d76a6 100644
-> > --- a/drivers/gpu/drm/tegra/dc.c
-> > +++ b/drivers/gpu/drm/tegra/dc.c
-> > @@ -740,7 +740,8 @@ static int tegra_plane_atomic_check(struct drm_plan=
-e *plane,
-> >
-> >       err =3D tegra_plane_format(new_plane_state->fb->format->format,
-> >                                &plane_state->format,
-> > -                              &plane_state->swap);
-> > +                              &plane_state->swap,
-> > +                              &plane_state->swap_uv);
-> >       if (err < 0)
-> >               return err;
-> >
-> > @@ -872,6 +873,9 @@ static void tegra_plane_atomic_update(struct drm_pl=
-ane *plane,
-> >                       window.stride[i] =3D fb->pitches[i];
-> >       }
-> >
-> > +     if (tegra_plane_state->swap_uv)
-> > +             swap(window.base[1], window.base[2]);
-> > +
-> >       tegra_dc_setup_window(p, &window);
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
-> > index 448f49f3a7d7e..6427155ac4fdf 100644
-> > --- a/drivers/gpu/drm/tegra/hub.c
-> > +++ b/drivers/gpu/drm/tegra/hub.c
-> > @@ -440,7 +440,8 @@ static int tegra_shared_plane_atomic_check(struct d=
-rm_plane *plane,
-> >
-> >       err =3D tegra_plane_format(new_plane_state->fb->format->format,
-> >                                &plane_state->format,
-> > -                              &plane_state->swap);
-> > +                              &plane_state->swap,
-> > +                              &plane_state->swap_uv);
-> >       if (err < 0)
-> >               return err;
-> >
-> > @@ -664,24 +665,27 @@ static void tegra_shared_plane_atomic_update(stru=
-ct drm_plane *plane,
-> >       tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE);
-> >
-> >       if (yuv && planes > 1) {
-> > -             base =3D tegra_plane_state->iova[1] + fb->offsets[1];
-> > +             uint8_t u =3D tegra_plane_state->swap_uv ? 2 : 1;
-> > +             uint8_t v =3D tegra_plane_state->swap_uv ? 1 : 2;
-> > +
-> > +             base =3D tegra_plane_state->iova[u] + fb->offsets[u];
-> >               base |=3D addr_flag;
-> >
-> >               tegra_plane_writel(p, upper_32_bits(base), DC_WINBUF_STAR=
-T_ADDR_HI_U);
-> >               tegra_plane_writel(p, lower_32_bits(base), DC_WINBUF_STAR=
-T_ADDR_U);
-> >
-> >               if (planes > 2) {
-> > -                     base =3D tegra_plane_state->iova[2] + fb->offsets=
-[2];
-> > +                     base =3D tegra_plane_state->iova[v] + fb->offsets=
-[v];
-> >                       base |=3D addr_flag;
-> >
-> >                       tegra_plane_writel(p, upper_32_bits(base), DC_WIN=
-BUF_START_ADDR_HI_V);
-> >                       tegra_plane_writel(p, lower_32_bits(base), DC_WIN=
-BUF_START_ADDR_V);
-> >               }
-> >
-> > -             value =3D PITCH_U(fb->pitches[1]);
-> > +             value =3D PITCH_U(fb->pitches[u]);
-> >
-> >               if (planes > 2)
-> > -                     value |=3D PITCH_V(fb->pitches[2]);
-> > +                     value |=3D PITCH_V(fb->pitches[v]);
-> >
-> >               tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE_UV);
-> >       } else {
->
-> I noticed DC_WIN_PRECOMP_WGRP_PARAMS has a SWAP_UV bit. This is already
-> defined in dc.h. So we can use that for the hub.c implementation instead
-> of manually swapping.
+On 19/10/2026 16:17, Lukas Timmermann wrote:
+> On Mon, Oct 12, 2026 at 01:30:48PM +0200, Krzysztof Kozlowski wrote:
+>> On 11/10/2026 14:44, Lukas Timmermann wrote:
+>>> S6SY791 is the SPI-based counterpart of S6SY761. The register map and
+>>> commands are identical for the subset the kernel currently implements.
+>>> Therefore add S6SY791 as a related touch controller.
+>>>
+>>> Optionally, the reset line can be controlled on some boards,
+>>> such as the Google Pixel 6 Pro (raven).
+>>>
+>>> Also reference spi-peripheral-props for the SPI bus properties.
+>>>
+>>> Signed-off-by: Lukas Timmermann <foss@timmermann.space>
+>>> ---
+>>>  .../input/touchscreen/samsung,s6sy761.yaml         | 37 +++++++++++++++++++++-
+>>>  1 file changed, 36 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+>>> index 1ffd17af3c53..d24f35038934 100644
+>>> --- a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+>>> +++ b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+>>> @@ -8,13 +8,17 @@ title: Samsung S6SY761 touchscreen controller
+>>>  
+>>>  maintainers:
+>>>    - Andi Shyti <andi.shyti@kernel.org>
+>>> +  - Lukas Timmermann <foss@timmermann.space>
+>>>  
+>>>  allOf:
+>>>    - $ref: touchscreen.yaml#
+>>> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> 
+> Should I also hide this behind an if-else?
 
-Oh. I figured there had to be something like that in one of the
-generations, but my grep-fu failed me. Even more embarrassing that I
-ended up using the exact same name. I will update and verify this and
-send a new revision.
+Only if the other device is not SPI.
 
-> Otherwise everything looks good to me. We could also enable the swap_uv
-> logic for other UV formats.
 
-Eh, other than asking for the entire patch to be rewritten over the
-last two revisions, it looks good. :P And alright, I'll plumb yvu422
-and yvu444 in the new revision as well. However, I don't have test
-cases for those.
-
-Aaron
-
-> Cheers
-> Mikko
->
-> > diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plan=
-e.c
-> > index 2148b0c59815c..757bc552809fe 100644
-> > --- a/drivers/gpu/drm/tegra/plane.c
-> > +++ b/drivers/gpu/drm/tegra/plane.c
-> > @@ -59,6 +59,7 @@ tegra_plane_atomic_duplicate_state(struct drm_plane *=
-plane)
-> >       copy->tiling =3D state->tiling;
-> >       copy->format =3D state->format;
-> >       copy->swap =3D state->swap;
-> > +     copy->swap_uv =3D state->swap_uv;
-> >       copy->reflect_x =3D state->reflect_x;
-> >       copy->reflect_y =3D state->reflect_y;
-> >       copy->opaque =3D state->opaque;
-> > @@ -319,11 +320,13 @@ int tegra_plane_state_add(struct tegra_plane *pla=
-ne,
-> >       return 0;
-> >  }
-> >
-> > -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap)
-> > +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_=
-uv)
-> >  {
-> >       /* assume no swapping of fetched data */
-> >       if (swap)
-> >               *swap =3D BYTE_SWAP_NOSWAP;
-> > +     if (swap_uv)
-> > +             *swap_uv =3D false;
-> >
-> >       switch (fourcc) {
-> >       case DRM_FORMAT_ARGB4444:
-> > diff --git a/drivers/gpu/drm/tegra/plane.h b/drivers/gpu/drm/tegra/plan=
-e.h
-> > index e33a581e6490e..dba5f1b254e98 100644
-> > --- a/drivers/gpu/drm/tegra/plane.h
-> > +++ b/drivers/gpu/drm/tegra/plane.h
-> > @@ -49,6 +49,7 @@ struct tegra_plane_state {
-> >       struct tegra_bo_tiling tiling;
-> >       u32 format;
-> >       u32 swap;
-> > +     bool swap_uv;
-> >
-> >       bool reflect_x;
-> >       bool reflect_y;
-> > @@ -88,7 +89,7 @@ void tegra_plane_cleanup_fb(struct drm_plane *plane,
-> >  int tegra_plane_state_add(struct tegra_plane *plane,
-> >                         struct drm_plane_state *state);
-> >
-> > -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap);
-> > +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_=
-uv);
-> >  bool tegra_plane_format_is_indexed(unsigned int format);
-> >  bool tegra_plane_format_is_yuv(unsigned int format, unsigned int *plan=
-es, unsigned int *bpc);
-> >  int tegra_plane_setup_legacy_state(struct tegra_plane *tegra,
-> >
-> > --
-> > 2.54.0
-> >
-> >
-> >
->
->
->
->
+Best regards,
+Krzysztof
