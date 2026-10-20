@@ -1,98 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.134
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792519102;
-	b=QXjqmM3nhb06fWd7rtg8IbbmZQQHtHKUsDJElNR3uV7cymMMVE/xAM/YTpv1V+Rzb7kT
-	 e4FLz3yYQTRAp4pzQdy39gMwfEKQTRvHdbnNR4xphEyZd5AXM3LvP/0JKJSM1jY7+dZcu
-	 3mSawEdXrOK8WQbKdgOkW8H+NtQcKgpC9W9zcS2wDc8dJaDaroF40WmZDeAT3c8LppLhq
-	 0CJReXQWmweUX9TZCvfu+AtfxjQQsQ1M2/GmEwtORCD6vty5C6ufpfiJkiITuo1vlEOLV
-	 8mbYuboLlwHTa3r7xqOaUad8HPuqWjuf5POhogDIfeenQznOkM4j5W1kV3Oa/cqkOwA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792519102;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792519133;
+	b=GP/n14xHTljfffRAEgYVU3kqUc6jnSEXcVvyqRgp91JY75qNHQ+hvKf/LT2hVl4Cc9kX
+	 DqlwlMyU5g+y68KpRUhSS++7SHXUoF2N6F7B5lZh4ex+DUeFzUXKVtDV4asjq6CG1DuVx
+	 lQOiBukD+8zmtpK6PSuNMq4Yx8A0GKJ4/KuSyqoudhvHr9O2SIaDjx9Aadz5y0WnuaPTV
+	 EVzYvESF3OSuyPgrEWVMwTRzFFNgJ459SKlMfOkdcVr2EVJpHCBAX6m857Y5qwBrpVEcM
+	 YDrf3OzJ7Rac3dMkljJody7pKoPO07hrb0/n5PKvVJG8c4s2ufD7/zggHGWscQjaVBQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792519133;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=lfvzxumMX8GZYmj1PJHBaPnkGMwtjZCWGV30UbLz0Q0=;
-	b=kBAl+MNDvYaHJN4PwXZmp+Pcg/QYzbNFyizZNOYllGB3bEjZ9T0TLikTe9ZmVsBJ5S8R
-	 uzKYAbB7q290G5jgHLNLkckzlB/w8NOu4otV9Vu7NQ3BdjqqyAxanaYHK+G4WnVhyIOJg
-	 7ypm7Au3lvofmugQPapkv5NjRPizXwUfHOjpU8QedpL2P5vRnROL2BHa8WhGEKdrV0Y5f
-	 UxbSfS29QhcrTMLjFv70JDKvCFQuCNr0uUgojf1M/8sZWSDCBD/z5sHvFgeX4hVsb6Keu
-	 9+DFJFxnMD0y8t7HsIXAz5e/KKwroSp+IGRuYYuqVPuIMugQpiCavDBdQOF/R7vpNRQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Dc+Bo7udqDy3OvFW1e4k6Vi+Psamqa3s48HVUQ/rqV4=;
+	b=EoOK8dJan9K8qTkUAhHnYQIiu210QkMTHwgZXfQZuVRYWMWt4IK2fUIU0V4K7W2JGTie
+	 JJQPT+/VrKPKsRVP4lziK9TSOvGz0jxov96MlEC1lbHaiyddn2gYzVKWP95ymTuE2DOx0
+	 pPs75ODmtAV5aD1uKyhp07KFj2OUQOd9EiTlDh2PjKwY6IfbVhsTegeNodRIDIst4hUzd
+	 G9xPZ4+1EZ+sLJvd/zwwVau/b+guLq66VjezHRKAUx9SnHSTdbEqc32cA276efVOoXpte
+	 dTZ4oePzkpTopFoW5alKv2dINe8PU/pusT2RYwh0FjKdUTdR2Xys/Yp9pWq6b3ApkNw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="hk7DKm8/";
-	arc=none smtp.remote-ip=74.125.227.134
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oixlCHmd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCDA606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:58:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CCDA606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC23A606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:58:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC23A606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hk7DKm8/
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3ad211ad92bso798472a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:58:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oixlCHmd
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2055573c8cso448889066b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:58:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792519131; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E86NmajWZJNOrmVE4a+xaIjcCgaYMwNuv26i52/m/dFN7EXODIEuXY/i5aUKfyWJOV
+         Z5htisXuch2cqZ+IO5POgdgzivF24R+PJh4omRx+VGedY2rLSwvjvWlYgWWwFmiSCOmZ
+         KcPlIzQ87PvRD8oKHwU9PzUlBz9SXBMs/ic8rzyJPfYOHxscUqGuqFJbKN+GUPFfAoGz
+         oHFw3H83sEIWWceTW7Y8DkFwzByWbWBvGC14+Rex96UtdYOTKAsobUVHonx+U29oPItA
+         5vZ0mGGhC3uhglb6KCUViSRaG3LeiLxbymqdSNDukWyK6MDx+Mopkd4f5fHsYzUhbCuq
+         tUZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Dc+Bo7udqDy3OvFW1e4k6Vi+Psamqa3s48HVUQ/rqV4=;
+        fh=BXwHrIsZPWeW0B3ohL3tS77ylC9kmt/bhFh38LfGhFc=;
+        b=dqdhQ3WlGeDZXTTGHEMo6M7OjvrljZuFa1uWn8SHC1q9z/q1cHqn26Uey3WCNgD8NR
+         ggDTUmQz+2Sz59vhO+dJeABvZ1MGhAK6PaJ89tyEOe2ztTI2OFYuCYXNZcqu42N87DIa
+         RChSxNNncQeQfFrkRygvnNLw9wruLE6vI5ouNf1iCMvNESVT88d507oQGdsSp0V++2Rg
+         EQlfMdvCSed+A+f9WerjISDiLKeIGNXGaYJld4tWs3JQ27UjYAxKDrRTtb0PSeH1EyBG
+         YpRYCPVN5vlY7CFFv9YPvv0SquDlzwF+NDqdZZSplIqATqzjIo4Md5odEgiMiOcYPKRq
+         mkVw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792519102; x=1793123902; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792519131; x=1793123931; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=lfvzxumMX8GZYmj1PJHBaPnkGMwtjZCWGV30UbLz0Q0=;
-        b=hk7DKm8/HVQtDM7SfuNCgwbY6d9oYkVDTzKvh3xFFVJcjWgeTit4nQ3APKC6JcXMvs
-         5b1sQ076nR/cD60jiZzZnASVUl2A1IZZGCAtZTv89HFO9xMKTFkmD6zhLqjP8L3wg7YT
-         EZ+XvNHUBXYD7s1wo8gn6iYgnI1fN0liSodgV4PIsesSa9bemHyZzT4hLir3wzeKGmpn
-         2cfYdmBPyJQrErJTZ2N9KyeYzowC/aQbw4VYo0vWXFp7rwMFbz2ltIGvlLTQQcEQD2Dv
-         OdgjfMkoZTll+JU+ZxsujBTKAj8fDZLFfw03WYAg+wLvoNDOd2pzWmEdC15h4Plr2owA
-         0SZQ==
+        bh=Dc+Bo7udqDy3OvFW1e4k6Vi+Psamqa3s48HVUQ/rqV4=;
+        b=oixlCHmd8EQKzoAZwp79t3hqtWf3bHlAiEeGnfif0E/BL/nUhlvqZbYEE8eBirxNf7
+         7HeBQmzZLK2ZoSJtUjr2TNW9oQNCgURyt7XHBGpJARBp3Gm1yElWMfsp8Psw6Rdx4MYz
+         7GQ9PAw+65nnRxtie4faMqQ4Vtmq21L31nhvNU9WzxSh9WGSMY/OXy7g4fDxkDAjSufO
+         ETCzkbFkENrv3eSnYfMLFyTFSPGsq5vIeNBnOSmjm+96rIV3mEaJPBFAeFPl6jKsSLPE
+         QU0p9dzNxI6zu/zwMB0b3/7rixVLnOfJ2vDDazmRL1z4rTgdrdEIUO9c+0wnSJ87Ekov
+         XbLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792519102; x=1793123902;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792519131; x=1793123931;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lfvzxumMX8GZYmj1PJHBaPnkGMwtjZCWGV30UbLz0Q0=;
-        b=pZNGPtFcTBSy2O7hw6cscQcfEzlZJ5hP56ZMdcIE6oBJnQncYAxHO1pafFggF4voj6
-         1B75hZykWASRwpwOav6csQD15HJqFGxFB3KRMcM1FORmQSLk127B+M4SVnfX49BFmoyy
-         qSUAEH/OjWpeZTvi/LnhqSBIPxX+P2ij4rwti7Utt/k6lrJ1zWlil+YZ/3Qy3MKGe38f
-         tZ71kyw1gi2654fOcYxJjfepKK46ePDh/H6QBkcwNnxtsVue++MiwwsUGcwXzB1ezlX1
-         +2FHvWC88l7jw7UXxTqjffQtT/KoCuQ+Fp9DcRZGKattJzv+PL9ShDAyPhdMMVfRVhJL
-         rSOA==
-X-Forwarded-Encrypted: i=1; AKwUvByyEFQ1nZT4lD6uWjeDHjeLbAO/XJ9kRBpjMb6K5G/W6JawIW7ykdwDaZOnN5NvFDPj5GXfW1WOaqlIKLQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBHQBZqUAIhlIxwyxyvPilo9KwcEg6m867KVRmSo4MNWjhf7bv
-	jg9MwwKA/4CnP6mUrKiqZypgzNYvkXDJ08XFFa+lWigK8zO4BUDOyPn5
-X-Gm-Gg: AYBFou3npR5W0Rxkh7vLD6V8hkV244jbGbrFpB3zQDuyPIEJ8b8mGKu3rw/p8od4o3A
-	oXqx/7DwyxDMltKjXi9D1sGwtrNU9m95b8jhQPb1MlMYte3wOhOTqNGMtIVc9EV/Qe5UYnS7Dim
-	rfIdKDVlzHZ4ORrEFfGlkRAj6qK8fDmQM+9+OUCBdnHfPX9WDSxoMBKrXNp0OYs7z6UI21mxzKw
-	7OXbxC0OnGiSPujB20L7+M2CcvP6pDHoZdoDPdwduDM5Gk7oSh5/5vZaJxt5vxN4hZL1GzW0DaE
-	mEya39glFrEIOCIGG3ST76JW+HZO1ECDbn4Gr7UgAzdYD8ixsGS8qaMmk3+EKMKb1uc4+y7p35L
-	aFVh+gdH3ceihayo0Vlac0vVmFkrEqyCnQDZTbtpDnRHUHFvLrPpJeFto1unihpleDt0maqkO8A
-	VHOLQOU8Vm28v3te2SCDSEjeXusK0lO8er1igOeTnWz0MX20dboJ/9kY9yCbj0kO6fdX09M/84H
-	a2SSVJ5T6ntxnG8fQdqsZUycxG+q1R8pmaWF1LL/oHqPjhF
-X-Received: by 2002:a17:90b:4b09:b0:3ab:188b:c5bc with SMTP id 98e67ed59e1d1-3aceebb4bb9mr10542274a91.14.1792519101713;
-        Tue, 20 Oct 2026 10:58:21 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:6::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad82f0c0b1sm133581a91.0.2026.10.20.10.58.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 10:58:21 -0700 (PDT)
-Date: Tue, 20 Oct 2026 10:58:13 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Jakub Sitnicki <jakub@cloudflare.com>
-Cc: Willem Ferguson <wferguson@cloudflare.com>, netdev@vger.kernel.org, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	ncardwell@google.com, bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, linux-doc@vger.kernel.org, 
-	corbet@lwn.net, linux-kselftest@vger.kernel.org, shuah@kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@cloudflare.com
-Subject: Re: [RFC PATCH net-next 0/4] tcp: carry a BPF-chosen identifier in
- TSval low bits
-Message-ID: <atekzexnMd27Kctl@devvm7509.cco0.facebook.com>
-References: <20261013103906.2660384-1-wferguson@cloudflare.com>
- <atFI9vl5hy09Dc0t@devvm7509.cco0.facebook.com>
- <87a4oaf3mv.fsf@cloudflare.com>
+        bh=Dc+Bo7udqDy3OvFW1e4k6Vi+Psamqa3s48HVUQ/rqV4=;
+        b=r4X1XDfnRMICDAjXTwdjqqYEVvLrHG7U2BycItmhgCUfG6ikALkHaaqGsPPKjjANMC
+         u7wqQxKeI6nH+PVyQcVjyu9ZeRN5+59yawrVhmEK8VXlj93LOSedekirEpWyYj/NseLh
+         2xW93h7GS1X+wcfF+sko/OeWqrZeZ47GSne4PaTcfVS+yUdRw6S9uVUMB7gl9N4DujK/
+         A7ZQeNSSMKOALNoh29GRqlfbtH9m2TyG6E6O4pjKYFyUvg8lYGjWHwmyxhXT40cblg+g
+         SeAJeanjJisRf6bN6Gzi8j8UM1ltjbxwLXnyjAy8iAaURqhrb5D5YYYyPITv2fuTLxDn
+         GhVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxVNjAldWuL3tqCah2/jSfNHk7sRAX5lFlaqorfb1HbsJg3T2oZ0THQ9Y0Hg2pcDGA/TnHnSkfDpkKlWmc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeW1MN5SAIjoyoj+LvKnxTMFQ1ApMvvzNJjVHVjMai5IUN8iJO
+	d9bHnM9kBSjFXwRqHKgelfBo1lDGPMoobLw1Bbok7jfvNuUrXShsItZzS7BoWiamw7t0GU5D4Rl
+	9i0RNPcenp+U9D4+fWWAG1cJuVn19eHo=
+X-Gm-Gg: AYBFou2UD2ZZdWvqPtJhSiJTvgkEoY5mFMVH+PZDWRSbhVi+650/bfFOmJQ61o9ZWbZ
+	yTaYDHWLHrtZ11McYXkq8CmCyOYjvOxqUixL5bCOJt5fIEzUHQSycHl5kvGW2c9MOZGVaVX/K2A
+	QKXyUIDR+fAPP1bEOKj1CS9IBlAwyQr5aYRDmWNnFECUDfrNnhi3CLijZ9VBjDBBRdd4xT7o9Q0
+	YyMAVByIq2j0TPRupt+HYVIWE2e8kkvcfELZlxGn5DfZX+4W4Hq8DnS51aTEVLTm7dRw0OtV/0Q
+	tPnPdZFoFpPPWxN1qCqtRNu59y/VoD/B/CaSJ6VLdebzdE1xikIlOa/he2WI0/dIVlyQ+s5Ghf/
+	58AZhIq84aOGp
+X-Received: by 2002:a17:907:930e:b0:c31:8c48:e18b with SMTP id
+ a640c23a62f3a-c419df3d9e2mr827528166b.14.1792519130900; Tue, 20 Oct 2026
+ 10:58:50 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,34 +104,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <87a4oaf3mv.fsf@cloudflare.com>
+References: <20261019160615.2348500-1-nphamcs@gmail.com> <atcRLYvKavedT6Hs@yjaykim-PowerEdge-T330>
+ <CAKEwX=MRvzzd0Fn=UX+LcRo+K9wuqCWSB42NNn7rvZkZukRRrg@mail.gmail.com> <CAKEwX=OwzpxUfdANEXoCeZPBqch+91C4gKwhrcikm6Gj_LBPKw@mail.gmail.com>
+In-Reply-To: <CAKEwX=OwzpxUfdANEXoCeZPBqch+91C4gKwhrcikm6Gj_LBPKw@mail.gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Wed, 21 Oct 2026 01:58:11 +0800
+X-Gm-Features: AclHuK9UBnCJDKT6vP1WD_aznvQkjk4cpSf1QdPurJznE3HDglLfCYeOaCQoUZk
+Message-ID: <CAMgjq7AsUWGw5K5Xk1qz67atXmXB7vYDww-+u9t8Mz7rNAH-6Q@mail.gmail.com>
+Subject: Re: [PATCH] mm, swap: revalidate populated clusters before scanning
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Youngjun Park <youngjun.park@lge.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/19, Jakub Sitnicki wrote:
-> Hey Stan,
-> 
-> On Thu, Oct 15, 2026 at 02:45 PM -07, Stanislav Fomichev wrote:
-> > On 10/13, Willem Ferguson wrote:
-> 
-> [...]
-> 
-> >> Questions for reviewers:
-> >> 
-> >>  1. Is encoding an identifier in the low bits of TSval acceptable in
-> >>     principle, given the trade-offs above?
-> >>  2. If so, what feedback do you have on the implementation?
+On Tue, Oct 20, 2026 at 9:23=E2=80=AFPM Nhat Pham <nphamcs@gmail.com> wrote=
+:
+>
+> On Tue, Oct 20, 2026 at 6:12=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wro=
+te:
 > >
-> > Don't see any feedback yet, so from the top of my head: looks like you
-> > control two sides of the communication, so why not a custom (bpf) tcp option?
-> > Would you need that on every packet and it makes it expensive?
+> > On Mon, Oct 19, 2026 at 11:58=E2=80=AFPM Youngjun Park <youngjun.park@l=
+ge.com> wrote:
+> > >
+> > > On Mon, Oct 19, 2026 at 09:06:15AM -0700, Nhat Pham wrote:
+> > > > swap_cluster_populate() can publish a cluster's table with the clus=
+ter
+> > > > lock dropped. A cached allocator can use and empty it before the
+> > > > populating allocator reacquires the lock. The resumed scan can then
+> > > > dereference a NULL table.
+> > > >
+> > > > For example, CPU1 can retain a cached cluster offset on an SSD with
+> > > > per-page discard disabled:
+> > > >
+> > > >     CPU0                          CPU1
+> > > >     ----                          ----
+> > > >     swap_cluster_populate()
+> > > >       swap_cluster_alloc_table() fails
+> > > >       spin_unlock(&ci->lock)
+> > > >       local_unlock(&percpu_swap_cluster.lock)
+> > > >       swap_cluster_alloc_table()
+> > > >         rcu_assign_pointer(ci->table, table)
+> > > >                                   swap_alloc_fast()
+> > > >                                   local_unlock(&percpu_swap_cluster=
+.lock)
+> > > >                                   mem_cgroup_try_charge_swap() fail=
+s
+> > > >                                   swap_cache_del_folio()
+> > > >                                     __swap_cluster_free_entries()
+> > > >                                       free_cluster()
+> > > >                                         __free_cluster()
+> > > >                                           swap_cluster_free_table()
+> > > >                                             rcu_assign_pointer(...,=
+ NULL)
+> > > >       local_lock(&percpu_swap_cluster.lock)
+> > > >       spin_lock(&ci->lock)
+> > > >       return ci
+> > > >     alloc_swap_scan_cluster()
+> > > >       cluster_scan_range()
+> > > >         __swap_table_get()
+> > >
+> > > Hello Nhat.
+> > >
+> > > Good catch!
+> > >
+> > > > Reject an unusable cluster under its lock before scanning it. Reloc=
+ate
+> > > > it only while its table is present.
+> > > >
+> > > > Fixes: cdd77f84d966 ("mm, swap: consolidate cluster allocation help=
+ers")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+> > > > ---
+> > > >  mm/swapfile.c | 7 ++++++-
+> > > >  1 file changed, 6 insertions(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/mm/swapfile.c b/mm/swapfile.c
+> > > > index c3288910b3e3..988b7316e0a1 100644
+> > > > --- a/mm/swapfile.c
+> > > > +++ b/mm/swapfile.c
+> > > > @@ -981,7 +981,11 @@ static unsigned int alloc_swap_scan_cluster(st=
+ruct swap_info_struct *si,
+> > > >       bool need_reclaim, ret, usable;
+> > > >
+> > > >       lockdep_assert_held(&ci->lock);
+> > > > -     VM_WARN_ON(!cluster_is_usable(ci, order));
+> > > > +     if (!cluster_is_usable(ci, order)) {
+> > > > +             if (cluster_table_is_alloced(ci))
+> > > > +                     relocate_cluster(si, ci);
+> > > > +             goto out_unlock;
+> > > > +     }
+> > >
+> > > If this patch is applied as bloew, does it prevent the issue describe=
+d here?
+> > >
+> > > https://lore.kernel.org/linux-mm/20260720071342.50742-2-shikemeng@hua=
+weicloud.com/
+> > > (This patch publishes cluster table after lock acquired.)
+> > >
+> > > This patch is chagned the way I suggested during review... :(
 > >
-> > Or any other field you can abuse maybe? IPv6 Flow label?
-> 
-> Nah, we don't control the client unfortunately.
-> 
-> Client here is any device that connects to our edge PoP.
+> > Ah I missed that patch series and your review! What happened to it?
+> > Did we just never land it?
+> >
+> > Looks like we are still doing neither Keming's approach (table
+> > copying) nor your approach (publishing at the end of
+> > swap_cluster_alloc_table()).
+>
+> Ah nope, I saw that Kemeng implemented your approach:
+>
+> https://lore.kernel.org/linux-mm/20260907091356.53026-2-shikemeng@huaweic=
+loud.com/
+>
+> My bad! But yeah I think we still need this small fix (or Kemeng's
+> original proposal?), unless I missed something...?
 
-I see, so you rely on the fact that it gets mirrored back.. Btw, looks like
-there is already some similar tsoffset/ts_off infra? Have you considered
-plugging into that?
+Right I remember that, I acked part of that and was waiting the update
+on that sashiko comment, as the first patch isn't perfect, while
+Kemeng's mail at "shikemeng@huaweicloud.com" is now bouncing back...
+I'm not sure if Kemeng still plans to update that.
