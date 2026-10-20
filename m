@@ -1,107 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.5
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792477008;
-	b=ot88Yp24khLzyHQwrXqJ+a8QuI8HlZpH+Toce7aJ/+Xe9k6uoq+2n0Lb7j8NaBhhgl13
-	 xwL9hs6eGkXJ/2RQWW0yji/zb6W2169HKfXnU0TuY+voaD1bLw7wwBWYGYrPE2YkDbZ7l
-	 Jqd+nL7PMvqdSGcF0Etsay496gaLZ1fwlD/x7g2krdX2oqbFGjRQHfRJPMntouiYShVQq
-	 kiIxTIMUcukISazDgLtPmYY1kbhBlVFLHakZ6qOlG3CUtkg7MXW77ou7mNRHHfDfM/edm
-	 Fp5we8buylkhz8QrMFAhkDfXOtg5tqAkq/EZT3XmDDnHnAcAbx/ZosrzBn8bB5nPVgA==
+	t=1792477047;
+	b=M71nR9dKFDYa8Hl2p7ic3YAI7SlrMGiwDh3Kz7vxm126kLvPmc9Yuy6UN3zgR8KmeJWi
+	 aijHq679HWcrZ0MfKd3s9vuLbmkquheebHkSJvWOg/42WOwcKzALYG+avSQ2ixuFx1RYq
+	 QpZDC/zKD3fpNbQdrDCqs6e1Tq4kGeyqtgPHXSiUIpR+iUF5fi/nj6mOeMaAnqYuBNfYM
+	 F3mhbWjbwoJgJUVgZbfnM1yLbZIdgMvlQTX9yg5CbYlQC14PwWODQ2NNRPzyhoIbaECJF
+	 qYYePwQzyClxIJ9TH98sD7n2l7s9mRy4EDZPhjZV/iDk5ClpjEJ/eRCyBl0Yrs1jqUA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792477008;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=15gpbQJaROHhKAWjdlM4SFUSfhXN2/k7Qz9trFS0NdQ=;
-	b=C1fxFE1fPFTJaHMRpxvsSrjuGyUQxCgqM6+8Ew796dRw3A+iMLFtlWR6cElwsV74VFtC
-	 3T3jqfdXyqs9AMP3AdvFgS9DcjC5vJm+sRLpxJni1iX2+4cgXy/2HzZ/MBfC8OUfwfnF+
-	 xr9moE0qBBtykIe28jjHzUbCzc5yhDe+mq7arWqS38oOCoQArmjFg+aVpA7zRPnlSqBj9
-	 aZLI+whXwY+AMjcWkyuSP0llFZndjlCsnkdlO9TfYTkz8pOHC/DFB9jrP7wRHJgV0Asn4
-	 FcNMu2O6+cR2Ffv020gDNOXstRIVfuGU00V3GHGnCS6VdmdrLq/5iy73PifrvcBbc9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792477047;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=BrmzMw6cqUI5ufvqtaTGz6/71SoGnJjwK4qz0ikJtRw=;
+	b=Uf8DbKYtK8/bHZLfy0QmzwY9zx3M6ct2KrDALa8gQN+dYjSNcBVKij+wkmJxqSz2mrvN
+	 s6q+kwP6O7MkV9rfMdKQPKpRMSfLe6qvDNPUnEtRsyJw9+tDW5mVTDnegy7tZEuBXwTEs
+	 yKlqpoAuhuhGrzQq4JKai8IgEDL59oO9PDZGktvuBC5wEFmOTRFUSbUcagYazyKaLMXKP
+	 YpdhvpHUMkXTC/VDVVXzwxJ1ehizr6XDNdg27THCN09aOZfWDp0goKqk1HAV5/YIhFovS
+	 Lypbpr5eIjBCe2LraJCevjBrVWlj2UkNjL0UOqYCdUrSF4slIxazWXQuv15JQD5Kueg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lwOfuw4m;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.5
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010005.outbound.protection.outlook.com [52.101.69.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=cloud.ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b=eH6K7l8I;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ACA606A319;
-	Tue, 20 Oct 2026 06:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8ACA606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E5F606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 06:17:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E5F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lwOfuw4m
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wL8G0/oYunTHc1ajzC88KK8Fvssg3ny/f2S0UTY/P/HWx+k+KqNI1JeGXhKPeDw9zLS8E9aJ9DsoM7NuGF1iti4FSavpWsJtEibrE5I9XYFeTj+UYcNaYC2mMtMclZCbKL4rFsRaCISQqiLB9HgM6GV3HFoZOxxTWzTU9mgWLZ6pshnkYnD1b+atjj+70ypX2bS/jt4IJX0wkFIsgE5yLeqgae7DJR3ZWFjoyD0IuLEtcovBlK2l0oIJD1EmxV7MsL8+IGw1OBR0qcf6EAFQRSZnwjSSPHOqX+1mGhC3HrN35E3shF6nKzPpk2ukodfc/zQrxnXYJsg0vC1qQM826Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=15gpbQJaROHhKAWjdlM4SFUSfhXN2/k7Qz9trFS0NdQ=;
- b=kmkbgwwoB41aRHY4rdnho4tDrDgQOFJDuzmVRt1dXWGpD3AlPw9+0CA7fXy+Ggh2KXKjC89iRBe1a6zeTXg25SIEnaAbf9/PHppWQmMjH04VVYJziz2wPIXXs0BWTLSqoiRxuj6SFclrlbektKbBl7PlODCvN/qJAosYb9oj1hXWYeWO3FaDRKV+ODvlGaTvE+6OXCichqsyfobHNpf7nWh3kTdFha+QhXGkMHciPSmF0+vuJUjRYkMRzqCFdzcK69DgLBvkKXnOW99f599xgeicdmKvWqzqEnx7h7F65vLNIfCXQl3QAh0YS0JGlykB5ZWxkdejG2X2cBKTPzEilw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=15gpbQJaROHhKAWjdlM4SFUSfhXN2/k7Qz9trFS0NdQ=;
- b=lwOfuw4mIViH62NBJ+9zFlkvECiH+FuGGPUJy+yKWyFsmzmVu9hj3N29MhlclNgR8cS8Xfdrd/Zp8rDamPfgwnGgjBDGg5b1LrBMbNveoJ/MazATn629oQ/NBlAdqkKGAnXn0LOXr6i26lHDGgp5B4z+0vGdhqcYQV8EjO//NMFvCIwV5NXId3TFKe4oUreBq+gG/6coH968QpEzz+J2rWkHVE1i7qKcVZP8xo/vxxk5FKpQ0iHU2vVP2Pkqy02z0HAW39x3l6oejYlivCOwFz0vBQ0bufDpoX1b8jXIQP0GNjv3WNkONXytEnEcvug+piKcR+snIC3abuG/7rn3QQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM0PR04MB917899.eurprd04.prod.outlook.com (2603:10a6:20b:7fc::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
- 2026 06:16:44 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 06:16:44 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: Frank.Li@oss.nxp.com
-Cc: Peng Fan <peng.fan@oss.nxp.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v6 1/3] dt-bindings: remoteproc: imx_rproc: document memory-region-names to avoid hidden ABI
-Date: Tue, 20 Oct 2026 14:13:55 +0800
-Message-ID: <20261020061358.188550-1-peng.fan@oss.nxp.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261019-memory-region-name-v6-1-2e46b2e7d667@nxp.com>
-References:
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2P153CA0034.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:190::17) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key, unprotected) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b=eH6K7l8I
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1b34ed603so553039a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:17:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792477045; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sxZyi6TtOKLI+lhotWG6cpkdB+2RggXSSfw6LUGregRpZbJmt2RB+6wrNvQFVcxnrq
+         2o6NqgBWDkM0odHfzd7CJQ2YZUYwAyv30z7kzLUAkRT+PQaOKMqfaMmlE5pib1OHb4XE
+         MQ7kGcxqA83XVKNdW2HnplJ8Jfp6DX0TkNNL+YRSre/F/sYro2F36YT0QZug4i+RpItQ
+         hilvMVXwzAzqcAe9NxNRjIQNMf18wdaUu9jv2nfVXOJSmLiNMIFc3YkKc2Fa6sSLjSlp
+         jmBm+ar2xjr41K6sTFUe3kEHN9ab9hHjfxUfhhOCm/ip9rWLIMJz1VI4flB8QQfzA0XZ
+         5TWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BrmzMw6cqUI5ufvqtaTGz6/71SoGnJjwK4qz0ikJtRw=;
+        fh=bE+ciInCbsVnhKsTjGyziQuu4NUESC9CV/Atiq0lsLo=;
+        b=AQtoOkTdjh7mRkuJHsj68AVvQkymRAHXedRVr++9lMr8fEv+QJR5BpqeRkIdROMNd+
+         iFxet9rjHcA5jCSP0VPTdpocVptdoshKBxxfSp/I+2TVttdVrhlW2+e3GakGjoLdlbIy
+         cR/h+LvdHoW6u7rEWHMnxSUINc4ZguEHhBagjwiDcRoI/dMBi8n6Y6yhElB6JoCAxvzU
+         SNrQuV8UTBKlwws/b9W3CWblLb/03qXk/Lxd2Ki3DTzgWavmApgWJZaeXpI5++xKCj97
+         zw/o+HqVeq0NVIYl9A5gC2mG/K5DSgU+UcotLKm9a4XtKjvCayaCcPwymjbkx4jpRGyV
+         ufEQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.ionos.com; s=google; t=1792477045; x=1793081845; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BrmzMw6cqUI5ufvqtaTGz6/71SoGnJjwK4qz0ikJtRw=;
+        b=eH6K7l8I3SY1r0RnHc7tAKBD3ywEGoX7EBEJve7cuUHOPVmc3sXZm7N1TZ93YJsy9o
+         k2P6itpQ2i+6XFewnrnvprehWmwJedqIdhIcPvtF2Oj9KdWI4QgF6hoAMOS6kFM5qkkd
+         AgsdsXlcFFHL4GgTe/pdnm8Gh11Lvh9fT8yl8I91xjC5lwIRFIhzAOoSvJ1Aj9UTmRro
+         TX0DlVJdCx7M0YpaBsfYIEdXZ0cS2BHffn5UUJM2byfTb+2z8hrqKlfCAS/Rf/qUSQhs
+         k64K5QihWxTl8YgyPvesTCzjsa5NtyhKeVaq790YzJtV+Utwzkeb6Y/anYAThukiSTrx
+         dPmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792477045; x=1793081845;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BrmzMw6cqUI5ufvqtaTGz6/71SoGnJjwK4qz0ikJtRw=;
+        b=01pcY6FfdTBEJeVlIPPDryVJhgftmJ93/Tq5phHIqR0VzeoVJEU9FG/8EqZ8nWTs+3
+         54zmF6Nv+wZ/ylORSN/Tz5ezmm3+qO28wFnomHMA7WX/k3Q7X1TPPt7J4iphxSPcG9QH
+         6sysxweXPW0RaqmtVd4K1oFDYi513tBSVhTI4AmuweWg8GyLagwFWm7JQt56hj9vdedq
+         g9i4Nu0A2Yi3MIntQwBBo5wKHYi8FA+qlAyjbCOX8SqWw/U9Vb3OJa+VjdIpjcIaD6WB
+         wT9CTPti9QZsPgzjDS+kViSZh6q/u/SWrVW83+NAHyBQBVdU+ZC7yosJsVGhIL7gS5zf
+         a1Wg==
+X-Forwarded-Encrypted: i=1; AKwUvByZ3JQP2bj9ygUlV6FcIJFRUvoothJgHHT4jOmh+DipLsrMmnn9Ha1lXg4A7uTTX4xJCgRrpuQd3SrwY7w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWEei0UARI9ab13iqg08nK4CIvOMntfdSv4T6BkoPJlvIqPyZX
+	gxh+D08a3JoKGP2r9lgUqS+7YG18h4MBCjGGVBcFC1qPO6ttLLfB8Ni0eHr3N4r/Vp5+eoW/3U+
+	MhBFOlD2uNNheXyXkSBu2xJCtRlR3lciVVOErHOvBHg==
+X-Gm-Gg: AYBFou3dppZ/xs0xaTMCrg8QJe6SqzJmcdF0C5lUPf8yIhKGqlLTFZtQic4RAz72auk
+	KhbGEPUeQYyAbULlpGdM0UKQb4CwK0uHk7xWPYRJDeTFtkIbGJv0p5/U13Rob9RolsnbTkc63ph
+	Dos5ebUKwfuLKqRx/DlIN0LfZABDIH6B5Pcf0rjwBRfFXBn98uPSQV4sFRN/l681iWc68fctkzO
+	3E9OOrGULD7N9cg/k3NX4iiWaSDTW7pR8pdTXCT8kNceBbQgvC8d6q7MTU+Nuq3xfpUYYmoGLZ9
+	GANTMDx5QwkaC3gXGTuPbfEz7wcYHY8aQDD9Km5CdTdiGFOthop90taXdKh5lrRJC0wcK81cjnl
+	MCIBnrePUp/SS
+X-Received: by 2002:a17:907:6e87:b0:c40:b180:db3b with SMTP id
+ a640c23a62f3a-c419e03afcbmr741266766b.3.1792477044765; Mon, 19 Oct 2026
+ 23:17:24 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,90 +104,236 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM0PR04MB917899:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e432011-7f1a-49e3-a637-08df2e71b6c5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|19092799006|23010399003|56012099006|11063799006|5023799004|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	RFDvcTEiAh6R1DdFw5MUUEvkiKrTV+ixR6SxKJ7AQBBr9snq7fGRwE5N8xWa0+0KJAifHkMhKfIOH8b6nIozvSvQ0D9/uKqPu/xmLMMzKpJUcAvqf1mcozLFSFRNcgL3+nrLOtTHRf797UDO73GLjqg57YabnzHLgkr01Xd/SI4wKIScHYB90BmPLwDFPhVTEBNax4QToEbESTjJd8akvLjcDbhf0oqjKh8klrWB42exIBjySmwgRztWc0GhPcOJE+MkyBouKwJzm0dUdfdCXkqJHqPGF/RO4tmUvjUOKU4+3u5NzoWJzmm3/Xgo3YMFM+GCc3gDeEubRz4OqILC14mo0mIqEOa7JS8Zswiyg0opBRAPFu6gOG9cv6VGeTPMftkqh6OlIARAfn8F8DfOqvvcbfpkazcgLSnqqxwyMr8rK8YfXGDkONQh40s/PbBVOm88z8Gabv41HjrtN+erzdXiIPbKuJDSbaTMoRGLqFk2QwTcYXYCnQlOn7LbEOFXhTtUVV/ABeHBXxOSyvEgR+kHd11aOwnvn3rqJNopLzDipiX3KEp0ZKnoHq0RZT6YfaugcslYunK6YVf4KlJ/hD2ZXoqQbsh6+G2R3hgvRyh1Dbx8S343C8qxFqsT4Xaa
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(19092799006)(23010399003)(56012099006)(11063799006)(5023799004)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TmNYLzhRSzlnVWM4eXhuRDBXdmVGdUIzZ3VQSGhvU29JWElTMTVVTnpEK1BY?=
- =?utf-8?B?UXovVVRmaGx5R2dOd1pYUFJVMWF6TVovbUdNbFIxd0dwM3FoL09VbWNNUHFJ?=
- =?utf-8?B?Q3JiVXhnZjg2Q0tpeHJ6Sk5teGNWYzRuc1VoaU9MMU4rcDh2TUF2Rmt2MC9O?=
- =?utf-8?B?VHVlZjl4dlY4TTgxY3FaV0tGWGJic0kxbmF2dzd1dnV1UzkyV1MwOU12RmNF?=
- =?utf-8?B?b0R5S1I2a25uSTFLcm1pdkRsS0d0azczdnN1WlYxZ0xZZHhFd2NjL25OQ0xN?=
- =?utf-8?B?MFozY1BRbjJpZTg2ZUoxQmIwQXRQeUd4UmZEMndmM0haSVYyb0FJVDRYQjI1?=
- =?utf-8?B?R1FtRmkxV1lPQnIzdjV3bmVCNkRHT2dZd1J0QW84NHFySm1oN0pyYjRkNmY4?=
- =?utf-8?B?b3pDaFNUc2RKQU1JMGpMUzdKOTcwRnVCaU1kWHRYTzhnd05hRkNzcVJ2WUM0?=
- =?utf-8?B?a3dZUTZRcFVUeEI0NXMwVVdURzFiN1FxWFBpNGIxdWxFUzZlWkdpWEduSmIv?=
- =?utf-8?B?VXFIWE53YlcrRVhyZzNDK2lRdDh6ZjAvQUlLZ28rY3dSNFBmNDNNUUtGN3dN?=
- =?utf-8?B?dW01c3MzbUZWd0RsUEdiYmk3b3VPVFNaY2VzS2tzRG5lTy9uRUhQQTAwUWxS?=
- =?utf-8?B?R0xPRzVsMFJIVDkybkZpL2tYNEFUVUtrc1FJSnNLQjIybjhkaDMybzF2YnNr?=
- =?utf-8?B?RzFkV3ZTRnJUMXhFcDVKbW9NT21CSkpWQ0huSVNuSWxwRWpXVm1paGJMSWQr?=
- =?utf-8?B?QTgvZ1lBVmdrNmF3YzMzd2dJdXQ0UFZTUTlFeUhqL00veGI2SFBaL0lOZjR1?=
- =?utf-8?B?RDRTK3lFdVZ0b2JFWjF6d25WZkxGVTVCMFF5OVlMbHU1aWl0QnUxamUvOXBZ?=
- =?utf-8?B?SCt2bDZuZzhoSHUwNnZaZ1VFZUgxbUhsVnlLaGh2dE01aDd2UGRON28vQVZE?=
- =?utf-8?B?eUhTejhZWWF6OFN1QmRicGtscHVxZEpXZ25jQkl2andnMmcvaDBONTAzbHBr?=
- =?utf-8?B?SmtlZnlLdkJ3N0VGVDQyMXUwaEdXTEhEWWkzMkVWazU0MGx1L1RLTWJmL1Fz?=
- =?utf-8?B?ZmtMcHlldUUzUW80NDcrQU1PRVhYM2ZzaWtSbHp2VE9PN0lsRGF6akt5d2x4?=
- =?utf-8?B?TGMwVnl6Wk5iODMxSjB4cnF0QTh0ZlZEWERBV0l1T2VlOFVpMnIyeDl2dzB1?=
- =?utf-8?B?a3BaTEZpUjlrckdsQWZ0MkREOE5CbHB1dVRoN0d6TTd1VXpGd2pZSjhiUGxv?=
- =?utf-8?B?c3FaTFlyVEdqNExXZHVyQzJ2R1c2MXltL0hBVnEvTGJjQ3JDNVBqQmZGOEhX?=
- =?utf-8?B?SzFMMmhGMEJxYnhBaHJyS29UWEc5MndnR01iODZJUm0zLzJKVUgvQWtvLzh3?=
- =?utf-8?B?NTZza2ozSEdsSkxwd3FFTXRMRklnV1NoMEwyVlBLM0R2K2dhYmRxaGdmSllv?=
- =?utf-8?B?bkJzUXBuOC9TRzNUNUloUlk0bWd0MHY5UFJrdHljOUozaXlUNEVTUGpUaWc3?=
- =?utf-8?B?SVNDSk44bmdBRm5FbUY3UGlVZWoxVE93SlA1RWJ2ZmxZdTg0eU5MZ01aYVJ1?=
- =?utf-8?B?Q1FReVJtNzBqVW1GVTdFaGVzcUZaWWV1SXQ3eWo3ZVlkVFpObVl4QUJSOU1x?=
- =?utf-8?B?WnMvbzN2TXRVYi9ROCsvcjBzc0pHQlU2bTdLTEJUMGhGSXlMMEJiOXVJUW5l?=
- =?utf-8?B?SmhqcnRncGZPUFBTSEpuZk5RYnJtVkNwMmEwQ2tsOGljYkFtOWVSY3JDaTd6?=
- =?utf-8?B?aHd6SkFlVFJFWEd2M1VqMjZCMzFadk9TRGNJMzBoaGtuSFY4ZGU0MkhybkZY?=
- =?utf-8?B?dTBJbUNvL3U4NUVLdnhvb2p4OHRadk5XYi95WGUzRDF6Q0ZuaFcrWmZoRUZB?=
- =?utf-8?B?MnNxaGNCYUI1NnNocjJZcklxZ1lhMVI1TGN5NmVpUVFNZ212RzQ5RnpYaHlY?=
- =?utf-8?B?Uk5lL3RFWXBSUVhNM1NEUis5amVabk40NHF4NWs0OW01SldmelRLemtmRVhk?=
- =?utf-8?B?L2ppdlV3T20vK3R6aGRBZmMwOW1GNWZwbXVlNTJTSTlveUE5MVJBeWdoWEcy?=
- =?utf-8?B?cWFtUkt6bDlwT2doSnROSXlGWjhFQm8rZjh1cWJnczhvaktOQUVBUi9NVlBu?=
- =?utf-8?B?NHp0b3lsemlFUEo2OWJhRldQV2R3MytHWlc1UXZlbEFXTEVoaDAwUUp6Z2pt?=
- =?utf-8?B?OGtFam9Eczdhb0lSdzN0L3lGck5BQUtKMnk5eWNSZ2Z1MklCZ3pHdkVUbmNK?=
- =?utf-8?B?aWpzZCtoOFJFdVJTdE1lbTI0Tmk4ZXlKWlR1N2ZUZWU5WXh3bjdob2dPTDlH?=
- =?utf-8?B?SUhSSTNtdDJCZGl3MFRleWl6UHpHR1FKdFBZK3dOMC9zMDh0NzVvaWZuR2o3?=
- =?utf-8?Q?4Cb9P+lLLLvk7m3ZcndZiNtllSy9bQJaNuZ/4?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e432011-7f1a-49e3-a637-08df2e71b6c5
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 06:16:44.5055
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lmfQY/yP3E5FkzW0+bL5c0IFmWEaih/je5cdGR83nNNeFWUNeSxFDrGlIc72mS6nfZTraEk7JHPXtvgM0cxgRDQjT6ahuLd3z+EVRkw+344ygF5LQagq7Jm3FrJHB5lT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB917899
+References: <20261015125118.2966247-1-me@andrei-z.com> <20261015125118.2966247-4-me@andrei-z.com>
+In-Reply-To: <20261015125118.2966247-4-me@andrei-z.com>
+From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
+Date: Tue, 20 Oct 2026 08:17:10 +0200
+X-Gm-Features: AclHuK8yK-clpjX1OPiZivKHfrRa7B-1lxRg4XY5MMZMZt_hU0VbFUFNU3sACZ4
+Message-ID: <CAMGffE=qjNDYdwx1PYgK1K87A4NhJ=cuR+kkUhdYH81gSGb-nQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 3/3] RDMA/rtrs: Post client read requests inline
+To: Andrei-Alexandru Bleortu <me@andrei-z.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Sagi Grimberg <sagi@grimberg.me>, 
+	Max Gurtovoy <mgurtovoy@nvidia.com>, Bart Van Assche <bvanassche@acm.org>, 
+	"Md. Haris Iqbal" <haris.iqbal@ionos.com>, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 19 Oct 2026 14:55:48 -0400 Frank.Li@oss.nxp.com wrote:
+Hi Andrei,
 
-> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> 
-> Document the optional memory-region-names property.
->  
-> The driver currently derives the memory region type from the referenced
-> memory node name, creating a hidden DT ABI. Since memory node names are
-> not constrained by the binding, incorrect names can silently pass DT
-> validation, as seen in examples using "vdevbuffer" instead of
-> "vdev0buffer" ([1] and [2]).
-> 
-> Add memory-region-names to explicitly identify the expected memory regions
-> and avoid relying on memory node names as ABI.
-> 
-> Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
-> Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
-> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+The change looks fine to me, and I did some testing on it. However,
+the data doesn't seem to show any clear performance gain from posting
+inline requests.
 
-Reviewed-by: Peng Fan <peng.fan@nxp.com>
+Best regards,
+
+Jinpu
+
+On Thu, Oct 15, 2026 at 2:51=E2=80=AFPM Andrei-Alexandru Bleortu
+<me@andrei-z.com> wrote:
+>
+> The RTRS client sends a read request as an RDMA Write with Immediate of
+> a small message: the user message, the RTRS header and one memory
+> descriptor, about 60 bytes for RNBD. The message is posted by reference
+> and the QP asks for no inline data, so the HCA has to DMA-read it from
+> host memory before sending. That read is on the latency path of every
+> read.
+>
+> Let rtrs_cq_qp_create() take the amount of inline data to ask for.
+> The client asks for RTRS_CLT_MAX_INLINE_DATA, enough for a read
+> request with one descriptor and up to 64 bytes of user message, and
+> the server asks for none. If the device refuses, the QP is created
+> without inline data. The client posts a read request with
+> IB_SEND_INLINE when it fits in the inline size the device granted.
+> Write requests, whose message travels behind the data in the same
+> WR, are not changed.
+>
+> Providers copy inline data from sg_list[].addr as a kernel virtual
+> address, so the inline path puts req->iu->buf in the on-stack SGE.
+>
+> Assisted-by: LLM
+> Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
+> ---
+>  drivers/infiniband/ulp/rtrs/rtrs-clt.c | 17 +++++++++++++++--
+>  drivers/infiniband/ulp/rtrs/rtrs-pri.h | 10 +++++++++-
+>  drivers/infiniband/ulp/rtrs/rtrs-srv.c |  2 +-
+>  drivers/infiniband/ulp/rtrs/rtrs.c     | 22 +++++++++++++++++-----
+>  4 files changed, 42 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/=
+ulp/rtrs/rtrs-clt.c
+> index bf3a0377da3f..4a552e0459b2 100644
+> --- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> +++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> @@ -489,6 +489,17 @@ static int rtrs_post_send_rdma(struct rtrs_clt_con *=
+con,
+>                                       req->iu->dma_addr,
+>                                       req->sg_size, DMA_TO_DEVICE);
+>
+> +       /*
+> +        * Post the request inline if it fits in the granted inline size,=
+ so
+> +        * the HCA does not have to DMA-read it from host memory.  The CP=
+U
+> +        * copies inline data from a kernel virtual address, so put
+> +        * req->iu->buf in the SGE.
+> +        */
+> +       if (req->sg_size <=3D con->c.max_inline_data) {
+> +               sge.addr =3D (uintptr_t)req->iu->buf;
+> +               flags |=3D IB_SEND_INLINE;
+> +       }
+> +
+>         return rtrs_iu_post_rdma_write_imm(&con->c, req->iu, &sge, 1,
+>                                             rbuf->rkey, rbuf->addr + off,
+>                                             imm, flags, wr, NULL);
+> @@ -1714,11 +1725,13 @@ static int create_con_cq_qp(struct rtrs_clt_con *=
+con)
+>         if (con->c.cid >=3D clt_path->s.irq_con_num)
+>                 err =3D rtrs_cq_qp_create(&clt_path->s, &con->c, max_send=
+_sge,
+>                                         cq_vector, cq_num, max_send_wr,
+> -                                       max_recv_wr, IB_POLL_DIRECT);
+> +                                       max_recv_wr, RTRS_CLT_MAX_INLINE_=
+DATA,
+> +                                       IB_POLL_DIRECT);
+>         else
+>                 err =3D rtrs_cq_qp_create(&clt_path->s, &con->c, max_send=
+_sge,
+>                                         cq_vector, cq_num, max_send_wr,
+> -                                       max_recv_wr, IB_POLL_SOFTIRQ);
+> +                                       max_recv_wr, RTRS_CLT_MAX_INLINE_=
+DATA,
+> +                                       IB_POLL_SOFTIRQ);
+>         /*
+>          * In case of error we do not bother to clean previous allocation=
+s,
+>          * since destroy_con_cq_qp() must be called.
+> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-pri.h b/drivers/infiniband/=
+ulp/rtrs/rtrs-pri.h
+> index 59529d593869..bcba80d3c214 100644
+> --- a/drivers/infiniband/ulp/rtrs/rtrs-pri.h
+> +++ b/drivers/infiniband/ulp/rtrs/rtrs-pri.h
+> @@ -97,6 +97,7 @@ struct rtrs_con {
+>         int                     nr_cqe;
+>         atomic_t                wr_cnt;
+>         atomic_t                sq_wr_avail;
+> +       u32                     max_inline_data;
+>  };
+>
+>  struct rtrs_path {
+> @@ -286,6 +287,13 @@ struct rtrs_msg_rdma_read {
+>         struct rtrs_sg_desc    desc[];
+>  };
+>
+> +/*
+> + * Inline data the client asks for on its QPs: enough for a read request
+> + * with one memory descriptor and a user message of up to 64 bytes.
+> + */
+> +#define RTRS_CLT_MAX_INLINE_DATA (sizeof(struct rtrs_msg_rdma_read) + \
+> +                                 sizeof(struct rtrs_sg_desc) + 64)
+> +
+>  /**
+>   * struct rtrs_msg_rdma_write - Message transferred to server with RDMA-=
+Write
+>   * @type:              always @RTRS_MSG_WRITE
+> @@ -325,7 +333,7 @@ int rtrs_post_recv_empty(struct rtrs_con *con, struct=
+ ib_cqe *cqe);
+>  int rtrs_cq_qp_create(struct rtrs_path *path, struct rtrs_con *con,
+>                       u32 max_send_sge, int cq_vector, int nr_cqe,
+>                       u32 max_send_wr, u32 max_recv_wr,
+> -                     enum ib_poll_context poll_ctx);
+> +                     u32 max_inline_data, enum ib_poll_context poll_ctx)=
+;
+>  void rtrs_cq_qp_destroy(struct rtrs_con *con);
+>
+>  void rtrs_init_hb(struct rtrs_path *path, struct ib_cqe *cqe,
+> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv.c b/drivers/infiniband/=
+ulp/rtrs/rtrs-srv.c
+> index 5314599d29fe..30fa4c7f64dc 100644
+> --- a/drivers/infiniband/ulp/rtrs/rtrs-srv.c
+> +++ b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
+> @@ -1759,7 +1759,7 @@ static int create_con(struct rtrs_srv_path *srv_pat=
+h,
+>
+>         /* TODO: SOFTIRQ can be faster, but be careful with softirq conte=
+xt */
+>         err =3D rtrs_cq_qp_create(&srv_path->s, &con->c, 1, cq_vector, cq=
+_num,
+> -                                max_send_wr, max_recv_wr,
+> +                                max_send_wr, max_recv_wr, 0,
+>                                  IB_POLL_WORKQUEUE);
+>         if (err) {
+>                 rtrs_err(s, "rtrs_cq_qp_create(), err: %pe\n", ERR_PTR(er=
+r));
+> diff --git a/drivers/infiniband/ulp/rtrs/rtrs.c b/drivers/infiniband/ulp/=
+rtrs/rtrs.c
+> index a642626e0ecb..08b8b1abb1d3 100644
+> --- a/drivers/infiniband/ulp/rtrs/rtrs.c
+> +++ b/drivers/infiniband/ulp/rtrs/rtrs.c
+> @@ -253,9 +253,10 @@ static int create_cq(struct rtrs_con *con, int cq_ve=
+ctor, int nr_cqe,
+>  }
+>
+>  static int create_qp(struct rtrs_con *con, struct ib_pd *pd,
+> -                    u32 max_send_wr, u32 max_recv_wr, u32 max_sge)
+> +                    u32 max_send_wr, u32 max_recv_wr, u32 max_sge,
+> +                    u32 max_inline_data)
+>  {
+> -       struct ib_qp_init_attr init_attr =3D {};
+> +       struct ib_qp_init_attr init_attr =3D {}, attr;
+>         struct rdma_cm_id *cm_id =3D con->cm_id;
+>         int ret;
+>
+> @@ -271,13 +272,24 @@ static int create_qp(struct rtrs_con *con, struct i=
+b_pd *pd,
+>         init_attr.recv_cq =3D con->cq;
+>         init_attr.sq_sig_type =3D IB_SIGNAL_REQ_WR;
+>
+> -       ret =3D rdma_create_qp(cm_id, pd, &init_attr);
+> +       /*
+> +        * If the device cannot provide the requested inline data, create=
+ the
+> +        * QP without it.
+> +        */
+> +       attr =3D init_attr;
+> +       attr.cap.max_inline_data =3D max_inline_data;
+> +       ret =3D rdma_create_qp(cm_id, pd, &attr);
+> +       if (ret && max_inline_data) {
+> +               attr =3D init_attr;
+> +               ret =3D rdma_create_qp(cm_id, pd, &attr);
+> +       }
+>         if (ret) {
+>                 rtrs_err(con->path, "Creating QP failed, err: %pe\n",
+>                          ERR_PTR(ret));
+>                 return ret;
+>         }
+>         con->qp =3D cm_id->qp;
+> +       con->max_inline_data =3D attr.cap.max_inline_data;
+>
+>         return ret;
+>  }
+> @@ -296,7 +308,7 @@ static void destroy_cq(struct rtrs_con *con)
+>  int rtrs_cq_qp_create(struct rtrs_path *path, struct rtrs_con *con,
+>                        u32 max_send_sge, int cq_vector, int nr_cqe,
+>                        u32 max_send_wr, u32 max_recv_wr,
+> -                      enum ib_poll_context poll_ctx)
+> +                      u32 max_inline_data, enum ib_poll_context poll_ctx=
+)
+>  {
+>         int err;
+>
+> @@ -305,7 +317,7 @@ int rtrs_cq_qp_create(struct rtrs_path *path, struct =
+rtrs_con *con,
+>                 return err;
+>
+>         err =3D create_qp(con, path->dev->ib_pd, max_send_wr, max_recv_wr=
+,
+> -                       max_send_sge);
+> +                       max_send_sge, max_inline_data);
+>         if (err) {
+>                 destroy_cq(con);
+>                 return err;
+> --
+> 2.56.0
+>
+>
