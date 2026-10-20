@@ -1,89 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792455088;
-	b=e2E09962LXJV/fITjaEupY4ExijC0RA3wYkpKGHlZkoFt9BEQlsaZ6QNh3Y0i+0jkJJO
-	 16Jb4pzbXZKFjcPgUsunt+gK9W6zLP/yBzAK9IuH3ytO2QhOZJCf1EbNZDbUTEHgooNLi
-	 sezOerJTSWOhlkE0/Ngc8MO2glqix7YGauIvOzWtfK4AcmkD5JJjQ8H538+jIh6mtoO2u
-	 3IRAgdGmGPVmC5/mGHniCLuUGr0a52G3xieHljLn3ct9EOKvbds2+zjPG0cNDfDEhfw0D
-	 DQGUQd718AWCWaFeVZ3FOxx0pqI2ejLDj+kLVB7BBC/aPVtxa6DCmp9qb7o/Af1AxXA==
+	t=1792455098;
+	b=L8cJ+DHFdZ/ZPdA83y+gYVei2Wyl0K5b4ADeHfYc7HDGzp/UkkzDRYr/TZ4N6YY3Brro
+	 32wkdvWOx3HwTMzkrrAaKpDr99tULMC/RWIbl9ytJfkqANsqsjLkQ0C3TzjY4yoUyTHFr
+	 ITYfuU79zfqZZKrXP9c7XeKPb6FzG8fHZkCGpa38HtygrsnXs5424f4D3dbbKnvS66qs3
+	 TceoSaugB6wCHMaMzbl69KVktgCSZ2NGuvR7ExjgmzWOSewTet9SzYj/gPxVOseph7etP
+	 qz4LclTBqelrJxfh6rLYtWZ/qczt3qIY0BFFZRtMm+bg8RQYE00lfISP3q5oIOz3ufA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792455088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792455098;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=fI4KScsk7gG6RwgtVM01mT7SOGeJOcVhU9QE+cMELpc=;
-	b=U9Frz2y3f29IOCfPA6c2bCxo2lTkodWQ6zG5ekYM6Wq2WiGoeckhXqA1EXC7QsFBgIw0
-	 jCsH/XHBQsdELlJn+Kz4YCMt7dIjQtKvDM5v1VZ+QMD7LyJvdYnmQDnm2oXq5XEHPO6pd
-	 Iw2RwPmjpwvY0WD7HFPwntdKEq3F5E6DpEdOo/fGj1Cs5Z01R80MI1k3OmT399UHlNuA7
-	 ErMbdJy418LDPi/vq38D9u66rDwO+rkuUMRiopDTCj71riEODk5RVXMhqJPmvEkoJ36DZ
-	 X0UoPug9efvCTEIxXtuKUPsK4vrgiPSA/sBnNMtsU5JhP00GeoTgT3bKNPyNpvYdrdw==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DMO7T2iNmERwfPSUE7du4cnrIrr/G3qYPO2nLCSkaCI=;
+	b=X7AsHGdyriMOPoUETM7cc4n7Idt+bMgDWaWgDpYkFQC9o0ChcdKMQYbw+tlG23Dr6AJj
+	 c1iYgCNfg91Tp68MFuWqiQdye/qOsyvVGALbRoAnNbz7KT9PJz0Uk1J91yhrqroKONK2u
+	 qKuu4iZhO0xLNGGOY+nLVcFbIWwqE1cMtpgKF5dHqm9GGyHq9AWrUYN7dCS6Nh5dcCcx5
+	 //EuclGMMXElIqBkc+3Y6jvBwFU+Z9q2TZ1avLXwXZze8K/vzsUVRbTkilHiiBeqwyup1
+	 DwJt05S1rSb2J0xP8IFtY9fLLo1JJ5Wc5BSstXPhbSjGjUgvXjStYbZDAqnRj8bNx8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="ZuK/xJSa";
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="dj/FiI7u";
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185F3606A319
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:11:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 185F3606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A285560A2610
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 00:11:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A285560A2610
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZuK/xJSa
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-188406bb948so235769c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:11:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dj/FiI7u
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-157fe9d771bso1444025c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:11:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792455087; x=1793059887; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fI4KScsk7gG6RwgtVM01mT7SOGeJOcVhU9QE+cMELpc=;
-        b=ZuK/xJSaPYMorUcvpk1xv8cGzF4wBYKxStqYcq8UGMHroIRs76vKrnoqiNMnZ6Guzg
-         hXa+J8q0ipI67W/zNZ0plDISXfWsOpeDrWKyOYd4vcCflYTuf1mosbI+KSU8/XEFTAna
-         p2DeDYK1Wt/7tIOhJVneIfe2XrvwJlDowYteVmuuBq7fasKZ+S4et20K/cMcCmB+r/zE
-         2/mivEeAGuP3eRDuBAaPr220QbMBZ0K8FLF/5CL4X8Kq1Bk604ng/38QMgfKW2/Kg7MB
-         yWQR/z+mwVg/cOafaZ2/HWGCaa+KzAdXhMiwstX13aLLRnVhonTtMNyCPL6NI+UJr1nC
-         Yz7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792455087; x=1793059887;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792455097; x=1793059897; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fI4KScsk7gG6RwgtVM01mT7SOGeJOcVhU9QE+cMELpc=;
-        b=gzdjnX5gsUx2YcJg8PeqyAbKTXnqpliYCVGLnce0r7KpN/m4GLfV50IHVWvz6hjX6C
-         OFsuMNJlkCvO5DGz1RKFQOUcodeZPW15kyVq/u1/m5iliK5GhL90LZttFgJV/YvaP3Qo
-         T/GvXeqSWkjR2XUtK1qDQEjrvMqQQQ2vSLp6fa003f1iXau3C+AXCAjQnSJUFuWSDLQY
-         YaBlp7Gj5ijl3Q/HO9IrNJ7olGuP4J21pEEibYvJSGwSGqQ2bPR+s2Q6GIS6ZBg/2oxD
-         0B5TO2+5N3IixNcHpb47CWfiDm2BjgBH6T/5s1MsSLZdz8XsKf+p1JScVFsUf8V+UfkB
-         KSXw==
-X-Gm-Message-State: AFq9FYKwnq3geIAMLF/5dD6lv83z8vZQy56A1jtitwqxMViAvjYTdAU/
-	UrdVbBDOiInt2GbtnWOcsSz4y4qjd3T5JNCmF0ZtEBGwzM0wxryk+13+zqbDTw==
-X-Gm-Gg: AYBFou0IRoBKfZwzKe4YgNTs/Y/tIu323eogZqRggo6SXLzSr47MEbfM1uu2WOrBfrC
-	eQ3NFcKMt19i+dG4dHCiZrbcth0jwdcx9pLfYFvgu4maY71TEUWTx33xZMms5tTzFRxGlRLgt4D
-	89+3WBue4Ek65pHfJ6AzvC8Bj4U+72PawiNb+uKJwQUNJpRKanoJ0hfA7C6j94Kf3r1ru2NtDL0
-	u2tF/N7Ab/xWd0xR3Be0SJ5I85D97/7TrOBE/EsE9izlB+g9Dx3clyig38Hlxhp2KWC9thoHMcC
-	UByGSd+rwop3KAuYLGeWuz1SpwEvYtyuLhpphjiPSskchwNgnmQY+lgVDQf85xgXWQK/8rTEsfJ
-	umZYv7Dr9Kd3wVgoDUJerdXC6rjijFYEV7TXcE9Gd9uGKytdoPE1AuqnlhDGbTUsXA1jynSV+zE
-	LrgCWvzIwMWh5YwtTQ17rIBjhTVCbYshpmcDmQ6oJPBXHpwdW4swWVdBdCzMGieBzR1vTgYb7cu
-	Aj0zeHk7o567io6EVGOeKu7SjIkxdj6m83ChpQ2d+0MI/0Djrw7nbxA
-X-Received: by 2002:a05:701b:208a:b0:168:fe32:35a with SMTP id a92af1059eb24-18512296a20mr12690950c88.20.1792455087062;
-        Mon, 19 Oct 2026 17:11:27 -0700 (PDT)
+        bh=DMO7T2iNmERwfPSUE7du4cnrIrr/G3qYPO2nLCSkaCI=;
+        b=dj/FiI7um2YE3xBHeg6S9gu47GcEzwI/QYb3BXFzz0nHWOeDkvONytshXAEOolJJSW
+         FBEP59GeX9AAOKBRCCNMJ+/91IhwjEL1xzTtDa9dVBOjvegLCoSowDXnL9EecFzp/pYt
+         1Pi166RjRBvNjCdE+9TJJHLp/p4A03aKUPVo0iNzAssDelqey7GGBfAqkV6Jwmo7riVS
+         zk1/uRFfz8kqChjEaZcvFiXG9DkmyxtoZsu09PnW0sor2tv9svDaLiR12nLEABJniP1t
+         THSjyh1hGNVtPznzEQvXurtTi/dXuaoM4iTStGo/WYve6UqEwaCgnJ+rGIEmfFPdl6UZ
+         Hg3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792455097; x=1793059897;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DMO7T2iNmERwfPSUE7du4cnrIrr/G3qYPO2nLCSkaCI=;
+        b=EakqFHYBUyMRrrMyLUI6oXQmWeQU2Flxc8KvDqUdPueHOJgODxWJc9eEXDk/+6D4hU
+         wd4kA4+jxT2TMcbp0n3H7y/BZu0fQiS8PCxcRyqKlc9K4HBSp52or9KXKRCxkQDAmeJn
+         o/RVF58zEywBJlwuhcgo8Os9ka9eclEhuuXs9+Bxeer2kOB/y7wvVQF3NsoUUDYFhhhY
+         LXl+cWWtCqvig4HxvjCjFaYzGR1E2LZZFW+5YTMYPVBT8XUqryLeRUctHbd1mv892GY7
+         hnDb8lDFNyeccXV+MWxAHQ25G2ERv8aGxDN7o4V0sNy0ukVKLz+14nDTz40G1dFOdpmH
+         GXIg==
+X-Gm-Message-State: AFq9FYLUTyHu0aRWuiUX0YIZdkuZbJApC1jSFHCJ/n3Vpu+ISBgpT2lI
+	oT0a8W0Nhw4/tVfpu/6NPulFHGAmo8zHIX9yjmsG9BvREbBtnoti+wOunQmWxA==
+X-Gm-Gg: AYBFou3SD4K7q+bfrV4FVkLrZ42g57sJYo5Flo9oCHN1qsEgP3nBL4ntjLiA5/WEUhj
+	Gga6PtdgP8e0u6iY0ahHTjk+72LbSuYuS/w2Y2SDTSe5SfBDVHhFm4APULPQNb6kMVjEUdGZ1bh
+	Dv7vg/Cx+B6/wJ0mx9gzG3BmKbRqoV5YeEVBmB6SnyufO/7NtMzZd4fWxSpFsdptd3QELxEHJbU
+	hJbtVTrYlBJev5xrLA4BpOxtuD5ggss0MHFF59XI74bSOnqS1uIKYfEmVNPMwRA6zXyGekusBEU
+	UiHoeC0ZBMzcdz8dSPMQYPer1xF/nf406YxvAM2GedeonZ0Q3XGXuiTPaGaIpLl1HvnsehisXfZ
+	RNTy9ZU1DhL/ud2p+B2CgaO1KA6suHoQqakoQT32GEDZCBblFr09w66+YujSOnvfJklZ0Sm8uot
+	ckPHb/I0z0FVY0ZQfBuWiA93GdP3ruq+zOoJatN8sWYE38yCTwvtAMCB541rqVZOSy8u/Zf5122
+	gMovdttE01i+pA6WWVt3gxH8E+VcfswP07m1kxvb5tz7rcVyT2FKRE=
+X-Received: by 2002:a05:701a:c951:b0:156:3684:96db with SMTP id a92af1059eb24-18515e402d1mr15277748c88.45.1792455096534;
+        Mon, 19 Oct 2026 17:11:36 -0700 (PDT)
 Received: from pop-os.tail4adac7.ts.net ([129.210.115.107])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1830f213ba7sm37258981c88.0.2026.10.19.17.11.25
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1830f213ba7sm37258981c88.0.2026.10.19.17.11.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 17:11:26 -0700 (PDT)
+        Mon, 19 Oct 2026 17:11:35 -0700 (PDT)
 From: Cong Wang <xiyou.wangcong@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: Andy Lutomirski <luto@amacapital.net>,
 	Kees Cook <kees@kernel.org>,
 	Will Drewry <wad@chromium.org>,
 	Christian Brauner <brauner@kernel.org>
-Subject: [RFC PATCH 0/9] seccomp: report the result of continued system calls
-Date: Mon, 19 Oct 2026 17:11:15 -0700
-Message-ID: <20261020001124.974063-1-xiyou.wangcong@gmail.com>
+Subject: [RFC PATCH 5/9] seccomp: factor out the user notification queue and wait
+Date: Mon, 19 Oct 2026 17:11:20 -0700
+Message-ID: <20261020001124.974063-6-xiyou.wangcong@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261020001124.974063-1-xiyou.wangcong@gmail.com>
+References: <20261020001124.974063-1-xiyou.wangcong@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,88 +101,204 @@ Content-Transfer-Encoding: 8bit
 
 From: Cong Wang <cwang@multikernel.io>
 
-A seccomp user notification supervisor that continues a fork never
-learns whether it succeeded or which task it created, so it cannot track
-the tasks below it. Today the only way is ptrace fork events, which take
-the one tracer slot from every task, may be forbidden by Yama or an LSM,
-report nothing for a failed fork, interfere with signals and waitpid(),
-and cost several stops per fork.
+Split seccomp_do_user_notification() into helpers that queue a
+notification, wait for its reply and take it off the list again. The
+next patch queues a second kind of notification where a system call's
+result is reported, and reuses all three.
 
-Sandlock [1] hits exactly this. It is an unprivileged process sandbox
-built on seccomp user notification, with no cgroups to count tasks, so
-it must see every fork itself and is left with ptrace and its problems.
+No functional change.
 
-This series lets the supervisor ask for the result of a continued
-system call:
-
-  - SECCOMP_USER_NOTIF_FLAG_RESULT, given with CONTINUE, queues a one-way
-    result record on the listener once the call completes. It is read
-    with SECCOMP_IOCTL_NOTIF_RECV like any notification, flagged with
-    SECCOMP_NOTIF_FLAG_RESULT, and carries the id of the continued
-    notification and the call's return value.
-
-  - For the fork family, the record also carries the new task's pid in
-    the listener's pid namespace and its pidfs inode number, which is
-    never reused. The supervisor can open a pidfd for exactly that task
-    with open_by_handle_at(FD_PIDFS_ROOT, ...), unprivileged, or learn
-    that it has already exited. The record is queued before the new task
-    first runs and records are received before notifications, so the
-    supervisor always hears of a task before it hears from it.
-
-  - SECCOMP_USER_NOTIF_FLAG_HOLD, given with RESULT, reports the result
-    as a notification the supervisor must answer, and the task waits
-    until it does. For a fork, the new task does not run until then
-    either, so the supervisor can act on it before its first
-    instruction.
-
-The interface is generic; only the fork family is supported so far.
-Results are reported from task work on the way back to user space,
-which needs nothing per system call. A successful fork is the one
-exception: it is reported in kernel_clone() just before the child is
-woken, which is the only point where both ordering and the child's
-identity can be guaranteed. Every other system call is refused with
-EINVAL, which is also what older kernels return, so the flags are easy
-to probe and can be extended to more calls without new uAPI.
-
-struct seccomp_notif keeps its size: the result shares a union with
-struct seccomp_data, so the ioctl numbers and SECCOMP_GET_NOTIF_SIZES
-are unchanged. The record is allocated by SEND and charged to the
-supervisor, so the system call itself never allocates and a record can
-never be lost after the point of no return.
-
-Tested on x86_64 in QEMU with lockdep, KASAN and kmemleak: the full
-seccomp_bpf selftest, the new tests as an unprivileged user, and fork
-result records from an ia32 task.
-
-[1] https://github.com/multikernel/sandlock
-
+Signed-off-by: Cong Wang <cwang@multikernel.io>
 ---
+ kernel/seccomp.c | 153 ++++++++++++++++++++++++++++-------------------
+ 1 file changed, 92 insertions(+), 61 deletions(-)
 
-Cong Wang (9):
-  seccomp: add result records to the notification listener
-  seccomp: add __NR_seccomp_* aliases for the fork family
-  seccomp: report the result of a continued system call
-  seccomp: report the result of a continued fork
-  seccomp: factor out the user notification queue and wait
-  seccomp: add SECCOMP_USER_NOTIF_FLAG_HOLD
-  selftests/seccomp: test fork result records
-  selftests/seccomp: test held fork results
-  Documentation: seccomp: describe system call result records
-
- .../userspace-api/seccomp_filter.rst          | 117 +++-
- arch/Kconfig                                  |   6 +
- arch/x86/include/asm/seccomp.h                |   4 +
- include/asm-generic/seccomp.h                 |  26 +
- include/linux/seccomp.h                       |   4 +
- include/linux/seccomp_types.h                 |   6 +
- include/uapi/linux/seccomp.h                  |  57 +-
- kernel/fork.c                                 |   3 +
- kernel/seccomp.c                              | 461 ++++++++++++--
- tools/testing/selftests/seccomp/seccomp_bpf.c | 579 ++++++++++++++++++
- 10 files changed, 1218 insertions(+), 45 deletions(-)
-
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+index 336a7c28e1d6..793efcf0e626 100644
+--- a/kernel/seccomp.c
++++ b/kernel/seccomp.c
+@@ -1235,6 +1235,91 @@ static bool should_sleep_killable(struct seccomp_filter *match,
+ 	return match->wait_killable_recv && n->state >= SECCOMP_NOTIFY_SENT;
+ }
+ 
++static void seccomp_notify_queue(struct seccomp_filter *match,
++				 struct seccomp_knotif *n)
++{
++	lockdep_assert_held(&match->notify_lock);
++
++	n->state = SECCOMP_NOTIFY_INIT;
++	init_completion(&n->ready);
++	list_add_tail(&n->list, &match->notif->notifications);
++	INIT_LIST_HEAD(&n->addfd);
++
++	atomic_inc(&match->notif->requests);
++	if (match->notif->flags & SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP)
++		wake_up_poll_on_current_cpu(&match->wqh, EPOLLIN | EPOLLRDNORM);
++	else
++		wake_up_poll(&match->wqh, EPOLLIN | EPOLLRDNORM);
++}
++
++/* Returns 0 once @n is replied to, or the error that interrupted the wait. */
++static int seccomp_notify_wait(struct seccomp_filter *match,
++			       struct seccomp_knotif *n)
++{
++	struct seccomp_kaddfd *addfd;
++	int err;
++
++	lockdep_assert_held(&match->notify_lock);
++
++	do {
++		bool wait_killable = should_sleep_killable(match, n);
++
++		mutex_unlock(&match->notify_lock);
++		if (wait_killable)
++			err = wait_for_completion_killable(&n->ready);
++		else
++			err = wait_for_completion_interruptible(&n->ready);
++		mutex_lock(&match->notify_lock);
++
++		if (err != 0) {
++			/*
++			 * Check to see whether we should switch to wait
++			 * killable. Only return the interrupted error if not.
++			 */
++			if (!(!wait_killable && should_sleep_killable(match, n)))
++				return err;
++		}
++
++		addfd = list_first_entry_or_null(&n->addfd,
++						 struct seccomp_kaddfd, list);
++		/* Check if we were woken up by a addfd message */
++		if (addfd)
++			seccomp_handle_addfd(addfd, n);
++
++	}  while (n->state != SECCOMP_NOTIFY_REPLIED);
++
++	return 0;
++}
++
++static void seccomp_notify_dequeue(struct seccomp_filter *match,
++				   struct seccomp_knotif *n)
++{
++	struct seccomp_kaddfd *addfd, *tmp;
++
++	lockdep_assert_held(&match->notify_lock);
++
++	/* If there were any pending addfd calls, clear them out */
++	list_for_each_entry_safe(addfd, tmp, &n->addfd, list) {
++		/* The process went away before we got a chance to handle it */
++		addfd->ret = -ESRCH;
++		list_del_init(&addfd->list);
++		complete(&addfd->completion);
++	}
++
++	/*
++	 * Note that it's possible the listener died in between the time when
++	 * we were notified of a response (or a signal) and when we were able to
++	 * re-acquire the lock, so only delete from the list if the
++	 * notification actually exists.
++	 *
++	 * Also note that this test is only valid because there's no way to
++	 * *reattach* to a notifier right now. If one is added, we'll need to
++	 * keep track of the notif itself and make sure they match here.
++	 */
++	if (match->notif)
++		list_del(&n->list);
++}
++
+ /* Report the system call's outcome on the way back to user space. */
+ static void seccomp_result_work(struct callback_head *work)
+ {
+@@ -1276,7 +1361,6 @@ static int seccomp_do_user_notification(int this_syscall,
+ 	u32 flags = 0;
+ 	long ret = 0;
+ 	struct seccomp_knotif n = {};
+-	struct seccomp_kaddfd *addfd, *tmp;
+ 
+ 	mutex_lock(&match->notify_lock);
+ 	err = -ENOSYS;
+@@ -1284,74 +1368,21 @@ static int seccomp_do_user_notification(int this_syscall,
+ 		goto out;
+ 
+ 	n.task = current;
+-	n.state = SECCOMP_NOTIFY_INIT;
+ 	n.data = sd;
+ 	n.id = seccomp_next_notify_id(match);
+-	init_completion(&n.ready);
+-	list_add_tail(&n.list, &match->notif->notifications);
+-	INIT_LIST_HEAD(&n.addfd);
+-
+-	atomic_inc(&match->notif->requests);
+-	if (match->notif->flags & SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP)
+-		wake_up_poll_on_current_cpu(&match->wqh, EPOLLIN | EPOLLRDNORM);
+-	else
+-		wake_up_poll(&match->wqh, EPOLLIN | EPOLLRDNORM);
++	seccomp_notify_queue(match, &n);
+ 
+ 	/*
+ 	 * This is where we wait for a reply from userspace.
+ 	 */
+-	do {
+-		bool wait_killable = should_sleep_killable(match, &n);
+-
+-		mutex_unlock(&match->notify_lock);
+-		if (wait_killable)
+-			err = wait_for_completion_killable(&n.ready);
+-		else
+-			err = wait_for_completion_interruptible(&n.ready);
+-		mutex_lock(&match->notify_lock);
+-
+-		if (err != 0) {
+-			/*
+-			 * Check to see whether we should switch to wait
+-			 * killable. Only return the interrupted error if not.
+-			 */
+-			if (!(!wait_killable && should_sleep_killable(match, &n)))
+-				goto interrupted;
+-		}
+-
+-		addfd = list_first_entry_or_null(&n.addfd,
+-						 struct seccomp_kaddfd, list);
+-		/* Check if we were woken up by a addfd message */
+-		if (addfd)
+-			seccomp_handle_addfd(addfd, &n);
+-
+-	}  while (n.state != SECCOMP_NOTIFY_REPLIED);
+-
+-	ret = n.val;
+-	err = n.error;
+-	flags = n.flags;
+-
+-interrupted:
+-	/* If there were any pending addfd calls, clear them out */
+-	list_for_each_entry_safe(addfd, tmp, &n.addfd, list) {
+-		/* The process went away before we got a chance to handle it */
+-		addfd->ret = -ESRCH;
+-		list_del_init(&addfd->list);
+-		complete(&addfd->completion);
++	err = seccomp_notify_wait(match, &n);
++	if (!err) {
++		ret = n.val;
++		err = n.error;
++		flags = n.flags;
+ 	}
+ 
+-	/*
+-	 * Note that it's possible the listener died in between the time when
+-	 * we were notified of a response (or a signal) and when we were able to
+-	 * re-acquire the lock, so only delete from the list if the
+-	 * notification actually exists.
+-	 *
+-	 * Also note that this test is only valid because there's no way to
+-	 * *reattach* to a notifier right now. If one is added, we'll need to
+-	 * keep track of the notif itself and make sure they match here.
+-	 */
+-	if (match->notif)
+-		list_del(&n.list);
++	seccomp_notify_dequeue(match, &n);
+ out:
+ 	mutex_unlock(&match->notify_lock);
+ 
 -- 
 2.43.0
 
