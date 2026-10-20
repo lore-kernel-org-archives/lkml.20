@@ -1,81 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.127.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792516385;
-	b=5bkmax8QzgFWgiRQJeAOhoIZ0IPLT0XfXfI1OW5ZS52Cf5FviHcnTBGfxlSpc9eSAgZk
-	 0smEWhKYFMJEzkzsB3jD45wJb4xfCGGQeofWCxcyhIV/d5lgJyZkf3DCIpfiitaEwvNnP
-	 tcgPZEoeiTAAGaNYluo2o1ry4IxT8nMGifnDfdWEkTlzhl4181ouaPLzI41EIpzl4aM06
-	 bcVV8Le5vHYv4MYl6d8HGSwMB1nFGXB1Cq27tK0trzA7615zYRc+8CmnxwJFxSSLHfvWR
-	 Y67xFypm/nYuLTHga6+NCgbwocwqu/2KzvhpPGa3nzQJN1C2KcWUZqd1sG2BD4jvavA==
+	t=1792516406;
+	b=god5pgdErQx05vHWCG8mtw7j6nB1+5eAZMX7ibUpY7NbKw67o62vMyznPARpy5393tZN
+	 I40/Tg8CmOFtVqiu7oPXd2V4SmCA/1yBmM3InfbRO0MRRW4Q39fwWBgvW5bxOWcmC0cCK
+	 zxCCHIJVq20gq9DwcoSjZ6trPandKONLRJmWwuZxKscaGZcbleg8Gq/jqfklZPpnuWuCM
+	 Ni5FJEGWMcD34WhttjPZCGFa3IHnF8BQHFJjXUgRVAmYSW2ZS9xLDY++e/Eq394mVqFH2
+	 cjNkBpCitpkrMqzT3XMw3ff8eOZL1mu3XUaeovUHkCJMF7eaN3GBf7pOF5eTfDur/Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516385;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=Qa/Bnu4IDyx7HlJH6cI3pDp+8l0FBfYl4SHNAHwQpAY=;
-	b=piiX4u8/0UZ2knXbplng7NJriZKC7ixq6C6+EfuMvhPrc+Mftek2HGQpjv6A2uWZk4J9
-	 nkMNGRFjHVcsEfP/5HCIxaXZ+LnukQsnW3nTmBoXfVM3qC2JK0R4JalOeJ+f1czhTl5+v
-	 akjpfElCMIuX8HGFVA+ujfIe2utG5ly0BGJO06Uw3S0rGY3WDdAU7GaaoOb+ouJqq2cFA
-	 VRnLJqw5ga2qf7hp1Ddo/uduhEC7Kmk2PaO9d+iM7WIY0jtXImRUlpX3gmp8CqNtNvtLD
-	 mbXGU1ttrgGkj5JKda4yu5YPBozCtkAH1BeqR0T2MHBlYww3gV9WAsTzk37Hx6RU74g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516406;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=e4OwnBidoAfAdMjRbpbOO+nJHA8rafIGJBLITYtbTdA=;
+	b=uHsTRzeOcqtihKsqSVebF3Zo5w1SuqFZu6EipRafq7mE9ZnD09hzeZdk3El2XFZRgwSN
+	 XMQWr68r+nWGHTWIV3DYR5LcuPtI4bV3UHlq0S3zNmJ0ypTlftJXv0vOg0vO/ajJUc6Uj
+	 qMCb5fdP+Wze21s4KEK1MpKjg9Ua+7NwI1KcnBbRUAbcRr4pb+ZSOxFeJmua65jmxzhWx
+	 rh/XO43oUhjk3Wk2JYeH/xDF8SFXsHhqbCT0XX52kUyS0HzH2s3MXoyZWyFfdF8QDU5z+
+	 PCqx90pV0vun5DKVwKDc0q606eq03VBmiAdR7RFvzJlsWK7wZ1zQ62P31qbxjE2kqxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=szelinsky.de;
-	spf=pass smtp.mailfrom=szelinsky.de;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=CUoBOqHC;
-	arc=none smtp.remote-ip=85.214.127.56
-Received: from szelinsky.de (szelinsky.de [85.214.127.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rnowydY4;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B93606A31D;
-	Tue, 20 Oct 2026 17:13:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B93606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A816606AA33
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:13:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A816606AA33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=szelinsky.de header.i=@szelinsky.de header.a=rsa-sha256 header.s=mail header.b=CUoBOqHC
-Received: from localhost (localhost [127.0.0.1])
-	by szelinsky.de (Postfix) with ESMTP id 59042E8318C;
-	Tue, 20 Oct 2026 19:13:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
-	s=mail; t=1792516383;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qa/Bnu4IDyx7HlJH6cI3pDp+8l0FBfYl4SHNAHwQpAY=;
-	b=CUoBOqHCw4f3cuT7aQmLB7vVlZpCf8yo2JuOP5dc2yCmdRcCC5AJuz/enKmZ1ReCROUEBu
-	DyBM6lMgm4Uurr+ixX2ENjSLMTiHsCBdkLU3gv7EXBiA4s0NY+4pkfwnJ+N0GjGlJ6NGRp
-	lqoPMwAclkD3jidr0wyC4VJGaSeENMJVBj4p5ok1qNncAwXNZUyQdK9hIlAbhGuZ8w5X2+
-	2cKIVzjPCgYETmr5U926Z7EjHRWE+mHegB8WPlvoa3tHVYhy6TWky6s0uBmjlEQRcAIgKj
-	W+vtG7jCSkqnj5FcKYOv02SnV8+poAybR7XHfz/GM4aY3FSG5DOTXb1dTGrWSQ==
-X-Virus-Scanned: Debian amavis at szelinsky.de
-Received: from szelinsky.de ([127.0.0.1])
- by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
- id ICugAwAQ5GAF; Tue, 20 Oct 2026 19:13:03 +0200 (CEST)
-Received: from p14sgen5.. (unknown [91.25.97.186])
-	by szelinsky.de (Postfix) with ESMTPSA;
-	Tue, 20 Oct 2026 19:13:03 +0200 (CEST)
-From: Carlo Szelinsky <github@szelinsky.de>
-To: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Kyle Swenson <kyle.swenson@est.tech>,
-	Ross Cawston <ross@r-sc.ca>,
-	netdev-bot+sashiko@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Carlo Szelinsky <github@szelinsky.de>
-Subject: [PATCH net v2 01/14] net: pse-pd: size the notification kfifo after defaulting nr_lines
-Date: Tue, 20 Oct 2026 19:12:36 +0200
-Message-ID: <20261020171249.853085-2-github@szelinsky.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020171249.853085-1-github@szelinsky.de>
-References: <20261020171249.853085-1-github@szelinsky.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rnowydY4
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36661f953e4so1357410eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:13:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792516405; x=1793121205; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e4OwnBidoAfAdMjRbpbOO+nJHA8rafIGJBLITYtbTdA=;
+        b=rnowydY4LK2PVPe3cFHeHwMC4sA2LE2zUvuRLfnIO4u694UiyX7HJZ7ND++Kgr+yXT
+         npBlaJRY3dd6vAn7WahZfV2KZKH3AlVH7Uax8Es9cRBb4Hc10nmXcujwR/VVDnMOzsZi
+         Kchfv+VrKzu5bk42KbHfcI8TZRnxja97MVLmsTgvNONBAHIIM+x/yF+c5f7JTPdXu7Dr
+         ODCwwqCikI4c/gbwrn7/GKDOF6lANS7hyCj4beMYydWx7//tUkdAwRL0RUq4UnLw01tQ
+         Azw0Ctcdk+2ZIsTkRX/7aTm8V9lRUp2nfNkywv5Hvwivk+Y3tPlUHwHxZYPuDSdP7dze
+         hTzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792516405; x=1793121205;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e4OwnBidoAfAdMjRbpbOO+nJHA8rafIGJBLITYtbTdA=;
+        b=eLZtvAusoHHEgggRB2pozjQHylWgwBEIqqtVvNB9es3lnAzV741Hit8+4mk4PzrZBr
+         omSErD48i+htKmgUg2CjnqCpMp7POjH5ZgNzTGTfQuUOQlz2rvll89NnHMdkxlVfXvcb
+         EulW9i36R4CgZ4WaUeUSLUeV8TYZKZLkKF1+/NcgUVC6MUlDGqFzyryY1pNSuVtrQ0ep
+         FNQmaXV/OvzGytLcs4RvV5Km4Ex4iYK8bEHHhr/TJvoBMyVD4RlQCLsEI4jIwWMcqJUH
+         gb9tNIcObKCvvmHQ1WjoR3SwsIbyFMznxwOZG3pCgLDgN8umfV7anCcBfCKrEFUmch7S
+         oTlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzSllNNRMmu/YE81Xv2jE8Ci3uV22G453j/7mfejXDsFAqtfnvAv4p9H7VUkMS+35jy87s41qwqzJMYDVA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIukA6akaaVSRXeYrUwXYLM3aLrML0ThSsOxwv9h6s6g1OTHda2
+	ooZKgoKxJtwU6q8lUUFtAJBgR/ZuqnluG/7mD+VZnloZ7shO8vaX6e4iASQjAdAA2fE=
+X-Gm-Gg: AYBFou22khiahi7nfa8/O16gTlK227xlr9Sy5GrxxIWY9Wa6Aeb4u9v8GWmRSWanKig
+	K56HugpuGHeUyVLk/ELfRWlFt5IuPs74l0w5bOch/rRdo5HoubM9MjWDMFZcca8FhURG9tSis/u
+	SQS9Tu8GDKuC+ZIzDcD2l/5lAU8sHd59OUHuW1W7hLNGJzfXDUDEyq1UFjs8LUxTxEDO6E/pVCn
+	SCIXz//itK38wM9xgbD8UI/ZVxfQLqyxQiD6PUUboBiDEe8n9xJydgkinmxm2tcmF4PG/UktzWB
+	BlxT+ZqtCNimATH4v9sUEVAMbje+3puTuhZmmuCOHGAlNNEZu1pdC7HTA82CCIuqaGS/CyCaaC/
+	4gCeyHclimUJDRX9SjsXiFYZnnFzDeRZtbvZ64zgHR++vS/rlwONGOY8fOqb153CUOwxwydjFOj
+	W5gtJ3vabej4RQSX6B9IQbtKzx9TdpAfhsW07P/5rwcp4mngolYmroOqXreFVojjMIPtidHRbrg
+	dbr2oy2QI3viEdMcLFdOulBBiFXIu8buAUcrPEEkjtXCVD1BEzKL5uMafYK7866SP+gN32VbaHM
+X-Received: by 2002:a05:7301:6195:10b0:361:6884:78b1 with SMTP id 5a478bee46e88-361a253f345mr15767601eec.28.1792516405245;
+        Tue, 20 Oct 2026 10:13:25 -0700 (PDT)
+Received: from [10.61.8.29] ([155.98.132.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405ec6c3sm35919eec.7.2026.10.20.10.13.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 10:13:24 -0700 (PDT)
+Message-ID: <af63d378-d6d2-4fe4-bc2d-15f894b60624@kernel.dk>
+Date: Tue, 20 Oct 2026 11:13:23 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,55 +91,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: linux-next: manual merge of the block tree with the mm tree
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Mark Brown <broonie@kernel.org>, David Hildenbrand <david@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Tal Zussman <tz2294@columbia.edu>,
+ Vlastimil Babka <vbabka@kernel.org>
+References: <atdeJ-91RQrqLke6@sirena.co.uk>
+ <553dc087-b5d4-4aa0-8e84-4de6eaa45847@kernel.dk>
+ <20261020100055.3e388e03fcd804f0cbde04f5@linux-foundation.org>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261020100055.3e388e03fcd804f0cbde04f5@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-pse_controller_register() allocates the notification kfifo before it
-turns nr_lines == 0 into 1, and kfifo_alloc() fails for a size below 2.
-So a controller with nr_lines 0 or 1 cannot register. pse_regulator
-(podl-pse-regulator) never sets nr_lines, so its probe has failed with
--EINVAL ever since the kfifo was added.
+On 10/20/26 11:00 AM, Andrew Morton wrote:
+> On Tue, 20 Oct 2026 06:45:16 -0600 Jens Axboe <axboe@kernel.dk> wrote:
+> 
+>> On 10/20/26 6:27 AM, Mark Brown wrote:
+>>> Hi all,
+>>>
+>>> Today's linux-next merge of the block tree got a conflict in:
+>>>
+>>>   block/bio.c
+>>>
+>>> between commit:
+>>>
+>>>   d4ee6948bcabb ("block: restore the iterator when rejecting a misaligned bio")
+>>>
+>>> from the mm tree and commit:
+>>>
+>>>   73a0ff6030afc ("block: fail a short atomic pin in bio_iov_iter_get_pages()")
+>>>
+>>> from the block tree.
+>>
+>> I suspected as much when I saw Andrew pick it up. Andrew, perhaps
+>> let's queue it where it belongs?
+> 
+> I was hoping to get some review feedback before sending it over
+> formally.
+> 
+> I'll send it now.
 
-Apply the default first, and allocate at least two entries.
+Applied - can you double check? Flow is a bit different in there
+compared to the one you patched against, entirely hand applied.
 
-Triggered in QEMU (arm64) with a test-only PSE controller with
-nr_lines 0: its probe failed with "failed to allocate kfifo
-notifications". With this patch it registers.
+https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git/commit/?h=for-7.4/block&id=40d070cbb1906896d6fd65c39722d2411830ed9f
 
-Fixes: ffef61d6d273 ("net: pse-pd: Add support for budget evaluation strategies")
-Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
-Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
----
- drivers/net/pse-pd/pse_core.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-index a5e6d7b26b9f..c0573cbbba5b 100644
---- a/drivers/net/pse-pd/pse_core.c
-+++ b/drivers/net/pse-pd/pse_core.c
-@@ -1044,16 +1044,19 @@ int pse_controller_register(struct pse_controller_dev *pcdev)
- 	mutex_init(&pcdev->lock);
- 	INIT_LIST_HEAD(&pcdev->pse_control_head);
- 	spin_lock_init(&pcdev->ntf_fifo_lock);
--	ret = kfifo_alloc(&pcdev->ntf_fifo, pcdev->nr_lines, GFP_KERNEL);
-+
-+	if (!pcdev->nr_lines)
-+		pcdev->nr_lines = 1;
-+
-+	/* kfifo_alloc() rejects a size that rounds up to less than 2 */
-+	ret = kfifo_alloc(&pcdev->ntf_fifo, max(pcdev->nr_lines, 2U),
-+			  GFP_KERNEL);
- 	if (ret) {
- 		dev_err(pcdev->dev, "failed to allocate kfifo notifications\n");
- 		return ret;
- 	}
- 	INIT_WORK(&pcdev->ntf_work, pse_send_ntf_worker);
- 
--	if (!pcdev->nr_lines)
--		pcdev->nr_lines = 1;
--
- 	if (!pcdev->ops->pi_get_admin_state ||
- 	    !pcdev->ops->pi_get_pw_status) {
- 		dev_err(pcdev->dev,
 -- 
-2.43.0
+Jens Axboe
 
