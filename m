@@ -1,87 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506374;
-	b=yziqiHXSam7DzmpuzsMXZRd1Ddwd/0QlARfefyl4cHyQRoG0wowv32Z9crLHT6tIvysw
-	 STxqVUVXHri0FQAdjkvKpOapdv0rpy7MJTRijTkSsAGZIAeqURzgmG30tjGYp28tCBz2R
-	 pluCb3S8OI3byxPycJEcA7yttxIZ8TSOsgCO1J+aIlp/9HmChAD2pVXTyvAabsz6mHSib
-	 y1Se9exuUnlKfVEAshoZ6oTZEZQswBA4A/CDkcc1Nli+9OC/xwsFWd6yOE3Q3OuCFc3ZK
-	 N6f03gUiIrrFFKSfA4UMMAA2LrZyPb5gsxD4Ay76+RtvXX498zSiSaMvjsnZ//qoqmA==
+	t=1792506397;
+	b=0zGgU4ONry/Qt82WJO3leSWg+HRBksVBIRFq3MiHDIvs46zZp3lgi5nwMV/wGZCh09Es
+	 SfOJz3H3MKXwqc+UyMtNg6jFQMi3xSURb7L5iObkuohry7mtjNdQZL39FT8ZYeCrb0oL7
+	 ZG21mxLoy1TJYFnGfjplgitHq0TD8w96I88SJYn2Z1D+ki85N28Bl7drbrwdKQRUVO7AE
+	 UFgzgjHLb01ZkwD1hTgvXMULWpiiF+hnzlhApiXB7sSuk80mfOEL6zN+Rb/8bauECPlxD
+	 xR40aZ8KTmmEdyUyi6dG0iHd/ufj30VPPnNn42yRaEvGSrSawfFqDPWkxaVHPb/FcHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506374;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lKN2Kpy24qYXb++X9M24Ji7pq7TM4o+Umqf1AAgxfzE=;
-	b=CqGN7PatuDSfGzK3AQGrL5Q5s377Ickp7PWdukWxqJHPew0mi6FUnOp/KBpUxsH5Uz/b
-	 57GkkP24N+EQoqiyftPuoMiA22LIpHeXoEOf0IVpymlWfWr5I9IAuLp9lPpRGZwM36aec
-	 OYcHW/REMiLuTwnmZVnYVaiieiwV5697Lhho0sUMPR1c54uhtmMdNj5HuLMTzRyKDiS9Y
-	 Bvv/6Ewfpn34SahpA9PJf/YGSBaw0kVpkq+fOx5RF+DcE9Ei5hiH6SJL9hsacZnBX9VzG
-	 mf5moE8aOF73Vd+1QOvOZ0HwAkKD8ra58/RScQ85g63LrlynRIe4xfI+SdELIUYFaMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506397;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=JHq2L56t//wbyoO+11weOskejxecAUIHbZU7bhxKdLc=;
+	b=3oAE16BTafIF36yKBJ6K2QkJ9JG+75VdHIPTxhlywSVSHD9Wf9yh2psdLR8juHl65ODK
+	 071Mtdgh+4p2/rISpId60XOOfT2hwKd7AtLDZ6+1UrAOYVo+fGlt4Kw0Of6r5fmkGJ42h
+	 Ia5ItFvRhbakZvmMPgiXwhC57bjzhVCZkNscGG1lTZ1biyktnAgDg+X/SbjDaSC+jzmn2
+	 KHF+vZzSQzy3DUescOpT6p3om+VY/1l74yQ5Tq92ZTu2XMvFrnM+8rxgbD62NSGwemoCp
+	 JjMZMuoeOGJtswugN3yEGsG+DudU19cGg4KD3Yah9WAmoRFrcbTDESH2fctrUGC4cvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="m/9U24QS";
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N9weUZMr;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CCbTEtvi;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EE0606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:26:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47EE0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA982606A319
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:26:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA982606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=m/9U24QS
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c43373ae89aso379146866b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:26:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N9weUZMr;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CCbTEtvi
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDA4b01575152
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:26:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=JHq2L56t//wbyoO+11weOs
+	kejxecAUIHbZU7bhxKdLc=; b=N9weUZMrBc3yK8X3ExRyuRwmah+yiMPm7GU4s4
+	r+cK8x84bovh/jFQYKlkP9tzmuQ7r/SIYqplKE38v5Ai5MQ/a0T+Fc8VkMUeusCX
+	2QdbMNrn4fyWdaf3qVpqKCAdy4SHvl1Yg4X8b4eWF4spL8AXOPfljHgGrDjm10BE
+	wFtNjiiIpvU8XL/HepXHsVjCnWpzAyGDGw6Oj4ctkdVybzRDP5WYHqQ2a7cngSsp
+	C+TFgZ4/2C1EH8pdnEiQyZA/g3tUvPh41/s2jG4K1UzYkXjMqRawOGZPoSfCt+S6
+	kQMU2e6IhEyxYX3JshE/FklRQ733jhqCddA3tH4i2XDSJhog==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n2wab-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 14:26:35 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7c0f07b4e81so974815137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 07:26:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792506373; x=1793111173; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lKN2Kpy24qYXb++X9M24Ji7pq7TM4o+Umqf1AAgxfzE=;
-        b=m/9U24QS2Bz/OBc7yLUW7ra9avWJTiDbw2N8OWcBxciX+hOnKDyxTX4KI9hZE4E+mr
-         JK1LaV9jQUJ09o6pP6JRKkhbT5jyFX4Z8Zlg3cXiQeeUHlFec5KoYWgdd6jZT2d93WuG
-         YxnqFvde23cuE8kQ1070EDs+wtduXbpSNpLE9kvNPHZ9TXAnEENbFp1+a79wLY3p5N/1
-         OcdtFrR40UO1342c69sfjiSkLRmshc9dutjX/u7f4Ab1dhEk3uA8sRc25K03afHnDJkQ
-         INhvsed/UNgSZYhjgC+H4w8CZjVB3cgdUc6lA3pS2IeA9B6vJ6HMUeiwBgEvRjCfX+0Z
-         pB7Q==
+        d=oss.qualcomm.com; s=google; t=1792506395; x=1793111195; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JHq2L56t//wbyoO+11weOskejxecAUIHbZU7bhxKdLc=;
+        b=CCbTEtviezla96tC8rxfWVyQr8Whtqqn9vWklrQgWXfpezHAM8hkYcFhsto1BuTel6
+         vOutBE8mmChMabzK4PWzLvqDl223nb7PWsQvcRvcyzvQLxmDzAsWpuAuV0zgdNLox29P
+         nHmBiVRPOd7K852fDJkTJ/hOwys5Xs4BaP8b54NvY4KhysTCnNNTYuSI/ljp3tx2dYc8
+         16Hhh3jNSCfkbeVlVWNtR3TX25e/zwIElg1XCPBDXR4ccncCTOIYcoEsvFIJDaBDdAF3
+         543vsVPsbPJdV8Q4fJIRgjwEoTG9XcfLHZoDCLigpIeOayNt2l3AMRhe8Mr9iTxC4kKi
+         5p5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792506373; x=1793111173;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lKN2Kpy24qYXb++X9M24Ji7pq7TM4o+Umqf1AAgxfzE=;
-        b=pkw8r6tN+j7KHQ8Wdpa2gVEL5YTUvG1KRWkYbUyW5UpThOvq6PeKCMlWakJBVfihWJ
-         Ob/axg2MsQDkvkLDuMD7uwjAvPeY8LuhkBHW+TWpomsgOPG7QvN6G/n8Oi6TuCHfz0tB
-         ZN/OcPjUJgR50msVoBo8HttzM/XVHHKm8ycUmOUyYOCe00TvzgT0nvm/YzaEGd4qeMTt
-         xho0z+sgTw5X8l5zh2NgcZCr1PetQjrTB0xFgumuiv4d079NXeBJaCy1ku041ayoHHla
-         HK3OG9LpRMs0B6N5IDU6ESYQxr3jn9jlP0hGOzZzCgajwnnieLT3kybHi9xIYZ27KweI
-         On6w==
-X-Forwarded-Encrypted: i=1; AKwUvBzdShe0nfm90wy66wPjp1WTxb5JldHhXuMj2Xchr8QlGwIfgySKn8RuhCtx2gRQS9DZ5k1W2DFG9VUUxh4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqyLuVB8H5P1iwhitLRwK/+u2Aj4pyhrCza7tOC2u5svGOXkRv
-	O+gJHVxFruV4xc5AKCdpSH6jhrhxLrcQXKIGaTSk5ZSreBR9Fz1594Ztb/1QEqaZ+D8=
-X-Gm-Gg: AYBFou3Ipzhg0EuWibkptmDkdaHFAJSv9PXWX5/pKg4fDA+98H99ExSNG0qAP14XM5B
-	VbqQ5wblIuNtWvzRXq32Bx9MJs/KM/aTL+dsZNQbQdwSbteWDMZP12IJEA0e57c9U1ZBYBWwfTS
-	Wf1AR2wvssomDlDVib79GsEISw/mi7VFB9eZvyVTAxkPhCiGsLP6lkNAzwgWMVlHjPRCCJEMMVw
-	rX72z+STyR1I+w531cMiOG1IcHpr/SHYe6SOyG1962NDOhH6MmwhEfeUtQkbdsQ3Ac6OBM9QtSX
-	/NBQB9v6jYDdRoNNvzWEqgGdrAuBUlv+3dI0PNs4wca/UxbaEfBIG1qeYG2hjEzWmoJaUxgYYcQ
-	+7aGDCLooNEkntUqRDxGDv5Z7NVbCn1R05PM/lN/GqQGSzVJynGr/9Pk4vLllyNLScsKTtzA4oX
-	678vfrwvb19Sn6An/fc+30dtE8fkvBkSqDcsJXGpTPe1I5++eSaJOsDprRtUwUnRM1NXqhIpuYj
-	NH5
-X-Received: by 2002:a17:906:f5a8:b0:c38:ee33:2931 with SMTP id a640c23a62f3a-c419f709659mr789055466b.37.1792506372574;
-        Tue, 20 Oct 2026 07:26:12 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d810035sm6911288f8f.13.2026.10.20.07.26.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 07:26:12 -0700 (PDT)
-Message-ID: <52dc152f-5417-4af4-b084-5ca5f821a6f4@linaro.org>
-Date: Tue, 20 Oct 2026 15:26:10 +0100
+        d=1e100.net; s=20260707; t=1792506395; x=1793111195;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=JHq2L56t//wbyoO+11weOskejxecAUIHbZU7bhxKdLc=;
+        b=OrwRBXmxpvMmjHnlpVRqz36iUVoxdXwaxHTu5hoWOSM6wyXriRG4e5xMfJJftW6zEZ
+         cPYw9PnOmDGA9MZmI7JTy9wIJwyQdHWEX6hzuZL94mr+QfINzx5RKDjdwJuy0SPbl3H4
+         3qupUFsYCF0n5HwVmHQajqTITHzjw68XHSIYrPzdv6tHZ8klBYdEwuBmqp/XX+EkaECO
+         PdNuneMOo7/8VhpmPRfU5WpcVfli9mSrA5W4JocuWPemmIR8So34tRn22E3UCJdIgOBh
+         W6IyUIRJQjCtAvbYqMpSyR6jfpunvic+9TsfDPAyL5kmW8WWyxXiUstpXhSs0/koBAWs
+         6eow==
+X-Forwarded-Encrypted: i=1; AKwUvBykhQ9X8OtFtWB7TYeSEre5gpYMDZ4i+HUj2cQbJkbXJRqXL7lBmZixqeiPlA4dBvmAD96EkDYBXXuaCdA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsykCxCBB0HDgT7jy1pnhut7YPBukx4mBSgdQuCKDaHQhRTX21
+	DmCO3BIGFDFOFQFV1/I9Vm7WTy6K6DdPyGbwHjWSTs2QQQ44iGj7NgAzhhVphdsTQ3mTfndl4p9
+	rns3xa4B0V34qQkXhrpehFojTuxsLuWWP6ZNiJ5MKtiXov9LB9RpeaZ0jtiinfuicZew=
+X-Gm-Gg: AYBFou0GrbOxj16PPDLkO30bfNRj58icrYDy72WS7kbSBPTPUzSH+rnvT6zoT5CDgAF
+	UxPraymb61lPLo5oIoTTBqlpOqHqDDOckHFebera1AzOiSdZ4lmUh1aoTDE8HKmAGkW27gug5zP
+	bJ4TuaUnDI3xbvIkoelCwkFuZpBQK0vwNoqndms6fMcF3JmF7an86AgBloCX+ZZ1mkbLBTXZe3x
+	pR45A9ZaOFraB4dWLCcnizJ5YBUuLzYTbmXs+we0xknewNs+1iL2y/riiyb+GRPw+Wa0Yd22lpb
+	skcv+iywozmaz9iUZ273HRJnwwrRasrz6Wjo+vHxBG9AFAqxGjw5/9fppEUTtXwzUypOnO/ugh5
+	OQdaQjIDUvfsDVbgKHKOxZBdkhWj3wpwdkCE4UTTnKfemwNbUt+8zXvWR0cd1Y0OMjZNQSB8Tr5
+	OZj8X96d37DJ1Gjrq7f5GUQK++/AmmmYcw6IFlagGfe6SJp5jM/xM=
+X-Received: by 2002:a05:6102:e06:b0:7c3:9b0c:a75 with SMTP id ada2fe7eead31-7cc3691d1femr2646879137.12.1792506395038;
+        Tue, 20 Oct 2026 07:26:35 -0700 (PDT)
+X-Received: by 2002:a05:6102:e06:b0:7c3:9b0c:a75 with SMTP id ada2fe7eead31-7cc3691d1femr2646872137.12.1792506394517;
+        Tue, 20 Oct 2026 07:26:34 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:d0fb:daf1:3106:3697])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cb8d5csm80483915e9.6.2026.10.20.07.26.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 07:26:31 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 16:26:30 +0200
+Subject: [PATCH] cpuidle: psci: Do not log probe deferral as an error
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,118 +113,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 25/25] Documentation: coresight: Document AUX sample
- decoding
-To: Leo Yan <leo.yan@arm.com>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
- <20260915-arm_cs_support_aux_sample-v1-25-35cf6f297d20@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-25-35cf6f297d20@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-cpuidle-defer-v1-1-c86e0d450b4f@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIABV612oC/x3MQQqAIBBG4avErBN0koiuEi1Kf2sgLJQiiO6et
+ PwW7z2UkQSZ+uqhhEuy7LHA1BW5dYoLlPhiYs2t0ayVO07xG5RHQFIWrensjMDcUGmOhCD3/xv
+ G9/0Ab4IH7V8AAAA=
+X-Change-ID: 20261020-cpuidle-defer-4e6184bef223
+To: Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>
+Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-GUID: l8IDU5dAtVtMyIWiOg8Bjgj33mdasUXj
+X-Proofpoint-ORIG-GUID: l8IDU5dAtVtMyIWiOg8Bjgj33mdasUXj
+X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad77a1b cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=kuKeJkFhgiUoOUCgA38A:9 a=QEXdDO2ut3YA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1NyBTYWx0ZWRfXwoNQHGd3bilG
+ QY+GVZUqvmysamUbrLm6gUQ6e9tCFvw07izr/z4ZmfiFCRqH+/zFMdHBvKzjFRtvAnv/xgUv1bb
+ UYjXznFMbswEXET9hSA0SWfTpVud+wyJjzU5aYXx16OfLNG8Ty7BPX6PGQIhxvaUmpT7yEungzK
+ o3EnhZ288/DHJcvaQUISGQtEuOFRXMI4dfFlJlxo9IiBa2QHs6+HFT6vMcVhLhbHz8ONI0lDhPu
+ iD2SsoDgd9ezlFl1dYj+/Z/jVjMGmjwYsd5jS09n7H2b3vyOmpsBGXvBthbTzGMma8R2pWB7yJK
+ vWlMTJ42WiazDhc7ddT79sYmcXy6vOukX0o8gjKl3p4tLxKSffVT1coIebLElt4JK/VVaNb0doE
+ GdgAvByb9SmyZgNA8QxMvfCkojw97zdceEas8Apkhb+ohQKhOBUBbItOLPnY3inNwzAENRmE5h/
+ vWGvJvzjkx5375IkXpQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1NyBTYWx0ZWRfX4Wf7oGLz+ERR
+ xKg/Say8q4qAgTCMpHfSB8X0Y8trcrFhZ40j18HabCme2b1aRA3cJt+ZQvpf9nunSuU9XDLg/8z
+ 8N8Oahujc5iUxgs5tDQ3WbdgyaYrY6U=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200057
 
+psci_cpuidle_domain_probe() reports every failure with pr_err(),
+including -EPROBE_DEFER. dt_idle_pd_init_topology() returns that
+whenever a parent domain is not registered yet, which is a normal and
+recoverable condition, so an otherwise successful boot still logs an
+error:
 
+  CPUidle PSCI: failed to create CPU PM domains ret=-517
 
-On 15/09/2026 16:49, Leo Yan wrote:
-> Describe recording AUX trace in PMU samples and generating callchains
-> and branch stacks with --itrace=G and --itrace=L.
-> 
-> Explain the default decoding behavior, preservation of recorded stacks,
-> context ID requirements and decoding limitations.
-> 
-> Assisted-by: Codex:gpt-6
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   Documentation/trace/coresight/coresight-perf.rst | 39 ++++++++++++++++++++++++
->   1 file changed, 39 insertions(+)
-> 
-> diff --git a/Documentation/trace/coresight/coresight-perf.rst b/Documentation/trace/coresight/coresight-perf.rst
-> index c0c82b3d26ea88dad7143afdb047c4d8f502b4a6..59eda2a5b6473ed1cb6bade5d281a12bdde76bb0 100644
-> --- a/Documentation/trace/coresight/coresight-perf.rst
-> +++ b/Documentation/trace/coresight/coresight-perf.rst
-> @@ -171,6 +171,45 @@ no branch history at all, for example samples from a thread that was never
->   traced, or samples recorded before the first or after the last trace window.
->   It is built and installed with perf's other dlfilters.
->   
-> +Decode branch stack and callchain from AUX samples
-> +--------------------------------------------------
-> +
-> +With a kernel that supports CoreSight AUX sampling, record an AUX trace
-> +window inside each cycle sample::
-> +
-> +  perf record --aux-sample=8192 -e '{cs_etm//u,cycles/period=100003/u}' \
-> +        -- ./workload
-> +  perf script --itrace=G16L64 -F comm,pid,tid,cpu,event,ip,brstack
-> +
-> +``G16`` adds a reconstructed callchain and ``L64`` adds up to 64 branches.
-> +Either option can be used alone. Existing callchains and branch stacks are
-> +preserved. Without an explicit ``--itrace`` option, both are enabled for AUX
-> +samples. Decoded history is available in ``perf script`` and ``perf report``.
-> +
-> +AUX sampling supports unformatted, per-CPU sink (TRBE) trace. Each sample
+Report the failure with dev_err_probe() instead, which downgrade
+-EPROBE_DEFER to a debug message while still logging genuine errors.
 
-Minor nit, but "per-CPU" in this context might be confusing for users. I 
-know we've used "percpu_sink" in the driver (unrelated, but maybe 
-"single_source" would be better there anyway), but from the point of 
-view of userspace, "per-CPU" and "per-thread" would be related to how 
-the event is opened. Which doesn't affect aux sampling.
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+---
+ drivers/cpuidle/cpuidle-psci-domain.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> +selects its CPU's decoder and starts a fresh trace window. The window already
-> +belongs to the sample, so ETM timestamps are not required for attribution.
-> +Samples without decodable history receive no reconstructed stack. CPU-wide
-> +recordings must enable context IDs to distinguish tasks within a window; the
-> +default recording setup enables them.
-> +
-> +Callchains cover only calls visible in the captured window; callers before
-> +the first synchronization point cannot be recovered.
-> +
-> +When kernel tracing is enabled, AUX samples can include PMU interrupt-handler
-> +execution before the trace source is paused. The late-sample helpers trim
-> +this using instruction addresses, which may not uniquely identify the sample
-> +boundary for kernel samples.
-> +
-> +Formatted sinks such as ETR are not supported. They can collect trace from
-> +sources on multiple CPUs in a shared buffer, mixing execution from unrelated
-> +threads into the AUX sample. Context IDs can distinguish these threads, but
-> +trace from other CPUs can consume the limited sample window, leaving little
-> +history for the sampled thread.
+diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cpuidle-psci-domain.c
+index b9e4ad7d43a3310a76ce62018dff0af1488e33d2..aa73a2fa14b3af4d1e3edd607e058ba96132bad7 100644
+--- a/drivers/cpuidle/cpuidle-psci-domain.c
++++ b/drivers/cpuidle/cpuidle-psci-domain.c
+@@ -173,8 +173,7 @@ static int psci_cpuidle_domain_probe(struct platform_device *pdev)
+ 	dt_idle_pd_remove_topology(np);
+ 	psci_pd_remove();
+ exit:
+-	pr_err("failed to create CPU PM domains ret=%d\n", ret);
+-	return ret;
++	return dev_err_probe(&pdev->dev, ret, "failed to create CPU PM domains\n");
+ }
+ 
+ static struct platform_driver psci_cpuidle_domain_driver = {
 
-This isn't really an issue if you are only tracing a single process 
-regardless of shared sinks. As the aux sampling driver implementation is 
-quite tied to the sink, it only makes sense to say we didn't implement 
-it because we think the main users only want TRBE, and it's extra 
-complexity to do it for ETR. But that doesn't really seem necessary to 
-mention here.
+---
+base-commit: f49a343b305c0b6c19a3b50c0bbf10bcd0e2e8fd
+change-id: 20261020-cpuidle-defer-4e6184bef223
 
-TRBE also supports multiple threads anyway, because you haven't put a 
-hard limitation on using --per-thread.
-
-
-> +
-> +Guest samples, synthesizing instruction events, and saving reconstructed
-
-I don't think guest is working anyway even without aux sampling. There 
-is some structure left in the code for if we ever decide to support it. 
-But I don't think we should mention or do anything special for guest in 
-relation to aux sampling.
-
-> +callchains with ``perf inject`` are also unsupported.
-> +
->   Perf test - Verify kernel and userspace perf CoreSight work
->   -----------------------------------------------------------
->   
-> 
+Best regards,
+-- 
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
