@@ -1,65 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792518008;
-	b=07DjVJt1qKJCdjX3Ih24XmKA7GxxKPCu/Gtc6JIGF+lWQbOmOeaGSWo55Mv3DIx5gE+v
-	 CI5mYz3OU0zspamZiKJHT0+I4XF3pdAIiGT6C709J6aaeNgcXdV8TXjS6nHCJafDTg5JS
-	 tSkEBAwmZ7QrPvwk3VgXmFhIe77F6cblBV6VPySmidgXPRLWamuQM0CKRdc5ef5dG5KlO
-	 9OwzjYUiKpnJuEAFGmVPeESEG42mLx6JiQdEIc1zVSsXiiO0esfye8H4NUv2CFXbkbLr+
-	 uJsBduGZ4j1HpUHRLKUyD3cgFeHinJQfkv0jfy0JldkJTWT7S3UK+CJJODYqB2RWsxw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792518008;
-	h=Received:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QFuKDc/12bMTQ7N0UCuWts6YlsGbG6+Qtuk7PJSX6is=;
-	b=kP28cc+OSiVjjLiCnNCunGnPxZHDmB5fQ7waQcCrqcrR3CuU9VS8odwJoR+uidZdhS3h
-	 Nmc05A9tgSCbeNYf8fpJL3RpCll0WphTABdkRbz5c4H+x8PTNy8gi1qhi5N5BJ+Btyoqt
-	 q5zQWDtFcgTVfioZiWOgaM54cydrUDcmsvxBBTs+ejxSnmlITMgYDsHPtqfdKQSMVlmIn
-	 qyTyYQoZ0bjU8i/bTLL86u19nMldHwe3vIvTd/9SxPtPiNC9QybVe7X9uGdkQ2xKT3lOM
-	 58nCoo0RHzzQlpP314GS8gvUJHfkKByZf1GdcSvq6HXUTzW2yQ24F6UzfFDFMoAHqEg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792518017;
+	b=XZxqDr9Q/d2Oq8XkvNWEudCizGP+S6Q/fQP4Fo3ucrwjZIzUMFXOw8l9Kbusaao9UKdV
+	 M36dstoY952yRGDpPZl4xmr5IsvX1184SpmZ0vWPQulD5VRYZn8h5eXfpdnsO4w6MaEkE
+	 k9i+DYV9+FAku511ZU1QHyWtyNbK3CZsyyUBhKk54XrPmH5NxRgoVSvMF2jy7pUNr7fWN
+	 4iDqrkz3IcmLIYsdsg83+O0Hkc09j+Zu920tPrKtPN1i82V0eYZKDseYHE6i+I8g2jfMp
+	 kGqXbGVQBT/KrSdwb8v2uPxMmHJ/pD6X1QtPaMxEbLcdFI1JGXNbAO599JQ8bCOm6QQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792518017;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=hgOzPzOjchrqHomdRvZ+L0A3V2FHRfWcryiGxEDDIww=;
+	b=mZdJsRWCxtoJqNZMLK9eYL4UEcjh7AAaghmOBHEuuy9J/AH1Vz2mq6Y8uWonJsS+LCWi
+	 Rk4EI07crH04oZ52EYpp6Nw6MuGlRthmbCKI/6fIU3WxViDzKjpLwYbSGWSZiwfEXxUq6
+	 M59x/0a5Dvk9c8fA7o49OCVBWThcoSMBa147SBr9rO+uC01gFfda8RqynFC7YRiErvK5G
+	 O1KN2UPw8EU1259uZc1wWenEHh8Wu/mxOlreHazhJ1yAoe5jD5jyMcn8vEm8tedhc8ysa
+	 d71Qt8d8A6qh1QJX+pnQ6Pbksz535gmvw6z8fae/sxJpdMLsVeEe2QPh1iKgpx3ixmg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=q6KhtCmK;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F18E606A31E;
-	Tue, 20 Oct 2026 17:40:08 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792518007;
-	b=bDr2G5Y6ZZj6RLSQwzUBz1/tdR+08d4Hx5ciPNPgUkaKQyfYSS8PDg8okiQEyXNrmMLJ
-	 f4aQW8IOkJTwgzBB28L2aewM/jduxppKoZzedLXTdZSl7jmNUQIttXSwo6eGn2221ICSA
-	 bS4UqfFHKrbXIMAjScyZZuwz++LIe0I8nzqSGyDxiL2Pu4aSsF9y5zqxJe9sPj0mevs6T
-	 wjSv0QPNJWwStoIWQv9e7c5Ru+69QC8nSvi1n3cMVSigX+I6chqihVqePMa+YbEhjocvl
-	 nh0pZyVtOczGGVvaQGYLSEPH/3xnuknCks1XaWnEyaDxe5Y/boCsIoVtcBUziK28Z1g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792518007;
-	h=Received:From:Date:Subject:MIME-Version:Content-Type:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=QFuKDc/12bMTQ7N0UCuWts6YlsGbG6+Qtuk7PJSX6is=;
-	b=B1WVTVzP5w0xJnAcyipovBsy5hsG2kJUMwMbHtge0F9GdwoHm1ExyusORBs9PHZZz2Vf
-	 xdm/BV6lrqhmZfinzks8ffxzPxNjTCnfsNE2ZoHyUydx/LsGZR+ftK6zsCuwzqzYaKv4V
-	 0oxgUPSZ6n5i6Gmw1GwLz393VuUc6lEdIH1+dj5XtCE+rUr6aZt7ZxVQEpHcrTHia5Xzp
-	 9OQ3tXJQdtfGdvzfJAEV9YazIJOwxD5JkHAY3ztLkwPGAluTEYXv8g/TUs10ca6qTDAd5
-	 GKSZ/29Swuv1WLQKozDdg3rFH8BdKYbNIvS4zY45QBgCTm8BqtTN7szoiTW1oVRAcfw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 66AB41F000C9;
-	Tue, 20 Oct 2026 17:40:07 +0000 (UTC)
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D876543181;
-	Tue, 20 Oct 2026 17:39:36 +0000 (UTC)
-From: Ximing Zhang via B4 Relay <devnull+xzhangjr.gmail.com@kernel.org>
-Date: Tue, 20 Oct 2026 21:39:35 +0400
-Subject: [PATCH] hwmon: (coretemp) Retry failed sensor creation
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45EF606A322;
+	Tue, 20 Oct 2026 17:40:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D45EF606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=q6KhtCmK
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=hgOzPzOjchrqHomdRvZ+L0A3V2FHRfWcryiGxEDDIww=; b=q6
+	KhtCmK7u1b/zKShsk7MFV/2cNuSrVySbbJzTQnuLzUJjI6WGzmqlM1a0Kw0/nfpIE1CXguoTNP0Tt
+	WkQWhSj2EJ80pvaXK05j3xGUDD1U4u0p+CsUNwgrfZK/JTvDSF6oqVc6ya1kmXKOn9JUhV/X9/RH4
+	krPi85TTL1TGOhQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xJDoa-00BtVN-4J; Tue, 20 Oct 2026 19:39:56 +0200
+Date: Tue, 20 Oct 2026 19:39:56 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: netdev-bot+sashiko@kernel.org
+Cc: cyan2254650260@gmail.com, davem@davemloft.net, edumazet@kernel.org,
+	hkallweit1@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+	linux@armlinux.org.uk, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next] net: phy: Add JLSemi JL21xx Gigabit Ethernet
+ PHY driver
+Message-ID: <26a568ac-d39a-4b8c-aee3-a7fd539976c0@lunn.ch>
+References: <20261016161543.444356-1-cyan2254650260@gmail.com>
+ <179251652395.3135.9790628596697229408@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,160 +66,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261020-coretemp-retry-sensor-creation-v1-1-7dd4851a34dc@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNywrCQAxFf6VkbWA6SH38irgY01QjOFOSqSil/
- 25qV5ezuOfMYKzCBudmBuW3mJTs0O4aoEfKd0bpnSGG2LUhBqSiXPk1oo9+0ThbUSTlVP2K/bA
- /UTikSMcOXDIqD/L5By7XjW26PZnqaoVl+QEDUwdJggAAAA==
-X-Change-ID: 20261020-coretemp-retry-sensor-creation-df49c07a2c86
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ximing Zhang <xzhangjr@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792517975; l=5089;
- i=xzhangjr@gmail.com; s=20261015; h=from:subject:message-id;
- bh=MYBfcW2pD2/t3BIjxPJYWT5sIWj6owKm2KcGLQr+EfI=;
- b=9wpgk/F+Ccrk+9gWDW7q2I+eYgh0MGAs2XePYIoW0Wb910cbEglW8DF1IIADWTGlT+zNclZ6w
- R9hokX2V7INAo1VmvuswKKkG+4VWWiYEog/aKia79eXimyMopZyqXrK
-X-Developer-Key: i=xzhangjr@gmail.com; a=ed25519;
- pk=C7VXFeUl3Bjjb638l0w1D5vm9qSpdbzEYql77XoYqTQ=
-X-Endpoint-Received: by B4 Relay for xzhangjr@gmail.com/20261015 with
- auth_id=1207
-X-Original-From: Ximing Zhang <xzhangjr@gmail.com>
-Reply-To: xzhangjr@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179251652395.3135.9790628596697229408@kernel.org>
 
-From: Ximing Zhang <xzhangjr@gmail.com>
+On Tue, Oct 20, 2026 at 05:15:23PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 10 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 1 · Medium: 6 · Low: 3
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] jlsemi_set_wol() can leave the MDIO bus mutex held permanently.
+> - [Medium] Wake-on-LAN cannot work, yet the driver tells userspace it is
+>   enabled.
+> - [Medium] When WoL is enabled, jlsemi_set_wol() writes JLSEMI_WOL_RMSQ
+>   (0x1fff) to page 0xd8a reg 17.
+> - [Medium] jlsemi_config_init() always calls
+>   jlsemi_disable_autonomous_eee() (clears PHYCR2 bit 5) on every…
+> - [Medium] When the LED's three link-speed bits are all set,
+>   jlsemi_led_hw_control_get() returns TRIGGER_NETDEV_LINK_10, LINK_100…
+> - [Medium] jlsemi_set_wol() ignores every hardware-programming error and
+>   always returns 0.
+> - [Medium] In the interrupt-disable branch of jlsemi_config_intr(), `err
+>   = phy_write_paged(phydev, JLSEMI_INER_PAGE, JLSEMI_INER, 0)` is never…
+> - [Low] The register map and most of the logic in
+>   drivers/net/phy/jlsemi.c are a near-verbatim copy of the RTL8211F…
+> - [Low] jlsemi_config_rgmii_delay() handles rx-/tx-internal-delay-ps
+>   inconsistently.
+> - [Low] jlsemi_handle_interrupt() reads INSR (0x1d) once.
+> 
+> --
+> 
+> net: phy: Add JLSemi JL21xx Gigabit Ethernet PHY driver
+> 
+> This commit adds a new phylib driver for the JLSemi JL2101, JL2121 and
+> generic JL21xx Gigabit PHYs. It covers paged register access, RGMII delay
+> configuration, vendor status register parsing, interrupts, hardware LED
+> control, magic packet Wake-on-LAN, autonomous EEE disable and
+> suspend/resume.
+> 
+> Link: https://www.jlsemi.com/
+> 
+> > diff --git a/drivers/net/phy/jlsemi.c b/drivers/net/phy/jlsemi.c
+> > new file mode 100644
+> > index 0000000000000..c3acff48d4618
+> > --- /dev/null
+> > +++ b/drivers/net/phy/jlsemi.c
+> > @@ -0,0 +1,551 @@
+> > +// SPDX-License-Identifier: GPL-2.0+
+> > +/*
+> > + * Driver for JLSemi Gigabit Ethernet PHYs (JL2121 / JL2101)
+> > + *
+> > + * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
+> > + */
+> 
+> [ ... ]
+> 
+> > +/* Wake-on-LAN settings */
+> > +#define JLSEMI_WOL_PAGE			0xd8a
+> > +#define JLSEMI_WOL_SETTINGS_EVENTS	16
+> > +#define JLSEMI_WOL_EVENT_MAGIC		BIT(12)
+> > +#define JLSEMI_WOL_RST_RMSQ		17
+> > +#define JLSEMI_WOL_RG_RSTB		BIT(15)
+> > +#define JLSEMI_WOL_RMSQ			0x1fff
+> 
+> [Severity: Low]
+> This isn't a bug, but the register map looks identical to the RTL8211F
+> support in drivers/net/phy/realtek/realtek_main.c. That covers PHYCR2 0x19
+> bit 5, INSR 0x1d, INER page 0xa42 reg 0x12, RGMII page 0xd08 regs
+> 0x11/0x15, WoL page 0xd8a regs 16/17 with RG_RSTB BIT(15) and RMSQ 0x1fff,
+> MAC page 0xd8c, and LEDCR page 0xd04 reg 0x10 with 5-bit per-LED fields.
+> 
+> jlsemi_led_hw_is_supported() and jlsemi_led_hw_control_get() also follow
+> rtl8211x_led_hw_is_supported() and rtl8211f_led_hw_control_get() closely.
+> The same goes for the set_wol, suspend and resume flows.
 
-coretemp_add_core() only logs create_core_data() failures, but
-coretemp_cpu_online() still records the CPU in pdata->cpumask. When an
-SMT sibling is processed later, the mask makes the driver skip sensor
-creation. The core interface then remains absent until all siblings are
-cycled or the module is reloaded.
+Interesting. Please see if this really is register compatible. If it
+is, please extend the RTL8211F to cover this device.
 
-Package sensor creation is similarly attempted only when the hwmon
-device is first registered. A failure leaves the package interface
-absent for the lifetime of that device.
-
-Retry missing package and core sensors whenever an eligible CPU comes
-online. Determine whether a core sensor exists from its temperature data
-instead of the CPU mask, which continues to track CPUs available for MSR
-reads and hotplug retargeting.
-
-A package retry might fail after per-core data exists. Keep the core_data
-array alive until the hwmon device is unregistered so failure cleanup
-cannot discard live per-core pointers. Publish nr_cores only after that
-array is allocated successfully, and rate-limit errors because a
-permanent failure can now be retried.
-
-Tested on an Intel Core i7-10510U running 7.2.5-1-cachyos. With
-test-only fault injection, two package creation failures and one Core 0
-creation failure left the unpatched driver without both interfaces. The
-patched driver retried and exposed all five readable sensors. SMT sibling
-hotplug and 20 module unload/load cycles also retained the expected
-sensors.
-
-Signed-off-by: Ximing Zhang <xzhangjr@gmail.com>
----
-coretemp currently treats a failed package or per-core sensor creation as
-permanent for the lifetime of the hwmon device. This change retries missing
-sensors as eligible CPUs come online while keeping the CPU mask available for
-MSR targeting and hotplug handling.
-
-Tested on an Intel Core i7-10510U running 7.2.5-1-cachyos. Test-only fault
-injection reproduced missing package and Core 0 interfaces with the current
-driver. The patched driver recovered both interfaces after two package
-creation failures and one core creation failure. SMT sibling hotplug and 20
-module unload/load cycles also completed with the expected readable sensors.
----
- drivers/hwmon/coretemp.c | 30 ++++++++++++++----------------
- 1 file changed, 14 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-index 3836beade59f..fa3b04d0e041 100644
---- a/drivers/hwmon/coretemp.c
-+++ b/drivers/hwmon/coretemp.c
-@@ -489,13 +489,15 @@ static struct temp_data *
- init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
- {
- 	struct temp_data *tdata;
-+	int nr_cores;
- 
- 	if (!pdata->core_data) {
--		pdata->nr_cores = topology_num_cores_per_package();
-+		nr_cores = topology_num_cores_per_package();
- 		pdata->core_data = kzalloc_objs(struct temp_data *,
--						pdata->nr_cores);
-+						nr_cores);
- 		if (!pdata->core_data)
- 			return NULL;
-+		pdata->nr_cores = nr_cores;
- 	}
- 
- 	tdata = kzalloc_obj(struct temp_data);
-@@ -533,9 +535,6 @@ static void destroy_temp_data(struct platform_data *pdata, struct temp_data *tda
- {
- 	if (is_pkg_temp_data(tdata)) {
- 		pdata->pkg_data = NULL;
--		kfree(pdata->core_data);
--		pdata->core_data = NULL;
--		pdata->nr_cores = 0;
- 	} else {
- 		pdata->core_data[tdata->index] = NULL;
- 		ida_free(&pdata->ida, tdata->index);
-@@ -605,7 +604,7 @@ static void
- coretemp_add_core(struct platform_device *pdev, unsigned int cpu, int pkg_flag)
- {
- 	if (create_core_data(pdev, cpu, pkg_flag))
--		dev_err(&pdev->dev, "Adding Core %u failed\n", cpu);
-+		dev_err_ratelimited(&pdev->dev, "Adding Core %u failed\n", cpu);
- }
- 
- static void coretemp_remove_core(struct platform_data *pdata, struct temp_data *tdata)
-@@ -714,20 +713,16 @@ static int coretemp_cpu_online(unsigned int cpu)
- 		if (IS_ERR(hwmon))
- 			return PTR_ERR(hwmon);
- 		pdata->hwmon_dev = hwmon;
--
--		/*
--		 * Check whether pkgtemp support is available.
--		 * If so, add interfaces for pkgtemp.
--		 */
--		if (cpu_has(c, X86_FEATURE_PTS))
--			coretemp_add_core(pdev, cpu, 1);
- 	}
- 
- 	/*
--	 * Check whether a housekeeping thread sibling is already online. If
--	 * not, add the interface for this CPU core.
-+	 * Add missing package and core interfaces. Besides handling the first
-+	 * CPU in the zone, this retries an earlier failed creation attempt.
- 	 */
--	if (!cpumask_intersects(&pdata->cpumask, topology_sibling_cpumask(cpu)))
-+	if (cpu_has(c, X86_FEATURE_PTS) && !pdata->pkg_data)
-+		coretemp_add_core(pdev, cpu, 1);
-+
-+	if (!get_temp_data(pdata, cpu))
- 		coretemp_add_core(pdev, cpu, 0);
- 
- 	cpumask_set_cpu(cpu, &pdata->cpumask);
-@@ -778,6 +773,9 @@ static int coretemp_cpu_offline(unsigned int cpu)
- 			coretemp_remove_core(pd, tdata);
- 		hwmon_device_unregister(pd->hwmon_dev);
- 		pd->hwmon_dev = NULL;
-+		kfree(pd->core_data);
-+		pd->core_data = NULL;
-+		pd->nr_cores = 0;
- 		return 0;
- 	}
- 
-
----
-base-commit: 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e
-change-id: 20261020-coretemp-retry-sensor-creation-df49c07a2c86
-
-Best regards,
---  
-Ximing Zhang <xzhangjr@gmail.com>
-
-
+    Andrew
