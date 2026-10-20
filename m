@@ -1,122 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792516572;
-	b=KWu87R+Ti00PdfXciDSAWd8PZPLSX10ZxkDDQiXQ7cigvodx7oEDigkkUQNzpSIuRwL0
-	 pBAGCWnXvysAFB690090eI2ZJyi7As/WDDRu/v2ZUq0Q24iBpcZbcJ1KSes2x7+DWAgPe
-	 EyOocrwqnfqOIhaGH8snDExaPj49Vf77XlTDtkcfAkZM2VSDoxZYZkmHY4J9D0jhd0EJ6
-	 LlMc0csyznIEeAyS9wSYtfKeXfA8SGQOBRNz6so49nfuzWoMyzwwBkvsLPhqCuVL93l9j
-	 w3uYHju8SXeABJqgv8Tk/4iw88ksUvInlzlZELaa81BDL4At0c5rmzOohnG/+zAv62A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516572;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
-	b=WBtLDSKvCxYLj+YHVYx5Ge0YciIQ5BzTfEtnt1HYg83fTWk+u5uaMSkUeSD24kTuc6zM
-	 MX/nWoA+C261Yy8TbX6AOad7jKcqtHFhK21dhqUOPT5v/QjaSVgkLuWoqgAgPtOoQ5Xwy
-	 6qXxkClbfgVPygfOQr6vZe9yzUJqv+eMWUF+QThfeZQVExoSEmY0uSHCgcV1g4GbMdnoE
-	 ZdcBcJ7/6GoGmucthpVZxTo7JTe0SUxFHA1wxV9gtE5GhI27ocB5R8uv3I4enffEKtNzO
-	 +1D8kQodG7VUYXmcxpi6CWdK9Wy43rBx1GnCeyRH+77PCvYv3E67XHvT0JR5Sjguj2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="HAdTSY/x";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RTR1tuVd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792516570;
+	b=dYCohwYVDDsC9LWY/Rr9Ry+1ddRq1ICTAJwqOrWH+127gAhuQvlwbiPO3q05me7IA7ZX
+	 CupCcuhBQzvfs1QYtp8JLayqRQLlUuI/fwKZ1lPzN7HD6iILsO/9lhP+9/rX6Ko9u837X
+	 sHG43DQeC58Kgw20nrXnpE0r+PA2FqBIOmQbjjsFXpHF2NLHN2UQze843D2ETajP5J+LY
+	 CxhASsbDDAa3FhlAoe6ril729KLrVHVqOct/DofyzFzz3iRJnUD85fTVQ+8O6FjUPgUFJ
+	 BbO+kX3DU9lt9+bhmgYtBYrn9n54jKqoz5uOsEb2jJUaM37foyiFdBl9nOfy5EOcxmg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792516570;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=yRtwQJoRBj8JHRW6EWWDkMp4408OqcvaN5oRuVYI7Co=;
+	b=CfWe27/dwgd0DxKbChpgGFYopqgV6Lon3lRtQfzXV0b2Jw2o0oAi9viFoxpKudZjrmJL
+	 tp0v1zPaEI2sDSNr+B8pMYZn7qPx/AlBcs+928yftNwt3XT+aDF2cyGpdgaTOAoMlKAYe
+	 KlkI9/oYoWl0yPm9AC/artL8yuTZyPi/6x54ljVWEyYl0TonjmM1m9mZy8OhOrDt0OBhb
+	 EC+8S3HdGvdjpiB8KX3sHE3Z6TVzUOun8AX+cK/qCks/46J9FoCz7wdFfSRYZRjl3NYsE
+	 F9amMPJNEGsMK9kl7vzJrLly0eSMxVo5wCWgFIn65t4gQg2puaHJd3vIyQ2gDn8ESAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+CJlD5u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADDC606AA1C
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:16:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ADDC606AA1C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59703606B518;
+	Tue, 20 Oct 2026 17:16:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HAdTSY/x;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RTR1tuVd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792516571;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
-	b=HAdTSY/xjVIEOV5jak/gtngl8UZ3+Yp2pajm5PiAFIe8xfNVXqF41Rg6Trbd+9nvQZVr8p
-	WKol7WmevGyO7zJXw7CM6d8kY4Aqtqnl5RoctBsbySd5C3oiif4nCOoPtZJKz+Iz3r/Shs
-	oq0m5qOta5kk/rOsd3KpA+Nf/gPEd+I=
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-441-Q5riAOovM9yphc6bQLPy2g-1; Tue, 20 Oct 2026 17:16:08 +0000
-X-MC-Unique: Q5riAOovM9yphc6bQLPy2g-1
-X-Mimecast-MFC-AGG-ID: Q5riAOovM9yphc6bQLPy2g_1792516568
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-9907539aff7so2897796241.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 10:16:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792516568; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Y9DiQ/cZ/CZQCd3hXLEUGBQpZfa8Xf6v4PEhmxQtrINx5emRg+HQBvKgyRXWgkVKcG
-         eNhHiPcTIDOm0lKXM6lUqeHZK2qXSilCKqKM1PTqUGXiwBU1a04Sgg3B9DTrfMgVK9P7
-         xBi16YfXV9aF7JXtLCW9yOtNAtoNLAhbVW1bs6JYiKn16lrfQ4AlRYvdsoQU2pIYi4HF
-         HjDdklY2M8n/Ox8n/ImPzww11n/A+BGyqCD2+icR6Y0vepZX6cELITk+0NlwhSPLZ0vR
-         x1CCJfXZ9CjhrWLrvqoNLG5qsgHnMJYocchC8eeqivGgtTZO2tDslCCYxjX0CMRXb5Pm
-         xHzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
-        fh=f9N++zfxRdy/dtxyX+WlX1FPOPMkvmdq42+WeARsZRs=;
-        b=r90hL7Kqq5LfDk2Vz69xtmAeZ85nqGKIb7VOhqeecq4YwwK5ld+frocljOtX0xluoP
-         setlrjml6lCES0qsIsLmfTkCljaSdFWsVpMqeWyeiSj/gnYlc5GAUuB04pqsLT08LiVi
-         96lBYa3Jw4p6+NTXVJE2wBayqVGKTEHRf9kCQZCLqbosXmY9QNda+Hi1Tod5BBlO1MLP
-         CRr4XxoudZOPBtgEt6Ife6bYn5DJy5KhjfG4/tPW4tz7pEwFaaYiB62/xm5Nuklp37d/
-         y+CiTLhR9YQojSlo1hgx3WY1V5K9SO60ZPLoWK/TWH7d44pV0lX+NImWxBY9AvGG0Y3e
-         kBPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792516568; x=1793121368; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
-        b=RTR1tuVdDUHEn2ze9H0ohlkt3ebd/D9SNxeKWODVXZQhpsFgpYk6JwWTN7hONZN1By
-         ilI4c70pSxdaJAD8xOn2Tij9xfPC3yZf264U8QH18P2oaXTYQV1Df0UnpJbAwBQj3scN
-         KsNZ9qxMAD5WISFxDRN9lhW4g7WcpnSt24ilP5OOpGpr9tIwm6LI4G3rY4E8L4m8Ywam
-         +miLtYZNvR7evgHh4FH3sgCgNx0tjkEGtoYSabCtdfYQg5FwSFyXWtijwKwVGB9mYLSx
-         UbBoGu4Y3qufmKbf+VOdR0+k255Uq2ab8Dnj2JkqEi3w1LF1E8zW8y2/Tb7qyEsG3iOh
-         aqrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792516568; x=1793121368;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dqa81DbmEVosVhZIeXDqyDww6DzKrf466i3qKtWkyUc=;
-        b=YU2+Sgzwh9HOTxaW/CTprmbBE9NKyXDBCz4l2coJUpJ+YhQtT9z9T2uL+qiFLMssgT
-         J5a8bTuLetRBccNPbLZNC0+t5AouH/Kaf5XGaEWX/ZLGgQU7GQi5oqWIgvNITXT2tSfs
-         dk3TmIugIDfAmbai1AuoLNR0KsOj+CYubw+GJxNES5o/dHe6Ny3ukEZNd4EZsnz1a+0t
-         VQAK1w/0BvY+ZhZxUmc/Xi+7Wa/ib8Mb2sI/Wd5hbKHKofh04+i95XVFwpNjwSUUMvTF
-         4w8VxND/EP20WJy5HE7F0iWfyEpH4CBMs2lfFuDD1OKQCrewWYRbPm6kVETfy9cFNRy9
-         TUbA==
-X-Forwarded-Encrypted: i=1; AKwUvBzHX7TrnMRADGxgH+QafimUwPmq11yd2UMTcMKjdmnT0uVMXCaiW96+2vCLBVxjycA4Ge9W4eIyVrjyJvk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFXMx5Heir4TNbOrU+6gQ6VuB7CVRPaKwCcL8UU/U7CEJ36N4V
-	7Xd0cgd2DiPJ7V6MaK5IQmSMFziEUPfCHv2PfzDSQtS9iXdHagpaB2tS9MKYrungP72kKikWMWV
-	utLozSu+oNJpTtz3Bp2/V1cgsi0EmRHJ/fHoDjkUDfrfm0LHmbmypXgAcJUmhIXfDM+d6vkiXaA
-	dRk2jdo7f5JtzUc2elL9PxgY/uOCRTRbSvq6vstEZy
-X-Gm-Gg: AYBFou1vyowev8PXbk+QKhOIuTGIo4V6z33KdI+ZLU9TAECxKnHvkRqjzH6u4yUbdVX
-	cCMJMrEeFPT9roBEO2PjO2/rfTQOT+7Y2JCuLc70bArw4UaVPEaqu5U+jBSxDNA9cU9Ixoes1yg
-	MufFOBhZvE7+lWKG9YK1+y3JeGahV0k655oRqenFLZOA/iqlyvteXERNGUWvvIxErTfbZEjbBMj
-	W3Jlm3XlkTwq9tZInGSjomQs4tK3hy+uANbhany1zqC478w6T4GUaL/42l6mAXAzBtMkuTTmbrG
-	K6NjrASbaFuQIa/BHU86taScKw==
-X-Received: by 2002:a05:6102:358d:b0:7c3:b15:a981 with SMTP id ada2fe7eead31-7cc3695de87mr3672350137.15.1792516568141;
-        Tue, 20 Oct 2026 10:16:08 -0700 (PDT)
-X-Received: by 2002:a05:6102:358d:b0:7c3:b15:a981 with SMTP id
- ada2fe7eead31-7cc3695de87mr3672333137.15.1792516567403; Tue, 20 Oct 2026
- 10:16:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+CJlD5u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0DE1F000C9;
+	Tue, 20 Oct 2026 17:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792516570;
+	bh=yRtwQJoRBj8JHRW6EWWDkMp4408OqcvaN5oRuVYI7Co=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g+CJlD5umPMzG650LKD2SuygkRMNwTExREotGPc7aw0np4yBdzwQUm2cNiJCE8LzB
+	 ijsH2Cd9eo9HGl5LpXYlhWFtfhjkn2tPKnEBFpCLfCo7H2j+nh/NQO94QQe/LcCeXo
+	 ZbomAk78UB0TGgV2J6SGnwOZKGpIqWQEe5qY+wMchT9KeMKPtiLEI6C7jY3KdvolzF
+	 F5m06aW9QlBxtGFZfoE9dkenURJ3cnTURsvBS4or4HIicN0nolNRmFHo67jPPwhSsj
+	 g3DUkA0vpaJy0wqJmq79rG7ufZaGtAg5lkXmP+H9YnSQkQbPGvol7xlwKTwe2TOBla
+	 E0fZ1W62lm+xQ==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 68DD1F40068;
+	Tue, 20 Oct 2026 13:15:49 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Tue, 20 Oct 2026 13:15:49 -0400
+X-ME-Sender: <xms:xaHXaiX6z24MEA8rzGmUGG1w2BDKM0jbBnc7f8-muQR36aL6wDE7Lw>
+    <xme:xaHXamh2Xb1Sw0FeXsgn3r20Ti85WiYGr1R2ytMT_zPJt1vBdknwmcUd0xR-kX5-D
+    aYJ1DEiAgp8MBeFSXy7HagSSwE8hdZWI3uXf1_TUCMjLL2HUXqJZA-J>
+X-ME-Received: <xmr:xaHXatnjsgbwrBfU5B1UcG5UZfTvuiM3BvzDPpW9BCN2Qr9xhUIS-pc7csDLyYOFtdDEeX3yDtjgN9CB2XzercvbwRBRzXtA>
+X-ME-Proxy-Cause: dmFkZTFHwY26Zyaya4KftCJetX+Xp4Td4MsO+2nPbR8Cync6Kyf4mAWnBlrjIVh/wTZP9r
+    tu0/SbeU9bYdaa3nmrQhX2W+/B8bH8JeYeAhFQcDfTnEi0SvySnHjf3VSWtXimffT14tjG
+    WASXS1JKkVdW2sEgdKinhjinsfayYBrS1p7WZUga+SQxumjKjZOLt2IkmLIiB5hN0tSouF
+    KGDY0honu2+BV2Xhh4sqetcJpagcCh82+U6mYoHzH6sElTORv4RWITpeajxv9eAtYyLUBL
+    CXy0s7h9xtU//kKQsL1HYmxRK9Wr9Qi8KuYi28MnX5NInFb5L4EHfTSBGpXns770K4iISS
+    pTCL3nQFFUjJBYkApnx7iyxEJw+HrSVsgXSR6dxI7Cnjk7SC0Ag3p7ozfQiNRpN0hVq8TP
+    a/U+qBeE6lcjEeXxt1YnfeXz4T7QUYNatE1dujUGWqEn2jgynEbfh3qZfbJTTKP9UcuTey
+    cR8pLnw9L5RPFFjyO1OlrsSL5RtoMW6AVTwOa2sNcmJMXk8wKgPT9NTimcQFhMrAzEk9At
+    Gi5SCeLGZuHFNi6G0CUdIV1Z7mTUDiW4rFaf900Q2RsxqnDAjDxTypUP6LNmXs2I+ZdNBh
+    UXJm4koKkQygFXqScWkv4y43+kKK94FnQidBV6qLb7hDAE90ljFp3UsMyFLA
+X-ME-Proxy: <xmx:xaHXavxWz-F-ZhxwsOClBpogqa9C5YGhNc33cU_3ZzSpVMMHLXTJvQ>
+    <xmx:xaHXaovDrdcRXil-2XXKQcHpL4-g3aMzvUYJOsuqiLnGhUo8fpAk9Q>
+    <xmx:xaHXaktcheVLSZ3O6sYd7xB6M36WPi3CCCA2M7FWYwEPW-J3ghulHQ>
+    <xmx:xaHXammiNsTRMQ0yLGiOM_IpVAhRFTl7wnm5AY92FngziXIoPGaVaA>
+    <xmx:xaHXaitUy-QKe3WrqO8y3KvV9VFVzKf9emEDewwsIV_c7yykXzNXFQeU>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 20 Oct 2026 13:15:48 -0400 (EDT)
+Date: Tue, 20 Oct 2026 10:15:47 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Vlad Poenaru <vlad.wing@gmail.com>
+Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Waiman Long <longman@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Simon Horman <horms@kernel.org>,
+	Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Davide Caratti <dcaratti@redhat.com>,
+	Breno Leitao <leitao@debian.org>,
+	Nilay Shroff <nilay@linux.ibm.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/2] net/sched: don't wait for RCU when
+ destroying qdisc lockdep keys
+Message-ID: <atehw5Cn5Ev7Z68i@tardis.local>
+References: <atZtYi_Xnz27O8Bp@tardis.local>
+ <20261020125335.678200-1-vlad.wing@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,45 +97,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1792498351.git.amarkuze@redhat.com> <20261020160537.GD699485@google.com>
-In-Reply-To: <20261020160537.GD699485@google.com>
-From: Alex Markuze <amarkuze@redhat.com>
-Date: Tue, 20 Oct 2026 20:15:56 +0300
-X-Gm-Features: AclHuK8IZ3rN_Kb2MqxIXzdba8gBbiLwQmfRP__gRggxXmiCnqZNpSqi1Sf_34w
-Message-ID: <CAO8a2SjWStsoCQ7eeoBb5oY3nSUQVFVMT9Rvj1ZcFGNBctuEvg@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] ceph: support subvolume quarantine
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: ceph-devel@vger.kernel.org, idryomov@gmail.com, xiubo.li@clyso.com, 
-	slava@dubeyko.com, viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
-	linux-fsdevel@vger.kernel.org, linux-fscrypt@vger.kernel.org, tytso@mit.edu, 
-	jaegeuk@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020125335.678200-1-vlad.wing@gmail.com>
 
-My bad, resending.
+On Tue, Oct 20, 2026 at 05:53:35AM -0700, Vlad Poenaru wrote:
+> On Mon, Oct 19, 2026 at 12:20:02PM -0700, Boqun Feng wrote:
+> > I think my concern is still valid: for lockdep PoV,
+> > lockdep_unregister_key_nosync() is an API that users have to use it
+> > carefully, because it leaves the unregistration process in a stage that
+> > you need to guarantee that the lockdep key reclamation is delayed by an
+> > RCU grace period. Or in other words, do you have a way to prevent a user
+> > from doing lockdep_unregister_key_nosync() but kfree(key), or some sort
+> > of debugging to find a mis-use?
+> 
+> Not in this version, but lockdep could catch it. Every slab, page and
+> vmalloc free already goes through debug_check_no_locks_freed(), so:
+> 
+>  - lockdep_unregister_key_nosync() records the key together with
+>    get_state_synchronize_rcu() in a small fixed-size table;
+>  - debug_check_no_locks_freed() warns if the freed range contains a
+>    recorded key whose grace period has not elapsed yet
+>    (poll_state_synchronize_rcu()), and retires entries whose grace
+>    period has;
+>  - lockdep_register_key() warns the same way if a recorded key is
+>    reused too early.
+> 
+> The table is empty nearly all the time, so frees only pay for it during
+> bursts of unregisters. A correct kfree_rcu() or call_rcu() free runs
+> after the grace period and never warns; lockdep_unregister_key_nosync()
+> followed by kfree() warns on that kfree().
+> 
+> Would that address your concern? If so I'll add it to v2.
+> 
 
-On Tue, Oct 20, 2026 at 7:05=E2=80=AFPM Eric Biggers <ebiggers@kernel.org> =
-wrote:
->
-> On Tue, Oct 20, 2026 at 12:52:32PM +0000, Alex Markuze wrote:
-> > CephFS subvolume quarantine isolates a subvolume while allowing recover=
-y
-> > clients with q/Q MDS auth caps to access it. Advertise support only aft=
-er
-> > cached data and metadata access paths can enforce quarantine.
->
-> No base-commit given, and this fails to apply to current mainline,
-> current linux-next, and also to the current default branch of
-> https://github.com/ceph/ceph-client.git which MAINTAINERS lists for
-> fs/ceph/.  So it isn't possible to review this.
->
-> Note that Sashiko was unable to apply it too, so no reviews from Sashiko
-> are available either.
->
-> It's getting to the point where I should just immediately delete all
-> patches that don't have a base-commit.  It's a waste of time to even
-> bother trying to look at them.
->
-> - Eric
->
+Sounds like a solid plan to me. You can make it behind
+CONFIG_LOCKDEP_DEBUG.
 
+> The other way would be for lockdep to keep the dynamic-key hash nodes in
+> its own storage, freed via RCU like zapped classes, so is_dynamic_key()
+
+But this means lockdep needs to do its own allocation for the hash
+nodes? Where does the memory come from, a slab or something? If so, I
+think we should probably avoid that. But I like this idea more since it
+won't introduce another API. So please do explore this idea as well,
+thank you!
+
+Regards,
+Boqun
+
+> never dereferences caller memory and lockdep_unregister_key() needs no
+> wait at all. That removes the nosync API, but it is a bigger change.
+> 
+> Separately, two corrections to the cover letter: please ignore the
+> stray "From: Vlad Poenaru <thevlad@meta.com>" line (Eric, sorry for the
+> confusion; the series is from and signed off by vlad.wing@gmail.com),
+> and [5] should be:
+> 
+> [5] https://lore.kernel.org/all/20261019170601.805087-1-vlad.wing@gmail.com/
+> 
+> Thanks,
+> Vlad
