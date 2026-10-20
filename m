@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486085;
-	b=SVcY2H16Qwjtwxc0/Q3uwXAXjwz9MK/p3Dgtjf2STpujQjxGA3BBq9Wss5q1ifcSbw93
-	 2dXtcMeio0abocKPnlq16TQiiTA1hCtdAmOlD+g3jrgYubtSuESmLKGYuE68vPvaXKPqx
-	 PtpIb/wXaQVGGsRviDxImGxg9HMsWPpWfbWsvgY3LTiIuhjchlb/VmrYWjkHVlVwjBm0I
-	 Auo8rlOYrTlWMWGgDCUjG+EyjV/6yjQ1ps0YVLPuIWTUqbqeb90V/RRQG+G/8dLW2/oC4
-	 c1u1hN1DlKlgV/BtFoXsOWiVpHXje+eArmRrvK/VjboAM3icHOPUq+TD92U8SyUcQBw==
+	t=1792486083;
+	b=K85JxbNxogYDCdcJFPeMj3pJ05xsvBuyhI2AOVYxudbqm0usH8NTrz34/XXhk0RH8iCM
+	 umMGWOuC9BXlteh25I+BBKFMgpHCGbTYheamPvBdotr1laF75uRu3unrB2rL1V6e4lUsy
+	 l26Q0Ok+14k809q+jr/OLQFNsmqhqdQavw+GUIAsCiMQEWX64REqJRwh9hRzwMfNSjAwk
+	 K5IzGA4/iFkxd6ngH8EJpzRxkxCyauCsWxn1LuY0Xkpu02w3pDtlggAXtC0h5aUfE31ZL
+	 wGXUMFwGgdBRkuRoQK0SRuWSdD9AONc+uKzfPjiDIT0vQv2hp/rpeJvM7MDUmvrDA7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486085;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486083;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-Originating-IP:X-CM-SenderInfo;
-	bh=mVS2Zzmo2aNS6iZnAY+DB7ysTEdcEOsDvaLXa+jkuGg=;
-	b=S3lNhMg30nhsEFq2w3p2ZCOlj1NKLOJEub5kzwF6fYDG+IVXzMZ/b5AYlka6SgaspoTi
-	 mK4L4SpISArmZPQMv2K1wrmSbkuTKgNnKm8VPvmPiAcROz6kfFlH8i37KsZ054jgeGCnH
-	 SE+P9//Y+icGdlJuA1lkezlFBUqC+vCS5eRn5u4k9HykLoHxAf1IvL0/LBnRVvmYpzw+J
-	 hKWhBKz18taWs45hzQioyWJQMEq6t4geFeIwqHvxsK2Il/SHkzvnmpNQsKIbIfDsE3CSL
-	 UC+Ge7rxPUc0lCLIUMlsaUz5YGOZaStODqgJfgrEMgoOyDf5ZPI5x+TuZxXdEaBbDXg==
+	bh=pCYVLnKlwWFu2dTmmG/DqjRyyF+oOB7q7tn5CcP2eok=;
+	b=d3g47xQQWF4Tek59NAVVxyDIGiJgcGJm86R4hnc4cJtHBaRaTfwHBZogV7SztgGN/4V4
+	 cUX4ocay4e7gO9QjNaPhXWeEUoVWCArzOlOY5pnxrvQpSs3LHOpE1CsInij1pAM2JzKSc
+	 Dpvhh613w57wKoEHvsv4JgtdTMgdpH0DD0TH4k2GSc51CKqCYq1/pnv86Yx69b7+muFJl
+	 h4C4qmA9stDpgWYYiPbN5UuUhS0WzczrPcEvRsWLM3ZIof9cb6/C8fkibQpCJncVm5qpf
+	 EMCiKa5Mtm29ZivnYadJNziuPj6ILjOcaE/ZZsX+RNf7kj0bIPjiEmxS+KrMP22OLBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="WCipe/tH";
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iveJbtMX;
 	arc=none smtp.remote-ip=117.135.210.4
 Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CCA60A381B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75CCA60A381B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62DE60A2639
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B62DE60A2639
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WCipe/tH
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iveJbtMX
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=mV
-	S2Zzmo2aNS6iZnAY+DB7ysTEdcEOsDvaLXa+jkuGg=; b=WCipe/tHU73lQWhe1X
-	yaq0vChJx8sbnvhmJzW6q1dtuvbf/mSw5hfQ/yDqiYB3MKY6offLTebjFj3ZZn5+
-	3UsFhE1KFLHWKxYtaGg5Ux9PFAyTiTH57wZzFwj8yEDxLsEeMLb7KNtYgoKqtyec
-	oD9mZKVSXETcBJh4IQIrwCETQ=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=pC
+	YVLnKlwWFu2dTmmG/DqjRyyF+oOB7q7tn5CcP2eok=; b=iveJbtMXDThrqSv6tt
+	xQiw5qnkwq9X8stE1rAnTulT2joknZgoJpQsUtUO67ksQBTjKAPuG1qhOgI5DHcG
+	l1JhthOJe63RqX3kLfMKkyESuNM35ncHCZv6lW60aEhoOMBG2vpx1ZYKGrMTJy1r
+	AgL8W70hvS9DEvQviCU2xXiXw=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3t62yKtdqN_ayBQ--.9980S7;
-	Tue, 20 Oct 2026 16:47:52 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3t62yKtdqN_ayBQ--.9980S2;
+	Tue, 20 Oct 2026 16:47:47 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -50,9 +50,9 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	wangxuewen@kylinos.cn,
 	wudandan@kylinos.cn
-Subject: [PATCH v4 29/31] ntfs: report named stream metadata and recovery errors
-Date: Tue, 20 Oct 2026 16:44:19 +0800
-Message-ID: <20261020084421.2196486-30-liubaolin12138@163.com>
+Subject: [PATCH v4 24/31] ntfs: serialize and report export parent reconstruction errors
+Date: Tue, 20 Oct 2026 16:44:14 +0800
+Message-ID: <20261020084421.2196486-25-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261020084421.2196486-1-liubaolin12138@163.com>
 References: <20261020084421.2196486-1-liubaolin12138@163.com>
@@ -66,165 +66,130 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3t62yKtdqN_ayBQ--.9980S7
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Xw13Jw4DtFW3Cr45GrWrGrg_yoW7Kr1kpF
-	WxC393K3s3tFyxKwn7tan0v34fKFn7Kw47Kr4UJ3W7ArsYqr15tF4jkr1I9FWrtryrWanI
-	qF45twsxur17ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jzq2NUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RhJFGrXKrh2xgAA3z
+X-CM-TRANSID:_____wD3t62yKtdqN_ayBQ--.9980S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr4DCw15XF1DAF18Wr4xtFb_yoWrZF4xpF
+	y3J3sxtrZ8JFyfurnayay5Z34Sk34fGrWUWrn3K3WSyw4qqrn29F1ftFyj9r1FkrWrJ34Y
+	qw4jga43C3yUXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j1uWLUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RRIE2rXKrR19QAA3F
 
 From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-Report missing or stale MFT references after a successful base-name
-lookup as EFSCORRUPTED only when the caller holds the directory i_rwsem.
-Pass that locking state through the helper and its callers. Unlocked
-revalidation can race with unlink or record reuse and must not report
-those races as corruption.
+Exportfs calls ntfs_get_parent() without the child inode lock. Hold the
+child's mrec_lock across FILE_NAME lookup and parent loading to stabilize
+corruption checks against rename and rmdir.
 
-Also report missing required stream attributes and cleanup failures.
-For rollback failures that trigger shutdown, report the cleanup errno
-and retain the EIO operation result. Preserve the existing ENOMEM and
-interruption exceptions, and keep ordinary missing streams silent.
+Report an unused parent as EFSCORRUPTED only for a linked, non-deleting
+child. Report missing required or malformed FILE_NAME attributes, while
+continuing past malformed candidates as before. Release the lock before
+d_obtain_alias().
+
+Preserve ordinary stale-handle behavior. NTFS returns EFSCORRUPTED for a
+confirmed corrupt parent reference; generic open_by_handle_at() decoding
+still converts that error to ESTALE.
 
 Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
 ---
- fs/ntfs/named_stream.c | 35 +++++++++++++++++++++++++++--------
- fs/ntfs/stream.h       |  2 +-
- 2 files changed, 28 insertions(+), 9 deletions(-)
+ fs/ntfs/namei.c | 43 ++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 34 insertions(+), 9 deletions(-)
 
-diff --git a/fs/ntfs/named_stream.c b/fs/ntfs/named_stream.c
-index 6130359f616a..1073ff7e12f7 100644
---- a/fs/ntfs/named_stream.c
-+++ b/fs/ntfs/named_stream.c
-@@ -252,6 +252,7 @@ int ntfs_stream_path_check(struct ntfs_volume *vol,
-  * @dir_ino: directory containing the base file or directory
-  * @uname: UTF-16LE base name
-  * @uname_len: Length of @uname in UTF-16 code units
-+ * @dir_locked: caller holds the directory i_rwsem against namespace changes
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index 47e52270e8ee..a64ab7881052 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -1730,7 +1730,8 @@ const struct inode_operations ntfs_dir_inode_ops = {
+  * fs/exportfs/expfs.c::find_exported_dentry() which in turn is called from the
+  * default ->decode_fh() which is export_decode_fh() in the same file.
   *
-  * Resolve the directory entry and verify its MFT reference before returning
-  * the inode.
-@@ -259,7 +260,7 @@ int ntfs_stream_path_check(struct ntfs_volume *vol,
-  * Return: Referenced inode on success, or ERR_PTR() on failure.
-  */
- struct inode *ntfs_stream_lookup_inode_by_name(struct inode *dir_ino,
--		__le16 *uname, int uname_len)
-+		__le16 *uname, int uname_len, bool dir_locked)
+- * Note: ntfs_get_parent() is called with @d_inode(child_dent)->i_mutex down.
++ * Serialize the file name lookup and parent load against rename and rmdir
++ * with the child's mrec_lock; exportfs does not hold the child's inode lock.
+  *
+  * Return the dentry of the parent directory on success or the error code on
+  * error (IS_ERR() is true).
+@@ -1738,6 +1739,7 @@ const struct inode_operations ntfs_dir_inode_ops = {
+ static struct dentry *ntfs_get_parent(struct dentry *child_dent)
  {
- 	struct ntfs_volume *vol = NTFS_SB(dir_ino->i_sb);
- 	struct ntfs_name *name = NULL;
-@@ -276,12 +277,20 @@ struct inode *ntfs_stream_lookup_inode_by_name(struct inode *dir_ino,
- 		return ERR_PTR(MREF_ERR(mref));
+ 	struct inode *vi = d_inode(child_dent);
++	struct inode *parent;
+ 	struct ntfs_inode *ni = NTFS_I(vi);
+ 	struct mft_record *mrec;
+ 	struct ntfs_attr_search_ctx *ctx;
+@@ -1747,15 +1749,20 @@ static struct dentry *ntfs_get_parent(struct dentry *child_dent)
+ 	int err;
  
- 	inode = ntfs_iget(vol->sb, MREF(mref));
--	if (IS_ERR(inode))
-+	if (IS_ERR(inode)) {
-+		if (dir_locked && PTR_ERR(inode) == -ENOENT) {
-+			ntfs_report_file_metadata_error(dir_ino, -EFSCORRUPTED);
-+			inode = ERR_PTR(-EFSCORRUPTED);
-+		}
- 		return inode;
+ 	ntfs_debug("Entering for inode 0x%llx.", ni->mft_no);
++	mutex_lock(&ni->mrec_lock);
+ 	/* Get the mft record of the inode belonging to the child dentry. */
+ 	mrec = map_mft_record(ni);
+-	if (IS_ERR(mrec))
+-		return ERR_CAST(mrec);
++	if (IS_ERR(mrec)) {
++		err = PTR_ERR(mrec);
++		goto unlock_err;
 +	}
- 	if (MSEQNO(mref) != NTFS_I(inode)->seq_no &&
- 	    MREF(mref) != FILE_MFT) {
-+		/* Unlocked dentry revalidation can race with unlink and reuse. */
-+		if (dir_locked)
-+			ntfs_report_file_metadata_error(dir_ino, -EFSCORRUPTED);
- 		iput(inode);
--		return ERR_PTR(-EIO);
-+		return ERR_PTR(dir_locked ? -EFSCORRUPTED : -EIO);
+ 	/* Find the first file name attribute in the mft record. */
+ 	ctx = ntfs_attr_get_search_ctx(ni, mrec);
+ 	if (IS_ERR(ctx)) {
+ 		unmap_mft_record(ni);
+-		return ERR_PTR(PTR_ERR(ctx));
++		err = PTR_ERR(ctx);
++		ctx = NULL;
++		goto unlock_err;
  	}
- 	return inode;
+ try_next:
+ 	err = ntfs_attr_lookup(AT_FILE_NAME, NULL, 0, CASE_SENSITIVE, 0, NULL,
+@@ -1763,27 +1770,45 @@ static struct dentry *ntfs_get_parent(struct dentry *child_dent)
+ 	if (unlikely(err)) {
+ 		ntfs_attr_put_search_ctx(ctx);
+ 		unmap_mft_record(ni);
+-		if (err == -ENOENT)
++		if (err == -ENOENT && vi->i_nlink) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(vi, -EFSCORRUPTED);
+ 			ntfs_error(vi->i_sb,
+ 				   "Inode 0x%llx does not have a file name attribute.  Run chkdsk.",
+ 				   ni->mft_no);
+-		return ERR_PTR(err);
++		}
++		goto unlock_err;
+ 	}
+ 	attr = ctx->attr;
+-	if (unlikely(attr->non_resident))
++	if (unlikely(attr->non_resident)) {
++		ntfs_report_file_metadata_error(vi, -EFSCORRUPTED);
+ 		goto try_next;
++	}
+ 	fn = (struct file_name_attr *)((u8 *)attr +
+ 			le16_to_cpu(attr->data.resident.value_offset));
+ 	if (unlikely((u8 *)fn + le32_to_cpu(attr->data.resident.value_length) >
+-	    (u8 *)attr + le32_to_cpu(attr->length)))
++	    (u8 *)attr + le32_to_cpu(attr->length))) {
++		ntfs_report_file_metadata_error(vi, -EFSCORRUPTED);
+ 		goto try_next;
++	}
+ 	/* Get the inode number of the parent directory. */
+ 	parent_ino = MREF_LE(fn->parent_directory);
+ 	/* Release the search context and the mft record of the child. */
+ 	ntfs_attr_put_search_ctx(ctx);
+ 	unmap_mft_record(ni);
+ 
+-	return d_obtain_alias(ntfs_iget(vi->i_sb, parent_ino));
++	parent = ntfs_iget(vi->i_sb, parent_ino);
++	if (IS_ERR(parent) && PTR_ERR(parent) == -ENOENT &&
++	    vi->i_nlink && !NInoBeingDeleted(ni)) {
++		ntfs_report_file_metadata_error(vi, -EFSCORRUPTED);
++		parent = ERR_PTR(-EFSCORRUPTED);
++	}
++	mutex_unlock(&ni->mrec_lock);
++	return d_obtain_alias(parent);
++
++unlock_err:
++	mutex_unlock(&ni->mrec_lock);
++	return ERR_PTR(err);
  }
-@@ -333,7 +342,7 @@ static int ntfs_stream_d_revalidate(struct inode *dir,
- 			ni->vol->upcase_len))
- 		goto out;
  
--	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len);
-+	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len, false);
- 	if (IS_ERR(base_vi))
- 		goto out;
- 	if (NTFS_I(base_vi) != ni->ext.base_ntfs_ino) {
-@@ -441,7 +450,7 @@ struct dentry *ntfs_lookup_stream(struct inode *dir_ino,
- 	}
- 
- 	base_vi = ntfs_stream_lookup_inode_by_name(dir_ino, base_uname,
--			base_len);
-+			base_len, true);
- 	kmem_cache_free(ntfs_name_cache, base_uname);
- 	if (IS_ERR(base_vi)) {
- 		err = PTR_ERR(base_vi);
-@@ -564,7 +573,7 @@ struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
- 	bool stream_created = false;
- 	int err, rollback_err;
- 
--	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len);
-+	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len, true);
- 	if (IS_ERR(base_vi))
- 		return base_vi;
- 	if (!S_ISREG(base_vi->i_mode) && !S_ISDIR(base_vi->i_mode)) {
-@@ -635,6 +644,10 @@ struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
- 	else
- 		err = PTR_ERR(stream_vi);
- 	if (err) {
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(base_vi, -EFSCORRUPTED);
-+		}
- 		if (stream_created) {
- 			rollback_err = ntfs_attr_remove(base_ni, AT_DATA,
- 					stream_name, stream_len, &rollback_vi);
-@@ -646,7 +659,8 @@ struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
- 				    rollback_err == -ERESTARTSYS) {
- 					err = rollback_err;
- 				} else {
--					NVolSetErrors(base_ni->vol);
-+					ntfs_report_file_metadata_error(base_vi,
-+									rollback_err);
- 					NVolSetShutdown(base_ni->vol);
- 					err = -EIO;
- 				}
-@@ -698,7 +712,7 @@ int ntfs_unlink_named_stream(struct inode *dir, struct dentry *dentry)
- 	if (!path_result)
- 		return -EINVAL;
- 
--	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len);
-+	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len, true);
- 	if (IS_ERR(base_vi)) {
- 		err = PTR_ERR(base_vi);
- 		goto out_free;
-@@ -1044,6 +1058,7 @@ static int ntfs_stream_finish_remove(struct inode *attr_vi)
- 		remove_inode_hash(attr_vi);
- 	} else {
- 		NInoSetBeingDeleted(attr_ni);
-+		ntfs_report_file_metadata_error(VFS_I(ni), err);
- 		remove_inode_hash(attr_vi);
- 	}
- 
-@@ -1279,6 +1294,10 @@ static int ntfs_stream_ioctl_get_inode(struct inode *base_vi, __le16 *sname,
- 	attr_vi = ntfs_attr_iget(base_vi, AT_DATA, sname, sname_len);
- 	if (IS_ERR(attr_vi)) {
- 		err = PTR_ERR(attr_vi);
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(base_vi, -EFSCORRUPTED);
-+		}
- 		attr_vi = NULL;
- 		goto out_unlock;
- 	}
-diff --git a/fs/ntfs/stream.h b/fs/ntfs/stream.h
-index 5cbf6e8f6b68..84929e755689 100644
---- a/fs/ntfs/stream.h
-+++ b/fs/ntfs/stream.h
-@@ -29,7 +29,7 @@ int ntfs_stream_path_names(struct ntfs_volume *vol,
- 		__le16 **stream_name, int *stream_len);
- 
- struct inode *ntfs_stream_lookup_inode_by_name(struct inode *dir,
--		__le16 *name, int name_len);
-+		__le16 *name, int name_len, bool dir_locked);
- struct dentry *ntfs_lookup_stream(struct inode *dir, struct dentry *dentry,
- 		const struct ntfs_stream_path *path);
- struct inode *ntfs_create_named_stream(struct mnt_idmap *idmap,
+ static struct inode *ntfs_nfs_get_inode(struct super_block *sb,
 -- 
 2.51.0
 
