@@ -1,59 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792462561;
-	b=4Rjg0WIKkgLjkC5OIVOQu47YgmIFk1C3M9InpwowlY6OEyzafcfkeq+izLSZXRcFYJX4
-	 FvJCxUWB0yISxHUDIbKeE16K+U4GJMq+cjxrwKtPOChYfvE2NnMvo0UJ9fZTkkTJK0WEg
-	 ePhItBalzdL11avXF+N1nUE1htjEq4xxHSvDOPmxurwRiLaLutGz+gwwp8EXzyQM3dvsb
-	 YTub1tfKUOoQZn0sIErPk5U5EJ4JdA/HQ+Xf7bMRGGCgdtBX39+BCBRqmCobgLCjTfgOo
-	 DVsBoQDset+m0Do0LSQToBqkt3tuO5nZDqHanM+vuUTQQR3VnpnpU0mMvK6py6MMVBg==
+	t=1792462618;
+	b=e4GMIiQJ94HimPtIRsn7WXlWhFY0KSAn1yD9viTaJbeaYm0NsfQTN4IS9kZu96v00nkN
+	 7IzFWdG3/Of/n4ChlrOrHy1SLYp+VpCDLscjgQ2VriCZsUWZcqvewaLM3J0P+H/eoXFij
+	 Z2cTQ6/xqF2XYh//UoPPnKLY51hoAx6AV0kt2IptglYshOCzcKo55PlN+tudTrSGqX0rx
+	 Hqywn2W8ZLCbc2rRxggo5HIE3EczvN3ubojvBoYKv1lNbEWM8fts1oWMucpCVuE+AlClq
+	 AzEByrw2ILwhbwpFXT9OtzZZ/TLAokIkyZv+fA0Wd1JGDbjQb9AyYK0IrEGDHxhvRHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792462561;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=gtZ8T9izfzsjweeSbfKQJNhM7I6ABBXW3hJHKFzZxaw=;
-	b=TNpuLUiyV0BFy7zQBDGLJ8ljWo4W9h/7l4MNpW2azMyQaQcURqICrSqfgnFWdg/yoCxf
-	 2Lg7sJQE9WA9vk4ft06AJDP26a9cregd8sgCeYSolL0eC+9SfvtI0/AG9R29cCk7Du29R
-	 Qiu+zaww4yQTesMdIEVERZ4IJSGLwk9RaxCfKtbed3kMlc7dp6x3uUmpM8fMLP+CfwHFn
-	 fCiTgZTOkZQ5VB0HQ45KErL4XLR2HeLiIMhGBxyhVE5sBmfobRF6qQiokbv2btAn9nSEr
-	 hzqd2p5qQjYilZxJ6+9jlM8bsQjp+KaBojN1QMmGX5tMyFlaB++oggz/fm2du6qduwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792462618;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=1pPFgpir1OWU10pzSExtICnFtJBK2lqIaHmilT4ip1I=;
+	b=5uGZ4DeFhJR6ESmuQ+HSyqJmYZTJTTOxmgZyuk1HxXYos04Hh/W2NX0uByQQU/0Jvi0O
+	 mE8CWLP+GJMnb3bco4jiVk4X49HDTElKen1CxhmVMkYrlQzqE9qLZsJVkR3UDlZCerFe5
+	 jia9+KfM3rA/X6OsDLNJWspOhGvtduUkBDNgqqOPrIk41M2fhKWAtrHLwVnLwJtXD4Y9p
+	 Ldj12Kv7xkLVvElYc83+UcEi4lVoreMRmd6AB/9d2y2DEgbsmmAL9pEiRbIhYHSwVdNIm
+	 7qY7d6+jtmjf2MoU2HMBHcSPLEP+DzMHgis8CmyrAtN3bBhBJdujIW9vc3adi2bb7Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdOM4ow7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mNSnfc9U;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3DE606A31A;
-	Tue, 20 Oct 2026 02:16:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802A3606A319;
+	Tue, 20 Oct 2026 02:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 802A3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdOM4ow7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B2471F000C4;
-	Tue, 20 Oct 2026 02:15:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792462560;
-	bh=gtZ8T9izfzsjweeSbfKQJNhM7I6ABBXW3hJHKFzZxaw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cdOM4ow7D+EGkUXgBAs5t7yiU5AoCm5gg6pvm3fYlO7gnLSYVOSV79TkMQvSHdHDx
-	 shwGPw5Zf75SiaNrVRTf4RxCb4W6+fbQM4ZHuSQvzscNsabYGXtfMoWWOInd5TjiUY
-	 NzRgYw49z1+SvYKm+YREc5LUPAgxL/G7gjQxI2U3fo1+FCsHmcKu1+B9A0LcyuPB07
-	 BgDVL/yug6mT2nfP/fE4IvPU0FQNbk66d6i8tmqHNZkGytlwRQLO7V8XPgf6hvAW4R
-	 /sHFMOiK5pjDvBEkH0QnVym9ix3GNb4FlYrw81vWXDYJ1nrx4xG6Rwm1l155UDIV38
-	 4+5u5+jGQz2Gw==
-Subject: Re: [PATCH net] net: hns: retire service work before releasing device
- resources
-From: netdev-bot+sashiko@kernel.org
-To: mhun512@gmail.com
-Cc: shenjian15@huawei.com, shaojijie@huawei.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, ae878000@gmail.com
-Date: Tue, 20 Oct 2026 02:15:59 +0000
-Message-ID: <179246255949.3135.9443785297870382318@kernel.org>
-In-Reply-To: <20261016020035.3621768-1-mhun512@gmail.com>
-References: <20261016020035.3621768-1-mhun512@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mNSnfc9U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792462618; x=1823998618;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=bmz39BVigYG+Gm5UlAHsCh014l79WZqidSvSMxlrEUc=;
+  b=mNSnfc9U8IYukDuYyap7grRrYuFAT2P+KUTr4nEFb2g1lwg4UOyub/qF
+   lJt1WNd5bjD2cgf/Ykrud+1q79KsXNqFbcPri1NJ0cNdUVFde172CHVM0
+   c/uw9d9gN5ZWf8tVyM4EC9ljViSHxkXeXRfzqhHiBxaIX9+ak+bIun803
+   gX3mn0SdYk7ssLRjUeqJwp8Rqz3stc7VaeZPZgZifzqolyLZywItgUhoV
+   +qR/ZyqMRfdooIF9Mwn9NqjlYBSayVcihdHYVUj5qPCBfqmdnUX5tEraE
+   XTMeJUreBahzddrjfBe6vsCZZdxpSqnEup6PH0HyzvPDTBYIhJzfeOEX8
+   g==;
+X-CSE-ConnectionGUID: 4Cm6D9gHQluOnQYkGFB8rg==
+X-CSE-MsgGUID: ze5i6t9RSN+Tl9BphBciLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1039524"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1039524"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 19:16:57 -0700
+X-CSE-ConnectionGUID: TDM8AGf5R/6tn3Za74ZjIA==
+X-CSE-MsgGUID: 41bPApv6RQGFL0RuIyyKCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2732749"
+Received: from blu2-desk.sh.intel.com (HELO [10.239.156.26]) ([10.239.156.26])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 19:16:53 -0700
+Message-ID: <0dd026cb-09e5-46a7-b88a-9b57353f0637@linux.intel.com>
+Date: Tue, 20 Oct 2026 10:16:51 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,231 +72,221 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/18] iommu/vt-d: Clear unpreserved context entries
+ during shutdown
+To: Samiullah Khawaja <skhawaja@google.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
+ Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>
+References: <20260921004834.2601285-1-skhawaja@google.com>
+ <20260921004834.2601285-9-skhawaja@google.com>
+ <c724012c-13e1-41de-b7e3-1fb08d9b9d8c@linux.intel.com>
+ <asmC5Ow_VYtvgGOQ@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <asmC5Ow_VYtvgGOQ@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 10/10/26 08:32, Samiullah Khawaja wrote:
+> On Fri, Oct 09, 2026 at 08:43:26AM +0800, Baolu Lu wrote:
+>> On 9/21/26 08:48, Samiullah Khawaja wrote:
+>>> During normal shutdown the iommu translation is disabled. Since the root
+>>> table is preserved during live update, it needs to be cleaned up and the
+>>> context entries of the unpreserved devices and root entries for the
+>>> unpreserved context tables need to be cleared.
+>>>
+>>> This is required because during kexec reboot and shutdown the devices do
+>>> not go through the release flow, so there might be stale entries in the
+>>> root table and context tables. Also note that new unpreserved context
+>>> tables for unpreserved devices might have been added after preservation,
+>>> so the root table entries for unpreserved context tables also need to
+>>> removed.
+>>>
+>>> Signed-off-by: Samiullah Khawaja<skhawaja@google.com>
+>>> ---
+>>>  drivers/iommu/intel/iommu.c      |  15 +++-
+>>>  drivers/iommu/intel/iommu.h      |   5 ++
+>>>  drivers/iommu/intel/liveupdate.c | 139 +++++++++++++++++++++++++++++++
+>>>  3 files changed, 157 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+>>> index 4bfc2f173010..474c926172c5 100644
+>>> --- a/drivers/iommu/intel/iommu.c
+>>> +++ b/drivers/iommu/intel/iommu.c
+>>> @@ -1852,6 +1852,14 @@ static int iommu_suspend(void *data)
+>>>      iommu_flush_all();
+>>> +    /*
+>>> +     * Note that IOMMU suspend doesn't affect live update. The state
+>>> +     * preserved during live update is not released and remains 
+>>> valid during
+>>> +     * suspend and reused during IOMMU resume.
+>>> +     *
+>>> +     * Also note deployment of suspend/resume and live updated use case
+>>> +     * should be mostly mutually exclusive.
+>>> +     */
+>>>      for_each_active_iommu(iommu, drhd) {
+>>>          iommu_disable_translation(iommu);
+>>> @@ -2397,8 +2405,11 @@ void intel_iommu_shutdown(void)
+>>>          /* Disable PMRs explicitly here. */
+>>>          iommu_disable_protect_mem_regions(iommu);
+>>> -        /* Make sure the IOMMUs are switched off */
+>>> -        iommu_disable_translation(iommu);
+>>> +        /* Make sure the IOMMUs are switched off if not preserved. */
+>>> +        if (iommu_preserved_state(&iommu->iommu))
+>>> +            clear_unpreserved_context_entries(iommu);
+>>> +        else
+>>> +            iommu_disable_translation(iommu);
+>>>      }
+>>>  }
+>>> diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
+>>> index 785057236e7c..4feb5bd76b18 100644
+>>> --- a/drivers/iommu/intel/iommu.h
+>>> +++ b/drivers/iommu/intel/iommu.h
+>>> @@ -1307,6 +1307,11 @@ int intel_iommu_preserve(struct iommu_device 
+>>> *iommu,
+>>>               struct iommu_hw_ser *iommu_ser);
+>>>  void intel_iommu_unpreserve(struct iommu_device *iommu,
+>>>                  struct iommu_hw_ser *iommu_ser);
+>>> +void clear_unpreserved_context_entries(struct intel_iommu *iommu);
+>>> +#else
+>>> +static inline void clear_unpreserved_context_entries(struct 
+>>> intel_iommu *iommu)
+>>> +{
+>>> +}
+>>>  #endif
+>>>  #ifdef CONFIG_INTEL_IOMMU_SVM
+>>> diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/ 
+>>> liveupdate.c
+>>> index 0837bb889fed..501dc0e9cc0a 100644
+>>> --- a/drivers/iommu/intel/liveupdate.c
+>>> +++ b/drivers/iommu/intel/liveupdate.c
+>>> @@ -77,6 +77,145 @@ static int preserve_context_table(struct 
+>>> intel_iommu *iommu,
+>>>      return 0;
+>>>  }
+>>> +static void clear_unpreserved_context_root_entries(struct 
+>>> intel_iommu *iommu,
+>>> +                           struct iommu_hw_ser *ser)
+>>> +{
+>>> +    struct root_entry *root;
+>>> +    int i;
+>>> +
+>>> +    /*
+>>> +     * Individual invalidations for each context table removal are not
+>>> +     * needed as we issue global invalidations later.
+>>> +     */
+>>> +    for (i = 0; i < ROOT_ENTRY_NR; i++) {
+>>> +        root = &iommu->root_entry[i];
+>>> +
+>>> +        if (!is_context_table_preserved(iommu, ser, i, 0) && (root- 
+>>> >lo & 1)) {
+>>> +            root->lo = 0;
+>>> +            __iommu_flush_cache(iommu,
+>>> +                        &root->lo,
+>>> +                        sizeof(root->lo));
+>>> +        }
+>>> +
+>>> +        if (!sm_supported(iommu))
+>>> +            continue;
+>>> +
+>>> +        if (!is_context_table_preserved(iommu, ser, i, 0x80) && 
+>>> (root->hi & 1)) {
+>>> +            root->hi = 0;
+>>> +            __iommu_flush_cache(iommu,
+>>> +                        &root->hi,
+>>> +                        sizeof(root->hi));
+>>> +        }
+>>> +    }
+>>> +}
+>>> +
+>>> +static void clear_unpreserved_context(struct device_domain_info 
+>>> *info, u8 bus, u8 devfn)
+>>> +{
+>>> +    struct context_entry *context;
+>>> +
+>>> +    /*
+>>> +     * This cleanup is done during shutdown, so it should be fine to 
+>>> only
+>>> +     * clear the entries here and issue one global invalidation 
+>>> later to
+>>> +     * invalidate all cleared entries.
+>>> +     *
+>>> +     * Note that the device IOTLB invalidation for unpreserved 
+>>> devices is
+>>> +     * skipped this way, but that should not be needed as the 
+>>> devices are
+>>> +     * quiesced at this point. This should improve the performance 
+>>> of the
+>>> +     * cleanup process and avoids any invalidation timeouts because 
+>>> drivers
+>>> +     * might have moved devices to D3 state.
+>>
+>> I don't quite follow why device-TLB flushes could be skipped when the
+>> device is quiesced. Nothing guarantees that an unpreserved device that
+>> has ATS enabled doesn't carry stale cache entries. It may keep
+>> translations to memory that the next kernel reuses.
+> 
+> I agree with your assessment, the device-TLB might still have stale
+> entries. But this assumption is based on the existing kexec reboot
+> behaviour. That is, during normal shutdown the iommu translation is
+> disabled but the device-TLB invalidations are not issued either. The
+> unpreserved devices go through the same flow in the next kernel as they
+> do after a normal kexec reboot. I will update the comment to add this
+> detail.
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
+I guess device-TLB invalidation is omitted during a normal kexec reboot
+because the device will be reset or re-initialized during shutdown or
+probe, which usually clears the ATC as a side effect. But I don't think
+that's guaranteed. Anyway, this might be a pre-existing issue and not
+specific to this series.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+>>
+>> I would suggest at least a global device-TLB flush for ATS-enabled
+>> unpreserved devices, or is there anything I've overlooked?
+> 
+> This might be tricky as this late during shutdown some devices might
+> already be in a low power state, and sending them device-TLB
+> invalidations would cause invalidation timeouts. Even if that doesn't
+> happen, it will still add to the shutdown time.
 
-- [Medium] hns_nic_service_task() now takes rtnl_lock() on every run of
-  the 1 Hz service work, on every port, around…
+Okay, fair enough.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it is a
-  reachable kernel BUG.
-- [High] This problem wasn't introduced by this patch, but the remove
-  path still races with an AE-register notifier callback that is already…
+>>
+>>> +     *
+>>> +     * The iommu lock is not needed as the context tables are never 
+>>> removed
+>>> +     * and the new ones are not added during shutdown.
+>>> +     */
+>>> +    context = iommu_context_addr(info->iommu, bus, devfn, 0);
+>>> +    if (context) {
+>>> +        /*
+>>> +         * Individual invalidations are not needed as we issue global
+>>> +         * invalidations later once all the cleanups are done.
+>>> +         */
+>>> +        context_clear_present(context);
+>>> +        __iommu_flush_cache(info->iommu, context, sizeof(*context));
+>>> +        context_clear_entry(context);
+>>> +        __iommu_flush_cache(info->iommu, context, sizeof(*context));
+>>> +    }
+>>> +}
+>>
+>> [-snipped-]
+>>
+>> Thanks,
+>> baolu
+>>
+> 
+> Thanks,
+> Sami
 
---
-
-net: hns: retire service work before releasing device resources
-
-This patch reorders hns_nic_dev_remove(). It now sets NIC_STATE_REMOVING,
-unregisters the AE notifier, waits for any TX timeout already running, and
-drains the service timer and work before unregister_netdev(). It also takes
-RTNL earlier in hns_nic_reset_subtask() and wraps the link status update in
-hns_nic_service_task() with RTNL.
-
-> diff --git a/drivers/net/ethernet/hisilicon/hns/hns_enet.c b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
-> index e905f10b894e8..977f054b00c31 100644
-> --- a/drivers/net/ethernet/hisilicon/hns/hns_enet.c
-> +++ b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
-
-[ ... ]
-
-> @@ -2058,7 +2059,14 @@ static void hns_nic_service_task(struct work_struct *work)
->  	struct hnae_handle *h = priv->ae_handle;
->  
->  	hns_nic_reset_subtask(priv);
-> -	hns_nic_update_link_status(priv->netdev);
-> +
-> +	rtnl_lock();
-> +	/* Keep linkwatch events within the netdev's registered lifetime. */
-> +	if (!test_bit(NIC_STATE_DOWN, &priv->state) &&
-> +	    !test_bit(NIC_STATE_REMOVING, &priv->state))
-> +		hns_nic_update_link_status(priv->netdev);
-> +	rtnl_unlock();
-
-[Severity: Medium]
-Can this hold the global RTNL mutex for 200 ms or more on every service
-cycle?
-
-hns_nic_service_timer() re-arms every SERVICE_TIMER_HZ and schedules this
-work. That means every port now takes RTNL once a second. Before this
-patch, RTNL was only taken when NIC_STATE2_RESET_REQUESTED was set.
-
-On a port where h->phy_dev is set and the PHY mode is
-PHY_INTERFACE_MODE_XGMII, the locked section runs genphy_read_status()
-and then hns_nic_adjust_link():
-
-hns_nic_adjust_link() {
-    ...
-		if (h->dev->ops->need_adjust_link(h, ndev->phydev->speed,
-						  ndev->phydev->duplex)) {
-			...
-			netif_carrier_off(ndev);
-			msleep(200);
-			h->dev->ops->adjust_link(h, ndev->phydev->speed,
-						 ndev->phydev->duplex);
-    ...
-}
-
-On XGMAC ports, hns_xgmac_config() never sets mac_drv->need_adjust_link,
-so hns_mac_need_adjust_link() always returns true:
-
-hns_mac_need_adjust_link() {
-    ...
-	if (mac_ctrl_drv->need_adjust_link)
-		return mac_ctrl_drv->need_adjust_link(mac_ctrl_drv,
-			(enum mac_speed)speed, duplex);
-	else
-		return true;
-}
-
-So with the link up, msleep(200) runs under RTNL on every cycle. On AE v2,
-hns_ae_adjust_link() also calls hns_ae_wait_flow_down(). This blocks
-rtnetlink and every other RTNL user system-wide, and the delay adds up
-across ports.
-
-Is RTNL needed here for the reason given in the comment?
-hns_nic_dev_remove() now sets NIC_STATE_REMOVING and calls
-timer_shutdown_sync() and cancel_work_sync() before unregister_netdev().
-Any running worker therefore finishes while the netdev is still
-registered. The lock seems to add only serialization of the
-NIC_STATE_DOWN check against ndo_stop.
-
-[ ... ]
-
-> @@ -2398,6 +2406,21 @@ static void hns_nic_dev_remove(struct platform_device *pdev)
->  	struct net_device *ndev = platform_get_drvdata(pdev);
->  	struct hns_nic_priv *priv = netdev_priv(ndev);
->  
-> +	set_bit(NIC_STATE_REMOVING, &priv->state);
-> +	if (priv->notifier_block.notifier_call)
-> +		hnae_unregister_notifier(&priv->notifier_block);
-> +	priv->notifier_block.notifier_call = NULL;
-
-[Severity: High]
-This is a pre-existing issue, but can hns_nic_dev_remove() still race with
-an hns_nic_notifier_action() callback that is already running?
-
-ae_chain is a RAW_NOTIFIER_HEAD. DSAF probe walks it with no lock:
-
-hnae_ae_register() {
-    ...
-	ret = raw_notifier_call_chain(&ae_chain, HNAE_AE_REGISTER, NULL);
-    ...
-}
-
-hnae_unregister_notifier() only calls raw_notifier_chain_unregister().
-That unlinks the entry but does not wait for a callback that is already
-running. DSAF probe and enet remove run under different device locks, so
-nothing orders them.
-
-Suppose the callback is inside hns_nic_try_get_ae() when remove starts:
-
-CPU1 (DSAF probe)
-hnae_ae_register()
-  raw_notifier_call_chain()
-    hns_nic_notifier_action()
-      hns_nic_try_get_ae()
-        hnae_get_handle()
-        hns_nic_init_ring_data()
-        register_netdev()
-
-CPU2 (enet unbind)
-hns_nic_dev_remove()
-  set_bit(NIC_STATE_REMOVING, ...)
-  hnae_unregister_notifier()
-  timer_shutdown_sync() / cancel_work_sync()
-  reg_state still NETREG_UNINITIALIZED -> skips unregister_netdev()
-  ring_data still NULL -> skips hns_nic_uninit_ring_data()
-  ae_handle still NULL -> skips hnae_put_handle()
-  free_netdev()
-
-Could free_netdev() then free a netdev that is partway through
-registration? That would leak the handle, the module and cls_dev
-references, and ring_data. The callback and remove could also both
-release the handle at the same time.
-
-After hns_nic_try_get_ae() returns, the callback also writes to priv:
-
-	if (!hns_nic_try_get_ae(priv->netdev)) {
-		hnae_unregister_notifier(&priv->notifier_block);
-		priv->notifier_block.notifier_call = NULL;
-	}
-
-That write would land in freed memory, and the chain walk may then read
-nb->next from the freed priv.
-
-hns_nic_notifier_action() never checks NIC_STATE_REMOVING. Moving the
-notifier unregistration to the top of remove makes the window smaller but
-does not seem to close it.
-
-> +
-> +	/* Join a TX timeout that passed the REMOVING check before work drain. */
-> +	if (ndev->reg_state != NETREG_UNINITIALIZED) {
-> +		netif_tx_lock_bh(ndev);
-> +		netif_tx_unlock_bh(ndev);
-> +	}
-> +
-> +	/* Stop the timer and drain work before ndo_stop touches the hardware. */
-> +	timer_shutdown_sync(&priv->service_timer);
-> +	cancel_work_sync(&priv->service_task);
-> +
->  	if (ndev->reg_state != NETREG_UNINITIALIZED)
->  		unregister_netdev(ndev);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is
-reg_state != NETREG_UNINITIALIZED the right test for unregister_netdev()?
-The patch uses the same test for the new netif_tx_lock_bh() barrier. The
-barrier itself is harmless, because alloc_netdev allocated the TX queues.
-
-If register_netdevice() fails in netdev_register_kobject(), reg_state is
-left as NETREG_UNREGISTERED:
-
-net/core/dev.c:register_netdevice() {
-    ...
-	ret = netdev_register_kobject(dev);
-
-	netdev_lock(dev);
-	WRITE_ONCE(dev->reg_state, ret ? NETREG_UNREGISTERED : NETREG_REGISTERED);
-	netdev_unlock(dev);
-
-	if (ret)
-		goto err_uninit_notify;
-    ...
-}
-
-A NETDEV_REGISTER notifier veto also ends in NETREG_UNREGISTERED once
-netdev_run_todo() runs.
-
-hns_nic_try_get_ae() handles this as an ordinary failure through
-out_reg_ndev_fail. hns_nic_dev_probe() then registers the AE notifier and
-returns 0, so the driver stays bound. On a later unbind or rmmod:
-
-hns_nic_dev_remove()
-  unregister_netdev()
-    ...
-      unregister_netdevice_many_notify()
-        BUG_ON(dev->reg_state != NETREG_REGISTERED);
-
-Should both guards test reg_state == NETREG_REGISTERED instead?
-
-There is a related case. If the AE notifier, which is still registered,
-fires later, hns_nic_try_get_ae() calls register_netdev() again on the
-same device. register_netdevice() would then hit:
-
-	BUG_ON(dev->reg_state != NETREG_UNINITIALIZED);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016020035.3621768-1-mhun512%40gmail.com
+Thanks,
+baolu
