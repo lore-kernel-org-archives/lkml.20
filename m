@@ -1,97 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792537807;
-	b=DWIUKgzkUngnt992ryB/Hpi+lxKNbqkxAMhLamBM/qmwYP0WukcV91AxIBKHuiRT+QVq
-	 ozp/fyoUPBvfzgkHJEFBoteuCmLMzLyIBw0xkLpOTLI6uIBK1af/zm3LBTAt+PcO9wxr1
-	 lQ6zlvMotIZFaKTh2z7GdJptX9za0430aF4t4W5kjy4tN2sPlOjxLKKlYMrQDLFte683d
-	 6nl4DVu9Zj2QQcj/ntTGezI2+bA9pp5FNQsLxyASN89KHNYNJu/7soNOD1oacbukLjibW
-	 jH6jLQdqvYAvmWrBqwtls2SJWbDshW0jOWtMQYoIs2yIOf9t8Ebk8pTHeyObshPubzA==
+	t=1792537821;
+	b=Vot0xpuy7ji0IGB9BpzLw19uWDv9Sa/Iqp5y0uHNslJhVnzCjjE5rWRf0mVo2o/byKkD
+	 wLlW+YVkVsIPbVjW3dkrbBK3DTyCnJn41YYxus8G9wYQLqMfAqDdLoKkwW9rsx8BPWraL
+	 Eo+l+apU8H+D4v+PQiWkCSyQKQ7egOodpd9NPlOpOevXtdR7a17n6LCNRJRDil+n+8e+O
+	 VZEWkTKZdJRUY1DddIWfKTbQ71/6faYGyLNXvWyMTYZqI6pQtyCpyjeUvKy2re0jP6YxD
+	 yrNnwLpenJe1vMcOgvWRPpz7tNMRTtuuXmStrUb3bo8MVsV5BuHateiEZTnzndE1OIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792537807;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=P2tX6F6c1b9WPZHS6VLVV3K2kSTZMFFjbVRLrh7B9c8=;
-	b=2zg6jgwM+ctI7TtMeZtYoCJxvcNZXCeYmJsGoic+1MiyofqPCFi2rDHlPB/PeiCXXyCR
-	 F9JxDUWf5Pt2pireQp8nkmU3LvtnptLpbGe21/WMv1CMtZ0Fiy4echGe1TQ6SwMBs3AmT
-	 DbG1yAlKgvE7wPaXBfiGpZzZZAdGYCnNLLxPfr41eMEnNyy2KUsaN3UJWdoq5iGbZIfbq
-	 /Z/Npw/S2THKO9C8b3lGa8jA0Igg08SXGzzCFjPGqCBLLexO/0284jzpSKdRnc2+jZMut
-	 Ts7QXD296muVPYqA/kpTvmMOd4QN+hP59by0+iZbMd2O3f/6+CERtT3aAuDWshbAM5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792537821;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=r3FC+G2IcW7yrzkrG3DUhFzQoqHvQIAtwWk6bZymcTI=;
+	b=Hh5XYaKZWNPjqyAXfr/0zs0SvK5KwzK1s1AaEusb89UsuPXGTPAsfsz+r7JtyIEAMIf7
+	 TSG4ps0pF1e52982tOOISWTRkEQHkTf22m4TRr2MQlqMQCWrbYffAJPLp+meNYfNBIWJI
+	 SJ0QILRTwmHhV3I7bC2bUPh+FtMkC6FolOBcQEt8R7CCo8D0qNdNZEhiUyd9jubW8+cF7
+	 gWTrs33RwXrzftwOXFViSL64Tcjg5ZyDuH5r0xJ5g3pu2w3zL9LtqWZTp97J6JghGBaj1
+	 KwyVZE+1E2KiicRWhBRSB7lWLUQClguRXxYCd12wDgrZnmW3jtBuWPuujm5wqDZTSbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FXQYyZ4e;
-	arc=none smtp.remote-ip=74.125.82.196
-Received: from mail-dy1-f196.google.com (mail-dy1-f196.google.com [74.125.82.196])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTHjBstk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59842606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:10:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59842606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592BF606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:10:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FXQYyZ4e
-Received: by mail-dy1-f196.google.com with SMTP id 5a478bee46e88-35943f55c06so242306eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 16:10:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792537806; x=1793142606; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P2tX6F6c1b9WPZHS6VLVV3K2kSTZMFFjbVRLrh7B9c8=;
-        b=FXQYyZ4ee7N+OmcvvHjgLzE5KvKF6Es0Ggd9KBeTLLtMA0G1RiUBo41egIOT1n015P
-         IVGvwSb2VzpoAqNsNIobOqfmvcge5bGmdY7XCL4cTgMJ59LjhcMTUBxKz3MxIBwkxhWF
-         9LZO7B9xnhh69sXtDTrMwD+yWY1IC5KJaK91+TIf1K9MtbYVOZ8Cs3lyQfCVbDOR3uZr
-         gDr+7e+py6aaqRGl5cf7ahuy0F80Rpf5OfTrBpeBLXrLmR5RMaO9IIsAMd9idozWNAZZ
-         8WdthJSlQaqsPh+NEuugoh/Dcg2aLqrfOnoHZdowZXrzw5L5t3qIAQajZuezLh3eK09d
-         wrAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792537806; x=1793142606;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P2tX6F6c1b9WPZHS6VLVV3K2kSTZMFFjbVRLrh7B9c8=;
-        b=yNArVud1qVCIhhmyJ11Wdzw7cheC4XsBRxWhs/9OiKdbaybN9h1BkADK73zgJKqh5d
-         RbDXGUI0dUyCv7h3+HG7v+byc4Dr895AGgArt1ebfU2kbDp47etJG+IRjnpPDDMjwVhO
-         ju5kVgA6peDuvuMQ3pjlhO6FgRkAhhmFrFTRRfxfMLhMizkV4yMhmvIo9+lKoqyoTYqO
-         vI5Fe6YarbXvMiJ0A0OmildWtfP2OssKxcp1zLDHAkGIfoSt6//knLpXNcretwCyVq/M
-         qIFP9pXtx+ws5HGDkb/EVWzenKTWFakErrETiJRIltXGqP0VmOzVlsmLOUuUvZQ82yeq
-         tgLQ==
-X-Forwarded-Encrypted: i=1; AKwUvByRFGwNyU/DX1f1bOJcqqC1tou3cO/fohhBGZj8IVoy7yI8zZf5ueJ8uQtrr2lwj0bDqQamCigbKlu57ek=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdX7/qAZT8Lwf8xi/wienVZ8Hv1lNBfw+bSaLzSoSE1vg4QBOu
-	bph/ZP7wSqYqSjobiHM9SHlB5x9EbI7bdTu3G59H1OA7a0EaD+ItL92R
-X-Gm-Gg: AYBFou3ROHIjDwA7y4a064I7jzXiv2JlgVnYjUqUSh9Pa8TE9OjID/rk//WEEbHweJl
-	06X8hW+2tYKRCQ1lezZcdcAkqynTq71wf4hay4f7bOjt9/kXleuStlb4eq3Bkfd4giwVv622OLI
-	TfX5Z83ndLJfCycAlAugxAlydp7CqvcbedkW+5+Tl2E/d8o5/jGTDCSxaYOTw7juJCLIIdhkN/g
-	ZYMWJi8ivqu41fpxYpajAnWY/7FzfVBQIP+IYjfwJu5TIQDBY9PMwHroUY9Cb/0Tg1UQFHMvn9n
-	XY16xhlCuCBD9nEwDMdsYnPl8sUWpvM2QEzBnSqJP4CdQjB7ncJK05T/+D60t4gwnsvypP6xs/s
-	V/U9SQdkOj1TR0oJciXbSGrNmvvo7UopMOxOhEyCBxd5E2ePYwRmjXQZr2mYXZVQA21D/ESGpxG
-	mIUT0pZ+fdIPCGqBb/tTPM+LUNjpKm31Qy256/77ONN0GpauXGO6kuG1yNiSFxO+WK9ukRZLr+p
-	pO/8MvaexdSeHI/zWUvpnqzqoTEXYsZQbE40RUtPwGCQSUkS4fMu8qsqOewzxavcKrnhKm5DOTZ
-	1+0nMt0=
-X-Received: by 2002:a05:7300:4fa6:b0:35d:5e81:1d87 with SMTP id 5a478bee46e88-365fac8800amr4594466eec.12.1792537806333;
-        Tue, 20 Oct 2026 16:10:06 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36741f753f7sm1598433eec.27.2026.10.20.16.10.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 16:10:05 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH net] dql: Reset the adjusted limit when resetting the queue
-Date: Tue, 20 Oct 2026 23:03:58 +0000
-Message-ID: <20261020230358.6649-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTHjBstk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 424AA1F000C9;
+	Tue, 20 Oct 2026 23:10:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792537820;
+	bh=r3FC+G2IcW7yrzkrG3DUhFzQoqHvQIAtwWk6bZymcTI=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=KTHjBstkFwSaootZc4ewjyOi5oXv7Qz85AWxi+3Xsn2IdZl3LRonWern9jLHEOQv0
+	 v54LLhKJ97heM3Y0V4HHx3o3h+nqyykmwDFALs6rAhp/q+n7EJNHQJq8eVdFDcWet4
+	 6AJKlz2BqOMDPsFggy2GYGpDtrNmN3n7jbWEzqMbeqx29CKdNkZYtr9mUty1BvPWxT
+	 Xaa4xx3PbQSUgLQMZYbXkBez7Tz1WrnOlykmvkkVNeLnY7Mlb1syNZ19cpQI56W4JV
+	 ekbx8Jaq79KObNzHR8Qb0QsQomaeW9d7oAn1wc13Vcq80Y1i+hziHM63+yYxUuDOxD
+	 /dzADXgcov7Bw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A20B3809A0C;
+	Tue, 20 Oct 2026 23:10:20 +0000 (UTC)
+Subject: Re: [GIT PULL] objtool updates for v7.4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <atSXRc5ML06RJY_z@gmail.com>
+References: <atSXRc5ML06RJY_z@gmail.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <atSXRc5ML06RJY_z@gmail.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git objtool-core-2026-10-18
+X-PR-Tracked-Commit-Id: 945537271df1e3680be9b32af7041ac20f1184fb
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 5b6dca02b3e2254d2fd5706d76d7ab4610a67296
+Message-Id: <179253781899.260052.7063353677160302602.pr-tracker-bot@kernel.org>
+Date: Tue, 20 Oct 2026 23:10:18 +0000
+To: Ingo Molnar <mingo@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Peter Zijlstra <a.p.zijlstra@chello.nl>, Josh Poimboeuf <jpoimboe@redhat.com>, Thomas Gleixner <tglx@linutronix.de>, Andrew Morton <akpm@linux-foundation.org>, Joe Lawrence <joe.lawrence@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,38 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-dql_reset() resets limit and clears the cumulative queue and completion
-counts, but leaves adj_limit from the previous queue lifetime. Since
-dql_avail() subtracts num_queued from adj_limit, BQL flow control and
-qdisc bulk dequeue can use stale credit after a network queue reset,
-until the next completion updates adj_limit.
+The pull request you sent on Sun, 18 Oct 2026 11:54:13 +0200:
 
-Reset adj_limit to the new limit as well. With num_completed reset to
-zero, this restores the documented adj_limit = limit + num_completed
-relationship and makes the configured minimum effective immediately.
+> git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git objtool-core-2026-10-18
 
-Fixes: 75957ba36c05 ("dql: Dynamic queue limits")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- lib/dynamic_queue_limits.c | 1 +
- 1 file changed, 1 insertion(+)
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/5b6dca02b3e2254d2fd5706d76d7ab4610a67296
 
-diff --git a/lib/dynamic_queue_limits.c b/lib/dynamic_queue_limits.c
-index f97a752e900a..acef6a35ba3d 100644
---- a/lib/dynamic_queue_limits.c
-+++ b/lib/dynamic_queue_limits.c
-@@ -191,6 +191,7 @@ void dql_reset(struct dql *dql)
- {
- 	/* Reset all dynamic values */
- 	dql->limit = dql->min_limit;
-+	dql->adj_limit = dql->limit;
- 	dql->num_queued = 0;
- 	dql->num_completed = 0;
- 	dql->last_obj_cnt = 0;
+Thank you!
+
 -- 
-2.43.0
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
