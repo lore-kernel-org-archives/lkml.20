@@ -1,59 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.77
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494687;
-	b=WYeIForDkIonoNHGqcfKU8413oFsSZ4rrEFQU0mtvbA0O+AcjQza6KnlaxgueyPX+3zu
-	 qIeOQw3C3fsXRUD3Ik3+wq4AIqHNU6u/3C8l2OT6LrFEpu1Pi5Ly/4Xs1tnMEvxwoaqwi
-	 uRAlhSCn33JB32KgNzJtEBTH5xKAmlhNe4zqSpHv76C6xMqTMLtkSZxHub+kvFieXyvf8
-	 ZJaTRqeCJmv05m/1MPbNuIa8plcZs988C/BOFC4P/1bEAaf1cymcZMae8SuJRE4L6oHZF
-	 4m2skVjhyrYtFIM3XLmy8pfJbN36nNpR3hsHk+gygP6Nn9PFfUWhtwMlblDGkoATTzg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494687;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=TsxZ27lckDppbBF1+Em1eKtgJzqPsvL4hFQhvEVmK0k=;
-	b=GUOLcEjWMGSOm4wp4BnWVC+wuzOyL9+UCVOXdCsLzU2nFfPm64s+f14BhvEc4sGn4l31
-	 X1W3ybNMxPpcnUIB9tMkxe4c4UlmQz9iPoTs5k3VVfObrr4k2PMU8TCUZe6iY/u+zkhPv
-	 v7BIWOomVTGaHVnnCdS9VifuGGYVS6D2ZoqZp+Ruq82L9KV9DOdpG1JKU8izhabKRV/vC
-	 amZr1r0aGNn8psRGfmDbQicKEbYEHwKHfdeXT5FB5YJ2m7px86UdInRlAYvW8cgvmZ1tP
-	 mqhSBoedHDHleIfkSEoFl6Jv0BxOfHr0Bhgz1Fp1xv6I0UxZjcDE1cIRq4yvouupb/A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=motor-comm.com;
-	spf=pass smtp.mailfrom=motor-comm.com;
-	arc=none smtp.remote-ip=115.124.28.77
-Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com [115.124.28.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792494708;
+	b=OaIf22otKd0HB0MpcNBt9/5CKKp6JtD8DXbQY1qD+cPkamE4nalVetIpDkoSM8SDit41
+	 4vL8WB6sz7JhY5kTPWdGi3brpNdQ0iWDTIBX4nhHv+ZWRUDt3G7wSqjsZDBsEMzDoAJ00
+	 8GUhfva4Hf7ZVB1mYJjn/bjiDFAWJXuKsVlulzS0gc32BlDTDJG2TSv54whomfLDq0zVz
+	 km135QluLOH8xYEnTw0eTp+1oZZkiZRH0erDnG7mIlNiwxh2yEhEVFrs5wm494Uyparmd
+	 H7LnO1246p49TXIJS9TBh/w3kMaZteQ/pQwuu0jn+3H58S1jKH2mFAUUIslc9ATmiuQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494708;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UDoxDpYs5uoVSOlSZorgXqI9n6MPKWFEWdAAeeC52Gc=;
+	b=RjhyWdhV3Grs4+2x23/0QA9HlJCue5R6PfILf8x4CC/5q0k0lBveItx2jEZ2IEWIXWc+
+	 4j2nClQlT6vO+xtjN8JBHeMUI36kuiuLdG+0Q1SBvpDPXr9QFyYWd3bs7oeNNGpF938wW
+	 1QJFjV6l+ZKCWRieT8ogqknEsMSqj+TSJCZ8OR9jTb7hSbliwZaTf7hsgTfkCxkImzI8Q
+	 t9gloXqyK76sE6ku59IYIbo82x1Dl4UWm+SqTUdcG8ZTc5yZsdLIQ3UTCLKQnwTD6l66R
+	 ZmFwbU9KWvbRhxAJk/+X9HRcgIx4OJA3BB4YNVgLniQ9HoLSwpQo7aKwP1RJokhXzrQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bp.renesas.com;
+	spf=pass smtp.mailfrom=bp.renesas.com;
+	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=ThRYLhSf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.34
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011034.outbound.protection.outlook.com [40.107.74.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BDF606A31B;
-	Tue, 20 Oct 2026 11:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1BDF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0745382|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.048354-0.00145881-0.950187;FP=16713164124569783476|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jlqQGzu_1792494675;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jlqQGzu_1792494675 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 20 Oct 2026 19:11:20 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mmyangfl@gmail.com,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2937060A261F;
+	Tue, 20 Oct 2026 11:11:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2937060A261F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=ThRYLhSf
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QC+sGAcnD3jUt5GX1JjyNCVAdzA1aqA3rDRFnSkMzLvD4sp0gm8+CByEEeDHlMrXOYUkgQGjFJ4MUnFqcr+LoaknQSvAL/fx6qf0N6vcjErkW73X5DmjVFYqxSqc1vTI2wT6+0bOlqAs0vo8PGauM6XnzMGfymg9myr0p/luVOQOhZ9dgGLGMwf6K7hoKU8kR04T1oSf3Ix61hIUTSWwLdTR2mMYuGRciWzu3T6qWb/OeUuwFrLWhkewQ4esZd036GH0SG8eneiJg1rKt48+RlFZDTxx9njGRq6ZX9o/+YcAfJuZRenWbv54i0vDBshpSUooMJwSklEDxMV1Y+D+HA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UDoxDpYs5uoVSOlSZorgXqI9n6MPKWFEWdAAeeC52Gc=;
+ b=gFlsHqd95U3KdYyuv2M7wBhw38lShOzioGvcr5wLognnqYgDCFmpFni5GzVkuXzYNyiL6fbuUiRYa0h8UhJZYdmzYD7zfcJvpO4/bqRDBfztzOSsnlhHPTP12Coej9UrZ5j9uWIVGni4NjoXIjQBalbcor5VvT3ZTu7dbp+J5RX6qp7dniMQcVCGqsSgdhzxh/ufOoCCL/ZqcN35+ut1RgUuBDE2P8za9PA7A7xgjsfKtJM5R8X7NTpUuslaUblV1QNmHLZGb2UFt3HPrcXTV2dKmVJc+ZWhYqGfe4qkXiWhZjh+vq2zEokIzhoUG3OuZT7+AKitLrvwPdzJO9pkyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UDoxDpYs5uoVSOlSZorgXqI9n6MPKWFEWdAAeeC52Gc=;
+ b=ThRYLhSfKqPvqHS/ViCLR+55EinfVCh5gpc5YNX4OP6jupK5HsehasUQIc1V+AIbbXGa123JigDY+Pj9rcoioBuNT5zVJjfY04ZDQn4KmfrMbuKZ/91X+Cux/4wC/OZM7O3ds+SStgetkcKuPeepbft/W4vsmoWp0m0RB/ykYD8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TY7PR01MB15038.jpnprd01.prod.outlook.com (2603:1096:405:244::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 11:11:43 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 11:11:43 +0000
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: tomm.merciai@gmail.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com
+Cc: linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	John Madieu <john.madieu.xa@bp.renesas.com>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: [PATCH net-next v16 0/5] net: dsa: motorcomm: add support yt922x driver
-Date: Tue, 20 Oct 2026 19:11:10 +0800
-Message-Id: <20261020111115.3072180-1-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH v2 2/2] arm64: dts: renesas: r9a09g047e57-smarc: Drop AUDIO_CLKOUT clock-frequency
+Date: Tue, 20 Oct 2026 13:11:07 +0200
+Message-ID: <e2473162dc19edba539d8566c28ada810f36e73c.1792493096.git.tommaso.merciai.xr@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1792493096.git.tommaso.merciai.xr@bp.renesas.com>
+References: <cover.1792493096.git.tommaso.merciai.xr@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VIZP296CA0004.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:2a1::11) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,103 +107,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TY7PR01MB15038:EE_
+X-MS-Office365-Filtering-Correlation-Id: a430efb6-fbcd-4b03-2901-08df2e9aec4a
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|52116014|22082099003|18002099003|3023799007|260925021311599003|11063799006|261009223027099003|260925022911599003|10067099003|56012099006|260925021911599003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	920ELtb7x//JkUrXYVmvNSZH4z/1FIf7KImRRyCaEzoOgeV/uJGg7AXNyXLoJgFmt6bX3US+RoB4/Xs2pmUUBsaxJSxglQDaX/tnfl4BmUlVQv1b/Yg5iba1BUhlwewwksnsCn5D3Z9yXYLd7Ulv5XXY4F7CLoqs4FXPQvxkYyGVuO4LgZ/JTvm4jrJvwG4iM1Yy9onybazODagrxNVUGJLlpptScqQ7FW/DBeFG7QBBeUaRdWhwKg01uTpzPKV0J/hWv2QIOjoPmTrQ/7vd62GJxJQKTktSG42BsWbWZI6+evu/QksmKgjPabOkN6HOJvMMs0P9fE+hiiIDdppDvXCMqJ/gRUP0olY9z8/JGO3dQ9VTca7bRQ0erTYFfk1Ug8YRU85+3EDiIci18VbvnrYqRcc2KYw0+amwuiUic2FS8rOqXzQYr7EJxON9KJkeOm8ioXAagVnqokMrGLOtM+m0aLDAczae6z82AzPYcdFbjLIrpTJWNb29qwFcwOMzaGGu39UP5zCK5947bU89l38JY1j4R/e4E+wLSV9CKkXP09P4u8C7iqxvAC1UR+OoY2Ov7rYZe8kxriTL5fQSNNVRKAvjPCN89oY6eC9xxNbLHc1yFCChy4Cu3aPhdRjztRTtMB6O4ZgA7hV6AJ3pmrHbWCewhGlgfbciMVSwitg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(52116014)(22082099003)(18002099003)(3023799007)(260925021311599003)(11063799006)(261009223027099003)(260925022911599003)(10067099003)(56012099006)(260925021911599003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?A8A62N/Wd0ENCRmxmgPwrt6a4kQ/TMMiUtbNPpWtONBUEPpfCy3OzEay51Qt?=
+ =?us-ascii?Q?FWIga72UE/NcILp1PBBL5V1zPd91ga6697Hw0j3RqWmHBc+1HCACglLDiFW4?=
+ =?us-ascii?Q?Pn0ImaLLf8wvMLUx6crrNMpjFIgujlvVD1rCj5z5CE8KrZxReZu03LaLYXeB?=
+ =?us-ascii?Q?ItXyq+yyiq/FOwXWqcFXzWDm+HColOkIHHZdx5BVYPrkSIgTq/1NUgEvVrgl?=
+ =?us-ascii?Q?Od8dCtIeq4tcDTZkWFWsEjBvtx9i0ssf++Sms8K255GSCztMUbkx/WFWu01O?=
+ =?us-ascii?Q?9NVJmTG4B/P+lSsXEOuQM+MvmuVPtqEu8KmUYcRzUXLXlB8GXu4lIzAh/hHW?=
+ =?us-ascii?Q?B+TTUXmL2JaD1feFGzFocZ+6hH+Lq1GxfASx2+yZ+//K+/JF9/vRw407F5Gw?=
+ =?us-ascii?Q?pF/9ozruwrSenzxIN1zlLJ50wcee1Qkc4zOSVmlg4Ee86zI2mqJKXoSmC3sK?=
+ =?us-ascii?Q?X/RP1JiWwrbt+mWRFI0J7LWb8Ik2rPk/R7FDTKJ7RSqEk8POSAyVuxfB+7fV?=
+ =?us-ascii?Q?Mgbdw3R3++uinBXOCaC7BzzneOT6Hy2I3oPk5rF6P46YOqiKqLmajll+0Luz?=
+ =?us-ascii?Q?U1B7SkBk/gd2ynbJ+ZjVh+9Yz11o80wQY0ZNKdLZmUcwmkVkBcNzdbZgJJ0H?=
+ =?us-ascii?Q?7ePI9wKM7/D8iQCg5oxc+0Mjqcp4rDF6REfZv7oFZBkYyIc6Gbb72UAhKu7A?=
+ =?us-ascii?Q?hqGIcvu9YJHx5TN023A/W3qtM4P7mU1Ex6j5Xpvu7GGi3UOj420YiKqiMEsT?=
+ =?us-ascii?Q?f/1X8OUs21J1cNHK83psVQ39z7B+VFA/QTQ9BtxYVPx4jRfCBILCl+ZMbGqD?=
+ =?us-ascii?Q?wOs3XY0VPj1Kcg/5fgRmllcXTrcccDcfSAnDjM4FbF8EBZZbeJZYicpKiP3C?=
+ =?us-ascii?Q?VgYSJBzHDO8dUBpN0ZkhcDqAIrfyAtobrPiDvjCY3n2BoorDFpLcq1c1726k?=
+ =?us-ascii?Q?vqADi1Ffe6rT44sJVYQoi8VgQ0ISG+dghOj40SbhEbon7k5jnId0zBoX8YGF?=
+ =?us-ascii?Q?uj+vvg06engoE1sGuRR2YhHE0vcS+tAGy1U2XBo5QDNBHK/70zVYdDYKs7Vx?=
+ =?us-ascii?Q?fPuwxiueNkj+E23lQtH77EZukVOFuQaxOKjVgXpowOt3R+Cef7sVosRmCs5p?=
+ =?us-ascii?Q?18hIBxq+JvklSKPFu8sGQBhydInjxzkCjOpBl5yUJz3vXawHuAVOKLY1YI0T?=
+ =?us-ascii?Q?RsQNdo73iIIxcSFL8YYz+dP7pSAlUou2mBiuqC8QKPl2X+unyb+QO21g5B8u?=
+ =?us-ascii?Q?tGHWzE6zFtDDua13Maxhbk94Rroc7+m3JCSG7m16P+barqmOcMTGUSEDP5m4?=
+ =?us-ascii?Q?OktLtfDQqnfzvmMAFcOzpKVpzduu1R34vQ53CamiD8sdEYKHpGvtfpDNpl9R?=
+ =?us-ascii?Q?R/d7pevjmVAvGPKmH7zrfAWdYEN1u4yZWz/8BF16djpBuAQNl8vU/thlDNp1?=
+ =?us-ascii?Q?6V9C/gSxyhfQ+kniMD63o/srBFnMe59n5av+RbkUltleMdzmthF9uhaiV0uC?=
+ =?us-ascii?Q?YkFmDe2wNW/kfJd4EvB96AooHkSi/VYfmf1yCBDePo2HUGY6yuQIGbbnbjFf?=
+ =?us-ascii?Q?4SFUwg+5WfbcGgvlRvPJQPE7HZfYwz2R0obU1jRpQ+T6zkMTVvgFibciLX8L?=
+ =?us-ascii?Q?ahL6ktJlDbBsIb7BEfFGtT/pleezlj7xhnNNahd/4Wyc7x8WVLQtJKEAfkVa?=
+ =?us-ascii?Q?lWKDWRtafjnUDFJqRtrJmn4opfCyRQWqH21imFy85CtCoTqe2FfrcMt3EJyj?=
+ =?us-ascii?Q?1Lu/CALzgUPeOhBEY18fuF6lboTKAyQHKKJ0LX+zTnPzd9fB+nyF?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a430efb6-fbcd-4b03-2901-08df2e9aec4a
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:11:43.8490
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6WE9UKycov+vylCD1ch1qRPARHT3X6nnt+wJ7RSwv6qB2B2iT8ZPi96V0d9W4hjpNmq1WDCQXqSBqFtiAb8FFjmaImKwjWh/RC2uSa+ZBZqLJA5Y1kyw4EhbsLdYKbSd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB15038
 
-This patchset mainly adds support for the yt922x series to the dsa driver.
-Currently, only the yt9224 in the yt922x series is supported, and the
-corresponding tag handling for yt922x is added.
+AUDIO_CLKOUT is neither pinmuxed nor consumed on this board,
+clock-frequency describe the frequency of an output that does not
+exist here. The DA7212 MCLK comes from the on-board versa3 clock
+generator.
 
-At the same time, it optimizes the max ports boundary check in the
-existing code, and initializes the dsa switch based on the chipid.
+Drop the clock-frequency entry from the snd_rzg3e node.
 
-changes in v16:
-1) Add missing break in switch case to prevent fall-through in
-   yt922x_port_config()
+This fix also the following dtbs_check warning:
 
-changes in v15:
-1) Revert the use of GENMASK_U16() to replace GENMASK(), so as to
-   facilitate adaptation to scenarios with more ports in the future.
-2) Group functions with the same functionality together in mdio_bus.c.
-3) Remove meaningless code comments.
-4) Renaming parameters in yt922x_pcs_get_state().
-5) Add neg_mode and advertising handle.
+sound@13c00000 (renesas,r9a09g047-sound): Unevaluated properties are not allowed ('clock-frequency' was unexpected)
+	from schema $id: http://devicetree.org/schemas/sound/renesas,r9a09g047-sound.yaml#
 
-changes in v14:
-1) Replace the goto-based skip_extmode_check path with an early
-   conditional in yt921x_chip_detect().
+Fixes: 3e23d2548ddb ("arm64: dts: renesas: r9a09g047e57-smarc: Add DA7212 audio codec support")
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+---
+v1->v2:
+ - New patch.
 
-changes in v13:
-1) Fix a compilation error in patch1 only.
-   The change is limited to the yt92xx_register_switch function:
-   - Replace yt921x_priv with dsa_to_yt921x_priv
-   - Replace to_device with yt921x_priv_to_device
+ arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts | 3 ---
+ 1 file changed, 3 deletions(-)
 
-changes in v12:
-1) Rebase the code.
-2) Delete origin patch4 and patch5 about MIB init and remove operation.
-3) Optimize error message logging.
-4) Add documents about yt922x tag.
-
-changes in v11:
-1) Initialize ctrl variable inside yt922x_port_up().
-2) Update maitainer for new file.
-
-changes in v10:
-1) Rebase the code.
-
-changes in v9:
-patch 1: 1) Add a dev_err() when chipid mismatch.
-patch 3: 1) Using GENMASK_U* to replace GENMASK
-
-changes in v8:
-patch 1: 1) Add a lock operation to acquire the chip ID during the probe()
-         stage.
-         2) Remove meaningless changes.
-patch 3: Modify the changelog description.
-patch 6: 1) Remove sds_init() in this patch.
-         2) Code refactoring, including yt922x_sds_phyaddr_get() and
-            yt921x_needs_extmode_check()
-         3) In yt921x_intif_ext_write() and yt921x_intif_ext_read(),
-            add a boundary check for phyaddr. The reason is that the
-            phyaddr of the top ext register is 9, so max_ports should
-            be used for the check to include it.
-         4) In the yt922x driver, added initialization of yt921x_port
-            for exporting priv.
-
-changes in v7:
-patch 1: Fix the series_lookup() redundancy issue.
-         Fix the dsa->priv initialization and the code style issue.
-patch 6: Move psc definition to yt921x_port
-         Fix psc_get_state() and an_restart().
-         Use the existing yt921x driver interface for the duplicated
-         logic for chip_reset().
-         Move the yt922x_cpu_port_set() to chip_setup_dsa() to align
-         with yt921x function.
-
-Kyle Switch (5):
-  net: dsa: motorcomm: initialize dsa_switch based on chipid
-  net: dsa: motorcomm: use max_ports in series for port bounds checking
-  net: dsa: motorcomm: use fixed-width GENMASK_U*() helpers
-  net: dsa: tag_yt922x: add support for Motorcomm YT922x tags
-  net: dsa: motorcomm: Add support for Motorcomm YT922x
-
- MAINTAINERS                          |   2 +
- drivers/net/dsa/motorcomm/Kconfig    |   7 +-
- drivers/net/dsa/motorcomm/Makefile   |   1 +
- drivers/net/dsa/motorcomm/chip.c     | 575 ++++++++++++++++++++++++++-
- drivers/net/dsa/motorcomm/chip.h     | 101 +++++
- drivers/net/dsa/motorcomm/mdio_bus.c |  48 ++-
- drivers/net/dsa/motorcomm/mdio_bus.h |   4 +
- drivers/net/dsa/motorcomm/pcs-922x.c | 282 +++++++++++++
- drivers/net/dsa/motorcomm/pcs.h      |   1 +
- include/net/dsa.h                    |   2 +
- net/dsa/Kconfig                      |   6 +
- net/dsa/Makefile                     |   1 +
- net/dsa/tag_yt922x.c                 | 122 ++++++
- 13 files changed, 1135 insertions(+), 17 deletions(-)
- create mode 100644 drivers/net/dsa/motorcomm/pcs-922x.c
- create mode 100644 net/dsa/tag_yt922x.c
-
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
+index d242f2976296..6c0053735904 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
++++ b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
+@@ -378,9 +378,6 @@ &snd_rzg3e {
+ 
+ 	status = "okay";
+ 
+-	/* audio_clkout */
+-	clock-frequency = <11289600>;
+-
+ 	/* Multi DAI */
+ 	#sound-dai-cells = <1>;
+ 
 -- 
-2.25.1
+2.54.0
 
