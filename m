@@ -1,59 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483959;
-	b=1eGHMBQLzrFCcD3MJxKHJUKkaJQwpk2a9ss9srYzFuGjoOneEURKLcS3k2eV2xD4EA1n
-	 wULFwmEY4kaCXWlvm+sj5vfm+Po6SMmjtXkUhpke2aBJ2oIeQ2BJPu2+xkgmQT9gfV+zL
-	 NycDVYLmKL44xAfODyDtQvJptVu0244/KencKWSGp1xBvOoVYrlF2AE8z+xP7AWkWYoRg
-	 hbJvWppBNFKvKEp0pLLGI0PxiI6pnM1LdqmhKTrBPSfYHPkJuq7fW2mo6kWvNeXFIZoOb
-	 +JxDjNF2KDuEv7Dy6rht4+Xd9xN4HY4nORfr5rnZnrKG99mhJqM+cZqimOA9thWFd0A==
+	t=1792483973;
+	b=UMc9yMxvbQoghkkkSCwFzgYVrk7Bgc9G/lcNTQe7nbgqwrq6Lqb2czMuC2P5nsn2yrFM
+	 WXBhq8CKt5PhrbhdpjQJoKCs5cEDf479A99LlRNuJa7DO/dbrkT54a5ynLM/fOGclYwko
+	 9b7sOlb+lSfjPcVMLS9s0L6rwEcEuVn7mKbTeUqDJCqpYbmDYLjvAZOCKGemMT/67kskb
+	 xLY9aYLaBFrMyBlfIepayfUM4cvBFKKypVBCCUTBXCQa9cOjR/vkDE3pSrYuzTzp8aOwO
+	 gB1pteLhyVFykX0l1FL0T6aeOSsY5Xc3+JFJQRJXNW2BH++aHSpzx2mWkdd//7Px8TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483959;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=280qSqeSbTwCI3ZQbFfi/lhC965nrpU0MRF0T3Gfoaw=;
-	b=B3PojWbWjnbZxNhjmiX28ZO1w+ipRLhf8QAVt8S1rV1OOBWPx/WJZt3oto8SwgtLALvm
-	 7SJchfO9huFPtDfaqErRgraGaC+LUhwdR/wzKUQ9iAEeFI0iAxtrUghz7mBGi9Nyo4Nf+
-	 4PYcmyg12OOsiS0Y7nP7mrJ6VOdE4eilhOX10KZgxv2Rg0usiYR4MySXfn1Otblhgz3JI
-	 MtZ7tZ686J1j5XwU+Tx35N6V5gknRJle8layOu2CPG2VaSoLewLewbWwQtydC95LNDmPn
-	 l00AmtvTUy/2xEvxtM1wwOQoMbXiuKvV8T371K/CZQm8ygYLkOGz+TL4wV3ZqwQQkfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483973;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=f63bQLBXHYlw5Kr7m+qCxUpgsrgXJgF6I45Lwx8IJPk=;
+	b=MncGMHizTnR5E/BDGUH0xy7MmbSVtyeUJCnJaYhLu9euAPOPGI9RCAIwEYj2aIIY2I1c
+	 lvA1XjsCWG0vYb10QBehuzFjx+7gmmxqfd0Q4X3ILyoBVfX3jWSU3f7c4sLp9zlHlgDUj
+	 ovHSg0ibFOg4CZyuBDXzse+s+m+cDIb9J3IpxF+KBGUoPJxWUzXqmLDdfEhVavSQxE7J1
+	 GJXTj3K4ph3DPVsRFP7x7Fzvzt9J3eRoy/lzK20itSTDKUSBhqpKEoQiNDAH4SSSHTpRQ
+	 +TYjBch8Bv2depa0oq2FQGgCfzFdZ7gxznJgjm7zqcXmyiwz+P/ZxUnNYH7jlxzw7Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EYLO6rZn;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rrTwGjbF;
+	arc=none smtp.remote-ip=209.85.208.69
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA72606A328;
-	Tue, 20 Oct 2026 08:12:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BA72606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC2B606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 08:12:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AC2B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EYLO6rZn
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id E3EAC1A12A3;
-	Tue, 20 Oct 2026 08:12:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B20B660393;
-	Tue, 20 Oct 2026 08:12:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D510A10328D80;
-	Tue, 20 Oct 2026 10:12:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792483957; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=280qSqeSbTwCI3ZQbFfi/lhC965nrpU0MRF0T3Gfoaw=;
-	b=EYLO6rZny8j8y29bzdXIBS9wx3rFVhPZQ9h+NEMXuMvy7xTPNPFmHwkzdjfpDdoUo/HcBK
-	Bvx2S20mVHOAY6rUAbv3dgaOc7WyQDB1TUs62GqPiEJqEqfsAF/jONYYPu2VN5JCRcYMme
-	oYQqc/hXaxxQzVBgos+pqr83StAifa4pNddAIXfu8vY7ckqh1FfzU6rnEt4IjuS8aPSkU6
-	MakoDWk9hapwu11moYV1ozMokhKmBuNXKzjQ1b4nr7o+iqsuSejAYpksLaWfhYjQu5iyfg
-	yeTR2unVGYPfvn8APwahYNH8Fg+3j/vJ81CAf/Rlelna//q9yQ9hgClmc0axBA==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Tue, 20 Oct 2026 10:11:58 +0200
-Subject: [PATCH v5 5/5] watchdog: w83627hf_wdt: Add minute mode counting
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rrTwGjbF
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b3dc91781fso1948327a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 01:12:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792483971; x=1793088771; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f63bQLBXHYlw5Kr7m+qCxUpgsrgXJgF6I45Lwx8IJPk=;
+        b=rrTwGjbFVWyooJGQGAZZGGonlGWceeg9vV86YY+V0lUM+g61C13sJEpiFljrQQN/7/
+         5Ii8iEqbPz9mqbFBzwGfhip9QTOZaxCryBytxgpJ9dWrrJIXbi2O7QKEM201o6EWcG4i
+         +aSP4QKX27n/ET7txmrxZ6Op2SKJ0aCD6WLnag9RKTU6pPVQEdBcsPJDnC8EeOCsCqKP
+         3aO2Wvx5k9r+SDosgGq3mcRjI3fklSsJtg9iTYLjI4DaG2QQYXiAfJVe9QdyiC7P5iZ/
+         Ww+nQ3fd9mgIJegXxSeO8HkLIjS9f57vzfRSqD3nEDQ6ABydzIn2iRCcNU1V6nWrEjSS
+         E/Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792483971; x=1793088771;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f63bQLBXHYlw5Kr7m+qCxUpgsrgXJgF6I45Lwx8IJPk=;
+        b=Ah2z9lLK489EtCMeXIt/zgGJaZKp+aaLBc9EBrzh+ZwzF03FbIXdMubO6/qLtYSpIb
+         357eDwjU3MnjvoxwSmfkIYPsxGfGHmLWuou+HtMxEBY2zChD6XmH1CIOFXdYxsRJa4ba
+         K86v3CVP49316fzdKSDYBoS9YBHkyvgAge39Owb8XJaNYrx2snqWV8CrhTjQTzetVrE9
+         Eyxf5yvAY3ZZ/Nbsj53fBYRfjE4TtzcAjncrTzA2STYj0TGfax4NgawspAgEpuGAUQ0u
+         83WR1Uj0931ZqJqRlb2aa9FUUqAZ1w8KYZ7wxtHlidXKz0hiGi2lIsKLFFcV9Uoai9Dh
+         rGbw==
+X-Forwarded-Encrypted: i=1; AKwUvByq+NrIQ+OUw3ZqO26dtA2BHNk7AtevjX+rkeTvGy1HTIfciaUi2iTJY4mBdT0zT39Vioem1lZpgqcGhnc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLN/FIYs8CY9neYuzPwZmYv4VP93TkTqs4iH/VR+fOPUlE5VKf9
+	NmDvOhYsPWETDYpvg2F+xc+oWDSKJfNECRlX5Pv5u+1T9yHOAr9F1S5eX8sx7yQWlSeaOlX5uzD
+	SHQx2DJGodFC2VtvTQQ==
+X-Received: from edwg15.prod.google.com ([2002:a05:6402:114f:b0:6ac:c84f:3304])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:51d4:b0:6b1:b9da:2047 with SMTP id 4fb4d7f45d1cf-6b3a816fac9mr6710522a12.16.1792483971098;
+ Tue, 20 Oct 2026 01:12:51 -0700 (PDT)
+Date: Tue, 20 Oct 2026 08:12:47 +0000
+In-Reply-To: <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,193 +78,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-w83627hf_wdt-improvements-v5-5-90b226684fc7@bootlin.com>
-References: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
-In-Reply-To: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: Tzung-Bi Shih <tzungbi@kernel.org>, linux-watchdog@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Paul Louvel <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792483947; l=5711;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=v3v52jKJvRU4ASFHzp3ayX9EZQnxz/JS0PZb/nsB/bg=;
- b=YHp3DAcTwRSTJN61AF5HnVkNFm4uBQbA9ea60Nv+rgqOPmCIY1vIjIcBj0SRTVJ1IPHjQsVcW
- Ir1LWE50/OgCvftsmFe1QjGc6Trl94iyt+T3OFkckJ77kuVyyyuciuq
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com> <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020081248.1761160-1-aliceryhl@google.com>
+Subject: Re: [PATCH 2/3] rust: hrtimer: declare cfi_encoding for hrtimer_restart
+From: Alice Ryhl <aliceryhl@google.com>
+To: Sami Tolvanen <samitolvanen@google.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+	Frederic Weisbecker <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>, 
+	John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-All of the chips supported by the driver can be set to minute mode,
-allowing timeout value up to 255 minutes.
-Add it to the driver.
+On Mon, Oct 19, 2026 at 11:34:38PM +0000, Sami Tolvanen wrote:
+> The hrtimer callbacks return bindings::hrtimer_restart, which bindgen
+> generates as c_uint. C calls them through hrtimer->function, which
+> returns enum hrtimer_restart. kCFI encodes enum types by name even with
+> integer normalization, so the type ids never match and every call fails
+> the CFI check.
+> 
+> Generate hrtimer_restart as a newtype with a cfi_encoding, as is done
+> for lru_status, and adapt HrTimerRestart to the newtype.
+> 
+> Fixes: 8a8afe9349fb ("rust: hrtimer: introduce hrtimer support")
+> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
----
- drivers/watchdog/w83627hf_wdt.c | 68 +++++++++++++++++++++++++++++++----------
- 1 file changed, 52 insertions(+), 16 deletions(-)
+Missing
 
-diff --git a/drivers/watchdog/w83627hf_wdt.c b/drivers/watchdog/w83627hf_wdt.c
-index 3d6f35e79631..c45d5b9b97b7 100644
---- a/drivers/watchdog/w83627hf_wdt.c
-+++ b/drivers/watchdog/w83627hf_wdt.c
-@@ -40,6 +40,7 @@
- 
- #define WATCHDOG_NAME "w83627hf/thf/hg/dhg WDT"
- #define WATCHDOG_TIMEOUT 60		/* 60 sec default timeout */
-+#define WATCHDOG_MAX_TIMEOUT (255 * 60)
- 
- enum chips { w83627hf, w83627s, w83697hf, w83697ug, w83637hf, w83627thf,
- 	     w83687thf, w83627ehf, w83627dhg, w83627uhg, w83667hg, w83627dhg_p,
-@@ -49,7 +50,8 @@ enum chips { w83627hf, w83627s, w83697hf, w83697ug, w83637hf, w83627thf,
- static int timeout;			/* in seconds */
- module_param(timeout, int, 0);
- MODULE_PARM_DESC(timeout,
--		"Watchdog timeout in seconds. 1 <= timeout <= 255, default="
-+		"Watchdog timeout in seconds. 1 <= timeout <= "
-+				__MODULE_STRING(WATCHDOG_MAX_TIMEOUT) ", default="
- 				__MODULE_STRING(WATCHDOG_TIMEOUT) ".");
- 
- static bool nowayout = WATCHDOG_NOWAYOUT;
-@@ -139,6 +141,9 @@ struct w83627hf_data {
- 	struct watchdog_info info;
- 	const struct w83627hf_reg *reg;
- 	const struct w83627hf_sio_pdata *sio;
-+	bool minute_mode;
-+	u8 early_timer_val;
-+	u8 timer_val;
- };
- 
- static void superio_outb(int base, int reg, int val)
-@@ -258,21 +263,10 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
- 		break;
- 	}
- 
--	t = superio_inb(data->sio->addr, data->reg->timeout);
--	if (t != 0) {
--		if (early_disable) {
--			pr_warn("Stopping previously enabled watchdog until userland kicks in\n");
--			superio_outb(data->sio->addr, data->reg->timeout, 0);
--		} else {
--			pr_info("Watchdog already running. Resetting timeout to %d sec\n",
--				wdog->timeout);
--			superio_outb(data->sio->addr, data->reg->timeout, wdog->timeout);
--			set_bit(WDOG_HW_RUNNING, &wdog->status);
--		}
--	}
-+	data->early_timer_val = superio_inb(data->sio->addr, data->reg->timeout);
- 
- 	t = superio_inb(data->sio->addr, data->reg->control) &
--	    ~(WDT_CTRL_MINUTE_MODE | WDT_CTRL_RISING_EDGE_KBD_RESET);
-+	    ~WDT_CTRL_RISING_EDGE_KBD_RESET;
- 	superio_outb(data->sio->addr, data->reg->control, t);
- 
- 	t = superio_inb(data->sio->addr, data->reg->csr);
-@@ -290,6 +284,7 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
- static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
- {
- 	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
-+	unsigned char ctrl;
- 	int ret;
- 
- 	ret = superio_enter(data->sio->addr, data->sio->cfg_enter);
-@@ -297,6 +292,15 @@ static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
- 		return ret;
- 
- 	superio_select(data->sio->addr, W83627HF_LD_WDT);
-+
-+	ctrl = superio_inb(data->sio->addr, data->reg->control);
-+
-+	if (data->minute_mode)
-+		ctrl |= WDT_CTRL_MINUTE_MODE;
-+	else
-+		ctrl &= ~WDT_CTRL_MINUTE_MODE;
-+
-+	superio_outb(data->sio->addr, data->reg->control, ctrl);
- 	superio_outb(data->sio->addr, data->reg->timeout, timeout);
- 	superio_exit(data->sio->addr, data->sio->cfg_leave);
- 
-@@ -305,7 +309,9 @@ static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
- 
- static int wdt_start(struct watchdog_device *wdog)
- {
--	return wdt_set_time(wdog, wdog->timeout);
-+	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
-+
-+	return wdt_set_time(wdog, data->timer_val);
- }
- 
- static int wdt_stop(struct watchdog_device *wdog)
-@@ -315,6 +321,17 @@ static int wdt_stop(struct watchdog_device *wdog)
- 
- static int wdt_set_timeout(struct watchdog_device *wdog, unsigned int timeout)
- {
-+	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
-+
-+	if (timeout > 255) {
-+		data->minute_mode = true;
-+		data->timer_val = DIV_ROUND_UP(timeout, 60);
-+		timeout = data->timer_val * 60;
-+	} else {
-+		data->minute_mode = false;
-+		data->timer_val = timeout;
-+	}
-+
- 	wdog->timeout = timeout;
- 
- 	return 0;
-@@ -332,6 +349,8 @@ static unsigned int wdt_get_time(struct watchdog_device *wdog)
- 
- 	superio_select(data->sio->addr, W83627HF_LD_WDT);
- 	timeleft = superio_inb(data->sio->addr, data->reg->timeout);
-+	if (data->minute_mode)
-+		timeleft *= 60;
- 	superio_exit(data->sio->addr, data->sio->cfg_leave);
- 
- 	return timeleft;
-@@ -504,7 +523,7 @@ static int wdt_probe(struct platform_device *pdev)
- 	wdd->ops = &wdt_ops;
- 	wdd->timeout = WATCHDOG_TIMEOUT;
- 	wdd->min_timeout = 1;
--	wdd->max_timeout = 255;
-+	wdd->max_timeout = WATCHDOG_MAX_TIMEOUT;
- 
- 	switch (chip) {
- 	case nct6102:
-@@ -526,10 +545,27 @@ static int wdt_probe(struct platform_device *pdev)
- 	watchdog_set_nowayout(wdd, nowayout);
- 	watchdog_stop_on_reboot(wdd);
- 
-+	wdt_set_timeout(wdd, wdd->timeout);
-+
- 	ret = w83627hf_init(wdd, chip);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to initialize watchdog\n");
- 
-+	if (data->early_timer_val) {
-+		if (early_disable) {
-+			dev_warn(dev, "Stopping previously enabled watchdog until userland kicks in\n");
-+			ret = wdt_stop(wdd);
-+		} else {
-+			dev_info(dev, "Watchdog already running. Resetting timeout to %d sec\n",
-+				 wdd->timeout);
-+			ret = wdt_start(wdd);
-+			set_bit(WDOG_HW_RUNNING, &wdd->status);
-+		}
-+
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = devm_watchdog_register_device(dev, wdd);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to register watchdog\n");
+	Cc: stable@vger.kernel.org
 
--- 
-2.56.0
+otherwise LGTM:
 
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
